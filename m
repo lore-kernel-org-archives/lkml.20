@@ -1,561 +1,681 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18855490C04
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420E249364F;
+	Tue, 15 Sep 2026 10:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467031; cv=none; b=Id6o2qQNzrS1rt8ixvpTZt5fm/ZGEoaM+XKINn2Jo7M9Ngukhb0zONAC8Kaseizh+Mr9YIbB3vj/AhEjE9ZZaeO2pdH4RqjsbikrUkdi0xXPmYPC62SO5uZ4U/+tjKP2m6vj7CEOP+Cg5Om+9YhDjqWz5EphB/fbkLMbuEuSw2c=
+	t=1789467035; cv=none; b=S1gTNeTCMafiL2obt9pbcBY/YhEo2MOtQexlLN8LdkEh/r9IUi3iLybUHsAG2UNb8lOYyHht5mryW5YCgaf6bFg6YR2im3/mh0A3kAMHp4WXd5CqSGWiSeIlUBVtbuB5QwfgXJ5MTi/FA2JR8M9AYGuCGWW+Vjxd5NzJLFqQmAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467031; c=relaxed/simple;
-	bh=Ak0Gdm9INYkdpUTltaQ6jy7ErF1T39FVK9C29vXo/AA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=I5PY3AdGqgOtXghWDob79Qz3+FdHSQsGeSXVfDhwj63Eq6MJ8s7od8Sw16Xv7bfhqI1VHMKY8ey/Wps9maJiloRw/D9HOPRZ0DmyXVrwRnHkhYTfAf5u87NvBlO2xvD/beBkvLcp5QLxpFMjJ4WF16yyXoezdeWs5Nuoqsa5S6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Try80uKE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HtZEJaAe; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789467035; c=relaxed/simple;
+	bh=TraQkmkVaKJ7cIGth2S5jWq2VtTAS/ao3o0mCleOKvI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RfhS+dNHZyvgfnnscXBLc4sQnBnqMlJDYpPv0tIrOF/pMqjBVutwWFRofpb10tHv8xMBRKjMRqMyD0qtcwruUDqzYK2l06ylFcMlp9TiwZelr/ZJ5d7lvAuwoUlQN3fSKYoJLBNmZSfkh/HbXzq53TvhF2LLGLCxLhfpa3g83Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VUz252VY; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Try80uKE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HtZEJaAe"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9gvEP2584515
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:10:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Lh/wKlqB/WPrZqByXGDRHGphMVPY+G2Z9l40mUOu//w=; b=Try80uKE3AqxgzO6
-	LT1kc7H03NYF+NaeUg2uTLB/SDV7u1zcatbAmZkx47HlMS9JulzciYA7zCGL/pPn
-	Qlfo35xK4sC2AXK6X1HJYIx7EGh2rxY8dvv4fBu65p79izGeonU9iWgZ6mueB8YX
-	DTNj+9ziWFArlMeOeYeY+rg3seQBkPemsjoB0TIvEJk5E7TdOpmpVewkm0XwT0fX
-	Ner5xbGJI2O+6sciRrbGaVnLD2FqSlOBxlCFQ05Z2fSWdSRjR/ZlJCn8V6i1qsUL
-	wPZTczi8M6jk04X/WjittjYHdsf417CFK9GeQeyhxmOw6d3wxBWKaQFVkLWbmx3P
-	jXXeFQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpx4s9fp1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:10:26 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-395543dc382so5805410a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:10:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789467026; x=1790071826; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Lh/wKlqB/WPrZqByXGDRHGphMVPY+G2Z9l40mUOu//w=;
-        b=HtZEJaAeizpGtUgaUyggPd/5UORNwLbkizc9PTYe1ZjojSgrEqaURSztK7HvOdn580
-         MW0kcaSs9TSg4VSeIyowaJahd7TDsNeruSQqxwUg+sv43m8WO93ogh/SAy0DhjuLbMWR
-         bjJdsHnArCcHs6y1Ot17rvezjRcHx6S0JJ6SDw7ZCGgmCuQH4lQNO2EIq5n8JZ6ICiym
-         7kZ6czbFrWhI0bn6sU+YPiwbS021UsPKilkshEjeg+X9DMMOaek6WZ1ozUGYv787le/g
-         3vhOzN5dMO6e95zlPQ1pWI+3AejLG7fTFI5Y3ktAZ3YyK83YGtpW2mK8wIWditl/HILK
-         0VfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789467026; x=1790071826;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lh/wKlqB/WPrZqByXGDRHGphMVPY+G2Z9l40mUOu//w=;
-        b=hMG0WLBoDs+dCZjwABBfpPLsjrmlam7pwIojOuSu9XoWVU1U8e9L3bQi5yAlkXxbdQ
-         E+ZdjwUZu6JWWKng+Y5aXFfjvHT5XvvaEUNRdQLfTcJFyjwDPtNxFmSZA08sBT7yaueb
-         jP9elzlB0/OAbuLD/gE8WZBcBoTw/P1K1navCog8jnp0mJbIglEdBcVtiXfWdBTE7EUR
-         UtVB2vuQ6/pCbwbggqOMJn+qTFWR0hzLJMKxHR8fak0jTVuhWQk6re4WM0rsuElXd6oA
-         BZMNeOkJpEHvpAQkBh5Zh/t9+wuNepc+glhFHM2IkUjy0xYToCrxu4qoIfzY3XQQWi2O
-         OlRg==
-X-Forwarded-Encrypted: i=1; AKwUvBybZRnNtViyZohjyNDOxWwlfl96fGtEZHvwKj1Twocd/2GIShm+dsjJSCVW0UEWAs0oVAAVTMOXwQNXWNg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzONysUw2+mbG2AaEIcQIBq2SLOW5mDHjXSCFl4ASQObBfjXlT
-	8y1Osu8lyo/MymmX8Kf09xUD/XAYs7uOiNjSSI65q5zl71h9ngFrzHU1Pwl0SDxU3FZIiMSnL5n
-	jeIuwl9J9KXZq6Ci86x624P6OhPEG7sJtxYVcSoN2pYHwqDJPLVtb0NaoAKpW1YNzqAM=
-X-Gm-Gg: AYBFou0CK2yxxhiPiMkNDNkX8c/SNph13XRJ7xQlBlPxgrzgQo/HOykuFMfJdE+y3bO
-	qwojySVuttkwVQeolpRjtdzr5DElDCsh+ViMrd9qiPv5AAqn/t3cd3leeB2RD39iL05y62DZr7p
-	xeoJ7RD10AXEm2MIb/c5l7+OdOLmILMPupoKcR3IMHMymab+wWib1Qa+DMMdzXkV0CgbC3ybNe6
-	JMNImXomLXnLt+GTZ6KLf+lW5BzA2DX2gjf4wCNZ2nUmTfSU9cbHhv7dWJpCx6fZ5sM3dzp9wtH
-	J6aoF+DicNDvRxIZNFJ+nlrEVVTJb3Oix49Iv0UWUMvbKoCyLRnQNnayks0+CnXK1wnFK5Ht9QS
-	oP/Xq2/zXYcRKq1dBRtYXTbNrd8cM58qXc/0ghCfxCoL3mJaRGlEQHIFuw9ggAYMKjZ6MGK1nZb
-	ESg2mYtOlystM=
-X-Received: by 2002:a17:90a:e48:b0:39d:ee20:1e28 with SMTP id 98e67ed59e1d1-39dee20248dmr8657171a91.21.1789467025579;
-        Tue, 15 Sep 2026 03:10:25 -0700 (PDT)
-X-Received: by 2002:a17:90a:e48:b0:39d:ee20:1e28 with SMTP id 98e67ed59e1d1-39dee20248dmr8657102a91.21.1789467025049;
-        Tue, 15 Sep 2026 03:10:25 -0700 (PDT)
-Received: from hu-hangxian-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14382741839sm14244091c88.6.2026.09.15.03.10.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:10:24 -0700 (PDT)
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 03:10:04 -0700
-Subject: [PATCH v16 09/11] arm64: dts: qcom: kaanapali: Add CAMSS block
- definitions
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VUz252VY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789467027;
+	bh=TraQkmkVaKJ7cIGth2S5jWq2VtTAS/ao3o0mCleOKvI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=VUz252VY5HdHgehlCnB4CMyMZ9MESU7DOecG4gdtQKWiRJwb4xG5DhxKraUgRV6OQ
+	 ouSBWf4ElVzWU4FWOw62g0Bp3XwuwI4GAcHXCasQPNSMgLr5aIv5HLJ1mBtSUicTid
+	 Xg/wHO1AJD5v2+SUZ7XGtioJU66lVaBScNWyGioUpJkNmRkiIPO610u4UjAWEQC/q4
+	 bqsEMY7aGnw7GCIsrJXZ3gurCJuGI/j19rE/V9fn7WENROoHaBMYFKt8nQKoguPjSD
+	 lNId2Zp9KXx9k5jvBCVYlrXc1o0uWkJf+5av/InUMvTRHdCw1AblQRiUsZHRWyS2Wd
+	 rkiYTMOI+KnXQ==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 10A0A17E09B5;
+	Tue, 15 Sep 2026 12:10:27 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunfeng.yun@mediatek.com
+Cc: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: [PATCH v4 2/2] phy: mediatek: Add support for PCI-Express Gen4 S-PHY
+Date: Tue, 15 Sep 2026 12:10:22 +0200
+Message-ID: <20260915101022.23852-3-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260915101022.23852-1-angelogioacchino.delregno@collabora.com>
+References: <20260915101022.23852-1-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-kaanapali-camss-v16-9-c9f3f6f4180c@oss.qualcomm.com>
-References: <20260915-kaanapali-camss-v16-0-c9f3f6f4180c@oss.qualcomm.com>
-In-Reply-To: <20260915-kaanapali-camss-v16-0-c9f3f6f4180c@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE0NiBTYWx0ZWRfXyc4DA2UlXwY4
- RmPnxzXdgW7MPM9/0z0W9y6Omr4oY87ozUN+MlWU/bxSBngttjf2mqZXewlUnu48OweYkVpJys3
- i6o1z3CYHXJCqXM5MFRtAmVZSrRiboU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE0NiBTYWx0ZWRfX+2MWkNLLPHKw
- ehncH1MOe/Q2W/9MAriDZv4szRIXOHnaIFSgP/mfryFBwDLkNFLiIBL3DQQffpLVySeKZGotUWZ
- GHEzSn/BxWDcuf7sZ2TB+ifL1PpPzcLH0ORLb/qY+IXus8x+519f6MSXLJWxX7mmNQK7e+DnpQZ
- qoZTiRt1kzaA2K95qZBr1NX082gV5jKfsKvmDy1wYz/3JoCxvolSPpRi/cUSXAHk5K+prxjFZTB
- YTl29RJD74bOCYhCQizAZ3Lgv43UYGdmN398oMR+0j4cipdJLdKA+p5UGf+B6uK+KTqiG/iyB1v
- SSnxa3enjbxB6qYbF8qmjFue2yJom/ZZsqTyYhiDuLDnZJxylVNoSVI2CEvj5tsObEx62MTdz0+
- Z6vfxcN2Slx8VYgoTNsI4/ICAOoFXCgnjeCVK6LDrcogmiR+MHpV9O4etSBfoC8onTjl9SmUdmB
- CW7Lop9IomZd+FBIwKw==
-X-Authority-Analysis: v=2.4 cv=HsDjiETS c=1 sm=1 tr=0 ts=6aa91992 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=K4jxk-CqiRrnENM1qOEA:9 a=kZHQiraHdqabkTWc:21
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: j7P_XVRdT7Lv4-pWlKYq25E-v6aUD7g2
-X-Proofpoint-ORIG-GUID: j7P_XVRdT7Lv4-pWlKYq25E-v6aUD7g2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150146
+Content-Transfer-Encoding: 8bit
 
-Describe the CAMSS and CSI PHY blocks on Kaanapali so that camera pipelines
-can be enabled by board device trees.
+Add support for the PCI-Express Gen4 S-PHY found in the latest
+MediaTek SoCs, including MT6991, MT8196, MT8894 and variants.
 
-The camera subsystem contains:
-- 6 x CSIPHY (CSI Physical Layer)
-- 3 x TPG (Test Pattern Generator)
-- 3 x CSID (CSI Decoder)
-- 2 x CSID Lite
-- 3 x VFE (Video Front End), 5 RDI per VFE
-- 2 x VFE Lite, 4 RDI per VFE Lite
-
-Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- arch/arm64/boot/dts/qcom/kaanapali.dtsi | 372 ++++++++++++++++++++++++++++++++
- 1 file changed, 372 insertions(+)
+ drivers/phy/mediatek/Kconfig             |  13 +
+ drivers/phy/mediatek/Makefile            |   1 +
+ drivers/phy/mediatek/phy-mtk-pcie-sphy.c | 561 +++++++++++++++++++++++
+ 3 files changed, 575 insertions(+)
+ create mode 100644 drivers/phy/mediatek/phy-mtk-pcie-sphy.c
 
-diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-index 131fd2a16c54..84b93914ad53 100644
---- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-@@ -20,6 +20,7 @@
- #include <dt-bindings/interconnect/qcom,kaanapali-rpmh.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/mailbox/qcom-ipcc.h>
-+#include <dt-bindings/phy/phy.h>
- #include <dt-bindings/phy/phy-qcom-qmp.h>
- #include <dt-bindings/power/qcom-rpmpd.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-@@ -3314,6 +3315,355 @@ usb_dp_qmpphy_dp_in: endpoint {
- 			};
- 		};
+diff --git a/drivers/phy/mediatek/Kconfig b/drivers/phy/mediatek/Kconfig
+index ba6461350951..b2d66115a49a 100644
+--- a/drivers/phy/mediatek/Kconfig
++++ b/drivers/phy/mediatek/Kconfig
+@@ -13,6 +13,19 @@ config PHY_MTK_PCIE
+ 	  callback for PCIe GEN3 port, it supports software efuse
+ 	  initialization.
  
-+		camss: isp@9253000 {
-+			compatible = "qcom,kaanapali-camss";
++config PHY_MTK_PCIE_SPHY
++	tristate "MediaTek PCIe S-PHY Driver"
++	depends on ARCH_MEDIATEK || COMPILE_TEST
++	depends on OF
++	select GENERIC_PHY
++	help
++	  Enable this to add support for MediaTek PCIe S-PHYs used with the
++	  PCI-Express Gen4 controllers as found in MT6991, MT8196 and others.
 +
-+			reg = <0x0 0x09253000 0x0 0x5e80>,
-+			      <0x0 0x09263000 0x0 0x5e80>,
-+			      <0x0 0x09273000 0x0 0x5e80>,
-+			      <0x0 0x092d3000 0x0 0x3880>,
-+			      <0x0 0x092e7000 0x0 0x3880>,
-+			      <0x0 0x09523000 0x0 0x2000>,
-+			      <0x0 0x09525000 0x0 0x2000>,
-+			      <0x0 0x09527000 0x0 0x2000>,
-+			      <0x0 0x09529000 0x0 0x2000>,
-+			      <0x0 0x0952b000 0x0 0x2000>,
-+			      <0x0 0x0952d000 0x0 0x2000>,
-+			      <0x0 0x093fd000 0x0 0x400>,
-+			      <0x0 0x093fe000 0x0 0x400>,
-+			      <0x0 0x093ff000 0x0 0x400>,
-+			      <0x0 0x09151000 0x0 0x20000>,
-+			      <0x0 0x09171000 0x0 0x20000>,
-+			      <0x0 0x09191000 0x0 0x20000>,
-+			      <0x0 0x092dc000 0x0 0x1300>,
-+			      <0x0 0x092f0000 0x0 0x1300>;
++	  To compile this driver as module, say 'M' here: the module will be
++	  called phy-mtk-pcie-sphy.
++	  
 +
-+			reg-names = "csid0",
-+				    "csid1",
-+				    "csid2",
-+				    "csid_lite0",
-+				    "csid_lite1",
-+				    "csiphy0",
-+				    "csiphy1",
-+				    "csiphy2",
-+				    "csiphy3",
-+				    "csiphy4",
-+				    "csiphy5",
-+				    "csitpg0",
-+				    "csitpg1",
-+				    "csitpg2",
-+				    "vfe0",
-+				    "vfe1",
-+				    "vfe2",
-+				    "vfe_lite0",
-+				    "vfe_lite1";
-+
-+			clocks = <&camcc CAM_CC_CAMNOC_NRT_AXI_CLK>,
-+				 <&camcc CAM_CC_CAMNOC_RT_AXI_CLK>,
-+				 <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
-+				 <&camcc CAM_CC_CAM_TOP_FAST_AHB_CLK>,
-+				 <&camcc CAM_CC_CAMNOC_RT_TFE_0_MAIN_CLK>,
-+				 <&camcc CAM_CC_CAMNOC_RT_TFE_1_MAIN_CLK>,
-+				 <&camcc CAM_CC_CAMNOC_RT_TFE_2_MAIN_CLK>,
-+				 <&camcc CAM_CC_CAMNOC_RT_IFE_LITE_CLK>,
-+				 <&camcc CAM_CC_CSID_CLK>,
-+				 <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
-+				 <&camcc CAM_CC_CSIPHY0_CLK>,
-+				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CSIPHY1_CLK>,
-+				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CSIPHY2_CLK>,
-+				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CSIPHY3_CLK>,
-+				 <&camcc CAM_CC_CSI3PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CSIPHY4_CLK>,
-+				 <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CSIPHY5_CLK>,
-+				 <&camcc CAM_CC_CSI5PHYTIMER_CLK>,
-+				 <&gcc GCC_CAMERA_HF_AXI_CLK>,
-+				 <&gcc GCC_CAMERA_SF_AXI_CLK>,
-+				 <&camcc CAM_CC_TFE_0_MAIN_CLK>,
-+				 <&camcc CAM_CC_TFE_0_MAIN_FAST_AHB_CLK>,
-+				 <&camcc CAM_CC_TFE_1_MAIN_CLK>,
-+				 <&camcc CAM_CC_TFE_1_MAIN_FAST_AHB_CLK>,
-+				 <&camcc CAM_CC_TFE_2_MAIN_CLK>,
-+				 <&camcc CAM_CC_TFE_2_MAIN_FAST_AHB_CLK>,
-+				 <&camcc CAM_CC_IFE_LITE_CLK>,
-+				 <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
-+				 <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
-+				 <&camcc CAM_CC_IFE_LITE_CSID_CLK>,
-+				 <&camcc CAM_CC_QDSS_DEBUG_XO_CLK>;
-+
-+			clock-names = "camnoc_nrt_axi",
-+				      "camnoc_rt_axi",
-+				      "cpas_ahb",
-+				      "cpas_fast_ahb",
-+				      "cpas_vfe0",
-+				      "cpas_vfe1",
-+				      "cpas_vfe2",
-+				      "cpas_vfe_lite",
-+				      "csid",
-+				      "csid_csiphy_rx",
-+				      "csiphy0",
-+				      "csiphy0_timer",
-+				      "csiphy1",
-+				      "csiphy1_timer",
-+				      "csiphy2",
-+				      "csiphy2_timer",
-+				      "csiphy3",
-+				      "csiphy3_timer",
-+				      "csiphy4",
-+				      "csiphy4_timer",
-+				      "csiphy5",
-+				      "csiphy5_timer",
-+				      "gcc_axi_hf",
-+				      "gcc_axi_sf",
-+				      "vfe0",
-+				      "vfe0_fast_ahb",
-+				      "vfe1",
-+				      "vfe1_fast_ahb",
-+				      "vfe2",
-+				      "vfe2_fast_ahb",
-+				      "vfe_lite",
-+				      "vfe_lite_ahb",
-+				      "vfe_lite_cphy_rx",
-+				      "vfe_lite_csid",
-+				      "qdss_debug_xo";
-+
-+			interrupts = <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 603 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 605 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 376 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 89 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 433 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 436 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 457 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 606 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 377 IRQ_TYPE_EDGE_RISING>;
-+
-+			interrupt-names = "csid0",
-+					  "csid1",
-+					  "csid2",
-+					  "csid_lite0",
-+					  "csid_lite1",
-+					  "csiphy0",
-+					  "csiphy1",
-+					  "csiphy2",
-+					  "csiphy3",
-+					  "csiphy4",
-+					  "csiphy5",
-+					  "vfe0",
-+					  "vfe1",
-+					  "vfe2",
-+					  "vfe_lite0",
-+					  "vfe_lite1";
-+
-+			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+					 &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
-+					<&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
-+					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+			interconnect-names = "ahb",
-+					     "hf_mnoc";
-+
-+			iommus = <&apps_smmu 0x1c00 0x00>;
-+
-+			power-domains = <&camcc CAM_CC_TFE_0_GDSC>,
-+					<&camcc CAM_CC_TFE_1_GDSC>,
-+					<&camcc CAM_CC_TFE_2_GDSC>,
-+					<&camcc CAM_CC_TITAN_TOP_GDSC>;
-+			power-domain-names = "ife0",
-+					     "ife1",
-+					     "ife2",
-+					     "top";
-+
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+				};
-+
-+				port@4 {
-+					reg = <4>;
-+				};
-+
-+				port@5 {
-+					reg = <5>;
-+				};
-+			};
-+		};
-+
-+		csiphy0: phy@9523000 {
-+			compatible = "qcom,kaanapali-csi2-phy";
-+			reg = <0x0 0x09523000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
-+				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CORE_AHB_CLK>;
-+			clock-names = "core",
-+				      "timer",
-+				      "ahb";
-+
-+			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_mxc_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
-+					<&rpmhpd RPMHPD_MMCX>,
-+					<&rpmhpd RPMHPD_MXC>;
-+			power-domain-names = "top",
-+					     "mmcx",
-+					     "mx";
-+
-+			status = "disabled";
-+		};
-+
-+		csiphy1: phy@9525000 {
-+			compatible = "qcom,kaanapali-csi2-phy";
-+			reg = <0x0 0x09525000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY1_CLK>,
-+				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CORE_AHB_CLK>;
-+			clock-names = "core",
-+				      "timer",
-+				      "ahb";
-+
-+			interrupts = <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_mxc_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
-+					<&rpmhpd RPMHPD_MMCX>,
-+					<&rpmhpd RPMHPD_MXC>;
-+			power-domain-names = "top",
-+					     "mmcx",
-+					     "mx";
-+
-+			status = "disabled";
-+		};
-+
-+		csiphy2: phy@9527000 {
-+			compatible = "qcom,kaanapali-csi2-phy";
-+			reg = <0x0 0x09527000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY2_CLK>,
-+				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CORE_AHB_CLK>;
-+			clock-names = "core",
-+				      "timer",
-+				      "ahb";
-+
-+			interrupts = <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_mxc_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
-+					<&rpmhpd RPMHPD_MMCX>,
-+					<&rpmhpd RPMHPD_MXC>;
-+			power-domain-names = "top",
-+					     "mmcx",
-+					     "mx";
-+
-+			status = "disabled";
-+		};
-+
-+		csiphy3: phy@9529000 {
-+			compatible = "qcom,kaanapali-csi2-phy";
-+			reg = <0x0 0x09529000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY3_CLK>,
-+				 <&camcc CAM_CC_CSI3PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CORE_AHB_CLK>;
-+			clock-names = "core",
-+				      "timer",
-+				      "ahb";
-+
-+			interrupts = <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_mxc_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
-+					<&rpmhpd RPMHPD_MMCX>,
-+					<&rpmhpd RPMHPD_MXC>;
-+			power-domain-names = "top",
-+					     "mmcx",
-+					     "mx";
-+
-+			status = "disabled";
-+		};
-+
-+		csiphy4: phy@952b000 {
-+			compatible = "qcom,kaanapali-csi2-phy";
-+			reg = <0x0 0x0952b000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY4_CLK>,
-+				 <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CORE_AHB_CLK>;
-+			clock-names = "core",
-+				      "timer",
-+				      "ahb";
-+
-+			interrupts = <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_mxc_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
-+					<&rpmhpd RPMHPD_MMCX>,
-+					<&rpmhpd RPMHPD_MXC>;
-+			power-domain-names = "top",
-+					     "mmcx",
-+					     "mx";
-+
-+			status = "disabled";
-+		};
-+
-+		csiphy5: phy@952d000 {
-+			compatible = "qcom,kaanapali-csi2-phy";
-+			reg = <0x0 0x0952d000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY5_CLK>,
-+				 <&camcc CAM_CC_CSI5PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CORE_AHB_CLK>;
-+			clock-names = "core",
-+				      "timer",
-+				      "ahb";
-+
-+			interrupts = <GIC_SPI 89 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_mxc_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
-+					<&rpmhpd RPMHPD_MMCX>,
-+					<&rpmhpd RPMHPD_MXC>;
-+			power-domain-names = "top",
-+					     "mmcx",
-+					     "mx";
-+
-+			status = "disabled";
-+		};
-+
- 		camcc: clock-controller@956d000 {
- 			compatible = "qcom,kaanapali-camcc";
- 			reg = <0x0 0x0956d000 0x0 0x80000>;
-@@ -6253,6 +6603,28 @@ pdp_tx: scp-sram-section@100 {
- 		};
- 	};
+ config PHY_MTK_XFI_TPHY
+ 	tristate "MediaTek 10GE SerDes XFI T-PHY driver"
+ 	depends on ARCH_MEDIATEK || COMPILE_TEST
+diff --git a/drivers/phy/mediatek/Makefile b/drivers/phy/mediatek/Makefile
+index ed0da708759b..7e984c7cfea3 100644
+--- a/drivers/phy/mediatek/Makefile
++++ b/drivers/phy/mediatek/Makefile
+@@ -5,6 +5,7 @@
  
-+	csiphy_mxc_opp_table: opp-table-mxc {
-+		compatible = "operating-points-v2";
+ obj-$(CONFIG_PHY_MTK_DP)		+= phy-mtk-dp.o
+ obj-$(CONFIG_PHY_MTK_PCIE)		+= phy-mtk-pcie.o
++obj-$(CONFIG_PHY_MTK_PCIE_SPHY)		+= phy-mtk-pcie-sphy.o
+ obj-$(CONFIG_PHY_MTK_TPHY)		+= phy-mtk-tphy.o
+ obj-$(CONFIG_PHY_MTK_UFS)		+= phy-mtk-ufs.o
+ obj-$(CONFIG_PHY_MTK_XSPHY)		+= phy-mtk-xsphy.o
+diff --git a/drivers/phy/mediatek/phy-mtk-pcie-sphy.c b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+new file mode 100644
+index 000000000000..2bf10346ea97
+--- /dev/null
++++ b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+@@ -0,0 +1,561 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2022 MediaTek Inc.
++ * Copyright (c) 2026 Collabora Ltd.
++ * Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++ */
 +
-+		opp-300000000 {
-+			opp-hz = /bits/ 64 <300000000>;
-+			required-opps = <&rpmhpd_opp_low_svs_d1>,
-+					<&rpmhpd_opp_low_svs_d1>;
-+		};
++#include <linux/bitfield.h>
++#include <linux/module.h>
++#include <linux/nvmem-consumer.h>
++#include <linux/of.h>
++#include <linux/phy/phy.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/slab.h>
 +
-+		opp-400000000 {
-+			opp-hz = /bits/ 64 <400000000>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+		};
++#include "phy-mtk-io.h"
 +
-+		opp-480000000 {
-+			opp-hz = /bits/ 64 <480000000>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+		};
++/* PHY System Interface (SIF) registers */
++#define PEXTP_DIG_GLB_TOP				0x20
++#  define RG_XTP_BYPASS_PIPE_RST_RC			BIT(17)
++#define PEXTP_DIG_GLB_CKBG0				0x30
++#  define RG_XTP_CKBG_XTAL_STABLE_TIME_SEL		GENMASK(25, 16)
++#define PEXTP_DIG_GLB_TPLL_CTL0				0x38
++#  define RG_XTP_TPLL_SET_STABLE_TIME_SEL		GENMASK(7, 2)
++#  define RG_XTP_TPLL_PWE_ON_STABLE_TIME_SEL		GENMASK(9, 8)
++#define PEXTP_DIG_GLB_CLKREQ_CTL			0x50
++#  define RG_XTP_CKM_EN_L1S0				BIT(13)
++#  define RG_XTP_CKM_EN_L1S1				BIT(14)
++#define PEXTP_DIG_GLB_TPLL_CTL2				0xf4
++#  define RG_XTP_TPLL_ISO_EN_STABLE_TIME_SEL		GENMASK(13, 12)
++
++/* PHY System Interface Digital registers */
++#define PEXTP_DIG_LN_TRX_PIPE_IF_17			0x30e8
++#  define RG_XTP_LN_RX_LF_CTLE_CSEL_GEN4		GENMASK(14, 12)
++#define PEXTP_DIG_LN_RX_F0				0x50f0
++#  define RG_XTP_LN_RX_GEN1_CTLE1_CSEL			GENMASK(3, 0)
++#  define RG_XTP_LN_RX_GEN2_CTLE1_CSEL			GENMASK(7, 4)
++#  define RG_XTP_LN_RX_GEN3_CTLE1_CSEL			GENMASK(11, 8)
++#  define RG_XTP_LN_RX_GEN4_CTLE1_CSEL			GENMASK(15, 12)
++#define PEXTP_DIG_LN_RX2_AEQ_EDGE_0			0x6004
++#  define RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN3		GENMASK(21, 16)
++#  define RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN4		GENMASK(29, 24)
++
++/* PHY System Interface Analog registers */
++#define PEXTP_ANA_GLB_TPLL1_RSVD			0x902c
++#  define RG_XTP_GLB_TPLL1_P_PATH_GAIN			GENMASK(2, 0)
++#define PEXTP_ANA_GLB_BIAS_0				0x9060
++#  define RG_XTP_GLB_BIAS_INTR_CTRL			GENMASK(5, 0)
++#define PEXTP_ANA_GLB_BIAS_1				0x90c0
++#  define RG_XTP_GLB_BIAS_V2V_VTRIM			GENMASK(9, 6)
++#define PEXTP_ANA_LN_TRX_0C				0xa00c
++#  define RG_XTP_LN_TX_RSWN_IMPSEL			GENMASK(20, 16)
++#define PEXTP_ANA_LN_TRX_34				0xa034
++#  define RG_XTP_LN_RX_FE				BIT(15)
++#define PEXTP_ANA_LN_TRX_6C				0xa06c
++#  define RG_XTP_LN_RX_AEQ_CTLE_ERR_TYPE		GENMASK(14, 13)
++#   define AEQ_CTLE_SEARCH_ERR_TYPE_H1P5		0
++#   define AEQ_CTLE_SEARCH_ERR_TYPE_H1P5_H2P5		1
++#   define AEQ_CTLE_SEARCH_ERR_TYPE_P1P5_H2P5_H3P5	2
++#define PEXTP_ANA_LN_TRX_A0				0xa0a0
++#  define RG_XTP_LN_TX_IMPSEL_PMOS			GENMASK(4, 0)
++#  define RG_XTP_LN_TX_IMPSEL_NMOS			GENMASK(11, 7)
++#  define RG_XTP_LN_RX_IMPSEL				GENMASK(15, 12)
++#define PEXTP_ANA_LN_TRX_A8				0xa0a8
++#  define RG_XTP_LN_RX_LEQ_RL_CTLE_CAL			GENMASK(6, 2)
++#  define RG_XTP_LN_RX_LEQ_RL_VGA_CAL			GENMASK(11, 7)
++#  define RG_XTP_LN_RX_LEQ_RL_DFE_CAL			GENMASK(23, 19)
++#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_4			0xb004
++#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_8			0xb008
++#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_C			0xb00c
++#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_10		0xb010
++#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_14		0xb014
++#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_18		0xb018
++#  define RG_XTP_LN_TX_LC_PRESET_MGx_Px_CM1		GENMASK(5, 0)
++#  define RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0		GENMASK(13, 8)
++#  define RG_XTP_LN_TX_LC_PRESET_MGx_Px_CP1		GENMASK(21, 16)
++#define PEXTP_REG_LANE(x)				((x) * 0x100)
++
++/* PHY Clock Management (CKM) registers */
++#define XTP_CKM_FORCE_6					0x38
++#  define RG_CKM_BIAS_WAIT_PRD_US			GENMASK(21, 16)
++#define XTP_CKM_REG_SPLL_FBKDIV_5			0xd4
++#  define RG_CKM_CKTX_IMPSEL_PMOS			GENMASK(19, 16)
++#  define RG_CKM_CKTX_IMPSEL_NMOS			GENMASK(23, 20)
++#  define RG_CKM_CKTX_IMPSEL_SW				GENMASK(27, 24)
++
++/* Calibration data from eFuses */
++#define MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES	2
++#define MTK_PCIE_SPHY_CALIBRATION_LAST_QUIRK_VER	4
++
++/**
++ * struct mtk_pcie_sphy_imp_sel - Impedance Selection parameters
++ * @pmos: Impedance selection for P-Channel MOSFET
++ * @nmos: Impedance selection for N-Channel MOSFET
++ */
++struct mtk_pcie_sphy_imp_sel {
++	u8 pmos;
++	u8 nmos;
++};
++
++/**
++ * struct mtk_pcie_sphy_efuse - eFuse calibration data for S-PHY
++ * @cktx_impsel:    SPLL CKTX Impedance Selection (P and N MOSFET)
++ * @tx_impsel:      TX Impedance Selection (P and N MOSFET)
++ * @int_r_ctrl:     Internal resistor selection of TX Bias Current
++ * @xtp_vtrim:      XTP Bias V2V voltage calibration
++ * @cktx_r_mid:     SPLL CKTX Intermediate Transition Impedance (Rmid)
++ * @rx_leq_rl_ctle: RX Front-End Return Loss Continuous Time Linear Equalization value
++ * @rx_leq_rl_vga:  RX Front-End Return Loss Variable Gain Amplifier value
++ * @rx_leq_rl_dfe:  RX Front-End Return Loss Decision Feedback Equalization value
++ * @rx_impsel:      RX Impedance Selection
++ * @tx_rswn_impsel: TX RSWn (Switch Resistance) impedance selection
++ * @supported:      eFuse calibration data is supported
++ */
++struct mtk_pcie_sphy_efuse {
++	struct mtk_pcie_sphy_imp_sel cktx_impsel;
++	struct mtk_pcie_sphy_imp_sel tx_impsel;
++	u8 int_r_ctrl;
++	u8 xtp_vtrim;
++	u8 cktx_r_mid;
++	u8 rx_leq_rl_ctle;
++	u8 rx_leq_rl_vga;
++	u8 rx_leq_rl_dfe;
++	u8 rx_impsel;
++	u8 tx_rswn_impsel[MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES];
++	bool supported;
++};
++
++/**
++ * struct mtk_pcie_sphy - PCI-Express S-PHY driver main structure
++ * @dev:         Pointer to device structure
++ * @phy:         Pointer to generic phy structure
++ * @sif_base:    IO mapped register base address of system interface
++ * @ckm_base:    IO mapped register base address of clock management interface
++ * @num_lanes:   Number of lanes
++ * @calibration: eFuse calibration data for S-PHY
++ */
++struct mtk_pcie_sphy {
++	struct device *dev;
++	struct phy *phy;
++	void __iomem *sif_base;
++	void __iomem *ckm_base;
++	u8 num_lanes;
++	struct mtk_pcie_sphy_efuse calibration;
++};
++
++static void mtk_pcie_sphy_apply_calibration(struct mtk_pcie_sphy *pcie_sphy)
++{
++	struct mtk_pcie_sphy_efuse *cal = &pcie_sphy->calibration;
++	int i;
++
++	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_ANA_GLB_BIAS_0,
++			     RG_XTP_GLB_BIAS_INTR_CTRL, cal->int_r_ctrl);
++
++	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_ANA_GLB_BIAS_1,
++			     RG_XTP_GLB_BIAS_V2V_VTRIM, cal->xtp_vtrim);
++
++	mtk_phy_update_field(pcie_sphy->ckm_base + XTP_CKM_REG_SPLL_FBKDIV_5,
++			     RG_CKM_CKTX_IMPSEL_PMOS, cal->cktx_impsel.pmos);
++
++	mtk_phy_update_field(pcie_sphy->ckm_base + XTP_CKM_REG_SPLL_FBKDIV_5,
++			     RG_CKM_CKTX_IMPSEL_NMOS, cal->cktx_impsel.nmos);
++
++	mtk_phy_update_field(pcie_sphy->ckm_base + XTP_CKM_REG_SPLL_FBKDIV_5,
++			     RG_CKM_CKTX_IMPSEL_SW, cal->cktx_r_mid);
++
++	for (i = 0; i < pcie_sphy->num_lanes; i++) {
++		void __iomem *sif_lane_base = pcie_sphy->sif_base + PEXTP_REG_LANE(i);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_0C,
++				     RG_XTP_LN_TX_RSWN_IMPSEL, cal->tx_rswn_impsel[i]);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A8,
++				     RG_XTP_LN_RX_LEQ_RL_CTLE_CAL, cal->rx_leq_rl_ctle);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A8,
++				     RG_XTP_LN_RX_LEQ_RL_VGA_CAL, cal->rx_leq_rl_vga);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A8,
++				     RG_XTP_LN_RX_LEQ_RL_DFE_CAL, cal->rx_leq_rl_dfe);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A0,
++				     RG_XTP_LN_RX_IMPSEL, cal->rx_impsel);
++	}
++}
++
++/**
++ * mtk_pcie_sphy_init() - Initialize the PCI-Express S-PHY
++ * @phy: the phy to be initialized
++ *
++ * The hardware settings will be reset during suspend, it should be
++ * reinitialized when the consumer calls phy_init() again on resume.
++ */
++static int mtk_pcie_sphy_init(struct phy *phy)
++{
++	struct mtk_pcie_sphy *pcie_sphy = phy_get_drvdata(phy);
++	struct mtk_pcie_sphy_imp_sel tx_impsel;
++	int i;
++
++	/* Set CKM Bias wait time to 4 microseconds */
++	mtk_phy_update_field(pcie_sphy->ckm_base + XTP_CKM_FORCE_6,
++			     RG_CKM_BIAS_WAIT_PRD_US, 4);
++
++	/* TPLL needs 63 ref_ck ticks to stabilize when setting frequency */
++	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_DIG_GLB_TPLL_CTL0,
++			     RG_XTP_TPLL_SET_STABLE_TIME_SEL, 63);
++
++	/* TPLL needs 3 ref_ck ticks to stabilize when powering on... */
++	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_DIG_GLB_TPLL_CTL0,
++			     RG_XTP_TPLL_PWE_ON_STABLE_TIME_SEL, 3);
++
++	/* ...and the same goes for setting isolation */
++	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_DIG_GLB_TPLL_CTL2,
++			     RG_XTP_TPLL_ISO_EN_STABLE_TIME_SEL, 3);
++
++	/* XTAL doesn't need any stabilization time */
++	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_DIG_GLB_CKBG0,
++			     RG_XTP_CKBG_XTAL_STABLE_TIME_SEL, 0);
++
++	/* Keep pextp_ckm enabled when in L1SS_L1S1 state */
++	mtk_phy_clear_bits(pcie_sphy->sif_base + PEXTP_DIG_GLB_CLKREQ_CTL, RG_XTP_CKM_EN_L1S1);
++
++	/* Set PIPE to reset TPLL */
++	mtk_phy_clear_bits(pcie_sphy->sif_base + PEXTP_DIG_GLB_TOP, RG_XTP_BYPASS_PIPE_RST_RC);
++
++	/* Set TPLL P-Path gain compensation to 1 */
++	mtk_phy_update_field(pcie_sphy->sif_base + PEXTP_ANA_GLB_TPLL1_RSVD,
++			     RG_XTP_GLB_TPLL1_P_PATH_GAIN, 1);
++
++	for (i = 0; i < pcie_sphy->num_lanes; i++) {
++		void __iomem *sif_lane_base = pcie_sphy->sif_base + PEXTP_REG_LANE(i);
++
++		/* Set RX Lane AEQ CTRL-E Search Error type to h1.5 + h2.5 */
++		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_6C,
++				     RG_XTP_LN_RX_AEQ_CTLE_ERR_TYPE,
++				     AEQ_CTLE_SEARCH_ERR_TYPE_H1P5_H2P5);
++
++		mtk_phy_set_bits(sif_lane_base + PEXTP_ANA_LN_TRX_34, RG_XTP_LN_RX_FE);
++
++		/* TRX: Select CTLE1 for RX Lane AutoEQ CTRL-E Setting on Gen4 */
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TRX_PIPE_IF_17,
++				     RG_XTP_LN_RX_LF_CTLE_CSEL_GEN4, 1);
++
++		/* Set RX Lane AutoEQ CTRL-E for PCI-Express Gen1 to Gen 4 */
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX_F0,
++				     RG_XTP_LN_RX_GEN1_CTLE1_CSEL, 13);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX_F0,
++				     RG_XTP_LN_RX_GEN2_CTLE1_CSEL, 13);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX_F0,
++				     RG_XTP_LN_RX_GEN3_CTLE1_CSEL, 13);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX_F0,
++				     RG_XTP_LN_RX_GEN4_CTLE1_CSEL, 0);
++
++		/* Set RX Lane AutoEQ's Edge EQ Ratio to 22 * 0.0625 = 1.375 */
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX2_AEQ_EDGE_0,
++				     RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN3, 22);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_RX2_AEQ_EDGE_0,
++				     RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN4, 22);
++
++		/* Setup Digital lane TX Link Characteristics Table */
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_4,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 10);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_4,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_CP1, 2);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_8,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 11);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_8,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_CP1, 1);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_C,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 12);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_10,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 13);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_10,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_CM1, 1);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_14,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 11);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_14,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_CM1, 1);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_18,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0, 10);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_DIG_LN_TX_LC_TABLE_RSWN_18,
++				     RG_XTP_LN_TX_LC_PRESET_MGx_Px_CM1, 2);
++	}
++
++	if (pcie_sphy->calibration.supported) {
++		mtk_pcie_sphy_apply_calibration(pcie_sphy);
++
++		tx_impsel.pmos = pcie_sphy->calibration.tx_impsel.pmos;
++		tx_impsel.nmos = pcie_sphy->calibration.tx_impsel.nmos;
++	} else {
++		/* Set P=10, N=9 to prevent EMI if no calibration present */
++		tx_impsel.pmos = 10;
++		tx_impsel.nmos = 9;
++	}
++
++	/* Select TX Impedance on N and P MOSFETs */
++	for (i = 0; i < pcie_sphy->num_lanes; i++) {
++		void __iomem *sif_lane_base = pcie_sphy->sif_base + PEXTP_REG_LANE(i);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A0,
++				     RG_XTP_LN_TX_IMPSEL_PMOS, tx_impsel.pmos);
++
++		mtk_phy_update_field(sif_lane_base + PEXTP_ANA_LN_TRX_A0,
++				     RG_XTP_LN_TX_IMPSEL_NMOS, tx_impsel.nmos);
++	}
++
++	return 0;
++}
++
++static const struct phy_ops mtk_pcie_sphy_ops = {
++	.init	= mtk_pcie_sphy_init,
++	.owner	= THIS_MODULE,
++};
++
++static int mtk_pcie_sphy_get_one_cal_para(struct device *dev, const char *name, u8 max_val)
++{
++	u16 buf;
++	u8 tmp;
++	int ret;
++
++	/*
++	 * All of the calibrations are always max 8 bits long, but some may
++	 * be split between two different 8-bits cells: handle this corner
++	 * case by retrying reading as u16.
++	 */
++	ret = nvmem_cell_read_u8(dev, name, &tmp);
++	if (ret == 0)
++		buf = tmp;
++	else
++		ret = nvmem_cell_read_u16(dev, name, &buf);
++
++	if (ret == -ENOENT) {
++		dev_info(dev, "No calibration for %s. Using defaults\n", name);
++		return -ENOENT;
++	} else if (ret)
++		return dev_err_probe(dev, ret,
++				     "Cannot get calibration data for %s\n", name);
++
++	if (buf > max_val)
++		return dev_err_probe(dev, -ERANGE,
++				     "Bad value %u retrieved for %s.\n", buf, name);
++
++	return buf;
++}
++
++static int mtk_pcie_sphy_get_calibration_data(struct mtk_pcie_sphy *pcie_sphy)
++{
++	struct mtk_pcie_sphy_efuse *cal = &pcie_sphy->calibration;
++	struct device *dev = pcie_sphy->dev;
++	u8 version;
++	int ret;
++
++	if (pcie_sphy->num_lanes > MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES) {
++		dev_info(dev, "Skipping PHY calibration for more than %u lanes.\n",
++			 MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES);
++		ret = -EOPNOTSUPP;
++		goto end;
++	}
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "int-r",
++					     FIELD_MAX(RG_XTP_GLB_BIAS_INTR_CTRL));
++	if (ret < 0)
++		goto end;
++	cal->int_r_ctrl = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "xtp-vtrim",
++					     FIELD_MAX(RG_XTP_GLB_BIAS_V2V_VTRIM));
++	if (ret < 0)
++		goto end;
++	cal->xtp_vtrim = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-pmos",
++					     FIELD_MAX(RG_CKM_CKTX_IMPSEL_PMOS));
++	if (ret < 0)
++		goto end;
++	cal->cktx_impsel.pmos = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-nmos",
++					     FIELD_MAX(RG_CKM_CKTX_IMPSEL_NMOS));
++	if (ret < 0)
++		goto end;
++	cal->cktx_impsel.nmos = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-r-mid",
++					     FIELD_MAX(RG_CKM_CKTX_IMPSEL_SW));
++	if (ret < 0)
++		goto end;
++	cal->cktx_r_mid = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-ctle",
++					     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_CTLE_CAL));
++	if (ret < 0)
++		goto end;
++	cal->rx_leq_rl_ctle = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-vga",
++					     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_VGA_CAL));
++	if (ret < 0)
++		goto end;
++	cal->rx_leq_rl_vga = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-dfe",
++					     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_DFE_CAL));
++	if (ret < 0)
++		goto end;
++	cal->rx_leq_rl_dfe = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rx-lanes-imp",
++					     FIELD_MAX(RG_XTP_LN_RX_IMPSEL));
++	if (ret < 0)
++		goto end;
++	cal->rx_impsel = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-lanes-pmos",
++					     FIELD_MAX(RG_XTP_LN_TX_IMPSEL_PMOS));
++	if (ret < 0)
++		goto end;
++	cal->tx_impsel.pmos = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-lanes-nmos",
++					     FIELD_MAX(RG_XTP_LN_TX_IMPSEL_NMOS));
++	if (ret < 0)
++		goto end;
++	cal->tx_impsel.nmos = ret;
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-ln0-rswn",
++					     FIELD_MAX(RG_XTP_LN_TX_RSWN_IMPSEL));
++	if (ret < 0)
++		goto end;
++	cal->tx_rswn_impsel[0] = ret;
++
++	if (pcie_sphy->num_lanes == 2) {
++		ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-ln1-rswn",
++						     FIELD_MAX(RG_XTP_LN_TX_RSWN_IMPSEL));
++		if (ret < 0)
++			goto end;
++		cal->tx_rswn_impsel[1] = ret;
++	}
++
++	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cal-version", 15);
++	if (ret < 0)
++		goto end;
++	version = ret;
++
++	/* Quirk for eFuse calibration table versions 0 to 4 */
++	if ((version <= MTK_PCIE_SPHY_CALIBRATION_LAST_QUIRK_VER) &&
++	    cal->rx_leq_rl_ctle == 10) {
++		cal->rx_leq_rl_vga = cal->rx_leq_rl_ctle;
++		cal->rx_leq_rl_dfe = cal->rx_leq_rl_ctle;
++	}
++
++end:
++	if (ret < 0) {
++		/*
++		 * If any of the calibration values is missing, or if there is
++		 * no calibration at all in the eFuses, this is not a problem,
++		 * as the PHY doesn't require one to actually work.
++		 *
++		 * Note that if even just one of the calibration values is
++		 * missing it would not be safe to trust the correctness of
++		 * the others as this may be a different eFuse layout.
++		 */
++		if (ret == -ENOENT || ret == -EOPNOTSUPP) {
++			cal->supported = false;
++			return 0;
++		}
++		return ret;
 +	};
++	cal->supported = true;
 +
- 	thermal-zones {
- 		cpullc-0-0-thermal {
- 			thermal-sensors = <&tsens0 0>;
-
++	return 0;
++}
++
++static int mtk_pcie_sphy_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct phy_provider *provider;
++	struct mtk_pcie_sphy *pcie_sphy;
++	u32 num_lanes;
++	int ret;
++
++	pcie_sphy = devm_kzalloc(dev, sizeof(*pcie_sphy), GFP_KERNEL);
++	if (!pcie_sphy)
++		return -ENOMEM;
++
++	pcie_sphy->sif_base = devm_platform_ioremap_resource_byname(pdev, "sif");
++	if (IS_ERR(pcie_sphy->sif_base))
++		return dev_err_probe(dev, PTR_ERR(pcie_sphy->sif_base),
++				     "Failed to map phy-sif base\n");
++
++	pcie_sphy->ckm_base = devm_platform_ioremap_resource_byname(pdev, "ckm");
++	if (IS_ERR(pcie_sphy->ckm_base))
++		return dev_err_probe(dev, PTR_ERR(pcie_sphy->ckm_base),
++				     "Failed to map phy-ckm base\n");
++
++	pcie_sphy->phy = devm_phy_create(dev, dev->of_node, &mtk_pcie_sphy_ops);
++	if (IS_ERR(pcie_sphy->phy))
++		return dev_err_probe(dev, PTR_ERR(pcie_sphy->phy),
++				     "Failed to create PCIe phy\n");
++
++	ret = of_property_read_u32(dev->of_node, "num-lanes", &num_lanes);
++	if (ret)
++		num_lanes = 1;
++	else if (num_lanes > 4)
++		return dev_err_probe(dev, -EINVAL, "Invalid number of lanes.\n");
++
++	pcie_sphy->num_lanes = num_lanes;
++	pcie_sphy->dev = dev;
++
++	ret = mtk_pcie_sphy_get_calibration_data(pcie_sphy);
++	if (ret)
++		return ret;
++
++	phy_set_drvdata(pcie_sphy->phy, pcie_sphy);
++
++	pm_runtime_no_callbacks(dev);
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
++
++	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
++	if (IS_ERR(provider))
++		return dev_err_probe(dev, PTR_ERR(provider),
++				     "Could not register PCI-Express S-PHY\n");
++
++	return 0;
++}
++
++static const struct of_device_id mtk_pcie_sphy_of_match[] = {
++	{ .compatible = "mediatek,mt8196-pcie-sphy" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, mtk_pcie_sphy_of_match);
++
++static struct platform_driver mtk_pcie_sphy_driver = {
++	.probe	= mtk_pcie_sphy_probe,
++	.driver	= {
++		.name = "mtk-pcie-sphy",
++		.of_match_table = mtk_pcie_sphy_of_match,
++	},
++};
++module_platform_driver(mtk_pcie_sphy_driver);
++
++MODULE_DESCRIPTION("MediaTek PCIe SPHY driver");
++MODULE_AUTHOR("AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>");
++MODULE_LICENSE("GPL");
 -- 
-2.34.1
+2.55.0
 
