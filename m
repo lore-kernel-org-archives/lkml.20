@@ -1,142 +1,155 @@
-Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DE94BE42E
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5067F39BFF1
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:40:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789504780; cv=none; b=aJmxNHIjQ+6OoLM2+pUuf7R9QyePZEeJyV/GMT6sziK++7WXUKo5+1CRQB7flcppStZKjDYoq1m9FD66OB9Hdz76fway5kXxaeJPwM9cnSjgKcaCPoOJ+HgZnc4CfNQixcq1v8F8xJLJ96BWNT8USQtUGU7LZ1lordrfgypxPb0=
+	t=1789504823; cv=none; b=nuzv02CQiU/cBRJdk5BEy8Gi/0K8sJ6S7NgUm204TIcyyQAnKN5zWukHK6gJyRCkrB0nI0bl614Pwh2V/dYdAdtdP9FdKM7GWBBNzVCG/bAuOyzDAbZ6zbo1TABFjmN9DDAYCXkzIAJVMdr0UAQHHrBz82/Tq4wG4OMzL6uZR2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789504780; c=relaxed/simple;
-	bh=HycSpdLfCzkvJeOFsWOpSXwUrSmZ9dlRks1sdhs0BJ0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NQkynCsuSZjIWktSjm6ah5EWubWaDER8j+MbfRDITPqTyrou0dCvTX8uQ0EnLlu5UFw/ATMibDpT8wGDGBuwmzyRC9x4RO9FtXmhHz3cCKQpIOiuMX4sHoXV6t55FgoK982F33Ykh2zqLb34Tb5BD4g/5DUsO+s4jNPu0VnvU7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LFIMnOd1; arc=none smtp.client-ip=91.218.175.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789504823; c=relaxed/simple;
+	bh=H7sqdoHpd2FSG6L//bvppNmxpX0j0UX5TBTUv3u03t4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XfaTXNOGAk+afR6ESrCUJLqvUp7CNS1mquccdFJ6r0GuEQbRn/f57vTDzvFuZhBYEW27WO5TDnXFJ//pCawrX+PYnwUuKEMpU3HJr+w4kFrJ0OaVPIzDKKOOO4M06eQYCtnvTujBPxMDbhrW3g3Gc4nrcvCGha0IAwPHrX12BV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=d/B1jdDY; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=LsdBuJU+; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=FomyFzkd; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=7Qqhmj89; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LFIMnOd1"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HycSpdLfCzkvJeOFsWOpSXwUrSmZ9dlRks1sdhs0BJ0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789504776; v=1; x=1790109576;
- b=LFIMnOd13DwFE59r5aJ+R3NnUktMnoFZ1KJn4lVSJHruFTQkBLP818NmorIuVkkc7UDgFX+E
- 7Tr5QDrA4njZa/7ih5PL3uzy+qrKZlji62pFFbP8a9FWZwoNHmmvyCMk7lkZrYjPGfl+S3kj96t
- j04y6FXKBNwsZ9DvkC+J56F4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 61440f76a88ab040;
-	Tue, 15 Sep 2026 20:39:36 +0000
-X-Mizu-Trace-ID: 61440f76a88ab040
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d5d78882-2c68-4fec-b061-7642f3f2871f@linux.dev>
-Date: Tue, 15 Sep 2026 13:39:28 -0700
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="d/B1jdDY";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="LsdBuJU+";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="FomyFzkd";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="7Qqhmj89"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id EAD911FFBA;
+	Tue, 15 Sep 2026 20:40:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789504807; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=efWP/Ao7lVqQt3ZG5A3u/jPr1sBU0pFDIR9eFUcnesA=;
+	b=d/B1jdDYPeQ89aeZHQcMAjD5rONhO9jYWhrf7fM2EjyhL5CkoaeVtIEDWyz9LiROc2TKan
+	suwSz4ab9msE1MhJoQJ7wXc4ehjYkT84vw4alPDf8d1JvnGGN27pzKSVbT2VezHVkO3Msr
+	TnGiHcBpPK7NAJvUGNaSI4k8Qd0NumU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789504807;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=efWP/Ao7lVqQt3ZG5A3u/jPr1sBU0pFDIR9eFUcnesA=;
+	b=LsdBuJU+6lEUc8nySmqukGCKnfzucHOtelMRSJPxKLoyEQAT2eTvsSlo2jLMpJ55Eb9LSH
+	92Q8L7XWGst/s7Bw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789504802; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=efWP/Ao7lVqQt3ZG5A3u/jPr1sBU0pFDIR9eFUcnesA=;
+	b=FomyFzkdV4eQt7COT7Te9sTma/Hop5w7zjTGMaFwJBII3xUzfx5UM0+3MZht7e5sFxxQ8N
+	AbNUyupH8dgsJcAHe+S57MBLv1H6yeE3QKhyWckS8ORYAB8oP4lA/5nsKT5gFGpdLQzE5k
+	BXImaHKgMurWt3/N3vpMoBsNxP2WWTY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789504802;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=efWP/Ao7lVqQt3ZG5A3u/jPr1sBU0pFDIR9eFUcnesA=;
+	b=7Qqhmj89HqAXXJf47JAvCatNjEUAd4WqDKndZDTEl/qDjhucSTAZra9jrefO5t7z5mSkl3
+	OYB7K9m79EL+jtAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C47C513432;
+	Tue, 15 Sep 2026 20:40:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id GmPgJyKtqWokOgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 15 Sep 2026 20:40:02 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 49542A13D6; Tue, 15 Sep 2026 22:40:02 +0200 (CEST)
+Date: Tue, 15 Sep 2026 22:40:02 +0200
+From: Jan Kara <jack@suse.cz>
+To: Dan Carpenter <error27@gmail.com>
+Cc: Jori Koolstra <jkoolstra@xs4all.nl>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] vfs: clean up indenting in lookup_open()
+Message-ID: <hftpz62zoc7rjn3xdcaqgnujjnicpgv6betqbqfyvp45tynmep@l7m75b46jxpz>
+References: <aql0YTgwtRI0VZyG@stanley.mountain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 07/13] bpf: track low-32 scalar equality
- across sign-extending movs
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
- <20260910164635.459558-8-vineet.gupta@linux.dev>
- <DLDKPDWY833W.1QJX9MTD6SZG5@gmail.com>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <DLDKPDWY833W.1QJX9MTD6SZG5@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aql0YTgwtRI0VZyG@stanley.mountain>
+X-Spam-Level: 
+X-Spam-Score: -3.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,xs4all.nl];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[xs4all.nl,zeniv.linux.org.uk,kernel.org,suse.cz,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
 
+On Tue 15-09-26 19:37:53, Dan Carpenter wrote:
+> These lines are indented too far.  Delete a tab.
+> 
+> Signed-off-by: Dan Carpenter <error27@gmail.com>
 
+Looks good. Feel free to add:
 
-On 9/12/26 12:09 PM, Alexei Starovoitov wrote:
-> On Thu Sep 10, 2026 at 9:46 AM PDT, Vineet Gupta wrote:
->> The zero-extending mov records that dst shares src's low 32 bits. A 32-bit
->> sign extension shares them too -- it keeps the low half and fills the high
->> half from bit 31 -- so the same link applies, with a different rule for
->> rebuilding the high bits:
->>
->>    r6 = ...              /* full 64-bit unknown */
->>    r7 = (s32)r6          /* 32-bit sign-extending mov */
->>    if w6 == -1 goto ...  /* taken: r6's low 32 bits are all ones */
->>    ...                   /* r7 is -1, not deduced today */
->>
->> Add SUBREG_SEXT alongside SUBREG_ZEXT, and sext_32_to_64() alongside
->> zext_32_to_64() to drive the reconstruction. Both work from the base's
->> 32-bit range, which is what a 32-bit compare narrows.
->> coerce_reg_to_size_sx() cannot serve here: it reads smin/smax, which
->> straddle after such a compare and collapse to the full field range.
->>
->> tnum_sext() is the counterpart to tnum_cast(). Unlike a tnum_range() over
->> the new bounds it keeps the known low bits.
->>
->> The enum has room for the third value, so bpf_reg_state stays 80 bytes.
->>
->> Unlike the zero-extending arm, a self-mov can form a link here, but only
->> when src is already linked: r0 = (s32)r0 is how a sign-extended int return
->> lands. On an unlinked register there is nothing to link to, and minting an
->> id would leave the register describing itself.
->>
->> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
->> ---
->> v2: was RFC 5/6.
->>   - no forward declaration (Eduard)
->>   - src renamed known_reg (Eduard)
->>   - sext_32_to_64() and tnum_sext() rather than reusing
->>     coerce_reg_to_size_sx(); the sync path needs the base's 32-bit range,
->>     see the cover letter
->>   - tnum_sext() keeps the known low bits a tnum_range() would drop (Eduard)
->>   - a self-mov links only when src already has an id, narrower than the RFC
->>
->>   include/linux/bpf_verifier.h |  1 +
->>   include/linux/tnum.h         |  3 +++
->>   kernel/bpf/log.c             |  2 ++
->>   kernel/bpf/tnum.c            | 15 ++++++++++++
->>   kernel/bpf/verifier.c        | 47 +++++++++++++++++++++++++++++++++---
->>   5 files changed, 65 insertions(+), 3 deletions(-)
->>
->> diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
->> index f1b01059c5da..920c9490ecc8 100644
->> --- a/include/linux/bpf_verifier.h
->> +++ b/include/linux/bpf_verifier.h
->> @@ -53,6 +53,7 @@ enum bpf_add_const {
->>   enum bpf_subreg {
->>   	SUBREG_NONE = 0,
->>   	SUBREG_ZEXT,		/* high bits are zero (32-bit zero-extending mov) */
->> +	SUBREG_SEXT,		/* high bits repeat bit 31 (32-bit sign-extending mov) */
-> If my earlier suggestion to model SUBREG_ZEXT as add_const32 with delta == 0
-> works, then sign extension could be:
->
-> enum bpf_add_const {
->         ADD_CONST_NONE = 0,
->         ADD_CONST_32,    /* delta was added with a 32-bit ALU op */ /* works as ZERO_EXTEND when delta == 0 */
->         ADD_CONST_64,    /* ... with a 64-bit ALU op */
->         SIGN_EXTEND_32, 	/* delta has to be == 0 */
-> };
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-If we were to go that route sure, but no point if we are not doing that.
+								Honza
 
-Also keeping them together makes add_const and sext mutually exclusive. 
-Today they are but what if in future we were to implement the following.
-
-w7 = w6      /* r7 gets SUBREG_ZEXT */
-w7 += 4      /* r7 also gets ADD_CONST_32, delta 4 */
-
-> and if we really want to we can track movsx 8 and 16 too.
-> Which might be an overkill.
-
-Indeed.
-Eduard and I discussed this in the off line review before RFC. gcc 
-currently doesn't seem to generate these a lot so maybe leave this for 
-future.
-
-Thx,
--Vineet
+> ---
+>  fs/namei.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/namei.c b/fs/namei.c
+> index 1dd4ec7d0e62..48b28ed44a9e 100644
+> --- a/fs/namei.c
+> +++ b/fs/namei.c
+> @@ -4636,9 +4636,9 @@ static struct dentry *lookup_open(struct nameidata *nd, struct file *file,
+>  	if (create_dir) {
+>  		struct dentry *res = vfs_mkdir_no_perm(idmap, dir_inode, dentry,
+>  						       mode, &delegated_inode);
+> -			error = PTR_ERR_OR_ZERO(res);
+> -			if (!error)
+> -				dentry = res;
+> +		error = PTR_ERR_OR_ZERO(res);
+> +		if (!error)
+> +			dentry = res;
+>  	} else {
+>  		error = vfs_create_no_perm(idmap, dentry, mode, &delegated_inode);
+>  	}
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
