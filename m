@@ -1,52 +1,52 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94AB83911C6
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48D736C581
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436340; cv=none; b=iKoS84+7L8CrzCnjrLU6EaoFQDrqEW5CNsWl1x/kV7naPY43EX+mTiv+eeoqzIHZdjx+/v9KDVqXmvZL7c26Gki3QmKgZ3mC1z3anVKZrQB+L0JvtT4/S0RuUEmq26h4MIjne/uCQlm8ylj72nLGauMwKraumGZMKGHPZ5/bZ84=
+	t=1789436341; cv=none; b=YHlTBOs3spqEdzGA3rGTLVk2785RTxOJgQQF2RRwjmk9IVwliDoBz4oDvSaL+Jyhwly0dlJCXJdHU4H2RJCS7aIsKrNfDHNVTC2Zvn6cyKrgRKTmnJmN6EbzYpM+XoXXXkRrtZyaj8fr5qwc7E2LywxokFPslPAYydOZS5eUtJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436340; c=relaxed/simple;
-	bh=MQ0fuE4WyjBewW1NR5Qcjs4IjsnnY2p/t7h3xiC9F9c=;
+	s=arc-20240116; t=1789436341; c=relaxed/simple;
+	bh=1yspUFk+ZP+kidYzHfTSzl9kf4gMmKFWBNYIxaJUT6A=;
 	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=AuTcWp/chY2FjDE1mKRRJUTHACdpyg6BTzq2g4WB7s7XZIoXjE5gicbajCZzjJuba+hlukpBnHT8IttK1Ga7dc/O1frXxXr0IZlmk+RH1qQFdsEGkmsJTwH1jXH3BYQiFNN2od0KvIqs5Lgn2jd5DQLobpCnnhH1OTr9t41RET0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+	 Content-Type; b=ju1CWgxVxJFx676FcuMaBd9aP65URQJ1jdu+/K5KWchGzn4ircdtnQQ60GJC3Shi8zKLDQtxvx8LuHM1XcbzySviKngCs1gLpS1f23+SPqTKcqCJcgX1oMOeGa2SdfwDPzDrBXJ37Zhp7GqxSSTdSpvacyyG0E0scybe0Hhhzfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a7de733fa9so5250687b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:58 -0700 (PDT)
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-455ad408573so7120354fac.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789436337; x=1790041137;
+        d=1e100.net; s=20260707; t=1789436338; x=1790041138;
         h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Jy4GOhYeO1ZHo/3pivXDnL7Kl7+K8L2Mt8dmTrpWuS8=;
-        b=B7ezpNutTuLeKDUBXOw23gQYBahPtaidZL4LAve2MkI2dyFN8wy+aO6hnOmZIAXRDm
-         Forfi7QcwexpMzCwMGVgGuwFHVcBK+blV2MNAqLbDpeMwahRslnBVNZTdY+rYgS+KTKK
-         ojviG2lhSJFwkvKZ03ydOxFyZlLtMHzNB8q/CrIBUeWD+N0Pqu4fA/471gbUJcrCgAul
-         3f5Zg8B5/kyar+o4foDPGXwUGfMu9duKy0wJnCU/T5M+1FVHxz9jKlfaDv5wrhrqLhD6
-         eFStgRRBOtStGSi1lqeHCnMfTjMbwnMxiAsZhXJXYUg3mzFyJATjOoLwv/hIKJQqonB2
-         27JA==
-X-Gm-Message-State: AFuF++mUrevawbfIMcqXZdBu9fiEJdjVQLV2CTWZO/BL7iVVp7S1aVlk
-	zpi1tmZrUtAFflxQizflu+kv1mf406Hn45UezOpncqAmGax4HLKkhNfaD+92+yaYtWT1Z0OeN6I
-	rNeTl42PEXXuz6wxuviPScjUuNOA0zrYazMnS9rCTTVO3SSP+aH2rCvzfbKM=
+        bh=y3EalpK+7xuIw9kXf4+DwCO8EgrZQj8B4NNl9QS+vhs=;
+        b=ospnVnK1quDbfvKoZjBb9HNtQLDfhya1evxD/K5V50gnYLPePinXvbPeT4udVz0GOM
+         lUcdWB6QX7UbFf5xj+YvId+fKDDz6qxcUBksWgHNm9tY94XJJlAT0R6b2u6f5zl6Vrtw
+         mqIg2UirfmlfHOUFxkQkWus5tbfj0kDelGSrGtvB8IFhPsmjtelJS3lnXRba3DAbyEqL
+         qgd/yPLQVcCw2zwvQm3c6KeICVNTseZ3g3tVno/oL70CIR0d4E2dBz63w11iFCrG07hu
+         2Rk6nexTCn1TH1lGeSMkMBUn7Ms2VBpBYrLgDconsxu5iILfdsxQRME71vX/JdskwBYR
+         WrjA==
+X-Gm-Message-State: AFuF++nCa58v+LffpXIQta0YY4lXEyKRCCj/j5pVovVeDqRbqxFgMZet
+	/kcBjm/Bjtk6UCj+aHCH5CCD3flAw40u+BD9u0gX9rTXSKW+DH1Nnk5SYtPez+YjsuDlRiVcVvC
+	y2V9EM/M86RX9CfaZTJ4w5429U6UwBnGZUuazrNWbqfaA476HYpjfh+Rlv2M=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f014:b0:6be:9627:194 with SMTP id
- 006d021491bc7-6c540a68066mr3082462eaf.25.1789436337396; Mon, 14 Sep 2026
- 18:38:57 -0700 (PDT)
-Date: Mon, 14 Sep 2026 18:38:57 -0700
-In-Reply-To: <695faa63.050a0220.1c677c.039a.GAE@google.com>
+X-Received: by 2002:a05:6820:1ca1:b0:6b1:535a:eb8 with SMTP id
+ 006d021491bc7-6c53fd884f9mr3325193eaf.2.1789436338722; Mon, 14 Sep 2026
+ 18:38:58 -0700 (PDT)
+Date: Mon, 14 Sep 2026 18:38:58 -0700
+In-Reply-To: <6a8cf1e8.dbb3a75c.7844.001a.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa8a1b1.a211d2ce.1a5198.02a2.GAE@google.com>
-Subject: Forwarded: [PATCH] UBSAN: array-index-out-of-bounds in dbFindLeaf (2)
-From: syzbot <syzbot+1afe7ef2d0062e19eeb3@syzkaller.appspotmail.com>
+Message-ID: <6aa8a1b2.4c28b7d0.c1bba.002b.GAE@google.com>
+Subject: Forwarded: [PATCH] WARNING: ODEBUG bug in vub300_disconnect
+From: syzbot <syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com>
 To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
@@ -55,27 +55,40 @@ linux-kernel@vger.kernel.org.
 
 ***
 
-Subject: [PATCH] UBSAN: array-index-out-of-bounds in dbFindLeaf (2)
+Subject: [PATCH] WARNING: ODEBUG bug in vub300_disconnect
 Author: jchuang26@m.fudan.edu.cn
 
 #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Reported-by: syzbot+1afe7ef2d0062e19eeb3@syzkaller.appspotmail.com
+Reported-by: syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com
 
-diff --git a/fs/jfs/jfs_dmap.c b/fs/jfs/jfs_dmap.c
-index cdfa699cd..53642b1ec 100644
---- a/fs/jfs/jfs_dmap.c
-+++ b/fs/jfs/jfs_dmap.c
-@@ -2971,7 +2971,11 @@ static int dbFindLeaf(dmtree_t *tp, int l2nb, int *leafidx, bool is_ctl)
- 			/* sufficient free space found.  move to the next
- 			 * level (or quit if this is the last level).
- 			 */
--			if (x + n > max_size)
-+			/* stree[] holds max_size entries, so max_size is
-+			 * already one past the last valid index.  Use >=
-+			 * to reject it and avoid an out-of-bounds read.
+diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
+index 2dae474dc..5b30303ad 100644
+--- a/drivers/mmc/host/vub300.c
++++ b/drivers/mmc/host/vub300.c
+@@ -2382,10 +2382,25 @@ static void vub300_disconnect(struct usb_interface *interface)
+ 		} else {
+ 			int ifnum = interface_to_InterfaceNumber(interface);
+ 			usb_set_intfdata(interface, NULL);
++			/*
++			 * The inactivity timer holds a reference to the host
++			 * and can be rearmed by work items.  Shut it down
++			 * before clearing interface, otherwise its callback
++			 * can drop the timer reference while a concurrent
++			 * work item is rearming the timer, leaving the host
++			 * to be freed while the timer is still active.
 +			 */
-+			if (x + n >= max_size)
- 				return -ENOSPC;
- 			if (l2nb <= tp->dmt_stree[x + n])
- 				break;
++			timer_shutdown_sync(&vub300->inactivity_timer);
+ 			/* prevent more I/O from starting */
+ 			vub300->interface = NULL;
+ 			mmc_remove_host(mmc);
+ 			kref_put(&vub300->kref, vub300_delete);
++			/*
++			 * The timer is shut down, so it will no longer drop
++			 * the reference that was acquired for it in
++			 * vub300_probe().  Drop it here.
++			 */
++			kref_put(&vub300->kref, vub300_delete);
+ 			pr_info("USB vub300 remote SDIO host controller[%d]"
+ 				" now disconnected", ifnum);
+ 			return;
