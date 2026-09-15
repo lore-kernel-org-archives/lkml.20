@@ -1,89 +1,74 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E86B4CC292;
-	Tue, 15 Sep 2026 18:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DEAB4CC292;
+	Tue, 15 Sep 2026 18:56:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789498602; cv=none; b=LloNnKY9A0yDreY1m0jnEXrOr818QKdLAX0sHebC9V+g3O/EWzHyeAJslkWWAeU7iPOSTrxRSXc9VrujHct2EXrO5LzXYKRIsJAU74xFeO7GPclqM6qr3xFzc/DLC6FzvuI9Zh3MWI7bdxbomHcVKzgCqN+u9ViRR6jiapug5CM=
+	t=1789498611; cv=none; b=OXDguuqG90RzwbgIHRmFtil7T0NRI5tMQ0XhoSIArXXQc1xHcIosCsjrCOXNaF3gAODEPmU/G6mDhSG4eRiTAcWazF/5fHkwmlr3By2G1Jd3L0I0KIgli/uoQmBBMIHu6yH8wnhMRivSjw02ppDK7wGDsW2QVmSuldQpDrOzgl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789498602; c=relaxed/simple;
-	bh=EDn0+1E7Yshbd0kRZWyFRJ9+bGgFoE73iFEDBFw05Yk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=cxpmtE1raTFEwShhGm067mx+jRNYdq3MfruqKYTQBLF0N+VTPiCBT245i44hIDiF1kuXimU+bAPBIbprhvnddsxwp4lB9Zyf3aq8hEqV69SHPnPg0liskoI9yRYrDYq53B7xpMSoReK24yhnxIA6Ps7pg6xqJTfk/hPA84gaGDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=UzRWKz/g; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1789498611; c=relaxed/simple;
+	bh=aOznO4V+wW0XukDe2WGO3DuI3hjH/v86lD1a01h/kc0=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=lNq1scUu3m8gdNwiVbsnaU1EINcTs3IcwK1/MP09BAbJ47qCic32zqHSE/oN4BeNNzw5LsjqUxIgnLUv9vJ7V2knGXwo9miYvXWugPBw4mFrvwzzIhd6snMrlTZcqtRwCMT9RUfyLFqB+YEOeG2cb2c4Q8QkHShgN26tdCHB1vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BdbcG8n9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="UzRWKz/g"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net BADDF4090B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1789498600; bh=Rsepp53wmdFvcjhxH+SZlO9xP8vtYlvbJCuU3Gb4BxE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=UzRWKz/gL76bsYRzmkkw/cMgDVoueXkuRGyY22r868vyVRyL4uuDAFl/JkG7Ug52l
-	 99PnMEG5jFR5yrrXVGSCn1cHcIkuGShrvhhpDXGpeMJZ949ZjXtqGzC5k0rI6JCcat
-	 f45CC2dmBV6xGKorRvqwj9liU09AT6gO1D2xu3I2jRHpJ+jbVXXfDVsXOmVVfrkgfA
-	 q1cLQJbqzUYUdbez6d8MUZUOACBWXYWGWVF2SZcZDmxsLbetTtHqXSFJ5LTN3q/VP1
-	 CBLKOYDgX9X5GaQd/CsL9n1gKOv4hdaNC5DPUPaLw1TJEEl5wzgPbbDNw02q5PTy6X
-	 A3KZZAVwdKAcg==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id BADDF4090B;
-	Tue, 15 Sep 2026 18:56:40 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>, Michal Simek
- <michal.simek@amd.com>, Ronak Jain <ronak.jain@amd.com>,
- linux-arm-kernel@lists.infradead.org, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH] firmware: zynqmp: use literal blocks for commands
-In-Reply-To: <20260914060615.1398531-1-rdunlap@infradead.org>
-References: <20260914060615.1398531-1-rdunlap@infradead.org>
-Date: Tue, 15 Sep 2026 12:56:39 -0600
-Message-ID: <87ik469wd4.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BdbcG8n9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1B5C1F00893;
+	Tue, 15 Sep 2026 18:56:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789498610;
+	bh=brPSm0i0iAPhu0vw8QLPXoS87QOKCyUejOTNe1Qi6qM=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=BdbcG8n94+7uP5IGMz+16HmjIKSh8JHfrDSLAQp/OZfPFaE+NhpzYz1x6jXhy5YPw
+	 u6sx3PcY8F0PBED1VvqlWUtr3vqvS3jcAyhUtvECjg/WqoPbE2PEQKEHaYjQXFw+6f
+	 EzOmP0cDmJ1jLfGBGHnketz1IMX0V9qVeOeqKOrxeb9uJfLe2xuVlz/maQrwNka9TW
+	 72ZOvBeiYAa8gkW5VI2SYm22NUqRfFRw/bAdQHZVhFgGN6IO3lEaP3wPdFqdM4SdZ9
+	 +Md5xmMchqenebhpeCAiVfF/KUdMYlKzWnKOAkUsIOyPXgd1EcFo+zZSUOLnzFXO0h
+	 AzqCJn1pnGVlg==
+Content-Type: multipart/mixed; boundary="===============4463277524376841096=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Message-Id: <79c55d1971d336ea0800c17110521f8e2db8b838d5ca53199b25de7f299d7b71@mail.kernel.org>
+In-Reply-To: <20260915-libbpf-log-buf-fix-v2-1-2feca3fa4842@gmail.com>
+References: <20260915-libbpf-log-buf-fix-v2-1-2feca3fa4842@gmail.com>
+Subject: Re: [PATCH bpf-next v2] libbpf: Fix program log buffer size validation
+From: bot+bpf-ci@kernel.org
+To: luisflavieira@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev
+Cc: mykyta.yatsenko5@gmail.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,luisflavieira@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 15 Sep 2026 18:56:48 +0000 (UTC)
 
-Randy Dunlap <rdunlap@infradead.org> writes:
+--===============4463277524376841096==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> Use literal blocks for 'cat' and 'echo' commands to separate them from
-> the surrounding text. Otherwise the lines run together, without any
-> clear break before or after the commands.
+>     libbpf: Fix program log buffer size validation
 >
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> Cc: Michal Simek <michal.simek@amd.com>
-> Cc: Ronak Jain <ronak.jain@amd.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Jonathan Corbet <corbet@lwn.net>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: linux-doc@vger.kernel.org
+>     bpf_program__set_log_buf() checks the existing prog->log_size instead
+>     of the incoming log_size argument when enforcing the UINT_MAX limit.
+>     As a result, an oversized value can be accepted.
 >
->  Documentation/ABI/stable/sysfs-driver-firmware-zynqmp |   70 +++++++---
->  1 file changed, 50 insertions(+), 20 deletions(-)
+>     The setter also accepts a non-NULL log_buf with a zero log_size, while
+>     bpf_prog_load() rejects mismatched log buffer and size values.
 >
-> --- linux-next-20260911.orig/Documentation/ABI/stable/sysfs-driver-firmware-zynqmp
-> +++ linux-next-20260911/Documentation/ABI/stable/sysfs-driver-firmware-zynqmp
-> @@ -141,32 +141,44 @@ Description:
->  
->  		Usage:
->  
-> -		Select over temperature config ID to enable/disable feature
-> +		Select over temperature config ID to enable/disable feature::
-> +
->  		# echo 1 > /sys/devices/platform/firmware\:zynqmp-firmware/feature_config_id
+>     Validate the log buffer and size pair consistently with bpf_prog_load(),
+>     and check the supplied log_size against UINT_MAX.
+>
+>     Signed-off-by: Luis Vieira <luisflavieira@gmail.com>
 
-I was sure that this wouldn't work, since the literal block is not
-indented relative to the containing text.  Sphinx does the right thing,
-though... so applied, thanks,
+This looks like a bug fix. Should this include:
 
-jon
+  Fixes: 847b98421362 ("adding ci files")
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35007077686
+--===============4463277524376841096==--
