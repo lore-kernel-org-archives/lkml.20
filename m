@@ -1,104 +1,211 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F823C870E;
-	Tue, 15 Sep 2026 13:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A0B3C98B7
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:40:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479582; cv=none; b=ADjhQM/mAxdirE8mfUSq6ArTeN3K2FKQOpx5cTkPZ6XqYpnWVAGArXVUzsmCVCWLEcQkRFcNs1+McE72DNCvLfppJPQhJ9hmdFEBzsrr2lB6Bd+niX+dj9pS/pdNgmb7e4uvFKZrAtea1RD962c4yDsy3x8ipz+bCXdf8lrdTJI=
+	t=1789479612; cv=none; b=Dqo1W2s75VQn4kC0nQ7S+cUujtI4y+kojC7/IcCb+uas1NB2hIbG0Obw2WmMceUABKgzZ6ZOB8InFGAq3EXOwwT/OgV7n/SDusmoV+2g54ZeYKy2QDO6TXuGSnEszKPl6RMc0PoKxJA/t275YvgOdztIWoInMRfVE9j/637Cp2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479582; c=relaxed/simple;
-	bh=tZSU09jDCsIk/tpoX25HEUkW1egfskgNv1nvZG1Ds40=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W48G/1q0k0z10bwkdTJ8xqumkqQ/bKdKob6f7xF2mdKtT4Qvzy4JLdBH4X0x7Tv+j67vu0u+J8plg/AGQiY+4Aqj/7FA7yxjjX9enTkpMCrATHqHNfHmPlFCoocJI56sGTqfYXzCj34BFJZU+sJpQ3uFHb6dwvPakO7zQCqbB/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=BANf+DRv; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1789479612; c=relaxed/simple;
+	bh=EWMKE1cMHzUAeCouhF+AX1AoM+Adw5WqktTeUASxVbk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ECpxo4QMXPJUmVifVEbESlFeXG+LKpYoZjiyUrEfLJkWzvtA7ImFTWh1HAGZPJzAFSSFSKcQkhjLCjjfkRYHLa9vSvFBQK1KmcFVkZu9YkzDcrbgd1beEeDHrP6J8aUm3ndY6gfKsUiSGfa7gXE0tgyod+SG5ZGGh8++ExuBOvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=vp9VXWye; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="BANf+DRv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Reply-To:Content-ID:Content-Description;
-	bh=tZSU09jDCsIk/tpoX25HEUkW1egfskgNv1nvZG1Ds40=; b=BANf+DRv0G7ET6nd+Q02kEYT2c
-	vD0Mdmy0esC2oiO1N8yesVKAZLUPkTsnz8o42k+YjQG4Z+8iuYgTcrL0MNA6PbeaKganDKnzH1Y6o
-	dz1s24SikbwO6UvoBwIl5MOsySvfek4zhd34ghQRFqhlMs76eRAiXy7gCoWV3PKofIQOYDmDdmZ+z
-	8umNKp9aZ7sYSbOGScmRPisgvY7fTzJF4LhfQfgaYtHzp+aE8umHMErYILFzLYv+cC6N8zV0soirE
-	MzgEa0+BS6oIJQ04ge7Wt0Df7pee81AIR4q7tocqaLjyrupAkjIJjTRtDxCT86XCyk5TrACr2je2b
-	QoiL60yw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x6TN9-004QnQ-0c;
-	Tue, 15 Sep 2026 13:38:55 +0000
-Date: Tue, 15 Sep 2026 06:38:47 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Harry Yoo <harry@kernel.org>
-Cc: Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>, kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	rmikey@meta.com, riel@surriel.com, kernel-team@meta.com
-Subject: Re: [PATCH v4 2/5] mm/memory-failure: libstub: install the
- poisoned-memory EFI table
-Message-ID: <aqlI264D-PxJzPWb@gmail.com>
-References: <20260909-hwpoison-kho-v4-0-359313564495@debian.org>
- <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
- <2c9a7bef-3189-4f78-a6cb-61d2f7afd643@app.fastmail.com>
- <aqKhgPKzRf0e22s3@gmail.com>
- <aqkIdVhoG2wwVBtb@gmail.com>
- <aqkyT0Ui9h5KWuzn@thinkstation>
- <aqk4NUnq92ftuUuJ@gmail.com>
- <aqlFnuIIECOyaweo@thinkstation>
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="vp9VXWye"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4ad9so1729845e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:40:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1789479607; x=1790084407; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ykxCYAC0u7mqojbnQETjhBnm7QCYzlX2vdn+ds5acHA=;
+        b=vp9VXWyeH10sQ272qxTqqeWjfugtfJGvMEZZZneeLZJ3gSLWcEnAoVyIHE+SV/0Ozm
+         AcJNBE1OFzFeD1YTJNNsKX2hcMDgTXY9t3sLl0QFkOyuMEksJFWI3ucsa0RhlnNz5A70
+         V2ZhnGPnI6lFMbFlCvg2N4Cp6HHAWtUh0ROYzT67K33G8P5tIMQkM//SyDIRAwWsSseR
+         x+ryPQBJjxRNTi0R0ZAYNqKbcwsZpoRwqMzkPvV2SKbLmozlB2+2JLeDgdZHDJqbyQsT
+         0du3sZIqKKquEjwjm5Ku0oN9DqHbNkFP/AwDKeT+CA8OsT8x3vDLsEWDrTRGowuTvfBg
+         NzpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789479607; x=1790084407;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ykxCYAC0u7mqojbnQETjhBnm7QCYzlX2vdn+ds5acHA=;
+        b=AwgLNjVvwNv7lVnrEgKcgcYsFMM32bvUNIlcPI0YitYXDq3TmGRRZnOHdVRu0JDW12
+         nxaxH39/hIXqzTEJs4ThF56WV+Wt9b4TiqVOg4xfs8lf8vfYwTttR4cRAm2ZVMyBCNmy
+         Kj1p5bjS4w/O+zmD5RQDOaRJ0h9206daBMs2jnPeB8v0qgng4QBDd1n53YHw+gBdrLsX
+         6ll/qY0v7NvpIP4y7SWwsRnA1ErhYIfFBYX2KwnjLDrTubrlmOuZyepWtUGbCzyk8+Zt
+         +SybIdxBVkxv0PPSKjgbww7f+XseAGnEbMv3eSd6tOmMpJwiaCGxGSgtWE9S/+djFNWe
+         13MQ==
+X-Forwarded-Encrypted: i=1; AKwUvByB61NqJBvIbI7Hb/r+7XkCoLFFoq+04lWdy8M4bGtZJCYmcz/I8lxhkjATmPRzSzV1QZm2Z5/Tbudx65Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nb/86K1GI+FHRGnZT8rrXZM2RmN42janxjge15eGPhBi3RoKFn
+	myKd4zeN+AKu6/kpUamtLE0ZXJbwZEJLwlAubrPxRbOz4O8VJOvl8J7ztEv79v01ouU=
+X-Gm-Gg: AYBFou1A+nabbm2MTKTc59tRJ2uodDrz9j4mvMM/d9+bY3NDRZWx4mYKT1ABXMGdrcK
+	T4kx07JtXJpXJuOjE1d1AiecO0FDu2c0Eg/kIehmCpcHOWDPnpCT5VfDsk9zFVjjpzK9CAGxLoR
+	FP2apPspJ2OfYz3elflmyrgxO+WNTdPXMf4JH7CNgkqRxVR74TH+TyctJQOkfGlWuW484II/Gh3
+	7R59yGaaBxDJRN5RO9ucc6IlcPbXwqI+RQpUCmqaVkY2E68t7t7ivwj3fWWO/aMo/7aV85tNcF/
+	LVepUHASBPAJcDZ/TpVHNV4NwVQOGePis8ulJrP4uy1+1dj1lSxWOxVGHO/0FLS1z2y3IVYK/Mk
+	jCQ1oM44lgrqnhEu0tBaPEroiO4+MZ8xstihaIdVWsDUyG2IrMjbMnceEroVVB10alBMHJtRa9+
+	NN/RZ9DBLv+Y/8ZPWQ30Zo4d/lXKUJ5TIvjnEkr42J0a9AwqPTOU8/tDfsHt31FsHyI67cegalX
+	FpnGoLb9ZABMkMo
+X-Received: by 2002:a05:600c:83c7:b0:49e:816a:9bae with SMTP id 5b1f17b1804b1-49e822a9544mr19692315e9.28.1789479607411;
+        Tue, 15 Sep 2026 06:40:07 -0700 (PDT)
+Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:3982:f973:cc12:b701])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef6bc50sm66914935e9.3.2026.09.15.06.40.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 06:40:07 -0700 (PDT)
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Tue, 15 Sep 2026 14:40:04 +0100
+Subject: [PATCH] hwmon: acpi_power_meter: use named initializers for
+ acpi_device_id
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqlFnuIIECOyaweo@thinkstation>
-X-Debian-User: leitao
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-acpi-hwmon-v1-1-20747f6fd218@thegoodpenguin.co.uk>
+X-B4-Tracking: v=1; b=H4sIALNKqWoC/yXMTQ5AMBBA4avIrDVpm2jDVcSCMRiJktZfIu6uW
+ H6L9y4I5JkCFMkFnnYOPLsIlSaAQ+16EtxGg5bayFxlosaFxXBMsxNKS6PQGtughRgsnjo+v1l
+ Z/Q5bMxKu7wHu+wGS5GDHbgAAAA==
+X-Change-ID: 20260915-acpi-hwmon-12061c767bc7
+To: Guenter Roeck <linux@roeck-us.net>, 
+ Luca Tettamanti <kronos.it@gmail.com>, Cosmo Chou <cosmo.chou@quantatw.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789479606; l=4339;
+ i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
+ bh=EWMKE1cMHzUAeCouhF+AX1AoM+Adw5WqktTeUASxVbk=;
+ b=qvXxsAp6YO6juJlqrdZPUUBoaszCbkOQb7S8zNP5krbGMsx1uFMkOp8227jJOOHd7yHL4IZuH
+ Td+ZFjJ2pS2C5MHWmYHqPjoefl+D4pYJ6qSv7HW08Hg9esvCRIeKfaN
+X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
+ pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-On Tue, Sep 15, 2026 at 02:31:38PM +0100, Harry Yoo wrote:
-> On Tue, Sep 15, 2026 at 05:39:44AM -0700, Breno Leitao wrote:
-> > > Also, I wonder if some architectures have a scattered set of pfn
-> > > ranges so that the span from the start pfn to the end pfn being much
-> > > larger than the actual physical memory size.
-> > >
-> > > If so it might make more sense to have a bitmap for each pfn range.
-> >
-> > Agreed, having a ->next in linux_efi_poisoned_memory is a good idea that
-> > we can lean on depending on whatever problem comes up down the road.
-> >
-> > Very good point — let's keep this linux_efi_poisoned_memory chain idea in
-> > mind for whenever we need to expand it.
->
-> You mean 1) keeping the structure as-is for now (and expand later with
-> new EFI table version) or 2) adjusting the structure in the future
-> revision of this patchset?
+Use a designated initializer for the acpi_device_id fields which makes the
+code more readable and consistent with how lists are initialized in the
+rest of the kernel code base. Also drop explicitly setting fields to 0
+where it is redundant.
 
-I'd say option (1): keep the structure as it is for now, and only adjust
-it once/if we actually decide to implement the hot-add use case.
+Unify the list terminator to have a single space between the brackets and
+no trailing comma.
 
-That's exactly why I added the "u32 version" field to
-struct linux_efi_poisoned_memory, so, it can be expanded later.
+Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+---
+This series is converting lists that contain the acpi_device_id struct,
+which is defined in the include/linux/device-id/acpi.h to make use of named
+initializers (which they do not use currently). This work is part of the on
+going effort in the kernel associated with device-ids [1]
 
-Version 1 (this patchset) covers the common, basic approach. If down the
-road someone sees value in extending it to other use cases (such as
-hot-plug), we can bump it to v2 and add a ->next field then.
+The plan is to convert acpi_device_id::driver_data to have an anonymous
+union, similarly to what was introduced for PCI and I2C device ID tables.
+The goal is to increase type-safety (most of the existing casts are gone),
+to improve readability and to make use intent a bit more clear:
 
-What do you think?
+```
+union {
+	kernel_ulong_t driver_data;
+	const void *driver_data_ptr;
+}
+```
 
-Thanks for the review,
---breno
+But for that to work all lists containing the structs need to use named
+initializers first to avoid triggering -Wmissing-braces. I already have
+patches that implement this and touching a lot of kernel subsystmes that
+use the acpi_device_id struct and that list keeps on growing. Therefore,
+I have decided to split the series per every subsystem into:
+- pre-clean-ups that convert the lists to use named initializers
+  (which is this series)
+- actual implementations that make some of the modules use the new
+  driver_data_ptr member
+
+That way the task can be fragmented into manageable and independent chunks
+of work and makes this effort easier to review.
+
+Tested builds on x86-64 in Yocto using 7.3-rc3.
+
+[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
+---
+ drivers/hwmon/acpi_power_meter.c | 4 ++--
+ drivers/hwmon/asus_atk0110.c     | 4 ++--
+ drivers/hwmon/pt5161l.c          | 4 ++--
+ drivers/hwmon/xgene-hwmon.c      | 6 +++---
+ 4 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
+index 8a539e8d1334..d8e871509405 100644
+--- a/drivers/hwmon/acpi_power_meter.c
++++ b/drivers/hwmon/acpi_power_meter.c
+@@ -54,8 +54,8 @@ static int can_cap_in_hardware(void)
+ }
+ 
+ static const struct acpi_device_id power_meter_ids[] = {
+-	{"ACPI000D", 0},
+-	{"", 0},
++	{ .id = "ACPI000D" },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, power_meter_ids);
+ 
+diff --git a/drivers/hwmon/asus_atk0110.c b/drivers/hwmon/asus_atk0110.c
+index 92afb64c09df..868c4e14d26a 100644
+--- a/drivers/hwmon/asus_atk0110.c
++++ b/drivers/hwmon/asus_atk0110.c
+@@ -141,8 +141,8 @@ typedef ssize_t (*sysfs_show_func)(struct device *dev,
+ 			struct device_attribute *attr, char *buf);
+ 
+ static const struct acpi_device_id atk_ids[] = {
+-	{ATK_HID, 0},
+-	{"", 0},
++	{ .id = ATK_HID },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, atk_ids);
+ 
+diff --git a/drivers/hwmon/pt5161l.c b/drivers/hwmon/pt5161l.c
+index 2b408a69b085..1638f54f8eae 100644
+--- a/drivers/hwmon/pt5161l.c
++++ b/drivers/hwmon/pt5161l.c
+@@ -611,8 +611,8 @@ static const struct of_device_id __maybe_unused pt5161l_of_match[] = {
+ MODULE_DEVICE_TABLE(of, pt5161l_of_match);
+ 
+ static const struct acpi_device_id __maybe_unused pt5161l_acpi_match[] = {
+-	{ "PT5161L", 0 },
+-	{},
++	{ .id = "PT5161L" },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, pt5161l_acpi_match);
+ 
+diff --git a/drivers/hwmon/xgene-hwmon.c b/drivers/hwmon/xgene-hwmon.c
+index 38b140c23c88..eebbb741deac 100644
+--- a/drivers/hwmon/xgene-hwmon.c
++++ b/drivers/hwmon/xgene-hwmon.c
+@@ -595,9 +595,9 @@ static void xgene_hwmon_tx_done(struct mbox_client *cl, void *msg, int ret)
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id xgene_hwmon_acpi_match[] = {
+-	{"APMC0D29", XGENE_HWMON_V1},
+-	{"APMC0D8A", XGENE_HWMON_V2},
+-	{},
++	{ .id = "APMC0D29", .driver_data = XGENE_HWMON_V1 },
++	{ .id = "APMC0D8A", .driver_data = XGENE_HWMON_V2 },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, xgene_hwmon_acpi_match);
+ #endif
+
+---
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+change-id: 20260915-acpi-hwmon-12061c767bc7
+
+Best regards,
+--  
+Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+
