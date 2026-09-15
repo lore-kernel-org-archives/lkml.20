@@ -1,212 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB9142AF8D
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789451595; cv=fail; b=mu56WVII96ZTLKXNq6GLfMoGBRI0PEsUsT5TCKdd44RboJmhLX3nIexzpKL3qFsR8oj31L8ItL3sBsjEDgmWhSfHvaKLVGiqQgyBWVDC1JNWtUsFfLCKOhgOkBl0905ATYCa42UoIiDQmoTyx3SflSugQHZecRZJKJKtotUil6o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789451595; c=relaxed/simple;
-	bh=Hn9S4y7JiNC3Ss7TgFoVwmk/DMjKRv2obxj0RaKL9xg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=abcwwKeeX7QctIy/lLSD8FjO7rmb6oasd1A6hnYF8YUQU/xQ8ntmmarp4uUTgS4GlbvjBiFvY1tyb8tYXa8j6lTyjmg+ivFOBw0RN+c9BnShMQuF2ympec88ng8LddEo+EH9h29H5s8ovfezUNdnI9dx871xPrCjfl6VnBpmj4I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bTPdiffz; arc=fail smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA5943DEA5
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789451650; cv=none; b=QXLLDIL126g12sBTu/9hCkbJNsTXkBOp80LtXiZKGEE2/3FbY44BRcmHJfHBKhDnaWPrtGTxZ/XEzh5kEgfkQQBYBlGyDEUVIaJTok1vd5tpUyXHjwXaCn7l7n3C4qFZ2iz/ZNceqDGasRCehcf6OSFdAjryLD762CZ63GhfcQg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789451650; c=relaxed/simple;
+	bh=6pnARJWU8Hn/XLwXN42+gQ7sps7ZUuWfUhevWLlNNPg=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=obfIOfkNXSG5hLVGNCnq7FFdltdnOnM+/WZW9cTxqyNZ0Bbm2nl2oyiPelkhsO+enNNye+j9cjaZHgfaq+Pq3agUOS3NoahZFCMVR7tLonZwyx/cO2sORk0CxN+AOntEEAqkLg8JztuYITWyGvcYAM9HmF1jdoYYdVMf7TZTgY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=F3aR4IMx; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bTPdiffz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789451593; x=1820987593;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Hn9S4y7JiNC3Ss7TgFoVwmk/DMjKRv2obxj0RaKL9xg=;
-  b=bTPdiffzdc8tr/Twa2+R/ckAxsvi3y9eQ4mmZ/HtWjjrDmnqs5A4qozQ
-   H/4NbA2xuyuliLOHSf75P4K+nfaczwf9kni/MzbRi9JHLqm+DpCjVzKXM
-   1CA+8hm6plhl3JVxLftOBNBOo9liKCS9sauLyM2bXxDagZaIA1USQk/2G
-   P0paeNkNEbmhBJJfk1EEL0hkN+vKyd0tuEUkobT2fXkHEzbWH0a57Q94k
-   /uw6LDEu40Z7LrQIkPlNtkGaEyUJpoSt6baMPWJZnwN4HhN8admzlhuho
-   OyiwUGIdF/zeNjAZZkATUFwWv8cv0zDwpWF3K0zLPo6xViGFfs8ympMBg
-   A==;
-X-CSE-ConnectionGUID: 6GC9McubT3SkIHn2pDh/mg==
-X-CSE-MsgGUID: KdatYgRgTT+o9xeiYDhGIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="88943422"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="88943422"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 22:53:12 -0700
-X-CSE-ConnectionGUID: iu4OcfTxSSan/oe/7up+jg==
-X-CSE-MsgGUID: /n8Tx1LsTaKUv/Xaqsj79Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1060058"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa011.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 22:53:13 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 14 Sep 2026 22:53:12 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 14 Sep 2026 22:53:12 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.26) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 14 Sep 2026 22:53:11 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SZ2FNUA8t5xwV8fpV059ml8WwSjojyaXacdCBLCZMHJkXkaAn6tEYZ/03Xxzm1EE7tOiKK3LdDtKVtZ/n+RJV2NIBNbT3sKh1T+f4f+/ZmvQRUUQodySYJJh9FqhAGsmsmkyBSYmiVrwO6ufGudclGh3GKyvlkCgUsAUt6ExL1ziLVHebsejTb8VpKf/CqIqFZL8IgQTG54b4P0FS4QLShPezmcir5ogiXl3g5uUJg+qNipHRr+LSMgeczPVrOcTnnWb+I/TvbqCWafkODgG24rDS/3ghqJWSfVUQWQZaksImQWQI0VdMbnoTYOK3RWxsWDyQIkqfduRiVU2pqHScg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qxLeXtkGH1WD+1sbk0rHVmy+GSUt4vuwZRjNx3paYV4=;
- b=Js+85Nrj7OUsFqcGP9zsD8YAuiO8E6Gubpz/nOxnXbiuUkprZfypBzRipn3KsbHayMIGOmYb+mNQ50s+L7AtAIF40yx5z4uzTdlnW8008MuR4spMmLb26Ng1uJHXMCtObyFbY4jQtEGQJHpJu36SwissoM1E5qxYp0/ykC/lucNe9fltJF60ikaA12zfnMLSVFIWrzWMhO0GVWpLvRT36vqCABXMLA8Ngh2/mtQCtyHtAMTVupAZBh9ruhu0b/MWgvJyKZPsPyndOD9aR947AePTB0fk+c68+1Se732dAOjvVCm79forv9KItV0o3W0zJ+UjOghQ1FFa/UgBCis8iQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::5b) by DM4PR11MB6549.namprd11.prod.outlook.com
- (2603:10b6:8:8e::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 05:53:03 +0000
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::5be7:2ceb:99ef:6334]) by DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::5be7:2ceb:99ef:6334%8]) with mapi id 15.21.0428.008; Tue, 15 Sep 2026
- 05:53:03 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Jani Nikula
-	<jani.nikula@linux.intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
-	<tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>
-CC: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
-	"intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] drm/i915/display: Fix DPLL reserve and release references
- in kernel-doc
-Thread-Topic: [PATCH] drm/i915/display: Fix DPLL reserve and release
- references in kernel-doc
-Thread-Index: AQHdQoiFfXTokIF4w0yYPscp+8kVcrbPJs1A
-Date: Tue, 15 Sep 2026 05:53:03 +0000
-Message-ID: <DS4PPFE901A304FBE5B427A9F07DEFFB035E3BA2@DS4PPFE901A304F.namprd11.prod.outlook.com>
-References: <20260912072946.50769-1-kmehltretter@gmail.com>
-In-Reply-To: <20260912072946.50769-1-kmehltretter@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|DM4PR11MB6549:EE_
-x-ms-office365-filtering-correlation-id: d93bfaa3-615a-4bbc-4b19-08df12ed9b4d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|10067099003|18002099003|22082099003|56012099006|11063799006|38070700021;
-x-microsoft-antispam-message-info: yQQkwFFOvEyZQxvp+3ualOQtRiAIVrb0iup2bFJd+8VZGcoJMbe2ebHnDnZKYO769Qab6WyKbykDp4e+xElCaKpbhqJdTlKtrnWYmMlwfwLSWR1R++8B72OdLhamr3sZpohhGUNxINqjg3KMiNsIDNkBexSA13yh6uZSXIPjMt20lJikZaIE/9CrnKtdvc71FTZBTtg7OZQJSQT0lPDJyAgs3zfhi7m4up/bkqIGUXMaao28QA+vU6ODZXvDDXqHWXquAMYXy3oFFuxU8oyZrRuG2cn+MtD/439l6vTDtm2sWIHokhRGCWLfmvvqIzCbfhfha56XKt9vpsrxU/f+Dr1dldOuOJ+atnSt8xcxX0cLPxSQOKJNaT4ksy+oV8lw4vHYtWLcQvKf3eAO5EA46dRc8PIJ5ZpEtPd3uFm34RjyT0lKSnAX9tCITVV7H8Lb1QMos/ds3RXKT8gpmTiQKyc4N4/0dV+CG+3N6nslPMG8Z3kk5FTXlkjcJiypCbR+/9KSL73heGA4dyuxkK6O5cjrgpSogLgiBeuXyYuPvM9i+PKFEiioWmp4GGoTPlyDnVccQXHNpT78zCpnFzmUYyw9Ad2DmMUcDMSBXyVWMMQORisKhhAAU4e9pWArypiOcsMWqoKYcoCX6zUCezAWAHUzESCs4b9CFzGuRoJxng3+QRPkssNKfveafudco+MizVtJc6b4+N5zjLCdXvTQO2GidWqDfhT6hXSjvkdH2gI=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPFE901A304F.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Aijg6Bn31R8L6Pnk9I5cg95LC1nfCD2zgYr+53fo6UL/uRRbsQGriSvL9Q3J?=
- =?us-ascii?Q?m+0YTlG9Pc6nvbG8bM2srkKo7J7/tjOpfsVqKqL5EMphS9OtYNPmvv0WISo3?=
- =?us-ascii?Q?jO7v0989qzs0CZIK4ocaAadOImdqnxtRasg33tHtKdOaLnLWE+OqDfnlJpI9?=
- =?us-ascii?Q?jVf7m4m1uvQJ7OvoHY7XdvKwy6iUh4zrfAJ85QtlMpfsrbEUvP3v9BrBRSrn?=
- =?us-ascii?Q?3XiyqhpjSjN9m+26ecKuDNevgfzt5eVskrqAmbAab4E6cCZF8iUAwjVjsC0q?=
- =?us-ascii?Q?Qp2jhXIpQrOpSh8B6pR4S6HYOAbz1/xzMlbdtxAO85jZKTfiY4WcEIpHqF8f?=
- =?us-ascii?Q?RTyJduMoNDeqhoa1uCXzmgvmxBWRSJLsgkp9LsYoq00u31cKSHLzfk9Bn/AH?=
- =?us-ascii?Q?/BKA5qh99ZCe0p5wuVmD7ejtupBb/x8G1jpywOGfMTUlAM8NQeJhbZHIfw4M?=
- =?us-ascii?Q?fncekItBXD2zQ8IuXFGd7GKqvGOFIvcPSwoJLaaqwNqJJTPpVHHuaMW15iVT?=
- =?us-ascii?Q?Wsl1EGndblfi0oSW3aAA/7ZHBqZyhnSDGXERzirYRguuWIMKD7yrWUKVPf2b?=
- =?us-ascii?Q?L3xdmHk+20zTnypKxyq3WNKZoKMqY8C8uTuqW+eG/0nESE9ZIsNmHFf8iyHq?=
- =?us-ascii?Q?oSaV7I/05FfI4hZQoWJ719jem9gWPr6JIlYzIDvUrj8R0NizQpDdIjHGUo69?=
- =?us-ascii?Q?Nui+TedwDEjpaWwScGy0lcbOKIzubmguZ9mZ8uQXA0ZGcVIw22sGaqzDwpKw?=
- =?us-ascii?Q?q6O6CVL0ONsUUgb9UlMT7IcNodZ7Wto6e2+H1pw6yJuryw3+n4x1IbIL5STR?=
- =?us-ascii?Q?svu41Ui6vmoJpQkAHBg0biTyCDJb4dw+4y1yH31d9ZzTT/8JKwNnbH1z9yGw?=
- =?us-ascii?Q?UtOSFdU2xj1PlPeVn0slntxBi4/cNGcU3ad8ejIgDukY6GUbrqtDWFQgBsPS?=
- =?us-ascii?Q?F03NziZ8HoEC22nmsp+BIRTe69xBTm9remKgW5YqXns7dceqhDpjKLd7a275?=
- =?us-ascii?Q?4D2e7DdyRsKzEyRoaqMeawk07mKk4cu3KEjuk6ZSlkJgsVQMNwEH5Y9wvHYy?=
- =?us-ascii?Q?VViobb8vhHKFTF9mz3szGTktTh6RaYdzYPgqO/jkNu/1mWKlIx1xLQ/ex6TL?=
- =?us-ascii?Q?qnadEi9x2k6q6lwFbXiWds1p3AKO+Bv54SDKaDZawBXDpWrNnSehqvA3PjgU?=
- =?us-ascii?Q?7Wxd5OL+A+FRukeQLCQiRVkeKNWUznhPoXHtuAii9LjEwIVAaPLED7jikPY9?=
- =?us-ascii?Q?vXIhWtScw2AdfMScnwVGaljsGxmUdFMGQkdQYBL3VvJU4oQbnzspDXi7FsH2?=
- =?us-ascii?Q?eqyMPkQWVGydeqcQ7ci/FlQ+UXLCYqRnBMxDq3JR/X+8UNauVOu3sHaEK8Ze?=
- =?us-ascii?Q?zCBBQaYh83+ksBmQR9NTLtkVr5Hz6H/4WBE+5J6O2c/daVo22ixFl58FgF7y?=
- =?us-ascii?Q?zPx+zwk0spGVod8wH3VYww6Aqh7rmp7kmWnWtxjfP/3zfQQyX5K844A6hXSL?=
- =?us-ascii?Q?S/ju6R80VJUMpQ2OnnhWuJWykvDxejxlhj8LcKNHf//9sVtrsTL7VTD5Zt1c?=
- =?us-ascii?Q?o4INXE04nvf2cTNAw8mJDlBUxC1nPEqsYaxip2630DNutQqM3cEpqMF4vkkR?=
- =?us-ascii?Q?O65NHSe02iY1pt7wnNUgj64IlLQdIfyUhuTaX1tqk/zkJbzmZBsVaDkiLQlh?=
- =?us-ascii?Q?RzTaxavXy+B8dUVtXCsJIxupuXYgcZo2rrdf+MIp2cLWGwCEdiCXuuqgxxZ4?=
- =?us-ascii?Q?v4xqbGH1ew=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="F3aR4IMx"
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260915055405epoutp04e5d5c9abbf42aeea42aa30f2eb8f4ed4~VaMpXL9X33131831318epoutp04s
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:54:05 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260915055405epoutp04e5d5c9abbf42aeea42aa30f2eb8f4ed4~VaMpXL9X33131831318epoutp04s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789451645;
+	bh=6pnARJWU8Hn/XLwXN42+gQ7sps7ZUuWfUhevWLlNNPg=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=F3aR4IMx/qlMGya5Xr0xNdL4TM9u53nAUc3/581RY3B5kcT8G1qHipkiClM6AnGv9
+	 qOfCc8mW1NW5RZ0VvZj41ThXyPaB5mMRVLZuFF5dSbe7E++tYWmK34Xt3labPalbKw
+	 ZoD3NSLlD4SFVRbR7y+BOBtJmLe6xC3iA+o/TNzw=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20260915055404epcas5p27df422b565f6cdd3834007c781f48090~VaMoi1tW-1755617556epcas5p2R;
+	Tue, 15 Sep 2026 05:54:04 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.94]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4hkWRb1vf6z2SSKn; Tue, 15 Sep
+	2026 05:54:03 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260915055402epcas5p1d4131ca25d791c6e4ba38ced99f1e29d~VaMnCxL-F1505315053epcas5p1m;
+	Tue, 15 Sep 2026 05:54:02 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260915055400epsmtip137fa43b73213458bcb593794a8e06add~VaMk7hdm70286302863epsmtip1j;
+	Tue, 15 Sep 2026 05:54:00 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Selvarasu Ganesan'" <selvarasu.g@samsung.com>, <vkoul@kernel.org>,
+	<neil.armstrong@linaro.org>, <krzk@kernel.org>, <peter.griffin@linaro.org>,
+	<pritam.sutar@samsung.com>, <andre.draszik@linaro.org>, <kernel@lvkasz.us>,
+	<linux-phy@lists.infradead.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Cc: <jh0801.jung@samsung.com>, <dh10.jung@samsung.com>,
+	<akash.m5@samsung.com>, <muhammed.ali@samsung.com>, <thiagu.r@samsung.com>
+In-Reply-To: <20260831070309.158069-1-selvarasu.g@samsung.com>
+Subject: RE: [PATCH] phy: exynos5-usbdrd: Use dynamic phy_cfg size to
+ prevent OOB access
+Date: Tue, 15 Sep 2026 11:23:58 +0530
+Message-ID: <01e001dd44d6$9c203730$d460a590$@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: FVzKz4+el+9as3lDcFsIkpsVPex/eholvgOoupuOsQCHDYMU6j+ISMYurP1BvJLpcMr/DlNsio1GcTRS0icPjsvf/4JwqrW1Xygs+E9Jw1wPO+6uvtL8K4nFXH+XKX/XvAQfEn0BS+uI/rKxkjERZjRQ98mkQQ2oPTTtqLGli4h8W5kjvRoB8G4kL+oexIVGsnGhf3C3OlygPLS0PWr2qkWefHUBcP0o+61wrWrAaU91+crzCzsmEnThm6aRKCAzLYnqO55aSz1hQTAtkc74PdqfpLPCIva47tbLG3fKZHsI91wv2VhcuBkfcHpkE2c5rC/yr/yD+oC0gh6grgwBNA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d93bfaa3-615a-4bbc-4b19-08df12ed9b4d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2026 05:53:03.1514
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yd+uRUz9joN4t3P/Ks+eYS0rs7Sm9C7MhxPypjjmHcslKwYy9vWr5SrmJpi11TEcXbS3Weibn7g2hPit7Tc55g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6549
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGKDVFXPtvwg5u1EEO2Agv0acLiRgJK+Mort2M6G0A=
+Content-Language: en-us
+X-CMS-MailID: 20260915055402epcas5p1d4131ca25d791c6e4ba38ced99f1e29d
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0
+References: <CGME20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0@epcas5p4.samsung.com>
+	<20260831070309.158069-1-selvarasu.g@samsung.com>
 
+Hi Selvarasu
 
-> Subject: [PATCH] drm/i915/display: Fix DPLL reserve and release reference=
-s in
-> kernel-doc
+> -----Original Message-----
+> From: Selvarasu Ganesan <selvarasu.g=40samsung.com>
+> Sent: Monday, August 31, 2026 12:33 PM
+> To: vkoul=40kernel.org; neil.armstrong=40linaro.org; krzk=40kernel.org;
+> peter.griffin=40linaro.org; alim.akhtar=40samsung.com;
+> pritam.sutar=40samsung.com; andre.draszik=40linaro.org; kernel=40lvkasz.u=
+s;
+> linux-phy=40lists.infradead.org; linux-arm-kernel=40lists.infradead.org; =
+linux-
+> samsung-soc=40vger.kernel.org; linux-kernel=40vger.kernel.org
+> Cc: jh0801.jung=40samsung.com; dh10.jung=40samsung.com;
+> akash.m5=40samsung.com; muhammed.ali=40samsung.com;
+> thiagu.r=40samsung.com; Selvarasu Ganesan <selvarasu.g=40samsung.com>
+> Subject: =5BPATCH=5D phy: exynos5-usbdrd: Use dynamic phy_cfg size to pre=
+vent
+> OOB access
 >=20
-> The intel_dpll_state documentation still uses the former reservation and
-> release helper names. Update the references to intel_dpll_reserve() and
-> intel_dpll_release().
+> The probe loop currently iterates using EXYNOS5_DRDPHYS_NUM (2),
+> creating both UTMI and PIPE3 PHY instances regardless of the SoC capabili=
+ty.
+> Several SoCs (Exynos2200, Exynos7870, Exynos850, Exynos990, and
+> ExynosAutoV920) provide phy_cfg arrays containing only a single element.
 >=20
-> Fixes: 2b3b9a8faf56 ("drm/i915/dpll: Move away from using shared dpll")
-
-Idt this requires a fixes tag only for comment update
-
-> Assisted-by: LLM
-
-Please use the correct format check other commits
-Should look like=20
-Assisted-by: GitHub-Copilot:claude-opus-4.8
-Or=20
-Assisted-by: Claude:claude-opus-5
-
-Rest LGTM
-With above fixed
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-
-
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> On these SoCs, when the loop reaches index 1, the driver reads past the e=
+nd
+> of the rodata array, populating the second PHY instance with garbage data=
+.
+> Since the configuration structure contains critical function pointers (ph=
+y_isol,
+> phy_init, set_refclk), any subsequent access to this PHY instance via
+> exynos5_usbdrd_phy_xlate could result in a kernel oops.
+>=20
+> Fix this by adding 'n_phy_cfg' to struct exynos5_usbdrd_phy_drvdata to
+> store the actual size of the phy_cfg array for each SoC. Update the probe
+> loop and the xlate function to bound their access against this value inst=
+ead of
+> the hardcoded EXYNOS5_DRDPHYS_NUM.
+>=20
+> Assisted-by: Claude:claude-sonnet-5
+> Signed-off-by: Selvarasu Ganesan <selvarasu.g=40samsung.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_dpll_mgr.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-> b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-> index
-> d408ccf6f9025667177e411e5c2cef72cc30aae9..cec6208fa7535ba77c203999bc
-> 75b3c077a94a5d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-> @@ -302,7 +302,7 @@ struct intel_dpll_hw_state {
->   * future state which would be applied by an atomic mode set (stored in
->   * a struct &intel_atomic_state).
->   *
-> - * See also intel_reserve_shared_dplls() and intel_release_shared_dplls(=
-).
-> + * See also intel_dpll_reserve() and intel_dpll_release().
->   */
->  struct intel_dpll_state {
->  	/**
-> --
-> 2.39.5 (Apple Git-154)
+Reviewed-by: Alim Akhtar <alim.akhtar=40samsung.com>
 
