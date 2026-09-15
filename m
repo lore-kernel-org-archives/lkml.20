@@ -1,257 +1,173 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9863BCD29
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:21:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7450C3BCD29;
+	Tue, 15 Sep 2026 06:23:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789453292; cv=none; b=ZXroEynAXlBIeqA5aNE3Vg0N2viFuXhSQAXRyRCXLu0v3/9m4I7Wp14MRVufLPNZwMes0Jsjqgou54YWmkv9gAJCFzYNZSf73dYiMiYNxLOBc224fWG0mdMQNCLBA4xJacQ3oIqPwhHiISSBI4SyBOUV4UGoYRxQdOkPdpNlKs0=
+	t=1789453433; cv=none; b=aA+XyN8zs11FeeRPgmcVSLZQphjcBqvBwa5HsSvJ5EPtyfOa8rHMgEWwNzyS0JqPaaGfWTnmo5v5UmS3uWsVsfqg7fnf7HF3airw6LvUaKdqMe8mVppYWazFwmaYf96qpzpnpnfQFtlPlMYdefW31f8j7MOd5Kn/w/bWhat+vUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789453292; c=relaxed/simple;
-	bh=d3sDwbY/bSap2U/bPY3StbRKu+arE0nWuptk7IfLpD0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=SHRfcikJnxMRA6wuBl+v33HvQSQbT0sb7++l+BE+msoCjZKylwsT8x5rPe/Q/X4tZffcCf8ttQ7/kzBiBd4yaqevHPHgJydwmJq+g1ZxonCFav1+Inov3IRrpf5aHO3c8MlGJfkzQ8mpJ2pCf3lW1ZRbev6DykhGyGArSTc0p3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=MarFemOt; arc=none smtp.client-ip=185.70.43.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1789453433; c=relaxed/simple;
+	bh=XeX+dvp7tsF7D8D0PVBjBSRr+LI+y8EIC2pK+2exL7o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PxdSft4p3ZRCEh6+uQOyCOWePSc++hAQqu6AFjTzT0WR0IEYHOI8+/3D9lEz02hHgPXzHetnMhvSJnxCBbnkYEe8cemHJQEBDqyqQQ2iy7RiLaP5P0qOyo8EaSxiGmPmFSWbyqE3tlW9RivzAFTUWhugFziV4J1znBVLcHqASlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jfuZbgmG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="MarFemOt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789453280; x=1789712480;
-	bh=6ZGmV55ein3aniEmwL+HxLPHbKEpBRsMJ4RD0gO4vB4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=MarFemOtatQBJVAh3rx+83c9zN0K72yQQzZhL24bp0xkg2dgGYz3F9/UUhaeyhnMw
-	 pPvnaMVTmKbeGawMRPZpyYv161F4YIi0WOY+N7btoW7Mgjxw0YT6+Kft09T/wEmywh
-	 XMykCSJP+yTQ92DJycfJkKJBcIjabl1CLtnzrhYFtSSPT8fS1cDYW4YbWFNlRdq6s8
-	 WiKkEMWpv+DqjPizkxmijTj7df5CzJ6OPHW+ngjZlfjQOFvNrFhom28Ua495e4vQnv
-	 Sqj3yGLROmGFpl5ikS9z7r2pZDUKEi4OZWDSfDMufVWEA9BW3GK6YTfPGRdtwyn5D6
-	 ZpoGTMr+RzfWw==
-X-Pm-Submission-Id: 4hkX32308Vz1DF6l
-From: Esben Haabendal <esben@geanix.com>
-To: "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Lars-Peter Clausen" <lars@metafoo.de>,  "Rob Herring"
- <robh@kernel.org>,  "Krzysztof Kozlowski" <krzk+dt@kernel.org>,  "Conor
- Dooley" <conor+dt@kernel.org>,  "Martin Kepplinger" <martink@posteo.de>,
-  "Sean Nyekjaer" <sean@geanix.com>,  "David Lechner"
- <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  "Andy Shevchenko"
- <andy@kernel.org>,  "Martin Kepplinger"
- <martin.kepplinger@theobroma-systems.com>,  "Christoph Muellner"
- <christoph.muellner@theobroma-systems.com>,  <linux-iio@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8 9/9] iio: accel: mma8452: Support interrupt sharing
-In-Reply-To: <87y0d4pal0.fsf@geanix.com>
-References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-	<20260907-mma8452-open-drain-v8-9-c17407e22118@geanix.com>
-	<_9NG2PCqwv-AxkrhQVOkPVIgvYD4-t2CFH5W5HVBmr35w9xmX9v9FIraB1OPE8Ssbd_pjQqM-bq3DEAtRl78Sg==@protonmail.internalid>
-	<20260914002203.5ca07dd0@jic23-hlaptop>
-	<lU80OLl5Xk_Bte8Klo69TR6a5JIitMP_N_IXZFIWkRKUmrV6NFHrMHxp1PUFoo8hb3OpKPo_4R2QWBYpfOLFJw==@protonmail.internalid>
-	<87y0d4pal0.fsf@geanix.com>
-Date: Tue, 15 Sep 2026 08:21:17 +0200
-Message-ID: <87pkyfox0i.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jfuZbgmG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A03D1F000FF;
+	Tue, 15 Sep 2026 06:23:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789453431;
+	bh=yFrOVJsHwITVaC+EbmE+b+kEEDebikU4bCK/widGiTE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jfuZbgmGmL829y0T2VYwsjo2R5rUeGwtRAHpEXCcba95Xh4sZNi38OO0ai3fF9iCe
+	 bA0nk+ujyWAKurkAr7Aq3pYcTD1SBL8IzcGQrhMudUPLK0X4AVl0M9YNyEObBuz8Lt
+	 qv+lKfu/acLdq0xX58C/Vvo95T9cnHjnDFe3LYzqVMd//60+SAONDMh1AnRY4F8CVp
+	 Smqa2Wx6OQ+XDRvGexhN4vMl8GWtXK/Lg4jkebMnqNjLso4nGZgmfjn6w3HKKgf263
+	 SyOijns18PybdKDZ4pqqKNBiJyVzeYIBe7ebVvhNFZ4qYT071or95G7gwBhMOBztnM
+	 gdMowTS8N94fg==
+Date: Tue, 15 Sep 2026 09:23:47 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	iommu@lists.linux.dev, Tushar Dave <tdave@nvidia.com>,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+	kvm@vger.kernel.org
+Subject: Re: [PATCH v6 17/18] dma-buf: Let importers ask how peer-to-peer
+ traffic is routed
+Message-ID: <20260915062347.GB13683@unreal>
+References: <20260914-fix-p2p-acs-v4-0-v6-0-5ef07ec9ef06@nvidia.com>
+ <20260914-fix-p2p-acs-v4-0-v6-17-5ef07ec9ef06@nvidia.com>
+ <d3fb7ea0-019f-4311-bf0f-00d25bdebda0@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d3fb7ea0-019f-4311-bf0f-00d25bdebda0@amd.com>
 
-"Esben Haabendal" <esben@geanix.com> writes:
+On Mon, Sep 14, 2026 at 04:27:00PM +0200, Christian König wrote:
+> On 9/14/26 13:22, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > Exporters keep the &struct p2pdma_provider backing a buffer in their own
+> > private data. An importer cannot reach it, so it has no way to learn how
+> > its own peer-to-peer traffic would be routed before it programs its
+> > hardware.
+> > 
+> > Add an optional @p2pdma_provider callback for an exporter to hand that
+> > provider out, and dma_buf_p2pdma_map_type() for an importer to ask by TLP
+> > class. Exporters keep the provider where it already lives, so this adds an
+> > operation rather than changing any existing signature or structure.
+> > 
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/dma-buf/dma-buf-mapping.c                 | 32 +++++++++++++++++++++++
+> >  drivers/infiniband/core/uverbs_std_types_dmabuf.c | 12 +++++++++
+> >  drivers/vfio/pci/vfio_pci_dmabuf.c                | 12 +++++++++
+> >  include/linux/dma-buf-mapping.h                   |  3 +++
+> >  include/linux/dma-buf.h                           | 17 ++++++++++++
+> >  5 files changed, 76 insertions(+)
+> > 
+> > diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+> > index 794acff2546a..fb03a698b381 100644
+> > --- a/drivers/dma-buf/dma-buf-mapping.c
+> > +++ b/drivers/dma-buf/dma-buf-mapping.c
+> > @@ -6,6 +6,38 @@
+> >  #include <linux/dma-buf-mapping.h>
+> >  #include <linux/dma-resv.h>
+> >  
+> > +/**
+> > + * dma_buf_p2pdma_map_type - How peer-to-peer traffic to a buffer is routed
+> > + * @attach:	attachment of the importer that will issue the traffic
+> > + * @tlp_flags:	&enum pci_p2pdma_tlp_flags describing the TLPs it will issue
+> > + *
+> > + * Reports how the PCIe fabric routes @tlp_flags traffic between the buffer
+> > + * behind @attach and the importer attached to it, so that an importer can
+> > + * choose the TLP attributes that earn it a direct route before it programs
+> > + * its hardware.
+> > + *
+> > + * Return: the mapping type for @tlp_flags traffic, or PCI_P2PDMA_MAP_NONE
+> > + * when the exporter names no &struct p2pdma_provider and nothing is known
+> > + * about the route.
+> > + */
+> > +enum pci_p2pdma_map_type
+> > +dma_buf_p2pdma_map_type(struct dma_buf_attachment *attach,
+> > +			unsigned int tlp_flags)
+> > +{
+> > +	struct dma_buf *dmabuf = attach->dmabuf;
+> > +	struct p2pdma_provider *provider;
+> > +
+> > +	if (!dmabuf->ops->p2pdma_provider)
+> > +		return PCI_P2PDMA_MAP_NONE;
+> > +
+> > +	provider = dmabuf->ops->p2pdma_provider(dmabuf);
+> > +	if (!provider)
+> > +		return PCI_P2PDMA_MAP_NONE;
+> > +
+> > +	return pci_p2pdma_map_type_tlp(provider, attach->dev, tlp_flags);
+> 
+> Calling PCI subsystem functions from dma-buf is a hard NO-GO.
 
-> "Jonathan Cameron" <jic23@kernel.org> writes:
->
->> On Mon, 07 Sep 2026 16:51:04 +0200
->> Esben Haabendal <esben@geanix.com> wrote:
->>
->>> Adding support for sharing interrupt line with other device requires the
->>> interrupt handler to handle runtime PM suspension properly, ignoring the
->>> irq if the device is suspended (maybe even off). And while at it, we use
->>> the PM reference to ensure we do not get suspended while processing an irq.
->>>
->>> In order to prevent the chip from raising irq while suspended (that is when
->>> using fixed regulator, where suspend just means setting the device in
->>> STANDBY mode), we disable all interrupt sources by clearing CTRL_REG4, and
->>> then restores the value again when resuming.
->>>
->>> With that in place, it is safe to add the IRQF_SHARED flag.
->>>
->>> Keep in mind that the device by default is using push-pull for the irq pin,
->>> which might require additional hardware design to allow interrupt sharing.
->>>
->>> Signed-off-by: Esben Haabendal <esben@geanix.com>
->>> ---
->>>  drivers/iio/accel/mma8452.c | 67 +++++++++++++++++++++++++++++++++++++++------
->>>  1 file changed, 58 insertions(+), 9 deletions(-)
->>>
->>> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->>> index fda29df5d109..e521dca37f76 100644
->>> --- a/drivers/iio/accel/mma8452.c
->>> +++ b/drivers/iio/accel/mma8452.c
->>> @@ -120,6 +120,7 @@
->>>   * @sleep_val:			time in ms to sleep while waiting for drdy
->>>   * @ctrl_reg1:			CTRL_REG1 register shadow value
->>>   * @data_cfg:			DATA_CFG register shadow value
->>> + * @ctrl_reg4:			CTRL_REG4 register value to restore on resume
->>>   * @open_drain:			true for irq pin in open-drain mode
->>>   */
->>>  struct mma8452_data {
->>> @@ -138,6 +139,7 @@ struct mma8452_data {
->>>  	int sleep_val;
->>>  	u8 ctrl_reg1;
->>>  	u8 data_cfg;
->>> +	u8 ctrl_reg4;
->>>  	bool open_drain;
->>>  };
->>>
->>> @@ -1083,15 +1085,21 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
->>>  {
->>>  	struct iio_dev *indio_dev = p;
->>>  	struct mma8452_data *data = iio_priv(indio_dev);
->>> +	struct device *dev = &data->client->dev;
->>>  	irqreturn_t ret = IRQ_NONE;
->>> +	int pm_status;
->>>  	int src;
->>>
->>> +	pm_status = pm_runtime_get_if_active(dev);
->>
->> Sashiko raises the question of what happens if you actually get an error
->> return from this. You may be deliberately ignoring those, but if
->> so add a comment.
->
-> Yes, sounds like a good idea.
->
->> The fun race around tear down is worth considering in particular (see
->> sashiko comment).
->
-> I will look into that. Although very unlikely, it does sound like a real
-> issue that *could* occur.
->
-> Adding a boolean flag (remove_in_progress = true) to the mma8452_data
-> struct, and set that in mma8452_remove() before disabling runtime pm
-> seems like a KISS solution. Should we be returning IRQ_HANDLED or
-> IRQ_NONE in that case?  There is no IRQ_MAYBE return value :D
+There are two main reasons for this design:
 
-Or maybe instead:
+1. DMA-buf's broken use of scatter-gather lists.
+2. Hellwig's NAK on exporting low-level PCI P2P functions. These should be
+   used by core code, while in-kernel exporters and importers may be built
+   as modules and therefore need EXPORT_SYMBOL() to access PCI P2P
+   functionality.
 
-In mma8452_remove(), we switch the order of
-pm_runtime_disable()/pm_runtime_set_suspended() with free_irq(), and
-race condition will magically disappear without any further changes.
+> 
+> Then wrappers for DMA-buf backend functions should be in dma-buf.c and not here.
+> 
+> I shouldn't have allowed the mapping functions to be added to DMA-buf in the first place, all of this belongs either into the DMA layer or the exporter.
 
-I will push a new version with this change.
+Due to item #2, they cannot be in the exporters. Ideally, the DMA layer
+should not have PCI-specific paths.
 
->>> +	if (pm_status == 0)
->>> +		return IRQ_NONE; /* device is powered down */
->>
->>> @@ -1784,29 +1796,62 @@ static void mma8452_remove(struct i2c_client *client)
->>>  #ifdef CONFIG_PM
->>>  static int mma8452_runtime_suspend(struct device *dev)
->>>  {
->>> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
->>> +	struct i2c_client *client = to_i2c_client(dev);
->>> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
->>>  	struct mma8452_data *data = iio_priv(indio_dev);
->>>  	int ret;
->>>
->>> -	scoped_guard(mutex, &data->lock)
->>> -		ret = mma8452_standby(data);
->>> +	guard(mutex)(&data->lock);
->> Mixing guards...
->
-> Yes, I know. Resolving that turned out to be a bit more painful than I
-> thought. I do have that resolved in the next series I keep on talking
-> about. But distilling that as a separate patch for adding to this series
-> turned out to be impossible, as it relies on some of the other work,
-> like refactoring of the ACTIVE/STANDBY state handling (synchronization),
-> and most importantly, the switch to using regmap caching to properly
-> handle restoring of register values on resume.
->
-> I am therefore hoping that we can find some way to agree on things here,
-> and then properly resolve it in the next series...
->
-> For what it is worth, in this very specific case, the only guard used is
-> first in the LIFO order, and will therefore be executed in exactly the
-> right order on exit, as it will run after all the goto cleanup, just as
-> the LIFO cleanup order requires.
->
-> Obviously a fragile and undesirable way of doing error handling, but it
-> will go away again in the next series where I will eliminate the goto
-> error handling in mma8452_runtime_suspend().
->
->>> +
->>> +	ret = i2c_smbus_read_byte_data(client, MMA8452_CTRL_REG4);
->>>  	if (ret < 0) {
->>> -		dev_err(dev, "powering off device failed\n");
->>> +		dev_warn(dev, "backing up CTRL_REG4 failed\n");
->>>  		return -EAGAIN;
->>> +	} else
->>> +		data->ctrl_reg4 = ret;
->>> +
->>> +	ret = i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, 0);
->>> +	if (ret) {
->>> +		dev_warn(dev, "disabling interrupt sources (CTRL_REG4) failed\n");
->>> +		return -EAGAIN;
->>> +	}
->>> +
->>> +	ret = mma8452_standby(data);
->>> +	if (ret < 0) {
->>> +		dev_err(dev, "transition to STANDBY mode failed\n");
->>> +		ret = -EAGAIN;
->>> +		goto out_restore_ctrl_reg4;
->>
->> and goto is explicitly advised against in the docs in cleanup.h
->> You need to restructure the code to avoid that, potentially via
->> a helper function.
->
-> I agree. See above.
->
->>>  	}
->>>
->>> +	/*
->>> +	 * Interrupt line should be deasserted now, so we just need ensure any
->>> +	 * mid-flight irq is completed (will return IRQ_NONE due to
->>> +	 * pm_status==0).
->>> +	 */
->>> +	if (client->irq)
->>> +		synchronize_irq(client->irq);
->>> +
->>>  	ret = regulator_bulk_disable(ARRAY_SIZE(data->regs), data->regs);
->>>  	if (ret) {
->>>  		dev_err(dev, "failed to disable regulators\n");
->>> -		return ret;
->>> +		goto out_active;
->>>  	}
->>>
->>>  	return 0;
->>> +
->>> +out_active:
->>> +	if (mma8452_active(data))
->>> +		dev_warn(dev, "failed to switch back to ACTIVE mode\n");
->>> +out_restore_ctrl_reg4:
->>> +	if (i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, data->ctrl_reg4))
->>> +		dev_warn(dev, "restoring CTRL_REG4 failed\n");
->>> +	return ret;
->>>  }
->>>
->>>  static int mma8452_runtime_resume(struct device *dev)
->>>  {
->>> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
->>> +	struct i2c_client *client = to_i2c_client(dev);
->>> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
->>>  	struct mma8452_data *data = iio_priv(indio_dev);
->>>  	int ret, sleep_val;
->>>
->>> @@ -1820,6 +1865,10 @@ static int mma8452_runtime_resume(struct device *dev)
->>>  	if (ret)
->>>  		goto runtime_resume_failed;
->>>
->>> +	ret = i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, data->ctrl_reg4);
->>> +	if (ret)
->>> +		goto runtime_resume_failed;
->>> +
->>>  	ret = mma8452_active(data);
->>>  	if (ret < 0)
->>>  		goto runtime_resume_failed;
->>>
+> 
+> We should probably have a single callback the exporter provides to fill in a structure with PCI specific information for a mapping.
+
+If you have an idea how to do this without adding EXPORT_SYMBOL to p2p,
+let me know and I will implement it.
+
+DMA-buf is the de facto mechanism for setting up and using p2p between
+devices. There is no other mechanism (except NVMe which is unique)
+in the kernel to achieve this. IMHO, the dmabuf code should try to implement
+as much of the common functionality as possible, so that dmabuf consumers
+do not have to reinvent their own p2p implementations.
+
+> 
+
+<...>
+
+> > +
+> >  static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+> >  	.attach = vfio_pci_dma_buf_attach,
+> >  	.map_dma_buf = vfio_pci_dma_buf_map,
+> >  	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
+> >  	.release = vfio_pci_dma_buf_release,
+> > +	.p2pdma_provider = vfio_pci_dma_buf_provider,
+> 
+> Please split up the patch into the actual DMA-buf changes, exporter changes and importer changes.
+
+Sure, will do.
+
+Thanks
