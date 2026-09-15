@@ -1,159 +1,148 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF11313277;
-	Tue, 15 Sep 2026 20:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789503898; cv=none; b=mh6z1eYhduPUOlxpY/9tLGtsG0fD2GGbCjERceNYryRzwVblQaNzSO6c5ma125VGm6u/SG5Lbj9Jrkg945Yg0YIAQ5QpkEwCgfB/1r1O7LJNnSYZ21hsypfuDZGKX4PiIB3LTIAekJieaoxUyt3AoL/Q1SsJnn0LPIm2YNOh4W0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789503898; c=relaxed/simple;
-	bh=HELeNhGGVHRzKh6Ew2z2aydflGVE1vJ/BrsxN7CxOrA=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=aqGCNuE3uKlL0HQtL6WJTMV/E4wZVVu3RIymyjre8jrLTdklif0jbRuInxWPdK6zB7nBn4V0XWIAYBX/NgTeLr2Uq480NKvAxdoGbCKguSb7bilROyWm1wCOFbr7hXfRSBBmihOrhz6scyTKy00k4/nwX0dxXaqXG/NSIt+Kn/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AVuTuoYi; arc=none smtp.client-ip=192.198.163.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45A84C67F0;
+	Tue, 15 Sep 2026 20:24:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789503903; cv=pass; b=cE+cng0bHqwlp4ZT9/VoFiwhN6arwXYiX7lY/idfwHAZTIGL4CzFAIx3jxxY1B/SEmtl7RGXbgqiT4573Q1bsJL4CqIzsf6k7NPnojUGaC1xX0lvS+E5HYxi/GZDMFKhqmeg7Z3Dyko/g7rmp5XQWvNPLRapXyxikDzY+PtJJCw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789503903; c=relaxed/simple;
+	bh=PFLvBra2f62guqQMvtV3HQxnQZcWO/C3VH75csLcbaw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=G9799zL2gjP6j2w0fl0Le6PHcktNPXsP7E0w8PO6ZmASnGi50RCT9EiK8GrNn9ua70AQ9CnaZWAw7iRXUQtlV5r7rRrOdj9A8M0ZQSfvcgJKd6eMbxfNa7nRDV1UxZV+Pd3aUadM9XeaSt3WzoVvBh7XtrYU91lb82WcjBnlAQ0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=UPu0YApD; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=c+aDYFcf; arc=pass smtp.client-ip=185.56.87.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AVuTuoYi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789503896; x=1821039896;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=HELeNhGGVHRzKh6Ew2z2aydflGVE1vJ/BrsxN7CxOrA=;
-  b=AVuTuoYi9nc05mwnYCXVbE00pDBX/Lr09GUL9VINnb7xx9bCi42FtraS
-   F8gAoP7kPAx74m6pAar6VG+miZXOSSKHl6KEOkUsqEIPymB6OzkbwVCxJ
-   +V8SGEyCbIfj6Gpw959qwT4ZC6GQN65BG91NSbj6e1d94cKg92tEV4rYZ
-   /Asq0j2qnRALAi0PornUTCENeFizGoQuscdB60Fp7LrX/YL9Y0MM500zf
-   fB6DgTMG66Or8uSiuAlnIpI3AvzsuG1CcRIy+KrH86TsNyBr4y+gVJ86a
-   Zbo0zuim/RXNE2e2Qrtmirx9IawFfKD0JZsT7iVpuDHLDakQFrMOp5y+R
-   g==;
-X-CSE-ConnectionGUID: brgLpUacS9qXrmcJUWQmLw==
-X-CSE-MsgGUID: fdphHOYrRmOTqWssYvOb8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="386736"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="386736"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:24:54 -0700
-X-CSE-ConnectionGUID: yygLDzqKTlKHqRknoASejw==
-X-CSE-MsgGUID: NczMJzYORcOj3D02C4SbFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="272647808"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:24:51 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 15 Sep 2026 23:24:47 +0300 (EEST)
-To: Mario Limonciello <mario.limonciello@amd.com>
-cc: "Nirujogi, Pratap" <pnirujog@amd.com>, Xueqin Luo <luoxueqin@kylinos.cn>, 
-    Hans de Goede <hansg@kernel.org>, pratap.nirujogi@amd.com, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] platform/x86: Fix NULL deref in amd_isp_probe
-In-Reply-To: <096d4329-fad8-4fc2-88a3-dd50869f7f19@amd.com>
-Message-ID: <9b8c2e92-caaf-6664-750b-fd27caf2601f@linux.intel.com>
-References: <20260810032450.692844-1-luoxueqin@kylinos.cn> <7ad7533f-c55c-44ec-91a1-53153d632fb3@amd.com> <096d4329-fad8-4fc2-88a3-dd50869f7f19@amd.com>
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="UPu0YApD";
+	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="c+aDYFcf"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com; s=arckey; t=1789503899;
+	 b=dXHpWtK6IDbntB88xYi6R80jgW1/7TOd33SrZzIUdfleJrKGTFQ/Y/zuHtJNB8QjjchVlun2do
+	  Bl0Q9Tp7wf23/koCntbvMUs4CerSqfS+rxyo3ayFgjAD6Nl4ETPhEN3K9wmjbwObrmq0G65MT4
+	  RoxGQpoQnrQAKdVgRkz5DMGlrWHGd645Wm5X1C78PkH3nCuFSCokHzuPWaVdePlOS29PU1vHEd
+	  scZ8wujr8Ft3dHIpT3CqwnSdoxxTmdaURa+LndwNEGfRxRX3bzGMmhQRWhCSkDqFuZuOYX/YaP
+	  UvC76S5nIyl+CYQ2RIfN/eOBTc60LS3c9IM/591UX4tnjQ==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com; s=arckey; t=1789503899;
+	bh=PFLvBra2f62guqQMvtV3HQxnQZcWO/C3VH75csLcbaw=;
+	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
+	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
+	b=S8KgWeZWFMCjSoeHUP4MTGZTGiCRqwQTUfCvO9qKPqFYwyVbA45n1T2ilN7DwDFv2An8Adk21P
+	  uCCBK5r0FruHDFScVEqxqoPyubJJbEiCBitdk2ygJP+jd2GfOsqGQuMhokY1WBtuLRDq34uRfg
+	  XkKjYs7VnJACLVPNcMoyIONVDPpklcZ0+KyUmhs+RAKTEgME7qHxyeXIrH/UPgOTeVX8MLe0Kq
+	  6LfeOxuxnseG28mFRSCjjtosSitQ6NcnuCsd77TTUcyUExGs4Bs21UDKVFP7FYpps2TYb6JxWH
+	  ByPZSj9BgylVlF/ikmrAXxTZTTf8PpzQk8cLC1ZfX+6jiA==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
+	:Date:From:Reply-To:List-Unsubscribe;
+	bh=OBFNNbrs026e8fcoRZ1G9bvxE3ylTU09E0JtOK5P9RQ=; b=UPu0YApDNCv/MCMEKXrj7Y2B9F
+	cF3o7abzT3/lEEKy6N2Ge5rGkjUspPV6DWdaEOoHmZEv/s5Encd+Gt3Bs8JwgF5QAw9BhqxOq45wr
+	6ckucnM4gRrDCIZxgSF1rXPJHSsFlaB+R68PF2Bb2O7PF12mMCAAzqJdexrztzi+jExc=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <francesco@valla.it>)
+	id 1x6Zhx-00000007JrY-0MYF;
+	Tue, 15 Sep 2026 20:24:50 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=OBFNNbrs026e8fcoRZ1G9bvxE3ylTU09E0JtOK5P9RQ=; b=c+aDYFcfjAxUrmHEAE4E6NFHLg
+	gLt+liGO9Mq8GcA6fHk2etCaAWMOcBgyekkmqP7581i07BWyXl1AkUxEguSEz6nAl/H8xUCFpzSk/
+	gSZNHSLE9qVCC89dMCTuaYwbFoAWScm4cITokFMmgf7KydzL6Zyu5cyRJ9s3dgkvk6/o=;
+Received: from [95.233.221.121] (port=64541 helo=[192.168.178.175])
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <francesco@valla.it>)
+	id 1x6Zhs-00000000HDi-2NSx;
+	Tue, 15 Sep 2026 20:24:44 +0000
+From: Francesco Valla <francesco@valla.it>
+Date: Tue, 15 Sep 2026 22:24:36 +0200
+Subject: [PATCH 1/2] spi: virtio: fix max frequency setting
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-934087563-1789503887=:27301"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-virtio-spi-fix2-v1-1-7a474cb1b13b@valla.it>
+References: <20260915-virtio-spi-fix2-v1-0-7a474cb1b13b@valla.it>
+In-Reply-To: <20260915-virtio-spi-fix2-v1-0-7a474cb1b13b@valla.it>
+To: Haixu Cui <quic_haixcui@quicinc.com>, Mark Brown <broonie@kernel.org>
+Cc: virtualization@lists.linux.dev, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Francesco Valla <francesco@valla.it>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1183; i=francesco@valla.it;
+ h=from:subject:message-id; bh=PFLvBra2f62guqQMvtV3HQxnQZcWO/C3VH75csLcbaw=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFkrV3bfPf5B0bXD5vKDwwW7ThywuLXUk+XzboEr/JEb2
+ BS3dJi+7ChlYRDjYpAVU2QJWXfj3p655t/SNjA+gpnDygQyhIGLUwAmoqHPyNDh9zv0PafjFN6A
+ 8xskImXsOFfkTDr0ftru+Zt8j31+NbuA4X/J3vfLRdwb/zLc6SrP2rYseWK1j3qhzB0JjQMnO3a
+ U1vACAA==
+X-Developer-Key: i=francesco@valla.it; a=openpgp;
+ fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 78cb5fa39ddd8f5833e8b0fbe0f69853
+X-AntiAbuse: ID - 78cb5fa39ddd8f5833e8b0fbe0f69853
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1x6Zhx-00000007JrY-0MYF-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+The maximum transfer frequency is read from the virtio config space but
+never propagated to the SPI framework logic. Fix this behavior and drop
+the useless setting copy from the driver's private data.
 
---8323328-934087563-1789503887=:27301
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Fixes: f98cabe3f6cf ("SPI: Add virtio SPI driver")
+Signed-off-by: Francesco Valla <francesco@valla.it>
+---
+ drivers/spi/spi-virtio.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-On Tue, 11 Aug 2026, Mario Limonciello wrote:
+diff --git a/drivers/spi/spi-virtio.c b/drivers/spi/spi-virtio.c
+index 2256dfec5407..033268908bca 100644
+--- a/drivers/spi/spi-virtio.c
++++ b/drivers/spi/spi-virtio.c
+@@ -33,8 +33,6 @@ struct virtio_spi_priv {
+ 	struct virtqueue *vq;
+ 	/* Copy of config space mode_func_supported */
+ 	u32 mode_func_supported;
+-	/* Copy of config space max_freq_hz */
+-	u32 max_freq_hz;
+ };
+ 
+ static void virtio_spi_msg_done(struct virtqueue *vq)
+@@ -304,7 +302,7 @@ static void virtio_spi_read_config(struct virtio_device *vdev)
+ 		virtio_cread32(vdev, offsetof(struct virtio_spi_config,
+ 					      bits_per_word_mask));
+ 
+-	priv->max_freq_hz =
++	ctrl->max_speed_hz =
+ 		virtio_cread32(vdev, offsetof(struct virtio_spi_config,
+ 					      max_freq_hz));
+ }
 
->=20
->=20
-> On 8/10/26 16:52, Nirujogi, Pratap wrote:
-> >=20
-> >=20
-> > On 8/9/2026 11:24 PM, Xueqin Luo wrote:
-> > > [You don't often get email from luoxueqin@kylinos.cn. Learn why this =
-is
-> > > important at https://aka.ms/LearnAboutSenderIdentification ]
-> > >=20
-> > > Caution: This message originated from an External Source. Use proper
-> > > caution when opening attachments, clicking links, or responding.
-> > >=20
-> > >=20
-> > > amd_isp_probe() uses ACPI_COMPANION() without NULL check. Add it to
-> > > prevent crash when driver_override matches a device without ACPI
-> > > companion.
-> > >=20
-> > > Fixes: e1af6f0146d6 ("platform/x86: Update swnode graph for amd isp4"=
-)
-> > > Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
-> > > ---
-> > > =C2=A0 drivers/platform/x86/amd/amd_isp4.c | 7 +++++++
-> > > =C2=A0 1 file changed, 7 insertions(+)
-> > >=20
-> > > diff --git a/drivers/platform/x86/amd/amd_isp4.c b/drivers/platform/
-> > > x86/amd/amd_isp4.c
-> > > index 0d494899502c..0026d6663c5c 100644
-> > > --- a/drivers/platform/x86/amd/amd_isp4.c
-> > > +++ b/drivers/platform/x86/amd/amd_isp4.c
-> > > @@ -379,6 +379,11 @@ static int amd_isp_probe(struct platform_device
-> > > *pdev)
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto error_unregister_sw_node;
-> > >=20
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev =3D ACPI_COMPAN=
-ION(&pdev->dev);
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!adev) {
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 ret =3D -ENODEV;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 goto error_unregister_notifier;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > +
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* initialize root a=
-md_camera_node */
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev->driver_data =
-=3D (void *)pinfo->swnodes[0];
-> > >=20
-> > > @@ -388,6 +393,8 @@ static int amd_isp_probe(struct platform_device *=
-pdev)
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 platform_set_drvdata=
-(pdev, isp4_platform);
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
-> > >=20
-> > > +error_unregister_notifier:
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bus_unregister_notifier(&i2c_bu=
-s_type, &isp4_platform->i2c_nb);
-> > > =C2=A0 error_unregister_sw_node:
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 software_node_unregi=
-ster_node_group(isp4_platform->pinfo-
-> > > >swnodes);
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
-> > LGTM. I agree that adding the NULL check is good practice. That said, I
-> > believe it's not strictly needed as the device_get_match_data() in line=
-#366
-> > is expected to fail if there is no ACPI companion.
->=20
-> It sounds like it's essentially dead code then.
+-- 
+2.55.0
 
-Yeah, lets not add dead-code NULL checks.
-
-> > https://github.com/torvalds/linux/blob/master/drivers/platform/x86/amd/
-> > amd_isp4.c#L366
-> >=20
-> > Reviewed-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
-> >=20
-> > > --=20
-> > > 2.43.0
-> > >=20
-> >=20
->=20
-
---=20
- i.
-
---8323328-934087563-1789503887=:27301--
