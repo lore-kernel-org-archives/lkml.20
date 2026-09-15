@@ -1,43 +1,58 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF42E2E737D;
-	Tue, 15 Sep 2026 00:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C572874FB;
+	Tue, 15 Sep 2026 00:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789433451; cv=none; b=FuBk0/xg7ysYp0CSTzQfqmTJFH8xv7InFrQpNUjWa0e2BB1ojqBj2uquJRHDDYEU6/gO72vIXhV1ZdR2UyScxCwfE8vn0NfQ+1AZnK5uUlikz/EBCQCoGH2HMHuNlgiyPMlpYEOjKtVmFcYAmT8xJZd9P4SR2kYVk37c9fbzfXY=
+	t=1789433573; cv=none; b=Co89KHVo0ruSY4d9fhAw2DnOqp92GXY2IX4fhchS3Ek329cDYjDCNVhu38WXltc+iVxq1CHY8oYzgYoyJUONoTLjXlpN5qz+gtwbFMS4zIgC2v697Si62XHbDsUcUM+0TUZUlwFkDU2YhDUrMiB3CmqZkfucb75TDbOC1zCioDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789433451; c=relaxed/simple;
-	bh=RyxyZU6tvGVK3Cpsto128QhecmW8cGT4ht7LtYUq96k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Awlttub1zna3V7ktt9Ast2Wy66hF6j8X62wZ6ozchpUKvNM83V3T19kRjlLAnD8AJM3mBg5MFMNRp6bsLsASVuFQRCnqTXs+YGEv9ykMzPhu81rMg89pdwGEmW9Vek35KoqjUUlDAcf7PDRB63M8472w+FNQd7LvelUCPXO2wOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=OubUc28K; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789433573; c=relaxed/simple;
+	bh=FIrIogaDSap4zaV+vJPwNPh7LCUAsFlXFOwPZz3dG5o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EwFPAYg7zJxO8PPapjp0+V1D+mKRhiVeypjwSIio4YWKWf0WJouMp72z5Z786PSNFlv/AbgY0cGh7pF2+urBzARTSIZHJuYlTQtrQSjN97/9i2LfSsvmfBINWqpj+afKR0LNRdvHR6XOFWft72nKP+e+TfAPShwThE0hn0j5cD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Irw5Icpd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="OubUc28K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789433447;
-	bh=RyxyZU6tvGVK3Cpsto128QhecmW8cGT4ht7LtYUq96k=;
-	h=From:Date:Subject:To:Cc:From;
-	b=OubUc28KqQgzJdCmtM+mgjdyWdAfjd09wXdR5s/dEr2kE466GPU6evpleWbaXF9zS
-	 VrKHFk9oOKn7tBSsYYkQ85TD2Ie95HAZuvcJ0r+xrd6DS+iVwfdmbJQpVECmnzTEtp
-	 FREi8Wa8H2PxPxG4hYVMm8H7gFcSvKjhsuy1D0xv+qvJbrT/xuaRg/sUZY5VKJu/Yz
-	 eAJXB3GVf0m4cRGVu5QdOb9QbzPIWYJWm5YruRBlZigiHqqsD/UzcyzyUUVPKGcYMN
-	 Qsod3qDrcDzJlxcocdeNJF3aS4lARFjPl42o2cHvEaOpmXtEnYMd6+Mar1k9jkOwzO
-	 Dla32fMuFSiGw==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D11D517E020C;
-	Tue, 15 Sep 2026 02:50:47 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 8733A48002B; Tue, 15 Sep 2026 02:50:47 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 15 Sep 2026 02:50:39 +0200
-Subject: [PATCH wireless-next v2] wifi: brcmfmac: Improve D3 substate
- entering timeout handling
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Irw5Icpd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B92B91F000FF;
+	Tue, 15 Sep 2026 00:52:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789433571;
+	bh=OVMWAR6x9fDMUjH1lB9+DV4vSGMK5AQu+CQ6AxaYNAQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Irw5IcpdeCbRRsaMzctOGKc22Ww0JrpTSfSNkm6UT1LolN+S5bF2C4G4/iAdTz3rL
+	 xt/2oyshNR9D92KowI1Tv18DYUidYsRWmydZ5vargdW0duhk4p4VqSPjFiH20XdzZQ
+	 pQNMjzzxnclEXjATQTr9DY97AOcM9TUbCuxSPMSU4tKXw7Ly6+LQmR5pQ1vJWDAsuX
+	 /bSnmEFr/mlQq5wjDlqa90QvrttZGvQ50Mvqrf8kMwaffGf0DxuOVlxdjOyNnKlNKD
+	 QGOtnvAW3Rxpaco+vwJYeSy5+7fv0mzoDv8qV4EmLp78dBHmuXrHXQqdjYGwL9QT1s
+	 fE+CiMepGtU0g==
+From: Yixun Lan <dlan@kernel.org>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Inochi Amaoto <inochiama@outlook.com>,
+	Alex Elder <elder@riscstar.com>,
+	Haylen Chu <heylenay@4d2.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Yixun Lan <dlan@kernel.org>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	stable@vger.kernel.org,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-clk@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] clk: spacemit: k3: add CPU PLL rate tables
+Date: Tue, 15 Sep 2026 00:52:44 +0000
+Message-ID: <178943352203.3672070.9474321252308932428.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260907-k3-pll5-pll8-1800mhz-v5-1-5cc96d716b0a@linux.spacemit.com>
+References: <20260907-k3-pll5-pll8-1800mhz-v5-1-5cc96d716b0a@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,102 +60,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-brcmfmac-bcm43752-suspend-fix-v2-1-1bd84914998b@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OzQ6CMBCEX8Xs2TXQyp8n38NwKO0iNdCSLiCG8
- O4CvoDHmck3MwswBUsMt9MCgSbL1rtNiPMJdKPck9CaTYOIRBoVUY5V0F3dKY2V7q4ySwTyyD0
- 5g7WdsU4TWZBRMUUGto4+0GYf/Q9420AtMaOjeYDyF/NYvUgP+8YONJYHHz7Hnyk+sD+npxhjl
- CLJk1QWJkvlXfu2VZUP6qJ9B+W6rl/2g1IJ7wAAAA==
-X-Change-ID: 20260908-brcmfmac-bcm43752-suspend-fix-f6539eda1e0d
-To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
- brcm80211-dev-list.pdl@broadcom.com, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2977;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=RyxyZU6tvGVK3Cpsto128QhecmW8cGT4ht7LtYUq96k=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqolme4nuHWmpgOjksw+iy1a4fJGq0ufmzc0
- PdYynyZ531Lk4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqJZnAAoJENju1/PI
- O/qaO9QP+gJfY+1klvAccg/4UQb9UdDoh7tto9tPNQafA1WQkAP19eYYRIqItzjK/CfE59NB6NZ
- c7rLGMMrbBx3+/I6jC51uCJM/GTaaDAwH9Njk6mPYpLxtANleGpT82PJeTwjCB/y1dnNdD+DDFY
- hMTyCkrSwYzAsY+sZ/WFvsYGY76UxBePB2GQUDOR/Cr80LQNFe3SIh0FWSONwVX+xtKlEr5i9y4
- 5ZBpJ5SSO6C+yNYQzcft6gJhMngKwAuAujK9FH7NynacgGRMBi67goZ0uVHJhCeQhCw22mFm4bf
- 43mJLVzhA0R/vcpQByazUWJen24LWPjJJshyea3O/noUTz0Lhh+heYHSopB+V0ZzTOQQ4sO/LTT
- E2zDdRCNtgdmhSp1saVvKtr3DvaGd31ccieX+nCJrCZQAbYRmbaSRm8lOiHRerL84ZwUJGP/pBS
- psiTZfb7fxhTkYxxhyguYdfxv0wYPuxev5ylFudR0TP6QFIb6muw1PRW7FlJ7yjjxF6Zop/W39y
- 6X3HVKMl1KdLqpJwJ++PnV4iWYOLPlBFFt7fQq6xLteXZYEXTH4vWmt4aj6e8eXdSixmCg7/+hS
- 0gLFrUsqHVcoCOfFgM+97eSrwy+0cCo2cqu6pEHo/624pM7A6eYuuvjELa+BAaUiqLxTl1rE8jo
- NjkBBSOMrxGVj+36jEZswzA==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Transfer-Encoding: 8bit
 
-Some firmwares (e.g. BCM43752) do not service the D3_INFORM mailbox
-handshake when idle, so the D3 ACK never arrives. If WoWL is not armed
-the device is going to be powered off during system suspend and
-re-probed on resume anyway (brcmf_pcie_pm_leave_D3() handles that), so
-the missing ACK is harmless and must not abort the whole system suspend.
-When WoWL is active the device has to stay powered with its state
-preserved, so keep treating the timeout as fatal.
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
-This was tested with Rockchip RK3588 EVB1, which has a BCM43752 based
-WLAN card (AP6275P). This card is also used by a few other Rockchip
-boards (at least Khadas Edge2, RK3576 EVB1). Unfortunately
-linux-firmware does not contain any firmware files for this chip,
-so I used the files available from Armbian [0]:
+On Mon, 07 Sep 2026 09:54:36 +0800, Troy Mitchell wrote:
+> The K3 CPU PLL rate tables currently describe only one rate per PLL,
+> although the hardware supports a wider range.
+> 
+> PLL3 and PLL4 support rates from 1.05 to 2.4 GHz, while PLL5 and PLL8
+> support rates from 1.05 to 2 GHz. Populate the tables with every
+> supported rate in 50 MHz steps.
+> 
+> [...]
 
-3779bd4f629961cf060a83cc5047a3b9b2d23c9d  brcmfmac43752-pcie.bin
-a471651d580b51da2a681e53c0cc3258eaa70e10  brcmfmac43752-pcie.clm_blob
-87294b22f4bf7b7f718cf24076f102df07e3c414  brcmfmac43752-pcie.txt
+Applied, thanks!
 
-[0] https://github.com/armbian/firmware/tree/master/brcm
-
-At least with that firmware the suspend command times out blocking
-system suspend. Testing on the Rockchip platform requires PCIe
-suspend support for it, which has been send separately.
-
-The patch is based on v7.3-rc1 and can go via -next as system suspend
-with mainline kernel needs quite some work on Rockchip anyways.
-
-Changes in v2:
-- Link to v1: https://patch.msgid.link/20260908-brcmfmac-bcm43752-suspend-fix-v1-1-32585639d763@collabora.com
-- Set prefix to wireless-next instead of net-next
-- Do not print error if the timeout is ignored
----
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-index 55f4d7b970f2..17bae04c14b0 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-@@ -2652,9 +2652,13 @@ static int brcmf_pcie_pm_enter_D3(struct device *dev)
- 	wait_event_timeout(devinfo->mbdata_resp_wait, devinfo->mbdata_completed,
- 			   BRCMF_PCIE_MBDATA_TIMEOUT);
- 	if (!devinfo->mbdata_completed) {
--		brcmf_err(bus, "Timeout on response for entering D3 substate\n");
--		brcmf_bus_change_state(bus, BRCMF_BUS_UP);
--		return -EIO;
-+		if (devinfo->wowl_enabled) {
-+			brcmf_err(bus, "Timeout on response for entering D3 substate\n");
-+			brcmf_bus_change_state(bus, BRCMF_BUS_UP);
-+			return -EIO;
-+		}
-+
-+		brcmf_dbg(PCIE, "No D3 ACK, continuing to power the device off\n");
- 	}
- 
- 	devinfo->state = BRCMFMAC_PCIE_STATE_DOWN;
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260908-brcmfmac-bcm43752-suspend-fix-f6539eda1e0d
+[1/1] clk: spacemit: k3: add CPU PLL rate tables
+      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=d558af8ee0bb1b2e88e696be84adb93cf2b7be6f
 
 Best regards,
---  
-Sebastian Reichel <sebastian.reichel@collabora.com>
-
+-- 
+Yixun Lan <dlan@kernel.org>
