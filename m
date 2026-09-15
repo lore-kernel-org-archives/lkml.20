@@ -1,152 +1,132 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1AAF47AF63
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:51:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 36329472084;
+	Tue, 15 Sep 2026 09:52:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789465914; cv=none; b=gKdOqISeje3rxIjT66xuyupFEygDfPP1vefHO1R0dcyMgTmpxEwFghJvycD8Qfws5LgOiFWB08vZLbBLe2DIebfvELXFCimol5HxoZeeFmZwU+zDnHzQilGeaLaMnfcYVADF7SgzuaXTwR64UKd20Zehq+KQ0LTflg63vz27Vx8=
+	t=1789465950; cv=none; b=DkPDhjCn85wLuX/6g3ag6yQZhy9o3pXL22DHdcmKNR9c5KjFuDS6kVogtp7/JBRi21G7zI+EATTWrDbt+IJBPGY6RIrwAiHiD8j7qUngsmykhXXgMtsnwT03dEQzVYSSLoN2Vru5C1X3Pea8f92J/evIW0QPunVJojEILH9uWEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789465914; c=relaxed/simple;
-	bh=fsv5FuQjdenUC/MA7KEcDcRD5qJ+JKikKx3HzE58Udg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gEbJBCRb9UWdEthWm0pVPM0e7s0dJHCL1E7eVgRiZl6XLcbe+q21bq0Eh6b/8NAotxPP2BeqX3t69qk+gmKPNiOSh7nYz235EI0eylDgTeoem5AC0U5vjT53d5ljRLaI381Po3NYMvLtd5nP9jOSKgXSBVNGZ2H9Mq46LHGw76k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CI8gvr/1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J4WOQpur; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CI8gvr/1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J4WOQpur"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9gxMS3415569
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:51:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=m1XFciMC/FLa8VakPPfRy3mt
-	kacc3Afj+FPNQf0K3uE=; b=CI8gvr/1w5ZXZRm38i+8BGRL88LIfWTnN0MqNM8e
-	L+61VU2lXgzj8J7GVB6+g5+zLW1gJxbmQWVmvYRDteXttBIHoLWOHVmlUEPu29/A
-	Y+taWVgNqPwHl8KW6fcDSrUUgOl9FAWMfk0c92p00UWd5a+2cNHLE4wuvYP2H4H4
-	hP9rm3BslPj98pVC4i8qek5qWxRbNGgYN+jU2NOGruhzl5l5jy6ZVPLnhn4mB4ep
-	FH+QsCovJGjapiJnqpChffwKXZkdK7Ra6JN8IXFlzghDAbHIzKgRgFQ8pFGdpUj8
-	J+7L+v4HBvMXUHLGlfCLD6vybnqAcIypHxGNtS69f0A1Qg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq3hc02ht-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:51:52 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90e7de22fddso97127056d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:51:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789465911; x=1790070711; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m1XFciMC/FLa8VakPPfRy3mtkacc3Afj+FPNQf0K3uE=;
-        b=J4WOQpurp+mf9x/5w5gLPAISGQKfi0n7igrYiAY7krP37VwafWB27g2h12CsRvwAxq
-         3phoUbODRqKyo26AWKUS8v8HHFS9xQ1+1sYNtdIDKp1GF18Fg3uLPcx9hfwa3UyTlNJD
-         gjbTabUfUNynoKFxDVHVUGs7m0Phc6F9xpG+Cq2JAXyLEb954z4PTaQKXaKNPJlcBQMv
-         SPP4zew4maTuOmfUJkf/+OxNvPHbbpsOA/dAkY3dZahL+famxpHPfS/y6TESk5EQ59zI
-         7UD9BlL5TlHL61aSpJHuHSqLfpF3HeunH7FI2UbLuhEvEPVC4ARIdqLR9HWIwlU5Tbb/
-         CQsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789465911; x=1790070711;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m1XFciMC/FLa8VakPPfRy3mtkacc3Afj+FPNQf0K3uE=;
-        b=hRjAhNIA2NbadwGm8qIdl91mdJYlVuDuZmMbSY+5kcYL3YkeHoOUeXcyQpWA01uXPv
-         O9GTCZ7bKhJjfsitNFwJw7MSTl4D7Bos9YNsO61WhQM3UQwNKufIfpLcBaJZTPBW2wHI
-         5d3bsyEPRtfZCttw8kgb6Ledmxct/piZXKVZAsoXzwhlZfER6unQuHboJTvibVPuC0Ge
-         eCWQGehrDSu2wmUpQSpEYLHhTig2G1F/YtXuf9m99mOEoI21ZYO1mm2UBgwU2y4IvXpd
-         UtaSxUlAQAmsdCVQFN6ZW8xyGCAjKis2HeNU5Y74my0zn6N3F4s/cvOa+NAfQBce8GFj
-         mjAA==
-X-Forwarded-Encrypted: i=1; AKwUvByTi9eftGuKUZnQtcQlTNvVdO+MvX+gYKg7gTUpD+Xgg6xTtCF5SowFlPA92yd5gCbzJVv8pUKfdtuKkfg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nViUvnfOubi+WRE8ZowoeXjlywBuwfxDJxRlyq4vOFow2qbE+k
-	yPk0hHIrXkhILSsVoIGzgl3LLTGT56ZUx5fFmcBhKHMiuYTQ2hPYJuUElWFlP9N2OI4Nqy55MOb
-	MIUmBQstsEtk4gP0tf+pKC0+WKJ+tMYt98yvVjAOYG9YozzkQKTneCisRUxg7pWV7vA7pPbnhPF
-	c=
-X-Gm-Gg: AYBFou3zO+bU+y5wVxJWEYK4wx8UUla9vKsTvD2FPOhl4HGR6AcmOoJiLPq9ZuJ2c9H
-	CQDXgB9QUW3Dni0QTjS1m7xSdC4q99juXgP/CpGoM+dGDaCdSQTgG42aiVIWu3/5TebZH95vr7c
-	SAQY+x/6m6y4SXrCngvsEOkIY9sLrWqENNfmmtAMIb11EeZ2MtP6ZJuFIpQLv9q1j6Tr/qDiGA0
-	+hE4u7EJHUGwkl+Als0NwIh0HDiALnI2yvL1yGijEgVxvNyEL07Qd0mOpL0ZtBwVhs3vTYAmr9u
-	YdEL8FCbndcbhPAwDyEsIC1z9J13iEhmkmV4MVb5Kvbyv+D1wJArLfM6bXicYSgIfwR70UdxRVB
-	Wpx9jT9Crxnkl5UY=
-X-Received: by 2002:a05:620a:601c:b0:939:c555:efb6 with SMTP id af79cd13be357-93a29838e3dmr882760885a.12.1789465906057;
-        Tue, 15 Sep 2026 02:51:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:601c:b0:939:c555:efb6 with SMTP id af79cd13be357-93a29838e3dmr882757585a.12.1789465905439;
-        Tue, 15 Sep 2026 02:51:45 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35f3d9sm32642467f8f.35.2026.09.15.02.51.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 02:51:44 -0700 (PDT)
-Date: Tue, 15 Sep 2026 12:51:42 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-hardening@vger.kernel.org,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v7 8/9] arm64: dts: qcom: shikra: Add OPE node
-Message-ID: <nu5u3hr7erxzd5l5g4xnktdnnl2w43tjt75la4tkq4ddv5mfbx@npts3dwmx6wp>
-References: <20260915-camss-isp-ope-v7-0-77b13d131d3d@oss.qualcomm.com>
- <20260915-camss-isp-ope-v7-8-77b13d131d3d@oss.qualcomm.com>
+	s=arc-20240116; t=1789465950; c=relaxed/simple;
+	bh=MIwagPDqD2vprIMEyWjeh2E4J/x0/0hIbqlHGtdB9Yc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=N/bKbxG/JFJjU4T/4//EpkHRNzAyxRzIYWoG7a3dk7bWkvjhDHOhKR5AC6kjGA0omIJ1M02Zlm7Y/F/pj7tpCef3hOKrdSN0n4G4+fl8Ah1EUX5ww9P0DseO5uOPm33Gw13smYVse1WlHAEKGAlyn8FCkoENTzfCFI3UlbbHE+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wC3oH5GFalqnIYWAQ--.1237S3;
+	Tue, 15 Sep 2026 17:52:07 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgAHnKZEFalqmZWCBA--.58449S2;
+	Tue, 15 Sep 2026 17:52:04 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mripard@kernel.org
+Cc: dave.stevenson@raspberrypi.com,
+	mcanal@igalia.com,
+	kernel-list@raspberrypi.com,
+	maarten.lankhorst@linux.intel.com,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	eric@anholt.net,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v2] drm/vc4: drain the hangcheck timer and works on V3D unbind
+Date: Tue, 15 Sep 2026 09:51:03 +0000
+Message-Id: <20260915095103.156007-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915-camss-isp-ope-v7-8-77b13d131d3d@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: LiFAh0dixHdLsiV_zoi_6e6J47Md3L-k
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE0MSBTYWx0ZWRfX0O8IDRtumRut
- Tz/lhlM/dSkR+6i2s5Tv0Spq3VMojmFha1JCsUeJlijoUzMputkzrfen4VW403JbiYqUhJ26sUB
- gNpMFg/HaHYpLdBNO8cH34tDs0AW1Ac=
-X-Authority-Analysis: v=2.4 cv=dcUVTnXe c=1 sm=1 tr=0 ts=6aa91538 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=I_ukrOqQsWpVYGr8uL4A:9 a=CjuIK1q_8ugA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE0MSBTYWx0ZWRfX5vxa/Qrk8O78
- F95yOyGcxBKzRk29k+a1Y3JoqKiKaXXmlqA3p5p1tjim2VJ4cxT1DLjr8PL+PoEN7Jx3sJRKXMw
- ymTdFvXFdXTNlnX/NGZwRmaS6ePuFtpO/GllUSGUaGgtNupb4/Db8UxF6+0IVcmIKmHotZ+UwzN
- GwF5qWpG5z22jwiJJDLC5thMmNMMPRyMg0ooAGdaoTW4kkzQBsKmzKw4ctiXc3GMJnP2Rf6kKmr
- PUpNNhg9jUD5gtozIpFTL/am2eM02wdcg907McZiTZixQAGJlwKMDvhkG03WIp4ks6MSgjwsU6D
- QeOpxa+zEhCTgcO5G4Pki54tazSNyakP8MSHjFc+3Jdm6z3sE9VXeN6jefrKWlZdpBSP589MGQB
- jhSeehyPlkrB6N4hLjXfPDiSujE5mIEIxKMq8wZP3G4vNnjYoBWW9ke91YxYZpH/gi+8Yr13lNW
- nxLlcBqYqi6kP4QSgNA==
-X-Proofpoint-GUID: LiFAh0dixHdLsiV_zoi_6e6J47Md3L-k
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0
- suspectscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150141
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgAHnKZEFalqmZWCBA--.58449S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?GZTLGAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBGUbBEboUFAL4E/QfBxwz1UIjDBc2PaDGv0BxEDX8Pd2V7p
+	Ht855YS2FQHSRv2QNCGp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxWF4UCw1fCFWkGw4UuF1kXrc_yoW5Xr4kpF
+	s8CayYgrZ5JFW5twnrXF1xZF95Ja1rtFy7Cry29w43Crn3AryrtF90ka4YgFZrJaykWr43
+	XFs7t3909FyrZ3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-On 26-09-15 10:11:11, Loic Poulain wrote:
-> From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> 
-> Add the Offline Processing Engine (OPE) device tree node for Shikra.
-> The node describes the six register regions (cdm, top, qos, pipeline,
-> bus_read, bus_write), clocks, interrupt, interconnects, IOMMU mappings,
-> and OPP table.
-> 
-> OPE is a memory-to-memory block with no board-level dependencies, so
-> the node is left enabled for all Shikra boards.
-> 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Nothing stops the hangcheck timer that submitted jobs arm, or the
+job_done_work that the render-done interrupt queues, at teardown:
+vc4_irq_disable() cancels only overflow_mem_work, and vc4_gem_destroy()
+runs from the drm-managed release, after vc4_v3d_unbind() has already
+uninstalled the V3D interrupt and cleared vc4->v3d. A timer still armed
+by then reads V3D registers through the NULL vc4->v3d pointer, and the
+late callbacks run on the vc4_dev embedding them after it has been
+freed.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Drain them in vc4_v3d_unbind(): shut the timer down and cancel
+reset_work before the interrupt is taken down, because its
+vc4_irq_reset() re-enables it, then flush job_done_work so that
+completions queued at teardown still release their jobs.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+Cc: stable@vger.kernel.org # 6.2+
+Link: https://lore.kernel.org/r/20260909053509.657074-1-fanwu01@zju.edu.cn
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+Changes in v2 (Maíra Canal, Sashiko review):
+
+- Drop the VC4_GEN_4 guards: vc4_v3d_unbind() only runs on GEN4.
+- State why reset_work must stop before the interrupt is taken down
+  instead of describing the calls.
+- Flush job_done_work instead of cancelling it, so completions queued
+  at teardown still release their jobs.
+- Relax the stable floor to 6.2+ now that vc4->gen is not referenced.
+ drivers/gpu/drm/vc4/vc4_v3d.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+index f32410420d3e..3f9f43074122 100644
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@ -9,6 +9,7 @@
+ #include <linux/component.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/timer.h>
+ 
+ #include <drm/drm_print.h>
+ 
+@@ -497,8 +498,15 @@ static void vc4_v3d_unbind(struct device *dev, struct device *master,
+ 	struct drm_device *drm = data;
+ 	struct vc4_dev *vc4 = to_vc4_dev(drm);
+ 
++	/* A straggler vc4_irq_reset() re-enables the interrupt. */
++	timer_shutdown_sync(&vc4->hangcheck.timer);
++	cancel_work_sync(&vc4->hangcheck.reset_work);
++
+ 	vc4_irq_uninstall(drm);
+ 
++	/* Flush rather than cancel, so queued completions release their jobs. */
++	flush_work(&vc4->job_done_work);
++
+ 	/* Disable the binner's overflow memory address, so the next
+ 	 * driver probe (if any) doesn't try to reuse our old
+ 	 * allocation.
+
