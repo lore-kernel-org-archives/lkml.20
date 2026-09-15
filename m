@@ -1,30 +1,30 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.9])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B7B336883
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:25:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84972EA754
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789446340; cv=none; b=bjtaBwha0JyET3+yin6xnkBKO89TRWTyZcsCpkYihJ/ibaIjPhPHtV3gI177Tb8ieBLZ8izD/vE2ML3f96l9V6JZoAbknnRXzlmupn4BCa4Qvtpv/956A0hHX6zYSJbH+5fl6UuXAXD/qHeMVNrqWcJFCt92jg+bNV4J0L1CDIA=
+	t=1789446341; cv=none; b=kKIlBCE0kGpq98ym0JlYN1o87GyaWke0huAYf+kVBuvOIVtyJjsNQ+CYMMgzqWe0YwOsA5M/hAEKaM286JVUtPiDr4rB/E8y6sRAbVocUcvL+O1IHrg9hlb8eIIp55lQBFuDyX0jN3cOvuyEppMqs8JI/x9tIER4pejg+FtHPeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789446340; c=relaxed/simple;
-	bh=zu2r8fKg37WUcJm24sbqJsnSwlTxVzemQnIW9xyeMKE=;
+	s=arc-20240116; t=1789446341; c=relaxed/simple;
+	bh=98V6SAFLSemsKaAedK+2Ue7kL3AHriW/BUrBwixC3Lw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eKF6UoZIN/Z0UzflcI5J9S8OTfPCFLUz/SZ5stPRZIvzhdp0toiB5I+GtEQhlI32jAUlaq1KZZiveKVxlZD3clSVG+c6/HTb9kljAcCphGyxEbZHdLVN+XTYOAh7++P3A41OEKLBqGvN9vXBjzyqLfn27M6sAxX3WjcoOAWz4gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=fDc69c98; arc=none smtp.client-ip=117.135.210.9
+	 MIME-Version; b=PDq4o63Swf3yN5/NefuWbQPgckk13K0/MgR3Imlamg7Mk/raePCjwIuzCwnDY7sg9Y1Ky9TalD/SNY2VQwYfaxM/BZNDzYeUUgNXgwimK/JvQtSnqoXObnINGJijR98z7FduTCili/tBxY5MmVm7Ccc2++n73ZUR1IqvQqKFDGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=SvTRYz8O; arc=none smtp.client-ip=117.135.210.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="fDc69c98"
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="SvTRYz8O"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ll
-	7cLNOzxNOjZdNKXLvuqbWxGXfC8y1PJVzt99BmzAw=; b=fDc69c98ey1yoFI5Jd
-	hmFi+sStw1vUqj+sadIU0NywfwAx5Xts/Ab/6mUTJ2uTmxgNt2PMtX+BGjHOglhr
-	cbmdFvVzaHB/hEaeXpfptLLJFdiXEdqpupCn+qSfhhYpdViVjV07N0VkBh6tndEK
-	l4OU8F+ICRla9hczG5Ufvd0h8=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Kj
+	RYvMkldZCdlNU79CyV1S07+8U1NHukSrBQclKwm7w=; b=SvTRYz8OkWqX2QkZGV
+	7DlKSFboiiQ1+EC90Ee2qdUmqHOaSYNKUsAw1lyROj/UsDb1bpo8lggXFPxERsTm
+	k0RVgRNs1+B97bBw8AnJaltUAT9eDmPcpDN9FnFlSCokk9vpotGT+2NJKoF/kzGj
+	lfSkqETzNcS3as6Bh5E4XbTuU=
 Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDXG+KfyKhqTDskBQ--.23380S5;
-	Tue, 15 Sep 2026 12:25:07 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDXG+KfyKhqTDskBQ--.23380S3;
+	Tue, 15 Sep 2026 12:25:05 +0800 (CST)
 From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 To: linux-f2fs-devel@lists.sourceforge.net,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
@@ -40,9 +40,9 @@ Cc: Barry Song <baohua@kernel.org>,
 	Pengfei Li <lipengfei28@xiaomi.com>,
 	Ryan Roberts <Ryan.Roberts@arm.com>,
 	Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-Subject: [PATCH v2 14/14] f2fs: make compressed files compatible with large folio
-Date: Tue, 15 Sep 2026 12:25:03 +0800
-Message-ID: <20260915042503.2912616-4-zhaonanzhe@xiaomi.com>
+Subject: [PATCH v2 12/14] f2fs: handle block cloning within the same large folio
+Date: Tue, 15 Sep 2026 12:25:01 +0800
+Message-ID: <20260915042503.2912616-2-zhaonanzhe@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
 References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
@@ -53,114 +53,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXG+KfyKhqTDskBQ--.23380S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw45XFWUJFyrJw1fGr48Zwb_yoWrJr4fpr
-	W5GryrKrWvqryUuwn7Aa1Ygr1ftry8G3yUZFWxKw18AF15XrnY9FWxt3Z8WFWUJry5ZF4v
-	va1jkryUX3W5taUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jOdbbUUUUU=
+X-CM-TRANSID:_____wDXG+KfyKhqTDskBQ--.23380S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXF4UWFyUAry7CF1fKr4kWFg_yoW5Cr1rpF
+	y5Grs5Z34kCF1xWryftF17ZryFgr97Ww4UJFs7uw1fX3W5X3WfKr1Iv34UuF1FqrWDAw48
+	XryUGFy8uF4UXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjUDJUUUUU=
 Sender: nzzhao@126.com
-X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBowMf7mqoyKN04wAA3v
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsAEf7mqoyKEkqQAA3m
 
-The compression flag is the hint indicates that the inode can be
-compressed, when the inode is using large folio, we expected it keeps
-using the large folio read/write paths and its data stays uncompressed
-on disk until the inode is evicted and re-read
+With large folios, the source and destination block in __clone_blkaddrs()
+can belong to the same folio during same-inode operations such as
+collapse range and insert range.
 
-Let f2fs_write_begin() skip the compression overwrite preparation for
-such inodes and remove the compressed-file gate in
-f2fs_read_data_large_folio() so the data is simply read/written as
-regular blocks.
+In that case, locking the source folio and then looking up the
+destination folio can try to lock the same folio again.  It also copies
+from and to offset 0, which is only correct for order-0 folios.
 
-For the same reason, reject F2FS_IOC_COMPRESS_FILE with -EOPNOTSUPP
-once the inode mapping is switched to large folios.
+Detect the same-inode, same-folio case before looking up the destination
+folio.  Then in this case,we reserve the destination block explicitly.
 
 Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 ---
- Documentation/filesystems/f2fs.rst | 10 ++++++++++
- fs/f2fs/compress.c                 |  2 ++
- fs/f2fs/data.c                     |  9 ++-------
- fs/f2fs/file.c                     |  7 +++++++
- 4 files changed, 21 insertions(+), 7 deletions(-)
+ fs/f2fs/file.c | 61 +++++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 53 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
-index 771216f45207..b4f436ffd9ac 100644
---- a/Documentation/filesystems/f2fs.rst
-+++ b/Documentation/filesystems/f2fs.rst
-@@ -941,6 +941,16 @@ Compression implementation
-   reserved via ioctl(F2FS_IOC_RESERVE_COMPRESS_BLOCKS) or the file size is
-   truncated to zero.
- 
-+- Compression and large folios are not effective at the same time on a file:
-+  a compressed inode does not use large folios, while an inode which is
-+  using large folios keeps its data uncompressed on disk.  If the compression
-+  flag is set on an inode that is already using large folios, the flag works
-+  as a hint until the inode is evicted: the inode keeps using the large folio
-+  read/write paths, f2fs_write_begin() skips the compression overwrite
-+  preparation, and ioctl(F2FS_IOC_COMPRESS_FILE) fails with -EOPNOTSUPP.
-+  Once the inode is evicted and read back, it uses order-0 folios again and
-+  compression is applied as usual.
-+
- Compress metadata layout::
- 
- 				[Dnode Structure]
-diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
-index b130e43b4566..fa0f8449a12c 100644
---- a/fs/f2fs/compress.c
-+++ b/fs/f2fs/compress.c
-@@ -78,6 +78,8 @@ bool f2fs_is_compressed_page(struct folio *folio)
- 		return false;
- 	if (folio_test_f2fs_nonpointer(folio))
- 		return false;
-+	if (f2fs_folio_has_ffs(folio))
-+		return false;
- 
- 	f2fs_bug_on(F2FS_F_SB(folio),
- 		*((u32 *)folio->private) != F2FS_COMPRESSED_PAGE_MAGIC);
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index c9dba8d0ad3d..f5421334ecf3 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2941,12 +2941,6 @@ static int f2fs_read_data_large_folio(struct inode *inode,
- 	int ret = 0;
- 	bool folio_in_bio = false;
- 
--	if (f2fs_compressed_file(inode)) {
--		if (folio)
--			folio_unlock(folio);
--		return -EOPNOTSUPP;
--	}
--
- 	map.m_seg_type = NO_CHECK_TYPE;
- 
- 	if (rac)
-@@ -4828,7 +4822,8 @@ static int f2fs_write_begin(const struct kiocb *iocb,
- 	}
- 
- #ifdef CONFIG_F2FS_FS_COMPRESSION
--	if (f2fs_compressed_file(inode)) {
-+	if (f2fs_compressed_file(inode) &&
-+	    !mapping_large_folio_support(inode->i_mapping)) {
- 		int ret;
- 		struct page *page;
- 
 diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index db71cadefabd..c5cb0b0384b6 100644
+index 54aa045b549e..a36d243ca305 100644
 --- a/fs/f2fs/file.c
 +++ b/fs/f2fs/file.c
-@@ -5002,6 +5002,13 @@ static int f2fs_ioc_compress_file(struct file *filp)
- 	if (!(filp->f_mode & FMODE_WRITE))
- 		return -EBADF;
+@@ -1586,25 +1586,70 @@ static int __clone_blkaddrs(struct inode *src_inode, struct inode *dst_inode,
+ 			f2fs_put_dnode(&dn);
+ 		} else {
+ 			struct folio *fsrc, *fdst;
++			size_t src_off, dst_off;
++			bool same_folio;
  
-+	/*
-+	 * The mapping is already using large folios, where the data is kept
-+	 * uncompressed, so refuse to start compressing the file.
-+	 */
-+	if (mapping_large_folio_support(inode->i_mapping))
-+		return -EOPNOTSUPP;
+ 			fsrc = f2fs_get_lock_data_folio(src_inode,
+ 							src + i, true);
+ 			if (IS_ERR(fsrc))
+ 				return PTR_ERR(fsrc);
+-			fdst = f2fs_get_new_data_folio(dst_inode, NULL, dst + i,
+-								true);
+-			if (IS_ERR(fdst)) {
+-				f2fs_folio_put(fsrc, true);
+-				return PTR_ERR(fdst);
 +
- 	f2fs_balance_fs(sbi, true);
++			src_off = offset_in_folio(fsrc,
++						(loff_t)(src + i) << PAGE_SHIFT);
++
++			/*
++			 * For same-inode operations (collapse/insert), src and
++			 * dst may fall within the same large folio. Detect this
++			 * to avoid self-deadlock on folio lock.
++			 */
++			same_folio = src_inode == dst_inode &&
++				     folio_contains(fsrc, dst + i);
++			if (same_folio) {
++				struct dnode_of_data dn;
++
++				/* Reserve block for dst before copying */
++				set_new_dnode(&dn, dst_inode, NULL, NULL, 0);
++				ret = f2fs_reserve_block(&dn, dst + i);
++				if (ret) {
++					f2fs_folio_put(fsrc, true);
++					return ret;
++				}
++				fdst = fsrc;
++			} else {
++				fdst = f2fs_get_new_data_folio(dst_inode, NULL,
++							      dst + i, true);
++				if (IS_ERR(fdst)) {
++					f2fs_folio_put(fsrc, true);
++					return PTR_ERR(fdst);
++				}
+ 			}
  
- 	ret = mnt_want_write_file(filp);
++			dst_off = offset_in_folio(fdst,
++					(loff_t)(dst + i) << PAGE_SHIFT);
+ 			f2fs_folio_wait_writeback(fdst, DATA, true, true);
+-
+-			memcpy_folio(fdst, 0, fsrc, 0, PAGE_SIZE);
++			memcpy_folio(fdst, dst_off, fsrc, src_off,
++				    PAGE_SIZE);
++			if (folio_test_large(fdst)) {
++				if (!f2fs_ffs_find_or_alloc(fdst)) {
++					f2fs_folio_put(fdst, true);
++					if (!same_folio)
++						f2fs_folio_put(fsrc, true);
++					return -ENOMEM;
++				}
++				f2fs_ffs_mark_subrange_uptodate(fdst,
++							dst_off, PAGE_SIZE);
++				f2fs_ffs_mark_subrange_dirty(fdst, dst_off,
++							    PAGE_SIZE);
++			}
+ 			folio_mark_dirty(fdst);
++			if (same_folio && i_size_read(dst_inode) <
++			    ((loff_t)(dst + i + 1) << PAGE_SHIFT))
++				f2fs_i_size_write(dst_inode,
++					((loff_t)(dst + i + 1) << PAGE_SHIFT));
+ 			folio_set_f2fs_gcing(fdst);
+ 			f2fs_folio_put(fdst, true);
+-			f2fs_folio_put(fsrc, true);
++			if (!same_folio)
++				f2fs_folio_put(fsrc, true);
+ 
+ 			ret = f2fs_truncate_hole(src_inode,
+ 						src + i, src + i + 1);
 -- 
 2.43.0
 
