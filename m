@@ -1,251 +1,156 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0CA4BE435
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920F8258CE5
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:14:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495960; cv=none; b=Uv7n1A9U4y8rRZrRZ/44G2CYq68oS8UvOoQ/gUdNSM7MaHTExZoH3h/xkVde48Q7N6bY3kJ/GUcFFAq2PSmx2ySvM/GcFm7CUmwDdnhVpSsujBGBodKBYO+oE+FJhQVZELIpuNHa39ETbI5xboBWCqIchlFTbC23GnECNpj55xw=
+	t=1789496047; cv=none; b=bDjo9ceIzFxeK8I7KKiPb/05LOYuccTdMm+vnnI1rwQ0g77M4XsSJq1aSjDcvwvvI2l67IBn2UmOqEil7TPOLIXAl+ZdTm79uDu/ryQDmyp8qelTHPt+L5+/bYIbU0quIr5H5Z78QQzvJjY9OUw9EJz+9VFl14FWzSnyFzn2NL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495960; c=relaxed/simple;
-	bh=h784MP3GL66ANK9SwpoPDMFk96LfsbUTuZMSPWcnTck=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=npbVZFw1HmHUNLkOtZm4L3yVkWeEcCtuM6UJT7FzuewMXZJFnXqBb/5tOcHSK8Gta2GLaPPoX3y3lzQ1jvSU4E3HGwa9fjymx7djbazaJCOF9voXSJTX8EikTgvi3cjIhO+Uyzk40WJJzTB06q5B9vaBaqINQTbcJaJ4k02lSdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cURIcHye; arc=none smtp.client-ip=74.125.230.140
+	s=arc-20240116; t=1789496047; c=relaxed/simple;
+	bh=I7yEINnQlm9hteCHMUsZRclkkr+946xBHGFUUUIuwa8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bki/YYtdOGhR8rr8Ij4pxZqFxJgHGGMs/tOdDoT7eE5EHlAQiMEJ71x9pnKiN77/jtIK90LsnqhmtadcCadm8rITgAONpJbssjWpLzPHtQAsufsmF0J2LX+p0PM/CvQ6YP9nrQrHoa32D50zhDpUNVOWNQ2qTu0dBcpjLftkxMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bu16XGRQ; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cURIcHye"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-910537b51a0so498796d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:12:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bu16XGRQ"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb1a98dso54773a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:14:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789495958; x=1790100758; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6fvPaWKuH74Rj66uteSOuQL+AbF/NoYDvfe8MEEc324=;
-        b=cURIcHyeNK1GRgwEqc50vW+lkGUm9P32lQhAMw6XirfmUJD3K/w7Hf93Pez+NBmx+3
-         S7FY9pLPf2A9LzatZPxtkhjL5aQ+r6bOcAqId8tPrGmEI75Ql7C7my4OQ8UEtNvk9CPn
-         D3GV446IYqwhpTslYnooAlEG26T9dR9V79MZjAf4xSFwMiLhOvDDAn5jlKjyw/goRLL5
-         /NSrygzb5X/8TnpFmwKRCJ9ZTm4ozItXqMWR0sjNYKUiZGgVmZbPfzhxyqAGMbKSXQ1l
-         9SezDuaPbIRt8q3oOL5Sauu+7l/7CahwH3WhrR3cRMiFMIVcpR3/CfG41qmlPWDO+/ta
-         Rd+A==
+        d=gmail.com; s=20251104; t=1789496045; x=1790100845; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=c3OYYI0Ioeun4ZyGc0ibO0E01INXFyKIB2S0MWGQA2U=;
+        b=Bu16XGRQC/KBLDx+VkXAajXmIhNIE6IPidz+93BSF0tLhn/cLHnFuPAEowt/2l8/+k
+         G49q46fZ+ubQeZPdQRks/GIk7rGOfF3azZGiSUngIUoa04MNrT8iJCjP+n9EzjtFlNS4
+         z4KrIDJmdEeLadNvE3nG1YR5Unu5abDY8KaAG83J8dVUJC1DgBzQzKUtk2OP8A5SHgYM
+         pCWpuc+57j3A3cQYiPqiYj1Qs7CFxFu9ZwCJJ2vkX9uwpcn7RPnYCVReVf+Yhjl4c3ex
+         ndsQPgqvzP4qBHVggERK6qiCk5RjW0Cub0qV0kqJU66+z7jgBT1YuKAQpwgRqhQDbYV/
+         JmBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789495958; x=1790100758;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6fvPaWKuH74Rj66uteSOuQL+AbF/NoYDvfe8MEEc324=;
-        b=GjdAzIw2PXeXkZ1k6UtJRlBPTMr6PZ1OoFwV40jqfs/iu8nB0TJE7jvGHXN7PaS+zy
-         EStrV9vbP5YdFlg1sl9Y9PC4J5MLiJwuX0Va0ruhzueUlyV6Giao2zIr/ektWzfu41K9
-         BHOMaUfH9MJ1w6ogLj0/vnyWoE88UHhkGQwXXwNviuBJeh7zI/aRBVnLUhYu3VJq3G9+
-         YHr/3oz+3yebkAoAKMEzVHr7NgOJX4+HfXDHGsV7R3OH6lCneBcmpKThvxltEyPrxP1B
-         CM/2CgOh5wHrK5471PzahORXaUo5+khvjH5iV10hUL6PxuRGlvKhQXHHOs0f/dVvqxjV
-         UP4A==
-X-Forwarded-Encrypted: i=1; AKwUvByy0HGYpMEni3DorU7JU6+Y4NRFgokiQHdN6dAi3gWe4y0ZKtIsY0Z4XHRvfr+H4QHjhpMlSFtNhlMZGL8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmdHLpr4Yo9R8IMnvJwWK8hVmJg+MPhp6ftK24//lX0rrL3Wl3
-	MeEEJBLlkKwUfeuvHZyer8YPwyubpZGziMEEHlX8xz5e/egfk1Ri1PvW6cnLqw==
-X-Gm-Gg: AYBFou2tqty9xuhKSXyiUFpQzgVniT22SzEXw0P/UcSl5K9KZqD7toEo4TdjkrDyJSq
-	KYvg0Cm7YmytYZvklp8b86+VJP5bG1qycZgf9A7nTVCMt39Ksj53ds1maq/Cn9NYczFHfCaSUYL
-	Wr6czIBZy26gtEORdHz5YNIm8/ta23vXWxzbldv6C1lPdyAx858qBlZPma2XC+jJWxAhZ9UrtD5
-	LysnghRjG3U0feUvpZQNmBT4QOm3gm56Qi25yJWwlZeJnHvvIE7r2qKzgr514aMC5ygq4xgTVVn
-	wxMCyJUoyeJLKxQnWWEXmFPFfhFhB7dDvIUvlOepCN7DN8psKTeujrQmSsz5/IvwiSMqX7dH0UF
-	6ajXxGDc/QpQoTFrMMsxMIqgE6EeQTvoE0l6q3GXmyKch9x0QbLjrlFj1JmEsVDnXcO1PwdvyPy
-	5xMiMPPBSASZ7c06K1pIkjljdSuCLI6qLijOrqwpqY/ZPjZCuTfZ6Q8ag97iH8A8zCy8nnFW9/M
-	7V+TNozJsDTnSASo2AZZ3X2b1t8lopTXhUcjbvsM1K+OxHTYG+9zPwiEXzyuxTzyUpEtwHUaFqD
-	mQwLvCZCO8d1fULiwZ+h0nJc+fhBam26cpmsLMnrYqk3wVeU
-X-Received: by 2002:a05:6214:2128:b0:911:2a79:cf11 with SMTP id 6a1803df08f44-9123a526c78mr33549316d6.22.1789495957590;
-        Tue, 15 Sep 2026 11:12:37 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123bed6f76sm4250996d6.43.2026.09.15.11.12.36
+        d=1e100.net; s=20260707; t=1789496045; x=1790100845;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=c3OYYI0Ioeun4ZyGc0ibO0E01INXFyKIB2S0MWGQA2U=;
+        b=Djetfu5Y4npvehwAt9WoI/gTW6Y89lcRxXgum2+/Zu6IPhAzaBhuyuPuxoxtBkF02Z
+         yMROR7So/oUmWu83ImzUj7scMyh8fFedRtW0Q7j6JjhKHn/sQ4KT606ttaHWSIk4+E4J
+         SyRjAIOTuHwb8lfROfUVh8r5/r+9IDUDHK2uSNq4id3CttZF28JRhYqKTSATdDoRiCee
+         iKLvuxsDv80r9yy0L0f9vrPX8uynb0RKEreWm/Fs1LUbV60zO6i+joSpUq2hofLJpIG4
+         u2UTb+9cTMVYZL6XC4pWFYpT6rnjH4AyW5KRZFNF+1VE8IU/4B32e64te+Dp2x0iJp+W
+         auYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBySJU42h6YMrN+O9s5mL7jB0mA0nYEdLl919MLXRbfD9vCQt4S4egBz2lpQBYbzVkullBxUMFNJY/YUdwc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcS0uwm5+vTKJKcXKW7HSlPLaZR0DFBeVDSlGoMqJtVL6GCBo3
+	nzEwrAcQs+t7rP3PuFPJghBQaEyh+ZNt1yICPYQZiY9AwaQpZY5t7vOZ
+X-Gm-Gg: AYBFou3fmMovUPUdtLaEaj9s1+wDbhG+t7NvPX74yGqX2+6hnQvYN7HaRKczAIQVon9
+	MralM0Al4XsNZaYT1dgEzzmjHvoBpMjtWrHWOooF9bXkM1uq3o6wOIBGqdJtdE30UvOgXyLChta
+	e6W31ftsWlep6RUT1c3WaG74mbcjDXLi0tW7YM/tVhjZqqZa/rgKdMmFWiPMFVDarU6Hrz849ob
+	mSPBJ8h1sPzOvlT6qafCLg6K4Otd5eAXPF2RjndS7dQRgFtgjyhNoznfqIgceUXkuUW7sBeV+Dz
+	WAE2YLt2WNgME3Kk8dSOYZG4FuHCbC6JD0f9wpIJw1PZEUHpvbkXnevZh6/N7VnIgIGxCFEWHcg
+	mXyZp8kVbNJ7vzdhE0XNG8i6EUeiLOSYrpu/Ld1yMiOoqyQZxwo6rmym55OEmq4Bxwwsb+3xBqc
+	3IBOddSEABOiAxRebM2YV2xGLidJDPTFijyZ1hKqL8EAEZcHsaH0M8USZ/b7i3GoSChVHNgDSbA
+	CBW
+X-Received: by 2002:a17:90b:554e:b0:39d:f823:ecff with SMTP id 98e67ed59e1d1-39df823ed94mr13397486a91.11.1789496044736;
+        Tue, 15 Sep 2026 11:14:04 -0700 (PDT)
+Received: from [127.0.1.1] ([186.235.217.201])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a166sm716073eec.10.2026.09.15.11.14.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 11:12:37 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	linux-kernel@vger.kernel.org (open list),
-	linuxppc-dev@lists.ozlabs.org (open list:FREESCALE SOC DRIVERS),
-	linux-arm-kernel@lists.infradead.org (moderated list:FREESCALE SOC DRIVERS)
-Subject: [PATCH] dmaengine: bestcomm: use platform machinery to get irq
-Date: Tue, 15 Sep 2026 11:12:34 -0700
-Message-ID: <20260915181234.9839-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Tue, 15 Sep 2026 11:14:04 -0700 (PDT)
+From: Luis Vieira <luisflavieira@gmail.com>
+Date: Tue, 15 Sep 2026 15:13:35 -0300
+Subject: [PATCH bpf-next v2] libbpf: Fix program log buffer size validation
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-libbpf-log-buf-fix-v2-1-2feca3fa4842@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAM6KqWoC/22NTQ6CMBCFr0Jm7RhaQMWV9zAsSunAJEBJiwRDe
+ ndr49Ll+/veAd44Nh7u2QHObOzZzlHIUwZ6UHNvkLuoQebykteiwJHbdiEcbY/ti5B4x7KmKi9
+ uWqmqgzhcnIl2gj7hW57NvkITk4H9at07vW0i5T9w+Q+8CRRIVS21ItL6Kh79pHg8aztBE0L4A
+ Hehh/e+AAAA
+X-Change-ID: 20260913-libbpf-log-buf-fix-49f5038caa5d
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>, bpf@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Luis Vieira <luisflavieira@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789496040; l=2198;
+ i=luisflavieira@gmail.com; s=20260913; h=from:subject:message-id;
+ bh=I7yEINnQlm9hteCHMUsZRclkkr+946xBHGFUUUIuwa8=;
+ b=DZbEYo5ANBcLM8/O1rfc7whiDbVTKuWqFmhwD4+XnfQBeE6x3gpsz26Z1+W1XFptHNtf8icl6
+ dHSfvpZaE6bCRj0KQ7+NGC3udWPo6JZzTcvd13czXOyAzzL54ZGs3fG
+X-Developer-Key: i=luisflavieira@gmail.com; a=ed25519;
+ pk=98MeC/NdrC6ah7zYpPnkWiQIoyj62iUP/rNuV3esCW4=
 
-platform_get_irq() avoids having to explicitly map and dispose of an irq
-by having the platform_device machinery take care of it.
+bpf_program__set_log_buf() checks the existing prog->log_size instead
+of the incoming log_size argument when enforcing the UINT_MAX limit.
+As a result, an oversized value can be accepted.
 
-This requires replacing the device_node with a platform_device in the
-bcom_eng struct so that platform_get_irq() can use it.
+The setter also accepts a non-NULL log_buf with a zero log_size, while
+bpf_prog_load() rejects mismatched log buffer and size values.
 
-Conveniently, this also allows getting rid of of_node_get and
-of_node_put as the platform_device machinery also handles that.
+Validate the log buffer and size pair consistently with bpf_prog_load(),
+and check the supplied log_size against UINT_MAX.
 
-Adjust the goto labels in bcom_task_alloc to match what is being freed.
-
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Luis Vieira <luisflavieira@gmail.com>
 ---
- drivers/dma/bestcomm/bestcomm.c            | 47 ++++++++--------------
- include/linux/fsl/bestcomm/bestcomm_priv.h |  2 +-
- 2 files changed, 18 insertions(+), 31 deletions(-)
+Changes in v2:
+- Target bpf-next instead of bpf and drop the Fixes tag.
+- Drop the regression selftest.
+- Validate log_buf and log_size consistently with bpf_prog_load().
+- Link to v1: https://patch.msgid.link/20260914-libbpf-log-buf-fix-v1-1-f592caffcc71@gmail.com
 
-diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
-index 241a91936fe8..1006030ff167 100644
---- a/drivers/dma/bestcomm/bestcomm.c
-+++ b/drivers/dma/bestcomm/bestcomm.c
-@@ -47,6 +47,7 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
+To: Andrii Nakryiko <andrii@kernel.org>
+To: Eduard Zingerman <eddyz87@gmail.com>
+To: Ihor Solodrai <ihor.solodrai@linux.dev>
+To: Alexei Starovoitov <ast@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+To: Martin KaFai Lau <martin.lau@linux.dev>
+To: Song Liu <song@kernel.org>
+To: Yonghong Song <yonghong.song@linux.dev>
+To: Jiri Olsa <jolsa@kernel.org>
+To: Emil Tsalapatis <emil@etsalapatis.com>
+Cc: bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ tools/lib/bpf/libbpf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
+index 613afae26519..f7a0517d8fa8 100644
+--- a/tools/lib/bpf/libbpf.c
++++ b/tools/lib/bpf/libbpf.c
+@@ -9966,9 +9966,9 @@ const char *bpf_program__log_buf(const struct bpf_program *prog, size_t *log_siz
+ 
+ int bpf_program__set_log_buf(struct bpf_program *prog, char *log_buf, size_t log_size)
  {
- 	int i, tasknum = -1;
- 	struct bcom_task *tsk;
-+	int irq;
- 
- 	/* Don't try to do anything if bestcomm init failed */
- 	if (!bcom_eng)
-@@ -67,30 +68,32 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
- 	if (tasknum < 0)
- 		return NULL;
- 
-+	irq = platform_get_irq(bcom_eng->pdev, tasknum);
-+	if (irq < 0)
-+		goto err1;
-+
- 	/* Allocate our structure */
- 	tsk = kzalloc(sizeof(struct bcom_task) + priv_size, GFP_KERNEL);
- 	if (!tsk)
--		goto error;
-+		goto err1;
- 
- 	tsk->tasknum = tasknum;
- 	if (priv_size)
- 		tsk->priv = (void*)tsk + sizeof(struct bcom_task);
- 
- 	/* Get IRQ of that task */
--	tsk->irq = irq_of_parse_and_map(bcom_eng->ofnode, tsk->tasknum);
--	if (!tsk->irq)
--		goto error;
-+	tsk->irq = irq;
- 
- 	/* Init the BDs, if needed */
- 	if (bd_count) {
- 		tsk->cookie = kmalloc_array(bd_count, sizeof(void *),
- 					    GFP_KERNEL);
- 		if (!tsk->cookie)
--			goto error;
-+			goto err2;
- 
- 		tsk->bd = bcom_sram_alloc(bd_count * bd_size, 4, &tsk->bd_pa);
- 		if (!tsk->bd)
--			goto error;
-+			goto err3;
- 		memset_io(tsk->bd, 0x00, bd_count * bd_size);
- 
- 		tsk->num_bd = bd_count;
-@@ -99,17 +102,12 @@ bcom_task_alloc(int bd_count, int bd_size, int priv_size)
- 
- 	return tsk;
- 
--error:
--	if (tsk) {
--		if (tsk->irq)
--			irq_dispose_mapping(tsk->irq);
--		bcom_sram_free(tsk->bd);
--		kfree(tsk->cookie);
--		kfree(tsk);
--	}
--
-+err3:
-+	kfree(tsk->cookie);
-+err2:
-+	kfree(tsk);
-+err1:
- 	bcom_eng->tdt[tasknum].stop = 0;
--
- 	return NULL;
- }
- EXPORT_SYMBOL_GPL(bcom_task_alloc);
-@@ -125,7 +123,6 @@ bcom_task_free(struct bcom_task *tsk)
- 	bcom_eng->tdt[tsk->tasknum].stop  = 0;
- 
- 	/* Free everything */
--	irq_dispose_mapping(tsk->irq);
- 	bcom_sram_free(tsk->bd);
- 	kfree(tsk->cookie);
- 	kfree(tsk);
-@@ -377,16 +374,12 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
- 	if (IS_ERR(regs))
- 		return PTR_ERR(regs);
- 
--	/* Get the bestcomm node */
--	of_node_get(op->dev.of_node);
--
- 	/* Prepare SRAM */
- 	ofn_sram = of_find_matching_node(NULL, mpc52xx_sram_ids);
- 	if (!ofn_sram) {
- 		printk(KERN_ERR DRIVER_NAME ": "
- 			"No SRAM found in device tree\n");
--		rv = -ENODEV;
--		goto error_ofput;
-+		return -ENODEV;
- 	}
- 	rv = bcom_sram_init(ofn_sram, DRIVER_NAME);
- 	of_node_put(ofn_sram);
-@@ -394,7 +387,7 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
- 	if (rv) {
- 		printk(KERN_ERR DRIVER_NAME ": "
- 			"Error in SRAM init\n");
--		goto error_ofput;
-+		return rv;
- 	}
- 
- 	/* Get a clean struct */
-@@ -405,8 +398,7 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
- 	}
- 
- 	/* Save the node */
--	bcom_eng->ofnode = op->dev.of_node;
--
-+	bcom_eng->pdev = op;
- 	bcom_eng->regs = regs;
- 	bcom_eng->regs_base = res_bcom->start;
- 
-@@ -426,8 +418,6 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
- 	kfree(bcom_eng);
- 	bcom_eng = NULL;
- 	bcom_sram_cleanup();
--error_ofput:
--	of_node_put(op->dev.of_node);
- 
- 	printk(KERN_ERR "DMA: MPC52xx BestComm init failed !\n");
- 
-@@ -443,9 +433,6 @@ static void mpc52xx_bcom_remove(struct platform_device *op)
- 	/* Cleanup SRAM */
- 	bcom_sram_cleanup();
- 
--	/* Release the node */
--	of_node_put(bcom_eng->ofnode);
--
- 	/* Release memory */
- 	kfree(bcom_eng);
- 	bcom_eng = NULL;
-diff --git a/include/linux/fsl/bestcomm/bestcomm_priv.h b/include/linux/fsl/bestcomm/bestcomm_priv.h
-index 3b52f3ffbdf8..cddde7c74cb5 100644
---- a/include/linux/fsl/bestcomm/bestcomm_priv.h
-+++ b/include/linux/fsl/bestcomm/bestcomm_priv.h
-@@ -66,7 +66,7 @@ struct bcom_tdt {
-  * This holds all info needed globaly to handle the engine
-  */
- struct bcom_engine {
--	struct device_node		*ofnode;
-+	struct platform_device		*pdev;
- 	struct mpc52xx_sdma __iomem     *regs;
- 	phys_addr_t                      regs_base;
- 
--- 
-2.55.0
+-	if (log_size && !log_buf)
++	if (!!log_buf != !!log_size)
+ 		return libbpf_err(-EINVAL);
+-	if (prog->log_size > UINT_MAX)
++	if (log_size > UINT_MAX)
+ 		return libbpf_err(-EINVAL);
+ 	if (prog->obj->state >= OBJ_LOADED)
+ 		return libbpf_err(-EBUSY);
+
+---
+base-commit: 5ef40d69b38a93bc9951dadb1a15c85c597e1a40
+change-id: 20260913-libbpf-log-buf-fix-49f5038caa5d
+
+Best regards,
+--  
+Luis Vieira <luisflavieira@gmail.com>
 
