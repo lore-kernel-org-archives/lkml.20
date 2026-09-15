@@ -1,140 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989B617BCA;
-	Tue, 15 Sep 2026 22:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1E937B3F2;
+	Tue, 15 Sep 2026 22:25:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789511158; cv=none; b=U8C5f4kPvFTa75JizOyOdp7TvwRXhha6HRZG36Zk/awR0hECk2iGdvCBjY5N7gaeX24wtIQOn9lrFHNEnV7vDXR0/uuNK5wwsMPXY358S71yG59FNos37AHXIgndFtMEB3+H71ORqfnzj2lD+qW+8IpsaMpmGVBAWtnTViMA060=
+	t=1789511149; cv=none; b=UwupZYs28zWurFXzq7R2gEwkUY+d8BU/YZVRbCASZoJR5IwjZFw99ki15VsXyHpKGuNABuQBIzmJ+x5u7bd2pJ1G+rzV4TLpHs4c0901Ht6oe7plrhmfEfoJPmaaNiqQ12+WfkbElfvZqK9anG4V1O0tTM7KDUx3R9FGjBxayIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789511158; c=relaxed/simple;
-	bh=9ffJgZmCJOwn886/X/q+wxpKU/Y3qMLflYJ6qhCUcJQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cVDNFusp28hKWbYbHVx1hUxK/SnEBrwgQJactqSPmuOMq0o8YorhLY660Tk1qtwU+KrAgKYKrzOEcEDm1TK4SBIz2zL6S5neibrkTdcOVbQEN74N2fVJthEbxghuZrZSNxo901ZRwTQIr6p55C3OV8Rr6tFZ1nDiTIwPI6WK5xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bdSQ0I6W; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789511149; c=relaxed/simple;
+	bh=nJSE2gN0CZw1cZj8uKF1OYvku0yx+gjcEg82UND812o=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=h6ULWV5+pPAqxUF1pz/c/xu/gTmcA83P0QWSeg8dE+SAzB4lv3991D/s+kdZnOnSzgP+u9gfOOrb+lkXq4NaGSwy1dI2rmqvyRFNOfyAPh3Bv0knvX2Zul2Lwm2sPriQJpxlao2wbPkfRSraQh9X6rpb2nDG441VZCnQm0Nma90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=RvL5PXGw; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Lmk7QY0j; arc=none smtp.client-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bdSQ0I6W"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3044AC2BCF5;
-	Tue, 15 Sep 2026 22:25:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789511156;
-	bh=9ffJgZmCJOwn886/X/q+wxpKU/Y3qMLflYJ6qhCUcJQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=bdSQ0I6WxTxMx64XTvP4jPqf07d1xDNaxabtE+4F+UAFzVau8Bk1q67AiI5Y2iO1x
-	 PKQdVszR3r5It8WZbgu50Se/1GATfPcEKIRl3EZ8pRCVFBMsUR4sMu2u9WnDx8mDoH
-	 P0xuizRa285Kn6kE9ylUh1Q9NSfM5QOI3DgKILWzWdu9YCALZjiibvSBsbEg4hPN4o
-	 qUpADcYVaszDz+aNFHGlV+nMOdfUqIK/ZokELOEq9UBsA/Sre/3bDMJ6aJ6vlWfkBY
-	 7JuF0KhE/nqN2L4QxnLy/kVlZisp+s9UBeeIiZNsqpgX+e/UysrN4HGX/tdsTvXZ6w
-	 Pcfm9cb3eAD5A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10F2EC88E77;
-	Tue, 15 Sep 2026 22:25:56 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 16 Sep 2026 00:25:47 +0200
-Subject: [PATCH 2/2] arm64: dts: qcom: sdm845-xiaomi-polaris: Extend the
- xbl_mem region
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="RvL5PXGw";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Lmk7QY0j"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 5752E7A013D;
+	Tue, 15 Sep 2026 18:25:45 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Tue, 15 Sep 2026 18:25:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789511145;
+	 x=1789597545; bh=9hYTy0EV2R4mqvyjDo61OHwzmweE9REZTzH25IaD0Gc=; b=
+	RvL5PXGwQB8vFv3rcAT7kiqcFI0iqITiq8gALbHo3cO628Ctys/LW/ul8Fq5JC85
+	oVk0/8bHMU86dNC2dVvz83+t98zx0gu2T9lQ6t2kDdOjN5Z5dRcZimf8Be0E/Ix1
+	02eYi7PE7yrOQee6s7iuj3s4S/MJpvWFFahf7F9I/vUdp/lQRSD2j2LuDZnOX49Z
+	t+ebva/3oUp2jgovU8jtsDeLitVna0xYn1q/S+MY5qt9uPuAmLnGs4QQEyhcCpw6
+	3JhdfclL2eorTveRoN7wNyB8ZJaW62G4qbWcse5C00X/cZQ5Xn6V0TWP0IFks8XL
+	xKlW67mkYm3w1p4AwgBoaA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789511145; x=
+	1789597545; bh=9hYTy0EV2R4mqvyjDo61OHwzmweE9REZTzH25IaD0Gc=; b=L
+	mk7QY0jLH/KYK2hvlCeYJ8KHEWVW6/tqYpiC5k4sFggxZgeNwLpS8lzFNfnkQpeb
+	EaALg51F4Aw9/U05w3x0TSm+UXcUB1USspYC6M9ipyQnlw9i+4WMJfPcuUwPYznu
+	btLAEROSGABaB5DdttNqQ45tRADCKwzsZGS/ALy1tb7+qV4HQAYqHCNC6HfwQww9
+	Hjoe51E68+l4XEDdCLatYVCNbUtKs0bX3X5UT2mwPaBb4azRZXEcX1yr3BS8vkjn
+	rNDco5qcatk3UmlaSAuKg2ICABenYcPdjAdcpb6chyiCJwxFKXScE8sqM4flFnLs
+	2omG96QmFXVQmJTRaoheg==
+X-ME-Sender: <xms:6MWpapd1z2JIt2GX7VTh1aGWrsIKTGcccxFN7JivCMYgH4tAb61Rxg>
+    <xme:6MWpaggrHLNmFvqw3g71Y2vS9Oq0AAsfYY8YdOI4HV-j5roumRO1xbUI7e29jQA3c
+    _AvkXburd_qRloJujJW6BYJl1YReI1VipiubB5wgLRJl2Os0vt93g>
+X-ME-Received: <xmr:6MWpapxRfZP7u17n38ad75X34zb3RwYp6ylhqQfyBSOBEOkUki5uEQzTN9UgAw>
+X-ME-Proxy-Cause: dmFkZTEY+R1Yzjclo+APlMeV1P6k1TlXHVaz/3mBCyIgWXE8NgYUAya+iGERVf1bRdC/Ff
+    pdZw2nO3LdGXOApsYf/YGV4jtV4vjEYVNfBiO7RoitoFazi532a0FFRjS7JGnjTQCYrYre
+    h6F88g4BREQc/97I+ITTkwF6dFoBrKd16GgkXqDr0CfcdnDYtXRie1hAS+3UICD0CZCafW
+    otD3c8C81T+YOWuTswTJpM2NkSVt74yyUB/dvfFkwjy1g/Mu7yWvHeUFaM8DvFaSDlTAnj
+    asOJ0QLm+GXXcJi3rko0N7duhUqHFsoQEoJMBOWoBaIw0kP/C5efJcNpzk/Goo3I8QTWD4
+    kil4x/6ZU4EluDJvoPmVsASksxkysHx9h7Lxo37rG0qK58AhMKVjSRipbXJ5L7kUDbyPad
+    OeCcwB7t3lM9w36fgfOueNrLuBQfdrV4TPh8gnt9A0lOPbB1/g+m0Diou+ud8YVE1xQa8j
+    64SfYdr0JY9TnvB9qmM/MjMkDKzXXrulLzCI4HAAw0VxHI6P3M91VNVMYqFoHCki7++hxJ
+    6fFgbkNmjYVkOvYRm5aCbq12Rn5fEUyoezvwwGaxaFweKVddgyVZ6GOesagJ9PZTMux3vw
+    uOoXdv/fxReSikj8Ig4FpDnsAR9hn1jkkiuAV69+/2/EY8ZRShIzySAAYkbg
+X-ME-Proxy: <xmx:6MWpakMGrnYbVbUDuRaVfXCmLkH454vTpL10qsKTJBG84BFcXrzfGg>
+    <xmx:6MWpaiVThc-Nol-fgFNE6Ji0fzf312uwMk0gvx-AIMimN8VicQ08NQ>
+    <xmx:6MWpag2pYd8dF_YS6OtADX--xuqFKKdl2-_Hlpy21_mvJSXwV6RtQQ>
+    <xmx:6MWpaoqEtuOaDQ4pg4-b_HzaIQRGyAA3vDRjnxCXM1aGXrEnmckEMw>
+    <xmx:6cWpaqpGiff6PD7HXqP1-4rnQhg6S1O-sLqFf45q-6onQFDUn_rH6lB0>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 15 Sep 2026 18:25:44 -0400 (EDT)
+Date: Tue, 15 Sep 2026 16:25:41 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Abdifatah Suruur <suruurism@gmail.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, nipun.gupta@amd.com,
+ nikhil.agarwal@amd.com, alex@shazbot.org
+Subject: Re: [PATCH] vfio/cdx: prevent read-only region mappings from
+ becoming writable
+Message-ID: <20260915162541.5781a54f@shazbot.org>
+In-Reply-To: <20260819084203.1526-1-suruurism@gmail.com>
+References: <20260819084203.1526-1-suruurism@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-sdm845-xbl-mem-v1-2-6e3c88507997@ixit.cz>
-References: <20260916-sdm845-xbl-mem-v1-0-6e3c88507997@ixit.cz>
-In-Reply-To: <20260916-sdm845-xbl-mem-v1-0-6e3c88507997@ixit.cz>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Amit Pundir <amit.pundir@linaro.org>, 
- Molly Sophia <mollysophia379@gmail.com>, 
- Petr Hodina <petr.hodina@protonmail.com>
-Cc: Konrad Dybcio <konradybcio@gmail.com>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1740; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=KhYtwAwwEEXXn9tBUw2nXm8/lwiJ0Ak0iHOYARf9L+U=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqcXyLbC8CHVLLesOcCo2SCkcuNpN3GjL6x/rH
- u2kBTerxUWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqnF8gAKCRBgAj/E00kg
- cuOKD/9jiRMig1oJLnCMIdmnE/PzVhRMa+SIv9Af4gTT+JywSfkc8vPV53MqqutyT1vvV7kqB8e
- YyvzSUhRnh8wKVEvqjy/XQPOK66YyKpeO4upTv0UsIwHjxK7EKBAxRRZP1ybhgKOrXcT5rUz7TG
- GNEjBVsAuvevgZ9vFAO3V2Iw9NNBuZkPhnYrXcEuVvdcLg+pMkUXaOc7uwl/wDpdL2k0PgNO+pH
- g0Ukyv+5HqycK9ekwogknYL/47aQQI36OY3dsdyHRVr3ObRsqZFUbX9XR/3Ne3Z5936I6C0Q5qd
- TAoZeC8N7Y7xMYh6BLt8HaP43otEwJ2ZfRjkB2hk6yuaDSEjiKuoOaaoku8DLax/j4dSVYiYNli
- yDQv+azssGsM3eqGNVwJY8DdkBAZ4xY+1uxahj8TTekzSc0Bu+Z8U4k/9sY9VTV3JcKgm8B/ea9
- Uv2k0Iif+FRpuwRrtgUAmqbs9ILTqTaSmCSYtLuSNGWPVSz1VW1Jfx/QUwsXVi6ET/7/bHxYhQ7
- UFxxOtfrR7PyW3RpdSScspGg+pXwgs34oxLUzWsohUXCbe32Vb/oQAz1LBY4obwQZyFQaQXELfN
- mD7MLjKYvasHwx5KHecZomdvI6dlc8QLYQWLXo2bWWN1sg4QBibtCXTQlZ4zh8DoHMczuLzs+0E
- RVVZkLUoU9AJPBA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
+On Wed, 19 Aug 2026 11:42:03 +0300
+Abdifatah Suruur <suruurism@gmail.com> wrote:
 
-Xiaomi's Oreo-era tree still had the CAF 1 MiB region, the 2 MiB version
-arrived with the Pie import. This isn't a board-layout quirk, it tracks
-the firmware. The later XBL wants one extra MiB below the old region.
+> vfio_cdx_mmap() rejects writable mappings of regions without the WRITE
+> flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
+> read-only and then upgrade the mapping to writable with mprotect(),
+> writing to MMIO regions the device marks read-only.
+> 
+> Clear VM_MAYWRITE for regions without the WRITE flag, as i915 does for
+> its read-only objects and as fixed in drm/vc4 (CVE-2026-68445) and
+> drm/panthor (CVE-2024-53071) and ptp: vmclock (commit
+> a5edadbae57e2298a56cf7a4e774a027905a331f).
+> 
+> Fixes: 234489ac56130 ("vfio/cdx: add support for CDX bus")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+> 
+> ---
+> --- a/drivers/vfio/cdx/main.c
+> +++ b/drivers/vfio/cdx/main.c
+> @@ -284,5 +284,9 @@
+>  	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE) &&
+>  	    (vma->vm_flags & VM_WRITE))
+>  		return -EPERM;
+> 
+> +	/* Prevent read-only region mappings from being upgraded with mprotect() */
+> +	if (!(vdev->regions[index].flags & VFIO_REGION_INFO_FLAG_WRITE))
+> +		vm_flags_clear(vma, VM_MAYWRITE);
+> +
+>  	return vfio_cdx_mmap_mmio(vdev->regions[index], vma);
+>  }
+> 
 
-Cc: stable@vger.kernel.org
-Fixes: be497abe19bf ("arm64: dts: qcom: Add support for Xiaomi Mi Mix2s")
+AFAICT, this should have the same acknowledgment as platform and fsl-mc
+that this is hardening and unreachable, with stable removed, cdx never
+exposes a read-only region.
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+Also see comments on platform vm_pgoff patch.  Thanks,
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-index d3162e4444532..a782023d0dcb3 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-@@ -27,16 +27,17 @@
- /delete-node/ &adsp_mem;
- /delete-node/ &wlan_msa_mem;
- /delete-node/ &mpss_region;
- /delete-node/ &venus_mem;
- /delete-node/ &cdsp_mem;
- /delete-node/ &mba_region;
- /delete-node/ &slpi_mem;
- /delete-node/ &spss_mem;
-+/delete-node/ &xbl_mem;
- 
- / {
- 	model = "Xiaomi Mi MIX 2S";
- 	compatible = "xiaomi,polaris", "qcom,sdm845";
- 	chassis-type = "handset";
- 
- 	/* required for bootloader to select correct board */
- 	qcom,msm-id = <QCOM_ID_SDM845 0x20001>;
-@@ -58,16 +59,21 @@ key-vol-up {
- 			label = "Volume Up";
- 			linux,code = <KEY_VOLUMEUP>;
- 			gpios = <&pm8998_gpios 6 GPIO_ACTIVE_LOW>;
- 			debounce-interval = <15>;
- 		};
- 	};
- 
- 	reserved-memory {
-+		xbl-mem@85d00000 {
-+			reg = <0 0x85d00000 0 0x200000>;
-+			no-map;
-+		};
-+
- 		adsp_mem: memory@8c500000 {
- 			reg = <0 0x8c500000 0 0x1e00000>;
- 			no-map;
- 		};
- 
- 		wlan_msa_mem: memory@8e300000 {
- 			reg = <0 0x8e300000 0 0x100000>;
- 			no-map;
-
--- 
-2.55.0
-
-
+Alex
