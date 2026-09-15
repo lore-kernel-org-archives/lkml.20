@@ -1,98 +1,132 @@
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BF43AE1BC;
-	Tue, 15 Sep 2026 13:15:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D9C3C1D67
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:16:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478155; cv=none; b=cnjl/x4P0JZ3tSmhPpWSoO431QDD5+ZxZRZ3s1TxYRV2CVTKUHBASdLLPSwDxE3VE/W/++hmlzmFZnnAvM1LOf7VhS/xB4LgD7JdT1omBt6Q2mZUoL0MRF4UKOQBnpwQArSilnJd1J3mNovcRVpezMU0+A35OqpZhU9KazZeB/8=
+	t=1789478204; cv=none; b=LiEh0ndz0e2qpa5Q5cD+98sgRBUjL7tcUqk7aN1v2XY4D6YK2Tn5TAPIR38SFlFEhKYyI+74Jv0P7Oz/32BgA6zMr6tw8qZhFEwHsnBvQt1i+YIWzSOP9ZtIXNFJ+nkTup4SYMS0q/CNV2s4mrutlel/kJrYciVBPWrjW8rQjPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478155; c=relaxed/simple;
-	bh=C0kAj0twCgVsqYz7xAzWT3venRQa0NE/YrdpflK9jAg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RgONxHeyGHXxLTJtta31swZJ7M1dS/mDDsRLibZeH/uEIivw7lXsgf0UcNk8mMyI/hTtcTSdqBNjMO+/NYYCgnNzI4dXR2/rs3PNG9stcPnhRflAMyo+c8g5Z3w1KsTP/95t2Cb5bnI3FWM/YQBQE0HJe0npteLdg3524yXt/Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=XS5cEMDe; arc=none smtp.client-ip=185.226.149.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
+	s=arc-20240116; t=1789478204; c=relaxed/simple;
+	bh=usQ6otGy61tea2/+SN0kWeGAn4CCH12vYdkTnhTHXWs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=B8VIpLezMRUBzbO++q1yd+OI9V6yUJ5r9CpkhVQEx7pt5gWXvIQ/rNqwysae0hAuZM+8mUs9FLkklnxFFawfRQiNC9DLaLkv838WtSMIsaM2NeP3w5bEgDzK1JdT08LE3m43dxOXwkUf13fTh/OvAJtfinmlhpeIhjrB9Ie7AJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UJnhYlRU; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="XS5cEMDe"
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1x6T0g-000wM2-AS; Tue, 15 Sep 2026 15:15:42 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector2; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:From; bh=VaF+evrE8Rn7mltrExzSlFQ+pytZXfKnJyj0FVRJXyk=
-	; b=XS5cEMDe6r7OoPmRvMaMypBHm69yF2hNOmEPOuYfn7zzgYcr/BcSlnzc7eSvY/4S2ecjmnxUK
-	wisPy7F8cMOngXeposdztXDA0011Dt3FiIWolPe3mcYJ2we2+WTmng/Zx5yQx55244zpvPhMyn6KN
-	ev0Nk/MYqL/eHEYtI/ozTx6vPhY/YqdRt7DCLUxcAlY+ZPOA0P8eJW4dONt5xUZ5U0jExdEAhhkDU
-	/8ePIKoa7lwpUZ/8j53pGGwAg0pYpCyj4HPBBBWLC91bL4ll4Mo0YbAOXk23z/6A3FsuMCU+4nTHQ
-	tb+AVaJpCrxuIk0wwWngBi49SRjOMVwK0o2Rxg==;
-Received: from [10.9.9.72] (helo=submission01.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1x6T0V-0003iE-UH; Tue, 15 Sep 2026 15:15:32 +0200
-Received: by submission01.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1x6T0H-00EUxD-9H;
-	Tue, 15 Sep 2026 15:15:17 +0200
-From: Michal Luczaj <mhal@rbox.co>
-Subject: [PATCH net v2 0/5] vsock: Fix connect() races
-Date: Tue, 15 Sep 2026 15:15:11 +0200
-Message-Id: <20260915-vsock-connect-reset-closing-v2-0-a1d9abb472f7@rbox.co>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UJnhYlRU"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso30727415e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:16:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789478200; x=1790083000; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yOh4YxsUy9cnJP0mnCeYYmhsQkJTthFN6MeVe5U5BCY=;
+        b=UJnhYlRU/5gIjw4B+i5fNFyGDdvGac4qD0oSJLTa1hxb32IdKLnWoG9AsEEffHOwFS
+         bY5ODFPDQSWAycunF7gGXt+RUDrxFjcaRZxFo1aJb9UngFYcDVXTa5GVdIEhunjscQt7
+         EKm6yVag/XgVqX3t/d6xLjxaTkGJ0VwSeGBZjRB2ip/TogwMfe3Cnukb/pDm/+HVEZn5
+         xlamzWwZW5Tn9LzXNd0xi4PvVS2g2Lo4rbd5CgxOBY2nrihyER2QKB1d5lKkFrFXdEFO
+         AlkLzFmox/Wank1DwRPAelxSeIQMl9mU6LycvQyPssLMF9e4MQoqgyv8k22H4CJ8lby5
+         PCbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789478200; x=1790083000;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yOh4YxsUy9cnJP0mnCeYYmhsQkJTthFN6MeVe5U5BCY=;
+        b=pbT4H41sK6Iv6rajgB2JfxqgJyN3O3XaQ1RN/l6V70xJnK4Oc8EuUFz6EzPyeza8Nb
+         lBndjm8Tw2clJsenNAMFBf+bnacG904ti+iz21LXzH69WcfgYY/ON+3la/7qbqxqEb/5
+         WhQsWiH80Sq0wknH+WHkYvPGTPujFXufXmdT4tDPLHN2wqSIn0dz5iORdSOzJZqCbW1d
+         nld123h34rXKTdyV57isWnVQGSWzDupr50inw9BGhUF6MNV599aqpnae71s1a6uZzrYX
+         gW9E7cFxC2cp6u4TO9biS6GyYmWZswH95mkVOo6Kf92XXS6tEpHcq6ESa00bGIJuJX52
+         429w==
+X-Forwarded-Encrypted: i=1; AKwUvBxs1qS71Ngxj+iLH5Wi8DZ1bGlJPD0EtM9X3q7Mt9KciKm8u1eId7Mc2Kr7ItFnC0hP1LNOPwNtoNkphgc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCLb1i+nWRsnQZ2Ml+xvnggtyDNLP4Y5ULP7YSwKvsI1WIJGeV
+	OiOdGJeIFehtdeO76Z+bktjH/2Hv1n3tfCIuzwoxBvhApGEC3hf6SHmQ
+X-Gm-Gg: AYBFou1rVWZmBcVb6gb3IkSs3Z/7gx9B7tWKDoFc9Gw/BhgRr73DxCE/uePLEec7Yx0
+	VoLF9v1uHgkp1OX706WxTytCJ5Y9/lYPjaY13dW68IU2vsNxz0AQr/hfDRFxULj/nnrS8hyctD6
+	zb2lE5gCNA4UljciYxDdACsKdpzCmVXXQPwd7BZnoEUeSvYlTVoz3b+LkiskIHq75IMYimINntc
+	vFJpPfze9arUrvDHubS2FF40EYcIyHmPNiQMnfSKOmeCrhIQ6iOt3SleHo7yH85fLQXQabI74g5
+	p2ifDYAfjyAcU7nG0173ZdrnY32Z3fSMG6ZuCMcLwnFTrXVrhbZ0NaeO4+AmOnpho2ySGDTQtxO
+	hV9/DEenjlFJkVRz6HiX/CBmdbCpzozftD+tV7zZU88zAexXa/W7CJbNMsWOnq0o31zHUztziLP
+	/btGAYWFlyFSy8nhdZPETYg+Tj0gD4iAqsvMlxydoLz/eRYABaNc1mQrLZw7qoBOPcmMIPTIb44
+	8Z9HTgEgAcBZycqntN0n2P+2/HfoCVFpfbTNinvXv2NjfOEjrjINyUHHglHhbGu8B0ZDd6WAWxp
+	fBZtgA1XL99qys56Qxhais8ghOd/63QEQ3cduFr0FoFu+PdVBLKwvbVU+SfWU6wBkkymIt2AGNV
+	A0m4pICbSrDUX1cljW9Tk1LoZ8KqgkPktLqDa7YCwBNcTeUeY657v9K8R86MNyGfxQL2b31jgpm
+	Mk1HKS
+X-Received: by 2002:a05:600c:81ca:b0:49e:642a:4f6f with SMTP id 5b1f17b1804b1-49e7a69ba24mr89660425e9.33.1789478200316;
+        Tue, 15 Sep 2026 06:16:40 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef735cesm65466155e9.6.2026.09.15.06.16.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 06:16:39 -0700 (PDT)
+Date: Tue, 15 Sep 2026 15:16:34 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com,
+ Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/3] staging: iio: adc: ad7816: Serialize SPI
+ operations
+Message-ID: <20260915151634.0000787e@gmail.com>
+In-Reply-To: <20260915075939.18180-3-abdelnasserhussein11@gmail.com>
+References: <20260915075939.18180-1-abdelnasserhussein11@gmail.com>
+	<20260915075939.18180-3-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OQQ7CIBREr9L8td9QEltw5T1MFwKfFjVgAElN0
- 7tL697lTGbezAKJoqME52aBSMUlF3wV/NCAnm5+JHSmauCMd0xwhiUF/UAdvCedMVKijPoZkvM
- jSmEMF30nTW+hEl6RrJt3+hU8ZRh+Znqre21v3C02uZRD/OwfSruH9znJ5N+50mKLJ8alUFJrq
- +wlqjAfdYBhXdcvW7hdANsAAAA=
-X-Change-ID: 20260820-vsock-connect-reset-closing-98dd28769d7f
-To: Stefan Hajnoczi <stefanha@redhat.com>, 
- Stefano Garzarella <sgarzare@redhat.com>, 
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Asias He <asias@redhat.com>
-Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Michal Luczaj <mhal@rbox.co>, Hyunwoo Kim <imv4bel@gmail.com>
-X-Mailer: b4 0.15.2
 
-Handle racy socket changes in connect(). Plus related tweaks.
+On Tue, 15 Sep 2026 10:59:38 +0300
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
----
-Changes in v2:
-- CC: drop bouncing addresses
-- Add more related fixes
-- Handle ENOBUFS (Bobby)
-- Consume sk_err (Stefano)
-- Link to v1: https://patch.msgid.link/20260909-vsock-connect-reset-closing-v1-1-50298b9ccfbf@rbox.co
+...
 
----
-Michal Luczaj (5):
-      vhost/vsock: Fix socket state constant
-      vsock/virtio: Streamline socket reset on transport/PM event
-      vsock: Enforce no-transport invariant for TCP_LISTEN sockets
-      vsock: Do not reset a TCP_CLOSING socket
-      vsock: Handle sudden TCP_CLOSE during connect
+> +	ret = devm_mutex_init(&spi_dev->dev, &chip->lock);
+> +	if (ret)
+> +		return ret;
+> +
+>  	chip->spi_dev = spi_dev;
+>  	for (i = 0; i <= AD7816_CS_MAX; i++)
+>  		chip->oti_data[i] = 203;
 
- drivers/vhost/vsock.c            |  2 +-
- net/vmw_vsock/af_vsock.c         | 32 ++++++++++++++++++--------------
- net/vmw_vsock/virtio_transport.c |  3 +++
- 3 files changed, 22 insertions(+), 15 deletions(-)
----
-base-commit: 0654f4dba1fbc697f2653aba30cd68587fcbf10e
-change-id: 20260820-vsock-connect-reset-closing-98dd28769d7f
+The patch in itself is fine, but Sashiko points out that the mutex
+could be added in the ad7816_store_mode/channel() functions. Nevertheless,
+this patch only focuses on SPI transfers so you could add guards to the
+GPIO functions in another patch (I don't think you need to send a v8 though,
+just another patch after this series gets merged).
 
-Best regards,
---  
-Michal Luczaj <mhal@rbox.co>
+Does this newly added lock also need to be acquired in the sysfs store
+functions?
+If a userspace process concurrently writes to the mode or channel sysfs
+attributes, the GPIO pin and device state can be modified without acquiring
+chip->lock:
+drivers/staging/iio/adc/ad7816.c:ad7816_store_mode() {
+    ...
+	if (strcmp(buf, "full") == 0) {
+		gpiod_set_value(chip->rdwr_pin, 1);
+		chip->mode = AD7816_FULL;
+	} else {
+    ...
+}
+drivers/staging/iio/adc/ad7816.c:ad7816_store_channel() {
+    ...
+	chip->channel_id = data;
+    ...
+}
+Could this concurrent access corrupt the rdwr_pin state, chip->mode, or
+chip->channel_id variables during an ongoing SPI transfer, leading to
+malformed transactions or corrupted ADC readings?
 
+-- 
+Kind regards,
+Joshua Crofts
