@@ -1,227 +1,246 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4946B3FD960;
-	Tue, 15 Sep 2026 20:38:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789504708; cv=none; b=m6BrH6bhm6iNUPDeoFvX6SBLHuiGJS4UusQoaJ5bQ7P6QuQh1xiD29+ibc+pZNzRBPRY0D0IyDBysRL7wa/R/wJDwByNmemHJxsWeVePbIq2OtBVZD9oXWCoTQrH+4m8s98+nfm9m21v60YQQOAFr2FYhvybDLw4FAWhqOaxABM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789504708; c=relaxed/simple;
-	bh=6ONB6ibMbVQ199mUP936jHyXWbFew+w1fG5BpHb3UGY=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ro9wdzPcHHr3cuEWpHZM+jwaO2CGOZ8vk6SGTmkrvQsiFkSrkwstXrFbiqip7Ebk+Sw3KQ3hmwe82AQsPw1yG6mnHYH3BUfbUBZzzSC0ViNLDNTaTj3aX1mE/ryr2/xjxw/Nv75qSoq5Iq6iIbbDyb3w1TgpYIOsBErpPDN49IU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UmUPwzF0; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722AE447805
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789504718; cv=pass; b=r0PcjkA3TJwFlrWAPfHlj63kYUx6ruDuZ+AQ2kgZfmEMxHaOnfk1SzxP3fGOGRUhViDH9WYaEkqafD/5VsjkYA4JM5LE0Y2Dq1CqGa3/J3ZrBtCyG9Uqlh2epeCuHXlNVP2FtsA+9BOExAyIurvyAo/GedPbxVFWRO3UmzwzVYQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789504718; c=relaxed/simple;
+	bh=q0uhT8XiQAbMWjxV732u9cL+aV/tNoUWOtyJHrk/A68=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VwS5Vs/Bx6sP1Ol+TLgaE0MBx+er3pgwHULYoOABFQhvdNpWf11YXaxkHqr2nxtVcR9rOWArbO8tEyfFg1G/aeUtUT7a/yXyvCWVa8rNWpDxjZ8E6/yc/N0pGjzKZ0APUVzjy+FcojRDhTW4U7vJ0XyEVobxvzxmQQhHRPC0354=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aIUdFJCZ; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UmUPwzF0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789504706; x=1821040706;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=6ONB6ibMbVQ199mUP936jHyXWbFew+w1fG5BpHb3UGY=;
-  b=UmUPwzF0V9a0WzCdwIrk0h5m9h3v08SBrT1r0l094+62tbtZGphq902C
-   ZjCl0CcuVth1c+t89h6nR3OnnE/WnfrzFAjyQq08rfdnIFsALbCFrC1J7
-   ohiCjfYNQKQQ/jZFj29FZHBoyfwuwtj+rNeadF3WADsqh6bntwp1HY3HG
-   TdxEgG+ha+Tqj0w+XhNqqKJLZ4QyI98D5OFcmff9tjoPMtBxdlIdmyQeP
-   e7p/sYTsPIJ8Uxewm73IY1WsUKJIdmA6CBRrwkd1cQSczsTu6EDU6K+BN
-   F/+o28FwAGGNc4eGUaHnN1S3jSt7Q7+nwITFbXdWoWPhS/GMyJrFzpXyA
-   Q==;
-X-CSE-ConnectionGUID: DkfHmszKTzmleepO8ZHpJQ==
-X-CSE-MsgGUID: EeSNvE4eT6WOk7HyQMCHBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89924170"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89924170"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:38:25 -0700
-X-CSE-ConnectionGUID: CkDRxUY6R0uslVa2ImoBFg==
-X-CSE-MsgGUID: ZlqQhSOyQIWOuKnph306HQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="276648890"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:38:23 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 15 Sep 2026 23:38:19 +0300 (EEST)
-To: busybox11 <busybox11th@gmail.com>, Denis Benato <denis.benato@linux.dev>
-cc: Corentin Chary <corentin.chary@gmail.com>, 
-    "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] platform/x86: asus-armoury: add dGPU disable fallback
- DEVID for ProArt H7606 series
-In-Reply-To: <20260810-asus_armoury_dgpu_new_devid-v1-1-0a5c845414e4@gmail.com>
-Message-ID: <40f1840a-e3e4-29d3-66b5-a13737224f99@linux.intel.com>
-References: <20260810-asus_armoury_dgpu_new_devid-v1-1-0a5c845414e4@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aIUdFJCZ"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so17201cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:38:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789504715; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UmP9Ynk7fxRa9tEpkb7iRHHxFGEN1HGF0IlxJOZ2AcYbhLSUiakevqjYiIR4/WjUJQ
+         6eWwZ65FB7bNzHnejiQs6cZXzlS+J+rC6XG05Q8GgCo+i4LPGa1BqterPTcwoGInfAdg
+         OjSPW+UO4VDuFFLHhrOKR2BAYjnVsL/PdNfxvcp8cEgaxloqbxlUS/QF9ePfyuOZEfEN
+         d+Kx79fQIXX7ZDs+jSjNZlcDLHcCZwKKmXSf3HcqsRrrIM3b7xRgaR+Uw10QbSl1ygMz
+         qn5fYrf8/ywP1OiXTN0X59jnAwSdOJRHbjfVhBbCcRiOXGScuHksIkpZ9jRL4pCp021D
+         Upkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Yi9YhsgJxg5RwheIV2uUP3vETgnxDCzaYZNW3S5FHwY=;
+        fh=InZWKb1n+tIdbwLDIxA+c2jPfgfPC6sWzp2k3jBfzvU=;
+        b=ovWsTkXzTfTsoXyjyKbqjFVnluK2sDfxAMvpW94itD03+w9sI0T5cj3cq0NuwAQfs4
+         AA1S1nr3X0JcGMOLvnoc3Fbt/2rjp31EIFkLq5M24IvvqiBhb3Lgj+3TnfTu1udHGQPf
+         brU8OBVLGgqhwrCK+aUP80YCNcxZihaz2fyKmbSAntuN9fxQviNrXd8oj9BMMaIV8hCd
+         zfsceO8bU4hvs9xNf4aKlMiW1mxYKJP/a5O7PPLGUKqenLbKhwvLa8FQo1AC+JjD9ooB
+         Xjy+dxE8LFCrzq+4MNceGipSUMC2EN5nmktP1pYMVrOYD1WG2uKwFb26XGDKR7LQKYzL
+         PrlQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789504715; x=1790109515; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Yi9YhsgJxg5RwheIV2uUP3vETgnxDCzaYZNW3S5FHwY=;
+        b=aIUdFJCZHLXll/Q8tG6Ko9HzZqfspNX6GjUXKQ5LS8M3/+nHvcVYXbJxL3p47YG2jV
+         u3Q4QtCSp/PZG1r3ltIqSWmhCch+cjxGSTwJfMUxOQJhX3aITdaJWPJe86GquUan8vbH
+         IelokXPB6BSOH7FphVyKBO9dG+LOi9vn6oHr96La+XOXFxITKZPVQ8KfP6uWQzXcYK56
+         obNvUo2BGbbb4KstDbdd3bOheDoloqh9ExxanDj9KwK4PZ0lqyeiQ3xP0NvoZ7ILYmDX
+         9WdIpiARxWDiGp/V0ApU2lLUUNSrwd+vJwsLjphDyOskZzbBuPX/U5Pn1PT3MzpQyD7I
+         RQng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789504715; x=1790109515;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Yi9YhsgJxg5RwheIV2uUP3vETgnxDCzaYZNW3S5FHwY=;
+        b=t6eAwc/+3cIDnRttFXJPsLnWFE9VDNKWsXUQioeURdq7SW9Yq5wFudud8MeKKU05tR
+         u0c9gdL3+q9KZAe96jrqXkuYfRJsRaYucqA02STXriqF8++PjBzCgDGqC20+EHbKQ1fK
+         Gn7PBN7Jc9zNrd4yHMtHgsFI+xTYw3vbstwSPFsw8dUxIiZLoi1004QOAndDPArLnoRl
+         vY2VQq+F37E94fH21dfjPb7h+GbNE1px1pQ8Qyisu73O7+nKxQeRnq54GdqvreDRldp5
+         J1cWbr7p7n5WV7LC8+xx7c95y9/q4QpbQdXfOhep1PDuiWKDmqmUlJTPsTKrJrVFSJGB
+         jjiw==
+X-Forwarded-Encrypted: i=1; AKwUvBy4niT+YBSoRGeRwPvkvhKuePMFgmNlv3J4inlVJPV9emIq7sIFsDtcFVoLiOHPJ8ll0hrrX86mY4ZNLl8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mue3s2RCHJo/IIuhJNShFVSzK+xHmuJU/1SIGiOg+1Yzk71Lp3
+	f/0maJEoV3wZdRwYNoQYc8F+4Mn9SnvbmYvKZR8wTGDaR6aObkB2agLP5SakP/itNZjG+LethMv
+	etHpjun9H+i2j7t94+Ic4GXSu9s4SmyYE2f5qPTMW
+X-Gm-Gg: AYBFou1/oBuBWh2RtB/aFV8V6hwMPU7u4FMwHwPh+YXNACdmpzlXTvqsV5rT7oVg8Gm
+	Ts/w3tRuPavXa24atFqIiCLNwNL6+SsuvQs2J/iTbcXTcxd/K2Z50+La3PbJcaKMZOsu1tQY41s
+	IFxg9MtTFt8xCQJ7pjvEnjKyVo0y+gCHaFS02WSdzbC4JwYBOdjq7fkLzjdCL9Ws6GuICvojTAv
+	7PrHhZF9BmevZ2gHmd51wLV9LSSmVR7OO6tnOV0kFgI5cReCkLPUGUkD6zSDJVo0y6NDth6XueP
+	WruL+E5MNSN4qeOtSeHIXzgsEGq4C9GjEqSRBnVXZv0nKyp0JCf6OIwHCSr7FuiKQ/h8j8zA616
+	suGcWF4Owow==
+X-Received: by 2002:a05:622a:260f:b0:51c:ca9:3d17 with SMTP id
+ d75a77b69052e-5325087c7f5mr3564871cf.12.1789504714348; Tue, 15 Sep 2026
+ 13:38:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <178003738371.62097.10360938456907564684@gmail.com>
+In-Reply-To: <178003738371.62097.10360938456907564684@gmail.com>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 15 Sep 2026 13:38:22 -0700
+X-Gm-Features: AcwNN1UXK9UtE6mV4KOXzn7kUifeCNY5PJcwT2rEeTndVdIHwQO0dV89bOJN7GA
+Message-ID: <CAP-5=fUbwmmuRj6p94+M4k869nHPXuNBXyvtizvgdjVG46w8MQ@mail.gmail.com>
+Subject: Re: [PATCH 0/6] perf: fix six memory-safety vulnerabilities in sched/header/subcmd
+To: Wang Haoran <haoranwangsec@gmail.com>
+Cc: acme@kernel.org, peterz@infradead.org, mingo@redhat.com, 
+	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 10 Aug 2026, busybox11 via B4 Relay wrote:
+On Thu, May 28, 2026 at 11:52=E2=80=AFPM Wang Haoran <haoranwangsec@gmail.c=
+om> wrote:
+>
+> >From 9e71ffe9400fd54c4fc958b16229e5628271e4ad Mon Sep 17 00:00:00 2001
+> From: Wang Haoran <haoranwangsec@gmail.com>
+> Date: Thu, 28 May 2026 15:21:08 +0800
+> Subject: [PATCH 0/6] perf: fix six memory-safety vulnerabilities in sched=
+/header/subcmd
+>
+> Hi, I found several vulnerabilities in perf module.
+>
+> This series fixes six memory-safety bugs found in perf version 7.0.6,
+> in the perf sched stats subsystem and related infrastructure.  All six
+> were confirmed via AddressSanitizer + LeakSanitizer with crafted
+> perf.data files; the reproducer files are attached to the individual
+> patch emails.
 
-> From: busybox11 <busybox11th@gmail.com>
-> 
-> Newer ASUS ProArt laptops (e.g. H7606 series) implement dGPU power
-> control on WMI DEVID 0x00090120 instead of the usual 0x00090020.
-> The default DEVID returns 0xFFFFFFFE on these models, so the
-> dgpu_disable firmware attribute is never created and the dGPU cannot
-> be re-enabled from Linux at all.
-> 
-> Add a fallback probe for device ID 0x00090120 following the same
-> approach as the gpu_mux_dev_id probe.
-> 
-> Details for 0x00090120 (confirmed on H7606W using direct WMNB calls
-> and inspecting the DSDT DEVS handler):
->   - Reading DSTS returns 0x00010001 when the dGPU is off (CUMA=1),
-> 	or 0x00010000 when it's on.
->   - Writing DEVS: 0 enables the dGPU (calls PG00._ON() + Notifies
-> 	PEGP, Device Check), and 1 disables or ejects it.
-> 
-> This behavior matches the dgpu_disable attribute (1 = disabled).
-> 
-> Signed-off-by: busybox11 <busybox11th@gmail.com>
+Hi Wang,
 
-Unfortunately, we cannot accept anonymous or pseudonym signed 
-contributions so please sign off with your real name. For more 
-information about signing of patches, please see:
+Thank you for the contribution! Since there have been similar fixes in
+perf-tools-next, could you rebase and resend this series. This should
+automatically trigger a Sashiko review, which is currently missing.
 
-Documentation/process/submitting-patches.rst
+Thanks,
+Ian
 
-> ---
->  drivers/platform/x86/asus-armoury.c        | 32 +++++++++++++++++++++++++-----
->  include/linux/platform_data/x86/asus-wmi.h |  3 +++
->  2 files changed, 30 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
-> index 495dc1e31..f39b52451 100644
-> --- a/drivers/platform/x86/asus-armoury.c
-> +++ b/drivers/platform/x86/asus-armoury.c
-> @@ -93,6 +93,7 @@ struct asus_armoury_priv {
->  
->  	u32 mini_led_dev_id;
->  	u32 gpu_mux_dev_id;
-> +	u32 dgpu_disable_dev_id;
->  };
->  
->  static struct asus_armoury_priv asus_armoury = {
-> @@ -452,8 +453,8 @@ static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
->  	if (err)
->  		return err;
->  
-> -	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU)) {
-> -		err = armoury_get_devstate(NULL, &result, ASUS_WMI_DEVID_DGPU);
-> +	if (asus_armoury.dgpu_disable_dev_id) {
-> +		err = armoury_get_devstate(NULL, &result, asus_armoury.dgpu_disable_dev_id);
->  		if (err)
->  			return err;
->  		if (result && !optimus) {
-> @@ -507,7 +508,8 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
->  	}
->  
->  	scoped_guard(mutex, &asus_armoury.egpu_mutex) {
-> -		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL, ASUS_WMI_DEVID_DGPU);
-> +		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL,
-> +					   asus_armoury.dgpu_disable_dev_id);
->  		if (err)
->  			return err;
->  	}
-> @@ -516,7 +518,7 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
->  
->  	return count;
->  }
-> -ASUS_WMI_SHOW_INT(dgpu_disable_current_value, ASUS_WMI_DEVID_DGPU);
-> +ASUS_WMI_SHOW_INT(dgpu_disable_current_value, asus_armoury.dgpu_disable_dev_id);
->  ASUS_ATTR_GROUP_BOOL(dgpu_disable, "dgpu_disable", "Disable the dGPU");
->  
->  /* Values map for eGPU activation requests. */
-> @@ -790,7 +792,6 @@ ASUS_ATTR_GROUP_INT_VALUE_ONLY_RO(nv_base_tgp, ATTR_NV_BASE_TGP, ASUS_WMI_DEVID_
->  static const struct asus_attr_group armoury_attr_groups[] = {
->  	{ &egpu_connected_attr_group, ASUS_WMI_DEVID_EGPU_CONNECTED },
->  	{ &egpu_enable_attr_group, ASUS_WMI_DEVID_EGPU },
-> -	{ &dgpu_disable_attr_group, ASUS_WMI_DEVID_DGPU },
->  	{ &apu_mem_attr_group, ASUS_WMI_DEVID_APU_MEM },
->  
->  	{ &ppt_pl1_spl_attr_group, ASUS_WMI_DEVID_PPT_PL1_SPL },
-> @@ -934,6 +935,21 @@ static int asus_fw_attr_add(void)
->  		}
->  	}
->  
-> +	asus_armoury.dgpu_disable_dev_id = 0;
-> +	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU))
-> +		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_DGPU;
-> +	else if (armoury_has_devstate(ASUS_WMI_DEVID_GPU_MODE))
-> +		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_GPU_MODE;
-> +
-> +	if (asus_armoury.dgpu_disable_dev_id) {
-
-Now I started to wonder why are we doing it like this and not using 
-.is_visible?
-
-This question applies to the similar, existing cases as well.
-
-Denis?
-
-
--- 
- i.
-
-> +		err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
-> +					 &dgpu_disable_attr_group);
-> +		if (err) {
-> +			pr_err("Failed to create sysfs-group for dgpu_disable\n");
-> +			goto err_remove_gpu_mux_group;
-> +		}
-> +	}
-> +
->  	for (i = 0; i < ARRAY_SIZE(armoury_attr_groups); i++) {
->  		if (!armoury_has_devstate(armoury_attr_groups[i].wmi_devid))
->  			continue;
-> @@ -971,6 +987,9 @@ static int asus_fw_attr_add(void)
->  			sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
->  					   armoury_attr_groups[i].attr_group);
->  	}
-> +	if (asus_armoury.dgpu_disable_dev_id)
-> +		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &dgpu_disable_attr_group);
-> +err_remove_gpu_mux_group:
->  	if (asus_armoury.gpu_mux_dev_id)
->  		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &gpu_mux_mode_attr_group);
->  err_remove_mini_led_group:
-> @@ -1143,6 +1162,9 @@ static void __exit asus_fw_exit(void)
->  					   armoury_attr_groups[i].attr_group);
->  	}
->  
-> +	if (asus_armoury.dgpu_disable_dev_id)
-> +		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &dgpu_disable_attr_group);
-> +
->  	if (asus_armoury.gpu_mux_dev_id)
->  		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &gpu_mux_mode_attr_group);
->  
-> diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
-> index c29962d5b..faeae70f4 100644
-> --- a/include/linux/platform_data/x86/asus-wmi.h
-> +++ b/include/linux/platform_data/x86/asus-wmi.h
-> @@ -138,6 +138,9 @@
->  /* dgpu on/off */
->  #define ASUS_WMI_DEVID_DGPU		0x00090020
->  
-> +/* dgpu power/mode switch, dgpu_disable fallback on some ProArt */
-> +#define ASUS_WMI_DEVID_GPU_MODE		0x00090120
-> +
->  #define ASUS_WMI_DEVID_APU_MEM		0x000600C1
->  
->  #define ASUS_WMI_DEVID_DGPU_BASE_TGP	0x00120099
-> 
-> ---
-> base-commit: 3f008280327ba5ad132965abab0c7846283cef0c
-> change-id: 20260810-asus_armoury_dgpu_new_devid-168aa5da290e
-> 
-> Best regards,
-> --  
-> busybox11 <busybox11th@gmail.com>
-> 
-> 
+> Privilege note
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> "perf sched stats record" requires root to capture
+> scheduler events from the kernel.  However, "perf sched stats report"
+> processes a perf.data file from disk and requires NO special privileges.
+> This means an unprivileged attacker can hand a crafted perf.data to any
+> user who runs "perf sched stats report" -- the attack surface is fully
+> reachable without administrator rights.
+>
+> Crash-to-fix mapping
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+>   crash_err234_iter50.data  -> patch 1 (memory leaks in schedstat)
+>   crash_sig6_iter840.data   -> patch 2 (heap overflow via bitmap_zalloc)
+>   crash_sig7_iter210.data   -> patch 3 (SIGBUS via out-of-bounds mmap)
+>   crash_sig11_iter2.data    -> patch 4 (array OOB in domain index)
+>   (no poc)                  -> patch 5 (list_first_entry on empty list)
+>   crash_err255_iter46.data  -> patch 6 (astrcat leak in parse_options)
+>
+> Vulnerability summary
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> 1. Memory leaks in perf_sched__process_schedstat() / free_schedstat()
+>    (tools/perf/builtin-sched.c)
+>
+>    Three distinct leak paths:
+>    a) When zalloc() of the inner data pointer (cpu_data or domain_data)
+>       fails, the outer struct is returned without freeing the parent.
+>    b) In the after_workload_flag=3Dtrue branch the temporary struct and
+>       its embedded data pointer are used then discarded without being
+>       freed.
+>    c) free_schedstat() frees each cpu/domain node but not the
+>       cpu_data/domain_data pointers allocated inside each node.
+>
+>    ASAN/LSan reports 72-144 bytes leaked per crafted event processed.
+>
+> 2. Heap buffer overflow via u64->int truncation in do_read_bitmap()
+>    (tools/perf/util/header.c)
+>
+>    bitmap_zalloc() takes an int but do_read_bitmap() passes a raw u64
+>    read from the file.  If size > INT_MAX the int wraps to a small
+>    value, a tiny buffer is allocated, and the subsequent loop that
+>    reads BITS_TO_U64(size) u64 words from the file writes arbitrarily
+>    far past the end of the allocation (heap buffer overflow).
+>
+> 3. SIGBUS from data.offset beyond file size
+>    (tools/perf/util/header.c)
+>
+>    A crafted perf.data can set perf_file_header.data.offset to a value
+>    larger than the actual file size.  mmap() succeeds because the
+>    kernel accepts out-of-file offsets, but any access to the mapped
+>    region triggers SIGBUS.  Confirmed with data.offset=3D0xff68=3D65384
+>    against a 4760-byte file.
+>
+> 4. Array out-of-bounds write via unchecked domain index
+>    (tools/perf/util/header.c)
+>
+>    process_cpu_domain_info() reads a domain index from the file and
+>    uses it directly to index cd_map[cpu]->domains[], an array of
+>    max_sched_domains entries.  A domain value >=3D max_sched_domains
+>    causes an out-of-bounds write into adjacent heap memory.
+>
+> 5. list_first_entry() misuse on potentially-empty lists
+>    (tools/perf/builtin-sched.c)
+>
+>    get_all_cpu_stats() and show_schedstat_data() call
+>    list_first_entry() which, unlike list_first_entry_or_null(),
+>    never returns NULL -- it computes container_of() on the list head
+>    itself when the list is empty, producing a garbage pointer.  The
+>    NULL checks that follow are therefore dead code.  A crafted
+>    perf.data that causes an empty list makes these functions dereference
+>    the garbage pointer.  Replaced with list_first_entry_or_null() plus
+>    proper NULL guards.
+>
+> 6. Memory leak in parse_options_subcommand()
+>    (tools/lib/subcmd/parse-options.c)
+>
+>    When subcommands are present and no usage string has been supplied,
+>    parse_options_subcommand() builds a usage string with astrcat() and
+>    stores the pointer in usagestr[0].  The pointer is never freed,
+>    causing a 73-byte leak on every invocation.
+>
+> Testing
+> =3D=3D=3D=3D=3D=3D=3D
+>
+> Affected version: perf 7.0.6
+>
+> Each patch was verified with:
+>
+>   $ make -C tools/perf EXTRA_CFLAGS=3D"-fsanitize=3Daddress,leak \
+>       -fno-omit-frame-pointer -Wno-error=3Dstringop-truncation" \
+>       -j$(nproc)
+>
+>   $ ./perf sched stats report -i <crash-file>
+>
+> Before the patch the corresponding crash file produced the ASAN/LSan
+> report listed above.  After the patch the same file is either rejected
+> cleanly (patches 2-4) or processed without any error report (patches
+> 1, 5, 6).
+>
+> The reproducer files (crash_*.data) are attached to the individual
+> patch emails; each is a minimal crafted perf.data (~4 KB) that
+> isolates exactly one bug.
+>
+> Wang Haoran (6):
+>   perf/sched: fix memory leaks in schedstat processing
+>   perf/header: validate bitmap size before allocation in do_read_bitmap
+>   perf/header: reject data offset beyond file size
+>   perf/header: add bounds check for domain index in process_cpu_domain_in=
+fo
+>   perf/sched: replace list_first_entry with list_first_entry_or_null
+>   subcmd: fix memory leak in parse_options_subcommand
+>
+>  tools/lib/subcmd/parse-options.c |  3 ++-
+>  tools/perf/builtin-sched.c       | 32 +++++++++++++++++++++++++-------
+>  tools/perf/util/header.c         | 17 +++++++++++++++++
+>  3 files changed, 44 insertions(+), 8 deletions(-)
+>
+> --
+> 2.53.0
+>
