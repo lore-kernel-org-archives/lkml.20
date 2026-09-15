@@ -1,159 +1,192 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013003.outbound.protection.outlook.com [52.101.83.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8251366055;
-	Tue, 15 Sep 2026 16:44:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3064AF9F0
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:45:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789490647; cv=fail; b=J0ISuXpZA9UT9HqhSHR7LFiyY0Yv2TGWNXgICGYJLP1b7pXeYQjM3o3UE9Id7Hl5n7hkWSoi5Coq9GV5Q3768KoF0/hEIbCCnGbgDih3hjSD8iJSM/+EqsAeDnkUwUInn8MBJ31IvRETEzphtYl+1s5KCSj0HF3Kcg5m8dJWR1g=
+	t=1789490717; cv=pass; b=JbWX8jIWxTgWwrgzXeYl4mxzz3IDKipcBfTl91VIW3/zSs3UWqBQC0uanCPRqQeIglTjwwaLQbRceHmjVCq5sftJvXJ2U2LCEmhfIZu1n67poJKOX+XhLb54wDs9UhQK7b1dZhTzPTZZnQ9gGuZFQuJFmZLM9ZIo69swu7AqBrE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789490647; c=relaxed/simple;
-	bh=KgC+oa1XBa4rw2hb7AA9YEF2pl6DQIgkUa92MpS5kPQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=B7zTvNye1xRBSm2pNntS9qugm7MboIq3kj8kPvyJWZyO02foJ1nLxc9qC+ivZ2uVf0EWVc6/aoGgUw339WPB0YHaJ+azAi+fxFBS9I991ddu6qLg+ytMiMVw3fUACJHgszJTCc/Neq6iTRe5cWgewtNq8FoFa7epCR0gNxcMTKQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ukI4X1qE; arc=fail smtp.client-ip=52.101.83.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789490717; c=relaxed/simple;
+	bh=9GwGGvfgvBSHcRik0ICfQ1lf/eR8Li3EDXS5Aa6fYyc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NFqFJUJxYOeEpmAMUzcFBpncy/coRS1wCVQogytFcVvDdUGG9Pb+ai22xbvmq6j41Molbgmvx3fN5JXJvFdbmGkZNsB6xYYCoTemvvullf1vXf2u1923g5r9QipMuzKcNydR0Ci1TtvfWo7fNA9yiJdcNWxm568JTIkUIzD/QUY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NWdbq7zW; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ukI4X1qE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X9TGnH71VErUAdHLXNkrEjIHVxLxF1IiO89xbDi8bxjYYIoS+lYKlsJDAB/41AOYcaXzOkR/r0zuUljH+aNdDYbJQBMcxC7XBSgHoQJIziJYwYdgkhwpaVVsRML9/SO1CtYhHIVVy1D2+ibkjXSlvpjCRx9QKab29Pn2IOCRuXK2WrgMRhdCEbt1SPEuaGKr1XQdeiJme7bIyrrJW+m0SInlV1XHraEzFQfUyxS04UIHbGN/SjzFi4lo9/9Gx1QbETlX1tqdiAlb6sb8aGdyZBFk8Hgep3Na+ML/koLopRlJRb5ONgHN95rdHvb8KCaFJHqMndMcPkXW23VVdsxYgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+0QE7Xsmq8ToKB5W5ZCmCdCb2dqxGJPdyqyQKJxf7UU=;
- b=gqDExgL3FEZsZJtjoQLSaIKM4ogVWl98/0NaWbcuuvLl/Gxfe9JRwcfE2CIVGVjR7MIvYKTnWcOskoEexni66fF9pvj1pWbkQkTjLztfduM7IyBeXXjZQifuf9odHIeZS1MgHcGKBJlPmQmPAx1tHC+wRsvhT/CBCLfuBDUt7jFOdmwdkvxOo1G7ZMVwMt/CFLwhpzbvUcjuBsg3qrhBb7KVgrjSpRxRA0GC1lHYObmrxSqTCLX5PEIup3LR5WEeUtEjcRiw2SOD9If4kYMO51DrKUY/kQYaZG7vLmkhUBMjd8tH+/xLP6GrIM8zp4LCP9ccWWRhUFUmVuB9uTF9ZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+0QE7Xsmq8ToKB5W5ZCmCdCb2dqxGJPdyqyQKJxf7UU=;
- b=ukI4X1qETQp2LFoBGKC5qIzFMq5CroJvC4qlOgNzXomi0y9UCe23TTobFfrV7eupFWY2dcSF0G9W/6YNfab1vuiSdwY6upxW6Z64XSAkAtxBVGWBsKMRUDXRHwzrYYreiyUyQAhGhGr8f+QbQyEr5NnmsIF+HDb5lGTIVvHza9bANbBvpefEMC2IoyAn5Dk3Uwpz5t1oiBvfZ6DXkFAMVdJRsRHZ4Y6CEvlqn/Kj1wQ0tzztE7ofX/dWB/E+Z6sPFVwbwg+I25tKUNvmp4ekgqgRjBp8SpZwrqSCEft6hoO0+3X8G7d4UelLBt13aAntEgs4qUof7ShmGfm0XJXwlg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU0PR04MB9670.eurprd04.prod.outlook.com (2603:10a6:10:31e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
- 2026 16:44:02 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Tue, 15 Sep 2026
- 16:44:02 +0000
-Date: Tue, 15 Sep 2026 12:43:54 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Devendra K Verma <devverma@amd.com>
-Cc: mani@kernel.org, vkoul@kernel.org, frank.li@kernel.org,
-	den@valinux.co.jp, dmaengine@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	michal.simek@amd.com
-Subject: Re: [PATCH v1 1/2] dmaengine: dw-edma: Macro order as per reg bit
- position
-Message-ID: <aql1yiDI8bGQh6Gj@lizhi-Precision-Tower-5810>
-References: <20260907105453.1940646-1-devverma@amd.com>
- <20260907105453.1940646-2-devverma@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907105453.1940646-2-devverma@amd.com>
-X-ClientProxiedBy: PH7PR03CA0020.namprd03.prod.outlook.com
- (2603:10b6:510:339::29) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NWdbq7zW"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d33431c8so3083666b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:45:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789490713; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YDEjI4pyeLGhW1YyRjokOWJNe+KXddjcaFtodQi1fJZtFW+Mi2sEG/yWXu1qopqU9i
+         tehlOU0pcU/ingsgtgtfunqccXnwBaaPw7jIy5v5XPr9Lydh6iaOi4sDbMkTDtxfzjaB
+         uNrnQYNrOo1pm3GAfupt0NiaCY5c7rtbepGNlpNhC0ShChfKdXiWNIiXe62m4hz8Siyl
+         pTCPxuRz3wHO2cnlzEsZh7396Ga+9ItCxZG0YPNe1vnWFW4wgWm2KtLxM3qMdFDioOWG
+         ql0shvV4Sozk1D5mk5iC/kWi5ByTO6POTRUzGRzdy2iHZFcLLWGNzAuVQpJUM9xLikeA
+         qy7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vcZ5cZp+MTIDohAvU1rokDSJo7Wxlod0GJ6VhSswrLI=;
+        fh=iyzo4fnF6CFIkXldNzjqdEg6IkHbnYffw0LdNU9F8mw=;
+        b=gCWlcKshgCpgpr9irmP132KrGXvDmJMIlJbTlqdfZZVdLBhe+NrIGCNGWCMY4WXDuo
+         9oaUtv/feWcU/CHcmatnxYUeIjhLKRBmleJJaFkPlcsP6beclTlE251oLgmDWnZvJLyw
+         YyXsJA9c71rM3HN+r/9KfYrW3P3GYAg2RtJytf96nbp5mh25iBoTGdgny+ADNiRPj305
+         NHEr3rR3C0pPXInIr7C8C8ts5O/3XBbppNxmXxSIl4liOIHyCI/5Muv9yEaF+o11V5PU
+         /svTDKHChvTshYRqF0BfERLcIZwFzDK783Lzj3Dqs7miNac1wWiu9R/ZH5ke07Ooo9rv
+         4ofQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789490713; x=1790095513; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vcZ5cZp+MTIDohAvU1rokDSJo7Wxlod0GJ6VhSswrLI=;
+        b=NWdbq7zWlVt/zVbEe0MZAYwCGJspihb0GSaeHkvsFInx0ncVpk0aLQbQgxWkAJlrD7
+         yR2mwE/yH/9ATmf0FIPL2W2NDrt9jd5etw/+qi3qaJMVL3fIZTLdF+LwnWVn838Zg1Am
+         rPDvNvDdVAkYK1NYFiU1rkEqzXFJg5wLjIHNGK4c+nmveCD7K+nSd2pws03M0XMXZmMl
+         hRw+cptuUTGspkdaa4kLd0388NR4V+0TyzqfltGne7vRVqSIY6firDHXRzfB/tApUBRH
+         tA6s5zzTuwAt330VNxqaEzrNPcPTq1zD1znhJGOhr4/zk8eHKUwscT2ClHgJHXtZy1TU
+         jR0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789490713; x=1790095513;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vcZ5cZp+MTIDohAvU1rokDSJo7Wxlod0GJ6VhSswrLI=;
+        b=C7jtEjKQwY8kiIjbHsRf7K56FEKeWNBWcEZYoPKf/iDdICmUH4sDy5ugIZU9srj+zC
+         tk3m02EJtg0Nw/redbEBDZXMXbuHyRwe+hQVN2y9VPYVzNv/FjhGfkcEvEavabvlEAx0
+         pBTUxwYS0l7px0omTtlrFjLcpCAYNkc6Cj92qaWhk4wh/+ZDca+bbkJldHK+Gw5Yui3q
+         UStYQ1waCa7jEJlYSKzU/pCaAWyRu9LDDcwTj6PDfcDtnnPKyP4C57/QqBKBAfoQ/ymL
+         b6r24kuT9Qb4xzuoL+hDYkwQPB65xEbTse7AO1Pr+ZjJB7djvP3j1fX9gWio8XPaR2dn
+         MEig==
+X-Forwarded-Encrypted: i=1; AKwUvBzLO/a3780FgmYuy0G9MfL+RFnr07wZENwsIfvsmenySyweCSmKdniHrOlOUFtBkzS73qlpiXx0i1rcFF4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ6N/MjMoz67HjBOP0wt68GClxmkLivdaBPlHBv0r4U/cJzn4I
+	BKPQe9amGEdMTNqwQ0nE1S/9O7tvTWQxHlSume19uSpOAN7UqyiB/QRxrVwBz2HV4os+kvIpLAO
+	JJ9ddQILxJU0psI7wi1dnR/GCeqIsoCA=
+X-Gm-Gg: AYBFou3CkHwrbC+/nIR5QlRp4XkX92oFkFtYhGKz83xWfoh7pxuZyvH4/sOEsMndxmX
+	E4Z+ssEO3rjnmej6vcwoBRIg1k8FKCiYfaps6C0hBzcYrVtpvVuA0LVmZ1GVKH1cZC+0VCNciZA
+	pKdSkJkFoe7lV3jef/E08N0Q4+3QuhVHLHVnr2rVlcYL1lXbkQsKh8oBv4ilLna3Y4psUlUZxIV
+	/PN6ANW93zP9v8zsP2d9Vi5iIlhO3LVWQ21MytGqJ3DjfFh3vJ6weWvZxYiuW7juNoqT2U8ANb9
+	SHFgaclel0FYnTPXSMDYYVXnqhPEQhMekBBx2iWj8d35PXJvc4NO6I2/DB5RypNx8EDa/cUIhBW
+	hl32KZz/fsX4AudrxutC2Lr19hgDNWvqDyZCnwaXTyLrx8aJ5TcLd0/ojOTWM3dJUlti9avPBBg
+	OOf88mnK9bRw==
+X-Received: by 2002:a17:907:948c:b0:c24:adf4:5c73 with SMTP id
+ a640c23a62f3a-c29d773fedcmr161284366b.1.1789490712483; Tue, 15 Sep 2026
+ 09:45:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU0PR04MB9670:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1668a65-70f0-419d-cee8-08df13488c07
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|19092799006|23010399003|1800799024|10067099003|4143699003|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	AyH154SIyhVPFfQ8Kc7wxm+M6+XQANbuSC2SwEaD2oknxRB30EVZ5pSVt6yQiILRCyq4iXQrdvv0rx+7Ny8+V1TR8CiLRXAtcIstUa4UH1796s+q7qgW33WRKXS9LCe9wJzX4x04O21lorjhSdJt5Jv9W26nSZUH9pQJfM6q9uTy4YDl5+HGNg0fVjBg/ztjiHvlYSG7A0uerCjJc/TuQHsgt0exbVgHmmjW1OuV1aeXaXv+b87+POg95Rbsa0MJi+yoj3bOWaDH04fV4w/FxxBZMVcDykSdkqzKOb2H1j3AYjgVBQWxNifStF1hT/qnSQjVjOY5+ocaka8nEEl4XzLJPByV1QB7gJLjS2LtL+wGK+ZJyBrqpxAwCyMSWDkIZjvhr8P9EY7ZsJh6CEjPn3IvFetnGQz92XSDMUJChIFdylCCBV3HbwVso1/X+TYwF6UsL/iGve5jqmXcAY7RZKOdXtnPRS0d8kb17QjAYhQm7l+RFD/731P9OaXmq35CpZ7a+nbW8LPxdZeaba8ypIGBG6qnBv2sU0Jce4r7gu8kVObhwFVYXCU/EMCuvZ7tIzxqLyVZs8gHgVl0A5qE2CLSKG2sC1LrY0xU1uSdkOSqDP2+2r3kEIbayJokNoYeGFGldN2XxJjYliemSmNnmgqYHmZtDA502UWiPTiSZjE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(19092799006)(23010399003)(1800799024)(10067099003)(4143699003)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JvSscdAWME1py3tmzQ0gqo29lcwwH9RjfzXP4hr+vx1RsQWTKTr5HMVuk931?=
- =?us-ascii?Q?1Dc2IR4EvKRIjB+VG/Bizg3g0rqSAEMjIl4QIbRkYwNN7tC6mVGW240hxnxg?=
- =?us-ascii?Q?EDoSBYa5ioqrxPyDNgst5PtI6dkNbo8qUUnX4PrO8x2s5c5PmFdHNtJj0rgm?=
- =?us-ascii?Q?I+udG0r/c5hmj+oZ1fBAffLPzs0C/fjUHnBikhvLanO5RoxOELnRnJbOp5Rb?=
- =?us-ascii?Q?Agp2NhN75JaxQbsqTXtZSeMn9umTdmAkRADM/rvOTSjel2ub++gkQj0jjw+u?=
- =?us-ascii?Q?0/wyw6MV9pW9gE3Bu9ZmFHPfsf91kAAsS9n6Ii/HaZJQfEyfQGMNONlSrKG6?=
- =?us-ascii?Q?7L9lmnXCMj3/uWaFCKrRRjZz1wG5p1OYNw8SrAFwVCXTOD+tVEA8uWqGj1JM?=
- =?us-ascii?Q?W4KjmeWtR1lKW47z7CU0+q0jlUwBl8D6T3tKIsBRV/sF9FFpBsPwFG5czEMt?=
- =?us-ascii?Q?H5SBeKte5nWdhw0eQa5bznAajqu0tWY1M0HT2jts7e2w2gcWfskis/RgLuul?=
- =?us-ascii?Q?4KH5jEMIb00QfRruyvtkBnIHyQGhM/LzN2U1u7vR/MDmSYduvD/M7bDgGj+p?=
- =?us-ascii?Q?y18IMSLQAyvtZeS9f2W4OPOJqXlDi8swN+Rlh8U7qSUtwpGxiPc0hDbU6Gbu?=
- =?us-ascii?Q?WfjNXySB3cbZ8P2RVI6kt9RS0AzY+2tr4Js/OsP399qsDOtO7qNa69s0509H?=
- =?us-ascii?Q?Md+1/4wjEerIltUyCAu4zd5vNyXDy5ZLa/KsP34Je2xikEEL/DgN6JJQHznv?=
- =?us-ascii?Q?JAmz0IpHvoLVLKFD8cqWb+GFLr/TJQ4FmK13Z/CnAGDiikixCnJ0WL8yCUpT?=
- =?us-ascii?Q?WDNsndeJ7D+R/KDjIfiteAo7wv71yhEqFVZV1FhhQjDsWpT0k7+yp375DJrH?=
- =?us-ascii?Q?2Nn3966zbTGRzWoZMRgDJ9PHi7glzIW06vG/gPhG6mas4+jQLh7d5H+GrxyL?=
- =?us-ascii?Q?0/1E/34thsynlq97WeltQsx+hfE1IiJC05AWsbnLEhjYnGxTJ6v/akyhywoY?=
- =?us-ascii?Q?LiI1OEeSH5JEvuiXccTUFIPiNSeMGj7HgKKkrdulRNd8hfPqIsckmvffpRtz?=
- =?us-ascii?Q?g0zaVaM1QbRn94nwd98qT8vDepR4Md0ZltLd3kZ0XXzvbuHxWLzqWh6Lgm50?=
- =?us-ascii?Q?i/SfddLejQCLVND5oZPB3qTICDawCihXDnj7qndh1NYdT8GDF/rZDXH7Xa/v?=
- =?us-ascii?Q?i8eSTy6x8VdIGsTtTMksA/50rwCxJDEiMU5rMP2io03RqIJpfWdYLbKRZ+oh?=
- =?us-ascii?Q?fe3X7YWMAX/Xeqb0KShybkixYFlov7JuRQ2n1eTI6+4cPSYB36A5clN7h1lA?=
- =?us-ascii?Q?r3K+2mTyPrdJFk2LJmKFKnwFY2v1ZlgPQ836OX2VSXv7XZsJoMHhU2e8iHUR?=
- =?us-ascii?Q?SUOtpnaEuPgZ0dS2iFZOEygLLVDT3M1i0mtkMaq1eyn8h1iw4jNq8EiIJFwT?=
- =?us-ascii?Q?05uoDTqtqBUUfVahz2ptDVmGXOlrAq30eyTWB8fqbJX2OdN/IscFcDuQE9rt?=
- =?us-ascii?Q?ptFjP6arGlSKbQbyhLFFvZWbTdNTno+vzURgjipIU6fqjdwNfZ6yzqWAlAMK?=
- =?us-ascii?Q?qlJdvUG9sDddRiYGuJPEA5CJq+PSl4XfVO46qK0i1dTk0DNk7HQsUmEknxH+?=
- =?us-ascii?Q?yp+24QCiZ5rF+C7Ndl6DNSCBo36Gz0nKLZ2jbGEcJFkW41UmnHi7+nAMGgny?=
- =?us-ascii?Q?3V0hv9OPyyGbHdZTPQDTqGy2NFkMUNOJ8KTDY0u3HqgS8ut2WXIWTJAKzFlP?=
- =?us-ascii?Q?aVjW5VjH2h7zXyYPACMqFLcruEDUCPsPWKOHG922+DCVdXND5quN?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1668a65-70f0-419d-cee8-08df13488c07
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 16:44:01.9925
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ocl/Z/3TvOpqdtcVK1CR33VqskgtlW+aCV30Bs9262gGCKfYscFRwqoph+6smc3XjuNQNU3dPnQS1NKoZGc0VoCKnZiGXWm41X8mL6Ocv2E9UOL9Hl/BR6dMo5WwPvpe
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9670
+References: <20260914041221.1028092-1-zack.gomez@gmail.com> <aqeyvaw06I2883Fo@gmail.com>
+In-Reply-To: <aqeyvaw06I2883Fo@gmail.com>
+From: Zack Gomez <zack.gomez@gmail.com>
+Date: Tue, 15 Sep 2026 12:45:00 -0400
+X-Gm-Features: AcwNN1WDQXY_pMC5NqZrsA4SmeYj4x-kFu6e6I1hVD1u8f-sluStJigEyZ2240Q
+Message-ID: <CAErB-w3fmW4bQqRg7895dZ4ZRqkDJmfb7FSCLPvRCkwrhQzaqQ@mail.gmail.com>
+Subject: Re: [PATCH net] netpoll: bound the deferred transmit queue
+To: Breno Leitao <leitao@debian.org>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 07, 2026 at 04:24:52PM +0530, Devendra K Verma wrote:
+On Mon, Sep 14, 2026 at 01:47:39AM -0700, Breno Leitao wrote:
+> I have a patchset that does exactly that, which I wrote after
+> hitting a similar issue in production. Would you mind having a test?
 
-> For a register the macros providing masks for bit ranges.
-> These macros if placed in order provide good view of the bits.
-> Placed macros in ascending order.
+Tested your v2 on 7.2.5 with stock netpoll (no cap), same host, NIC
+and reproducer as the commit message. Two writers offer 200k lines/s
+to /dev/kmsg. The slow-completion condition is the one from the
+original event: the sink only ever receives, so its MAC ages out of
+the switch's table, the switch floods each frame to every port and
+pauses this one. "paused" below is that state; "learned" is after a
+ping from the sink put the MAC back in the table. parked is the peak
+skb count in npinfo->txq, slab the peak growth in unreclaimable slab.
 
-dmaengine: dw-edma: sort register field macros by bit position
+bucket link sent parked slab backlog
+20k/s paused 8.3k/s 152k +116 MiB growing
+10k/s paused 8.6k/s 58k +27 MiB growing
+5k/s paused* 5.2k/s 1.1k 0 flat
+20k/s learned 20.1k/s 1.1k 0 flat
+unlimited learned 200k/s 3.0k 0 flat
 
-Sort register field macros by bit position to improve readability.
+* at 5k/s the flood is light enough that the switch never pauses
+the port.
 
-No functional change intended.
+Seems to work as advertised: with the link healthy the target sends
+exactly the configured rate and nothing is parked.
 
-Frank
+> I think the rate limiting should live on the netconsole side, not
+> netpoll.
+
+I'd still argue the netpoll change is required: there should not be
+a path to OOMing the box. The rate limit is opt-in, and even once
+set it OOMs the same way if the limit is above what the link is
+draining at that moment, which above is 8k/s under the pause and
+200k/s without it. The two rows at 20k/s are the same configuration
+on a good day and a bad day.
+
+I read the two as solving different problems. Yours is consumer
+side: it limits how much damage one machine can do to a listener.
+The netpoll cap is producer side: it keeps the sender from damaging
+itself. Both seem worth having.
+
+> If we do end up also rate limiting at the netpoll side, I'd like to
+> see a WARN_ON_ONCE() here, since it shouldn't be the main ratelimit
+> path, but rather something to flag that something is off.
+
+No strong opinion on that; I'll defer to the maintainers. The drop
+is counted either way: netconsole sees NET_XMIT_DROP in
+xmit_drop_count and exposes it as transmit_errors.
+
+Zack
+
+
+
+On Mon, Sep 14, 2026 at 4:47=E2=80=AFAM Breno Leitao <leitao@debian.org> wr=
+ote:
 >
-> Signed-off-by: Devendra K Verma <devverma@amd.com>
-> ---
->  drivers/dma/dw-edma/dw-edma-pcie.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> On Mon, Sep 14, 2026 at 12:12:21AM -0400, Zack Gomez wrote:
+> > A producer that outruns that drain therefore grows the queue until the
+> > host is out of memory.
+> ...
+> > Observed with netconsole forwarding a GPU driver
+> > that logged one line at ~1e5/s after a firmware hang.
 >
-> diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
-> index 9f237ba916de..006dea7d6322 100644
-> --- a/drivers/dma/dw-edma/dw-edma-pcie.c
-> +++ b/drivers/dma/dw-edma/dw-edma-pcie.c
-> @@ -31,8 +31,8 @@
+> I know what you mean, I'm seeing the same issue on my side.
 >
->  #define DW_PCIE_XILINX_MDB_VSEC_DMA_ID		0x6
->  #define DW_PCIE_XILINX_MDB_VSEC_ID		0x20
-> -#define DW_PCIE_XILINX_MDB_VSEC_DMA_BAR		GENMASK(10, 8)
->  #define DW_PCIE_XILINX_MDB_VSEC_DMA_MAP		GENMASK(2, 0)
-> +#define DW_PCIE_XILINX_MDB_VSEC_DMA_BAR		GENMASK(10, 8)
->  #define DW_PCIE_XILINX_MDB_VSEC_DMA_WR_CH	GENMASK(9, 0)
->  #define DW_PCIE_XILINX_MDB_VSEC_DMA_RD_CH	GENMASK(25, 16)
+> > Cap it at 1024 skbs and drop new skbs beyond that.
 >
-> --
-> 2.43.0
+> I don't think netpoll should be the one doing rate limiting here.
 >
+> I think the rate limiting should live on the netconsole side, not
+> netpoll.
+>
+> I have a patchset that does exactly that, which I wrote after
+> hitting a similar issue in production. Would you mind having a test?
+>
+> https://lore.kernel.org/all/20260910-netcons_ratelimit-v2-0-ebf0dd91e26e@=
+debian.org/
+>
+> > @@ -314,6 +322,10 @@ static netdev_tx_t __netpoll_send_skb(struct netpo=
+ll *np, struct sk_buff *skb)
+> >       }
+> >
+> >       if (!dev_xmit_complete(status)) {
+> > +             if (skb_queue_len(&npinfo->txq) >=3D NETPOLL_TXQ_MAX) {
+> > +                     dev_kfree_skb_irq(skb);
+> > +                     goto out;
+>
+> If we do end up also rate limiting at the netpoll side, I'd like to
+> see a WARN_ON_ONCE() here, since it shouldn't be the main ratelimit
+> path, but rather something to flag that something is off.
+>
+> --breno
