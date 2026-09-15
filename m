@@ -1,81 +1,86 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A5039792B;
-	Tue, 15 Sep 2026 10:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C853247CC7F;
+	Tue, 15 Sep 2026 10:12:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467145; cv=none; b=P3KkmxM8GDwM8SU87Tw0D+mjIGH9Ti/ZxgxvWvA4cxyutvhz6rz6jDru5THadfafDRSKLPgArJJTEvkm+DMYgjvGsuaac7bhO2NfZg7JGvHsSEiiKY+eDUurZxHr1ur3fLxqGmxiGhiMnlfzrCcH22UnUYZSsgT+bVuQMfAnfhk=
+	t=1789467166; cv=none; b=hjkEaAUSyqwWCw+7HC8oUBoGoBp0m/1OalrQ4s1FWmCuBtJ3IIBMp2y5PfizUA+X0/lXo+dCBLvKqLRyb3fJKPo1sQe+IQKAARiC/4CiVKdcJYF11s8fJO8ytByYfrxnSNjLpOf2/RrtXzsZNTFNA6udCU/1exmu8+mFp5TCRxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467145; c=relaxed/simple;
-	bh=Pyaor3OexTPbvVE2eALaC6NSiFgHwqvaYEtSZvsceZA=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:Date:Message-ID; b=uKfQ8vCpTtshVKrila4f8udF4uMj3cAqfMA6wf5TtV7IAq3acxXV6TsmbXv7D1jhoyEP0xJz+yvuTGyCm+Lj03LpEdu8YuYHru+UlQ+2j+bnZ5d7luQLZvWnCWXEiXIhuV5+XM/vkHl+L1ZhGgZNaFyPfKAp8JY066dLw3ZXN8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DwmM9Wkw; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789467166; c=relaxed/simple;
+	bh=PFu7flCmADGCQBOU6MKET7NFefP/QS4WIlcfWxXu0jw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lH6ZpZ/FjBX18j35OrPsgtfhuc6joaWRHd67SIepYBsGScXDXyQ4wRwnhqwlNV2n+xBKW2gbUjZCCTW97P6VBrPqpkzDyxj64GQuEVeVLYwRw5GwWuwyNfBmOpudimGmBrEP7r4lr3sDdNQTSfFexQR2U8EWTb/yrfpVIjTpZ9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpPhct2h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DwmM9Wkw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Content-Type:MIME-Version:From:To:Subject:Date:
-	Message-ID; bh=Pyaor3OexTPbvVE2eALaC6NSiFgHwqvaYEtSZvsceZA=; b=D
-	wmM9WkwbqD6wf+DfxVcx/AiH0NUxH820D/BT0haRQXWkDRBjvjM8JDck/wzDVFtV
-	FPkOvqnsxkAe8g0wOYQDhL1puByb7XnZdMSebxQE2zjMbpQtVZxD44xk3m5ttVXn
-	E0lbfpRPup0bcDMlZZuaIfPQR7KgjdZtOjPlAEDl4M=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpPhct2h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 501551F000FF;
+	Tue, 15 Sep 2026 10:12:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789467164;
+	bh=A2YTvvtUAT2AgcdYYSojWmWFscG/TMLAegHPjK4gw6s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BpPhct2hKfAhOiCgXC8tXMwSDPZFjkzeLAMrhAFby401Tk3MYQhbXTFLU0qmFIzNH
+	 n+KNK2IqxAsi2iJrP9SI4y5J4LEEJve9IYZ2822yD4rfFHMHXCDdQeNAIZFSn5Zv2H
+	 oPR5yd7otns3Pcozpy/7Cwy1A8iBDkI1r6/RwQmeR0GED7K9AsEWxtFir3zLDMuk8w
+	 +l8AHsX6L1ZwbSfDouqKgRW9yq52CV1fN1FvH7FH6LkrK7GkJKRYxecLM/ejYb80rj
+	 FKi8sLfoK5Te6+a2CP3DbJdW9ccSJGO/RmSmEeeObVrwsBNN0pQNjMqUjBmRmpmHGv
+	 gXM+HfE6JlpoA==
+Date: Tue, 15 Sep 2026 12:12:40 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Thomas Turner <tturner@lineageos.org>
+Cc: semen.protsenko@linaro.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com, 
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, thomas_turner@talktalk.net, alexey.klimov@linaro.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: exynos: Add initial support for
+ Samsung Galaxy A21s (SM-A217F)
+Message-ID: <20260915-squirrel-of-major-opportunity-ef2cff@quoll>
+References: <20260913123740.203698-1-tturner@lineageos.org>
+ <20260913123740.203698-3-tturner@lineageos.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: Tian Run <15503232150@163.com>
-To: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] i40e: fix VF queue mapping collision with PF queue 0
-Date: Tue, 15 Sep 2026 18:11:18 +0800
-Message-ID: <178946707899.849053.3626754711268331752@bigrain>
-X-CM-TRANSID:_____wBn+6vHGalqxkDoAg--.261S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJryDWF15WrWxtry5Wr1xXwb_yoW8urW3pr
-	WUCryYk34kXF4rW3yjga109Fn3Awn5KrW5WF4ftwn09a9IkF4UXF1UKayagry8ArZ5ta13
-	tFZrArW7Cr4DJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jb189UUUUU=
-X-CM-SenderInfo: jprvkiqtstjiivq6il2tof0z/xtbC4Ap9cmqpGco7ggAA3M
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260913123740.203698-3-tturner@lineageos.org>
 
-aTQwZV92c2lfc2V0dXAoKSBsaW1pdHMgdGhlIHF1ZXVlIHBhaXJzIG9mIGFuIFNSSU9WIFZTSSB0
-bwpwZi0+bnVtX2xhbl9tc2l4IGFuZCBmaWxscyBpbmZvLnF1ZXVlX21hcHBpbmdbXSBvbmx5IGZv
-ciB0aGF0IG1hbnkKZW50cmllcywgbGVhdmluZyB0aGUgcmVzdCB6ZXJvZWQuIGk0MGVfdmNfZ2V0
-X3BmX3F1ZXVlX2lkKCkgcmVzb2x2ZXMKc3VjaCBhbiBlbnRyeSB0byBhYnNvbHV0ZSBxdWV1ZSAw
-LCB3aGljaCBiZWxvbmdzIHRvIHRoZSBQRiBpdHNlbGYuCgppNDBlX2NvbmZpZ192c2lfdHhfcXVl
-dWUoKSB0aGVuIG92ZXJ3cml0ZXMgdGhlIFBGJ3MgcXVldWUgMCBjb250ZXh0CndpdGggdGhlIFZG
-J3MgcmluZyBhbmQgcmUtcHJvZ3JhbXMgUVRYX0NUTCgwKSBpbnRvIFZGIG1vZGUuIFRoZSBQRidz
-Cm5leHQgdHJhbnNtaXQgb24gcXVldWUgMCB3ZWRnZXMgdGhlIHF1ZXVlOiB0aGUgZGV2aWNlIHN0
-b3BzIGl0LApyZXBvcnRzIGEgTWFsaWNpb3VzIERyaXZlciBEZXRlY3Rpb24gZXZlbnQgd2l0aG91
-dCBhIHZhbGlkIGV2ZW50IElELApzZXRzIGJvdGggUEZfTURFVF9UWCBhbmQgVlBfTURFVF9UWCBh
-bmQgdGhlIFBGIGVudGVycyBhIE5FVERFVgpXQVRDSERPRyAvIHJlc2V0IGxvb3AuCgphbGxvY19x
-dWV1ZV9wYWlycyBpcyBzZXQgdG8gcGYtPm51bV92Zl9xcHMsIHNvIEdFVF9WRl9SRVNPVVJDRVMK
-YWR2ZXJ0aXNlcyB0aGUgZnVsbCBjb3VudCBhbmQgYSBWRiB3aXRoIG1vcmUgb25saW5lIENQVXMg
-dGhhbiB0aGUKUEYncyBudW1fbGFuX21zaXggKGUuZy4gYSA0LUNQVSBndWVzdCBvbiBhIDMtQ1BV
-IGhvc3QpIGNvbmZpZ3VyZXMKdGhlIGV4dHJhIHF1ZXVlIHBhaXIgYW5kIGhpdHMgdGhlIHVucHJv
-Z3JhbW1lZCBtYXBwaW5nIGVudHJ5LgoKQ2xhbXAgYWxsb2NfcXVldWVfcGFpcnMgYnkgbnVtX2xh
-bl9tc2l4IGxpa2UgaTQwZV92c2lfc2V0dXAoKSBkb2VzLApzbyB0aGUgVkYgaXMgb25seSBvZmZl
-cmVkIHF1ZXVlIHBhaXJzIHdob3NlIG1hcHBpbmcgd2FzIHByb2dyYW1tZWQuCgpGaXhlczogMTU2
-M2YyZDJlMDEyICgiaTQwZTogRG8gbm90IGFsbG93IHVzZSBtb3JlIFRDIHF1ZXVlIHBhaXJzIHRo
-YW4gTVNJLVggdmVjdG9ycyBleGlzdCIpClNpZ25lZC1vZmYtYnk6IFRpYW4gUnVuIDwxNTUwMzIz
-MjE1MEAxNjMuY29tPgotLS0KIGRyaXZlcnMvbmV0L2V0aGVybmV0L2ludGVsL2k0MGUvaTQwZV9t
-YWluLmMgfCA2ICsrKysrKwogMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQoKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L2ludGVsL2k0MGUvaTQwZV9tYWluLmMgYi9kcml2
-ZXJzL25ldC9ldGhlcm5ldC9pbnRlbC9pNDBlL2k0MGVfbWFpbi5jCmluZGV4IGFiYmM3MWU4MS4u
-MjkzNDg2MmRhIDEwMDY0NAotLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9pbnRlbC9pNDBlL2k0
-MGVfbWFpbi5jCisrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L2ludGVsL2k0MGUvaTQwZV9tYWlu
-LmMKQEAgLTExNDQzLDYgKzExNDQzLDEyIEBAIHN0YXRpYyBpbnQgaTQwZV9zZXRfbnVtX3Jpbmdz
-X2luX3ZzaShzdHJ1Y3QgaTQwZV92c2kgKnZzaSkKIAogCWNhc2UgSTQwRV9WU0lfU1JJT1Y6CiAJ
-CXZzaS0+YWxsb2NfcXVldWVfcGFpcnMgPSBwZi0+bnVtX3ZmX3FwczsKKwkJLyogaTQwZV92c2lf
-c2V0dXAoKSBsaW1pdHMgcXVldWUgcGFpcnMgdG8gbnVtX2xhbl9tc2l4OworCQkgKiBrZWVwIGFs
-bG9jX3F1ZXVlX3BhaXJzIGNvbnNpc3RlbnQgd2l0aCB0aGF0IGxpbWl0LgorCQkgKi8KKwkJaWYg
-KHRlc3RfYml0KEk0MEVfRkxBR19NU0lYX0VOQSwgcGYtPmZsYWdzKSkKKwkJCXZzaS0+YWxsb2Nf
-cXVldWVfcGFpcnMgPQorCQkJCW1pbl90KHUxNiwgcGYtPm51bV92Zl9xcHMsIHBmLT5udW1fbGFu
-X21zaXgpOwogCQlpZiAoIXZzaS0+bnVtX3R4X2Rlc2MpCiAJCQl2c2ktPm51bV90eF9kZXNjID0g
-QUxJR04oSTQwRV9ERUZBVUxUX05VTV9ERVNDUklQVE9SUywKIAkJCQkJCSBJNDBFX1JFUV9ERVND
-UklQVE9SX01VTFRJUExFKTsKLS0gCjIuNDMuMAoK
+On Sun, Sep 13, 2026 at 01:37:40PM +0100, Thomas Turner wrote:
+> Add initial support for the Samsung Galaxy A21s (a21s) phone. It was
+> launched in 2020, and it's based on the Exynos 850 SoC. It has multiple
+> RAM configurations: 3GB, 4GB and 6GB.
+> 
+> Since our bootloader does not set up memory nodes beforehand, default to
+> the 3GB variant. Custom bootloaders can be used to initialise other
+> nodes per RAM configuration.
+> 
+> The Exynos DPU clocks required by simple-framebuffer are not kept
+> enabled during boot. Add the DECON, DMA, DPP, PPMU and SSMU DPU clocks
+> to the simple-framebuffer node so simpledrm maintains references to
+> them. Without these clocks, the framebuffer fails to remain operational
+> further into boot.
+> 
+> This device tree adds support for the following:
+> 
+> - SimpleFB
+> - 3GB RAM
+> - Buttons
+> - Ramoops
+> - MMC
+> - USB
+> - Watchdog
+> 
+> Signed-off-by: Thomas Turner <tturner@lineageos.org>
+> ---
+> Changes in v2:
+>  - Re-order properties/nodes to pass dt-check-style --mode strict
+
+This is based on some old fork... You need to develop on current
+maintainer's tree and test the same. linux-next usually works fine.
+
+Best regards,
+Krzysztof
 
