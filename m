@@ -1,173 +1,157 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898CC47DFAA
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:27:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE5E47FAF7;
+	Tue, 15 Sep 2026 10:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789468046; cv=none; b=o5DS6KlmonMC4MYZfXdmuHkaGawabEPKaJQFAzufKComUMcuBcTB1ZKsFAZmkdPKi961qFsXbMPrVcmDmLEXTPTo9TvCZGJ5ivkYTOr6aH3ZOvPbx/A5j+7lX8p1ThlEC4zwdE+s9z301kLssgb/M7T0vE50J8PrmBR48w3waxk=
+	t=1789468048; cv=none; b=pejueU3S2s3Yq4Sq1sNuS8BvQK3k9PEz7xOTMh7r3AdmgG8eMYVdtYsyn9WR00fG+yfn1Tb9KcW0D7XrzOo+0ZbQTv77gGN0gg8f3p4eg/CWJ0a9uoCvshqYC+KEX/t5yxZeHMDJXXDVSzq/xfLFM0yeRKvy9XkiG/U9Eo+jTa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789468046; c=relaxed/simple;
-	bh=ckBmQCsGl4i0H5swMQltGNEvLAQ4QNaTpkBEqzAPUS8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GEqMlavvnjCQn5wpeI0J0Iu5djqpazq+0s8xum7FVF8tbXvrqg+Hm/EuC4FY8t7vmn9O9i7jUTCBnSB6sRbTzIcekBFi5Ay+a1cNF6RTYEDjD2GIGjbsYsTPuxZxaAsIsDDBHztDkcf3KZ+vdKqOYKOnNEW3JtKw08qxyNptXO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bIwOYd+J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Syrxhp1C; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789468048; c=relaxed/simple;
+	bh=Q5oJx8j/BEat4lOv1uqOd7HBNDZ++onw3m/mth5NeSM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=B/fHVhEDCzWWgCVy3Iw3c7q3kSeo+3BBB3xwmTQ3hsHJMJG6IOvDURk1AZ4lJCFNQbK4KCAqs9IAYWKpsClFdS3KH425rssMm4XAGuBOMxUBMDtRAKYRXTg6WWFXF4SsYGP4rOo59fRkhNSzV4tCi2VakBh45IQUQ7KPMDnEXeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VYNfKx92; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bIwOYd+J";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Syrxhp1C"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9h24L2086727
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:27:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4B5u4XhHsQDHFwAeN8RPYZsJq7AgzxHPXAAIftTImPI=; b=bIwOYd+JYKFSCYrP
-	nCi/eAq75tXkFs1ZYz/8MAhCy2Nx5mfuB+SFhJqYWAdqO5Ki8XFzECuVfSnWzAuL
-	4thiNLSTzeKsrQH8W8M7dEv7sk3jh/6jCBbsThaG7649O4nEo4YKTFQMFhfbymVa
-	5/Ra+rKB114Ves5BkmJ3Yct/+R9zfzlYATVK366v4VWegslqrg2Cxj3wA/GeutJ+
-	ZWlEWlB1EpGpqgJqPR2SIE7wQw3G1l8luRBwF010kkya2wbCAhYUVOKD4FWDU7b6
-	TfjVDwIpn5KdQCHsae/OHIlHaGMvkewseomzIlAx7Aykto9YgL2jjaR+TswQDBU6
-	VQ6W7A==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq1qp8uqp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:27:23 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939f27c80a3so852458185a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:27:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789468043; x=1790072843; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4B5u4XhHsQDHFwAeN8RPYZsJq7AgzxHPXAAIftTImPI=;
-        b=Syrxhp1CCcwhbMw38BKg60gKJA937jKuLru+Nme00TgwjszEzXLmv56JMqgp9SJ9kf
-         a0VqDu/9eNXdqcus7cuYBS8u1shDsl7uqmvnpE1XLj5XjUxqbIui6yw5HqEKdYje02z1
-         omE6glt6Z7PXsysVSEdn/09pzKI+0dEkR3oltYXgTsa92ThhB4Cq98oQ1BRpe1yFTx3W
-         3mOpnFD54tUOW3exYymrDGpDL4OOmRJuDGUB0N3TvTL3pUL8HpVjwriIgUWfmrVqZgF5
-         N8oP3631uA6OCTzQX+Jd/bAwzrOksCTOIJ2kjgZffmifw27a9rcId8VbxHDGhboCfAhD
-         QLvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789468043; x=1790072843;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4B5u4XhHsQDHFwAeN8RPYZsJq7AgzxHPXAAIftTImPI=;
-        b=2KwvULB4s9CBNS6CPA30La+WcOQ2+Tf0m9bUemHUq+AgrrdSq5mbtSGi2PqxI9SNLJ
-         v9Sm07ScpkYcdYN4N3VQYMMGF0wSFKnVm7oNRa9WGO60y/6p+o9pPJAtd/JeNLQRWihQ
-         7NB1h8Z2rRxwXoiik+4KhZ5bq/efTPeC1x7o+oH83wg50OuSMth20cflwZ3AED+64ZSl
-         5TkaMRiD16KrOpO6FI5p90sy60GkZhfbxTbt1hO0ynwM8SNikjedx4/Zg2et6GywwFjE
-         /XVmvGE/cIOHELOeU91yjOpy8VdRnRcJAPJGm6c+qyQb61ztHlz2396qWR2g99nNRLcE
-         BKKg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFf5K3yzPv01sAfiCN9COWnWUKpcVrreMP//iYI5qenJSDXBcFoynXyj1QFya5hSU+XsEaXudKya8XXYs=@vger.kernel.org
-X-Gm-Message-State: AFuF++keOuUXq5IPj1Fbks7o7lx6cDjj9hO/96KjzNhIvZpnXDC2JlwT
-	yUr9r2EjnfQtOc7Ah0mspmqRAHEfS+AspbZCj6TjHnAF8M1U/ljqGZrczsrFG0jRfD3fnA8NxkY
-	l1M9GVzYwvTwvSOe7RUR0ef3wtGw5npNGlo2ynW1FTrUmk9zMPB03dmM/C2dQL8ymuRg=
-X-Gm-Gg: AYBFou39LWnb1FSIlcAwMJc1mKCmVtukIpI5MymFn/Dsctlydk5lSr1o23/Ag4Qxrbl
-	3GALxMo2Wz/t5cQiOuw5jci/LHMaY+c0hVcU7X3MFQ/V7uYN9T1jYxnwNYOMlkpUE8fq1CfETep
-	f4Qi+aCHuOLMtYPehMFpBYJ6kpQXFejl27md/Pl/nnQ4aRjHo1+fDXrHTa+0v46MAjYkipMQcOW
-	GEQr6jyOjGIqDCAvQx7TuAPW19Pa13fZebOg2AtK5z0UKKSleT5KOGjvcYbWfguisO1aa/s1WSK
-	buZDXwx/1rdDz0uJY5KqPdBQnDOWztiN1dEbXQJjO7UpQjTPW+8TL4JsPZPNorHuLEnd8haJOQc
-	xaQMdbIMUzQH5ENQkUvadfxUPukQn9yCeF+WW+d1vMg5jNNdSHPfe5oU8srmBNXI=
-X-Received: by 2002:a05:620a:2955:b0:939:8bfc:471a with SMTP id af79cd13be357-93a29bb4ca4mr921844085a.49.1789468042629;
-        Tue, 15 Sep 2026 03:27:22 -0700 (PDT)
-X-Received: by 2002:a05:620a:2955:b0:939:8bfc:471a with SMTP id af79cd13be357-93a29bb4ca4mr921797285a.49.1789468037445;
-        Tue, 15 Sep 2026 03:27:17 -0700 (PDT)
-Received: from [192.168.10.107] (146725694.box.freepro.com. [130.180.211.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6b6261sm71836915e9.14.2026.09.15.03.27.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 03:27:16 -0700 (PDT)
-Message-ID: <0bef7837-9fd7-4401-b6cf-ba744f5beb58@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 12:27:15 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VYNfKx92"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789468047; x=1821004047;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Q5oJx8j/BEat4lOv1uqOd7HBNDZ++onw3m/mth5NeSM=;
+  b=VYNfKx92ZQRE7whIhl0HIXlbrCXMsJRCW1mvlv5Wkd8iYsQmSy7qCGRk
+   DKrKS9TaXdgkagsv7qh/Vl/Y6XN7tlpAAxt7eeN56gt+mRowk9TSNOupB
+   QtfA1m9T9BJegRcx0nhsso+wOsItY42jEMW49xTaXTQshjmBiQMuWNgnK
+   0fv4uwOofnais+oPfozZzsikhWxAd4w4H533a+4UG3fMPQGCjmmkN1cuj
+   qaotYVG5aLkm6jyFYH5muIyzUPJWD2RqHSXQLjJHAiMxOqO2rcUoFO24J
+   LzHNANXe4zy9B2LC+i6tz+7TdnhZWOO8sdC6IQ5x8V3okOnp3dOhcUceW
+   A==;
+X-CSE-ConnectionGUID: +IWhsaMHSUamn5RBXaD2ng==
+X-CSE-MsgGUID: VKMknzP9QdGnAR4+35xDiA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115362218"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="115362218"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:27:26 -0700
+X-CSE-ConnectionGUID: lZT+1WUeR0K9tasPjvW2eQ==
+X-CSE-MsgGUID: OpDH6L2ZQCWzeH2RVThocg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="277085341"
+Received: from yilunxu-optiplex-7050.sh.intel.com ([10.239.47.46])
+  by orviesa005.jf.intel.com with ESMTP; 15 Sep 2026 03:27:22 -0700
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	yilun.xu@intel.com,
+	yilun.xu@linux.intel.com,
+	xiaoyao.li@intel.com,
+	sohil.mehta@intel.com,
+	adrian.hunter@intel.com,
+	kishen.maloor@intel.com,
+	tony.lindgren@linux.intel.com,
+	peter.fang@intel.com,
+	baolu.lu@linux.intel.com,
+	zhenzhong.duan@intel.com,
+	chao.gao@intel.com,
+	artem.bityutskiy@linux.intel.com,
+	kvm@vger.kernel.org,
+	nik.borisov@suse.com
+Subject: [PATCH v2 5/5] x86/virt/tdx: Make TDX module initialize the extensions
+Date: Tue, 15 Sep 2026 18:26:58 +0800
+Message-Id: <20260915102658.713079-6-yilun.xu@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260915102658.713079-1-yilun.xu@linux.intel.com>
+References: <20260915102658.713079-1-yilun.xu@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/9] soc: qcom: Add QMI TMD support for remote thermal
- mitigation
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        "Rafael J. Wysocki"
- <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-hardening@vger.kernel.org,
-        manaf.pallikunhi@oss.qualcomm.com,
-        Casey Connolly <casey.connolly@linaro.org>
-References: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
- <20260809-b4-qmi-tmd-v8-2-b15d47adc379@oss.qualcomm.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260809-b4-qmi-tmd-v8-2-b15d47adc379@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE1MCBTYWx0ZWRfX9zlBpkg2sYog
- tURYbhdA6zhVvR9NpH7SNW0bBQsf9Ry0qzv4NJexg2QXUA/96CfBQ3qJzj4F51/JnV/O2LgRUi6
- mkKCMq8JvoOExcAF/1ir03EWjtj7Vkg=
-X-Authority-Analysis: v=2.4 cv=I4Xw19gg c=1 sm=1 tr=0 ts=6aa91d8b cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Zce52TE6RWQhZkoPOn4A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: dY3S_WOMbETWckwx1eOCn352e9raGy_7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE1MCBTYWx0ZWRfX5botX4qk8Fct
- e7mETnKmtNsn0s17OALCZhg5UMn9OZLgQlgDZCqV9zrdbIFOKAW6mrnW1tZZUjDU7QoCaCfXUgZ
- 7d3+s3psAYZLJUYx2F+6SY/zLuitHhmGVBnZwiWHfGDxwXPuaDV1sX7iIzIaWZQuwsPTd2cLzuc
- t8P9HAolHWPDbekQhWe2/TApmCvdsa7RgiDTNwgbt2CjnF0S7XdmGSl3APddRzWROTlc5s02k4w
- jea18lQf2SgrhQtLDCoZvXCzgae1tA4coiKr45Df17QbRhldMFk3UiT1heSna+7WZKGFf+3C+I8
- JM4y1LczpHS4rKOFYCJa9vlEtqphC7yIqwdgRiXjr1s3uOFSQkyxRdyUC8dTSt6loooe6HhDSKM
- MhSWlxQitldkLzTTp6Hq4DH1IN8VyrRX7AkgZ6B1JECQtEdNxVKHTAWrxqpHXfIqkn3+pXpTPug
- YIHnqaef3h4GRx4UlYQ==
-X-Proofpoint-GUID: dY3S_WOMbETWckwx1eOCn352e9raGy_7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150150
 
+TDX module extensions need memory for their execution environment
+to serve SEAMCALL leafs. Several add-on features depend on the
+extensions to execute their SEAMCALL leafs.
 
+After providing all required memory to the TDX module, initialize TDX
+module extensions via TDH.EXT.INIT, then those add-on features can use
+their SEAMCALL leafs normally.
 
-Le 09/08/2026 à 14:28, Gaurav Kohli a écrit :
-> From: Casey Connolly <casey.connolly@linaro.org>
-> 
-> Add support for Qualcomm Messaging Interface (QMI) based Thermal Mitigation
-> Device (TMD) cooling devices provided by remote subsystems.
-> 
-> On Qualcomm platforms where remote processors expose mitigation controls
-> through the TMD QMI service, client drivers need support to discover the
-> service, register cooling devices for available mitigation endpoints,
-> and forward cooling state updates to remote subsystems.
-> 
-> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
-> Co-developed-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> Co-developed-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Just to clarify I deeply reviewed this patch and made some changes to 
-improve the code. That is the reason why there is a co-dev-b tag but not 
-a r-b tag
+Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
+---
+v1:
+ - Fix return value for SEAMCALL wrappers (Chao)
+ - Print SEAMCALL error code for SEAMCALL wrappers (Xiaoyao)
+ - Changelog & code comments
+---
+ arch/x86/virt/vmx/tdx/tdx.h |  1 +
+ arch/x86/virt/vmx/tdx/tdx.c | 23 ++++++++++++++++++++++-
+ 2 files changed, 23 insertions(+), 1 deletion(-)
 
-[ ... ]
+diff --git a/arch/x86/virt/vmx/tdx/tdx.h b/arch/x86/virt/vmx/tdx/tdx.h
+index 52888424fe7d..1f43d2eb2345 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.h
++++ b/arch/x86/virt/vmx/tdx/tdx.h
+@@ -48,6 +48,7 @@
+ #define TDH_SYS_CONFIG			45
+ #define TDH_SYS_SHUTDOWN		52
+ #define TDH_SYS_UPDATE			53
++#define TDH_EXT_INIT			60
+ #define TDH_EXT_MEM_ADD			61
+ #define TDH_SYS_DISABLE			69
+ 
+diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+index 3cdc5ba8e2ad..2d42191a56e6 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.c
++++ b/arch/x86/virt/vmx/tdx/tdx.c
+@@ -1311,6 +1311,23 @@ static __init int tdx_ext_mem_setup(void)
+ 	return ret;
+ }
+ 
++static __init int tdx_ext_init(void)
++{
++	struct tdx_module_args args = {};
++	u64 ret;
++
++	do {
++		ret = seamcall(TDH_EXT_INIT, &args);
++	} while (ret == TDX_INTERRUPTED_RESUMABLE);
++
++	if (ret != TDX_SUCCESS) {
++		pr_err("TDH.EXT.INIT failed: 0x%016llx\n", ret);
++		return -EIO;
++	}
++
++	return 0;
++}
++
+ static __init int init_tdx_module_extensions(void)
+ {
+ 	int ret;
+@@ -1330,7 +1347,11 @@ static __init int init_tdx_module_extensions(void)
+ 	if (!tdx_sysinfo.ext.ext_required)
+ 		return 0;
+ 
+-	return tdx_ext_mem_setup();
++	ret = tdx_ext_mem_setup();
++	if (ret)
++		return ret;
++
++	return tdx_ext_init();
+ }
+ 
+ static __init int init_tdx_module(void)
+-- 
+2.25.1
+
