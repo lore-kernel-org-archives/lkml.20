@@ -1,134 +1,139 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2944BFE93;
-	Tue, 15 Sep 2026 19:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F704C1505;
+	Tue, 15 Sep 2026 19:12:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789499526; cv=none; b=orEGIQcW03bvCt1ae0aAea9HjGiSLhrMgpnBA1vMELIpeWzQziSgfe2dsV/k4OY+Oc0wMe4dr6jjKM2Fh3P5/xwlcrd8dh51UDcDuOeRebjq3T1KyS4yly93IfgQToS0+u8/lCdSDC4pOBEnl3fLYo26yGxgZb+owbdXhM+sbls=
+	t=1789499551; cv=none; b=SHktFeMApZ4m9WZaLTdM6yNzPQQZxuH8P8+1UR7ss9WHjdASoCz1Z0kJlm2Ht4tAWFrMNzOmwPJV3yoZwN3kj1aNclpdyzcIIg/PayghDefTH9glZMhw/dgpQmIlHMB5utSdACXdq/+r5He80IBvjtsmLCjjNn3p/upp6u7kq+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789499526; c=relaxed/simple;
-	bh=f1zNdSJg1o8BUkFINZNhccQHuVqHZH4JwWbwqFiVZ/Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gttphVN8zeBdp62LmXDdi7rWlTQf5TAgKhgXtFuFKbXDwGkj71c+D8JFlFvl5bFocb30gcjPn7K/iPaS6qcxSh/0ZjH+Z2N80MHOdaG/sNmFxEbjiuj/5BWVZipbwIWpN/uKnZ9+cDn+a6OBnYpFnwADQM3X1VEGkozMY02ivOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=fUkPb4lN; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1789499551; c=relaxed/simple;
+	bh=0QEKyN/9tH/qcjE0AsvdViKlebK70HdYiFfSbOlV5yA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AsBnMywEVmOXj5RQw4rCu75Xrxl3BvIhrGQQ64ilHtEH3pJykN6TxxPLAddhLD7y7tP6eO9Zrxg0YISUcySKaEyzLMx0g+1gJq6NdLAXuK4TWswJgkqOTG99LOm5WK7Oor0eIiypa7yCHwK5mqhBMC/1BrZgmZXZA/+M1E5jCBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=rWYonRfF; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="fUkPb4lN"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 91E1353401FA;
-	Tue, 15 Sep 2026 21:11:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1789499515;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=3tQYdPbdvmVniCNpMNauGvwGZKAhllS/E3SmEnCd4is=;
-	b=fUkPb4lNPhTbN0V8wIRStdLHse890Sj/XmLEcdv386dfr509pge0jqM1nSq+bc+9yxpmNH
-	BIgQHwuCWkMxoZt5Y0pIuocot4/N9LnzTCWwp6GNkVDeCFtEBIV6qooXMDMFRCsAkHwall
-	MWrClAwBUbYkfz3xapOyf5WGsk9nhvY=
-Message-ID: <a51ddd6e-cd20-4860-98a8-9cc759b7810b@ixit.cz>
-Date: Tue, 15 Sep 2026 21:11:55 +0200
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="rWYonRfF"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FItjXP685827;
+	Tue, 15 Sep 2026 15:12:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=b0yeL
+	g11rqUqacZxXEuFjIBfnImrkWSCLRwgtKnhgsM=; b=rWYonRfFzAiqJAzYcMWz4
+	V04BKrv3eripXqIBNeWNMU6Y4Hr+iAaxeYzv1wHje3lU5uBjeCovNV+d6wmDaBvQ
+	rbZBNQnK/LGRHrN+aTWSSRX7BzsvGCuZquhaEZTDzY9oZHl1G0zTnLPjXFWBZQnX
+	5jjgIyzyigoFw086b9Uj5RNQoYc4iH2GqAK1bqfL0MJV7ubZkCDyidf7uSNfRfP1
+	kEdN74wwLpiONyovdytz9iwZCpLy5qeVJvo5YBAFJMZ82CmAzk5MtcdlGlsvB4pv
+	hhNvYBKaYK/+aKpe+Si9rlfAAsT2xp/e3HX9b/HU74G/4td2c+0r7SkFp66Zl+bQ
+	A==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gq4v9jg7e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 15:12:20 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68FJCJoG018935
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 15 Sep 2026 15:12:19 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 15 Sep 2026 15:12:19 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 15 Sep 2026 15:12:19 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 15 Sep 2026 15:12:19 -0400
+Received: from work.maxim-ic.internal ([10.66.6.190])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68FJC5Zp028108;
+	Tue, 15 Sep 2026 15:12:07 -0400
+From: Marcelo Schmitt <marcelo.schmitt@analog.com>
+To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux@analog.com>
+CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <dlechner@baylibre.com>,
+        <andy@kernel.org>, <Michael.Hennerich@analog.com>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <corbet@lwn.net>,
+        <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
+Subject: [PATCH v2 01/15] iio: adc: ad4134: Sign extend sample data
+Date: Tue, 15 Sep 2026 16:11:59 -0300
+Message-ID: <7083358e62e3edfeeba0201aefd8d3195ee951d0.1789494473.git.marcelo.schmitt@analog.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1789494473.git.marcelo.schmitt@analog.com>
+References: <cover.1789494473.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-lg: Enable NFC
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Paul Sajna <sajattack@postmarketos.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
- <28fb606b-8631-483a-a02e-ecd16e9cc238@ixit.cz>
- <062d0fc6-dcae-4636-ae95-c8144317f0ff@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <062d0fc6-dcae-4636-ae95-c8144317f0ff@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=JekpPkKV c=1 sm=1 tr=0 ts=6aa99894 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8 a=TOduCJ2NwqVHWOW4apYA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDI4MCBTYWx0ZWRfX1diqo2UsveOF
+ kTcn9gAmL2KjPNyNDdMKfLnwlVJljkXIDY3fYYqU2b9INF2ES3DPZMcKyfGQSmkZMFwHQcxTT+U
+ sJEpkKBrO9XfAzoFTNYBWKCF53c/dh4ob38IqHQmBma6v/0uPDByA0vIwOk0Hg4HncBgwO2Rxfk
+ 5NBl4SMxgUN2HDzI0pO0UW0GwOr4c6vbH5RIggQpV5RoYSTnnj+dxlOn07oxJsOT7DJzpAi15kx
+ HG1TYLtj2y6NlQrwxs8NTtac0Y5reid2/RoGo6SoFZS3Mjuaa12eTyZnu09s5e68igc+eyFcLrh
+ YopZmOnsBtoXxM8sPp8btieIOYjse7IfriyE5YsUiKCm9UdQe0xZgeLUMB9kyhjYwDnYvtKYdwT
+ i/5yhHVvOFxRvJeaQJx2jDZczlcrXmkGj60+L7H6KXQhFi6Z9x46eED9ef5xxJQr6DEY/9YGlCv
+ YIxRqVt3psFCy5DTMkg==
+X-Proofpoint-GUID: BiAI0m3T7Y7GHRzPngG8tZZxOfhKN53x
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDI4MCBTYWx0ZWRfX4Bx/HFo1P7FF
+ Btxy82nWFmovnF2WgLkW+KW9aLmTs/AI90nr3n5kj+We2Fizw/hplNN9eaDG0ct+IfbHGaQ5UjH
+ 8PzzmDmZkt5zEPjDUK0g2Cy/zacj3HAwXz9sT0OC5kWo3wIdgaNE
+X-Proofpoint-ORIG-GUID: BiAI0m3T7Y7GHRzPngG8tZZxOfhKN53x
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 adultscore=0 impostorscore=0 phishscore=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150280
 
-On 09/09/2026 15:16, Konrad Dybcio wrote:
-> On 9/6/26 11:32 PM, David Heidelberg wrote:
->> On 06/09/2026 23:11, Paul Sajna wrote:
->>> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
->>>
->>> Downstream dtsi for reference:
->>> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
->>>
->>> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
->>> ---
-> 
-> [...]
-> 
->>> +    nfc_default: nfc-default-state {
->>> +        pins = "gpio12", "gpio62", "gpio63", "gpio116";
->>
->> here the verbosity may not be bad (device-tree functions as documentation too)
->> gpio116 is associated with eSE NFC part (just guessing, but... it worked before, so), and generally the pn547 doesn't need it at all to work.
->>
->> TBH not sure if there or what consensus is here about this. The eSE needs it, but we don't have the driver thus also no integration with NFC part.
-> 
-> The eSE driver would still be acting on the NFC node, right?
+Sign extend ADC sample data for correct delivery of negative ADC input
+difference.
 
-So far that's the Android design. So, yes.
+Fixes: e0bc6d7e2584 ("iio: adc: Initial support for AD4134")
+Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+---
+New patch in v2.
 
-David
+ drivers/iio/adc/ad4134.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-> 
-> Konrad
+diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+index 0490218bb0e9..7d40c0521bb3 100644
+--- a/drivers/iio/adc/ad4134.c
++++ b/drivers/iio/adc/ad4134.c
+@@ -172,6 +172,7 @@ static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
+ 			    unsigned int *val)
+ {
+ 	unsigned int i;
++	u32 sample;
+ 	int ret;
+ 
+ 	/*
+@@ -196,8 +197,9 @@ static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
+ 		 * Clock out data from all channels to avoid that.
+ 		 */
+ 		if (i == AD4134_VREG_CH(reg))
+-			*val = get_unaligned_be24(st->rx_buf);
++			sample = get_unaligned_be24(st->rx_buf);
+ 	}
++	*val = sign_extend32(sample, AD4134_CHAN_PRECISION_BITS - 1);
+ 
+ 	return 0;
+ }
+-- 
+2.53.0
 
