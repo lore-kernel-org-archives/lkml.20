@@ -1,77 +1,48 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mta0.migadu.com (out-200.mta0.migadu.com [91.218.175.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996CA48167F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3316D36B067
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493139; cv=none; b=JmTKANU2BsCZrvIkZbab6JQC//nN5HOm2hA1xbSlEjWphx4zDwTvlCMtnhxVk82QtC4Ud5YAIFoMFF54cCUze/u4XHt+fe1kbTZRKDp6wwymTXcnEk9BDXyWVnBDwE6mOBpCxFYPXvdEZ6rSHROD2qZCt1qPKlDTrdqKr9Jfevc=
+	t=1789493178; cv=none; b=nVYwQMGjwZr0TQhqPPsrDtPlSE4W4uNFSkf7XNxZiFA1LcURuWTWNIZgaZ3vAfHFvL0mbmZGs2admQdjZth5nbxenjZW2Oo+YOupa4Fqbqmr9H0lxmLQd92gfZtmOEWIB8aBUeHNGfl9lezHvrSD9k0WcVlunnPfnxDazVD7OUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493139; c=relaxed/simple;
-	bh=2irpDql1A56MW3Cg8tLm6fuhkBE705xYPamH+cyoiP0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t/pTF/eyIUaQCUYzr9SQPk4gmgsi9G5wcB9ypaLu+KCEBG/XnSSrOSSi0TS5p17+VB0SJxdkurzZWgxySKu1pjanV4cFG575FXGhHjRiBqpuIFizBrp7lStYtcn42L5+f5onqSc1WRhC3rDx3DkljJiv2sVLcM287fXQKQpBniE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jILWqfNB; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789493178; c=relaxed/simple;
+	bh=IObySP5kGPDx4B1PIEfAuPC/D06sFocz/fzz4DvddHY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PrstQ1PriG1hyC9ahfXm3ZGIuCNFOtqj3XjtAZ7Vz4OOg4gTA9OohZ1F2eHmmtsG+IpoVP3XUyVIC2PLDJnPGmIn5Q9BUckBlIPTE1ppQlDJA5whGMrfebq4Zu4ace5JAFnnXonlfjO4mFKjHo3pcRkVO25CBJi0TZRB9a1xMUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=T//im3oM; arc=none smtp.client-ip=91.218.175.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jILWqfNB"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so1680555f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:25:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789493136; x=1790097936; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U/fc7nKbJQEUnU9yBTBsz1Pj86Zdczq6/uCNWPdWiiU=;
-        b=jILWqfNBFo5clM/tr2J4LTVGwvdbwnMVPeblmA90C5PfOo/BPGZ3rRKy2+tdtGmA34
-         GThSp9DnjvE0yl+FSEyzXcJ2UyznslaC8kK6rR6TZgartXoD1+fZMvehW3lV2LkkcZN9
-         fuy6rZ5Z1WMEXKWZodDkXYrELRO6q/OKUN2C2rav67SfW6JO+VsSBKT5kmrnwmOcjiE1
-         k1fqCPMUycpGuuFAbc28MbckhaMqzEFrQN6nhYbt0pRu4oqTnAb/Yq+Td6/+43wU/xG7
-         n6YwiReMNHOKoSMo5EXAcT1DSKwd8XkLWTck+8FM6SO6+EwgS3VzzYpIsX5YgRjpDtxq
-         Xrkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789493136; x=1790097936;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U/fc7nKbJQEUnU9yBTBsz1Pj86Zdczq6/uCNWPdWiiU=;
-        b=N3RxHr8EXQ8IljueuEPYWIdngTymgFHzUY2XKl3ye0PLeJQ1QW9A29AMgkrJBcjomy
-         qjB5n94SHpuql4n6YImEwwzyiHf9LWffHX4+6S/kaL5ugiY1hGAmw7GxGBJeO06vUir7
-         sO7ZtcjmQXawFFb6ARCiyneeXLwgzuuQAS+9BzJSnMRbfSmD9Ac6xqKD3clOH38SHaaJ
-         WiOtPOuLMIEP9U7P7ZZeXe92/nQZzniq9rsr+SqPtY3fGRhVEVGdQT6jllvu7JJrlvVn
-         go6U5V30OcjWZF+tl4G+YwIU60mQWBZWMQn7qX3298hGc9bGFpya8+WcWTGel+s03m1L
-         +CLw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZY6KmjohvlPml6ME3BWG3rQmjVFwyPH7bOdTFrHdHtlpi7Iss2Kjo1c2X62ZIRorTgKZL9FPAQEPEL+s=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwtjpCZOJkuCGqGMUJfwS8UZSu1oXwg8YUWPDPV9PgNws9QZty
-	dNPMryahJeZZcfKXSg5gBO0tq4/dZjMPEphvZ99XCgWDLajtzC5ylWRe
-X-Gm-Gg: AYBFou1OpWz0Fsu2lI3KOvaJzifncPZ8q84wGybhRptk/7S0MNthDeytaqp4hd2huKU
-	8pmWKMY8NVxk/umVm6PkWJ1S02QRrv4KBOKYYi3OkLoKnzmJHQL2roHo5VZfMdm3/qQGoCY6IA2
-	uRIjn9V6x9VprzJMXOmAUAKew342O8+CJ+xIADRy+b2+6/mFPlYTlVGwqMxyrxsBwBUlrDfVgAC
-	/o5SQqwAgrZFzj1rUMr43Jz74SUPekl3l2rIDeJaxTVX7eOYCX9qbA480DR+K0H36cx3pTZGBab
-	cBhwsU6jJj5iYijl7w3+0VaM8eQR18KUqxvFBB11ZR9w+2fJ8PAnReF7lnZqedCBUumOZzeJzeE
-	chMZLgkRbHxgff0RtamM6QVYi+AvZ9e68Px6SuueAtV0NE5W/mFkgsrdhEN91WBOQoPhyAQK4DF
-	zbz9jXamyeVsIqt/QN8TJ5hUOegCQdUqQBeiojpjp0TztRtLLh3uhC4Fy259lL0y7chcnaFJQtc
-	EMr0JHrd/VBVucy8QR8ZfVU8/5K1b6G/ZNaofSZ3YVlVQdBsdIPonVXMJ0qi5J6jm2moDFtgpbm
-	WSWHZaajoQ==
-X-Received: by 2002:a05:6000:220f:b0:487:a36:b2db with SMTP id ffacd0b85a97d-4870a36b301mr2775613f8f.49.1789493135519;
-        Tue, 15 Sep 2026 10:25:35 -0700 (PDT)
-Received: from PC-Ubuntu.home (2a01cb0082e4ed0062a44cfffeccdd1d.ipv6.abo.wanadoo.fr. [2a01:cb00:82e4:ed00:62a4:4cff:fecc:dd1d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf43511sm436806f8f.33.2026.09.15.10.25.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:25:35 -0700 (PDT)
-From: yolezz <yolezz.secret@gmail.com>
-To: mario.limonciello@amd.com,
-	yazen.ghannam@amd.com
-Cc: x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	yolezz <yolezz.secret@gmail.com>
-Subject: [PATCH v2] x86/amd/node: Release reserved config regions on init error
-Date: Tue, 15 Sep 2026 19:23:55 +0200
-Message-ID: <20260915172355.104902-1-yolezz.secret@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6bd2cad5-65ef-4f3d-a146-d91f120c86ad@amd.com>
-References: <6bd2cad5-65ef-4f3d-a146-d91f120c86ad@amd.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="T//im3oM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IObySP5kGPDx4B1PIEfAuPC/D06sFocz/fzz4DvddHY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789493174; v=1; x=1790097974;
+ b=T//im3oMY91OOlQ6SC8Arc87Av+Sx/CPTCA3WXsQZ71m8wZG0wRqlGQ0YE2tj6KDb8mkbCbZ
+ 5TFIxh0Jy8NFdGQyVRtBvtQ5rHKJ3wY6lUhH1OAK8MVBm8XiLX5kjZ/mBPi0t7sPL8POX14vP99
+ ChkkKz/l0xUx4EJ87IUDLsFU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7af38004fbef57db;
+	Tue, 15 Sep 2026 17:26:14 +0000
+X-Mizu-Trace-ID: 7af38004fbef57db
+X-Migadu-Flow: FLOW_OUT
+From: Denis Benato <denis.benato@linux.dev>
+To: linux-kernel@vger.kernel.org
+Cc: platform-driver-x86@vger.kernel.org,
+	"Hans de Goede" <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	"Mateusz Schyboll" <dragonn@op.pl>,
+	"Denis Benato" <benato.denis96@gmail.com>,
+	Denis Benato <denis.benato@linux.dev>,
+	Hugo Baigue <hugobaigue2004@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/x86: asus-wmi: fix use-after-free unregistering kbd_led led
+Date: Tue, 15 Sep 2026 17:26:07 +0000
+Message-ID: <20260915172608.14234-1-denis.benato@linux.dev>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,99 +51,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In amd_smn_init(), if pci_request_config_region_exclusive() fails or
-if kzalloc_objs() fails to allocate memory for amd_roots, the already
-reserved PCI config regions are left allocated.
+kbd_led_update_all() registers asus->kbd_led with
+devm_led_classdev_register() on the platform device, but kbd_led is
+embedded in struct asus_wmi, which asus_wmi_remove() frees at its end.
+The driver core calls .remove() before devres_release_all(), so the
+deferred devres release runs led_classdev_unregister() on memory that
+has already been freed. Whether that faults depends on whether the
+slab has been reused in between, which makes the crash on module
+unload intermittent and silently corrupts the led classdev state in
+the remaining runs.
 
-Use a __free() cleanup helper to automatically release all reserved PCI
-config space regions on error exit paths.
+Unregister the led classdev explicitly in asus_wmi_led_exit(), after
+the led workqueue has been destroyed: kbd_led_work can then neither
+run nor be queued anymore, since asus_ref.asus is NULL too, so
+kbd_led_registered is stable and the classdev can be released while
+the memory embedding it is still alive. devm_led_classdev_unregister()
+also drops the devres entry, leaving nothing to run at unbind cleanup
+time; it warns when no devres entry exists, hence the
+kbd_led_registered check.
 
-Fixes: 83518453074d ("x86/amd_node: Add SMN offsets to exclusive region access")
-Signed-off-by: yolezz <yolezz.secret@gmail.com>
+Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
+Closes: https://lore.kernel.org/all/CAO84+x+P2_xyHP89+nGVSMV6bL+dy0P9=vyEEfZGnFhv0hBNWw@mail.gmail.com
+Reported-by: Hugo Baigue <hugobaigue2004@gmail.com>
+Tested-by: Hugo Baigue <hugobaigue2004@gmail.com>
+Cc: stable@vger.kernel.org
+Assisted-by: zcode:glm-5.3-flash
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
 ---
-v2:
- - Use a __free() cleanup helper instead of manual error rollback, as suggested by Mario.
+ drivers/platform/x86/asus-wmi.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
- arch/x86/kernel/amd_node.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
-
-diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-index 6a96d888b5a7..20451f0ad8c7 100644
---- a/arch/x86/kernel/amd_node.c
-+++ b/arch/x86/kernel/amd_node.c
-@@ -239,15 +239,22 @@ static struct pci_dev *get_next_root(struct pci_dev *root)
- 	return root;
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index a65090429ca7..daf8bd17e638 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -2088,6 +2088,18 @@ static void asus_wmi_led_exit(struct asus_wmi *asus)
+ 
+ 	if (asus->led_workqueue)
+ 		destroy_workqueue(asus->led_workqueue);
++
++	/*
++	 * kbd_led is registered lazily by kbd_led_work: now that the
++	 * workqueue is destroyed and asus_ref.asus is NULL, the work can
++	 * neither run nor be queued anymore, furthermore leaving it to
++	 * devres would run the unregister from devres_release_all(),
++	 * after .remove() returned and the struct asus_wmi embedding
++	 * kbd_led has been freed.
++	 */
++	if (asus->kbd_led_registered)
++		devm_led_classdev_unregister(&asus->platform_device->dev,
++					     &asus->kbd_led);
  }
  
--static void amd_smn_release_config_regions(u16 num_roots)
-+static void amd_smn_release_config_regions(u16 *num_roots)
- {
- 	struct pci_dev *root __free(pci_dev_put) = NULL;
- 
--	/* Release the PCI config space for each root device. */
--	while (num_roots-- && (root = get_next_root(root)))
-+	if (!num_roots)
-+		return;
-+
-+	while (*num_roots && (root = get_next_root(root))) {
- 		pci_release_config_region(root, 0, PCI_CFG_SPACE_SIZE);
-+		(*num_roots)--;
-+	}
- }
- 
-+DEFINE_FREE(amd_smn_release_config_regions, u16 *,
-+	    amd_smn_release_config_regions(_T));
-+
- static bool enable_dfs;
- 
- static int __init amd_smn_enable_dfs(char *str)
-@@ -259,9 +266,11 @@ __setup("amd_smn_debugfs_enable", amd_smn_enable_dfs);
- 
- static int __init amd_smn_init(void)
- {
--	u16 count, num_roots, roots_per_node, node, num_nodes;
-+	u16 count, num_roots = 0, roots_per_node, node, num_nodes;
- 	struct pci_dev *root __free(pci_dev_put) = NULL;
- 
-+	u16 *config_regions __free(amd_smn_release_config_regions) = NULL;
-+
- 	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
- 		return 0;
- 
-@@ -270,7 +279,8 @@ static int __init amd_smn_init(void)
- 	if (amd_roots)
- 		return 0;
- 
--	num_roots = 0;
-+	config_regions = &num_roots;
-+
- 	while ((root = get_next_root(root))) {
- 		pci_dbg(root, "Reserving PCI config space\n");
- 
-@@ -282,7 +292,6 @@ static int __init amd_smn_init(void)
- 		 */
- 		if (!pci_request_config_region_exclusive(root, 0, PCI_CFG_SPACE_SIZE, NULL)) {
- 			pci_err(root, "Failed to reserve config space\n");
--			amd_smn_release_config_regions(num_roots);
- 			return -EEXIST;
- 		}
- 
-@@ -297,7 +306,6 @@ static int __init amd_smn_init(void)
- 	num_nodes = amd_num_nodes();
- 	amd_roots = kzalloc_objs(*amd_roots, num_nodes);
- 	if (!amd_roots) {
--		amd_smn_release_config_regions(num_roots);
- 		return -ENOMEM;
- 	}
- 
-@@ -327,6 +335,7 @@ static int __init amd_smn_init(void)
- 		debugfs_create_file("value",	0600, debugfs_dir, NULL, &smn_value_fops);
- 	}
- 
-+	config_regions = NULL;
- 	return 0;
- }
- 
+ static int asus_wmi_led_init(struct asus_wmi *asus)
 -- 
-2.53.0
+2.47.3
 
