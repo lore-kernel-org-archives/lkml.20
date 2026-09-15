@@ -1,77 +1,72 @@
-Received: from mail-pz2-f20.google.com (mail-pz2-f20.google.com [74.125.228.20])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1745476075
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A904779A8
 	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:45:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461936; cv=none; b=F6jewivtu8WTYCIpFBj5MNutBF7I2djkT4HF+Rd15GTb7uYQLr9eKAthRpjjWdvmOu5J6rVMKBSBkxZ0XrticQvRaQDOpYU1F5sk1anBW3j0yb28/ZL0fcSH1tOTaFd36XeisKpPtioQ26+zWFTpWNcfajwQdiB25W5CuYy1lyo=
+	t=1789461936; cv=none; b=f62TcTI3VzTsnJHUBZBQoC5deYru07uK5oJqQyUVk9+8wxVepuZsYUMO1yxRvRPHU3kgpe+1OJuuKnxQMxt4vDgsGLwHshINWIG+vfcn3XploDkE6r2CJeLQsjKGeSaNzJpMslJ0/pPXkxmV6D5P+ovKhcJ2xBqbZoB727xYyUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789461936; c=relaxed/simple;
-	bh=H+Casj91rLGYipq8ytk6EsEcu/qT6R4LQyFeNF6gEZI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VjxrQ2iwLHYCDwAz0DB+QZOIKwSDTjxOiPtAmzPy9Y5ZGfEXL5S/eREstvpxfWfthOKWKO5ALIn9AY/23L6sJVGsu08iKKPruzFyI0Jpda+c6dqC0a0OFRyAfHZAyzjyPko4wvQaSvgHDGn5gbxBJns3c+qHswhM5kJmwOSZVN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fuFg45Vx; arc=none smtp.client-ip=74.125.228.20
+	bh=pBVQUYDEIa449zGkcGqUxCzep0SQppBBLbV02Ru7awY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JY+YlrIrBDwU3ipIUpyN7tGIHg9d/PX7zruwHMDyr7eEXwq4+SL/N14DWzARJLC9p7zvHkVuF9i2R/9WW4hQndEBULkyKG2jdc+c/t3YS6HcOnRKdd/PCcQtBKK+mNZ0PPHqeaMwVYZJCl6Iqwerck7x4uGh95fh1CGMcZ8P7z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iK82ENZw; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fuFg45Vx"
-Received: by mail-pz2-f20.google.com with SMTP id 41be03b00d2f7-cc4ae61629fso2138536a12.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iK82ENZw"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e25187so2249691b3a.2
         for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1789461934; x=1790066734; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gi2cJ4ErFNrHvLJxpqfCchEU0jyj0U2j6YYuxAsvr9o=;
-        b=fuFg45VxWcuM9Yn9Ar4ZbLZnCcEJB7J26IoFhLX1uqzo6syLxxKzuk1Z460MygKB1d
-         QjDq9ZJgy3DXbuxQvmyuz30YchcsA8CSa3po+jLW4J5GxwuurBdx6ug0kn1wUMGeThC6
-         imcO8GjntsF+hkeY8JU+n1+YtZotCMnSDEf8ycaKfT9AVW1nJn2yXpQ0UqMErp201OIp
-         vqxv34alDj+UKo9TK4xeEm2N0g4LlWCgjluf5TQFGikVwByiLqumkc7T0zykKBvoXbVk
-         a9S1N9fiU8pvUM0CrkmJKGTBXwVH7KbQdzJauqlxcoYQmR7TANsYo9o1w+blNMyQ+Cx9
-         Kklw==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+zi0InBQk+d9zqvUf20Lgt1upBg3iykRVf2Yi8TjmXE=;
+        b=iK82ENZw3HG1bf7WPkGF1tVcn1yqqCAjazQmDOUhF+1SIeVrlaBY+JrbHIoHqRFPzq
+         C3gZkWINHxp++mqMyztuZmUAu63fS/eHQ175bTKZGshhy6FvEJ4mmTYyMvb586oORSZl
+         OrCfZ3d5ekfatIeQfLrqpdy/KeDBss+vlvsNOdjyF6dVVHd7VaWJl4e4qjyJotIEsT/E
+         84142cLZCsSft4F6nEjUliDQ6S9qwwbsp8vzBFFH6SzbJ8BaPBTdfLrnwPrchyAdGKPe
+         GOPHHuwD7tCeIqXUNG0jSc32Huk8PqFP9P6Hh/r6DfOMYD2vX9R7GB/sgfYXOiXniO2c
+         5OLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789461934; x=1790066734;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gi2cJ4ErFNrHvLJxpqfCchEU0jyj0U2j6YYuxAsvr9o=;
-        b=My472rahfFuQ9NAYps2Iv+vMJnwcxtt7RBJO5fAc14Qm/40q9yCB2/j99EK7la/6Dj
-         ZSHLN+ewO2BFVERixyUM/byb9zJt/X1UsH4xpFLGPVzbZjsmBjN8BcIOZRILe2aoDBAN
-         y5DAGJT7HkPtqCRKmDoXe6eKx4L2khbDNg7tHFA4CENTiT+DCxjIhTA3p2XMtBC0OB+E
-         45yb7Qp/fwyJ5FSBvwpqZkanvrcymArwdZxiO29aJ2C6pINPTdPav7cBpsomdo9JWW5G
-         gfsmbr6MRYNWL1rnbo+gl+mq17oD07aihhMSZr2eYH+z6SMqi6bKsJiqx0l3x9GUUv6U
-         CASQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw306unGTHiNH3VzIuv/9ZD4QQ8Z2tWqohzLVfy22br4+ZtJlfbHaMD/Y/yj8Qm4D25EqZQXQjJidUhsr4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/JTF5MgvuBTZI+OERQlIyCQpzxWoGWXtVvDi8+FFFqbHNgDKs
-	q6ZRyqhXzlKXSbi/xbQJFdIlLcs6qUATgIVCl0xjgPbZvOBCyJrmukXz
-X-Gm-Gg: AYBFou33+HQ+V204oom4n2lopmuJ/Ha6BSZ49w7foV7OWTUiIm/oIcVMy9UsRDYl8b6
-	YCVKTMAe6kcZinjvN6uQjo60yj85yvvImZ5jkxmo8J3B/GkHhqbD6YcKIYIJBUMrSFKEu+/+LMF
-	I6EUfJHEcCufMXE3lfYjiPAmsOWs24WhiCwFUg11E0KhxXHyrXD5vV10UIpWWnDFXbmknYXTJ9A
-	W3ylsD/W4DRk1CvhKYbGS2P5x43JAgdx7aQQVxdoYyz2E57M6J2qbUHPKjiV08QzNps5VfYnthx
-	u2eyWFtwrTFZx8eYi5AYmTu2QHVnHt30FFqG2oE98lqsWRJGUCS20OSR0kFHzGYBwpPc+z1J7hf
-	Qt8UMKnbq7Tn1tAo3e52ZONP6GNsv7+J7ZNadP4C1rNjH7fKindpDoaFgsyLYBsPMF417ZWmuMb
-	Ke0bxQLWpt4K9o1yt9ohxemXRPkdjFnOYbw7BIZOc0beOMvi1IStR+a9D7qqdcTzpH4ECHRTy5z
-	00jloYzSXUQ5MmsUI19QhnRSg8=
-X-Received: by 2002:a05:6a20:d090:b0:3c4:2b8b:e88f with SMTP id adf61e73a8af0-3db4044614cmr14695371637.5.1789461934096;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+zi0InBQk+d9zqvUf20Lgt1upBg3iykRVf2Yi8TjmXE=;
+        b=P1k9o3Pzq/MHKjNdnve6gZc0jEj94eF/XXL0UasAAdpjopWw2IPU5Flb5ke0B9lK6l
+         S9Gbet9HsNkkWL7+UbRLDOfAkz/2gxuKTDAw0aHUkADO5wqjwEq1TO5YZ+wchO6j9C/x
+         noril0+RdsjFulA2i/iKe3wFrbzpv2ZV5M9sb6m6LgRhr4cuIX8Pk1q0psCHqeNqcBF+
+         kn/j9WcXqn7Z2sb3CqAJpn+PM8CB6aWorp6JHMQNbnuDje3jPc4NQU0rsaMrQwNoF5lT
+         SGkjdqWvLnkSD3v3n5vPUab34uKJwDFiq0Mh17eE+2F1EvQpViKbOuFKIluBgUEdfYJA
+         2kOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwgJYXZu1dOnzzX6uH0shybobPy51kZUTNo9B9dWIy71MRGg2ZqBcKBQNxRdOaYYE0WqY7+1G6yB8C6wO8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvzaIQtE0m+SsjasR4mjoB8I/5w1yzQWktKregXhywLGTIRUfi
+	r3KUsaJKp+Bv/EElH+IEwDJgk4pmbZ7Cpa4Y3sbT8+ReOvVdfLDHs4oS
+X-Gm-Gg: AYBFou2YvE+Qug3XrhhP0nQ8MqHJhn10G9+xwUOccb+AhvZEemvOZPGNe/6vxsDdjrz
+	CeL3KWx4zRFEiKLMkY7VpSFBWBpEOWPEDX3UiqnBgLHpmTuCYx2ckGJdxPvk6IQk0g/Nkr1wZdT
+	VU9ndVVhX18v3oRTnUogB/ZsxRTK2k3UwaH9KVLNSrYUcWO0BEp/X6rtTspGIeXukT5rDgedC8y
+	MNPtWEjldeXouinbD6cz4kPcCfU/wbkhgh0sAiL6icY11NYl8/vlIEgYA2wJI3splO9+1XIcd42
+	AsCAbxR+OlnjyxDFFybKjCOXp3yJ3s32lfHgWiO9UEwhxcNXK9fogb8ZbE7KAFcpggAF0XQDeY2
+	SaDxFfAEkymgSHXUi5RCZs/nf2QT2FzjabgZhjFSkt+MqcbCr5QehK6e/UwlcsQHVUduatjClvM
+	JO3PTBvkGHba3gViojMZ1OBYcCGwt4xcPeFJJegG9pREBC0EWCMUrpWwKv+RQxhZbDpoqZUfvxO
+	nDTow7YmVvrdUvNdaqWeHa4a4aivmVz9lqTABlBxWuqVfs=
+X-Received: by 2002:a05:6a00:3e0c:b0:86a:881e:ea38 with SMTP id d2e1a72fcca58-86f858ee0f6mr16380664b3a.12.1789461934301;
         Tue, 15 Sep 2026 01:45:34 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4cf72dbsm34718935eec.3.2026.09.15.01.45.31
+Received: from localhost.localdomain ([2605:bc80:3010:503:f816:3eff:fe99:6bb3])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b292bd2fcsm5752803b3a.30.2026.09.15.01.45.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 15 Sep 2026 01:45:33 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
+From: Zhouyi Zhou <zhouzhouyi@gmail.com>
+To: paulmck@kernel.org,
+	rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Clemens Ladisch <clemens@ladisch.de>
-Subject: [PATCH v2 23/23] ALSA: vx: fix typos in comments
-Date: Tue, 15 Sep 2026 14:14:24 +0530
-Message-ID: <20260915084424.1007757-24-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260915084424.1007757-1-hemanth.selam@gmail.com>
-References: <20260915084424.1007757-1-hemanth.selam@gmail.com>
+	lance@osuosl.org
+Cc: Zhouyi Zhou <zhouzhouyi@gmail.com>
+Subject: [PATCH] rcutorture: kvm-again.sh: Fix re-run failure on ppc64
+Date: Tue, 15 Sep 2026 08:45:28 +0000
+Message-Id: <20260915084528.3707627-1-zhouzhouyi@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,40 +75,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Correct spelling mistakes in comments. No functional change.
+Discovered in the Open Source Lab of Oregon State University when running
+torture.sh on a ppc64le VM.  Two bugs were exposed:
 
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+1. The kvm-transform.sh call hard-coded "bzImage" as the kernel image
+   name.  On ppc64, the boot image is vmlinux, not bzImage, so the
+   re-run failed to find the image.  Fix this by extracting the QEMU
+   binary from the qemu-cmd file and passing it to identify_boot_image()
+   to obtain the correct architecture-specific image name, the same way
+   kvm.sh already does.
+
+2. The rm -f invocation on re-run listed vmlinux among the files to
+   delete.  On ppc64 vmlinux is the boot image, so deleting it broke
+   the re-run on that architecture.  Drop vmlinux from the list.
+
+Tested on a local x86_64 machine and on a PPC VM of the Open Source Lab
+of Oregon State University.
+
+Signed-off-by: Zhouyi Zhou <zhouzhouyi@gmail.com>
 ---
- sound/pci/vx222/vx222_ops.c | 2 +-
- sound/pcmcia/vx/vxp_ops.c   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ tools/testing/selftests/rcutorture/bin/kvm-again.sh | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/sound/pci/vx222/vx222_ops.c b/sound/pci/vx222/vx222_ops.c
-index b6459dbdb1b0..40f3716c478f 100644
---- a/sound/pci/vx222/vx222_ops.c
-+++ b/sound/pci/vx222/vx222_ops.c
-@@ -431,7 +431,7 @@ static int vx2_load_dsp(struct vx_core *vx, int index, const struct firmware *ds
- /*
-  * vx_test_and_ack - test and acknowledge interrupt
-  *
-- * called from irq hander, too
-+ * called from irq handler, too
-  *
-  * spinlock held!
-  */
-diff --git a/sound/pcmcia/vx/vxp_ops.c b/sound/pcmcia/vx/vxp_ops.c
-index 4211e7239138..e52b61125629 100644
---- a/sound/pcmcia/vx/vxp_ops.c
-+++ b/sound/pcmcia/vx/vxp_ops.c
-@@ -265,7 +265,7 @@ static int vxp_load_dsp(struct vx_core *vx, int index, const struct firmware *fw
- /*
-  * vx_test_and_ack - test and acknowledge interrupt
-  *
-- * called from irq hander, too
-+ * called from irq handler, too
-  *
-  * spinlock held!
-  */
--- 
-2.48.1
-
+diff --git a/tools/testing/selftests/rcutorture/bin/kvm-again.sh b/tools/testing/selftests/rcutorture/bin/kvm-again.sh
+index b5239b52cb5d..cacc9f2b230d 100755
+--- a/tools/testing/selftests/rcutorture/bin/kvm-again.sh
++++ b/tools/testing/selftests/rcutorture/bin/kvm-again.sh
+@@ -189,7 +189,7 @@ then
+ 		echo "Cannot copy from $oldrun to $rundir."
+ 		usage
+ 	fi
+-	rm -f "$rundir"/*/{console.log,console.log.diags,qemu_pid,qemu-pid,qemu-retval,Warnings,kvm-test-1-run.sh.out,kvm-test-1-run-qemu.sh.out,vmlinux} "$rundir"/log
++	rm -f "$rundir"/*/{console.log,console.log.diags,qemu_pid,qemu-pid,qemu-retval,Warnings,kvm-test-1-run.sh.out,kvm-test-1-run-qemu.sh.out} "$rundir"/log
+ 	touch "$rundir/log"
+ 	echo $scriptname $args | tee -a "$rundir/log"
+ 	echo $oldrun > "$rundir/re-run"
+@@ -217,7 +217,10 @@ do
+ 	qemu_cmd_dir="`dirname "$i"`"
+ 	kernel_dir="`echo $qemu_cmd_dir | sed -e 's/\.[0-9]\+$//'`"
+ 	jitter_dir="`dirname "$kernel_dir"`"
+-	kvm-transform.sh "$kernel_dir/bzImage" "$qemu_cmd_dir/console.log" "$jitter_dir" "$dur" "$bootargs" < $T/qemu-cmd > $i
++	qemu_binary="`grep -v '^#' $T/qemu-cmd | awk 'NF { print $1; exit }'`"
++
++	boot_image="`identify_boot_image "$qemu_binary"`"
++	kvm-transform.sh "$kernel_dir/`basename $boot_image`" "$qemu_cmd_dir/console.log" "$jitter_dir" "$dur" "$bootargs" < $T/qemu-cmd > $i
+ 	if test -n "$arg_remote"
+ 	then
+ 		echo "# TORTURE_KCONFIG_GDB_ARG=''" >> $i
+--
+2.43.0
