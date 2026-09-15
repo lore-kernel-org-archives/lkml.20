@@ -1,157 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE0240F8F8;
-	Tue, 15 Sep 2026 16:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C51415B60
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:01:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488070; cv=none; b=mZrTMUsjq3ZO1C5trMF423oC3FsYYa96HPW/uVQAMw8EcvsPt0TAiKrxUS3UGPD8R+GrVJnbIXp1JPiw8ITsSm+g4QuGILFp6k1C8ebvUfkVjsOTPbuQqeuLDs5/1D3ducQmWZaoNRcfnQH6dFcU3Rhf+qBiMt5/u6Ky/Eh64WU=
+	t=1789488083; cv=none; b=M3HPH3A/olw+94We4Q4vPodgWDaWKARl7nXLki++nUlaS67sdheLRgA3CLdgcPjmKrrTbsPOxmF/bHGPnlcXK53LakCgb2kY8aElBM3O3kAR9Uk4D7ODYqug4MsP8XG88xGiE54LT7knk16LJvMZ8Qfv8dJPNa1R45NooxuxSfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789488070; c=relaxed/simple;
-	bh=PB1yceFjWeCqfa6rjL80BB6h/HYLGuvETNZIdbClL3Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d22LwDsMbJc5IXLw1iDb+eOovtwsIN1G8N0HPKVDEL2lP5PxTMoktk6KG/6YBa6ugmz9IgxL8xly6i0J4oVpsTXyMeLB6/Ju5orYFN11hMUsRqhAEK44FSameQBQLRksgkeWwI590gzEelePrI6hl+hDPevylH9GmAuCN42yMmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Fhczkw8l; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789488083; c=relaxed/simple;
+	bh=giePifOOgppd212ZfnUJnAdGCS0eSdZ03iNaexweH0g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mdkynwSxb/E3YdBlX2u3/iIqvBC5bKoCIVa1+2NYrspLpOpdNwDmLDK9pUAVBiFO2WMRK4aTv5Soc/c+vC2kx1f8HCXuNFSRZpA0Ig8oML+X/oP+XtcBFk5YuKja82xrMhs5G/JuS/o9spKT/ByFgdb/3iqwJneN5zUCZ8dGN2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PfIz9zvf; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Fhczkw8l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789488069; x=1821024069;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=PB1yceFjWeCqfa6rjL80BB6h/HYLGuvETNZIdbClL3Q=;
-  b=Fhczkw8lH3DPVoTqi4ND1C1X2Z+xzmJuopQ1uQhF0bZANF9IqMiPTbn/
-   yv4xml2CrE1s+3EnfzQXBx2vrr+E/6WbfYXL1gZlROqH9mR2uMmlJSty9
-   DiAbSBV/bB55qwN7oBNS5DIXQNxEXP1t8u9na95ihjUAoUAMZgKVoKput
-   lylhki6lnDT5Prh0ZLikjp2jtUpPONsiXQHBfGxHGc+I6r+4rjfaaAjGq
-   KV5pwcoKpVFM7jaIJdpsOCY/Sv98W/9S8rHKjfj5cN7qrrBiwUsCmm4s5
-   ExrTrkzMbiJplEfvA0y7Zz6uKwNjwt9ZemdtzrJiT39z4e914/mOQ12JX
-   A==;
-X-CSE-ConnectionGUID: QjfPcNS+TcKY9maYSsry0w==
-X-CSE-MsgGUID: EgYpbGbDTjOK5n7vMD7NXw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101374072"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="101374072"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 09:01:08 -0700
-X-CSE-ConnectionGUID: sfeft0puT22gUaGyx+68eA==
-X-CSE-MsgGUID: AibJa8UsT0WeRaXSZUtpDQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="302939802"
-Received: from dnelso2-mobl.amr.corp.intel.com (HELO [10.125.108.195]) ([10.125.108.195])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 09:01:07 -0700
-Message-ID: <8a889714-f492-4975-b326-bb2ee866c6a1@intel.com>
-Date: Tue, 15 Sep 2026 09:01:06 -0700
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PfIz9zvf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=kH
+	bfv5hliOVywl9IgiwEtEk/O1geYGzC3Y986QIu4fQ=; b=PfIz9zvflqDnwGlAmG
+	G61/UBMOpq/mELVk3ti0CmbVljTfmFLYkRr7eoyIbCnWHl56oTAvQR8v4Yf76RTq
+	t5bUU+f/pEACz4AS4hGwtyOQCixQ+Lq0stXqwUSvQbYddHI7x1VFnEa0OEm1VglQ
+	Nh17g+5v/972aFYIkGiBXzlfQ=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnR9B5a6lqa425Aw--.34018S2;
+	Tue, 15 Sep 2026 23:59:54 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	tglx@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH] sched/mmcid: Fix affinity-triggered switch back to per-task mode
+Date: Wed, 16 Sep 2026 00:59:53 +0900
+Message-ID: <20260915155953.2856524-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 0/3] Support zero-sized HDM decoders
-To: Richard Cheng <icheng@nvidia.com>, jic23@kernel.org, dave@stgolabs.net,
- vishal.l.verma@intel.com, alison.schofield@intel.com
-Cc: iweiny@kernel.org, ming.li@zohomail.com, kaihengf@nvidia.com,
- kobak@nvidia.com, vaslot@nvidia.com, newtonl@nvidia.com, mochs@nvidia.com,
- kristinc@nvidia.com, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260914090858.19181-1-icheng@nvidia.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260914090858.19181-1-icheng@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnR9B5a6lqa425Aw--.34018S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AF1UWr48JrWrtrykJF1xuFg_yoW8Kw47pr
+	ZrKFZFgr4DJry09395Ca13XFWFkrn7J3Wjqa4kt3Z5CF15W34SkrW2gFs8WFyagwn7AFW5
+	tF4qv34kCa4qv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piHa0PUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwRr9XWqpa3rEaAAA3F
 
+MM CID switches to per-CPU ownership when the number of users of an
+mm exceeds the maximum number of CIDs. When the affinity union grows,
+the per-CPU threshold is recalculated and the MM can switch back to
+per-task ownership through deferred work.
 
+mm_cid_calc_pcpu_thrs() incorrectly uses
+min(nr_cpus_allowed, users) to calculate that switch-back threshold.
+This makes pcpu_thrs no larger than users, so the
+users < pcpu_thrs check in mm_update_cpus_allowed() can never succeed.
 
-On 9/14/26 2:08 AM, Richard Cheng wrote:
-> 
-> CXL r4.0 §8.2.4.20.12 ("Committing Decoder Programming") and
-> §14.13.10 ("CXL HDM Decoder Zero Size Commit") permit committing an
-> HDM decoder with size 0. Firmware may commit and lock such decoders so
-> the OS cannot program regions through them; this is a platform design
-> choice rather than a specification requirement.
-> 
-> The kernel currently rejects these decoders with -ENXIO during port
-> enumeration and aborts enumeration of the entire port. On affected
-> systems, this prevents the CXL topology from appearing in userspace.
-> 
-> This series enumerates empty committed decoders into the topology while
-> keeping them out of region assembly.
-> 
-> Patch 1 is a preparatory cleanup with no functional change. It clarifies
-> the error handling and iteration control in poison_by_decoder(), and
-> shares the check for a forgiven -EFAULT on a RAM partition with
-> cxl_get_poison_unmapped().
-> 
-> Patch 2 makes zero-size DPA reservations first-class. Since the resource
-> tree cannot represent an empty range, an empty decoder is backed by a
-> separately allocated resource. This keeps port->hdm_end, skip handling,
-> and in-order DPA accounting consistent. Operations requiring non-empty
-> capacity, including region attachment and poison queries, are guarded
-> appropriately.
-> 
-> Patch 3 adds the mock_zero_size_decoders cxl_test module parameter,
-> disabled by default. When enabled, it installs committed, locked,
-> zero-sized endpoint, switch, and host-bridge decoders under
-> host-bridge0.
-> 
-> Testing:
-> 
-> As reported in v9, the series was tested on arm64 with cxl_test and
-> the ndctl v85 unit suite, with KASAN and lockdep enabled. With
-> mock_zero_size_decoders disabled, the full CXL suite reported 15 tests
-> passed and 1 skipped.
-> 
-> cxl-poison.sh was skipped because its unaligned translation section
-> was unreachable; both run_poison_test() rounds passed. Details:
-> https://lore.kernel.org/linux-cxl/anKpY6Y1Sqne1f7Y@MWDK4CY14F/
-> 
-> The core patch was also previously validated on a Montage CXL Type 3
-> device.
-> 
-> The corresponding ndctl test:
-> https://lore.kernel.org/linux-cxl/20260709022857.18732-1-icheng@nvidia.com/
-> 
-> Runtime-tested v10 on a CXL Type 3 device and confirmed that normal
-> device operation continues to work with the series applied.
-> 
-> Changelog:
-> 
-> v9->v10 (Alison Schofield):
-> - Patch 2: propagate -ENOMEM when allocation of the standalone
->   zero-sized resource fails.
-> - Patch 2: retain the original !cxled->dpa_res guard in cxl_dpa_free().
->   An existing zero-sized reservation must reach the region,
->   enabled-state, and release-order checks.
-> - Patch 2: update the commit message.
-> - Patches 1 and 3 are unchanged.
-> 
-> Previous version:
-> https://lore.kernel.org/linux-cxl/20260805055524.22311-1-icheng@nvidia.com/
-> 
-> 
-> Richard Cheng (3):
->   cxl/region: Simplify poison_by_decoder() error handling
->   cxl/hdm: Allow zero sized HDM decoders
->   tools/testing/cxl: Enable zero sized decoders under hb0
-> 
->  drivers/cxl/core/hdm.c       |  58 +++++++++++++------
->  drivers/cxl/core/mbox.c      |   3 +
->  drivers/cxl/core/region.c    |  69 ++++++++++++++--------
->  drivers/cxl/cxl.h            |  10 ++++
->  drivers/cxl/port.c           |   3 +
->  tools/testing/cxl/test/cxl.c | 109 ++++++++++++++++++++++++++++++-----
->  6 files changed, 195 insertions(+), 57 deletions(-)
-> 
-> 
-> base-commit: 899648a2707d0405f573dfc7fe15385d9ba3af55
+For example, with three users restricted to two CPUs, the MM enters
+per-CPU mode. On an eight-CPU system, widening the affinity union to
+all eight CPUs should produce a threshold of four, but the old
+calculation produces three and returns early. The MM therefore remains
+in per-CPU mode even though the widened CPU set makes per-task
+ownership preferable.
 
-Applied to cxl/next:
-057dc2892d1f
-00f9ef9ad1ce
-fef22d37d470
+Calculate pcpu_thrs from nr_cpus_allowed directly. The users bound in
+__mm_update_max_cids() still controls when per-CPU mode is entered, so
+this does not change the threshold calculated when switching from
+per-task to per-CPU ownership.
+
+Tested with an x86_64 QEMU reproducer using three users, an initial
+two-CPU affinity, and an eight-CPU affinity expansion. The baseline
+did not invoke mm_cid_work_fn() after the affinity expansion. The
+fixed kernel invoked the deferred work once and completed the switch
+back to per-task mode.
+
+Fixes: fbd0e71dc370 ("sched/mmcid: Provide CID ownership mode fixup functions")
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+ kernel/sched/core.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 7885ff76e69f..0280ed132d0a 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -10845,11 +10845,10 @@ static void __mm_update_max_cids(struct mm_mm_cid *mc)
+ 
+ static inline unsigned int mm_cid_calc_pcpu_thrs(struct mm_mm_cid *mc)
+ {
+-	unsigned int opt_cids;
++	unsigned int nr_cpus = mc->nr_cpus_allowed;
+ 
+-	opt_cids = min(mc->nr_cpus_allowed, mc->users);
+ 	/* Has to be at least 1 because 0 indicates PCPU mode off */
+-	return max(min(opt_cids - opt_cids / 4, num_possible_cpus() / 2), 1);
++	return max(min(nr_cpus - nr_cpus / 4, num_possible_cpus() / 2), 1);
+ }
+ 
+ static bool mm_update_max_cids(struct mm_struct *mm)
+
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+-- 
+2.55.0
 
