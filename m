@@ -1,138 +1,233 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814AC3A1A55
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:58:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459105; cv=none; b=UbKN/Q3IgBPCK4YIGm4gOkbKDn/rza7juRJVs97i6eahEipVjf/3ko1D3I2UCOZo8h/B8d+GxOEW9In3fKivRsOI0RcaAwaY7/jYvED+gS9Og94yPzRfjVEN+pW9aN0Iacsb1ZgmZLXBm+y1iBs+tFCit0fNPv47zIWLVHna4/Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459105; c=relaxed/simple;
-	bh=ld+zAQZvreuFI/Niavki4jrtLwrfxVLG3N2M+Al4Ybs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NbhXrQ2lUL/8GImQEGXnpyoCpDu10VopN52MGlJcqP3ZcnS5KTjU6mQdyk1mbMfBzYCRdJDLY9BpTrn81hXAksRvvFDxiaHe6qxBb3VBixaRhMOn6Bcvad3DKnWcqtcEU/oetkmHlUbqzoR9SHqV5mpfnCyg606+tSh6hz6eFOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FrE/SRla; arc=none smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCE43A5E9F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789459117; cv=pass; b=lFX0l3PQM/Jdckxv3Cvin/248PNa05Go0bcuJuzLMyXpdZ7uin+FBr7gmlfiF2S/oqQY/6VhQlS2WRb91taY/tmaSgu51gPcCWZFInMm6mjRiWdurSV/3QbNWIKoD5WSLy3I4eWwxphAc/4b0j1FAISKgufY8YvCyaZrt1lJs7A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789459117; c=relaxed/simple;
+	bh=m+QNxznO+HXTgUeCgcEy5d2xUE+4TuNok1338BQwzsA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JAZcxuH6naIXAFPsuOeUVtnEGejEtGaUkdqhKS27v/YmhgHj2AjHcDo95USX6bknu8dL7fgihkYbzxRNt5sLp/F8bYodvXA3Nolimc193jctTLE68suoqS/i0ckXnUuEw0pR8lBG3f7xXvsxTK8eE87kmKy/UwRgEGquZkfMGPQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nxsOPk2G; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FrE/SRla"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a9983162dcso5407958a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:58:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nxsOPk2G"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55efebso477238766b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:58:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789459113; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Tyuv3Ai9gDYA39lcAm0Y7S9BipTAAgatV1U4r7TOVT+8zOZb41mqMLKs2O4MBlgiuF
+         T/uEafGCOPQL/aAQkbIrQcZfvm/YsdnvDIqC8yrxUSgZ1oWjyIDfaJFB/AUqGcvevanE
+         aCsfqNSFRVz6nIoqv1Q/7daMgHBDv6kidqfu3YZc7heLnImF9rG+8J76jlWhiRU8l2JK
+         lddeSHcWtIutpHJK4FV+XW+vQeW9vdXK2gsDJAHoQk1S02kC55p3kNBCOxMa85OQB5Ym
+         Z9vfuLy6hcZ04LZpmQjYnHer+GBYqGv4YrFEYmHxWOv7hrJyVHkpxNH+x72yOwtdyCUx
+         k5dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ofwNGJG0cUmDsej5vrEKKI6garptsrxwAcW3JjuPf6A=;
+        fh=yQJRz1vYsr0r0i203nWVpMu6dLVH3Y5sjIzmcup4yCw=;
+        b=nuuOA6FM18ipLTnvvG0aj3/dfBJhUjLt4zWPadiTb9YXkwVTs9vJevDJW+S6AQj5XM
+         kWo3waEdv8ivx+scsJ2i+rnQFc8chfJ72p7YoOYhvlnpza3iySt94rDJ6fLZDY+upAfS
+         dIR1Hjap+K8PgsnVPp7JWo4u1TiGvI5Eaokz9YMrM+UlFazi2HI+trGWu1jp0rq9H9Ej
+         VAXL6iBEJ9b8ZYN1mYpWoKo7bWf7Cj879ZlFHNoRdqICE6M9RdN0NUQdnuPS1yRGxeb9
+         Man71bXtj6UIzAN4IEPCHxNVe9toADAwtPYXJYhyCAoq44dQhvmHZXTBEJtnjwbJMsGZ
+         e3bQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789459102; x=1790063902; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D7YW75YqJGurWAq2WY56DRuhTmlKAK6YOaluv7gSzBc=;
-        b=FrE/SRlalGhafrZ7ifzSKI9ozf41HCv7lJfdh7z38SX3FqdQbgR7ktwOYlXJd90TCQ
-         o79LnJIWbok+j38/N2cIukzRiT9aolADNCYjhVGI1F4TT65z+xtskihpGfbArhR6TMRf
-         4H6byheaaC3NCbUn2GqKVYus/qEcXX77xifjiV5qrKvNX7P5n0b+Nxyia8JRY10vvDcX
-         chhJlvlfotQ+wy4puDpbVzjgUlfwnZH+EO+tPBgdY0PjE7kcShzewWaJyfpRGWoytKoL
-         4oppUXoIskilD0UXJYOdppbWHZpG3A5buJrpdEC5MzyADwUEcmetDjSAFMozLMOv7lOf
-         oKog==
+        d=linaro.org; s=google; t=1789459113; x=1790063913; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ofwNGJG0cUmDsej5vrEKKI6garptsrxwAcW3JjuPf6A=;
+        b=nxsOPk2GuHLsEJlZsxgDqSsCD50PnA73+U24IYITHXVBZvuRcyj8HXFKw2czJUGXIn
+         BHYxof82dUaNDILbiugCPulm+KapgrrvJkMrEi38nnZaFXak9gHx756+owMg1xwo+KJo
+         tuGXt+P0gII+aMywBevvzOeBEqZcxnGRXNObMP/ee9wlsY24hWMVB26S8qpytDac9LXp
+         8+ISv2P0jQENdZjFMPJaQDXE+fBbX55fVliPhqrIqPOovzj93eFhcaT2vBFcmQEdIMla
+         AajUTB8vvgLRTPQq3oVZYlwlSAIINcWsCekNW82gyht+TU4lfYEsh1P6e/l8xnhODYh4
+         rjNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789459102; x=1790063902;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=D7YW75YqJGurWAq2WY56DRuhTmlKAK6YOaluv7gSzBc=;
-        b=QR7fb2x3NF+/3b8vxHVfL20jy5NtEIbLkOLUN/JIzDnaKwug93vIo7dV22fsqReiiV
-         q2Jf1JeYXNaBYem+C272jL2pa0LCHcuDQsJXwg2kkqpC/LmE5pedo+dtBrdp3ov475fm
-         JrZVoIucMb4VVwCUbxcdha46CdZUCLFh2kn0S/HUvzMUdfg7nMJHnDiXOSklCLfI/sLh
-         1+8JsnzE1HoLprFq3R2wxI3FzDCUrZSI9jnmekqRm0w3qW2qkuRcvPKVuHuTma9Fmlik
-         OFDjX4uzy9UQ+ifSXVdCTkU5bfT4kj2cffnvQJJnuJArz23xWkemYVdm/xTWLSg+apBc
-         s8sg==
-X-Forwarded-Encrypted: i=1; AKwUvByXCEbVfnZA47a9hN58UskMiSfQdbWcWBoY4i61UHegS9ttuUY8JQ8cOR+MfhWXN1p/K5SQ5YZS8ML14zo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mH0K5QTuVp0PKlESuwS9CaxkkUdBY6gYRrJhZ5QVyFn9ZNhbks
-	FtPr6pricFraJRj3aUqlc0Qw0tmGR5waC6Ba0VBl+PRcGjVkXlU8M3+1
-X-Gm-Gg: AYBFou0NS3NypXVl7hxzHb1eRaUdanB8QcIGxgXOqTqENJAgq7U5X5RTBVPxYWhqlKk
-	JcCtfWp4Swys5scjYbc0tCHPs5FmaXN2Es5GWFJDO4FUtDM3VvnEb51FirWS2KWT6UXFP/AIv8A
-	cE8F+I35/xEe6/Ap6n4z/A1WgIRzcRSGL9yrjrktMmUrpSSP8h4y7DY8PBdWX2cw/p8dHvtnHcl
-	/pb58x8fgEoQ9/IH4F3++tZg9uIuQzfAJtN5QxC7Sxffj2AgfeE0gBuNIKAz3qHMF29kDP5PSPj
-	ELxupf/rAcjFi/g2+ZqDye03ckBMob7+hSMzk3n1b+rTfV3NN2AreRrU9he558FXHO7rfu6fjBc
-	eGby2EQniLbOvQl/30XYjn1uwiGrrOJ+0rccrzUDoKmH4v8oUcBeSBX1CGJPi00dKWuQFTmRjRm
-	gbONev6cey79p/MmPmHtuNmj+DSLYz1fw5Mwj2Ao60IY18mxHmEal84g0fxaOxUDOt+u0=
-X-Received: by 2002:a05:6402:274e:b0:6a9:cb12:b867 with SMTP id 4fb4d7f45d1cf-6a9f62134f8mr4169183a12.9.1789459101475;
-        Tue, 15 Sep 2026 00:58:21 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5968cf3sm5243054a12.31.2026.09.15.00.58.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:58:20 -0700 (PDT)
-Date: Tue, 15 Sep 2026 10:58:17 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org, lkp@intel.com
-Subject: Re: [PATCH v2] staging: rtl8723bs: fix lines exceeding 100 columns
- in rtw_security.c
-Message-ID: <aqj6mUt9Q5hO8abv@stanley.mountain>
-References: <20260915072923.1014216-1-vladurares@gmail.com>
+        d=1e100.net; s=20260707; t=1789459113; x=1790063913;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ofwNGJG0cUmDsej5vrEKKI6garptsrxwAcW3JjuPf6A=;
+        b=I4XX4inZbm4z82aOq6R3xQZ4V6e0k30K2HMAUhdXG81Ve0Mjoq27TLLn7rsqVX8875
+         kiNYjuQiWZ7hczkRVqfa39Hx4GyQlQx4nNmbfuk+3tH2aE6AeLK7Khr3A0xzlhiB53m2
+         oD8t/tr1cldVJvnnHs4ffB+R4AEFxeFHuE4kqRwQGR2i5WI2Z5aS19goJUqti+sL4pu1
+         7L0MV3yy9bS0KZ4/QhSMDn+pga3Y6JHI309vLCerC7QSl8/uzmT67VZwuMIiNjiVWFnh
+         H3r6rVYgGIxTB2PEREt2QkTeaoLS0u/K43NuRTrJZClIfYb/Hp9GDO23zug8gxH4zc+v
+         7odw==
+X-Forwarded-Encrypted: i=1; AKwUvBy3smCDBcjWHvLmFwSDTCROtdoOcsLZ5eirPHXIbxQX2jBJ3RnOLAfbTBR9Z17DESpaJa6X/02PHtHU9TQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuvBRGLxhi9rsjlLJEhGsqMq2vZEreXSrrkDt6zbFCF4ZgxU2N
+	PQyk7DJHpCkbozdFjXeRGu5NyHTf2QC6uUkLKgw4BF0613f8msvus6BRk68z1ga5e0dZoyqAO6e
+	qz6VPswl3x5YwBLdbAoizw9urDd4EuJhZrdH6u0M2yQ==
+X-Gm-Gg: AYBFou2u9RN2PZNPR0h3Zxc2n0GrhIO5SMjRbAxjnWM5Ugm0dwmv7u66V8vpffVjGiE
+	wbmdH3nz5xmkdg6DlCHG8JEIS9JcQk01qbW2/NTENL+a+ga+Dw+0Laivd7ILKTv2eFcuhvrhkSI
+	CAwn9ulba5mnCJdq32MrPu+inlQRZRw2g+kOH/nIEOJnuE21YRNYYhSpGcAvf7HPSOqiWesNX0o
+	l5bx4c5kUDj7nDrkiu8HpiwlvQ3rE9qrixkK9IXOEnoas9tEPgHnH+dVeF17wotIq31RgODLquY
+	ULFCpUefqdSZExancrgCdE/MGQ/WPdVkLWY4Wqm1r+9k4XHg7w/zBDnbRo6wy3G6LeDNLPW7o7v
+	W/2X5RvFQ5Wg=
+X-Received: by 2002:a17:907:1ca7:b0:c24:87e3:b8b8 with SMTP id
+ a640c23a62f3a-c29b85faa3bmr386122266b.17.1789459113184; Tue, 15 Sep 2026
+ 00:58:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915072923.1014216-1-vladurares@gmail.com>
+References: <20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com>
+ <20260908-schedutil-boost-frequency-handling-v2-1-25312a713699@oss.qualcomm.com>
+In-Reply-To: <20260908-schedutil-boost-frequency-handling-v2-1-25312a713699@oss.qualcomm.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Tue, 15 Sep 2026 09:58:21 +0200
+X-Gm-Features: AcwNN1URr28u1JIvo7rjZT7TO6K2gihzqmBU2b4Y5-nAgC1kqqegrh2tO_zRhII
+Message-ID: <CAKfTPtCR8SnQwpxzE-=WXenhTU=Hv5hrf7Vz22tMipX7uP_xxA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] arch_topology: seed capacity_freq_ref with
+ boost-aware max freq
+To: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 15, 2026 at 07:29:23AM +0000, Rareș-Mihai Vladu wrote:
-> Reformat long lines in rtw_security.c to fit within the 100-column
-> limit by splitting function arguments, expressions, and moving
-> 
-> Signed-off-by: Rareș-Mihai Vladu <vladurares@gmail.com>
+On Tue, 8 Sept 2026 at 10:31, Ananthu C V <ananthu.cv@oss.qualcomm.com> wrote:
+>
+> capacity_freq_ref, the per-CPU frequency-invariance reference used by
+> schedutil, is seeded from policy->cpuinfo.max_freq at policy creation.
+> If boost frequencies are filtered out of the frequency table because
+> boost isn't yet enabled at boot, max_freq only reflects the non-boost
+> ceiling, so capacity_freq_ref never learns about boost frequencies for
+> the policy's lifetime. Enabling boost later raises policy->max, but
+> capacity_freq_ref stays stale, leaving schedutil unable to scale
+> utilization or target a frequency above the non-boost maximum.
+>
+> Track the highest frequency in the table regardless of boost state
+> (max_table_freq) and seed capacity_freq_ref with max(cpuinfo.max_freq,
+> max_table_freq), so the invariance reference is boost-aware from boot
+> regardless of whether boost is currently enabled. Runtime enforcement,
+> still handled by policy->max, is unaffected.
+>
+> Suggested-by: Vincent Guittot <vincent.guittot@linaro.org>
+> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
 > ---
+>  drivers/base/arch_topology.c | 3 ++-
+>  drivers/cpufreq/freq_table.c | 6 ++++++
+>  include/linux/cpufreq.h      | 1 +
+>  3 files changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
+> index 8c5e47c28d9a..da94f77441da 100644
+> --- a/drivers/base/arch_topology.c
+> +++ b/drivers/base/arch_topology.c
+> @@ -404,7 +404,8 @@ init_cpu_capacity_callback(struct notifier_block *nb,
+>         cpumask_andnot(cpus_to_visit, cpus_to_visit, policy->related_cpus);
+>
+>         for_each_cpu(cpu, policy->related_cpus) {
+> -               per_cpu(capacity_freq_ref, cpu) = policy->cpuinfo.max_freq;
+> +               per_cpu(capacity_freq_ref, cpu) = max(policy->cpuinfo.max_freq,
+> +                                                     policy->cpuinfo.max_table_freq);
 
-What changed?
-https://staticthinking.wordpress.com/2022/07/27/how-to-send-a-v2-patch/
+I will let cpufreq maintainer comment about the need for a
+policy->cpuinfo.max_table_freq field or not but otherwise you can use
+something similar to [1] to find your max table freq:
+[1] https://lore.kernel.org/all/CAKfTPtBji8dkr5ixhtZjkyrWLA68TF-KHLrNYWoewPWLyuUd4A@mail.gmail.com/
 
-> @@ -112,9 +119,16 @@ void rtw_wep_decrypt(struct adapter  *padapter, u8 *precvframe)
->  		keyindex = prxattrib->key_index;
->  		keylength = psecuritypriv->dot11DefKeylen[keyindex];
->  		memcpy(&wepkey[0], iv, 3);
-> -		/* memcpy(&wepkey[3], &psecuritypriv->dot11DefKey[psecuritypriv->dot11PrivacyKeyIndex].skey[0], keylength); */
-> -		memcpy(&wepkey[3], &psecuritypriv->dot11DefKey[keyindex].skey[0], keylength);
-> -		length = ((union recv_frame *)precvframe)->u.hdr.len - prxattrib->hdrlen - prxattrib->iv_len;
-> +		/*
-> +		 *  memcpy(&wepkey[3],
-> +		 *         &psecuritypriv->dot11DefKey[psecuritypriv->dot11PrivacyKeyIndex].skey[0],
-> +		 *         keylength);
-> +		 */
+diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
+index da94f77441da..92966be712d5 100644
+--- a/drivers/base/arch_topology.c
++++ b/drivers/base/arch_topology.c
+@@ -405,7 +405,7 @@ init_cpu_capacity_callback(struct notifier_block *nb,
 
-Don't worry about polishing dead code, just delete it.  (In a separate
-patch).
+        for_each_cpu(cpu, policy->related_cpus) {
+                per_cpu(capacity_freq_ref, cpu) = max(policy->cpuinfo.max_freq,
+-
+policy->cpuinfo.max_table_freq);
++
+cpufreq_frequency_table_max(policy));
+                freq_inv_set_max_ratio(cpu,
+                                       per_cpu(capacity_freq_ref, cpu)
+* HZ_PER_KHZ);
+        }
+diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+index 419c71ccff7c..e40f915b7119 100644
+--- a/include/linux/cpufreq.h
++++ b/include/linux/cpufreq.h
+@@ -1109,6 +1109,17 @@ static inline int
+cpufreq_frequency_table_target(struct cpufreq_policy *policy,
+        return idx;
+ }
 
-> +		memcpy(&wepkey[3],
-> +		       &psecuritypriv->dot11DefKey[keyindex].skey[0],
-> +		       keylength);
-> +		length = ((union recv_frame *)precvframe)->u.hdr.len -
-> +			 prxattrib->hdrlen - prxattrib->iv_len;
->  
->  		payload = pframe + prxattrib->iv_len + prxattrib->hdrlen;
->  
++static inline unsigned int cpufreq_frequency_table_max(struct
+cpufreq_policy *policy)
++{
++       int idx;
++
++       if (!policy->freq_table)
++               return policy->cpuinfo.max_freq;
++
++       idx = cpufreq_frequency_table_target(policy, UINT_MAX, 0,
+UINT_MAX, CPUFREQ_RELATION_H);
++       return policy->freq_table[idx].frequency;
++}
++
+ static inline int cpufreq_table_count_valid_entries(const struct
+cpufreq_policy *policy)
+ {
+        struct cpufreq_frequency_table *pos;
 
-[ snip ]
-
-> @@ -1300,8 +1334,10 @@ u32 rtw_BIP_verify(struct adapter *padapter, u8 *precvframe)
->  		/* conscruct AAD, copy address 1 to address 3 */
->  		memcpy(BIP_AAD + 2, &pwlanhdr->addrs, sizeof(pwlanhdr->addrs));
->  
-> -		if (omac1_aes_128(padapter->securitypriv.dot11wBIPKey[padapter->securitypriv.dot11wBIPKeyid].skey
-> -			, BIP_AAD, ori_len, mic))
-> +		int bip_keyid = padapter->securitypriv.dot11wBIPKeyid;
-> +		u8 *bip_key = padapter->securitypriv.dot11wBIPKey[bip_keyid].skey;
-
-Don't declare variables in the middle of code unless it's a __cleanup
-variable.
-
+>                 freq_inv_set_max_ratio(cpu,
+>                                        per_cpu(capacity_freq_ref, cpu) * HZ_PER_KHZ);
+>         }
+> diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
+> index ea994647abc8..4984142dc08a 100644
+> --- a/drivers/cpufreq/freq_table.c
+> +++ b/drivers/cpufreq/freq_table.c
+> @@ -33,11 +33,15 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
+>         struct cpufreq_frequency_table *pos, *table = policy->freq_table;
+>         unsigned int min_freq = ~0;
+>         unsigned int max_freq = 0;
+> +       unsigned int max_table_freq = 0;
+>         unsigned int freq, i;
+>
+>         cpufreq_for_each_valid_entry_idx(pos, table, i) {
+>                 freq = pos->frequency;
+>
+> +               if (freq > max_table_freq)
+> +                       max_table_freq = freq;
 > +
-> +		if (omac1_aes_128(bip_key, BIP_AAD, ori_len, mic))
->  			goto BIP_exit;
->  
->  		/* MIC field should be last 8 bytes of packet (packet without FCS) */
-
-regards,
-dan carpenter
+>                 if ((!cpufreq_boost_enabled() || !policy->boost_enabled)
+>                     && (pos->flags & CPUFREQ_BOOST_FREQ))
+>                         continue;
+> @@ -57,6 +61,8 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
+>         if (policy->cpuinfo.max_freq < max_freq)
+>                 policy->cpuinfo.max_freq = max_freq;
+>
+> +       policy->cpuinfo.max_table_freq = max_table_freq;
+> +
+>         if (min_freq == ~0)
+>                 return -EINVAL;
+>         else
+> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+> index 35ce665edfd8..3f3b1380251a 100644
+> --- a/include/linux/cpufreq.h
+> +++ b/include/linux/cpufreq.h
+> @@ -45,6 +45,7 @@ enum cpufreq_table_sorting {
+>  struct cpufreq_cpuinfo {
+>         unsigned int            max_freq;
+>         unsigned int            min_freq;
+> +       unsigned int            max_table_freq; /* Highest valid frequency in the table */
+>
+>         /* in 10^(-9) s = nanoseconds */
+>         unsigned int            transition_latency;
+>
+> --
+> 2.43.0
+>
