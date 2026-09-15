@@ -1,54 +1,54 @@
 Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazolkn19011030.outbound.protection.outlook.com [52.103.33.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45ED94AEBD4;
-	Tue, 15 Sep 2026 15:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACC14B0CAA;
+	Tue, 15 Sep 2026 15:59:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.30
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487975; cv=fail; b=nXMhqlX6G+HhTU4ptKZXChtpYshMEdr7jFrxttd2+/xMJh9vBUy8Yd+kHlpGB2RLRS16gpEZgs8Km7RC1IfDlYLh+R0gkH4GgRvsVD0/1ftrKi4BIacGdbBpncS4YyYqTbpaSxowAlV3MAB17N6eu7mTo7QCzsiPEScZC8Xa1No=
+	t=1789487979; cv=fail; b=lgYRIi4Mtf+Hh2chspPzYikwgEXvxEJg+yAHlbHPGO46oY2qa56ALOFrfPm0SjzqV2Ii0nIfbnTRsk6Bnl/AhBB7ER1gq+wqG1iYGHVQSMxDazhiZFseMU7OYB1zstWy7QjLUNT4mymQK7trJi/FsKlNJUSkzHGvr9XY708s45M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487975; c=relaxed/simple;
-	bh=gbsZJobuwwtGGeFx2oLJqIQa1X0pnBnlKLDbiFZtfeo=;
+	s=arc-20240116; t=1789487979; c=relaxed/simple;
+	bh=dVdKGBk+KAaGd8MgjCmUJnh71ZGGQcBornPOJgNgqms=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WIjMeW2soMgPm9pR+HurDrttRmwF0GDqLHNemvGmWE3kFzymaYLYCBqkEXhdfehMeO7MAsEIeQkzMudk5HVoph6YB9aHovkgcFLZ9HtRypkiHtGiEWMOouUxATVK+Z62sCmwKvAsSOKOrmikCtWRbeouRmkiA9AR7hF1K/i7oxc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de; spf=pass smtp.mailfrom=outlook.de; dkim=pass (2048-bit key) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.b=sRfirAoH; arc=fail smtp.client-ip=52.103.33.30
+	 Content-Type:MIME-Version; b=QRYg2STokjzDX1q7+b27LIeG1qe14WPAWiJ5+SuFartUNqUsA88IWZ/vyQm8KzyPNEug/1z8aO4xygnE/5ohEQmLnS9D0w/jSzcpPSwE3+z08U1q5jiZxShdlDIT8MjA4/igUE8RAhgZKN1PJWHRk7rzDWp5h6ru3vR+o2271Jg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de; spf=pass smtp.mailfrom=outlook.de; dkim=pass (2048-bit key) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.b=iTNm8XqY; arc=fail smtp.client-ip=52.103.33.30
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.b="sRfirAoH"
+	dkim=pass (2048-bit key) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.b="iTNm8XqY"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C9jx1XIkSFrOwJc/YR4gfCWS8ojtfbl3BOfcZmbuFC4M7QSJxyPp/zrzfTOeBs4mI74FPq4NQ7djEd868Vqie9Ti0q3gKwSvfM0to1sGLuulCZIpXTD+zBKdytDYwpzh5oNNW9zbVdAp/ZLS73Jjry6f//sUGRzgyYnT1LLMvOXmR2iJ1JWGVtYD1xu0JPWnSnZ8U4RofyNjaNZ43hQJ8AO5rX13LoCX/7ahV3SsoELCB4n8Rzwjtr0hS+JWSEo6qakFXaJTK/AVRoPd5f5IPjKM4Rmy+JNKjcHY2xBDuvkilT78J7jxX9/zQa2ZHRidMhsSgGlJjO4ykFydAf0BGg==
+ b=wMK8wfNoIGkhXXMGDY96SxIlFfZOEXTmfnlwuTHB0lZBIfG4N0q4vSlWX0/GWCUFbhptN+9oa6G/ASb5a6DI5NrASwYhf4ZpnKs31hqR31I688ROuQSt4Sutc8sl/dd058K0ptbWhtdIZgmGqBfU1UsCMBsBplof1kzovxqzIAG3EVmf7Z2BBCIoyaDrBbo/EI/YlHDlHumS5kxy/o+nlnf5RqK7abl8bdEM62b7KmSZD8mxaXNAJoqq8x2hng902TyN+WA7Rhj6V8HqEyRIJwnTumkeN3M2mz/h6SkrIk4b6jpv7wZNNptwSfIe4gUQwsu2nmF0QA9PX8lEl1CZIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XWiN/rYj+yWpopeyvzkeZkAmKaMX69NiePw3rFiB7Yo=;
- b=XBVeXVc+lBiDqNyDxh22m6PzJxGBOxkM4UF+sE3vgvCItNgKxi2tN0SUNCn64SbvWYvElwAo/QrGDqnB8uOUsTahiBSb5ty32hs2ZUwVsYGLGWrrRaNROwTGG78lBqVDlzzRFc/EY7+f5JYTqi5LvjS7eV5oE189VewdJC9ZwAd/4+clnTF/BUMhGZtDxXCNF+Zfp0WSNNkD05RzchfsHdXqV3JsuhizN+NuYtW+gP7xqmOF+3ar6LAojAYW+QzkPvDUoHGG8yZ7CN0pGZHM4nKa7ZQvgkxgDPfa9ps5Q4EpzGCg20zc0sZhHWavBdUe/eSJgypOpH7O/pvMvmdhag==
+ bh=zXOXS2/Dmpuq28KnFb/Qa5G+SmfooSftfHLJ6ziZZ3Y=;
+ b=TDR9PvDyZBx52YkjSWfWW2qh7l8b21jIRcYXDfEAtBCDv+TVvAyqJkWkr4hDdFHMAFqgDJp2B7KTaXwK0OdxFV1h0Jhk21yAbGzhKSjekMtzlEokkA7+FlxU5HzgR3S5acoyyk5kIZHbRntbyHcOXncvnUb6Gm/CoVgMvGQHqGmh9dQ4SUnhyh0MLoyBnx59DYvsXYq3jnDwkBBRNuIrCFVkNNk++lcK0YsyfTDenoerLHwuLEkU3NFx0l4wxZW88dCBTUF+VlqCAABjmgAIe66Nv+1fQz+Mxjfgrp6OoFzMkI3D/jISP7gpLsvFdAwf7Rk7CCo302WH0qlpU/Uu5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.DE;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XWiN/rYj+yWpopeyvzkeZkAmKaMX69NiePw3rFiB7Yo=;
- b=sRfirAoHmuXkPYWZXde6TfJt8fYma1TXxgVs5MBnJLtz1hTl9GrRmpZq3RI41qG+UUWKfrGGPNcTQe0JtWHHEFAEVCv8CRa7YjXxO9E3XesF5dHfeV17gagF3OTUq+DSj4gm2fcpDTDiSgfef1kF5huT1LQeR05NLx2z+Qas4KKLbHT1apDO7m+CIKaDoA4+bnOfwriafTl9QxMvWZ+SDP1rTCVFTCzB3JlPoSDp5PWZ/26Z7rjdZlxL5B+0JA/a5y15LOHIhLc55g2rJHAMqsSJSNZgx8WAK8RidbCmkSbjdUBVMimvek7GVL3dbgDU+P6UstGO713UEjm9XTcnYw==
+ bh=zXOXS2/Dmpuq28KnFb/Qa5G+SmfooSftfHLJ6ziZZ3Y=;
+ b=iTNm8XqYZFC9lOASgmMnxElSvxSeUAxvUrWoP3FVY5oOA1ITJjHRPs2ko8VMZTmpH8FJn7WkjGcvWgs9/I1+1/q5YJqxStVDcqFGVpP7HqrhwGfQrIm3OO5hDMUL+/LzLk6MKTRKL4smOQmIELKkTpwfDVTWMV8uwEmFsqueSvETh0/HsVypnsJbxy410kBXpCA+m/k8+GQrTETiVb9ThkNksA3MtKpJbnFwT/hAfj3om+cbSaCtTDldZTpqEU8tjvD+vv5evDiCVBUrQ1d27P0imrJ7+9YS0xwk0DAk1Z/NGh93MNZUuF5U0Pk9cR88k2BrhPDO8hwmPtqvaEQRmA==
 Received: from AMBP191MB2886.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:6b0::11)
  by GV2P191MB2334.EURP191.PROD.OUTLOOK.COM (2603:10a6:150:d5::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 15:59:23 +0000
+ 2026 15:59:25 +0000
 Received: from AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
  ([fe80::f9f:9408:b010:9883]) by AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
  ([fe80::f9f:9408:b010:9883%4]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 15:59:23 +0000
+ 15:59:25 +0000
 From: =?UTF-8?q?Luca=20Rodenh=C3=A4user?= <otzelot2021@outlook.de>
 To: perex@perex.cz,
 	tiwai@suse.com
 Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Luca=20Rodenh=C3=A4user?= <otzelot2021@outlook.de>
-Subject: [RFC PATCH 3/8] ALSA: usb-audio: don't cut the card name inside a UTF-8 character
-Date: Tue, 15 Sep 2026 17:59:03 +0200
+Subject: [RFC PATCH 5/8] ALSA: control: return the untruncated card names via CARD_BYTES
+Date: Tue, 15 Sep 2026 17:59:05 +0200
 Message-ID:
- <AMBP191MB2886FE324872FC9C7674C507CEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
+ <AMBP191MB2886BF0DB6DA82D82BD9C526CEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <AMBP191MB2886193B1F896974A7CE23E1CEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
 References: <AMBP191MB2886193B1F896974A7CE23E1CEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
@@ -58,7 +58,7 @@ X-ClientProxiedBy: FR3P281CA0190.DEUP281.PROD.OUTLOOK.COM
  (2603:10a6:d10:a4::8) To AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
  (2603:10a6:20b:6b0::11)
 X-Microsoft-Original-Message-ID:
- <20260915155913.421839-4-otzelot2021@outlook.de>
+ <20260915155913.421839-6-otzelot2021@outlook.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,78 +68,78 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AMBP191MB2886:EE_|GV2P191MB2334:EE_
-X-MS-Office365-Filtering-Correlation-Id: d603dcb7-ed01-4721-3cf4-08df13424f68
+X-MS-Office365-Filtering-Correlation-Id: 6cf51402-640e-4f6e-0e36-08df13424fdb
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|25010399006|51005399006|24021099003|55001999006|41001999006|15080799012|19110799012|5072599009|8060799015|23021999003|6090799003|25031999004|22091999003|24121999003|40105399003|12091999003|26121999007|2607281247196008|3412199025|440099028|1710799026;
+	BCL:0;ARA:14566002|25010399006|51005399006|24021099003|55001999006|41001999006|15080799012|12121999013|19110799012|5072599009|8060799015|23021999003|6090799003|25031999004|22091999003|24121999003|40105399003|26121999007|2607281247196008|3412199025|440099028|1710799026;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bElXajdxdUpvVkorLzgvWG4rWWZmbEZ4MWczNHozSDNlVUttcHhXa01nTVJN?=
- =?utf-8?B?dGdqeC9YNnMveU5NeUlCUGdrb0I3dmFkNTNBcnBFM005ZWxhVVJIOC9UZitV?=
- =?utf-8?B?U1dJd2E2YS92Vms1TW93U2hEVEJITVg0TmhsMTk0dE1VRGFxelE3YTF6U3hX?=
- =?utf-8?B?c29KekgvZEZVaC9zNTh3Q0tOc0svTkh6Y2tUR0k1ZlBiSnZad0IyN0I1bW4w?=
- =?utf-8?B?clk4TVJxelgxTnBuWHd2VW9RNnBKTHFJODZnUnlPMjFwbDdyQmhsY0dCRkVS?=
- =?utf-8?B?STJ6U0VySGNmTUhwc0VhV2ZEQXJDU2dnSXlWNEZyK2pUTHFYVlE5c0FTcGlw?=
- =?utf-8?B?TXdSWGJuL0NBUldNYlRPWkM1N01RWU1RUytSR2s3OHlmQkNGdzNUcUhoY0VO?=
- =?utf-8?B?Q2k2ZE5iYnJCQ1pPV3AxUDVkQmlGdDRBbGVUaGxEaG1meGNRZG01cXVxQ1Qw?=
- =?utf-8?B?Z28zMjlwd1JZcFlLUFEvdFNYMCtvWTVXU1g2Z0Yvem1LN0FYZStTOXdwN1JB?=
- =?utf-8?B?RGxORHNtVkVFQXMrcTdsYklWTGIwVzNJSHZIdGV5aC80WkpIV2N0ajBQeGh0?=
- =?utf-8?B?bjdQb2pLaDRxNExYZlBKUzRrbGNwbGtPQjlwZE1SNitsQUdpWGpqeHJNdzIv?=
- =?utf-8?B?dzNmT3FjaFhZZERnSHA2UTFub2FoL1k1Z3V5eWJjaWw1YUdvRTUwSWJDM3Q1?=
- =?utf-8?B?aDFpVHhqTnNxSVBiQmJjS3FwN0MvVnJya0U3WWtPdnVYTXB5UXFxVjVIREd2?=
- =?utf-8?B?cFlBcUw3cVZuczF6NnVQbG0rYlQ1amxMUHZzN0kzbkd3cm1rMHV3SzU2L0c4?=
- =?utf-8?B?SmxpdTVoaXJOa0hicHBTQ1g3V05qbEJZWENGQVZMblFhd04xWHI5cmkzdnBF?=
- =?utf-8?B?YVBXcHhHYjhNdDIxRVJKQVZLcFE3NTBrNzJzR29oK1huZEpFRFZGdDZlYlBW?=
- =?utf-8?B?dW9RcXVaU2syaEJyVVZxbkRRendzSmZES054ZXNWQnRYcE4wZGhTMDlPUk5W?=
- =?utf-8?B?RDgxVW5KYTVMOTBOL2ZiQm45UHVZdm1sK2J4ZFB1RFZVenZYMWtpMHhuQ1J4?=
- =?utf-8?B?MVFmR1Nkdk1HMVBlc0E1UHFxYjB4TGU4TVNkNFRxNlVYU2RBbWRoUmhzcjFk?=
- =?utf-8?B?WXFnSkx3YUpHaVpGR0NPMmkzaU15TGZrSDRRZjRVYWhlemIvSjlWU0FjT3FY?=
- =?utf-8?B?QjhuN0hOeTJ2em9VeTNiaG5lR244UEtJcUQ3SDl5R1h6bGJWVGpWRzJ6QUxu?=
- =?utf-8?B?U2VzUUYwME0wSUV1N08xNC9meE5vdDFDMDAwRWJsTWJzWmJJUWczVXhhcmJV?=
- =?utf-8?B?blVkalg3ZEJWWGhBaFArN2dxUjFwdm1QWVJIYlNEK01FL3NSTlo5c2tTVmFj?=
- =?utf-8?B?WjIrUS9kQm9wY3NjSisvWjVleDJVSWI1TSs2MjBNREdBTlVYZ1hQZFpoMlFh?=
- =?utf-8?B?QkZoY3cySGd0Q2tZMzdCaEpjVXVBODJ2MERYd3QrYm8yMjRSVnpKRkVaZzNi?=
- =?utf-8?B?SEh5QWhwNVQ3N3k3U3NLMDg1VEFNMm1LRGcxejlUNWhmaS8yUDE3SzlkaGda?=
- =?utf-8?B?UFQyUzY1MmNtVFdPRXVhR3JRbHBvNTJrNFZ3R1kxVjBHcHJ4UjVNSWJibjU4?=
- =?utf-8?B?cE5NV09ESkpFZ3hVc1Z4YlhFSHB0OGc9PQ==?=
+	=?utf-8?B?cncwbFUrMkp3TFBVOUxxYmt6VUM4WEh0bGNOakpYM1F1T2llZHBCcVZkZFFX?=
+ =?utf-8?B?eUxjck9IU09TZW5IdjFKT0crUHUzczc1US85Z05iL1Z0eElGcHo0VW1SWXh4?=
+ =?utf-8?B?enU5SEs1UFhGNzlvNGNNYzExZ1BPSzhaUms5RkpTM1UwZjNYWUYyb3VoL0tI?=
+ =?utf-8?B?OHloQW9aRTBFWWVvYnJyUHB1M2NWVHNEN1FkcERiUFRwRmZ5NzY1dlp6L2FV?=
+ =?utf-8?B?MVBEY3BqV3ErekJVczZwbVRLNUhnQTRsN1JzQ1lsbFVwakVOdWkyck45dGY3?=
+ =?utf-8?B?UC83cDBHam1EdWlUbHppNGxmSzJ2cFlwSDl5NmpKSHNMY3IwUkg0N01OUkwx?=
+ =?utf-8?B?VjUxRVhIRFFKQnB0VGdzUlcrK0ZFREJuVEdDU2xCcFdqQmk3UzlwRXg1NG1C?=
+ =?utf-8?B?a1ZyekhGdDNLR0haWXFUa3lzL1dCU3B5U2c3WmsyaTVrenMrclljaHBWTXRx?=
+ =?utf-8?B?WDRXZk9MeklsaTJzZWFJaEludHliUFpPWkdpcmk2bWE2RHZmc0FWUzE5VytU?=
+ =?utf-8?B?WFZvWllvR0FCZmpJeU4vY0tVc1phWnRwMGFBQU1DSlR2VDdCNEVGNUdKMURy?=
+ =?utf-8?B?dUJaVG84ckVsZGJ3SkdPellTR094RENiRS9FdSs1Z0hZeWdlaXdIQ3ZSdkdt?=
+ =?utf-8?B?MUxFb3RvZTlXN0tRQXRiWFZPRys2SFROcDRzRzVMejhSbENiUklRbSt3TnlV?=
+ =?utf-8?B?Q01iKzFTeGNHYW9JaWZrcjJuWU01RG44b3NNZVJ0S05VMmlDaVdNaERrZitm?=
+ =?utf-8?B?c2srNkw0ek84ZzVhRndPaEFqQlNZVU1ndklOM1UzYVNYRWVDVFRUR0I4M2Ns?=
+ =?utf-8?B?NENGS1o5RWI5azAxL3hQZ1VWeUdOL00wQ2hjYkhPc1hpQkdPOGxEMGRGYzVS?=
+ =?utf-8?B?SVQ5bVpiQ0JUdVR2T3k1aTBBMXpteU5paDlyQmtxWGhaVnNRRG1JaUVUZXFT?=
+ =?utf-8?B?V2NvK0E0QkE2dTM3aVZtcVhEQ0ppU2JTdVZVVUlPb0pSSjJaMHhnbnpJOWM2?=
+ =?utf-8?B?QVIrMVZSaWpVZWFYbEVNTEI3Vm5QdDZUT2M0NktsZXlFbEJyY2ZGeG8zci9F?=
+ =?utf-8?B?d09Xb2xKcEttWE9RcjdyUDZCcnZJQzZTSWc5V3lUa2JmLzR6MkpuVEhMbC9H?=
+ =?utf-8?B?UGxOWFNiMXZibjRzWXFIVC9tMjJnWXZzeEtBUURoeTNveEtDRlJtR1F5dTNR?=
+ =?utf-8?B?cDV5QkZmNGw4QmpucEVIdGJVbno2T2VTODJrR0hXbnlBMzdHalJSOFlHYUxU?=
+ =?utf-8?B?ZlhDTzh0MzRqTzVUZkJMVmJUR0o0MytHclArWkVGV3dHclFwdWFXUE55Sndr?=
+ =?utf-8?B?aEdpQS9oK085KytUVjJTU0dUbk5IY013bVFYOFJjSEtPMm1FK3pDRzdnTzB2?=
+ =?utf-8?B?WW5id2VPRmRZeHdXUVo4N085YkpVa3doZzJCL292eFVTTGRIaFhDU2pWbTF3?=
+ =?utf-8?B?TkZSMUgwNHlSZG90K0tLR3dDNkRrS0ZIWWpEVVNGUkwxR1ozNVZ0dWVxNG1Z?=
+ =?utf-8?B?M1M0bDNBdk9QSTc1U1RFSHRKOExpTU9zaE1DbW1KODlRdlBHL2xrTFhsMnl0?=
+ =?utf-8?B?ZllocXV4cUZDSmRmcUdjZGRnZ3diaEdOemNrc3FZUWh3TUdUWFZGRFZ4cldC?=
+ =?utf-8?B?L2hwaVFmZEVyc2MwYXVOVmU4YlV5VkE9PQ==?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TTIwbGhaeWRxY2d5aFpXaE1XL2pTTytodkxHeWdOMGdlbHZDdWs2VWNKbmdr?=
- =?utf-8?B?bFhONm1xUzIxazhFRENHa3phSTFjaXkwYjh6WGZQbXhLc2JTOElPTVB2dzlU?=
- =?utf-8?B?TGNZMEtLTEM3WkRrQXZNNG9SdWNUQ0pYOVIrZ1RTdlFGSy93Rm81UG9QdDRm?=
- =?utf-8?B?ZTJSNStpUnBHYUJKRzJOdGE5N3hPTy80d1Jlc1B5TFNzd29CcStkaXY0a0do?=
- =?utf-8?B?QmJwd0IrVFZscG1xQjNwR1VDcjV4NWdKYUpGWjBWU1JzZ3l0ZFkyWEUvb1l6?=
- =?utf-8?B?b1Fva0FaQnp3YzFjMFNjTHhtRjUvTjVHRGlZZjZJeW9sQlVZaHczZjZuTVVw?=
- =?utf-8?B?dVVsUWxFQnZ3TkRFMTFRZkpJNU4xaHQrYnorRmk2VFBRME5ma29EcXJ6TmVF?=
- =?utf-8?B?NFR4VjNmalNDZjhFYm9TUUpINFd1RUpxSlM2eWdkWTd3ejlqb3lFWXlGbEpJ?=
- =?utf-8?B?SHBuWUYzbzNUM0pEZ3pvYnFPMWZ5RnhKeUtEZEVUdmNoc2lZMncyV0NOeExR?=
- =?utf-8?B?ZUNBKzRuZXMxQVloNjBwZWpHSDBFemdsWkExQlpXd1MzWWtYd3d0N1R6YnBP?=
- =?utf-8?B?VGR0b3pRd2Y5MWxiRjFYQ3FDeTYzcHFnakxtYWl3TlNoOGM5Vk1IREdKQmUy?=
- =?utf-8?B?YTJ4UjF1bVNldzljakJWVTJYYURlbnRGdzNseXBNTFJFazBvVVBRU2JBRWoz?=
- =?utf-8?B?TUJ2TFpKaERiYk5obldsTW01amlYSzBMSmpSMmFBSzE5azZTOC95Z3RlQlRv?=
- =?utf-8?B?L1JraGw3Q2I4em14dm5YUmZ1QmcybENKUlA0c2ZtU2o4TUcwcjZOOXV4QlZq?=
- =?utf-8?B?ZEcyTXJMVW5ndUNEWkFpTmtKcHA4d1dsdWpjeEJ1aFhmeGRZb1FUbzRuZ0NY?=
- =?utf-8?B?cXhtcUFIUXJxYTI2WkVyM0RhaXVwaHZvOWdXSHpiK3l0SHFOb2dIb0tPbU4w?=
- =?utf-8?B?MEErWUp4U1FBQVhEMDJCb0RVV0I0NWhpYzFQT3U5VzVBMk0za3UrT0x2ajR1?=
- =?utf-8?B?V0c4dUx6ckZDOVpjYlZ1YU8yWjJQdVpuTUU3aEp5Z2FneUh6Y1VXTTlsZ1J5?=
- =?utf-8?B?YmRocHhlZ3N6anBlZkpEcjJQVnYvTndXdUh5OElzQ1BqOElSOW1oK0xtTU93?=
- =?utf-8?B?Z2FxbFQ4T1Y1VXNPNEMzNjNzb3JZemo1WFNuaTJPT3ViOExDbHVRS1U0Rkhr?=
- =?utf-8?B?RWhiTHIvNFp6eE8rQ1pHb21SLzRTZWJpeTQzSmpUS0psMEU1U2hNVU9HSDI1?=
- =?utf-8?B?RXZFTStCa0I3aVBMU1RrT2xTeWZ0ZVE5WlUvNnp1ZE1iSlVrRWx6YTQwa1JR?=
- =?utf-8?B?WmNySVgyTXpqYW9BOFJQVmtLRkt0U1RNYjdzemRTeUdTNXdkS0dieHdzckdP?=
- =?utf-8?B?dHVwOWxsVnQxK0VWdWh0dTlzM2trT3l4K0RqVHJKTEthTVBWT3JaUWsrQjY4?=
- =?utf-8?B?Q1pNa1hqYXFiKzd0b1o4ZXdXOFFqVDZmQnkxRjhlQXlKcjZFMFdPTElwNGh2?=
- =?utf-8?B?MiswaGpteFlEQ3Q0OGttUHVrdWhGSk1OZUcxTHZuZUdvd2F6Tzc1Tm96QkhG?=
- =?utf-8?B?YitBWDBHc2dhM3VtZWxTNjdhUkVOd1phYm9ITURmM2RPODkzRitEbjdONXla?=
- =?utf-8?B?TjdrOHBWcUg2eW5jMFRVZmpzLzFWc1NBbkQvVGVYOVViLzFHUS9MSzZTOWc0?=
- =?utf-8?B?SGZEU2JrdGltWGZYNE90WEJoMHZ1OXoxaWI5TGlDY3JYczYxL0EwN3BCUmVN?=
- =?utf-8?B?NThXeHRYNGRRVGtWM2pUMUp6d05tQUZFSDFydWoxcEltVDYzR1VCQmhEdGEw?=
- =?utf-8?B?NWl5STBVSnU3RTdQdHRINEhsOUZFTEZtaDdLME03N1ZBeE1oUlZOeGdQK1Fs?=
- =?utf-8?B?cStycUl4azN6Z2JHdjdzLzRiTlVHeDAvSUIyNU1kZmZxSW9GaElERFp1dTRq?=
- =?utf-8?Q?PQTrrG3HYjv7CoNsd/GxSlrzt02416vE?=
+	=?utf-8?B?M0F0dm56emk4MDJ4NHdZVFYvL0hOL3UzSVI5M293YlZpeWx1VEhxUkM5YlRW?=
+ =?utf-8?B?ZUtlWmhZdDNjUHZnWkdHYlVMNEt6MS9qK2gvWXdkdXdKeitsRHdGUEZjUSs5?=
+ =?utf-8?B?VVEyN0lDMktycEhhdXd6WmdRcUk4ZUtVQXJrVWYrVkNWTGNpYjAvcmdKc3Bq?=
+ =?utf-8?B?QS93MzU3b0Y0a3ZmUDhrMkNycGRkeWtGKzJOWFR2QXNWRkdNOVhiLzdhNUxO?=
+ =?utf-8?B?QTVHbFgvbFV2dmErblFwOE5qTEpYMjdFbzdrTy9QQ2FDTE1hczZqbTNNSStp?=
+ =?utf-8?B?ZkFZZlVEQU1iVmRPanpLUjh6bXgxTEQ1dmE4YWYyUUQ5R3lNVXFWdFd0VFZa?=
+ =?utf-8?B?YjFQeWdGVVk5dEpmejFjYjRPT1V2T1d0SDJISGtxRnFrMXpvMWhtd2lLeXRT?=
+ =?utf-8?B?dHEzNk1ScmJobmZpaDFFY0FVcWtmZVFzekJxaExqejgrWU1aRi81cUUzcTZN?=
+ =?utf-8?B?L2MxUkhCM3NvSTR1UXNSZ0Y4YTlrdnJGOGFqaEV5ajg0Y1FGOEt0aUdMcnFq?=
+ =?utf-8?B?VURUVG81WG5QWGxOSlkvRVR2MU82WXYrSHBjM1hwSHFPYUJOaS9kM1VuVENV?=
+ =?utf-8?B?amlVT0lNbUQzaW5mQlp1aVVXRUhtK2Y5eUFENXpCOWlJekp6Wm81QUUvNGRX?=
+ =?utf-8?B?eENPcVVXYmpNVVY5cm0zK3R2RVV0dnBycmFIMVZRbXY5bFVmN2w5UGN1UCt2?=
+ =?utf-8?B?aEE0emd4VXNiZW5ac1pjanVtWFRsNkdmSWlFYVBUVm5hUEpuK29ZdVZMVE5V?=
+ =?utf-8?B?U24rQzhFb1A0MVdNU0lzOGYwdWxFU3UwS3JhNjhZbnZmNDREYXhGWldCWFBo?=
+ =?utf-8?B?Z1dmWXhWWUVPS0FTSnJMUlNRMEdqOGtKdjJ6TXB2eWIrMVFnZVh6dVNlQWRI?=
+ =?utf-8?B?L0dscENPZFVHK29rc0htY3owMDZ5SzBzeCtyVzNzOFBHbU5CV2RnR0hTbmVD?=
+ =?utf-8?B?ZnlzazJhK3lTUkQ2Vml2Nml0Y0Fib3ZtZFdLRU5udFFuUFNZMzdtZ0p0aVUv?=
+ =?utf-8?B?aHJnSXBUWWpFMDcxdkJUNlh6VTJPNkNyRU5aeXc1NitwandmOVpmU0JuT0Vi?=
+ =?utf-8?B?RFBsV0Q4aUQyUTFoaFp2NGo3WHVLZDVHc1R1aWZLSFBnTTlWbmtuL0dsRDdo?=
+ =?utf-8?B?MkFkU3p5cjFIRFRIaysyNk9pWlR4NHZrNUJPOXlqN21ZV2JrR2NJUU9DT2pu?=
+ =?utf-8?B?aEl1RUFjNks5Q045UmRsRFQ0bWhQUWova3dJam5uODNpaGJZcVVrZlZGTWhI?=
+ =?utf-8?B?TkdWYXY2clBXbnJXRzVkTVhvQUVveWRBSi9QKzViM0h1SVUzMEZZR1V6VUxF?=
+ =?utf-8?B?aUNtYTB2TVJvODRiaGtFTkRJRGg5NHE2OHQveWN0Q0F3S2FlellQaWcxdzEr?=
+ =?utf-8?B?QzVHekFydUk2MVR5NGJ1azZtdXo2RHVZWm1DczRiUXdweGlnZ2Q1YUpxMm1h?=
+ =?utf-8?B?VjU2MkVRaTlvUzNwb2tIWkRrZ3JONjIwdUlOQit3cnFKbzhCVEJWUml1Yjdq?=
+ =?utf-8?B?TUFNeDc3REJ2YWEvUkFVMXlna0o1UW5pWmZqOTJsdi95Q1BlNjQwM2libGF2?=
+ =?utf-8?B?SzB5NG1zMFZZTndOZ0xvNk9pMHJxbnpBSnJ1M2p5UEdMM010cDF0bHdVdGtW?=
+ =?utf-8?B?bjNNQWpWVEUyc08yUHdaeEx6U2hsbzR1RHVzYWQ3K1NUdkUyL2NmTGpYZkhq?=
+ =?utf-8?B?S0tyZjAxTGFBaUJnemdpSUtoZmNLbHE2Um13R2M0V0hBMWhVUWYrd1FYYi80?=
+ =?utf-8?B?M2Vrai9YRnQ5NnhDWjlVbWZWdHVjaFQycDRjWDBhTVN2Q0N0N3h6RWdWVE1a?=
+ =?utf-8?B?L09QNzUrbXMwS2N3TnNBT1ArWXA3VENVRUNGOHd2eVRjRE8yOWRBQ0RPVHBS?=
+ =?utf-8?B?dlI1Y0ZPY3Nya2loQlZ3U3lQQ0RYVDNCZGpVL0JxWVVPUWU0MFdxU0RLMDdF?=
+ =?utf-8?Q?nLqCIykcDlSeCQpZlqYUNVtMpJYpqXx1?=
 X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-061ba.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: d603dcb7-ed01-4721-3cf4-08df13424f68
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6cf51402-640e-4f6e-0e36-08df13424fdb
 X-MS-Exchange-CrossTenant-AuthSource: AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 15:59:23.2406
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 15:59:24.0127
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
@@ -147,207 +147,160 @@ X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
 	00000000-0000-0000-0000-000000000000
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2P191MB2334
 
-usb_string() converts the UTF-16LE string descriptors of a device into
-UTF-8, so dev->product may contain multi-byte characters.  Copying it into
-the 32-byte card->shortname with strscpy() cuts at a byte boundary, so a
-name that does not fit can end in a partial sequence.  What user space
-receives is then not valid UTF-8, and it cannot repair it: the missing
-bytes never left the kernel.
+struct snd_ctl_card_info is fixed-size and cannot grow, so the untruncated
+names need another way out.  SNDRV_CTL_IOCTL_CARD_BYTES already carries one
+untruncated card string, with a query-then-read protocol and a __u64 user
+pointer that needs no compat handling, so add three types to it rather than
+a new ioctl: SND_CTL_CARD_BTYPE_NAME, _LONGNAME and _MIXERNAME, next to the
+existing _COMPONENTS.  No existing structure or ioctl changes, so old
+binaries are untouched.
 
-Add snd_utf8_strscpy(), which behaves exactly like strscpy() except that it
-ends the copy after the last complete sequence that fits.  A name that is
-too long loses up to three more bytes than before, but what remains is a
-whole character.  For pure ASCII the result is byte for byte what strscpy()
-produced, so nothing changes for the vast majority of devices.
+A name that fits into its fixed field is returned as an empty string rather
+than repeated, which tells the reader that snd_ctl_card_info already has
+the whole name.  An older kernel answers -EINVAL for the unknown type,
+which means the same thing, so a reader needs no version check; PVERSION
+reports 2.0.11 where the types exist.
 
-If the string turns out not to be UTF-8 after all - more continuation bytes
-in a row than any sequence can have - the plain strscpy() cut stands, so a
-device with a broken descriptor is no worse off than today.
+The header says what the kernel guarantees about a name - well-formed
+UTF-8, nothing that would break a line, never cut inside a sequence - and
+at more length what it does not: no NFC, no homoglyph detection, and no
+filtering of invisible or bidirectional format characters, with a pointer
+at what user space has to do instead.  A promise that cannot be kept is
+worse than no promise, because it invites readers to skip their own
+filtering.
 
-This is worth doing on its own, independently of any richer replacement for
-the name fields: it makes the existing field correct for every reader that
-is already there, without changing what those readers see for any name that
-fits.
+Pull the string lookup out into a helper so all four types share one output
+path instead of repeating the copy-out four times.
 
 Assisted-by: LLM
 Signed-off-by: Luca Rodenhäuser <otzelot2021@outlook.de>
 ---
- include/sound/core.h     |  1 +
- sound/core/init.c        | 52 +++++++++++++++++++++++++++++++++++
- sound/core/sound_kunit.c | 58 ++++++++++++++++++++++++++++++++++++++++
- sound/usb/card.c         |  7 +++--
- 4 files changed, 116 insertions(+), 2 deletions(-)
+ include/uapi/sound/asound.h | 30 +++++++++++++++++++++++++++++-
+ sound/core/control.c        | 36 ++++++++++++++++++++++++++++--------
+ 2 files changed, 57 insertions(+), 9 deletions(-)
 
-diff --git a/include/sound/core.h b/include/sound/core.h
-index 2ca24ac7e3..36bb95044a 100644
---- a/include/sound/core.h
-+++ b/include/sound/core.h
-@@ -316,6 +316,7 @@ void snd_card_free(struct snd_card *card);
- void snd_card_free_when_closed(struct snd_card *card);
- int snd_card_free_on_error(struct device *dev, int ret);
- void snd_card_set_id(struct snd_card *card, const char *id);
-+size_t snd_utf8_strscpy(char *dst, const char *src, size_t size);
- int snd_card_register(struct snd_card *card);
- int snd_card_info_init(void);
- int snd_card_add_dev_attr(struct snd_card *card,
-diff --git a/sound/core/init.c b/sound/core/init.c
-index 2b33dd7b42..67b79b1826 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -789,6 +789,58 @@ void snd_card_set_id(struct snd_card *card, const char *nid)
- }
- EXPORT_SYMBOL(snd_card_set_id);
+diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index c11da9656e..bebd1b1049 100644
+--- a/include/uapi/sound/asound.h
++++ b/include/uapi/sound/asound.h
+@@ -1058,7 +1058,7 @@ struct snd_timer_tread {
+  *                                                                          *
+  ****************************************************************************/
  
-+/**
-+ *  snd_utf8_strscpy - copy a UTF-8 string, cutting only at a character boundary
-+ *  @dst: destination buffer
-+ *  @src: source string, expected to be UTF-8
-+ *  @size: size of @dst in bytes
-+ *
-+ *  Like strscpy(), except that a string too long for @dst ends after the last
-+ *  complete UTF-8 sequence that fits, so @dst never ends in the middle of a
-+ *  character.  For pure ASCII input the result is identical to strscpy().
-+ *
-+ *  This matters for names that come from a device: usb_string() converts the
-+ *  UTF-16LE string descriptors into UTF-8, so a product name copied into one
-+ *  of the fixed-size card name fields can otherwise end in a partial sequence,
-+ *  which user space has no way to repair.
-+ *
-+ *  Return: the length of the copied string, excluding the terminating NUL.
-+ */
-+size_t snd_utf8_strscpy(char *dst, const char *src, size_t size)
-+{
-+	size_t len, tail;
-+
-+	if (!size)
-+		return 0;
-+
-+	len = strnlen(src, size);
-+	if (len < size) {
-+		memcpy(dst, src, len);
-+		dst[len] = '\0';
-+		return len;
-+	}
-+
-+	/* @src does not fit.  strscpy() would cut at @size - 1, which may land
-+	 * inside a multi-byte sequence, so back up to the start of that
-+	 * sequence instead.  A sequence is at most four bytes, so a longer run
-+	 * of continuation bytes means @src is not UTF-8 after all and the plain
-+	 * cut stands.
-+	 */
-+	len = size - 1;
-+	for (tail = 0; tail < 4 && len; tail++) {
-+		if (((unsigned char)src[len] & 0xc0) != 0x80)
-+			break;
-+		len--;
-+	}
-+	if (tail >= 4)
-+		len = size - 1;
-+
-+	memcpy(dst, src, len);
-+	dst[len] = '\0';
-+	return len;
-+}
-+EXPORT_SYMBOL_GPL(snd_utf8_strscpy);
-+
- static ssize_t id_show(struct device *dev,
- 		       struct device_attribute *attr, char *buf)
- {
-diff --git a/sound/core/sound_kunit.c b/sound/core/sound_kunit.c
-index 0376112cc6..d462462543 100644
---- a/sound/core/sound_kunit.c
-+++ b/sound/core/sound_kunit.c
-@@ -299,6 +299,63 @@ static void test_card_add_component(struct kunit *test)
- 	KUNIT_ASSERT_STREQ(test, card->components, TEST_FIRST_COMPONENT " " TEST_SECOND_COMPONENT);
- }
+-#define SNDRV_CTL_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 10)
++#define SNDRV_CTL_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 11)
  
-+/* snd_utf8_strscpy() has to behave exactly like strscpy() for ASCII and only
-+ * differ where a multi-byte sequence would be cut.  The escapes keep this file
-+ * plain ASCII; \x escapes are greedy, hence the split literals.
-+ */
-+#define STRSCPY_UMLAUT		"\xc3\xa4"	/* 2 bytes */
-+#define STRSCPY_HIRAGANA	"\xe3\x81\x82"	/* 3 bytes */
-+
-+static void test_utf8_strscpy(struct kunit *test)
-+{
-+	char dst[8], ref[8];
-+	size_t len;
-+
-+	/* fits: same result as strscpy(), NUL terminated */
-+	len = snd_utf8_strscpy(dst, "abc", sizeof(dst));
-+	KUNIT_EXPECT_EQ(test, len, 3);
-+	KUNIT_EXPECT_STREQ(test, dst, "abc");
-+
-+	/* exactly fills the buffer */
-+	len = snd_utf8_strscpy(dst, "abcdefg", sizeof(dst));
-+	KUNIT_EXPECT_EQ(test, len, sizeof(dst) - 1);
-+	KUNIT_EXPECT_STREQ(test, dst, "abcdefg");
-+
-+	/* too long and pure ASCII: identical to strscpy() */
-+	len = snd_utf8_strscpy(dst, "abcdefghij", sizeof(dst));
-+	strscpy(ref, "abcdefghij", sizeof(ref));
-+	KUNIT_EXPECT_EQ(test, len, sizeof(dst) - 1);
-+	KUNIT_EXPECT_STREQ(test, dst, ref);
-+
-+	/* 2-byte characters: 7 bytes of room hold three of them plus one ASCII
-+	 * byte, so the fourth has to be dropped whole rather than halved
-+	 */
-+	len = snd_utf8_strscpy(dst, STRSCPY_UMLAUT STRSCPY_UMLAUT
-+				    STRSCPY_UMLAUT STRSCPY_UMLAUT,
-+			       sizeof(dst));
-+	KUNIT_EXPECT_EQ(test, len, 6);
-+	KUNIT_EXPECT_STREQ(test, dst, STRSCPY_UMLAUT STRSCPY_UMLAUT
-+				      STRSCPY_UMLAUT);
-+
-+	/* 3-byte characters: two fit, the third would be cut */
-+	len = snd_utf8_strscpy(dst, STRSCPY_HIRAGANA STRSCPY_HIRAGANA
-+				    STRSCPY_HIRAGANA,
-+			       sizeof(dst));
-+	KUNIT_EXPECT_EQ(test, len, 6);
-+	KUNIT_EXPECT_STREQ(test, dst, STRSCPY_HIRAGANA STRSCPY_HIRAGANA);
-+
-+	/* not UTF-8 at all: a run of continuation bytes longer than any
-+	 * sequence, so the plain strscpy() cut stands rather than eating the
-+	 * whole string
-+	 */
-+	len = snd_utf8_strscpy(dst, "\x80\x80\x80\x80\x80\x80\x80\x80\x80",
-+			       sizeof(dst));
-+	KUNIT_EXPECT_EQ(test, len, sizeof(dst) - 1);
-+
-+	/* zero-sized destination must not be written to */
-+	KUNIT_EXPECT_EQ(test, snd_utf8_strscpy(dst, "abc", 0), 0);
-+}
-+
- static struct kunit_case sound_utils_cases[] = {
- 	KUNIT_CASE(test_phys_format_size),
- 	KUNIT_CASE(test_format_width),
-@@ -310,6 +367,7 @@ static struct kunit_case sound_utils_cases[] = {
- 	KUNIT_CASE(test_card_set_id),
- 	KUNIT_CASE(test_pcm_format_name),
- 	KUNIT_CASE(test_card_add_component),
-+	KUNIT_CASE(test_utf8_strscpy),
- 	{},
+ struct snd_ctl_card_info {
+ 	int card;			/* card number */
+@@ -1076,11 +1076,39 @@ struct snd_ctl_card_info {
+  * Card components can exceed the fixed 128 bytes in snd_ctl_card_info.
+  * Use SNDRV_CTL_IOCTL_CARD_BYTES with type SND_CTL_CARD_BTYPE_COMPONENTS
+  * to retrieve the full string.
++ *
++ * SND_CTL_CARD_BTYPE_NAME, _LONGNAME and _MIXERNAME return the untruncated
++ * form of the name, longname and mixername fields of struct snd_ctl_card_info,
++ * in the same way SND_CTL_CARD_BTYPE_COMPONENTS returns the untruncated
++ * components string.  Available since SNDRV_CTL_VERSION 2.0.11.
++ *
++ * A name that fits into its fixed field is not repeated here: an empty result
++ * means the field in struct snd_ctl_card_info already holds the whole name.
++ * An older kernel answers -EINVAL for the unknown type, which means the same.
++ * So there is one name per card, available in two lengths, and never two names
++ * that could disagree.
++ *
++ * Card names are UTF-8.  The kernel guarantees that what it returns here is
++ * well-formed UTF-8 carrying no code point that would break a line (C0 and C1
++ * controls, U+2028, U+2029), and that it is never cut inside a multi-byte
++ * sequence.  The fixed fields are cut at a character boundary too.
++ *
++ * Nothing beyond that is guaranteed, deliberately.  Invisible, bidirectional
++ * and deprecated format characters pass through, NFC is only a recommendation
++ * to drivers, and homoglyphs cannot be detected at all: all of that needs the
++ * Unicode character properties, which belong in user space and not in the
++ * sound core, and a range list in the kernel would go stale with every
++ * Unicode release.  So a name is a display string and never a security
++ * boundary: isolate it for display (U+2066/U+2069), filter
++ * Default_Ignorable_Code_Point, and match cards on id, driver or components.
+  */
+ 
+ /* Type values for struct snd_ctl_card_bytes::type */
+ enum {
+ 	SND_CTL_CARD_BTYPE_COMPONENTS	= 1,	/* full card components string */
++	SND_CTL_CARD_BTYPE_NAME		= 2,	/* full short name */
++	SND_CTL_CARD_BTYPE_LONGNAME	= 3,	/* full long name */
++	SND_CTL_CARD_BTYPE_MIXERNAME	= 4,	/* full mixer name */
  };
  
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index 9307da95ef..a83c51a3d5 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -630,9 +630,12 @@ static void usb_audio_make_shortname(struct usb_device *dev,
- 		return;
- 	}
+ struct snd_ctl_card_bytes {
+diff --git a/sound/core/control.c b/sound/core/control.c
+index e404cb55a5..cfe451f0f4 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -14,6 +14,7 @@
+ #include <linux/mm.h>
+ #include <linux/math64.h>
+ #include <linux/sched/signal.h>
++#include <linux/err.h>
+ #include <linux/cleanup.h>
+ #include <sound/core.h>
+ #include <sound/minors.h>
+@@ -901,6 +902,26 @@ static int snd_ctl_card_info(struct snd_card *card, struct snd_ctl_file * ctl,
+ 	return 0;
+ }
  
--	/* retrieve the device string as shortname */
-+	/* retrieve the device string as shortname.  usb_string() hands back
-+	 * UTF-8, so cut at a character boundary rather than at a byte one.
-+	 */
- 	if (dev->product && *dev->product) {
--		strscpy(card->shortname, dev->product);
-+		snd_utf8_strscpy(card->shortname, dev->product,
-+				 sizeof(card->shortname));
- 	} else {
- 		/* no name available from anywhere, so use ID */
- 		scnprintf(card->shortname, sizeof(card->shortname),
++/* Pick the card string a SND_CTL_CARD_BTYPE_* value refers to.
++ * Returns NULL for an unset field, which is handed out as an empty string.
++ * Must be called with snd_ioctl_rwsem held.
++ */
++static const char *snd_ctl_card_btype_str(struct snd_card *card, __u32 type)
++{
++	switch (type) {
++	case SND_CTL_CARD_BTYPE_COMPONENTS:
++		return card->components;
++	case SND_CTL_CARD_BTYPE_NAME:
++		return card->full_shortname;
++	case SND_CTL_CARD_BTYPE_LONGNAME:
++		return card->full_longname;
++	case SND_CTL_CARD_BTYPE_MIXERNAME:
++		return card->full_mixername;
++	default:
++		return ERR_PTR(-EINVAL);
++	}
++}
++
+ static int snd_ctl_card_bytes(struct snd_card *card,
+ 			      struct snd_ctl_card_bytes *info,
+ 			      unsigned int __user *data_len_out)
+@@ -909,22 +930,21 @@ static int snd_ctl_card_bytes(struct snd_card *card,
+ 	bool too_small = false;
+ 	unsigned int data_len;
+ 
+-	if (info->type != SND_CTL_CARD_BTYPE_COMPONENTS)
+-		return -EINVAL;
+-
+ 	scoped_guard(rwsem_read, &snd_ioctl_rwsem) {
+-		const char *components = card->components;
++		const char *str = snd_ctl_card_btype_str(card, info->type);
+ 
+-		if (!components)
+-			components = "";
++		if (IS_ERR(str))
++			return PTR_ERR(str);
++		if (!str)
++			str = "";
+ 
+-		data_len = strlen(components) + 1;
++		data_len = strlen(str) + 1;
+ 
+ 		if (info->data && info->data_allocated != 0) {
+ 			if (info->data_allocated < data_len) {
+ 				too_small = true;
+ 			} else {
+-				copy = kmemdup(components, data_len, GFP_KERNEL);
++				copy = kmemdup(str, data_len, GFP_KERNEL);
+ 				if (!copy)
+ 					return -ENOMEM;
+ 			}
 -- 
 2.43.0
 
