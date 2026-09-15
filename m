@@ -1,118 +1,104 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA5148664C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:14:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49D1385D99;
+	Tue, 15 Sep 2026 11:14:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470844; cv=none; b=WLKTyFteePav9dU9R58sQMfRZklHTNswO7eejpJ4Xk0ZSRa8A4nzsC/irocieBxG/M9qIDR2fTyqvZ3USJbXAzbes/VMmKMkMZHr2hc2avDMqbk0fI0r4Xa9rvwofVTS1mgkroHFmXo4SHgSGy69/8vgraAhsiGArN4cUjy0u4c=
+	t=1789470848; cv=none; b=K+6ImMeAbgZERpUddN50D0EzeWTpWjKcGm7Bj2yh3bL/QxxTlWd4PVA/O5Hg8OdBnAzU3kkYIpDc55uRQW1txYhqCFqsU6HGfZmOe2U+SPHiQ9ZtrjNMut4fLuV1qK9ybyLxMu6OkdqxJRpa56CYLHv+JjtxwJ/boAUpiB3NZAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470844; c=relaxed/simple;
-	bh=sJrFySi4bYC5wzYpLo3wzSMqebdql/9/GrvU2FaX1d0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ThEzJiUJaszblhi+3eFLlPzLv9bxsA0U0O2NZJ+c8yupqCf4jx4oG1U83Cj5Bbm0F7P74wSBqiERp1Hjk0oPUZHYaVHLH2a/kM9G3gqLbeKSqa1gwnMHXOrv3QSa6XXGSJ0f42WI+VMBW7QSTojX8LIpf1EZjj3n06oKVt5kseI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iaaVaaA6; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789470848; c=relaxed/simple;
+	bh=zZekLw5RMVyQsoxrQU2mJkIt4cG75S/ulXfEuGwz8X8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HlBI8aP4dp8WhuwGml1qwGQpiKf2Gh6MAguSy14C4PtlcmCr0YQ82awwIv7h2WoBtpYj/HxnMVmwKxICvow1AoxsJF+kNriJfvy8GRVJTvo3P2Q5e54Ku36CudnxiU8xypE1jte5xY29X+wI0XY4fRfINDpNwfcZC1xLypMLO4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NPIpuyQr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iaaVaaA6"
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c8319dd4a5so1204703e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:14:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789470842; x=1790075642; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bz3i5Bjgy+qhtJ2RiKqbQXOaeVHp9WfJ3fh43+g/sbs=;
-        b=iaaVaaA6IUwirkHWEJtUbSt0AG/Fpl7Vu6TvTnrFn9LNqCexAWDsiWi17NxaQAc63W
-         u38KMjoM8xpF0/W0c3i8l2E3KeiiCbrvC/hMwCrS9PR2ylH+DE9poabPl9l2G73a10w+
-         9BmgJj4cRzRqS/bMxlnvFIyuDL/adzE3itUgPJbT9GA2IGGazEGFsMVcWWgYHRLlxpW9
-         8Ed2g5K9XRp0VipgyhJF5CdkgctEmsJYtglUhuCvBof3LNnlg/XkTck6ckwCA0iEKXxO
-         jh4hvkN5PE5umO5BHXM4m+ZcFnu3mEUN/DfKpMi2VB6v7rS+btH5VXtbmxoJUvesG3EN
-         lLEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789470842; x=1790075642;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bz3i5Bjgy+qhtJ2RiKqbQXOaeVHp9WfJ3fh43+g/sbs=;
-        b=iLncdzhZolVSziO3F9RrHVnDz30OpjH1lO1P2P7+A7m3Bfc9AeLHhQ6q0uu1JKMv1Q
-         fkphmb0JtcdElPkosethmOZy8V0QZ9r8poBaXEG3PwH6jFCQLNsQrpbehPMMKj2QiboC
-         X/TO8dgzexc8EC7oen4NcjtFeHNBG/2VE4C2jNS9eo42GX0AWv28E6C5uEAekct16F1c
-         9xMRqcb4QR8xONTr2Rabt7vZDj4veMi0OjK0lE4XPcEgNRsnkqKCgcsgJUG39j341We/
-         LKTgLWb2BjnTpQ+IP1USvmO91Mz0MeD1zvZEuqXc7/FkD4ABJImwYQagomPj1DSK/BKA
-         EEsw==
-X-Forwarded-Encrypted: i=1; AKwUvBxwrKW1JEOoNSh5H9/SCgLTVjIxZnLNs5I3Xew8P61rv6Sg/uek/ydkBe643inMuSS39f4CLazwYnfx0XY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lS5+kzmgfXVL+6sRMSKf6piETbxZeJxEgc697ML1M7897yF+u5
-	tZi+K3j4B4QvLgcWVO0Nc7HJgSZWm/5nHY5E5C60NPF1cImUV2KanQKRR3UbpvV+xpAKsA==
-X-Gm-Gg: AYBFou0sNegcRQZszPSmWH00Ip/QbKk7Wsi/YUAlshCsOEfmhcwptwKt1IT2cXzqB1A
-	DwAy8u/UzCQwRLyN7lATZ1iaztPqSWI+bmtA7V3+dR8NwuU6qg+w365Z+vTV9ukUw9dXqwQIXvY
-	dzIiet7pY8456y1vAoXkalrPiWHbd5C0Vamsx3VOQsc+MGVrQ26MvmOE8DGPp+J8Bs58ZYAIk1x
-	79WxgYVZHqzmXAK7+2FvmI67aBcL/QN3SNi8Cr1z8eTYbhpGCzwEJTQK/eWKetv+gg0Sd2caAaw
-	8u7m42yRwRSzEfJKyjYsEUFrnK5cfBgyhPUN7NDCqTZ1Klj+Cqea04l/itAR9Yyc6MFK6X0tPDD
-	TciGxzUQu3/2NcjtnyzwjhZvcm6ttwomab9I0sIKP6UOo7mDQvQHDZ6jG5LSI06+Pvwm6axoA9x
-	dUmNrr0jboVRD5TkedLWl4M3DQfvgz6OQW3s9D6CEe51ByIziMEoOl9neqntZsk13S
-X-Received: by 2002:a05:6122:32d0:b0:5c9:72ea:141b with SMTP id 71dfb90a1353d-5c981d701dbmr8067066e0c.6.1789470841672;
-        Tue, 15 Sep 2026 04:14:01 -0700 (PDT)
-Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470ae56asm16455579e0c.6.2026.09.15.04.13.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 04:14:01 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
-	linux-nilfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH] nilfs2: validate file block counts during recovery
-Date: Tue, 15 Sep 2026 08:13:51 -0300
-Message-ID: <20260915111351.2726334-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NPIpuyQr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530F31F00899;
+	Tue, 15 Sep 2026 11:14:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789470847;
+	bh=HLagQFQZOyEmaZUWnZfwJED805o1ysF8ciaZJE3W+Qc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NPIpuyQrSy7s3haa/uTKou3xO0PdgTpAZXLXx2QJ6mrAyTNjNPCkJZbC/fbYK7ViK
+	 NHlWGIeEFc+e2v2hPm9IdLId37dKNqX18mNA/aRwOMrepWDtCnMr+yoRsWxD0qdQum
+	 PAKa0oHowZvQjNseJ7oexQ7vCIuGFe5Q3kNjL3KqsZmJM2JAnq8Y6xXDAP8fFExVXD
+	 1VIqtkv/mVJNTpdeZxPxrwCTroIOc8TBenqTjeGkNtnDWl2ATNJlgD4MzxJnSc12E7
+	 TEfgCppNOCabcaDhOgc5/1T5RFmGrT5ytPDR4IiJK0bYv38Qbs6MxegTOW6+ewsYep
+	 nuRgswHziZL6Q==
+Date: Tue, 15 Sep 2026 12:14:01 +0100
+From: Lee Jones <lee@kernel.org>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
+	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"broonie@kernel.org" <broonie@kernel.org>,
+	Frank Li <frank.li@nxp.com>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	Vikash Bansal <vikash.bansal@nxp.com>,
+	Priyanka Jain <priyanka.jain@nxp.com>,
+	Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+Subject: Re: [PATCH v18 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
+ and on-die regulator
+Message-ID: <20260915111401.GD11487@google.com>
+References: <20260903062108.2712296-1-lakshay.piplani@nxp.com>
+ <20260903062108.2712296-5-lakshay.piplani@nxp.com>
+ <AS4PR04MB93625052401AF41C2ACC2D66FBBE2@AS4PR04MB9362.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <AS4PR04MB93625052401AF41C2ACC2D66FBBE2@AS4PR04MB9362.eurprd04.prod.outlook.com>
 
-nilfs_scan_dsync_log() trusts the block counts in each on-disk file
-information entry. If fi_ndatablk is greater than fi_nblocks, the data
-block loop can consume excessive summary entries and the later subtraction
-used to derive the number of node blocks underflows.
+On Fri, 11 Sep 2026, Lakshay Piplani wrote:
 
-Reject inconsistent file information entries before consuming their block
-information.
+> 
+> NXP Public
+> > -----Original Message-----
+> > From: Lakshay Piplani <lakshay.piplani@nxp.com>
+> > Sent: Thursday, September 3, 2026 11:51 AM
+> > To: linux-kernel@vger.kernel.org; linux-i3c@lists.infradead.org;
+> > alexandre.belloni@bootlin.com; krzk+dt@kernel.org; robh@kernel.org;
+> > conor+dt@kernel.org; devicetree@vger.kernel.org; broonie@kernel.org;
+> > lee@kernel.org; Frank Li <frank.li@nxp.com>; lgirdwood@gmail.com
+> > Cc: Vikash Bansal <vikash.bansal@nxp.com>; Priyanka Jain
+> > <priyanka.jain@nxp.com>; Aman Kumar Pandey
+> > <aman.kumarpandey@nxp.com>; Lakshay Piplani <lakshay.piplani@nxp.com>
+> > Subject: [PATCH v18 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
+> > and on-die regulator
+> >
+> > From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> >
+> > Add core MFD support for the NXP P3H2x4x
+> > (P3H2440/P3H2441/P3H2840/P3H2841) family of multiport I3C hub devices.
+> > These devices connect to a host via I3C/I2C/SMBus and expose multiple
+> > downstream target ports.
+> >
+> > All variants share the same register interface. The driver reads the target-port
+> > count from DEV_CAPAB and applies the DT configuration, so no per-compatible
+> > driver data is required.
+> >
+> > Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> > Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+> > Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> 
+> Hi Lee,
+> 
+> A gentle follow-up on this MFD patch. Could you please review it when you have a chance?
 
-Fixes: 0f3e1c7f23f8 ("nilfs2: recovery functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- fs/nilfs2/recovery.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Don't do that!
 
-diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-index 4d5a6aa521..6e4e0cf4cc 100644
---- a/fs/nilfs2/recovery.c
-+++ b/fs/nilfs2/recovery.c
-@@ -322,6 +322,7 @@ static void nilfs_skip_summary_info(struct the_nilfs *nilfs,
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINVAL	- Invalid block counts in a file information entry.
-  * * %-EIO	- I/O error.
-  * * %-ENOMEM	- Insufficient memory available.
-  */
-@@ -359,6 +360,10 @@ static int nilfs_scan_dsync_log(struct the_nilfs *nilfs, sector_t start_blocknr,
- 		ino = le64_to_cpu(finfo->fi_ino);
- 		nblocks = le32_to_cpu(finfo->fi_nblocks);
- 		ndatablk = le32_to_cpu(finfo->fi_ndatablk);
-+		if (ndatablk > nblocks) {
-+			err = -EINVAL;
-+			goto out;
-+		}
- 		nnodeblk = nblocks - ndatablk;
- 
- 		while (ndatablk-- > 0) {
+It was on the list, but since I handle all of my reviews in
+reverse-chronological order, you just put yourself at the back of it.
+
 -- 
-2.43.0
-
+Lee Jones
