@@ -1,133 +1,122 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928943A8753
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8B43C1D6F;
+	Tue, 15 Sep 2026 14:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482683; cv=none; b=gOdfg0LQ0eO+aiPcLyIJLZJbd1c6q/4oGJDwIEra8YXAAPRlatRnvbLPMaQyOiEbi2cWYMdDfvc6tA95iUUYa7D7LXlMNPNninNJWjNU+qsMaOQMFbiXZJYEYIsmBJJraq7bwsLan6yyEh4ltLUrLGXsyHMg2Er/fn1XN/KP84U=
+	t=1789482749; cv=none; b=sKLNtxFXkpyEjJk6ycVpkoLnsKMowXmG+MLXoaNoOtFq4fCZeFy4jPEEkYf+yzaRLRBfwTI/HMvCL9KtPTKsBHIHmg514cBqwjD94vvWLddriF731LCjS3Z5c7700/7cMsgBe5+3VprxPEhtB6DVCBHQzTHPbDITqzVxcieEPEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482683; c=relaxed/simple;
-	bh=wgiHkbU+yT0wAsLAa4BYS1bLM7Wzx46WXTyUlhOUfAM=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=sBnGME3fBYXJYnu6RLGJUKE6nNTCRKFlr8BtDtsWfyBkKoh22zq2/e71f98vG9Hx26RYBPknHep17rdoijLfqwSiqwBjVULWD6pVKy36tWr/98TymhzZq0bBlYyO1SSINgBJFODn4aj3NzwEd6yxPWHd+gPVzeukM7rYLGHatR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TVsuhdRZ; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789482749; c=relaxed/simple;
+	bh=KgaXJ/pb3DRKR/CJo1jmUo4ceN84s0N8uAZe35ZJPNM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GoJ/tNynnc8l1HAtqZRcGH9oez0rwx29hYvvobZACiTfL3b5k/TKqg+D3CDSU396GR8CpsyaSFo44q81b8JIuzqXS1tqSVvCQ20iHcgMZ+tusbBZu3mKGP4YMDbI8qOjEi/+TdqkwgYsAUbZQHJYy+EmvHGtUgIYg+cwVkvbTnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZuqrGNR1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TVsuhdRZ"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1bbd7d6e6so3625093a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:31:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789482681; x=1790087481; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UxCVdsnW3ZSI7KLXQLXPZOQXUZHRc3cqhqBZH7/A718=;
-        b=TVsuhdRZRFK+6WTdDzA2xw7g56/0iCU0iFR7USwiH2WraJCyIxMeM4QQaL7GCwbwrZ
-         gsT4cA+1H4beBJr8XD4KmYcwPJfgOl/UI4prlEUs5eLxH06HM+7yV0mTvZGxSdt6a2zx
-         oDdPP5JvrsCkXjAdiK8Woic2fuNkLUYEblbMpMr+8oIIe15B0Gm3LfMiXZ58XB81sP/X
-         8EGBoeyDqQ3btlFyyHJHYgeYwHfeioK6XCz4FYqFjbdvnTxYQdFV9Lp2cp3ggp4N4Qpf
-         y+fX0+VyG4QVuEz2prvvmS4O32A+DaDby2HcYsN13FbdVpXYt/2EGpvZS5eNn64wlG4f
-         GJjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789482681; x=1790087481;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UxCVdsnW3ZSI7KLXQLXPZOQXUZHRc3cqhqBZH7/A718=;
-        b=2tkozCZ3kYkGsua11QRHS6ILwQP/0aqPBs6ymppelgrNaoOhuoYe07Ut6Q1q5jAk9B
-         PTpuEdpHtkrYWadUSRMtN3QhtbzZkI4pAoCDk1dJEUuutr1ZkuVDLXUEnqgqUY0ZEH/R
-         DCF2w9zx9JbQjwMWT3vz39fi55A0bVPZQuM7ysmfG0rFQLNFLGfKka2IUOt50+mzPhD6
-         ZK56kV/FEBaZehyI4H/4S+CiQ2it96I+Kd6Pp8x1H/FVYy8mfjYJUK2nOsMg18ejFE9z
-         K82Cv07ctsAnR7F2gWusVqEm1CPb6o/ZQWZiyqazwzX2m19dRTb8t/kg/xym+18teO+F
-         kC0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzC1c/FhWbRYeQsCW+fRu3Lrj1OdNaJ8f2AKQO6HnK5HAMQemXCNAAIzBNdq2ieNaWeXtWrsPzrh/6FbZk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfH293SlGkqdXuS+le2/CXXcb6mpI04aV25ObIL3J6btC3nmbl
-	BEL04PqbLvKY7ru4PtYBlCkOO6rPga7E96YFtLMfqsr8QqCgDyrPrqc3/b2XmTkFHiwKR6iNed4
-	vhqsEjQ==
-X-Received: from pjyt2.prod.google.com ([2002:a17:90a:e502:b0:39d:94c4:375f])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:1697:b0:39e:1310:cb36
- with SMTP id 98e67ed59e1d1-39e1310d234mr1156057a91.20.1789482680587; Tue, 15
- Sep 2026 07:31:20 -0700 (PDT)
-Date: Tue, 15 Sep 2026 07:31:19 -0700
-In-Reply-To: <0b2d8858-b361-4a64-986a-4c179210fbec@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZuqrGNR1"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7C43FC2BCB9;
+	Tue, 15 Sep 2026 14:32:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789482748;
+	bh=KgaXJ/pb3DRKR/CJo1jmUo4ceN84s0N8uAZe35ZJPNM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=ZuqrGNR14lj14B4YuML713qY6D79OulPZukIWWjuC7hV1gz1E3z1WLwaCikyadZ/l
+	 BQnfp6exgoLDZdhNRpJ8k+w5EhXDDBV+fXrTOA9WqRixvfiiHKGJUtJOAeFxWX4Bai
+	 g4pZtcor2Vqtz1OopjVjBbJRSsdYC0uxz8SCc8LGQTwdRxbsV/WHT7xhghGpJz+wMj
+	 S/J0O5xJhooIT8V40vohr5w8agBI2APsr/JTo0MyfTATKcWl8Q7oRWXAcSk4rBSjNN
+	 fwq0o7/TRwmI1dIXbCoXU5GRF877ftz8J1Kd+GMZoTtFA3GPP17IporfsLqFAY8FJh
+	 UCC/P/93ztAYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E73BC88E7F;
+	Tue, 15 Sep 2026 14:32:28 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Tue, 15 Sep 2026 16:32:24 +0200
+Subject: [PATCH v2 1/2] dt-bindings: arm: qcom: Add Xiaomi Mi 8 family
+ compatibles
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910-snp-invalid-input-v1-1-fb2e03da614b@google.com> <0b2d8858-b361-4a64-986a-4c179210fbec@amd.com>
-Message-ID: <aqlWt4jb4CSPnecN@google.com>
-Subject: Re: [PATCH] KVM: SEV: Return INVALID_INPUT on SNP req/resp buffer
- access failure
-From: Sean Christopherson <seanjc@google.com>
-To: Tom Lendacky <thomas.lendacky@amd.com>
-Cc: Jacky Li <jackyli@google.com>, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Michael Roth <michael.roth@amd.com>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Jacob Xu <jacobhxu@google.com>, 
-	Supraja Sridhara <suprajasri@google.com>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-dipper-v2-1-cbade54919ee@ixit.cz>
+References: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
+In-Reply-To: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1258; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=E/ElkcIutej9yrswGTSuy+VcChc1d40Fq6rbIpw9sXE=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqVb6lhA63Dif0jFEcWy4Ko7/7FSaU6eausaci
+ 73W7wdSAl6JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqlW+gAKCRBgAj/E00kg
+ ci5/EACrLyyDxMjkJowF5ja2c+QN5lBpUZlSjXM5NWO4wwBUVH15FuecCU9CKPluHP7CYrOGpJY
+ Q5InBqEhcg7Hcfzuus9ke3e8YLVk/bOyUFZq7P5Jui4hPMyJzJYk60RHIqJ7ipr0i5HXKMqIL58
+ tvgj25rYMnh3846YPDjuJ5Jl1zcJph/ddcB6+UXes6KoBt6oBhDArrw4Bx4N9aOFy3in8dVafkB
+ m1AQR2NZJ6q04rlUpAymHW97FArIc59hYzegnRUQA71e2wBAyDRLMDght1fJ/QG+fUYP83sM90I
+ u2z5RIH8WB4Cpg5+8cMp4FIRKY8aCJrT14cIIz+A+oakt0QzvfVyMHFvwuzbqT3nBu7gK3iStJ9
+ +T0qexR2Z5h0H1A3fzmrOANiLpKFlvpf8+7MpEic8H5Wrh85Hm2GrtHnedDEhCqcvx+ALnm2YKa
+ XExCR+52sXiiSoxTeffMs1zktpkYxar2/eEE1GbtAAsSrbLPlyTliKa+BBCkXXzDWv+j/eVoA7D
+ HWUPPMY1Mald1Yi/mQ7j/0J4J+aBFKEhHlTLKpg/YwLCpthIXa7OPm/Fim1Zntsxh2E5zHyVKMn
+ iZxmQSRfAiQDx88ytkXuBSXdMx+rVlnYoGBPQHoAjT/g8UVZLG71iTNTy9AamdxjjbVuy68ZMRs
+ gIxAxrHGKCXCz/A==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Mon, Sep 14, 2026, Tom Lendacky wrote:
-> On 9/10/26 16:06, Jacky Li wrote:
-> > Currently, snp_handle_(ext_)guest_req() returns -EIO when
-> > kvm_{read/write/clear}_guest() fails while accessing guest-provided
-> > buffers. Returning -EIO causes KVM_RUN to exit to userspace, likely
-> > killing the VM.
-> > 
-> > Fix this by returning GHCB_HV_RESP_MALFORMED_INPUT with sub-error code
-> > GHCB_ERR_INVALID_INPUT to the guest and resuming the vCPU.
-> > 
-> > Per the GHCB specification, guest-provided GPA buffers that cannot
-> > be accessed by the hypervisor (e.g. private pages) should be treated
-> > as guest input errors. Because kvm_{read/write/clear}_guest() only
-> > returns -EFAULT on failure, treating this failure as an invalid input
-> > aligns with the definition of -EFAULT ("Bad address").
-> > 
-> > Returning GHCB_ERR_INVALID_INPUT also matches existing SNP handling
-> > in KVM, which already returns this error code for unaligned or
-> > overlapping buffers. It also aligns with other hypercall implementations
-> > in KVM (e.g. Hyper-V returning INVALID_HYPERCALL_INPUT on
-> > kvm_read_guest() failures in kvm_hv_flush_tlb()).
-> > 
-> > Performing upfront validation (e.g. via kvm_mem_is_private()) is
-> > avoided because it is prone to TOCTOU races with concurrent Page State
-> > Changes.
-> 
-> I'm ok with this approach overall, but will we run into a sequence
-> number problem now?
-> 
-> If the kvm_write_guest() in snp_handle_guest_req() fails, invalid input
-> is going to be returned, but we will have successfully called
-> SEV_CMD_SNP_GUEST_REQUEST. The sequence number will have advanced in the
-> firmware, but I think the guest will not think that it has and not
-> increment the sequence number causing subsequent requests to fail. At
-> that point the guest will need to zero out the associated VMPCK used and
-> move to the next one (there are a max of 4). If this continues happening
-> the guest will eventually not be able to make guest requests anymore.
-> But, I guess, if the kvm_write_guest() is failing, we're probably
-> already in a bad situation, so maybe it is fine.
+From: David Heidelberg <david@ixit.cz>
 
-Oof, "fine" is definitely not ideal though.  
+This smartphone codenamed dipper is now supported by this series,
+variants such as ursa and equuleus just documented.
 
-> > @@ -4244,8 +4246,10 @@ static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_
-> >  	if (ret && !fw_err)
-> >  		return ret;
-> >  
-> > -	if (kvm_write_guest(kvm, resp_gpa, sev->guest_resp_buf, PAGE_SIZE))
-> > -		return -EIO;
-> > +	if (kvm_write_guest(kvm, resp_gpa, sev->guest_resp_buf, PAGE_SIZE)) {
-> > +		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
-> > +		return 1;
-> > +	}
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-What if we keep this one as -EIO (or better, change it to -EFAULT in a separate
-patch?), but add a comment explaning why KVM needs to exit to userspace in this
-particular case?  That would be a good compromise; if the guest is attempting to
-access non-existent memory, the initial READ will fail, i.e. we still get most
-of the behavior Jacky wants.  The only fatal case would be where either userspace
-really did screw up, or the guest managed to find read-only memory (though I
-would probably argue that's likely also a userspace bug?).
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index ff8a35df7862d..c3491630e56d1 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -945,16 +945,25 @@ properties:
+           - const: qcom,sdm670
+ 
+       - items:
+           - enum:
+               - google,bonito-tianma
+           - const: google,bonito
+           - const: qcom,sdm670
+ 
++      - description: Xiaomi Mi 8 family
++        items:
++          - enum:
++              - xiaomi,dipper
++              - xiaomi,equuleus
++              - xiaomi,ursa
++          - const: xiaomi,dipper-common
++          - const: qcom,sdm845
++
+       - description: Xiaomi Poco F1
+         items:
+           - enum:
+               - xiaomi,beryllium-ebbg
+               - xiaomi,beryllium-tianma
+           - const: xiaomi,beryllium
+           - const: qcom,sdm845
+ 
+
+-- 
+2.55.0
+
+
