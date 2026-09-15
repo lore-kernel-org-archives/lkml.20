@@ -1,161 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f5.google.com (mail-lr2-f5.google.com [74.125.230.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D804733A03A;
-	Tue, 15 Sep 2026 11:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADAB3B19B4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473216; cv=none; b=ftv868K8JgpXhyrqVnEwh8xE083NqFXJmPsXWy+Vqnkjmucn5FKE9QDAxRC3W1kkIjCZFH/qzA+OgvVARcF8GIoTBdNfv8o9KX89AOzq93qpY+vyGJP8e+UN9pcJu9t3q6zzUKwbfuvWfTtq0HcfN/Pi/aMU/rwPLhrrgac10c4=
+	t=1789473236; cv=none; b=V064WbH4Rqs1DrSVsgURD9fKtAdhkRQwG7lUXhZcA/q0wg315dDWRsK1+TjMXA+ZuAcGjuvrCb0URT7Zf5JldL6oPiHujeQ4oEvDvXqc+b+uLOaRtENwXdY3q7ri+OPTYpGidkS4wh0FzuRJD1c0s8F5J5U6vHdh6IV4Cjx6IRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473216; c=relaxed/simple;
-	bh=8QXbZ8I+9o9yTyJvFts1sa5d47rPzE6A80UaFqPuVWs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PzS3oYFj9uY20m7ffWKWBOLBQVN2yeY7FfNkSrWGpnuH2EK1pNogKfXIfjY+vBch6JduvE1rK9uyyIQCFeRlyH5tLjhGAs9Bo9ZI/lon0nbroeVdaCUzf1r886Vqbbs/0dzGUG1DkukoMHgKXqpLymG1zzugEPnYpFrSLEmENVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hvmAI+J8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789473236; c=relaxed/simple;
+	bh=qgr/p3hceS3VtgKFOnDdhJhC8P/qNGt2W9yjpLkmnOQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cFw48I9bSdgEzFePw5mMkbnt2SwvgIz47HjkMJkGIhv/fD/Z/bSdjnrW7DY9Vjkh2+bzHffWLWcYVytXY4OMamF6aXfC3Wk3QuNlfsneLdpLndXTYP0CSRRy9K7kd4dodqtkUqhw11rA+Ek57bizW2OAC9IEwNrUEyvKISGEv5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N7rYIU+3; arc=none smtp.client-ip=74.125.230.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hvmAI+J8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49FB91F000FF;
-	Tue, 15 Sep 2026 11:53:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789473214;
-	bh=r5FCBucUZVboJWM6zfaVu4MyS1vGwapKVq7Y/3CWpNs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hvmAI+J8VhVlIRtpF7MdpaJ/10pyVJCHWZEFxkGJFT5SatCDb1iTHDcFeHVosNIwO
-	 5PaQn/Wm5ffc9jL1CJ4E9IHLbtArowck0oa1sPPbO/zidcp3zVITcHNcU5InHYgEN/
-	 G6+fYkbCZbPh2t4yPWQADRjgdRr3gL58i5VCAGkOHcZrdJtIzU49rqkgkxpkT1svla
-	 lz3wBKyRYOA0YUKZPOXzTCF24XzAmdSPUhWxNUA3Fin2YxResaZUgPvYAuXHj8K/q7
-	 FejMB1fzWRCPoxQBoJGL5M9JzeELBq31LsjY7hvx2CQqFMP2obR5C6zGefYfSzsB3S
-	 UZbcYLYqPS0rw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 3/9] coresight: etm4x: fix inconsistencies with
- sysfs configuration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20260915-separate_etm_cfg_v2-v11-3-d2b258d51747@arm.com>
-References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
- <20260915-separate_etm_cfg_v2-v11-3-d2b258d51747@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 11:53:33 +0000
-Message-Id: <20260915115334.49FB91F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N7rYIU+3"
+Received: by mail-lr2-f5.google.com with SMTP id 38308e7fff4ca-3a20b70da4cso24274961fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:53:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789473232; x=1790078032; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SP8o/AX4s37clPQoDD9t4nYTrUrCAlJE0QLNgt9QK14=;
+        b=N7rYIU+3peTYpJ6+Eo+6/R4yh4LZxpwXDBZxezGYcAFt4k4g0hU+/R6BO+6Mmwt7UX
+         wq+WBy7M0I8E2uJoz3Iq4uJktYwWxTokY8YouPPFtmN8mb/ObYRKWEI3Hzp7dSCR6HSp
+         uZytBroAVqYbDBdDmZruoQ8COCo69G9NdHIzNboxSv7KdccbEqZ7tjCI9BBMFKFm0Ofj
+         1NdMC9VhMoGb0CRwuYwfLOuB/416ZFCnedSMcdPwu6XZ15UsVfbhcQQWJZWhn1Cw3c4P
+         AGVhlMdZBwk06MdT2XjFsqq+0VpWuyZcDp1wdzFD20xUz3z3SL6uIgrCpyHFGYxLh+zV
+         ugiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789473232; x=1790078032;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SP8o/AX4s37clPQoDD9t4nYTrUrCAlJE0QLNgt9QK14=;
+        b=jgIEr3tbHWHcVqC1yEifYG8tyftT5/eqpXxx3kanoZtHxFlvqOPe9AGa9L9pAYQQMB
+         g5lrpu1QKdSJO0sc0uetDTY4HBCn9F/6Uth7s8StkOTcPlq3At4Hw+4HBUdT/4ZHPVOI
+         EJbKJ6+0Ff/J8pVcjewXhgPYlj3MdlS1yHausz/j4hLBmyMLYEDm9lE22fhkhgYlhDlD
+         1hwKCULIH40Zo99s5NDkib02pqV6N99/+Bzogngsqy+8MevGKiYE1+xLXQ+Bf/MZqaqe
+         jSOCvWeQVdqnIHLjuT4O1JUY1xoOpEldFHnLgtvI8kzADEeVwLOPvcz/OtS5WptPRazV
+         iPSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxGKjBdd8HXbOVJWE++Kxi6BN1TPRrd3GIVPNpthyDm8IWyv8VqYYUszsNZ2Zezw84Ab8+TDKRfXh8Osqo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBUSD6cmFQQnT0I8WToyF32JUVP7WX8ebDjir7vNAruhrD7fxP
+	9xDhkzeZRx0JQLNNHUnePaYitsmIEnS7M32S3WiEUFTYNPll+J3OCLGX
+X-Gm-Gg: AYBFou2uClKas6JJRbpDJCekyCT97dlqkXOWIQqtXz2A/P8X9ykcCkEi0h7KVPBwX0T
+	7oYeXsGlj+k4CBB05AsJKUr59PzY+DexgMc83BkW4LXkgzm3GobELH9fW0vFNucAFx8Ki2mIU+U
+	RZb3YQYM1/1hZt/IraugYNNuCQJUVSBBvyuRPxW960lBtGrZNe90Bw3f+sjCBqaxclaWSON22CQ
+	egd+QkonCcu+ZTYEO/tZIKXjqq6RXCJ8HBAktCrniVlBRuL3B5j+3EFclZOPBdeGp4qzG94yznw
+	8RdurbV6JwijpRAJLiYm+SZtX2/GvqVueD7xKWjfFNZTytHD26HhQrPPl3Dcx7GikSAJzSXPb4G
+	3TDjVoH7N1PpbbOWcjlLD0onwEIwVgh0ATJsrUgiFZDi/gLK0HMB5FKb+hyJcdDpX4MCu/6fMRh
+	tH5Ji7H3QDFiUcZFQtXQcMiTk3V1jmDYIiibVATczb/ID8DCnzlnds22nkZub7tsCkpdowTy/HW
+	tH40lICVZ2VUufuMw==
+X-Received: by 2002:a05:6512:15a8:b0:5b7:6107:eb77 with SMTP id 2adb3069b0e04-5b8ae6afaf4mr1574809e87.33.1789473231548;
+        Tue, 15 Sep 2026 04:53:51 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a0457238sm3216340e87.16.2026.09.15.04.53.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 04:53:51 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Tim Guttzeit <t.guttzeit@tuxedocomputers.com>,
+	Werner Sembach <wse@tuxedocomputers.com>,
+	Kailang Yang <kailang@realtek.com>,
+	Zhang Heng <zhangheng@kylinos.cn>,
+	Sean Rhodes <sean@starlabs.systems>,
+	Damien Dagorn <damien.dagorn29@gmail.com>,
+	Martin Hamilton <m@martinh.net>,
+	Bharat Dev Burman <bharat.singh7924@gmail.com>,
+	Lei Huang <huanglei@kylinos.cn>,
+	Stefan Binding <sbinding@opensource.cirrus.com>,
+	Lucas Tanure <tanureal@opensource.cirrus.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Denis Arefev <arefev@swemel.ru>,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 6.1 v2] ALSA: hda: Fix missing pointer check in hda_component_manager_init function
+Date: Tue, 15 Sep 2026 14:53:39 +0300
+Message-ID: <20260915115340.105976-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] coresight: data race when updating cntr_val in etm4_disable_sysf=
-s()
-- [Medium] coresight: feat_csdev_lock macro fails to disable IRQs when __lo=
-ck is NULL
---
+From: Denis Arefev <arefev@swemel.ru>
 
-commit 5571e5128409a42536b24f594b727e037107f3f4
-Author: Yeoreum Yun <yeoreum.yun@arm.com>
+commit 1cf11d80db5df805b538c942269e05a65bcaf5bc upstream.
 
-coresight: etm4x: fix inconsistencies with sysfs configuration
+The __component_match_add function may assign the 'matchptr' pointer
+the value ERR_PTR(-ENOMEM), which will subsequently be dereferenced.
 
-This commit separates the active configuration applied to the current sessi=
-on
-from the sysfs configuration to resolve inconsistencies. It applies configfs
-settings after taking the appropriate mode and removes the lock/unlock arou=
-nd
-sysfs enable/disable paths except when accessing config fields.
+The call stack leading to the error looks like this:
 
-> diff --git a/drivers/hwtracing/coresight/coresight-config.h b/drivers/hwt=
-racing/coresight/coresight-config.h
-> index 90fd937d3bd83..ae6295e308131 100644
-> --- a/drivers/hwtracing/coresight/coresight-config.h
-> +++ b/drivers/hwtracing/coresight/coresight-config.h
+hda_component_manager_init
+|-> component_match_add
+    |-> component_match_add_release
+        |-> __component_match_add ( ... ,**matchptr, ... )
+            |-> *matchptr = ERR_PTR(-ENOMEM);       // assign
+|-> component_master_add_with_match( ...  match)
+    |-> component_match_realloc(match, match->num); // dereference
 
-[ ... ]
+Add IS_ERR() check to prevent the crash.
 
-> @@ -259,4 +260,25 @@ void cscfg_csdev_disable_config(struct cscfg_config_=
-csdev *config_csdev);
->  /* reset a feature to default values */
->  void cscfg_reset_feat(struct cscfg_feature_csdev *feat_csdev);
-> =20
-> +#define feat_csdev_lock(feat_csdev, flags)				\
-> +	do {								\
-> +		raw_spinlock_t *__lock =3D feat_csdev->drv_spinlock;	\
-> +		typecheck(unsigned long, flags);			\
-> +		if (__lock)						\
-> +			raw_spin_lock_irqsave(__lock, flags);		\
-> +	} while (0)
-> +
-> +#define feat_csdev_unlock(feat_csdev, flags)				\
-> +	do {								\
-> +		raw_spinlock_t *__lock =3D feat_csdev->drv_spinlock;	\
-> +		typecheck(unsigned long, flags);			\
-> +		if (__lock)						\
-> +			raw_spin_unlock_irqrestore(__lock, flags);	\
-> +	} while (0)
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-[Severity: Medium]
-Will these macros fail to disable IRQs when __lock is NULL?
+Fixes: ae7abe36e352 ("ALSA: hda/realtek: Add CS35L41 support for Thinkpad laptops")
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[Roman: Instead of modifying hda_component_manager_init() (which does not
+yet exist in version 6.1), a check needs to be added to the
+cs35l41_generic_fixup() function—the very function introduced by the
+offending commit, which calls component_match_add() without verifying its
+successful completion.]
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2025-40097
+v2: 6.6 is missing 1cf11d80db5d ("ALSA: hda: Fix missing pointer check in
+hda_component_manager_init function") as well, and it is the newer tree,
+so 6.1 cannot go first here.
+A 6.6 version also needs one more hunk than this: 6.6 has a second
+unguarded component_match_add() in tas2781_generic_fixup() alongside the
+cs35l41_generic_fixup() one.
+Send a v2 covering 6.6, both call sites, and 6.1 
+as Sasha Levin <sashal@kernel.org> suggested.
 
-The intent is to let cfg-configfs operate without grabbing the drv_spinlock
-when it is NULL. However, raw_spin_lock_irqsave() also saves and disables
-IRQs. If the lock is bypassed completely here, IRQs are left enabled.
+ sound/pci/hda/patch_realtek.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Could this lead to reentrancy bugs or deadlocks if generic coresight config=
-fs
-routines like cscfg_csdev_enable_active_config() are called from contexts
-where IRQs are enabled? Should there be a fallback like local_irq_save() wh=
-en
-__lock is NULL to ensure the critical section remains protected from
-interrupts?
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 7b4fd95c66f9..9e6846a37d67 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -7021,6 +7021,11 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
+ 			spec->comps[i].codec = cdc;
+ 			component_match_add(dev, &spec->match,
+ 					    comp_match_cs35l41_dev_name, rec);
++			if (IS_ERR(spec->match)) {
++				codec_err(cdc, "Fail to add component %ld\n",
++					  PTR_ERR(spec->match));
++				return;
++			}
+ 		}
+ 		ret = component_master_add_with_match(dev, &comp_master_ops, spec->match);
+ 		if (ret)
+-- 
+2.53.0
 
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers=
-/hwtracing/coresight/coresight-etm4x-core.c
-> index 2247ad55d4442..2df7f592bb5cf 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-
-[ ... ]
-
-> @@ -1140,9 +1152,17 @@ static void etm4_disable_sysfs(struct coresight_de=
-vice *csdev)
->  	smp_call_function_single(drvdata->cpu, etm4_disable_sysfs_smp_call,
->  				 drvdata, 1);
-> =20
-> -	raw_spin_unlock(&drvdata->spinlock);
-> +	/*
-> +	 * Userspace may read ss_status and cntr_val through sysfs after
-> +	 * the sysfs-session has been disabled.
-> +	 */
-> +	for (i =3D 0; i < drvdata->nr_ss_cmp; i++)
-> +		config->ss_status[i] =3D active_config->ss_status[i];
-> =20
-> -	cscfg_csdev_disable_active_config(csdev);
-> +	for (i =3D 0; i < drvdata->nr_cntr; i++)
-> +		config->cntr_val[i] =3D active_config->cntr_val[i];
-
-[Severity: Medium]
-Does this create a data race with sysfs operations?
-
-The etm4_disable_sysfs() function removes drvdata->spinlock but continues to
-copy active_config values into config->cntr_val locklessly.
-
-Meanwhile, concurrent sysfs show and store functions access these fields un=
-der
-the spinlock:
-
-cntr_val_store() {
-        ...
-        raw_spin_lock(&drvdata->spinlock);
-        idx =3D config->cntr_idx;
-        config->cntr_val[idx] =3D val;
-        raw_spin_unlock(&drvdata->spinlock);
-        ...
-}
-
-If etm4_disable_sysfs() runs while another thread concurrently reads or
-writes cntr_val through sysfs, can it corrupt the configuration state?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-separate_e=
-tm_cfg_v2-v11-0-d2b258d51747@arm.com?part=3D3
