@@ -1,115 +1,142 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB6B3019D9
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A646835E1A8;
+	Tue, 15 Sep 2026 20:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789503952; cv=none; b=EURd/x1m7KpC+Hu7VRzAsUC0Bkkod6KpbsrNsMH//Ka1p3MLhF9d4MTS0eW/wq/McBWxDuCGpG19hVVS5hkoUR1xEAqXWiT3DwcX9eyJXx6y5GM1nK4AW+GpPiUK+Q7L0vANeoZLOgcOlUcbI0oE9EGlnvL//a9KpPNv9v2gKvo=
+	t=1789503997; cv=none; b=RrWQCm49+mqHkfLuriMIWvsiD1PJlGwEy7ES1VgXkHidhkl833AQcoIHWRhtwnKtE4AEtw/E/9XwBsZBw4Z7BM4rosgkBgMm8b+Ml9p7rIQUORk0z0rHHo1VvTwVqFoVJazo2vwFaMeHqdNv5Nl16U2M7yHFcl8MPAgfN7q3q7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789503952; c=relaxed/simple;
-	bh=RvjCwhFGET9Uj66Osagy6a4qssD8e7inBSdkIa2r4RE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BB8tJWlOmukt1A15s/PFm1vT0qzufLZOEYRs6w3/gkcL85cZI72SpNbl4hlUTBzHdQqb0Ae6yyxJgNFyJu0dZnU+oVK/RMgqGTe+dWARZk+qfr+XQJqnYcCwKCETxxyqwgVeYPoJG2i5Nt2J/S2itZx8aQ4sBYazslGMrnMTujE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LQ4SIr0i; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789503997; c=relaxed/simple;
+	bh=p9FzcHvzEo6//+9LkWPlg4+X47e9L8Vsw++LvvWbZkA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bek/aPazehfy0MbmcEO59mR1VxfzhqAm1REjLDVsu6Dvt1tnsnfAygE73lhKQj0k4ncMk/NLvYYL4c9QRUGhYPS4xNhbSmWsiM/04mQfuLFCLw4t2cXbZhbc44vd87BQKY0SLMpqkPykUL3eNhmEr96OTu+W2bUpklEECQ5kOY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kpMi0nVw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LQ4SIr0i"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f05ffdso1726085ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:25:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789503945; x=1790108745; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vNdtcRPen4btN0ZzDjINeGYvdaPnuO0V2FcBebJBxrc=;
-        b=LQ4SIr0iJ2j0rSMPS75BkS/YsHHcvyEwx7hEYHSOzqlkoNVZPXUO5DFr+gzIGR7gil
-         c5cnsBqFQhFf5lCkCSGvKDDkW2jXS7AVhXK1+BBHJdYPJ9z52DiOtr4XrttK3lJwDTvu
-         Bojx3wUptCsFl2y0zPB+7YaWHgog3ZfFIx3odNqGxSMgsRLJKf6XX5YNe3ZxzYCd2zdk
-         yMiCybBXIgt4fYeWGHjK0WGdfbUvvkkrUJ94ehuW8ZFE0G5pgHOGxL4fBPW3Qq9CBuQD
-         imBmTTc1D5CUZOwB2Hc6BQEspI3KxNPRlUXlT+Jgk4YNU59p/ZLAd1+cSd0a99odW2wR
-         DVMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789503945; x=1790108745;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vNdtcRPen4btN0ZzDjINeGYvdaPnuO0V2FcBebJBxrc=;
-        b=lI2QwoWoz8hoNs10eqdMyW1XuKtuEYb9zloSxt01RB0JLzS6VWUIhlIOz6F799D8Ag
-         pFauTSaH033ysHS4EkjwqgxTbTPB0Yg8fXjCUnVPSLwPR4P4twOk1JIXRT0JL8kMSrG2
-         FrBV2MsS1+8dThqIGVikssd1XWPJvmsvhUDORHf/sf5I+rkAPSSNH86Jvj2/z4NorCam
-         2qnyzhfKbvvQ3QXTHMuouknBCINvD6A/mvweRSvonn1n675+yDivuzzDhUUNqbk9x9p/
-         6kz4ySHMPoXskFfuOKZHv/8ZeQUqq97REqzgdEEsIlHNRYDD1tgqxp1QUVwfc5834yv5
-         GL8w==
-X-Forwarded-Encrypted: i=1; AKwUvBxXX0yTP1clynWWPqVCzizEPU12rXqH8tkFOASuRKADM49DN/ek5ffK5YDpECBafrHaYXh1uQAnLMSnAUc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9t/8f+k/gyfxWOsZ/8mKGv3ZqMZFxGZL79cQm4V0TWVGMryxs
-	csxe85g3s1/rjQ04WNa5WSOhTfjKzX/NyBefkCn5+uPKaldzFRU1PC1U
-X-Gm-Gg: AYBFou20B7B9aMS/cCEIuNqrTeGTyWpMHPVhS3ecZWNLCJcDGUoiBAKzGWdcqcytTun
-	oLl/MXoikBWon0RzZDMibyy5nbDPKTKSS2cnvkAmf0kAWsM/YtrhS8jErX5MhLyFToiMI8Lm329
-	bCT28KiEwyl1AwmOvhFbafh2gOIoy76EKyrcDpzXRp61zZsZPkE7Ootql9AB0m5ZuKQwklc2XMY
-	/wCvcd58WjIUJ1U5L+ANZc1Id4/MV2O60eOQ3aXWmVBZxKnuWt65mJDLo4A3a5rZQhLv2CmuJ+S
-	MtWMDPiBM++GEFMov7uQamY54OUeVkj8kMCd+0KJbJDnxeipDbW3tCvRGfwt68yCD2op0n7G6PF
-	X6L6TVusF2w/PlW9e7dNgfeGw9YnV2ul2NryyjpJ0D+3ua1F5UDX0/UpeZOuAC4Qo4JOurQOIO2
-	xemJ9BDqwX7vPN60zdKOMjfojK2qVDLWi/i/VRg3sHsl1rtGIEZDlxcxkexPTMIgcfAwZVP1Rgi
-	O8tPC16F3WGNszxHSnKwcM=
-X-Received: by 2002:a17:902:ec89:b0:2dd:7593:8634 with SMTP id d9443c01a7336-2dd838536b6mr44291865ad.13.1789503945178;
-        Tue, 15 Sep 2026 13:25:45 -0700 (PDT)
-Received: from nixos.tail966018.ts.net ([2405:9800:b530:f677:2b6:42de:4884:aa25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aa1194sm1560592eec.14.2026.09.15.13.25.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 13:25:44 -0700 (PDT)
-From: Tanawat Jukmongkol <tanawat.jukmon@gmail.com>
-To: axboe@kernel.dk,
-	tz2294@columbia.edu
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-next@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Tanawat Jukmongkol <tanawat.jukmon@gmail.com>
-Subject: [PATCH] fs/buffer: fix NULL deref on folio-less bh in __bh_submit
-Date: Wed, 16 Sep 2026 03:25:34 +0700
-Message-ID: <20260915202534.468958-1-tanawat.jukmon@gmail.com>
-X-Mailer: git-send-email 2.47.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kpMi0nVw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B43B91F000FF;
+	Tue, 15 Sep 2026 20:26:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789503996;
+	bh=qC+xnHENasn5vp64ecDoz3DjX2JIj8WYObnXwzazahM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=kpMi0nVwTEK7U8lEwyax67+haOFcnLPFPQie/53QLQ4D4aa9OzXjTvBg86b+b2Mmx
+	 G/6Oha2BoPhzwKMHO7y933z9U54w9qUdcFmRqiL7pUhezDapl8n5nE9QpctUC6pk2x
+	 e73mm95frwdq5eTHrDsnJhgh8azyBB7DQVTk601EQtnzfen8GhODXuPMVj5kzLAG1E
+	 obT7v6WrOFtcZa7SONCwQh2HjrA9NBiNzaUDpc2ha0ZV+i/5cyPDPvOPx2jcG/Kbm8
+	 +vkNvCfKM/YicxwN3CE1u/JoefruZinRw/0oFCatVDgqtJzZGvfUSjwRoMoP+Rx5aQ
+	 pRLREm+LZFcFA==
+Subject: Re: [PATCH net-next] net: phy: marvell: add support for active-low
+ and active-high LEDs
+From: netdev-bot+sashiko@kernel.org
+To: olek2@wp.pl
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 15 Sep 2026 20:26:35 +0000
+Message-ID: <178950399524.22033.13133348870074259078@kernel.org>
+In-Reply-To: <20260914200847.445375-1-olek2@wp.pl>
+References: <20260914200847.445375-1-olek2@wp.pl>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-jbd2 submits buffer_heads it allocates directly for journal descriptor
-and commit-record blocks, which have no folio backing at all - as the
-comment on buffer_set_crypto_ctx() just above already notes. Unlike
-that check, and unlike the bh->b_folio check further down in the same
-function, __bh_submit() calls folio_test_dropbehind(bh->b_folio)
-unconditionally, so committing a transaction on one of these bh's
-null-derefs while reading the folio's flags:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: __bh_submit+0x90/0x140
-  Call Trace:
-   jbd2_journal_commit_transaction
-   kjournald2
-   kthread
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Guard the call the same way.
+- [Medium] Incomplete mask for 2-bit LED polarity field in
+  phy_modify_paged.
 
-Fixes: a2c924c240e7 ("buffer: set BIO_COMPLETE_IN_TASK for dropbehind writeback")
-Signed-off-by: Tanawat Jukmongkol <tanawat.jukmon@gmail.com>
----
- fs/buffer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--
 
-diff --git a/fs/buffer.c b/fs/buffer.c
-index 427d8a817..4aea0bb08 100644
---- a/fs/buffer.c
-+++ b/fs/buffer.c
-@@ -1106,7 +1106,7 @@ static void __bh_submit(struct buffer_head *bh, blk_opf_t opf,
+> diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+> --- a/drivers/net/phy/marvell.c
+> +++ b/drivers/net/phy/marvell.c
+> @@ -3585,6 +3589,41 @@ static int m88e1318_led_hw_control_get(struct phy_device *phydev, u8 index,
+>  	return marvell_get_led_rules(index, rules, mode);
+>  }
+>  
+> +static int m88e1318_led_polarity_set(struct phy_device *phydev, int index,
+> +				     unsigned long modes)
+> +{
+> +	bool force_active_low = false, force_active_high = false;
+> +	u32 mode;
+> +
+> +	if (index >= M88E1318S_MAX_LEDS)
+> +		return -EINVAL;
+> +
+> +	for_each_set_bit(mode, &modes, __PHY_LED_MODES_NUM) {
+> +		switch (mode) {
+> +		case PHY_LED_ACTIVE_LOW:
+> +			force_active_low = true;
+> +			break;
+> +		case PHY_LED_ACTIVE_HIGH:
+> +			force_active_high = true;
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	if (force_active_low)
+> +		return phy_modify_paged(phydev, MII_MARVELL_LED_PAGE,
+> +					MII_88E1318S_PHY_LED_POL,
+> +					MII_88E1318S_PHY_LED_POL_ACT_HIGH(index), 0);
+> +
+> +	if (force_active_high)
+> +		return phy_modify_paged(phydev, MII_MARVELL_LED_PAGE,
+> +					MII_88E1318S_PHY_LED_POL, 0,
+> +					MII_88E1318S_PHY_LED_POL_ACT_HIGH(index));
+> +
+> +	return -EINVAL;
+> +}
+> +
+>  static int marvell_probe(struct phy_device *phydev)
+>  {
+>  	struct marvell_priv *priv;
 
- 	bio = bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
+[Severity: Medium]
+The LED polarity field in page 3 register 0x11 is two bits wide per
+LED, but m88e1318_led_polarity_set() only ever touches the lower bit
+of the field. MII_88E1318S_PHY_LED_POL_ACT_HIGH(idx) expands to
+1 << 2 * idx, so for the active-low case the phy_modify_paged() call
+clears just that one bit and leaves the upper bit of the pair
+untouched; for the active-high case the mask argument is 0, so no
+bits are cleared at all and only the low bit is set.
 
--	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
-+	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
- 		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+That means the result depends on whatever the field held before. If
+the LED was left in one of the encodings that has the upper bit set
+(e.g. the tri-state/high-Z variant configured by the bootloader or by
+strapping), asking for active-low leaves the pair as 0b10 - i.e. the
+requested polarity is silently not applied - and asking for
+active-high produces 0b11, which is not one of the documented
+encodings. Since this callback is reached from the LED polarity
+plumbing on any DT/sysfs configuration, the LED can end up in a state
+that neither the user nor a later led_hw_control_get() agrees with.
 
- 	if (IS_ENABLED(CONFIG_FS_ENCRYPTION))
+The fix is to read-modify-write the whole two-bit field: pass a mask
+covering both bits (something like GENMASK(2 * index + 1, 2 * index),
+or a dedicated MII_88E1318S_PHY_LED_POL_MASK(idx) macro) and the
+desired encoding as the set value, so both the active-low and
+active-high paths fully define the field. Since you have the 88E1318
+hardware and I do not have the TRM in front of me, could you confirm
+from the datasheet what the upper bit of each pair means and what the
+correct encodings for plain active-low and active-high are? If the
+upper bit selects tri-state-when-off behaviour that we deliberately
+want to preserve, please say so and add a comment, but then the
+active-high path still must not be able to produce the reserved 0b11
+combination.
+
+While you are there, please also use BIT()/GENMASK() and parenthesise
+the shift in the new macro rather than open-coding 1 << 2 * (idx).
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914200847.445375-1-olek2%40wp.pl
