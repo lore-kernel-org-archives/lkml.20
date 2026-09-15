@@ -1,181 +1,126 @@
-Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7A018B0A;
-	Tue, 15 Sep 2026 01:14:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.235.229.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5256F32ABCA;
+	Tue, 15 Sep 2026 01:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789434901; cv=none; b=P6+ufAp5XUvTDGWrzQnfXhbTm/G0MiQ+U23pryz5ZUCiVOfbxfE/w4/d72O6hYNsW30xvYCdZBJ6iHN9vfPYoghd74BSIpYJkKgwmewTi/SIT8j7+L6f+8ysG7cO17vT3ftnwF9ZRREntSa2R/FC7sJwVFZT+tEFKGs57pReY/0=
+	t=1789434950; cv=none; b=n5pmJeXA3GWagKO3J8RbW1VL/KXkeKWDDeajssdyMSMKJDWRJAjZn5oeLc9FG1mqTOrlTaWn5rCoGxtqgLWy10TJCKB+1u3g5DrhWLiWjN4lj0kyvLrQOBEMlAIkEc1/OJS9oW4n0i4+9wTOImH2xQUSaSCVuR18lVw2KkZZcNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789434901; c=relaxed/simple;
-	bh=DwJjwn5HIEHKhtU52jSO9IR5QQMvOoresNqNN3wGl5w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XN6xnCDgqmkC2gWEnMyHSLn5ML59OMLoWHtr5EFRkH6IVxervcBkykv44MZlJ/bQ4w44qXBeYy16UePRUnJSxLQY7ILVXIM49JJlXZSOqkcWfaDzLXBxuSuZD6njN00xfAHpatqTSIvFQlTDsFAeKIHeaCvllcWwxWUg06sB7dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org; spf=pass smtp.mailfrom=treblig.org; dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b=fTWCjfLh; arc=none smtp.client-ip=46.235.229.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=treblig.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=treblig.org
+	s=arc-20240116; t=1789434950; c=relaxed/simple;
+	bh=M6UZ4nkQXKWjmgCELjX8YqXnH6hl1ZT4P+zjm8mWddY=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=EdIBU6ubwfTEKmHEQ3WwTHdkCgJuo1nkN5KZXDl7yQ73PA89aHh9P4SX/3R9lpxCz9v7nqy1VqG8YDvoHRxfpVYrL+ar88RkmIrYp1KGMBhfbQi+sWrbECeZpqMrdi+M99mN5r3zq6D1mKZCMbQI9PZs+rUTUrGYZHQu8HgtrEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AEm2GFMs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=treblig.org header.i=@treblig.org header.b="fTWCjfLh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
-	; s=bytemarkmx; h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
-	:Subject; bh=Aq7S2rs88ABpoxMUNzWr6791EmdCrGhcJbnJNOT1LaY=; b=fTWCjfLh+xAA/d3S
-	+hLFdzyMouCmLyX9WpIXLQfgIoLUr0Zw+7zVYUtWDjR38X7lTMuAu9sVwXVnP1nQm8k8jQoK4GlEr
-	Hi1zPTbYoKSbBxgxkJWPBf9LEw+WBBBwTwqloVcyA3eHtGCsdj9/d5bYivdlwg8Ehba77ACvnmaLa
-	vFZo/Zqr/TkuxGNFgFIywB86wE3jWqgxqypOpIBsGTxcN5p6VA2/6n6zQF7OgIRHhNvyJ7WYF6ULJ
-	phrpvA+xWfS7uqr4aWDGThsjWr6rvSsgCM5uKlq2scUL44eOBcJJMJVl49EhG4j8zsQOmPR7psTWs
-	YyY+IRkLo+OsV0SPYw==;
-Received: from dg by mx.treblig.org with local (Exim 4.98.2)
-	(envelope-from <dg@treblig.org>)
-	id 1x6HTA-00000000b9C-2ZS7;
-	Tue, 15 Sep 2026 00:56:20 +0000
-Date: Tue, 15 Sep 2026 00:56:20 +0000
-From: "Dr. David Alan Gilbert" <dave@treblig.org>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/3] usb: typec: mux: ps883x: disable USB4 on
- incomplete USB4 platforms
-Message-ID: <aqiXtO3WrwSFHE3e@gallifrey>
-References: <20260914-ps883x-disable-usb4-v2-0-523c32b4e4d7@oldschoolsolutions.biz>
- <20260914-ps883x-disable-usb4-v2-3-523c32b4e4d7@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AEm2GFMs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA401F000FF;
+	Tue, 15 Sep 2026 01:15:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789434949;
+	bh=OarrLH16syLJAovCuR0kGOue/L2rDMdZ+vfPBEjOaeY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=AEm2GFMsRU2yRAkMzCZQ8JlS7MwjfmyFdgaMS6y0atza97U9e/90phj+lWE1OZPzn
+	 sx2lh5Rpqr1LN4rLLnpNuCtGjIEk/qgGMvv6r/usjuVs7Zp0+9eX/WaMzOM03Px8jf
+	 PRiSXKWqEKtBAxmmg8IeHoOgHnF6v3EvwgPtK/K6NgbEp9Eipa0lJ/bQeeKqGxvfrp
+	 GtnE55xI5YWHKLfe7z/r/9SOBQi55asDL60+1Fzzm+TU6h5igFJmBaxmxO2026qeQn
+	 YNTO97WRlTUD78YboKBCaxiPii8O2ZVTeY+K+cznD6asciQd4p0HIu6SFQw00V+7oH
+	 9MSlfxoi6Px/Q==
+Content-Type: multipart/mixed; boundary="===============0161519070531051856=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-In-Reply-To: <20260914-ps883x-disable-usb4-v2-3-523c32b4e4d7@oldschoolsolutions.biz>
-X-Chocolate: 70 percent or better cocoa solids preferably
-X-Operating-System: Linux/6.12.107+deb13-amd64 (x86_64)
-X-Uptime: 00:55:31 up 2 days, 12:40,  3 users,  load average: 0.00, 0.00, 0.00
-User-Agent: Mutt/2.2.13 (2024-03-09)
+Message-Id: <d03c668fa32e27b030d7dbb90e39ac6142970c5d204ec30ed9b3ab82a37d157b@mail.kernel.org>
+In-Reply-To: <b6782cd33f9ccc6265b0b2140cf1f68d@kernel.org>
+References: <b6782cd33f9ccc6265b0b2140cf1f68d@kernel.org>
+Subject: Re: [PATCH bpf v2] bpf: Keep generic __uninit kfunc arguments live
+From: bot+bpf-ci@kernel.org
+To: tj@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,ameryhung@gmail.com,bpf@vger.kernel.org,sched-ext@lists.linux.dev,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 15 Sep 2026 01:15:48 +0000 (UTC)
 
-* Jens Glathe via B4 Relay (devnull+jens.glathe.oldschoolsolutions.biz@kernel.org) wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
-> On Qualcomm X1E80100 / X1P42100 platforms using the Parade PS883x
-> retimer, hotplugging USB4-capable docks such as the Lenovo 40B0 can
-> result in working USB but no DisplayPort output.
-> 
-> When the dock negotiates USB4, the retimer receives TYPEC_MODE_USB4
-> and forwards it via typec_mux_set(). The qmp-combo PHY then selects
-> USB3-only because no classic DP altmode SVID is present in the state,
-> leaving the DP transmitter and AUX channel disabled.
-> 
-> Reject USB4 with -EOPNOTSUPP on platforms whose USB4 / DP-tunneling
-> stack is not ready yet. The Type-C stack then falls back to USB3 + DP
-> Alt Mode. DP altmode configuration continues to use the existing
-> ps883x_set() path.
-> 
-> Use a machine-compatible table rather than a DT property so the quirk
-> stays inside the kernel and can be removed later without creating ABI.
-> 
-> Link: https://patch.msgid.link/20260312101431.2375709-1-krishna.kurapati@oss.qualcomm.com
-> Assisted-by: Grok(xAI):4.6
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+--===============0161519070531051856==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Seems to work here (pair of Asus zenbook a14's doing usb networking), so:
+> bpf: Keep generic __uninit kfunc arguments live
+>
+> Stack liveness models a kfunc's __uninit pointer argument as a pure write:
+> whatever the buffer holds before the call is dead, and 2cb27158adb3 ("bpf:
+> poison dead stack slots") poisons those slots at every checkpoint the path
+> visits before the call. Argument validation disagrees. Only dynptr arguments
+> honor __uninit. A generic fixed-size buffer goes through check_mem_reg(),
+> whose read pass requires every byte readable. The two rules meet at the call
+> and the poisoned buffer is rejected with "slot poisoned by dead code
+> elimination", even when the program initialized it.
+>
+> Every kfunc with a generic __uninit output argument is affected,
+> bpf_ksock_create() through err__uninit and sched_ext's scx_bpf_cid_topo()
+> through its output struct. The rejection needs the buffer's slots to be
+> allocated and dead at a checkpoint, for example on the second iteration of a
+> loop around the call. Before e566701b9b0c ("bpf: Check fixed-size mem args
+> of helpers and kfuncs the same way") kfunc arguments could read poisoned
+> slots, so the call passed, but the slots stayed poisoned and the program's
+> next read of the buffer was rejected instead.
+>
+> Restrict the liveness write-only exception to dynptr arguments, where
+> validation accepts uninitialized output. A generic __uninit buffer stays
+> live and is never poisoned, and validation keeps requiring it to be
+> initialized. Add a selftest with a scalar output buffer and a checkpoint
+> between its initialization and the call.
+>
+> v2: Rebased on bpf/master.
 
-Tested-by: Dr. David Alan Gilbert <dave@treblig.org>
+This isn't a bug, but could the 'v2: Rebased on bpf/master.' note move
+below the --- line so it stays out of the git log?
 
-> ---
->  drivers/usb/typec/mux/ps883x.c | 37 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
-> 
-> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-> index e93e958065f6f..02d6c04d45ae3 100644
-> --- a/drivers/usb/typec/mux/ps883x.c
-> +++ b/drivers/usb/typec/mux/ps883x.c
-> @@ -13,6 +13,7 @@
->  #include <linux/kernel.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> +#include <linux/of.h>
->  #include <linux/regmap.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/usb/pd.h>
-> @@ -42,6 +43,22 @@
->  #define CONN_STATUS_2_TBT_UNIDIR_LSRX_ACT_LT	BIT(4)
->  #define CONN_STATUS_2_USB4_CONNECTED		BIT(7)
->  
-> +/*
-> + * Platforms where the USB4 / DP-tunneling stack is not ready yet. Rejecting
-> + * USB4 here lets the Type-C stack fall back to USB3 + DP Alt Mode instead of
-> + * negotiating USB4 and then failing to drive DisplayPort.
-> + *
-> + * This is a temporary, kernel-contained quirk (not DT ABI). Drop the entries
-> + * once the corresponding USB4 support is complete.
-> + */
-> +static const char * const ps883x_disable_usb4_compats[] = {
-> +	"qcom,x1e80100",
-> +	"qcom,x1p42100",
-> +	"qcom,hamoa",
-> +	"qcom,purwa",
-> +	NULL,
-> +};
-> +
->  struct ps883x_retimer {
->  	struct i2c_client *client;
->  	struct gpio_desc *reset_gpio;
-> @@ -63,8 +80,21 @@ struct ps883x_retimer {
->  
->  	enum typec_orientation orientation;
->  	bool in_reset;
-> +	bool disable_usb4;
->  };
->  
-> +static bool ps883x_should_disable_usb4(void)
-> +{
-> +	const char * const *compat;
-> +
-> +	for (compat = ps883x_disable_usb4_compats; *compat; compat++) {
-> +		if (of_machine_is_compatible(*compat))
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  static int ps883x_enable_vregs(struct ps883x_retimer *retimer)
->  {
->  	struct device *dev = &retimer->client->dev;
-> @@ -262,6 +292,9 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
->  			cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
->  			break;
->  		case TYPEC_MODE_USB4:
-> +			if (retimer->disable_usb4)
-> +				return -EOPNOTSUPP;
-> +
->  			eudo_data = state->data;
->  
->  			cfg2 |= CONN_STATUS_2_USB4_CONNECTED;
-> @@ -391,6 +424,10 @@ static int ps883x_retimer_probe(struct i2c_client *client)
->  
->  	retimer->client = client;
->  
-> +	retimer->disable_usb4 = ps883x_should_disable_usb4();
-> +	if (retimer->disable_usb4)
-> +		dev_info(dev, "USB4 disabled until platform USB4 support is complete\n");
-> +
->  	mutex_init(&retimer->lock);
->  
->  	retimer->regmap = devm_regmap_init_i2c(client, &ps883x_retimer_regmap);
-> 
-> -- 
-> 2.53.0
-> 
-> 
--- 
- -----Open up your eyes, open up your mind, open up your code -------   
-/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
-\        dave @ treblig.org |                               | In Hex /
- \ _________________________|_____ http://www.treblig.org   |_______/
+> Fixes: 2cb27158adb3 ("bpf: poison dead stack slots")
+> Cc: stable@vger.kernel.org # v7.1+
+
+This isn't a bug, but since this targets bpf, would it be worth dropping
+the Cc: stable trailer and instead noting the v7.1+ backport request
+under the --- line, as bpf_devel_QA.rst asks?
+
+> Signed-off-by: Tejun Heo <tj@kernel.org>
+
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index ddba53eaa3331..310a3c6339a98 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -13588,7 +13588,8 @@ s64 bpf_kfunc_stack_access_bytes(struct bpf_verifier_env *env, struct bpf_insn *
+>  	/* KF_ITER_NEW kfuncs initialize the iterator state at arg 0 */
+>  	if (arg == 0 && meta.kfunc_flags & KF_ITER_NEW)
+>  		return -size;
+> -	if (is_kfunc_arg_uninit(btf, &args[arg]))
+> +	/* only dynptr validation accepts an uninitialized __uninit argument */
+> +	if (is_kfunc_arg_dynptr(btf, &args[arg]) && is_kfunc_arg_uninit(btf, &args[arg]))
+>  		return -size;
+>  	return size;
+>  }
+
+Amery Hung raised a design concern on v1 about whether restricting the
+liveness exception to dynptrs is the right fix.
+
+The reviewer suggests that the underlying issue is that generic argument
+validation doesn't honor __uninit, and that generic __uninit arguments
+should behave like helper output buffers: generate MEM_UNINIT | MEM_WRITE,
+validate as write-only, and mark the written range initialized after the
+kfunc call. With that approach, bpf_kfunc_stack_access_bytes() could
+continue returning -size for generic __uninit arguments.
+
+The current change instead makes their previous contents live and requires
+callers to initialize an argument explicitly declared uninitialized.
+
+Was this comment considered for v2?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34913753963
+--===============0161519070531051856==--
