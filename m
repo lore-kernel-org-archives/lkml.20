@@ -1,140 +1,207 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DB9A4470EA0
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta0.migadu.com (out-64.mta0.migadu.com [91.218.175.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28FC2D7380
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789466513; cv=none; b=D6WN3pNo5F9CHqfWQY/2s06V750LI5D1qi5PF3EnLop1Cd7hlF9rkgeYmU4wNEarMrP24ERZnA/o9TdQDRHerHw4yxWOEV/SxpiwR7FAnfRybnJUXxHqzoxtkORaMekVnatsvhoDQ3dbZClGFD5bEyDTcEXxDsSPXbKqEK1W4C0=
+	t=1789466573; cv=none; b=OCGwloN/UWD6aHlDuNhdUphr+gDNt51Nzk0oZjUxFn5xarufvU2OZjZnY3Wd4sBuCs2zONHagnlJpFFm/itkuCeNR0JEYDj/OmqN/doiUpd+nIFWe0SOJITVh3tzmXv3Dq6XstW199sejKGbcZDK/NUu4bqqlC8J5mdCttUgZhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789466513; c=relaxed/simple;
-	bh=y9XYLztJ6FYFNTl+LwcbVqc6y4YcqNIT0VXfgbo7iLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eOcoxO93Pbtn+g5EmFUMCVWG/pYjOYWQJdnxVrJdKz1fxGGbwoZtb5zgkysAMoYJ1FfdKpwH1EQBm5hhUPuKcafReJoHAhaJ+BXTAgf575N/FDjYlItIMgrmJbaOvOS4MK6VQ6yPQsKk4cIUBq0Pn8lJQV9j5RZi7whnGtvTaXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Y0Hc2vNx; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789466573; c=relaxed/simple;
+	bh=KMag9z0Wo8hiEdB8tK0/7JfGoncyKQBZfpyQXLCcKdg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=i2XJuNeGEhj6cvUyVSZJT1ArUHfqm+IWSk4mt06T4cEhwkYpMY5eFdaqCXlTpjENTrSukvqbvXRErtKLS77cB8QWWSdlAyd0Se3udwOLHYGpgZcD24U0IdTUj9QT4LwlZ4eHmOvnCztoLYf3cXnzV0ZbPR833JGUuZ8vHwFS4Rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YttsFhCT; arc=none smtp.client-ip=91.218.175.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Y0Hc2vNx"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A10E91477;
-	Tue, 15 Sep 2026 03:01:47 -0700 (PDT)
-Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com [10.2.198.107])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2D1313F86F;
-	Tue, 15 Sep 2026 03:01:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789466511; bh=y9XYLztJ6FYFNTl+LwcbVqc6y4YcqNIT0VXfgbo7iLo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Y0Hc2vNxxcRUPZKkK8eHnF1jgFm9z1xT0buNyeP6oihCccbXR1U0lcJWHsQX06tCm
-	 f/mPojkFtkyJUmw967ChujyH70nX/NcWkMG0lKh+eiVCU5IxxI/GYX9jMqFv9SJVFP
-	 ZLiILo5xNVzSGcdTqFl4K5FeSyw4/9pr27DtU7CE=
-From: Ryan Roberts <ryan.roberts@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Rio <rioo.tsukatsukii@gmail.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
-Date: Tue, 15 Sep 2026 11:01:38 +0100
-Message-ID: <20260915100140.3631650-1-ryan.roberts@arm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YttsFhCT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KMag9z0Wo8hiEdB8tK0/7JfGoncyKQBZfpyQXLCcKdg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789466568; v=1; x=1790071368;
+ b=YttsFhCTn3tZlWIHx/QqJcEIAvoQpRoMuUG5wdRTl21giZ2jMGLhAiSs3TgKFZ0y2qekKoYn
+ g3IcZax4jAs8utERH4C2S6T4MxNvexlRMhHGGRWN+pKzNJY6aX9MySTiugeuwgwUUdiExes25z5
+ ZntsXar4F65phKoOEsNieu60=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 795572a7255fdb00;
+	Tue, 15 Sep 2026 10:02:48 +0000
+X-Mizu-Trace-ID: 795572a7255fdb00
+X-Migadu-Flow: FLOW_OUT
+From: Ye Liu <ye.liu@linux.dev>
+Date: Tue, 15 Sep 2026 18:02:37 +0800
+Subject: [PATCH RFC] mm/vmalloc: implement in-place grow for vrealloc
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-vmalloc_vrealloc-v1-1-37404c31338f@linux.dev>
+X-B4-Tracking: v=1; b=H4sIALwXqWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0NT3bLcxJyc/OT4sqJUMEM3ydTQ0tgiKc04JclcCaitoCg1LbMCbGS
+ 0UpCbs1IsUDApsThVN6koMS85A2QauiFKtbUA6OSNfYoAAAA=
+X-Change-ID: 20260915-vmalloc_vrealloc-b51938bf3db7
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Uladzislau Rezki <urezki@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Ye Liu <liuye@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-Netconsole registers with CON_NBCON_ATOMIC_UNSAFE, so its write_atomic()
-callback is only usable during nbcon_atomic_flush_unsafe(). Previously
-this was only called by vpanic() if panic_timeout=0 - i.e. if the system
-was configured not to reboot on panic. So if the system was configured
-to reboot on panic, netconsole would never receive the panic logs.
+From: Ye Liu <liuye@kylinos.cn>
 
-Move vpanic()'s emergency_restart() call to after the call to
-nbcon_atomic_flush_unsafe() to solve this problem. The downside is that
-potentially unsafe operations are now performed prior to
-emergency_restart() which could theoretically reduce the chances of the
-restart succeeding. But we are already in a panic situation so it could
-be argued that everything is best effort already.
+vrealloc() previously fell through to a full reallocation + memcpy +
+vfree whenever the new size exceeded the already-mapped page count,
+even when the existing VA range had sufficient room.  This meant every
+grow operation paid an O(n) memcpy and two VA allocations for no
+benefit.
 
-In older kernels (v6.19 and earlier) netconsole is able to print these
-panic logs while the system is configured to reboot on panic. So from a
-user perspective this is a regression caused by commit 7eab73b18630
-("netconsole: convert to NBCON console infrastructure").
+Implement an in-place grow path that allocates additional physical
+pages and maps them into the unused tail of the existing VA range,
+avoiding reallocation entirely when the VA has room.  On failure
+(partial allocation or mapping error), the path cleans up and falls
+through to the existing need_realloc fallback, so behavior is
+preserved.
 
-We have automated test systems without BMC access, which rely on these
-two features working together.
+The grow path is guarded by the same conditions as the shrink path
+(no huge pages, no special vm_flags, GFP allows IO and FS), plus
+VM_MAP_PUT_PAGES since growing would mix allocator-supplied pages
+with caller-supplied ones, and a VA-range check to ensure the new
+size fits within the existing allocation.
 
-Fixes: 7eab73b18630 ("netconsole: convert to NBCON console infrastructure")
-Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
+The mapping prot is stored in vm_struct at allocation time and reused
+in the grow path, rather than hardcoding PAGE_KERNEL.  This preserves
+the caller's prot for any allocation type, including the
+arch_vmap_pgprot_tagged() transformation applied under
+CONFIG_KASAN_HW_TAGS on arm64, where a hardcoded PAGE_KERNEL would
+map grown pages with MT_NORMAL instead of MT_NORMAL_TAGGED and
+silently disable MTE tag checks.
+
+On __vmap_pages_range() failure, the error path calls vunmap_range()
+before vm_area_free_pages() to tear down any partially-installed PTEs,
+honoring the documented precondition of vm_area_free_pages() and
+mirroring the shrink path's unmap-then-free ordering.
+
+Signed-off-by: Ye Liu <liuye@kylinos.cn>
 ---
- kernel/panic.c | 35 ++++++++++++++++++-----------------
- 1 file changed, 18 insertions(+), 17 deletions(-)
+ include/linux/vmalloc.h |  1 +
+ mm/vmalloc.c            | 75 ++++++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 75 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/panic.c b/kernel/panic.c
-index 213725b612aa..473dc7d13b23 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -732,32 +732,22 @@ void vpanic(const char *fmt, va_list args)
- 			mdelay(PANIC_TIMER_STEP);
- 		}
+diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+index 034a693777ca..a14472cb1858 100644
+--- a/include/linux/vmalloc.h
++++ b/include/linux/vmalloc.h
+@@ -68,6 +68,7 @@ struct vm_struct {
+ 	phys_addr_t		phys_addr;
+ 	const void		*caller;
+ 	unsigned long		requested_size;
++	pgprot_t		prot;
+ };
+ 
+ struct vmap_area {
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index 859e6d2d57a3..1198349d2bad 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -3894,6 +3894,8 @@ static void *__vmalloc_area_node(struct vm_struct *area, gfp_t gfp_mask,
+ 	unsigned int flags;
+ 	int ret;
+ 
++	area->prot = prot;
++
+ 	array_size = nr_small_pages * sizeof(struct page *);
+ 
+ 	/* __GFP_NOFAIL and "noblock" flags are mutually exclusive. */
+@@ -4474,8 +4476,79 @@ void *vrealloc_node_align_noprof(const void *p, size_t size, unsigned long align
+ 		return (void *)p;
  	}
--	if (panic_timeout != 0) {
--		/*
--		 * This will not be a clean reboot, with everything
--		 * shutting down.  But if there is a chance of
--		 * rebooting the system it will be rebooted.
--		 */
--		if (panic_reboot_mode != REBOOT_UNDEFINED)
--			reboot_mode = panic_reboot_mode;
--		emergency_restart();
--	}
-+	if (panic_timeout == 0) {
- #ifdef __sparc__
--	{
- 		extern int stop_a_enabled;
- 		/* Make sure the user can actually press Stop-A (L1-A) */
- 		stop_a_enabled = 1;
- 		pr_emerg("Press Stop-A (L1-A) from sun keyboard or send break\n"
--			 "twice on console to return to the boot prom\n");
--	}
-+			"twice on console to return to the boot prom\n");
- #endif
- #if defined(CONFIG_S390)
--	disabled_wait();
-+		disabled_wait();
- #endif
--	pr_emerg("---[ end Kernel panic - not syncing: %s ]---\n", buf);
-+		pr_emerg("---[ end Kernel panic - not syncing: %s ]---\n", buf);
-
--	/* Do not scroll important messages printed above */
--	suppress_printk = 1;
-+		/* Do not scroll important messages printed above */
-+		suppress_printk = 1;
-+	}
-
- 	/*
- 	 * The final messages may not have been printed if in a context that
-@@ -767,6 +757,17 @@ void vpanic(const char *fmt, va_list args)
- 	console_flush_on_panic(CONSOLE_FLUSH_PENDING);
- 	nbcon_atomic_flush_unsafe();
-
-+	if (panic_timeout != 0) {
-+		/*
-+		 * This will not be a clean reboot, with everything
-+		 * shutting down.  But if there is a chance of
-+		 * rebooting the system it will be rebooted.
-+		 */
-+		if (panic_reboot_mode != REBOOT_UNDEFINED)
-+			reboot_mode = panic_reboot_mode;
-+		emergency_restart();
+ 
++	/*
++	 * Grow in-place: allocate and map additional pages within the
++	 * existing VA range, avoiding a full reallocation + memcpy.
++	 *
++	 * Skip huge page allocations (page_order > 0) as partial huge
++	 * page mapping would require splitting.
++	 *
++	 * Skip VM_FLUSH_RESET_PERMS and VM_USERMAP for the same reasons
++	 * as the shrink path above.
++	 *
++	 * Skip VM_MAP_PUT_PAGES as those allocations use caller-supplied
++	 * pages; growing would mix allocator-supplied pages with them.
++	 *
++	 * Skip if either GFP_NOFS or GFP_NOIO are used, as page table
++	 * allocation internally allocates with GFP_KERNEL, which could
++	 * trigger a recursive deadlock under filesystem or I/O reclaim.
++	 */
++	if (PAGE_ALIGN(size) <= alloced_size && !vm_area_page_order(vm) &&
++	    !(vm->flags & (VM_FLUSH_RESET_PERMS | VM_USERMAP |
++			   VM_MAP_PUT_PAGES)) &&
++	    gfp_has_io_fs(flags)) {
++		unsigned long addr = (unsigned long)kasan_reset_tag(p);
++		unsigned long old_nr_pages = vm->nr_pages;
++		unsigned long new_nr_pages = PAGE_ALIGN(size) >> PAGE_SHIFT;
++		unsigned long nr_new_pages = new_nr_pages - old_nr_pages;
++		gfp_t alloc_gfp = flags;
++		unsigned long nr_allocated;
++		unsigned int scope_flags;
++		struct vmap_node *vn;
++		int ret;
++
++		if (!(alloc_gfp & (GFP_DMA | GFP_DMA32)))
++			alloc_gfp |= __GFP_HIGHMEM;
++
++		nr_allocated = vm_area_alloc_pages(
++				vmalloc_gfp_adjust(alloc_gfp, false), nid,
++				0, nr_new_pages, vm->pages + old_nr_pages);
++
++		if (nr_allocated != nr_new_pages) {
++			if (nr_allocated)
++				vm_area_free_pages(vm, old_nr_pages,
++						   old_nr_pages + nr_allocated);
++			goto need_realloc;
++		}
++
++		scope_flags = memalloc_apply_gfp_scope(flags);
++		ret = __vmap_pages_range(addr + (old_nr_pages << PAGE_SHIFT),
++					 addr + (new_nr_pages << PAGE_SHIFT),
++					 vm->prot,
++					 vm->pages + old_nr_pages,
++					 PAGE_SHIFT,
++					 (flags & GFP_RECLAIM_MASK) | __GFP_ZERO);
++		memalloc_restore_scope(scope_flags);
++
++		if (ret) {
++			vunmap_range(addr + (old_nr_pages << PAGE_SHIFT),
++				     addr + (new_nr_pages << PAGE_SHIFT));
++			vm_area_free_pages(vm, old_nr_pages, new_nr_pages);
++			goto need_realloc;
++		}
++
++		vn = addr_to_node(addr);
++		spin_lock(&vn->busy.lock);
++		vm->nr_pages = new_nr_pages;
++		spin_unlock(&vn->busy.lock);
++
++		vm->requested_size = size;
++		kasan_vrealloc(p, old_size, size);
++
++		return (void *)p;
 +	}
 +
- 	local_irq_enable();
- 	for (i = 0; ; i += PANIC_TIMER_STEP) {
- 		touch_softlockup_watchdog();
---
-2.43.0
+ need_realloc:
+-	/* TODO: Grow the vm_area, i.e. allocate and map additional pages. */
+ 	n = __vmalloc_node_noprof(size, align, flags, nid, __builtin_return_address(0));
+ 
+ 	if (!n)
+
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260915-vmalloc_vrealloc-b51938bf3db7
+
+Best regards,
+-- 
+Ye Liu <ye.liu@linux.dev>
 
