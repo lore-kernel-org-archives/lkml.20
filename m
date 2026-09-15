@@ -1,114 +1,151 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839463F7ABD
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B26439F7C;
+	Tue, 15 Sep 2026 17:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495111; cv=none; b=XkLd61EauNO1s8de4KbGkRp3mlSWSRtmb+M4WA6a3razG+K/BiPzDSMKB0uNKQJRPOzcqyajwQZSN8sdvcIKFfKWkSWBdHOtWIaG5yDmumHLIFjvMDjCs94jRuFFkpSqhGzGd/c88CH3JasBEZLz5A/Q3AMnLj2F+ARMFXZ+oQ4=
+	t=1789495125; cv=none; b=T/mak25gAemFAHbhxqpDU9GE6h6hkaCT89KAeWdgS17WMR9jdVC7ieJ5ugbLRM0cxLTD/Ot7F0dxgUvS8JrW9w8UwI1os2DR1DbGaLmJN9Z0iBLsvJTI8YY+XeFYyaA2wCsgVklMq1RKtVY6bV1Zngbt//uwEPzoPmOBQGyvqlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495111; c=relaxed/simple;
-	bh=SfG8vwTqe4TcUJSbsJF8gE20YotoiJTOyVPoOfSALB0=;
+	s=arc-20240116; t=1789495125; c=relaxed/simple;
+	bh=HwGBpLCRw1Jt3wNvN5l7exLwWc/g3rAiWufrj89JgxI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eBt/S9TWEGoLXmwIz5B7Vmgddqv28qCju43g4Vq2XEL08ElTP42DZK63VfHziJOHKpfvlJEmXzXiCWXH6poptgH7jxpOFtVuQtJKEwBjudU13ff2HD5MOp2SPCaeUlvRstgfwXdwWb2EZBK8LbQ8GEjvLSFY/dePxFh+CoYn74g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GawNDlmf; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=aB5uwMoz3gnCCsXvAnJyrVXyhBsjTdZUu3/CgrZw2q62RCA8IYHy82KZrtCoHH1Tir7GbgzR3vwsxUh0twCJsoRhYtoIM3upQGAJ3S9lM7z79QgcvMhpvmryShyIwCQYvJRdg9CyRli1yaBSpqWCO8NIQ9RwAQ7fXMde/xodVzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hodTFs9U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GawNDlmf"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so435405e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:58:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789495108; x=1790099908; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+H1sTCqogfHVEMIyxU/sX424jivm8nyc1UeMZaa0E9w=;
-        b=GawNDlmfWcfonlHpEv2QPnsToubye99ITpC660uVyOUma1lJLN78dEdi+5662J3aKA
-         S1mYuOg/zwuGe9AN816/bn50SZYks2gLdey6NS55vJ53FMScFef4PX1t9St1T80V8Iyy
-         odS1aPShkw2ucHTwxxARWKq3BSh1+yPTs4UCjlDmiaGAJqMpSeQyHZFOYp5RuHwhb3q5
-         NYe/cnr0uzUTPH9ZCXFTwDGwoGRuRBW3Se3090XcrGcNAMs6+eoKURuGjwxM9WsRLOHW
-         oB2VlmhwF1IQM0/3Pe4RnrwEFP8637NIILAhkAyULEUiTlW14QyEuAJHCiz5LRlyQk7y
-         yqAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789495108; x=1790099908;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+H1sTCqogfHVEMIyxU/sX424jivm8nyc1UeMZaa0E9w=;
-        b=uL4F+EMfsXmch4iRDywiKbgP2ShPRQeZEOCu9rxR7PjM+bQ6tDtTzIP+1nOwkMP35O
-         E9PTWzitpfVDP7quP7bsi/SmqbJzcD4nzC4NLikzWvz0ICJwxzl8YFkp32eRhTAztrCR
-         ySYSKhwVofivHR0nJIE5q+LIjU7C7cb//MC8G44YCCT7E4QqwUToeN4499x/39p8qAe3
-         PT+eqn7qqiEajZXFBxqLGb2QQlZQLCKDWdFPL8zNkgMj/LebhA/kc3S3MKTA/7SJqooI
-         UzNPuJ4mBlzt3In/2Nnu6kBMH8IhvqVTJa0PI6Mzf1B1P9j21ZruC1LPotkq8wU+PlcR
-         g/vg==
-X-Forwarded-Encrypted: i=1; AKwUvBwTz63Pk5ynyacffwX5RazybtAvTDZ8WnnD6SV3n+SyMDndOYjgBdA4ty9kqkEazQbzqYzC836My5cQweE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1u02qpXXymXPmQX+Nh76HuUe/L/hmaKvt2OgD+unW09wStaF1
-	oDotSxaC+pBiK2rQWLBHA2fX61cSzCmsDbun0E3h2matO/DFN8UW9WYy
-X-Gm-Gg: AYBFou0DpS2lDpTLmgfCChI1Ts373w13LVRoU+i+z8RNO85cfoJwEqUyaF6+FGEtNv3
-	OTAGVZDgYlGsL3g7qOuBe/eBbPj+pAdSi1mdQmsTFeRJRRC88RA/p/7dVpQxMQt5HeJh4VRZ34F
-	CMyEMQqixeVM4rr3d+Ti9YXcVvPlMzcCmWH6ANfCpaY4A0B4z9iUOxP7ynfkYJJGIEsXfI+t+u4
-	9FGsUc6ToiSsp+8kaXcO3kA58syF9Y9m6xXx33jGWKnzzi8KvjjVX7XQTbhEpAVn0zHtfeQRKVO
-	Tl91b6iVXJRHe85iEgvXipMVP+jz5rRmglsWmYemJ4cGw1CFrQhGEOVsL2Va/tsWpyAu4pahaMY
-	TFyRt1vwSCuvF4W2KCIUIA7yyRzL+X4FtTBxLoaKu9DeHAcK3EhBg38bmhSklGej9BrIhB8YKg/
-	KRPpQ8MC3Y3bTW7gMNxgzSM2GP2/zhpFkX88JwiIoWmuemrIeLauMW0lmKaP1TmSg7WlP1vh4d7
-	brkLg==
-X-Received: by 2002:a05:600d:8652:10b0:49e:6ca6:d40f with SMTP id 5b1f17b1804b1-49e7d73dcf2mr47539035e9.9.1789495107673;
-        Tue, 15 Sep 2026 10:58:27 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1fa70sm755687f8f.9.2026.09.15.10.58.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:58:27 -0700 (PDT)
-Date: Tue, 15 Sep 2026 20:58:23 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>
-Cc: Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] clk: Document of_clk_get_by_name() return values
-Message-ID: <aqmHP5QaqfC_St6_@stanley.mountain>
-References: <cover.1789451862.git.error27@gmail.com>
- <b3de48fdbaaade69cce126b59bd6dfb8f437b495.1789451862.git.error27@gmail.com>
- <aqmGLBRaLwQ5GpXS@stanley.mountain>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hodTFs9U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 317361F000FF;
+	Tue, 15 Sep 2026 17:58:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789495123;
+	bh=oUHffrv3GQ6o5rtKOOsay9s8TNC5DB5ASbnygHPwxHI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hodTFs9UAZ3ejFEuLYh469ysVLIHxRPQ+cG4KEjNf6o2JW4dSFbA5Fj2L4nFgUvLu
+	 kaoEF0o5Bjfi2G+UmU5e0KNUT0eDxtM+dGE1FpdRQXtn+unZRUmB3QPYV+Kp6vdU6e
+	 STCdRLkVqaUKqzEqvVH/gWAbgXeScfDBD+PR9/6MOIXUe7+XySbbHZq/Dqn1YRB6Gp
+	 oEOpzVtZ98XqSJXj2zBZoz65cw07rpJjZWGVrcdTFa8dD6DCeAVIrrZ90z8xBt+XVH
+	 ugHYt8oPFGCh9ubLAN8IWx2/xA6dCCyLiRETpMr6ci/OeaUyLA3DLce7vA1MCYkzwH
+	 svOoup5dc3V7w==
+Date: Tue, 15 Sep 2026 18:58:38 +0100
+From: Conor Dooley <conor@kernel.org>
+To: aleksa.paunovic@htecgroup.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Djordje Todorovic <djordje.todorovic@htecgroup.com>,
+	Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Inochi Amaoto <inochiama@outlook.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Subject: Re: [PATCH 3/9] dt-bindings: riscv: Add MIPS Boston board compatible
+Message-ID: <20260915-woof-ducktail-5e2f52bc5762@spud>
+References: <20260914-p8700-dts-v1-0-3267f14ebce1@htecgroup.com>
+ <20260914-p8700-dts-v1-3-3267f14ebce1@htecgroup.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rKfDYnTgx/BZV2g0"
+Content-Disposition: inline
+In-Reply-To: <20260914-p8700-dts-v1-3-3267f14ebce1@htecgroup.com>
+
+--rKfDYnTgx/BZV2g0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqmGLBRaLwQ5GpXS@stanley.mountain>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 15, 2026 at 08:53:48PM +0300, Dan Carpenter wrote:
-> On Tue, Sep 15, 2026 at 07:38:23PM +0300, Dan Carpenter wrote:
-> > Callers should test the return from of_clk_get_by_name() with IS_ERR().
-> > The function returns a valid clock on success and an error pointer on
-> > failure; NULL is not a valid return value.
-> > 
-> > Document this explicitly to prevent callers from treating NULL as a
-> > separate failure case.
-> > 
-> > Assisted-by: ChatGPT:gpt-5
-> > Signed-off-by: Dan Carpenter <error27@gmail.com>
-> > ---
-> > There are a few other functions which look like they return NULL but
-> > never actually do.  This is one which has caused some confusion in
-> > the past.
-> 
-> Sashiko says that it looks like it can return NULL.
-> https://lore.kernel.org/all/20260915164913.597D51F000FF@smtp.kernel.org/
-> It does *look* that way, which is why I'm adding the documentation
-> to say that looks are confusing.
-> 
-> It's pretty normal for these types of functions to return an error pointer
-> for errors and NULL for not found, but the of_clk_get_by_name() returns
-> -ENOENT on error.  https://lkml.iu.edu/1810.1/06936.html
+On Mon, Sep 14, 2026 at 03:55:51PM +0200, Aleksa Paunovic via B4 Relay wrot=
+e:
+> From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+>=20
+> Document the MIPS Boston board compatible with a P8700 bitfile.
+>=20
+> Co-developed-by: Djordje Todorovic <djordje.todorovic@htecgroup.com>
+> Signed-off-by: Djordje Todorovic <djordje.todorovic@htecgroup.com>
+> Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+> ---
+>  Documentation/devicetree/bindings/riscv/gf.yaml | 27 +++++++++++++++++++=
+++++++
+>  1 file changed, 27 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/riscv/gf.yaml b/Documentat=
+ion/devicetree/bindings/riscv/gf.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..060910c9b04f482aee6f08f8f=
+72232acbad118bb
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/riscv/gf.yaml
+> @@ -0,0 +1,27 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/riscv/gf.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: GlobalFoundries MIPS SoC-based boards
+> +
+> +maintainers:
+> +  - Djordje Todorovic <djordje.todorovic@htecgroup.com>
+> +  - Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+> +
+> +description:
+> +  GlobalFoundries MIPS SoC-based boards
+> +
+> +properties:
+> +  $nodename:
+> +    const: '/'
+> +  compatible:
+> +    oneOf:
+> +      - description: Boston FPGA development board with a MIPS P8700 bit=
+file
 
-Doh.  I meant -ENOENT on not found.  Error pointers for errros and also
-for not found.
+I'm not convinced that this is specific enough at all.
+I have absolutely no idea from this description if there's even a
+specific FPGA involved here - this could mean a bitstream used on an Altera
+platform or a Xilinx one, with totally different contents.
+I'm only happy with FPGA bitstream content being supported if it is
+versioned strictly and matches with some clear and obvious releases from
+the vendor. I cannot even find this board by googling it, let alone find
+clear information about what this could correspond to.
 
-regards,
-dan carpenter
+> +        items:
+> +          - const: gf,mips-p8700-boston
 
+"items: - const" is the same as just having "const". SoC-specific
+fallback is also missing, although in this case it'll be tricky to have
+a meaningful one.
+
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> +
+> +additionalProperties: true
+> +
+> +...
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
+
+--rKfDYnTgx/BZV2g0
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqmHTgAKCRB4tDGHoIJi
+0rgaAP9woGMlHghSEluZoJhl8LSYpU0BtwuQg/FGHRDSTJjk7wD9G5ghtcCqBeW2
+I2QpH3waoJuqaWWujuvwJuXMKlMSyAE=
+=lJT6
+-----END PGP SIGNATURE-----
+
+--rKfDYnTgx/BZV2g0--
