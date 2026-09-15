@@ -1,85 +1,92 @@
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F1B3D0900
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16931402BAB;
+	Tue, 15 Sep 2026 04:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789446809; cv=none; b=b0ZV8BivBTjM/XR7b73oe2YMihhUEexs268U3/MW33nqDzLqPmqLzf1pMITPCkBQHXwwfXpHflmXNL3TMfXyK9tauKDfoqo5TDiRHnNEOkcoB28nlcoyfm13346L4QEcFE9TIfhIGa7QQHh7KMvoa4Wgvfwl0vgjcf7zRK+geuA=
+	t=1789446847; cv=none; b=nuun5VOyuChgVq1NYp1oGlz/LeMXy+AmFPvC7fB+1l/ZHXAU0DJkchmDqLPpxYPB1SX7NDytSRszRItgJ4P5RWLvHRIDKrcxKyY7iqBx4jB+V3KgyWYzMbkBsDoVunk2Wie01UfrsafLBRBzr4g/1J/73Ls0UXgRGkDStLLyZ1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789446809; c=relaxed/simple;
-	bh=zInjC4kg0P/cqTHM8U1urBAO/U5PYrZeSP1f+oHqMMU=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=kAdJSpB7Sp+RIOuCf9m8EsQq6+AlQMswfC/+IXd4Crx2WgwW3wJXFuInPvwfgqavps9KgO1WOiKbREH0cU/LQ7OlfuEnME8Fh6Xoazp2EkoaE00vpdWKJIk1rzEf5e3EkniAAOtMVYQ76o3CYQSiZAEhL7pnRf0X2NxzkyTzDK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-48296f34f1dso1137579fac.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:33:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789446806; x=1790051606;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kLO/IjQiB0f5Xdimriq4y9hQ5MQFsJJx6R3N+ei4KlY=;
-        b=PRi6ebGI3oovzD9XiYh9FblIdW1CRxdqOxh3px8b6xGdQqaj9TrK+1FV8J55G3ASl7
-         1NUoXJZ7D2RcNFTuV5zYQFnaJCYjUkLADwL0fbgQ0kFI9SbeJY/TmX41/EIXV8zE5MZs
-         KorushmsoUSiNG8oI9dv7X7tbfXJyxjElpktKUKf0ImqJefNDQAnpumiQXrsdxCNPBCq
-         3Wq+p9TVAf3B68/VFAwsTbEZC7+zBFjuIurZkHMy03bNEC5mUuBhsz+YLAaF1zdD8NJR
-         iWasGyI0/i1pMFoQyceRDqTz3+WcV3J93NRbdz5SDvrVg1B1F0Vrk5811GHJ5h+8yRZN
-         NrbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxx43w0QUC3rC7AkgN6iS1mMXymHTvnNg1QqVBbp+BzEtBFQVceKEfBmTwPqQHHfLeYCtj82t9KCx4RF20=@vger.kernel.org
-X-Gm-Message-State: AFuF++nV+1Sglkyko0pmCocpC6wmd9zLK5ArhtEtGJqQr9bM5msl8t5Z
-	Yb8PAsXlxMiprvcF7nRfQicxMNusDOBreyteD+zHQY62V1c0HbXXEEj8Pq+xWLFBmGmipgzT4aV
-	YixozdyqZu2BpvqWNV8bB+SR1m+sLKWDQTt2cjWr8wjzF4AqY1gTHQy3dRuQ=
+	s=arc-20240116; t=1789446847; c=relaxed/simple;
+	bh=WX56qMn4+EREe8Li2P0a0K0EmdihwgyzEk6/Kd3LgN4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=L7mtDZ8FEr+4rP+az6v8J4AAQ939eA75ic8tPfGBg/WwrvVKct0anZwxIVhm2oBBdoRAVXdElMwcTSVeLDhlf+dlwzZf2BSIrXiF3W4euQfDXE18/N8whBDkybsHAxtVCc+3KzCOWstuKm9C5DKz5k0z8AhOXYXwXEcuUbqTw48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowAD3y++3yqhqvLkICA--.50170S2;
+	Tue, 15 Sep 2026 12:33:59 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Yuantian.Tang@nxp.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	rafael@kernel.org,
+	scottwood@nxp.com,
+	viresh.kumar@linaro.org,
+	lkml@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 4/6] cpufreq: qoriq: Fix clock reference leak in set_affected_cpus()
+Date: Tue, 15 Sep 2026 04:33:30 +0000
+Message-Id: <20260915043330.1725887-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:200e:b0:6c3:a421:5adc with SMTP id
- 006d021491bc7-6c54008a613mr3208941eaf.22.1789446806610; Mon, 14 Sep 2026
- 21:33:26 -0700 (PDT)
-Date: Mon, 14 Sep 2026 21:33:26 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa8ca96.a211d2ce.1a5198.02a5.GAE@google.com>
-Subject: [syzbot] Monthly jffs2 report (Sep 2026)
-From: syzbot <syzbot+list7c9a6d38f715693c2465@syzkaller.appspotmail.com>
-To: dwmw2@infradead.org, linux-kernel@vger.kernel.org, 
-	linux-mtd@lists.infradead.org, richard@nod.at, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAD3y++3yqhqvLkICA--.50170S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKr4kur4ruF1UArWkuw17KFg_yoWktrg_uw
+	n5W3srWr48C3ZFyF1kKr4rA3sFy3ZrZFn2yF10y39xA34UA34Yv34rZF98uw47u3yagrZx
+	Jw1vva13uw47JjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb4AFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VU1go2U
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYLA2qowR0lYQAAsS
 
-Hello jffs2 maintainers/developers,
+cpu_to_clk() returns a consumer clock obtained with of_clk_get(), but
+set_affected_cpus() never releases it.  The reference is only used for
+a clk_is_match() comparison, and each iteration of the
+for_each_present_cpu() loop overwrites the 'clk' pointer with a newly
+obtained reference, leaking all but the last one (which is leaked too,
+once the loop ends).
 
-This is a 31-day syzbot report for the jffs2 subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/jffs2
+Put the clock back with clk_put() once the comparison is done.
+clk_put() also tolerates the NULL clock that cpu_to_clk() returns for
+a CPU without a clock node.
 
-During the period, 4 new issues were detected and 0 were fixed.
-In total, 10 issues are still open and 1 has already been fixed.
-There is also 1 low-priority issue.
-
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 3       No    kernel BUG in jffs2_sum_write_sumnode (2)
-                  https://syzkaller.appspot.com/bug?extid=0727f46a0571de01bf93
-<2> 6973    Yes   kernel BUG in jffs2_del_ino_cache
-                  https://syzkaller.appspot.com/bug?extid=44664704c1494ad5f7a0
-<3> 6       No    possible deadlock in jffs2_xattr_delete_inode
-                  https://syzkaller.appspot.com/bug?extid=fdfd8fdf716c90baef0f
-
+Fixes: b1e9a64972bf ("cpufreq: qoriq: Don't look at clock implementation details")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/cpufreq/qoriq-cpufreq.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+diff --git a/drivers/cpufreq/qoriq-cpufreq.c b/drivers/cpufreq/qoriq-cpufreq.c
+index 13d3333e68d8..7a004782ff62 100644
+--- a/drivers/cpufreq/qoriq-cpufreq.c
++++ b/drivers/cpufreq/qoriq-cpufreq.c
+@@ -98,6 +98,8 @@ static void set_affected_cpus(struct cpufreq_policy *policy)
+ 
+ 		if (clk_is_match(policy->clk, clk))
+ 			cpumask_set_cpu(i, dstp);
++
++		clk_put(clk);
+ 	}
+ }
+ 
+-- 
+2.34.1
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
