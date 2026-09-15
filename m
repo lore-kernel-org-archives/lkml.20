@@ -1,178 +1,109 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1C023A99F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.125.188.122
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789430523; cv=pass; b=Gw++0DLtilz9xpV94GAq4oPC8/ewDbnPp1Lh0TDUCDLgqddfmp2/JJk3wcLdrPKkCQFPSQcv7179yt7g2JpWO0xq92jFPIePOsXi+42hVPiOXG9gOFP6jT+VxF+f48nCMTOfGQDeCRqCwg+cILy51rkSEfqTjokpT/fy9x2aKsM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789430523; c=relaxed/simple;
-	bh=eosAoihtwAOEQJyRlv6Vl6Ciyr7ALICvxVxfVC6AgmU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y8J//FM1u1+1eR1X6FwXiOOhgd80ByhdTvEr8HGga2FBVt/Zt8D8nsASbSAaiPcygyyNBbaY0wF7P4ZCdp3S7GbKDvqoPA8pwJQxrKKphGBEh60zGXRoE3n0yCTI/aYSYXbaxAa03yVZgQg/ckjh27dSRiiEN3oyWFgovbEmgEg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=NHezCk6V; arc=pass smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC02E54B;
+	Tue, 15 Sep 2026 00:02:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789430532; cv=none; b=hrJn+XnvePWwWS9FYjWtVny61gFpd0bjX//A0QjsQaYzFu6CSZFLLKfX/xdzrCF2aubELc2d1FWgrNp6yCgtmhWNlEH0/OgSkHh36DUVlBZ7rVtIKS1dajr3U/vzCj27F6Wp+CWUTyGP+/cQFpr9HdDIE09ZAnRTqzjB5Yo+97o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789430532; c=relaxed/simple;
+	bh=Z00tgr0iJfPA6eCMkmvMyUoY2ciT53//89in3zibU0g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kwtSefZogT2YspE4XPE0IddKq520l8GeJELjtTsccNcNLwyGAKQhTBfOr3Y4v4Us3CDfGWtov6X/gAaRvSG29e1Pyxp/46ZYhv2+AogcTt5wCoPANIiI/cxNGaQkFQSq4aQP4MAE4ITmev4N8tSzLmc5epnSQDrgnovQ4e2dV/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=X28921eC; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=Mf+uPeuh; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="NHezCk6V"
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id B79513F28A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:01:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1789430518;
-	bh=r0hasLCz57GpF7SAqU2aNVEVHGPKn0sNjTbrv00rd/c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type;
-	b=NHezCk6Vot4mOEr0muRzuwZ3RESXVja7HmFQJDjKq58ulO5ypCFrJEFkoWpHYNe6M
-	 O4IJ3BEw1zJ5LY0qatQ1rw7pwz/8xqhAkeA1oXkis9HI3HrfY2SDJk3meVC0jKwoxD
-	 vicl5xtIh/mfKFKi04JDyva+kEPd5Wvcyt9iCAuT3/Rc5nB3WSeWK613nobzx+9xDm
-	 e0brVb/14AYq8afSEqqOPcgtLMNvKILI0nVCE+uV6ofoCFbQj2wEJmXn8PrpeIC56N
-	 kpEM/0mf20B/2gtnSRIh4yJmULAchlMGgzOSxCz7ETGSZ7LdfwriPQrHGsI63lJfNH
-	 /BQynQEI0qUJdeeDvSAPywdalNciJr4m6c1qOU3zow0wiE3DnNpFXYLR8R/sX6dXIl
-	 gxSA7Lc3Tw/TYGjHyEeXzbtT2GsPLsukuhfIj3pyq9ezWeibEr13EH1Q6Sgg88kdVV
-	 DEloh8bd0SeeLAyk4l7kREWji75yOZwU3gGAzUnY3clFSnPlTIRPfUR4m+AZ8WTUwI
-	 sXhgN+uGjt0lZ4Xa3fj2IKOFRPfdWbYnndsOu6sWqDQePsmTXdOiJ2nsumaJJOcAtZ
-	 xbxBPLesvKf4I0dyoJIBm588+bbxMdb8P8HYb71tJgylISkBn17kS8F4powsBWEO/u
-	 ohrtGN9xAVqxhIUS7TqST+rc=
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8881abf79a4so26774047b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:01:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789430517; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SU5g10aHIp5NT5jJXROMNhuHOQP3hzfI2F1xoIBU69F/rM1NGNryvu8/H+0FOZJ1fL
-         V01qYz5s8gar5LrK+SyWWKfhY9jdZTW4UMzUef8WTj69dULTLraAH1tuqS2iat0ua5D1
-         kgxOjgWDORyLss8Tzlot1hAWulkNPRDmErbUoyD9lBReHH+CRy6lBSz4+tn0UkwRBMmG
-         ZWiwUN+igjUposYh6HIQE2QwB0gzTi9ZfKMGTvubVEI7W/MydERu3RhPpSg8cBBn7Ney
-         772ER068w26apZD8RdSNR+h6LKfV6ralQi31LkX6whK/tuxPmg3nDqYVKxpm1MNr8+kc
-         VQDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=r0hasLCz57GpF7SAqU2aNVEVHGPKn0sNjTbrv00rd/c=;
-        fh=KNVwXyapKZyF+SdUhHqoAsQWzfPdccLYERnPgslTN0o=;
-        b=GgxzGjh4KerRYm9TVqMgo7/aUlojiVqjd5taGmb7CM6IMS2DirA2tIp4oyJIpj1WAA
-         HPFgzXWXoZM1pdNKn4TCa5RUllLakTFyYOiOVVLsYvx68SuUwMBXIfiSPi6n/Rh+Xk9J
-         4hzXeP8xw2/4kXBfujovD1riIYaQHsSCjm5//DevPVqu2q1BWnGWnys7hnaYyqHmgBEx
-         iWYRSbgvrHTtbHNiRanex+209y56i9T3olh5VzK3A8yiQIIi6pHWSOYfO+lZu2VEhQeP
-         wycuWAbgfO+fwN1cEi7MAIkYJK2k68pO4nnYeeQHGDf6EUvKf6wBZaXbbQEqkz/bem49
-         MuEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789430517; x=1790035317;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r0hasLCz57GpF7SAqU2aNVEVHGPKn0sNjTbrv00rd/c=;
-        b=sLa13DFkWVQGSMSSmIyiqsr/C1aXttFT2pQ1HtLbdAtsqFmTc0RE85tLCdxVe5lgCp
-         BYyk7/52qf7PpABCRSctja4w607MbDTJLr4Rv4jutPWvKW9M8gFbjGI7x4Y8rytZbVPj
-         yJQ9nzogLgRUjfQC2qnt9NuJi7LFl83Qr2cqMODazu5Cic0NFFfG1skOYTzwgXX5WL/R
-         q5gRS96FJD6B0k5pd/s7noQe/ShVJUlyyus9wfnk9x+j05rMZAupxPtZK0Hcchd3kzhu
-         TmA7Re8gZvEXPUdH8oW7QbQYOs55V8RhADVNVABhfpEW430bS97tvYHMnihzClx0VVkl
-         SSVA==
-X-Forwarded-Encrypted: i=1; AKwUvBwHGRio3YlRYZjhGZnOVUffNiRky9q3QfMSrccb4I+zCX4gD/VyYQW9Jt3AW6hO5g4j25nrjRepzKeWHJY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXVs79qNE07DWi4Aj/ktS2pJWHt73+3O07ETm7mfXI+m75YqjH
-	gILaXl4SJ2OpRH6dwlvwUI1U3SRKs5OycUVDNO7qWOYgbKF/L5w0/6Ye14dbAmpA1iSwEPWNQTq
-	iy/MurzLIjssduqnY6kQ22Kk9yxyWLltdXJ7VBjRuQCYE9tBw5MNfy/l5PwKMb+XmmhmSvdy5zs
-	G4mtAJTZUnuZnCQB1KZLT0rhm6RVb83bme/2CF3y5dVWxED1JgtMp2AIt4
-X-Gm-Gg: AYBFou3U7CBhxjflAYOCP0WCyyki67EdwFZL7ub7gtZvX3syMIdjTM59mOrbTL41HUO
-	derHOPfucybAe80lO5DYEj6cCYSvHjaTNSkPgupLXUZXjJtiCch5is+69VGy7TZ86OYsPMTxooZ
-	0TVwPerAZkUUIA0BDp45Feh5ssCwDoZOLDmDLuDi6Ir7TFmQMjcPzlloyPSkBBjMZXP4eVQy5V9
-	tyc
-X-Received: by 2002:a05:690e:108a:10b0:671:548e:f17a with SMTP id 956f58d0204a3-671548f09fbmr575141d50.6.1789430517565;
-        Mon, 14 Sep 2026 17:01:57 -0700 (PDT)
-X-Received: by 2002:a05:690e:108a:10b0:671:548e:f17a with SMTP id
- 956f58d0204a3-671548f09fbmr575131d50.6.1789430517076; Mon, 14 Sep 2026
- 17:01:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="X28921eC";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="Mf+uPeuh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1789430528;
+	bh=Z00tgr0iJfPA6eCMkmvMyUoY2ciT53//89in3zibU0g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=X28921eCEaYJ38BHyYq5iW09sw+p6KrB7T4UR90EKnghPx1UAmkquq7r+QEgNNVz+
+	 BvPZvIRxdJhdyQ4rpc9AraxFeu3Fp/7fZSjJA92HN5gibxf+jlOgYQFpnYXaoVWi94
+	 uBcMYGTrBA4nsLLnyANmZtvkfxjViLP0jTDC1Fo7oBWLTWehT2NwLARBtdaKEu1Y0N
+	 ksGclHcz/emnfGSWisk88fbD3l/6mfbdKvdXtjza0e8g2CGYal/Ncz30mjlbJLnKHX
+	 lat9NZJKmJDyuvs/QjBuamXCXGJ3fpsjRlWtkvYcK2pAyiksJKEg4XsMiLg/ABzOVg
+	 mGlhImR95794g==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id E48D93F844; Tue, 15 Sep 2026 00:02:08 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1789430527;
+	bh=Z00tgr0iJfPA6eCMkmvMyUoY2ciT53//89in3zibU0g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Mf+uPeuhMlfwrAs6neqDmLOoZcIxSAWlgwUUooq6+brTbhntqKzrew6O9hK6fVjCl
+	 3apW/67Y6PCkLN8BNM2g1zY5y5+BlgEbvKnPpgP6PPcGBt077mNmMJRq+f+2V9LBZT
+	 62XiFLXLsAepuX/6Iv2pJvHqMVFKG6l4m75WY290PN8otWXRNipUtvm7NmoCxzmHl0
+	 RElJYmojO+zo34/BWj2xKIjX/bPX9erTMzxwqiTZV4V/9TjWWxYYxOz/7QsMNCE9pp
+	 pjpChq0yvD7WRS/zSHajtwFwD8AvB9uLFKezCXF5hoh3xDGWN7VbMVKGzFr+hBIc6R
+	 ATypADhDnua8Q==
+Received: from [IPV6:2409:8a62:2532:dca0:14f4:3e22:1e7c:23c2] (unknown [IPv6:2409:8a62:2532:dca0:14f4:3e22:1e7c:23c2])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 9852B3EBCA;
+	Tue, 15 Sep 2026 00:02:03 +0000 (UTC)
+Message-ID: <9a4ad1ba-0d98-4a5d-b18d-742f82337641@birger-koblitz.de>
+Date: Tue, 15 Sep 2026 02:01:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909050919.3344699-1-chris.chiu@canonical.com>
-In-Reply-To: <20260909050919.3344699-1-chris.chiu@canonical.com>
-From: Chris Chiu <chris.chiu@canonical.com>
-Date: Tue, 15 Sep 2026 08:00:00 +0800
-X-Gm-Features: AcwNN1XVh1ezSC4ybotZKbIiPQmqAdnlb_DFgEiPNeX7teBjdDq_YCIHyZaRa4Q
-Message-ID: <CABTNMG0+rpiqAckYqizUQHU_9rfdt21drC8Y5t1SmOonwYGSBQ@mail.gmail.com>
-Subject: Re: [PATCH] selftests/powerpc: Fix exec_prot test failure on Hash MMU
-To: maddy@linux.ibm.com, shuah@kernel.org
-Cc: sshegde@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v11 06/15] ax88179_178a: Add HW support for
+ AX179A-based chips
+To: Andrew Lunn <andrew@lunn.ch>, Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Russell King <linux@armlinux.org.uk>, Heiner Kallweit
+ <hkallweit1@gmail.com>, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jianhui Xu <neuromoments@gmail.com>
+References: <20260914-ax88179a-v11-0-5ea7a925ba6d@birger-koblitz.de>
+ <20260914-ax88179a-v11-6-5ea7a925ba6d@birger-koblitz.de>
+ <18c931ca985a82a044c9269743fb4fb7@tipi-net.de>
+ <3103b046-fa19-4b59-af4a-f326783eda4f@lunn.ch>
+Content-Language: en-US
+From: Birger Koblitz <mail@birger-koblitz.de>
+In-Reply-To: <3103b046-fa19-4b59-af4a-f326783eda4f@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 9, 2026 at 1:09=E2=80=AFPM Chris Chiu <chris.chiu@canonical.com=
-> wrote:
->
-> Hash MMU maps execute-only pages as readable at the PTE level, so reading
-> from a PROT_EXEC-only mapping does not fault there. The exec_prot test
-> currently treats that as a failure, while the rest of the permission
-> checks are still valid.
->
-> Use the existing using_hash_mmu() helper and skip only the read-on-
-> execute-only subtest on Hash MMU. Keep the rest of the test unchanged so
-> the fix stays local to the unsupported execute-only-read expectation.
->
-> Signed-off-by: Chris Chiu <chris.chiu@canonical.com>
-> ---
->  .../testing/selftests/powerpc/mm/exec_prot.c  | 21 ++++++++++++-------
->  1 file changed, 14 insertions(+), 7 deletions(-)
->
-> diff --git a/tools/testing/selftests/powerpc/mm/exec_prot.c b/tools/testi=
-ng/selftests/powerpc/mm/exec_prot.c
-> index db75b2225de1..bd44f49d8449 100644
-> --- a/tools/testing/selftests/powerpc/mm/exec_prot.c
-> +++ b/tools/testing/selftests/powerpc/mm/exec_prot.c
-> @@ -108,11 +108,14 @@ static int check_exec_fault(int rights)
->  static int test(void)
->  {
->         struct sigaction segv_act, trap_act;
-> +       bool hash_mmu;
->         int i;
->
->         /* Skip the test if the CPU doesn't support Radix */
->         SKIP_IF(!have_hwcap2(PPC_FEATURE2_ARCH_3_00));
->
-> +       FAIL_IF(using_hash_mmu(&hash_mmu));
-> +
->         /* Check if pkeys are supported */
->         pkeys_supported =3D pkeys_unsupported() =3D=3D 0;
->
-> @@ -167,13 +170,17 @@ static int test(void)
->          * Read an instruction word from the address when the page
->          * is execute only. This should generate an access fault.
->          */
-> -       fault_code =3D -1;
-> -       remaining_faults =3D 1;
-> -       printf("Testing read on --x, should fault...");
-> -       FAIL_IF(mprotect(insns, pgsize, PROT_EXEC) !=3D 0);
-> -       i =3D *fault_addr;
-> -       FAIL_IF(remaining_faults !=3D 0 || !is_fault_expected(fault_code)=
-);
-> -       printf("ok!\n");
-> +       if (!hash_mmu) {
-> +               fault_code =3D -1;
-> +               remaining_faults =3D 1;
-> +               printf("Testing read on --x, should fault...");
-> +               FAIL_IF(mprotect(insns, pgsize, PROT_EXEC) !=3D 0);
-> +               i =3D *fault_addr;
-> +               FAIL_IF(remaining_faults !=3D 0 || !is_fault_expected(fau=
-lt_code));
-> +               printf("ok!\n");
-> +       } else {
-> +               printf("Testing read on --x, skipped on Hash MMU\n");
-> +       }
->
->         /*
->          * Write an instruction word to the address when the page
-> --
-> 2.43.0
->
+On 9/14/26 18:53, Andrew Lunn wrote:
+>>> +static const struct net_device_ops ax88179a_netdev_ops = {
+>>> +	.ndo_open		= usbnet_open,
+>>> +	.ndo_stop		= usbnet_stop,
+>>> +	.ndo_start_xmit		= usbnet_start_xmit,
+>>> +	.ndo_tx_timeout		= usbnet_tx_timeout,
+>>> +	.ndo_get_stats64	= dev_get_tstats64,
+>>> +	.ndo_change_mtu		= ax88179_change_mtu,
+>>> +	.ndo_set_mac_address	= ax88179_set_mac_addr,
+>>> +	.ndo_validate_addr	= eth_validate_addr,
+>>> +	.ndo_eth_ioctl		= usbnet_mii_ioctl,
+>>
+>> dev->mii.mdio_read is never initialized for ax88179a, so
+>> dev->mii.mdio_read()
+>> through usbnet_mii_ioctl() is a NULL function pointer.
+>>
+>> Something like:
+>>
+>>    static int ax88179a_mii_ioctl(...)
+>>    {
+>>    	struct ax88179_data *data = netdev2data(net);
+>>    	return phylink_mii_ioctl(data->phylink, ifr, cmd);
+>>    }
+> 
+> Is this transitory? Does a later patch fix this up?
+> The aim is to remove all dev->mii accesses.
+> 
 
-Gentle ping.
+No, unfortunately, this is an mii-leftover. I thought that
+usbnet was emulating the mii ioctl somehow, not that it was expecting
+to be able to use a mii_mdio_read. I will remove the
+ >>> +	.ndo_eth_ioctl		= usbnet_mii_ioctl,
+line, entirely.
+
+Birger
+
