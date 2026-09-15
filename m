@@ -1,106 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF15B3B6BFD
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:04:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7BC387590
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:04:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459481; cv=none; b=bre27CKFboeGOc9IG6Ji4LFFQdlKLpaoUsux+IhEGRYweXqKfO6QsnyFDj/OKl0JPnPiQZbLezZhy/Lw8JJF9/e8xPiCK8F9ITcNZrwGjmq6GCCAa3FJaRqHaL8ijhtbhIc6ceIwyqroJIK1/mq5prWlA+H7f3YmeHVt/uw8xik=
+	t=1789459489; cv=none; b=iGB9Kz4qKa+p5MAcdffMhFGC80Tkfvsfm1EIsE5dJNLE77JKiURIgUSF28m56k3lNAe0SpN9s3918Ckrsbo/RTVmIcKZEmqjiZLafNb/l+rsEwtDXxTvMEJmwUcomK0ijB7lO06ahPlYODSiB8Gg19ceHME9ZcRhdfh7Agh3mS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459481; c=relaxed/simple;
-	bh=MrgS91ShigTmW6eO46xSubcaE3kR1feFb31hbEANW+E=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AW/HMi2ckCXhsdVJx9rsMNqhdVh++g6Zw+9Cu2Q6hNCOrU45ExZ7lz32iY21pxcmhepjozENgO/AOZp26rFUbFNUJd7d5rF9LDJPuj8Um7YHvb/mNu1Gk0WHuFlf5TjtTQoVYjwDeMqn9B4aS0Neh8yYERU6sa8etqrAItzu3Tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ionagze+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789459489; c=relaxed/simple;
+	bh=3wO+URdvSBFVxX9Tuwun1pw6T4zTncXG6LsOhjmrjps=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=KmTKfDzW+TdrWdHAFhRhCa+TDM2OzUBdMYBPprSIG8btNLFxTSjCiBQMxORkYtRSq74OcT4HgHwdwfBkxPRf1GU7M47BDYHH0nf6zVHh5oPZh0nC2ttRWmQxhKEhhwGS14CnwvDmWxWkVIMWmqU/ITeug8cga+fu7y4mgBWL+04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=T/44S0xL; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ionagze+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82A081F0089C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:04:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789459479;
-	bh=rsG00H3X29c/2KMDCujSblcz4vgqgpQDzlk45QaDBZc=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Ionagze+rDB8EyNkY8VHTNtJMcsROcNXHMeukzeG0xymUV+zRFL/CvraJSSX6rpmj
-	 rjI6lGa7ZRBH1VPxMrSeZvNCGxc1Qh08m2XcFEQTHfDIJYfh94hc++tH2yJW/8hZmL
-	 OYpshaUQMQhqOkUkx029RmOw4gyD4sduVpQXuLwR9LWPW9NOYN+Za7sVtwESrGtL/E
-	 v6lrx8S4/vwGCCv+9BWfCr7T9ES3gy352El+KXafwpAtcoJNYBmcLIKJ9ZEaG6Oq0d
-	 tad3PwnKgzXhr4d/mmt2fUNHyckrNkfgeeip2hziLYICBeOnCMUu5JzAY7ffWNTPdM
-	 MG11fv0q7YjrQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1b845so8461e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:04:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxM/nvGNtIcZ7vXg33olxG/4/wP84/5wfdAOMgdpqJxSxSAUpDyZ98uvwAMfqSZZVNuP/1Szurbp4WxWN4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrWnyFtm0c3f881vcpKQBmlB7t2ywCKczzV4txGPTGeOZB4mJQ
-	68YEz9lSHy0QQojlXaJiI62iUZXqEX+Iv1nmBO1pgCkTYClZTOuiuiyd+zzAD1a5KGHcJC10xF0
-	3ECj6giq3KS10lY0wRzJARJfY65ycVlgcLHm6RBy+YA==
-X-Received: by 2002:a05:651c:a382:10b0:3a3:a3:3560 with SMTP id
- 38308e7fff4ca-3a5d836a18dmr196901fa.6.1789459478071; Tue, 15 Sep 2026
- 01:04:38 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 15 Sep 2026 03:04:37 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 15 Sep 2026 03:04:37 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260915051948.1727882-1-vulab@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="T/44S0xL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=3wO+URdvSBFVxX9Tuwun1pw6T4zTncXG6LsOhjmrjps=; b=T
+	/44S0xLfFiXzoIzajWOaxbS30znaqhYAKbxLKzHzZ1pieFniAqF6131Gh+nolh+o
+	KpbC4YlQ3lBCqYgoOc7kDIe6LMokw5uDiNhbcj78XsAFx/VFLwxXfizac02LeY0X
+	wzGom9ezhSUt8sr8e8GwlWKV2fENp/iY9S+Tzx9C5M=
+Date: Tue, 15 Sep 2026 16:04:01 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [BUG] drm: lease: WARNING in the page allocator from
+ drm_mode_create_lease_ioctl
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/ietkwv5yCRbOkdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/N+o2soxKf38hX/xFTvZueQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915051948.1727882-1-vulab@iscas.ac.cn>
-Date: Tue, 15 Sep 2026 03:04:37 -0500
-X-Gmail-Original-Message-ID: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
-X-Gm-Features: AcwNN1XW7NfnANW-I2Zs8w7V-vdvlDVqSq069SE8R4u2kbHCng7fsug6QCK_Y7Y
-Message-ID: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
-Subject: Re: [PATCH 4/6] clocksource/drivers/davinci: Fix clock reference leak
- in of_davinci_timer_register
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: daniel.lezcano@kernel.org, linux-kernel@vger.kernel.org, tglx@kernel.org, 
-	lkml@vger.kernel.org, stable@vger.kernel.org, brgl@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <389fe79.729d.1a0a41825db.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hygvCgD3n7Hx+6hqKhMQAA--.21669W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3REAsWqo+-Ee1gAA39
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Tue, 15 Sep 2026 07:19:48 +0200, Wentao Liang <vulab@iscas.ac.cn> said:
-> of_davinci_timer_register() looks up the timer clock with of_clk_get(),
-> which takes a reference on the clock, and passes it to
-> davinci_timer_register(). That function enables the clock and keeps it
-> enabled for the lifetime of the timer, but it never takes ownership of
-> the reference and never calls clk_put(); only the error paths of
-> of_davinci_timer_register() dropped the reference, so on success the
-> reference obtained by of_clk_get() leaked.
->
-> Drop the reference unconditionally after davinci_timer_register()
-> returns: on failure the clock has already been disabled and unprepared
-> by davinci_timer_register(), and on success the clock stays enabled
-> while the consumer reference is released.
->
-> Fixes: 721154f972aa ("clocksource/drivers/davinci: Add support for clockevents")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/clocksource/timer-davinci.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/clocksource/timer-davinci.c b/drivers/clocksource/timer-davinci.c
-> index 16ee0687ef31..54700738fcd4 100644
-> --- a/drivers/clocksource/timer-davinci.c
-> +++ b/drivers/clocksource/timer-davinci.c
-> @@ -376,8 +376,11 @@ static int __init of_davinci_timer_register(struct device_node *np)
->  	}
->
->  	rv = davinci_timer_register(clk, &timer_cfg);
-> -	if (rv)
-> -		clk_put(clk);
-> +	/*
-> +	 * The clock is left enabled on success, but the consumer reference
-> +	 * taken by of_clk_get() is not needed anymore in either case.
-> +	 */
-> +	clk_put(clk);
->
->  	return rv;
->  }
-
-I'm not following. If we keep the clock enabled, we must keep the reference. We
-just never disable it anywhere, so you correctly don't see the clk_put() in
-success path.
-
-Bart
+CgoKSGksCgoKCgpJIGFtIHJlcG9ydGluZyBhIFdBUk5JTkcgZnJvbSB0aGUgcGFnZSBhbGxvY2F0
+b3Igb24gdGhlIERSTSBsZWFzZS1jcmVhdGlvbiBwYXRoLAp0cmlnZ2VyZWQgYnkgYSBzeXprYWxs
+ZXIgcmVwcm9kdWNlci4gIFRoZSBpc3N1ZSBpcyByZXByb2R1Y2libGUgd2l0aCBIRUFEIGNvbW1p
+dApjZWU5Mzk1YWNkODA0M2JlMDY0NGIyNWMzNGJmYTg2NjIzZjJiOTM1ICh2Ny4zLXJjMSwgTGlu
+dXggNy4zLjAtcmMxKS4KCgoKClRoZSByZXByb2R1Y2VyIG9wZW5zIGEgRFJNIHJlbmRlciBub2Rl
+IGFuZCBpc3N1ZXMgRFJNX0lPQ1RMX01PREVfQ1JFQVRFX0xFQVNFCndpdGggYW4gb2JqZWN0IGlk
+IGFycmF5IHdob3NlIGxlbmd0aCBmaWVsZCBpcyAxMDAwMDAwIHdoaWxlIHRoZSBhcnJheSBpdHNl
+bGYKY29udGFpbnMgYSBzaW5nbGUgaWQuCgoKCgpUaGUgY29uc29sZSBzaG93cyBhIFdBUk5JTkcg
+YXQgbW0vcGFnZV9hbGxvYy5jOjUzNDAgd2l0aCBSSVAgaW4KX19hbGxvY19mcm96ZW5fcGFnZXNf
+bm9wcm9mLCByZWFjaGVkIGZyb20gZHJtX21vZGVfY3JlYXRlX2xlYXNlX2lvY3RsIHRocm91Z2gg
+dGhlCmxlYXNlIG9iamVjdCBib29ra2VlcGluZy4gIE9uIHRoZSBrZXJuZWwgd2hlcmUgdGhpcyB3
+YXMgZmlyc3QgcmVwb3J0ZWQgdGhlIHNhbWUKd2FybmluZyB3YXMgcmVjb3JkZWQgYXQgbW0vcGFn
+ZV9hbGxvYy5jOjUzOTggaW4gX19hbGxvY19wYWdlcywgd2hpY2ggaXMgdGhlIHNhbWUKYWxsb2Nh
+dGlvbiBwYXRoIGJlZm9yZSBhIGxhdGVyIHJlZmFjdG9yLCBhbmQgdGhlIGNhbGxlciBpcyB0aGUg
+c2FtZSBpb2N0bC4KCgoKCk9uZSBwb3NzaWJsZSBjYXVzZSBpcyB0aGF0IHRoZSBsZW5ndGggdGhl
+IGlvY3RsIHN1cHBsaWVzIGZvciB0aGUgb2JqZWN0IGlkIGFycmF5CmlzIHVzZWQgdG8gc2l6ZSBh
+biBhbGxvY2F0aW9uIHdpdGhvdXQgYmVpbmcgY2hlY2tlZCBhZ2FpbnN0IHRoZSBudW1iZXIgb2Yg
+b2JqZWN0cwp0aGF0IGNhbiBhY3R1YWxseSBleGlzdCwgc28gdGhlIHJlcXVlc3QgcmVhY2hlcyB0
+aGUgYWxsb2NhdG9yIHdpdGggYSBzaXplIG9yCm9yZGVyIHRoZSBhbGxvY2F0b3Igd2FybnMgYWJv
+dXQuICBUaGlzIGxvb2tzIGxpa2UgYSBtaXNzaW5nIGJvdW5kIG9uIGEKdXNlci1zdXBwbGllZCBj
+b3VudCByYXRoZXIgdGhhbiBhbiBhbGxvY2F0b3IgZGVmZWN0LiAgSSBhbSByZXBvcnRpbmcgdGhl
+IHdhcm5pbmcKYW5kIHRoZSBwYXRoIGFzIG9ic2VydmVkLgoKCgoKVGhpcyBhcHBlYXJzIHRvIGJl
+IGEgcmVjdXJyZW5jZSBvZiB0aGUgc3l6Ym90IGlzc3VlIHdob3NlIGV4dGVybmFsIGlkIGlzCmYy
+Njc0NGI1MmFiODdmMjg2NGUzLiAgSXQgcmVtYWlucyByZXByb2R1Y2libGUgb24gdjcuMy1yYzEu
+CgoKCgpSZXByb2R1Y2VyOgoKCgoKc3l6IHJlcHJvZHVjZXI6CnIwID0gc3l6X29wZW5fZGV2JGRy
+aSgmKDB4N2YwMDAwMDAwMGMwKSwgMHgxZmYsIDB4MCkKaW9jdGwkRFJNX0lPQ1RMX01PREVfQ1JF
+QVRFX0xFQVNFKHIwLCAweGMwMTg2NGM2LCAmKDB4N2YwMDAwMDAwMDQwKT17JigweDdmMDAwMDAw
+MDY0MCk9WzB4MF0sIDB4ZjQyNDB9KQoKCgoKY29uc29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGVi
+aW4uY29tL3Jhdy8xUzRQRUJRVQoKCmtlcm5lbCBjb25maWc6IGh0dHBzOi8vcGFzdGViaW4uY29t
+L3Jhdy9WdTVLeTR1agoKCgoKS2VybmVsOgoKCgoKSEVBRCBjb21taXQ6IGNlZTkzOTVhY2Q4MDQz
+YmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUKZ2l0IHRyZWU6IHVwc3RyZWFtIChsaW51eC5naXQp
+LCB0ZXN0ZWQgdGhyb3VnaCB0aGUgdjcuMy1yYzEgYW5ub3RhdGVkIHRhZyBvYmplY3QKwqAgwqAg
+wqAgwqAgwqAgwqBlNWUwNDcyNmNkZDA0M2UzMDk2NzcwNzFhYjFiNjVhNGIxOGY0MjJiCmtlcm5l
+bCB2ZXJzaW9uOiA3LjMuMC1yYzEgIzEgUFJFRU1QVChmdWxsKQp0ZXN0ZWQgdGFnOiB2Ny4zLXJj
+MSAoTGludXggNy4zLXJjMSwgMjAyNi0wOC0zMCkKCgoKCkxldCBtZSBrbm93IGlmIHlvdSBuZWVk
+IG1vcmUgZGV0YWlscyBvciB0ZXN0aW5nLgoKCgoKQmVzdCByZWdhcmRzLApDaGFuZ2ppYW4=
