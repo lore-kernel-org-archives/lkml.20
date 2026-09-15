@@ -1,154 +1,172 @@
-Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE4B3F926F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:49:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319783F99F3
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:49:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789440581; cv=none; b=imMBn8ViMk9yBGI+UotbZyrcRndbwgemQXRjwvKE7J6QEBfHfvTeSA5k4HRdSzISMhPif1WNim9MHTX3S906PuDBAQpe495yXZ9WLE3c8DBXCuJOage0h+djlKzijn3HN6SOtaSTUNgl4gmWKD/za6yNLXMb+7YWUJeHkBRT7/4=
+	t=1789440582; cv=none; b=uAsW+wXYlaUiBj1SOeHTQjr4UjwUKqWWR6J2jyko6X5qpRE6MWKKQu5A56usrAhkwCctDfRH+DpyRt7Z+hYILiCaFA/9HA45kVUgq/5GjwUDaG5r26FE35E0tRvyfEs0beZZml9KsgL9yHsNmpLtWGCE3RtiuZZsw4prc1zIM/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789440581; c=relaxed/simple;
-	bh=TPiaJesIqJ7PplIki0xusz3BjPaCRWubAMyDMo7M0qc=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=OH22rG/XTitL3sa/UTT8jREOE/7Rc9CNCZ4bxdkTckOa0qz+ngPXz7x2aC1unqDdi2X8JeUOvxOdDQkbDfIlFEFFUYBfbI0Gv9HxK4cMLjDvdOJto4ogUfmhxS26mjhsVlKSMy8twQzFOXKWyCEZez7klLA3yReqKYs9jE+3wvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kDF34Nw8; arc=none smtp.client-ip=91.218.175.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789440582; c=relaxed/simple;
+	bh=dZtJypvCQ3nH/VIpTSnun9IN+DGvbnyN1VglMN3CCUU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dsJgN/TJImtkmEdSTMlOMnK5p2Nvgcx80SnSWJvaS28x0aqIxr/IG8PSlAMLxIiBkcJVJ8fyE8lxBaOFNfb/Pk6BUuM3LSK8rzzVR6yHMkeHVhTwCD/z6XS5ENd2Y0uo7ijjBYkl7SEAiCQjhOgLfg3XlmREgPX3VsoiHOZ5XWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HXuWFaPr; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kDF34Nw8"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TPiaJesIqJ7PplIki0xusz3BjPaCRWubAMyDMo7M0qc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789440578; v=1; x=1790045378;
- b=kDF34Nw8gQf1kDIs7+rmXJ+V3Sh/evMeGoxvhaqFrdIJROatbIoFXvIn1Uj5VMEF70+avUvk
- 4PYE90JDZBKmIpTf+rfvxemh9p42qmsIJaSUMuVkB2WVK+uV6t8pn/8DEODso2U2GkPgYcrMfeG
- 3InQCZrSKFISU394+esk94Z4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 658701ff1c90a0b0;
-	Tue, 15 Sep 2026 02:49:38 +0000
-X-Mizu-Trace-ID: 658701ff1c90a0b0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <af33dfe1-04ef-4bfd-8c79-0593b24c6bdb@linux.dev>
-Date: Tue, 15 Sep 2026 10:50:37 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HXuWFaPr"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e56a1fe3fso2526713d50.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:49:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789440580; x=1790045380; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=98dR90gK+JQcg6XkR8TXqOD8Hf/WJSfb2StQiLmkr9w=;
+        b=HXuWFaPrDFOT61uL3BUEyVPWnZpfYxHhTSSLsjSpuM/avihwogZNbVmFdjqa2pv+W8
+         Bbet+fhjllD3p2jDlDCYZXv5CWo67kqwk1QSVa1MCXaS437lYRAlAifpysFXTtlWY3U/
+         WWzjSlpkzuQ1NXccv3QwZKt0PvufcTc8MqtKYqlumqHjjEC7KbDuyTuUDRKqCe+g/i/u
+         +lguDCciTAYHCikaO2CaczbgsHH/6Idhb9yaVf2ZwhPKyUG80FSf4Q/rfbxFjN+/caLb
+         hx97B59VpTpgjNvD2+BI0e/Wbe3J45bgprXX/Ww18yD7OaOL/LvdCV7hI/vReCBg+nY0
+         1/1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789440580; x=1790045380;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=98dR90gK+JQcg6XkR8TXqOD8Hf/WJSfb2StQiLmkr9w=;
+        b=mb0j1S9WPj4dmXqgZJYBNcvXKYP0Ek0YQTEL+qm26mneRxmqVUtKW+eWSyJXomzsnv
+         xzi5qz0g/GTNKBrTD8OsAjMHE/cqhdgmeCgtl9tCTOpvLG7Y42yG0C8KiOH6fQFfigKn
+         yl9g/pgSqffPpDQZQ6gbwj/JJOGsIG50SIMYvusOepCkNBF80IFZLycpCgzoVhFuIgiK
+         DDdTXaGHsyAMCfizbKx98Y+HWuWl+TngHtbyaMs0vm6Z4nVjyqrs39pThvaMtFTEFaAs
+         2sHPPmAtIeVAwBq/pi/jApv48V/lKRk2Acj9VIO/x0SgNri6C/rV/KxNH8vRsccABQM9
+         NT4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwE2c4hn77d8731Ye+tRzgFnhkIZz1diFKJEwBr3DUoP2RpeBFG5XpkxwmepZNGTyYQH5inzxolWywVTPE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXeNWr310Cc9eCFToL5aWzy8mmlctWnB9crauWubi73T1dCGyx
+	UzIceFGEbQNaZ0t202wo26mcVxhDE44JnjCHJ2RvvMDGqvgpop3sijN2
+X-Gm-Gg: AYBFou3Rt4zRBj/o+P5Qjj7rUcHBgi/xbaos1qz1YSCwZvaYv0CNbPxndYCZ8K6h5L8
+	25bjeOTU5SOFX+Xe5JPuo/Uz5kkwQsU9esfA69tjXW3jFZRm0PuDI7AxtKaqKTu0H9emrW0nDVm
+	wD3osR0VXGsu2FtGgL4oq821zefg3wxdlgC5y0f7rA6dj/pIjSnBpCgoDJO/klAGGnVlg2FZzfK
+	q7HECWlPfzua39dglkKbyMX52Q5XJE/rmZOcDSXkoDqPYeoBNGGt8irOU1xOVhcDRgHmu9h2hLp
+	Hyp5zXPwseMF/KeNIjVnn7Ry2pIly486B1B8VtNPvmDvosXXPv9j3XrVMdl11gA85gO8rIho4ov
+	/wjF+3x1oROncsoXZbJS9WpSEWx2NWyYARJTO5wM6HqxKWixq7j0HBLhHZEQw2zH7QbiBbZ0H5k
+	YE6PLd96V4/9SdxNr6zQUt6nZTeASIkodIeXW4UF87FPFKgmmug7lhYQ==
+X-Received: by 2002:a05:690e:4882:10b0:66f:c1bc:4086 with SMTP id 956f58d0204a3-6714e07b20bmr1035977d50.73.1789440580062;
+        Mon, 14 Sep 2026 19:49:40 -0700 (PDT)
+Received: from gmail.com ([2600:1700:5431:250::3e])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125db3a05sm5345430d50.5.2026.09.14.19.49.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 19:49:39 -0700 (PDT)
+Date: Mon, 14 Sep 2026 19:49:36 -0700
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <aqiyQOMGGIzu-91z@gmail.com>
+References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
+ <20260912013912.51887-3-marcus.yu.56@gmail.com>
+ <aqepkmQS_p6K1Bd6@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] alloc_tag: fix a leak and a deadlock around
- shutdown_mem_profiling()
-From: Hao Ge <hao.ge@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>
-Cc: Kent Overstreet <kent.overstreet@linux.dev>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260817062726.106511-1-hao.ge@linux.dev>
- <20260826203914.347c42aa00081ee9e0eb858a@linux-foundation.org>
- <afa606df-3d5b-47c2-9972-f3e0c2e13c12@linux.dev>
-Content-Language: en-US
-In-Reply-To: <afa606df-3d5b-47c2-9972-f3e0c2e13c12@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqepkmQS_p6K1Bd6@ashevche-desk.local>
 
-Hi Suren and Andrew
-
-
-Update the status of this issue surfaced by Sashiko.
-
-
-On 2026/8/28 11:11, Hao Ge wrote:
-> Hi Andrew
+On Mon, Sep 14, 2026 at 11:00:18AM +0300, Andy Shevchenko wrote:
+> On Fri, Sep 11, 2026 at 06:39:12PM -0700, Chang Yu wrote:
 > 
-> On 2026/8/27 11:39, Andrew Morton wrote:
->> On Mon, 17 Aug 2026 14:27:24 +0800 Hao Ge <hao.ge@linux.dev> wrote:
->>
->>> Two fixes for issues reported by sashiko:
->>>
->>>   1. percpu counter leak on modules loaded after profiling is disabled.
->>>   2. AB-BA deadlock between module load and /proc/allocinfo readers.
->>>
->>
->> Thanks.  AI review asked two questions.  One pertinent to your
->> alterations and one pertinent to Suren ;)
->>
->> 	https://sashiko.dev/#/patchset/20260817062726.106511-1-hao.ge@linux.dev
->>
->> I'll queue the patchset for 7.3-rc1, with a note-to-self.
+> ...
 > 
-> Thanks for the heads up on the sashiko review questions.
+> > +static int as7343_setup_device(struct device *dev, struct as7343_data *data)
+> > +{
+> > +	struct regmap *map = data->regmap;
+> > +	unsigned int val;
+> > +	__le16 step;
+> > +	int ret;
+> > +
+> > +	/* Power on */
+> > +	ret = regmap_set_bits(map, AS7343_ENABLE, AS7343_ENABLE_PON);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	/* Need to set REG_BANK to 1 before we can access ID */
+> > +	ret = regmap_set_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = regmap_read(map, AS7343_ID, &val);
+> > +	if (ret)
+> > +		return ret;
 > 
-> The question on patch 1 (codetag_load_module() error handling)
-> has two parts.
+> > +	if (val != 0x81)
+> > +		dev_info(dev, "Unknown device ID: %x\n", val);
 > 
-> The lost error code issue is already fixed; I sent the patch and
-> you queued it. (Thanks).
-> 
-> For the rollback part:
-> 
-> I've also seen Sashiko flag this same issue on another of my patches.
-> At the moment this case can't actually happen, alloc_tag is our only
-> registered codetag type, and codetag_module_init() cleans up its cmod
-> from the idr on every failure path, so nothing gets left behind.
-> 
-> That said, if we ever add a second codetag type down the line, the problem
-> Sashiko spotted will become real. I will follow up later to refine this
-> logic and make it more robust.
+> Wouldn't be better to define 0x81 with meaningful name?
 > 
 
-Daniel also raised this issue
-https://lore.kernel.org/all/675259f9-c093-439c-a411-1937b23ddaa2@linux.dev/
+If I remeber correctly Jonathan prefers just putting 0x81 inline. I'm
+OK with either style so I'll defer to the judgement to Jonathan here.
 
-I do have the relevant fix ready locally. I plan to hold off on the next batch
-until we close out this recent chain of fixes. I'll bother you all again when the
-time comes.
-
-> The question on patch 2 (async /proc/allocinfo removal racing with
-> alloc_tag_init() failure):
+> > +	ret = regmap_clear_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	/* Configure the SMUX to readout all channels */
+> > +	ret = regmap_update_bits(map, AS7343_CFG20, AS7343_CFG20_AUTO_SMUX,
+> > +				 FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
+> > +					    AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	/* Set 50.1ms integration time and x256 gain for now */
+> > +	step = cpu_to_le16(AS7343_ASTEP_VAL);
+> > +	ret = regmap_bulk_write(map, AS7343_ASTEP, &step, sizeof(step));
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret = regmap_write(map, AS7343_ATIME, AS7343_ATIME_VAL);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return regmap_update_bits(map, AS7343_CFG1, AS7343_CFG1_AGAIN,
+> > +				  FIELD_PREP(AS7343_CFG1_AGAIN,
+> > +					     AS7343_CFG1_AGAIN_X256));
+> > +}
 > 
-> When I first read it, I think the window is unreachable. It requires
-> alloc_tag_init() to fail after proc_create() succeeded, and a process
-> to open and read /proc/allocinfo in the gap between schedule_work()
-> and the work running on system_wq.
+> ...
 > 
-> But CONFIG_MEM_ALLOC_PROFILING is a bool, so when enabled alloc_tag is
-> always built in and it cannot be a loadable module. Its module_init(alloc_tag_init)
-> runs inside do_initcalls(), before /init is exec'd. Failures inside
-> alloc_tag_init() are already very unlikely to happen. When the failure
-> happens, no normal userspace exists yet.
+> > +static int as7343_suspend(struct device *dev)
+> > +{
+> > +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+> > +	struct as7343_data *data = iio_priv(indio_dev);
+> > +	struct regmap *map = data->regmap;
 > 
-> That said, I realised the fix would actually be quite simple, we could just
-> move proc_create() to the end of alloc_tag_init().
-> I am not entirely sure whether we should do this though.
+> > +	return regmap_clear_bits(map, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
 > 
-> Suren, what is your opinion?
->
-
-I've been thinking about this quite a bit lately. Defensive programming
-is always welcome — there might be edge cases I haven't considered,
-or scenarios that could trigger this down the line.
-Furthermore, if alloc_tag initialization fails, the corresponding sysctl
-entry serves little purpose.
-
-Besides, I've decided to fold these two patches into this series:
-https://lore.kernel.org/all/20260908092412.115953-1-hao.ge@linux.dev/
-
-This is because Sashiko keeps flagging this percpu leak.
-https://lore.kernel.org/all/20260908094736.2B1A61F00A3A@smtp.kernel.org/
-And patch 1 addresses exactly this issue.
-
-We'll fold these two patches into that series and let Sashiko run another
-round of review.
-
-Please kindly help review the folded V10 version.
-
-Thanks
-Best Regards
-Hao
-
-> Thanks
-> Best Regards
-> Hao
+> Can this mess up the raw read? If so, also needs a mutex to be held.
 > 
+
+People familiar with runtime PM correct me if I'm wrong, but I believe
+PM_RUNTIME_ACQUIRE waits for any ongoing suspend callback to finish
+before returning? If so I think there is no risk of a race here. In
+the case of system suspend, worst case scenario SP_EN gets cleared
+before we read ASTATUS or the data register, which for my use case
+at least is OK since the entire system is suspending anyway.
+
