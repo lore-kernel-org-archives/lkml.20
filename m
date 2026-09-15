@@ -1,170 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765843A718D;
-	Tue, 15 Sep 2026 05:54:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA79243CE41;
+	Tue, 15 Sep 2026 05:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789451663; cv=none; b=nx3R4olb4n+aMR92Lsxqiyi7G9Gng3+Q0Wiv7G8AeBRhbZU5OcuWQgzf+FhSSWFcUBHuEYawo0kD8SGV+b8pbIH5G3fgE5y0uNhWEgQsBHbdASjEcVvDK4VIACAt3YhavFV/1ZzFoxrgM55jAvJrIsmbf4eFRtvIeDAtHV0AKfc=
+	t=1789451758; cv=none; b=TXBqzwutZH2NzXQHH7g1bxThgusubigjD7VHtCUZpWbhCCxm7e1O3JWrxBc9LAwW5D3xWUQz5jrZYXXOE3m0luW+tvVVUtPD/IYSTUybto6er0YHf1yl9mL13+neWJwNcPqfhbPTar4L9VtuNrziHlheQw5EbSyCh3rj6NAS07A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789451663; c=relaxed/simple;
-	bh=32QncO42ogdd1YcS4VhT6UVHXxFKqtuucnpN95mFK0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tdjLU6NLtS3wHizBw1Viqu4ibbZbPmZtRf/aFyZgLcHLtPnJ3mNwa19QQflb2Np1pj+LscOiaUbBoVAYGzlWL35JKNg0NQZsb0vWimtCjZiggqGo0cmx7XgW8y5LgLTLlkkforUsWIXgE7zsGm5p/J10xmEeirJcMSBghNOobBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+3XL9fa; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+3XL9fa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2EDC1F000FF;
-	Tue, 15 Sep 2026 05:54:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789451662;
-	bh=toHrB1IToMyqXz6Fr1e4cLPpy1QqZkTe818DjiZV8eg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B+3XL9fagtXq2bxFrewB8rh6nzkOcHQNp3JIaevyReJSHFtHyQFCTgoZwLQwJbEsV
-	 gqkp1A4Br6Hl8iXDtyfnJcvRUB5Q7yuhOxINnPe8WVID1e5vy7PKsx0MY8XXSqDd92
-	 /iIMuseTcoODEE0fxcry8zPIcircvqc43OrBrO6KUcKZUozVy18oJm6IV7HLQfXcdq
-	 X3sIvQ+z/WO/S5vHsa5bm7fos0aXUvhmjiS5ahFw0tB5wox/T7fCVH37KaM5Fkk9i2
-	 QR2ubVpSLVMNF9Hb/m9cpeI5oL0gtKc4WzbacIDOX+pDYtXCY1MOs+zLdLjj3ky5yK
-	 gYXPdwdf1bVxA==
-Date: Mon, 14 Sep 2026 22:54:19 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org, Zecheng Li <zli94@ncsu.edu>,
-	Yanbo Zhao <yzhao62@ncsu.edu>, Tengda Wu <wutengda@huaweicloud.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>
-Subject: Re: [PATCH v2 2/4] perf dwarf-aux: Add die_has_flex_array() helper
-Message-ID: <aqjdixZz4RYQZgCJ@google.com>
-References: <20260914064535.1671939-1-namhyung@kernel.org>
- <20260914064535.1671939-3-namhyung@kernel.org>
- <20260915084048.5779ad90647c116806822df5@kernel.org>
+	s=arc-20240116; t=1789451758; c=relaxed/simple;
+	bh=+SAN+6WURDkBH1aCOPX6Ir2NoWeGrHF5jd7ZaeI1vrw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=u5eNwbI5BkwYYjS+hX+6fBJZvwJL0x2YSJrQAxUGwCNTo2CennpU+JWVtR8igvWJG3xpflwOWd7VcJlnyz0yPyP3gvBBaRdP/3Qq++VW6O9xfTvPsUX1myW37l5jM7ttsHjmmsrst+AOGkZZtpMPy6pfPHQWM+h1MT7N6v7RjF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowACXau7g3ahq_UsKCA--.60407S2;
+	Tue, 15 Sep 2026 13:55:44 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Frank.Li@nxp.com
+Cc: abelvesa@kernel.org,
+	aisheng.dong@nxp.com,
+	bmasney@redhat.com,
+	festevam@gmail.com,
+	imx@lists.linux.dev,
+	kernel@pengutronix.de,
+	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mturquette@baylibre.com,
+	peng.fan@nxp.com,
+	s.hauer@pengutronix.de,
+	sboyd@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] clk: imx: Fix clock reference leak in imx_get_clk_hw_by_name()
+Date: Tue, 15 Sep 2026 05:55:15 +0000
+Message-Id: <20260915055515.1730145-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260915084048.5779ad90647c116806822df5@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowACXau7g3ahq_UsKCA--.60407S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtw1UZFWkGFyruFW8ZF4DXFb_yoWkKwc_Gr
+	WrWr92gF18GF1fJF1kCF17Za4SywsrZF10qayIv3y7JayY9FWUAr42qrn8JrW3WrWrKFyD
+	urnrurZrCrZrCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbaxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
+	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JULo7NUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRILA2qowd1hTgAAsi
 
-Hi Masami,
+imx_get_clk_hw_by_name() obtains a consumer clock with
+of_clk_get_by_name(), extracts the hardware pointer with __clk_get_hw()
+and returns it without ever calling clk_put(), leaking the consumer
+reference on both return paths.
 
-On Tue, Sep 15, 2026 at 08:40:48AM +0900, Masami Hiramatsu wrote:
-> On Sun, 13 Sep 2026 23:45:33 -0700
-> Namhyung Kim <namhyung@kernel.org> wrote:
-> 
-> > The die_has_flex_array() returns true when the given type is a compound
-> > type and contains an array at the end.  To prevent an infinite recursion
-> > add a depth field to the internal function.
-> 
-> Hi, thanks for this nice extension!
-> BTW, I have a comment on this implementation.
+Extract the hardware pointer first and drop the clock reference with
+clk_put() before returning.
 
-Thanks for your review!
+Fixes: 3b315214e091 ("clk: imx: implement new clk_hw based APIs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/clk/imx/clk.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-> 
-> > 
-> > Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> > Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> > ---
-> >  tools/perf/util/dwarf-aux.c | 77 +++++++++++++++++++++++++++++++++++++
-> >  tools/perf/util/dwarf-aux.h |  3 ++
-> >  2 files changed, 80 insertions(+)
-> > 
-> > diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-> > index d7160f87ac7d7ab3..465824e6513eb0ac 100644
-> > --- a/tools/perf/util/dwarf-aux.c
-> > +++ b/tools/perf/util/dwarf-aux.c
-> > @@ -2180,3 +2180,80 @@ Dwarf_Die *die_deref_ptr_type(Dwarf_Die *ptr_die, int offset,
-> >  
-> >  	return die_get_member_type(&type_die, offset, die_mem);
-> >  }
-> > +
-> > +static bool is_flex_array_member(Dwarf_Die *mb_die)
-> > +{
-> > +	Dwarf_Die type_die;
-> > +	Dwarf_Word size;
-> > +
-> > +	/* get the type of the member */
-> > +	if (die_get_real_type(mb_die, &type_die) == NULL)
-> > +		return false;
-> > +
-> > +	if (dwarf_tag(&type_die) != DW_TAG_array_type)
-> > +		return false;
-> > +
-> > +	return dwarf_aggregate_size(&type_die, &size) < 0 || size == 0;
-> > +}
-> > +
-> > +#define MAX_FLEX_ARRAY_RECURSION  256  /* arbitrary */
-> > +
-> > +static bool die_has_flex_array_recurse(Dwarf_Die *parent_die, int depth)
-> > +{
-> > +	Dwarf_Die die_mem, last_mb;
-> > +	int tag = dwarf_tag(parent_die);
-> > +
-> > +	if (tag != DW_TAG_structure_type && tag != DW_TAG_union_type)
-> > +		return false;
-> 
-> What happen if the parent_die is "typedef struct {..." ?
-> I think you need to use die_get_real_type() here. ;)
-
-Currently I expect callers to do it before calling.  But probably I can
-add it to the outer function.
-
-> 
-> > +
-> > +	/* prevent infinite recursion */
-> > +	if (depth > MAX_FLEX_ARRAY_RECURSION)
-> > +		return false;
-> > +
-> > +	if (dwarf_child(parent_die, &die_mem))
-> > +		return false;
-> > +
-> > +	do {
-> > +		if (dwarf_tag(&die_mem) != DW_TAG_member)
-> > +			continue;
-> 
-> If the member is a "const" member, you may have to use
-> die_get_real_type() to get the actual type.
-> (in this case, you need a cursor DIE for dwarf_siblingof()) 
-
-Doesn't it belong to a type of the member?  In my simple test program,
-it shows the struct type only has children of members and their types
-including const are referenced from the member DIEs.
-
-Also I don't think flexible arrays will be const as they cannot be
-initialized.
-
-> 
-> > +
-> > +		if (tag == DW_TAG_union_type) {
-> > +			if (is_flex_array_member(&die_mem))
-> > +				return true;
-> > +
-> > +			if (die_get_real_type(&die_mem, &last_mb) &&
-> > +			    die_has_flex_array_recurse(&last_mb, depth + 1))
-> > +				return true;
-> > +		}
-> > +
-> > +		if (tag == DW_TAG_structure_type)
-> > +			memcpy(&last_mb, &die_mem, sizeof(last_mb));
-> 
-> To find the last member, I think you'd better check the
-> DW_AT_data_member_location and DW_AT_decl_line to ensure the
-> DIE is the last member.
-
-Good point.  I can add the member location check.  I'm afraid decl line
-may be incorrect if compiler randomized the layout.
-
-So far I haven't seen DWARF data having unsorted members (by location),
-but it'd be better to make sure it's sorted.
-
-Thanks,
-Namhyung
+diff --git a/drivers/clk/imx/clk.c b/drivers/clk/imx/clk.c
+index f38506830ccf..e113e30514fa 100644
+--- a/drivers/clk/imx/clk.c
++++ b/drivers/clk/imx/clk.c
+@@ -119,12 +119,16 @@ struct clk_hw *imx_obtain_fixed_of_clock(struct device_node *np,
+ struct clk_hw *imx_get_clk_hw_by_name(struct device_node *np, const char *name)
+ {
+ 	struct clk *clk;
++	struct clk_hw *hw;
+ 
+ 	clk = of_clk_get_by_name(np, name);
+ 	if (IS_ERR(clk))
+ 		return ERR_PTR(-ENOENT);
+ 
+-	return __clk_get_hw(clk);
++	hw = __clk_get_hw(clk);
++	clk_put(clk);
++
++	return hw;
+ }
+ EXPORT_SYMBOL_GPL(imx_get_clk_hw_by_name);
+ 
+-- 
+2.34.1
 
