@@ -1,222 +1,63 @@
-Received: from mta0.migadu.com (out-94.mta0.migadu.com [91.218.175.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBA94BB26B
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:18:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7090D496D3F;
+	Tue, 15 Sep 2026 12:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474684; cv=none; b=h/jgiTc5p1CXZnG7EnEFfbuuDSqHfIjijISF94G39DTOCvKI+qIhP0AvMhthNBMaqgRFhTY2PG15HCW9vMCmdb2yNNu9GgNo1mmtYwDpZ7m0CjT+p0dTbaHNvuQuQlDNvalvPdXKPnJUVAYiuratPtqreetuHKco3Wf+HzXxGJw=
+	t=1789474715; cv=none; b=EJTnUmnmYhWXgYp9Ggupjv8iru0YlDjUeJ+SBlUbtY+G6bMdR0P0WMXwl4q+vXU63MUhmjVEESEPs8I0oGQTGzGVyYRh4Yx9VHor9JI9vKEhHWYGWKnK+tvgquRRNkMzux28gVwjX5VelhURbw8YytBs2YEhmPXfwv5fOe4FW7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474684; c=relaxed/simple;
-	bh=GQTQIcjs3xXmO+tF4fxaAvvvMtiV7CoLFztx3MvEqf0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=paA66aRqawdc7cvzSMMf+6w9dE3lgtKCFxpAHlntzkjASJoBpMV17+h7Ocq00FDV4s4r6kYPAz3D4JsKo0UQjgWSbejMcdK4DBUkCsLgA4CtwfsP6g4g1alXEEuEko/CWVHM/luQ2/zs7O/eoa7NThkj4kKjlgnKTZiQX21BfhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Jkrzr2Ct; arc=none smtp.client-ip=91.218.175.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789474715; c=relaxed/simple;
+	bh=3Nr8gcCwi6DEWSLP9EN8/l4h5yq3GfGsy2oDZDwQTVw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VxaINO0jRQhiE54RY07uMNhe4E7KN9XuSyQjiy559NzPYnntsTL1w6CuSH8AYeUuZwYT/pF/Yeni/WiloeKfpC4DKDctEKBn360MErH/IfqGI5AxKlevHxWN3DAejLeUqwMqUuBNH4pZkjywfTSSmoA0NDeLR65sO1HbCUQgVY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=al7xG3Qx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Jkrzr2Ct"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GQTQIcjs3xXmO+tF4fxaAvvvMtiV7CoLFztx3MvEqf0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789474679; v=1; x=1790079479;
- b=Jkrzr2CtACjyRbHVfuXfeF1Go6n1slEuAExFdiQqAzvkxJcRp9mUDUpL58luR8+bfipFzWA0
- aNJh//Z2vm2fgaTVAKMV6oPHQJCqgaoTMwJUiSgLjJC/kjpsNkc0swc3kE/AFffV+yJAPi/gBeY
- VL5k2VKbTh3pY+HAwWBB7ppQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f5a27be91f52e8fd;
-	Tue, 15 Sep 2026 12:17:58 +0000
-X-Mizu-Trace-ID: f5a27be91f52e8fd
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e38f2b80-20f2-4787-9e07-fb601552f550@linux.dev>
-Date: Tue, 15 Sep 2026 20:17:51 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="al7xG3Qx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6100B1F00893;
+	Tue, 15 Sep 2026 12:18:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789474714;
+	bh=3Nr8gcCwi6DEWSLP9EN8/l4h5yq3GfGsy2oDZDwQTVw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=al7xG3QxpordB8FaZac1xk6QWAEGzphwDCGfy40ckeGGdeDP1tbwhbJklTqx5QQFT
+	 ODvPZmGs3Rku3J2uQB3ChHYQAriES6YPKKW/TWgpaSESxWFOwioknFfQIhOZdlb/lh
+	 RLkOhFE53P9jFChtaD6A2+vi4SogD6zm9+SM0eAaXOgGkYYLJJfSgO/RrU1jMf018L
+	 IsZndXI06LzsoDnaEX00kNg9+CSe+xR/UDoSJpVb9b2SoGOi1j19PuVJIg9jG4HZNR
+	 dl5cjIQ8g0S9+wNIlluWxOi9Rk+9A+i9qr4Dl8RqrHyi07ZG8WPpqBJZWgaHICrgtm
+	 ZwEgDuMch+DXg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 47/50] iio: buffer: install the buffer
+ descriptor when the ioctl returns
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Brauner" <brauner@kernel.org>, "Linus Torvalds" <torvalds@linux-foundation.org>
+Cc: "David Airlie" <airlied@redhat.com>, virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, linux-openrisc@vger.kernel.org, linux-arm-msm@vger.kernel.org, sparclinux@vger.kernel.org, linux-mips@vger.kernel.org, "Jann
+ Horn" <jannh@google.com>, linux-hexagon@vger.kernel.org, bpf@vger.kernel.org, linux-gpio@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-hyperv@vger.kernel.org, kexec@lists.infradead.org, "Eugenio
+ Perez" <eperezma@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org, linux-parisc@vger.kernel.org, linux-sh@vger.kernel.org, io-uring@vger.kernel.org, "Peter
+ Zijlstra" <peterz@infradead.org>, "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, linux-um@lists.infradead.org, kvm@vger.kernel.org, "Ingo
+ Molnar" <mingo@redhat.com>, linux-kernel@vger.kernel.org, "Jan Kara" <jack@suse.cz>, linux-csky@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, "Oleg
+ Nesterov" <oleg@redhat.com>, "Jens Axboe" <axboe@kernel.dk>
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-47-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-47-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 12:18:30 +0000
+Message-Id: <20260915121831.6100B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] mm/mglru: add tracepoint for scan_folios()
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260911102939.2485750-1-ridong.chen@linux.dev>
- <20260911102939.2485750-3-ridong.chen@linux.dev> <aqkoeJvFzqpoGeaP@fedora>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <aqkoeJvFzqpoGeaP@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+> Rely on the fd exit path machinery.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-On 9/15/2026 7:14 PM, Baoquan He wrote:
-> On 09/11/26 at 06:29pm, Ridong Chen wrote:
->> From: Ridong Chen <chenridong@xiaomi.com>
-> ...snip...
->> ---
->>   include/trace/events/vmscan.h | 63 +++++++++++++++++++++++++++++++++++
->>   mm/vmscan.c                   |  6 ++++
->>   2 files changed, 69 insertions(+)
->>
->> diff --git a/include/trace/events/vmscan.h b/include/trace/events/vmscan.h
->> index 8a872990b4be..5defa8f6719c 100644
->> --- a/include/trace/events/vmscan.h
->> +++ b/include/trace/events/vmscan.h
->> @@ -392,6 +392,69 @@ TRACE_EVENT(mm_vmscan_lru_isolate,
->>   		__print_symbolic(__entry->lru, LRU_NAMES))
->>   );
->>   
->> +TRACE_EVENT(mm_mglru_scan_folios,
->> +
->> +	TP_PROTO(struct lruvec *lruvec,
->> +		int highest_zoneidx,
->> +		int order,
->> +		unsigned long nr_requested,
->> +		unsigned long nr_scanned,
->> +		unsigned long nr_sorted,
->> +		unsigned long nr_skipped,
->> +		unsigned long nr_taken,
->> +		int lru,
->> +		unsigned long max_seq,
->> +		int tier,
->> +		unsigned long min_seq),
-> 
-
-Thank you for your review.
-
-> Do we need show nid? Guess phone vendor doesn't care about multi-NUMA
-> system.
-> 
-
-Eh, nid is not an mglru-specific key. Since there are 12 elements here, it can't 
-be added here.
-
-
-> And I checked v1 thread, seems Steven suggested to move the two int to
-> avoid extra padding.
-> 
-
-Yeah, I will update it. I updated v2 to fix Sashiko's issue, before Steven had 
-any comment.
-
-
->> +
->> +	TP_ARGS(lruvec, highest_zoneidx, order, nr_requested, nr_scanned,
->> +		nr_sorted, nr_skipped, nr_taken, lru, max_seq, tier, min_seq),
->> +
->> +	TP_STRUCT__entry(
->> +		__field(u64, memcg_id)
->> +		__field(int, highest_zoneidx)
->> +		__field(int, order)
->> +		__field(unsigned long, nr_requested)
->> +		__field(unsigned long, nr_scanned)
->> +		__field(unsigned long, nr_sorted)
->> +		__field(unsigned long, nr_skipped)
->> +		__field(unsigned long, nr_taken)
->> +		__field(int, lru)
->> +		__field(unsigned long, max_seq)
->> +		__field(int, tier)
->> +		__field(unsigned long, min_seq)
->> +	),
->> +
->> +	TP_fast_assign(
->> +		__entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
->> +		__entry->highest_zoneidx = highest_zoneidx;
->> +		__entry->order = order;
->> +		__entry->nr_requested = nr_requested;
->> +		__entry->nr_scanned = nr_scanned;
->> +		__entry->nr_sorted = nr_sorted;
->> +		__entry->nr_skipped = nr_skipped;
->> +		__entry->nr_taken = nr_taken;
->> +		__entry->lru = lru;
->> +		__entry->max_seq = max_seq;
->> +		__entry->tier = tier;
->> +		__entry->min_seq = min_seq;
->> +	),
->> +
->> +	TP_printk("memcg_id=%llu classzone=%d order=%d nr_requested=%lu nr_scanned=%lu nr_sorted=%lu nr_skipped=%lu nr_taken=%lu lru=%s max_seq=%lu tier=%d min_seq=%lu",
->> +		__entry->memcg_id,
->> +		__entry->highest_zoneidx,
->> +		__entry->order,
->> +		__entry->nr_requested,
->> +		__entry->nr_scanned,
->> +		__entry->nr_sorted,
->> +		__entry->nr_skipped,
->> +		__entry->nr_taken,
->> +		__print_symbolic(__entry->lru, LRU_NAMES),
->> +		__entry->max_seq,
->> +		__entry->tier,
->> +		__entry->min_seq)
->> +);
->> +
->>   TRACE_EVENT(mm_vmscan_write_folio,
->>   
->>   	TP_PROTO(struct folio *folio),
->> diff --git a/mm/vmscan.c b/mm/vmscan.c
->> index 2554a6513aa8..67f59aa73fb9 100644
->> --- a/mm/vmscan.c
->> +++ b/mm/vmscan.c
->> @@ -4876,6 +4876,12 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->>   	trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
->>   				scanned, skipped, isolated,
->>   				type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
->> +	trace_mm_mglru_scan_folios(lruvec,
->> +				   sc->reclaim_idx, sc->order, nr_to_scan,
->> +				   scanned, sorted, skipped, isolated,
->> +				   type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON,
->> +				   lrugen->max_seq, tier,
->> +				   lrugen->min_seq[type]);
-> 
-> And seems Steven also suggested to calculate lru, max_seq, min_seq in
-> TP_fast_assign() in v1 which could be missed.
-> 
-
-Thanks, I will update it following Steven's suggestions.
-
-
->          TP_fast_assign(
->                  __entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
->                  __entry->highest_zoneidx = sc->reclaim_idx;
->                  __entry->order = sc->order;
->                  __entry->nr_requested = nr_requested;
->                  __entry->nr_scanned = nr_scanned;
->                  __entry->nr_sorted = nr_sorted;
->                  __entry->nr_skipped = nr_skipped;
->                  __entry->nr_taken = nr_taken;
->                  __entry->lru = type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON;
->                  __entry->max_seq = lrugen->max_seq;
->                  __entry->tier = tier;
->                  __entry->min_seq = lrugen->min_seq;
->          ),
-> 
-
-However, 'sc' is an internal structure, so sc->order cannot be accessed in 
-TP_fast_assign(), and I don't think it is worth making scan_control an external 
-structure just for this.
-
-> 
->>   
->>   	*isolatedp = isolated;
->>   	return scanned;
->> -- 
->> 2.34.1
->>
-
--- 
-Best regards
-Ridong
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D47
 
