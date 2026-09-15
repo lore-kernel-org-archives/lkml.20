@@ -1,128 +1,72 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA5A38C438;
-	Tue, 15 Sep 2026 12:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6D63D34B3;
+	Tue, 15 Sep 2026 12:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473903; cv=none; b=MCsZMFVWjRB910Dcxr87dBcv8iudHRaG1wzsaJDXBSN0zMU9ZIOkGSoZVLbkXwdWDjKrRr9kj+Ya7MyGWRw9z1WDCQXFOJuKX1e2Yr97iqwTjzIqYoLWwmtVDaf1AK0GxNdMwfW2SWW2oTbddo6iqm3FdfbF8lBqmXHBJPma+FU=
+	t=1789473928; cv=none; b=t0aU7tIWK5ugezysbnTb2kFi99o8MHEUzPNC2yTEJOv1s1QeZlBEkgb9rf1sX8VXr1QRTDjf080JYuG/SpUu2Lz30C5T7Dab+0RFbTI+uZN3xlC+mlJvNjFAg1N1/91iZqqHv8C34J1pLhTjIzhUtRrTWVvhFb8nadq1ub5jImo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473903; c=relaxed/simple;
-	bh=f2L8hznEZ/V3dZ3FBe5o1y6clVhB5S2kHARW7L/53wc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qdvi/vxOBBnjnlPbyBPWQ2zXSo7E3Gv4Ck253YSPDILRHpkALp6D65FWtbto0Hid1dXloLmbv/z0WDB5cMU3GxffDlBMKQ5wBBoeXFBuUtbw9UWOf0o5c/eZE6gEhUZ0NLVvCGmDFt39WPfLcwnwhHwtGc+FNHg2D2RfByGe578=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=oGsX1BIo; arc=none smtp.client-ip=220.197.31.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789473928; c=relaxed/simple;
+	bh=9fBEtIbr3AFyAksoQqS3Fbydy5vpB4nMaKZT39mGc48=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VXXF8OM130Sh+nW/+VkPutQ//qz9eEy1Gyk/K2SI7FWB/WPIPPARkdThkYntKsOKS9H6HA0rNX161aCQhGANuIcU4KSgnjzJbTlKeyeXx9UvcQxdeJnL6oh5kv3lazdtvaCBxJY/eorc3eSMIzu8Ovum9yFUhX8Cil4TSVpNZeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ciTyjsYi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="oGsX1BIo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=9u
-	l3bUyHD7wGoCm62vRZXHwUVl+wV8Z92XNjrOcvm0M=; b=oGsX1BIoMzahTkB1ro
-	/eq6eq5U1rmBR7jy6/K2rQEzrqCXdrsXXyV+FdlcblxR53zl7h6PhSb3ZcwFlqBu
-	iqyx49gBeITYehYRLAUbgWCqlpXH6ohUcQCE9cQyUwN2QnVXd+TE6myFhsnN5SUx
-	WPr1dLHCatipvnP4/agMxw6r4=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3Ny8rNKlqchRDBQ--.39588S2;
-	Tue, 15 Sep 2026 20:03:56 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: [Intel-wired-lan] [PATCH net] i40e: limit the DDP profile count returned by the firmware
-Date: Tue, 15 Sep 2026 20:03:54 +0800
-Message-Id: <20260915120354.610499-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ciTyjsYi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4910B1F000FF;
+	Tue, 15 Sep 2026 12:05:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789473927;
+	bh=9fBEtIbr3AFyAksoQqS3Fbydy5vpB4nMaKZT39mGc48=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ciTyjsYio6YcUd6U+CzkUXMFWJVI5JN8YpF3LWAF35D4RcZO6WNyNNLXWTcTNKx/k
+	 phMotj0kCSRJiLRwEB6PukDAqeOWTf+ZkB0jp+D5F2leVdFoUNkcjEaKJx1upIioCP
+	 CUcHsmrqrKX9GAlkCPX6E26buGa/rDYMQLBRn2YZpYiLqv6kE2OPMZp+B2G/43JgPY
+	 VQ3gvXiSdHMDyE74NA/AxGmidg9o/oGBR74v2qXcAt1S74qyth1DbIflVP8V9zvpQm
+	 0rcjVCp5RxoIduGdCiF4608I/waS+6ME56RhQGnLGMkkRdYNrNVYyQVY30p5DEkuKy
+	 JPaEc4INykdeQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 25/50] file: reimplement FD_PREPARE() on the
+ deferred fd_prepare() path
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Torvalds" <torvalds@linux-foundation.org>, "Christian Brauner" <brauner@kernel.org>
+Cc: "Jens Axboe" <axboe@kernel.dk>, "Peter Zijlstra" <peterz@infradead.org>, linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, "Michael
+ S. Tsirkin" <mst@redhat.com>, linux-mm@kvack.org, linux-hyperv@vger.kernel.org, linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linuxppc-dev@lists.ozlabs.org, linux-parisc@vger.kernel.org, linux-gpio@vger.kernel.org, virtualization@lists.linux.dev, "Ingo
+ Molnar" <mingo@redhat.com>, linux-um@lists.infradead.org, dri-devel@lists.freedesktop.org, linux-csky@vger.kernel.org, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, bpf@vger.kernel.org, linux-snps-arc@lists.infradead.org, io-uring@vger.kernel.org,
+ =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, "Oleg
+ Nesterov" <oleg@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>, kexec@lists.infradead.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-hexagon@vger.kernel.org, linux-arm-msm@vger.kernel.org, "Jann
+ Horn" <jannh@google.com>, "David Airlie" <airlied@redhat.com>, linux-sh@vger.kernel.org, "Jan
+ Kara" <jack@suse.cz>, linux-fsdevel@vger.kernel.org
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-25-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-25-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 12:05:24 +0000
+Message-Id: <20260915120525.4910B1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3Ny8rNKlqchRDBQ--.39588S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw4UWw1Utw18JF1DCF1ftFb_yoW5WF1Dpa
-	y5CryDGr1kJa1jgw45JFW7CF1fu3WxAryagaySg3s8ur98tFs5WFykJFWrKF129rWkurn0
-	yF4kCry8AFsrJwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UHq2iUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqAwd82qpNCzcFAAA3Z
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+> The FD_PREPARE() cleanup class allocated and installed immediately and
+> required fd_publish() to be the last thing that could fail. Reimplement
+> it on the deferred path. FD_PREPARE() reserves a slot with fd_prepare()
+> and stages the file on it. The syscall exit installs on success and
+> drops on error. fd_prepare_fd() and fd_prepare_file() now read the slot.
+> fd_publish() is gone.
+>=20
+> Convert every FD_PREPARE() user since fdf.err can now become a simple
+> IS_ERR(fdf).
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-i40e_aq_get_ddp_list() writes into a I40E_PROFILE_LIST_SIZE buffer,
-which is sized for I40E_MAX_PROFILE_NUM (16) i40e_profile_info entries
-plus the 4 byte p_count header. i40e_ddp_does_profile_exist() and
-i40e_ddp_does_profile_overlap() then loop over profile_list->p_count
-without bounding it, so a firmware reporting more than 16 profiles makes
-both helpers walk past the end of the on-stack buff[] and compare
-against whatever happens to follow it on the stack.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Clamp the count to the number of entries the buffer can actually hold
-and make the loop counter unsigned to match the field type.
-
-Fixes: cdc594e00370 ("i40e: Implement DDP support in i40e driver")
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
----
- drivers/net/ethernet/intel/i40e/i40e_ddp.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/i40e/i40e_ddp.c b/drivers/net/ethernet/intel/i40e/i40e_ddp.c
-index daa9f2c42f70..1d6d8b3835a3 100644
---- a/drivers/net/ethernet/intel/i40e/i40e_ddp.c
-+++ b/drivers/net/ethernet/intel/i40e/i40e_ddp.c
-@@ -55,7 +55,7 @@ static int i40e_ddp_does_profile_exist(struct i40e_hw *hw,
- 	struct i40e_ddp_profile_list *profile_list;
- 	u8 buff[I40E_PROFILE_LIST_SIZE];
- 	int status;
--	int i;
-+	u32 i, p_count;
- 
- 	status = i40e_aq_get_ddp_list(hw, buff, I40E_PROFILE_LIST_SIZE, 0,
- 				      NULL);
-@@ -63,7 +63,12 @@ static int i40e_ddp_does_profile_exist(struct i40e_hw *hw,
- 		return -1;
- 
- 	profile_list = (struct i40e_ddp_profile_list *)buff;
--	for (i = 0; i < profile_list->p_count; i++) {
-+	/* Never walk past the end of buff[], the profile count reported by
-+	 * the firmware is not guaranteed to fit into the buffer we gave it.
-+	 */
-+	p_count = min_t(u32, profile_list->p_count, I40E_MAX_PROFILE_NUM);
-+
-+	for (i = 0; i < p_count; i++) {
- 		if (i40e_ddp_profiles_eq(pinfo, &profile_list->p_info[i]))
- 			return 1;
- 	}
-@@ -110,7 +115,7 @@ static int i40e_ddp_does_profile_overlap(struct i40e_hw *hw,
- 	struct i40e_ddp_profile_list *profile_list;
- 	u8 buff[I40E_PROFILE_LIST_SIZE];
- 	int status;
--	int i;
-+	u32 i, p_count;
- 
- 	status = i40e_aq_get_ddp_list(hw, buff, I40E_PROFILE_LIST_SIZE, 0,
- 				      NULL);
-@@ -118,7 +123,12 @@ static int i40e_ddp_does_profile_overlap(struct i40e_hw *hw,
- 		return -EIO;
- 
- 	profile_list = (struct i40e_ddp_profile_list *)buff;
--	for (i = 0; i < profile_list->p_count; i++) {
-+	/* Never walk past the end of buff[], the profile count reported by
-+	 * the firmware is not guaranteed to fit into the buffer we gave it.
-+	 */
-+	p_count = min_t(u32, profile_list->p_count, I40E_MAX_PROFILE_NUM);
-+
-+	for (i = 0; i < p_count; i++) {
- 		if (i40e_ddp_profiles_overlap(pinfo,
- 					      &profile_list->p_info[i]))
- 			return 1;
--- 
-2.25.1
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D25
 
