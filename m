@@ -1,49 +1,49 @@
 Received: from ironport.ite.com.tw (itemail.ite.com.tw [60.251.196.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE663332601;
-	Tue, 15 Sep 2026 07:27:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF175468C15;
+	Tue, 15 Sep 2026 07:27:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.251.196.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457237; cv=none; b=e5YjeXM+PEPKK9zsaAxQj3PLp32rBRQabpNvFtCqO7t0VmxI2jFIIQlgmxQSmJIL6oHIzIzVPwiRRjnpP+lq3hMs+4Yrvkmzfte62qsmwj+8hngJe7W9PU+QIC80tQNFdrUbOdeOmTToL+uAxxzaNr+MiQD58HRLOg7Ke7upmpo=
+	t=1789457243; cv=none; b=S0iYFTj5V/IWA+LkSn0N25H/+KAlS1JF1t9O5tl7RIrUqDiLOkNKLC8FL5db2AvP7JhAbbiwUSG9fgdLlvuU89R5T9z/tjHHK7JYyO6tQhJtQsYkI4aoVUTqvMFp9/ftpqVUV8wFEGM0JUv9KRAQXsNfiGOnoHwniSUu+SuHQ7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457237; c=relaxed/simple;
-	bh=s3NdJpBL2H3T34Cjcf3/iU7S/YWt1F7gDytj+EPvTfY=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 In-Reply-To:References:To:CC; b=PRnbg8R0h1vKTV9ACSZF+CZE3ZT3Uyg08lkkXpdFUy8OlrKft94RQCEr9Um5IAirq2Vbj2o6bbx3TrjFZhG8cF/LjEPCKzAb7ChiOFvr4q/2dfj3D5NZzjkEC/hyMs9OE1UWi8m4dJDB/RCe6LRnuUuWl44Cv4/Epdltbq0cn40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=fpPYsWDs; arc=none smtp.client-ip=60.251.196.230
+	s=arc-20240116; t=1789457243; c=relaxed/simple;
+	bh=tlP1iJ85UQy5tBsvpGCCKZ3NqJo96uZlobIIxZUIMS0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=qrND5434gfozeamoipzdO9BWJtR5zXfS3TZxwph1l1bPxKKlI1/AWG6iMZieh8HbVIFavvmchN+RMGy/UXXZVF9KR5JI6arcdKkYnmlIpyGwVqw23NfE1kg3npGzmQqQEJdXl24yNOzn79tzBePANaTLr0XSMSZkDErt6G6CFxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=qs4l0y74; arc=none smtp.client-ip=60.251.196.230
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="fpPYsWDs"
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="qs4l0y74"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=ite.com.tw; s=dkim;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:in-reply-to:references:to:cc;
-  bh=QrAgWkImRd7ho2JuXHNUm0qpLVkPKY3YCQcWe9zC/hg=;
-  b=fpPYsWDsCrOQoow+ZbS9wjl6mhDE+Li0pXhwWMpsQ/9bgotgGmmpmcpK
-   1mGug7lqOBbqEUFJEX11KRMlNWDwaXxXnqLMDlmueb7bVO/7amR402lzA
-   AkgBFjk8bVKBiYpXQN6tKj0ZOD3bNt4Lk1hL8EengHuC1ncfxkbhTz1qR
-   EnycwyistuU0muOC9D3KZKh6j5dpo+xiisVubbJbQkHy4B3paPtYK/MkZ
-   YoWeXvv82q9+nVNzsI5yiLQHfItZiC01r+xYWX/k8/wXOGqHbRUqNy4pO
-   wwHfupXsph5TPf43DNeqsPvZliZfSsgoksZjEFMscku7gi0G4SQsN5MPw
-   Q==;
-X-CSE-ConnectionGUID: b7M7O5qkRwGJPew7eezEgg==
-X-CSE-MsgGUID: Ubrx7M2EQ3SreZavDRfeLg==
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=BcH1NykmoVX/ILfQGa0dzRnEacmBWjFL+KKNCDWQNsY=;
+  b=qs4l0y74ZR6joqvo/1GT8P8kX0Dfh4cGbLjtSpcLXoYXUp03hmGsuVlT
+   0gzSiDIJEjCnCdl5n70KvrhzptY7T5BwOvbRg31zB9ckDws2VbRFIMl9E
+   +KmQNBmcP+FffKSYQ6a4fkwQAbVS/sm/4p58S8HickhidsOxZ0LJ3zt3I
+   ybghp0OXFDk1vyiltc941bxWJmySxJSh0A3JMasatjKCRdBfo7eq0gNBC
+   pqVN0gbNsGWPofGaV1l0amrUacLGrmmvsMT+qwHU8gCPZA9vAabP50xue
+   ROFNOLQF2dCWzG4YzQwmUGsBRIdFKkxnEd/ljuZVCNweUj6mA0c4Fx1RX
+   A==;
+X-CSE-ConnectionGUID: Hhs19nw5QsqGbtS+PtHYzA==
+X-CSE-MsgGUID: deZWQAVrTHmwyZZKsti9Xg==
 Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 15 Sep 2026 15:27:04 +0800
+  by ironport.ite.com.tw with ESMTP; 15 Sep 2026 15:27:06 +0800
 Received: from CSBMAIL1.internal.ite.com.tw (CSBMAIL1.internal.ite.com.tw [192.168.65.58])
-	by mse.ite.com.tw with ESMTP id 68F7QxjR029913;
-	Tue, 15 Sep 2026 15:26:59 +0800 (+08)
+	by mse.ite.com.tw with ESMTP id 68F7R0Mk029947;
+	Tue, 15 Sep 2026 15:27:00 +0800 (+08)
 	(envelope-from Pet.Weng@ite.com.tw)
 Received: from [127.0.1.1] (192.168.72.40) by CSBMAIL1.internal.ite.com.tw
  (192.168.65.58) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
  2026 15:26:59 +0800
 From: Pet Weng <pet.weng@ite.com.tw>
-Subject: [PATCH v10 0/2] Add ITE IT61620 MIPI DSI to HDMI bridge driver
-Date: Tue, 15 Sep 2026 15:26:28 +0800
-Message-ID: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
+Date: Tue, 15 Sep 2026 15:26:29 +0800
+Subject: [PATCH v10 1/2] dt-bindings: display: Add ITE IT61620 MIPI DSI to
+ HDMI bridge
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,15 +52,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACTzqGoC/3XQz04DIRAG8FdpOLvNzAADePI9jAeWP5aDrdndr
- Jqm7y7bRFshJnP5Jvl9TDiLOU0lzeJxdxZTWstcTscaEB52Ihz88TUNJdaFICANBtVQFkYmGK7
- Bj6pOSDmTE5W8TymXz2vf80vNhzIvp+nrWr/itv2naMUBBmkYkVWE0dmnsqR9OL3tlw+xNa100
- 5Zso6lqbTlrJ1XUudfyVyOAa7TcdGRLEcgqhZ1WN03IjVZVu0g5eWOV8anT+k4TNVpX7fPIyjg
- fZfCd5h/NgBIazVUb8NmzdiRH3Wlz0xJlo8325+yRYwDJkTtt7zS1b9uqIRkggyFr7zrt7rVpt
- Nu0JCdtGF20fy+/XC7fH9Pn2ZoCAAA=
-X-Change-ID: 20250714-it61620-0714-ab4ab4ceff29
-In-Reply-To: <20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw>
-References: <20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw>
+Message-ID: <20260915-it61620-0714-v10-1-738e2a662c06@ite.com.tw>
+References: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
+In-Reply-To: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
         Neil Armstrong
 	<neil.armstrong@linaro.org>,
@@ -93,204 +87,197 @@ CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
         Pin-yen Lin <treapking@google.com>,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457257; l=9375;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457258; l=5468;
  i=pet.weng@ite.com.tw; s=20250702; h=from:subject:message-id;
- bh=s3NdJpBL2H3T34Cjcf3/iU7S/YWt1F7gDytj+EPvTfY=;
- b=YRRrJmXe09U6sh/E5peJnV366UAjl6jFEM2YrYIwVXwbs5xGI24C8In0qoEgwMUXRvtd1Z0Pl
- fLjkxVFHOLWAdV3H2lnvlnX67p91Ycs4aN5mxcM5NTHZ+53tcyH2i9j
+ bh=tlP1iJ85UQy5tBsvpGCCKZ3NqJo96uZlobIIxZUIMS0=;
+ b=j4mP8jqMjv/HMuWygHwiQQof3C/sz9t8kg6Wz6GAqiOl4ROiS21M0AceCgbsSYIBe9X3YsFvI
+ W0/YAru06FtC+fDQy5xMxm9iyVNVrpRFkrSDxe9LYAMXe/4+XPOy85f
 X-Developer-Key: i=pet.weng@ite.com.tw; a=ed25519;
  pk=wd08uBtTLb93x2ixbKVNsxiZPdMh1Ov4z5klodh2bqo=
 X-ClientProxiedBy: CSBMAIL1.internal.ite.com.tw (192.168.65.58) To
  CSBMAIL1.internal.ite.com.tw (192.168.65.58)
 X-TM-SNTS-SMTP:
-	732AF0DB9A6B5B4AC802CD8F91F77CA42CF57B4039588DBC229065194A3180D02002:8
-X-MAIL:mse.ite.com.tw 68F7QxjR029913
+	737AC342BC878933FA1D5F451F525F8EE88D56CB8DB0AB654419F866C97CE8A82002:8
+X-MAIL:mse.ite.com.tw 68F7R0Mk029947
 
-This patch series adds support for the ITE IT61620 MIPI DSI to HDMI 
-bridge chip.
+This chip receives MIPI DSI input and outputs HDMI, and is commonly
+connected to SoCs via I2C and DSI.
 
-The IT61620 is an I2C-controlled bridge that receives MIPI DSI input 
-and outputs HDMI signals. A single-port MIPI DSI input is converted to 
-an HDMI 1.4 output. This series introduces:
-- A device tree binding YAML file describing the hardware
-- A new DRM bridge driver implementing the basic functionality
+IT61620 is a variant of IT6162.
+The main differences are listed below
+- IT61620 supports only a single MIPI DSI input port, while
+  IT6162 supports dual MIPI DSI ports.
+- IT61620 does not include the internal MCU present in IT6162.
 
-Hotplug may be provided by the next bridge (typically hdmi-connector
-with hpd-gpios). If that bridge already implements OP_HPD / OP_DETECT,
-this driver leaves those ops to it and only receives hpd_notify().
-Otherwise it owns connector status from the chip HPD pin. That pin also
-carries HDCP Ri pulses, so chip HPD IRQs are debounced before
-drm_bridge_hpd_notify().
+Because of these architectural differences, IT61620 uses a separate
+compatible string even though the external interfaces and bindings
+are largely similar.
 
 Signed-off-by: Pet Weng <pet.weng@ite.com.tw>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-Changes in v10:
-- dt-bindings: no change since v9; keep Reviewed-by from Krzysztof
-- drm/bridge: dropped Reviewed-by from Dmitry due to functional changes
-  1. HDMI IRQ: test int_status1 bits, not the TX_REG_INT1 address
-  2. Use pm_runtime_get_if_in_use() in the threaded IRQ to avoid
-     deadlocking with disable_irq() in runtime suspend
-  3. Update HDCP content-protection from work that takes
-     connection_mutex (do not call the helper from IRQ / hdcp_work)
-  4. Serialize DDC abort on HDCP auth fail with ddc_lock
-  5. Clamp KSV FIFO reads; treat an empty FIFO as an error
-  6. Include the 8 M0 bytes in the HDCP SHA-1 input length
-  7. Write AVI infoframe after clearing the AVI packet, not VSIF
-  8. Write A0 pattern-generator registers through tx_regmap
-  9. Parse MIPI endpoint data-lanes / lane-polarities; attach DSI with
-     the parsed lane count instead of a hard-coded 4
- 10. Implement OP_DETECT / OP_HPD when the next bridge does not:
-     detect() and edid_read() resume the chip; hpd_enable() holds
-     runtime PM; HPD IRQs are debounced; power-on W1Cs latched HPD_CHG
-     before enable_irq()
- 11. hpd_notify() does not touch runtime PM when this driver owns OP_HPD
- 12. Use devm_pm_runtime_enable(); cancel HDCP/HPD work on remove and
-     let devres unwind DSI, bridge and PM (no early mutex_destroy)
- 13. Switch to drm_atomic_commit / atomic_create_state
- 14. Use abs_diff() for the MIPI htotal delay; drop redundant
-     pm_runtime_mark_last_busy(); log pre_enable resume failures
-- Link to v9: https://lore.kernel.org/r/20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw
+ Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml | 152 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 152 insertions(+)
 
-Changes in v9:
-- Fix commit message wrapping to follow kernel style
-- Run checkpatch.pl and address reported issues
-- Restore Reviewed-by from Krzysztof as the change is non-functional
-- Link to v8: https://lore.kernel.org/r/20260320-it61620-0714-v8-0-0e70271cf5a9@ite.com.tw
+diff --git a/Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml b/Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..d4f0edeecd0e22f3fa92c9f8e276ce0806c24790
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml
+@@ -0,0 +1,152 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/ite,it61620.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ITE IT61620 MIPI DSI to HDMI Bridge
++
++maintainers:
++  - Pet Weng <pet.weng@ite.com.tw>
++
++description: |
++  The ITE IT61620 is a high-performance, low-power HDMI bridge that converts
++  MIPI DSI input to HDMI 1.4b TMDS output. It supports up to 4 lanes of MIPI
++  D-PHY 2.0 input at 2.5Gbps per lane (10Gbps total), compatible with DSI-2
++  v2.0.
++
++  The HDMI transmitter side supports up to 4Kx2K@30Hz resolutions, and is
++  compliant with HDMI 1.4b and HDCP 1.4.
++
++  For audio, the IT61620 supports up to 8-channel LPCM via I2S (multi-line or
++  TDM mode), with optional S/PDIF or DSD (for SACD). It supports audio
++  sampling rates up to 192kHz.
++
++  IT61620 is a variant of IT6162.
++  The main differences are listed below
++  - IT61620 supports only a single MIPI DSI input port, while IT6162 supports
++    dual MIPI DSI ports.
++  - IT61620 does not include the internal MCU present in IT6162.
++
++  Because of these architectural differences, IT61620 uses a separate
++  compatible string even though the external interfaces and bindings are
++  largely similar.
++
++allOf:
++  - $ref: /schemas/sound/dai-common.yaml#
++
++properties:
++  compatible:
++    const: ite,it61620
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  ivdd-supply:
++    description: core voltage
++
++  ovdd-supply:
++    description: I/O voltage
++
++  ovdd1833-supply:
++    description: flexible I/O voltage
++
++  "#sound-dai-cells":
++    const: 0
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: Input port for MIPI DSI
++
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++            required:
++              - data-lanes
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Output port for HDMI output
++
++      port@2:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Audio input port (I2S)
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - reset-gpios
++  - ivdd-supply
++  - ovdd-supply
++  - ovdd1833-supply
++  - ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        bridge@58 {
++            compatible = "ite,it61620";
++            reg = <0x58>;
++            #sound-dai-cells = <0>;
++            interrupt-parent = <&pio>;
++            interrupts = <128 IRQ_TYPE_LEVEL_LOW>;
++            pinctrl-names = "default";
++            pinctrl-0 = <&it61620_pins>;
++            reset-gpios = <&pio 127 GPIO_ACTIVE_LOW>;
++            ivdd-supply = <&pp1000_hdmi_x>;
++            ovdd-supply = <&pp3300_vio28_x>;
++            ovdd1833-supply = <&pp1800_vcamio_x>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    it61620_dsi_in: endpoint {
++                        data-lanes = <0 1 2 3>;
++                        remote-endpoint = <&dsi_out>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++                    it61620_hdmi_out: endpoint {
++                        remote-endpoint = <&hdmi_connector_in>;
++                    };
++                };
++
++                port@2 {
++                    reg = <2>;
++                    it61620_audio_in: endpoint {
++                        remote-endpoint = <&i2s0_out>;
++                    };
++                };
++            };
++        };
++    };
 
-Changes in v8:
-- dt-binding:
- 1. Clarify the hardware differences between IT6162 and IT61620 in the
-    description (IT61620 is single-port and lacks an internal MCU). 	[Krzysztof]
- 2. Dropped Reviewed-by from Krzysztof due to description changes.
-- Call drm_atomic_helper_connector_hdmi_clear_audio_infoframe() in audio
-  shutdown path								[Dmitry]
-- Link to v7: https://lore.kernel.org/r/20260313-it61620-0714-v7-0-36a16dc036d6@ite.com.tw
-
-Changes in v7:
-- The dt-bindings were previously reviewed by Krzysztof Kozlowski.
-- drm/bridge:								[Dmitry]
- 1. drop redundant register access wrappers and use regmap APIs directly
- 2. use drm_dbg_kms() instead of drm_dbg() when printing display timing information
- 3. use drm_display_mode directly for video timing
- 4. add helper for writing 16-bit timing registers
- 5. simplify HDMI interrupt handling
- 6. add mono audio support
- 7. program audio parameters directly
- 8. inline audio infoframe disable logic
-- MAINTAINERS: squash to driver patch					[Dmitry]
-- Link to v6: https://lore.kernel.org/r/20260130-it61620-0714-v6-0-70afa65923b5@ite.com.tw
-
-Changes in v6:
-- In patch 1								[Luca] 
- 1. Fix a typo in the commit message.
- 2. Remove redundant assignment of bridge.funcs, which is already set by 
-    devm_drm_bridge_alloc().
-- Link to v5: https://lore.kernel.org/r/20251222-it61620-0714-v5-0-afb6479ad3ca@ite.com.tw
-
-Changes in v5:
-- Fix dt_binding_check errors by adding missing unevaluatedProperties constraints
-  for port and endpoint nodes in the device tree binding.		[Rob]
-- Link to v4: https://lore.kernel.org/r/20251216-it61620-0714-v4-0-9d2fea7847ae@ite.com.tw
-
-Changes in v4:
-- In patch 1								[Krzysztof]
- 1. Remove redundant "description" fields from interrupts and regulators
- 2. Drop pinctrl-names and pinctrl-0; driver does not require them
- 3. Remove port/endpoint properties already covered by video interfaces schema
- 4. Fix example indentation to 4 spaces for readability
-- In patch 2								[Jani]
- 1. Use connector->display_info from DRM helper instead of parsing EDID manually
-- In patch 2								[Dmitry]
- 1. Remove redundant powered check in reg access
- 2. Use TMDS character rate instead of pixel clock for N/CTS
- 3. Use consistent lowercase naming for tmds.
- 4. Use test_bit() instead of custom bit-test helper
- 5. Use tmds_char_rate_valid instead of custom mode_valid
- 6. Use custom EDID read instead of DDC bus for segment handling
- 7. Drop redundant atomic feature check
- 8. Pass flags directly to drm_bridge_attach()
- 9. Check DRM_BRIDGE_ATTACH_NO_CONNECTOR flag before drm_bridge_attach()
- 10. Short-circuit HPD update if connector status unchanged
- 11. Remove unnecessary NULL check for connector state
- 12. Rename cached_edid to edid since it's no longer cached
- 13. Remove redundant sample rate checks; rely on hdmi-codec validation
- 14. Remove unsupported 18-bit audio sample size; rely on hdmi-codec
- 15. Remove unnecessary fmt switch; rely on hdmi-codec defaults
- 16. Check and propagate errors from it61620_audio_update_hw_params instead of
-     ignoring them
-- In patch 3								[Krzysztof]
- 1. Remove unnecessary T: field pointing to git; subsystem already defines it
-- Link to v3: https://lore.kernel.org/r/20251009-it61620-0714-v3-0-5d682d028441@ite.com.tw
-
-Changes in v3:
-- Wrapped description lines to comply with 80-character line length limit
-  in patch 1.								[Rob]
-- Renamed node from "it61620@58" to "bridge@58" in patch 1.		[Rob]
-- Add port@2 for I2S audio input in patch 1.				[Dmitry]
-- Updated the Kconfig dependency from CRYPTO and CRYPTO_HASH to 
-  CRYPTO_LIB_SHA1 in patch 2.						[Eric]
-- In patch 2								[Dmitry]
- 1. Audio and InfoFrame
-   - Rename audfmt to i2s_input_format for clarity.
-   - Remove unused infoframe[HDMI_INFOFRAME_SIZE(AUDIO)].
- 2. Platform data and structure
-   - Drop platform data usage; migrate members into struct it61620
- 3. Code organization
-   - Reorder functions to avoid the need for forward declarations.
-   - Add static inline to small helper functions
-     (e.g. bridge_to_it61620()).
- 4. HDCP handling
-   - Make HDCP enable/disable conditional on conn_state->content_protection.
-   - Report authentication result using drm_hdcp_update_content_protection().
- 5. Error handling
-   - Replace manual error path with dev_err_probe().
- 6. Power management
-   - Inline suspend/resume callbacks.
-   - Use DEFINE_RUNTIME_DEV_PM_OPS() instead of explicit struct definition.
- 7. Bridge callbacks
-   - Drop empty bridge_detach().
-   - Inline it61620_bridge_mode_valid().
- 8. EDID handling
-   - Remove unnecessary cached EDID duplication.
- 9. Mode set and pixel clock
-   - Move mode handling to atomic_enable().
-   - Keep only pixelclock for future N/CTS audio calculations.
- 10. Logging
-    - Replace noisy drm_err() calls with drm_dbg().
- 11. InfoFrame support
-    - Add support for SPD and Vendor InfoFrames.
-- Link to v2: https://lore.kernel.org/r/20250828-it61620-0714-v2-0-586f5934d5f8@ite.com.tw
-
-Changes in v2:
-- Call the sha1() library function instead of using the crypto_shash
-  "sha1" in patch 2.
-- Rewrite it61620_hdmi_ddc_wait() with readx_poll_timeout() in patch 2.	[Pin-yen]
-- Rewrite it61620_hdmi_hdcp_wait_ksv_list() with readx_poll_timeout() in
-  patch 2.
-- Replace interrupts-extended with interrupts in patch 1.		[Rob]
-- Replace dsi-lanes with the standard property data-lanes from the graph
-  binding.								[Rob]
-- Replace "#/$defs/port-base" with "#/properties/port" in patch 1.	[Rob]
-- Drop unused labels and "hdmi" for the node name.			[Rob]
-- Drop status in patch 1.						[Rob]
-- Link to v1: https://lore.kernel.org/r/20250714-it61620-0714-v1-0-3761164d0b98@ite.com.tw
-
----
-Pet Weng (2):
-      dt-bindings: display: Add ITE IT61620 MIPI DSI to HDMI bridge
-      drm/bridge: Add ITE IT61620 MIPI DSI to HDMI bridge driver
-
- Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml |  152 ++++++++
- MAINTAINERS                                                       |    7 +
- drivers/gpu/drm/bridge/Kconfig                                    |   18 +
- drivers/gpu/drm/bridge/Makefile                                   |    1 +
- drivers/gpu/drm/bridge/ite-it61620.c                              | 2763 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 2941 insertions(+)
----
-base-commit: 7d66a68c6f216b78ea22ce8a4c7f8d456c76e8ba
-change-id: 20250714-it61620-0714-ab4ab4ceff29
-
-Best regards,
 -- 
-Pet Weng <pet.weng@ite.com.tw>
+2.34.1
 
