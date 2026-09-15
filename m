@@ -1,57 +1,57 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAFA646983A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B7741441F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:19:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460439; cv=none; b=qkw7utnhTj8m9v/Psh2ntAuFdwa1L21D/qGdxy6hPVGMOTstrkpAb4wZBEGkniYD0G/Ky9+Y0AnUHRFCEXUoJj4XTHFxevsOznZOcr1DcOrUeOae0FUoEK6SKstiS5Hue+kE11a2YtV6DpTbUPSOYJZp5JsxANjIf/jKZzwCXyI=
+	t=1789460427; cv=none; b=QNP+j0C8uzOGdqUuXIIQRtWB1QTemaWv/kfLTuAr+KRVPmIvZ98xgjE3weR/7tT/O69UhPoJZPJ2nVPqQdI7mNj4+KKxe5LVV+Y8eZ60wGk2W/T7+ZV0XYFKBRBlK1QQ36rJQrNnYGGP0Vb6aHs3XnsRvgs8yCQ7aqXm84pBG7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460439; c=relaxed/simple;
-	bh=EN6EGME+huegbOxDBjKH7V67mh976lOmZoZq43U+s0w=;
+	s=arc-20240116; t=1789460427; c=relaxed/simple;
+	bh=AdZQZFBZ+Sq+Xs3+ioKoxuNwDqkD/CEsMpiPWsVgYCg=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Ag9lnouzjHisXntIonh7iaux2MVjckFOykUkudgMiyRsf308SzvZz3DxZ7RynkI/qigAEQqk46o4barcEXXbHRPYDaa8bz0SlyBsZSX8ZF57r8sTmExYNxz322FHgIQT9gd/xQ0aPgcsqWVtaTJop/wpOlHxc4r07jhqnHdeJ+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vYte7tUk; arc=none smtp.client-ip=209.85.214.197
+	 To:Cc:Content-Type; b=c84HoGTu9RjvSW0CkzcyFg5FMztJoxkq8CYB5t4I6yREpz2bueAFFx4Y7eBUq8xdDiBU1wH0EuaKr3KeB4vTYFe3R6AI6mMVYkQRHccl9785SyoHXkca/Wo+8mNNRKhUQHaZ9veD9+29boZhJmB38NlcGnnqVQRbXmrF/+mxB24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=e7zvsQ58; arc=none smtp.client-ip=209.85.214.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vYte7tUk"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dd753a52bbso18790685ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:20:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="e7zvsQ58"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cc73f47bdcso54166115ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:19:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789460400; x=1790065200; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789460391; x=1790065191; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=EgFMWIs3mUJyaWhldMFLFql9frpSc6deV3MqyJ0yzUw=;
-        b=vYte7tUkHJFWXfT6KsyX7Wr8Rrz4sjJLKKsMA7bq55v7nidy/YQw7EZPEAGiyg+rK7
-         sxjW/t48fE8xv/Rm5lLDaOW+jTJufQdchTkUSpiY9u/qfbfikEA8iViCTtWEajXQcLbj
-         nxwJ8EG+2P1vnWz+y+Ay3LdxTQ67NynLhvD6yTj0pVToCiaTly4p8/wnL5z5wQd6EfuY
-         QR1+LX8zw4MWrOgbU+6QkJYgz+508IUdzBu6nOs+Rksj8lfP9ioOSsFBReXRIQhL8UR3
-         OdXUtb7C7UkmHflCK7hl8Ee8+PEhvmq0MuRfNIkD9Bd7YxyymFnHlk27zb+VOOJnFZGt
-         j+HA==
+        bh=i189Z1372pvpafDRMVnLFn5IBf8O4Z3ONLFW1RCweBo=;
+        b=e7zvsQ58BkKTiZW4t1dlacydlPXAyV5l7nrlXWGuEnl8ITedm+WZqimRu2Ntz065t4
+         I00TgGLvLcai1VOpDqY0l/EmyYeA0dDc4gRltA0iwoBuD923CtGSmNfi9u9sahP1oR+K
+         +PaHxh0VGG2vE2cFpXvFEfHpfHHTARCVZhCjplJ0URdGB5zttT3AV1tLmrrSgbBz7J2/
+         Xgv6ZWPZW4F0K1qnOdSxXmsxvR33uIEkdKSrtfzlnQjv/HtRWJdOf7qBTgXuMM7+1MAI
+         tuPOpJAlqeiQhLvD6+3+vnZBbW8J5frLP8RFZPhZ9ByDYqh23hwk1njZ31sP7KgvAB5R
+         +hqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460400; x=1790065200;
+        d=1e100.net; s=20260707; t=1789460391; x=1790065191;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EgFMWIs3mUJyaWhldMFLFql9frpSc6deV3MqyJ0yzUw=;
-        b=mpp9fvgILrzATiwDtP2Q+MXo8QDWAE/7e00DNFdf8Wrr5uRzsNjHqHkh1eIl8HJB4C
-         vShJYrEEouIsLaNyA8Qhfu7NOfl9Cewj2n/m4L5yp40STkP8TOipcx/RbBUV8M/fsc/2
-         YYomKyJhCwJbNTwoiCDAvRabXruw3AXzdxEYOvn42bV1i5yhnbh2HyYvKVKWI0VfVO3J
-         dQVcyBWqvZ1e6G20peJrCxr3Xfy0ZP8QyBDBfm87Jtrzy98376P4g1SvVrhV2rY8Oncr
-         CJ8czTEkbOslEyppyWrzOvRbTKwLcPE8HlEDWZFgm/edR/PrKzUV2aMmpznDQtUxgd0f
-         WSJA==
-X-Gm-Message-State: AFuF++msdp0jYw0J/0ijKNPoCk+qmSdoQ10sU65W285zgnf47HwP1xMn
-	FP7jitmAAGN8xoP9VuouVHuqco29D4YMVCVE6uO0DejrW7jjun+2IOrMq9JxXzMqjSsvx6Tg3lB
-	W9Liq92ks+frGrQb+78favBadyMIvAGCyi98PY1uGopsI4jXmyTwZEKfl96lZgkD6fcp8hPGzr6
-	QbjbmvktRPvcp7bl7Zng6I/bBFuPEhAeHVzK0PFA==
-X-Received: from plrf13.prod.google.com ([2002:a17:902:ab8d:b0:2d9:21a2:1910])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:32cc:b0:2db:3d84:effc
- with SMTP id d9443c01a7336-2dd6c5d600fmr121011565ad.6.1789460398023; Tue, 15
- Sep 2026 01:19:58 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:28 +0000
+        bh=i189Z1372pvpafDRMVnLFn5IBf8O4Z3ONLFW1RCweBo=;
+        b=L32xoLcGSEvbFgbiXjCkyp/01TYa6bMKf0HmgsaalRPlfjwW16PLOapdWlKEK16aQF
+         8WxOQgXECUa8/wnTF5TFyxSIjvtRU3dk1R/N2EISCPdm5r/EaM5OwR+HJ9Ahks9NnQ5n
+         Ojzk/Ntfer78EwtAMlrsJ1LHt7CwsarEdJVqYrkNK+3XSUtk0QP/rmw4PYAs5zoNF4hU
+         07CvCG69x0hwY4suN/IfXB/aDyjlRB8B+kKJkqs3u/QrVw60PqgvLWhM9AyKOJUFqJwL
+         OWOrlcfgqDzbmpXe0D7bcvaHBRXF5pEJ5yMH5r8/txnHyyXsPMdylFHn8o4Tdx7xsWMa
+         Hxqg==
+X-Gm-Message-State: AFuF++kXrl6Byl6wMIOm3rvkpgHQ40d98p0jx+03PuhAE8S0MOBq8tKB
+	LBhT3EF2usQPmlUVXYEfRUqzvORx95G7nI/kZ0r/QkDxYRqwGECyMemCEsNa1gpNIurUUV/Fkns
+	JMmui6iKeV+4C9Xx6EI+tGmB6UHUEOmNox7DH004Bz+GSx4cHABRcn4C6X/Va9114re9rXHYCLH
+	xgmXc7gsPYAcfsWfH1KGHNMm4SpPce9O4UBpbGrQ==
+X-Received: from plrd12.prod.google.com ([2002:a17:902:aa8c:b0:2db:8b6a:31a7])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:388d:b0:2dd:143:d5
+ with SMTP id d9443c01a7336-2dd6c75a396mr155065525ad.22.1789460390543; Tue, 15
+ Sep 2026 01:19:50 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:19 +0000
 In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,8 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-12-morbo@google.com>
-Subject: [PATCH 11/28] wifi: brcmfmac: Replace strlcat() with snprintf() in brcmf_fw_alloc_request()
+Message-ID: <20260915081910.4142719-3-morbo@google.com>
+Subject: [PATCH 02/28] sunrpc: Refactor rpc_sockaddr2uaddr() to use snprintf()
+ instead of strlcat()
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
@@ -123,17 +124,18 @@ Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-brcmf_fw_alloc_request() constructs firmware file paths by chaining
-strscpy() and multiple strlcat() calls for the module parameter path,
-separator, base name, and extension.
+rpc_sockaddr2uaddr() formats the IP address into "addrbuf", formats the
+port into a temporary "portbuf" buffer with snprintf(), and then appends
+"portbuf" to "addrbuf" using strlcat().
 
-In preparation for removing the deprecated strlcat() API[1], format the
-complete firmware path in a single snprintf() call.
+In preparation for removing the deprecated strlcat() API[1], capture the
+length returned by rpc_ntop4() and rpc_ntop6_noscopeid() and format the
+port directly onto the end of "addrbuf" with snprintf(). This eliminates
+the strlcat() call and the temporary "portbuf" buffer.
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 Cc: codemender-patching+linux@google.com
-Assisted-by: SecurityEngineer:GPT-4o [editor_update_file, make_kernel_build=
-_single_file, shell_command_run]
+Assisted-by: CoPilot:3.5-sonnet [editor_update_file, shell_command_run]
 Signed-off-by: Bill Wendling <morbo@google.com>
 ---
 Cc: Russell King <linux@armlinux.org.uk>
@@ -247,45 +249,58 @@ Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
 ---
- .../broadcom/brcm80211/brcmfmac/firmware.c    | 21 +++++++------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ net/sunrpc/addr.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/firmware.c b/=
-drivers/net/wireless/broadcom/brcm80211/brcmfmac/firmware.c
-index 22ff326f1924..2f74a952599e 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/firmware.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/firmware.c
-@@ -845,22 +845,17 @@ brcmf_fw_alloc_request(u32 chip, u32 chiprev,
- 	fwreq->n_items =3D n_fwnames;
+diff --git a/net/sunrpc/addr.c b/net/sunrpc/addr.c
+index 97ff11973c49..a1e4173e5a53 100644
+--- a/net/sunrpc/addr.c
++++ b/net/sunrpc/addr.c
+@@ -264,18 +264,20 @@ EXPORT_SYMBOL_GPL(rpc_pton);
+  */
+ char *rpc_sockaddr2uaddr(const struct sockaddr *sap, gfp_t gfp_flags)
+ {
+-	char portbuf[RPCBIND_MAXUADDRPLEN];
+ 	char addrbuf[RPCBIND_MAXUADDRLEN];
+ 	unsigned short port;
++	size_t len;
 =20
- 	for (j =3D 0; j < n_fwnames; j++) {
--		fwreq->items[j].path =3D fwnames[j].path;
--		fwnames[j].path[0] =3D '\0';
- 		/* check if firmware path is provided by module parameter */
- 		if (brcmf_mp_global.firmware_path[0] !=3D '\0') {
--			strscpy(fwnames[j].path, mp_path,
--				BRCMF_FW_NAME_LEN);
--
--			if (end !=3D '/') {
--				strlcat(fwnames[j].path, "/",
--					BRCMF_FW_NAME_LEN);
--			}
-+			snprintf(fwnames[j].path, BRCMF_FW_NAME_LEN, "%s%s%s%s",
-+				 mp_path, (end =3D=3D '/') ? "" : "/",
-+				 mapping_table[i].fw_base,
-+				 fwnames[j].extension);
-+		} else {
-+			snprintf(fwnames[j].path, BRCMF_FW_NAME_LEN, "%s%s",
-+				 mapping_table[i].fw_base,
-+				 fwnames[j].extension);
- 		}
--		strlcat(fwnames[j].path, mapping_table[i].fw_base,
--			BRCMF_FW_NAME_LEN);
--		strlcat(fwnames[j].path, fwnames[j].extension,
--			BRCMF_FW_NAME_LEN);
- 		fwreq->items[j].path =3D fwnames[j].path;
+ 	switch (sap->sa_family) {
+ 	case AF_INET:
+-		if (rpc_ntop4(sap, addrbuf, sizeof(addrbuf)) =3D=3D 0)
++		len =3D rpc_ntop4(sap, addrbuf, sizeof(addrbuf));
++		if (len =3D=3D 0 || len >=3D sizeof(addrbuf))
+ 			return NULL;
+ 		port =3D ntohs(((struct sockaddr_in *)sap)->sin_port);
+ 		break;
+ 	case AF_INET6:
+-		if (rpc_ntop6_noscopeid(sap, addrbuf, sizeof(addrbuf)) =3D=3D 0)
++		len =3D rpc_ntop6_noscopeid(sap, addrbuf, sizeof(addrbuf));
++		if (len =3D=3D 0 || len >=3D sizeof(addrbuf))
+ 			return NULL;
+ 		port =3D ntohs(((struct sockaddr_in6 *)sap)->sin6_port);
+ 		break;
+@@ -283,11 +285,8 @@ char *rpc_sockaddr2uaddr(const struct sockaddr *sap, g=
+fp_t gfp_flags)
+ 		return NULL;
  	}
 =20
+-	if (snprintf(portbuf, sizeof(portbuf),
+-		     ".%u.%u", port >> 8, port & 0xff) >=3D (int)sizeof(portbuf))
+-		return NULL;
+-
+-	if (strlcat(addrbuf, portbuf, sizeof(addrbuf)) >=3D sizeof(addrbuf))
++	if (snprintf(addrbuf + len, sizeof(addrbuf) - len,
++		     ".%u.%u", port >> 8, port & 0xff) >=3D sizeof(addrbuf) - len)
+ 		return NULL;
+=20
+ 	return kstrdup(addrbuf, gfp_flags);
+@@ -352,3 +351,4 @@ size_t rpc_uaddr2sockaddr(struct net *net, const char *=
+uaddr,
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(rpc_uaddr2sockaddr);
++
 --=20
 2.55.0.1032.g73a4cd73de-goog
 
