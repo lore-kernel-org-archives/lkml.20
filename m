@@ -1,189 +1,292 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3368A43F8D7
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B97644065F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789452311; cv=none; b=eQIbQkeJ5ql9BpMhfqdLNM3JwQCOi+aMTVWQYpTnxQGgj9JUGdBVBV8HxiRXEV2h+LEMXBwU5iAgcnS0+o4ZlbnGMOnpn7YrCV3DbwkQVCXKgOdDPG+MQQdIBUk63BKmacQyUN9uWhcjc9bdqdowXm9U7a7hpw/5p5Qsgcnx/jQ=
+	t=1789452311; cv=none; b=Q6mf+EcN2p9/R9tRgUuvgnJRgmXdWamdu1//aqBU+st1kmHe5/eRnuctPaK7JCj/r+uZCsfS/Zr3GpxoViVWn+maWQ+VEqJ4tO/9VFnkQ/4AjoeZST6w9jB2dIgd4tLCQ4O3jFtmddamTfTDwRkgtfxtMQkcxxe4UWu+kTBIuog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789452311; c=relaxed/simple;
-	bh=lmbl0FDJ8BKHPU7iGiLSRRUOzdLjYSXjkdgoP2gRUcQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=daR+hD9K/CDsoNfyL+c0IMtbsq1frhXfkoYMqxUW7wQ20Ta2D80mJBzyCGbxnIcNUJFaUiId8Hfm9t9MS7c/uQW/UVTVFRu9597lIzmcO76Q/4fu8ASVFKUdlw1aIXzOG9c4gQokLs884UPO40E+W33NB8w0gWVgZzbDuMobg4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IYAr1IbJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fVE9d5AB; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	bh=U3DUh3inybUsB/PmbApis0tGH4D/as8j+atCINkrwhM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mx51tujO66MiZkpcSZHzdaxqITrskjPFDqQY7gRLNgctKLHEw7BU/aUkJ87VAHjd2XchPiYcQdfjObuhCkNuF2SU1pIrUzxq9/nx/FggJPU9WsPoE9OJCv4lSGts+6lUJohUQT/wJiJ9OA0I7zd3zuwDj2NvHUZQRtqVYJm9TCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=evHs+wdi; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IYAr1IbJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fVE9d5AB"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F3Rcr31758504
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:05:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+uyBT5Zaxv1RHABZ8zEG0vkgVxe7bFptHBkSRZjYknY=; b=IYAr1IbJLqKGHlp+
-	8asmbPHttAf9fAPsgi74UFS+fWXB2zYMG+GRBUm85azZODOx/3pIAfXSSu/i/kB4
-	5bwFbvagZrWPOUNgmUNmMOtSw2B3A8xhIMQ5h595xLXb77yE2vHyOUjIVCOCvKL8
-	Yh9Oz+g471cIkF59lwAgs5JY5Fd7nV4JAm37hAVdwzirn29fwbNa+0ePm9SfqOq9
-	G7NSkTtNk2EEt9l9nuba4rvDRUNDDOb6rM+v9U9c1h08OTLPQkegwsp/wKoqVhOs
-	YXbk2bHC1haLukheqGRPl6ExyoQBrMgHSXBLv+lUOau6J3TMBsu0Bj5d29FWLNCr
-	Q2ymAQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpx4s8hd2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:05:06 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a082c014aso158538185a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:05:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="evHs+wdi"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fb334ddcso27583305ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:05:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789452306; x=1790057106; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+uyBT5Zaxv1RHABZ8zEG0vkgVxe7bFptHBkSRZjYknY=;
-        b=fVE9d5ABIQKYlGViC8aOFdrQ215dCKXoVhE3/GvEez0A5Mse1Mr+Nv5v9NI3usHgxt
-         SvTHJ5lSKFCZGuQU1fv1lPblvFgoCybgpXcNyiWyj10sPmi7oyH/pm4e0tl6Bv26EeA2
-         ncIWJq/fTDVbRMSbitzqGhUtzF1c3y279795mQHmBY7nthkwXXMuTxYrBeUdlFYQTeWo
-         HfKpWsJuzm35Zplf1tRMzAdwDxrYeRqyr0WqNMgrhXN8MkW6zO073DDfwTcUT/Ix2EdL
-         GNfw7OvT253RiGTsfR/7tQOkYlcPJ/Yq2iWQGfVrrRYxpv20oGyBAEU7bJvIVSOgrrNo
-         vAug==
+        d=gmail.com; s=20251104; t=1789452306; x=1790057106; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IiTPck6bjeGRRCtyg1j/NLgfFWRzUbzwsyl4vwTkvY0=;
+        b=evHs+wdiQvlp8SahYAGWax6INJd6EhJZD5WWNaxOJCea0Dr9XihjPd/Iz/ALD36fnY
+         s/BoOml8QhkKxNUpvtyHwJtyEjTMs5SfrVgRCgNTSPcNPs+NQpFmjpl8J13ddwDnpGY+
+         znzPEUGnVum0UyRTJ9FFP9J51yaIExzTpDi2bc+cqLUoSwbbGKqy8grWlnpWdCDhm+vS
+         lyPaRmrk6MJYqyl8bb2owcipoSZMAcAn16vTVklmt1dKauXNgYl85of6HaN9HSb/OHau
+         ZcZIBwMLgfREn6t4dn9qHSzI4zIdcRsGKWo3++SKuldXFbNGZ1vnXDJ7vfp+nREfK5qX
+         sUIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789452306; x=1790057106;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+uyBT5Zaxv1RHABZ8zEG0vkgVxe7bFptHBkSRZjYknY=;
-        b=2OEUXGeGhteawFcwJAZ7TjC8qyQoCdLkIuWY4dNTNiRY33wr/inJmXkyw4HWcohQyS
-         0VTEt/xYiKe3rwhZFg/G0c7fLs+WK7nJ+rzIUgpeWTzLbLjftsuRxFDP6g31xfz4DOon
-         58LskmnCm4PZ4arRuJdguQGojwEnDPP7AEElZzBYHuXsa6AUHT1Z9y1S37AcaEpxNHvO
-         5C0E3lUr+pulKXdKvQWHGddz+e5SdCTgIOMCy5+1ZRVSkEyevlOJ9S/g86RrE37aJXp/
-         TFXF70Yq7y8Wp6xeAnUNqNnEN2fbP9eLBj0J8tCmvv92rhd8t1KRyeKYkTtNUfNVuxrN
-         y/kw==
-X-Forwarded-Encrypted: i=1; AKwUvBzSDxmEBM/KKtf9UjXA890zHJKBzWmo5gbFC6SXqCNv6ZMDQBZnbjB+5A0RvExjqVlZZ3n6//CsuEtDkfU=@vger.kernel.org
-X-Gm-Message-State: AFuF++leMYo1efCHYEp9rd77nJKIgCpTZ3DJIrB2xbS7J33KvDWSUynB
-	I2SJyWMCQq5rGeNgA1YoB9ZB0VA3e8TLjE5TjFJDGripBiEZlJajzaK7g5czhOhayh3k0FaA1l0
-	ahTgJM9VvYh+XbFlULkNtUgUdKa7+O9R8Gtpg9tVg/eZm0FYyUeDJQlAnljl+M9deBfs=
-X-Gm-Gg: AYBFou0R0I5MPvuOaxJheSFhng+XzDRIcZWMzzxHIe/CFoRTfCqhtKodA/jwLKD46fb
-	UEte5bVimLMGmuQ3gSGjL3TOFffVXjPDCi6R4w/FsxU4x8u9kjMx+sL+ZcysIWqJjoj+dRRk/6t
-	JUvGUKPp2we+TRm2sRIQAUPcg/G9bwkgvvGZlSJWhB9MqAuw1028eNOMlpwyX52enHH3ZwKdd94
-	0J1/5HkVZDLZRLB+/pDgtpYmp/3UPdTfc9BGef5rOHZ+hyKiIkXhIbmiJwZljkOTaaaf7ad7sgY
-	QO+NVvJKqNA4nLjrUDHkItjcqRo984RjtgYjDejhpHo8rrcbFXRS+DwqP6+Z7pZpgxWUNOIE+DO
-	jYyltJJe1kvWyoExCAN1xJ7sUSO0+
-X-Received: by 2002:a05:620a:7018:b0:93a:3257:34b with SMTP id af79cd13be357-93a346fa956mr323526085a.29.1789452305618;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IiTPck6bjeGRRCtyg1j/NLgfFWRzUbzwsyl4vwTkvY0=;
+        b=yHmBrRmMDOBQcTIYUYngsdy45kM/CHZVTXTnHT9rjLDU6ewXsH1u0diMITq5Jl3ok9
+         yh1OMnpixcnc/JyuYZtzsS3b21sCLhr87dF6/ceQ4qAZJqC3T/Z0kZx73z5Xtb6HGZ+y
+         Q1fFdKSpVGsXtjvPybJGGpvkqquaC4YE3ps/hi/1t31J68pbDB28EO3ev3joCYqhXgz2
+         Tpnwwa5yOiVWL3VaSL+tuyFOhxAKvFuD27jmSAd729sVL0xvhnMjnuwFqozsdb0xDGBB
+         jG/e0bX96JJ9xsTCwQnMoHLeUwJd2xQ/1pG1+1YZjSjZUa1L/opl+4fIHvkp5Xg+tlwt
+         ytNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQfd+romrQYu51F5zzWsn02108CczZ0tUoGW9ZeEv2UrL5vAfY9NGb1ZrXuHu1EA9J756Zgyw0hKDeTs8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6HyRPDc7xmxlAP8C4hwibcMCIyU5hbGMmqipfJ9KmTMwvmF+A
+	UzfE+H3s+DO66iMkkgC3lejYN/Ip16xzWN99AfgNT4swcIl68eTGyCa4
+X-Gm-Gg: AYBFou23fp80Zh0623DtMdPLy0n7gJiifKgH+s1AZ4qL/tXSceR9NJWmNQWRw5qzGyG
+	hzzxODOqmN4lk4BYmHHsd1GPyHKzUxMU2V9yY03xh2gMo86LOEFCE3b2Mqqk9WYj8Qn84Ktnq3x
+	t2A0p/WSWQQxXQnLUDRNXiNOdMPzm23jx/1kQp1ZLPYZJE3cz7UyKwrBHRDZ0RVXRsqYtL55UZh
+	PhGP3JkaXwQX9NP6seDaoK1c4mgRDY2ioRNqqYMqgsPaguh9kZg/DCTk9ojO/RJ6jPpIIomj6QL
+	sxF+5d4YUvubS+URozTXBUbvbSD0wzehAJkz01bwBepSl3NkeD+vr3PP6gXD9Em4zdX7xmAeRmM
+	LD/r9c6VpDlKpDStirvRr8xx1jiGR0/NWRIWUWDGhhHFEODyEObA10fW42Fk+6SZ64IOX/QW26I
+	taE6+VXOuUjMh5ehSZP9sFJfBgobXE+fnFYyEsiAqANVLShVriR811E60OI1t6ga+LEMM6vXtcv
+	H0AUcT4RJ4XBU444VxLk74cMEWQdqqI0oWAYOLbI1mW
+X-Received: by 2002:a17:90b:1c90:b0:39d:f660:fa9c with SMTP id 98e67ed59e1d1-39df660fademr8118240a91.10.1789452306215;
+        Mon, 14 Sep 2026 23:05:06 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([129.41.58.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfd9bb4basm2994065a91.3.2026.09.14.23.04.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 14 Sep 2026 23:05:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:7018:b0:93a:3257:34b with SMTP id af79cd13be357-93a346fa956mr323522485a.29.1789452305151;
-        Mon, 14 Sep 2026 23:05:05 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb3602eesm30648123f8f.34.2026.09.14.23.05.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 23:05:04 -0700 (PDT)
-Message-ID: <18eff59e-e9ec-4c44-8d2f-f689bd5f1832@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 08:05:00 +0200
+Date: Tue, 15 Sep 2026 11:34:43 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	ryabinin.a.a@gmail.com, glider@google.com, andreyknvl@gmail.com, dvyukov@google.com, 
+	vincenzo.frascino@arm.com, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
+	alex@ghiti.fr, kees@kernel.org, amachhiw@linux.ibm.com, ritesh.list@gmail.com, 
+	robh@kernel.org, sayalip@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-riscv@lists.infradead.org, 
+	linux-hardening@vger.kernel.org, Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Subject: Re: [PATCH] powerpc/kasan: require memintrinsic prefix support for
+ KASAN
+Message-ID: <aqjfwrSg5kf9tf4F@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20260908064948.999530-1-mkchauras@gmail.com>
+ <b3b1fa5a-c836-447f-a658-ad66183c23c5@kernel.org>
+ <aqOrCdvUB5lFjNsS@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <2dedc7a9-95f5-4a7f-8d38-6b9351db402f@kernel.org>
+ <3d327595-791c-4a7a-ae65-afae80c9c848@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ASoC: dt-bindings: Use consistent indentation in the
- example
-To: Mark Brown <broonie@kernel.org>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-        =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Jerome Brunet <jbrunet@baylibre.com>,
-        David Rhodes <david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
-        Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        Binbin Zhou <zhoubinbin@loongson.cn>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        Biju Das <biju.das.jz@bp.renesas.com>,
-        Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Alexandre Belloni <alexandre.belloni@bootlin.com>,
-        Khanh Le <khanh.le.xr@renesas.com>,
-        Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>,
-        patches@opensource.cirrus.com,
-        David Rau <David.Rau.opensource@dm.renesas.com>,
-        Shawn Guo <shawnguo@kernel.org>, Shengjiu Wang <shengjiu.wang@nxp.com>,
-        Oleksij Rempel <o.rempel@pengutronix.de>,
-        Yingkun Meng <mengyingkun@loongson.cn>,
-        Trevor Wu <trevor.wu@mediatek.com>,
-        Julien Massot <jmassot@collabora.com>,
-        Jiaxin Yu <jiaxin.yu@mediatek.com>,
-        Shane Chien <shane.chien@mediatek.com>,
-        Daniel Beer <daniel.beer@igorinstitute.com>,
-        Sebastian Reichel <sre@kernel.org>, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        asahi@lists.linux.dev, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-renesas-soc@vger.kernel.org
-References: <20260914093657.61218-2-krzysztof.kozlowski@oss.qualcomm.com>
- <aqg6VUKriyVANv6u@sirena.org.uk>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <aqg6VUKriyVANv6u@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDA4NSBTYWx0ZWRfXymcOEZsMymDy
- u60aHQxuxWjCbIX2sZaJclFGWoXjl7a2BZLEytmBOxLh0Gt8rPotxKRy5UDSMs4h1hWaYN1SfPi
- 2Qw5iH++j32kGA1HJWMtRIuzqC135rk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDA4NSBTYWx0ZWRfX7ES3NTp1dqel
- jYDEYkuQfgNMOwF52mOnRn6PvFRL6+f+hYKh40t939eRHe+uFIl+R5X06EtS2TrI5vStuXXBq6v
- fx+9uKKbE5Cb2KolQlDxiSVu6rsXxZqiANIxpP8FfFvvoy+aTT/KcNM3i8QH1vqsUfnpGNJleyc
- Jl45v0C+NtiiMLp+lYKOQcVZQKi0mNqrSApxSByOuv/ZCWvoHND4Q0x62al0fs/vqdPwicQ6+Cm
- 98P8RiG7yyNG4rWfIRsMszz5szCH0/dLrcHrhAHlt6jfjU+PW98f3lD3/JDKx3qQFtLqcg9b5u6
- 9SDA6fIuPkPrKsm/5Q/oA6G6iRBuqzFWkEdZ3od2ero4/OU8I7V4KS2BxDHiNY5rI57/eG4I5NO
- exEONRL+M86T/b8oZh90IuVW4e7UVbgdeb24KWhLwtb07JcYZobtREPFX1nkEfXHIU74qNmKgfJ
- ZUjqShNwi+xrXDMd6zw==
-X-Authority-Analysis: v=2.4 cv=HsDjiETS c=1 sm=1 tr=0 ts=6aa8e012 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=chZs0_0Ys9iI7aL1xjgA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: v05lSpoyA5B2QWJNAJMLSZ3ZeEte7JF0
-X-Proofpoint-ORIG-GUID: v05lSpoyA5B2QWJNAJMLSZ3ZeEte7JF0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_01,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150085
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3d327595-791c-4a7a-ae65-afae80c9c848@kernel.org>
 
-On 14/09/2026 20:17, Mark Brown wrote:
-> On Mon, Sep 14, 2026 at 11:36:58AM +0200, Krzysztof Kozlowski wrote:
->> Correct indentation in the examples to consistent 2- or 4-spaces
->> indentation to fix dt-check-style warnings ("example 0
->> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
->> re-indenting entire example just for that is too much churn.
->>
->> While changing the lines, correct also node name to be generic in
->> cirrus,cs35l45.yaml, cirrus,cs42l42.yaml and dialog,da7219.yaml.
->>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Sat, Sep 12, 2026 at 08:53:16PM +0200, Christophe Leroy (CS GROUP) wrote:
 > 
-> Can you rebase this against current for-7.4 please?
+> 
+> Le 12/09/2026 à 19:35, Christophe Leroy (CS GROUP) a écrit :
+> > Hi Mukesh,
+> > 
+> > Le 11/09/2026 à 19:39, Mukesh Kumar Chaurasiya a écrit :
+> > > 
+> > > [...]
+> > > > > diff --git a/arch/powerpc/kernel/cputable.c
+> > > > > b/arch/powerpc/kernel/ cputable.c
+> > > > > index 6f6801da9dc1..44115f904c2c 100644
+> > > > > --- a/arch/powerpc/kernel/cputable.c
+> > > > > +++ b/arch/powerpc/kernel/cputable.c
+> > > > > @@ -36,8 +36,8 @@ void __init set_cur_cpu_spec(struct cpu_spec *s)
+> > > > >        t = PTRRELOC(t);
+> > > > >        /*
+> > > > > -     * use memcpy() instead of *t = *s so that GCC replaces it
+> > > > > -     * by __memcpy() when KASAN is active
+> > > > > +     * use memcpy() instead of *t = *s so that the compiler
+> > > > > replaces it
+> > > > > +     * by __asan_memcpy() when KASAN is active
+> > > > >         */
+> > > > 
+> > > > Does the initial problem still exist with the new
+> > > > __asan_memcpy() approach ?
+> > > > If not the comment should be removed.
+> > > > 
+> > > Hey Christophe,
+> > > 
+> > > Thanks for pointing it out, i took a deeper look into this, here's my
+> > > understanding on it.
+> > > 
+> > > On PowerPC during very early boot the kernel is loaded by the
+> > > bootloader/firmware at some physical address, but the kernel was linked
+> > > expecting it to run at KERNELBASE(virtual address like
+> > > 0xc000000000000000). The MMU mapping that makes that virtual address
+> > > valid hasn't been set up yet. So far for a window of early boot, code is
+> > > executing at the physical load address while all symbol addresses in the
+> > > binary refer to the virtual linked address. reloc_offset() computes the
+> > > gap between these two and PTRRELOC applies it to any pointer.
+> > > 
+> > > So PTRRELOC(&the_cpu_spec) gives the physical address where the struct
+> > > actually lives in memory right now, not where the linker thinks it lives.
+> > > 
+> > > Why *t = *s would be wrong?
+> > > 
+> > > In set_cur_cpu_spec:
+> > > 
+> > > struct cpu_spec *t = &the_cpu_spec;  // linked (virtual) address
+> > > t = PTRRELOC(t);                     // physical address — where it
+> > > actually is
+> > > memcpy(t, s, sizeof(*t));            // copy into the right place
+> > > 
+> > > If you wrote *t = *s instead, the compiler generates a struct assignment.
+> > > For a large struct like cpu_spec, GCC is free to implement that however
+> > > it likes — including emitting a call to memcpy(). But crucially, a
+> > > compiler-generated memcpy call resolves through the GOT/PLT or direct
+> > > symbol — which points to the linked virtual address of memcpy, not the
+> > > physical address. At this point in boot, calling through the wrong
+> > > address would jump to garbage or an unmapped page.
+> > > 
+> > > memcpy(t, s, sizeof(*t)) written explicitly is different: t is already
+> > > the corrected physical address, s points into the cpu_specs table which
+> > > has also been PTRRELOC'd. The explicit call goes through the normal
+> > > early-boot call mechanism which is safe.
+> > > 
+> > > The original comment said:
+> > > 
+> > > "use memcpy() instead of *t = *s so that GCC replaces it by __memcpy()
+> > > when KASAN is active"
+> > > 
+> > > This was added because under the old KASAN scheme
+> > > (!CC_HAS_KASAN_MEMINTRINSIC_PREFIX), KASAN overrode the memset/memcpy
+> > > linker symbols globally with C wrappers that called kasan_check_range().
+> > > If the compiler turned *t = *s into an implicit memcpy(), that would hit
+> > > the KASAN wrapper — calling kasan_check_range() at a point in early boot
+> > > where the KASAN shadow isn't mapped yet, causing a crash.
+> > > 
+> > > Writing memcpy(t, s, sizeof(*t)) explicitly made GCC emit __memcpy()
+> > > (the raw assembly alias exposed by _GLOBAL_KASAN) instead of the
+> > > KASAN-wrapped memcpy(), bypassing the shadow check.
+> > > 
+> > > That was the secondary reason. The primary reason that t is a
+> > > PTRRELOC-adjusted physical pointer and the copy must go through it
+> > > correctly was never stated.
+> > > 
+> > > So the KASAN comment is not required but i think we still need to state
+> > > why memcpy is required. For PTRRELOC adjustment, comment should reflect
+> > > that.
+> > > 
+> > > I'll update the comment and commit message and send out a new version.
+> > 
+> > Explanation based on kernel v5.10
+> > 
+> > The problem was not linked to PTRRELOC, the t = PTRRELOC(t) followed by
+> > *t = *s works well in term of adressing, regardless of whether
+> > CONFIG_KASAN is enabled or not.
+> > 
+> > The problem is that with *t = *s, gcc emits a call to memcpy(). When
+> > CONFIG_KASAN is enabled, memcpy() is instrumented. But we don't want
+> > cputable.o instrumented as we have KASAN_SANITIZE_cputable.o := n in
+> > Makefile.
+> > 
+> > In asm/string.h we have:
+> > 
+> > #if defined(CONFIG_KASAN) && !defined(__SANITIZE_ADDRESS__)
+> > /*
+> >   * For files that are not instrumented (e.g. mm/slub.c) we
+> >   * should use not instrumented version of mem* functions.
+> >   */
+> > #define memcpy(dst, src, len) __memcpy(dst, src, len)
+> > #define memmove(dst, src, len) __memmove(dst, src, len)
+> > #define memset(s, c, n) __memset(s, c, n)
+> > 
+> > Because in non-instrumented files like cputable.o we want memcpy() to be
+> > replaced at buildtime by __memcpy() to skip KASAN instrumentation. But
+> > this is resolved by pre-processing, and pre-processor doesn't know that
+> > the compiler will emit a call to memcpy().
+> > 
+> > By replacing *t = *s by the memcpy(), the pre-processor replaces
+> > memcpy() by __memcpy() when CONFIG_KASAN is enabled.
+> > 
+> > See the difference:
+> > 
+> > This is v5.10
+> > 
+> > 00000000 <set_cur_cpu_spec>:
+> >     0:    94 21 ff e0     stwu    r1,-32(r1)
+> >     4:    7c 69 1b 78     mr      r9,r3
+> >     8:    bf c1 00 18     stmw    r30,24(r1)
+> >     c:    3f e0 00 00     lis     r31,0
+> >              e: R_PPC_ADDR16_HA    .data..read_mostly
+> >    10:    3b ff 00 00     addi    r31,r31,0
+> >              12: R_PPC_ADDR16_LO    .data..read_mostly
+> >    14:    7c 08 02 a6     mflr    r0
+> >    18:    7d 3e 4b 78     mr      r30,r9
+> >    1c:    7f e3 fb 78     mr      r3,r31
+> >    20:    90 01 00 24     stw     r0,36(r1)
+> >    24:    48 00 00 01     bl      24 <set_cur_cpu_spec+0x24>
+> >              24: R_PPC_REL24    add_reloc_offset
+> >    28:    7f c4 f3 78     mr      r4,r30
+> >    2c:    38 a0 00 58     li      r5,88
+> >    30:    48 00 00 01     bl      30 <set_cur_cpu_spec+0x30>
+> >              30: R_PPC_REL24    __memcpy
+> >    34:    38 7f 00 58     addi    r3,r31,88
+> >    38:    48 00 00 01     bl      38 <set_cur_cpu_spec+0x38>
+> >              38: R_PPC_REL24    add_reloc_offset
+> >    3c:    93 e3 00 00     stw     r31,0(r3)
+> >    40:    80 01 00 24     lwz     r0,36(r1)
+> >    44:    83 c1 00 18     lwz     r30,24(r1)
+> >    48:    83 e1 00 1c     lwz     r31,28(r1)
+> >    4c:    7c 08 03 a6     mtlr    r0
+> >    50:    38 21 00 20     addi    r1,r1,32
+> >    54:    4e 80 00 20     blr
+> > 
+> > This is v5.10 with commit adcf59187e270 reverted:
+> > 
+> > 00000000 <set_cur_cpu_spec>:
+> >     0:    94 21 ff e0     stwu    r1,-32(r1)
+> >     4:    7c 69 1b 78     mr      r9,r3
+> >     8:    bf c1 00 18     stmw    r30,24(r1)
+> >     c:    3f e0 00 00     lis     r31,0
+> >              e: R_PPC_ADDR16_HA    .data..read_mostly
+> >    10:    3b ff 00 00     addi    r31,r31,0
+> >              12: R_PPC_ADDR16_LO    .data..read_mostly
+> >    14:    7c 08 02 a6     mflr    r0
+> >    18:    7d 3e 4b 78     mr      r30,r9
+> >    1c:    7f e3 fb 78     mr      r3,r31
+> >    20:    90 01 00 24     stw     r0,36(r1)
+> >    24:    48 00 00 01     bl      24 <set_cur_cpu_spec+0x24>
+> >              24: R_PPC_REL24    add_reloc_offset
+> >    28:    7f c4 f3 78     mr      r4,r30
+> >    2c:    38 a0 00 58     li      r5,88
+> >    30:    48 00 00 01     bl      30 <set_cur_cpu_spec+0x30>
+> >              30: R_PPC_REL24    memcpy
+> >    34:    38 7f 00 58     addi    r3,r31,88
+> >    38:    48 00 00 01     bl      38 <set_cur_cpu_spec+0x38>
+> >              38: R_PPC_REL24    add_reloc_offset
+> >    3c:    93 e3 00 00     stw     r31,0(r3)
+> >    40:    80 01 00 24     lwz     r0,36(r1)
+> >    44:    83 c1 00 18     lwz     r30,24(r1)
+> >    48:    83 e1 00 1c     lwz     r31,28(r1)
+> >    4c:    7c 08 03 a6     mtlr    r0
+> >    50:    38 21 00 20     addi    r1,r1,32
+> >    54:    4e 80 00 20     blr
+> > 
+> > So my question is ? Do we still have this issue nowadays ?
+> 
+> I now did the same test with v7.2 without and with adcf59187e270 reverted. I
+> both cases I get memcpy().
+> 
+> Christophe
 
-Sure
+Oh I got it now. Thanks for the detailed explanation. Yeah the comment
+is not required anymore.
 
-Best regards,
-Krzysztof
+I'll send out a V3.
+
+Thanks and Regards,
+Mukesh
