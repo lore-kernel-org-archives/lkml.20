@@ -1,35 +1,35 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0F64C753A;
-	Tue, 15 Sep 2026 11:34:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8841E4A13BE
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472099; cv=none; b=d6GboCMbtVjPUSKCK65a0Cy1I7axsnNk3mrUGUK+Qdru3AjlNuoY2jTq5UVJYPLisesE4IdpxHh1eejXZHEBblGedWHcbFq+sHnNv1s7e3qJF3rjTxUvA0SGwua2BXsKxzTeJ7EO4vyOG7M9NAFu6npRBhZmrZpJMSZUAbhh6EQ=
+	t=1789472098; cv=none; b=n3cYIzTDi8PctRG0/lLRQFrpn+ozAHNhdCq0H4n00qjMDkpLCgLup0budxGk9zgx+cC6yLlpF0pg2D0/OKElBsyuYLddXInh2jcX7O367zIocG2pDdAImwBebLT4pR4gz71HMa0ivBOu0FnTVu61bPqvmKW5FQEa2spu1sIy6Ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472099; c=relaxed/simple;
-	bh=0aF43DhxqkdJzKcsExOwjxx4MBfkynUOKohe+cP6pHo=;
+	s=arc-20240116; t=1789472098; c=relaxed/simple;
+	bh=OY9M4kkCabp+bV4ooKfCZXYd5uvoGme47JFL/fchmm8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VF0Eto5gienEMNFVGt7gimvxRqAaagZ2fMkA82UTV6Dmri+UNkQORCe7hzuPWmajgZuNKCuM8PI7QCMvMya5eu3sQlIVP242CP4y/mh67GSIBM++LZ/93PODL6u3Al20tB0Wl/BqYDAg7YaulspKNkznM3nnFz+p0qsSakQqT74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dILdN8rE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=pFW9thJw0L922SgjKp11xEOSYiesVI66+cBdrTNKwJ+83lhznuTCb/Ale8px7PzqDjnRRo3TboZ+vN7JQlbdglFM8qDBCRrCKvykOLp1uSB5ySgBtePDzdjJe+AXYqTGKMHB9VRVcmTKOtI645gTU/X5l6R0yYyEHZwkLfg48xA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PFL3l9JB; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dILdN8rE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 047041F00893;
-	Tue, 15 Sep 2026 11:34:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789472095;
-	bh=Cxkt5ZZmGkjFd539Cl9RA+9e8VT0n+2aqKlnDvtva3g=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=dILdN8rEl6D0AvNs+ADrv4qyz7XFz7x4boFlXmBNHuzp8dsfrNxC3GxAas+GJFMv+
-	 KJnK0aX5JPblFXsMNwsHCIlkZII+0cYJLUL4usXBn+tv30sxD+kVeBTY5hcwuU5iTw
-	 MXYhBhYyk8HliVAWPS90CFPCshSX6kinnV9G6S3iAxfflAZBj+c9/TE3CiaFW3hDG7
-	 dRdxg6OcMTB4GCjwlFFQl9XbyBURQfFnRT9yVIi6yc8yWO4+AzWpSl0LOZwVL0qtIE
-	 Rv5L8GTAkHFUQiQIsfVM5d6ZEM2JM2QT8a+Fnw1EggkywbFsnu2tEM8H3ZlrtZibQk
-	 qheZhWDLwLoTQ==
-From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 15 Sep 2026 13:31:14 +0200
-Subject: [PATCH RFC POC 28/50] drm/msm: install the out-fence descriptor
- when the ioctl returns
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PFL3l9JB"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5B5D21BD0;
+	Tue, 15 Sep 2026 04:34:50 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3D2AD3F86F;
+	Tue, 15 Sep 2026 04:34:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789472093; bh=OY9M4kkCabp+bV4ooKfCZXYd5uvoGme47JFL/fchmm8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=PFL3l9JBUgxUIxK2x05P+HdgTK88s1Tfe5qipYp9uXSOuU0fXAOKOrBrZBEIfkoYU
+	 IYAbT1gL1IHrNUncP5pQgoj7TaQrepwRUyYa5nUU0B2MeuzLBke03UWQXzre+jrcqS
+	 /POJl+B7DLSnizqbHN2UqmRA5W1/n+oYwNhPRutI=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Date: Tue, 15 Sep 2026 12:34:37 +0100
+Subject: [PATCH v11 2/9] coresight: etm3x: prohibit modifying cntr_val and
+ reset while session is enabled
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,155 +38,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-work-fd-reserve-unify-folded-v1-28-4d5217d6b246@kernel.org>
-References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
-In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
- Jan Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Oleg Nesterov <oleg@redhat.com>, linux-alpha@vger.kernel.org, 
- linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
- linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
- linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
- linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
- linux-um@lists.infradead.org, Jens Axboe <axboe@kernel.dk>, 
- io-uring@vger.kernel.org, netdev@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- bpf@vger.kernel.org, David Airlie <airlied@redhat.com>, 
- virtualization@lists.linux.dev, kvm@vger.kernel.org, 
- kexec@lists.infradead.org, linux-hyperv@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3900; i=brauner@kernel.org;
- h=from:subject:message-id; bh=0aF43DhxqkdJzKcsExOwjxx4MBfkynUOKohe+cP6pHo=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt1KkrWhO2ocr+XsOZ92nMd0VvHVZ7Ky7587iN4qmUy
- EPVDqtUOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACZixcnwT519/+ba76oz/vy5
- vmjf+l1Wu2z2blt9XNlWNjDylNSVxs0Mf2WKlse//zVlb82qCaECXSHqTPxv9vQ9tHvbvedgQGZ
- ROgcA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Message-Id: <20260915-separate_etm_cfg_v2-v11-2-d2b258d51747@arm.com>
+References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
+In-Reply-To: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
+To: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
+ Leo Yan <leo.yan@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1369; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=OY9M4kkCabp+bV4ooKfCZXYd5uvoGme47JFL/fchmm8=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqqS1TmYIRhSMz5EhthjcSwJUaxwuP8BpyV1qsT
+ UcrhEL1dwaJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCaqktUwAKCRBt1cPRWsUx
+ MzeNDAC7pg2DnobJUGrqYeiX7Jh3wLOoJOfPfXcMFQ6ikhLAt+4WFTQI/IpZouq+NTJXtAb6KZU
+ B7sAyTKTyBpN0KfTsjozkMko6ZUgc7k97C+l/rYSdFf0Q214QI8QlQUMKslSiaWeCGWv1uk9cjD
+ ZrPDmdRQKDOJzy7cwYWQTWuaR3fO4BNa0Gv4fYMaTfmrfCWaXQpY1ewGkcZyTioRUEcT3aKU0J6
+ QincnIEvrKBxXPErZA72fbOuMtJHnieyAjRlvpQWm5lWjUIAm4tDXRaJtY2qLn1Qmmdgypjv41G
+ MtWWPPsPTgJRyfTzEAAIeaVIEeg/8MC+KSaCMFXQtd51OdHSlHPr8tZ5OW1N0DpY7BjHOcadCO7
+ vL6AOfh1egSer4UoD9eRcyehAXXqUFzUfbXef30MKxuBAFLtaTJCLeFR8ifE1vFSzVZYbnaoj1B
+ pz+7bB6Kr2VVI8ZmId5ef113VnfGdMkzFByoGrZ0ywTsBbFc92ZYnbzTwRcbJSAw826gM=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-Rely on the fd exit path machinery.
+cntr_val are overwritten with the values read from the corresponding
+registers by etm_disable_hw() when the session is disabled.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+This means that any changes to this value made while the session is
+enabled would be lost when the session is disabled.
+
+Also, reset shouldn't be called while session is enabled.
+
+Therefore, prohibit modifying cntr_val and reset while the session is enabled.
+
+Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 ---
- drivers/gpu/drm/msm/msm_gem_submit.c | 22 +++++++++-------------
- drivers/gpu/drm/msm/msm_gem_vma.c    | 22 +++++++++-------------
- 2 files changed, 18 insertions(+), 26 deletions(-)
+ drivers/hwtracing/coresight/coresight-etm3x-sysfs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
-index 5862db05297a..4ddfd07c1480 100644
---- a/drivers/gpu/drm/msm/msm_gem_submit.c
-+++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-@@ -558,7 +558,7 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 	struct drm_syncobj **syncobjs_to_reset = NULL;
- 	struct sync_file *sync_file = NULL;
- 	unsigned cmds_to_parse;
--	int out_fence_fd = -1;
-+	const struct fd_slot *out_fence_fd = NULL;
- 	unsigned i;
- 	int ret;
- 
-@@ -601,9 +601,9 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 	ring = gpu->rb[queue->ring_nr];
- 
- 	if (args->flags & MSM_SUBMIT_FENCE_FD_OUT) {
--		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
--		if (out_fence_fd < 0) {
--			ret = out_fence_fd;
-+		out_fence_fd = fd_prepare(O_CLOEXEC);
-+		if (IS_ERR(out_fence_fd)) {
-+			ret = PTR_ERR(out_fence_fd);
- 			goto out_post_unlock;
- 		}
- 	}
-@@ -777,6 +777,8 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- 		sync_file = sync_file_create(submit->user_fence);
- 		if (!sync_file)
- 			ret = -ENOMEM;
-+		else
-+			fd_stage(out_fence_fd, sync_file->file);
- 	}
- 
+diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+index b3c67e96a82a4..d4846d6364945 100644
+--- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
++++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+@@ -74,6 +74,8 @@ static ssize_t reset_store(struct device *dev,
+ 	ret = kstrtoul(buf, 16, &val);
  	if (ret)
-@@ -814,15 +816,9 @@ int msm_ioctl_gem_submit(struct drm_device *dev, void *data,
- out_unlock:
- 	mutex_unlock(&queue->lock);
- out_post_unlock:
--	if (ret) {
--		if (out_fence_fd >= 0)
--			put_unused_fd(out_fence_fd);
--		if (sync_file)
--			fput(sync_file->file);
--	} else if (sync_file) {
--		fd_install(out_fence_fd, sync_file->file);
--		args->fence_fd = out_fence_fd;
--	}
-+	/* A staged sync file and its descriptor are dropped on return. */
-+	if (!ret && sync_file)
-+		args->fence_fd = fd_prepare_fd(out_fence_fd);
+ 		return ret;
++	if (coresight_get_mode(drvdata->csdev))
++		return -EBUSY;
  
- 	if (!IS_ERR_OR_NULL(submit)) {
- 		msm_gem_submit_put(submit);
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index c11d021581e0..77d365566732 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -1441,7 +1441,7 @@ msm_ioctl_vm_bind(struct drm_device *dev, void *data, struct drm_file *file)
- 	struct drm_syncobj **syncobjs_to_reset = NULL;
- 	struct sync_file *sync_file = NULL;
- 	struct dma_fence *fence;
--	int out_fence_fd = -1;
-+	const struct fd_slot *out_fence_fd = NULL;
- 	int ret, nr_bos = 0;
- 	unsigned i;
- 
-@@ -1479,9 +1479,9 @@ msm_ioctl_vm_bind(struct drm_device *dev, void *data, struct drm_file *file)
- 	}
- 
- 	if (args->flags & MSM_VM_BIND_FENCE_FD_OUT) {
--		out_fence_fd = get_unused_fd_flags(O_CLOEXEC);
--		if (out_fence_fd < 0) {
--			ret = out_fence_fd;
-+		out_fence_fd = fd_prepare(O_CLOEXEC);
-+		if (IS_ERR(out_fence_fd)) {
-+			ret = PTR_ERR(out_fence_fd);
- 			goto out_post_unlock;
- 		}
- 	}
-@@ -1565,6 +1565,8 @@ msm_ioctl_vm_bind(struct drm_device *dev, void *data, struct drm_file *file)
- 		sync_file = sync_file_create(job->fence);
- 		if (!sync_file)
- 			ret = -ENOMEM;
-+		else
-+			fd_stage(out_fence_fd, sync_file->file);
- 	}
- 
+ 	if (val) {
+ 		spin_lock(&drvdata->spinlock);
+@@ -744,6 +746,8 @@ static ssize_t cntr_val_store(struct device *dev,
+ 	ret = kstrtoul(buf, 16, &val);
  	if (ret)
-@@ -1593,15 +1595,9 @@ msm_ioctl_vm_bind(struct drm_device *dev, void *data, struct drm_file *file)
- out_unlock:
- 	mutex_unlock(&queue->lock);
- out_post_unlock:
--	if (ret) {
--		if (out_fence_fd >= 0)
--			put_unused_fd(out_fence_fd);
--		if (sync_file)
--			fput(sync_file->file);
--	} else if (sync_file) {
--		fd_install(out_fence_fd, sync_file->file);
--		args->fence_fd = out_fence_fd;
--	}
-+	/* A staged sync file and its descriptor are dropped on return. */
-+	if (!ret && sync_file)
-+		args->fence_fd = fd_prepare_fd(out_fence_fd);
+ 		return ret;
++	if (coresight_get_mode(drvdata->csdev))
++		return -EBUSY;
  
- 	if (!IS_ERR_OR_NULL(job)) {
- 		if (ret)
+ 	spin_lock(&drvdata->spinlock);
+ 	config->cntr_val[config->cntr_idx] = val;
 
 -- 
-2.53.0
+2.43.0
 
