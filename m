@@ -1,520 +1,212 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28254344046;
-	Tue, 15 Sep 2026 23:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E233F4829
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:20:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789514427; cv=none; b=T0/unUuaUxcVtgaJmvy29I6S3K3BfwnsKqrH0EemdYtNziwCCWHsknadB2SvJD3X4hfQywJ+HJDmw+ChsTMpPN88lKHJM8eyBNrWLFiot4RwBsnpQ9xiJ5tCm0a5aF7pNXjURK0qPibTb5Qz9Mz28f41eEePCWFhdkefFoHNCz4=
+	t=1789514435; cv=none; b=DY0xa2R+VHQj3AEO7LtrZMeSwjmQYNMaslE4c0nADD8tnsHDrb1Gf/dZ4SxH8e0u3XGTFSiUB2miK0FOYiaMk7oZrVwYCVaP6T5wjMiAaYUTU+NVS6JPH6fvsGatv+0u8UDYeNQ/vEEWe7p8OlRMUxwON+rsQcWbOsZAUCkkkVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789514427; c=relaxed/simple;
-	bh=gnYPtB9XFBaFYGFCEYHuAIVKpq7CyroT6AFp7THJido=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=UT3jne7WH5s6QFtqjVP/iTBkBA20/UUhJ3IhKLWbGP/8S1S1D1ulkgNIcoS+DQUAhiXcWsmK+UgXgikkv0Zp6x2S6jrOry7diKlo2PvROZhVnNHZ0NcE8grnqIhJxlfO9KHFIvectFgKitzT2Ww+Ditfetg2wANneq5cIhg74Xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VVg9HRb1; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789514435; c=relaxed/simple;
+	bh=kVidRnCSLCRIDy0LcPsGCW6n4LV3v1+7iiJ/4lJYABM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eWRib+HEITTvVUV1NY7sGidsOOJDoJr519W5FBk//gJAwsLQiFQwBxqVnw25OemLp8zZMzWoSriRoEHYhN/2XPvj9VxH37hkoZnN3NKn6+sxyZiWcl+CSvKkLMZg7CKxm68dc2fzUH1wtbC9+9o6IWx78NEaTK6N6fWPkUqNT3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=lav8+JiM; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=1VtJuAqN; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VVg9HRb1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789514425; x=1821050425;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=gnYPtB9XFBaFYGFCEYHuAIVKpq7CyroT6AFp7THJido=;
-  b=VVg9HRb1LRGJ31xK5+buD1aJb+72sQ9xn+WvrIGfUWy3tPeTfrhVsKLP
-   m9i+Z/bkV6ulxXE8hjhl50y2CdenAFiDV7JLcapkLicfvOw30u692eI38
-   wDdYRP46nTWmX21pwrY2YaIURZYsIXXrjd/Sc8cUPlK2JlxK9cgU3Uih2
-   OfvG7P2E0GEjXI+toizAFvv/330s9CmQlUQ44qgzxh/671S80qLZqdw6V
-   52o6lMNUMGbCKCbNI6YXMkMLbkREKpcChHF8km6PeigqkJ6zk/cCGVYhm
-   eNJcfePHBa75uNQ/OwS/gpzSnzZFd3iy57JKe7eaM/chPXkeeq1+3XkFs
-   A==;
-X-CSE-ConnectionGUID: jmscT9hLQnKtr9pnIIeq1w==
-X-CSE-MsgGUID: YfIex6BMRHS0KImwXX+Qqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90027130"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90027130"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 16:20:24 -0700
-X-CSE-ConnectionGUID: f93Wam1jQa69+CQgMQOoRw==
-X-CSE-MsgGUID: cu3Xw4c/TSm9sLfphy1+iQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="296658724"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 16:20:23 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 16 Sep 2026 02:20:20 +0300 (EEST)
-To: =?KOI8-R?B?68/Oxc7LzyDhzsTSxcog98nL1M/Sz9fJ3g==?= <admin@aquinas.su>
-cc: LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
-    Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v11] platform/x86: hp-wmi: Add multicolor LED support
- for HP keyboard backlight
-In-Reply-To: <b667bdb7-1820-8f5f-9ca9-a34ab84b93bf@linux.intel.com>
-Message-ID: <e5f89934-2e0b-bf05-d571-b02622300595@linux.intel.com>
-References: <0Ja9VPr1QTSihXZrbKAgzg@aquinas.su> <b667bdb7-1820-8f5f-9ca9-a34ab84b93bf@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="lav8+JiM";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="1VtJuAqN"
+Received: from pps.filterd (m0167072.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FMbjx52489702
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:20:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=QWwaDMx47FvPA0K/+SVrw7qA3B
+	/CVOWD7eNhZlTng+o=; b=lav8+JiMyMkKi9wR9Dww7nF594s5bZDigLUeYTG+z7
+	XGiio/3e6DVGS4XhOrCK1Hv7tVy3wuqisMGIOheolIcwOzuFunyIqgcgRWQRgAZW
+	TxAPWuNWkQ2rvufrVgf6gSZ2c2vtq5s/x8cMNek8H945TYQdNLsrwdgVku2THdK/
+	5SilvzzX4by/UbX/9q3eRLFp6bwar58ce5p5u5blhdLRQslAP7Kvx+HFIlUDvqYm
+	AQ1EenPAJGNjv58pRWEs5wv3WNiDRXVSKv8mejPI6f0XP1R+gfC/0C40PDF/mqNE
+	sJNyFRaQ/uRomqFBnl6eAv2TBV/XNKjLIBUNluy8TVTg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gqbwdhsmk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:20:26 -0400 (EDT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a0050a554so974826785a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:20:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1789514426; x=1790119226; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QWwaDMx47FvPA0K/+SVrw7qA3B/CVOWD7eNhZlTng+o=;
+        b=1VtJuAqNtU02vifMDMELpksetLgTaAABT6/gZBdvqwXP3CdbEmtc+2eDDXUk636vY/
+         S/Cbu8WabYyoIF2YSxJwZNGfl5R/zzPBOdbrNzZlU+2QyZb7f0T4BsLEsJzUITWjbBxt
+         wOpJJQUiK1bItvwwvuORx1tS8EvO6t1F+so1vyMi/o10ieYQLUTlIOVGKBx7vENLLDvw
+         zlYj85Lh2cztN0WoycfeXEj9402AkOsJZAFZuTshhf8cIPtY0kWH5Qjj6pO9IQmjqMgk
+         OLqP9h40251mENCXcj4Nd4qnG7wP4GDztRNEiQyQsUPaEjv42hi5mToMh5Z834uglpH2
+         OgBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789514426; x=1790119226;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QWwaDMx47FvPA0K/+SVrw7qA3B/CVOWD7eNhZlTng+o=;
+        b=ek3jfleN8BKaRz3VP8cmht6PKhQizpRjHupwAAqNSc/h5o9cbEDVSCNp1dLz5mZMZH
+         fT6f7FUGPr6kZyMhQYuZ3NcNZbB9Dn23oDrwp7fwrncbEuS1ns78ZPTAqCDXDdqQHq0/
+         ClIg6J8LP8vZ1F9mjZHO16icoit/LoMmvOO0GV+pSkJecUnIgUVTiZ0CHuCMK00Ykbmb
+         4H0geK/XNCcSc23w5q1ZE3yOgxpaRRToMT85us72eWhYS9moCdJ9APvzs/rLPj8cLtEB
+         duNkxVeIIKIqDuw35wTdLaxZ3beULCUKauUDKdd8a6k3LSsNaLzmiJxMapG1Nzco/dR5
+         7ZkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/+Y5IheQFuFJNK5FqJqUiShPJDNknVWM/nah3i7uS2JrAjVygFJTpsX1OMJDY2XQBAy7jOs2Rqjt3p3s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKLVePaIOsg8TKKcSCNbXDUTclBBSZqk0X/Z/KgT0sRuTeixec
+	5xPzRlsK6yiHUdoCzQkujUzX9LPjgNDFI6+RgCHOidYRN+drtyH85JdmD2JHG38OxxrQNbUyE1h
+	Od6bRGPBaYxdzzzepXxAMaioRN3Q6kgrVxIFkah/3dOV0VgY+8pt8vCeZykHP4A==
+X-Gm-Gg: AYBFou1Aht5KEzuy6w9s4npNiXX7f8AGAyRLWgyYah6cFG+XpRbWl2ClogkHH4liZos
+	N/6J45SBFgCk5mNTHJm1kDuEJdHfJJ/SrnS02Igx3tdTKFEfBtq5N8P1ang9JsgGAAOaose+Q8I
+	KrOhrNHZ+8w3a/KIl+fa3CG4V0ZQe2ztp27vzZdzdh4D3dr/+4i0LFpPnU5lG6TgN8wd7oxudgC
+	EkfTIcpNhzIlSfcKT+aJX6VO0cN8lqc/MNsK/ExJunKdQcoK8Gs6E5314g7kOyUAwqyEqL7iqqq
+	bhcXkkVxpVJWWVCCAjEytzfWRE5LZ4UXJcavj1cF1Q0LXWH5HCwJ+Jpc2OH6uWqsJnXb00ZexG8
+	b75o6O4gWB8KoqQrKkifP92Ues1BLocNjYvSoNT/hXc5FUmZF
+X-Received: by 2002:a05:620a:17a3:b0:939:8905:ce9b with SMTP id af79cd13be357-93bb77461a9mr62665485a.17.1789514425623;
+        Tue, 15 Sep 2026 16:20:25 -0700 (PDT)
+X-Received: by 2002:a05:620a:17a3:b0:939:8905:ce9b with SMTP id af79cd13be357-93bb77461a9mr62660985a.17.1789514425107;
+        Tue, 15 Sep 2026 16:20:25 -0700 (PDT)
+Received: from [127.0.1.1] (nat-128-59-179-204.net.columbia.edu. [128.59.179.204])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b781dfde3sm77151085a.12.2026.09.15.16.20.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 16:20:24 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Subject: [PATCH v3 00/11] mm: memcontrol: constify the read side of the
+ memcg API
+Date: Tue, 15 Sep 2026 19:20:04 -0400
+Message-Id: <20260915-folio_memcg-const-v3-0-c239a6010b58@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1293466110-1789514420=:29492"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKXSqWoC/23NzQ6CMBAE4FcxPVvTLhWKJ9/DGAPtAmuAGgqNh
+ vDu8nMxhuMkM9+MzGNH6NnlMLIOA3ly7Ryi44GZKmtL5GTnzEBALLRIeOFqco8GG1Ny41rfc5X
+ FCSphlT7nbN69OizovZq3+5b9kD/R9Au0NCryves+62mQS2/zUwE7fpBccAQjbQYAKrZX4+qhy
+ Sk7oR3YchHgF9F7CMyIlhLTQqlIifQPmabpC25Hi/wMAQAA
+X-Change-ID: 20260807-folio_memcg-const-4a67e40d485b
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+        Roman Gushchin <roman.gushchin@linux.dev>,
+        Shakeel Butt <shakeel.butt@linux.dev>,
+        Muchun Song <muchun.song@linux.dev>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>,
+        Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+        Barry Song <baohua@kernel.org>,
+        Axel Rasmussen <axelrasmussen@google.com>,
+        Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+        Baoquan He <baoquan.he@linux.dev>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+        Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Cc: cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789514423; l=2734;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=kVidRnCSLCRIDy0LcPsGCW6n4LV3v1+7iiJ/4lJYABM=;
+ b=IUUOAnE370UfZHmbfJ+hzfZc13IWrSCvHO1T7L1Q8AxoiMiDM9A+vJqtBHulacRIVh0hjFl35
+ /GfS9f4r1csDMdmNpv3fw4T4amusHZrD7r/pgt+UN2gUz0GBkO0L+Lo
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDM0MSBTYWx0ZWRfX7wU0bYgJcDLw
+ wGAHHfhZ2Rgl0DE0PUl+mV9nuYuBMO6k7EYVNkQIvGijNX6Ae6IiJFgWgwKM5CxV96ZKlLr90+0
+ 5hOnZRHRZLO93QlOsntXyfV/hCTyibLJfWOgeGi5+k/Sr+jJlFmQcEzhVVRaHRB84pMgnYNO3Pi
+ heMLdKFHhb2+vE/AHsypqDef+VBagq/bYYcFO1jRAcMcZJHsQ8M2c6oh7OnZ6lAxqEFfMWAumzF
+ GoUmww3Vdj0OTd2Tp74Y6XjL5dBI7eQG4pjfMJHp6LAt17njUd0n4qs+HA/fGNBFhEoqDhm3TGz
+ jTK+hHGeTDTJwK4gKMFnLRBW/bQdbZrxIOQPX6LcKVTCDvFC11OkD0Dsl2kZ2XBgflVypEat0M5
+ vZdCCprCD2xKkn6ihgqg2Vl9MoDZk15SXDjOHxYl2q8zPTBZtXudL4NtfpvZ9jtahgoG96Oarg5
+ dMa6BZSsqE0zzsxl22A==
+X-Proofpoint-GUID: 0VozmvBhWWpcGKsagCNd1ik7zvLsQgGm
+X-Proofpoint-ORIG-GUID: 0VozmvBhWWpcGKsagCNd1ik7zvLsQgGm
+X-Authority-Analysis: v=2.4 cv=a72lZkSF c=1 sm=1 tr=0 ts=6aa9d2ba cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=hXAsoc/zAxyCEdIRhrpmVw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=SsB-OO3BMngHh3ZO9fOt:22
+ a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8 a=bC-a23v3AAAA:8 a=b6ln72opZJ-VCPk_GP8A:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=1CNFftbPRP8L7MoqJWF3:22
+ a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDM0MSBTYWx0ZWRfX36QH/JVoCh7t
+ y0wUAUiurjB049FJzhQ+E9Xz+AcTAv0KyNG8AHHS743dT3Fo6q6jDbVoCtuTXPjUpqHVfI0yqX+
+ q27vRxaXKY2JNAPqwtm40m2vuBFxMPpB/CCcYPkHBq6qNzETJ5aQ
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11906
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=10 spamscore=0 phishscore=0 suspectscore=0
+ clxscore=1015 lowpriorityscore=10 malwarescore=0 adultscore=0 bulkscore=10
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150341
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+The memcg accessors, lruvec helpers, and stat readers only read from
+the memcg, folio, or lruvec they are given, but take non-const
+pointers. Constify them, along with the page_counter readers and the
+swap I/O blkg helpers along the way.
 
---8323328-1293466110-1789514420=:29492
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+This started as a follow-up to [1] that quickly grew in proportions :)
 
-On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen wrote:
+[1]: https://lore.kernel.org/linux-mm/anYqSDnC2BbJXv1h@casper.infradead.org/
 
-> On Mon, 14 Sep 2026, =D0=9A=D0=BE=D0=BD=D0=B5=D0=BD=D0=BA=D0=BE =D0=90=D0=
-=BD=D0=B4=D1=80=D0=B5=D0=B9 =D0=92=D0=B8=D0=BA=D1=82=D0=BE=D1=80=D0=BE=D0=
-=B2=D0=B8=D1=87 wrote:
->=20
-> > Add support for the HP keyboard RGB backlight found on HP OMEN and
-> > HP Victus laptops. These keyboards expose per-zone RGB control through
-> > WMI commands.
-> >=20
-> > Register multicolor LED class devices for each keyboard zone (up to 4
-> > zones, depending on the keyboard type). Each zone exposes individual
-> > red, green, and blue channels via the multicolor LED subsystem.
-> >=20
-> > Also hardware-initiated brightness changes (e.g. via the keyboard
-> > backlight hotkey, mostly fn+f4) are reported.
-> >=20
-> > The color data is stored in a 128-byte color table managed by the
-> > firmware, with RGB values starting at offset 25, packed sequentially
-> > per zone.
-> >=20
-> > Signed-off-by: Konenko Andrey Viktorovich <admin@aquinas.su>
-> >=20
-> > ---
-> > Changes since v10:
-> >  - adapted for current linux-next (20260914)
-> >  - Added Named Constants:
-> > =09HP_BACKLIGHT_EVENT_ON =E2=80=94 replaces magic number for backlight =
-enable event
-> > =09HP_BACKLIGHT_EVENT_OFF =E2=80=94 replaces magic number for backlight=
- disable event
-> > =09HP_KBD_RGB_COLORS =E2=80=94 replaces universally used literal 3 as R=
-GB color/channel count
-> >  - Refactored hp_kbd_brightness_set_by_hwd Function - Eliminated relian=
-ce on magic numbers in event handling logic (bugfix)
-> >  - Event Filtering (critical bugfix):
-> > =09Added event type filtering in hp_wmi_notify() before calling hp_kbd_=
-brightness_set_by_hwd()
-> > =09This prevents EC flooding and keyboard malfunction on some devices
-> >=20
-> > Changes since v9:
-> >  - Fixed corrupted long lines
-> >  - Fixed changelog
-> >=20
-> > Changes since v8:
-> >  - No changes (It was mistake to resend email without any fix)
-> >=20
-> > Changes since v7:
-> >  - The LED class device names changed to be consistent with the documen=
-tation.
-> >=20
-> > Changes since v6:
-> >  - The LED class device names have been made more consistent with the=
-=20
-> > documentation, in accordance with patch https://lore.kernel.org/linux-l=
-eds/
-> > 20260504145434.12746-1-johannes.goede@oss.qualcomm.com/
-> > underscores have been replaced with dashes where indicated.
-> >=20
-> > Changes since v5:
-> >  - LED class device names changed from a number to using a descriptive =
-name=20
-> > for each zone.
-> >=20
-> > v4: https://lore.kernel.org/all/20260303084022.7223-3-edip@medip.dev/
-> >=20
-> > Changes since v4:
-> >  - Fix circular dependencies
-> >=20
-> > Changes since v3:
-> >  - Merge the changes into a single commit
-> >=20
-> > Changes since v1:
-> >  - Fix mentioned style errors
-> >  - Add Kconfig dependencies
-> >=20
-> > ---
-> >  drivers/platform/x86/hp/Kconfig  |   2 +
-> >  drivers/platform/x86/hp/hp-wmi.c | 298 ++++++++++++++++++++++++++++++-
-> >  2 files changed, 299 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/platform/x86/hp/Kconfig b/drivers/platform/x86/hp/=
-Kconfig
-> > index dd51491b9bcd..2a1841cbec76 100644
-> > --- a/drivers/platform/x86/hp/Kconfig
-> > +++ b/drivers/platform/x86/hp/Kconfig
-> > @@ -45,6 +45,8 @@ config HP_WMI
-> >  =09select INPUT_SPARSEKMAP
-> >  =09select ACPI_PLATFORM_PROFILE
-> >  =09select HWMON
-> > +=09select LEDS_CLASS
-> > +=09select LEDS_CLASS_MULTICOLOR
-> >  =09help
-> >  =09  Say Y here if you want to support WMI-based hotkeys on HP laptops=
- and
-> >  =09  to read data from WMI such as docking or ambient light sensor sta=
-te.
-> > diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp=
-/hp-wmi.c
-> > index 615b4cf6fc45..cf57b6b00b01 100644
-> > --- a/drivers/platform/x86/hp/hp-wmi.c
-> > +++ b/drivers/platform/x86/hp/hp-wmi.c
-> > @@ -28,6 +28,8 @@
-> >  #include <linux/kstrtox.h>
-> >  #include <linux/limits.h>
-> >  #include <linux/minmax.h>
-> > +#include <linux/led-class-multicolor.h>
-> > +#include <linux/leds.h>
-> >  #include <linux/module.h>
-> >  #include <linux/mutex.h>
-> >  #include <linux/platform_device.h>
-> > @@ -61,6 +63,10 @@ enum hp_ec_offsets {
-> >  #define HP_FAN_SPEED_AUTOMATIC=09 0x00
-> >  #define HP_POWER_LIMIT_DEFAULT=09 0x00
-> >  #define HP_POWER_LIMIT_NO_CHANGE 0xFF
-> > +#define HP_COLOR_TABLE_PADDING  25
-> > +#define HP_BACKLIGHT_EVENT_ON   0x2
-> > +#define HP_BACKLIGHT_EVENT_OFF  0x0
-> > +#define HP_KBD_RGB_COLORS       3
-> >  #define HPWMI_MUX_MODE_UMA=09=09BIT(0)
-> >  #define HPWMI_MUX_MODE_HYBRID=09=09BIT(1)
-> >  #define HPWMI_MUX_MODE_DISCRETE=09=09BIT(2)
-> > @@ -106,6 +112,14 @@ enum hp_thermal_profile {
-> >  =09HP_THERMAL_PROFILE_QUIET=09=09=09=3D 0x03,
-> >  };
-> > =20
-> > +enum hp_keyboard_type {
-> > +=09HP_KEYBOARD_TYPE_NOBACKLIGHT=09=09=3D 0x0,
-> > +=09HP_KEYBOARD_TYPE_FOURZONE_WITH_NUMPAD=09=3D 0x1,
-> > +=09HP_KEYBOARD_TYPE_FOURZONE_WITHOUT_NUMPAD=09=3D 0x2,
-> > +=09HP_KEYBOARD_TYPE_RGB_PER_KEY=09=09=3D 0x3,
-> > +=09HP_KEYBOARD_TYPE_SINGLEZONE_WITH_NUMPAD=09=3D 0x4,
-> > +=09HP_KEYBOARD_TYPE_SINGLEZONE_WITHOUT_NUMPAD=09=3D 0x5,
-> > +};
-> > =20
-> >  struct thermal_profile_params {
-> >  =09u8 performance;
-> > @@ -433,16 +447,27 @@ enum hp_wmi_gm_commandtype {
-> >  =09HPWMI_GET_GPU_THERMAL_MODES_QUERY=09=3D 0x21,
-> >  =09HPWMI_SET_GPU_THERMAL_MODES_QUERY=09=3D 0x22,
-> >  =09HPWMI_SET_POWER_LIMITS_QUERY=09=09=3D 0x29,
-> > +=09HPWMI_GET_KEYBOARD_TYPE_QUERY=09=09=3D 0x2b,
-> >  =09HPWMI_VICTUS_S_FAN_SPEED_GET_QUERY=09=3D 0x2D,
-> >  =09HPWMI_VICTUS_S_FAN_SPEED_SET_QUERY=09=3D 0x2E,
-> >  =09HPWMI_VICTUS_S_GET_FAN_TABLE_QUERY=09=3D 0x2F,
-> >  };
-> > =20
-> > +enum hp_wmi_backlight_commandtype {
-> > +=09HPWMI_BACKLIGHT_COLOR_GET_QUERY=09=09=3D 0x02,
-> > +=09HPWMI_BACKLIGHT_COLOR_SET_QUERY=09=09=3D 0x03,
-> > +=09HPWMI_BACKLIGHT_BRIGHTNESS_GET_QUERY=09=3D 0x04,
-> > +=09HPWMI_BACKLIGHT_BRIGHTNESS_SET_QUERY=09=3D 0x05,
-> > +=09HPWMI_BACKLIGHT_SET_OFF_QUERY=09=09=3D 0x64,
-> > +=09HPWMI_BACKLIGHT_SET_ON_QUERY=09=09=3D 0xE4,
-> > +};
-> > +
-> >  enum hp_wmi_command {
-> >  =09HPWMI_READ=09=3D 0x01,
-> >  =09HPWMI_WRITE=09=3D 0x02,
-> >  =09HPWMI_ODM=09=3D 0x03,
-> >  =09HPWMI_GM=09=3D 0x20008,
-> > +=09HPWMI_BACKLIGHT=09=3D 0x20009,
-> >  };
-> > =20
-> >  enum hp_wmi_hardware_mask {
-> > @@ -450,6 +475,24 @@ enum hp_wmi_hardware_mask {
-> >  =09HPWMI_TABLET_MASK=09=3D 0x04,
-> >  };
-> > =20
-> > +struct hp_kbd_led_priv {
-> > +=09int zone;               /* Zone index (0-3) */
-> > +=09enum led_brightness last_brightness;  /* Brightness before turning =
-off */
-> > +};
-> > +
-> > +struct hp_mc_leds {
-> > +=09struct led_classdev_mc devices[4];
-> > +=09struct hp_kbd_led_priv priv[4];
-> > +};
-> > +
-> > +/* zone naming for 4-zone keyboards (HP Omen) */
-> > +static const char *const hp_zone_names_4[] =3D {
-> > +=09[0] =3D "zoned_backlight-right",
-> > +=09[1] =3D "zoned_backlight-center",
-> > +=09[2] =3D "zoned_backlight-left",
-> > +=09[3] =3D "zoned_backlight-wasd",
-> > +};
-> > +
-> >  struct bios_return {
-> >  =09u32 sigpass;
-> >  =09u32 return_code;
-> > @@ -530,6 +573,7 @@ static DEFINE_MUTEX(active_platform_profile_lock);
-> >  static struct input_dev *hp_wmi_input_dev;
-> >  static struct input_dev *camera_shutter_input_dev;
-> >  static struct platform_device *hp_wmi_platform_dev;
-> > +static struct hp_mc_leds hp_multicolor_leds;
-> >  static struct device *platform_profile_device;
-> >  static struct notifier_block platform_power_source_nb;
-> >  static enum platform_profile_option active_platform_profile;
-> > @@ -1338,6 +1382,8 @@ static struct attribute *hp_wmi_attrs[] =3D {
-> >  };
-> >  ATTRIBUTE_GROUPS(hp_wmi);
-> > =20
-> > +static void hp_kbd_brightness_set_by_hwd(u32 event_data);
-> > +
-> >  static void hp_wmi_notify(union acpi_object *obj, void *context)
-> >  {
-> >  =09u32 event_id, event_data;
-> > @@ -1438,6 +1484,16 @@ static void hp_wmi_notify(union acpi_object *obj=
-, void *context)
-> >  =09case HPWMI_PROXIMITY_SENSOR:
-> >  =09=09break;
-> >  =09case HPWMI_BACKLIT_KB_BRIGHTNESS:
-> > +=09=09/*
-> > +=09=09 * Only handle actual backlight events (0x0 and 0x2).
-> > +=09=09 * Other event_data values (like keyboard scan codes, e.g. 0x20 =
-for 'd')
-> > +=09=09 * are keyboard events and should be handled via sparse_keymap,
-> > +=09=09 * not treated as brightness control commands.
-> > +=09=09 */
-> > +=09=09if (event_data !=3D HP_BACKLIGHT_EVENT_ON &&
-> > +=09=09    event_data !=3D HP_BACKLIGHT_EVENT_OFF)
-> > +=09=09=09break;
-> > +=09=09hp_kbd_brightness_set_by_hwd(event_data);
-> >  =09=09break;
-> >  =09case HPWMI_PEAKSHIFT_PERIOD:
-> >  =09=09break;
-> > @@ -1700,6 +1756,244 @@ static int __init hp_wmi_rfkill2_setup(struct p=
-latform_device *device)
-> >  =09return err;
-> >  }
-> > =20
-> > +static struct hp_kbd_led_priv *hp_led_get_priv(struct led_classdev *le=
-d_cdev)
-> > +{
-> > +=09struct led_classdev_mc *mc_cdev =3D lcdev_to_mccdev(led_cdev);
-> > +=09int zone =3D mc_cdev - hp_multicolor_leds.devices;
-> > +
-> > +=09return &hp_multicolor_leds.priv[zone];
-> > +}
-> > +
-> > +static int hp_kbd_backlight_set_rgb_color(int zone, int red, int green=
-, int blue)
-> > +{
-> > +=09u8 color_table[128];
-> > +=09int ret;
-> > +
-> > +=09/*
-> > +=09 * Get the current color table and then change only the relevant pa=
-rts.
-> > +=09 */
-> > +=09ret =3D hp_wmi_perform_query(HPWMI_BACKLIGHT_COLOR_GET_QUERY,
-> > +=09=09=09=09  HPWMI_BACKLIGHT, color_table,
-> > +=09=09=09=09  zero_if_sup(color_table),
-> > +=09=09=09=09  sizeof(color_table));
-> > +=09if (ret)
-> > +=09=09return ret;
-> > +
-> > +=09/*
-> > +=09 * RGB color data starts at offset 25 +3 per zone (r g b)
-> > +=09 * e.g. if zone 1 starts in 25 zone 2 starts in 28
-> > +=09 */
-> > +=09color_table[HP_COLOR_TABLE_PADDING + zone * HP_KBD_RGB_COLORS]     =
-=3D red;
-> > +=09color_table[HP_COLOR_TABLE_PADDING + zone * HP_KBD_RGB_COLORS + 1] =
-=3D green;
-> > +=09color_table[HP_COLOR_TABLE_PADDING + zone * HP_KBD_RGB_COLORS + 2] =
-=3D blue;
-> > +
-> > +=09ret =3D hp_wmi_perform_query(HPWMI_BACKLIGHT_COLOR_SET_QUERY, HPWMI=
-_BACKLIGHT,
-> > +=09=09=09=09  color_table, sizeof(color_table), sizeof(color_table));
-> > +=09if (ret < 0)
-> > +=09=09return ret;
-> > +=09if (ret)
-> > +=09=09return -EINVAL;
-> > +
-> > +=09return 0;
-> > +}
-> > +
-> > +static bool hp_kbd_backlight_is_on(void)
-> > +{
-> > +=09u8 data;
-> > +=09int ret;
-> > +
-> > +=09ret =3D hp_wmi_perform_query(HPWMI_BACKLIGHT_BRIGHTNESS_GET_QUERY, =
-HPWMI_BACKLIGHT, &data,
-> > +=09=09=09=09sizeof(data), sizeof(data));
-> > +=09if (ret)
-> > +=09=09return false;
-> > +
-> > +=09return data =3D=3D HPWMI_BACKLIGHT_SET_ON_QUERY;
-> > +}
-> > +
-> > +static int hp_kbd_set_brightness(struct led_classdev *led_cdev,
-> > +=09=09=09=09=09enum led_brightness brightness)
-> > +{
-> > +=09struct hp_kbd_led_priv *priv =3D hp_led_get_priv(led_cdev);
-> > +=09struct led_classdev_mc *mc_cdev;
-> > +=09struct led_classdev_mc *device;
-> > +=09int red, green, blue;
-> > +=09int ret;
-> > +
-> > +=09if (!hp_kbd_backlight_is_on()) {
-> > +=09=09u8 data =3D HPWMI_BACKLIGHT_SET_ON_QUERY;
-> > +
-> > +=09=09ret =3D hp_wmi_perform_query(HPWMI_BACKLIGHT_BRIGHTNESS_SET_QUER=
-Y,
-> > +=09=09=09=09=09   HPWMI_BACKLIGHT, &data,
-> > +=09=09=09=09=09   sizeof(data), sizeof(data));
-> > +=09=09if (ret)
-> > +=09=09=09return ret;
-> > +
-> > +=09=09/*
-> > +=09=09 * Turning the backlight on via WMI turns all zones,
-> > +=09=09 * so we need to restore the other zones' off state.
-> > +=09=09 */
-> > +=09=09for (int i =3D 0; i < ARRAY_SIZE(hp_multicolor_leds.devices); i+=
-+) {
-> > +=09=09=09if (i =3D=3D priv->zone)
-> > +=09=09=09=09continue;
-> > +
-> > +=09=09=09device =3D &hp_multicolor_leds.devices[i];
-> > +=09=09=09if (!device->led_cdev.name)
-> > +=09=09=09=09continue;
-> > +=09=09=09hp_kbd_backlight_set_rgb_color(i,
-> > +=09=09=09=09device->subled_info[0].brightness,
-> > +=09=09=09=09device->subled_info[1].brightness,
-> > +=09=09=09=09device->subled_info[2].brightness);
-> > +=09=09}
-> > +=09}
-> > +
-> > +=09led_cdev->brightness =3D brightness;
-> > +
-> > +=09mc_cdev =3D lcdev_to_mccdev(led_cdev);
-> > +=09led_mc_calc_color_components(mc_cdev, brightness);
-> > +
-> > +=09red =3D mc_cdev->subled_info[0].brightness;
-> > +=09green =3D mc_cdev->subled_info[1].brightness;
-> > +=09blue =3D mc_cdev->subled_info[2].brightness;
-> > +
-> > +=09return hp_kbd_backlight_set_rgb_color(priv->zone, red, green, blue)=
-;
-> > +}
-> > +
-> > +static void hp_kbd_brightness_set_by_hwd(u32 event_data)
-> > +{
-> > +=09struct device *dev =3D &hp_wmi_platform_dev->dev;
-> > +=09struct led_classdev *led_cdev;
-> > +=09struct hp_kbd_led_priv *priv;
-> > +=09u8 brightness;
-> > +
-> > +=09for (int zone =3D 0; zone < ARRAY_SIZE(hp_multicolor_leds.devices);=
- zone++) {
-> > +=09=09if (!hp_multicolor_leds.devices[zone].led_cdev.name)
-> > +=09=09=09continue;
-> > +
-> > +=09=09led_cdev =3D &hp_multicolor_leds.devices[zone].led_cdev;
-> > +=09=09if (!led_cdev->dev)
-> > +=09=09=09continue;
-> > +
-> > +=09=09priv =3D hp_led_get_priv(led_cdev);
-> > +
-> > +=09=09switch (event_data) {
-> > +=09=09case HP_BACKLIGHT_EVENT_ON:
-> > +=09=09=09brightness =3D priv->last_brightness ? : LED_FULL;
-> > +=09=09=09break;
-> > +=09=09case HP_BACKLIGHT_EVENT_OFF:
-> > +=09=09=09priv->last_brightness =3D led_cdev->brightness;
-> > +=09=09=09brightness =3D LED_OFF;
-> > +=09=09=09break;
-> > +=09=09default:
-> > +=09=09=09dev_warn(dev, "Unknown keyboard backlight event - 0x%x\n",
-> > +=09=09=09=09 event_data);
-> > +=09=09=09return;
-> > +=09=09}
-> > +
-> > +=09=09led_cdev->brightness =3D brightness;
-> > +=09=09led_classdev_notify_brightness_hw_changed(led_cdev, brightness);
-> > +=09}
-> > +}
-> > +
-> > +static int __init hp_mc_leds_register(int num_zones)
-> > +{
-> > +=09u8 color_table[128];
-> > +=09int ret;
-> > +
-> > +=09ret =3D hp_wmi_perform_query(HPWMI_BACKLIGHT_COLOR_GET_QUERY, HPWMI=
-_BACKLIGHT,
-> > +=09=09=09=09  color_table, zero_if_sup(color_table),
-> > +=09=09=09=09  sizeof(color_table));
-> > +=09if (ret)
-> > +=09=09return ret;
-> > +
-> > +=09for (int zone =3D 0; zone < num_zones; zone++) {
-> > +=09=09struct led_classdev_mc *multicolor_led_dev;
-> > +=09=09struct led_classdev *led_cdev;
-> > +=09=09struct mc_subled *mc_subled_info;
-> > +=09=09struct hp_kbd_led_priv *priv;
-> > +=09=09struct device *dev;
-> > +
-> > +=09=09dev =3D &hp_wmi_platform_dev->dev;
-> > +=09=09multicolor_led_dev =3D &hp_multicolor_leds.devices[zone];
-> > +=09=09led_cdev =3D &multicolor_led_dev->led_cdev;
-> > +=09=09priv =3D &hp_multicolor_leds.priv[zone];
-> > +
-> > +=09=09if (num_zones =3D=3D 1)
-> > +=09=09=09led_cdev->name =3D devm_kasprintf(dev, GFP_KERNEL,
-> > +=09=09=09=09"hp::kbd_backlight");
-> > +=09=09else if (num_zones =3D=3D 4 && zone < ARRAY_SIZE(hp_zone_names_4=
-))
-> > +=09=09=09led_cdev->name =3D devm_kasprintf(dev, GFP_KERNEL,
-> > +=09=09=09=09"hp::kbd_%s",
-> > +=09=09=09=09hp_zone_names_4[zone]);
-> > +=09=09else if (num_zones > 1)
-> > +=09=09=09led_cdev->name =3D devm_kasprintf(dev, GFP_KERNEL,
-> > +=09=09=09=09"hp::kbd_zoned_backlight-%d",
-> > +=09=09=09=09zone);
-> > +
-> > +=09=09if (!led_cdev->name)
-> > +=09=09=09return -ENOMEM;
-> > +=09=09led_cdev->brightness =3D hp_kbd_backlight_is_on() ?
-> > +=09=09=09=09       LED_FULL : LED_OFF;
-> > +=09=09led_cdev->max_brightness =3D LED_FULL;
-> > +=09=09led_cdev->brightness_set_blocking =3D hp_kbd_set_brightness;
-> > +=09=09led_cdev->flags =3D LED_CORE_SUSPENDRESUME |
-> > +=09=09=09=09  LED_RETAIN_AT_SHUTDOWN |
-> > +=09=09=09=09  LED_BRIGHT_HW_CHANGED;
-> > +
-> > +=09=09mc_subled_info =3D devm_kzalloc(dev, sizeof(*mc_subled_info) * H=
-P_KBD_RGB_COLORS,
-> > +=09=09=09=09=09      GFP_KERNEL);
->=20
-> Thanks for the update.
->=20
-> This looked very much devm_kcalloc() to me so I made that conversion=20
-> while applying.
->=20
-> PLEASE CHECK and yell loudly if you think I made an error while=20
-> converting it.
->=20
-> The patch is applied to the review-ilpo-next branch.
+---
+Changes in v3:
+- Patch 1: Constify get_obj_cgroup_from_folio() as well, per Sashiko
+- Patch 3: Use container_of_const() in mem_cgroup_get_zone_lru_size(),
+  per Sashiko
+- Patch 3: Note that lruvec_pgdat() still returns a non-const pgdat and
+  does not use container_of_const()
+- Patch 8: Constify the local memcg stat readers as well, per Sashiko
+- Link to v2: https://patch.msgid.link/20260908-folio_memcg-const-v2-0-811e9f443409@columbia.edu
 
-A time out. I've pulled this change from review-ilpo-next because of the=20
-reported config issue.
+Changes in v2:
+- Patch 3: Constify the folio argument of folio_lruvec_relock_irq() and
+  folio_lruvec_relock_irqsave() as well, per Sashiko
+- Patch 3: Note that mem_cgroup_lruvec() updates lruvec->pgdat in the
+  per-node structure, not the memcg, per Sashiko
+- Patches 3 and 8: Use container_of_const() in lruvec_memcg() and the
+  lruvec_page_state() family, per Sashiko
+- Link to v1: https://patch.msgid.link/20260902-folio_memcg-const-v1-0-e2c1da22246d@columbia.edu
 
---=20
- i.
+---
+Tal Zussman (11):
+      mm: memcontrol: take a const folio in folio_memcg() and friends
+      mm: memcontrol: constify obj_cgroup_memcg() and friends
+      mm: memcontrol: constify the lruvec helpers
+      mm/page_io: take a const folio in bio_associate_blkg_from_folio()
+      mm: memcontrol: constify the mem_cgroup accessors
+      mm: page_counter: constify page_counter_read() and page_counter_margin()
+      mm: memcontrol: constify the reclaim protection helpers
+      mm: memcontrol: constify the memcg and lruvec stat readers
+      mm: memcontrol: constify the swap accounting helpers
+      mm: memcontrol: constify mem_cgroup_swappiness() and mem_cgroup_get_max()
+      mm: memcontrol: constify the zswap and socket pressure helpers
 
---8323328-1293466110-1789514420=:29492--
+ include/linux/memcontrol.h   | 212 ++++++++++++++++++++++---------------------
+ include/linux/mmzone.h       |   2 +-
+ include/linux/page_counter.h |   4 +-
+ include/linux/swap.h         |  12 +--
+ mm/memcontrol-v1.h           |   6 +-
+ mm/memcontrol.c              |  57 ++++++------
+ mm/page_counter.c            |   2 +-
+ mm/page_io.c                 |  14 ++-
+ mm/swap.h                    |   2 +-
+ 9 files changed, 159 insertions(+), 152 deletions(-)
+---
+base-commit: b08a65b93426d86e3f354d655d6225397b591877
+change-id: 20260807-folio_memcg-const-4a67e40d485b
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
+
