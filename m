@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916E73D649F;
-	Tue, 15 Sep 2026 16:18:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9124242AF86;
+	Tue, 15 Sep 2026 16:18:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789489115; cv=none; b=It6E68aVzQg1fwHj+rpLNrxemgpWBrTHwShd41uFUpt6RPcai0xzdCzkjT+6gG4Sik9s63i7j/mjsc27iSoApCpFs23gvhyqqDQVhF2X3Evlt8t/9CtRhqcxd5kh1oaEVjujhddw3kxr10/1tlugBkSFjcWhIrcdn+YvzcjoP9c=
+	t=1789489119; cv=none; b=k7c24msH4EpFtvWvgF5bOOTrlTNYjH8BQGtWGnNyZexybhXrVy6GCMSYwRcV4kT9Uuk80pBvLCUKLtJH8fsEe4n+Uswr+RzQjOB8NHcIbrdm5wOJVShqP8+rNKISTpLBrEBTmEy1Jvg7fERH9ibTmeOT6u4R571ew30YEQ2uJ1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789489115; c=relaxed/simple;
-	bh=oIUi5zM0JswPz6Eaohs11M2P2un/qJ0kRTN4e6pVni0=;
+	s=arc-20240116; t=1789489119; c=relaxed/simple;
+	bh=DIf4ayilbmZBMh0DHXNgys9GIIZQVEslcAlYqm4XnsE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=LhJFiQxvLOtrZOUlSaOfadVn0wIm0ObY+g+0c2iQNe1O1cxkfm7yOcbKeetybMIwBJDQSLUZ4/ya+BYJO4KkS4h3VO4FpW/OLejIzWTFuSaucEtn0vf3dkMddt6JWZQQplL+QDhxdXp0hKgBxWiOArviEUulTW/nD3VhdvBhh3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IZ4Dsvs6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cKzDRvt8WpUBhL46Oz3LRCt3EwZApzWn5Gy93CQotKaIRufrHm7YqU1VhkyGZg2dbkSScL4MTcmr1b1zJNI3mn0Sz84btkiune5v+pPgIC7H7BD/+yfLAahNrQ3Yqob7ZEQ92Exr7+t9UwLabXqnj5Q7e8PcaU1UldKzekYW860=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=obkdRDx4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IZ4Dsvs6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FB01F00893;
-	Tue, 15 Sep 2026 16:18:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="obkdRDx4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E2C1F0089B;
+	Tue, 15 Sep 2026 16:18:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789489114;
-	bh=+TB+R6nkjojeSDXcGzPReCTji8eSl0H09UInpV+gfgw=;
+	s=k20260515; t=1789489118;
+	bh=yRhFeZH6VLeyCw8HiKqDqANkZ7eBts2fQHzalitssPw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=IZ4Dsvs61xttHUyh5YSntPi4eiJthWO5drMJDoJcC8jMgbdM0pjZgwEp3qeyg4aDu
-	 G5XDgAPJD1nEW4uxuZYuRkLlDo4QcZdsMQBXMu3LqE55sEyF1VJ1eTIvpLlOWROpi3
-	 OZSIemuY6gPjqM5xkYK0t5rpil8NW+Mv5jK4nzBNGFnBJZwUGcVjpfoBx+PijUm0ac
-	 9Fb4gApWEKivJNWrvA9I5tzLEAGvh+ST76LFFVmBuZuwmRioKT3l0EhzpdL2EtFJ/f
-	 NPYUtIBlI1pXPyXOEb1+rd94ohKj50MlsSbKh1Jif/ATQFcaJLlUhaplFFyGHh1YyJ
-	 k4miBJBwAYfXw==
+	b=obkdRDx4KJ/F4ftGNhRVJEks2I7hTSLaZJeET2V7KL5yiAlVLwhQpB0MZQycBXj7H
+	 6waxfJWJyJePFCZEiTLGNZoh2cWw5CxqSx/16mMMa7VimmYuYlbVjYxM55UGLRpann
+	 fsHzhMo/Nm6IRj/fzEhNtV/Z9DNgPGu4xOYK8C/PNsZXn8TOdadOtWDYiCIX2ziTU0
+	 n3UUAqfj7mRAVTii7Kk5OwStrC5b/azuZql17LaCz8f42FJDs8nbthNqGqhBUiSnzM
+	 E0rHYnjmYALdD7Ld98naYXDqYbPVVUQIwKDHD8jLy0J+o5dkK8+nhcsfOW6eufN0RO
+	 i/cAvOHQQ0TMg==
 From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
- Andrey Starostin <ndrstrstn@gmail.com>
-Cc: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260914131610.46732-1-ndrstrstn@gmail.com>
-References: <20260914131610.46732-1-ndrstrstn@gmail.com>
-Subject: Re: [PATCH] ASoC: amd: yc: Add DMI entry for Acer Extensa 215-23
-Message-Id: <178948261574.151760.5544799719130228545.b4-ty@b4>
-Date: Tue, 15 Sep 2026 15:30:15 +0100
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ patches@opensource.cirrus.com
+In-Reply-To: <20260915102110.3276924-1-rf@opensource.cirrus.com>
+References: <20260915102110.3276924-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs35l56: Wait for firmware timer expiry before
+ system suspend
+Message-Id: <178948311377.151760.13181956545960061223.b4-ty@b4>
+Date: Tue, 15 Sep 2026 15:38:33 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,20 +45,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1126; i=broonie@kernel.org;
- h=from:subject:message-id; bh=oIUi5zM0JswPz6Eaohs11M2P2un/qJ0kRTN4e6pVni0=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqqW/Wlt7Ao9EO3YRcAy3yWPZB6CnjvThc5HYnZ
- wCfjR8geluJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqlv1gAKCRAk1otyXVSH
- 0F1qB/400QBpE6FtyC+5VYrxbjIdvAWkWnky6JTSvdWz4vphMi1qesghUPkdKLfkbJFWEJBxx9v
- DFepqh7CRRf/kdH0HNjFZsubOhu74ZbgQdGDRudt4Cwm0T9zC34q1b6sLy/Fz72eqaXWW6OFDpZ
- g3Q1ZkKvjwr0SWvwGeoORHihiUezJg63ycD764a01rF3+2Irj7bdlj2r099IkNOOlOwuIf3wJUD
- e6CYrMZ1O9U7jcQ1QXsRgb2mh1s2IQVS0T6r80mblweAC9g7jHAFb5uZ8qezVjyKW7+FEElqewW
- sWfrcX66LcVoILWV+h8myhdxBVMMMX50KqmS0CRtGPVPp7Z3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1158; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=DIf4ayilbmZBMh0DHXNgys9GIIZQVEslcAlYqm4XnsE=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqqW/bsk/K5T9ANLyeKruJPkuqLUvrXiXWeu/8e
+ 546WKyETgSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqlv2wAKCRAk1otyXVSH
+ 0DjOB/9U4jC2kfM23bWWWpE9AqNsvKD7ufrQALt6NPnEpRvKXW2K+lGIL0RWoaZ5VhtCVzl248E
+ PWo1STSFQ/PSQ1FbG3C+Xmh6ik7TsGTSa1FwVYzY8rwPnnKr5RWp4Y1AaIydFpGB4IaCrjhPn/e
+ PublzT3ufXe6awSPK035mEkqiSibX+uO0OMQDiSb5Mo6QtqUC3czYJNzFjlHAdbhq5vEIFV1Rfp
+ tELzPjFkpKBTOr8qC65SAxsQChcLL+KBs2D8wrUowSYe557E0nrsY4Lz9GbYk5GTLF512DyyEdh
+ PBSshyTnvHjdYz8YWseDY1yJgAmZKHJMyKRwtgInHS7gEjia
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, 14 Sep 2026 16:16:10 +0300, Andrey Starostin wrote:
-> ASoC: amd: yc: Add DMI entry for Acer Extensa 215-23
+On Tue, 15 Sep 2026 11:21:10 +0100, Richard Fitzgerald wrote:
+> ASoC: cs35l56: Wait for firmware timer expiry before system suspend
 
 Applied to
 
@@ -67,8 +66,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: yc: Add DMI entry for Acer Extensa 215-23
-      https://git.kernel.org/broonie/sound/c/581289734a6d
+[1/1] ASoC: cs35l56: Wait for firmware timer expiry before system suspend
+      https://git.kernel.org/broonie/sound/c/7226c5c21f48
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
