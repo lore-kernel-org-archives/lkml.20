@@ -1,66 +1,68 @@
 Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2274C33DEF7
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:33:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2795147ECC1
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:33:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789468434; cv=none; b=RRydYbMevsUfnpeIdfVWCUMvuLzGNllC9X9tNIgay4SXFkcL283GKYgR0xm7yrIndaa46Cl9COy2iALz80iZF0/+hPM4ONagSNzOhQFMeW/ohkbxTutdef5vH+t60Bt9UEnI4mbnyIAMoqpGTlHqHE3HPWRkvxxLN1h8mIlnIas=
+	t=1789468435; cv=none; b=hVBTdTXshZg4MK3Hg91EMF7pp8MQLnuQQumKeOg4hI5Wh79/ihC/mChmk+ZdIQKcTUq2wQ/ypvrG9DpO/Nutjp1f8h7JRF5hqP9fY1NEPk02P+Jthd1oKvHhvM9rz0vUV3TK56V9jvV0c2Yp/tTE2QXq6EhYJb4gtKp6WlrsVtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789468434; c=relaxed/simple;
-	bh=rMBxBiuiDq4omRt4799HznSfkajEM8cXWvJc5zo6Fcw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lV/UU6M+a9xiDvwTQdS9ln1aUQsdwikwLSM2/p2OFirOBGXBF45N/ATF5cnkU1BZBweQ6KKSLvNOp4ew8NScblZDoTF/CAKeKKjMUQ84Nu38QU5seYRXVF5N0it9UsL0W8xLIEXDhbFTiNwsGgszh1fK51nUGQqTovIY9/f2Uug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QdRFWuia; arc=none smtp.client-ip=74.125.228.140
+	s=arc-20240116; t=1789468435; c=relaxed/simple;
+	bh=Iot54+4YH8z9WLeHeMdtitMcMTgj08iIM+GUm+BjpzQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sm11HOQ6J423t8ezSPMZzI/b8pYu8w7bP0U0+luk3gLn5lFVKoLXuoxvJIfn5WbszB13WmPjZjy8mSMbl64OVUX940ij4Pc4rE48xXoGvEK9gFdOop6beSuaUGkjxIEhDp6daSeHAJsq9gJSGakA2PPWhXyUz1zlnhH4o0CyOY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KuwslfT6; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QdRFWuia"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d33431c8so19962666b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:33:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KuwslfT6"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f5603a0so18101966b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:33:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1789468431; x=1790073231; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f75fQgzk5PMT2bUGTVE35Rs8Li1ghntLsZOgXFHTcEQ=;
-        b=QdRFWuia39XWvJOOhE9G5ozho//qCq38VCwn8Rfu49EBNeTOZffNJ5fAQZYscu5MpS
-         eqr91eL6pBLxPujcjS2fTL/+KXaeKrqHXiCcVTVjLiirD8YachRPaW1jA1onTGHI87ei
-         b5eXNiLj2iI7t7unWQ8zFFU/5aNQPequ+/at5Jj0dTr+LvfU0W9S5+gqMQVzG3SWhKmU
-         6nBwcrOAa+s8kQxo+lrKXWq3ZovN7CEKSOQQYyXlh9Vc1J2YQU2uSTiXtdcJWnU+XoJA
-         A9hHpk6Xvg9YjCe4HaV4v+xPRqpF92beogzUUbKu5CE00aALIWMrGnByszFn+Jlix5k5
-         Z/KQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JlZV+gDl5kHNbM3FapkIWa6VkdcZp6BNeCy2FJirDI8=;
+        b=KuwslfT6126NUlu62A1yJUTxClIOFQQi5mrK5wgmLXufa5FeYrNGZCDvWnOAiJUc88
+         BMwEKyeUhb2JUrdnZeCkVr78NAF7D5NPbWRYFjDar11UEr6QujvQVxae+VO8PpngKbhQ
+         n5+kCmAF08RDzPqSxz3ZL2Cgw7tTr/QEcPXOoiDmLgELnW9NOhP2XcLcdn571vDQiAKk
+         kWkl3mF9tK1P4btY+2TKa7dLB7m6ktVkgCLN4ErwvMw6g0+c9SY9OBpyz8MntJPa6jw1
+         VSrZC61CrFJ/3gHERY9Vjpqf9QsuquJbksLv3DijhAOrFck32FeeTcqpCWGAj5JjkMzh
+         rdCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789468431; x=1790073231;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f75fQgzk5PMT2bUGTVE35Rs8Li1ghntLsZOgXFHTcEQ=;
-        b=tD9Tu3+md1HjzUIb0oK8mec0uyOYTOIHAf4EEG3osL/d/2KJINLyFlSkCOaeOI8Q76
-         4Lu8DPO1UsOvGNUDjoZ9trZrNi9d7T1LkwY3Eha8iDZ5EKW/m6Bbqt2vyxfpSPrOR56S
-         l3cccvS2rlpSmACwYteoD761ZX0wicmmRjyV6wmkG7AqXyVyKGr1/S4q4B69/M/OHdau
-         L2UOJwRtT/okWUMotNukgwMSFSy8V11vPIOsx1uGbl3XlfUejK5WgYBBX/2lO7QyPIoi
-         YyarXtTOeZxZoBf8cJgkneVDqyai6QQLsoncP67YQREay/OkO4/9nD40qKNRi5ZFYqf4
-         ZpYA==
-X-Forwarded-Encrypted: i=1; AKwUvBxrstxOLt1TZW2hcqvCNOwRW//X+RjvEceBCJaz1BP6a3/Je8jAwd/tWG9QZKJwNXOChDLaJW83TxdzM3Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXOnW1yLQIzZDP20CQ+3uoMtyjPRFe8vfeiA/LNwJXE0CjkbLX
-	beFZgxwR0N66ihyKAr/ECEhI1Jk7t2JPQiAA2I1hy7qFZ0gz35q/G7sp
-X-Gm-Gg: AYBFou3S4PzbifptkA8ySNR66a5Fxrgxb3FgZattoDpJyyA7LCN9UwHEcWFUFaTxQ+y
-	Xa17WKV0Rb7KjpHIOXwBoTAiUBxdYCm+D0f47ooiX/V/lvz0GcSdfzY+q13wxX4kwN78fjSdZyP
-	MvEqKpZ2xAPTC9ImgEumWNDqxLkrQMU/3fnIqkSdSmUFDsDWpfprt53O9VYUbSo1pqpwSIPN4NR
-	5cDnEQkcyTyhgQHRB6KHq14w87HSUKtZKACvN5cQAdVwKxtsuLJhbx2O+FNTgDCdEQ0OtkfuWWR
-	SRkqkzEp5e8wK6JxTDlmCfrRUkpXKE/xub3gjrAc2HrMknVPEtJ5bSxspbDwust2auKRxcZeDDc
-	Iw7yGmRW4qtrMa6h3sBiKZC/D5FFm8hnKTX8xQgBA1W3z/PRednCPi3Z/nV8WSEEHp4zwNa/5F9
-	pko/JNGlkMd8Qr1F/cvQbNDzI60gnnhXQKUpt+M4SNnDS2r+h7DYcjh0k94ZO+PBc4552HEAgYA
-	pWwc8HPgnRuUazR19Bke3IiA5u0w+jNTUVuS907MzEZ/9TiqE77rEi8oV8cZqi4kvF21lEe8bvt
-	vrrkYK7JzGRpHwgop5Me+9v57lIi+b9OIEE5ikAa9KDXD7AEacAoomEh0+d3ZnAcRK3bJa17Gql
-	Yc66lFKubHywM+L7TUVoE52tTdE7eCKQtLvHJTg7a8cdwffY4zFXt9hyg23vZPvdZBXFtsO9d1K
-	SZMc2AWaxmvJeUkfydKmP09DRlq3EZImDxYCCd9AJayia1lp3M1gmVaoA2MVh/Ci28hEj5ogkOy
-	3WJoS5ELtqmXc9g
-X-Received: by 2002:a17:907:6d1d:b0:c29:44b0:1428 with SMTP id a640c23a62f3a-c29d79b8aa1mr40465866b.42.1789468430983;
-        Tue, 15 Sep 2026 03:33:50 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JlZV+gDl5kHNbM3FapkIWa6VkdcZp6BNeCy2FJirDI8=;
+        b=KnmGHa+5SoxccwC0cvgj9ii/r30bC87x0b9Quq2mUdWKy217Sb6negx5sovJricZvo
+         sv8fXWTC/QYeNfoTfeJKuPD36VTP/xaD2gXdYlUDBNQuP3pMVmhh4jIcnVbzEYei7VlU
+         1gWShslCc4qRwzryaiTr2RUZvC2Ay6R2wgHBZMpbGNJ/MqySjzTtAAaOVZom46iuXvVJ
+         nhVjR7kdIBYZO5klljyg/Viq00L4/Nx/j+q+Mt18DdD0FDRVePK7NYJkSdmlZ029gflo
+         Gy5iy7CPP2lIN0vOnbZDp/KSqT3ICeWHhPEg6w7+LW18APTpyxwxgWwWpMoCb/8J8Mgg
+         h0RQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmrHeWcWkJHIw+X8zyMuhPqFPUoj5ua25m0dUoFOJ6MbK8DRCmKx9mi9eNMMNBRJfGApguSWavKNzygf8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlzQ8B51uRzSORcQxaOydFIu3kmdmeP/6HcAthoRGR47j8ZYe6
+	BpM6feGAAND4siQxrf4xMTEGp3LQO1nDDN0ed8nMsSArbiDzfI5lun0V
+X-Gm-Gg: AYBFou2ytLJP2g01zj7vXrAJs/YfI95Qksjd2WCPLJRDi/12YD7NYoguYS/gHTHIWY1
+	GsNNOzFm6UEKWCG77rxJMJkgc/3Z5zX74sUNGiCVyEp8ZAKDOcoib9vg8oUbMvAju5tgb7+jZ3z
+	p51C5XlT43zhRSAUf8z3TkEbUQoCqz2Pie7pQOBDnwCNSzVO5M8x1WwQHbhS1E+VKDKnIhwjJyw
+	Y0wRl8lo2Ur8qAd4ACcRa5/4G2UHf5xosxuEg0zMI7OwMvaWthYeGCskU48riBSmZp1RWa6Ky9n
+	1IdV5H+w4nBWZGHIDPv6CY9354mcDS64qkcVKxpwRnFqC5wArwKdfT6cJrIOrg6KhgY1h+l/ShI
+	unmUFi5MxurS5vmXY3g28IgdHDAwi+IHdPkoCB0KLDnuNPjKBgLZF4OFSHSuMHreF+sLcGRuH4o
+	4FTFphmssfr+aiJBE5xicSEf3IlIoXvTTAb2ZSwruC71yui9FU+lvoJanGYWfGI+jTZK74ZwzY3
+	itT3+f4FE1wv/REloKWUQktPvcvd5zAjyf1M0vjJWSmEOSxKe85QFQuhI9fl9fHFAmzteaB8zTd
+	iaUkRrUtGp1fUfceKF6kj7trzb2LZzLN/KN4+YuTQiOW7Ok6plyUrIbK3+m8/ygqUR53BFQtTD0
+	A+ThMWO5Klpzub4FMa12WbC8BXEcqYUiyGNdnnHt7WVCwP9kEgzbNtvx0QsqcSSY2sh/1Q6bLnU
+	oLeIXU4P6fMfgt5AMxmvlU9pSMdD5Zm1+sP10r8OcdonakhjiqEmhVMP4J1ntg+C9NJOSvTFlI3
+	m+YkapVOqGqjck8EYiUY+SiL98=
+X-Received: by 2002:a17:907:9610:b0:c26:2da7:347f with SMTP id a640c23a62f3a-c29d734648dmr49184166b.0.1789468431374;
+        Tue, 15 Sep 2026 03:33:51 -0700 (PDT)
 Received: from cs-280612103108-default.europe-west4-a.c.oa7bb030819b2a894-tp.internal (219.40.147.34.bc.googleusercontent.com. [34.147.40.219])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e8a1sm566041866b.6.2026.09.15.03.33.50
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e8a1sm566041866b.6.2026.09.15.03.33.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:33:50 -0700 (PDT)
+        Tue, 15 Sep 2026 03:33:51 -0700 (PDT)
 From: Joshua Crofts <joshua.crofts1@gmail.com>
 To: Abel Vesa <abelvesa@kernel.org>,
 	Peng Fan <peng.fan@nxp.com>,
@@ -74,11 +76,14 @@ To: Abel Vesa <abelvesa@kernel.org>,
 Cc: linux-clk@vger.kernel.org,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] clk: imx: add missing pm_runtime_dont_use_autosuspend() calls
-Date: Tue, 15 Sep 2026 10:33:43 +0000
-Message-ID: <20260915103345.1334-1-joshua.crofts1@gmail.com>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] clk: imx: clk-imx8qxp-lpcg: add missing pm_runtime_dont_use_autosuspend()
+Date: Tue, 15 Sep 2026 10:33:44 +0000
+Message-ID: <20260915103345.1334-2-joshua.crofts1@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915103345.1334-1-joshua.crofts1@gmail.com>
+References: <20260915103345.1334-1-joshua.crofts1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,24 +92,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Several drivers in the clk subsystem forget to call dont_use_autosuspend()
-on teardown or error, causing potential resource leaks. This series adds
-the missing calls.
+imx_lpcg_parse_clks_from_dt() disables PM runtime but doesn't call the
+pm_runtime_dont_use_autosuspend() function, causing potential resource
+leaks.
 
-The offending drivers were found using a semantic patch for Coccinelle
-I'm working on [1].
+Add the missing function call.
 
-[1] https://lore.kernel.org/all/20260915064327.1377-1-joshua.crofts1@gmail.com/
+Found using Coccinelle.
 
-Joshua Crofts (2):
-  clk: imx: clk-imx8qxp-lpcg: add missing
-    pm_runtime_dont_use_autosuspend()
-  clk: imx: scu: add missing pm_runtime_dont_use_autosuspend() call
-
+Fixes: 18cdbad40c6c ("clk: imx: clk-imx8qxp-lpcg: add runtime pm support")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
  drivers/clk/imx/clk-imx8qxp-lpcg.c | 1 +
- drivers/clk/imx/clk-scu.c          | 2 ++
- 2 files changed, 3 insertions(+)
+ 1 file changed, 1 insertion(+)
 
+diff --git a/drivers/clk/imx/clk-imx8qxp-lpcg.c b/drivers/clk/imx/clk-imx8qxp-lpcg.c
+index f0cf6cf91899..b31903060361 100644
+--- a/drivers/clk/imx/clk-imx8qxp-lpcg.c
++++ b/drivers/clk/imx/clk-imx8qxp-lpcg.c
+@@ -279,6 +279,7 @@ static int imx_lpcg_parse_clks_from_dt(struct platform_device *pdev,
+ 	}
+ 
+ 	pm_runtime_disable(&pdev->dev);
++	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 
+ 	return ret;
+ }
 -- 
 2.47.3
 
