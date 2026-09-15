@@ -1,215 +1,133 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852B3485CEC
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F2B47F781;
+	Tue, 15 Sep 2026 13:48:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480111; cv=none; b=GglihpnFI9wslbO9E0R6AxDUKGXmJMHfZ/9+5nwSh1/Q0+NAbUMyupfyZz02DuAfmvxJeRLupyIfRgInEtzAbQY/0ZvM5TIIZuLIIfcfuApwZt8DCssFC+/nvnXuzofPvOOrCJtXRe6vtbeEcvlNhZtcw/TZpqlU/Vw5Em31cVU=
+	t=1789480114; cv=none; b=YWcCPtK6nTAkKomES9nMxo41l7Vjt1rW2pNpypHd0hOs0p6l2HSQnGkEUtWDMPws8ub6BUyvrtFQNr7GleHPwjpGZdmu75i5Yx9PnvSSvusWC9PEPZosBy08VYzT7bgUhdE6o8Kzmrdejupi1wsU+mm5XKyseocx8Ojh/iKN224=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480111; c=relaxed/simple;
-	bh=IZAYf9TzwRwWpywlUYpH8gZY90k36YJx9QXjlaypJu0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pIsC0RGh3nEdle2Mvf40K2cUQiyXXObKZRuRJFPkkaPWfkwV6qXIgReWGnuVux8kHN1FTfxxS8E+nnKMYobLvoch1jqFOwqscy+BkV+jrnxaOJDB1GXDIYzZ2wwgrfESEcH7/6YAaqozCmSScw/RzCuTvry57HTViCuZ4vqJJpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=XGkaThKX; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
+	s=arc-20240116; t=1789480114; c=relaxed/simple;
+	bh=eIzBQCQUY0UEONgpR6GEDl+8l9qQpm1A7xQydUe9Zts=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DABtCXoG5k8c25qVgs6ez82GPtruHXUQkjW27IIaWRqRRqDkJBTEbFi4YVBAFhpY9BmqZjmJnDwFBTViuEHUUxBP8Qcs09hAOG2PJ97FZUBj99geqa1cLg9K64q81MxjaWv4rDBxWHMTWcEKFVI1vEWTRHn2gH7nJwwx+VoBycA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=zEb39bTZ; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="XGkaThKX"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso26223865e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:48:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1789480108; x=1790084908; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WktfTLRo83weqsYIStqkDkxZJm/k92lurSU+0igDaDI=;
-        b=XGkaThKX2d/JXJLAOGisge6vmG/uXMO8AoCC6xTdbGW6RsF/caIhbtGeIowMlNxBNA
-         Ra3oKOVVX5DnPFV5XU5cSK8aIrlgm5U2E2AEBgHdj/+kUHUhIDxtC7HYrSzcMvdokEO5
-         X7m0vMq/4hyMs6yZZQi5tYDA4PxIKMocn2jpiX0ZdZcm4xKTi115X1thsyBx2xFChPuz
-         I1T5Dplb/LbCfvOx7tOm9zGP6ldLadrgfCp/e0DuAoeJSW3Sfre+wySKKAmYc+m27eB2
-         Bug8K5+IKfYufBiNFA+ZS/rAtpq6OkSvts0dPgnj6EfsevNT/zyl7Hkcrol1pJ2QORdU
-         o0Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789480108; x=1790084908;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=WktfTLRo83weqsYIStqkDkxZJm/k92lurSU+0igDaDI=;
-        b=eIqs+JeWpSJ8e/Qmd0jSM0M60yYxtB9WLU2NWxj+Di46wI57CvIB6kvg7pfxquHRkc
-         huUTkyynkEOFINWa1+XZ7GPyopt9KzhyWZhziUCXhpyYIMPQPLuQORzIgX5cOsM3Q7+9
-         NipxyXPneY7WlDM+AChX+cSwQFysGbrCb8y9i99hr5Lqt3V2Eax1x+a8XqXOkqAkOiv9
-         KOM4cKIrGRPI/MY1DMJ44Q74N0a9BB0P0UF+g0nR70mrQCCGeYMcQTv+AwWF89xXbtR4
-         /vnaLA2aQwh1BCHjeea+kSiZ+scgmw+o/1B0WORs8AMTY4Dn/chW3wjxeus538eDcV52
-         Co9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwJp0MZCRUoRJnVIv1hPz5sF1TUXI8dd0EcKknt8fQ+GAwdeWFVhedjIHZt+us77UjiGjtZ6HwgSq+bIGc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPFDvZ7rPdRgJKgvphCqAVx6H/080ENQsstBCFoCaq7BwJZo96
-	H1iay5/niFpejFCqTTCymHsPAGmZIrNGKN/MRBY8iSgQ7VWW1fl5eqLtWvw0tz9geSM=
-X-Gm-Gg: AYBFou2Ztp/k3wZu0JAO6tDgBO8JDTZvtp4PCKK7HLyGuuZX+h2YbCyzzzkNj2rE8il
-	6ivhdnSYmYUBY7B4fwfWu68yxBmY70pcmFVPVSw0zCVNVCCuBo3P3L2wKY6gsRy/Qndums5jwyl
-	DXzNTHIZ8oBxQpj73eyT+d7fmNgcXkiWa7kvN0Pj1miVIHBFH9zJCUh+inLFL/bZWLaP/5apC0Y
-	E8po3NVQ0yTkyFNAG5G3cXjOQnBwqC5nZhlq4HEOuyoVUdLXwGSvf13AkfatOwkU+6yibeOtbCO
-	AoYkrlHKIXSGE6fN03sas5Fhg0qEmTRIFsZrBO3aIsQvN3/+Mi6yoDTPZ4k3aAoC3/BfZCI0wt9
-	6616QtDqm7pIPj80ZP1PhqdfL3aR/5yI07hDhBGI8qvO7UtWT+vIcqqmOD/ZyBP4NIIOdFbnOEk
-	jaIDwRsn/ALwm/ah8Q7jnlR2LTz8k5Slw8TXeCF1k+l6laBBkAwhkKlYlunwG7uN1u9JiF0y9c1
-	C5E7XMJpA9z+P5T
-X-Received: by 2002:a05:600c:3487:b0:49d:1cc7:5ec3 with SMTP id 5b1f17b1804b1-49e7a66af92mr199223895e9.9.1789480107600;
-        Tue, 15 Sep 2026 06:48:27 -0700 (PDT)
-Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:3982:f973:cc12:b701])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e6f1sm33509408f8f.6.2026.09.15.06.48.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 06:48:27 -0700 (PDT)
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Tue, 15 Sep 2026 14:48:20 +0100
-Subject: [PATCH v2] hwmon: use named initializers for acpi_device_id
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="zEb39bTZ"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 42B57534022F;
+	Tue, 15 Sep 2026 15:48:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789480108;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=RJn8QGVr5qpe8l1FMRM/2xjsfgAMHHBeCMO7efrHp3Q=;
+	b=zEb39bTZpeiKJlu/WS35Ufn8G6mjBC7MHaJoM/r3Fy7bmG4UNBE5RTiwp704mB65ao6A6b
+	2nGkC3ewWZZXBUpaIMlUWHpYK6LWsv8/kd+4CMYqCb0Z1SB5N+YyYMf9oXpx901DEPjqRD
+	kD5aMWU5gghq8FIPeNcsw2MA4eosudA=
+Message-ID: <d8b4aaf6-3085-4319-a5d1-c099e6af16df@ixit.cz>
+Date: Tue, 15 Sep 2026 15:48:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260809-dipper-v1-0-eb4d501e85df@ixit.cz>
+ <20260809-dipper-v1-2-eb4d501e85df@ixit.cz>
+ <8f05bf47-183f-4586-8ed2-eb2277f15c98@oss.qualcomm.com>
+ <b8cb7327-1e1b-4a44-ac97-dec9b6c32e9e@ixit.cz>
+ <5b1f237a-8675-47ae-9546-64b68c5d59f6@oss.qualcomm.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <5b1f237a-8675-47ae-9546-64b68c5d59f6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-acpi-hwmon-v2-1-39d17c748eb6@thegoodpenguin.co.uk>
-X-B4-Tracking: v=1; b=H4sIAKNMqWoC/22NQQ6CMBBFr0JmbUmn0VZdcQ/DAspAR2NLWkAN4
- e4Cbl2+5P33Z0gUmRJcsxkiTZw4+BXUIQPrKt+R4GZlUFJpecGTqGzPwr2ewQtUUqM12tTWwDr
- oI7X83mO38sdprO9kh62wGY7TEOJnf5tw8/6GJxQolDRH0+q2UXguBkddCE1PvhvZ5zbk4wPKZ
- Vm+pUGVL8EAAAA=
-X-Change-ID: 20260915-acpi-hwmon-12061c767bc7
-To: Guenter Roeck <linux@roeck-us.net>, 
- Luca Tettamanti <kronos.it@gmail.com>, Cosmo Chou <cosmo.chou@quantatw.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789480105; l=4482;
- i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=IZAYf9TzwRwWpywlUYpH8gZY90k36YJx9QXjlaypJu0=;
- b=FSPZhtP5PVanP/wfdT7G+f+Y07naOGWcOJ2b+Y3j2mYGjPPaiKL3jAm5HVmfcv7Bo5gFgxBLj
- NsoqV60V/RWD6MHYKRGgw93+3eL0jXWgdxnNIXyb70ESFM7TdlhMX64
-X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
- pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-Use a designated initializer for the acpi_device_id fields which makes the
-code more readable and consistent with how lists are initialized in the
-rest of the kernel code base. Also drop explicitly setting fields to 0
-where it is redundant.
+On 18/08/2026 11:47, Konrad Dybcio wrote:
+> On 8/18/26 11:38 AM, David Heidelberg wrote:
+>> On 18/08/2026 11:27, Konrad Dybcio wrote:
+>>> On 8/9/26 6:48 PM, David Heidelberg via B4 Relay wrote:
+>>>> From: David Heidelberg <david@ixit.cz>
+>>>>
+>>>> Initial submission for one member of the prime Xiaomi Mi 8 family.
+>>>> Mi 8 Pro (equuleus) and Mi 8 Explorer (ursa) are nearly identical.
+>>>> Known differences are battery capacity and fingerprint sensor placement.
+>>>> This submission includes basic abstraction for other developers to be
+>>>> able easily extend it to support other variants.
+> 
+> [...]
+> 
+>>> No SS?
+>>
+>> Haven't thought about it, for now my goal is upstream basic telnet/ssh + FB. Then display and touch - e.g. minimal u-boot and kernel development features and then bring the rest.
+> 
+> If you have an actually-superspeed cable, the link speed in fastboot
+> should tell you the truth, or alternatively you can try plugging it
+> into a DP dock on downstream
 
-Unify the list terminator to have a single space between the brackets and
-no trailing comma.
+Ok verified, it has only USB 2.0 (spec, downstream DT)
 
-Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
----
-This series is converting lists that contain the acpi_device_id struct,
-which is defined in the include/linux/device-id/acpi.h to make use of named
-initializers (which they do not use currently). This work is part of the on
-going effort in the kernel associated with device-ids [1]
-
-The plan is to convert acpi_device_id::driver_data to have an anonymous
-union, similarly to what was introduced for PCI and I2C device ID tables.
-The goal is to increase type-safety (most of the existing casts are gone),
-to improve readability and to make use intent a bit more clear:
-
-```
-union {
-	kernel_ulong_t driver_data;
-	const void *driver_data_ptr;
-}
-```
-
-But for that to work all lists containing the structs need to use named
-initializers first to avoid triggering -Wmissing-braces. I already have
-patches that implement this and touching a lot of kernel subsystmes that
-use the acpi_device_id struct and that list keeps on growing. Therefore,
-I have decided to split the series per every subsystem into:
-- pre-clean-ups that convert the lists to use named initializers
-  (which is this series)
-- actual implementations that make some of the modules use the new
-  driver_data_ptr member
-
-That way the task can be fragmented into manageable and independent chunks
-of work and makes this effort easier to review.
-
-Tested builds on x86-64 in Yocto using 7.3-rc3.
-
-[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
----
-Changes in v2:
-- Fixed commit title.
-- Link to v1: https://patch.msgid.link/20260915-acpi-hwmon-v1-1-20747f6fd218@thegoodpenguin.co.uk
----
- drivers/hwmon/acpi_power_meter.c | 4 ++--
- drivers/hwmon/asus_atk0110.c     | 4 ++--
- drivers/hwmon/pt5161l.c          | 4 ++--
- drivers/hwmon/xgene-hwmon.c      | 6 +++---
- 4 files changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
-index 8a539e8d1334..d8e871509405 100644
---- a/drivers/hwmon/acpi_power_meter.c
-+++ b/drivers/hwmon/acpi_power_meter.c
-@@ -54,8 +54,8 @@ static int can_cap_in_hardware(void)
- }
- 
- static const struct acpi_device_id power_meter_ids[] = {
--	{"ACPI000D", 0},
--	{"", 0},
-+	{ .id = "ACPI000D" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, power_meter_ids);
- 
-diff --git a/drivers/hwmon/asus_atk0110.c b/drivers/hwmon/asus_atk0110.c
-index 92afb64c09df..868c4e14d26a 100644
---- a/drivers/hwmon/asus_atk0110.c
-+++ b/drivers/hwmon/asus_atk0110.c
-@@ -141,8 +141,8 @@ typedef ssize_t (*sysfs_show_func)(struct device *dev,
- 			struct device_attribute *attr, char *buf);
- 
- static const struct acpi_device_id atk_ids[] = {
--	{ATK_HID, 0},
--	{"", 0},
-+	{ .id = ATK_HID },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, atk_ids);
- 
-diff --git a/drivers/hwmon/pt5161l.c b/drivers/hwmon/pt5161l.c
-index 2b408a69b085..1638f54f8eae 100644
---- a/drivers/hwmon/pt5161l.c
-+++ b/drivers/hwmon/pt5161l.c
-@@ -611,8 +611,8 @@ static const struct of_device_id __maybe_unused pt5161l_of_match[] = {
- MODULE_DEVICE_TABLE(of, pt5161l_of_match);
- 
- static const struct acpi_device_id __maybe_unused pt5161l_acpi_match[] = {
--	{ "PT5161L", 0 },
--	{},
-+	{ .id = "PT5161L" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, pt5161l_acpi_match);
- 
-diff --git a/drivers/hwmon/xgene-hwmon.c b/drivers/hwmon/xgene-hwmon.c
-index 38b140c23c88..eebbb741deac 100644
---- a/drivers/hwmon/xgene-hwmon.c
-+++ b/drivers/hwmon/xgene-hwmon.c
-@@ -595,9 +595,9 @@ static void xgene_hwmon_tx_done(struct mbox_client *cl, void *msg, int ret)
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id xgene_hwmon_acpi_match[] = {
--	{"APMC0D29", XGENE_HWMON_V1},
--	{"APMC0D8A", XGENE_HWMON_V2},
--	{},
-+	{ .id = "APMC0D29", .driver_data = XGENE_HWMON_V1 },
-+	{ .id = "APMC0D8A", .driver_data = XGENE_HWMON_V2 },
-+	{ }
- };
- MODULE_DEVICE_TABLE(acpi, xgene_hwmon_acpi_match);
- #endif
-
----
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-change-id: 20260915-acpi-hwmon-12061c767bc7
-
-Best regards,
---  
-Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+> 
+> Konrad
 
