@@ -1,584 +1,180 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92D23B19B4;
-	Tue, 15 Sep 2026 12:40:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3C125B2F4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:41:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476058; cv=none; b=nANNVmmkKxjB+UjrjwwngWWjUiIoXmuIkmEizXsWK1iL1mcvi15mC5oOiEPgJi4yTiZSwmOMsICCW/7Ea+rNmnQXC/U4X+Z5C8CL7+XAtnvBff0o99bxxalfEv/QqI0Q0Qjp/fnHpajx8fjuxAa24xl+KoaKrqk5pyt6sxwJpkI=
+	t=1789476105; cv=none; b=I1H12gTW17jkIc4gukWitHNhb0Hs9TPPNoVfmjWmUnhYyI5fCgIxVcNvDQlnUCcTUE4Q+J6ZsP9Tm4LM9p+MgivNihuUbFuoXCHSanGPNxsHxXL2FzLv27k6w/p4157SQh/DgZsXArkfctTc8Mjhdh+hpKlBFajiSp9Zw9wHEFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476058; c=relaxed/simple;
-	bh=lK8p3vq8Qdfa0WHwB9t+AItemftdfcNQ3jgLOiA+nBI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OsyBajhvhgtoRLAbgipvxc9+L1zKn5I9ecZY3d8ojVoxVFvaDXCYUfhDMKkEDvtPf7eyiddae7lvDGBdDvtRIJgrYQtwlCcQvyC2yNVNgq/08ncFKULLt+LQD+cUVMV8JIil7SRPh4ag8xJunyGUhlZFu2C+SPf52O7TcNAryoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=apUrA7o3; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789476105; c=relaxed/simple;
+	bh=8xJdsPUuBUKshmuBeGFPsWIjoL0uo/tgR0qCDPFQCDg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rmoGhEz0evEK7mw/fuIeopCptTyKY6UC+4htiWkh+krEWXQ97+Im0gSbzfEOfzSx40mg9la+RjcBJKm3/Ho5gh9FNEeS6h1yDSeRleBZmoBE9QCsnbCjq99+2PqsZqleAFkHJeBz5hR7VRNnBS2aHUFSi5Yr5MGj4M94B5LpF54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Udb8LRsf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Aym/sRZm; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="apUrA7o3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=z2
-	U8h+zF57zfpgG0XDnBuYqu+d5iFOPNY28cQLpmvMM=; b=apUrA7o3NqVZtzl5sP
-	IEmmLVyRuwdFIdgaV3OWIriyUYDHhOdUjomPkekGTeN2lF1ozD/hkmKQyqLoT4RD
-	LC3MNX+4xNjTF6OT8Rz8ej34WQ7CkUla95uzPZWMdOp12qXVowkPoPVFRJyCLthx
-	UR4WJpBIuk9LDA9mmw7QMQ6Ak=
-Received: from sky.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3v02rPKlqNilvAw--.51711S2;
-	Tue, 15 Sep 2026 20:40:11 +0800 (CST)
-From: Junnan Zhang <zhangjn_dev@163.com>
-To: zhangjn_dev@163.com
-Cc: cgroups@vger.kernel.org,
-	hannes@cmpxchg.org,
-	linux-kernel@vger.kernel.org,
-	mkoutny@suse.com,
-	ridong.chen@linux.dev,
-	sunshx@chinatelecom.cn,
-	tj@kernel.org
-Subject: Re: [PATCH v3] cgroup: avoid flushing global workqueue in cgroup1_pidlist_destroy_all
-Date: Tue, 15 Sep 2026 20:40:10 +0800
-Message-ID: <20260915124010.18927-1-zhangjn_dev@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910061610.91209-1-zhangjn_dev@163.com>
-References: <20260910061610.91209-1-zhangjn_dev@163.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Udb8LRsf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Aym/sRZm"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9gunL275469
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:41:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5gEgvPvT8xWf40byy7jStKrUnMKLHbVboNPicag8Xe0=; b=Udb8LRsf0Zsvo9HO
+	3zKGyrHpajP543xw6UZ3/hhjHShb0sn9l0WDXdq/TSEZzxnGECoL5pS9bV8FNqfR
+	6rKi1Kg9AsXiRehLR+OVr2OgwbHZeWRDx5eH2lH0rdfXLyNu9ye/VPOiVP43sjtK
+	g7PSTNYfrHkTJOr+rEEo89ye5vZmbJIK0JHiPDKRB15/I4FTnMy1i9g4n3MamBlG
+	Bfb0elnmmcz5RNowM6vqRsO3pdt+CyEI7perLJ28WTqtO4X1Cwckx2NOKn9nB0Qx
+	6vE4bZU9iw1G8ZrlUkLqUiKP+JyuHNTcb4NwhFh7XTRpjLwhobI6FsZEfL5C3K/C
+	5P20Rg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpyea1sw4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:41:43 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38dbf293831so9840685a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:41:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789476102; x=1790080902; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5gEgvPvT8xWf40byy7jStKrUnMKLHbVboNPicag8Xe0=;
+        b=Aym/sRZmOd0xcPlOURepMZWZZxpwtbYQT3unhyJn4WpgPGtD829JRqK/dEaM5VsDlY
+         XrB0ByynO+i48yuyPMJXamr6cvstevgOsTPU+Bx9Ty46NhSHNBJ2EiGcuhnegwBgMQ/s
+         KUu7y+ho2foKmnpfmiEu69FKyYnxKCJoabKYzVB1xp5TDA7Ks3fHUXb+0htzMtJ4CKRF
+         9US03KVsKtHzGaQ1eGI1vWvEpgmoONMmPopf0FHp8ahVLd1s5p16epMQhArfmFSgqTuY
+         WfmS3CpAEXVWsNpadSffJeVjRwio0hHBy5Y9IksT/j5HfI8srJ8VHKFLHSsgnY8q0UuM
+         XnOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789476102; x=1790080902;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5gEgvPvT8xWf40byy7jStKrUnMKLHbVboNPicag8Xe0=;
+        b=x1lxlfYKkUBYelO2qdckEICwpa5Mgfs/kG5Es1iveONjYEWvQXj0ADe+WbNdr9T0L7
+         7FxhdDQctCSLPJYixCh22wV5rqTi13yDI72fslY7mpx1u7Ee63NmYlO5N4hivqW7mzVn
+         bkMfFMs2smMRB/RleRfHeB/yJZmeQqIM5LPhGxJRwKehDQNqRyl/l6i3Hu72x8UMxpem
+         6W1ta72GZd6Hs0IUWIE7gRcwa8nv25Cs/PAKXF6W2gus8jgBTNah/5seIJWcQ48iNufv
+         4dvMHu0USNHhtV26IWrjF4JE5H+cvi0/ZVVmZIWBxAsSajM7Tb6o+O6gmqHMwxqOcDu+
+         7j8A==
+X-Forwarded-Encrypted: i=1; AKwUvBythDw9sTMxJ39JRofDBpuQqUOb+/hgZEGQXnlnDpefTgO4o77XguGYyzf2wf0vFnk5LFp918hgxNoPMTc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lM++4sbLQz1VTyeqs52HZS7oA8RcG3c/Kz4Dq4olnrbwVbkqwD
+	aFZv+uCkgD0MtPfsPYla0975o1mJKH6HPgR5E4+FhoeAzz1slWJibebfWKbozcPjnHMSMDI+C5Z
+	4Ic12GcUuSAnotgeijwhIqcVjEBWq4tfKD5qP1/K21lCZlvnhPo+1cpXtfZr3kKg5o5M=
+X-Gm-Gg: AYBFou3zlxZuiVj108LAyFSamjvxJj8cc9o93BDO4tCEYIkIQ1VyVY+NYSb+AQmUjFR
+	3nnbl6F9+yuGKQK/STMm1Q7+T8jeDyeYmt7/IuoPp8LT7kdrrLQFU/jNMn+KAINUpM1LM2/krsX
+	B/7JB90gkI8zkXvbVn876V55aCecQ3fLnHtEPz1yKuptWRaDYsdCZaw78iILc3ji1cv1Iyi7Yjt
+	Ha9MWgUAdFjbxGXMlrGDyMUk594NGIvDFB2DNeUXCNTI66Y/tonX1GYsp9kwPuCxHrm05urosYt
+	Nm95RljK6fWxG0U+IeCRu5+zg2x2EQzkBrfxw+ZhHZho3dMi2Cb3oVK5y0p6KljeySVb0joGh8S
+	NBkneWb7PA894QW2ACB8mlAfv7cWq82VTYnIOxQc=
+X-Received: by 2002:a17:90b:4990:b0:39e:ad:d31b with SMTP id 98e67ed59e1d1-39e10e2d518mr1366180a91.6.1789476102402;
+        Tue, 15 Sep 2026 05:41:42 -0700 (PDT)
+X-Received: by 2002:a17:90b:4990:b0:39e:ad:d31b with SMTP id 98e67ed59e1d1-39e10e2d518mr1366120a91.6.1789476101955;
+        Tue, 15 Sep 2026 05:41:41 -0700 (PDT)
+Received: from [10.218.21.154] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfd6cd982sm5508609a91.0.2026.09.15.05.41.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 05:41:41 -0700 (PDT)
+Message-ID: <14883b46-c632-4f00-b3f2-89568c4b8844@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 18:11:36 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v02rPKlqNilvAw--.51711S2
-X-Coremail-Antispam: 1Uf129KBjvAXoW3uF1UKF1xXrWxKF1rZr1DWrg_yoW8Gr15Zo
-	Z5J3W8Jr18Xr1DXr18Gw1DtrW5Wr1xCr97tr1UXr4DGF1UCr4jqw13Ga13Gw12qr4UCr17
-	JrWYqr4UX3W8tF4Un29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjfUjApnDUUUU
-X-CM-SenderInfo: x2kd0wxmqbvvry6rljoofrz/xtbC7Qs+02qpPKtiJwAA3a
-
-Hi Tejun,
-
-As promised, here are the numbers from a synthetic reproducer.
-
-Common setup (deliberately excluding all the alternative contributors
-you mentioned):
-
-- test VM, with/without the patch, no other workload, no memory
-  pressure, CPUs far from saturated
-- a private v1 named hierarchy (no controllers), so nothing else on
-  the system touches cgroup_pidlist_destroy_wq
-- some long-lived cgroups holding tasks ("containers"), concurrent
-  readers sweeping their cgroup.procs ("monitoring agents"), and churn
-  threads doing mkdir/read tasks/rmdir ("container churn")
-- latency of cgroup1_pidlist_destroy_all() measured with bpftrace
-  kprobe/kretprobe, aggregated per 10s window
-
-I ran two configurations at different scales (same 1000 churners):
-
-  Run A: 8 CPUs, 1G RAM, 200 cgroups x 20 tasks, 100 readers, 300s
-           ./cg_flush_repro -s 200 -t 20 -r 100 -c 1000 -d 300
-
-  Run B: 64 CPUs, 16G RAM, 50 cgroups x 1000 tasks, 50 readers, 300s
-           ./cg_flush_repro -s 50 -t 1000 -r 50 -c 1000 -d 300
-
-Summary (per 10s window; count = number of calls, avg/max per call):
-
-  Run A unpatched:  count ~400,     avg 71-103 us,   max ~9.8 ms
-  Run A patched:    count 157-641,  avg 3-6 us,      max 32-78 us
-
-  Run B unpatched:  count ~40k,     avg 1044-1306 us, max 218-253 ms
-                    (tail: ~1000 samples above 2 ms,
-                     dozens above 128 ms per window)
-  Run B patched:    count ~43-45k,  avg 1 us,        max 131-188 us
-
-Two observations:
-
-1. The coupling scales as predicted: flush latency = backlog x
-   per-work latency. Both factors grew from run A to run B -- the
-   bigger machine keeps a deeper backlog in flight, and 1000 instead
-   of 20 tasks per cgroup make each pidlist rebuild hold pidlist_mutex
-   much longer. The unpatched latency grew accordingly: average from
-   ~100us to >1ms, max from ~10ms to ~250ms, with a long tail of
-   individual flush calls waiting behind the backlog (see the Run B
-   histograms below: single flush calls waiting >100ms are not
-   outliers but a steady population).
-
-2. With the patch, latency stays flat and microscopic (max < 200us)
-   at the same churn rate in both runs -- destroy latency no longer
-   depends on the queue backlog at all.
-
-To be upfront: I still have not reproduced the full 120s hang in the
-lab; the backlog and per-work latency I can build here remain well
-below the production node's. But the unpatched latency grows with
-exactly the two factors that were larger in production, while the
-patched latency is insensitive to them -- on an otherwise idle
-machine, with no competing workqueue items, no worker-creation stalls
-and no CPU contention.
-
-The raw bpftrace output (two 10s windows per configuration), the
-reproducer (cg_flush_repro.c) and the bpftrace script
-(cg_flush_lat.bt) are included below.
-
-Thanks,
-Junnan
-
----
-Raw bpftrace output:
-
-Run A, unpatched:
-
-  @count: 406
-  @avg_us: 71
-  @max_us: 9765
-  @lat_us:
-  [0]                   16 |@@@@@@                                              |
-  [1]                    2 |                                                    |
-  [2, 4)                80 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                     |
-  [4, 8)               131 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@|
-  [8, 16)              121 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    |
-  [16, 32)              35 |@@@@@@@@@@@@@                                       |
-  [32, 64)               7 |@@                                                  |
-  [64, 128)              1 |                                                    |
-  [128, 256)             5 |@                                                   |
-  [256, 512)             3 |@                                                   |
-  [512, 1K)              0 |                                                    |
-  [1K, 2K)               2 |                                                    |
-  [2K, 4K)               0 |                                                    |
-  [4K, 8K)               2 |                                                    |
-  [8K, 16K)              1 |                                                    |
-
-  @count: 393
-  @avg_us: 103
-  @max_us: 9582
-  @lat_us:
-  [0]                   13 |@@@@                                                |
-  [1]                    1 |                                                    |
-  [2, 4)                61 |@@@@@@@@@@@@@@@@@@@@@                               |
-  [4, 8)               150 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@|
-  [8, 16)              106 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                |
-  [16, 32)              33 |@@@@@@@@@@@                                         |
-  [32, 64)              10 |@@@                                                 |
-  [64, 128)              4 |@                                                   |
-  [128, 256)             4 |@                                                   |
-  [256, 512)             3 |@                                                   |
-  [512, 1K)              0 |                                                    |
-  [1K, 2K)               2 |                                                    |
-  [2K, 4K)               3 |@                                                   |
-  [4K, 8K)               2 |                                                    |
-  [8K, 16K)              1 |                                                    |
-
-Run A, patched:
-
-  @count: 157
-  @avg_us: 6
-  @max_us: 32
-  @lat_us:
-  [0]                    2 |                                                    |
-  [1]                    0 |                                                    |
-  [2, 4)                 9 |@@@@                                                |
-  [4, 8)               117 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@|
-  [8, 16)               23 |@@@@@@@@@@                                          |
-  [16, 32)               5 |@@                                                  |
-  [32, 64)               1 |                                                    |
-
-  @count: 641
-  @avg_us: 3
-  @max_us: 78
-  @lat_us:
-  [0]                   57 |@@@@@@@@@@                                          |
-  [1]                   30 |@@@@@                                               |
-  [2, 4)               281 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@|
-  [4, 8)               254 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@     |
-  [8, 16)               13 |@@                                                  |
-  [16, 32)               5 |                                                    |
-  [32, 64)               0 |                                                    |
-  [64, 128)              1 |                                                    |
-
-Run B, unpatched:
-
-  @count: 40124
-  @avg_us: 1044
-  @max_us: 218693
-  @lat_us:
-  [4, 8)              6822 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@              |
-  [8, 16)             3895 |@@@@@@@@@@@@@@@@@@@@@                               |
-  [16, 32)            1467 |@@@@@@@@                                            |
-  [32, 64)            2848 |@@@@@@@@@@@@@@@                                     |
-  [64, 128)           5475 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                      |
-  [128, 256)          9321 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@|
-  [256, 512)          7324 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@            |
-  [512, 1K)            948 |@@@@@                                               |
-  [1K, 2K)             179 |                                                    |
-  [2K, 4K)             515 |@@                                                  |
-  [4K, 8K)             393 |@@                                                  |
-  [8K, 16K)            179 |                                                    |
-  [16K, 32K)           528 |@@                                                  |
-  [32K, 64K)           123 |                                                    |
-  [64K, 128K)           78 |                                                    |
-  [128K, 256K)          35 |                                                    |
-
-  @count: 39245
-  @avg_us: 1306
-  @max_us: 253031
-  @lat_us:
-  [4, 8)              5188 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@                        |
-  [8, 16)             4072 |@@@@@@@@@@@@@@@@@@@@@@                              |
-  [16, 32)            1366 |@@@@@@@                                             |
-  [32, 64)            2340 |@@@@@@@@@@@@                                        |
-  [64, 128)           4782 |@@@@@@@@@@@@@@@@@@@@@@@@@                           |
-  [128, 256)          9566 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@|
-  [256, 512)          8335 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       |
-  [512, 1K)           1688 |@@@@@@@@@                                           |
-  [1K, 2K)             134 |                                                    |
-  [2K, 4K)             466 |@@                                                  |
-  [4K, 8K)             387 |@@                                                  |
-  [8K, 16K)            156 |                                                    |
-  [16K, 32K)           457 |@@                                                  |
-  [32K, 64K)           112 |                                                    |
-  [64K, 128K)          138 |                                                    |
-  [128K, 256K)          56 |                                                    |
-
-Run B, patched:
-
-  @count: 45368
-  @avg_us: 1
-  @max_us: 131
-  @lat_us:
-  [0]                  569 |                                                    |
-  [1]                38421 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@|
-  [2, 4)              5330 |@@@@@@@                                             |
-  [4, 8)               957 |@                                                   |
-  [8, 16)               71 |                                                    |
-  [16, 32)              12 |                                                    |
-  [32, 64)               1 |                                                    |
-  [64, 128)              6 |                                                    |
-  [128, 256)             1 |                                                    |
-
-  @count: 42817
-  @avg_us: 1
-  @max_us: 188
-  @lat_us:
-  [0]                 1156 |@                                                   |
-  [1]                34402 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@|
-  [2, 4)              6165 |@@@@@@@@@                                           |
-  [4, 8)               919 |@                                                   |
-  [8, 16)              147 |                                                    |
-  [16, 32)              23 |                                                    |
-  [32, 64)               2 |                                                    |
-  [64, 128)              1 |                                                    |
-  [128, 256)             2 |                                                    |
-
----
-==> cg_flush_repro.c <==
-
-/*
- * cg_flush_repro.c - synthetic reproducer for the cgroup v1 pidlist
- * destroy workqueue backlog (the scenario behind the hung task splat in
- * cgroup1_pidlist_destroy_all() -> flush_workqueue()).
- *
- * It reproduces the three conditions of a busy container node:
- *
- *   1. many long-lived cgroups, each holding many tasks ("containers");
- *   2. concurrent readers sweeping cgroup.procs ("monitoring agents")
- *      with a sweep period >> CGROUP_PIDLIST_DESTROY_DELAY (1s), so the
- *      pidlist cache never hits: every read rebuilds the pidlist under
- *      pidlist_mutex and queues an expiry destroy work 1s later;
- *   3. constant cgroup create/read/destroy churn from several threads,
- *      where each destruction ends up in cgroup1_pidlist_destroy_all()
- *      and, on an unpatched kernel, flush_workqueue() on the shared
- *      cgroup_pidlist_destroy_wq.
- *
- * Compare `cgroup1_pidlist_destroy_all()` latency with and without the
- * fix using cg_flush_lat.bt (bpftrace).
- *
- * Build:  gcc -O2 -pthread -o cg_flush_repro cg_flush_repro.c
- * Usage:  sudo ./cg_flush_repro [-m mnt] [-s seed_cgroups] [-t tasks_per]
- *                               [-r readers] [-c churners] [-d seconds]
- *
- * Needs root. Works on cgroup v2-only systems as well: it mounts its
- * own v1 named hierarchy (no controllers needed, cgroup.procs/tasks
- * still go through the v1 pidlist code).
- *
- * WARNING: this deliberately stresses the kernel. Run it in a test VM,
- * never on a production host.
- */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <getopt.h>
-#include <pthread.h>
-#include <signal.h>
-#include <stdatomic.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/mount.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-#define NAME_PREFIX	"cgflush"
-
-static const char *mnt = "/tmp/cgflush_v1";
-static int nr_seed = 500;	/* long-lived cgroups swept by readers */
-static int tasks_per = 50;	/* tasks in each seed cgroup */
-static int nr_readers = 16;	/* concurrent cgroup.procs readers */
-static int nr_churners = 4;	/* concurrent cgroup create/destroy threads */
-static int duration = 300;	/* seconds */
-
-static volatile sig_atomic_t stop;
-
-static atomic_ulong reads_done;
-static atomic_ulong churn_done;
-static atomic_ulong errors;
-
-static pid_t *children;		/* nr_seed * tasks_per tasks */
-static size_t nr_children;
-
-static void on_signal(int sig)
-{
-	stop = 1;
-}
-
-static int write_pid(const char *path, pid_t pid)
-{
-	char buf[32];
-	int len = snprintf(buf, sizeof(buf), "%d", pid);
-	int fd = open(path, O_WRONLY);
-	int ret = -1;
-
-	if (fd < 0)
-		return -1;
-	if (write(fd, buf, len) == len)
-		ret = 0;
-	close(fd);
-	return ret;
-}
-
-/* Read the whole file so the seq_file start/stop cycle completes. */
-static int read_fully(const char *path)
-{
-	char buf[65536];
-	ssize_t n;
-	int fd = open(path, O_RDONLY);
-
-	if (fd < 0)
-		return -1;
-	while ((n = read(fd, buf, sizeof(buf))) > 0)
-		;
-	close(fd);
-	return n < 0 ? -1 : 0;
-}
-
-static void *reader_fn(void *arg)
-{
-	long id = (long)arg;
-	unsigned int seed = getpid() ^ (id * 2654435761u);
-	char path[256];
-
-	while (!stop) {
-		int idx = rand_r(&seed) % nr_seed;
-
-		snprintf(path, sizeof(path), "%s/seed_%d/cgroup.procs", mnt, idx);
-		if (read_fully(path) == 0)
-			atomic_fetch_add(&reads_done, 1);
-		else
-			atomic_fetch_add(&errors, 1);
-	}
-	return NULL;
-}
-
-/*
- * Churn: repeatedly create a cgroup, read its tasks file (building a
- * pidlist, hence queueing a destroy work) and remove it.  The cgroup
- * destruction ends up in cgroup1_pidlist_destroy_all().  Each churner
- * thread uses its own dir name prefix so they never collide.
- */
-static void *churn_fn(void *arg)
-{
-	long id = (long)arg;
-	char dir[256], path[320];
-	unsigned long i = 0;
-
-	while (!stop) {
-		snprintf(dir, sizeof(dir), "%s/churn_%ld_%lu", mnt, id, i);
-		snprintf(path, sizeof(path), "%s/tasks", dir);
-
-		if (mkdir(dir, 0755) < 0) {
-			atomic_fetch_add(&errors, 1);
-			usleep(1000);
-			continue;
-		}
-		read_fully(path);
-		if (rmdir(dir) == 0)
-			atomic_fetch_add(&churn_done, 1);
-		i++;
-	}
-	return NULL;
-}
-
-static void spawn_task(size_t cgroup_idx)
-{
-	pid_t pid = fork();
-	char path[256];
-
-	if (pid < 0) {
-		perror("fork");
-		return;
-	}
-	if (pid == 0) {
-		/* child: just exist as a cgroup member */
-		for (;;)
-			pause();
-	}
-	children[nr_children++] = pid;
-	snprintf(path, sizeof(path), "%s/seed_%zu/cgroup.procs", mnt, cgroup_idx);
-	write_pid(path, pid);
-}
-
-static void cleanup(void)
-{
-	size_t i;
-	char path[256];
-
-	for (i = 0; i < nr_children; i++)
-		kill(children[i], SIGKILL);
-	while (waitpid(-1, NULL, 0) > 0)
-		;
-	for (i = 0; i < (size_t)nr_seed; i++) {
-		snprintf(path, sizeof(path), "%s/seed_%zu", mnt, i);
-		rmdir(path);
-	}
-	umount(mnt);
-	rmdir(mnt);
-}
-
-int main(int argc, char **argv)
-{
-	pthread_t *readers, *churners;
-	struct sigaction sa = { .sa_handler = on_signal };
-	unsigned long reads, churns;
-	int opt, i;
-
-	while ((opt = getopt(argc, argv, "m:s:t:r:c:d:")) != -1) {
-		switch (opt) {
-		case 'm': mnt = optarg; break;
-		case 's': nr_seed = atoi(optarg); break;
-		case 't': tasks_per = atoi(optarg); break;
-		case 'r': nr_readers = atoi(optarg); break;
-		case 'c': nr_churners = atoi(optarg); break;
-		case 'd': duration = atoi(optarg); break;
-		default:
-			fprintf(stderr,
-				"usage: %s [-m mnt] [-s seed_cgroups] "
-				"[-t tasks_per] [-r readers] [-c churners] "
-				"[-d seconds]\n",
-				argv[0]);
-			return 1;
-		}
-	}
-
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGTERM, &sa, NULL);
-
-	/* mount a v1 named hierarchy (no controllers needed) */
-	if (mkdir(mnt, 0755) < 0 && errno != EEXIST) {
-		perror("mkdir mountpoint");
-		return 1;
-	}
-	if (mount("cgroup", mnt, "cgroup", 0, "none,name=" NAME_PREFIX) < 0 &&
-	    errno != EBUSY) {
-		perror("mount cgroup v1");
-		return 1;
-	}
-
-	/* create seed cgroups */
-	for (i = 0; i < nr_seed; i++) {
-		char dir[256];
-
-		snprintf(dir, sizeof(dir), "%s/seed_%d", mnt, i);
-		if (mkdir(dir, 0755) < 0) {
-			perror("mkdir seed cgroup");
-			goto out_cleanup;
-		}
-	}
-
-	/* fork tasks (before creating any threads!) and populate seeds */
-	children = calloc((size_t)nr_seed * tasks_per, sizeof(pid_t));
-	if (!children) {
-		perror("calloc");
-		goto out_cleanup;
-	}
-	printf("spawning %d tasks across %d cgroups...\n",
-	       nr_seed * tasks_per, nr_seed);
-	for (i = 0; i < nr_seed * tasks_per; i++)
-		spawn_task(i / tasks_per);
-	printf("running: %d readers + %d churners for %ds (Ctrl-C to stop)\n",
-	       nr_readers, nr_churners, duration);
-
-	/* start readers and churners */
-	readers = calloc(nr_readers, sizeof(pthread_t));
-	churners = calloc(nr_churners, sizeof(pthread_t));
-	for (i = 0; i < nr_readers; i++)
-		pthread_create(&readers[i], NULL, reader_fn, (void *)(long)i);
-	for (i = 0; i < nr_churners; i++)
-		pthread_create(&churners[i], NULL, churn_fn, (void *)(long)i);
-
-	for (i = 0; i < duration && !stop; i++)
-		sleep(1);
-	stop = 1;
-
-	for (i = 0; i < nr_churners; i++)
-		pthread_join(churners[i], NULL);
-	for (i = 0; i < nr_readers; i++)
-		pthread_join(readers[i], NULL);
-
-	reads = atomic_load(&reads_done);
-	churns = atomic_load(&churn_done);
-	printf("done: %lu procs reads (%lu/s), %lu churn cycles (%lu/s), "
-	       "%lu errors\n",
-	       reads, reads / (duration ?: 1),
-	       churns, churns / (duration ?: 1),
-	       atomic_load(&errors));
-
-out_cleanup:
-	cleanup();
-	return 0;
-}
-
-==> cg_flush_lat.bt <==
-
-kprobe:cgroup1_pidlist_destroy_all
-{
-	@start[tid] = nsecs;
-}
-
-kretprobe:cgroup1_pidlist_destroy_all
-/@start[tid]/
-{
-	$us = (nsecs - @start[tid]) / 1000;
-	@lat_us = hist($us);
-	@max_us = max($us);
-	@avg_us = avg($us);
-	@count = count();
-	delete(@start[tid]);
-}
-
-interval:s:10
-{
-	print(@count);
-	print(@avg_us);
-	print(@max_us);
-	print(@lat_us);
-
-	clear(@count);
-	clear(@avg_us);
-	clear(@max_us);
-	clear(@lat_us);
-
-}
-
-END
-{
-	clear(@start);
-}
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/6] ASoC: qcom: lpass-macro-common: Add LPASS codec
+ version 4.1
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260910-add_shikra_support-v2-0-fdd2129c696c@oss.qualcomm.com>
+ <20260910-add_shikra_support-v2-3-fdd2129c696c@oss.qualcomm.com>
+ <20260913-illegal-quartz-raccoon-be0d06@quoll>
+Content-Language: en-US
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <20260913-illegal-quartz-raccoon-be0d06@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: q8l8N6ZPmXYTm-vjlZMwKukcFavmEigL
+X-Authority-Analysis: v=2.4 cv=cehHPXDM c=1 sm=1 tr=0 ts=6aa93d07 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=ZrgDs7hp3a_oj-6vkJAA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: q8l8N6ZPmXYTm-vjlZMwKukcFavmEigL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE4NCBTYWx0ZWRfX1U7sCVA57w4y
+ 7saOpcI6nXD2Rp0n1ZAYhw2QMmWcGspxJBXVMhPrDkrHhnby1x0joCtiCmi1M7ivPnCSb5v2kBi
+ RT09r8clX1nyF+W3MXWTjc4MV6kb2tI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE4NCBTYWx0ZWRfX4jvZKYRlsSEZ
+ EYM1E/y3Uf80e3VQXmdEyUaupLFJI4oM7S/Lko+F0AwUg4LOn9ZitJ7kzQ7NNCGwi3dJ4kGQLO/
+ Uf5C9csB7jBTWlrmY1klmX/Ia5tjRKbA051J4Zm28ukwHgzmTik90FHhSGaWnUpvK6Go9wWAYLB
+ wPg4gmMqNXImibI/W0HvZ+rzddeXYGYZZNOQvYJAw0oBUwMM0gS7gZ4fgZs1A4xqr30iIeEg5Lk
+ 4ij6Byb5P0rxOvFHwvM4LSZSZwBOfGIBjBrRhBnrQTvHAiurC0JG2Pnj9ofRUUcfZRiKi5u0egC
+ e1KDFLpxsDNsrqJcAdhwxVIoLzDxhnDcVXql6gumf95Gk1zSin1QVrxZMTJ10tpIBwBOPZu1+ce
+ ddTGMThcSsLmik7jzlEy0Z1Wm2iuq9/T0CK2YpOEsVm0uQ67Y0IYsP0Jg90eakujZ3vqpjY+j6R
+ FkRNywXHgEoyYUSYOXg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150184
+
+
+
+On 9/13/2026 2:16 PM, Krzysztof Kozlowski wrote:
+> On Thu, Sep 10, 2026 at 03:16:54PM +0530, Mohammad Rafi Shaik wrote:
+>> Shikra integrates LPASS codec version 4.1. Add the new version to the
+>> codec version enum and to the version string helper.
+>>
+>> The enum stays ordered by version so that the existing '>=' comparisons
+>> on enum lpass_codec_version keep working.
+>>
+>> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+>> ---
+>>   sound/soc/codecs/lpass-macro-common.h | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
+>> index 573b2145e..b52665b11 100644
+>> --- a/sound/soc/codecs/lpass-macro-common.h
+>> +++ b/sound/soc/codecs/lpass-macro-common.h
+>> @@ -30,6 +30,7 @@ enum lpass_codec_version {
+>>   	LPASS_CODEC_VERSION_2_7,
+>>   	LPASS_CODEC_VERSION_2_8,
+>>   	LPASS_CODEC_VERSION_2_9,
+>> +	LPASS_CODEC_VERSION_4_1,
+>>   };
+>>   
+> 
+> This commit no sense on its own. You added dead code here. Add this with
+> an user of that version..
+> 
+Ack,
+
+will fold this change into the patch that actually starts using the 4.1 
+version support instead of introducing it separately.
+
+Best Regards,
+Rafi.
+
+> Best regards,
+> Krzysztof
+> 
 
