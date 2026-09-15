@@ -1,119 +1,180 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A733921DB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:45:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C704B1268
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:46:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789490751; cv=none; b=OTrS2Bd2SdiuanXl7dPfP8CSNiV8q7sgnSKf5TQzpKNbzNWTy/iRFFgDz0sKFfrvwoTJozmSsOBaqGh/vJfC6D88V+aWNblnNNEEf1HYUKdOcb5bKoSaXjPwEGGA9Cgf9oFhFU0vdjY5mhqpMkQ3BEk4kNdAZ3mvyqyVAEWrw2M=
+	t=1789490813; cv=none; b=pHjvG0EdXcQ6XgDkgW3VB2qWexKpNfmJHCYh7g0z+y6LW9l1J5NWp/eFqcQqHZpATlkWCd3u8+h3LZUQxu0gR4DXB3IqQ7wNNYK+wZ+ptxzx7BQiEZhtN5y30p9XBxuOWGMiu3bawjHUqDbjFu/qXinyv0WbyKiIL4KF46tlD3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789490751; c=relaxed/simple;
-	bh=yPg4ksan4KvZAnUxvVEesaEuZZd4bO5TG5Os+ey0WO4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BinlaF50UjdexSnWumbgUVFKaJ87/LAsB/h+7ErIqv2qyTG2qcZcmuT419gfsxKQGeTxwl/fJAt8QhSwFHXDBdKNmWEd3C3ivFgjkMSh2aLTsxbOqo7bEd+yyhYQjZW6ISeknKgfkTEaKXdME9fFe8HjmPW+Sy1uUwLSdkdZqfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbfG9ggP; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789490813; c=relaxed/simple;
+	bh=pBXMQYwYIJYCbF1unzfw77LT6IGTOj8wqPQpkxBp3O8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=aPTnbOq6I/uodLbuH4J50wBQFTsOCdM6TI7rhPIC73yt8bplwQLTgc/GYdnGXtxkiTPPHqybnRuguTWqwoiKJOraZtMFSTESJJeXYwjhljVHD9yroC2GsAZWDExoGZrVVZxvlaH4O3REfpoQ3OgJJgO6nRiI3E/VatSkgjE0PEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WkFbKeuQ; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbfG9ggP"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d20963so370998b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:45:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789490748; x=1790095548; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lvCnDXZrWO8TEYbuW/IRJAcni3hfewokDsrz8A4uCCc=;
-        b=cbfG9ggP4RkELB0gjpRUhaUtJ0QpqfCVb58K1puIqsnr465b6JNXN4KGvDTQ1D8Y1m
-         l8rz8wXoEsNEbOLWGC8MxsECQwpzbwWbUQxfROynpp4/7vNq0NrkwaQVIF1B+uamqCgJ
-         RDRYZTNKglDX5pTgo4LgdfeE7dPM4wXrf4aTorqw4cjhdnDTsUCs/RZCL0tHSYR1uw2m
-         /bLCaCaOZYWKj++m7esJBx0eHqMI+RrcP9YoAsgRqDfU0AHCAQrCAj5XyIAiEVzVhokz
-         1rI+cRbWZ7p20/jyzTnP1necRgSjyKW3McXH5v8JaRmKccIE7VIsOkpMBPKoKf9ZnpyY
-         WhRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789490748; x=1790095548;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lvCnDXZrWO8TEYbuW/IRJAcni3hfewokDsrz8A4uCCc=;
-        b=hIZKWdfVk7pJpoJlffzHwmRPehtOOfEMnSj9eH9SCw0pzTpAMggdt7/ojrKYq0EJc/
-         44Jbbm/jqS5hvOEkkL/7+hhahmycy8+um9FyiSfV1gxRu1gVf/wEl9SMBPvbeYPukmlD
-         enaocI0r+hYJeIRxn8zu4mukiZohv7WhRR2yMu1J3ylNb9zPgW5ouvu6qJrmwma4iWRe
-         JYi82ONCNSI6T92WToFnUIqy11WEj3HSFZJMwoTPBe7IglcwI+pPkJltcHmiudBc+8uR
-         Lzm/dqZeE9BcpCmarU8uzzyUcyw2wZRZgdxpS74ZihherbhVJ4fSjODVxUOl4Vt4XAPG
-         2ODQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWfUM9EwX4XeyePKPrC6JbzJFzTwXNOh76QNjWbFxTL8X931aU6fv2cMnHiV1LlZ3Y4FHACx0LaYYu1Yc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNEcNaEiEt0ki4KpGg2Xnacg2PbTFu06Uy6migiaK0hddT4CN3
-	+yOttUeVhv3/nsbFb8zbT0WC33bAxEMhn11SEHxZlmXR5SYFuuddWFIl+Q4esDPq
-X-Gm-Gg: AYBFou3rdFf0uU4695pxihcm7s2hMtLQmJYmnRA624V6eJEL352nmnC3nfK506RuGkS
-	O6Z8RfPUvzPDz2hLfavkfvKTRNgKRUdqWdzD2e/PdvdBAJ+bMWMCdpEQir8kDTHDUZ/swkDhkFW
-	Cu6MZi7kHVsTP0JzNPsgZAPsWb0uN5RcKvsexj/zumYkRafJ4M+tRVrAJe9lNnpUcT491ezQC99
-	Xta1gJgVzQShAoIP5WmWOxVOzWTIvZC1vOD9vOOuEqAKh/Mw0H/oBjrl40kumOv3bHJrHhOaPIE
-	uaImClx5nTpkU6yKtLTdz621vqOrtbvyr9jOd6bTtkOdmzfu362dtP1pF8ShEU5pUycU5ahaF/i
-	ecKBw1H0MkOVsa41gc6z/MntvMU4QHIvGhMxqHw15Y7VTx1U0/GTXPFYdpekSnhMDun/CIARnru
-	fL+HOPA2nasG4u0oQdhXw7a+fXBypORWfZVFhAcRDs2Z1R4m5lE3j9Pw==
-X-Received: by 2002:a05:6a00:e18:b0:86c:f33d:e3d6 with SMTP id d2e1a72fcca58-8717eadc194mr2942536b3a.9.1789490747845;
-        Tue, 15 Sep 2026 09:45:47 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29dc09d4sm6481081b3a.47.2026.09.15.09.45.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 09:45:47 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Hui-Ping Chen <hpchen0nvt@gmail.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] mtd: rawnand: nuvoton: fix clock cleanup on probe failure
-Date: Wed, 16 Sep 2026 00:45:37 +0800
-Message-ID: <20260915164537.2496540-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WkFbKeuQ"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id B7A801A07ED;
+	Tue, 15 Sep 2026 16:46:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 847F2602B0;
+	Tue, 15 Sep 2026 16:46:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3617911C7B005;
+	Tue, 15 Sep 2026 18:46:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789490800; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=r7ws2yNGxCu99b9kREC/qBBkTq3Kz8mFcYPsCXy1MLk=;
+	b=WkFbKeuQSkU4PhcQNzSuI3zOKkdFlsLI1oHzH68fWp95mQq5fomdyXjlEOXzt5+vSgCsJI
+	AtMoFCHX4zt8FlnZerWJJJQITtUBRaTdzcGgZYc00Y0vqeCniX4AKhVgTX7wbEEYl9sXFr
+	uXROuhcYgphRUWvIS50aMf+AxIMPU9bVg/6nusqyUIw99F2Sr4i812+afVojnETAsYjO/f
+	oGW50T3ig+4llPLVugYjuSlV1oi+QcOxFxlbZG4fw1iYydCSgiDmh1kqFxkJUvU0axVEk0
+	Qky4CXQN44Z1nue8YRQiwnGpTJZuizO5u0PEsqSNpBvcho8rpBoUMwNiZjPTzA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH v4 0/9] drm/bridge: Kconfig: cleanup DRM_PANEL usage
+Date: Tue, 15 Sep 2026 18:46:13 +0200
+Message-Id: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NyQ6CMBQF0F8hXVvTgaG48j+MMR0eUgMtaZFoD
+ P9u0Y3GBe7ezbs594EiBAsR7bIHCjDZaL1LId9kSLfSnQFbkzJihJVEUIZN6LEK1qRPOk+DdNB
+ h3YF01wGTGkyhNSV1LlAihgCNvb34w/Gd41VdQI+LuTRaG0cf7q/9iS69P6cmigkmRpQVz6EmQ
+ u6V92Nn3Vb7Hi1jE/vgWLHCscTpUguhZNU0hv1y/IPjdIXjiSsINEbQUigO39w8z08KrmP+egE
+ AAA==
+X-Change-ID: 20260812-drm-bridge-drm_panel-cleanup-09ed5cc10948
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, Marek Vasut <marex@denx.de>, 
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ Christopher Vollo <chris@renewoutreach.org>, 
+ Sean Paul <seanpaul@chromium.org>, Vincent Palatin <vpalatin@chromium.org>, 
+ Tony Lindgren <tony@atomide.com>, Michael Walle <mwalle@kernel.org>, 
+ Vinay Simha BN <simhavcs@gmail.com>, Maoyi Xie <maoyixie.tju@gmail.com>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Andrey Gusakov <andrey.gusakov@cogentembedded.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ sashiko-bot@kernel.org
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-ma35_nand_probe() gets and enables the NAND clock with
-devm_clk_get_enabled(), but the ma35_nand_chips_init() failure path
-also calls clk_disable() before returning.
+As a cleanup in preparation for making every drm_panel embed a drm_bridge,
+fix missing or unnecessary usage of DRM_PANEL and DRM_PANEL_BRIDGE in
+drivers/gpu/drm/bridge/Kconfig.
 
-devm_clk_get_enabled() registers a managed cleanup that calls
-clk_disable_unprepare() on probe failure and driver removal. Calling
-clk_disable() explicitly first drops the clock enable count, so the
-managed cleanup attempts to disable the clock again and triggers the
-clock framework warning for an already disabled clock.
+== Grand plan
 
-Remove the redundant clk_disable() and let the managed clock cleanup
-handle the clock state.
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
 
-This issue was found by manual code inspection.
+Here's the work breakdown (➜ marks the current series):
 
-Fixes: 5abb5d414d55 ("mtd: rawnand: nuvoton: add new driver for the Nuvoton MA35 SoC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+ 1. ➜ add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. ➜ add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. ✔ protect encoder bridge chain with a mutex (v7.2)
+       7. ✔ of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+               convert basic direct users (v7.0-v7.1)
+          b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+          c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+          d. ✔ convert direct of_drm_get_bridge() users, part 4 (v7.1-v7.2)
+          e. ✔ bridge-only drm_of_find_panel_or_bridge() users (v7.2)
+       8. ➜ panel_bridge lifetime
+          a. ➜ cleanup DRM_PANEL in bridge drivers
+	  b. … embed a drm_bridge in every drm_panel
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. ✔ handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. ✔ Migrate i.MX LCDIF driver to bridge-connector (v7.2)
+ 6. … DRM bridge hotplug
+    A. … Bridge hotplug management in the DRM core
+       1. ✔ bridge-connector: attach encoder to the connector (v7.2)
+       2. … drm bridge hotplug
+    B.   Device tree description
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/mtd/nand/raw/nuvoton-ma35d1-nand-controller.c | 1 -
- 1 file changed, 1 deletion(-)
+Changes in v4:
+- Removed 4 patches now upstream
+- Fixed commit message of the tc358767 patch
+- Link to v3: https://patch.msgid.link/20260831-drm-bridge-drm_panel-cleanup-v3-0-50efd8168b3e@bootlin.com
 
-diff --git a/drivers/mtd/nand/raw/nuvoton-ma35d1-nand-controller.c b/drivers/mtd/nand/raw/nuvoton-ma35d1-nand-controller.c
-index 1a285cd8fad6..f659d3a6b9ef 100644
---- a/drivers/mtd/nand/raw/nuvoton-ma35d1-nand-controller.c
-+++ b/drivers/mtd/nand/raw/nuvoton-ma35d1-nand-controller.c
-@@ -993,7 +993,6 @@ static int ma35_nand_probe(struct platform_device *pdev)
- 	ret = ma35_nand_chips_init(&pdev->dev, nand);
- 	if (ret) {
- 		dev_err(&pdev->dev, "failed to init NAND chips\n");
--		clk_disable(nand->clk);
- 		return ret;
- 	}
- 
--- 
-2.43.0
+Changes in v3:
+- Fixed a few patches which incorrectly removed 'select DRM_BRIDGE'
+- Added missing 'select DRM_PANEL_BRIDGE' to some patches where
+  devm_drm_of_get_bridge() is used (thanks Doug)
+- Added patch 13 for tc358764
+- Removed boucing address spanda@codeaurora.org from Cc list
+- Link to v2: https://patch.msgid.link/20260825-drm-bridge-drm_panel-cleanup-v2-0-c6c88ba7ffd2@bootlin.com
+
+Changes in v2:
+- Added maintainers and recent authors to per-patch Cc list (these are not
+  added automatically by get-maintainers because the patches touch only the
+  Kconfig file)
+- Added review trailer
+- No changes to commit messages and patch content
+- Link to v1: https://patch.msgid.link/20260812-drm-bridge-drm_panel-cleanup-v1-0-0d86734e908a@bootlin.com
+
+---
+Luca Ceresoli (9):
+      drm/bridge: tc358764: don't select unused DRM_PANEL
+      drm/bridge: ti-dlpc3433: don't depend on DRM_PANEL, select DRM_PANEL_BRIDGE
+      drm/bridge: nxp-ptn3460: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      drm/bridge: parade-ps8622: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      drm/bridge: tc358775: select DRM_PANEL_BRIDGE, not DRM_PANEL
+      drm/bridge: tc358767: select DRM_PANEL_BRIDGE
+      drm/bridge: tc358768: select DRM_PANEL_BRIDGE
+      drm/bridge: ssd2825: select DRM_PANEL_BRIDGE
+      drm/bridge: tc358764: select DRM_PANEL_BRIDGE
+
+ drivers/gpu/drm/bridge/Kconfig | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+---
+base-commit: 2d70e1401dbbfc559b6a5d1ba8275d5282d71c2c
+change-id: 20260812-drm-bridge-drm_panel-cleanup-09ed5cc10948
+
+Best regards,
+--  
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
