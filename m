@@ -1,220 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D0D34EF04;
-	Tue, 15 Sep 2026 14:04:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A22383515D0
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:04:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481091; cv=none; b=YtrDsyLn1P1Vcnrq7uCzQokEmEmvsEWzak8pafq76ONtVRfK7yuJlg4DE6V4oh+ySyqH0gDjO9W7VejyiPaacOcKW3Fc+QPKydsr5E7AAV2fC9bnwME53/pZRQcVv5dNnx/+NioluHXwvEridgQ/TVs7FWwN/bCjrh9f4XcifFU=
+	t=1789481093; cv=none; b=sVpSO5lLaLDK+IAC54QKHqBPtgi1C//kZnxUPduSkmgIUjmJIdncv9DTSGTWjdcS8cijJ7YnHhlg2MAfu7Nqbv5Nqg25DepV7E4kLqGr3OLvUJVXOyl1/WFbcGUSDIXWv4SL6FmzN8yZ2W7ExCFwelDNSHK/QAS7m9GjJZIlEjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481091; c=relaxed/simple;
-	bh=rOCQ8i6GbpBXYjEQlYjjM9sb0kZZ4DagF9lE90848HU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lPUYyNlFB4DKNR4Gv9+U6Lvc/+BtcLW+A3aF0XFULDojQigbxOpkJ6adIUR2TRAMY5SB/IKEyHtBbSSUL7ZhIMDMR1wLdLjJWCazaRX2IcYCqHRYSWzD4gns9zFhlMA1AtQZ2D4SLKzfv/bTaCL3a0uY7UQJmQCxFWojP9qFAHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bjMD2xgz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789481093; c=relaxed/simple;
+	bh=0gJ11eK6vyMd1f9poJ8vcFJX9j9y0Pob+2gbkGLs9ew=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=XTR21jZKcoFUxiRc2hGRrKpPj8G0PhpMBsRSiarkcbWTMvR6aDxtqh8RfTHXUd78iVgBiw+7wx83FzCJjNZBK56AR4JOBW1v5ejtJSUxFWbGGn2qtBXPOFnouwto3aaE81wWGDygxuwRJMFg94vOzVZr9UpdHAoNdFnq16wASP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NFAdIlR0; arc=none smtp.client-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bjMD2xgz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2931F00893;
-	Tue, 15 Sep 2026 14:04:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789481090;
-	bh=2M43kLV2ZJexEHErf5K0Sn1C3APY6nTueqXd9sQAr6o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bjMD2xgzgSfoGkzTuvyqi1r++RziYc2v0wdGoCiFg2Ef4Pek9OeN6fQ5eyQJA+7Cp
-	 RwH9eowH2ct7mXgqOsSX5emVQ3c9tIW60esOkAT6X62DIaaujS4oTo4w6lr8HgdGVz
-	 YALo6ETtzJ8aFqb+LhST/oaRwiehbrQgFKtjILtqsIjKJo/TBy23xAZ9koPssA/L1A
-	 o3TT2TJYMK39kSFZln3UijPGqtbvQbYes3dhAAQc2WW8JopGCAXhbq4TQcUAZAbco0
-	 44sHzK2HnxVOg6cjEy6TIWkVCjpWrnJVsOm6tyMbKxPFs0yygQpc+zZPz4gwVc24Il
-	 sftsASDyVbKgA==
-Date: Tue, 15 Sep 2026 16:04:47 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Aniruddha Rao <anrao@nvidia.com>
-Cc: jonathanh@nvidia.com, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/5] firmware: tegra: bpmp: Add ACPI support
-Message-ID: <aqlNlbYxVB8bkp4_@orome>
-References: <20260910085919.2522241-1-anrao@nvidia.com>
- <20260910085919.2522241-3-anrao@nvidia.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NFAdIlR0"
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d7443e0f0bso83335035ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:04:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789481091; x=1790085891; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ANfnbIvY5HHUWypRItLWP/OqJoXyH8gPZpwc115le6o=;
+        b=NFAdIlR0pH7f6RKqyNQtJVW44jLxxeFbp8GfJbuW1Ruly5eK/hRhx+TB+XTWsPJILA
+         ShqIlDV1YZVBV7MjYoGT/M6twQ7z8h0vzdZZT0sffVOwFqudYM05YNhwFFmpUlyk75zh
+         ULzz54TfZ//Z+Mbqou5HGvOo3yuV6zs+AEwO6iXkMeCrCLf9Puo42qqHhBWdWtdmbx6S
+         6hxQKNVeEa/uof48yivUXcJnkTwWw5VtOekvlshFmRaEweVPpZOdwbuStkhj0mFBc+b+
+         azfH9gPMcyramvQAMt5fFlK3R3QfVDRZAQ+8gm8lJaF6mZBtb0NFgxm9ZGNSgPaqEZZo
+         q63w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789481091; x=1790085891;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ANfnbIvY5HHUWypRItLWP/OqJoXyH8gPZpwc115le6o=;
+        b=yQ9lRZIlWH/iCv5GoXGKJDeuw5mfhvJxYX9cElXJo2MxDf7mlDQqXUVx1PlEuG5QCJ
+         zEz8JtX8vZoTrAb7KoEWmQJ18h5sVeO9VJydqNmhzF+/vtk8oH8LSiVNceq9Dmoo3Rmz
+         yw4xpTG6FHtVgIYhOgnaq6sfyW7EvH9fNwNg0XU1J+4InM+/ET9I8FjvR9h2jug0L9Tn
+         Pjpq/1Qm3vQwrq31EPkSRdFVjrOpTYTXZytGy7QpVckL03SAujBbKFlZUNt5vmUqu1fZ
+         7p3ZbcDyAWG9DFPegOFT57d3Dr+jfT8cUzcKG4yKUiy6IPx32EaxBwnEqxyAAVt4n7fY
+         7crQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzqLp4P8UFXklj5ySeh03zSVBVfIVzFr4DQ0vvEjn8XoEfPsPdsPfklwHNza7pdcNyNGSJDrglw1OqOpzg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBLHzKTQOTCzsBRJ3ljbIpyAfYvt/Wog8UcwZOt2GIk4x4Fx5l
+	itUfhsR3anNAOptiSeZxzT25admOHdQqryvATqVpbeTQDIeRZtmVny7Rnstz3KuJ567Nbc93y9J
+	/Q0VLbA==
+X-Received: from plq6.prod.google.com ([2002:a17:903:2f86:b0:2db:7a1f:5d7e])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d488:b0:2d7:f0:896b
+ with SMTP id d9443c01a7336-2dd6c6c0d27mr131092555ad.13.1789481090362; Tue, 15
+ Sep 2026 07:04:50 -0700 (PDT)
+Date: Tue, 15 Sep 2026 07:04:49 -0700
+In-Reply-To: <c5076e4a-0335-4ed1-8049-a3ddf486ea03@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oj5jit5qbzkfjm35"
-Content-Disposition: inline
-In-Reply-To: <20260910085919.2522241-3-anrao@nvidia.com>
+Mime-Version: 1.0
+References: <20260806011536.4172258-1-sohil.mehta@intel.com>
+ <20260806011536.4172258-5-sohil.mehta@intel.com> <e6220b0e-0f5c-435f-823e-318b527eee8a@intel.com>
+ <c5076e4a-0335-4ed1-8049-a3ddf486ea03@intel.com>
+Message-ID: <aqlQgQgnLDf2CHqx@google.com>
+Subject: Re: [PATCH v4 4/7] KVM: VMX: Implement LASS violation check
+From: Sean Christopherson <seanjc@google.com>
+To: Sohil Mehta <sohil.mehta@intel.com>
+Cc: "Chang S. Bae" <chang.seok.bae@intel.com>, kvm@vger.kernel.org, x86@kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Kai Huang <kai.huang@intel.com>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Chao Gao <chao.gao@intel.com>, 
+	Yosry Ahmed <yosry@kernel.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+	David Matlack <dmatlack@google.com>, Bala-Vignesh-Reddy <reddybalavignesh9979@gmail.com>, 
+	Kishen Maloor <kishen.maloor@intel.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
+On Mon, Sep 14, 2026, Sohil Mehta wrote:
+> > Yes, this could be a matter of taste as taking and going to maintain the 
+> > code. But as a reader looking at this, the logic was not that easy to 
+> > capture at a high level.
+> >
+> 
+> At first look, I found it a bit hard to follow as well. But instead of
+> splitting out the logic into 4 static functions (which have limited
+> value to the rest of the file), how about we add a high level comment on
+> top of the function?
 
---oj5jit5qbzkfjm35
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 2/5] firmware: tegra: bpmp: Add ACPI support
-MIME-Version: 1.0
+This is a great idea!
+ 
+> I'll let Sean comment whether he prefers to change anything here or
+> leave it as-is.
+> 
+> Note, some function names in the proposed diff could be misleading. For
+> example, is_user_mode() checks the IMPLICIT flag in addition to the CPL
+> which feels odd. And, is_lass_enforced() seems like a generic LASS check
+> but in reality it only covers the supervisor data rule.
 
-On Thu, Sep 10, 2026 at 08:59:16AM +0000, Aniruddha Rao wrote:
-[...]
-> diff --git a/drivers/firmware/tegra/bpmp.c b/drivers/firmware/tegra/bpmp.c
-> @@ -783,23 +894,32 @@ static int tegra_bpmp_probe(struct platform_device =
-*pdev)
-[...]
->  	if (!bpmp)
->  		return -ENOMEM;
-> =20
-> -	bpmp->soc =3D of_device_get_match_data(&pdev->dev);
-> -	bpmp->dev =3D &pdev->dev;
-> +	bpmp->soc =3D device_get_match_data(&pdev->dev);
-> +	if (!bpmp->soc)
-> +		return -EINVAL;
+Yeah, this is my thinking as well.  In most cases, I would agree that we should
+make the high-level concept as easy to follow as possible.  But helpers like
+these, and even is_user_address() vs. is_supervisor_address(), highlight why I
+think we should keep the more open-coded version in this particular case.  IMO,
+the control flow isn't hard to follow because of poor coding/design, it's hard
+to follow because the actual behavior of the CPU is complex and subtle.
 
-Under what circumstances is this going to happen? We never checked this
-on purpose because of_device_get_match_data() returns values straight
-=66rom the matching table, the same matching table that is used to bind
-the driver to this device. So there can never be a case where you bind
-to the device but don't get SoC data. Except maybe if you leave out the
-SoC data from the table, in which case you deserve the crash that
-follows.
+So for me, this is more of a feature, not a bug.  I.e. I *want* to force readers
+to slow down a bit, because while the basic gist is indeed very straightforward,
+I think the resulting code is actively misleading if we bury the complexity and
+subtlety in helpers.
 
-> =20
-> -	err =3D tegra_bpmp_init_channels(bpmp);
-> -	if (err < 0)
-> -		return err;
-> +	bpmp->dev =3D &pdev->dev;
-> =20
->  	platform_set_drvdata(pdev, bpmp);
-> =20
-> -	err =3D bpmp->soc->ops->init(bpmp);
-> -	if (err < 0)
-> -		return err;
-> +	if (!ACPI_HANDLE(bpmp->dev)) {
-> +		err =3D tegra_bpmp_init_channels(bpmp);
-> +		if (err < 0)
-> +			return err;
-> +	}
-
-This looks a bit weird now, tying it to !ACPI here. I wonder if we
-should just push this down into bpmp->soc->ops->init() instead. Having
-this here was supposed to setup common infrastructure before going into
-the detailed setup in tegra186_bpmp_setup_channels() and such, but since
-this isn't common for ACPI I think we should move this into the SoC-
-specific code, perhaps with a common helper between Tegra210 and
-Tegra186 variants.
-
-> =20
-> -	err =3D tegra_bpmp_request_mrq(bpmp, MRQ_PING,
-> -				     tegra_bpmp_mrq_handle_ping, bpmp);
-> -	if (err < 0)
-> -		goto deinit;
-> +	if (bpmp->soc->ops && bpmp->soc->ops->init) {
-> +		err =3D bpmp->soc->ops->init(bpmp);
-> +		if (err < 0)
-> +			return err;
-> +	}
-> +
-> +	if (!ACPI_HANDLE(bpmp->dev)) {
-> +		err =3D tegra_bpmp_request_mrq(bpmp, MRQ_PING,
-> +					     tegra_bpmp_mrq_handle_ping, bpmp);
-> +		if (err < 0)
-> +			goto deinit;
-> +	}
-
-How does the ping work on ACPI systems if we don't have a callback for
-handling the MRQ?
-
-> =20
->  	err =3D tegra_bpmp_ping(bpmp);
->  	if (err < 0) {
-> @@ -815,26 +935,30 @@ static int tegra_bpmp_probe(struct platform_device =
-*pdev)
-> =20
->  	dev_info(&pdev->dev, "firmware: %.*s\n", (int)sizeof(tag), tag);
-> =20
-> -	err =3D of_platform_default_populate(pdev->dev.of_node, NULL, &pdev->de=
-v);
-> -	if (err < 0)
-> -		goto free_mrq;
-> -
-> -	if (of_property_present(pdev->dev.of_node, "#clock-cells")) {
-> -		err =3D tegra_bpmp_init_clocks(bpmp);
-> +	if (pdev->dev.of_node) {
-> +		err =3D of_platform_default_populate(pdev->dev.of_node, NULL,
-> +						   &pdev->dev);
->  		if (err < 0)
->  			goto free_mrq;
-> -	}
-> =20
-> -	if (of_property_present(pdev->dev.of_node, "#reset-cells")) {
-> -		err =3D tegra_bpmp_init_resets(bpmp);
-> -		if (err < 0)
-> -			goto free_mrq;
-> -	}
-> +		if (of_property_present(pdev->dev.of_node, "#clock-cells")) {
-> +			err =3D tegra_bpmp_init_clocks(bpmp);
-> +			if (err < 0)
-> +				goto free_mrq;
-> +		}
-> =20
-> -	if (of_property_present(pdev->dev.of_node, "#power-domain-cells")) {
-> -		err =3D tegra_bpmp_init_powergates(bpmp);
-> -		if (err < 0)
-> -			goto free_mrq;
-> +		if (of_property_present(pdev->dev.of_node, "#reset-cells")) {
-> +			err =3D tegra_bpmp_init_resets(bpmp);
-> +			if (err < 0)
-> +				goto free_mrq;
-> +		}
-> +
-> +		if (of_property_present(pdev->dev.of_node,
-> +					"#power-domain-cells")) {
-> +			err =3D tegra_bpmp_init_powergates(bpmp);
-> +			if (err < 0)
-> +				goto free_mrq;
-> +		}
->  	}
-
-All of the above could probably also be pushed down into the DT-specific
-implementations, or just into the soc->init() from earlier.
-
-Maybe even the ping in the middle could be pushed down since we also
-need to special-case it.
-
-> =20
->  	err =3D tegra_bpmp_init_debugfs(bpmp);
-> @@ -844,9 +968,10 @@ static int tegra_bpmp_probe(struct platform_device *=
-pdev)
->  	return 0;
-> =20
->  free_mrq:
-> -	tegra_bpmp_free_mrq(bpmp, MRQ_PING, bpmp);
-> +	if (!ACPI_HANDLE(bpmp->dev))
-> +		tegra_bpmp_free_mrq(bpmp, MRQ_PING, bpmp);
-
-I think if we push freeing the MRQ into deinit, this could also be
-cleaned up.
-
-Thierry
-
-
---oj5jit5qbzkfjm35
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqpUHwACgkQ3SOs138+
-s6FBEw/8DS4TTF/aHXdesRwabHzYYYGrRflB5EYAv2WKn4WO/XGfh3g3caZe//6Q
-LWUid/mmlsqJg4CXErwji71dmdE3co9NscURcOn0o/teUJssZOshdjXAaMxrC9yr
-fsUs+JA9axyClQl+FODiaQ07YzEtkD7dPSAdwknkYhB50nXXkppclx+EB5QOimvx
-PcqTl4hE7GkapZijKe6Kj/Pk5DbDYzEELkc/ARsMKI3y4dZ4UanOvw2U02PKXexs
-7UyWHpYGpK8c7U8BDVTJn/7q6HrhRGSJwCvog9la1L3KPIEUDyKP4mQ7XFwPZ1Rr
-4Swk6eJNlQ2IErRIiV/vsMjcHrIXW4xW5fY2riAG969dfuOalrHEr/T6AV464uvD
-PBjv/MVYHz2DLu2MKJUxMggj80k3XYYW9K1Pc8VVWweg4ND8d9nvH8yRKuWHils/
-KJZqQ9o2w5VseHo6zYz3g5HauyyT0zNomXPPIjJhve+kX3AqB7wUWxSBJ8HtzOhI
-cjH5EmpiSEGyXQXDFRvNvS9XxWo3O7n08Q0ATg5flx2PTefvwNT0cyb3Zn4uO3Rw
-U0UtD0fLvmdinXxKf51kvGjU9vNY1CW7EyZuE9PvIkPiXslgBKvX9/Lw8ImzmsUD
-NDM4QCpP4um2r3lA1JWyjZp8ze50rsoGzH7LH/OSdJR9nBM039M=
-=05//
------END PGP SIGNATURE-----
-
---oj5jit5qbzkfjm35--
+That said, I love Sohil's idea of adding a function comment.  Someting along the
+lines of "The basic flow is this: <example>, but the actual behavior is far more
+subtle due to many exceptions and edge cases".
