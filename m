@@ -1,147 +1,192 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBD945FFA7
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:28:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DD03CFF5E
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457283; cv=none; b=dgeZ09bjmv6SayLFmkUbusYRsNAGhWUZt4UG4H3gv9mKDs/ex04ZCAJutt59Mbz/ogFEryYPB9PU0ui1o8BoezuyOUrc9qsA3BAIVzO+Y/UlmnUgTHMNa6b9RBSoKsrHDznEaA+Wnc8Q5NxRgDLmy/Uz8kpUMgs4kFws8AKyhRg=
+	t=1789457338; cv=none; b=HweNcjuNqMogY6ilRe5UIAvqj82jF9W5G6HI73seDwj85NaWyFqFoPxROXj8JoaiiyrqOYBLc2Eco5sFqoHvDR7/wBLhNMX9DwSKhazfe8aRv/VteYhqXDvUYmbxaTKcvfJ9I1Saew9e91Wy+rhXWoOelw5zE0sjhfX7S8eeWiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457283; c=relaxed/simple;
-	bh=Y3OX0jd/Z83OA+gPEH2LKOvtVR+61d5HQabj+SUA730=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=m6dLy+gqYOB4x4QNu2T6sQr3REA+Ku436kwUCNH7mISx2dJVa9QpDjf/LsFMPDkskUHM/SVC9S3TlWEo8jOYQj/iMPGPu6XuDaWjs2yy5JFFs7EUOhlUxW8XF+ucmBfFhDWtPwKaRkAqCOGlyGdkqNmUwKdx+XsyJQeZeT551Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=o5tSx8eg; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1789457338; c=relaxed/simple;
+	bh=ViOm2eFn9tFqvab2VfQy56Xm4twQuY65GZKmkjCItOs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HErr9Z6mk29Q57Bw1C7BFGznkz5I8hkTReA4GUdBzjPWbcUyi6bxVih7EY3zUyNeUFNGTzaZnLxwfkmuu84vDMr5wgN7yJKrILuwioT2EYuL9OIQ5db3Ww9U3qyNgjxPYaWmm3EXWn9P5Tu3AIztHT2VGscba0dI+TvJpQFyj1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oCSJbg5J; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="o5tSx8eg"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6YxAu2004760;
-	Tue, 15 Sep 2026 08:27:40 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=4ocDuE+LZHoT9EkkvNvxuhG
-	2y8fYFZ0tjDljbOBLmu0=; b=o5tSx8eg1A7o7V4ZHWux2U29BWTDv59n2DSjLUI
-	OniGJqNHHpxWYCT/PkZfW+D99uCdSXtY9YmycNP9T5ZfKleFKH2vKoZVdUh6rCjd
-	7VEqx26eS+0P8Speww66D14km6jdxiLpwe+i18W17xr2EfdHKkqeW/gvT/5YUo3M
-	utFMMSyGIFR7iGMqQL7VeVZye6qhUFAkzhz8l6N4yLVr+kjuGonBibE2YxKhPo/g
-	lE2XJb6+qPzA1esgdmbGRO+jLVAcrGK8O4CSb5czyHnl4zDgU4ffOnr1MrwKcaYG
-	8AgfDga2LIwrNIkQHvAZkDJjWrR6L08JuQ6vAsLEiNHchNA==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gmxtujb9w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 08:27:40 +0100 (BST)
-Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
- 2026 08:27:38 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 15 Sep 2026 10:27:26 +0300
-Subject: [PATCH v2] drm/imagination: Remove duplicated CCB control
- initialisation
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oCSJbg5J"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc3so2086015a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:28:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789457335; x=1790062135; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=656cAHswMFxYIdCF5i5z+ytblIV8nbN8fBlqWqxfZU8=;
+        b=oCSJbg5Jo99d4xWE5HVk4qJQFxuJPQm7NvkYvfa/e4bgtCcoOomeqF8dlsvoXz/Dmo
+         2KJDRytqvpm2pCWRodV9aMpSiFa5dGCvFebT2Wfx7CVBggn6ddW2VxU1mbcDMLXXukA9
+         NkIJsQjGMOkfernPOyRtXi9oM4ZbYWFjQZA2+rz0DFO1mJWayrUZHsmVGoQxOv/c7Orc
+         zR/IQePyOOZtarzPIu8OwZ2zCQtOD89dRImlQv9V8sh1d5oo059jqFN8uuJMmglea1j4
+         8qy/VkLq98vd/XIg4TDUNK0fRTRXmQR+rlbWdOhj4LwMGjJf/w9BUZ965XaBORI5IPL4
+         /+qA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789457335; x=1790062135;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=656cAHswMFxYIdCF5i5z+ytblIV8nbN8fBlqWqxfZU8=;
+        b=aMhQAuiLFsGAjAy9TQ48q380LOJ4tkPshoW/4Q3WffqZy6Ixds4W7ji/XMbwUY4Z2h
+         SCzOEmZcJkr6AkxYNcNC2Wf4vgKBraT/xaxbd9OSH+OUidmlsUph9qFXCBQeX2aroDv7
+         yx8ydW/vqGZvdrNgIYuhyOcVAWXouoTKof0J7Rh1prC6cUEFZ8RaXA7a7u7HucAro4iS
+         JMyhTeg7LmHjJ+9+rz0bP3VDuEDnaEIN9Y73Np/xB2CtG20+xuKGO0frxLVxuStEUA7P
+         C7NDMrN4Mu5Yj10vlx2MwLNYQy+XLVvy/4Zq0WdPcMYdTpS81X92KN0uuYeSo4+deHCS
+         nuBw==
+X-Forwarded-Encrypted: i=1; AKwUvBz5KPTyonQignI1MZombeZEfnlzBGrDLrzezCRPZFV2AZvaqdTfrkyBCHmYBEVmYB2FHVgSE2yaCyqyWhs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5fGZhroQGsXJWLDHPwKe7v1T5GLIB/hYzJujkLwhq8GPh0ik8
+	pSSjOZwAywF5pZ/iO07YoIlIUCPnZP8AWrOtwvcIsKseML2GZ7J0mN0+
+X-Gm-Gg: AYBFou3qZT1s0FBq31H9aWQ2Eeo/OjjEe27dl4n3dkKGkO6PD77G4lorHux9gEGih30
+	lYKsLbCnn4g76Ekpcz3JVClElSN2Gu+lVV2XaDhb6cNjjhlpdszJiGwZ5s6aZMbX4fChojfaNAr
+	TKGp+8Zrq/p+Dc0Dw9pu5r8y0tYMlfiAIZrIpW4kxWrL9s3D9NQEyydvabOswfHibQWd5LdnqCw
+	NqXlr0QttsxXje9wPM2qZ5/VKZVEpUMf3hJriDAKfYjWqnvyajSsASkGxbB+VKtFS9xwTUvRMHB
+	hxtnvff603RHDtqG7ddfGsontdUs9LTeohth68671BciWrMIeVjGEuwtqfjnYboAPI4BF4VcQWJ
+	ba9LbnsO+KleY1Ml6T7Tj7KF9sSGvErMj6IZE7qwllIRQOxXx0rfeQ4EE5k8OK3GPwiJdVSzk61
+	0m57h5Ic0b0ddDHNsX5VMWJPrj4bfgMVa0xOzKWTOI4tMtg4BvK2BFwIptR7SvlxINcTztfL0F3
+	G4A23vUFK5xdMc6diyFgZDxNiOFhHIV8nY+k1GAK7Tx1NVtqaTGJ8QJm/YHnTMgGRN6DcGQyN6o
+	MyPexzYySUVq6LmtuvPE2WCes6NAaD8Nq1ATcCm86bzvWRmoBA==
+X-Received: by 2002:a17:90a:4ce5:b0:39d:e523:8f3e with SMTP id 98e67ed59e1d1-39dec170bb0mr8491853a91.3.1789457335290;
+        Tue, 15 Sep 2026 00:28:55 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfd9c557asm3558205a91.2.2026.09.15.00.28.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 00:28:54 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv5] dmaengine: bestcomm: use devm_platform_get_and_ioremap_resource() to simplify code
+Date: Tue, 15 Sep 2026 00:28:53 -0700
+Message-ID: <20260915072853.58587-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260915-b4-upstream-remove-duplicate-ccb-control-init-v2-1-ba0a6ae63a20@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAF3zqGoC/52OQQ6CMBBFr0K6dkyHEERX3sOwoNMRxgAlbWk0h
- LsLeAOXL3n57y8qsBcO6pYtynOSIG7cID9lirpmbBnEbqxynZe6Qg2mgHkK0XMzgOfBJQY7T71
- QExmIDJAbo3c9yCgR2KLmskBboVHb5uT5Ke+j96h/HGbzYop7ZDc6CdH5z3Eo4e79204ICAU3l
- 6tBLE2h7zK0kelMblD1uq5fvGUV1f0AAAA=
-X-Change-ID: 20260810-b4-upstream-remove-duplicate-ccb-control-init-ed10e641d81b
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>,
-        Brajesh Gupta <brajesh.gupta@imgtec.com>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457258; l=1863;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=oS5YYP451s1JsaYCpn+B5vhA8YL8bYNleKtdB1FETXM=;
- b=zjUyzqzmn0gYBL3105ppEfdNvIYoAT8Th9YX+mnhkrNPczRDMYTnSlJTF+zwgMUrQ63Ceoa45
- 3KpKxpH3pmVCupLGL5mN13dCzhpmgZ5ltJhHprES0OEWOjDAJDBBPhy
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Authority-Analysis: v=2.4 cv=Se9i5fRu c=1 sm=1 tr=0 ts=6aa8f36c cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=ZgQMqL77xtEQzMyY3PEA:9 a=QEXdDO2ut3YA:10
- a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: N4o_DY5tTz_SBCkts_UhiztKP-3WVgA0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwNSBTYWx0ZWRfX79Sj3xK4SzDh
- oO5CLsgbuq0YSPVyMTgsXjkPubvhirgHtng660Df8ZQOO1SWZuFdH46KjTxp4TYq9JGTz7GWxwq
- /Wk6oNISwJWIkGFCOCqXoScE8WaCYNJ4rT0b3Dt9asne+bhPpvDSzE+dERtrNxVrmRQwVfDK5K2
- /TarTv0vUcnPTdUE7xhhnvAyaUOzI6eySDrdHYoBJuPcczIwahNL5qQONmkpWT9TwaLy9RFWuGo
- O3Z3wSK5kBewB8aBko7UE+PpYt0Qx2xPdHA0OXAu5R76jnuHbPb61GRIcpeWzbL4M8w6/PMC2LG
- BF+vMlSliDT+dJJZy74Jjh+qyCh9vxt2E+FyfbKF7G7nR9WG+O3PSsWQO8RbTtvO6NQngjhmnHE
- 54q5um5F76J98cuBLYko5SrcXg7p2yvRxkTbWRUMfbori5vLBD0EYlaCd3s3Y7zE+xhOpDAVjsc
- SnEqSttnW/0jJCaYZrA==
-X-Proofpoint-GUID: N4o_DY5tTz_SBCkts_UhiztKP-3WVgA0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwNSBTYWx0ZWRfXx9Pk4hin+hJu
- pwsweSIEv+oSKL4lolYlbgo52WUNwKVBpSu3wEzbvxtTOH1zxRGannHYGbbbCinHwZUEbqZvxHa
- zIpETOE8hSOaVBHwqSa4bCr7eudWHbE=
+Content-Transfer-Encoding: 8bit
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+Replace the open-coded resource lookup, request_mem_region, ioremap and
+the manual iounmap/release_mem_region cleanup in probe/remove with the
+managed devm_platform_get_and_ioremap_resource() helper. This removes the
+now-unused error-unmap/release paths and simplifies probing.
 
-The same is already done by the ccb_ctrl_init() callback.
+Fix a resource size mismatch between allocating and freeing where
+request_mem_region() and release_mem_region() hopefully use the same size
+but is not guarenteed.
 
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-Reviewed-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-Changes in v2:
-- Added Signed-off-by and Reviewed-by lines in the commit message.
-- Link to v1: https://patch.msgid.link/20260810-b4-upstream-remove-duplicate-ccb-control-init-v1-1-4ea79b116b40@imgtec.com
+ v5: resend with PATCHv5 this time.
+ v4: fix subject
+ v3: reword again
+ v2: remove Sashiko generated description. Reword description.
+ drivers/dma/bestcomm/bestcomm.c | 45 ++++++++-------------------------
+ 1 file changed, 10 insertions(+), 35 deletions(-)
 
-To: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: imagination@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/imagination/pvr_ccb.c | 5 -----
- 1 file changed, 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_ccb.c b/drivers/gpu/drm/imagination/pvr_ccb.c
-index 4accf18e2341..48672a86ca2f 100644
---- a/drivers/gpu/drm/imagination/pvr_ccb.c
-+++ b/drivers/gpu/drm/imagination/pvr_ccb.c
-@@ -82,11 +82,6 @@ pvr_ccb_init(struct pvr_device *pvr_dev, struct pvr_ccb *pvr_ccb,
- 	pvr_fw_object_get_fw_addr(pvr_ccb->ctrl_obj, &pvr_ccb->ctrl_fw_addr);
- 	pvr_fw_object_get_fw_addr(pvr_ccb->ccb_obj, &pvr_ccb->ccb_fw_addr);
+diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
+index ec58d2c6573f..241a91936fe8 100644
+--- a/drivers/dma/bestcomm/bestcomm.c
++++ b/drivers/dma/bestcomm/bestcomm.c
+@@ -13,7 +13,6 @@
+ #include <linux/kernel.h>
+ #include <linux/slab.h>
+ #include <linux/of.h>
+-#include <linux/of_address.h>
+ #include <linux/of_irq.h>
+ #include <linux/platform_device.h>
+ #include <asm/io.h>
+@@ -365,13 +364,19 @@ bcom_engine_cleanup(void)
+ static int mpc52xx_bcom_probe(struct platform_device *op)
+ {
+ 	struct device_node *ofn_sram;
+-	struct resource res_bcom;
++	struct resource *res_bcom;
++	void __iomem *regs;
  
--	WRITE_ONCE(pvr_ccb->ctrl->write_offset, 0);
--	WRITE_ONCE(pvr_ccb->ctrl->read_offset, 0);
--	WRITE_ONCE(pvr_ccb->ctrl->wrap_mask, num_cmds - 1);
--	WRITE_ONCE(pvr_ccb->ctrl->cmd_size, cmd_size);
+ 	int rv;
+ 
+ 	/* Inform user we're ok so far */
+ 	printk(KERN_INFO "DMA: MPC52xx BestComm driver\n");
+ 
++	/* Get, reserve & map io */
++	regs = devm_platform_get_and_ioremap_resource(op, 0, &res_bcom);
++	if (IS_ERR(regs))
++		return PTR_ERR(regs);
++
+ 	/* Get the bestcomm node */
+ 	of_node_get(op->dev.of_node);
+ 
+@@ -402,35 +407,13 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
+ 	/* Save the node */
+ 	bcom_eng->ofnode = op->dev.of_node;
+ 
+-	/* Get, reserve & map io */
+-	if (of_address_to_resource(op->dev.of_node, 0, &res_bcom)) {
+-		printk(KERN_ERR DRIVER_NAME ": "
+-			"Can't get resource\n");
+-		rv = -EINVAL;
+-		goto error_sramclean;
+-	}
 -
+-	if (!request_mem_region(res_bcom.start, resource_size(&res_bcom),
+-				DRIVER_NAME)) {
+-		printk(KERN_ERR DRIVER_NAME ": "
+-			"Can't request registers region\n");
+-		rv = -EBUSY;
+-		goto error_sramclean;
+-	}
+-
+-	bcom_eng->regs_base = res_bcom.start;
+-	bcom_eng->regs = ioremap(res_bcom.start, sizeof(struct mpc52xx_sdma));
+-	if (!bcom_eng->regs) {
+-		printk(KERN_ERR DRIVER_NAME ": "
+-			"Can't map registers\n");
+-		rv = -ENOMEM;
+-		goto error_release;
+-	}
++	bcom_eng->regs = regs;
++	bcom_eng->regs_base = res_bcom->start;
+ 
+ 	/* Now, do the real init */
+ 	rv = bcom_engine_init();
+ 	if (rv)
+-		goto error_unmap;
++		goto error_sramclean;
+ 
+ 	/* Done ! */
+ 	printk(KERN_INFO "DMA: MPC52xx BestComm engine @%08lx ok !\n",
+@@ -439,10 +422,6 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
  	return 0;
  
- err_free_ctrl:
-
----
-base-commit: e55fead22ff9ee047ab9f1903860c4b43043514e
-change-id: 20260810-b4-upstream-remove-duplicate-ccb-control-init-ed10e641d81b
-
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
+ 	/* Error path */
+-error_unmap:
+-	iounmap(bcom_eng->regs);
+-error_release:
+-	release_mem_region(res_bcom.start, sizeof(struct mpc52xx_sdma));
+ error_sramclean:
+ 	kfree(bcom_eng);
+ 	bcom_eng = NULL;
+@@ -464,10 +443,6 @@ static void mpc52xx_bcom_remove(struct platform_device *op)
+ 	/* Cleanup SRAM */
+ 	bcom_sram_cleanup();
+ 
+-	/* Release regs */
+-	iounmap(bcom_eng->regs);
+-	release_mem_region(bcom_eng->regs_base, sizeof(struct mpc52xx_sdma));
+-
+ 	/* Release the node */
+ 	of_node_put(bcom_eng->ofnode);
+ 
+-- 
+2.55.0
 
