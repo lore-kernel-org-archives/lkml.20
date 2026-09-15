@@ -1,296 +1,170 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazolkn19011073.outbound.protection.outlook.com [52.103.32.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA383CAE80
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476132; cv=none; b=FIF/0T5aanQ1LL++gkIyc1ALwTFyjJCgysYTG/dU0ErCaYxZpgz4XQdeaHxfApnCLaEJvjTlApft/Jjc0EIZxWqdIII84EdcoypNM3MHeFZqA4URNE1PmNcNZCOljWHKO73ZqpI1s5BF/2cqBq4Vla6hz8TMM2srKaLzhFloCbg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476132; c=relaxed/simple;
-	bh=582/7s3JxsfQWjUN6EMHISrALdyatqiIyfqpimTuSgs=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=FU/sWohFgjOHY7oa8UlzPAjDXvbwjU3a1/ZpE5ay1ccz2FYO7efl04W6jp8fHP+myRUtbSBzfhZOdkVCa0qMRk1riYrJRYq4x3Qm43LNLaNf9ROQmz5uOUsCiXB8HHE5KB1h8Xdzx3W7aD8DQuo4j3gFVx+tJL8ncj1r6Cl0AKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=KOxcEmYl; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483003CB907;
+	Tue, 15 Sep 2026 12:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.73
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789476153; cv=fail; b=Z76TkyFBblp3EZAEFIpZ06XE7s8uqxbLcD2yh/SjiRGPQFwN1Ju5Xp+XznYoXH4psgE03PPXUNoh4AYemLIVyDUhMeERCq8AnhxqxZLMNPMoqLeLeUwccJlonHhjkBZh3Fju4VqYjKGLUMWKVxOapQmVv8g6+Ufo2P6SaKlxpkw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789476153; c=relaxed/simple;
+	bh=H1S63Oh+gXaVCd4rjxIAHNXzLU9A4Pu359xb+Oe0fak=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Nfwq8yjAsSjX3iacBR2vQWMEi1g4y9oHL9wfkSZzDvTz07wKdUnjHDahDY8DrK3TX6L/scKsVzbcu5/56F2PNmiGvBmeblw3+FKmadN3wGshGfqa8px6nIA2e5nHbHuA0bOFlKdhRq9aFhxfnWgDFMJO36YH1qdoo/TEwqS7pB4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=l83ETJBD; arc=fail smtp.client-ip=52.103.32.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="KOxcEmYl"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351832so1794013f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:42:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789476127; x=1790080927; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ve43d7pTFVOMTSVWgJo3u0Un/jBoaP9onTkW8Y5KW4w=;
-        b=KOxcEmYl7cDxmte4t7uZs4KgK2Sm/eVru02cSfwCebv/+0xhVtXw67vA1D9vbkeX7F
-         AMmx1PHi5M6wLUfqiXuYOyJVReld8t9o5TShYux31cdCJ7V+2E8S1YdQyFOceNuNF3hD
-         lttnnDONdXwDPmyG+9ApNKLxkVdmrwZpdQfLqW/4U1nZQ8l9/+JsFiot03noixIioxw8
-         jiZRxnRzRoJSUe0IKFeYodSNwjIsqZSl1LjJrTJ/EnUObJnZIkZC9Lgz9sJ/3WHQUE58
-         J2tf8oFf994U6iH68JYrWcydHv3M/Cz1fn+YjbXPWtx18t8MF1/3LSmJx6UyRnNd0uXE
-         xxfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789476127; x=1790080927;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ve43d7pTFVOMTSVWgJo3u0Un/jBoaP9onTkW8Y5KW4w=;
-        b=eFhs3zOc5jHqUSyGNaE9pGcCxZBaP6t15QCxPc2ELt+dotCmeprd/9v3UO/v+4XrWX
-         KsMhFx3JxgfPd4nvyLP/hxD9vt+awGCY65fDqV4+dRLkmhV0ib9hlqW46UcjugP5bq1Z
-         JhMKee3vQ1XraXS1Ae3kiPmn0ZJn59/slmPfjmMcq/8F+2HZO3Df1vAQo/2acD1xlARG
-         iKQl6hkXJbj1kkq/DVgGx82vTmUp8QzoilCfHZ9XJJ1K4PkSgLkGjsaDxuQfUxay3iG+
-         i02zW1wJIGKR7GrPz07FBLIvjoTHA+9QWTu3BZkx0o5ipcD7s2YLExUHOHFVO4grVjoE
-         keig==
-X-Forwarded-Encrypted: i=1; AKwUvBxyHFVGFLQKqVuby1nA8eVR+g8sq1Cgie9SfEdYieyyyUSXTXU5ZWLeZbRwKZ7nsiuolCunf2Cp9q6+Wmg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kE3eyMjInhbqiLW8YY9KKvgobaasxjs8W073ftxR3QLHXvpq12
-	ZX8gQ0vzh1lxjlU1pSG7p5iPmOL47k2gvjUeMf6xGAsMcdKl0NfjEClfHgq3+cNin0U=
-X-Gm-Gg: AYBFou2vg3vpPmkmjDqJbN3RDeVvCqKJCUWl6SiRKOWcxR0QCn1FRppoQhSEXooFQqi
-	HTb/0227yErVKZezERNbiR/9GYRFErSkZpyCqeyl0cjKsgAJfv2+61D8OyXNgALhTalXi9/+ejG
-	/roIyVsGOLOSWRhMfspKqIihi1/mZcd7hm8UvTT3HDPBKwo878njtDfIc+HoZJzJfl3NVlbM5vp
-	ICQBkwiOwmhFtOKtzPRYYJQ+WkjLmo4VLhKbf1pyobFUaa0mg2SAITyUHDUvipxdo1zQcfvD9Yy
-	TG8neUwIKwub7qMxrpj3Ma/PNpm/W9v25jZoTI4VcofbffEk8C+HrgTyI5B8uYGx2jcg2OWEbBN
-	rvHsT6nHDI6FrWCXRthejsI/CFd/ZxkAEQOB8rBGtuU1vUrkw/4ARQ+SWN1wRX+0DMeW+S+tUbf
-	Wtg1e6D/msHArlP7SUWmk0b98z1WuFVvtXBh87nU2x7mrzlGCYCgtT8tuAtZybqDgeo6gOgtrvX
-	n2WHFNBPo96aduDqy0=
-X-Received: by 2002:a05:6000:470c:b0:486:f4cf:59b2 with SMTP id ffacd0b85a97d-48702aae4e6mr8151011f8f.4.1789476127347;
-        Tue, 15 Sep 2026 05:42:07 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35f3d9sm33532218f8f.35.2026.09.15.05.42.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 05:42:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="l83ETJBD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=khOzk+rQav15nkQYExLKhfH2FPkMwZ+g0DxWg74pLHQ09e2dzMTdtOtKonlTm6tx95mkFWrxOQyu0F3wBF3dw7VsYn/tXz+48A171rTBOx/M/TkdEd3OEaQ88LJp4FU+N40W8XIiz5rBsVkFHGkLjIixcZsCtToAtprvTpm+c7gmDbrJUciL6c/92/k+nlWic7QMuCrGVbF3D3AnZW2KaJy1XmfUBTwzFgOJRm18ZiuA2lmc2DX+bPM0QemCkvGY3wSJ5BsHzE3EOwmU54offCJrZe5xqL9MXcsRxRDchOoQTIdgrTHzl5rj4ENU3I75Onej6qk5S6CAzAZ/5WMKwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HRDaF2ACg2iR2xEQX1VHQfDJC1h04fgslqGQDVbmoQY=;
+ b=QsBdtSBNSWMRWaG0eqHMJbwo7tqRD/52TulyDbeAI8usCBqpQziPkV0ownd4QwNUfYng+PbadEbwqA2sGj6+e4KzDDcq3AhDJaVi+IwWvF2/s0/KrPHW8gcCnvNJKFYia75pcB3DL9VS0VpzjRJE+pX/CsyswmqdOdyzWFGryWhCKI0GEE+CfdZVHQ9u6nRlTjDUxQxZ0dQ4UZAFvQcuqjIp85j7Gn6favySImOBvp1z5YhpRWNGJRfk8iT62dFU3+BZv59eh44BTMpLQ4/CRVsdL8q/+/nHorso0ONgyGFq7DodJ934XWdtedeUrExQUDDOvaVK9BcpGrD6PAFO0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HRDaF2ACg2iR2xEQX1VHQfDJC1h04fgslqGQDVbmoQY=;
+ b=l83ETJBDC+vc9KO3gNL2EaEsme0Sl9m3EoNIe8esVHpSLagadiaS9S/qA5uUidM6Lz6LwJdW7F9js5/T3p1nWJdEBa2Q+oOYqwIyf9QPjyK2OK9cXWlYiKuqy0uVPg/ixnIoJVbYciFWvGJtXO/f1Gcn2Cih6oAFPLzzNg/8CVDG4lv+2xwLJLPZ8H6yjtJgIyh/SRlqUmLj/4Ipq6ZIVo0J1st4OCj4+IZjZLN8oGLKEHLKiKjeuYO/uBBjdTsKCWL1jjslwITLH6K2d6pm3rdbEtrhD3EuVraSavegxQ3WCIZVlZnmKnIJ/q+JUqIPuvs1lH6E/8Bcudjio/MaRA==
+Received: from GV1PR08MB8497.eurprd08.prod.outlook.com (2603:10a6:150:81::22)
+ by GVXPR08MB10666.eurprd08.prod.outlook.com (2603:10a6:150:14d::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
+ 2026 12:42:28 +0000
+Received: from GV1PR08MB8497.eurprd08.prod.outlook.com
+ ([fe80::705b:d4a3:1c1f:b9a2]) by GV1PR08MB8497.eurprd08.prod.outlook.com
+ ([fe80::705b:d4a3:1c1f:b9a2%5]) with mapi id 15.21.0428.004; Tue, 15 Sep 2026
+ 12:42:28 +0000
+From: Manuel Fombuena <fombuena@outlook.com>
+To: lee@kernel.org,
+	pavel@kernel.org,
+	vicentiu.galanopulo@remote-tech.co.uk,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 01/13] leds: st1202: Correct the name of the prescaler conversion helper
+Date: Tue, 15 Sep 2026 13:42:15 +0100
+Message-ID:
+ <GV1PR08MB8497AA602374777F1BA08E07C5BA2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <GV1PR08MB8497668D389D43F680D2CE3CC5BA2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+References: <GV1PR08MB8497668D389D43F680D2CE3CC5BA2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+Reply-To: fombuena@outlook.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PA7P264CA0207.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:36d::17) To GV1PR08MB8497.eurprd08.prod.outlook.com
+ (2603:10a6:150:81::22)
+X-Microsoft-Original-Message-ID:
+ <20260915124215.3365667-1-fombuena@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v14 06/11] clk: realtek: Add support for gate clock
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- p.zabel@pengutronix.de, cylee12@realtek.com, afaerber@suse.com, 
- jyanchou@realtek.com, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, 
- cy.huang@realtek.com, stanley_chang@realtek.com, 
- Brian Masney <bmasney@redhat.com>
-In-Reply-To: <20260901072446.2563145-7-eleanor.lin@realtek.com>
-References: <20260901072446.2563145-1-eleanor.lin@realtek.com>
- <20260901072446.2563145-7-eleanor.lin@realtek.com>
-Date: Tue, 15 Sep 2026 14:42:04 +0200
-Message-Id: <178947612411.448573.8319851834736456413.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6855; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=582/7s3JxsfQWjUN6EMHISrALdyatqiIyfqpimTuSgs=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqqT0c9mkExB03yY3YHr0fhg3XGhRRzOgE7qYbx
- W7L0HKibU6JAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqk9HAAKCRDm/A8cN/La
- hUCHD/wLct30ewH+5Y3QuClGJamgZYobFou8PoCe8ZNwegUjci+LL8dHd3LcPTENTfOHXYFlgkQ
- PVDdSqnMGkiIKdJ+TaI92nbPkyt10u920xrR5yGCGE+qZ/wPHxlqjBu6zRUo47KLDJUEGbL7D48
- +anKtOEZ3A08V2uIO6RiH/2UsE8JJvAZHVeY0u2K84trqjeBp1DiQe/JSTEAGiSHTjA8ZttkIe3
- 25FEOUjZ+pbm8G4MeN7gvS2VjLogBvQtHlc90hdCcViOgPqP5SrOcodAOFVeaFuZKTLjbOH6aXO
- QhBHsQqscoL9OJiDBDe+l22fRIMiCPvDS0pwoeZC48RrFRuGikqcqk4GWCRqHEltrxgh/d31Gly
- g7BVtv5s+ZSnyHL4p95rVQUNzzc3uAiQ8Llp3hOVayemE/TWZP4BRMLdrSPVgYAvs/yuJyFTK3l
- FBAYULGRs2mxJmlEhjcOtyjTJDBw+6qsx8YOpgJIeawB3NBo3sM/Pw9/1D4LIfm2e69modjwPRb
- l7WAxge1vw+kHz8c/yeIII68hVKqg0fBgEKVxUi8oIysPoL8BVtFt+NefV0TSDcNnt/CEMy3BtM
- Ykad0qE9ldVDgxCCcebuqZMX1e/zfwRqnnJWIciP7QPGLBsUl+CVPgyvX8Aam+s6F5neGVnQO/r
- SjATklyYSJCn07g==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV1PR08MB8497:EE_|GVXPR08MB10666:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7947dd03-4075-4c58-a81a-08df1326cd15
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5072599009|15080799012|23021999003|37011999003|8060799015|19110799012|24021099003|41001999006|25010399006|51005399006|440099028|3412199025|2607281247196008|40105399003;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?xLR43zlpHqAKU522TH9N41TVCnGMfqAT+Ngr7hVE1vyukSVETGJNjBWoL36p?=
+ =?us-ascii?Q?fypgcMRiYO7IcA0wIgHLqpCO7pNXX/Og3idj5WS48HEIERKJC069lY9zpG4c?=
+ =?us-ascii?Q?G2pw/xCpT7He7ygRwRczxoaN2A1vFHvkJsZYee1OOPYcJcw1NExnA1fTZQ2G?=
+ =?us-ascii?Q?0rvemvQfC4qdiyYyGFpUSEcIY6rGldTqNblcsv7LRtQSfbsTY/iIm0vPwqcu?=
+ =?us-ascii?Q?peZaFKQMiw+nUTrgQjpQ9odCn2zQPJBRgau1Rm9WiAaFRe++3t/8dtMakKZ1?=
+ =?us-ascii?Q?nNW5at8Ncb0SYaIaQFC1yxBQ7YzGh8SbYCzQmjm2k+wzem/lioO712gCahx4?=
+ =?us-ascii?Q?CjkCthN9yS9TbyY1IcuQ/JIRjNAUodgzs460X652hTDygGTfdfax6+C9Q1K3?=
+ =?us-ascii?Q?092h8jFJ7/uqVYncALUevAQyACvOolEvyYGiY7XdeZEAebJYgLw7CF4l1+1N?=
+ =?us-ascii?Q?krY42Q3knnFha2elZZ5NLp5DgpXO/bLhI5qV47V+rBdDRYXLU1aV5ZPfDc58?=
+ =?us-ascii?Q?Z8DcwlLHhKCBf7IvbvdzJQrwCRZIVvxeSCHXYCddEuIhj4+Y16jq96lYs1T+?=
+ =?us-ascii?Q?itBQqz9+8dvQROC/tQpHGRwlcKuEIhmxN6ceUD2cV4/+PrEYEg4AL7Ak5bB/?=
+ =?us-ascii?Q?psUrKSm6ZF8pwiscrN+CImIxgdI6jnujESFxrZDl3Xw4CauFFh4blh8yv8QE?=
+ =?us-ascii?Q?oC6emRtqEJ2E2Eu32GtFhfpWzOvgzjU8Fp5bT1s1dlhqklDNfPMOk+MoHnaF?=
+ =?us-ascii?Q?hbtw7BQBeDTg+A4RCsB2pENfID9k+0UtIqkSWxVnTUTpe3ESWRAjVng4zw9z?=
+ =?us-ascii?Q?NzF4OA872SJTYs1EM7v/9ppRq3f7WNgKFwS7TrxMx4fZb90iseE/6W5uTaPt?=
+ =?us-ascii?Q?hrXUr547K/bL/ZVZyndu8kaH3vgDWc1DCZuK5669tVC/fnJ83i8QyDzVUM1r?=
+ =?us-ascii?Q?/k5cq0c9l0ZshAh/88en4nBUCSHhqUbrhWOkLtxX+haEL50iU10uikbRilJH?=
+ =?us-ascii?Q?Fn0E?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VlbvM2TghbbaHwCk6PoqZlyvhFooQpGQdIRZibPXrqGnkSKjkd3VnX1RfLyD?=
+ =?us-ascii?Q?fyIbVv9O/194C28JAvi60n+OE5daOHOZ6jK69Ew7zfaDHP88bvavQ8ajR0bZ?=
+ =?us-ascii?Q?kFFyOHVdPJSqStcq+tTQWFVEtuVg9HGFsOIsMi6/kEWSs90YNJ6bPaP/CYrQ?=
+ =?us-ascii?Q?lyhZEtS5KWs9yKnSJNvpd/hsVHntU3GlfYzlCZAFV1bi0CMx/E7ecjMiZpxk?=
+ =?us-ascii?Q?L7MRHgmk8pFdHXwLinQbg7hZv+CoaafMFpW5Uf2QxfrbmwihQkjkP3jRuV1w?=
+ =?us-ascii?Q?Qq+dl9BTIce6qFcyrmwKDEIr9Wh0j5ZCKH9u78UuU4/tiKNz52AjKHpa6Var?=
+ =?us-ascii?Q?agok2xEaeCgYEo+KXf6KzmacaZ3/VVKQ7AVULqxrJXBqrEfp0WX9BnxHveth?=
+ =?us-ascii?Q?D37JP32RhYZawJDzYuH58PWKTj5V1MGvqdzbgol7pFLdxegST60UpYbJAo4G?=
+ =?us-ascii?Q?Xiqnl388Q71JJl5TeQsPxhMqSVoZcopFm1uF7X65CJJjM+4KR3DHFAErQ0f+?=
+ =?us-ascii?Q?YPc06GZLSxxe6r3VoT6aO3B4t3Dn5dYx0lpY2fXZ6J+sXw3n+RMxdrJ8WJ1/?=
+ =?us-ascii?Q?ZAZF/8YXvFMtjiIh8p0OlC4xYZLZknn2acG5v0C8hLCsvhapdK9TIMfpv3W9?=
+ =?us-ascii?Q?cbSX5Mf+7NcT93vB6p590P7qnRm/o3Kx2zIz6JcVvOsFyVuCysVn+8kis6Gx?=
+ =?us-ascii?Q?9t1v02qRbwd0kN/WRunDtfT4sMCSPdUIMXYbvH3rlaffX/U+4TRxDNTaCIBw?=
+ =?us-ascii?Q?mVPKrVvomufaJL5/Qg74y9FrbDAp+JTDurlK+Hll1Av3Ho9dgA33YzI4NXWJ?=
+ =?us-ascii?Q?RlkMFMEDkDEGQTxwiCINOQCzx22CZoYRkHLw2+Sqh8YQUp7qOZhm+mP3M1wP?=
+ =?us-ascii?Q?7EiegfKoeDbw+t9NzlvVhU3LfmkigmVlXobDSMmOoPk6MrdbkoPgc2zO8YWc?=
+ =?us-ascii?Q?xPLy+PqVV2zuhTg21Ua8QyKVne0Pkl83WdcyrJunDIpvQXr3KSsNeHbiOdkN?=
+ =?us-ascii?Q?Y9B9M8zvPDnuuvzQ/lbfUzVJsfOaVV4ddfoVddgdwzQ8fDKPN60Tv5TXd30y?=
+ =?us-ascii?Q?mA/rB8zEix7gvyFM0VWhqSa8fsp8ADBB7zAQBL6kgieoXXi2gSCvp4vARRbm?=
+ =?us-ascii?Q?X6Eu7xFTPu37MWzEP24b3GDYsdbGX1nTAFnry9RHp397zc3zJq+GxFeldsAR?=
+ =?us-ascii?Q?+nGcIdawRyfb/CYwkpjIz8S/WJ+43fEdpQ/ziIE287qkVekT5IaMla97hyxy?=
+ =?us-ascii?Q?8uxdQnxdYoBa2rakKsyrK3nJ6ySpaP+jrkT22jAEHpMwWOwe+UffcJryvtFc?=
+ =?us-ascii?Q?rT107M+S7rDqUJaDHQFDz3ZSH/TyuVWfjzWJ17MXme+nh7+UlW+bzFoELXLW?=
+ =?us-ascii?Q?qx2Xy7gfIoiW9KZ7kDx/1v9xlwMM6bmn8Uan3g9l7EcY0SYRrw2f5xOC4390?=
+ =?us-ascii?Q?axrPchL/CHc19oXV+5ExgnYFlpuyHFdk?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7947dd03-4075-4c58-a81a-08df1326cd15
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR08MB8497.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 12:42:28.5788
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB10666
 
-On 2026-09-01 15:24 +0800, Yu-Chun Lin wrote:
-> From: Cheng-Yu Lee <cylee12@realtek.com>
-> 
-> Introduce clk_regmap_gate_ops supporting enable, disable, is_enabled, and
-> for standard regmap gate clocks.
-> 
-> Add clk_regmap_gate_ro_ops as a read-only variant exposing only is_enabled.
-> 
-> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Reviewed-by: Brian Masney <bmasney@redhat.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> ---
-> Changes in v14:
-> - Move Reviewed-by tag to the correct position.
-> ---
->  drivers/clk/realtek/Makefile          |  1 +
->  drivers/clk/realtek/clk-regmap-gate.c | 70 +++++++++++++++++++++++++++
->  drivers/clk/realtek/clk-regmap-gate.h | 65 +++++++++++++++++++++++++
->  3 files changed, 136 insertions(+)
->  create mode 100644 drivers/clk/realtek/clk-regmap-gate.c
->  create mode 100644 drivers/clk/realtek/clk-regmap-gate.h
-> 
-> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
-> index 71edc18121c6..840aff067b61 100644
-> --- a/drivers/clk/realtek/Makefile
-> +++ b/drivers/clk/realtek/Makefile
-> @@ -3,4 +3,5 @@ obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
->  
->  clk-rtk-y += clk-rtk-common.o
->  clk-rtk-y += clk-pll.o
-> +clk-rtk-y += clk-regmap-gate.o
->  clk-rtk-y += freq_table.o
-> diff --git a/drivers/clk/realtek/clk-regmap-gate.c b/drivers/clk/realtek/clk-regmap-gate.c
-> new file mode 100644
-> index 000000000000..1c32a87d97df
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-regmap-gate.c
-> @@ -0,0 +1,70 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#include <linux/bits.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/export.h>
-> +#include <linux/regmap.h>
-> +#include "clk-regmap-gate.h"
-> +
-> +static int rtk_clk_regmap_gate_enable(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap_gate *clkg = to_rtk_clk_regmap_gate(hw);
-> +	unsigned int mask;
-> +	unsigned int val;
-> +
-> +	mask = BIT(clkg->bit_idx);
-> +	val = BIT(clkg->bit_idx);
-> +
-> +	if (clkg->write_en) {
-> +		mask |= BIT(clkg->bit_idx + 1);
-> +		val |= BIT(clkg->bit_idx + 1);
-> +	}
-> +
-> +	return regmap_update_bits(clkg->clkr.regmap, clkg->gate_ofs, mask, val);
-> +}
-> +
-> +static void rtk_clk_regmap_gate_disable(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap_gate *clkg = to_rtk_clk_regmap_gate(hw);
-> +	unsigned int mask;
-> +	unsigned int val;
-> +
-> +	mask = BIT(clkg->bit_idx);
-> +	val = 0;
-> +
-> +	if (clkg->write_en) {
-> +		mask |= BIT(clkg->bit_idx + 1);
-> +		val |= BIT(clkg->bit_idx + 1);
-> +	}
+st1202_prescalar_to_miliseconds() converts a duration in milliseconds
+into the prescaler value written to the pattern duration registers, so
+its name states the conversion the wrong way round. It also misspells
+both "prescaler" and "milliseconds".
 
-Could add a comment explaining this write_en thing ? Some kind of volatile bit to commit the change ?
+Rename it to st1202_milliseconds_to_prescaler(). No functional change.
 
-> +
-> +	regmap_update_bits(clkg->clkr.regmap, clkg->gate_ofs, mask, val);
+Signed-off-by: Manuel Fombuena <fombuena@outlook.com>
+Assisted-by: LLM
+---
+ drivers/leds/leds-st1202.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Nitpick: the 2 functions above more less copy/paste. 
-
-> +}
-> +
-> +static int rtk_clk_regmap_gate_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap_gate *clkg = to_rtk_clk_regmap_gate(hw);
-> +	int ret;
-> +	u32 val;
-> +
-> +	ret = regmap_read(clkg->clkr.regmap, clkg->gate_ofs, &val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return !!(val & BIT(clkg->bit_idx));
-> +}
-> +
-> +const struct clk_ops rtk_clk_regmap_gate_ops = {
-> +	.enable     = rtk_clk_regmap_gate_enable,
-> +	.disable    = rtk_clk_regmap_gate_disable,
-> +	.is_enabled = rtk_clk_regmap_gate_is_enabled,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_gate_ops, "CLK_REALTEK");
-> +
-> +const struct clk_ops rtk_clk_regmap_gate_ro_ops = {
-> +	.is_enabled = rtk_clk_regmap_gate_is_enabled,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_gate_ro_ops, "CLK_REALTEK");
-> diff --git a/drivers/clk/realtek/clk-regmap-gate.h b/drivers/clk/realtek/clk-regmap-gate.h
-> new file mode 100644
-> index 000000000000..9303adda3166
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-regmap-gate.h
-> @@ -0,0 +1,65 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#ifndef __CLK_REALTEK_CLK_REGMAP_GATE_H
-> +#define __CLK_REALTEK_CLK_REGMAP_GATE_H
-> +
-> +#include "clk-rtk-common.h"
-> +
-> +struct rtk_clk_regmap_gate {
-> +	struct rtk_clk_regmap clkr;
-> +	unsigned int gate_ofs;
-> +	u8 bit_idx;
-> +	u32 write_en : 1;
-> +};
-> +
-> +#define __rtk_clk_regmap_gate_hw(_p) __rtk_clk_regmap_hw(&(_p)->clkr)
-> +
-> +#define __RTK_CLK_REGMAP_GATE(_name, _parent, _ops, _flags, _ofs, _bit_idx, \
-> +			      _write_en)                                    \
-> +	struct rtk_clk_regmap_gate _name = {                                \
-> +		.clkr.hw.init = CLK_HW_INIT(#_name, _parent, _ops, _flags), \
-> +		.gate_ofs = _ofs,                                           \
-> +		.bit_idx = _bit_idx,                                        \
-> +		.write_en = _write_en,                                      \
-> +	}
-> +
-> +#define RTK_CLK_REGMAP_GATE(_name, _parent, _flags, _ofs, _bit_idx, _write_en)        \
-> +	__RTK_CLK_REGMAP_GATE(_name, _parent, &rtk_clk_regmap_gate_ops, _flags, _ofs, \
-> +			      _bit_idx, _write_en)
-> +
-> +#define RTK_CLK_REGMAP_GATE_RO(_name, _parent, _flags, _ofs, _bit_idx, _write_en)  \
-> +	__RTK_CLK_REGMAP_GATE(_name, _parent, &rtk_clk_regmap_gate_ro_ops, _flags, \
-> +			  _ofs, _bit_idx, _write_en)
-> +
-> +#define __RTK_CLK_REGMAP_GATE_NO_PARENT(_name, _ops, _flags, _ofs, _bit_idx,  \
-> +				    _write_en)                                \
-> +	struct rtk_clk_regmap_gate _name = {                                  \
-> +		.clkr.hw.init = CLK_HW_INIT_NO_PARENT(#_name, _ops, _flags),  \
-> +		.gate_ofs = _ofs,                                             \
-> +		.bit_idx = _bit_idx,                                          \
-> +		.write_en = _write_en,                                        \
-> +	}
-> +
-> +#define RTK_CLK_REGMAP_GATE_NO_PARENT(_name, _flags, _ofs, _bit_idx, _write_en)        \
-> +	__RTK_CLK_REGMAP_GATE_NO_PARENT(_name, &rtk_clk_regmap_gate_ops, _flags, _ofs, \
-> +				    _bit_idx, _write_en)
-> +
-> +#define RTK_CLK_REGMAP_GATE_NO_PARENT_RO(_name, _flags, _ofs, _bit_idx, _write_en)  \
-> +	__RTK_CLK_REGMAP_GATE_NO_PARENT(_name, &rtk_clk_regmap_gate_ro_ops, _flags, \
-> +				    _ofs, _bit_idx, _write_en)
-> +
-> +static inline struct rtk_clk_regmap_gate *to_rtk_clk_regmap_gate(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap *clkr = to_rtk_clk_regmap(hw);
-> +
-> +	return container_of(clkr, struct rtk_clk_regmap_gate, clkr);
-> +}
-> +
-> +extern const struct clk_ops rtk_clk_regmap_gate_ops;
-> +extern const struct clk_ops rtk_clk_regmap_gate_ro_ops;
-> +
-> +#endif /* __CLK_REALTEK_CLK_REGMAP_GATE_H */
-> -- 
-> 2.43.0
-> 
-> 
-
+diff --git a/drivers/leds/leds-st1202.c b/drivers/leds/leds-st1202.c
+index ead144155849..5a2202fb4c22 100644
+--- a/drivers/leds/leds-st1202.c
++++ b/drivers/leds/leds-st1202.c
+@@ -85,7 +85,7 @@ static int st1202_write_reg(struct st1202_chip *chip, int reg, uint8_t val)
+ 	return ret;
+ }
+ 
+-static uint8_t st1202_prescalar_to_miliseconds(unsigned int value)
++static uint8_t st1202_milliseconds_to_prescaler(unsigned int value)
+ {
+ 	return value / ST1202_MILLIS_PATTERN_DUR_MIN;
+ }
+@@ -126,7 +126,7 @@ static int st1202_duration_pattern_write(struct st1202_chip *chip, int pattern,
+ 					unsigned int value)
+ {
+ 	return st1202_write_reg(chip, (ST1202_PATTERN_DUR + pattern),
+-				st1202_prescalar_to_miliseconds(value));
++				st1202_milliseconds_to_prescaler(value));
+ }
+ 
+ static int __st1202_channel_set(struct st1202_chip *chip, int led_num, bool active)
+-- 
+2.55.0
 
