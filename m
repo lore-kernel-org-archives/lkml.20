@@ -1,152 +1,123 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F064C752A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757F44C7556
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:02:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488173; cv=none; b=haJ6Bub/FiSw/iTr91LLqatekKLGUohoki38R9XGe/TMTOsEMrzoZtnyfyOHFgAmgtcyeVYUjsW6LTZqCdjqHneL3Q5fJLVJcq393ZefX/d5QpFeZJb156tSQh5GYhQ5/mRgd2jC6nnBDFABKcgvUviiflG1YPU9+5YqWbomcWE=
+	t=1789488176; cv=none; b=T7FtGA31k7o4O9TwWTsGjny6fAz9hbyFmfVHTvggtcOAOnl9QOmWHDn+t5me2N5DGX7qB5nKMz07/etGXB7Tt+noPJ+o4lZBggkehc+ZWbDaoYU4MuNCkA9ph4YAf8OpXUAEceZBKp+Kqfr2rfZmogkm9r09otIEZA1P0zbwhFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789488173; c=relaxed/simple;
-	bh=TaD3IKHcoZf0PQ+wUUh3mHvOgYZf6uXYuUZRFHNcE+Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IQ8TgDXGal2I/32dEWR4T4Nua0yI1MhcYsqUelFSQuBo63IVDRp6rXZ182yuDwXs1r9ZAV1PNTHTwr+PtnckffOctOXUKwIirV/TNq83v5m1VQTYA4W5ycKtqx4zh4ajcMr6emjSDUW5JjrhvWleZXM5R86zteoSxsIbS0u9LXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=BFXUvnb1; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1789488176; c=relaxed/simple;
+	bh=9UwYC4oAOD0QyUOBHTahfXva8dPMW5L+Y0G4I2GbhK8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AVPo6u1xuDV+0Poh1s0pBeJ/sSZTfPvmf4C5mF/1sPsNNINF2KgLm9G8QysB5NqetH3pL/t/s+6/j9Ei7CFjgvJiTDBwPsLYFOad/Q9bAcYj/ZlYx+hFo5/6NjxL0sz5X24NhPdtYlXppnTkfCsVWpuip7Q5se41VXU7G83uWb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lunoOwBz; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="BFXUvnb1"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c293c683202so502089466b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:02:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lunoOwBz"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-785692e5a3aso256757137.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:02:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1789488168; x=1790092968; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cj8iWYGkmy9fr6Sp+MjBMi0cvssqzarl8Tgut8FUMEc=;
-        b=BFXUvnb1JnJx+yuqE+j5wfSl2ZM8MiW4xh1e5xG66mN4x4NUif6uaoe3Ufy/2FTMhP
-         08Snb5/KOn2uSnVgBzlCVZuYFyrrS5hk3U5SooA8DWoGumB2s8a20cGbW4GErVK8aVmh
-         vQH4rhSbo67FBZvj0mY4M1GfjAlLgVbCm92cM=
+        d=gmail.com; s=20251104; t=1789488172; x=1790092972; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G2OyX4TBZ7Y1HQ2aZjbOcGyMSBVmU4uZJiE97DYV0Rw=;
+        b=lunoOwBzgY2LcIWA3JpVQLZ49XKm3odL0hFDJ454Iqf3vnGbCOgklpIeTl4gJvPjel
+         OJzx0Kk6CfE5Z6SplGUXnrDngkDgHjgpeJw+CPTIcdNzZCmYxdPM+HKp+LmRbG02M8C8
+         zXJVMtRHed50mwAZjOL4qWbk/CImNvCqZcf4QBVapV8uXdi44JOtS+reZyOXu4BS3i+L
+         CdhAOgQ5JNEr7xFc2u5AwVhjC4rfPfUU01sVCUr5qBGrotTX6SvxijmxOiQdKUkRytTw
+         qlWXq+z2S2Jb+P7ajktbOCUTnWG2Z3RMuL+q5rkz70o3HZUExw7t6tEpuTVILALjG0UD
+         2Aog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789488168; x=1790092968;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cj8iWYGkmy9fr6Sp+MjBMi0cvssqzarl8Tgut8FUMEc=;
-        b=BP8+JbQ+wp3qmguUHwBiYW2Cx/fa7W5HcWrmcCODaQqbrgB6cOgMudBi1MvkzLmkTp
-         rRA1kkWq8vytqZhyif8ZPSSJ+4xvvrN2e+gChwQ8wAKiEdIWS9nQWhr/89f7CLHas+5G
-         pXY4+xLENYP6MO0PCoAyUYi5Bl5ObgvvfT0gXheVLh11FnfHmghTFU6ogBzHEmMk7vVm
-         orE8VFGKACd6zlm2NJAADKT2th3gVz0QfPRuRLzKIk3FwZ1txnLq2lOhlvx2pWtZTC0C
-         jkRSyRYkChbehRKMUTyUY9YPkeLYKYCwEXM6AY7rtsnz7l4n/iHtLsLAtHLQMTK4+yuT
-         ikhg==
-X-Forwarded-Encrypted: i=1; AKwUvBxW4V3Jt4S2oKIc4k/VmCLXgI2efd+armmBZP5s8GA7Mdmc6DiKNKEgcM/bgJunrd0+QTo9twRfFuPrl5o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbSn2tSfwGbVrzcTCxRLxWTd6QfnYRJp3kj5RWwnnYk4A0KWJH
-	siRJhtKUUyZJFWTzjgkf1vcn3P8WJu3DjDDyIOFmkG+e8CfCufC7yv8tCm6gCQNGb3okweQKRkj
-	F2KPLBD0=
-X-Gm-Gg: AYBFou1jIPT/hf+P01Fdtf3PwqV0EcIQkc6chie4NxEbS4FcKyqq+8z3c2pzYF3VtgA
-	QvG5tltlHBBpsGOoWVGEk+NDSOnH/+uH96lLtaQZ4obfvNq345ML5ak9gwaF0602Xst6UdsdOWb
-	JAokxUyhXI4JwhTd2BNgCWcNmMn5nLi1pmlQ8wEjfZOgA06nioazAETqoLRsCm+sdKDSJmTTtlO
-	GjqnKdfCM4Qgolpl9fKA91Zz3q0ZIo5+2NyCv7oGCSr9PFUWPR+dJZY9qwOklRgToY7vmpVPaIi
-	9REoD2ZCTsGQZ1BMsJUMD/FcnTLFOTYABddKD7z8FOhLw/oNYieq7mhJb4m5UUlvkSNmR65amB8
-	2DhUUYKUPjulD4gTq2aBDbc93pSyvTCRWQlLHTSo1S3meIWOm1zKTfiLfjQbXg9I/VbV64kNGT3
-	M8Yw2bxijMzX4n5dzkjNzS4XgGHJiQTdpX1xrwVHkPHi8OW+QLckLlUZelR7rkBLjj0KZxTeFVa
-	AIsF7qFhB2+UWyIEvqwqN8rrQ41qbOt3fuLeBRrlH6JPJh/
-X-Received: by 2002:a17:907:cd0d:b0:c29:439b:d5c1 with SMTP id a640c23a62f3a-c29b86141b9mr553593966b.16.1789488168354;
-        Tue, 15 Sep 2026 09:02:48 -0700 (PDT)
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com. [74.125.228.76])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29c6816618sm172445566b.63.2026.09.15.09.02.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 09:02:48 -0700 (PDT)
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a98604f6b4so5106352a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:02:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxONQTPIuCxtWKeM1vMYr5c+DJbtO5M+86y1eGmE2zW5fXg66gCvXenhE2xrvbZ4uah6TtCNloxZu9+jPo=@vger.kernel.org
-X-Received: by 2002:a17:907:cd0d:b0:c29:439b:d5c1 with SMTP id
- a640c23a62f3a-c29b86141b9mr553591866b.16.1789488168046; Tue, 15 Sep 2026
- 09:02:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789488172; x=1790092972;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G2OyX4TBZ7Y1HQ2aZjbOcGyMSBVmU4uZJiE97DYV0Rw=;
+        b=2sj1g5SP5PZTqkijc6tShhwaQ+zCG4xcssKFRIKFXo1mVzKYgtqYymiSel1u1N+NPT
+         AtHcoZFXWwBQr141JnfDypXHpbFs5dAPf50ma/OxBN2d2OhPdjO+5UVpXrTAXDrP9o5m
+         4rQ4tE0nRNNquUVSl9P6JE3U845UGZJ5nsBs52c8R5Z9t56iG4ZiNEis2Ek8V/1sf4gb
+         RYwgOwdPg4JEHAAl6+IQAyDzW7HKrOkHqNQkWMj6g2s5HU7Wo0nL1/Xpclx8KKK1DmKM
+         B0VShtm0tKrQ7V+QK4Z1kgExbDSizsrwqWclCh3nxP11d7m/V1gnL9+2P90aT93KhGNA
+         6HBA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/kkHD79Mdl77mdkdN+aOAXi04X2u2pvRg0voixLdvBOZRraq8R+ilknJJ/CmNarLPMqQ3iBWp2oGwup0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxfEF/yXgamGeMwKPGvlzdzhxa9GmNve93mlO5N4fdZHfanOdE
+	9bATEsbKJi/Uv7VNNCF2RShyS9uuJyXTLkFEAkinlnRxI9ghcpYJs5uqO9FeFyHiIj0=
+X-Gm-Gg: AYBFou1HfJ+QufDGrkq2cj2DH/axGS2CSj/Onajt2yRl66FFV3UCva9lfK2CNI5A0I+
+	+X4VZqARUt8km3XJlZ2gMCFddC8ZVykf9J8Rjrmykuqvi0AdaYrE9MMcNWgjOj6SXDQ3Ga1l7w3
+	BgaH8s2drgMuMbHZ+327Uu7yHfNl/zMy5BIlq0QjTcOgc6u8cC0yHZtOCsLPFpYNy9XL+zcm78y
+	oALDyTJRqEfTUgElzgqpQ30ZCqo1USRufYpYLJhhvy9qKTRxlwtYs8hJXrIVeaPrWRrYdJm338w
+	FU3RRDj68agw2rEIFRgSXZE6r10EJoMd4TEnCaN2T5iaEgOyxGS9MUj96xgB1L8Cap10fFAGSJ/
+	kBjCU9a56FLA4fgvpXChlzFAVbcHdari6I+TF9lJAS7R6nAQ3CjrNjIEublKCQm9dUJWWB7C3eA
+	TcGS0jXEhavSNLpsPa0KJRYaznGpW/EQaoadEJejaMN7g2w5aTszGOVbMakkGOLdmr
+X-Received: by 2002:a05:6102:38c6:b0:79e:373e:8216 with SMTP id ada2fe7eead31-79ecdbfe5f3mr3192373137.0.1789488171648;
+        Tue, 15 Sep 2026 09:02:51 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-79fb193e849sm78576137.8.2026.09.15.09.02.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 09:02:51 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH] Bluetooth: L2CAP: validate frame length before control and FCS access
+Date: Tue, 15 Sep 2026 13:02:39 -0300
+Message-ID: <20260915160239.3106697-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
-In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 15 Sep 2026 09:02:31 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wjeamU=_RYT9cR3dZJ2N-Teo-N1+aYh7jwhrB=iWXD0cg@mail.gmail.com>
-X-Gm-Features: AcwNN1WK06t9f9BcKFBIanysXcyUXK4eRICuH4x14s60AdlpF6ijCATIYaYAAvQ
-Message-ID: <CAHk-=wjeamU=_RYT9cR3dZJ2N-Teo-N1+aYh7jwhrB=iWXD0cg@mail.gmail.com>
-Subject: Re: [PATCH RFC POC 00/50] file: handle files on syscall exit
-To: Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, Jan Kara <jack@suse.cz>, 
-	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Oleg Nesterov <oleg@redhat.com>, linux-alpha@vger.kernel.org, 
-	linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
-	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
-	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-um@lists.infradead.org, Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, 
-	netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, bpf@vger.kernel.org, 
-	David Airlie <airlied@redhat.com>, virtualization@lists.linux.dev, kvm@vger.kernel.org, 
-	kexec@lists.infradead.org, linux-hyperv@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 15 Sept 2026 at 04:31, Christian Brauner <brauner@kernel.org> wrote:
->
-> TL;DR, this lets arch code handle fd install and cleanup. fd_prepare()
-> allocates a descriptor like get_unused_fd_flags() does and records it in
-> a slot on the task. fd_stage() attaches the file to that slot and
-> returns the number.
+l2cap_data_rcv() unpacks either a two-byte or four-byte control field
+without first ensuring that it is present. A short ERTM or streaming-mode
+frame can therefore cause an out-of-bounds read.
 
-Honestly, I am *not* a fan. At all.
+There is a second short-frame case when CRC16 is enabled. After the
+control field is pulled, l2cap_check_fcs() subtracts two from skb->len
+without checking it. If fewer than two bytes remain, the subtraction
+wraps; skb_trim() leaves the buffer unchanged and the subsequent FCS
+load reads past the logical end of the frame.
 
-I think this adds complexity rather than removing it.
+Validate that the frame contains both its control field and, when
+enabled, its FCS before either field is accessed.
 
-The diffstat tells a story:
+Fixes: 1c2acffb76d4 ("Bluetooth: Add initial support for ERTM packets transfers")
+Fixes: fcc203c30d72 ("Bluetooth: Add support for FCS option to L2CAP")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+ net/bluetooth/l2cap_core.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
->  106 files changed, 962 insertions(+), 861 deletions(-)
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 1156aba4e..40ebabe34 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -6683,9 +6683,17 @@ static int l2cap_stream_rx(struct l2cap_chan *chan, struct l2cap_ctrl *control,
+ static int l2cap_data_rcv(struct l2cap_chan *chan, struct sk_buff *skb)
+ {
+ 	struct l2cap_ctrl *control = &bt_cb(skb)->l2cap;
+-	u16 len;
++	u16 len, min_len;
+ 	u8 event;
+ 
++	min_len = test_bit(FLAG_EXT_CTRL, &chan->flags) ?
++		  L2CAP_EXT_CTRL_SIZE : L2CAP_ENH_CTRL_SIZE;
++	if (chan->fcs == L2CAP_FCS_CRC16)
++		min_len += L2CAP_FCS_SIZE;
++
++	if (skb->len < min_len)
++		goto drop;
++
+ 	__unpack_control(chan, skb);
+ 
+ 	len = skb->len;
+-- 
+2.43.0
 
-in how this adds a hundred lines more than it deletes.
-
-But to make things worse, it adds them in bad places: low-level
-architecture assembly code.
-
-Those extra lines are *not* making complicated code simpler. Quite the
-reverse. They are taking fairly straightforward "just deal with errors
-with normal cleanup in the place where it makes sense" and makes the
-*straightforward* case simpler, while making the big picture more
-complicated and subtle, and adding new code to places that are not
-simple and just blindly do somethign that makes no sense in that
-context.
-
-IOW: it's more code, and it's more abstraction, and it DOES NOT HELP.
-
-And yes, most of the well-maintained modern platforms (read: x86 and
-arm64) use the generic infrastructure and they don't show that
-low-level asm effect. So for those cases, it's mainly just  that added
-conceptual complexity and a new odd rule - and makes a *successful*
-system call go through that "extra work" and indirection phase that it
-didn't use to go through.
-
-So it just spreads out the work, and moves it to a less obvious place.
-
-All for the very questionable advantage that you can now randomly add
-a file descriptor without the few lines of fairly straightforward
-rollback.
-
-IOW, I do not see a single real upside to this, and I see immediate
-downsides to it, and a more abstract complicated machinery.
-
-I do *not* see why we woudl want to make this be a "every system call
-exit" kind of thing. If there are places that think it's complicated
-to do, they could have *their* local little stack of fd's pending. Why
-force it onto the low-level system call entry for every system call
-when there are only a small handful of actual real cases (the vfs
-itself, and random ioctl's by odd driver subsystems).
-
-              Linus
