@@ -1,26 +1,26 @@
-Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021107.outbound.protection.outlook.com [40.107.51.107])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020077.outbound.protection.outlook.com [52.101.225.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892182EEE62;
-	Tue, 15 Sep 2026 09:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61515476CF3;
+	Tue, 15 Sep 2026 09:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.77
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789463399; cv=fail; b=cpcXI/yuB862lUh5biRbp6/dX025+CyfAlW+OZr0ZjahCXuQ3Vte+X6AxQ0+CMjQ62JRpJop/ZARYgno9EjV22qvtolbT80mgDolbkW+5Yj5ZwZFqqELc8oYw4sALJH7lQNG4vMHZDaX8xkbs2uX0wWhMTlUx4pkqez/KSliZis=
+	t=1789463402; cv=fail; b=HUm5TZEfTt7Jk8wQf980D6OltYLKclLGLf7Lxczd1n7tHSaV8DAH2I/gdirJQwpRN6/9cxl93B28NaSMu0tqKggta7lRFYgZ1GewWihwYVelrzBE1tWLiHLpMJwC99KH4QLGjXG7iFv1mkaKVuYRpW3D5um4W5tSDVzQIsY5kfg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789463399; c=relaxed/simple;
-	bh=TZ3MfEf1esGaGE6ubEzrdtrlIa7AWJbbCJza721UFb0=;
+	s=arc-20240116; t=1789463402; c=relaxed/simple;
+	bh=NuvyL5SyLx2PHm0xBRl0y3nWYaRcw3gXmyJQPovShTM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Tcnr0QdSR9HA++5tUtD3JyxPHdNL7bgiUuze+sU8zsKnE7egMRnCEgm036jusSE5TYcHzEhklu+h1EGo9gkYuWIZZQbnRhoRuqlC3DxPnOhH7YZtTq6zGQ82LtF228xjzgUxwgyq2C7uhEtzRClb/u5DFueFGwHQBn0SeKeBpeI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=40.107.51.107
+	 Content-Type:MIME-Version; b=H6zj0j7iquGNuhLyMM+k6Hv1BHmgnjuaPh358+YmmT0f2WqEOPj2qpqUurHmQQMb8/qmuGGF5dUBgArdqZfmkfxFN/+Z4CVNFzd4HCOOmP0Uxzoc8UGXQGTKmO7ekZ3DsDxlDLYCdAafyLSFRwnozHVPMzzvpLKghhBUku1Mv3M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.77
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wqIds8r8Easeowluxrp31ej0VDDNG+Y0t6YbIPHhIJ5tjmZlNDBaQK43bLfenbqRbJTdtlB2tYZOnslA+mqfH90FI4OE6dbAjOk8s/CpvDH1VNR2iFk1xcXQ6tvoLi+gPXxV2hsNpiDgM3aQtTaTF7WDdoqJma814hYYp/rlKDboisCZEbz6xxTe7nZ/xI1sfLlB43G8+wZHPKdUZsv3W6NKGw5ZCg/4PM4O/CYTycT6zX82Pjvgd25jZHOehjAT+ITMP6PhxTyKLyvkRWeJ4F9AfdZbcQwh7Ef428mH+bbJhyJPErmK8U+ip8TfjaZIaOFT46rNGddr3KF4YydemA==
+ b=X5w/Tv8DxeUOK0CDUiNMUaAFN1n3/F6K5V+Vrw0+UKKpaYG4rbP8ZI3s4JTliLDq/u16CXBIr1WZ++LFhWMQS378pEb1ZGDhfR6rDiyBmb5a1hKPHWzNnUbtY5mlaummk0q6zgQEIVxzZo577nMzeL+1b8NYQs7BRfQvfyQwImQMC++YVdSoWwoScrwP5I0pOwgCaCtUv98b+77FccmnDP2F523O/ayvDJFQ4C0XgJrrOD8JRdHexrV1+ESNlzE3R51Si0m20SpNryF1nexbHMccYZ/892O2186wVCCUBednm91yLwoVC7EnRDDJic3n2/XoMfztYS1CCUV3Q4BFJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TZ3MfEf1esGaGE6ubEzrdtrlIa7AWJbbCJza721UFb0=;
- b=Wbn1pvxPrOpLoEcFtqROJgUUN15fxingz2vw1vTedIiUSVDWn90DmcD76VbjAM7Q/7EUS2x5XeSRZ5vEbAF8QBTGpGgYFHEt6lCCitxGGNn5xwB37o/KGh0Iltu31URK3t/AAOSNsCoInx8kqlbnk2z5tIJUGdzz1heMbMOeIOKv6cv9ogE1wyDm/y+lTdO8hqfsR4n/5JJFSo96iXa0b+X9wNk4xwB4OtF0SKWP7tkZVxVRnVWa5gZFudnChW+DkVIZW0FZUSeAhOtfYNtFazI7+A5WzCbrX+roqkGxIAy7O2dt1oOyaVbpZg+96etznskGuUEdiEaBdyNnryQNVg==
+ bh=NuvyL5SyLx2PHm0xBRl0y3nWYaRcw3gXmyJQPovShTM=;
+ b=xOerf6VThQV1+r7e8Pcq4E1RrTTWqmhPrG/QMmOq0DpzPycfSaQywMKU7fWaM2xU9DYcm5NqCSQWyHpOgxzF8aUd2rMbYX81SkEnTmm6eLtakLuNKPrd+ptPqmpjmI7HRHrKVsCjPxwTrRX8G/TiLKeCkq84Ux6Wcs9XP9z2w8n5JSOTh3VIsKKJtHCeNfU3T4Q5+l3AldZHnObBSH9q+H4oZBO5f0FQug2elwxJlLPZGykR5pilPio34TA/+HODwxAxnAMui9wvbPbZjFVyT8RkAd/J5PqsBflIkp62DD0F9Y0qpVaLkNQaKKyDz3CVZNAGVQRYtMeN/ieXcLj9CA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
  header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
@@ -30,11 +30,11 @@ Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
  by MAUP287MB5156.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:1c2::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Tue, 15 Sep
- 2026 09:09:54 +0000
+ 2026 09:09:56 +0000
 Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0406.012; Tue, 15 Sep 2026
- 09:09:54 +0000
+ 09:09:56 +0000
 From: Hitesh Patel <hitesh@ebytelogic.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Cc: Hitesh Patel <hitesh@ebytelogic.com>,
@@ -45,12 +45,12 @@ Cc: Hitesh Patel <hitesh@ebytelogic.com>,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	ravi@ebytelogic.com
-Subject: Re: [PATCH 5/8] media: qcom: camss: vfe: only reset the VFE when its last line stops
-Date: Tue, 15 Sep 2026 14:38:41 +0530
-Message-ID: <20260915090929.1284112-5-hitesh@ebytelogic.com>
+Subject: Re: [PATCH 6/8] media: qcom: camss: refcount streaming on the shared CSIPHY and CSID
+Date: Tue, 15 Sep 2026 14:38:42 +0530
+Message-ID: <20260915090929.1284112-6-hitesh@ebytelogic.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <01fd3d46-2588-4d54-a131-ffe8d16e5dc1@linaro.org>
-References: <20260914133416.1030231-1-hitesh@ebytelogic.com> <20260914133416.1030231-6-hitesh@ebytelogic.com> <01fd3d46-2588-4d54-a131-ffe8d16e5dc1@linaro.org>
+In-Reply-To: <f9c2a736-d7db-4d7f-9fb3-d8cd77d45c0a@linaro.org>
+References: <20260914133416.1030231-1-hitesh@ebytelogic.com> <20260914133416.1030231-7-hitesh@ebytelogic.com> <f9c2a736-d7db-4d7f-9fb3-d8cd77d45c0a@linaro.org>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: PNYP287CA0086.INDP287.PROD.OUTLOOK.COM
@@ -64,79 +64,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MAUP287MB5156:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb887ff7-4797-459f-b0d5-08df13091b11
+X-MS-Office365-Filtering-Correlation-Id: 99621dbb-debf-4788-afb7-08df13091c45
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|52116014|23010399003|1800799024|376014|10067099003|4143699003|6133799003|18002099003|22082099003|56012099006;
+	BCL:0;ARA:13230040|10070799003|366016|52116014|23010399003|1800799024|376014|10067099003|4143699003|18002099003|22082099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	19CFjH0NffjwreflSeN9yzVa+oIJnEPVUSBDTs5dDwv91PYoZUjnSs7gIFAlhCc/h5HdKOGGygTlbTabtIkjjxHXQIhIE/vzNItFDOJPR+047PN6AGCyxCJ6f2N0J8UhUBNtmPntQZ04rC1WejfP/J9hzrcnkhKnIWD7ecIyzA+hGHywMnWH1Um4uEHzLLKQhfKEfy17IyNNF4KMSvzGAW/nXTY917PGXNZVvlUv+B1ZiRj8S4wt18nLB2+yX8u/PvuHpg+1esiQAqveVEICWVutze0XTih+CryVOY7z/geTBJF/WmKHvzphN1xf53TwpwynqxcPiFVPRU3k/2LWUNWQzDKUuiDVTpjfM6zzAeGiBuLS62pl/70NaOa/91vhUUIfsPYiuoOgSf7eiL7cSl2cOCsn3VB31hMo1UBEoFXxoGOGPLG4u7DbwQKqKFqd42/9UsC+lcaFHIdiS5hghoncePnCDnb0NyDJtWlu0YaUS5qshTRza3z7ZrhzQRpKfbZbkPxJbx5vzPN1bRS/nTTQBCbGdrFdx499mGTGlfBE8CkUYJ9215U/O2x0e5VMDRGUh5lJZ1hcWNC2qWDwhEU6dcOqaMHjZ8RCIFvudCMxxpKpTbiNh4ASjlXabXdMTIeaqHAjZP/Qjo7Yh3kt5I8Wg1Gfrm3BHavBSnd4hwY=
+	oDSDnd5ohuK3UaZmtqO0j1jI+lu7ht+aPnu6XJPSjbxKfMZIHyP+JQ/3Pof8GvUEootkMsjHBD27+SEUD5Moj62m1EAlhfk1gJAtr4Rm3gp8Lvg7RWRReeE9JKizNH3x+3Rpnlq+6+Irg2yCdPHfT7XV+U+FYrN6fTsmu0p49aU7y1lE2BkH6eygI+CdKx/cDYqwKCCapfAHH4K+T15j1iiD4A0Z0W1eHD27WysVzcsOLSVAWdBBHvSfPRGJZvczVrjfS2BjaKGI2H5LI2zQnT/jKMt+hN7Ji1/5VcBj/jPuTwdwHVgyREa9RhklzBjr406os+iChXCAjFFApeXZrjuozMa7+0hDxcxFPkzctIWiXAIOsOXX3/KZcftADfPoQnhOEX4ImdG/Xm+2UCtdMe24dzYhWN5v67eeCpSEtEIBwd48fgDVfxswszoZUqiZ+6g0lVVzFnncvg/gcNQxkR6s6KW3WGZxfdF188P7Os07FoOkBy6gZpea+jckwDEz+eUwudaOYmSCW+0hDOF0vrkbplX0LEv2V6n6su2mKvvcxXq8CtzoxcIn4nmchUBNWzoWNGsNFvXO1g2OTmMXdx3FWF5S4dduAH2bqK0njfOjZDOuRfAG9eWTJ8Xv5qcSo4MBMved6ueyQSvA4QuRug==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(52116014)(23010399003)(1800799024)(376014)(10067099003)(4143699003)(6133799003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(52116014)(23010399003)(1800799024)(376014)(10067099003)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cF7qiZ+kV7jeR00WYuRKlJ82fNUct1PHo4IqTrhT9kfw+JD9xfeETt3u/tK9?=
- =?us-ascii?Q?RlE200Q+KdU/KbQ5O6U1uK6e0x7VdpNZoy3tjkc6hn6gD4J72vwxepUPtprE?=
- =?us-ascii?Q?z/maSSCTbw0ic7gSJf2xePbHe27cBUcrLAzEL/H5Vy5zefHVmxnPE3UBM9Yx?=
- =?us-ascii?Q?XKWk1BqnwtYLVgqw8lLElWPyjqB28jE4juR0YGzQ8CWrqJwACIvtrzx/Ar/V?=
- =?us-ascii?Q?iNB5RxblRf/ByxJg0xS9OckxETt3h7l1YGc1vWj2tz8s+bVMykIIXN7TmXvv?=
- =?us-ascii?Q?kEmYN+MTE5zMF1GeTucQvn4WZVs29CTYV73YOyjtWrBvdbTMDJgQM/h/+dpX?=
- =?us-ascii?Q?fTbPBiFeiAXTmvl81vYXti4SfKqX/6AgbZbTkrmGU5bbu1x6PD5zVtFOhTgs?=
- =?us-ascii?Q?T/DrmOxg42VEHKgXje5MUx8XGbIomDFAko71RvVs6mCnDRL5wg3kZqYryaD0?=
- =?us-ascii?Q?gzTAxGGbMCVeBX/jY5dIH0lpVBWoYmdDt/Fp67KANQlbm3iK852M8SwrOigj?=
- =?us-ascii?Q?VVAhqQRVIcPoblphFsPVcc6g6ECL72nHR5xCbqYYJPurGVUnPBP8Gpb80scY?=
- =?us-ascii?Q?L2bWqJU627MuZlHVcYOtfk4g/hcQ5cEj397b13Rtfa+BvSaRJJlUb50H+lgp?=
- =?us-ascii?Q?TWFdi17LFA3o/mvEuA0OBqRxTIWfEG+VNuhXCjGIJirQ2qEHj0n313dgSIxP?=
- =?us-ascii?Q?zxS8t1xm0Rad1ERB8SxQisQF+T0m3Tx3+eoUIhdw5EKxtZ5y30/mRf0xBUHX?=
- =?us-ascii?Q?BcL+BBAGYD8FDkyMixWIzIVpUUFosteozOB6pcTl3ww8A41PY81goPJjsz6w?=
- =?us-ascii?Q?go+iHwwh9ILlSwkq+mLHHCcETfrRWg0uakZARSGJsqmG7cUSn+7yFsxyLq0G?=
- =?us-ascii?Q?7fHBz7H7aCFFDe4tjIgc+xW8x+RsaWz1qRJyEZzgTnNArfNDqJkuAa3gFnsP?=
- =?us-ascii?Q?bx6MQNH3vfaIoceYyb6Gvua6OMhU5KJOwHTULt30xxS0oNCEihEB0dhLcJzW?=
- =?us-ascii?Q?TGQdHO9amDE848bVieq6XQBUD7Q+CJ1PKkjvOYrtgKfG3xHcyFm0+Cf/B2BX?=
- =?us-ascii?Q?G37ntWcqm8jRidGfL0X4bGHMCkuoM519U9hYchp3jLd40uxbS08Od51Z0SGV?=
- =?us-ascii?Q?cDg92dqFjOBbw7qWW5Mc7SHUHA+oPdhvpdg1ywqU0uz/rTgZv/WBSopTuS9k?=
- =?us-ascii?Q?0jD1utKEfvZYU9BbsiUUbjWrpWbtsVaGvymflgq+Hogp7D36c0pRrLZR1L2K?=
- =?us-ascii?Q?UCzsu6irL+mXST9nb4pJ98vrrxPiWIVpVoxOXDVx9mmXzIURmF79hTpE7Izp?=
- =?us-ascii?Q?R0nlVotb+xC5YlEgg/31ISNPt9PZHxN0FSme+7okko88U/0fy+V36iuafJu8?=
- =?us-ascii?Q?rrAkL7AhqvhzoqEcJYdZUrHErSGkdI415fzJbqlCpwKpg5zNeH511/Cs7Fme?=
- =?us-ascii?Q?Ms/F/zsrRKQzeN4SsPLt/WWaMMrL6oDZPIxRDTL21X5Z13LgHQGr95XgDEA7?=
- =?us-ascii?Q?OnKtoXpUy6zBwrn44Od6KdxoUVuIPS1AQ+5AwYIQmdkraMdzolqSZXQUZj3l?=
- =?us-ascii?Q?+IJ+6YS+wqRQjezu2HdKg3V75RgvAY+AdBkXicSu8jM+UH/4g8nUPYbbsXrJ?=
- =?us-ascii?Q?wLHTogeiy35+YFqKHpoM8xplaSlmqi8s0OeZ6PL/DAtyR6wayNpD8hFfja6d?=
- =?us-ascii?Q?7n2Vm0ABXGTdxHRqVsZDmjzogOxDCuYuKIBHWJegp6MJwxwfwQiv03LPIupw?=
- =?us-ascii?Q?x8Q3fwOe9nwvvD7EsEuJvYfYZCX59C6I+CZlD6WKMGhQI0pvCoSTgNg9abh+?=
-X-MS-Exchange-AntiSpam-MessageData-1: xFZu0NRyJ6ting==
+	=?us-ascii?Q?CWfrXRRWkCtmlkEIaL9SZEHS/Pj074yhwXROKzRFeEoMyChItzXhdtGLTi/B?=
+ =?us-ascii?Q?2YpE4aaeYe5i24PrL/thtONidYtQU5AKCG2vOhQW1ATfEqard8UThh4cQ5DR?=
+ =?us-ascii?Q?GqPfOaFLnY2PesXT8o8F6usJHbBBoP2Bfkokmam+/9lYPsr1eeZ17w6vgUBB?=
+ =?us-ascii?Q?W6AWV3J7k5nBaUgr262jtOzAzvfozYqMr0nlXIP2cv1bOGW9LNPRv7dfqJHq?=
+ =?us-ascii?Q?GQkQ2b8AtruExUFpLypg97GvXqUmftVnd/AnhedY6HW1kAgeVhnTW+KKI2G2?=
+ =?us-ascii?Q?HlxqjW1N4DoDmgGC7NPW4+vIPJ6hNcnL8tS8QEmKrMzRgMv4o4TaTfbMYE6E?=
+ =?us-ascii?Q?uKFY7N1SyQzrYstKQVvaWS5/GvMJOFqaNdv25VeEcDhB5cEVt77JsG087DHS?=
+ =?us-ascii?Q?0OAEeOzHB/PxRnEWy+5zIYw8pM4o+m1mtyo+eo7fzIWSgacxMFtmBOlsnLV3?=
+ =?us-ascii?Q?3mjDi7kxMNmVHdK/Qn9uLKUwB03ryqRA80FfadspsC+Y/i5YqKcvvIC/e0th?=
+ =?us-ascii?Q?5r9TeHFPgD9/CqVk5aOFZxPQP3CYwQJcEv4XpCoQK28cBN6ohLOcyM9z/7Bc?=
+ =?us-ascii?Q?q156SzV9HCY80HOk1ActYilGp+c9Hk6+Fdo/6HxpY78i/2LLB7tOvpEgiyEP?=
+ =?us-ascii?Q?5ABFmpseple2yKRhnHD3Vyx5lrC2MwErApWVW3haEFy3d94PZqqkXqeufl8+?=
+ =?us-ascii?Q?+6nHb/PmkfKr4eTPZNbnrWpKxP41BuyLC6QNDun2uUrcw0OGzM90CV0p25OY?=
+ =?us-ascii?Q?tnP2j63SN2FYpziHmVBK+NuJdx8/cuwZ1kMAdr9ELeM7+QyXMo44OAN8bh0F?=
+ =?us-ascii?Q?Es2tfTzFg+stvQPny4mH08M6EnRlrqtNk2/hh3UzuDG+yX3/Xj5DUhdpVDW2?=
+ =?us-ascii?Q?knrZT8B+Kh9Jgr203ilh8YpI0jETr8NmJ2qC1s7+dTEILi3jhBXf1iP2qwvL?=
+ =?us-ascii?Q?Bhs8SGT5l5Y4aibj2Hr8ClFVK6xr1w64pB3VOrYam/iVTuBwQBTOiBbydhP6?=
+ =?us-ascii?Q?479DcvwVs7PmN2q55X1t68NyDUtI7If39FmuF3VKdZm/i0+nBK8pFqswExYC?=
+ =?us-ascii?Q?WItnJ3wCF1inyXGji8FLIN9P85N8QicbCs53p0PeT2RWgsyDBfel3J3zP7UB?=
+ =?us-ascii?Q?5pR50e+u1HEG5RYWOZ/bZ8XpVi9YpbwW4Hb8rw5/x5mBPPFVjq0vDJ3pcX9U?=
+ =?us-ascii?Q?ofD1P4stminb01wQPYWLpE5p9oQfHkaycDs+PoSgEN1ZehOT7vWo6D5OfeYJ?=
+ =?us-ascii?Q?GR/VAEXrYPa/PBB1TAAXIlRULRiK1sDHKcJ5tm2C3BFU9bGaUFMS/73uxUe+?=
+ =?us-ascii?Q?K+XBB6SgPuxVH21uT5qdJfUXLUMROfuDVwnwsX7u1iavbBTyAZXRU3SSfOIz?=
+ =?us-ascii?Q?QggzBq19FFyU4BtAHL909vkNnrZheSpVoFQy+FTMZADRvHinbFN2SvkObibL?=
+ =?us-ascii?Q?tdn2kF9R9u4q7W1gY+gCYE9vmYm+je7Hx+QAuenpnREeGrwBo4HqaJ/Jrx2w?=
+ =?us-ascii?Q?Qfxu0qrQaRDKeuvrmvYtP++QXlrgw36erQD5ZddC2bWilDiRI2OHmoU6m0er?=
+ =?us-ascii?Q?Y7EJJH3tR0lhX9FzIJiGicXOg6gl9pIeqeiBgYSivoM3onEC/ZkuRAiSueeq?=
+ =?us-ascii?Q?66CM+TeTAlTZ8I001XfJNXrg+N3YOWS6XuHxKmsT256jJltP9QYGwlUnr26g?=
+ =?us-ascii?Q?7UB2XjnUVCdCIzfhlaMsM3WFhXdfPLZam3wPiWm86/qTY653aNTf3qXR+Hog?=
+ =?us-ascii?Q?baOsAL+Xl3IjW52Et9Zaw8VqJguz3MfuJKHoRDjHMJA1GdRMv/9xgooVVOe0?=
+X-MS-Exchange-AntiSpam-MessageData-1: 64nMbHdgkUlwgg==
 X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb887ff7-4797-459f-b0d5-08df13091b11
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99621dbb-debf-4788-afb7-08df13091c45
 X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 09:09:54.2057
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 09:09:56.2957
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O3sKWBbtghm/mm9S5m28kkfUmhXjARfaHCF9KP4XrFgwOwn4t1LzTSbPKzPeU4UYNXCgHVKB0pvT0831ujAnBQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q5jJuz1W3ZAMTl1/uDod+1jrdmUYCgmGX/yx5EKXixzLpKUzpuZBz4Psmxl5zgTmfzOCMqbZ5PRIU3jJs53XLg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAUP287MB5156
 
-> You can drop references to a particular part - all aggregators would
-> do this.
+> This logic is mad and genuinely hurts my head a bit to read.
 > ...
-> What it ? Define the object instead of assuming the reader knows what
-> is meant by it.
+> I have to say I distrust locking like this and its racy.
 
-Will rewrite: no part names, and the object spelled out (stopping one
-RDI line resets the whole VFE, so the other RDI line still streaming on
-the same VFE loses its write master configuration and its in-flight
-buffers).
+Agreed on both, thanks for the test program. Given Gjorgji's streams API
+series covers the shared CSIPHY/CSID case properly (refcounting the
+shared upstream stream inside the CSID rather than in camss-video), I
+would rather not respin this patch at all: I am going to test his
+series on RB3 Gen2 with our two-camera setup and, if it covers the use
+case, drop patches 6-8 from v2 and work on top of his series instead
+(SC7280 enablement and whatever fixes come out of the testing). See my
+reply on 7/8.
 
-> Other than the rambling commit log - looks like a valid Fix to me.
-> - Fixes tag
-> - Fixes to first
-> - Fix in the patch title name
-
-Will do. The reset-on-every-disable came in with the VFE 170 support:
-
-Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
-
-Thanks,
 Hitesh
