@@ -1,179 +1,250 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5F3368D4A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8153655FA;
+	Tue, 15 Sep 2026 08:06:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459586; cv=none; b=BBdJrdzNTGWXmnqhaC3OZHjmZf0U/Say1R64SZ6oXmF6B8ZlelQg479W86jhsIbWmYoFh+OKabmTIMLMC2CYGs/KfJZkv0feRLwzJOCnQT7y8Iq+anQpN99ZLAXAtkRl88dddcRbV2ZIOhgnFCakAKi1jyorD/oJ7pCT/g4xvlo=
+	t=1789459587; cv=none; b=tjdOFw7LoasiYAqApUaeTVkaF2Zi4EYMl4AKyEK1r3hLZJlEEt2WA/dD+cKDFImOdVR+ZstSlT+TTHv3K4itvqQvEhN2a2dGEFuSb//BfLIkf7RSoZyQyJSk2YL9YcxlDJm13ofyQDsO4aEY8CEGPhkGRFURZYJClQ0S5/4RiXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459586; c=relaxed/simple;
-	bh=w2RqG3qclQ0b3vqrSZ7rQu/ZijuhNd982Z2cxVNhe9s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VQlA/nW65t6CH8IZeghMXItqUnoUT/HkSVCfKO6QGqLQMh6w7lXTkPI1v6keWWzM2Fy/+lVzBR6OorBhhIuMZsy0zeQKuzbWb7YO3EpXY3KS1eMNnvc2qoxUJDaOUwBpH4/GCE5pbe3cbTgEpKcEkE1BgSqhA+cvmzRAcdCzvOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=muRe7bLc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IlEjsoT5; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789459587; c=relaxed/simple;
+	bh=huJlGR1UrTSOSfs2sEbA6FJRf7N+rGl+NuBO9dz2gcQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fdUu0MY0Ynvse8VglgACRZFsFXOa4ioCElEqYgiNDk9ekFfz6VL+GYInWe8dh+amINcMMoNQZcaE7NNI131WrnmfJo98YVSLs9J2lj9eCz6EEHdECCrFRrN5+uzX/0jIHIdfRVQRWYf02vHfLSLO7wBzqu/WOLHW//R2OX2QAbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=FZmF0iWd; arc=none smtp.client-ip=217.70.183.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="muRe7bLc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IlEjsoT5"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6Z7EB2167825
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:06:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vL0BemdtzLl4WTs9lf/Artj78O0whwANYl+37coacXY=; b=muRe7bLcMrjbdwT9
-	bbPfYnO3/3iqq98VbBcfNHh/i3tdzIRAFNv/8x0yL9QWeedaEBp8mvk2aP31dQvO
-	09G37Ud52FQmqZdjiBAuvNFRGrYia/7vkA047P8TJTku/elO6fiByKCV5TDgzQR4
-	iTsGr4855ij0i0haT8X/SuqE2qFaUTKE1HKkGkiDWfv3Bgx3vqUgB/2M9HdykAIy
-	BoYpoZpntL8DbhVPjl/8OdePKZnXhtO0hcUbt7KTDycEOIaoxTi3aqzRoFAcvBx1
-	8o6qoytJ/M+K0dX21vb47ZWXDprKIcv1utO63YtR1yzXRLbTC7meLVn3oDeLHVFx
-	R9J1zw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpx4s90g0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:06:24 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-381250979d5so4751448a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:06:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789459584; x=1790064384; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vL0BemdtzLl4WTs9lf/Artj78O0whwANYl+37coacXY=;
-        b=IlEjsoT5j6a1EXvYhhv7LCCb+7OmmvXJNAfWcs7c9Rn20ujyGgPin90LaBXvSNgVA/
-         OOjQ0nt7WqnsTcxAGc0RiOcL77XiivW8JAw4nsLkr0akwuWJ6rlAQcAc3g4EpG8QaCbv
-         eAtbZQrswrK5UVSfzzsd3i5AR7V3oaq91deu1VsSu77NC8aEeVyi2VbCvDiU5gjj9++f
-         kfq51MUYRg2wwP8MyVw9a5J2MS+MvQy1lzu88Ps3QH+oxRZ5zEfOOeP8viSAdP0LTD9v
-         F7MbLm1hbf3F6d9n8seCZPQPLwwht4QD73d9FpZBBq3D7dloRzpZK/sYNxNtiyvqDABP
-         9epQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789459584; x=1790064384;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vL0BemdtzLl4WTs9lf/Artj78O0whwANYl+37coacXY=;
-        b=LLEJhapsZoNp/WTZE4D8mpx1TWZOuawoZ4Rr+ilUqR+WeTuYZDaStnoPDGJXEVxd2t
-         EEJyFUgFinwZoI/kw1xAPt+GD7gyuXZzvt7DQvFiRTrkftqjfrfd9NS/xRI67eAlsMCj
-         FXa/xEjZ9sSemewwHgHaz3PvSRpstqimBQfuhn5LowQgdGLtEr7HecHIflBddVTsiG+Q
-         Z+2TJEeJSDSgFc74FwIEp9eZUWknbeUKk1r+aQBYq0a9wOWHe1VeifB51Uw0tJyFhEkx
-         4uh/wCcLpyW4oRD5jI3SpxmettITVedZX6lIVaOL6pjPxkG6chnxi93WX7FBtt9Z6UTT
-         aA+w==
-X-Forwarded-Encrypted: i=1; AKwUvBze935EVqPqdIMj1KcNz8NrlTMNfv1Y6xwsoFOWhetiMxT/AACuTt8vHw2AjPk+ysP9MUHHEIoL24njrCI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMjd5/e5edH+FBYicl3gRhdZbDYIrPlEVuAzg+K2/Pt9LH/6bN
-	0zdZJrvuQOOLhiFG0BYloxB88wf8q0+s29ONkBtCOt3HHqkAXA6XEDb7aI8EHQ+usENOPgmFxMi
-	g5EdXyJPWeZnl0iQP/aOn9fDHbEaoXoZLeSilFPGWMe5Kw+f28jMnZ16Hqb9ApJqcit0=
-X-Gm-Gg: AYBFou3r9fcI0YhhEriJP6ZQeA3UqsQ1olm9rRJF/tOtLGGdUkHowsZude5KBHbQY2V
-	n+C2k2HZVDZZu8U/piKuURJHIYBQQjubKcXSWxlTEEeG5SotjRe5PHz86XnP6W4x6wXK1hnXShI
-	eZtHqChlBpIQ4fMTWID4BRm/QkvAmAZKfrro3T8v3VIrEPIVgwaDavlNqXT7MpgGeB6aTBM8Qwc
-	U038deNGi1bgzj3yoeDF0XHrjgiyeNRAen7dXVz/p3U52NhQY2hvAyiymUyZCITYpQgdYerKFRb
-	BeMaqg8zeQB+1889nPNsLjNcsWR/CCGv48E1HzI1viFFJtEegma+s80u0Qc2r/TBKtUQrtsvlNo
-	PBhrc4Pl1s4/la/BTdjGi9MgbcNM=
-X-Received: by 2002:a17:90b:4407:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-39debff3508mr11708464a91.10.1789459584252;
-        Tue, 15 Sep 2026 01:06:24 -0700 (PDT)
-X-Received: by 2002:a17:90b:4407:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-39debff3508mr11708373a91.10.1789459583685;
-        Tue, 15 Sep 2026 01:06:23 -0700 (PDT)
-Received: from [10.217.217.79] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fa50efsm36397549eec.28.2026.09.15.01.06.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 01:06:23 -0700 (PDT)
-Message-ID: <e239269c-89cc-4465-99f9-3257b213b35d@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 13:36:14 +0530
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="FZmF0iWd"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 12A003EDB9;
+	Tue, 15 Sep 2026 08:06:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1789459577;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PQOlmpJvNxnVNPdsPSoEc1kTm76NavIIw7R+fCDLpuc=;
+	b=FZmF0iWdFbz93h6n6HP5I8oXXVAAtrowhc/UZWwxgGbR8Qp49F7QZ8sPl0zEstv8ykluvy
+	9znEwO5mPF0gj1TQN845kA/EwuZJ7nawjgSrGU0pAKRIvMvltg8fnhOtMcTJD/J1Nu/GaZ
+	QBhcRv3Lb1EsIWCty49UfeVpYZcftgnVTLyxe5t43btMnVRXpMDjXrBNKADjkZFGP1xIGj
+	k4wQ8ktnlhwehQyo2sZTSSTD8RO0m60sYHTX0IKC0lB6yo/7e9uXMQp9auIK9UAUFhmbhi
+	j5puTIC0n3Zd4rbJc+lw8l1MI4uis4R077uyq9YbPO7hpIq5NxabcjVLSVACHw==
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+Date: Tue, 15 Sep 2026 10:06:02 +0200
+Subject: [PATCH net-next v8 1/3] dt-bindings: net: wiznet,w5100: convert to
+ DT schema
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 23/52] clk: qcom: gcc-sc7280: Tie the CX power domain
- to controller
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Ajit Pandey <quic_ajipan@quicinc.com>,
-        Konrad Dybcio
- <konradybcio@kernel.org>,
-        Imran Shaik <quic_imrashai@quicinc.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Tengfei Fan <tengfei.fan@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
- <20260914-qcom-tie-cx-to-gcc-v4-23-9d5a606ada33@oss.qualcomm.com>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <20260914-qcom-tie-cx-to-gcc-v4-23-9d5a606ada33@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDExNSBTYWx0ZWRfXz/3ShO0OOxv4
- sH9VmnQKMo9Cgql/9uI0ZWOg4dimIc43OVLUB11g1o2IIBCrdRViVkW/0OS1LPFfioeRNvF/7ye
- 35INVWyqrhgpIXrKTy4gXuNrySZVxSc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDExNSBTYWx0ZWRfX8YZvDqSURCNN
- cwZpbzGcZc0QHTpL8XLnJoTo+jkzO+FJqZIYYXicWBmA5HkTwBkj0W2If0AUzZ5ds6hu61xfVqi
- 9UzIfaQct4wkrcUUThFeGnszAVkweF34Z/3TG9JhMfT83QWE4DgeEwH9hHBLiwTR2t7rymHpmKv
- T0s1VcOuDLtedy3wIKmmRobJ2OVIqShkMN0GOY0jPwLp1nWnLsQc6VaaObcesxNcvSjmY5MfhOF
- K5q/yJPAlN8m8kWd7W8fApjyePYg9D+QWL+7SvlNCVDOjr3YWDSkeruP6Q59/xlfLwuk1Ir0jC9
- p6QSwUNDHRPixCBF9o4Pkd3hLdrfPxOSXfd9XYwr+Q7UmD6dDRPcEfCnpe6Fk7KAOEW8pfQyR5c
- NQPTn9f8pjEzTX4vArTcZaDMGJ4LuZygvq5dMhNh8CsjbDzFgr9u58+rDiUb5yFQzgZqjLad5md
- HYeSYsHQurLKQA3L4+g==
-X-Authority-Analysis: v=2.4 cv=HsDjiETS c=1 sm=1 tr=0 ts=6aa8fc80 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=8AEooqP_IvclZvvwVwIA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: N-NQD87y-30Frcsrt-ef271w7phCj0yS
-X-Proofpoint-ORIG-GUID: N-NQD87y-30Frcsrt-ef271w7phCj0yS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150115
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260915-wiznet-link-gpio-v8-1-d173622474cc@marmottus.net>
+References: <20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net>
+In-Reply-To: <20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Arthur Crepin Leblond <arthur@marmottus.net>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-GND-Sasl: arthur@marmottus.net
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTFnpE47byBS4rdGAgGi/KwVFJ4qnxfS+YMMkmf4ICKnnqaChMKgNZqONsmcW7seYZvnvzlktfYPsJWTBtQWd0M9YOGjgsNBByDMrfRuEsyOkhmKidw/4yAAkqS66N3H47W4MLATGbl9DduNFRfhsinJhgU7dH1+VUOYAZP0BYjrjfPpW4Vl/sTxyGuJ9AXMioXkPFLU/onSQc1VwkZBgD7f8xg1DqGxu1U5QyMyWudahuBdRpdo8pcJykJ4hFLtvj4RaXKaLDAcneQPWdBMY9KRg/Z79n9HXAUC9OGo3p2J7hVG8jUzb50ApuS2DGXtdwnfW8D4wMpmqTR2rIX9KsshP9TLXxiC8fGwBoeKq9yRvTLxsUkHH8TY2dFZW/7frL+EYVm9cSp00HaLpjgYVgRMHbwMuKI0xP3Z4isosqhQ3wz1k64C1P7eUmuoE+9hxiDQ+VjIipBdhNn+l0Jz6j/FO0n+V78Stprwv1Lg9x7sFWvqyKKBN+5dErt/SB5Lbvtx54nnpQ0XlTQUv041gQrfWo4ca2tUQ7ydG3NyBTeOcMo8C50veuAYNoPTM61MecwBD96Tzash7cwvkd1RZTDGHlsm8LdYb200yXftLpwP89Hur85cMRA2X5alF7WnGnMJ4PmfHuKOgsuSNe4ppU5Kdh2+CEBp/8lYw8YgCTk/nw
 
+Convert the Wiznet w5x00 SPI Ethernet controller binding from
+plain text to DT schema.
 
+Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+v8:
+ - Add a myself in MAINTAINERS
+ - Address Sashiko reviews
+  - Change edge-falling to level-low
+  - Clarify the spi max frequency for all devices
+  - Add main interrupt description
 
-On 9/14/2026 6:17 PM, Abel Vesa wrote:
-> Enable runtime PM for the controller, allowing CX to be powered down
-> once all GCC consumers have released their clocks and GDSCs.
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  drivers/clk/qcom/gcc-sc7280.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/clk/qcom/gcc-sc7280.c b/drivers/clk/qcom/gcc-sc7280.c
-> index 4502926a2691..bb8f6efb88b1 100644
-> --- a/drivers/clk/qcom/gcc-sc7280.c
-> +++ b/drivers/clk/qcom/gcc-sc7280.c
-> @@ -3446,6 +3446,7 @@ static const struct qcom_cc_desc gcc_sc7280_desc = {
->  	.num_resets = ARRAY_SIZE(gcc_sc7280_resets),
->  	.gdscs = gcc_sc7280_gdscs,
->  	.num_gdscs = ARRAY_SIZE(gcc_sc7280_gdscs),
-> +	.use_rpm = true,
->  };
->  
->  static const struct of_device_id gcc_sc7280_match_table[] = {
-> 
+v7:
+ - No changes
 
-Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
+v6:
+ - Put back the reviewed by tag from Krzysztof Kozlowski from v4
+
+v5:
+ - Remove gpio/gpio.h include from DT example
+ - Fix DT bindings errors
+
+v4:
+ - Update interrupts in DT bindings
+
+v3:
+ - Fix DT binding errors
+
+v2:
+ - Convert device tree binding to YAML
+---
+ .../devicetree/bindings/net/wiznet,w5100.yaml      | 68 ++++++++++++++++++++++
+ .../devicetree/bindings/net/wiznet,w5x00.txt       | 50 ----------------
+ MAINTAINERS                                        |  6 ++
+ 3 files changed, 74 insertions(+), 50 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+new file mode 100644
+index 000000000000..25098308eb6e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+@@ -0,0 +1,68 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/wiznet,w5100.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Wiznet w5100/w5200/w5500 SPI Ethernet Controller
++
++maintainers:
++  - Arthur Crepin Leblond <arthur@marmottus.net>
++
++description: |
++  This is a standalone 10/100 MBit Ethernet controller with SPI interface.
++
++allOf:
++  - $ref: /schemas/net/ethernet-controller.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++properties:
++  compatible:
++    enum:
++      - wiznet,w5100
++      - wiznet,w5200
++      - wiznet,w5500
++
++  interrupts:
++    maxItems: 1
++    description: Main interrupt (INT pin on the device).
++
++  reg:
++    maxItems: 1
++
++  spi-max-frequency:
++    description:
++      According to the datasheets, w5500 and w5200 allow a maximum of 80 MHz
++      while w5100 is reported by users to allow a maximum of 14 MHz. However,
++      board designs may need to limit this value.
++    maximum: 80000000
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    /* Example (for Raspberry Pi with pin control stuff for GPIO irq) */
++
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet@0 {
++            compatible = "wiznet,w5500";
++            reg = <0>;
++            pinctrl-names = "default";
++            pinctrl-0 = <&eth1_pins>;
++            interrupt-parent = <&gpio>;
++            interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
++            spi-max-frequency = <30000000>;
++            local-mac-address = [ a0 b0 c0 d0 e0 f0 ];
++        };
++    };
++...
+diff --git a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt b/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
+deleted file mode 100644
+index e9665798c4be..000000000000
+--- a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
++++ /dev/null
+@@ -1,50 +0,0 @@
+-* Wiznet w5x00
+-
+-This is a standalone 10/100 MBit Ethernet controller with SPI interface.
+-
+-For each device connected to a SPI bus, define a child node within
+-the SPI master node.
+-
+-Required properties:
+-- compatible: Should be one of the following strings:
+-	      "wiznet,w5100"
+-	      "wiznet,w5200"
+-	      "wiznet,w5500"
+-- reg: Specify the SPI chip select the chip is wired to.
+-- interrupts: Specify the interrupt index within the interrupt controller (referred
+-              to above in interrupt-parent) and interrupt type. w5x00 natively
+-              generates falling edge interrupts, however, additional board logic
+-              might invert the signal.
+-- pinctrl-names: List of assigned state names, see pinctrl binding documentation.
+-- pinctrl-0: List of phandles to configure the GPIO pin used as interrupt line,
+-             see also generic and your platform specific pinctrl binding
+-             documentation.
+-
+-Optional properties:
+-- spi-max-frequency: Maximum frequency of the SPI bus when accessing the w5500.
+-  According to the w5500 datasheet, the chip allows a maximum of 80 MHz, however,
+-  board designs may need to limit this value.
+-- local-mac-address: See ethernet.txt in the same directory.
+-
+-
+-Example (for Raspberry Pi with pin control stuff for GPIO irq):
+-
+-&spi {
+-	ethernet@0: w5500@0 {
+-		compatible = "wiznet,w5500";
+-		reg = <0>;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&eth1_pins>;
+-		interrupt-parent = <&gpio>;
+-		interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
+-		spi-max-frequency = <30000000>;
+-	};
+-};
+-
+-&gpio {
+-	eth1_pins: eth1_pins {
+-		brcm,pins = <25>;
+-		brcm,function = <0>; /* in */
+-		brcm,pull = <0>; /* none */
+-	};
+-};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0e04d92d1b09..624beed96f32 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -29440,6 +29440,12 @@ M:	Miloslav Trmac <mitr@volny.cz>
+ S:	Maintained
+ F:	drivers/input/misc/wistron_btns.c
+ 
++WIZNET W5100 ETHERNET DRIVER
++M:	Arthur Crepin Leblond <arthur@marmottus.net>
++L:	netdev@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/net/wiznet,w5100.yaml
++
+ WMI BINARY MOF DRIVER
+ M:	Armin Wolf <W_Armin@gmx.de>
+ R:	Thomas Weißschuh <linux@weissschuh.net>
 
 -- 
-Thanks,
-Taniya Das
+2.55.0
 
