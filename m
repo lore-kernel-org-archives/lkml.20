@@ -1,105 +1,73 @@
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B55496D40;
-	Tue, 15 Sep 2026 11:20:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FF1368D62
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:22:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471263; cv=none; b=u1HTioQniOhhK6Cq6qU7jq6fEeo3GOJ5QzcDA2xaCDHDh3Psm1ORf4m3XdJjwiuncWUiw1oDP6Jkg1rp4LJKBzM0gmuB/qlQyzMkrlk8ANvm3xNbkA4e90yX0ycSF93P+1OJ9lomOt96CpnPFOKO7MVnPwdnciartI4FXLWjZxA=
+	t=1789471328; cv=none; b=bpadoIJXGxICCHvE1vo7JnRNPg309M0D3RTaw/wjvbYOhi3fWywVKcB84E4Wu7DuIFyPWOHpvo2e9E5NcfoeenFOgfASBWE+FxB0s2EMGyBuh+kAcX4CagNH5xSNMTI29/YijUSafZxl+s3OQVGGyw5SuBTpcICzdGNIFxzBZXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471263; c=relaxed/simple;
-	bh=uqIgqIxz2MYxpYQY//sxZKjBZmFrVGjSYU/hzUgktt4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kn0jYsxcmBx8J6Vd/rRrvKCmmyfRI03Ld+gH4tNOmB0PpgcLVTS7uwWI/eUEN7bpij8ner5NslXXPWM75OQoP2wP3MBo0bh38JPnxkiTfm4B6Unt4UlDBboDp30jNRglKpuSHDhSeBp3kBNBwYVAcZx/CFnq3LBK2icK4ZEevks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=yme4vGVo; arc=none smtp.client-ip=115.124.30.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="yme4vGVo"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789471257; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=pJ9Rr9CykAOIDKHJD/CzvfpeB8yYEsova679wlOFG74=;
-	b=yme4vGVoBl2QGh6JGypvXCT/Iw9Ib3fYE/4s01F1tDF6W/hVHqtSVG375BSZ/go8Dx4q4SdZcf44P7yYiEhOjmKs0w8NekmrxnXTbUldjGCFarrXd94kpvqaDl0f+97sK7G1ehLKsU4RqKkHTvMt2xxOjLAhOHyhKmuUBfCMMkk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=19;SR=0;TI=SMTPD_---0XB1X-IG_1789471237;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XB1X-IG_1789471237 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 15 Sep 2026 19:20:56 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: Kiryl Shutsemau <kas@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Nicolin Chen <nicolinc@nvidia.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Breno Leitao <leitao@debian.org>,
-	Kyle McMartin <jkkm@meta.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	kernel-team@meta.com,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] iommu/arm-smmu-v3: Default queue depths to one page in a kdump kernel
-Date: Tue, 15 Sep 2026 19:20:36 +0800
-Message-ID: <20260915112037.1495272-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260909095228.2174031-3-kas@kernel.org>
-References: <20260909095228.2174031-1-kas@kernel.org> <20260909095228.2174031-3-kas@kernel.org>
+	s=arc-20240116; t=1789471328; c=relaxed/simple;
+	bh=381ok+l81XivmTTFKuE8BNGsJN5NhxN6OKOq3iieWFw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=tDZKn+4/wELHd5ct6GMBekDf/qRpLhLtCZkbKb9ra16g5SXM1Eq//SIlnG05s/Fu2oM+7RZtBILrl0Lhsap+EsSozxl0SrOTLeZ6bvdDbHfboB6jjmhz+HMIN7kmZU0mUmLBVHh/x8X+P5Iw3/PW+jWZWOIai9Q6KSvMikPv8i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab260600easo1066832b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:22:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789471323; x=1790076123;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CLoGtts65MsNtPlGLtclFpTZIS3SJNCHIFsNmJQ/tE8=;
+        b=luWIbdVTb03QIQSHLDEpxMtBD/U2RsnoXRyIoLbKP9VJx3su6wGL7FWsxvzK3QLTvG
+         KCYKFVHMUfaZM7hSfvqv15Iw7Oxy1Kbz6SXgMH1DhC0rWjpiAkRxGUGr9lYtZ8nwb2+H
+         tKkM/rMT7HnWSwClNG/B1Od0FV1nqLBM4tfqPAQZDr90t62JkrhqFbvUt3lblDKlXm4U
+         YC+dcd/vCzWKBTmZKcS4TTrpdSAV8lDJy4M23zyXJ/8nch5G/BAqKL7NR9C9NOxWo7m3
+         N/G65edCSvCmkiDKXcLWZbRlWT9xLC+I+erXtlgmiOJH/7mE+LY0k2wsiR6TK5r9mGWV
+         vFXA==
+X-Forwarded-Encrypted: i=1; AKwUvBz7Y+kngl4nriCHOU+SgoiHPwpPo/hksCe+Ge0wzyq72oUwVKG0y2D2qYpy6bEnaRK6UJ53BXkDmuqaqJQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mp6MUg6KDyZmSw+3Yu2yNU/fJooo2fZuhVtrffIm3a9T+tMf7p
+	HPcGTtlNFA1zxeGTX/koQJf4RbPw0jy+2mBS/szc6SXzpCvUjuZecB70F8JdWMr7aTEMFlYtaph
+	8c1ei0uRs5e+bNkqIBmrWCtoyO4fdwQEk9aKSmS2HQjFSR4bfiVWL0/XSt1Y=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:1990:b0:6aa:1bc8:ae0d with SMTP id
+ 006d021491bc7-6c636f2b022mr1652881eaf.4.1789471322894; Tue, 15 Sep 2026
+ 04:22:02 -0700 (PDT)
+Date: Tue, 15 Sep 2026 04:22:02 -0700
+In-Reply-To: <20260915110030.918688-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa92a5a.4c28b7d0.c1bba.0038.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] KASAN: global-out-of-bounds Read in bus_uevent_store
+From: syzbot <syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Tested-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Hello,
 
-We hit the same problem on our arm64 platform: the kdump capture kernel
-runs out of memory because the SMMUv3 queues are still allocated at full
-hardware size. We had started looking into it ourselves, then came across
-this series, so we tested it on the affected hardware rather than prepare
-a duplicate fix.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-It resolves the problem for us - details below.
+Reported-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
+Tested-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
 
-Test platform: an arm64 server, 128 cores, 2 NUMA nodes, 512 GiB RAM,
-exposing 6 SMMUv3 instances. 64K-page kernel (PAGE_SHIFT=16) based on
-Linux 7.0.14 with the series applied on top; crashkernel reservation is
-512 MiB.
+Tested on:
 
-On this platform kdump FAILS without the patch, and the series fixes it.
+commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1030fdf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=9a321aea9d851b299486
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=13c07905580000
 
-Before - capture kernel WITHOUT the series:
-  All 6 SMMUv3 instances still allocate the hardware-maximum queues:
-    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 524288 entries for cmdq
-    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 524288 entries for evtq
-    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 524288 entries for priq
-    (... same for all 6 instances)
-  That is 8 + 16 + 8 = 32 MiB per instance, 192 MiB total - 37.5% of the
-  512 MiB reservation. The capture kernel OOMs before makedumpfile runs:
-    swapper/0 invoked oom-killer: gfp_mask=0x2040cc0(GFP_KERNEL|...), order=0
-    Out of memory and no killable processes...
-    Rebooting in 10 seconds..
-  => no vmcore is saved.
-
-After - capture kernel WITH the series:
-  All three queues are floored to one page per instance:
-    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 4096 entries for cmdq
-    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 2048 entries for evtq
-    arm-smmu-v3 arm-smmu-v3.0.auto: allocated 4096 entries for priq
-    (... same for all 6 instances)
-  => ~1.1 MiB total (~191 MiB freed). All 6 instances re-probe cleanly
-  (no -ENXIO, no allocation failure) and a 608 MB vmcore is saved.
-
-Same machine, same 512 MiB reservation; the only difference is the v6
-series, so this is a controlled before/after.
-
-Thanks,
-Yuanhe
+Note: testing is done by a robot and is best-effort only.
