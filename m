@@ -1,156 +1,122 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A5A4A206D
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471809; cv=none; b=TMGskfVLFmT8erKKzXqhbn3r22XgnEx+mKDQ935W/5+VxUymFsds60bSzJUBxHvgQ2F3RkLwJAG3aWpW7wCedgAGdIBBqqP6B9UTEkC4PbWEhpDYPzn8OQ50MVs15WF3xrA6Sutg4iMLXaImyrJfkKNOq1WNvadCg64terirpIE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471809; c=relaxed/simple;
-	bh=APKTuDGLjMsk92bnnkXJ0rRlkzi8IPJqTj2KURSVBU4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=n94HIPuo4ghCTADM/sHpcZ7hkd5+kZ4gHet0ZHSXUUjGMkjvOYp7T/EkcviLmLH/a2xnYhx7+HfNQsVegGZrlbbehet6g53o/Z5GS9KVUzsCXVZY+fT9JTuDZsZYRgCkDz4UqHTFZWQ6DdfvMrSCu8vEvP/e623+33BcGlSScNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QfmW0HZG; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A1B396D1A
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789471820; cv=pass; b=bp2Y9leRsJFMtMRc3tlIBksol0FtHkFOGFdeywzH2H2SAZp+EbPCHh6JInLyjoKudbHI2fmwaJdSIuQpHGpeFZ3WyV/mMcPOeHeNAQvhzVWZWNcDREGK7dudmeDZhevel4o+PBAa6xJA+Qjs44ctrl1krxDQguO+MpCu5LIOqIM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789471820; c=relaxed/simple;
+	bh=ctN51SscDl96yAfOoCtwrpkHTXHsrI3e9yoxIIut26E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=H2W5desd2haAeCFj2fqcG7hH8WLidxgTgDXoKvQ0c2kR4Cr96xQhYiTyM6am5SWyEMfBVHSRE52lAkwfJY5hssP6czMSbBaXaMAtLjh4nq2yvA6xTJawzvw8LZ+ae8fTQCOi8NGbJmgaMWhzGeUCHeCZ6D15orT4njW3PtAbJ4Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=llbUV/Qe; arc=pass smtp.client-ip=74.125.224.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QfmW0HZG"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-495437bb891so5802045e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:30:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="llbUV/Qe"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e610bd325so430673d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:30:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789471817; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a99pCTTI0dX3CkTYkBodcYTPygS2jsFyRYyX6PeP0iiSgkWBCkCGnIQ1ixyCEiDRt4
+         VQE1BAhcu70PnmYfE62FzB/XrGrOAuvwXC7+jcNrPnhJyPyR+dgTRsNtVX+qt+oxViXV
+         Mze8CScIXJvUtRaBjOWlbpx4ZeZhJWPHyHjqojMOROwmZsCOMHrlnjX5rssgmDbxzvGJ
+         BVmNLH6uuSOST56G99Z6PKU9x8nki6zw1Bwpgvv5f3DmRYCgNZcvqYBqmvfnpnwbKvuk
+         Vm7kd04fsRrLGQ6tNgqpjgCq9Se+FStsbZ0uwR7o/GUT+iZ0OP67Kr3UmrcNVVRclRZv
+         cXxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ctN51SscDl96yAfOoCtwrpkHTXHsrI3e9yoxIIut26E=;
+        fh=Us8CHvUZa/7OK322IvafHZN+spJ7L656egGVPe4Myug=;
+        b=pZbKnaLAPvuFSqJaskEBDXxcTkAGlt0Z57klz7ftXph7aAPr7SQjPH3sD3KVPR5nNN
+         xsgIOuSvcSBl6m+hbYpl6nmjTApMPe8uyhAPbBFr8B93ckz9Fi55Euo/rRB+lvXaUfOW
+         oWNOBXo+UvbdZtvDB5s7m1Zf8ZXYUkDvXjm7HGfy+0jmDNP7UQhBmAlDzWo4x5WlYeG7
+         VrcXCxKriC9ObY0HmLnlZ48gUyV4dHmURHV0eISKROEttLwcwLnc77p0zpRPn5kv0Egk
+         4Z0VvupjrhBFjB916kWExRr+0UXNiQ6bcayoMa7YbYBOUVRIgzY4Ri2mJylG7E6jqgCG
+         K7WQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789471803; x=1790076603; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789471817; x=1790076617; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=dGOErKOPioTgO3v0/s/JdPfHHqPEsYrQAaTIvwRdmxw=;
-        b=QfmW0HZGIofUmjnkWGL2TIVkFUxUuxZhOFjQCkuHPy/WVprMzaImb5IXvjMXS/wCGL
-         uT++ASkA8Nzq8SsnOaIO0UueO+47EwRvo5F5Q2iv3015O88zbQeDLcIPKzLSIcrifmLG
-         RVNd4ny1+Cy+QmrUym6h9ZUTtl8MXydeYJyp4q1FqUlyFJQXlfCStv7fqRBhRq+m6drU
-         2MOKbXWfrGw4Cn3wFCJXObY+cq2LnTd2bB/lN0FlToSkrHYz2p1ue1fBhw1OzHr5z4oA
-         4tpDK1zE80uk+drClpQQOLiuwshUO/kVmbzbC0pFA/whcZ8lOZHZwDWrcDKDnhhs+UpU
-         /o/w==
+        bh=ctN51SscDl96yAfOoCtwrpkHTXHsrI3e9yoxIIut26E=;
+        b=llbUV/Qe/21I2MRiJL560Pr7jqUDuY6QgOFqdnbeOiDNII5TXqOIsFB0Drca94j2JA
+         ZX2CGSuGp6B/5CYysoEQ1P+k01FCMqiimSqgv3LyVjXekjDtRD+qB0rZ/msX27+x4lUQ
+         5oaQ3EfFdNbaehr8sX58+5tTMliH5IV5ttCCneFc/mPH7O1t9B+hM8zGMx+nUH3y8MkT
+         i6sDVEQjlfvZ/x/fKsfobl1hf8xQ58zUaPZHdUBqReJIJ63ApIQPZOGyB2heKrsDixz/
+         d5aOKSkbKSQgNrXmwLhpzscvQjNKob8T+UNttYn1CMXHwwvKckSfGsDlswjwzYTSiNt5
+         xuNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789471803; x=1790076603;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789471817; x=1790076617;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dGOErKOPioTgO3v0/s/JdPfHHqPEsYrQAaTIvwRdmxw=;
-        b=vpy93qa/NRYJGZBbrjFZE7kPuLBTXfIwuVjtchh+juWxT9uaRdJaUwd0OdlhM+5RLM
-         3ytiZiW+M8dovJkz22uRFD6eqKiLRFcAwTB1imNGyJ07DwNyUQgLrCYK3DobJ5ektEF9
-         DvQzcQhh6iYWpnvSbmbbrb2F36WU7nmk28yjwfruh60W/M2gPzUeKMBVyCWwjY1V4iir
-         QEQ8U/hQBP9Pim/W4l1oi1kab309h/P3ph4mQOP502rOs4/hVjpGy0yvB9AF259oh8KL
-         F/K+sToGDsyPEbOS+RvPCpKIOI5lEIhOqIergVLszlKnNuo2BIsRuEQt13kysvZtKA6D
-         lZTg==
-X-Forwarded-Encrypted: i=1; AKwUvByXonLef/1CVqvGbGZyzXdUBq2BnPyVZsrJOGlOpMpEyKut8ZN6/Vtr+g0Xxw5ToHXl8rHQt/O1eS5fays=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkveyEkiyEP02pY/D8Fz2lCEzftPEuFwi7dAk6ECMV7fDCIPCV
-	BVaaGRZPEKWPKpgbD78KB03jws2MsRLcHSDdVkn2tPCk91sJeVsgHW0r
-X-Gm-Gg: AYBFou1Z4rFlwihdHbkETy7H5GsXKV3hFimHsrSiOrG2L1YvMKi+gaRd4DqhW46Nw6G
-	R0TO6uuDTE/9uVBKIMiHrRuzK8ucylLgPge8Z7qBnO8BAgnwp2Uq1OqJCCMdgimdDANy7cJFmvI
-	vbtFUZYgreOizBrBInSz6vm1p35y38LPDgP4RP18f0B1o7yzcR5cWJp5dgacew7lwQuAXLlz2dq
-	Ld2sFDkcgo4q1nVWEmfgZdqJd3i7z5fa3av/WqMOek2b5Hs1O4XMtRV0efy6udYnS0WEcjiSGkZ
-	EhE/yHeU3+cNbjHKcSVT3UQKjPTHWgD3oFBzOTDEgKo2QbbR7HSFqrZ4cpGdHCq45k/KOUcagI6
-	v2fYDoe8L91obDsu80a8KubUMFV4eDT5NmZljUszfrPAb1gS5pGOb2cK3YdUBWrjJWIDt6G2nVO
-	rZlt3B++QIYu6BTuVimoQ3C5cpaS0N/LrNJPTnaAguamkEunceFJV/XWl/sR2e9vFy7/VsULcYk
-	fs4z5s/geo40Utczoqur0BMSo7ocZg6Bhns
-X-Received: by 2002:a05:600c:33a1:b0:49d:28b1:260d with SMTP id 5b1f17b1804b1-49e7d74ce16mr30558965e9.12.1789471802734;
-        Tue, 15 Sep 2026 04:30:02 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32d3c7sm31448164f8f.10.2026.09.15.04.30.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 04:30:02 -0700 (PDT)
-Date: Tue, 15 Sep 2026 12:29:59 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nsc@kernel.org>, Nick Desaulniers
- <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt
- <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, Alexey
- Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas
- <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, Peter
- Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?=
- Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?UTF-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet
- <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R.
- Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, Jens Axboe
- <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 17/21] objtool: decode instructions and resolve
- branch targets in parallel
-Message-ID: <20260915122959.2348bf90@pumpkin>
-In-Reply-To: <aqkR9Xqu-0Tem1zm@gremlin>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
-	<20260914-build-speedup-v2-17-39817ec5db23@kernel.org>
-	<202609141112.F8983EE9C@keescook>
-	<aqkR9Xqu-0Tem1zm@gremlin>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=ctN51SscDl96yAfOoCtwrpkHTXHsrI3e9yoxIIut26E=;
+        b=G5mrJ3rbHQGHW8tP9GrJME/AuhPHO9UaoOmf9XesFO2Wu3Tv2rY/TaRjJaK+5Rrvei
+         P+ehF0saBjxewSnGbkU7fJz4qfuSSzo9vXW5A1fVwJDxJy4QYuFRRQKdS6vcCTu8Cwxi
+         V7YkTlTc1VaZ///ZDpBWcX/wH2Jyo/HUmfiqmWBYigGOlK0ubLIdUu0v/AK7Xun33HLY
+         G6rZ34mJPRhmjkkmfxANSJawTrx3ZmhOjfm7yDGoPdzKxefOYqmxAsQkb3LapufAA7cb
+         UtOU49jB69PkT7TPLonXxDpPiw/BOr0yxj7r6Em0XroVvg8kUxukFfV14YScP2fJPCrR
+         6IlA==
+X-Forwarded-Encrypted: i=1; AKwUvByRbVTWCROQxKy9qMyT1m+Rp2AQQmdkOn3mvixXgVWIwDR8IxGdVKhqPIjYLXBY1uoJb8JwmzZFJFqB8vE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2VWEDOzsL8zTjF8Q+EBQ4jOHnsrZSLQ3JZpZy4TI1F74zLR8A
+	suSRepoU+JouK7wJVHVcQg8s4vd/rpfQ2G6i+ozq8/DwO9KmgfaXoWVORtYi0xH74XmQjw7a6zk
+	YXm/Yihp1cEsDBnDY+Z3m+fi96THOF0c=
+X-Gm-Gg: AYBFou3xhNSgFFMiL2VCiTrgoRtu8A9UCh3kiheeH/geH9RgJUmVJdYijDCPrzmDRZd
+	t7cMiIBUwQdKXdhkS4KVFlBVddYrGDU/riFLtxdJy5CEpZ+MWwKlZxuj03GoBpNy1LvdNlwxB81
+	7Qzy2RUS8Do2n6hLZdBocE1yl/EWu+6GLt4cFAkinpszgY91uJ8G6lJuVUnhY0PY+4ZsJ9cRjwN
+	8HsBPvKajX7ra7h0WW97LPTIHs0NKdNrtmREWiWur3SANb/j0BmD689TOYiOe9B5fWGeR2rSBfk
+	guVIHbtz3rU7DDzM4O9mEExfiFVtEY9T+f+1nYDjnd7fu8WUjtbaIfTn
+X-Received: by 2002:a05:690c:630e:b0:870:48aa:473e with SMTP id
+ 00721157ae682-88d19058869mr28240767b3.0.1789471816696; Tue, 15 Sep 2026
+ 04:30:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260910184452.895485-1-itai.handler@gmail.com>
+ <20260910184452.895485-2-itai.handler@gmail.com> <20260910190139.BF6231F000FF@smtp.kernel.org>
+ <CAFpOueRqaQ=C3u+br6AsCDPeeFwqVUmCG6JSCu90noowVCfd=Q@mail.gmail.com> <DLEWE24XEKNU.1Q1JD8PFVRJML@kernel.org>
+In-Reply-To: <DLEWE24XEKNU.1Q1JD8PFVRJML@kernel.org>
+From: Itai Handler <itai.handler@gmail.com>
+Date: Tue, 15 Sep 2026 14:30:05 +0300
+X-Gm-Features: AcwNN1XZV_KcXpgrsqVgDP23cMB0wTyq2Xl7FjPYm5C4oFYJ8HJyICxhmV6sUvM
+Message-ID: <CAFpOueSTBSipye_1VmJBBJSXsn-KBYoKUL=JTA4Ker3nMhFPQQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] mtd: spi-nor: take the flash lock in spi_nor_shutdown()
+To: Michael Walle <mwalle@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, pratyush@kernel.org, 
+	linux-kernel@vger.kernel.org, takahiro.kuwano@infineon.com, richard@nod.at, 
+	stable@vger.kernel.org, miquel.raynal@bootlin.com, 
+	linux-mtd@lists.infradead.org, vigneshr@ti.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 15 Sep 2026 11:09:25 +0100
-"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+On Mon, Sep 14, 2026 at 11:31=E2=80=AFAM Michael Walle <mwalle@kernel.org> =
+wrote:
 
-> > > +static unsigned int decode_threads(unsigned long text_size)
-> > > +{
-> > > +	const long nr_cpus = sysconf(_SC_NPROCESSORS_ONLN);
-> > > +
-> > > +	if (text_size < DECODE_THREADED_MIN_TEXT || nr_cpus < 2)
-> > > +		return 1;
+> So is this now two AI agents chatting with each other?
 
-The text_size check ought to be before the sysconf() call.
+A fair hit. I do use an assistant, and I should have said so up front
+rather than leaving you to guess. Answering the bot on-list at that
+length was a waste of your time as well; sorry for the noise.
 
-> > > +
-> > > +	return min_t(unsigned int, nr_cpus, DECODE_MAX_THREADS);
+>
+> Sorry, but please be more precise and on point and drop that wall of
+> text.
+>
+> And please annotate your commits with the Assisted-by: tag.
 
-Why min_t() -  you might as well make nr_cpus 'unsigned int'.
+Understood, and both are addressed in v3: a single patch, a much
+shorter commit message, and an Assisted-by: tag. I will not reply to
+the bot again.
 
-> > > +}  
-> >
-> > No, anything using _SC_NPROCESSORS_ONLN internally is wrong, whether its
-> > pigz or objtool.  
-> 
-> Why? We shouldn't cap a 4 CPU box to 4 CPUs?
-
-You almost certainly don't want to use more...
-(Unless they end up waiting for disk)
-
-> 
-> The idea is that the empirically obtained 16 core limit should naturally be
-> capped to the number of CPUs.
-
-The 'empirical' limit is very likely to be system dependant.
-There might also be situations where you don't want the build to run as fast
-as possible because the system is performing other workloads.
-(Not to mention if you have had to add tracing to find a bug.)
-
-> 
-> I guess in a world where make hands jobs off this could be dropped, though,
-> if the complexity there seems worthwhile.
-
-You need to pull tokens out of the make pipe :-)
-
-David
-
+Thanks,
+Itai
