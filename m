@@ -1,95 +1,99 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBE8489861
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA354A2078
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789475913; cv=none; b=M4yDv/JUHmXuveBywOCr0yGCzBeBeBZBYaCzC3hAutJ09g5y11At0C59eLVgKjJi2A6s4C2hznN8bMOnKuovNEELSXsK3fIahO/RW8hkkuJSj7F6C88xcGWW+112FK+ST1E1BZ1wELjmQh5ny7CKFbU9i+gcUAJQvLBMTuT02wk=
+	t=1789475917; cv=none; b=rS/gKR4YDl05GhJM/Q6HF3TvmWKRKLq7E7j0NEBW514b9NIofDFKLZhfUnEali3+N51vfL0G30ZjFwKhOlSSbCsajThuhhttIgjQvfrEK960jugM/vSF5J70v2ngIP2pmrttQ5tnBUhuYJus57XTbsbXJxp5P3xhLQHzTAb3NrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789475913; c=relaxed/simple;
-	bh=TtDaz1S2XoJCAkQ6yMlNi5cT9gUGaF3jEIf99JQb45s=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G/eZ4X4iwE/eM8F6X0NSSgaccvWxNZ4IxqwB2a6ENTRMXzkJ+LNM90NM4oBvQgTXCfH2l6TMEuAxw7W9cRiWki5pRsz4rWmxZY8QgOpn7oSS1pvFGQf5m/q4QhfYLpKr/zGDXGdOrwhlLgJKqooZs6eF1vIGFTy1Erm1MO4Ftbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OYc5zfEu; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789475917; c=relaxed/simple;
+	bh=gWvVNB1m2Bm2R+CKFSLbBbPCu/GkRF+C5uYpyZkg/fA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LrbJScjmXIr8uEJkRfA/vnBbAAxJMflN38rOYDrOChQzRYyg8oe+RhPtZ6Xe4xnvLJkUJaLqdAIapq31JmWuKlLW4wNtQJm6vpxGCaTRBA6oe2h6t2wt2A18Vn8gro6SvD65XfGn8aeUum+JS/G4eGBMXLLE1lqc1s2dshZ4rXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rkC4FQOk; arc=none smtp.client-ip=74.125.227.129
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OYc5zfEu"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912df756so1514835e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:38:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rkC4FQOk"
+Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-39ded0d7f52so1311881a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:38:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789475910; x=1790080710; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789475914; x=1790080714; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nefrNojAo6vQreAbsmdFBgT6xPV/rOTuu+Wp6J/Zb/c=;
-        b=OYc5zfEu76sHW1wnerfnIKyW1fD1vynot6VGL3XSvenq2+YFw7BlBHs+C9enH39Lc8
-         WuRKK68NSTDmVDD2beBlBP33HCvKXoRzwUFN+P/wV9KUe1K8NrDavA5Dn/VMF1xfzzY9
-         ylHF3xCb0b847fzV/T2F5hTf0lnYwWVI2Ps9gVKu82cOh75hZKiFX/tsOxdLK+xygVq8
-         s+svJnQe0Wm3AOBgmQNhcA3vVXV6MotJQI1KnxAg4kpjN9wzaqLMn18G6ahagx3fEyam
-         qZZtjPQRiqyaS3chSGIfMHhjsnzYUyeL1VJjJ/NxF+BGP9tYUiIqXySKpG/1ZPJ+fX4b
-         Y9ig==
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qN2MkU81Lz1KMvwh0OIvKliZyK5cNgEHJk5t3+uaHA8=;
+        b=rkC4FQOkYSj8jAGGxlWPzH9zM826nS63hyhvDyC+r9+BhTNBnu3uu/2c5yBw34jV3u
+         WtHTBN7p4Zw2+jLlqqM1H94AeHS2XmDNX9hu0ktCYfyEBEKYHK2RaxN/WVcr89/6IY6x
+         Vfv/KJj5CRuSD9txVibIRQbsq3LL7tcNkGD40/ueQCU/DvucIhv1moC8VPBrILuFcrl6
+         21kMojQMye1zJyH4H4ucA2VwTTcCspMAHscPDxCS7oGRJl50ZzhWmaE/8pJ9vXfPOlEs
+         Ofxku7n1ShwQcO5do2cPycXOP5XN4EE/AQu10mpjmOzQmL8v0PNuZ2cvN59IFBW5rpoV
+         K4OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789475910; x=1790080710;
+        d=1e100.net; s=20260707; t=1789475914; x=1790080714;
         h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=nefrNojAo6vQreAbsmdFBgT6xPV/rOTuu+Wp6J/Zb/c=;
-        b=kBZE3Ho2qTa7sDCK9Fa7a+/KJ3e4arRgz+xZ2Ss+WHiUiw90qrhIqyBkYmPcgkc3id
-         Pb55R0seVBJ5/5KiCRZLk3KkHEvBMbybMQqA9ic00D28NWpXGaUtqlDbWsCgQ5iHYdF1
-         FWnqGZIpeDX51XOttUtuz9p28PZ8vOtCqosYbDbMRfp8nvfVqXVmMg6O0kUVqhNcAZl3
-         3AGefzWH2ptUgdcn4RSNLW8Cw3hbyqw0oVyRB91xU7oWIVfaXoXHsQQiLyL4rY3OiYqO
-         8jqMG9mLbCHqY3/PqZ6rjwDBV9t7iNymGwtilvBjp85HNV4SZ2teknuqfDAzgIWPvWtS
-         iqGA==
-X-Forwarded-Encrypted: i=1; AKwUvByJX+UbSSulgUtEelm3IaHZ1tQs/YjiI3FklaLAb8TbIloSvATszpviK27ECN7i4CA1Y+wgjmWbYU6NgqM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAMJXWaPIH+jlB1g9JwMzXOSzfac/SW7GCoMpKwjcVWyCrg0lq
-	VE7mc8PS3Qg/B//tBKo4AKvAgtXe+RGh8CrnLIMq+ojiTjEo+Dee3XaM
-X-Gm-Gg: AYBFou2eB2eHDwxJkxEQZ3t0x6qDHnr0m3Ucj0TZ+w+Z/Pn/jYpBst00QlVsTDSK4Xf
-	DDr2mbE+Of2TkbjIY8hIFFEWlxYxHwnyaoq62aN6HwV+ieZ8raQmwfexSjn1mnaW4+8t/rxqqT9
-	1fYC0GBgxXd15V4CzbKIfTn9Y9ZJVLHufBx6lqaMsLdHOWzmnDoY3b7Qumro+w4TPob0N6cxF9z
-	ag9QFShknzrv12bzkh7yJQ0qC7dz4usmd37nJEzYVaknnbWQURPFI9UvleniivVe6IgpX7yKtju
-	ZYVVf5XMXxmJ8wdBQBaZvQlMPwj8vuGaDZtIECzQYLWBQsqk8QhSesJPbg+9kWGFa6PzABoLwCP
-	kNWWPNN2CzaSQsAwiWSZLtpLip8yPhlgZRpy4Aa9Pd/wVwwcI2aQOMM68TLxsYNKdQW56HJArzj
-	9ZKGhPfw7XwX5Vu5HIWNT0IPeUapF89aWCgEwqa3VZ5hj4faCz2TayV5Vg+CHRX0YReboBaSD8S
-	+bl9RSNkrLLU5uo7j0BnF5nlrLNiDrvjX/jRXGgNlV+kvBXLEbehsYsTKyeSTm5
-X-Received: by 2002:a05:600c:46d1:b0:49c:e27c:6b10 with SMTP id 5b1f17b1804b1-49e82213fffmr15058835e9.3.1789475909648;
-        Tue, 15 Sep 2026 05:38:29 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49e7d6a8d5asm62958635e9.9.2026.09.15.05.38.27
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qN2MkU81Lz1KMvwh0OIvKliZyK5cNgEHJk5t3+uaHA8=;
+        b=VgejBWiLGgm05n2PdHpY3ZawdtSVGQ9DEOYMhG8LHNj29xxVPXhjiTAGkzO0CQ91Wx
+         HaDAFIYKAj3jlH6/wRc5+ANlBJhLGJ1T/OoUIUfK9KAwQ7Nhvpxh4pSv5PGauT6Kszk4
+         GroTrhMlhjWI8BeZg32GCWi4Lgzr7yDHTZ/8TArzUPnyG/8YBfB3D/qBjRYyvfKCuUwA
+         38crVZFiAdTwFRA5lP655s73K7S+YYY/XEj3BuVIhH9hWfbYzuArqLmKsnSDL5Y93wlN
+         /mPeLoielinRhyGE7T3U5PuraXOC3nQeg5q9Bk/txd8U3iwcWzatvlo+L0O/m4AaT84q
+         tMRA==
+X-Forwarded-Encrypted: i=1; AKwUvBwYOkOgT2aO5P+2J7x9CgnY3BL64Wj5YL/ifndxNx+TW/yTsEtObq8KEEq25qRy9hOHqJDuufUUv/SIT8M=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9qDeeqrHntoC50xAqwukiwRpXeRz/75zaeW8yXa5u91SIxjJv
+	38+u2qcF8RqI/SlaMJ3Gm41bTKIiqYsZvdEikOUY5kpAbhk+PbIlJj/6
+X-Gm-Gg: AYBFou0AZofMNH6pzPyEo/znP19VTq59NMVjF0EFjmIe1zesLmTF8boKVGxjH0YQ8bS
+	sqelMwdQYeVZRQUUXd3T2lbZuZnWlMDHOQOzr9rI3hYPfezkd0dTSWDAjj+6ab5TjRhUBLx+91N
+	fDEGei2U+nzfJcrVhsuSXCPNbyrfREWixPCqG2GWblCnD8zvTmItPchkQkKXQcuXo0VOw7ZK93T
+	RwJx+w8BzvVXiaCEOqLVmfTX/g1dfIlhDyJN+Urr3IMNNN2HxHIhtVOhVC1LJejHWG1MGaczkdA
+	6JwZX+OkbZdqxx+RVtvD6Luo50V7LbO0NK8LUWQqgkZToiDrtXoA8U/AAvWR1VienJI44b6MX32
+	Fikaw1hvxsVHh/pPbAdUMnnld/79zpF/43DI396m9InPrIOMH0V12tmbMiU73UUUOhexC84YORp
+	iZ4F5Z8EAA4DpRLVcE3sM8KpRXDHGAdJyNB2NvN979ymNBWIPtEVihxgABgJ/59GxTp5cX0Q==
+X-Received: by 2002:a17:90b:1811:b0:395:7fff:a08f with SMTP id 98e67ed59e1d1-39e106b649dmr1483983a91.0.1789475913321;
+        Tue, 15 Sep 2026 05:38:33 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd28acbsm5307259a91.10.2026.09.15.05.38.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 05:38:29 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>,
-	Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
+        Tue, 15 Sep 2026 05:38:32 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"Chester A. Unal" <chester.a.unal@arinc9.com>,
-	Daniel Golle <daniel@makrotopia.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
+	Coia Prant <coiaprant@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 	Russell King <linux@armlinux.org.uk>,
-	Simon Horman <horms@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	David Heidelberg <david@ixit.cz>,
 	netdev@vger.kernel.org,
-	mfd@lists.linux.dev,
+	linux-rockchip@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v22 3/9] dt-bindings: mfd: Document support for Airoha AN8855 Switch SoC
-Date: Tue, 15 Sep 2026 14:38:00 +0200
-Message-ID: <20260915123812.14747-4-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915123812.14747-1-ansuelsmth@gmail.com>
-References: <20260915123812.14747-1-ansuelsmth@gmail.com>
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH net-next v6 01/11] net: stmmac: move XPCS lifetime management to platform drivers
+Date: Tue, 15 Sep 2026 20:37:50 +0800
+Message-ID: <20260915123802.1561724-2-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260915123802.1561724-1-coiaprant@gmail.com>
+References: <20260915123802.1561724-1-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,200 +102,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document support for Airoha AN8855 Switch SoC. This SoC expose various
-peripherals like an Ethernet Switch, a NVMEM provider and Ethernet PHYs.
+The current XPCS creation logic in stmmac_pcs_setup() is problematic
+for several reasons.
 
-It does also support i2c and timers but those are not currently
-supported/used.
+First, if a device tree specifies a "pcs-handle" but no select_pcs()
+callback is provided by the platform driver, the created XPCS is never
+used. The phylink framework requires select_pcs() to actually return
+the PCS to the core, so the pcs-handle property becomes effectively
+useless without the matching callback. This is confusing for developers
+who expect that specifying a pcs-handle in their device tree should be
+sufficient to enable the PCS.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Second, and more critically, when a platform driver sets pcs_init()
+and creates an XPCS inside that callback, the common code afterwards
+still runs unconditionally and overwrites priv->hw->xpcs with the
+local xpcs variable, which stays NULL. The platform driver has no way
+to prevent this override because the common code runs after the
+platform-specific initialization.
+
+After commit 93f84152e4ae ("net: stmmac: clean up
+stmmac_mac_select_pcs()"), the common code no longer falls back to
+priv->hw->phylink_pcs if select_pcs() is not set. This change
+reinforces that each platform must manage its own PCS life cycle
+explicitly, but the XPCS creation code in stmmac_pcs_setup() was not
+updated to match this new expectation, leaving a gap where platform
+drivers have no clean way to take control of XPCS creation.
+
+Address all of these issues by simplifying the existing pcs_init() and
+pcs_exit() dispatch in stmmac_pcs_setup() and stmmac_pcs_clean(). The
+common stmmac_pcs_setup() now calls plat->pcs_init() if present, and
+stmmac_pcs_clean() calls plat->pcs_exit() if present, removing the
+confusing and error-prone XPCS creation logic from the common code.
+
+Platforms that do not need an XPCS simply leave the callbacks as NULL
+and no change in behavior occurs. Platforms that do need an XPCS can
+now create it with the exact configuration they require, including
+wrapping it with custom phylink_pcs_ops when necessary.
+
+The Intel mGbE glue is updated to create its XPCS inside its own
+pcs_init() implementation, and the renesas-gbeth, rzn1 and socfpga
+pcs_exit() callbacks now explicitly clear priv->hw->phylink_pcs after
+destroying the PCS to avoid dangling pointer references.
+
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
 ---
- .../bindings/mfd/airoha,an8855.yaml           | 176 ++++++++++++++++++
- 1 file changed, 176 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 44 +++++++++++++++++--
+ .../stmicro/stmmac/dwmac-renesas-gbeth.c      |  7 ++-
+ .../net/ethernet/stmicro/stmmac/dwmac-rzn1.c  |  7 ++-
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  7 ++-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 39 +++-------------
+ 5 files changed, 62 insertions(+), 42 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
-new file mode 100644
-index 000000000000..48127e956c96
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
-@@ -0,0 +1,176 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mfd/airoha,an8855.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index f5f9fa67ecd77..4308dccbf2570 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -603,13 +603,47 @@ static void common_default_data(struct plat_stmmacenet_data *plat)
+ 	plat->mdio_bus_data->needs_reset = true;
+ }
+ 
++static int intel_mgbe_pcs_init(struct stmmac_priv *priv)
++{
++	struct fwnode_handle *devnode, *pcsnode;
++	struct dw_xpcs *xpcs;
++	int addr;
 +
-+title: Airoha AN8855 Switch SoC
++	devnode = dev_fwnode(priv->device);
 +
-+maintainers:
-+  - Christian Marangi <ansuelsmth@gmail.com>
++	if (fwnode_property_present(devnode, "pcs-handle")) {
++		pcsnode = fwnode_find_reference(devnode, "pcs-handle", 0);
++		xpcs = xpcs_create_fwnode(pcsnode);
++		fwnode_handle_put(pcsnode);
++	} else {
++		addr = ffs(priv->plat->mdio_bus_data->pcs_mask) - 1;
++		xpcs = xpcs_create_mdiodev(priv->mii, addr);
++	}
 +
-+description: >
-+  Airoha AN8855 Switch is a SoC that expose various peripherals like an
-+  Ethernet Switch, a NVMEM provider and Ethernet PHYs.
++	if (IS_ERR(xpcs))
++		return PTR_ERR(xpcs);
 +
-+  It does also support i2c and timers but those are not currently
-+  supported/used.
++	xpcs_config_eee_mult_fact(xpcs, priv->plat->mult_fact_100ns);
 +
-+properties:
-+  compatible:
-+    const: airoha,an8855
++	priv->hw->xpcs = xpcs;
++	return 0;
++}
 +
-+  reg:
-+    maxItems: 1
++static void intel_mgbe_pcs_exit(struct stmmac_priv *priv)
++{
++	if (!priv->hw->xpcs)
++		return;
 +
-+  reset-gpios:
-+    maxItems: 1
++	xpcs_destroy(priv->hw->xpcs);
++	priv->hw->xpcs = NULL;
++}
 +
-+  efuse:
-+    type: object
-+    $ref: /schemas/nvmem/airoha,an8855-efuse.yaml
-+    description: EFUSE exposed by the Airoha AN8855 SoC
+ static struct phylink_pcs *intel_mgbe_select_pcs(struct stmmac_priv *priv,
+ 						 phy_interface_t interface)
+ {
+-	/* plat->mdio_bus_data->has_xpcs has been set true, so there
+-	 * should always be an XPCS. The original code would always
+-	 * return this if present.
+-	 */
++	if (!priv->hw->xpcs)
++		return NULL;
 +
-+  ethernet-switch:
-+    type: object
-+    $ref: /schemas/net/dsa/airoha,an8855-switch.yaml
-+    description: Switch exposed by the Airoha AN8855 SoC
+ 	return xpcs_to_phylink_pcs(priv->hw->xpcs);
+ }
+ 
+@@ -733,6 +767,8 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 	    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
+ 		plat->mdio_bus_data->pcs_mask = BIT_U32(INTEL_MGBE_XPCS_ADDR);
+ 		plat->default_an_inband = true;
++		plat->pcs_init = intel_mgbe_pcs_init;
++		plat->pcs_exit = intel_mgbe_pcs_exit;
+ 		plat->select_pcs = intel_mgbe_select_pcs;
+ 	}
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
+index 19f34e18bfef2..9af32c26f9c14 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-renesas-gbeth.c
+@@ -81,8 +81,11 @@ static int renesas_gmac_pcs_init(struct stmmac_priv *priv)
+ 
+ static void renesas_gmac_pcs_exit(struct stmmac_priv *priv)
+ {
+-	if (priv->hw->phylink_pcs)
+-		miic_destroy(priv->hw->phylink_pcs);
++	if (!priv->hw->phylink_pcs)
++		return;
 +
-+  mdio:
-+    type: object
-+    $ref: /schemas/net/mdio.yaml#
-+    description: MDIO exposed by the Airoha AN8855 SoC
-+    unevaluatedProperties: false
++	miic_destroy(priv->hw->phylink_pcs);
++	priv->hw->phylink_pcs = NULL;
+ }
+ 
+ static struct phylink_pcs *renesas_gmac_select_pcs(struct stmmac_priv *priv,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rzn1.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rzn1.c
+index 13634965bc19a..01df4776edb3f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rzn1.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rzn1.c
+@@ -35,8 +35,11 @@ static int rzn1_dwmac_pcs_init(struct stmmac_priv *priv)
+ 
+ static void rzn1_dwmac_pcs_exit(struct stmmac_priv *priv)
+ {
+-	if (priv->hw->phylink_pcs)
+-		miic_destroy(priv->hw->phylink_pcs);
++	if (!priv->hw->phylink_pcs)
++		return;
 +
-+required:
-+  - compatible
-+  - reg
-+  - mdio
-+  - ethernet-switch
++	miic_destroy(priv->hw->phylink_pcs);
++	priv->hw->phylink_pcs = NULL;
+ }
+ 
+ static struct phylink_pcs *rzn1_dwmac_select_pcs(struct stmmac_priv *priv,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+index 1d7f0a57d2889..6d4bc1fe8f751 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+@@ -539,8 +539,11 @@ static int socfpga_dwmac_pcs_init(struct stmmac_priv *priv)
+ 
+ static void socfpga_dwmac_pcs_exit(struct stmmac_priv *priv)
+ {
+-	if (priv->hw->phylink_pcs)
+-		lynx_pcs_destroy(priv->hw->phylink_pcs);
++	if (!priv->hw->phylink_pcs)
++		return;
 +
-+additionalProperties: false
++	lynx_pcs_destroy(priv->hw->phylink_pcs);
++	priv->hw->phylink_pcs = NULL;
+ }
+ 
+ static struct phylink_pcs *socfpga_dwmac_select_pcs(struct stmmac_priv *priv,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index afe98ff5bdcb0..7396b68899c66 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -426,35 +426,14 @@ int stmmac_mdio_reset(struct mii_bus *bus)
+ int stmmac_pcs_setup(struct net_device *ndev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+-	struct fwnode_handle *devnode, *pcsnode;
+-	struct dw_xpcs *xpcs = NULL;
+-	int addr, ret;
+-
+-	devnode = dev_fwnode(priv->device);
+-
+-	if (priv->plat->pcs_init) {
+-		ret = priv->plat->pcs_init(priv);
+-	} else if (fwnode_property_present(devnode, "pcs-handle")) {
+-		pcsnode = fwnode_find_reference(devnode, "pcs-handle", 0);
+-		xpcs = xpcs_create_fwnode(pcsnode);
+-		fwnode_handle_put(pcsnode);
+-		ret = PTR_ERR_OR_ZERO(xpcs);
+-	} else if (priv->plat->mdio_bus_data &&
+-		   priv->plat->mdio_bus_data->pcs_mask) {
+-		addr = ffs(priv->plat->mdio_bus_data->pcs_mask) - 1;
+-		xpcs = xpcs_create_mdiodev(priv->mii, addr);
+-		ret = PTR_ERR_OR_ZERO(xpcs);
+-	} else {
++	int ret;
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    mdio {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        soc@1 {
-+            compatible = "airoha,an8855";
-+            reg = <1>;
-+
-+            reset-gpios = <&pio 39 GPIO_ACTIVE_HIGH>;
-+
-+            efuse {
-+                compatible = "airoha,an8855-efuse";
-+
-+                #nvmem-cell-cells = <0>;
-+
-+                nvmem-layout {
-+                    compatible = "fixed-layout";
-+                    #address-cells = <1>;
-+                    #size-cells = <1>;
-+
-+                    shift_sel_port0_tx_a: shift-sel-port0-tx-a@c {
-+                       reg = <0xc 0x4>;
-+                    };
-+
-+                    shift_sel_port0_tx_b: shift-sel-port0-tx-b@10 {
-+                        reg = <0x10 0x4>;
-+                    };
-+
-+                    shift_sel_port0_tx_c: shift-sel-port0-tx-c@14 {
-+                        reg = <0x14 0x4>;
-+                    };
-+
-+                    shift_sel_port0_tx_d: shift-sel-port0-tx-d@18 {
-+                       reg = <0x18 0x4>;
-+                    };
-+
-+                    shift_sel_port1_tx_a: shift-sel-port1-tx-a@1c {
-+                        reg = <0x1c 0x4>;
-+                    };
-+
-+                    shift_sel_port1_tx_b: shift-sel-port1-tx-b@20 {
-+                        reg = <0x20 0x4>;
-+                    };
-+
-+                    shift_sel_port1_tx_c: shift-sel-port1-tx-c@24 {
-+                       reg = <0x24 0x4>;
-+                    };
-+
-+                    shift_sel_port1_tx_d: shift-sel-port1-tx-d@28 {
-+                        reg = <0x28 0x4>;
-+                    };
-+                };
-+            };
-+
-+            ethernet-switch {
-+                compatible = "airoha,an8855-switch";
-+
-+                ports {
-+                    #address-cells = <1>;
-+                    #size-cells = <0>;
-+
-+                    port@0 {
-+                        reg = <0>;
-+                        label = "lan1";
-+                        phy-mode = "internal";
-+                        phy-handle = <&internal_phy1>;
-+                    };
-+
-+                    port@1 {
-+                        reg = <1>;
-+                        label = "lan2";
-+                        phy-mode = "internal";
-+                        phy-handle = <&internal_phy2>;
-+                    };
-+
-+                    port@5 {
-+                        reg = <5>;
-+                        label = "cpu";
-+                        ethernet = <&gmac0>;
-+                        phy-mode = "2500base-x";
-+
-+                        fixed-link {
-+                            speed = <2500>;
-+                            full-duplex;
-+                            pause;
-+                        };
-+                    };
-+                };
-+            };
-+
-+            mdio {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                internal_phy1: ethernet-phy@1 {
-+                  compatible = "ethernet-phy-idc0ff.0410",
-+                               "ethernet-phy-ieee802.3-c22";
-+                  reg = <1>;
-+
-+                  nvmem-cells = <&shift_sel_port0_tx_a>,
-+                      <&shift_sel_port0_tx_b>,
-+                      <&shift_sel_port0_tx_c>,
-+                      <&shift_sel_port0_tx_d>;
-+                  nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
-+                };
-+
-+                internal_phy2: ethernet-phy@2 {
-+                  compatible = "ethernet-phy-idc0ff.0410",
-+                               "ethernet-phy-ieee802.3-c22";
-+                  reg = <2>;
-+
-+                  nvmem-cells = <&shift_sel_port1_tx_a>,
-+                      <&shift_sel_port1_tx_b>,
-+                      <&shift_sel_port1_tx_c>,
-+                      <&shift_sel_port1_tx_d>;
-+                  nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
-+                };
-+            };
-+        };
-+    };
++	if (!priv->plat->pcs_init)
+ 		return 0;
+-	}
+ 
++	ret = priv->plat->pcs_init(priv);
+ 	if (ret)
+-		return dev_err_probe(priv->device, ret, "No xPCS found\n");
+-
+-	if (xpcs)
+-		xpcs_config_eee_mult_fact(xpcs, priv->plat->mult_fact_100ns);
+-
+-	priv->hw->xpcs = xpcs;
++		return dev_err_probe(priv->device, ret, "Failed to initialize PCS\n");
+ 
+ 	return 0;
+ }
+@@ -463,14 +442,10 @@ void stmmac_pcs_clean(struct net_device *ndev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+ 
+-	if (priv->plat->pcs_exit)
+-		priv->plat->pcs_exit(priv);
+-
+-	if (!priv->hw->xpcs)
++	if (!priv->plat->pcs_exit)
+ 		return;
+ 
+-	xpcs_destroy(priv->hw->xpcs);
+-	priv->hw->xpcs = NULL;
++	priv->plat->pcs_exit(priv);
+ }
+ 
+ struct stmmac_clk_rate {
 -- 
-2.53.0
+2.47.3
 
