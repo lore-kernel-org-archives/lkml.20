@@ -1,169 +1,111 @@
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98ACC361668;
-	Tue, 15 Sep 2026 08:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CABF93ACEFF
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459589; cv=none; b=uSpBO7mBSAXytdrNpHSe6AQCUG78lO/lWjR2MbH4GuEBdu/uC98l0Scm+sffUwgYHkQUTGU5/dGpoVnSPbZlPfRlP4H75bVRq28R8TpTYfVXlMk7dsnY8iYX57vPzTCiBcQG4Uw+LzctJsxS+Q2XVNbu/Iil1KoPW8Nlf9MS8SQ=
+	t=1789459602; cv=none; b=AmTBxmA+KvohkJk036hCY8GljKa+38QK7eZkIi8JKfPIxrty6e8hZ8SP1T2OZXrluIAZX4TV4t3E1InDWluW16uPZ5a2X96BvW/CVl6rGdolFxZcgpDoR6lX7wHL+hzwAvTujushi3DrxJVmDD/4sdMCJSnFogmbpDB8KmpJ9Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459589; c=relaxed/simple;
-	bh=0UtIK4EWaEM5NyLfWC9AQHfi3cx+W4riJmN7gPYqazU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=b5hHOjlNgyesIyTXu75punBs5AXB2SiVneHE2qqrgNCooMWZao3PHL+SkkVTDW4Sgs+PDPYxrzrNaVm3EAW1YNEeu7bRpXZStSBPXwAWPTbBTqmxS+Df3N6BMeIpri0xwXl7NRpzIZ9aaM/dqzcV4ig1BkjLJvaKR+naP9Y0NtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=g/xpKYEg; arc=none smtp.client-ip=217.70.183.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1789459602; c=relaxed/simple;
+	bh=heCFy2bFPAFPDyeCf8OpyG8vFQyBTqauqjXZX0i22bg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BUnu/HGZknNkBcD9rjrTVKvekYiJE6jEhpmYzO6kBukjinlLqueb8ZhwTrbELIoKSrmVLJHbmZS9uBO2b+kSifl0wr6vyZWvLh4roLC0j376K+wRJocj/9zzdcr5eDaMCY6sMGKgKSzj/fXsthElonXmRbLKikYHDdOmrK38+Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WXx1KQmd; arc=none smtp.client-ip=74.125.228.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="g/xpKYEg"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 308F83EDE1;
-	Tue, 15 Sep 2026 08:06:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1789459579;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zjp8PjXiAnLAmgWmDr7CM8wc83Z7ba0mT6o7NJd+Dv0=;
-	b=g/xpKYEgVTl9Y+YC+g6ZryBRi3HeskV5U7z+Gd/XqOsv7ra6nbKEcSo46YPzNvvgT+drJC
-	G/59HHj8u+mo9NcxDx/DDWi4xhQVTwORLcATwuoVXv6Z1J2knt53jea7od54PNLwsOH5bb
-	QYIGiTT0s0HJu3NkeKzB/MzG4/LNGFpiNi56NAZejgJoJrix40m/clbZfx1y/8PA2ANYM2
-	t4WjDGZZY3D3EcjZk/qLqwg8iWck/nvZUpRNKkv4C66kv0lo2pzKWRQMuaJNpex74ITpv0
-	zDsSroFjeTxOKph+W+xKJIwIj4BUhRdvakhqmKlAuv30MQa2U8eYS7C5Bif0rQ==
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-Date: Tue, 15 Sep 2026 10:06:03 +0200
-Subject: [PATCH net-next v8 2/3] dt-bindings: net: wiznet,w5100: add link
- status interrupt
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WXx1KQmd"
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6a9dfe4dfc0so3191050a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:06:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789459599; x=1790064399; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=heCFy2bFPAFPDyeCf8OpyG8vFQyBTqauqjXZX0i22bg=;
+        b=WXx1KQmdnlWnDaFGOTOy9pYGdWvh+3Cb0IrnAqrjYMzI5GBEkgU93wW4hIRwBjODlD
+         aT4QqCyf5V2jlMjmN1l+NALCkyBKjlMta7gpL/ZeMRDB3vigWtK45lKwt5OnzkEP5KI4
+         +LrH+CiPYcpqd+yrK2camCGNXIGJfEts5jRCr63yVMX8Wd8/i9YOiFjUwOzVePneJMB9
+         ajnd4JTCaaefZzx/7WOkWjBTKNDgpfdCYbW2Mil58TE+HPbLpAWaYMEDW9VWHzw/l1t3
+         lsibGxrg99sap8ezFqv5Qu/RqvVgDegwlzNxCfGv5DYunPN5ahff9D1CH0FGt3oqe3zi
+         QB8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789459599; x=1790064399;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=heCFy2bFPAFPDyeCf8OpyG8vFQyBTqauqjXZX0i22bg=;
+        b=ukOd4IQp2ytBVNqxQaIoW4EazgZupTs072vfa7WiTSR/hlFyFQ2li3IWDBT6LSzAgx
+         XwYLwQM90elU4JF1attz17vUjZavrfHTd8pC4dIl6aaHf5TLoTuIK6Rp+gomB4Dp+jXF
+         GJwu4mrqkDDbQWfD0SvBcj9CBYtftvgVUXw09GRD/3rkVj3KZIv22k4l+Xr79NuC9wmj
+         iyQb9nM4/4z/rlPmz62XWWIugAA2mX+t+xQy0dEDlBsdhllU3qNMgI971B4Gp6PZccNg
+         gyezttyABwh0ybdc7owECQzb3orb82pvDt65bfnjnaXk7QzTYKhJjJ1yXklmMo0GCWWa
+         aEGw==
+X-Forwarded-Encrypted: i=1; AKwUvBxctfY4pesWOB/BuGBhRVdTUcuBCO/wV/IvlANEZoDCA4r4Ckta7x3R5W3RTIhjBuTWY2j7sXE8Y99h+WY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfysdTMUBjK2MHslxgKnpehD7oJEr7iPuGx8jHPiOh9NYhvyIN
+	Xds94JXDX9WjoIsrqZRnZU3CNsflIMZZhAOrs9WdRXEUK6+sS2VeGVxMCHy6ZUeuwqY=
+X-Gm-Gg: AYBFou024LSIcbX9uF/jDOgG9yToYk+lQddj+tj0eN6S3NfvQUDMM4xdSV9jbbf7kwN
+	mSx3KeiZEaXcgm7faBeA0LvZcwSeSVCVRIfBHFR02Qy38RUjEpeGRJTbPaGFBYDLokn+y3orBs9
+	FbztxCR4mCXDHZncU96wKaCLnmBGiDX8FG7YFHgLLMSLSth7giaGjrlJl3XFH4pjorcjQjcclRa
+	MgKWJAVksVsdFTcnUK2TATxPLCRfOWdRwPHSHDqCVm6RPPN82VACbPyergUVQEuE3PiQXl0KPLk
+	n822mBiK5NzD2/xTs+AuRLJTXSo+UG344ywVTkHuU3Y716K91qhPfEX9xSvH/v1Fx8Mqw3oewfX
+	2gfr2JzPyO/VPUJsCGCfNSt3emop/nskKquuZE36LgByRYTfvztF0zhWI2bByyWVlxnBCKksdaC
+	nDbMuaMEX5qo2qD6UbfVhXXYZRWWAGRuJkro7CL1M8Sn4aFxCypzxK3MZFtotwti6t884kGKC0w
+	WE=
+X-Received: by 2002:a05:6402:4510:b0:6a9:9cd3:a07a with SMTP id 4fb4d7f45d1cf-6a9f626e2f0mr4077380a12.20.1789459598660;
+        Tue, 15 Sep 2026 01:06:38 -0700 (PDT)
+Received: from draszik.lan ([109.255.181.4])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5831187sm5396669a12.1.2026.09.15.01.06.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:06:38 -0700 (PDT)
+Message-ID: <321bcc9b1752d7fd2e1488270cb8bf4bf2cb5224.camel@linaro.org>
+Subject: Re: [PATCH v3 0/2] drm/drm_crtc: dma_fence_ops fixes
+From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+	 <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal	
+ <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, Philipp Stanner
+ <phasta@kernel.org>, Danilo Krummrich	 <dakr@kernel.org>, Sean Paul
+ <seanpaul@chromium.org>, Gustavo Padovan	 <gustavo.padovan@collabora.co.uk>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin	
+ <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
+ Yescas <jyescas@google.com>, kernel-team@android.com, Simona Vetter
+ <simona.vetter@ffwll.ch>, 	stable@vger.kernel.org
+Date: Tue, 15 Sep 2026 09:07:58 +0100
+In-Reply-To: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
+References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-wiznet-link-gpio-v8-2-d173622474cc@marmottus.net>
-References: <20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net>
-In-Reply-To: <20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Arthur Crepin Leblond <arthur@marmottus.net>
-X-Mailer: b4 0.15.2
-X-GND-Sasl: arthur@marmottus.net
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTFAFqprjYmMpGKftCTkYlbk5kdK4l8Fitu7zs4+KBA0m8t3VRCs8xUf9+CZ5U3qNYjJxsUJwkHFm6CTcIxkrUixEh9MRSgg+b+3GEgRVe5rGxdkPxTUXurRaic+wE2+hLOnmGcr/adm+W6FlAeH+y8E/wnjtu9WluIC4LFUQWUCjN5rGuBUOIxMySz0myLCeSuyrzkg/LXvW4ECcruBfdzuWPCZwp6ZINeRnspLS9TpE5Yd/tynzLutmhfM0brccBXPAVxNesNx0XZY7/j/f+G1m4k5L9tNogzM4K5fCyjvtneZA9frkKyXLiznFGo2i+z3w4FUXo7q2gbFgrem5XnCi+9CkF8DkIA3TwdKC259mZjyvgtUJ8nlXrwETJlI4ErBnq3K503rAcYSfd4ldDha0bktGAjExBWdkB+tjVaVSbNm24ehAZiradpdQE8nR3kmMz76V9gmQLN+aolve/tzCDiklA1mTDt4XbJvPcNuXft6eN+FyHaiPVjuA0HoNp65evUFEBNiPv20q9jBKhGDA92aMTNwK0GdZC2zMBaigiWmR4YToMeUPx1P1QkCAia/IffwYK5C5idA5WwpmrNriQzavRlVxhnhWehWP3GkVxf40BS359FjgYUef6QO9js8ogeYuPb9ZZA6H4Z1FZD0h97q6a/iHukMEsAaXQF+aw
 
-Add an optional link status interrupt which can be connected to the
-LINKLED pin on the device to detect link status changes. This second
-interrupt is only supported on wiznet,w5500.
+On Tue, 2026-07-21 at 09:21 +0100, Andr=C3=A9 Draszik wrote:
+> Hi,
+>=20
+> These patches fix two issues in the drm/drm_crtc driver. Initially I
+> was hitting the BUG_ON() in a scenario as explained in the commit
+> message of what is now the second patch in this series.
+>=20
+> After posting, sashiko.dev noticed another issue, that was previously
+> masked by the now-removed BUG_ON(). Since we can't have a loud BUG() be
+> replaced with silent data corruption or worse, I've also added a patch
+> to address this issue highlighted by sashiko.dev. I believe its
+> observation and analysis to be correct.
+>=20
+> Cheers,
+> Andre'
 
-Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
----
-v8:
- - Remove Krzysztof Kozlowski reviewed-by tag after Sashiko review
-   changes
-  - Make the interrupts property conditional
+Friendly ping on this series.
 
-v7:
- - No changes
-
-v6:
- - Fix DT error: use minItems
- - Remove conditional properties
-
-v5:
- - Make the DT interrupts property dynamic from the compatible one
- - Fix DT bindings errors
-
-v4:
- - Update interrupts in DT bindings
-
-v3:
- - Fix DT binding errors
-
-v2:
- - Convert device tree binding to YAML
----
- .../devicetree/bindings/net/wiznet,w5100.yaml      | 38 ++++++++++++++++++----
- 1 file changed, 31 insertions(+), 7 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-index 25098308eb6e..da03f4e07f29 100644
---- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-+++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-@@ -12,10 +12,6 @@ maintainers:
- description: |
-   This is a standalone 10/100 MBit Ethernet controller with SPI interface.
- 
--allOf:
--  - $ref: /schemas/net/ethernet-controller.yaml#
--  - $ref: /schemas/spi/spi-peripheral-props.yaml#
--
- properties:
-   compatible:
-     enum:
-@@ -24,8 +20,11 @@ properties:
-       - wiznet,w5500
- 
-   interrupts:
--    maxItems: 1
--    description: Main interrupt (INT pin on the device).
-+    description:
-+      The main interrupt (INT pin) is mandatory on all devices. The w5500
-+      additionally supports an optional second interrupt for link status changes
-+      (LINKLED pin). If it is not specified, link state changes will not be
-+      reported.
- 
-   reg:
-     maxItems: 1
-@@ -42,6 +41,30 @@ required:
-   - reg
-   - interrupts
- 
-+allOf:
-+  - $ref: /schemas/net/ethernet-controller.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - wiznet,w5500
-+    then:
-+      properties:
-+        interrupts:
-+          minItems: 1
-+          items:
-+            - description: Main interrupt (INT pin on the device).
-+            - description:
-+                Optional interrupt for link status changes (LINKLED pin on
-+                w5500).
-+    else:
-+      properties:
-+        interrupts:
-+          maxItems: 1
-+          description: Main interrupt (INT pin on the device).
-+
- unevaluatedProperties: false
- 
- examples:
-@@ -60,7 +83,8 @@ examples:
-             pinctrl-names = "default";
-             pinctrl-0 = <&eth1_pins>;
-             interrupt-parent = <&gpio>;
--            interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
-+            interrupts = <25 IRQ_TYPE_LEVEL_LOW>,
-+                         <24 IRQ_TYPE_EDGE_BOTH>;
-             spi-max-frequency = <30000000>;
-             local-mac-address = [ a0 b0 c0 d0 e0 f0 ];
-         };
-
--- 
-2.55.0
-
+Cheers,
+Andre'
