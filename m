@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF40647D462;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB6E41685A;
 	Tue, 15 Sep 2026 13:50:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480204; cv=none; b=qelUQWeH7cRmNz38P5ulRDwU+xnM4hJoIWmtTnuZCzkMWtQeuUpuFC99ihdd4QEUmT9OP8i1SADkA5Y79pVX0962rs73CvLicho/w+eau8h/DJdRzqjy77bQ0/Uj1S4CDONrPU8oeAaMGdlEj0NCjgI2r2Fx0z3w8cKc745pFzU=
+	t=1789480204; cv=none; b=tM/bkqs3p+2vbkm20zwrRYxrRDIkjzhX/s2AluYbhNi4haAd6VweqbqBQRNhC9Z06u/BHxYYxe7jkkdW7LNFMWDwsZWJtku2NSV5l2B/bna6c482rpJdxTL+XSXgBzIaeRRj8ANgHEIirJUGU3mdxwz5FMiGfr/su1BTMGWqh4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789480204; c=relaxed/simple;
-	bh=NKKg6AEEXoM6tQyFXezz7j5lNyGVhRK42SMauPjhDyY=;
+	bh=fSE9BoJywHuBiftWhreULBZfq0aOAYM8Do4X/ZMeGM0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=V6UVD06eUEoItzYhkVNis3ACvBb8Yy9BKyO3QnU2ke5IBjBbDDaTx4LCBHXa1ikFaSkWNBrYfjN2JvjxXMuaGnlX/9UEpc/5NnoVRJsNzgSuHhX5B93yrBecqe/zfHWjh/2WRlwj5eUDL38BdKfGshOAIXReBPlleD5Cv7Bau44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=a2p7s/iS; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=Bh5apcG9Ycsh1dd/tdqZTgh7rUUJ/T8FaKZCpGmx7D7fRHg1pG8AHDvth6BqdZ8xlnHd27t59ehV5AdWRQQQ6C4ZqovYBGq2M4OAI2lTOLYpjYCyZuJJSN/8t+B37IoSfmqz31fxbcPWXKV2Njt2Ue0mtZmQ9oF/Ve7/stDswNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=EnAL1Dhb; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="a2p7s/iS"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="EnAL1Dhb"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1789480198;
-	bh=NKKg6AEEXoM6tQyFXezz7j5lNyGVhRK42SMauPjhDyY=;
+	bh=fSE9BoJywHuBiftWhreULBZfq0aOAYM8Do4X/ZMeGM0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=a2p7s/iS9AU11sMMJ4nivDlPw8LPHOBDW+zs2BbohKEuiIuUEZaReKCEJgS21Usvm
-	 t+gxMki2EpRFVW/xsW6st7jqJXlGZiW6eDPrCpLw0WgugcGqUpqjcWu3+kbetLP1gD
-	 hhDDp/caFySjcPuBC6W7BAQHlAYUyjmqOfsRgyiU1H+Fu7wONoLyS7QFyn78q+Fuie
-	 rdJwa7CvidaUCaATMzGp8NpbkKCcVBF5VCywejkxxXpZD45DPM1ofa6fQKW0vV8Zni
-	 rAJ6IxSOrB/Oe3M8EqLmwFXmejQrUFZdK98WVaK3MCdieixf4khPHPfK5Zilc7Bjho
-	 3LWYNvxAcP4Hg==
+	b=EnAL1Dhb1QyTkoK34wxMfwzTVUu74Ge2/RKjukyaLOn6xVS8EGeBBQpitJx9+et87
+	 NPw4aEet9zjs2XyDtDdLGUKo+DgBFDdW3busuvrWulXvGno3sa7ccOnZL/d/XspzV6
+	 V9vqrtEBsyO794ZFdtLZxHf3O+uyjEsuOMuWzWBWkQpsBBDAAIKKCxaVnKbBqNBj1b
+	 Ns5y+PbS7GFVQ/f5I5xI52IqAVTheEjqKOB6IsalLbIxF3Xu61THvpdRoNbKAQ/mjs
+	 ilBBsd4vN09Rd5ss4/kjB7wikao0sA+xuRaoCQUcn8JbTnOER7MvG6MRn2mQXARsK/
+	 a9huxOi1/22Zw==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7DCE217E091A;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C6C017E01C5;
 	Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 2B7A948002C; Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
+	id 2AE15480029; Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 15 Sep 2026 15:49:49 +0200
-Subject: [PATCH v15 02/16] phy: rockchip: usbdp: Update mode_change after
- error handling
+Date: Tue, 15 Sep 2026 15:49:48 +0200
+Subject: [PATCH v15 01/16] dt-bindings: phy: rockchip-usbdp: add improved
+ ports scheme
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-rockchip-usbdp-cleanup-v15-2-80e2c11d1ce8@collabora.com>
+Message-Id: <20260915-rockchip-usbdp-cleanup-v15-1-80e2c11d1ce8@collabora.com>
 References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
 In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
@@ -61,74 +61,82 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  kernel@collabora.com, devicetree@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1856;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2405;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=NKKg6AEEXoM6tQyFXezz7j5lNyGVhRK42SMauPjhDyY=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpTQWVvWBfi+HlbBO4onPCersITl/nVV5df
- EvkbFkM7wDTnokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqU0FAAoJENju1/PI
- O/qajMgP/13aHIc8MUKY/ambWT080dg1IDxSZSXaw9v86VelIfPm0rQ+/LwOlbxfhH2KMm2qJlv
- NzR6LJxNVGVjhAYbDXAJfq5EnsZh+FG5ebevI0Y7JsXvz04KK2Jza1wBMbXUaWnAanYvcLySrhH
- QjvkkAUIpZ58k0QwJHpYPjG5FEoftxC0FSHg2/g9GJ5m8tXa7VCVnR79rfNMxli2XTwjVXOMYob
- +xBipON5+1IMrhSD7074zS0VphRMLTl5wYr8r7E5qTW8gHQg1fzIMQhXZlU1htJVBEfOsDbnVha
- 3b4CpNbE3OfQclKH0108Td7HWVv4jWYNTFl2gAe2mqGj+2w6YSkWCezjpr2O8ebn/51xsrIvyn6
- PY6LMxEP9bXGSYV8fLZOAt77k/Yh4qNCGcRCBxYcCnpuQCxyQ/e1ayggi7SRaQAhQaGhRRAm4U8
- R8uISMGd/I5A4eq4ZQ1yCgfkQChl6PiDq4kQ973R7WcYvR/SIVYy3u1P83ftbx4arLuAiILQyI0
- Ksleutp+NydSqED4BrIgQWwB6LcAuOVR7ip5vf7PcL25/RyjLrhq38UpYdAi1PBoi1BYZ62x86i
- cydkRap606vVZZapQokzXKxIt+pMAkF3OlBD28Dl4NQf6IMjXgw5aWXfsUlaTClVlHxBuqDNhFu
- z0/ugt9fZogXcI/yQ2cM3Kw==
+ bh=fSE9BoJywHuBiftWhreULBZfq0aOAYM8Do4X/ZMeGM0=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpTQXF/0wYZI+OBSxd+3t4gR+Wdcl/41J1H
+ RPFjo2xbxeHs4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqU0FAAoJENju1/PI
+ O/qaMDAP/2exTSnnkOwoMbX8hPdWiGWpGk/uwF0bAJK9Wg6COb+CiEdRcUhdndG/mctCN2ZIzfP
+ 97FSYciQXNVOVeyXCMvCuLOeeIhwD8JjWy7S6OdS/dnOvMmhuQ0ApWWSwBbakFs2ElfAxeY1/A7
+ zor8gg5g5doNDH7rquKvj+0KmfcE1QSo7myHcVaenjJCIqOluASXNzXo7s4zKEyyZjB4YUivm8U
+ fY7cRwGDVHOt+OBKvEM+aVPYspobbQXAP6xJv7LA9kkuXkVczq3JTNPRsZZkUBS7/dn+TiZEULH
+ K1CD6zwERx7oiE/KbhTYcVCmnkEMEsMxEEEsXYCn0uIbsh+99aWurkG+2eXwaUDqJy+hSUHQZ+4
+ VUr8U5uh4nPj9A8x8SFICgIDMZdPh2C/0I9xSkypwzUvIKvb3ac+TdQfe9ybn2X+XFzIVnPFBaz
+ j0mXrgvp/IX90s8aXbD+IM7XPSPpnYJv1TrEsfaDNhEKikLDGxkmx7rSOKJZYntIAvLpEPovvXi
+ THlFK4GDBc3QTQB0GN84jqEYZs0m7RY2EGjSV9aW6qIIs6ZEqbOkulJguxy+lFc4TtH4QxiCm7D
+ gj5RJjHGU6ElDPl8hgjCyrRN7pN7phsDG2RfGzXSbFxN/kxOkY5WjY++rCwz4+T5vNZ4N/YM7SD
+ 0oiILF1sg4u4lMUJyROYouQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-If rk_udphy_init() or rk_udphy_setup() fails, the reinit will not be
-tried again. Fix this by only updating the variable after all potential
-errors have been handled.
+Currently the Rockchip USBDP PHY is missing a documented port scheme.
+Meanwhile upstream RK3588 DTS files are a bit messy and use different
+port schemes. The upstream USBDP PHY Linux kernel driver does not yet
+parse the ports at all and thus does not create any implicit ABI either.
 
-Note, that no errors have been seen on real hardware and failures would
-most likely be fatal and require at least a full reboot as the function
-already asserts the PHY reset lines. So this is more of a theoretical
-issue.
+But with the current mess it is not possible to properly support USB-C
+DP AltMode. Thus this introduces a proper port scheme following roughly
+the ports design of the Qualcomm QMP USB4-USB3-DP PHY controller binding
+with a slight difference that there is an additional port for the
+USB-C SBU port as the Rockchip USB-DP PHY also contains the SBU mux.
 
-Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-phy/20260612163835.8D5471F000E9@smtp.kernel.org/
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../bindings/phy/phy-rockchip-usbdp.yaml           | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 07a839e41db7..13649b52e99b 100644
---- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-+++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -999,15 +999,14 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
- 	}
+diff --git a/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml b/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
+index 8b7059d5b182..89efaf005a7b 100644
+--- a/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
++++ b/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
+@@ -110,10 +110,34 @@ properties:
  
- 	if (udphy->status == UDPHY_MODE_NONE) {
--		udphy->mode_change = false;
- 		ret = rk_udphy_setup(udphy);
- 		if (ret)
- 			return ret;
+   port:
+     $ref: /schemas/graph.yaml#/properties/port
++    deprecated: true
+     description:
+       A port node to link the PHY to a TypeC controller for the purpose of
+       handling orientation switching.
  
- 		if (udphy->mode & UDPHY_MODE_USB)
- 			rk_udphy_u3_port_disable(udphy, false);
--	} else if (udphy->mode_change) {
- 		udphy->mode_change = false;
-+	} else if (udphy->mode_change) {
- 		udphy->status = UDPHY_MODE_NONE;
- 		if (udphy->mode == UDPHY_MODE_DP)
- 			rk_udphy_u3_port_disable(udphy, true);
-@@ -1016,6 +1015,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
- 		ret = rk_udphy_setup(udphy);
- 		if (ret)
- 			return ret;
-+		udphy->mode_change = false;
- 	}
- 
- 	udphy->status |= mode;
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description:
++          Output endpoint of the PHY for USB (or DP when configured into 4 lane
++          mode), which should point to the superspeed port of a USB connector.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Incoming endpoint from the USB controller
++
++      port@2:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Incoming endpoint from the DisplayPort controller
++
++      port@3:
++        $ref: /schemas/graph.yaml#/properties/port
++        description:
++          Output endpoint of the PHY for DP Auxiliary, which should either point to
++          the SBU port of a USB-C connector or a DisplayPort connector input port.
++
+ required:
+   - compatible
+   - reg
 
 -- 
 2.53.0
