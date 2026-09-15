@@ -1,107 +1,124 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37653C1D49
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:51:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480263; cv=pass; b=fXgYxzV/3/MkUnHaju5H9w/Wjn3r6dFXhBbbLcuTKOQ+lNNlNlUXXdkEOL0mrkhYOY7sSoBvbJgn3ecmo/XGmMKCCKtsxZN/DeSX2YmUnECR1t/MTtPbJ48zzQpKNMi2mIbxiRIJrI1D+HsmktYZEfSwHUUoOy3evTUdYcMnyic=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480263; c=relaxed/simple;
-	bh=4wPcRrMFAq+5dln8/Xz92CdQ5x3DJk3HiLHlwR+yBQg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VQwmE7GC/+dctMXeXmO3LwQBdJSv9LWLpMOgjRPKc51zmrDJ5rdvks7F+G5s7rpx9vqziIpofdxXJacQatez4dmIEbVORAilKN3+UE4+YcpkriGrHqlqRTLT9vatcYHMvZJoAtNeoek+HR22dTTl3CB4SF3utOqmzVUl6pHPpLM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dfkf/blk; arc=pass smtp.client-ip=74.125.231.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF16A2EC0A4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:52:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789480340; cv=none; b=JWAmaytP7kN0Y67skWzOsGFSK6rVmzLwgWNLQyy8IXlucso9q3LlLCtGy5liAxN+n2w8+g74YZb2s7eB9GP9MuQaz8w+E9muNgiVkxH4FkSL43ScADkgzgkfUfEAwxbXLaePyz8fz14Ur6ou+F7Eo3OVk7m/9nR+cwES0lNwl+E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789480340; c=relaxed/simple;
+	bh=ZAms6xLFIiVySZXmTurNlRNYz1fQZdQMmujTnwJtQkU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=draf54Yoxwe9ZYb1b6pgV1PTO06BYihEy1hq0y8zbLOgzOzXMqCJ9bdAQiWEKFGEilzXw4UGp4Nl+Y0IapD4eQle/sjAYFtFLQVeSH3xmv6KnS8z60FZiXKEcJNKiUPAK6LHdTLqgROL4shsLyFWO147j1Xyn4xU1QvjfmJ2EM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=it4mEL39; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dfkf/blk"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-46dae65dc5cso185621fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:51:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789480261; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HYome1O4KvDzbRGvbwqDEHYQDOIV5ZWdo/rGMX6NAQgLc1VnsHYORWMuCgEdG+GHKI
-         sJqRie49snKUHIg+JBDDNGCmmD9VPt3H1LIREPazmMbAK/bvwRcDRXjeVpYkiKnHCbAv
-         /wsjm5r1qGZCPkvZOjvTRxDjKZNyJ6PBcoaxzN/b782m/2LXM3Sm4owgSJzUrTnrL8hf
-         QKl4t2YNRdOd7Yku8SMnZaP+sXlGhkbg4fHKBIHghZ7cscadXsu7BazBaGBCxyIkQxG1
-         CBqI921mlS0oMDGrZvLD3P3D9teCH/hhu0Qd06YdkQGdRnwJOpoVwwQwhse5sISXhgQe
-         Zwww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=4wPcRrMFAq+5dln8/Xz92CdQ5x3DJk3HiLHlwR+yBQg=;
-        fh=c6S/f4u096424RO9Ux+7UE311tTVsTfcvCISbQwCl7g=;
-        b=TCI9Itj42OZuvYLH2dMaeVPfQ201m+zQzFwRDUb/XfrGLqsY34bJlnfDs0ycEJKXbG
-         FooFBLbSe/oaDqK1FpSgV9FKgY6xZtCa6HTOFnWZrbKxlA+Sh24LVONoWs7Q35itARbj
-         61Ex29sghIBi7QcT8qEPhpH84E+G2sygsMMn8g/9zlaTXsGcic/cYq170Y8qxEtrTy3k
-         EXKgi7jJDP/5EqV+Ch5sw0inceRqw3FLFxBTzlQVTju+AiQC8w89oZJrOMc+gBCDC3o0
-         INSohuTqurXUFtBDLfWP961096YLupqUqtxlqDolo7zcYylRgBXc+Jx7XZu5zkoQ9NMs
-         aowA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789480261; x=1790085061; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4wPcRrMFAq+5dln8/Xz92CdQ5x3DJk3HiLHlwR+yBQg=;
-        b=dfkf/blk0+Fc9K3qVVUAsmWWUjgtVwmLForFXyjdLJXK43NTnZ3+fTTNbPwBZ/BhZF
-         5XD1Bv2PRXOlOhnQjev0sV+To1neP5DYyBE4Zz/VmlBrIUihBP5yWv1uTytj7t2J1asu
-         FP6XY7Pm0Q8c/V4RaWkMssxVpcJqxvweZi3bpmHmvRxgU/u7Gpe4Jg4gRN9hmR63/6xf
-         cTW8ZlBufOGcCWrRlODSoNJSGlFO5rc4AZK1KG0/hCY70nF4m7mxMK81nb5t2lwfHZ/B
-         fUj2D0RFcrGhWBgFupi/cF+/n2Jdq6ty45TE4gje/CJdg42Gc2O1H+ZyPM/R3jEpsV2a
-         8DyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789480261; x=1790085061;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4wPcRrMFAq+5dln8/Xz92CdQ5x3DJk3HiLHlwR+yBQg=;
-        b=zvWVIbTpNfSk+l1CIugNbE836fIVadaf31SAZLdbebhg7xhRhPy1bgmpsl+eonpkzj
-         OhklSjyIXLz/JWR+IivTg9OFX5OWaFQzKj9j7sWx+s+jO7EByjJF3W3/8m3MOfa2fPI7
-         4R8elbp6wTrnqF+D2hzgNBTLh9pwLrkMhwRHVQEAICDmpWglkThhOJXN607WG4f0lrJf
-         VJn8nwfoApsGAfrBQ69TBjeem/Mvwb31FnFgoIYxdpAU3wL0NPC76sv+KRKy2vCd1tqj
-         QdSdM5E3DS0jkun04lT/wGkW3Jt4XJU1+oXzq5GkEtWi2yHzRPJ8ltUCc3NgFeE8pYxe
-         kvfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxxc8g4HIUyARhzN3bnp37jdjPWgxxL0EYzByVLSwMT729tBvmL5dnM7WaSWxVpFyiBXrYmWMcQGjPigdQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKXA6y+50qXyvRp9ED6K01iDZhixgCD8igr8k68uzAY7nY9ak+
-	5c5fXIBhr5PL4Uqxh75zlgWBM3ACZoIxQ5L5lCRixn7YKUefaL8IsPVDg4WcK07bkcPGgUJv4l1
-	0HhvnVtZtfHyMbh18C0fQ5KFSK3UsKVM=
-X-Gm-Gg: AYBFou3c9TcuoqSiNEoEhwdKpJhEH78h22dZEjQKoVuqGXbsl6ruSYgakU7QlwWlyYB
-	QRB7SL3YVtREkRzsW+5e6+tzbIaJzWKOcGhSqxWAHe/HrH8sDfDOu6Bl91puutfOUYKKtPjsF9J
-	6dcagz/lYM7V7SHlGVmzvaSOIxWhx3VIUvNbujwrgh4RG+Mm8udvFc5egQXP6bbLiuhOLXIf7FH
-	queEhgW+Ss//SUJfMCJAzP5uANjlxHpy1MblWut7XzfUHAIn8su4a3Jp8LbMnZ8qMNT+fe8r1Dp
-	krCdBFz+/TpkV61K6aLFOhmbTPwAg4TSVbZfK7KDeLphMbdTCi2qvT8=
-X-Received: by 2002:a05:6820:4df2:b0:6be:dc4:13ea with SMTP id
- 006d021491bc7-6c739c74aa0mr737467eaf.50.1789480260532; Tue, 15 Sep 2026
- 06:51:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="it4mEL39"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0831F00893;
+	Tue, 15 Sep 2026 13:52:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789480338;
+	bh=5JZvciHOubNz1++8I3c/2N9YUlCfXc/5f861xiy4ft0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=it4mEL392VOylMtWKucJN1H/SF3DAnw0vMuOMuzOxgyrfVosMCtYFPEOzDYEmBrW2
+	 W+hJM+/RR/gY7ErtRBZSwl+WlJhSXohUCn6o1XeZ5ycAVGIW3kJ6OjOCPHwu/L+pGK
+	 3ewVonc7r4UoKGfvtY6i8NU2P25btpAx/REc/e00UQY7GKiqtjsugzZ0EDzQXqhGbx
+	 DTQLHHJXWC7QgdC95T0OSpDwm2v9UDD/SPGVZgjCkxcnGnPS+6Bj6wVpNIvstFD8Uf
+	 JqsdvI//38sC3gA3EB0fPBHDwi5qqkPzu8hm4b42Ytx76sVcEa8g/ceU/zcGffVBHK
+	 0czi5YHXvhY1A==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 20534198003A;
+	Tue, 15 Sep 2026 09:52:13 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Tue, 15 Sep 2026 09:52:15 -0400
+X-ME-Sender: <xms:jE2pahuaU0yPr89PNnwihMvtUDzatVBlf1o7bmhFX_fvdotrRxPNaw>
+    <xme:jE2pasyD6rPQU-T7SmzLq9z7dbjbsLYjkbKjXrtQhdyq-J4_MxeCC2WM7ITBa4AqI
+    FODCsVl6oZ-jRmH8MiPOJhi-AazrWCFj-aOKBwuMtiU815RWzjoBZhDkA>
+X-ME-Received: <xmr:jE2pajfDJtIrKyv_BSRFJVrRzGMsmE7J7J3okImqThKeGQ6jl3GvpHylMds>
+X-ME-Proxy-Cause: dmFkZTGFaXHpQBoGzjJpzXuLzZEpEDoJVlEK8qfTCGlpZSscY902ocbS+NTIbNE8tMLKHV
+    Kw+V8ruiMZ5vcsUwLmFvicjQ5fT2dEGX6BR2ofYNuwhWcszZXWDOzUPFZV9Kf2hTY0XyYu
+    jgPRsVUGCvAoUBVHrbjcyoU/B85MGHEOvmNw+eGSCdPHSF+WLKvCB+LRHaJjwhCDtr3onu
+    9t7U2m3RKVIfG63unn994NKXoenEEAMJlO4Bca8sh/2dGdJkRJfrRO11fJi78OFB2d6mXQ
+    f6/BbV5VWGgDSXWO0Q4c80Vk7TllbENgzRJLLQpIDfQ0PD5mAXpy4gZfEHx7Mr9L/IT0K6
+    qh4TshP2kn6kCNLC26NFy23vTdqmsw8g3megqLyVsGqfTaooE+RYvVeuOIYZy7Gn/syAK/
+    mNQESXCErDbA14ZJWZl10saMPTrc6xf8XeOzvS/LSSWkGC977QeRJhhixrzJbfu+n81g9e
+    1UH9yXgjzdTmINJ0W1c/2l/8tsZ5SsrH+DBIDUf7x1iNg5JRg4E76mGNLhLbU0PpzmXwuz
+    fxsbi5T4JDhLZVv7EnZRfeABl7Tvmoe5VcDJ5trMTr/Py6Jb0oHqYqPMt54lsK/cZ45fqp
+    eYKlOCmUSIfa9v0foUvG1fSeSBnE2eyER4tyPwmWpyxheKzoGzIAZR2ZhruA
+X-ME-Proxy: <xmx:jE2palKexW_56iZGYRl_E5d3Cu6P3XzpWFLsyln1PPKWwAz8EhzrtQ>
+    <xmx:jE2pavkxi9ChIIU-0-VW8D515yeU6YlXXf4pRnSrH_EjKz4cAJAgkQ>
+    <xmx:jE2pagWthQlpbluzBQjzPidj4ZNuzeY1gW-HZYMmAX7jFVQ98KShdw>
+    <xmx:jE2pahs_bggCtIocE9mX-k2TRJSv5vXt2OxUFTUW0cPEs59A6Q52Ew>
+    <xmx:jE2pak0I-NiCjXIwieGMDtqxkNU6lajCAf3ySXrSuRVN2imtLk7w-USU>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 15 Sep 2026 09:52:12 -0400 (EDT)
+Date: Tue, 15 Sep 2026 14:52:11 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
+	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, usama.arif@linux.dev, ljs@kernel.org, surenb@google.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge zero
+ PMDs
+Message-ID: <aqlMvfIhr8nD9RHB@thinkstation>
+References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
+ <20260913072312.52111-1-lance.yang@linux.dev>
+ <aqfRCPheDYTgTdAk@thinkstation>
+ <f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org>
+ <20260914111940.f7e2c72eac4a2df97a646793@linux-foundation.org>
+ <30bcc70c-be07-4237-9bb1-554aa5b5c5c2@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915075939.18180-1-abdelnasserhussein11@gmail.com>
- <20260915075939.18180-3-abdelnasserhussein11@gmail.com> <20260915151634.0000787e@gmail.com>
-In-Reply-To: <20260915151634.0000787e@gmail.com>
-From: nasser <abdelnasserhussein11@gmail.com>
-Date: Tue, 15 Sep 2026 16:50:46 +0300
-X-Gm-Features: AcwNN1VOemZ51WsQAP6jqp3alJcLgnYJqt7-z-lPu_slORPzqQPRWDZ6MAZ2e5Y
-Message-ID: <CANpqX3ZkzU=+qmd4RRwwBbX2UvJOzeLhRi-hfXRR=FyeH6yD5A@mail.gmail.com>
-Subject: Re: [PATCH v7 2/3] staging: iio: adc: ad7816: Serialize SPI operations
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com, 
-	Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org, 
-	linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <30bcc70c-be07-4237-9bb1-554aa5b5c5c2@linux.dev>
 
-hi Joshua,
+On Tue, Sep 15, 2026 at 09:43:15PM +0800, Lance Yang wrote:
+> 
+> 
+> On 2026/9/15 02:19, Andrew Morton wrote:
+> > On Mon, 14 Sep 2026 16:29:00 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+> > 
+> > > On 9/14/26 12:59, Kiryl Shutsemau wrote:
+> > > > On Sun, Sep 13, 2026 at 03:23:12PM +0800, Lance Yang wrote:
+> > > > > 
+> > > > > On Sat, Sep 12, 2026 at 11:46:35PM -0700, Andrew Morton wrote:
+> > > > > > 
+> > > > > > 
+> > > > > > That's the sort of thing we'd prefer to avoid.
+> > > > > > 
+> > > > > > 
+> > > > > > How real is this?  Is there a reported-by:?  Do you have a reproducer?
+> > > > > 
+> > > > > Yes, I reproduced it on x86 with a small test module. It sets
+> > > > > VM_MIXEDMAP | VM_HUGEPAGE and calls vmf_insert_pfn_pmd() with
+> > > > > huge_zero_pfn, without touching the page tables directly. A full-PMD
+> > > > > munmap() crashes before the split series[1] as well.
+> > > > 
+> > > > Ah. So there's no real bug upstream, right?
+> > > 
+> > > Matches my understanding.
+> > 
+> > Thanks.  I'll remove cc:stable, move this into mm-unstable as a
+> > next-merge-window thing.
+> 
+> Sounds good to me, thanks, Andrew!
+> 
+> Kiryl, David, would you prefer the validation for raw-PFN mappings
+> of the huge zero page as a separate follow-up, or should that
+> validation replace this patch? wdyt
 
-Thanks for the review and the great catch!
-I completely agree that securing the sysfs store functions against
-concurrent access is a logical next step.
- I will prepare a separate follow-up patch
+I think this patch can be useful for graceful recovery if we somehow ended up
+with a zero page in a mapping where we shouldn't have one.
 
-Best regards,
-Abdelnasser
+A separate patch with validation would be great.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
