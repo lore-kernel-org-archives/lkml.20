@@ -1,177 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D53F3B5314;
-	Tue, 15 Sep 2026 14:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA963B27FF;
+	Tue, 15 Sep 2026 14:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482262; cv=none; b=tg4+ofXhF6mzMYAkNx2tmwSukk0OlOF0zW9y17dFwu+/2e4BNDbca+pDQrf9tNgW0JQqvfcYWHS9bx3Y6zgsuBTqIcuKnxrsfc3eX9+fTkURosFqCGq1qckWHVArsXPxLyMJanQlpeiX6wafm6sG72MWzokXQsrgKbcY1Xep8jg=
+	t=1789482282; cv=none; b=K1pLwx2b/l8j9WpHWNGprAvoSe+wNUmDPN/lcx8V3XyYGFHi5plvs0/DMjNwnHiYLBHl2Px+UMaCAugif84nXEfoAnenbOdyaHlDITQMd8PLnOdH/r99EBP0OiESSXlUMl2a5fha3EyV1nxAFITkfF/UrONZgv1bIhuvCCEWqSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482262; c=relaxed/simple;
-	bh=ebDqYY4U9FVWlZxckUTVJvTup8qiCi+YooN49jm+VUQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VcvfryLtSKKI8EuQ44Rg3l6X3mkCHmlj5sHkHXgaFMjHjaw5hT6gvQVkj7fKhIvuz5fRoSF+DtuiGn4OVrhJRI2xnamljT8IvNGs6c8fkxRA4R9FQJYdw9j53Ms+FHBwQPI1lJ6ar7GNPmUX9DViZwMLTEQg5c5zUv0Dn3CxArc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LoSxpRDj; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789482282; c=relaxed/simple;
+	bh=P1qC4OPI/oZ8c4rh2Nsr1aKfNmTwMsQF6Y5+QHGzNyg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XuNa1wD622LN6ek0Xz3liVdWSP3lEFrNtZr60punBa0k/eVfZ2sxO7b6H+qW/TjiWIDIXbqXEXQs51aZZx1L2wD9rgrhf0dAJRxr2m6B4SFgO1edKKcwnoL7kWarvDxuVyZ49JNfxiDOFctXSFhj0ZMPI4EwTQLV9HRtwsJRdjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xnxod4DO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LoSxpRDj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4C6E5C2BD05;
-	Tue, 15 Sep 2026 14:24:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789482262;
-	bh=ebDqYY4U9FVWlZxckUTVJvTup8qiCi+YooN49jm+VUQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=LoSxpRDjYddJV0ZD7sucgELhV123tPEU5jN9AkoLM2hnytdslTz0U6V5UiPyzzWMF
-	 4HJz7ZEfPdJaQblN97CgRlzwz/S11BsK4lISXrGSl0tPDvKQOHkE28tcJtaUHRhr/0
-	 mSMHOkud4EW/BncTi19wmxFx9MUn1S99OEsSD+sLFpDSH4nFqeu73lJsk6aFhLxBCg
-	 2zFR+GebFLUcMWjHfT9Nh05kFyNQjdwrk/1z+VIVLQhufXREqMkNEkeboHNldxCGoc
-	 j4mQIejUOF8P3vyeYJVJRqgW1bROvFbd1+40MEu0TvFtz6jW+3oVAf8BU9aeaI5NNd
-	 pnlQudZX3XEJA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A4A9C982C4;
-	Tue, 15 Sep 2026 14:24:22 +0000 (UTC)
-From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Tue, 15 Sep 2026 16:24:06 +0200
-Subject: [PATCH 5/5] Bluetooth: btnxpuart: Drop serdev based M.2 power
- sequencing code
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xnxod4DO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101B41F00893;
+	Tue, 15 Sep 2026 14:24:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789482281;
+	bh=r8ni1mTjcmqpvOY7RCC+MUPFEJ2xM3IZ63qC+OEFKHE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Xnxod4DOMtCyHNYu4mfTEoMlhoPIanminlnmb1fiFjHYTeZ7ThdTSps80279avO1u
+	 b4N0EufvOv7WmY3kZpA4RPVwyS+4rekY7GCqjndmdbmFEFgdmbdJ1iEqo/iaHaNrGl
+	 CnWXR0ZTfoOfJvSbVtPUnMbojU3MhLURDZixs0PBlXOfdXEiRUZ8vZtQugkhlowATt
+	 PYhEwHvu0fUwEQwu4O660jheTPSwyrWjwfKzm45z6nuKpbGt81eR9sjjX4ilYnooFE
+	 aCi+tNsYY43VYQiiUcwfY6l97aw1tH+Tjc3YhmWxOhRayq0n4NSCwKi6PmgBhHaznZ
+	 Yl840I+Pvty5g==
+Date: Tue, 15 Sep 2026 15:24:37 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Frank.Li@kernel.org, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	imx@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 0/4] firmware: arm_scmi: fix module auto-loading
+Message-ID: <20260915-origami-ibis-of-love-adaac1@sudeepholla>
+References: <20260911152329.5822-1-johannes.goede@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-pci-m2-bt-rework-v1-5-3c7d9cf9c010@oss.qualcomm.com>
-References: <20260915-pci-m2-bt-rework-v1-0-3c7d9cf9c010@oss.qualcomm.com>
-In-Reply-To: <20260915-pci-m2-bt-rework-v1-0-3c7d9cf9c010@oss.qualcomm.com>
-To: Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Amitkumar Karwar <amitkumar.karwar@nxp.com>, 
- Neeraj Kale <neeraj.sanjaykale@nxp.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-pm@vger.kernel.org, Rahul Samana <rahul.samana@oss.qualcomm.com>, 
- Wei Deng <wei.deng@oss.qualcomm.com>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3237;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=+YzVex5t/UFDNNH6FtEmazomhrj+PormXoK6KhBhZYo=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqqVUTH7YYitnfHOUyQSnpkRPlZLBO68tqUNH23
- AuTotDAoamJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaqlVEwAKCRBVnxHm/pHO
- 9QuzCACee6+MFgwP7AqcyjVGPJ49iNhWnNA/QQBP5XWHvZIRUwkSM9nGmJOKCNtA6/Rt5EbBtJS
- QjXcjGxZZGH+a/wVnKK3hj/HYljm3l32CScy14+i8qa6htukWCXBA/F215lEJ/IjrTYEp7X7+RJ
- TJGqOFj1oDtT44KMkBhXxcnxlucOpaXC/9rg9pvFIpaehY6LwshJdkFRHd1wHMXl1vzjtQ6hcj8
- 6NxYgrSMZFhX+cIkd5tusO4VcLBJsyZrxLuiY5Q+8oievV4bU5OzMSLOiZbt/gaOrxxT9TA6IQZ
- 5KoARp+qth/nE6Gd3c4jr4S9I6cYoIa5UIJKbm3A4dnTKq7v
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
-X-Endpoint-Received: by B4 Relay for
- manivannan.sadhasivam@oss.qualcomm.com/default with auth_id=461
-X-Original-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Reply-To: manivannan.sadhasivam@oss.qualcomm.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911152329.5822-1-johannes.goede@oss.qualcomm.com>
 
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+On Fri, Sep 11, 2026 at 05:23:25PM +0200, Hans de Goede wrote:
+> Hi All,
+> 
+> Here is v6 of the patch series fixing arm_scmi module autoloading this
+> combines:
+> 
+> 1. Patch 1/4 from Bjorn to add support for scmi bus modaliases to modpost:
+> https://lore.kernel.org/all/20260618-scmi-modalias-v2-1-8c7547c1be21@oss.qualcomm.com/
+> 
+> 2. 2 SCMI bus code bug-fixes.
+> 
 
-Bluetooth interface in M.2 modules is now enumerated using an auxiliary
-device instead of serdev. The power sequencing driver now allocates an
-auxiliary device for the Bluetooth interface whenever a compatible
-M.2 module shows up over PCIe. And the auxiliary device gets bind to this
-btnxpuart driver using the existing auxiliary driver matching logic.
+I had a bunch of SCMI bus/core driver fixes merged into v7.3, please
+rebase these changes on v7.3-rc2 or above and post.
 
-Earlier the same modules were brought up by fabricating a bluetooth
-node under the UART controller, so that the serdev bus matched this
-driver, and nxp_serdev_probe grabbed the "uart" sequencer when the M.2
-connector was reachable over the OF graph. That node is no longer
-created, so the serdev driver never binds for an M.2 module.
-
-Hence, remove the connector helper and the serdev power sequencing code.
-
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
----
- drivers/bluetooth/btnxpuart.c | 48 +------------------------------------------
- 1 file changed, 1 insertion(+), 47 deletions(-)
-
-diff --git a/drivers/bluetooth/btnxpuart.c b/drivers/bluetooth/btnxpuart.c
-index 2672e481ef15..eaa82cc6444f 100644
---- a/drivers/bluetooth/btnxpuart.c
-+++ b/drivers/bluetooth/btnxpuart.c
-@@ -10,7 +10,6 @@
- #include <linux/auxiliary_bus.h>
- #include <linux/serdev.h>
- #include <linux/of.h>
--#include <linux/of_graph.h>
- #include <linux/pwrseq/consumer.h>
- #include <linux/pwrseq/pcie-m2-bt.h>
- #include <linux/skbuff.h>
-@@ -1820,28 +1819,6 @@ static void nxp_coredump_notify(struct hci_dev *hdev, int state)
- 	kobject_uevent_env(&serdev->dev.kobj, KOBJ_CHANGE, envp);
- }
- 
--/*
-- * Check if the remote M.2 connector device linked via OF graph is present
-- * and available. This is used to determine whether the pwrseq path should
-- * be taken. When the remote connector node is disabled (e.g., by a DT
-- * overlay switching from PCIe WiFi to SDIO WiFi), the pwrseq path is
-- * skipped, allowing the BT driver to use a direct bluetooth child node
-- * instead.
-- */
--static bool nxp_m2_connector_is_available(struct device *dev)
--{
--	struct device_node *ep __free(device_node) =
--		of_graph_get_next_endpoint(dev_of_node(dev), NULL);
--
--	if (!ep)
--		return false;
--
--	struct device_node *remote __free(device_node) =
--		of_graph_get_remote_port_parent(ep);
--
--	return remote && of_device_is_available(remote);
--}
--
- static int nxp_register_dev(struct btnxpuart_dev *nxpdev)
- {
- 	struct serdev_device *serdev = nxpdev->serdev;
-@@ -1962,30 +1939,7 @@ static int nxp_serdev_probe(struct serdev_device *serdev)
- 		return err;
- 	}
- 
--	if (nxp_m2_connector_is_available(&serdev->ctrl->dev)) {
--		struct pwrseq_desc *pwrseq;
--
--		pwrseq = pwrseq_get(&serdev->ctrl->dev, "uart");
--		if (IS_ERR(pwrseq))
--			return dev_err_probe(&serdev->dev, PTR_ERR(pwrseq),
--					     "failed to get pwrseq\n");
--
--		nxpdev->pwrseq = pwrseq;
--		err = pwrseq_enable(pwrseq);
--		if (err)
--			goto err_pwrseq_put;
--	}
--
--	err = nxp_register_dev(nxpdev);
--	if (err)
--		goto err_pwrseq_put;
--
--	return 0;
--
--err_pwrseq_put:
--	if (nxpdev->pwrseq)
--		pwrseq_put(nxpdev->pwrseq);
--	return err;
-+	return nxp_register_dev(nxpdev);
- }
- 
- static void __nxp_remove(struct btnxpuart_dev *nxpdev)
+I am interested in getting it tested by few people who were asking for
+this feature. I haven't looked at 1/4 or 4/4 but they look not to
+complicated or controversial.
 
 -- 
-2.43.0
-
-
+Regards,
+Sudeep
