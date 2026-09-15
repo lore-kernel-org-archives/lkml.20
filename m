@@ -1,148 +1,131 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8704A3863;
-	Tue, 15 Sep 2026 22:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6198E485CE2
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789511153; cv=none; b=o23iKEiaqEMRHKslU1QEKaJopdFBv+CXkgdJ/hUascdzV1TsAuj6/D8/QJvvB7VWyCZMonx8ClBPLEGTjAMlprPHCJpJ4aeO/tLUQm43Q358z2DD+DQgQ7V5NJH8s1liixXbV2e5c4vhkRgzdzVmrmQf4tLq46x+0HFN4TpbkgQ=
+	t=1789511173; cv=none; b=NuIKNP+caTkGo4Tz500DU/5c4VWbd/1jpfrKwzy4fzbdUH7ENLbTTJSi1M5roknOjOLNgoLmrIjHzZWQMoO5Utl+Lr4uMs8QOpsURyKG27+a+qdso3RNFmp8JJ+U+l4woCcUH96I4gDCgLLDUjTFi4mLmlftQZajY8RU32aTOc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789511153; c=relaxed/simple;
-	bh=dfpVIwfnepVnkoEsRVnLwIbNVApouszgE34IDPAi+HQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PeUtrdFpEOp8T6bBRDV0ucJPySL1HSTtFVKpZu8tMyJbg1eZSVbFDGlbltjXxQgs7EEH4y6frhPgpHXpMdhpdKK5fdKPqSTMMLX354y/T2lNrpYiYt18HI+7NQ0NQfYKkB0DlS+eat/6BYjdBMesGOrnhufLfByMohNtPAaAvKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=FQUBes3G; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DK8tiVFD; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	s=arc-20240116; t=1789511173; c=relaxed/simple;
+	bh=VQB79XU5ha3TH3L1StabFfXEj3XgXRoI6dRfp1doGPU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NqaMWja+i//oO+PzUxl43w0ngfDR/TjR4TAIs3fjArXHs0FihGgpZgOFT63UFXZZo5vteSsk6GgiVEigPUqCWItp/oqaQE0vWJt+rcPF+vMgJ4qXeKE/At4CbAc9ZKuxImCjJ6BGkwlgdf7OKMCBUXEN30INycTq58IFizf2zr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O0nCYR9t; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="FQUBes3G";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DK8tiVFD"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 3FBB31D001A6;
-	Tue, 15 Sep 2026 18:25:48 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Tue, 15 Sep 2026 18:25:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789511148;
-	 x=1789597548; bh=jOunFAwFZUGoFoU1e7chmXJPvDEcW+nmOu6n6zbmslY=; b=
-	FQUBes3Gz83TaTdD7AjfDQ68T7gyK5djPIsc7ragD7P9rdt0KdYqtxulAupvRJ+3
-	WrqSBqCgH8+AEmhheXmtJckqkyQMWde8TDK9VLiu8FW05qLvxTUt7c7c1rYwFH50
-	6TsAvzjZwJgSD5K32JU1xRRHheNedkmG64sjV8lJiElAWHZAXBnNMBypLLKScxVr
-	RCFWXTzUyxsuTX0v0iSg4/U6FQg5dDDHZJ4zvcaPNetNxSDyrvwt8q7bD6YIoBHz
-	J6Z1NbuVVFq8v+59WnMzg/vqo231vw5+zc1pHLorM+f+H1Bq8G1v9QFTsQjXE8Y0
-	FwKNoXdlSIzXM2ekZJkueg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789511148; x=
-	1789597548; bh=jOunFAwFZUGoFoU1e7chmXJPvDEcW+nmOu6n6zbmslY=; b=D
-	K8tiVFDhETHw7wd2sjwxJRzp19wAuc47y81EaSqB6CHmmD6nxfvhmd3MG8HHQEk/
-	mYj5gkn7USTHFhRQGF5eHtnaDb5HN0qMJ8RJPq7sGVd28BqDDwFXQxh+PjqXhaml
-	KhJPd/5DjWleykrFuxtQG519dG2AW6cDHPviX2A1yKILwdBie7ZZ/aGlJ1kFyQZh
-	T9utVw7bpoI0s1uJuGdcwOVZm4gO+c3YRqAmF9tZek1892pRWdq26gyYVdX1NqoC
-	1vekz53udc35VRGlL0NAcfbwy/T6b7/MUEsGm43uv+BSyuovZ3b10b4F/AirVcF4
-	3MLfSX9zFeyUrUF0/OvPA==
-X-ME-Sender: <xms:68WpaqWtT7FtRWqL4ZBGqq2Q0btKMkxvNYE08MpCZEwjPSCBQcxXRQ>
-    <xme:68WpanSbus3V7ZYeGvSrlM_LQP3-iacUIz-hh95Np9CTsMk7jYrJl72j925kG7j38
-    1ekK1eGrfzc6wes5zS02ecA9wygmgFCW2bJ_QI_PA1agEQsHa0_q98>
-X-ME-Received: <xmr:68Wpask8w24aIEyII19oBFiiYYBBevKBuUmZZ2rhTok-NZfd4JozwXIL3b-M6Q>
-X-ME-Proxy-Cause: dmFkZTEY+R1Yzjclo+APlMeV1P6k1TlXHVaz/3mBCyIgWXE8NgYUAya+iGERVf1bRdC/Ff
-    pdZw2nO3LdGXOApsYf/YGV4jtV4vjEYVNfBiO7RoitoFazi532a0FFRjS7JGnjTQCYrYre
-    h6F88g4BREQc/97I+ITTkwF6dFoBrKd16GgkXqDr0CfcdnDYtXRie1hAS+3UICD0CZCafW
-    otD3c8C81T+YOWuTswTJpM2NkSVt74yyUB/dvfFkwjy1g/Mu7yWvHeUFaM8DvFaSDlTAnj
-    asOJ0QLm+GXXcJi3rko0N7duhUqHFsoQEoJMBOWoBaIw0kP/C5efJcNpzk/Goo3I8QTWat
-    S3Ihia49jFWZ8d7jGSqBG5eho6pqVPzsZYnThXTM213oroeNG/g5oQaxAuOUz8H8oRfqqB
-    mtthVNrSJkw78Jv1y7v9AXTkot3b6ctqxQ64jx+hUb+q1fYZFSPFE5y34CFwoEYN78ALyk
-    MkqjvTSiUCe6z7OQ/tP7gnO4TK9H17iUhdYetAi3pByECUjTeJc4L0rytONvpo9MdLyABg
-    /cRrzwgwUVzDhNDMlvc3emEhNiu/VkufoF0+FX86kbFCOULRxX/xul6hE7Lg/eiciwHEaQ
-    9Lz038QYU+Rcm3nNTh3nENy2SZy6xyO6ehJOOSo/PZ0JxXpY24qXvtidnRyQ
-X-ME-Proxy: <xmx:7MWpal7XVjtkigv2RNvOEqQck1On0P_yW4e1_1_BqjrATJSSz5lgBg>
-    <xmx:7MWpaqiC-suDwEoFTJgmmrFoOGgW5Slen2EwTM-B0q4PekE-ip7ujQ>
-    <xmx:7MWpaqGMVZy-UlJvkfJGMD6sRps0WFmCG-L-cI_4KaF0BTBU7dB4xQ>
-    <xmx:7MWpaoREvkKOIOpKrVcUkv_U5nlT72B0hs2J6EhcFVikbNUHNtRJQg>
-    <xmx:7MWpasmsMJkMRLgObDLutCsFHV_h1ojQD5RuAtXWY-CHNScqd6J2iPA9>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Sep 2026 18:25:47 -0400 (EDT)
-Date: Tue, 15 Sep 2026 16:25:46 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Abdifatah Suruur <suruurism@gmail.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Eric Auger
- <eric.auger@redhat.com>, Mostafa Saleh <smostafa@google.com>, Pranjal
- Shrivastava <praan@google.com>, alex@shazbot.org
-Subject: Re: [PATCH] vfio/platform: keep logical vm_pgoff in MMIO region
- mmap
-Message-ID: <20260915162546.342647aa@shazbot.org>
-In-Reply-To: <20260903092927.502-1-suruurism@gmail.com>
-References: <20260903092927.502-1-suruurism@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O0nCYR9t"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469a33c9cso265991b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:26:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789511172; x=1790115972; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ozbdljbJWhuPCjAs3/0Yc8dEEkoSWPAnbLbDIm9pqjk=;
+        b=O0nCYR9t5CXA5OEGWgIFp9eKNYAegQnuAJRK0ALJHvnRQHK97dM8TbQd+0mBfHP1jt
+         vi0X9ryJsQD8ZVUMdseNZRfkN8iI9HolVEkUU9+2uKQZu6Z87v+ril6dmEbBvLS0aSPf
+         hu38Mkg1FLiodPunw5HwElKnOsSBSlXwuIGmTMBiImr89VUW/gpk9eq9VjwDJu3Ug0tw
+         6BasFvVLlEDkHOX6kcWbnDDL6EZr2lB0Ndzj+sLu/X2GZ2PVy4ny3Zb16bnbl7rRRQwC
+         te729oCQt3+ciu4LqYtlbCJtPXlAKGLyOHzWD8mj3iml7eM69G0pmlWSAyF6wfdqDe6c
+         aWmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789511172; x=1790115972;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ozbdljbJWhuPCjAs3/0Yc8dEEkoSWPAnbLbDIm9pqjk=;
+        b=slsc16YBMjEBY9pl/Z1hvJCzaz2pznuaLMAnk5OigDuPoMnF72sAWodJ5SUhU+Gtpz
+         kS8RHlpbe4sbmGSC5hNmxR/w2klG85pogJ3HDS8DYT4tECHLW+Imk0s8aiQxmC8X06/D
+         erUk9GZPsQA8pCN/NRGjCowMoU1EgMJETHSGXQJjhOYRkgmGbU2aDYtHhUtCeHirJt+X
+         HN+g+aUaNysF/aJkMiDj9Abfs4GtallrxhNtoS/7t2pNnMsUcoJLh/TWf4JnDV0IntN3
+         viidJocexK+4pRdKM6dh4hsH3768KgopPbOZCMK7lXNzdFluw34PIQe12XHP76ZsDTp3
+         31kA==
+X-Forwarded-Encrypted: i=1; AKwUvBwhibkYz0vJs6bo/opuNfglXb79cNn2KtBq2WCoCgkzSuw4rDgEZ515jEtKavFe9QTZbrbBJ6pPlpvplNQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKVTAWkqn8kepYdboKeQ6+vb99uF7x5+zsl4XumHlL2VwX2NWX
+	20sDkFUKFIj4+jEI4yVvu8YjZpsW3OyHEOL4KAo0iJyPYWlOpKNAiKOm
+X-Gm-Gg: AYBFou1D+afkxLsK0bfq4iVC6fy/jdq+VJmosQERw4QlIFLuHZsPSdC7mbIlfdNgKG/
+	xyc0ivyrB7Xzfz4D9mSgkQTnGDYqkGYbrplhdssKHkh2hSPxoe83A5CMrf1sZt8gT88Znblhyv1
+	tVTeGef+etKSkiPf9z3a5CBxcsnzXieCmxxhMSYLbDpxZZ+RFUuMD15FeMYMaJ2WmORl+yVMy5Q
+	ICZlIIAjjV7QZ6vqTCOLk5cHFG2Tt49oziDXLqyw0/Qa+vxO91blQFxrZrRvdyv+Wx+FMr5k4IX
+	lBmvpNDcGCFBBddA1Him2+D5doUZl4PWBMhyCms9ARZCBjiQOHhfQAki50sSFlMJPpnzhwGkRiL
+	j2hMKb5prUwSdezIGZgnD2HulNTFfz75KvuAexu1cbCJAVb/T9rsiMh0jNd6/A9R9EjusdrqCfJ
+	8fZjS8AfVxUK21ezWzGY5rHYhDfQ38FvF/2iTbwzWeIR6DFyPKSmO+HHvE/hzNSxdyd7RTbk5my
+	0g5n2tZiGnFiDn15XV7UpJRbOi02fHxnk32o/in/dIlhiftszxRhLYF+hv9bDrb+bMCgxry15qG
+	wm6Pz8VLjw3zhmrMku6wbz8x3rW2eNdVr7pqKIa6JpcMarEYnqcUTkV2ZFk=
+X-Received: by 2002:a05:6a00:908d:b0:868:e11b:d859 with SMTP id d2e1a72fcca58-8723adb237bmr222206b3a.2.1789511171577;
+        Tue, 15 Sep 2026 15:26:11 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-871febde2ecsm224189b3a.8.2026.09.15.15.26.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 15:26:10 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-kernel@vger.kernel.org (open list),
+	linux-rt-devel@lists.linux.dev (open list:Real-time Linux (PREEMPT_RT):Keyword:PREEMPT_RT)
+Subject: [PATCH] gpio: mvebu: use raw spinlock for MMIO regmaps
+Date: Tue, 15 Sep 2026 15:26:09 -0700
+Message-ID: <20260915222609.194216-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu,  3 Sep 2026 12:29:27 +0300
-Abdifatah Suruur <suruurism@gmail.com> wrote:
+The mask/unmask handlers run with the generic irqchip's raw spinlock
+held and call regmap_read()/regmap_write() on the GPIO regmaps. By
+default regmap protects itself with a plain spinlock, which becomes a
+sleeping rt_mutex on CONFIG_PREEMPT_RT; taking it while holding the raw
+irqchip lock trips might_sleep(), and PROVE_RAW_LOCK_NESTING flags the
+same nesting on non-RT builds.
 
-> vfio_platform_mmap_mmio() overwrites vma->vm_pgoff with the physical
-> frame number of the MMIO region and passes it to remap_pfn_range().
-> The VMA is inserted into the device file's mapping->i_mmap interval
-> tree keyed by vm_pgoff, which VFIO expects to be the logical file
-> offset: the core links every device mmap to the device inode's
-> i_mapping precisely so that unmap_mapping_range() can revoke all
-> mappings associated with a device (see vfio_device_cdev_open()).
-> 
-> With a raw PFN in vm_pgoff the interval tree entry lands in the wrong
-> coordinate space and unmap_mapping_range() cannot find the VMA,
-> leaving stale MMIO mappings behind any revocation attempt.  Keep
-> vm_pgoff in the logical VFIO offset space, as vfio-pci does, and pass
-> the physical PFN to remap_pfn_range() explicitly.
-> 
-> Fixes: fad4d5b1f042a ("vfio/platform: support MMAP of MMIO regions")
-> Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-> 
-> ---
-> --- a/drivers/vfio/platform/vfio_platform_common.c
-> +++ b/drivers/vfio/platform/vfio_platform_common.c
-> @@ -559,6 +559,5 @@
->  	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-> -	vma->vm_pgoff = (region.addr >> PAGE_SHIFT) + pgoff;
-> -
-> -	return remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
-> +	return remap_pfn_range(vma, vma->vm_start,
-> +			       (region.addr >> PAGE_SHIFT) + pgoff,
->  			       req_len, vma->vm_page_prot);
->  }
+Configure both GPIO regmaps with .use_raw_spinlock = true so the MMIO
+accesses stay atomic in hardirq and raw-locked context.
 
-Like the read-only mapping fixes, this is a hygiene issue, none of
-platform, fsl-mc, or cdx actually make use of unmap_mapping_range() to
-expose such an issue.  That should be noted in the cover letter for
-proper scoping.
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/gpio/gpio-mvebu.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-This also applies to the cdx non-shared mmaps.
+diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
+index 03e977c2a629..674feeb31774 100644
+--- a/drivers/gpio/gpio-mvebu.c
++++ b/drivers/gpio/gpio-mvebu.c
+@@ -598,11 +598,18 @@ static void mvebu_gpio_irq_handler(struct irq_desc *desc)
+ 	chained_irq_exit(chip, desc);
+ }
+ 
++/*
++ * These regmaps are accessed from the mask/unmask handlers while the
++ * irqchip's raw spinlock is held, so they must use a raw spinlock
++ * internally. A plain spinlock becomes a sleeping rt_mutex on
++ * CONFIG_PREEMPT_RT and would trip might_sleep() from that context.
++ */
+ static const struct regmap_config mvebu_gpio_regmap_config = {
+ 	.name = "gpio",
+ 	.reg_bits = 32,
+ 	.reg_stride = 4,
+ 	.val_bits = 32,
++	.use_raw_spinlock = true,
+ };
+ 
+ static const struct regmap_config mvebu_gpio_percpu_regmap_config = {
+@@ -610,6 +617,7 @@ static const struct regmap_config mvebu_gpio_percpu_regmap_config = {
+ 	.reg_bits = 32,
+ 	.reg_stride = 4,
+ 	.val_bits = 32,
++	.use_raw_spinlock = true,
+ };
+ 
+ static const struct regmap_config mvebu_pwm_regmap_config = {
+-- 
+2.55.0
 
-Also, please just group all 7 patches you have on the list into a
-single series.  They're all hygiene/hardening, they're doing the same
-thing through different vfio bus drivers, they're much easier for me to
-track as a series.
-
-The Fixes: tags throughout are also somewhat suspect.  It's reasonable
-hardening to clear VM_MAYWRITE for a !VFIO_REGION_INFO_FLAG_WRITE
-region, but if there are no !VFIO_REGION_INFO_FLAG_WRITE regions, it's
-not really fixing anything.
-
-It's more arguable that there's a latent issue here where
-unmap_mapping_range() would fail, but even if we consider that worth a
-Fixes: tag, the attribution is wrong.  We didn't introduce that shared
-namespace until b7c5e64fecfa.  TBH, it's not a reachable issue in the
-codebase, I'd drop it.  Thanks,
-
-Alex
