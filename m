@@ -1,157 +1,164 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B644A2055;
-	Tue, 15 Sep 2026 11:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756093AE1B4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472301; cv=none; b=B8BenyWeIhbAJa76sMmCbTThtZkKsMoctPJbiDM4Yjgg/suf1n3LSxINB9bRR/r96/FGojzSCdDzIF+OSDE7ZWLm+bvGxmc8fSbyPMJ5XmTXuaR74mZkWCE6a1xQUDEd6jll8mgksSRXJXsKgtuSRBvvphNoxXTaW/5kK03MIxA=
+	t=1789472330; cv=none; b=YBwRcM7OEVh3Wbcm8BA8EFBiyrZaOb3igHsXIjRH6WFjmyoL/peSXm13W6UOc44vEyyTTEA0fx8efia6T8WKt9efRL/2ikzn51+9GAtBhO4ZnMcYcpV0o28H8gaA5u/bwRWHvdj58rzz5j4GYFVDbiw6jcMlCBlN0pMzCQGANFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472301; c=relaxed/simple;
-	bh=SqvH0tJDQdTVUiUCxJIXBadJWn0V7juyud3AQtUOWG4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ssAIa8ObtRXAoRLmT+DXYuntlu+rsRL/6CyeVEssVWIiBluh27Ut8xKKhq7yaEKNRxvp7McKdxnucWgxHA+9WhZkrhiTBq4NDtGkUzjNsdwVJ1btrv0aLnbI0RiFQY/x0rNuSA7FqvyabJT3OHGvy/atp2FQ5kzgNMHvOuk/Rx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=M7TcZqTo; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1789472330; c=relaxed/simple;
+	bh=gE+Fcg+IgZvXWr4qO2g38IDiaOpjPNINoQFbRMUClhs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RageZof6evByLHBI8hke8KDBJX/6Hl4fZqHzpdHmfcy25rDNdCevbUcl9FoLiaCWyhktCohFhoM3eURDfYRYXe3F8d/4c4A+TuYxzWWR+zz/NF9FqYaX6rX9IjqWhoRI/8ECR6w/3vEoYF8BMHa8md1Q8kA3KMnZZ7cu4btd7+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BXlbACZS; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="M7TcZqTo"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68FBbsZN31482902, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789472274; bh=SqvH0tJDQdTVUiUCxJIXBadJWn0V7juyud3AQtUOWG4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=M7TcZqTo5mhSMufrVxsA/CFyk7p+9IVQfCZidXVjiiggexiagaQYdCelByB8q468v
-	 BEu49fMW0Uchv1s58+neemoxC5d8J/wuswnj9qxa+BC4VZc2OmMwWeSwZA4zjHENNc
-	 wPHR9yo0PN5qcnhwnG6p+Ul117WeBqXSkKB4UI2ynIk+u6mcfEvpK+dlGlrONJsKMt
-	 rd5uT0MpXmwq+Vd6S5gApAtIjmjzwUhhdpS/4Bu4HvpaHNK9zlaKDnfNf3APxQt87p
-	 nevOo923xIausee2BDmLMAA8B3Jo7fuEQOBKpCwR9bGpC/uLQKcyCkWnJN8MxjSJl4
-	 ku9hZc+KPtmOA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68FBbsZN31482902
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 15 Sep 2026 19:37:54 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 15 Sep 2026 19:37:54 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 15 Sep 2026 19:37:54 +0800
-From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
-CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	nic_swsd <nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
-	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
-Subject: RE: [PATCH net-next v3 5/8] r8152: support rtl8157_unload and
- rtl8157_change_mtu
-Thread-Topic: [PATCH net-next v3 5/8] r8152: support rtl8157_unload and
- rtl8157_change_mtu
-Thread-Index: AQHdP2eVBL507uW8p0CTBFzMRScZAbbK4zcAgASpLgA=
-Date: Tue, 15 Sep 2026 11:37:53 +0000
-Message-ID: <8bac7d369ad24a85971ccb2ed94635bc@realtek.com>
-References: <20260908075634.23740-6-nic_swsd@realtek.com>
- <178924439287.3125.1065367731882815038@kernel.org>
-In-Reply-To: <178924439287.3125.1065367731882815038@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BXlbACZS"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71974de4so1042555e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:38:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789472326; x=1790077126; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P5LU+QL611XVkEd8eqie07UbWEHcEKmuwpDc2acyE/A=;
+        b=BXlbACZSX28MZ0qBAM2GgtcGEuq3aEedxX8aGU3hQ77byo6SsNtFnckUvjTs04hLz9
+         Fmvn3qXpw7wiv00Y2JvVbuHl4KpzjBbgaDDiqRUhgS7RjVXRN0VR3C1VEYsiuts+lS7c
+         UQhp39xnpLfecnQpC7lZR4+lHJR3fIpYRU0QlyuZ7Vt2CuyP55Lkm52VMuIlVlykoxhG
+         KbT+Zh4LKdJAEcwvAI6XqABMI6rKgSthUmRKD5WnYyK6v3QLjSZMehU7pcPlMxNYxrdw
+         +PqbnfIg8f5Q7xNAT5EIV/QeL25g+3q0wYMojs3IEhCMok73yNK9ijuJ7/sB8n9eY6Bt
+         pTsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789472326; x=1790077126;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P5LU+QL611XVkEd8eqie07UbWEHcEKmuwpDc2acyE/A=;
+        b=wPybMupRp2XtuLUkQ0+1pV/3bFvtrG2GsrnJ2wadG8psf0O/4paXYEuE8EMiYzl8b3
+         8AJM8snRrpIPG+T+iXF66ro0S5dt0/HkrCQkErQrkOa7VdetxK1NVR7byqpPxVN/mG94
+         RsfaHwmWGowjp4IPhaZ9siSI9B6mBkbqq95fZ+gJo1pOR46yvH6xgwD2C37Jjqh4ZUqA
+         joIgHjscDABm2X/sbDPlDEVHBaMWt13JF+jcq6sHqYomGcyNk886mU/qMmU/E3CxPYMS
+         QHWzVk3pD50c0fc6LqEHDfyQ0nQiFbIgv1cW95HRh54M8dcd44hENtDB50jeR65nK+Ph
+         VI3w==
+X-Gm-Message-State: AFuF++lABIkDmZf4QW8rne8FlK8uwFB8bmjJ0o8nUAYF5M7zLeU7rIoF
+	GDQGImvivQa+CauAiNQS0bHl1uRrOFdZuDP7jQOJr7NAPdsfG4AoABxc
+X-Gm-Gg: AYBFou2iW3JFWgbc02b8M9WUakvnSqpYWNNQXKFHVKNSyeMtTXecZeWeujvyVTgnbLV
+	DC9W7ZuPLS+cF2Bn2mvOwRrbK89xD3QaDxoZ9ISq9XGdUAIQMZCe/RhLC+PXGqLNCOpBN/31F6g
+	lgGYetyRpLjCh3t1OsNuvMKTwWctlt29cn77KYq57YiBo5GUjoGwI6PXuY9rGYxLtTNeqKqvrFP
+	r40ZNZP88wP+wwoBloYf3NQaLLUa/QSWNyCUsxwO5ZyBib8pxr2KHr2jVxe2tT/HO5CwicC4Ld6
+	midNLl2b4fA6H7tkh5ev6NNgZoTMsngkOG9JYi0SGtynPV/4MQWWggiw5c4hVJWPA1lIO1cQERY
+	ZmZt3snic4TH8A03esGib6e6V9u/S/s3l7TV3yzTxtKJCBOFoe00P10C5B0cwZnRxmTUOGfcMbV
+	i6c7rKbjyItAz3H6payHrr8J0SDslTOrTsfJvCsRTw4152hRRkQ1+aRpHTLGVfG5eUsx+cIAu00
+	RrmWlRXyS2n4QO84oU=
+X-Received: by 2002:a05:600c:3b9f:b0:499:d95a:41f with SMTP id 5b1f17b1804b1-49e7a5f41a5mr97454745e9.0.1789472326047;
+        Tue, 15 Sep 2026 04:38:46 -0700 (PDT)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef6bbdasm53917485e9.4.2026.09.15.04.38.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 04:38:45 -0700 (PDT)
+From: Itai Handler <itai.handler@gmail.com>
+To: mwalle@kernel.org,
+	pratyush@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	vigneshr@ti.com,
+	richard@nod.at,
+	miquel.raynal@bootlin.com,
+	takahiro.kuwano@infineon.com,
+	Itai Handler <itai.handler@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] mtd: spi-nor: take the flash lock around spi_nor_restore()
+Date: Tue, 15 Sep 2026 14:38:11 +0300
+Message-Id: <20260915113811.2429311-1-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
-ZCAxIHBvdGVudGlhbA0KPiBpc3N1ZShzKSB0byBjb25zaWRlcjoNCj4gDQo+IENyaXRpY2FsOiAw
-IMK3IEhpZ2g6IDAgwrcgTWVkaXVtOiAwIMK3IExvdzogMQ0KPiANCj4gLSBbTG93XSBDb21taXQg
-bWVzc2FnZSB1bmRlcnN0YXRlcyB0aGUgaW1wYWN0IG9mIHRoZSBjaGFuZ2UgYW5kIGNhcnJpZXMN
-Cj4gICBubyBGaXhlczogdGFnLCBldmVuIHRob3VnaCBpdCBzaWxlbnRseSBhbHRlcnMgdGhlIHJl
-Z2lzdGVyIHByb2dyYW1taW5n4oCmDQo+IA0KPiAtLQ0KPiANCj4gcjgxNTI6IHN1cHBvcnQgcnRs
-ODE1N191bmxvYWQgYW5kIHJ0bDgxNTdfY2hhbmdlX210dQ0KPiANCj4gVGhpcyBhZGRzIHJ0bDgx
-NTdfdW5sb2FkKCkgYW5kIHJ0bDgxNTdfY2hhbmdlX210dSgpIGFuZCB3aXJlcyB0aGVtIGludG8g
-dGhlDQo+IFJUTF9WRVJfMTYgKFJUTDgxNTcpIGFuZCBSVExfVkVSXzE3IChSVEw4MTU5KSBvcCB0
-YWJsZXMsIHJlcGxhY2luZw0KPiBydGw4MTUzX3VubG9hZCgpIGFuZCBydGw4MTU2X2NoYW5nZV9t
-dHUoKS4gIFRoZSBpbnRlcnJ1cHQgbWl0aWdhdGlvbiBjbGVhcg0KPiBvZiBVU0IgcmVnaXN0ZXIg
-MHhjZjA0IGlzIG1vdmVkIG91dCBvZiBydGw4MTUzX3VubG9hZCgpIGludG8gdGhlIG5ldyBjYWxs
-YmFjay4NCj4gDQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jIGIvZHJp
-dmVycy9uZXQvdXNiL3I4MTUyLmMgaW5kZXgNCj4gPiA2NzlhZWFkNzMxZjczLi4wNmZhZDg5NWZj
-ZTA5IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jDQo+ID4gKysrIGIv
-ZHJpdmVycy9uZXQvdXNiL3I4MTUyLmMNCj4gPiBAQCAtNzAyNCw2ICs3MDI0LDI4IEBAIHN0YXRp
-YyB2b2lkIHJ0bDgxNTZfZG93bihzdHJ1Y3QgcjgxNTIgKnRwKQ0KPiA+ICAgICAgIHI4MTUzX2Fs
-ZHBzX2VuKHRwLCB0cnVlKTsNCj4gPiAgfQ0KPiA+DQo+ID4gK3N0YXRpYyB2b2lkIHJ0bDgxNTdf
-Y2hhbmdlX210dShzdHJ1Y3QgcjgxNTIgKnRwKSB7DQo+ID4gKyAgICAgdTMyIG1heF9wa3Rfc2l6
-ZSA9IG10dV90b19zaXplKHRwLT5uZXRkZXYtPm10dSk7DQo+ID4gKyAgICAgdTMyIG9jcF9kYXRh
-Ow0KPiA+ICsNCj4gPiArICAgICBvY3Bfd3JpdGVfd29yZCh0cCwgTUNVX1RZUEVfUExBLCBQTEFf
-Uk1TLCBtYXhfcGt0X3NpemUpOw0KPiA+ICsNCj4gPiArICAgICAvKiBVc2UgYXQgbGVhc3QgMTBL
-IGZvciBNVFBTICovDQo+ID4gKyAgICAgb2NwX2RhdGEgPSBtYXhfdCh1MzIsIG1heF9wa3Rfc2l6
-ZSwgMTAgKiAxMDI0KSAvIDY0Ow0KPiA+ICsNCj4gPiArICAgICAvKiAxNiAqIDEwMjQgLyA2NCA9
-IDB4MTAwLCBzbyB0aGUgbWF4IGlzIDB4ZmYgZm9yIDggYml0cyBkYXRhICovDQo+ID4gKyAgICAg
-b2NwX2RhdGEgPSBtaW5fdCh1MzIsIG9jcF9kYXRhLCAweGZmKTsNCj4gPiArDQo+ID4gKyAgICAg
-b2NwX3dyaXRlX2J5dGUodHAsIE1DVV9UWVBFX1BMQSwgUExBX01UUFMsIG9jcF9kYXRhKTsNCj4g
-PiArICAgICByODE1Nl9mY19wYXJhbWV0ZXIodHApOw0KPiANCj4gWyAuLi4gXQ0KPiANCj4gPiBA
-QCAtMTAxNzQsMTEgKzEwMTk2LDYgQEAgc3RhdGljIHZvaWQgcnRsODE1M191bmxvYWQoc3RydWN0
-IHI4MTUyICp0cCkNCj4gPiAgICAgICAgICAgICAgIHJldHVybjsNCj4gPg0KPiA+ICAgICAgIHI4
-MTUzX3Bvd2VyX2N1dF9lbih0cCwgZmFsc2UpOw0KPiA+IC0NCj4gPiAtICAgICBpZiAodHAtPnZl
-cnNpb24gPj0gUlRMX1ZFUl8xNikgew0KPiA+IC0gICAgICAgICAgICAgLyogRGlzYWJsZSBJbnRl
-cnJ1cHQgTWl0aWdhdGlvbiAqLw0KPiA+IC0gICAgICAgICAgICAgb2NwX2J5dGVfY2xyX2JpdHMo
-dHAsIE1DVV9UWVBFX1VTQiwgMHhjZjA0LCBCSVQoMCkgfCBCSVQoMSkNCj4gfCBCSVQoMikgfCBC
-SVQoNykpOw0KPiA+IC0gICAgIH0NCj4gPiAgfQ0KPiANCj4gWyAuLi4gXQ0KPiANCj4gPiArc3Rh
-dGljIHZvaWQgcnRsODE1N191bmxvYWQoc3RydWN0IHI4MTUyICp0cCkgew0KPiA+ICsgICAgIGlm
-ICh0ZXN0X2JpdChSVEw4MTUyX0lOQUNDRVNTSUJMRSwgJnRwLT5mbGFncykpDQo+ID4gKyAgICAg
-ICAgICAgICByZXR1cm47DQo+ID4gKw0KPiA+ICsgICAgIHI4MTU3X3Bvd2VyX2N1dF9lbih0cCwg
-ZmFsc2UpOw0KPiA+ICsgICAgIG9jcF9ieXRlX2Nscl9iaXRzKHRwLCBNQ1VfVFlQRV9VU0IsIDB4
-Y2YwNCwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICBCSVQoMCkgfCBCSVQoMSkgfCBCSVQo
-MikgfCBCSVQoNykpOyB9DQo+IA0KPiBbU2V2ZXJpdHk6IExvd10NCj4gQ291bGQgdGhlIGNoYW5n
-ZWxvZyBzYXkgd2hhdCBtaXNiZWhhdmVzIHRvZGF5IG9uIHRoZXNlIGNoaXBzLCBhbmQgY2FycnkN
-Cj4gRml4ZXM6IHRhZ3M/ICBSVExfVkVSXzE2IGFuZCBSVExfVkVSXzE3IGFyZSBhbHJlYWR5IHN1
-cHBvcnRlZCBpbi10cmVlDQo+IChhZGRlZCBieSBmZDNjN2QwODBkZjUzMSBhbmQgYWQyYTU1YjYz
-YjQxYWYpLCBhbmQgYm90aCBhc3NpZ25lZA0KPiBvcHMtPnVubG9hZCA9IHJ0bDgxNTNfdW5sb2Fk
-IGFuZCBvcHMtPmNoYW5nZV9tdHUgPSBydGw4MTU2X2NoYW5nZV9tdHUsDQo+IG9wcy0+c28NCj4g
-dGhpcyBjaGFuZ2VzIHRoZSByZWdpc3RlciBwcm9ncmFtbWluZyBvZiBzaGlwcGVkIGhhcmR3YXJl
-IHJhdGhlciB0aGFuDQo+IGVuYWJsaW5nIHNvbWV0aGluZyBuZXcuDQo+IA0KPiBUaGUgY29tbWl0
-IG1lc3NhZ2Ugc2F5cyB0aGUgZGVkaWNhdGVkIHVubG9hZCBpcyBuZWVkZWQgInRvIGRpc2FibGUg
-aW50ZXJydXB0DQo+IG1pdGlnYXRpb24iLCBidXQgcnRsODE1M191bmxvYWQoKSBhbHJlYWR5IGRp
-ZCB0aGF0IGZvcg0KPiB0cC0+dmVyc2lvbiA+PSBSVExfVkVSXzE2Og0KPiANCj4gICAgICAgICBp
-ZiAodHAtPnZlcnNpb24gPj0gUlRMX1ZFUl8xNikgew0KPiAgICAgICAgICAgICAgICAgLyogRGlz
-YWJsZSBJbnRlcnJ1cHQgTWl0aWdhdGlvbiAqLw0KPiAgICAgICAgICAgICAgICAgb2NwX2J5dGVf
-Y2xyX2JpdHModHAsIE1DVV9UWVBFX1VTQiwgMHhjZjA0LCBCSVQoMCkgfA0KPiBCSVQoMSkgfCBC
-SVQoMikgfCBCSVQoNykpOw0KPiAgICAgICAgIH0NCj4gDQo+IHNvIHRoYXQgcGFydCBpcyBvbmx5
-IHJlbG9jYXRlZC4gIFRoZSBiZWhhdmlvdXIgdGhhdCBhY3R1YWxseSBjaGFuZ2VzIGlzIHRoZQ0K
-PiBwb3dlciBjdXQgZGlzYWJsZSBzZXF1ZW5jZToNCj4gDQo+IHI4MTUzX3Bvd2VyX2N1dF9lbih0
-cCwgZmFsc2UpOg0KPiAgICAgICAgIG9jcF93b3JkX2Nscl9iaXRzKHRwLCBNQ1VfVFlQRV9VU0Is
-IFVTQl9QT1dFUl9DVVQsIFBXUl9FTg0KPiB8IFBIQVNFMl9FTik7DQo+ICAgICAgICAgb2NwX3dv
-cmRfY2xyX2JpdHModHAsIE1DVV9UWVBFX1VTQiwgVVNCX01JU0NfMCwgUENVVF9TVEFUVVMpOw0K
-PiANCj4gcjgxNTdfcG93ZXJfY3V0X2VuKHRwLCBmYWxzZSk6DQo+ICAgICAgICAgb2NwX3dvcmRf
-Y2xyX2JpdHModHAsIE1DVV9UWVBFX1VTQiwgVVNCX1BPV0VSX0NVVCwgUFdSX0VOKTsNCj4gICAg
-ICAgICBvY3Bfd29yZF9jbHJfYml0cyh0cCwgTUNVX1RZUEVfVVNCLCBVU0JfTUlTQ18wLCBQQ1VU
-X1NUQVRVUyk7DQo+ICAgICAgICAgb2NwX2J5dGVfY2xyX2JpdHModHAsIE1DVV9UWVBFX1VTQiwg
-VVNCX01JU0NfMiwgQklUKDEpKTsNCj4gDQo+IFBIQVNFMl9FTiBpcyBub3cgbGVmdCBzZXQgb24g
-dGhlIHVubG9hZC9kaXNjb25uZWN0IHBhdGggZm9yIHRoZXNlIGNoaXBzLg0KPiBJcyB0aGF0IGlu
-dGVudGlvbmFsLCBhbmQgaXMgdGhlcmUgYW4gb2JzZXJ2YWJsZSBzeW1wdG9tIHdpdGggdGhlIG9s
-ZCBzZXF1ZW5jZT8NCg0KSXQncyBpbnRlbnRpb25hbC4gUlRMODE1NyBhbmQgUlRMODE1OSBoYXZl
-IGRpZmZlcmVudCBzZXF1ZW5jZXMgdG8gZGlzYWJsZSBwb3dlciBjdXQuDQoNCj4gDQo+IFNpbWls
-YXJseSwgcnRsODE1N19jaGFuZ2VfbXR1KCkgcmVwbGFjZXMgdGhlIGZpeGVkIE1UUFNfSlVNQk8g
-KDEyICogMTAyNCAvDQo+IDY0ID0gMHhjMCkgdGhhdCBydGw4MTU2X2NoYW5nZV9tdHUoKSBwcm9n
-cmFtbWVkIHdpdGggYW4gTVRVIGRlcml2ZWQgdmFsdWU6DQo+IGF0IHRoZSBkZWZhdWx0IDE1MDAg
-Ynl0ZSBNVFUsIG1heF90KHUzMiwgbXR1X3RvX3NpemUoMTUwMCksIDEwICogMTAyNCkgLyA2NA0K
-PiBnaXZlcyAweGEwLCBhbmQgaXQgc2F0dXJhdGVzIGF0IDB4ZmYgZm9yIGEgMTZLIE1UVS4gIEJv
-dGggcGF0aHMgYXJlIGxpdmUgYXQNCj4gcnVudGltZSwgdmlhIHJ0bDgxNTdfdXAoKSBvbiBldmVy
-eSBicmluZy11cCBhbmQgdmlhIHJ0bDgxNTJfY2hhbmdlX210dSgpIC0+DQo+IHRwLT5ydGxfb3Bz
-LmNoYW5nZV9tdHUoKSBvbiBldmVyeSBNVFUgY2hhbmdlLiAgV2hhdCBkb2VzIHRoZSBvbGQgTVRQ
-Uw0KPiB0cC0+dmFsdWUNCj4gYnJlYWsgb24gdGhlc2UgY2hpcHM/DQoNClJUTDgxNTcgYW5kIFJU
-TDgxNTkgc3VwcG9ydCBhIG5ldyBmb3JtdWxhIHRvIGNvbXB1dGUgUExBX01UUFMuDQoNCj4gDQo+
-IEFzIHdyaXR0ZW4gaXQgaXMgaGFyZCB0byB0ZWxsIHdoZXRoZXIgdGhpcyBpcyBuZXQtbmV4dCB0
-dW5pbmcgb3IgYSBmaXggZm9yIGEgdXNlcg0KPiB2aXNpYmxlIGRlZmVjdCBvbiByZWxlYXNlZCBr
-ZXJuZWxzLCBhbmQgdGhlcmUgaXMgbm90aGluZyBmb3Igc3RhYmxlIGJhY2twb3J0cyB0bw0KPiBr
-ZXkgb24uICBOb3RlIHRoYXQgdGhpcyB3b3JkaW5nIGlzIHVuY2hhbmdlZCBhdCB0aGUgZW5kIG9m
-IHRoZSBzZXJpZXMsIHNvIG5vDQo+IGxhdGVyIHBhdGNoIGFkZHMgdGhlIG1pc3NpbmcganVzdGlm
-aWNhdGlvbi4NCj4gDQo+IC0tDQo+IFNhc2hpa28gQUkgcmV2aWV3IMK3DQo+IGh0dHBzOi8vbmV0
-ZGV2LWFpLmJvdHMubGludXguZGV2L3Nhc2hpa28vIy9wYXRjaHNldC8yMDI2MDkwODA3NTYzNC4y
-Mzc0MC0xDQo+IC1uaWNfc3dzZCU0MHJlYWx0ZWsuY29tDQoNCkJlc3QsDQpDaGloLUthaQ0K
+spi_nor_shutdown() and spi_nor_remove() call spi_nor_restore() without
+nor->lock, which every other path to the chip takes through
+spi_nor_prep_and_lock(). Both run with the MTD device still registered,
+so another thread can be in the middle of an operation.
+
+A busy flash ignores everything but status reads, so the restore is
+silently dropped and the chip is left in 4-byte mode. A restore landing
+between two chunks of a read switches the chip to 3-byte addressing
+while spi_nor_read() carries on sending four address bytes.
+
+Take the lock, so the restore runs between operations instead of during
+one. This narrows the race rather than closing it: an operation starting
+afterwards still addresses a 3-byte chip with nor->addr_nbytes left at 4.
+
+Fixes: 59b356ffd0b0 ("mtd: m25p80: restore the status of SPI flash when exiting")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Itai Handler <itai.handler@gmail.com>
+---
+v2 1/3, the spi_nor_rww_start_exclusive() lock fix, is dropped from this
+series now that it is queued in spi-nor/next. This patch still depends
+on it: it adds the first ->shutdown and ->remove callers of the
+exclusive lock, so an RWW flash would deadlock without it. Please let it
+reach stable first.
+
+Changes in v3:
+- Fold the spi_nor_remove() patch into this one, as requested by
+  Michael Walle. Both call sites now share a small helper.
+- Cut the commit message down.
+- Add an Assisted-by: tag, as requested by Michael Walle.
+- Drop patch 1/3, queued in spi-nor/next.
+- Link to v2:
+  https://lore.kernel.org/r/20260914081149.1916589-1-itai.handler@gmail.com
+
+ drivers/mtd/spi-nor/core.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index ccf4396cdcd0..c891197ffa5b 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -3849,11 +3849,26 @@ static int spi_nor_probe(struct spi_mem *spimem)
+ 				   data ? data->nr_parts : 0);
+ }
+ 
++/*
++ * Restore between operations, not during one. Removal and shutdown both run
++ * with MTD users still attached: a busy flash silently ignores the commands
++ * spi_nor_restore() sends, and a restore landing inside a read changes the
++ * chip's address width under the transfer.
++ */
++static void spi_nor_restore_locked(struct spi_nor *nor)
++{
++	if (spi_nor_prep_and_lock(nor))
++		return;
++
++	spi_nor_restore(nor);
++	spi_nor_unlock_and_unprep(nor);
++}
++
+ static int spi_nor_remove(struct spi_mem *spimem)
+ {
+ 	struct spi_nor *nor = spi_mem_get_drvdata(spimem);
+ 
+-	spi_nor_restore(nor);
++	spi_nor_restore_locked(nor);
+ 
+ 	/* Clean up MTD stuff. */
+ 	return mtd_device_unregister(&nor->mtd);
+@@ -3863,7 +3878,7 @@ static void spi_nor_shutdown(struct spi_mem *spimem)
+ {
+ 	struct spi_nor *nor = spi_mem_get_drvdata(spimem);
+ 
+-	spi_nor_restore(nor);
++	spi_nor_restore_locked(nor);
+ }
+ 
+ /*
+
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+-- 
+2.34.1
+
