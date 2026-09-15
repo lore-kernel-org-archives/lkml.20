@@ -1,113 +1,84 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D062F8EBC
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A053E2E737F;
+	Tue, 15 Sep 2026 00:55:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789433696; cv=none; b=XzdgvqS0psDFTH4VCrhqneVqF+rydNmLCkCgkmoD1ntTleXXgnXO/Gtx1fgEpNAsRNZ7aNSPCew9NwFlMekzpZV1fFVKmaZxTcw6YZQMbWHEy65cABDhSIz+cc0qXTzLsUtoZUzDe0Pp2FXPjg9WrqRr2hEH8eqtthF8UT+ekVM=
+	t=1789433709; cv=none; b=dx7R9ofuZWayS/KEVP8KJ32I1pZkhsRDzSprHFow4QtH5JjZszFc6nsWV5EcngsjuiObtkJL4h7/Xm7iPbUa+gDWoalggnEbvpgxqXE+lIN7KNREcBrpPflKuYkPE++KCx0fQrRiYp98qz1atVV+mV0FZOm9cVRWPOktGlMDO0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789433696; c=relaxed/simple;
-	bh=jtsnuA5ycq+UgmN6OOcXxBfjzv8pUq5mMUCzSwpDgSk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VYgzlEne/0dYajFS8R87GUf0lEfbFlteanB0Ntv7EPtVfV24FRpRHvg0qX1rgSR0Sp4nMPBYEE1/kvTmeqKW+scNcZapAf4b3JV7C2+n/jtgCRvBlVfcisOsSHHCERgzKkFv2yZ7/RzGlSXDRrjQ1UfU8Jb/DZjwdRcCjdoSXSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=swiF4wzJ; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789433709; c=relaxed/simple;
+	bh=YSdgJ63+emGxwUz43KT4shdDvC2l63XLgqJYNPvGGao=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TZtI+NW6ngKS2924h2IturTw19lGKVlIUPpDYUIm7vARvkri0Leb5cMoXd1doig67zUxMAWXmuNHaD1o6UyBbO5rjUIrr4y4zk/C3vG6go7KP774lBXwW0oaKibEAaVFsBkD+HLya2UwDhGt0gvsEZQOkLorjCubWoNH2fZTf5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OFzD2BL0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="swiF4wzJ"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939695b5741so316506985a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:54:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789433693; x=1790038493; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wPbpaLTfdjYqHBQHnPbcqcrKPKopAanNoJX+x2503BM=;
-        b=swiF4wzJBxx6UGfZG0rpviFm9wPmwjrjWSMG9zDmsvGRpz38aL/Hs7YUMziiYkjFk6
-         jvSMwyIBNAgIBe4mCQgK7Gzcmm6RtS/ZU8ehoOGiv4p0nBlR/cH7JGz5sJsHbcsbApHQ
-         RIabwAJERaT1cK+qSRVogsATexOXfibcyQUFr02jrEP67u/p3N1/sl+i3rnx8MZLT5V9
-         VFJfy2G5oBv3g6zYdD8rfI2kUdl4tm2h3k0KxMdY3iUvXab7iMH/AzxUFQz/7La0PhMM
-         AaftwdqzsmTLchTj0qDYXa7ickQ48SWEmphN7jkqJCsX9/WTVPHutQqC1Rj5Y0jl1Pc5
-         a9cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789433693; x=1790038493;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wPbpaLTfdjYqHBQHnPbcqcrKPKopAanNoJX+x2503BM=;
-        b=T8ASMzT3GVCi5+mrVW75MD/Kqrg+U7ZLAQoNHxUiHyZJvS/PDRunVkeLqJ8SasqhqC
-         V+0OlcF1r8mwg+/uV8t1YnDqYTKo15Aj0vNwRVDDhSUmJhJ5H4QM8vhskH3YMiwo59QN
-         Y761SfwCLBYJUCmh8zJmhLQIU4BmDr5RWn5EpG2drlEF+NDr1Vb7qeGwGeYyQC+Jb2Fn
-         6oQJlK+VxABW5Wz9uThriU6IefoqFKU+iOh94gV9qCZOFoNxAcd/rB8l1B1wtcFv1hm1
-         BeXd35skUVf4kxJrAOvznxr7lL4Df5hBhp97RMxpJs/deiDMadUu4Zq6t70L4w+du0MJ
-         JUVg==
-X-Forwarded-Encrypted: i=1; AKwUvBwaYlYSPQZ7BxLI3Aoz0wOCPjeioQa9dduPTXS9qLlcWAI9/RxjTMVReDoweaIj7hGYuqINlb4yA3XBvgU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lU5uuwOEpQAE68t0XUUWxmSTtAlO8nNgrcfPaonvq2q6Df7Jfe
-	Iv9qdhX8yyOow1tSD1ydRADrkjHp9fLSToZshzkk7zAEuOZnIePmahQnJRKlORg=
-X-Gm-Gg: AYBFou1HIppMiyJZXG62N1GUgAjgzkWnHzUvcC9xzQDy07CIbtgLECZgkkg1xAAEyDt
-	s4jS2SaddutlycNOm1TzYdyJbtHJizsnMcFKgA9oMoXl4WA/iFw7fr64OvjCfr5K/nAOt3Ug7O3
-	mA3n13fS8FPfQIIuyG5tR8P6twur7YXK7sp34CDwCKmI72/AqJiP2ukFkwDYle/9c01qhQh/413
-	WbzV6PctKnp3rJxEuVTHHZzKQa+/d7sUwaLcRpZCQ4Ys57jM+lejLvzwlJ0K4AD3YqSZ9yuri6F
-	CqWAt2t+l1a54DwMm3X3/yCqB55gqHKfSyv0Q+0mQ8YGd3fOFthQbZQuWV+wJJ0ITHLxXXxtV0I
-	NhKXZ8xeLe6RotcSifOh/bd29exElfT2BmjQJLcoj6vZdQUkzrOBqyioJWtnQm3jiW18MQ4FXiB
-	eIl3ltFf1M+NQEfPnOgdviWkiMGQhQI5S4KS1mqsDFmp3pS6AhrBRCyjUMP7gbdDJlMoIwXolkB
-	KjdwBKZKhJ5Us6y2oJH7fITEh7zmqKk3RhAJ+F9KUMhh3+urmIn9x1RRsDYEABIEoLkDykQbihN
-	jtBfCR9tQ8McNJIyMIovN4bIg+JSgV0bgzjXgUzpzxUHfHuwhMrrCLvELz7td4GLP5NUQ92f7Vo
-	=
-X-Received: by 2002:a05:620a:43a2:b0:939:6c31:2318 with SMTP id af79cd13be357-93a29a13b19mr830053485a.34.1789433693467;
-        Mon, 14 Sep 2026 17:54:53 -0700 (PDT)
-Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4b3dcesm108370476d6.31.2026.09.14.17.54.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 17:54:52 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Antonino Daplas <adaplas@gmail.com>,
-	Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] fbdev: nvidia: Release write-combining handle on probe failure
-Date: Mon, 14 Sep 2026 20:54:47 -0400
-Message-ID: <20260915005447.51995-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OFzD2BL0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D4BD1F000FF;
+	Tue, 15 Sep 2026 00:55:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789433707;
+	bh=Tf8gpeOGXwytQI4icz7EmnHY2nhPKKBH8/ezYoe6tNw=;
+	h=From:To:Cc:Subject:Date;
+	b=OFzD2BL05c4u59hKoBA5Vj54zoI0X3pLunCcyW8gaJl2EZDKj2LLleo3adLx1gRKS
+	 FXxs5yeNrhZenizw0ybOAjIV/60ePOD9F+1/hSQL3wXCyInQcQ2FIwcMAaCE8eoZ4R
+	 r5l3c1OR5kvq+HDn0JqKtk/YeuDzZ20haGfutUAMOb+VEhmSJqiLwgXmCe6pyU1Tle
+	 cDHSJZpYHnEzJWwAAOttwv8Eav09XL1VsHD5fC5yUwn2krlaZ0TOrN+fKQcaRmRYwY
+	 NeW4yN5EKhT+TRxFhdmDhfMaOsfOI8SAfvzDsLpN+p/3HViXU7erAz2UUecocR7x/c
+	 J2ZfscTty7jrw==
+From: Yixun Lan <dlan@kernel.org>
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: Yixun Lan <dlan@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	linux-clk@vger.kernel.org,
+	spacemit@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] clk: spacemit: Fixes for v7.3
+Date: Tue, 15 Sep 2026 00:54:54 +0000
+Message-ID: <20260915004456-KYC0593228@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-Failures in nvidia_set_fbinfo() or register_framebuffer() leave the handle
-from arch_phys_wc_add() allocated. Release it in the shared error path,
-as nvidiafb_remove() already does on normal removal.
+Hi Stephen,
 
-The missing cleanup was already present in the initial Git import,
-when the driver used mtrr_add() directly.
+   Please pull SpacemiT's clock Fixes for v7.3. This solve an issue
+that will trigger PLL clock closed due to the frequency not available
+in kernel side, a shutdown of PLL will cause the system hang.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/video/fbdev/nvidia/nvidia.c | 1 +
- 1 file changed, 1 insertion(+)
+Yixun Lan
 
-diff --git a/drivers/video/fbdev/nvidia/nvidia.c b/drivers/video/fbdev/nvidia/nvidia.c
---- a/drivers/video/fbdev/nvidia/nvidia.c
-+++ b/drivers/video/fbdev/nvidia/nvidia.c
-@@ -1424,6 +1424,7 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
- 	return 0;
- 
- err_out_iounmap_fb:
-+	arch_phys_wc_del(par->wc_cookie);
- 	fb_destroy_modelist(&info->modelist);
- err_out_free_base1:
- 	fb_destroy_modedb(info->monspecs.modedb);
--- 
-2.51.0
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/ tags/spacemit-clk-fixes-for-7.3-1
+
+for you to fetch changes up to d558af8ee0bb1b2e88e696be84adb93cf2b7be6f:
+
+  clk: spacemit: k3: add CPU PLL rate tables (2026-09-15 00:09:55 +0000)
+
+----------------------------------------------------------------
+RISC-V SpacemiT clock fixes for v7.3
+
+- Add CPU PLL rate tables
+
+----------------------------------------------------------------
+Troy Mitchell (1):
+      clk: spacemit: k3: add CPU PLL rate tables
+
+ drivers/clk/spacemit/ccu-k3.c | 92 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
