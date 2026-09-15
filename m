@@ -1,113 +1,108 @@
-Received: from mta0.migadu.com (out-242.mta0.migadu.com [91.218.175.242])
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB98B2405EB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:37:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.242
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A81D2EB0F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789432666; cv=none; b=Q8dUEmu6/26dK0IxZOMFNqUH5JFgLm0DQ052Fs+cgvfZGYkO5W6YnqQ2+l7e1YBbA9TK5SscZ+Bq4E7dkHv37dqs4Fi174wkyVrrfI3wLOEXoWSFD/pOuMhX5Cx2Enj6rUH8mOYXMnu6gSzYu7B9AEewfvOkVLGEhWrCuRqQiX4=
+	t=1789432733; cv=none; b=cOJGrU1T2eGTCjxbwuAkHG/IT5UIATon4a1Ncn/0OZawSdWjNWfOH866AlUF/+7qmQ7nKvO8Pa46bWfXJPtiNcfUmIRMYvjZPS6mACLOyIu3pwgQnRm9b/6c+tOvmYrRYVroDRR1DGQ+CsTwSDPEslo2Ccd7gtV5iKsZE2GQTTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789432666; c=relaxed/simple;
-	bh=NVj9c5KfMVbzl9XTE7+p3TmQIeowOBJBTPoyqaia5JE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=P4Q9fBICjLR0VKUJNUYmW4JNAlw7WxkHrJ14JTfiP6qVLTCCAuAYr3BB+1HrLeTmQjEelu9ghdlMLLE+UvTzBQEcFioI8nAuwn7iwnrjqRMHpRPskgEnbj4/23vZpH0QS31B6D+WL+TEVPm6zJpdKbIUYL/z7FLfTPDSYIiPqUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev; spf=pass smtp.mailfrom=cressey.dev; dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b=TCF9OMgr; arc=none smtp.client-ip=91.218.175.242
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
+	s=arc-20240116; t=1789432733; c=relaxed/simple;
+	bh=BuLaE65NQ9rrIR9C05ul8QhLWBqr+NJQ6N3lBPZiaD4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X0QcqdWAQprmkD1JwZsES/vYvNDzsENdv3sqXY1R4LXCe4PmpuR+qV6iwzPI4GAKXL5BuH2r8j53E4sw9TCIXXz6OMxV8NwiPn3dfLJYd57yyrr4Mu2rsEQp0EaqcrcobdMlwOZ0HkeE0z5C4/eOCh3ZlBrRvV94m4SyxabRvqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X3Lzl5Rb; arc=none smtp.client-ip=209.85.222.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b="TCF9OMgr"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=NVj9c5KfMVbzl9XTE7+p3TmQIeowOBJBTPoyqaia5JE=;
- c=simple/simple; d=cressey.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789432660; v=1; x=1790037460;
- b=TCF9OMgrrQU4xPga/Ip5QTgQsG2LzEd7mZQCTkFz51sekpS/ILm+cdn6CXv2MHzS5LTMQOEv
- y3xcT8CMNJg4/m0tbR4dVIlzORIRTrbky2jfb+BdQLdsMf/Rd3GElwyGY2F7x6+q6I7lrqW738f
- /K770Lqx7P/VC3sP2rkyrT0+M89bmvVwXjMW5+7tc+3/iahQV+9Lc2ZaT1SvKerd2qBNIjSAAIP
- 5WuAVJK7fKkSKSZDEhf3Vb0P1g8rkvhL3uDLAlwShhu9ztq59WJEavZu4kM1bHVNvBTNRIX9nRW
- hM1SHl2+xDP4zS70r4IDsh4JsepsDjixn4DwiZe1z7k2Q==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d0abbf3a478eacdc;
-	Tue, 15 Sep 2026 00:37:40 +0000
-X-Mizu-Trace-ID: d0abbf3a478eacdc
-X-Migadu-Flow: FLOW_OUT
-From: Ben Cressey <ben@cressey.dev>
-Date: Tue, 15 Sep 2026 00:37:35 +0000
-Subject: [PATCH] dm-integrity: fix buffer overflow in inline mode with
- large tag size
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X3Lzl5Rb"
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-939fc329d35so233926885a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:38:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789432731; x=1790037531; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CB0/Ut2q4k6domqU+GFMH7n96krlT2PxA2EBOCoxQxI=;
+        b=X3Lzl5RbOWkP8pFqklA7gOHwz56DPlU+3u2d0X64Aex/tgY8tAx7SP0vRIiuZYiC+v
+         p+3EkQxOokW+Nzrsk5pWL4m9fw2XHrBvTib+Kj29sU1HAtsQWzv9ZKXB9CFM9CVcCuQ8
+         GOFkIMPXKh6v4z3rPlAaiWWljqWq7zpQHFunE83NGzHTkkGrI/lGxJiBUN2kbQih6P6c
+         3lrq3xH6VsVvU+O0wvC2nmJoPD2KR+ONkRU08oUzVpraZnV0+HpNIEUQdyYUFTQhtp6t
+         hTGj6vKySZU2NTHdDJhzemgaiioMGmzw9i0wH7Q8pUJIX8QtPxGLUt5zsKd/GUxdL/P4
+         Memg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789432731; x=1790037531;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CB0/Ut2q4k6domqU+GFMH7n96krlT2PxA2EBOCoxQxI=;
+        b=Q1yHDv3RdTSpNwNBW9siT8Or1dooc0MDsifwzj3okOxPMUOaeRnHiWnNasLbNgaAV5
+         le0dFQplMXJUmHrVnEMCEc0LMef8LpLZdwEmHNq4+wBEzpaO167gh4yW2yaiaZlFMqIm
+         /7zgxyiNJjrQ5xbea5Syixo4by/Y1CbgvnLoa1+09vZ0n9lbpAlTl9H6ZYKJvjsp33w1
+         XVaEi6yEcJx/a4uk/tM7xwur1OnNlaUSqkvHT0PAKHypLV7vpQMCBJpJ3KZYcM7Hip+E
+         qgB/jAGiNsgfmNA6OnozgrYXwcj05RNiVzWbTf7mqtfzMRvMXIKbUWpEOk2k4wJZCFrC
+         HD3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzKDcCNbXbdvDwwVzefJ1aMk2+vJmDK7zFvyCy7pSJL0c7Yu53yGdgjAJYA7HDmZqzWdbqsK1+PtfG7z3Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1GJqtkRvfdplKzUblTTuQKrju0v/4ZASeayoMcoSI3mXR7yv/
+	qHdb1LSPs958CaonLVEGhjEz8c1XehQXzxVyM/WTPGRVW/jwk3XwShM=
+X-Gm-Gg: AYBFou1iGxjCUgaeJAAT6yS75fCqP5m1rAdiffwEwUTX0VfPp4cZOkmNAV0pIJDh4DP
+	ooVw98fd/MQiLAuAR8wMXsQBYvYIsGe/SYXEZ4N3+tiTjQ71j5/j3BE2InJLkrAjgBBWpLSkRAJ
+	XB2NWSj0QE02DJOELvhTzjjK8avG48zFY8Ffyk4NIVjWGLp2Kf2mKjt9A/KlhUcCZiKNcXuUzXP
+	rslZbjO5/6k+LUidCfZMC4ZWTbIzXbPe0xJxQxLn2ZYOntVkXvU95xAltU/SCNiXwtO/LYjhI+D
+	VGJVNvOQvpsIqwefKCchaU4lLPTxc2npiyDL27HSvt9UZjNT4l8IwUyvajqPvOq+C7SlFOstDyB
+	PjxUtq+44Cife7RSRvWdK9MpwROkikd9ebBQZ92xbk1UzBpEHvUziFErSY9JQ8bpZiP+pMMOpJl
+	Rwsnq0nm3N7unM/H7dtDjpSpn2L4PAmJAhBOjeSRs/+fwQYuVI9BwQhSwJJ7/sBUx3ap2+9ZeA4
+	VDnEje+2VsiAlfp/GgjFdl3sDfY5VhFHleI0rT7TzKTl6uKGxCk2Lxqt5pWHHc5w+i+vNGl9dL1
+	T9MQD28d0RvBw9G2TWauKVd06UdE57A0NT5TnQ6QsL1qWo03bGyZzNL0s0i0U/gDjPkms8NsqZr
+	kxRFt
+X-Received: by 2002:a05:620a:890e:b0:939:710:536c with SMTP id af79cd13be357-93a29a11d43mr657586485a.43.1789432726516;
+        Mon, 14 Sep 2026 17:38:46 -0700 (PDT)
+Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93a2db5f257sm247664885a.17.2026.09.14.17.38.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 14 Sep 2026 17:38:45 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] fbdev: gxt4500: Release WC setup on probe failure
+Date: Mon, 14 Sep 2026 20:38:34 -0400
+Message-ID: <20260915003834.49715-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-dm-integrity-inline-tag-v1-1-3076b1b27454@cressey.dev>
-X-B4-Tracking: v=1; b=H4sIAE+TqGoC/3WNSQ7CMAxFr1J5TdRBTSFcBbFIU5MaSlI5YVLVu
- 5OUNTs//+/nBQIyYYBjsQDjkwJ5l6DeFWBG7SwKGhJDUzVdpWophrsgF9EyxU+aJnIooraiayX
- W+0OrlJSQrmfGC7038+n84/Dor2hi1uVGrwOKnrUzY15Nc2n8y/MNudyiP59gXb/5ZCiHtgAAA
- A==
-X-Change-ID: 20260915-dm-integrity-inline-tag-645e17849955
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
- Mikulas Patocka <mpatocka@redhat.com>, 
- Benjamin Marzinski <bmarzins@redhat.com>
-Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ben Cressey <ben@cressey.dev>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-In inline mode, dm_integrity_check and dm_integrity_inline_recheck
-compute the checksum of each block into an on-stack buffer of
-HASH_MAX_DIGESTSIZE bytes. integrity_sector_checksum pads its result
-with zeroes up to the tag size, so if the tag size is larger than
-HASH_MAX_DIGESTSIZE, the padding runs past the end of the buffer. With
-CONFIG_STACKPROTECTOR the kernel panics in dm_integrity_check on the
-first read.
+gxt4500_probe() adds a write-combining range before allocating the cmap
+and registering the framebuffer. If a later step fails, the range is
+not released. Add the missing cleanup before unmapping the framebuffer,
+matching the successful remove path.
 
-Enlarge both buffers to hold MAX_TAG_SIZE bytes, as commit b93b6643e9b5
-("dm integrity: fix a crash with unusually large tag size") did for
-integrity_metadata.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-Fixes: fb0987682c62 ("dm-integrity: introduce the Inline mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ben Cressey <ben@cressey.dev>
+Fixes: 38fc4d45fae5 ("gxt4500: Use arch_phys_wc_* for framebuffer")
 Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
-To reproduce: QEMU nvme-ns with ms=128 and 4096-byte blocks, table
-"0 8192 integrity /dev/nvme0n1 0 100 I 3
-internal_hash:hmac(sha256):<key> fix_hmac block_size:4096", then read
-the device.
+ drivers/video/fbdev/gxt4500.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-For stable: before commit 5076d4599ce1 ("dm-integrity: enable
-asynchronous hash interface") in 6.18, the dm_integrity_check buffer
-was in dm_integrity_end_io.
----
- drivers/md/dm-integrity.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index 92970e12267ab..0862f31b8498d 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -2721,7 +2721,7 @@ static void dm_integrity_inline_recheck(struct work_struct *w)
- 	outgoing_data = dio->integrity_payload + PAGE_SIZE;
- 
- 	while (dio->bio_details.bi_iter.bi_size) {
--		char digest[HASH_MAX_DIGESTSIZE];
-+		char digest[MAX_T(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
- 		int r;
- 		struct bio_integrity_payload *bip;
- 		struct bio_vec bv;
-@@ -2788,7 +2788,7 @@ static inline bool dm_integrity_check(struct dm_integrity_c *ic, struct dm_integ
- 	unsigned pos = 0;
- 
- 	while (dio->bio_details.bi_iter.bi_size) {
--		char digest[HASH_MAX_DIGESTSIZE];
-+		char digest[MAX_T(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
- 		struct bio_vec bv = bio_iter_iovec(bio, dio->bio_details.bi_iter);
- 		char *mem = integrity_kmap(ic, bv.bv_page);
- 		integrity_sector_checksum(ic, &dio->ahash_req, dio->bio_details.bi_iter.bi_sector, mem, bv.bv_offset, digest);
-
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260915-dm-integrity-inline-tag-645e17849955
-
+diff --git a/drivers/video/fbdev/gxt4500.c b/drivers/video/fbdev/gxt4500.c
+--- a/drivers/video/fbdev/gxt4500.c
++++ b/drivers/video/fbdev/gxt4500.c
+@@ -719,6 +719,7 @@ static int gxt4500_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+  err_free_cmap:
+ 	fb_dealloc_cmap(&info->cmap);
+  err_unmap_all:
++	arch_phys_wc_del(par->wc_cookie);
+ 	iounmap(info->screen_base);
+  err_unmap_regs:
+ 	iounmap(par->regs);
+-- 
+2.51.0
