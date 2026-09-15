@@ -1,68 +1,69 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC530224AF2
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:43:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB5948097D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:43:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789469014; cv=none; b=k3Pn/fswaLq3yZSWiNsGIoLlWtVxFqCbsdDYaa8nTDjgL3rFgCS9p2LUGREtUBiU8HEFFIVE55h9QpIuoAMOwcNcphnrZ7QJYGYJldH4p+uMhgZdXILe2fhxVkMVICDuBrDFnGlVrWTr47Y9wP35jR7u+y3+EeEfynlMFgpQAzI=
+	t=1789469016; cv=none; b=QCmtwEFOqPDsk4hE9SZ2RSJjw8Fi/y0b4Meg3FfLYLIt65GIV4/K/2XgeUbFtoGWr04ypARt8R2ncoB6w84u3vBIw2gw7Vf7fuKHCOhgTvoMgevM6f0E9LvGp2/V6bPfOLo+uy0PP2zbKIIs5WMFtDK78uxPhabQAgVVYV2N8Jw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789469014; c=relaxed/simple;
-	bh=yZEgzTB21dJfahfS3EghGIYvrSbI8fD5s64xGT2boCo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pv2fxm7P8wDFrSz2iDMP+4nnUQYVckjEhfaTvAY2V6UVDrv29OixGeccyfyJCvM06M/tOVvANRXkAL5O4qHVZQAgh7NlSSr8sPvCx+FuU1ch2JQP4db7E2ZsfWf8DApd3slEEAdaDCZ8mEjs0MO+duRhFNm2hEd0dYRZUZPwq3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KvV9sqP3; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789469016; c=relaxed/simple;
+	bh=bGK8ht4ZsYBRwxHCHXvcjD3xAuJ63yHglUCiy5arzTU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=XS1pnEVaEeMrhSv/9NRgcXfSxUAIg6bg2/EnP0G1CWSoijcTyYQF+x4LjaftbskGM29vHus2SCnMphh4docnp/xwQRIy+aCh19ONji2vHcMb7p0ZGbhqKAyIcBxuqAPC1AkGJmzsRsbaYQ2yBgyckf3ok8lSDWDEZUEHjXztvOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JH9PFfXu; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KvV9sqP3"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912df756so711675e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:43:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JH9PFfXu"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so1460115e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:43:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789469009; x=1790073809; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=c1tT3yvxjkinhN97rO87ZxGO8TE43RhDvmMo/jPsRss=;
-        b=KvV9sqP3IbQxdsLronXb+JMIUTfHqODNtknisbi7Xssq4JaUJaoic38EI4HiCw8Ebt
-         K94TijNmLxI0AZClLDTVM/q6GJZ7A7JfH5wujF2ZLN8eR7Og3lTUj3V0gTE4DPyLtqOE
-         vtl5kILDDFcEeqpsp+2Upg6YjbMwL7O56Ti9i8dVqTR0SkXzPbohKDKw4zcJkfxj2Zww
-         9nWcpHwXL68Wd5iVaEg65dL+qA1dCf09ZX57rHqXd30+T5OgBTTntogjKcVUUulUGyGQ
-         ISJxG073UAb5fwxN0XDODr0ut6nK2eVUTQUmpJkhJJquN+l7QjuJaTKCr2ChclwaHrtF
-         nJpA==
+        d=gmail.com; s=20251104; t=1789469013; x=1790073813; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=czoOrQkTCM70VZKBNhJxXyCegI+z86opj24pXPk8LIQ=;
+        b=JH9PFfXuZEhfRXGu60QS8Ohm0DpTJOuQ2WX1d6gw/wGcW4AAfISZfeIDPfdBlVn03F
+         ljyiYM3hgicudV+qS2PvsGAGbFbA8geSGUPzWHX1vRvSyg8pIfVcya981Vbh/+gXinbS
+         cOBjrITtzLHjIAcwwL/J1uF5S4NRZTOy3pab7uzZ7+h+bkBwSEcS7DAUN5pX6dlnEEuB
+         V8uqqxtLgc5rOWfV78WoEViK4xhf5ZWJnCtN3YWtvQTCviMRCQNUj8vs8zi+cabXepT+
+         PAaT/SwJt3EmhIqxzxnpMGoy0TU8roMHnTfxOb5YmzMNXPzaSFmVRqOC6nDbbrm7YHYW
+         seaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789469009; x=1790073809;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=c1tT3yvxjkinhN97rO87ZxGO8TE43RhDvmMo/jPsRss=;
-        b=zOt0kB8yRDkNOeTPTdTHq+1rCzttlKXHmDk66o8+jIAHaUBHwEqqUrRMgDYz3tTBYz
-         PFk9HIMT6SBYx4u3A8LP55p+udKPN9X6nKssS0hqdrx6r57XmsoeS+v+E2q7hasbzZ+C
-         OREHxosK0z8r88RgVUbB5tha3I9SrAFMMZAqBPLhkaNB7npSxWwYjWYUqwF2h3jt2nxd
-         ig7D2SioD2YnIv1jMv1GHC/YgWu73HNysyyykVeFVl1Gaf5FVwMmjzkbUhaGl8Nwjrqy
-         furVYFObZIAc5AKDpzXpdw7KbXhxsAv2sQXAdMs3F11xgvYxwOOjNQ6jeCK4jqHqK2Wr
-         pV6g==
-X-Forwarded-Encrypted: i=1; AKwUvBz6OHygU1tG2w8dfT+Und1E+u2NZqWWaHRLVR4C29XtM119EngOIRoTUrNucSrjvKYQgMbxuRKgjnzhcas=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/IdMMf9ueYImvn7WcjRIt7p4+ymSR1a4THXR4lJj0e9rhpq9x
-	r2c8wdOaeamxHHeaFbLdXCOp4klVT26CWwFmIC1Jx0rsHmQ7OG7ijG3w
-X-Gm-Gg: AYBFou3W+KwjFtFwQ2skbvOIL+oh6GbH5m7dnXktiZy+3sqBHHSPxwoaCLAS2EZtzxB
-	HeRVTYWx9oNOaxQ3y5FgXUjMR9AdHj5KpRq+99PKX8721cVKxsXEwCzncN9ZlGr5Id6N68kXhPX
-	LGii9RviyNORnv6WByW5IxdPrH9wuNb9ZEqmX/k+CdBKV4CCDc2wA+bPjakh1lwIQ8fYYlEGPP8
-	x2Vr9Oy6PLw5W/4F0mHpJNXK+ythtYHwypHevJpvhgyoECUiY5m2lHpQKiwdyCfsbUGkuTD5G79
-	6FS0qZsIKCoEJb9lxMTNMNL+MUTML/EeNOfLDuczYFnHzOrXBwlKJ58UGCfXmDRYm6L9vZr9SR8
-	brjYLOcHCYEOp9pyBm0HbL6EHnlRqJkaq7WnUuKb80J7yVTOFRPR5kB0FRjl5lK1pMZcrgwXYoP
-	yqdjC++l3v+UTA3o/Fab0iD+0uZWz7S7SKOLgqfLvhTlTFmXOP/8r/xFJm6WD/P1/M6r4Xw2EEc
-	gKHuJZbDRRtVDoSI046EWjdAhV8U79BFQquptwy7854U0sv325U0D4+nvLX1TRwpgo=
-X-Received: by 2002:a05:600c:4f46:b0:49c:cfbe:5a76 with SMTP id 5b1f17b1804b1-49e82213d4bmr10107005e9.2.1789469008368;
-        Tue, 15 Sep 2026 03:43:28 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789469013; x=1790073813;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=czoOrQkTCM70VZKBNhJxXyCegI+z86opj24pXPk8LIQ=;
+        b=ByHv5RYGdpS3b2BibGXEnscudY8eKwzkinzIPpCaNKgM+MMUTMsLMQSui2kUi9DudF
+         jZqD5IddZeTLFIrqU2pT3FWLIOOlPco38knph3jGm408nG93Wf3NGenokmdQohyIDLoe
+         ZTMcg+5R8wBZXsR/iTduNlYqmwxUAkuasxyWhBowT2il8aeySxJc8t76kEja+VclTNrr
+         cHhthzwj9ISQJQmWCnjkJawb2/lJbtWRTEKWsr2Ti6nDLKxSWykSnEX7X8Gka2hSGVPA
+         6KiKIDdT418Q/6MFzCwkkEuKu95zBZD25+BIdrWkA0kHUvAdCGY3OaH3gos2wprOa1EM
+         EEhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxld9T6UeeEx0pISLeuMc0UgyXj0bEA+h7YG4UErIGE+sUT7oYi34SXG18Rv4aIZiD2pAYl/MNqHhX7UB0=@vger.kernel.org
+X-Gm-Message-State: AFuF++k82yRVZimx+SyE0OS67FHB83izzWpke6m2wIUwHuydBYzpMZ8s
+	AUZ+pEv2y/oK3GN0Pxt8Hj4n7F6zz9rsnQsF5Sx1RGQ6SzvRHyOpWSP/
+X-Gm-Gg: AYBFou36cTTwiT+Q6gm0OFn50teJ9vrbmt+jq9NKNfDbhRALJiTHx+NVWusk+5MkU8X
+	HV6Zuk+a5gMQnzar8StnPWYt44uBjoud6qBaGpunmlyKcYSdquN6pG1OB8njHmBpFRVfmSplIm8
+	UV4HAZSWRbU8ImrMeE5NlhIINkw7GRfpAP2G5x0zTXcQCBQh6V/lLIyd/uurUHkXKEjpZeL8sxZ
+	p/forLJNwEoJ0giPlA0NG5P4cvQf/x0t5Zs+NcjXTPS1dth7xq+KOLfr3w4QGdMvU05dfl9XT9M
+	Fhv0+5xxPhOZQMiT5EeUb5opi5cy5d/b2FEOI1gxjWOgUlTROYmZthpYLNWtvmVFo/ei3hOnofy
+	dPbiJ21XjdA4JBvmRVx3QvY8NQCgKjExSpNY1KBOETHDfd4UQO0WcZ7Me9i9WKVgSrbmOVFyo5C
+	vT2i4g7+zypdp4MJoqKnDJr7NTvsfvowgqOCoXP02H3xBD267iEMNTQzR5uFt6gfGYbASIUpTrq
+	DsDNcUqoteR1PLxHNnROP+At9puhpc0IJi8DT9klZrMAHA/EIWBchSHIdoAbPAALOM3O5gomyik
+	LQ==
+X-Received: by 2002:a05:600c:3548:b0:49e:6ac4:b76e with SMTP id 5b1f17b1804b1-49e822a6d43mr7233625e9.30.1789469012386;
+        Tue, 15 Sep 2026 03:43:32 -0700 (PDT)
 Received: from [127.0.1.1] (2a01cb0007c59900d73f8285c1e647ab.ipv6.abo.wanadoo.fr. [2a01:cb00:7c5:9900:d73f:8285:c1e6:47ab])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d2a94b9sm58001325e9.3.2026.09.15.03.43.26
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d2a94b9sm58001325e9.3.2026.09.15.03.43.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:43:27 -0700 (PDT)
+        Tue, 15 Sep 2026 03:43:32 -0700 (PDT)
 From: Amin Gattout <amin.gattout@gmail.com>
-Subject: [PATCH v2 0/4] phy: rockchip: add support for the RK3576 MIPI
- CSI-2 DPHYs
-Date: Tue, 15 Sep 2026 12:42:45 +0200
-Message-Id: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
+Date: Tue, 15 Sep 2026 12:42:49 +0200
+Subject: [PATCH v2 4/4] arm64: dts: rockchip: add csi dphy nodes to rk3576
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,68 +72,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACUhqWoC/1WNyw6CMBBFf4XM2pp2oFBZ+R+GBY8BRuWRFomE8
- O8WdOPyJOeeu4Ijy+QgDVawNLPjofeApwDKNu8bElx5BpQYS6Muwj5CncSiGttFYCij2kQGlS7
- AL0ZLNb+P2i37snsVdyqnPbEbLbtpsMtxN6vd+5VR/pVnJaRIJKEmU2lKzLXpcn6ey6GDbNu2D
- 87Uuh64AAAA
-X-Change-ID: 20260819-rk3576-dphy-2304f848215b
+Message-Id: <20260915-rk3576-dphy-v2-4-b56e68b54b8c@gmail.com>
+References: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
+In-Reply-To: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
  Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
 Cc: Michael Riesch <michael.riesch@collabora.com>, 
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-phy@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>, 
- Amin Gattout <amin.gattout@gmail.com>
+ linux-phy@lists.infradead.org, Amin Gattout <amin.gattout@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789469006; l=1671;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789469006; l=2044;
  i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
- bh=yZEgzTB21dJfahfS3EghGIYvrSbI8fD5s64xGT2boCo=;
- b=ot+vSy2JSTHjEbz9uBeefJXb/lU1tBk60Hb1vd+2VgmjPFt6k8cpkzJT9QHP88Ng6VxHFAlTL
- bJSEKJiOgB5A2Ledx+QpDv+NYkObnMwn0SNsr7pQzcftDj0X92xSduC
+ bh=bGK8ht4ZsYBRwxHCHXvcjD3xAuJ63yHglUCiy5arzTU=;
+ b=yeWXeDtjlbYXnbnHo+rBAMifURbyetkigWkciYlnmz2Njk1RBaH1wo4bBYUGlJC6lwRWoDU9b
+ tW+D2K+PqmFCxhdXa68gYb5iLmkYhzprkayLva/21NsCifePTjlEZH3
 X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
  pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
 
-Hi all,
+The Rockchip RK3576 features two MIPI CSI-2 DPHYs. Add the device
+tree nodes for them.
 
-The Rockchip RK3576 features two MIPI CSI-2 DPHYs. The CSI-2 DPHYs can be
-supported using the existing phy-rockchip-inno-csidphy driver.
-
-This patch series adds support for this variant.
-
-As you may have guessed, this is part of the efforts to bring the
-support for the RK3576 camera pipeline (VICAP) mainline.
-
-Looking forward to your comments!
-
+Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
 ---
-Changes in v2:
-- Patch 3: drop the RK3576 GRF register table, which duplicated the
-  RK3588 one, and reuse rk3588_grf_dphy_regs instead, so that the reset
-  names are now the only difference between the two variants (Michael)
-- Patch 3: reword the commit message accordingly
-- Patch 2: spell out in the commit message why the RK3576 compatible
-  cannot use a fallback (Conor)
-- Collected Acked-by from Conor on patches 1 and 2
-- Link to v1: https://patch.msgid.link/20260820-rk3576-dphy-v1-0-70e25e8d5e78@gmail.com
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi | 34 ++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
----
-Amin Gattout (4):
-      dt-bindings: soc: rockchip: add rk3576 csidphy grf syscon
-      dt-bindings: phy: rockchip-inno-csi-dphy: add rk3576 variant
-      phy: rockchip: phy-rockchip-inno-csidphy: add support for rk3576 variant
-      arm64: dts: rockchip: add csi dphy nodes to rk3576
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+index b0c0d3c8b1b1..b7a527614243 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+@@ -973,11 +973,21 @@ sdgmac_grf: syscon@26038000 {
+ 			reg = <0x0 0x26038000 0x0 0x1000>;
+ 		};
+ 
++		csidphy0_grf: syscon@2603a000 {
++			compatible = "rockchip,rk3576-csidphy-grf", "syscon";
++			reg = <0x0 0x2603a000 0x0 0x2000>;
++		};
++
+ 		ioc_grf: syscon@26040000 {
+ 			compatible = "rockchip,rk3576-ioc-grf", "syscon", "simple-mfd";
+ 			reg = <0x0 0x26040000 0x0 0xc000>;
+ 		};
+ 
++		csidphy1_grf: syscon@2604c000 {
++			compatible = "rockchip,rk3576-csidphy-grf", "syscon";
++			reg = <0x0 0x2604c000 0x0 0x2000>;
++		};
++
+ 		cru: clock-controller@27200000 {
+ 			compatible = "rockchip,rk3576-cru";
+ 			reg = <0x0 0x27200000 0x0 0x50000>;
+@@ -2848,6 +2858,30 @@ hdptxphy: hdmiphy@2b000000 {
+ 			status = "disabled";
+ 		};
+ 
++		csi_dphy0: phy@2b030000 {
++			compatible = "rockchip,rk3576-csi-dphy";
++			reg = <0x0 0x2b030000 0x0 0x10000>;
++			clocks = <&cru PCLK_CSIDPHY>;
++			clock-names = "pclk";
++			#phy-cells = <0>;
++			resets = <&cru SRST_P_CSIPHY>;
++			reset-names = "apb";
++			rockchip,grf = <&csidphy0_grf>;
++			status = "disabled";
++		};
++
++		csi_dphy1: phy@2b070000 {
++			compatible = "rockchip,rk3576-csi-dphy";
++			reg = <0x0 0x2b070000 0x0 0x10000>;
++			clocks = <&cru PCLK_CSIDPHY1>;
++			clock-names = "pclk";
++			#phy-cells = <0>;
++			resets = <&cru SRST_P_CSIDPHY1>;
++			reset-names = "apb";
++			rockchip,grf = <&csidphy1_grf>;
++			status = "disabled";
++		};
++
+ 		sram: sram@3ff88000 {
+ 			compatible = "mmio-sram";
+ 			reg = <0x0 0x3ff88000 0x0 0x78000>;
 
- .../bindings/phy/rockchip-inno-csi-dphy.yaml       |  2 ++
- .../devicetree/bindings/soc/rockchip/grf.yaml      |  1 +
- arch/arm64/boot/dts/rockchip/rk3576.dtsi           | 34 ++++++++++++++++++++++
- drivers/phy/rockchip/phy-rockchip-inno-csidphy.c   | 15 ++++++++++
- 4 files changed, 52 insertions(+)
----
-base-commit: bd5f485f3f026225b86573e559af0b7254ef4184
-change-id: 20260819-rk3576-dphy-2304f848215b
-
-Best regards,
---  
-Amin Gattout <amin.gattout@gmail.com>
+-- 
+2.43.0
 
