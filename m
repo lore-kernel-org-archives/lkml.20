@@ -1,149 +1,170 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA82E3F164C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:23:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B5045D91C;
+	Tue, 15 Sep 2026 08:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460593; cv=none; b=eweHOEi2pjGUI2xzNt5s1ONzq8ROVcXjnJ8CQNAvXxibqaYN9M/2UOrXcTc1vnmJXEDEsJI+yk+SIMSD7mwP/kMofbX3SEF+0WlJEWyPKI33ZS8NktoWk+ctQiLDpaG4jdgODcob7bj1yOkoetL+fHRMMhhJeUGse8zYWAb1qBE=
+	t=1789460604; cv=none; b=gM2CuRcLL+lZnAQwXG0X3v8HFsgQoBXDzRL2crerV9MfoMQFeJ9AvwpKXGab5JvsL1eILL1IrkatgKrRi4t/QIfINqaKBfzG9/GI5AZOI2k/lSEuA5ZYSeTV/RSQZfL3nXVIlJYNxwMNr5BaKUwz7feqIKLdLbvPWR52AYRtsZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460593; c=relaxed/simple;
-	bh=OHmeWTg5UnkwtJXkIWcjYJ5eFEhks4gEc2HTrQKWZJ4=;
+	s=arc-20240116; t=1789460604; c=relaxed/simple;
+	bh=Q6hjAE+9q8egGVVb02CPWb1wLjOusvGxKkXCzWLChHg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HCubX6NFjc889oJ7cdt47X7ia+iUl8IsBhA9kPy2uPg4eL5fiLLLQzI61LF+lYHyxEJwyVfNCWHBqH35rOWdOxtU7UZpp/1S1UHMan4m2aFMfnzb6Y6GWaONkjdf+dYJ5oFAAVh4JevJGPcpYcJlRmTIaLG7zQjQOmJfxAhv3yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=crfWPVTR; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kCzpDxx8cXiQnx8vYFQFzW5b4fcdNVscnHBsUfKYs5EjS4p15M0rVszAu9qHnXhJ/t494tehcec0rcZfuVbLOzurCXdljD6a3gwMO9zV2O31MN4S6vvYNRNFHm3j2nzSuxtELkWOoYg6d9GZTjn2Hjs6JdZ04q+xC5ZY3jBXqDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ipzJcm8I; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="crfWPVTR"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso519985766b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:23:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789460590; x=1790065390; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w6qc6m4ClgS/DLLK2dhqaClRHVdlT2q0YP0qs+LnEzs=;
-        b=crfWPVTRlcpohQ2hDY33c8DsSS2nY4DDoGf3aE7cEkGK2yrfkcDo2qfdZmysFMB1zG
-         3cdFoQf5YH6T+FWGLG5NgGTtMVeAcMvA31JFyMIxRWP5Nyv2umtNsRba/NTamfZ/09Wa
-         bh51z7J46D/v+B77fhyDcdFIBbu3X2jp8Sw+6GOZm8/T86Mk8aa98GBAINiFpMjD0Kmi
-         RCBSJ8oa16TyeBy9DSLuBj5QSqUY+xFaZuvokk2IwQgE0tMBZ42VRJaTQI5jzHB0TC3R
-         vADURe/jxSaPs7XaAZxY9/kp3pxkkvXBSoZYfP7YW+GjpaG74Rig2xnVWnK4JjOMepfe
-         tYqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460590; x=1790065390;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=w6qc6m4ClgS/DLLK2dhqaClRHVdlT2q0YP0qs+LnEzs=;
-        b=mVEMcOlI70juL0ovM2EmrCqe/vT8yU7GxAls1zi5RSSesoG0oCfHD5beWI5ay7SglA
-         muQWhs8X49gN9wm3gZq1uy5O25k0flXxn9qFpm3anmUEKPW6EIpomNZACle/wZWnkOcp
-         gYpBztkiS1vb0MCvPVoh3RL8iaryXlmCwePIBBKqgSHezTXscedhf4TrYKLOpvKiynCU
-         S8DkVbadinysPwCJLMqjQBAc9/YSf7IHACE6L2dW2JPd4lqSsmA0P5ddMA71RX1XN4Ba
-         aiDTESgFNW7PHzD4B0bRRhZiCgdoypz5opPBGF/4euLqutc1D6Ar3gAlgTXEAKinmqsC
-         cipQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPbw327dv7ep0EhuV6DiBnIBP46jY3D6FLskO9ZpK7uXVg4X5AKysz/tTxSSuEG6t1QQ/gJHNFExGxihc=@vger.kernel.org
-X-Gm-Message-State: AFuF++meYsgut4b+rQCT2jimfXTyHNBGduZfLc9QWatMUI9zGIYw0ICw
-	KcrahWIo0HmN2wt+Yrbt5OiBs+eQpZK7P3Vkzzr98m+EAuweJOQxtWEbz+0DfKjKboY=
-X-Gm-Gg: AYBFou3rqpRbwLTP2q6R+Y8byNhkBaA/+mfKg3FUgS2pDRhPy7C1k8uwAEAZ9C+nz6j
-	FZwPha7/g8qbOXqC0/Rr7sua3Zpq/VrPvR4CtDraQxyyB8XkLA5hI/avveMC+ocToliYQUaP5sj
-	ID8XDqdrQ6QuiG1tSFVoMwhNDLfTr91vvTiJgy7j30juq3kZKyPaPsgSpN0p3+XZQ+7BbgPgE8e
-	E3rDpCZnOVBqi77JrHOKtvuuU/Zj40mmW/CwLDFp9yYhs/7rWJqqYDJjFgQLUD6oySOQcD9ZtRm
-	VPPp9nQwPD9w9FMzeMMixhdjIBhTEOfGq7tcVYSZ1SR2CkuiUVujIdLnglJnxGKnZdx5fpLauLh
-	1OSqVaBWxNHTd4UEx29iqFzWr95SYRgpDdG/1hRXNd7xw+C5TIKRtPOVNIcr5OhkuxKbAPDeY4n
-	FTAb0WCHmpV+dE+sYKzs206V6aKKquTjio6Sa9YQtTp/zIIpNPL6qFbdlGseHt
-X-Received: by 2002:a17:907:c18:b0:c25:32b0:e56c with SMTP id a640c23a62f3a-c29b85fff39mr363642766b.4.1789460589999;
-        Tue, 15 Sep 2026 01:23:09 -0700 (PDT)
-Received: from localhost ([2a02:aa7:4656:2314:c23c:9eda:81d:3])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966148d25sm536702166b.61.2026.09.15.01.23.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:23:09 -0700 (PDT)
-Date: Tue, 15 Sep 2026 10:23:08 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	Jiayuan Chen <jiayuan.chen@shopee.com>,
-	Zhou Yingfu <yingfu.zhou@shopee.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ipzJcm8I"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=GLQ264WxN6wDQzABD1f2vOcHnnY8r7L3wdbiMWb63xA=; b=ipzJcm8I1ST/GUt421dYmJnfyI
+	vMJ7fwLPm50oqJU0jqpXgWe24q407KlTdH7SXHQr7TDXrJ0cM1tEYBnW9xuMF681fSZbRWEhC0xLD
+	6pneXq40+9I4oviAF01pBkAh9+iexFHZvr8Q0AJ9eQUZ1IpxpzGhf4HDVrlwFQYzTx+rlpPRZqXIS
+	bi5aWaDAYx9YdPtSyaz9+cEy9G45/haDccskEkn/nT4u1JIUGIvbu/z3wOp8oYMS5UFYrgQZ3LkKc
+	D4oDDw5Avnj0AUqbEB+wgK/erFclXrfrCAUd2232oXhxiftApCzjDlcWbdLgQanaRy0SwbWde3WVp
+	73UWs78A==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x6ORS-00000006QWi-1bHr;
+	Tue, 15 Sep 2026 08:23:04 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id F1FDF3012C6; Tue, 15 Sep 2026 10:23:00 +0200 (CEST)
+Date: Tue, 15 Sep 2026 10:23:00 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Kees Cook <kees@kernel.org>,
+	Joel Granados <joel.granados@kernel.org>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
 	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	David Rientjes <rientjes@google.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/oom_kill: fix hung tasks queued on mmap_lock behind a
- long reap
-Message-ID: <aqkAbBpYheX2DEHg@tiehlicka>
-References: <20260914113239.367200-1-jiayuan.chen@linux.dev>
- <aqg-oG2HDIUeK5Us@tiehlicka>
- <20260914203533.3544ae8dd0903c7603b385c6@linux-foundation.org>
- <aqjsPW92SgcHONKO@tiehlicka>
- <3c8d1d8e-0e67-4d1a-b73d-4eadd6266aa6@linux.dev>
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+	rcu@vger.kernel.org, virtualization@lists.linux.dev,
+	linux-rt-devel@lists.linux.dev, llvm@lists.linux.dev,
+	Yury Norov <yury.norov@gmail.com>
+Subject: Re: [PATCH 01/17] locking/mutex: assert static storage for
+ DEFINE_MUTEX()
+Message-ID: <20260915082300.GV4121339@noisy.programming.kicks-ass.net>
+References: <20260915030336.1192299-1-ynorov@nvidia.com>
+ <20260915030336.1192299-2-ynorov@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3c8d1d8e-0e67-4d1a-b73d-4eadd6266aa6@linux.dev>
+In-Reply-To: <20260915030336.1192299-2-ynorov@nvidia.com>
 
-On Tue 15-09-26 16:13:11, Jiayuan Chen wrote:
+On Mon, Sep 14, 2026 at 11:03:19PM -0400, Yury Norov wrote:
+> DEFINE_MUTEX() uses a static lock initializer whose lockdep class key
+> requires a persistent object address. Reject automatic local declarations
+> with ASSERT_STATIC_STORAGE(), in both the regular and PREEMPT_RT variants.
+> Align the VMA and memblock tools stubs with the kernel declaration.
 > 
-> On 9/15/26 2:57 PM, Michal Hocko wrote:
-> > On Mon 14-09-26 20:35:33, Andrew Morton wrote:
-> > > On Mon, 14 Sep 2026 20:36:16 +0200 Michal Hocko <mhocko@suse.com> wrote:
-> > > 
-> > > > > Call Trace:
-> > > > >   <TASK>
-> > > > >   __schedule+0x487/0x1870
-> > > > >   schedule+0x28/0xb0
-> > > > >   schedule_preempt_disabled+0x16/0x30
-> > > > >   rwsem_down_write_slowpath+0x1d4/0x750
-> > > > >   down_write+0x60/0x70
-> > > > >   __ksm_exit+0xb4/0x230
-> > > > >   __mmput+0x12c/0x150
-> > > > >   mmput+0x1e/0x30
-> > > > >   do_exit+0x283/0xa30
-> > > > >   do_group_exit+0x34/0x90
-> > > > >   get_signal+0x952/0x960
-> > > > >   arch_do_signal_or_restart+0x41/0x250
-> > > > >   exit_to_user_mode_loop+0xd3/0x560
-> > > > >   do_syscall_64+0x385/0x470
-> > > > >   </TASK>
-> > > > > 
-> > > > > KSM is just the one LTP happened to hit: __khugepaged_exit() has the
-> > > > > same write lock cycle ahead of exit_mmap().
-> > > > Why is this a practical problem we need to care about? It is kind of
-> > > > natural that the oom victim exit path might race with the oom reaper. They
-> > > > share the same lock that is mutualy exclusive. The whole point of the
-> > > > reaper is to ensure there is a forward progress achieved. So before we
-> > > > start modifying this let's talk about any practical/real life problems.
+> The two automatic mutexes in the WireGuard allowedips selftests already
+> call mutex_init(). Replace their redundant static initializers with plain
+> struct mutex declarations.
 > 
-> Hi Michal, Andrew
+> Assisted-by: OpenAI Codex
+> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+> ---
+>  drivers/net/wireguard/selftest/allowedips.c | 4 ++--
+>  include/linux/mutex.h                       | 7 +++++--
+>  tools/testing/memblock/linux/mutex.h        | 8 ++++++--
+>  tools/testing/vma/include/dup.h             | 5 ++++-
+>  4 files changed, 17 insertions(+), 7 deletions(-)
 > 
-> Agreed, the hung task warning itself is harmless, especially for a dying
-> task. The real problems are what sits behind it.
-> 
-> With a 500G swapped-out victim the reap takes ~600s, and for all of it:
-> 
-> 1. The victim cannot exit. __ksm_exit() needs mmap_lock for write and
->  queues behind the reaper, so the process stays alive in D state for
->  10 minutes and whoever waits for it (parent, container runtime)
->  waits too.
-> 
-> 2. ksmd and khugepaged stall. Once that writer is queued, their
->  mmap_read_lock() on this mm queues as well, so both daemons stop
->  for the whole system for the same ~600s.
+> diff --git a/drivers/net/wireguard/selftest/allowedips.c b/drivers/net/wireguard/selftest/allowedips.c
+> index 3e857e6fb627..ecb2908228e7 100644
+> --- a/drivers/net/wireguard/selftest/allowedips.c
+> +++ b/drivers/net/wireguard/selftest/allowedips.c
+> @@ -257,7 +257,7 @@ static __init bool randomized_test(void)
+>  	u8 ip[16], mutate_mask[16], mutated[16];
+>  	struct wg_peer **peers, *peer;
+>  	struct horrible_allowedips h;
+> -	DEFINE_MUTEX(mutex);
+> +	struct mutex mutex;
+>  	struct allowedips t;
+>  	bool ret = false;
+>  
+> @@ -499,7 +499,7 @@ bool __init wg_allowedips_selftest(void)
+>  	struct allowedips_node *iter_node;
+>  	bool success = false;
+>  	struct allowedips t;
+> -	DEFINE_MUTEX(mutex);
+> +	struct mutex mutex;
+>  	struct in6_addr ip;
+>  	size_t i = 0, count = 0;
+>  	__be64 part;
 
-Right. But why is that a problem we need to fix? OOM reaper is taking a
-prortion of the exit time by doing the leg work of tearing down the
-address space. Exiting task would need to do the same so it is unlikely
-to terminate much faster.
--- 
-Michal Hocko
-SUSE Labs
+This should probably be a separate patch.
+
+> diff --git a/include/linux/mutex.h b/include/linux/mutex.h
+> index 734048c02f4f..2f2d95f3097c 100644
+> --- a/include/linux/mutex.h
+> +++ b/include/linux/mutex.h
+> @@ -11,6 +11,7 @@
+>  #ifndef __LINUX_MUTEX_H
+>  #define __LINUX_MUTEX_H
+>  
+> +#include <linux/compiler.h>
+>  #include <asm/current.h>
+>  #include <linux/list.h>
+>  #include <linux/spinlock_types.h>
+> @@ -84,7 +85,8 @@ do {									\
+>  		__DEP_MAP_MUTEX_INITIALIZER(lockname) }
+>  
+>  #define DEFINE_MUTEX(mutexname) \
+> -	struct mutex mutexname = __MUTEX_INITIALIZER(mutexname)
+> +	struct mutex mutexname = __MUTEX_INITIALIZER(mutexname);	\
+> +	ASSERT_STATIC_STORAGE(mutexname)
+
+My tree no has ASSERT_STATIC_STORAGE. Please repost when that lands?
