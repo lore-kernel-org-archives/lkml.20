@@ -1,158 +1,142 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A64D355055
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:40:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789468823; cv=pass; b=T0ngzzyzFqMpdi8D9fwcSXqU3FcSv7vFh2MCnudYVnG07lKJhsp3bzzuMicugDAzjHFxVspDoO39RrpbZl3JcB95AMV8VNizCPnENABxGYGrpqvcIYPGTeCZQgnXMlvh6ttoiqUJ8zBaW3ZZc77LN2hMMtLR85XplK4i6/v+YmQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789468823; c=relaxed/simple;
-	bh=1dPvPHlQ14j0yBmcnl+yP4L2b4M/3WUmrDKtwyEqswI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oMqRbH1aWAhrrdflOjqGqi0h1V3RwGJ9rzTk4uwzxO1XyeYjrULM+uWDR9bx09n6sU9I4rctR1QqNJ9H74Y6YdfDgPI7xKaaR8uwjq0IT+XRCq7+kyOflb8tfGQ5z2aD+46P2TuioIOcY+iqP8TN5B8eEn8zKibiQrZp6bKqxqA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KVG5S1QK; arc=pass smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD5747A0A6;
+	Tue, 15 Sep 2026 10:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789468844; cv=none; b=UatfIZzT2JWXRZEsrPucrcGEWdEYlf+CNj+GjHoxR3+9s8FW1/XTIbZ2wQ2n05I8LLA7amARJFJnc/XbbzNnihU6iEHMcmn2xok4hmRsY3GoLmRb6ZbA2EMQt2dz+7WdrWiI9GrrJHV895GtpUSp5rNgKISFbEgAh8WdhZBN3YU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789468844; c=relaxed/simple;
+	bh=A4kgPFQ6UkzFS/sD8VUIM9bIlArc5N4YWEOby/vnMQ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SClGMJ8d01e2hevUFRenpHCPvR16B5+tQFJh1LXImIjFQ93g0B+y/rQa9BBbA1XQYufZkOfGOFiBAylUJ/emC87hMwBGt6yxypK9eWEXemtvE/Wcvn+x4h+pEvkNzcrDqM1x1bzHzXlV7oH1BfYoEhuYgC1/i5ZjW+QmdfG1+cM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=lKsecUK6; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LnZRN66h; arc=none smtp.client-ip=202.12.124.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KVG5S1QK"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1039927a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:40:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789468821; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jZkDh3ZlndviOYxAlOAAQkNSIihDbwHhMBip68uG8OJ7Psdpl/IJoorqCiEuf9OJxP
-         TMl0AsGEZPjeQ8JlDaQeVZWTn/FXGvaSjYWE4pisDXHARiwYmQJyVMAuaARN+sKXta3+
-         jNx0ZZtRXxbjFunwBPl8DmhVDcFV7j08q7YvomXYASctlsxHX8hQr+MEu0VdXZm+95lK
-         zy/qrB+wWSuD71z38B5BHCjfGhz4ciVCx2yZbU9qxxp4/R7cKv2rdMdE/zjsc+GUL7dR
-         vybIHaa1kRQ1EPHF7YQU5szsHzq6NNsoBPcQBBzXPVIdYryECyA1BezoyD/LOVWVMdkb
-         ujJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=WT2qHqDaqkWnFf8saA6OrL4B3kEyzcKEnsDM7DTCKVc=;
-        fh=Mnr2njHIO037+vJzuSokxGev3s+x0yYaeeyhTpASulw=;
-        b=IVCIhmH/GYR1xEm0kvcO2ydobJaiv5RfsrM6w31CAGEkRq1ML4SdrojyOaNTzR8PzH
-         6eHJ94jdWORK+QoGYZS+C1AxjWTuKJabeuuJhVGfIdLQZg1D+lMQgBW3/XqGcjGR/VRM
-         AV6yIcxz8HuZ0mBE0wEZxx9/v/MSM1AxKbIy3z7cM31B/2EbwyZjCSwNz/3ece0r3Wnw
-         RMe5ECRSf0JYWh6h16CXnpRshJzhaKVtVNaxuxh/rHMGiZj3QjDQQ66yeOw/fn/IdSuT
-         7KTq5IG+wbIUIhh/XLJ4JbftOTXVDdnbiFblLp4flri0NPOzFVJ10p0RG+7GlRJ7PNIE
-         sUzg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789468821; x=1790073621; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WT2qHqDaqkWnFf8saA6OrL4B3kEyzcKEnsDM7DTCKVc=;
-        b=KVG5S1QK86uTjPLi0yGWquWIxL014Sg6gIv6IgKSVCc8AUgN7QmD3L/xWgaeJd/ruI
-         7m/z4XX4k+FCZGLAIt4HnRRFTwejwD45Fv9PD0ZIRkHHOP29AwuztpDGbCw4gCyusXCC
-         fNytTUDKtm4a6ZbSSxPNGeN1GcuAL3a195dZGnkECWuhWoVE1Oz+S51vBC5HEPvKk3WE
-         LB5SstkLUb0RhunJjIVl70GVHt2q6YJoVFhht7RBYsNbvFVz2v2JTz7OzQZRUxS29LB+
-         r7RBDtQ3FJ6+dd4QndOXXXaZGMo6J82FQU0ZafCBXApGsR6xfowxAGulOXGon8OBSVsb
-         pVVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789468821; x=1790073621;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WT2qHqDaqkWnFf8saA6OrL4B3kEyzcKEnsDM7DTCKVc=;
-        b=PT+2yd/2hFQ1rOyQS+vQOvwIr4XohaZ089ooA2xMccLHJNKt8EflpQZ4+HeruqsNoS
-         d1Uf4VkgJ648HSNWI9nPYbws0QBeAzDWGnu75+4MVdqLsn2GX3s9WzB+h2ohy+Ec9Tur
-         CcSXDcbB+PGHZ60yVDcmO5cyjhZCPwH1QemKyX8nb2RKPTpn+dp+Oc6rZvBgHsjbN6Pe
-         28+MWMZ1nT87d41dlvm8WQYcoFzSyfjZ2DSf1J0FKlRuTUqax0PS7XuV4yiV4MI/bPDH
-         TGtcyOXZf7jmpwxtanJTYE0GTLN8pUtK7VqMzLV1skvCkuNFzXAITWRB1jIYaiisho/l
-         QQNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxfM2AKDNjHPXh55TX0ekda1SSSH8wqUT8jx2KHOTTWbGoVpB9t3cPKMbUJIYZKRX3DNc6VZqE768hQ1a0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDkCCpG6Q1MdIdnEDpqkG9FJYDiTZ0IrQiq/i3gJG9r2BIOu2l
-	tsJHEEXAVCNASHdd3ZNmP7JaIxccvWwCQiucWC54BlqprufUVy0CvYQIsJK18GADcdY4j6UKji2
-	cKDlIcw8IOKyh54NejGWJpMg6C5D+QSs=
-X-Gm-Gg: AYBFou18ROcNeMTX38ZrxyOrRm2X309ZphnlBmw1rSLKcA/KSkGrxTTMh0qm4AiyCtv
-	3f7+ABePGFB508BJXvCTrdP6kdwKRIp4sNOCW3JAdCmAXnj71fuaEhIxIuPxrePxWQ/KZQpTqhg
-	rAQuEZaREZ9MVYT/ytgTgrKq8mkriP0hXicHGTW40WMz9KSphp1CnJ8v9+9f4cuNwVHkDupwAvg
-	mt90Y7f0ZnlnTaCNSjnr4IOIKB8zQmuu8uThUnsEkrZCcXFpmycV/kQT5fV4H1hNWahqOp8p+SM
-	u7uJVS+nAqouCR2CIszpRFsq7ektPpgophKpSq0iU56hCe0jPYCmOdccNnQ2+6oWt+gIaFQ1c95
-	mdCf4fJTuFt62MkP1lotpdNzPD9dK20HaJ6GNA6fql7KeSZo746zQwA9GLuzC+PMapM8=
-X-Received: by 2002:aa7:888a:0:b0:857:73c3:4469 with SMTP id
- d2e1a72fcca58-8708c367516mr4031436b3a.24.1789468821304; Tue, 15 Sep 2026
- 03:40:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="lKsecUK6";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LnZRN66h"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailflow.stl.internal (Postfix) with ESMTP id 6AC9F1300501;
+	Tue, 15 Sep 2026 06:40:39 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Tue, 15 Sep 2026 06:40:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1789468839; x=
+	1789476039; bh=GR5i+ZoXZtVmjVFbg/5ljADDJkwxtSAlXIoGrwBZebs=; b=l
+	KsecUK6b0SRJRaq+hc/eB8E8+E+0OS3TOgWMDQbkRUi99Sm6DGJRnpgm8BmabSww
+	94irUqC7athEF5czc5H34GvEV4gCjrkDH9KM/KFN0XAw5nUNvVVq8ZeeSm/NIPw/
+	PUg16rQKCi5d57z4wVR9Yu2ZGdO6Pi0Vhgwli0EWkCkteSF72+SYP3fVidRcnze5
+	pEbe+q4EUL40mUCPAn39M/JQBgEsmy/LAFVXDQyjxIbepLwUH+rvZYaW43SkUwbe
+	FyxzhyuB5/Z9JophI2poul52Ab9s1BBMp64H0JpfyjCaZwvySDR7e5rEtbG3eOD7
+	UoFLCPzfGxpymeQlTS45A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789468839; x=1789476039; bh=GR5i+ZoXZtVmjVFbg/5ljADDJkwxtSAlXIo
+	GrwBZebs=; b=LnZRN66hWtnwspXOjsG7LYeKMX9nv/hfkWjD/rulqw4ftSSQMIb
+	6Y1xvTgEUtkRJsi2+7XeBVytHuFl9n1BCAdNuR4cf7u+M8fbFeXtoToAU/FrRlKG
+	M5xVcp1J14A1W5A4TAUCW/kqAZbA9oTtFCOsRl+sC0AOdGxZUlHKXa+02PREbtpl
+	q0B3S6azIA90MT3hN1Xhw3mVppbWdJBkGCanFCXWgBd4fSZ1/FVuLBGkPwJsqXa5
+	pQg96MBVgQKXynEQaBjlx2bqLH6yGxnGX0hxMIeXRxAr8ymnzfIMGySzTQXBjbF5
+	Z+31RqMy2PEHzdrEc4FhySNOYxWD6DPzC0Q==
+X-ME-Sender: <xms:piCparUGOh-7OzOBTWJ9bVDSpNpcvcTxlfTEG3iDldDj8AxLeuuxFQ>
+    <xme:piCpakDxqbF2o17pItwMoDiNI7hxLrRQVe9DwAWaaTYA-LJzV41qSF_wbgHG821KO
+    k8J9BC-Y-FIbF2baYXh8fzTQI4xYmhtyQ1n-oE8O6t5O1rd0C9hYo6s>
+X-ME-Received: <xmr:piCpao3Ofeem80nKOe_L-k3lfV1i-3UxZmkarxLkgRSY75RSG5CpoULtF18>
+X-ME-Proxy-Cause: dmFkZTEhemmXWsnAsUPz8NwfFxfaJLXIIfsZPuNrLsudoDyPOrg10URvNaoJjcAhSb4BJ6
+    NGycg3zzbEkaFXLNIYaIayK1e5/D+4SX7QMtqs/19tsC2OTy0fD7MUb/ayjwUbYpRSvsny
+    dWBBTGqUIjlS66WbFOOR0xO4P3cCOQtscZKQqpTDLonV1xgI83aTnwikIox+H2hLH+T6Km
+    Hgh5ZYol3xHjmHDHrcYHJERVc1jNMjSO/LlooMWTYDb7VOTAB0CN7EA0Sskbxhnz6Az/n6
+    ysmT947gDGrbmIdSFz1qxgnaVFaBn+TD6H59jKLDiF5HDUCwv2dSJ9A3WfAg1o/EWxqJoX
+    abUCfAfCQuyjhs1hHxdWdl4efy1FhwNrm7bf3fgzdv8pc9dZNhdHd1rWL0WQkES6aLPrfi
+    +7KysM0c70bc6V7BqYJP+x65hrmyKszDDmY1Ozro56v8Z18cBjhzIFu2zTkzVC8g2+rYaW
+    j3MsQy2Yiq9cBFh31x+Sk45MsPHmV6oWBsxBSfAOr7JKPQ/Im4JL1Au1MSg91IBdqo35qJ
+    uaMgB4SHkBXLNn7s8/qefkzXTZr7CaL+EOmJ2qBJE2v/TJPRaXQ0FpUC1S1mSRgJC5RTcD
+    QNEiW/TiJiUyIKaPsfb3NUIub2mi5cu3cNDEiisw8whWf1yTjs7Kd7pYxY3Q
+X-ME-Proxy: <xmx:piCpamXHynRvRmnQQtsmeNVRFhIOjnlI-4P_hCf6v7bjhgfR7GsGzQ>
+    <xmx:piCpak8QJ1pEaKAxoJXOmqSu7QHC0nQccZmqxIDFeSpNd0H7fd04kw>
+    <xmx:piCpar0mqM4C9apv8P7erX07yB2EwEMo_pV-l94m-zuObpKhC2hb-w>
+    <xmx:piCpavBeIKdVeu0j8h5FkJi7ms2m6pb9RzR7KCnnekk51XsPuvcRbA>
+    <xmx:pyCpaswXJmJy2chSPwK7aUflrlr_ilJw5UxkfOGcWWIEKicpYgcn-w9q>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 15 Sep 2026 06:40:37 -0400 (EDT)
+Date: Tue, 15 Sep 2026 11:40:36 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, akpm@linux-foundation.org, 
+	nico.pache@linux.dev, baolin.wang@linux.alibaba.com, baohua@kernel.org, 
+	dev.jain@arm.com, hughd@google.com, lance.yang@linux.dev, liam@infradead.org, 
+	mhocko@suse.com, rppt@kernel.org, ryan.roberts@arm.com, shuah@kernel.org, 
+	surenb@google.com, usama.arif@linux.dev, vbabka@kernel.org, ziy@nvidia.com, 
+	usama.anjum@arm.com, agordeev@linux.ibm.com, linux-mm@kvack.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, jannh@google.com, 
+	willy@infradead.org, pfalcato@suse.de, rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [RFC PATCH 00/57] mm/collapse: rebuild collapse on migration
+ primitives
+Message-ID: <aqkQSMX6GuXhow-V@thinkstation>
+References: <20260816224609.308019-1-kirill@shutemov.name>
+ <aoLAly-oL2OAa4n8@lucifer>
+ <aoLkMUtmzRVuv2Hx@thinkstation>
+ <aoQ77EcD3M2kjeya@lucifer>
+ <0153303d-f9d6-45ea-a276-fbf2e5625ef9@kernel.org>
+ <aoXn1B7cPnPq7uxd@thinkstation>
+ <25a39c58-a188-4dda-a832-5deff2c8b8c0@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914072842.24420-1-phucduc.bui@gmail.com> <20260914072842.24420-3-phucduc.bui@gmail.com>
- <07add31d-5622-40eb-9bcf-f7cb2396fee3@collabora.com> <aqf7B_E7_Gv5iK2A@sirena.co.uk>
- <8f1ea5c4-d85a-43eb-8b10-3f80f8343b27@collabora.com> <aqf-pqvBNQ21EQZx@sirena.co.uk>
- <CAABR9nEB16gANTVf-B+sud0+11XhjCjqiCRY3hP_rnaFstB0tw@mail.gmail.com> <936fda6d-8e9e-41f1-b988-b2a4dcb4004d@collabora.com>
-In-Reply-To: <936fda6d-8e9e-41f1-b988-b2a4dcb4004d@collabora.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 15 Sep 2026 17:40:08 +0700
-X-Gm-Features: AcwNN1XiIsKmvO7R4Fhz5E7d9MTMT7jOpXuiLatg0K19TloBrHHj0Z2OJFenKUg
-Message-ID: <CAABR9nGWG8hpkvQP_0d+JytRpW7oRYPDW8RvUOTxL9kuXyEN+Q@mail.gmail.com>
-Subject: Re: [PATCH v2 02/13] ASoC: mediatek: mt8189: Propagate APLL enable errors
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Cezary Rojewski <cezary.rojewski@intel.com>, Cyril Chao <Cyril.Chao@mediatek.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Dan Carpenter <error27@gmail.com>, 
-	cassiogabrielcontato@gmail.com, linux-sound@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <25a39c58-a188-4dda-a832-5deff2c8b8c0@kernel.org>
 
-> You have reasons, of course, but have a wider view and check the full picture:
-> apll{1,2}_enable() is called only by mtk_apll_event(), which is a DAPM supply.
->
-> That call can only happen if the device is not in suspended state, so can happen
-> only after a call to
->
->         regcache_cache_only(afe->regmap, false);
->         regcache_sync(afe->regmap);
->
-> is done in mt8189_afe_runtime_resume().
->
+On Mon, Sep 14, 2026 at 04:54:06PM +0200, David Hildenbrand (Arm) wrote:
+> I saw that you started sending out cleanups, good. :)
 
-I don't think runtime resume always succeeds.
-However, with the code as it is now, it can indeed return success as
-you described.
+Right. I have few more cleanup ideas in the queue, before substantive
+changes.
 
-> > If that assumption were ever violated by a bug elsewhere (
->
->
-> > a PM race,
->
-> That would have worst consequences, and your system won't be saved by this error
-> check because it would crash way before reaching that...
->
-> > wrong resume ordering,
->
-> If limited to ASoC, that would break most (if not all) sound drivers, as that'd
-> happen at the API level, and would get fixed immediately since that'd affect way
-> too many platforms and architectures.
->
-> > a register missing from readable_reg, etc.),
->
-> ..and that would be a driver bug, which is not the case here: the error check
-> though would be useful during development where you definitely want to paranoidly
-> check for literally everything, even "useless" things... but this driver definitely
-> is not in development stage, is it? :-)
->
+> Nobody can really review 39 patches of RFC.
+> 
+> Often it's more helpful to propose an overall design idea, and then discuss if
+> and how to get there.
 
-Oh, being upstream means it's already past the development stage now? :-)
+Fair.
 
-> > this is where it would
-> > get caught and reported,
->
-> ...but then you still wouldn't be able to do anything about it during runtime, as
-> there would be no way to handle this and fix it: the driver would still act in a
-> broken manner.
->
+The overall design one-pager is in comment in mm/collapse.c in 07/57.
 
-I agree it may not be recoverable at runtime, but returning the error prevents
-the driver from continuing as if it succeeded and makes the failure
-visible to the caller.
+I can pull it out, expand and post as RFD if it helpful.
 
-Best regards,
-Phuc
+> > Do we want to find file collapse candidates by walking the virtual
+> > address space at all?
+> 
+> In guest_memfd, we recently discussed that we actually would want a mechanism to
+> collapse even without walking the VA space .... but maybe guest_memfd is just
+> too special, not sure.
+> 
+> You still need a mmap to identify the candidate file IIRC.
+
+At the moment, yes. But it is not the only option. We can start from
+walking inodes for superblocks that opted in for collapse.
+
+> The churn is always the problem.
+> 
+> Small, controlled increments please.
+
+Ack.
+
+Just to re-iterate what I told Lorenzo: I never intended to push this as
+one big patchset. The purpose of the RFC was to demonstrate the end
+state I pursue. I am flexible on how we get there.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
