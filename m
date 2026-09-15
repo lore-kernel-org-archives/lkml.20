@@ -1,279 +1,427 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012066.outbound.protection.outlook.com [52.101.53.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9273E486BB5
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460799; cv=none; b=SgXvsD3S1eHEiBi1LsDqsLl5pgbd+5bYzqbzkxqa78mVqVLuAzWfFlwhlGq3HzXdxPGp+hVpDhToIkIeOUVawGoH1qjCmu8ceksHjUuLiCidiFQzE3WdfrDL0983KTcULqtPezH0ETLF6Tj/3Uv84Irl1svW/S8mLasQEUfU2+g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460799; c=relaxed/simple;
-	bh=Hbrp06lq3B7opj8tzjJVqcfrxhhZTvzJ1WqUPePmYuc=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=EvfcamWMPdrksKqfrELpaWjmrJ0aa0RjxukO4MX/F82JkYSgdnkzowgUtF3GbElpQHDHZq/OoeIULc5HLxobvOAUVWFz2YZ0jMGw8zEcPsHL2aDhf4CNF4VeV6VKQ0gLsQhS645/9xCK+52+GDRQq7nUi6OgpAjNfyFtR19D9ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=plZ1yrqk; arc=none smtp.client-ip=209.85.210.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C792548641B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789460797; cv=fail; b=LY2Q5ghmlyNt31WUNAiRbcHI7dXKkpLmsBqPFU7tB8VeUH2B1mK0Ua425eOp1521aLErOTY2/yWaeJQWuIpJmu9kuvlB/qBcZbkVV0tRyV1bUf2IZfIzzaclW+rk9cXgQfgPVit3SO0kG4rzF4133t8pM/CET2dA4u+sTOOCufA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789460797; c=relaxed/simple;
+	bh=7/as1yeVlq+uuy1QUfgeyc0jtGa+zGdHO/cQz9fc5Pg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=d3hVCPRFTQqhbFH8LIWSo4rA2idvLxTMHIRfMNCpsPYY/WJfsyzSa4D7QTzMbIKKD/y7RtD/BNgjdAYx4haG/BA1PIL0GJmldMjppCxBSG/mr/j94m1qR2MPTj1v1wc6zcYYrQGVN/Nz7fETd6ZZ204xUi3tnmiZgHR/tnZ5BkI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=pIFEQw4Y; arc=fail smtp.client-ip=52.101.53.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="plZ1yrqk"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-869b8d63e28so5217452b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:26:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789460796; x=1790065596; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tzVl62qjzRm92BALDDypl3TnCOJSNAaLaOJ/zmWRh10=;
-        b=plZ1yrqkCcoXlNXcPpA56jCZNYCLAVtsggNA7VUzG/aU3Mm7f3sEZWt2jitR61GLXF
-         LbCMJ+L/Q7bzPc4pk8PcLV2BBbSV7Hf1NYLbMl7dTJ8Vu/96sonv8UGi1tWTD91nXSyn
-         X36Ay6drtQSb1tfkDwodsoMqa1Np3P/pNZR9jPvu0hB/nB/HE4/DouZP4ePY93iQ63vG
-         MXVgMfQN1DbmJJvf9kV5f3Jw/26LEQ4dwvD62e0+/GjqyEeOwyZ6HzXlTdBXyZLBGML4
-         +jA7pvE71hXlr3RWPsCHy0mCLKPgsxD+erBR/jiWStWlhWqpJ90g+tkz51XJFOWO+CgD
-         OF8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460796; x=1790065596;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tzVl62qjzRm92BALDDypl3TnCOJSNAaLaOJ/zmWRh10=;
-        b=QJb4u9fdED4U3XgmE1E3Wpx8GAKmd2cDynKqKIpCAbp2df5dd3mRZf/6VG14wF12q3
-         9pF8CJIjc1phnFmXrrVF4RPSLJxROxEq22bX29csZZclwDEbKObKzHMwPxjrcPvmK988
-         hZfc7BelmWVwNItuu7yqlFJsGOo21sUcLLoWRuAo4+Lvsb0Qhgk8KQWdXmeIw1OP1xUZ
-         yEK06+jrszHaeOJ+Ti91LM/Rfw/AB/6veUa4yvjHU8QibdFFvIpTXUZFy516xTmzRnXb
-         gbL+5yqHCPJvQ43NEbfUQfROBfiCoDUIL1HvH2bUbkcIUdDp5yLTtuzexilKiF8GF8zd
-         cP2w==
-X-Gm-Message-State: AFuF++nEYtaDEyWJdrBvBk9+e1du4WBaPMUbfLe4QkXpjDSJ5pE1fQHn
-	0LEWHgWITG4S5l4UALlH66uBiO7UKpxF0BpURtu95nABi8ANGfqcETe6SPtY/bvC5MMokNDJGhc
-	fgk9LSCpFJ0MOgwHTKDYkh3prseLR9s19qSvQIlW0adDblRhmvwCVB3zudokfbOjiPkZFe/UzCU
-	LyOhuP2Ctqz8v3jRCpfwRGZq42EaPyfSqxdFGvaQ==
-X-Received: from plbjx4.prod.google.com ([2002:a17:903:1384:b0:2dd:1457:fac8])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:190d:b0:2dd:4168:7bd3
- with SMTP id d9443c01a7336-2dd6c6c0cb1mr140747065ad.12.1789460411041; Tue, 15
- Sep 2026 01:20:11 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:36 +0000
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="pIFEQw4Y"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oo2hRKlbw02FqCrDaWNAEmoAK9a3pj+4sqnPCFNV93kGFiUCRLz0IGKuN4hyzG7XiCc51iJHdIFy0wheuGmoTeU76YYxQF8ve6eaZMq8ZP573IBURxjzNzA0y7Ag786ds7Kwmxa42gECROGsVV5jFQxxCbsQWeO20AW9u3Ndnl0ikDiPpoVA1OgQFNuA7wQ/e9hhV4po+eOq+7bQc/8V+n4vO+OHylRs2Mh2XRiceEDjftGQiOKLPZ+uFX2Hw+xj1Q2Ypyf5FXeB1vbEEAHEl8oYFAcUXb4DhFRjA1o8t/UuY/3n6b+thYSV59IMzS3Tpelx3VM/+caAAERmpikwZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HfOHK1+28qr5sHuZXiKf4eCUKtjxgVbjtV+7Y85Ding=;
+ b=RRHpOX05hftor+DR4OBCOzxbfEGV2dtmkom69m6n3ig2ZKa4Nlm7QuRvZ4tNWeRrYWbfoBIQ8niDgq1y2W1JUfX0zDg0NtuwFaTkOQUcmEWMVEr/22cKLtfumf5J12DbJoKztmq9CkSoUpNQwcDqkcdUFbSlK+yPUjSPHoObaqhC6sEUYLOW+cQLec4le1a6PxL/HCNJ4bjGqqLpGnG4JFZQJRjBOzYOqUTF34MT6UIE9i54gBILu2cexDJEkPMpC+GZ0evXc5PLeIJYiGq4oFCHuXKKu8r+UnS4guPMd3vZNS4X7brb7fOwpWPUprERSe9KEDrYceLIw8Z6X8eKZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HfOHK1+28qr5sHuZXiKf4eCUKtjxgVbjtV+7Y85Ding=;
+ b=pIFEQw4YzCVnTB9FHwXJ/0p/HnX7aa6a2FrDEwsm4+cPq/jSGQS2NZwAIMaa7mqKKplVj+Xehg3eUWmzzoPFe5rcfY94EZdyQmQEMotnyj91Lzc/S9PlwEWaSBG1JCISibR8++X2ZkfiX+JpPGuwVSF/40ccVpjayyBL8vszHGmRtmRTTuS703Nl4z3vAW/n5AzaIvf16boOXgxIgpyn53l2bEdPIdPdq8vfSajG9PgruiWO7QQN4Lnt3BCXZDHoiDK60NXJnNuoCkCIK5QBRNbzfU7tEvvHLswvIXbbEPDeevHB8EERf6Ts85bvMKdvF4dgaXzOYPv3osnxtERp0A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from MW4PR03MB6555.namprd03.prod.outlook.com (2603:10b6:303:126::12)
+ by SA1PR03MB7121.namprd03.prod.outlook.com (2603:10b6:806:332::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 08:26:30 +0000
+Received: from MW4PR03MB6555.namprd03.prod.outlook.com
+ ([fe80::c8e9:5e5d:afad:5eaa]) by MW4PR03MB6555.namprd03.prod.outlook.com
+ ([fe80::c8e9:5e5d:afad:5eaa%5]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 08:26:30 +0000
+From: hang.suan.wang@altera.com
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Chen-Yu Tsai <wenst@chromium.org>
+Cc: muhammad.nazim.amirul.nazle.asmade@altera.com,
+	tze.yee.ng@altera.com,
+	chee.nouk.phoon@altera.com,
+	genevieve.chan@altera.com,
+	adrian.ho.yin.ng@altera.com
+Subject: [PATCH v5 2/3] firmware: stratix10-svc: add FCS crypto-service commands for Agilex 5
+Date: Tue, 15 Sep 2026 01:25:44 -0700
+Message-ID: <7c566ebe4024ef5c827de37a26c950ce9c202769.1789448407.git.hang.suan.wang@altera.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <cover.1789448406.git.hang.suan.wang@altera.com>
+References: <cover.1789448406.git.hang.suan.wang@altera.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR13CA0210.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c3::35) To MW4PR03MB6555.namprd03.prod.outlook.com
+ (2603:10b6:303:126::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260915081910.4142719-1-morbo@google.com>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-20-morbo@google.com>
-Subject: [PATCH 19/28] x86/setup: Use snprintf() to concatenate builtin and
- boot command lines
-From: Bill Wendling <morbo@google.com>
-To: linux-kernel@vger.kernel.org
-Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
-	Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
-	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
-	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Matthew Brost <matthew.brost@intel.com>, 
-	"=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Matthias Schwarzott <zzam@gentoo.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Kees Cook <kees@kernel.org>, 
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
-	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
-	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
-	Johannes Berg <johannes.berg@intel.com>, 
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
-	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
-	"=?UTF-8?q?C=C3=A1ssio=20Gabriel?=" <cassiogabrielcontato@gmail.com>, Rong Zhang <i@rong.moe>, 
-	Arun Raghavan <arunr@valvesoftware.com>, linux-arm-kernel@lists.infradead.org, 
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	linux-input@vger.kernel.org, linux-media@vger.kernel.org, 
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
-	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	devel@lists.orangefs.org, linux-hardening@vger.kernel.org, 
-	linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR03MB6555:EE_|SA1PR03MB7121:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1514f113-43b8-47d1-e861-08df13030b4f
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|6133799003|55112099003|18002099003|22082099003|3023799007|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	tfYKxmtoMiX0cLhxra29aW96NS4yG0Lz2d/6Tnek4jtAF/iDgjecmIYGm4pW+C3aSiwNX3KwlYdt0ex4EYSrZKP/iZdlJyfzc0NMaPVyLBmfb1vcFK/hH5RHttELPAMTqwmCtmu0kXWJA41KivaxE/sy9ETFWIRZTp3qbfgw/+JFgFP8pT0qdRwM9LQhCvsHKucmVLTWVweqaj3/sD+OIT9k8OoXG4cfpsqBrjUzzfp4+ZKRuoZOYVhquX8zoQhMn3IL/zRX1nwSz0v+5g+IO5hdguROJp5rxjgYG5iJuGdECp4gB4A+bUnQINQey7D1SsN6a+xioIdwPmhULKyFNu0I1hSqjjopvp/puZCTHopukrTXLmjGXS7mNfT3H/nfr4DoBkNKZBK+H7a1MxdAIGe6rw7SVsTtOqoNssleYW27ZDruTMXmvLarkhDiS2gOjy4IG2mxEtzdCpZd2XjzmY1TkL3IQgt0uY6qaSu+3nthwLUDTJ0ku7VFpQciy3gt5MejTs6B6L2lFwhp4/GhakHi+mi3ZqjeNYvPY5Q6Ipc8wdQpx2AQY/kanUlvusFi5OdN6OwnENDBynJy9OTq0a5lFhaWYsYcDGuaAI0h5QAfpAc8GuOpuDLuwP/WG1S91N3QuCqnCLzWV/o+VZ4WY9hyzLKmFoIu1/OuTbMglWI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR03MB6555.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(55112099003)(18002099003)(22082099003)(3023799007)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XNJbJw3VnuMjQX9mw9yO7lAWrcPvjavL3xqVnCQq+3N+USsuKuPbBgbYW7em?=
+ =?us-ascii?Q?nfVi0iNXQun9GVnIWS8BKIBEZ4jegkWeIWoefRj6hN5CS5+avQd5iiPOEAc1?=
+ =?us-ascii?Q?e2fMWhAeRrN4QEG+fr7xwOfdyi9a40XwBI4lBXUpxvi7uRxnnkVMHc1e4bOL?=
+ =?us-ascii?Q?6HBygJrksLyL+Rfnig+UTZO1ebM4bjBPIyWdrQC3oUNpSpKrQi1Wy4lzL3X+?=
+ =?us-ascii?Q?A4qzc5rat4hlXQ/oM5mhiNfSG9aBGiPbAU6Q08E1KNTMkmNuBX0pk7PbuWEf?=
+ =?us-ascii?Q?vQoUeeUVttSnIL4P0ukTKhnObxX25BLxcwv6A8YDPDxKol8UZ+dTEIMcjix+?=
+ =?us-ascii?Q?ltjql2GBlPl9/ZvcDjgraJu9FjaKvWx9gN0wh1NJwaeyeVBIQgGrRkN0Wdph?=
+ =?us-ascii?Q?lb/KYDEkiIQQeKi5caUjwZHh1vbcGpSu+a3yyU4ssbN9RkNnUwArSRAJ0QPb?=
+ =?us-ascii?Q?U255qKRDEH1horF2khXhLBn8/H20hoSbE+G7Jgjgp5z6M8bmVY6+4cPiVN+D?=
+ =?us-ascii?Q?bbgkdBUpJ/A0/ikUMuierBgjGbozsMmbDnAM5yXXdfhSZZM57gGAW+fQdv34?=
+ =?us-ascii?Q?6pH1H25NVRhTxTjfi1wH+u2h16vho4XvllW1cq591Umrlzjp64Bveh+n/u0J?=
+ =?us-ascii?Q?TWUdofYTMZ5YynwghCXfjmzWy8G13PbZpU4OnbCfrB1uiu1GBkcipFOqLwo+?=
+ =?us-ascii?Q?b4l8cG2hLrmjZslu+axeD+XtABxhPGkak/xy8hFNil60dW6OIJtBKFF1Cnq8?=
+ =?us-ascii?Q?pWOgkXluQWvobsd3DXutEhWsbs7gObHCNeb8AppnhxM1sdm0B3Ap8fQ7kRmT?=
+ =?us-ascii?Q?YIX4NjGrqH1kI0b7dBxgtzpjzpzaVTVKSbvAfIptA+AhmcnQ/0twWTXIFjmT?=
+ =?us-ascii?Q?Rg4g+9vamvfAcfQVKOu5/cpdCRD+G6Umjc6qnfeerrm9U26L2Z6SUdavfp4m?=
+ =?us-ascii?Q?pnKZYWu+QW496DrvF4SN5SSVJ8pCv/ZAZGhPaVmtFA0Kj4jnT7Gd5KRQgh6l?=
+ =?us-ascii?Q?y0UUZ3YVnVlMv4Nz2ZBSb9hMebdlDP2tbH9JQxN2fkT1WSRCgcJeLoJ3+h5a?=
+ =?us-ascii?Q?9KgsI7TSjzBi0KGKIa2AUKnC85RNAQmV8/x4vVvAaiVyRw7yxhiZTr+8TqXO?=
+ =?us-ascii?Q?yypBq7cjPadBOLCLfu+kmrytptZmG9T0d1LWzYuSufxnBEVrWkZQr+UoX3on?=
+ =?us-ascii?Q?3ubvUKi4HkleTgSWwR6OzIG4xF/K5zCRfDlqVF1knH2z9X1eeCCDXRnXSx/n?=
+ =?us-ascii?Q?PKxN8UE0iJL0dJTEFnjkkM9tjBaTKZ0MAF4rFeB+tT3AnztxVEB9FbMcP/n6?=
+ =?us-ascii?Q?fGFy5c3cILbrB0pE+8VkWjwdGGQGUTBEnogUxerDEAqUOlvOQ+MqoSx++2iN?=
+ =?us-ascii?Q?JyMON85xm6QOz0oOMpZjNrz+Upu6aWwFuf7L8f7Xrgu2zaieqG5XzP7N2jLw?=
+ =?us-ascii?Q?7ofVO9v8T+FCaMa5c0ifP6d3BJl1SjyUUzPh+BrEYbnlhbFydNqf5J++GFvp?=
+ =?us-ascii?Q?fNkxayatFIh7lbEX89Ynjn2cnqWPL/kK50I1y8oM8YoF6YR59q7X5eWapEbu?=
+ =?us-ascii?Q?zAScv7vgeMjm566v1PqxYtWy6YX6E7OgguW4RMIZsiIo+wLkGq57JWpFvJdi?=
+ =?us-ascii?Q?YVQUd/1SXM0SZN6BVadMD3a/XbtvBceGsArG1YMXfPBbO+DvjapFf5jCnmTS?=
+ =?us-ascii?Q?NswBVUSQ8tNI2dq56BE7L/pi4gqniA6QcYG77aG8eetztXiKBJnwl5LNpHxi?=
+ =?us-ascii?Q?0P6t/sTuAA=3D=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1514f113-43b8-47d1-e861-08df13030b4f
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR03MB6555.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 08:26:30.6639
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9A9RXttz/bbPZYU2xPgbmnXeVmoiuqgTXASiQ73kjHbDNssIsb2YZnx90i1jDq1qjUjggMOrGFcnqXFUV24+dXAkraECLxPyGEhwo0dI33o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB7121
 
-When CONFIG_CMDLINE_BOOL is enabled without CONFIG_CMDLINE_OVERRIDE,
-setup_arch() appends boot_command_line to builtin_cmdline using two
-strlcat() calls before copying the result back to boot_command_line.
+From: Hang Suan Wang <hang.suan.wang@altera.com>
 
-In preparation for removing the deprecated strlcat() API[1], format the
-combined command line into a temporary buffer using a single snprintf()
-call and copy the result to both builtin_cmdline and boot_command_line.
-Using a temporary buffer avoids undefined behavior from passing overlapping
-source and destination buffers to snprintf().
+The Agilex 5 Secure Device Manager (SDM 1.5) exposes an FPGA Crypto
+Service (FCS) over the existing SIP SMC mailbox: a session-based
+interface for crypto primitives such as SDOS (Secure Data Object
+Service) encrypt/decrypt. The service layer has no command to drive it
+yet.
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Cc: codemender-patching+linux@google.com
-Assisted-by: Developer:Gemini_2.5_Pro [editor_update_file, make_kernel_buil=
-d_single_file, checkpatch_run]
-Signed-off-by: Bill Wendling <morbo@google.com>
+Configure stratix10-svc about this interface so an in-kernel FCS client
+can use it:
+
+  - add the client command codes COMMAND_FCS_CRYPTO_OPEN_SESSION,
+    COMMAND_FCS_CRYPTO_CLOSE_SESSION and COMMAND_FCS_SDOS_DATA_EXT (all
+    asynchronous)
+
+  - add the matching asynchronous SIP SMC function IDs
+    (INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION,
+    INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION and
+    INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT) with their register-usage
+    documentation;
+
+  - match "intel,agilex5-svc" and register a "stratix10-fcs" child
+    platform device, mirroring the existing RSU child, so an FCS client
+    driver can bind without a dedicated device-tree node;
+
+  - dispatch the new commands in the asynchronous send and response
+    paths; for the SDOS data command, translate the source and
+    destination buffers (allocated from the service-layer gen_pool) to
+    physical addresses and pass them, together with the session/context
+    IDs and owner ID, to the SDM.
+
+The transport is unchanged: Agilex 5 reuses the SIP SMC calling
+convention and async mailbox ABI the driver already implements, so no
+new transport mechanism is required.
+
+The SDOS SMMU-remapped address slots currently carry the buffer
+physical addresses; SMMU remapping support is added in a follow-up
+series.
+
+This is a prerequisite for the SoCFPGA FCS driver, the first in-tree
+consumer of these commands.
+
+Signed-off-by: Hang Suan Wang <hang.suan.wang@altera.com>
+Reviewed-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ian Abbott <abbotti@mev.co.uk>
-Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
-Cc: Tony Luck <tony.luck@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Matthias Schwarzott <zzam@gentoo.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Linus Walleij <linusw@kernel.org>
-Cc: Anil Gurumurthy <anil.gurumurthy@qlogic.com>
-Cc: Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>
-Cc: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>
-Cc: Anna Schumaker <anna@kernel.org>
-Cc: Mike Marshall <hubcap@omnibond.com>
-Cc: Martin Brandenburg <martin@omnibond.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Chuck Lever <cel@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>
-Cc: Olga Kornievskaia <okorniev@redhat.com>
-Cc: Dai Ngo <Dai.Ngo@oracle.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Bill Wendling <morbo@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Kanglong Wang <wangkanglong@loongson.cn>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Qiang Ma <maqianga@uniontech.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Thorsten Blum <blum@kernel.org>
-Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Johannes Berg <johannes.berg@intel.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Cryolitia PukNgae <cryolitia@uniontech.com>
-Cc: Jiaming Zhang <r772577952@gmail.com>
-Cc: Will Porter <mrwillporter@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
-Cc: "C=C3=A1ssio Gabriel" <cassiogabrielcontato@gmail.com>
-Cc: Rong Zhang <i@rong.moe>
-Cc: Arun Raghavan <arunr@valvesoftware.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: loongarch@lists.linux.dev
-Cc: linux-mips@vger.kernel.org
-Cc: linux-parisc@vger.kernel.org
-Cc: linux-edac@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org
-Cc: linux-wireless@vger.kernel.org
-Cc: brcm80211@lists.linux.dev
-Cc: brcm80211-dev-list.pdl@broadcom.com
-Cc: devicetree@vger.kernel.org
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: linux-gpio@vger.kernel.org
-Cc: linux-scsi@vger.kernel.org
-Cc: linux-nfs@vger.kernel.org
-Cc: devel@lists.orangefs.org
-Cc: linux-hardening@vger.kernel.org
-Cc: linux-sound@vger.kernel.org
----
- arch/x86/kernel/setup.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/firmware/stratix10-svc.c              | 59 +++++++++++++++--
+ include/linux/firmware/intel/stratix10-smc.h  | 64 +++++++++++++++++++
+ .../firmware/intel/stratix10-svc-client.h     | 16 +++++
+ 3 files changed, 134 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index cda6adb9f69c..c40e0edd7c13 100644
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -916,9 +916,11 @@ void __init setup_arch(char **cmdline_p)
- #else
- 	if (builtin_cmdline[0]) {
- 		/* append boot loader cmdline to builtin */
--		strlcat(builtin_cmdline, " ", COMMAND_LINE_SIZE);
--		strlcat(builtin_cmdline, boot_command_line, COMMAND_LINE_SIZE);
--		strscpy(boot_command_line, builtin_cmdline, COMMAND_LINE_SIZE);
-+		char tmp[COMMAND_LINE_SIZE];
+diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
+index 07345efeef0c..8ead4a3c4a1b 100644
+--- a/drivers/firmware/stratix10-svc.c
++++ b/drivers/firmware/stratix10-svc.c
+@@ -46,6 +46,7 @@
+ 
+ /* stratix10 service layer clients */
+ #define STRATIX10_RSU				"stratix10-rsu"
++#define STRATIX10_FCS				"stratix10-fcs"
+ #define SOCFPGA_HWMON				"socfpga-hwmon"
+ 
+ /* Maximum number of SDM client IDs. */
+@@ -106,10 +107,12 @@ struct stratix10_svc_chan;
+ /**
+  * struct stratix10_svc - svc private data
+  * @stratix10_svc_rsu: pointer to stratix10 RSU device
++ * @stratix10_svc_fcs: pointer to stratix10 FCS device
+  * @stratix10_svc_hwmon: pointer to stratix10 HWMON device
+  */
+ struct stratix10_svc {
+ 	struct platform_device *stratix10_svc_rsu;
++	struct platform_device *stratix10_svc_fcs;
+ 	struct platform_device *stratix10_svc_hwmon;
+ };
+ 
+@@ -1398,6 +1401,30 @@ int stratix10_svc_async_send(struct stratix10_svc_chan *chan, void *msg,
+ 		STRATIX10_SIP_SMC_SET_TRANSACTIONID_X1(handle->transaction_id);
+ 
+ 	switch (p_msg->command) {
++	case COMMAND_FCS_CRYPTO_OPEN_SESSION:
++		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION;
++		break;
++	case COMMAND_FCS_CRYPTO_CLOSE_SESSION:
++		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION;
++		args.a2 = p_msg->arg[0];
++		break;
++	case COMMAND_FCS_SDOS_DATA_EXT:
++		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT;
++		args.a2 = p_msg->arg[0];
++		args.a3 = p_msg->arg[1];
++		args.a4 = p_msg->arg[2];
++		/* payloads are allocated from the svc gen_pool; pass phys addr */
++		args.a5 = gen_pool_virt_to_phys(ctrl->genpool,
++						(unsigned long)p_msg->payload);
++		args.a6 = p_msg->payload_length;
++		args.a7 = gen_pool_virt_to_phys(ctrl->genpool,
++						(unsigned long)p_msg->payload_output);
++		args.a8 = p_msg->payload_length_output;
++		args.a9 = p_msg->arg[3];
++		/* SMMU remapping is added later; pass phys addr for now */
++		args.a10 = args.a5;
++		args.a11 = args.a7;
++		break;
+ 	case COMMAND_RSU_GET_SPT_TABLE:
+ 		args.a0 = INTEL_SIP_SMC_ASYNC_RSU_GET_SPT;
+ 		break;
+@@ -1495,8 +1522,13 @@ static int stratix10_svc_async_prepare_response(struct stratix10_svc_chan *chan,
+ 	data->status = STRATIX10_GET_SDM_STATUS_CODE(handle->res.a1);
+ 
+ 	switch (p_msg->command) {
++	case COMMAND_FCS_CRYPTO_CLOSE_SESSION:
+ 	case COMMAND_RSU_NOTIFY:
+ 		break;
++	case COMMAND_FCS_CRYPTO_OPEN_SESSION:
++	case COMMAND_FCS_SDOS_DATA_EXT:
++		data->kaddr1 = (void *)&handle->res.a2;
++		break;
+ 	case COMMAND_RSU_GET_SPT_TABLE:
+ 		data->kaddr1 = (void *)&handle->res.a2;
+ 		data->kaddr2 = (void *)&handle->res.a3;
+@@ -2004,6 +2036,7 @@ EXPORT_SYMBOL_GPL(stratix10_svc_free_memory);
+ static const struct of_device_id stratix10_svc_drv_match[] = {
+ 	{.compatible = "intel,stratix10-svc"},
+ 	{.compatible = "intel,agilex-svc"},
++	{.compatible = "intel,agilex5-svc"},
+ 	{},
+ };
+ 
+@@ -2107,7 +2140,18 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
+ 
+ 	ret = platform_device_add(svc->stratix10_svc_rsu);
+ 	if (ret)
+-		goto err_put_device;
++		goto err_put_rsu;
 +
-+		snprintf(tmp, COMMAND_LINE_SIZE, "%s %s", builtin_cmdline, boot_command_=
-line);
-+		strscpy(builtin_cmdline, tmp, COMMAND_LINE_SIZE);
-+		strscpy(boot_command_line, tmp, COMMAND_LINE_SIZE);
- 	}
- #endif
- 	builtin_cmdline_added =3D true;
---=20
-2.55.0.1032.g73a4cd73de-goog
++	svc->stratix10_svc_fcs = platform_device_alloc(STRATIX10_FCS, 0);
++	if (!svc->stratix10_svc_fcs) {
++		dev_err(dev, "failed to allocate %s device\n", STRATIX10_FCS);
++		ret = -ENOMEM;
++		goto err_unregister_rsu;
++	}
++
++	ret = platform_device_add(svc->stratix10_svc_fcs);
++	if (ret)
++		goto err_put_fcs;
+ 
+ 	if (IS_ENABLED(CONFIG_SENSORS_ALTERA_SOCFPGA_HWMON)) {
+ 		svc->stratix10_svc_hwmon =
+@@ -2139,10 +2183,14 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
+ err_unregister_clients:
+ 	if (svc->stratix10_svc_hwmon)
+ 		platform_device_unregister(svc->stratix10_svc_hwmon);
+-	if (svc->stratix10_svc_rsu)
+-		platform_device_unregister(svc->stratix10_svc_rsu);
++	platform_device_unregister(svc->stratix10_svc_fcs);
++	goto err_unregister_rsu;
++err_put_fcs:
++	platform_device_put(svc->stratix10_svc_fcs);
++err_unregister_rsu:
++	platform_device_unregister(svc->stratix10_svc_rsu);
+ 	goto err_free_fifos;
+-err_put_device:
++err_put_rsu:
+ 	platform_device_put(svc->stratix10_svc_rsu);
+ err_free_fifos:
+ 	/* only remove from list if list_add_tail() was reached */
+@@ -2164,9 +2212,10 @@ static void stratix10_svc_drv_remove(struct platform_device *pdev)
+ 	struct stratix10_svc_controller *ctrl = platform_get_drvdata(pdev);
+ 	struct stratix10_svc *svc = ctrl->svc;
+ 
+-	platform_device_unregister(svc->stratix10_svc_rsu);
+ 	if (svc->stratix10_svc_hwmon)
+ 		platform_device_unregister(svc->stratix10_svc_hwmon);
++	platform_device_unregister(svc->stratix10_svc_fcs);
++	platform_device_unregister(svc->stratix10_svc_rsu);
+ 
+ 	stratix10_svc_async_exit(ctrl);
+ 
+diff --git a/include/linux/firmware/intel/stratix10-smc.h b/include/linux/firmware/intel/stratix10-smc.h
+index 366309260121..75a39e7190af 100644
+--- a/include/linux/firmware/intel/stratix10-smc.h
++++ b/include/linux/firmware/intel/stratix10-smc.h
+@@ -669,6 +669,70 @@ INTEL_SIP_SMC_FAST_CALL_VAL(INTEL_SIP_SMC_FUNCID_FPGA_CONFIG_COMPLETED_WRITE)
+ #define INTEL_SIP_SMC_FCS_GET_PROVISION_DATA \
+ 	INTEL_SIP_SMC_STD_CALL_VAL(INTEL_SIP_SMC_FUNCID_FCS_GET_PROVISION_DATA)
+ 
++/**
++ * Request INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT
++ * Async call to perform encryption/decryption
++ *
++ * Call register usage:
++ * a0 INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT
++ * a1 transaction job id
++ * a2 session ID
++ * a3 context ID
++ * a4 cryption operating mode (1 for encryption and 0 for decryption)
++ * a5 physical address of source
++ * a6 size of source
++ * a7 physical address of destination
++ * a8 size of destination
++ * a9 sdos ownership
++ * a10 smmu remapped address of source
++ * a11 smmu remapped address of destination
++ * a12-a17 not used
++ *
++ * Return status:
++ * a0 INTEL_SIP_SMC_STATUS_OK or INTEL_SIP_SMC_STATUS_ERROR
++ * a1-a17 not used
++ */
++#define INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CRYPTION_EXT (0x12F)
++#define INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT \
++	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CRYPTION_EXT)
++
++/**
++ * Request INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION
++ * Async call to open and establish a crypto service session with firmware
++ *
++ * Call register usage:
++ * a0 INTEL_SIP_SMC_FCS_OPEN_CRYPTO_SERVICE_SESSION
++ * a1 transaction job id
++ * a2-a17 not used
++ *
++ * Return status:
++ * a0 INTEL_SIP_SMC_STATUS_OK ,INTEL_SIP_SMC_STATUS_REJECTED
++ * or INTEL_SIP_SMC_STATUS_BUSY
++ * a1-a17 not used
++ */
++#define INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_OPEN_CS_SESSION (0x13A)
++#define INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION \
++	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_OPEN_CS_SESSION)
++
++/**
++ * Request INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION
++ * Async call to close a service session
++ *
++ * Call register usage:
++ * a0 INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION
++ * a1 transaction job id
++ * a2 session ID
++ * a3-a17 not used
++ *
++ * Return status:
++ * a0 INTEL_SIP_SMC_STATUS_OK ,INTEL_SIP_SMC_STATUS_REJECTED
++ * or INTEL_SIP_SMC_STATUS_BUSY
++ * a1-a17 not used
++ */
++#define INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CLOSE_CS_SESSION (0x13B)
++#define INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION \
++	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CLOSE_CS_SESSION)
++
+ /**
+  * Request INTEL_SIP_SMC_HWMON_READTEMP
+  * Sync call to request temperature
+diff --git a/include/linux/firmware/intel/stratix10-svc-client.h b/include/linux/firmware/intel/stratix10-svc-client.h
+index 9bb46c3cb0f8..ffc1ac7c9785 100644
+--- a/include/linux/firmware/intel/stratix10-svc-client.h
++++ b/include/linux/firmware/intel/stratix10-svc-client.h
+@@ -7,6 +7,8 @@
+ #ifndef __STRATIX10_SVC_CLIENT_H
+ #define __STRATIX10_SVC_CLIENT_H
+ 
++#include <linux/types.h>
++
+ /*
+  * Service layer driver supports client names
+  *
+@@ -122,6 +124,15 @@ struct stratix10_svc_chan;
+  * @COMMAND_SMC_SVC_VERSION: Non-mailbox SMC SVC API Version,
+  * return status is SVC_STATUS_OK
+  *
++ * @COMMAND_FCS_CRYPTO_OPEN_SESSION: open the crypto service session(s),
++ * return status is SVC_STATUS_OK or SVC_STATUS_ERROR
++ *
++ * @COMMAND_FCS_CRYPTO_CLOSE_SESSION: close the crypto service session(s),
++ * return status is SVC_STATUS_OK or SVC_STATUS_ERROR
++ *
++ * @COMMAND_FCS_SDOS_DATA_EXT: extend SDOS data encryption & decryption,
++ * return status is SVC_STATUS_OK or SVC_STATUS_ERROR
++ *
+  * @COMMAND_MBOX_SEND_CMD: send generic mailbox command, return status is
+  * SVC_STATUS_OK or SVC_STATUS_ERROR
+  *
+@@ -190,6 +201,11 @@ enum stratix10_svc_command_code {
+ 	COMMAND_FCS_RANDOM_NUMBER_GEN,
+ 	/* for general status poll */
+ 	COMMAND_POLL_SERVICE_STATUS = 40,
++	/* for crypto service */
++	COMMAND_FCS_CRYPTO_OPEN_SESSION = 50,
++	COMMAND_FCS_CRYPTO_CLOSE_SESSION,
++	/* for extended SDOS encrypt/decrypt */
++	COMMAND_FCS_SDOS_DATA_EXT = 82,
+ 	/* for generic mailbox send command */
+ 	COMMAND_MBOX_SEND_CMD = 100,
+ 	/* Non-mailbox SMC Call */
+-- 
+2.43.7
 
