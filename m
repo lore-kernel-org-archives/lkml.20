@@ -1,63 +1,65 @@
 Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAAB0429CE6
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:01:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AA043A7E4
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:01:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789448497; cv=none; b=W0EY6d+h3utoUuAZpRRlw6tGBzxUUROl5tD0aq5sOrZ8zbrqQY/dfk3v2CiZQtCvh+NILYf0hs5HtDX7Z832hh5XDAxYgXnXPsWEZDAtPdjxjM82CJ4mVe9feb0jQaBXQ07EY0F+8IeEx3k55Hgd0DZw5mWWKTH72ALE+XOiEVE=
+	t=1789448500; cv=none; b=eqLErX55Xv48bdzYFWO7k531lc2TdRAAdxQRCFFTcFYjdWv4WlxqlxWSbNmTBQUAk7pF21PCm2sNdFX3SHSaoPw0+RNc4KdYTQnRv4nsLGL2QBB5f0LK+O75O8TeBuRVLNl0QlK32Dx2bjk9Bnf6k6gmllf+CQ6Zfjl3l+GihJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789448497; c=relaxed/simple;
-	bh=WvJDz0SMer3VBOphKTbusnWx9vBwOwyigPUnd+wAAiA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XxD2G5gD1dMx3RcH+jCFrpP8FAd+N8pzMD9o6bb7VKE2HYwv/JHv6WXDKkaZlrS4mSk9Bej4VffXaS8xFs0j+7DyweI1WvrrEZDBGIo2WoZYt1W0wJTHbgwi5ufs2b/G4RmPVPRND2q0QqqOSdlX943c6oJAxpwC1C0lhaYEbkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CESLyb8q; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789448500; c=relaxed/simple;
+	bh=x1gejsAd6YWA5CBEc/ub3FzHb3dF1/qcv14ggelBuvA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=azzkhMzGJVvqlqyFfN99WFQZqXJ3uzj6HRJkeTQJkAca7SPcXFoEmayArNZVvPqGZfI57737gbWXI1a3SGVDhY3E+RA9Ib1nhQENJLi0ET4C+yn2wzUOdz6mmZcoOzMN2Da1HZfFflG7EEhEaSSu/j/9L3FgbkSB/IiRYk9UUUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ODXyVOZX; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CESLyb8q"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso2824725a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:01:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ODXyVOZX"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccafb751so2836969a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:01:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789448495; x=1790053295; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ptBV0v6Gt6jAGsqstGkmrulpyxyqgfaikKMDt/h5aaw=;
-        b=CESLyb8qb9mC71opDonoVuBQSmNLGkr0FyokxmGTXBXKnoGBaohfQtCFhF9iYDfSZX
-         OfGYYFOzGxa4dsd6j/zDtS3Cj4a3AGa5Jgfo/pd75wLuIaRmJ60D350O2I53HL0JbM7Y
-         SE4OMaXtERlI24QAe/wrufjpOkVXCuFppv5+fe5PKlShsccsf0EP2nRdjP+6sMye1e1i
-         brCrnikbGHwPIZF0H5foqV7lrJ0oGAEgNgHtTVhR7uTwHOOmREhZUCnimhLJMchiBk6G
-         w0hU0HuoY3ONKkoG5l27rBui5zgFaPh48lKsfBqYcAqTFfo24Z938eEoWWXxi/ZA7q8W
-         EBpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789448495; x=1790053295;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789448497; x=1790053297; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ptBV0v6Gt6jAGsqstGkmrulpyxyqgfaikKMDt/h5aaw=;
-        b=NB50hH0tk5ixyHnLM5QIw9OQVPcKnr26vW7Kw4v9OYFCunma73JqLPALntc0cq+MTS
-         MqDrryjQnv+oCKJqVDUwe5UwucYBlrD9+du7DFcWh+N4WsopDiG59290UJaL0iDZN5FZ
-         JUe+R4suVmirhFWtosTMBgOucrcTJDOoGtQ5RHWLEIJZPIsjIEoqHzFbs1XE6jzJCgEV
-         XemlU03Q1gGUNRn+yBUDotG3n0sq1q7js7SKEucP64/ZSrhCFy3DBmCWXJ6DYL4/DXDO
-         qNH/E+HPO6ZJaGmyVh9yIzQvZAwnqYEFw8hf/7tEgpHReGzLNQ2KW1EhIGnRpd9F0Opj
-         1nfw==
-X-Forwarded-Encrypted: i=1; AKwUvBy9uZqNJIFx1Mn4pZz5hk6nfPXMcb9k6kCu36qBY0Ww1+omdxSVY4TxybmGy+3f81IVAS9HCPoPO/Wario=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrWApUtfcdRAHNh5S2ZCT8LZum+ZfOzxx5aBRWttAPqLQ19sPF
-	1YcIIEfUZVzxUWHA9JlXfB19x5WiKIEUHpz1tWoQxXMcMAwk//TUxFbY
-X-Gm-Gg: AYBFou2/HOGDnLgjf9GJrj5iRYpGE5ZmFrpl9Y/v48Ezse/nKt3EJ8Chk+S2HOPVE1J
-	TWq57x7sfHv+WmVnDdGkjTEGMImIRHX3JEsr3MZQQgMA3U255uPo1LBI0ScOOB61x0xhbbna3+I
-	ZhHv47H1mwWG7FP7EBngZ+N9mCKv0fPnvqUzFwT4ggWUXQcACFgd1DJFIFE+TJmaXzQou95DyjI
-	ZbUKMYbNSA+55tkjOsPY6zAcI4W8qkBDdvlB+W04I4zrV/65NtTFDqbjIa7L+sREXcqjwooe7zu
-	qoOM+z77F7vjB109+UwgmMc31PIn0nJSx6YSTaEBY0ZcEeFGU3VLEnROA7agtG1CNOALrHQyopu
-	CXYWvT7Pd3QUM4HRcSwCjfUt1KUk/gILfoNBnpkukLAZv3xeOY5R3Gy5pDSv6iOTlPRAC+E1rFY
-	apmlNWkPLHiheAfuf6xay1vsRYPsCjLCpo9ANNGzevOMJdFQh7dIjnnX1zQ62ZEA1Pt+qwlnrQW
-	YXgJ4NCI6ocooZEwRZOBoor4fzknvQgi0T0dtWzeLAN1sbmNQlaZEMXfFPYHRgYSjmRDlmc6LR4
-	aRCMVDXeHd7JZsq6W961
-X-Received: by 2002:a17:90b:57cb:b0:39d:f130:f8fd with SMTP id 98e67ed59e1d1-39df13108cdmr11368757a91.11.1789448494978;
-        Mon, 14 Sep 2026 22:01:34 -0700 (PDT)
+        bh=qAZ/bCmEsYsB0LV/q1vRmEmrcb+izaYrj4LP1qy1vmw=;
+        b=ODXyVOZX476O2LF2w9Y8f1RHyQIfPgCsAjNgWF600jwQS8GzP27wWYHOp7oddrhJOM
+         ywfjjB9olLkBAUGluR3cB5GOSGoH/vh9jzwlEIyeagt9Rfh2xWslkaUulfHKVzDpP3nd
+         NmsM56w07BucFsKak3j+v7W7VGkdtrVnnIrtjS/gWaQiHf/2dDKwwaxBmF7tL6W+oW6u
+         gWFgKDycU+Fm7JHGyYk3Q4UNhIwO0MutwTeICSgQuQ9ekEfHi4S5NVna8Say4RqkX+/Y
+         RWpslQRnc9CHAO/krmXw2+aMY69iLB/ZHNzrwFnCW+8WRlnbVfSAam+aCrtMet/fJexV
+         gdBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789448497; x=1790053297;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qAZ/bCmEsYsB0LV/q1vRmEmrcb+izaYrj4LP1qy1vmw=;
+        b=B1pZCArU4GH5XxB+xtvdr7FOEU4ROUwtIycA8Os0QoaLLaBDfpgYynfgOVanvwDm3s
+         0wWxAVSr6lbzOHkV29a2dD3qUbB02u5ALRsNQFrr4Hg79K0565Z1890vXr24t0nzVXyt
+         QYe8qvg+BXG4Cxrk5hTaIgHTB2HPFWcpERJHstWv7Vz7pfAIfsOdWMqqpb6jDQml0cbe
+         ufEmAp6rF5ni7qZqzNK64A4jkNC6dzpwMaCiK/njI27I40dOP2qLVnugx3uOm0Fw9owg
+         yxEdQQwSFgRHWyfpTo3lFbuwxltbU9RT0QnJAtefn/v9A5P5bcwDD52vMXbf4gyRxfsI
+         PK2g==
+X-Forwarded-Encrypted: i=1; AKwUvByuJwwwQE+PlTm8YLSphW5oQzA2IUgxIvZlLn31FjGCZATQEfQcghd2UfTv4sCxK2sGuxHmxMtUBItWSdM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkN4kbWMFQWUy5n3O9p4MeSUqwwwCFLEu7OpwUXJv3scdm1aHg
+	KQu6X5FHYXNcub0MB3VFqtmXF3QfNq0SDXbFrjvKlSh2WwdZhZIMyW7zUFmiY6Nn
+X-Gm-Gg: AYBFou0YK7lbP31QulgrwvGc1TwU7CqKOauz5xf4ScxKY0wjCGEkGVmB2geXFW8tByt
+	nhrP0YIXLFvBoDQ87tCT4lan9UwPz2+NHPKPJw/dtuVLdj45dG0PshVT7RwJ7C1EJZt0ZW49EYf
+	+IBUVk9pwcqaYqB9fXBOsUjZv97qdE8mooKuipU14wVfE/ohuOThMiI1mKaMezGTb9i/5hMi8da
+	w0kbiojqeZ21MzNpFTQ8vsxnT6diZUMUkuGYLyyySMTVZw/bCHgAQE5gRrZnTCsGN+gQXY7P0JG
+	wvV4tw6Enl1PHJdw22RNem8cY/cNS1WLG2cH39lnJUFLKA8pIYfXa/u1P55krSypURxNhxs1dpc
+	ExOWHKglzQY4b2fKPAfbXucxszBM5Dt9Hk7KwSjMlM5FxPmKLZvEqA3o2SWTCU8tqSffSfY6vGH
+	TWy0eMWifNoBiblWNeld0kVLvRZe/p06xZ5PRb4OkalLfmcG4GdNPtrb7CisZElFsovSVOfRnht
+	7qlNUCDPBrz3tFo7emGGKkpvkVvvImBZz5jq+pvaHUHOwYt9PNWdMvBYzyTrs0++L9c9aDHJwcD
+	ZYOH24yCt3WyNDQlT23Q
+X-Received: by 2002:a17:90b:4a0f:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-39debf7613bmr9948084a91.6.1789448496872;
+        Mon, 14 Sep 2026 22:01:36 -0700 (PDT)
 Received: from lawlee-vm0.d4y3nv5wwgfelhhopdxv1tqjld.dx.internal.cloudapp.net ([13.93.150.60])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e51449sm26872358eec.5.2026.09.14.22.01.33
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e51449sm26872358eec.5.2026.09.14.22.01.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 22:01:34 -0700 (PDT)
+        Mon, 14 Sep 2026 22:01:36 -0700 (PDT)
 From: Lawrence Lee <lfqlee314@gmail.com>
 To: David Ahern <dsahern@kernel.org>,
 	Ido Schimmel <idosch@nvidia.com>,
@@ -80,10 +82,12 @@ Cc: Simon Horman <horms@kernel.org>,
 	Alexander Aring <alex.aring@gmail.com>,
 	linux-wpan@vger.kernel.org,
 	linux-bluetooth@vger.kernel.org
-Subject: [PATCH net-next v2 0/2] ipv6: update NUD_FAILED neighbors from NA messages
-Date: Tue, 15 Sep 2026 05:01:30 +0000
-Message-ID: <cover.1789448374.git.lfqlee314@gmail.com>
+Subject: [PATCH net-next v2 1/2] ipv6: update NUD_FAILED neighbors from NA messages
+Date: Tue, 15 Sep 2026 05:01:31 +0000
+Message-ID: <6596966f734f3d416bfa83722f7a595149bcc3f8.1789448374.git.lfqlee314@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1789448374.git.lfqlee314@gmail.com>
+References: <cover.1789448374.git.lfqlee314@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,59 +96,321 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Neighbor Advertisements for existing NUD_FAILED entries are currently
-ignored. This can leave a first-hop router with an unusable neighbor after
-the host becomes reachable and announces itself, particularly when
-forwarding is offloaded away from the kernel and traffic destined to the
-FAILED neighbor is unable to trigger the kernel's normal neighbor
-resolution process.
-Allowing neighbor entries to be updated from NAs already received by the
-kernel is preferable since it creates less work compared to periodically
-probing FAILED neighbors (e.g. using NTF_EXT_MANAGED).
+Transition a FAILED neighbor entry to STALE upon receipt of an NA
+message on routers when accept_untracked_na is enabled. This extends the
+RFC 9131 accept_untracked_na behavior so that FAILED entries are treated
+the same as non-existent entries. In the context of RFC 4861 which
+introduced NDP, both non-existent and FAILED entries are considered
+untracked since they do not have a valid neighbor cache entry.
 
-Extend accept_untracked_na to treat FAILED entries like absent entries.
-Require a target link-layer address, IPv6 forwarding, and acceptance by the
-sysctl, including its source-prefix check in mode 2. Recover the entry only
-to STALE, including for solicited NAs, to maintain parity with handling of
-non-existent neighbor cache entries.
+Trying to resolve FAILED neighbors via periodic probing (e.g. using
+NTF_EXT_MANAGED) is more work compared to this approach which uses
+information in NAs that the kernel may already be receiving. Note that
+because this behavior in IPv6 is dependent on the accept_untracked_na
+sysctl setting, this approach is more conservative than IPv4 which
+transitions FAILED neighbors to STALE by default upon receiving GARPs.
 
-Patch #1 implements the behavior and updates RFC 9131-related comments and
-accept_untracked_na documentation.
-
-Patch #2 extends ndisc_unsolicited_na_test.sh to cover FAILED-entry
-recovery and each acceptance gate, including in-prefix and out-of-prefix
-mode 2.
-
-Thanks to Ido Schimmel for feedback on the original RFC.
-
+Link: https://lore.kernel.org/r/20260813233344.445265-1-lfqlee314@gmail.com
+Assisted-by: LLM Sashiko sparse
+Signed-off-by: Lawrence Lee <lfqlee314@gmail.com>
 ---
-v2:
-- Full implementation of logic to update FAILED entries to STALE.
-- Update the RFC 9131-related comments and sysctl documentation.
-- Add selftests to verify state changes only when the accept_untracked_na
-  setting is enabled.
+ Documentation/networking/ip-sysctl.rst | 28 ++++----
+ include/net/ndisc.h                    | 15 ++--
+ net/6lowpan/ndisc.c                    | 15 ++--
+ net/ipv6/ndisc.c                       | 94 +++++++++++++++++---------
+ 4 files changed, 96 insertions(+), 56 deletions(-)
 
-v1 (RFC):
-https://lore.kernel.org/r/20260813233344.445265-1-lfqlee314@gmail.com
-
-Testing:
-- x86_64 current-config and allyesconfig builds with W=1
-- tools/testing/selftests/net/ndisc_unsolicited_na_test.sh: 14 passed
-- Local NIPA checks: all substantive checks passed
-- Sashiko local review completed
-
-Lawrence Lee (2):
-  ipv6: update NUD_FAILED neighbors from NA messages
-  selftests: net: test untracked NA recovery of FAILED neighbors
-
- Documentation/networking/ip-sysctl.rst        |  28 ++--
- include/net/ndisc.h                           |  15 ++-
- net/6lowpan/ndisc.c                           |  15 ++-
- net/ipv6/ndisc.c                              |  94 ++++++++-----
- .../net/ndisc_unsolicited_na_test.sh          | 124 +++++++++++++++---
- 5 files changed, 201 insertions(+), 75 deletions(-)
-
-
-base-commit: 272a65db243bfa34b9277632830e0e06d7e3518e
+diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
+index 208f46967ee5..4cc57a6be99b 100644
+--- a/Documentation/networking/ip-sysctl.rst
++++ b/Documentation/networking/ip-sysctl.rst
+@@ -3223,18 +3223,19 @@ drop_unsolicited_na - BOOLEAN
+ 	Default: 0 (disabled).
+ 
+ accept_untracked_na - INTEGER
+-	Define behavior for accepting neighbor advertisements from devices that
+-	are absent in the neighbor cache:
++	Define behavior for accepting neighbor advertisements for IPv6 addresses
++	that are absent from the neighbor cache or whose entries are in FAILED
++	state:
+ 
+-	- 0 - (default) Do not accept unsolicited and untracked neighbor
+-	  advertisements.
++	- 0 - (default) Do not create new neighbor cache entries or update
++	  FAILED entries from neighbor advertisements.
+ 
+-	- 1 - Add a new neighbor cache entry in STALE state for routers on
+-	  receiving a neighbor advertisement (either solicited or unsolicited)
+-	  with target link-layer address option specified if no neighbor entry
+-	  is already present for the advertised IPv6 address. Without this knob,
+-	  NAs received for untracked addresses (absent in neighbor cache) are
+-	  silently ignored.
++	- 1 - For routers, add a new neighbor cache entry or update an existing
++	  FAILED entry to STALE upon receiving a neighbor advertisement (either
++	  solicited or unsolicited) with the target link-layer address option
++	  specified. Without this knob, NAs received for untracked addresses
++	  (absent from the neighbor cache or in FAILED state) are silently
++	  ignored.
+ 
+ 	  This is as per router-side behavior documented in RFC9131.
+ 
+@@ -3249,9 +3250,10 @@ accept_untracked_na - INTEGER
+ 	  used in conjunction with the ndisc_notify setting on the host to
+ 	  satisfy this prerequisite.
+ 
+-	- 2 - Extend option (1) to add a new neighbor cache entry only if the
+-	  source IP address is in the same subnet as an address configured on
+-	  the interface that received the neighbor advertisement.
++	- 2 - Extend option (1) to add a new neighbor cache entry or update a
++	  FAILED entry only if the source IP address is in the same subnet as
++	  an address configured on the interface that received the neighbor
++	  advertisement.
+ 
+ enhanced_dad - BOOLEAN
+ 	Include a nonce option in the IPv6 neighbor solicitation messages used for
+diff --git a/include/net/ndisc.h b/include/net/ndisc.h
+index 96e3bb6e83af..7fb3f10eca6c 100644
+--- a/include/net/ndisc.h
++++ b/include/net/ndisc.h
+@@ -154,11 +154,13 @@ void __ndisc_fill_addr_option(struct sk_buff *skb, int type, const void *data,
+  *     option parser will take care about that option.
+  *
+  * void (*update)(const struct net_device *dev, struct neighbour *n,
+- *		  u32 flags, u8 icmp6_type,
++ *		  u32 flags, bool failed_recovery, u8 icmp6_type,
+  *		  const struct ndisc_options *ndopts):
+  *     This function is called when IPv6 ndisc updates the neighbour cache
+  *     entry. Additional options which can be updated may be previously
+  *     parsed by parse_opts callback and accessible over ndopts parameter.
++ *     failed_recovery indicates that ndisc accepted the packet to recover
++ *     an entry observed in NUD_FAILED.
+  *
+  * int (*opt_addr_space)(const struct net_device *dev, u8 icmp6_type,
+  *			 struct neighbour *neigh, u8 *ha_buf,
+@@ -197,7 +199,7 @@ struct ndisc_ops {
+ 				 struct nd_opt_hdr *nd_opt,
+ 				 struct ndisc_options *ndopts);
+ 	void	(*update)(const struct net_device *dev, struct neighbour *n,
+-			  u32 flags, u8 icmp6_type,
++			  u32 flags, bool failed_recovery, u8 icmp6_type,
+ 			  const struct ndisc_options *ndopts);
+ 	int	(*opt_addr_space)(const struct net_device *dev, u8 icmp6_type,
+ 				  struct neighbour *neigh, u8 *ha_buf,
+@@ -227,12 +229,13 @@ static inline int ndisc_ops_parse_options(const struct net_device *dev,
+ }
+ 
+ static inline void ndisc_ops_update(const struct net_device *dev,
+-					  struct neighbour *n, u32 flags,
+-					  u8 icmp6_type,
+-					  const struct ndisc_options *ndopts)
++				    struct neighbour *n, u32 flags,
++				    bool failed_recovery, u8 icmp6_type,
++				    const struct ndisc_options *ndopts)
+ {
+ 	if (dev->ndisc_ops && dev->ndisc_ops->update)
+-		dev->ndisc_ops->update(dev, n, flags, icmp6_type, ndopts);
++		dev->ndisc_ops->update(dev, n, flags, failed_recovery,
++				       icmp6_type, ndopts);
+ }
+ 
+ static inline int ndisc_ops_opt_addr_space(const struct net_device *dev,
+diff --git a/net/6lowpan/ndisc.c b/net/6lowpan/ndisc.c
+index 868d28583c0a..8fedfef93740 100644
+--- a/net/6lowpan/ndisc.c
++++ b/net/6lowpan/ndisc.c
+@@ -47,7 +47,8 @@ static int lowpan_ndisc_parse_options(const struct net_device *dev,
+ 	}
+ }
+ 
+-static void lowpan_ndisc_802154_update(struct neighbour *n, u32 flags,
++static void lowpan_ndisc_802154_update(struct neighbour *n,
++				       bool failed_recovery,
+ 				       u8 icmp6_type,
+ 				       const struct ndisc_options *ndopts)
+ {
+@@ -87,20 +88,24 @@ static void lowpan_ndisc_802154_update(struct neighbour *n, u32 flags,
+ 		ieee802154_be16_to_le16(&neigh->short_addr, lladdr_short);
+ 		if (!lowpan_802154_is_valid_src_short_addr(neigh->short_addr))
+ 			neigh->short_addr = cpu_to_le16(IEEE802154_ADDR_SHORT_UNSPEC);
++	} else if (failed_recovery) {
++		neigh->short_addr = cpu_to_le16(IEEE802154_ADDR_SHORT_UNSPEC);
+ 	}
+ 	write_unlock_bh(&n->lock);
+ }
+ 
+ static void lowpan_ndisc_update(const struct net_device *dev,
+-				struct neighbour *n, u32 flags, u8 icmp6_type,
++				struct neighbour *n, u32 flags,
++				bool failed_recovery, u8 icmp6_type,
+ 				const struct ndisc_options *ndopts)
+ {
+ 	if (!lowpan_is_ll(dev, LOWPAN_LLTYPE_IEEE802154))
+ 		return;
+ 
+-	/* react on overrides only. TODO check if this is really right. */
+-	if (flags & NEIGH_UPDATE_F_OVERRIDE)
+-		lowpan_ndisc_802154_update(n, flags, icmp6_type, ndopts);
++	/* React to overrides or accepted FAILED-entry recovery. */
++	if ((flags & NEIGH_UPDATE_F_OVERRIDE) || failed_recovery)
++		lowpan_ndisc_802154_update(n, failed_recovery, icmp6_type,
++					   ndopts);
+ }
+ 
+ static int lowpan_ndisc_opt_addr_space(const struct net_device *dev,
+diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
+index 90cd5d852569..84d70c09205a 100644
+--- a/net/ipv6/ndisc.c
++++ b/net/ipv6/ndisc.c
+@@ -778,13 +778,23 @@ static int pndisc_is_router(const void *pkey,
+ 	return ret;
+ }
+ 
++static void __ndisc_update(const struct net_device *dev,
++			   struct neighbour *neigh, const u8 *lladdr, u8 new,
++			   u32 flags, bool failed_recovery, u8 icmp6_type,
++			   struct ndisc_options *ndopts)
++{
++	neigh_update(neigh, lladdr, new, flags, 0);
++	/* report ndisc ops about neighbour update */
++	ndisc_ops_update(dev, neigh, flags, failed_recovery, icmp6_type,
++			 ndopts);
++}
++
+ void ndisc_update(const struct net_device *dev, struct neighbour *neigh,
+ 		  const u8 *lladdr, u8 new, u32 flags, u8 icmp6_type,
+ 		  struct ndisc_options *ndopts)
+ {
+-	neigh_update(neigh, lladdr, new, flags, 0);
+-	/* report ndisc ops about neighbour update */
+-	ndisc_ops_update(dev, neigh, flags, icmp6_type, ndopts);
++	__ndisc_update(dev, neigh, lladdr, new, flags, false, icmp6_type,
++		       ndopts);
+ }
+ 
+ static enum skb_drop_reason ndisc_recv_ns(struct sk_buff *skb)
+@@ -972,14 +982,18 @@ static enum skb_drop_reason ndisc_recv_ns(struct sk_buff *skb)
+ 
+ static int accept_untracked_na(struct inet6_dev *idev, struct in6_addr *saddr)
+ {
++    /* For any given neighbor IP address, consider it an untracked neighbor if
++     * it is absent from the neighbor cache or if it has a NUD_FAILED entry in
++     * the neighbor cache
++     */
+ 	switch (READ_ONCE(idev->cnf.accept_untracked_na)) {
+-	case 0: /* Don't accept untracked na (absent in neighbor cache) */
++	case 0: /* Reject NAs for untracked neighbours */
+ 		return 0;
+-	case 1: /* Create new entries from na if currently untracked */
++	case 1: /* Accept NAs for untracked neighbours */
+ 		return 1;
+-	case 2: /* Create new entries from untracked na only if saddr is in the
++	case 2: /* Accept NAs for untracked neighbours only if saddr is in the
+ 		 * same subnet as an address configured on the interface that
+-		 * received the na
++		 * received the NA
+ 		 */
+ 		return !!ipv6_chk_prefix(saddr, idev->dev);
+ 	default:
+@@ -1001,6 +1015,9 @@ static enum skb_drop_reason ndisc_recv_na(struct sk_buff *skb)
+ 	struct neigh_table *tbl;
+ 	struct neighbour *neigh;
+ 	struct inet6_dev *idev;
++	bool neigh_failed = false;
++	bool neigh_untracked = false;
++	bool accept_untracked = false;
+ 	u8 *lladdr = NULL;
+ 	SKB_DR(reason);
+ 	u8 new_state;
+@@ -1067,32 +1084,41 @@ static enum skb_drop_reason ndisc_recv_na(struct sk_buff *skb)
+ 	neigh = neigh_lookup(tbl, &msg->target, dev);
+ 
+ 	/* RFC 9131 updates original Neighbour Discovery RFC 4861.
+-	 * NAs with Target LL Address option without a corresponding
+-	 * entry in the neighbour cache can now create a STALE neighbour
+-	 * cache entry on routers.
++	 * NAs with Target LL Address option can now create a STALE neighbor
++	 * cache entry on routers if the NA does not have a corresponding entry
++	 * in the neighbour cache or has a corresponding FAILED entry.
+ 	 *
+-	 *   entry accept  fwding  solicited        behaviour
+-	 * ------- ------  ------  ---------    ----------------------
+-	 * present      X       X         0     Set state to STALE
+-	 * present      X       X         1     Set state to REACHABLE
+-	 *  absent      0       X         X     Do nothing
+-	 *  absent      1       0         X     Do nothing
+-	 *  absent      1       1         X     Add a new STALE entry
++	 *       entry accept  fwding  solicited        behaviour
++	 * ----------- ------  ------  ---------    ----------------------
++	 *  non-FAILED      X       X         0     Set state to STALE
++	 *  non-FAILED      X       X         1     Set state to REACHABLE
++	 *      FAILED      0       X         X     Do nothing
++	 *      FAILED      1       0         X     Do nothing
++	 *      FAILED      1       1         X     Set state to STALE
++	 *      absent      0       X         X     Do nothing
++	 *      absent      1       0         X     Do nothing
++	 *      absent      1       1         X     Add a new STALE entry
+ 	 *
+ 	 * Note that we don't do a (daddr == all-routers-mcast) check.
+ 	 */
+ 	new_state = msg->icmph.icmp6_solicited ? NUD_REACHABLE : NUD_STALE;
+-	if (!neigh && lladdr && idev && READ_ONCE(idev->cnf.forwarding)) {
+-		if (accept_untracked_na(idev, saddr)) {
+-			neigh = neigh_create(tbl, &msg->target, dev);
+-			new_state = NUD_STALE;
+-		}
+-	}
++	neigh_failed = neigh &&
++		       (READ_ONCE(neigh->nud_state) & NUD_FAILED);
++	neigh_untracked = !neigh || neigh_failed;
++	if (neigh_untracked) {
++		accept_untracked = lladdr && idev &&
++				   READ_ONCE(idev->cnf.forwarding) &&
++				   accept_untracked_na(idev, saddr);
++		new_state = NUD_STALE;
++	}
++	if (!neigh && accept_untracked)
++		neigh = neigh_create(tbl, &msg->target, dev);
+ 
+ 	if (neigh && !IS_ERR(neigh)) {
++		u32 update_flags;
+ 		u8 old_flags = neigh->flags;
+ 
+-		if (READ_ONCE(neigh->nud_state) & NUD_FAILED)
++		if (neigh_untracked && !accept_untracked)
+ 			goto out;
+ 
+ 		/*
+@@ -1108,19 +1134,23 @@ static enum skb_drop_reason ndisc_recv_na(struct sk_buff *skb)
+ 			goto out;
+ 		}
+ 
+-		ndisc_update(dev, neigh, lladdr,
+-			     new_state,
+-			     NEIGH_UPDATE_F_WEAK_OVERRIDE|
+-			     (msg->icmph.icmp6_override ? NEIGH_UPDATE_F_OVERRIDE : 0)|
+-			     NEIGH_UPDATE_F_OVERRIDE_ISROUTER|
+-			     (msg->icmph.icmp6_router ? NEIGH_UPDATE_F_ISROUTER : 0),
+-			     NDISC_NEIGHBOUR_ADVERTISEMENT, &ndopts);
++		update_flags = NEIGH_UPDATE_F_WEAK_OVERRIDE |
++			       (msg->icmph.icmp6_override ?
++				NEIGH_UPDATE_F_OVERRIDE : 0) |
++			       NEIGH_UPDATE_F_OVERRIDE_ISROUTER |
++			       (msg->icmph.icmp6_router ?
++				NEIGH_UPDATE_F_ISROUTER : 0);
++
++		__ndisc_update(dev, neigh, lladdr,
++			       new_state, update_flags, neigh_failed,
++			       NDISC_NEIGHBOUR_ADVERTISEMENT, &ndopts);
+ 
+ 		if ((old_flags & ~neigh->flags) & NTF_ROUTER) {
+ 			/*
+ 			 * Change: router to host
+ 			 */
+-			rt6_clean_tohost(dev_net(dev),  saddr);
++			rt6_clean_tohost(net,
++					 neigh_failed ? &msg->target : saddr);
+ 		}
+ 		reason = SKB_CONSUMED;
+ out:
 -- 
 2.43.0
