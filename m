@@ -1,118 +1,120 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A386420496
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8E13E0083;
+	Tue, 15 Sep 2026 16:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789489198; cv=none; b=qPAKz9lR8tD0zGtTsY4+J9R7LY7LAI1Wke4Hz20n6EkALeLTJYopNkiJc3fWNtKivM7wM3JEwQrpIIvitfAt9DDJIUkgqNhyo9giDRAieJ2ubbkhx8pc7YIaQa/MAtlWM+wMtuRUhFktSsm2aZDETwm2SDljKreJzm7nAwYiyQM=
+	t=1789489228; cv=none; b=nzT1tuZ2QkN2rnl0to4QXNSsmbMMppYM/ARnVfNzLQzuaa73z6rPTtVyQ9/lolrG6xps5bwrsayC7Gs5v2Sb7qJ4QyroQgJ6ZaXSvaLWT987gKUFEnjkN1A8XxjyPCteIJ4uRlFHPBPo5JZba/7tindKAnEHyHr11gihTpmtz1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789489198; c=relaxed/simple;
-	bh=MdD/9MYz7M1wCbFAHiD7DEgcogkOmiRDU7stj2S7jz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KYvrfcWsEM1Rpe81aKm+OmFrc8gGAbzHXebSsUK1K0jSA9BNhhCHnmAqiyRR2qsxmODe7igjhnJ0q2IFwI4Dx9PjgT67NqXQFmXMd+MLbo0JCyXL6ROTGtHNKrWmjEQKRxyWR/wDm5s9kbu0Fhp8Ce2bC6SnS3Sc7OPk1BZQmZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EluP/tf2; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789489228; c=relaxed/simple;
+	bh=jUEL+Dw/QJMk2Eyov9zCQpu1wz6GU5A0ReeHH779BYg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PyiV/3dvXZAxppBZH33hxTH9XjwvLRxRE7mFPsjac+oShxmi211WRr9qdl9lhYPiJFEVdBlqefiR15JRoE9xOoXT7u7VDVMos3lPVHpJPKxvAw25L2tnTBKXwgNRye1jhxRoLiSNvuiu6EEnemRlKG1UwJbv9GneXXzmmBZumMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i6gOUUdR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EluP/tf2"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85f0fc1fd8eso414557b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:19:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789489196; x=1790093996; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T+yVuHLs29GzY4fkqZIEiSlSvIN7JcAqD7l0flOonVQ=;
-        b=EluP/tf2hPRnIdpQMBMje/7WuKoGH9VF2LNmKp0WooFSfBLZBmTvJqsj3+wPnnZlHk
-         jF+St8/AFemJ1to3hDfWlg3twq3GhD8SIpQrVBXm8/eIOW8JXm8krkQY3lnmizex7DgP
-         1S5zGP5EI8YZIytShlTPyfec/CP3H655XxMOfpMh+PLtV8mxdMj5IbN71GpFbjZeFZlc
-         Bn4XOrFYQ+whdIrJh/Azgvf7EkQ1g2SSTbQXgZJypRRcR1/nOvJKxQ4M3Xng7hlpuac/
-         AOvukcELhNOsFWxMboDS2l8SxH3wOT03ostTVPRMehyJHarhgqvhmjx+Qx0gq6j57N0/
-         DjpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789489196; x=1790093996;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T+yVuHLs29GzY4fkqZIEiSlSvIN7JcAqD7l0flOonVQ=;
-        b=iRq1Pc/cHO2aBA3EgeArnm071CLti/OB0xtuA/H/Q17rH2eJ+iy3myFiMaFfXp9r1I
-         m5GU/DJGBwnQVCdkHXvaUxOjkYMYtKKMZbyAVMPRPYGnwFsNcv4nJnDtzlfaEUwEpKSd
-         oe4LAVrFrpMgWvut0aXwhfZjTuQkcbRAT3XkP9wo1MCWe3nM/pMTGUPMgYxui6l+KNDv
-         sX1DUn6eUd4+ktlWOu+evCEBrh250LU30WAV21d44ZYwzXu/P4gEWBojFbSguRtLEeYE
-         33v4SrAncUoc7jDTfNgziHvXSShmIQEwRfzXBmey5g6vVVUS7orEDibIRXK5dpoBrxHd
-         UKDg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGJYGvK26QNeIsjsuiUibSpCHyJNY/XgOX+Z/3c3nV7IgAJ35XM7iEzaPgh9pslvECFnFwlKGPrq4U0mw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCkw/aNETUqwa4bUhsU/j17G7CjdRU8GVuSEvzMRmjalf5T4LK
-	bZGUWuIBU5/jn15o9X6r39qAQZSBDbcavCFVZOwp58aPsskpQhUquwXv62gBiMrt
-X-Gm-Gg: AYBFou37I6H0DuOM6my5F6fNOrgc8LI7wX3tmbVoHt1Tflyri9vZZFzDOvS1qJ2TcLy
-	vVItRK5ixDl7BmjII4E3D8yHfCjxyDbxwptykR2NuJTicwf1giUsRGSCkQr79CVdul25yNqJtSV
-	naUW7cXqkSeRTQ+gAbO+WIiJUie8YQfZOmzATAqWlytgXWaKpQ0ehQvdXcX51mifgP7VFieJLnO
-	8uHVS50QTyiJQcyEmm13ySlsVYpDY1c92COeJUGu77BKOlFN2DBsjWfrzl7rrzNhViMTPQQv3GA
-	BBz6ztKWkmTfeiIqo36T1CDaW3cc26RIH3m5O+jVDcv3rX0Z8R+64dvBIqlVgD+Zj7mqBB4Sbp4
-	e61HeYKSRxudT+tQ78A8x/8/HYJvlsH2Rb0NEtlN/OKNDSBni9GLYnai9c4B+jtGSDYIscu9gdJ
-	FF8A4Juat8nCg8YCiWYBUfSqMnEqlVi7TcAGbFZFA+EnVHRvzbetqP1A==
-X-Received: by 2002:a05:6a00:1da1:b0:871:13f7:9c41 with SMTP id d2e1a72fcca58-8717efc888amr3300275b3a.14.1789489195671;
-        Tue, 15 Sep 2026 09:19:55 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29dc09d4sm6446021b3a.47.2026.09.15.09.19.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 09:19:55 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mmc: sdhci-sprd: disable runtime PM on remove
-Date: Wed, 16 Sep 2026 00:19:47 +0800
-Message-ID: <20260915161947.2479111-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i6gOUUdR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 022DB1F00893;
+	Tue, 15 Sep 2026 16:20:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789489226;
+	bh=46gL7e56MAEV+QE7Z3CduA1LUjoQGUDv2tnhYHAXOoc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i6gOUUdRELi9ju9aLowbcP6vJKgEXpk8T75B7wgpZB2AXtVSfjgFS/5krFn+Tjrjn
+	 U+toJGWxVxzuErG+fvgvEatlTQ+q3EEbNN1/IScUhX9f9OSGu7UACw/+iPgEfhg3md
+	 d96nYF4wWEym8yrAUuuUV2Ye0qY/HfEqbRcUZfhJqAyWc3xSnLJVrg+N/Sacu+MkXs
+	 4GOpV3KLpWCXXtTmuaztED2nA7EuYV2eE2gKgSq+bQqCXY2m2iz3rEjUpkzxcwLCjh
+	 mxpWVbUNKrGvNMpHLBTNyYARbXQen6GlpgBCk1IsCDGyILoJkSgU5m/mIMzYhmR/Dn
+	 ks/VKHqWJfiCg==
+Date: Tue, 15 Sep 2026 21:50:22 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Frank Li <Frank.li@oss.nxp.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
+	Frank Li <Frank.Li@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
+ new header
+Message-ID: <aqlwRkNcs_UqKjWs@parshuram>
+References: <20260911-dmaengine-support-wider-dma-masks-v4-0-72b8fd4cc78e@analog.com>
+ <20260911-dmaengine-support-wider-dma-masks-v4-1-72b8fd4cc78e@analog.com>
+ <aqgCQvRw9fns__0d@SMW015318>
+ <aqjzvxI4ecoFvRLT@ashevche-desk.local>
+ <aqlpoBJJXfZgsMxT@parshuram>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqlpoBJJXfZgsMxT@parshuram>
 
-sdhci_sprd_probe() enables runtime PM, while sdhci_sprd_remove() does
-not perform the corresponding runtime PM cleanup.
+On 15-09-26, 21:22, Vinod Koul wrote:
+> On 15-09-26, 10:29, Andy Shevchenko wrote:
+> > On Mon, Sep 14, 2026 at 09:18:42AM -0500, Frank Li wrote:
+> > > On Fri, Sep 11, 2026 at 06:25:36PM +0100, Nuno Sá wrote:
+> > > > In preparation for the bitmap based bus width capabilities, move
+> > > > enum dma_slave_buswidth out of linux/dmaengine.h into a new
+> > > > include/linux/dma/engine/types.h.
+> > > >
+> > > > linux/dmaengine.h is included nearly everywhere, so growing it with the
+> > > > new interface would make every one of its users pay for it. Keeping the
+> > > > basic types in a separate header lets the new interface live next to it
+> > > > without that cost. linux/dmaengine.h includes the new header, so its
+> > > > users are unaffected.
+> > > >
+> > > > While at it, add the missing kernel-doc for the enum members. The block
+> > > > already opened with /**, so kernel-doc expected every member to be
+> > > > described and warned about each one of them. Describe the UNDEFINED case
+> > > > in particular, as its meaning depends on where the value is used.
+> > 
+> > ...
+> > 
+> > > >  include/linux/dmaengine.h        | 20 +++-----------------
+> > > 
+> > > I think it is good to split dmengine consumer and provider header files to
+> > > hidden dmaengine's detail.
+> > 
+> > It's indeed desirable change. but isn't it a bit out of scope of the series?
+> > I suggest to do one step at a time. Would it work for you?
+> > 
+> > > suggest name
+> > > 	dma/engine.h
+> > > 
+> > > so we can start move more API to this files.
+> > > 
+> > > after all user include this consumer header file,  old
+> > > include/linux/dmaengine.h rename to include/linux/dmaengine-provider.h,
+> > > which only include by dmaengine drivers.
+> > 
+> > Traditional naming would be
+> > dma/engine/provider.h
+> > dma/engine/consumer.h
+> 
+> consumer and provider and good names.. I would retain the full dmaengine
+> everywhere please. dma causes confusion already!
 
-The probe failure path disables runtime PM before disabling the clocks,
-but the normal remove path directly disables clocks that are also
-managed by the runtime PM callbacks. If the device is runtime
-suspended, those clocks may already be disabled.
+Thinking about it again, drivers/dma/dmaengine.h should be the provider
+and include/linux/dmaengine.h the consumer header, things can be
+arranged into these files.. I would say whatever is not used by
+consumers can be moved into local header
 
-Resume the device before removal, disable runtime PM and drop the
-temporary runtime PM reference before disabling the clocks.
-
-This issue was found by manual code inspection.
-
-Fixes: fb8bd90f83c4 ("mmc: sdhci-sprd: Add Spreadtrum's initial host controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/mmc/host/sdhci-sprd.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/mmc/host/sdhci-sprd.c b/drivers/mmc/host/sdhci-sprd.c
-index 3584a2b314a9..0c8f389fe584 100644
---- a/drivers/mmc/host/sdhci-sprd.c
-+++ b/drivers/mmc/host/sdhci-sprd.c
-@@ -890,6 +890,10 @@ static void sdhci_sprd_remove(struct platform_device *pdev)
- 	struct sdhci_host *host = platform_get_drvdata(pdev);
- 	struct sdhci_sprd_host *sprd_host = TO_SPRD_HOST(host);
- 
-+	pm_runtime_get_sync(&pdev->dev);
-+	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
-+
- 	sdhci_remove_host(host, 0);
- 
- 	clk_disable_unprepare(sprd_host->clk_sdio);
+Thanks
 -- 
-2.43.0
-
+~Vinod
