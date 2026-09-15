@@ -1,110 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC622392836;
-	Tue, 15 Sep 2026 11:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5638248A8DB
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:09:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470559; cv=none; b=LJobL75msx+Bt+GjaReYkUlTbeike0Z6GH+nQXXs6FPIRti+DctKNKA2BsDHMzzymoiMx9FTz2i2cLHWluXsxm71xbBhJkTTbWPHXyDMXTcgbDYgSEleAnAsSpGwrPaeGPIyb9J58Abupedw7PAvsCrQ2PC+ebJGhVZ9lk2nK2g=
+	t=1789470563; cv=none; b=IjC2uqfQ9Yye7zBfez4q9VXsmfzCVWvv4eoL+y80QTDcItqXfFwEtX+KB5W1zKY0qowIoGGdsWNcVWxRjTnsv2kEn6QEap6krUJPIaDY7AFzc+zqyNvq2PTu9x1ai8S+hze3pgIGNjbPh66Qa3qn0BWWMW3tbuedi84QZ2eaRWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470559; c=relaxed/simple;
-	bh=Ht+VueHHQDuGb9oo32upfSf1ZdnvEKZ3Bdh5MAm5suk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gh8vrvuyvHqK//MPPdqIQBR3I2f3aG+L9/wDX+855v7Z+s3Oysb5EuNunb8EEUtsbvMwY8SUHTBp+fg6dMhNjwJYdwKe73+cSCVdmQuBK1jHZX9OMtgIsdo0eKwiUA/aJlKkhJOuLG5IHlCaKh9yvl7CpfO9SYyGLWmnfIwO0gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKcX7vyo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789470563; c=relaxed/simple;
+	bh=a2NtyJCmSqKMC7hqNOlmB1JTEbjRuG+ZiRUwUk/PIzs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EcVUDZHzrE354vxS0hmudGK9JHa9jd0NyknRue9jp+74fYMGzrhop/fkDEwJisWBPLpTiywzBPE0iymLOozNkIZnaEvVcBxzf0YOde0MR6PTPqQtuOi36I+DwIKwfh24FHE2R/E+NJNgxxjrlt6Zfzw1Ogb9qGr/NRCJY5mK6Vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=rouD+5vL; arc=none smtp.client-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKcX7vyo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6BDF1F000FF;
-	Tue, 15 Sep 2026 11:09:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789470558;
-	bh=Ht+VueHHQDuGb9oo32upfSf1ZdnvEKZ3Bdh5MAm5suk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AKcX7vyo+Nhqh7POFqhvuc9JWBX784D5R/DAbqihHERmisp/ytEs71fMztlOW2a6Q
-	 rTX7dxF3H8IE91qdd9WaLYViK/e2+q8CJ/0xQ8h0P5FjdNAFURUFMxZQS6JQRwWaqw
-	 59gc6EPseMu1StBwQHlyITJwOnsUk4T0cZkYKTjIZ/qU/ETG4ZkKI/evbXJCH/uAQB
-	 CK/6i5BRN3flYByF+/nmrpWB5Tij6+nGj805Xis7a5lL0mwpjKKYdCHfsC3niQxHB8
-	 aZoLue0h4eTWvkACvH6N6u1HpJmAvm3IIs6g99qn11U4nvX9bqqGnPF4ZnVUJcItSU
-	 ox6T8P9hfDOSw==
-Date: Tue, 15 Sep 2026 12:09:04 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 18/21] kbuild: rust: optionally parallelise rustc
- front end
-Message-ID: <aqknMMdLXG-gW1jd@gremlin>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-18-39817ec5db23@kernel.org>
- <202609141124.F24B6F77@keescook>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rouD+5vL"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789470550; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=vxNn5ZYVwKKzqCEAyb+0n26iLMvhwicQTy1pDi/GIeI=;
+	b=rouD+5vLFNEMcnYJ1uC5j0Q720OAenuIewIKfGXDqxR7/HnHoZnLXNSDgySDT8ljpOS2PewPmTNq8sOZaer/hNVzP+eaIldwVb7eLVHVTRH5IrziHDPNDcbzpeDFeOtKL1OxaDPb0ayqzY8wGs3EnrEfj195MHkJV4Fx7eX1l5Q=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0XB1OONN_1789470547;
+Received: from 30.74.144.126(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XB1OONN_1789470547 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 15 Sep 2026 19:09:08 +0800
+Message-ID: <1e91c48c-cfdf-4a40-bf1c-88d8e0295c5a@linux.alibaba.com>
+Date: Tue, 15 Sep 2026 19:09:06 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202609141124.F24B6F77@keescook>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 08/12] mm/collapse: separate scanning a PTE table from
+ collapsing it
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>
+References: <20260910120238.2529819-1-kirill@shutemov.name>
+ <20260910120238.2529819-9-kirill@shutemov.name>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260910120238.2529819-9-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 11:32:14AM -0700, Kees Cook wrote:
-> On Mon, Sep 14, 2026 at 10:22:17AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > The threads are taken from make's jobserver, so a parallel build is not
-> > oversubscribed. It was found that benefits level off at 8 threads (16 was
-> > found to be around the same, and 32 slower).
->
-> I think it's worth noting that this comes from rustc itself (it has
-> built-in support for the make jobserver). See commit ecab4115c44c
-> ("kbuild: mark `rustc` (and others) invocations as recursive").
->
-> What happens when there is no jobserver, e.g. "make" without -j, or
-> "make -j1"?
->
-> > [...]
-> > rustc has a parallel front end, enabled with -Zthreads, available since
-> > rust 1.84 [0] and therefore on every rustc the kernel supports.
-> >
-> > It is not yet stable and its output is not reproducible, so it cannot be
-> > [...]
-> > +The number of threads rustc's parallel front end may use, passed to it as
-> > +``-Zthreads``. Unset by default, as the parallel front end is not yet
-> > +stable and its output is not reproducible. The gain levels off at 8
-> > +threads.
->
-> Okay, unstable, not reproducible.
->
-> > Generated output was confirmed byte-for-byte identical.
->
-> But this says otherwise? I am confused. Reproducible or not?
 
-Well, we can set all of this aside as, based on Miguel's feedback, I think
-dropping this commit is best :)
 
->
-> --
-> Kees Cook
+On 9/10/26 8:02 PM, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> A collapse is two jobs.  One reads a PTE table under mmap_lock and decides
+> whether the range is worth collapsing.  The other allocates, isolates,
+> copies and flushes, and wants the lock given up first.
+> 
+> collapse_single_pmd() did both, so the boundary between them was somewhere
+> in the middle of a function.
+> 
+> Give each half its own function:
+> 
+>    - collapse_scan_pmd() scans one table and only reads.  The anonymous
+>      scan that used to carry that name keeps its body as
+>      collapse_scan_anon_pmd(), and collapse_scan_pmd() is now the entry
+>      that picks the anonymous or the file side.
+> 
+>    - collapse_run_pmd() does the collapse the scan asked for.
+>      SCAN_SUCCEED from the scan means there is something to run; anything
+>      else is why there is not.
+> 
+> collapse_single_pmd() is now the two of them with the mmap_lock drop in
+> between, so its callers see what they saw before.
+> 
+> What the scan found and the run needs travels in collapse_control.  For
+> an anonymous table that is the orders and the referenced and swapped-out
+> counts.  For a file it is the file itself, the offset in it, and whether
+> the PMD folio is already in the page cache.
+> 
+> The file side moves with the anonymous one.  collapse_scan_file() used to
+> run with mmap_lock already given up, and called collapse_file() itself
+> when the page cache looked worth it.  It now runs under the lock like the
+> anonymous scan and only judges; the run does the collapse.  A file
+> collapse works on the page cache and never sees a VMA, so the scan takes
+> the file reference while it still has one and the run gives it back.
+> 
+> That changes what a refused file table costs khugepaged.  Every file
+> table it scanned used to end its pass over that mm, because the lock had
+> been dropped to scan it; now only a table it goes on to collapse does.
+> 
+> Two things on the file side stop being rescanned.  When the page cache
+> already holds the PMD folio, the scan says so and the run goes straight
+> to retracting the PTE table.  A run that refuses dirty pages and may
+> write them back retries collapse_file() alone.  The checks the scan makes
+> ahead of it are ones collapse_file() repeats under the page cache lock.
+> 
+> Tracing changes with it.  mm_khugepaged_scan_pmd and
+> mm_khugepaged_scan_file used to fire after the collapse, so for an
+> accepted table their status field carried what the collapse made of it.
+> They now fire before it and read SCAN_SUCCEED for an accepted table.  What
+> the collapse then made of it is for mm_collapse_huge_page and
+> mm_khugepaged_collapse_file to report.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>   mm/collapse.h   |  16 ++++++
+>   mm/khugepaged.c | 147 ++++++++++++++++++++++++++++++++++++------------
+>   2 files changed, 128 insertions(+), 35 deletions(-)
+> 
+> diff --git a/mm/collapse.h b/mm/collapse.h
+> index 7044dc71c7c2..346859a2184f 100644
+> --- a/mm/collapse.h
+> +++ b/mm/collapse.h
+> @@ -88,6 +88,22 @@ struct collapse_control {
+>   
+>   	/* Each bit marks a PTE the scan accepted as a collapse source */
+>   	DECLARE_BITMAP(eligible_ptes, MAX_PTRS_PER_PTE);
+> +
+> +	/*
+> +	 * What a scan found and the run after it needs.  Live only between the
+> +	 * two, and read by nobody else.
+> +	 *
+> +	 * The file side takes a reference while it still has the VMA, since a
+> +	 * file collapse works on the page cache and never sees one; the run is
+> +	 * what gives it back.  A scan that found the PMD folio already in the
+> +	 * cache leaves only the PTE table to retract.
+> +	 */
+> +	unsigned long scan_orders;
+> +	int scan_referenced;
+> +	int scan_unmapped;
+> +	struct file *scan_file;
+> +	pgoff_t scan_pgoff;
+> +	bool scan_retract_only;
+>   };
 
---
-Cheers, Lorenzo
+[snip]
+
+> +
+> +static enum scan_result collapse_scan_pmd(struct vm_area_struct *vma,
+> +		unsigned long addr, struct collapse_control *cc)
+>   {
+> -	struct mm_struct *mm = vma->vm_mm;
+> -	bool triggered_wb = false;
+>   	enum scan_result result;
+> -	struct file *file;
+>   	pgoff_t pgoff;
+>   
+> -	mmap_assert_locked(mm);
+> +	mmap_assert_locked(vma->vm_mm);
+> +	/* Whatever the last scan found has to have been run by now */
+> +	if (WARN_ON_ONCE(cc->scan_file)) {
+> +		fput(cc->scan_file);
+> +		cc->scan_file = NULL;
+> +	}
+>   
+>   	if (vma_is_anonymous(vma))
+> -		return collapse_scan_pmd(mm, vma, addr, lock_dropped, cc);
+> +		return collapse_scan_anon_pmd(vma, addr, cc);
+>   
+> -	file = get_file(vma->vm_file);
+>   	pgoff = linear_page_index(vma, addr);
+> +	result = collapse_scan_file(vma->vm_mm, addr, vma->vm_file, pgoff, cc);
+> +	switch (result) {
+> +	case SCAN_SUCCEED:
+> +		cc->scan_retract_only = false;
+> +		break;
+> +	case SCAN_PTE_MAPPED_HUGEPAGE:
+> +		/*
+> +		 * The page cache already holds the PMD folio; what is left is
+> +		 * to retract the PTE table, which is the run's job.
+> +		 */
+> +		cc->scan_retract_only = true;
+> +		result = SCAN_SUCCEED;
+> +		break;
+> +	default:
+> +		return result;
+> +	}
+>   
+> -	mmap_read_unlock(mm);
+> -	*lock_dropped = true;
+> +	/*
+> +	 * A file collapse works on the page cache and never sees a VMA, so take
+> +	 * what it needs from this one while it is still here.
+> +	 */
+> +	cc->scan_file = get_file(vma->vm_file);
+> +	cc->scan_pgoff = pgoff;
+> +	return result;
+> +}
+> +
+> +static enum scan_result collapse_run_pmd(struct mm_struct *mm,
+> +		unsigned long addr, struct collapse_control *cc)
+> +{
+> +	struct file *file = cc->scan_file;
+> +	bool triggered_wb = false;
+> +	enum scan_result result;
+> +	pgoff_t pgoff;
+> +
+> +	if (!file)
+> +		return mthp_collapse(mm, addr, cc->scan_referenced,
+> +				     cc->scan_unmapped, cc, cc->scan_orders);
+
+You already record scan_referenced, scan_unmapped, and scan_orders in 
+'cc'. It looks like simply passing 'cc' as a parameter should be enough.
