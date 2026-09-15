@@ -1,105 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADB83A0E97;
-	Tue, 15 Sep 2026 07:33:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C666374E6D;
+	Tue, 15 Sep 2026 07:33:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457599; cv=none; b=DePEgKLAWQyv6AtF7GRxFk7NmQPEyq9i9EmrGAlBvLC+g7UZIOvG9hkTyFH4ADVr197OO0DwHgIc7JLvBSoj72enyvq7QhzMPyVywLOwcWI3i0jcBtIkO6cVm4AXPsoyFidE2QktxQBDKxmwo9DGZzrfdkVE1gh+fC0fYZXJht4=
+	t=1789457630; cv=none; b=px182ZFk7pyomwCuj6y6JdxUTamZMLwH9ergMe96D3wKFZB7d4AJjqd1O2vUOoWzy/9gd5LrxWeFzyh7tRdWlZTl45ZgcHZ41ySrAqAfqSTS03Upi/r+eFYOHclZUi9v9xpn6dJbESgvwICtGhYpVgR0/XNFoIXhHWozUyuP4dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457599; c=relaxed/simple;
-	bh=r055o+FfsZ3xHfcMEOuOjB/f/0ziDpTdjz00V+zKe+M=;
+	s=arc-20240116; t=1789457630; c=relaxed/simple;
+	bh=088kb9nc5A3Gq69SW1czJbSfvuN74/Ty0116Tk+GSrI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uUaB0dZB8X9DapvNuXRz+bVAlSLhgoggLMq9M2mwPM+WjLC90ifRPvn0TbNpf4KXdGmyM8mH298rTtlUrHDiiFfZ7NHz0aVBHcaUtUPSEZCtBul563FQICxE81iTxhuXEedE4lDT4PqQ/5E0abMkx+SUW7Bh9ygKPPKeFh6WGx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7S7YDYZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=k0EWGqEyIB1f7WdAueq9CsgIACOF4f4JSOr4YL1ZFbA8UjByb3NxMasllSFAEu49vfDE8spGu/+/Mo634zcFKDNCraMla6n75fDiFOmZ8pcMX5ir1uQsJwNJONflIftlfGirsm/WJ02NcrtP+G9hQKOF8tCURiByAbm/AA5yyQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QVkyQkLM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7S7YDYZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CA471F000FF;
-	Tue, 15 Sep 2026 07:33:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QVkyQkLM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ADDF1F00893;
+	Tue, 15 Sep 2026 07:33:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789457597;
-	bh=7t/ZedGRRRAhyLC410A4Ar3dEgSIVzE6A3QzUCUweeI=;
+	s=k20260515; t=1789457629;
+	bh=IYrygcN/fKEZ7Dz1Tm1KMKWzP8xVJKijwot8Fek0umo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j7S7YDYZzae8V6MVndX/UQiN4kwHP+9vtME4s6ZxjTY69FqHp2tWqpsl3WKV8vbkN
-	 4Tj7CyqdD/8dQcAkRr8HmphD/O8h3ii9myYMasQsRizKEW/2Gk8tJkx/0gYS9r9Jon
-	 MrBfZ8DQ2Fx/l/tB7u953HkVawmdxTv2ZxwJL3YJvB7ANAaSKNJvhw/EVaYgKIch5o
-	 t6xzwtH+/V4EZg27e3G2+3j/G8OCgST5w11h5GxOmVY7ytDG5/sCNCiLmx4OZ8SHhA
-	 7P77EsjBj8VqwaWS+0lzsJWZpUa36JlLMgnAegIGq4HmZE9ReWxGWJe9jOEiAz47gj
-	 vJu/9cBqM7KkA==
-Date: Tue, 15 Sep 2026 00:33:15 -0700
-From: Peter Chen <peter.chen@kernel.org>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: linux-usb@vger.kernel.org, Pawel Laszczak <pawell@cadence.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>, Sicong Huang <congei42@163.com>
-Subject: Re: [PATCH] usb: cdns3: fix use-after-free in cdns3_gadget_exit()
-Message-ID: <aqj0u7Kg65x8FZmj@hu-petche-lv.qualcomm.com>
-References: <20260909095655.694527-1-fanwu01@zju.edu.cn>
+	b=QVkyQkLML0XYRwSCHDHWRhByNLpehK8nhlmsfS9cA0rzBruiyUEmHKY1RL4XzzCFM
+	 PQjp85W/qirqTtrSVi7N4IBFLv84lGMgjx2ULavwNjUssWI4Cg8oT1ylWsZFlufI15
+	 oOz6eXa2K604QXpENZwfXfGd3qBGsR/OX9Xu3MiK/HTwErwTWx/Of9Ewkvu9k2IAu+
+	 PwkmxzSsjDoYj4nwD29Co2r8aUscWJGl8AknRTS5bCoi6CRhx6u4sc8639mlAgAQPh
+	 YEQw1tFQyUSmvoOagCgkt5FNmZN1VEVv8GIOH4/n9EoXpMagdOdl5PqJ5XzYIG/wYc
+	 ZFuqQFn6irrmA==
+Date: Tue, 15 Sep 2026 09:33:45 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] dt-bindings: media: qcom,maili-iris: Add maili video
+ codec binding
+Message-ID: <20260915-brass-fossa-from-pluto-858e2b@quoll>
+References: <20260914-add_iris_for_maili-v1-0-09df2b54c317@oss.qualcomm.com>
+ <20260914-add_iris_for_maili-v1-2-09df2b54c317@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260909095655.694527-1-fanwu01@zju.edu.cn>
+In-Reply-To: <20260914-add_iris_for_maili-v1-2-09df2b54c317@oss.qualcomm.com>
 
-On 26-09-09 09:56:55, Fan Wu wrote:
-> cdns3_gadget_start() arms two works on system_freezable_wq:
-> pending_status_wq for the deferred ep0 status stage and aligned_buf_wq
-> for realigned request buffers. Both handlers use the cdns3_device the
-> works are embedded in, and cdns3_pending_setup_status_handler() also
-> calls the ep0 request completion.
-> 
-> cdns3_gadget_exit() does not wait for these works. It frees all
-> endpoints and aligned buffers and drops the last reference to the
-> gadget device, which frees priv_dev, so a work queued before the exit
-> can run after the free.
-> 
-> Fix this by waiting for both works after the gadget driver is unbound
-> and the IRQ is freed, when no new work can be queued, and before the
-> endpoints and buffers are released.
-> 
-> This issue was found by an in-house static analysis tool.
-> 
-> Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sicong Huang <congei42@163.com>
-> Closes: https://lore.kernel.org/linux-usb/7f5719b.8700.18f67b324d3.Coremail.congei42@163.com/
-> Suggested-by: Sicong Huang <congei42@163.com>
-> Assisted-by: Codex:gpt-5.6
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-
-Acked-by: Peter Chen <peter.chen@kernel.org>
-
-Peter
-> ---
->  drivers/usb/cdns3/cdns3-gadget.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/usb/cdns3/cdns3-gadget.c b/drivers/usb/cdns3/cdns3-gadget.c
-> index 42311c1bf..0d272e9c5 100644
-> --- a/drivers/usb/cdns3/cdns3-gadget.c
-> +++ b/drivers/usb/cdns3/cdns3-gadget.c
-> @@ -3269,6 +3269,10 @@ static void cdns3_gadget_exit(struct cdns *cdns)
->  	usb_del_gadget(&priv_dev->gadget);
->  	devm_free_irq(cdns->dev, cdns->dev_irq, priv_dev);
->  
-> +	/* The works can still be queued until the IRQ is freed. */
-> +	cancel_work_sync(&priv_dev->pending_status_wq);
-> +	cancel_work_sync(&priv_dev->aligned_buf_wq);
+On Mon, Sep 14, 2026 at 09:00:25PM +0800, Wangao Wang wrote:
 > +
->  	cdns3_free_all_eps(priv_dev);
->  
->  	while (!list_empty(&priv_dev->aligned_buf_list)) {
-> 
+> +maintainers:
+> +  - Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> +  - Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+> +
 
--- 
+A nit, subject: drop second/last, redundant "binding". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-Thanks,
-Peter Chen
+> +description:
+> +  The Iris video processing unit on Qualcomm Maili SoC is a video encode and
+> +  decode accelerator.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,maili-iris
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 8
+> +
+> +  clock-names:
+> +    items:
+> +      - const: iface
+> +      - const: core
+> +      - const: vcodec0_core
+> +      - const: iface1
+> +      - const: core_freerun
+> +      - const: vcodec0_core_freerun
+> +      - const: vcodec_bse
+
+bse? What does vcodec stand for? Isn't Iris a vcodec?
+
+> +      - const: vcodec_vpp0
+
+cpp?
+
+> +
+> +  firmware-name:
+> +    maxItems: 1
+> +
+> +  interconnects:
+> +    maxItems: 2
+> +
+> +  interconnect-names:
+> +    items:
+> +      - const: cpu-cfg
+> +      - const: video-mem
+> +
+> +  power-domains:
+> +    maxItems: 5
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: venus
+> +      - const: vcodec0
+> +      - const: mxc
+> +      - const: mmcx
+> +      - const: vpp0
+> +
+> +  resets:
+> +    maxItems: 4
+> +
+> +  reset-names:
+> +    items:
+> +      - const: bus0
+> +      - const: bus1
+> +      - const: core
+> +      - const: vcodec0_core
+> +
+> +  iommus:
+> +    maxItems: 4
+> +
+> +  dma-coherent: true
+> +
+> +  memory-region:
+> +    minItems: 1
+
+Why is this flexible?
+
+> +    items:
+> +      - description: Firmware-loaded codec carveout
+> +      - description: IOMMU IOVA reservation region
+> +
+> +  operating-points-v2: true
+
+Best regards,
+Krzysztof
+
