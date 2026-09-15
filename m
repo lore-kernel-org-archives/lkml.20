@@ -1,145 +1,115 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2529F4CE67B
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:09:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789499369; cv=pass; b=cee4dXquZZTGX6YJpXNqoBxA5Fm4e54Yx5nGJkgErqZr1Yr3YgFijwJ8ObW/fRqq6glwQZb437MHMJ7YB8vZr676Dnad+Sarkrfmn+e8gggooHnvNq8QsNDGyL3qTYotmgphgXvBlIkXvSzggj5Oip6Fn4SxsApY3euX4xrXB+s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789499369; c=relaxed/simple;
-	bh=jpIpcLcM/osmLoQCFZCbJu3MqhGUPApffNClPFrK1qo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S5EnjEIdBcg0943uBV7IqbzRjFEiScMR5xj9wHWh8LsHXzvKik1bplgxPWTAbBNGsX6LVGLmPz5uKxZ91orBB2IPJTByC9xBRQSEAqiu4jMjmO0ytwo5SeNLXAE8M6R/QgQ3soCsmNAjG8jU67+SI029hpRleMLvuEZqUP1pzYo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MuATZTLE; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0F8369224;
+	Tue, 15 Sep 2026 19:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789499405; cv=none; b=N5JpLyHpZMrTw/V+RFQTL7YkvKEwdF2JmzFoPx9HdzWZNxGU8rtgGXsju5X7mj8iJiW9yKVmJKk/SebW+0QQDUnsGcTS2RZvK9Y46zdfe0mYB44Xa03npKpiLjPezgEJWAPdNKoZ9xg8gIerLnm+os4gqkfFqgsTr2Tizyhhmwg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789499405; c=relaxed/simple;
+	bh=Ue5mWf8mDUirgpnnhuzG3Gp9XqpTaq55Bk6NCZCmSCs=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=S1g2iz/OB7BIDo63B5Gvl1vTVUMDc9wFV813mY+IOid4ZlQu92cFxJC0kI6RNns0RJxDQqsUiexr5rxNf3I568Wdw7TtgTlPED5hRDMqgAbc0jc1QfnrcEsZ95BbgCkHOWaX5iL+JAgP76KDZm45IVRzQubjyWETPFt6XQzTfZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jtpu+0+S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MuATZTLE"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca06so23255ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:09:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789499366; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IaGe7aO0YjjAGFXyCUZaWh+vuoJVeqdaOCU4eMRxtEfL4gMipuOIePmpFQSnXxn3Yp
-         qxKNzDZVJXjnZm67927wDVpKZ70HwXpYlKgZdEftoPBO3bm9ZB3241jgAaI1imWZnDCG
-         ycLjCjVk1qp9VpwZEAncqmZ9Aj0Evr70kdwPG1TOcN7AD0u5LPCJx1RpqsTpjEkO08us
-         hJDzre0/S1PL0gnlas47zMYhW8/DRTEto1wIfVVbjUA9+UFwrMt+1K/fLnoC/sAS9tdk
-         7GrjgFASOb2VbKZ6x9MbrHY4etkR156GXOqP1GqJy/NWmnTYCalNM0iFzuP/VDbsv/SU
-         iSDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jpIpcLcM/osmLoQCFZCbJu3MqhGUPApffNClPFrK1qo=;
-        fh=mCG+30zXzehdX+JdopUslTORnWR+d/9ZVcdOYUJkTes=;
-        b=oJ6cnormys7cdEggZwXJcja7T7PIV3aanoDMwuOXmqh1a5EcCgL+/Fl2L+tL4AFg3q
-         O+3abwfcJNCG3RZt4OIsvrIax/ELHbpL8WyrntuBFb4xqdweSlxJeZXbhwbaYXoNq6wO
-         hF+4hUIsg64gRfllvHAgdmKCgyARzI+dVhalmzovJSLFqL5KNyrv5LtjToYsV0Mqa3ej
-         4tUjoluWZq4BwnLvPUU91VTnEsUaDjfNHI4bvHVtPEM41YTjMBuQ3cRtVezsgYWceafI
-         F9h/7ItH+RD2bFLUBqp64X0EOHKYk0l6u0Lxg2wxSrxaYNrh0+YdcGSPK0ZGo+HJIUV3
-         s9UA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789499366; x=1790104166; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jpIpcLcM/osmLoQCFZCbJu3MqhGUPApffNClPFrK1qo=;
-        b=MuATZTLEgZnlGiYbsFkCb1tJGpmdlpOZUUyymTfBA0TNFDDc2YWa+L9NflthO42h/s
-         d6H94TSF/ZZzQK1fbpzyxSssQye4IvcEbgTyKCi3K3iAReJwudYvWE5IqnqI0BPiGt/t
-         1xtMfBm6sQUbC2ol7vsTzrLOCgLIWrz+tdOAERVyjVKnOHyJolZ0cdr2K6DAn4lFSiu3
-         axaKn3RyMw+WGqcyk/O63oH0X6QwJC0qidCB4ovjVOSRPxq/rkI1xAfgpxCm0gHDqtqx
-         NdYo7rygJt+SHx3PA6giNL0XusUILetYCpXoOTmt+g6wSE+M8mYIf9smA6bmKu/b+7CU
-         qwxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789499366; x=1790104166;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jpIpcLcM/osmLoQCFZCbJu3MqhGUPApffNClPFrK1qo=;
-        b=N7S2w87dbo9aw8QOg5nDgCBmFPtDGrHF3uM2z2d6sywge212JfQi19Cu5Ty9MIUzER
-         h0YBVlHZ8JNgbTHzo0/sRDv4sLqQ0s0b7q/wbesahG5RHTZMYRSZ1RxD76IqzotgoamA
-         1CdF4jbp0bqklSOD7UM8fk2qPfZVsVoi0nMYaw6ARH11712bPlPxsXZnhMs16xX0VM6a
-         10ASVTz5EYJDtVzv3U24fgcIofa2CZYTiYntilTK4pbSNj4ralVPGCl2P71wKLXV+AOl
-         wb9U0meF1cWRwe/FOno6iAebDbwcDfFCmeSITXBUbnBeU/WhjGDNSMmZWCSE59/NqkK+
-         Bxbw==
-X-Forwarded-Encrypted: i=1; AKwUvBwiXFlrMkXnDvPHXw/Ia2en6SJbpbP3JsmkI5lDAu0kTlsy4sPOsJ5QzdfGYZHwikP9kkgbpphs098FpLs=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4TMxDWwELDiWlxPb/+DXKtyw7q3fNKG8N0CNH7VWcRw/NhtlF
-	WUiV2KJL31PVnydO5zeJAoDHYinTiTJQCdjgsPEMLpVLoMqXDWntH4LYy47rbHXbCyWOCXIlO80
-	BKWEGmtawG1UIXIMwdGshnghCSBmW1juLz1sJRka3
-X-Gm-Gg: AYBFou1qNAf0Du7Mct0yIqtf2j+t3O2ow2kg+6ci5maF1ccsoE8sSSJIqny7eWfMRbH
-	rsxrtpJGhSe/PGyTd3MWaRhX6HysEpyuEd8coBhaxnEUgCcfexpAGMyWEEr39JFB2DXyA1o+ETv
-	yCFPSUnFHDdDJKRtdqglW8Mf2VogmTD3EO3jIMM9SXu9f04INy3G3XbmHzI8mKg+cVYuAHGWzhB
-	XIeKLDyfzVsjhjtBEiJpCucdNqMbeA5p5bAMKI9D+lLj9S4r0Zr6OdCwS4LR3k4P/PUqa/6KCss
-	U3vVaDCzfv9iofhKb/gPEfVCC9p4oKV9Xa6MKmUidz8VYfeMYa13CrG+GGyWAVu277dGU/pZaJY
-	96O5WQwNSog==
-X-Received: by 2002:a17:903:2312:b0:2dd:280b:cdfc with SMTP id
- d9443c01a7336-2dd89dbf5b6mr911345ad.17.1789499365825; Tue, 15 Sep 2026
- 12:09:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jtpu+0+S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E6C1F000FF;
+	Tue, 15 Sep 2026 19:10:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789499403;
+	bh=f6PhqPOqbbuKPz7kclrcySJw5xGN2l1h8uJlpci9x3Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Jtpu+0+SlA/diRv/ZK13CfBwaEZvjKeX//CEtmSPLbEyLQO+JjsTgVxHppvABQgkg
+	 YYxAATuG1x2OjHyLWVbQo1JVHH957x1gEvgT8E6lz6gBnpbk5ADqI0fIvZEMD5AuX4
+	 xZ/d31r8Vbf8/xtqii2s4npOOPp/aWTOJMEXs14ojZUK+sKWdBoV0hZNRqK833I/rs
+	 jcdeoXzBBVpBN80qjPTJ3a4txxBsy//oAirvXu1edZBR0+fZ7c3j81PJ1Cg/wLCnlS
+	 1T6qkrgGoEWkmhNRYMkayK9h5IbrQRa7wf02Ma1DFEcAYP1p8wtyX91mQcHIJH8aJm
+	 e9yTUEkP1I/gw==
+Date: Tue, 15 Sep 2026 09:10:02 -1000
+Message-ID: <e69a808d40739510ffa7d2c7f053a9e8@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Qiurong Fang <fangqiurong@kylinos.cn>
+Cc: Tejun Heo <tj@kernel.org>, arighi@nvidia.com, void@manifault.com,
+ changwoo@igalia.com, sched-ext@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] sched_ext: Don't run ops.dequeue() with a DSQ
+ lock held
+In-Reply-To: <20260915130334.714388-2-fangqiurong@kylinos.cn>
+References: <aqkQ1MtqtqnS0wUs@gpd4>
+ <20260915130334.714388-1-fangqiurong@kylinos.cn>
+ <20260915130334.714388-2-fangqiurong@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260914124145.1257-1-cp0613@linux.alibaba.com>
- <20260914125814.C92251F000FF@smtp.kernel.org> <20260915015420.818-1-cp0613@linux.alibaba.com>
-In-Reply-To: <20260915015420.818-1-cp0613@linux.alibaba.com>
-From: Ian Rogers <irogers@google.com>
-Date: Tue, 15 Sep 2026 12:09:13 -0700
-X-Gm-Features: AcwNN1VEnCQGYjVI_5aMVzakyKX12QfH25O8aH1TDijDh6nLV8Gvbs5KkQU6zmM
-Message-ID: <CAP-5=fWE7gjkpZdnHh_QAiVBKTF=1tsUE+ezDxW8SaCsaS-s5w@mail.gmail.com>
-Subject: Re: [PATCH] perf riscv: Add perf_regs_load and enable the dwarf
- unwind test
-To: Chen Pei <cp0613@linux.alibaba.com>
-Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
-	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
-	jolsa@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org, 
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	guoren@kernel.org, linux-perf-users@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 6:54=E2=80=AFPM Chen Pei <cp0613@linux.alibaba.com>=
- wrote:
+Hello, Qiurong.
+
+On Tue, Sep 15, 2026 at 09:03:33PM +0800, Qiurong Fang wrote:
+> ops.dequeue() is called with the source user DSQ's lock still held on
+> the consume and move paths (scx_consume_dispatch_q(),
+> move_task_between_dsqs()) and with the terminal global/bypass DSQ's
+> lock still held in scx_dispatch_enqueue(). A BPF scheduler that locks
+> the same DSQ from ops.dequeue() - e.g. by iterating it with
+> bpf_iter_scx_dsq, which takes the DSQ lock on every step -
+> self-deadlocks.
+
+The self-deadlock only exists on the two user DSQ paths. ops.dequeue() can
+only call the "any" kfuncs and none of them can lock a builtin DSQ, so the
+global/bypass path can't deadlock. Moving it out is still right because all
+DSQ locks share one lockdep class and iterating any user DSQ from there
+trips the recursion check. Please describe it that way.
+
+> Move the invocation after the DSQ unlock on all three paths.
+> SCX_TASK_IN_CUSTODY is cleared under the lock so that the callback is
+> invoked exactly once; it is not ordered against consumption of the
+> task and may run after the task has been moved to, or consumed from,
+> a terminal DSQ.
+
+The last sentence and the matching doc addition confuse more than they help.
+The only thing that matters is that the task can't start running or be
+re-enqueued before ops.dequeue() completes. Please state that invariant
+instead or drop it.
+
+That invariant currently has a hole which this patch widens. After the
+unlock, the task sits in an unlocked DSQ with ops_state still DISPATCHING
+until the final store, now for the whole callback, and the reenq paths don't
+wait on DISPATCHING the way ops_dequeue() does. That's from ebf1ccff79c4 and
+I'll fix it separately. No need to address it here.
+
+>  		if (dsq->id == SCX_DSQ_GLOBAL || dsq->id == SCX_DSQ_BYPASS)
+> -			call_task_dequeue(sch, rq, p, 0);
+> +			call_dequeue = task_leave_custody(p);
+>  		else
+>  			p->scx.flags |= SCX_TASK_IN_CUSTODY;
 >
-> Both items checked. Neither needs a v2 of this patch.
->
-> > Does this file need to explicitly include <stdlib.h>? Since musl libc
-> > enforces strict POSIX header inclusions, missing the declaration for
-> > malloc could lead to a build failure regression on musl libc systems.
->
-> It is not missing. "perf_regs.h" three lines above resolves to
-> arch/riscv/include/perf_regs.h, which has #include <stdlib.h> and is
-> also where PERF_REGS_MAX comes from, so this file cannot be built
-> without it. arm64 relies on the same transitive include. Checked with
-> riscv64 gcc 15.3, where an implicit declaration is a hard error:
-> including only that header is enough to call malloc() and calloc().
+>  		raw_spin_unlock(&dsq->lock);
+> +
+> +		if (call_dequeue && SCX_HAS_OP(sch, dequeue))
+> +			SCX_CALL_OP_TASK(sch, dequeue, rq, p, 0);
 
-Hi Pei,
+This leaves call_task_dequeue() with two callers, both of which are these
+two lines without the unlock in between. Please open-code them too and drop
+call_task_dequeue(). Each ops.dequeue() invocation being explicit is better
+than a helper which may or may not invoke it depending on a flag cleared
+elsewhere.
 
-Thanks for the patch! Please don't rely on transitive includes as a
-change in the other header file will break code here. Since this code
-only builds for RISC-V, we're likely to miss the problem if the other
-header changes. Other than this,
+> +static struct scx_dispatch_q *
+> +__scx_move_local_task_to_local_dsq(struct scx_sched *sch,
+> +				   struct task_struct *p, u64 *enq_flags,
+> +				   struct scx_dispatch_q *src_dsq,
+> +				   struct rq *dst_rq)
 
-Reviewed-by: Ian Rogers <irogers@google.com>
+The split isn't necessary. Unlock @src_dsq right after
+scx_task_unlink_from_dsq() in the two callers and call
+scx_move_local_task_to_local_dsq() as is, dropping its lockdep assert on
+@src_dsq. @p is off the DSQ and its rq is locked, so nothing can reach it in
+between.
 
-Thanks,
-Ian
+Also, please add Cc: stable # v7.1+.
 
+Thanks.
 
-> > Can perf_sample__user_regs() return NULL here?
->
-> It can, but that is not introduced here and cannot be fixed from this
-> file. arch/x86, arch/arm, arch/arm64 and arch/powerpc all dereference
-> it the same way, and tests/dwarf-unwind.c:118 does
-> zfree(&sample.user_regs->regs) unconditionally, so an early return here
-> would still crash in the caller. A fix has to cover the whole "Test
-> dwarf unwind" path, or the contract of perf_sample__user_regs() itself.
-> Either is a separate series, which I can send if wanted.
->
-> Best regards,
-> Pei
+--
+tejun
