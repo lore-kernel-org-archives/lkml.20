@@ -1,87 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B3A3C1085
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:36:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5143B9D81;
+	Tue, 15 Sep 2026 14:36:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482977; cv=none; b=p2HotcHfck9w3mbUAw2M73Nn2iRiCsS95uu7ouu22ZysgtThBwgHdrolNdMNL70lgx21rlEAGSAuRAn8eLdVa16Kglrdt6n3ghhb+ij8gNroULk0mydfa82O4RK0c045YQHYP3eRF5sdm31MgPlLOxU2tvpru6uBym075rFZ29k=
+	t=1789482995; cv=none; b=tZ02Oy2OQYSht5QR8A2uyBN5wQ6QJ7C2LA8CkqPPgGhxp2Ci60YIFBV1qeDiQDLEIkyFE2XV7Jv9OeWgw3QjQmIo+AX56nGkWPy27dslqjcHPH2b5dJsmwRGTqjL2q1w3Evwo3gvihqnPwrkVPBNFlAu4Dx69HxRIjx0RNjQOi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482977; c=relaxed/simple;
-	bh=MblToBcYYgmgdT6UmpQJj9tdgLpNgAAY8EtZbBl/0k0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=qLFCCWkVHKpLZ0HsS2vNXQCvbniEIAqMdWh7gwgi3X+Kup3PRN1r/A6SbI2OddtOX2idwauSCfWLVGWGigllUq3e/vfLFbmSQJx9svgEj8pXL7QqHpGI0X8Q97tbi45SPW0vVXymQfimLVNSVAOr+kVX0ovMOdUNy0feLK6kft4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dIHJJsE9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789482995; c=relaxed/simple;
+	bh=cnT2NDH0W3+AOUMlMBEWCpQelxBeGsZyc5CYQe5WgE0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=jc3a8FLNj1JO8InaPFMFDFqpElObZ6bX49M5ykOezNVZ2kQF//VURgglgdcDigQBCldjwanzi2DfrcjYPmJp+X7StljruUivWu5uuaPmc7ck6tDFImv4XhHwnKSDu8UQyQWwuVRzNaLS7J9RDAICEcPdSBYXWE3mwjju+9V4tGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j8ElJrB5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dIHJJsE9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07A411F000FF;
-	Tue, 15 Sep 2026 14:36:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j8ElJrB5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 674CF1F000FF;
+	Tue, 15 Sep 2026 14:36:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789482976;
-	bh=RAsHdbLHF1e4B1dAQMVldXSWHNxc4CP1MuEmgFhauxc=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=dIHJJsE9rNR52YpLPAoiWcUX4FDfX5fFouwTw69mos1eo3pFcpzIihOUCUe7T17Rh
-	 ScPLWCxDeB4uKu85MZ3LXS1j/cUSCwt+Jzn0DB/IifWCacjV2L6AkY+6WjfHJQKecZ
-	 A592/w1p6j2gvc2jEFrvIAni9Tp5uCihqmWALNszm4WOwfhm3/LOOUigyxzM6qK53+
-	 ClTNfXqqSGRzH3IfO+R6eFGLMNSoq3klcO+iOAXG/g287bi5vSNINyqs+ome18twag
-	 6JxQR3bP5ym/kBMsg25xAbrRS889kXfNcK+ydOYOd1eUAO3Ezxwj33g5YHa4SlFREW
-	 snXKZBlmph4OQ==
-Message-ID: <55d97bc5-3b4f-4a1a-a91d-e0a4d77e754a@kernel.org>
-Date: Tue, 15 Sep 2026 09:36:14 -0500
+	s=k20260515; t=1789482993;
+	bh=pre5/60EdsoFZkP5TOwGJVFWOlszP98LTb5epi2ki04=;
+	h=Date:From:To:Cc:Subject;
+	b=j8ElJrB5V+9o+LZcYFz4zqm0Tq8+hnUpzLAhp/feErZU4vzNP9M10cnoEwNFH/kS3
+	 TO0PObhPGpzA0M1WeWvLVgTEH/yy4IXNeJ9dMiFULZyJMOW/qjYNOdTIQqGdw1FaAs
+	 HkbTS5vOqbZIZgRacvcZx1m4pUJUqWe+DvNqpL2ywvgPyBaMMk8ehfpqrnMwSHUEMs
+	 8CFtmk0PZg7I5AzqZFdBsrajrIf+iOjyxbgeIM1sn1QuGSrSts9yJb+8k/dhyVeQib
+	 GVF1vRmfIuUx3QuBsAJzmxrMX038nUg9dY6PWnuJNeu45wNgiucPb/VTw09iNMbJyu
+	 05GNL1qZUZ+tg==
+Date: Tue, 15 Sep 2026 15:36:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jeff Johnson <jjohnson@kernel.org>,
+	Ath10k List <ath10k@lists.infradead.org>
+Cc: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the ath-next tree with the wireless tree
+Message-ID: <aqlX7ecTiq6x0uMh@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] firmware: stratix10-svc: populate kaddr1 from config
- status response
-Content-Language: en-US
-To: adrian.ho.yin.ng@altera.com, linux-kernel@vger.kernel.org
-References: <2d8af331c37fcdd8a6f3dccdb6cc6cd903f0c4cd.1788972469.git.adrian.ho.yin.ng@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <2d8af331c37fcdd8a6f3dccdb6cc6cd903f0c4cd.1788972469.git.adrian.ho.yin.ng@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oVy3I7wzxgJhHRU8"
+Content-Disposition: inline
 
 
+--oVy3I7wzxgJhHRU8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 9/11/26 03:44, adrian.ho.yin.ng@altera.com wrote:
-> From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-> 
-> Set kaddr1 from res.a1 when the configuration status completes, matching
-> the existing error path and allowing callers to retrieve firmware-returned
-> status details through the standard kaddr1 interface.
-> 
-> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-> ---
-> Changes in v2:
-> - Drop the callback-data lifetime / dangling-pointer changes.
-> - Reduce the series to this standalone patch. Set kaddr1 with &res.a1
->    on the completed path, matching the existing error path.
-> 
-> v1 patch link:
-> https://lore.kernel.org/all/cover.1779780223.git.adrian.ho.yin.ng@altera.com/
-> ---
->   drivers/firmware/stratix10-svc.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
-> index 34c591d7fd58..2333ea31e741 100644
-> --- a/drivers/firmware/stratix10-svc.c
-> +++ b/drivers/firmware/stratix10-svc.c
-> @@ -444,6 +444,7 @@ static void svc_thread_cmd_config_status(struct stratix10_svc_controller *ctrl,
->   		cb_data->status = BIT(SVC_STATUS_BUSY);
->   	} else if (res.a0 == INTEL_SIP_SMC_STATUS_OK) {
->   		cb_data->status = BIT(SVC_STATUS_COMPLETED);
-> +		cb_data->kaddr1 = &res.a1;
->   		cb_data->kaddr2 = (res.a2) ?
->   				  svc_pa_to_va(res.a2) : NULL;
->   		cb_data->kaddr3 = (res.a3) ? &res.a3 : NULL;
+Hi all,
 
-Applied!
+Today's linux-next merge of the ath-next tree got a conflict in:
 
-Thanks,
-Dinh
+  drivers/net/wireless/ath/ath12k/wifi7/ahb.c
 
+between commit:
+
+  ce9d5197d651c ("wifi: ath12k: ahb: Revert undocumented ABI and dead code")
+
+=66rom the wireless tree and commit:
+
+  c3bace8584ca7 ("wifi: ath12k: add support to load shared firmware on mult=
+iPD")
+
+=66rom the ath-next tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/net/wireless/ath/ath12k/wifi7/ahb.c
+index 6e9e9034cba1a,a8f5cf8cc2a63..0000000000000
+--- a/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
++++ b/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
+@@@ -57,7 -108,8 +59,8 @@@ static int ath12k_wifi7_ahb_probe(struc
+  	ab->hw_rev =3D desc->hw_rev;
+  	ab->hif.ops =3D desc->ops;
+  	ab_ahb->scm_auth_enabled =3D desc->auth_enabled;
++ 	ab_ahb->supports_multipd =3D desc->supports_multipd;
+ -	ab_ahb->userpd_id =3D ath12k_wifi7_ahb_get_userpd_id(ab);
+ +	ab_ahb->userpd_id =3D ATH12K_AHB_USERPD_ID_0;
+  	if (!ab_ahb->userpd_id)
+  		return -EOPNOTSUPP;
+ =20
+
+--oVy3I7wzxgJhHRU8
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqpV+0ACgkQJNaLcl1U
+h9DDPgf8CyjNTnzKVU1HignMgbwOc6nJKVE5GLApSRoQAB7dSjYGmMuPjABH6zvY
+5PPjQfI/wXzyEeFWaMO6QgbnQhNZtOVe9LZoo5knWGYlb+P5JVRu+n1OZN/yfzrn
+/Or4RiE0RR2TNF0Wyp9wpjgFGUxHwvOAotkkYSoN6BapjnfKR794nsrfVm4rxtUy
+pG7ptYMIsgiBRadZD59Kv0NUryxEFZBSKV11t+XirVdFw6MQDKCJh72v2sXnivjC
+lFdtNjy0ZDNpHBj7xsKpUZDos/skbGQTyRVfk5Xo05m1BpEQSfhkBtfsdXBeDVpl
+9rkZfih1FWYbuqlVvp2RM2vEDG39ng==
+=SBvH
+-----END PGP SIGNATURE-----
+
+--oVy3I7wzxgJhHRU8--
