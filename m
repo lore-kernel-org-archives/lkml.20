@@ -1,136 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1191486E51;
-	Tue, 15 Sep 2026 11:49:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4BE64A6CD5;
+	Tue, 15 Sep 2026 11:49:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789472959; cv=none; b=u22IqDIhFMhct3+c7TbH0K92F2rMQOPz2ewWSc7GYTJPIc/M6k7dQzn3O04kHjmLolUHwCRE3wq1RKG+S6d2UirRawC+TzPangKw4QNh5Etr8pq4Gylqcq+wecnuRKaVhoPmSaYukwHmS/1PBzbb5QYXUQ96laWLTLnfJpvnKDU=
+	t=1789472965; cv=none; b=gyJzVsPX8mlXELJL+zoDZvyydtIq9D4o6zMm82Wg3OkPH982mMmHlyq6nIqplMV4qwkVC8r3rL1DaIZiyz8goae18vka9Hov9gMTDvQuloPRR4xE5QXk0SG0FBkbmzSKrndMpMwBPFcHDEzZTQxfB6sDg0G+EkTWEjXLNWupiaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789472959; c=relaxed/simple;
-	bh=DyenADku4Ln8wkpnsa+tnu9/7S/0K5yXS0acloArQ1I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GxL03KwM7QiT/xiwYepPS5+E1H/6SHfKT1cwoYdGU9hmmr4CLkH3s8EdlVn7SYeRdHG0wOvrOvNNiZx+JjneOZBD7tczfuYdToEppIVTCK3y5HKU54426SkZOoudcYEkRQWSIWdbhzWNrOP0c0dwy8O7U3fU9LWPum6fqpFkEgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYxfflnP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789472965; c=relaxed/simple;
+	bh=eGcmjxpZCTXHRxx6IkfvznZnwzxo/1rjhgD1Rv2Z/Nc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KpT89wh1m22a/rocWIntOkrxGotAHVgNxP7tzJWNMwanEkeil/IL8/xevflRYxPc0UDpwAohUrDP1wec3uNYD5RXl8K8JQ2D1TP28aaczNORXcVFQOdaPF8b1a+xn8jBirs97lWR5eZvQTwdVjuNU4Fyd2ur1QZB0XW6kkBFFkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CVgUMcUd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYxfflnP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4D11F00893;
-	Tue, 15 Sep 2026 11:49:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CVgUMcUd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3511F00893;
+	Tue, 15 Sep 2026 11:49:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789472958;
-	bh=4/+uXQplOjFYVA2X7ySNwf4JAE8IWCZdizV/JLqFrVQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kYxfflnPoNNpMSdrSK6ZuB6UOayjNvHsVdX3mVDtSrCDzdWVF+x3XF87FWQhszcbY
-	 JjlfvysusZO8j2Ju2bchpA6PD0oe+4ZGt9t7L5kySEjTZuWd4PW6CWrRAvcWDFrGbX
-	 ftOi9I4z5W6J2ZAGMqWqdF8FuQGMnVX2bMJqxbXGeolraorz1YRd6Lj2k/pftB4BQ/
-	 gmrTr4XBySJpohV8KTDF3lw/QODNIH+iIZ1ZFhWDK2lnmpMUanHlcyMUGnbedNxvFx
-	 lQvL5NCEiGZG7nKHULDT2cIpdAB3iGnncTqfmWYWBN6dSCo9cRvIevXp8Y2acPXjTp
-	 9enaewK/wn0xA==
-Date: Tue, 15 Sep 2026 14:49:14 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Honggang LI <honggangli@163.com>
-Cc: zyjzyj2000@gmail.com, jgg@ziepe.ca, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] RDMA/rxe: Fix out-of-range unsigned-to-signed conversion
- for RDMA message in 2GiB size
-Message-ID: <20260915114914.GL13683@unreal>
-References: <20260915064532.194540-1-honggangli@163.com>
+	s=k20260515; t=1789472963;
+	bh=eGcmjxpZCTXHRxx6IkfvznZnwzxo/1rjhgD1Rv2Z/Nc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CVgUMcUdzZ3HeCX7d6oqPXdbOOpGnXFMxjmYOiUrDVNMDt6KSFLhwNsMaJoGe3qW3
+	 gT6age4Ix8+ho3dxOuPdVPygCOYJmPGqaSEykNHcZv6dAOxJwunKYYu4Iy6A9HEIGW
+	 hcxAvgkD63Nv91Yz6yOQLgb7Ly/W9NSezfZRhRwHurpZzKr7aOf2o+Cm4PxtjClXqh
+	 MW7HRD1EbMfKOn51qnYtFwoyPkyekFswcsrTqcrSWt/vX+swYhoct8jk8UjXmMMElm
+	 /5HuOJJSvXEi0+me6ynfkfTCY644nEmjpK012H06rZNZan+EQsBhkzseJGuSock+gz
+	 vnG+SGZD+4dDA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 08/50] hexagon: commit fds on syscall exit
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Torvalds" <torvalds@linux-foundation.org>, "Christian Brauner" <brauner@kernel.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, "Jann Horn" <jannh@google.com>, "Oleg
+ Nesterov" <oleg@redhat.com>, linux-m68k@lists.linux-m68k.org, kexec@lists.infradead.org, linux-parisc@vger.kernel.org, sparclinux@vger.kernel.org, linux-csky@vger.kernel.org, "David
+ Airlie" <airlied@redhat.com>, linux-hexagon@vger.kernel.org, linux-snps-arc@lists.infradead.org, linux-fsdevel@vger.kernel.org, "Peter
+ Zijlstra" <peterz@infradead.org>, linux-alpha@vger.kernel.org, linux-sh@vger.kernel.org, linux-hyperv@vger.kernel.org, linux-mips@vger.kernel.org, bpf@vger.kernel.org, linux-openrisc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kvm@vger.kernel.org, "Jens
+ Axboe" <axboe@kernel.dk>, linux-arm-msm@vger.kernel.org, "Ingo Molnar" <mingo@redhat.com>, linux-gpio@vger.kernel.org, linux-um@lists.infradead.org, "Jan
+ Kara" <jack@suse.cz>, linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>, virtualization@lists.linux.dev, "Eugenio
+ Perez" <eperezma@redhat.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, io-uring@vger.kernel.org
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-8-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-8-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 11:49:21 +0000
+Message-Id: <20260915114921.AE3511F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915064532.194540-1-honggangli@163.com>
 
-On Tue, Sep 15, 2026 at 02:45:32PM +0800, Honggang LI wrote:
-> When RDMA READ request for 2GiB in single WR, res->read.resid is u32
-> 0x80000000, which is INT_MIN (-2147483648).
-> 
->     payload = min_t(int, res->read.resid, mtu);
-> 
-> The `min_t` function will return -2147483648 for payload. The wrong
-> size is propagated through call chain, `read_reply` -> `prepare_ack_packet`
-> -> `rxe_init_packet` -> `alloc_skb` . `alloc_skb` failed because of
-> invalid size. The passive side failed to emit response packet for RDMA
-> READ request.
-> 
-> After fixed it, the active side of RDMA READ failed with error code
-> "IB_WC_LOC_PROT_ERR". When RDMA_READ_RESPONSE_FIRST packet recived by
-> the active side, `do_read` call `copy_data`. dma->resid is u32 0x80000000.
-> 
->    int resid	= dma->resid;
-> 
-> This conversion set resid to -2147483648. `copy_data` abort as length
-> greater than resid. Change resid to int64_t fixes this issue.
+> Add TIF_FD_SLOTS and test it in do_trap0() once the system call has
+> returned, before the ptrace exit stop gets to see the result.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Why not size_t?
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-> 
-> RDMA SEND and WRITE 2GiB message works too, after fixed these two bugs.
-> 
-> Fixes: 8700e3e7c485 ("Soft RoCE driver")
-> Signed-off-by: Honggang LI <honggangli@163.com>
-> ---
->  drivers/infiniband/sw/rxe/rxe_loc.h  | 2 +-
->  drivers/infiniband/sw/rxe/rxe_mr.c   | 4 ++--
->  drivers/infiniband/sw/rxe/rxe_resp.c | 2 +-
->  3 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/infiniband/sw/rxe/rxe_loc.h b/drivers/infiniband/sw/rxe/rxe_loc.h
-> index 64d636bf80fd..9acf2494bb94 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_loc.h
-> +++ b/drivers/infiniband/sw/rxe/rxe_loc.h
-> @@ -64,7 +64,7 @@ int rxe_flush_pmem_iova(struct rxe_mr *mr, u64 iova, unsigned int length);
->  int rxe_mr_copy(struct rxe_mr *mr, u64 iova, void *addr,
->  		unsigned int length, enum rxe_mr_copy_dir dir);
->  int copy_data(struct rxe_pd *pd, int access, struct rxe_dma_info *dma,
-> -	      void *addr, int length, enum rxe_mr_copy_dir dir);
-> +	      void *addr, int64_t length, enum rxe_mr_copy_dir dir);
->  int rxe_map_mr_sg(struct ib_mr *ibmr, struct scatterlist *sg,
->  		  int sg_nents, unsigned int *sg_offset);
->  enum resp_states rxe_mr_do_atomic_op(struct rxe_mr *mr, u64 iova, int opcode,
-> diff --git a/drivers/infiniband/sw/rxe/rxe_mr.c b/drivers/infiniband/sw/rxe/rxe_mr.c
-> index 71d9ea477289..1a9005f11079 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_mr.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_mr.c
-> @@ -418,13 +418,13 @@ int copy_data(
->  	int			access,
->  	struct rxe_dma_info	*dma,
->  	void			*addr,
-> -	int			length,
-> +	int64_t			length,
->  	enum rxe_mr_copy_dir	dir)
->  {
->  	int			bytes;
->  	struct rxe_sge		*sge	= &dma->sge[dma->cur_sge];
->  	int			offset	= dma->sge_offset;
-> -	int			resid	= dma->resid;
-> +	int64_t			resid	= dma->resid;
->  	struct rxe_mr		*mr	= NULL;
->  	u64			iova;
->  	int			err;
-> diff --git a/drivers/infiniband/sw/rxe/rxe_resp.c b/drivers/infiniband/sw/rxe/rxe_resp.c
-> index 02b16e2b49b8..52bce17511dc 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_resp.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_resp.c
-> @@ -982,7 +982,7 @@ static enum resp_states read_reply(struct rxe_qp *qp,
->  
->  	res->state = rdatm_res_state_next;
->  
-> -	payload = min_t(int, res->read.resid, mtu);
-> +	payload = min_t(u32, res->read.resid, mtu);
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D8
 
-Why don't we use the proper types from the start to avoid the need for
-u32 casts?
-
-Thanks
-
->  
->  	skb = prepare_ack_packet(qp, &ack_pkt, opcode, payload,
->  				 res->cur_psn, AETH_ACK_UNLIMITED);
-> -- 
-> 2.54.0
-> 
