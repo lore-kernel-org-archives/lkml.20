@@ -1,194 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F15430CE3;
-	Tue, 15 Sep 2026 17:11:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054FB430797
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789492284; cv=none; b=cONfoATeKCO3MKgha6L8BER/OCucvvIukEYjzU1XlRepQZcExrDgu/n08IFH+0VrGoAB968x4Y37pL/IG6nB1h4QZ+hWYahrIot7ccyBfiV39akoUCCpBJAmfOBXeu8ofVm87clCWZ71YYgeKhcmKHtsk73PhauyiEN03STzcfI=
+	t=1789492328; cv=none; b=r+keiObXx2JwtUuJoto9FIqh9mcoAsLUL4C8FgpC9gmn1UklBkw2SeOe00qc1jPINHgZtkzH9uXGxp9Wd5poGiHP1UbVo9bEm9rDZs9xquv2/4aF1FqnqUDP8r0R2G49ZIckGa4oiyuGnL56Tba2/kE5L/DrzSb35z2lP9AJUGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789492284; c=relaxed/simple;
-	bh=JoFG42xXlFrpOwjPmldOHD33XrAQFsKfPmpd1YYJuYs=;
+	s=arc-20240116; t=1789492328; c=relaxed/simple;
+	bh=Ar50DIJIwcExT1ZRSJD/v5WeHuSpaiWekI1I0rTSM7s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bOh7CAF3bvriZcGga1QeaiM7ZqICVR8s+I2b4PSUjkD5SFy+SQHB/zDS9UVNm8xDq8uY6bTyYZwUs5/swILLxcSauxdrGHc/qDKTxpultTkQ8fHQfRuzoFwAt9p64x16NxLeYi5sMh1MdsA/ZRPDe4XvfSx5S64xaNB+Vu/obb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ojeqGvK6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hD7ZZirQpV3R+1/89Ov5BcpJDGdBgJc23emh+QVPBD5itVSiuJDEMCffe92tcwmwDdTZsY03ilr622TfGnNgxKLWsh/0DoYR7G/Bs6HIQI4D2Y/tIDY37kgKuLNOyqRdlKO0E/9sC/M2iGqwodgIU9fq+CJ0bpzOa1ORtwAuPoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=rPpBF/tD; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ojeqGvK6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ABE01F000FF;
-	Tue, 15 Sep 2026 17:11:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789492282;
-	bh=jFlAEYt+vZawiMs/kuFEjFO2eUgqoPaOw/VH8mWz2a0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ojeqGvK6ERFbX9+/AgOUlLMmatDui8nsMLT15ihY+1QCz0PJbUmDcfTqg0xDy3zYw
-	 9syoB+HBWM0IYLroGYvC0H2QWa8ydT9X+50yXhZnZud+l8yrvyKxXIx3uNtv4TAeah
-	 /GSQnZfbfZpx5+k0Qi8kZKUwNMGcMTS1Zs3Kx2IjrebtkUTJsDCrz546FGbWPfysrj
-	 lTVM7AtLnzJySyy8qVjEwlyH7bDo1zSM1SSkO2cZ9OZcemditI3HTMxcjkX4HUxAww
-	 icGv1rheCppF3hJ2iVhuaCGrUvhQn9seKRRhIsu3qZb9oWBYcr/hhGaIWx8O6ckCBw
-	 Xs/P85mUgXAKg==
-Date: Tue, 15 Sep 2026 18:11:17 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Chang Yu <marcus.yu.56@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: add as7343
-Message-ID: <20260915-gleeful-jester-c8114edf28ff@spud>
-References: <20260907210042.32552-1-marcus.yu.56@gmail.com>
- <20260907210042.32552-2-marcus.yu.56@gmail.com>
- <20260908-dinner-shelve-1d61e19ee3b7@spud>
- <20260913014203.2bae2222@jic23-hlaptop>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="rPpBF/tD"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530de452c33so43316531cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:12:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789492326; x=1790097126; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uS2ss2dRiKmKR68mKWZI7ZnqjRyXAQoUa35bmbT36M4=;
+        b=rPpBF/tDepfYNzodihDvHjo4xMXpo3zJLc+VkDFvxFCcRj9lDn1d5EQoo4fIOyjTO2
+         ssccakFpJdH9rIVG1ZMAbsFGuVpLRum1F3B11VBeAope73LSOyziQNd3123Ko/Hhk1PL
+         3ecxrh80TVL9fXYn2xnZWmqu7PFcBpNh/5Ws1flqHS9faWzfhWlEl8nHqGWAmzho5EyJ
+         EAd+qJK7dv8+87VW4gCKSbuZLPET/lzEXbJLS641Ji//Z4/Hfcowv4/YS9/CadmrW1mt
+         6cChpBo/FoO44uRCSNIFmhePkYINk9R4sWWv/AqU+say6lZ+xUP3n9tEyZ1y6BOJpF4J
+         vspQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789492326; x=1790097126;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uS2ss2dRiKmKR68mKWZI7ZnqjRyXAQoUa35bmbT36M4=;
+        b=UiAVDrjvToF5clgHE7aEmGTuvkMuiUAV/0fZvTHx5Tiq1PeAr0IYgovzQp3bm5MhmP
+         xZqy6eHumcMRSLCVihe+sQ1xmABVPNQFdta96OtfZxN4rq72fgWbifBbPNdo75l+rVWC
+         rH8IKOBi0fguIhY6RtVY+7ZrYesM5bC1pNHsi0Iqivr/n4yPsETSABWU2lgbHHH+WV4m
+         cQ/V+icmJxEIxKmdof4taorqgIFb8CBvmbQoXHjRYGC5z0epafN7040aFf3jHA8RYGSG
+         WN40y2irZSR9vVNYm4xnbf0hwEPFCy2gLhik+LnC91KQhP3o+5v0VZb19ZPYcF3M3fya
+         ejBQ==
+X-Forwarded-Encrypted: i=1; AKwUvByc1x34IFItmGllzPwfxwWpk92X0UCIw0T8qHoqnVxPgTBnt9Jgv62TaL+9KJDRVtRBIJ9yxFcC1dNd7K8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2dMGJPG5w7Naor+sPGm7WGLw3DwyDSAvhzMa+GVD2l6C59+m1
+	hTHnfQvClcUya29bYU8emm1wU2CK6EU26SyB7dhQlAvAHDQFIcv0O7CJfnxO1b0EUl4=
+X-Gm-Gg: AYBFou0CNx/DgTFfCVPssRmY9p9JjA+E+ZRJWtq53hEgWCQ9li7Wr3gRCWhfSxyRF1w
+	hpEcmUVvzcTnPrgRpDit+/JKP5Tq/qp4Wda95Tn1jeJnjluU9Rl92qyWGjcU6J2bpFxz2lOJNlL
+	Q8pwoAlp8HLNGmyMsL34f//vvAqbG53AFTwVZLNOHnJuTExG3+oVgyFeOn4HhFhz/HpjMeWB055
+	vy8Ez30n6dPPabTsNMX7fJfj8XMPddXwzy0Fv0RgbSlPF9eJk1Thxc9B7OvrDXJxC92WaVU2het
+	lNHqvSfDkHdThl40IiAlpBTsuFOrg2WWJ5bAouLp8kU7cH6KFFJeZ2fb5TaZwhx7plhYf3+jOhC
+	IX8ZR8D4mInQmuQtRMciYkvJy8BPknxaTnjlw5utaPYUhNDUZUKuJMT3Wu27qvibsgmwW/rtwoO
+	NaSXvV+qRPmq7ZsNRQdRMCCEavEn6Cj+H+jY8a/lSDRIkbDZuewI5Xb1oJcWbc5PVM+HM42gRDL
+	ONCbfPMu3wVcTamQQq2+5yFk9CYMEZ034d6+Ms7VAFB1zqJEl+wjZY=
+X-Received: by 2002:a05:622a:8c0a:b0:531:d7d:64ea with SMTP id d75a77b69052e-5310d7d657fmr98074341cf.26.1789492325495;
+        Tue, 15 Sep 2026 10:12:05 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ce4ec298sm136165741cf.16.2026.09.15.10.12.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 10:12:05 -0700 (PDT)
+Date: Tue, 15 Sep 2026 13:12:03 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, wangjiexun@tinylab.org, sashiko-bot <sashiko-bot@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+Message-ID: <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
+References: <20260912110832.3203902-1-gourry@gourry.net>
+ <aqloB0zm3RjJ47m1@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hiBTazCoHelLpgFk"
-Content-Disposition: inline
-In-Reply-To: <20260913014203.2bae2222@jic23-hlaptop>
-
---hiBTazCoHelLpgFk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <aqloB0zm3RjJ47m1@gremlin>
 
-On Sun, Sep 13, 2026 at 01:42:03AM +0100, Jonathan Cameron wrote:
-> On Tue, 8 Sep 2026 19:13:55 +0100
-> Conor Dooley <conor@kernel.org> wrote:
->=20
-> > On Mon, Sep 07, 2026 at 02:00:41PM -0700, Chang Yu wrote:
-> > > Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
-> > > with i2c address of 0x39.
-> > >=20
-> > > The GPIO pin is described as a generic GPIO for now. Binding design f=
-or the
-> > > more advanced measurement/LED synchronization use cases are deferred =
-to
-> > > future patches. =20
-> >=20
-> > Unfortunately, you can't change what you document, so picking something
-> > correct now is needed - even if the driver doesn't use it yet.
->=20
-> Definitely needs an outline of how it would be backwards compatible and
-> an explanation of why not now.  Sometimes a portion of the binding is
-> so uncertain that we do kick it back from initial version but we 'must'
-> be sure we can extend the binding to new configurations.  Normally this
-> is one of those we are fairly sure, but not entirely sure cases - or
-> picking between two options where consensus isn't being reached.
->=20
-> Chang Yu: This sort of things needs discussion and is one of the reasons =
-to
-> go slowly.
+On Tue, Sep 15, 2026 at 04:55:47PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Sat, Sep 12, 2026 at 07:08:32AM -0400, Gregory Price wrote:
+> > MADV_PAGEOUT collects isolated folios on a local list before reclaiming
+> > them after the PTE walk.  The reschedule path drops the PTE lock and then
+> > restarts the mapping with pte_offset_map_lock().
+> 
+> Is this reschedule path even necessary? It's pretty bloody sketchy.
+> 
+> I thought the modern approach (TM) was to not do cond_resched() and friends so
+> can we actually look at removing this?
+> 
 
-Ye, I note that there are 2 more versions of this since I left this
-comment, but you seem to be on top of that.
+Sorry - meant to reply to this.
 
-> > > Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7=
-343-14-Channel-Multi-Spectral-Sensor.pdf
-> > > Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
-> > > ---
-> > > Changes in v2:
-> > >   - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
-> > >   - Fix node name and unit address mismatch.
-> > >   - Include MAINTAINERS changes.
-> > >=20
-> > >  .../bindings/iio/light/ams,as7343.yaml        | 69 +++++++++++++++++=
-++
-> > >  MAINTAINERS                                   |  6 ++
-> > >  2 files changed, 75 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,a=
-s7343.yaml
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.y=
-aml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> > > new file mode 100644
-> > > index 000000000000..b06d445b92b3
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> > > @@ -0,0 +1,69 @@
-> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
-> > > +
-> > > +maintainers:
-> > > +  - Chang Yu <marcus.yu.56@gmail.com>
-> > > +
-> > > +description: |
-> > > +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c addr=
-ess of 0x39.
-> > > +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-C=
-hannel-Multi-Spectral-Sensor.pdf
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - ams,as7343
-> > > +
-> > > +  reg:
-> > > +    description:
-> > > +      I2C address of the device (0x39).
-> > > +    maxItems: 1
-> > > +
-> > > +  interrupts:
-> > > +    description:
-> > > +      Open drain output active low interrupt pin.
-> > > +    maxItems: 1
-> > > +
-> > > +  vdd-supply: true
-> > > +
-> > > +  ams,led-current-microamp:
-> > > +    description:
-> > > +      The driver current for the external LED connected to the LDR p=
-in.
-> > > +    minimum: 4000
-> > > +    maximum: 258000
-> > > +    multipleOf: 2000
-> > > +    default: 12000 =20
-> >=20
-> > Rather than a custom property, the tsl2772 uses led-max-microamp:
-> > tsl2772.yaml
-> > 46:  led-max-microamp:
-> > 81:                led-max-microamp =3D <100000>;
-> >=20
-> > I wonder if the same should be done here, or if there should be an leds
-> > subnode? Perhaps the IIO folks can comment on that.
->=20
-> I don't think we've ever bothered with a subnode as there only tends
-> to be one of them.  Given the enabling etc is all hardware controlled
-> I'm not sure a more generic LED binding makes sense. I don't know that
-> much about the led bindings though so maybe it is worth doing a subnode
-> just to use the leds/common.yaml definition of led-max-microamp?
+Honestly there's so much jammed into this function i can't give you a
+straight answer. I can take a short detour to figure out if we can
+rework this as a whole.
 
-Could always just put a ref in to leds/common.yaml and not bother with a
-child node. I'd stick with the additionalProperties: false, since
-there's lots of leds properties that probably don't apply to a device
-like this.
-
-Cheers,
-Conor.
-
---hiBTazCoHelLpgFk
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaql8NQAKCRB4tDGHoIJi
-0jkpAQD4XnALOsGOCfzL84JOorNFWrH1QZUXmcfy0YADuSNd7AEAk3yAMDvYfKC5
-kfWzthG0L0lav+z/eUbqj4riKVRyEAA=
-=Vbb8
------END PGP SIGNATURE-----
-
---hiBTazCoHelLpgFk--
+~Gregory
