@@ -1,83 +1,35 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A30A4E80CF
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04114078D1;
+	Tue, 15 Sep 2026 23:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789514454; cv=none; b=IYY0Ug7V5E2YLH1bzY/rsl6OU1Wzk0fxTEE2nFVgUcM71xMyOxHn1+9zzJuA7oDlZDt2rdiLYFBjWp5G4M3jlkHM5mDQ0HPQ3v68XJWiUpcmDqMz3qkhvl75/N0jOVDtkhSjLAZc4TTP+n681dAh2ejNAXAj89+LC4mEuJ6GMuQ=
+	t=1789514472; cv=none; b=hij3rajWz3gwZH0Ij5J0TGX/jY1GvRkzfKXQr+Fq+B2HTHIvQZPQ+NdYtO3ab+1mtJ6F7nVfd7d9s3j85bEtJmRThDRnP77jP7n8prKdie4OyV7/qITLbWEZIccw6nFUUKs4LEYO8WUiBqQbCkkotlwKWYqJLiHdbnehRXKRUHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789514454; c=relaxed/simple;
-	bh=gLdYmyRPQznQzGvIt3DowhuQFSJuK+S3Eax/cTpHIWo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FNIgBK8jYkxhpz/NM6BOoavFf+TCJToqhTSpmR1r4R8AUA9ycs7Wm4gTnX4cGSeS/du/JflahXf1jvyBzbkWk92DNJ7XAnHrBm6uapwjam681F9KMZo2ANIKueqhrycj8mvltX6F5ob/fXAbqsconPBTl2z0UecayYeOgBebcdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c779SqMB; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789514472; c=relaxed/simple;
+	bh=7oZgtQx3NJj8qinbOXAnUujdKeKQZolww67wAyv93qw=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=RmoSnZl1oRNJ1uONKj1Z8Vu0Okwtlc5IdHEMrKczvKqYjnKSE7x72Woxak6tnUsa+KNgb7kB4/56yWWMFR7gYOZnYQju1eMinyi/N2vVPH+2WtpUC0lZb0iVPHKAlS8pjP8vP8a/wQHr43/PSNUb6zi2pqv2oG+ZBEg9j/oEpUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9Bro8ww; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c779SqMB"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea4bfd1so251349a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:20:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789514451; x=1790119251; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IGMnqDW895Je/mS7NKJPFeoFTm2jsczP2vXK225eeOg=;
-        b=c779SqMB+VDFeJaqsIMUXpfCUjIfCs5ibJGG5UmntZMG57yjx2WfQpubgheR6/EBA5
-         uxw7Owpxs6WfHqJUDhVYT6u91kZA02eduuTmhKP99a5RZ/8+zKmarpNP9J/g1gNIemPP
-         CdRUnZQQ03RzGBXhGVaR+WliFBMBS9/+BMWX4955WYVVI6cbyTW6vqXaF0ge9yNQc+4w
-         n38/bCnc1RXiS9CMxd5nwy2AcPatUSjppZvCnQ9+Z1EKROQg6zdytBdWuuTStcXrI8i9
-         Zp0+IgDrZcyUPF7H8HA9TWsqVETgNEPgdiJBrly1il7R9RZBXxBTQTSBy5zdLtMsA/q6
-         4H5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789514451; x=1790119251;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IGMnqDW895Je/mS7NKJPFeoFTm2jsczP2vXK225eeOg=;
-        b=MW+Fi/QZ4Uj69z2KhgP4xVGTNJOkI1hC2oQCI/uwHfadI0WI0oHUMng3In/FyFP0e9
-         gOymjS9Fbvoy6enxRazTxYgh19X03SyRbSUQWJITLS2E7gKjNU0HAleXOJV0iF+aEDgj
-         v6AiEthPiug24AQGGCDlBYwkgj2fG3zq6JdoFMndhFPFBYroScaakfzI4BNv7A5gPvEn
-         2B1XqNiEdpwmyNXvKbiYZxwGnkxbZLi/0s2RBD20a3rdBKC47aB4kxp6opcpiqKRiCDj
-         xeRPfIPo65WOdFZGjKDMZ6XubESmSyayfg+J4+iWoUk3O40ADyDXPBlSdpb4PKbzcNeD
-         uC9g==
-X-Forwarded-Encrypted: i=1; AKwUvByXaTuxVKQ+Y+GcrP7cA6to1LKulPDhMFbDwVCnthYf7k5c+vs2dvZ4dP4i6d8hIMaPDTASQVp4IDL+6W4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkvZk96E0R6HHnD7lsShZhVk6OlKU7bGeSQ4bWl+jDBbWnbXij
-	LUPrgHbg3GFv8/g2xfczYDM5OtwBeeOiY8x33uATUd4GdxIzaOdUAyU=
-X-Gm-Gg: AYBFou1mFWEbuVjv1xHMyFBROTsAj7XIvy7jWVaZ6u86IDz9pQiO+Xv8hvgnh1nT1xY
-	JoqzHa3MdHw2K31SO+DqrXJx2JFRBqKM/Fn+i1aFQ+U7Icqq/wSA5EEujnT196OdaB1KcsHRw8e
-	RVnQLiNDWL8MbMPcEoLmZ9yFt1whIRfY/nYlrh9dlqgCfsCkaS6XNHe9XqZhZMYeCtcUyWVf2B9
-	85+R6XFtANh0dssMJnSbtV2SL370VDbXBLuEsK39eBQzbdrQf58OwMacV/2nPW8dHu/RGEWqSpF
-	mOsisALwiODQUpACZT94btiYOQ/M6LghXE3HS63a1k0hU15fhCwTItjTfKlmHdj2Ov3I5zsd5Rr
-	Sc1FR6R+1ZwsJzJSPBAk2TGRM+2WGI7ika315+YB6bT56QoEKrnMkJFpa9JMH6ARvD40tIx3RN3
-	p6iUqmnwXvvJDPdOMrlx6Bo4CIgXU9IJQYYuOshMnf4hYi1ZX93QoqzsLZUhlLSIXL0wJsAviNp
-	iJoO05BHOhQe0uiPD3s4JJVPmfkmg==
-X-Received: by 2002:a05:6a21:9090:b0:3d0:e034:a26f with SMTP id adf61e73a8af0-3dd5f5d8672mr1159394637.17.1789514451428;
-        Tue, 15 Sep 2026 16:20:51 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([27.59.94.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a166sm2341985eec.10.2026.09.15.16.20.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 16:20:50 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: alexdeucher@gmail.com
-Cc: 062bel313@gmail.com,
-	Alexander.Deucher@amd.com,
-	Christian.Koenig@amd.com,
-	Kenneth.Feng@amd.com,
-	airlied@gmail.com,
-	amd-gfx@lists.freedesktop.org,
-	atharvatiwarilinuxdev@gmail.com,
-	dri-devel@lists.freedesktop.org,
-	ed@aicharmers.com,
-	linux-kernel@vger.kernel.org,
-	simona@ffwll.ch
-Subject: Re: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
-Date: Tue, 15 Sep 2026 19:20:43 -0400
-Message-ID: <20260915232043.1222-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CADnq5_NyBdPbavmiPVdsHkP_Oi1w7ngX0kPSNce+BWN-YkuAFQ@mail.gmail.com>
-References: <CADnq5_NyBdPbavmiPVdsHkP_Oi1w7ngX0kPSNce+BWN-YkuAFQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9Bro8ww"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706201F000FF;
+	Tue, 15 Sep 2026 23:21:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789514470;
+	bh=v3pWVLhXI4/1ldBwBVlPWNppvl5GBq2ld1so1WrXcP8=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=W9Bro8wwpXMlgze73e4/dk9wMSM1kmo75Jm/co+kgicd59TzACf/WBw9wJWb5U2s8
+	 z2wFXPxSfvp0BIZKCf5uev4VsrEgHqYCFRXsGroM2MKpQeNTgwIyhmjNW3MdSUZs/9
+	 m9mkjXcIKeAZUtWv0Qs8MvXREYB143o9cZw186SksryTeJcZ9I/J6t7j8AYzK3yLNp
+	 A9KkbhOD6qr2r1MhVmh3n1lV6o7zNYJVY7VWJkpH5jptKx7rvjg/NoKcjycSZbXhmy
+	 qohR2CGBUk8PgIajZuhu6vrNpw5qkzyvyn6ouUgSCobta8t2wihK5+/KRIsw8+ZHOZ
+	 sQV1BNjIlxUuA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198A63927069;
+	Tue, 15 Sep 2026 23:20:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,24 +37,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next] page_pool: Fix page_pool_alloc_va() reference in
+ kernel-doc
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178951440488.2314577.13886516225826420511.git-patchwork-notify@kernel.org>
+Date: Tue, 15 Sep 2026 23:20:04 +0000
+References: <20260912060019.39902-1-kmehltretter@gmail.com>
+In-Reply-To: <20260912060019.39902-1-kmehltretter@gmail.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: hawk@kernel.org, ilias.apalodimas@linaro.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linyunsheng@huawei.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-> I can drop the patch if you feel strongly, although it is pretty
-> similar your original patch, it just keeps all of the logic within
-> navi10_ppt.c which is cleaner in my opinion rather than pulling navi1x
-> specific logic into the core pm code.
+Hello:
+
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Sat, 12 Sep 2026 08:00:19 +0200 you wrote:
+> The kernel-doc comment of page_pool_free_va() refers to
+> page_pool_allo_va, which does not exist. The name is page_pool_alloc_va.
+> Say page_pool_alloc_va.
 > 
-> Alex
+> The wrong name came in with commit 8ab32fa1c794 ("page_pool: update
+> document about fragment API").
+> 
+> [...]
 
-I dont have problem with the code, the problem is that, this is not the
-solution to this problem, as i said in the previous, the solution lies
-in the DC not the SMU (i tested by removing dce_v10_0_early_init and adding
-that function to dce_v10_sw_init), it is also confirmed via the testing using
-Opencore Lecacy patcher, which makes the display 5K, and make the display not
-use compatibility mode (4K), and it also fixes the SMU problem.
+Here is the summary with links:
+  - [net-next] page_pool: Fix page_pool_alloc_va() reference in kernel-doc
+    https://git.kernel.org/netdev/net-next/c/47dbcfdf942a
 
-(https://gitlab.freedesktop.org/drm/amd/-/work_items/4455)
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-You can choose to upstream this, i dont necessarily have a problem with this
-patch as long as i am the patch author (eg using From: )
 
-Thanks
