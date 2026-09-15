@@ -1,43 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11253C279B;
-	Tue, 15 Sep 2026 15:18:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61A54A8FD0;
+	Tue, 15 Sep 2026 15:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485493; cv=none; b=cQfFSyFxzMxyqnSRXWjyo6wgjuTt3jn4fx7jNpQTcCE9FCqSfYUolEaJnAd7BWL4bdonNO0kqllkKNT+5NLi+1f3tJ8UizstY+s6yo4VZ0Odg9MD137SoHMlhbeyESaa77JF8H9Q7p0w0FYe3iEkCseomLwgIs7Ul2ti8QRJ1RU=
+	t=1789485495; cv=none; b=CcDzxSku+kruu57ExHJ5p+KGSTZTgU7oatvqipm3/xhzxW8CaMAUqCJvvdO6ovDv68uKyNJPG7a1nYzllBTqqCNW9giiDlyfKYlFUf5md1Gm3K09m+9FUfmkLyvsmAWv1tdX0chAu1NXjFp3LA3L0W9MotVV4U/99iF1j+mVLy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789485493; c=relaxed/simple;
-	bh=/A6Hac4aqJzoz7kYkCtMzFY90tiyJ1AMuQj5SToK5yc=;
+	s=arc-20240116; t=1789485495; c=relaxed/simple;
+	bh=4ay9HedzmaAw9AOpIB2HEj425HBli4lesEM/GeDH6Ws=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZS42QBVLgA0UK9yCNPwoLbLFxYPP3ccPf8QCZlydP20807QijR4jD/uYZj9GcfzU36C0NYB+3yu+X1FE+zApI1UlGF9gF+0PxOipH8j08Pwwv4Ukq/Q+lI1cyw50KofK/4omCvAYijFjW2eKRZIwLTEzMOmgsSP8HPShKBjBL6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=nn84X/+b; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=cPzY0Fhc3RgG5rHSwkh8MyDdfTT6VbFpLzG75CFnW5u2dlidw0fvkQZ7oV9Zp2VQHSaxa/+czHIDQCoM3W1Pl8w0DxJ4GTCCN0nw9TaEaVKvttogYwEEIVBpbJQcVtRVkehE3BtJ7zKq1f4YlNxcID6InEnduXrECwPOqQDbBeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=cg5t7IhU; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="nn84X/+b"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="cg5t7IhU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1789485488;
-	bh=/A6Hac4aqJzoz7kYkCtMzFY90tiyJ1AMuQj5SToK5yc=;
+	bh=4ay9HedzmaAw9AOpIB2HEj425HBli4lesEM/GeDH6Ws=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=nn84X/+b/blUwrMrn/mcZGhPge1ZI+EvBMjQKuJAMIrUK1LB2hNI6EaG87JBmTOYO
-	 9wMhVEdJBmWjJoc/O8ti7WwA/cjERX2dPO60dJi/twpd3rFn7weFMq9GaQeCS228sj
-	 10SVD7mHf4phifAUAaoxJLC18N4pFBDbRIYYoiNOb8bt1FpgOY2zYyjqDO7aEYqIRD
-	 jKo0BezDUr1l8J2crrNVWEHgmerUjSDLlt5CwnfKZhTYIQpbOP54G5RY27cu4Rp97y
-	 eE8r9+7U2pSHI+g1jtpFz40PfkpiIq25Sxbs1WHsJefPVxZnkp94dN/hNcwivaJIxz
-	 oV2KSQ9fL3+gw==
+	b=cg5t7IhUmD/nWSFCnqRs0kiBU8ihPO0fdhDugaflmmpoalPii7a0j2R089ON6QrY1
+	 uRItSeFGKSn/JajS9cj78LiOPFFcKZc8NxQR05smag0ij9wof8oX6q4r/kHGAN3l+Z
+	 WNNEWsdu5H/P9IYlNnFEjpeyX3e6jVOoZYjC/8XOAPvmpYpfvn5APk0ulpGR+vcJUq
+	 Xt+CM3jphiWQDyEZbSvgGFyhGi6GS5QIV9pkHZniGWcG2PQcAxbOiFwnmWlWpvG8pR
+	 KqeMArgv8RTCkcUJWUhv5zJAyPT/WMNEvU5J4Rznb23bpD7QzuNufkA+q4EMmZ5oUN
+	 gdoc72h0GbWFQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0949817E00A9;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5DFAF17E0D43;
 	Tue, 15 Sep 2026 17:18:08 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id BD411480029; Tue, 15 Sep 2026 17:18:07 +0200 (CEST)
+	id C3960480035; Tue, 15 Sep 2026 17:18:07 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 15 Sep 2026 17:17:41 +0200
-Subject: [PATCH 1/5] phy: core: add notifier infrastructure
+Date: Tue, 15 Sep 2026 17:17:45 +0200
+Subject: [PATCH 5/5] usb: dwc3: rockchip: fix USB-C reconnect in gadget
+ mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,7 +47,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-1-763bb546824e@collabora.com>
+Message-Id: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-5-763bb546824e@collabora.com>
 References: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
 In-Reply-To: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
 To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
@@ -57,215 +58,106 @@ To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
 Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-phy@lists.infradead.org, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Igor Paunovic <royalnet026@gmail.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6271;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2823;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=/A6Hac4aqJzoz7kYkCtMzFY90tiyJ1AMuQj5SToK5yc=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpYa//RUO96bBP1vu13dh10TjPv2zoapFEg
- hgYi5xqbCpUrYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqWGvAAoJENju1/PI
- O/qaPEkP/2kiPyBIvVpKNOZ35+7fA17PgxthnYZ1qo/gp9u3N7Rmrc3fqFbH/gQ8tCPZOzKf5eV
- nqOII19SbU1acLbxbzL4Sxy3McBgdhwQIwI+5+j+U5lHDRudcKWwYCqkz491z8ZUw4lPdQ0QWLk
- MSp5mvaK7ix4o4Sp02k/bGUtualr3Axd/FAqBbvXU++8bFcXPdPFEdyR7Brp9hJmasAed4KGDcy
- +2CbhVBjNSuJBN3wLMPeznc3galffx4/KMaJXKs6eIisL2Ye1Gyvch0ZbE0QqsKdbo873/TZRfi
- VwW0CbHc9CJ4RCJwcEHCLni524REA7Y52q0URq2hw7hVqzegYf6yi+qPA41DqANJb2yuNTiaq+k
- wNbSwWvfCsEL7/3bv4LAbL46IW+YTCGDO8jK17LbKBSJRsrvFv2X1/G0e26Wus/nALgYEViqm7E
- Od9zPnanqkDYaQwUgxIal3rCks14ofccy+y24zsKWXNF3J5ixlvafQOZHYyyB0ci/89RWP+JU2f
- N1DD82RoKzldeNQxa1F3RvSYNKlubDY6GGx/zGqdIfeXmRoQY1K73dfQIeEkf6nFt6u9iFhfIN+
- +Cz6qjJn+dqk9FFvXl3G1nVWStAlZaxuA6iOH6y1QsRvz8wIza2qMH+lRYuNfLjZxpPf7JcDbKx
- 3AzOrLhNGxunmJPU9MEw/CA==
+ bh=4ay9HedzmaAw9AOpIB2HEj425HBli4lesEM/GeDH6Ws=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpYa/a9SOAir0KW4AaNxa0ywVhpg488MTBD
+ S0OITRoVLsQzYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqWGvAAoJENju1/PI
+ O/qa5RwQAKpvcFHb8bI5rMhfqAImvq7YJvT7RXR6ReF/8jl2T1nEvc6xW4/s2rJOnlbm8PQr6yj
+ JesP2eExEyH6PNp1mNauTAmwALyAoeFG2iircznSMEpXFgXZjWjTzngeP2I4yW2LVfovn2oy0to
+ UyiyGI4VTJ8YBiXTPT2QmaRzfN5IL+1+JHds6tAsnc1MvHG2Yq9Y2EzGFitweX3Q2LS4mSgMU6R
+ fosX2KjeozFlR9Xdn9EHtmgnqjPBnkTw587QJMDeC8xXfUNXWLxgZ9eaEl3Y/IDwnCV/1jQKnQp
+ fnSmknaz5xG0ChuKLhIOEJiazDS56oQcWXFO2hx85CXvDpr9TndZhSuZy/2y0Vb1BfUyWIzgts+
+ MvdjtlQPoPZiV93AEL9Ib1gSjssPuU8sEPKloDX27V8wBZqhck/9aUhMbe/ku3m+Yrq13g1/qr+
+ Mu8Hj2eg8whfz3OK4Ao7FZKWMTLx60UVFGrspmu6uCQDJE1vvXdMZY3nY+iGn7PjhoaZjbhAWqR
+ 2ug3lh5K9u2/lj3gGECQDoWMWdD0ai55PyeYKM8jPQZiwap2nUkA+sX2+s3c7wYlvoo+mpEB6AZ
+ GyBXi8HOHTGN8d9wxnNNLmCCQiYaD8T4gvoEOlIgVaLiWDCFX4yV5nehFW/clwcwYEh26hbNJRq
+ zTBYrZVo69pN8Vyq1904r2A==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Some PHY devices with multiple ports (e.g. USB3 and DP) require a reset
-if the configuration changes or cable orientation changes. This is a
-problem, as the consumer device will run into undefined behavior.
+When USB-C is configured in gadget mode and the cable is unplugged
+the USB controller is suspended. After plugging in the cable again,
+the USB controller stays suspended and thus the port status remains
+not-attached.
 
-With the new PHY notifier API introduced in this patch, the consumer
-driver can hook into reset events coming from a PHY device to handle the
-PHY going down gracefully.
+Fix this by triggering a runtime PM resume when the role is changed.
+The Runtime PM reference counter is immediately decreased again - the
+auto-suspend time is big enough to detect the connection status, which
+will then keep its own reference.
 
-Note that this uses -ENOSYS instead of the more sensible -ENOTSUP for
-the stub functions when GENERIC_PHY is disabled to stay consistent with
-the existing ones.
-
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/phy-core.c  | 65 +++++++++++++++++++++++++++++++++++++++++++++++++
- include/linux/phy/phy.h | 40 ++++++++++++++++++++++++++++++
- 2 files changed, 105 insertions(+)
+ drivers/usb/dwc3/dwc3-rockchip.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-index 21aaf2f76e53..51d261daae7a 100644
---- a/drivers/phy/phy-core.c
-+++ b/drivers/phy/phy-core.c
-@@ -542,6 +542,70 @@ int phy_notify_state(struct phy *phy, union phy_notify state)
- }
- EXPORT_SYMBOL_GPL(phy_notify_state);
- 
-+/**
-+ * phy_register_notifier() - register a notifier for PHY events
-+ * @phy: the phy returned by phy_get()
-+ * @nb: notifier block to register
-+ *
-+ * Allows PHY consumers to receive notifications about PHY reset events.
-+ * PHY providers can signal these events using phy_notify_reset().
-+ *
-+ * Returns: %0 if successful, a negative error code otherwise
-+ */
-+int phy_register_notifier(struct phy *phy, struct notifier_block *nb)
-+{
-+	if (!phy)
-+		return 0;
-+
-+	return blocking_notifier_chain_register(&phy->notifier, nb);
-+}
-+EXPORT_SYMBOL_GPL(phy_register_notifier);
-+
-+/**
-+ * phy_unregister_notifier() - unregister a notifier for PHY events
-+ * @phy: the phy returned by phy_get()
-+ * @nb: notifier block to unregister
-+ *
-+ * Returns: %0 if successful, a negative error code otherwise
-+ */
-+int phy_unregister_notifier(struct phy *phy, struct notifier_block *nb)
-+{
-+	if (!phy)
-+		return 0;
-+
-+	return blocking_notifier_chain_unregister(&phy->notifier, nb);
-+}
-+EXPORT_SYMBOL_GPL(phy_unregister_notifier);
-+
-+/**
-+ * phy_notify_reset() - notify consumers of a PHY reset event
-+ * @phy: the phy that is being reset
-+ * @event: the notification event (PRE_RESET or POST_RESET)
-+ *
-+ * Called by PHY providers to notify consumers that the PHY is about to
-+ * be reset or has completed a reset. This allows consumers to quiesce
-+ * hardware before the PHY becomes unavailable.
-+ *
-+ * This may be called from within PHY provider callbacks (e.g. set_mode,
-+ * power_on) where phy->mutex is held. Consumer notification handlers must
-+ * therefore NOT call back into the PHY framework (e.g. phy_power_off,
-+ * phy_exit) on the same PHY, as this would result in a deadlock.
-+ *
-+ * Returns: %0 if successful or no notifiers registered, a negative error
-+ * code if a notifier returns an error (for PRE_RESET only)
-+ */
-+int phy_notify_reset(struct phy *phy, enum phy_notification event)
-+{
-+	int ret;
-+
-+	if (!phy)
-+		return 0;
-+
-+	ret = blocking_notifier_call_chain(&phy->notifier, event, phy);
-+	return notifier_to_errno(ret);
-+}
-+EXPORT_SYMBOL_GPL(phy_notify_reset);
-+
- /**
-  * phy_configure() - Changes the phy parameters
-  * @phy: the phy returned by phy_get()
-@@ -1018,6 +1082,7 @@ struct phy *phy_create(struct device *dev, struct device_node *node,
- 	device_initialize(&phy->dev);
- 	lockdep_register_key(&phy->lockdep_key);
- 	mutex_init_with_key(&phy->mutex, &phy->lockdep_key);
-+	BLOCKING_INIT_NOTIFIER_HEAD(&phy->notifier);
- 
- 	phy->dev.class = &phy_class;
- 	phy->dev.parent = dev;
-diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-index ea47975e288a..3779a4d0a02c 100644
---- a/include/linux/phy/phy.h
-+++ b/include/linux/phy/phy.h
-@@ -11,6 +11,7 @@
- #define __DRIVERS_PHY_H
- 
- #include <linux/err.h>
-+#include <linux/notifier.h>
- #include <linux/of.h>
- #include <linux/device.h>
- #include <linux/pm_runtime.h>
-@@ -53,6 +54,16 @@ enum phy_media {
- 	PHY_MEDIA_DAC,
+diff --git a/drivers/usb/dwc3/dwc3-rockchip.c b/drivers/usb/dwc3/dwc3-rockchip.c
+index 7bdd6e2eb22d..bedec3295bb1 100644
+--- a/drivers/usb/dwc3/dwc3-rockchip.c
++++ b/drivers/usb/dwc3/dwc3-rockchip.c
+@@ -25,8 +25,17 @@ struct dwc3_rockchip {
+ 	struct dwc3		dwc;
+ 	struct dwc3_rk_phy_nb	usb3_phy_nb[DWC3_USB3_MAX_PORTS];
+ 	u8			phy_reset_active;
++	enum usb_role		role;
  };
  
-+/**
-+ * enum phy_notification - PHY notification events
-+ * @PHY_NOTIFY_PRE_RESET: PHY is about to be reset, consumers should quiesce
-+ * @PHY_NOTIFY_POST_RESET: PHY reset is complete, consumers may resume
-+ */
-+enum phy_notification {
-+	PHY_NOTIFY_PRE_RESET,
-+	PHY_NOTIFY_POST_RESET,
-+};
++static void dwc3_rockchip_vbus_handler(struct dwc3 *dwc, bool present)
++{
++	if (!dwc->gadget || !dwc->gadget_driver)
++		return;
 +
- enum phy_ufs_state {
- 	PHY_UFS_HIBERN8_ENTER,
- 	PHY_UFS_HIBERN8_EXIT,
-@@ -170,6 +181,7 @@ struct phy_attrs {
-  * @power_count: used to protect when the PHY is used by multiple consumers
-  * @attrs: used to specify PHY specific attributes
-  * @pwr: power regulator associated with the phy
-+ * @notifier: notifier head for PHY reset events
-  * @debugfs: debugfs directory
-  */
- struct phy {
-@@ -182,6 +194,7 @@ struct phy {
- 	int			power_count;
- 	struct phy_attrs	attrs;
- 	struct regulator	*pwr;
-+	struct blocking_notifier_head notifier;
- 	struct dentry		*debugfs;
- };
- 
-@@ -267,6 +280,9 @@ int phy_calibrate(struct phy *phy);
- int phy_notify_connect(struct phy *phy, int port);
- int phy_notify_disconnect(struct phy *phy, int port);
- int phy_notify_state(struct phy *phy, union phy_notify state);
-+int phy_register_notifier(struct phy *phy, struct notifier_block *nb);
-+int phy_unregister_notifier(struct phy *phy, struct notifier_block *nb);
-+int phy_notify_reset(struct phy *phy, enum phy_notification event);
- static inline int phy_get_bus_width(struct phy *phy)
++	usb_udc_vbus_handler(dwc->gadget, present);
++}
++
+ static int dwc3_usb3_phy_notify(struct notifier_block *nb,
+ 				unsigned long action, void *data)
  {
- 	return phy->attrs.bus_width;
-@@ -428,6 +444,30 @@ static inline int phy_notify_state(struct phy *phy, union phy_notify state)
- 	return -ENOSYS;
+@@ -57,6 +66,8 @@ static int dwc3_usb3_phy_notify(struct notifier_block *nb,
+ 		if (!ret)
+ 			return NOTIFY_OK;
+ 
++		dwc3_rockchip_vbus_handler(dwc, false);
++
+ 		/*
+ 		 * Assert USB3 PHY soft reset within DWC3 before the external
+ 		 * PHY resets. This disconnects the PIPE interface, preventing
+@@ -69,6 +80,7 @@ static int dwc3_usb3_phy_notify(struct notifier_block *nb,
+ 		reg |= DWC3_GUSB3PIPECTL_PHYSOFTRST;
+ 		dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
+ 		spin_unlock_irqrestore(&dwc->lock, flags);
++
+ 		break;
+ 
+ 	case PHY_NOTIFY_POST_RESET:
+@@ -89,6 +101,8 @@ static int dwc3_usb3_phy_notify(struct notifier_block *nb,
+ 		dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
+ 		spin_unlock_irqrestore(&dwc->lock, flags);
+ 
++		dwc3_rockchip_vbus_handler(dwc, dwc_rk->role == USB_ROLE_DEVICE);
++
+ 		pm_runtime_put_autosuspend(dwc->dev);
+ 		break;
+ 	}
+@@ -130,7 +144,16 @@ static int dwc3_rk_phy_register_notifiers(struct dwc3 *dwc)
+ 	return devm_add_action_or_reset(dwc->dev, dwc3_rk_phy_unregister_notifiers, dwc_rk);
  }
  
-+static inline int phy_register_notifier(struct phy *phy,
-+					struct notifier_block *nb)
++static void dwc3_rockchip_set_role(struct dwc3 *dwc, enum usb_role role)
 +{
-+	if (!phy)
-+		return 0;
-+	return -ENOSYS;
++	struct dwc3_rockchip *dwc_rk = container_of(dwc, struct dwc3_rockchip, dwc);
++
++	dwc_rk->role = role;
++	dwc3_rockchip_vbus_handler(dwc, role == USB_ROLE_DEVICE);
 +}
 +
-+static inline int phy_unregister_notifier(struct phy *phy,
-+					  struct notifier_block *nb)
-+{
-+	if (!phy)
-+		return 0;
-+	return -ENOSYS;
-+}
-+
-+static inline int phy_notify_reset(struct phy *phy,
-+				   enum phy_notification event)
-+{
-+	if (!phy)
-+		return 0;
-+	return -ENOSYS;
-+}
-+
- static inline int phy_configure(struct phy *phy,
- 				union phy_configure_opts *opts)
- {
+ static struct dwc3_glue_ops dwc3_rockchip_glue_ops = {
++	.pre_set_role = dwc3_rockchip_set_role,
+ 	.post_phy_registration = dwc3_rk_phy_register_notifiers,
+ };
+ 
 
 -- 
 2.53.0
