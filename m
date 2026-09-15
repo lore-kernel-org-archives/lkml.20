@@ -1,126 +1,95 @@
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E2443F8CB;
-	Tue, 15 Sep 2026 05:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E96440643;
+	Tue, 15 Sep 2026 05:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789451318; cv=none; b=s9XYexTUyrb2adbj+ynlvJH6Yje3LzQd8gAP4aKbHTeizGULHdnN2sadUT0O1sAD/YOfhYB+Nstob/zTyr/kbEsKSEASEnxJmJ7wiPFkjJkwvcI4Mo2MXL0e/vp9bZ2gD8BQlEv5ET/DRlWlIjJpaBR4kfiJaYrRk1Dd4J6isa4=
+	t=1789451322; cv=none; b=VOkqkHfwfjusN6pWXDfOuXauDLALrZt4AbpsdUfnTOgPHnL33aEGfxiQ5KPDaMDJ8XmzSv3x3hn6QOWhHpgY0kBpsaPLnoiwJty/aI2Fa+c6RAKUz5YFUvSznxFk7pQc2G0hSP/5p5hp2tGMc7awZSD/DKe69HMPkE5F889NFbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789451318; c=relaxed/simple;
-	bh=2YdqfE4W/M6GWy2Z93LWlX8redjhoSEzxzkkdSHgm5M=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=EaDu2OZgehEMzp9xWA2Tz/ki0sFQP6I+ikxZAv0kG/Sattjp6X/SrLoXE3M+g6L87eEqwY98oWcU6qPz8HtX2PVmpYUJFvo399BXSfON5mavm5swLYrWIfOlN2h6HlmZ6/EnwasQx6R7gBAJvmFQa91ctMW4rktlNPE4wVI9axM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=MZrdwxAm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gVrSd2ol; arc=none smtp.client-ip=103.168.172.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="MZrdwxAm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gVrSd2ol"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 1B47C14001A6;
-	Tue, 15 Sep 2026 01:48:35 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 15 Sep 2026 01:48:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789451314;
-	 x=1789537714; bh=FI+a7IE4f2WsMNjssnCOFfk93UX5wc9at6Jt16362O8=; b=
-	MZrdwxAmf89L10jIxTJh+HqypSX5ohH7OevL4s61XA22Ewrg0OBiJgI0RhwH8JMz
-	htthIMgPKdkNKXKrlxM5lPDHAelwuHrAkapFTa/toZnbY/hVo7bmPX4b32/dAg1w
-	HwZhBuwpKm8hK0cXig917SitHsTw+R22RpwRJkiJHtxwcKz6DwCEVdD2phGRFCl7
-	F59rwNd0WKoCEaWxt8QsN+CspfDCOt69TukzwnxOt0PWa1Lgi/+x3+9Z03ZAfGpq
-	8zzLBxSx+WKSn1/mAbU1tHt1wnHdtiyvR2sI8KEO6yHe6p3XVfEzinP8yXWI3rji
-	UuiS0S7NTjbH0uOloS1n1Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789451314; x=
-	1789537714; bh=FI+a7IE4f2WsMNjssnCOFfk93UX5wc9at6Jt16362O8=; b=g
-	VrSd2olYLSvAPHeojHLV0nz4sNNJh7pulTu0C9VKjj92ricB895+QlfwoX/Twcc0
-	KfVqyicP1j2U1WjpHgaFVsxH1ujL9Ac27uhuIheOypkM/r3zx6w84iI1m4ak/mn8
-	5jbRnM14I8pLCKN2J1GS2uqw11fhCmN9ZJezocMz3K+V/bndwY5tMAdikyB7ghbw
-	MFjw8r5zBmaYCzhgVE1JK6YL/9mW+lC+bI9cUChcoG2H/Vk5A+Q1Q56kwZkhqbcF
-	iTJcw9QNXmp3/AKcS9ZtpG38EbV/KVT+7Xpa6idqAsbUCKy70YABiUnwopsvhvEt
-	DGsBKO7K/oeVuvnxBj5pw==
-X-ME-Sender: <xms:MNyoapToh2O4UE3P0-oRUXoUFGdmw0OIrpZDIRtaYc1zr7NI7xaUpw>
-    <xme:MNyoatnS0Re5z6myOAiNWNDU4n0I0pTWAO9dfu2n-mVByf7HP1SaCW5wtTtbuyWmQ
-    MNED5KuFFKgZ879ShGS23ExGKdQ12_RikYvfxjS3Enczp5Ex3w6IntX>
-X-ME-Proxy-Cause: dmFkZTG4jI5J0ajg+XHjiAO7uRJKuaLRxoNRzWZeGjSA+XiarCh3hJ8cBQpGVABbQdqksE
-    Ge5NbNjmWENILRmgWK4AkF7CHEnag7xyAQTSpWmhVc/tPmWAiUy092lgs1Jodmg8mgDobh
-    Zxcn6Nb/o4rZNGZYmyGsriqyk5g+/6AIDhvMibzyMK1oSR1rqoOLJNCq11zwQJI71h6Clq
-    KQq4nzmUfl7uVSzToozTmHq7mr3G/s32n2yvMVqYP+QwZH/VnaJO5oRWAQYbNEll//vc/7
-    OXA1rIx2qkQlv7P3wsi+peyO1WE3NXI648RlafHrcfC/6rOtVu2Il5E/Lvifx2Fs/s5nTK
-    NTTj/P0W/ghavgz5IjP4+UJ4M9C2JX1R6GROkcbyo/eNOfl6hmB6QDl2np7osnG4u5hR7K
-    5T9ZruuiWzhCcjfvQZuyCmJB07/FH2wnoLL74ZWgedBbpLya5mA03WfEPUE6GqnxDO/jBO
-    JI/2gjjmHxUareOxr0Np3rnfRhk8N0B1GzgDJxLperbEPrL9csXx+mVsiQFwTG7J4cgreg
-    YZx7nWmpeUkvy6ypQfc/HsJjMAcyE527ahDaXcii6nCJhVA92Z291IzHIFidhQQ/9sWgMS
-    OqSEcwLGwMjgrLH1/dvmmiKyDjHWuYMAwfx+b+jQZgp1Md3J4YH9n8UOj36Q
-X-ME-Proxy: <xmx:Mdyoag5Gdg6laD94qlR7Bdtpp4K-Y6q_6jpN3RK8CzSWGFamvJqMTA>
-    <xmx:MdyoatW1ynLqa3xohSqSRKO_DUsDcRVdhbWr4HxHOSdQeN_MNhLh9g>
-    <xmx:Mdyoai_d893CzABPOUcoLqbyc8Lon8IVGIzSSmI1BJNf3i9BgumN3w>
-    <xmx:MdyoaplNDl6mDcF2VfYBegmhr9Z5AKlL9he0l-VnqgJ25pa-C2Gd3A>
-    <xmx:MtyoarU9V6relRrxq1dvsx5EjPpANCWhpTlNs5Md1jNl_lMXb87QKY8P>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id A332E32A007E; Tue, 15 Sep 2026 01:48:32 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1789451322; c=relaxed/simple;
+	bh=LqKs0E+W+LDdReQ983V0fIzIIuGbvF2+nbEBAL6rBhE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eV3tRDxLBPDJpi3jEAcKzKpd/SX50gvFnompKElvR2iTq/oy+d50LmXL5iMSHHRzHF6NufUsnXj275oaVQTSCyg4pO9eZKLQZd4MsiZH+d1hcS+9xJKJcqClvTLqaYUjc0zVNsu4QOUk8THp1NhKdHNtslGUo/qu7EPZWmfezc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowADnu+8x3Khq2iAKCA--.40502S2;
+	Tue, 15 Sep 2026 13:48:33 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: daniel.lezcano@kernel.org
+Cc: lee@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	patrice.chotard@foss.st.com,
+	tglx@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] clocksource/drivers/st_lpc: Fix clock reference leaks
+Date: Tue, 15 Sep 2026 05:48:04 +0000
+Message-Id: <20260915054804.1729741-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ApDcdGHCsDIN
-Date: Tue, 15 Sep 2026 07:48:12 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <7c020979-cf03-4ece-a7d4-b1475d1400c3@app.fastmail.com>
-In-Reply-To: <20260914212537.1452-1-kmehltretter@gmail.com>
-References: <20260914212537.1452-1-kmehltretter@gmail.com>
-Subject: Re: [PATCH] rtc: class: Make the time32 hctosys limit configurable
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowADnu+8x3Khq2iAKCA--.40502S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr4rKrW3uw45tw18CFWkCrg_yoW8JF4kpr
+	1kKw4rAr1Uu3yIgrs0qrWvyr9Y9ayqkFy3G3y3K3ZrZr45GFW5uayfXayIvF4DArWxCw47
+	t3W5AFZ5ZF1DuFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmeH
+	gUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAILA2qowzNWfwABsc
 
-On Mon, Sep 14, 2026, at 23:25, Karl Mehltretter wrote:
-> On 32-bit systems with RTC_HCTOSYS enabled, rtc_hctosys() rejects
-> RTC dates whose seconds value exceeds INT_MAX, even when userspace
-> uses a 64-bit time_t. This leaves system time uninitialized by the RTC.
->
-> Commit b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow
-> time_t") introduced this limit to protect time32 userspace from future
-> RTC dates that can break boot. The same limit prevents systems with
-> time64 userspace from initializing the clock from valid post-2038 dates.
+st_clksrc_setup_clk() obtains the LPC clock with of_clk_get() but
+leaks the consumer reference on two error paths: the
+clk_prepare_enable() failure path returns without any release, and the
+clk_get_rate() == 0 path only does clk_disable_unprepare() without
+clk_put().
 
-Hi Karl,
+Add the missing clk_put() calls, mirroring the release already done in
+st_clksrc_of_register() error handling.
 
-Thanks for revisiting this!
+Fixes: 70bef01c0f1c ("clocksource: sti: Provide support for the ST LPC Clocksource IP")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/clocksource/clksrc_st_lpc.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> Add RTC_HCTOSYS_TIME32_LIMIT for 32-bit kernels, defaulting to y to
-> preserve the existing safeguard. Allow integrators to disable it once
-> their entire userspace, including init, supports post-2038 dates.
-> Warn on rejection with the RTC date and option name so users can
-> identify the cause and find the setting.
->
-> Keep the option independent of COMPAT_32BIT_TIME. Userspace with a
-> 64-bit time_t may still need legacy syscalls for operations that do
-> not represent post-2038 dates.
+diff --git a/drivers/clocksource/clksrc_st_lpc.c b/drivers/clocksource/clksrc_st_lpc.c
+index 419a886876e4..574b966eeb34 100644
+--- a/drivers/clocksource/clksrc_st_lpc.c
++++ b/drivers/clocksource/clksrc_st_lpc.c
+@@ -74,12 +74,14 @@ static int __init st_clksrc_setup_clk(struct device_node *np)
+ 
+ 	if (clk_prepare_enable(clk)) {
+ 		pr_err("clksrc-st-lpc: Failed to enable LPC clock\n");
++		clk_put(clk);
+ 		return -EINVAL;
+ 	}
+ 
+ 	if (!clk_get_rate(clk)) {
+ 		pr_err("clksrc-st-lpc: Failed to get LPC clock rate\n");
+ 		clk_disable_unprepare(clk);
++		clk_put(clk);
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.34.1
 
-What about the reverse: if COMPAT_32BIT_TIME is disabled, I don't
-see why we'd want to allow turning this on, so maybe
-
-+config RTC_HCTOSYS_TIME32_LIMIT
-+	bool "Reject RTC dates after the 2038 cutoff"
-+	depends on RTC_HCTOSYS && !64BIT && !COMPAT_32BIT_TIME
-
-[Technically it would also make sense to enable the option on 64-bit
-kernels running 32-bit userspace, which some users do to reduce
-memory usage. However, we never supported that case and I'd rather
-not start now.]
-
-      Arnd
