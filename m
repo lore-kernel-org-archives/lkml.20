@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44C23C1085;
-	Tue, 15 Sep 2026 14:34:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BFC3C342B;
+	Tue, 15 Sep 2026 14:34:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482848; cv=none; b=ja3Z+wgMommbJdyO30Ah4weSEjr3q8EfdUGRPqC/rGOA5YvTHqdR/GMFqy/tYNywUwN/OXxz2tl2XapJxb+fmmi8+Lw1CnkuPeBscNumYev8nsTtLdC/wXGwoazYGlkn6ZX+m96BroqLyPUXMXbl5Qe0OlW/+l+DBfAz0q3LMSg=
+	t=1789482849; cv=none; b=Co4SAo4Ngbbp7WckpNIwKPO+J5VBgABT8V+WHTJwgPwzbxy5woBdSOyYgbRs/7EhS6WbqfCTLgkm3WIhj7mzzdm13xuRk0NnT4Nt90uSVeWT2XitT8YntMXPuPqlJb5U0XcDai+28UVZPCOyJ3VTh5W2H5D9Dw4tqn2CMKbzZ00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482848; c=relaxed/simple;
-	bh=rKplGYxWCKFMa7GYxEp6v+ntDcuuIqtHQHXYrF7Fkeg=;
+	s=arc-20240116; t=1789482849; c=relaxed/simple;
+	bh=D6BHBRxeaxnmXjOk/qO0eNxWnxIZGdfq5CY6QwIgMmU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SNVRIFO3xpI967SLE33xKGPfaU17pVVd/y2qu91U3M56GPAgu5MVkdwby3e3drFBB2euWM03Ju34cdIGx4a+uYkqp44oqzDhXKkvHLQnwxNy7ocT4Ix8BoDenjRJPUSm77pJl2llDTP0Ea65/wZNMyWBIXPYqk4w/SdCtJeyViE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVNd/IgA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gbbgo5OG/OApaCssL/zWJdD04syNUYwYG2/a5vG8rHYSzjKfggH47It2E6Zs2AwUhz5QA7qM+DETPsaYJkgTiU6wcIVHZM5C/7QF1CKRo560dYKdJGfC2qciymmuphwaqTcRfKLPthVKEgqS3iUVdQLZXLp+tGe37vLcUvbUcCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jczOAY43; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVNd/IgA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C6751F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jczOAY43"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4DA91F0089A;
 	Tue, 15 Sep 2026 14:34:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789482847;
-	bh=WKHC2ohfBCTfxJBQb1w+ZA1oqxl4Tap4PnGbWDCoJ/8=;
+	s=k20260515; t=1789482848;
+	bh=WsrL2oFK9840WoIrM7QJPBsnHu9HVCMK1ZcOyqnJN44=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EVNd/IgAH+l+uixqDvEWYj8LtwMLeSbPVrdgNwWKZMuT4Tk+9YyMOrBXL6Rz1OtND
-	 36rL5RN1yTU5iX28D2orhL3+gdVQWQhq8HiYx+8t0piE5FyMyUf0YkWAaNhpksHjN0
-	 LNmsMCxKrATaXZnPRigAIhirlUwcw7PVoWncpFRGzwbH9m23RWcNHExGQPNb0SWURy
-	 DkvraZ2bsZcFrYD5vM69lBdnhd3Mrpw90haJTPOa+0UfXy64yM21oQXc/W7y+F7R6V
-	 2JuZR+FfbStiaMgwd+Bb6gLyWUV6Wg+oXnhXmM9sH9txXb48LHpMj8hXUCiuMS8+KH
-	 7tJYBqO2di30Q==
+	b=jczOAY43TV82GPM9joO0KlMbFEhEwzVbxDedWo2jpIngc2YnKXqKV1N6fEST14jda
+	 1bo+HY689g3cdashcwO2Xe6gl7qP7NtVUQO56OTH0bGsu9sRWT8j4mci50+2dQkC+7
+	 w92S5G8oVmp58iIf+2qzkAFUuyjZpdKkBxKuiYAZWkzYWYc6u5+UmdUpUSCpdw/1c5
+	 92UiWOIF+ooND9mn71yZ53zCNmfhnEDdjbSVs/+g10r7ixrV4qX/Tu3QG8UQZHU8z0
+	 9A6sOziWW696qrxTub1RTsKQVS8c/EPAL/C2KU5Xd7GdYJ6ACrhH5VIqZp9EploMhR
+	 /qaRa1MyNfMyA==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 1/8] mm/damon/api: introduce DAMON_FILTER_TYPE_HUGEPAGE_SIZE
-Date: Tue, 15 Sep 2026 07:33:50 -0700
-Message-ID: <20260915143359.91472-2-sj@kernel.org>
+Subject: [PATCH 3/8] mm/damon/ops-common: support hugepage_size damon filter matching
+Date: Tue, 15 Sep 2026 07:33:52 -0700
+Message-ID: <20260915143359.91472-4-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260915143359.91472-1-sj@kernel.org>
 References: <20260915143359.91472-1-sj@kernel.org>
@@ -46,55 +46,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce a new data attribute probe filter type, hugepage_size.  It
-will work for memory that is backed by a hugepage of a given size range.
-Add a new damon_filter_type enum DAMON_FILTER_TYPE_HUGEPAGE_SIZE to
-identify the type.  Add two new fields in the damon_filter struct for
-saving the size range.
+Update ops-common data attribute filter matching logic to support
+hugepage_size filter type.
 
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- include/linux/damon.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ mm/damon/ops-common.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 4be7d1df8e71f..bbb190b474015 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -783,12 +783,14 @@ struct damon_prep {
-  * @DAMON_FILTER_TYPE_MEMCG:		Specific memcg's pages.
-  * @DAMON_FILTER_TYPE_PGIDLE_UNSET:	Pgidle is unset.
-  * @DAMON_FILTER_TYPE_PGIDLE_SET:	Pgidle is set.
-+ * @DAMON_FILTER_TYPE_HUGEPAGE_SIZE:	Page is part of a hugepage.
-  */
- enum damon_filter_type {
- 	DAMON_FILTER_TYPE_ANON,
- 	DAMON_FILTER_TYPE_MEMCG,
- 	DAMON_FILTER_TYPE_PGIDLE_UNSET,
- 	DAMON_FILTER_TYPE_PGIDLE_SET,
-+	DAMON_FILTER_TYPE_HUGEPAGE_SIZE,
- };
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index c36cc39cd2c70..77366f42b3e5b 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -536,6 +536,7 @@ bool damon_ops_filter_match(struct damon_filter *filter, struct folio *folio)
+ {
+ 	bool matched = false;
+ 	struct mem_cgroup *memcg;
++	size_t folio_sz;
  
- /**
-@@ -798,6 +800,8 @@ enum damon_filter_type {
-  * @matching:	Whether this filter is for the type-matching ones.
-  * @allow:	Whether the @type-@matching ones should pass this filter.
-  * @memcg_id:	Memcg id of the question if @type is DAMON_FILTER_MEMCG.
-+ * @range_min:	Minimum value of range arguments.
-+ * @range_max:	Maximum value of range arguments.
-  */
- struct damon_filter {
- 	enum damon_filter_type type;
-@@ -805,6 +809,10 @@ struct damon_filter {
- 	bool allow;
- 	union {
- 		u64 memcg_id;
-+		struct {
-+			unsigned long range_min;
-+			unsigned long range_max;
-+		};
- 	};
- /* private: */
- 	/* Siblings list. */
+ 	switch (filter->type) {
+ 	case DAMON_FILTER_TYPE_ANON:
+@@ -558,6 +559,15 @@ bool damon_ops_filter_match(struct damon_filter *filter, struct folio *folio)
+ 			matched = filter->memcg_id == mem_cgroup_id(memcg);
+ 		rcu_read_unlock();
+ 		break;
++	case DAMON_FILTER_TYPE_HUGEPAGE_SIZE:
++		if (!folio) {
++			matched = false;
++			break;
++		}
++		folio_sz = folio_size(folio);
++		matched = filter->range_min <= folio_sz &&
++			folio_sz <= filter->range_max;
++		break;
+ 	default:
+ 		break;
+ 	}
 -- 
 2.47.3
