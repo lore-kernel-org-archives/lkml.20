@@ -1,84 +1,64 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1508747ECD3;
-	Tue, 15 Sep 2026 12:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7003F4DD0;
+	Tue, 15 Sep 2026 12:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474748; cv=none; b=iy8d0sJa0K5rSuLKqW9SVZvDr9PQP+ICXklD5p3fhhdKR4mVeuQwBZVTkuSuUroN5cRkcB8OAsY6FT5QgFm8C+OjlsJ7ozGU+EM4NV7g6FHrdljwm3k4A8WAMXpeHFHXoJ3zX4ohaiutRmSlDywxIZPtD8/yFlswTaopeKR+YEk=
+	t=1789474785; cv=none; b=rF9IewVy4xK/vW6uhnfMYVLnD7u/bxPnZSfqmgl+feEXAXZ5R/zf1GtoOH0tgVKhZ7OcBToaZs7/KPtkp9dF8rubw2XqHc6dRcvzOac86u6tw8nVAYb6TrV81yX6Z7a/1uB5ciB4cMMFCIPDsNDWjCOF9inC30+6M6dsHNeBG4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474748; c=relaxed/simple;
-	bh=D0xLRVt71fkEBU1S4cvbdgpgfNOl+OJ47ahB27ySe6I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=In4VvR0eY5gwhjgtnaRPRh83TWtpkldh3moMGbKawbhezL6ThmH7ys5oXTjAauGjdJ4HJQU+sIKcxzId4frdLzbCMi0EYS/DzNiLVsg05lT7eajaehGVBKpd98uyR1OBeOfHKycI2qPlaEUxFBJywgN+68H5u+Zg3y+Y9yJMH6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bxTAoxqo; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789474785; c=relaxed/simple;
+	bh=s+9PDH0CZ1Vr08YyoCof+UTThGpQ93yPbrI7mSCf5jg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iQIxf9fQlkJFpe+Ma3j8t46I+hnWQ4sPU3Cyt/SMR86iQ5kMUSENOrLe2TEgBSDADPq9VkfHhNM030irCqWJD8VYRXDW64HsKk/HnPrOJoiSFbynFDhHqB7dPR+H9nO/kKO/y5Xpn8de0pdNalizy2G6UEPWuC6XDMXT6kg29oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0z6lytA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bxTAoxqo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=xUMIRyRgF+J1QkbwTu1z8LNA2IpOUkXjHPIEqoAgFeM=; b=bxTAoxqoBFNCEnhGNIMaYKHCw0
-	noO2zUY2QffyLscG8qDO+GuhX1sRI/vHvqK0LMoMP44bwO+f79nqkwPmFUubJ7Oyae0O++vWZ9tcm
-	0QQpHQ60tBhyZY87PiAKCpdU1NcZy7RE2rZhUgpMlZfjhYuL3lcYU9wSE73l+Itsqxwg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6S7l-005Gnn-8k; Tue, 15 Sep 2026 14:18:57 +0200
-Date: Tue, 15 Sep 2026 14:18:57 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: Frank.Sae@motor-comm.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
-	jie.han@motor-comm.com
-Subject: Re: [PATCH net-next v18 2/3] net: phy: Add support for Template
- Control register for PMA
-Message-ID: <14de4b19-254b-4d45-9239-5a3badbbb73d@lunn.ch>
-References: <20260915082152.3104633-1-kyle.switch@motor-comm.com>
- <20260915082152.3104633-3-kyle.switch@motor-comm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0z6lytA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11B431F00893;
+	Tue, 15 Sep 2026 12:19:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789474784;
+	bh=s+9PDH0CZ1Vr08YyoCof+UTThGpQ93yPbrI7mSCf5jg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=m0z6lytA0Lb7PeCTJJ9wan77NmP+WaqiiLFqlwKeXKPuaHqeXDGZgjSEE5Nqy5ZTD
+	 uXplubyhODu8Q/NNq14/kXJbT/9AFQwToWT9BIY9E7L4zCHdhq4qOYWiAgbLHBLAxF
+	 XtT+b1kvKyB39r1HyAihRAZd/uoRrMfxf0YZCrLmFzS7pKcK/CRl1fiGl+0H5LKWhV
+	 PlUaIzcMF+cm9TI4V6HSienMOrDlPf4JHELixv0sjOAXsqO+TJlLMDqNaOXk1sfBNv
+	 cjEFW+zAMBlSevojGz84ZSkbXhlbmUkgsft9l8Pqsgamb08/hqshJfCjYTrtd+Gp+Z
+	 XZIjfnkZC6SUg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 50/50] Drivers: hv: mshv: stop putting
+ descriptors back on failure
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Torvalds" <torvalds@linux-foundation.org>, "Christian Brauner" <brauner@kernel.org>
+Cc: "Alexander Viro" <viro@zeniv.linux.org.uk>, linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-parisc@vger.kernel.org, "Jann
+ Horn" <jannh@google.com>, linux-hexagon@vger.kernel.org, sparclinux@vger.kernel.org, "Jan
+ Kara" <jack@suse.cz>, virtualization@lists.linux.dev, "Peter Zijlstra" <peterz@infradead.org>, kexec@lists.infradead.org, linux-hyperv@vger.kernel.org, kvm@vger.kernel.org, "Eugenio
+ Perez" <eperezma@redhat.com>, linux-fsdevel@vger.kernel.org, linux-snps-arc@lists.infradead.org, linux-sh@vger.kernel.org, linux-mips@vger.kernel.org, linux-arm-msm@vger.kernel.org, "David
+ Airlie" <airlied@redhat.com>, "Oleg Nesterov" <oleg@redhat.com>, linux-csky@vger.kernel.org, bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, "Ingo
+ Molnar" <mingo@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, linux-m68k@lists.linux-m68k.org, "Jens
+ Axboe" <axboe@kernel.dk>, dri-devel@lists.freedesktop.org, linux-gpio@vger.kernel.org, linux-openrisc@vger.kernel.org, linux-um@lists.infradead.org,
+ =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, linux-mm@kvack.org
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-50-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-50-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 12:19:41 +0000
+Message-Id: <20260915121942.11B431F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915082152.3104633-3-kyle.switch@motor-comm.com>
 
-> +/**
-> + * genphy_c45_template_testmode - configure template testmode registers
-> + * @phydev: target phy_device struct
-> + * @test_mode: testmode includes Normal to Test mode 7
-> + *
-> + * Description: Set template testmode include Normal to Test mode 7
-> + *
-> + * Return: 0 on success, or a negative error code on failure (e.g. register
-> + * read/write error).
-> + */
-> +int genphy_c45_template_testmode(struct phy_device *phydev, int test_mode)
-> +{
-> +	int ctrl;
+> Rely on the fd exit path machinery.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-I would suggest test_mode is a u16, or at least an unsigned type. ctrl
-should be a u16, since phy_modify_mmd() and phy_write() etc take a
-u16.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-> +
-> +	if (test_mode < MDIO_PMA_10GBT_TESTMODE_NORMAL ||
-> +	    test_mode > MDIO_PMA_10GBT_TESTMODE_7)
-> +		return -EOPNOTSUPP;
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D50
 
-And once test_mode is unsigned, you don't need to test if its is less
-than 0.
-
-    Andrew
-
----
-pw-bot: cr
-	
