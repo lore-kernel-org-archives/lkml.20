@@ -1,70 +1,70 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00190415B92
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:03:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75734419314
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488226; cv=none; b=MIEFHWOgFlluhEweQ2ZdTJtNIuTztWxibp4/310ulzQfL/z0spx/3gGN55OGcS5mk47u0hz6JIjliojv0q0j4AAyATH01XwAN+laRjWNFhHSSM0irG/QsbcB26Zo7qnSHDGWiH239mHWH2vGM+YsU3/taYmLWdBZqqmTvNAsOOg=
+	t=1789488251; cv=none; b=gy8OmKoOlGBbTsB+iSik/dDH1Um8N3cPBlN3E1OhCTKy12JWqH8Ax0Z+6y2zqGnszZ5gwXMEO5iBispomUB8XDYiF3IqTd7TRxcq2fK6hxEP6s+lcfHejPD4DoEnRKzcOPcZgO09vEN1ObHphQ0hXLzr8fcGrkF3p5I4YJdBW0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789488226; c=relaxed/simple;
-	bh=akz6aUJrU9noL7BHsmdBLUbZm7ypb5K09r+URlU8H/U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LHejehyPTBjilqe0AWukFcuMFYRiY9hFc2vkZNtWlijLMg6Q+Pu0v0LI202mlf64LXPdD0+FFRPv61L6zJstHfnoAArIy0WgnORuUsbHunFhRnIaRX21WysrHPuisgE3tzwhtzv5HTRDR2qy1vi0u2GuvklQ9QBIYG1rB89ulvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UKlTD2QQ; arc=none smtp.client-ip=74.125.227.12
+	s=arc-20240116; t=1789488251; c=relaxed/simple;
+	bh=lA636VS67hdrjx+PMhYpGgpYnpbYMhQFiYdOHjN8K/E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b1ZSQH8ePtv7Fgur/mU9ipGepQmA5EnPmZOR6JEMa4hONb1nQN3B1I+WZ7YrPYCPicdiPJaQ5xoTThZc9mMWgLoZtDPLBQLJlfF57mWdtnnksHH9ULNG5iPXsI2APGxOaeq/o2BpOq84UEzGTrWfhtjoz9lQiEQM4Wv5lYeWkmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LKu0cNzw; arc=none smtp.client-ip=74.125.227.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UKlTD2QQ"
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78564421fdbso1000526137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:03:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LKu0cNzw"
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c98e1942dfso641262e0c.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:04:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789488223; x=1790093023; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789488249; x=1790093049; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9GyNMK0fri713TgvmOq1tEC71eXmhUWip0yVYKcndwI=;
-        b=UKlTD2QQWoHcDSAKORijE3T5SpP2FC8yLQKha3P6ZMeIkiesNHf2uohZzct0ioprHU
-         wZRj9C/Bbp+824m3Vd7tvtrl9pKlfK7+HyN01c9TvgPYcB06pEjeshEPW/yYHVF+Syi9
-         SQ6zFZ/5pnJOvqiFNoSVfSap3U6ZnqkuId4eVvzNFspVDPfo37dG3cQCcBEeq2rJ9aKb
-         5wIu4y0f2qssdNG7sX/AnBcfemh4FvBcc7A2wUHJO6RYPzIQI1QlNACaSZ708Q8psEYC
-         +rvZ+n4t5j7aaX8bF92ieZBWR3qTyyMecE2ESSWI5koc3aYumm8UjHpiQcI7xAk0siVk
-         3Vww==
+        bh=el3jo+f6tEFLjvK3L/xYGk89Xvgt7/7dA3tjV60XJTA=;
+        b=LKu0cNzwtRgz98Qutp+MCpe3bYH/0teD9AMpMFltYHEhF4HcEATg8I+a61Wtw3HG+m
+         1Yf3QEjEz/8hOa1G/XZQPt1xMqbxuRYAnO0t7J7Q+lNpJySj6JqgXdjMXW5ujAQJGBcR
+         JG9EnysDX2M2Bi2T2W6Bpxn7bxnOOgByYriOwlQn/C2k1lJYuj8O4UUxFPmGZi/5FCg/
+         FIFBHDpbTC5tFxVORmhirXX4EfVAX0I66fBY8HDZra68Age96S+xnyeM41th/zIX6Fky
+         7fQOpaR9xdUmrHM4XlUxc5CGblyDBJe57YR9bjJfVq5Tjvqh8Ig5KwS7bKJwPY1rpxkx
+         D85g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789488223; x=1790093023;
+        d=1e100.net; s=20260707; t=1789488249; x=1790093049;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9GyNMK0fri713TgvmOq1tEC71eXmhUWip0yVYKcndwI=;
-        b=gWmvSa94hfyq59ogpUS18qo5MA+uC3zHWSlDVW+Nh4n26KqjYsiRGUONUxkFspi2hu
-         OLp45zlHWRRt5aOj3w5Kl8fERzYgjHe8HDE6TEzdn9xD0+Yp3XnvY8DiJWwSI9rMh2qq
-         kc5dvLpPJA/EfXAPfRCFSAx5zhxZSCfaBYUCIGDq+FnE2oVTXPEe0avqNbTbZOk7TmLx
-         TEuyljl9NOp8iZ1/3elJUXDfbtYrs4aCWso9mhYqc2OPswshdvovFaSZXusG4W0wZ3dl
-         NdKwgdJzFEHCsdBoNWO6c7lSRJqdOo2V1dmb7Co43opyTpu8DJ58FuwFOWv74jimJldO
-         Pqkg==
-X-Forwarded-Encrypted: i=1; AKwUvBx6ArDe6D7MlzVwlKcH6W2M9aaPk9OwqIdH1kmqwEEOfR2rkUwjsenBSUQ8DSL85Kr4jmT4IVR+K6yGX2A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kr1Ke9CLQD78KYgSLSZBTig4C0EvBHTnviIB+5tsNSxXYrchCu
-	//YiGOLAEcHMeDDpqhiHg4LopR8kBuVJPsXnoSLjlhC+kQSJVYzb5Chlafj4FqKsj7M=
-X-Gm-Gg: AYBFou3PzR1kyxYpuTvgFlGcPQVJJw034svjgiLlUwA5XAzT6IWvlOs0q8zZuEMF8n9
-	zjZrZzZHxjorrnvZr7rtNvUOb+C+qKnJiHD8WLMSiWsmsnUDvkBhI61S0EXJcIlBkWmCLD600r+
-	B0I042A6JnYkItMzy++QrJOgenX4U2vsgLszI8gJ8THZIIBsuPZO0tIjnWjaF4aQpeEE0CglzZQ
-	NhyFdU9vn3WOlZ9A4gUHVp/qFupaPHZtLZnTLiKCg5ZFjwhoCG3yCMzlqxtQFXQnW5uopDyh33X
-	QhOBcRpmlsyytMWSWq3lxg3iII+z2arLEtfFSsOWFvd40Kzh/sdo2gsVIvPzV9+P1+R7JRfqZTE
-	ZVJTqTEJlNiPIAo4UjJnZSJC/LmENl5ot+wibGqp1OgTiFVXq9OrOx5cbHejhwfTF23KmOfUoTU
-	0artoIqDnDuwT3IgU56SSvh1O0q3xPCFFjpyVs3uFL+mqAG3AJqHJgSe+ewnRzHWBa
-X-Received: by 2002:a05:6102:a146:b0:79b:b389:d6db with SMTP id ada2fe7eead31-79bb3a86689mr2219117137.2.1789488223464;
-        Tue, 15 Sep 2026 09:03:43 -0700 (PDT)
+        bh=el3jo+f6tEFLjvK3L/xYGk89Xvgt7/7dA3tjV60XJTA=;
+        b=BtW0jp2uh9gLrCxgWBrwM8FYNJ/YgMU/Fu5+QnSfIg/KyVOXKk48LtJHIwg7kiVIY5
+         nIAqlXE+0PLVi1BvBalKRg9nSkGkmu8UC5t0v5MicQLZ4cu9VfYDzzvlj/D0RsCEKNCO
+         2I8mlKLXDtrGEt6eFo2ODcKpT5dv3zAKUXRnMKxa8LQx6+hN0sdxwPDjioYeuORb9qz5
+         0MIYcPJp64QzAYBOlssTYHBeaJZ+yDiZNkXo2ATvosahdksltpRTsYvB21P0Tx0GKnR3
+         +L2V5FAA9n+4H4QwHstKQBHDsE9KM2Jq2HQ8mrR7AQ48bvxv/lmEYz1ng9/r+WCRts9h
+         f5gg==
+X-Forwarded-Encrypted: i=1; AKwUvBzpd6Ro7pJtYQtpTsMzJbl+wkX+4qA3KXoqDwVxrniQWKuxXDL+Sz30zRETmhtWS+k+hr5BYeboO+Tn8sE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlmCveLLAUGcuvVkLKzjNOkFdme1dc1pkLXPi6TxjDyBZClBzT
+	e8Ilt9lMA2VheVafFd9qJCZBQM3Y+uUzzvmIki5jKnbRL9ztJAzeMHrL
+X-Gm-Gg: AYBFou30+IPO9oJ/Th3vVL2UP5j6S7gTrl1U3+1yhiZ4KYwMk+utXFJHvsxLPQrk1aA
+	3/jVJkIK4s8vihtqagkttTmB3fgmVFW63yX97cz7ZQ67TPW5sl/k+0Z/gIHk0QUMxtOY982+OdB
+	IfKOua2HkBv5xwNtkpBpnxq9xu3TIDQvk1tPph9y1LZ70e1DAonl7WOSaZj3EQ/ZxRf0mgqUMII
+	GQe14ROsrheCMJkIO/lN5JLUX0a67JVfOxRljghknyVTBBnuvmBQlvzSWcByVz4949LBoFqZLf+
+	hmb9i3+WqKFhled6jHT+Ck5oqF1e1xHdjmSdrsx2TQHtJ5G4tEyVWOtruBGMoLzEa0tF15Mxh9B
+	QAqOJlV4Etx9/yCXleu5fuBEqooGy64HG5f4JFbjWOBpzNy3dswjuom8L0NyZ3G+aKSU/CMMj2H
+	q+mohC6pM1ht7eek23NVJmSLLSS4Mv2V4Q/gHVvVKsDdF3NUDfsnQEsj/NGo/kJO27
+X-Received: by 2002:a05:6122:547:b0:5c7:fbb5:6ea0 with SMTP id 71dfb90a1353d-5c981d5aaf4mr9148100e0c.4.1789488249269;
+        Tue, 15 Sep 2026 09:04:09 -0700 (PDT)
 Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-982b9fac504sm15052563241.8.2026.09.15.09.03.41
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-982b9fac504sm15053906241.8.2026.09.15.09.04.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 09:03:43 -0700 (PDT)
+        Tue, 15 Sep 2026 09:04:09 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
 Cc: linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH] Bluetooth: ISO: balance the parent hold in hci_bind_bis()
-Date: Tue, 15 Sep 2026 13:03:32 -0300
-Message-ID: <20260915160332.3107274-1-qwe.aldo@gmail.com>
+Subject: [PATCH] Bluetooth: hci_sock: reject out-of-range OCF values
+Date: Tue, 15 Sep 2026 13:03:58 -0300
+Message-ID: <20260915160359.3107468-1-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,46 +74,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hci_conn_link() takes a lifetime reference to its parent with
-hci_conn_get(), but only takes an operational hold on the child.
-hci_conn_unlink() later balances both a hold and a reference on the
-parent.
+The raw HCI socket security filter has 128 OCF bits per supported OGF,
+but masks the 10-bit OCF with 127 before looking up the command. An
+unprivileged socket can therefore submit a reserved OCF that aliases an
+allowlisted command modulo 128.
 
-The SCO and CIS paths pass a parent acquired from a connect helper, so
-it already has a hold. For an additional BIS, hci_bind_bis() obtains the
-parent from hci_conn_hash_lookup_big(), which returns a bare pointer.
-Unlinking the child then drops the parent's existing hold and can
-schedule it for disconnection while its socket is still using it.
+A conforming controller should reject reserved opcodes. Nevertheless,
+the security decision must apply to the opcode that will actually be
+sent, especially since controller-specific behavior is outside the host
+stack's control.
 
-Take a hold on the parent before linking it and drop that hold if linking
-fails. A successful link transfers the hold to hci_conn_unlink().
+Reject OCF values that cannot be represented by the security filter
+instead of aliasing them onto an unrelated command.
 
-Fixes: fa224d0c094a ("Bluetooth: ISO: Reassociate a socket with an active BIS")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- net/bluetooth/hci_conn.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ net/bluetooth/hci_sock.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index b1f911fd4..09a6e0240 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -2342,10 +2342,13 @@ struct hci_conn *hci_bind_bis(struct hci_dev *hdev, bdaddr_t *dst, __u8 sid,
- 	parent = hci_conn_hash_lookup_big(hdev,
- 					  conn->iso_qos.bcast.big);
- 	if (parent && parent != conn) {
-+		hci_conn_hold(parent);
- 		link = hci_conn_link(parent, conn);
- 		hci_conn_drop(conn);
--		if (!link)
-+		if (!link) {
-+			hci_conn_drop(parent);
- 			return ERR_PTR(-ENOLINK);
-+		}
- 	}
+diff --git a/net/bluetooth/hci_sock.c b/net/bluetooth/hci_sock.c
+index 070ca388f9..6413593eee 100644
+--- a/net/bluetooth/hci_sock.c
++++ b/net/bluetooth/hci_sock.c
+@@ -1881,7 +1881,8 @@ static int hci_sock_sendmsg(struct socket *sock, struct msghdr *msg,
+ 		u16 ocf = hci_opcode_ocf(opcode);
  
- 	return conn;
+ 		if (((ogf > HCI_SFLT_MAX_OGF) ||
+-		     !hci_test_bit(ocf & HCI_FLT_OCF_BITS,
++		     (ocf > HCI_FLT_OCF_BITS) ||
++		     !hci_test_bit(ocf,
+ 				   &hci_sec_filter.ocf_mask[ogf])) &&
+ 		    !capable(CAP_NET_RAW)) {
+ 			err = -EPERM;
 -- 
 2.43.0
 
