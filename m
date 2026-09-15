@@ -1,71 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9C3379EE0
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:08:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0316B404BE9
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456131; cv=none; b=rYAS+gihyjgySB3IEMJQ644XpxIHDRK/HsWZnJkMeay/OzlXVtiJz4rRijYI0LuLrGf8hwVt0bXelJuBbSw+fASowZFP2qr5TgoOXBqO7+ainLwqlZt6nfQyzTsEVZTb2hTV4jcImb5HhqWmnLAmb2of0y2w1KsKslf5a8kVlRQ=
+	t=1789456172; cv=none; b=u6yVKahBRo5Ho8KXbox2g8wfG/xwtdwaT+o4g/Dx+ccr/rqnx44/bnEdmc9gjAVjUWxEOMHTHSpV9wrXVjH+RpioVlPX+G93dBI2PKFVjRYjCLulmr9LC+nTMEHLfpDv0GIyGEmqriFSTgNz54R1yZYX6IXIpQ9DYz7NFbtWVKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456131; c=relaxed/simple;
-	bh=AK2s88F7nEv4dz2wyh5b0V/BQf8lJLUyZNZtandR/is=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Fo0hM1NrEWk54M3VUaYRIy5o2lByg6p+6vunipaC3kIrJGj9KCo4wB4AfZVCbON8PtdoP9WVL+q/KIiiLMdlrVkTHnj+aDQrQEdH3fbbDEN5g0a5SpqxmODm1h3UJDP3n3pLZH2xs+Or1euG3NC6M8UOPu98taVkC6aYw5wO4CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H8ngipPf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789456172; c=relaxed/simple;
+	bh=zeWgHcoA+7eglTikukOUTmjeAqgmaZOiPJv96a4uDdk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FHccaJ8CgtTilA9SA/BEez/63jVz+evazTd9N2eZqHVqyZ2ifq8wAeOBr0gJx0motpAT/BdbQuvtarp7ZtbvA6NlID9sECk6IpAHfR2lZQ1Rey5NhL47MtsoK6sLYto9VhXry+r4NpglJ2O4M7b0MDtr6ujCE1rctPmqDRtD0PE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=Pq0itti6; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H8ngipPf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0A61F000FF;
-	Tue, 15 Sep 2026 07:08:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789456127;
-	bh=8TgXehxFGyZR3DBBNZ4sTpV3Ifkyf2QyqSuVLOJXsKQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=H8ngipPf8xFUONeOvHH46Xh4ujQILlFSkMHQQwZ/zVoc/aeZswy9kSHotzBwG3ddx
-	 Fr+RUoXYl7LsUj6xeFCtWYEG/yu9QdKuAWm3N/0CJMEWrZE5NUNQ7RGT5XwfWCE/ws
-	 zeH6lTTsNEJoTtcVoRdOjO7Wy2sU+bvh7kgBrfaTtSMRUpheePoFlypsNCX1ZaJpRa
-	 BsGUoPlOhRSt5i+54K0X1HRM1egok6upltRi4O9G8h1IJ2OOkRAtrRjrIhrnp7LDou
-	 KilRs6jaoX7vsW2yfhONzD/xBlblQ6TPGETSXZlhQfaltUPEI1I2LH5qW2oGnDn/Za
-	 5SQKHSEI3x22A==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Santosh Shilimkar <ssantosh@kernel.org>, 
- Benoit Cousson <b-cousson@ti.com>, Aneesh V <aneesh@ti.com>, 
- Grant Likely <grant.likely@secretlab.ca>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Miles Krause <mileskrause5200@gmail.com>
-Cc: Santosh Shilimkar <santosh.shilimkar@ti.com>, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260909-master-v1-1-8800f5647ab2@gmail.com>
-References: <20260909-master-v1-1-8800f5647ab2@gmail.com>
-Subject: Re: [PATCH] memory: emif: fix device_node reference leak on np_ddr
-Message-Id: <178945612468.44296.16954992443488071978.b4-ty@b4>
-Date: Tue, 15 Sep 2026 09:08:44 +0200
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="Pq0itti6"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 42E6E14C2D6;
+	Tue, 15 Sep 2026 09:09:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1789456166;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/fCEjRGvqmfU4DBZcQR+nvqqf7oRsqSZ0AziZW3psYs=;
+	b=Pq0itti6CckBBl20MVkOgB2buEDwXPGtTRjYjFKsG1YMhLxD0UbS/s1eybw7vi0Q7HEfmy
+	6gEwH2c9a+IF9kz0wot9P+deTm9ND8lt72YLuwDF2YxAsiKlLFYUT/4OQLqOrU+PJ60KcN
+	JoDrXx94X12amCQtP18oV1QwajFq21VdKuZSSLM/PFtYHT70K8Fo+98gseJaVgD0INi2+Q
+	DEfNdjrZrQRL+ysrDvU0h2mb7i/UO8WYHoNgryUjUThjpKkFAP8q20eRW8GrVUBVsjAQJ9
+	+xmqGNZdMbpk8yqMiR7l3l7aJ27K1qG1lko4y6naPzqgZD6TnQLkN7sf84C2iQ==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 75a35172;
+	Tue, 15 Sep 2026 07:09:21 +0000 (UTC)
+Date: Tue, 15 Sep 2026 16:09:06 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Michael Grzeschik <mgr@kernel.org>
+Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	linux-kernel@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
+	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Subject: Re: [PATCH] net/9p/usbg: Fix use-after-free on usb9pfs_clear_tx
+Message-ID: <aqjvEj1ySKWCZz4U@codewreck.org>
+References: <20260529081026.77732-1-zhaoyz24@mails.tsinghua.edu.cn>
+ <aqZichSBFZgqFn8F@codewreck.org>
+ <aqjflEL_79A95MGc@line.checkpat.ch>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqjflEL_79A95MGc@line.checkpat.ch>
 
+Thank you for the acks!
 
-On Wed, 09 Sep 2026 19:26:26 -0400, Miles Krause wrote:
-> of_get_memory_device_details() takes a reference on the DDR device
-> node via of_parse_phandle() and stores it in emif->np_ddr for later
-> use, but drops that reference without calling of_node_put() on two
-> error paths: the devm_kzalloc() allocation-failure check and the
-> is_dev_data_valid() check. Both return NULL immediately, leaking the
-> node reference each time either failure triggers.
+Michael Grzeschik wrote on Tue, Sep 15, 2026 at 08:54:22AM +0200:
+> >  - You had a rework in progress (before leaving Pengutronix, which I can
+> >  totally understand you don't have time or want to keep carrying going
+> >  forward, but is someone else from Pengutronix taking your place?)
 > 
-> [...]
+> I am actually carrying to improve the series. I just now got some time
+> and started to build an setup where I can easily test further changes.
 
-Applied, thanks!
+That is great news, thank you!
 
-[1/1] memory: emif: fix device_node reference leak on np_ddr
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/314ef67d673284d4c070455bd62d332f6d0f8634
+> Also my leftover patches are also tested and ready for updates on the
+> list.
 
-Best regards,
+I'm afraid I've lost track of them, I could dig them out but am more
+likely to fudge something up than not, so could you resend after
+rebasing on top of https://github.com/martinetd/linux/commits/9p-test ?
+(that should contain all of the pending patches I picked up so far,
+including the two you just looked at; I'll add your Acks later™)
+
+> > Thanks (and sorry Yizhou Zhao / Chengfeng Ye)
+> 
+> Thank you for caring and sorry for the long delay. Things are in
+> steady motion, but will hopefully smooth out soon. ;)
+
+No worry, I've been MIA a few months as well - I honestly didn't expect
+you to continue (seriously) so this is awesome news :)
+
+Cheers,
 -- 
-Krzysztof Kozlowski <krzk@kernel.org>
-
+Dominique Martinet | Asmadeus
