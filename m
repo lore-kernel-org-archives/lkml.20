@@ -1,203 +1,146 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7D644F576
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789509042; cv=none; b=aTAC6ibjehbQ8PARfJPdNci2/04/YklXT+P5Qswwq3X/z5MHHs/sLVvujIQA2E7vLQNV9w685nslFKg8Kn8oGW0NP3mtmdjnKmMBn93sTtxHCGhlwQ+Av1I+yR36AtQkNUHPYeIBykb9B6WtXY1iIngZeSigggWaQGis3SmDvxs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789509042; c=relaxed/simple;
-	bh=AsFvnPiEI4hoktzSDE+YxskYQoeQcCquOAQl0eZZ2bU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oGMiHNlFgfbtxFwlRemP7U7FlHP0Q6G6ortss0ZH3j28I5A9MX0rFfx+z7R+wYurL4aQWpviuK9bFAMdANFLz0SOXJAAVNWokEZPssbIMj8bvt5LwcM/Jv5nGBBqSUP17ZYusc/+QVI4q5nN1VL4P3xjPSGWXSX+89dQmkjw7Lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gp6m48Bl; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF6042C514
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789509247; cv=pass; b=PevLrUEplZ0qOAcTDZ02vmqmN4E3ON0e/bWYaxE44xynrABVkaTe1ntScQ2XYeEqGnBil0V6m+nHRfl34Apz8H8OtNWkg0ho3ZwdqpksXXzeJkJGBuNkgYkGRr0mm+Ytu35rlQdqKusBzX+5fYsVvlnHO+i88GsnCEPHKnrQMOU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789509247; c=relaxed/simple;
+	bh=0TQp8EfFx3Osrinb3pjUeqnZA4DJhjlAI5o7JdUlPZA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HufqWqGg8k3EqdKcfiou5aa7yqOxxsYA9qFwgJrUwyZ4a/MJNrnBX9/A9DpqIpml+jrHEebxDXfHY/PIrfc//lAPQ0v7xLPtAgT+E2fmlBkphP4NsSRx4rCDP4aJwAkiN9yv2wckpVVCshHcJ+9pT7OZwxhB8Rqmsok12pozJW4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Zcbmu9DI; arc=pass smtp.client-ip=74.125.230.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gp6m48Bl"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db425c9050so16415ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:50:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Zcbmu9DI"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-5306706e89dso35611cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:54:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789509244; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E6SB9vs0BvSl3wC4K+vfwcxAeGVMsdpPJk56FBxKTk2Wp6qnq8o03qqHjdVi7XaLLN
+         2CUa1Kef9LxQfqAUtiUSiptyU/lpgT4T1RemzL8y125zi70spX9DmXfxj3+88geD4zJW
+         +92kiU4EPPXE+nI8aAOoukwbsx1vbkeiEYUga4sdTwUvYst09Y/ODzV+sFpSsMkPCmqR
+         C6qWhxUSMyzz3cYYVM77n87dr6qrRZ52w3Tz5n65qP+gtWUE/cSezW7WBMfPsZvVuucY
+         0llWBLKErUWHgFFhJ+Yp66lhicLFfSbYqJyzpah2ilf2lk+jWabZg3grF+xO0HPY1xs5
+         X5Kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OMiuKQhfBcKvkFwTEw/tDiEQn5IJqyQSscIYNwp1mJI=;
+        fh=aXhiNuT7mLIA7KssUzGxjuc011BK9SoiYUrlPvXesc4=;
+        b=i7/Xr0zeNFJ5gvEFsRZKRYIpvmCFFhqdu5Rx+nVlG6hFefRNFlpAL0x673pD4h/cpG
+         PPkxM21Hg9soxQ3kTMg51PDrc49GoJ0KninGzRdJxbI0LuHBRgxifPJnfLYZknXxIo0/
+         vxzMcCZ3wN/2paS1c0NVEMjQxHzAIDDBlcY2tKsut/Mk34UVIWJ+UlSE/c5eZ5MlXsnH
+         8BAqYLnZuz4L7sMLw/Kf4BpciOrvDROe8JKtk9kwv7m5Msgj6PDNpO50DXUsdcyvc/X0
+         CMuE38lirikut2fqu71crLfX5m1H8MJAs5ysf8LGbcOfrQModqCClk5XwURveNpREQsU
+         M5bg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789509039; x=1790113839; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tI17L7xSTrsApSfRoy8c9Azix9/YhE00k0p3SqEz6us=;
-        b=gp6m48BlmwRjmbSm6Ml85gR0xlMaoJo5RCJdbsJwK1kJlOZDpsXe7/tJoZ4f8Nxn6h
-         hm9ilgTnI7bmSHn2mWCdi5bSyiVzGi5gIjGz2ugS6RlceEhvy5DyL3WniFEyhVpXTuge
-         lzZszXP03BZ49jasqeSZrtgs92Ycv4UybsqVwei48c73CgmVJyVgvLIXz5kcEhJfUeK9
-         AHbAeEzYMAD3LANH7f/wHTOsLc4eov5C7nAX+b0AK1N1axfvagO7ql4oAbUJrxEgUpjI
-         LwX4xBuMZLk2bWYDPFOqodryjhHQzRMA5Oj2rlolqHLeg8JlO/NmZGPLke6J3FOqrMiK
-         eqYA==
+        d=google.com; s=20251104; t=1789509244; x=1790114044; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OMiuKQhfBcKvkFwTEw/tDiEQn5IJqyQSscIYNwp1mJI=;
+        b=Zcbmu9DIzKehw4KEw9s04u05bcJ0k9qqAjw0rs2z83W/wak56taTU84HNi7ctToMTO
+         /imhVnGyz6pkJrD6iUD5gMSo5D1j4+gf2tivZ40EPa1dHP/kuVa+kcG8A2lrICHGyXEe
+         S8C2mmuLv8NZpGen1CF7BCd4npwizh9XrkiOCjN8BgMxAfIOrOyHZBxTsDZfc2GCQiNM
+         hTGVKogapzhwaSaHvBkzgUFxkIGigxZHm5GftK5Whn0thJ8YzLL1svogT5WrIq8TTZsG
+         2gxS1X1fLgmQH4f/2okQLN4mzs9FpdvUqf2/x/dF4cdaDMLxnikWdlFvbIxkp2ug1dw6
+         SLEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789509039; x=1790113839;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tI17L7xSTrsApSfRoy8c9Azix9/YhE00k0p3SqEz6us=;
-        b=u1boJ/bfFyoNgqPKBiX3qUbYX39k0trlKxhvK9CSw71W1ggyvxYJuNdrynYV2F2VXm
-         he8CtQdQ02J3dCr5evPTjxB+fP0v1mlm4hZJsk4FG04898yvVyPKV8zH9Nl7mUptpfJw
-         t6ZvFjUw1Lk351lkKy1UszkT3YfoJ/b5JaQjlwRK3PLX4iQoaafxF31dkClTilUIfugj
-         Adm/VJBBZ98BXXejYp9LMQEQ4T7XYHHVoT7pR9VFUc+qZiEKGO8OZQwKQXcbGlfITcCY
-         vua2ahT95OH3h54W4zlaq9rbFMqyzYr0TcrP6wU7iAxpmdi9oAZP736rJgR0wGwvAPoK
-         OagQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz7XUDmFQ9nWEudXOSZhsctUqGllhrYfDxSSv+4c6kRaA05Rh4+pouGCq9WpiN+FuI0r1QFK3zsfbD7zPY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZmQSVxTQD/qdgO/g5x4ypFK8u0lRrOYd3otB5KbLrE/80wub0
-	NqHCQ7F22g3n4cEXBmdGi74iZzQ5ZmSg1HnRFt3QjNrNd3h7gpmw7//A/YB88lJ8IQ==
-X-Gm-Gg: AYBFou1ZL+myhNX+6D+UdLnbdxCvXMH1KoOCxqTdILZjB0LpTjcF3SZF4KqA9bcsPhN
-	UH1eSyJNkU3BZK09GL9ddVAE3pj7ZxCqgJDcsGlG4ABakUyhf1QfYycl16MoIk/WmzXctvQ7tI3
-	4rfW0xZ9DR63Ann0FmZj24FLxb8AlZUEk078SfPxwdLtjsVUcpPzp8BAINuE3DIyfLPlRKWe6dP
-	75uEeFmcGhbJ53EYbVa0GYRREAvsAVfv+j+8RIZuyOsdxzr9SKlkaYJwMF+vTzJkB9fs7AdhI1G
-	7CzGAiWXa3CDa0gFdMkVDGgSf5E7Td1Zo9dtNzP5+ClaylfBYlN0INnKrAdKRKP73pVEOCqpXRY
-	iZ1qCRQSFPN+Gk0WJdaKE7q89hEXmp9bDnU1DMoXvQCc0vdCpxeLDeidSDha4dgDub7JasgmD7y
-	2VfjtHPNvS6284y6I64mp2/rRtYa8T6i8L7kVSVeFW+nATK4LUI6Gy0XPFM7ra/5K2nKnXZ68JM
-	PuI/hfyAfgtxBKwD+WqqzflhhtfI1GR3dA6rfdimS+S5p3BzMk=
-X-Received: by 2002:a17:902:f693:b0:2d0:1aaf:daec with SMTP id d9443c01a7336-2dd8be54ab9mr842285ad.9.1789509038186;
-        Tue, 15 Sep 2026 14:50:38 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2e51:8:8352:5e93:3fd9:766d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5af4f0bsm2082822eec.24.2026.09.15.14.50.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 14:50:37 -0700 (PDT)
-Date: Tue, 15 Sep 2026 14:50:31 -0700
-From: Isaac Manjarres <isaacmanjarres@google.com>
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: =?utf-8?B?6auY57+U?= <gaoxiang17@xiaomi.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Xiang Gao <gxxa03070307@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	=?utf-8?B?5Y2w6Zev?= <yinchuang1@xiaomi.com>,
-	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Lorenzo Stoakes (Arm)" <ljs@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [External Mail]Re: [RFC] bpf: account ring buffer backing pages
- separately from Lost RAM
-Message-ID: <aqm9p1uW7ls65_S-@google.com>
-References: <20260815091819.3651099-1-gaoxiang17@xiaomi.com>
- <04f3ce2f-67f5-4829-9551-a69b9df29854@kernel.org>
- <CAEf4BzbwZkoacX-iP1j4+p8YNbWsq0pc3eTermh2uT5ir66zbw@mail.gmail.com>
- <8d2e20842c24460296e4c83e6dc0dde3@xiaomi.com>
- <CAEf4BzYQvhSVN=Hggg5FHzFdkRr4UNBD6yXaBsOaAwbsRpXpsw@mail.gmail.com>
- <aqSNkbhIuaB5D0H0@google.com>
- <CAEf4BzbAOgwQqsRQnY4yxvubLtioQNL_BBHer4ExvNF7Rvvu4w@mail.gmail.com>
- <aqhZEuQTu394hYB6@google.com>
- <aqh17GTlWiDVJ-N1@google.com>
+        d=1e100.net; s=20260707; t=1789509244; x=1790114044;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OMiuKQhfBcKvkFwTEw/tDiEQn5IJqyQSscIYNwp1mJI=;
+        b=DYGbWV0gF+AbAlLBifEv8DLMSRgula2mABrJMYDctOYwooezk8Eh8LqJILe1HnnQrm
+         faTYZdztgQBrMXFCeeogDHr1ylyFJ8+GRFM6Arv0gbJggJq7df8bGmFZjhoBmvtGe4B4
+         NblycVmuM/74Uj7NxszSw1MGaFEfu6eI9LGHCpo7yqFUrO8AeOFmD9cekHs2moB5BPY6
+         remKwwxX8UH+30fKzGCESMjiAgEkRpBFw5AldjlPkaSR6L6o2yLvD24Y4z8Wb7pC9aKW
+         KXAm4xEMYQIXAE/0edUFBx6mYYm7+L7nc2iSaHDcWcxff38pjRg7WROd37z+jDQwJgGf
+         Hd0w==
+X-Forwarded-Encrypted: i=1; AKwUvBzbw+gO9RdgMZ1aEX3QGrO0R6aItx8kfBhiaECi3VpgxD7WaKoW1QwSI9ubPUbET221AexfKiMFlGAu5pw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtbOKT4XsI3T1wixIDVG+g6esNgLf+Ud9DpeZau4rX+Z0wQneF
+	KaFzfp76jmfh3gWg3dbeQVNF1eJvd2lfKUkogylpxzEklhh+5NFt/5EZI188puFjhv/n3VmJZk+
+	i4X6passdMphki6gkFfg1BbAqyaSqaD1gG9piNf/l
+X-Gm-Gg: AYBFou10R/7/wTvgWWJ6sa36G7kAbbNxiH73f6jx5h2xTpvnQcy3xgUqfqonFmqiKUI
+	asFaqc20X6IOVBTUYDCXViseX7DJQJCwwV2vF+cN+LteFFyXBzrOwH3LcakbIvFDkp4nwqVXcui
+	hdjK9wn2E2QLYjfWsf0gj8sCjmLSFuIgoiKzwxZJ1Ljb036EHlxziRZ46SNRBFXnf6oWMQhWVp0
+	qYXDTZGNcJ99HmX1321BVkmytUdSE6P+/+G2LBUSNcBgryfc9ZQMwSDOKvkSA4CmfIaNSr8ySSr
+	4Xul9zK2ZiQNj2DrcYI0twVMYmbdR1M55DmRl2G/ksMaIcXQPwjWyzLPMyR3Bg34bflPlNvt+4k
+	8EjnNeDbwkg==
+X-Received: by 2002:a05:622a:4d8c:b0:531:34b9:2532 with SMTP id
+ d75a77b69052e-5327ed8004emr1261141cf.4.1789509243807; Tue, 15 Sep 2026
+ 14:54:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqh17GTlWiDVJ-N1@google.com>
+References: <20260131122011.492961-2-thorsten.blum@linux.dev>
+In-Reply-To: <20260131122011.492961-2-thorsten.blum@linux.dev>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 15 Sep 2026 14:53:51 -0700
+X-Gm-Features: AcwNN1UD4Ko0WaR7iNBPqrcMZnYEXf8XodDGvSRhaJ_vRQwim3aRznf3-BfcM1w
+Message-ID: <CAP-5=fXA6d=T=+JfNRHWAPaRjNWzrNLNChwYmNzrbu5rxKJe7Q@mail.gmail.com>
+Subject: Re: [PATCH] perf/x86/intel: Replace snprintf with strscpy in intel_pmu_init
+To: Thorsten Blum <thorsten.blum@linux.dev>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 03:32:12PM -0700, Isaac Manjarres wrote:
-> On Mon, Sep 14, 2026 at 01:29:06PM -0700, Isaac Manjarres wrote:
-> > On Fri, Sep 11, 2026 at 05:04:55PM -0700, Andrii Nakryiko wrote:
-> > > On Fri, Sep 11, 2026 at 4:24 PM Isaac Manjarres
-> > > <isaacmanjarres@google.com> wrote:
-> > > >
-> > > > On Wed, Aug 19, 2026 at 10:24:28AM -0700, Andrii Nakryiko wrote:
-> > > > > On Tue, Aug 18, 2026 at 6:46 AM 高翔 <gaoxiang17@xiaomi.com> wrote:
-> > > > > >
-> > > > > > Thanks for the pointer. Understood — no new NR_* counter or
-> > > > > > /proc/meminfo entry.
-> > > > > >
-> > > > > >
-> > > > > > The remaining question is on the consumer side: Android's Lost RAM
-> > > > > > accounting would need to enumerate all live BPF ringbuf maps
-> > > > > > (BPF_MAP_GET_NEXT_ID) and read each map's fdinfo memlock to sum them.
-> > > > > >
-> > > > >
-> > > > > For BPF ringbufs specifically, you should be fine just iterating all
-> > > > > map with BPF_MAP_GET_NEXT_ID, getting its FD with
-> > > > > BPF_BTF_GET_FD_BY_ID, and then passing that fd to
-> > > > > BPF_OBJ_GET_INFO_BY_FD to get map's size.
-> > > > >
-> > > > Hi Andrii,
-> > > >
-> > > > Thanks for the suggestion on this! I did want to express a couple of
-> > > > concerns with this:
-> > > >
-> > > > Scalability
-> > > >
-> > > > I counted the number of maps on one of our devices, and there are 112
-> > > > maps, meaning that there will be between 224-336 syscalls with this
-> > > > approach. eBPF is becoming more popular, so I'm concerned about how well
-> > > > this will scale, if we have to invoke 2-3 syscalls per map.
-> > > >
-> > > > I had a test program that implemented your suggestion, and it took about
-> > > > 2 ms to identify 39/112 ringbufs. As the number of maps in the system
-> > > > grows, I'm concerned that the latency associated with computing the
-> > > > memory usage from ringbufs will become even more expensive. This is
-> > > > something we had an issue with before on Android, where we had to
-> > > > iterate through various sysfs files to gather wakeupsource metrics [1].
-> > > >
-> > > > To improve on this, I was wondering if we could expose the ringbuf
-> > > > memory usage and potentially other bpf stats through bpffs
-> > > > (/sys/fs/bpf/stats)? This counter could be a lightweight counter that is
-> > > > incremented/decremented on ringbuf allocation/freeing so that when it is
-> > > > read, there aren't any expensive computations.
-> > > >
-> > > > For this specific metric, we could just use a counter to track how much
-> > > > memory is being used by ringbufs and have userspace read that. That also
-> > > > brings me to my next point.
-> > > >
-> > > 
-> > > I just don't see a good enough reason to single out ringbuf maps
-> > > specifically. other map types also use memory, why would they be
-> > > excluded?
-> > 
-> > I was looking at ringbuf maps specifically because they allocate memory
-> > for the ringbuf via alloc_pages() and aren't attributed to any counter
-> > that is exposed to userspace. The other maps use either the slab
-> > allocator or vmalloc() to allocate memory, and those entries are visible
-> > via /proc/meminfo.
-> > 
-> > > If you are worried about too many syscalls, look into map iterator
-> > > program types (grep for SEC("iter/bpf_map") in selftests). That will
-> > > be super fast and way more generic than what you propose. You can ping
-> > > such program in bpffs and that will be you custom /sys/fs/bpf/stats
-> > > implementation that you have full control and customizability of
-> > > 
-> > 
-> > Thanks for the suggestion; I'll look into this and let you know if I
-> > have any questions!
-> > 
-> I looked into this, and this works in reducing the overhead from number
-> of syscalls, but the other part about correctness isn't handled by this.
-> 
-> For ringbuf maps we would have access to max_entries, but that just gives
-> us the amount of memory consumed by the data portion of the ringbuf, but
-> it doesn't include the 3 metadata (kernel structures, consumer idx page,
-> and producer idx page). I don't see how to derive this value--rather
-> than hardcoding it.
-> 
-> I did see that fdinfo for the maps does give the total memory usage
-> via bpf_map_memory_usage(). However, that value includes structures that
-> are allocated through the slab allocator and vmalloc, so using that
-> value would double count the memory usage in the system. Userspace
-> doesn't have the information required to break that value up to extract
-> just the part that is allocated through alloc_pages() directly.
-> 
-> I think it's worthwhile accounting this data correctly, as on our setup
-> there are 39 ringbufs. This can lead to 468 kB -- 1872 kB of unaccounted
-> memory depending on the page size.
-> 
-> --Isaac
+On Sat, Jan 31, 2026 at 4:21=E2=80=AFAM Thorsten Blum <thorsten.blum@linux.=
+dev> wrote:
 >
-Please disregard my previous email. A colleague pointed out that I can
-use bpf_core_type_size() to compute the size of the metadata that I was
-referring to and that worked.
+> Replace snprintf("%s", ...) with the faster and more direct strscpy().
+>
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 
-Thanks for all the help!
---Isaac
+Reviewed-by: Ian Rogers <irogers@google.com>
+
+Thanks,
+Ian
+
+> ---
+>  arch/x86/events/intel/core.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+> index bdf3f0d0fe21..025971ab6341 100644
+> --- a/arch/x86/events/intel/core.c
+> +++ b/arch/x86/events/intel/core.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/types.h>
+>  #include <linux/init.h>
+>  #include <linux/slab.h>
+> +#include <linux/string.h>
+>  #include <linux/export.h>
+>  #include <linux/nmi.h>
+>  #include <linux/kvm_host.h>
+> @@ -8077,7 +8078,7 @@ __init int intel_pmu_init(void)
+>                 }
+>         }
+>
+> -       snprintf(pmu_name_str, sizeof(pmu_name_str), "%s", name);
+> +       strscpy(pmu_name_str, name);
+>
+>         if (!is_hybrid()) {
+>                 group_events_td.attrs  =3D td_attr;
+> --
+> Thorsten Blum <thorsten.blum@linux.dev>
+> GPG: 1D60 735E 8AEF 3BE4 73B6  9D84 7336 78FD 8DFE EAD4
+>
