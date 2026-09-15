@@ -1,53 +1,57 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-86.mta0.migadu.com [91.218.175.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49D1385D99;
-	Tue, 15 Sep 2026 11:14:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298D148A8DB
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:14:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470848; cv=none; b=K+6ImMeAbgZERpUddN50D0EzeWTpWjKcGm7Bj2yh3bL/QxxTlWd4PVA/O5Hg8OdBnAzU3kkYIpDc55uRQW1txYhqCFqsU6HGfZmOe2U+SPHiQ9ZtrjNMut4fLuV1qK9ybyLxMu6OkdqxJRpa56CYLHv+JjtxwJ/boAUpiB3NZAw=
+	t=1789470855; cv=none; b=dnStVjux7ye2LugpReGK0mnnwSmAy7JZ+fGBPhEd5i6OxSOPxPl2SGGkFZUCfSZPTVqzE1zTvt2nsqvnSy22HAo/cHG3kThhCp+1KM4yORMIZNg7O/eTiRjpIT0FCrhneSGbEqzaID0i9WEKK+cBdk1njPz24vBknJ/W6Rk14/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470848; c=relaxed/simple;
-	bh=zZekLw5RMVyQsoxrQU2mJkIt4cG75S/ulXfEuGwz8X8=;
+	s=arc-20240116; t=1789470855; c=relaxed/simple;
+	bh=wibSmjO0uWDWPZo+iAJSWnYXVZkkfn1R+Ze2nTc0SPE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HlBI8aP4dp8WhuwGml1qwGQpiKf2Gh6MAguSy14C4PtlcmCr0YQ82awwIv7h2WoBtpYj/HxnMVmwKxICvow1AoxsJF+kNriJfvy8GRVJTvo3P2Q5e54Ku36CudnxiU8xypE1jte5xY29X+wI0XY4fRfINDpNwfcZC1xLypMLO4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NPIpuyQr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FMiOGh2gw4uTh1SJEoYsGDMREb/kIyilxbByUAHrCwzDbx+aeBzJX5taUa+S1G/xnL1eT7K7SLbSi8FT3ISevqE1AFDDk8Vr13wwqK9mlwkR+gG+rrJks6ivu1t+A4HWTNwEE4g5mkmhyDBTo33wUi+Zex7Q8SNFe1qebCNIGEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FE2PuXkI; arc=none smtp.client-ip=91.218.175.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NPIpuyQr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530F31F00899;
-	Tue, 15 Sep 2026 11:14:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789470847;
-	bh=HLagQFQZOyEmaZUWnZfwJED805o1ysF8ciaZJE3W+Qc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NPIpuyQrSy7s3haa/uTKou3xO0PdgTpAZXLXx2QJ6mrAyTNjNPCkJZbC/fbYK7ViK
-	 NHlWGIeEFc+e2v2hPm9IdLId37dKNqX18mNA/aRwOMrepWDtCnMr+yoRsWxD0qdQum
-	 PAKa0oHowZvQjNseJ7oexQ7vCIuGFe5Q3kNjL3KqsZmJM2JAnq8Y6xXDAP8fFExVXD
-	 1VIqtkv/mVJNTpdeZxPxrwCTroIOc8TBenqTjeGkNtnDWl2ATNJlgD4MzxJnSc12E7
-	 TEfgCppNOCabcaDhOgc5/1T5RFmGrT5ytPDR4IiJK0bYv38Qbs6MxegTOW6+ewsYep
-	 nuRgswHziZL6Q==
-Date: Tue, 15 Sep 2026 12:14:01 +0100
-From: Lee Jones <lee@kernel.org>
-To: Lakshay Piplani <lakshay.piplani@nxp.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
-	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"broonie@kernel.org" <broonie@kernel.org>,
-	Frank Li <frank.li@nxp.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	Vikash Bansal <vikash.bansal@nxp.com>,
-	Priyanka Jain <priyanka.jain@nxp.com>,
-	Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-Subject: Re: [PATCH v18 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
- and on-die regulator
-Message-ID: <20260915111401.GD11487@google.com>
-References: <20260903062108.2712296-1-lakshay.piplani@nxp.com>
- <20260903062108.2712296-5-lakshay.piplani@nxp.com>
- <AS4PR04MB93625052401AF41C2ACC2D66FBBE2@AS4PR04MB9362.eurprd04.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FE2PuXkI"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wibSmjO0uWDWPZo+iAJSWnYXVZkkfn1R+Ze2nTc0SPE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789470851; v=1; x=1790075651;
+ b=FE2PuXkIoaFqNjMAZYoSECHKT6ixpowIcLWuqP289hxHpEXAYJcy+eDffM+Lwy8fG8nW9sPn
+ 9a2wQv+/xbHrZrKeBlZFioYWAVdRVoujEJ7jxeU99ksEpB3L0xqoLJ7UW6e1fuDXxJhxI82iO4m
+ unMffzWRWK3Cq72C38PpY2kI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 9e5b113a4fa06a2f;
+	Tue, 15 Sep 2026 11:14:10 +0000
+X-Mizu-Trace-ID: 9e5b113a4fa06a2f
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 15 Sep 2026 19:14:00 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	"open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: Re: [PATCH v2 2/3] mm/mglru: add tracepoint for scan_folios()
+Message-ID: <aqkoeJvFzqpoGeaP@fedora>
+References: <20260911102939.2485750-1-ridong.chen@linux.dev>
+ <20260911102939.2485750-3-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,49 +60,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <AS4PR04MB93625052401AF41C2ACC2D66FBBE2@AS4PR04MB9362.eurprd04.prod.outlook.com>
+In-Reply-To: <20260911102939.2485750-3-ridong.chen@linux.dev>
 
-On Fri, 11 Sep 2026, Lakshay Piplani wrote:
-
+On 09/11/26 at 06:29pm, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
+...snip...
+> ---
+>  include/trace/events/vmscan.h | 63 +++++++++++++++++++++++++++++++++++
+>  mm/vmscan.c                   |  6 ++++
+>  2 files changed, 69 insertions(+)
 > 
-> NXP Public
-> > -----Original Message-----
-> > From: Lakshay Piplani <lakshay.piplani@nxp.com>
-> > Sent: Thursday, September 3, 2026 11:51 AM
-> > To: linux-kernel@vger.kernel.org; linux-i3c@lists.infradead.org;
-> > alexandre.belloni@bootlin.com; krzk+dt@kernel.org; robh@kernel.org;
-> > conor+dt@kernel.org; devicetree@vger.kernel.org; broonie@kernel.org;
-> > lee@kernel.org; Frank Li <frank.li@nxp.com>; lgirdwood@gmail.com
-> > Cc: Vikash Bansal <vikash.bansal@nxp.com>; Priyanka Jain
-> > <priyanka.jain@nxp.com>; Aman Kumar Pandey
-> > <aman.kumarpandey@nxp.com>; Lakshay Piplani <lakshay.piplani@nxp.com>
-> > Subject: [PATCH v18 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
-> > and on-die regulator
-> >
-> > From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> >
-> > Add core MFD support for the NXP P3H2x4x
-> > (P3H2440/P3H2441/P3H2840/P3H2841) family of multiport I3C hub devices.
-> > These devices connect to a host via I3C/I2C/SMBus and expose multiple
-> > downstream target ports.
-> >
-> > All variants share the same register interface. The driver reads the target-port
-> > count from DEV_CAPAB and applies the DT configuration, so no per-compatible
-> > driver data is required.
-> >
-> > Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> > Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
-> > Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> diff --git a/include/trace/events/vmscan.h b/include/trace/events/vmscan.h
+> index 8a872990b4be..5defa8f6719c 100644
+> --- a/include/trace/events/vmscan.h
+> +++ b/include/trace/events/vmscan.h
+> @@ -392,6 +392,69 @@ TRACE_EVENT(mm_vmscan_lru_isolate,
+>  		__print_symbolic(__entry->lru, LRU_NAMES))
+>  );
+>  
+> +TRACE_EVENT(mm_mglru_scan_folios,
+> +
+> +	TP_PROTO(struct lruvec *lruvec,
+> +		int highest_zoneidx,
+> +		int order,
+> +		unsigned long nr_requested,
+> +		unsigned long nr_scanned,
+> +		unsigned long nr_sorted,
+> +		unsigned long nr_skipped,
+> +		unsigned long nr_taken,
+> +		int lru,
+> +		unsigned long max_seq,
+> +		int tier,
+> +		unsigned long min_seq),
+
+Do we need show nid? Guess phone vendor doesn't care about multi-NUMA
+system.
+
+And I checked v1 thread, seems Steven suggested to move the two int to
+avoid extra padding.
+
+> +
+> +	TP_ARGS(lruvec, highest_zoneidx, order, nr_requested, nr_scanned,
+> +		nr_sorted, nr_skipped, nr_taken, lru, max_seq, tier, min_seq),
+> +
+> +	TP_STRUCT__entry(
+> +		__field(u64, memcg_id)
+> +		__field(int, highest_zoneidx)
+> +		__field(int, order)
+> +		__field(unsigned long, nr_requested)
+> +		__field(unsigned long, nr_scanned)
+> +		__field(unsigned long, nr_sorted)
+> +		__field(unsigned long, nr_skipped)
+> +		__field(unsigned long, nr_taken)
+> +		__field(int, lru)
+> +		__field(unsigned long, max_seq)
+> +		__field(int, tier)
+> +		__field(unsigned long, min_seq)
+> +	),
+> +
+> +	TP_fast_assign(
+> +		__entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
+> +		__entry->highest_zoneidx = highest_zoneidx;
+> +		__entry->order = order;
+> +		__entry->nr_requested = nr_requested;
+> +		__entry->nr_scanned = nr_scanned;
+> +		__entry->nr_sorted = nr_sorted;
+> +		__entry->nr_skipped = nr_skipped;
+> +		__entry->nr_taken = nr_taken;
+> +		__entry->lru = lru;
+> +		__entry->max_seq = max_seq;
+> +		__entry->tier = tier;
+> +		__entry->min_seq = min_seq;
+> +	),
+> +
+> +	TP_printk("memcg_id=%llu classzone=%d order=%d nr_requested=%lu nr_scanned=%lu nr_sorted=%lu nr_skipped=%lu nr_taken=%lu lru=%s max_seq=%lu tier=%d min_seq=%lu",
+> +		__entry->memcg_id,
+> +		__entry->highest_zoneidx,
+> +		__entry->order,
+> +		__entry->nr_requested,
+> +		__entry->nr_scanned,
+> +		__entry->nr_sorted,
+> +		__entry->nr_skipped,
+> +		__entry->nr_taken,
+> +		__print_symbolic(__entry->lru, LRU_NAMES),
+> +		__entry->max_seq,
+> +		__entry->tier,
+> +		__entry->min_seq)
+> +);
+> +
+>  TRACE_EVENT(mm_vmscan_write_folio,
+>  
+>  	TP_PROTO(struct folio *folio),
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 2554a6513aa8..67f59aa73fb9 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -4876,6 +4876,12 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+>  	trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
+>  				scanned, skipped, isolated,
+>  				type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
+> +	trace_mm_mglru_scan_folios(lruvec,
+> +				   sc->reclaim_idx, sc->order, nr_to_scan,
+> +				   scanned, sorted, skipped, isolated,
+> +				   type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON,
+> +				   lrugen->max_seq, tier,
+> +				   lrugen->min_seq[type]);
+
+And seems Steven also suggested to calculate lru, max_seq, min_seq in
+TP_fast_assign() in v1 which could be missed.
+
+        TP_fast_assign(
+                __entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
+                __entry->highest_zoneidx = sc->reclaim_idx;
+                __entry->order = sc->order;
+                __entry->nr_requested = nr_requested;
+                __entry->nr_scanned = nr_scanned;
+                __entry->nr_sorted = nr_sorted;
+                __entry->nr_skipped = nr_skipped;
+                __entry->nr_taken = nr_taken;
+                __entry->lru = type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON;
+                __entry->max_seq = lrugen->max_seq;
+                __entry->tier = tier;
+                __entry->min_seq = lrugen->min_seq;
+        ),
+
+
+>  
+>  	*isolatedp = isolated;
+>  	return scanned;
+> -- 
+> 2.34.1
 > 
-> Hi Lee,
-> 
-> A gentle follow-up on this MFD patch. Could you please review it when you have a chance?
-
-Don't do that!
-
-It was on the list, but since I handle all of my reviews in
-reverse-chronological order, you just put yourself at the back of it.
-
--- 
-Lee Jones
