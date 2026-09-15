@@ -1,140 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E3344AB9B;
-	Tue, 15 Sep 2026 07:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB54440A13;
+	Tue, 15 Sep 2026 07:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789455815; cv=none; b=QmYhsfp/yrO0behgsQ2x/MJns8UCY8Ih39R3UyAONoqJvRCXjVYF3aG4iUwjskuGaWH5GssUvYeNaFEAS+AIMR0PuFEUG8O/gRqOnXnCz9J5ci8e5vZDcmsjIPNGj/oLSDAaTP403xJ8DCq6xJq4JJHRHSm8uEX6x8K3OwMfwmg=
+	t=1789455838; cv=none; b=vC3W8P14ZFRA6+QVWGxJ4I9u0BUn8F7AJ5PTAcCpTYphn97PSX7DJq0z4ZsCdWS2AyFoTErNFY6Xdij8wWmyCyUdqPnF6vGZw5UICEzXJ2aBsReanfiN8cUuRgunCo3Tvve51sFyCQaKRW55/HUXhGRP+7ncVxOYbiGAEVrc79E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789455815; c=relaxed/simple;
-	bh=PASnGHuTNr9ooO+/UyWkBH7ChjK/TTZc6mbxL06hQlI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HBk1rRheAoCBFFnGzkqEZx1T4hYWQ2/dEi4qYnA2ayJbk6y9K2JyzvG4BMIv+OlC1cdUxLF3QhzrUYLVdYqD1HLAcGazENkgP9a4a9WFN8yH/qtVE8j3IguGjeReEaxtTthOOPdse9jLiG/m7aQ6yxsJIvo9Tbe9VAV9EgMsvOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DY8pZtu4; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DY8pZtu4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229E91F000FF;
-	Tue, 15 Sep 2026 07:03:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789455808;
-	bh=0jqazLvI6PHhKlLUw5ES9AlYBTQV/CW02EbTg8KOkAc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DY8pZtu4LuzXGihC1YElZInpGFpLzAlctTZ5qIJHgqTbGCYvRb74jSsImxBX/Of7e
-	 P0rUoS8jmWyqFsv1InIewtvA0IXOHOyhuf4iViVzEhejf/jXhPrH3TqtIs2s1DhQTi
-	 KY1Qq3wU1lwpqPuYbRLl+n9f7qvELuG4c6/zO3fGPtgIBMA1li/lP8ueuCBu2P8uzP
-	 vpR9ZNieeTiSO2dYr7NtjIQeGAK2C6hkvIg/+exeXoSw5ilvOgXNejrys3ydrq+lte
-	 X32vaAM+P4DQW2VRBFoiGaerQ2zbPPtO8yQdygT6+VaK2aUU+SUz8YOkEIO9WZySWq
-	 ih0c7yOtrqI6w==
-Date: Tue, 15 Sep 2026 00:03:26 -0700
-From: Peter Chen <peter.chen@kernel.org>
-To: Subasri S <subasris1210@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Duncan Sands <duncan.sands@free.fr>,
-	Chas Williams <3chas3@gmail.com>,
-	Minas Harutyunyan <hminas@synopsys.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Badhri Jagan Sridharan <badhri@google.com>,
-	linux-usb@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net, netdev@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] usb: chipidea: Use %pe to print error pointers
-Message-ID: <aqjtvglG5NhsDLZe@hu-petche-lv.qualcomm.com>
-References: <20260801-usb-ptr_err_patchset-v2-0-1698e298c1e3@gmail.com>
- <20260801-usb-ptr_err_patchset-v2-1-1698e298c1e3@gmail.com>
+	s=arc-20240116; t=1789455838; c=relaxed/simple;
+	bh=YRkU8KyF0H00Cx9BRK5RyuQ5oPriNisF6tBCyuGf2e0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=arAHozB1VFZTaxC5W2kWmbjGA+7pSWKiouVpWYd4EbwXoucNUkOoPc095YBR9LBgI9aovtpw5Mefvh1OzGWwjlpN+2ebs1yKz3WgCG5tq7wJn0Y4JsGoxTUY29JTW+EU0Zxw2ENmqP0P4lG7TnvW5jUMYxS7KB9oGnSE057a9P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADX4T_K7ahq+anIBw--.20952S2;
+	Tue, 15 Sep 2026 15:03:39 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: bhelgaas@google.com
+Cc: bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	macro@orcam.me.uk,
+	mingo@redhat.com,
+	tglx@kernel.org,
+	x86@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] x86/PCI: Fix device reference leak in pirq_find_router()
+Date: Tue, 15 Sep 2026 07:03:10 +0000
+Message-Id: <20260915070310.1733310-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801-usb-ptr_err_patchset-v2-1-1698e298c1e3@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADX4T_K7ahq+anIBw--.20952S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xw1DGryUAFy7Ar1xGF1xZrb_yoWkWrg_ua
+	s3Za9rXF48t3Wjkry5tFsxZFZ3u34qvF4kAr4xtFn8K3y5XF1DtFyUAr1rZF13u3yrAr95
+	J3sFqr45Ja1a9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUba8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VU11rW7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAALA2qowzOhDQABsb
 
-On 26-08-01 17:59:50, Subasri S wrote:
-> Use the %pe format specifier instead of %ld with PTR_ERR() for printing
-> error pointers in imx_get_clks(), ci_hdrc_imx_probe(), and
-> ci_get_platdata(). This prints symbolic error names (e.g. -ENOMEM)
-> instead of errno numbers (e.g. -12), making error logs more readable.
-> 
-> Fix coccinelle reported warning:
-> WARNING: Consider using %pe to print PTR_ERR()
-> 
-> Compile-tested only.
-> 
-> Signed-off-by: Subasri S <subasris1210@gmail.com>
+pci_get_domain_bus_and_slot() takes a reference on the router device
+looked up from the routing table. If the device is found but no router
+handler probes it successfully, the reference is neither stored in
+pirq_router_dev nor dropped. Put the device reference when the router
+probe fails.
 
-Acked-by: Peter Chen <peter.chen@kernel.org>
+Fixes: ac7cd5e16df8 ("x86/PCI: Handle PIRQ routing tables with no router device given")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ arch/x86/pci/irq.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Peter
-> ---
->  drivers/usb/chipidea/ci_hdrc_imx.c | 12 ++++++------
->  drivers/usb/chipidea/core.c        |  4 ++--
->  2 files changed, 8 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/usb/chipidea/ci_hdrc_imx.c b/drivers/usb/chipidea/ci_hdrc_imx.c
-> index 56d2ba824a0b..7bfe37ed68ae 100644
-> --- a/drivers/usb/chipidea/ci_hdrc_imx.c
-> +++ b/drivers/usb/chipidea/ci_hdrc_imx.c
-> @@ -218,8 +218,8 @@ static int imx_get_clks(struct device *dev)
->  		if (IS_ERR(data->clk)) {
->  			ret = PTR_ERR(data->clk);
->  			dev_err(dev,
-> -				"Failed to get clks, err=%ld,%ld\n",
-> -				PTR_ERR(data->clk), PTR_ERR(data->clk_ipg));
-> +				"Failed to get clks, err=%pe,%pe\n",
-> +				data->clk, data->clk_ipg);
->  			return ret;
->  		}
->  		/* Get wakeup clock. Not all of the platforms need to
-> @@ -448,8 +448,8 @@ static int ci_hdrc_imx_probe(struct platform_device *pdev)
->  		pinctrl_hsic_idle = pinctrl_lookup_state(data->pinctrl, "idle");
->  		if (IS_ERR(pinctrl_hsic_idle)) {
->  			dev_err(dev,
-> -				"pinctrl_hsic_idle lookup failed, err=%ld\n",
-> -					PTR_ERR(pinctrl_hsic_idle));
-> +				"pinctrl_hsic_idle lookup failed, err=%pe\n",
-> +					pinctrl_hsic_idle);
->  			ret = PTR_ERR(pinctrl_hsic_idle);
->  			goto err_put;
->  		}
-> @@ -464,8 +464,8 @@ static int ci_hdrc_imx_probe(struct platform_device *pdev)
->  								"active");
->  		if (IS_ERR(data->pinctrl_hsic_active)) {
->  			dev_err(dev,
-> -				"pinctrl_hsic_active lookup failed, err=%ld\n",
-> -					PTR_ERR(data->pinctrl_hsic_active));
-> +				"pinctrl_hsic_active lookup failed, err=%pe\n",
-> +					data->pinctrl_hsic_active);
->  			ret = PTR_ERR(data->pinctrl_hsic_active);
->  			goto err_put;
->  		}
-> diff --git a/drivers/usb/chipidea/core.c b/drivers/usb/chipidea/core.c
-> index 07563be0013f..09db8a4eace2 100644
-> --- a/drivers/usb/chipidea/core.c
-> +++ b/drivers/usb/chipidea/core.c
-> @@ -680,8 +680,8 @@ static int ci_get_platdata(struct device *dev,
->  			/* no vbus regulator is needed */
->  			platdata->reg_vbus = NULL;
->  		} else if (IS_ERR(platdata->reg_vbus)) {
-> -			dev_err(dev, "Getting regulator error: %ld\n",
-> -				PTR_ERR(platdata->reg_vbus));
-> +			dev_err(dev, "Getting regulator error: %pe\n",
-> +				platdata->reg_vbus);
->  			return PTR_ERR(platdata->reg_vbus);
->  		}
->  		/* Get TPL support */
-> 
-> -- 
-> 2.43.0
-> 
-
+diff --git a/arch/x86/pci/irq.c b/arch/x86/pci/irq.c
+index 0de436316a1d..2bb80b6bf606 100644
+--- a/arch/x86/pci/irq.c
++++ b/arch/x86/pci/irq.c
+@@ -1312,8 +1312,12 @@ static void __init pirq_find_router(struct irq_router *r)
+ 	if (rt->rtr_vendor) {
+ 		dev = pci_get_domain_bus_and_slot(0, rt->rtr_bus,
+ 						  rt->rtr_devfn);
+-		if (dev && pirq_try_router(r, rt, dev))
+-			pirq_router_dev = dev;
++		if (dev) {
++			if (pirq_try_router(r, rt, dev))
++				pirq_router_dev = dev;
++			else
++				pci_dev_put(dev);
++		}
+ 	} else {
+ 		dev = NULL;
+ 		for_each_pci_dev(dev) {
 -- 
+2.34.1
 
-Thanks,
-Peter Chen
