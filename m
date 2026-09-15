@@ -1,259 +1,217 @@
-Received: from mta0.migadu.com (out-115.mta0.migadu.com [91.218.175.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBE14457CF
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A258443C0F;
+	Tue, 15 Sep 2026 06:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789455563; cv=none; b=jTn5KcPCXXg6oAip3m16KOJNzd7Vdveb4rCzF7D+zCB35wSspijnbaeDRwHrkPkvjFWHG0vOkHCWjSlPlA5r+jGWaP8gAlAblLXlvkNuu3D7JdUpcYjHQaX7I8LikFv75qTkkTSt/zvXRl4mtjMPjb/Pf8gWUCQuQtvXv0VjkvY=
+	t=1789455562; cv=none; b=fmou+gO7SjKArFlkLfmv740oEl7asCtu4B15ji9/7IEokTkwW7srt6TdHDZLYFuCKeyABgIAbw9TLM+uuctwLfZbWfu5SxmKuYzta+HQ58VipE6zKl+clkj7Dn9ztbc9tKcg1hEGYIxlS6cpdi2zwf0g7DLfs9lWAqoyi5HbcPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789455563; c=relaxed/simple;
-	bh=TXew7UKxHPC4CJEw9Ku1oOpgdOQ+ip6CfBvxC9mCB6g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uZL1/kJCXVZCEAuZOmhDIwZIWOjE1yjs4/HSfuWa6+el+c2edNOC0pLBSFNGc5/XwF1gS40KOePz/0fx5AJTCS2RSXY0jIL0qZObcgTbKMRO6tlhXeKnCWXuP7Mnlko7nQrtpqrwaX+CwrqhRk6oxjROxRPbHUdLg4t2Ntgt5AY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HGKjh1Gx; arc=none smtp.client-ip=91.218.175.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789455562; c=relaxed/simple;
+	bh=QoNhRJ0ifh4MlXQ/EaKw+bICgR998M7jGjdHx74eHC8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=d42TMsFVH1TGiAHd1OoDkcR9CiuEF2TYp7li42DFbNJejGkMI66vUxOngSP+bMz5lvcxgqqflphbaMgoAAL29rMRvRT3cCRHLOMZ5sRQ/s5XOmhE++uEzd0m26hZxswF7HQV2Zwkks+7p+p8zw9bnBXUvdY4GA4aI2O7Zaiu6zI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=cVn/ewRT; arc=none smtp.client-ip=220.197.31.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HGKjh1Gx"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TXew7UKxHPC4CJEw9Ku1oOpgdOQ+ip6CfBvxC9mCB6g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789455559; v=1; x=1790060359;
- b=HGKjh1GxQzJxIdfm7QULEQj2kfzmr8JqA4d3yS9Zl38R7neag6wnQ3in+G/nBbgFbJbmRfum
- eGxhOTC8EasgZxK/3yR9mWwSR7SsRXXuxArC89VNwt23lcgb42o9UADcfofwAkqnXZ+ZQadXgmv
- JPd9Ee5+u4ai4c8mr9ll3Vts=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1b15e78f739985dd;
-	Tue, 15 Sep 2026 06:59:08 +0000
-X-Mizu-Trace-ID: 1b15e78f739985dd
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	Hao Ge <hao.ge@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-modules@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 0/6] alloc_tag and module codetag section fixes
-Date: Tue, 15 Sep 2026 14:59:55 +0800
-Message-Id: <20260915070001.113559-1-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="cVn/ewRT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=QoNhRJ0ifh4MlXQ/EaKw+bICgR998M7jGjdHx74eHC8=; b=c
+	Vn/ewRTXD2DknOiR+ceH/fgYMLer5T11klHZ66SQhTP50SrnUYu7+6W3zau7XMo3
+	MwgsL7ObbMVrZzOjJKE3x3JXAXoIIR/rbUGO4TMC5P/uOuA6FKg3rUlsPVJWkOnf
+	XlOtG97lj7aAMCu+i20KPZgZsuStltSgriO7x1OVZM=
+Date: Tue, 15 Sep 2026 14:58:52 +0800 (CST)
+From: dd  <zhongling0719@126.com>
+To: "Hyunchul Lee" <hyc.lee@gmail.com>
+Cc: "Hongling Zeng" <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+	ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+	"Baolin Liu" <liubaolin@kylinos.cn>, stable@vger.kernel.org
+Subject: Re:Re: [PATCH v12 6/6] ntfs: check the dirty-state commit on
+ remount and unmount
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
+In-Reply-To: <CANFS6baYPAN8WS+5Fh8gSr-0iFraaKE2KTft6oFZPP+m3A_RZw@mail.gmail.com>
+References: <20260914083741.146689-1-zenghongling@kylinos.cn>
+ <20260914083741.146689-7-zenghongling@kylinos.cn>
+ <CANFS6baYPAN8WS+5Fh8gSr-0iFraaKE2KTft6oFZPP+m3A_RZw@mail.gmail.com>
+X-NTES-SC: AL_Qu2TC/ieuk0o5CWZYukWk00RgOk9WsG1vfQi24NQP500ly728SsKQVxoP37pze6IFy6zkCWzdid8y9xQVLVEVZqWjo2bnwBeo7S1RR//mRes
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <5cc0dc45.49c8.1a0a3dc81ec.Coremail.zhongling0719@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:dikvCgD3H5qs7KhqYJVAAA--.58381W
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrwwr+2qo7Ky-7QAA3j
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-With profiling toggled off, the overflow check in
-reserve_module_tags() did not run, a module could load with more
-tags than the page flags can address, and re-enabling profiling
-then silently corrupted /proc/allocinfo. On overflow the fix shuts
-profiling down, releases the reservation and returns -EAGAIN, and
-the codetag section lands as regular module data in the same load,
-so the module loads without profiling.
-
-Review of the earlier series by Sashiko turned up two more problems.
-
-One is a race. layout_sections() and move_module() both asked
-codetag_needs_module_section() where a codetag section goes, and
-mem_profiling_support can change between the two calls, for instance
-when another module load overflows the tag index and shuts profiling
-down. move_module() then copied the codetag section to offset 0 of
-its regular destination and clobbered the first section placed in
-that region.
-
-v7 reworks where codetag sections are allocated, on a prototype by
-Petr Pavlu [1]. The allocation runs before layout_sections() and the
-placement is decided in one step, so nothing re-asks the question
-and the race is gone. The retry is gone too, on -EAGAIN the section
-is laid out as regular module data right in the same load.
-
-[1] https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/
-
-Following review feedback from Petr and Suren the series is now
-split into six patches. The two alloc_tag fixes from [2] are folded
-in as patches 5 and 6 and replace the versions currently in the mm
-tree. Sashiko keeps flagging the percpu counter leak [3], patch 5
-fixes it, and now the whole set goes through review again.
-
-[2] https://lore.kernel.org/all/20260817062726.106511-1-hao.ge@linux.dev/
-[3] https://lore.kernel.org/all/20260908094736.2B1A61F00A3A@smtp.kernel.org/
-
-Patch 1 moves release_module_tags() above reserve_module_tags(),
-since the failure paths now have to call it.
-
-Patch 2 cleans up the populate failure path: the reservation is
-released, module_tags.size rolled back and the PTEs a failed
-vmap_pages_range() left behind unmapped, so a later populate of the
-same range is safe. It carries both Fixes tags so it backports
-wherever patch 4 goes, which uses its prev_size.
-
-Patch 3 introduces SH_ENTSIZE_STANDALONE to mark sections with a
-separate allocation. The percpu section was previously excluded
-from the layout by clearing its SHF_ALLOC, which per the ELF spec
-says the section occupies memory during execution, and percpu does,
-only outside the regular module layout. The mark lives in sh_entsize
-now, find_sec(".data..percpu") gives stable results again and
-apply_relocations() goes back to testing only SHF_ALLOC. The
-section would show up under /sys/module/*/sections/, but it has one
-instance per CPU and no single address, and the entry never
-existed, so add_sect_attrs() and add_notes_attrs() skip it.
-
-Patch 4 moves the codetag allocation out of move_module() in front
-of layout_sections(), so the placement is decided in one step and
-the race is gone. On overflow profiling is shut down, the
-reservation released, module_tags.size rolled back and -EAGAIN
-returned, the section is laid out as regular module data and the
-module loads without profiling instead of failing. Any other error
-fails the load. The release and the fallback belong together,
-without the release rmmod hits the stale entry and panics.
-
-Patch 5 skips the percpu counter allocation when profiling is off.
-After the shutdown modules load their codetag section as regular
-data, load_module() still allocated counters for every tag and
-release_module_tags() cannot find them on unload, so they leaked
-(Suggested by Suren).
-
-Patch 6 defers the /proc/allocinfo removal to a workqueue.
-shutdown_mem_profiling() runs under mod_lock, and the synchronous
-remove_proc_entry() deadlocks with a reader taking mod_lock for
-read in allocinfo_start(). The file is also created at the end of
-alloc_tag_init(), a leftover file after a failed init would panic
-its readers (Found by Sashiko).
-
-Tested on an x86_64 virtual machine:
-
-Booted without sysctl.vm.mem_profiling=1,compressed:
-# cat /proc/allocinfo is fine
-
-Booted with sysctl.vm.mem_profiling=1,compressed:
-# cat /proc/allocinfo is fine
-# insmod overflow_tag.ko
-# dmesg
-  With module overflow_tag there are too many tags to fit in 13 page
-  flag bits. Memory allocation profiling is disabled!
-# rmmod overflow_tag
-The module loads without profiling and unloads cleanly.
-
-Also ran continuous LTP stress for a few days, nothing abnormal
-so far.
-
-Changes in v10:
-- fold in the two alloc_tag fixes from [2] as patches 5 and 6, they
-  replace the versions in the mm tree and fix the percpu leak
-  Sashiko keeps flagging [3]
-- create /proc/allocinfo at the end of alloc_tag_init(), a
-  leftover file after a failed init would panic its readers
-  (Found by Sashiko)
-- count note sections with sect_visible() in add_notes_attrs() too,
-  the count has to match the fill loop
-
-Changes in v9:
-- do not export .data..percpu under /sys/module/*/sections/ (Petr
-  Pavlu).
-- move the populate failure cleanup in front of the rework, v8 patch
-  4 is patch 2 now. It declares prev_size itself, which the overflow
-  path of the rework also uses, so it carries both Fixes tags and the
-  two patches backport together
-
-Changes in v8:
-- roll back module_tags.size when the reservation is released, so a
-  concurrent load which already passed needs_section_mem() does not
-  skip populate for the freed gap (Sashiko)
-- unmap the PTEs a failed vmap_pages_range() installed, a retry to
-  populate the same range would BUG on them
-- zero the separately allocated codetag memory for an SHT_NOBITS
-  section, the tag area pages are not zeroed on allocation (Sashiko)
-- .data..percpu is exported under /sys/module/*/sections/ with the
-  boot CPU instance of the per-cpu area, and the interface is
-  documented in the ABI docs (Petr Pavlu)
-- keep a comment in apply_relocations() on how .data..percpu is
-  relocated (Petr Pavlu)
-- replace the "Based-on-a-patch-by:" tag with an in-body
-  attribution and a numbered Link: (Andrew Morton)
-
-Changes in v7:
-- split the rework following review feedback (Petr Pavlu, Suren
-  Baghdasaryan)
-- new patch 2 marks separately allocated sections with
-  SH_ENTSIZE_STANDALONE instead of clearing SHF_ALLOC
-  (suggested by Petr Pavlu)
-- split the populate failure release into its own patch (suggested
-  by Suren Baghdasaryan)
-
-Changes in v6:
-- rework on Petr's prototype and allocate codetag sections before
-  layout_sections(), the retry and its state resets are gone
-- fix the layout_sections()/move_module() race (Found by Sashiko)
-- release the reservation on populate failure as well (Found by
-  Sashiko)
-- only -EAGAIN keeps the fallback, other errors fail the load
-
-Changes in v5:
-- add Fixes: and Cc: stable to patch 1/2 as well, since 2/2 does not
-  compile without it (Andrew Morton)
-- restore frob-adjusted mem[type].size on retry instead of zeroing,
-  as s390 and parisc add GOT/PLT space there in
-  module_frob_arch_sections() (Reported by Sashiko)
-- drop the load_module() mem_profiling_support check; the percpu
-  counter leak is pre-existing and orthogonal to this fix
-
-Changes in v4:
-- add a new patch (1/2) to move release_module_tags() above
-  reserve_module_tags(); the overflow fix is 2/2
-- release the reservation on the -EAGAIN path
-- return -EAGAIN instead of -ENOMEM so the module can still load
-  without profiling (Suren)
-- reset sh_addr, mem[type].size and sym/str SHF_ALLOC before retry
-- skip percpu counters in load_module() when profiling is off
-
-Changes in v3:
-- use pr_warn_once() instead of pr_warn()
-- return -ENOMEM instead of -ENOSPC (Suren)
-- expand the commit message to describe the /proc/allocinfo impact
-  (Andrew)
-
-Changes in v2:
-- return an error after shutdown_mem_profiling() to skip
-  vm_module_tags_populate()
-
-v1: https://lore.kernel.org/all/20260804064408.105033-1-hao.ge@linux.dev/
-v2: https://lore.kernel.org/all/20260804122038.190270-1-hao.ge@linux.dev/
-v3: https://lore.kernel.org/all/20260805090633.141001-1-hao.ge@linux.dev/
-v4: https://lore.kernel.org/all/20260810093955.153015-1-hao.ge@linux.dev/
-v5: https://lore.kernel.org/all/20260812054105.102637-1-hao.ge@linux.dev/
-v6: https://lore.kernel.org/all/20260831072104.120197-1-hao.ge@linux.dev/
-v7: https://lore.kernel.org/all/20260902081802.146145-1-hao.ge@linux.dev/
-v8: https://lore.kernel.org/all/20260907062414.106873-1-hao.ge@linux.dev/
-v9: https://lore.kernel.org/all/20260908092412.115953-1-hao.ge@linux.dev/
-
-Hao Ge (6):
-  alloc_tag: move release_module_tags() above reserve_module_tags()
-  alloc_tag: clean up the populate failure path
-  module: introduce SH_ENTSIZE_STANDALONE for separately allocated
-    sections
-  module: allocate codetag sections before the regular module layout
-  alloc_tag: skip percpu counter allocation when profiling is disabled
-  alloc_tag: Defer /proc/allocinfo removal to a workqueue
-
- include/linux/module.h   |   2 +
- kernel/module/internal.h |   8 +++
- kernel/module/kallsyms.c |  13 +---
- kernel/module/main.c     | 133 +++++++++++++++++++-----------------
- kernel/module/sysfs.c    |  17 +++--
- lib/codetag.c            |  10 ++-
- mm/alloc_tag.c           | 141 +++++++++++++++++++++++----------------
- 7 files changed, 188 insertions(+), 136 deletions(-)
-
--- 
-2.25.1
-
+CkF0IDIwMjYtMDktMTUgMTM6Mzg6NDEsICJIeXVuY2h1bCBMZWUiIDxoeWMubGVlQGdtYWlsLmNv
+bT4gd3JvdGU6Cj5IaSBIb25nbGluZywKPgo+MjAyNuuFhCA57JuUIDE07J28ICjsm5QpIOyYpO2b
+hCA1OjM3LCBIb25nbGluZyBaZW5nIDx6ZW5naG9uZ2xpbmdAa3lsaW5vcy5jbj7ri5jsnbQg7J6R
+7ISxOgo+Pgo+PiBUaGUgcmVtb3VudC10by1yZWFkLW9ubHkgcGF0aCBjb21taXRzIHRoZSB1cGRh
+dGVkIHZvbHVtZSBmbGFncyB3aXRoCj4+IG50ZnNfY29tbWl0X2lub2RlKCksIGEgdm9pZCB3cmFw
+cGVyIGFyb3VuZCBfX250ZnNfd3JpdGVfaW5vZGUoKSwgYW5kCj4+IGlnbm9yZXMgdGhlIGJsa2Rl
+dl9pc3N1ZV9mbHVzaCgpIHJldHVybiB2YWx1ZSwgc28gYSBmYWlsZWQgY29tbWl0IG9yCj4+IGZs
+dXNoIGlzIHJlcG9ydGVkIGFzIHN1Y2Nlc3MuICBPbmNlIHRoZSByZW1vdW50IGhhcyBzdWNjZWVk
+ZWQgbm8KPj4gcGVyc2lzdGVuY2UgcG9pbnQgaXMgZXZlciByZWFjaGVkIGFnYWluOiBudGZzX3B1
+dF9zdXBlcigpIHNraXBzCj4+IHJlYWQtb25seSBzdXBlcmJsb2NrcyBhbmQgdGhlIFZGUyBuZXZl
+ciBzeW5jcyBvbmUsIHNvIGZhaWwgdGhlCj4+IHJlbW91bnQgdW5sZXNzIHRoZSBjb21taXQgYW5k
+IHRoZSBmbHVzaCBzdWNjZWVkLiAgVGhlIHN1cGVyYmxvY2sKPj4gdGhlbiBzdGF5cyByZWFkLXdy
+aXRlIGFuZCBudGZzX3B1dF9zdXBlcigpIHJldHJpZXMgdGhlIHBlcnNpc3RlbmNlCj4+IGF0IHVu
+bW91bnQuICBUaGUgZXJyb3JzPXJlbW91bnQtcm8gZG93bmdyYWRlIGRvZXMgbm90IGdvIHRocm91
+Z2gKPj4gbnRmc19yZWNvbmZpZ3VyZSgpIGFuZCBpcyB1bmNoYW5nZWQuCj4+Cj4+IEEgemVyby1y
+ZXR1cm4gY29tbWl0IGlzIG5vdCB0cnVzdGVkIGJsaW5kbHk6IHdyaXRlX21mdF9yZWNvcmQoKQo+
+PiByZWRpcnRpZXMgdGhlIHJlY29yZCBvbiBhbGxvY2F0aW9uIGZhaWx1cmUgYW5kIHJlcG9ydHMg
+c3VjY2Vzcywgc28KPj4gdGhlICRWb2x1bWUgaW5vZGUgaXMgcmVxdWlyZWQgdG8gYmUgY2xlYW4g
+YWZ0ZXJ3YXJkcy4KPj4KPj4gbnRmc19wdXRfc3VwZXIoKSBkaXNjYXJkcyB0aGUgc2FtZSBjb21t
+aXQgZXJyb3IuICBDYWxsCj4+IF9fbnRmc193cml0ZV9pbm9kZSgpIHRoZXJlIHdpdGggdGhlIHNh
+bWUgZGlydHkgcmUtY2hlY2sgYW5kIHdhcm4gb24KPj4gZmFpbHVyZSwgYXMgcHV0X3N1cGVyKCkg
+Y2Fubm90IHJldHVybiBhbiBlcnJvci4gIFRoZSBjb21taXQgaXMKPj4gc2tpcHBlZCB3aGVuIHRo
+ZSBkaXJ0eS1zdGF0ZSBzeW5jIGl0c2VsZiBmYWlsZWQsIGFzIHRoYXQgY291bGQgd3JpdGUKPj4g
+YmFjayBhbiBpbmNvbnNpc3RlbnQgZmxhZyBzdGF0ZTsgYSByZWNvcmQgbGVmdCBkaXJ0eSBieSBh
+biBlYXJsaWVyCj4+IHVwZGF0ZSBpcyBzdGlsbCBjb21taXR0ZWQgYXQgZXZpY3QgdGltZS4KPj4K
+Pj4gTlZvbEVycm9ycygpIGlzIGRlbGliZXJhdGVseSBub3QgdXNlZCB0byBkZXRlY3QgdGhlIGZh
+aWx1cmU6IGl0IGlzCj4+IHN0aWNreSBmb3IgdGhlIGxpZmV0aW1lIG9mIHRoZSBtb3VudCwgc28g
+aXQgY2Fubm90IGRpc3Rpbmd1aXNoIGEKPj4gZnJlc2ggY29tbWl0IGZhaWx1cmUgZnJvbSBlcnJv
+cnMgcmVjb3JkZWQgYmVmb3JlIHRoZSByZW1vdW50Lgo+Pgo+PiBIaWJlcm5hdGVkIHZvbHVtZXM6
+IG50ZnNfc3luY192b2x1bWVfZGlydHlfc3RhdGUoKSBpcyBhIG5vLW9wIGZvcgo+PiB0aGVtIGFu
+ZCBuZXZlciBkaXJ0aWVzIHRoZSAkVm9sdW1lIGlub2RlIG9uIHN1Y2ggYSBtb3VudCwgc2luY2Ug
+dGhlCj4+IG9uLWRpc2sgZmxhZ3MgYXJlIGFscmVhZHkgZGlydHkgYW5kIG50ZnNfc2V0X3ZvbHVt
+ZV9mbGFncygpIGhhcwo+PiBub3RoaW5nIHRvIGNoYW5nZS4gIFRoZSBjb21taXQgb25seSBydW5z
+IGlmIHNvbWV0aGluZyBkaXJ0aWVkIHRoZQo+PiBpbm9kZSBpbmRlcGVuZGVudGx5LCBhcyBiZWZv
+cmUgdGhpcyBwYXRjaDsgbW91bnRpbmcgaGliZXJuYXRlZAo+PiB2b2x1bWVzIHJlYWQtb25seSBy
+ZW1vdmVzIGV2ZW4gdGhhdC4KPj4KPj4gUmVwb3J0ZWQtYnk6IEJhb2xpbiBMaXUgPGxpdWJhb2xp
+bkBreWxpbm9zLmNuPgo+PiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+PiBTaWduZWQtb2Zm
+LWJ5OiBIb25nbGluZyBaZW5nIDx6ZW5naG9uZ2xpbmdAa3lsaW5vcy5jbj4KPj4gLS0tCj4+ICBm
+cy9udGZzL3N1cGVyLmMgfCA3NiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0t
+LS0tLS0tLS0tLS0tCj4+ICAxIGZpbGUgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKSwgMjIgZGVs
+ZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9mcy9udGZzL3N1cGVyLmMgYi9mcy9udGZzL3N1
+cGVyLmMKPj4gaW5kZXggNDYzMDUwYWUxYjBlLi4wMjI4ZDc0Mjk1OTYgMTAwNjQ0Cj4+IC0tLSBh
+L2ZzL250ZnMvc3VwZXIuYwo+PiArKysgYi9mcy9udGZzL3N1cGVyLmMKPj4gQEAgLTI2OCw2ICsy
+NjgsNyBAQCBzdGF0aWMgaW50IG50ZnNfcmVjb25maWd1cmUoc3RydWN0IGZzX2NvbnRleHQgKmZj
+KQo+PiAgewo+PiAgICAgICAgIHN0cnVjdCBzdXBlcl9ibG9jayAqc2IgPSBmYy0+cm9vdC0+ZF9z
+YjsKPj4gICAgICAgICBzdHJ1Y3QgbnRmc192b2x1bWUgKnZvbCA9IE5URlNfU0Ioc2IpOwo+PiAr
+ICAgICAgIGludCBlcnI7Cj4+Cj4+ICAgICAgICAgbnRmc19kZWJ1ZygiRW50ZXJpbmcgd2l0aCBy
+ZW1vdW50Iik7Cj4+Cj4KPgo+VGhlIGluaXRpYWwgc3luY19maWxlc3lzdGVtKCkgY2FsbCBpbiB0
+aGlzIGZ1bmN0aW9uICBzdGlsbCBpZ25vcmVzCj50aGUgcmV0dXJuIHZhbHVlLgo+Cj5BbmQgdGhl
+IGVtZXJnZW5jeSByZW1vdW50KFNCX0ZPUkNFKSBkb2VzIG5vdCBkcmFpbiB3cml0ZXJzCj50aGF0
+IGFyZSBhbHJlYWR5IGluIHByb2dyZXNzLiBUaGlzIGZ1bmN0aW9uIGNhbiBjb21taXQgdGhlCj5j
+bGVhbiBmbGFnIHdoaWxlIGEgd3JpdGVyIGlzIHN0aWxsIG1vZGlmeWluZyBtZXRhZGF0YS4KPgo+
+SXQgc2VlbXMgZmluZSBub3QgdG8gY2xlYXIgdGhlIGZsYWcgZm9yIFNCX0ZPUkNFLgo+CkhpIEh5
+dW5jaHVsLCAKClRoYW5rcyBmb3IgdGhlIHJldmlldy4gIEJvdGggcG9pbnRzIGFyZSB2YWxpZCBh
+bmQgYXJlIGFkZHJlc3NlZCBieSB0aGUgCmFwcGVuZGVkIDcvNyBwYXRjaC4KVGhlIHN5bmNfZmls
+ZXN5c3RlbSgpIGVycm9yIGlzIG5vdyByZXR1cm5lZCBhbmQgZmFpbHMgdGhlIHJlbW91bnQsIHNv
+CnRoZSB1bm1vdW50IGNhbiByZXRyeS4gIEl0IGlzIG9ubHkgY2hlY2tlZCBpbiB0aGUgcmVhZC1v
+bmx5IGRpcmVjdGlvbiwKYXMgZXh0NCBkb2VzLgoKRm9yIFNCX0ZPUkNFIHRoZSBkaXJ0eSBiaXQg
+aXMgbmV2ZXIgY2xlYXJlZC4gIFRoZSBzeW5jIHJ1bnMgb25seSB3aGVuIAplcnJvcnMgYXJlIHJl
+Y29yZGVkLCB3aGVyZSBpdCBjYW4gb25seSBzZXQgdGhlIGJpdDsgdGhlIGNvbW1pdCBhbmQgCnRo
+ZSBmbHVzaCBzdGF5LCBzaW5jZSBhIHdyaXRlciBtYXJraW5nIHRoZSB2b2x1bWUgY29uY3VycmVu
+dGx5IGNhbgpvbmx5IG1ha2UgdGhlIG9uLWRpc2sgYml0IG1vcmUgc2V0LCBub3QgbGVzcy4gIE5v
+dGUgdGhhdCBhIGZvcmNlZCAKcmVtb3VudCBpZ25vcmVzIHRoZSByZXR1cm5lZCBlcnJvciBhbmQg
+dHVybnMgdGhlIHN1cGVyYmxvY2sgcmVhZC1vbmx5IAphbnl3YXksIHNvIHRoZSByZXR1cm4gdmFs
+dWUgbWF0dGVycyBmb3IgdGhlIHJlZ3VsYXIgcmVtb3VudCBvbmx5LgoKVGhhbmtzLCAKSG9uZ2xp
+bmcKCj4+IEBAIC0zMjQsMTQgKzMyNSwzOSBAQCBzdGF0aWMgaW50IG50ZnNfcmVjb25maWd1cmUo
+c3RydWN0IGZzX2NvbnRleHQgKmZjKQo+PiAgICAgICAgICAgICAgICAgICogYW5kIG50ZnNfcHV0
+X3N1cGVyKCkgc2tpcHMgdGhlbSwgc28gdGhlIG9ubHkgcmVtYWluaW5nCj4+ICAgICAgICAgICAg
+ICAgICAgKiB3cml0ZSB3b3VsZCBiZSB0aGUgZXZpY3QtdGltZSBjb21taXQgYXQgdW5tb3VudCwg
+d2hpY2gKPj4gICAgICAgICAgICAgICAgICAqIGEgY3Jhc2ggbmV2ZXIgcmVhY2hlcy4gIEFuIGVy
+cm9yIHJlY29yZGVkIG9ubHkgYWZ0ZXIKPj4gLSAgICAgICAgICAgICAgICAqIHRoZSByZW1vdW50
+IGlzIHN0aWxsIG5ldmVyIHBlcnNpc3RlZC4KPj4gKyAgICAgICAgICAgICAgICAqIHRoZSByZW1v
+dW50IGlzIHN0aWxsIG5ldmVyIHBlcnNpc3RlZDsgYSBmYWlsZWQgY29tbWl0Cj4+ICsgICAgICAg
+ICAgICAgICAgKiBvciBmbHVzaCBmYWlscyB0aGUgcmVtb3VudCwgbGVhdmluZyB0aGUgc3VwZXJi
+bG9jawo+PiArICAgICAgICAgICAgICAgICogcmVhZC13cml0ZSBzbyBudGZzX3B1dF9zdXBlcigp
+IHJldHJpZXMgYXQgdW5tb3VudC4KPj4gICAgICAgICAgICAgICAgICAqLwo+PiAtICAgICAgICAg
+ICAgICAgaWYgKG50ZnNfc3luY192b2x1bWVfZGlydHlfc3RhdGUodm9sKSkgewo+PiArICAgICAg
+ICAgICAgICAgZXJyID0gbnRmc19zeW5jX3ZvbHVtZV9kaXJ0eV9zdGF0ZSh2b2wpOwo+PiArICAg
+ICAgICAgICAgICAgaWYgKGVycikgewo+PiAgICAgICAgICAgICAgICAgICAgICAgICBudGZzX3dh
+cm5pbmcoc2IsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIkZhaWxlZCB0byB1
+cGRhdGUgZGlydHkgYml0IGluIHZvbHVtZSBpbmZvcm1hdGlvbiBmbGFncy4gIFJ1biBjaGtkc2su
+Iik7Cj4+IC0gICAgICAgICAgICAgICB9IGVsc2UgaWYgKE5Jbm9EaXJ0eShOVEZTX0kodm9sLT52
+b2xfaW5vKSkpIHsKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgbnRmc19jb21taXRfaW5vZGUo
+dm9sLT52b2xfaW5vKTsKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgYmxrZGV2X2lzc3VlX2Zs
+dXNoKHNiLT5zX2JkZXYpOwo+PiArICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gZXJyOwo+
+PiArICAgICAgICAgICAgICAgfQo+PiArICAgICAgICAgICAgICAgaWYgKE5Jbm9EaXJ0eShOVEZT
+X0kodm9sLT52b2xfaW5vKSkpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgLyogbnRmc19j
+b21taXRfaW5vZGUoKSB3b3VsZCBkaXNjYXJkIHRoZSBlcnJvci4gKi8KPj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgZXJyID0gX19udGZzX3dyaXRlX2lub2RlKHZvbC0+dm9sX2lubywgMSk7Cj4+
+ICsgICAgICAgICAgICAgICAgICAgICAgIGlmIChlcnIpIHsKPj4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBudGZzX3dhcm5pbmcoc2IsCj4+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAiRmFpbGVkIHRvIGNvbW1pdCB2b2x1bWUgaW5mb3JtYXRpb24gZmxh
+Z3MuICBSdW4gY2hrZHNrLiIpOwo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJl
+dHVybiBlcnI7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIH0KPj4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgLyoKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICogd3JpdGVfbWZ0X3JlY29y
+ZCgpIHJlZGlydGllcyB0aGUgcmVjb3JkIG9uCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAq
+IC1FTk9NRU0gYW5kIHN0aWxsIHJlcG9ydHMgc3VjY2Vzcy4KPj4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgICovCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGlmIChOSW5vRGlydHkoTlRGU19J
+KHZvbC0+dm9sX2lubykpKSB7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbnRm
+c193YXJuaW5nKHNiLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IlZvbHVtZSBpbmZvcm1hdGlvbiBmbGFncyByZW1haW4gZGlydHkgYWZ0ZXIgY29tbWl0LiAgUnVu
+IGNoa2Rzay4iKTsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJ
+TzsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgfQo+PiArICAgICAgICAgICAgICAgICAgICAg
+ICBlcnIgPSBibGtkZXZfaXNzdWVfZmx1c2goc2ItPnNfYmRldik7Cj4+ICsgICAgICAgICAgICAg
+ICAgICAgICAgIGlmIChlcnIpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBu
+dGZzX3dhcm5pbmcoc2IsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAiRmFpbGVkIHRvIGZsdXNoIHZvbHVtZSBpbmZvcm1hdGlvbiBmbGFncy4gIFJ1biBjaGtkc2su
+Iik7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIGVycjsKPj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgfQo+PiAgICAgICAgICAgICAgICAgfQo+PiAgICAgICAgIH0K
+Pj4KPj4gQEAgLTE4NzYsMjYgKzE5MDIsMzIgQEAgc3RhdGljIHZvaWQgbnRmc19wdXRfc3VwZXIo
+c3RydWN0IHN1cGVyX2Jsb2NrICpzYikKPj4gICAgICAgICAgICAgICAgIGlmIChudGZzX3N5bmNf
+dm9sdW1lX2RpcnR5X3N0YXRlKHZvbCkpIHsKPj4gICAgICAgICAgICAgICAgICAgICAgICAgbnRm
+c193YXJuaW5nKHNiLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJGYWlsZWQg
+dG8gc3luYyBkaXJ0eSBiaXQgaW4gdm9sdW1lIGluZm9ybWF0aW9uIGZsYWdzLiAgUnVuIGNoa2Rz
+ay4iKTsKPj4gLSAgICAgICAgICAgICAgIH0gZWxzZSBpZiAoTlZvbEVycm9ycyh2b2wpKSB7Cj4+
+ICsgICAgICAgICAgICAgICB9IGVsc2Ugewo+PiAgICAgICAgICAgICAgICAgICAgICAgICAvKgo+
+PiAtICAgICAgICAgICAgICAgICAgICAgICAgKiBUaGUgZGlydHkgYml0IGlzIG9uIGRpc2sgbm93
+OyBvbmx5IHdhcm4gd2hlbiB0aGUKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICogc3luYyBh
+Y3R1YWxseSBzdWNjZWVkZWQsIG9yIHRoaXMgbWVzc2FnZSB3b3VsZAo+PiAtICAgICAgICAgICAg
+ICAgICAgICAgICAgKiBjb250cmFkaWN0IHRoZSBvbmUgYWJvdmUuCj4+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAqIF9fbnRmc193cml0ZV9pbm9kZSgpLCBub3QgdGhlIHZvaWQKPj4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICogbnRmc19jb21taXRfaW5vZGUoKSB3cmFwcGVyOiB0aGUgZXJy
+b3IgY2FuIG9ubHkKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICogYmUgd2FybmVkIGFib3V0
+IGhlcmUuICBUaGUgbWlycm9yIGlub2RlIGlzIG9ubHkKPj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICogcmVsZWFzZWQgYmVsb3c6IHdyaXRpbmcgdGhlICRWb2x1bWUgcmVjb3JkIChtZnQKPj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICogcmVjb3JkIG51bWJlciAzLCBiZWxvdyB2b2wtPm1m
+dG1pcnJfc2l6ZSkgbWlycm9ycwo+PiArICAgICAgICAgICAgICAgICAgICAgICAgKiBpdCB0aHJv
+dWdoIG50ZnNfc3luY19tZnRfbWlycm9yKCksIHdoaWNoIGZhaWxzCj4+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAqIHdpdGggLUVJTyBvbmNlIHZvbC0+bWZ0bWlycl9pbm8gaXMgZ29uZS4KPj4g
+ICAgICAgICAgICAgICAgICAgICAgICAgICovCj4+IC0gICAgICAgICAgICAgICAgICAgICAgIG50
+ZnNfd2FybmluZyhzYiwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiVm9sdW1l
+IGhhcyBlcnJvcnMuICBMZWF2aW5nIHZvbHVtZSBtYXJrZWQgZGlydHkuICBSdW4gY2hrZHNrLiIp
+Owo+PiArICAgICAgICAgICAgICAgICAgICAgICBpZiAoX19udGZzX3dyaXRlX2lub2RlKHZvbC0+
+dm9sX2lubywgMSkpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBudGZzX3dh
+cm5pbmcoc2IsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiRmFp
+bGVkIHRvIGNvbW1pdCB2b2x1bWUgaW5mb3JtYXRpb24gZmxhZ3MuICBSdW4gY2hrZHNrLiIpOwo+
+PiArICAgICAgICAgICAgICAgICAgICAgICB9IGVsc2UgaWYgKE5Jbm9EaXJ0eShOVEZTX0kodm9s
+LT52b2xfaW5vKSkpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBudGZzX3dh
+cm5pbmcoc2IsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiVm9s
+dW1lIGluZm9ybWF0aW9uIGZsYWdzIHJlbWFpbiBkaXJ0eSBhZnRlciBjb21taXQuICBSdW4gY2hr
+ZHNrLiIpOwo+PiArICAgICAgICAgICAgICAgICAgICAgICB9IGVsc2UgaWYgKE5Wb2xFcnJvcnMo
+dm9sKSkgewo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8qCj4+ICsgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICogT25seSB3YXJuIG9uY2UgdGhlIGNvbW1pdCBoYXMg
+c3VjY2VlZGVkLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqIG9yIHRoaXMg
+Y291bGQgY29udHJhZGljdCBhIGZhaWx1cmUKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgKiByZXBvcnRlZCBhYm92ZS4KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgKi8KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBudGZzX3dhcm5pbmcoc2Is
+Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiVm9sdW1lIGhhcyBl
+cnJvcnMuICBMZWF2aW5nIHZvbHVtZSBtYXJrZWQgZGlydHkuICBSdW4gY2hrZHNrLiIpOwo+PiAr
+ICAgICAgICAgICAgICAgICAgICAgICB9Cj4+ICAgICAgICAgICAgICAgICB9Cj4+IC0gICAgICAg
+ICAgICAgICAvKgo+PiAtICAgICAgICAgICAgICAgICogQ29tbWl0cyB0aGUgdXBkYXRlZCB2b2x1
+bWUgZmxhZ3MgaWYgdGhleSB3ZXJlIHdyaXR0ZW4uCj4+IC0gICAgICAgICAgICAgICAgKiBUaGUg
+bWZ0IG1pcnJvciBtdXN0IHN0aWxsIGJlIGFyb3VuZCBmb3IgdGhpczogdGhlCj4+IC0gICAgICAg
+ICAgICAgICAgKiAkVm9sdW1lIHJlY29yZCAobWZ0IHJlY29yZCBudW1iZXIgMywgYmVsb3cKPj4g
+LSAgICAgICAgICAgICAgICAqIHZvbC0+bWZ0bWlycl9zaXplKSBpcyBtaXJyb3JlZCBieSB3cml0
+ZV9tZnRfcmVjb3JkKCkKPj4gLSAgICAgICAgICAgICAgICAqIHRocm91Z2ggbnRmc19zeW5jX21m
+dF9taXJyb3IoKSwgd2hpY2ggZmFpbHMgd2l0aCAtRUlPCj4+IC0gICAgICAgICAgICAgICAgKiBh
+bmQgbGVhdmVzIHRoZSBtaXJyb3Igc3RhbGUgb25jZSB2b2wtPm1mdG1pcnJfaW5vIGlzCj4+IC0g
+ICAgICAgICAgICAgICAgKiBnb25lLCBzbyB0aGUgbWlycm9yIGlub2RlIGlzIG9ubHkgcmVsZWFz
+ZWQgYWZ0ZXIgdGhpcwo+PiAtICAgICAgICAgICAgICAgICogY29tbWl0Lgo+PiAtICAgICAgICAg
+ICAgICAgICovCj4+IC0gICAgICAgICAgICAgICBudGZzX2NvbW1pdF9pbm9kZSh2b2wtPnZvbF9p
+bm8pOwo+PiAgICAgICAgIH0KPj4KPj4gICAgICAgICAvKgo+PiAtLQo+PiAyLjI1LjEKPj4KPgo+
+Cj4tLSAKPlRoYW5rcywKPkh5dW5jaHVsCg==
