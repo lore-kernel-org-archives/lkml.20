@@ -1,426 +1,127 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFE83F4DCA;
-	Tue, 15 Sep 2026 17:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B73E43713C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:47:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789494442; cv=none; b=HY7YGqAKn9FHs8QGZIfwo4cVTavh9z9F65h1y+29Ip8FY+yl3cRdD08bLLZFEpOgzB7Hlc0c8D53yVz2C2BQKD/gWcyCBMbWjCvzO+BkYAPbnTbv3+Ielqj/SGsQahs0/+1j2M/zMNbvl0AyfmyIT252ZksuMpqvV62dARCfE5Q=
+	t=1789494444; cv=none; b=sU5smdWhZ0f320tPAOmTdh0+01gdEu2eDXmOw+/1v3EPiDydc1axSwFe3XreYmHL6WqIeAOxq8wTSf8S55XVnrKhTnQzU/BhXqOARIkOE2Yjfi9Nmf5xJ13fuiugUM4wPGP1gTFtaw82FyUUYPcAIi7vVjIjbS+RaaGgedkudHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789494442; c=relaxed/simple;
-	bh=Fy0WYN5sPf3gkRqvwmUIdNan3vD2NMePpp8PKTBpfDc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QkRbi5cAo5DIcm1+MKcjADC89YMyMLZf9v5OWbYfSO+G0LrmeO02x1LaXL9wLLEP/SQq8NJ5b3g+mFlXOOjB3P8E5zAaeSAoNELdnHqZ2ndsQdRebPcqXOikCTdjfe3DN+v/GjRqQ8FUi1pyE1DuJsUPEltgVVCMiYxT7JZ1SJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=Hkpj54R+; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1789494444; c=relaxed/simple;
+	bh=rrgzg3Z4H6zmzdxcdmQICirRI63HfC0lPR5DEEV8sIw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PkcbUKP3sbaU9K1QfpKOANuLXBjtP3sGCb7MSdKHtKyAj6paFnJ1Ae01rq7yWXVG/MFHYtLS7+xxKPQquMA1FaPWYOL0/wNfro7k7Owd/hz3SP4PtNOrkcVe05d3aGTGWCp6Aa63FemULSGCXf95fk3c4wX31ZRRN4HwAmlneig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cc0H2ADL; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="Hkpj54R+"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E357648F9A8;
-	Tue, 15 Sep 2026 19:47:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1789494434; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=56ZZFGKTZe46l0WN09lZLfibMWBczbgzk6VvR1nnJkA=;
-	b=Hkpj54R+GRYljhd/KpRlGSkheDiLhNPFaKF+8mkBGXbsHcn7Ip3J7jEuCowDDnvBcqGrle
-	dt8GGIjTdwDCU6VjlVkXIUrH9Vl25dODXfGMs82dDfoW3d11bZWJyAqod6hbrKeklZ19LF
-	NhpK0qIgZbd1iZGdszRqhXT0no2FS66YLTC+kwCQg/mdc4uvJRyPyGFNCix1sBHbapRCcS
-	ID4jetS/pgBQXkhEIxeW4mTIavbCpUZ92OkhrPOs+z6khnS/UmzXafmVV6SDOqAvl3txQ3
-	GKmjGok3CXe/qWhTzQWgTberle0s9s1dPl47Hg5iE9Rq8kpU6zh9MNT3lJSzEQ==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	chester.a.unal@arinc9.com,
-	daniel@makrotopia.org,
-	linux@armlinux.org.uk,
-	arinc.unal@arinc9.com,
-	Landen.Chao@mediatek.com,
-	dqfext@gmail.com,
-	sean.wang@mediatek.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	naseefkm@gmail.com,
-	b.larsson@gmx.com,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v2 net-next 3/7] net: dsa: mediatek: add support for passthrough mode
-Date: Tue, 15 Sep 2026 17:46:39 +0000
-Message-Id: <20260915174643.253660-4-cjd@cjdns.fr>
-In-Reply-To: <20260915174643.253660-1-cjd@cjdns.fr>
-References: <20260915174643.253660-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cc0H2ADL"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b91369d18so773315e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:47:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789494441; x=1790099241; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MApJS5fwXMI23Y0SGQfeGFFSSuOjp+Cb0YRS092Lc8g=;
+        b=Cc0H2ADLf0rflEk48g0vLLhVyDJyWAqDZh9OIRV8pL3pfJ6WpqRd1RN1aDCh+pBqyn
+         TFpRNYJRzFo8iju9DVol7TSlc1Kb72xcszYuahtZK+Jp5H/JXo5TYyYKZYiGh5Ti0qt2
+         oZXb4jRSugMNxkSCdlautCDVnwGYqxavYGK4sntR1egJYsaUBIYPv9UzUNhS/2eU0D3W
+         hTj8LxVEtHNuHAlryoIZXSgJLzDlt6SXR3GcM4ZqKwzlOnFv/YslXDVqm51D7vtdpEam
+         iRPsNpgqWZX+xVAuwTxt8T+v3XL47Dz77P113UNK/POw7lc7oevpKnuPhB0QdGGfX341
+         Pn/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789494441; x=1790099241;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MApJS5fwXMI23Y0SGQfeGFFSSuOjp+Cb0YRS092Lc8g=;
+        b=ssfBWS4RlFsoitTW+jH83H0ZuCOvqhZuF3hPJhbaLZdYyphXOHFhqpbdk0ZNr8sVGc
+         1IAyx+p0xPWstWJ+SSVkpaB8Pu94tGxQUZGOlNeDOv8HX9MbIxyLH8dAeYRiEWxqw5Yh
+         3FUaiF1wM2wbag//jCN66z/C0hjLbMETD1a6d6kiZXn1fPn1g4lJyjktzmn5nc95nuzB
+         ScHzjqlApBCTck/Mc+k8RwAmdVZL//MBs+TBLPYpR6YkXxhxcENBZrLVE/ADJfKTBZS3
+         EZsqBv91brNcEZ4lct2NqtQhT/8t4aAw8PBIg/bq7EmVAgwR7b1ootJqvVxwSDh8RuK5
+         eVog==
+X-Forwarded-Encrypted: i=1; AKwUvBy3o2Hyg6kXi9U2DZjpK9NrpM4/zSzTQIYBfrrwalz06qE6pTKks6BrMIa7VRbsneowWXg6gB0X5pHuuPQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNJfbIakv1BDL7+efQGk6ZDVEHpqDrmBNaYxHB4QrdBNd6HKkd
+	kuKlvPmllxZUJThX8BAvEJq2i3IQ226yErfT9x2oc8jiT019CJxA275Y
+X-Gm-Gg: AYBFou2byzgzKx0EAvUsX0xZlsGR9hcoaMVDwaEU9tqVyLNkMGZJO+7HYv7CD176mpq
+	70I01240aR6i5t+q5pMWzOV1+H4KrZHqjYyMMm82MuCkHfcNEO2YrHxWAHBQC148EoWLJ1/vPhD
+	FCapWeP+X3YY/aART4MHWygSPgh8CASdCskjyrSvhmK9gnpeaar8e3ZTE81t64kEloWo5Fx5+EL
+	Ji5yqr3IE/j6v3fih1S27Z3HtQexJKF2HZRlb8HNXU4fsxGF0uF3chIlCdy+Thpy6rmu6KftaK7
+	ub19slNSQuGPV4pyTc8izLhBNk3JHWtYHJxdqSs8v/Zmp9e89XToCywwxIhgOZ89BGYnn0x57Vp
+	WIaxUupfynpILG2+g39+gSjR2zwxPyo2uWu/iX87qZtJtafQY322ssXyOZRWv3pvDbDVLefsvEW
+	mWEE9djA/Kkw2gpw4M5IMwniC/3uRV4tT/3GvmRgr9NiIM3IDER5Lr67DKGY58Ammbg9T6HZQTc
+	nf+kQmAWKg2/n65VsXLkxGWdtw29DhznAVF
+X-Received: by 2002:a05:600c:3115:b0:49c:fc6e:a3d6 with SMTP id 5b1f17b1804b1-49e8228f7c5mr29727755e9.21.1789494438295;
+        Tue, 15 Sep 2026 10:47:18 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83b11691sm11682145e9.12.2026.09.15.10.47.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 10:47:18 -0700 (PDT)
+Date: Tue, 15 Sep 2026 18:47:17 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>, Will
+ Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ linux-kernel@vger.kernel.org, Linus Torvalds
+ <torvalds@linux-foundation.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
+ Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
+ locked=1
+Message-ID: <20260915184717.4735afbb@pumpkin>
+In-Reply-To: <20260915140152.GC4121339@noisy.programming.kicks-ass.net>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+	<20260907084133.3696-4-david.laight.linux@gmail.com>
+	<20260915131314.GB2009045@noisy.programming.kicks-ass.net>
+	<20260915131510.GD4121620@noisy.programming.kicks-ass.net>
+	<20260915145513.111c4a23@pumpkin>
+	<20260915140152.GC4121339@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-In some cases, hardware integrators add a second MT7530 switch to a
-port of the CPU-connected MT7530 and configure the upstream switch to
-pass all traffic to and from the downstream switch. Particularly,
-without altering the MediaTek DSA tag. The typical reason for this is
-because the downstream switch is more capable, but the upstream switch
-is an irremovable part of the SoC.
+On Tue, 15 Sep 2026 16:01:52 +0200
+Peter Zijlstra <peterz@infradead.org> wrote:
 
-To enable passthrough, the main switch has its CPU port, and the port
-to the second switch, both configured as MT7530_VLAN_EG_DISABLED and
-MT7530_VLAN_TRANSPARENT and it uses the port matrix to control
-forwarding.
+> On Tue, Sep 15, 2026 at 02:55:13PM +0100, David Laight wrote:
+> 
+> > > That comment *should* obviously have been here. Also, I would *much*
+> > > rather have this store at the top, next to node->next = NULL; That is
+> > > much saner.  
+> > 
+> > 
+> > Part of the original reason I started these patches was to remove
+> > the writes to the current cpu's 'node' in the fast path acquire.
+> > That completely saves reading the cache line.
+> > It also means the initial xchg need only have acquire semantics.  
+> 
+> That makes no sense... you *have* to write node->prev_cpu, and since you
+> get to have the line dirty for that, a few more stores to the same line
+> are 'free', no?
 
-Support passing through to a downstream switch, and also support being
-the downstream switch - meaning the upstream link is not a CPU port but
-rather a DSA port.
+But you don't always have to do that write.
+If the lock isn't held then you only have to update osq_lock->tail
+to contain the current cpu number.
+The per-cpu data remains zero - the same as when unlocked (and initialised).
 
-As a point of information:
+David
 
-There exist features in the hardware which appear to enable full
-two-switch hierarchies (i.e. ports on the upstream switch are also
-available for use). The way that this is supposed to work is though a
-PASSTHROUGH flag in the DSA tag on BIT(7). The downstream switch sets
-a flag called "PT_OPTION" on the PVC register of its "CPU" port (the
-port linking to the upstream switch). This causes the downstream switch
-to set the PASSTHROUGH flag on all ingress traffic. The CPU then sets
-the PASSTHROUGH flag on egress traffic meant for the downstream switch.
-
-In this configuration, the upstream switch sets MT7530_VLAN_USER, and
-PORT_SPEC_TAG on the (real) CPU port (as usual), but also sets it on
-the port leading to the downstream switch. The PORT_SPEC_TAG flag on
-the downstream link port causes incoming DSA tags to be copied over
-rather than being replaced by tags identifying the traffic as having
-come from the link port. Finally, an ACL is installed which causes the
-upstream switch to forward all egress traffic with the PASSTHROUGH bit
-to the link port.
-
-However for reasons unknown, the PASSTHROUGH bit is cleared by the
-upstream switch as it receives ingress traffic from the downstream
-switch. So by the time the traffic reaches the CPU, it no longer bears
-the PASSTHROUGH bit and its origin cannot be known.
-
-Reference code defaults to passthrough mode as is implemented here, but
-supports a limited hierarchical implementation for hardware that needs
-it. In this mode it is not permitted to use the same port number on
-both switches. This implementation does not implement that mode because
-there is no known hardware using ports on both switches.
-
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/net/dsa/mt7530.c | 164 +++++++++++++++++++++++++++++++++++----
- drivers/net/dsa/mt7530.h |   6 ++
- 2 files changed, 153 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-index 54d931002bc1..b2344808457c 100644
---- a/drivers/net/dsa/mt7530.c
-+++ b/drivers/net/dsa/mt7530.c
-@@ -1286,13 +1286,41 @@ mt753x_trap_frames(struct mt7530_priv *priv)
- 				   TO_CPU_FW_CPU_ONLY);
- }
- 
-+static int
-+mt7530_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu);
-+
-+/* If this switch is downstream of another switch that is in passthrough mode,
-+ * the "CPU" port is actually a DSA port.
-+ */
- static void
- mt753x_cpu_port_enable(struct dsa_switch *ds, int port)
- {
- 	struct mt7530_priv *priv = ds->priv;
- 
--	/* Enable Mediatek header mode on the cpu port */
--	regmap_write(priv->regmap, MT7530_PVC_P(port), PORT_SPEC_TAG);
-+	if (priv->is_passthrough) {
-+		/* Disable parsing of the DSA tag, it will be forwarded blindly
-+		 * to the downstream switch.
-+		 */
-+		regmap_write(priv->regmap, MT7530_PVC_P(port),
-+			     VLAN_ATTR(MT7530_VLAN_TRANSPARENT) |
-+			     PVC_EG_TAG(MT7530_VLAN_EG_DISABLED));
-+
-+		/* The port is not configured to parse DSA tags, so they are
-+		 * liable to be confused for length fields, so length check is
-+		 * disabled.
-+		 */
-+		regmap_clear_bits(priv->regmap, MT753X_AGC, AGC_L2LEN_CHK);
-+
-+		/* In passthrough mode, MTU is only enforced downstream */
-+		mt7530_port_change_mtu(ds, port, MT7530_MAX_MTU);
-+
-+		/* Loop detection has no value in passthrough mode */
-+		regmap_set_bits(priv->regmap, MT753X_MTRAP,
-+				MT7530_LOOP_DET_DISABLE);
-+	} else {
-+		/* Not passthrough, enable DSA tag handling on CPU port. */
-+		regmap_write(priv->regmap, MT7530_PVC_P(port), PORT_SPEC_TAG);
-+	}
- 
- 	/* Enable flooding on the CPU port */
- 	regmap_set_bits(priv->regmap, MT753X_MFC,
-@@ -1322,6 +1350,7 @@ static int
- mt7530_port_enable(struct dsa_switch *ds, int port,
- 		   struct phy_device *phy)
- {
-+	int upstream_pt = dsa_switch_upstream_port(ds);
- 	struct dsa_port *dp = dsa_to_port(ds, port);
- 	struct mt7530_priv *priv = ds->priv;
- 
-@@ -1332,13 +1361,38 @@ mt7530_port_enable(struct dsa_switch *ds, int port,
- 	 * bridge.
- 	 */
- 	if (dsa_port_is_user(dp)) {
--		struct dsa_port *cpu_dp = dp->cpu_dp;
-+		priv->ports[port].pm |= PCR_MATRIX(BIT(upstream_pt));
-+
-+	} else if (dsa_port_is_dsa(dp) && dp->index != upstream_pt) {
-+		priv->ports[port].pm |= PCR_MATRIX(BIT(upstream_pt));
-+
-+		/* Should not happen */
-+		WARN_ON_ONCE(!priv->is_passthrough);
-+
-+		/* We are passing through to a downstream switch so we set both
-+		 * CPU and downstream link to pass traffic untouched so that
-+		 * the STAG from the downstream switch will pass to the upstream.
-+		 */
-+		regmap_write(priv->regmap, MT7530_PVC_P(port),
-+			     VLAN_ATTR(MT7530_VLAN_TRANSPARENT) |
-+			     PVC_EG_TAG(MT7530_VLAN_EG_DISABLED));
-+
-+		/* We let the downstream switch flood */
-+		regmap_set_bits(priv->regmap, MT753X_MFC, BC_FFP(BIT(port)) |
-+				UNM_FFP(BIT(port)) | UNU_FFP(BIT(port)));
- 
--		priv->ports[port].pm |= PCR_MATRIX(BIT(cpu_dp->index));
-+		/* Make the upstream port able to connect to the DSA port.
-+		 * This must be explicit because PORT_SPEC_TAG is unset.
-+		 */
-+		regmap_write(priv->regmap, MT7530_PCR_P(upstream_pt),
-+			     PCR_MATRIX(BIT(port)));
- 	}
- 	priv->ports[port].enable = true;
--	regmap_update_bits(priv->regmap, MT7530_PCR_P(port), PCR_MATRIX_MASK,
--			   priv->ports[port].pm);
-+
-+	/* In passthrough mode, CPU port mask is set above. */
-+	if (!(priv->is_passthrough && dp->index == upstream_pt))
-+		regmap_update_bits(priv->regmap, MT7530_PCR_P(port),
-+				   PCR_MATRIX_MASK, priv->ports[port].pm);
- 
- 	mutex_unlock(&priv->reg_mutex);
- 
-@@ -1390,7 +1444,7 @@ mt7530_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
- 	 * largest MTU of the user ports. Because the switch only has a global
- 	 * RX length register, only allowing CPU port here is enough.
- 	 */
--	if (!dsa_is_cpu_port(ds, port))
-+	if (!dsa_is_upstream_port(ds, port))
- 		return 0;
- 
- 	regmap_read(priv->regmap, MT7530_GMACCR, &val);
-@@ -2411,11 +2465,6 @@ mt7530_setup(struct dsa_switch *ds)
- 		break;
- 	}
- 
--	if (!dn) {
--		dev_err(ds->dev, "parent OF node of DSA conduit not found");
--		return -EINVAL;
--	}
--
- 	ds->assisted_learning_on_cpu_port = true;
- 	ds->untag_vlan_aware_bridge_pvid = true;
- 	ds->mtu_enforcement_ingress = true;
-@@ -2517,7 +2566,7 @@ mt7530_setup(struct dsa_switch *ds)
- 		/* Disable learning by default on all ports */
- 		regmap_set_bits(priv->regmap, MT7530_PSC_P(i), SA_DIS);
- 
--		if (dsa_is_cpu_port(ds, i)) {
-+		if (dsa_is_upstream_port(ds, i)) {
- 			mt753x_cpu_port_enable(ds, i);
- 		} else {
- 			mt7530_port_disable(ds, i);
-@@ -2541,7 +2590,7 @@ mt7530_setup(struct dsa_switch *ds)
- 		return ret;
- 
- 	/* Check for PHY muxing on port 5 */
--	if (dsa_is_unused_port(ds, 5)) {
-+	if (dn && dsa_is_unused_port(ds, 5)) {
- 		/* Scan the ethernet nodes. Look for GMAC1, lookup the used PHY.
- 		 * Set priv->p5_mode to the appropriate value if PHY muxing is
- 		 * detected.
-@@ -2641,7 +2690,7 @@ mt7531_setup_common(struct dsa_switch *ds)
- 		regmap_set_bits(priv->regmap, MT7531_DBG_CNT(i),
- 				MT7531_DIS_CLR);
- 
--		if (dsa_is_cpu_port(ds, i)) {
-+		if (dsa_is_upstream_port(ds, i)) {
- 			mt753x_cpu_port_enable(ds, i);
- 		} else {
- 			mt7530_port_disable(ds, i);
-@@ -3310,7 +3359,7 @@ mt753x_conduit_state_change(struct dsa_switch *ds,
- 
- 	/* Set the CPU port to trap frames to for MT7530. Trapped frames will be
- 	 * forwarded to the numerically smallest CPU port whose conduit
--	 * interface is up.
-+	 * interface is up. NOTE: "CPU port" can also mean an upstream DSA link.
- 	 */
- 	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
- 	    priv->id != ID_EN7528)
-@@ -3405,6 +3454,76 @@ static int mt7988_setup(struct dsa_switch *ds)
- 	return mt7531_setup_common(ds);
- }
- 
-+/* 1 if passthrough, negative if error. */
-+static int mt753x_check_passthrough(struct device *dev)
-+{
-+	struct device_node *ports, *port;
-+	int passthrough_ports = 0;
-+	int enabled_ports = 0;
-+
-+	ports = of_get_child_by_name(dev->of_node, "ports");
-+	if (!ports)
-+		ports = of_get_child_by_name(dev->of_node, "ethernet-ports");
-+
-+	if (!ports) {
-+		dev_err(dev, "no ports child node found\n");
-+		return -EINVAL;
-+	}
-+
-+	for_each_available_child_of_node(ports, port) {
-+		struct device_node *link;
-+
-+		enabled_ports++;
-+
-+		link = of_parse_phandle(port, "ethernet", 0);
-+		if (!link)
-+			link = of_parse_phandle(port, "link", 0);
-+
-+		if (!link)
-+			continue;
-+
-+		of_node_put(link);
-+
-+		passthrough_ports++;
-+	}
-+
-+	of_node_put(ports);
-+
-+	/*
-+	 * A switch is considered passthrough if exactly two available
-+	 * ports have an "ethernet" or "link" phandle.
-+	 */
-+	if (passthrough_ports > 2 ||
-+	    (passthrough_ports == 2 && enabled_ports != 2)
-+	) {
-+		dev_err(dev, "Only two ports allowed in passthrough mode\n");
-+		return -EINVAL;
-+	}
-+
-+	return passthrough_ports == 2;
-+}
-+
-+/* No manipulation of forwarding rules allowed in passthrough mode */
-+static const struct dsa_switch_ops mt7530_passthrough_switch_ops = {
-+	.get_tag_protocol	= mtk_get_tag_protocol,
-+	.setup			= mt753x_setup,
-+	.teardown		= mt753x_teardown,
-+	.preferred_default_local_cpu_port = mt753x_preferred_default_local_cpu_port,
-+	.get_strings		= mt7530_get_strings,
-+	.get_ethtool_stats	= mt7530_get_ethtool_stats,
-+	.get_sset_count		= mt7530_get_sset_count,
-+	.get_eth_mac_stats	= mt7530_get_eth_mac_stats,
-+	.get_rmon_stats		= mt7530_get_rmon_stats,
-+	.get_eth_ctrl_stats	= mt7530_get_eth_ctrl_stats,
-+	.get_stats64		= mt7530_get_stats64,
-+	.port_enable		= mt7530_port_enable,
-+	.port_disable		= mt7530_port_disable,
-+	.phylink_get_caps	= mt753x_phylink_get_caps,
-+	.support_eee		= dsa_supports_eee,
-+	.set_mac_eee		= mt753x_set_mac_eee,
-+	.conduit_state_change	= mt753x_conduit_state_change,
-+};
-+
- static const struct dsa_switch_ops mt7530_switch_ops = {
- 	.get_tag_protocol	= mtk_get_tag_protocol,
- 	.setup			= mt753x_setup,
-@@ -3537,8 +3656,12 @@ EXPORT_SYMBOL_GPL(mt753x_table);
- int
- mt7530_probe_common(struct mt7530_priv *priv)
- {
-+	int passthrough = mt753x_check_passthrough(priv->dev);
- 	struct device *dev = priv->dev;
- 
-+	if (passthrough < 0)
-+		return passthrough;
-+
- 	priv->ds = devm_kzalloc(dev, sizeof(*priv->ds), GFP_KERNEL);
- 	if (!priv->ds)
- 		return -ENOMEM;
-@@ -3556,7 +3679,14 @@ mt7530_probe_common(struct mt7530_priv *priv)
- 	priv->id = priv->info->id;
- 	priv->dev = dev;
- 	priv->ds->priv = priv;
--	priv->ds->ops = &mt7530_switch_ops;
-+
-+	if (passthrough) {
-+		priv->ds->ops = &mt7530_passthrough_switch_ops;
-+		priv->is_passthrough = true;
-+	} else {
-+		priv->ds->ops = &mt7530_switch_ops;
-+	}
-+
- 	priv->ds->phylink_mac_ops = &mt753x_phylink_mac_ops;
- 	mutex_init(&priv->reg_mutex);
- 	spin_lock_init(&priv->stats_lock);
-diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
-index 3dabbc99fbbc..108c831dd012 100644
---- a/drivers/net/dsa/mt7530.h
-+++ b/drivers/net/dsa/mt7530.h
-@@ -40,6 +40,7 @@ enum mt753x_id {
- /* Register for ARL global control */
- #define MT753X_AGC			0xc
- #define  LOCAL_EN			BIT(7)
-+#define  AGC_L2LEN_CHK			BIT(4)
- 
- /* Register for MAC forward control */
- #define MT753X_MFC			0x10
-@@ -583,6 +584,7 @@ enum mt7531_clk_skew {
- #define MT753X_MTRAP			0x7804
- #define  MT7530_P5_PHY0_SEL		BIT(20)
- #define  MT7530_CHG_TRAP		BIT(16)
-+#define  MT7530_LOOP_DET_DISABLE	BIT(14)
- #define  MT7530_P5_MAC_SEL		BIT(13)
- #define  MT7530_P6_DIS			BIT(8)
- #define  MT7530_P5_RGMII_MODE		BIT(7)
-@@ -897,6 +899,9 @@ struct mt753x_info {
-  * @p5_mode:		Holding the current mode of port 5 of the MT7530 switch
-  * @p5_sgmii:		Flag for distinguishing if port 5 of the MT7531 switch
-  *			has got SGMII
-+ * @is_passthrough:	If this switch is to pass traffic between the upstream
-+ *			(CPU) port and a second downstream switch, without
-+ *			altering the DSA tag.
-  * @irq_domain:		IRQ domain of the switch irq_chip
-  * @create_sgmii:	Pointer to function creating SGMII PCS instance(s)
-  * @active_cpu_ports:	Holding the active CPU ports
-@@ -921,6 +926,7 @@ struct mt7530_priv {
- 	bool			p5_sgmii;
- 	u8			mirror_rx;
- 	u8			mirror_tx;
-+	bool			is_passthrough;
- 	struct mt7530_port	ports[MT7530_NUM_PORTS];
- 	struct mt753x_pcs	pcs[MT7530_NUM_PORTS];
- 	/* protect among processes for registers access*/
--- 
-2.39.5
+> 
+> Trying to make the code keep invariants like that also makes it
+> needlessly convoluted.
+> 
+> If you need a store -- and you do, then you might as well write the
+> whole thing.
+> 
+> And if you think it makes a difference, your changelogs completely lack
+> any factual data to that effect. That is, there are no numbers. And
+> without numbers, we're just not doing this.
 
