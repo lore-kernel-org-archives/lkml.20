@@ -1,219 +1,201 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9F944999F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:38:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F39FF46AA8B;
+	Tue, 15 Sep 2026 08:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461540; cv=none; b=kXQysYZQD03oN/xiM/lhhxis+mUyqCT3hSBq+L2aHP0CZnRlRBWGbqAWZRQ9mKq4gQdMmVS7zdZs+2rqJq83wLzy/cECN0tmSUCu1jIFRUIbguHZdmikqHL0HhT8dnRl7814L1RLJhdKqIi4dQFy9KG7GiZC1FmJO3S2cnq5AK0=
+	t=1789461571; cv=none; b=Z6YFP0rTAlrlJA1aOUAm8fBKdpiVXRwwII3o+44Z9dZq1/RVK3FII3ECTVAFVyZr5ce269pEU9LplErsfWv6Rami0GmMhy5SNWFPYOjJu8Sjrqytfq5RU5ruNCU7uAtxxSkkGM0VrwdZtXQFz7uWkftQEfshe5boM96EOwwEckM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461540; c=relaxed/simple;
-	bh=PmAlNaVoW6WDiKOvty/3z/+Xv8BfHbEI30u3GF10bC8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ktwFuSIo8sJGYQDwnVCxQviKxfmqXcy5RZiaM863SULEU+20OrCRjwZuJFA1mQb/9e4GHe39+JWhYW4q0bI23lUuVb5Wv3S+mGacBaKRHVerZ7NhyS3aezb1e0gaFNTSW7aG0S2lnrmBVKuNct2d87uHL3r1kFA503Wb/tdzoxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ES2ZCoOZ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789461571; c=relaxed/simple;
+	bh=yHlIrOdPfLjj9Gu8t0QO/KBvaVLhX4WuZRnvoHBDFI8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q+0LSZVnLW9NUBY+6NRN/dy6wanm1b+tnd44qhKJRruqv22moim9CF36LHlDkyuMcXsh0Lpmw353ssewfpB315wwzgm9NrPJcmhHva/p92HXGXqOB1loHM8dqcpr9oFKO2znZBD+zUTA6ycap3LE6yNHI4XYCS5FBUWnln5nXuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZQ+8sTEO; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ES2ZCoOZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789461537;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4ehSxidN9kKTCmVpgH+gSlUIAf/GxkvQJrzHZAwyKwo=;
-	b=ES2ZCoOZfle+QQYEYpSAH4g8cJjNbXFqApKQxz8feGSGQaeYSDtqLrzJmJm2Gr2wumtHCW
-	9N84BRtbjiptLJlnspjeLjbrB4+lx3AE7slZch8uMavSi/P081retBtuAopEEAy7XnWd5A
-	iDh1arwabbo0Pp/X/KgIzXsKVSwYHqg=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-616-UXMCkD7lPY-rjKgFJ8dg1g-1; Tue,
- 15 Sep 2026 04:38:51 -0400
-X-MC-Unique: UXMCkD7lPY-rjKgFJ8dg1g-1
-X-Mimecast-MFC-AGG-ID: UXMCkD7lPY-rjKgFJ8dg1g_1789461529
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 388D11802159;
-	Tue, 15 Sep 2026 08:38:49 +0000 (UTC)
-Received: from gerbillo.redhat.com (unknown [10.44.48.83])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 184E9180025F;
-	Tue, 15 Sep 2026 08:38:44 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: 5mghybrid@khu.ac.kr
-Cc: netdev@vger.kernel.org,
-	theo.lebrun@bootlin.com,
-	conor.dooley@microchip.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	richardcochran@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net RESEND 1/2] net: macb: Preserve one-step mode on rejected timestamp requests
-Date: Tue, 15 Sep 2026 10:38:39 +0200
-Message-ID: <20260915083839.71546-1-pabeni@redhat.com>
-In-Reply-To: <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr>
-References: <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZQ+8sTEO"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 963E0169C;
+	Tue, 15 Sep 2026 01:39:24 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C1D203F7B4;
+	Tue, 15 Sep 2026 01:39:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789461568; bh=yHlIrOdPfLjj9Gu8t0QO/KBvaVLhX4WuZRnvoHBDFI8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZQ+8sTEOSXh+kPQv2ubox6sTg5+iNgLqJuOkCnT+cygDDQ9XBo7U6XJaXymP1pGJ+
+	 Y0DmwYp1Zo0S2RIxo6AMwXMKi0Cw0M1zWx99eH1J1EXwt/XnrQjnJAF3bhvS8fMaz7
+	 9qNmLrgH0LmpVPxUIkfIWBGKVDlRCIz9VcfSw9kU=
+Message-ID: <e6caa3e6-084c-442b-8d0e-e851ba75914c@arm.com>
+Date: Tue, 15 Sep 2026 14:09:18 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 6/6] selftests/mm: add a GUP selftest
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Mark Brown <broonie@kernel.org>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rik van Riel <riel@surriel.com>
+References: <20260911110950.200240-1-sarthak.sharma@arm.com>
+ <20260911110950.200240-7-sarthak.sharma@arm.com>
+ <891915e3-3333-45f3-81a8-1ad38fa7ee37@kernel.org>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <891915e3-3333-45f3-81a8-1ad38fa7ee37@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/
----
-net: macb: Preserve one-step mode on rejected timestamp requests
 
-This moves the gem_ptp_set_one_step_sync() calls in gem_set_hwtst() out of
-the tx_type switch and down past the rx_filter validation, so a request
-rejected with -ERANGE no longer changes NCR.OSSMODE.  The cached
-bp->tstamp_config and the TXBDCTRL/RXBDCTRL programming are unchanged.
 
-> diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-> index e5195d7dac1d5..51659bbdfac9a 100644
-> --- a/drivers/net/ethernet/cadence/macb_ptp.c
-> +++ b/drivers/net/ethernet/cadence/macb_ptp.c
-> @@ -418,11 +418,9 @@ int gem_set_hwtst(struct net_device *netdev,
->  	case HWTSTAMP_TX_OFF:
->  		break;
->  	case HWTSTAMP_TX_ONESTEP_SYNC:
-> -		gem_ptp_set_one_step_sync(bp, 1);
->  		tx_bd_control = TSTAMP_ALL_FRAMES;
->  		break;
->  	case HWTSTAMP_TX_ON:
-> -		gem_ptp_set_one_step_sync(bp, 0);
->  		tx_bd_control = TSTAMP_ALL_FRAMES;
->  		break;
->  	default:
-> @@ -460,6 +458,11 @@ int gem_set_hwtst(struct net_device *netdev,
->  		return -ERANGE;
->  	}
->  
-> +	if (tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC)
-> +		gem_ptp_set_one_step_sync(bp, 1);
-> +	else if (tstamp_config->tx_type == HWTSTAMP_TX_ON)
-> +		gem_ptp_set_one_step_sync(bp, 0);
-> +
->  	bp->tstamp_config = *tstamp_config;
+On 9/11/26 9:18 PM, David Hildenbrand (Arm) wrote:
 
-[Severity: High]
-Does this leave the same hardware/cache divergence reachable for the
-HWTSTAMP_TX_OFF transition that the commit message sets out to remove?
+[...]
 
-Neither arm of the new conditional runs for HWTSTAMP_TX_OFF, but the next
-statement caches the request unconditionally and the call after it programs
-TXBDCTRL = TSTAMP_DISABLED:
+>> +
+>> +/* Just the flags we need, copied from the kernel internals. */
+>> +#define FOLL_WRITE	0x01	/* check pte is writable */
+> 
+> BTW, it's odd that we support passing GUP-flags ... we should probably switch at
+> some point simpler attributes (bool write) or custom flags (but we don't seem to
+> need many ...).
 
-	if (tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC)
-		gem_ptp_set_one_step_sync(bp, 1);
-	else if (tstamp_config->tx_type == HWTSTAMP_TX_ON)
-		gem_ptp_set_one_step_sync(bp, 0);
+Agreed
 
-	bp->tstamp_config = *tstamp_config;
+> 
+>> +
+>> +/* Page counts exercising single, THP-batch, partial, and full-mapping GUP. */
+>> +static const int nr_pages_list[] = { 1, 512, 123, -1 };
+> 
+> 
+> Would we want to calculate 512 dynamically at runtime using the PMD pagesize?
+> Could be something for a follow-up patch.
 
-	if (gem_ptp_set_ts_mode(bp, tx_bd_control, rx_bd_control) != 0)
+Yeah this can be done.
 
-So for the sequence
+> 
+>> +
+>> +#define GUP_TEST_FILE "/sys/kernel/debug/gup_test"
+>> +#define NR_HUGE_PAGES 2
+> 
+> I'd call this "NR_HUGETLB_PAGES".
 
-  SIOCSHWTSTAMP{tx_type = HWTSTAMP_TX_ONESTEP_SYNC}   -> OSSMODE = 1
-  SIOCSHWTSTAMP{tx_type = HWTSTAMP_TX_OFF}            -> returns 0
+Okay.
 
-gem_get_hwtst() then reports HWTSTAMP_TX_OFF via
+[...]
 
-	*tstamp_config = bp->tstamp_config;
+>> +static void run_gup_cmd(struct __test_metadata *_metadata,
+>> +			 FIXTURE_DATA(gup_test) *self,
+>> +			 const FIXTURE_VARIANT(gup_test) *variant,
+>> +			 unsigned long command)
+> 
+> We prefer two tab indents.
 
-while gem_ptp_set_one_step_sync() in macb_ptp.c is the only writer of
-MACB_BIT(OSSMODE) in the driver, so One Step Synchro Mode stays enabled in
-NCR.  Does the MAC then keep rewriting the originTimestamp of transmitted
-PTP Sync frames?  The driver assumes it does elsewhere, since
-ptp_one_step_sync() in macb_main.c is used to suppress software FCS/CRC
-insertion for exactly those frames.
+Okay.
 
-Would an unconditional call be preferable to the two-arm conditional, for
-example:
+> 
+>> +{
+>> +	int i;
+>> +
+>> +	for (i = 0; i < (int)ARRAY_SIZE(nr_pages_list); i++) {
+>> +		struct gup_test gup = {
+>> +			.addr = (unsigned long)self->addr,
+>> +			.size = self->size,
+>> +			.nr_pages_per_call = nr_pages_list[i] < 0 ?
+>> +				self->size / psize() : nr_pages_list[i],
+>> +			.gup_flags = variant->write ? FOLL_WRITE : 0,
+>> +		};
+>> +
+>> +		TH_LOG("nr_pages_per_call=%u", gup.nr_pages_per_call);
+>> +		ASSERT_EQ(ioctl(self->gup_fd, command, &gup), 0);
+>> +		ASSERT_EQ(gup.size, self->size);
+>> +	}
+>> +}
+>> +
+>> +TEST_F(gup_test, get_user_pages)
+>> +{
+>> +	run_gup_cmd(_metadata, self, variant, GUP_BASIC_TEST);
+>> +}
+>> +
+>> +TEST_F(gup_test, pin_user_pages)
+>> +{
+>> +	run_gup_cmd(_metadata, self, variant, PIN_BASIC_TEST);
+>> +}
+>> +
+>> +TEST_F(gup_test, get_user_pages_fast)
+>> +{
+>> +	run_gup_cmd(_metadata, self, variant, GUP_FAST_BENCHMARK);
+>> +}
+>> +
+>> +TEST_F(gup_test, pin_user_pages_fast)
+>> +{
+>> +	run_gup_cmd(_metadata, self, variant, PIN_FAST_BENCHMARK);
+>> +}
+>> +
+>> +TEST_F(gup_test, pin_user_pages_longterm)
+>> +{
+>> +	run_gup_cmd(_metadata, self, variant, PIN_LONGTERM_BENCHMARK);
+>> +}
+> 
+> Heh, is there actually a reason why these kernel things are called _BENCHMARK?
+> 
+> I think they are really just tests that can be used for benchmarking ... the
+> measurement logic is entirely in user space.
+> 
+> We could consider cleaning that up as a follow-up.
 
-	gem_ptp_set_one_step_sync(bp,
-				  tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC);
+Yeah this can be worked on as well.
 
-[Severity: Medium]
-This isn't a bug introduced by this patch, but while the call site is being
-moved, is the read-modify-write inside gem_ptp_set_one_step_sync()
-sufficiently serialized?
+> 
+>> +
+>> +int main(int argc, char **argv)
+>> +{
+>> +	int fd;
+>> +
+>> +	fd = open(GUP_TEST_FILE, O_RDWR);
+> 
+> Could do
+> 
+> const int fd = open(GUP_TEST_FILE, O_RDWR);
 
-	reg_val = macb_readl(bp, NCR);
+Okay.
 
-	if (enable)
-		macb_writel(bp, NCR, reg_val | MACB_BIT(OSSMODE));
-	else
-		macb_writel(bp, NCR, reg_val & ~MACB_BIT(OSSMODE));
+> 
+> 
+> Thanks for doing that!
+> 
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-The SRTSM update in the rx_filter switch of gem_set_hwtst() does the same
-thing:
+Thank you David!
 
-		regval = macb_readl(bp, NCR);
-		macb_writel(bp, NCR, (regval | MACB_BIT(SRTSM)));
+> 
+> 
+> I think reasonable extensions will be to execute tests on all available mTHP
+> sizes and all available hugetlb sizes, similar to what cow.c already does.
+> 
+> Can you look into that as part of some follow-up work? mTHP support will be
+> interesting for testing some of the patches Rik has been working on.
 
-Both run from process context with BHs enabled and without bp->lock, while
-other NCR updaters take bp->lock, for example macb_tx_restart() from
-NAPI/softirq context:
+Yup, I'll take that up.
 
-	spin_lock(&bp->lock);
-	macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TSTART));
-	spin_unlock(&bp->lock);
-
-and macb_tx_lpi_set(), which asserts it:
-
-	lockdep_assert_held(&bp->lock);
-
-	ncr = macb_readl(bp, NCR);
-
-Can a concurrent locked writer's bit be lost if it lands between the
-macb_readl() and macb_writel() here?  In the worst case the stale write-back
-would drop MACB_BIT(RE) | MACB_BIT(TE) just restored by macb_mac_link_up(),
-leaving RX/TX disabled while the stack considers the link up; more commonly
-a TSTART or TXLPIEN update is lost.  The same unlocked pattern already
-exists in macb_mac_link_up() after it releases bp->lock and in the RXUBR
-errata path of macb_interrupt(), so this predates the patch, but would
-wrapping both NCR read-modify-writes in gem_set_hwtst() with
-spin_lock_irqsave(&bp->lock, ...) be the right direction?
-
-[Severity: Low]
-This is a pre-existing inconsistency rather than something this patch
-introduces, but since gem_set_hwtst() is being touched: gem_get_ts_info()
-in macb_main.c advertises only
-
-	info->rx_filters =
-		(1 << HWTSTAMP_FILTER_NONE) |
-		(1 << HWTSTAMP_FILTER_ALL);
-
-while the rx_filter switch in gem_set_hwtst() accepts the nine
-HWTSTAMP_FILTER_PTP_V2_* values and reports back a filter the ts_info
-bitmap says is unsupported:
-
-		rx_bd_control =  TSTAMP_ALL_PTP_FRAMES;
-		tstamp_config->rx_filter = HWTSTAMP_FILTER_PTP_V2_EVENT;
-
-Neither the legacy ioctl path via net_hwtstamp_validate() nor the ethtool
-netlink tsconfig path checks the request against the driver's advertised
-bitmap, so userspace can end up with an rx_filter value that is absent from
-the supported set.  Should HWTSTAMP_FILTER_PTP_V2_EVENT be added to
-info->rx_filters?
-
-For reference, the related concern about HWTSTAMP_FILTER_PTP_V1_L4_SYNC and
-HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ returning success while leaving
-rx_bd_control at TSTAMP_DISABLED is addressed later in this series by "net:
-macb: Use all-frame timestamping for PTPv1 RX filters", which folds both
-cases into the TSTAMP_ALL_FRAMES arm.
--- 
-This is an AI-generated review.
+Apart from the indentation, const int fd and the NR_HUGE_PAGES rename,
+is there anything else I should incorporate in a respin? I think other
+changes would require a separate series. If you want me to fold any
+other change in a respin, please let me know.
 
