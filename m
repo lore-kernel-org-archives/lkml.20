@@ -1,66 +1,67 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF393515FA
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:59:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37574A0F0D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:59:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484396; cv=none; b=Hb0NI9cV+6Qhy945vXXydT5kJz+mXLvLyUlZ9VY9SHfYL14w358fSw02s1FVpoYBtLvONve9/GR8DiGd2cHmpjYAhMDNC+0vsEvNZOe3ytYBmiRibFcfXIHlSVbXU1/UWJ7/z730oWPfnB5fOHASU/5hbKKy/zt1jbHJI9o8xgk=
+	t=1789484401; cv=none; b=mh84GDaLbhhmzlS0083lss0Z6EVVLv3Funn5h+MJpL8sSfNFm3zlMstpm3IR33KdFTbXkKzpmMGWWHmdwD6/U1A6Q8Da4W7Zyq5C8VI/DgS+bGGJOA0eLbs1y1BgOYfL02WUpoeWH2kuiqqIh1dZWhT0aKqwNfjzyBHjVcaWA00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484396; c=relaxed/simple;
-	bh=jZuypoR3MOk4j8mwbMkBfCH9ChVQWIYrvhrSN9ratfg=;
+	s=arc-20240116; t=1789484401; c=relaxed/simple;
+	bh=rLGSnt01pkV/qpgbMPc32jphznOsqYG0nK8jRGVoTH4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J+75PDAzSZhnxj0bR4X0B5YlLx/Jqqdl1v3V081QTzchLKkdtcCFvWBGiVIlJe/NSS8Tfo6ZCnbbSHhnNl7LCrbKlVvpXOSEzbhx7wf+WkFn5Y4ajHIkTskc9U/GFju/6AXFv1ypTa3T8Nxn0lvT+nKL3V2oseytNaANaMAG2oI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EE8tS+6s; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=PEHNTZOnHaf+XUF77biAGJLznSKv9SlWGdbmIsqi8uEcVSpKVfeyTf1WAabFhVnXvKPLRkc0SYXzKwQIE7LVAOu8uVMSzYhmEJiHrr18QTJOT7vgZSktB4VD4as93RsKbk0DiCNhbe7U3KWPofs6MpHekRvzuhma23n2tLzBHpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F7G35TG+; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EE8tS+6s"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so2670391f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:59:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F7G35TG+"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so2670462f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:59:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789484393; x=1790089193; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789484397; x=1790089197; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pBUilLABy+haqxmyNuDtxCS558jv0OslZcYLXXiBzgY=;
-        b=EE8tS+6sRl2lsE6i+WspXaL/1fndsU+KpOOw3ymwAIWeVaNes51kUqq7Gw5J5qk+lJ
-         AEULOQZ9HTKpBan+yzj2w5dofTyHHqEc/6gZQlQsRBh325PAzNifk7N1N/uIIZaaZ0rs
-         RxYDX9CdhwVm4tUda+zr5qcXLi1TFogqu7NXpOHkaKyAzVx+LjTt/MXA+L9l94g/uWzH
-         feAGdOv81vHBVof2FJ42aMz6wmgpOjFTR5Lkkd9296vLWC+sEOTnGs6GS0tMOsk2fQjQ
-         sKaZ8HFDf4/0GLShO8SUr4ypUKR9bWxsm3FGwKzo26KzV8PxiwyGRNMG4aWri2J/EFtd
-         SV4g==
+        bh=uzCg6OBZUcUYAx3OaMdOACh0u4h8Pv6g2Vq3JQp8FD4=;
+        b=F7G35TG+b0igPhjsQfBB3pL1/bYtE3nYqLlKXBMPIL9wLcMxIhEpIHkwaaFEXnWtJw
+         RNLsNb93vkMWfvlh7aZy512Eq46COFfCEi0e/KUdGtbMrHGRhRBHaNxVYFuIn7+hWBGt
+         /ULsw5YSDqklMNWUjpCt5eRH8HfUx9qUjtcL05gL6NCEc+uy56Ogte5Y8F8oZ3d3ENs8
+         YwsQpR8d0InrVsvUhLXmhkYbaj6etPjWfRTDQ1IyCu0CiqofdVw0NJwRkvmCac0HdpL7
+         Z0l9H9HnNxEfEldhOmbemohoyMjyhNzDGbHWDkmosMoxSNuVEQJ2CqOuqtpmhcD5Q+oY
+         1SCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484393; x=1790089193;
+        d=1e100.net; s=20260707; t=1789484397; x=1790089197;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pBUilLABy+haqxmyNuDtxCS558jv0OslZcYLXXiBzgY=;
-        b=pTtUyF8lXIJKXhrggRCCUN/H2q6Dp8Mjx3V4N7xBOCpAT3oEWZhi0zOrhflV1TrC3a
-         zB5OaOo/nAU5HhCJ/YcCO2vl+81PH2Uf4PW6WyBvHzF80KpFZr0PRykVyqdyzXtiUdtN
-         XL4wIJI82jZ+xpblk3z1y9qUlZORZP7om6Jn/lHC1ULG8ruM+u6GBFod4LOo9V86T9Da
-         A9xKHQ/P2CLkJUSbFKr87OVQTXAKU6wjerOkuYC9ufi+WCRIn1Iy6KQJTnpGqIAsOkzZ
-         iDsANtl/ph8RbZPxJW1gh67NsjykfrXsn+KOTZRDSWGwhy5+aqzeC2JOGPDEvmdFf19K
-         GBnA==
-X-Forwarded-Encrypted: i=1; AKwUvBzGlogTJhXQqgJHObaNpdosstGXHtRW8GN8xlpHiwc+PRl12x9XErjhBbzj+mYwFqiPbESLIa4qa1Bz8LY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lL/m3RTseu7gURzspRNK28FIk2J0tjTlfh69k0jnNgXF8yCo5v
-	TG9Jpj7yJvR36bgS2JXP1j//xAB7+WjoHwUp4c0YyC+yNBiX+zexcC0v
-X-Gm-Gg: AYBFou063nGOZKSzzu/M0ThHHDHLDqTKOJBNu6oXuZ5jpEVsXdtKZCGKuiOmt2Lnq1Q
-	8gk7cC/sm1iIyvMXbvNXs0kjegwvlfuCbf7jD0VRZ4u6O09ACuSPtyxz786eD/5oyYARNgd3rsW
-	1xaBoy6mtWrYjILTGdwbISfGJqYrlBNxDcQfGs77z2fAQS3grHmPrILJsQoCHnOsSTQKOW+PLOO
-	ggnE5O47t4FFFLlAbp+w7SJX6n9Jr4E9SfQjRGArDasLLXtmzKGPXv5Bjqihm4sl0rN7yoY/PZf
-	MeZWvlB9xiH6c3tOPX/lsavz6BYMvXiMD/5CaBQi2SwhQLNvNbRPmEdJGwxd+A4rXcXzDd6CEET
-	z/s4gOtEg8zVjUAvCc1ELsOdFyyv0FC7liWKDopahfuWIT1VvZMjBanymGG9bmmrzVvD5yoFu64
-	I3/qbULDqPuD1ZPSdNntaICn3BBH8C1KMUTzxTQpNlZhpamcTipcNPWizN7XejrXv97+Zino9Vf
-	zUh1wU8092KuBTYnWgGmEQbgB7+9uis+w==
-X-Received: by 2002:a05:6000:4a17:b0:486:f282:e66b with SMTP id ffacd0b85a97d-48702aacdaemr18492748f8f.2.1789484392774;
-        Tue, 15 Sep 2026 07:59:52 -0700 (PDT)
+        bh=uzCg6OBZUcUYAx3OaMdOACh0u4h8Pv6g2Vq3JQp8FD4=;
+        b=Y9flw1K9MxXfJCFIeFg3k41eJT8s5W+QaVpGbi1l2O/3AYu5hqyBJW27SHQMOkD7I8
+         sx+7eADkOYO8mK9fBtWfK+KRkYrgpU93Bn+jpIVLSDGCScL/Zxv298KzCWvJSim0o/Y+
+         qbQ7zlvAD6HoMxVO7RWW6E8f+lgzcLE+bEhXDdrN7hEDhrHven5vWf4R8DUQvKZghk3d
+         Sy4I3Ol1Q2OR2G1nxLMPVJhLEZjc9oALJd4ljyUNt2T88V0pAOcYGSgiQF1hs/pScZWb
+         HnD4P+eRHNmimDBBS6q++E2fks5D3xHNjqUTJkRXc1ilKEPmv6ChbIn4nJxTGbQe9MNp
+         TXRA==
+X-Forwarded-Encrypted: i=1; AKwUvBwuQxUQ77pjPfQEJm8W9vPOBYGY7wF2qnzBBuRK4U5SqEk2TypyLhLk4GBVkt5yXNFcKELpdazey/Js5YU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mb1EaXhp2TsibxkAQc3UTj7wKbi9LaEDZUgCn8zhnlAFO1NZ39
+	ndWPANoq5qe6Xk9ZtTAkNgV6PfAKtB3n1Q3i0zEbwIKb3XgSC0j90muB
+X-Gm-Gg: AYBFou2A46vN9KOYGLyXXXamdE8JQlQJZfPpogKlNaLCxWU1HrTTQMTtAM5XF681xhO
+	sGyZ9AWChfHmPSSU7kuU1lj461RG+ccQ8/5gM2BtT29HqZY8b+stMM5SYCAUO7Mq2OSOzHbIlQG
+	SXkVWE2KqM5XcLfanI/AxYbs3wfqPUM2uTws56vl1198+TAANESTXXoTtzNKkQ2N07+r7ODKd3W
+	0cfkbO68jTwWrrsh2RD+psyzqAs9SYiRC7ZZdp7+cCsNEPWu2R+m+ZDLjwIB/ffIx7lf+omNTa6
+	opAMNmFvwtVSkUVC3Zcq0pF9AjSBlrzdzUqZne3QA8SCJSdHOkmNl04qjOweR81C1vE+/2Fg0Jg
+	Pt6L1Rt6AZ9hiXk505rAuRht4JKwSCBiRCoEJHJQHshFzm9IZiJ8FWwsYMEbbhJlUoOEyeldZct
+	rmrhUygiKAPKqEfr6EvjMbr8E5ONbwhxKdWZgB5MeYNSgdNAyuPV9dbuKey+gcU3ifz2nGpnwux
+	+GAeoPPUFqjI6p/KAq3TNowtNuI07E+Nw==
+X-Received: by 2002:a05:6000:2283:b0:487:635:bae2 with SMTP id ffacd0b85a97d-4870635bc41mr10173104f8f.25.1789484396739;
+        Tue, 15 Sep 2026 07:59:56 -0700 (PDT)
 Received: from osama.. ([156.223.70.89])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48707e00133sm5081128f8f.11.2026.09.15.07.59.51
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48707e00133sm5081128f8f.11.2026.09.15.07.59.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:59:52 -0700 (PDT)
+        Tue, 15 Sep 2026 07:59:56 -0700 (PDT)
 From: Osama Abdelkader <osama.abdelkader@gmail.com>
 To: luca.ceresoli@bootlin.com,
+	Linus Walleij <linusw@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -68,13 +69,16 @@ To: luca.ceresoli@bootlin.com,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
-	Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
+	Cristian Cozzolino <cristian_ci@protonmail.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Robert Chiras <robert.chiras@nxp.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
 Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: [PATCH v5 1/4] drm/panel: Use devm_mipi_dsi_attach in BOE panels
-Date: Tue, 15 Sep 2026 16:59:28 +0200
-Message-ID: <20260915145935.60397-2-osama.abdelkader@gmail.com>
+Subject: [PATCH v5 2/4] drm/panel: Use managed helpers in Novatek and Raydium panels
+Date: Tue, 15 Sep 2026 16:59:29 +0200
+Message-ID: <20260915145935.60397-3-osama.abdelkader@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260915145935.60397-1-osama.abdelkader@gmail.com>
 References: <20260915145935.60397-1-osama.abdelkader@gmail.com>
@@ -86,72 +90,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use the managed MIPI DSI attach and panel add helpers in BOE panel drivers
-and drop the corresponding manual detach and panel remove calls from
-remove paths.
+Use the managed MIPI DSI attach and panel add helpers in Novatek and Raydium
+panel drivers and drop the corresponding manual detach and panel remove
+calls from remove paths.
 
+Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 ---
- .../gpu/drm/panel/panel-boe-bf060y8m-aj0.c    | 19 ++++-----------
- drivers/gpu/drm/panel/panel-boe-himax8279d.c  | 23 ++----------------
- drivers/gpu/drm/panel/panel-boe-td4320.c      | 23 ++++--------------
- .../drm/panel/panel-boe-th101mb31ig002-28a.c  | 24 ++++++-------------
- .../gpu/drm/panel/panel-boe-tv101wum-ll2.c    | 23 ++++--------------
- .../gpu/drm/panel/panel-boe-tv101wum-nl6.c    | 24 ++-----------------
- 6 files changed, 25 insertions(+), 111 deletions(-)
+v5:
+- nt35510: keep mipi_dsi_attach()/mipi_dsi_detach() manual instead of
+  devm_mipi_dsi_attach(), since nt35510_remove() also powers off the
+  panel; deferring the detach to devm would run it after the power-off
+  instead of before it, changing the teardown order. (Luca)
+v4:
+- use devm_drm_panel_add instead of drm_panel_add.
 
-diff --git a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
-index 84c21c62a43e..e9519923c6d8 100644
---- a/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
-+++ b/drivers/gpu/drm/panel/panel-boe-bf060y8m-aj0.c
-@@ -357,9 +357,11 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_device *dsi)
- 		return dev_err_probe(dev, PTR_ERR(boe->panel.backlight),
- 				     "Failed to create backlight\n");
+ drivers/gpu/drm/panel/panel-novatek-nt35510.c | 13 ++++++----
+ drivers/gpu/drm/panel/panel-novatek-nt35532.c | 23 ++++-------------
+ drivers/gpu/drm/panel/panel-novatek-nt35560.c | 19 +++-----------
+ .../gpu/drm/panel/panel-novatek-nt36672a.c    | 25 ++-----------------
+ .../gpu/drm/panel/panel-novatek-nt36672e.c    | 21 ++++------------
+ .../gpu/drm/panel/panel-novatek-nt37700f.c    | 23 ++++-------------
+ drivers/gpu/drm/panel/panel-novatek-nt37801.c | 23 ++++-------------
+ drivers/gpu/drm/panel/panel-raydium-rm67191.c | 22 +++-------------
+ drivers/gpu/drm/panel/panel-raydium-rm67200.c | 23 ++++-------------
+ drivers/gpu/drm/panel/panel-raydium-rm68200.c | 16 +++---------
+ drivers/gpu/drm/panel/panel-raydium-rm692e5.c | 20 +++------------
+ 11 files changed, 49 insertions(+), 179 deletions(-)
+
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35510.c b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+index 3189d89c7ca0..86d1a19afb7b 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt35510.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt35510.c
+@@ -1173,11 +1173,13 @@ static int nt35510_probe(struct mipi_dsi_device *dsi)
+ 		nt->panel.backlight = bl;
+ 	}
  
--	drm_panel_add(&boe->panel);
-+	ret = devm_drm_panel_add(dev, &boe->panel);
+-	drm_panel_add(&nt->panel);
++	ret = devm_drm_panel_add(dev, &nt->panel);
++	if (ret)
++		return ret;
+ 
+ 	ret = mipi_dsi_attach(dsi);
+ 	if (ret < 0)
+-		drm_panel_remove(&nt->panel);
++		return ret;
+ 
+ 	return 0;
+ }
+@@ -1187,13 +1189,14 @@ static void nt35510_remove(struct mipi_dsi_device *dsi)
+ 	struct nt35510 *nt = mipi_dsi_get_drvdata(dsi);
+ 	int ret;
+ 
+-	mipi_dsi_detach(dsi);
++	ret = mipi_dsi_detach(dsi);
++	if (ret < 0)
++		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
++
+ 	/* Power off */
+ 	ret = nt35510_power_off(nt);
+ 	if (ret)
+ 		dev_err(&dsi->dev, "Failed to power off\n");
+-
+-	drm_panel_remove(&nt->panel);
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35532.c b/drivers/gpu/drm/panel/panel-novatek-nt35532.c
+index edea766a3c44..752144220514 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt35532.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt35532.c
+@@ -752,29 +752,17 @@ static int nt35532_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
 +	if (ret)
 +		return ret;
  
 -	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		drm_panel_remove(&ctx->panel);
 +	ret = devm_mipi_dsi_attach(dev, dsi);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
- 		return ret;
-@@ -368,18 +370,6 @@ static int boe_bf060y8m_aj0_probe(struct mipi_dsi_device *dsi)
++	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+-	}
+ 
  	return 0;
  }
  
--static void boe_bf060y8m_aj0_remove(struct mipi_dsi_device *dsi)
+-static void nt35532_remove(struct mipi_dsi_device *dsi)
 -{
--	struct boe_bf060y8m_aj0 *boe = mipi_dsi_get_drvdata(dsi);
+-	struct novatek_nt35532 *ctx = mipi_dsi_get_drvdata(dsi);
 -	int ret;
 -
 -	ret = mipi_dsi_detach(dsi);
 -	if (ret < 0)
 -		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
 -
--	drm_panel_remove(&boe->panel);
+-	drm_panel_remove(&ctx->panel);
 -}
 -
- static const struct of_device_id boe_bf060y8m_aj0_of_match[] = {
- 	{ .compatible = "boe,bf060y8m-aj0" },
+ static const struct of_device_id nt35532_of_match[] = {
+ 	{ .compatible = "flipkart,rimob-panel-nt35532-cs", .data = &rimob_panel_desc },
  	{ /* sentinel */ }
-@@ -388,7 +378,6 @@ MODULE_DEVICE_TABLE(of, boe_bf060y8m_aj0_of_match);
+@@ -783,7 +771,6 @@ MODULE_DEVICE_TABLE(of, nt35532_of_match);
  
- static struct mipi_dsi_driver boe_bf060y8m_aj0_driver = {
- 	.probe = boe_bf060y8m_aj0_probe,
--	.remove = boe_bf060y8m_aj0_remove,
+ static struct mipi_dsi_driver nt35532_driver = {
+ 	.probe = nt35532_probe,
+-	.remove = nt35532_remove,
  	.driver = {
- 		.name = "panel-sw43404-boe-fhd-amoled",
- 		.of_match_table = boe_bf060y8m_aj0_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-boe-himax8279d.c b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-index 4a8560b4b899..facf37bd1c14 100644
---- a/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-+++ b/drivers/gpu/drm/panel/panel-boe-himax8279d.c
-@@ -851,9 +851,7 @@ static int panel_add(struct panel_info *pinfo)
- 	if (ret)
+ 		.name = "panel-novatek-nt35532",
+ 		.of_match_table = nt35532_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35560.c b/drivers/gpu/drm/panel/panel-novatek-nt35560.c
+index 6e5173f98a22..be42eb9ef423 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt35560.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt35560.c
+@@ -433,23 +433,11 @@ static int nt35560_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(nt->panel.backlight),
+ 				     "failed to register backlight device\n");
+ 
+-	drm_panel_add(&nt->panel);
+-
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
+-		drm_panel_remove(&nt->panel);
++	ret = devm_drm_panel_add(dev, &nt->panel);
++	if (ret)
  		return ret;
+-	}
+-
+-	return 0;
+-}
+-
+-static void nt35560_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct nt35560 *nt = mipi_dsi_get_drvdata(dsi);
+ 
+-	mipi_dsi_detach(dsi);
+-	drm_panel_remove(&nt->panel);
++	return devm_mipi_dsi_attach(dev, dsi);
+ }
+ 
+ static const struct of_device_id nt35560_of_match[] = {
+@@ -467,7 +455,6 @@ MODULE_DEVICE_TABLE(of, nt35560_of_match);
+ 
+ static struct mipi_dsi_driver nt35560_driver = {
+ 	.probe = nt35560_probe,
+-	.remove = nt35560_remove,
+ 	.driver = {
+ 		.name = "panel-novatek-nt35560",
+ 		.of_match_table = nt35560_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+index 464d9ce47d87..da466cdd9354 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+@@ -428,9 +428,7 @@ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
  
 -	drm_panel_add(&pinfo->base);
 -
@@ -159,21 +256,23 @@ index 4a8560b4b899..facf37bd1c14 100644
 +	return devm_drm_panel_add(dev, &pinfo->base);
  }
  
- static int panel_probe(struct mipi_dsi_device *dsi)
-@@ -881,23 +879,7 @@ static int panel_probe(struct mipi_dsi_device *dsi)
+ static int nt36672a_panel_probe(struct mipi_dsi_device *dsi)
+@@ -458,25 +456,7 @@ static int nt36672a_panel_probe(struct mipi_dsi_device *dsi)
  	if (err < 0)
  		return err;
  
 -	err = mipi_dsi_attach(dsi);
--	if (err < 0)
+-	if (err < 0) {
 -		drm_panel_remove(&pinfo->base);
+-		return err;
+-	}
 -
--	return err;
+-	return 0;
 -}
 -
--static void panel_remove(struct mipi_dsi_device *dsi)
+-static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
 -{
--	struct panel_info *pinfo = mipi_dsi_get_drvdata(dsi);
+-	struct nt36672a_panel *pinfo = mipi_dsi_get_drvdata(dsi);
 -	int err;
 -
 -	err = mipi_dsi_detach(dsi);
@@ -184,22 +283,67 @@ index 4a8560b4b899..facf37bd1c14 100644
 +	return devm_mipi_dsi_attach(&dsi->dev, dsi);
  }
  
- static struct mipi_dsi_driver panel_driver = {
-@@ -906,7 +888,6 @@ static struct mipi_dsi_driver panel_driver = {
- 		.of_match_table = panel_of_match,
+ static const struct of_device_id tianma_fhd_video_of_match[] = {
+@@ -491,7 +471,6 @@ static struct mipi_dsi_driver nt36672a_panel_driver = {
+ 		.of_match_table = tianma_fhd_video_of_match,
  	},
- 	.probe = panel_probe,
--	.remove = panel_remove,
+ 	.probe = nt36672a_panel_probe,
+-	.remove = nt36672a_panel_remove,
  };
- module_mipi_dsi_driver(panel_driver);
+ module_mipi_dsi_driver(nt36672a_panel_driver);
  
-diff --git a/drivers/gpu/drm/panel/panel-boe-td4320.c b/drivers/gpu/drm/panel/panel-boe-td4320.c
-index 23558a76dd72..73b762817e3e 100644
---- a/drivers/gpu/drm/panel/panel-boe-td4320.c
-+++ b/drivers/gpu/drm/panel/panel-boe-td4320.c
-@@ -202,29 +202,17 @@ static int boe_td4320_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
+index c5e00eb55722..85902338f10d 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
+@@ -561,27 +561,17 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
+ 
+ 	ctx->panel.prepare_prev_first = true;
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+-		goto err_dsi_attach;
++		return ret;
+ 	}
+ 
+ 	return 0;
+-
+-err_dsi_attach:
+-	drm_panel_remove(&ctx->panel);
+-	return ret;
+-}
+-
+-static void nt36672e_panel_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct nt36672e_panel *ctx = mipi_dsi_get_drvdata(dsi);
+-
+-	mipi_dsi_detach(ctx->dsi);
+-	drm_panel_remove(&ctx->panel);
+ }
+ 
+ static const struct of_device_id nt36672e_of_match[] = {
+@@ -599,7 +589,6 @@ static struct mipi_dsi_driver nt36672e_panel_driver = {
+ 		.of_match_table = nt36672e_of_match,
+ 	},
+ 	.probe = nt36672e_panel_probe,
+-	.remove = nt36672e_panel_remove,
+ };
+ module_mipi_dsi_driver(nt36672e_panel_driver);
+ 
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37700f.c b/drivers/gpu/drm/panel/panel-novatek-nt37700f.c
+index c221dd498fed..c2d219e52f6a 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt37700f.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt37700f.c
+@@ -257,29 +257,17 @@ static int nt37700f_tianma_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+ 				     "Failed to create backlight\n");
  
 -	drm_panel_add(&ctx->panel);
 +	ret = devm_drm_panel_add(dev, &ctx->panel);
@@ -217,9 +361,9 @@ index 23558a76dd72..73b762817e3e 100644
  	return 0;
  }
  
--static void boe_td4320_remove(struct mipi_dsi_device *dsi)
+-static void nt37700f_tianma_remove(struct mipi_dsi_device *dsi)
 -{
--	struct boe_td4320 *ctx = mipi_dsi_get_drvdata(dsi);
+-	struct nt37700f_tianma *ctx = mipi_dsi_get_drvdata(dsi);
 -	int ret;
 -
 -	ret = mipi_dsi_detach(dsi);
@@ -229,74 +373,35 @@ index 23558a76dd72..73b762817e3e 100644
 -	drm_panel_remove(&ctx->panel);
 -}
 -
- static const struct of_device_id boe_td4320_of_match[] = {
- 	{ .compatible = "boe,td4320" },
+ static const struct of_device_id nt37700f_tianma_of_match[] = {
+ 	{ .compatible = "novatek,nt37700f" },
  	{ /* sentinel */ }
-@@ -233,7 +221,6 @@ MODULE_DEVICE_TABLE(of, boe_td4320_of_match);
+@@ -288,7 +276,6 @@ MODULE_DEVICE_TABLE(of, nt37700f_tianma_of_match);
  
- static struct mipi_dsi_driver boe_td4320_driver = {
- 	.probe = boe_td4320_probe,
--	.remove = boe_td4320_remove,
+ static struct mipi_dsi_driver nt37700f_tianma_driver = {
+ 	.probe = nt37700f_tianma_probe,
+-	.remove = nt37700f_tianma_remove,
  	.driver = {
- 		.name = "panel-boe-td4320",
- 		.of_match_table = boe_td4320_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-index a70a2e58f88c..c5f18e310b43 100644
---- a/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-+++ b/drivers/gpu/drm/panel/panel-boe-th101mb31ig002-28a.c
-@@ -391,25 +391,16 @@ static int boe_th101mb31ig002_dsi_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return ret;
- 
--	drm_panel_add(&ctx->panel);
--
--	ret = mipi_dsi_attach(dsi);
--	if (ret < 0) {
--		dev_err_probe(&dsi->dev, ret,
--			      "Failed to attach panel to DSI host\n");
--		drm_panel_remove(&ctx->panel);
-+	ret = devm_drm_panel_add(&dsi->dev, &ctx->panel);
-+	if (ret)
- 		return ret;
--	}
- 
--	return 0;
--}
--
--static void boe_th101mb31ig002_dsi_remove(struct mipi_dsi_device *dsi)
--{
--	struct boe_th101mb31ig002 *ctx = mipi_dsi_get_drvdata(dsi);
-+	ret = devm_mipi_dsi_attach(&dsi->dev, dsi);
-+	if (ret < 0)
-+		return dev_err_probe(&dsi->dev, ret,
-+				     "Failed to attach panel to DSI host\n");
- 
--	mipi_dsi_detach(dsi);
--	drm_panel_remove(&ctx->panel);
-+	return 0;
- }
- 
- static const struct of_device_id boe_th101mb31ig002_of_match[] = {
-@@ -431,7 +422,6 @@ static struct mipi_dsi_driver boe_th101mb31ig002_driver = {
- 		.of_match_table = boe_th101mb31ig002_of_match,
- 	},
- 	.probe = boe_th101mb31ig002_dsi_probe,
--	.remove = boe_th101mb31ig002_dsi_remove,
- };
- module_mipi_dsi_driver(boe_th101mb31ig002_driver);
- 
-diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
-index 20b6e11a7d84..8a6c4d5c6320 100644
---- a/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
-+++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-ll2.c
-@@ -198,29 +198,17 @@ static int boe_tv101wum_ll2_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+ 		.name = "panel-novatek-nt37700f",
+ 		.of_match_table = nt37700f_tianma_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37801.c b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+index 5e46c4c6d771..4db560b66f4d 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt37801.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt37801.c
+@@ -270,7 +270,9 @@ static int novatek_nt37801_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+ 				     "Failed to create backlight\n");
  
 -	drm_panel_add(&ctx->panel);
 +	ret = devm_drm_panel_add(dev, &ctx->panel);
 +	if (ret)
 +		return ret;
+ 
+ 	/* This panel only supports DSC; unconditionally enable it */
+ 	dsi->dsc = &ctx->dsc;
+@@ -283,27 +285,13 @@ static int novatek_nt37801_probe(struct mipi_dsi_device *dsi)
+ 	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
+ 	ctx->dsc.block_pred_enable = true;
  
 -	ret = mipi_dsi_attach(dsi);
 -	if (ret < 0) {
@@ -309,9 +414,9 @@ index 20b6e11a7d84..8a6c4d5c6320 100644
  	return 0;
  }
  
--static void boe_tv101wum_ll2_remove(struct mipi_dsi_device *dsi)
+-static void novatek_nt37801_remove(struct mipi_dsi_device *dsi)
 -{
--	struct boe_tv101wum_ll2 *ctx = mipi_dsi_get_drvdata(dsi);
+-	struct novatek_nt37801 *ctx = mipi_dsi_get_drvdata(dsi);
 -	int ret;
 -
 -	ret = mipi_dsi_detach(dsi);
@@ -321,66 +426,202 @@ index 20b6e11a7d84..8a6c4d5c6320 100644
 -	drm_panel_remove(&ctx->panel);
 -}
 -
- static const struct of_device_id boe_tv101wum_ll2_of_match[] = {
- 	{ .compatible = "boe,tv101wum-ll2" },
- 	{ /* sentinel */ }
-@@ -229,7 +217,6 @@ MODULE_DEVICE_TABLE(of, boe_tv101wum_ll2_of_match);
+ static const struct of_device_id novatek_nt37801_of_match[] = {
+ 	{ .compatible = "novatek,nt37801" },
+ 	{}
+@@ -312,7 +300,6 @@ MODULE_DEVICE_TABLE(of, novatek_nt37801_of_match);
  
- static struct mipi_dsi_driver boe_tv101wum_ll2_driver = {
- 	.probe = boe_tv101wum_ll2_probe,
--	.remove = boe_tv101wum_ll2_remove,
+ static struct mipi_dsi_driver novatek_nt37801_driver = {
+ 	.probe = novatek_nt37801_probe,
+-	.remove = novatek_nt37801_remove,
  	.driver = {
- 		.name = "panel-boe-tv101wum_ll2",
- 		.of_match_table = boe_tv101wum_ll2_of_match,
-diff --git a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-index 150dff3ab6c3..cf9f15fae272 100644
---- a/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-+++ b/drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
-@@ -1736,9 +1736,7 @@ static int boe_panel_add(struct boe_panel *boe)
- 	boe->base.funcs = &boe_panel_funcs;
- 	boe->base.dev = &boe->dsi->dev;
+ 		.name = "panel-novatek-nt37801",
+ 		.of_match_table = novatek_nt37801_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm67191.c b/drivers/gpu/drm/panel/panel-raydium-rm67191.c
+index 2af6aa47a551..62062ae0ebe3 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm67191.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm67191.c
+@@ -590,26 +590,11 @@ static int rad_panel_probe(struct mipi_dsi_device *dsi)
  
--	drm_panel_add(&boe->base);
+ 	dev_set_drvdata(dev, panel);
+ 
+-	drm_panel_add(&panel->panel);
 -
--	return 0;
-+	return devm_drm_panel_add(dev, &boe->base);
- }
- 
- static int boe_panel_probe(struct mipi_dsi_device *dsi)
-@@ -1765,24 +1763,7 @@ static int boe_panel_probe(struct mipi_dsi_device *dsi)
- 
- 	mipi_dsi_set_drvdata(dsi, boe);
- 
 -	ret = mipi_dsi_attach(dsi);
 -	if (ret)
--		drm_panel_remove(&boe->base);
+-		drm_panel_remove(&panel->panel);
 -
 -	return ret;
 -}
 -
--static void boe_panel_remove(struct mipi_dsi_device *dsi)
+-static void rad_panel_remove(struct mipi_dsi_device *dsi)
 -{
--	struct boe_panel *boe = mipi_dsi_get_drvdata(dsi);
+-	struct rad_panel *rad = mipi_dsi_get_drvdata(dsi);
+-	struct device *dev = &dsi->dev;
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
++	ret = devm_drm_panel_add(dev, &panel->panel);
+ 	if (ret)
+-		dev_err(dev, "Failed to detach from host (%d)\n", ret);
++		return ret;
+ 
+-	drm_panel_remove(&rad->panel);
++	return devm_mipi_dsi_attach(dev, dsi);
+ }
+ 
+ static const struct of_device_id rad_of_match[] = {
+@@ -624,7 +609,6 @@ static struct mipi_dsi_driver rad_panel_driver = {
+ 		.of_match_table = rad_of_match,
+ 	},
+ 	.probe = rad_panel_probe,
+-	.remove = rad_panel_remove,
+ };
+ module_mipi_dsi_driver(rad_panel_driver);
+ 
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm67200.c b/drivers/gpu/drm/panel/panel-raydium-rm67200.c
+index b2ba006c06f6..e16f9ad6d193 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm67200.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm67200.c
+@@ -420,29 +420,17 @@ static int raydium_rm67200_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return ret;
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
+-	if (ret < 0) {
++	ret = devm_mipi_dsi_attach(dev, dsi);
++	if (ret < 0)
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+-		drm_panel_remove(&ctx->panel);
+-	}
+ 
+ 	return ret;
+ }
+ 
+-static void raydium_rm67200_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct raydium_rm67200 *ctx = mipi_dsi_get_drvdata(dsi);
 -	int ret;
 -
 -	ret = mipi_dsi_detach(dsi);
 -	if (ret < 0)
--		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
+-		dev_err(&dsi->dev, "Failed to detach DSI host: %d\n", ret);
 -
--	if (boe->base.dev)
--		drm_panel_remove(&boe->base);
-+	return devm_mipi_dsi_attach(&dsi->dev, dsi);
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct regulator_bulk_data w552793baa_regulators[] = {
+ 	{ .supply = "vdd", },		/*  2.8V */
+ 	{ .supply = "iovcc", },		/*  1.8V */
+@@ -479,7 +467,6 @@ MODULE_DEVICE_TABLE(of, raydium_rm67200_of_match);
+ 
+ static struct mipi_dsi_driver raydium_rm67200_driver = {
+ 	.probe = raydium_rm67200_probe,
+-	.remove = raydium_rm67200_remove,
+ 	.driver = {
+ 		.name = "panel-raydium-rm67200",
+ 		.of_match_table = raydium_rm67200_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm68200.c b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
+index c535dc931903..f235cb4ae071 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm68200.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm68200.c
+@@ -360,26 +360,19 @@ static int rm68200_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return ret;
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "mipi_dsi_attach() failed: %d\n", ret);
+-		drm_panel_remove(&ctx->panel);
+ 		return ret;
+ 	}
+ 
+ 	return 0;
  }
  
- static const struct of_device_id boe_of_match[] = {
-@@ -1820,7 +1801,6 @@ static struct mipi_dsi_driver boe_panel_driver = {
- 		.of_match_table = boe_of_match,
- 	},
- 	.probe = boe_panel_probe,
--	.remove = boe_panel_remove,
- };
- module_mipi_dsi_driver(boe_panel_driver);
+-static void rm68200_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct rm68200 *ctx = mipi_dsi_get_drvdata(dsi);
+-
+-	mipi_dsi_detach(dsi);
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct of_device_id raydium_rm68200_of_match[] = {
+ 	{ .compatible = "raydium,rm68200" },
+ 	{ }
+@@ -388,7 +381,6 @@ MODULE_DEVICE_TABLE(of, raydium_rm68200_of_match);
  
+ static struct mipi_dsi_driver raydium_rm68200_driver = {
+ 	.probe = rm68200_probe,
+-	.remove = rm68200_remove,
+ 	.driver = {
+ 		.name = "panel-raydium-rm68200",
+ 		.of_match_table = raydium_rm68200_of_match,
+diff --git a/drivers/gpu/drm/panel/panel-raydium-rm692e5.c b/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
+index 8e9484768657..4065cdf690f9 100644
+--- a/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
++++ b/drivers/gpu/drm/panel/panel-raydium-rm692e5.c
+@@ -315,7 +315,9 @@ static int rm692e5_probe(struct mipi_dsi_device *dsi)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+ 				     "Failed to create backlight\n");
+ 
+-	drm_panel_add(&ctx->panel);
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret)
++		return ret;
+ 
+ 	/* This panel only supports DSC; unconditionally enable it */
+ 	dsi->dsc = &ctx->dsc;
+@@ -331,28 +333,15 @@ static int rm692e5_probe(struct mipi_dsi_device *dsi)
+ 	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
+ 	ctx->dsc.block_pred_enable = true;
+ 
+-	ret = mipi_dsi_attach(dsi);
++	ret = devm_mipi_dsi_attach(dev, dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+-		drm_panel_remove(&ctx->panel);
+ 		return ret;
+ 	}
+ 
+ 	return 0;
+ }
+ 
+-static void rm692e5_remove(struct mipi_dsi_device *dsi)
+-{
+-	struct rm692e5_panel *ctx = mipi_dsi_get_drvdata(dsi);
+-	int ret;
+-
+-	ret = mipi_dsi_detach(dsi);
+-	if (ret < 0)
+-		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+-
+-	drm_panel_remove(&ctx->panel);
+-}
+-
+ static const struct of_device_id rm692e5_of_match[] = {
+ 	{ .compatible = "fairphone,fp5-rm692e5-boe" },
+ 	{ }
+@@ -361,7 +350,6 @@ MODULE_DEVICE_TABLE(of, rm692e5_of_match);
+ 
+ static struct mipi_dsi_driver rm692e5_driver = {
+ 	.probe = rm692e5_probe,
+-	.remove = rm692e5_remove,
+ 	.driver = {
+ 		.name = "panel-rm692e5-boe-amoled",
+ 		.of_match_table = rm692e5_of_match,
 -- 
 2.43.0
 
