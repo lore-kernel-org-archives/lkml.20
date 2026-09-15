@@ -1,183 +1,126 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA8243E9F9
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789451312; cv=pass; b=sNEYUEThUuU9dzlHDIxY4Ut6nAm9PBvNyBeo08iL4hIcS05faDGV9XkP4drila3cFBzyzrQJDnR84ymURiI8W/Mq/gtFMIlGRSFbJMfts0PlsGl6k9sJAPcI4N9Ch3bRMBm2Tx7B6vf6IR81lIKauWXqyJ9XL9eyolk7RfEfIE0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789451312; c=relaxed/simple;
-	bh=9sxs99q/vt32YFF/vpvn2FGC1BhsOFWa4Lxq22N29IY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TeQopfQ0TKBvQtXvtzKsZPJQRs6OLc935JD28HZhipBCJpAZq/flanjDLBfjZL8iNe6R7gsSuOFiFHAYUZRHvycab8Gj/EQh2e2fuxp/JzgwSFuiqHzuoez7UcYle1ZoWABgkQdlyB3RzggKKEQxPZKs3nyFCecZhd/eCDXbyWg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TUiHngDF; arc=pass smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E2443F8CB;
+	Tue, 15 Sep 2026 05:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789451318; cv=none; b=s9XYexTUyrb2adbj+ynlvJH6Yje3LzQd8gAP4aKbHTeizGULHdnN2sadUT0O1sAD/YOfhYB+Nstob/zTyr/kbEsKSEASEnxJmJ7wiPFkjJkwvcI4Mo2MXL0e/vp9bZ2gD8BQlEv5ET/DRlWlIjJpaBR4kfiJaYrRk1Dd4J6isa4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789451318; c=relaxed/simple;
+	bh=2YdqfE4W/M6GWy2Z93LWlX8redjhoSEzxzkkdSHgm5M=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=EaDu2OZgehEMzp9xWA2Tz/ki0sFQP6I+ikxZAv0kG/Sattjp6X/SrLoXE3M+g6L87eEqwY98oWcU6qPz8HtX2PVmpYUJFvo399BXSfON5mavm5swLYrWIfOlN2h6HlmZ6/EnwasQx6R7gBAJvmFQa91ctMW4rktlNPE4wVI9axM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=MZrdwxAm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gVrSd2ol; arc=none smtp.client-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TUiHngDF"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48442ea8f59so259443f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:48:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789451309; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OaE9S+pvH3Bcz46qH9pn32QQluEZAdIMHCoPyGMhFz1NB8P0/139D4nU5LnZ2W2RD2
-         sRZTv/myG4CguZ4RKn7C+kJlyfcgIsb+gGBGiIx8wxZ4Ph2htp71zm/pL0auE9YITPJC
-         KzqNT9kKS4abheoHy3GIkAqqoTw4ChuH51d9TNg0VdCVrjyi02Ke5dQ5b21aSVz67zcU
-         vdpRJhNo5MBdboy22UXt/XMme6w8HS2em/CxLXy2CN4YWAYWqExXrboSNtp+OaWJnM8K
-         Rn4cXuO67u74LrCOswpD078NY0UGuPCQbZ8N+az6Ys8RTxzT/0ouhtss3PgnNxtICOLD
-         WxdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2VOnoftcB6kDYobufFfu9NfBk4Zcg4IG3hT/VsiMjWI=;
-        fh=jPSqqZxAlf+6KJQWgQls1dja7eQaE1OG1VGtJYzmwPE=;
-        b=Hm06//7Jw9uoQK57lI8aYXK8ObusCz58BdGCqoLsPn/P6HCdAFEpzW0CkYmCzQ+l9b
-         8L+Eg6FkDvNkNB9Oob1axg0mSeqD31MFxBUjXzO9HeubAVYoWWlluHus5F3N6e/bZDpY
-         PFQNw41FZoASGPND6TGRIKby+QU+NdqHCA4ysUdmAFs38O5cst321gyamUbpLyi8swG/
-         CZAN9pWlkjpsAhhEcXElJTxk9XyxMnHzXVzII8cqzO8dyEn54VCArMIpSyRralAOwVda
-         pJVyNvxxRffonKxXIcF2SSXkbMWNQR2JfGRhZcgbnn8WAqUHHiY77Hl3hGfbczrk3TxM
-         eWsA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789451309; x=1790056109; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2VOnoftcB6kDYobufFfu9NfBk4Zcg4IG3hT/VsiMjWI=;
-        b=TUiHngDF2tjbI4fNnOjieq9oayDCxgf8CD/3/MT2ifd+FXbqgxf6Me2IkUd1aeP9ou
-         +FqaC1+PYPCXOyBwYkzVCPJEhlj66JF/Q7JibnfOc4dmgaVHqJRBH6acWRn+h8LG3GDU
-         1xyWNQ5bwoa9HMjvS64437gYDCoSnJWN7bwTuVPy8EDXXyvB+D4Y5Vx79eQ5wnZTKY9s
-         xMbgcBs8xt59xSrSv80o3waFgxPof4A7CG6lxaEQ5okQXonzpu5k8FMDLTBCWi7Sa2A1
-         b/htEc2UcjKqvb/44rKnc8P7EQ/V6SKeyKz/Yw8+A1Bkr8h5MK1Zy4QeKDPODSLtH6cp
-         dCUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789451309; x=1790056109;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2VOnoftcB6kDYobufFfu9NfBk4Zcg4IG3hT/VsiMjWI=;
-        b=KA3yVW2f8xUrMQ+Y5IvQ2jJG0jAuGW2TI3vOB7QcR1BWD9soarjFJgJabsdVrcg8u7
-         YpfZEGC98cJMJevJtrJemwqs/zz9rdwvCPZduWo684sDAjUq1FKY8UdTx+MCBwbT8UWb
-         MH5eBfGfA2FNSe/U2ETlMofhGQf0d6obOo7hISrpTXHU77A6mopBcuc7hIWSIEuxPcq4
-         NSJFlAVu7tT2CuZfQvWnta6fwFzaQbo0F3p2JwdcDVbGu+QFhaxGSitBdSk7cK3vc3nb
-         hSu0t+7HdNRzZn0/nciY3QwiWuFzVuyZGfSF8HvtnDPUVdwN8GL+HayqmtrR/r7Hw1lf
-         R/VA==
-X-Forwarded-Encrypted: i=1; AKwUvBzW4JStYI/3zXPs01hiYt7SKtL3rgs22XcZg6GsqqbgLbVaGwh+TsHobYBxAgZVFqcpOUAyNLoscnH4umQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n6JO8M/dli386j3d8ZdVNya+ta2sIv6eyYK1bFsQwyTxJ8031z
-	tRBP0lLpIak7AwVul74js1xXQpWBEa13PXJA72uWKrgerFy3Kj+Amw5r7umfSe8LUkkSjn9rPXO
-	dU5AaH0oNjY6jmQXACKTnGPTKptf2CXJdZtIhWUE=
-X-Gm-Gg: AYBFou3SanaRK7zFvwOPMmvibT2NHakuIM/stGgxBysPqmxKiQhuTW+P1W5r6EHc2Nt
-	aPdqtZliRsGoHdS7f3+UcT8ZALgXt9kbx0zXZHrdZuHILlPcTU8WeX8vcojxYjELawIghCMP2Kc
-	wBOyKog0pjpl+KxuqM9ifxqUfUiAiLHWEQZlxKXfYw60WxcvwlqYFDgFHeca8cr/jZuTdJxAp40
-	YJvUQTaLEBEWtuQSaUeSuYY0aBXV/uoOHGps2oQiA7IQXFOOXbVUR7sRKdl5HiUNcsOb+UrnXyz
-	MKwWsAHeP7O4DyXZwBlCa1ZLQpnVd5F8DJfD+3AinTLRcVtZig7z5mjStpWPJEmMghd/9xXJIyQ
-	8/1IT96zEfUTxHJPir1sNbpkZAl+Io9V2OvIbb8MuA1MUcGq03TUM70Cb23vzYx5rT+OmBXVD+m
-	TL+tVjlt0=
-X-Received: by 2002:a05:6000:2305:b0:487:149:f7f7 with SMTP id
- ffacd0b85a97d-48705b9c7d4mr3427414f8f.23.1789451308673; Mon, 14 Sep 2026
- 22:48:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="MZrdwxAm";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gVrSd2ol"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 1B47C14001A6;
+	Tue, 15 Sep 2026 01:48:35 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 15 Sep 2026 01:48:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789451314;
+	 x=1789537714; bh=FI+a7IE4f2WsMNjssnCOFfk93UX5wc9at6Jt16362O8=; b=
+	MZrdwxAmf89L10jIxTJh+HqypSX5ohH7OevL4s61XA22Ewrg0OBiJgI0RhwH8JMz
+	htthIMgPKdkNKXKrlxM5lPDHAelwuHrAkapFTa/toZnbY/hVo7bmPX4b32/dAg1w
+	HwZhBuwpKm8hK0cXig917SitHsTw+R22RpwRJkiJHtxwcKz6DwCEVdD2phGRFCl7
+	F59rwNd0WKoCEaWxt8QsN+CspfDCOt69TukzwnxOt0PWa1Lgi/+x3+9Z03ZAfGpq
+	8zzLBxSx+WKSn1/mAbU1tHt1wnHdtiyvR2sI8KEO6yHe6p3XVfEzinP8yXWI3rji
+	UuiS0S7NTjbH0uOloS1n1Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789451314; x=
+	1789537714; bh=FI+a7IE4f2WsMNjssnCOFfk93UX5wc9at6Jt16362O8=; b=g
+	VrSd2olYLSvAPHeojHLV0nz4sNNJh7pulTu0C9VKjj92ricB895+QlfwoX/Twcc0
+	KfVqyicP1j2U1WjpHgaFVsxH1ujL9Ac27uhuIheOypkM/r3zx6w84iI1m4ak/mn8
+	5jbRnM14I8pLCKN2J1GS2uqw11fhCmN9ZJezocMz3K+V/bndwY5tMAdikyB7ghbw
+	MFjw8r5zBmaYCzhgVE1JK6YL/9mW+lC+bI9cUChcoG2H/Vk5A+Q1Q56kwZkhqbcF
+	iTJcw9QNXmp3/AKcS9ZtpG38EbV/KVT+7Xpa6idqAsbUCKy70YABiUnwopsvhvEt
+	DGsBKO7K/oeVuvnxBj5pw==
+X-ME-Sender: <xms:MNyoapToh2O4UE3P0-oRUXoUFGdmw0OIrpZDIRtaYc1zr7NI7xaUpw>
+    <xme:MNyoatnS0Re5z6myOAiNWNDU4n0I0pTWAO9dfu2n-mVByf7HP1SaCW5wtTtbuyWmQ
+    MNED5KuFFKgZ879ShGS23ExGKdQ12_RikYvfxjS3Enczp5Ex3w6IntX>
+X-ME-Proxy-Cause: dmFkZTG4jI5J0ajg+XHjiAO7uRJKuaLRxoNRzWZeGjSA+XiarCh3hJ8cBQpGVABbQdqksE
+    Ge5NbNjmWENILRmgWK4AkF7CHEnag7xyAQTSpWmhVc/tPmWAiUy092lgs1Jodmg8mgDobh
+    Zxcn6Nb/o4rZNGZYmyGsriqyk5g+/6AIDhvMibzyMK1oSR1rqoOLJNCq11zwQJI71h6Clq
+    KQq4nzmUfl7uVSzToozTmHq7mr3G/s32n2yvMVqYP+QwZH/VnaJO5oRWAQYbNEll//vc/7
+    OXA1rIx2qkQlv7P3wsi+peyO1WE3NXI648RlafHrcfC/6rOtVu2Il5E/Lvifx2Fs/s5nTK
+    NTTj/P0W/ghavgz5IjP4+UJ4M9C2JX1R6GROkcbyo/eNOfl6hmB6QDl2np7osnG4u5hR7K
+    5T9ZruuiWzhCcjfvQZuyCmJB07/FH2wnoLL74ZWgedBbpLya5mA03WfEPUE6GqnxDO/jBO
+    JI/2gjjmHxUareOxr0Np3rnfRhk8N0B1GzgDJxLperbEPrL9csXx+mVsiQFwTG7J4cgreg
+    YZx7nWmpeUkvy6ypQfc/HsJjMAcyE527ahDaXcii6nCJhVA92Z291IzHIFidhQQ/9sWgMS
+    OqSEcwLGwMjgrLH1/dvmmiKyDjHWuYMAwfx+b+jQZgp1Md3J4YH9n8UOj36Q
+X-ME-Proxy: <xmx:Mdyoag5Gdg6laD94qlR7Bdtpp4K-Y6q_6jpN3RK8CzSWGFamvJqMTA>
+    <xmx:MdyoatW1ynLqa3xohSqSRKO_DUsDcRVdhbWr4HxHOSdQeN_MNhLh9g>
+    <xmx:Mdyoai_d893CzABPOUcoLqbyc8Lon8IVGIzSSmI1BJNf3i9BgumN3w>
+    <xmx:MdyoaplNDl6mDcF2VfYBegmhr9Z5AKlL9he0l-VnqgJ25pa-C2Gd3A>
+    <xmx:MtyoarU9V6relRrxq1dvsx5EjPpANCWhpTlNs5Md1jNl_lMXb87QKY8P>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id A332E32A007E; Tue, 15 Sep 2026 01:48:32 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826062901.2137-1-kprateek.nayak@amd.com> <20260826062901.2137-15-kprateek.nayak@amd.com>
-In-Reply-To: <20260826062901.2137-15-kprateek.nayak@amd.com>
-From: John Stultz <jstultz@google.com>
-Date: Mon, 14 Sep 2026 22:48:16 -0700
-X-Gm-Features: AcwNN1XRGWPbn7MHTzOA_4XcDTgaoUW0hFkhnGS33P8PZWUwbex5n7ZtOwmWxrI
-Message-ID: <CANDhNCreubmsXsbYb6745xvfYK+p-ocxJmUyt2-KTrJOqdtTnw@mail.gmail.com>
-Subject: Re: [RFC PATCH 14/16] sched/core: Introduce chain-wakeup to activate
- blocked donors
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Suleiman Souhlal <suleiman@google.com>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Will Deacon <will@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Andrea Righi <arighi@nvidia.com>, linux-kernel@vger.kernel.org, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, Waiman Long <longman@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: ApDcdGHCsDIN
+Date: Tue, 15 Sep 2026 07:48:12 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>
+Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <7c020979-cf03-4ece-a7d4-b1475d1400c3@app.fastmail.com>
+In-Reply-To: <20260914212537.1452-1-kmehltretter@gmail.com>
+References: <20260914212537.1452-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH] rtc: class: Make the time32 hctosys limit configurable
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 25, 2026 at 11:34=E2=80=AFPM K Prateek Nayak <kprateek.nayak@am=
-d.com> wrote:
-> +static void
-> +proxy_activate_blocked_task(struct rq *rq, struct task_struct *p, int en=
-_flags)
-> +{
-> +       int iowait_count =3D 0, load_contrib_count =3D 0;
-> +       struct task_struct *donor, *owner, *tmp;
-> +       int blocked_cpu, this_cpu =3D cpu_of(rq);
-> +       LIST_HEAD(migration_head);
-> +       LIST_HEAD(wakeup_head);
-> +       struct rq *blocked_rq;
-> +       bool needs_migration;
-> +
-> +       WRITE_ONCE(p->on_rq, TASK_ON_RQ_MIGRATING);
-> +       ASSERT_EXCLUSIVE_WRITER(p->on_rq);
-> +
-> +       /*
-> +        * Pairs against smp_mb() in proxy_enqueue_on_owner() which
-> +        * orders ownwer->on_rq state against the blocked_head addition.
-> +        */
-> +       smp_mb();
-> +
-> +       /*
-> +        * Fast-path: Tasks blocking on us will see p->on_rq updated and
-> +        * will bail out natturally in proxy_enqueue_on_owner().
-> +        *
-> +        * proxy_enqueue_on_owner() holds the wait_lock to prevent owner
-> +        * from running and disappearing before the transient task can
-> +        * observe p->on_rq change and dequeue itself.
-> +        */
-> +       if (list_empty(&p->blocked_head)) {
-> +               __activate_task(rq, p, en_flags);
-> +               return;
-> +       }
-> +
-> +       /*
-> +        * Slow-path: Since we need to wakeup tasks (and task queued on
-> +        * them, and task queued on them, and ... you get the gist) we
-> +        * need to grab some locks.
-> +        *
-> +        * Lucky for us, we have simplified this via p->blocked_cpu
-> +        * which is the task_cpu() for the entire chain. Wakeup is
-> +        * broken into two parts.
-> +        *
-> +        * Part1: Under the rq_lock + blocked lock, mark all tasks on
-> +        * the chain as TASK_ON_RQ_MIGRATING in breadth-first manner.
-> +        *
-> +        * Part2: Active all the tasks in bulk.
-> +        */
-> +
-> +       /* Part 1: Prepare the blocked donor chain. */
-> +       blocked_cpu =3D p->blocked_cpu;
-> +       blocked_rq =3D cpu_rq(blocked_cpu);
-> +
-> +       /*
-> +        * Blocked chain is linked to a different rq. Drop the rq_lock
-> +        * and migrate the chain over before wkaing it up here.
-> +        */
-> +       needs_migration =3D blocked_rq !=3D rq;
-> +       if (needs_migration) {
-> +               raw_spin_rq_unlock(rq);
-> +               raw_spin_rq_lock(blocked_rq);
-> +       }
+On Mon, Sep 14, 2026, at 23:25, Karl Mehltretter wrote:
+> On 32-bit systems with RTC_HCTOSYS enabled, rtc_hctosys() rejects
+> RTC dates whose seconds value exceeds INT_MAX, even when userspace
+> uses a 64-bit time_t. This leaves system time uninitialized by the RTC.
+>
+> Commit b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow
+> time_t") introduced this limit to protect time32 userspace from future
+> RTC dates that can break boot. The same limit prevents systems with
+> time64 userspace from initializing the clock from valid post-2038 dates.
 
-Hey Prateek!
-  My apologies for taking so long to get over to looking at this.
-So, I'm still getting my head around this, but in running this series,
-I'm hitting a lot of lockdep warnings here since we call
-proxy_activate_blocked_task() with the rq lock pinned. This is why the
-activate_blocked_waiters() in my patch is done outside the rq_lock.
+Hi Karl,
 
-Probably need to pass the rf as an argument to the function, then use
-rq_unlock(rq, rf); there (and rq_lock(rq, rf) later)? That seems to
-resolve it for me.
+Thanks for revisiting this!
 
-thanks
--john
+> Add RTC_HCTOSYS_TIME32_LIMIT for 32-bit kernels, defaulting to y to
+> preserve the existing safeguard. Allow integrators to disable it once
+> their entire userspace, including init, supports post-2038 dates.
+> Warn on rejection with the RTC date and option name so users can
+> identify the cause and find the setting.
+>
+> Keep the option independent of COMPAT_32BIT_TIME. Userspace with a
+> 64-bit time_t may still need legacy syscalls for operations that do
+> not represent post-2038 dates.
+
+What about the reverse: if COMPAT_32BIT_TIME is disabled, I don't
+see why we'd want to allow turning this on, so maybe
+
++config RTC_HCTOSYS_TIME32_LIMIT
++	bool "Reject RTC dates after the 2038 cutoff"
++	depends on RTC_HCTOSYS && !64BIT && !COMPAT_32BIT_TIME
+
+[Technically it would also make sense to enable the option on 64-bit
+kernels running 32-bit userspace, which some users do to reduce
+memory usage. However, we never supported that case and I'd rather
+not start now.]
+
+      Arnd
