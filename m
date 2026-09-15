@@ -1,141 +1,106 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4187849E5FB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:25:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25DE248A2C3
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471525; cv=none; b=B9ld1eu3NjzeIm4hUKNO8Hy3/g3rPEO699eq/jNZl2XhnVVeWvXRfCx6n5eTUnF9nJSEBq/rPik7WfRwsTbL+ZQrGvnioQPHYvFmQllftzxMdwSqOeP+BZHDEX/77l4aBHs/9SFr+ZH/7qT1VLdL+YVPXgFMDUWkF+fO5lezBrk=
+	t=1789471566; cv=none; b=CWvtYtnShYcSLMQ/EsPD77V1jkHKefyFpBv60v6Ke7PErni9z9uddwsEODKkEhxYRbDJkJ05JZyHJI8yByPal1molFonE79TXcYsmPx9MihStESOyK8cqBIKjbSCjPXaxXy/YoQPYBuvs2MZR7GJmp4t4TaK6fYPdtHSSVTTwHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471525; c=relaxed/simple;
-	bh=JciKneq+ovpdv8gqUDVuoYPtwcnhOaSHeZQ1sy8ZmKA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q9X03YSrWY6Ocd43pdztgPHYMvK1clZoA8z/ORAQqnxm3PINCa0YMhW0tOsoCdicv48PzHImzkK/tTSjU8/QI7abopSevq5/OzokoAfJNa7AuaGUZCM9k0C4/J3Rx4u8cxVCuXcfLl2LrT2bXTAK/iSsmcFWXiZNMlXPfWx3oPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EK4hMLH4; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EK4hMLH4"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2caced6038eso8438335ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:25:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789471521; x=1790076321; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B9svfT9glpJgkoC//MjvMoYEtW7Hx9VQdKaO91u+NqI=;
-        b=EK4hMLH4cGnKtlrKDEkmEerJfGpwumN1S/S429PvkQJxJFfXtEVFo3RXbiib3faFx3
-         V0PXSPlrhij+kWFxCSvNk+8qQacW59ziL7EMT3tN8O0ekPEO6W78svt4mXjgUu/2iSK0
-         W5EHoNvx+RlxdVzU7nK5giM6av0ezYGayOitnbhUprkIeEvCx5BU7jhRBiq8WL33F+P7
-         E8LsiBprmyDxKv7q2MfpJiQnCzIM1arKgsa09m0z3or5aMy0cDsHGbKGkyc0iH10GqR8
-         yxNS+5XvRbIq+s0jLhqa6DooPjMXLmpdFj4jm6j+Tmg5x4KSWGhkK8KQauR6nNMdO+66
-         oTmw==
+	s=arc-20240116; t=1789471566; c=relaxed/simple;
+	bh=vwje+zk6L0f9A9KR1ZNiK4y1SOQoWea7KlFyCg8v0hA=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=d/JVfeUJ8uTWaXjLLbdz8s0g55872es/a6CpKs7vntIxjm+qKXav5WciOyYoVjTOwqS0pcUhrFM6AUyPWZy3aszHpXHBarSLc3tJaSdtdaRrh6wzoIOs2TcxOaRnpSVijS2UEtdU7CitiW7y+HOdjCISkSXMdGzst9uswd+PHsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b2d1eb484aso7977372b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:26:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789471521; x=1790076321;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B9svfT9glpJgkoC//MjvMoYEtW7Hx9VQdKaO91u+NqI=;
-        b=Q9utMeXnQnjiGFH29pAJN/KJaKdpgkpPQaBJfFP+U+b1gzPhZsjIO5ibwP/IVxZskq
-         P2wCOXcM28HIxdmD756E2iGuJ50shdAyiVwXnAAiNI90RVjMC4A789c5TGaRW3tyUFh5
-         y/mk7wGUDcSgWPH8+llMJopsFloxYSyWFnFo+irdN99CQh41AHqJKJLJiEuU+2QzCfnS
-         +9Qmk/F6vfBGEtE/dv1R8OVZI4sFMFejR21bLhQrbZmuHdT4/xRxzivtZ48Ypshh+2Px
-         VCpGUZSwIQS4XRnIypLXQcIXPKlsQBQR0ZC34Ls/dcbjkkdHuqZPLVl/tUnJLzBzzVvt
-         U1Dg==
-X-Forwarded-Encrypted: i=1; AKwUvBw8U9KRnnOrS7orvFEAmvxhY41ER1feD0k2vijScffAzCgmPYnA7KgPF4Ap6n+3irsI8d+TMsHBvPJxoDM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8bcfFnVlXsltUca4mXgsJA521tSMWPA4Ei0YPXzmHVCGDoKUx
-	kfxg3j542XEv+dq/Kc52LAOm4FfbdbbxCYKTXrvaQX82O16dgohmWj/u
-X-Gm-Gg: AYBFou1HRmgdJPqUZBrxIZBFI8aINP9mkQUEHjZYcSC6XYvxfbVC9tumKDrc7sJ/vr4
-	aoTMRYR/yyYle/jlwpkhd+MqPU7r0/cIOw8MOvebXBPSYwyrDGpg2jhGmpy7wzlEBG9q9DFmLB4
-	IrU9PnaN182x0xUyBSP2iXgVMJwml0h+vPqmXLKnHUgsmztsU0Y4Bu5WPhD94adRG8fbdmOANHE
-	z+OLMC1TF2zRRBkFSAp2ssqPdqO+7VEbcnIfy4daFaHhDNsUnFY+4i9iHGv4HSNlAQMbefkk1IA
-	Qq5NdIZhL9jzXUc4l/yYhykx3x0gbJ9ic4AC8P8ZY85ntu7xjapZQTrFThOnu4UkzFH1iWV+zOl
-	tjSxoU25zM0n1liFZM4HEj60pdiATx6iUvK33m0159wjeRzTHAmzdgU7SckGnDhkbCMBD7Yg4uQ
-	5MS6xJ+hDUqNgq//anqpxYjonHly0wucAtxZlGcnG9LwA6cg8m55cs+Q==
-X-Received: by 2002:a17:902:db0c:b0:2bd:2c3a:2a36 with SMTP id d9443c01a7336-2dd763da77fmr44939985ad.0.1789471521158;
-        Tue, 15 Sep 2026 04:25:21 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2d2565d2sm65391005ad.15.2026.09.15.04.25.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 04:25:20 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Eugen Hristev <ehristev@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: atmel-isi: release unregistered video device on remove
-Date: Tue, 15 Sep 2026 19:25:10 +0800
-Message-ID: <20260915112511.2397941-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1789471564; x=1790076364;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/XlmnNvaR500brzrbTvgrJ3xDRhROLoEM3ith0oldps=;
+        b=By+FUuOf8XiGoX4qAN4axAvpdc0ZUxh5ZUujRwIkOznEioJhDn+RbvbZ3Pcr6IQCRI
+         A0m3xyUDpHqXDsaA6zwP+Sr4825PgbECVHqxmeq8MWtOK3DZpzwnoTPkbj6H+ozOA5eq
+         1eNqITSGmKYiUhk1vKhaRPKDVxii4pPeZU42DNAIAVFwkn7IADzNAvnSyONge7B46Fot
+         9NlLmk8ZPzRhtK4QDKoIb4XzquDFR6eP0y2NA1PEIwfXSd6ettjkj3k5Gfgf5fYWOAZ8
+         3eGnryW4bIOr4bXeaNgQTCicP+lxLrsAwEJewGd9huYubg2nC3X+eeEWkRFKWdFikFAk
+         As5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw/RMCCguRIntN/6O0Z7GiJbu70TlVyPcwe1vTH472ZdUfUCtE4WDo+tlTy5tcezibWymGCgwvUPiM8AEQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEQFT1GS70esZp6raFda2YAZb3ZguScqhMSpOUB/62DUFw75LQ
+	HWrIyGOxjjiSpYpvktjih7hy5m1MHnZSJQtHs+mVry5/JvXdjQ1m2vxD2GFZ28HmvAn7GJecKSY
+	btaFXDRYyZbzAy9mB5BaZlQwQa99bWeG3B2WKA3mxr0+MWOIQjAoTdy1tTBc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:4dc2:b0:6c2:6f93:389f with SMTP id
+ 006d021491bc7-6c739794590mr285386eaf.37.1789471563876; Tue, 15 Sep 2026
+ 04:26:03 -0700 (PDT)
+Date: Tue, 15 Sep 2026 04:26:03 -0700
+In-Reply-To: <6aa8de92.bf2fa351.a84d0.48e1SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa92b4b.4c28b7d0.c1bba.0039.GAE@google.com>
+Subject: Re: [syzbot] [wireless?] INFO: task hung in ieee80211_register_hw (8)
+From: syzbot <syzbot+c92af8613ad38696ff09@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-atmel_isi_probe() allocates the video device before registering the
-V4L2 async notifier. The video device is registered later from the
-notifier complete callback once the remote subdevice has been bound.
+Hello,
 
-The remove path relies on the notifier unbind callback to unregister
-the video device. However, if the remote subdevice is never bound, or
-the complete callback fails before video_register_device() succeeds,
-the video device remains unregistered. In that case the unbind path
-does not release the object allocated by video_device_alloc(), and the
-remove path leaks it.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+INFO: task hung in netdev_work_proc
 
-Only unregister the video device from the unbind callback when it has
-actually been registered, and clear the driver pointer afterwards.
-After unregistering and cleaning up the notifier, release the video
-device directly if the pointer is still present. This covers devices
-that were allocated but never registered while avoiding a second
-release of successfully registered devices.
+INFO: task kworker/1:1:30 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/1:1     state:D stack:25352 pid:30    tgid:30    ppid:2      task_flags:0x4208060 flags:0x00080000
+Workqueue: events netdev_work_proc
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7270
+ __schedule_loop kernel/sched/core.c:7347 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7362
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7419
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
+ netdev_work_proc+0x6f/0x770 net/core/netdev_work.c:132
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+INFO: task syz-executor:6137 blocked for more than 152 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:syz-executor    state:D stack:22248 pid:6137  tgid:6137  ppid:6131   task_flags:0x400140 flags:0x00080000
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x17db/0x58f0 kernel/sched/core.c:7270
+ __schedule_loop kernel/sched/core.c:7347 [inline]
+ schedule+0x164/0x2b0 kernel/sched/core.c:7362
+ schedule_preempt_disabled+0x13/0x30 kernel/sched/core.c:7419
+ __mutex_lock_common kernel/locking/mutex.c:726 [inline]
+ __mutex_lock+0x7c1/0x1550 kernel/locking/mutex.c:821
 
-This issue was found by manual code inspection.
 
-Fixes: d12c9088c0b2a ("[media] atmel-isi: remove dependency of the soc-camera framework")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/platform/atmel/atmel-isi.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Tested on:
 
-diff --git a/drivers/media/platform/atmel/atmel-isi.c b/drivers/media/platform/atmel/atmel-isi.c
-index a05a744cbb75..6a7e240c5b18 100644
---- a/drivers/media/platform/atmel/atmel-isi.c
-+++ b/drivers/media/platform/atmel/atmel-isi.c
-@@ -1121,10 +1121,13 @@ static void isi_graph_notify_unbind(struct v4l2_async_notifier *notifier,
- {
- 	struct atmel_isi *isi = notifier_to_isi(notifier);
- 
-+	if (!video_is_registered(isi->vdev))
-+		return;
-+
- 	dev_dbg(isi->dev, "Removing %s\n", video_device_node_name(isi->vdev));
- 
--	/* Checks internally if vdev have been init or not */
- 	video_unregister_device(isi->vdev);
-+	isi->vdev = NULL;
- }
- 
- static int isi_graph_notify_bound(struct v4l2_async_notifier *notifier,
-@@ -1323,6 +1326,8 @@ static void atmel_isi_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- 	v4l2_async_nf_unregister(&isi->notifier);
- 	v4l2_async_nf_cleanup(&isi->notifier);
-+	if (isi->vdev)
-+		video_device_release(isi->vdev);
- 	v4l2_device_unregister(&isi->v4l2_dev);
- }
- 
--- 
-2.43.0
+commit:         6f157f39 Merge branch 'remove-comma-after-sentinel-ent..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=178d5925580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ba53f227359c9d59
+dashboard link: https://syzkaller.appspot.com/bug?extid=c92af8613ad38696ff09
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=100148c9580000
 
