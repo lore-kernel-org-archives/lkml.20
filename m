@@ -1,162 +1,177 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E28729B781
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:19:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD063D9058
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:20:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789442386; cv=none; b=tN9Bbf1gioPcRH/fyyuLWL1eV4ltu/LxW/1KTYIC5IYl8ceSpNerijudQxwt7kQPXa+XafuCJcqya/geE59v0ubATzh9DLgJpHkXF1+PwNEzj9VqE6hbwCDdE0X8T+SqW/1lzMCDC0+JQXJalQ+FbEbTyXrz9wVF9oVyhedibgc=
+	t=1789442443; cv=none; b=NNvgKx6aTvXtMDGS1HevsRtI6YQ4gQxsd+f83Vr5tGFt/7wtd67joIqseb6bLYcrFAuwd5Ujuwf/kDuZzW7LAN2FiveR5uOIC1+bu0NQVIf5ic64fLbipTn+rfr5lI9SDrlL+72hJ6Er38QPuQj/pZYfwuGLes6/p6D7yEm8dOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789442386; c=relaxed/simple;
-	bh=uwpZLoRLkNBT7PMqbNXrKU1bb9r6CwQZXLWmhP5sK6k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aTZBPv9rrhwn3ynMQ37lpJsrHsa4z3/GlPbn3AsCv48HhqomwyBl6mRijiKSEXC4R8rBTZ1Lktgqn/d2ObE2OditsFDA3svl2cw/U2KctJR+/HKcZge7QZJOJ7bcUpEtGgvJr/UIGQU/i+TZLLyMB9Fyv1eFpat0GKKQXoT9Zbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QlWbliUL; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1789442443; c=relaxed/simple;
+	bh=yxXtP6UckxLv5x3EVT70BovJg6XWgH1u4N7iOnnLp0I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jrdlzl5QmQtS09K0S2uStw1qfBc/VQVdPHrNfHjCrZT/448pim2YT0bNqLaKhrgobPPTsaelz3kpnJD1y2Yf2vXjeOAUACPAlZubf0TPK7RcMT+I2ndshiENukfoMO3Da4/5H99s66JmdLSpSqDaJG+uhCMxWBUbRbVDhb9LeXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CMpLYxKA; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QlWbliUL"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2dd68a16955so6517115ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:19:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CMpLYxKA"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8692a856865so3196420b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:20:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789442384; x=1790047184; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mJYv8oGmScEWJOhrPjRzRavFJv92CQ9kx+j15hB8nf0=;
-        b=QlWbliUL1vu+wUXeVYwerqCHh6X+P1QyQQnzkF3jN64ctVILa9NvtjL5eJQEaf1ID+
-         8YvMmAr6LjT5qXgC+TmY2QLGHff1xsp6FV+5o2yfLFCXOx90VCF2MZuuIEsO8PV7IgEX
-         lgMZQ61Jy6ZZyvZzEIAFcqlhTfWAKVsZ63zL0yrNsf9x6/9g+f3iZU9zdtz88HTYBox6
-         wdynRD79+1UuXPvP+S/p7oMBHNdoBeDEi0B4Zck5zWhBE94o4kDqQF0rrutmVoqkIYGt
-         poKmXcXSCcO/RNy3os/FdCFbdOpE5ZEq7QGSuvWl0Amv9ztOxlbET+cQArjJSlvrBlSP
-         mCFA==
+        d=gmail.com; s=20251104; t=1789442441; x=1790047241; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xuEusvWCpqoTP9YielagDsw/aIOrA0JH7ZF59XWCaiw=;
+        b=CMpLYxKAfxa5PRV+uIsgyPb0yDTnTEN/E6xnf9XmlC56v0XV93CsG36wUvGk6YTXrL
+         YlDbmKKRBY9h3ivRbCvEOb2MSi+2iuvr3REEhs0P6VfKV7THiuB0Jfbvt/jOceZ6RcSo
+         WXq041SazIcbkaJpZpxgsZy6NmUIP2r6cWjgFUdB91bBncGIIFtpHz6oTN7e9fCI8Wl8
+         90Xle9KTIW7GQ4zxoDa/dIXJllD9BjxMUfNVLaF5YvWvFyubwOclk3jxx4SCAQ0ZjG3W
+         RNS4v3acH4riXVHRX35jNfyiAmJR/YX7EgDdTLJqlfFWOgCWHNkud95L4NVgslq2IcIg
+         /ztQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789442384; x=1790047184;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mJYv8oGmScEWJOhrPjRzRavFJv92CQ9kx+j15hB8nf0=;
-        b=JEZ61iEnqKggthIfwJusXsa2BXEPvrwxqfeDeFM3wAljNdNooMkQaHmWug4+VkbVgI
-         Kp7jgdoFcdbFlTu59hzTln5lbTFxs3UUlH2Hui7wTURJ7AbCE7nsUS2jGGxXtdpoSGyt
-         db0rp6JL8LknLyr72iXFpZuTC1uxTYGjfob4w8qoYnf2ymyAtqFE097OuJ2O7AgFDuml
-         e2on5yCasGuL0L1Bu8w8N8STG7t8mddOlMkOIn3dHpHYhirfbuETWiihwczug7e1WcNv
-         oYyxxqAdzgIpH9BBWrsOn3nm/+qjLuH7D92wiy6Bhg/uV2t6nqEuGjIbjbumRv9y2ylF
-         dAwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxqEuqM+NiNNhm4y0PpcJPeZ1OwPoO5eQL29aUEV8gnsbcqme8IWNdebQnP8lD045jvVJbD70LVlLuEE9Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJck8WgDNqpU6b2l5uYmj37/HH/q6VaIk8bODTam5euUMeyFft
-	1HV7VR7zZMHuy4Qr04fLAVG8Et/D9YKnUYLH8ZPvu2bTAZCTtQtL1xiY
-X-Gm-Gg: AYBFou0i192AJ/GuOwSaNaR4f0Xz4UAml8Lpp9ftSubXWjCHKZc7m3vzflirCFo3+Ye
-	42MdGFLq/kLlXD2xYXeQyknLsIA5RpfZUREZLRznOTsUfPwbEG4C1K6t/pfwpUdTu3+JTmT1mVS
-	48vmuOt3WUwIYXx2VTKF2h3MtFWSpYWvEZXgvKGWi1DkpZTUXHsO66ZnnV0QLCXC4VMFfzF7Rau
-	JONcDOgCrls6Y+24UU4itj/CKx9AkLvCUy+AtHRgwVu0S1OapGnSmgX/BiWeSYJjPwnEG3fJnTa
-	SbXd7neN4QzG7EqRqvZbIhfvlVstX8jQ3yLL2MAGkrZkHR3nEYMdDrITttbSK2ZfTr17AsPRhf/
-	PYM8sCJw2SKnd+vln4G48zHTmKJACnHpuZRcLLysJxBJAR/R8O+kNXU6IwshFSOMc3K8puXWfZS
-	uyjedkt4RH3QeXmQcWTkSwIZqiR0Y8oLDRORLmGyC2X5m3NQxolb6IQg==
-X-Received: by 2002:a17:903:2446:b0:2d8:d4d2:d13a with SMTP id d9443c01a7336-2dd7655b5f3mr29130825ad.22.1789442384487;
-        Mon, 14 Sep 2026 20:19:44 -0700 (PDT)
-Received: from gmail.com ([2600:1700:5431:250::3e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9b359sm29297802eec.14.2026.09.14.20.19.43
+        d=1e100.net; s=20260707; t=1789442441; x=1790047241;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xuEusvWCpqoTP9YielagDsw/aIOrA0JH7ZF59XWCaiw=;
+        b=D6D2d2jNXhZ6HGtygo4tGtUPiV8dqhxOIm7diXsjrOaO8mwL3gJBLbuen6ZhYYfMjn
+         B7eqPwAk5fuLkS90Vbew3yAgwdLJnqpcyLN3k25T0iS17JYQD6xyF6v0p1hXYGn5kjkI
+         cOr7unyqkTaep4SAoRvPBS027+9vVFBuHSotlZXxUNN68kNR8H3mPRtlvlOQKUhA27EF
+         AqcC+Ru4Jwcx0Z4cctn+r+dWcB6v8wCovFuQxzCO4Nd91PGMGQBWNWXSZJ2IVW1K5qpB
+         M0arYXZlo3Qdt3PGCxE0Yppv5PVv1lzlCJJXQq/f6MGbgat1BPYtDh2khttbNVUFZKin
+         cjPA==
+X-Forwarded-Encrypted: i=1; AKwUvBzdU894HLKu7JeIr8Xzyk58KLmnLmSlaoGTh2Cs8PqH4pS+sBLo5rtXxWQvgozidqn9X0dj3CQWC0V0nWs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgk7pag5weFmwyR9VaK4ZrFAlvlNuaAtpyuEBqxfOm7HVljJIJ
+	1zsmI9RBr+E4kKqm5BMs4bbij0xKTLXVIhyEein3yCtn/THCX2gdSU5l
+X-Gm-Gg: AYBFou1ZbUfPd6NawbnIWWVPSH0COwzhFujSbj1L7zyp867AopcHfR7goet9W9lERya
+	dcsHnGCGOyQ2Ong5A4xlp1ZQH6IiK4AZiCQz4i6sTbdmeJ8lj6pUg2Uleh76J4PK+fKb9bUBNNC
+	bQZEPLKxwBsE5qZhDvrxeSCAbjTdwIOJklR49NeV0YhSga8cQIJapl3zQR/eoRvsQRCZjFVp2ms
+	9Q0LF9SJQCY/3zcEETLSxcRDV9+ssoJC/Tv+/PwW+6r9lO/LlSVX09mZIqC2kRldIbIdMZrlKyE
+	ww3p3nTGZwOWFD8BTfZTowPSitrArBcKMNA/9d7+J1VdCDsq+gai9rQDz6eRwvKwh6GQncmL1iu
+	QNKCV+vlEwEQgaqASBX++SsnZnFf9ua2HoJGPaXl6e3Gpv9N/ebe0knpiYc59yJEyPZtK8YzQm/
+	2HLUtvjZJnf3gtjy5ZYjrv18Q7TH7nJqNSHM1seGsOscqsj5GDSebq3et+f5cJgBAP
+X-Received: by 2002:a05:6a00:950b:b0:86a:b3:fc50 with SMTP id d2e1a72fcca58-86f82e5bd35mr12406951b3a.3.1789442441185;
+        Mon, 14 Sep 2026 20:20:41 -0700 (PDT)
+Received: from bloom.localdomain ([2604:3d09:178e:e100::c570])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b291c06e0sm5393699b3a.28.2026.09.14.20.20.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 20:19:43 -0700 (PDT)
-Date: Mon, 14 Sep 2026 20:19:42 -0700
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: iio: light: add as7343
-Message-ID: <aqi5TjKT8I2JqpVI@gmail.com>
-References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
- <20260912013912.51887-2-marcus.yu.56@gmail.com>
- <20260913015652.029475d2@jic23-hlaptop>
- <aqX90oniPRdsu5jp@gmail.com>
- <20260913035132.1fb50e6e@jic23-hlaptop>
- <aqYWbWoBYaDJA9h-@gmail.com>
- <20260913181457.4bb2ebbc@jic23-hlaptop>
+        Mon, 14 Sep 2026 20:20:40 -0700 (PDT)
+From: Ivy Lopez <skunkolee@gmail.com>
+To: xingyu.wu@starfivetech.com,
+	ziv.xu@starfivetech.com,
+	wim@linux-watchdog.org,
+	linux@roeck-us.net
+Cc: linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ivy Lopez <skunkolee@gmail.com>
+Subject: [PATCH v2] watchdog: starfive-wdt: fix PM reference leak in probe error path
+Date: Mon, 14 Sep 2026 21:20:32 -0600
+Message-ID: <20260915032032.222665-1-skunkolee@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260914165022.169877-1-skunkolee@gmail.com>
+References: <20260914165022.169877-1-skunkolee@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913181457.4bb2ebbc@jic23-hlaptop>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 13, 2026 at 06:14:57PM +0100, Jonathan Cameron wrote:
-> On Sat, 12 Sep 2026 20:20:13 -0700
-> Chang Yu <marcus.yu.56@gmail.com> wrote:
-> 
-> > On Sun, Sep 13, 2026 at 03:51:32AM +0100, Jonathan Cameron wrote:
-> > > On Sat, 12 Sep 2026 18:35:14 -0700
-> > > Chang Yu <marcus.yu.56@gmail.com> wrote:
-> > >   
-> > > > Hi Jonathan,
-> > > > 
-> > > > A quick comment inline.
-> > > > 
-> > > > On Sun, Sep 13, 2026 at 01:56:52AM +0100, Jonathan Cameron wrote:  
-> > > > > On Fri, 11 Sep 2026 18:39:11 -0700
-> > > > > Chang Yu <marcus.yu.56@gmail.com> wrote:
-> > > > >     
-> > > > > > +    description:
-> > > > > > +      The driver current for the external LED connected to the LDR pin.
-> > > > > > +    minimum: 4000
-> > > > > > +    maximum: 258000
-> > > > > > +    multipleOf: 2000
-> > > > > > +    default: 12000
-> > > > > > +
-> > > > > > +  sync-gpios:
-> > > > > > +    description: |
-> > > > > > +      Optional GPIO pin that can be used either as a synchronization input to
-> > > > > > +      start/stop measurement or as an external start/stop signal for
-> > > > > > +      synchronizing with the connected LED.    
-> > > > > 
-> > > > > So the datasheet starts referring to using this for some level of sync
-> > > > > but then only actually treats it as as a gpio (maybe I'm missing something).
-> > > > > Any idea what that stuff about start/stop is talking about?
-> > > > > 
-> > > > > The only thing I can find about this is the device diagram in figure 13 that has the GPIO
-> > > > > wired to the led driver and the automatic measurement engine.
-> > > > >     
-> > > > That's what I got from the datasheet as well. They don't describe how to
-> > > > use the GPIO pin to perform synchronizations at all.
-> > > > 
-> > > > The adafruit arduino driver
-> > > > (https://github.com/adafruit/Adafruit_AS7343/blob/main/Adafruit_AS7343.cpp)
-> > > > is slightly more helpful - the GPIO in output mode signals when the
-> > > > spectral measurement starts. Unfortunately no information about input
-> > > > mode.  
-> > > 
-> > > There is no separate control?  If so we can't use it as a GPIO as whilst
-> > > there is a control to set the state it will randomly get overwritten if
-> > > we do such a read. So to me sounds like that is there for testing the
-> > > connection and similar usecases only and we should not expose this as
-> > > a GPIO. Maybe input is possible but that may also have side effects.
-> > > So I'd be tempted to drop it from the binding - with some description
-> > > of why it is not there in the patch description.
-> > >   
-> > 
-> > Agreed. What does this mean for the LED then? For all intents and purposes
-> > it's controlled by only 1 register. It may have some interactions with the
-> > GPIO but since they are completely undocumented so we might as well consider
-> > them non-existent. IMO it probably doesn't warrant a LED subnode and
-> > led-max-microamp is enough. Maybe DT folks can also comment on that.
-> 
-> Agreed, given software is controlling the current we need that and there
-> isn't a lot more we can do.  I guess you have the Adafruit board. Are the
-> pins wired out so you can perhaps see what happens in practice?
-> 
+pm_runtime_resume_and_get() increments the runtime PM usage counter
+and, via starfive_wdt_runtime_resume(), enables the clocks. If a
+later step in probe() fails (reset_init, clock rate check,
+watchdog_start, or watchdog_register_device), control reaches
+err_exit, which calls pm_runtime_disable() but never balances the
+earlier get, leaking the PM usage count.
 
-Luckily the adafruit board comes with an LED already wired to the pin. Some
-quick testing shows the LED register (LED_ACT, LED_DRIVE) does work.
-Unfortunately the GPIO remains a mystery but I guess that's the best I can
-do for now.
+Track whether a PM reference is currently held (pm_ref_held) and
+whether the clocks are currently enabled (clocks_on), and use them
+in err_exit to release exactly what was acquired:
+
+ - if a PM reference is held, put it via pm_runtime_put_sync();
+   only fall back to a manual clock disable if the resulting
+   suspend transition did not actually run (put failure), since
+   the runtime_suspend callback already disables the clocks on a
+   successful put and a redundant call would double-disable them
+   and underflow the clock enable count.
+ - if no PM reference is held but the clocks were enabled directly
+   (runtime PM disabled case), disable them manually.
+
+Also propagate this accounting to the existing pm_runtime_put_sync()
+call at the end of a successful probe: its usage-count decrement
+happens regardless of the call's return value, so pm_ref_held must
+be cleared immediately after calling it to avoid a second,
+unbalanced put_sync() call if a later step in that path fails and
+falls through to err_exit.
+
+Fixes: db728ea9c7be ("drivers: watchdog: Add StarFive Watchdog driver")
+Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
+---
+v2:
+ - Fix double clock-disable / clock-enable-count underflow when a
+   PM reference was already released via a successful
+   pm_runtime_put_sync() in err_exit
+ - Fix double pm_runtime_put_sync() / usage-count underflow when
+   falling through from the tail put failure to err_unregister_wdt
+
+ drivers/watchdog/starfive-wdt.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/watchdog/starfive-wdt.c b/drivers/watchdog/starfive-wdt.c
+index af55adc4a3c6..4ad587732bda 100644
+--- a/drivers/watchdog/starfive-wdt.c
++++ b/drivers/watchdog/starfive-wdt.c
+@@ -429,6 +429,8 @@ static int starfive_wdt_probe(struct platform_device *pdev)
+ {
+ 	struct starfive_wdt *wdt;
+ 	int ret;
++	bool pm_ref_held = false;
++	bool clocks_on = false;
+ 
+ 	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
+ 	if (!wdt)
+@@ -449,11 +451,14 @@ static int starfive_wdt_probe(struct platform_device *pdev)
+ 		ret = pm_runtime_resume_and_get(&pdev->dev);
+ 		if (ret < 0)
+ 			return ret;
++		pm_ref_held = true;
++		clocks_on = true;
+ 	} else {
+ 		/* runtime PM is disabled but clocks need to be enabled */
+ 		ret = starfive_wdt_enable_clock(wdt);
+ 		if (ret)
+ 			return ret;
++		clocks_on = true;
+ 	}
+ 
+ 	ret = starfive_wdt_reset_init(&pdev->dev);
+@@ -499,6 +504,9 @@ static int starfive_wdt_probe(struct platform_device *pdev)
+ 	if (!early_enable) {
+ 		if (pm_runtime_enabled(&pdev->dev)) {
+ 			ret = pm_runtime_put_sync(&pdev->dev);
++			pm_ref_held = false;
++			if (ret == 0)
++				clocks_on = false;
+ 			if (ret)
+ 				goto err_unregister_wdt;
+ 		}
+@@ -509,7 +517,12 @@ static int starfive_wdt_probe(struct platform_device *pdev)
+ err_unregister_wdt:
+ 	watchdog_unregister_device(&wdt->wdd);
+ err_exit:
+-	starfive_wdt_disable_clock(wdt);
++	if (pm_ref_held) {
++		if (pm_runtime_put_sync(&pdev->dev))
++			starfive_wdt_disable_clock(wdt);
++	} else if (clocks_on) {
++		starfive_wdt_disable_clock(wdt);
++	}
+ 	pm_runtime_disable(&pdev->dev);
+ 
+ 	return ret;
+-- 
+2.55.0
+
