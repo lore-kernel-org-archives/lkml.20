@@ -1,112 +1,184 @@
-Received: from mail-oa1-f67.google.com (mail-oa1-f67.google.com [209.85.160.67])
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A860374E42
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:52:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856244A4998
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483956; cv=none; b=YvvjJc44Fqo1FcrF405rOC4U5HOMs8mFBSDg9ThSzN7KSG3ltRfdBEjmosSFSbj+m5736N9fWF8eoEx6mqFUtmIZwTjp4V1EY9ZqiQkGhR4nNmuqdA+e6Dbxv52K80r6bT1/tiad/Enx3NrEmXimbqIrVqhE8WbZosrFugN1WYs=
+	t=1789483972; cv=none; b=L4VliSBykKoLYSrC39RSNr3wHuZjiRUGBPz3AL9DpAy8nJXbtc4rVuoWb6DgXgjDLT5acbpgdbs5jJErATnxYL7NYxGGrULlGygFdXZHyDPVWfDdkgAottuzeahYtr+9X8G0g23AgXOglT4IjBQbk2lHHywh8+wk1M/ScgmUkHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483956; c=relaxed/simple;
-	bh=Urw5a8upeNm1SOsQTtN4iahTE9tcKv302lbLJeGlBvU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HR9sl/U2h5x0WroUuQVxqTB95Xm4B1/ba16wZSuwTSLP5AETujKOtEqJh37hUmr0mEGpOuyryxTdvNuYCb6h79aVoWgAxCfcdhkz6mTuSX9zuCROo7HYObFMl0jj+Rof75YoQ0srjtKsa0UbLKckn+BVWNsMA6qTy8hUSRKpoOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQ8X5Qhh; arc=none smtp.client-ip=209.85.160.67
+	s=arc-20240116; t=1789483972; c=relaxed/simple;
+	bh=YhMG3fUk/XjIoLHujEEjCo8Xx/HTzgB3tQ6DnSl55zI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LXVO7QxX41aEiyQtezp2KSpyQEWQX4PhZKwPUrza/fg+pTCHuwz6GvnR2H5ZBAmTHF3g1YYVtuMRJPFMEVPwCi805NHKfgA/AluAKzehVpq0q2xKvayfs2O5XRWmlzPZ2pqgdvU3tJzQmyrh0+Xlh2iL4gmEnTbfxXFCNW0Uo3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MSIbLynl; arc=none smtp.client-ip=74.125.227.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQ8X5Qhh"
-Received: by mail-oa1-f67.google.com with SMTP id 586e51a60fabf-4678d3e490bso796985fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:52:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MSIbLynl"
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c963a787c9so1241289e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:52:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789483954; x=1790088754; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+ahwYgxWMEileOU99DTxmNSErnxm7zxJkhpgn6sFwtI=;
-        b=eQ8X5QhhOM46iyUktsSUkhYSgljZiZCM2zspXqspnS+CCfuC2Xp93tqnwObr/Tj/Qu
-         33lJ90qcHWx1YV+13fJuaUl7RIT4kprfqG/oztRMm9NdTiHUysIb9EqFOMACBvbAGKqU
-         Rcn5SzF1i/nWbM4H4WQoqijxG0NxGY6l3/mxyx0iEmE0kGBVeQF6Do6T6VC57BZVf2d+
-         +tpq0+sbOqMQHOmqUG4ClfJ2PKaee4TmHATFdMnSzhsV70xiSnDle3egwwQTwpSTVL/V
-         w2uYm2pjC3L/Oe2GdixRCCwDiL40nH3UHcQo8hNpaR0e/1Y74KYujCFix0xgRRE9o3Ho
-         GcgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789483954; x=1790088754;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789483968; x=1790088768; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+ahwYgxWMEileOU99DTxmNSErnxm7zxJkhpgn6sFwtI=;
-        b=kVfsSD3NGWFKo5InIzhp1eglqiEo0BeXWNoBlAAp2/42JX1c+Z9XQRS5uqJHE9jvEd
-         +l7wCgd1sH+pUz0FvaHTMa1/9wO9RZe8qc5q5uziNsipFlmLeFQ9Wf0t9cPCtU+Tyd+L
-         fQBAFdznDaL4M8hqd80l94cglyhRF1VvPXDVu0BT7y+NSzA3VH3KRb2RHU+FhxIUAuTF
-         sBrX3tCHO3EcQtavLkctgkBkydMwQ2HUI6TeAa0cnLTPdzkIEbzyLFJCwbPBoFcG9gGW
-         e2hU8aFwfuoeQtgUkapfSlf/F/eXpkaHPf6/NAXr8zJ89rnEJlJd4IS0P7Eb9nqe0l8g
-         j/ng==
-X-Forwarded-Encrypted: i=1; AKwUvBxHAgeSZAt1PWwYVRtOjksNlEYae8qDaxXmFuIzjvHypgwn/X+0NKsnWbADGhWwFoNoJv250rxgwptiuwc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkJPehkSkS6uc1yf6ENThNwa2HdjOe7kcEkIQ/bAhFqPpQxnYX
-	5BHtWHj1DSkDCRvIazyfeDDaPXnCbP5LJFSZ5xllz+UHdFkzOXrMAp6A
-X-Gm-Gg: AYBFou1qIITwzew6rA7UlKmLz1/MGW4t1zrBo1HxBYYIKbfV6LAlyxIoYVGwJ5gGldA
-	XQCSgJf1PV6QKtS1EfpuvEF2qvdkM3BbJAcWYNF+WS1E7TV9py9nIipYMXzM52rsy2Br77w3a/1
-	ccY1JVdoDnFxSVR9aAfCVP0D2mK+GregTtdRj3fj0vLanWObs855oQbmSdC5sJ7HaWmtN/JS4jm
-	PTUZR3qCAwJj5fcCdog0X/hGe3e/Ca7D6enxYjSLRzTH32F+enRFctf5yY8ak21Ztp4AF2UPEKv
-	cmwCH7afAWfL67gLMzHTR9IbeJPS9LQOZM4x091n3ThArtpREg/35g9fuUUE8sMsjSCoW8hN4OQ
-	9QgyxdHPsRjB+KwcqLCDymduTkZ9WPPF7VYr8X070t006g5A8mDDbY6aIx3cAq5kJu7mmeEVSo2
-	TyOP/FMSqEBxThbsNVM/uEt/fGtabAFxw5Ok4tRDQfYUnG08DbfS/2KvI3SPAvmp52NOCUCX9wh
-	h5sYFHcYijv8Y29
-X-Received: by 2002:a05:6870:459b:b0:462:e12e:c561 with SMTP id 586e51a60fabf-482e39ea87amr2549366fac.4.1789483953749;
-        Tue, 15 Sep 2026 07:52:33 -0700 (PDT)
-Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df86995d6sm12588398fac.6.2026.09.15.07.52.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 07:52:33 -0700 (PDT)
-Message-ID: <2791fd80-627a-4353-be41-213240e207ed@gmail.com>
-Date: Tue, 15 Sep 2026 09:52:31 -0500
+        bh=F87Nj6cbUlhN8QRz95TtuecHNAPdmCP6EjjN+M7wdxM=;
+        b=MSIbLynlHZ8B6MpNrb7NQ6YMUvpug/Afg25eeHj/I7tIl0u2A2YF6P03IwZIz9vkKy
+         5mdaHLXYsvZzkQ6SeKHbiQig+r2TSywFGB6Zy3nwqyeGrKndSxCjImmcc92bH/bRPpQb
+         HF4VDGWwGmFkuO46L+8I5uyTKhI3TkyyQurPuQn+NzThChPDkEwY0QpC+w6bB59mSk0n
+         Mfd5h/wD/kV8NipVGntbIy3tbkWgKsSf2KmZ2C/PMdXLLKQIK7XvI/ufyZv7rLSJ5wg0
+         JKfjGDSzl91+zO5WiExCBP6QIf+H+ceypuQ4yIrnyPkNzxhDziDTMiesQUH1UtgaZy/N
+         sZ/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789483968; x=1790088768;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F87Nj6cbUlhN8QRz95TtuecHNAPdmCP6EjjN+M7wdxM=;
+        b=ltAjIHgyu/fvgKtv27aImI17fOCKfxswhGNMODuanF6J5E/1rOZxiIh6OwnsR2M5nR
+         YWnBX/8uVH4zeTGTL3WngvprJ8tEbvl5VkmlkeP1qdtESZzgNZQ8Sxda5Om4lSxn1a1F
+         LoYn7U0rVNFC9RR4yltCA5KZvcw4THJCqywQJ/thQxa8EvLNR/2mjcDip+6FXTC9xjRB
+         h/SCX7mBabsFgmxUZUjM2NK5X0vpHXbpGIMmRcPpD0kI4wmShnFben+aXF2MFnkyqGu9
+         dfOJ304PmXA6MrfDUYpmk1MQaMd386xyH/IjNNOegCy8nTqnW2w/onvM2OxwyP2kPOn/
+         IC8A==
+X-Forwarded-Encrypted: i=1; AKwUvByZ5cX/x59hmSTFXIIm4wsiHlRwee5h31XZ0fjxw/WkntKYG3uarC9EnMl/d/HgNza3TiXmSxJrrYeusUU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzKewsLkX91VnIjlv+DC+j4xX0XrFZxYJigbaWhYsGRnHoIgMI
+	RVkfyCouKLjl+ZVgtkQXvI8XdH8TSQ1jhXqInLIy2Eq1s2lcxqD4ZKlj
+X-Gm-Gg: AYBFou34C1SZ+4gNd3XX076uitY1L5QdieHFkf3MnGoyZWEmJ6i5fbfsF/ls1JK+akZ
+	2bqhUkRF1TSbM4G8tDuU4qtIyFw/RYBqVmot03cOo/rDkJZc56uFbbPq5s5yJz03+lcpy4q1QQ7
+	UxcuzFVVA6+diFLJMdeTPuVrGQHH6Lc1rDHFIvv+rbQaH+Yeg0o2Nc8lKO1QdGVmgocOrBQAE6M
+	SXQ3qPWSCJokkOXzJyi/769qRewyDeLNFIQsgsWugqOhTayO1xC/s0WXO7TVwVakPmWtwD+vgJx
+	eiP4ZxMJO9M6uYE9syH0tB4Bky54n3l7iaB9WcLResFPV68fGWwbPnhPnA0W2wLz4PnI9cs7kIy
+	qEd8KoWp9g6NO8qiLWygymDAwgbDCpcs0MWoahP0AK7HhI5EZY3L5g+hFozMVISX4nl/R/wtoSM
+	KGpukG55iacUVmSauZyorK2/A/u/UqkFUKGsQPTctyi66VLiTkH62Kfo5fn/yakiBo
+X-Received: by 2002:a05:6122:4f91:b0:5c6:58df:5826 with SMTP id 71dfb90a1353d-5c981d5fca1mr10648335e0c.5.1789483968151;
+        Tue, 15 Sep 2026 07:52:48 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c84714c380sm15063108e0c.15.2026.09.15.07.52.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 07:52:47 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v3] HID: wacom: avoid overflows in sequence number tracking
+Date: Tue, 15 Sep 2026 11:52:29 -0300
+Message-ID: <20260915145229.3036596-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915111448.2726869-1-qwe.aldo@gmail.com>
+References: <20260915111448.2726869-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] Novatek NT51021 DSI panel IC driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Nickolay Goppen <setotau@mainlining.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
- <2ac704f5-40e5-4212-8b16-6b23912ef4b8@gmail.com>
- <20260915-funky-hot-lobster-2eeee8@quoll>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <20260915-funky-hot-lobster-2eeee8@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/15/26 5:39 AM, Krzysztof Kozlowski wrote:
+The dropped-packet calculation derives the sequence range in signed int
+arithmetic. A sequence field whose logical range spans all 32-bit values
+makes the range calculation wrap to zero, so the following modulo triggers
+a divide exception.
 
-> On Sun, Sep 13, 2026 at 12:23:46PM -0500, Ryan Brue wrote:
->> Tested-by: Ryan Brue <ryanbrue.dev@gmail.com> # Amazon Fire HD 10 (2017),
->> boe,tv101wum-nm0
-> This tag is applicable only to one patch out of tree, so just respond
-> there instead of causing scripts to get this tag to all patches.
->
-> Best regards,
-> Krzysztof
-My apologies, I'm new to kernel development, and didn't realize, but in 
-hindsight it makes sense. Thanks for being kind about it, it won't 
-happen again.
+Normalize the maximum and current value according to the HID parser's
+signedness rule, and keep the sequence state and arithmetic in s64. Use
+div64_s64() for the remainder to avoid __moddi3 link failures on 32-bit
+architectures. This also avoids overflowing value + 1 at the logical
+maximum.
 
-Best regards,
-Ryan
+Fixes: 359673ea3a20 ("HID: wacom: Support sequence numbers smaller than 16-bit")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+
+Changes in v3:
+  - Replace raw s64 modulo with div64_s64()-based remainder to avoid
+    __moddi3 link failure on 32-bit architectures (i386, arm32).
+    Reported by Sashiko AI review.
+
+Changes in v2:
+  - Normalize logical_maximum/value as unsigned when logical_minimum >= 0,
+    matching HID parser signedness. Store sequence state as s64.
+    Fixes unsigned 0..UINT32_MAX range that broke v1.
+
+ drivers/hid/wacom_wac.c | 33 ++++++++++++++++++++++++---------
+ drivers/hid/wacom_wac.h |  2 +-
+ 2 files changed, 25 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+index da1f0ea856..af94f59a5d 100644
+--- a/drivers/hid/wacom_wac.c
++++ b/drivers/hid/wacom_wac.c
+@@ -7,6 +7,7 @@
+ #include "wacom.h"
+ #include <linux/input/mt.h>
+ #include <linux/jiffies.h>
++#include <linux/math64.h>
+
+ /* resolution for penabled devices */
+ #define WACOM_PL_RES		20
+@@ -2527,18 +2528,33 @@ static void wacom_wac_pen_event(struct hid_device *hdev, struct hid_field *field
+ 	case WACOM_HID_WD_BARRELSWITCH3:
+ 		wacom_wac->hid_data.barrelswitch3 = value;
+ 		return;
+-	case WACOM_HID_WD_SEQUENCENUMBER:
+-		if (wacom_wac->hid_data.sequence_number != value &&
++	case WACOM_HID_WD_SEQUENCENUMBER: {
++		s64 sequence_minimum = field->logical_minimum;
++		s64 sequence_maximum = sequence_minimum < 0 ?
++			(s64)field->logical_maximum :
++			(s64)(u32)field->logical_maximum;
++		s64 sequence_value = sequence_minimum < 0 ?
++			(s64)value : (s64)(u32)value;
++
++		if (wacom_wac->hid_data.sequence_number != sequence_value &&
+ 		    wacom_wac->hid_data.sequence_number >= 0) {
+-			int sequence_size = field->logical_maximum - field->logical_minimum + 1;
+-			int drop_count = (value - wacom_wac->hid_data.sequence_number) % sequence_size;
+-			hid_warn(hdev, "Dropped %d packets", drop_count);
++			s64 sequence_size = sequence_maximum -
++					    sequence_minimum + 1;
++			s64 drop_count = sequence_value -
++					 wacom_wac->hid_data.sequence_number;
++
++			drop_count -= div64_s64(drop_count, sequence_size) *
++				      sequence_size;
++			if (drop_count < 0)
++				drop_count += sequence_size;
++			hid_warn(hdev, "Dropped %lld packets",
++				 (long long)drop_count);
+ 		}
+-		wacom_wac->hid_data.sequence_number = value + 1;
+-		if (wacom_wac->hid_data.sequence_number > field->logical_maximum)
+-			wacom_wac->hid_data.sequence_number = field->logical_minimum;
++		if (sequence_value >= sequence_maximum)
++			wacom_wac->hid_data.sequence_number = sequence_minimum;
++		else
++			wacom_wac->hid_data.sequence_number = sequence_value + 1;
+ 		return;
+ 	}
++	}
+
+ 	/* send pen events only when touch is up or forced out
+ 	 * or touch arbitration is off
+diff --git a/drivers/hid/wacom_wac.h b/drivers/hid/wacom_wac.h
+index 126bec6e5c..74e7c5a04a 100644
+--- a/drivers/hid/wacom_wac.h
++++ b/drivers/hid/wacom_wac.h
+@@ -324,7 +324,7 @@ struct hid_data {
+ 	int bat_connected;
+ 	int ps_connected;
+ 	bool pad_input_event_flag;
+-	int sequence_number;
++	s64 sequence_number;
+ 	ktime_t time_delayed;
+ };
+
+--
+2.43.0
