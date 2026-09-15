@@ -1,162 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7F744682E;
-	Tue, 15 Sep 2026 07:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454B345C6EA;
+	Tue, 15 Sep 2026 07:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458905; cv=none; b=tD/STLlSvg0e0DPyuyQNOvXX6jTL9VYQZaD3jSXUFGjXpEsU7u8699WP1RrgY/HcqVt8spOcsQfuE+KdX21/PtHRoAynULCBsnJESmQye4p9ll5uAp79drWv9kPExAlu/fqB7hzuF4d0rS8rXOzLDb+pCnERM1X32HkV5dmJjvs=
+	t=1789458909; cv=none; b=EuW3pZyUEL8m6YD+t7/HNpQMPGsdhdE/K7zX0WVY2hyRREt36aS2HCU7hQ4ZaJjMT1WCqJyBC/zNYoS9a1P4KhbLgHSFQfZIzgIZahckBReYB6uAEFkwoibYHb4CPocyiw88qevvfC13rkg26m5/++MyIW55RXEYX6AJeo83URc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458905; c=relaxed/simple;
-	bh=75MOes6SzozZa83TP0M7XKvyRkKiNnMyJKwfpsv2ODE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GUb2kIuYja1rkcMvCDpPo9ArSv9pU/sF+OOT19dz+nxVYEEBQiZVcPxCFCtjl6cg4qNvHrh6cPUE/+RBgUjBFxUvxJKHR9j0ONBQLzVHayhNfrQy8XAIGUJEAjBhgT+oJQchoEP6MKZimowmBAfh7T1igOGauFY/BGZDFr60BH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bQ+0mAnD; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789458909; c=relaxed/simple;
+	bh=G48mGUEJR7leGAKi03i2dA2zjKMW6IanxumXW2D9mO4=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=BeSryDUvBcUHgG7CrAA8xMhrFwFS8S3jXJjHPelfxDCO4H9dR1pWfdHIpP/p+yL4TiZ2M1lyTRehCzSEAMwZhs7qVQ2bBpG2IWRYSaZ4SaEaY2IVSsCH5qYH9/WcOoVBgsDjpFOCeqA8NN9WBRBHp0A2hkAc/Hp55ZDHTRpOifA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=bR8yp8du; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bQ+0mAnD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789458904; x=1820994904;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=75MOes6SzozZa83TP0M7XKvyRkKiNnMyJKwfpsv2ODE=;
-  b=bQ+0mAnDeZgwNQaxB8FkgJumCUIC8TyFaZukVHYWnZsAMESX0MYMsFNt
-   8abQf/Fr2K+6bE28GOl3tAiBXIDgYgjC91vrtfjb0WqxSEiUYLBS/vuld
-   NpX8mzL95zUt/XFqrwau8aGLSOorX8D1Qcm9BrAlQdh/ftEVLu13AHYUU
-   O8MFw+BQZWxy3RG5yJDERArB9/YrnFvJb5zuYoUeP/xyno0HBdaMnv95J
-   E2QrGwKw23M+ZMpJboHtuPJPHy81dJDKk+hzENNT4ODYcZAT1RBOnjrrL
-   jSTT6qATDEzDMowlIcizEzj1E6ypvmENSL2cEMoGe5giRs1WfRP2zN0hu
-   g==;
-X-CSE-ConnectionGUID: tt/GNuybQ0uSuQHRtXEddQ==
-X-CSE-MsgGUID: DO3qN1X4T66rGPOYJNOCfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101163814"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="101163814"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 00:55:04 -0700
-X-CSE-ConnectionGUID: rT2cmXajScm8cB7jjgCycw==
-X-CSE-MsgGUID: v+wc3xDfRfazH5AHB9Wo9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269205548"
-Received: from allen-box.sh.intel.com ([10.239.48.101])
-  by fmviesa010.fm.intel.com with ESMTP; 15 Sep 2026 00:55:00 -0700
-From: Lu Baolu <baolu.lu@linux.intel.com>
-To: iommu@lists.linux.dev,
-	x86@kernel.org,
-	linux-coco@lists.linux.dev,
-	kvm@vger.kernel.org
-Cc: Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	yilun.xu@linux.intel.com,
-	xiaoyao.li@intel.com,
-	Chao Gao <chao.gao@intel.com>,
-	linux-kernel@vger.kernel.org,
-	Lu Baolu <baolu.lu@linux.intel.com>
-Subject: [PATCH 5/5] iommu/vt-d: Reserve MSB of domain ID space for TDX module
-Date: Tue, 15 Sep 2026 15:42:33 +0800
-Message-ID: <20260915074235.1219183-6-baolu.lu@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915074235.1219183-1-baolu.lu@linux.intel.com>
-References: <20260915074235.1219183-1-baolu.lu@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="bR8yp8du"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=G48mGUEJR7leGAKi03i2dA2zjKMW6IanxumXW2D9mO4=; b=b
+	R8yp8dusN/ryiSh7tanWo6eqBX/hyt/Le/gkBF1v0bvJaX/10LmlReEhJ/MZDpG2
+	+U4xdZRKO01F3ZZAnmzp/2gV8R7enWa4X4YIzDsYM08fIOuQ9uExV8YMJwecobvO
+	daA1rQ4w3qx7xzE6Nf16pXkwCanyjZAtwqbL0H2NCk=
+Date: Tue, 15 Sep 2026 15:54:50 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: clm@fb.com, dsterba@suse.com
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [BUG] btrfs: WARNING in btrfs_create_pending_block_groups
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/iet0Ai5iiebekdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/HfA3iZpcE6O8rjHThBpnGA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-ID: <4ac537fb.6f6b.1a0a40fc080.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hygvCgD3H7PK+ahq7w4QAA--.21722W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3gp1J2qo+crtywAA3R
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-When an Intel IOMMU is enabled for TDX Connect, the VT-d DID namespace
-must be split so the TDX module can use the MSB-tagged half for trusted
-DMA translations, while the host/VMM uses the lower half.
-
-After TDH.IOMMU.SETUP succeeds, restrict host domain ID allocation to the
-lower half of the DID space by capping max_domain_id to ndoms / 2. Before
-applying the cap, verify that no allocated domain IDs already exist in
-the upper half; if they do, abort bring-up and roll back the per-IOMMU
-TDX setup.
-
-On teardown, restore max_domain_id to the full DID range.
-
-This matches Intel TDX Connect architecture requirements for IOTLB/DID
-isolation between TEE and non-TEE translations.
-
-Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
----
- drivers/iommu/intel/tdxc.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/iommu/intel/tdxc.c b/drivers/iommu/intel/tdxc.c
-index b5dfdeeb23db..1ca03257d456 100644
---- a/drivers/iommu/intel/tdxc.c
-+++ b/drivers/iommu/intel/tdxc.c
-@@ -129,6 +129,7 @@ static struct tdxc_pages *tdxc_alloc_mt_pages(struct intel_iommu *iommu,
- 
- static int intel_iommu_bringup_tdxc(struct intel_iommu *iommu, unsigned int nr_pages)
- {
-+	unsigned long ndoms = cap_ndoms(iommu->cap);
- 	struct dmar_drhd_unit *drhd = iommu->drhd;
- 	u64 r, tdx_iommu_id;
- 
-@@ -144,6 +145,10 @@ static int intel_iommu_bringup_tdxc(struct intel_iommu *iommu, unsigned int nr_p
- 	if (!iommu_mt)
- 		return -ENOMEM;
- 
-+	guard(mutex)(&iommu->did_lock);
-+	if (ida_find_first_range(&iommu->domain_ida, ndoms >> 1, ndoms - 1) > 0)
-+		return -EBUSY;
-+
- 	guard(mutex)(&iommu->tdx_lock);
- 	r = tdh_iommu_setup(drhd->reg_base_addr, iommu_mt->root, &tdx_iommu_id);
- 	/* TDX Extension is not supported on this iommu. Nothing to do. */
-@@ -154,17 +159,27 @@ static int intel_iommu_bringup_tdxc(struct intel_iommu *iommu, unsigned int nr_p
- 		return -EFAULT;
- 	}
- 
-+	/*
-+	 * Intel TDX Connect Architecture Specification, Section 2.2 Trusted DMA
-+	 *
-+	 * When IOMMU is enabled to support TDX Connect, the IOMMU restricts
-+	 * the VMM’s DID setting, reserving the MSB bit for the TDX module. The
-+	 * TDX module always sets this reserved bit on the trusted DMA table.
-+	 */
-+	iommu->max_domain_id = ndoms >> 1;
- 	iommu->tdx_iommu_id = tdx_iommu_id;
- 	iommu->mt_pages = no_free_ptr(iommu_mt);
- 
--	/* Bring-up is not complete yet; report as unsupported for now. */
--	return -EOPNOTSUPP;
-+	pr_info("%s: trusted DMA for TEE/IO initialized\n", iommu->name);
-+
-+	return 0;
- }
- 
- static void intel_iommu_teardown_tdxc(struct intel_iommu *iommu)
- {
- 	u64 r;
- 
-+	guard(mutex)(&iommu->did_lock);
- 	guard(mutex)(&iommu->tdx_lock);
- 
- 	if (!iommu->mt_pages)
-@@ -179,6 +194,7 @@ static void intel_iommu_teardown_tdxc(struct intel_iommu *iommu)
- 	free_mt_pages(iommu->mt_pages);
- 	iommu->mt_pages = NULL;
- 	iommu->tdx_iommu_id = 0;
-+	iommu->max_domain_id = cap_ndoms(iommu->cap);
- }
- 
- void intel_tdxc_exit(void)
--- 
-2.43.0
-
+CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEgV0FSTklORyB3aGlsZSBidHJmcyBjcmVhdGVzIHBlbmRp
+bmcgYmxvY2sgZ3JvdXBzLCB0cmlnZ2VyZWQgYnkKYSBzeXprYWxsZXIgcmVwcm9kdWNlciB0aGF0
+IG1vdW50cyBhIGNyYWZ0ZWQgYnRyZnMgaW1hZ2UuICBUaGUgaXNzdWUgaXMKcmVwcm9kdWNpYmxl
+IHdpdGggSEVBRCBjb21taXQgY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkz
+NQoodjcuMy1yYzEsIExpbnV4IDcuMy4wLXJjMSkuCgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIGEg
+Y3JhZnRlZCBidHJmcyBmaWxlc3lzdGVtIGltYWdlIG9uIGEgbG9vcCBkZXZpY2Ugd2l0aCB0aGUK
+ZnJlZSBzcGFjZSB0cmVlIGVuYWJsZWQsIGFuZCB0aGVuIHN0YXJ0cyBhIGJhbGFuY2Ugd2l0aCB1
+c2FnZSBsaW1pdHMuICBUaGUKY29uc29sZSBzaG93cyB0aGUgbW91bnQgYW5kIHRoZSBiYWxhbmNl
+IHN0YXJ0IHN1Y2NlZWRpbmcgYmVmb3JlIHRoZSB3YXJuaW5nLgoKClRoZSBjb25zb2xlIHNob3dz
+IGEgV0FSTklORyBhdCBmcy9idHJmcy9ibG9jay1ncm91cC5jOjI5NDQgd2l0aCBSSVAgaW4KYnRy
+ZnNfY3JlYXRlX3BlbmRpbmdfYmxvY2tfZ3JvdXBzLCByZWFjaGVkIGZyb20gdGhlIHRyYW5zYWN0
+aW9uIGNvbW1pdCBwYXRoIHdoaWxlCnRoZSBiYWxhbmNlIGlzIHR1cm5pbmcgdGhlIGJsb2NrIGdy
+b3VwIHJlYWQtb25seS4gIEluIHRoZSBvcmlnaW5hbCByZXBvcnQgdGhlCnNhbWUgd2FybmluZyB3
+YXMgcmVjb3JkZWQgYXQgZnMvYnRyZnMvYmxvY2stZ3JvdXAuYzoyNDQxIGluIHRoZSBzYW1lIGZ1
+bmN0aW9uLCBzbwpvbmx5IHRoZSBzb3VyY2UgbGluZSBoYXMgbW92ZWQuCgoKT25lIHBvc3NpYmxl
+IGNhdXNlIGlzIHRoYXQgdGhlIGJsb2NrIGdyb3VwIGNyZWF0ZWQgZnJvbSB0aGUgY3JhZnRlZCBp
+bWFnZSBkb2VzCm5vdCBzYXRpc2Z5IHRoZSBhc3N1bXB0aW9uIGJ0cmZzX2NyZWF0ZV9wZW5kaW5n
+X2Jsb2NrX2dyb3VwcyBtYWtlcyBhYm91dCB0aGUKYmxvY2sgZ3JvdXAncyB0eXBlIG9yIHJlc2Vy
+dmF0aW9uIHN0YXRlIHdoZW4gaXQgaXMgY29tbWl0dGVkLCBzbyB0aGUgaW52YXJpYW50CmNoZWNr
+IGZpcmVzLiAgVGhpcyBsb29rcyBsaWtlIGEgdmFsaWRhdGlvbiBnYXAgZm9yIGRpc2stZGVyaXZl
+ZCBibG9jayBncm91cApzdGF0ZSByYXRoZXIgdGhhbiBhIHRyYW5zYWN0aW9uIHByb2JsZW0uICBJ
+IG5vdGUgdGhhdCA4YmM0ZDcyMDk2MTEgYW5kCmU1NDkwOTNjMTFhMiB0b3VjaGVkIHRoZSBibG9j
+ayBncm91cCByZXNlcnZhdGlvbiBwYXRoIGJ1dCBub3QgdGhpcyBjaGVjay4gIEkgYW0KcmVwb3J0
+aW5nIHRoZSB3YXJuaW5nIGFuZCB0aGUgcGF0aCBhcyBvYnNlcnZlZC4KCgpUaGlzIGFwcGVhcnMg
+dG8gYmUgYSByZWN1cnJlbmNlIG9mIHRoZSBzeXpib3QgaXNzdWUgd2hvc2UgZXh0ZXJuYWwgaWQg
+aXMKZWNlZjEwOWExNTdlNzBjMDZlMjUuICBJdCByZW1haW5zIHJlcHJvZHVjaWJsZSBvbiB2Ny4z
+LXJjMS4KCgpSZXByb2R1Y2VyOgoKCnN5eiByZXByb2R1Y2VyOiBodHRwczovL3Bhc3RlYmluLmNv
+bS9yYXcvdTJRNGZuakIKCmNvbnNvbGUgb3V0cHV0OiAgaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3
+L3h0eWZ3MmJtCgprZXJuZWwgY29uZmlnOiBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvTkhhdnB5
+NlIKCgpLZXJuZWw6CgoKSEVBRCBjb21taXQ6IGNlZTkzOTVhY2Q4MDQzYmUwNjQ0YjI1YzM0YmZh
+ODY2MjNmMmI5MzUKZ2l0IHRyZWU6IHVwc3RyZWFtIChsaW51eC5naXQpLCB0ZXN0ZWQgdGhyb3Vn
+aCB0aGUgdjcuMy1yYzEgYW5ub3RhdGVkIHRhZyBvYmplY3QKwqAgwqAgwqAgwqAgwqAgwqBlNWUw
+NDcyNmNkZDA0M2UzMDk2NzcwNzFhYjFiNjVhNGIxOGY0MjJiCmtlcm5lbCB2ZXJzaW9uOiA3LjMu
+MC1yYzEgIzEgUFJFRU1QVChmdWxsKQp0ZXN0ZWQgdGFnOiB2Ny4zLXJjMSAoTGludXggNy4zLXJj
+MSwgMjAyNi0wOC0zMCkKCgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3Ig
+dGVzdGluZy4KCgpCZXN0IHJlZ2FyZHMsCkNoYW5namlhbgoKCgo=
