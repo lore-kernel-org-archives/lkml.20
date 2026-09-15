@@ -1,87 +1,68 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012007.outbound.protection.outlook.com [40.107.209.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597964052C4
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789492831; cv=none; b=d3fl+60qsF61f0gGcW9u07BL8xozPXcZBeqfz0eRSGYOtwNeROTa3L+VLQ5kOAkhnMAEB5JASqJxbXj1sI9rkHRHmuiQHE9ys96XNfZ+UqfFTP+lN3hCMp7lgAe4QczqChRwvCbHwnoPswvvW6lVtRWbaYAN+hEHRbRLBuL5Mmw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789492831; c=relaxed/simple;
-	bh=dbvG9K249lCyefMM14BZFhgNNJ3r5ozhGD93sWzhaiU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YND/UXMkEZdw8mc6ICjAiMCQGqymfiA9dMA86mgHoNn0zmwcqgrurkj4ngv00r5VByXhNa4ytRSQ8mK+NEirGQqDKgB5EqKXHtil+LgVZmPfsx8YEA1QeQVBTT/7wHwLBbVrbqMFxLSjPIWZvmM3MlKxiCap6UNG4j0MeJ0qx2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ifTziyLK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SVyCOEGJ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8053DEFFC;
+	Tue, 15 Sep 2026 17:20:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789492845; cv=fail; b=MuOBzCgKv2hcPG/39PF3JGh/L87G6hTTfkF+CgHS7+RXj3iHiPmHKwClBwAirW9PS6YbCNRQdtXPT8dypIcCsHBVISG9lT4qFP+YUr9vzoP0rBSTus31VskTs0DQaeqYCJlMSk1aiSnMFbWvj7JU8Ww3vxFYt752Vs1UR2Q54ck=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789492845; c=relaxed/simple;
+	bh=Fe9/cMGs2jiHRGaI0GLz7Bqu+7haH1ke6LQ5Nn9+07c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=a3tjJ4EpQ5NwPIZHheM5+qEm+pRg2Mv0/tprE//lzsiR+foIBElrXzCH7WeQAidEd2jCSjAsbKE8WAxgq9sNi5oNY9KILjtLmQ/uwC31mLHwkRHABClZAIVDf2WPNeVz7DTSaGIEov9ffoujqMMLd6HGgKrDKAW0K2iCh11ZFuU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=njr0Tfpo; arc=fail smtp.client-ip=40.107.209.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ifTziyLK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SVyCOEGJ"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFAQV4813414
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:20:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WH7lCAzw2uCbu1htPtaHlO71VpSzeKajhsaa41t5N44=; b=ifTziyLKh9qzhc1M
-	h8KULEL9XrG6sJ2Rxlru+TfiJczyUGqhJ13qjf7svvEAifWQjljbmR47S2Hs37ba
-	n/gsT3aNTx7fenoFUw7v8edZuhLjxq/u4FzY6RXGs3geaSXMOxDBbFAzIpgimX+J
-	JLOlG0YiSh//NFveu/QvVtQOoYJ0E9JLDWgio2kMxVb6nTyQAlsaEbmHIiyXwzpj
-	NA83F6w9ZAw53xoTmE67j5FTiUasg9hygKStaKkM+nbAbYJiE8NX+O74ah0Hm3sQ
-	aRFUnezZsufP6L4iwstUQISsY+4g1tutYXa8eJeDeCS7WJKNjFjOFZBOQrjxbuJO
-	bodP/Q==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq6kc1fa3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:20:29 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-77969cb40dcso146312137.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:20:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789492828; x=1790097628; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WH7lCAzw2uCbu1htPtaHlO71VpSzeKajhsaa41t5N44=;
-        b=SVyCOEGJIBDg2XTkofHZXr/BLJBbWVphhtZcmznloxlpAIaslQQotGI56V9N3YYIVq
-         hncVdwhMOEqHKB6KOMAYw09KuAU7kD0RMEiI3G6GGrSrMgnJSnqWU/W6WxjjV65Bsz31
-         iga5A7dTyIz5jTiYZGkY9l2nY9nAd8RLTJq0A0StUzeu1BjiHWi7wcOM6v8nASD5RhGY
-         Zp50FkTh5fR1xOZtuYk7qmmP4OlTzC8AMwMgUhPv6zqoi7YULd65LX27O6ltvCUzSRvB
-         TXm9QvlgwZVeciJ6Cahdt+Ysly2tGjlcqmRWUs+jUwoR9svwaY7dcNMowbIfiZoUFV9R
-         oSVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789492828; x=1790097628;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WH7lCAzw2uCbu1htPtaHlO71VpSzeKajhsaa41t5N44=;
-        b=hk7C9KREgEAXpm3Ps4Bo3PNE2TCVJxPBvhIiIYl1JPvv64Rtmdi/MPvmfW8751T6fM
-         z3ohVd1C1yMao/sOvv/Ht/SMnVn49hC6X6WgHf0q5FfJu4P9hqYEo6mRpDE7Z6fWPhoX
-         LbnsDFgup7d9V+63xEb7ShIq/BJRCPv+Vh7zYuey3/P3NmKkKZlDupLUcnsclF4MO55U
-         XdCHWBgY2n3aXnR7Y+CdERWn5Rckce9SZQ1ZqfKQRpaA0ghbMlTUt5hxrcX9SMwYXuVK
-         mzNx9NRGJ55uZDNUVnT69ITMGNrd/ZTWyoYVGIyl8zyo4fV4EwlifMzJXV3b2l58lI3X
-         fZFg==
-X-Forwarded-Encrypted: i=1; AKwUvBxDoeivuy4yj6y9L0qaW0G1AYDErBk2w5I1rZ5JKzJtOi3YbhBOy1BAUm1scksnpA3b2x7JhwtIX9rRrVo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+Ek1VzJJY0LbqdRvwDkkIvwtl+yYh8bBAgpTVxHJ4MSvmaf6g
-	u5N4iU9MeOydL+10N/olMj7SZVdglIYc5U81sZWdjA8sp9uwfbVWiJUj0smQOU5t/JiWZ1fehCE
-	U2XrFcTGPdu2r6lSx9ZkDywwWS8AE22URMSMjwjV3zdtN/r9xZeNrmKvopFmBPnWYY+U=
-X-Gm-Gg: AYBFou0NYKKLVMlgA4Rl9gfhxkCOpzoyLsfB+gSZzkx9Gtd+GcoDq8c9O7J/zMixuR8
-	QwhRugzaVVa98+xgC9pRNirNMgLhIZMg/NRoS3U3cOSrahQW12KEz0F4fVhdylrKGrTr3viNy4+
-	F/Gsg3NlHAANWAgknd4ZKZvDyLvR5p+Zff5J71b5kC+cSxniGUl3qKhNEQhhsDSsiHhUbFxr/6t
-	ppoxkMr2lBf7LyR0aDwajhkRn7NJWRcPK8Osh54cHhAar0jJCT5tL//q9ePrzL92TZ22ZQp36Ch
-	4gx4opSOJO2jqYBAZn3go654hTX4uMsT6fKKI1HNgPIk88r5h5hZymGAM9jawfgqIv0pzmWK+4l
-	1H1/95qsS/C2CPC7I37RdVA==
-X-Received: by 2002:a05:6122:4a52:20b0:5c8:356d:c872 with SMTP id 71dfb90a1353d-5c981ebdb36mr3506277e0c.3.1789492828430;
-        Tue, 15 Sep 2026 10:20:28 -0700 (PDT)
-X-Received: by 2002:a05:6122:4a52:20b0:5c8:356d:c872 with SMTP id 71dfb90a1353d-5c981ebdb36mr3506244e0c.3.1789492827984;
-        Tue, 15 Sep 2026 10:20:27 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d27ad36sm26023a12.21.2026.09.15.10.20.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 10:20:27 -0700 (PDT)
-Message-ID: <e55093ff-0441-49f0-9d06-6c100c8107aa@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 19:20:24 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="njr0Tfpo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MWa0Tog+oGgwujyH92AbL7vSpBLBXG3lFjbIqtYOJjtyKuiBbOAgQBdFnTl1zmBmBJ6JG9pOwAFG6T3oTTzZtMndSovY0QtHE6gK//WPvsiPphNOXxdN+riHyDJk3mdPWcVH3QvrVq4J31PcKaJXPKd9YQcQgc+QWB5xmu+kzQt7cdjzfqelPiWPSJE0RFSGYKjSxCkNUygr+Kc7s90NphOU9dxOE1DWe30Ma4VOIkEi/nfQe7DdFN5roCieV6dIhv0Vz6hoNrjxKZxHtuNjstW37iZkfqvWYREza4kYQErK+NCGTbNfhLbWLTJ+V7ptimIiXF0BjFqyA86CSzgxAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ISmcLST1aOvZcmZO7jWhAuO/G+CA6sQ2OpSbYa9fR4Q=;
+ b=k14OsM+0kbGfaGQK3R3bCWEgfRRS6jQWmC22qSQO7Qs1ciMN8e3WwRDL3+L7xby0hE12QQNNl/Ure3LS3dGghnK/VLKzc4AjxXV442HkyN0SSHgjPCGsLMO/6fZ8dyudEl8AJvSgqaDKbVs2QHP6SNFeuztzcJf0veyFXeMgGJfU94HPp5VqnruD+uyGCnZiY419XxfnWvVwZuIIzPaxDQhuHi7AXkfjwra2akwr/Wzd63W3K/eC187YEr6TmV7RGgVPJkVDaBpF5p6ToVA8uyWjGVAQ4XeY5r1WYfn+OOiNH53uAFiyYgLGBXsYPV4CTr5j8gUJMwkDAvnqNpgXXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com;
+ dmarc=temperror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ISmcLST1aOvZcmZO7jWhAuO/G+CA6sQ2OpSbYa9fR4Q=;
+ b=njr0Tfpodk0VZFkKpqb/irDIDBnKuclHrkG06vJ3BRKEkeUHFqLkEKUBwV9hT+57VZdaHq88aHA/3mB2aGl/epyxTXxaxTJwgnOGPcRbPSJBTJfTCZcoW9IeeJZKbdPQwMROFmcQrr+gw244v4qh0/dy+d8P5i9fxn2s1wFhchc=
+Received: from CH0PR03CA0097.namprd03.prod.outlook.com (2603:10b6:610:cd::12)
+ by IA0PR12MB8424.namprd12.prod.outlook.com (2603:10b6:208:40c::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 17:20:38 +0000
+Received: from BN5PEPF0004698B.namprd02.prod.outlook.com
+ (2603:10b6:610:cd:cafe::79) by CH0PR03CA0097.outlook.office365.com
+ (2603:10b6:610:cd::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
+ Sep 2026 17:20:38 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN5PEPF0004698B.mail.protection.outlook.com (10.167.245.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 17:20:36 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
+ 2026 12:20:35 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 15 Sep
+ 2026 12:20:35 -0500
+Received: from [192.168.1.205] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Tue, 15 Sep 2026 12:20:35 -0500
+Message-ID: <bb84213f-0168-425c-9803-24eb82415b52@amd.com>
+Date: Tue, 15 Sep 2026 12:20:34 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,77 +70,436 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/22] thunderbolt: Try reading host DROM from device
- tree first
-To: Sven Peter <sven@kernel.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
-        Neal Gompa <neal@gompa.dev>, Andreas Noever <andreas.noever@gmail.com>,
-        Mika Westerberg <westeri@kernel.org>,
-        Yehezkel Bernat
- <YehezkelShB@gmail.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        Joshua Peisach <jpeisach@ubuntu.com>
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-7-1f80085f93fb@kernel.org>
+Reply-To: <tanmay.shah@amd.com>
+Subject: Re: [PATCH] remoteproc: remoteproc_virtio: add acknowledged vdev
+ reset
+To: Mathieu Poirier <mathieu.poirier@linaro.org>, <tanmay.shah@amd.com>
+CC: <andersson@kernel.org>, <linux-remoteproc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260902214453.634339-2-tanmay.shah@amd.com>
+ <aqBNoaF7m_JEiVYY@p14s> <281ad636-7963-43ad-b88a-8a196eab217b@amd.com>
+ <aqQW7eOsFE7jRTXT@p14s> <935f29ea-adf0-45c2-84fc-0df40b6f591b@amd.com>
+ <CANLsYkzWXRbQiystuX101POObnkhSAyyP-6sOf9Fb+X5H_5y3A@mail.gmail.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-7-1f80085f93fb@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+From: "Shah, Tanmay" <tanmays@amd.com>
+In-Reply-To: <CANLsYkzWXRbQiystuX101POObnkhSAyyP-6sOf9Fb+X5H_5y3A@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDI1MyBTYWx0ZWRfXwsy31opneXtf
- /ZUz87+e6+L453wOkZ6q0LC87f1HoppmEj3bhq3g1tyKAIg3zO45rUc40Qi1ItgqmjjQPUMXvBp
- W8c1Pt/D+2zuS/9jgP6WbIptXseDug8=
-X-Proofpoint-GUID: OeN4EsDbFG7vkblaefVUE8LvQCxaMLwM
-X-Authority-Analysis: v=2.4 cv=ZINCCn7b c=1 sm=1 tr=0 ts=6aa97e5d cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=fxJcL_dCAAAA:8 a=i--5ToJz1EgYGg6QIxYA:9 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-ORIG-GUID: OeN4EsDbFG7vkblaefVUE8LvQCxaMLwM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDI1MyBTYWx0ZWRfX1OSsowt1k3lN
- TmohHvF2xucpauH1TTfnsfN5hjvqacd60w7+H+tlVY841s5LwUdWAIOKgcvqM8N3xHDLXz3jXNs
- IoT0nvDAAa4pKpK8vLtaEvYXVEYXKaTmeVbCTTYRbSe9Zafh5LkvUJqrJYY5zS+zGoD1jMbAPjH
- Oknm99QESzEeA4WEudkyxzSnp/UM0NQZuXQ5yjqprrWdYMdUUH86g/y0SC++VOBQeNEaYKjJ0pO
- A+PGAdpQay+fp2XZCyVOPHybmkpWhLkLhmrtSnYOjn83KMEe6MWNz1bK/dRXDLdDwX/nhvdRK4z
- 1L982TnUBVSxidVHw1SthTbScN0pRvlOb1ULwBhT0hiYKfkVId7bQZvBC4OPVr2+a6sRuU11G7l
- JgJk7VuHIQ+ikusZKaNjKAZsKoBbD1pf1DRlqX5JLv9c6OTUtc4ewZFwa+FXNwGDsAYfyyweRRf
- Km+CxmJQKmmuZ8kPbqA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_04,2026-09-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
- adultscore=0 bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150253
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN5PEPF0004698B:EE_|IA0PR12MB8424:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80c4fc6b-43b7-4aff-38df-08df134da80f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|13003099007|6133799003|4143699003|3023799007|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	anUewKnqaYT6O76gmRGXKNSkVhJ10HMCO2e1wZPe+kb2pa0mnfkff6cRpM5w6E1LwcZMaXtOKffJEe6GvxFJLQUOIcBF7d0UjJ0uQsMsNKa1oXgGZ73LypejKvMz66xy4XXblp+vhP98/Znti2RUyqH2zlwnIhvliCLg3i2wTqMPKqr8YLi/6cdvI34s/67UBvG/qjBOrEYF0VNtGPP+E6G7KbEiBcnYmrjBySc+yUolOaAsCNiuFbFPRulBWLwdURoe5bK4sQynBcUfp5LUga0BIwD/BP0vXK2ge49GqOyAbTBEOE7EHQ4vHjNn3lX0z6oA/kDfkJ7H/Sb3SPujtgFVXIkiYC9XmoQO3r59xcdFC6OQAny8TuKE8uNh742OXfldJQViuanlCvE3UaYtjrkhAmYnmy+iH6jy5xOfaIMVU8RD8OYzRx+8NatX6JhjIf3plekcQ92MCTRsQXVd8Q4B/QwmnrKZEKYZn+Fsz9ktoSDg7zfh3yBl+LUUUODIzXLVBSIaz5LWhR8ZnqooHSpssuFwJ5w8+LPLxjVG+sYevuGzhKBh5rq2x7bJ6+cMeIeqgRx3fdOkNdvZpyCvwKgLI4I1w8Ax5tdLTZey4J1ZsLIC01q3H6WRJ7TcG9Y56D51lVwjVuJ9AZwpJG5UiA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(13003099007)(6133799003)(4143699003)(3023799007)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/bNGM666q3Nku1qLRnP3KwcdQFJFBNmoez3nZZhqL2TR2+Zd0ESbXU6ipMYsgCEJ5P3qNwTC5Xd61zmg38S3MUH587T9nPdZMVdprBZ04JI9Jvr+f21fdY5qIu9qWgHAASI1Z8W5oTNPMQ9Q6H/NqDJpwFsFXG51J0Al9w3XjK220VAmnOS8IWU/4G8FsQ56ehmhRuIB5C18/kf+1ln6LTavO3z+V6bW4pRlmI231z5+A9FUTRnb8BkOFX8LApzWBJEiFOHp+yroqNvZkDmvtMfsAQQ7Mkm4+6o0e8jgLjJ7c6ao7FmdA3nTA7548mFJnbrcG5amyQbDQ309jmquhgiuhMb2AGJWMi+gmrqATXuvFKu91p1Fn/xDxjX54LRmMYdOP2XQPW4O2a74gwHmkrG84zm05l2o7Gp2RfNQWaqxbxzuQrBvPNwF5r8inPSE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 17:20:36.2440
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80c4fc6b-43b7-4aff-38df-08df134da80f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN5PEPF0004698B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8424
 
 
 
-On 9/6/26 8:36 PM, Sven Peter wrote:
-> On Apple Silicon SoCs the DROM is provided by a device tree property.
-> Try reading from that property first.
+On 9/14/2026 11:47 AM, Mathieu Poirier wrote:
+> On Fri, 11 Sept 2026 at 12:03, Shah, Tanmay <tanmays@amd.com> wrote:
+>>
+>>
+>>
+>> On 9/11/2026 9:57 AM, Mathieu Poirier wrote:
+>>> On Tue, Sep 08, 2026 at 02:21:53PM -0500, Shah, Tanmay wrote:
+>>>> Hello,
+>>>>
+>>>> Thank you for the reviews.
+>>>>
+>>>> On 9/8/2026 1:02 PM, Mathieu Poirier wrote:
+>>>>> Good day,
+>>>>>
+>>>>> On Wed, Sep 02, 2026 at 02:44:54PM -0700, Tanmay Shah wrote:
+>>>>>> The existing remoteproc virtio reset path clears the vdev status locally
+>>>>>> without notifying the remote processor. As a result, the host cannot tell
+>>>>>> whether the remote side has observed the reset request or completed its
+>>>>>> cleanup.
+>>>>>>
+>>>>>> Add a new resource type, RSC_VDEV_V2, for virtio vdevs that support an
+>>>>>> acknowledged reset protocol. For these resources, encode a reset request
+>>>>>> in the virtio status byte, kick the remote processor using the vdev notify
+>>>>>> ID, and wait for the remote side to clear the status back to 0.
+>>>>>>
+>>>>>> Keep the existing RSC_VDEV behavior for backwards compatibility by
+>>>>>> clearing the status locally. Also reset remoteproc-created virtio
+>>>>>> devices before unregistering them, and expose RSC_VDEV_V2 reset state
+>>>>>> in debugfs.
+>>>>>>
+>>>>>> Assisted-by: Codex:GPT-5
+>>>>>> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
+>>>>>> ---
+>>>>>>  drivers/remoteproc/remoteproc_core.c     |  3 +-
+>>>>>>  drivers/remoteproc/remoteproc_debugfs.c  | 29 +++++++++++++++-
+>>>>>>  drivers/remoteproc/remoteproc_internal.h | 21 +++++++++++
+>>>>>>  drivers/remoteproc/remoteproc_virtio.c   | 44 ++++++++++++++++++++++--
+>>>>>>  include/linux/rsc_table.h                |  5 ++-
+>>>>>>  5 files changed, 97 insertions(+), 5 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+>>>>>> index 1ed406714849..31d79684977c 100644
+>>>>>> --- a/drivers/remoteproc/remoteproc_core.c
+>>>>>> +++ b/drivers/remoteproc/remoteproc_core.c
+>>>>>> @@ -471,6 +471,7 @@ void rproc_remove_rvdev(struct rproc_vdev *rvdev)
+>>>>>>  static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+>>>>>>                         int offset, int avail)
+>>>>>>  {
+>>>>>> +  struct fw_rsc_hdr *hdr = ptr - sizeof(*hdr);
+>>>>>
+>>>>> Spurious change.
+>>>>>
+>>>>
+>>>> Ack will remove it.
+>>>>
+>>>>>>    struct fw_rsc_vdev *rsc = ptr;
+>>>>>>    struct device *dev = &rproc->dev;
+>>>>>>    struct rproc_vdev *rvdev;
+>>>>>> @@ -485,7 +486,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+>>>>>>            return -EINVAL;
+>>>>>>    }
+>>>>>>
+>>>>>> -  /* make sure reserved bytes are zeroes */
+>>>>>
+>>>>> Same
+>>>>
+>>>> Ack, will be removed.
+>>>>
+>>>>>
+>>>>>>    if (rsc->reserved[0] || rsc->reserved[1]) {
+>>>>>>            dev_err(dev, "vdev rsc has non zero reserved bytes\n");
+>>>>>>            return -EINVAL;
+>>>>>> @@ -1009,6 +1009,7 @@ static rproc_handle_resource_t rproc_loading_handlers[RSC_LAST] = {
+>>>>>>    [RSC_DEVMEM] = rproc_handle_devmem,
+>>>>>>    [RSC_TRACE] = rproc_handle_trace,
+>>>>>>    [RSC_VDEV] = rproc_handle_vdev,
+>>>>>> +  [RSC_VDEV_V2] = rproc_handle_vdev,
+>>>>>>  };
+>>>>>>
+>>>>>>  struct rproc_rsc_cb_data {
+>>>>>> diff --git a/drivers/remoteproc/remoteproc_debugfs.c b/drivers/remoteproc/remoteproc_debugfs.c
+>>>>>> index b86c1d09c70c..1fe99749f5b4 100644
+>>>>>> --- a/drivers/remoteproc/remoteproc_debugfs.c
+>>>>>> +++ b/drivers/remoteproc/remoteproc_debugfs.c
+>>>>>> @@ -274,7 +274,7 @@ static const struct file_operations rproc_crash_ops = {
+>>>>>>  /* Expose resource table content via debugfs */
+>>>>>>  static int rproc_rsc_table_show(struct seq_file *seq, void *p)
+>>>>>>  {
+>>>>>> -  static const char * const types[] = {"carveout", "devmem", "trace", "vdev"};
+>>>>>> +  static const char * const types[] = {"carveout", "devmem", "trace", "vdev", "vdev_v2"};
+>>>>>>    struct rproc *rproc = seq->private;
+>>>>>>    struct resource_table *table = rproc->table_ptr;
+>>>>>>    struct fw_rsc_carveout *c;
+>>>>>> @@ -336,6 +336,33 @@ static int rproc_rsc_table_show(struct seq_file *seq, void *p)
+>>>>>>                    seq_printf(seq, "  Reserved (should be zero) [%d][%d]\n\n",
+>>>>>>                               v->reserved[0], v->reserved[1]);
+>>>>>>
+>>>>>> +                  for (j = 0; j < v->num_of_vrings; j++) {
+>>>>>> +                          seq_printf(seq, "  Vring %d\n", j);
+>>>>>> +                          seq_printf(seq, "    Device Address 0x%x\n", v->vring[j].da);
+>>>>>> +                          seq_printf(seq, "    Alignment %d\n", v->vring[j].align);
+>>>>>> +                          seq_printf(seq, "    Number of buffers %d\n", v->vring[j].num);
+>>>>>> +                          seq_printf(seq, "    Notify ID %d\n", v->vring[j].notifyid);
+>>>>>> +                          seq_printf(seq, "    Physical Address 0x%x\n\n",
+>>>>>> +                                     v->vring[j].pa);
+>>>>>> +                  }
+>>>>>> +                  break;
+>>>>>> +          case RSC_VDEV_V2:
+>>>>>> +                  v = rsc;
+>>>>>> +                  seq_printf(seq, "Entry %d is of type %s\n", i, types[hdr->type]);
+>>>>>> +
+>>>>>> +                  seq_printf(seq, "  ID %d\n", v->id);
+>>>>>> +                  seq_printf(seq, "  Notify ID %d\n", v->notifyid);
+>>>>>> +                  seq_printf(seq, "  Device features 0x%x\n", v->dfeatures);
+>>>>>> +                  seq_printf(seq, "  Guest features 0x%x\n", v->gfeatures);
+>>>>>> +                  seq_printf(seq, "  Config length 0x%x\n", v->config_len);
+>>>>>> +                  seq_printf(seq, "  Status 0x%x\n", v->status);
+>>>>>> +                  seq_printf(seq, "  Number of vrings %d\n", v->num_of_vrings);
+>>>>>> +                  seq_printf(seq, "  Reset request pending %s\n",
+>>>>>> +                             rproc_rsc_vdev_reset_requested(v->status) ?
+>>>>>> +                             "yes" : "no");
+>>>>>> +                  seq_printf(seq, "  Reserved (should be zero) [%d][%d]\n\n",
+>>>>>> +                             v->reserved[0], v->reserved[1]);
+>>>>>> +
+>>>>>>                    for (j = 0; j < v->num_of_vrings; j++) {
+>>>>>>                            seq_printf(seq, "  Vring %d\n", j);
+>>>>>>                            seq_printf(seq, "    Device Address 0x%x\n", v->vring[j].da);
+>>>>>> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
+>>>>>> index 3a742ef6ef60..f07a96ff82a4 100644
+>>>>>> --- a/drivers/remoteproc/remoteproc_internal.h
+>>>>>> +++ b/drivers/remoteproc/remoteproc_internal.h
+>>>>>> @@ -14,6 +14,7 @@
+>>>>>>
+>>>>>>  #include <linux/irqreturn.h>
+>>>>>>  #include <linux/firmware.h>
+>>>>>> +#include <linux/virtio_config.h>
+>>>>>>  #ifdef CONFIG_HAS_IOMEM
+>>>>>>  #include <linux/io.h>
+>>>>>>  #endif
+>>>>>> @@ -42,6 +43,26 @@ struct rproc_vdev_data {
+>>>>>>    struct fw_rsc_vdev *rsc;
+>>>>>>  };
+>>>>>>
+>>>>>> +/*
+>>>>>> + * RSC_VDEV_V2 requests an acknowledged reset by writing an otherwise
+>>>>>> + * impossible virtio status pattern: DRIVER and FAILED set while
+>>>>>> + * ACKNOWLEDGE is clear. Other status bits are left unchanged.
+>>>>>> + */
+>>>>>> +static inline u8 rproc_rsc_vdev_reset_status(u8 status)
+>>>>>> +{
+>>>>>> +  status |= VIRTIO_CONFIG_S_DRIVER | VIRTIO_CONFIG_S_FAILED;
+>>>>>> +  status &= ~VIRTIO_CONFIG_S_ACKNOWLEDGE;
+>>>>>> +
+>>>>>> +  return status;
+>>>>>> +}
+>>>>>> +
+>>>>>> +static inline bool rproc_rsc_vdev_reset_requested(u8 status)
+>>>>>> +{
+>>>>>> +  return !(status & VIRTIO_CONFIG_S_ACKNOWLEDGE) &&
+>>>>>> +         (status & VIRTIO_CONFIG_S_DRIVER) &&
+>>>>>> +         (status & VIRTIO_CONFIG_S_FAILED);
+>>>>>> +}
+>>>>>> +
+>>>>>>  static inline bool rproc_has_feature(struct rproc *rproc, unsigned int feature)
+>>>>>>  {
+>>>>>>    return test_bit(feature, rproc->features);
+>>>>>> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+>>>>>> index d5e9ff045a28..e682caa546b2 100644
+>>>>>> --- a/drivers/remoteproc/remoteproc_virtio.c
+>>>>>> +++ b/drivers/remoteproc/remoteproc_virtio.c
+>>>>>> @@ -13,6 +13,7 @@
+>>>>>>  #include <linux/dma-map-ops.h>
+>>>>>>  #include <linux/dma-mapping.h>
+>>>>>>  #include <linux/export.h>
+>>>>>> +#include <linux/iopoll.h>
+>>>>>>  #include <linux/of_reserved_mem.h>
+>>>>>>  #include <linux/platform_device.h>
+>>>>>>  #include <linux/remoteproc.h>
+>>>>>> @@ -234,12 +235,48 @@ static void rproc_virtio_set_status(struct virtio_device *vdev, u8 status)
+>>>>>>  static void rproc_virtio_reset(struct virtio_device *vdev)
+>>>>>>  {
+>>>>>>    struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
+>>>>>> +  struct rproc *rproc = rvdev->rproc;
+>>>>>>    struct fw_rsc_vdev *rsc;
+>>>>>> +  struct fw_rsc_hdr *hdr;
+>>>>>> +  int ret;
+>>>>>> +  u8 val;
+>>>>>> +
+>>>>>> +  /*
+>>>>>> +   * During crash recovery, vdev can be stopped. But the driver can't reset
+>>>>>> +   * the device, as device is already crashed. In this case, reset becomes
+>>>>>> +   * no op.
+>>>>>> +   */
+>>>>>> +  if (rproc->state == RPROC_CRASHED)
+>>>>>> +          return;
+>>>>>>
+>>>>>>    rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
+>>>>>> +  hdr = (void *)rsc - sizeof(*hdr);
+>>>>>> +
+>>>>>> +  if (hdr->type == RSC_VDEV_V2) {
+>>>>>> +          /*
+>>>>>> +           * RSC_VDEV_V2 encodes an acknowledged reset request in the
+>>>>>> +           * status byte. The remote is expected to complete the reset
+>>>>>> +           * and then clear status back to 0.
+>>>>>> +           */
+>>>>>> +          rsc->status = rproc_rsc_vdev_reset_status(rsc->status);
+>>>>>> +
+>>>>>> +          /* after setting reset request, kick the device */
+>>>>>> +          rproc->ops->kick(rproc, rsc->notifyid);
+>>>>>>
+>>>>>> -  rsc->status = 0;
+>>>>>> -  dev_dbg(&vdev->dev, "reset !\n");
+>>>>>> +          /*
+>>>>>> +           * When device completes reset, it is expected to set status
+>>>>>> +           * to 0.
+>>>>>> +           */
+>>>>>> +          ret = readb_poll_timeout(&rsc->status, val, val == 0,
+>>>>>> +                                   1000,      /* 1ms between reads */
+>>>>>> +                                   3000000);  /* 3s total timeout */
+>>>>>> +          if (ret)
+>>>>>> +                  dev_warn(&vdev->dev, "vdev reset timed out\n");
+>>>>>
+>>>>> The problem here is that we are introducing behavior that is not compliant with
+>>>>> the virtio specifications.  One way to acheive the same behavior could be for
+>>>>> the remote processor to check rsc->status before sending a interrupt of using
+>>>>> the virtqueues.
+>>>>>
+>>>>
+>>>> That is what remote is supposed to do. But what if remote do not
+>>>> respond? If remote is deadlocked for some reason, then the Linux will
+>>>> hang at this point too. That is why we need some kind of timeout.
+>>>
+>>> If the remote is dead then a watchdog timer should fire at some point.
+>>> Moreover, that situation won't be different from other circumstances where a
+>>> remote processor locks up.
+>>>
+>>
+>> There are few concerns:
+>>
+>> 1) Heterogeneous system where Linux is handling many remotes, the
+>> watchdog might not be available to all the remotes or watchdog mechanism
+>> is not implemented at all on the remote side.
 > 
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> ---
+> If a watchdog is not available adding a timeout upon resetting
+> rsc-status won't help.
+> 
+>>
+>> 2) Let's say watchdog is configured for 10s, or so then for that long
+>> Linux will be stuck too. I am trying to avoid this case where Linux gets
+>> stuck for long time.
+> 
+> Same resoning as above - if the remote processor dies and a watchdog
+> timeout is set for 10 seconds, adding a shorter timeout when
+> rsc->status is modified will do very little.
+> 
+>>> Looking at your patch, sending a kick() won't do anything for a dead remote
+>>> processor.  If the remote processor is alive, it should monitor rsc->status and
+>>> take action when it is set to '0' by the host.  If it is locked-up, the normal
+>>> lockup procedure should apply.
+>>>
+>>
+>> Notifying virtio device on the status change is standard virtio
+>> mechanism. In the virtio statck it's done via virtqueue_notify so I am
+>> trying to do the same. It also helps remote to avoid polling on status.
+>>
+> 
+> Can you point me to that code?  Having the same mental picture will help.
+> 
+>>> I'm not sure what problem this patch is trying to address.
+>>>
+>>
+>> Some platforms allow Linux and Remote boot independently.
+>>
+>> Let's say Linux reboots without reseting the remote then during next
+>> boot Linux will find virtio status is not in the reset state.
+>>
+> 
+> That should be handled via the attach()/detach() state machine.
+> 
+>> In such case, linux need to issue virtio device reset, and wait until
+>> RPU completes the reset and start the device again. The virtio framework
+>> already issues the reset during boot here:
+>> https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git/tree/drivers/virtio/virtio.c?h=for-next#n570
+>>
+>> However, the virtio_reset implementation for remoteproc_virtio simply
+>> set the status to 0, and doesn't wait for the remote to complete the
+>> reset. Due to this, attach operation becomes successfull, but the rpmsg
+>> channels are not created on the linux side.
+>>
+> 
+> I think this situation should be handled in driver code rather than
+> the remoteproc framework.  We can consider adding this to the
+> remoteproc framework if/when several platforms implement the same
+> logic.  Otherwise I fear we'll bloat the framework with something that
+> isn't generic.
+> 
 
-[...]
+Hi Mathieu,
 
-> +static int tb_drom_copy_of_apple(struct tb_switch *sw, u16 *size)
-> +{
-> +	return tb_drom_copy_property(sw, "apple,thunderbolt-drom", size);
-> +}
+The previous patch sent in this matter was doing the same:
+https://lore.kernel.org/linux-remoteproc/20260317201251.3920841-1-tanmay.shah@amd.com/
 
-I don't know how prevalent this property is in your ecosystem right now,
-but generally I believe this would be more fitting as a vendor-neutral
-property.
+If you are okay, can I resend it ? I think if that is accepted then we
+don't need this patch atleast for now.
 
-Konrad
+Thank You,
+Tanmay
+
+>> This patch solves this issue. It changes the reset mechanism while
+>> maintaining the backward compatibility for old way of reseting the device.
+>>
+>> I had sent a different patch regarding this before:
+>> https://lore.kernel.org/linux-remoteproc/20260317201251.3920841-1-tanmay.shah@amd.com/
+>>
+>> Old patch was rejected because we decided to modify the reset mechanism
+>> instead:
+>> https://lists.openampproject.org/archives/list/openamp-rp@lists.openampproject.org/thread/DDIFUMGQQ2R7CQZJHK7EB6UDO3ISAAVU/
+>>
+>> Thank You,
+>> Tanmay
+>>
+>>
+>>>>
+>>>> I think timeout mechanism is better for AMP systems over waiting forever
+>>>> for remote to clear the status.
+>>>>
+>>>> Thanks,
+>>>> Tanmay
+>>>>
+>>>>
+>>>>>> +  } else {
+>>>>>> +          /* back compatible for RSC_VDEV type of rsc vdev */
+>>>>>> +          rsc->status = 0;
+>>>>>> +  }
+>>>>>> +  dev_info(&vdev->dev, "reset !\n");
+>>>>>>  }
+>>>>>>
+>>>>>>  /* provide the vdev features as retrieved from the firmware */
+>>>>>> @@ -469,6 +506,9 @@ static int rproc_remove_virtio_dev(struct device *dev, void *data)
+>>>>>>  {
+>>>>>>    struct virtio_device *vdev = dev_to_virtio(dev);
+>>>>>>
+>>>>>> +  /* reset virtio device before unregister */
+>>>>>> +  virtio_reset_device(vdev);
+>>>>>> +
+>>>>>
+>>>>> Regardless of this feature, I think it is wise to reset the device before
+>>>>> unregistering with the virtio subsystem.
+>>>>>
+>>>>
+>>>> Agreed. I intend to keep this.
+>>>>
+>>>>> Thanks,
+>>>>> Mathieu
+>>>>>
+>>>>>>    unregister_virtio_device(vdev);
+>>>>>>    return 0;
+>>>>>>  }
+>>>>>> diff --git a/include/linux/rsc_table.h b/include/linux/rsc_table.h
+>>>>>> index 71b60125310e..2398a6d7033e 100644
+>>>>>> --- a/include/linux/rsc_table.h
+>>>>>> +++ b/include/linux/rsc_table.h
+>>>>>> @@ -66,6 +66,8 @@ struct fw_rsc_hdr {
+>>>>>>   *                    the remote processor will be writing logs.
+>>>>>>   * @RSC_VDEV:       declare support for a virtio device, and serve as its
+>>>>>>   *                    virtio header.
+>>>>>> + * @RSC_VDEV_V2:    declare support for a virtio device whose reset request is
+>>>>>> + *                    encoded in the virtio status byte.
+>>>>>>   * @RSC_LAST:       just keep this one at the end of standard resources
+>>>>>>   * @RSC_VENDOR_START:     start of the vendor specific resource types range
+>>>>>>   * @RSC_VENDOR_END:       end of the vendor specific resource types range
+>>>>>> @@ -83,7 +85,8 @@ enum fw_resource_type {
+>>>>>>    RSC_DEVMEM              = 1,
+>>>>>>    RSC_TRACE               = 2,
+>>>>>>    RSC_VDEV                = 3,
+>>>>>> -  RSC_LAST                = 4,
+>>>>>> +  RSC_VDEV_V2             = 4,
+>>>>>> +  RSC_LAST                = 5,
+>>>>>>    RSC_VENDOR_START        = 128,
+>>>>>>    RSC_VENDOR_END          = 512,
+>>>>>>  };
+>>>>>>
+>>>>>> base-commit: d4d61a4b0a52e8f3cdb3e1578602850a3452ec3e
+>>>>>> --
+>>>>>> 2.43.0
+>>>>>>
+>>>>
+>>
+
