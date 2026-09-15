@@ -1,217 +1,152 @@
-Received: from mta0.migadu.com (out-132.mta0.migadu.com [91.218.175.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9504AF17A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:13:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559604CDA09;
+	Tue, 15 Sep 2026 19:13:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789499605; cv=none; b=ABNUiuDd3vUAMASlCz4Vn5bTW2iyZkBeFWdOZTaPHfoDsj4ACiequHWy/hQsLyfcb9UN2wnLTBF8U/qNSRgbE3k5MTq6uaPj4ekY33AH8KbBXLXoG3+hc20iq5HBGcN/spqLownBhx7SSbkaFfE1/8OelaGAfxa+22y+YnytmQ8=
+	t=1789499617; cv=none; b=KHZeHyLE2QWdPDIAs1zMNZKsE2bRCPWcIQxPREOaC2S7lDM0VPF8hMBeM9A7zp/8zyVC7ScNGkFEBfbQoLTJrq2Kbi9W+62l9aGWqBIy/T5LoIF6XYI46olG+NHeN6qvfwJ1uJ908wjfXMxwAsM7ADYYT948JmVo6ZnqVFhhQAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789499605; c=relaxed/simple;
-	bh=anFEelSsGeeEC3XPXvpXfQ+smHU+cXmR/GUPT+ANFwA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=e03dBmNYYYJ4vYFuqnq5o77LP/rfN3dfYq2HTFjyQCE0z7k5My1Ty1a85tYKic+B4E4CD2mHzvLtthVFEKYvnNJwB+p6HaOQbfW1pGLzdswzdY8G1+SsJMSCyVkcg7fRt8x7WQmz+7mzBEZJ3RMegfKC5QP6+gqn55FLHWrhbko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=A0tLMRxx; arc=none smtp.client-ip=91.218.175.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789499617; c=relaxed/simple;
+	bh=wdY4/fpBJRMV0A2CjOI3dBVS5wEba123BVCqc6ZY6z4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jpAOzRj/BtQsWLlqKPNIklEzHSEmwlSJAjnzmEfL9szDtkDlJAHPXACwipXqloqLHD1cjHedooCllHGkBsmHGbEinRD5UWyrcmJ1dt5fKod/phA9L7o2m82K+JVGl5t+0tPU87h/dmFmRM9nTUz5xazZRKmuIydevqMIXWMbm1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=ieNJUo5c; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="A0tLMRxx"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=anFEelSsGeeEC3XPXvpXfQ+smHU+cXmR/GUPT+ANFwA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789499601; v=1; x=1790104401;
- b=A0tLMRxxJshWN7TvdffDIy4ylflWhW9jiuLnkFtXeA6zQikHF9zlYibBAguHwQ0hv6gclBO5
- UH9JfRrAxnQNW76Hab6QmsyYErdRqNdBjJtHlmvy1X6NMoQBQz4VU8U/W+pcaEy/1DZbKgU/dBX
- vcdjs1Mb9KiB+UkLNZleCGiM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7210ecafb0eec5e7;
-	Tue, 15 Sep 2026 19:13:20 +0000
-X-Mizu-Trace-ID: 7210ecafb0eec5e7
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="ieNJUo5c"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FIsIIi2052584;
+	Tue, 15 Sep 2026 15:13:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=zlm3k
+	FtDVpPgobjbkG93EO7jU7SWo3whTE9je3DIoeQ=; b=ieNJUo5co/upbIwOIDJbb
+	G7sqJc3+Yl5NwtEgEAvnjSMdeXkQB/YnCbQ0YIt3zJhCmWBeHE2r3DBSjlziI4IR
+	9xtjCtAJMKjeIx4sbvh6hgxosU4ekOII4Mt0x134Q3LTfRb9w2JOCJFweuNZjbm1
+	5N+kc9XCNZoJqt/LZtCzRBWXiE69/j5LtYJhAvvBMHG0PTJK+72CFTJWG5iA0L25
+	GCncYiK/frpN7QaIZrhkpZenvOaNrJhJeubz6XS/qQyKUCMimZc+foLbLYeNrm3+
+	yFCiwkqMRskTez+8YjVBH50Wc90DfurhkUGhQfZNYYTPF7WoWRX1KFPuLlxehPg0
+	Q==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gq57ead18-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 15:13:29 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68FJDSdN019139
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 15 Sep 2026 15:13:28 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 15 Sep 2026 15:13:28 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 15 Sep 2026 15:13:28 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 15 Sep 2026 15:13:28 -0400
+Received: from work.maxim-ic.internal ([10.66.6.190])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68FJDC0D028133;
+	Tue, 15 Sep 2026 15:13:14 -0400
+From: Marcelo Schmitt <marcelo.schmitt@analog.com>
+To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux@analog.com>
+CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <dlechner@baylibre.com>,
+        <andy@kernel.org>, <Michael.Hennerich@analog.com>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <corbet@lwn.net>,
+        <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>,
+        Andy Shevchenko
+	<andriy.shevchenko@intel.com>
+Subject: [PATCH v2 04/15] iio: adc: ad4134: Update include list to comply with IWYU principles
+Date: Tue, 15 Sep 2026 16:13:06 -0300
+Message-ID: <051b56eec727b0bbb05be6a154efdf57497a95ae.1789494473.git.marcelo.schmitt@analog.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1789494473.git.marcelo.schmitt@analog.com>
+References: <cover.1789494473.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 15 Sep 2026 19:13:15 +0000
-Message-Id: <DLG4NX9R5VTO.3QXM13LGWVURY@linux.dev>
-To: <bot+bpf-ci@kernel.org>, <bpf@vger.kernel.org>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>
-Cc: <martin.lau@linux.dev>, <eddyz87@gmail.com>, <memxor@gmail.com>,
- <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
- <kpsingh@kernel.org>, <john.fastabend@gmail.com>, <leon.hwang@linux.dev>,
- <zirajs7@gmail.com>, <rhkrqnwk98@gmail.com>, <puranjay@kernel.org>,
- <xukuohai@huaweicloud.com>, <iii@linux.ibm.com>, <hbathini@linux.ibm.com>,
- <chleroy@kernel.org>, <naveen@kernel.org>, <bjorn@kernel.org>,
- <pulehui@huawei.com>, <yangtiezhu@loongson.cn>, <hengqi.chen@gmail.com>,
- <linux-kernel@vger.kernel.org>, <martin.lau@kernel.org>,
- <eddyz87@gmail.com>, <yonghong.song@linux.dev>, <mason@kernel.org>,
- <ihor.solodrai@linux.dev>
-Subject: Re: [PATCH bpf v2 1/2] bpf: Skip detached progs in trampoline
- images that are still in use
-From: "Florent Revest" <florent.revest@linux.dev>
-X-Mailer: aerc 0.17.0
-References: <20260912095924.866254-2-florent.revest@linux.dev>
- <701db29c4de4f408d9c82041d51586a88ccbd9c19f4dc739253733c4cc5edd7a@mail.kernel.org>
-In-Reply-To: <701db29c4de4f408d9c82041d51586a88ccbd9c19f4dc739253733c4cc5edd7a@mail.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-GUID: ApVEzS7ef5Sed-iu66o8oamXfdX3tC62
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDI4MCBTYWx0ZWRfXxiR/qkaLD+9p
+ zvd0bV9Jb+NGsXiStnq59nwGIN28ykEI3+ZM8Ps/iRi9nzPzq1Srh2NSpiinoiHsoFRHchqPg23
+ 7DeBPNMiwJjIGg5XaVCpxqyVZowj3ATlCN+JzKaE+1Esb25KQecJ8tblBFeeRbE/vAgNEt7i+ma
+ rf57DmB2f1b9l3g2thBwcbXwGJ5S8aEYc1VRTeiPbk0tGxCXXeIJc0ksPTluR41KHLKHFyNYAGg
+ bxfm4FuYtXdXJfaOF2CnvYjwV4YLlzYL6ygN2WRxV5es03tXb23Yx77DUfl8ZMcwTom7VTeeovG
+ 4YWu08/JaEktcKM0vqRZo+503oMRXaYiqVB/fXAQ69MYDP1Hphmyc1QfN/eIqWr3mVjXGrn00Ev
+ 8F22Wcn7ecXr+5CrNSinyBbRp3z3da3Zrwa+Y08adoUvDjksYJfPEMD9OHbm8nmDp+drLMDtUyD
+ d8sAqjS5jxGwC9BJfbg==
+X-Authority-Analysis: v=2.4 cv=V9HoQuni c=1 sm=1 tr=0 ts=6aa998d9 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=QyXUC8HyAAAA:8 a=gAnH3GRIAAAA:8
+ a=gWXB6eRzw52pz-VW4roA:9
+X-Proofpoint-ORIG-GUID: ApVEzS7ef5Sed-iu66o8oamXfdX3tC62
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDI4MCBTYWx0ZWRfX/1/5X6NxX7OY
+ xWQLmMLZTvZyYqenTGZDOCAYD5LtdG5NMCMeITksIpbUeRp/0mSeDX1iIIPqqqvseZ/KY9D3g6S
+ XcYiBfZk3+vPRTbo6lwAjn778gWO+GIt/wDx7982rEPbf3dG4215
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150280
 
-On Sat Sep 12, 2026 at 11:11 AM UTC,  wrote:
-> > diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.=
-c
-> > index 4da278900938..0e6f1ad36c2d 100644
-> > --- a/arch/loongarch/net/bpf_jit.c
-> > +++ b/arch/loongarch/net/bpf_jit.c
->
-> [ ... ]
->
-> > @@ -2178,7 +2189,7 @@ int arch_bpf_trampoline_size(const struct btf_fun=
-c_model *m, u32 flags,
-> >  {
-> >  	int ret;
-> >  	struct jit_ctx ctx;
-> > -	struct bpf_tramp_image im;
-> > +	struct bpf_tramp_image im =3D {};
-> >
-> >  	ctx.image =3D NULL;
-> >  	ctx.idx =3D 0;
->
-> Does arch_bpf_trampoline_size() need to initialize ctx.ro_image?
-> invoke_bpf_prog() now reads ctx->ro_image unconditionally:
->
-> arch/loongarch/net/bpf_jit.c:invoke_bpf_prog()
->     void *skip =3D ctx->ro_image + ctx->idx;
->
-> but arch_bpf_trampoline_size() only assigns ctx.image and ctx.idx. Before
-> this patch the sizing path read ctx->ro_image only under
-> BPF_TRAMP_F_CALL_ORIG, so fentry-only trampolines never touched it. The
-> result is discarded (bpf_tramp_image_add_skip() returns immediately
-> because im.skips =3D=3D NULL), so there is no functional misbehaviour, bu=
-t it
-> is a read of an uninitialized automatic variable.
->
-> The arm64 side of the same patch already uses a designated initializer:
->
-> arch/arm64/net/bpf_jit_comp.c:arch_bpf_trampoline_size()
->     struct jit_ctx ctx =3D { .image =3D NULL, .idx =3D 0, };
->
-> Making the loongarch declaration 'struct jit_ctx ctx =3D {};' would avoid
-> the issue.
+Add includes that were missing (according to include-what-you-use tool)
+to comply with include what is used principles. Namely, add time64.h for
+USEC_PER_SEC.
 
-Fair, will address in v3.
+Remove time.h which is covered by time64.h and iio/types.h which is
+covered by iio/iio.h.
 
-> > diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_c=
-omp64.c
-> > index 151031e97a24..21f8ce2ec89a 100644
-> > --- a/arch/riscv/net/bpf_jit_comp64.c
-> > +++ b/arch/riscv/net/bpf_jit_comp64.c
-> > @@ -904,12 +904,18 @@ static void emit_store_stack_imm64(u8 reg, int st=
-ack_off, u64 imm64,
-> >  	emit_sd(RV_REG_FP, stack_off, reg, ctx);
-> >  }
-> >
-> > -static int invoke_bpf_prog(struct bpf_tramp_node *node, int args_off, =
-int retval_off,
-> > -			   int run_ctx_off, bool save_ret, struct rv_jit_context *ctx)
-> > +static int invoke_bpf_prog(struct bpf_tramp_image *im, struct bpf_tram=
-p_node *node,
-> > +			   int args_off, int retval_off, int run_ctx_off, bool save_ret,
-> > +			   struct rv_jit_context *ctx)
-> >  {
-> >  	int ret, branch_off;
-> >  	struct bpf_prog *p =3D node->link->prog;
-> >  	int cookie_off =3D offsetof(struct bpf_tramp_run_ctx, bpf_cookie);
-> > +	void *skip =3D ctx->ro_insns + ctx->ninsns;
-> > +
-> > +	/* 2 nops for auipc+jalr, patched to skip this prog when it is detach=
-ed */
-> > +	emit(rv_nop(), ctx);
-> > +	emit(rv_nop(), ctx);
->
-> This isn't a bug, but should BPF_MAX_TRAMP_LINKS be lowered for riscv64?
->
-> The commit message states "With the extra nops, BPF_MAX_TRAMP_LINKS progs
-> no longer fit in a page on arm64 and loongarch ... so lower the limit
-> there like s390 does." The limits in include/linux/bpf.h were changed:
->
->   arch       added per prog   BPF_MAX_TRAMP_LINKS change
->   arm64      4 bytes            38 -> 37
->   loongarch  20 bytes           38 -> 33
->   powerpc64  4 bytes            38 -> 27
->   s390x      6 bytes            27 (already lowered)
->   riscv64    8 bytes            38 (unchanged)
->   x86_64     5 bytes            38 (unchanged)
->
-> riscv64 gains 8 bytes per prog (two rv_nop()s) but its limit is
-> unchanged. For 38 progs that is 304 extra bytes, which could push
-> trampolines close to the PAGE_SIZE limit over the boundary.
-> bpf_trampoline_update() rejects the update with -E2BIG if size exceeds
-> PAGE_SIZE, so this is a graceful reduction in the maximum attachable
-> progs on riscv64 rather than memory corruption.
+While updating the list, organize it to follow current IIO include list
+convention.
 
-38 progs still fit on riscv64 with the extra nops so that's ok.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+---
+Change log v1 -> v2:
+- bits.h is implied by bitops.h so not adding that to the include list.
 
-> > diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
-> > index 90b70ea0d370..b82d8592319a 100644
-> > --- a/kernel/bpf/trampoline.c
-> > +++ b/kernel/bpf/trampoline.c
->
-> [ ... ]
->
-> > @@ -565,14 +566,21 @@ static void bpf_tramp_image_free(struct bpf_tramp=
-_image *im)
-> >  	arch_free_bpf_trampoline(im->image, im->size);
-> >  	bpf_jit_uncharge_modmem(im->size);
-> >  	percpu_ref_exit(&im->pcref);
-> > +	kfree(im->skips);
-> >  	kfree_rcu(im, rcu);
-> >  }
-> >
-> >  static void __bpf_tramp_image_put_deferred(struct work_struct *work)
-> >  {
-> > +	struct bpf_trampoline *tr;
-> >  	struct bpf_tramp_image *im;
-> >
-> >  	im =3D container_of(work, struct bpf_tramp_image, work);
-> > +	tr =3D im->tr;
-> > +	trampoline_lock(tr);
-> > +	list_del(&im->list);
-> > +	trampoline_unlock(tr);
-> > +	bpf_trampoline_put(tr);
-> >  	bpf_tramp_image_free(im);
-> >  }
->
-> [ ... ]
->
-> This isn't a bug, but the comment at the call site of
-> __bpf_tramp_image_put_deferred() appears stale. bpf_trampoline_update()
-> now does:
->
-> kernel/bpf/trampoline.c:bpf_trampoline_update()
->     /* track the image until it is freed, for bpf_trampoline_skip_prog() =
-*/
->     refcount_inc(&tr->refcnt);
->     im->tr =3D tr;
->     list_add(&im->list, &tr->images);
->
-> so every live bpf_tramp_image holds a reference on the trampoline and
-> tr->refcnt cannot reach 0 while any image is alive. The comment in
-> bpf_trampoline_put() says:
->
-> kernel/bpf/trampoline.c:bpf_trampoline_put()
->     /* This code will be executed even when the last bpf_tramp_image
->      * is alive. All progs are detached from the trampoline and the
->      * trampoline image is patched with jmp into epilogue to skip
->      * fexit progs. The fentry-only trampoline will be freed via
->      * multiple rcu callbacks.
->      */
->     hlist_del(&tr->hlist_key);
->
-> but the guarded block is now reached only after the last image has been
-> unlinked, typically from __bpf_tramp_image_put_deferred() rather than
-> from the detach syscall.
+ drivers/iio/adc/ad4134.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Ok, will update in v3 if we keep the list.
+diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+index 3c759b89d331..7400bd145d8a 100644
+--- a/drivers/iio/adc/ad4134.c
++++ b/drivers/iio/adc/ad4134.c
+@@ -14,18 +14,18 @@
+ #include <linux/err.h>
+ #include <linux/export.h>
+ #include <linux/gpio/consumer.h>
+-#include <linux/iio/iio.h>
+-#include <linux/iio/types.h>
+ #include <linux/module.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/reset.h>
+ #include <linux/spi/spi.h>
+-#include <linux/time.h>
++#include <linux/time64.h>
+ #include <linux/types.h>
+ #include <linux/unaligned.h>
+ #include <linux/units.h>
+ 
++#include <linux/iio/iio.h>
++
+ #define AD4134_RESET_TIME_US			(10 * USEC_PER_SEC)
+ 
+ #define AD4134_REG_READ_MASK			BIT(7)
+-- 
+2.53.0
+
