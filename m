@@ -1,178 +1,146 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B12353A9E;
-	Tue, 15 Sep 2026 14:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA383B27FF;
+	Tue, 15 Sep 2026 14:24:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482152; cv=none; b=ay5i00VD+uI6V+WPmuizLCmgZgMZrB3+aNOx3nFJ9Y526lh1yLgJabDKviq9EnB7KtEfp45jm208hsUlDnT6WgrcJ+ppRzCEUZEWPkHMLRM/5zlGI4PUKHIVaOmiHPvPwrjeDctHh/P2MAhJ/GwAa0t+JWwitmBbHosDOlAVHH4=
+	t=1789482262; cv=none; b=Ef2fsLMRaBi4djSFLRd96D15RUFxBnwhMrxOtpdZ8kf7+vwVgFDxzNZsWqDtP7SpvxW1AMJQbmGlLgDUU831O13svj1fqE3m+m/ycb186fxGrvH7X3q0wrBXRRQgUb7dNAiWvMo7qNwd3Hit4AbxXy+WBSTFjMRKpdxOP+MR5eY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482152; c=relaxed/simple;
-	bh=50Y72TPeowVtAS93/+EgvbkaawHnyaQmBAfcNUWNtTQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mhFL5P6UVt7O7Om97Na74g+kZK+1lOGYrE7xgVPrA+i2Rj1tGN4v9KhG57J+AnSXBKCQHMrjqcw7Z/u5jUEJCKaN59wO8Emb2qDS81tDmXBnq+w1bu3OPqjMJNFAsBJOfzSQABSHBFjOFVQooZwN5XVXcRm4SFbuOErk5kkburs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=J/EKm1ot; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1789482262; c=relaxed/simple;
+	bh=EzEipVhfzm1eKNikYmDIvFcSrVs4H5/sTMHoZJa+42U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FFFHVgOKM40vqmzW7KIAKADsHONAQg9EK8YnmUYBQjIr/zgFlAfNNL3Q3BNa/Eyd5rpOHv5GcVLT6WLDHfBg+S3+OMJyL6KiRrdvxrjvpR3mpQF2egsRsgRnI6+08wBnqi3wvDe2bfoTbYjYhIxN61v7mEwUWI76I0APKSJkmI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbmVFMdv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="J/EKm1ot"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1789482131;
-	bh=JcYucMj7YIbG7YaZWu+7otPfMtUjjyXpiltn2C04Tx0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=J/EKm1otMfFKpLh1PMEA5saa7JQdSg4AJVshyxdLAEnaGKCexNlkLev4zNTxsg8Sb
-	 JPwQWgSRB41i2QlSjocGmOuLYbG3D4Ii0QeNP9g3bk0MpyHRHUoHlP8orPF2g35Nsj
-	 gfCsz8XV3vEZrmklDGVJR2fRf32OWFCFZPcQZnCQkWVkSKGOp7DRGUzzG7AnpbW+dZ
-	 D3KvumOsoVAH1lbqKLeTbZLvrMV9u23RY0yA4z6H/n8Y9yuCSNvwQFSXUrs4OXmU09
-	 hRpdmORwQMFPhDENDw33JvIOiXCNqNyFDnqaiNq2rYl527WkycAv5bk2nJGLoSOrvT
-	 b3ugaKI7D85tA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hkkjl53dyz4wV0;
-	Wed, 16 Sep 2026 00:22:03 +1000 (AEST)
-Message-ID: <db61e755-73ce-4dd8-94fc-e7287db963d3@ozlabs.org>
-Date: Tue, 15 Sep 2026 15:22:16 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbmVFMdv"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F1A04C2BCB9;
+	Tue, 15 Sep 2026 14:24:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789482262;
+	bh=EzEipVhfzm1eKNikYmDIvFcSrVs4H5/sTMHoZJa+42U=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=IbmVFMdvqU2wQbYl13IKSSaUnwHOaXC/KBf+O5idG8m0eXF57nSwU21zXj8NWKEd3
+	 m5X474MLRQn2GirsCJ+r5r94new6qaEn+ECmtstz7H4cRNX4vFPCpO5+U0HD6h2jmq
+	 tHFafVdq7MDw55VceBhJl5BSLrRMg0b9MwBnq9CUZAiXzB9pE8HROUF2ft8wgWxwdk
+	 PRSl0t7P4hgbmk6fcgSonRhvgWaYErzuLjfwnbWq6rwQcDxBZWEI1L3z4JqM7xmy1G
+	 6Oy+g97ToM/o0YAsds/9zgBSm+AhkJxLLxYiRsLJDQQDcgI/9CSv+n0BAZp27t5oup
+	 uaV+yDZ0QSrwg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA1F2C88E7B;
+	Tue, 15 Sep 2026 14:24:21 +0000 (UTC)
+From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
+Subject: [PATCH 0/5] Rework M.2 Bluetooth instantiation using the auxiliary
+ bus
+Date: Tue, 15 Sep 2026 16:24:01 +0200
+Message-Id: <20260915-pci-m2-bt-rework-v1-0-3c7d9cf9c010@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
-Content-Language: en-GB
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leon Romanovsky <leon@kernel.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Alex Williamson <alex@shazbot.org>,
- Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260911214200.33793-1-matt@ozlabs.org>
- <20260911214200.33793-10-matt@ozlabs.org> <20260913165244.GW13683@unreal>
- <20260914113647.GL3968357@nvidia.com> <20260914115456.GY13683@unreal>
- <f21c409d-5675-4c87-8b16-850bcb9474df@ozlabs.org>
- <20260915072002.GD13683@unreal>
- <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <cebfef6a-88c6-4753-a0a4-87445a72f885@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAJVqWoC/y2NyxKCMAxFf6XTtWFqQURW/ofDorRBq5ZCw8OR8
+ d8t6CYzJ7k5d+GEwSLxki084GTJ+jbCfse4vqn2imBNZC6FzEUhcui0BSehHiDg7MMDjoXRUp9
+ k3gjB41sXsLGvTXmpfkxjfUc9rJ5/ImA/xq7hF+MOidTWVbKt6SQycL59K5htwGc8w5SDAFPog
+ 8hknWJjzp4o6Uf11N65JI7VXStCWBd2KNl0TFIIes+rz+cLdgSQaeoAAAA=
+X-Change-ID: 20260806-pci-m2-bt-rework-78dc2c926f00
+To: Marcel Holtmann <marcel@holtmann.org>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Amitkumar Karwar <amitkumar.karwar@nxp.com>, 
+ Neeraj Kale <neeraj.sanjaykale@nxp.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
+ linux-pm@vger.kernel.org, Rahul Samana <rahul.samana@oss.qualcomm.com>, 
+ Wei Deng <wei.deng@oss.qualcomm.com>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3270;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=EzEipVhfzm1eKNikYmDIvFcSrVs4H5/sTMHoZJa+42U=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqqVURPnvp+NVOzzUOhYTE7PYDvNyZ8d6FiMJHq
+ Cxi+0zYGm+JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaqlVEQAKCRBVnxHm/pHO
+ 9Q7xCACaUoZfOItFE+qGdxY6A0KW2E50cIXF16Z1DnTqX0GAY3sUD63UVop5Z1l5IVoUO/RtW6D
+ pwEsGGzNPx36w/iX8PZUg66bxzAS03dMJHV9PPsslkOFlo/oKFlMGXWrJTXzW8UEG00XjQNtvKC
+ wzWYrG4rp9Y2oOyTzGokc/u4HwlJkELH6Dxa+VVgUD0pxaHbJ9FSmYDSpPxT7LT+MxrtuvXzIDR
+ ytjVTroWxgrzA/FMfLFPuUpJWKKeVHGg/MPicsp3JkS5nbNKmKq57QTpDlWq7oQa9TJlPbnF6zl
+ Esap6akr1qO7C3gtDbZLQAoyogv0RNr59I5BJ9IIJwL/DCgY
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
+X-Endpoint-Received: by B4 Relay for
+ manivannan.sadhasivam@oss.qualcomm.com/default with auth_id=461
+X-Original-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Reply-To: manivannan.sadhasivam@oss.qualcomm.com
 
-Hi Christian,
+Hi,
 
-On 15/09/2026 12:13, Christian König wrote:
-> On 9/15/26 09:20, Leon Romanovsky wrote:
->> On Mon, Sep 14, 2026 at 01:13:36PM +0100, Matt Evans wrote:
->>> Hi Leon,
->>>
->>> On 14/09/2026 12:54, Leon Romanovsky wrote:
->>>> On Mon, Sep 14, 2026 at 08:36:47AM -0300, Jason Gunthorpe wrote:
->>>>> On Sun, Sep 13, 2026 at 07:52:44PM +0300, Leon Romanovsky wrote:
->>>>>> On Fri, Sep 11, 2026 at 10:41:57PM +0100, Matt Evans wrote:
->>>>>>> Expand the VFIO DMABUF revocation state to three states:
->>>>>>> Not revoked, temporarily revoked, and permanently revoked.
->>>>>>
->>>>>> The thing is that "temporarily revoked" is actually the standard
->>>>>> invalidate_mappings/move_notify mechanism of DMABUF, which wasn't good
->>>>>> for VFIO.
->>>>>
->>>>> I think temporarily revokes here means it is revoked from a dmabuf
->>>>> perspective
->>>>
->>>> My guess is that this is more of a "change owner" operation than a
->>>> revoke operation.
->>>>
->>>> The main issue here is that we have to guess the semantics instead of
->>>> having a properly named and documented operation.
->>>
->>> Apologies if the cover letter for the series and patch commit message (which
->>> cover this) are unclear about the motivations and semantics.  On the commit
->>> message, can you suggest clarifications:
->>>
->>> "This is useful for lifecycle management, to reclaim VFIO PCI BAR
->>> ranges previously delegated to a subordinate client process: by
->>> revoking, the driver process can ensure that the loaned resources are
->>> made inaccessible when the client is deemed "done".  The original
->>> DMABUF is defunct, and BAR resources can then be safely re-exported
->>> for use by new clients."
->>>
->>> Given what I'll explain below, do give suggestions please.  There is more
->>> context in the cover letter (the volume of which I didn't think appropriate
->>> for the commit message).
->>
->> 1. Do not mix "driver" and "client" in the same description. For a
->> non-native English speaker, "driver" has a very specific meaning in the
->> context of the Linux kernel.
-> 
-> In the context of DMA-buf it has also proven vital to clearly use the terms importer and exporter to describe the different roles a driver can have.
-> 
-> I can't count how often there was confusion because people (me included) just used "driver" and it wasn't clear which role was meant.
+This series reworks the PCIe M.2 Bluetooth instantiation using the auxiliary
+bus.
 
-:)  I see where the quote can be clearer.  FWIW the "driver process" was
-referring to a userspace driver (which is a legitimate use of the D-word
-with VFIO, but still).  I'll clarify that, and will indicate this
-mechanism is used by userspace to influence the VFIO _exporter_ behaviour.
+The Bluetooth interface of the QCA2066, WCN6855, WCN7850 and NXP 88W8987
+M.2 modules is accessed over UART, but the modules show up at runtime over
+PCIe and are not described in firmware like devicetree. To make the serdev
+bus match the Bluetooth driver, the power sequencing driver was creating a
+devicetree node at runtime using an of_changeset. But, creating a node just for
+driver matching is not recommended as per Krzysztof [1].
 
->> 2. Explain the lifecycle in the commit message, and why "revoke", which
->> is effectively what the importer does, is not sufficient.
->>
->> 3. The more you put in the cover letter, the less likely people are to
->> read it.
->>
->> 4. Commit messages should describe the patches themselves, since they
->> are what remains visible in the git log, unlike the cover letter.
->>
->> 5. I would call what you describe as "temporarily revoke" is actually "reclaim".
-> 
-> +1
+So this series reworks the instantiation to use the auxiliary bus instead. The
+power sequencing driver still allocates the UART serdev, but now hands it over
+through an auxiliary device along with the power sequencing target. So this
+series adds auxiliary driver support to hci_qca and btnxpuart drivers binding to
+this device and brings up the controller over the existing UART transport.
+Finally, it drops the serdev based M.2 code from both BT drivers.
 
-I don't follow here, sorry.  Would you please elaborate?
+Dependency
+==========
 
-Currently VFIO uses the priv->revoked flag to track whether
-it-the-exporter had previously done dma_buf_invalidate_mappings() on a
-buffer and is now causing all .attach requests to fail.  Do you mean
-that (even without this series) you want to call that concept
-priv->reclaimed instead?
+This series depends on Monza series from Loic [2] and reuses its
+pwrseq_is_controllable() API.
 
-Or do you mean that you don't like the words "temporary"/"permanent" and
-are looking for another name for a temporarily unavailable buffer?  (If
-so, I find "not revoked", "reclaimed", "revoked" much less clear than
-not/temp/perm revoked, as such names give no hint as to what to expect.
-But I may have misunderstood what you're getting at.)
+[1] https://lore.kernel.org/linux-pci/768142f0-2638-41f3-a34f-dc80bb99eb7f@kernel.org
+[2] https://lore.kernel.org/all/20260904-monza-wireless-v6-0-d8c5042b3efd@oss.qualcomm.com
 
-From the importer side, there is no change from this patch: they might
-observe an invalidate_mappings() and find attach() of a given buffer now
-fails, same as before this patch.  This is only about guaranteeing the
-impossibility of an importer ever being able to re-attach in future.
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+---
+Manivannan Sadhasivam (5):
+      Bluetooth: hci_qca: Add auxiliary driver for PCIe M.2 modules
+      Bluetooth: btnxpuart: Add auxiliary driver for PCIe M.2 modules
+      power: sequencing: pcie-m2: Create auxiliary device for the M.2 BT interface
+      Bluetooth: hci_qca: Drop serdev based M.2 power sequencing code
+      Bluetooth: btnxpuart: Drop serdev based M.2 power sequencing code
 
+ MAINTAINERS                               |   1 +
+ drivers/bluetooth/Kconfig                 |   2 +
+ drivers/bluetooth/btnxpuart.c             | 193 +++++++++++++++++++-----------
+ drivers/bluetooth/hci_qca.c               | 138 +++++++++++++++------
+ drivers/power/sequencing/Kconfig          |   2 +-
+ drivers/power/sequencing/pwrseq-pcie-m2.c | 137 +++++++++++----------
+ include/linux/pwrseq/pcie-m2-bt.h         |  38 ++++++
+ 7 files changed, 343 insertions(+), 168 deletions(-)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260806-pci-m2-bt-rework-78dc2c926f00
+prerequisite-message-id: 20260904-monza-wireless-v6-0-d8c5042b3efd@oss.qualcomm.com
+prerequisite-patch-id: c4e777757ca9358cc4dd35e23738cd7dc1ead1a0
+prerequisite-patch-id: 09600595c2e80b12eda3aae39af192847d0f03d0
+prerequisite-patch-id: afe88432c4d459e9094c0e6dd31ebeab6c9f2f08
+prerequisite-patch-id: 60fd7b13447ccad7546fa8e5b5609d8f133f788f
+prerequisite-patch-id: 61dcbe55fdb6f33a3229c197f16a678785aa16d8
+prerequisite-patch-id: 14099e5c573d7c41b899c3f9bb9126aa23f1553e
+prerequisite-patch-id: 647ee15b77671054b4bb012afa9ba8694b6c86c5
+prerequisite-patch-id: c3a774cae81a6fad287731a38f1b76c7e8babc4c
+prerequisite-patch-id: 18b0fa62060a1a2c96e76051944d692699035572
+prerequisite-patch-id: df02ab167976ac1f0d5a38c78e559a7372b16c1f
+prerequisite-patch-id: 3f2dddd108677252a539cdb1eb661912836289ca
 
-Thanks,
-
-
-Matt
-
-
-PS:  A hypothetical alternative way of doing what this patch is doing is
-instead to have:
-
- - existing priv->revoked
- - new 	    priv->revoked_flag_is_immutable
-
-Then, the ioctl triggers an invalidate_mappings() for a targeted DMABUF,
-sets revoked = true, and revoked_flag_is_immutable = true.  The new flag
-prevents a future vfio_pci_dma_buf_move(false) from clearing revoked.
-For example, a reset doing `move(true); reset; move(false);` can make
-all DMABUFs available to attach again, except for those marked
-immutably-revoked.  (That is equivalent to this new "permanent" state.)
+Best regards,
+--  
+மணிவண்ணன் சதாசிவம்
 
 
