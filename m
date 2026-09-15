@@ -1,82 +1,94 @@
-Received: from smtp153-168.sina.com.cn (smtp153-168.sina.com.cn [61.135.153.168])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197A83CEBBB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118203CB568;
+	Tue, 15 Sep 2026 02:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789438016; cv=none; b=dXbTbWp0TFGFPLpfY4ru86Bqh7GlBWhgsSWzuqh18W798owue4aZPI8QFx1rr+jTa5s8VQq5Q9NW8fvthVJIOMYHvZkA4x3v9lGurO+7/HiLWBT41OGZTbCH7bicUCBVSB7HZ6nDDeAihtGRMT5XiD4FCDp0V0bs2Z01rmWQ+xw=
+	t=1789438025; cv=none; b=C5591EopYBwZZrAcS2jU6IbKGmzMKR3I+s0hqFRjKM44DTW4fBAC8EL+oMmG5n16fCMPqF//yfdjuX8eESFz4RtMES97vY+8KccMmv9f0nQJI18GfLhXsB1cnnkhY3AKTLi8J8Ht7iTKM5dLsAkqlb+b7MPzAn/Oj423DIk8dWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789438016; c=relaxed/simple;
-	bh=seEUaTreJEox0Qb5XUep+CsfbF5QeMRJZomP68NTRUU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jwsKdyFoin/UFtGNuB3LyAjluXpn0LbyH6aczvCH6vlj5UdopMk3cwd+S699QEx4ifek0IUco3kmapVHB2BO19eprGdcOSFjc1T8XjRhPYXYwCMuVLV40BPK6jtVuwemTH0jl72mKw5FDikG3+rFjDhUD99Z08iONCuGDDECfok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=QehUrCTt; arc=none smtp.client-ip=61.135.153.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1789438025; c=relaxed/simple;
+	bh=jeSHQ1FM+UBJrqlC5ywAuje++oe3B89qkOy63w8XVXE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dcg31OXudFrDSCVIjoAmjhoFApvxCSplrcszN6C9TCFYMBmrjnPKgZIa0zCD0W4izVA1ctyTGtp0mme03C4t4uVsx5Li8mlLXTEmV12PLpIdCKh82mXxElr1GJdrowj6VIboHJJIuj0XBBtx7q0MzfHdVbg6EkJ5MhhnyCABqTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=fV1oX0W7; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="QehUrCTt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789438009;
-	bh=sJ+/yuJ1SlJec4lxDYxNlSN5jEAaC77VuPE6RZVsWqs=;
-	h=From:Subject:Date:Message-ID;
-	b=QehUrCTtPpeqt7aLhe2OzJXHlE2noY4Ky3IoM0iYH1r2PGPNt2id8Bfs+DEWTN44q
-	 2maWR5Yj2jlFdTCc+Z7G20Sl10Uai9Y+cLv+Kk1AZxNz49j1XaWdsJluHKhUl6gzDc
-	 xUzdSEuBE+XIKfQP0CiCVTULbhVo0lQHYsO89PD4=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.33) with ESMTP
-	id 6AA8A80900001A1D; Tue, 15 Sep 2026 10:06:03 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 6810626685426
-X-SMAIL-UIID: 9B0460687509472F97F9A35651447826-20260915-100603-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+237f670105a254a230d4@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [kernel?] BUG: unable to handle kernel paging request in write_comp_data
-Date: Tue, 15 Sep 2026 10:06:01 +0800
-Message-ID: <20260915020601.899434-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6aa87111.f81106d8.2ab401.0057.GAE@google.com>
-References: <6aa87111.f81106d8.2ab401.0057.GAE@google.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="fV1oX0W7"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A268340E022C;
+	Tue, 15 Sep 2026 02:07:00 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id h8yDa5sZE2n1; Tue, 15 Sep 2026 02:06:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789438008; bh=WYfdIITg1wVViWyyuBHmOXW0fDNmg9zKn2kdsMaVW8U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fV1oX0W7Ju7E+WhF9N2uQYuXt4s9CaJxqGIE2xH3jw4NoHATpZ7M/XzcL/g/DbrWv
+	 DgVMWVsVO2Xqx9wiJLT9b77/Oq3K4Dn3zcboxNZtlU2FrZS9KVVaSKoOff/Xj+VHc0
+	 txG3s5XLJ7ZF5hIQVZHf4socASwYliW+4k9QJNU7W5JjZHYj16u7oQ6Dc5O4euLmuz
+	 DYL0eGkv98b+EknA1EBKhzRfs7TU1gnKksTnDyoZM3nVKiIK5++P4DFdY8AcIAR6Au
+	 lVLbzVZjoBA3nEV/jK01WprZ59mw74Mks2XTpVphD4qZUtaUI78O8EZwXRU+CgIWeY
+	 fdSTB0eiYfQtErMo/pZRp9OWWacHWcU0To4uiyVkKixiR6j2G4nppQwZSVFp2Qfbj0
+	 //aoYc9/nmlx4FfdvoOpFx8BoH9DFCmUUJ0yozOhY9EcydtsWGdWrhEqPb5cktHw7q
+	 F7QMznZbJorqsZRorXis1dfBQMUAQHcg95c9xXh/XYMyR1v4D0qiMdvngIKlIq/WId
+	 QXkN+M+CX0UFFl72Qwgzf8SWjQALReJ/DR1xlhS0Muso9+aPT4lPF6j6F6Q9u0NU4W
+	 90Tj0twT/0lYx5fqRQjdh4DhqkOsTvkOZ5ym8i/tNBI4WOK2kOyEmIEgDT7SX+xovW
+	 eRby/oY82qrLNYRvGAifTvXI=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5D61240E0173;
+	Tue, 15 Sep 2026 02:06:42 +0000 (UTC)
+Date: Mon, 14 Sep 2026 19:06:38 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: linux-kernel@vger.kernel.org
+Cc: linux-tip-commits@vger.kernel.org, Bill Roberts <bill.roberts@arm.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, x86@kernel.org
+Subject: Re: [tip: x86/cpu] x86/shstk: Shadow stack enabling write return
+ code change
+Message-ID: <20260915020638.GDaqioLswnZQpl7zUd@fat_crate.local>
+References: <20260707184542.1721085-1-bill.roberts@arm.com>
+ <178838346311.3717435.13754734302325111782.tip-bot2@tip-bot2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <178838346311.3717435.13754734302325111782.tip-bot2@tip-bot2>
 
-From: Edward Aadm Davis <eadavis@sina.com>
+On Wed, Sep 02, 2026 at 09:11:03PM -0000, tip-bot2 for Bill Roberts wrote:
+> The following commit has been merged into the x86/cpu branch of tip:
+> 
+> Commit-ID:     f4cadf2d1ee3a24f259495309b76f98af467004b
+> Gitweb:        https://git.kernel.org/tip/f4cadf2d1ee3a24f259495309b76f98af467004b
+> Author:        Bill Roberts <bill.roberts@arm.com>
+> AuthorDate:    Tue, 07 Jul 2026 13:45:42 -05:00
+> Committer:     Dave Hansen <dave.hansen@linux.intel.com>
+> CommitterDate: Wed, 02 Sep 2026 14:06:27 -07:00
+> 
+> x86/shstk: Shadow stack enabling write return code change
 
-#syz test: upstream 704340f1cd0d
+https://docs.kernel.org/process/maintainer-tip.html#patch-subject
 
-diff --git a/kernel/kcov.c b/kernel/kcov.c
-index 35420f0ac524..479a84921833 100644
---- a/kernel/kcov.c
-+++ b/kernel/kcov.c
-@@ -236,7 +236,7 @@ static void notrace write_comp_data(u64 type, u64 arg1, u64 arg2, u64 ip)
- {
- 	struct task_struct *t;
- 	u64 *area;
--	u64 count, start_index, end_pos, max_pos;
-+	u64 count, start_index, end_pos, max_pos, tmp;
- 
- 	t = current;
- 	if (!check_kcov_mode(KCOV_MODE_TRACE_CMP, t))
-@@ -254,7 +254,9 @@ static void notrace write_comp_data(u64 type, u64 arg1, u64 arg2, u64 ip)
- 	count = READ_ONCE(area[0]);
- 
- 	/* Every record is KCOV_WORDS_PER_CMP 64-bit words. */
--	start_index = 1 + count * KCOV_WORDS_PER_CMP;
-+	if (check_mul_overflow(count, KCOV_WORDS_PER_CMP, &tmp))
-+		return;
-+	start_index = 1 + tmp;
- 	end_pos = (start_index + KCOV_WORDS_PER_CMP) * sizeof(u64);
- 	if (likely(end_pos <= max_pos)) {
- 		/* See comment in __sanitizer_cov_trace_pc(). */
+"The condensed patch description in the subject line ... should be written in
+imperative tone."
+
+And that title doesn't really say what this fixes.
+
+Lemme fix it up.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
