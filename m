@@ -1,113 +1,158 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7D04052AF
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC36642E404
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:53:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789494836; cv=none; b=lqI/2OgnkcczxqkHXmD93ws4z6FKMJ5g2Si1o1ssHYjBukB6dKofP7PAFFpKFfcX0Ib3HnamJBdZNY/3RM4BLXlPfyscLfLhrFOB0W+72Rt+SDUc/AjpugZv5iXQxHlw6TN4pjb9F2/yAONT1HDROERXZktBYNITgGajvycp5z4=
+	t=1789494831; cv=none; b=C66DX6/AYPh3AndNTr93/fMm1Ab0xU/kVYBeSQ3RDRxni7WnswrPVuqzau4eZp31RMYarixNkszPb0R0qXyHP3+DesDNTd2lKcfWMDm0bhDHKgB8nDxp/K/EFF5Q+vMgBdSL8qQJvqeawun+apZA9J6JjpUti41+e40iAG1XtS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789494836; c=relaxed/simple;
-	bh=ZPw9lXjYo/re2jHD+iFfey94YnYwBpvO2yjlzKfJ5a8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BaWWlrX1SWM1+wu6FMsEAbs3KOUYIvV0Pr3BftLfIKJdLpmZQARhJgX7J2bcAz95sikWXmopmqdipIXcEtSt1Fid+Lwa/32A8PQW4oqQVqvfoCCi0jD6S8MpN7YL331W4PEtvtIaKcwlhZoZVkQ1Jh+L0jZAcvK7sXq8Mayj2vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WofBKwCw; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789494831; c=relaxed/simple;
+	bh=orsT2dMjVZxP1KxFnWVFUSgnbrdfUPpoyKABDONUVDQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=E0uQicz9tLUAHRcBfa72A7TMzDR78H3yO2IRyScqXY2L2HIlsRmXqhbxsAGQLFmR4ZhobuS1wyhh7ZpGaGtEx42+Kdx1PCYYidnsYdYL9AKGo1dMvKX4c5PpH6vvHuE1sQfgv5lXe74IOep2hcdNKAAx7+pjsGKiIrHVLQLiCg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=is8JSEEG; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WofBKwCw"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so1644473f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:53:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789494833; x=1790099633; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BybWH8gs7AYx6NYtOuIpbkPfpLYOJ4rtoku/c8ai57E=;
-        b=WofBKwCwNSdMlTXmpRv1DikVuHubhNqSLE6T0xj93cizQ+zmGuG9iUqCLsokXd2IWK
-         PAB1UNcb1WZ9rVyeYcyooz+GE1Ywpt//RmUi7lVEeZK+U6K09jT1abEkbMA114o2EB1Y
-         7m02fkEaR4ZFPJqB/vQCCbNsv6jvMnw1+mLxUGPN4scVtVE26QMtGBTztzQKJSuhRgW0
-         S0IXMdz8gTI5nucnRSPPXjUpGLZRbkRiLF4A+xQEES29IEOIo4YQUH9E9bLBKOFnyEFE
-         j28pw23qzneooFneoO1J+A5h+wr2yHX0nWWJDPHvIEAC+Wa2x/0O52IjJBIM2AIsPDcm
-         JtVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789494833; x=1790099633;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BybWH8gs7AYx6NYtOuIpbkPfpLYOJ4rtoku/c8ai57E=;
-        b=O1VwrkzWvwW5dEtavrayinGvnZsjvY6ZTNpfkKoCiDhtPnV73WC9aTAGDnO8kw8cv+
-         YEFOWj1zVPv2xCQoRTpSMuvnE+tU3yRvaR7VTBzQchi6b1LCYummx2dxk40aLsBlk+Bd
-         LiPvx1zIVA9R4qNhzqiTMB9/yi26xn66iOSJqK+dDE6pQaxP9+oLrMYO8553bjdKYNyy
-         p5UZhwTTQFIhUrA9HxOBqOkAq4rPm4s42c5hkLMNtrLiWbUTj1Udfg9Ao7J577ewMIba
-         Mauunurx5xqE5WI0S7c8S8V5VPBXTxPhVahboUOu9yT8moomiBQr6oxBqY20pks44YT8
-         zKpA==
-X-Forwarded-Encrypted: i=1; AKwUvBxAy6ZeDkRjtvQfCVPfDqyz0ysFZpcYlNU7ifjfD9lLT7+/EL8D3TJFFQxPQ/1IAfdgkVVCK1mInDnWr0M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kq/pshA6zsU9kG47fbc3oFZ2wBle70zmozu4xT9+b4RMAVsD66
-	UKyL7enTOGn+UCoxMlsTsgomUs0uaMtECupBYrmLcWey5PeS0odL7+HB
-X-Gm-Gg: AYBFou22k4DI0EJr5Ejqta9JKlkKsRSqqoqs6GVv8+MRO2v1BSdrT913JfrEZRN173X
-	G8Kadid7Khv+nnskoGV6xga3FGzCgr3Ff3YQDtIQ5xJBeYijs6JVLPgtq4g53crpkbJj/j5mJFn
-	baZbq0FgeyzOAFSA/FBNZbknBQK8CDyasqMKzElryYsSI38Tta2eUQ+MigsdKicp2U38YGH8uNi
-	RI+Fz72I/XumeVIczPnh8P4ZESfhvzgYpYo/Nt1z6Hb4zi6TTXOlfVh+QQULfnHOJrjKZfzjAYD
-	rOuu6alfbwWa8/DKI4BGRxd4+GXCOI5aowySvgbFw6a0v2rNNrAQsOUf0+Aqp/OeljAL46Oh4Df
-	u+ac+0+yfw6sNYNS+5GOk9NWm+MKIeE7/6bP//2MwNddi4smfTYqGSwL3pZsswlRguDqLa7jmwk
-	ABsdYu3z4C2cGad6zsxXqDpU0wKNoIWwmQbYLFmrFBNeQ4EZSNpVAABoeihlviOQ+rhh0=
-X-Received: by 2002:a5d:5f46:0:b0:486:faa5:2165 with SMTP id ffacd0b85a97d-48702b379c8mr9832537f8f.54.1789494833029;
-        Tue, 15 Sep 2026 10:53:53 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf34440sm672288f8f.25.2026.09.15.10.53.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:53:52 -0700 (PDT)
-Date: Tue, 15 Sep 2026 20:53:48 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>
-Cc: Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] clk: Document of_clk_get_by_name() return values
-Message-ID: <aqmGLBRaLwQ5GpXS@stanley.mountain>
-References: <cover.1789451862.git.error27@gmail.com>
- <b3de48fdbaaade69cce126b59bd6dfb8f437b495.1789451862.git.error27@gmail.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="is8JSEEG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=4qwd7pi6evexnfensob227qvoe.protonmail; t=1789494824; x=1789754024;
+	bh=cbbDbtdtpNIZOsFk0BscMIGz6iwSZAM6cFpm4+NlP2g=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=is8JSEEGImr2j1n42Qbn0BbpPSnAsnAfRn3XktqQHDEkAG/lT+vRW8mgrbTffqUWt
+	 DZQHsJLOpU4wLFn1RmxdjCAqd5TF6J0Z8y/U+A50Ywp6b+23I2dS6RVg3B2spKIEoA
+	 CjM/DG5BjDIFlq1QaEDuGWZEesHqI+Bsv9GNW9/sFspPmEmQXTIIdZ4/cX1Hw6TsRE
+	 6S6UqeYVLvUkTPQl8lCMSSVNY4FUeDy3I0j2/6/tSr94pbfgEhiJmjWO6kM8Vpbb+C
+	 202UOeAdDPTBQP+Ue9RIXUApJNguccB7fdM3m7nZHATDTRU6jTsakfQtmqritPt7u+
+	 Wf/DQllDMLTkg==
+Date: Tue, 15 Sep 2026 17:53:40 +0000
+To: pbonzini@redhat.com, seanjc@google.com
+From: David Ballesteros <davimaba.v@proton.me>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3] KVM: Fix and account mem_attr_array reservations abandoned on ENOMEM
+Message-ID: <20260915175335.138547-1-davimaba.v@proton.me>
+Feedback-ID: 219068424:user:proton
+X-Pm-Message-ID: b2f4b3e13675a80ce8a6e980fff58ca3d12279f9
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b3de48fdbaaade69cce126b59bd6dfb8f437b495.1789451862.git.error27@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 15, 2026 at 07:38:23PM +0300, Dan Carpenter wrote:
-> Callers should test the return from of_clk_get_by_name() with IS_ERR().
-> The function returns a valid clock on success and an error pointer on
-> failure; NULL is not a valid return value.
-> 
-> Document this explicitly to prevent callers from treating NULL as a
-> separate failure case.
-> 
-> Assisted-by: ChatGPT:gpt-5
-> Signed-off-by: Dan Carpenter <error27@gmail.com>
-> ---
-> There are a few other functions which look like they return NULL but
-> never actually do.  This is one which has caused some confusion in
-> the past.
+Three small fixes to KVM's per-page memory attributes: release the xarray
+reservations that KVM_SET_MEMORY_ATTRIBUTES abandons when it fails partway
+through (1/3), make kvm_range_has_memory_attributes() agree with itself
+about what such a reservation means (2/3), and charge the xa_nodes to the
+caller's memcg as the code already intended (3/3).
 
-Sashiko says that it looks like it can return NULL.
-https://lore.kernel.org/all/20260915164913.597D51F000FF@smtp.kernel.org/
-It does *look* that way, which is why I'm adding the documentation
-to say that looks are confusing.
+  1/3  Release the reservations abandoned on ENOMEM.  This is a plain bug:
+       xa_reserve() materializes entries GFN-by-GFN before the store phase,
+       and on failure the loop bails without releasing what it reserved.  A
+       later clear covering them does erase them, but nothing obliges
+       userspace to issue one; absent that, the reclaim path is
+       kvm_destroy_vm().  The retained entries are not inert -- an
+       abandoned reservation is an XA_ZERO_ENTRY, which
+       kvm_range_has_memory_attributes()'s !attrs fast path counts as
+       present (raw xas_find()) while kvm_get_memory_attributes() treats
+       it as absent, so a straddling hugepage over such an entry is marked
+       mixed and KVM stops using a hugepage for a range whose attributes
+       are uniform.  xa_release() erases only entries still reserved,
+       leaving pre-existing value entries untouched.
 
-It's pretty normal for these types of functions to return an error pointer
-for errors and NULL for not found, but the of_clk_get_by_name() returns
--ENOENT on error.  https://lkml.iu.edu/1810.1/06936.html
+  2/3  Make kvm_range_has_memory_attributes() consistent about
+       reservations.  The reader side of the same bug: the !attrs fast
+       path treats an XA_ZERO_ENTRY as present via raw xas_find(), while
+       the single-GFN path and the general loop treat it as absent
+       (matching xa_load()).  Make the fast path skip reservations too, so
+       all three paths agree.  A consistency fix, not a fix for a reachable
+       bug: every caller holds slots_lock, so with 1/3 applied no caller
+       can observe a reservation.  Depends on 1/3, which must land first --
+       today a clear over a range of pure reservations erases them as a
+       side effect of not taking the idempotency early-out, and this patch
+       removes that cleanup.  Only 1/3 carries Cc: stable.
 
-Also in commit 6a636d203cc8 ("clk: renesas: Use IS_ERR() for pointers
-that cannot be NULL") there was a static checker warning because the
-NULL return wasn't handled and we "fixed" it by saying that NULL was
-impossible.
+  3/3  Account the nodes to the caller's memcg (XA_FLAGS_ACCOUNT), so the
+       growth is attributed and cgroup-limited tenants are contained.
+       Unchanged in substance from v1's 2/2.  Not tagged for stable, since
+       it changes observable behaviour (see its changelog).
 
-regards,
-dan carpenter
+Order: 1/3 (leak) and 2/3 (reader) are the two sides of the correctness
+bug; 3/3 (accounting) comes last because it makes ENOMEM reachable from a
+cgroup-local condition, so the leak must be fixed before the path that
+makes it easy to hit.
+
+No hard per-VM bound is proposed here.  v1..v3 carried one (a constant,
+KVM_MEM_ATTR_MAX_GFNS =3D 2^25 GFNs); it does not work, and that is now
+measured: a legitimate 256 GiB confidential guest materializes 2^26
+attribute entries in a single ioctl -- 2x that cap (~585 MiB of xa_nodes,
+one 576-byte node per 64 GFNs); a 1 TiB guest needs 2^28.  No constant is
+both large enough not to break real TDX/SNP guests and small enough to
+bound the host.  The bound therefore moves to a separate RFC that lays out
+the problem, including the memslot-coverage and range-representation
+alternatives, rather than shipping a number that breaks a supported
+configuration.
+
+Measured (isolated sw-protected VM on v6.18.48, build-id verified, no
+KASAN; the reservations are left behind by real memcg pressure via
+clone(CLONE_VM), not by fault injection):
+
+  - hugepage effect (motivating 1/3 and 2/3): with a reservation left
+    inside a 2 MiB region, KVM_GET_STATS_FD shows pages_2m unchanged
+    after a 4 KiB clear (the reservation is invisible to xa_load),
+    pages_2m 16->15 and pages_4k 0->512 after an 8 KiB clear (one
+    hugepage degraded), and pages_2m back to 16 after a 2 MiB clear
+    (repaired).  Reproduced with the accounting flag applied, i.e.
+    accounting alone does not fix it.
+  - the same measurement re-run on a kernel carrying this series: the
+    failed request retains three orders of magnitude fewer xa_nodes and
+    pages_2m stays at 16 across all three clears, i.e. the reservations are
+    released and the hugepage is never degraded.  Same kernel config and
+    same test binary in both arms; kernel identity checked against
+    /sys/kernel/notes.
+  - 3/3, containment: without the flag a process in a 256 MiB cgroup
+    grows 512 MiB of radix_tree_node slab with memory.current flat
+    (memcg inert); with the flag the memcg OOM killer selects the
+    attacker in its own slice (CONSTRAINT_MEMCG), host untouched.
+
+Not verified: the TDX/SNP hardware paths (no hardware); the
+software-protected path is verified end-to-end.
+
+The report and series are intentionally public: the finding is AI-assisted,
+which Documentation/process/security-bugs.rst says must be treated as
+public.  security@kernel.org was Cc'd on the earlier revisions and is
+dropped here since the thread is public and archived.  A reproducer exists
+and was used for the measurements above; per the same document it is not
+attached, and is available to maintainers on request.
+
+---
+Revision history, for reviewers who followed the earlier postings:
+
+v1..v3 all bounded materialization with the constant above and iterated on
+the mechanism around it, which carried its own defects across revisions (a
+clear-path bound bypass in v1, an O(array) rescan under slots_lock, a
+phantom-budget exhaustion).  v4 drops that mechanism entirely and keeps the
+two correctness fixes that were hiding underneath it, plus the accounting
+one-liner.
+
+Two errata in the earlier thread: the 2/2 of v3 went out with a
+"[PATCH v2 2/2]" subject by mistake (its Message-ID and threading were v3),
+and the "Proposed fix" section of the v2/v3 cover letters had gone stale --
+it still described the per-mutating-ioctl rescan of v1 and, in v3,
+contradicted that revision's own "charge exactly with xa_cmpxchg"
+changelog.
+
+v3: https://lore.kernel.org/r/20260911221302.53013-1-davimaba.v@proton.me
+v2: https://lore.kernel.org/r/20260911203238.30088-1-davimaba.v@proton.me
+v1: https://lore.kernel.org/r/20260911184819.101123-1-davimaba.v@proton.me
+
+ virt/kvm/kvm_main.c | 39 ++++++++++++++++++++++++++++++----------
+ 1 file changed, 35 insertions(+), 4 deletions(-)
+
+base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
+--
+2.55.0
 
