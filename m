@@ -1,63 +1,53 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56978477280;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA94B4779A8;
 	Tue, 15 Sep 2026 08:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461188; cv=none; b=f55iW6ERSx+hunFutnV2jT3oNYg7dgMdJdHrjSwXjj7L7wfjaZF5p7O9dfKEU0ifrvzlE+TKNPZggZObbY/6YkC6WQniM5jk3/swkCRr7HWAwUlH5MCuqfgN0Z9zGT6gKEUS9VcsmnWZHyLmEFl1qNMlqPLcQ9+IO0tT2QLBIDY=
+	t=1789461189; cv=none; b=ia1IJWDE34KDq9E5o5XiyiiUfBuPQm89f9JmOQI8TqU8UJaScjZfFPGdHJViVAnPAkNTQeBTpIaHTjP+QGYCnjPV3yAyC7fn5BDJ6b0S9VywbZicvsql82ejtjAPj2YIRtVTY2HaPT3nMbwQepitGMbfZSKtrtYOaeQLMRstgHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461188; c=relaxed/simple;
-	bh=54wSBEW+EhzqVtFbaMH00jb+rHZnRFDdB1tI01AWQGg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e68eH/674/LdpkYHcPLSWwh5DbrjXPogQGNlMzIjBtV9i6WoxwRNcoWSJMYUSYXvSAarsQozgOCpy8/B8v/UhBolezhoi79j3oTxwfnpRPPIfQxmIfY2eKg0ZQ8RPWx2DgyMgPS7zftDNrxw+2XzBfHCBMMVSMciXzvSDH/i4V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=qKeFMEZi; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=RpPSKvPo; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="qKeFMEZi";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="RpPSKvPo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461179; bh=54wSBEW+EhzqVtFbaMH00jb+rHZnRFDdB1tI01AWQGg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qKeFMEZiutJi9+qhpHW8QF6F92//epP25uhEVkcSQoxlxk78s3Inq4WpcHtIyGTOh
-	 17IZ7JnWa9GYNRkuShIPUyJxZmFFhgjMbZk/cl7qVxicm9O5tqBJQmFUy5onNASHHy
-	 Lc+jnN7Wy8g5XSOf/X9HXTxQgDmT14RDZqQyOQcrM3am5yqV1I4VlBnmsxmobu/x5h
-	 FlSXaFYVzAHMYe4g0N6MG0Xtc2cIDbaZ3j1j/4okdHl9wzJtPlHDsBPzUeoDGTwMl4
-	 pG/0vEr8YZsIdA4/h33ZLRGUyjdHf0eRFYgwWlxGeNEnbZJlu1G3M+6cn0yDnhN7SC
-	 A4+vmqpsoSF2w==
-Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 3B77340BA2; Tue, 15 Sep 2026 09:32:59 +0100 (BST)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461178; bh=54wSBEW+EhzqVtFbaMH00jb+rHZnRFDdB1tI01AWQGg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RpPSKvPoeKQgvNZ3PKjEcR3weba/zZwDm9C/jeFPc8sEHLIBNRRQTvyLjhiJjrKFJ
-	 iOolR3yMzJovi+F/S1jtpqeb2CI+EcSR5R0w0QLiGsfJsg1RuzwbB+PRMTIHkRH69X
-	 zvC0A/i0NdRC+YnrKcddprTrTNCqfD9MDNFt3/pUH9Aj1EI9oQKgemAHatP5lxTlxO
-	 VECMgVkyhGKwqqaZwENgbRVIscWm4T6JhU0pB2rZc2nQiqnG1o9qUDi7eRIoq9Vxxb
-	 xyOQlPe01+eI3O6MVKahcxH5tdrRnLQ/DHTYxk8JR2aXkVCLCvnHjonsZTYmhY2jdv
-	 VXTIhkGkr303g==
-Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 2291340155;
-	Tue, 15 Sep 2026 09:32:58 +0100 (BST)
-From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>
-Cc: Rik van Riel <riel@surriel.com>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 03/20] media: rc: Fix ABBA deadlock by making locks more fine grained
-Date: Tue, 15 Sep 2026 09:32:13 +0100
-Message-ID: <e0950481292d002958cc28e744742f0a84444e14.1789460680.git.sean@mess.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1789460680.git.sean@mess.org>
-References: <cover.1789460680.git.sean@mess.org>
+	s=arc-20240116; t=1789461189; c=relaxed/simple;
+	bh=NnznJM9rr0VkukETqdSVD6fqwodHLDPuYDL1DGyN704=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=fsaZiT4132+4SC6f/Ii7d80xn8LTPUoJZ91n4d4C0J/2CpQS4FWnOaQJLiFC3W9IAFB9rFn2YhZBN9VjhlRwKYmMqSVuv9fMvARy8SAIkcLmW+a6ZlKO2yHeZqyCqShPjJfl6G/RyM+ltQd51/M+0geqqFYvLLmy8q3wZ5oPa0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 0fc9a110b0e011f19a56ed5b684f684d-20260915
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:c26330cd-db19-4233-b287-a6abf0d00313,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:c353a45abad57fe56ed8692e727afc35,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
+	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0fc9a110b0e011f19a56ed5b684f684d-20260915
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 712537831; Tue, 15 Sep 2026 16:33:00 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	Baolin Liu <liubaolin@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v13 5/7] ntfs: do not clear the volume dirty bit during sync
+Date: Tue, 15 Sep 2026 16:32:50 +0800
+Message-Id: <20260915083252.812126-6-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260915083252.812126-1-zenghongling@kylinos.cn>
+References: <20260915083252.812126-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,123 +56,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ir_raw_event_unregister() function takes the ir_raw_handler_lock
-first and then the rc_dev->lock. Other functions like change_protocol
-do this in the reverse order.
+ntfs_sync_fs() clears VOLUME_IS_DIRTY while the volume is still mounted
+read-write, so a sync running concurrently with an in-flight metadata
+modification can clear and persist a bit that was just set: the
+modification then lands on a volume that is clean on disk, and a crash
+does not run chkdsk.
 
-This means that an ir decoder module unload and writing to the protocol
-sysfs file can cause a deadlock.
+Stop clearing the bit in ntfs_sync_fs() and leave the clearing to the
+remount-to-read-only path, which the VFS reaches only after
+sb_prepare_remount_readonly() has drained in-flight writers, and to
+ntfs_put_super(), which runs after evict_inodes() on a quiesced
+filesystem.  A mounted read-write volume now keeps the dirty bit until
+it is dismounted cleanly, which matches the NTFS semantics; the cost is
+a needless chkdsk if the machine crashes between a sync and the unmount.
 
-ir_raw_handler_lock protects the client list, amongst other things.
-Split this out into a separate lock so we can ensure the locking
-order is always the same.
+A recorded error state is still persisted right away when the
+filesystem is synced: with NVolErrors() set,
+ntfs_sync_volume_dirty_state() can only set the bit, never clear it,
+so it cannot lose a modification the way the old unconditional call
+did.  This keeps the error report from being lost to a crash on a
+volume that has seen no modification; an error recorded after the
+last sync is still only persisted at the next quiescent transition.
 
-Fixes: 93cffffc18f6 ("[media] media: rc: fix decoder module unloading")
-Signed-off-by: Sean Young <sean@mess.org>
+sync_blockdev() and blkdev_issue_flush() are both called and the first
+error is returned, so a writeback failure neither hides a flush failure
+nor skips it.
+
+A RWF_NOWAIT write still blocks in the marking when the volume looks
+clean, as it already did on the base; a non-blocking marking is
+follow-up work.
+
+Reported-by: Baolin Liu <liubaolin@kylinos.cn>
 Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- drivers/media/rc/rc-ir-raw.c | 39 ++++++++++++++++++++++--------------
- 1 file changed, 24 insertions(+), 15 deletions(-)
+ fs/ntfs/file.c  |  7 ++++---
+ fs/ntfs/super.c | 31 ++++++++++++++++++++++++-------
+ 2 files changed, 28 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-index 54b323becb1f..75dee4a483d4 100644
---- a/drivers/media/rc/rc-ir-raw.c
-+++ b/drivers/media/rc/rc-ir-raw.c
-@@ -10,7 +10,8 @@
- #include <linux/sched.h>
- #include "rc-core-priv.h"
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index cfc7b36b7dff..99a2c7a5cf81 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -621,9 +621,10 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
  
--/* Used to keep track of IR raw clients, protected by ir_raw_handler_lock */
-+/* Used to keep track of IR raw clients, protected by ir_raw_client_lock */
-+static DEFINE_MUTEX(ir_raw_client_lock);
- static LIST_HEAD(ir_raw_client_list);
+ 	/*
+ 	 * The volume must be marked dirty before the modification is made,
+-	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
+-	 * can clear the bit concurrently and the modification would then
+-	 * land on a volume that is clean on disk.
++	 * without an unlocked check of the in-memory flag: the dirty bit
++	 * is only cleared at the quiescent transitions, under the same
++	 * $Volume mrec_lock this call takes, so an unlocked skip could
++	 * lose the set to one of them.
+ 	 */
+ 	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
  
- /* Used to handle IR raw handler extensions */
-@@ -273,13 +274,6 @@ static int change_protocol(struct rc_dev *dev, u64 *rc_proto)
- 	return 0;
- }
- 
--static void ir_raw_disable_protocols(struct rc_dev *dev, u64 protocols)
--{
--	mutex_lock(&dev->lock);
--	dev->enabled_protocols &= ~protocols;
--	mutex_unlock(&dev->lock);
--}
--
- /**
-  * ir_raw_gen_manchester() - Encode data with Manchester (bi-phase) modulation.
-  * @ev:		Pointer to pointer to next free event. *@ev is incremented for
-@@ -615,15 +609,18 @@ int ir_raw_event_register(struct rc_dev *dev)
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 3574c224fe28..463050ae1b0e 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -486,8 +486,9 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  * This is the single point that persists the in-memory error state to disk.
+  * The runtime error paths only record NVolErrors() because they run under a
+  * variety of ntfs locks the dirty-bit write cannot be taken under (runlist
+- * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); the first
+- * ntfs_sync_fs(), a remount, or the unmount then persists the flag here.
++ * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); a sync of a
++ * volume with recorded errors, a remount to read-only, or the unmount,
++ * then persists the flag here.
+  *
+  * A hibernated volume is not written from these persistence paths:
+  * resuming Windows from a modified image corrupts it, so the dirty bit
+@@ -1955,7 +1956,7 @@ static void ntfs_shutdown(struct super_block *sb)
+ static int ntfs_sync_fs(struct super_block *sb, int wait)
  {
- 	struct task_struct *thread;
+ 	struct ntfs_volume *vol = NTFS_SB(sb);
+-	int err = 0;
++	int ret, err = 0;
  
-+	/* Holding dev->lock could result in a dead-lock */
-+	lockdep_assert_not_held(&dev->lock);
-+
- 	thread = kthread_run(ir_raw_event_thread, dev->raw, "rc%u", dev->minor);
- 	if (IS_ERR(thread))
- 		return PTR_ERR(thread);
+ 	if (NVolShutdown(vol))
+ 		return -EIO;
+@@ -1963,14 +1964,30 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 	if (!wait)
+ 		return 0;
  
- 	dev->raw->thread = thread;
- 
--	mutex_lock(&ir_raw_handler_lock);
-+	mutex_lock(&ir_raw_client_lock);
- 	list_add_tail(&dev->raw->list, &ir_raw_client_list);
--	mutex_unlock(&ir_raw_handler_lock);
-+	mutex_unlock(&ir_raw_client_lock);
- 
- 	return 0;
- }
-@@ -656,16 +653,19 @@ void ir_raw_event_unregister(struct rc_dev *dev)
- 	kthread_stop(dev->raw->thread);
- 	timer_delete_sync(&dev->raw->edge_handle);
- 
--	mutex_lock(&ir_raw_handler_lock);
-+	mutex_lock(&ir_raw_client_lock);
- 	list_del(&dev->raw->list);
-+
-+	mutex_lock(&ir_raw_handler_lock);
- 	list_for_each_entry(handler, &ir_raw_handler_list, list)
- 		if (handler->raw_unregister &&
- 		    (handler->protocols & dev->enabled_protocols))
- 			handler->raw_unregister(dev);
- 
- 	lirc_bpf_free(dev);
--
- 	mutex_unlock(&ir_raw_handler_lock);
-+
-+	mutex_unlock(&ir_raw_client_lock);
- }
- 
- /*
-@@ -688,15 +688,24 @@ void ir_raw_handler_unregister(struct ir_raw_handler *ir_raw_handler)
- 	struct ir_raw_event_ctrl *raw;
- 	u64 protocols = ir_raw_handler->protocols;
- 
-+	mutex_lock(&ir_raw_client_lock);
-+
- 	mutex_lock(&ir_raw_handler_lock);
- 	list_del(&ir_raw_handler->list);
-+	atomic64_andnot(protocols, &available_protocols);
-+	mutex_unlock(&ir_raw_handler_lock);
-+
- 	list_for_each_entry(raw, &ir_raw_client_list, list) {
-+		mutex_lock(&raw->dev->lock);
-+		mutex_lock(&ir_raw_handler_lock);
- 		if (ir_raw_handler->raw_unregister &&
- 		    (raw->dev->enabled_protocols & protocols))
- 			ir_raw_handler->raw_unregister(raw->dev);
--		ir_raw_disable_protocols(raw->dev, protocols);
-+		raw->dev->enabled_protocols &= ~protocols;
-+		mutex_unlock(&ir_raw_handler_lock);
-+		mutex_unlock(&raw->dev->lock);
+-	/* If there are some dirty buffers in the bdev inode */
+-	if (ntfs_sync_volume_dirty_state(vol)) {
++	/*
++	 * The volume dirty bit is deliberately not cleared here: a sync
++	 * running concurrently with an in-flight modification could clear
++	 * and persist a bit that was just set, leaving the modification
++	 * on a volume that is clean on disk.  The bit is only cleared at
++	 * the quiescent state transitions, remounting read-only and clean
++	 * unmount.  A recorded error state, however, is persisted right
++	 * away so that it is not lost to a crash on a volume that has
++	 * seen no modification; with NVolErrors() set this can only set
++	 * the bit, never clear it.
++	 */
++	if (NVolErrors(vol) &&
++	    ntfs_sync_volume_dirty_state(vol)) {
+ 		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
  	}
--	atomic64_andnot(protocols, &available_protocols);
--	mutex_unlock(&ir_raw_handler_lock);
+ 	sync_inodes_sb(sb);
+-	sync_blockdev(sb->s_bdev);
+-	blkdev_issue_flush(sb->s_bdev);
++	ret = sync_blockdev(sb->s_bdev);
++	if (ret && !err)
++		err = ret;
 +
-+	mutex_unlock(&ir_raw_client_lock);
++	ret = blkdev_issue_flush(sb->s_bdev);
++	if (ret && !err)
++		err = ret;
+ 	return err;
  }
- EXPORT_SYMBOL(ir_raw_handler_unregister);
+ 
 -- 
-2.55.0
+2.25.1
 
