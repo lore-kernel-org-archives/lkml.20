@@ -1,94 +1,88 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B8844C67C;
-	Tue, 15 Sep 2026 20:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581A04CE67E
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789504413; cv=none; b=UBDYuUSPFo02WMV8W8NzsPA6c+XaQLp0fJNHb5vWscjuVHyl2lURU91cro4skLNOkSL3oBXs3TPd8619Jx5LhDBEEJc/ZQfls+iweTz6kmOrwSM7ovnUWu2D53af8NCXN4CbLsKJO1WBvWPYZDWQJo9ro8EM0e5xkczHRtjFj/Q=
+	t=1789504471; cv=none; b=IqbktJR/Qjqjowf5vtqA9+jsWPwr1Ktu/xOjFxxQvuTWMzs3xm/GepMTh9I7VqJ/loW3W0tXe8Ne0gLXbGDnT1DU4JzeDLqnI6adN8ztUKKgoa6skN1FYOmO4X50HEZkr9+pDeJ08nFFDrqsvdcBA+mIhVkMShDnISjVVEYYy+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789504413; c=relaxed/simple;
-	bh=45/eohNmGxzgetiRK5lMcxh9V1IsBJwlnwaJid+CtAE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CKwJ0wpRnKfEihNn3G0ZjNsOfwhe3Hb7lch3BZLJv9Ndwlt3tLzrrOE6aM/Xqm4PVbKzHPXH4rsRMrqbtQ6fT7cEytQ49tg+BTfceypbeaPI3dqfXWmsP8EFz/LW/8eVNkM6rxdSuy1WtIK3BdUBKWYPhWX00BA24tT2NDkpdzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jb/LzoNA; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789504471; c=relaxed/simple;
+	bh=lkzMEfbId0rnBZ9mHvEDXRqhPKtVBsFzup7IU7HLZbs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=On8koxr0SDbtE815jUSyGsv5XcIC+aaQd8ghMMTS9174DcCLg+irqmXqZ6n8bbat8dR/mu6uF7tpSbrStltRvJ08/imeHH1+/Z++ESRIDImgHAnOStbHgi630wETKYuXheF/vgnOyM0AEVFtNaJReO/SQqOZkCTkX7mArZpTPjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fXWsty4c; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jb/LzoNA"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 714E01A07F0;
-	Tue, 15 Sep 2026 20:33:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 400E2602B0;
-	Tue, 15 Sep 2026 20:33:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8614A11C7AFE5;
-	Tue, 15 Sep 2026 22:33:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789504403; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=EaTBQSFDY9HqCiNlkTKbGEfGfiR2jHJYb7QJIPYFUTU=;
-	b=jb/LzoNA59kiYJnRzas+LoinY1Sw+b4PsE7rgm/n6GJvhG2pg9BnzQ2sLKCzTIcRpQnuAA
-	sA4Jc9hJuw3g/bDDXcCb/voAubto6tXDlnvtwVKMfwXTj4pwh4kXh4VdKoJ+tA9CeUz0ZC
-	AbgcFPqQbmWWkdJ2hWRvBxJUqnfZyak+cOKHTrkm308yid/SB83QA73zL4rn14Ubjz4HUu
-	Ba+WqXLrxosE10orHQzNUG8XMXsJF7Lkb633gTRGy8EfgzQzwyCV6wagjtLXSuiDoIsJX3
-	07g+4RG/qkRjf8a+62XVeiBEb6c8/ku0OM+PIfdNCTPxi0PpEcqVCv6URgfE+g==
-Message-ID: <5df35a3e-d2c6-4576-868f-d3194de3deb0@bootlin.com>
-Date: Tue, 15 Sep 2026 22:33:12 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fXWsty4c"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789504470; x=1821040470;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=lkzMEfbId0rnBZ9mHvEDXRqhPKtVBsFzup7IU7HLZbs=;
+  b=fXWsty4c/Lm0dIP/dsbALrj+bCT3Pp+nC7OQQCWgHOOL1KyMeXEzhFAo
+   QCbKcPRzyF6QYw0OqKhvHBi4MUsDpDE2/SxWVsoq2RCN17vRA0aboR0RF
+   3N3pWFk/+07etK/CgxuVquUnvFVl5jqbXTrQUWiyhNn3TWW7TstiGYNfw
+   Ph/EvIoS8OBjFYcwB2zS1cPYIEAR5MPgPTzpjxKiReJj7UZxoNRRWBUvh
+   dieQIruw+WqYl+eqJJj4ugSN1hNKUxtXRTnbAFDdc9CFdA+8OHv2YHp4+
+   jzHfHq9eOKRu8ewvIGDpJnLYkBtugMi41qhau/j45iHE7N5F+GE/KsxN5
+   Q==;
+X-CSE-ConnectionGUID: Dbixii48RtaaHfGq46dCbQ==
+X-CSE-MsgGUID: 2Gc79j2iSIuZZ3cDC3w1Ow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89897445"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89897445"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:34:29 -0700
+X-CSE-ConnectionGUID: ldhO4efFTkuS0zhxwjONMQ==
+X-CSE-MsgGUID: KAE7iweJQcqwF3t/mLzjnw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="303007102"
+Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:34:29 -0700
+Message-ID: <7aed4a31e3608c0b7edae57edcb245c912ce5f92.camel@linux.intel.com>
+Subject: Re: [PATCH v2] sched/cache: Refresh LLC capacity across CPU hotplug
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Davi Chaves Azevedo <davichazbh@gmail.com>, kprateek.nayak@amd.com
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Chen Yu <yu.c.chen@intel.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Valentin Schneider	 <vschneid@redhat.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,  "Rafael J. Wysocki"	
+ <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, chen.yu@linux.dev,
+ 	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Tue, 15 Sep 2026 13:34:28 -0700
+In-Reply-To: <20260915175714.2015751-1-davichazbh@gmail.com>
+References: <20260911220229.1368887-1-davichazbh@gmail.com>
+	 <20260915175714.2015751-1-davichazbh@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: allwinner: add H616 EMAC1
-To: James Hilliard <james.hilliard1@gmail.com>,
- Richard Genoud <richard.genoud@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260915-submit-h616-emac1-v1-v1-0-195de0bb1f8a@gmail.com>
- <20260915-submit-h616-emac1-v1-v1-1-195de0bb1f8a@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260915-submit-h616-emac1-v1-v1-1-195de0bb1f8a@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi James,
+On Tue, 2026-09-15 at 14:57 -0300, Davi Chaves Azevedo wrote:
+> Hi Prateek,
+>=20
+> Thanks for the review and testing. I've added both tags to my local patch=
+,
+> with no code changes.
+>=20
+> Tim, may I include your Reviewed-by?=C2=A0
+>=20
 
-On 9/15/26 21:03, James Hilliard wrote:
-> The H616 secondary EMAC uses a separate system-control clock register
-> and supports only RMII at 10/100 Mbps. Add its distinct compatible
-> without an older fallback, since using the primary EMAC clock register
-> would not work.
-> 
-> Constrain the PHY interface mode to RMII, matching the hardware. The
-> EMAC1 clock register also retains the three-bit TX and five-bit RX delay
-> chains, so allow the existing Allwinner delay properties for this
-> compatible.
+Yes, you can add my Reviewed-by.
 
-I don't think there's such a thing as RMII delays. RMII has a single
-clock, contrary to RGMII that has a TX and a RX clock with a 2ns delay
-between clock and data.
+Tim
 
-I think it's just a leftover in this IP from the other variants that
-can do RGMII ? You should just be able to drop the comment changes here,
-and same goes for the dwmac patch.
-
-Maxime
-
+> Chenyu, may I include your Tested-by
+> for the Ryzen and Xeon checks you reported too?
+>=20
+> Thanks,
+> Davi
