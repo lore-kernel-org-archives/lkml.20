@@ -1,87 +1,88 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A84A625B09E;
-	Tue, 15 Sep 2026 00:40:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56A8286AC;
+	Tue, 15 Sep 2026 00:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789432823; cv=none; b=q9Tw/qp4++UyQeMwrvsTCMSfLPq/skXdpEilexB47wqxpPww9pev5t1d7LSLhQ67T8/RxIk/FEa/EXnoHcHYaQK2DCSs1/iy8kYrJ9fVmQHjVdO/O7TzM5q1FJMk8vh19W+7Sa6gG/ypPllq4MM3CCkezwxITMOs5YeA9XGuZPs=
+	t=1789432870; cv=none; b=elng0Vr3HJH4Rv9sxOpScjIpMGIHgpa1GKE7rjEmq0zkfmJ7bf3wBTAPIIBlviaS9C8v1PiAOHnabJZL6g3fQx/tmIorNAzxPH+hcyqwfwOkK70Th13y47I6t87cKAQ7kXA1rVSy7/qTjBDHyWppDdOx0CrmACbIkFNYNQsRLXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789432823; c=relaxed/simple;
-	bh=ha7+AGq4swCCGi8az5HgRtPQvJkkNcZt9tTYI2z9AOc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=SMAw0LSsT2XAJkbEORE5hpl+W9i1IfIUoDCnjS9A0LoAWfjvj+5wE/c/1KKfej72YAI57HNrm9+FLbz0c3HzIAd0KTHHvOq3tMo/ZlKR+AvGqFfq/yTCvyxTiX0ND5wk2WRloq6SWAhy7fD4/3bpcXF6AT/EHmLDYlkQNp0ZPg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=HRsGnHvK; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1789432870; c=relaxed/simple;
+	bh=+ffOmU8pJln0qXFEE0zbCzHF+JNlrL9djyiI92+W4NA=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=HW1G8tcJB/i3UrYEQBdDVh7zO44kVOzzs33LaIZXMevN6IedCR60afhlE0uNGX5sngi7PV91NgPyMzof4IfxwN53Z+zpSC3GaSDnEMgEg8fsD6PsTtE2COErNxEGRwp6luBEA+OPf6P7ZIPWLPt+65Txg90wWG+6ClPTVMRXd1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iC5kDXpF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="HRsGnHvK"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68F0eBYr91150311, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789432811; bh=YDKgvmbQpYuceRlkPyqN48eYGAdVzrAI86Rqre6/b2g=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=HRsGnHvKQeijs1Y+BU6VTPr4pT0ZQADRoE+nTRQl0Evp5YYnoPUklRm52WbZcW9KY
-	 QGD9GWfjr7GUKmmY12R2D/byeMrtgDC/TpP7aQP3cqj6GTUrmkzzvqgB0XrEoW78fH
-	 DZM5gHFQ4uzeWP7Y6NQdzz4z+I36fYYXUHIWe/GuoUNTuWlz3+77m+K+nbluOdhfgi
-	 4FbC9wx2zT70TGL9vToj459x192emXk/1UUjRFFUt6YCEeImTR9533f9Raw6OebHgm
-	 seOd9OWU6/itZRBxHETw8YCExZ2YA+Qh57Q7AIRbqTmdXt9gNedhflKQ/r03f1OvjI
-	 4TB4rHzvj7Meg==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68F0eBYr91150311
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 15 Sep 2026 08:40:11 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 15 Sep 2026 08:40:11 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 15 Sep 2026 08:40:11 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Maxim Skokov <skokovmaksimevg@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: rtw89: WOW_CPUIO_RX_CTRL is never answered on RTL8851B
-Thread-Topic: rtw89: WOW_CPUIO_RX_CTRL is never answered on RTL8851B
-Thread-Index: AQHdQu5+p1mtl9gOz0eDp/HSGCWOaLbNt3lA
-Date: Tue, 15 Sep 2026 00:40:11 +0000
-Message-ID: <95af665973144da2b527b9d6d445a6ca@realtek.com>
-References: <20260912193939.5565-1-skokovmaksimevg@gmail.com>
-In-Reply-To: <20260912193939.5565-1-skokovmaksimevg@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iC5kDXpF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C76A1F000FF;
+	Tue, 15 Sep 2026 00:41:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789432869;
+	bh=WnJW95C/FQdbC/1Nhd3fC5Apx9LohoamAjfu83Z2vKI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=iC5kDXpF7FSNKEGIucSGJXbzrQtAzcbdTq8OkN42AdmBldGlvkSVe4sMt0AxylQwf
+	 Z6sn9rVJFWAAOaYrKSA7z1XWnW8VQCxgl3OZ6KjWdjweaN+xGHWqAnvyBXM9EQwAF9
+	 UzVpxAcz83i/tWo9ryfJty/yEp9C8f2+d7UvpE7wMvi6ThqKEkV/KxJBeG0nlAMndj
+	 fCesVote0I/bxesIkyRH9UnRIIdoIzKtwQZctMvVzpFvJzkr8rFvIbwrba8dCNY+9g
+	 HUbHBgSbFnJDgN1jQybdKunyHdDSy+IbfPOHnM5CsgWElhGgEQKp2Zc5QOGH3/Whuy
+	 sOZDZ3weumGXw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568613924FFC;
+	Tue, 15 Sep 2026 00:40:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] net: phy: dp83867: restore LED configuration after
+ a
+ soft reset
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178943280413.1286519.754745669721308122.git-patchwork-notify@kernel.org>
+Date: Tue, 15 Sep 2026 00:40:04 +0000
+References: <20260908235740.120112-1-donggeunyoo.kernel@gmail.com>
+In-Reply-To: <20260908235740.120112-1-donggeunyoo.kernel@gmail.com>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, alexander.stein@ew.tq-group.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Maxim Skokov <skokovmaksimevg@gmail.com> wrote:
->=20
-> but rtw89_fw_feat_list only carries
->=20
->         __CFG_FW_FEAT(RTL8852A, lt, 0, 13, 37, 0, NO_WOW_CPU_IO_RX),
->         __CFG_FW_FEAT(RTL8852B, lt, 0, 29, 30, 0, NO_WOW_CPU_IO_RX),
->=20
-> and nothing for RTL8851B.
+Hello:
 
-I'll send a patch to add this:
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-__CFG_FW_FEAT(RTL8851B, lt, 0, 29, 57, 0, NO_WOW_CPU_IO_RX),
+On Wed,  9 Sep 2026 08:57:40 +0900 you wrote:
+> The LED configuration lives in LEDCR1 (the per-LED function nibble) and
+> LEDCR2 (per-LED driver enable/value and polarity). The driver programs it
+> through the LED class callbacks -- dp83867_led_brightness_set(),
+> dp83867_led_hw_control_set() and dp83867_led_polarity_set() -- either once
+> from device tree at probe, or at runtime from sysfs and the netdev trigger.
+> 
+> dp83867_phy_reset(), the .soft_reset callback, issues a global software
+> reset (CTRL SW_RESET), which the datasheet defines as resetting all
+> registers, including the extended registers, to their defaults.
+> phy_init_hw() runs .soft_reset before .config_init on every attach and
+> resume -- phy_attach_direct(), mdio_bus_phy_resume() and MAC drivers -- so
+> the LED configuration is wiped from the first attach onward and never
+> restored. A device-tree polarity is lost, a manually driven LED goes dark,
+> and an LED offloaded to the netdev trigger whose link stays down after a
+> resume keeps the reset-default function until the next link event.
+> 
+> [...]
 
->=20
-> One unrelated note from the same trace: "Unknown wakeup reason 0" is not
-> a failed AoAC read. AOAC_RPT_1 and AOAC_RPT_2 both succeed, and
-> rtw89_wow_show_wakeup_reason() reads the reason straight from
-> wow_reason_reg, which holds 0 because the card was not the wake source
-> here, the RTC alarm was. The switch has no case for that and falls
-> through to the warning.
+Here is the summary with links:
+  - [net,v2] net: phy: dp83867: restore LED configuration after a soft reset
+    https://git.kernel.org/netdev/net-next/c/043777e94880
 
-I'll check this internally if it is possible to avoid the "reason 0"=20
-message.=20
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
