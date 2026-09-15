@@ -1,102 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCB14B0CA3;
-	Tue, 15 Sep 2026 16:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 125DB4AEBDA
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789491124; cv=none; b=Ly4TLVMDSFYYs9yrDhU9KQ51aLTMddB1lKyWFlWEGQ5jh5W/HueSwA2hjw1pDUcjkhpx2Tbap0F8zsKB4PCjNLdnffVOQhkyGudF98iwieg1rOKrdEsUyNMkDadG5dyGHByQzB7yQGTGGp8vuaabsFVAub8cUwt0rNZR44OthdM=
+	t=1789491130; cv=none; b=CrGm0Q2jQdzS1T6y0vYZwIDrEYxm9ENQfztKHLI0/MDJSuVy7fScJL94ckyAQpV7hRKH6cALZhQisGpaLu9cWBmz4EJ93oyCiPM/J6gXpR/5o/xIgM/843vFTMDfVApwgVWZ+CmVisOk8rilrOKhqySqPU8egZb8OsD8cPZdtEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789491124; c=relaxed/simple;
-	bh=/UR+2Iq7w8FYlaxEN7+1nLp8xgJdzaPnKXZV2EHPGQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mY4EQ76IUyXMU79wM65+X9nnF6Pdmp+cqEE7KUugv6vDBDnToIU7Y+zH5f+2s5xfKLZDcmojObf6DZu7JXwDWktoTINZ1vWy/xhFiSWD3SfsiQ5ERy0CQc31iXChBXkZB6STM7h2BR4hXGpCHojvdhQH8tlDb86391W5Ei4sLs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I2gPH+LF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789491130; c=relaxed/simple;
+	bh=J+W8jzUN9Nr4o39KHusBPRBAUepoUVjLuBu5Yy8yLeM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=uJ+ZZl9gh87v6wPAP0uCVQ7sc5KGaN2xI2SAoBA2mSRlt/ssQt+vquUvU6MBIKTk4OC5A9REPAjFNjO6IbsM24VrT+wM63xvdkrhc2Xsi/Nx6EBnBMzAEYQGByY9fbRnJckK5wo3J1oG0WssSyac6gCOPSO9P8LP9eQsKpYs3zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ztDWLvYg; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I2gPH+LF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 050291F00893;
-	Tue, 15 Sep 2026 16:52:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789491122;
-	bh=AAegg1HqQc2zlyPsCFndE7BU31mvGmt6H10k5+2dIJY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I2gPH+LFzLYZALBDt0ClbZdP2ilKcDCHRUfiBdPm3idQOsDqpB7q84aLX1rNrpsIi
-	 wqf4NIRZrAMGKEqi89jARH+zbeojQb+KDUw89DWC124dgGma0vkuOyh7VKF0jaex++
-	 b57xMMAACGyAnBWTbpAotn+pMoUc4jo98m/cRL6VnMgiAuTr01RxuVn3RxfhUqUF2V
-	 HDTTUD4Q37fkbMXjP61re8NqNAxmKlEzdXEOYIYEP0ixfcH/BkcKa66oKfC9x6HBgf
-	 1HGcQYQ/iY9/7C56XCgwfGL8/S8XFNbJezbtToRJkfqoCvtrHQsII7a2j185CneqPi
-	 WT5WUhI+hl6tw==
-Date: Tue, 15 Sep 2026 09:52:01 -0700
-From: Kees Cook <kees@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 20/21] kbuild: build rust crates in parallel with the
- rest of the build
-Message-ID: <202609150951.73C4F16EFB@keescook>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-20-39817ec5db23@kernel.org>
- <202609141133.7CA979C89@keescook>
- <aqkv9SqIdh0qKPFc@gremlin>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ztDWLvYg"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id A71B2C5CD53;
+	Tue, 15 Sep 2026 16:52:49 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 024C7602B0;
+	Tue, 15 Sep 2026 16:52:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AC5D711C7AFE9;
+	Tue, 15 Sep 2026 18:51:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789491119; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=J+W8jzUN9Nr4o39KHusBPRBAUepoUVjLuBu5Yy8yLeM=;
+	b=ztDWLvYgvZDO6Q/PM5ZMPZFmmQ6qzwP0+voZl57rf+NwnScvs96wJoeW/LpJJziSuQyN+H
+	xwB9A2e9BnlDTrQb2LO4ARd9cHDH4SB+R1ufzxeltVj9SuKsHRTtGhRj8NXYs+Mj22BGIi
+	lTwczkyi44rEUMIUuKqGCqhhgY/RGCyXPwiGLyKBPHl2ICnwTorL0/n7ZiEeBvjL/XHk++
+	0TVj6o3V38psNtbQ7v2UjYzvOcLcB8wAZeaEmqkU9gpL+sf+v3gyY5ymXMOC+KkUpd9ipH
+	W55kT1pOSM6FFQE2QyA6zDsDuxVDIUK4/es0tZsRC4YmHOxHN59A1peoDI94nQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqkv9SqIdh0qKPFc@gremlin>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 15 Sep 2026 18:51:47 +0200
+Message-Id: <DLG1NM1TYW5E.IEVBU2FZSJDD@bootlin.com>
+Subject: Re: [PATCH v4 0/9] drm/bridge: Kconfig: cleanup DRM_PANEL usage
+Cc: "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-mediatek@lists.infradead.org>, "Marek Szyprowski"
+ <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>, "Jagan Teki"
+ <jagan@amarulasolutions.com>, "Christopher Vollo"
+ <chris@renewoutreach.org>, "Sean Paul" <seanpaul@chromium.org>, "Vincent
+ Palatin" <vpalatin@chromium.org>, "Tony Lindgren" <tony@atomide.com>,
+ "Michael Walle" <mwalle@kernel.org>, "Vinay Simha BN" <simhavcs@gmail.com>,
+ "Maoyi Xie" <maoyixie.tju@gmail.com>, "Andy Yan" <andy.yan@rock-chips.com>,
+ "Andrey Gusakov" <andrey.gusakov@cogentembedded.com>, "Tomi Valkeinen"
+ <tomi.valkeinen@ideasonboard.com>, "Peter Ujfalusi"
+ <peter.ujfalusi@ti.com>, "Svyatoslav Ryhel" <clamor95@gmail.com>, "Sam
+ Ravnborg" <sam@ravnborg.org>, <sashiko-bot@kernel.org>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Matthias Brugger"
+ <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
+ <angelogioacchino.delregno@collabora.com>, "Andrey Gusakov"
+ <andrey.gusakov@cogentembedded.com>, "Andy Yan" <andy.yan@rock-chips.com>,
+ "Christopher Vollo" <chris@renewoutreach.org>, "Jagan Teki"
+ <jagan@amarulasolutions.com>, "Maoyi Xie" <maoyixie.tju@gmail.com>, "Marek
+ Szyprowski" <m.szyprowski@samsung.com>, "Marek Vasut" <marex@denx.de>,
+ "Michael Walle" <mwalle@kernel.org>, "Peter Ujfalusi"
+ <peter.ujfalusi@ti.com>, "Sam Ravnborg" <sam@ravnborg.org>, "Sean Paul"
+ <seanpaul@chromium.org>, "Svyatoslav Ryhel" <clamor95@gmail.com>, "Tomi
+ Valkeinen" <tomi.valkeinen@ideasonboard.com>, "Tony Lindgren"
+ <tony@atomide.com>, "Vinay Simha BN" <simhavcs@gmail.com>, "Vincent
+ Palatin" <vpalatin@chromium.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
+In-Reply-To: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Sep 15, 2026 at 12:58:10PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Since this _still_ gives you a significant speed up on bigger boxes, I think
-> it's fine as-is.
-> 
-> The LLM says a fix for this would need significant work - a cross-instance lock
-> and an on-demand rust/ build. So I think best as a follow-up?
+Hello Andrey, Andy, Christopher, Jagan, Maoyi, Marek, Marek, Michael,
+Peter, Sam, Sean, Svyatoslav, Tomi, Tony, Vinay, Vincent,
 
-Sure! And I defer to the Rust folks on all of this. I just wanted to
-note the possibly unintended behavioral change there. Thanks for
-examining it!
+On Tue Sep 15, 2026 at 6:46 PM CEST, Luca Ceresoli wrote:
+> As a cleanup in preparation for making every drm_panel embed a drm_bridge=
+,
+> fix missing or unnecessary usage of DRM_PANEL and DRM_PANEL_BRIDGE in
+> drivers/gpu/drm/bridge/Kconfig.
 
--- 
-Kees Cook
+these patches are trivial oneliners and other work depends on them, but
+cannot be applied as they have no reviews so far.
+
+I'd appreciate if you could find a moment to review those you are in Cc as
+maintainers, reviewers or recent contributors (and other patches in the
+series you might find interesting).
+
+Being just Kconfig changes, there should be no runtime regressions, only
+build failures in the worst case.
+
+Thank you in advance for your time.
+
+Kind regards,
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
