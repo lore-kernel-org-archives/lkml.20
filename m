@@ -1,179 +1,142 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E6E49E15E
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:56:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634CA480979
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:58:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484213; cv=none; b=ZOkLNQvQWO74qrvg0msg/1zsJCHS8JHzvrGebwiQixu7eL4dXvGqh7M5JVEZjx5LcE0QMA8geBPdogJE8vsIpRjmhqwwAaq9MriBHyZTsdocc6cEwhQ8D20h03A2ERdnS2vbo+72mTInCDVetEYem8XnTe+f+5HxYj2rgKuZ1gg=
+	t=1789484297; cv=none; b=Wz+khjDJOi4RLMVdE02JIZdDU2pv74WKRJqHBgODrE0bYmIT/oxkCEjzxU9SNuohG+xwjyh394I26X4hKPmM6xJxYG/yj5sD1qwdlW0kQhiKHtAWyZlcDbIOf03S3TQgteXaw4VnBNOddvKbcDwDxnHOJIG/00s6qAmozVOZlPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484213; c=relaxed/simple;
-	bh=CnwVAcawuCeqwVLcw+UXgd0jligul/1PYTWtAo4b2W0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tgV/ECVlWYzhSiiLLCYBGTiGUDHOQNdmFdpGzepJ3byQqSrhXjU7GIAUCAJGX1rcTIx/zCu1AIWF3oIIzRLmO7GREvKOofrjdodXU2GRr+gkJhxT113aqRZPygRp2Fwa2ndqJx4IdLKh6vXrxZXZqUULrzTVX8OERy4Yg8g+bBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mEAMLcqT; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1789484297; c=relaxed/simple;
+	bh=vH2fPTiig9KsoIpPmpgVTVeRLyxg2yaHTKlPirDTq0Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FT0Ah5tpaH6SFweH3WlWWv7iogwCVCffZNWVrVv781oWP3A0seDMebv6mn4f1H2/zBySOjpSlvFNqs+6/GlSGYTUbqbDqHRGIEbA2jhfIxU6z+rW7kkz9aSGZsphumei3RSacQi5xRS5QUoEM+SuIGZiOxbctEnoq33MI9WE134=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z8DoEr63; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mEAMLcqT"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a990so2946972a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:56:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z8DoEr63"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eb79f7so23113535ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:58:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789484211; x=1790089011; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ms0aUWaGGxumCyZnOZqDHnktR7rW8QHDwRgjlV4BpjA=;
-        b=mEAMLcqTpyExtBg60nmC242wyNEN8KmCOmJ/u4LEwWyllJK8SSG/ja7wtmujqDiNRJ
-         MKKcDuCDry2PJHxXlG9lXIcLzGQpA2JZ2Qfou3rNypLzYVhwPYIxH/SCKvalu3QZJgrv
-         r5UMQrNSGP6RBwsqU1fnEVps3OEOC7JCOd2aIFuBiRSgyrDLRVqQJfdmhPOBaCnQtwpx
-         qdCD8AD2sXsLX+vWNt31HVukuDne4/NdMQBBLEmnMbyF3yMYuz6O/b/Z8WmmqpTUd3DD
-         aA6rVwaHIc8Kdg25O6x+cJ4lz05EBfvy6vPTwHuC7IMS9TnTq1gphImQpqko5ZyM1t5W
-         DGKg==
+        d=gmail.com; s=20251104; t=1789484296; x=1790089096; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xf41xLZ5GsOR+GrBw+a2u7qUxMBmodQqHK6uS4KMUCA=;
+        b=Z8DoEr63CZx4BjisG2cNi/X4f/pAScvrZoCMzNpFAJdq/+f9NHNosBv9i6oGYmtV0g
+         JbGCLkstJskGCdDFEa+xdadyeLKUO175Xxgrnu9jGMynHIRF6QR8+LQE5ty4rHRleqNP
+         QpTTKLxRML477OEmUpv3bMRNuZ4Nkyi3bIVn8ZOH2mZCYLqZ12h/aFp1vNwp79lSQqgW
+         RrkMsWXujeSiL/o4RbbfFrap4BbqlytvxFtj49NmR1iK2zW/bOi+j8eaKXAjZ1FW+uG7
+         Zsnxke5IOPI0Lbinbj5o+/LYTAPwnvXZIjTUBCRLzCpdjACSHIRozAgThBVPYQ47WtH4
+         HkRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484211; x=1790089011;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ms0aUWaGGxumCyZnOZqDHnktR7rW8QHDwRgjlV4BpjA=;
-        b=k2w+sJQQnIQBCoLh5DMPvgAiG4vlCge8oNX35QW2EePO97COz2WTy6o/v41qPbbB3O
-         RVgW3HcoUjj//lCV8OOqfoRq/vddJsseFjS2EKllM8vtkvFljnHSBXogqWFLRwownPq6
-         M7eTG+8Mj0q143q/yxQq6CsR7m0E8rAzzuB0biCuoYzaRCPCJ4yY5MG+HkEpKEFRG+YI
-         fMeONfPoN0b/VIfmJ0YX541Ly3lVpZCNGtsh9CUWsiOuKA1O0P2Xz5kgwNRWu6YSmHAK
-         oGEVacKzojstAe9N91U5ctUUZFTSU4NyItrnCYFs7WPcRr27gF+nOqOhXS4nM0OKVRId
-         ZMmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzEm+bUXcW9c3n9e3k7xt8R97+I/Z9QnlTTewwdLVUATAD1Iharsk2UVtNuXq0kNyRM+kruHPWhfmnASjs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kL92eTVdAlt1CyzxI+hqwQ0dfd+V39KvbRdDqEXjPnCvEJ960X
-	Tlur/OugXrybEx2g767x9ZJE544aHAFB+EZ7yQ4CIfCI6zh3dT0nzfDU
-X-Gm-Gg: AYBFou1ljoMBgeh+PRRXkq2TTTZxBA2Rbr53THGSvg8pYZa0Sj4SuYP6yKdZcAkQs9Z
-	TpZ96wIz3DesJbuRf1muzk+xuDk9OVNQ3su9evi9WBJstdItnxzK/sgRNgP/n3GbPCcw8IcINhC
-	6Oprz3d9tcrGCjGsr/cjZtRsgiw2W7Ex6KcQV5exJszlB7N+fEiB5zrxZyWHe3vvBHGtbU9wXiA
-	sD4enClgIczg4dqpBo1whbcdTQD39rSk2SWMh6ALPz5cPJK1CChrPa6v2lWd1yXLL3O15njI47D
-	fF8vcxwEIjvE/JGB5WizDdiIB1+AgCtL+3qSuUbHJqoGKW9gBJebDFLbxFDSrb1uf26cZOdnfXo
-	cx37rXrC5l0qFusg33JpvIEK3gZcD9FxvX7NYjkuXycuXVQt1HATe+d75HUbC2ZHgOciA8Txz2K
-	fuCgW4Nqus1+nckEKk2lUF/NCq827HtBVwzrcnAjqkys6G2rICgCVW6RLDb0vlTYGFvLpYz4CgP
-	lSzwbyeGOiZYQ==
-X-Received: by 2002:a17:90b:164d:b0:398:9c00:29ec with SMTP id 98e67ed59e1d1-39dec0a8e92mr13326788a91.20.1789484210723;
-        Tue, 15 Sep 2026 07:56:50 -0700 (PDT)
-Received: from ubuntu.. ([49.205.34.70])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39dfd9c557asm5857473a91.2.2026.09.15.07.56.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:56:50 -0700 (PDT)
-From: Ajith Parappalliyalil Venugopal <ajithpv.linux@gmail.com>
-To: tung.quang.nguyen@est.tech,
-	jmaloy@redhat.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Ajith Parappalliyalil Venugopal <ajithpv.linux@gmail.com>
-Subject: [PATCH net-next v6] tipc: replace deprecated strcpy with strscpy in tipc_bearer_get_name()
-Date: Tue, 15 Sep 2026 14:56:41 +0000
-Message-ID: <20260915145641.2434403-1-ajithpv.linux@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1789484296; x=1790089096;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xf41xLZ5GsOR+GrBw+a2u7qUxMBmodQqHK6uS4KMUCA=;
+        b=xN6RLBi86Xz/Tl/ZaAr0z8shwYOmv4S4+2XUEnXtDLC3XHM7FHe26RqBlxMpxgZQnS
+         Zn4tpOV+YrtPdyLjAIsALblvJkw2+g8jJdx5EGmc/HrMd9ICppfC4Hp+9Tklh8HU0K69
+         NKCiQiEk0Rs/YmfnymDw6eq13FdDLmrV/LeGtmQv5AV1KuqPyVgUpXdv0JYmoKvFd9pR
+         nx06JcVMijXwIwv6UG42Cle9ZG2SnVzjpIlHjQzt6I9R4H/Cw3c19rXtpCv37nQXyBYD
+         IRXWoB1hORAmHsgO3GiCn+U7W38IVv5na4jFu+vClFpVc5MMHGU96v6KeBQPwbvQ/HRr
+         jReg==
+X-Forwarded-Encrypted: i=1; AKwUvBzkcW6U6jOubwxzQ2zphUjFSfbDj/uqelzm77BAmIh30Y5MgKgOrhSl8RfZbhc05kyZc+4tZUM9OOhjQlw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kk5/cNs20NkGGlQXYf7yNcydGwiNovG6rXKm1s8IGSvIZqIKis
+	uJmX5WGdSJizPxhsCC3PFL22njV1fjuMgw7cyuHG2ouOKi9PpSGwbkXW
+X-Gm-Gg: AYBFou1IZ+NV53Ir2m2RqcL0bXVrbcYXcNZaVof7jyXQAdEjnKLpKEsiOiYBHk3ls2H
+	igv8Y33HyzcxdlypwUy7KVAsd9OfoQKTO70uVvuqhP6giEHuLakp3I8z/qYCdaRJVw6mkECN2b2
+	3OBdcZDnyJqXqxr4/vATu7HVoa2L3Nx4KUNgY2cLmrNnwAVH1kURDSRigPXh+Jgp8roQcEdEmAJ
+	yj5DiGECiDDn4yLAxI6CZDuR8bDeth87A2+JSBx3EYiIkchJ879hQ9CUypsEgo2m9bxb/kTCDRo
+	UNTEh+FYfgB0AwgBRN9YQ6yGfSPqSES7dpwfvhxfaZ1ULTs7vFZPkAfWAocphzIkdbYREviIC0x
+	lzknBSa5n2d2jtZXvZLXlHzRh4Yzsk0abZHATXbM3+4uLVZh8mBx7OdKCK2jZgDulERdQwcLigZ
+	TXhh0/wp+BRZ3H1WisbfPU7PuGiHWZ91dMZ/uNVUcTGLotLHaucjRH55y1py0Ezyf4NfEUwv6ue
+	i/7DWu6XYtpDghjam/J5zZjpibzCWmwxbbX9M73BS8Ck3d8
+X-Received: by 2002:a17:903:1b47:b0:2dd:7549:39d0 with SMTP id d9443c01a7336-2dd75493c43mr118047695ad.18.1789484295488;
+        Tue, 15 Sep 2026 07:58:15 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2ceb3bd7sm68613625ad.34.2026.09.15.07.58.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 07:58:14 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <70746c77-e113-4bc6-93b6-7ac6027c86a4@roeck-us.net>
+Date: Tue, 15 Sep 2026 07:58:13 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] hwmon: use named initializers for acpi_device_id
+To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>,
+ Luca Tettamanti <kronos.it@gmail.com>, Cosmo Chou <cosmo.chou@quantatw.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260915-acpi-hwmon-v2-1-39d17c748eb6@thegoodpenguin.co.uk>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260915-acpi-hwmon-v2-1-39d17c748eb6@thegoodpenguin.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The `strcpy()` function is deprecated and moving towards code-tree
-elimination. Replacing it with `strscpy()` fixes potential buffer
-overflow vectors by ensuring safe NULL-termination based on the
-destination buffer size limit [1][2].
+On 9/15/26 06:48, Pawel Zalewski wrote:
+> Use a designated initializer for the acpi_device_id fields which makes the
+> code more readable and consistent with how lists are initialized in the
+> rest of the kernel code base. Also drop explicitly setting fields to 0
+> where it is redundant.
+> 
+> Unify the list terminator to have a single space between the brackets and
+> no trailing comma.
+> 
 
-To make the interface safer and more robust for future callers, refactor
-`tipc_bearer_get_name()` to accept a destination buffer length parameter.
-Replace `strcpy()` with `strscpy()` and pass through any potential
-`-E2BIG` truncation error code up to the caller. Update the existing
-caller in `net/tipc/monitor.c` to pass its array size.
+It also replaces pointers to empty strings with NULL pointers,
+which is a functional change and still neither documented nor explained.
 
-Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strcpy [1]
-Link: https://github.com/KSPP/linux/issues/88 [2]
-
-Signed-off-by: Ajith Parappalliyalil Venugopal <ajithpv.linux@gmail.com>
----
-v6:
-  - Dropped the unnecessary `name_len` local variable in `__tipc_nl_add_monitor()` 
-    and passed `sizeof(bearer_name)` directly, as suggested by the maintainer.
-v5:
-  - Cleaned up implementation by removing extra `ret` variable as suggested.
-  - Wrapped long lines to fix checkpatch column-limit warning.
-v4:
-  - Avoid hard-coding TIPC_MAX_BEARER_NAME in the function body.
-  - Pass size_t len from the caller down to strscpy().
-  - Forward strscpy()'s -E2BIG error up through the existing int return type.
-  - Updated function documentation comment block.
-v3:
-  - Fix patch title as suggested by Tung Quang Nguyen.
-  - No code changes from v2.
-v2:
-  - Target net-next tree instead of standard net tree as requested by Tung Quang Nguyen.
-  - No code changes from v1.
-
- net/tipc/bearer.c  | 6 ++++--
- net/tipc/bearer.h  | 3 ++-
- net/tipc/monitor.c | 3 ++-
- 3 files changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/net/tipc/bearer.c b/net/tipc/bearer.c
-index 05dcd2f9e887..65fa18928fe3 100644
---- a/net/tipc/bearer.c
-+++ b/net/tipc/bearer.c
-@@ -195,9 +195,10 @@ struct tipc_bearer *tipc_bearer_find(struct net *net, const char *name)
- /*     tipc_bearer_get_name - get the bearer name from its id.
-  *     @net: network namespace
-  *     @name: a pointer to the buffer where the name will be stored.
-+ *     @len: size of the destination buffer
-  *     @bearer_id: the id to get the name from.
-  */
--int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id)
-+int tipc_bearer_get_name(struct net *net, char *name, size_t len, u32 bearer_id)
- {
- 	struct tipc_net *tn = tipc_net(net);
- 	struct tipc_bearer *b;
-@@ -209,7 +210,8 @@ int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id)
- 	if (!b)
- 		return -EINVAL;
- 
--	strcpy(name, b->name);
-+	if (strscpy(name, b->name, len) < 0)
-+		return -E2BIG;
- 	return 0;
- }
- 
-diff --git a/net/tipc/bearer.h b/net/tipc/bearer.h
-index 41eac1ee0c09..9ccc9ffa925a 100644
---- a/net/tipc/bearer.h
-+++ b/net/tipc/bearer.h
-@@ -226,7 +226,8 @@ int tipc_l2_send_msg(struct net *net, struct sk_buff *buf,
- void tipc_bearer_add_dest(struct net *net, u32 bearer_id, u32 dest);
- void tipc_bearer_remove_dest(struct net *net, u32 bearer_id, u32 dest);
- struct tipc_bearer *tipc_bearer_find(struct net *net, const char *name);
--int tipc_bearer_get_name(struct net *net, char *name, u32 bearer_id);
-+int tipc_bearer_get_name(struct net *net, char *name,
-+			 size_t len, u32 bearer_id);
- struct tipc_media *tipc_media_find(const char *name);
- int tipc_bearer_setup(void);
- void tipc_bearer_cleanup(void);
-diff --git a/net/tipc/monitor.c b/net/tipc/monitor.c
-index a94b9b36a700..f3e965c48472 100644
---- a/net/tipc/monitor.c
-+++ b/net/tipc/monitor.c
-@@ -833,7 +833,8 @@ int __tipc_nl_add_monitor(struct net *net, struct tipc_nl_msg *msg,
- 	void *hdr;
- 	int ret;
- 
--	ret = tipc_bearer_get_name(net, bearer_name, bearer_id);
-+	ret = tipc_bearer_get_name(net, bearer_name, sizeof(bearer_name),
-+				   bearer_id);
- 	if (ret || !mon)
- 		return 0;
- 
--- 
-2.43.0
+Guenter
 
