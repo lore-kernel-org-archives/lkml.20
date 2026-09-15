@@ -1,182 +1,103 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794B43F3264
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:26:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C821240802B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:27:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789450008; cv=none; b=tP4Xwi0LMEBqnsjn8OvSX/mi0FaLjDpyBGPHNvLS82BZuhb8RzKe1eufwuEmEbapIhnfWB442tDuatDAhYNC5VV8wAgoZcPjrdl7DtU01wUoihjt0ZUyUzb5OkMvWfbiapv3N2CEVpxAAUSjBOdNHsrZDw4a6l1MyvDpIP05kCw=
+	t=1789450032; cv=none; b=AV4+ohCnQzZCh7C3ZF+eyxO3oXqFm230l5bPfsZVFkDgLxSHeG0ay4WC6wQTH5yiyeWRoMBRVvvyIQEJJTk98d+YHzMNH9IaTUTnPc83NTFLrjfnlv0GXb767SnG8em8Z0B3nAgCCX8mA9OxAOabxfEJP0aiKGVIAvEAKproREA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789450008; c=relaxed/simple;
-	bh=vbzQq012R+ejKYv+RlREDKeINIqzcTFsS8nbpKDjfuY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XA/dvB331u65xDpQbfiG6OK9LcqtJ4DnKvZqlOvuUlKsWp4ULOjHPmtlM5ciBzDe6yKBu3Ypbe6DGyyX9cCbhGvSMdMajjop52yyB9uK+482y19T6CH5p/qsqUsed/kijOo+AcLxqr79bDbMyQzTjS4hyooHPF4dIugJZjZs7Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NLfBalj4; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789450032; c=relaxed/simple;
+	bh=A0PlotdD5k4zvvt0j9IgbEZSNlcGriK4gpHajOjK7UU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D89tc02IiROHPakFvNi28hH5qMV67Huy1vgpnyxzeRAtfl5nHvQ32o3X0En6KdK4R1T9cY4K5RnZUvJ1Lqi+jwTPd143+cfboct4gxYl4WBF6LfbIVvw0BpULVwjuEb38pDbqxAboEOKDtmgHx2yb6a00rvWF8ZHsRBljlKSsG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=hrozHNR9; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NLfBalj4"
-Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86e6d007703so1761731b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:26:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789450006; x=1790054806; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vbzQq012R+ejKYv+RlREDKeINIqzcTFsS8nbpKDjfuY=;
-        b=NLfBalj4BfZCD/b2o5nqg/+zSMQdl35l4ZYTEVeEgFOTeJGFYK/MUKRF6KjWnyn/25
-         LXFWz0VwTWveiXfFEqIxtujuxkkf4qvDBJhkvaSHxqpIUkFOb1yRrDEn7DcwU08wWqN8
-         IyWMUVCPUdQM9N6m4lumHcITDqddrtBZRHKUcE3IuU/K8q6tXA6SA2AyHQNoGIPex5ks
-         GtKsrr6T/lyw9Ov87Qbfa/Ki/2rmRxXUd5hEFlfjYT6pszaad7AITGaUGZQZMI1NaaAe
-         RiUNs7YwacO8qLbH1EZm/vwaQfFmLqeUZmEyPKzhBDR7aFFfQ3wYImY/ch31CtAOcTyW
-         h3OA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789450006; x=1790054806;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vbzQq012R+ejKYv+RlREDKeINIqzcTFsS8nbpKDjfuY=;
-        b=ntbiaISZghq+uN1ceNXft7bhojq/+RVzt6IoLmJEcfGs9PERsIvc+n+O0xbO4zJRAE
-         AuhnLP0b+dr8O7Leww3EsDxhQOY7uFGPLI9G5lP4M640PNQCSyMykpaIsphuHid0/fNp
-         trSHfvGC3rLslYsBhUyn1njkVtbb8js4g166Nn9MjWWumXYuwC9g/vVGdKaHzaM6SYcz
-         399Qn5tILfco4YJIxWZ5lS6t6uWVvXhp3oXfSHERIGkMoDFiVTB+bXTcIfr75ih85CpP
-         lqe5r8Pv3HpGkwkQ/YrJb2u4IeRHztR7GQRY+AKdjslASxbdV/fmax6apNFVKth2rhiO
-         yRZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy1sMJoX2i5Y6m3oacwXO+5ip/pHFtOl6qkK0pTryc6qlcqEzFHZlPx1nrf6z+aish8kizZzC2jomfIWKY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kN5c56E8t+xdwRo08L9+L+ch4K9iawI53y3hRcQUBX0ZSiAb7c
-	SLnGnsBiixXdxLopqIKVf2BU+FGSSQeaBKAvPWsILnDeFuRRxqNhMsjRMPFb7g==
-X-Gm-Gg: AYBFou1WXbPGdZIPqFdSs+9oFA2CRv4ruKE4xFpFNwegoM/Y1gy+M4BMVL32zNOIPEY
-	D5Yge/3pE2rXT+b+H4w+42E8l5+zjgCZUfaG49TW17O4PU/eMRZ8DX0dmwYqjkGXCc3856r5jnh
-	Sq4Eqte3XfZ+bsRpNSCk6DIQ2+J55cQSTztmGOgVqQrVFxwVYguuhNcnvyj+9+inIYrpuCKp8rt
-	7gD7sKCvNEqZktx43WXwXgmYBY2U9zXtmdy/xyXIL2iHtGNJKsFQCee1Nll6tG9CWsDxBodyi44
-	tM43/xe5pfCoCyIWjOJKfJwM/FfLqb2ThOCKjycXhHrJLSaYLkf/Nz/IPBJ259WR5NU8JIWVFen
-	SBM2RrBjinaeTRdPrZGgqmMKJGCfOeNpl2Wtv9xyqDUFiAASSCohOFJB1sj4qwttitqzAtWreoH
-	vJtLHX/g7HsGMXF4tgHE08fymx+ebkB/89b45UhSzUpwpLC/YRXGCJe864DYmyWWiJ4reo8rTW4
-	3i43sKLommMK+1UobQIbP3orWldJSNdWMIUBegfpmw/eHQhTaRavF4=
-X-Received: by 2002:a05:6a00:420c:b0:855:eb7b:5804 with SMTP id d2e1a72fcca58-86f8314fd92mr12578546b3a.4.1789450005819;
-        Mon, 14 Sep 2026 22:26:45 -0700 (PDT)
-Received: from [172.19.1.47] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b287c06d9sm5675699b3a.15.2026.09.14.22.26.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 22:26:45 -0700 (PDT)
-Message-ID: <b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com>
-Date: Tue, 15 Sep 2026 13:26:39 +0800
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="hrozHNR9"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9482D40E0173;
+	Tue, 15 Sep 2026 05:27:08 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id NJEJj1msCFG2; Tue, 15 Sep 2026 05:27:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789450023; bh=HKvxq+Jm0VlS/M6lbhcuyNDa0aYnnNuCZTGWrmh5kJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hrozHNR9PBjD1a2ru5GC60dfZdnUwMfS7jMZLilty/gPY0WAbaefo5To+XQxBpxPj
+	 U1rj8n0/pOYYhARENy6aREWflM3W3eG/WmN0RAQ1QMjEfA7RXk7wZwxGMGLjzykjCg
+	 4zazX0ZxGprOgPjSN49BICmFplN6q1pHdPRT8Lv3z0lyV3YM4NgXzndP9OoEsI96Nd
+	 QETLQZgfh59duUsjxuhbUc9mJBSVjypRinKeWQViOiO3g6KQcDIx3f2ghgHM6EZWq7
+	 6jHYxgaA6cNib6L3Bd0ShoMuXDfR/0vWhSf7qnoPi7T7cVZk8n/X+EGBk4grf/S0xK
+	 /uotGQZ1FML+DVaNWOpJ7kprEmqUTrPZ2BKeiW4JhTMuJKMlPboxsLsZJc4M8M1Jqu
+	 ZDdNCxUnndm6HA6urqVFy2mjw9gRMxRwES4ZuHmIBbAu9vD6f3XxPI4vjGGp24D5ia
+	 HLrnwdRDs96sTGfDjalAKwYUqWL5QpHY1pVetYTx/Xodsqqq1C2adPM8cCZOOjeanC
+	 E6gykAT1C9LiM14xOXTx93970kTYv8CG4qmGbIGHD/hw9Q3QPWUz6q23G3UEYCtPu3
+	 os7ivZBfp2YqyjGl93c9sbb0qHLDeTTBLLQT7Nt5U+/br8Gmg2pytPOhefIKbbrTuF
+	 LT0agOuvPqMBStJwpukqCInk=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id F340240E00B9;
+	Tue, 15 Sep 2026 05:26:48 +0000 (UTC)
+Date: Mon, 14 Sep 2026 22:26:46 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Mauricio Faria de Oliveira <mfo@igalia.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
+	Alexey Dobriyan <adobriyan@gmail.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Jan Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
+	kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v9 5/5] x86/pvh: fix unbootable VMs by really inlining
+ memset() in xen_prepare_pvh()
+Message-ID: <20260915052646.GIaqjXFkXBkWfvt3tP@fat_crate.local>
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
+ <20260822-pvh-kasan-inline-v9-5-e70ef3b75b6a@igalia.com>
+ <20260911043947.GIaqOGE9DFCHWwc6Ys@fat_crate.local>
+ <bdd7ad774e121d5621ad64f9c7147e45@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
- Jacky Huang <ychuang3@nuvoton.com>
-Cc: Shan-Chun Hung <schung@nuvoton.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Richard Cochran <richardcochran@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, stable@vger.kernel.org
-References: <20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com>
- <87o6e0nfe4.fsf@bootlin.com>
-Content-Language: en-US
-From: Jacky Huang <ychuang570808@gmail.com>
-In-Reply-To: <87o6e0nfe4.fsf@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <bdd7ad774e121d5621ad64f9c7147e45@igalia.com>
 
->> The MA35D1 clock provider registers its muxes with parent data
->> structures filling .fw_name. This is not the ideal approach since that
->> would require a massive amount of internal clock names declaration in
->> the DT. Since the DT does not play the game of exposing all these names,
->> none of the parent lookups performed when instantiating the muxes
->> succeed. As a result, these muxes get registered as root clocks, leading
->> to a sadly flat clock tree and no frequency assigned to most of the
->> peripheral clocks:
-> Jacky, this is an actual fix which is a month old now, the SPI
-> controller (and maybe other blocks as well) does not work without this
-> patch. Would you mind giving this a bit of feedback?
->
+On Mon, Sep 14, 2026 at 08:40:38AM -0300, Mauricio Faria de Oliveira wrote:
+> Due to scope and review purposes (4/5 is more generic, 5/5 is specific
+> to PVH). If there's a strong preference to combine these, please just
+> let me know.
 
-Hi Miquel,
+But they sound like they're fixing the same thing:
 
-Thanks for working on this clock parent conversion and for testing the
-MA35D1 hardware.
+"vmlinux no longer boots with CONFIG_PVH if CONFIG_KASAN_GENERIC is set."
 
-While reviewing the conversion against the existing clk_parent_data
-tables and section 6.5 of the MA35D1 TRM, I noticed an existing issue in
-the WDT/WWDT clock definitions.
+and this one's commit message:
 
-The original driver contains valid parent names:
+"This particular one (still) generated the inline implementation as expected
+(at least in these compiler versions)"
 
-     "pclk3_div4096"
-     "pclk4_div4096"
+sounds like it is referring to the previous patch. Or I don't know what you
+mean with "these compiler versions"?
 
-For example:
+Bottom line: if someone needs to apply both to fix unbootable PVH VMs due to
+mis-inlining of the compiler, then someone can simply apply one and be done
+with it.
 
-     static const struct clk_parent_data wdt1_sel_clks[] = {
-             { .index = -1, },
-             { .fw_name = "lxt", },
-             { .fw_name = "pclk3_div4096", },
-             { .fw_name = "lirc", },
-     };
+Thx.
 
-The TRM lists PCLK3/4096 and PCLK4/4096 as valid selectable parent
-clocks for the WDT/WWDT blocks.
+-- 
+Regards/Gruss,
+    Boris.
 
-However, the new conversion changes these entries to -1:
-
-     static const int wdt1_parent_idx[] = {
-             -1, LXT, -1, LIRC
-     };
-
-This loses a valid hardware parent. I understand that the current
-driver does not register corresponding clocks, so this is an existing
-driver issue that became visible during this conversion.
-
-Would it be possible to cover this in the series? One possible
-implementation would be to add a preparatory patch that registers these
-fixed-factor clocks before converting the WDT/WWDT parent tables:
-
-     hws[PCLK3_DIV4096] =
-             ma35d1_clk_fixed_factor(dev, "pclk3_div4096",
-                                     "pclk3", 1, 4096);
-
-     hws[PCLK4_DIV4096] =
-             ma35d1_clk_fixed_factor(dev, "pclk4_div4096",
-                                     "pclk4", 1, 4096);
-
-The corresponding clock IDs should be appended to
-include/dt-bindings/clock/nuvoton,ma35d1-clk.h without renumbering any
-existing IDs, for example:
-
-     #define PCLK3_DIV4096  236
-     #define PCLK4_DIV4096  237
-     #define CLK_MAX_IDX   238
-
-The WDT/WWDT parent tables could then preserve the original mappings,
-for example:
-
-     static const int wdt1_parent_idx[] = {
-             -1, LXT, PCLK3_DIV4096, LIRC
-     };
-
-This could be submitted as patch 1/2, with the parent conversion as
-patch 2/2, although please use your judgement on the final patch
-organisation.
-
-The other parent_idx definitions and their ordering match the existing
-clock parent tables.
-I have also tested this version on an MA35D1 board, and the clock
-parent conversion appears to work correctly for the peripherals I
-tested.
-
-Thanks again for working on this.
-
-Best regards,
-Jacky Huang
-
+https://people.kernel.org/tglx/notes-about-netiquette
