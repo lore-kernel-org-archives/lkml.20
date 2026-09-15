@@ -1,112 +1,121 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4173C4554
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:54:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBED641D4F3
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:54:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480445; cv=none; b=CzLcryW+f0SRkSJxZOHW4V12xCzU4/FhXQE/5NR4O/Z67eo1c6TJ4MjFdioxPMXqRUaG9AUL9YvT5kvrsUYfkBIJSWzViI/q9Xai+DCie6xkSci0zCyxCeHqw8Jp/ts4EVQroCB9b/R9TF6wUFWgcfoTUGknA1ZyMVFbZ47YZuM=
+	t=1789480461; cv=none; b=uLHJLr0+0D1qdx8WzssT42Mh3zzFKY4UDA2RmanNCMvmnFBdYmTPllymw4nLHRoDtMn7iLQUxUOmhyVk/Cs+drgrHa666MnxxSxy0s/B+eaRdkIF81KJmmkkRGPzujJTjZ6KM+/OsbzX35EkcWBBDkbbeetXWN4psfxMPyejTEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480445; c=relaxed/simple;
-	bh=ZPy0MYfemx91GQNlEr2gCQvz8mUG8eRkhPLLNC+7LNE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FHJlMMNL+UeZiBba69ZjPAEM0BC/tt81BCLNdGDtHKZjkvQFvU0HFjX/k/O0oZtKBEsfjKwJjzuKGLWN8KUwB/KytsSCgilMxepvL91ICYEPEU1BS8bhUPepAXU30PlNfe9m20UadBTwu2yhSTWFwEQzcHwUs+V7ukQTotiSvAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kMNDUciz; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789480461; c=relaxed/simple;
+	bh=Ag5tfz00fBg6YXo3im7agg0lkNAqHNZutLBmML/rBjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JltK61Lgec9HRsmajtb2f9NxPgTteQ5CEaDh009V9c1liKSjhRFMbA77RhamZk7lkV7jZ2xBLzNLxEH4zj5+xTid99SISAU/3AccEGXu174wepdyZTNETx6ELMPEZooBV19U/CxhI4VBt/5GwvLOxSPBCfP9eb0wqfuvr6YpcOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H0mwRs89; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kMNDUciz"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff23d81cso3830955ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:54:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H0mwRs89"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so43743605ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:54:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789480443; x=1790085243; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CNZydljm1VGomtR27o8PI9pWGF1nMXphYRYTsDo2lS4=;
-        b=kMNDUcizv8BOzXFp9YJlY9/PmhTypN0sks0kG85oAlGBjRyX8icsoFPO+o4g1RFFxl
-         b+uVNUzLru1++CIAWL0HOtKxiBCLXWKFvLXB8PiQJQDpHYhNrseL6MIki8yk7IeRQ1zz
-         Dcp574WuTP7ERQpddrbhWUHUvskmWzmUcttOSpcOVAeNrVLVMOtt4Z5Jgs2Ym8xsMvrW
-         0LyqvhBBIRQEgj32vrKdeNqy0JMmtNWOdyJ3fHlWxeQ9DIc+hVh2GibZqfmxDIP9/ihI
-         yyI25sEVLIJnN79SSTAPwIn3rm6UV7LjdX5s6ecY66w06TMP8/7in9Gv/96Ei9SiVjx0
-         KXHg==
+        d=gmail.com; s=20251104; t=1789480459; x=1790085259; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=whXzJHNF2cPXx+i5FgzKhan4wYJW9EK7frxKYSb7wNI=;
+        b=H0mwRs89+UPb/DZtvXtW8tJ20Ms+Ff2SLVKSuZT+nARB6Ady+AbKw5jJno08CkCoKz
+         YzPdklCHVLFOWbKc8Mucu7fCEGzR+RcfikB6msm9o5MP1gtuw+3J0//uPLTXlMPmgCIT
+         LeqdVVvUrvHH81iyaMwADOZizOjW8ddC4QrN0UEpNg4TJ2bToX75cHcdycb8L3pvas3M
+         V1eF3OwY3ykCg7nLieG2uaHDq5b8OcYW5nNaIDb01fUP0t2X7by+SVwNUUD+cF3et6io
+         tjzFL4CYZkOGYAHSFXcLQAVood0pF87e2j6+OvcwoHP8Xt21ihO4sy5ATv34hh8h9mFU
+         qCDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789480443; x=1790085243;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CNZydljm1VGomtR27o8PI9pWGF1nMXphYRYTsDo2lS4=;
-        b=dDtRguG+lnrULTAL2qDYbTuB05qRz9qZFbDcFctHVdQCrxs7aiuZhW0Pcw41Nd2RSG
-         xA2TYPzt5M6gcyEIeen4irP8IDMOacFW7qjcXTOP9zy26YeKEOdffodS0F2zvGv2E3HV
-         /nSyGfwuMQ06WEpIONCtpN4HQh95UpgDCFT09q5AkZwuqj5Etl92J9jNK1Q1bXAxAqoT
-         fwhdOqvhRD3REII4WBXGJMFFLT97gc6epFKhyDeUhTkCQrf17claiH0Fp436unWWBnfj
-         EI3J/hZMLVU9mFVYP/3r6Kho6D0vBipSrSpe0h1IGj7qmr8oi1mXLZzGLz9OJb8ib7Bl
-         hnuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzRQI38J87d7kz+SU8Bg2+hz7+5u9HBwNR3EYGyXNDQ8oAApnZRXsB0cnsjECWl34beSfI5FQHKUr59po=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhjW+lgW6m9CsaISMAk/Epp2RMKAkab0O22r6DGVgtC/PLCIT4
-	K/SjIZ9BOhmc49p9Eq+26T43tUU+UGbAIVT1o1pxBEz6Hv3QWjXuP1B0
-X-Gm-Gg: AYBFou3k1tgVkyaAvm6TmlMAsouAaO1fNrSUwHyGTF4d106do5oGvEpw00rcc93Zx/z
-	ufBJKCMXlvfiyiKr+4AEN0i7lHRSY2J7/+YeLh/duH+PoeLXUJnRWJIcEmOH9z6ZJ/d7qEQONzy
-	KSlcspXBRw6wH7OiMYA+F8o1tvfGgp3aFlGzd3P4YMfY4qFXUtROOQ0gSFb1FXjpQMYdBscEiPr
-	hjJJlUqOp7NNRF9zDx26gjeSkXo+zywQxCHY5YAHfbFtvOoPya9v0xbhwHICKpXr4Cb46G8PA+/
-	SpSRtaUSHA2jBl91TK505LTsxYu2sB0cf9CW7cqFwzuDIeLtVwB392NynYmPs2UDRfjBIr5BpvT
-	aTDGEyCxfEADH5n1euF1ZfrKeQDj8175FNKBOSz7h+r3/3BBzxqPXXOJ+JQbJ0+144EsvoDoLlk
-	URg+35moFVH+a9HAcuWNtQUqMCCpKfxQZMhtyOUTI+8HIC+XjhNDYByaOsZs8q6BEoCpzlIw==
-X-Received: by 2002:a17:903:b0e:b0:2d6:3c1a:85ef with SMTP id d9443c01a7336-2dd6c848391mr104355525ad.4.1789480443559;
-        Tue, 15 Sep 2026 06:54:03 -0700 (PDT)
-Received: from elitemini ([2400:4050:d860:9700:75bf:9e2e:8ac9:3001])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd6f120c5dsm28157935ad.57.2026.09.15.06.54.00
+        d=1e100.net; s=20260707; t=1789480459; x=1790085259;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=whXzJHNF2cPXx+i5FgzKhan4wYJW9EK7frxKYSb7wNI=;
+        b=n9ZNh47mp4nzgL2PBYzw+Me6JAvolE+lJ6ejD86i1ayk5aIyiOXp4up35iNZMDLk4p
+         CEuDoSWDRZfxkMWTxspCuoukeX4ikEd1WEKsuRa2niVIoJ6OulKaCeX86FZWXOlpgtIN
+         vUZR3/KjuY/aSc1+UcloiUDkK5d9ivVYmXCYmx+FTgSl+v4S5xI3xmylh6eahQm+OjQZ
+         1AhWq2TJIgkK6u3sp1YdlcZSyEFkYZKHyr+eZLGwvAoVfauBKQLufyR1peSEg+fgbuyW
+         nI4zzlCyq4dwaPBHXzdJHEzfl00XrnJ8qBOENPjWnn28eggn6g0EfTyGof7dfiQ4WIPh
+         qKEw==
+X-Forwarded-Encrypted: i=1; AKwUvBw+LN3pTqAe0LvqAaQkRwozhz0BoOonZahbgiW5yOyBZF9XIBp/SaCHw1PKZDzZUi0eI+AbMYksixWxT24=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUI2fXoUMO7vSKupfsfAoVROG7gZY/ROzlTDjITiMNoW4hzmjL
+	eZT0wdvfYmfiPHoL2xRgTtBi71D6a9MSYpSQFKVodNpiAXzzg4jnzLrh
+X-Gm-Gg: AYBFou0/wG/qcuL1GXxNvs1P7A+y71YgvKiwsr3bEfxGif8vHfZmCl3dQQwP7ZR2h8j
+	P2iBHZ/N4CzCsBA6SPQCPW1t2YL6dZhUOqJabt6IHzxizZcyNuqEtBsgvBg85e/yYRVkkUVOSkS
+	t0twpt0ipjYdQCGofHCuMqJ4fSBrScDEfSPhyLwWr9kW11GgPYWp3jWvG/kf5YdJ3O+U50qxAvE
+	RyiHkY6oyw1lbUqAv+JXuPltPXsnZ0kLXXTZezB/rMsMOSa/FcWwU2dga0yjc72fRmg9C19vLOZ
+	BRcB4oVTAsM+KwLHiCwwKd3EhQPz07r/thBsIsXcrKRuadUp+Bge3wY8WuStKrhrQbvryq3w7ap
+	PCt3029OEkpu3Ou16jo/6jqH+isRtJ8FNuXJQ12M5J67M4mL5tXkNHKeEiURUJlkH0t8/DY3eug
+	dZMJ47gOcapZnAFs1LZKtSd1Pf4yrJYrS9kljuM9rYY8I1gd55JvOryvQ=
+X-Received: by 2002:a17:90b:39ac:b0:39e:261:4e0d with SMTP id 98e67ed59e1d1-39e026159e9mr5815662a91.25.1789480458971;
+        Tue, 15 Sep 2026 06:54:18 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd0ba9bsm5533757a91.7.2026.09.15.06.54.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 06:54:02 -0700 (PDT)
-Date: Tue, 15 Sep 2026 22:53:58 +0900
-From: Masaharu Noguchi <nogunix@gmail.com>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Akira Yokosawa <akiyks@gmail.com>, Chen Miao <chenmiao.ku@gmail.com>, 
-	Bagas Sanjaya <bagasdotme@gmail.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v2] docs: sphinx-pre-install: warn about unsupported
- Docutils versions
-Message-ID: <aqlNvld2LINsWSSe@elitemini>
-References: <20260914-docs-sphinx-pre-install-docutils-v2-1-6a2a6deedd19@gmail.com>
- <b5df5eee-661e-4f46-9abf-1bd9cec8069d@gmail.com>
- <20260915101638.76e3bf1c@foz.lan>
+        Tue, 15 Sep 2026 06:54:18 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Jacopo Mondi <jacopo@jmondi.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: renesas: ceu: free device data if video device is unregistered
+Date: Tue, 15 Sep 2026 21:54:06 +0800
+Message-ID: <20260915135406.2423337-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915101638.76e3bf1c@foz.lan>
+Content-Transfer-Encoding: 8bit
 
-Hi Mauro,
+ceu_probe() allocates ceudev, while ceu_remove() does not free it if the
+video device has not been registered.
 
-On Tue, 15 Sep 2026 10:16:38 +0200, Mauro Carvalho Chehab wrote:
-> Fedora 44 EOL is still in at least 7 months from now (e.g. when Fedora
-> 46 will be launched), so, it could still be worth.
+The video device is registered from the async notifier complete
+callback, and its release callback is responsible for freeing ceudev.
+If the device is removed before the notifier completes, or before video
+device registration succeeds, video_unregister_device() does not invoke
+the release callback and the ceudev allocation is leaked.
 
-Thank you.  And it is not only Fedora: Akira pointed at Ubuntu 26.04 LTS,
-which holds up -- it ships Sphinx 8.2.3 with Docutils 0.22.4, and its
-python3-sphinx depends on "python3-docutils (>= 0.20)" with no upper bound
-at all.  Both fail identically here, and an LTS carries this a good deal
-further than seven months.
+Check whether the video device was registered during remove. Unregister
+it normally when registered so that its release callback handles the
+final free, otherwise free ceudev directly.
 
-> Indeed it sounds a better approach on my eyes.
+This issue was found by manual code inspection.
 
-Taken -- v3 moves the check into tools/lib/python/kdoc/docutils_version.py
-and calls it from sphinx-build-wrapper next to LatexFontChecker, only
-once a PDF build has failed.  sphinx-pre-install is left untouched, which
-also drops the overlap with Chen Miao's series.
+Fixes: 32e5a70dc8f4 ("media: platform: Add Renesas CEU driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/platform/renesas/renesas-ceu.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> On a separate but related issue, has anyone tried to use rst2pdf
-> lately (https://github.com/rst2pdf/rst2pdf)?
+diff --git a/drivers/media/platform/renesas/renesas-ceu.c b/drivers/media/platform/renesas/renesas-ceu.c
+index 65f7659a9e02..5015b7837381 100644
+--- a/drivers/media/platform/renesas/renesas-ceu.c
++++ b/drivers/media/platform/renesas/renesas-ceu.c
+@@ -1705,7 +1705,10 @@ static void ceu_remove(struct platform_device *pdev)
+ 
+ 	v4l2_device_unregister(&ceudev->v4l2_dev);
+ 
+-	video_unregister_device(&ceudev->vdev);
++	if (video_is_registered(&ceudev->vdev))
++		video_unregister_device(&ceudev->vdev);
++	else
++		kfree(ceudev);
+ }
+ 
+ static const struct dev_pm_ops ceu_pm_ops = {
+-- 
+2.43.0
 
-I have not tried it myself, but not having to go through LaTeX at all is
-an appealing idea.  I would like to look at porting your branch once this
-one has settled.
-
-Thanks,
-Masaharu
