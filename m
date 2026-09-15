@@ -1,69 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-40.mta0.migadu.com [91.218.175.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7858F4D09E2;
-	Tue, 15 Sep 2026 19:08:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27184CE690
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789499314; cv=none; b=USG0WSfqjGDCOIRMlr2Vr9IFpog6dA+npADIMwKM3Jw4JIo6DWQJy4U9KajeQXM16jsvMcwBwUnAnoXCWjoeK2zPXl8OemsM3V08mo5b3tqxVfLzG0kcd1ssP3w98Op+6kpfM2iPubhUbi2pAV1bwZDE2UeZIlKR6A+qSqStUOY=
+	t=1789499323; cv=none; b=KRdzrgzROJtaHDhSPt8XlkVF1IJvcX+myiXntG7aV2kKyTf4M+ujnHqwkqOIKr8Ox9/z6GxdqT+vZvb6iZevQwjYIiVRhwCp8AVRsQCtnQP4IhFrNBcaX0GvBzt3CDr/AT1FZWPq7yBXtDey6bQvHNNpFcdGIuO77bcN0nVgKoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789499314; c=relaxed/simple;
-	bh=67p3qO6XFHgTNei/moOP3TD5vJzpNZwxCxms2udUC8k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R/wShnOFMwa/IF8sf9OdYVclhG5G+zARhrSK57aeCFGXuRH5wsu5Jcq5c92V5kEBZ3iU+yxRV9uL+scZTmSA5QoZ/7jRdX2A4/Swqj0WWWgq9dE6SzmjQihyURMAQwdtF63SeldYWavf1gdfTs7NZNBfKrc48HrijHGGQ/bx8rM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IEBbZlN3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789499323; c=relaxed/simple;
+	bh=v5FkDF1OJRgoUbj67ryuGqHQMqQUpqnHwLRpAAHOQ+4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EBjebNd753Av4WupWd7FHdeyDhB95OB1FTjmuHasxykjwU2eJ1amGRc1Z+AwSePLB7/0OysRDRongzrDcE/+DBiZaJDoFKcyX+IMPvC7k+jBARFcoHBdrY00MixvH2kLj70FV924PASKcbwXC7SNLxwaGm/YYN4l4nWBvBEFKYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UjOsT72q; arc=none smtp.client-ip=91.218.175.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IEBbZlN3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0C5E1F00899;
-	Tue, 15 Sep 2026 19:08:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789499313;
-	bh=exhivTK2z7bblDWMC5lKR4EogIyFBYeXjdR0BKrI96M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IEBbZlN3/KWu9n26NYRxraArk7xS1SFMK0RauA6GJbkNRGdbZSK4OG5M8SNkUSzHv
-	 lItfPCUEPvYjA2RJHs/e2ib4h1a0PI4P64ZKkU3cjuU0LTPA+BUoKp4iuazYaLpLuq
-	 KztZ5NxiE4UGGk4ji5czjoZMd6zzAiOMSSagRpAnqrSDFB7GBkmwyxdBdFgak4Avvz
-	 zItwzqjB0RHg7Gz4unz1vJOGbtmSMQGiK6Q/AumqMqc3oAek2iW85+wCclfD2WNgob
-	 qT5YUt/954ktRUc2IQ0R59UlimYqPY6Blfgn/RutuOjiCfVWR5qWZ+QKNxLwQb8TKM
-	 amJHRGpkauvEA==
-From: Chuck Lever <cel@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] nfsd: zero NFSv4 COMPOUND tag padding
-Date: Tue, 15 Sep 2026 15:08:26 -0400
-Message-ID: <178949928864.1538756.8077623230283401923.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260915160049.3105481-1-qwe.aldo@gmail.com>
-References: <20260915160049.3105481-1-qwe.aldo@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UjOsT72q"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=v5FkDF1OJRgoUbj67ryuGqHQMqQUpqnHwLRpAAHOQ+4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789499319; v=1; x=1790104119;
+ b=UjOsT72qK4VI7jIVgqIgLxDV4aX8c+hamE66ByO/uAIn/dzy8tUpYk1GMPerh5RgTncH9xXQ
+ kkjHlt46vKs7doRySN5K03/GjslgaiTMvYAz6t4EofTkn/Xi3nzVA8MaFvlfh/mTT6D2CBeRbQm
+ RfqMOgVtbrIn45PL92gcXWq8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 100fb2393ce94054;
+	Tue, 15 Sep 2026 19:08:39 +0000
+X-Mizu-Trace-ID: 100fb2393ce94054
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <528a9777-1587-4dfc-a366-000fc0867d4b@linux.dev>
+Date: Tue, 15 Sep 2026 21:08:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] ASoC/soundwire: remove ghost peripherals from the
+ mach table
+To: Bard Liao <yung-chuan.liao@linux.intel.com>, linux-sound@vger.kernel.org,
+ vkoul@kernel.org, broonie@kernel.org, tiwai@suse.de
+Cc: vinod.koul@linaro.org, linux-kernel@vger.kernel.org,
+ peter.ujfalusi@linux.intel.com, bard.liao@intel.com
+References: <20260915131327.1783551-1-yung-chuan.liao@linux.intel.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <20260915131327.1783551-1-yung-chuan.liao@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 15 Sep 2026 13:00:49 -0300, Aldo Ariel Panzardo wrote:
-> nfs4svc_encode_compoundres() copies the tag bytes into reserved XDR space
-> and skips directly to the aligned end of the field. xdr_reserve_space()
-> rounds the reservation up but does not initialize the padding bytes.
-> 
-> A remote client can choose a tag length that is not a multiple of four,
-> causing one to three stale bytes from the response page to be returned in
-> the COMPOUND reply.
-> 
-> [...]
+On 9/15/26 15:13, Bard Liao wrote:
+> ACPI may report a ghost SoundWire peripheral. It will cause unexpected
+> error like duplicated links, codec driver can't probe, etc. This series
+> check the presence of SoundWire peripherals and skip the non-existing
+> peripherals.
 
-Applied to nfsd-testing, thanks!
+I am afraid this raises quite a few opens, such as the 'mockup' support
+and delayed enumeration.
 
-[1/1] nfsd: zero NFSv4 COMPOUND tag padding
-      commit: 28c0a5693a60625fb794943f2755c4bc5643f7c4
+A better way to only deal with actual codecs would be to only probe
+codec drivers when the codecs report as ATTACHED and get enumerated,
+instead of during the ACPI parsing stage.
+This is a solution that was discussed a ong time ago, probably circa
+2016, during one of the LPC miniconferences, and the direction from
+maintainers was that the probe could be used to enable resources (power,
+gpio, clocks) that might be required for the hardware codec to become
+functional and report as ATTACHED. That's the reason why the probe is
+done on all codecs exposed in ACPI, even 'ghost' ones, with an
+update_status() callback to the codec driver when the presence of that
+codec is detected on the bus.
 
---
-Chuck Lever
+In practice I am not aware of any codec drivers doing anything with
+power/gpio/clocks in the probe stages, at least for ACPI platforms, so
+it may be a good time to revisit this direction. SDCA class drivers do
+exactly what I described, the subdevices are registered only upon
+enumeration, not during ACPI parsing. It's a much simpler design with a
+lot fewer potential races.
 
+Problems:
+- this would be a very invasive change to sdw_slave_add(), with the
+device_register() skipped and moved to the enumeration stage. It'd have
+to be opt-in and used only a newer platforms to avoid breaking the
+'legacy' devices.
+- there is still *nothing* that would tell you that all codec hardware
+on a given platform completed the enumeration. You could have a fixed
+delay but this would need to be large enough to cover all cases and that
+could make the platform boot slower than the current solution - not ideal.
+
+Another option would be to parse the ACPI0018 device, which describes
+audio endpoints and makes references to codecs, which could be used to
+filter out 'ghost' codecs that don't provide any endpoints. The spec for
+this ACPI0018 is not public but could be reverse-engineered from Windows
+platforms. The main benefit is that this filtering could be done in the
+ACPI parsing stages and not change anything in the probe and startup
+sequences.
