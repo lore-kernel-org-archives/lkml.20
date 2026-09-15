@@ -1,163 +1,90 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F7238A71F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:16:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8350037DAA9;
+	Tue, 15 Sep 2026 14:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481801; cv=none; b=SbDhLuN+r2Z/fTJVyoNJBD/ZVqQh4I18a55zBgBEmRiduPOiDh8Y+Q/0uH/+j+y8Nyi5Im+hbDjuB+cWRxDVrpKSdEXRfEzRB5xJARbLtqNZYzEH24TqBADM5gXQPVpZHed32ysXbGQfVYLcKwtTzGoj2TUcG/bq/pz2376AyGs=
+	t=1789481845; cv=none; b=IU4vofW1akGDXXSdd/zi6+Ssk4lQwiZkwbTZ/OBhOQ9F0lLRpyAhtH2IdP81Y9yzc1SAnszTrShOgGW7wyDYkAq6IlizMdS5PFwCHinoL/+beW2VgNU8v6Fg8hQAquw90xrj+h0fUDHP5nLA9tu/0SKUAmJSYY25QOWI4imXYIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481801; c=relaxed/simple;
-	bh=ZGcIqnBUb+2WGa9UWiN5MGaIiQ5CNl6v15OMyE1yvh8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VzlfwWqDvi/qb6tzuPhvCncnigAzGd92b0j8n+2qMVMwGtBqQTkOjMYo3dkQt07In9CsNOj/QIc9jMU8BoLx3jWx+//n7o10se43ua0JJXzxQWvwupmNb+Poq8vGP/LZxACxtBaI3xVQ8xnkB7dvjsnyaSnZStYcsToMp2ojYHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fyN+53+N; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789481845; c=relaxed/simple;
+	bh=5KS1EgjYzXRO/LGwHSnOnFkVf2f169ADWg9LUHRlUEg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tUDLb6m7H2PtHUuRcGzLyEQAa+0IGvUe7H0gEwkARrokRZJMjktx9Mdz7uHg0tIuO8Kon+w6XbJ57LkrmXljiQmMRjcafQ/ihqR0jU3pneD5iLGwkFMVbkM2zPsinEu2xWl2Sv6xqbwnLDBNYbt2HXIzR5K6/dNkMGzGjiiwoMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=oQ7avwCU; arc=none smtp.client-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fyN+53+N"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e53002bso220779e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:16:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789481799; x=1790086599; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4vy7TxtxABNySXdH9M9RGQIeskiOhNozoxbsdlpLAGo=;
-        b=fyN+53+Ns8gVbQXCSiWXtU3xLEoKpYUpkgHEuasxSFQdXn7rf2kzpE6YzCF2XG5hvv
-         ar/hc/B/BPjE01V0SciseYaJ7FFqbtuvDsdkIULMtDTBFk2aymkM0eVpLBC8w+5emlp4
-         6juWNPduSJKv2JARdQsaoVkNEzPV/WSvZULv/Wu0ruxDXT/JGnoX/gV+HhqDolZgQhs1
-         K1EI//wTi6vIRtwxvD74qd6LNHFsdgq7l1f3hBK1cvUqSshR/2ZLz5v2JTcmOwhuptm6
-         7t6KfN9loGEp2DTeF8V3HERTvfZt49Pt/eSqGl1zX39e2W7Yhm/GqvuqTxC76pfKZIx3
-         fmYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789481799; x=1790086599;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4vy7TxtxABNySXdH9M9RGQIeskiOhNozoxbsdlpLAGo=;
-        b=y3Be6X+gvMKuwVOP+6oWDUlWtrfVqk9hoUU29uTWdJ8WSzqOKTLzfFrXCm6axTpjXo
-         uOx4V/ZY/xJL7nwppGg/+0Qh8CIAlz75zmSrq93TdOSugyvN4CMIXHvEbO9nm21ULzvF
-         9RBIEh7SUxpaLAfOJVvVrxtoLKhMbkIkavbWaKTXSVnMl4LS3VM+/Q2dnm0jjHTFU32v
-         grjlihBVt+Odmm7A1K5nyxBJ9vtkr8oJIEPN6YgcSNbbfKnGCYBe7U8CH5EJMYs4pnkN
-         viiBe5XERWKXJUkBDie5F7AiNNLGgv705jsVKyWcJzK8lV548S+L6ib/VdcWsD5wXoZx
-         wOfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy++RVGfZP7RrlKV7CY/5MIkWaFcAfqSWluu1/4DHIwm+Ufu10BoZpEA551kRBFDrlkcNZz+PgEJrLAMfM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kniQy1UuvC6lhrL9fqmWDYRx0JYsurVVhDrjsKNmxrn0Nw5b/p
-	u5am1fTnJSCvsPvPDnAtt3Wus6wISDDCbiNUfkCFlJMTRuWew8ZHvQQ/
-X-Gm-Gg: AYBFou3gQYjIjL690jOXH3UfPxIp/2D9/V9il4comQuStMunhX/6A7mXwgBjASVGFK5
-	imZ5KqNq6OXoB9lokCQ7nejBiW83bgWWpT6bBDlLlWX5b4DhTRB+ufcKFOkSbq74H/P0zRUqwFn
-	fCVIt2WfkqCUGhueMQQbZDv5CJRguuBahqmPGTjRILqUPrKcjtFqmAc2nfgny213PiLKHKxjFlN
-	VjxCBA5ihNP47jcKczpzvsQLhOep3yEzYZ+KaG72uUdeYoBrWTzX/ErX6al9B+Y+xW1AYqLrjG8
-	zh+G9SBG2r53BYkSif3Z99DG/j/4ZlhK7vyMZ2ZzA5WVw2kvaEjsgH6FFAD9NgMHgqvgWdxrtu6
-	OvJsMaLMNS/J+H0f7UT9igMaGgQBqLS7Nt4b+QJjVZRfvaFGgzBOzJNylL+X2b63rQqOZPNyQ5p
-	iGQPpokl4CT1E5mQSj55tLCDHSqJercQwt8G5o0AwfDIAYBUpTfkzHI6Yhql0M5dI+
-X-Received: by 2002:a05:6122:3402:b0:5c8:228:5ea6 with SMTP id 71dfb90a1353d-5c993acb5b3mr2115305e0c.5.1789481796316;
-        Tue, 15 Sep 2026 07:16:36 -0700 (PDT)
-Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470d661bsm15018810e0c.8.2026.09.15.07.16.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:16:35 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v2] HID: wacom: avoid overflows in sequence number tracking
-Date: Tue, 15 Sep 2026 11:16:21 -0300
-Message-ID: <20260915141621.3011011-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915111448.2726869-1-qwe.aldo@gmail.com>
-References: <20260915111448.2726869-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="oQ7avwCU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789481841; x=1789741041;
+	bh=YpZiKTdkBRV8HrUzJ48KBDYy9De2eBfD+hXdyRTErhs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=oQ7avwCULkbth4nZNaY+DX9Jp/itRJAYGdH3wSuloaqeppukUvLeLAXgZrTEwMVUe
+	 fPMKfqT0zWzE19I+pzKB6xS9aXrzKUTASoWqRQAgi84HB1hHJb/4WCQGLPVWrlFzsE
+	 KmdFEcoYBo6k3LVAiMiyPTxbmh4WZD9e+uQD0RHplTTqMguAOWG13vtdKqWj7+XOKh
+	 hAHAQ8O5bhghldL3VDLnP9pJlIB45gXQHwgAMaIm8zDTrmKCPc4fqCvvWPvEV0S5W2
+	 y1TDanyWK1DZXlEXgU5zKCp6vWnwAcIi87LaWfOe+0mYtYJKl6n0zFi3R8+UbCAtk5
+	 vGp49jxNF3BAw==
+Date: Tue, 15 Sep 2026 14:17:16 +0000
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Daniel J Blueman <daniel@quora.org>, Maya Matuszczyk <maccraft123mc@gmail.com>, linux-arm-msm@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 0/2] Monitor Yoga Slim 7x EC sensors without taking over cooling
+Message-ID: <dQbSKN-LtVryTrUiryOnW7ur2YSJe4nzHx4QAltRbJRgsDHxWBYVQI3H0SPzxlqlCOAZg5NJx2Fe8dpgr7KjQkxLrLPRZuc8ISiUY1-v66Y=@pm.me>
+In-Reply-To: <73db10fb-7778-44be-aced-562aa1039404@oss.qualcomm.com>
+References: <20260908135801.81436-1-birk.skyum@pm.me> <73db10fb-7778-44be-aced-562aa1039404@oss.qualcomm.com>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 328f6d94d1881f1cbc1d19fe2dea1636ba71f5dc
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The dropped-packet calculation derives the sequence range in signed int
-arithmetic. A sequence field whose logical range spans all 32-bit values
-makes the range calculation wrap to zero, so the following modulo triggers
-a divide exception.
+Hi Anvesh,
 
-Normalize the maximum and current value according to the HID parser's
-signedness rule, and keep the sequence state and arithmetic in s64. This
-also avoids overflowing value + 1 at the logical maximum.
+Thanks for the review and for raising the firmware comparison with Daniel.
 
-Fixes: 359673ea3a20 ("HID: wacom: Support sequence numbers smaller than 16-bit")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- drivers/hid/wacom_wac.c | 32 ++++++++++++++++++++++++--------
- drivers/hid/wacom_wac.h |  2 +-
- 2 files changed, 25 insertions(+), 9 deletions(-)
+Agreed on preserving the LUT match data. My v2 is based on
+28924df2a08f440c73991b83028032c901de2ae4, which does not contain that
+implementation, and I could not find it in the current mainline driver
+either. Could you point me to the latest series or branch you would like
+me to target? I can integrate the read-only variant with that match data
+without changing the existing LUT behavior.
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index da1f0ea856..428ac7077a 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -2527,18 +2527,34 @@ static void wacom_wac_pen_event(struct hid_device *hdev, struct hid_field *field
- 	case WACOM_HID_WD_BARRELSWITCH3:
- 		wacom_wac->hid_data.barrelswitch3 = value;
- 		return;
--	case WACOM_HID_WD_SEQUENCENUMBER:
--		if (wacom_wac->hid_data.sequence_number != value &&
-+	case WACOM_HID_WD_SEQUENCENUMBER: {
-+		s64 sequence_minimum = field->logical_minimum;
-+		s64 sequence_maximum = sequence_minimum < 0 ?
-+			(s64)field->logical_maximum :
-+			(s64)(u32)field->logical_maximum;
-+		s64 sequence_value = sequence_minimum < 0 ?
-+			(s64)value : (s64)(u32)value;
-+
-+		if (wacom_wac->hid_data.sequence_number != sequence_value &&
- 		    wacom_wac->hid_data.sequence_number >= 0) {
--			int sequence_size = field->logical_maximum - field->logical_minimum + 1;
--			int drop_count = (value - wacom_wac->hid_data.sequence_number) % sequence_size;
--			hid_warn(hdev, "Dropped %d packets", drop_count);
-+			s64 sequence_size = sequence_maximum -
-+					    sequence_minimum + 1;
-+			s64 drop_count = sequence_value -
-+					 wacom_wac->hid_data.sequence_number;
-+
-+			drop_count %= sequence_size;
-+			if (drop_count < 0)
-+				drop_count += sequence_size;
-+			hid_warn(hdev, "Dropped %lld packets",
-+				 (long long)drop_count);
- 		}
--		wacom_wac->hid_data.sequence_number = value + 1;
--		if (wacom_wac->hid_data.sequence_number > field->logical_maximum)
--			wacom_wac->hid_data.sequence_number = field->logical_minimum;
-+		if (sequence_value >= sequence_maximum)
-+			wacom_wac->hid_data.sequence_number = sequence_minimum;
-+		else
-+			wacom_wac->hid_data.sequence_number = sequence_value + 1;
- 		return;
- 	}
-+	}
- 
- 	/* send pen events only when touch is up or forced out
- 	 * or touch arbitration is off
-diff --git a/drivers/hid/wacom_wac.h b/drivers/hid/wacom_wac.h
-index 126bec6e5c..74e7c5a04a 100644
---- a/drivers/hid/wacom_wac.h
-+++ b/drivers/hid/wacom_wac.h
-@@ -324,7 +324,7 @@ struct hid_data {
- 	int bat_connected;
- 	int ps_connected;
- 	bool pad_input_event_flag;
--	int sequence_number;
-+	s64 sequence_number;
- 	ktime_t time_delayed;
- };
- 
--- 
-2.43.0
+On your thermistor comment on patch 1, would a DT thermal sensor and a
+monitoring-only thermal zone, without cooling maps, be the interface you
+have in mind? I can keep fan RPM under hwmon and leave cooling under
+firmware control.
+
+I also agree that sharing the EC chip is not sufficient to justify the
+qcom,hamoa-crd-ec fallback. I would like to compare firmware behavior
+before treating the capability-query failure as a model-wide limitation,
+then coordinate any binding adjustment with Daniel's series.
+
+For that comparison, my existing September 8 test recorded:
+
+  Yoga Slim 7x 14Q8X9 / 83ED
+  BIOS NHCN62WW, EC 0.99.0
+  Firmware query 0x0e: 03 00 63 00
+  Capability query 0x42: 00 00 00, identical across three reads
+
+The capability transfer completed with three bytes, but its count byte
+was zero rather than two. The unmodified driver rejected it with EINVAL.
+The separate read-only sensor test successfully read RPM and temperature
+while firmware controlled the fans.
+
+These are the earlier results, not a fresh test or evidence that a BIOS
+update would or would not resolve it. Daniel, I am happy to compare your
+versions and capability response, or repeat targeted read-only checks if
+there is a useful difference to investigate.
+
+Thanks,
+Birk
 
