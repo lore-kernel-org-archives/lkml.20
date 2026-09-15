@@ -1,50 +1,50 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8AB247F774;
-	Tue, 15 Sep 2026 10:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B270E41D112;
+	Tue, 15 Sep 2026 10:09:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789466990; cv=none; b=D0MF19iAC3Z4/1j7vny5hvTvn/fZrmKuZ+7WrSwNyLdJDnkkTvLpeND+1j4mmQX5jmFeGeTXnOom2xIHdpEyumP/fHDbv2EDUUOcbc91ULoxymJHg8hQBUguNhzB/pUnmMijIlAw2n8VjWOPZ0XDaEaXmoQpqaOGz2PVIzr3oHs=
+	t=1789466992; cv=none; b=dsixCnwZsZL4fMGVhefPB5S6vOwNgObovb53pOr91QMmlNV99KnWGwNwq66Lr9KRxpB1QhyfothNbPahdAl1mHjgyoKPMFCYUIHYha3QXdhIOs8VyVnNneIXbW9ko76IgxU7224NayaswVfHp55zHRrdvcO1U3+zr4SzoiDiAj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789466990; c=relaxed/simple;
-	bh=D1bk2913pdN2XTk5dYfDZD30b03Yi/im1ni4fvAIaRg=;
+	s=arc-20240116; t=1789466992; c=relaxed/simple;
+	bh=0d8AW04j6ZeFgJ4c0uEx4Ne8a9AlVDa/j/DF24QsWEE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RkeXEfytRjXJgPTEQZjt+5n8BYuw2LL1VJC80BljQ0ToWI0rHNSDcPrF+xrVELlSX4D7R7M/w13BVHXZuQmUIWtPNkKEigyclqU5k0M0r5xhjg/UJcyfAMsMUNLaBOvekVgP2uOtmqULXFoE64rXOiOioGvSVmAfEk64poE5QfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I8jYmR0K; arc=none smtp.client-ip=192.198.163.12
+	 MIME-Version; b=lZrVP9ldp/fp95E005S8M2cqU0bqUkh4a2CidEiG2y7PnNYRgt6DSLThzdqw9cGD/2IZQyjQIJVDims+uQIySMzghdL7lVgsupf8Q/SBanZxtSphltOHH4Cediix0ROqaqrrQPDmQ5Wa3QvN6qAPlaRS7yMEPSIJOnnDaU5NDWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KUpNiFJP; arc=none smtp.client-ip=192.198.163.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I8jYmR0K"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KUpNiFJP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789466988; x=1821002988;
+  t=1789466991; x=1821002991;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=D1bk2913pdN2XTk5dYfDZD30b03Yi/im1ni4fvAIaRg=;
-  b=I8jYmR0KqD2fG4nMlKXz1yuP8tJMwyPWKroQ15MDWaVz5Ze8q8tVD08e
-   voHTdLkdPZaQDIgj1h1RQEzTXLskNnNOHndytCYTjUcHMfNepoHPzy4tL
-   XVO3KuOg1wyrHoLMYGbqbKetv/8od2/p+Xn5Qf2+1Pp94eCjlec+RctaE
-   FEugSqQITddJ8YjPwWWdXzODWljoMjW0hGZSYolSeHguszm8w1dqjrF6g
-   nN6YSiw0OccbALNrwLS2gAhXOYAucNymP5IqnW1eJk0mX+r3Nmrjii3Sq
-   Jy+IJk7Gkmm7aU1Ysq+dxLlqbsqRycVqN7pfXboqynruVJLrMqM1mCh0H
-   g==;
-X-CSE-ConnectionGUID: 6AukA2E1R+yvvjY2MlRX+A==
-X-CSE-MsgGUID: 2M/QkdDXSA6U13b1cW4/8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93649188"
+  bh=0d8AW04j6ZeFgJ4c0uEx4Ne8a9AlVDa/j/DF24QsWEE=;
+  b=KUpNiFJPWjB3c85/DwHpZICpPLWjj6KwemA5CjYTXyEwldntWOEAt9Xy
+   dLFFBDVOii1fiEd9KfTi5lrI3sGiUqu7+JlkZEWlNr9FAokXDkyoilhJ4
+   EyWCLjchftJiKJLeRn+X+Tle5L0Z2zJrP2zUjdqF9w+qvSP2IaQToMxZu
+   w/i1cGumswh0CP43XvxDU3k9P/OrT7l20FHRSUAmF6IvKh/uxaGhmN7/A
+   ZilbM/BXpkb+5HkcoBMwZ5bjx7AkDRoSdgX0lQiWZUWvP4rtMv3fdJsjO
+   gwmXyArM24uKMMvr6ZCHYQeU1uV/rA9KbWIW4V8+Ym4UPF454f4BgPPcf
+   Q==;
+X-CSE-ConnectionGUID: KoSF1LvyReeYl3KetdwgoA==
+X-CSE-MsgGUID: zL2I8muWRBaw/gLTE8Vrqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115360981"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93649188"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:09:47 -0700
-X-CSE-ConnectionGUID: 2n8xZtl4QHaOyEk6gsbb5Q==
-X-CSE-MsgGUID: zwriBC04QHyA/SUGdRggxw==
+   d="scan'208";a="115360981"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:09:47 -0700
+X-CSE-ConnectionGUID: 6KAa62Q0Q8ql7BY528Qu4g==
+X-CSE-MsgGUID: tKnat4EfTZSUkMp5WOouHQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="296442788"
+   d="scan'208";a="271517612"
 Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa002.fm.intel.com with ESMTP; 15 Sep 2026 03:09:40 -0700
+  by orviesa010.jf.intel.com with ESMTP; 15 Sep 2026 03:09:40 -0700
 Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 73190A2; Tue, 15 Sep 2026 12:09:32 +0200 (CEST)
+	id 7D1F3A5; Tue, 15 Sep 2026 12:09:32 +0200 (CEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Frank Li <Frank.Li@nxp.com>,
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -80,9 +80,9 @@ Cc: Dave Penkler <dpenkler@gmail.com>,
 	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
 	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Subject: [PATCH v1 5/7] ASoC: fsl_asrc: Replace dma_request_slave_channel() by dma_request_chan()
-Date: Tue, 15 Sep 2026 12:04:26 +0200
-Message-ID: <20260915100931.3593242-6-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 7/7] dmaengine: Remove deprecated dma_request_slave_channel()
+Date: Tue, 15 Sep 2026 12:04:28 +0200
+Message-ID: <20260915100931.3593242-8-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260915100931.3593242-1-andriy.shevchenko@linux.intel.com>
 References: <20260915100931.3593242-1-andriy.shevchenko@linux.intel.com>
@@ -94,109 +94,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace dma_request_slave_channel() by dma_request_chan() as suggested
-since the former is deprecated.
+No more users.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- sound/soc/fsl/fsl_asrc.c     |  2 +-
- sound/soc/fsl/fsl_asrc_dma.c | 13 +++++++------
- sound/soc/fsl/fsl_asrc_m2m.c |  8 ++++----
- sound/soc/fsl/fsl_easrc.c    |  2 +-
- 4 files changed, 13 insertions(+), 12 deletions(-)
+ include/linux/dmaengine.h | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index b24737add001..ae682bf450f6 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -638,7 +638,7 @@ static struct dma_chan *fsl_asrc_get_dma_channel(struct fsl_asrc_pair *pair,
+diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
+index c50497ecd52d..7596ebdac466 100644
+--- a/include/linux/dmaengine.h
++++ b/include/linux/dmaengine.h
+@@ -1763,15 +1763,6 @@ void dma_run_dependencies(struct dma_async_tx_descriptor *tx);
+ #define dma_request_channel(mask, x, y) \
+ 	__dma_request_channel(&(mask), x, y, NULL)
  
- 	sprintf(name, "%cx%c", dir == IN ? 'r' : 't', index + 'a');
- 
--	return dma_request_slave_channel(&asrc->pdev->dev, name);
-+	return dma_request_chan(&asrc->pdev->dev, name);
- }
- 
- static int fsl_asrc_dai_startup(struct snd_pcm_substream *substream,
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index 2f662bdf14d0..5cd12781c604 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -191,9 +191,10 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
- 	dma_params_fe->maxburst = dma_params_be->maxburst;
- 
- 	pair->dma_chan[!dir] = asrc->get_dma_channel(pair, !dir);
--	if (!pair->dma_chan[!dir]) {
-+	ret = PTR_ERR_OR_ZERO(pair->dma_chan[!dir]);
-+	if (ret) {
- 		dev_err(dev, "failed to request DMA channel\n");
--		return -EINVAL;
-+		return ret;
- 	}
- 
- 	ret = snd_dmaengine_pcm_prepare_slave_config(substream, params, &config_fe);
-@@ -404,9 +405,9 @@ static int fsl_asrc_dma_startup(struct snd_soc_component *component,
- 
- 	/* Request a dummy dma channel, which will be released later. */
- 	tmp_chan = asrc->get_dma_channel(pair, dir);
--	if (!tmp_chan) {
-+	ret = PTR_ERR_OR_ZERO(tmp_chan);
-+	if (ret) {
- 		dev_err(dev, "failed to get dma channel\n");
--		ret = -EINVAL;
- 		goto dma_chan_err;
- 	}
- 
-@@ -497,9 +498,9 @@ static int fsl_asrc_dma_pcm_new(struct snd_soc_component *component,
- 
- 	/* Request a dma channel, which will be released later. */
- 	chan = asrc->get_dma_channel(pair, IN);
--	if (!chan) {
-+	ret = PTR_ERR_OR_ZERO(chan);
-+	if (ret) {
- 		dev_err(dev, "failed to get dma channel\n");
--		ret = -EINVAL;
- 		goto dma_chan_err;
- 	}
- 
-diff --git a/sound/soc/fsl/fsl_asrc_m2m.c b/sound/soc/fsl/fsl_asrc_m2m.c
-index 4bc40f328f58..e440cc083ebb 100644
---- a/sound/soc/fsl/fsl_asrc_m2m.c
-+++ b/sound/soc/fsl/fsl_asrc_m2m.c
-@@ -503,16 +503,16 @@ static int fsl_asrc_m2m_comp_task_create(struct snd_compr_stream *stream,
- 
- 	/* Request dma channels */
- 	pair->dma_chan[IN] = asrc->get_dma_channel(pair, IN);
--	if (!pair->dma_chan[IN]) {
-+	ret = PTR_ERR_OR_ZERO(pair->dma_chan[IN]);
-+	if (ret) {
- 		dev_err(dev, "[ctx%d] failed to get input DMA channel\n", pair->index);
--		ret = -EBUSY;
- 		goto err_dma_channel_in;
- 	}
- 
- 	pair->dma_chan[OUT] = asrc->get_dma_channel(pair, OUT);
--	if (!pair->dma_chan[OUT]) {
-+	ret = PTR_ERR_OR_ZERO(pair->dma_chan[OUT]);
-+	if (ret) {
- 		dev_err(dev, "[ctx%d] failed to get output DMA channel\n", pair->index);
--		ret = -EBUSY;
- 		goto err_dma_channel_out;
- 	}
- 
-diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
-index aced16d1228a..d30cc3e90215 100644
---- a/sound/soc/fsl/fsl_easrc.c
-+++ b/sound/soc/fsl/fsl_easrc.c
-@@ -1433,7 +1433,7 @@ static struct dma_chan *fsl_easrc_get_dma_channel(struct fsl_asrc_pair *ctx,
- 	/* Example of dma name: ctx0_rx */
- 	sprintf(name, "ctx%c_%cx", index + '0', dir == IN ? 'r' : 't');
- 
--	return dma_request_slave_channel(&easrc->pdev->dev, name);
-+	return dma_request_chan(&easrc->pdev->dev, name);
- };
- 
- static const unsigned int easrc_rates[] = {
+-/* Deprecated, please use dma_request_chan() directly */
+-static inline struct dma_chan * __deprecated
+-dma_request_slave_channel(struct device *dev, const char *name)
+-{
+-	struct dma_chan *ch = dma_request_chan(dev, name);
+-
+-	return IS_ERR(ch) ? NULL : ch;
+-}
+-
+ static inline struct dma_chan
+ *dma_request_slave_channel_compat(const dma_cap_mask_t mask,
+ 				  dma_filter_fn fn, void *fn_param,
 -- 
 2.50.1
 
