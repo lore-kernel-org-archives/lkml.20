@@ -1,152 +1,128 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA8E35AC33
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:14:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE46E412BED
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467254; cv=none; b=r2cAtuwtKV0MVtJTZpDgmdVvUPFA68WpQZRY+Vk32SU/yD1M8aDuUijR7y9zONlnQfTcPT88IVyaU2vIkYJmHp4el4hIt6dP4vg6dFkRaKttJppm/Rg0kkVxdYR0ROAcQ0yB9+urJtk/JukhDaBxM/ffONfxKZIf0nrmz3KA52I=
+	t=1789467310; cv=none; b=LqP/KR50vxXRBnkdSpzp8p0q/U+kAGQJTjfv2qGNOqPgoezB0vLk5IQNlsaM/FpLfDBT9e4oAOceJh5Keru4Nd6eMQ9iQHykXvMbc0HqVRPPylQqZgyE9BKgXa2N1HQ3aGYIkIVsVyXxJ+jnWZPuGDu7v3Ebi3SGor/tbQzuaY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467254; c=relaxed/simple;
-	bh=KB5sbDxu+LPGmHQgyIYpCw1xuaXBJDWGgz+T3Nqk9lc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hk7oLlP0kjm4NDM85KBs6vv26dHNYWCdKFzqgnnDrrdImbqLhh8xbzP8lgCMrPZKoJCPURUUJ5FMcWxBu5GYl6sf18fy/EigLwHuU/UUSV3aeRTOsq1qtkBODmeTg//MkxugaPIezsTn96l907dqViadtz/ZN6vY4JiputuYyuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=of43+oRL; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789467310; c=relaxed/simple;
+	bh=tJvZkCCnnoXmiMi/FLg7xcPqRsF6Tlxz6fq1THgmJjM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kJEbE+PsGnK6QVMpo6FyHYqBJ+1XC2s6ATjIv1dx1bPO2WuUM14Am2XqnDg8YFmRPjUxM6+uD13ivEvtVgP/GceiCiv+KeD6EZxFgxqPq5UZdibFcbS7QoP/x4G7JsmJ7LOOxokruKjLh6hLJQ6H5HPrFkE++/d7d5Snv/spY+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AqlZnbgn; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="of43+oRL"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso2395434f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:14:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789467251; x=1790072051; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0ym+pdl+rXrvMyEQNZMNpgxDVKVFZHEFa9d0oo/m058=;
-        b=of43+oRLud8XYyDH3NMPdoBDbsr/7bj0MtKOpJ0Xva2cnmB2vHsoNgtwTTCeokF3lS
-         BOOksVDCestzVyN0zLxOgWHsEOQFHsmG1YP1ngbjyEHx7fxKEz7vTiVx0RM5BGfl52eV
-         g2pccnZSQEfhu1ndmHpz+atUDqAJjG4n7Qem4Gk6hIMef5AnFNeY2VnLvL0VgGY6WqQv
-         upNYd9MVblpcZeBl1mYtCtAwqXJfntk6FYnPZaM3RTxZI2xPbdYnxQ1tBQg5l3fAI0pk
-         l2JKvOEp7vPvlB7H4OUb2hN0IKV9scO6BNrE/4okm29OSkC6jUn/2DCXNsB4Z6ZMdYUF
-         oy/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789467251; x=1790072051;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0ym+pdl+rXrvMyEQNZMNpgxDVKVFZHEFa9d0oo/m058=;
-        b=k9TPsx2gzp/PWhvSLEBYs1gBsbMl6ivbaUJ0ccytrzW+HV7WqMUa1MnAPOnu2/vaPN
-         BT3UFh5kPDnX/1Nii5hZ9zCMReMBTdyL5Td8wuo0+2KUFNrZv7dArRSN63dAH9CYrEEo
-         I3hpqt2VUiQhqGAdPc212fP8X0QL59KW66SKnIJAohWi8lRwM/c8bDan5y633EjBSj04
-         ycF0bJLF36X5r+stz7O+VuKC15sWN7UuXuYhwGX4e3W8mg3XgCRZgIpVXxsO+FIlGR2W
-         HU4Up11YIssOrqD6vzJuaTbk/1Hx25wrZXVtaiZTLwUCTpEWFfnlxpPLPPiH+S2w3u5D
-         yWNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzBGvHxCf1MuBBJcNy6UJK9vOaXGxxLQndmJor6y/jh05vgsxlRxO7+gAEZDAD9e3Ros9EJ4bCg1uPx0Ng=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUEud6wUJVBTAqJxX4WG3Vy07K+SdNZvQQAeyUuQv6yph/7N+r
-	uKVMd+fOmL5xCtmzWd52dRq7nAU6nQzNMU2iFT5kdbnXRjSMmnkmHVN/
-X-Gm-Gg: AYBFou30XsRk95EZ5etC7cI8F7fHk/eYPawsEtOpJdiO5esOFosYz831GlF0uVvwXBo
-	KT7CqSRp8EDHAllZa4cB8p8YnSXr5UkW7pBTB4e86tIqV05nxVUtGdIlKENtyJfAP/5z+/9b2/y
-	uIMkaTJlK0E8aETjlv3//nPSMaQmtFDaMfEjC7f3LcP8YaRz69DT0AgYT26xvZiLx4Hf0yCrWAk
-	S5HDekQOEwBiypNYWYk9MFI8Mr0pRjPIPwHOg1zYwmgw8S+nyLt+sfnCKq/4ZavwXrvKPxVIyVq
-	zZXwC3TZdFJXgaNIv7cfwrmqGWj85kjihgDKilUwutyRT/pBUzvAXt+rJNUSD7Zuz9N8RrdvpgJ
-	0GeklwVUum4iSRqseJvYy+3E+VNYR7d2EQtBak9y562bazEgoep4Z4/8+QnqP11r/KysYjLbIs9
-	Ix0cTzSY/ouNj7Meh3eL6fzT+ONC0xK0A/A5Mri7/VVKBkLH9W5d4Bor1n3ehghkzrQIBYRDsbs
-	zN+8JEIMwWZ7ygTe2EMHxVIdH0QM3D1LQED
-X-Received: by 2002:a5d:588b:0:b0:486:f99f:8236 with SMTP id ffacd0b85a97d-48702b18952mr7923167f8f.44.1789467250659;
-        Tue, 15 Sep 2026 03:14:10 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e4b5sm33174208f8f.22.2026.09.15.03.14.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:14:09 -0700 (PDT)
-Date: Tue, 15 Sep 2026 11:14:08 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>, Will
- Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- linux-kernel@vger.kernel.org, Linus Torvalds
- <torvalds@linux-foundation.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
- Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
- locked=1
-Message-ID: <20260915111408.2c8a3ecd@pumpkin>
-In-Reply-To: <20260915084047.GZ4121339@noisy.programming.kicks-ass.net>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
-	<20260907084133.3696-4-david.laight.linux@gmail.com>
-	<20260914120352.GE3500130@noisy.programming.kicks-ass.net>
-	<20260914140832.676eb1ad@pumpkin>
-	<20260915084047.GZ4121339@noisy.programming.kicks-ass.net>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AqlZnbgn"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8652E1570;
+	Tue, 15 Sep 2026 03:15:04 -0700 (PDT)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 177D03F7B4;
+	Tue, 15 Sep 2026 03:15:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789467308; bh=tJvZkCCnnoXmiMi/FLg7xcPqRsF6Tlxz6fq1THgmJjM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AqlZnbgnqOuvow56NX902rF5GXO4HSTsx+Y6Evco7JvZ81KJeoA8XNNj6xXQCchRl
+	 BZ2fBR3ZYATFczlt8dEHv8JCXWzN9o/56Eh8uMS5k2GVEbJ9euEiL9VkcvWn9WWnA/
+	 ksBb/47YBpxB+xgl4484pLOCg8rFcdlQ4m50f0Ow=
+Date: Tue, 15 Sep 2026 11:15:01 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] arm64/sve: Don't zero the SVE state buffer when the SVE
+ state is live
+Message-ID: <aqkapYE-xtS91laq@J2N7QTR9R3>
+References: <20260914-b4-arm64-sve-acc-memset-v1-1-67866e442393@debian.org>
+ <aqkEPCrWXxaU-mNs@J2N7QTR9R3>
+ <aqkUU-kSTOz8NntH@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqkUU-kSTOz8NntH@gmail.com>
 
-On Tue, 15 Sep 2026 10:40:47 +0200
-Peter Zijlstra <peterz@infradead.org> wrote:
-
-> On Mon, Sep 14, 2026 at 02:08:32PM +0100, David Laight wrote:
-> > On Mon, 14 Sep 2026 14:03:52 +0200
-> > Peter Zijlstra <peterz@infradead.org> wrote:
-> >   
-> > > On Mon, Sep 07, 2026 at 09:41:27AM +0100, David Laight wrote:
-> > >   
-> > > > -	for (;;) {
-> > > > -		/*
-> > > > -		 * cpu_relax() below implies a compiler barrier which would
-> > > > -		 * prevent this comparison being optimized away.
-> > > > -		 */
-> > > > +	for (;; prev = READ_ONCE(node->prev)) {
-> > > > +		if (!prev)
-> > > > +			/* Lock acquired */
-> > > > +			return true;    
-> > > 
-> > > This lacks {}, but also, is not ACQUIRE like the return you remove
-> > > below. Did you want smp_acquire__after_ctrl_dep() in there?  
-> > 
-> > I need to get my head around the acquire/release logic.
-> > I think the READ_ONCE() in the for(;;) needs to be an acquire
-> > (matching the smp_cond_load - which seems to have been wrong for ages).
-> > I may have decided that because the smp_cond_load was relaxed this
-> > read could be as well.
-> > (They both need to be the same.)  
+On Tue, Sep 15, 2026 at 02:50:27AM -0700, Breno Leitao wrote:
+> Hello Mark,
 > 
-> You cannot change ordering and not mention in the changelog. If you're
-> unsure, retain existing ordering and make note in changelog.
-
-The existing ordering seems to have been broken.
-I'll rework it for the next version.
-(It rather depends on what happens to the patch to change the smp_cond_load.)
-
-
-> 
-> > >   
-> > > > +
-> > > > +		prev_ptr = decode_cpu(prev);
-> > > > +
-> > > >  		if (data_race(prev_ptr->next) == node &&  
+> On Tue, Sep 15, 2026 at 09:39:24AM +0100, Mark Rutland wrote:
+> > Hi Breno,
 > > 
-> > I'm also going to remove that 'optimisation' check.
-> > It is there to avoid the atomic below - but it only fails under
-> > race conditions.
-> > 
-> > David
-> >   
-> > > >  		    cmpxchg(&prev_ptr->next, node, NULL) == node)
-> > > >  			break;  
+> > I think the change looks reasonable, but the commit message and comments
+> > aren't quite right. More on that below.
 > 
-> Someone will put it back eventually. It is typically good form to have
-> this pre check. It improved the contended behaviour of these loops. The
-> regular load can be a forward, while CAS requires an exclusive load --
-> or something along those lines.
+> Thank you very much for your review. I know this is not a trivial one
+> (at least from my PoV), I am glad you quickly reviewed it.
+> 
+> I've also dropped few other lines, but kept the benchmark values I've
+> collected. Does this look better now?
 
-I know. I think it really depends on the likelyhood of the compare failing.
-It there is a reasonable chance of it failing you definitely need the compare.
+Yep, that looks good to me, with one minor nit below.
 
-David
- 
+With that fixed up, this all looks good. I assume you'll send a v2.
+
+> Author: Breno Leitao <leitao@debian.org>
+> Date:   Fri Sep 11 02:57:34 2026 -0700
+> 
+>     arm64/sve: Don't zero the SVE state buffer when the SVE state is live
+> 
+>     Currently do_sve_acc() always zeroes current->thread.sve_state. This is
+>     not necessary in the common case, and avoiding the zeroing has a
+>     measurable impact on some benchmarks.
+> 
+>     In the common case where the task is not preempted and its state is not
+>     altered by a tracer, do_sve_acc() will observe that TIF_FOREIGN_FPSTATE
+>     is clear. In such cases, only the live register values matter, and the
+>     in-memory copy is stale regardless of whether it is saved in
+>     FP_STATE_FPSIMD format or FP_STATE_SVE format.
+> 
+>     This is worth doing because the SVE state is discarded on syscall entry,
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+That should say something like "It is worth skipping the zeroing
+because". We deleted the line saying that skipping the zeroing was safe,
+and so it's not clear what "this" is referring to.
+
+Mark.
+
+>     so userspace that mixes SVE and syscalls re-traps constantly. A fleet
+>     profile of arm64 hosts running services whose memset() is SVE shows the
+>     memset under do_sve_acc() accounting for 29% of the trap handling cost.
+> 
+>     Measured on a 72-core Neoverse V2 (SVE VL 128, sve_state_size 546,
+>     performance governor) with perf bench sched pipe pinned to one CPU, and
+>     SVE operation on write, so that each loop also takes an SVE access trap.
+> 
+>             * -0.99% kernel instructions
+>             * -1.38% kernel cycles
+>             * -1.12% wall clock
+> 
+>     Signed-off-by: Breno Leitao <leitao@debian.org>
+> 
+> diff --git a/arch/arm64/kernel/fpsimd.c b/arch/arm64/kernel/fpsimd.c
+> index e7f1682a3059b..324c9799b0511 100644
+> --- a/arch/arm64/kernel/fpsimd.c
+> +++ b/arch/arm64/kernel/fpsimd.c
+> @@ -1316,7 +1316,7 @@ void do_sve_acc(unsigned long esr, struct pt_regs *regs)
+>                 return;
+>         }
+> 
+> -       sve_alloc(current, true);
+> +       sve_alloc(current, false);
+>         if (!current->thread.sve_state) {
+>                 force_sig(SIGKILL);
+>                 return;
+> @@ -1341,6 +1341,7 @@ void do_sve_acc(unsigned long esr, struct pt_regs *regs)
+>                 sve_flush_live();
+>                 fpsimd_bind_task_to_cpu();
+>         } else {
+> +               memset(current->thread.sve_state, 0, sve_state_size(current));
+>                 fpsimd_to_sve(current);
+>                 current->thread.fp_type = FP_STATE_SVE;
+>                 fpsimd_flush_task_state(current);
