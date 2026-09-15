@@ -1,360 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80933485CD6;
-	Tue, 15 Sep 2026 11:01:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C292A414DF6;
+	Tue, 15 Sep 2026 11:02:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470108; cv=none; b=uBCgG2tscUYX2hsxvTYA5QY5Q8J9AYWngzK0JP0uB6e0z3EP9X0G0gygQdhHuBfQqKDNQuGTA+C2gdRDdzJ7V3x7AdDZlPcjc1PUsB5daOC6WyKjjzBz84t018bPcxqTOCh4eeNrephIHN6rV56z7nMBBBtMXyCkCrMSX01GgTA=
+	t=1789470151; cv=none; b=B/lN9pCChXwHjip+8VgDkh/8SEjWMqXUY9pP/2fCneTcu8RBgAVMAKCqvuRTP86CPXTQPkHQgHtISQAayVr/50M1B/dgqWoKG2Xue199ZTJqGZ2DADIRVYLE8OKeGVmL/sYyo2zMmHc0iDCyI4BqdaRVjKyCV6GmmQ3u31F5DWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470108; c=relaxed/simple;
-	bh=XzvmEV9QUHX5ZzwBMxzUsq4GOtsA+8Z1WyeTp/RLrC4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=DXuu33NtC24fDZ8zVecAuouU8MYHqAzNk3QER3HMAnvzTaW/c6fhY501wSJdZ/rg9G0rQ4s60qgkRIiXYE5S3v3gNmKYhH0VFS11GTqi7q/v+n8wunYzKpMlcnopS3ZF19WZUz963O9sLreAfgsCH93xoHKqaLj2E65/zzh0IcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HAlGAfl3; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789470151; c=relaxed/simple;
+	bh=92MIKnp/TTHQa8Xs2dfOtgIzcqG9n9MJs0G5Q6ZbTKo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ishg5qAdpJfFL5myszUp8f4upQFN7Rwa6DGo7GsYJGqahNKnuyXq2zCPThi/QjH5iz/LYFBC/8HQaorQSSF06GpOI85fK8GxYt4wS6frZ1PXBxaBJn/Qh+4mB0YPNocDDk7ktuT//IIK9itvKl2jrOcaZGWHAdR9tiykhBqOvoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UMBXFtxP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HAlGAfl3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789470105; x=1821006105;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=XzvmEV9QUHX5ZzwBMxzUsq4GOtsA+8Z1WyeTp/RLrC4=;
-  b=HAlGAfl3es1KmSQY6N9pHbVdRSFryD3A2S7xmUd6nXWHNGhrZ2Zj1Uhu
-   5wwiscnLCwGsroqKhwvYPl2ER+R0NpnX9x+VSxTD/vySct5OxT24rxRU4
-   NphmrKIcyJMM6lHhWsTo8AontxXty4R66ZHiszGoS4CBTeAJUsdhV8NR+
-   69i4XrxAiS/7rCxFimImL3QnVLI1qW4qjgJ6vOjNOKja4AlbULiGKfW0s
-   2Zi6b1ta7HZemGme+/RM2vKy/QRfa7L4AXT8xyIsT+5oLwv2f0CEZzfni
-   oI9YIlP2PO4m1HMfu9m/OtPwwA+S9S7GCGmnVmtQDH9ICd7v5BiEFa9/N
-   Q==;
-X-CSE-ConnectionGUID: Q6CVx5pMQm6ywWSvu855LA==
-X-CSE-MsgGUID: OtIhBjsbRgajiWwngcOcyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89962083"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89962083"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 04:01:44 -0700
-X-CSE-ConnectionGUID: n3HWjPJXRYW6gbUbWoO6xg==
-X-CSE-MsgGUID: DsrcBnnWSgSGPtbkodF9KQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="274913908"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 04:01:34 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 15 Sep 2026 14:01:30 +0300 (EEST)
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-cc: Mark Pearson <mpearson-lenovo@squebb.ca>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Ike Panhc <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>, 
-    Maxim Mikityanskiy <maxtram95@gmail.com>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] platform/x86: ideapad-laptop: do not poke keyboard
- controller
-In-Reply-To: <anLVzJy8IY9QSNgs@google.com>
-Message-ID: <68dc7f72-1272-f6b3-c588-7c2aad2dadd2@linux.intel.com>
-References: <anLVzJy8IY9QSNgs@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UMBXFtxP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8A7A1F000FF;
+	Tue, 15 Sep 2026 11:02:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789470147;
+	bh=roVqnx458yekmIsFUUpm6pjVlxQu/iijthO0iU8Tzq0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UMBXFtxPcBmeAGQ8M5BDp+MVSi36ZVfTorzrMI6vAKMq8DRkWmgjL81X56i/k/cD5
+	 WPizUAEDEHn6T/p2KaZ1JcsAbPsbPWFYVSwnx/MyOKwOOeIZtt9JGhFAPykZtXbNyG
+	 2Z4q7gQWiY+vnssyyEs3O7exaSHY5LCX4+hX8KLTTnbPHV1yh+sj3tXMACHScktTGk
+	 +4T1U+gx8cpYfDTK9C9XQcisx34vaH1HvgvLGvOAeS1PkgqytbCULXUhjJz+VsfP3o
+	 GeYij8oeqvL/YJ3WdEdjhmuYMFFUtZTQoAraI3oLlBp9RXStV/tc5/wgHKvDMBMtDn
+	 98WyMpb4a6fbw==
+Date: Tue, 15 Sep 2026 12:02:22 +0100
+From: Lee Jones <lee@kernel.org>
+To: sekoohaka.sarisan@gmail.com
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mfd: intel-lpss: Fix DebugFS initialization
+Message-ID: <20260915110222.GA11487@google.com>
+References: <20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com>
 
-On Tue, 4 Aug 2026, Dmitry Torokhov wrote:
+On Sun, 13 Sep 2026, Maria Lisina via B4 Relay wrote:
 
-> On Ideapad Z570 the driver tries to disable and re-enable data coming
-> from the touchpad by poking directly into 8042 keyboard controller.
-> This may coincide with the controller resuming and leads to spews in
-> dmesg and potentially other instabilities.
+> From: Maria Lisina <sekoohaka.sarisan@gmail.com>
 > 
-> Instead of using i8042_command() to control the touchpad state create
-> an input handler that serves as a filter and drop events coming from
-> the touchpad when it is supposed to be off.
+> The original code defers DebugFS check with unnecessary warning message
+> which also appears when DebugFS is simply disabled.
 > 
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Therefore it spams dmesg with these messages:
+> 
+>   intel-lpss 0000:00:15.0: Failed to create debugfs entries
+>   intel-lpss 0000:00:15.3: Failed to create debugfs entries
+>   intel-lpss 0000:00:1e.0: Failed to create debugfs entries
+>   intel-lpss 0000:00:1e.2: Failed to create debugfs entries
+> 
+> This patch adds proper checks to intel_lpss_init() and
+> intel_lpss_debugfs_add() functions and removes warning message.
+> 
+> Signed-off-by: Maria Lisina <sekoohaka.sarisan@gmail.com>
 > ---
+> Changes in v3:
+> - Fixed commit name and description.
+> - Link to v2: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v2-1-a1a4faf5cc63@gmail.com
 > 
-> v2:
-> - fix inverted condition in ideapad_tpswitch_filter()
-> - mark the handler as passive_observer so that touchpad is not activated
->   until there are real users
-> - use READ_ONCE()/WRITE_ONCE() to access shared state flag
-> - drop stray semicolon in to_tpswitch_handle()
-> - update comments
+> Changes in v2:
+> - Fixed function name in comment section.
+> - Link to v1: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v1-1-833cbb6fffc9@gmail.com
+> ---
+>  drivers/mfd/intel-lpss.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
 > 
->  drivers/platform/x86/lenovo/ideapad-laptop.c | 184 ++++++++++++++++++-
->  1 file changed, 175 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> index 4fbc904f1fc3..8b4c41073b82 100644
-> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-> @@ -18,7 +18,6 @@
->  #include <linux/delay.h>
->  #include <linux/device.h>
->  #include <linux/dmi.h>
-> -#include <linux/i8042.h>
->  #include <linux/init.h>
->  #include <linux/input.h>
->  #include <linux/input/sparse-keymap.h>
-> @@ -210,6 +209,13 @@ struct ideapad_private {
->  		struct led_classdev led;
->  		unsigned int last_brightness;
->  	} fn_lock;
-> +	struct {
-> +		bool initialized;
-> +		bool active; /* true means touchpad is enabled */
-> +		struct input_handler handler;
-> +		struct input_dev *tp_dev;
-> +		spinlock_t lock;
+> diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
+> index 63d6694f71457b2e09d238af0a9bfb897a169a64..c2cb58c0f98a996d5a2718956092e74139f2a286 100644
+> --- a/drivers/mfd/intel-lpss.c
+> +++ b/drivers/mfd/intel-lpss.c
+> @@ -146,9 +146,12 @@ static int intel_lpss_debugfs_add(struct intel_lpss *lpss)
+>  {
+>  	struct dentry *dir;
+>  
+> +	if (!intel_lpss_debugfs) {
+> +		lpss->debugfs = NULL;
+> +		return 0;
+> +	}
+> +
+>  	dir = debugfs_create_dir(dev_name(lpss->dev), intel_lpss_debugfs);
+> -	if (IS_ERR(dir))
+> -		return PTR_ERR(dir);
+>  
+>  	/* Cache the values into lpss structure */
+>  	intel_lpss_cache_ltr(lpss);
+> @@ -432,10 +435,7 @@ int intel_lpss_probe(struct device *dev,
+>  		goto err_clk_register;
+>  
+>  	intel_lpss_ltr_expose(lpss);
+> -
+> -	ret = intel_lpss_debugfs_add(lpss);
+> -	if (ret)
+> -		dev_warn(dev, "Failed to create debugfs entries\n");
+> +	intel_lpss_debugfs_add(lpss);
+>  
+>  	if (intel_lpss_has_idma(lpss)) {
+>  		ret = mfd_add_devices(dev, lpss->devid, &intel_lpss_idma64_cell,
+> @@ -539,6 +539,13 @@ EXPORT_NS_GPL_DEV_PM_OPS(intel_lpss_pm_ops, INTEL_LPSS) = {
+>  static int __init intel_lpss_init(void)
+>  {
+>  	intel_lpss_debugfs = debugfs_create_dir("intel_lpss", NULL);
 
-Please go through this patch and add includes for what is now used. At 
-least spinlock related stuff, container_of(), and READ/WRITE_ONCE() lack 
-direct includes (please check the other stuff you're adding).
+Why not move this and everything else debugfs related to
+intel_lpss_debugfs_add()?  Then we can get rid of the awful global
+variable, have everything nicely compartmentalised and ensure that we
+handle each fault gracefully?
+
+> +
+> +	/* Ensure intel_lpss_debugfs stays NULL on error,
+> +	 * so intel_lpss_debugfs_add() exits properly.
+> +	 */
+> +	if (IS_ERR(intel_lpss_debugfs))
+> +		intel_lpss_debugfs = NULL;
+> +
+>  	return 0;
+>  }
+>  module_init(intel_lpss_init);
+> 
+> ---
+> base-commit: 2f0c1cf72f4682178506f513bbf015e591b1aa4a
+> change-id: 20260913-intel-lpss-debugfs-eff3580d1295
+> 
+> Best regards,
+> -- 
+> Maria Lisina <sekoohaka.sarisan@gmail.com>
+> 
+> 
 
 -- 
- i.
-
-> +	} tp_switch;
->  };
->  
->  static bool no_bt_rfkill;
-> @@ -234,7 +240,7 @@ MODULE_PARM_DESC(set_fn_lock_led,
->  static bool ctrl_ps2_aux_port;
->  module_param(ctrl_ps2_aux_port, bool, 0444);
->  MODULE_PARM_DESC(ctrl_ps2_aux_port,
-> -		 "Enable driver based PS/2 aux port en-/dis-abling on touchpad on/off toggle. If you need this please report this to: platform-driver-x86@vger.kernel.org");
-> +		 "Enable driver based suppression of touchpad events on touchpad on/off toggle. If you need this please report this to: platform-driver-x86@vger.kernel.org");
->  
->  static bool touchpad_ctrl_via_ec;
->  module_param(touchpad_ctrl_via_ec, bool, 0444);
-> @@ -1462,6 +1468,160 @@ static void ideapad_check_special_buttons(struct ideapad_private *priv)
->  	}
->  }
->  
-> +struct ideapad_tpswitch_handle {
-> +	struct input_handle handle;
-> +	struct ideapad_private *priv;
-> +};
-> +
-> +#define to_tpswitch_handle(h) \
-> +	container_of(h, struct ideapad_tpswitch_handle, handle)
-> +
-> +static int ideapad_tpswitch_connect(struct input_handler *handler,
-> +				    struct input_dev *dev,
-> +				    const struct input_device_id *id)
-> +{
-> +	struct ideapad_private *priv =
-> +		container_of(handler, struct ideapad_private, tp_switch.handler);
-> +	struct ideapad_tpswitch_handle *h;
-> +	int error;
-> +
-> +	h = kzalloc_obj(*h);
-> +	if (!h)
-> +		return -ENOMEM;
-> +
-> +	h->priv = priv;
-> +	h->handle.dev = dev;
-> +	h->handle.handler = handler;
-> +	h->handle.name = "ideapad-tpswitch";
-> +
-> +	error = input_register_handle(&h->handle);
-> +	if (error)
-> +		goto err_free_handle;
-> +
-> +	/*
-> +	 * We need to open the input handle so the input core invokes our
-> +	 * filter, but since we mark our handler as passive observer, this
-> +	 * will not cause the underlying touchpad hardware to be started
-> +	 * if there are no other users.
-> +	 */
-> +	error = input_open_device(&h->handle);
-> +	if (error)
-> +		goto err_unregister_handle;
-> +
-> +	scoped_guard(spinlock_irq, &priv->tp_switch.lock)
-> +		priv->tp_switch.tp_dev = dev;
-> +
-> +	return 0;
-> +
-> +err_unregister_handle:
-> +	input_unregister_handle(&h->handle);
-> +err_free_handle:
-> +	kfree(h);
-> +	return error;
-> +}
-> +
-> +static void ideapad_tpswitch_disconnect(struct input_handle *handle)
-> +{
-> +	struct ideapad_tpswitch_handle *h = to_tpswitch_handle(handle);
-> +	struct ideapad_private *priv = h->priv;
-> +
-> +	scoped_guard(spinlock_irq, &priv->tp_switch.lock)
-> +		priv->tp_switch.tp_dev = NULL;
-> +
-> +	input_close_device(handle);
-> +	input_unregister_handle(handle);
-> +	kfree(h);
-> +}
-> +
-> +static bool ideapad_tpswitch_filter(struct input_handle *handle,
-> +				    unsigned int type, unsigned int code,
-> +				    int value)
-> +{
-> +	struct ideapad_tpswitch_handle *h = to_tpswitch_handle(handle);
-> +	struct ideapad_private *priv = h->priv;
-> +
-> +	if (READ_ONCE(priv->tp_switch.active))
-> +		return false;
-> +
-> +	/* Allow passing button release events, drop everything else */
-> +	return !(type == EV_KEY && value == 0) &&
-> +	       !(type == EV_SYN && code == SYN_REPORT);
-> +
-> +}
-> +
-> +static const struct input_device_id ideapad_tpswitch_ids[] = {
-> +	{
-> +		.flags = INPUT_DEVICE_ID_MATCH_EVBIT |
-> +				INPUT_DEVICE_ID_MATCH_KEYBIT |
-> +				INPUT_DEVICE_ID_MATCH_ABSBIT,
-> +		.bustype = BUS_I8042,
-> +		.vendor = 0x0002,
-> +		.evbit = { BIT_MASK(EV_KEY) | BIT_MASK(EV_ABS) },
-> +		.keybit = { [BIT_WORD(BTN_TOOL_FINGER)] =
-> +				BIT_MASK(BTN_TOOL_FINGER) },
-> +		.absbit = { BIT_MASK(ABS_X) | BIT_MASK(ABS_Y) |
-> +				BIT_MASK(ABS_PRESSURE) |
-> +				BIT_MASK(ABS_TOOL_WIDTH) },
-> +	},
-> +	{ }
-> +};
-> +
-> +static int ideapad_tpswitch_init(struct ideapad_private *priv)
-> +{
-> +	int error;
-> +
-> +	if (!priv->features.ctrl_ps2_aux_port)
-> +		return 0;
-> +
-> +	spin_lock_init(&priv->tp_switch.lock);
-> +
-> +	priv->tp_switch.handler.name = "ideapad-tpswitch";
-> +	priv->tp_switch.handler.id_table = ideapad_tpswitch_ids;
-> +	priv->tp_switch.handler.filter = ideapad_tpswitch_filter;
-> +	priv->tp_switch.handler.connect = ideapad_tpswitch_connect;
-> +	priv->tp_switch.handler.disconnect = ideapad_tpswitch_disconnect;
-> +	priv->tp_switch.handler.passive_observer = true;
-> +
-> +	error = input_register_handler(&priv->tp_switch.handler);
-> +	if (error) {
-> +		dev_err(&priv->platform_device->dev,
-> +			"failed to register touchpad switch handler: %d",
-> +			error);
-> +		return error;
-> +	}
-> +
-> +	priv->tp_switch.initialized = true;
-> +	return 0;
-> +}
-> +
-> +static void ideapad_tpswitch_exit(struct ideapad_private *priv)
-> +{
-> +	if (priv->tp_switch.initialized) {
-> +		input_unregister_handler(&priv->tp_switch.handler);
-> +		priv->tp_switch.initialized = false;
-> +	}
-> +}
-> +
-> +static void ideapad_tpswitch_toggle(struct ideapad_private *priv, bool on)
-> +{
-> +	guard(spinlock_irq)(&priv->tp_switch.lock);
-> +
-> +	WRITE_ONCE(priv->tp_switch.active, on);
-> +	if (!on) {
-> +		struct input_dev *tp_dev = priv->tp_switch.tp_dev;
-> +		if (tp_dev) {
-> +			input_report_key(tp_dev, BTN_TOUCH, 0);
-> +			input_report_key(tp_dev, BTN_TOOL_FINGER, 0);
-> +			input_report_key(tp_dev, BTN_TOOL_DOUBLETAP, 0);
-> +			input_report_key(tp_dev, BTN_TOOL_TRIPLETAP, 0);
-> +			input_report_key(tp_dev, BTN_LEFT, 0);
-> +			input_report_key(tp_dev, BTN_RIGHT, 0);
-> +			input_report_key(tp_dev, BTN_MIDDLE, 0);
-> +			input_sync(tp_dev);
-> +		}
-> +	}
-> +}
-> +
->  /*
->   * backlight
->   */
-> @@ -1799,7 +1959,6 @@ static void ideapad_fn_lock_led_exit(struct ideapad_private *priv)
->  static void ideapad_sync_touchpad_state(struct ideapad_private *priv, bool send_events)
->  {
->  	unsigned long value;
-> -	unsigned char param;
->  	int ret;
->  
->  	/* Without reading from EC touchpad LED doesn't switch state */
-> @@ -1810,12 +1969,11 @@ static void ideapad_sync_touchpad_state(struct ideapad_private *priv, bool send_
->  
->  	/*
->  	 * Some IdeaPads don't really turn off touchpad - they only
-> -	 * switch the LED state. We (de)activate KBC AUX port to turn
-> -	 * touchpad off and on. We send KEY_TOUCHPAD_OFF and
-> -	 * KEY_TOUCHPAD_ON to not to get out of sync with LED
-> +	 * switch the LED state. On such devices we use an input filter to
-> +	 * suppress events from the touchpad.
->  	 */
->  	if (priv->features.ctrl_ps2_aux_port)
-> -		i8042_command(&param, value ? I8042_CMD_AUX_ENABLE : I8042_CMD_AUX_DISABLE);
-> +		ideapad_tpswitch_toggle(priv, value);
->  
->  	/*
->  	 * On older models the EC controls the touchpad and toggles it on/off
-> @@ -2018,8 +2176,8 @@ static const struct dmi_system_id hw_rfkill_list[] = {
->  /*
->   * On some models the EC toggles the touchpad muted LED on touchpad toggle
->   * hotkey presses, but the EC does not actually disable the touchpad itself.
-> - * On these models the driver needs to explicitly enable/disable the i8042
-> - * (PS/2) aux port.
-> + * On these models the driver needs to explicitly suppress data coming from
-> + * the touchpad.
->   */
->  static const struct dmi_system_id ctrl_ps2_aux_port_list[] = {
->  	{
-> @@ -2402,6 +2560,10 @@ static int ideapad_acpi_add(struct platform_device *pdev)
->  	if (err)
->  		goto input_failed;
->  
-> +	err = ideapad_tpswitch_init(priv);
-> +	if (err)
-> +		goto tpswitch_failed;
-> +
->  	err = ideapad_kbd_bl_init(priv);
->  	if (err) {
->  		if (err != -ENODEV)
-> @@ -2478,6 +2640,9 @@ static int ideapad_acpi_add(struct platform_device *pdev)
->  
->  	ideapad_fn_lock_led_exit(priv);
->  	ideapad_kbd_bl_exit(priv);
-> +	ideapad_tpswitch_exit(priv);
-> +
-> +tpswitch_failed:
->  	ideapad_input_exit(priv);
->  
->  input_failed:
-> @@ -2507,6 +2672,7 @@ static void ideapad_acpi_remove(struct platform_device *pdev)
->  
->  	ideapad_fn_lock_led_exit(priv);
->  	ideapad_kbd_bl_exit(priv);
-> +	ideapad_tpswitch_exit(priv);
->  	ideapad_input_exit(priv);
->  	ideapad_debugfs_exit(priv);
->  }
-> 
+Lee Jones
