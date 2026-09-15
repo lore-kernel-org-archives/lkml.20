@@ -1,413 +1,199 @@
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A59F492513
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460813; cv=none; b=YkkJeu4qVyoINjcNT4sLWa58xRyqTkWi/jpuNzs6C/4Kmb04ukstWpXIljtJrMud6s3QIo6zZ76pmQ9aHZXWf4U5Xzb21yFP/tplffqMNN8HGd8e6NShrgZ5Ap98jr8LWz1uNprFBv9JVqT1NsVWDqXOQ3X+XmSdlXVb7p/SyMI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460813; c=relaxed/simple;
-	bh=F9i32u7X67i3rjTFL62V2TeKyR+ixZjqL6I2EccGRRA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=eoVhfiS6TZb4H8vYJIZR3YBpwjIfvIPJSmDByHXUQvFrof1XuPE4l/nDLjHNEShbWDxX1YPZMkohgYthkxbtO8WgBGLls7tjrWu4MJadQHZdYNfpjTitFigElgS9XjW/LA13+cGUw9gk5I9oI+tk0PVfi2AsOHOfmzloPI2AITk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TigrlvK/; arc=none smtp.client-ip=209.85.222.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD46495503
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789460818; cv=pass; b=V82GUhVtN/xHIni22Tp/kfRdPmcFHMAdMQn+aRbiSJlxtqjCyaaAP/FCJvxhXLBE4U9cgAr3CFIQQkIpfV0wzVScjcjoW8qsYDDDGtjwMH1/6u2NSNFud9gSAA3nCufPgtv9fKxYvFtdSFdMETjZlS9EnbL1o1V1fyMH4LKNsJ8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789460818; c=relaxed/simple;
+	bh=nPB8HKMrWHw3m7s8Z1NEO0K4n5NwCAXwyUr1xW5XU7o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HIOTmgHywz/z4zYF0LwJmKbbzc5qJzxqdj3D+lafUmw9SyHw56GU1gNwkm+fernWpf832rZZBVEsF4PC1Tezx4Dyd1ty3YmyyQVlDy1PghuQ9yknpoJjme54QUD8cZDXaRGYNPBNM3lvEkmEcH6lyUegJowX/cubr1YAqu7wLFY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=LGyD24N5; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TigrlvK/"
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9308eafb465so1085980685a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:26:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="LGyD24N5"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469a3490bso2877660b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:26:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789460816; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SqWnsD4KLLr/ro2fUTDK8kJB20GkJn48J48rIa7UMQyJqDY+7lvHjAKlwfzbkcfeom
+         A9Qo720LWbJqYu9f6fMscfSF1PZHQlKosadoOZUJ426lB7iJOiUe8E5TFl9Q5fQTj4eb
+         v9/i7Et7xQZCH1jNl/tcI4tj0gFgjpU2S8RiFNNaGYVjlyDHr9l/s2U4tOVv/BDEcT0g
+         B5fp8xcQf1qvmPQno+rccwzO7HB/twNkneGemNI3LrxfAPhPmcWs20L9WjQ2g2jE0qfh
+         UZ6M5JPgWlIehul6gmVqbophs9CT8xXenS/rjK1B/BHbFGOC4sBO6CYBkfdjnbZKa3u4
+         YN2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lnh5CgWNygQ5nJ5BcAug/UGA2XoqYnoWr3xk+1LgwT0=;
+        fh=HAug0gYFtwH5nESQWZiMXpJIw4PO54YKsJHzj2hhiHk=;
+        b=NByED7Oh5TGkQDngE97nt2JZ0tXhfCwUoc7KbBRDc0C08AH/UcBWBV/j6/zfXcZ7+f
+         7G1I3+z890UL8+hg7TBKDsm1XrqZAyM7V2uTzJtc6SkELSoWwcG8VPWEE9O8T9QVE+Pu
+         v6aj+uagnv/gdA8nNYlspRsURr9Y1trFnCR7cEDeyVslrr5Dg302ycAHMOopP2QDqDzI
+         i4g9wGvQpSYRkUbH05/RWcLPYN2fEVW1u0KXy+JrUteCffq6YcqeuD0h3FkLUvOTdH54
+         ZtTJY246ailQYCAQy9a8/6rwDr/yQvLjprBi20FPC9E81zK4CPrXLqiXJgGg4jEqS8pP
+         DNvw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789460810; x=1790065610; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CSHzy5Fr+v+g78gtgBhpLtU/5VBe17dtS9vTkuvViHg=;
-        b=TigrlvK/QTYzC30aaMDr1gr52YhSkHL9GYV0QvgGzO8Ah1o3Es5OiQjR7TSL8bBeSa
-         UAciVZeX2GOfgqZErYslcWlPLF6MOYYPmRtbE9srstkDXclOI7hhqU6cAo7HtooZqDKW
-         NSuwjhU/2iwk6TJXo5xlzgoZw+6ossvOyH1jo+sTxNn+6G8zIT9HnX+59mhFtg9lsNvv
-         0C5gW/ApvYHcGPY6kyp3sH7Dcjj5i6ZiWJtxnSvPWtfyfZ3xrkyEtg/P1wKdQRP18Fqk
-         1KYzbBoGlnaOXqUS5En5ItaxvS6mjTcU7TfqSJahZKdlN4QOvz4TG07wZlolfIIViysc
-         ierA==
+        d=asu.edu; s=google; t=1789460816; x=1790065616; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lnh5CgWNygQ5nJ5BcAug/UGA2XoqYnoWr3xk+1LgwT0=;
+        b=LGyD24N5l64zOz1F5J3fHUPcg+6M1qW99Yar6dgJRHRQ/M5ve/6QkiNuWBnYTnSdSA
+         x1neQC61BUcK87a1lGXNkl0PTLYYh9toSY5PlqsPORHkjXGAKPA3ku28hqt0jTpp7LUb
+         EWcW9Q3mpH7hWLZEMXYX8w/5JlVa0NfXXPoM1AUj80OaGhPOeDXwKnrnKIAy7YfjECEJ
+         5czUC3+GUo6x6S4bZDYuxTOOv2B4/f1g2bj7URhijvuJBAGHOPFHfE7q9B+E6aASuX5b
+         rTWpO119zUSVLFscBSRvBLPkLz1Yr6zmR1HZEAtsewQbZX+rtkbVtPvUNpx+hb7HGqvu
+         l4Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460810; x=1790065610;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
+        d=1e100.net; s=20260707; t=1789460816; x=1790065616;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CSHzy5Fr+v+g78gtgBhpLtU/5VBe17dtS9vTkuvViHg=;
-        b=vGhP7IQBjC42m5EYoRJTYkt7Si+PMD9YyxC4zqH1bAf/rqIJoVMjoLJicvYw96ro7z
-         CxzkjAVHUfLJciLgYqNYcFRi60bfQu4M5NqigGEJ/NCkrJG+jNEa4QdVCTO1FGCjy0E7
-         T8Xz1ejzhSGbK7DUCZgDoOIHTwmvkH5vwKnixV7tzKSrSMscfiLorVs++0dpG22uU00a
-         nWmR+1ddnPEpojTbsdyVPQeZZyizIXaZn/gqdn6icCeQ2pu4j2xDnkz4NhJXJg4NNf6G
-         SbXWty3aTum97gfQgmxkQp2KuhhkG0R3eUtXZsDI2gmoxI8jMfyFCrY0lLGTrJAGRcSo
-         qU3g==
-X-Gm-Message-State: AFuF++mHremVFkeEgHlp0NiO7Q0QULZH4hTjHaKef2AlWdDItNNMEooQ
-	55T/W3kiOnSWlQ39yw2cKuogEJQFVTd9mWoIbtU3AEB1CEqwr8iBVCmDg1u8BBgUo3fYpnzb9rH
-	MrVVDGSBMgJEkOF2IPlT0CI4EPlKnF5vSqjOuoxWMjnRBOrPOruxFyoyLhFsMTXVxz5/ppfCh4D
-	/jHjYr36mmlBerRonDm5MXiVJauyRRTXetqATevQ==
-X-Received: from plky9.prod.google.com ([2002:a17:902:7009:b0:2dd:3c92:b0a2])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:8c5:b0:2c6:90ec:f601
- with SMTP id d9443c01a7336-2dd6c5f3422mr125997365ad.8.1789460416594; Tue, 15
- Sep 2026 01:20:16 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:42 +0000
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
+        bh=lnh5CgWNygQ5nJ5BcAug/UGA2XoqYnoWr3xk+1LgwT0=;
+        b=pysJX6Zlr8Qn3bYQOB1vMbHbmGKWWY05+gXaZMXuqbCdWx5162hJMw9tTIp/n3q1MJ
+         dpmy22RDwZi3NpcMDqrDZGENamrjkTHeEGC1/+6sxyqzjctwaJiJzBS/PmIYdSJPTHHi
+         uN/cbg1JC3EQ2QKI0geAIPK+e3ICVnq9E7I0RoPLJ90aGDtsAm7Wf9YHBnjJzob2hNVd
+         hJV4VxIVFUYjbCwsrDaX1Bxn5SMIEp5bbF/lSpSa/D7ta2+ea5VUF8mA8HHLYZThQvSY
+         EEXhw45QwDu/ibULWuRj0NWJyCK47O8/cP7+s+3xtx0A+3GvSHgxkgjmcEVYrxT+XBDw
+         laDA==
+X-Forwarded-Encrypted: i=1; AKwUvBx1X0Rsskn16ztp8bjyrLGE9Siz6ASAPLoJsQFTk/umpJnbuLFK9hazZMIKQIGAEtFi0wYsniZ2V2ll8Qc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgfkjUt0F/uZjOcN0Ygz/JU9i57JBalDGkb8nMIRC9gs49eYj6
+	bMUW2dzOCmbHuc413aEpXzS1RJhrYL9I2z/dxpY5TZ8vl4L3D12FhuubfT2IjqGHB69rFp4xVCM
+	qOFKRS1z+Rdk6/rZAIlfdmLwamLjcaV+EQT4XeUpg
+X-Gm-Gg: AYBFou3fueu5O2qfrEoa56pz1GiV6BHfDQjl4a1LWMl8W9xdcudw4UjKUKDvdFkpzuO
+	CVuO+ZHb6TRV/5Rh2nAU9R9ppFwOM+Yo4BLks3wV8UE4RO+wBlAPefySN59xysqE17i1lZosEwN
+	0CJgn4+S64UWyxrOglNrxzd27gvqsBXs40+ljzHwIkbYKLgc8T/wPDPjhE7B7GykV75J0vnELE+
+	ro4S9mxRHQZmBJpw+JefjXfEBrMTogkjXJcLQI/f930oLb0tsShO8qdUWNeWDAUmgkwBhL2yUo9
+	J4H8BWYvluTC2aM/eXrqhv3l1W+TRP53HLj8sElqDlS/e4+UQy+S0Efr33BKjhRMtuIH4t6UBtx
+	Tix3paIIDApOmpwJuXYqRt/FIdoIoIYFCOCuKzVGSgLNdtOvS+5oXmg2I
+X-Received: by 2002:a05:6a00:22d4:b0:857:7337:5db6 with SMTP id
+ d2e1a72fcca58-86f857f03e4mr11800026b3a.20.1789460815852; Tue, 15 Sep 2026
+ 01:26:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260915081910.4142719-1-morbo@google.com>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-26-morbo@google.com>
-Subject: [PATCH 25/28] EDAC/thunderx: Replace strlcat() with seq_buf
-From: Bill Wendling <morbo@google.com>
-To: linux-kernel@vger.kernel.org
-Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
-	Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
-	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
-	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Matthew Brost <matthew.brost@intel.com>, 
-	"=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Matthias Schwarzott <zzam@gentoo.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Kees Cook <kees@kernel.org>, 
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
-	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
-	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
-	Johannes Berg <johannes.berg@intel.com>, 
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
-	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
-	"=?UTF-8?q?C=C3=A1ssio=20Gabriel?=" <cassiogabrielcontato@gmail.com>, Rong Zhang <i@rong.moe>, 
-	Arun Raghavan <arunr@valvesoftware.com>, linux-arm-kernel@lists.infradead.org, 
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	linux-input@vger.kernel.org, linux-media@vger.kernel.org, 
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
-	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	devel@lists.orangefs.org, linux-hardening@vger.kernel.org, 
-	linux-sound@vger.kernel.org
+MIME-Version: 1.0
+References: <20260915082426.703892-1-xmei5@asu.edu>
+In-Reply-To: <20260915082426.703892-1-xmei5@asu.edu>
+From: Xiang Mei <xmei5@asu.edu>
+Date: Tue, 15 Sep 2026 01:26:44 -0700
+X-Gm-Features: AcwNN1VHk4qFiOTVVqpCxopv6W4c447U28-fnrK3q7ySLfaNNx1iHuyYYDxzrTc
+Message-ID: <CAPpSM+SviG8h4CYfjYf3FtowDcj8JE11ThBTip=+f690514uBw@mail.gmail.com>
+Subject: Re: [PATCH net] net: bcmgenet: restore the hardware filters on open
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com
+Cc: netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	jakub@cloudflare.com, Nicolai Buchwitz <nb@tipi-net.de>, 
+	Justin Chen <justin.chen@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The threaded ISR handlers (thunderx_ocx_com_threaded_isr(),
-thunderx_ocx_lnk_threaded_isr(), and thunderx_l2c_threaded_isr()) build
-multi-line error reports by formatting register details into a scratch
-buffer and appending them to "msg" with strlcat().
+Please ignore this email. It's an email sent by mistake.
 
-In preparation for removing the deprecated strlcat() API[1], refactor the
-ISR handlers to construct error messages using struct seq_buf.
+I got this patch for testing and wrongly sent it out. Sorry about that.
 
-Additionally, fix two bugs in decode_register(): initialize "str[0] =3D '\0=
-'"
-so callers do not append stale buffer contents when no error bits match,
-and stop iterating if snprintf() truncates the buffer to avoid
-underflowing the remaining "size" counter.
+Xiang
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Cc: codemender-patching+linux@google.com
-Assisted-by: AI:Claude-3-5-Sonnet [editor_update_file, shell_command_run]
-Signed-off-by: Bill Wendling <morbo@google.com>
----
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ian Abbott <abbotti@mev.co.uk>
-Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
-Cc: Tony Luck <tony.luck@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Matthias Schwarzott <zzam@gentoo.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Linus Walleij <linusw@kernel.org>
-Cc: Anil Gurumurthy <anil.gurumurthy@qlogic.com>
-Cc: Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>
-Cc: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>
-Cc: Anna Schumaker <anna@kernel.org>
-Cc: Mike Marshall <hubcap@omnibond.com>
-Cc: Martin Brandenburg <martin@omnibond.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Chuck Lever <cel@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>
-Cc: Olga Kornievskaia <okorniev@redhat.com>
-Cc: Dai Ngo <Dai.Ngo@oracle.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Bill Wendling <morbo@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Kanglong Wang <wangkanglong@loongson.cn>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Qiang Ma <maqianga@uniontech.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Thorsten Blum <blum@kernel.org>
-Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Johannes Berg <johannes.berg@intel.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Cryolitia PukNgae <cryolitia@uniontech.com>
-Cc: Jiaming Zhang <r772577952@gmail.com>
-Cc: Will Porter <mrwillporter@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
-Cc: "C=C3=A1ssio Gabriel" <cassiogabrielcontato@gmail.com>
-Cc: Rong Zhang <i@rong.moe>
-Cc: Arun Raghavan <arunr@valvesoftware.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: loongarch@lists.linux.dev
-Cc: linux-mips@vger.kernel.org
-Cc: linux-parisc@vger.kernel.org
-Cc: linux-edac@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org
-Cc: linux-wireless@vger.kernel.org
-Cc: brcm80211@lists.linux.dev
-Cc: brcm80211-dev-list.pdl@broadcom.com
-Cc: devicetree@vger.kernel.org
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: linux-gpio@vger.kernel.org
-Cc: linux-scsi@vger.kernel.org
-Cc: linux-nfs@vger.kernel.org
-Cc: devel@lists.orangefs.org
-Cc: linux-hardening@vger.kernel.org
-Cc: linux-sound@vger.kernel.org
----
- drivers/edac/thunderx_edac.c | 64 ++++++++++++++++++++++--------------
- 1 file changed, 39 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/edac/thunderx_edac.c b/drivers/edac/thunderx_edac.c
-index e7c335ca0c36..4e3781815b6d 100644
---- a/drivers/edac/thunderx_edac.c
-+++ b/drivers/edac/thunderx_edac.c
-@@ -20,6 +20,7 @@
- #include <linux/atomic.h>
- #include <linux/bitfield.h>
- #include <linux/circ_buf.h>
-+#include <linux/seq_buf.h>
-=20
- #include <asm/page.h>
-=20
-@@ -47,12 +48,17 @@ static void decode_register(char *str, size_t size,
- {
- 	int ret =3D 0;
-=20
-+	if (size > 0)
-+		str[0] =3D '\0';
-+
- 	while (descr->type && descr->mask && descr->descr) {
- 		if (reg & descr->mask) {
- 			ret =3D snprintf(str, size, "\n\t%s, %s",
- 				       descr->type =3D=3D ERR_CORRECTED ?
- 					 "Corrected" : "Uncorrected",
- 				       descr->descr);
-+			if (ret < 0 || ret >=3D size)
-+				break;
- 			str +=3D ret;
- 			size -=3D ret;
- 		}
-@@ -1115,35 +1121,37 @@ static irqreturn_t thunderx_ocx_com_threaded_isr(in=
-t irq, void *irq_id)
-=20
- 	while (CIRC_CNT(ocx->com_ring_head, ocx->com_ring_tail,
- 			ARRAY_SIZE(ocx->com_err_ctx))) {
-+		struct seq_buf s;
-+
- 		tail =3D ring_pos(ocx->com_ring_tail,
- 				ARRAY_SIZE(ocx->com_err_ctx));
- 		ctx =3D &ocx->com_err_ctx[tail];
-=20
--		snprintf(msg, OCX_MESSAGE_SIZE, "%s: OCX_COM_INT: %016llx",
--			ocx->edac_dev->ctl_name, ctx->reg_com_int);
-+		seq_buf_init(&s, msg, OCX_MESSAGE_SIZE);
-+
-+		seq_buf_printf(&s, "%s: OCX_COM_INT: %016llx",
-+			       ocx->edac_dev->ctl_name, ctx->reg_com_int);
-=20
- 		decode_register(other, OCX_OTHER_SIZE,
- 				ocx_com_errors, ctx->reg_com_int);
-=20
--		strlcat(msg, other, OCX_MESSAGE_SIZE);
-+		seq_buf_puts(&s, other);
-=20
- 		for (lane =3D 0; lane < OCX_RX_LANES; lane++)
- 			if (ctx->reg_com_int & BIT(lane)) {
--				snprintf(other, OCX_OTHER_SIZE,
--					 "\n\tOCX_LNE_INT[%02d]: %016llx OCX_LNE_STAT11[%02d]: %016llx",
--					 lane, ctx->reg_lane_int[lane],
--					 lane, ctx->reg_lane_stat11[lane]);
--
--				strlcat(msg, other, OCX_MESSAGE_SIZE);
-+				seq_buf_printf(&s,
-+					       "\n\tOCX_LNE_INT[%02d]: %016llx OCX_LNE_STAT11[%02d]: %016llx"=
-,
-+					       lane, ctx->reg_lane_int[lane],
-+					       lane, ctx->reg_lane_stat11[lane]);
-=20
- 				decode_register(other, OCX_OTHER_SIZE,
- 						ocx_lane_errors,
- 						ctx->reg_lane_int[lane]);
--				strlcat(msg, other, OCX_MESSAGE_SIZE);
-+				seq_buf_puts(&s, other);
- 			}
-=20
- 		if (ctx->reg_com_int & OCX_COM_INT_CE)
--			edac_device_handle_ce(ocx->edac_dev, 0, 0, msg);
-+			edac_device_handle_ce(ocx->edac_dev, 0, 0, seq_buf_str(&s));
-=20
- 		ocx->com_ring_tail++;
- 	}
-@@ -1196,25 +1204,28 @@ static irqreturn_t thunderx_ocx_lnk_threaded_isr(in=
-t irq, void *irq_id)
-=20
- 	while (CIRC_CNT(ocx->link_ring_head, ocx->link_ring_tail,
- 			ARRAY_SIZE(ocx->link_err_ctx))) {
-+		struct seq_buf s;
-+
- 		tail =3D ring_pos(ocx->link_ring_head,
- 				ARRAY_SIZE(ocx->link_err_ctx));
-=20
- 		ctx =3D &ocx->link_err_ctx[tail];
-=20
--		snprintf(msg, OCX_MESSAGE_SIZE,
--			 "%s: OCX_COM_LINK_INT[%d]: %016llx",
--			 ocx->edac_dev->ctl_name,
--			 ctx->link, ctx->reg_com_link_int);
-+		seq_buf_init(&s, msg, OCX_MESSAGE_SIZE);
-+
-+		seq_buf_printf(&s, "%s: OCX_COM_LINK_INT[%d]: %016llx",
-+			       ocx->edac_dev->ctl_name,
-+			       ctx->link, ctx->reg_com_link_int);
-=20
- 		decode_register(other, OCX_OTHER_SIZE,
- 				ocx_com_link_errors, ctx->reg_com_link_int);
-=20
--		strlcat(msg, other, OCX_MESSAGE_SIZE);
-+		seq_buf_puts(&s, other);
-=20
- 		if (ctx->reg_com_link_int & OCX_COM_LINK_INT_UE)
--			edac_device_handle_ue(ocx->edac_dev, 0, 0, msg);
-+			edac_device_handle_ue(ocx->edac_dev, 0, 0, seq_buf_str(&s));
- 		else if (ctx->reg_com_link_int & OCX_COM_LINK_INT_CE)
--			edac_device_handle_ce(ocx->edac_dev, 0, 0, msg);
-+			edac_device_handle_ce(ocx->edac_dev, 0, 0, seq_buf_str(&s));
-=20
- 		ocx->link_ring_tail++;
- 	}
-@@ -1880,22 +1891,25 @@ static irqreturn_t thunderx_l2c_threaded_isr(int ir=
-q, void *irq_id)
-=20
- 	while (CIRC_CNT(l2c->ring_head, l2c->ring_tail,
- 			ARRAY_SIZE(l2c->err_ctx))) {
-+		struct seq_buf s;
-+
- 		tail =3D ring_pos(l2c->ring_tail, ARRAY_SIZE(l2c->err_ctx));
- 		ctx =3D &l2c->err_ctx[tail];
-=20
--		snprintf(msg, L2C_MESSAGE_SIZE,
--			 "%s: %s: %016llx, %s: %016llx",
--			 l2c->edac_dev->ctl_name, reg_int_name, ctx->reg_int,
--			 ctx->reg_ext_name, ctx->reg_ext);
-+		seq_buf_init(&s, msg, L2C_MESSAGE_SIZE);
-+
-+		seq_buf_printf(&s, "%s: %s: %016llx, %s: %016llx",
-+			       l2c->edac_dev->ctl_name, reg_int_name, ctx->reg_int,
-+			       ctx->reg_ext_name, ctx->reg_ext);
-=20
- 		decode_register(other, L2C_OTHER_SIZE, l2_errors, ctx->reg_int);
-=20
--		strlcat(msg, other, L2C_MESSAGE_SIZE);
-+		seq_buf_puts(&s, other);
-=20
- 		if (ctx->reg_int & mask_ue)
--			edac_device_handle_ue(l2c->edac_dev, 0, 0, msg);
-+			edac_device_handle_ue(l2c->edac_dev, 0, 0, seq_buf_str(&s));
- 		else if (ctx->reg_int & mask_ce)
--			edac_device_handle_ce(l2c->edac_dev, 0, 0, msg);
-+			edac_device_handle_ce(l2c->edac_dev, 0, 0, seq_buf_str(&s));
-=20
- 		l2c->ring_tail++;
- 	}
---=20
-2.55.0.1032.g73a4cd73de-goog
-
+On Tue, Sep 15, 2026 at 1:24=E2=80=AFAM Xiang Mei <xmei5@asu.edu> wrote:
+>
+> From: Nicolai Buchwitz <nb@tipi-net.de>
+>
+> bcmgenet_hfb_init() runs INIT_LIST_HEAD() on priv->rxnfc_list, which drop=
+s
+> every rule off the list, and bcmgenet_open() calls it on each ifup. Every
+> rule the user configured is silently lost:
+>
+>   # ethtool -N eth0 flow-type ether dst $MAC action 0
+>   Added rule with ID 0
+>   # ethtool -n eth0 | grep -c Filter:
+>   1
+>   # ip link set eth0 down && ip link set eth0 up
+>   # ethtool -n eth0 | grep -c Filter:
+>   0
+>
+> Initialise the lists once at probe and restore the rules on open, as
+> bcmgenet_resume() already does.
+>
+> Fixes: 3e370952287c ("net: bcmgenet: add support for ethtool rxnfc flows"=
+)
+> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+> Reviewed-by: Justin Chen <justin.chen@broadcom.com>
+> Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> Link: https://patch.msgid.link/20260913190052.939955-1-nb@tipi-net.de
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> ---
+>  .../net/ethernet/broadcom/genet/bcmgenet.c    | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net=
+/ethernet/broadcom/genet/bcmgenet.c
+> index a2305e6428d1..b916080f4ff1 100644
+> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> @@ -749,8 +749,17 @@ static void bcmgenet_hfb_init(struct bcmgenet_priv *=
+priv)
+>                 INIT_LIST_HEAD(&priv->rxnfc_rules[i].list);
+>                 priv->rxnfc_rules[i].state =3D BCMGENET_RXNFC_STATE_UNUSE=
+D;
+>         }
+> +}
+> +
+> +static void bcmgenet_hfb_restore(struct bcmgenet_priv *priv)
+> +{
+> +       struct bcmgenet_rxnfc_rule *rule;
+>
+>         bcmgenet_hfb_clear(priv);
+> +
+> +       list_for_each_entry(rule, &priv->rxnfc_list, list)
+> +               if (rule->state !=3D BCMGENET_RXNFC_STATE_UNUSED)
+> +                       bcmgenet_hfb_create_rxnfc_filter(priv, rule);
+>  }
+>
+>  static int bcmgenet_begin(struct net_device *dev)
+> @@ -3376,8 +3385,8 @@ static int bcmgenet_open(struct net_device *dev)
+>
+>         bcmgenet_set_hw_addr(priv, dev->dev_addr);
+>
+> -       /* HFB init */
+> -       bcmgenet_hfb_init(priv);
+> +       /* Restore the filters, the MAC was reset above */
+> +       bcmgenet_hfb_restore(priv);
+>
+>         /* Reinitialize TDMA and RDMA and SW housekeeping */
+>         ret =3D bcmgenet_init_dma(priv, true);
+> @@ -4075,6 +4084,7 @@ static int bcmgenet_probe(struct platform_device *p=
+dev)
+>
+>         /* Mii wait queue */
+>         init_waitqueue_head(&priv->wq);
+> +       bcmgenet_hfb_init(priv);
+>         INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
+>
+>         priv->clk_wol =3D devm_clk_get_optional(&priv->pdev->dev, "enet-w=
+ol");
+> @@ -4272,10 +4282,7 @@ static int bcmgenet_resume(struct device *d)
+>         bcmgenet_set_hw_addr(priv, dev->dev_addr);
+>
+>         /* Restore hardware filters */
+> -       bcmgenet_hfb_clear(priv);
+> -       list_for_each_entry(rule, &priv->rxnfc_list, list)
+> -               if (rule->state !=3D BCMGENET_RXNFC_STATE_UNUSED)
+> -                       bcmgenet_hfb_create_rxnfc_filter(priv, rule);
+> +       bcmgenet_hfb_restore(priv);
+>
+>         /* Reinitialize TDMA and RDMA and SW housekeeping */
+>         ret =3D bcmgenet_init_dma(priv, false);
+> --
+> 2.43.0
+>
