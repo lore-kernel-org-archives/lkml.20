@@ -1,114 +1,116 @@
-Received: from xry111.site (xry111.site [89.208.246.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6735489FAE
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.208.246.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEFF3BCD15
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:35:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461315; cv=none; b=XYTpr58fGn/4Y9FaWPrHYgEs32VlQpYt1bnbJia7JkTR/Oy5wcWBuAMCtfM8sEepCon6UFCF8p+sVl59Ohyj3nY0fJCGGwyEST5JZDXmrXuKe54gP17JPACDcwvlLk0OvwD3KNY1QJnOl5axSz99VvV9hZi72pU7MLpCIpq9SBA=
+	t=1789461348; cv=none; b=Il+BsXNubyNt3rdh5+fLxXcmsWA/HZerABUREWqeEV6rQzfwmKO2nRRuBDISAaXrWxLoZU4fB8JrZ30dI3emWLAZCg3iz8M15qFG0XsryPk99/iYvbL6+g8D2vt3jvDgYayZhB5he6xwGS1oc/Ov3DR7l8nsHUAwd3+qKKDuMUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461315; c=relaxed/simple;
-	bh=L0xgOwgQMY/YiEDRH5Y2m4wsmzuwdOvSsCzLnKAQjdU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jpId4naUDPoM50vBLTcKbTj2CppMSGDM0mBkPQT3Tpz5MvwZawYwAKfSIKtjvfrPh98QCEcm+EOoWGOxNGapczasgt5moDzj9ZHeGPAA+iFHNpdUW4Kjvlkp+esYl+l/8KsQJ2+Thb9MuCg35zFHvtLh8y6SEW8Nr4Dv7IRz7Hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site; spf=pass smtp.mailfrom=xry111.site; dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b=ddzNpYYN; arc=none smtp.client-ip=89.208.246.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xry111.site
+	s=arc-20240116; t=1789461348; c=relaxed/simple;
+	bh=pITJvfUonXZZQX2dXh+3PEdpHvGOWWcgvVUkgHlLyzo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L8yqN3IkvHabPHu8seluYbpYYns0Bmmh8Wdm9fTR4WG++6tIfkIapelim4xM57jX0C3m/GAfB0Zv4zOvwnPuoHxPJ44fTDMvpj/Ik5jZTKXSKDr9HHoJylFLqpkeq+zAhd9fvm5uD3EkAg7fH7EvLfna1pZ/CaLzYxkNbG6r4IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iMoCyjgy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b="ddzNpYYN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
-	s=default; t=1789460917;
-	bh=z358u1wR+49qt4YEKetvKaiKAz+WI+WT/D6qYHndaF8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=ddzNpYYNdu56mMuP/Znb+yFJwkAvkHkzBqF3ugqZGrq6S4UJzwFZMm8aSJIQFynCS
-	 t1rKSbWLqU87TedOK2Ng7PwLlE5Ele8l8bDouV6ye7B0fBs3mTPNs9KtF+R7SE7w3e
-	 ePqNWF2+sx2XXuURyM68bzQtT87zbxBWJGFm2lAU=
-Received: from [127.0.0.1] (2607-8700-5500-e873-0000-0000-0000-1001.16clouds.com [IPv6:2607:8700:5500:e873::1001])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1) server-digest SHA384)
-	(Client did not present a certificate)
-	(Authenticated sender: xry111@xry111.site)
-	by xry111.site (Postfix) with ESMTPSA id A07CC65BE6;
-	Tue, 15 Sep 2026 04:28:36 -0400 (EDT)
-Message-ID: <c103b00442e97e257bd999bf322b88b03af67df4.camel@xry111.site>
-Subject: Re: [PATCH v2] LoongArch: Remove arch-specific
- __smp_mb__{before,after}_atomic()
-From: Xi Ruoyao <xry111@xry111.site>
-To: Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
-Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>, loongarch@lists.linux.dev, 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iMoCyjgy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D6F1F000FF;
+	Tue, 15 Sep 2026 08:35:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789461346;
+	bh=V5PMVhNm6w7vScOauxt2sn2fqUvvMTkE5qtbt52NA+c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iMoCyjgyoF5Aia27jf1t2O0HSyVcKcUmOQA/DJ/7kOdR2uRikSSQXjTu2T9pU4uha
+	 WMSv5gbH4lyfFjgNW5IWEIW6Yqgp/hG4upDDmYllejUuFHCb9MymHWCulFEl5OV+UB
+	 0CLv6Lpcn5UoRCe0pALkn6kSC1v3joIYQJ0m0EiGmLQEd4uHlGixLo7WD8p7EcBsf8
+	 wzYjmPtTSQVVzUGXkicNIDUp4Hp+LWYY7YLo0TXOljiQta9Yov8CimRzuw8PrTDqA2
+	 dXFOfBtc2ZHOfngDM/5Fr9y8NhFVhovxz4qGp8h9M3X24ARuL9Wrmj8mhNuAlWUbt7
+	 imvp2N00pk2Hw==
+Date: Tue, 15 Sep 2026 09:35:41 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, 
 	linux-kernel@vger.kernel.org
-Date: Tue, 15 Sep 2026 16:28:34 +0800
-In-Reply-To: <20260908073906.31781-1-yangtiezhu@loongson.cn>
-References: <20260908073906.31781-1-yangtiezhu@loongson.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+Subject: Re: [PATCH v2 00/40] mm: make VMA flag semantics explicit, eliminate
+ VM_SPECIAL
+Message-ID: <aqkCXW12QFi03jX7@gremlin>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+ <20260914180811.057cba8fcc48d6e0b53a2683@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914180811.057cba8fcc48d6e0b53a2683@linux-foundation.org>
 
-On Tue, 2026-09-08 at 15:39 +0800, Tiezhu Yang wrote:
-> When running the BPF selftest "test_progs -t timer_lockup" on a LoongArch
-> machine, the kernel intermittently experiences soft lockups and panics in
-> hrtimer_cancel().
->=20
-> The root cause is that bpf_timer_cancel() relies on smp_mb__after_atomic(=
-)
-> to provide a full data barrier after a relaxed atomic_inc() to ensure the
-> proper store-load ordering before performing lockless dependency checks o=
-n
-> weakly-ordered architectures such as LoongArch, but the current definitio=
-n
-> of smp_mb__after_atomic() is a plain compiler barrier.
->=20
-> This allows a subsequent read to bypass the prior write due to store-load
-> reordering, enabling concurrent CPUs to simultaneously bypass the softwar=
-e
-> deadlock detection, enter hrtimer_cancel(), and then trigger a severe ABB=
-A
-> deadlock in the hrtimer core.
->=20
-> Moreover, there are hundreds of smp_mb__after_atomic() call sites across
-> the core kernel (kernel/, drivers/, mm/, net/, fs/) that currently lack
-> necessary full data barriers on LoongArch, which have potential risks.
->=20
-> To comply with the LKMM specification, fix this by removing the incorrect
-> arch-specific definition of __smp_mb__after_atomic(), so that this macro
-> can automatically fall back to the generic definition in asm-generic that
-> maps to __smp_mb() and emits the required hardware DBAR instruction. Whil=
-e
-> at it, do the same thing for __smp_mb__before_atomic().
->=20
-> With this patch, the BPF timer_lockup selftest was stressed for 1 million
-> consecutive loops on a physical LoongArch machine without encountering an=
-y
-> further lockups.
->=20
-> Reported-by: Vincent Li <vincent.mc.li@gmail.com>
-> Closes: https://lore.kernel.org/loongarch/CAK3+h2xOSEZUHhou7N2cRL-aGrZCNS=
-m45g+P7thObMe+fpgYCA@mail.gmail.com/
-> Fixes: 46859ac8af52 ("LoongArch: Add multi-processor (SMP) support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+[excise cc- list to mm]
 
-The Documentation/atomic_t.txt file says:
+On Mon, Sep 14, 2026 at 06:08:11PM -0700, Andrew Morton wrote:
+> On Mon, 14 Sep 2026 15:57:20 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+>
+> > The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
+> > properties:
+> >
+> > ...
+> >
+> > It's all rather a mess.
+> >
+> > This series brings some order to things by both limiting what drivers can
+> > do with VMA flags and switching to using predicates that describe
+> > behaviour, not arbitrary flags.
+>
+> That's a lot of patches.
 
-   These helper barriers exist because architectures have varying implicit
-   ordering on their SMP atomic primitives. For example our TSO architectur=
-es
-   provide full ordered atomics and these barriers are no-ops.
+Yeah I know :)
 
-So yes, a compiler barrier cannot be enough.  If I read that file
-correctly smp_mb__{before,after}_atomic can only be more permissive than
-smp_mb because they allow some accesses *not* against the atomic itself
-to pass through, unfortunately LoongArch does not provide such a
-"address-aware barrier" so there seems nothing we can do better than a
-full barrier.
+I held this back from last cycle to reduce workload, but I can't keep doing
+that :))
 
-Reviewed-by: Xi Ruoyao <xry111@xry111.site>
+It's a lot but each patch is relatively easy to review.
 
---=20
-Xi Ruoyao <xry111@xry111.site>
+>
+> Review is thin and I expect this won't improve a lot.  Lots of "no
+> functional changes" changes.
+
+Well, I think it will! Had a meeting last night where Suren committed to
+going through, and I will nag people.
+
+It's a very busy cycle I realise but this is mostly fairly straight-forward
+to review.
+
+>
+> Perhaps it would be helpful if you were to identify those patches which
+> you'd like to see reviewers focus on?
+
+The mlock stuff is probably the most sensitive bit. But in general that the
+semantics are what we want.
+
+Already had some review on the driver-specific bits from relevant people (I
+fixup a bunch as part of the changes)
+
+>
+> >  1153 insertions(+), 582 deletions(-)
+>
+> It's funny how often cleanup patches do this.
+
+Well it's not just a cleanup per se actually, I add a whole new
+mmap_prepare() action methodology and add a bunch of mmap hook validation
+so it's adding functionality to the kernel.
+
+And there's a bunch of kdoc documentation too (plus a whole bunch of
+additional _actual_ documentation added to the mmap_prepare doc page), so
+there's good reason for the additions :>)
+
+>
+> All queued up, thanks.
+
+Thanks!
+
+--
+Cheers, Lorenzo
