@@ -1,108 +1,162 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51843F4DD0
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:46:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFC83CB57F;
+	Tue, 15 Sep 2026 13:47:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480013; cv=none; b=SO6I7u0rboMPUZQBFtw5NYVE+zTPK/8kiuP7YrqAlr6rs651dphbf4rwNFfKqH0Ks8iCktT0k6JOxKBMbR8FeoTfNsLTD1I4L82yfJk/214smIAVnq7Pa+AxiTbC5UxK5sK1sdsd5HcusfxZosk6UEX1e7owQit9qMNPeMjOAZ8=
+	t=1789480042; cv=none; b=eufv40Ub7IxqbUrn3a0uJgu/S+BMTLBtbqf9rCGbRYtSfmQEaWS8GZA0P1yOZ/2R+7dWD8pXnP65O9TMPGy2t37ZVl+eaJZe5C4oG2OApTHP/m8yfnPY+ASQaQnjZwpa27nf/YF0Evrb7mKjgCwY773Ul9WIvPrrVUstAHM6Wb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480013; c=relaxed/simple;
-	bh=UkVfNVIy7sENgVo7iJcaggTxO1qWFNozi+Zn81xR2PY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eNZ6+s+/QLcx3trEfHSYin4T9Bk3v1UnDZwlZBBKBhcPEhPCf8XnRl+724D5y7Bx218Roz6PpeSrEct01iuafhnABWBYTu78P9XQE8j0MkedDap591PcRrYTjzINB7dR3OKUHwL+ezeMHaH1Sq/81Y4XAc1oPs8xgdqJW0libBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=AgV6t3hp; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Y6V3Zpeq; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1789480042; c=relaxed/simple;
+	bh=ZRcbsblfilKh97aHUvnTvnGgTE0SnKVXCZ2wCDvust8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=onlWKOdWDeXDBED0v0q+TdIw0MfNaUhp43E0FN2rnYqZXmnNQjPLdvyEuX45MtghZLZ0xU1I+U4DyS5tnV4h42G0nH0ksVevBC+CcwVZQl5mSUQRGygSGMM+dBmYYHPEiyOer3DqUbmMHHtelsGV1FQrASUkJYrWggyvsxLo+JA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VhPsN+U/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="AgV6t3hp";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Y6V3Zpeq"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfout.stl.internal (Postfix) with ESMTP id B71531D00285;
-	Tue, 15 Sep 2026 09:46:48 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-08.internal (MEProxy); Tue, 15 Sep 2026 09:46:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789480008; x=
-	1789566408; bh=hLr8f1y6OpCVlFZxNEDzkoNAdcjT5mP0qSfI00lGolU=; b=A
-	gV6t3hpNgBBM/0P7KIfeQzhPefkDLArILyqAZJqtGPohuNmIb3pqNuebuH8TG5gw
-	0ThVd119vrssfi7xWCMcw05Ik7AgphgpuroqZUacbs3fCnDjfuMukSDBpvBWWxkd
-	X7Tvdm2cONPF8fZFdqmeF+0uhyl3LxxWZB2Z9+/iezqsHv8fUy8XtI7RwIzS2TaN
-	+T1vX/KOpVTuK4yVUP1hXxPyKyO5zMzUOCrXb/bEga4qoabLbW4xSqxv5HwBMyzH
-	SVNEbO7dkcUQJteu4Rt+mrJTjag9xNaA73pQMUme1Jvcu9Mi0WxiADR/lBS+i6FW
-	lkM18/u1lRFDoK0vamKDA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789480008; x=1789566408; bh=hLr8f1y6OpCVlFZxNEDzkoNAdcjT5mP0qSf
-	I00lGolU=; b=Y6V3ZpeqOBjgVPJH/XkT56SZbdl8JdJhFd4tJfQP9QtypVpFu1f
-	H3813v8YcqcW5mUhHGguoEpEEkWvKsHV4fdzoZnCN3DEMC1AanEMkMVKVH0R03e+
-	ReVK0RzLVbYatnBHR4tZTGbsfGuHBcGHLxmaM5gJPKA1gsmGs3gEwZwoFSEM7i71
-	qmoiK+X8FsVYFxO7erFyU+/qtfeRKC/8Ujxtd/lmxgLPZG44D0IvjJRPSPqA+P1O
-	zflPywY6+dUnU39iQ3635eVrrTuS6IuzH/6LTfyMjQItKvzhDeYI4PQn719xGpKJ
-	bO9QE/qxZdl43lm1qUNtsZhU2+ihABXXdAA==
-X-ME-Sender: <xms:R0ypau26tS0Z2ysNwy4NdcHNNF_oHWQ8sVS1MxPRn-lOT1epS8NJnw>
-    <xme:R0ypaus_beJEOXTtUizhzPtohyw-FW-B-YZj-rxMI7RFyvoUELYws1XSWw4GIlFjB
-    -JvHPUmbHXz_FywyUUPb8GGqybKSa6msC_FkxuafGXtFWU_wYY6Cvs>
-X-ME-Received: <xmr:R0ypauTqzRU1qGNcZxhVWQbXyqzFbzO0plGh6sIIewVwvV-dWrkXEnPi8dY>
-X-ME-Proxy-Cause: dmFkZTFbupHd3aPtCR4lfORY2OjlErP/qJYOfeuGegnVlxf0rTctNWhzELPFqv8qBN+p6r
-    yyxTtWqHsC5sajM90RNnkSnExQFUiaZMFrvJQ847xQMm2JaIAvfn+54liTzjnHWYB3Fti5
-    2aExYz/+zZi9zAPebVEG+nJ8INTDyYH+sLrYp/PBrRCwHqBu23kvk8KzpFTHNk5A/OqUk4
-    prALBRulTyMaMnmpbfdaFoy7b41NCz79wnifsWIV9PRtY0z08Ly08SlZn1DmhZPII+jTas
-    yhx+3SGKyJUHBRCV0If7frXa3bXFCsIDo1/Q1j+VsPu2PCNTGdmvBGBf8z9TdvPj8098px
-    bgtwR0dRddnYAZZqsQ7Frq9NOue3hGoMPtP7y091EnqlMwB8wyNcCz1RbFYPeJj2B/SZol
-    7Kf6hYqL0e9DpzjuPnaL3orOrbCY8+wcwf7GS4X3y/uRB0IORYQmBHvRrvWPjwFNPEXSvy
-    8kAi/BdqohVycyThOG6AH9BYZGUoOqPbIyGrgUKh1WTSENfMoqsrP+S5C3Hez6LcSoqHbN
-    sRN/47HLj+KTnB3r7akUX0iIeLmgjVo8O6B8ZZmQE3Tr1NLT/mTOj/cTFYZQWYt1sTwfF6
-    nuoyqS2bxpYeC+h/Hm1YL9xsPGJ5ypDcONgocgb+Y+FhJ5QfH1Ytadyibt6g
-X-ME-Proxy: <xmx:R0ypaoCnDV77kuVSf-GB3L815LrAKvYBeYyg6ul1gLYDBFSQqKWizA>
-    <xmx:R0ypaowJNcS9gO8_zJPrxwCXpjsG-xQRYmj5T8BwKJLBb7UXHS_4-A>
-    <xmx:R0ypaotZyEmAMv6TFmaYSAZEWvZHrxn8Gc-_yuUQbZCd1q3JU_EJMg>
-    <xmx:R0ypahlNw4uqQNOviO7AQmnzgoEHaA5DbJt5COy8k96RnESsZawi1A>
-    <xmx:SEyparZPtsrzqIUBofL2iNWKiDvgJIBndHuVqQeik1G1DpRa6ARUCQPK>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Sep 2026 09:46:47 -0400 (EDT)
-Date: Tue, 15 Sep 2026 14:46:46 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	"Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>
-Subject: Re: [PATCH v2 08/12] mm/collapse: separate scanning a PTE table from
- collapsing it
-Message-ID: <aqlL5s0iTz9HWwCk@thinkstation>
-References: <20260910120238.2529819-1-kirill@shutemov.name>
- <20260910120238.2529819-9-kirill@shutemov.name>
- <1e91c48c-cfdf-4a40-bf1c-88d8e0295c5a@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VhPsN+U/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC61F1F000FF;
+	Tue, 15 Sep 2026 13:47:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789480041;
+	bh=D8qP32Wiuwqk/ekGQfIn50CnOyZx3Es2XJqohXpkSEE=;
+	h=Date:From:To:Cc:Subject;
+	b=VhPsN+U/VXfy54RlSdveDbRjqQpC3RgrRcealmBXspiBHobXTiBauXyhG2jvy1QGz
+	 fAFl2RfrZShrCTftjqvLkCOvc98gaYFm30mY/y2+bRQ2vTX186gAS96EuWxzbqUpSa
+	 Wd9cJd6855NQBMKQQ30bNf4fs4Xgv1ejhjV9UIVO82EqVj3929x3GMKuVZYpSTypuB
+	 PCNWu4/UzZGwVbqw8cq8ZblKebA1AgR8SxCwgM+fzfAPdW1+3EjVL1txbg30OO7Jy1
+	 ShxGUYy9ZB4eyz/MC1ufOBzTHRRztex/XOgPMYzO7lAcrjG1lTgDKjztoHdRcm8FmU
+	 Z9wYguOulzodQ==
+Date: Tue, 15 Sep 2026 14:47:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Johan Hedberg <johan.hedberg@gmail.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Zijun Hu <zijun.hu@oss.qualcomm.com>
+Subject: linux-next: manual merge of the bluetooth tree with the origin tree
+Message-ID: <aqlMZfcfK-y7_GX2@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YbR8VftxmjTNlWG4"
+Content-Disposition: inline
+
+
+--YbR8VftxmjTNlWG4
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1e91c48c-cfdf-4a40-bf1c-88d8e0295c5a@linux.alibaba.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 15, 2026 at 07:09:06PM +0800, Baolin Wang wrote:
-> > +	if (!file)
-> > +		return mthp_collapse(mm, addr, cc->scan_referenced,
-> > +				     cc->scan_unmapped, cc, cc->scan_orders);
-> 
-> You already record scan_referenced, scan_unmapped, and scan_orders in 'cc'.
-> It looks like simply passing 'cc' as a parameter should be enough.
+Hi all,
 
-Fair enough. Will do in v3. The same applies to collapse_huge_page() one
-level down.
+Today's linux-next merge of the bluetooth tree got a conflict in:
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+  drivers/bluetooth/btusb_main.c
+
+between commits:
+
+  f92634ad91863 ("Bluetooth: btusb: Build the driver from multiple source f=
+iles")
+  8b1bfabebfa40 ("Bluetooth: btusb: Add support for Qualcomm multi-subsyste=
+m QCC2072")
+
+=66rom the bluetooth tree and commits:
+
+  f92634ad91863 ("Bluetooth: btusb: Build the driver from multiple source f=
+iles")
+  8b1bfabebfa40 ("Bluetooth: btusb: Add support for Qualcomm multi-subsyste=
+m QCC2072")
+
+=66rom the bluetooth tree.  Yes, that's the same two commits.  I suspect
+something to do with your constant cherry picking and prior fixes having
+been merged managed to generate a conflict on the source file spilt, I
+imagine it's something pulled over from another file.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/bluetooth/btusb_main.c
+index 002b9f975710f,be47ac894b6cc..0000000000000
+--- a/drivers/bluetooth/btusb_main.c
++++ b/drivers/bluetooth/btusb_main.c
+@@@ -69,8 -71,18 +71,21 @@@ static struct usb_driver btusb_driver
+  #define BTUSB_ACTIONS_SEMI		BIT(27)
+  #define BTUSB_BARROT			BIT(28)
+  #define BTUSB_BROKEN_EXT_SCAN		BIT(29)
+++<<<<<<< HEAD:drivers/bluetooth/btusb.c
+++=3D=3D=3D=3D=3D=3D=3D
++ #define BTUSB_QUALCOMM			BIT(30)
+++>>>>>>> bluetooth/master:drivers/bluetooth/btusb_main.c
+ =20
+  static const struct usb_device_id btusb_table[] =3D {
++ 	/*
++ 	 * NXP IW610 (0471:0215): the composite device reports Bluetooth
++ 	 * class at the whole-device level, so the generic entry below
++ 	 * would also match this WiFi vendor interface. Ignore it here
++ 	 * first so mwifiex-nxp can bind it instead.
++ 	 */
++ 	{ USB_DEVICE_AND_INTERFACE_INFO(0x0471, 0x0215, 0xff, 0xff, 0xff),
++ 	  .driver_info =3D BTUSB_IGNORE },
++=20
+  	/* Generic Bluetooth USB device */
+  	{ USB_DEVICE_INFO(0xe0, 0x01, 0x01) },
+ =20
+@@@ -983,6 -1016,9 +1019,12 @@@ struct btqca_data=20
+  #define BTUSB_HW_SSR_ACTIVE	17
+  #define BTUSB_WAKEUP_BROKEN	18
+  #define BTUSB_RESET		19
+++<<<<<<< HEAD:drivers/bluetooth/btusb.c
+++=3D=3D=3D=3D=3D=3D=3D
++=20
++ #define BTUSB_PROTO_LEGACY	0x00
++ #define BTUSB_PROTO_H4		0x01
+++>>>>>>> bluetooth/master:drivers/bluetooth/btusb_main.c
+ =20
+  struct btusb_data {
+  	struct hci_dev       *hdev;
+diff --cc net/bluetooth/hci_sync.c
+index 2a651a4d60e64,51d03cd3c963a..0000000000000
+--- a/net/bluetooth/hci_sync.c
++++ b/net/bluetooth/hci_sync.c
+diff --cc net/bluetooth/l2cap_core.c
+index 644e31160d55b,a22edd2baf5e5..0000000000000
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@@ -3900,7 -4009,8 +4009,11 @@@ static void l2cap_ecred_rsp_defer(struc
+  	struct l2cap_ecred_rsp_data *rsp =3D data;
+  	struct l2cap_ecred_conn_rsp *rsp_flex =3D
+  		container_of(&rsp->pdu.rsp, struct l2cap_ecred_conn_rsp, hdr);
++ 	bool locked;
++=20
+++	if (chan->mode !=3D L2CAP_MODE_EXT_FLOWCTL)
+++		return;
+ +
+  	if (chan->mode !=3D L2CAP_MODE_EXT_FLOWCTL)
+  		return;
+ =20
+
+--YbR8VftxmjTNlWG4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqpTGQACgkQJNaLcl1U
+h9Ci3wgAgHIqjDx6NCLL/0Dt8TGs1HogbyxWKPxyEiF46Qc2eNPHAR4/l9k6s9ti
+87xIm6BX+qWEiLjIi6aZUZBIMEbOqNtqofqiOtI/TTTkdQGZc1fabXkkynd3cWpc
+DH71r+UEWxMPgaZ4Y1fU9h3k4bRCyTU/LvO5DCofPxkTFOQKH03t4ubQOu07MbJd
+Hx5d92R/9ZxHO3aZ3AQELUVV18Sd4Qm8XxTUDktkEpyXgZu94tjt+r+rvNWp5GoA
+nFL89Ruo+bA6FH2g8Rai78OFtvpYrlr7zIyV2H93pTQ3XpL74DAjREOlDSGCPU6l
+4T7hVFJ9r/Qeg9ZQnjf5flKxXANqUA==
+=qiCJ
+-----END PGP SIGNATURE-----
+
+--YbR8VftxmjTNlWG4--
