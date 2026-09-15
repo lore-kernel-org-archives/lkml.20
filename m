@@ -1,193 +1,366 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mail.zipdox.net (195-240-81-79.fixed.kpn.net [195.240.81.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C63A3BCD2C;
-	Tue, 15 Sep 2026 12:54:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9555E3C09FB;
+	Tue, 15 Sep 2026 12:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.240.81.79
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476882; cv=none; b=Zm+5EvRGigJJWwD+DGDW2Uv5zFFwW2y3ymgTJrhVn+sAnuoNitc1zo6MEwm5AmOkAzTNa0kCxqNN9KbOnhUoHm6V6YS+8I7dKH7G+0Z+ShptaiWZo/BEC8ZtW+38JWW/q+bdN4PW/fGXr8gWzRa6cOB82CpRQ92ceDPGpuirunQ=
+	t=1789476885; cv=none; b=eOpcXxS6A9snqking0ap6fZUaoMp76u0OZ2WF2W6Oj1IU07HFcQfyQlTfNR1Iu3Qtbp8d/UAqs/KT6PWSjm8RedIB4NkCM/y5sGmHdamw7bEWvJzQXdL5mX3Zc8vhF6ANcDxjy/0eElXI4vgKU4oPs1lY6VmagZV+rE8AyVipQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476882; c=relaxed/simple;
-	bh=OD6lOfDsuQ3Gx0O3nG+lnSFgQ/uCyiBdpWhEzT0xs4w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Aq/6idR+uR1reyRfEwmhhnotd6mpt+r3wIslewq+1R6qWZSFDCqyK0g7xKbcrgwlAUnyAZrk988DvnkeQuCC91u1lDZe/3Znh+si7PjkA168fupoQRRlgPC5eyv37Q8M/mmt5sfJYbuVWI9QwW5pXTupkCe1NuckUNIjmG+Lw3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=Qcf3QIz5; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1789476885; c=relaxed/simple;
+	bh=Np7gCQviI+wONH1ryl8nrHO+f/VcjM570uofHD7V2oo=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=nd2p9BKOBApSzBGvFCa0iB0XIrtUhigT6Vk+Wm3CrqMFlBGHq1bRFidf8QRcVAsNJA/SKsOwwGSv8ZScErjc5Q8MfzvHWizuz3ZtJN5x+Sa+akAuGbHeZUMqQYTwY7NUPJPBQUoj2TAhT5Asyyk5kINducCviZj48Sfaom90HfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net; spf=pass smtp.mailfrom=zipdox.net; dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b=LVr2WR1G; arc=none smtp.client-ip=195.240.81.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zipdox.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="Qcf3QIz5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=06TheYrO+RqVpiOeLZzO2sVZrEIqfAB0lq+jheypzUY=; b=Qcf3QIz55CcoaSldbU3zzTlL9y
-	IesoBAEM54qeIhRkKwKFUEMm4nfEKwbtnDTM2Kwd/9YFqHwXxGoIriQlWqoQ7M5qGa7U48T1BTx8M
-	DG1/EIn4i/N3wGOau9uP2DnOL3mq9IE36OTH+ACyOXN/gBOSOmzbXk9ZVPvdlo96o0jM8zTSCTRAZ
-	w/lj1lQEIxmzspaxPkyvhiAs5vTFOfO4ATfnvHd+Ral4CQZ+gLnhbwATUF1OJc1jr457gY66mVZr9
-	AqOKMoDcCVXOb6Tff4axnEA1/l9sQiiL4HEI2zrLGLxVnHMLBEzeJRxf24fQ868QdNF9UqbHy4YMW
-	ghNx9N7Q==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x6SgG-004P7U-0N;
-	Tue, 15 Sep 2026 12:54:36 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Tue, 15 Sep 2026 05:53:39 -0700
-Subject: [PATCH v5 5/9] mm/memory-failure: efi: record hardware-poisoned
- frames into the poisoned-memory table
+	dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b="LVr2WR1G"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4A88392106D;
+	Tue, 15 Sep 2026 14:54:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zipdox.net; s=dkim;
+	t=1789476879; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=TTK4nu/01hvDhuxiIXKCVENzQSwYTRKteQUwtj3hcyk=;
+	b=LVr2WR1GYF3O2+HtD9iApLcFZgGfnKGDa+plTRZMI3WWBFBujPKDFbMiKn/f6i33BZnPWJ
+	ky68DLJ/UnMaXwNnOx3ZVJPKp5HGioISdmjoUjPA440lXBkwhbdVrDcYNR+B+1fMIXwlko
+	91ZqqB3/kbc8oWtsfVG6TOBXhUWSovysHgQ/lS1LJSVAagV5W/23wVhztKy2MNq7ip+UKg
+	Pzz9h7ozDlIdSOOPRyYl/P9Yjvfospc1RIT+o1zHXkFYQj/F6eeldWAoHdtDm5uc1GchtO
+	zZdug4nQKIjaW/De4ktmHqgtSGIbyXUBEEXNFwTEoDIEJ+yQxnE/gbalC28cAA==
+Message-ID: <59b3dc9b-f324-42e7-ab03-a01c04e8b915@zipdox.net>
+Date: Tue, 15 Sep 2026 14:54:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Zipdox <zipdox@zipdox.net>
+Subject: Re: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR
+ and RANGE
+To: Takashi Iwai <tiwai@suse.de>
+Cc: linux-sound@vger.kernel.org, perex@perex.cz,
+ linux-kernel@vger.kernel.org, tiwai@suse.com
+References: <d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net>
+ <87bj9yn55n.wl-tiwai@suse.de>
+Content-Language: en-US
+In-Reply-To: <87bj9yn55n.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-hwpoison-kho-v5-5-3bc7a57bd503@debian.org>
-References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
-In-Reply-To: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
-To: Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, kas@kernel.org, 
- kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
- Oscar Salvador <osalvador@suse.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- hannes@cmpxchg.or, shakeel.butt@linux.dev
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, 
- Breno Leitao <leitao@debian.org>, harry@kernel.org, 
- linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
- kernel-team@meta.com
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3575; i=leitao@debian.org;
- h=from:subject:message-id; bh=OD6lOfDsuQ3Gx0O3nG+lnSFgQ/uCyiBdpWhEzT0xs4w=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqqT/e9fGRdv2ojIBIylpv+WGyoKgen1RPvA/py
- wfutQvXLwSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqk/3gAKCRA1o5Of/Hh3
- bcZOD/9tYa5c1xoSwHHUjr+PBSVX2GYqBV2gH0IMO8Np0WO5iyG9Uz1fsyag/5SdmAC3g8xbHCi
- SU49YEZF/BxnxWXcegM8Hq2aRQQ/PsZzDmwpiOVkh1Yd0+m23cgfkxAHTeObj79QrvrpupuB0ZN
- ZfenMCr6f9nmRuuyXJgGAdN3SqmKKkHp/0pLf9jhrJVQppAmkL21OL/dcIL7MUn4ViSzT5ay1rg
- 9bKerw/vl7i3oNZKiblmKUgY1iOw28hN1BLbiZ5OJAiotlCciX210WGqifZUCnD8F4v9XbMcL88
- GkxIZrs8wOD30AS0yt1/Hp6DziMWkY2qmOjX+0oLGASCVf77CT1Ki6jFrVtp6AwYJhTqVaTTviz
- VObWrgN1tVtc491/NDobzNW8fcbhu6gPkS6kU9dTdpXBMGlSjBGkdkhrmyZuarbh9+yY4cgwe+6
- lGdYm1vtptAfuVdrjaBkWTSEO0HaYCWL6UfQ1TBPZbU3oPBsjerrrMSO8RiB0OVDgkaTbgFHvMY
- 1XsGOXMKOJm1ZBfnZ5E06uWG8cxlbQMS47XSWNyLn95gNQKRh2W9OwNwfvFxN/B5oyjgx0tmbmx
- aeFo0YF6GMWpENLcwZT/pidl1kpqjp6Tc/kh6QxZA3JoXkPIZMg0nTE2piBle5FZW0X0wk4m2kJ
- hAkVzZhu0+0Hnxg==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+X-Last-TLS-Session-Version: TLSv1.3
 
-action_result() is where memory_failure() reports the outcome of a hard
-offline, so hook it to set the frame's bit in the
-LINUX_EFI_POISONED_MEMORY bitmap.
+On 9/15/26 1:08 PM, Takashi Iwai wrote:
+> Hmm, for UAC2, UAC_GET_CUR & co isn't passed as is at all, but the
+> call is translated to UAC2_CS_CUR and UAC2_CS_RANGE accordingly in
+> get_ctl_value_v2() (that is called from get_ctl_value()
+> conditionally).  So this translation path was skipped somehow with
+> your device...?
 
-Soft-offlined pages reach num_poisoned_pages_inc() through
-page_handle_poison() and are deliberately left out: they are still
-functional and were offlined predictively, so recording them would turn
-a prediction into a permanent loss for every kernel further down the
-kexec chain.
+The request is translated yes, but wValue is incorrect. UAC2 uses a
+Mixer Control Number ("mcn") in the low byte to identify the mixer
+control, along with a control selector in the high byte (UAC2_MU_MIXER
+in this case). UAC1 on the other hand uses the low and high byte to
+identify the mixer control. It seems get_ctl_value_v2 doesn't change
+wValue to the appropriate format (mcn and control selector). This code
+was, as far as I understand it, never correct to begin with for UAC2.
 
-A bit is only ever set, never cleared, given that multiple pages can set
-the same bit, and it is not trivial to decide if the bit should be unset
-when a page is unrecorded.
+To get the MIN, MAX, and RES, get_min_max_with_quirks currently calls
+get_ctl_value three times to get the values separately. It looks like
+get_ctl_value_v2 was written to send RANGE requests and extract the
+appropriate part of the RANGE response, depending on the request. This
+doesn't actually work though, because wValue is incorrect as I stated
+above. It also unnecessarily sends three requests instead of one. That's
+why I bypassed it entirely and wrote the get_ctl_range_16 function. This
+could in theory be consolidated, but there's quite a bit of other code
+so I'm hesitant to touch it. Supplying the correct wValue to
+get_ctl_value in get_cur_mix_raw fixed getting the current value, and
+the same applies to the call to snd_usb_mixer_set_ctl_value in
+snd_usb_set_cur_mix_value.
 
-Unpoisoning a frame therefore does not hand its unit back to the next
-kernel. That is a known limitation.
+> Could you try to reformat in a proper patch format?
+> Also, it looks containing many unnecessary / unrelated changes that
+> make review more difficult.  Please try to concentrate only on the
+> change you really need.
 
-memory_failure() has already taken the frame out of this kernel's
-allocator, so only the cross-kexec record happens here.
+Perhaps you are referring to the indentation changes resulting from
+wrapping existing code in an if statement? I can't really do anything
+about that. I don't think I changed any unrelated code itself. If there
+are unrelated changes, please point them out to me. In any case, I
+changed the patch to the "canonical patch format" as written in the
+kernel docs.
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
+From: Zipdox <zipdox@zipdox.net>
+
+The USB Audio Mixer Unit driver (sound/usb/mixer.c) sends audio class
+1.0 format control messages to devices, regardless of the actual audio
+class version. This means audio class 2.0 devices will receive incorrect
+messages, stall, and cause the driver to error (e.g. alsamixer exits
+with a broken pipe error). This patch implements the GET_CUR, SET_CUR,
+and RANGE control requests for mixer units according to the Audio Class
+2.0 specification.
+
+Subject: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR and RANGE
+
+Signed-off-by: Zipdox <zipdox@zipdox.net>
 ---
- drivers/firmware/efi/poison.c | 27 +++++++++++++++++++++++++++
- include/linux/efi.h           |  2 ++
- mm/memory-failure.c           |  3 +++
- 3 files changed, 32 insertions(+)
+  sound/usb/mixer.c | 191 ++++++++++++++++++++++++++++++++--------------
+  1 file changed, 133 insertions(+), 58 deletions(-)
 
-diff --git a/drivers/firmware/efi/poison.c b/drivers/firmware/efi/poison.c
-index 3f12db3dc9b844..847592862f01d3 100644
---- a/drivers/firmware/efi/poison.c
-+++ b/drivers/firmware/efi/poison.c
-@@ -91,3 +91,30 @@ void __init efi_poisoned_memory_reserve(void)
- 	memblock_add(start, end - start);
- 	memblock_reserve(start, end - start);
- }
-+
-+/* The table, vetted at parse time, or NULL if this boot has none. */
-+static struct linux_efi_poisoned_memory *efi_poisoned_memory(void)
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index ecaa8bc08d7c..99270731d409 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -360,12 +360,12 @@ static int get_ctl_value_v2(struct usb_mixer_elem_info *cval, int request,
+  	{
+  		CLASS(snd_usb_lock, pm)(chip);
+  		if (pm.err)
+-			return -EIO;
++		return -EIO;
+  
+-		idx = mixer_ctrl_intf(cval->head.mixer) | (cval->head.id << 8);
+-		ret = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0), bRequest,
+-				      USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
+-				      validx, idx, buf, size);
++	idx = mixer_ctrl_intf(cval->head.mixer) | (cval->head.id << 8);
++	ret = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0), bRequest,
++			      USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
++			      validx, idx, buf, size);
+  	}
+  
+  	if (ret < 0) {
+@@ -410,6 +410,53 @@ static int get_ctl_value(struct usb_mixer_elem_info *cval, int request,
+  		get_ctl_value_v2(cval, request, validx, value_ret);
+  }
+  
++static int get_ctl_range_16(struct usb_mixer_elem_info *cval)
 +{
-+	if (efi.poisoned_memory == EFI_INVALID_TABLE_ADDR)
-+		return NULL;
++	struct snd_usb_audio *chip = cval->head.mixer->chip;
++	int idx;
++	int ret;
++	__u16 wNumSubRanges;
++	__u8 range_res[8] = {0};
 +
-+	return phys_to_virt(efi.poisoned_memory);
++	__u8 mcn = (cval->control - 1) * cval->channels;
++	__u16 wValue = (UAC2_MU_MIXER << 8) | mcn;
++
++	if (snd_usb_lock_shutdown(chip))
++		return -EIO;
++
++	idx = mixer_ctrl_intf(cval->head.mixer) | (cval->head.id << 8);
++	ret = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0), UAC2_CS_RANGE,
++			      USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
++			      wValue, idx, range_res, sizeof(range_res));
++	snd_usb_unlock_shutdown(chip);
++
++	if (ret < 0) {
++		usb_audio_dbg(chip,
++			"cannot get ctl range: req = %#x, wValue = %#x, wIndex = %#x\n",
++			UAC2_CS_RANGE, wValue, idx);
++		return ret;
++	}
++
++	wNumSubRanges = combine_word(&range_res[0]);
++	if(wNumSubRanges != 1) {
++		usb_audio_dbg(chip,
++			"unexpected wNumSubRanges (%u) for ctl range: req = %#x, wValue = %#x, wIndex = %#x\n",
++			(unsigned int)wNumSubRanges, UAC2_CS_RANGE, wValue, idx);
++		return -EIO;
++	}
++
++	cval->min = combine_word(&range_res[2]);
++	if (cval->min >= 0x8000) cval->min -= 0x10000;
++	cval->max = combine_word(&range_res[4]);
++	if (cval->max >= 0x8000) cval->max -= 0x10000;
++	cval->res = combine_word(&range_res[6]);
++	usb_audio_dbg(chip,
++		"range for mcn = %u: min = %d, max = %d, res = %d\n",
++		(unsigned int)mcn, cval->min, cval->max, cval->res);
++
++	return 0;
 +}
 +
-+/*
-+ * A bit is never cleared: it stands for a whole EFI_POISON_UNIT_SIZE, so an
-+ * unpoison cannot tell whether the unit as a whole is good again.
-+ */
-+void efi_hwpoison_record_pfn(unsigned long pfn)
-+{
-+	struct linux_efi_poisoned_memory *pm = efi_poisoned_memory();
-+	phys_addr_t addr = PFN_PHYS(pfn);
-+	u64 unit;
+  static int get_cur_ctl_value(struct usb_mixer_elem_info *cval,
+  			     int validx, int *value)
+  {
+@@ -420,9 +467,18 @@ static int get_cur_ctl_value(struct usb_mixer_elem_info *cval,
+  static inline int get_cur_mix_raw(struct usb_mixer_elem_info *cval,
+  				  int channel, int *value)
+  {
+-	return get_ctl_value(cval, UAC_GET_CUR,
++	if(cval->head.mixer->protocol == UAC_VERSION_1){
++		return get_ctl_value(cval, UAC_GET_CUR,
+  			     (cval->control << 8) | channel,
+  			     value);
++	}else{
++		__u8 mcn = (cval->control - 1) * cval->channels + ((channel == 0 ? 1 : channel) - 1);
++		__u16 wValue = (UAC2_MU_MIXER << 8) | mcn;
++		return get_ctl_value(cval, UAC_GET_CUR,
++			     wValue,
++			     value);
++	}
++	
+  }
+  
+  int snd_usb_get_cur_mix_value(struct usb_mixer_elem_info *cval,
+@@ -527,9 +583,18 @@ int snd_usb_set_cur_mix_value(struct usb_mixer_elem_info *cval, int channel,
+  		return 0;
+  	}
+  
+-	err = snd_usb_mixer_set_ctl_value(cval,
+-					  UAC_SET_CUR, (cval->control << 8) | channel,
+-					  value);
++	if(cval->head.mixer->protocol == UAC_VERSION_1){
++		err = snd_usb_mixer_set_ctl_value(cval,
++						UAC_SET_CUR, (cval->control << 8) | channel,
++						value);
++	}else{
++		__u8 mcn = (cval->control - 1) * cval->channels + ((channel == 0 ? 1 : channel) - 1);
++		__u16 wValue = (UAC2_MU_MIXER << 8) | mcn;
++		err = snd_usb_mixer_set_ctl_value(cval,
++						UAC_SET_CUR, wValue,
++						value);
++	}
 +
-+	if (!pm || addr < pm->phys_base)
-+		return;
+  	if (err < 0)
+  		return err;
+  	cval->cached |= BIT(channel);
+@@ -1336,59 +1401,69 @@ static int get_min_max_with_quirks(struct usb_mixer_elem_info *cval,
+  	    cval->val_type == USB_MIXER_INV_BOOLEAN) {
+  		cval->initialized = 1;
+  	} else {
+-		int minchn = 0;
+-		if (cval->cmask) {
+-			for (i = 0; i < MAX_CHANNELS; i++)
+-				if (cval->cmask & BIT(i)) {
+-					minchn = i + 1;
+-					break;
+-				}
+-		}
+-		if (get_ctl_value(cval, UAC_GET_MAX, (cval->control << 8) | minchn, &cval->max) < 0 ||
+-		    get_ctl_value(cval, UAC_GET_MIN, (cval->control << 8) | minchn, &cval->min) < 0) {
+-			usb_audio_err(cval->head.mixer->chip,
+-				      "%d:%d: cannot get min/max values for control %d (id %d)\n",
+-				   cval->head.id, mixer_ctrl_intf(cval->head.mixer),
+-							       cval->control, cval->head.id);
+-			return -EAGAIN;
+-		}
+-		if (get_ctl_value(cval, UAC_GET_RES,
+-				  (cval->control << 8) | minchn,
+-				  &cval->res) < 0) {
+-			cval->res = 1;
+-		} else if (cval->head.mixer->protocol == UAC_VERSION_1) {
+-			int last_valid_res = cval->res;
+-
+-			while (cval->res > 1) {
+-				if (snd_usb_mixer_set_ctl_value(cval, UAC_SET_RES,
+-								(cval->control << 8) | minchn,
+-								cval->res / 2) < 0)
+-					break;
+-				cval->res /= 2;
++		if(cval->head.mixer->protocol == UAC_VERSION_1){
++			int minchn = 0;
++			if (cval->cmask) {
++				for (i = 0; i < MAX_CHANNELS; i++)
++					if (cval->cmask & BIT(i)) {
++						minchn = i + 1;
++						break;
++					}
++			}
++			if (get_ctl_value(cval, UAC_GET_MAX, (cval->control << 8) | minchn, &cval->max) < 0 ||
++				get_ctl_value(cval, UAC_GET_MIN, (cval->control << 8) | minchn, &cval->min) < 0) {
++				usb_audio_err(cval->head.mixer->chip,
++						"%d:%d: cannot get min/max values for control %d (id %d)\n",
++					cval->head.id, mixer_ctrl_intf(cval->head.mixer),
++									cval->control, cval->head.id);
++				return -EAGAIN;
+  			}
+  			if (get_ctl_value(cval, UAC_GET_RES,
+-					  (cval->control << 8) | minchn, &cval->res) < 0)
+-				cval->res = last_valid_res;
+-		}
+-		if (cval->res == 0)
+-			cval->res = 1;
++					(cval->control << 8) | minchn,
++					&cval->res) < 0) {
++				cval->res = 1;
++			} else if (cval->head.mixer->protocol == UAC_VERSION_1) {
++				int last_valid_res = cval->res;
 +
-+	unit = (addr - pm->phys_base) / pm->unit_size;
-+	if (unit < pm->size * BITS_PER_BYTE)
-+		set_bit(unit, pm->bitmap);
-+}
-diff --git a/include/linux/efi.h b/include/linux/efi.h
-index dd3263456dd4a3..56402fdccd1149 100644
---- a/include/linux/efi.h
-+++ b/include/linux/efi.h
-@@ -1288,8 +1288,10 @@ struct linux_efi_poisoned_memory {
- 
- #ifdef CONFIG_EFI_POISONED_MEMORY
- void __init efi_poisoned_memory_reserve(void);
-+void efi_hwpoison_record_pfn(unsigned long pfn);
- #else
- static inline void efi_poisoned_memory_reserve(void) { }
-+static inline void efi_hwpoison_record_pfn(unsigned long pfn) { }
- #endif
- 
- void __init efi_arch_mem_reserve(phys_addr_t addr, u64 size);
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index a2ca8df501caee..d9b8be696aac38 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -43,6 +43,7 @@
- #include <linux/sched/signal.h>
- #include <linux/sched/task.h>
- #include <linux/dax.h>
-+#include <linux/efi.h>
- #include <linux/ksm.h>
- #include <linux/rmap.h>
- #include <linux/export.h>
-@@ -1326,6 +1327,8 @@ static int action_result(unsigned long pfn, enum mf_action_page_type type,
- 	if (type != MF_MSG_ALREADY_POISONED && type != MF_MSG_PFN_MAP) {
- 		num_poisoned_pages_inc(pfn);
- 		update_per_node_mf_stats(pfn, result);
-+		/* Only hard offlines are carried over to the next kernel. */
-+		efi_hwpoison_record_pfn(pfn);
- 	}
- 
- 	pr_err("%#lx: recovery action for %s: %s\n",
-
++				while (cval->res > 1) {
++					if (snd_usb_mixer_set_ctl_value(cval, UAC_SET_RES,
++									(cval->control << 8) | minchn,
++									cval->res / 2) < 0)
++						break;
++					cval->res /= 2;
++				}
++				if (get_ctl_value(cval, UAC_GET_RES,
++						(cval->control << 8) | minchn, &cval->res) < 0)
++					cval->res = last_valid_res;
++			}
++			if (cval->res == 0)
++				cval->res = 1;
+  
+-		if (cval->min < cval->max) {
+-			int saved;
++			if (cval->min < cval->max) {
++				int saved;
+  
+-			if (get_cur_mix_raw(cval, minchn, &saved) < 0)
+-				goto no_checks;
++				if (get_cur_mix_raw(cval, minchn, &saved) < 0)
++					goto no_checks;
+  
+-			ret = check_sticky_volume_control(cval, minchn, saved);
+-			if (ret)
+-				goto no_checks;
++				ret = check_sticky_volume_control(cval, minchn, saved);
++				if (ret)
++					goto no_checks;
+  
+-			if (cval->min + cval->res < cval->max)
+-				check_volume_control_res(cval, minchn, saved);
++				if (cval->min + cval->res < cval->max)
++					check_volume_control_res(cval, minchn, saved);
+  
+-			snd_usb_set_cur_mix_value(cval, minchn, 0, saved);
+-		}
++				snd_usb_set_cur_mix_value(cval, minchn, 0, saved);
++			}
+  
++		}else{
++			if(get_ctl_range_16(cval) < 0){
++				usb_audio_err(cval->head.mixer->chip,
++				"%d:%d: cannot get min/max values for control %d (id %d)\n",
++					cval->head.id, mixer_ctrl_intf(cval->head.mixer),
++									cval->control, cval->head.id);
++				return -EINVAL;
++			}
++		}
+  no_checks:
+  		/*
+  		 * Got a non-fatal failure during sanity checks.
+@@ -1983,9 +2058,9 @@ static void __build_feature_ctl(struct usb_mixer_interface *mixer,
+  			       cval->head.id, kctl->id.name, cval->channels,
+  			       cval->min, cval->max, cval->res);
+  	} else {
+-		usb_audio_dbg(mixer->chip, "[%d] FU [%s] ch = %d, val = %d/%d/%d\n",
+-			      cval->head.id, kctl->id.name, cval->channels,
+-			      cval->min, cval->max, cval->res);
++	usb_audio_dbg(mixer->chip, "[%d] FU [%s] ch = %d, val = %d/%d/%d\n",
++		      cval->head.id, kctl->id.name, cval->channels,
++		      cval->min, cval->max, cval->res);
+  	}
+  
+  	snd_usb_mixer_add_control(&cval->head, kctl);
+@@ -3550,7 +3625,7 @@ void snd_usb_mixer_notify_id(struct usb_mixer_interface *mixer, int unitid)
+  		info = mixer_elem_list_to_info(list);
+  		/* invalidate cache, so the value is read from the device */
+  		if (!info->get_cur_broken)
+-			info->cached = 0;
++		info->cached = 0;
+  		snd_ctl_notify(mixer->chip->card, SNDRV_CTL_EVENT_MASK_VALUE,
+  			       &list->kctl->id);
+  	}
 -- 
-2.53.0-Meta
-
+2.47.3
