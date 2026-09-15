@@ -1,103 +1,101 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E33A4A5EC4;
-	Tue, 15 Sep 2026 08:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 214A23B6BFD
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461208; cv=none; b=FH/PE+6zH6ZxIQ2bXymMfivH7D6452gnNuOvP2Xt1qU+/r4qBNgqlKXctGDb+dqFvINNkTOlFBpv6I+BapjrOaZk9gFojub3q3jYyZteaga3LqWPByEjrSdtlWNK1GUYAgldoK27qZaVoENqyz93Bx5+VUlBRFaaIXX9l4B10u8=
+	t=1789461229; cv=none; b=RB/FeHi+SZRj1Wct2tEMpTlIVDaJbQlZRmjyhv1MDwy9BExFWrQDlGgXKDh81gev9XHGoxAWabzPd9ir4V4Eau54fDEzOkU3BMMG5QcXx5UoFpbZ9dpqyNissWBgI3GovpOV8GnvHaGRJdPKleXlJ9SOXNE2EVu2e+tULEhDvXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461208; c=relaxed/simple;
-	bh=Uv0Yov8JAiK5YEYKgmjYw5ZlbWxjU58cDlvmzD4Dh6c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mu+wkIYjwqasOw6pqP0TvdNn8qGE9RerbqA91pzsKu8yHxGZn1Nklm519I51E8dYv4+gTCBQykr+/Muz6ac4Y2bMLxRPHYPe0kWwqDU521MWld40xii7ltAzVeYUhSQWXWeuVET8TTJFoxR11mIr1GK6ZaLqfkH3KJ4GfScjed4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=Y6yx7Bwn; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=h5oAG8H1; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1789461229; c=relaxed/simple;
+	bh=0gX1iY8HfKAY3g+8rB2lct4xHb4HdMgYzQRHaNBCdfw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O0eFOq5ivKfG0UjM+YsXKL5c7WWkTaoOKuX1xt6XmkZA7nj7EqAI0+dkUNm5B/u1v98Vp+La8NJVAtlOWnDDpy8WQlhzhgj6wc/3KxKurZ/z2dPXImO6WfxMF+bZ2IKVvwwa9dCTT36wsgYFtWsY2w1kpyxRCSFEFdEeUIum+4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KL3gvNS2; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="Y6yx7Bwn";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="h5oAG8H1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461205; bh=Uv0Yov8JAiK5YEYKgmjYw5ZlbWxjU58cDlvmzD4Dh6c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Y6yx7BwnnL5wMdDdFr2jAnR4f1XXutEVKMgKnpsizm9t28+xOyZtsyC7prM+LuVaQ
-	 nkbICOyYFGzEoAadWq5lwvPJs+6uPQqMfVTqi8vt3YREI1WLCKzGrCyXHlrtsM4Idx
-	 5F8HEAtXgaqpvAyjpN94sqUecu8lYbwlDbm7hh/k/Yjj87yHEOB+rt+ZfZBtzJiEzO
-	 SZzJkCY1ebCGRBzCvKLdZFRfVLjoVGVSLbZFTwk4QGwUXDnozllxdnHmpK3FcNqTKi
-	 gpSMhOsxOJsNz6yfi7avcvc2NqEh/QsV8hWvyCzeahXzIplMA6ecOneUPzscYxvr0t
-	 RcnpQsTvv+JFg==
-Received: by extorris.mess.org (Postfix, from userid 1004)
-	id B098440BAC; Tue, 15 Sep 2026 09:33:25 +0100 (BST)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461204; bh=Uv0Yov8JAiK5YEYKgmjYw5ZlbWxjU58cDlvmzD4Dh6c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=h5oAG8H1qlsBA9WIWKR45SOMKuWvb5BiesczV9COwAlv09kLIbHTCdO7GvOUlJrxj
-	 VRa6KleffZnUccPJqBhpPMFocdiQaWard2YjSOtb4Eqfq3wMw5Ti1aFaZUQytnvWOV
-	 NLMpsHEc8sIXlGrxZxW4r+VE4Dvab/9cKsENBS9RDbK7oSo6U4CkRhkoYnkU/4Fcfc
-	 ppmhhAB4n1ZOI7EwegZWg9koNDht0q16OeSPVaXgdbM/UmcLaQi6536zObiEFAbEPF
-	 FTxIXHAP92O6i9mWzbgOOlwEiyG/65yRQOnWQjJ3Cwcljw/q+0X5R7z6jugKavNDO8
-	 FPbv8SMZ2pZDg==
-Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 8332D40B72;
-	Tue, 15 Sep 2026 09:33:24 +0100 (BST)
-From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Viktor Prutyanov <viktor.prutyanov@phystech.edu>
-Cc: Rik van Riel <riel@surriel.com>,
-	stable@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 20/20] media: meson-ir-tx: Prevent divide by zero in meson_irtx_prepare_pulse()
-Date: Tue, 15 Sep 2026 09:32:30 +0100
-Message-ID: <662a613d00359191d9debce0b5a53019070a5e44.1789460680.git.sean@mess.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1789460680.git.sean@mess.org>
-References: <cover.1789460680.git.sean@mess.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KL3gvNS2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=tn9GJN/0WaH2zgn6xcwy+ShM9iDmjXHgO4C0IvbLhaI=; b=KL3gvNS2ubQrnaDYJpnMWrY4LB
+	zXRVOnn62AzGlWf1WfsCuqTviuamK/4/upYFEMRX+w6xFLMLFlNxkg5Sj6OVZD+auiW+2SXvzB+Fp
+	cGRxIK6CNhKfOwbit1U51Nf6JmEz0enP5pdphyZ6Ixc6lyk38x5/C5H4KxUvWUp6UaoHGSAUIUakl
+	nrhSonh3P3TpkM+M6Jiiak8Gt/4q0TXhJmjRQVpOjFcm8rWTUMSwGba2zkgu8kMOFtwTXQckecgar
+	rPb5ydUl7ztJpTDgAB8Q5i/2/nnuGTG/rWXXkpeR1YSl+YPQ294qAqqQ1ecBteKVgIkmB9fp+MqXq
+	6qMo6ukA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6Obk-0000000FH2Y-30TO;
+	Tue, 15 Sep 2026 08:33:40 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 46EEF3012C6; Tue, 15 Sep 2026 10:33:40 +0200 (CEST)
+Date: Tue, 15 Sep 2026 10:33:40 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Yafang Shao <laoar.shao@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v4 next 2/9] locking/osq_lock: Save the cpu number for
+ 'prev' not the node address
+Message-ID: <20260915083340.GY4121339@noisy.programming.kicks-ass.net>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+ <20260907084133.3696-3-david.laight.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907084133.3696-3-david.laight.linux@gmail.com>
 
-If an excesively high carrier is set, meson_irtx_prepare_pulse() will
-cause a divide by zero if tb_us is 0. Prevent such a carrier from being
-set.
+On Mon, Sep 07, 2026 at 09:41:26AM +0100, David Laight wrote:
+> The cpu number of node->prev is needed for both the vcpu_is_preempted()
+> test and to update lock->tail.
+> This saves reading the cache line for the other cpu's per-cpu data.
+> 
+> The cpu member of optimistic_spin_node is no longer needed.
+> 
+> Merges patches 2 and 3 from v3.
+> 
+> Signed-off-by: David Laight <david.laight.linux@gmail.com>
+> ---
+>  kernel/locking/osq_lock.c | 33 ++++++++++++++-------------------
+>  1 file changed, 14 insertions(+), 19 deletions(-)
+> 
+> diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
+> index b17aa704c449..01988d00c480 100644
+> --- a/kernel/locking/osq_lock.c
+> +++ b/kernel/locking/osq_lock.c
+> @@ -34,9 +34,9 @@
+>   */
+>  
+>  struct optimistic_spin_node {
+> -	struct optimistic_spin_node *next, *prev;
+> +	struct optimistic_spin_node *next;
+>  	int locked; /* 1 if lock acquired */
+> -	int cpu; /* encoded CPU # + 1 value */
+> +	int prev; /* CPU number offset by 1 */
+>  };
+>  
+>  static DEFINE_PER_CPU_SHARED_ALIGNED(struct optimistic_spin_node, osq_node);
 
-Fixes: 49be1c78d575 ("media: rc: introduce Meson IR TX driver")
-Signed-off-by: Sean Young <sean@mess.org>
-Cc: stable@vger.kernel.org
----
- drivers/media/rc/meson-ir-tx.c | 3 +++
- 1 file changed, 3 insertions(+)
+> @@ -114,13 +109,12 @@ osq_wait_next(struct optimistic_spin_queue *lock,
+>  bool osq_lock(struct optimistic_spin_queue *lock)
+>  {
+>  	struct optimistic_spin_node *node = this_cpu_ptr(&osq_node);
+> -	struct optimistic_spin_node *prev, *next;
+> +	struct optimistic_spin_node *prev_ptr, *next;
+>  	int curr = encode_cpu(smp_processor_id());
+> -	int old;
+> +	int prev;
 
-diff --git a/drivers/media/rc/meson-ir-tx.c b/drivers/media/rc/meson-ir-tx.c
-index 1ab898069e67..a0d07da09f67 100644
---- a/drivers/media/rc/meson-ir-tx.c
-+++ b/drivers/media/rc/meson-ir-tx.c
-@@ -219,6 +219,9 @@ static int meson_irtx_set_carrier(struct rc_dev *rc, u32 carrier)
- 	if (carrier == 0)
- 		return -EINVAL;
- 
-+	if (!DIV_ROUND_CLOSEST(USEC_PER_SEC, carrier))
-+		return -EINVAL;
-+
- 	ir->carrier = carrier;
- 	meson_irtx_set_mod(ir);
- 
--- 
-2.55.0
-
+I'm not a fan in the asymmetry of the naming, that is very confusing at
+best.
