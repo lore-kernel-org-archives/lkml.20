@@ -1,86 +1,106 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5DD2F8E98
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:40:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23EC400E1A;
+	Tue, 15 Sep 2026 06:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789454426; cv=none; b=hX2qWr0I/UET4I+2JnT44XJRs0hG+hvM0Y853LSFzNe2Inekj5NekmEz4tgmPz5wbm/Xhd9A6phjbPq1XJAIm2UJFRI8dIGajgV16OSBdj0iS+Ls7/BcwxkLBjhaJV3BJzZdhrsG9hyVwo8ddQUzio62kcUpQe1ULit10zysAFQ=
+	t=1789454441; cv=none; b=aPWmFj1Md/WO6FLy1KhkxQ9dhZB3UiPeARiZDLq2tNjp9zhLP//kNmWBChFK6PFvcBGyy9DzUFwxLhAvv5y0D1Vh+UiiwAr5crVTBmqrLhpRF0XGCyYs+HhcavtopHLZ34yfrwsHYBZ+FMpTIC9RRjPiCdhUcaXIMT8IulJYGK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789454426; c=relaxed/simple;
-	bh=unkA0ssih9z87yxpeGe0v6wkVWdw3JKhLGifgjgbCQE=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=X1p+/6f4EG+pxyVyxdoNraM7Tt7Oz3U0YN8mwQsb5+Q3Hb+hujEtB1giWncRl0aG9CjjrWLsf6SKaounCs+93Vy3h3gFjfOqcisOFP7mDsXv1PzN/JtgzTyeep8sEfF6a8T6wWm9R+nXlw55J1S3FRqgAeWlJVAmFf8vz84cAOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KqGxrlaR; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789454441; c=relaxed/simple;
+	bh=odMh36Hi3+sZidnwcQ/5vDdoVLrteY3kmjEOJkYEDvo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DBQJmsCxfyDK2YQizec1+CXHyqBvyRBS6ZcU/GPbRMIf6R4tYYdeAOr0WIWEe1LVEBt8J/E1OxWudzl57AggocW1V+pJxVwQZP1T10vtLht+PQW9CIbqgSNi0IULkq9LWYmvxXRhb00LtQvvvGmD6F8z4GMQaShKmDpYjD2lh1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o0czMT9j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KqGxrlaR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=unkA0ssih9z87yxpeGe0v6wkVWdw3JKhLGifgjgbCQE=; b=K
-	qGxrlaR/3tQwDIpeyKnfvT9G/+f3B4lLXNKrNgIbNEXwc2bKyBe0cuFw6W7aoJUf
-	r7aqDDhCE/8FE+8GmT+u01HIQq1KTBKZYMcB0W7j4RRqsS2t4oDM9vGfTZHXGVru
-	UGbZvXjTa+fXQgH47QNUYaFLSjoQ2CXGpfgPqAk6B0=
-Date: Tue, 15 Sep 2026 14:39:39 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: dwmw2@infradead.org, richard@nod.at
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [BUG] jffs2: kernel BUG in jffs2_del_ino_cache
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/ieu0ss7yeaYekdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/D9mcTQS6k5QcvGt6dplP9A==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0czMT9j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81AD1F000FF;
+	Tue, 15 Sep 2026 06:40:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789454440;
+	bh=BqCt//Qzq6e2iRgC4WLtg6r0GuVGsoll3LXjbWa93CQ=;
+	h=From:To:Cc:Subject:Date;
+	b=o0czMT9jnMqnolrWTSv0AuffmkV3Syi+2ztblvv8qDhL3QHXJ7Jz2CPQnYSTKflsw
+	 dWYsGXl6MFeI6tuhwz1w6Y8YslNiiWHU5UthdCQzV4115/n5wUmgwl9P2O0rTVPnnd
+	 MGb8mDPoh0zm2t0wmxipjlaJArxkp+uScd5zN4FJEIypuWinBWqexxr6ksroqGi+YS
+	 s4n7ym7mwXQ8d11mlapym61hkiy1+RSVRAqSSytuntt3EWz30oylYt6X1iLMZKYt0L
+	 A3Rdj065TBAkHLGnjmHEDjMUmXrh1ZvNBlSYclANXLxcT61Pz6+Vsnev8jQhuJ93p2
+	 9nIV9bQuMgSrg==
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org,
+	Zecheng Li <zli94@ncsu.edu>,
+	Yanbo Zhao <yzhao62@ncsu.edu>,
+	Tengda Wu <wutengda@huaweicloud.com>,
+	Shuai Xue <xueshuai@linux.alibaba.com>
+Subject: [PATCH v3 0/3] perf annotate-data: Support flexible array types
+Date: Mon, 14 Sep 2026 23:40:32 -0700
+Message-ID: <20260915064035.1970175-1-namhyung@kernel.org>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <23469bd6.56e9.1a0a3caead6.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgD3378r6KhqN+4PAA--.21301W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC+QsJumqo6CtZKwAA3y
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkhpLAoKSSBhbSByZXBvcnRpbmcgYSBrZXJuZWwgQlVHIGluIHRoZSBqZmZzMiBpbm9kZSBjYWNo
-ZSBoYW5kbGluZywgdHJpZ2dlcmVkIGJ5IGEKc3l6a2FsbGVyIHJlcHJvZHVjZXIuICBUaGUgaXNz
-dWUgaXMgcmVwcm9kdWNpYmxlIHdpdGggSEVBRCBjb21taXQKY2VlOTM5NWFjZDgwNDNiZTA2NDRi
-MjVjMzRiZmE4NjYyM2YyYjkzNSAodjcuMy1yYzEsIExpbnV4IDcuMy4wLXJjMSkuCgpUaGUgcmVw
-cm9kdWNlciBtb3VudHMgZGV2dG1wZnMsIG1vdW50cyB0aGUgamZmczIgZmlsZXN5c3RlbSBmb3Vu
-ZCBvbgovZGV2L210ZGJsb2NrMCwgYW5kIHRoZW4gc2V0cyBhIHRydXN0ZWQub3ZlcmxheS5yZWRp
-cmVjdCBleHRlbmRlZCBhdHRyaWJ1dGUgb24KdGhlIG1vdW50IHBvaW50LiAgTm8gY3JhZnRlZCBp
-bWFnZSBpcyB1cGxvYWRlZCBieSB0aGUgcmVwcm9kdWNlcjsgdGhlIHRyaWdnZXIgaXMKdGhlIGF0
-dHJpYnV0ZSBvcGVyYXRpb24gb24gdGhlIGpmZnMyIG1vdW50LgoKVGhlIGNvbnNvbGUgc2hvd3Mg
-Imtlcm5lbCBCVUcgYXQgZnMvamZmczIvbm9kZWxpc3QuYzo0NjIhIiB3aXRoIGFuCmludmFsaWQt
-b3Bjb2RlIE9vcHMgYW5kIFJJUCBpbiBqZmZzMl9kZWxfaW5vX2NhY2hlLiAgVGhlIHBhdGggcmVh
-Y2hlcyBpdCBmcm9tCmpmZnMyX2RvX2NsZWFyX2lub2RlIGR1cmluZyBpbm9kZSBldmljdGlvbiwg
-d2hlbiB0aGUgaW5vZGUgY2FjaGUgZW50cnkgaXMgYmVpbmcKcmVtb3ZlZCB3aGlsZSB0aGUgZmls
-ZXN5c3RlbSBpcyBzdGlsbCBob2xkaW5nIHJlZmVyZW5jZXMgcmVsYXRlZCB0byB0aGUKYXR0cmli
-dXRlIG9wZXJhdGlvbi4KCk9uZSBwb3NzaWJsZSBjYXVzZSBpcyB0aGF0IHRoZSBleHRlbmRlZC1h
-dHRyaWJ1dGUgb3BlcmF0aW9uIGxlYXZlcyBhbiBpbm9kZSB3aXRoCmFuIHVuZXhwZWN0ZWQgY2Fj
-aGUgc3RhdGUsIHNvIHRoZSByZW1vdmFsIHBhdGggdGFrZXMgYSBicmFuY2ggdGhhdCBhc3NlcnRz
-IHRoZQppbm9kZSBpcyBwcmVzZW50IGluIHRoZSBjYWNoZSBsaXN0IHdoZW4gaXQgaXMgbm90IChv
-ciBpcyBwcmVzZW50IHR3aWNlKS4gIFRoaXMKbG9va3MgbGlrZSBhIHN0YXRlLW1hbmFnZW1lbnQg
-cHJvYmxlbSBpbiB0aGUgamZmczIgaW5vZGUgY2FjaGUgcmF0aGVyIHRoYW4gYQpib3VuZHMgZXJy
-b3IuICBJIGFtIHJlcG9ydGluZyB0aGUgYXNzZXJ0aW9uIGFuZCB0aGUgcGF0aCBhcyBvYnNlcnZl
-ZC4KClRoaXMgYXBwZWFycyB0byBiZSBhIHJlY3VycmVuY2Ugb2YgdGhlIHN5emJvdCBpc3N1ZSB3
-aG9zZSBleHRlcm5hbCBpZCBpcwo5M2Y2YmZlZDZhNGE3MDJiNDhjYy4gIEl0IHJlbWFpbnMgcmVw
-cm9kdWNpYmxlIG9uIHY3LjMtcmMxLgoKUmVwcm9kdWNlcjoKCnN5eiByZXByb2R1Y2VyOgpta2Rp
-cmF0KDB4ZmZmZmZmZmZmZmZmZmY5YywgJigweDdmMDAwMDAwMDAwMCk9Jy4vZGV2XHgwMCcsIDB4
-MWZmKQptb3VudCgweDAsICYoMHg3ZjAwMDAwMDAwMDApPScuL2Rldlx4MDAnLCAmKDB4N2YwMDAw
-MDAwMTAwKT0nZGV2dG1wZnNceDAwJywgMHgwLCAweDApCm1rZGlyYXQoMHhmZmZmZmZmZmZmZmZm
-ZjljLCAmKDB4N2YwMDAwMDAwMjAwKT0nLi9tbnRceDAwJywgMHgxZmYpCm1vdW50KCYoMHg3ZjAw
-MDAwMDAzMDApPUBmaWxlbmFtZT0nLi9kZXYvbXRkYmxvY2swXHgwMCcsICYoMHg3ZjAwMDAwMDAy
-MDApPScuL21udFx4MDAnLCAmKDB4N2YwMDAwMDAwNDAwKT0namZmczJceDAwJywgMHgwLCAweDAp
-CmxzZXR4YXR0ciR0cnVzdGVkX292ZXJsYXlfcmVkaXJlY3QoJigweDdmMDAwMDAwMDA0MCk9Jy4v
-bW50XHgwMCcsICYoMHg3ZjAwMDAwMDAwODApLCAweDAsIDB4MCwgMHgwKQoKY29uc29sZSBvdXRw
-dXQ6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy93ZkNLVWlVWQprZXJuZWwgY29uZmlnOiBodHRw
-czovL3Bhc3RlYmluLmNvbS9yYXcvMVRpS0tTOWEKCktlcm5lbDoKCkhFQUQgY29tbWl0OiBjZWU5
-Mzk1YWNkODA0M2JlMDY0NGIyNWMzNGJmYTg2NjIzZjJiOTM1CmdpdCB0cmVlOiB1cHN0cmVhbSAo
-bGludXguZ2l0KSwgdGVzdGVkIHRocm91Z2ggdGhlIHY3LjMtcmMxIGFubm90YXRlZCB0YWcgb2Jq
-ZWN0CiAgICAgICAgICAgZTVlMDQ3MjZjZGQwNDNlMzA5Njc3MDcxYWIxYjY1YTRiMThmNDIyYgpr
-ZXJuZWwgdmVyc2lvbjogNy4zLjAtcmMxICMxIFBSRUVNUFQoZnVsbCkKdGVzdGVkIHRhZzogdjcu
-My1yYzEgKExpbnV4IDcuMy1yYzEsIDIwMjYtMDgtMzApCgpMZXQgbWUga25vdyBpZiB5b3UgbmVl
-ZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCkJlc3QgcmVnYXJkcywKQ2hhbmdqaWFuCg==
+Hello,
+
+The flexible arrays are dynamically allocated with different size.  So checking
+with the original type size won't match and cannot find the type if the offset
+is bigger than the size.  This patch series detects those flex-arrays and allows
+accesses beyong the original size.
+
+I'm not sure what's the best way to add test codes for data type profiling as it
+seems we need to add a lot more workloads for different cases.  Probably we may
+want to split the workloads as separate binaries.
+
+v3 changes)
+
+ * patch 1 was merged!
+ * check if last member is found
+ * check member location when finding flex-array
+ * ensure member typename is initiailized
+ * fix a bug to pass a wrong type in check_variable()
+ * fix a typo in a comment
+
+v2: https://lore.kernel.org/r/20260914064535.1671939-1-namhyung@kernel.org
+
+ * fix missing index increment in the histogram
+ * support flex array in union types
+ * add recursion check in die_has_flex_array()
+ * check negative index arrays properly
+ * avoid divide-by-zero when the size is unknown
+
+v1: https://lore.kernel.org/r/20260912054706.1475583-1-namhyung@kernel.org
+
+Thanks,
+Namhyung
+
+
+Cc: Zecheng Li <zli94@ncsu.edu>
+Cc: Yanbo Zhao <yzhao62@ncsu.edu>
+Cc: Tengda Wu <wutengda@huaweicloud.com>
+Cc: Shuai Xue <xueshuai@linux.alibaba.com>
+
+Namhyung Kim (3):
+  perf dwarf-aux: Add die_has_flex_array() helper
+  perf annotate-date: Allow out-of-size access for flex-array types
+  perf annotate-data: Adjust type offset for flex-array
+
+ tools/perf/util/annotate-data.c | 140 ++++++++++++++++++++++++--------
+ tools/perf/util/annotate-data.h |   2 +
+ tools/perf/util/dwarf-aux.c     |  97 ++++++++++++++++++++++
+ tools/perf/util/dwarf-aux.h     |   3 +
+ 4 files changed, 206 insertions(+), 36 deletions(-)
+
+-- 
+2.55.0.1082.g2b9226bbc0-goog
+
