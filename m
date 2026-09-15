@@ -1,69 +1,69 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B747C3C65FD
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E9741A553
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478271; cv=none; b=Jy2DGgW7RvNfat/z+A8mG0x7PMQP65VU7kJbAt3PH8yvS1EekxzHvIjhOWwo5oeF/BqYP4tA/lhog2PQjG2F7KW7kffd9avctVdmTMGogm90MSdnVMd6kkmWps8FomO6oYoRYJAFtUXGNxSF5AQvhVU+oA37ncTXqoUlUaeexqc=
+	t=1789478273; cv=none; b=b5HuV92oMrIVYvOc7DnZGBNcQQESKmvu57eJv+9xlgfPXFIYIG7af/GEATdNWWQID7mYFV6I/TDlPiQS3liijskpt9IUNgWUHq8YWOTy/0REt9Ft1PR9ap30w/gaiIN0YzxVIUvomdEWE39WvfiGx9SQm5KxL5eUaLt0JrdLbkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478271; c=relaxed/simple;
-	bh=4dQuHlI7KqFK9OlS3RCAgATHNrdOmuvuGUsCmQTn02w=;
+	s=arc-20240116; t=1789478273; c=relaxed/simple;
+	bh=WoSDn4ZEoocgxJI9vrvXQ3qPnrz/LPBQsbDWUONxsf4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YUSjg+OVdhEujsO0+6NIN1aAq5/8GsT8XqB0ee8bFZgSXu0zzw4/i0Js7ICuGoP1intub1NVzJGvF39o625H6gockNVeMPlCPQTy9Ch9Gxa4o4f9xJ76Y9Uvgp1njt4xF/teHKIApAmaXGneotcGOWeN/gfaqB7RMr4SklY17Sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=cE2u6jzV; arc=none smtp.client-ip=74.125.224.141
+	 In-Reply-To:To:Cc; b=WlN0DLcjXn7LHo/OljYsotwYpMraImr2f1pvWWXNsNYdkb2BJ31S8x5JY9aS5TynkBcSu0WwIQVEKH4gkU277O8t3Wcc1iQRs1Blp4dFlSIPqdyVHuXhXDgzAOO58wIkYk1wXXJgkpiXcYkPLXWTxcgABM5PO1mkwFwxg0GFYto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=Xn2+ghIO; arc=none smtp.client-ip=74.125.230.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="cE2u6jzV"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66f7a9afe43so298145d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:17:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="Xn2+ghIO"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910c3e6b1so119269885a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:17:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1789478268; x=1790083068; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1789478270; x=1790083070; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6aaaKNzMayGmjMwZUrTAjDsf1dO37tc7Q4XOVkfUDkI=;
-        b=cE2u6jzVTakjOPxxlqI+dwZLjesAOG+TZIqV3uQhBU8XtrBHg7YRfsX3MV5Vfryt4p
-         CnBzkASzEZRS4UcWGhQWVJwOyTBhR4h0bYwNfrm7Ht+lHxvtPuWxbxyFhSXg7iyLwK20
-         6riI6kJf0brjh+tCu0Xf6YOzVe15hbyVaCwrGEeNgQRLtNTkDXjRvZhyY9CQh3DvSwXw
-         RTkfJfP6w+rzEii5imnz/Pu8L/6gPlYt8Amj/GVFcG02BvRTpR5LBCA0UgnIIGlNs8qd
-         Vhlx66Zlyts+DvfFcHVW7MVd1xaiNRrxGkn/Vlyk7Pwk/QZ39v8rLUXoGhsdfaVXHrXn
-         qbxw==
+        bh=IVf/c/k7gzeyhXD1Q6M+2DLwLNI40n7fXEqvG2ZQN0k=;
+        b=Xn2+ghIOGJQnxTFU4k7M4tehgpkLkE74C02xa/6Qm999RKmWt7cr/eHmoFg5fLnXpa
+         9KGuLZrqm7e9PZ8sNDG0951m0z87Niq8Ofvg63Q4X/hSE4a3U6JNIndtF1ZlNKDIcSQL
+         RWQJgPDCX3DcGBklT0gXmZhT3a+htmLxQBxKUa1uRBJk6VWwm/nfRFQMln41HISK0Rac
+         qQynBSkjBGkllS/sW7aVc0+JNT6yoApMKpRiyAS+wywTmi1QDp2vwVZ53drz0i1qQ29T
+         EpwLJo2zE+U8KCg5Qs6lcXVw02ezT1Z+/S//aFWwghcztsBzIAfs09GOWqb2wZVCBKfG
+         Zmww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789478268; x=1790083068;
+        d=1e100.net; s=20260707; t=1789478270; x=1790083070;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6aaaKNzMayGmjMwZUrTAjDsf1dO37tc7Q4XOVkfUDkI=;
-        b=vAuydi+3UV+db/e9WJ/SNbejIVa6U2f64x6PX++POionE98s5pYTav6qDRFZwHXNWP
-         3tT2sBx+pZNeYmdmjne4b3L/GsueLFXhO8qZ9xbWWachabDcEvlZJSaH35VqLzs6UIhI
-         Ga1zNgtsZmBD1yL3SeMc067hMp1xbRlGmLM2fMLGfhzkUYzFjfUe8SYGJ+tDy5cdZmhQ
-         45s+RvrzEu5SfVHY3bOxDM3zHyKcu/3cTUFQb2Q/+YCYzMeG4uQToiNCvoVI+g9uhCid
-         RkQR1mDsDUuMaAlKWUB1nlxqnOU9qA/3UMD8AJS6Icb0gAEz1JMDUY3UIrYl8VusqKPU
-         9zKg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3PqJ0jQtUgOBZe510XzYXCt8/k0CmUmpZva1J5y/TcNVCFf5tOTAMfMG+g/fO99K6uyFMBu3v4kvyYJQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMBCVJvi7QfEhdPjnUnx7ShI6XfQZhQASnQycKh93FsMxaXWhC
-	8fN1UmAKWFVa/ABuE9l3ph6svbYH3F8JxKkFwebGDwVFiiDQFN2J704EnM0F0BjGUqA=
-X-Gm-Gg: AYBFou37J1W2BMB4jTz3JS3DxSeUEWXPik25rxAhDghCMoNjqHAmHg0KWRKGbWme94W
-	0CGJEtds2mi/X9oRn8n1aNY26XDkgK3UJxggAGRhPS7AXlx+6ROpP8rFStdl7SdBu861MTbYpIK
-	iikOyveAsNllSkqBhTAqiuGnmds/C9EMjiFgwPnelfGrsNfhzfYPIFtydenjR0Nw5ez7NQKqYF0
-	R9L6yNdM1gmRJDrHp0Du0dQb94RPy1ks5NKbWFugFZ15IhP5O8ImScpy83AF2sjbr4J9PfGFOdw
-	jDQLBseWRATyQzX4sH/xvqw8repxOqXu4PSqOh5SrZFE3vzfQGD6B0PyhyNsVnNSEGnlfde9I+F
-	JnaRP7vllHXaKpUZzGByYliHXTrqY4O+5IRtGut9CihJDClWslRvr3HhRWDYp2RiwCsRAbJHzXp
-	5fAskHJ8T9sDiBMu0atF861kPFlysXKXI2xxK6Cjh/HNY3/DcczM+So1Vk4kNlrvU3Q9JG2+nBt
-	M9+x90Zv5msJMMVQ7S5MhMh9UJ3DVdeO5Vb7YjwQ2w9JzJelurf5Vu2
-X-Received: by 2002:a53:ac8d:0:b0:66f:c1bc:c08e with SMTP id 956f58d0204a3-6715cbfa390mr343734d50.86.1789478267673;
-        Tue, 15 Sep 2026 06:17:47 -0700 (PDT)
+        bh=IVf/c/k7gzeyhXD1Q6M+2DLwLNI40n7fXEqvG2ZQN0k=;
+        b=mD2GmHdMEtJFs5Mfhm7j72dIo1v/0OpKcf9ZDM+sNr4pal+gStr0YZpcr9gnu7swfY
+         ma6DjY+oglmPENjdaBE/7saxigZWcJTuA907g0AU6vNPT7mthp9cuqincwlYT4SL7jfE
+         C+aPt6E0tgSaSID3YBSbijOQcpXpp7euQ4GcjJcBic6tGv32y7es95MXIDAVLO92o+mq
+         JXJ+yHAMcx5U7hlVjKu1ydGAJJDLEM33s0GUu0/28VHpFyizkTvr6nyJhcuUaahnjsHc
+         y9lahjSP0JLbEqxbGDB8sBO1ukxTqJAobLsuYbkoZAPdC9cN487yuMGIv4STGPijfA5e
+         kEqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6+uHCR9dfg7twA5p/9k06MAbTircsbZwxr8zOkU/ox7ABRHNuND/mfcIKG2sQHX+aMz026kk+RNxI9wo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mrZDm54CK/vNw25RKsMHnsg5rT723s4I9kM5QZMDeBSlOnPTxK
+	cNyl4WDj1gXmpSUd4G4YyFKAwaujjiPA+5R0koU2iIkgGdcFYgSUkeLh/q7+JLvpLQY=
+X-Gm-Gg: AYBFou00043Lqe34YQplH37L6gWwZZIysmETp1ICM3A/y9UL2VWSQmACC9PO0ZaoDas
+	tMSUxvOaW5FnNi3URvIBTjUobNuq8SrqsPlHohmn270VAYakpArod7oj0ViuQ1d4VnIOAqVJb+r
+	OiaBIqgXwqtcOLydANeeugfUj6OoRjl0lNToPTPlrSJMEml7e7sZy1k0wAmUti7PXyHRo6DpdBB
+	+rUnhPsFObwQGeC+5WOdlQrzK7+bp3WSKiaVFAuNGzkK5Cvo+ipFtpGUKolHZ+uYVIklsXieekx
+	9bmv5rhEP89F6PTbP2NMcUm2pHdIu7efioxTCKz1YvqtQVQBLfoZ28KudQRCwBbXijiG2xUaOvR
+	Ca9+QH+xjMTx0jooKmxF/TWoKr4dN+3/W9R6hKWFeG26y/Wk2m2NwurRg/f4aYzEUZuQkiDAdkj
+	JeW0ehAR68AaJRJj5sIrEna6kxrhPloSnzCUwCzhoQE/u6NX0senobFpAO9enwlg1M9WaYlAtGB
+	rTjByiuK2PsaF3LqGSCZgn8+LynuVPAuoZDF4SNF0rcKhsEwnfEXL3x
+X-Received: by 2002:a05:620a:2b8f:b0:936:d00a:4947 with SMTP id af79cd13be357-93a345745demr474274385a.2.1789478269641;
+        Tue, 15 Sep 2026 06:17:49 -0700 (PDT)
 Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f2032d4sm120309036d6.5.2026.09.15.06.17.46
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939f19f94a1sm1137880185a.42.2026.09.15.06.17.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 06:17:46 -0700 (PDT)
+        Tue, 15 Sep 2026 06:17:49 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 15 Sep 2026 13:17:28 +0000
-Subject: [PATCH RFC v3 01/13] entry: Pass pt_regs to
- irqentry_exit_cond_resched()
+Date: Tue, 15 Sep 2026 13:17:29 +0000
+Subject: [PATCH RFC v3 02/13] rcu-tasks-trace: Inline rcu_read_lock_trace()
+ and annotate inside the reader
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-b4-rcu-tasks-preempt-qs-v3-1-0ad30c4c5ee7@toxicpanda.com>
+Message-Id: <20260915-b4-rcu-tasks-preempt-qs-v3-2-0ad30c4c5ee7@toxicpanda.com>
 References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
 In-Reply-To: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
 To: "Paul E. McKenney" <paulmck@kernel.org>, 
@@ -117,114 +117,143 @@ Cc: Andy Lutomirski <luto@kernel.org>,
  bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1789478262; l=4149;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789478262; l=5472;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=4dQuHlI7KqFK9OlS3RCAgATHNrdOmuvuGUsCmQTn02w=;
+ bh=WoSDn4ZEoocgxJI9vrvXQ3qPnrz/LPBQsbDWUONxsf4=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QEWkL7am6CPwY8WEkFAeUlQhZwIsKFKiG0LL4CTUEuVNlpBbsncWTVxiTecESmw1XMIxu5wivHh
- xkMDa7QjuUgk=
+ QOqgtWORMkFCOHo3WLOy6WMvyvf/Bd/PX1OTaW4H8LYu/zuiatDpxAZC81QUixDJwPnYFE7C1UL
+ 57TTusaQZdwg=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-The irq-exit preemption path is about to need the interrupted context's
-registers to decide whether the preemption may be reported to Tasks RCU
-as a quiescent state.  irqentry_exit_to_kernel_mode_preempt() already
-has them; hand them down through irqentry_exit_cond_resched(), its
-PREEMPT_DYNAMIC static-call and static-key variants, and
-raw_irqentry_exit_cond_resched().  The only caller outside the generic
-entry code is Xen PV's upcall handler, which has regs as well.
+rcu_read_lock_trace() calls rcu_try_lock_acquire() before it has
+entered the SRCU-fast reader, and rcu_read_unlock_trace() calls
+srcu_lock_release() after it has left it.  rcu_read_lock() and
+rcu_read_unlock() do it the other way around, annotating strictly
+inside the critical section, and rcu_read_lock_tasks_trace() already
+follows that order on the lock side.  Make the trace variants match.
 
-No functional change.
+Also make them, and the __srcu_read_lock_fast() and
+__srcu_read_unlock_fast() they are built on, __always_inline like
+rcu_read_lock() rather than leaving it to the compiler, which does
+outline all four in KASAN/KCOV builds.
+
+Besides consistency, this means the first thing a caller of
+rcu_read_lock_trace() does is enter the reader and the last thing
+rcu_read_unlock_trace() does is leave it, with no out-of-line call on
+the outside.  A later patch relies on that for callers whose own text is
+protected by the reader they are about to take.
 
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- arch/x86/xen/enlighten_pv.c      |  2 +-
- include/linux/irq-entry-common.h | 12 ++++++------
- kernel/entry/common.c            |  6 +++---
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ include/linux/rcupdate_trace.h | 22 ++++++++++------------
+ include/linux/srcutiny.h       |  4 ++--
+ include/linux/srcutree.h       |  5 +++--
+ 3 files changed, 15 insertions(+), 16 deletions(-)
 
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 2c64b388f616..3d85035f5624 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -739,7 +739,7 @@ __visible noinstr void xen_pv_evtchn_do_upcall(struct pt_regs *regs)
- 
- 	inhcall = get_and_clear_inhcall();
- 	if (inhcall && !WARN_ON_ONCE(state.exit_rcu)) {
--		irqentry_exit_cond_resched();
-+		irqentry_exit_cond_resched(regs);
- 		instrumentation_end();
- 		restore_inhcall(inhcall);
- 	} else {
-diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
-index 0bb6c03481fa..b811b469b0a7 100644
---- a/include/linux/irq-entry-common.h
-+++ b/include/linux/irq-entry-common.h
-@@ -346,21 +346,21 @@ typedef struct irqentry_state {
+diff --git a/include/linux/rcupdate_trace.h b/include/linux/rcupdate_trace.h
+index 273c59a03251..4035054309d7 100644
+--- a/include/linux/rcupdate_trace.h
++++ b/include/linux/rcupdate_trace.h
+@@ -93,22 +93,20 @@ static inline void rcu_read_unlock_tasks_trace(struct srcu_ctr __percpu *scp)
   *
-  * Conditional reschedule with additional sanity checks.
+  * For more details, please see the documentation for rcu_read_lock().
   */
--void raw_irqentry_exit_cond_resched(void);
-+void raw_irqentry_exit_cond_resched(struct pt_regs *regs);
+-static inline void rcu_read_lock_trace(void)
++static __always_inline void rcu_read_lock_trace(void)
+ {
+ 	int n;
+ 	struct task_struct *t = current;
  
- #ifdef CONFIG_PREEMPT_DYNAMIC
- #if defined(CONFIG_HAVE_PREEMPT_DYNAMIC_CALL)
- #define irqentry_exit_cond_resched_dynamic_enabled	raw_irqentry_exit_cond_resched
- #define irqentry_exit_cond_resched_dynamic_disabled	NULL
- DECLARE_STATIC_CALL(irqentry_exit_cond_resched, raw_irqentry_exit_cond_resched);
--#define irqentry_exit_cond_resched()	static_call(irqentry_exit_cond_resched)()
-+#define irqentry_exit_cond_resched(regs)	static_call(irqentry_exit_cond_resched)(regs)
- #elif defined(CONFIG_HAVE_PREEMPT_DYNAMIC_KEY)
- DECLARE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
--void dynamic_irqentry_exit_cond_resched(void);
--#define irqentry_exit_cond_resched()	dynamic_irqentry_exit_cond_resched()
-+void dynamic_irqentry_exit_cond_resched(struct pt_regs *regs);
-+#define irqentry_exit_cond_resched(regs)	dynamic_irqentry_exit_cond_resched(regs)
- #endif
- #else /* CONFIG_PREEMPT_DYNAMIC */
--#define irqentry_exit_cond_resched()	raw_irqentry_exit_cond_resched()
-+#define irqentry_exit_cond_resched(regs)	raw_irqentry_exit_cond_resched(regs)
- #endif /* CONFIG_PREEMPT_DYNAMIC */
- 
- /**
-@@ -465,7 +465,7 @@ static inline void irqentry_exit_to_kernel_mode_preempt(struct pt_regs *regs,
- 		return;
- 
- 	if (IS_ENABLED(CONFIG_PREEMPTION))
--		irqentry_exit_cond_resched();
-+		irqentry_exit_cond_resched(regs);
+-	rcu_try_lock_acquire(&rcu_tasks_trace_srcu_struct.dep_map);
+ 	n = READ_ONCE(t->trc_reader_nesting);
+ 	WRITE_ONCE(t->trc_reader_nesting, n + 1);
+-	if (n) {
+-		// In case we interrupted a Tasks Trace RCU reader.
+-		return;
+-	}
+-	barrier();  // nesting before scp to protect against interrupt handler.
+-	t->trc_reader_scp = __srcu_read_lock_fast(&rcu_tasks_trace_srcu_struct);
+-	if (!IS_ENABLED(CONFIG_TASKS_TRACE_RCU_NO_MB))
+-		smp_mb(); // Placeholder for more selective ordering
++	if (!n) {
++		barrier();  // nesting before scp to protect against interrupt handler.
++		t->trc_reader_scp = __srcu_read_lock_fast(&rcu_tasks_trace_srcu_struct);
++		if (!IS_ENABLED(CONFIG_TASKS_TRACE_RCU_NO_MB))
++			smp_mb(); // Placeholder for more selective ordering
++	} // Else we interrupted a Tasks Trace RCU reader.
++	rcu_try_lock_acquire(&rcu_tasks_trace_srcu_struct.dep_map);
  }
  
  /**
-diff --git a/kernel/entry/common.c b/kernel/entry/common.c
-index e3d381fd3d25..e4acd50bd81a 100644
---- a/kernel/entry/common.c
-+++ b/kernel/entry/common.c
-@@ -134,7 +134,7 @@ static inline bool arch_irqentry_exit_need_resched(void);
- static inline bool arch_irqentry_exit_need_resched(void) { return true; }
- #endif
+@@ -120,12 +118,13 @@ static inline void rcu_read_lock_trace(void)
+  *
+  * For more details, please see the documentation for rcu_read_unlock().
+  */
+-static inline void rcu_read_unlock_trace(void)
++static __always_inline void rcu_read_unlock_trace(void)
+ {
+ 	int n;
+ 	struct srcu_ctr __percpu *scp;
+ 	struct task_struct *t = current;
  
--void raw_irqentry_exit_cond_resched(void)
-+void raw_irqentry_exit_cond_resched(struct pt_regs *regs)
- {
- 	if (!preempt_count()) {
- 		/* Sanity check RCU and thread stack */
-@@ -150,11 +150,11 @@ void raw_irqentry_exit_cond_resched(void)
- DEFINE_STATIC_CALL(irqentry_exit_cond_resched, raw_irqentry_exit_cond_resched);
- #elif defined(CONFIG_HAVE_PREEMPT_DYNAMIC_KEY)
- DEFINE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
--void dynamic_irqentry_exit_cond_resched(void)
-+void dynamic_irqentry_exit_cond_resched(struct pt_regs *regs)
- {
- 	if (!static_branch_unlikely(&sk_dynamic_irqentry_exit_cond_resched))
- 		return;
--	raw_irqentry_exit_cond_resched();
-+	raw_irqentry_exit_cond_resched(regs);
++	srcu_lock_release(&rcu_tasks_trace_srcu_struct.dep_map);
+ 	n = READ_ONCE(t->trc_reader_nesting) - 1;
+ 	if (n) {
+ 		WRITE_ONCE(t->trc_reader_nesting, n);
+@@ -137,7 +136,6 @@ static inline void rcu_read_unlock_trace(void)
+ 			smp_mb(); // Placeholder for more selective ordering
+ 		__srcu_read_unlock_fast(&rcu_tasks_trace_srcu_struct, scp);
+ 	}
+-	srcu_lock_release(&rcu_tasks_trace_srcu_struct.dep_map);
  }
- #endif
- #endif
+ 
+ /**
+diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
+index fbcf13bc12d1..a43bae11c81c 100644
+--- a/include/linux/srcutiny.h
++++ b/include/linux/srcutiny.h
+@@ -101,13 +101,13 @@ static inline struct srcu_ctr __percpu *__srcu_ctr_to_ptr(struct srcu_struct *ss
+ 	return (struct srcu_ctr __percpu *)(intptr_t)idx;
+ }
+ 
+-static inline struct srcu_ctr __percpu *__srcu_read_lock_fast(struct srcu_struct *ssp)
++static __always_inline struct srcu_ctr __percpu *__srcu_read_lock_fast(struct srcu_struct *ssp)
+ 	__acquires_shared(ssp)
+ {
+ 	return __srcu_ctr_to_ptr(ssp, __srcu_read_lock(ssp));
+ }
+ 
+-static inline void __srcu_read_unlock_fast(struct srcu_struct *ssp, struct srcu_ctr __percpu *scp)
++static __always_inline void __srcu_read_unlock_fast(struct srcu_struct *ssp, struct srcu_ctr __percpu *scp)
+ 	__releases_shared(ssp)
+ {
+ 	__srcu_read_unlock(ssp, __srcu_ptr_to_ctr(ssp, scp));
+diff --git a/include/linux/srcutree.h b/include/linux/srcutree.h
+index 75e54e4f963f..fdb42ab50301 100644
+--- a/include/linux/srcutree.h
++++ b/include/linux/srcutree.h
+@@ -286,7 +286,8 @@ static inline struct srcu_ctr __percpu *__srcu_ctr_to_ptr(struct srcu_struct *ss
+  * on architectures that support NMIs but do not supply NMI-safe
+  * implementations of this_cpu_inc().
+  */
+-static inline struct srcu_ctr __percpu notrace *__srcu_read_lock_fast(struct srcu_struct *ssp)
++static __always_inline struct srcu_ctr __percpu notrace *
++__srcu_read_lock_fast(struct srcu_struct *ssp)
+ 	__acquires_shared(ssp)
+ {
+ 	struct srcu_ctr __percpu *scp = READ_ONCE(ssp->srcu_ctrp);
+@@ -309,7 +310,7 @@ static inline struct srcu_ctr __percpu notrace *__srcu_read_lock_fast(struct src
+  * Please see the __srcu_read_lock_fast() function's header comment for
+  * information on implicit RCU readers and NMI safety.
+  */
+-static inline void notrace
++static __always_inline void notrace
+ __srcu_read_unlock_fast(struct srcu_struct *ssp, struct srcu_ctr __percpu *scp)
+ 	__releases_shared(ssp)
+ {
 
 -- 
 2.55.0
