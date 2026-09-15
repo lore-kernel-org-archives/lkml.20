@@ -1,160 +1,102 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD4837F315
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7FC6B426690;
+	Tue, 15 Sep 2026 16:02:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488123; cv=none; b=WShkgBHzbWnFfNXc/AxPZ1GRP5MMlnwx5szfEXGnehaGJcwuOKKn1kmORhqPs/HBH0izSrWTJf0k69OBvLtFT8fa9nft3/NkMU8XLKOu3xAW2XDBhM9kiMPYUH9g3XSUajfTqqeLqVh1wBJD3Wy/pClJ9ItAD5TbZAuKC+hE8Rw=
+	t=1789488125; cv=none; b=u4mD19KJDjQChmHO2WzFgyI3Wc8wUj9b6Vf6B6sKWiCgjwtAULo6HUYmfQD1bshBUZzpRZ/fLhN28sa52jgI4D2Zp3Xt0HuPsKjNkpBuulMDOQpV36dXMgu83Ix3CJ8dxQZG8kOAB0V6BoUhcMVwltZOgPvwIdQ3C2hF7+zPlmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789488123; c=relaxed/simple;
-	bh=mUNbiH/i0pq2SU9Fqm0lSE65bqmXeWBBMRPMTKueFow=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C8GJJFWftzuz6YnqyzWJ7w0ywJFq5jmTsLZDaaevaagoufFPBr+2rfUvgcwIeGal4Pjkn7038FJj/f0LXVDvMmbPVFsp6X81RxNiqOf6sXREbD8CNmOEHFTcBkUj12sNhdH58gn/9WfZe6/ftoDJYh17idREpR42aaNPNJpWBdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Z4iBeVFj; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789488125; c=relaxed/simple;
+	bh=8q9Rt/6mKLCfGe51uszKwi9iQrDRjaKLQZ+w4aPQW+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mLZcLoLOQoIlvQHvOz9UtDd3B4y2LV7TKWURvaGx3TLnCDvxwHe8fLGS+eKgLL0CTrumQBrDrMHVPJ0MOmQm1E6S9+PFQu3X7i5Sobt8EGorimADxfA6+9bfPIzV5v1ZyacyCVWCHZHPcXyqH9ssmGEQniVR5s9a8KS97d0mYi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nWbCCXse; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Z4iBeVFj"
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-939ca12ab70so423486785a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:02:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789488119; x=1790092919; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cHorUh9PUsMTcz7XlBSNxIJi9xL/FsLVONo19kBkoF8=;
-        b=Z4iBeVFjq5MFXahJFl1OARurgjljxrnzJpntFb5llcucGaGjW5GTV3KBt+vR3xbAVl
-         CZcCNQyCzExrLcGOdC/O6Eu5oRT5AF9VTSUKeIWc1jRGeylo5uJmxeyDRddnm5WKpjuE
-         EktgA/gyyNbNTG5RAQcXKtn2zH6doXNlst9K8Q0/1EQt2MzZCxQb+At103+OEcGMgYTY
-         AAeabVtuPefnJw2v9AUA7c0EYzgOIcGk3ZTG1ZLwSLtcZSemMQvsvpmKCGfdEkbkSvuu
-         XeVi8648bnX7gsXO5Nbyo3yf2SKaZ2UDFAmki5UypACXXBXkfLU932+LKRYr7pkRUZ7c
-         bjHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789488119; x=1790092919;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cHorUh9PUsMTcz7XlBSNxIJi9xL/FsLVONo19kBkoF8=;
-        b=kv/XmzDmh3mF8CVxhf2hbriZhr71bWX9Ah7TMi2hZgYyQoof63twy1oFUw9FBb99Up
-         nhnyhqUnprTgetJL8+DlfjTBWby2CHSTwnHFv6EZgZza3fo7Ohn0kN5uEPwgJgUCGEjO
-         iiYSq063WGOGaEpbzCrNq2qxUdb7J8OR0NZSKtPBotpsdy34etTnR8/T5A5OIpOHVIGr
-         QL1Woc9aD6zn5YZF1vMXThCXOKamkmeUME/jxN/FNThKYSs6Vf2BxBiJjj+3S/m8cJyk
-         FA8q/CmFnH0P5l1rPmDHUBRy9Tyat7eaIxlAg4+iBlrDYXXKcksNeHWkegCthrnvLyPJ
-         Pr5w==
-X-Forwarded-Encrypted: i=1; AKwUvBw6cz/JH5xLrDmXdXbXZNsjQ38p0vNu8q7WVal1fbtx/Tf4AXiZY8pmiXA8m+vDzX/Gv9M2Jtu61AJqQwE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwyQn+WPYA2NKcK2WLW2We11UEJGSmzDU5uf4iKLqS9uHVikmW
-	pPAarlkm3lCk20Uk/q28Xg2RhugKngPG7jpsywyMZhoO7kR9Vd0b8sbs7YbAM1WNvhU=
-X-Gm-Gg: AYBFou0kIbhGJBxS9IxUkdXc2xNfXatthFNoBbD37oV1wQIrTKet9RNyncnv3TofgTL
-	WNo+zkW35s+HqC1vC+b4nm9pHWKZ19GzJluBZva3tCs+fJZp4IpZ1QCa4BbDgzliVx2QkPIIENh
-	+bR0Yk3nhwiwCnvDZS0pp6s0e4LahAo5a/Q6r/FIoRresC2K5QB7PLwSmhAf+Y051BDHnVWZ0oX
-	/dcpbnefwkFS/YcSyNNocwbRohQBndREMX2mYuhtG4m6VqJYYW/2AKUmV0A4LKZQcuOdkYzJ8hp
-	5foo0q7z2NDKgj5sLmjUBCtVx5YszxLW/AwFLuEvV0lB7LfFaDG35/Z5aLo8l8ltIxdTLvgQf7N
-	FwjxYpWAiTYfXIlP4LEAi1cR8BbBOgZk6v6KBCUZTHQtLBsiFUiLTUJa7LJoBS2UiNQAOxn5qPp
-	R6RW48wwph3EycfjnRcKJ7aBMOzyYnF3yERCFsbTqDex19fdLuQ1lIarMVLsy+q2q7S8Hd45yN+
-	yxmYRKm9diB7a6Q0ENoOi3LXjJdnREhXybFLAcFnmq50BL0/FrQdrs=
-X-Received: by 2002:a05:620a:1994:b0:939:fbd5:af44 with SMTP id af79cd13be357-93a299fbf14mr1209615585a.32.1789488114441;
-        Tue, 15 Sep 2026 09:01:54 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93a0414809bsm956311385a.45.2026.09.15.09.01.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 09:01:53 -0700 (PDT)
-Date: Tue, 15 Sep 2026 12:01:51 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Takahiro Itazuri <itazur@amazon.com>, 
-	Sean Christopherson <seanjc@google.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Wei Xu <weixugc@google.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, x86@kernel.org, 
-	Sumit Garg <sumit.garg@oss.qualcomm.com>, Will Deacon <will@kernel.org>, rientjes@google.com, 
-	Roy Patrick <patrick.roy@linux.dev>, Andy Lutomirski <luto@kernel.org>, 
-	David Kaplan <david.kaplan@amd.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Patrick Bellasi <derkling@google.com>, Reiji Watanabe <reijiw@google.com>, 
-	Nikita Kalyazin <nikita.kalyazin@linux.dev>, Ackerley Tng <ackerleytng@google.com>, 
-	Takahiro Itazuri <zulinx86@gmail.com>, cc-open-source@amazon.com
-Subject: Re: [PATCH v3 03/26] mm: introduce AS_NO_DIRECT_MAP
-Message-ID: <aqlpxa61SrzhWF1O@gourry-fedora-PF4VCD3F>
-References: <CAO9r8zNJ3mSRf5YyRQYYW-eM2eiFvQMXW4Rh0cT=31jsKZpuSQ@mail.gmail.com>
- <20260903072625.62694-2-itazur@amazon.com>
- <CAO9r8zMxdg2BTFguwcRQn8n-2CPaEJJfg+T8dWcgO2eV4uNaHQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nWbCCXse"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 72D53152B;
+	Tue, 15 Sep 2026 09:01:58 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 365CA3F882;
+	Tue, 15 Sep 2026 09:01:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789488122; bh=8q9Rt/6mKLCfGe51uszKwi9iQrDRjaKLQZ+w4aPQW+c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=nWbCCXsekbvTzwlFx/cCmPDi5S4a8fhGYI0dkfmWehsZtzCGn3bOI4RYcII0fMzGj
+	 Zlug/OpEpuJCmqxMH1VSwQh79dJapavF/xLh69AC4X3d+SoTEUZK700VxuFSm9iRhP
+	 tawEVg1kb81AP4bo1IX5ae463LenViZx8OMoLrSA=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>
+Subject: [PATCH v18 03/23] KVM: arm64: Include kvm_emulate.h in kvm/arm_psci.h
+Date: Tue, 15 Sep 2026 17:01:21 +0100
+Message-ID: <20260915160141.3543048-4-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAO9r8zMxdg2BTFguwcRQn8n-2CPaEJJfg+T8dWcgO2eV4uNaHQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 07:06:02AM -0700, Yosry Ahmed wrote:
-> > As far as I know, Brendan is no longer at Google.  I do not know whether
-> > he plans to continue the ALLOC_UNMAPPED / mermap work, or whether someone
-> > else at Google has taken it over.
-> 
-> I am currently working on a new version of the ALLOC_UNMAPPED series,
-> I am hoping to send something out soon.
-> 
+Fix a potential build error (like below, when asm/kvm_emulate.h gets
+included after the kvm/arm_psci.h) by including the missing header file
+in kvm/arm_psci.h:
 
-Hi Yosry,
+./include/kvm/arm_psci.h: In function ‘kvm_psci_version’:
+./include/kvm/arm_psci.h:29:13: error: implicit declaration of function
+   ‘vcpu_has_feature’; did you mean ‘cpu_have_feature’? [-Werror=implicit-function-declaration]
+   29 |         if (vcpu_has_feature(vcpu, KVM_ARM_VCPU_PSCI_0_2)) {
+	         |             ^~~~~~~~~~~~~~~~
+			       |             cpu_have_feature
 
-I've been trying to pull just the alloc_flags extensions (bulk and folio
-allocator API extensions) out of this set and my private-node work.
-
-I was taking another browse to make sure I didn't miss anything.
-I just saw this, and noticed i should have probably been cc'ing you
-here instead of Brendan:
-
-https://lore.kernel.org/linux-mm/20260914155115.439742-1-gourry@gourry.net/
-
-Do you have any concerns with me trying to pull this plumbing out ahead?
-Trying my best not to cause annoying conflicts.
-
-~Gregory
-
+Reviewed-by: Gavin Shan <gshan@redhat.com>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 ---
+ include/kvm/arm_psci.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-as an example, this series commit 20/26 reduces in size to the below if
-the plumbing it pulled out ahead:
-
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 2e079fa3a729..bb43568bb468 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -5192,7 +5192,16 @@ static __always_inline bool prepare_alloc_flags(gfp_t *gfp, unsigned int order,
-                return false;
-
-        *prepared_alloc_flags = alloc_flags;
--       *fastpath_alloc_flags = alloc_flags;
+diff --git a/include/kvm/arm_psci.h b/include/kvm/arm_psci.h
+index f86a006d67136..06c20612e9e7d 100644
+--- a/include/kvm/arm_psci.h
++++ b/include/kvm/arm_psci.h
+@@ -10,6 +10,8 @@
+ #include <linux/kvm_host.h>
+ #include <uapi/linux/psci.h>
+ 
++#include <asm/kvm_emulate.h>
 +
-+       /*
-+        * The caller may be atomic if it disallows direct reclaim or requests
-+        * lockless allocation. Determine this before gfp_allowed_mask can clear
-+        * __GFP_DIRECT_RECLAIM.
-+        */
-+       if ((alloc_flags & ALLOC_NOLOCK) ||
-+           !(*gfp & __GFP_DIRECT_RECLAIM))
-+               *prepared_alloc_flags |= ALLOC_NOBLOCK;
-+       *fastpath_alloc_flags = *prepared_alloc_flags;
-
-        if (alloc_flags & ALLOC_NOLOCK) {
-                /* Certain other flags could be supported later if needed. */
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index b10f5422b6bc..863074319c2a 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -56,6 +56,7 @@
-  * alloc_tag_sub_check().
-  */
- #define ALLOC_NO_CODETAG       0x1000
-+#define ALLOC_NOBLOCK         0x4000 /* Caller may be atomic */
-
- /* Flags that allow allocations below the min watermark. */
- #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+ #define KVM_ARM_PSCI_0_1	PSCI_VERSION(0, 1)
+ #define KVM_ARM_PSCI_0_2	PSCI_VERSION(0, 2)
+ #define KVM_ARM_PSCI_1_0	PSCI_VERSION(1, 0)
+-- 
+2.43.0
 
