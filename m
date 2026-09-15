@@ -1,205 +1,200 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011021.outbound.protection.outlook.com [52.101.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f7.google.com (mail-qv2-f7.google.com [74.125.230.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E701933936B
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:49:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C023A274658
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:49:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.135
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436948; cv=fail; b=YkKKxH4mpVpyMSF9rbUcBmJzOUYgu4in18o/VY1ilf1Un2Vlat/ouAt+CBMijrQQPATvQWFw0VVpvXAt3xh6KCIGDUFz3th9MXIW1UQohMyxJr+oJPjy0aWP2vVrbMwxcnIVwr6tKnXKjOdfpeaxu7n/rJYc5umBiDY4sAIx+TY=
+	t=1789436975; cv=pass; b=FSUv/IUaoMroWIJ0t8y5TTqVzQyQMSq+294U4IDdtQYSy++POuMItZ091HLJUKhlRoOXRqb5yaNmusjNig2OUY4ytUCsedmhm56C94tLDbs+iRf5XH5heT9Fv36qxV+FJrFLtdzs2IFoNRYcaNX+eNMf7gjwMsICJJ7WyAN15N4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436948; c=relaxed/simple;
-	bh=KcMtu6f4buJ+OqZIrdF/pnYFs0/iqiY6uDlRa2cDxdc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XWGv4b5l01fkFCuK3rpEEqb9CosaPAMROYK0/cGsdrHd/Vtf9vqAqGjuOFwYKTeP2WGdbev7RHgSxkMFnhgu7D9kZygk06Z1QPAtqs1zRLpCLOzK5z/Mvr0QszYtfg3Mn2bg+d7JozD8yvLXxdN2jLDlHR6o3u+AwHmt8zkWZQk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=oKsAruqa; arc=fail smtp.client-ip=52.101.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789436975; c=relaxed/simple;
+	bh=x+FU4SJGWsh1vn4yEtFsZ3aA/vqNWVzllOdxlwhOH+g=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=FE0cJVcyXJ0FlqX0Pv1P2RBq38C3JWM+MPt3puRfuNEIYhrfwL8kgf5Usl6QAQcvkRVS57YmI0FJOiOyoy+NSuP6pWE4YxtbmK0EhzxSRQSlqTX6T/AP87nx1Kr+PsR/jem0NRW5LuFHAOhRRU+k62Dmisfl1ILGPv+h2lqTx/M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TAg2TMW+; arc=pass smtp.client-ip=74.125.230.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="oKsAruqa"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OPViwBjm1QJFsR3RY5d89rYnFs+vrjXrgcmoigNHkYKwmieg9CmLAqC2lEo1P9aklz5spelIPGYRsV+/JyXX1QAEF3/CTYI4tufjA37WgWabZwTwTyLujITxfIjRdoQ8WYR2zh//eNA35VipjA71PH/zUX9n5z0aH9xE3zv90ToX2Ncod55fFK9YU2PqIi3uZSNky0wgUNjv8fdehrJHCRqrtF2i/NxHQImf2M0eCvW+JitKgQyKHzVHAIfTA/eYb54A46S/V+0C+dYLVhBlNY4JDJxoD6iBQ0zHB7sjy9XKXTyrGQGTJnVmd4g+yo39kHY9B1fNS+H9wLN4lIGSKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FPO4xC9qAIS7YTUlOl988/fO01LUxpA2uRljEFGJHN8=;
- b=dpYAxJFMVQ0fACY/7gPHHJhnJkIMSTbHvgnTTma2IndZ6DXjTPdFiUaGWZBwSF0NZIEM+rfBXiJaD0TXcBStse0v76ZEOGtQmYauCT5Kn/Pby4ZRcykDQhadSM5b4AaPBeXncOa2NAiAI9cL0Pi60xi14SY+BvxcligLnEm8+whZ1Lq8sSLQc205QMYJ5tSG0AreRLNGcj4OwC2LIny2QMdzTP9kgX3F4ltgGsCwcsY60nTIQZAxAzJKUNz6y5K6GGB0YF95tPaVKLCc1prjaDPN712LqiLTVNTqk2H/xyqNKm0IwUzy4Rs6Mp1UaOqt8xg+stMhmOvsYyUB76EDpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FPO4xC9qAIS7YTUlOl988/fO01LUxpA2uRljEFGJHN8=;
- b=oKsAruqaPXQlvABO3+XofymmCPCApmC3Axty7DUyXe4EH4I9y2EH7OgrUfBU72cY2AbiEPnoLJgQT1FM06n2mRPmKxM9k0WCB1zUz15OosRmScoddhrPSj9X4caj6wdLfFzw2C9m4KRdR5wfZOncNpAYaO/FXt6s5DUuw2LafHMGFlKPueoy3QBapY/XYQW4Kr+ge2jXteZmOF37pPYopTdhmvLb1vTRonnn30R+frfpMFuKM05pub5OWRMQqGCc5Ry8PUNAxNY4bKn0h5rJ3rSPhv4D0I6nNGxz0LgQc6geGmOaQ1pUt/dAB+giZ4OGlqy1eXsTzszFi38y1hlxaw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
- (2603:10a6:102:4ab::13) by GV2PR04MB11737.eurprd04.prod.outlook.com
- (2603:10a6:150:2d5::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 01:49:02 +0000
-Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
- ([fe80::80e9:ab1c:dbc4:6930]) by PA3PR04MB11203.eurprd04.prod.outlook.com
- ([fe80::80e9:ab1c:dbc4:6930%3]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 01:49:02 +0000
-From: marouene.boubakri@oss.nxp.com
-To: Jens Wiklander <jenswi@kernel.org>,
-	Sumit Garg <sumit.garg@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	linux-kernel@vger.kernel.org,
-	op-tee@lists.trustedfirmware.org,
-	linux-riscv@lists.infradead.org
-Cc: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
-Subject: [PATCH v2] tee: optee: allow enabling the driver on RISC-V
-Date: Tue, 15 Sep 2026 04:02:35 +0200
-Message-Id: <20260915020235.507302-4-marouene.boubakri@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260914175435.118303-4-marouene.boubakri@oss.nxp.com>
-References: <20260914175435.118303-4-marouene.boubakri@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CY8P222CA0007.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:930:6b::22) To PA3PR04MB11203.eurprd04.prod.outlook.com
- (2603:10a6:102:4ab::13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TAg2TMW+"
+Received: by mail-qv2-f7.google.com with SMTP id 6a1803df08f44-90ccffc2654so27948046d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:49:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789436973; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UXsIrVejtxDQ/XkUkvygCySTSZD3xEIBSiYs57EkP0rw45VkzJ8KvVcvh+nw2je4r5
+         0sqFN3FJvR9KAUtsb0Ae6/smTNuwN/VwlaVgNvCVPR4bAAOevaAOjELQ5dDlHcBTjsDF
+         OHQb2LNAcqlTCe2ptQ95g79NWyQ/LeHBEQl4O07itjRCmt2wWrNxzPHagXo/05USr+Vn
+         JWNaBlIHDV5y5iq4kD7DwIt+moGYKvMtVT9td3rzsOSPHPdCDTN2/zwjuWNCJ9+fir3L
+         j/DN/ANlP/gXRd339ERwRIyzXf0O8Yyn4dKKdS3tvwArJ7MRzERPesqbvUGlInX9JsIU
+         90cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=9cCP8ATHiCM3DZdDsKWL2HHlyC1tigS+r4nKWX9jez8=;
+        fh=fxKxc6WRQiHtzgxl4x97gqm1TmTidNWITgmBuylCihc=;
+        b=OL0jv1oAqotDgMEXcJCk/DHS9ZqGNpEusJKwM0lOGQnycR0dVl+72nTuTzHctp/8uu
+         cwGReb8ptI6XBZXyKSDGOazIz1Q1GwmCfitK0Kg3aOobKw0ajh9PyfOMVwHkhFWalWhT
+         fpzFc1USgpkJMPnLTQVSIwVxlyh9iWJGIH2dxUNkfhPUvr9eXoJDOkL7fTMwjJNqmOVt
+         gN+uv8HwYnNJeE+iYP4Gbul43i6siHbIsprTLFllwKFMwyc6Bfpjvuu44hyddHqpQgqt
+         67/81EexJM49SgrQnoDywLRf13npuWkicfPEn5tifuCWnkY/OwyWkFDEu7vLqbdT2fl/
+         ZCdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789436973; x=1790041773; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9cCP8ATHiCM3DZdDsKWL2HHlyC1tigS+r4nKWX9jez8=;
+        b=TAg2TMW+wbe2sTCMS3MFGzksHQzW3ImrCNe5rKLq3ZqgVW8MrK/p4Tqth9S/57HYlw
+         fcOLlp8eP0lgfH7AhrE020R95TaQc4MxKU9GwhAsaSiP7eyKEioy8ZpfxFcgZSPwNMip
+         0UsDw3Qkrl6xXBOu0l5RAOFf9wGHekCWbAQ6AMxP1oyTn+E4/xKF72LKPtMswNGVHvrl
+         DALEE2iYK2c9ReJ0NvOYBwkkYrhO42JLlyAl4JMBuDmsrSBmggaS7vIUNKAfHHpf4+la
+         AY/c4Lf+b7iSt+JjVDftCbxWuWW2MJ7g9xRenmUJBhjRkilK3NVNV4SxcZFULlnhyiHA
+         WckQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789436973; x=1790041773;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9cCP8ATHiCM3DZdDsKWL2HHlyC1tigS+r4nKWX9jez8=;
+        b=dykd+LxZy8LuDevwBD8ZFvqcD+d6rYU9dkMXXashjMVYd2j5EDSV/gflKgGDAcd361
+         +de5iU1JIhGH49v5bI5mqoERyVFv+m1XalQxmEHdIUf6HdK/33hEd4YQYWbcjlrXjCLU
+         rijZPB5UIby3V6aR/aoeLDfmrs0c6IgEttrJ4Ms7d0ds4lVHu6d9+lN23UZknDYv0xdg
+         z7KHSfd96sjbEEUIPME/IUQPwCkonZkGjV7gcY85sTrr8FILM6rpVJi6eDUK52hJeYGn
+         bQyz7gCtO5S/7vsEPUz/2flR2eTKPdLsxnxdRKDMc7JlknsD67t0rOGXkEjgUN0Jp4zU
+         rBKg==
+X-Forwarded-Encrypted: i=1; AKwUvBxrQfHEEB7F+fzMkJ3CyZhKb5uhjnCXdgWzyr2MGUPQj/03ZbOz5O0IWcbZ0xdPsZls6XPOb6CB4Suw0Eo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxm8a8UwSZvgriCHajWpijJoy+cosOVvWzGGJZIk8iFKUTY4Ph
+	hVgk792pCByN6BzfbvR57PvcQ3atgS2rS6kb0QOBwonTJZ6oEbCWLSr1I2Oj39XT1rmTvGea8eU
+	RwMAkQizSdKu51kx4jfOxtb2jo01+L/n0rhAzoF6AwrDcV61c1Q==
+X-Gm-Gg: AYBFou3bk4P10MUImLbvVnOAUfGTDaGWG0/w9ltRrSqthgrpp7G8thOaPONdD+k9BJB
+	0r3gzRWXdRdTKMLxpuBc4t3FX6bR2dEAqZ8vaioTjN6/yeHK3c4isnzC4JzUnJiFok5yJ92sFeM
+	1cG8nqw3QNCezQpuUqGIm8/O8sWPzB3jxPU3lZfpwq1khDIBZViD/ARpg/Rj7bC2N3MEDSB3v5D
+	E0bY6x9SuOuoQEkOfP7YBaVE/ucHzIZeAKBO6fVBGY20HIWvldjKSl1oa3n3j+K9ZOG5sbggqqx
+	sauBUPRfRSopmV/2cPJcntYBiaqSOQs9URxnm1A+PIH4zK0x9fVkPB8=
+X-Received: by 2002:a05:6214:2345:b0:910:3453:d4a7 with SMTP id
+ 6a1803df08f44-9122e65c134mr82476666d6.33.1789436972473; Mon, 14 Sep 2026
+ 18:49:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA3PR04MB11203:EE_|GV2PR04MB11737:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0c3f510-25b8-4d20-073e-08df12cb84a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|19092799006|6133799003|22082099003|18002099003|3023799007|10067099003|56012099006|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	umq0WQROGX/fYNRZRcZ1kMPAFai3YXYhlnHHuAUfmDOZz1M+kHDLIlZE5aVKmnx4i845er40TlnhtfXLpfhbHucUPKEJ+XUzTrlYvx30BQpsWLVUcCR9nLT4bjknfUtzXq2BDjJa4esqr9fHFnMNc99scAPRc2SdE5F6vMcIM7WBpAb73/wNVdl9mKnxhtx8iOO4pxg3+YbsywEBzuJsN9zUPA8w4g0GsfIGVQjfG+8whoL5SPq+A7pRaeUNKok3gP8BdRV8xpwxI97WRA+pU++xKuY1DTSs0leh4UPp3aEDqh82MZ0dbpxXKqt5EMzyd2nvbVWptb6FGSfQWskjdB2aDZBmZThBW3nyGPHt8Vm1Fnm0lh5bkmyqjuGqZ4MhxpMAMKekv5rRuMpKS/VHYRwq8XMYUYVtSITebsH+8KsFz9y5c2PVQ4iSvgpD/KdlO/oSfm12eumn50HRhKF/Ef/PphjFvCyQnlN5tdVfe2ZIKFGMdVVurRl/mMKhzdfqC5ZvSxFIZhQ42Rd8U3jdL/oKIQlcdfuz13l/OdgzH+YCe6pAWPtP/oNeJ/oqAL/wVKRBw7j7t09UdWZ+4wE5ppskjo0GLLs89c4yPQoYruMz8JT+azkUeL4fmJ8BJQvrt2xzGWDwQvslIySSJWNe1J1Buzg6STCHre85NQqhYTE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(19092799006)(6133799003)(22082099003)(18002099003)(3023799007)(10067099003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?DqKUN0G2eMgvsTPn9UK5VxxM1aIfhpqSmfhIMiBSjSTxNrRB+ShjQfQEWcfV?=
- =?us-ascii?Q?SKYWcKceaWwk3G4cNGcsMzDP/4eS5/oiyYfnz4C/GpjndZ/MEAqBHr3zNsN6?=
- =?us-ascii?Q?ME59QlYL30UQf+iTYuHcZ5e1qXOwyFmM5gDuIGDUMrayjtZe5QKs7/24G4TC?=
- =?us-ascii?Q?DP2DbUcuui6ZAlO+Slk19annOIMIWG6eTw8xG7sVn4udSMn7pdpNfg8nHedb?=
- =?us-ascii?Q?rxaZ4VxnmhD5LiVwVT7MEVZc4fsa1QneE80dZa3c0bqPkug5+spsoZsHESXc?=
- =?us-ascii?Q?YiOIBk1xYRFx0G0e37j6Q+VSehpwsa/2ztSCvEjRyZ1DTOaQN7qUBrMprD5C?=
- =?us-ascii?Q?Z3Eqh20x4pjNBYVg8MCDpe66zzldkdEz+EGx/64wf53Rx94sc9SnluwQJPzh?=
- =?us-ascii?Q?TUoGGylf1oz51QDFWf0k6EVFekyqkrUcubh1C+a+aEVtYjUeUD3owsQjBYwz?=
- =?us-ascii?Q?Y2ewfnZcLUZ6Xpbya9UW5dL4ax+l83mK6exG/hbbU8T5n4TLmhwEE5m8U5pS?=
- =?us-ascii?Q?LQWLelEdtAnZuT7utl6s9oxlgu2h0C0yu2j9etFvnq8hm6Kw4HeOwL08VYmW?=
- =?us-ascii?Q?hBOm+zCREjrELWCyrWAf8PmkBYXMX9p4hgVGpc1cEP4Wih5M+urHlboqIlyT?=
- =?us-ascii?Q?8P8oN5H+2e/RdwRZYVLi7b+v5+O7RMNW1cOoSZhbeQXwjRmqLJy0in1yQONh?=
- =?us-ascii?Q?c3Dk8cwezNePo0fP//LYlfIwUDrDU7cmx7IxMWPnX8pyksUjKJo6uy49JBm9?=
- =?us-ascii?Q?wOFJgXoIRzP47jZwrhTXM7CWhO1VhFCHX5PG7Hhe/SWx97F6iPTchoDu0LME?=
- =?us-ascii?Q?8F6p3JwwDZ2e1ewOcEpO5KE0nP2OAc5CHRG52eIKj5I3/GAKY5N0mLWhGwGf?=
- =?us-ascii?Q?dh7bjQ3r7zscZSAPhfro6OSKlYDoHfzkbL7DYme3h1b3OIpe0BSaVosr+ggP?=
- =?us-ascii?Q?3uynVmlfbKgOR17UADX+Nog5kRUN14T0hnbH5xDWRzeukTasOdi0CoXBdsKx?=
- =?us-ascii?Q?sXl/DHVI6qPvqyQSQy07yI1JonWMWjZRb4/cDQKbuy624MFerd6+F2GYitcr?=
- =?us-ascii?Q?EGO348Hf1FzWgnI4K34/AHu2ykiYLYv2Fshbriqp9BdRQh6hA/3FP1/NKrZh?=
- =?us-ascii?Q?A28T8QmHAKK2MtpJMmoq4sHawovAKk+dNPEUx0/45jBDZ/P67/A2qn86OnOX?=
- =?us-ascii?Q?24AlXipJMTIANVYWXYf/01rmOt4+EmfSKt+ggFsNBAgEV0VlOnQsWa8CaX5c?=
- =?us-ascii?Q?eXWhZr3VD+cuduqshIu0xbETfR9q5VlPebZFLxYRtX/iOnn/Phb7T58oeFhh?=
- =?us-ascii?Q?IgHYSt6sCT+I2YF84LZiHnAldR+VXYIUNQD0hjDrq4NE5GPU20iM5mikSbXZ?=
- =?us-ascii?Q?f4wqmS0PV9XM/nOCpZ7yN6ycokWponhg2VNNz3Qijk3JpVDC6AT5D81HYKW+?=
- =?us-ascii?Q?/VGt1v2deHqd/Q+vMu7+f2enkpVEmloE+4RX5J6Oyxykhk7ODRdie7La0FKC?=
- =?us-ascii?Q?4a9bp2wdZDerfPKtfb1s37yuQzJqCB72KC58eNrAmE8LFtAJqwbCm3WCWoXZ?=
- =?us-ascii?Q?gPdYeDORUmxXBYjE2Kw8Ek5cWItlrdmO/A7uoWHTCYp8HrSBAMUFm1t1oKXs?=
- =?us-ascii?Q?NIhB1rkl7w+2p3WbiknfIbOtWa5klV7/BQHXJ4DvmPG6mU90RlMa0Y0ajY9z?=
- =?us-ascii?Q?HhtvYxKsCT5Guky6SvOVKZWm0AaFpmqhqJA2esUackE89/s05fUtooVCJkz9?=
- =?us-ascii?Q?gKYc0Mg1ogGBcZtetKpP8XUNvoT31sHuXpT3zxkN2MeiUwxhjTAm6OLlFUGW?=
-X-MS-Exchange-AntiSpam-MessageData-1: 68eKT9T4jLfAuw==
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0c3f510-25b8-4d20-073e-08df12cb84a0
-X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11203.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 01:49:02.3518
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CuUTbCjy7t3eCH9qCi0wazcjPVfWFg7QA7AuDJgoR8xdTKWNk3vQpxr+vL1gaJ5eGjseLOl2kszCCZeJHE+KT7YmBDJTjw0ebFZ4RXD3gXsSgHogKyUmJE25rHHr9d6t4E0Ipetm4juYYnF1p/5EbQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11737
+From: jiabin deng <dengjiabin2023@gmail.com>
+Date: Tue, 15 Sep 2026 09:49:19 +0800
+X-Gm-Features: AcwNN1Wkb8iqVJYJHNixGe8po7o_nQWtmkOuwwuyqzt-GedXISps1PZMfaegazE
+Message-ID: <CAFxp=AY2cVRQrZvB9WNnigbsobuw11NMG-cagHx0_V+ur2ToFw@mail.gmail.com>
+Subject: mlx5e:zero-prefix corruption during TCP DMA-BUF RX - help requested
+To: netdev@vger.kernel.org
+Cc: saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+Hello mlx5e and networking maintainers,
 
-The TEE subsystem and the OP-TEE driver depend on HAVE_ARM_SMCCC, so
-neither can be enabled on RISC-V, where OP-TEE is reached through the
-RISC-V Platform Management Interface (RPMI) over an SBI Message Proxy
-(MPXY) channel instead of the SMC Calling Convention.
+We are investigating reproducible data corruption: with SHAMPO enabled,
+some TCP data is corrupted when received through mlx5e directly into
+CUDA-exported GPU DMA-BUF memory.
 
-Now that the Arm-specific code of the driver is only built on Arm and
-the driver has an RPMI ABI, let TEE and OPTEE be enabled when the SBI
-MPXY mailbox driver is.
+The full expected number of bytes is received, but the prefixes of some
+payloads become zero. The corrupted ranges end exactly at the next
+64-byte boundary in GPU memory.
 
-optee_check_mem_type() only lets normal cacheable memory be registered
-with OP-TEE, since OP-TEE maps registered pages as such and must not
-observe mismatched memory attributes, and it only knows the Arm page
-attributes. On RISC-V the memory type of a mapping is encoded in the
-Svpbmt bits of the PTE (or their T-Head equivalent selected at runtime
-by the _PAGE_MTMASK alternative): normal cacheable memory (PMA) has them
-cleared, pgprot_writecombine() and pgprot_noncached() set them. Without
-Svpbmt the memory type is defined by the PMAs alone, _PAGE_MTMASK is
-empty and every mapping passes the check, as there is nothing else to
-inspect.
+We have not determined whether this is a driver bug, a configuration
+issue, or incorrect API usage in the reproducer. We would appreciate
+your guidance in narrowing down the cause.
 
-Signed-off-by: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
----
- drivers/tee/Kconfig       | 2 +-
- drivers/tee/optee/Kconfig | 2 +-
- drivers/tee/optee/call.c  | 8 ++++++++
- 3 files changed, 10 insertions(+), 2 deletions(-)
+Receiver environment:
 
-diff --git a/drivers/tee/Kconfig b/drivers/tee/Kconfig
-index 98c3ad083940..6434204d899e 100644
---- a/drivers/tee/Kconfig
-+++ b/drivers/tee/Kconfig
-@@ -2,7 +2,7 @@
- # Generic Trusted Execution Environment Configuration
- menuconfig TEE
- 	tristate "Trusted Execution Environment support"
--	depends on HAVE_ARM_SMCCC || COMPILE_TEST || CPU_SUP_AMD
-+	depends on HAVE_ARM_SMCCC || COMPILE_TEST || CPU_SUP_AMD || RISCV_SBI_MPXY_MBOX
- 	select CRYPTO_LIB_SHA1
- 	select DMA_SHARED_BUFFER
- 	select GENERIC_ALLOCATOR
-diff --git a/drivers/tee/optee/Kconfig b/drivers/tee/optee/Kconfig
-index 0eaedb34673d..8998b64df5c7 100644
---- a/drivers/tee/optee/Kconfig
-+++ b/drivers/tee/optee/Kconfig
-@@ -2,7 +2,7 @@
- # OP-TEE Trusted Execution Environment Configuration
- config OPTEE
- 	tristate "OP-TEE"
--	depends on HAVE_ARM_SMCCC
-+	depends on HAVE_ARM_SMCCC || RISCV_SBI_MPXY_MBOX
- 	depends on MMU
- 	depends on RPMB || !RPMB
- 	help
-diff --git a/drivers/tee/optee/call.c b/drivers/tee/optee/call.c
-index e046aff61828..c29bff224848 100644
---- a/drivers/tee/optee/call.c
-+++ b/drivers/tee/optee/call.c
-@@ -604,6 +604,14 @@ static bool is_normal_memory(pgprot_t p)
- #elif defined(CONFIG_ARM64)
- 	return ((pgprot_val(p) & PTE_ATTRINDX_MASK) == PTE_ATTRINDX(MT_NORMAL)) ||
- 	       ((pgprot_val(p) & PTE_ATTRINDX_MASK) == PTE_ATTRINDX(MT_NORMAL_TAGGED));
-+#elif defined(CONFIG_RISCV)
-+	/*
-+	 * Svpbmt, or the T-Head equivalent, encodes non-cacheable and I/O
-+	 * memory in the memory type bits of the PTE, normal cacheable memory
-+	 * (PMA) has them cleared. Without Svpbmt the memory type only comes
-+	 * from the PMAs, the mask is empty and all mappings pass the check.
-+	 */
-+	return !(pgprot_val(p) & _PAGE_MTMASK);
- #else
- #error "Unsupported architecture"
- #endif
--- 
-2.34.1
+- OS: Ubuntu 26.04 LTS
+- Kernel: 7.0.0-30-generic
+- /proc/version_signature:
+  Ubuntu 7.0.0-30.30-generic 7.0.12
+- NIC: NVIDIA BlueField-3 B3210E E-Series DPU
+- NIC driver: Ubuntu-packaged mlx5_core
+- NIC firmware: 32.43.2400 (MT_0000001117)
+- GPU: NVIDIA H20
+- NVIDIA GPU driver: 595.71.05
+- Receiver uses the CUDA Driver API, built with CUDA 12.4 headers
+- Architecture: x86_64, 4 KiB base pages
+- Link: 100 GbE, MTU 1500
+- Receive configuration: tcp-data-split on, rx-gro-hw on
 
+Tracing confirms that the receive path executes
+mlx5e_handle_rx_cqe_mpwrq_shampo().
+
+The sender is a standalone Python TCP program that sends reproducible
+nonzero data from host memory. The receiver is a standalone C++ program
+using Linux device-memory TCP interfaces and the CUDA Driver API.
+
+Test procedure:
+
+1. Allocate 4 GiB of GPU memory, export it as a DMA-BUF, and bind it
+   to RX queues 8-15. Direct all test traffic to RX queue 8.
+
+2. Before each iteration, fill the GPU memory with a nonzero value
+   and call cuCtxSynchronize(). Then transmit the test data, in which
+   every byte is in the range 1-255.
+
+3. Receive the complete message using MSG_SOCK_DEVMEM and confirm EOF.
+   Record the returned DMA-BUF offsets, lengths and tokens.
+
+4. Keep all receive tokens outstanding. First read the data back with
+   cuMemcpyDtoH(), then call cuFlushGPUDirectRDMAWrites() with
+   CURRENT_CTX and TO_ALL_DEVICES, and read the data back again.
+   These two reads produce the snapshots before and after the flush.
+
+5. Compare the two snapshots with each other and the first snapshot
+   against the expected data. Return the tokens through
+   SO_DEVMEM_DONTNEED only after both snapshots have been saved and
+   the comparisons have completed.
+
+Each iteration uses a new TCP connection. Test connections do not run
+concurrently.
+
+Observed results:
+
+We tested eight message sizes from 32 KiB to 4 MiB, with 50 iterations
+per size:
+
+- 400 iterations completed.
+- 354 iterations contained at least one corrupted range.
+- 20,707 corrupted ranges were recorded.
+- All recorded corrupted ranges were zero-filled prefixes ending
+  at the next 64-byte boundary in GPU memory.
+- Corruption was present in both snapshots, before and after the
+  explicit GPUDirect write flush.
+
+A specific example:
+
+- Packet payload length: 1448 bytes.
+- Offset of the first payload byte from the start of the GPU buffer:
+  2149169912 bytes.
+- This byte offset modulo 64 bytes is 56 bytes.
+- First 8 bytes: zero.
+- Remaining 1440 bytes: correct.
+
+Related source observations:
+
+The receiver's drivers/net/ethernet/mellanox/mlx5/ directory and headers
+under include/linux/mlx5/ are byte-for-byte identical to upstream
+v7.0.12. The running kernel is an Ubuntu kernel; we have not yet run
+this test on a current vanilla mainline kernel.
+
+One possible lead is an interaction between SHAMPO end padding and
+Relaxed Ordering writes. In this version, rq_end_pad_mode() disables
+end padding only when LRO is enabled and write RO is supported.
+SHAMPO therefore selects ALIGN; at the same time, write RO is enabled
+on the payload MKey when the device advertises write RO support.
+
+Commit e2351e517068 ("net/mlx5e: RX, Avoid possible data corruption
+when relaxed ordering and LRO combined") describes a related issue
+with consecutively placed LRO payloads. We would like to understand
+whether SHAMPO might also need to account for a similar situation.
+We do not yet have results from padding/RO diagnostic experiments.
+
+Is our receive and synchronization sequence appropriate? Are there
+known issues or fixes relevant to this configuration? Please also
+advise which additional logs or targeted tests would be most useful
+in identifying the cause.
+
+Thank you for your time,
+Jiabin Deng
