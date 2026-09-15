@@ -1,265 +1,167 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AED3F44CD;
-	Tue, 15 Sep 2026 15:18:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78883DA5A1;
+	Tue, 15 Sep 2026 15:18:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485492; cv=none; b=VsKBjK4LpOoC8SEdJuw262qDibGPfGTz6XJrK5mD9tiBVDIMONh18udvUaZ+/5wgIJP3W/VUJ5DSSCdmSXDKF+BHdzsD960n0mHdmUB0H87/0e+qCBPJVjBPkN3DtMta6O8k/RXMy/xGalLPDFyDOfKZqrGnfyGp34X472XBgnw=
+	t=1789485493; cv=none; b=rFr4VZnY3zFHugc16OxNJgHfPrbfzNjQe0dSnI/dobqkt/XHwjANZ+eonVTn5SWnvOPxkFNdBAPrQ2jq4q3Xnw0i7UNdHnT8PozIrH7pSUno3CZwNx053bkTW9kVqFwP/jEFs5PLa+sqPsQGTzETQXe2fTadsIL32W6/TKQ0I2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789485492; c=relaxed/simple;
-	bh=Qhn0zekKj4bR9GvLOaDUJOq2XlBpttbyt0gTlUC4p6o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eNNrF9BX7xrK61A+p7YpNMXScJFUZbX3SSqbraoPNfTE+makg10Lmf4AxenuTMJSGqWd3rUi9wfP9bQkVXiuUfBFd9w8CIAXYKWzzElkcxxXZ8SfhtSysSMy1YK5IenRVTaUqWmHNX37L0FnI6SHObWCs21bUMlY29qq8Add988=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=od+LUdr2; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789485493; c=relaxed/simple;
+	bh=zJhHO4mYc84ktjrPVU8zY4vu53j0s+pteo3nbECw4hg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mt7NS/eNyuqKt16a+h5dxMzPmkMGEGCkyD43yRk6XNZ2lgELT3IHP0VqhFhMbKFptQTtPOoOxuNBvcwlOO1A/QPbduc1vh+WRmG8/t5pqnP/vomqaL0WUresVXY9dwN8NEluGb2Bzby+men6xT7jCzWNpzq9E7b6UK8tOaOz92A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iAxVku8r; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="od+LUdr2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789485488;
-	bh=Qhn0zekKj4bR9GvLOaDUJOq2XlBpttbyt0gTlUC4p6o=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=od+LUdr2tlbuo2E0JPDbIvGVK7PCqBuoSWM5Rol+I2eoNWZkOCA+jXdinLh4PLm5J
-	 pwJ1gdx1Fm5m30DkRQmYotEJIpVo0uiRZjpJQ7CdSzPxATwOv4S9x4JB8IX5HnKB6g
-	 1Hm97smjPaLZLzEeXXH0JTSghLG3XxIOrPCJcs+MHplkhfJwVX9O5N1XIydCTar0yE
-	 Br8QqnkiaLsnbGT8ZglqnmL+eu8jMCzxn9LKOtMfR2emhFjkjKY0sJhE+jOst7gwMc
-	 jzFDfBixNbJWtnZEQVGRxIbAvmE6TAF7spe7JFxclbABjiaS6nAnDIOcEcPQ+g8hof
-	 6hgNnHBFjFBKg==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 119FB17E0C7E;
-	Tue, 15 Sep 2026 17:18:08 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id C1ECB480031; Tue, 15 Sep 2026 17:18:07 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 15 Sep 2026 17:17:44 +0200
-Subject: [PATCH 4/5] usb: dwc3: rockchip: support PHY reset notifications
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iAxVku8r"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FD1rZX3911396;
+	Tue, 15 Sep 2026 15:17:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=76JtMQgcrcoWAQS7rfin5o8TJLarqB
+	PYtiV7mCrQdrQ=; b=iAxVku8ruaXup7Mx/yNHEldPmLG8kabOQ6k3jb0asp5huv
+	4nJSpyEhZ01j4k9yBLS92UoQbzvA1CPGG7M3mJNNxZlrsFykGQnDTWbOHByWN8yU
+	T0yNgQDVKSsMlW9/rmqv1b8lxJJF0w2v+xxQQMM/9UvN2OnJkX4Vaw0Cx0Opnzts
+	ZRHKRtpPoPnE2a8YF01UY58BSuWnE7ASHjUmBbs/FWr34JeCbonP2uhKzw8B5KUz
+	vYoDFDEPDzmGW77LS/WpWFdrNwIdKM18LlBZuBogakwLIOKGjj+crnBPCqzFjkIL
+	fHXWdyjfWX9fON84JgSqv26xW6kD9ow6PfA1v51w==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5dymqn-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 15:17:40 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFAiIG4140950;
+	Tue, 15 Sep 2026 15:17:40 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gq03bsxee-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 15:17:40 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68FFHaHX54460826
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 15 Sep 2026 15:17:36 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E6DAC20043;
+	Tue, 15 Sep 2026 15:17:35 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8D98F2004D;
+	Tue, 15 Sep 2026 15:17:35 +0000 (GMT)
+Received: from osiris (unknown [9.224.76.185])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue, 15 Sep 2026 15:17:35 +0000 (GMT)
+Date: Tue, 15 Sep 2026 17:17:34 +0200
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v7 11/23] KVM: arm64: Share arm64 code with s390
+Message-ID: <20260915151734.236989-A-seiden@linux.ibm.com>
+References: <20260831144802.834315-1-seiden@linux.ibm.com>
+ <20260831144802.834315-12-seiden@linux.ibm.com>
+ <87se3tmlrv.wl-maz@kernel.org>
+ <20260901084037.185345-C-seiden@linux.ibm.com>
+ <87mru0m76g.wl-maz@kernel.org>
+ <20260902124152.438647-C-seiden@linux.ibm.com>
+ <86ecey7l0f.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-4-763bb546824e@collabora.com>
-References: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
-In-Reply-To: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-phy@lists.infradead.org, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Igor Paunovic <royalnet026@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6072;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=Qhn0zekKj4bR9GvLOaDUJOq2XlBpttbyt0gTlUC4p6o=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpYa9EWQy52XGQUG2nVeQeoWJcilK/RTb44
- /WtTntTCmHJlIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqWGvAAoJENju1/PI
- O/qaqs0P/3FnRSMhbAxkjmMat78LRPms7t6iFMM+SHIFaEx3ncQ6WWVSAa0iBIMBhIhNgj+94xM
- VFIsY4XLQWhSVtuNUqctqtbWF2Htq2xxZDzCDTt14wjtVMQaWWY6yoqzea1+OeRcHUHb2yjVpZr
- GGqiukcmzbpTQSnOnPMoKM7FVm28BxOLkrcX2alQKqWAnap5WFGVN4CVc6n/05R+2fY6NhbrEDJ
- nIkKL7lfYQJeaYklHdgtDjRIm+t5KfyI/ykIpqgOxDgA13Eip/+QV1F70p3BtwheEQynNd3bZTR
- hGkAfl9aKCce/H+xsuJ4gx60oQvqx5oF/aLVHr4o48OFKlWoPTta3BFOHAdT+bmwsOy8r3ixh85
- 6StIN1JD0n8MtCiH50XaHsxrKUtGqC4pXywbz3HlWBBnYs6DzhFUTItSF1zhQa8rcKRxeEvYeMB
- QDDXX3+2QK1ClwnguMtQw2DgUHYr26N7B1G0EeSMJ6NnkWVixJIhypionsGUUp8/I71WFhulkOL
- PtMoSRZy+lM01sdzRoAIDC2UkM/7zK4pSZLeujaZMeBDE8JZ8XNBAWSaEBMH5SqSJdWd4X5Zl0/
- XR6vCPuja6aQDy6H2eoaJhCEcgTgOaypPMqsKvIvFMGX/vlbPail2PPfTrOU9Hy2zuw8+NcaqTP
- VQsIV8aR/srz1O3aRrIkhrg==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86ecey7l0f.wl-maz@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIxOSBTYWx0ZWRfX39SwLfho220l
+ JFpv8A+QB610kNtt6nv9eVbHt+JQjm+V6a65s5Uc1C0Exq4NcpQTyDw2q5UB41/1SF/ztQ3ZREX
+ uT8yzEvffqr3TXSVAqIvbX6ZgHeXYHfp+M4JFmeXwSo2uJ0yWTPBps34aIASgApI87vj8X1LrcW
+ hdOgOFf1elGwmEfu2dCG4pTZF/IgH9VBD2LOQa/pub2wcG7XGEqF1XcI9Iu24PmWMYXd2gJIfxW
+ /X+Adg9LMWxmQ7Nnlkf3+603w58WINKnrl4VMcNs22Yv9kfH2ttZSkZXj9F0iBqxeO4JoDt2Cc2
+ +tdOCgUJ1HJkyQG4Dw/80tzesDiGgu0KXmugAB0TtWnqwdIFUwhfq5kHt3uQbCKinRjxHZW8rSi
+ COzQTsdmIc9/WX3AhCEfYMlYXn5g/2SAOBUWhkugZpJoC/OgobORWhJzxUFqry+JbH/co1rlwkZ
+ 9ykO4kqu5KvTKl1EPZg==
+X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aa96195 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=Y8MAOLtguYw86oH_A5IA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: zpFR-hljM6rPtsYW02W-HcrR1bEPqXlA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIxOSBTYWx0ZWRfX2yeS5KknftJK
+ v9J2wj2t7OORAhvJB3k0c34in5YVwShjhUUwXfx61+xohp46yEcaCqVmWA/2ZGZF51kSukMWf8k
+ SeZcdHozK1FxMI8OBzX0fB37ZhT+wD4=
+X-Proofpoint-GUID: tY_ktDP9JJXAzqEbA4GNEvWtvNFHdGhR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150219
 
-On recent Rockchip platforms (at least RK3588 & RK3576), DWC3 IP is used
-with a USBDP PHY providing USB3 and DP. This PHY needs to be reset when
-the mode changes, which may happen when plugging in different USB-C
-devices.
+On Sat, Sep 12, 2026 at 12:43:28PM +0100, Marc Zyngier wrote:
+> On Wed, 02 Sep 2026 13:41:52 +0100,
+> Steffen Eiden <seiden@linux.ibm.com> wrote:
+> 
+> [...]
+> 
+> > So my suggestion is:
+> > 
+> > For series 1 (and 2) s390 has its own, local implementation of
+> > handle_exit without sharing any code with arm64 in regard to EC
+> > 
+> > When s390 has all the relevant code available (likely series 3) s390 can
+> > switch to using most (if not all) EC handling code used by
+> > arm_exit_handlers implemented in handle_exit.c.
+> > 
+> > This can be done without a mixed patch:
+> > 
+> > 1. Mark arm64 handle_exit.c as shared (roughly the first 400Loc w/o
+> >    includes) - s390 will not use it after this patch.
+> > 2. remove the handle exit code from s390's handle_exit.c and include the
+> >    new generated handle_exit.inc
+> > 
+> > This approach brings us further into the share architecture not only code
+> > approach you meantrioned in the comments regarding sys-regs. (I or
+> > Andreas will provide a solution for this later :) ) 
+> > 
+> > Is that OK with you, what do you think?
+> 
+> I *think* that's OK. I just want to make sure that in the long run, we
+> don't end-up with pointless divergence.
+>
 
-If the USBDP PHY resets with the DWC3 IP running, its internal state
-corrupts resulting in the USBDP PHY not being able to lock some PLL
-clocks, which effectively renders USB3 unusable.
+Yes, that is what I want to avoid as well. I want like to share as much
+architecture code/concepts as possible while keeping the churn as low as
+possible.
 
-To fix the issue this adds handling for the new PHY framework reset
-notifications, which will assert PHYSOFTRST before the actual PHY
-is disabled and will deassert it once the PHY returns.
-
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/usb/dwc3/dwc3-rockchip.c | 127 ++++++++++++++++++++++++++++++++++++++-
- drivers/usb/dwc3/trace.c         |   3 +
- 2 files changed, 129 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/dwc3/dwc3-rockchip.c b/drivers/usb/dwc3/dwc3-rockchip.c
-index 62f2a03b08a2..7bdd6e2eb22d 100644
---- a/drivers/usb/dwc3/dwc3-rockchip.c
-+++ b/drivers/usb/dwc3/dwc3-rockchip.c
-@@ -2,11 +2,136 @@
- /* Copyright (c) 2026, Collabora Ltd. */
- #include <linux/module.h>
- #include <linux/platform_device.h>
-+#include <linux/phy/phy.h>
- #include <linux/pm_runtime.h>
- #include "glue.h"
-+#include "io.h"
-+
-+struct dwc3_rockchip;
-+
-+/**
-+ * struct dwc3_rk_phy_nb - wrapper for PHY notifier block
-+ * @nb: notifier block
-+ * @dwc: back-pointer to the DWC3 controller
-+ * @port_index: USB3 port index this notifier is registered for
-+ */
-+struct dwc3_rk_phy_nb {
-+	struct notifier_block	nb;
-+	struct dwc3_rockchip	*dwc_rk;
-+	u8			port_index;
-+};
- 
- struct dwc3_rockchip {
- 	struct dwc3		dwc;
-+	struct dwc3_rk_phy_nb	usb3_phy_nb[DWC3_USB3_MAX_PORTS];
-+	u8			phy_reset_active;
-+};
-+
-+static int dwc3_usb3_phy_notify(struct notifier_block *nb,
-+				unsigned long action, void *data)
-+{
-+	struct dwc3_rk_phy_nb *pnb = container_of(nb, struct dwc3_rk_phy_nb, nb);
-+	struct dwc3_rockchip *dwc_rk = pnb->dwc_rk;
-+	struct dwc3 *dwc = &dwc_rk->dwc;
-+	int port = pnb->port_index;
-+	unsigned long flags;
-+	u32 reg;
-+	int ret;
-+
-+	switch (action) {
-+	case PHY_NOTIFY_PRE_RESET:
-+		/*
-+		 * If already suspended, the resume path will reinit GUSB3PIPECTL
-+		 * via dwc3_core_init(). A forced resume is not possible as that
-+		 * would call phy_init() resulting in a deadlock. Due to the
-+		 * phy_init() in the resume path there is also no need to block
-+		 * async RPM resume on our side, since the PHY synchronizes it
-+		 * for us.
-+		 *
-+		 * pm_runtime_get_if_active() returns 0 when suspended (skip),
-+		 * 1 when active (ref held), or -EINVAL when PM is disabled
-+		 * (device always active). In the -EINVAL case PM ref counting
-+		 * is a no-op, so the unconditional put in POST_RESET is safe.
-+		 */
-+		ret = pm_runtime_get_if_active(dwc->dev);
-+		if (!ret)
-+			return NOTIFY_OK;
-+
-+		/*
-+		 * Assert USB3 PHY soft reset within DWC3 before the external
-+		 * PHY resets. This disconnects the PIPE interface, preventing
-+		 * the DWC3 from interfering with PHY reinitialization and
-+		 * avoiding LCPLL lock failures.
-+		 */
-+		spin_lock_irqsave(&dwc->lock, flags);
-+		dwc_rk->phy_reset_active |= BIT(port);
-+		reg = dwc3_readl(dwc, DWC3_GUSB3PIPECTL(port));
-+		reg |= DWC3_GUSB3PIPECTL_PHYSOFTRST;
-+		dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		break;
-+
-+	case PHY_NOTIFY_POST_RESET:
-+		spin_lock_irqsave(&dwc->lock, flags);
-+		if (!(dwc_rk->phy_reset_active & BIT(port))) {
-+			spin_unlock_irqrestore(&dwc->lock, flags);
-+			return NOTIFY_OK;
-+		}
-+
-+		dwc_rk->phy_reset_active &= ~BIT(port);
-+
-+		/*
-+		 * Deassert PHY soft reset to reconnect the PIPE interface
-+		 * after PHY reinitialization.
-+		 */
-+		reg = dwc3_readl(dwc, DWC3_GUSB3PIPECTL(port));
-+		reg &= ~DWC3_GUSB3PIPECTL_PHYSOFTRST;
-+		dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+
-+		pm_runtime_put_autosuspend(dwc->dev);
-+		break;
-+	}
-+
-+	return NOTIFY_OK;
-+}
-+
-+static void dwc3_rk_phy_unregister_notifiers(void *data)
-+{
-+	struct dwc3_rockchip *dwc_rk = data;
-+	struct dwc3 *dwc = &dwc_rk->dwc;
-+	int i;
-+
-+	for (i = 0; i < dwc->num_usb3_ports; i++)
-+		phy_unregister_notifier(dwc->usb3_generic_phy[i],
-+					&dwc_rk->usb3_phy_nb[i].nb);
-+
-+	/* Release any PM references from in-flight resets */
-+	for (i = 0; i < dwc->num_usb3_ports; i++) {
-+		if (dwc_rk->phy_reset_active & BIT(i))
-+			pm_runtime_put_autosuspend(dwc->dev);
-+	}
-+	dwc_rk->phy_reset_active = 0;
-+}
-+
-+static int dwc3_rk_phy_register_notifiers(struct dwc3 *dwc)
-+{
-+	struct dwc3_rockchip *dwc_rk = container_of(dwc, struct dwc3_rockchip, dwc);
-+	int i;
-+
-+	for (i = 0; i < dwc->num_usb3_ports; i++) {
-+		dwc_rk->usb3_phy_nb[i].nb.notifier_call = dwc3_usb3_phy_notify;
-+		dwc_rk->usb3_phy_nb[i].dwc_rk = dwc_rk;
-+		dwc_rk->usb3_phy_nb[i].port_index = i;
-+		phy_register_notifier(dwc->usb3_generic_phy[i],
-+				      &dwc_rk->usb3_phy_nb[i].nb);
-+	}
-+
-+	return devm_add_action_or_reset(dwc->dev, dwc3_rk_phy_unregister_notifiers, dwc_rk);
-+}
-+
-+static struct dwc3_glue_ops dwc3_rockchip_glue_ops = {
-+	.post_phy_registration = dwc3_rk_phy_register_notifiers,
- };
- 
- static int dwc3_rockchip_probe(struct platform_device *pdev)
-@@ -26,7 +151,7 @@ static int dwc3_rockchip_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	dwc_rk->dwc.dev = &pdev->dev;
--	dwc_rk->dwc.glue_ops = NULL;
-+	dwc_rk->dwc.glue_ops = &dwc3_rockchip_glue_ops;
- 
- 	probe_data.dwc = &dwc_rk->dwc;
- 	probe_data.res = res;
-diff --git a/drivers/usb/dwc3/trace.c b/drivers/usb/dwc3/trace.c
-index 088995885678..8c4e2a7b142e 100644
---- a/drivers/usb/dwc3/trace.c
-+++ b/drivers/usb/dwc3/trace.c
-@@ -9,3 +9,6 @@
- 
- #define CREATE_TRACE_POINTS
- #include "trace.h"
-+
-+EXPORT_TRACEPOINT_SYMBOL_GPL(dwc3_readl);
-+EXPORT_TRACEPOINT_SYMBOL_GPL(dwc3_writel);
-
--- 
-2.53.0
+	Steffen
 
