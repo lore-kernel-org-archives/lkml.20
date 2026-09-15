@@ -1,138 +1,320 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from sg-3-41.ptr.tlmpb.com (sg-3-41.ptr.tlmpb.com [101.45.255.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7B94B66ED
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8314637C934
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487723; cv=none; b=aQ7O67EcfclpFFGWMhzDv8X7TzBwLaoV3lPUAguhmtovJJroMXZ5Q//zWk2orEPMRiiQwri+WFW9Rc7+d5OaiD6goNRKfbUOnbHGzLulRWypOcmUjyiUUiA52ccrwTErUVcKw913zoUqKR35oaiUXwAVYEX+NCddrPgeUuf6CPM=
+	t=1789487744; cv=none; b=JJ4IkTwbOwv+ElGK6j2sBePiqNvGkOFU4ASntglBAMploI5B9Xdz0CvFUw6tlNGhYckYhGluievq45pa7ZMPavAvGhLSdAPJBywI/vLZ305oYCehIrY0MoeckA9BshwOEHE0qyirKoQIkOksO44pol6e1hcJI9Q5WYhoqk9/yus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487723; c=relaxed/simple;
-	bh=+HzaoJJ1ZNqvWhVTWzsvw+MglRBrJ30uE/Z5FYqCy0Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=doeN7q7fUCMn/SFQYqwNc6Z+jii+m7GdB/6De7ayEqvtqzIvyOS8rOgOFFB87oyq8j7FXizcFJbVKh9LC1WpdZaqF2S8iNUXKDEfAM2j/sCIsIhIKZBFMWEAo1ZqBMjQseBc+sGQ1rQioM7IARj3da6dmwyFVG59g6/+MIGJXjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f56039dso82108266b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:55:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789487719; x=1790092519;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wp7WIPM4acbNtx/6GioAbRHdq+dUssBIHTJbsJvHyw4=;
-        b=t2K62pjBP1diUjudvURoVtSUrCSRaEa+XTcOtBFb9j8IxexI04Oaa7M4RIDBN2UGs1
-         +L83/isPpJdj2EwTsKsvXZcj5alo4dwXklbEJu2aQB/BUfxUrix+DfiwsIfsJEzZUhuS
-         O0thFdA9pdIjy463Nit8bhb81AqOXGA4zXhAfG/qahHm5g+SrZ0XfhMz2rgqzECX8ypI
-         4J+to3m8Dwws+Y1A2Ue0/iovoZaKIU0fUZUSi2QDT0xecdON4CMxyHIOiICBvExrsg7R
-         lTITRCiuozq8kJDRZppsx8rcCr6Z0BaEoOJ+LCWCrmVE30p6u1jRTjJ1h2dLPDSBNGaH
-         Es+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxxxt7ny45FgA8NFhmVDQ/yplsIgAKxWnVz3ZaV6AGt2a0U9OsoGlmzTePzQWIZjD6bOQRgvOfiKtylYZU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nE5SPTDlh8I9a993TLACG1UYno2svjAkYnghr16Y1/EtP+8tHS
-	kS2bYFPGzGF7I/3GY4IL4reDmbCXY4fJ7/6S54bnwsJiUxi7zgrQHQ7U
-X-Gm-Gg: AYBFou1/sWliY2vMmpyKWzhVuEMxxyHATmcaaisSLHx/sqpxRHWyYXb9YdtnK00ziqO
-	7N+TtiXb9ATDyEjLl0QmdAgpPqUjmOcXpsOmLa66jxUfRlPt10wR0CexXioDX9exEgInjh6kPVP
-	qL/Mo40dwB1inaSBSqQyglussySVXVv0LAPQLSTI1nJ2xPzJz+Og3FkrCd0BQn7s0hzHemVJo2E
-	F+diwcGul1Zas/xKVGJrJxQnvaX9Vb1VuXZK5qNtXeXmPq6Wo7fb2HKM/QBi8OFPsbOvBq5+Fb1
-	SWGXyG0zuidPZ7D/NED1OXsHP6sVKKpKG/WGO03QBHrZLHZGGXB8P5sdoSUN9VS+4erBXkQAKN0
-	DC6BfuJCZmLa3g6VW1Ap7KR8rwOnuCLUNUGHdklXyvJiscxIxygvuJF9qKZijHVQR4bm7HGQRwc
-	tPQrx2WXy+v7BASlU/APFX49qi85WsrkyazxsJQBfXBW1W7moi5i3Oj0apRMGbdVsKOsSnmgl1L
-	L63od/YosvLwj0S15z6fgaZ+K1pzAc=
-X-Received: by 2002:a17:906:4795:b0:c26:2f09:f2d8 with SMTP id a640c23a62f3a-c29d790987bmr118615366b.36.1789487719226;
-        Tue, 15 Sep 2026 08:55:19 -0700 (PDT)
-Received: from [192.168.1.135] ([84.68.183.72])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966125543sm610972266b.55.2026.09.15.08.55.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 08:55:18 -0700 (PDT)
-Message-ID: <dbf50a87-cf43-452d-8a82-6d7ee9af02a6@linux.com>
-Date: Tue, 15 Sep 2026 16:55:17 +0100
+	s=arc-20240116; t=1789487744; c=relaxed/simple;
+	bh=Xsn6DqvvOV+Iyp7MPv5ignkXFskUrJdLJ8ErPAvqBm4=;
+	h=To:Mime-Version:Subject:Date:Content-Type:In-Reply-To:Cc:
+	 References:From:Message-Id; b=XD3L9B5gWu90MK5MMt0K8ANdOGqb2tW99QOs+VSZaVvPjxx1x9WgwrnZJl3WG0BH0c6hIYRkxKT9RTanOb4F8hmWVjItJXuyjkKTxgxYhHUjNxisKUzsLcT/M4sh/NtvTW/0Hq5LzAhmWFbuCjJF0Pqipqix2P+DWXaSg7v0fLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=mxaJtARW; arc=none smtp.client-ip=101.45.255.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="mxaJtARW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789487691;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=Xsn6DqvvOV+Iyp7MPv5ignkXFskUrJdLJ8ErPAvqBm4=;
+ b=mxaJtARWsYQVSvNqqNhi3oAd9rB3WJsE5l/OaxHp7LKWFjy7L9ajEjiVF2rhnjKrEzx29q
+ TUi4XD+Fu5EZhcb1HreuSWXaGH84YvHoGMZZo3alZcGLbjPb+pDIOlwt+RQHgIDj5jlDiI
+ 6gDGg3FvqlvrIoiI97OklImmBOJ85ijXHOH72P5ZMum+e/ZfZXQEhYI/l7G8hocOy5YjP+
+ AE4B9niNx/ulxUjQWyBIG9TPJsdXTRjcCk+cKDCVV7uAOM0z7KJG3mCnohBiWjfIRy4leF
+ Ewi2mkvmrZPVbonk7cuAgyHp6mrRMVBz/eY6s1y/ZbVXchkE+EGrAdRKYGSpOQ==
+To: "Nilay Shroff" <nilay@linux.ibm.com>, "Yu Kuai" <yukuai@kernel.org>, 
+	"Jens Axboe" <axboe@kernel.dk>, "Josef Bacik" <josef@toxicpanda.com>, 
+	"Tejun Heo" <tj@kernel.org>, "Johannes Weiner" <hannes@cmpxchg.org>, 
+	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	"Jonathan Corbet" <corbet@lwn.net>, 
+	"Shuah Khan" <skhan@linuxfoundation.org>, 
+	"Randy Dunlap" <rdunlap@infradead.org>, "Coly Li" <colyli@fygo.io>, 
+	"Kent Overstreet" <kent.overstreet@linux.dev>, 
+	"Alasdair Kergon" <agk@redhat.com>, "Mike Snitzer" <snitzer@kernel.org>, 
+	"Mikulas Patocka" <mpatocka@redhat.com>, 
+	"Benjamin Marzinski" <bmarzins@redhat.com>, "Song Liu" <song@kernel.org>, 
+	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"Andreas Gruenbacher" <agruenba@redhat.com>, 
+	"Matthew Wilcox" <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, 
+	"Andrew Morton" <akpm@linux-foundation.org>, 
+	"Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, 
+	"Kemeng Shi" <shikemeng@huaweicloud.com>, 
+	"Nhat Pham" <nphamcs@gmail.com>, "Baoquan He" <baoquan.he@linux.dev>, 
+	"Barry Song" <baohua@kernel.org>, 
+	"Youngjun Park" <youngjun.park@lge.com>, 
+	"Nathan Chancellor" <nathan@kernel.org>, 
+	"Nick Desaulniers" <ndesaulniers@google.com>, 
+	"Bill Wendling" <morbo@google.com>, 
+	"Justin Stitt" <justinstitt@google.com>, "yu kuai" <yukuai@fygo.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] amlogic: t7: give the MMC bus pipeline clock real
- consumers
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Chuan Liu <chuan.liu@amlogic.com>, Jian Hu <jian.hu@amlogic.com>,
- Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-mmc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260905153234.133217-1-tanure@linux.com>
- <CAPx+jO8oWZxgkWTv3v5odp8K2oWMY-KhJVR3U+iqY4mQ9LrG9w@mail.gmail.com>
-Content-Language: en-US
-From: Lucas Tanure <tanure@linux.com>
-In-Reply-To: <CAPx+jO8oWZxgkWTv3v5odp8K2oWMY-KhJVR3U+iqY4mQ9LrG9w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from [192.168.1.104] ([39.182.0.142]) by smtp.larksuite.com with ESMTPS; Tue, 15 Sep 2026 15:54:50 +0000
+Subject: Re: [PATCH v2 3/3] blk-cgroup: move async bio punt state to blkcg
+Date: Tue, 15 Sep 2026 23:54:41 +0800
+X-Original-From: yu kuai <yukuai@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <f27ee89f-5a52-4cfc-a14a-e5019ae61d89@linux.ibm.com>
+Reply-To: yukuai@fygo.io
+Cc: "Christoph Hellwig" <hch@lst.de>, "Tao Cui" <cuitao@kylinos.cn>, 
+	<linux-block@vger.kernel.org>, <cgroups@vger.kernel.org>, 
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-bcache@vger.kernel.org>, <dm-devel@lists.linux.dev>, 
+	<linux-raid@vger.kernel.org>, <gfs2@lists.linux.dev>, 
+	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>, 
+	<llvm@lists.linux.dev>
+References: <cover.1789237876.git.yukuai@fygo.io> <326e4904402440323532168095f2eb0c6f697836.1789237877.git.yukuai@fygo.io> <f27ee89f-5a52-4cfc-a14a-e5019ae61d89@linux.ibm.com>
+X-Lms-Return-Path: <lba+26aa96a4b+fc73eb+vger.kernel.org+yukuai@fygo.io>
+From: "yu kuai" <yukuai@fygo.io>
+Message-Id: <52df0198-9949-4801-ac0f-c86935d1aceb@fygo.io>
 
-On 11/09/2026 16:40, Ulf Hansson wrote:
-> On Sat, Sep 5, 2026 at 5:32 PM Lucas Tanure <tanure@linux.com> wrote:
->>
->> The previous series for the intermittent boot hangs on the VIM4
->> marked sys_ampipe_nand as critical. But as Chuan Liu from Amlogic
->> explained, sys_ampipe_nand clocks a pipeline stage that the
->> hardware design inserts in the bus path between the SD/eMMC
->> controllers and the NIC_MATRIX fabric to help timing closure.
->>
->> So the clock has real consumers: reference it from the three MMC
->> controller nodes and drop CLK_IS_CRITICAL instead.
->>
->> The series crosses three trees; patch 4 (clk) must only land after
->> patches 1-3, otherwise the DMA hangs fixed by 43e1705ecab9 come back.
->>
->> Changes since v1 [3]:
->>   - Dropped the Fixes: tag; this series is an improvement and should not
->>     be picked up by stable (Jerome Brunet)
->>   - Moved the patch 4 dependency note below the --- so it is not kept
->>     for posterity (Jerome Brunet)
->>   - Dropped the e-mail address from the Assisted-by trailer, see
->>     Documentation/process/coding-assistants.rst (Jerome Brunet)
->>   - Fixed the space-indented error path added to meson_mmc_probe() in
->>     patch 2, it did not pass checkpatch
->>   - Dropped the CLK_PIPELINE() macro from patch 2; has_pipeline_clk is a
->>     capability flag, not an SD_EMMC_CLOCK register field
->>
->> Thanks,
->> Lucas
->>
->> Lucas Tanure (4):
->>    dt-bindings: mmc: amlogic,meson-gx-mmc: document the T7 pipeline clock
->>    mmc: meson-gx: enable the bus pipeline clock on T7
->>    arm64: dts: amlogic: t7: add the pipeline clock to the MMC controllers
->>    clk: meson: t7: don't mark sys_ampipe_nand as critical
->>
->>   .../bindings/mmc/amlogic,meson-gx-mmc.yaml    | 29 ++++++++++++++++++-
->>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi   | 15 ++++++----
->>   drivers/clk/meson/t7-peripherals.c            | 10 +++----
->>   drivers/mmc/host/meson-gx-mmc.c               | 20 +++++++++++++
->>   4 files changed, 62 insertions(+), 12 deletions(-)
->>
->> --
->> 2.55.0
->>
-> 
-> Patch 1 and patch2 applied for next, thanks!
-> 
-> Kind regards
-> Uffe
-Hi Neil,
+Hi,
 
-Any chance you could queue patch 3 for this cycle? Patch 2 is already in
-next, and until the DTS lands the MMC probe fails on T7 with "missing
-pipeline clock".
+=E5=9C=A8 2026/9/13 21:29, Nilay Shroff =E5=86=99=E9=81=93:
+> On 9/13/26 12:24 PM, Yu Kuai wrote:
+>> From: Yu Kuai <yukuai@fygo.io>
+>>
+>> blkcg_punt_bio_submit() currently queues punted bios on=20
+>> blkg->async_bios,
+>> so it has to call bio_blkg() to find or create a queue-local blkg.=C2=A0=
+ Bios
+>> now carry and pin the blkcg css, so punted bio lifetime no longer=20
+>> needs to
+>> be anchored by a blkg.
+>>
+>> Keeping the punt state in blkg can instantiate a blkg even when no blkcg
+>> policy is enabled, just to bounce submission from a shared kthread.=C2=
+=A0=20
+>> Move
+>> async_bio_lock, async_bios and async_bio_work to struct blkcg, and queue
+>> punted bios on bio_blkcg() for non-root cgroups.=C2=A0 Root or=20
+>> unassociated bios
+>> are submitted directly.
+>>
+>> This preserves the priority-inversion avoidance while preventing
+>> blkcg_punt_bio_submit() from creating blkgs that are not needed by any
+>> policy.
+>>
+>> Signed-off-by: Yu Kuai <yukuai@fygo.io>
+>> ---
+>> =C2=A0 block/blk-cgroup.c | 52 ++++++++++++++++++++++++++---------------=
+-----
+>> =C2=A0 block/blk-cgroup.h | 14 ++++++-------
+>> =C2=A0 2 files changed, 35 insertions(+), 31 deletions(-)
+>>
+>> diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
+>> index 59ccfefe16a8..aa3cee107ebe 100644
+>> --- a/block/blk-cgroup.c
+>> +++ b/block/blk-cgroup.c
+>> @@ -180,14 +180,10 @@ static void blkg_free(struct blkcg_gq *blkg)
+>> =C2=A0 =C2=A0 static void __blkg_release(struct rcu_head *rcu)
+>> =C2=A0 {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct blkcg_gq *blkg =3D container_of(rc=
+u, struct blkcg_gq,=20
+>> rcu_head);
+>> =C2=A0 -#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
+>> -=C2=A0=C2=A0=C2=A0 WARN_ON(!bio_list_empty(&blkg->async_bios));
+>> -#endif
+>> -
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 blkg_free(blkg);
+>> =C2=A0 }
+>> =C2=A0 =C2=A0 /*
+>> =C2=A0=C2=A0 * A group is RCU protected, but having an rcu lock does not=
+ mean=20
+>> that one
+>> @@ -226,23 +222,23 @@ static void blkg_release(struct percpu_ref *ref)
+>> =C2=A0 }
+>> =C2=A0 =C2=A0 #ifdef CONFIG_BLK_CGROUP_PUNT_BIO
+>> =C2=A0 static struct workqueue_struct *blkcg_punt_bio_wq;
+>> =C2=A0 -static void blkg_async_bio_workfn(struct work_struct *work)
+>> +static void blkcg_async_bio_workfn(struct work_struct *work)
+>> =C2=A0 {
+>> -=C2=A0=C2=A0=C2=A0 struct blkcg_gq *blkg =3D container_of(work, struct =
+blkcg_gq,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ async_bio_work);
+>> +=C2=A0=C2=A0=C2=A0 struct blkcg *blkcg =3D container_of(work, struct bl=
+kcg,=20
+>> async_bio_work);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct bio_list bios =3D BIO_EMPTY_LIST;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct bio *bio;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct blk_plug plug;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool need_plug =3D false;
+>> =C2=A0 -=C2=A0=C2=A0=C2=A0 /* as long as there are pending bios, @blkg c=
+an't go away */
+>> -=C2=A0=C2=A0=C2=A0 spin_lock(&blkg->async_bio_lock);
+>> -=C2=A0=C2=A0=C2=A0 bio_list_merge_init(&bios, &blkg->async_bios);
+>> -=C2=A0=C2=A0=C2=A0 spin_unlock(&blkg->async_bio_lock);
+>> +=C2=A0=C2=A0=C2=A0 /* as long as there are pending bios, @blkcg can't g=
+o away */
+>> +=C2=A0=C2=A0=C2=A0 {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 guard(spinlock)(&blkcg->asyn=
+c_bio_lock);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bio_list_merge_init(&bios, &=
+blkcg->async_bios);
+>> +=C2=A0=C2=A0=C2=A0 }
+>>
+> Instead of using guard(spinlock)(...) here, I think we could use the
+> simpler spin_lock()/spin_unlock() helpers. IMO, they are easier
+> to read and reason about for these short critical sections.
+Ok.
+>
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* start plug only when bio_list contains=
+ at least 2 bios */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (bios.head && bios.head->bi_next) {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 need_plug =3D tru=
+e;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 blk_start_plug(&p=
+lug);
+>> @@ -259,19 +255,20 @@ static void blkg_async_bio_workfn(struct=20
+>> work_struct *work)
+>> =C2=A0=C2=A0 * cgroup.=C2=A0 Use this helper instead of submit_bio to pu=
+nt the=20
+>> actual issuing to
+>> =C2=A0=C2=A0 * a dedicated per-blkcg work item to avoid such priority in=
+versions.
+>> =C2=A0=C2=A0 */
+>> =C2=A0 void blkcg_punt_bio_submit(struct bio *bio)
+>> =C2=A0 {
+>> -=C2=A0=C2=A0=C2=A0 struct blkcg_gq *blkg =3D bio_blkg(bio);
+>> +=C2=A0=C2=A0=C2=A0 struct blkcg *blkcg =3D bio_blkcg(bio);
+>> =C2=A0 -=C2=A0=C2=A0=C2=A0 if (blkg && blkg->parent) {
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&blkg->async_bio_l=
+ock);
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bio_list_add(&blkg->async_bi=
+os, bio);
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_unlock(&blkg->async_bio=
+_lock);
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 queue_work(blkcg_punt_bio_wq=
+, &blkg->async_bio_work);
+>> +=C2=A0=C2=A0=C2=A0 if (blkcg && cgroup_parent(blkcg->css.cgroup)) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 guar=
+d(spinlock)(&blkcg->async_bio_lock);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bio_=
+list_add(&blkcg->async_bios, bio);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 queue_work(blkcg_punt_bio_wq=
+, &blkcg->async_bio_work);
+>
+> Again same here, replace guard() with spin_lock() and spin_unlock()
+> helpers.
+>
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } else {
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Never bounce if there is =
+no non-root blkg to queue on. */
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Never bounce if there is =
+no non-root blkcg to queue on. */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 submit_bio(bio);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> =C2=A0 }
+>> =C2=A0 EXPORT_SYMBOL_GPL(blkcg_punt_bio_submit);
+>> =C2=A0 @@ -350,15 +347,10 @@ static struct blkcg_gq *blkg_alloc(struct=
+=20
+>> blkcg *blkcg, struct gendisk *disk,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 blkg->q =3D disk->queue;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 INIT_LIST_HEAD(&blkg->q_node);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 blkg->blkcg =3D blkcg;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 blkg->blkcg_id =3D blkcg->css.id;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 blkg->iostat.blkg =3D blkg;
+>> -#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
+>> -=C2=A0=C2=A0=C2=A0 spin_lock_init(&blkg->async_bio_lock);
+>> -=C2=A0=C2=A0=C2=A0 bio_list_init(&blkg->async_bios);
+>> -=C2=A0=C2=A0=C2=A0 INIT_WORK(&blkg->async_bio_work, blkg_async_bio_work=
+fn);
+>> -#endif
+>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u64_stats_init(&blkg->iostat.sync)=
+;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for_each_possible_cpu(cpu) {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u64_stats_init(&p=
+er_cpu_ptr(blkg->iostat_cpu, cpu)->sync);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 per_cpu_ptr(blkg-=
+>iostat_cpu, cpu)->blkg =3D blkg;
+>> @@ -1399,10 +1391,16 @@ static void blkcg_css_free(struct=20
+>> cgroup_subsys_state *css)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (blkcg->cpd[i]=
+)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 blkcg_policy[i]->cpd_free_fn(blkcg->cpd[i]);
+>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mutex_unlock(&blkcg_pol_mutex);
+>> =C2=A0 +#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
+>> +=C2=A0=C2=A0=C2=A0 {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 guard(spinlock)(&blkcg->asyn=
+c_bio_lock);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 WARN_ON(!bio_list_empty(&blk=
+cg->async_bios));
+>> +=C2=A0=C2=A0=C2=A0 }
+>> +#endif
+>
+> This is a slightly different case. At this point blkcg_css_free() is
+> freeing the blkcg object after its final reference has gone away, so
+> there should be no concurrent context accessing blkcg->async_bios.
+> Therefore, I don't think we need to acquire async_bio_lock here just
+> to perform the WARN_ON() check.
 
-Thanks
-Lucas
+Perhaps is it better just to remove the check? blkcg will be pinned
+by any bio inside the list, so I believe this is safe.
+
+> The clang context annotation cannot infer this object-lifetime property
+> and will therefore report an unprotected access. I think we should
+> explicitly mark this access as context-unsafe.
+>
+> But wait, even better, we could introduce a bio_list_empty_careful()=20
+> helper,
+> similar to list_empty_careful(), for this purpose:
+>
+> static inline bool bio_list_empty_careful(const struct bio_list *bl)
+> =C2=A0=C2=A0=C2=A0=C2=A0__context_unsafe(/* intentional lockless access t=
+o @bl->head */)
+> {
+> =C2=A0=C2=A0=C2=A0=C2=A0return bl->head =3D=3D NULL;
+> }
+>
+> Then this could simply become:
+>
+> WARN_ON(!bio_list_empty_careful(&blkcg->async_bios));
+>
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 free_percpu(blkcg->lhead);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kfree(blkcg);
+>> =C2=A0 }
+>> =C2=A0 =C2=A0 static struct cgroup_subsys_state *
+>> @@ -1447,10 +1445,18 @@ blkcg_css_alloc(struct cgroup_subsys_state=20
+>> *parent_css)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock_init(&blkcg->lock);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 refcount_set(&blkcg->online_pin, 1);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 INIT_HLIST_HEAD(&blkcg->blkg_list);
+>> +#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
+>> +=C2=A0=C2=A0=C2=A0 spin_lock_init(&blkcg->async_bio_lock);
+>> +=C2=A0=C2=A0=C2=A0 {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 guard(spinlock)(&blkcg->asyn=
+c_bio_lock);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bio_list_init(&blkcg->async_=
+bios);
+>> +=C2=A0=C2=A0=C2=A0 }
+>> +=C2=A0=C2=A0=C2=A0 INIT_WORK(&blkcg->async_bio_work, blkcg_async_bio_wo=
+rkfn);
+>> +#endif
+>
+> This is interesting. As you know, while an object is being allocated
+> and before it is published, it can't be accessed concurrently. So
+> guarding blkcg->async_bios with blkcg->async_bio_lock is not necessary
+> here. Moreover, since blkcg is zero-initialized, we could simply remove
+> both the guard(...) and the bio_list_init() call above.
+>
+> Thanks,
+> --Nilay
+
+--=20
+Thanks,
+Kuai
