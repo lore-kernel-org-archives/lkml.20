@@ -1,153 +1,169 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E3B449B0C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:35:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625D044780F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:35:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789500939; cv=pass; b=pMz/ni36tQ8WUImOeUSlAlClmPvAiL8M3K4Jc0D9phFHDgLOKB70DP4z3L/96NArG++//HAIFjJfSZKD6w4KCqj2zuoGGsudYdMz6aW2Op9W1jEP0qerPqadsPpVHELv1bXKe38i/K/h4ry7yPH778StpKhTuLrV5zj5/h5ygWg=
+	t=1789500940; cv=pass; b=MGxBI8dvS6CpwrFziw/cldMCjShGYT15g8gIjFGM6RoBGJAO+XGYHhmEB2vNviH0oRha2CWBPaIOcaD1pErNEGb6pAalIktHBUmtjwy2R7GFVRwMslNNfoNBlaIfaBwPpWJ+M+agYil7UWgSch0T8yHrVVWx1uacWX0SISLOkJE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789500939; c=relaxed/simple;
-	bh=9iP5wCDaS9EpQ+gfjMA3+Yk2v+5OOuRQACmgXFd/pac=;
+	s=arc-20240116; t=1789500940; c=relaxed/simple;
+	bh=EegVME3jJbuQHyWc1V01y8Y0UN52nI5cYIfZ+hwBI+o=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ccx4Adf/b6VXIrEK6e81aqlybpD7WkFQDODaU1/5giRTkvrnBrqzXORJTE2GhduJC2eY80995cjdaQVb/b77qSFjAG8FQcTb862vyVKt5y5XbC3zF5+1UKApnCEKGL/Pzw2+EvyoL5JdHvf/nzpxFbmV1i3ccJCTwByk4nzs73k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YOJyBI/H; arc=pass smtp.client-ip=74.125.230.76
+	 To:Cc:Content-Type; b=d8l5o8GkZSWgBqmh41MlgGxeGUKuQVeOralSMo2NQwEKiksvNxkp9bZJ4blrdTZkmvNz8+g6ntNvEEy8ViZ4fnYgi893YSdq6h4ZxCcZ+xF5IeRBlo5AzYWfA1jiVii6fDB1w8e5AHYIlIUT3sdoCveq7Nsit6xVcz0RvuxISvM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=g+7aE1q9; arc=pass smtp.client-ip=74.125.230.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YOJyBI/H"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff17443dso2303151fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:35:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789500934; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="g+7aE1q9"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530d5fc2cd8so59791cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:35:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789500936; cv=none;
         d=google.com; s=arc-20260327;
-        b=cGI0A5q1gFlZHnsjqI339BmITW41IORHg2XYpV004HPzfOoIeVDX9e/ZUeusBcE+y0
-         n1Fmcb+FfvTh7WgS94iZPqL2E4aPfwPbWYr741yCDhsdi9Q6f1Y3GyunjzjAnjZE9ITD
-         C6B0sOTO0/vLTbq05AfV6NcCk98PqMx03d3BMVEH5NejgdauGsYTngkZbSNVH3/GEoy9
-         vuk+s/g0hckYVnkjZT9YidqrARYq+5omM/quaZdDql/EMGQAiGtv2T+EB0Udh0RPUrbq
-         O4BEnrA67n28Nu+CT+0I9klVxYW43LEK+ituJVV69LzmVDvUWi3DXea/RQ/6zPrB9MN/
-         LlOg==
+        b=j6ooyrMJR2oMsNerUt5kB0BeY7euGPnCIYzZalfK+CEYVuzVs2n/RO3REWD2tz1hyb
+         /h6kbX1l6llvLauT2/Qiswqa1hPV/3cKYLYE6dndguc8WJbL92M03Td2kjsG/ttlKp9R
+         zYweyhXwcu01E7pxoIBszenD7g2Xkd2Y75e1TvBbpXhFejqL00e66mzuJrfzSoCtoh1Y
+         D2Zl2b/tsUvn6afGpg9cOY5Uy+porXSn/w2KlwSQJBB4UlOSy/niIxWzq9E30ziyYr2M
+         uRVwMNCPgukTBrcswykRaGAlr3zMdC1Ja9QwKi/2cqUdOPmLxoFqoPUahzAHvt34KrrB
+         Mqtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=3sluWAJ7si51ldKO+IEOlj7IVd+xFNM1gnjjRPbQIZI=;
-        fh=wKAHHY08Z3+T0bVDgGKGvXZ2AKJEB/PflVuFqhtThHA=;
-        b=r9a73Yzy4X/bvCPBGS5gaRGIztXElhWmDkO9nrG6hz7250lWLMPGiKg/i1gr2yGSCb
-         T4QzuMwioWOS7efdphn7r8tQh106o3Q1CAjkqcusIYUMAzw6qwkSZf88f4k4fVw5P3oD
-         TnjYgs0gqXgPm06Om7DUYE4asDpOifBsZokELxma7SRaD7P49U4Fiw9lgwTEtMJfaK18
-         YNqe8UIp2pHeBckuSa4ytMklC1OqnTBNLrTn8iswowTeaOaVEuras9XbrC7W2gLqnv4Y
-         aQWUgoTGd3m4lpq1QtISGZJfptSE8iWOq00ZPj66G99/zlvGB7j0jWCRttXQbj9rEbL0
-         FG2Q==;
+        bh=9cJfPpkkLfvSAtU67yJNBlNgv9fTffV7M0TlsnD4pBA=;
+        fh=AH1ctH8nKHLuvrCZzQszk1eCAqxjzxWNqNChey0eQZE=;
+        b=ajGnQaBToIpPwpJW9X3CnfDQqTi8Rlk+/0BviCSVH2fSfI5hp3j9Vw635GmAtWunG0
+         H1//JxPfxTm1Un84qttZqwefTXb34vwXdEoWxT8bbxWgbXKNZWGfjZ+RVy02sipIIhMc
+         Mf6EEyepyrHFT47bKkhNbFu/mknMxYiP7cMt5UzLxZ+FpGKx6UlMppyDMPJ+rSsE4OtO
+         YEsPzNhOnGmkW/RHHiNj/Hi+a2cW0c9TfyfJ5l6zjJZDfMeeq7yAxLTmdLGhXt1fWs0M
+         7none4yOJY/oVrirzrbz6oaWtS1VDH4HPPC5w3eBeObh+5becKaBcTG+/HA5WTcU6/DT
+         eswg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789500934; x=1790105734; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789500936; x=1790105736; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3sluWAJ7si51ldKO+IEOlj7IVd+xFNM1gnjjRPbQIZI=;
-        b=YOJyBI/Ht21acNqjF1TCgtq//JfEi8GDdXUUm6NH2onhf1B+QgxuPDme43/lT7bUDR
-         fdHeZywLOkoLDp0I/BzWmRgK+fPga7xHN+NQb1KQxkyL0OYvZ8vEqpeCwnUs6zi7Ou0K
-         I+bvymGQ0xY9/w3vHUy9UL0ttMRoeYKszjcZyuP8mRUFFtZvwaWoxgsr8jXIXsk+DcV2
-         OkNpXbK6I5+0zzMSE/n1WU6ZrYaoEV/G+8fLBeiWRsFPdyPoJ4zDP5sxkYr5szzV7KqZ
-         XX+aFc12ln2KgIZZD14o1DwTG5UHOdECn9yiNpj7mFUqyp7p7xZzm3HpScvWyq3yexrO
-         aWBw==
+        bh=9cJfPpkkLfvSAtU67yJNBlNgv9fTffV7M0TlsnD4pBA=;
+        b=g+7aE1q93WEcJeL7jXczqMbepWTshjMfmYF0jseGQNCVyNSJSYm0cKlfsc6ak7f0N+
+         v8WQrhlqnd7msDh+3GmCEguRbKlfhSp6rozAmwJSL1N8r6vrU5E0seFS/fGt5iu41TXV
+         xPL3yDhJzBkaq4mZkoixPK97BOdNPJ2wx5iFy4gk2gHxyr4imFF5x1FK4xkXxRlKDdya
+         iN7MB0HXD0y6yTAFBce91ZRUXSGInibF0k3HJIRHUxqTrpTZb2jZ6Q9EQjShEZcNwIEE
+         LFcx+C5yvuZgBJ2wuigcNFhBD6fSNyu/xbShpbcAZ6g5S2bNzzFTVNU3r8gVPU5XwkBk
+         sA2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789500934; x=1790105734;
+        d=1e100.net; s=20260707; t=1789500936; x=1790105736;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3sluWAJ7si51ldKO+IEOlj7IVd+xFNM1gnjjRPbQIZI=;
-        b=QTWc0/QbskkQ0fMmaLjB41uE3v1/F4GQYNMxGQXw83cj7y9B2SD1UxLXogSPNiCEjF
-         RsFLHRsLQy4PecwMavUQ3Hu4YcjmMK/jJ2gLCR/XMLYqegSSMH1JO6S6RIr4fr5X4EoA
-         qirC13m0KgHXgWO47X+cPxrLDZM+esEl354NJ7zBkalh8s8jpXPsQhEZhlgwFBJ2WARn
-         imZHg7/Xw08GjI9km1KfCA4svZ4ksmUlgw4W+SI+PNrl8RDKZp55xv2XfRjMWtB+YlsJ
-         +eUy4PFBSvibZiVJ4Mi25R6o/URItbAl9ZEvHboTwZkEG+SciULKeAmzl+pgp8EFWsCJ
-         qmMg==
-X-Forwarded-Encrypted: i=1; AKwUvBw9lbp9cdFmoLmBYULAwtgHdROI46nsDkA3ImHiKB2yrKcq1pQOxqyoMiL8tpEHg2J9HeTb1Gyn1hVvTKk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbdd+n4aFdBwhHFKyk9guVIeGmLNrsZ+B83vgWMcCdl1GBJdH/
-	F1hR+skI6oNLgtSn1MlwBlIjXW7JIhr5GtMepp+FknM5wD6GUEJE5YlTrOIFSd4F/YUHZO7LrMO
-	swzO9sFIcg8r/6jq+bcryJDEAZWqnA48yzjmLLp2PARDRrCZezAU7JQT90s8=
-X-Gm-Gg: AYBFou0kE6Ci/xG+eQqVkpZ+z5Mv74d3y9u0xgvxqc9I5gKlMBWAkb/Ze8dE89ypaLJ
-	Fy3rtS5MLwfKaoruWriLsChjDGYssYL3d2198Ouixlpv2n0vGCESYCdMWsYFbIv6SdI6B2ydgmv
-	EEgxjnf2odpacn6aF0pL76jEoQL9AnQxc46OfhNhcoGMuBAGTjT7yKJ19zG0ZGt8l61GYVdBtsS
-	gyT+uZOeoAb3X8JkkodWQdHGu3s8+wFsUD2WoCuCVAuFBRfCCQd7M6FDqB6sEsW2H4Tvz9bqq5I
-	usOj7H8r4Hv/XDzrULhR0ZuwSPfJ/9hww/rfJQGU9LE84t376brhseQt84Ol0aAg
-X-Received: by 2002:a05:651c:a114:20b0:3a4:9e46:235c with SMTP id
- 38308e7fff4ca-3a5c89b031emr21060911fa.14.1789500933920; Tue, 15 Sep 2026
- 12:35:33 -0700 (PDT)
+        bh=9cJfPpkkLfvSAtU67yJNBlNgv9fTffV7M0TlsnD4pBA=;
+        b=rugyHRM6a4156LoSRM6+ns1M8YPAMjDLKTHd8GUguh1+wu9YAoTDKSHHSoiPP3cS+6
+         QXUEUSFlLyMVo29qHiQ8jbrRiPATXY9UtiEWNOFVkOde5Ltfjv/aJrpswwVs1oEdf5eb
+         D72XKqFbgPyB0vY7C8Xrah3fsMw+SzaKXtiO4oNXmcBq25wL36loiylew4nijTEXvMvq
+         WFay7kRuLTbg90aOvyUpjdQ3eryCVWjO8rvDEbMwZ6BDkDZfA0oRnijt+yYrT2O4QYvX
+         UyrrHDyJsZWMse69VKNB75gy9UgOLwKwnPrP8aZhVWHs+nhpUgJklSKw+3GgkftQ3DC5
+         w4iw==
+X-Forwarded-Encrypted: i=1; AKwUvBy0ZOxapJOXP5wJ6ZRlXq+/9iZnw1PLsorWJhevYQPudSiDlrP26KlBkyGKiyPtj4kSkYWvJGOuoACaw0A=@vger.kernel.org
+X-Gm-Message-State: AFuF++ll4zwW2+R4IJxsasEPsK5KQK+P7p3vN3uu8bq+mItl9zDE9r5y
+	Pure1W2OzNVWjUqV91rHrklapPKQ84lhqdVxMrMxaAFm2POV7ZVwBxHbyUSR1pcVmEl7BXfsAds
+	yEBebKHmRaC/W9UV6+nHctmHVGvkZwPfCpn6ALRAE
+X-Gm-Gg: AYBFou3zGOl/YwrpPbZpoJrm9J+6XBD4zZS1xRI/bCmcfzArlpIoPS+2yA5KDkji5GN
+	g40wsK/txxQ+u+/LVfsvNzruT3jufrEmgWiXLHU2XtNv8UXJSztlW5Rtc5JL015bXFDZ4bicLMo
+	ew+2/uTjqUxlh1HEUHYONJMyPIYXoEY3kd+08t89Wy0JG7O8OyZbnK04n4bo/7c7/3IHK/jVBSQ
+	n9Aq0uYRmaMSxDhBLR8A6uB30ebWSBqe72rPRB7AJ2FfP0pr+HSJwGKPV8Ob0uF958rnPUY6gJi
+	iMP2ry4VY/MErLurxeE/+XlfTWIMqkPU03D+3gxZ4A6vZZbd2Ts/1/Qd8TQ9XYZ5uCe0u8GrrUZ
+	DMVEd5F6jGw==
+X-Received: by 2002:a05:622a:1a93:b0:52f:9ed4:8d76 with SMTP id
+ d75a77b69052e-532583a627amr3002591cf.14.1789500935305; Tue, 15 Sep 2026
+ 12:35:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com> <20260912083611.2513845-8-suzuki.poulose@arm.com>
-In-Reply-To: <20260912083611.2513845-8-suzuki.poulose@arm.com>
-From: Alper Gun <alpergun@google.com>
-Date: Tue, 15 Sep 2026 12:35:22 -0700
-X-Gm-Features: AcwNN1VS3YvKKCCRg1vDnBVkoWj-7p2fofNqSox_wrQ014s5kEA5YUvjF8gr3LY
-Message-ID: <CABpDEukTAc1m=g+rZRPPqaTwrvhUJPsFRWpFd0PxZsyWw5mR=Q@mail.gmail.com>
-Subject: Re: [PATCH v18 7/7] firmware: arm_rmm: Add wrappers for Realm related
- RMI commands
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
-	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, 
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, 
-	sdonthineni@nvidia.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260914121903.1212-1-cp0613@linux.alibaba.com>
+In-Reply-To: <20260914121903.1212-1-cp0613@linux.alibaba.com>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 15 Sep 2026 12:35:23 -0700
+X-Gm-Features: AcwNN1VYoT5oxIlcFTffUxjtkWkLWpHOZQGEahUpqwEycg875lihiCow5XKgF3M
+Message-ID: <CAP-5=fVW6nJXoh8qf4e_jkLXGUzCGCTCg9YivHkN9kkVJmMa-A@mail.gmail.com>
+Subject: Re: [PATCH] perf test: Fix a leaked map reference in the arch dwarf
+ unwind tests
+To: Chen Pei <cp0613@linux.alibaba.com>
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
+	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
+	jolsa@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org, 
+	john.g.garry@oracle.com, will@kernel.org, mike.leach@arm.com, 
+	leo.yan@linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 12, 2026 at 1:37=E2=80=AFAM Suzuki K Poulose <suzuki.poulose@ar=
-m.com> wrote:
-[...]
-> +/**
-> + * rmi_rtt_destroy() - Destroy an RTT
-> + * @rd: PA of the RD
-> + * @ipa: Base of the IPA range described by the RTT
-> + * @level: RTT level
-> + * @out_rtt: Pointer to write the PA of the RTT which was destroyed
-> + * @out_top: Pointer to write the top IPA of non-live RTT entries, from =
-entry
-> + * at which the RTT walk terminated.
-> + *
-> + * Destroys an RTT. The RTT must be non-live, i.e. none of the entries i=
-n the
-> + * table are in ASSIGNED or TABLE state.
-> + *
-> + * Return: 0 on success, positive RMI result code or negative Linux erro=
-r code.
-> + */
-> +static inline long rmi_rtt_destroy(unsigned long rd,
-> +                                  unsigned long ipa,
-> +                                  long level,
-> +                                  unsigned long *out_rtt,
-> +                                  unsigned long *out_top)
-> +{
-> +       struct arm_smccc_1_2_regs regs =3D {
-> +               SMC_RMI_RTT_DESTROY, rd, ipa, level
-> +       };
-> +       long ret =3D rmi_sro_execute(&regs);
-> +
-> +       if (ret !=3D RMI_SUCCESS)
-> +               return ret;
-> +
-> +       if (out_rtt)
-> +               *out_rtt =3D regs.a1;
-> +       if (out_top)
-> +               *out_top =3D regs.a2;
-> +
-> +       return RMI_SUCCESS;
-> +}
+On Mon, Sep 14, 2026 at 5:19=E2=80=AFAM Chen Pei <cp0613@linux.alibaba.com>=
+ wrote:
+>
+> maps__find() has returned a reference to the map it finds since
+> commit 42fd623b58db ("perf maps: Get map before returning in
+> maps__find"), which updated arch/x86/tests/dwarf-unwind.c but missed
+> the arm, arm64 and powerpc copies. Release the map after reading its
+> end, as x86 does. All other callers of maps__find() already release
+> what they get.
+>
+> Fixes: 42fd623b58db ("perf maps: Get map before returning in maps__find")
+> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
 
-Doesn't out_top (regs.a2) need to be populated on RMI_ERROR_RTT as well?
-realm_tear_down_rtt_level() checks next_addr > addr under case
-RMI_ERROR_RTT: to determine whether the RTT is missing or has child tables
-that need recursive teardown.
+Reviewed-by: Ian Rogers <irogers@google.com>
 
 Thanks,
-Alper
+Ian
+
+> ---
+>  tools/perf/arch/arm/tests/dwarf-unwind.c     | 1 +
+>  tools/perf/arch/arm64/tests/dwarf-unwind.c   | 1 +
+>  tools/perf/arch/powerpc/tests/dwarf-unwind.c | 1 +
+>  3 files changed, 3 insertions(+)
+>
+> diff --git a/tools/perf/arch/arm/tests/dwarf-unwind.c b/tools/perf/arch/a=
+rm/tests/dwarf-unwind.c
+> index f421910e0709..d4707e9ffd2a 100644
+> --- a/tools/perf/arch/arm/tests/dwarf-unwind.c
+> +++ b/tools/perf/arch/arm/tests/dwarf-unwind.c
+> @@ -34,6 +34,7 @@ static int sample_ustack(struct perf_sample *sample,
+>         }
+>
+>         stack_size =3D map__end(map) - sp;
+> +       map__put(map);
+>         stack_size =3D stack_size > STACK_SIZE ? STACK_SIZE : stack_size;
+>
+>         memcpy(buf, (void *) sp, stack_size);
+> diff --git a/tools/perf/arch/arm64/tests/dwarf-unwind.c b/tools/perf/arch=
+/arm64/tests/dwarf-unwind.c
+> index 440d00f0de14..fbc161a49369 100644
+> --- a/tools/perf/arch/arm64/tests/dwarf-unwind.c
+> +++ b/tools/perf/arch/arm64/tests/dwarf-unwind.c
+> @@ -34,6 +34,7 @@ static int sample_ustack(struct perf_sample *sample,
+>         }
+>
+>         stack_size =3D map__end(map) - sp;
+> +       map__put(map);
+>         stack_size =3D stack_size > STACK_SIZE ? STACK_SIZE : stack_size;
+>
+>         memcpy(buf, (void *) sp, stack_size);
+> diff --git a/tools/perf/arch/powerpc/tests/dwarf-unwind.c b/tools/perf/ar=
+ch/powerpc/tests/dwarf-unwind.c
+> index 66af884baa66..b4bade5d59e2 100644
+> --- a/tools/perf/arch/powerpc/tests/dwarf-unwind.c
+> +++ b/tools/perf/arch/powerpc/tests/dwarf-unwind.c
+> @@ -34,6 +34,7 @@ static int sample_ustack(struct perf_sample *sample,
+>         }
+>
+>         stack_size =3D map__end(map) - sp;
+> +       map__put(map);
+>         stack_size =3D stack_size > STACK_SIZE ? STACK_SIZE : stack_size;
+>
+>         memcpy(buf, (void *) sp, stack_size);
+> --
+> 2.50.1
+>
