@@ -1,119 +1,170 @@
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A936D4B3364;
-	Tue, 15 Sep 2026 16:02:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5634641BA9B;
+	Tue, 15 Sep 2026 16:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488134; cv=none; b=a3iEZjtgWE2aNIBKI52RhmpPD2k1ZTILfgERNyQCyJ9TAv6aks9Shks3dZaBcUWB7uyKeVPP7HXki5gUJoOlT9fqY/8mcZVmgMv5p81BhS3gjATysN1j+xva0ZC9IqLme3TIZGE0pzJJiyf3xESW9oaVSwKGO8CScSvssDiWmCg=
+	t=1789488134; cv=none; b=KXK3iYIiGt6GHcrWcJwx3rUEQc4nBufW9TzF/RHDeSdHMox/VL5stOGDaqmK48U4eIfIExQsLoXH54W78c7traLHJRTh7btCRDIWas3bD+ffoA3wM5v4eEA6pPhxSTKQ5k/LopeKc0pW4AmGGYi7AkNB3AhhCIL4g6qC3JUwVEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789488134; c=relaxed/simple;
-	bh=tSXDKJA3syhrSNEZG47C+W2QQY3zaHqZ9KSolvwTOyU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ILqYAU5IL+OABsN9ZLjSl3xnFvTXnDNN/ZA8+iEMQpQdNzBwVgGY1+zHhKJBr/X1BNv3M1Epzlar0V5DhhQICxOIcR6Is/TAKgMadpUPxG1mGZb9bFcj3XeDwU6Eb91XQlQ6Uhm/EvSDMcMuOUe2lMuqaN2bZd8693+UUywL/AE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=s3Si+wro; arc=none smtp.client-ip=52.13.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
+	bh=zo4tJn5ox5A1ElY6+qRKFeOLEDLTQwomQpoDrxj91Sg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QakPenG6fAyvQinxyCsimK13dsnYr92i+GJNVgWL0R3TCWaoZ729WvYLadxF+BEuKqEJKzVyBE1QOtNoF7r84ATqtpMQVZQw/QWu3hVc3QYIm5gGyJ0lPv5GB7a1cXDsiJMLH9us+m4INZwtA0ZLvp+YcHJRbldRLZXxCsTm/0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VhLRZwKy; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="s3Si+wro"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
-  t=1789488131; x=1821024131;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=zH2AffRhpysneQJNXQPa9UtiFiIZCjOUG9PhR8vSPsI=;
-  b=s3Si+wronE6HXXBco3LTJ3Oaoxey4fZJD0WwbYWgquyN3Po72L+YXVlJ
-   36Yy6m/pK5SY7ZghBopPgp//FC9pupuVrnWLW/JBKG2nGacyzY4hqI5t2
-   Nv6FCVl7GdTX7cVgQb5lJRKDAUlTExN0Zx+l313t2vVTLjsopshFudnZt
-   dwHNe30SvPRONKs0MTEap2zc7wLBKe1FE9ndO2nGOpdC2UCLm0rrB11+F
-   5uOwfqqYdkrxic9TvRq+xMf9bV4Dp5mGD4LdqKg8xGoNFH15+SUx9GvDM
-   VcuhQrNclyi+6ItqBLWkQJxo54UW1XlKjTfsL/y74y9sO/ehY3vGcUDlX
-   Q==;
-X-CSE-ConnectionGUID: u92piRZrSFapAw+TyK//UQ==
-X-CSE-MsgGUID: YKI+s6tzTVW5liA/y0xZ6g==
-X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
-   d="scan'208";a="28716152"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 16:02:08 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:27276]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.19.159:2525] with esmtp (Farcaster)
- id 15f7d0fc-d5b9-43a9-b411-4c5574972f7d; Tue, 15 Sep 2026 16:02:08 +0000 (UTC)
-X-Farcaster-Flow-ID: 15f7d0fc-d5b9-43a9-b411-4c5574972f7d
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Tue, 15 Sep 2026 16:02:08 +0000
-Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
- (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Tue, 15 Sep 2026
- 16:02:03 +0000
-From: Salvatore Dipietro <dipiets@amazon.it>
-To: <akpm@linux-foundation.org>, <hannes@cmpxchg.org>
-CC: <abuehaze@amazon.com>, <alisaidi@amazon.com>, <blakgeof@amazon.com>,
-	<brauner@kernel.org>, <brendan.jackman@linux.dev>, <david@redhat.com>,
-	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
-	<djwong@kernel.org>, <hch@infradead.org>, <hch@lst.de>,
-	<jackmanb@google.com>, <linux-fsdevel@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
-	<rvvandan@amazon.com>, <stable@vger.kernel.org>, <surenb@google.com>,
-	<vbabka@kernel.org>, <vbabka@suse.cz>, <willy@infradead.org>,
-	<ziy@nvidia.com>
-Subject: Re: [PATCH v5] mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
-Date: Tue, 15 Sep 2026 16:00:42 +0000
-Message-ID: <20260915160042.1265958-1-dipiets@amazon.it>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260911093209.d9181d5950778897935f6bcb@linux-foundation.org>
-References: <20260911093209.d9181d5950778897935f6bcb@linux-foundation.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VhLRZwKy"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9558115A1;
+	Tue, 15 Sep 2026 09:02:07 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7FBFD3F882;
+	Tue, 15 Sep 2026 09:02:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789488131; bh=zo4tJn5ox5A1ElY6+qRKFeOLEDLTQwomQpoDrxj91Sg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=VhLRZwKyzrrrdFfmbtBvNtfquscw9Vbmta+5/5OSPXsje/hBUmYzXHq23c7Vx6L2/
+	 V8fDVh/eMMphkIXCzk4Ck56jLhf2T2uT81pRtVOQywXCGJqMbNqN/TRVqjSgIv4feC
+	 IgVy+0gdZrz1675ZQvhHyOdMfcs15zUOYZbQxyz0=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v18 06/23] KVM: arm64: Refactor the vcpu_load to allow for VM specific callbacks
+Date: Tue, 15 Sep 2026 17:01:24 +0100
+Message-ID: <20260915160141.3543048-7-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Based on a work by Marc Zyngier
 
-On Fri, 11 Sep 2026 09:32:00 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+To keep the VCPU load/put handling cleaner with the different kinds of VM types,
+we are about to introduce VM specific callbacks to do just the right thing.
+In preparation for that, make some refactoring to add the change easier.
 
-> does any of this look real?
+No functional changes intended.
 
-The mechanism seems real, but it only shows up with vm.defrag_mode=1,
-which is off by default.
+Reviewed-by: Gavin Shan <gshan@redhat.com>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+---
+ arch/arm64/kvm/arm.c | 48 ++++++++++++++++++++++++++------------------
+ 1 file changed, 29 insertions(+), 19 deletions(-)
 
-With defrag_mode=1, a costly __GFP_NORETRY allocation that used to fail
-cleanly can now succeed by fragmenting another migratetype's pageblock,
-which seems like the wrong trade for a caller whose premise is a cheap
-lower-order fallback. Johannes, do we want to keep it strict?
-If so, we could add a condition like below. It is equally
-applicable to v4 and v5. Happy to send it separately or in v6.
-
-	/*
-	 * Reclaim/compaction cannot run, so defrag_mode's strategy
-	 * of enforcing ALLOC_NOFRAGMENT cannot be fulfilled. Allow
-	 * fallbacks rather than failing the allocation outright.
-	 * Not for costly __GFP_NORETRY: those have a cheap lower
-	 * order fallback, so failing beats fragmenting.
-	 */
-	if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT) &&
-	    !(costly_order && (gfp_mask & __GFP_NORETRY)) &&
-	    (gfp_mask & __GFP_KSWAPD_RECLAIM)) {
-		alloc_flags &= ~ALLOC_NOFRAGMENT;
-		goto retry;
-	}
-
-
-Salvatore
-
-
-
-
-
-AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
-
-
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 4329c49fe49da..8f94323f2968b 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -698,14 +698,11 @@ static bool kvm_vcpu_should_clear_twe(struct kvm_vcpu *vcpu)
+ 	return single_task_running();
+ }
+ 
+-void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
++static void vcpu_prepare_mmu(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_s2_mmu *mmu;
+ 	int *last_ran;
+ 
+-	if (is_protected_kvm_enabled())
+-		goto nommu;
+-
+ 	if (vcpu_has_nv(vcpu))
+ 		kvm_vcpu_load_hw_mmu(vcpu);
+ 
+@@ -735,10 +732,33 @@ void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+ 		kvm_call_hyp(__kvm_flush_cpu_context, mmu);
+ 		*last_ran = vcpu->vcpu_idx;
+ 	}
++}
++
++static void vcpu_set_wfx_traps(struct kvm_vcpu *vcpu)
++{
++	if (kvm_vcpu_should_clear_twe(vcpu))
++		vcpu->arch.hcr_el2 &= ~HCR_TWE;
++	else
++		vcpu->arch.hcr_el2 |= HCR_TWE;
++
++	if (kvm_vcpu_should_clear_twi(vcpu))
++		vcpu->arch.hcr_el2 &= ~HCR_TWI;
++	else
++		vcpu->arch.hcr_el2 |= HCR_TWI;
++}
++
++static void vcpu_load_pvtime(struct kvm_vcpu *vcpu)
++{
++	if (kvm_arm_is_pvtime_enabled(&vcpu->arch))
++		kvm_make_request(KVM_REQ_RECORD_STEAL, vcpu);
++}
++
++void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
++{
++	if (!is_protected_kvm_enabled())
++		vcpu_prepare_mmu(vcpu);
+ 
+-nommu:
+ 	vcpu->cpu = cpu;
+-
+ 	/*
+ 	 * The timer must be loaded before the vgic to correctly set up physical
+ 	 * interrupt deactivation in nested state (e.g. timer interrupt).
+@@ -751,19 +771,9 @@ void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+ 		kvm_vcpu_load_vhe(vcpu);
+ 	kvm_arch_vcpu_load_fp(vcpu);
+ 	kvm_vcpu_pmu_restore_guest(vcpu);
+-	if (kvm_arm_is_pvtime_enabled(&vcpu->arch))
+-		kvm_make_request(KVM_REQ_RECORD_STEAL, vcpu);
+-
+-	if (kvm_vcpu_should_clear_twe(vcpu))
+-		vcpu->arch.hcr_el2 &= ~HCR_TWE;
+-	else
+-		vcpu->arch.hcr_el2 |= HCR_TWE;
+-
+-	if (kvm_vcpu_should_clear_twi(vcpu))
+-		vcpu->arch.hcr_el2 &= ~HCR_TWI;
+-	else
+-		vcpu->arch.hcr_el2 |= HCR_TWI;
+ 
++	vcpu_load_pvtime(vcpu);
++	vcpu_set_wfx_traps(vcpu);
+ 	vcpu_set_pauth_traps(vcpu);
+ 
+ 	if (is_protected_kvm_enabled()) {
+@@ -787,7 +797,7 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
+ 		kvm_call_hyp_nvhe(__pkvm_vcpu_put);
+ 
+ 		/* __pkvm_vcpu_put implies a sync of the state */
+-		if (!kvm_vm_is_protected(vcpu->kvm))
++		if (kvm_vm_is_unprotected_pkvm(vcpu->kvm))
+ 			vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
+ 	}
+ 
+-- 
+2.43.0
 
