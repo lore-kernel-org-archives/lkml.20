@@ -1,125 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B9F1F91F6
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A571F91F6
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:19:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789445821; cv=none; b=IJLQ5llm3UmI7Kdmu6DWFcxLzsxKUDH0D6oxm1Cjz0KTNwpUK1jLC8TM5cGoDR5O4XPP68BtecyHj8qlMzscoascxGmgVd+8pu3QDWCMJ+V+SoBqDqdFCXAntbgTrmlFbllR62WIZQn5CWSBGoRwjQjzREh1ThW6li50P4nqFmo=
+	t=1789445997; cv=none; b=EqeOUHjDEfKW43ePY96yitJ0gDzJ89JsIDdtil2vqqFUFZyB3WoCpYJgMjcII5VOpRELsvfS3wDvhDuwXQKUkauNFgeg9OtOFUIqHPsXOrNgsmjjczYzyPpIR2cibnNL4mTYiRW2qu3cHfPGwQQ5T+Pjwh1U0APRS3Gb6VSN/ZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789445821; c=relaxed/simple;
-	bh=a0FFF5GSHyZTvvDPjR45s2uLSSXD2c2MBWwYDS302wU=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=DS3g1yzQQqj2K1Lwc/Dp36N1/bdbfX8UtcnE7MNonwoS9Swaqf8ZyWjMTf2f2TJ7+7BInOuXyeZx9ps+OhkQ8BXTYPlGWh7xc9b+uShmBFR5HLuI4UMHo7WnX1BmsM3txUTMNdp5s8cX8jtrXzvDzhUt26EtjeETw+CbCf0bJRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=KWrjAVLC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789445997; c=relaxed/simple;
+	bh=HgSsJRoK0J05KG0mwTFWrglOY9661dw2QVjfdEDKlJ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nfCnmUoSETjZAKa4boGzcB5YIbtvftva0J3oKOF8AFyFS7QBjzyJ7D4FFKXQ2s7l54ZrmDkOfOw6rbdIGgmZuflUxt3NonRRoGBVw+hXSwplDPJ5P20ilC5kkJD8boKtJz/en7PVyffGi0TYCfGyDu3Uty7S4QP6iymGGyScnRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=NSBWDaZ0; arc=none smtp.client-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="KWrjAVLC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7ADD1F000FF;
-	Tue, 15 Sep 2026 04:16:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789445819;
-	bh=5DcEPacjJf0+F0se6JCTkxzrdHbL2Pp64Tt6ymciBRg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KWrjAVLCns6TP+OVJPC7RcegKRYvNZral/TIjux1pI++moz3BjkEU55c0F4wy33jK
-	 a0CqotZJu7tC9ebvbDUFFr2DL1Ys8t2w5L171nNShd2C9e+3vV+yLk/aybIzcEpvlz
-	 fByoWHMKqdL9EaALLWG9zbkWtKbjrQe9pmkrxbak=
-Date: Mon, 14 Sep 2026 21:16:58 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, hannes@cmpxchg.org, yosry@kernel.org,
- nphamcs@gmail.com, chengming.zhou@linux.dev, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kasong@tencent.com, chrisl@kernel.org
-Subject: Re: [PATCH] mm: zswap: return -ENOENT when the swap device is gone
-Message-Id: <20260914211658.644e5b9b61405f4a9460b8df@linux-foundation.org>
-In-Reply-To: <aqeUyxJmzC397G7j@fedora>
-References: <20260913063031.1689420-1-hebaoquan@kylinos.cn>
-	<20260913005149.a28c21aaca165fa0255f8475@linux-foundation.org>
-	<aqeUyxJmzC397G7j@fedora>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="NSBWDaZ0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=f6
+	7LGm08S9tN97M8CGib1Eur96A/KAiCF+w+dAL+Kxc=; b=NSBWDaZ0X++7JFcmOc
+	/RB1DYTeczlRi5JLi/bYgvbbYUWuXOLiYRDZ5EzdV2TSz60dIThNidhgrhcMaEZZ
+	qMBxKpD4wvUNQcUO28aYBHqwKT15efp1G5eRY+x3LNe7lU2xREBo9dGejG0ffXe3
+	CBnXoSfVDR+OPLxnhGTnrw1iA=
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PikvCgDXreo9x6hq3jBvHw--.36918S6;
+	Tue, 15 Sep 2026 12:19:14 +0800 (CST)
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+To: linux-f2fs-devel@lists.sourceforge.net,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Barry Song <baohua@kernel.org>,
+	Juan Yescas <jyescas@google.com>,
+	Dev Jain <Dev.Jain@arm.com>,
+	linux-kernel@vger.kernel.org,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Nanzhe Zhao <nzzhao@126.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Subject: [PATCH v2 04/14] f2fs: support atomic file large folios buffered write
+Date: Tue, 15 Sep 2026 12:18:59 +0800
+Message-ID: <20260915041909.2903887-5-zhaonanzhe@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
+References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PikvCgDXreo9x6hq3jBvHw--.36918S6
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr4UWF45Wr1DJF13tF4DXFb_yoWruw4UpF
+	WUKwn5KrZ3J343uwnavF4DZr1F9a4xXw47ZayfG3WfZ3W5Jw13KF48t343ZF15trWkA3W8
+	XF40yFyrW3WUJrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jUNVkUUUUU=
+Sender: nzzhao@126.com
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBowLGlmqox0JodAAA3q
 
-On Mon, 14 Sep 2026 14:31:39 +0800 Baoquan He <baoquan.he@linux.dev> wrote:
+ioctl can convert an inode with large folio support into an atomic
+file. Support large folio buffered writes for atomic files as well.
 
-> > 
-> > >  	si = get_swap_device(swpentry);
-> > >  	if (!si)
-> > > -		return -EEXIST;
-> > > +		return -ENOENT;
-> > 
-> > mm-new has changed.  I made this
-> 
-> Thanks. Does it need a v2? or just use ther version you tuned.
+Add a large folio atomic write_begin helper that reserves COW mappings
+for the write range. For partial head and tail subpages, read the
+existing data from either the COW inode or the original inode before
+marking the subpage uptodate.
 
-I fixed it up while fixing the rejects, I hope.  Below.
-
-> By the way, which mm branch is suggested to take as a base for mm
-> patches posting? I usually take mm-unstable branch, seems it's changed
-> to mm-new now?
-
-mm-new is a front-end to mm-unstable.  The only difference is that
-mm-new isn't included in linux-next.  New material goes into mm-new and
-if it hasn't caused any disasters for a few days I'll move it into
-mm-unstable and hence linux-next.
-
-Ordinarily there isn't much material in mm-new.  At this moment
-mm-unstable has 405 patches and mm-new has another 96.  That 96 is
-unusually large because people have been sending huge patchsets today.
-
-So mm-new is the best target for my merging pleasure but it is surely a
-pain for ongoing development - it's changing at a great rate.  Those
-500 patches landed in 15 days.
-
-I suggest a reasonable process is, approximately, to develop against
-mainline (or mm-stable if there's anything in it) until you think the
-code is ready for mm.git.  Then rebase/retest against mm-new and send
-it out.  But keep an eye on what's happening in mm.git so that the
-rebasing doesn't cause nasty surprises.
-
-
-
-From: Baoquan He <hebaoquan@kylinos.cn>
-Subject: mm: zswap: return -ENOENT when the swap device is gone
-Date: Sun, 13 Sep 2026 14:30:31 +0800
-
-zswap_writeback_entry() returns -EEXIST when get_swap_device() finds no
-device.  -EEXIST is the shrinker's "page already in swap cache" signal,
-which makes zswap_shrinker_scan() stop shrinking entirely.  A NULL
-get_swap_device() instead means the device is being swapped off, so the
-entry is simply stale.
-
-Return -ENOENT so the shrinker skips the stale entry and keeps scanning.
-Independent of xswap; affects all swap devices.
-
-Link: https://lore.kernel.org/20260913063031.1689420-1-hebaoquan@kylinos.cn
-Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Nhat Pham <nphamcs@gmail.com>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <kasong@tencent.com>
+Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 ---
+ fs/f2fs/data.c | 88 ++++++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 81 insertions(+), 7 deletions(-)
 
- mm/zswap.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/mm/zswap.c~mm-zswap-return-enoent-when-the-swap-device-is-gone
-+++ a/mm/zswap.c
-@@ -1016,7 +1016,7 @@ static int zswap_writeback_entry(struct
- 	/* try to allocate swap cache folio */
- 	si = get_swap_device(swpentry);
- 	if (IS_ERR_OR_NULL(si))
--		return -EEXIST;
-+		return -ENOENT;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index a490df4f50b3..eb5fb8e52851 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -4016,18 +4016,16 @@ static int __reserve_data_block(struct inode *inode, pgoff_t index,
+ }
  
- 	mpol = get_task_policy(current);
- 	folio = swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
-_
+ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
+-			struct folio *folio, loff_t pos, unsigned int len,
++			struct inode *inode, pgoff_t index,
+ 			block_t *blk_addr, bool *node_changed)
+ {
+-	struct inode *inode = folio->mapping->host;
+ 	struct inode *cow_inode = F2FS_I(inode)->cow_inode;
+-	pgoff_t index = folio->index;
+ 	int err = 0;
+ 	block_t ori_blk_addr = NULL_ADDR;
+ 	bool cow_has_reserved_block = false;
+ 
+ 	/* If pos is beyond the end of file, reserve a new block in COW inode */
+-	if ((pos & PAGE_MASK) >= i_size_read(inode))
++	if ((index << PAGE_SHIFT) >= i_size_read(inode))
+ 		goto reserve_block;
+ 
+ 	/* Look for the block in COW inode first */
+@@ -4168,6 +4166,74 @@ static int prepare_large_folio_write_begin(struct inode *inode,
+ 	return 0;
+ }
+ 
++static int prepare_large_folio_atomic_write_begin(struct inode *inode,
++		struct address_space *mapping, struct folio *folio, loff_t pos,
++		unsigned int len)
++{
++	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
++	size_t ori_off = offset_in_folio(folio, pos);
++	pgoff_t start, end, index;
++	unsigned int orig_order;
++	int err = 0;
++
++	len = min_t(unsigned int, len, folio_size(folio) - ori_off);
++
++	if (!f2fs_ffs_find_or_alloc(folio))
++		return -ENOMEM;
++
++	/* Inline data must have been converted before reaching here. */
++	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
++
++	start = folio->index + (ori_off >> PAGE_SHIFT);
++	end = folio->index + ((ori_off + len - 1) >> PAGE_SHIFT);
++
++	for (index = start; index <= end; index++) {
++		block_t blkaddr = NULL_ADDR;
++		bool node_changed = false;
++		size_t off = (index - folio->index) << PAGE_SHIFT;
++
++		err = prepare_atomic_write_begin(sbi, inode, index,
++						&blkaddr, &node_changed);
++		if (err)
++			return err;
++
++		if (f2fs_ffs_test_blk_uptodate(folio, index))
++			goto balance;
++
++		if (blkaddr == NEW_ADDR) {
++			folio_zero_segment(folio, off, off + PAGE_SIZE);
++			f2fs_ffs_mark_subrange_uptodate(folio, off, PAGE_SIZE);
++			goto balance;
++		}
++
++		if (!f2fs_is_valid_blkaddr(sbi, blkaddr,
++					   DATA_GENERIC_ENHANCE_READ))
++			return -EFSCORRUPTED;
++
++		err = f2fs_submit_page_read_sync(inode, folio, index,
++						blkaddr);
++		if (err)
++			return err;
++balance:
++		/*
++		 * Expand the 4K-page balance decision per subpage: check
++		 * right after each preallocated block.
++		 */
++		if (node_changed && !IS_NOQUOTA(inode) &&
++		    has_not_enough_free_secs(sbi, 0, 0)) {
++			orig_order = folio_order(folio);
++			folio_unlock(folio);
++			f2fs_balance_fs(sbi, true);
++			folio_lock(folio);
++			if (unlikely(folio->mapping != mapping ||
++				     folio_order(folio) != orig_order))
++				return -EAGAIN;
++		}
++	}
++
++	return 0;
++}
++
+ static int f2fs_write_begin(const struct kiocb *iocb,
+ 			    struct address_space *mapping,
+ 			    loff_t pos, unsigned len, struct folio **foliop,
+@@ -4245,8 +4311,8 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 
+ 	*foliop = folio;
+ 
+-	if (f2fs_is_atomic_file(inode))
+-		err = prepare_atomic_write_begin(sbi, folio, pos, len,
++	if (f2fs_is_atomic_file(inode) && !folio_test_large(folio))
++		err = prepare_atomic_write_begin(sbi, inode, folio->index,
+ 					&blkaddr, &need_balance);
+ 	else if (!folio_test_large(folio))
+ 		err = prepare_write_begin(sbi, folio, pos, len,
+@@ -4270,10 +4336,18 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+ 	f2fs_folio_wait_writeback(folio, DATA, false, true);
+ 
+ 	if (folio_test_large(folio)) {
+-		err = prepare_large_folio_write_begin(inode,
++		if (f2fs_is_atomic_file(inode))
++			err = prepare_large_folio_atomic_write_begin(inode,
++					mapping, folio, pos, len);
++		else
++			err = prepare_large_folio_write_begin(inode,
+ 					folio, pos, len);
+ 		if (!err)
+ 			return 0;
++		if (err == -EAGAIN) {
++			f2fs_folio_put(folio, true);
++			goto repeat;
++		}
+ 		goto put_folio;
+ 	}
+ 
+-- 
+2.43.0
 
