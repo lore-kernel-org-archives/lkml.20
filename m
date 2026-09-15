@@ -1,92 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C4A3D3D1B;
-	Tue, 15 Sep 2026 15:01:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4220372673
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484477; cv=none; b=IhKaNUV5khK8URJqhWHibqNI3Xg2m4MfbuLPptQ6r58sqmkzbgjIgV9/5NuWmsKIFWBUqwsXYqY+NuKCf39Yw6RqVwKnz8U3d4+TsFrCUWCZMu6ZsLPuKqOJSmyESvr9rVGerlMZ7aTLDeKsiuHkXHT8l+GztFg5HrQNGeFAK9Y=
+	t=1789484498; cv=none; b=X6v8piZu/vIVowO6CbATDj+5KdVv26+9rTCfGAZd90/qo+0h8gkP5qHnCWN7TyHuRfqGzeofcq2matKLnnh4u9LcgqcUOK/MltYEbWIfUuomQ3rvuTNI6kiyMEenihsntXB9/jCKRNip1X6Y2mz7+h4jdHGANoOt7iR4w56Buns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484477; c=relaxed/simple;
-	bh=pnCgJ005A0F382b1YiQWITRvvDLVNp9MYphGYRRc7cs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mXclE639u0WzpkgS7l2Rh1CsEy3fvlHCZuSuBjbNybytzX1c0G997cKmcohh9mCKDga9qwznVplme+liwU8S2IZAx0SSq9qkIoBsprCkKczKE+qK62rAVmOULdjKne8zbUGwixxUCYL7gGPeIK/bTdFAbo0cd7EZt5g65XRzVD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QHcx8bnB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789484498; c=relaxed/simple;
+	bh=1fbdwqra8hcU7hJAomibU8hl7s8ORH+jeNUHHdUh8m8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pR+4M6P/YEHdoyyHLcOyhwoiF91B4UIiFa/Pp9PcJIUmAqM4ULcUOUE5dGNL11vq6NvByYRKp+OYr7KbbKqSyuv0KkUuU9YajCCloglRwaGo3w4uqlkmlw2s4qK1rcfpYF0pwcyzt8DaNqchY1dJ37Reb4CiYh/JCCqzRxoJA8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=WTU6DjiR; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QHcx8bnB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EA671F000FF;
-	Tue, 15 Sep 2026 15:01:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789484476;
-	bh=0sDh1qot9myjlJ0S89pmLSsamlOt4QuZGlDO+V25QSs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QHcx8bnB+zWYSYQJXQa6gb6cMnklCxMh3CDVE6sNIAaUHY+fkSAonWzkCHNn0Y6u0
-	 MRxU/qI3XJtc9S2GxTGFlB4mWY5PjbAaYIvusoLnYRUNw5FoA1Sb7/9ZJ6pgJ5w+QS
-	 W4AnEZrEsJdbuJ6lPwMSE+Z9P5JgcDRll7KrHfZG4g56Zi1TVL2/NeO1C4p/tNEnWJ
-	 YS1qR/EkOJtbmHTeLH3vYgPYUpQdejrkIIzGFHvAL/nCN/bobQAegL1RNeTze4RNPQ
-	 57A8AKYjfjJ1ZaD7Z2/JSoUmngr+JfMsVTXnu8hU6H33lcaknrnsu3OZhCzfT/937O
-	 ItkL+2ikxpVWA==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 7/8] Docs/admin-guide/mm/damon/usage: update for hugepage_size
-Date: Tue, 15 Sep 2026 08:01:07 -0700
-Message-ID: <20260915150108.92484-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260915143359.91472-8-sj@kernel.org>
-References: 
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="WTU6DjiR"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76ec392so2769921cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:01:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1789484496; x=1790089296; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g9rzR4FHW24jqWw2J2lJ2bk+jLthZKfD8kBK912Z0ag=;
+        b=WTU6DjiR+wcEQtib1n2Jn+NHwfCFueZ5gcOzxaBTsYmCsABGQRSp500/lYpukcCQ8Z
+         F3qZWXieZUQMk8PUiPl4wRTOtSPMS7B+i4XdnHmL7oUn5Atph3AeBSaoDP6sBFqbd8n/
+         FQ7uYGLC2ghWJqKE7t7ycs20ywSBNM5EYPUqu/uO+o/dVsphYn4NquJaS32Oaqkqxfjl
+         95VazU7SViBjOFgp0ocZSjkEiL2hkeyVAEW32oLAq/44rIaHw/OPxCwi+/5iTpRFq/eH
+         iR8WP5xYJEF1NgyitAfWQCrt8MLCsgQg2eeTyS02txeJOjHD6X501x3akjb5+khaQMIS
+         /DVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789484496; x=1790089296;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g9rzR4FHW24jqWw2J2lJ2bk+jLthZKfD8kBK912Z0ag=;
+        b=S2UbAvSoUQyPFpO7fcYmDwyXu58feAFnpYK2yzimWDRut7z7XO3vQX4+J0P2WHZWoU
+         0QhK2yXEWT55BKAYy1j4C4yCrCO7VfgPLkZ3HTEwRw2izOCl8N73QK33y9pPYHq8vbqQ
+         euolWhOEG9Ubtofp5eFVXyvt39vDHgYAHonJk9IjmGJkcy8TuDHmvsuItQl6hkXxKn+R
+         lky3qF0UCPB/bPLZPpVNcF5CSTfMXjuVl6PTJBReynIuoYgqIP+I7wNLTk61Dzj/lNp5
+         S8Xxhy62sNyqwsKjdp6rw+8HSamk1mzOYIoGOTBDxEh0uccds+5JGnURs05bBjacjPq2
+         WzvA==
+X-Forwarded-Encrypted: i=1; AKwUvBwScmBvU6UThXt8IZDuYT9JngbjJzmeyvNDJ50QvaXp/UUA6ERdcrfzk1hNCkaCg50iIr+5h+T8RsGAdIU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGUN+At7b2d52C8TMPMpLf1L/GLI8wv9wqHrBN0+8T3exJASMv
+	5vIn+o3Lpe197l3OlrXU3hLLwzszPE/khWzuSm527ltA29W8bB3F2sYJbbH6DvqLEg==
+X-Gm-Gg: AYBFou1Vyvg9CHCmknR+2hv7dmPbNFJoKeLVsj+//GIaU5RdSJXb9aUqAHFPx6T7L4f
+	aT1sEYnauHCdKCyFw47AGOg5PvJHG3aFwMzyJrrU4/sMkxusHPZjZ5vDi/Ggn9u5aW6lfvaHfiX
+	uPMkHaJeAk0VNZg2u0X18PiLojQBuDzJrWocOp0Idpf4x9WxAgAUav3I6Rlp2ApIC4CABFJ+BUW
+	cpwFtm4WJHXUrpyXRSz1EmAUkPZd475w9LAnCquYV8MOndD0o92mwD/p6E36WFX8rebBj3K9Q22
+	bRMHtl93+IqpjRukq+aM+9BjSSX2/9J3+MEVSrMwHi8YEwaTDhGO5dp4+d/k3/5amth0Yx8W2JT
+	icakMp80y2YQawVye3yGSrc+kE7CLxJAHIFnn72Ai7IoXizIPWPs/DBsWyuuIyd2SIRf/9Jhc/6
+	mfJ2GACYM4tVPKf+gIcvst0rhCzPMLtW1Z2y+dhCX7wZN20cXNJ8NS/CV7hd+yBwefdorQJnbA
+X-Received: by 2002:a05:622a:1dcf:b0:530:e7aa:ef4e with SMTP id d75a77b69052e-5312626d895mr19384701cf.16.1789484495571;
+        Tue, 15 Sep 2026 08:01:35 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53116090064sm34071481cf.5.2026.09.15.08.01.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 08:01:34 -0700 (PDT)
+Date: Tue, 15 Sep 2026 11:01:32 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 0/4] usb: ohci: Balance controller wakeup on cleanup
+Message-ID: <c65da485-90f3-4393-8836-3b793047bfc4@rowland.harvard.edu>
+References: <20260915012011.61874-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915012011.61874-1-mhun512@gmail.com>
 
-On Tue, 15 Sep 2026 07:33:56 -0700 SJ Park <sj@kernel.org> wrote:
-
-> Update DAMON usage document for the newly added hugepage_size data
-> attribute filter type.
+On Mon, Sep 14, 2026 at 09:20:07PM -0400, Myeonghun Pak wrote:
+> These four independent fixes disable controller wakeup after HCD removal
+> in the DA8xx, S3C2410, SPEAr and ST drivers. DA8xx also needs the same
+> cleanup when notifier registration fails after the HCD is added.
 > 
-> Signed-off-by: SJ Park <sj@kernel.org>
-> ---
->  Documentation/admin-guide/mm/damon/usage.rst | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
 > 
-> diff --git a/Documentation/admin-guide/mm/damon/usage.rst b/Documentation/admin-guide/mm/damon/usage.rst
-> index d3e37400367bd..6b80bce5d678d 100644
-> --- a/Documentation/admin-guide/mm/damon/usage.rst
-> +++ b/Documentation/admin-guide/mm/damon/usage.rst
-[...]
-> @@ -308,6 +308,8 @@ Writing a number (``N``) to the file creates the number of child directories
->  named ``0`` to ``N-1``.  Each directory represents each filter and works in a
->  way similar to that for :ref:`DAMOS filter <sysfs_filters>`.  When the filter
->  ``type`` is ``memcg``, ``path`` file acts as ``memcg_path`` for :ref:`DAMOS
-> +filter <sysfs_filters>`.  When the filter ``type`` is ``hugepage_size``,
-> +``min`` and ``max`` files acts as files of the same names for :ref:`DAMOS
->  filter <sysfs_filters>`.
+> Assisted-by: LLM
+> 
+> Myeonghun Pak (4):
+>   usb: ohci-da8xx: disable controller wakeup on cleanup
+>   usb: ohci-s3c2410: disable controller wakeup on removal
+>   usb: ohci-spear: disable controller wakeup on removal
+>   usb: ohci-st: disable controller wakeup on removal
 
-Sashiko found a grammartical error above.  It needs 's/files acts/files act/'.
-It is too trivial to respin the series in my humble opinion.  Andrew, could you
-please do that when you pick this up, or let me know if you have different
-opinions?
+For all four patches:
 
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
-Thanks,
-SJ
-
-[...]
