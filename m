@@ -1,111 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-3.mta0.migadu.com [91.218.175.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F80F3B995D;
-	Tue, 15 Sep 2026 13:00:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6579C3B47DF
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789477226; cv=none; b=iGbvFz7Bdn+XINlBTTyo7zinDZc0zC0P9q5+kaNoC1x57rQDSz9lc7kBxRrhRAU9oIpNOeJjkOi7l4hJa4RV20+/s2spI4ahc8h7A85wCOAR8DYX0gMLM0FQ2LoxCq9h5ImysELxVurgwzBMaHa/nRLLNuOt8F3S5QRD1i6nx0g=
+	t=1789477237; cv=none; b=QglLaAVWSJchHPV3swSp1yzaPtkxfDq9OEIJKxhHM0MunqDAtsGsdQdMrMssIOEqzasV6hoQmOU5W4idoxz1lsniyXUc2q57TfTgZnzOGdv13XdqpWSJ/3XZX8vBn8UOMZgR4zQI5/Hbtpytz+M81mBo4Amq+5IWDWd9tZ7byu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789477226; c=relaxed/simple;
-	bh=g4R2ALPqs93pJYUMnMUcMKXnx1rinkBT01uksRJhbxg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FYOvfTMt6geVyF4Wa0JLqlWwG3EszhNGff+DURJXcU7hfMAW0oRaP+mE3yM+YO1lC7bLcXo9xx3rAxqlCMaSGVWyE5Rcn9w3rQs2hQUxseLyEv5Ty3pie6iQ1iiif0L0l5a7HIBwwaHSrKYypasdKD0b3fFr4pQzV6Dm63LBO/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQI6HQbH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789477237; c=relaxed/simple;
+	bh=8Iig13WWjneOyX8KyPeO4Ee/L4k/7+zpdoNaaUmwk8Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L+RFfLspGt95/1eSSOYGqcBeR784mo39hBkCOcuKqerXppzhfE2eJdL70kAM4j2IX47qqcoB/z44PT2uWiauzAMcnXlV+GHMJsl2Sjyc+ncY4XMUuwY0aIsiuhvEP20NHLqVFyXiP/yybYixew+bsG8HQQAMrJ+i5T6+X5QYVtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AkjVISmw; arc=none smtp.client-ip=91.218.175.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQI6HQbH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D8B61F000FF;
-	Tue, 15 Sep 2026 13:00:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789477224;
-	bh=ci5/Kd93r37BXCmVmRpK3hqSufSmU2Eo1oCU8uvYP9M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GQI6HQbHRQF95O7yDwqk/IgA7A4Yrq0F6kojLDNGGNW/c9dwiKPMdU+o9CRkWPjnm
-	 CtSCkhU7xWrnOzIw+Y3gzFiqbrWe194IKYII+GhRgohPMlAu6RggDdUDxMhpi0oZLJ
-	 5cl2pu4gL4CbE+962dsxNF09XVgPjS1g8bwnviYnMhymeZZk2HcAeuvS9y3RV3yR6L
-	 zxEoGuREX3LRBPfB8JTvUCXsyFv11J1hhlc0T+GNsDndh1fT3G2tsbCQjsq5tYuIvH
-	 1PltsLpqjq5Q4sx7YupATvpeeDdPBCB68sQj2C2wXc8T7+IxPDXxlv9DsH7ynQyNL2
-	 gXDMFg5jitwhA==
-Date: Tue, 15 Sep 2026 15:00:16 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Paul Moore <paul@paul-moore.com>, 
-	Justin Suess <utilityemal77@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
-	KP Singh <kpsingh@kernel.org>, Matt Bobrowski <matt@bobrowski.net>, 
-	=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Kees Cook <kees@kernel.org>, Casey Schaufler <casey@schaufler-ca.com>, 
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, Jan Kara <jack@suse.cz>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Eduard <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Jiri Olsa <jolsa@kernel.org>, Tingmao Wang <m@maowtm.org>, 
-	bpf <bpf@vger.kernel.org>, LSM List <linux-security-module@vger.kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: LSM boundaries. Was: [PATCH bpf-next v3 04/15] lsm: Add the
- bpf_lsm_policy_release kfunc and policy object destructor
-Message-ID: <20260915-laken-ferngeblieben-verflachen-bafe1f296b02@brauner>
-References: <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
- <aqHUw6k0Mf83CGFT@zenbox>
- <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
- <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
- <aqTZdCz6JaoK16Fp@zenbox>
- <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
- <CAHC9VhS0JckwfomqLTUJkZZkDSgeRXYOjMmPQYErgYynQYqMKQ@mail.gmail.com>
- <CAADnVQJCJjy9Eiwn6-88c0iOk4LfgPU6KBv+w0JZdBzmXBMUCw@mail.gmail.com>
- <CAHC9VhTh446SkpPF-hUiLYOHipuurzkgju_nH9LsRGdERSAL1w@mail.gmail.com>
- <CAADnVQLZscKkCxvK5puuOE1aN8nW6PnaS+_dx_zBQjjP2T-DFg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AkjVISmw"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8Iig13WWjneOyX8KyPeO4Ee/L4k/7+zpdoNaaUmwk8Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789477233; v=1; x=1790082033;
+ b=AkjVISmwkyp7DjZdzUevpcPH1ptIrK/nf7uL8Z+LefTw7NiN19+5o8CwwDs3eQ7ViaeU9ffn
+ NhQtlZWL34WkOUjN/wh2c8Bf3c+Q+sH6gQIcvyrF1VpOosDR7Hr2TIu7Ro1XZkF2BRaDmIAU2UJ
+ 6Y8O+cTbrd5OLbk7RvahsnQA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 91b1d043b12ab9bd;
+	Tue, 15 Sep 2026 13:00:11 +0000
+X-Mizu-Trace-ID: 91b1d043b12ab9bd
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <166d8533-127c-4e2b-b37e-a6650c981a97@linux.dev>
+Date: Tue, 15 Sep 2026 21:00:01 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAADnVQLZscKkCxvK5puuOE1aN8nW6PnaS+_dx_zBQjjP2T-DFg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] mm/damon: fix typos in comments
+To: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
+Cc: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ ahuang12@lenovo.com
+References: <20260915102746.647-1-adrianhuang0701@gmail.com>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <20260915102746.647-1-adrianhuang0701@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 13, 2026 at 07:24:14PM -0700, Alexei Starovoitov wrote:
-> On Sun, Sep 13, 2026 at 5:10 PM Paul Moore <paul@paul-moore.com> wrote:
-> >
-> > On Sun, Sep 13, 2026 at 7:25 PM Alexei Starovoitov
-> > <alexei.starovoitov@gmail.com> wrote:
-> > > On Sun, Sep 13, 2026 at 12:41 PM Paul Moore <paul@paul-moore.com> wrote:
-> > > > On Sat, Sep 12, 2026 at 3:33 PM Alexei Starovoitov
-> > > > <alexei.starovoitov@gmail.com> wrote:
-> > > > > On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
-> > > > > >
-> > > > > > If fs/, mm/, drivers/, net/, are permitted to have kfuncs, then why not
-> > > > > > security/? kfuncs.rst doesn't seem to forbid this.
-> > > > >
-> > > > > because fs, mm, net see the value in bpf. bpf helps these subsytems
-> > > > > to focus on their core technologies and moves policy decisions out of
-> > > > > kernel and into bpf.
-> > > > > while lsm people treat bpf as arch-enemy.
-> > > >
-> > > > It's amusing to read this when just this week we merged a patchset
-> > > > into the LSM tree for the benefit of those writing BPF LSMs.  If you
-> > > > look at the discussion around patch 2/2 you will even see a reasonable
-> > > > exchange between Matt Bobrowski, a BPF LSM maintainer, and me about
-> > > > the patch.  Alexei is obviously welcome to his own opinion, but I
-> > > > would encourage those reading this thread to look beyond his comments.
-> > > >
-> > > > https://lore.kernel.org/linux-security-module/20260904-lsm-mount-idmaps-v3-0-920a1963675d@amutable.com/
-> > >
-> > > And that's an example of unacceptable land grab by LSM folks
-> > > that I'm concerned about.
-> >
-> > I made sure that patchset was ACK'd or Reviewed-by'd a VFS maintainer,
-> > a BPF LSM maintainer, and the Smack maintainer before merging (I
-> > covered the LSM and SELinux parts).  You might want to double check
-> > your definition of "land grab".
+On 9/15/26 6:27 PM, Adrian Huang (Lenovo) wrote:
+> Correct spelling mistakes. No functional changes.
 > 
-> You're still missing the point.
-> Christian could have landed it via vfs tree with your ack for security/*.
-> You have no power over lsm hook changes within vfs.
+> Signed-off-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
+> ---
+>  mm/damon/core.c     | 6 +++---
+>  mm/damon/lru_sort.c | 2 +-
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/damon/core.c b/mm/damon/core.c
+> index 0c98f7e267d0..981a153619c0 100644
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -2447,7 +2447,7 @@ static bool damos_valid_target(struct damon_ctx *c, struct damon_region *r,
+>   * This function checks if a given region should be skipped or not for the
+>   * reason.  If only the starting part of the region has previously charged,
+>   * this function splits the region into two so that the second one covers the
+> - * area that not charged in the previous charge widnow, and return true.  The
+> + * area that not charged in the previous charge window, and return true.  The
+>   * caller can see the second one on the next iteration of the region walk.
+>   * Note that this means the caller should use damon_for_each_region() instead
+>   * of damon_for_each_region_safe().  If damon_for_each_region_safe() is used,
+> @@ -2613,7 +2613,7 @@ static void damos_walk_call_walk(struct damon_ctx *ctx, struct damon_target *t,
+>   * This function is called when kdamond finished applying the action of a DAMOS
+>   * scheme to all regions that eligible for the given &damos->apply_interval_us.
+>   * If every scheme of @ctx including @s now finished walking for at least one
+> - * &damos->apply_interval_us, this function makrs the handling of the given
+> + * &damos->apply_interval_us, this function marks the handling of the given
+>   * DAMOS walk request is done, so that damos_walk() can wake up and return.
+>   */
+>  static void damos_walk_complete(struct damon_ctx *ctx, struct damos *s)
+> @@ -4143,7 +4143,7 @@ static bool damon_find_system_rams_range(unsigned long *start,
+>   * This function sets the region of @t as requested by @start and @end.  If the
+>   * values of @start and @end are zero, however, this function finds 'System
+>   * RAM' resources and sets the region to cover all the resource.  In the latter
+> - * case, this function saves the start and the end addresseses of the first and
+> + * case, this function saves the start and the end addresses of the first and
+>   * the last resources in @start and @end, respectively.
+>   *
+>   * Return: 0 on success, negative error code otherwise.
+> diff --git a/mm/damon/lru_sort.c b/mm/damon/lru_sort.c
+> index ad8e86dd3a93..273efa3c913e 100644
+> --- a/mm/damon/lru_sort.c
+> +++ b/mm/damon/lru_sort.c
+> @@ -260,7 +260,7 @@ static int damon_lru_sort_add_filters(struct damos *hot_scheme,
+>  		return -ENOMEM;
+>  	damos_add_filter(hot_scheme, filter);
+>  
+> -	/* disabllow de-prioritizing young pages */
+> +	/* disallow de-prioritizing young pages */
+>  	filter = damos_new_filter(DAMOS_FILTER_TYPE_YOUNG, true, false);
+>  	if (!filter)
+>  		return -ENOMEM;
 
-Which tbf is generally how I like to handle thing especially since we
-usually have a lot of changes. But I'm open to shared branches as well.
+Reviewed-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
 
-So I think we naturally have to modify existing LSM hooks. But it's
-shared pain. Since we use BPF LSM heavily in systemd we generally have
-to absorb such growing pains as well.
+Thanks,
+Zenghui
