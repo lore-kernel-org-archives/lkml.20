@@ -1,259 +1,171 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011034.outbound.protection.outlook.com [40.107.130.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6338C3B71A6
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C357C384CEE;
+	Tue, 15 Sep 2026 14:39:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.34
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483123; cv=pass; b=q/pmDJnlSEWvcgoHb1fxkQAEzt1fu0AIysh0sGHdxbnzlQwy2RtqjSs53uXLY/wCoLz39YRJFj64veMBU/OHvMP55XGQ7EJ9ZWvPVPceHeojgtb4UPsOuru3ENGKc+bLtHmBuXmI/f4P57LOnYKPJ+rN4Y2nyDSf8ObCqX/s+oM=
+	t=1789483174; cv=fail; b=roKaJcri2KgnU/D7aXpO+sL/2x41bnwZl3wrEVd7JvDyy+ldCQ4yTmQGV9Ljy90bWdsBcYzeREC8SBBlwJG7V6GllXqsHkroWswp6RVCIT4S5qr9a/M0nGfSyVinegDLaxn4IF917UhxFDMC7FON3i4TOk8pbgvSnLd2vod+CA4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483123; c=relaxed/simple;
-	bh=iel1Zg3Gn2JgaK8/39sWaPWO9gbsJitWrIWTrMJvzaE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=k1U0p7MDikPZMxjGnXM+nh/QxQvaDai0/51DlykWq4wSp9/rcLeweNxxMb1AF7ihWRD84VRm0XzUw8r8ELxBnq5ELCsQ7a66bxJrrcKF2UNJRDbKxWuU8YgC9Y72vNRL1FaB37ScDPborVIc2IuWdvRZeT9k72jTkRmBBwflNJs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ASRqtX26; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789483174; c=relaxed/simple;
+	bh=e/ZGVN68yp/jK94Xd/DqI+rzFTcyw9DkuhBnAUyS+ro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=logwvD4nu3+SPO5B4hqwCLOj7qT3tsGiR2ENjoMxmu1CzzLMk9tJHPGIHR5YLxl1UCS++MDjkUogiSd5PVGQWfXFlsSXtE9XPIU16nOP96Wye9viOkSVJmfNfMwSYey0GBVw8bvNZrqXeCIHfuWH9WdHvCREOP8kxFfvbtc05KU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dO6xxDe1; arc=fail smtp.client-ip=40.107.130.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ASRqtX26"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a64c7cdb46so5938908a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:38:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789483120; cv=none;
-        d=google.com; s=arc-20260327;
-        b=a9ZstAHHNhnQgnGq6AS8E22CB7MYLFqWcMecCztlauTOIDI12Y8rmxOWxCR9yC2mYb
-         oVDq8rvvyLa19RO4kGaKzXZKWg3x4r8J/egML32XfYxXLl03xbdhkldtOsJcpcnpSvej
-         rBqhch0GIpKSzubFmc47noFyGhOr5j+UjpMZqAIs7smrh2IqE4ehQgqo2cM3H1nSsri0
-         eucnu/nlWV3yvVk4XEj6KMFtTNqkAXAJCGvPRZdWYX+RO2Tg+uv+cFPJSqyM2/MOtBFQ
-         zY6ZMdcotMF9W/pxpr87c3dtRwiN4kbnPmI0q1Drz/lRC2yAc1dVWIuwjM8dCjMo3EmU
-         wQLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=hJD9UyfEwkXA50QAdx7qCZZmHoP06c3J8prX9fzshMY=;
-        fh=13b2pFjsTuiFRBnglFLJfpl9Zsm74IaCeI/vd8Af4eM=;
-        b=dO4+lXtASWcledGVUNv1Nwcr3LVMNbp0GB3LYNRuYl/ifoW+j9DZcnTWYX/hNSk77n
-         Y3YKJzbO4rKZVgEF24op9xDHyelcIwYleW3Y6Ry9oLzvf6SpVUzhi1oPRfcfisIXXtdX
-         a1GpS3FnwT9gDAA1GbcJH+bM+rnWL7RqNVSlW3hNyUlGAIXDqzUge01q9C+2AlVTWqBO
-         s3dNYHgrRiHAz6RlceE6e31Ruem31eCJzejHGwVmdiWmAG7TV996D7BEMENkChbquYOx
-         QF7dWnornUWGcJuQVQSD9NLEv4AvRNQAzrHVRbv8SHgcjheMdR7Z3HylGhMbuO6riV+H
-         63RA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789483120; x=1790087920; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hJD9UyfEwkXA50QAdx7qCZZmHoP06c3J8prX9fzshMY=;
-        b=ASRqtX26/wnBLQq1f+kU3Lr0ZMdryKvAEHzR96G78EnpnyCCVPCQc7gAaFM5p8poEx
-         QWTGFd/Fw0EF96wANPZldWJRQt+W5kEcFRn9Hckh+Hq+A1JOGj0WsxZJPnbCgC7+HTix
-         wJFUJqhoM9tdI/V9Q7kIPgtZDHm1lPyJaYG0T+8dWZStT/RgXtzqrpsJE0tX9TVy60EM
-         CXtLKVNsDrIctEtK+KawK9QrS9jdUESyH9nT7kjTZ5Lf8ZYLFN2EM0Awr5A67N2Drx9K
-         2VSce/KBueZbLqfalkVxLiGmzdS1NEpT3XhQIoTn3N28pqggTK5Ta+6lTBETKl0inTKh
-         gHDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789483120; x=1790087920;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hJD9UyfEwkXA50QAdx7qCZZmHoP06c3J8prX9fzshMY=;
-        b=CLHCfu0sp/9SwYnsenZeNRlyJf2ep+/680o1M+4i0A4yDbmpp+2HGUnT2aA46aM+Q2
-         T0vV9MGspoDQ+zUK9Ria5nMWe0DBDgJfjPgxynfQ9GU3lDrw217jB/nXVamDbdMvCRXE
-         TlrWgdCe5O48O8zlRRd9MQp814sYA9Xr279YLZv1h4n/HMKBTVQnuIt5ffun/kpsTLgA
-         v8vfR1/oCiu7LUOF/f9vYAI1tcASWjLZLaDa5bV+LjCx+YVvdVra+3DQ6HApehbtJXOm
-         Jb4w7O9MsQNDnIxGhStb99CbUy9RG3UOD0qH2Qly5mSZwsM5/6LalC2cLLOU7vd94RmG
-         S3sg==
-X-Forwarded-Encrypted: i=1; AKwUvBwuPpZYvCojrNUAGnqLBGKgqXrJI+I9vy6Cke1dbl3Z/RhFwCxWjW30fKSSS4B0yichGFOsm+9Uf7Azag4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJgtyaKUOkqMNOoeA0YNvIjkAPhUnnYM1oIDz/768BICXMNEDG
-	yZpU+UohltwZaStIdAb78MAKM/C28sbcJil+r3I2pE1f3AidcrrYu9hnOpEGEYBDMmBHk0D6BH9
-	KAPE9YHbveGO1QV+gaPIcixNKtty6PMjQMrQimW3U4Q==
-X-Gm-Gg: AYBFou2oj2rNLGq7hj59NFI8Jgdc+9BAxF+itryopAi9pvR5XPVOJW9/2tfhVo+Slbr
-	AdSSz/HCKF7bPSvKwcmrT/guWvXP7pV5LpOIqmJAQdSP7xFUXQ5wN4rsWKcztG6458xvPz52HB7
-	rekXyzsOqaDcOGlZGRi4wDJnb/6mIynMIopVJP7XiLwx3JKdCIZgG7bhSIigzHMIolGiXfvHMih
-	q1AR0QYvL3ZF4oci+3ysUNT2xaO770iwAQw/pXZ9wypD1PbJY7aA/6siZhM2Y7a+ETlniPE0yx/
-	JpXu7ZNxcXCl/Tjyn+lUJ9qSS/M73viNxa45TisAn5LV8hjuzVEbrN0mSbgBc2fJKpNjQy6OWvp
-	mWR94XpCcpxVLdw==
-X-Received: by 2002:a05:6402:518b:b0:6a7:f7f3:66d4 with SMTP id
- 4fb4d7f45d1cf-6a9f63d1831mr4622791a12.24.1789483119518; Tue, 15 Sep 2026
- 07:38:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dO6xxDe1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LDfnHXZCHi7qmFX0bCr8O3O7lVeYg1mgN8Jxn7EWrMcO/QM9eWO34DilQk5/wO1Ys/1MP8A0RGzMh5phQYAqbCC5tvbHyBaAP2MEBuHkNCh7diJ+wawkkFZK+NeJUsKofbbvBuv1Uq+BMLm2xTvhK5dBvOLZWmuPW53t/8JNWqvqGCEODcOlpu8UPtvUvJRYHHv5BX8IBkzanpbCZ0p7C0vMAikY051ydbr+e5j3zcJkLlUFyHyD2qXIaTUM3xCxEsuXaWtlJSDaBfg3Uv9Kmd72RfyoeYIWJQ0h9cP9yTc2EqAYH/WdGCHw6mdrSiC25kh8B1RVCaEUGyOn3B2w5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NDsNmha82sOGd2y4VlH0JLuRr0YQZWQtK7pYs7Y1Arc=;
+ b=lpcAoshyczzCAJUSSyOBF3bM8RW22ad+ty2DRzpNGe3shXDv9HVVCx6nkjvjJBA991khmc2/B8vp4p/DRbvyb1z4iaRshGR+5Msw2uxch1j4mZBvhuza6EqzNQbf6GZvExgh6e2lgssR4wJgAYolKp8nq42fcAk8KhfV5oMetEFAq36coMAcEq7kf4fr3VYrVMO7Z7qErusZPtaiplo9EgJ8HwkC2T7XUt1Pwvd/I6YtGxjgcnIyiQhvXipBcYzHolAGJeYsGnpiFPt7/qeuWiRyvxyD6qayj1k/0OZ045jTKg4+ChUztGX3HrcI8pZOljfccGxc4Fqi+DlgtDzYvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NDsNmha82sOGd2y4VlH0JLuRr0YQZWQtK7pYs7Y1Arc=;
+ b=dO6xxDe10sSS2vOXUJpc8cojpK7BhLkJsRqqwU2/efqcnh2fbtJkXpuPqtrCCLM6AbZrBh9c7fl7PMwdSVzMJNq6fHHEt7OGqaren9cayqWyhast0AxBhpKwOOZKAPU4h5HUxtqnez2cYsr9/ygMSu0RaBmYucDXXKJpbNrTJXJV1F4cX/aPNNLzv46FGYOyTSOmaQCwDmbMAlRHLyTrtmNc4YR5dZKETlfyWx0b5ICS6Mn5/yiRalNxXyN2HOzd093K1sN5ZnTCENvKStQvMPBEe6xPd8gmyk8APxnaSWZzWtSbhpHWQLFcTZoJDNL0wAWHiKuTHkOen7ULcgCQYg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by ZR6PR04MB587880.eurprd04.prod.outlook.com (2603:10a6:910:e5::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 14:39:29 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Tue, 15 Sep 2026
+ 14:39:28 +0000
+Date: Tue, 15 Sep 2026 09:39:21 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCHv4] dmaengine: bestcomm: gen_bd: fix out-of-bounds access
+ in PSC parameter lookup
+Message-ID: <aqlYmat-QHFvRjsN@SMW015318>
+References: <20260915072608.57887-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915072608.57887-1-rosenp@gmail.com>
+X-ClientProxiedBy: CY8PR19CA0002.namprd19.prod.outlook.com
+ (2603:10b6:930:44::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CGME20260831070349epcas5p4c62a4e46592dffe95723ddd51a6068e0@epcas5p4.samsung.com>
- <20260831070309.158069-1-selvarasu.g@samsung.com>
-In-Reply-To: <20260831070309.158069-1-selvarasu.g@samsung.com>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Tue, 15 Sep 2026 15:38:27 +0100
-X-Gm-Features: AcwNN1Xw208DqxP9opmiR8ULGxXcGVSbiimmOgDikZLNDndPPFL37ybJKwgPW5Y
-Message-ID: <CADrjBPq9v8brtXt0y-FJhSPMQQirkRLSK4QkcafWO+UdbBH92g@mail.gmail.com>
-Subject: Re: [PATCH] phy: exynos5-usbdrd: Use dynamic phy_cfg size to prevent
- OOB access
-To: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, krzk@kernel.org, 
-	alim.akhtar@samsung.com, pritam.sutar@samsung.com, andre.draszik@linaro.org, 
-	kernel@lvkasz.us, linux-phy@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, dh10.jung@samsung.com, 
-	akash.m5@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|ZR6PR04MB587880:EE_
+X-MS-Office365-Filtering-Correlation-Id: ddbfdb46-3eb0-477c-c911-08df1337256b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|19092799006|6133799003|22082099003|18002099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	xskcVhFbybN2xkptzabvhYoHaMmyip0oTYJV3Jqhn/npJ9oHkeeRbXf1+n0qcVC2DGxk7OifAMebKYlsts7n/te00S9UqpfSb18GDY6Tz2kQn395VplmlmNBta4Z4xDgDWpdVkTr09WMKB69QTb+beDaAXc2XpqW64Wa1F9ndwBssszV0gok4oNnw9AjkY7Vp7fvSXhgFLBGHH7ftxaUlI/DQNjnetZ9jgiRFCpQTJDeebILfi8d2XTigsXB2kTZbs2aXT4YzhzFle1IVDRQ3MI7gHPz+jFTkmW7JWYjPb4gTOGH2MEoCcl3lEdWrCpis4CeGPaMUpbr21K7u5tgKk7jdDP76TcZUyRIeFDNheIzE82DvDdCCpJp51+sP71+L+8qbEOC7wZ1oJVTcpYWgaYKNOWSTdbQ0Twhp8UP5XpiMYiswbgdol8DyZY13/aJN733F3l1MjJX67olSl2qhd0+KzhazSdzeHsSd8kEjetwoP7LnLWBqic0K9R2+RYDp79LnCzxMyiqAhSSCMCpUCjfOwgiKZKcxRspiRnkQVcZcqzMzshCugzUdNI5AID/KGrxV3eWmGifmC4wLHSVM2QWZxHWhMv93E1eSfnaUcTn2Jp/WkZUTOHNYtId7M7Oh0BqlRDxvsEjru6FEj7QNg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(6133799003)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?RCuwbOzQYKfkBBrh0ZxUrfppANSu6lDXkVr27jhu5B9EmyUcKmAjDZEDBzuw?=
+ =?us-ascii?Q?Q3XeFPNBk8V30sem7LBEymdqapN6JGBh6SUrRfVK8JnwOZ7pOFh3qWi1WPwO?=
+ =?us-ascii?Q?m8kuOjhlEOaV3wGvOjXHzH3RXxSmWsb5xyqCAlwyVEjZ0REviVITT2e6PmWk?=
+ =?us-ascii?Q?1WxV3GGwUgGGgdUkOx72Jdq90HPbP4WCh2hp99+y4zCT1LrDTC7VP47cnPag?=
+ =?us-ascii?Q?E3qHJyytWskjfeEKouWUS7AZivLfxF7P5+gOt/YFx13SeO6fOGfD/le80UWy?=
+ =?us-ascii?Q?W44C1BccQKshkoFW87yDwuvlsVg5FyrMMpbMxyMsrwprlhFgpBnpI+Hh7bHu?=
+ =?us-ascii?Q?9kyyAG9QcblmEypJSUtRJ3Q4VKYLcoMWwPlsF/EY03ZiLAL3duJf+pSpxJL+?=
+ =?us-ascii?Q?nwCn7WQnEJvS4cJiQiw/8SAa1TT3SP7s9ILLiKenzCv7ozgxb0IfpQkp8bTH?=
+ =?us-ascii?Q?9YH16zCG8Jsx0SFeZd3DUD2zkVSndV90NCBEOHdqJVcAW0PYcteNbZStNQZH?=
+ =?us-ascii?Q?asIVG24JYjB6pqcS3L2kCMOo2x7JthQZu10rb7kaqvdSC5uyn7qosisGzRD8?=
+ =?us-ascii?Q?uwpEotzcyhEdmOVz0SW6pGZT8D5L+jyiUQ4UilS5nP/6eAKYl7DCwTcepmh7?=
+ =?us-ascii?Q?NNmbsxX5T6WeBND2SOOikNQ+uQOt76MyguLBHRpOCINIJSxRh0v0n6NzuHtk?=
+ =?us-ascii?Q?QpSaMoAqUZCjLbaMdVXoCkFipq26/j29hQwFyjVzB4Bwl6wDrHYG7MxgaG/6?=
+ =?us-ascii?Q?fD5CCCms0j8fA1soSv6rPpMsEAF1oKoJS2vJ7ZUnOla+9tDxveJmNWfY25JD?=
+ =?us-ascii?Q?Zw9Kak/b58FAtgy3DPOQASFiQP8nUfM9IuBUVOpbcnCaBTfbm6F5l9LBznOM?=
+ =?us-ascii?Q?lYuKNoeDKHI/OrgontWl2V94kyHPsyYtICMZ4Y+o/aBS2olfagAZKjI8W9gV?=
+ =?us-ascii?Q?Qq2JET2l7uRUG5fScx6gvfN9ZAVPhPdmgPvxE/dJQKWMCsnGrdsDOUyin+oI?=
+ =?us-ascii?Q?a3S0wo0dnCW7XP+t4/OrkmjnAphXweEeIUj0bW+WUKq0cKxEg7EH8wkQW1H3?=
+ =?us-ascii?Q?xuK7PTEhJNd1BdTpvMiS8vhMQYDZ4Dfs9nVwDNuzVfbWZCWKFlvzt7k44Ysn?=
+ =?us-ascii?Q?LpkoYmQnNavS1Q2DpUwUfQabvi4rPnxqMz1eXn6VBACI3lusMgCy5RCtlFrQ?=
+ =?us-ascii?Q?BdUHz13Np/0VkJpMVOjn1F63zEHtIRiTBY7IKv+0mHgCHLorG71vXg4pbd5/?=
+ =?us-ascii?Q?JYktU8FqPoZWY/Tkdz61LxGBtjrDFOwL+ED3Pe0RJ6gHHnfjqMvC+HgzhePK?=
+ =?us-ascii?Q?P1KvNrOOB2t3bjp7xL1F4cfi9k9ngjtNUJJUG0NMFk/25tQGyMxBkCLACSLX?=
+ =?us-ascii?Q?bnVOA5TylkUBRZ6KL68WKqI+MBtXg+DZLuMDHUd6EhA73CYycs70SPTYjY7E?=
+ =?us-ascii?Q?XwHuqnN6LBuGqFKIF+45dcebkEBoUq260qo8YCk2vhF3tA1Xyfidr9zrI046?=
+ =?us-ascii?Q?l73dnidcVfSP3V6DRVNY9VvGCfsOtzcTojBIhgSv0D6r6kDschTWj9BI9zjz?=
+ =?us-ascii?Q?xSWcHIHDHMHHiA3ICwHJOysC1UiPujQ5kro3UHzJUy0QtCRWCakvNNMlkH9m?=
+ =?us-ascii?Q?YoqplA4FesfLL544zVB80AWSKxERIKMhUBhzFPWBEpMFVv0CXtk6d9cpuSeo?=
+ =?us-ascii?Q?bYfaaBBRPxv+ewrCc+C8drYfyuV9qzTjL2oVyA6p98EBpjI1BSOaP58WuEV3?=
+ =?us-ascii?Q?9Y2tljo2xLicYmgN/6PWN9tarYF9oX+K7VfelRMnuM7i6KoNDfeq?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddbfdb46-3eb0-477c-c911-08df1337256b
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 14:39:28.4981
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 60lYbIAg1W3cguho7Xqbc0KUZoEERRjkSxj5Kry76rfMxo38gxsFKIY6bfko8T9otcRvfN12hl0cybeIYbPqfBNLqGtLB6M0r+QDUxB1+GFMgqkCMbEan0GQL37zOpdD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB587880
 
-On Mon, 31 Aug 2026 at 08:03, Selvarasu Ganesan <selvarasu.g@samsung.com> wrote:
+On Tue, Sep 15, 2026 at 12:26:08AM -0700, Rosen Penev wrote:
+> The bcom_psc_params[] array has 6 entries (indices 0-5), but
+> bcom_psc_gen_bd_rx_init() checked against MPC52xx_PSC_MAXNUM which can
+> be 12 when CONFIG_PPC_MPC512x is set, allowing indices 6-11 to pass
+> and read past the array. The tx init function had no bounds check at
+> all.
 >
-> The probe loop currently iterates using EXYNOS5_DRDPHYS_NUM (2),
-> creating both UTMI and PIPE3 PHY instances regardless of the SoC
-> capability. Several SoCs (Exynos2200, Exynos7870, Exynos850, Exynos990,
-> and ExynosAutoV920) provide phy_cfg arrays containing only a single
-> element.
+> A malformed device tree with a large cell-index could therefore trigger
+> an out-of-bounds read. The garbage initiator and ipr values would then
+> be used for MMIO writes via out_8(&bcom_eng->regs->ipr[...], ...),
+> potentially causing out-of-bounds MMIO accesses.
 >
-> On these SoCs, when the loop reaches index 1, the driver reads past the
-> end of the rodata array, populating the second PHY instance with garbage
-> data. Since the configuration structure contains critical function
-> pointers (phy_isol, phy_init, set_refclk), any subsequent access to this
-> PHY instance via exynos5_usbdrd_phy_xlate could result in a kernel oops.
->
-> Fix this by adding 'n_phy_cfg' to struct exynos5_usbdrd_phy_drvdata to
-> store the actual size of the phy_cfg array for each SoC. Update the
-> probe loop and the xlate function to bound their access against this
-> value instead of the hardcoded EXYNOS5_DRDPHYS_NUM.
->
-> Assisted-by: Claude:claude-sonnet-5
-> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 > ---
 
-Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
->  drivers/phy/samsung/phy-exynos5-usbdrd.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
+>  v4: actually bcom_psc_gen_bd_tx_init is still needed.
+>  v3: reduce bounds check to single function. It's not used anywhere anyway.
+>  v2: fix title
+>  drivers/dma/bestcomm/gen_bd.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-> index 8711a3b62c8e..311d1c25eb3e 100644
-> --- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-> +++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-> @@ -477,6 +477,7 @@ struct exynos5_usbdrd_phy_config {
->
->  struct exynos5_usbdrd_phy_drvdata {
->         const struct exynos5_usbdrd_phy_config *phy_cfg;
-> +       int n_phy_cfg;
->         const struct exynos5_usbdrd_phy_tuning **phy_tunes;
->         const struct phy_ops *phy_ops;
->         const char * const *clk_names;
-> @@ -1164,7 +1165,7 @@ static struct phy *exynos5_usbdrd_phy_xlate(struct device *dev,
+> diff --git a/drivers/dma/bestcomm/gen_bd.c b/drivers/dma/bestcomm/gen_bd.c
+> index 61b5746e1a97..7bbe9cd7b39c 100644
+> --- a/drivers/dma/bestcomm/gen_bd.c
+> +++ b/drivers/dma/bestcomm/gen_bd.c
+> @@ -321,7 +321,7 @@ static const struct bcom_psc_params bcom_psc_params[] = {
+>  struct bcom_task * bcom_psc_gen_bd_rx_init(unsigned psc_num, int queue_len,
+>  					   phys_addr_t fifo, int maxbufsize)
 >  {
->         struct exynos5_usbdrd_phy *phy_drd = dev_get_drvdata(dev);
+> -	if (psc_num >= MPC52xx_PSC_MAXNUM)
+> +	if (psc_num >= ARRAY_SIZE(bcom_psc_params))
+>  		return NULL;
 >
-> -       if (WARN_ON(args->args[0] >= EXYNOS5_DRDPHYS_NUM))
-> +       if (WARN_ON(args->args[0] >= phy_drd->drv_data->n_phy_cfg))
->                 return ERR_PTR(-ENODEV);
->
->         return phy_drd->phys[args->args[0]].phy;
-> @@ -1993,6 +1994,7 @@ static const char * const exynos5_regulator_names[] = {
->
->  static const struct exynos5_usbdrd_phy_drvdata exynos2200_usb32drd_phy = {
->         .phy_cfg                = phy_cfg_exynos2200,
-> +       .n_phy_cfg              = ARRAY_SIZE(phy_cfg_exynos2200),
->         .phy_ops                = &exynos2200_usbdrd_phy_ops,
->         .pmu_offset_usbdrd0_phy = EXYNOS2200_PHY_CTRL_USB20,
->         .clk_names              = exynos5_clk_names,
-> @@ -2006,6 +2008,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos2200_usb32drd_phy = {
->
->  static const struct exynos5_usbdrd_phy_drvdata exynos5420_usbdrd_phy = {
->         .phy_cfg                = phy_cfg_exynos5,
-> +       .n_phy_cfg              = ARRAY_SIZE(phy_cfg_exynos5),
->         .phy_ops                = &exynos5_usbdrd_phy_ops,
->         .pmu_offset_usbdrd0_phy = EXYNOS5_USBDRD_PHY_CONTROL,
->         .pmu_offset_usbdrd1_phy = EXYNOS5420_USBDRD1_PHY_CONTROL,
-> @@ -2019,6 +2022,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5420_usbdrd_phy = {
->
->  static const struct exynos5_usbdrd_phy_drvdata exynos5250_usbdrd_phy = {
->         .phy_cfg                = phy_cfg_exynos5,
-> +       .n_phy_cfg              = ARRAY_SIZE(phy_cfg_exynos5),
->         .phy_ops                = &exynos5_usbdrd_phy_ops,
->         .pmu_offset_usbdrd0_phy = EXYNOS5_USBDRD_PHY_CONTROL,
->         .clk_names              = exynos5_clk_names,
-> @@ -2031,6 +2035,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5250_usbdrd_phy = {
->
->  static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
->         .phy_cfg                = phy_cfg_exynos5,
-> +       .n_phy_cfg              = ARRAY_SIZE(phy_cfg_exynos5),
->         .phy_ops                = &exynos5_usbdrd_phy_ops,
->         .pmu_offset_usbdrd0_phy = EXYNOS5_USBDRD_PHY_CONTROL,
->         .pmu_offset_usbdrd1_phy = EXYNOS5433_USBHOST30_PHY_CONTROL,
-> @@ -2044,6 +2049,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos5433_usbdrd_phy = {
->
->  static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
->         .phy_cfg                = phy_cfg_exynos5,
-> +       .n_phy_cfg              = ARRAY_SIZE(phy_cfg_exynos5),
->         .phy_ops                = &exynos5_usbdrd_phy_ops,
->         .pmu_offset_usbdrd0_phy = EXYNOS5_USBDRD_PHY_CONTROL,
->         .clk_names              = exynos5_clk_names,
-> @@ -2056,6 +2062,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos7_usbdrd_phy = {
->
->  static const struct exynos5_usbdrd_phy_drvdata exynos7870_usbdrd_phy = {
->         .phy_cfg                = phy_cfg_exynos7870,
-> +       .n_phy_cfg              = ARRAY_SIZE(phy_cfg_exynos7870),
->         .phy_tunes              = exynos7870_tunes,
->         .phy_ops                = &exynos7870_usbdrd_phy_ops,
->         .pmu_offset_usbdrd0_phy = EXYNOS5_USBDRD_PHY_CONTROL,
-> @@ -2069,6 +2076,7 @@ static const struct exynos5_usbdrd_phy_drvdata exynos7870_usbdrd_phy = {
->
->  static const struct exynos5_usbdrd_phy_drvdata exynos850_usbdrd_phy = {
->         .phy_cfg                = phy_cfg_exynos850,
-> +       .n_phy_cfg              = ARRAY_SIZE(phy_cfg_exynos850),
->         .phy_ops                = &exynos850_usbdrd_phy_ops,
->         .pmu_offset_usbdrd0_phy = EXYNOS5_USBDRD_PHY_CONTROL,
->         .clk_names              = exynos5_clk_names,
-> @@ -2097,6 +2105,7 @@ static const struct exynos5_usbdrd_phy_tuning *exynos990_tunes[PTS_MAX] = {
->
->  static const struct exynos5_usbdrd_phy_drvdata exynos990_usbdrd_phy = {
->         .phy_cfg                = phy_cfg_exynos850,
-> +       .n_phy_cfg              = ARRAY_SIZE(phy_cfg_exynos850),
->         .phy_ops                = &exynos850_usbdrd_phy_ops,
->         .phy_tunes              = exynos990_tunes,
->         .pmu_offset_usbdrd0_phy = EXYNOS990_PHY_CTRL_USB20,
-> @@ -2629,6 +2638,7 @@ static const struct phy_ops exynosautov920_usb31drd_combo_ssphy_ops = {
->  static const
->  struct exynos5_usbdrd_phy_drvdata exynosautov920_usb31drd_combo_ssphy = {
->         .phy_cfg                = usb31drd_phy_cfg_exynosautov920,
-> +       .n_phy_cfg              = ARRAY_SIZE(usb31drd_phy_cfg_exynosautov920),
->         .phy_ops                = &exynosautov920_usb31drd_combo_ssphy_ops,
->         .pmu_offset_usbdrd0_phy = EXYNOSAUTOV920_PHY_CTRL_USB31,
->         .clk_names              = exynos5_clk_names,
-> @@ -2659,6 +2669,7 @@ exynos5_usbdrd_phy_config usbdrd_hsphy_cfg_exynosautov920[] = {
->  static const
->  struct exynos5_usbdrd_phy_drvdata exynosautov920_usbdrd_combo_hsphy = {
->         .phy_cfg                = usbdrd_hsphy_cfg_exynosautov920,
-> +       .n_phy_cfg              = ARRAY_SIZE(usbdrd_hsphy_cfg_exynosautov920),
->         .phy_ops                = &exynosautov920_usbdrd_combo_hsphy_ops,
->         .pmu_offset_usbdrd0_phy = EXYNOSAUTOV920_PHY_CTRL_USB20,
->         .clk_names              = exynos5_clk_names,
-> @@ -2687,6 +2698,7 @@ static const struct exynos5_usbdrd_phy_config phy_cfg_exynosautov920[] = {
->
->  static const struct exynos5_usbdrd_phy_drvdata exynosautov920_usbdrd_phy = {
->         .phy_cfg                = phy_cfg_exynosautov920,
-> +       .n_phy_cfg              = ARRAY_SIZE(phy_cfg_exynosautov920),
->         .phy_ops                = &exynosautov920_usbdrd_phy_ops,
->         .pmu_offset_usbdrd0_phy = EXYNOSAUTOV920_PHY_CTRL_USB20,
->         .clk_names              = exynos5_clk_names,
-> @@ -2863,6 +2875,7 @@ static const char * const gs101_regulator_names[] = {
->
->  static const struct exynos5_usbdrd_phy_drvdata gs101_usbd31rd_phy = {
->         .phy_cfg                        = phy_cfg_gs101,
-> +       .n_phy_cfg                      = ARRAY_SIZE(phy_cfg_gs101),
->         .phy_tunes                      = gs101_tunes,
->         .phy_ops                        = &gs101_usbdrd_phy_ops,
->         .pmu_offset_usbdrd0_phy         = GS101_PHY_CTRL_USB20,
-> @@ -3020,7 +3033,7 @@ static int exynos5_usbdrd_phy_probe(struct platform_device *pdev)
->
->         dev_vdbg(dev, "Creating usbdrd_phy phy\n");
->
-> -       for (i = 0; i < EXYNOS5_DRDPHYS_NUM; i++) {
-> +       for (i = 0; i < drv_data->n_phy_cfg; i++) {
->                 struct phy *phy = devm_phy_create(dev, NULL, drv_data->phy_ops);
->
->                 if (IS_ERR(phy))
+>  	return bcom_gen_bd_rx_init(queue_len, fifo,
+> @@ -342,6 +342,9 @@ EXPORT_SYMBOL_GPL(bcom_psc_gen_bd_rx_init);
+>  struct bcom_task *
+>  bcom_psc_gen_bd_tx_init(unsigned psc_num, int queue_len, phys_addr_t fifo)
+>  {
+> +	if (psc_num >= ARRAY_SIZE(bcom_psc_params))
+> +		return NULL;
+> +
+>  	struct psc;
+>  	return bcom_gen_bd_tx_init(queue_len, fifo,
+>  				   bcom_psc_params[psc_num].tx_initiator,
 > --
-> 2.17.1
+> 2.55.0
 >
