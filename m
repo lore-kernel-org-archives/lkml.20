@@ -1,90 +1,127 @@
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8350037DAA9;
-	Tue, 15 Sep 2026 14:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BEB392C42;
+	Tue, 15 Sep 2026 14:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481845; cv=none; b=IU4vofW1akGDXXSdd/zi6+Ssk4lQwiZkwbTZ/OBhOQ9F0lLRpyAhtH2IdP81Y9yzc1SAnszTrShOgGW7wyDYkAq6IlizMdS5PFwCHinoL/+beW2VgNU8v6Fg8hQAquw90xrj+h0fUDHP5nLA9tu/0SKUAmJSYY25QOWI4imXYIM=
+	t=1789481867; cv=none; b=DhNZQ6Z7mKnP9/pe7A3D5HSucXlA7wzXa0WaNdUpc3/Gf/w8nCyRLzUWXSK0ehbqAdodKHoiH0hSWL/lMxtm4uG+clPbHAPZupTl6kw3JcrYv4hdh8DZjXbT35riX9kOEOgBcEyE1rgf0HCIQ0CBJeUyKAnjz/mSmcrpU5M/RZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481845; c=relaxed/simple;
-	bh=5KS1EgjYzXRO/LGwHSnOnFkVf2f169ADWg9LUHRlUEg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tUDLb6m7H2PtHUuRcGzLyEQAa+0IGvUe7H0gEwkARrokRZJMjktx9Mdz7uHg0tIuO8Kon+w6XbJ57LkrmXljiQmMRjcafQ/ihqR0jU3pneD5iLGwkFMVbkM2zPsinEu2xWl2Sv6xqbwnLDBNYbt2HXIzR5K6/dNkMGzGjiiwoMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=oQ7avwCU; arc=none smtp.client-ip=109.224.244.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789481867; c=relaxed/simple;
+	bh=yuOeuiE5qEe30vsAlwsfsOvcs6eYwx8w+NGb4Me8D9k=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=tfRHLJwHnSbax4odTYKr+VHDRvAPLWOeTEdMNF7pFH5f9UQqtlNEnCsbBGGl/pxVw/On7NARIUemgaUGq/mZ/PpC6KGOdZ3e6uIG0h/el11nNRJoKRFnVLtXxAqq9y4snEaoy6ANEFA/sN5v3QOQ5UJd2LOAbpkMAVjdKJsBT18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vgvg6Vf6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="oQ7avwCU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789481841; x=1789741041;
-	bh=YpZiKTdkBRV8HrUzJ48KBDYy9De2eBfD+hXdyRTErhs=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=oQ7avwCULkbth4nZNaY+DX9Jp/itRJAYGdH3wSuloaqeppukUvLeLAXgZrTEwMVUe
-	 fPMKfqT0zWzE19I+pzKB6xS9aXrzKUTASoWqRQAgi84HB1hHJb/4WCQGLPVWrlFzsE
-	 KmdFEcoYBo6k3LVAiMiyPTxbmh4WZD9e+uQD0RHplTTqMguAOWG13vtdKqWj7+XOKh
-	 hAHAQ8O5bhghldL3VDLnP9pJlIB45gXQHwgAMaIm8zDTrmKCPc4fqCvvWPvEV0S5W2
-	 y1TDanyWK1DZXlEXgU5zKCp6vWnwAcIi87LaWfOe+0mYtYJKl6n0zFi3R8+UbCAtk5
-	 vGp49jxNF3BAw==
-Date: Tue, 15 Sep 2026 14:17:16 +0000
-To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Daniel J Blueman <daniel@quora.org>, Maya Matuszczyk <maccraft123mc@gmail.com>, linux-arm-msm@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/2] Monitor Yoga Slim 7x EC sensors without taking over cooling
-Message-ID: <dQbSKN-LtVryTrUiryOnW7ur2YSJe4nzHx4QAltRbJRgsDHxWBYVQI3H0SPzxlqlCOAZg5NJx2Fe8dpgr7KjQkxLrLPRZuc8ISiUY1-v66Y=@pm.me>
-In-Reply-To: <73db10fb-7778-44be-aced-562aa1039404@oss.qualcomm.com>
-References: <20260908135801.81436-1-birk.skyum@pm.me> <73db10fb-7778-44be-aced-562aa1039404@oss.qualcomm.com>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 328f6d94d1881f1cbc1d19fe2dea1636ba71f5dc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vgvg6Vf6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692041F000FF;
+	Tue, 15 Sep 2026 14:17:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789481863;
+	bh=OkMqESzdj+3RbY/kyt0I+HkaA6aNmsfECfxsjJo32bA=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Vgvg6Vf6N5nvwhVZWf8fGzDXd9ZlEfXfBBG/w2riqNn/dcr/s/Bb1Kjn5xCt4rLZO
+	 /FNDQs2/ZLouDowbLTAoG+bOsccbO7s5T82+OyYwfcX6um3B/KUl0YlT8/pOC1v+5f
+	 qfcdM1Uto9fEVYDQOYHZKjjKOlmt0lChn43XPsBWCwsrLtJFm1HSPrz2wnmJCfJh1M
+	 iDY+pqsv0fXbc6ZC9p6/TRWvhMishNU4m7IfF0kyo4cmqOO3eYQhyXTS5cVMxD4cbH
+	 zUx/KbsD7HuIXt8sdbPnV1BFxKYfT7hprxoA82Tbi0rgBmyLGJtCk7rqFPY/rZT2dM
+	 tUhop+sx6hp9A==
+Content-Type: multipart/mixed; boundary="===============5486250446856456697=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <2bb91d9868e07bedd1bc7a167a661b1f41e691d975184209c7e617adf551651e@mail.kernel.org>
+In-Reply-To: <20260915-b4-rcu-tasks-preempt-qs-v3-2-0ad30c4c5ee7@toxicpanda.com>
+References: <20260915-b4-rcu-tasks-preempt-qs-v3-2-0ad30c4c5ee7@toxicpanda.com>
+Subject: Re: [PATCH RFC v3 02/13] rcu-tasks-trace: Inline rcu_read_lock_trace() and annotate inside the reader
+From: bot+bpf-ci@kernel.org
+To: josef@toxicpanda.com,paulmck@kernel.org,frederic@kernel.org,neeraj.upadhyay@kernel.org,joelagnelf@nvidia.com,boqun@kernel.org,tglx@kernel.org,peterz@infradead.org,rostedt@goodmis.org,mhiramat@kernel.org,mark.rutland@arm.com,jolsa@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,x86@kernel.org,catalin.marinas@arm.com,will@kernel.org,puranjay@kernel.org,xukuohai@huaweicloud.com,paulmck@kernel.org,frederic@kernel.org,neeraj.upadhyay@kernel.org,joelagnelf@nvidia.com,boqun@kernel.org,tglx@kernel.org,peterz@infradead.org,rostedt@goodmis.org,mhiramat@kernel.org,mark.rutland@arm.com,jolsa@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,x86@kernel.org,catalin.marinas@arm.com,will@kernel.org,puranjay@kernel.org,xukuohai@huaweicloud.com
+Cc: luto@kernel.org,josh@joshtriplett.org,urezki@gmail.com,mathieu.desnoyers@efficios.com,jiangshanlai@gmail.com,qiang.zhang@linux.dev,jgross@suse.com,mcgrof@kernel.org,ihor.solodrai@linux.dev,linux-kernel@vger.kernel.org,rcu@vger.kernel.org,linux-trace-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-arm-kernel@lists.infradead.org,xen-devel@lists.xenproject.org,luto@kernel.org,josh@joshtriplett.org,urezki@gmail.com,mathieu.desnoyers@efficios.com,jiangshanlai@gmail.com,qiang.zhang@linux.dev,jgross@suse.com,mcgrof@kernel.org,ihor.solodrai@linux.dev,linux-kernel@vger.kernel.org,rcu@vger.kernel.org,linux-trace-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-arm-kernel@lists.infradead.org,xen-devel@lists.xenproject.org,josef@toxicpanda.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 15 Sep 2026 14:17:40 +0000 (UTC)
 
-Hi Anvesh,
+--===============5486250446856456697==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Thanks for the review and for raising the firmware comparison with Daniel.
+> diff --git a/include/linux/rcupdate_trace.h b/include/linux/rcupdate_trace.h
+> index 273c59a032512..4035054309d7c 100644
+> --- a/include/linux/rcupdate_trace.h
+> +++ b/include/linux/rcupdate_trace.h
+> @@ -93,22 +93,20 @@ static inline void rcu_read_unlock_tasks_trace(struct srcu_ctr __percpu *scp)
+>   *
+>   * For more details, please see the documentation for rcu_read_lock().
+>   */
+> -static inline void rcu_read_lock_trace(void)
+> +static __always_inline void rcu_read_lock_trace(void)
+>  {
+>  	int n;
+>  	struct task_struct *t = current;
+>
+> -	rcu_try_lock_acquire(&rcu_tasks_trace_srcu_struct.dep_map);
+>  	n = READ_ONCE(t->trc_reader_nesting);
+>  	WRITE_ONCE(t->trc_reader_nesting, n + 1);
+> -	if (n) {
+> -		// In case we interrupted a Tasks Trace RCU reader.
+> -		return;
+> -	}
+> -	barrier();  // nesting before scp to protect against interrupt handler.
+> -	t->trc_reader_scp = __srcu_read_lock_fast(&rcu_tasks_trace_srcu_struct);
+> -	if (!IS_ENABLED(CONFIG_TASKS_TRACE_RCU_NO_MB))
+> -		smp_mb(); // Placeholder for more selective ordering
+> +	if (!n) {
+> +		barrier();  // nesting before scp to protect against interrupt handler.
+> +		t->trc_reader_scp = __srcu_read_lock_fast(&rcu_tasks_trace_srcu_struct);
+> +		if (!IS_ENABLED(CONFIG_TASKS_TRACE_RCU_NO_MB))
+> +			smp_mb(); // Placeholder for more selective ordering
+> +	} // Else we interrupted a Tasks Trace RCU reader.
+> +	rcu_try_lock_acquire(&rcu_tasks_trace_srcu_struct.dep_map);
+>  }
+>
+>  /**
+> @@ -120,12 +118,13 @@ static inline void rcu_read_lock_trace(void)
+>   *
+>   * For more details, please see the documentation for rcu_read_unlock().
+>   */
+> -static inline void rcu_read_unlock_trace(void)
+> +static __always_inline void rcu_read_unlock_trace(void)
+>  {
+>  	int n;
+>  	struct srcu_ctr __percpu *scp;
+>  	struct task_struct *t = current;
+>
+> +	srcu_lock_release(&rcu_tasks_trace_srcu_struct.dep_map);
+>  	n = READ_ONCE(t->trc_reader_nesting) - 1;
+>  	if (n) {
+>  		WRITE_ONCE(t->trc_reader_nesting, n);
+> @@ -137,7 +136,6 @@ static inline void rcu_read_unlock_trace(void)
+>  			smp_mb(); // Placeholder for more selective ordering
+>  		__srcu_read_unlock_fast(&rcu_tasks_trace_srcu_struct, scp);
+>  	}
+> -	srcu_lock_release(&rcu_tasks_trace_srcu_struct.dep_map);
+>  }
 
-Agreed on preserving the LUT match data. My v2 is based on
-28924df2a08f440c73991b83028032c901de2ae4, which does not contain that
-implementation, and I could not find it in the current mainline driver
-either. Could you point me to the latest series or branch you would like
-me to target? I can integrate the read-only variant with that match data
-without changing the existing LUT behavior.
+This isn't a bug, but the changelog notes that rcu_read_lock_tasks_trace()
+already annotates inside the reader "on the lock side" and then says "Make
+the trace variants match."
 
-On your thermistor comment on patch 1, would a DT thermal sensor and a
-monitoring-only thermal zone, without cooling maps, be the interface you
-have in mind? I can keep fan RPM under hwmon and leave cooling under
-firmware control.
+rcu_read_unlock_tasks_trace(), four functions above the changed code in the
+same header, still calls srcu_lock_release() after __srcu_read_unlock_fast(),
+i.e. the exact ordering being corrected in rcu_read_unlock_trace().
 
-I also agree that sharing the EC chip is not sufficient to justify the
-qcom,hamoa-crd-ec fallback. I would like to compare firmware behavior
-before treating the capability-query failure as a model-wide limitation,
-then coordinate any binding adjustment with Daniel's series.
+After this patch the two unlock helpers in the file disagree. This has no
+functional effect (srcu_lock_release() is a lockdep annotation and compiles
+away without CONFIG_DEBUG_LOCK_ALLOC), but would it be worth either flipping
+rcu_read_unlock_tasks_trace() the same way, or saying in the changelog why
+only the rcu_read_{,un}lock_trace() pair is being changed?
 
-For that comparison, my existing September 8 test recorded:
 
-  Yoga Slim 7x 14Q8X9 / 83ED
-  BIOS NHCN62WW, EC 0.99.0
-  Firmware query 0x0e: 03 00 63 00
-  Capability query 0x42: 00 00 00, identical across three reads
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-The capability transfer completed with three bytes, but its count byte
-was zero rather than two. The unmodified driver rejected it with EINVAL.
-The separate read-only sensor test successfully read RPM and temperature
-while firmware controlled the fans.
-
-These are the earlier results, not a fresh test or evidence that a BIOS
-update would or would not resolve it. Daniel, I am happy to compare your
-versions and capability response, or repeat targeted read-only checks if
-there is a useful difference to investigate.
-
-Thanks,
-Birk
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34975311706
+--===============5486250446856456697==--
