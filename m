@@ -1,132 +1,101 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mta0.migadu.com (out-60.mta0.migadu.com [91.218.175.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583183546EA
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8056741F353
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.60
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789489373; cv=none; b=sfvMbExAXgwE5sro0V+hyBt+1hFozstucQOF1rjwf/sPmjEcem4k6lx0F7W2nJOWsfi/niBk8rmGXilmbx10Fjfy8j2URNkkB/QELOFK4qSM9ZvSeJwRp2uYvWSCnm5sW6yRgLBgcqpgFLg6CiqGb+K5bETat4PSBSnAd3S5ghY=
+	t=1789489679; cv=none; b=pzcSyTARyLA4V9rB3WCnIjeL9V5T85dYlvp58SjeRU3Osx5h+t5EBBfu+eIdgRN/VXXYC/LGP7FUwLCDVR2n6RtRP8fAegTbLORWX0GGD/eiwggkQuPjF5XQrQjeKheoYlxxu8jCnVXlCpNxQ/c2SPGq2rYzQW8eL2mzSbNlLz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789489373; c=relaxed/simple;
-	bh=GQUkfQFQFGZn2w3jKrEqNsocI/XlfdUSQTzN2BHhBVs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=txMnHtpPXZYOCGmA68oQ8qVN7cG4YcUxrgjIMZDtb3sOhELgLg+hVsZAQF3Hvfg+okPLTey8lzu73FYXaN2yvqs7vTICy2bwywlBWUzEzujcbWVzfAVWOSmsB/S7QpLyWA5XWfjV0ejZLHrY9MKDwQ+csVBYFa+KFKB2cwr2cBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jhp5fEeB; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789489679; c=relaxed/simple;
+	bh=5aAOwXTYMykx5gxXWRId8scEdWimaCHbC2wDxGMxApw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Pk7FcyXgv4jOC7MHZTlB1bbIrlP0GaehhdP+/QgY37S6Tn5I9MtuNDvD7BA1APZJsqs92RX4ww7ltyCG7ubR50Noj0b1GhVq6VJ4okdnHjyZbNFQDackWxo1rDC+ORpaV6FvPd4E4542/6KaRukVtWMe5ouH47Q4GzmoxQzANJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aaDciXGj; arc=none smtp.client-ip=91.218.175.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jhp5fEeB"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so61725e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:22:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789489370; x=1790094170; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9mqTf5D7sZAS6lXrOCj344iOLKWpe0jGLWsm9zi+D0M=;
-        b=Jhp5fEeB1pyGo2dzeCaOxNYD/oBHXmoQ58x1qxLHaOu33YRnOwVctwjqTUwso3V1pm
-         uBA4W/RSBufNewFMaET9X8SbC/MQiys1XrAVqym89A802KhkZBhuRMxMgkDn4vf0yFrj
-         7IRWf80VhLtrfKcz31nqh8Z00gKFlYLcbvMSsymr4fRQZO2/PFdkefdH00KaQEWLYwrL
-         QRjAvX+R1D8YEAYeKPtnpMLJD2VnCcuVzUZ9a8yCNAOldd7A3HtkTfWZTtzmAHlfDdze
-         WEB2kFQBih0uFC7c3+hT5zf4lGwT5oP5G7wpI5FyX8GKuSezavp6mtMc/42OFpPzUyJn
-         eyUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789489370; x=1790094170;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9mqTf5D7sZAS6lXrOCj344iOLKWpe0jGLWsm9zi+D0M=;
-        b=HvS1zC/UOhFpWFn2LXahMYYjmXgV8hgeawhYyPLBaRcpcKbiMYeUgz/pflrKNBiwUc
-         UndWd7tNe8GB2ULPxuogLEuvdO4H3IXTY3QDBl+DsKs0XP0f/4LKw6pZyhqPjilgix2M
-         wWtBu6NWkMMmAmborgsDeyYUCBAPGGJQYAy7AmXJiWoCL/uyq3LJwPWKY8nx1KXTB4xE
-         WEy5o0E4+8+ok3nGi4CjOKr8QZWyKbpNfy9QOBuDtBPxBgsVnwYrp6E5MGb8a2B+WTjB
-         aH4s20+v4jzJr41Rfjgnbq1KUOZoPIgzk5eDJK9kdwG+FS8CFQCoRW6B1o6OJ7YSTwEQ
-         Y5UA==
-X-Forwarded-Encrypted: i=1; AKwUvBxTsXklqcmYqTVK0BnGiqjqWqivtpQKHMwPevmv/s5tcUVhv29r6/7BBu0jzFj3L588AF6EnJPblng7Tfc=@vger.kernel.org
-X-Gm-Message-State: AFuF++laZdGM7m1wu9xpmZKy+MBuNJw1ZJsV80S18XJNtNQYPle0xg2X
-	0sT8hzVtxKRIlrv5mTOMNS85bOHJGQ+BbTN63lIeCo499tL+d8HwClyq
-X-Gm-Gg: AYBFou0Pi9y86WY7JsOWDP+DyeFloi42b6TmyASMzh/D+nvkqV1pgVFjbxGpRd01Qzk
-	XdbdDOp5rfvkA64GDEkWDS0Xla8H7nJI2bzWl/O9YObuREqUGMPx1NwCVZAE2L8Yl7ktYUYqE03
-	SloLk38WRqvNgvU8Xn16gXbOJOtwnxI1qFnOa79E1GlvM+iPl89iRx8unVLdUwgE6SjWwHNoCI3
-	jxmYyU1JF6pjSP+oaqj+6LNJ7pGIrOQ3AtWQ3UCcpINeJHMD/XYX5nsCzgmzaUYi+QVQWwjQ1nL
-	zoR5XB1D8PbBSG5pv/CCZ+itkljwqFN9BfOOxD9tBM46LAXK3sqRPetJpr1F0w8XqNhLTGz9MZ3
-	Sz/hPYrl0fW3eM7lyMbCCWqdjMXipGpSYm4OBGimypEcRc7T7QX+4Ed6FyavKmXpKpNUwz7mCwC
-	rkDaCJX7bay8fRgiErYobN9qRbVLLIghTA1ZbyummOxdW19VO1zO/+gMNeWthmULEsAEdZhDtM5
-	tUVoWS6u3l3PIsSyuBJ2L8sSvO4lfTGNpKg3Lid94g2/8rYoJg4hlCPQFP8A1VQt1I/O3btKQ==
-X-Received: by 2002:a05:600c:138e:b0:49e:7c8c:bc77 with SMTP id 5b1f17b1804b1-49e7d73329amr60389275e9.7.1789489370262;
-        Tue, 15 Sep 2026 09:22:50 -0700 (PDT)
-Received: from PC-Ubuntu.home (2a01cb0082e4ed0062a44cfffeccdd1d.ipv6.abo.wanadoo.fr. [2a01:cb00:82e4:ed00:62a4:4cff:fecc:dd1d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83f3fb4asm167495e9.2.2026.09.15.09.22.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 09:22:49 -0700 (PDT)
-From: yolezz <yolezz.secret@gmail.com>
-To: mario.limonciello@amd.com,
-	yazen.ghannam@amd.com
-Cc: x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	yolezz <yolezz.secret@gmail.com>
-Subject: [PATCH] x86/amd/node: Release reserved config regions on init error
-Date: Tue, 15 Sep 2026 18:22:38 +0200
-Message-ID: <20260915162238.77474-1-yolezz.secret@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aaDciXGj"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5aAOwXTYMykx5gxXWRId8scEdWimaCHbC2wDxGMxApw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789489675; v=1; x=1790094475;
+ b=aaDciXGj//CpMTkGjwOYER+DQTexXuFR5qvdm2eqrq8Vfq1ZkZ/0Umej2dtR4wcwuPR3egUY
+ r/cER8O0q+sJ8+FYJCXYpev06UMAqgDTgp+mLVL8nB/Oo32AI3proogaeAM8qgUzo2iPdx8S9x0
+ x7QOsp53q1REMDl+Krh8hH0o=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7bfd351e13a25abb;
+	Tue, 15 Sep 2026 16:27:45 +0000
+X-Mizu-Trace-ID: 7bfd351e13a25abb
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9568025b-7a99-4404-a371-65f26a29a411@linux.dev>
+Date: Wed, 16 Sep 2026 00:27:31 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] mm: refactor zonelist constructors and iterators
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
+ ziy@nvidia.com
+References: <20260912030424.2889731-1-gourry@gourry.net>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <20260912030424.2889731-1-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-In amd_smn_init(), if pci_request_config_region_exclusive() fails or
-if kzalloc_objs() fails to allocate memory for amd_roots, the already
-reserved PCI config regions are left allocated.
+On 9/12/26 11:04 AM, Gregory Price wrote:
+> find_next_best_node() picks the next-closest node when building a
+> fallback list, and hardcodes N_MEMORY as the set it picks from.
+> 
+> Refactor it into find_next_best_node_in(), which takes the candidate
+> set explicitly.
+> 
+> This makes the existing behaviour explicit at both mm/memory-tiers.c
+> call sites - they select demotion targets in fallback order from
+> N_MEMORY - and lets callers narrow that set.
+> 
+> Then extract the per-node construction loop out of build_zonelists()
+> into build_node_zonelist(),i parameterised on the candidate nodemask
+> and destination zonelist index.
+> 
+> Together these allow a zonelist to be built over a candidate set other
+> than N_MEMORY, into a zonelist other than FALLBACK, and iterated in
+> fallback order over a caller-defined subset.
+> 
+> These are prerequisites for generating a private node zonelist (nodes
+> unreachable by default), but are otherwise general improvements to
+> the existing interfaces so I'm proposing them separately.
+> 
+> No functional change intended - purely refactor commits.
+> 
+> Verified on x86_64:
+> 
+>   - find_next_best_node_in() compiles to the same 319 bytes as
+>     find_next_best_node().
+>   - Both mm/memory-tiers.c callers grow a single instruction - the
+>     added argument.
+>   - Boot-time fallback orders are identical on a 4-node guest with an
+>     asymmetric distance matrix.
+> 
+> Gregory Price (2):
+>   mm: refactor find_next_best_node to find_next_best_node_in
+>   mm/page_alloc: refactor build_node_zonelist() out of build_zonelists()
+> 
+>  mm/internal.h     |  6 ++--
+>  mm/memory-tiers.c |  7 +++--
+>  mm/page_alloc.c   | 74 +++++++++++++++++++----------------------------
+>  3 files changed, 38 insertions(+), 49 deletions(-)
 
-Add amd_smn_release_config_regions() to clean up and release all
-reserved PCI config space regions before returning an error code.
+Reviewed-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
 
-Signed-off-by: yolezz <yolezz.secret@gmail.com>
----
- arch/x86/kernel/amd_node.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-index b7926ba3610a..6a96d888b5a7 100644
---- a/arch/x86/kernel/amd_node.c
-+++ b/arch/x86/kernel/amd_node.c
-@@ -239,6 +239,15 @@ static struct pci_dev *get_next_root(struct pci_dev *root)
- 	return root;
- }
- 
-+static void amd_smn_release_config_regions(u16 num_roots)
-+{
-+	struct pci_dev *root __free(pci_dev_put) = NULL;
-+
-+	/* Release the PCI config space for each root device. */
-+	while (num_roots-- && (root = get_next_root(root)))
-+		pci_release_config_region(root, 0, PCI_CFG_SPACE_SIZE);
-+}
-+
- static bool enable_dfs;
- 
- static int __init amd_smn_enable_dfs(char *str)
-@@ -273,6 +282,7 @@ static int __init amd_smn_init(void)
- 		 */
- 		if (!pci_request_config_region_exclusive(root, 0, PCI_CFG_SPACE_SIZE, NULL)) {
- 			pci_err(root, "Failed to reserve config space\n");
-+			amd_smn_release_config_regions(num_roots);
- 			return -EEXIST;
- 		}
- 
-@@ -286,8 +296,10 @@ static int __init amd_smn_init(void)
- 
- 	num_nodes = amd_num_nodes();
- 	amd_roots = kzalloc_objs(*amd_roots, num_nodes);
--	if (!amd_roots)
-+	if (!amd_roots) {
-+		amd_smn_release_config_regions(num_roots);
- 		return -ENOMEM;
-+	}
- 
- 	roots_per_node = num_roots / num_nodes;
- 	if (!roots_per_node) {
--- 
-2.53.0
-
+Thanks,
+Zenghui
