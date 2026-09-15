@@ -1,64 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257C74A49B1;
-	Tue, 15 Sep 2026 12:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2FF94A8A33;
+	Tue, 15 Sep 2026 12:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474666; cv=none; b=jl3MelEQo/UdbUGApBbSdSTFc7y0rXK8InaN0dFuAEWIV7IJWZsn0K6Xqa+ncCkFP5econeWiMTCJdDqaLIqP1pgshc5WIdch6mEi0ar+AUjbIqQqW8mMQtQTkO1j43878vEa+e4xVGEIYKm5uzy+bAHLlydhmLOHeKOmLMD8qw=
+	t=1789474672; cv=none; b=TILoVF+RnYO6Lkg0kTg+8YqLVUtgHszHTV/BxNXM99/8u+sAJydUp2oZ4ThSpepkBtg2Lm7baiv7sDDV1O/7Iuf+nYGgjYfaNlpVyQT1ZV0suHLVG47CmZRn2FJOCf0QsSPP8JrJBZ1DUd0khnwUjazy23nwX4jaL/ra7rZpOHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474666; c=relaxed/simple;
-	bh=DwzX8JNIUuVMxDXzFkUeKbOg0dKKxVjarPGggP7ls3E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cM3uJ90peJ/B3yCInodSRifu2mpA0QoA83vkJeQxTg3htJ8JRRbenCQgoRSP/CTPxbHzR0wCRFrm+8CXbRmjZdDgSV70AxF8LLyitPJ3eaBYEIAPmV/gDW7uN+kUq8R1/Xa6UXGCVLksz1elbz3s8oz9jv3CYZZpcgMi9Ypp3gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T+YTN+mc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789474672; c=relaxed/simple;
+	bh=QWIzsJE0Kai3KownbKrQWHTGaGpa7cST5QF1p4oyIVc=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Dw9CF+88WHv0odmUKPucod+nyy06lS775r0dpChd8bxw7H1x2V0Wg1IaejiLfmM98Z2GZJa+1wnImEA9rX1953DGongdNBCtYKqphf86gk2lEts27DAcCWy2fJiNJwHUszEuO3oWW+qtyrX+ZuEYpVrKih077lnHHsZKPohWcTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Mv+l42g+; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T+YTN+mc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00241F00898;
-	Tue, 15 Sep 2026 12:17:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789474664;
-	bh=DwzX8JNIUuVMxDXzFkUeKbOg0dKKxVjarPGggP7ls3E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T+YTN+mc0FREo7pxVue32qEB7jpbaic9tPuOqusrLGz+h61wQ9mk1jbsp4T4uum+o
-	 PyFcrywxhBL6lkrZRNcnpslokzefZeAzR3ILqmBsMGWMqYv8jIXs9vvVcxYbK2/0GC
-	 eaxftvggM2rbYvLpD33hv5D2hCTVmB4HxTZAux7lFOj7n37ELzTfsQdzy7w4+7zax2
-	 OOhtkPuMszdn+0PFv34fTrYHBBJ5CYYMe8NNjn6CDmjHaFQhZDHc4EM+U9KZ+/UGbq
-	 UKCjWQKVffzLeaWI/mu8BEh57NXEGpdr4xo0iEchfSB7vEOpEOZ5gcwVOziN4Vzm0b
-	 J0urwnVYa8Mjg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC POC 42/50] drm: stop unwinding descriptors by hand
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Brauner" <brauner@kernel.org>, "Linus Torvalds" <torvalds@linux-foundation.org>
-Cc: sparclinux@vger.kernel.org, linux-openrisc@vger.kernel.org, "Ingo Molnar" <mingo@redhat.com>, linux-csky@vger.kernel.org,
- =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, linux-hexagon@vger.kernel.org, linux-arm-msm@vger.kernel.org, bpf@vger.kernel.org, "Peter
- Zijlstra" <peterz@infradead.org>, linux-mips@vger.kernel.org, linux-fsdevel@vger.kernel.org, "Jens
- Axboe" <axboe@kernel.dk>, linux-alpha@vger.kernel.org, kexec@lists.infradead.org, kvm@vger.kernel.org, "Jan
- Kara" <jack@suse.cz>, linux-sh@vger.kernel.org, linux-um@lists.infradead.org, "Jann
- Horn" <jannh@google.com>, linux-m68k@lists.linux-m68k.org, "Alexander Viro" <viro@zeniv.linux.org.uk>, linux-kernel@vger.kernel.org, linux-snps-arc@lists.infradead.org, "David
- Airlie" <airlied@redhat.com>, linux-hyperv@vger.kernel.org, linux-mm@kvack.org, linux-arm-kernel@lists.infradead.org, io-uring@vger.kernel.org, "Michael
- S. Tsirkin" <mst@redhat.com>, "Eugenio Perez" <eperezma@redhat.com>, "Oleg
- Nesterov" <oleg@redhat.com>, linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org, virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org
-In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-42-4d5217d6b246@kernel.org>
-References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
- <20260915-work-fd-reserve-unify-folded-v1-42-4d5217d6b246@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 12:17:42 +0000
-Message-Id: <20260915121742.F00241F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Mv+l42g+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789474671; x=1821010671;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=QWIzsJE0Kai3KownbKrQWHTGaGpa7cST5QF1p4oyIVc=;
+  b=Mv+l42g+Gg25jwIJEjupqXVPAQxbRGdPD0THbF3LaiQxmyKgTBxM3aLZ
+   SrTaRkOv5kBGGAzpQFYPY7gE6MBLvoUdCcFkeAy1hatrlbR6nQiRSIi96
+   0pWwvSqiYK7FAYkW/QVkpHKyYTHJLpLVDlh+5bMumkk4RBuC8VJvQQ9vu
+   rAByw+RjCKGrQGZpo8JNc26oU3h5bc8K+5wiIQNmED5J394w7a7u7xqHT
+   XTSo9oVCvvPl6OyJDxWCKWG/ZdmZIBvPqkhiE4BhO1tPOyQgY9VZYjhkk
+   yMC9RPNSzllvDofaQ4rG4oL0OLn5hZdVq3kdQioiwboR/K6gD+2LJvgfl
+   w==;
+X-CSE-ConnectionGUID: rjGcIv2MQIGNPhYpMu1Rcg==
+X-CSE-MsgGUID: fPMX3L7fTZ+iFVcoM8rUqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112604460"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="112604460"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 05:17:50 -0700
+X-CSE-ConnectionGUID: TnyOsk/mR3ieOxzN4m1p0g==
+X-CSE-MsgGUID: 8U7stX10R/6Ese6/vpmuIg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="276755304"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 05:17:47 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 15 Sep 2026 15:17:42 +0300 (EEST)
+To: Ma Ke <make_ruc2021@163.com>
+cc: Shyam-sundar.S-k@amd.com, Hans de Goede <hansg@kernel.org>, 
+    mario.limonciello@amd.com, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, akpm@linux-foundation.org, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH v2] platform/x86/amd/pmc: Fix RTC reference leak in
+ amd_pmc_verify_czn_rtc()
+In-Reply-To: <20260915120943.3988720-1-make_ruc2021@163.com>
+Message-ID: <c6096e2c-0112-81d0-1940-35ba54a66305@linux.intel.com>
+References: <20260915120943.3988720-1-make_ruc2021@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-> Rely on the fd exit path machinery.
->=20
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Tue, 15 Sep 2026, Ma Ke wrote:
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+> amd_pmc_verify_czn_rtc() opens the RTC with rtc_class_open(), which
+> takes both a device reference and a module reference on the RTC
+> driver. rtc_class_close() is the matching release, but it is not
+> called.
+> 
+> Use a __free() to cleanup call on the declaration
+> 
+> Found by code review.
+> 
+> Fixes: 59348401ebed ("platform/x86: amd-pmc: Add special handling for timer based S0i3 wakeup")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ma Ke <make_ruc2021@163.com>
+> ---
+> Changes in v2:
+> - modified the patch, thanks for developer's suggestions.
+> ---
+>  drivers/platform/x86/amd/pmc/pmc.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
+> index 6792aa2c6187..b1ad79b22c07 100644
+> --- a/drivers/platform/x86/amd/pmc/pmc.c
+> +++ b/drivers/platform/x86/amd/pmc/pmc.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/array_size.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/bits.h>
+> +#include <linux/cleanup.h>
+>  #include <linux/debugfs.h>
+>  #include <linux/delay.h>
+>  #include <linux/dmi.h>
+> @@ -646,9 +647,11 @@ static int amd_pmc_wa_irq1(struct amd_pmc_dev *pdev)
+>  	return 0;
+>  }
+>  
+> +DEFINE_FREE(rtc_class_close, struct rtc_device *, rtc_class_close(_T));
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
-serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D42
+I'm sorry, I only now realize this is not a local thing at all so it would 
+below to the header defining rtc_class_open/close().
+
+More importantly, rtc_class_close() does not handle NULL inputs so 
+this DEFINE_FREE() should have the if (_T) boilerplate.
+
+> +
+>  static int amd_pmc_verify_czn_rtc(struct amd_pmc_dev *pdev, u32 *arg)
+>  {
+> -	struct rtc_device *rtc_device;
+> +	struct rtc_device *rtc_device __free(rtc_class_close) = NULL;
+
+Please move this to where the actual assignment to rtc_device occurs as 
+explained in the long comment in cleanup.h.
+
+>  	time64_t then, now, duration;
+>  	struct rtc_wkalrm alarm;
+>  	struct rtc_time tm;
+> 
+
+-- 
+ i.
 
