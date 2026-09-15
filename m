@@ -1,94 +1,84 @@
-Received: from mta0.migadu.com (out-52.mta0.migadu.com [91.218.175.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091ED439F98
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12ECD4052AF;
+	Tue, 15 Sep 2026 19:09:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789499336; cv=none; b=OcOOXArbJmJ1T/eGwWdR79CDfN9B8c/dP0m6nXrqaZh9gZ7O8+2T2tv6G9v5P4iU6i5dd6vD3LpXKLO4zEeViRmGMW+XaUEJP0Uzpg5YIfgwGd+jmXmpF2EkPNUD68qYWyFbBV5ScsBJSXzklutTqNIFXrdq3lfQgoQlsC++aXU=
+	t=1789499341; cv=none; b=Hc8b7/UtNhKSMhjMnu0RpW4o0NePj9G03WFL0VUNzhoyt6I8mzaaJLHROQyh2GYrBlSjWs5sB8W9LrzKiuyRSzwrN+Zjn0ZsBneq4UvVuMVffh8bNGVWAVGfNvWHqVlOODtliz0ZUZFcIUrElumNDYndqegqkuxmfPlyMokZOm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789499336; c=relaxed/simple;
-	bh=VQQ+E7fwYAhs6gRE7dYaQzVwEKGiE/fSgj1srDgmMNs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XburxSbz+jJBkYTWMCr0M8LHByetmi8mkx6eVouBmHt6urECIvbtK/IjxKj4msqRlcB94k8twu4X/BCJwgSgpFDV2N3c4AeR9o6ydj4GHkB6PVdiNyOLJVFOIni5f9xobGJHsJZKFvEIVqAt+g7TzMKH5atyR0mYR44NgkQ7zpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uDCeocEo; arc=none smtp.client-ip=91.218.175.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789499341; c=relaxed/simple;
+	bh=/4qvgJkuwntJoyGaVA73EExBoVg4DCDyblPdeqPr5Qs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o3gxl6gbpToxoOtcbMwt3lH2EBsCwoXXk3HKiWslthsSZTIeqvXBG7FVbt/vIgGic+YyvVzSrAhLhy1iAIiG7wh7ZYQ0EF47iyMoqTCSQtyfnwv4Kue7MX+sf9DgcePwAiFq01xA7IgqDmjR/XtVxF7Mn+LqVyhuU/ucOSRBkIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jcXIQ846; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uDCeocEo"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VQQ+E7fwYAhs6gRE7dYaQzVwEKGiE/fSgj1srDgmMNs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789499333; v=1; x=1790104133;
- b=uDCeocEoM3X7f4bx5GbMkErpIZZcWNTiALHwK3gxYdtG5SQbKwoN2HvC7gQP0einLH7x+vPA
- 28asMCIMr8IsCf2BH/ulWt9J0dcm+by2QpCjodBQrcDGDze/a51BrasWNHKl0Xw36cPSLvYK/jn
- AKbHs4ECIxXAwRRk6RscYiu0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 15aa06455678b3d5;
-	Tue, 15 Sep 2026 19:08:53 +0000
-X-Mizu-Trace-ID: 15aa06455678b3d5
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6e00e449-6525-4200-bcac-ffb696204208@linux.dev>
-Date: Tue, 15 Sep 2026 20:31:52 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jcXIQ846"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D991F000FF;
+	Tue, 15 Sep 2026 19:08:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789499339;
+	bh=VZZahkEZsCL+PKrtdWoz/s9J6Xm9ti56DGFksMB3RZ0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jcXIQ846u0hD7cbVyrKnMTnF0o+5Smg3LWqn7qScZs0K5FP3b7hrYW5iyPz6/hHy8
+	 pIGA5/OO8CSjXbGF5KVCIJo/TqDy0Pb8Gv9n8dMn2nSOnpbJjUqi4kmO3VvuXhCniG
+	 Ok6H9QNm/qdFKYX8jVMaZHL6sAk9Afa2AYVzXXjPce3Nf5jn6F/PfWA7IzDGu0IN2x
+	 GXYpnHU5l/6R2wZ7Agfw3267vwFTiBvNXutn5JonSgsLEU39ICjePxlgKJSoPSWBur
+	 khQzwDROQ+E6PmicA6lByW9Jmh0ehelZPIGPD4iZVhp4PAxe1aX2g4KPN9BOb3/9s6
+	 42VYlluwxsC6w==
+Date: Tue, 15 Sep 2026 14:08:58 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Jitao shi <jitao.shi@mediatek.com>, Simona Vetter <simona@ffwll.ch>,
+	Philipp Zabel <p.zabel@pengutronix.de>, CK Hu <ck.hu@mediatek.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	linux-mediatek@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Ripard <mripard@kernel.org>
+Subject: Re: [PATCH RESEND v2] dt-bindings: mediatek: hdmi-ddc: Correct the
+ compatibles for mt7623-mt8167
+Message-ID: <178949933645.3018579.8198387236458743112.robh@kernel.org>
+References: <20260908184125.10916-1-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] soundwire: allow drivers to check whether the
- peripheral is present
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
-Cc: vinod.koul@linaro.org, linux-kernel@vger.kernel.org,
- peter.ujfalusi@linux.intel.com, bard.liao@intel.com,
- linux-sound@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
- tiwai@suse.de
-References: <20260915131327.1783551-1-yung-chuan.liao@linux.intel.com>
- <20260915131327.1783551-2-yung-chuan.liao@linux.intel.com>
- <f1f14def-8b2f-4b55-89fd-65f1e35d48a8@intel.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <f1f14def-8b2f-4b55-89fd-65f1e35d48a8@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908184125.10916-1-l.scorcia@gmail.com>
 
-On 9/15/26 19:32, Cezary Rojewski wrote:
-> On 9/15/2026 3:13 PM, Bard Liao wrote:
->> A ghost peripheral may be listed in the ACPI table and we want to skip
->> it. Add enumeration_complete and is_present in struct sdw_bus{} allow
->> the driver to wait and check whether a peripheral is present.
->>
->> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
->> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
->> ---
->>  drivers/soundwire/bus.c       | 7 +++++++
->>  include/linux/soundwire/sdw.h | 5 +++++
->>  2 files changed, 12 insertions(+)
->>
->> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
->> index aeaae5a57c89..b49864ca683a 100644
->> --- a/drivers/soundwire/bus.c
->> +++ b/drivers/soundwire/bus.c
->> @@ -161,7 +161,13 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
->>  	bus->params.curr_dr_freq = bus->params.max_dr_freq;
->>  	bus->params.curr_bank = SDW_BANK0;
->>  	bus->params.next_bank = SDW_BANK1;
->> +	/*
->> +	 * Set is_present = true by default. It will be set to false when no peripherals
->> +	 * are attached on the bus.
->> +	 */
->> +	bus->is_present = true;
-> 
-> Does the approach permit existence of non-ghost, SDW master instance
-> with no codecs attached?
 
-Also wondering how the 'mockup' codecs would be handled? That's very
-useful to test a manager with no actual codecs attached.
+On Tue, 08 Sep 2026 20:41:05 +0200, Luca Leonardo Scorcia wrote:
+> The HDMI DDC driver for both mt7623 and mt8167 is actually the same as
+> mt8173-hdmi-ddc and the mt7623n.dtsi board include file already uses
+> mt8173-hdmi-ddc compatible as a fallback, but the documentation lists
+> them as separate entries. Correct the binding by adding the correct
+> fallback.
 > 
->> +	init_completion(&bus->enumeration_complete);
->>  	return 0;
->>  }
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+> Fixes the following dtbs_check error in mt7623n-rfb-emmc.dts and
+> mt7623n-bananapi-bpi-r2.dts:
+> 
+> i2c@11013000 (mediatek,mt7623-hdmi-ddc): compatible:
+>   ['mediatek,mt7623-hdmi-ddc', 'mediatek,mt8173-hdmi-ddc'] is too long
+> 
+>  .../bindings/display/mediatek/mediatek,hdmi-ddc.yaml  | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+
+Applied, thanks!
 
