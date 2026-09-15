@@ -1,313 +1,195 @@
-Received: from mail-pz2-f18.google.com (mail-pz2-f18.google.com [74.125.228.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1C54A43EE
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3416338B7D7
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:55:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484159; cv=none; b=DAra866RdMIkhCCSU4H2rJUKAy5CBNm/U72FYuBNOu3QmVFnTtwyZ97yB8lXi/7S6uPLRp/UZbn/f3GVcebyH9FybWfx/pTwPAMAzbuq6ro2EI9aEzrc+SIz5SfqVCgAr3sb9cc6v6OtWzBXtJQMLYEUa7hvqh6ToNeSu9kmhRs=
+	t=1789484156; cv=none; b=mJOCyC9S9Bgw6g7HnUtdtnHIH1gMm/CrmyAta+mv770xwcdKhHXrdkTjJ2eDs3O+g7QRXU1MU26HRsiqLDhxK7hB61BnDEpCMiO2kXa56k1NJz/x22ynUONv+2DIl4+sFT0w7ab6IwRLWzLNDU7Pb3Czqex5b3bSvNDDp3c2iVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484159; c=relaxed/simple;
-	bh=OspN7MKSFmprrrS2PxdNlMmUOibbtdADDRJnLjEgeMQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jXUiVNRlzA88n37EtqKE0kmDK8/CwsqC3kdBxmaPJSKlm06E7bNK4mablZUCL+H+eRwv7zt9b/Ybrndh2yiXszWz72sReCFLVXK8zbyZmXYoKkg+FjUtUq706E9XIYeEGeoK1U4VcdQMUEiF5gmarChvm/1OiJ8Qnp3ozWglG88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TNx/f90D; arc=none smtp.client-ip=74.125.228.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789484156; c=relaxed/simple;
+	bh=OAIWvnwmICuBxHXGlAIYQnLGb3R6ioDPKRlYrZ3h8Fo=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=oamDwRm8+O8Nj9EjgNY1rvLkVLH2LVbL8b7AuJtFE1bVr9DbGhzb5AAqB0f30if3/JJZO0ADlXh/nn8yLGUKNoyOx9wchz/KNNEr9/F5RFokyxBNuH7QG3+kxFXhNaveHnUA6YnRMkJVLaDAh6iN6hkUA4TKdPHHacFwu9PhUNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CL50tm3D; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TNx/f90D"
-Received: by mail-pz2-f18.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso3117273a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:55:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789484143; x=1790088943; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dMa7SuymF3JpSxZj/WgqSEvagr3KGVZWyIDh4Tap88k=;
-        b=TNx/f90DMqIuNKVKnKHS5oCTbdnZ4W8i0bJGvDq8ggz2+Gariop3eieBTLSL6hQSzb
-         QHhaca+RLfM13+VFB8PnRdhxcsGG2sh5XBovXTv5BKS66Qi9hYd+P3PbYYMb92ULN9go
-         qydPvcPRJDiJG6OQtgcDrALriBoDSm9y5ODQECRMsPKs9uEXg15z1r6ZNz4JFW126FkI
-         oREcQMGlZ22nJsxMSXTTZVFKPEUEYRCpBJhb+z8MHRNtb2gCrFaN9f9edQrXz+e/JjYG
-         66Zy070a8h44YznJv7PSWTxxVcBXDK40DTGQ7KLQJVpPEFZtyoAQ/MWyMdYM1WpJqvH3
-         bXmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484143; x=1790088943;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dMa7SuymF3JpSxZj/WgqSEvagr3KGVZWyIDh4Tap88k=;
-        b=h91tTx4GYCBFRbT6WR/dDfXafivXjpIPXqPc4GLUg0SjYLFGVern9iKUOht2RbQp8B
-         5PrOcpR7PZoM0DDQ8eb6vqvo3PiQFGgUe0nmSDxgbvuxHn0Q9NfZIfdbH1jwSMoCXqdZ
-         qTjEpqeBZBykiQpVTdPpjdFRAhF510LR4P05qdJtUl2MyOqGmY/8iWlETIrvtt5ame2p
-         oCXi7LKf/TAdUHS3yB7VFRKEzSHkowJJLz+cKJHY93gmrgjYeDU3AEqRwG/JVoG3MJkh
-         eR6i4tK3EsUMnKRwm5aE7JvvXrHXyej+scxV2YlOoe0egfutWxK6vFDNYBvr+M4VI0ga
-         /Zaw==
-X-Forwarded-Encrypted: i=1; AKwUvBw/xlXCY2Z4w4Lm4rvhY0pXrCplglGyjr9jVZu8XAKX0MQ+eNgT5Jcw7ospQIqCPNmPIZn13ToK0X9BvB4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyI9L+ig/CklNloFhEaQ6hTKi8J0y9oa6ReW2yh01/EP6Z1IDY
-	OoXN2UW7a6Rm0ZbEYp+veovnoSZsjU52bEkk+SkQd00WW99YcePvsWh0
-X-Gm-Gg: AYBFou3F1kr3MMujhYox1t6Uuvx2CzV9hAkCD6mb5hEBQYstAesmHMrxGA7cPlpnNkR
-	9gZCFdmh6cvQA7llOLeHSW6AmTuQfIB1CLcUDR/WQA8m1BWirBHzQhWajJbZqOmJZS2mCLqCX0G
-	FmycCLCdTNrZ2Fst976Cz0MVvXQ0LuF7UZ9xxKSrzi9X17zz9lH2/kmkuUa3xaTPlz4NcV8mpGR
-	A2VuqEj806GSUVkD4GEGmkxbrdRWrgj+riQSiD0gxC1EzfajCEf3mKvobBCQy25OhMBz1i63LME
-	2/u/2E2ITfRfGScb18ma+jBmDTGfrkPkS/abZ4t7OrzOVw/LXXSKQ1Bt8UWE40pRImiCaQxP+gs
-	m1DyBprBVYamIgB4exhxhf+vEFgZHrA5og8iO8sdhn1HXcauv4Ued8hbCr0VPeJaSHCaAa9VTef
-	sTdYf6HaX+rYiXgK1IKUmRaaAQx16TW+s93n6XcM7oqN/DqFuHG4/qkI4uMcvil7JHFAyP+gPfP
-	Y+7hoLb6hoFDKbuRt9eoRFTedeVDwg0i5cHVu/Ry2i1qxL8b0i9+etiTJHbbBjSOLUfc8J05apY
-	DmXH/NFL257sjW6YX2q2
-X-Received: by 2002:a05:6a20:6f07:b0:3b4:7e2d:a3c2 with SMTP id adf61e73a8af0-3db4053d971mr16732114637.18.1789484142880;
-        Tue, 15 Sep 2026 07:55:42 -0700 (PDT)
-Received: from NV-9MNJ414.tailae2068.ts.net (2001-b011-2005-787e-21e6-43b5-0185-f167.dynamic-ip6.hinet.net. [2001:b011:2005:787e:21e6:43b5:185:f167])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50ab50d67sm44722a12.6.2026.09.15.07.55.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:55:42 -0700 (PDT)
-From: Yiwei Lin <s921975628@gmail.com>
-To: alim.akhtar@samsung.com,
-	avri.altman@sandisk.com,
-	bvanassche@acm.org
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robelin <robelin@nvidia.com>,
-	Yiwei Lin <s921975628@gmail.com>
-Subject: [PATCH v2] ufs: sysfs: fix current_power_mode read without SSU
-Date: Tue, 15 Sep 2026 22:55:34 +0800
-Message-Id: <20260915145534.8517-1-s921975628@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CL50tm3D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789484149; x=1821020149;
+  h=date:from:to:cc:subject:message-id;
+  bh=OAIWvnwmICuBxHXGlAIYQnLGb3R6ioDPKRlYrZ3h8Fo=;
+  b=CL50tm3DwrJwC6jeU+AMx/JW/WrQO5SDkv01aKZ5wJjFfC/uTH8dsCB8
+   zyOn2iYuYu3d35PTakT181DV8y8Eq+eUDRhf4aLiCNHkC/z9/koSu8jDQ
+   nY3UpQWIPK/PRixLgyF8q8bE9LN0AsKMUiM7iYry2/yklhXNyor5rR1Tr
+   bmi1HGzSgjlYUBi7RLbynNEZyUEEK0FsNJFm54TUdFftqFDcA8xzxRzKR
+   DqzSN2Dv3SkPEMmRklbXhEr0zYjuVgOntKYFlxCEaAlErEVbkfw6PcyHB
+   oCbmc6bDpuq0YruhodlhgG84N1tAhOkrPdIhQePVeEShdWInPfB0jU7Cw
+   g==;
+X-CSE-ConnectionGUID: JuwmRovIQzC3rTcXH8d5qQ==
+X-CSE-MsgGUID: Awzj/ZhOSvKOSfpwnvO+QA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101002083"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="101002083"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:55:46 -0700
+X-CSE-ConnectionGUID: fwCPZFJ7Try2uKlYo0vFhQ==
+X-CSE-MsgGUID: 3fHAvh4ERzuqX7qeDa8O/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="270413373"
+Received: from igk-lkp-server01.igk.intel.com (HELO 71151d66d536) ([10.211.93.152])
+  by fmviesa008.fm.intel.com with ESMTP; 15 Sep 2026 07:55:43 -0700
+Received: from kbuild by 71151d66d536 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x6UZR-000000000db-02E0;
+	Tue, 15 Sep 2026 14:55:41 +0000
+Date: Tue, 15 Sep 2026 16:54:53 +0200
+From: kernel test robot <lkp@intel.com>
+To: Lohita Mudimela <lohita.mudimela@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Robin Chen <robin.chen@amd.com>, Ivan Lipski <ivan.lipski@amd.com>
+Subject: 
+ drivers/gpu/drm/amd/display/modules/power/power_replay.c:693:80-85: WARNING:
+ conversion to bool not needed here
+Message-ID: <202609151622.vbDLWOBV-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: robelin <robelin@nvidia.com>
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   587858367581b9c55c3690f4e63382ad622719d4
+commit: d7e41c6f513ef59e890d9fb34a2631fdf6d87789 drm/amd/display: Refactor Replay functionality into dedicated power_replay module
+date:   4 months ago
+config: x86_64-randconfig-103-20260911 (https://download.01.org/0day-ci/archive/20260915/202609151622.vbDLWOBV-lkp@intel.com/config)
+compiler: gcc-13 (Debian 13.3.0-16) 13.3.0
 
-current_power_mode was generated by UFS_ATTRIBUTE(), which calls
-ufshcd_rpm_get_sync() before issuing the query.  That resumes the UFS
-device WLUN, and ufshcd_wl_runtime_resume() sends START STOP UNIT to
-bring the device back to Active.  As a result bCurrentPowerMode always
-read back as 0x11 (Active) no matter what state the device was actually
-in: the act of reading the attribute woke the device, so Sleep could
-never be observed through sysfs.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: d7e41c6f513e ("drm/amd/display: Refactor Replay functionality into dedicated power_replay module")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609151622.vbDLWOBV-lkp@intel.com/
 
-Per the UFS spec, bCurrentPowerMode is the one attribute the device
-must answer in any power mode, so there is no need to wake it.  Give
-current_power_mode its own show function that deliberately does not
-resume the WLUN.  It only resumes the host controller then reads the
-attribute over whatever link state the WLUN suspend left behind:
+cocci warnings: (new ones prefixed by >>)
+>> drivers/gpu/drm/amd/display/modules/power/power_replay.c:693:80-85: WARNING: conversion to bool not needed here
 
- - link active: query directly.
- - link in Hibern8: exit Hibern8, query, then re-enter Hibern8 so the
-   link is left exactly as rpm_lvl requested.
- - device powered down or link off (rpm_lvl 4/5/6): fail, the device
-   cannot answer without a full resume.
+vim +693 drivers/gpu/drm/amd/display/modules/power/power_replay.c
 
-Tested on hardware: with the device runtime-suspended (wb_on=0, so the
-device actually reaches Sleep instead of being held Active for a WB
-flush), reading current_power_mode used to return 0x11; after this
-change it returns 0x22 (Sleep), matching the device's real state.
+   622	
+   623	bool mod_power_set_replay_event(struct mod_power *mod_power,
+   624		struct dc_stream_state *stream, bool set_event,
+   625		enum replay_event event, bool wait_for_disable)
+   626	{
+   627		struct core_power *core_power = NULL;
+   628		struct dc_link *link = NULL;
+   629		unsigned int stream_index = 0;
+   630		unsigned int active_replay_events = 0;
+   631		bool replay_active_request = false;
+   632		bool force_static = false;
+   633		uint32_t coasting_vtotal = 0;
+   634		bool current_timing_sync_status = false;
+   635		bool is_full_screen_video = false;
+   636		bool is_ultra_sleep_mode = false;
+   637		unsigned int sink_duration_us = 0;
+   638		bool low_rr_active = false;
+   639		uint16_t frame_skip_number = 0;
+   640		bool is_video_playback = false;
+   641	
+   642		if (!stream)
+   643			return false;
+   644	
+   645		if (mod_power == NULL)
+   646			return false;
+   647	
+   648		core_power = MOD_POWER_TO_CORE(mod_power);
+   649	
+   650		if (core_power->num_entities == 0)
+   651			return false;
+   652	
+   653		stream_index = map_index_from_stream(core_power, stream);
+   654	
+   655		if (set_event)
+   656			core_power->map[stream_index].replay_events |= event;
+   657		else
+   658			core_power->map[stream_index].replay_events &= ~event;
+   659	
+   660		link = dc_stream_get_link(stream);
+   661		if (!link || !link->replay_settings.replay_feature_enabled)
+   662			return false;
+   663	
+   664		if ((core_power->map[stream_index].replay_events & replay_event_disable_replay_while_switching_mux) != 0)
+   665			return false;
+   666	
+   667		if ((core_power->map[stream_index].replay_events & replay_event_os_override_hold) != 0)
+   668			return false;
+   669	
+   670		active_replay_events = core_power->map[stream_index].replay_events;
+   671	
+   672		current_timing_sync_status =
+   673			link->replay_settings.config.replay_timing_sync_supported;
+   674	
+   675		replay_active_request = mod_power_update_replay_active_status(active_replay_events,
+   676			link, &coasting_vtotal, &is_full_screen_video, &is_ultra_sleep_mode, &frame_skip_number, &is_video_playback);
+   677	
+   678		if (is_full_screen_video)
+   679			mod_power_replay_set_pseudo_vtotal(mod_power, stream,
+   680				link->replay_settings.low_rr_full_screen_video_pseudo_vtotal);
+   681		else
+   682			mod_power_replay_set_pseudo_vtotal(mod_power, stream, 0);
+   683	
+   684		//If timing_sync_status change, then re-enabled set timing_sync_supported value and re-enabled replay
+   685		if (current_timing_sync_status != link->replay_settings.config.replay_timing_sync_supported)
+   686			mod_power_replay_set_timing_sync_supported(mod_power, stream);
+   687	
+   688		if (link->replay_settings.config.low_rr_supported) {
+   689			sink_duration_us =
+   690				(unsigned int)(div_u64(((unsigned long long)(coasting_vtotal)
+   691					* 10000) * stream->timing.h_total,
+   692						stream->timing.pix_clk_100hz));
+ > 693			low_rr_active = sink_duration_us < LOW_REFRESH_RATE_DURATION_US_UPPER_BOUND ? false : true;
+   694			if (low_rr_active != link->replay_settings.config.low_rr_activated) {
+   695				mod_power_set_low_rr_activate(mod_power, stream, low_rr_active);
+   696				link->replay_settings.config.low_rr_activated = low_rr_active;
+   697			}
+   698		}
+   699	
+   700		// The function return fail when
+   701		// 1. DMUB function is not support (for backward compatible).
+   702		// 2. active_replay_events or coasting_vtotal is not updated in the same time
+   703		if (!mod_power_replay_set_power_opt_and_coasting_vtotal(mod_power,
+   704			stream, active_replay_events, coasting_vtotal, is_ultra_sleep_mode, frame_skip_number)) {
+   705			if (!mod_power_replay_set_power_opt(mod_power, stream, active_replay_events, is_ultra_sleep_mode))
+   706				return false;
+   707	
+   708			if (!mod_power_replay_set_coasting_vtotal(mod_power, stream, coasting_vtotal, frame_skip_number))
+   709				return false;
+   710		}
+   711	
+   712		mod_power_set_live_capture_with_cvt_activate(mod_power, stream, is_video_playback);
+   713	
+   714		mod_power_update_error_status(mod_power, stream);
+   715	
+   716		// If Replay is going to be enable (No matter is disable -> enable or enable -> enable), we don't need to wait.
+   717		// If Replay is going to be disable
+   718		//     if disable -> disable
+   719		//         -> Replay DMUB state should be state 0.
+   720		//            So no matter wait_for_disable is true or not, it should makes no difference.
+   721		//     if enable -> disable -> We should wait if wait_for_disable is true.
+   722		if (replay_active_request)
+   723			wait_for_disable = false;
+   724	
+   725		if (!mod_power_set_replay_active(stream, replay_active_request, wait_for_disable, force_static))
+   726			return false;
+   727	
+   728		return true;
+   729	}
+   730	
 
-Assisted-by: LLM
-Signed-off-by: Yiwei Lin <s921975628@gmail.com>
-
----
-Change-Logs in V2:
-- Synchonize the race between WLUN suspend/resume and other contexts
-  that change the link power state.
-- Restore UFS link if exiting Hibern8 for the query, then re-enter Hibern8 so the link   is left exactly as rpm_lvl requested.
-
----
- drivers/ufs/core/ufs-sysfs.c   | 74 +++++++++++++++++++++++++++++++++-
- drivers/ufs/core/ufshcd-priv.h | 11 +++++
- drivers/ufs/core/ufshcd.c      | 12 +++---
- include/ufs/ufshcd.h           |  3 ++
- 4 files changed, 94 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/ufs/core/ufs-sysfs.c b/drivers/ufs/core/ufs-sysfs.c
-index 63e670d1a9d9e..a500ca697e5d3 100644
---- a/drivers/ufs/core/ufs-sysfs.c
-+++ b/drivers/ufs/core/ufs-sysfs.c
-@@ -1786,7 +1786,79 @@ out:									\
- static DEVICE_ATTR_RO(_name)
- 
- UFS_ATTRIBUTE(boot_lun_enabled, _BOOT_LU_EN);
--UFS_ATTRIBUTE(current_power_mode, _POWER_MODE);
-+
-+/*
-+ * Per UFS spec, bCurrentPowerMode is the only attribute the device must
-+ * respond to in any power mode.  Read it without waking the device to
-+ * Active.
-+ */
-+static ssize_t current_power_mode_show(struct device *dev,
-+	struct device_attribute *attr, char *buf)
-+{
-+	struct ufs_hba *hba = dev_get_drvdata(dev);
-+	bool exited_h8 = false;
-+	u32 value;
-+	int ret = 0;
-+
-+	down(&hba->host_sem);
-+	if (!ufshcd_is_user_access_allowed(hba)) {
-+		ret = -EBUSY;
-+		goto out_unlock;
-+	}
-+
-+	pm_runtime_get_sync(hba->dev);
-+
-+	ufshcd_hold(hba);
-+	scoped_guard(ufshcd_wl_pm, hba) {
-+		if (ufshcd_is_link_off(hba) || ufshcd_is_ufs_dev_poweroff(hba)) {
-+			/*
-+			 * Device is powered down (rpm_lvl 4/5) or link is off
-+			 * (rpm_lvl 5/6): nothing to query until a full resume.
-+			 */
-+			ret = -EINVAL;
-+			break;
-+		}
-+
-+		if (ufshcd_is_link_hibern8(hba)) {
-+			ret = ufshcd_uic_hibern8_exit(hba);
-+			if (ret) {
-+				dev_err(hba->dev, "%s: hibern8 exit failed %d\n",
-+					__func__, ret);
-+				break;
-+			}
-+			ufshcd_set_link_active(hba);
-+			exited_h8 = true;
-+		}
-+
-+		ret = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_READ_ATTR,
-+			QUERY_ATTR_IDN_POWER_MODE, 0, 0, &value);
-+
-+		if (exited_h8) {
-+			int h8_ret = ufshcd_uic_hibern8_enter(hba);
-+
-+			if (h8_ret) {
-+				dev_err(hba->dev, "%s: hibern8 enter failed %d\n",
-+					__func__, h8_ret);
-+				ret = h8_ret;
-+			} else {
-+				ufshcd_set_link_hibern8(hba);
-+			}
-+		}
-+	}
-+	ufshcd_release(hba);
-+	pm_runtime_put_sync(hba->dev);
-+
-+	if (!ret)
-+		ret = sysfs_emit(buf, "0x%08X\n", value);
-+	else
-+		ret = -EINVAL;
-+
-+out_unlock:
-+	up(&hba->host_sem);
-+	return ret;
-+}
-+static DEVICE_ATTR_RO(current_power_mode);
-+
- UFS_ATTRIBUTE(active_icc_level, _ACTIVE_ICC_LVL);
- UFS_ATTRIBUTE(ooo_data_enabled, _OOO_DATA_EN);
- UFS_ATTRIBUTE(bkops_status, _BKOPS_STATUS);
-diff --git a/drivers/ufs/core/ufshcd-priv.h b/drivers/ufs/core/ufshcd-priv.h
-index e55c2a02c1f50..df61074843f06 100644
---- a/drivers/ufs/core/ufshcd-priv.h
-+++ b/drivers/ufs/core/ufshcd-priv.h
-@@ -3,6 +3,7 @@
- #ifndef _UFSHCD_PRIV_H_
- #define _UFSHCD_PRIV_H_
- 
-+#include <linux/cleanup.h>
- #include <linux/pm_runtime.h>
- #include <ufs/ufshcd.h>
- 
-@@ -15,6 +16,16 @@ static inline bool ufshcd_is_user_access_allowed(struct ufs_hba *hba)
- 
- void ufshcd_schedule_eh_work(struct ufs_hba *hba);
- 
-+DEFINE_LOCK_GUARD_1(ufshcd_wl_pm, struct ufs_hba,
-+	({
-+		mutex_lock(&_T->lock->wl_pm_mutex);
-+		_T->lock->pm_op_in_progress = true;
-+	}),
-+	({
-+		_T->lock->pm_op_in_progress = false;
-+		mutex_unlock(&_T->lock->wl_pm_mutex);
-+	}))
-+
- static inline bool ufshcd_keep_autobkops_enabled_except_suspend(
- 							struct ufs_hba *hba)
- {
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 2ba244cf40ac7..7431c0ae9ce74 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -10294,7 +10294,8 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 	enum ufs_dev_pwr_mode req_dev_pwr_mode;
- 	enum uic_link_state req_link_state;
- 
--	hba->pm_op_in_progress = true;
-+	guard(ufshcd_wl_pm)(hba);
-+
- 	if (pm_op != UFS_SHUTDOWN_PM) {
- 		pm_lvl = pm_op == UFS_RUNTIME_PM ?
- 			 hba->rpm_lvl : hba->spm_lvl;
-@@ -10467,7 +10468,6 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 		hba->clk_gating.is_suspended = false;
- 		ufshcd_release(hba);
- 	}
--	hba->pm_op_in_progress = false;
- 	return ret;
- }
- 
-@@ -10475,9 +10475,11 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- {
- 	int ret;
--	enum uic_link_state old_link_state = hba->uic_link_state;
-+	enum uic_link_state old_link_state;
-+
-+	guard(ufshcd_wl_pm)(hba);
- 
--	hba->pm_op_in_progress = true;
-+	old_link_state = hba->uic_link_state;
- 
- 	/*
- 	 * Call vendor specific resume callback. As these callbacks may access
-@@ -10568,7 +10570,6 @@ static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 		ufshcd_update_evt_hist(hba, UFS_EVT_WL_RES_ERR, (u32)ret);
- 	hba->clk_gating.is_suspended = false;
- 	ufshcd_release(hba);
--	hba->pm_op_in_progress = false;
- 	return ret;
- }
- 
-@@ -11256,6 +11257,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
- 	INIT_WORK(&hba->eeh_work, ufshcd_exception_event_handler);
- 
- 	sema_init(&hba->host_sem, 1);
-+	mutex_init(&hba->wl_pm_mutex);
- 
- 	/* Initialize UIC command mutex */
- 	mutex_init(&hba->uic_cmd_mutex);
-diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
-index dfd302f2dc7c1..ac7da4bd260cb 100644
---- a/include/ufs/ufshcd.h
-+++ b/include/ufs/ufshcd.h
-@@ -1010,6 +1010,8 @@ enum ufshcd_mcq_opr {
-  * @is_powered: flag to check if HBA is powered
-  * @shutting_down: flag to check if shutdown has been invoked
-  * @host_sem: semaphore used to serialize concurrent contexts
-+ * @wl_pm_mutex: serializes WLUN suspend/resume against other contexts that
-+ *	change the link power state while the WLUN may be suspended
-  * @eh_wq: Workqueue that eh_work works on
-  * @eh_work: Worker to handle UFS errors that require s/w attention
-  * @eeh_work: Worker to handle exception events
-@@ -1176,6 +1178,7 @@ struct ufs_hba {
- 	bool is_powered;
- 	bool shutting_down;
- 	struct semaphore host_sem;
-+	struct mutex wl_pm_mutex;
- 
- 	/* Work Queues */
- 	struct workqueue_struct *eh_wq;
--- 
-2.34.1
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
