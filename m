@@ -1,52 +1,52 @@
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6542438D404
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBA838D404
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436333; cv=none; b=M3rT5siVOPVWl5j7unbkPWKKtr/jD/6cMtmazDMAY8XtHU3m0gOsFRMYmtVkCEG1kDpoUho4Fv1FhqTq392nomVBYUmEJXj4ok8o1/P4D9w6FlURUOvgQh9R7ylQ3MWPrg4LYK5uOa9C5nbGmp2YmJBbZNv8MJpqF8oT8WrACk4=
+	t=1789436337; cv=none; b=PsmLa5HJkSIExwSxSNATe5upw2GYSCsFNCmaSFbbMZEWyx71o+mU7lMIOGEndSdRG4jdyBtyzGcTM52oxaYSbyTC9nfZcaNCngaC0DHqx958CVTLVMJHYZFVLJWMB9RTWWDoi8sMpclOe4yuK66xlYG1cd8zDwqScaBQ3/AsG0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436333; c=relaxed/simple;
-	bh=QuBRdgWMM0aRwlb3Ji6Q1T7j0mF58GEjh1MmoCSJv0w=;
+	s=arc-20240116; t=1789436337; c=relaxed/simple;
+	bh=1vn0DaY2kbKlbIp3EOrtHjmIeCf+jv7cawCduavprtY=;
 	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=cO7uIbRZ1Fu58YYpMO21PNQz9fDpkl1z4q1Egy6N1KyXmIZ9fe//kd6Guit/8phLJCTNLHspWi9U2TiAO1vOsH/s2QF0IOdEkaxqEC5jH5CBU0xdgPV8umO6QtfbBCgVsm8H+b+rwC+AsxJjR2DPfV1wFzNhcVzSVjhFEsAUkxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
+	 Content-Type; b=cOXYpKacBjH5XU218ukkV7ibsqnDPtK/R+19Z/V6sdiSPCnB9VRtkk6kigJDbjLSAL1Rt1++s08O+MapEfDc2T/frbq8dNwdlAE48Wilg3rVEqoVNGLjHBxkn2mBpmJJpZpHaorxyqmriH4WDduPhMejpM15+2ZM8/TGb/fM6J0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-44899f99756so6187276fac.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:52 -0700 (PDT)
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c55ba309c2so3398357b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789436331; x=1790041131;
+        d=1e100.net; s=20260707; t=1789436335; x=1790041135;
         h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=+nMfenqqGmhzpT+KaQWMfl41wrXss7PdoL71bedTrOM=;
-        b=qOT7vej/2f0ptvJYkkkJ0T8Cdus4i1RRFPjijeVqKgfxOGTowsP1hhdRht7rKylJvF
-         WEvMdhSEWgP3mbt/bBtwChovFAUcQBAepNs8w0gw2G/aSoo7Nu/Ua0JyTa3dvWKi5nZ7
-         R1RGukecZoPCwDweeOQYg5fOkPWPBX4TYvTUcLZh8BZBBz7f+3GwpqFeHfo/vuqYOihK
-         BL68WWKppd/W4DQaZbqkGTCbsEoGtK2z7OhywRlbhiU//6eU5NABEpd8qfmx8DrrxqHf
-         7kE7jW+IKk9AQIVdMIrVcfaZYwqLZ1X+8/OyVAqDDmxZZFpLA1qAbXH/XXvKsDt7MB5G
-         JJIw==
-X-Gm-Message-State: AFuF++m5yPFy5W+8o7Nfug9wb47u7SVaeda8+DErk11pUEvF8267cppJ
-	pSQIBiiKcGGWKUpBK+DI4n1bBwI6kUlMo3OdnZHae2g+YYxv8/hHK18GOp6TS7oEmD4OSepsuXn
-	Hqhzp9aQkDoljqQBR0440eET6VVSZ8nDzt9/RQkg1+0LbNgFePIgN4Q4Xvuo=
+        bh=tusnWiUTm3IaD21wDWg99kpT4MI1Q/oO+wLnMenXcZg=;
+        b=SJyJENuM8/atFYVs9y6vFx+W7XKX+TqgwMeNsz8nti45LhHyYyO/UZcpigGMhD7ygS
+         0B5BmtoIqNcrQiev7qItRg6vIoQLdlzryyLlLiDw5qONecHlZqCJZjTA1wPx0gts90Az
+         BHOZ8h6JoGLL3V4euaUIKj4meTqB0roPXe6FJm9rqlsMSddrs/qU28jO3ywqdqHY82bF
+         uUPGOsWdmyJc5JdtT4yKinSOxo9iaTuNLwvJgzmOY3vdwAhiffrV5Uhc9wwyiZmjw2uX
+         zGaI1MCVqKwGH1KCP7axpH4jBV+on12OpOw7zd+dAvi0znOaSqOLIBT0lyeXg4k18upv
+         JwVQ==
+X-Gm-Message-State: AFuF++nhOjAAigShsfcK3oDFbz8Xb2EWiZj0mZ5w7gOTYGUsVTYJ2ZAA
+	DXYXK74wRJJ2MOo1XV6CAbZteC9AjKp/Zg94+U70W4FoN95e+DRvfoxi9OE5pcj8mPytVu1BJVw
+	APtqMb7d9joaTih3WsXQQKc+IMBbF5BQSidMqJ4B7gPcx5XanFco315bthf0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4de7:b0:6b7:8415:d78e with SMTP id
- 006d021491bc7-6c542734fb0mr2723271eaf.57.1789436331436; Mon, 14 Sep 2026
- 18:38:51 -0700 (PDT)
-Date: Mon, 14 Sep 2026 18:38:51 -0700
-In-Reply-To: <6aa4291e.f81106d8.2ab401.001e.GAE@google.com>
+X-Received: by 2002:a05:6820:20a:b0:6bd:c88c:982d with SMTP id
+ 006d021491bc7-6c53fe8437emr3080570eaf.24.1789436335101; Mon, 14 Sep 2026
+ 18:38:55 -0700 (PDT)
+Date: Mon, 14 Sep 2026 18:38:55 -0700
+In-Reply-To: <6a9ef807.2bb5a69c.24b23c.0007.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa8a1ab.f670cee1.72fc4.0022.GAE@google.com>
-Subject: Forwarded: [PATCH] KASAN: slab-use-after-free Read in v4l2_release (3)
-From: syzbot <syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com>
+Message-ID: <6aa8a1af.a211d2ce.1a5198.02a1.GAE@google.com>
+Subject: Forwarded: [PATCH] KASAN: vmalloc-out-of-bounds Read in rpc_queue_upcall
+From: syzbot <syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com>
 To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
@@ -55,109 +55,79 @@ linux-kernel@vger.kernel.org.
 
 ***
 
-Subject: [PATCH] KASAN: slab-use-after-free Read in v4l2_release (3)
+Subject: [PATCH] KASAN: vmalloc-out-of-bounds Read in rpc_queue_upcall
 Author: jchuang26@m.fudan.edu.cn
 
 #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Reported-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
+Reported-by: syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com
 
-diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
-index 09d8c5f8d..4da6ad1c3 100644
---- a/drivers/input/touchscreen/sur40.c
-+++ b/drivers/input/touchscreen/sur40.c
-@@ -647,6 +647,24 @@ static int sur40_input_setup_events(struct input_dev *input_dev)
- 	return 0;
- }
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index d513971fb..90d356e1f 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -647,6 +647,7 @@ struct cld_upcall {
+ 	struct list_head	 cu_list;
+ 	struct cld_net		*cu_net;
+ 	struct completion	 cu_done;
++	struct rpc_pipe_msg	 cu_msg;
+ 	union {
+ 		struct cld_msg_hdr	 cu_hdr;
+ 		struct cld_msg		 cu_msg;
+@@ -658,22 +659,22 @@ static int
+ __cld_pipe_upcall(struct rpc_pipe *pipe, void *cmsg, struct nfsd_net *nn)
+ {
+ 	int ret;
+-	struct rpc_pipe_msg msg;
+ 	struct cld_upcall *cup = container_of(cmsg, struct cld_upcall, cu_u);
++	struct rpc_pipe_msg *msg = &cup->cu_msg;
  
-+/*
-+ * Final cleanup of the driver state.  This runs through v4l2_device_put()
-+ * once the last reference to the v4l2_device is gone, i.e. after
-+ * video_unregister_device() and after every open file descriptor of the
-+ * video node has been closed.  Freeing sur40 earlier (for instance
-+ * directly in sur40_disconnect()) would let v4l2_release() access the
-+ * already freed video_device.
-+ */
-+static void sur40_v4l2_release(struct v4l2_device *v4l2_dev)
-+{
-+	struct sur40_state *sur40 = container_of(v4l2_dev, struct sur40_state, v4l2);
-+
-+	v4l2_device_unregister(&sur40->v4l2);
-+	v4l2_ctrl_handler_free(&sur40->hdl);
-+	kfree(sur40->bulk_in_buffer);
-+	kfree(sur40);
-+}
-+
- /* Check candidate USB interface. */
- static int sur40_probe(struct usb_interface *interface,
- 		       const struct usb_device_id *id)
-@@ -727,6 +745,7 @@ static int sur40_probe(struct usb_interface *interface,
+-	memset(&msg, 0, sizeof(msg));
+-	msg.data = cmsg;
+-	msg.len = nn->client_tracking_ops->msglen;
++	memset(msg, 0, sizeof(*msg));
++	msg->data = cmsg;
++	msg->len = nn->client_tracking_ops->msglen;
  
- 	/* register the video master device */
- 	snprintf(sur40->v4l2.name, sizeof(sur40->v4l2.name), "%s", DRIVER_LONG);
-+	sur40->v4l2.release = sur40_v4l2_release;
- 	error = v4l2_device_register(sur40->dev, &sur40->v4l2);
- 	if (error) {
- 		dev_err(&interface->dev,
-@@ -778,7 +797,6 @@ static int sur40_probe(struct usb_interface *interface,
- 	if (sur40->hdl.error) {
- 		dev_err(&interface->dev,
- 			"Unable to register video controls.");
--		v4l2_ctrl_handler_free(&sur40->hdl);
- 		error = sur40->hdl.error;
- 		goto err_unreg_v4l2;
- 	}
-@@ -787,7 +805,7 @@ static int sur40_probe(struct usb_interface *interface,
- 	if (error) {
- 		dev_err(&interface->dev,
- 			"Unable to register video subdevice.");
--		goto err_free_ctrl;
-+		goto err_unreg_v4l2;
+-	ret = rpc_queue_upcall(pipe, &msg);
++	ret = rpc_queue_upcall(pipe, msg);
+ 	if (ret < 0) {
+ 		goto out;
  	}
  
- 	/* register the polled input device */
-@@ -806,10 +824,17 @@ static int sur40_probe(struct usb_interface *interface,
+ 	wait_for_completion(&cup->cu_done);
  
- err_unreg_video:
- 	video_unregister_device(&sur40->vdev);
--err_free_ctrl:
--	v4l2_ctrl_handler_free(&sur40->hdl);
- err_unreg_v4l2:
--	v4l2_device_unregister(&sur40->v4l2);
-+	/*
-+	 * Drop the reference taken above by v4l2_device_register().  The
-+	 * last reference releases sur40 via sur40_v4l2_release(), which
-+	 * also frees the control handler and the bulk buffer.
-+	 */
-+	input_free_device(input);
-+	v4l2_device_put(&sur40->v4l2);
-+
-+	return error;
-+
- err_free_buffer:
- 	kfree(sur40->bulk_in_buffer);
- err_free_input:
-@@ -827,15 +852,19 @@ static void sur40_disconnect(struct usb_interface *interface)
- 
- 	input_unregister_device(sur40->input);
- 
--	v4l2_ctrl_handler_free(&sur40->hdl);
- 	video_unregister_device(&sur40->vdev);
- 	v4l2_device_unregister(&sur40->v4l2);
- 
--	kfree(sur40->bulk_in_buffer);
--	kfree(sur40);
--
- 	usb_set_intfdata(interface, NULL);
- 	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
-+
-+	/*
-+	 * Release the reference taken by v4l2_device_register().  If the
-+	 * video node is still open, sur40_v4l2_release() is deferred until
-+	 * the last file descriptor is closed, so sur40 stays valid for
-+	 * v4l2_release().
-+	 */
-+	v4l2_device_put(&sur40->v4l2);
+-	if (msg.errno < 0)
+-		ret = msg.errno;
++	if (msg->errno < 0)
++		ret = msg->errno;
+ out:
+ 	return ret;
  }
+@@ -806,7 +807,14 @@ cld_pipe_downcall(struct file *filp, const char __user *src, size_t mlen)
+ 	cup = NULL;
+ 	spin_lock(&cn->cn_lock);
+ 	list_for_each_entry(tmp, &cn->cn_list, cu_list) {
+-		if (get_unaligned(&tmp->cu_u.cu_hdr.cm_xid) == xid) {
++		/*
++		 * Only match upcalls that userspace has already read.
++		 * Otherwise the upcall's rpc_pipe_msg would still be queued
++		 * when the caller resumes and frees it, leaving a dangling
++		 * list entry that corrupts the next upcall queued here.
++		 */
++		if (get_unaligned(&tmp->cu_u.cu_hdr.cm_xid) == xid &&
++		    rpc_msg_is_inflight(&tmp->cu_msg)) {
+ 			cup = tmp;
+ 			if (status != -EINPROGRESS)
+ 				list_del_init(&cup->cu_list);
+@@ -834,9 +842,7 @@ cld_pipe_downcall(struct file *filp, const char __user *src, size_t mlen)
+ static void
+ cld_pipe_destroy_msg(struct rpc_pipe_msg *msg)
+ {
+-	struct cld_msg *cmsg = msg->data;
+-	struct cld_upcall *cup = container_of(cmsg, struct cld_upcall,
+-						 cu_u.cu_msg);
++	struct cld_upcall *cup = container_of(msg, struct cld_upcall, cu_msg);
  
- /*
+ 	/* errno >= 0 means we got a downcall */
+ 	if (msg->errno >= 0)
