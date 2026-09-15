@@ -1,172 +1,354 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319783F99F3
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE08E1AA1F4;
+	Tue, 15 Sep 2026 02:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789440582; cv=none; b=uAsW+wXYlaUiBj1SOeHTQjr4UjwUKqWWR6J2jyko6X5qpRE6MWKKQu5A56usrAhkwCctDfRH+DpyRt7Z+hYILiCaFA/9HA45kVUgq/5GjwUDaG5r26FE35E0tRvyfEs0beZZml9KsgL9yHsNmpLtWGCE3RtiuZZsw4prc1zIM/Q=
+	t=1789440635; cv=none; b=pHEVoTGNnQeO+wwcyuYm1zS1P4nuvrsN7uh4QWqPoTmp9Ba7hMh1IoE8ROPknWK22OD4/CisXt35VeiZOa2r820jkk34SwZHGmjPH96p5+hz1plULEQDTQD90E6nve/iWyI9rz3cVvtp91RoLur0CSxXH9xX1R6eDqX2eBTnR9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789440582; c=relaxed/simple;
-	bh=dZtJypvCQ3nH/VIpTSnun9IN+DGvbnyN1VglMN3CCUU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dsJgN/TJImtkmEdSTMlOMnK5p2Nvgcx80SnSWJvaS28x0aqIxr/IG8PSlAMLxIiBkcJVJ8fyE8lxBaOFNfb/Pk6BUuM3LSK8rzzVR6yHMkeHVhTwCD/z6XS5ENd2Y0uo7ijjBYkl7SEAiCQjhOgLfg3XlmREgPX3VsoiHOZ5XWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HXuWFaPr; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789440635; c=relaxed/simple;
+	bh=frh3ObrhjTVqNa6Jys6D7rvWIIWu8Y8eyUThhzNnUsk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mGQjveYf/QfBfJJ2cbQHJUDV0n5K/NlAl273mGchrLNw86qOuOtAYG/qFoIpr08mdfPjCbmV0fg1IucFwhanCrdXuNogx8MHU8Db6XzntJtnJ4/Jlgbfoml24XLBn4G/YUYKwzZX7IGzXOEdUeu3I7FTXk54YkC7TNRYplZXRFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=KbuzGd9I; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HXuWFaPr"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e56a1fe3fso2526713d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:49:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789440580; x=1790045380; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=98dR90gK+JQcg6XkR8TXqOD8Hf/WJSfb2StQiLmkr9w=;
-        b=HXuWFaPrDFOT61uL3BUEyVPWnZpfYxHhTSSLsjSpuM/avihwogZNbVmFdjqa2pv+W8
-         Bbet+fhjllD3p2jDlDCYZXv5CWo67kqwk1QSVa1MCXaS437lYRAlAifpysFXTtlWY3U/
-         WWzjSlpkzuQ1NXccv3QwZKt0PvufcTc8MqtKYqlumqHjjEC7KbDuyTuUDRKqCe+g/i/u
-         +lguDCciTAYHCikaO2CaczbgsHH/6Idhb9yaVf2ZwhPKyUG80FSf4Q/rfbxFjN+/caLb
-         hx97B59VpTpgjNvD2+BI0e/Wbe3J45bgprXX/Ww18yD7OaOL/LvdCV7hI/vReCBg+nY0
-         1/1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789440580; x=1790045380;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=98dR90gK+JQcg6XkR8TXqOD8Hf/WJSfb2StQiLmkr9w=;
-        b=mb0j1S9WPj4dmXqgZJYBNcvXKYP0Ek0YQTEL+qm26mneRxmqVUtKW+eWSyJXomzsnv
-         xzi5qz0g/GTNKBrTD8OsAjMHE/cqhdgmeCgtl9tCTOpvLG7Y42yG0C8KiOH6fQFfigKn
-         yl9g/pgSqffPpDQZQ6gbwj/JJOGsIG50SIMYvusOepCkNBF80IFZLycpCgzoVhFuIgiK
-         DDdTXaGHsyAMCfizbKx98Y+HWuWl+TngHtbyaMs0vm6Z4nVjyqrs39pThvaMtFTEFaAs
-         2sHPPmAtIeVAwBq/pi/jApv48V/lKRk2Acj9VIO/x0SgNri6C/rV/KxNH8vRsccABQM9
-         NT4A==
-X-Forwarded-Encrypted: i=1; AKwUvBwE2c4hn77d8731Ye+tRzgFnhkIZz1diFKJEwBr3DUoP2RpeBFG5XpkxwmepZNGTyYQH5inzxolWywVTPE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXeNWr310Cc9eCFToL5aWzy8mmlctWnB9crauWubi73T1dCGyx
-	UzIceFGEbQNaZ0t202wo26mcVxhDE44JnjCHJ2RvvMDGqvgpop3sijN2
-X-Gm-Gg: AYBFou3Rt4zRBj/o+P5Qjj7rUcHBgi/xbaos1qz1YSCwZvaYv0CNbPxndYCZ8K6h5L8
-	25bjeOTU5SOFX+Xe5JPuo/Uz5kkwQsU9esfA69tjXW3jFZRm0PuDI7AxtKaqKTu0H9emrW0nDVm
-	wD3osR0VXGsu2FtGgL4oq821zefg3wxdlgC5y0f7rA6dj/pIjSnBpCgoDJO/klAGGnVlg2FZzfK
-	q7HECWlPfzua39dglkKbyMX52Q5XJE/rmZOcDSXkoDqPYeoBNGGt8irOU1xOVhcDRgHmu9h2hLp
-	Hyp5zXPwseMF/KeNIjVnn7Ry2pIly486B1B8VtNPvmDvosXXPv9j3XrVMdl11gA85gO8rIho4ov
-	/wjF+3x1oROncsoXZbJS9WpSEWx2NWyYARJTO5wM6HqxKWixq7j0HBLhHZEQw2zH7QbiBbZ0H5k
-	YE6PLd96V4/9SdxNr6zQUt6nZTeASIkodIeXW4UF87FPFKgmmug7lhYQ==
-X-Received: by 2002:a05:690e:4882:10b0:66f:c1bc:4086 with SMTP id 956f58d0204a3-6714e07b20bmr1035977d50.73.1789440580062;
-        Mon, 14 Sep 2026 19:49:40 -0700 (PDT)
-Received: from gmail.com ([2600:1700:5431:250::3e])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125db3a05sm5345430d50.5.2026.09.14.19.49.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 19:49:39 -0700 (PDT)
-Date: Mon, 14 Sep 2026 19:49:36 -0700
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-Message-ID: <aqiyQOMGGIzu-91z@gmail.com>
-References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
- <20260912013912.51887-3-marcus.yu.56@gmail.com>
- <aqepkmQS_p6K1Bd6@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="KbuzGd9I"
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F2nRHf2218664;
+	Mon, 14 Sep 2026 19:50:26 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=fYczLW83hvbHqsKEdPQPC2z
+	sHwxX6g6KY7iIOGACx6A=; b=KbuzGd9I565l5dZOsds5ShlyyjG1Fy7hpaorPEe
+	gfr52AfD0+8NLwokBcILHuj2WcCqKWpRM8bixQyOSjUNnSYBwxOYQW3UyHU3ILh+
+	izRnCplUUVhVCB1MNM5E3Zvv1cIkL2RCpIQWBINVBVF9wJjK6UJuYb+nbjEdE3un
+	6oYA3EcDLuaaU75ywH5YY3a3daJN5xkSYE0ssaxdO3NZsvDW98LhYpdnD72yveY/
+	0l7yxlahPOoi2n+RdpAW20qFTWge9cfmTSMtYZ+JHeb6A30/G5Bjh4K9t3Q/1Bvy
+	DPjJ2UFVPDhrh5i97crQwbuIv/bJuBKWNh0mL4PT7/yaDNQ==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gpm9fjv3m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 19:50:25 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Mon, 14 Sep 2026 19:50:24 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Mon, 14 Sep 2026 19:50:24 -0700
+Received: from rkannoth-OptiPlex-7090.. (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with ESMTP id 5E2253F709B;
+	Mon, 14 Sep 2026 19:50:21 -0700 (PDT)
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+        <kuba@kernel.org>, <pabeni@redhat.com>, <sgoutham@marvell.com>,
+        Suman Ghosh
+	<sumang@marvell.com>,
+        Ratheesh Kannoth <rkannoth@marvell.com>
+Subject: [PATCH net-next] octeontx2-af: Add tracepoints for NPC MCAM entry programming
+Date: Tue, 15 Sep 2026 08:20:14 +0530
+Message-ID: <20260915025014.928685-1-rkannoth@marvell.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqepkmQS_p6K1Bd6@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Authority-Analysis: v=2.4 cv=VtS2kO2n c=1 sm=1 tr=0 ts=6aa8b271 cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=QXcCYyLzdtTjyudCfB6f:22 a=M5GUcnROAAAA:8 a=aXzhG4ZTir5nOSg0BBgA:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDAzNiBTYWx0ZWRfXz0NSa2ewg2yQ
+ w880oV3tubTtE1e2EhU8vQYXbKoUcLrRCJKzcPZ7TQvjLFKiIdVEp85sLl8rQDLnJqIrPUsS8DC
+ 1INbqXuxkNWxEWO+lcFt9i6pVkAJYFu0zOIBNPMGRKHAhTaYXWH0cNnzgLloXw+FStb2f5xdW08
+ uWxTcu7g0wWJhhUt+U+Qq98t7HvdBPOUq6J95mdaCWON4Xp9ebsIyG9uu5j4lGeZ4GL/rxDNw0G
+ ZDK6O7ossIR3CaweAROH1F+YejyRLiVszVuQ50wYLpgfd9jR+RTcVrG5RsUwYZql+wz4tYE1WJM
+ LHIjcDFbqehXD1+jmZRcuiMd+GVkttfZgeUXnilYFMh/Pk41HD4X4oQeHB1iXWFgRwAUKfgaffo
+ qaxTb9CV5PofjGX1v65BDRK2pVNrgqWBPuIjEyZiFUIMO+M0k1gtCQaT89n3wKWMj4+RYzzfdb/
+ ibcAyUT1/Zew2I4yJLw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDAzNiBTYWx0ZWRfX+UobVg8ijqWC
+ lgk37O/hyIdwg6Poz9Pw3q4lb+cflgxeigD8ViAGJcQUNQMVTOIvXWZChYwwu3szvP68YtwqfLk
+ SaLNA2O7XeP6slgF3zktacu1Hd0F4i8=
+X-Proofpoint-ORIG-GUID: wmD8qyzUxhLRIflomvoDA_YodIX69rkS
+X-Proofpoint-GUID: wmD8qyzUxhLRIflomvoDA_YodIX69rkS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_01,2026-09-14_02,2025-10-01_01
 
-On Mon, Sep 14, 2026 at 11:00:18AM +0300, Andy Shevchenko wrote:
-> On Fri, Sep 11, 2026 at 06:39:12PM -0700, Chang Yu wrote:
-> 
-> ...
-> 
-> > +static int as7343_setup_device(struct device *dev, struct as7343_data *data)
-> > +{
-> > +	struct regmap *map = data->regmap;
-> > +	unsigned int val;
-> > +	__le16 step;
-> > +	int ret;
-> > +
-> > +	/* Power on */
-> > +	ret = regmap_set_bits(map, AS7343_ENABLE, AS7343_ENABLE_PON);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* Need to set REG_BANK to 1 before we can access ID */
-> > +	ret = regmap_set_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = regmap_read(map, AS7343_ID, &val);
-> > +	if (ret)
-> > +		return ret;
-> 
-> > +	if (val != 0x81)
-> > +		dev_info(dev, "Unknown device ID: %x\n", val);
-> 
-> Wouldn't be better to define 0x81 with meaningful name?
-> 
+From: Suman Ghosh <sumang@marvell.com>
 
-If I remeber correctly Jonathan prefers just putting 0x81 inline. I'm
-OK with either style so I'll defer to the judgement to Jonathan here.
+Add ftrace events to observe NPC MCAM allocation, CAM keyword
+programming, action/VLAN tag writes, and entry enable/disable in the
+AF driver. Emit traces from npc_mcam_alloc_entries(),
+npc_config_mcam_entry(), npc_read_mcam_entry(), and
+npc_enable_mcam_entry() so live systems can correlate mailbox-driven
+rule changes with the underlying MCAM state.
 
-> > +	ret = regmap_clear_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* Configure the SMUX to readout all channels */
-> > +	ret = regmap_update_bits(map, AS7343_CFG20, AS7343_CFG20_AUTO_SMUX,
-> > +				 FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
-> > +					    AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* Set 50.1ms integration time and x256 gain for now */
-> > +	step = cpu_to_le16(AS7343_ASTEP_VAL);
-> > +	ret = regmap_bulk_write(map, AS7343_ASTEP, &step, sizeof(step));
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = regmap_write(map, AS7343_ATIME, AS7343_ATIME_VAL);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return regmap_update_bits(map, AS7343_CFG1, AS7343_CFG1_AGAIN,
-> > +				  FIELD_PREP(AS7343_CFG1_AGAIN,
-> > +					     AS7343_CFG1_AGAIN_X256));
-> > +}
-> 
-> ...
-> 
-> > +static int as7343_suspend(struct device *dev)
-> > +{
-> > +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-> > +	struct as7343_data *data = iio_priv(indio_dev);
-> > +	struct regmap *map = data->regmap;
-> 
-> > +	return regmap_clear_bits(map, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
-> 
-> Can this mess up the raw read? If so, also needs a mutex to be held.
-> 
+Signed-off-by: Suman Ghosh <sumang@marvell.com>
+Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
+---
+ .../ethernet/marvell/octeontx2/af/rvu_npc.c   | 46 +++++----
+ .../ethernet/marvell/octeontx2/af/rvu_trace.c |  4 +
+ .../ethernet/marvell/octeontx2/af/rvu_trace.h | 99 +++++++++++++++++++
+ 3 files changed, 131 insertions(+), 18 deletions(-)
 
-People familiar with runtime PM correct me if I'm wrong, but I believe
-PM_RUNTIME_ACQUIRE waits for any ongoing suspend callback to finish
-before returning? If so I think there is no risk of a race here. In
-the case of system suspend, worst case scenario SP_EN gets cleared
-before we read ASTATUS or the data register, which for my use case
-at least is OK since the entire system is suspending anyway.
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc.c
+index c34f8d86cc8a..ae373558975e 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc.c
+@@ -20,6 +20,7 @@
+ #include "rvu_npc.h"
+ #include "cn20k/reg.h"
+ #include "lmac_common.h"
++#include <rvu_trace.h>
+ 
+ #define RSVD_MCAM_ENTRIES_PER_PF	3 /* Broadcast, Promisc and AllMulticast */
+ #define RSVD_MCAM_ENTRIES_PER_NIXLF	1 /* Ucast for LFs */
+@@ -259,6 +260,7 @@ void npc_enable_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
+ 	int bank = npc_get_bank(mcam, index);
+ 	int actbank = bank;
+ 
++	trace_otx2_npc_enable_mcam_entry(index, (u8)enable);
+ 	if (is_cn20k(rvu->pdev)) {
+ 		if (npc_cn20k_enable_mcam_entry(rvu, blkaddr, index, enable))
+ 			dev_err(rvu->dev, "Error to %s mcam %u entry\n",
+@@ -521,10 +523,10 @@ static void npc_config_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
+ 				  struct mcam_entry *entry, bool enable)
+ {
+ 	int bank = npc_get_bank(mcam, index);
++	u64 w0_cam0, w0_cam1, w1_cam0, w1_cam1;
+ 	int kw = 0, actbank, actindex;
+ 	u8 tx_intf_mask = ~intf & 0x3;
+ 	u8 tx_intf = intf;
+-	u64 cam0, cam1;
+ 
+ 	actbank = bank; /* Save bank id, to set action later on */
+ 	actindex = index;
+@@ -561,17 +563,18 @@ static void npc_config_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
+ 			    tx_intf_mask);
+ 
+ 		/* Set the match key */
+-		npc_get_keyword(entry, kw, &cam0, &cam1);
++		npc_get_keyword(entry, kw, &w0_cam0, &w0_cam1);
+ 		rvu_write64(rvu, blkaddr,
+-			    NPC_AF_MCAMEX_BANKX_CAMX_W0(index, bank, 1), cam1);
++			    NPC_AF_MCAMEX_BANKX_CAMX_W0(index, bank, 1), w0_cam1);
+ 		rvu_write64(rvu, blkaddr,
+-			    NPC_AF_MCAMEX_BANKX_CAMX_W0(index, bank, 0), cam0);
++			    NPC_AF_MCAMEX_BANKX_CAMX_W0(index, bank, 0), w0_cam0);
+ 
+-		npc_get_keyword(entry, kw + 1, &cam0, &cam1);
++		npc_get_keyword(entry, kw + 1, &w1_cam0, &w1_cam1);
+ 		rvu_write64(rvu, blkaddr,
+-			    NPC_AF_MCAMEX_BANKX_CAMX_W1(index, bank, 1), cam1);
++			    NPC_AF_MCAMEX_BANKX_CAMX_W1(index, bank, 1), w1_cam1);
+ 		rvu_write64(rvu, blkaddr,
+-			    NPC_AF_MCAMEX_BANKX_CAMX_W1(index, bank, 0), cam0);
++			    NPC_AF_MCAMEX_BANKX_CAMX_W1(index, bank, 0), w1_cam0);
++		trace_otx2_npc_cam(index, bank, w0_cam0, w0_cam1, w1_cam0, w1_cam1);
+ 	}
+ 
+ 	/* PF installing VF rule */
+@@ -586,6 +589,8 @@ static void npc_config_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
+ 	rvu_write64(rvu, blkaddr, NPC_AF_MCAMEX_BANKX_TAG_ACT(index, actbank),
+ 		    entry->vtag_action);
+ 
++	trace_otx2_npc_action(index, actbank, tx_intf, (u8)enable,
++			      entry->action, entry->vtag_action);
+ 	/* Enable the entry */
+ 	if (enable)
+ 		npc_enable_mcam_entry(rvu, mcam, blkaddr, actindex, true);
+@@ -596,24 +601,25 @@ void npc_read_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
+ 			 struct mcam_entry *entry, u8 *intf, u8 *ena)
+ {
+ 	int sbank = npc_get_bank(mcam, src);
++	u64 w0_cam0, w0_cam1, w1_cam0, w1_cam1;
+ 	int bank, kw = 0;
+-	u64 cam0, cam1;
+ 
+ 	src &= (mcam->banksize - 1);
+ 	bank = sbank;
+ 
+ 	for (; bank < (sbank + mcam->banks_per_entry); bank++, kw = kw + 2) {
+-		cam1 = rvu_read64(rvu, blkaddr,
+-				  NPC_AF_MCAMEX_BANKX_CAMX_W0(src, bank, 1));
+-		cam0 = rvu_read64(rvu, blkaddr,
+-				  NPC_AF_MCAMEX_BANKX_CAMX_W0(src, bank, 0));
+-		npc_fill_entryword(entry, kw, cam0, cam1);
++		w0_cam1 = rvu_read64(rvu, blkaddr,
++				     NPC_AF_MCAMEX_BANKX_CAMX_W0(src, bank, 1));
++		w0_cam0 = rvu_read64(rvu, blkaddr,
++				     NPC_AF_MCAMEX_BANKX_CAMX_W0(src, bank, 0));
++		npc_fill_entryword(entry, kw, w0_cam0, w0_cam1);
+ 
+-		cam1 = rvu_read64(rvu, blkaddr,
+-				  NPC_AF_MCAMEX_BANKX_CAMX_W1(src, bank, 1));
+-		cam0 = rvu_read64(rvu, blkaddr,
+-				  NPC_AF_MCAMEX_BANKX_CAMX_W1(src, bank, 0));
+-		npc_fill_entryword(entry, kw + 1, cam0, cam1);
++		w1_cam1 = rvu_read64(rvu, blkaddr,
++				     NPC_AF_MCAMEX_BANKX_CAMX_W1(src, bank, 1));
++		w1_cam0 = rvu_read64(rvu, blkaddr,
++				     NPC_AF_MCAMEX_BANKX_CAMX_W1(src, bank, 0));
++		npc_fill_entryword(entry, kw + 1, w1_cam0, w1_cam1);
++		trace_otx2_npc_cam(src, bank, w0_cam0, w0_cam1, w1_cam0, w1_cam1);
+ 	}
+ 
+ 	entry->action = rvu_read64(rvu, blkaddr,
+@@ -625,6 +631,8 @@ void npc_read_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
+ 			   NPC_AF_MCAMEX_BANKX_CAMX_INTF(src, sbank, 1)) & 3;
+ 	*ena = rvu_read64(rvu, blkaddr,
+ 			  NPC_AF_MCAMEX_BANKX_CFG(src, sbank)) & 1;
++	trace_otx2_npc_action(src, sbank, *intf, *ena,
++			      entry->action, entry->vtag_action);
+ }
+ 
+ static int npc_copy_mcam_entry(struct rvu *rvu, struct npc_mcam *mcam,
+@@ -3197,6 +3205,7 @@ static int npc_mcam_alloc_entries(struct npc_mcam *mcam, u16 pcifunc,
+ 	rsp->free_count = -1;
+ 	mutex_unlock(&mcam->lock);
+ 
++	trace_otx2_npc_mcam_alloc_entries(pcifunc, req, rsp);
+ 	return 0;
+ 
+ not_cn20k:
+@@ -3383,6 +3392,7 @@ static int npc_mcam_alloc_entries(struct npc_mcam *mcam, u16 pcifunc,
+ 	rsp->free_count = mcam->bmap_fcnt;
+ 
+ 	mutex_unlock(&mcam->lock);
++	trace_otx2_npc_mcam_alloc_entries(pcifunc, req, rsp);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.c
+index 19e0d16b12f6..0919c4398dc4 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.c
+@@ -13,3 +13,7 @@ EXPORT_TRACEPOINT_SYMBOL(otx2_msg_interrupt);
+ EXPORT_TRACEPOINT_SYMBOL(otx2_msg_process);
+ EXPORT_TRACEPOINT_SYMBOL(otx2_msg_status);
+ EXPORT_TRACEPOINT_SYMBOL(otx2_parse_dump);
++EXPORT_TRACEPOINT_SYMBOL(otx2_npc_mcam_alloc_entries);
++EXPORT_TRACEPOINT_SYMBOL(otx2_npc_enable_mcam_entry);
++EXPORT_TRACEPOINT_SYMBOL(otx2_npc_cam);
++EXPORT_TRACEPOINT_SYMBOL(otx2_npc_action);
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h
+index 4cd0fc4b0d20..77dc1b4a4c64 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_trace.h
+@@ -159,6 +159,105 @@ TRACE_EVENT(otx2_parse_dump,
+ 		      __entry->w3, __entry->w4, __entry->w5)
+ );
+ 
++TRACE_EVENT(otx2_npc_mcam_alloc_entries,
++	    TP_PROTO(u16 pcifunc,
++		     struct npc_mcam_alloc_entry_req *req,
++		     struct npc_mcam_alloc_entry_rsp *rsp),
++	    TP_ARGS(pcifunc, req, rsp),
++	    TP_STRUCT__entry(__field(u16, pcifunc)
++			     __field(u8, contig)
++			     __field(u8, ref_prio)
++			     __field(u16, ref_entry)
++			     __field(u16, req_count)
++			     __field(u8, kw_type)
++			     __field(u8, virt)
++			     __field(u16, start_mcam_idx)
++			     __field(u16, rsp_count)
++			     __field(u16, free_count)
++	    ),
++	    TP_fast_assign(__entry->contig = req->contig;
++			   __entry->ref_prio = req->ref_prio;
++			   __entry->ref_entry = req->ref_entry;
++			   __entry->req_count = req->count;
++			   __entry->kw_type = req->kw_type;
++			   __entry->virt = req->virt;
++			   __entry->start_mcam_idx = rsp->entry;
++			   __entry->rsp_count = rsp->count;
++			   __entry->free_count = rsp->free_count;
++	    ),
++	    TP_printk("pcifunc:%d req_contig:%d req_ref_prio:%d req->ref_entry:%d req->req_count:%d req->kw_type:%d req->virt:%d rsp_start_mcam_idx:%d rsp_count:%d rsp_free_count:%d\n",
++		      __entry->pcifunc, __entry->contig, __entry->ref_prio,
++		      __entry->ref_entry, __entry->req_count, __entry->kw_type,
++		      __entry->virt, __entry->start_mcam_idx, __entry->rsp_count,
++		      __entry->free_count)
++);
++
++TRACE_EVENT(otx2_npc_enable_mcam_entry,
++	    TP_PROTO(u16 index, u8 enable),
++	    TP_ARGS(index, enable),
++	    TP_STRUCT__entry(__field(u16, mcam_index)
++			     __field(u8, ena)
++	    ),
++	    TP_fast_assign(__entry->mcam_index = index;
++			   __entry->ena = enable;
++	    ),
++	    TP_printk("mcam_index:%d enable:%d\n", __entry->mcam_index, __entry->ena)
++);
++
++TRACE_EVENT(otx2_npc_cam,
++	    TP_PROTO(u16 index, u8 bank,
++		     u64 w0_cam0,
++		     u64 w0_cam1,
++		     u64 w1_cam0,
++		     u64 w1_cam1),
++	    TP_ARGS(index, bank,
++		    w0_cam0, w0_cam1,
++		    w1_cam0, w1_cam1),
++	    TP_STRUCT__entry(__field(u16, mcam_index)
++			     __field(u8, bank)
++			     __field(u64, w0_cam0)
++			     __field(u64, w0_cam1)
++			     __field(u64, w1_cam0)
++			     __field(u64, w1_cam1)
++	    ),
++	    TP_fast_assign(__entry->mcam_index = index;
++			   __entry->bank = bank;
++			   __entry->w0_cam0 = w0_cam0;
++			   __entry->w0_cam1 = w0_cam1;
++			   __entry->w1_cam0 = w1_cam0;
++			   __entry->w1_cam1 = w1_cam1;
++	    ),
++	    TP_printk("mcam_index:%d bank:%d w0_cam0:0x%llx w0_cam1:0x%llx, w1_cam0:0x%llx, w1_cam1:0x%llx\n",
++		      __entry->mcam_index, __entry->bank, __entry->w0_cam0, __entry->w0_cam1,
++		      __entry->w1_cam0, __entry->w1_cam1)
++);
++
++TRACE_EVENT(otx2_npc_action,
++	    TP_PROTO(u16 index, u8 bank,
++		     u8 tx_intf, u8 enable,
++		     u64 act, u64 vtag_act),
++	    TP_ARGS(index, bank,
++		    tx_intf, enable,
++		    act, vtag_act),
++	    TP_STRUCT__entry(__field(u16, mcam_index)
++			     __field(u8, bank)
++			     __field(u8, tx_intf)
++			     __field(u8, enable)
++			     __field(u64, act)
++			     __field(u64, vtag_act)
++	    ),
++	    TP_fast_assign(__entry->mcam_index = index;
++			   __entry->bank = bank;
++			   __entry->tx_intf = tx_intf;
++			   __entry->enable = enable;
++			   __entry->act = act;
++			   __entry->vtag_act = vtag_act;
++	    ),
++	    TP_printk("mcam_index:%d bank:%d tx_intf:%d enable:%d action:0x%llx vtag_action:0x%llx\n",
++		      __entry->mcam_index, __entry->bank, __entry->tx_intf,
++		      __entry->enable, __entry->act, __entry->vtag_act)
++);
++
+ #endif /* __RVU_TRACE_H */
+ 
+ #undef TRACE_INCLUDE_PATH
+-- 
+2.43.0
 
