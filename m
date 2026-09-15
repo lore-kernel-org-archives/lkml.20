@@ -1,52 +1,61 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0B0480947;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBE747FAED;
 	Tue, 15 Sep 2026 08:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461194; cv=none; b=iy5cFg4GqmRPom8SH4gnIaAfsH/D876cDB63XfSKbqUygj4tNi6vFUAIfzcDKxSXIwzPl95MaYmczWfL9PLIw8HYgk2d9nl+2aWnAw6aGFeRtuIQsbyKSmSDyNEY3JqyxIaqntcjgLszfpEMzMSgVzXKVR9EOiFJmJKMVMZQZHg=
+	t=1789461193; cv=none; b=uEznToYN1kgstC/BDIetD89ldYeahtSdIpmuWqZ7DEgPLWr1Qc6Jq7IL214K3Gsxhgm22HZySpMGReSO2TWKZNsieeVbMts/RIpRCJpP459DfwPV7RTN0QxvERKn5b2Qi/H9Qx+j56fDdgld1Ux2w0nU9VUy9qPmjgo8icPnU5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461194; c=relaxed/simple;
-	bh=/Te+Ak1V3PYRAQCigiTQv6E4BFhXiJEwxsAlCOmzfzo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RMuh13H+SSRWFRBx9Rn2sksbMmCojQSPpjD5SczXPVL/t1HSofx4k0Z2+V3w12Za4v1dubTxw5vu8Izwi6waKA/Y0g4T8ji2Bw4LquoO2YsMYqVs0FyJu1LdUc/9skRW/Jzbq8g8VEgBLKIf+oLL/a30wCDa2jGUOBOt1rBufU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 106738e4b0e011f19a56ed5b684f684d-20260915
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:afc8e8d8-5ed4-48d5-a923-d31ebed2c0be,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:9aeded03d5019d2a1c6fa83aa34b3523,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
-	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 106738e4b0e011f19a56ed5b684f684d-20260915
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1451547472; Tue, 15 Sep 2026 16:33:01 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v13 7/7] ntfs: fail remount on sync errors and keep the dirty bit on SB_FORCE
-Date: Tue, 15 Sep 2026 16:32:52 +0800
-Message-Id: <20260915083252.812126-8-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260915083252.812126-1-zenghongling@kylinos.cn>
-References: <20260915083252.812126-1-zenghongling@kylinos.cn>
+	s=arc-20240116; t=1789461193; c=relaxed/simple;
+	bh=L6VFKfmee1uTNc8tnf6QAD3qGZFHOm47O9UhCCytAgY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eQsKVIGTE6m/d/G5p0d5vhSMgSsMmWescfex2eY+vn47LvuBqMlOW9H4i3lmOSfBAOXgNKsGJVtYI2SDlZCg/YZP6DHmoGA6TpcnfffmYCCDlXh8psknPosg70J83bz85cT4zlNoxSUuaR8cucvYHp3weshqjkfAnXMKNG4VzTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=ljRKywPu; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=ljRKywPu; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="ljRKywPu";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="ljRKywPu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789461189; bh=L6VFKfmee1uTNc8tnf6QAD3qGZFHOm47O9UhCCytAgY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ljRKywPu1VFtBKR4dK9EbkSL790mVFb1SVmtVEqszCkUknOjXqxJfloWrAXnwJx2w
+	 s82RnSfD98B7s3jzhZihDphUfQ2kwBh3CRX9iFd7nXaneSQZqzShlXbbvW1VuvSoxq
+	 kC2ZDpeU8QPMZtKJohHah+SgqBg+0yXwrzJRZ782aT1xg/ioI7ANf75OxNjyer34/B
+	 xC0EeNNf/+bYOEkyRueoUWNW7qEQjUfRa1/N/gDNnokgVNuh84hUiDOdVENu80d4ge
+	 OKaErldUtBZ7xf8ujKwItUbP6CRmfRIXSsEeCrbcZ/U4IJXbbrJAcSR7/Gd7TtuYXC
+	 e5TuUjJ8XD1/Q==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id C6DFE40BA8; Tue, 15 Sep 2026 09:33:09 +0100 (BST)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789461189; bh=L6VFKfmee1uTNc8tnf6QAD3qGZFHOm47O9UhCCytAgY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ljRKywPu1VFtBKR4dK9EbkSL790mVFb1SVmtVEqszCkUknOjXqxJfloWrAXnwJx2w
+	 s82RnSfD98B7s3jzhZihDphUfQ2kwBh3CRX9iFd7nXaneSQZqzShlXbbvW1VuvSoxq
+	 kC2ZDpeU8QPMZtKJohHah+SgqBg+0yXwrzJRZ782aT1xg/ioI7ANf75OxNjyer34/B
+	 xC0EeNNf/+bYOEkyRueoUWNW7qEQjUfRa1/N/gDNnokgVNuh84hUiDOdVENu80d4ge
+	 OKaErldUtBZ7xf8ujKwItUbP6CRmfRIXSsEeCrbcZ/U4IJXbbrJAcSR7/Gd7TtuYXC
+	 e5TuUjJ8XD1/Q==
+Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id EE0ED40B71;
+	Tue, 15 Sep 2026 09:33:08 +0100 (BST)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rik van Riel <riel@surriel.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 09/20] media: rc: Use binary search for adding or updating a scancode
+Date: Tue, 15 Sep 2026 09:32:19 +0100
+Message-ID: <042abeb49891d9d6be5035559c656da18eb22fc9.1789460680.git.sean@mess.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1789460680.git.sean@mess.org>
+References: <cover.1789460680.git.sean@mess.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,69 +64,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ntfs_reconfigure() currently ignores sync_filesystem() errors, allowing
-a regular read-only remount to succeed even when dirty data was not
-synced. Check the error and fail regular remounts, leaving the
-superblock read-write so ntfs_put_super() can retry at unmount.
+We can have up to 1024 scancodes entries which are always sorted, so make
+this a little faster.
 
-SB_FORCE does not wait for writers already in progress, so it must not
-clear the on-disk dirty bit. Warn and continue on sync errors for
-SB_FORCE. A forced remount updates the dirty state only when errors
-have been recorded, and never clears the dirty bit. Skip the commit if
-that state update fails, since the in-memory flags may be inconsistent.
+We need to either get an scancode entry, or find the insertion point
+in the sorted array if no existing entry was found. The bsearch() function
+cannot do this as it runs NULL is no matching entry is found. Therefore,
+we provide an open coded binary search.
 
-Reported-by: Hyunchul Lee <hyc.lee@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Signed-off-by: Sean Young <sean@mess.org>
 ---
- fs/ntfs/super.c | 27 +++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
+ drivers/media/rc/rc-main.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 0228d7429596..82b5bf28b6ab 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -272,7 +272,13 @@ static int ntfs_reconfigure(struct fs_context *fc)
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index 37ba19164875..ed746255b0a2 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -391,7 +391,7 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
+ 					  struct rc_map *rc_map,
+ 					  u64 scancode, bool resize)
+ {
+-	unsigned int i;
++	unsigned int i, lo, hi;
  
- 	ntfs_debug("Entering with remount");
+ 	lockdep_assert_held(&rc_map->lock);
  
--	sync_filesystem(sb);
-+	err = sync_filesystem(sb);
-+	if (err) {
-+		ntfs_warning(sb, "Failed to sync the filesystem.");
-+		/* A forced remount must still turn the superblock read-only. */
-+		if (!(fc->sb_flags & SB_FORCE))
-+			return err;
-+	}
+@@ -406,15 +406,21 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
+ 	if (dev->scancode_mask)
+ 		scancode &= dev->scancode_mask;
  
- 	/*
- 	 * For the read-write compiled driver, if we are remounting read-write,
-@@ -329,11 +335,20 @@ static int ntfs_reconfigure(struct fs_context *fc)
- 		 * or flush fails the remount, leaving the superblock
- 		 * read-write so ntfs_put_super() retries at unmount.
- 		 */
--		err = ntfs_sync_volume_dirty_state(vol);
--		if (err) {
--			ntfs_warning(sb,
--				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
--			return err;
-+		/*
-+		 * A forced remount does not drain writers in progress,
-+		 * so one may still be modifying metadata when the flags
-+		 * are committed: never clear the dirty bit then; if
-+		 * errors have been recorded, the update preserves or
-+		 * sets it; otherwise, skip the update entirely.
-+		 */
-+		if (!(fc->sb_flags & SB_FORCE) || NVolErrors(vol)) {
-+			err = ntfs_sync_volume_dirty_state(vol);
-+			if (err) {
-+				ntfs_warning(sb,
-+					"Failed to update dirty bit in volume information flags.  Run chkdsk.");
-+				return err;
-+			}
- 		}
- 		if (NInoDirty(NTFS_I(vol->vol_ino))) {
- 			/* ntfs_commit_inode() would discard the error. */
+-	/* First check if we already have a mapping for this ir command */
+-	for (i = 0; i < rc_map->len; i++) {
++	/*
++	 * Binary search for an existing mapping for this ir command.
++	 */
++	lo = 0;
++	hi = rc_map->len;
++	while (lo < hi) {
++		i = lo + (hi - lo) / 2;
+ 		if (rc_map->scan[i].scancode == scancode)
+ 			return i;
+-
+-		/* Keytable is sorted from lowest to highest scancode */
+-		if (rc_map->scan[i].scancode >= scancode)
+-			break;
++		if (rc_map->scan[i].scancode < scancode)
++			lo = i + 1;
++		else
++			hi = i;
+ 	}
++	i = lo;
+ 
+ 	/* No previous mapping found, we might need to grow the table */
+ 	if (rc_map->size == rc_map->len) {
 -- 
-2.25.1
+2.55.0
 
