@@ -1,82 +1,219 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CFD3D3D0C;
-	Tue, 15 Sep 2026 02:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C250390CAE
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437837; cv=none; b=SE4ZdV1nMrxjFctZFABSnKnpfMTHh0QbZv5vUEuvy8vXzdjPFhTvr3hKHfuCpkwJApynjOkI+fwE80YW/ckpnbBnd2r/rFJPwJDLIwazKOKsCjffYpZL4TWz85+xYQXhCnT1PVPz7w6P5DiL6aXY1NPy0YePdc+cHfJC5uK4x0M=
+	t=1789437837; cv=none; b=Vdf752NmQ7Ye/5deVsPhSD3Cl/kIqkLSEevnTyijMXCVWlZtYRBXxwiIvZpic0TTHjsIUR92659JJiKmRcPWvEieK+v6mAy+dOS5ZVodK+36i5j0nwhoPVJq/sWQiPq893Y2PK/oVliEPV+Jmz/1Lq482Wl9xNya++gG9pOUK5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789437837; c=relaxed/simple;
-	bh=7nPzRkh543BMGexT5Tr7Q7qa0XfQ39TSnaaM0pY0HFY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jLqBtICA7U1Bsey14V/X9KO7pt8fU/4i9rHxp+zMzlGifnkyp4sfpD9Tr+fTU1mAz3MYQ1UQHc0xY/Imbai3zvSvBtex3uo7DFbpHhzud98egxWzHCaJoVuRoHtiMUn8pL2cMJKvl/Br8omtteWmCF/iMFH6woiUBF1CfPhzpiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tk/1izlY; arc=none smtp.client-ip=100.103.45.18
+	bh=4KlU6IioCAwNk3jDxqQyOgDpHDc+AmeDeXmdSyc+iYU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GIoa7Uj/x25XR63cKbnHfwTSvP2JSyVlZwn4JWj8A/9A1qAvBB9crg61T0F3STNZ/bXwhrIErMVTh1AoWxdeG3uKFpedsvPQ1gvhM2LIqhXSBE+IJhEZt/NJjAJxjetfnQUmNu3SRnMNo+p4kTlLCWJbljGtflTVzJHzwhlIcq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=AXozjsoW; arc=none smtp.client-ip=74.125.231.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tk/1izlY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38BBA1F00899;
-	Tue, 15 Sep 2026 02:03:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789437835;
-	bh=z86349zkYz+9G791nuQD+MvthYksTsaOKZbGeAT8Cqw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Tk/1izlYNZW6R0pYuguL9gGyxZi5OXsed+up9gm8ZlcoAQMSgP0fJgkIfyBMWlwJc
-	 ANjTVkLCKoY1wJHk+0gGVlIjGkwm0wgRsXSsXkTilSHJOZmKx05lhPMA5vCl9I0XJA
-	 QQW9cHBTW03e74umi7YXV1Ugay++Zy2R6UbmcFBDmGwxSeq8dUbAiY2WcaAfrgReRL
-	 8xm3Pfx162kUv6kor0F7tV6yv/GHSgXJDCfTw4USvlkkjzM2MfQJB14CSqV+As9CeK
-	 tytGTUp0XouPVQoMmLHqb7tyf23TqUK73kOvoHPB2x9a5qRhyow2fKF2aQrmSeK6B/
-	 4BnwSo2Vg4Etw==
-From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	Herve Codina <herve.codina@bootlin.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Kalle Niemi <kaleposti@gmail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>
-Subject: Re: [PATCH 6.12 0000/1202] 6.12.97-rc2 review
-Date: Mon, 14 Sep 2026 22:03:30 -0400
-Message-ID: <daily-reply-0014-re-of-dynamic-overlay-probing@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <d601964b-e437-4990-bbdd-0337bba49102@gmail.com>
-References: <d601964b-e437-4990-bbdd-0337bba49102@gmail.com>
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="AXozjsoW"
+Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-7f4f0cfb29cso1288610a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:03:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1789437834; x=1790042634; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/CaPcfjF5HqH3+aS6ruNpmYZeARPkCepH2Ne0CkwEFA=;
+        b=AXozjsoWqy9neo+jCEGvb3bill5+DF9FUr2yVLJGa7+0kr+KvDCZFyiSeZ5Rb9Z8JB
+         9IIM27xav14EzxUsYTwSLG3BYZ8+31FG+zkYwgradPE/8RSTZoD3noVSYnx5WoUjbLPH
+         HOAfpNrP+Inn2bnBb84ckHlS5uRYMTpoMKdHHd/DIxVU4gMe5YXFYmbxA+PVZEztFHkt
+         H8ef5cHIrEVo83Oe2Jeql/FBV/qLXjwsJLXgwxdE+L4I03f4TkPQPkoRJwX6BYQ8v0bh
+         LmJTdJj6Vt/pPj/SAodfBro+7QrNkLDaIBq753jqcla2IQhiuulBx1Si4pj2huNmKgNH
+         QiXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789437834; x=1790042634;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/CaPcfjF5HqH3+aS6ruNpmYZeARPkCepH2Ne0CkwEFA=;
+        b=Pm1tduitINxRrue/BdVtR85cP+iPf9KC21LR7m44JrGGgFdAak2fIOTyV5n2MbuUXW
+         3I2mkW5soulq5YAtXl2ZltssEwYjDABz0CdzEZd2t9WNnVlB4NtIatr/Z7qYMbHnIrR5
+         n78kCnboYnb4SyueWstbWNVdFhMYDhxpHNntQSiwQe5K1XjyqPew+ZJi05L25cVmnqQG
+         MFdtq8PQMK8KNLTN3hH5hxZW8L1pqI8olDHGJtEyG1Ctgj2/11eOP7k9cflsx+89Hsca
+         r3Tk8GDGN+fGPQciitS8qXrRfqS9ZAo5i+9wy+x6Lh7WJHgXuo+XdcgYiempq0R7mCzE
+         W2eg==
+X-Forwarded-Encrypted: i=1; AKwUvByQIpSUWmDSbpFVTfR4Cu2MOuX7fDPacRpguH9La9Dup0smGYhEkBO4qq2eqCtSr/+e5VeqLu4AyNdm048=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1IcyUQCD9D9xqRTdgkSqcfdFCnCaAaN9jTfxYZIJYLLiWcovt
+	jtCcwrhoTNFlAGUnFMhutk+/h574xiLDyw1JxRoePDAAwNHHhgmZFJhkxJr7f6yS5JQ=
+X-Gm-Gg: AYBFou0YUiMIjr3DLjk2sv4EsI4KiIcrVeyP7oCwQmcMsbyc4eiwmQr9i7fhwSpkKv/
+	XHmdgRmfXhOW3O7lPji9XQ4A5cK3mJ0tirM0RiX3sebtfB1jWM8jbd6j3UZGHxQDUdDB7k4JU+o
+	0YxM2G5Ea0y0LVbsF3/OcOOx//TV/tQbp0fVM8RXkEw1dihvVNs/H6txbL31zF4Y3RwJvs0zm65
+	hWT68nPVJKMRcfFtgitlYqQzdU94Kcc7yCuTzTyqUzJr/IsSXrV7qL8A72TBmHrHD4QcGzDXJqg
+	iy9+56kqLoTQ/QBt1cwDdLhU0+RU/z0Wk5A7RlWZeZwAONkTPod32kYgI4SZpHirCto8MVyRqMq
+	4SAcuSRDBMI3j6dHP3o1kTnemr5NxFUHPvmYo5ZQ3F+qAwETwJSvJvzBRqkrWZyJhXC6X9fZKyV
+	UUl7Pbph3UklYjGpfN/9YiNNxtJRCsk4CHuEPDDrD8fHmAqDlR5oAI8WqXvQycOY+HxuAo4U0=
+X-Received: by 2002:a05:6830:8285:b0:806:1728:aed9 with SMTP id 46e09a7af769-8089759dffcmr5874003a34.5.1789437834177;
+        Mon, 14 Sep 2026 19:03:54 -0700 (PDT)
+Received: from [127.0.1.1] ([2a09:bac6:bf21:2e46::49c:4c])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-804de582afcsm10795696a34.16.2026.09.14.19.03.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 19:03:52 -0700 (PDT)
+From: Chris J Arges <carges@cloudflare.com>
+Date: Mon, 14 Sep 2026 21:03:35 -0500
+Subject: [PATCH net-next v2 1/3] ipv4: hash uncached routes by device
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-hash-bucket-route-lists-v2-1-29f6297d8a5a@cloudflare.com>
+References: <20260914-hash-bucket-route-lists-v2-0-29f6297d8a5a@cloudflare.com>
+In-Reply-To: <20260914-hash-bucket-route-lists-v2-0-29f6297d8a5a@cloudflare.com>
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kernel-team@cloudflare.com, 
+ Chris J Arges <carges@cloudflare.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789437828; l=4312;
+ i=carges@cloudflare.com; h=from:subject:message-id;
+ bh=4KlU6IioCAwNk3jDxqQyOgDpHDc+AmeDeXmdSyc+iYU=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgaxY1IIT5oTohBZJmhnVgJo2HsM7Sv
+ 9I0LdJCgpeGX6gAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QO7WoBzgXhIPhQvuy6eQZpcCD8KJdm3/hK/o2ENFnBRTFbGEk5OtQu7hB1DhZyQqI7qL7HYZVnS
+ Zy/j/lz3suAo=
+X-Developer-Key: i=carges@cloudflare.com; a=openssh;
+ fpr=SHA256:Cun99EBiH0EV7wvmfTBF9eDrld2NJx+aD4ScWZ45Q5M
 
-> I believe there is an "existing easy fix", in a form of a patch which is
-> already applied to other stables. Unfortunately I lost track of the
-> relevant fixes during the discussion so I can't point the relevant one.
+rt_flush_dev() currently walks every per-CPU uncached route list for each
+device being removed. This repeatedly examines unrelated routes and makes
+teardown increasingly expensive as the number of devices grows.
 
-The one you are after is 81e7c6befa36 ("of: dynamic: Fix overlayed devices
-not probing because of fw_devlink"). The revert went into 6.12.97 and
-6.6.145 without it, which is why overlay probing has been broken on those
-two since.
+Replace each per-CPU list with a hash table keyed by the route's netdevice.
+Keep the owning-list pointer in dst_entry so route removal remains
+unchanged, while device teardown only walks the matching bucket on each
+CPU. Hash collisions are filtered by the existing device comparison.
 
-Queued for 6.12 and 6.6, thanks for chasing it down.
+The table has 2^CONFIG_IP_UNCACHED_ROUTE_HASH_BITS buckets and defaults to
+64. Larger values shorten each bucket, but every additional bit doubles the
+per-CPU memory used by the table. The default costs approximately 1.5 KiB
+per possible CPU on x86-64.
+
+Signed-off-by: Chris J Arges <carges@cloudflare.com>
+---
+ net/ipv4/Kconfig | 13 +++++++++++++
+ net/ipv4/route.c | 36 +++++++++++++++++++++++++++++-------
+ 2 files changed, 42 insertions(+), 7 deletions(-)
+
+diff --git a/net/ipv4/Kconfig b/net/ipv4/Kconfig
+index 301b47660305..7d40ca22d2b2 100644
+--- a/net/ipv4/Kconfig
++++ b/net/ipv4/Kconfig
+@@ -103,6 +103,19 @@ config IP_ROUTE_VERBOSE
+ config IP_ROUTE_CLASSID
+ 	bool
+ 
++config IP_UNCACHED_ROUTE_HASH_BITS
++	int "IPv4 uncached route hash bits"
++	range 1 10
++	default 6
++	help
++	  This option sets the number of buckets used in the IPv4 uncached
++	  route hash table to 2^IP_UNCACHED_ROUTE_HASH_BITS buckets. The
++	  allowed values select between 2 and 1024 buckets. Larger values
++	  reduce collisions, but each additional bit doubles the per-CPU
++	  memory used by the table.
++
++	  If unsure, use the default of 6 bits (64 buckets).
++
+ config IP_PNP
+ 	bool "IP: kernel level autoconfiguration"
+ 	help
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index d7da2f1acbb5..e28e2140cf62 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -74,6 +74,7 @@
+ #include <linux/init.h>
+ #include <linux/skbuff.h>
+ #include <linux/inetdevice.h>
++#include <linux/hash.h>
+ #include <linux/igmp.h>
+ #include <linux/pkt_sched.h>
+ #include <linux/mroute.h>
+@@ -1552,11 +1553,21 @@ struct uncached_list {
+ 	struct list_head	head;
+ };
+ 
+-static DEFINE_PER_CPU_ALIGNED(struct uncached_list, rt_uncached_list);
++#define RT_UNCACHED_HASH_SIZE	BIT(CONFIG_IP_UNCACHED_ROUTE_HASH_BITS)
++
++struct uncached_table {
++	struct uncached_list buckets[RT_UNCACHED_HASH_SIZE];
++};
++
++static DEFINE_PER_CPU_ALIGNED(struct uncached_table, rt_uncached_table);
+ 
+ void rt_add_uncached_list(struct rtable *rt)
+ {
+-	struct uncached_list *ul = raw_cpu_ptr(&rt_uncached_list);
++	struct uncached_table *table = raw_cpu_ptr(&rt_uncached_table);
++	struct uncached_list *ul;
++
++	ul = &table->buckets[hash_ptr(dst_dev(&rt->dst),
++				      CONFIG_IP_UNCACHED_ROUTE_HASH_BITS)];
+ 
+ 	rt->dst.rt_uncached_list = ul;
+ 
+@@ -1588,14 +1599,19 @@ void rt_flush_dev(struct net_device *dev)
+ 	int cpu;
+ 
+ 	for_each_possible_cpu(cpu) {
+-		struct uncached_list *ul = &per_cpu(rt_uncached_list, cpu);
++		struct uncached_table *table;
++		struct uncached_list *ul;
++
++		table = per_cpu_ptr(&rt_uncached_table, cpu);
++		ul = &table->buckets[hash_ptr(dev,
++					      CONFIG_IP_UNCACHED_ROUTE_HASH_BITS)];
+ 
+ 		if (list_empty(&ul->head))
+ 			continue;
+ 
+ 		spin_lock_bh(&ul->lock);
+ 		list_for_each_entry_safe(rt, safe, &ul->head, dst.rt_uncached) {
+-			if (rt->dst.dev != dev)
++			if (dst_dev(&rt->dst) != dev)
+ 				continue;
+ 			rcu_assign_pointer(rt->dst.dev_rcu, blackhole_netdev);
+ 			netdev_ref_replace(dev, blackhole_netdev,
+@@ -3771,10 +3787,16 @@ int __init ip_rt_init(void)
+ 	ip_tstamps = idents_hash + (ip_idents_mask + 1) * sizeof(*ip_idents);
+ 
+ 	for_each_possible_cpu(cpu) {
+-		struct uncached_list *ul = &per_cpu(rt_uncached_list, cpu);
++		struct uncached_table *table;
++		int bucket;
++
++		table = per_cpu_ptr(&rt_uncached_table, cpu);
++		for (bucket = 0; bucket < RT_UNCACHED_HASH_SIZE; bucket++) {
++			struct uncached_list *ul = &table->buckets[bucket];
+ 
+-		INIT_LIST_HEAD(&ul->head);
+-		spin_lock_init(&ul->lock);
++			INIT_LIST_HEAD(&ul->head);
++			spin_lock_init(&ul->lock);
++		}
+ 	}
+ #ifdef CONFIG_IP_ROUTE_CLASSID
+ 	ip_rt_acct = __alloc_percpu(256 * sizeof(struct ip_rt_acct), __alignof__(struct ip_rt_acct));
 
 -- 
-Thanks,
-Sasha
+2.43.0
+
