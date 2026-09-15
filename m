@@ -1,172 +1,147 @@
-Received: from mta0.migadu.com (out-59.mta0.migadu.com [91.218.175.59])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561CA37B01F
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:40:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFEA023643F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436442; cv=none; b=o2CsPpofUQ2TlgCL8mcRafrSVqyrRHdAtXkcJzbLCCNFD3nfiPvvdy0Hqk5oZDgPipzJHhYMoGdTZBTXZKFHIjM5QzIfvn3m0BWvccmIG8qJE1OnIy2KgqlUzS8PLhxxUWaSQ7czhgiNvk0KUPWnsk782lK9Fsak8dg7kFFoiLo=
+	t=1789436570; cv=none; b=Cr6/mIPGJ3uGDzRwa1uH1pqBBWbc9kBl0GAqXjzqe6lej+fKcydA9faneWQUHotiWxoTwv7giwbBJ5N9+jYXo4INGw0C0zc4t/cmOPbZaxlHfVC2JWwO7qzorRM/UAmfuJF52ZHMpkUDzwROnOAd3X9Gh0uf5BRGj6fFEmMBxtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436442; c=relaxed/simple;
-	bh=05uRaWUcaOG/Q/CWJc/l3BnefdP/MWiBuuzMMUHj9ko=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qc1RN5DdISv6sa9qf93P6JyjlyBX80a+nzkqZZlNGbhgZEJcqtfvgNoOp5SV9QN6sopTaGntBKMGYULHCnE5cr41VrOwLc33rXxAhDRODS8ZBLMndkS19x5JQ77KZWqwBPFioivWo0fjfX6vDP8IOsKZzM6E8pLi7N6DWWbz1+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xG6JBmrM; arc=none smtp.client-ip=91.218.175.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789436570; c=relaxed/simple;
+	bh=LsVIYOKjfCnfh/5YRFVyr3VnUzX1qGN290xLX0OyZx8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hq111YwYfNiVmWNBC8aJDv2VX1CJCXRjDCcSXQyeAqUWsiCdVPHdhZPcQGUINk9NtPBuUyxu5UbAhBv7RTxfVWb2ezPoXG/Ai8IlA+Bs4mRxPTXtimnR0icrzlzii5JJ4FFs0PR7bxwr9YMY/dTZS6uTHOJVawss/CEF5pxXACk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=n1OO/lMz; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xG6JBmrM"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=05uRaWUcaOG/Q/CWJc/l3BnefdP/MWiBuuzMMUHj9ko=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789436438; v=1; x=1790041238;
- b=xG6JBmrMklm9hb4prYYVKhT91g9W8p/yh24RxHsUyes/Efqo68xd1mIPhyqat/8RSxqSv/gB
- RBzYZxWBJ8naglS9uPzcsXgY9qTEsqov1G6p0D1Yw2BecHxXJR8FtaGkDtyXLoXF/WgkbYgMtNO
- YSq0O1Hd8W6GLCpIN8A10vCg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 98afbac615a21c5e;
-	Tue, 15 Sep 2026 01:40:38 +0000
-X-Mizu-Trace-ID: 98afbac615a21c5e
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 14 Sep 2026 18:40:34 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Hui Zhu <hui.zhu@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	JP Kobryn <inwardvessel@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
-	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Shuah Khan <shuah@kernel.org>, Barry Song <baohua@kernel.org>, 
-	Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
-Subject: Re: [PATCH bpf-next v10 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
-Message-ID: <aqihfvKMqJAudSQK@linux.dev>
-References: <cover.1789091855.git.zhuhui@kylinos.cn>
- <e00910f328c129fea716e9fd031dada328e60313.1789091855.git.zhuhui@kylinos.cn>
- <DLF8UFBL6NEL.MAD9F5418DIG@gmail.com>
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="n1OO/lMz"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc147d86bebso567056a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:42:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1789436568; x=1790041368; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JSsbzUqwepUlLbo++d/svjElwCSVAHyWtztPEHYL3CQ=;
+        b=n1OO/lMzNY7GOuqvJLTRpTmvcc8zSRksuE9D6EIxwpYz6+sVRNs5QY49EmZfEbfyD0
+         8cJtTSfX6HmgcJtqmvU+ZAs3iiWtQjyI0Fc7OhELPy2K/Xar7xxhqKKhXiwjjHGpProU
+         nLercrA/hHx8Ch94FMNWkXQ4NP+O82pOwfbONOiER8UtsWNXu2Oxd3+1Rf4Ebe7xMfSj
+         7xlgQQobGUv4qJ3gUJvCeU+9oBUMJzwLBF49sBH21TGC6OJBopVSvrqEsZ3idJMeTBCI
+         CzHchN7L55MdVcE+twMSOm7XmvS9Dn9SYuNBasWc2HwnVQMffKmk7UkqjZ7ad43Z16k2
+         bvaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789436568; x=1790041368;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JSsbzUqwepUlLbo++d/svjElwCSVAHyWtztPEHYL3CQ=;
+        b=mSoTLOcbgxezlIJLqZQjVwXx8rD+7xK/RLUZUv7IHnqzS3d7mJf6L+sxgKb3meBqjs
+         66kTxjLwB6Bc0gDfrBRCT1Elw+t5wcaxUKr0xwH9asgG44riZjYAdMVB9gNxBeVbyTi9
+         /WmF3NAKdlEHe9xnPHsI2R/0SjFKr1lauZb+1siv/A58e/yrNhMV+QeskF/TAOxRwfo8
+         h89PFprMG+dROOA0Zkjppl4m1l4abl6E4rHWuYaT+2qKs+5FPTX0T0XsUrEmxuPiCont
+         B6JL9U7wjBfZ15qiAXh2xr4wqWSGwHy1ZYR2vfecuCmF7Ng8qS+VM9JeS+IRePXAPpbi
+         1Lcw==
+X-Forwarded-Encrypted: i=1; AKwUvByjDT1YEM2kI3oXZpPOJgzMEY4sK/fXMLDQdH6JZKb1wU1ppcaBFaJoALHmJ7IQ+IIJTXlE8Vkzszleb3c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPcqfM1BhXesN0uz/R4CltJ6yJJLynYVy8cBq+kX5DpTQHStqO
+	jvVFM+AhFmPJ93XdqZplEhUwDc9t4iAfCjxyihmhV0BKzS0dGwM3l85ZCMzX/WPxtK/4LL30zPy
+	O5NG/AQ==
+X-Gm-Gg: AYBFou0OkyXckmKUOQhMwl/YISjWgqfB0wDslR5oYx27rHqUA05AQHgbuqCXcdM1K0V
+	6RZonQznOxVUed1Wek23NHUH6K7zGL9/doCIVJEyrRwwimNY3hUVzeKK16IaQueN5nXYGkcJnhk
+	cLN1kb1Q+h3A+XroL4SjRlRnK61aPQKgNYAS7UNRxz6FQ//USgQfGgatFWOrk38a/U3YU8dH8pf
+	8eb+MKsp6s3l0Kd4I2ElrXfJChOFnL0nOfLESzvR6wy3u1rq1sstrjATnCu87Xa0evW6T1XrFtG
+	7N5q7z2fZfgokYLDJptJWdpxUfD/IrGfvzW6mpqXFDMXiexcVM4G95sKUEO6QXJhQIw6reMU0GE
+	paR195wGyRO2/7/2ZOiXD/YOaRPxyaVxW3yLEuwwN+VOxsafoxIKHZx8CzNRQOuzuhLj9mQMD41
+	bFWEJVAlQ7a6rhuIrmsxkcquFRrL0oEGuv81M84XeCrm2EAdKO6KoZIDhh6QWqhc/SA9gqR49Ls
+	7w51x78Wdt0oVpMQzOOT8E6j/gXoGpxarJgfw==
+X-Received: by 2002:a05:6a21:498b:b0:3b3:3506:cf3f with SMTP id adf61e73a8af0-3db4fa30801mr2498859637.1.1789436568049;
+        Mon, 14 Sep 2026 18:42:48 -0700 (PDT)
+Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fa50e3sm31051879eec.29.2026.09.14.18.42.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 18:42:47 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: idryomov@gmail.com,
+	amarkuze@redhat.com,
+	slava@dubeyko.com,
+	ceph-devel@vger.kernel.org
+Cc: dfuller@redhat.com,
+	elder@kernel.org,
+	mchristi@redhat.com,
+	co+25860fb17af97289@bugs.sh,
+	linux-kernel@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH net] libceph: bound mon_command ack decode to front len
+Date: Mon, 14 Sep 2026 18:42:43 -0700
+Message-ID: <20260915014243.355592-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLF8UFBL6NEL.MAD9F5418DIG@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 08:17:09PM +0200, Kumar Kartikeya Dwivedi wrote:
-> On Fri Sep 11, 2026 at 4:20 AM CEST, Hui Zhu wrote:
-> > From: Hui Zhu <zhuhui@kylinos.cn>
-> >
-> > BPF programs can observe memory pressure on a cgroup (e.g. refault
-> > stats via bpf_mem_cgroup_page_state()), but cannot act on it:
-> > triggering reclaim on a chosen cgroup requires writing to
-> > memory.reclaim, which BPF cannot do. Add bpf_proactive_reclaim(),
-> > a sleepable kfunc which performs one proactive reclaim pass on a
-> > given memory cgroup, similar to a write to memory.reclaim but
-> > without retrying until the target is reached, so that when and how
-> > hard to reclaim is BPF policy rather than hard-coded thresholds.
-> >
-> > Since some bpf program types may be invoked while holding fs locks,
-> > limit the kfunc to BPF_PROG_TYPE_SYSCALL only, to avoid deadlocking
-> > in filesystem shrinkers on the reclaim path. A SYSCALL program can
-> > invoke the kfunc directly, or asynchronously from its bpf_wq or
-> > task_work callbacks, which run in process context and keep the
-> > SYSCALL program type.
-> >
-> > The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
-> > following the precedent of high_work_func(), the memory.high
-> > workqueue fallback. Note that only the reclaim target is capped: the
-> > actual scanning work and its duration are not bounded. Reclaiming more
-> > than one batch is left to the BPF program rather than enforced by the
-> > kfunc: with one call per bpf_wq callback and the same work item
-> > requeued for the next batch, the program can also stop submitting
-> > batches in between, e.g. once the target cgroup is dying.
-> >
-> > Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-> > ---
-> >  mm/bpf_memcontrol.c | 88 ++++++++++++++++++++++++++++++++++++++++++++-
-> >  mm/internal.h       | 10 +++---
-> >  2 files changed, 93 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
-> > index 716df49d7647..d8827bc388ef 100644
-> > --- a/mm/bpf_memcontrol.c
-> > +++ b/mm/bpf_memcontrol.c
-> > @@ -8,6 +8,8 @@
-> >  #include <linux/memcontrol.h>
-> >  #include <linux/bpf.h>
-> >
-> > +#include "internal.h"
-> > +
-> >  __bpf_kfunc_start_defs();
-> >
-> >  /**
-> > @@ -159,6 +161,74 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
-> >  	mem_cgroup_flush_stats(memcg);
-> >  }
-> >
-> > +/**
-> > + * bpf_proactive_reclaim - proactively reclaim memory from a memory
-> > + *                         cgroup
-> > + * @memcg: the target memory cgroup to reclaim from
-> > + * @size:  the amount of memory to reclaim, in bytes, clamped to
-> > + *         MEMCG_CHARGE_BATCH (64 pages)
-> > + * @swappiness: the reclaim swappiness, in the range
-> > + *         [MIN_SWAPPINESS, SWAPPINESS_ANON_ONLY], where
-> > + *         SWAPPINESS_ANON_ONLY means anon-only reclaim, or -1 to use
-> > + *         the memcg's own swappiness
-> > + *
-> > + * Trigger one proactive reclaim pass on @memcg, similar to a write to
-> > + * memory.reclaim, but without retrying until @size is reached.
-> > + *
-> > + * Only the reclaim target is capped: @size is clamped to
-> > + * MEMCG_CHARGE_BATCH, following the precedent of high_work_func(),
-> > + * the memory.high workqueue fallback, which bounds each reclaim
-> > + * request the same way. The actual scanning work and its duration
-> > + * are not bounded. To reclaim more, call this kfunc repeatedly
-> > + * instead of passing a larger @size.
-> > + *
-> > + * The kfunc can be called directly from a BPF_PROG_TYPE_SYSCALL
-> > + * program, synchronously in the context of the thread running the
-> > + * program, or from the bpf_wq and task_work callbacks of a SYSCALL
-> > + * program, which run in process context and keep the SYSCALL program
-> > + * type. It is registered for BPF_PROG_TYPE_SYSCALL only, because
-> > + * generic sleepable programs may run with filesystem locks held or
-> > + * in NOFS/NOIO contexts, where the reclaim path could deadlock on
-> > + * those locks via filesystem shrinkers.
-> > + *
-> > + * For asynchronous reclaim of more than one batch, driving the
-> > + * reclaim from a bpf_wq callback is recommended: call this kfunc
-> > + * once per callback and requeue the same work item for the next
-> > + * batch, instead of looping inside the callback and monopolizing a
-> > + * workqueue worker, and give each target memcg its own work item,
-> > + * as high_work_func() does with one work item per memcg. Whether
-> > + * to submit the next batch is up to the BPF program, which can stop
-> > + * at any point, e.g. once the target cgroup is dying.
-> > + *
-> > + * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
-> > + * smaller than a page, or (unsigned long)-1 if @swappiness is out of
-> > + * range.
-> > + */
-> > +__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg,
-> > +						unsigned long size,
-> > +						int swappiness)
-> 
-> I'm going to have to request one final change, sorry.
-> 
-> I think long is more meaningful as return value than unsigned long. It's already
-> restricted to MEMCG_CHARGE_BATCH. We return error for various arguments, we
-> should probably change to -EINVAL.
-> 
-> Apart from that it looks ok to me, but please, also wait for Shakeel to review
-> the set before you respin v11.
+handle_command_ack() bounds the decode with msg->front_alloc_len, the size
+of the reply buffer, instead of msg->front.iov_len, the number of bytes the
+monitor sent.  mon_alloc_msg() routes every CEPH_MSG_MON_COMMAND_ACK to
+get_generic_reply(), which returns the preallocated ->reply of whichever
+generic request carries the same tid, so the buffer keeps its fixed size
+however short the reply is.  An ack with hdr.front_len below sizeof(struct
+ceph_mon_request_header) + sizeof(u32), including 0, still passes
+ceph_decode_need(), and ceph_decode_32() returns four bytes that were never
+received: uninitialized slab memory, stale bytes of an earlier message, or
+bytes the peer planted by sending a reply that lands in the same buffer and
+is then rejected.  The read stays within the allocation, so KASAN does not
+flag it.
 
-My only feedback is: please don't write essays in the comments. Just couple of
-sentences should be sufficient. (Please ask your AI to be very very concise for
-the comments and commit messages.)
+req->result reaches userspace through ceph_monc_do_statfs(),
+ceph_monc_get_version() and ceph_monc_blocklist_add(); rbd hands it back
+from write() on /sys/bus/rbd/add_single_major, and rbd_get_client() passes
+it to ERR_PTR() unchecked, which faults:
 
-Other than that please follow Kumar's suggestion and send the next version.
+  rbd: failed to get latest osdmap: -186318427
+  BUG: unable to handle page fault for address: fffffbfffe9ca034
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:do_rbd_add (drivers/block/rbd.c:7105)
+  Call Trace:
+   ...
+   kernfs_fop_write_iter (fs/kernfs/file.c:345)
+   vfs_write (fs/read_write.c:595 fs/read_write.c:687)
+   ksys_write (fs/read_write.c:739)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+  Kernel panic - not syncing: Fatal exception
+
+Use msg->front.iov_len, matching handle_subscribe_ack(),
+handle_statfs_reply(), handle_get_version_reply() and handle_auth_reply().
+A well-formed ack has front.iov_len >= 22 and is unaffected; a short one
+takes the existing bad: path.  This applies commit d3c32939fa0e ("libceph:
+bound get_version reply decode to front len") to the last decode-side
+use of front_alloc_len in this file.
+
+Cc: stable@vger.kernel.org
+Fixes: 6305a3b41515 ("libceph: support for blacklisting clients")
+Reported-by: co+25860fb17af97289@bugs.sh
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+---
+ net/ceph/mon_client.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/ceph/mon_client.c b/net/ceph/mon_client.c
+index c56457378d00..59b304eca273 100644
+--- a/net/ceph/mon_client.c
++++ b/net/ceph/mon_client.c
+@@ -943,7 +943,7 @@ static void handle_command_ack(struct ceph_mon_client *monc,
+ {
+ 	struct ceph_mon_generic_request *req;
+ 	void *p = msg->front.iov_base;
+-	void *const end = p + msg->front_alloc_len;
++	void *const end = p + msg->front.iov_len;
+ 	u64 tid = le64_to_cpu(msg->hdr.tid);
+ 
+ 	dout("%s msg %p tid %llu\n", __func__, msg, tid);
+-- 
+2.43.0
+
