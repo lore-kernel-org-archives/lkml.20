@@ -1,26 +1,26 @@
-Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020140.outbound.protection.outlook.com [52.101.227.140])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020121.outbound.protection.outlook.com [52.101.225.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C61F4B0489;
-	Tue, 15 Sep 2026 12:15:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120C44AC173;
+	Tue, 15 Sep 2026 12:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.121
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474553; cv=fail; b=qqeshmHQrTOLndlaNmgJlscGnWXbeoX39WRDorsb6T1xlcwcymuXr1vculHly0UU0sAYql0eblxY5r29sIcY/z2VnV/fTI4eoI9xu9rJkC1ShJp9E3vH49OGscvj3vMM/vNopjclrXGXstnmWb4mYxX7mYBfreldlkVtRJtlkVk=
+	t=1789474558; cv=fail; b=qTE4IzM2mOZ62LsFbwpgVEwehA4lOZ9ocUW5UPf5BuDXrtzhAED9l1BeW3wNywoKMLagkJgf9jI/DpcLZkMFKHTuyscWUzwTw4a9QZjyzJQi0nOqGQmzNbRmi2BVNW2IL8q1sx46029coQErmsg8cJudugS+NIP7kdrNzqfZWJQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474553; c=relaxed/simple;
-	bh=Q0fgMV3v/wwQ9jHi7chIPHtwhLT9VYQFHm3hF825WHo=;
+	s=arc-20240116; t=1789474558; c=relaxed/simple;
+	bh=ka/FDUn9YB022JPddwxbwgDgYNvfU7t10uHaYdkQ5SQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sAXyrNiBtBixiYUUnsvAIGmiOpw+/cVc8Rk8xeYQAsyMLpSods2ZndtDbDaHLEApqWL7zYBLy9Va2WA8Jq5XSDUVz8r+F/Zivvcj12s1ejMfoGuaTJiC/M/R4GlKtdjDNDqHVr3morquhEjAjH2WzFwCg2Yn1Tgv05d/T0RgNfI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.227.140
+	 Content-Type:MIME-Version; b=QFh94+pTyKkU1hchFkQ8MxEO9v7WtW29/HI3P1LzFkRuPVCz/VlqyBsW05sI4sv2owqv/njvoCcn2JsTjEuOkV87nALhlP9jsHmT6zCUPJ54HMCUO3d6w5QrqpoId22/n+VxBjD7V56NEa7eS0EzbiHqz0gv7A4D1gArdz8I+H8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.121
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sCWicXOtc250Fab53L5gHAV7wonCtk5wW8HmEY+ZYV++1ZuAgj4Wj+LaVJz9qN3bN9Y3p7uekBkjkqKQXozA4mAunEKRbjOaqsEB6RZFPsop/hGSgfg3FGVXFOrb5Oye1GmLt5AxTjSplsWVnrdoTlU5Tlybg5FppyhLgUDTzfQVE1scfU6GplWYj2YUw4WW6QmkysD8U9FBlBGhKAQ+lv6VQey7mhtGiUJlkgh7BkzlDGG/F0tPW60vDUkzfEbUU7gwlf5xWuOhl8YbHFfnhQYkcIGBqhmg+lV7PqdWiUYlKE6AWn9YJeyZw7zvruLCelQSCkL3zQzZJZ6ojxfJxQ==
+ b=HJWmaH7bXuB0apvna6Q9YplM4ztLkCduext16G4oFGXPkJD+1Fqub+eNXICPWOzZnDeGeA2jjJh79fQ1gjpJq5z4nQR99v/TbrnyPMnhKPPS3Y6rlahUdGUJIa3X11XpFhEz8SPMJqaaDAcvceriXo3euzZpkaPx+CjiISi3D3wlv0i4qARKoVGch7nQPp5PyE1kO07cgam7i3xg3ju2tXky8EyA5kyEHh9Iwb721jyApodVZqtWvnFnR798IOlgj1vIRZPUeB6KPRY9L/htIXvSvKcyia6ZcmjX4pW7QpcCW/gKfD3KgCvoiy+TLEmykHUFnPi61jUTgHiR0Hn1sg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nqleGqbuZo9PEhL/Sbn9c667T8NsEgvfXwrfJq7ssWw=;
- b=w5D/LIdGunOpekh2vvegMoHP6FplPKJV6FEnt9C0tGnU3ppM0WQf6xj+HvZTW4Nf7NtWpnHGWhHHYp+1I+cS0a2zvtKzh/wWjQLVLX9kyMcDNC7bgZNURox4qGGOBR+sjRlultvVmauFRsc0z1X2pFtHONc4Kx0hT4o95ihTlGN3RY6ejJwXWqBYIj/5ng3SbNtURmLbLoVyRHKtTtHyb7K7LSsG0UZatLMhM5QS6qegZbzyCijUrvMLXpFQT3Xk4trYFXWrmVUXvasDR0THqF6JO3MowEEag4tWph0VosydJN7NQRqdtajgv2L+aaqE2P5dDMcJQZSGOGgWQFOCnA==
+ bh=Z1WIm7nXfhI3UTIMmV2clVV24OJwbdRix9lv/z1qyiw=;
+ b=hqKFCb75JbDkN1aX3xdw66pPYGoMv+o6up8P/zPsqE5CPsqFgCwZ3bmzlFJ50beSPYFyxlQigJJjnb3Bg47SsjKHVcMh7wiAd9tQubkqUksLmvnzMJN5Dn4uSujjOAtC2+6jGTtWfe0r9aQsTs2yFV4gHf2ejIY1OIBXtkbGXXlrTZ+S+c2MvXNvQSNmzwmZ33GdCXJHMWmVFMG29gQhNwnGHs33fjhPZ+WDPOmFMY+HVnTf81etmYzCJ98mPeEZXtzf3mzON/XQuVLMhmTPgmiwRxX3vXVFNjR8TPHGjHDMzMg149Ufg3z1MNJPa2qs0QDpjWp4YvD8cGTbzUBKEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
  header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
@@ -30,11 +30,11 @@ Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
  by MAUP287MB4525.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:18c::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Tue, 15 Sep
- 2026 12:15:46 +0000
+ 2026 12:15:54 +0000
 Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0406.012; Tue, 15 Sep 2026
- 12:15:46 +0000
+ 12:15:53 +0000
 From: Hitesh Patel <hitesh@ebytelogic.com>
 To: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -49,12 +49,13 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	linux-kernel@vger.kernel.org,
 	ravi@ebytelogic.com,
 	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH 1/2] media: qcom: camss: Do not link CSID source pads the CSID does not have
-Date: Tue, 15 Sep 2026 17:45:35 +0530
-Message-ID: <20260915121536.19207-1-hitesh@ebytelogic.com>
+Subject: [PATCH 2/2] media: qcom: camss: Enable the streams API on SC7280
+Date: Tue, 15 Sep 2026 17:45:36 +0530
+Message-ID: <20260915121536.19207-2-hitesh@ebytelogic.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <20260915121536.19207-1-hitesh@ebytelogic.com>
 References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20260915121536.19207-1-hitesh@ebytelogic.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: PN3PR01CA0048.INDPRD01.PROD.OUTLOOK.COM
@@ -68,98 +69,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MAUP287MB4525:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a503dbf-caae-47c2-963d-08df1323128c
+X-MS-Office365-Filtering-Correlation-Id: 15126ab2-3cac-4bef-714f-08df132316d9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|366016|10070799003|376014|52116014|1800799024|56012099006|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|7416014|23010399003|366016|10070799003|376014|52116014|1800799024|56012099006|4143699003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	SxjsLcXITvwAHs3GYJi/ANkFiuixKYA8yXwfW2+tTjbuPdVsWDTVFtZAoP+7bsqpdpBFjABrvc1C+++6L1W8jxL8+8xr6yQcNVCvOUpRQD7PYbeXj4HUAJJ6XomSNq7nya5pj7AufPvXfzmc7WbguHaMxMCQyI9wgIQAk4L0Bd51OMhXZYFg0O+jYT36oTLNvg4Tgwf26FPIM4au61jJaiqq7AzJnVeOEDh+wXlhm4ImzquPOMfvApSDOi6z3Yu/Y//M/pCIJw4G9Rbzk+nS7KJRTTK6JoNMOpHfMaR/hSbACnhPS2mWLnBuoj5aaUqqJjyDID5lFXnD5OBPaWzmxP37QC2DVALrD9tMOD7ptT28iLUpv+pzQTlwaU5S9IuvTeYf9IoewxisAD7wEv0Y/Oez4pJpvp9Hen+/JJEZB8K4gLJcryYBUZOtLZxD143I7hSyQbhnMOvXfka/DtN5UR7G9tdac/7PxqvrdDNXGwFuNui8y1lVhETGPX3nLTlZVcjLmESJUhkVfqMzQ3O/2CLQI8N3EM1+W7TRL0LB8QskyH0pI0zt3UAFay/Laoj7vO8Fh5eqYzNtaSdCw4TCrgxvxWAS58B7y/XuV47pJ7lPTeC0Fsuux2sWaPIFThYwk1aEYb7zP1DBySuDEmuBIi6oXLDy9rjQ2qGVL4CuT6Y=
+	2Tn5gOSao/EsjQhcLLojh9HoWuJJ14erYMmdDodgMb4q0Y49dy8ywxi2qSpLB5uJjCp2dLvd+/ofY83efzooGrOppMt3xtncp6t+/WmnyVWaKFLSvUVxtFJCrjMiK4WvkSxFl8RqwB2+yaibHyv18hqovAkgv5VxfZoFjwUu/BdhVuUwhcuc5Mzcpy19Rhgxkdc6CZyZc8TYJLH+c9Xd0XYUBudQblT7YS6q21YPN6umLypgbBgyKVyPKQCYJLvVJI/kz2LLFutKAfHBrVvlmLC15GMqqPmsyO+Us+/h0cimaZymTzkwsfFl7PNZxY/CCsE/1wzlGhhgQkwyJDRE0cZ9PA74/ffptKqRlv05n7En6ipIJymFpl8VOPW7zdY/kI4F4lczxIhcn6nkYjUWwSI+qAFDEtYl2lHJ+q2jCkNThb3FE8Q+pjx2IlAuyva/LuSk7DFIlMYXbYWbwrMS/2mKqlDorsjQFWPWqNxXnRQzViGkLlQ5jvk2GhHVhbpWHPex3F21BJUtwuapaMjXaNFsisz9DD7wMJyLQVJZibcIMMujd3d8eG+lwKgScBd32fS/tCzKkk08gA938wxZSkWomUy4Kv+35bM2nGM3dcBp9GpxjDBlH1KpvpbLsYTjjC+IEp5S4iogwV6En4rUVi0nabNIFm5IROsOd453eiY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(366016)(10070799003)(376014)(52116014)(1800799024)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(366016)(10070799003)(376014)(52116014)(1800799024)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?AHXsgUVNM8E1SZnqa0XGAhfT0ZIAo7rjRZdnMGN80dX2J/meXrleHt4mKcYx?=
- =?us-ascii?Q?GzvJZd7uyRTPeBOrMmJM8EokEsAqvZsoIQHBfXmxuKnWBKwZiNO2+3K2Vz5q?=
- =?us-ascii?Q?lzWzuZMszqZ7vhCmGITPu3YKdkWL9Nt2LntK1YzGhzq2G0v2pL+DpTKqeJcj?=
- =?us-ascii?Q?d85/nycdmOJuUCpU8RSycGQZqx0A2Kgd5VDLbt7Ju/bpEmn3qwGqq8wXaNLX?=
- =?us-ascii?Q?50ezIs4SXefxa5nZvhTbzE5uCncdVpLu7QbQuAkVNzRlLHkQ07NC8hkwzN+9?=
- =?us-ascii?Q?kaZeS68laUTk1n4DIN1S0X8jl0232k+nF3fWVpPia8uBZQYy6a22/1TWhkuM?=
- =?us-ascii?Q?msPNOU26RgGNkgs6pWglVYaqmZp0ZDhkW1Z3gOUxLthhEIi9d9l0ETMI3+5d?=
- =?us-ascii?Q?2jQbN4PtRWiqIpl64nJCGU2xMbtmGGcDd+lsu8yT3QYNScFRMOQxrPN+AHnr?=
- =?us-ascii?Q?tBggbVLU4KdMnYr9jnNRkX7P92sj2O79xKpJQYDVkNHOn4nHTpR9vItR9iWY?=
- =?us-ascii?Q?tZSpl6IPFDMWyhVLQP+VOwG2MAD7KeWCAnMoa3g+GXJUivWSxbMcPb+z0bnX?=
- =?us-ascii?Q?/w5Ptkcx1JYjr6fwO/mzvm6ahZ7rjasDnzp6FR3lPI/oN/cSoe6fWg8IdYcB?=
- =?us-ascii?Q?Diz1nCsoptwyqQw6IEhFYOf9Ewy0qSLG2OCev+piUDyfpRrQ8s5/AkNXnDYY?=
- =?us-ascii?Q?V+G3m6YZp1umv2jKWqHyBCXE2LUXDol0kDYJLpiC3sYpIg1GWvFZJJPP08k2?=
- =?us-ascii?Q?+AyMoVrJnppcIDocGl2s9IhZ4woHwbO+Lo1EoKDA2owBj6frQpZZYPlWgU92?=
- =?us-ascii?Q?WIyem8inMUjAu0cCk3b/br5b53PIKzT1K/N2h/QwZPPNj5d+O+RupvGSLG2J?=
- =?us-ascii?Q?Nm5aipEf5AmjHhHIrZAU+vZLBSsPmTMnMfdt6+5K4dlZ6sbCy2617vDn28MQ?=
- =?us-ascii?Q?N7mNVvGkyElajrv//o/tSPtouoxnjD+E64vH34NzhPZdm2VNpvroKONqxWtc?=
- =?us-ascii?Q?klQ/6s8ADoJPMXBxeOXGaICGJzbURJCti1DMO4ARWRRmxKI2xxF0TeNxYcl5?=
- =?us-ascii?Q?AsaHJWqAFSw0lN05NkKoLNAm94ha106QeEY7UQpIKl7loKKLWMdLoMfQOzc+?=
- =?us-ascii?Q?jTXnzCP/byUW1N0zaJGrM6ShZpo2gdgRWcjgaJjvcEw1BZxZB0jlvb3hyxgh?=
- =?us-ascii?Q?QbCq8WQd2Z8PBuqWa9PNc/LLFQNniZ37UAfhDdH0vkIW8+EfTWdgGx+5ZTDq?=
- =?us-ascii?Q?hETDyU7vLNlLuovYPu67sBKSb4WF611ylrdbozQ/G/kS/c4r67NygtfFSuda?=
- =?us-ascii?Q?cACRJhRIKn2GWSsWVEnjtCHA9Sa6fkmpigZvEeyueqlb58IUg4hAM+bO+MkZ?=
- =?us-ascii?Q?azMnVdFB6xF5/84yMYQVnggo3y9C6198SOXvttXlB4ZnlFzuzcRJ0wfYBlac?=
- =?us-ascii?Q?JlVhe+A6ZJ0ETubxCapb+RZvWHVbq4NI1q0+x5WLMSUb591olrrjBkVOaxZG?=
- =?us-ascii?Q?zlBrbt0r0W9qTSl5HBb8Q6WgHc7amPJQzbDWaoDyYHLWzExA25xYXQ3LnlDL?=
- =?us-ascii?Q?TSCVh6E2Khhgdkizm3ybUPB39qmWfJpX3Jh8LKWYKt4aZmp+3dSQV3Y1LN9g?=
- =?us-ascii?Q?3woOUF6N+mKHuv4n1CsRrAKpwMtk1ZISwHOjAywT3qIB/aiD+sHd5R13/qss?=
- =?us-ascii?Q?DxSjjXhNyFfr7KSFj0ijx7fkm6yGwGGN5Bx6LSTHOTLkumZFnUXCHR83hjLr?=
- =?us-ascii?Q?rPfX54nHViPZPenAiVIZpvqPDzd9yfY9tsDqpNpNBxhgdpl3cnaz7JRLQ+7r?=
-X-MS-Exchange-AntiSpam-MessageData-1: zihgFQSQDfxD2Q==
+	=?us-ascii?Q?cSp7z2ecOsgW9ZJiGQwewKiHrE0BI9gpJQsVUfIbFvrnt2AVYhEJpZNlL0rc?=
+ =?us-ascii?Q?x2rkbrHci7bdWJTGWiqXs9xTtkIXzj6n+k4NoDTDeqmnr6OlkVN9wwqf8CSe?=
+ =?us-ascii?Q?FLO+ybLr0QVcpHTNclkmSplpZ0RBv3D4tVns93bsrpgEB27O9c1CwtLzvylW?=
+ =?us-ascii?Q?g5cAX6QyORDokab58rS62cbXJTlE621VSYjJafQOG69mi1bW/D50oPHB8fZs?=
+ =?us-ascii?Q?Z/H7WsIz7z5bymLq0LayRovmPmxyw1nnwAA2WP+YTzAWZUAsgPBE1ceZY7YR?=
+ =?us-ascii?Q?/47Kdd9teQ/cFxktq0qzYxxzSBjc+pfuAm5gnBmO3qngAg/LcdwdFyLMVs1d?=
+ =?us-ascii?Q?XXORviDNUzSjz7L8iBXXEsgeh3/zshTFDDeRpLH4drAMyPM7OYgI+fZHlyrU?=
+ =?us-ascii?Q?LFL7bysLR3QIwiZeeVdNhMlaXxKWQ0FK1X4u1CAHw1OJJ7aZ2MZ8xqxrIwUt?=
+ =?us-ascii?Q?XLJdT40iM+pdW4KmwhXmgXXm78KDYKs5dYzQQlQteMhLDp5jGDQIq2czGgfJ?=
+ =?us-ascii?Q?LXxEz/adHy7WvnHndVueGSvMLcgRUkDti7fFRSMqgh7tTFAu2VmHlEN8GJ1i?=
+ =?us-ascii?Q?6/340VrVvlYdznyg1NzxVGXVijZvY8+J7i/N2pAKgnLK5ATIxU8AeRM0nFQs?=
+ =?us-ascii?Q?4QhPepTw2XXaYFAu9oKSXhge3G1+Tz8b1ep9cd/FWj45GotnmDbSaV1HbAgh?=
+ =?us-ascii?Q?2FsYDDRzq3NPVyXoYgWACaLagbaCDhNhcJL9JTJz6ARxhUgC74Rl4uJ1SnPc?=
+ =?us-ascii?Q?qtbx7baaIHbfe3t//j66E7+rgOuoIPymIW0iPcKXXMSnHUhI5RCaV1lunES6?=
+ =?us-ascii?Q?h4pGRsJBEPspR7rQ7buvaVwf3ExCxhn2hwFEvvk3KqAfL2Pg6xiTqpSbNqCX?=
+ =?us-ascii?Q?pDvAy+Rlzv6t4i9GeQJtGEk27k/P7pPB5riT7LW5QvfLOaF8BsgNBiUzwcVp?=
+ =?us-ascii?Q?Qr4/FArG1Ys7YhAo3aAqka2b10HWMWnOc/rsNLqyRo5Yzkz/09yPbLt8w4CB?=
+ =?us-ascii?Q?DYMyILgn8x6RP0LYkbguS8rKwnKU7qTT+3QP2gQpAOLLSw2T+JLT4JZmheOn?=
+ =?us-ascii?Q?Ij54ak8vaMEvnT/es6zszfLWLRcrihS2BgBfOd1D5NmuY+46Mp/3itJt4FKI?=
+ =?us-ascii?Q?pcfU3wO21pFLJ0VkPTJY9y0ALMarEabZvM5WGTAbT1C+ax8tdyFyiFNLFyzL?=
+ =?us-ascii?Q?HkNnCTsNhavhYvBqdJeNTCdJVpKr2npZurCY2QnzBPlP49rgxqiTo1dw8ZXf?=
+ =?us-ascii?Q?dhcj+gy8VTBjhaUUNRWXeZbDo4P+Cx3J3Grt5nTl8Od6IEdOREZAv5UOfeVn?=
+ =?us-ascii?Q?DlKBTZWK+DP64noEfAle/nE3GnuQnqPMdY/Pg6CImH0RDg2OUpKMJUehmno+?=
+ =?us-ascii?Q?ATzqyfyxlOoMem3r+CcjpkfZyoKl+yr6HJh3SRJe2DpaFIPR4fatVw4pqKdr?=
+ =?us-ascii?Q?CSBRWswlifrQrXg9PWVXQGkVLg6bBPYn2c59Y81xJlF3PTXKyfhY3GUc3Fjh?=
+ =?us-ascii?Q?ZAQrZ6VcNSBjAF9PoehrTNvaMU05Aw40TtTFFO8rYMFOFm4FmxjUKYEVY/U1?=
+ =?us-ascii?Q?7YKwv9Y3BLaeH5LwFWUNnGKjoq5zHHX9EJGrI8w/XJhrFGLjitviHzf1bSNc?=
+ =?us-ascii?Q?ZmP4hcboUjW9O2FqOyC3i+4MgbSWbHpHNAh0CR+tFl0gfgVkI23fDoFiPw3Z?=
+ =?us-ascii?Q?o4XX0OjDaqr/h592RCrNQG9iUOCBVY26dD13vuhsQi9u6MXCfHYgNmy0SeAS?=
+ =?us-ascii?Q?aMO7Z+ObGPxLBGvuZlc4e7TGcGLTCLXrPvzg7iZCNy6ISstJXPeaK3SBzvAU?=
+X-MS-Exchange-AntiSpam-MessageData-1: gEnYv1pPoHHJBA==
 X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a503dbf-caae-47c2-963d-08df1323128c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15126ab2-3cac-4bef-714f-08df132316d9
 X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 12:15:46.7679
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 12:15:53.9067
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PjotZeTgd0Hok1JydCSHCKFS+PRazeDfwdbOxFi1MH55kMKi0/u12JUp1zg0TnXJzvGUell2L++4u2oSVrnzYQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: CthNwxtpu0Fx/TbTvo7Atxi39wZItFiqR0U1SuJUg3NiL24aAdn2QZr2FW1EbALzJ7/aeZvQuaZWufjzpEIgYw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAUP287MB4525
 
-With the streams API a non-lite CSID registers MSM_CSID_PADS_NUM - 1
-pads, one source pad per RDI0..2, while a lite CSID keeps all
-MSM_CSID_PADS_NUM pads. camss_link_entities() still links source pad
-MSM_CSID_PAD_FIRST_SRC + j of every CSID to line j of every VFE.
+Set streams_enable on every CSIPHY, CSID and VFE line of SC7280, as
+done for SM8250.
 
-On SC7280 the non-lite csid0 is linked to vfe_lite0, which has four
-lines, so the loop asks for csid0 source pad 4:
-
-  WARNING: drivers/media/mc/mc-entity.c:1150 media_create_pad_link
-  qcom-camss acb3000.isp: Failed to link msm_csid0->msm_vfe3_rdi3 entities: -22
-  qcom-camss acb3000.isp: probe with driver qcom-camss failed with error -22
-
-SM8250 does not hit this because csid_vfe_fixed_pairing only links
-csid[i] to vfe[i]. Every other platform that links all CSIDs to all
-VFEs fails to probe as soon as streams_enable is set on a non-lite
-CSID.
-
-Skip the VFE lines for which the CSID has no source pad.
+Tested on RB3 Gen2 (QCS6490) with two GMSL cameras behind a MAX9296A
+deserializer, one camera per CSI-2 port, so two independent pipelines
+share the deserializer subdev: both cameras stream concurrently, and
+each can be started and stopped repeatedly while the other keeps
+streaming, without the WARN in call_s_stream() and without the second
+pipeline tearing the first one down that the legacy s_stream path
+produces. The CSID test pattern generator keeps working.
 
 Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 ---
- drivers/media/platform/qcom/camss/camss.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/media/platform/qcom/camss/camss.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 9bfb02903..0201debd4 100644
+index 0201debd4..2023c0df2 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5022,6 +5022,9 @@ static int camss_link_entities(struct camss *camss)
- 					struct v4l2_subdev *csid = &camss->csid[i].subdev;
- 					struct v4l2_subdev *vfe = &camss->vfe[k].line[j].subdev;
- 
-+					if (MSM_CSID_PAD_FIRST_SRC + j >= csid->entity.num_pads)
-+						continue;
-+
- 					ret = media_create_pad_link(&csid->entity,
- 								    MSM_CSID_PAD_FIRST_SRC + j,
- 								    &vfe->entity,
+@@ -2280,6 +2280,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
+ 		.reg = { "csiphy0" },
+ 		.interrupt = { "csiphy0" },
+ 		.csiphy = {
++			.streams_enable = true,
+ 			.id = 0,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845,
+@@ -2298,6 +2299,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
+ 		.reg = { "csiphy1" },
+ 		.interrupt = { "csiphy1" },
+ 		.csiphy = {
++			.streams_enable = true,
+ 			.id = 1,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845,
+@@ -2316,6 +2318,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
+ 		.reg = { "csiphy2" },
+ 		.interrupt = { "csiphy2" },
+ 		.csiphy = {
++			.streams_enable = true,
+ 			.id = 2,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845,
+@@ -2334,6 +2337,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
+ 		.reg = { "csiphy3" },
+ 		.interrupt = { "csiphy3" },
+ 		.csiphy = {
++			.streams_enable = true,
+ 			.id = 3,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845,
+@@ -2352,6 +2356,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
+ 		.reg = { "csiphy4" },
+ 		.interrupt = { "csiphy4" },
+ 		.csiphy = {
++			.streams_enable = true,
+ 			.id = 4,
+ 			.hw_ops = &csiphy_ops_3ph_1_0,
+ 			.formats = &csiphy_formats_sdm845,
+@@ -2373,6 +2378,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
+ 		.reg = { "csid0" },
+ 		.interrupt = { "csid0" },
+ 		.csid = {
++			.streams_enable = true,
+ 			.is_lite = false,
+ 			.hw_ops = &csid_ops_gen2,
+ 			.parent_dev_ops = &vfe_parent_dev_ops,
+@@ -2392,6 +2398,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
+ 		.reg = { "csid1" },
+ 		.interrupt = { "csid1" },
+ 		.csid = {
++			.streams_enable = true,
+ 			.is_lite = false,
+ 			.hw_ops = &csid_ops_gen2,
+ 			.parent_dev_ops = &vfe_parent_dev_ops,
+@@ -2411,6 +2418,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
+ 		.reg = { "csid2" },
+ 		.interrupt = { "csid2" },
+ 		.csid = {
++			.streams_enable = true,
+ 			.is_lite = false,
+ 			.hw_ops = &csid_ops_gen2,
+ 			.parent_dev_ops = &vfe_parent_dev_ops,
+@@ -2430,6 +2438,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
+ 		.reg = { "csid_lite0" },
+ 		.interrupt = { "csid_lite0" },
+ 		.csid = {
++			.streams_enable = true,
+ 			.is_lite = true,
+ 			.hw_ops = &csid_ops_gen2,
+ 			.parent_dev_ops = &vfe_parent_dev_ops,
+@@ -2449,6 +2458,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
+ 		.reg = { "csid_lite1" },
+ 		.interrupt = { "csid_lite1" },
+ 		.csid = {
++			.streams_enable = true,
+ 			.is_lite = true,
+ 			.hw_ops = &csid_ops_gen2,
+ 			.parent_dev_ops = &vfe_parent_dev_ops,
+@@ -2475,6 +2485,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 		.reg = { "vfe0" },
+ 		.interrupt = { "vfe0" },
+ 		.vfe = {
++			.streams_enable = true,
+ 			.line_num = 3,
+ 			.is_lite = false,
+ 			.has_pd = true,
+@@ -2501,6 +2512,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 		.reg = { "vfe1" },
+ 		.interrupt = { "vfe1" },
+ 		.vfe = {
++			.streams_enable = true,
+ 			.line_num = 3,
+ 			.is_lite = false,
+ 			.has_pd = true,
+@@ -2527,6 +2539,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 		.reg = { "vfe2" },
+ 		.interrupt = { "vfe2" },
+ 		.vfe = {
++			.streams_enable = true,
+ 			.line_num = 3,
+ 			.is_lite = false,
+ 			.hw_ops = &vfe_ops_170,
+@@ -2551,6 +2564,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 		.reg = { "vfe_lite0" },
+ 		.interrupt = { "vfe_lite0" },
+ 		.vfe = {
++			.streams_enable = true,
+ 			.line_num = 4,
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_170,
+@@ -2573,6 +2587,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 		.reg = { "vfe_lite1" },
+ 		.interrupt = { "vfe_lite1" },
+ 		.vfe = {
++			.streams_enable = true,
+ 			.line_num = 4,
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_170,
 -- 
 2.43.0
 
