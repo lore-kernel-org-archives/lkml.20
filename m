@@ -1,132 +1,106 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D9C3C1D67
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:16:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5793BBFAA;
+	Tue, 15 Sep 2026 13:16:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478204; cv=none; b=LiEh0ndz0e2qpa5Q5cD+98sgRBUjL7tcUqk7aN1v2XY4D6YK2Tn5TAPIR38SFlFEhKYyI+74Jv0P7Oz/32BgA6zMr6tw8qZhFEwHsnBvQt1i+YIWzSOP9ZtIXNFJ+nkTup4SYMS0q/CNV2s4mrutlel/kJrYciVBPWrjW8rQjPo=
+	t=1789478178; cv=none; b=QPu1oMXahUPJMJaMeZL+aAUZJm0zMlbPU2/Kc2Z5gMQ7FpttOZpw3hukff2DjOVtfdvO1IL5cMpPwNZSzA/m+Z7Fcq8FeN/UXoanb8Dk3J+uUQO6mLa05c8nnsVBsn1gzi7MpH7TAGv4imlzlzX/m5+3xzj94TRrSXC72R9Wa00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478204; c=relaxed/simple;
-	bh=usQ6otGy61tea2/+SN0kWeGAn4CCH12vYdkTnhTHXWs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=B8VIpLezMRUBzbO++q1yd+OI9V6yUJ5r9CpkhVQEx7pt5gWXvIQ/rNqwysae0hAuZM+8mUs9FLkklnxFFawfRQiNC9DLaLkv838WtSMIsaM2NeP3w5bEgDzK1JdT08LE3m43dxOXwkUf13fTh/OvAJtfinmlhpeIhjrB9Ie7AJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UJnhYlRU; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789478178; c=relaxed/simple;
+	bh=OW/j0OV6/KFGgiFnuDflzDHt28f867c5Hch7mrGWrqo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DPBmli5kc3dv1HgcE9Url0g9oyg/8deEN4lHvE6YQEIM4XBtMSGsDiPEOv+ZT3l9xbOMah9pmWh5bCaC9ytiMdhx6H8d23N+E3khdJga6vVuRjUd1uKM8GW52qzRsY+3JTO5C5rcSwaFT16ew0q9MUFmj261jyxPDEoD8m4qgao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=g9yMXBMG; arc=none smtp.client-ip=185.226.149.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UJnhYlRU"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso30727415e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:16:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789478200; x=1790083000; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yOh4YxsUy9cnJP0mnCeYYmhsQkJTthFN6MeVe5U5BCY=;
-        b=UJnhYlRU/5gIjw4B+i5fNFyGDdvGac4qD0oSJLTa1hxb32IdKLnWoG9AsEEffHOwFS
-         bY5ODFPDQSWAycunF7gGXt+RUDrxFjcaRZxFo1aJb9UngFYcDVXTa5GVdIEhunjscQt7
-         EKm6yVag/XgVqX3t/d6xLjxaTkGJ0VwSeGBZjRB2ip/TogwMfe3Cnukb/pDm/+HVEZn5
-         xlamzWwZW5Tn9LzXNd0xi4PvVS2g2Lo4rbd5CgxOBY2nrihyER2QKB1d5lKkFrFXdEFO
-         AlkLzFmox/Wank1DwRPAelxSeIQMl9mU6LycvQyPssLMF9e4MQoqgyv8k22H4CJ8lby5
-         PCbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789478200; x=1790083000;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yOh4YxsUy9cnJP0mnCeYYmhsQkJTthFN6MeVe5U5BCY=;
-        b=pbT4H41sK6Iv6rajgB2JfxqgJyN3O3XaQ1RN/l6V70xJnK4Oc8EuUFz6EzPyeza8Nb
-         lBndjm8Tw2clJsenNAMFBf+bnacG904ti+iz21LXzH69WcfgYY/ON+3la/7qbqxqEb/5
-         WhQsWiH80Sq0wknH+WHkYvPGTPujFXufXmdT4tDPLHN2wqSIn0dz5iORdSOzJZqCbW1d
-         nld123h34rXKTdyV57isWnVQGSWzDupr50inw9BGhUF6MNV599aqpnae71s1a6uZzrYX
-         gW9E7cFxC2cp6u4TO9biS6GyYmWZswH95mkVOo6Kf92XXS6tEpHcq6ESa00bGIJuJX52
-         429w==
-X-Forwarded-Encrypted: i=1; AKwUvBxs1qS71Ngxj+iLH5Wi8DZ1bGlJPD0EtM9X3q7Mt9KciKm8u1eId7Mc2Kr7ItFnC0hP1LNOPwNtoNkphgc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCLb1i+nWRsnQZ2Ml+xvnggtyDNLP4Y5ULP7YSwKvsI1WIJGeV
-	OiOdGJeIFehtdeO76Z+bktjH/2Hv1n3tfCIuzwoxBvhApGEC3hf6SHmQ
-X-Gm-Gg: AYBFou1rVWZmBcVb6gb3IkSs3Z/7gx9B7tWKDoFc9Gw/BhgRr73DxCE/uePLEec7Yx0
-	VoLF9v1uHgkp1OX706WxTytCJ5Y9/lYPjaY13dW68IU2vsNxz0AQr/hfDRFxULj/nnrS8hyctD6
-	zb2lE5gCNA4UljciYxDdACsKdpzCmVXXQPwd7BZnoEUeSvYlTVoz3b+LkiskIHq75IMYimINntc
-	vFJpPfze9arUrvDHubS2FF40EYcIyHmPNiQMnfSKOmeCrhIQ6iOt3SleHo7yH85fLQXQabI74g5
-	p2ifDYAfjyAcU7nG0173ZdrnY32Z3fSMG6ZuCMcLwnFTrXVrhbZ0NaeO4+AmOnpho2ySGDTQtxO
-	hV9/DEenjlFJkVRz6HiX/CBmdbCpzozftD+tV7zZU88zAexXa/W7CJbNMsWOnq0o31zHUztziLP
-	/btGAYWFlyFSy8nhdZPETYg+Tj0gD4iAqsvMlxydoLz/eRYABaNc1mQrLZw7qoBOPcmMIPTIb44
-	8Z9HTgEgAcBZycqntN0n2P+2/HfoCVFpfbTNinvXv2NjfOEjrjINyUHHglHhbGu8B0ZDd6WAWxp
-	fBZtgA1XL99qys56Qxhais8ghOd/63QEQ3cduFr0FoFu+PdVBLKwvbVU+SfWU6wBkkymIt2AGNV
-	A0m4pICbSrDUX1cljW9Tk1LoZ8KqgkPktLqDa7YCwBNcTeUeY657v9K8R86MNyGfxQL2b31jgpm
-	Mk1HKS
-X-Received: by 2002:a05:600c:81ca:b0:49e:642a:4f6f with SMTP id 5b1f17b1804b1-49e7a69ba24mr89660425e9.33.1789478200316;
-        Tue, 15 Sep 2026 06:16:40 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef735cesm65466155e9.6.2026.09.15.06.16.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 06:16:39 -0700 (PDT)
-Date: Tue, 15 Sep 2026 15:16:34 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com,
- Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
- linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/3] staging: iio: adc: ad7816: Serialize SPI
- operations
-Message-ID: <20260915151634.0000787e@gmail.com>
-In-Reply-To: <20260915075939.18180-3-abdelnasserhussein11@gmail.com>
-References: <20260915075939.18180-1-abdelnasserhussein11@gmail.com>
-	<20260915075939.18180-3-abdelnasserhussein11@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="g9yMXBMG"
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1x6T0c-00HRCh-Oa; Tue, 15 Sep 2026 15:15:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector2; h=Cc:To:In-Reply-To:References:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From;
+	bh=J6FJXLnbQMTSTvXFFwXmON3Rzv+eNvV2Q3NtjngzJY4=; b=g9yMXBMG8bE9YUnCJlIfgZmdA1
+	SD1b07fCA8JfcpmPFrbthPLdeUdvsCYYh7zFzT6w50UgM3jkAVXdUnc3mtXhvx343pV1oHXiHKzYN
+	ejGv4vHQiEeU8Asv2GoXRCBuyPMB1AR/+euFdVo0iF9MaZMkRtXipv97iMVO9dbGpilTo3LLiGf2U
+	T5NVsMai/GuKVhwPliOkOKIiU8vXEQUiE+p0c5KqiJKXYpUHwGTy4LRD6z/y5kKvSCLrc89B9OQYl
+	2VYKrvu6AecSd2xQxSeQqSeu04OCR7PkIJ9ml90GwHdgSJqvCLJc6PDuIz4QvHa0g27f0TCV7RaR6
+	yROKDoog==;
+Received: from [10.9.9.72] (helo=submission01.runbox)
+	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1x6T0W-0003iI-B1; Tue, 15 Sep 2026 15:15:32 +0200
+Received: by submission01.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1x6T0J-00EUxD-21;
+	Tue, 15 Sep 2026 15:15:19 +0200
+From: Michal Luczaj <mhal@rbox.co>
+Date: Tue, 15 Sep 2026 15:15:13 +0200
+Subject: [PATCH net v2 2/5] vsock/virtio: Streamline socket reset on
+ transport/PM event
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-vsock-connect-reset-closing-v2-2-a1d9abb472f7@rbox.co>
+References: <20260915-vsock-connect-reset-closing-v2-0-a1d9abb472f7@rbox.co>
+In-Reply-To: <20260915-vsock-connect-reset-closing-v2-0-a1d9abb472f7@rbox.co>
+To: Stefan Hajnoczi <stefanha@redhat.com>, 
+ Stefano Garzarella <sgarzare@redhat.com>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Asias He <asias@redhat.com>
+Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Michal Luczaj <mhal@rbox.co>
+X-Mailer: b4 0.15.2
 
-On Tue, 15 Sep 2026 10:59:38 +0300
-Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
+Follow vhost's vhost_vsock_reset_orphans() and VMCI's
+vmci_transport_handle_detach(): set SHUTDOWN_MASK, which will come handy
+later in the series.
 
-...
+Note that commit c38f57da428b ("vhost/vsock: fix reset orphans race with
+close timeout") fixed a race between pending close timer, i.e.
+virtio_transport_close_timeout(), and a transport/PM reset. But here we
+never set SOCK_DONE, hence no race.
 
-> +	ret = devm_mutex_init(&spi_dev->dev, &chip->lock);
-> +	if (ret)
-> +		return ret;
-> +
->  	chip->spi_dev = spi_dev;
->  	for (i = 0; i <= AD7816_CS_MAX; i++)
->  		chip->oti_data[i] = 203;
+Fixes: 0ea9e1d3a9e3 ("VSOCK: Introduce virtio_transport.ko")
+Signed-off-by: Michal Luczaj <mhal@rbox.co>
+---
+ net/vmw_vsock/virtio_transport.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-The patch in itself is fine, but Sashiko points out that the mutex
-could be added in the ad7816_store_mode/channel() functions. Nevertheless,
-this patch only focuses on SPI transfers so you could add guards to the
-GPIO functions in another patch (I don't think you need to send a v8 though,
-just another patch after this series gets merged).
-
-Does this newly added lock also need to be acquired in the sysfs store
-functions?
-If a userspace process concurrently writes to the mode or channel sysfs
-attributes, the GPIO pin and device state can be modified without acquiring
-chip->lock:
-drivers/staging/iio/adc/ad7816.c:ad7816_store_mode() {
-    ...
-	if (strcmp(buf, "full") == 0) {
-		gpiod_set_value(chip->rdwr_pin, 1);
-		chip->mode = AD7816_FULL;
-	} else {
-    ...
-}
-drivers/staging/iio/adc/ad7816.c:ad7816_store_channel() {
-    ...
-	chip->channel_id = data;
-    ...
-}
-Could this concurrent access corrupt the rdwr_pin state, chip->mode, or
-chip->channel_id variables during an ongoing SPI transfer, leading to
-malformed transactions or corrupted ADC readings?
+diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+index 4f9aa9c4c3aa..4d6991321699 100644
+--- a/net/vmw_vsock/virtio_transport.c
++++ b/net/vmw_vsock/virtio_transport.c
+@@ -413,11 +413,14 @@ static void virtio_vsock_event_fill(struct virtio_vsock *vsock)
+ 
+ static void virtio_vsock_reset_sock(struct sock *sk)
+ {
++	struct vsock_sock *vsk = vsock_sk(sk);
++
+ 	/* vmci_transport.c doesn't take sk_lock here either.  At least we're
+ 	 * under vsock_table_lock so the sock cannot disappear while we're
+ 	 * executing.
+ 	 */
+ 
++	vsk->peer_shutdown = SHUTDOWN_MASK;
+ 	sk->sk_state = TCP_CLOSE;
+ 	sk->sk_err = ECONNRESET;
+ 	sk_error_report(sk);
 
 -- 
-Kind regards,
-Joshua Crofts
+2.55.0
+
