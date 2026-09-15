@@ -1,122 +1,110 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.pv.icloud.com (pv-2006l-snip4-11.eps.apple.com [57.103.67.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4724A43A7E3
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:08:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1ADA43DED9
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.67.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789452495; cv=none; b=SsSRBjiDEAXfzoNsmUEeynhkmsoOosNsUuy5IojZLeuwM6zeZ5Smrz/l1otrJ9wg6rXaRTxx6IXJ25sIJ+jP7Xk+qr7IdhevrXVX0DAa00r1IhUfvlQEFL5MNH7ljerFCKuRcxOyyiEy7a7t0CBzC4tadrISIeqLlGmF1IZUuds=
+	t=1789452494; cv=none; b=k5S6ug2rgAw9HjG7oLzKDYGFmQb6CUzPqD4j4eUITUiBzU22ZHAIG3wMWijjoG89GcWZ6OxeizUBl+C8VbYVqu4+Ry7ZDV4uFWoiFiLjWmk3Ge3g/VCgTspQ/+rfwjl8bi22r5p2E8Is2E3F5NdAOAyZdJjfmW0+O7umIai+p7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789452495; c=relaxed/simple;
-	bh=PAuNvntAEAuzj4Nz9wV7sdS6zNhgaj7KUz8bvciwMOg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jda2yo/Gx+EvyhOk1j7CxXnnja8tWXcPhox8aV5PC7A02FR6JEaRZ7b3akJ8TadkIIXmXfwqXvSmjUeYbC1L3eP/9leYNBMIopI/L7Xb4JF6Hvl16tI9X4FFnV88M3AhIQTVrxIQZjEpAtkLqu3dLBM2VkYgrrSg3JAYWZwEkGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=swpShztk; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789452494; c=relaxed/simple;
+	bh=79kcZ+O30+iU0D1VkgZoYPKKCDocfroD560qea7HTXI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NGKcngJKrMKFpzr4qcyVcpEOEdnkyls5hLd9Bd2UHu5g3jRh0g3Xzk/DulauGbR3XUzJdIzubKp4lRzMTyTkSs1jhIVFex2yztIdTzSMKJta6YYHcbXg1StRj+r1SKUT5ylQf69/DlNtbSgZeG0/ka7tiujrB//5GQGV7OAvD7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.linjama.com; spf=pass smtp.mailfrom=dev.linjama.com; dkim=pass (2048-bit key) header.d=dev.linjama.com header.i=@dev.linjama.com header.b=UeJ4oVKr; arc=none smtp.client-ip=57.103.67.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.linjama.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.linjama.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="swpShztk"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-398e9698a70so4308815a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:08:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789452493; x=1790057293; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YJ/ZVEdkNsjrbjg2YrtoA+pGCWrHgTsXZF53fBuFvuY=;
-        b=swpShztkdatBxzX+vvvuFwczoHYuYNBwAAjTIkjGLrG+cXahftXDvVAt00q+kwiicW
-         AgokXZ4LVdqJ1TxtkBzCCQFi9511SFdWdX7iTMErNl8t0kbhkdGd3q6SBJnjJHwbWmSP
-         tQoMISBy5MOSvgRLj086k2ut2V3F4uN+KUyQ4jigoU754qHrSZPrvk0CHoUrdhaHHJQO
-         qRKyIZ63JDWxrlUUg1lL8/pxROVw1Wuqv7PlJDu9BjivbHJOao12GSBOUQ1JvukM/SoM
-         MsNSOX9Bp/RwCZfPZCfQvvEcXWKp4b9q0reQuqIQPUBs0xHTSFe6lL/qIaavcQvqy6+u
-         DuWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789452493; x=1790057293;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YJ/ZVEdkNsjrbjg2YrtoA+pGCWrHgTsXZF53fBuFvuY=;
-        b=srMZtXSiB5Pqc6X4WPY/xNrKIQqCwtr1uXFjON819lYlmwjB2O4SWZbFB9oIJJTGYk
-         smjRnW/3Anu9cHl9ths8V6V7KD0iOD70udc04oCy9PRaIm2vBqzLXthTvMjhPaBpDRKV
-         2U5hKlpz5Qb+Rz3DQG1LWAPbFaBxCGhaU+uFUD66Jl3Sc10sRUPBa9MRd9rAtS/sk87z
-         tNohf2rWFhJ5HN1G+UXf/8aWZhjAtAjwGFP3dxeetuAvFI2kaPvd6s2c+PzCp3MoE5ct
-         bCihc2VdPyRaZl3ReFHkOdInrx96IwQoRaZ9Qe/HSWbFXltkxeEpjPpKpRCXrofCg614
-         q8TA==
-X-Forwarded-Encrypted: i=1; AKwUvBx5MDAb8C3a1Aq5K3umx3ue1RQIwU3fVKHF/2wSZPMqtSAEzzdv2AXL3jSu0J0J882JBKOyRl2DYWRXvC4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ns0iFsNfQ1g+ecK1ay0cMzP1diaBBnIbZB58ECMj8v179txJAH
-	I7MjGtNDhYRC0viUdQOkuIGHiXm1vPvg5wuwnsFyE7IJ/RlU50gl1+Ay
-X-Gm-Gg: AYBFou34u7Ax8xK7LUOGH/mYkHBGhRUCgx9ylyrRRBFqI8ISsKsbP+4f16O0SRsGibU
-	0QnVOLjn08GgwY0QqYL1poLTgv35SC5UNIGJyLCuNhRg2NuGslvmImpJoT3jwsn6mMG5jvIOu+q
-	dMWwDWh0d//CJKb5EwqN8nn49gspzkPENx+y2afnCDlEmKYed+YgRk622Puvon81s4d18d8EXuI
-	O4Ki5ChFHYSC4+GpyQnvgZMj9KvRV+XwKHIOIwF9DThcDZ7bYTXm/VgHMT1BZXzV90gTRUl2GoC
-	AoSA/6sKAIeyOZ1BN8FcUFfQ7mXG1uU2wQL1/oLhxTS0WfJVSBi/nCs1XNolELug8M1uxhxRiIo
-	KAor/KdHCIoWKGBAZ/8JxTnsYpV6r6lu8kX1Vez2ogH1+vFUw1XnxworBDyWyu0F2oDDGKrWoit
-	9IZ6+SLgr6KXp8s75XCzdIhmR2+j8YMLtv/WfyW3W0taqdrzeI7P4lTi7nLSBmjgy1gFmIQO4yi
-	HVvLkN9R1oWR3K0gRixVpHb+/SOavjOOTRKXgnSJYsC5I5AqAX47aM=
-X-Received: by 2002:a17:90b:4a8c:b0:39e:261:4e12 with SMTP id 98e67ed59e1d1-39e02615623mr3589464a91.23.1789452493406;
-        Mon, 14 Sep 2026 23:08:13 -0700 (PDT)
-Received: from [172.19.1.47] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfda7d765sm3146170a91.10.2026.09.14.23.08.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 23:08:12 -0700 (PDT)
-Message-ID: <4997b79c-fb9d-44be-a9ee-1af2d6e5d0f9@gmail.com>
-Date: Tue, 15 Sep 2026 14:08:09 +0800
+	dkim=pass (2048-bit key) header.d=dev.linjama.com header.i=@dev.linjama.com header.b="UeJ4oVKr"
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-60-percent-0 (Postfix) with ESMTPS id 829FA1800395;
+	Tue, 15 Sep 2026 06:08:10 +0000 (UTC)
+X-ICL-RepId: 01a0a3ae-16e4-78c6-b309-842ef21a88f0
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQ1NHVwGRQpFF0oBVBcOVk1dGV0EUgdyFFwOHQFeBVgRVBkdDlgGEhZdRVcIQUVeGVcSUgBWRVEfVFhBDgpdEhhcFFxQWB5GElYNXQkZG0ReUBtfAkIPHBNWFRMdQxkPKwhKBEMHRQJeCyUTCVNWVhVPVl8EWQFTHVhWUAJaS18ZXUUPXwdZBEAASQZdAVsFRA5WAFwCUgFIFEkeCVYFWxVVOFcIQUVeGVcSUgBWRVEfVEYTGU4bV01aDUAZWAZtFFYVUgRZ
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dev.linjama.com; s=sig1; t=1789452492; x=1792044492; bh=79kcZ+O30+iU0D1VkgZoYPKKCDocfroD560qea7HTXI=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=UeJ4oVKrgwv8O3VZA6JIUShJNSGNSPysOFenuqspiV4K0mNS6fi9JiOyDkNk+X63+9P5vegcNgMHDtibfjIO5G8vBIFPBaOxok9wynuJMr+t83PGYcAMCWjVf0ujUEWDLwBsjyzxZabEcn9In6p8NqnOsxkJE0FzUJQMDhLFjbGgrZ3VmBXOt5eRyJw4apdqN92DRjDOrOktJtODBNocdDJXEQhvVwI700IKSYbticvk7YTx+IsHcl+mgIAHmgLO9CMKuhPI7W4oUwyOzrPqFffC5W3PDLRklzhMdRur8/F0lLC2G67KCAZFMg6fI3+iZC7/ahPU8oEsYIFpsbCJsA==
+mail-alias-created-date: 1690913137769
+Received: from dev.linjama.com (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-60-percent-0 (Postfix) with ESMTPSA id A8A941800128;
+	Tue, 15 Sep 2026 06:08:08 +0000 (UTC)
+From: Daniel Linjama <daniel@dev.linjama.com>
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Cc: linux-btrfs@vger.kernel.org,
+	David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Daniel Linjama <daniel@dev.linjama.com>
+Subject: Re: [PATCH] btrfs: don't force the filesystem read-only on EDQUOT/ENOSPC verity rollback
+Date: Tue, 15 Sep 2026 09:07:47 +0300
+Message-ID: <20260915060747.315938-1-daniel@dev.linjama.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <af99a1d5-25b0-4e39-9f66-a2dd8e1425c5@gmx.com>
+References: <20260914062459.3889313-1-daniel@dev.linjama.com> <2107e9f8-2bc6-42e5-98e2-30e25be016dd@gmx.com> <af99a1d5-25b0-4e39-9f66-a2dd8e1425c5@gmx.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] rtc: ma35d1: fix permanent clock reference/enable-count
- leak in probe
-To: Cong Nguyen <congnt264@gmail.com>, Jacky Huang <ychuang3@nuvoton.com>
-Cc: Shan-Chun Hung <schung@nuvoton.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260914131850.2331670-1-congnt264@gmail.com>
-Content-Language: en-US
-From: Jacky Huang <ychuang570808@gmail.com>
-In-Reply-To: <20260914131850.2331670-1-congnt264@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: MTz4CtcDUFM_BkfUT6jAJsIG5OGdzdlh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDA4NiBTYWx0ZWRfX6pw9teXPJ6dJ
+ v3oO6JcfSeJaryzRWweSNUW9PzkHMnkQJxuoeYH26/7OFOmK4Ve7JozgwLGOyfpdnc3kSljFRBr
+ zXL4hRmRJzDYsKN9DUN4d/qOhJ8gfhtOaI7VdjCuBQIby51kDjmbeoPCHhC/dslIWtI6AV+gZAO
+ r9mfTFrUQpuZvgF+ZV6h1SSM/4wU+rdU2rr15E3hQ/H71+16sxb+jMhMOSBXGFPRXuqKBwZJpew
+ ZU9vJtibw81iSGyQ8+p0LxEt+C/wOpW2kH+E7807UO6cen5m0gZJirlhhAwBL6+Zjt6kcoNbVf6
+ 8Kv/IEAUgTYMg8wuZSSEiOHy25FaGTh4ijqjXMcSnKnJPscDCih5USfMdqmBno=
+X-Authority-Info-Out: v=2.4 cv=TovrRTXh c=1 sm=1 tr=0 ts=6aa8e0ca
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=olXNNK5aAAAA:8 a=Em7shX7px7pPTLXbYC8A:9
+ a=U4UmX7kblY_o6ZOM_jyP:22
+X-Proofpoint-ORIG-GUID: MTz4CtcDUFM_BkfUT6jAJsIG5OGdzdlh
+X-JNJ: AAAAAAABf5j+aTQi/vM5/r14a7ADckd+SNY8EMdYJRqbFlP7J3gbbvSqHAjuriIzATqt99IsajlKsCK8O81uafmhNWkY0aaeq2NMrl8Ygm8M7Xt/Zl9WJELz/xd7t0Mx/b5uCI+0//Ho4o2W6BPXD0Bj6g6EuSuylMThlurRx1t9H36YbzFdojk1aDN0kOjeKdjkvii81iDpSy4mfCSLD9OoAbxG9o2WQ3XGTQU1fmz32De2Ra5oZnjeZLVM1w3dZzW3k2g2y98/qPNQRZ1p/13jbflDlYQRs3l5q+PK/ctmcS3SKw86Y6PpEeoFnaBk0sNzL4/P79iu1IAiGthCMR6tl5ule0VRESi0zS+ER0dK0ri5yugTyZOZDt3TIn/7lu2n7jSqJOIpIq6p19cQj5SpnsBtxsuVHWofl4i/lY1nM/e/ncjeccPFe3InjXVA6Te0O9+p47He2sFakm1srZmDSyvJJXiJO/BUrpMVcU02De5YG9Ck6XUPXsfaoZxitrQcXcaMa08Egp053EetYZ+gcaQhf7f3qauenH/ocuSbcVyMB4GscH1y/RozGfCPNUyZAhI0KA2wMgNWJyTgeM/tuo1FebJAJWz+gVjItGEoXMSapAK/TH55djaqrGWtyObB75j0lBACzVb9aOF4c9S3DWev1etJ/lVnIZnuhge1UHl/J/EECv4eNxbnd7nECIAbLs9jNxKgvxP9lXofTi4mrkEQTyX3Vv+odu/gycBiLIuA2ZgmsTiCFUZ7I7ArwfpNTg9bOaXxtDeiJR5ecJNZhy0CkT4tbN5h/5aZooXUkoQzd0weXgRQ5Q269NruR4qyIfTxslv4a5Wn3RXw4JckzsCkGtymxiGywarN8yp/zaB1a2HS8Vv1UIOmyDOq0KKM4NGKFu09qGeV9ZuoHMGT67H63mffZEh6Sle/Smit8N3wbbCix1qqIJFZ124XO/mvaMtLKHv7SzbtP8vXOU0Ooke+t2t
+ 39LaHNmGl10PFxu37yi8EYxpIyjyro/QW5OVudMwLPfGfxiYcw52ZdVCGaHSENg1kL9sb1ssuyh0Uz0RTThAqj48d+M11SA+TCr8rk5KbyPa0n8ZrX5R3gOfrRtlplcNm6/g/CUyvinfLhFPpxBsdUy0cRArvtnizMiFWWyXNAHrnrHaoYPyEIY0+0BsrKBP+hmQ1X+bkHICTB4aRhX+i/YaNJsadhOPSmxyeuN4J48/wrj4XG3wGI64XYXCKbNxo5bnvdC6zlzt8nkIs/zqlEC6vHT/tWM7DTyp8K30T58+4yfjUoKmCseEQmuIJWgpBQ3GlgA==
 
-> diff --git a/drivers/rtc/rtc-ma35d1.c b/drivers/rtc/rtc-ma35d1.c
-> index cfcfc28060f6..43358d68565a 100644
-> --- a/drivers/rtc/rtc-ma35d1.c
-> +++ b/drivers/rtc/rtc-ma35d1.c
-> @@ -221,14 +221,10 @@ static int ma35d1_rtc_probe(struct platform_device *pdev)
->          if (IS_ERR(rtc->rtc_reg))
->                  return PTR_ERR(rtc->rtc_reg);
+On 2026/9/14 18:45, Qu Wenruo wrote:
+> On 2026/9/14 16:02, Qu Wenruo wrote:
+>> Please also submit a fstests case for it.
+
+Sent to fstests as btrfs/354 (qgroup limit) and btrfs/355 (full
+filesystem):
+https://lore.kernel.org/fstests/20260915053815.307674-1-daniel@dev.linjama.com/
+
+>> EDQUOT is fine, but I'm not sure if ENOSPC is really recoverable.
+>>
+>> Even if we ignore ENOSPC for now, we may have really exhausted the
+>> metadata, and the next transaction may be aborted anyway.
 >
-> -       clk = of_clk_get(pdev->dev.of_node, 0);
-> +       clk = devm_clk_get_enabled(&pdev->dev, NULL);
->          if (IS_ERR(clk))
->                  return dev_err_probe(&pdev->dev, PTR_ERR(clk), "failed to find rtc clock\n");
+> Sashiko also mentioned even if we ignored EDQUOT for now, the next mount
+> we still fallback to call btrfs_drop_verity_items() on the inode cleanup.
 >
-> -       ret = clk_prepare_enable(clk);
-> -       if (ret)
-> -               return ret;
-> -
->          if (!(rtc_reg_read(rtc, MA35_REG_RTC_INIT) & RTC_INIT_ACTIVE)) {
->                  ret = ma35d1_rtc_init(rtc, RTC_INIT_TIMEOUT);
->                  if (ret)
-> --
-> 2.25.1
+> And it will return -EDQUOT again, so the inode will not be cleanred up.
 >
+> Considering we're only delete items, I think the better solution would
+> be calling btrfs_start_transaction_fallback_global_rsv(), which will not
+> enforce qgroup, thus should not return -EDQUOT in the first place.
 
-Hi Cong,
+You are both right. With v1 the next mount fails the orphan cleanup with
+-EDQUOT again, every lookup of the subvolume fails, and mounting it with
+-o subvol fails too, so the subvolume is unreachable as long as the limit
+is in place.
 
-Thanks for fixing this.
+v2 does what you suggest: btrfs_start_transaction_fallback_global_rsv()
+in drop_verity_items(), for the second transaction in rollback_verity()
+and for the orphan item deletion in btrfs_orphan_cleanup(). All three are
+needed, the reservations of the dropped items are only released at
+commit, so the following transactions hit the limit as well.
+https://lore.kernel.org/linux-btrfs/20260915055109.311839-1-daniel@dev.linjama.com/
 
-The conversion to devm_clk_get_enabled() correctly fixes the
-clock reference and enable-count leak while preserving the RTC
-clock behavior during the device lifetime.
+>> I believe your test case is only utilizing qgroup limit, or did you hit
+>> a case where btrfs_drop_verity_items() returns -ENOSPC and the fs still
+>> works fine?
 
-Reviewed-by: Jacky Huang <ychuang3@nuvoton.com>
+Yes, on a full mixed block group filesystem the rollback fails with
+-ENOSPC the same way. Without the fix the orphan cleanup then fails the
+next read-write mount (open_ctree failed: -ENOSPC), and the filesystem
+can only be mounted read-only after that. With v2 the mount succeeds and
+the leftover items are dropped. btrfs/355 covers this.
 
-Best regards,
-Jacky Huang
+Thanks,
+Daniel
