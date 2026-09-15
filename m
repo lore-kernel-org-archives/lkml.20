@@ -1,92 +1,77 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9163843CE41;
-	Tue, 15 Sep 2026 05:46:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789451211; cv=pass; b=ZSsT1j2ZuBTIqfYU2E6kE65qOBZu7xwVTQrsSOYt48E62U0mmsPR/SLFIerVrSxIt3RqiiDzsbD8CdV/TuM6197q7xtEX+ftSJQ2QgnBgZCDIZEjx89MDIdEHp6osFib0/OvOapGhlf5lB8wAHGhNdCSVLWPSKF4UgzHm45NwWM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789451211; c=relaxed/simple;
-	bh=8pzmrrVnvgNB4HH7DllpTPe7JHx0H0GF9O6s6WxiCKg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Pc2ddDhjWDCQPDD4/vbutg6LOVVTmDQi7boAmUjPKE3aTzwrJYBUuAkmGK+qi5laSfPfXyTiE7083EGTfg66ebWRz2aekCcPNiKDRQwjgeQKq0cjkWGeDHsMw+nWGEwMCi/Iikm7fnD2utA8SEK+WdcAglWJHBVZHIsO8WBleqY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=wPILu8Ft; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31AD543F8A1
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:47:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789451222; cv=none; b=a0c8F85eQNEY5SLAvWpklhJzEgKU8bl7wT19t0ac6fKV1HI2l2WtrKPjA1IDmWMs4MTjekbokSGWggS5pXivGOp5nhjnsyyJp86TdKSqs8jqVi+dtYyf9EpkEoi+jtmJCIXggesu1xGYa08BgjLErDqMBIRN7tndm+WW6sMYpMA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789451222; c=relaxed/simple;
+	bh=AZG3iR9wcf3utrA5wuxhKWvFiHMmo63opwAJYxLjKpE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ko1Z8lUJdEJtf8EbUzhQeP+WTtaXkCOrHuR4ZM5nLJleGIUTn7zx8mX5bU6zMrkWXmH74KJru5kfZyu1+7bcIpC9p4Z9WY1fPAMxhcR062Q8HUkY8jFFO4k1ZbnSkeJu5r6U267tu8zHPEA+5oweu6JLjLAftKcmng2gvlHvqXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZcGhOqjI; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="wPILu8Ft"
-Received: from mandelbrot.. (xdsl-83-150-90-33.nebulazone.fi [83.150.90.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hkWH601HYz49Q32;
-	Tue, 15 Sep 2026 08:46:42 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1789451202;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KxfpSm4jC+uUVpycRkrBNbqmuq5JnX7Rrdb/3eU15Yw=;
-	b=wPILu8FtcW0Z5+DOGuTSqqAC5VdBj6u7jvyeldHGLwUQGIRMUEsz8tLHPx0iHYf1Lhutaj
-	1UE9a0/UwNpWcY2elUQn4r6vqKvlKm6urj3ew6oa+1rSMRY6mlkLREMoEFbigSlOuxjPKG
-	Lwda1ay4/SmkYg/HrE8492+aY+vQyFwuyCQvfu9avOBI6g1aCO34JXIA5KYzMPDt6ikVLi
-	/Gej+nSPwgWT2GMPbRZUE+wiFlvDeO96JTCATSLwDOhQ0wsjQRdk0mzoEjoXjXNQUv+jUr
-	Hm0DP2SiTP+OMblHWt+0wq64FqrV6GYMm4Za32Iq0Bk8bajoAbsNSCTW8mCWUw==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1789451202;
-	b=uKvEai74zvtiVp52QkmOXTUt1wH2wcNMZklQl6urhQfQ4XnhTQxnGsuH5XabeLeMHIS1xa
-	cNv20r7LDwgw6aA379R/SvIlRAnoWzSsZQLSMENjZhd3fooLitPEedftzmcy3AX46Wm3Vb
-	dC7yncr6zOjT7kLUEvegagRu1aFXd8iuzZCO6UKaxvFzsM9sWHufDi9hWvHf/GgSV9WKTB
-	gQDTTOvFRWxJbdIUSRHjRApfmNTil+9Lp0FhlJTt+ITFK9Jz8lKkwQ2w81i/033Cqzoi6N
-	cYorzbpPf81bBqH0Fx6sWDQ2opr0tIsNQae7hQWb9XpQXfbjYcyDtk8xZSe6Gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1789451202;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KxfpSm4jC+uUVpycRkrBNbqmuq5JnX7Rrdb/3eU15Yw=;
-	b=WcREKB8t2A2wv2TiVmFZ0/nOHgA7rTO8smdan7jNLCBDUBLEbL8PdQkPlJNMG+nbzyiUSq
-	xOXOuM3P97ZbDCP4+AL99ceb06iFUnx8b7Jkrx7mMCNZ2UqrvuTI2Sx7i30zw1AAYXkK4y
-	DrkzJ9PMCgABj6ypchwiJGsgVVM+8pLR0mO9trflJSSqh2exAjdK955heGBRkCZ4yeFEwC
-	Y1vkxjGYAgCBJY6Mq/zLtxml58Shy+N0fdlOjR9GImzc89dCKV11uHa1qrUAcbON7Z+jeU
-	5HIDj7ttK1mzNhC/hsBV+r2+lh093RZBXlhFCvj80NCaZIfidhw8v1nhnqaWnw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-From: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	linux-arm-msm@vger.kernel.org
-Cc: Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Mihai Moldovan <ionic@ionic.de>,
-	Denis Kenzior <denkenz@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Andy Gross <agross@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	mhi@lists.linux.dev,
-	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	netdev@vger.kernel.org
-Subject: [PATCH v7 11/15] net: qrtr: ns: support multiple endpoints
-Date: Tue, 15 Sep 2026 08:42:03 +0300
-Message-Id: <20260915054207.2513877-12-juha-matti.tilli@iki.fi>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260915054207.2513877-1-juha-matti.tilli@iki.fi>
-References: <20260915054207.2513877-1-juha-matti.tilli@iki.fi>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZcGhOqjI"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso4098859a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:47:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789451219; x=1790056019; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R2iqQEA0P5F3XhuV+R4n4igK6yI3Yfdu5e82KuFRih0=;
+        b=ZcGhOqjI8UgEWA3b2PK60VNZN6v9DI++dFQQdd/cNNupUcdgqEVS6WRlb3NEe/UGjc
+         /e+uLjGiR2THB5XWUsbPY5dz/jed2ZTyTaqKWYIA62oKikrv0OBIkbvijgNfvSnrP+OJ
+         ii16L46XNgazFrs8Wm+24FLDLQSYmrhHRp0ZYFMmdtpjkZD0BBlM+ZOTzc7ZN9L9AjKA
+         pQv2EDl6yM4JWaFeFTreHe2BEvTTxCR1UvlH9dwNQhLoqEpdwkpn7Ty5MRZaQOASVehN
+         tZrrNFTmhvFsi8DyS/AegrfrAqgMe0qCDkGyQC+W1Ipcpg51dSmGW6cufyyM8ikxG6Fi
+         2s7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789451219; x=1790056019;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R2iqQEA0P5F3XhuV+R4n4igK6yI3Yfdu5e82KuFRih0=;
+        b=qP11i/UF5GxlIoGL6G2u5h/D7hI84hL1YtNTk2Ex+f1OdO3CVgyhp5M6mL46+fIP49
+         AdN5NiitmauGNb7QMqafpuqFgaEP+3iltpawjBhr40coqpekylyRzCKpPAhZsDHce0F3
+         RSZHePFZJG97hppIfC4Ginx6jBSCsY+X6zjr6vfc8VwtNWXCzMp97PqjrETw63011f49
+         6Pauce6rSJY92DG2n+mHmyYo2dRMwq+lG/1rp1iS9TeR7khAJGY5ezritUgtecBDRjGH
+         8ulLGcluUDaUkEtpwr8yfyRsHvS6KMH9PlEv/lTf3K6LxHRgI8WEl9vl97OExQzLcL5J
+         yGxg==
+X-Forwarded-Encrypted: i=1; AKwUvByRk8W/zakpFTi9OzD+IPB38yh3U/DM4tWZGaYuO+bG+oaG4ECaYk7cDshH1752RScBXImrys+J78xJcSQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfXn20nroYxQ9/VtfT2Kvzj2N7MavOiTKNX1XPTmza2jmHHoay
+	sRe1tfPNwVXlllpocTG8+Ey0wtdz17F/PH/nlIjIaFnOpVeHoYGDVOEh
+X-Gm-Gg: AYBFou0yg4DPMn92FBlVFdSTGQshJ2WRbw/+ESsK0HrugxXHT0PKeyvdGFrZRBMWGju
+	hpH/NXFvAw+dewHkUO1pAK3IExBiI/rKDYfL0+j/i3WtiplL9QQoA+KvC5WWwFmbwrHtWtqEaYD
+	6KoOt7r+KWI15maMMpLBoYpsnrWRRT6QmqhDu9PsDsMEDGm4b5sLc9sfUv5ajMXzDOvvTf8sD8p
+	r7SbeDMjhR4kAIPKkjDPCYUZL+6PtLSCVYbsBgL8og8m5NYYeY3JqGYeH2uRuoyuBoH+w6D1/TW
+	lWtbTx1tH0Swmym/+BXqLg6vsfcp8mmHx5hch1yQQxvJ+5Evi29DvQx1woCQvrmrUkyu7NE86dc
+	PG9Xn7YmkSKiqqI9b5gPcsIIikCeB6+PnSvxHs3VcVoNC6j6p8cXPtys9vlAzk13SHLWHnO6C2O
+	aQ8Hlu3nznFFM3+nrwg2lTfjH2CRvlM0QQKpcyfdqyeBEwcNIcG73O7hfmkLd8gdRl6Gdjrr3vw
+	B7jC9QcefZOwCIZkeqzEU5e0Q==
+X-Received: by 2002:a17:90b:4c4b:b0:39e:4fb:fdcf with SMTP id 98e67ed59e1d1-39e050b7e5cmr2306437a91.14.1789451219209;
+        Mon, 14 Sep 2026 22:46:59 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365ba729dsm47594159c88.14.2026.09.14.22.46.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 22:46:58 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] KVM: selftests: Add a test for nested virtual NMI support
+Date: Tue, 15 Sep 2026 11:16:53 +0530
+Message-ID: <20260915054653.227359-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260911102105.1927773-1-hemanth.selam@gmail.com>
+References: <20260911102105.1927773-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -95,784 +80,262 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Denis Kenzior <denkenz@gmail.com>
+KVM's virtual NMI support for nested guests has no test coverage; "V_NMI"
+doesn't appear anywhere under tools/testing/selftests/kvm/.
 
-Extend the qrtr name service with the concept of an endpoint.  Endpoints
-can be remote or local, and are represented by a unique endpoint id.
-This allows the qrtr name service to support multiple devices
-(endpoints) that might have overlapping node / port combinations.
+Add a test that covers the vNMI controls L1 provides in vmcb12:
 
-The socket used by the name service is subscribed to receive endpoint
-information via a mechanism similar to the SOL_QRTR QRTR_REPORT_ENDPOINT
-socket option.  Internal data structures are then extended to track
-endpoint information in addition to nodes and ports.
+ - With vNMI enabled but no NMI requested, L2 runs without taking an NMI,
+   and neither V_NMI_PENDING nor V_NMI_BLOCKING is set on exit.
 
-The name service directs packets to the endpoint originating the
-request.  For NEW_SERVER and DEL_SERVER messages triggered using lookups
-or due to remote endpoints sending the corresponding message, qrtr name
-service generates a NEW_SERVER and DEL_SERVER messages to all local
-sockets registered to receive such notifications.  The messages are made
-to look as if they're coming from the remote endpoint using a special
-extension to AF_QRTR sendmsg operation.  This extension only works for
-the local socket that owns the QRTR_PORT_CTRL port (name service).
+ - With V_NMI_PENDING set, L2 takes the NMI on VMRUN.  Exiting to L1 from
+   the NMI handler, i.e. before its IRET, shows the bits hardware wrote:
+   V_NMI_PENDING cleared and V_NMI_BLOCKING set.  Once the handler IRETs,
+   V_NMI_BLOCKING is cleared.  Repeat to verify NMIs can be delivered
+   back to back.
 
-Signed-off-by: Denis Kenzior <denkenz@gmail.com>
-Reviewed-by: Marcel Holtmann <marcel@holtmann.org>
-Reviewed-by: Andy Gross <agross@kernel.org>
-Signed-off-by: Mihai Moldovan <ionic@ionic.de>
-Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+ - Enabling vNMI without intercepting NMIs fails VMRUN with SVM_EXIT_ERR,
+   per the consistency check in nested_vmcb_check_controls().
+
+Add the V_NMI_{PENDING,BLOCKING,ENABLE} masks and X86_FEATURE_VNMI to the
+selftest headers, which didn't define them.
+
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- net/qrtr/af_qrtr.c |  12 ++
- net/qrtr/ns.c      | 313 ++++++++++++++++++++++++++++-----------------
- net/qrtr/qrtr.h    |   1 +
- 3 files changed, 209 insertions(+), 117 deletions(-)
 
-diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
-index c139786c56f39..b27c5a659795d 100644
---- a/net/qrtr/af_qrtr.c
-+++ b/net/qrtr/af_qrtr.c
-@@ -107,6 +107,13 @@ static inline struct qrtr_sock *qrtr_sk(struct sock *sk)
- 	return container_of(sk, struct qrtr_sock, sk);
- }
+v2:
+ - Keep the update to nmi_fired ahead of the exit to L1 with barrier(),
+   as vmmcall() doesn't clobber memory and so nothing stops the compiler
+   from sinking the store past the VM-Exit (Sashiko AI review).  Note
+   that vmmcall() not clobbering memory affects any test that hands data
+   to L1 in a global; svm_nested_soft_inject_test.c works around it with
+   atomics.  Happy to fix the helper instead if that's preferred.
+
+v1: https://lore.kernel.org/all/20260911102105.1927773-1-hemanth.selam@gmail.com/
+
+Tested on an AMD EPYC system with vNMI supported and enabled.  The test
+passes consistently (50 consecutive runs, no failures), and the other
+nested SVM selftests are unaffected.
+
+The int_ctl values L1 observes across a delivered virtual NMI are:
+
+  before VMRUN              V_NMI_ENABLE | V_NMI_PENDING
+  exit from the NMI handler V_NMI_ENABLE | V_NMI_BLOCKING
+  after the handler IRETs   V_NMI_ENABLE
+
+To check the assertions aren't vacuous, each was inverted in turn and
+confirmed to fail against actual behaviour:
+
+  - Not requesting V_NMI_PENDING, so no NMI is delivered:
+      nmi_fired == i
+      0x0 != 0x1 (nmi_fired != i)
+
+  - Asserting V_NMI_BLOCKING is clear while the NMI is in service:
+      !(vmcb->control.int_ctl & (1 << 12))
+
+  - Expecting VMRUN to succeed with V_NMI_ENABLE set and INTERCEPT_NMI
+    cleared:
+      vmcb->control.exit_code == SVM_EXIT_VMMCALL
+      0xffffffffffffffff != 0x81
+
+Where vNMI isn't available the test exits KSFT_SKIP rather than failing.
+
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/include/x86/processor.h     |   1 +
+ tools/testing/selftests/kvm/include/x86/svm.h |   9 ++
+ .../selftests/kvm/x86/svm_nested_vnmi_test.c  | 132 ++++++++++++++++++
+ 4 files changed, 143 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/x86/svm_nested_vnmi_test.c
+
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 96bab7002d39..92e1018e9c8a 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -121,6 +121,7 @@ TEST_GEN_PROGS_x86 += x86/svm_nested_clear_efer_svme
+ TEST_GEN_PROGS_x86 += x86/svm_nested_shutdown_test
+ TEST_GEN_PROGS_x86 += x86/svm_nested_soft_inject_test
+ TEST_GEN_PROGS_x86 += x86/svm_nested_vmcb12_gpa
++TEST_GEN_PROGS_x86 += x86/svm_nested_vnmi_test
+ TEST_GEN_PROGS_x86 += x86/svm_nested_pat_test
+ TEST_GEN_PROGS_x86 += x86/svm_lbr_nested_state
+ TEST_GEN_PROGS_x86 += x86/svm_pmu_host_guest_test
+diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
+index 6e6f70035508..71697a1d5b86 100644
+--- a/tools/testing/selftests/kvm/include/x86/processor.h
++++ b/tools/testing/selftests/kvm/include/x86/processor.h
+@@ -224,6 +224,7 @@ struct kvm_x86_cpu_feature {
+ #define X86_FEATURE_PFTHRESHOLD         KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 12)
+ #define	X86_FEATURE_V_VMSAVE_VMLOAD	KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 15)
+ #define	X86_FEATURE_VGIF		KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 16)
++#define X86_FEATURE_VNMI		KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 25)
+ #define X86_FEATURE_IDLE_HLT		KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 30)
+ #define X86_FEATURE_SEV			KVM_X86_CPU_FEATURE(0x8000001F, 0, EAX, 1)
+ #define X86_FEATURE_SEV_ES		KVM_X86_CPU_FEATURE(0x8000001F, 0, EAX, 3)
+diff --git a/tools/testing/selftests/kvm/include/x86/svm.h b/tools/testing/selftests/kvm/include/x86/svm.h
+index c8539166270e..5779fb285d79 100644
+--- a/tools/testing/selftests/kvm/include/x86/svm.h
++++ b/tools/testing/selftests/kvm/include/x86/svm.h
+@@ -140,6 +140,12 @@ struct __attribute__ ((__packed__)) vmcb_control_area {
+ #define V_GIF_SHIFT 9
+ #define V_GIF_MASK (1 << V_GIF_SHIFT)
  
-+void qrtr_sock_set_report_endpoint(struct sock *sk)
++#define V_NMI_PENDING_SHIFT 11
++#define V_NMI_PENDING_MASK (1 << V_NMI_PENDING_SHIFT)
++
++#define V_NMI_BLOCKING_SHIFT 12
++#define V_NMI_BLOCKING_MASK (1 << V_NMI_BLOCKING_SHIFT)
++
+ #define V_INTR_PRIO_SHIFT 16
+ #define V_INTR_PRIO_MASK (0x0f << V_INTR_PRIO_SHIFT)
+ 
+@@ -152,6 +158,9 @@ struct __attribute__ ((__packed__)) vmcb_control_area {
+ #define V_GIF_ENABLE_SHIFT 25
+ #define V_GIF_ENABLE_MASK (1 << V_GIF_ENABLE_SHIFT)
+ 
++#define V_NMI_ENABLE_SHIFT 26
++#define V_NMI_ENABLE_MASK (1 << V_NMI_ENABLE_SHIFT)
++
+ #define AVIC_ENABLE_SHIFT 31
+ #define AVIC_ENABLE_MASK (1 << AVIC_ENABLE_SHIFT)
+ 
+diff --git a/tools/testing/selftests/kvm/x86/svm_nested_vnmi_test.c b/tools/testing/selftests/kvm/x86/svm_nested_vnmi_test.c
+new file mode 100644
+index 000000000000..b4bde81a4e54
+--- /dev/null
++++ b/tools/testing/selftests/kvm/x86/svm_nested_vnmi_test.c
+@@ -0,0 +1,132 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Test KVM's virtual NMI (vNMI) support for nested guests: the consistency
++ * check on the vNMI controls in vmcb12, delivery of a virtual NMI to L2, and
++ * the V_NMI_PENDING/V_NMI_BLOCKING state L1 observes across the NMI.
++ *
++ * Copyright (C) 2026 Hemanth Selam <hemanth.selam@gmail.com>
++ */
++#include "kvm_util.h"
++#include "processor.h"
++#include "svm_util.h"
++#include "test_util.h"
++
++/* Number of virtual NMIs to deliver; more than one to prove it's repeatable. */
++#define NR_VNMIS	3
++
++static unsigned int nmi_fired;
++
++static void guest_nmi_handler(struct ex_regs *regs)
 +{
-+	struct qrtr_sock *ipc = qrtr_sk(sk);
++	nmi_fired++;
 +
-+	assign_bit(QRTR_F_REPORT_ENDPOINT, &ipc->flags, 1);
-+}
-+
- int qrtr_msg_get_endpoint(struct msghdr *msg, u32 *out_endpoint_id)
- {
- 	struct cmsghdr *cmsg;
-@@ -1165,6 +1172,11 @@ static int qrtr_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
- 
- 		/* control messages already require the type as 'command' */
- 		skb_copy_bits(skb, 0, &qrtr_type, 4);
-+		/*
-+		 * Allow local name service to make packets appear as if
-+		 * they originated remotely
-+		 */
-+		endpoint_id = msg_endpoint_id;
- 	}
- 
- 	type = le32_to_cpu(qrtr_type);
-diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
-index a3348e40d9275..31dfa764e186a 100644
---- a/net/qrtr/ns.c
-+++ b/net/qrtr/ns.c
-@@ -5,6 +5,7 @@
-  * Copyright (c) 2020, Linaro Ltd.
-  */
- 
-+#define pr_fmt(fmt) "QRTR NS: "fmt
- #include <linux/module.h>
- #include <linux/qrtr.h>
- #include <linux/workqueue.h>
-@@ -16,7 +17,7 @@
- #define CREATE_TRACE_POINTS
- #include <trace/events/qrtr.h>
- 
--static DEFINE_XARRAY(nodes);
-+static DEFINE_XARRAY(endpoints);
- 
- static struct {
- 	struct socket *sock;
-@@ -62,6 +63,7 @@ struct qrtr_server {
- 
- 	unsigned int node;
- 	unsigned int port;
-+	u32 endpoint_id;
- 
- 	struct list_head qli;
- };
-@@ -72,6 +74,11 @@ struct qrtr_node {
- 	u32 server_count;
- };
- 
-+struct qrtr_ns_endpoint {
-+	unsigned int id;
-+	struct xarray nodes;
-+};
-+
- /* Max nodes, server, lookup limits are chosen based on the current platform
-  * requirements. If the requirement changes in the future, these values can be
-  * increased.
-@@ -82,35 +89,90 @@ struct qrtr_node {
- 
- static u16 node_count;
- 
--static struct qrtr_node *node_get(unsigned int node_id)
-+static struct qrtr_node *node_get(u32 endpoint_id, unsigned int node_id)
- {
-+	struct qrtr_ns_endpoint *endpoint;
- 	struct qrtr_node *node;
-+	bool new_endpoint = false;
-+
-+	endpoint = xa_load(&endpoints, endpoint_id);
-+	if (!endpoint) {
-+		endpoint = kzalloc_obj(*endpoint);
-+		if (!endpoint)
-+			return NULL;
-+
-+		endpoint->id = endpoint_id;
-+		xa_init(&endpoint->nodes);
-+
-+		if (xa_store(&endpoints, endpoint_id, endpoint, GFP_KERNEL)) {
-+			kfree(endpoint);
-+			return NULL;
-+		}
-+
-+		new_endpoint = true;
-+	}
- 
--	node = xa_load(&nodes, node_id);
-+	node = xa_load(&endpoint->nodes, node_id);
- 	if (node)
- 		return node;
- 
- 	if (node_count >= QRTR_NS_MAX_NODES) {
- 		pr_err_ratelimited("QRTR clients exceed max node limit!\n");
--		return NULL;
-+		goto error;
- 	}
- 
- 	/* If node didn't exist, allocate and insert it to the tree */
- 	node = kzalloc_obj(*node);
- 	if (!node)
--		return NULL;
-+		goto error;
- 
- 	node->id = node_id;
- 	xa_init(&node->servers);
- 
--	if (xa_store(&nodes, node_id, node, GFP_KERNEL)) {
-+	if (xa_store(&endpoint->nodes, node_id, node, GFP_KERNEL)) {
- 		kfree(node);
--		return NULL;
-+		goto error;
- 	}
- 
- 	node_count++;
- 
- 	return node;
-+error:
-+	if (new_endpoint) {
-+		xa_erase(&endpoints, endpoint_id);
-+		kfree(endpoint);
-+	}
-+
-+	return NULL;
-+}
-+
-+static void node_erase(u32 endpoint_id, unsigned int node_id)
-+{
-+	struct qrtr_ns_endpoint *endpoint;
-+	struct qrtr_node *node;
-+
-+	endpoint = xa_load(&endpoints, endpoint_id);
-+	if (!endpoint)
-+		return;
-+
-+	node = xa_load(&endpoint->nodes, node_id);
-+	if (!node)
-+		return;
-+
-+	xa_erase(&endpoint->nodes, node_id);
-+	kfree(node);
-+	node_count--;
-+}
-+
-+static struct qrtr_node *node_lookup(u32 endpoint_id, unsigned int node_id)
-+{
-+	struct qrtr_ns_endpoint *endpoint;
-+
-+	endpoint = xa_load(&endpoints, endpoint_id);
-+	if (!endpoint)
-+		return NULL;
-+
-+	return xa_load(&endpoint->nodes, node_id);
- }
- 
- static int server_match(const struct qrtr_server *srv,
-@@ -126,19 +188,42 @@ static int server_match(const struct qrtr_server *srv,
- 	return (srv->instance & ifilter) == f->instance;
- }
- 
--static int service_announce_new(struct sockaddr_qrtr *dest,
--				struct qrtr_server *srv)
-+static int qrtr_ns_sendmsg(u32 endpoint_id, struct sockaddr_qrtr *dest,
-+			   struct qrtr_ctrl_pkt *pkt)
- {
--	struct qrtr_ctrl_pkt pkt;
- 	struct msghdr msg = { };
- 	struct kvec iv;
-+	u8 control[CMSG_SPACE(sizeof(endpoint_id))];
-+	struct cmsghdr *cmsg;
-+
-+	iv.iov_base = pkt;
-+	iv.iov_len = sizeof(*pkt);
-+
-+	msg.msg_name = (struct sockaddr *)dest;
-+	msg.msg_namelen = sizeof(*dest);
-+
-+	if (endpoint_id) {
-+		msg.msg_control = control;
-+		msg.msg_controllen = sizeof(control);
-+
-+		cmsg = CMSG_FIRSTHDR(&msg);
-+		cmsg->cmsg_level = SOL_QRTR;
-+		cmsg->cmsg_type = QRTR_ENDPOINT;
-+		cmsg->cmsg_len = CMSG_LEN(sizeof(endpoint_id));
-+		memcpy(CMSG_DATA(cmsg), &endpoint_id, sizeof(endpoint_id));
-+	}
-+
-+	return kernel_sendmsg(qrtr_ns.sock, &msg, &iv, 1, sizeof(*pkt));
-+}
-+
-+static int service_announce_new(u32 endpoint_id, struct sockaddr_qrtr *dest,
-+				struct qrtr_server *srv)
-+{
-+	struct qrtr_ctrl_pkt pkt;
- 
- 	trace_qrtr_ns_service_announce_new(srv->service, srv->instance,
- 					   srv->node, srv->port);
- 
--	iv.iov_base = &pkt;
--	iv.iov_len = sizeof(pkt);
--
- 	memset(&pkt, 0, sizeof(pkt));
- 	pkt.cmd = cpu_to_le32(QRTR_TYPE_NEW_SERVER);
- 	pkt.server.service = cpu_to_le32(srv->service);
-@@ -146,26 +231,18 @@ static int service_announce_new(struct sockaddr_qrtr *dest,
- 	pkt.server.node = cpu_to_le32(srv->node);
- 	pkt.server.port = cpu_to_le32(srv->port);
- 
--	msg.msg_name = (struct sockaddr *)dest;
--	msg.msg_namelen = sizeof(*dest);
--
--	return kernel_sendmsg(qrtr_ns.sock, &msg, &iv, 1, sizeof(pkt));
-+	return qrtr_ns_sendmsg(endpoint_id, dest, &pkt);
- }
- 
--static void service_announce_del(struct sockaddr_qrtr *dest,
-+static void service_announce_del(u32 endpoint_id, struct sockaddr_qrtr *dest,
- 				 struct qrtr_server *srv)
- {
- 	struct qrtr_ctrl_pkt pkt;
--	struct msghdr msg = { };
--	struct kvec iv;
- 	int ret;
- 
- 	trace_qrtr_ns_service_announce_del(srv->service, srv->instance,
- 					   srv->node, srv->port);
- 
--	iv.iov_base = &pkt;
--	iv.iov_len = sizeof(pkt);
--
- 	memset(&pkt, 0, sizeof(pkt));
- 	pkt.cmd = cpu_to_le32(QRTR_TYPE_DEL_SERVER);
- 	pkt.server.service = cpu_to_le32(srv->service);
-@@ -173,26 +250,24 @@ static void service_announce_del(struct sockaddr_qrtr *dest,
- 	pkt.server.node = cpu_to_le32(srv->node);
- 	pkt.server.port = cpu_to_le32(srv->port);
- 
--	msg.msg_name = (struct sockaddr *)dest;
--	msg.msg_namelen = sizeof(*dest);
--
--	ret = kernel_sendmsg(qrtr_ns.sock, &msg, &iv, 1, sizeof(pkt));
-+	ret = qrtr_ns_sendmsg(endpoint_id, dest, &pkt);
- 	if (ret < 0 && ret != -ENODEV)
- 		pr_err("failed to announce del service\n");
- 
- 	return;
- }
- 
--static void lookup_notify(struct sockaddr_qrtr *to, struct qrtr_server *srv,
--			  bool new)
-+static void lookup_notify(u32 endpoint_id, struct sockaddr_qrtr *to,
-+			  struct qrtr_server *srv, bool new)
- {
- 	struct qrtr_ctrl_pkt pkt;
--	struct msghdr msg = { };
--	struct kvec iv;
- 	int ret;
- 
--	iv.iov_base = &pkt;
--	iv.iov_len = sizeof(pkt);
 +	/*
-+	 * Notify a local client at @to about a server change.  The aux data
-+	 * will look as if it came from the endpoint that reported the event
-+	 * (remote or local)
++	 * Exit to L1 from NMI context, i.e. before this handler's IRET, so
++	 * that L1 can observe V_NMI_BLOCKING while the NMI is in service.
++	 * Keep the update to nmi_fired ahead of the exit, as vmmcall() doesn't
++	 * clobber memory and L1 reads nmi_fired as soon as L2 exits.
 +	 */
- 
- 	memset(&pkt, 0, sizeof(pkt));
- 	pkt.cmd = new ? cpu_to_le32(QRTR_TYPE_NEW_SERVER) :
-@@ -204,28 +279,25 @@ static void lookup_notify(struct sockaddr_qrtr *to, struct qrtr_server *srv,
- 		pkt.server.port = cpu_to_le32(srv->port);
- 	}
- 
--	msg.msg_name = (struct sockaddr *)to;
--	msg.msg_namelen = sizeof(*to);
--
--	ret = kernel_sendmsg(qrtr_ns.sock, &msg, &iv, 1, sizeof(pkt));
-+	ret = qrtr_ns_sendmsg(endpoint_id, to, &pkt);
- 	if (ret < 0 && ret != -ENODEV)
- 		pr_err("failed to send lookup notification\n");
- }
- 
--static int announce_servers(struct sockaddr_qrtr *sq)
-+static int announce_servers(u32 endpoint_id, struct sockaddr_qrtr *sq)
- {
- 	struct qrtr_server *srv;
- 	struct qrtr_node *node;
- 	unsigned long index;
- 	int ret;
- 
--	node = node_get(qrtr_ns.local_node);
-+	node = node_lookup(qrtr_ns.local_node, qrtr_ns.local_node);
- 	if (!node)
- 		return 0;
- 
--	/* Announce the list of servers registered in this node */
-+	/* Announce servers registered on local endpoint to remote endpoint */
- 	xa_for_each(&node->servers, index, srv) {
--		ret = service_announce_new(sq, srv);
-+		ret = service_announce_new(endpoint_id, sq, srv);
- 		if (ret < 0) {
- 			if (ret == -ENODEV)
- 				continue;
-@@ -237,7 +309,8 @@ static int announce_servers(struct sockaddr_qrtr *sq)
- 	return 0;
- }
- 
--static struct qrtr_server *server_add(unsigned int service,
-+static struct qrtr_server *server_add(u32 endpoint_id,
-+				      unsigned int service,
- 				      unsigned int instance,
- 				      unsigned int node_id,
- 				      unsigned int port)
-@@ -249,7 +322,7 @@ static struct qrtr_server *server_add(unsigned int service,
- 	if (!service || !port)
- 		return NULL;
- 
--	node = node_get(node_id);
-+	node = node_get(endpoint_id, node_id);
- 	if (!node)
- 		return NULL;
- 
-@@ -293,7 +366,8 @@ static struct qrtr_server *server_add(unsigned int service,
- 	return NULL;
- }
- 
--static int server_del(struct qrtr_node *node, unsigned int port, bool bcast)
-+static int server_del(u32 endpoint_id, struct qrtr_node *node,
-+		      unsigned int port, bool bcast)
- {
- 	struct qrtr_lookup *lookup;
- 	struct qrtr_server *srv;
-@@ -305,9 +379,10 @@ static int server_del(struct qrtr_node *node, unsigned int port, bool bcast)
- 
- 	xa_erase(&node->servers, port);
- 
--	/* Broadcast the removal of local servers */
-+	/* Broadcast the removal of local servers to remote endpoints */
- 	if (srv->node == qrtr_ns.local_node && bcast)
--		service_announce_del(&qrtr_ns.bcast_sq, srv);
-+		service_announce_del(qrtr_ns.local_node,
-+				     &qrtr_ns.bcast_sq, srv);
- 
- 	/* Announce the service's disappearance to observers */
- 	list_for_each(li, &qrtr_ns.lookups) {
-@@ -317,7 +392,7 @@ static int server_del(struct qrtr_node *node, unsigned int port, bool bcast)
- 		if (lookup->instance && lookup->instance != srv->instance)
- 			continue;
- 
--		lookup_notify(&lookup->sq, srv, false);
-+		lookup_notify(endpoint_id, &lookup->sq, srv, false);
- 	}
- 
- 	kfree(srv);
-@@ -326,23 +401,15 @@ static int server_del(struct qrtr_node *node, unsigned int port, bool bcast)
- 	return 0;
- }
- 
--static int say_hello(struct sockaddr_qrtr *dest)
-+static int say_hello(u32 endpoint_id, struct sockaddr_qrtr *dest)
- {
- 	struct qrtr_ctrl_pkt pkt;
--	struct msghdr msg = { };
--	struct kvec iv;
- 	int ret;
- 
--	iv.iov_base = &pkt;
--	iv.iov_len = sizeof(pkt);
--
- 	memset(&pkt, 0, sizeof(pkt));
- 	pkt.cmd = cpu_to_le32(QRTR_TYPE_HELLO);
- 
--	msg.msg_name = (struct sockaddr *)dest;
--	msg.msg_namelen = sizeof(*dest);
--
--	ret = kernel_sendmsg(qrtr_ns.sock, &msg, &iv, 1, sizeof(pkt));
-+	ret = qrtr_ns_sendmsg(endpoint_id, dest, &pkt);
- 	if (ret < 0)
- 		pr_err("failed to send hello msg\n");
- 
-@@ -350,42 +417,38 @@ static int say_hello(struct sockaddr_qrtr *dest)
- }
- 
- /* Announce the list of servers registered on the local node */
--static int ctrl_cmd_hello(struct sockaddr_qrtr *sq)
-+static int ctrl_cmd_hello(u32 endpoint_id, struct sockaddr_qrtr *sq)
- {
- 	int ret;
- 
--	ret = say_hello(sq);
-+	/* Send Hello and New Server messages to remote endpoint */
-+	ret = say_hello(endpoint_id, sq);
- 	if (ret < 0)
- 		return ret;
- 
--	return announce_servers(sq);
-+	return announce_servers(endpoint_id, sq);
- }
- 
--static int ctrl_cmd_bye(struct sockaddr_qrtr *from)
-+static int ctrl_cmd_bye(u32 endpoint_id, struct sockaddr_qrtr *from)
- {
- 	struct qrtr_node *local_node;
- 	struct qrtr_ctrl_pkt pkt;
- 	struct qrtr_server *srv;
- 	struct sockaddr_qrtr sq;
--	struct msghdr msg = { };
- 	struct qrtr_node *node;
- 	unsigned long index;
--	struct kvec iv;
- 	int ret = 0;
- 
--	iv.iov_base = &pkt;
--	iv.iov_len = sizeof(pkt);
--
--	node = node_get(from->sq_node);
-+	node = node_get(endpoint_id, from->sq_node);
- 	if (!node)
- 		return 0;
- 
- 	/* Advertise removal of this client to all servers of remote node */
- 	xa_for_each(&node->servers, index, srv)
--		server_del(node, srv->port, true);
-+		server_del(endpoint_id, node, srv->port, true);
- 
- 	/* Advertise the removal of this client to all local servers */
--	local_node = node_get(qrtr_ns.local_node);
-+	local_node = node_get(qrtr_ns.local_node, qrtr_ns.local_node);
- 	if (!local_node) {
- 		ret = 0;
- 		goto delete_node;
-@@ -400,10 +463,8 @@ static int ctrl_cmd_bye(struct sockaddr_qrtr *from)
- 		sq.sq_node = srv->node;
- 		sq.sq_port = srv->port;
- 
--		msg.msg_name = (struct sockaddr *)&sq;
--		msg.msg_namelen = sizeof(sq);
--
--		ret = kernel_sendmsg(qrtr_ns.sock, &msg, &iv, 1, sizeof(pkt));
-+		/* Bye will look as if it came from endpoint_id */
-+		ret = qrtr_ns_sendmsg(endpoint_id, &sq, &pkt);
- 		if (ret < 0 && ret != -ENODEV) {
- 			pr_err("failed to send bye cmd\n");
- 			goto delete_node;
-@@ -414,32 +475,25 @@ static int ctrl_cmd_bye(struct sockaddr_qrtr *from)
- 	ret = 0;
- 
- delete_node:
--	xa_erase(&nodes, from->sq_node);
--	kfree(node);
--	node_count--;
-+	node_erase(endpoint_id, from->sq_node);
- 
- 	return ret;
- }
- 
--static int ctrl_cmd_del_client(struct sockaddr_qrtr *from,
-+static int ctrl_cmd_del_client(u32 endpoint_id, struct sockaddr_qrtr *from,
- 			       unsigned int node_id, unsigned int port)
- {
- 	struct qrtr_node *local_node;
- 	struct qrtr_lookup *lookup;
- 	struct qrtr_ctrl_pkt pkt;
--	struct msghdr msg = { };
- 	struct qrtr_server *srv;
- 	struct sockaddr_qrtr sq;
- 	struct qrtr_node *node;
- 	struct list_head *tmp;
- 	struct list_head *li;
- 	unsigned long index;
--	struct kvec iv;
- 	int ret;
- 
--	iv.iov_base = &pkt;
--	iv.iov_len = sizeof(pkt);
--
- 	/* Don't accept spoofed messages */
- 	if (from->sq_node != node_id)
- 		return -EINVAL;
-@@ -465,12 +519,12 @@ static int ctrl_cmd_del_client(struct sockaddr_qrtr *from,
- 	 * DEL_SERVER. Neighbours would've already removed the server belonging
- 	 * to this port due to the DEL_CLIENT broadcast from qrtr_port_remove().
- 	 */
--	node = node_get(node_id);
-+	node = node_lookup(endpoint_id, node_id);
- 	if (node)
--		server_del(node, port, false);
-+		server_del(endpoint_id, node, port, false);
- 
- 	/* Advertise the removal of this client to all local servers */
--	local_node = node_get(qrtr_ns.local_node);
-+	local_node = node_lookup(qrtr_ns.local_node, qrtr_ns.local_node);
- 	if (!local_node)
- 		return 0;
- 
-@@ -484,10 +538,8 @@ static int ctrl_cmd_del_client(struct sockaddr_qrtr *from,
- 		sq.sq_node = srv->node;
- 		sq.sq_port = srv->port;
- 
--		msg.msg_name = (struct sockaddr *)&sq;
--		msg.msg_namelen = sizeof(sq);
--
--		ret = kernel_sendmsg(qrtr_ns.sock, &msg, &iv, 1, sizeof(pkt));
-+		/* Del Client will look as if it came from endpoint_id */
-+		ret = qrtr_ns_sendmsg(endpoint_id, &sq, &pkt);
- 		if (ret < 0 && ret != -ENODEV) {
- 			pr_err("failed to send del client cmd\n");
- 			return ret;
-@@ -496,7 +548,7 @@ static int ctrl_cmd_del_client(struct sockaddr_qrtr *from,
- 	return 0;
- }
- 
--static int ctrl_cmd_new_server(struct sockaddr_qrtr *from,
-+static int ctrl_cmd_new_server(u32 endpoint_id, struct sockaddr_qrtr *from,
- 			       unsigned int service, unsigned int instance,
- 			       unsigned int node_id, unsigned int port)
- {
-@@ -511,12 +563,16 @@ static int ctrl_cmd_new_server(struct sockaddr_qrtr *from,
- 		port = from->sq_port;
- 	}
- 
--	srv = server_add(service, instance, node_id, port);
--	if (!srv)
-+	srv = server_add(endpoint_id, service, instance, node_id, port);
-+	if (!srv) {
-+		pr_err("Failed to add server\n");
- 		return -EINVAL;
++	barrier();
++	vmmcall();
++}
++
++static void l2_guest_code(void)
++{
++	vmmcall();
++}
++
++static void l1_vnmi_setup(struct svm_test_data *svm)
++{
++	struct vmcb *vmcb = svm->vmcb;
++
++	generic_svm_setup(svm, l2_guest_code);
++
++	/* KVM requires L1 to intercept NMIs in order to enable vNMI. */
++	vmcb->control.intercept |= BIT(INTERCEPT_NMI);
++	vmcb->control.int_ctl |= V_NMI_ENABLE_MASK;
++}
++
++static void l1_guest_code(struct svm_test_data *svm)
++{
++	struct vmcb *vmcb = svm->vmcb;
++	unsigned int i;
++
++	/* Without a pending virtual NMI, L2 runs to its VMMCALL untouched. */
++	l1_vnmi_setup(svm);
++
++	run_guest(vmcb, svm->vmcb_gpa);
++	GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_VMMCALL);
++	GUEST_ASSERT_EQ(nmi_fired, 0);
++	GUEST_ASSERT(!(vmcb->control.int_ctl & V_NMI_PENDING_MASK));
++	GUEST_ASSERT(!(vmcb->control.int_ctl & V_NMI_BLOCKING_MASK));
++
++	for (i = 1; i <= NR_VNMIS; i++) {
++		/* Request a virtual NMI; L2 must take it on VMRUN. */
++		l1_vnmi_setup(svm);
++		vmcb->control.int_ctl |= V_NMI_PENDING_MASK;
++
++		run_guest(vmcb, svm->vmcb_gpa);
++
++		/*
++		 * The NMI was delivered and L2 exited from the handler, so
++		 * hardware has consumed the request and blocked further NMIs.
++		 */
++		GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_VMMCALL);
++		GUEST_ASSERT_EQ(nmi_fired, i);
++		GUEST_ASSERT(!(vmcb->control.int_ctl & V_NMI_PENDING_MASK));
++		GUEST_ASSERT(vmcb->control.int_ctl & V_NMI_BLOCKING_MASK);
++
++		/* Resume L2 so the handler can IRET, which unblocks NMIs. */
++		vmcb->save.rip = vmcb->control.next_rip;
++
++		run_guest(vmcb, svm->vmcb_gpa);
++		GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_VMMCALL);
++		GUEST_ASSERT_EQ(nmi_fired, i);
++		GUEST_ASSERT(!(vmcb->control.int_ctl & V_NMI_BLOCKING_MASK));
 +	}
- 
- 	if (srv->node == qrtr_ns.local_node) {
--		ret = service_announce_new(&qrtr_ns.bcast_sq, srv);
-+		/* Broadcast local server info to all peer endpoints */
-+		ret = service_announce_new(qrtr_ns.local_node,
-+					   &qrtr_ns.bcast_sq, srv);
- 		if (ret < 0) {
- 			pr_err("failed to announce new service\n");
- 			return ret;
-@@ -531,13 +587,13 @@ static int ctrl_cmd_new_server(struct sockaddr_qrtr *from,
- 		if (lookup->instance && lookup->instance != instance)
- 			continue;
- 
--		lookup_notify(&lookup->sq, srv, true);
-+		lookup_notify(endpoint_id, &lookup->sq, srv, true);
- 	}
- 
- 	return ret;
- }
- 
--static int ctrl_cmd_del_server(struct sockaddr_qrtr *from,
-+static int ctrl_cmd_del_server(u32 endpoint_id, struct sockaddr_qrtr *from,
- 			       unsigned int service, unsigned int instance,
- 			       unsigned int node_id, unsigned int port)
- {
-@@ -553,24 +609,22 @@ static int ctrl_cmd_del_server(struct sockaddr_qrtr *from,
- 	if (from->sq_node == qrtr_ns.local_node && from->sq_port != port)
- 		return -EINVAL;
- 
--	node = node_get(node_id);
-+	node = node_lookup(endpoint_id, node_id);
- 	if (!node)
- 		return -ENOENT;
- 
--	server_del(node, port, true);
-+	server_del(endpoint_id, node, port, true);
- 
- 	return 0;
- }
- 
--static int ctrl_cmd_new_lookup(struct sockaddr_qrtr *from,
-+static int ctrl_cmd_new_lookup(u32 endpoint_id, struct sockaddr_qrtr *from,
- 			       unsigned int service, unsigned int instance)
- {
- 	struct qrtr_server_filter filter;
- 	struct qrtr_lookup *lookup;
--	struct qrtr_server *srv;
--	struct qrtr_node *node;
--	unsigned long node_idx;
--	unsigned long srv_idx;
-+	unsigned long id;
-+	struct qrtr_ns_endpoint *endpoint;
- 
- 	/* Accept only local observers */
- 	if (from->sq_node != qrtr_ns.local_node)
-@@ -595,22 +649,30 @@ static int ctrl_cmd_new_lookup(struct sockaddr_qrtr *from,
- 	filter.service = service;
- 	filter.instance = instance;
- 
--	xa_for_each(&nodes, node_idx, node) {
--		xa_for_each(&node->servers, srv_idx, srv) {
--			if (!server_match(srv, &filter))
--				continue;
-+	xa_for_each(&endpoints, id, endpoint) {
-+		struct qrtr_node *node;
-+		unsigned long node_idx;
 +
-+		xa_for_each(&endpoint->nodes, node_idx, node) {
-+			unsigned long srv_idx;
-+			struct qrtr_server *srv;
- 
--			lookup_notify(from, srv, true);
-+			xa_for_each(&node->servers, srv_idx, srv) {
-+				if (!server_match(srv, &filter))
-+					continue;
++	/*
++	 * Enabling vNMI without intercepting NMIs is illegal, as L1 would have
++	 * no way of observing the NMIs it is nominally responsible for.
++	 */
++	vmcb->control.intercept &= ~BIT(INTERCEPT_NMI);
 +
-+				lookup_notify(id, from, srv, true);
-+			}
- 		}
- 	}
- 
- 	/* Empty notification, to indicate end of listing */
--	lookup_notify(from, NULL, true);
-+	lookup_notify(0, from, NULL, true);
- 
- 	return 0;
- }
- 
--static void ctrl_cmd_del_lookup(struct sockaddr_qrtr *from,
-+static void ctrl_cmd_del_lookup(u32 endpoint_id, struct sockaddr_qrtr *from,
- 				unsigned int service, unsigned int instance)
- {
- 	struct qrtr_lookup *lookup;
-@@ -644,6 +706,7 @@ static void qrtr_ns_worker(struct work_struct *work)
- 	ssize_t msglen;
- 	void *recv_buf;
- 	struct kvec iv;
-+	u8 control[32];
- 	int ret;
- 
- 	msg.msg_name = (struct sockaddr *)&sq;
-@@ -654,8 +717,12 @@ static void qrtr_ns_worker(struct work_struct *work)
- 		return;
- 
- 	for (;;) {
-+		u32 endpoint_id;
++	run_guest(vmcb, svm->vmcb_gpa);
++	GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_ERR);
 +
- 		iv.iov_base = recv_buf;
- 		iv.iov_len = recv_buf_size;
-+		msg.msg_control = control;
-+		msg.msg_controllen = sizeof(control);
- 
- 		msglen = kernel_recvmsg(qrtr_ns.sock, &msg, &iv, 1,
- 					iv.iov_len, MSG_DONTWAIT);
-@@ -668,6 +735,16 @@ static void qrtr_ns_worker(struct work_struct *work)
- 			break;
- 		}
- 
-+		/* AUX data is written direct into the control buffer */
-+		msg.msg_control = control;
-+		msg.msg_controllen = sizeof(control) - msg.msg_controllen;
++	GUEST_DONE();
++}
 +
-+		ret = qrtr_msg_get_endpoint(&msg, &endpoint_id);
-+		if (ret < 0) {
-+			pr_err("error receiving endpoint id: %d\n", ret);
-+			break;
-+		}
++int main(int argc, char *argv[])
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++	struct ucall uc;
++	gva_t svm_gva;
 +
- 		if ((size_t)msglen < sizeof(*pkt))
- 			break;
- 
-@@ -681,25 +758,25 @@ static void qrtr_ns_worker(struct work_struct *work)
- 		ret = 0;
- 		switch (cmd) {
- 		case QRTR_TYPE_HELLO:
--			ret = ctrl_cmd_hello(&sq);
-+			ret = ctrl_cmd_hello(endpoint_id, &sq);
- 			break;
- 		case QRTR_TYPE_BYE:
--			ret = ctrl_cmd_bye(&sq);
-+			ret = ctrl_cmd_bye(endpoint_id, &sq);
- 			break;
- 		case QRTR_TYPE_DEL_CLIENT:
--			ret = ctrl_cmd_del_client(&sq,
-+			ret = ctrl_cmd_del_client(endpoint_id, &sq,
- 					le32_to_cpu(pkt->client.node),
- 					le32_to_cpu(pkt->client.port));
- 			break;
- 		case QRTR_TYPE_NEW_SERVER:
--			ret = ctrl_cmd_new_server(&sq,
-+			ret = ctrl_cmd_new_server(endpoint_id, &sq,
- 					le32_to_cpu(pkt->server.service),
- 					le32_to_cpu(pkt->server.instance),
- 					le32_to_cpu(pkt->server.node),
- 					le32_to_cpu(pkt->server.port));
- 			break;
- 		case QRTR_TYPE_DEL_SERVER:
--			ret = ctrl_cmd_del_server(&sq,
-+			ret = ctrl_cmd_del_server(endpoint_id, &sq,
- 					 le32_to_cpu(pkt->server.service),
- 					 le32_to_cpu(pkt->server.instance),
- 					 le32_to_cpu(pkt->server.node),
-@@ -710,12 +787,12 @@ static void qrtr_ns_worker(struct work_struct *work)
- 		case QRTR_TYPE_RESUME_TX:
- 			break;
- 		case QRTR_TYPE_NEW_LOOKUP:
--			ret = ctrl_cmd_new_lookup(&sq,
-+			ret = ctrl_cmd_new_lookup(endpoint_id, &sq,
- 					 le32_to_cpu(pkt->server.service),
- 					 le32_to_cpu(pkt->server.instance));
- 			break;
- 		case QRTR_TYPE_DEL_LOOKUP:
--			ctrl_cmd_del_lookup(&sq,
-+			ctrl_cmd_del_lookup(endpoint_id, &sq,
- 				    le32_to_cpu(pkt->server.service),
- 				    le32_to_cpu(pkt->server.instance));
- 			break;
-@@ -749,6 +826,8 @@ int qrtr_ns_init(void)
- 	if (ret < 0)
- 		return ret;
- 
-+	qrtr_sock_set_report_endpoint(qrtr_ns.sock->sk);
++	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM));
++	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_VNMI));
 +
- 	ret = kernel_getsockname(qrtr_ns.sock, (struct sockaddr *)&sq);
- 	if (ret < 0) {
- 		pr_err("failed to get socket name\n");
-@@ -777,7 +856,7 @@ int qrtr_ns_init(void)
- 	qrtr_ns.bcast_sq.sq_node = QRTR_NODE_BCAST;
- 	qrtr_ns.bcast_sq.sq_port = QRTR_PORT_CTRL;
- 
--	ret = say_hello(&qrtr_ns.bcast_sq);
-+	ret = say_hello(qrtr_ns.local_node, &qrtr_ns.bcast_sq);
- 	if (ret < 0)
- 		goto err_wq;
- 
-diff --git a/net/qrtr/qrtr.h b/net/qrtr/qrtr.h
-index 22fcecbf8de23..b4f50336ae75a 100644
---- a/net/qrtr/qrtr.h
-+++ b/net/qrtr/qrtr.h
-@@ -35,5 +35,6 @@ int qrtr_ns_init(void);
- void qrtr_ns_remove(void);
- 
- int qrtr_msg_get_endpoint(struct msghdr *msg, u32 *out_endpoint_id);
-+void qrtr_sock_set_report_endpoint(struct sock *sk);
- 
- #endif
++	vm = vm_create_with_one_vcpu(&vcpu, l1_guest_code);
++
++	vm_install_exception_handler(vm, NMI_VECTOR, guest_nmi_handler);
++
++	vcpu_alloc_svm(vm, &svm_gva);
++	vcpu_args_set(vcpu, 1, svm_gva);
++
++	vcpu_run(vcpu);
++	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
++
++	switch (get_ucall(vcpu, &uc)) {
++	case UCALL_ABORT:
++		REPORT_GUEST_ASSERT(uc);
++		/* NOT REACHED */
++	case UCALL_DONE:
++		break;
++	default:
++		TEST_FAIL("Unexpected ucall: %lu", uc.cmd);
++	}
++
++	kvm_vm_free(vm);
++	return 0;
++}
 -- 
-2.34.1
+2.48.1
 
