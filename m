@@ -1,131 +1,139 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140B43C8C7D
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD2D3F4DD0;
+	Tue, 15 Sep 2026 13:24:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478659; cv=none; b=kpbfC+hia/rDoP09KQsXEKK9sSGEAaj10Ud/nKl9j8N9Aq+VFxnfkmOiT6zSieL2TOQfaF1DectX3BwTbQP3Go6hsEutL7dm3q7bnQztpHJUJRJgZADE1bFELVPDzwOQ7sDjtRzr2tZVZU3zbzL3OkCHycbVFbQR+bDFGV/zw30=
+	t=1789478664; cv=none; b=czmz/Ui3E1tGhxdbbEOK6tCdkYNJV7UtlBRmOwOFCKzvDVNZOhwnmXOxvak+123lYq1mFk/1q/nc5ezSPgzHDIZgLtM10KxPTmBmbVsSfVUdjuy0vYjtpywtaC+6jcjwWa94j9HW2Mq8hTxUG00W+hf7ipzWF6e1925adRsKdjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478659; c=relaxed/simple;
-	bh=aA8HIE4OkVPxxf973WYk9EE9na++A+vaxUiINuobCAE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=On/VICANMEq5xMiQoDxuOmGWCCU60C1OMBzEz/41HCuehEwwlYQLxC3nsndbO01N9gTb9oxpNGAuzaplVkOebOOzX86CEc8e7eEHib6d4wb8rw3cqhxbULOhgyeejEI98vj/TbzJ6GPwOC0Nrp1lmC93UGVIlNhZF2+AtVa1vd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Aslmc8Rn; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789478664; c=relaxed/simple;
+	bh=fazyMcUIBCQ1kA4F+gSzM2y6PVWHCTuOmgI9z2/zr+c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XxN18WfTyE6lvKEpsCYrnUlbdj9MaTrW2uxsg9+PNE6qd7VjvjJ2DaBAIL1uCiEoklE4pSkqte4bvj6QnYDR+0RT0ycjqM25Euq+z4uJvMKUgitXY2T31hKXCsDVn3/ZOe4bi2P0dffWmRFeDtMmEQQYIBsAS3KGrALnWW6vXP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clJ0vaxp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Aslmc8Rn"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso10462105e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:24:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789478655; x=1790083455; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aA8HIE4OkVPxxf973WYk9EE9na++A+vaxUiINuobCAE=;
-        b=Aslmc8Rn/i3zL4050Gs9agJD/Ihuck4VeFDlothMwDp1OL0/qYzeJSlliPShwfr+Zh
-         mp1AQ+DuscMlANx4YKG3ku5o9BDtZH//dKcRscK9HLIaMxiY4Tzpw1yPaR6LfAizqM87
-         oEN+/jSt1ksWlHkq56T4iRBW5Frxj0p6DEk30p0n8m1IToqj/CwMNZatKScfE9B4K5wx
-         H6E9IdhZdMaTi5ZpUBhbkUPn6LAbl6ktmdIdL3qyWJatIlWw4yC7k7sAI3s/2yRvOYCM
-         WBrWcHCeBkjAWc025dBrjsTF/hpIM/6DoEb4K5IohjNIYmuP6qB4VqlJi8WXdJS4O1TY
-         PSng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789478655; x=1790083455;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aA8HIE4OkVPxxf973WYk9EE9na++A+vaxUiINuobCAE=;
-        b=kVSC9tqAhmX/7bDXe8nsfBu4HphDMEZr51NbpgrjY1I8OA4aPvWcynA+mzbvUN6xKF
-         qOhui7mZbcIo6PnBEbK4Xglsa+KPkrBukla0GszcifGXJfXhws9662HdvtNpWfoVRw9X
-         snno8od4i8i6Y7l7ydXtomeReRXH4bxD3B/OpzfkmPq8eEOr/ryOxy/jmWiJs9931SMf
-         Fj86HfJU+nK0x0imb34jw7EyyQWRbuarxHZ639QkwoIXEyRGFARL1b0hbjbM85BGeA26
-         j26SNSF616oqdZrvjpBzujIG9+8qftDx4j5mp4Kc8ueEl/4aRVBsgZvGinFtaanXesXW
-         J0VQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw5DOYpNc1L07drYyQBvaQyKwh0b5LXT946jDv5eVEWJYZLB0dn7EL9ifDkE10sgmDleIOuB2npdNmOuYA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kudc2EWM/O6OztwbfOO4vji5emAiTZ0hDutQE/IMRSkACDNP1F
-	qSdYLCUPqgW3FVQZw42BZR5Pi5PN/m71+M3kNNGSz9908AV3MAnVqJE2JAdUJ5ABblA=
-X-Gm-Gg: AYBFou1cTOmGgTxjG3tug+qbNIH7bjdTaqfUfs14dIVmadslq9Y6WkneCpxIDll/Loj
-	YERXCPgnz4MmzdeJL63mWvEfgRF41zhL7OTXXfqAewhGSnCKAU0OcpMwFZtEXDCPYBro8hjBQ/4
-	MlhIGHOqjcnrkxJqJNu3bptFCf3J3ZXQc0MRQLguY+N6AKSBzh9J9DfLTCDkZGBUyMZ7dreXKC+
-	vd294yzZ2yi1P5CKvR2pVAu8Qvp0cpCOSuPZPbsE4yAP+KelEXDfdID2HADouHyjQSX418TeeaA
-	dcgqbGz7ZJyHUScD/xXdSUKvvjG4FFdJE13A4F0ZtiAePHs/rf1MhysCp46d9V2vy4UYFMRBOwH
-	QvRBmrav/VGi6P2+MOAQQQ76lMXhRuCpQVRDkr1LLJmYvQckhDgase6UyONJTKeJ0vvCC24GQGn
-	ibca8bqY/6qki/ILcRrjtshbOc7AfEti8bR302RFm+RCRth5Id+HB8Fn/sXSxFcHl3i4SQQMDV5
-	dST5nKdxbwsslmfq2F3jj7fqUPmGJbOwJ3nae8CDLFFc7S5M4DMCvMp5uwojlfvtNMjyLUa
-X-Received: by 2002:a05:600c:c059:20b0:49e:817a:ca7 with SMTP id 5b1f17b1804b1-49e817a0dccmr16959515e9.8.1789478655048;
-        Tue, 15 Sep 2026 06:24:15 -0700 (PDT)
-Received: from localhost (p200300f65f19a904c2a77868dcbef2f0.dip0.t-ipconnect.de. [2003:f6:5f19:a904:c2a7:7868:dcbe:f2f0])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49e7ef8b519sm59911725e9.14.2026.09.15.06.24.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 06:24:13 -0700 (PDT)
-Date: Tue, 15 Sep 2026 15:24:12 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Long Zhao <longzhao@ambarella.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 07/15] clk: ambarella: add CV75 RCT clock controller
-Message-ID: <aqlGg09RrztSwoOz@monoceros>
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
- <20260915-cv75-v5-v7-7-3297d3fbc9c0@ambarella.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clJ0vaxp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5371F00899;
+	Tue, 15 Sep 2026 13:24:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789478662;
+	bh=kk0XHrASJtDcqcoYjyv1OoIDFhfagge458V6XsyOmPk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=clJ0vaxp3sZXKwdBpf8y7D4hViqM4nFJmYSCrnv83plK3mCCe1Vo5znC49uX5JNHp
+	 6wrATjKzdnxnx3VpdI1iP7I6QMX7RQAwtLdtLnna1m+FdWYHgCtbX4LUcMSkd5rKqM
+	 vku4yNaOwmyZlw88cwMp1mr/E5vrxzrwO6eqRPMKYdn976UFdvVX7nvi8OB3baQ9Re
+	 9ovAl0QjkuXwklvSyFLaHZdl/yNn6+scd83y/4dwu22IQuhTLRWuPGPOPyQKH4CV5d
+	 iJzdHcs7SQMO+Jwp3IPkfx1iVIY2Z5TlFHKYC20wxoA75OJUkwf5p786a7f7mYPXnh
+	 5HlyU+wH7Cf9g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 4/9] mm/memory-failure: efi: adopt the inherited
+ poisoned-memory table
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Breno Leitao" <leitao@debian.org>, "David Hildenbrand" <david@kernel.org>, "Mike
+ Rapoport" <rppt@kernel.org>, "Oscar Salvador" <osalvador@suse.de>, "Ingo
+ Molnar" <mingo@redhat.com>, "Dave Hansen" <dave.hansen@linux.intel.com>, hannes@cmpxchg.or, "Ard
+ Biesheuvel" <ardb@kernel.org>, shakeel.butt@linux.dev, "Borislav Petkov" <bp@alien8.de>, "Ilias
+ Apalodimas" <ilias.apalodimas@linaro.org>, "Johannes Weiner" <hannes@cmpxchg.org>, "Liam
+ R. Howlett" <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Naoya Horiguchi" <nao.horiguchi@gmail.com>, "Andrew
+ Morton" <akpm@linux-foundation.org>, "Thomas Gleixner" <tglx@kernel.org>, x86@kernel.org, "Michal
+ Hocko" <mhocko@suse.com>, "Brendan Jackman" <brendan.jackman@linux.dev>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, "Zi Yan" <ziy@nvidia.com>, "H. Peter Anvin" <hpa@zytor.com>, "Suren
+ Baghdasaryan" <surenb@google.com>, "Lorenzo Stoakes" <ljs@kernel.org>, kas@kernel.org, "Miaohe
+ Lin" <linmiaohe@huawei.com>, "Danilo Krummrich" <dakr@kernel.org>
+Cc: linux-mm@kvack.org, linux-efi@vger.kernel.org, rmikey@meta.com, harry@kernel.org, riel@surriel.com, driver-core@lists.linux.dev, kernel-team@meta.com, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org, kexec@lists.infradead.org
+In-Reply-To: <20260915-hwpoison-kho-v5-4-3bc7a57bd503@debian.org>
+References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
+ <20260915-hwpoison-kho-v5-4-3bc7a57bd503@debian.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 13:24:19 +0000
+Message-Id: <20260915132420.7A5371F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xnlmyx6x4vbf5kjt"
-Content-Disposition: inline
-In-Reply-To: <20260915-cv75-v5-v7-7-3297d3fbc9c0@ambarella.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] efi: ABI incompatibility in poisoned-memory table due to unsigned =
+long
+- [High] efi: ABI incompatibility in poisoned-memory table due to PAGE_SIZE=
+ check
+--
 
---xnlmyx6x4vbf5kjt
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v7 07/15] clk: ambarella: add CV75 RCT clock controller
-MIME-Version: 1.0
+commit 213ea31d156bf79dbf85ad9fc8678fe09bddbde2
+Author: Breno Leitao <leitao@debian.org>
 
-On Tue, Sep 15, 2026 at 07:15:37PM +0800, Long Zhao wrote:
-> +#include <linux/mod_devicetable.h>
+mm/memory-failure: efi: adopt the inherited poisoned-memory table
 
-Please don't include <linux/mod_devicetable.h>. That's a hog for
-unneeded dependencies and I'm working on getting rid of it.
+This commit takes the inherited EFI poisoned-memory table into use by parsi=
+ng
+it in efi_config_parse_tables(). It validates the table header and hands its
+pages to memblock so everything afterwards can reach it with phys_to_virt().
 
-> [...]
-> +#include <linux/platform_device.h>
+> diff --git a/drivers/firmware/efi/poison.c b/drivers/firmware/efi/poison.c
+> new file mode 100644
+> index 0000000000000..3f12db3dc9b84
+> --- /dev/null
+> +++ b/drivers/firmware/efi/poison.c
+> @@ -0,0 +1,93 @@
+[ ... ]
+> +static bool __init
+> +efi_poison_geometry_valid(const struct linux_efi_poisoned_memory *pm)
+> +{
+> +	u64 nbits, end;
+> +
+> +	/* Whole words, and a bit count that can be taken without wrapping. */
+> +	if (!pm->size || !IS_ALIGNED(pm->size, sizeof(unsigned long)) ||
+> +	    check_mul_overflow(pm->size, (u64)BITS_PER_BYTE, &nbits))
+> +		return false;
 
-You can rely on <linux/platform_device.h> to pull in the definition of
-of_device_id. (If you want to go full iwyu, include
-<linux/device-id/of.h> instead.)
+[Severity: High]
+Does this validation logic break binary compatibility across different kern=
+el
+bitnesses by relying on unsigned long?
 
-Best regards
-Uwe
+The ABI structure definition for linux_efi_poisoned_memory uses a
+variable-width type for the bitmap (unsigned long bitmap[]) rather than a
+fixed-width type like u64. If a 32-bit kernel (or 32-bit EFI environment)
+creates the table with a size that is a multiple of 4 (but not 8) and
+passes it via kexec to a 64-bit kernel, this validation will fail since
+sizeof(unsigned long) is 8.
 
---xnlmyx6x4vbf5kjt
-Content-Type: application/pgp-signature; name="signature.asc"
+The 64-bit consumer kernel will reject the valid poisoned-memory table,
+losing hardware memory poison information. Accessing the unpoisoned memory
+subsequently triggers a Machine Check Exception (MCE), crashing the system.
 
------BEGIN PGP SIGNATURE-----
+> +
+> +	/* And a footprint that can be page aligned without wrapping either. */
+> +	if (check_add_overflow(efi.poisoned_memory, sizeof(*pm) + pm->size,
+> +			       &end) || end > PHYS_ADDR_MAX - PAGE_SIZE)
+> +		return false;
+> +
+> +	if (pm->unit_size < PAGE_SIZE || !is_power_of_2(pm->unit_size))
+> +		return false;
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqpRvkACgkQj4D7WH0S
-/k5CVAgAlhnKI89Q33xfBbRky4EOs4jdP9vW1frAnR1bLzOUf6Brat/wp0lHDYiH
-dfHIXOR7HFn85CjFb+Nt4HZmCZvg9IWa3FZUojS/qPfNofim2sdbViVVUyrwBouC
-RlC5OARb4l9uiJrgaJO2AMv7yNoI78GUthqDgXrDRgQoxTQgWISpDddD1O6XPI7J
-ZTQ08V7I4M3DOPziACXuOd0xr5qUrLO/25fcNlQA8pjPzY4u2tAGBeF9yDFtfQT5
-U1/YP9Y7TjOF/IfD3GOzrFJ0uAE6tHNXV7Xvi8Qz3CJXQkiW6noaXsS77gf9XaiE
-ZaeuPEwNDSCEJvnkBG9Em1YObYs18w==
-=V85c
------END PGP SIGNATURE-----
+[Severity: High]
+Can this logic break kexec chains by tying the acceptance of an external ABI
+table to the consumer's local compile-time PAGE_SIZE?
 
---xnlmyx6x4vbf5kjt--
+If a kernel configured with a smaller PAGE_SIZE (e.g., 4KB) sets
+pm->unit_size to 4096 and kexecs into a kernel configured with a larger
+PAGE_SIZE (e.g., 64KB), the new kernel evaluates 4096 < 65536 and entirely
+rejects the table.
+
+Discarding all hardware memory poison records can result in MCEs and system
+crashes when the supposedly good memory is allocated and accessed. Should
+the consumer instead accept the table and safely round up poisoned ranges to
+its native page granularity?
+
+> +
+> +	return IS_ALIGNED(pm->phys_base, pm->unit_size);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-hwpoison-k=
+ho-v5-0-3bc7a57bd503@debian.org?part=3D4
