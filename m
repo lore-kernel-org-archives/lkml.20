@@ -1,44 +1,77 @@
-Received: from outbound.pv.icloud.com (pv-2006l-snip4-11.eps.apple.com [57.103.67.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1ADA43DED9
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.67.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819E435F61E
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789452494; cv=none; b=k5S6ug2rgAw9HjG7oLzKDYGFmQb6CUzPqD4j4eUITUiBzU22ZHAIG3wMWijjoG89GcWZ6OxeizUBl+C8VbYVqu4+Ry7ZDV4uFWoiFiLjWmk3Ge3g/VCgTspQ/+rfwjl8bi22r5p2E8Is2E3F5NdAOAyZdJjfmW0+O7umIai+p7c=
+	t=1789452589; cv=none; b=k9770iKnHT14VqEWEmzxaS5LypAWjoE2lA7UQjRufTDCSPKLGG47mG5D+TpJDmBmPESchpS8EIdNil37i5q9iQyOEANmICSXIGRTi6eCktTGubHK3MwYVTKaJFiovaC8M/DlZyAvBemOnvOUCtq8CaHlmKuva40EPVcw8TQfO/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789452494; c=relaxed/simple;
-	bh=79kcZ+O30+iU0D1VkgZoYPKKCDocfroD560qea7HTXI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NGKcngJKrMKFpzr4qcyVcpEOEdnkyls5hLd9Bd2UHu5g3jRh0g3Xzk/DulauGbR3XUzJdIzubKp4lRzMTyTkSs1jhIVFex2yztIdTzSMKJta6YYHcbXg1StRj+r1SKUT5ylQf69/DlNtbSgZeG0/ka7tiujrB//5GQGV7OAvD7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.linjama.com; spf=pass smtp.mailfrom=dev.linjama.com; dkim=pass (2048-bit key) header.d=dev.linjama.com header.i=@dev.linjama.com header.b=UeJ4oVKr; arc=none smtp.client-ip=57.103.67.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.linjama.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.linjama.com
+	s=arc-20240116; t=1789452589; c=relaxed/simple;
+	bh=BopVM12HDLADxYa9oYvGmWcr4H5e+xesHUsEg8nv++U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ocUvi1gDeXwOYNE91tbLWq/hJwBolX/q1jXus9JNcf9gJyDJnm8X/IV9AkOUK9p6dG90Rdyb6mugqOj6nPeduqKm5JMz4doty33wcB6/d6G6pK8Ax21ZJHRHEdErELO3DGeneirPR83mS5Cm7mYIj/ceNPW2fx0f8CDW4NLeIzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SyrtRDM2; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dev.linjama.com header.i=@dev.linjama.com header.b="UeJ4oVKr"
-Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-1a-60-percent-0 (Postfix) with ESMTPS id 829FA1800395;
-	Tue, 15 Sep 2026 06:08:10 +0000 (UTC)
-X-ICL-RepId: 01a0a3ae-16e4-78c6-b309-842ef21a88f0
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQ1NHVwGRQpFF0oBVBcOVk1dGV0EUgdyFFwOHQFeBVgRVBkdDlgGEhZdRVcIQUVeGVcSUgBWRVEfVFhBDgpdEhhcFFxQWB5GElYNXQkZG0ReUBtfAkIPHBNWFRMdQxkPKwhKBEMHRQJeCyUTCVNWVhVPVl8EWQFTHVhWUAJaS18ZXUUPXwdZBEAASQZdAVsFRA5WAFwCUgFIFEkeCVYFWxVVOFcIQUVeGVcSUgBWRVEfVEYTGU4bV01aDUAZWAZtFFYVUgRZ
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dev.linjama.com; s=sig1; t=1789452492; x=1792044492; bh=79kcZ+O30+iU0D1VkgZoYPKKCDocfroD560qea7HTXI=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=UeJ4oVKrgwv8O3VZA6JIUShJNSGNSPysOFenuqspiV4K0mNS6fi9JiOyDkNk+X63+9P5vegcNgMHDtibfjIO5G8vBIFPBaOxok9wynuJMr+t83PGYcAMCWjVf0ujUEWDLwBsjyzxZabEcn9In6p8NqnOsxkJE0FzUJQMDhLFjbGgrZ3VmBXOt5eRyJw4apdqN92DRjDOrOktJtODBNocdDJXEQhvVwI700IKSYbticvk7YTx+IsHcl+mgIAHmgLO9CMKuhPI7W4oUwyOzrPqFffC5W3PDLRklzhMdRur8/F0lLC2G67KCAZFMg6fI3+iZC7/ahPU8oEsYIFpsbCJsA==
-mail-alias-created-date: 1690913137769
-Received: from dev.linjama.com (unknown [17.156.192.29])
-	by p00-icloudmta-asmtp-us-west-1a-60-percent-0 (Postfix) with ESMTPSA id A8A941800128;
-	Tue, 15 Sep 2026 06:08:08 +0000 (UTC)
-From: Daniel Linjama <daniel@dev.linjama.com>
-To: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Cc: linux-btrfs@vger.kernel.org,
-	David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Daniel Linjama <daniel@dev.linjama.com>
-Subject: Re: [PATCH] btrfs: don't force the filesystem read-only on EDQUOT/ENOSPC verity rollback
-Date: Tue, 15 Sep 2026 09:07:47 +0300
-Message-ID: <20260915060747.315938-1-daniel@dev.linjama.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <af99a1d5-25b0-4e39-9f66-a2dd8e1425c5@gmx.com>
-References: <20260914062459.3889313-1-daniel@dev.linjama.com> <2107e9f8-2bc6-42e5-98e2-30e25be016dd@gmx.com> <af99a1d5-25b0-4e39-9f66-a2dd8e1425c5@gmx.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SyrtRDM2"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso18752845e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:09:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789452586; x=1790057386; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SI783VUJkGIZm3nVSym26fZ6VNUHxk9Ukf15drWnbdY=;
+        b=SyrtRDM2NXP9oFBle08roxhjjnzhMhEukwMX1ri7Z32ykZTAIyy7NzU7Q/CYuRhL/v
+         HSEVcUdJIsm6L8NjT4ekoqptWkXnay3IL5kjgXNXXuDcc+5tv9m71SIEMVP0Ph8GLveb
+         MEEcpe3TEMNhJqx+YGQo+W161xPZ2DVBBmta5YL5z4tKHSrRG7GBEo4j8EOG3kVvTv9t
+         cH2ZorCzGfMO0quvVIGx3JuZ/oQa3uv0xZw3W5q3QUwAzaKY8L1glvJH4cilh8wjU1fQ
+         EPGS/InX+UV9/Y5ErecAV2Xqz0vDokUrAOu/wrJFKq/uSMR8oWe1tvdqKTocn3+WcWsr
+         cCtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789452586; x=1790057386;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SI783VUJkGIZm3nVSym26fZ6VNUHxk9Ukf15drWnbdY=;
+        b=iclk/vyoiDH3ccddyAEQ6A/sdTUI4Vxa0KCHrEjtdbzbuU+n9RNB4nigWcii4gylvx
+         5UDZQaBgdLrNamALcnwRymlUvs+3wKOuNjuPbNgk48o4zTTV9SqeuxJclgGluouV8slC
+         jK5u2wpcZ+e6FnOoQx6VTku2ko3WEgTZfH90ZOmJx8Qkrq2GFebjc45Zh9BS8XTF6JCJ
+         m34M3JHSjU3bdRvJ2wrWFp9yrGCSHDi1ssXOXUK3+38KOlaWokZQA6m2HxmBdMWCp+gs
+         IgPvl4ViTWYR2yUhtdJ1V2mee8a6w5d9ErgHB8pPOZ9Rn7EObX6wqBmJEULLGBc/Fnv9
+         5hGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwt5EnSfYYZb11wtbADZawPw4JeH6U8WSsAks9s23A0BZoPeb6fP/JmWobAXOxXtMtFoeqFw2/+ek4RNvI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrKwg6mDbnkBGbP7wfuW5VTSltSwcaS77aKerlDgNicg2XYtl9
+	JYgaQH5ENret6PLM7pzkh0E75ByZT//BzGWeVcYI2qjPZWs4SLfiukdN
+X-Gm-Gg: AYBFou0XKkm1vrXYzoMKyWamEG3OZafO7cjQt8cRIFppU6A1VwHzdifbNfkSShhSODj
+	cfEQoIxGbBhgih2YZ8s9CdjmiSsOmefHo+RjE8JiJBSTS55cXmPK2sAk3G/ucQsrUOWPblN99bh
+	lDgg+PydUqIEDolI6oD4YAwy8bImEgVDbCCyq1Y/mstOCNjMh3O9qAg055yaScifU46KT0zNvD2
+	HLcD5xPI8Q0LkbfPPxoTLE3tmG0vfJ3Vd1UQCBa5KedKKFwcAgVNnrMykzuhsIwLZxx2H6bE6BP
+	pOVyyTBnfy1tI7O9sPX2q2TairWR87AO5CRCMS4FxJgRRmr2Gl+tLOEDeykafviL07qQoUEwr7R
+	opuPAaQpiiLRFUzSciEX1+bPUF06y0AUIQ2BiYos2vtt/+WOVyv4FmVSi6ZK2itVLODP2VC7Zqk
+	/vemHmxXSpe+1XR4b+BSkLVbbQOZnhq385Ull6zdSy7vtyOLa0QWUE1e7VdE97OvY95H1OQ7eBx
+	Z6jB39zxFMqHIAAv4sdMX19v+dPFTyUHpLFe4W9no9oML4mtRCpVXgk6gjJeQOvQ0VTtjGZG1Jn
+	eKULZ2JhmFKZg0qIVCi55+9n17eAIREDBtGlCBFraS8/UMLnORIVJlYQEl+SAYt7VSlEXQM+APf
+	zKOzqLOi28OGJuyiK
+X-Received: by 2002:a05:600c:4e02:b0:49d:272d:74b4 with SMTP id 5b1f17b1804b1-49e7a6387bcmr171632925e9.2.1789452585275;
+        Mon, 14 Sep 2026 23:09:45 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-afd5-c801-cc65-9ba1-765b-bff6.310.pool.telefonica.de. [2a02:3100:afd5:c801:cc65:9ba1:765b:bff6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d27c88fsm44282905e9.2.2026.09.14.23.09.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 14 Sep 2026 23:09:44 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lian Wang <lianux.mm@gmail.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] mm/damon: fix zero quota for PSI goals under the temporal tuner
+Date: Tue, 15 Sep 2026 08:09:35 +0200
+Message-Id: <20260915060937.3423-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,65 +79,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: MTz4CtcDUFM_BkfUT6jAJsIG5OGdzdlh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDA4NiBTYWx0ZWRfX6pw9teXPJ6dJ
- v3oO6JcfSeJaryzRWweSNUW9PzkHMnkQJxuoeYH26/7OFOmK4Ve7JozgwLGOyfpdnc3kSljFRBr
- zXL4hRmRJzDYsKN9DUN4d/qOhJ8gfhtOaI7VdjCuBQIby51kDjmbeoPCHhC/dslIWtI6AV+gZAO
- r9mfTFrUQpuZvgF+ZV6h1SSM/4wU+rdU2rr15E3hQ/H71+16sxb+jMhMOSBXGFPRXuqKBwZJpew
- ZU9vJtibw81iSGyQ8+p0LxEt+C/wOpW2kH+E7807UO6cen5m0gZJirlhhAwBL6+Zjt6kcoNbVf6
- 8Kv/IEAUgTYMg8wuZSSEiOHy25FaGTh4ijqjXMcSnKnJPscDCih5USfMdqmBno=
-X-Authority-Info-Out: v=2.4 cv=TovrRTXh c=1 sm=1 tr=0 ts=6aa8e0ca
- cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
- a=aW9mcIavGNWWFvFFKOxBSA==:17 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=VwQbUJbxAAAA:8 a=olXNNK5aAAAA:8 a=Em7shX7px7pPTLXbYC8A:9
- a=U4UmX7kblY_o6ZOM_jyP:22
-X-Proofpoint-ORIG-GUID: MTz4CtcDUFM_BkfUT6jAJsIG5OGdzdlh
-X-JNJ: AAAAAAABf5j+aTQi/vM5/r14a7ADckd+SNY8EMdYJRqbFlP7J3gbbvSqHAjuriIzATqt99IsajlKsCK8O81uafmhNWkY0aaeq2NMrl8Ygm8M7Xt/Zl9WJELz/xd7t0Mx/b5uCI+0//Ho4o2W6BPXD0Bj6g6EuSuylMThlurRx1t9H36YbzFdojk1aDN0kOjeKdjkvii81iDpSy4mfCSLD9OoAbxG9o2WQ3XGTQU1fmz32De2Ra5oZnjeZLVM1w3dZzW3k2g2y98/qPNQRZ1p/13jbflDlYQRs3l5q+PK/ctmcS3SKw86Y6PpEeoFnaBk0sNzL4/P79iu1IAiGthCMR6tl5ule0VRESi0zS+ER0dK0ri5yugTyZOZDt3TIn/7lu2n7jSqJOIpIq6p19cQj5SpnsBtxsuVHWofl4i/lY1nM/e/ncjeccPFe3InjXVA6Te0O9+p47He2sFakm1srZmDSyvJJXiJO/BUrpMVcU02De5YG9Ck6XUPXsfaoZxitrQcXcaMa08Egp053EetYZ+gcaQhf7f3qauenH/ocuSbcVyMB4GscH1y/RozGfCPNUyZAhI0KA2wMgNWJyTgeM/tuo1FebJAJWz+gVjItGEoXMSapAK/TH55djaqrGWtyObB75j0lBACzVb9aOF4c9S3DWev1etJ/lVnIZnuhge1UHl/J/EECv4eNxbnd7nECIAbLs9jNxKgvxP9lXofTi4mrkEQTyX3Vv+odu/gycBiLIuA2ZgmsTiCFUZ7I7ArwfpNTg9bOaXxtDeiJR5ecJNZhy0CkT4tbN5h/5aZooXUkoQzd0weXgRQ5Q269NruR4qyIfTxslv4a5Wn3RXw4JckzsCkGtymxiGywarN8yp/zaB1a2HS8Vv1UIOmyDOq0KKM4NGKFu09qGeV9ZuoHMGT67H63mffZEh6Sle/Smit8N3wbbCix1qqIJFZ124XO/mvaMtLKHv7SzbtP8vXOU0Ooke+t2t
- 39LaHNmGl10PFxu37yi8EYxpIyjyro/QW5OVudMwLPfGfxiYcw52ZdVCGaHSENg1kL9sb1ssuyh0Uz0RTThAqj48d+M11SA+TCr8rk5KbyPa0n8ZrX5R3gOfrRtlplcNm6/g/CUyvinfLhFPpxBsdUy0cRArvtnizMiFWWyXNAHrnrHaoYPyEIY0+0BsrKBP+hmQ1X+bkHICTB4aRhX+i/YaNJsadhOPSmxyeuN4J48/wrj4XG3wGI64XYXCKbNxo5bnvdC6zlzt8nkIs/zqlEC6vHT/tWM7DTyp8K30T58+4yfjUoKmCseEQmuIJWgpBQ3GlgA==
 
-On 2026/9/14 18:45, Qu Wenruo wrote:
-> On 2026/9/14 16:02, Qu Wenruo wrote:
->> Please also submit a fstests case for it.
+A PSI quota goal without a previous sample is scored as achieved.
+With the temporal tuner, this sets the quota to zero for the first
+charge window and the window after each goal commit.
 
-Sent to fstests as btrfs/354 (qgroup limit) and btrfs/355 (full
-filesystem):
-https://lore.kernel.org/fstests/20260915053815.307674-1-daniel@dev.linjama.com/
+The series is based on next-20260911. It fixes commit a68878f83ae6
+("mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total"),
+which is in mm-new and tagged for stable. Please carry this fix with
+it.
 
->> EDQUOT is fine, but I'm not sure if ENOSPC is really recoverable.
->>
->> Even if we ignore ENOSPC for now, we may have really exhausted the
->> metadata, and the next transaction may be aborted anyway.
->
-> Sashiko also mentioned even if we ignored EDQUOT for now, the next mount
-> we still fallback to call btrfs_drop_verity_items() on the inode cleanup.
->
-> And it will return -EDQUOT again, so the inode will not be cleanred up.
->
-> Considering we're only delete items, I think the better solution would
-> be calling btrfs_start_transaction_fallback_global_rsv(), which will not
-> enforce qgroup, thus should not return -EDQUOT in the first place.
+Patch 1 keeps the temporal quota active until a PSI delta is
+available. Patch 2 adds a regression test for the first round, the
+next measured round, the round after a goal commit, a measured round
+that reaches the target, and the consist tuner's unmeasured round.
 
-You are both right. With v1 the next mount fails the orphan cleanup with
--EDQUOT again, every lookup of the subvolume fails, and mounting it with
--o subvol fails too, so the subvolume is unreachable as long as the limit
-is in place.
+Reproduced with damo 3.4.0 (b41965a) in a QEMU guest running
+next-20260911 (x86_64, CONFIG_DAMON_SYSFS=y, CONFIG_PSI=y):
 
-v2 does what you suggest: btrfs_start_transaction_fallback_global_rsv()
-in drop_verity_items(), for the second transaction in rollback_verity()
-and for the orphan item deletion in btrfs_orphan_cleanup(). All three are
-needed, the reservations of the dropped items are only released at
-commit, so the following transactions hit the limit as well.
-https://lore.kernel.org/linux-btrfs/20260915055109.311839-1-daniel@dev.linjama.com/
+  damo start --damos_action stat --damos_quota_interval 120000 \
+      --damos_quota_space 1048576 \
+      --damos_quota_goal some_mem_psi_us 100000000000 \
+      --damos_quota_goal_tuner temporal
 
->> I believe your test case is only utilizing qgroup limit, or did you hit
->> a case where btrfs_drop_verity_items() returns -ENOSPC and the fs still
->> works fine?
+then reading quotas/effective_bytes after update_schemes_effective_quotas
+every 18 seconds. Without patch 1 the effective quota is 0 for the whole
+first 120 second window and again for the window after "damo tune" with
+the same parameters. With patch 1 it is 1048576 throughout.
 
-Yes, on a full mixed block group filesystem the rollback fails with
--ENOSPC the same way. Without the fix the orphan cleanup then fails the
-next read-write mount (open_ctree failed: -ENOSPC), and the filesystem
-can only be mounted read-only after that. With v2 the mount succeeds and
-the leftover items are dropped. btrfs/355 covers this.
+The KUnit test in patch 2 fails without patch 1 and passes with it on
+x86_64 and i386 (CONFIG_DAMON_KUNIT_TEST=y, built-in KUnit run at boot).
 
-Thanks,
-Daniel
+Karl Mehltretter (2):
+  mm/damon/core: score an unmeasured PSI goal as not achieved for the
+    temporal tuner
+  mm/damon/tests/core-kunit: test PSI goal rounds under the temporal
+    tuner
+
+ mm/damon/core.c             | 14 +++++---
+ mm/damon/tests/core-kunit.h | 69 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 79 insertions(+), 4 deletions(-)
+
+
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+-- 
+2.53.0
+
