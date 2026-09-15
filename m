@@ -1,152 +1,126 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14694BCAD6
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8414BA1D1;
+	Tue, 15 Sep 2026 17:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789494114; cv=none; b=b4yRQ2AGI2tn6L6cypK2zPjfJ4WS9H3IHt3J1Ln2gCpDWP5gKHkKnHXjfMr8rY8VoGo8Dim+d3r8fY/UchqyVy60sMcmAMrEqVBCZyvGYRnopDrnJlrAm1WL02XaYJzpbv5kuJhvLTpwiWvrk2IrYf8aRpSlZIIyShO2/1TojbU=
+	t=1789494116; cv=none; b=ovY6kuuJkrldaAN/rHXh5/0igl29qGlVqJy5np4C6s5NocSDMoKN3otTcpEPkrqAnWovoAuWCTcpeqXC2V7k7MLZBRG9tqrDYSTOcjcr0EUGbLKoL2uB7t3aiynGjmbTX86JJ310jzNhCDOGSuA911PMa3nCX434n7vsOzCRz3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789494114; c=relaxed/simple;
-	bh=xHQpPZGkwnSYzPAzjFUyP0XG0WV1yIObkQuB3Uh6NO0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dHL1PzHn3GVENqFuklvfrQTyGDb5iaMQIXxjIBfwrxKs9vyR/JyUuj/jmXxNkadASo6AgBc083xst8ze1+0iybVQ0A5B7DbcMomXM/M2fAhHRf9JEMzcfqV5KziesFxTsr2Gr2j5fCkGKQ+ubA4tU+dZEe5o/4MGoasz6j/zqM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h2S+kkJy; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789494116; c=relaxed/simple;
+	bh=ckm5YErl8YuS5dn6xT8IvqcyZmcJHSVF6vVUUsLRAUc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=G8xe4ElK0gVdR/BF72hoZi2oR4Qk+9LgK1lHPWCGB/1jgP1u+HsQmgN1oVDOWY7Zq1ekNa6A4jEeM7mkGlOg4/6mbnYxIPFHZMRA2KMdKlo9QGe8eUPLvM024OInaTv7YU4XMaVRpeXJJ4lSLUgtP1X1JRKNrd7bUgVjiI+Ug/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=LPDkFeI2; arc=none smtp.client-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h2S+kkJy"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f17450so23511e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:41:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789494109; x=1790098909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=arBE55z8KyRmkXgdTs2/FCieeTQlbYHFLN+eX7wLIfo=;
-        b=h2S+kkJyndVUItDeT28GdWPxbA4MhZ2JkZhyPF5IPMCS2BUxX+7OheHShkNJpMLtzB
-         kLI9igv1BJydEFbKHRh/Tnh3iOYsNcPoQ1HteAnVbI103ekl06sCDK0MhUBPWaiGvRVr
-         iK7tVOhHIyKmOC7TeIMnVOT64aB48Vfy6/ZlgWhiBjEiUnH529nyYEsRF+C4HUb1jwYc
-         fkc44FjzLhpwQzLGtPXo2n8gtG0bPQjsQOOIs7744vYuclVdll6QbMSxPrGhg54CFaOv
-         X0v6FSgVBFxMV3Zq5nFMriLGSEs/gHmzBgeNnF/2Un/o3pqwGTnx5n4U52zoTDmvOiZz
-         dFjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789494109; x=1790098909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=arBE55z8KyRmkXgdTs2/FCieeTQlbYHFLN+eX7wLIfo=;
-        b=nRTx59nttySIaiJFWKJ2FijAglFxqt+XtlkBgNjZMcx0yPpLhEd+M7UYGvd2Hb9paK
-         dgAc8l24uMuPzNjSrzjSCFsLPgqWlLrxDPn2brO2MqsQzR81AiqwgxbY/bIolrPRC1DO
-         xau65tPiIKnNrxIGZc/02AKVhtuxjnHjgxj9vZ7FrWkNjnDnrhTld65V+Fw04yQVTgFP
-         nN1CiIIRnqGhXyycYhk12IGZZh6AHb9IBH4pLPE65uZUN14ywKe82HG1OSymG4oWM5Yg
-         kE3ZNsGUC+j3ZJ2hZJFO7TMe640ycIa+BoBpfCtSv8H0Vd5o0roqFOnK1ybkB08E5dqI
-         WX6g==
-X-Forwarded-Encrypted: i=1; AKwUvBx9/bnj3nuANZdtNEzbt1CQbHLWovAQptwB8iN3GAtCyhZqP/h/7cDvivga9GSOXu3WEA707ezTjmbrSUg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVMdbgx5p7AzmXFa82DFRL/t7/NEGZHWfifQw7xfqvuTIUQ7oQ
-	2iy+eaiEKFD3g6RZU9h/Hvp0+DTJwkvbOdefql6abuETI65+IZohP0k=
-X-Gm-Gg: AYBFou33zQ3JSk3CLwukNfaOzVDefn2pVwIRuu6BcUD04kgJTfK++/38/d+5FcS7p/q
-	Zz/hV8rkVRfBcPvAKi5waLJ5kRM35rBH6Hjz2KRpgp/IKcK9e18XAdl4AC7ofisLjm/kpCcseLe
-	DJaMmiTuA0JcADm9wCrpxF+qalBibTLTzve7LjDdc96vSlqJb68fEA2nTN0Qg1Yw7iMWMzt6bnT
-	uxOS0l9sREBtiP0Me9ZlHiNWJ8QUcJboJrZMcTmSy/1B7FwCCjFULoi3CPg0GyISKDKxx1WJYTz
-	yOqwXKiJGC2zW5syKZrASyNkUSgY4+1rS0qRVgEG/ZEcQoJ/13qC+IODKqoznKVEVBmLu6o/VUs
-	0WZgsksX8VtWQCPIxFU/1isp0U8+sBtPRSU85ah5LP5VYvANUvHNqELN/3MLEw2/GMAwbl4aQkM
-	EgoTOfTKpuaDyk/B+QGnSIJKiytXxoIfOqxg9F+/Lfg79h+nPrx4qirUcN7ADcqw==
-X-Received: by 2002:a05:6512:2287:b0:5b8:b37f:164 with SMTP id 2adb3069b0e04-5b8b37f0300mr968389e87.48.1789494109295;
-        Tue, 15 Sep 2026 10:41:49 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b5789779sm123779e87.1.2026.09.15.10.41.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:41:48 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: [PATCH] thermal/drivers/airoha: Request the EN7581 IRQ after zone registration
-Date: Tue, 15 Sep 2026 20:41:28 +0100
-Message-ID: <20260915194128.42508-1-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="LPDkFeI2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1789494105; x=1789753305;
+	bh=2Z+GGqqxoNHhbn4tzCjicToeuuKyYpgbyqVA//Q9Hd8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=LPDkFeI2PdKqRhs2rvoa1q23+sfpghIMI36dZ2KzQZMkp9kgoWRdPUId/Xp8zofA5
+	 LgIAWXNsSEtOXM6NRGbyRf1/WA5em6BHpNQSndRCX9mJl/ldKrchZfSlULchQv68el
+	 i7yn1i5BYo2KNGk1+BN3FRnaM4sDQosXcv2iwnk9N0iki9v9kFiRf9+01M3MwFdmT1
+	 6YhMn7AFkW2/iZp+iozYyWG4Uu50D33ajDX8i8OJb0zHuEOkD/9UVDdRU8fXt+a0jl
+	 Y7mlN8QW0aabbEp6kOoGx6ePApCfH9wmnqChesft/bNL5LJ9RYWlEV1E4xKIQ0IFSX
+	 C6BWfMMMxUyZQ==
+Date: Tue, 15 Sep 2026 17:41:36 +0000
+To: linux-sound@vger.kernel.org
+From: patryk.dankow@protonmail.com
+Cc: =?utf-8?Q?Patryk_Da=C5=84k=C3=B3w?= <patryk.dankow@protonmail.com>, perex@perex.cz, tiwai@suse.com, zhangheng@kylinos.cn, dnaim@cachyos.org, damien.dagorn29@gmail.com, kailang@realtek.com, habilerenturker@hotmail.com, linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] ALSA: hda/realtek: Add mute LED support for ASUS PM3406CKA
+Message-ID: <20260915174110.67871-3-patryk.dankow@protonmail.com>
+In-Reply-To: <20260915174110.67871-1-patryk.dankow@protonmail.com>
+References: <20260915174110.67871-1-patryk.dankow@protonmail.com>
+Feedback-ID: 221603438:user:proton
+X-Pm-Message-ID: dbf11fb6ef013e63489214ee355fda125ceae26b
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The EN7581 IRQ is requested before the thermal zone is registered, and
-the handler passes priv->tz to thermal_zone_device_update(). Unbind
-leaves the monitor interrupt enabled, so an interrupt pending on the
-next bind fires while priv->tz is NULL. On a Nokia XG-040G-MD this
-oopses in thermal_zone_device_update(). On unbind, devres also frees the
-zone before the IRQ.
+From: Patryk Da=C5=84k=C3=B3w <patryk.dankow@protonmail.com>
 
-Request the IRQ in post_probe, after zone registration.
+Enable vmaster mute LED handling for the PM3406CKA while retaining
+the existing CS35L41 I2C fixup by chaining the new fixup to it.
 
-Fixes: 42de37f40e1b ("thermal/drivers: Add support for Airoha EN7581 thermal sensor")
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Tested on ASUS ExpertBook PM3406CKA.
+
+Signed-off-by: Patryk Da=C5=84k=C3=B3w <patryk.dankow@protonmail.com>
 ---
-Independent of the AN7583 series v2:
-https://lore.kernel.org/all/20260915191131.25214-1-sochnev.v.74@gmail.com/
+ sound/hda/codecs/realtek/alc269.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
- drivers/thermal/airoha_thermal.c | 24 +++++++++++++-----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_thermal.c
-index 77b3a1af271f..ea3e2649c280 100644
---- a/drivers/thermal/airoha_thermal.c
-+++ b/drivers/thermal/airoha_thermal.c
-@@ -528,7 +528,7 @@ static int en7581_thermal_probe(struct platform_device *pdev,
- 	struct device_node *chip_scu_np;
- 	struct device *dev = &pdev->dev;
- 	void __iomem *base;
--	int i, irq, ret;
-+	int i;
- 
- 	base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(base))
-@@ -567,16 +567,6 @@ static int en7581_thermal_probe(struct platform_device *pdev,
- 	of_address_to_resource(chip_scu_np, 0, &priv->scu_adc_res);
- 	of_node_put(chip_scu_np);
- 
--	irq = platform_get_irq(pdev, 0);
--	if (irq < 0)
--		return irq;
--
--	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
--					en7581_thermal_irq, IRQF_ONESHOT,
--					pdev->name, priv);
--	if (ret)
--		return ret;
--
- 	en7581_thermal_setup_monitor(priv);
- 	en7581_thermal_setup_adc_val(dev, priv);
- 
-@@ -586,6 +576,18 @@ static int en7581_thermal_probe(struct platform_device *pdev,
- static int en7581_thermal_post_probe(struct platform_device *pdev)
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/a=
+lc269.c
+index 3abee617e86e..d1f0c2752624 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -180,6 +180,15 @@ static void alc_enable_headset_jack_key(struct hda_cod=
+ec *codec)
+ =09}
+ }
+=20
++static void alc_fixup_pm3406cka_vmaster_led(struct hda_codec *codec,
++=09=09=09=09=09    const struct hda_fixup *fix, int action)
++{
++=09struct alc_spec *spec =3D codec->spec;
++
++=09if (action =3D=3D HDA_FIXUP_ACT_PRE_PROBE)
++=09=09spec->gen.vmaster_mute_led =3D 1;
++}
++
+ static void alc_fixup_headset_jack(struct hda_codec *codec,
+ =09=09=09=09    const struct hda_fixup *fix, int action)
  {
- 	struct airoha_thermal_priv *priv = platform_get_drvdata(pdev);
-+	int irq, ret;
-+
-+	/* After zone registration: the handler uses priv->tz */
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
-+					en7581_thermal_irq, IRQF_ONESHOT,
-+					pdev->name, priv);
-+	if (ret)
-+		return ret;
- 
- 	/* Enable LOW and HIGH interrupt (if supported) */
- 	regmap_write(priv->map, EN7581_TEMPMONINT,
-
-base-commit: b115930d716defc3a7daa2bc2ae2465d864b7114
--- 
+@@ -4383,6 +4392,7 @@ enum {
+ =09ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN_HEADSET,
+ =09ALC285_LENOVO_DAC_RENAME,
+ =09ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1,
++=09ALC_FIXUP_PM3406CKA_VMASTER_LED,
+ };
+=20
+ /* A special fixup for Lenovo C940 and Yoga Duet 7;
+@@ -7129,6 +7139,12 @@ static const struct hda_fixup alc269_fixups[] =3D {
+ =09=09.chained =3D true,
+ =09=09.chain_id =3D ALC287_FIXUP_TXNW2781_I2C,
+ =09},
++=09[ALC_FIXUP_PM3406CKA_VMASTER_LED] =3D {
++=09=09.type =3D HDA_FIXUP_FUNC,
++=09=09.v.func =3D alc_fixup_pm3406cka_vmaster_led,
++=09=09.chained =3D true,
++=09=09.chain_id =3D ALC287_FIXUP_CS35L41_I2C_2,
++=09},
+ };
+=20
+ static const struct hda_quirk alc269_fixup_tbl[] =3D {
+@@ -7786,7 +7802,7 @@ static const struct hda_quirk alc269_fixup_tbl[] =3D =
+{
+ =09SND_PCI_QUIRK(0x1043, 0x13b0, "ASUS Z550SA", ALC256_FIXUP_ASUS_MIC_NO_P=
+RESENCE),
+ =09SND_PCI_QUIRK(0x1043, 0x1427, "Asus Zenbook UX31E", ALC269VB_FIXUP_ASUS=
+_ZENBOOK),
+ =09SND_PCI_QUIRK(0x1043, 0x1433, "ASUS GX650PY/PZ/PV/PU/PYV/PZV/PIV/PVV", =
+ALC285_FIXUP_ASUS_I2C_HEADSET_MIC),
+-=09SND_PCI_QUIRK(0x1043, 0x1454, "ASUS PM3406CKA", ALC287_FIXUP_CS35L41_I2=
+C_2),
++=09SND_PCI_QUIRK(0x1043, 0x1454, "ASUS PM3406CKA", ALC_FIXUP_PM3406CKA_VMA=
+STER_LED),
+ =09SND_PCI_QUIRK(0x1043, 0x1460, "Asus VivoBook 15", ALC256_FIXUP_ASUS_MIC=
+_NO_PRESENCE),
+ =09SND_PCI_QUIRK(0x1043, 0x1463, "Asus GA402X/GA402N", ALC285_FIXUP_ASUS_I=
+2C_HEADSET_MIC),
+ =09SND_PCI_QUIRK(0x1043, 0x1473, "ASUS GU604VI/VC/VE/VG/VJ/VQ/VU/VV/VY/VZ"=
+, ALC285_FIXUP_ASUS_HEADSET_MIC),
+--=20
 2.55.0
+
 
