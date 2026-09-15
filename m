@@ -1,69 +1,69 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF80D4A2055
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BAD4A2600
 	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478290; cv=none; b=LTmR4RjrGJGbfFhg2mBdEMuTOFwl9/oJ9PxgJ1KYXoycMdXDfKZdAKYu8YE5NJrxabYZwuGkqZXhtZfOCg9e/pU60DyAno3DdIGBR1aELOeVBcfMx75nlsCgDiIUUSbPwRqnOeJhwVeO2gDYv7hK9ZFU9IaOlsmRcosATWbIWBQ=
+	t=1789478290; cv=none; b=EkqEBWSZVZEpXH8jcowc/s6PLW5oNvizYxMvXOrbjLQQpku1HI2bSDrmSiUBmM36VQQP49gX5t5SmXr8CH1kq/AlkT9Sjqu3lKiGbDnBn30p+aM00hZ5+uz/tcK+10q5CcuxT7p0CBwbZgLbP12W9HBgIsozjTQR3E5Y1vmbbqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789478290; c=relaxed/simple;
-	bh=Aqm0C5BBMBkqFusbG93kcm6leRi28F4VKStTPzg6dAE=;
+	bh=EBgIXBiL5Z/I6XbFK2Nq9sAUVoT2dZ9k9OxjIjZChGA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dSyiY3nf4H159XE+PIdEl4iPD2JOBjgwnbPfHNb/TFihj4l/uXSk4YG1ZSK2krCCU5N2RH24GA/uNIjoXhNKluHJDrmUMjkrE4vNkVrQw6359PbdSRyBUQvU8AuQBZr2u8BWltyW9o6rR87lWxzb9+2XC5vBUfwoogCxs+hiNfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=J6b+XA5m; arc=none smtp.client-ip=74.125.230.205
+	 In-Reply-To:To:Cc; b=DXuwA8ZLGcBByWxl4cztIDwza8VFr/XwAe5vi01DSgLL3k7Qn/kTuVx4Gvvwa2GtT0EZ8QVzhNheFROdn8sMgiAkB5RclL3q/5CUDkyoF6Rzc2e+b1G3dIF8Bxu0P0BQhXM7JgYmcdF0e/IezIMbRUuh5RhkUGJvEI4h9tohGC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=Ub6ALxkb; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="J6b+XA5m"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76c9deeso50608481cf.1
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="Ub6ALxkb"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6ebso34153766d6.2
         for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:18:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1789478285; x=1790083085; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1789478286; x=1790083086; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ua8lq0Nx07F8Y+BgJ1JiUwgoDOin8IZmspGmQtj7ybE=;
-        b=J6b+XA5mbLLkC1NUkEd3V9s5zF0cMihA22ycfERQDlxpyW3E09L4kuosySFa1KXRea
-         0F/j7c61EG2Ij0XN/0rSLSE9w5mQ1DbDnJIAokJY9SfzbvvkQHdoW2t3VLhXXvvBy0t1
-         lQwzaUzQ8xZQyds3fY5ZYTAV06JXJdWrFeTIG2rGYuGVApQTPuUCfuoaxFXfrMJ1NYuY
-         HuED3nhFRk6ULfFWUPdTBQNJv4KHp2wOtneRezHUqR7LVldvkj//RZI3RbAd/+L9aOYj
-         2wlTU4bCsXviNzlmJzYB91jVy+RVbpnQaFSvpOe28HkqVdtWY+Y4UbBqRTvUH3wILJvQ
-         tumA==
+        bh=pPH1+eiN4EhHtK6rDK3I01/qZvQ6oNbinGntBhruq3Q=;
+        b=Ub6ALxkbbHOIcYy2Bh1bqXFHATepdkzd6G3DU+kGPd7M+T3Dqj/3GhNq2lN7U96qnU
+         xL72//oyrPVUjrVbm4QGnJDQbpS3Kr0uKi6XPi37cr3fq0OVFm7nI9MlNyjppINVRzi7
+         JWzPFi60SctLSBPia50fIy2X7FbweS8PPR+w1xM9pwp7UHD9S5K6SFLfsMrjdF382vpg
+         LqU20Wl/jQXDa/bsMBXECGQi9wt9y0hCmP96AWlJ1I8zwKo0LWKPMsyVtvRtSfZy8s1O
+         pD8Kl4PZO4lA/S6i0VyUYC4gIoRWIC0kzNnZDu5WAvGXltvp/l+W4k0Gb5pt8UK1QtxP
+         I+Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789478285; x=1790083085;
+        d=1e100.net; s=20260707; t=1789478286; x=1790083086;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ua8lq0Nx07F8Y+BgJ1JiUwgoDOin8IZmspGmQtj7ybE=;
-        b=1+4KxmJ23faIP/b7rpwg8pviGF2ooQreyUsbv3np4gPm8Y+B8kjBvme0jdMQ9l4Dy7
-         Ki+d1PNWbb6nE+fpeCVAx+l3Fdkhpgl5mszd/bB3pHjvR/SjSn1CG4fXLvAoPTigxX47
-         R8G1x+7BbZR11DXu+YfG2SEoXZD0uix8SL9R8ObR8L9Lzsvxd/OEQxRNLkTPVs0kW6yW
-         56jwJC2O5kcpbt5f0MOzmo2/ucLKJiUoRdeSFhsqAocQxai5A1bd14pF90kn9LX1DpZ0
-         IMVsjqRTnpCNVQSoATpeSY44ClWdO7/2pMJRLjN9UjA//hqytPp/mFQ/kSLTaKVrtWFN
-         aVkw==
-X-Forwarded-Encrypted: i=1; AKwUvBwIAhxq+pd6RGyRdsZXllNN/lwG0JeOlg2ht21Xn069YwfXTCVt6zOLsi5GHsCAwt8lcGgCSX9nPjQGwLY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxTHCmpXUQ0qWVzigJ8Xhahu3WCJnqwO16C1QiMv0CwTNu87UK
-	EAw0bN20HQUWix2KFHuPID2XWPcdwr8DX+nJjBAvKDIFUp8LotPbWmeeyqt3GIoVQtU=
-X-Gm-Gg: AYBFou3OhpMEjIkPJRjstI4cvnqDOp5owg5AtwIKN8nujhWbe3ISSzM9OeMbXggDOJD
-	cb/ENi7dG6ZHHSopJ9+9XHSe5IGPW+qV+S3vizYMZXbyPb2t2wsNGES0iaaWRTW2PU3LrB7fvzR
-	BmG1AoH5CFu8DCHgn5yPtwC/usSkHQjgV7VzpEdw84KpezoFG7rBeNoz93VwYp5Hn+/pD4Mz3Hp
-	j+0+YFfgPrYKWRwSi17lu0GdNi41ienJLgcWVbgR6tMmZp42Z7QBQ07Pkb7p1MW7gaFu12P7x1d
-	zj2Fu9k2nTlalzUO6NfoCjCbTmNP+HFz5XKssI53OZ7xOLepo2GECh7C7oZb9P/yWRT9axGGiIF
-	jnyeO6S7q+N8LRl9io76ajzXlks8BrV1tvGocp50uM6HGOtOg9rBiciJ26iEnDyK9kf81EaTbt0
-	io5ILyfiLB4LrxOBBriTWsrrPUcGKKhNw+R3aO4RA4cqZOjqd2vfiv56HEOXaeK+n3uUOTJBOBF
-	0M+gy73ZxMseb1lU12sfN1fB2lL5jx4yGemaYxEHEh2tME4fh1Sm2Tb
-X-Received: by 2002:a05:622a:1919:b0:530:98bc:3974 with SMTP id d75a77b69052e-5310cf631f8mr109341941cf.22.1789478284669;
-        Tue, 15 Sep 2026 06:18:04 -0700 (PDT)
+        bh=pPH1+eiN4EhHtK6rDK3I01/qZvQ6oNbinGntBhruq3Q=;
+        b=FH29d0xmCfq97RLMa5zXZBebNQav/7mdJxSXyn6WBACSAI+tQGqYmxN+IaxDtybAhP
+         NyHEENKsP5x4RJcej5M5CUVWbZU+duY90SqnHLUPrmZZfe+6z7c7Fo8O0n99fza2ISYe
+         OfxorKmmuLNA3FONKItNwpSAlGBj1kJoZXjdYPL6LBv4wIvVivKlrRrKVJclrJE5kvSM
+         Sl0xAgeFtGwcvUUl51YbgR0zErwz8c+ii2CXAdpd9gRWYXUEDbw9Ixz6HPJ9UfIAXlI8
+         QyYMeHPB+PUiXn9iX/rKvDHqKs/+yQl1rO25pQtzvr6JBSgdZ/i9dl/ZnOU2bmuEY92W
+         DVIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFFGk7Sf2FdUifLdTs5LcUSR1VGKfSZecemQTh7mX9cVEAUwdyRvKWBZ4IbnEMlPG4u+tTYJiP4oiILM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmuEMFXYtxgfGP5QHmWEZP7c0NyKtwHry/itI4MF93TZomfEWk
+	tXgm1nl153atSqMOyv1sOtmWKuXG/SnKkjrmcTC94ofuHVy0UD/O3al/qxNAxgBmEfI=
+X-Gm-Gg: AYBFou2wNxv0NunpbN/luzQAw2GQ1zAf/mgMQU3z3Zc5nVqDW9TTCLMRgw8mStAg2/V
+	zMbuE9HMSbLXKA78OTZ8WwhKcfr3thdVtiX9+Ut1MEEniL9cridrMffXTmRMcF+1wr/jBJs1PlJ
+	awP5zzeYLPQKaFSsLJrX7OZCGr4dZlpAS1MSoMn+4DDs3Ld18qAdoZKiWvbFDVG+Ra/cMubrNyw
+	kEuOm2B5jBmyxsZmx7I3q5c0AtVmb7okWfQBmhQPECFgfAnezEHW5y2+BWfBAYme+gbl9r9xvDi
+	H2BBjM2s1pDk4YTpwpO1cOOEqwKwNRnR8F7aEwJ4fSF1tbEhoeGKb0WLqsz93AbDb0SBPUlW4Eg
+	CAHpNbaqFty+n2EA75py3wErFy+5z1chXuU5KBHEvpQcrR8lCpwnAuX4sU7gNQ7gCNDLBq1GbQo
+	6mW0t2tPlQ6bsJ+Wm8O+J6FhbDimfUDkUfQgNamWVKeHq6Um0DPTpVJGSMQTwDdSnKCJiS+VMtL
+	oMJd5SlCzh65hynbKyDYH6OnfUaiel87PA/7QLNqeX0f/pmzP2hXM17
+X-Received: by 2002:a0c:f40b:0:b0:907:dd19:fcb3 with SMTP id 6a1803df08f44-9122e55d2e0mr126180476d6.24.1789478280887;
+        Tue, 15 Sep 2026 06:18:00 -0700 (PDT)
 Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530f6849802sm80503791cf.10.2026.09.15.06.18.03
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47afc2sm120542886d6.20.2026.09.15.06.17.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 06:18:03 -0700 (PDT)
+        Tue, 15 Sep 2026 06:17:59 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 15 Sep 2026 13:17:36 +0000
-Subject: [PATCH RFC v3 09/13] arm64: ftrace: Take a Tasks Trace reader
- around ftrace_caller's call-out
+Date: Tue, 15 Sep 2026 13:17:34 +0000
+Subject: [PATCH RFC v3 07/13] x86/ftrace: Take a Tasks Trace reader around
+ ftrace_caller's call-out
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-b4-rcu-tasks-preempt-qs-v3-9-0ad30c4c5ee7@toxicpanda.com>
+Message-Id: <20260915-b4-rcu-tasks-preempt-qs-v3-7-0ad30c4c5ee7@toxicpanda.com>
 References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
 In-Reply-To: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
 To: "Paul E. McKenney" <paulmck@kernel.org>, 
@@ -117,214 +117,283 @@ Cc: Andy Lutomirski <luto@kernel.org>,
  bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1789478262; l=7839;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789478262; l=9964;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=Aqm0C5BBMBkqFusbG93kcm6leRi28F4VKStTPzg6dAE=;
+ bh=EBgIXBiL5Z/I6XbFK2Nq9sAUVoT2dZ9k9OxjIjZChGA=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QGtKBbzIh64iNKja7atdfYbFNhvzop2423iTP8KKI74RhSORDHi3DpZgpvvVVV7stG2frrx5HDn
- 5ncEuv/+0CQs=
+ QJJZPzWCoHiGtBk3LJYNRCR9qGstVoSpG9sCCUThRLJ2AVjOv69KNmqUSOUhIKjcnlXv6dm2yvx
+ k1FTR+gbuUgc=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-For HAVE_RCU_TRAMPOLINE_READERS the ftrace trampoline must be a Tasks
-Trace RCU reader while it calls out, since that is what
-synchronize_rcu_tasks() will wait for before ftrace_shutdown() frees an
-ftrace_ops (or, with CALL_OPS, lets its owner free it) under a task
-preempted in the callback.
+For HAVE_RCU_TRAMPOLINE_READERS the ftrace trampolines must be Tasks
+Trace RCU readers while they call out, since that -- and not the absence
+of a voluntary context switch -- is what synchronize_rcu_tasks() will
+wait for before ftrace_shutdown() frees a dynamic trampoline or its ops.
 
-Open-code rcu_read_lock_trace() and rcu_read_unlock_trace() around the
-call to ops->func in ftrace_caller: bump current->trc_reader_nesting via
-sp_el0 and, for the outermost reader, do the SRCU-fast per-CPU increment
-on rcu_tasks_trace_srcu_struct and stash the counter pointer in
-current->trc_reader_scp, as the C inlines do (including the dmb when
-CONFIG_TASKS_TRACE_RCU_NO_MB is not set).  The per-CPU increment is an
-LL/SC add on this CPU's counter; being migrated between reading the
-per-CPU offset and the store-exclusive only means another CPU's counter
-is incremented atomically instead, which SRCU sums over anyway.
-x12-x16 are free at both points.
+Open-code rcu_read_lock_trace() and rcu_read_unlock_trace() in
+ftrace_caller and ftrace_regs_caller: bump current->trc_reader_nesting
+and, for the outermost reader, do the SRCU-fast per-CPU increment on
+rcu_tasks_trace_srcu_struct and stash the counter pointer in
+current->trc_reader_scp, exactly as the C inlines do (including the
+smp_mb() when CONFIG_TASKS_TRACE_RCU_NO_MB is not set).  The lock sits
+before the function_trace_op load, because between that load and the
+call the ops pointer is protected only by Tasks RCU, and the unlock
+after the call returns.  The sequences are inside the region that
+create_trampoline() copies for per-ops trampolines; their %rip-relative
+references are fixed up by text_poke_apply_relocation() like
+CALL_DEPTH_ACCOUNT's.  %rax and %rcx are dead at both points.
 
-arm64 has no return thunks and, with CALL_OPS, no dynamic ftrace
-trampolines, but ftrace_caller itself carries the ops pointer in x11
-from before the reader is entered and a direct-call BPF trampoline
-address in x17 until the final br/ret after it is left, so mark the end
-of the static trampoline text and provide arch_rcu_tasks_trampoline_text()
-covering [ftrace_caller, ftrace_static_tramp_end).
+Two pieces of core text still run outside that reader while holding
+the address of a Tasks-RCU-protected trampoline they are about to
+enter: the static stubs themselves, whose direct-call tails keep a BPF
+trampoline address on the stack until the final RET, and, under
+CONFIG_MITIGATION_RETHUNK, the return thunk that RET expands to.  Add an
+ftrace_static_tramp_end marker after ftrace_stub_direct_tramp and linker
+symbols around .text..__x86.return_thunk and .text..__x86.rethunk_safe,
+and provide arch_rcu_tasks_trampoline_text() covering
+[ftrace_caller, ftrace_static_tramp_end) and both thunk ranges so the
+irq-exit check treats a task interrupted there as a holdout.
 
-Built only under CONFIG_TASKS_RCU_TRAMPOLINE_READERS, which arm64 does
-not enable until a later patch.
+All of this is built only under CONFIG_TASKS_RCU_TRAMPOLINE_READERS,
+which x86 does not enable until a later patch.
 
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- arch/arm64/kernel/asm-offsets.c  |  8 +++++
- arch/arm64/kernel/entry-ftrace.S | 74 ++++++++++++++++++++++++++++++++++++++++
- arch/arm64/kernel/ftrace.c       | 20 +++++++++++
- 3 files changed, 102 insertions(+)
+ arch/x86/kernel/asm-offsets.c |  8 +++++
+ arch/x86/kernel/ftrace.c      | 43 +++++++++++++++++++++++++++
+ arch/x86/kernel/ftrace_64.S   | 69 +++++++++++++++++++++++++++++++++++++++++++
+ arch/x86/kernel/vmlinux.lds.S |  4 +++
+ 4 files changed, 124 insertions(+)
 
-diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
-index 9c853ed3ceab..f6a8fb1f9b43 100644
---- a/arch/arm64/kernel/asm-offsets.c
-+++ b/arch/arm64/kernel/asm-offsets.c
-@@ -10,6 +10,7 @@
- 
- #include <linux/arm_sdei.h>
+diff --git a/arch/x86/kernel/asm-offsets.c b/arch/x86/kernel/asm-offsets.c
+index 081816888f7a..876c3986419a 100644
+--- a/arch/x86/kernel/asm-offsets.c
++++ b/arch/x86/kernel/asm-offsets.c
+@@ -9,6 +9,7 @@
+ #include <linux/crypto.h>
+ #include <crypto/aria.h>
  #include <linux/sched.h>
 +#include <linux/srcu.h>
- #include <linux/ftrace.h>
- #include <linux/kexec.h>
- #include <linux/mm.h>
-@@ -39,6 +40,13 @@ int main(void)
-   DEFINE(TSK_STACK,		offsetof(struct task_struct, stack));
+ #include <linux/stddef.h>
+ #include <linux/hardirq.h>
+ #include <linux/suspend.h>
+@@ -46,6 +47,13 @@ static void __used common(void)
  #ifdef CONFIG_STACKPROTECTOR
-   DEFINE(TSK_STACK_CANARY,	offsetof(struct task_struct, stack_canary));
-+#endif
-+#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
-+  DEFINE(TSK_TRC_READER_NESTING,	offsetof(struct task_struct, trc_reader_nesting));
-+  DEFINE(TSK_TRC_READER_SCP,	offsetof(struct task_struct, trc_reader_scp));
-+  DEFINE(SRCU_SRCU_CTRP,	offsetof(struct srcu_struct, srcu_ctrp));
-+  DEFINE(SRCU_CTR_SRCU_LOCKS,	offsetof(struct srcu_ctr, srcu_locks));
-+  DEFINE(SRCU_CTR_SRCU_UNLOCKS,	offsetof(struct srcu_ctr, srcu_unlocks));
+ 	OFFSET(TASK_stack_canary, task_struct, stack_canary);
  #endif
-   BLANK();
-   DEFINE(THREAD_CPU_CONTEXT,	offsetof(struct task_struct, thread.cpu_context));
-diff --git a/arch/arm64/kernel/entry-ftrace.S b/arch/arm64/kernel/entry-ftrace.S
-index 025140caafe7..fc2805eb9e15 100644
---- a/arch/arm64/kernel/entry-ftrace.S
-+++ b/arch/arm64/kernel/entry-ftrace.S
-@@ -14,6 +14,72 @@
- #include <asm/insn.h>
- 
- #ifdef CONFIG_DYNAMIC_FTRACE_WITH_ARGS
-+/*
-+ * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace(), see
-+ * include/linux/rcupdate_trace.h and CONFIG_HAVE_RCU_TRAMPOLINE_READERS.  The
-+ * whole of ftrace_caller is treated as trampoline text by the irq-exit check
-+ * (see arch_rcu_tasks_trampoline_text()), so these only need to bracket the
-+ * call out to ops->func; everything before the lock and after the unlock,
-+ * including the direct-call tails that carry a BPF trampoline address in x17,
-+ * is covered by that.
-+ *
-+ * The SRCU-fast per-CPU increment is done LL/SC on this CPU's counter; being
-+ * migrated between reading the per-CPU offset and the store-exclusive only
-+ * means another CPU's counter is (atomically) incremented, which SRCU sums
-+ * over anyway.  Ordering between the nesting count and the scp stash only
-+ * matters against interrupts on this CPU, which observe program order.
-+ * Clobbers x12-x16 and the flags.
-+ */
-+	.macro trace_rcu_srcu_inc, addr:req, tmp:req, wtmp2:req
-+8888:	ldxr	\tmp, [\addr]
-+	add	\tmp, \tmp, #1
-+	stxr	\wtmp2, \tmp, [\addr]
-+	cbnz	\wtmp2, 8888b
-+	.endm
-+
-+	.macro trace_rcu_read_lock
 +#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
-+	mrs	x12, sp_el0				// current
-+	ldr	w13, [x12, #TSK_TRC_READER_NESTING]
-+	add	w14, w13, #1
-+	str	w14, [x12, #TSK_TRC_READER_NESTING]
-+	cbnz	w13, .Ltrl_nested\@		// interrupted a reader: done
-+	ldr_l	x13, rcu_tasks_trace_srcu_struct + SRCU_SRCU_CTRP
-+	str	x13, [x12, #TSK_TRC_READER_SCP]
-+	get_this_cpu_offset x14
-+	add	x14, x14, x13
-+	add	x14, x14, #SRCU_CTR_SRCU_LOCKS
-+	trace_rcu_srcu_inc x14, x15, w16
-+#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
-+	dmb	ish
++	OFFSET(TASK_trc_reader_nesting, task_struct, trc_reader_nesting);
++	OFFSET(TASK_trc_reader_scp, task_struct, trc_reader_scp);
++	OFFSET(SRCU_srcu_ctrp, srcu_struct, srcu_ctrp);
++	OFFSET(SRCU_CTR_srcu_locks, srcu_ctr, srcu_locks);
++	OFFSET(SRCU_CTR_srcu_unlocks, srcu_ctr, srcu_unlocks);
 +#endif
-+.Ltrl_nested\@:
-+#endif
-+	.endm
-+
-+	.macro trace_rcu_read_unlock
-+#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
-+	mrs	x12, sp_el0				// current
-+	ldr	w13, [x12, #TSK_TRC_READER_NESTING]
-+	subs	w13, w13, #1
-+	b.ne	.Ltru_nested\@
-+	/* Outermost: pick up scp before an interrupt can see nesting == 0. */
-+	ldr	x14, [x12, #TSK_TRC_READER_SCP]
-+	str	wzr, [x12, #TSK_TRC_READER_NESTING]
-+#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
-+	dmb	ish
-+#endif
-+	get_this_cpu_offset x15
-+	add	x14, x14, x15
-+	add	x14, x14, #SRCU_CTR_SRCU_UNLOCKS
-+	trace_rcu_srcu_inc x14, x15, w16
-+	b	.Ltru_done\@
-+.Ltru_nested\@:
-+	str	w13, [x12, #TSK_TRC_READER_NESTING]
-+.Ltru_done\@:
-+#endif
-+	.endm
-+
- /*
-  * Due to -fpatchable-function-entry=2, the compiler has placed two NOPs before
-  * the regular function prologue. For an enabled callsite, ftrace_init_nop() and
-@@ -94,6 +160,8 @@ SYM_CODE_START(ftrace_caller)
- 	stp	x29, x30, [sp, #FREGS_SIZE]
- 	add	x29, sp, #FREGS_SIZE
  
-+	trace_rcu_read_lock
-+
- 	/* Prepare arguments for the tracer func */
- 	sub	x0, x30, #AARCH64_INSN_SIZE		// ip (callsite's BL insn)
- 	mov	x1, x9					// parent_ip (callsite's LR)
-@@ -111,6 +179,8 @@ SYM_INNER_LABEL(ftrace_call, SYM_L_GLOBAL)
- 	bl      ftrace_stub				// func(ip, parent_ip, op, regs)
- #endif
- 
-+	trace_rcu_read_unlock
-+
- /*
-  * At the callsite x0-x8 and x19-x30 were live. Any C code will have preserved
-  * x19-x29 per the AAPCS, and we created frame records upon entry, so we need
-@@ -178,6 +248,10 @@ SYM_CODE_START(ftrace_stub_direct_tramp)
- SYM_CODE_END(ftrace_stub_direct_tramp)
- #endif /* CONFIG_DYNAMIC_FTRACE_WITH_DIRECT_CALLS */
- 
-+/* End of [ftrace_caller, ...) for arch_rcu_tasks_trampoline_text(). */
-+SYM_CODE_START(ftrace_static_tramp_end)
-+SYM_CODE_END(ftrace_static_tramp_end)
-+
- #else /* CONFIG_DYNAMIC_FTRACE_WITH_ARGS */
- 
- /*
-diff --git a/arch/arm64/kernel/ftrace.c b/arch/arm64/kernel/ftrace.c
-index e1a3c0b3a051..5f4193f15cd9 100644
---- a/arch/arm64/kernel/ftrace.c
-+++ b/arch/arm64/kernel/ftrace.c
-@@ -17,6 +17,26 @@
- #include <asm/insn.h>
- #include <asm/text-patching.h>
+ 	BLANK();
+ 	OFFSET(pbe_address, pbe, address);
+diff --git a/arch/x86/kernel/ftrace.c b/arch/x86/kernel/ftrace.c
+index 17d6edfcb7e0..9babaed483eb 100644
+--- a/arch/x86/kernel/ftrace.c
++++ b/arch/x86/kernel/ftrace.c
+@@ -275,6 +275,49 @@ static inline void tramp_free(void *tramp)
+ 	execmem_free(tramp);
+ }
  
 +#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
 +extern void ftrace_static_tramp_end(void);
++extern char __return_thunk_start[], __return_thunk_end[];
++extern char __rethunk_safe_start[], __rethunk_safe_end[];
 +
-+/* The SRCU-fast increments in entry-ftrace.S are the this_cpu_inc() form. */
++/*
++ * The SRCU-fast increments in TRACE_RCU_READ_LOCK/UNLOCK (ftrace_64.S) are the
++ * this_cpu_inc() form.
++ */
 +static_assert(!IS_ENABLED(CONFIG_NEED_SRCU_NMI_SAFE));
 +
 +/*
-+ * See rcu_tasks_trampoline_text().  ftrace_caller and ftrace_stub_direct_tramp
-+ * are core kernel text but must be treated as trampolines: a task interrupted
-+ * in them outside the Tasks Trace reader may be carrying an ops pointer (x11)
-+ * or a direct-call BPF trampoline address (x17) whose lifetime is guarded only
-+ * by Tasks RCU.
++ * See rcu_tasks_trampoline_text().  Some core kernel text behaves like a
++ * trampoline for Tasks RCU purposes because a task executing there outside
++ * any Tasks Trace reader may still be about to enter a Tasks-RCU-protected
++ * trampoline whose address it already holds:
++ *
++ *  - the static ftrace_caller / ftrace_regs_caller / ftrace_stub_direct_tramp
++ *    stubs, which carry a direct-call target on the stack until their final
++ *    RET, and
++ *  - the return thunks that RET expands to under CONFIG_MITIGATION_RETHUNK,
++ *    which run after leaving the stubs above and before landing in that
++ *    target.
 + */
 +bool arch_rcu_tasks_trampoline_text(unsigned long ip)
 +{
-+	return ip >= (unsigned long)ftrace_caller &&
-+	       ip <  (unsigned long)ftrace_static_tramp_end;
-+}
++	if (ip >= (unsigned long)ftrace_caller &&
++	    ip <  (unsigned long)ftrace_static_tramp_end)
++		return true;
++#ifdef CONFIG_MITIGATION_RETPOLINE
++	if (ip >= (unsigned long)__return_thunk_start &&
++	    ip <  (unsigned long)__return_thunk_end)
++		return true;
 +#endif
++#ifdef CONFIG_MITIGATION_SRSO
++	if (ip >= (unsigned long)__rethunk_safe_start &&
++	    ip <  (unsigned long)__rethunk_safe_end)
++		return true;
++#endif
++	return false;
++}
++#endif /* CONFIG_TASKS_RCU_TRAMPOLINE_READERS */
 +
- #ifdef CONFIG_DYNAMIC_FTRACE_WITH_ARGS
- struct fregs_offset {
- 	const char *name;
+ /* Defined as markers to the end of the ftrace default trampolines */
+ extern void ftrace_regs_caller_end(void);
+ extern void ftrace_caller_end(void);
+diff --git a/arch/x86/kernel/ftrace_64.S b/arch/x86/kernel/ftrace_64.S
+index 62c1c93aa1c6..5d8cb3861978 100644
+--- a/arch/x86/kernel/ftrace_64.S
++++ b/arch/x86/kernel/ftrace_64.S
+@@ -7,6 +7,7 @@
+ #include <linux/cfi_types.h>
+ #include <linux/linkage.h>
+ #include <asm/asm-offsets.h>
++#include <asm/percpu.h>
+ #include <asm/ptrace.h>
+ #include <asm/ftrace.h>
+ #include <asm/nospec-branch.h>
+@@ -145,6 +146,53 @@ SYM_FUNC_END(ftrace_stub_graph)
+ 
+ #ifdef CONFIG_DYNAMIC_FTRACE
+ 
++/*
++ * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace(), see
++ * include/linux/rcupdate_trace.h and CONFIG_HAVE_RCU_TRAMPOLINE_READERS: the
++ * trampoline and the ftrace_ops it is about to load are kept alive by Tasks
++ * RCU only while we are inside this reader, so the lock must precede the
++ * function_trace_op load and the unlock must follow the call.  These live
++ * inside the region copied into dynamic trampolines; the %rip-relative
++ * references are fixed up by text_poke_apply_relocation() in
++ * create_trampoline().  Clobbers %rax, %rcx and flags.
++ */
++.macro TRACE_RCU_READ_LOCK
++#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
++	movq	PER_CPU_VAR(current_task), %rcx
++	movl	TASK_trc_reader_nesting(%rcx), %eax
++	incl	TASK_trc_reader_nesting(%rcx)
++	testl	%eax, %eax
++	jnz	.Ltrl_nested_\@
++	movq	rcu_tasks_trace_srcu_struct+SRCU_srcu_ctrp(%rip), %rax
++	incq	%gs:SRCU_CTR_srcu_locks(%rax)
++	movq	%rax, TASK_trc_reader_scp(%rcx)
++#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
++	lock addl $0, -4(%rsp)		/* smp_mb() */
++#endif
++.Ltrl_nested_\@:
++#endif
++.endm
++
++.macro TRACE_RCU_READ_UNLOCK
++#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
++	movq	PER_CPU_VAR(current_task), %rcx
++	movl	TASK_trc_reader_nesting(%rcx), %eax
++	subl	$1, %eax
++	jnz	.Ltru_nested_\@
++	/* Outermost: pick up scp before an interrupt can see nesting == 0. */
++	movq	TASK_trc_reader_scp(%rcx), %rax
++	movl	$0, TASK_trc_reader_nesting(%rcx)
++#ifndef CONFIG_TASKS_TRACE_RCU_NO_MB
++	lock addl $0, -4(%rsp)		/* smp_mb() */
++#endif
++	incq	%gs:SRCU_CTR_srcu_unlocks(%rax)
++	jmp	.Ltru_done_\@
++.Ltru_nested_\@:
++	movl	%eax, TASK_trc_reader_nesting(%rcx)
++.Ltru_done_\@:
++#endif
++.endm
++
+ SYM_FUNC_START(__fentry__)
+ 	ANNOTATE_NOENDBR
+ 	CALL_DEPTH_ACCOUNT
+@@ -163,6 +211,8 @@ SYM_FUNC_START(ftrace_caller)
+ 	leaq MCOUNT_REG_SIZE+8(%rsp), %rcx
+ 	movq %rcx, RSP(%rsp)
+ 
++	TRACE_RCU_READ_LOCK
++
+ SYM_INNER_LABEL(ftrace_caller_op_ptr, SYM_L_GLOBAL)
+ 	ANNOTATE_NOENDBR
+ 	/* Load the ftrace_ops into the 3rd parameter */
+@@ -181,6 +231,8 @@ SYM_INNER_LABEL(ftrace_call, SYM_L_GLOBAL)
+ 	ANNOTATE_NOENDBR
+ 	call ftrace_stub
+ 
++	TRACE_RCU_READ_UNLOCK
++
+ 	/* Handlers can change the RIP */
+ 	movq RIP(%rsp), %rax
+ 	movq %rax, MCOUNT_REG_SIZE(%rsp)
+@@ -209,6 +261,8 @@ SYM_FUNC_START(ftrace_regs_caller)
+ 
+ 	CALL_DEPTH_ACCOUNT
+ 
++	TRACE_RCU_READ_LOCK
++
+ SYM_INNER_LABEL(ftrace_regs_caller_op_ptr, SYM_L_GLOBAL)
+ 	ANNOTATE_NOENDBR
+ 	/* Load the ftrace_ops into the 3rd parameter */
+@@ -246,6 +300,8 @@ SYM_INNER_LABEL(ftrace_regs_call, SYM_L_GLOBAL)
+ 	ANNOTATE_NOENDBR
+ 	call ftrace_stub
+ 
++	TRACE_RCU_READ_UNLOCK
++
+ 	/* Copy flags back to SS, to restore them */
+ 	movq EFLAGS(%rsp), %rax
+ 	movq %rax, MCOUNT_REG_SIZE(%rsp)
+@@ -328,6 +384,19 @@ SYM_FUNC_START(ftrace_stub_direct_tramp)
+ 	RET
+ SYM_FUNC_END(ftrace_stub_direct_tramp)
+ 
++/*
++ * [ftrace_caller, ftrace_static_tramp_end) is treated as trampoline text by
++ * rcu_tasks_trampoline_text(): outside TRACE_RCU_READ_LOCK/UNLOCK the stubs
++ * may still hold a direct-call trampoline address (ORIG_RAX / the return
++ * address they RET to) that only Tasks RCU keeps alive.  With return thunks
++ * the RET itself runs elsewhere; arch_rcu_tasks_trampoline_text() covers
++ * those too.
++ */
++SYM_CODE_START_NOALIGN(ftrace_static_tramp_end)
++	UNWIND_HINT_UNDEFINED
++	ANNOTATE_NOENDBR
++SYM_CODE_END(ftrace_static_tramp_end)
++
+ #else /* ! CONFIG_DYNAMIC_FTRACE */
+ 
+ SYM_FUNC_START(__fentry__)
+diff --git a/arch/x86/kernel/vmlinux.lds.S b/arch/x86/kernel/vmlinux.lds.S
+index 2438b89a4620..e546283dc267 100644
+--- a/arch/x86/kernel/vmlinux.lds.S
++++ b/arch/x86/kernel/vmlinux.lds.S
+@@ -151,7 +151,9 @@ SECTIONS
+ 		 * definition.
+ 		 */
+ 		. = srso_alias_untrain_ret | (1 << 2) | (1 << 8) | (1 << 14) | (1 << 20);
++		__rethunk_safe_start = .;
+ 		*(.text..__x86.rethunk_safe)
++		__rethunk_safe_end = .;
+ #endif
+ 		ALIGN_ENTRY_TEXT_END
+ 
+@@ -162,7 +164,9 @@ SECTIONS
+ 		SOFTIRQENTRY_TEXT
+ #ifdef CONFIG_MITIGATION_RETPOLINE
+ 		*(.text..__x86.indirect_thunk)
++		__return_thunk_start = .;
+ 		*(.text..__x86.return_thunk)
++		__return_thunk_end = .;
+ #endif
+ 		STATIC_CALL_TEXT
+ 		*(.gnu.warning)
 
 -- 
 2.55.0
