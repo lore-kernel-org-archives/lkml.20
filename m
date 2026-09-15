@@ -1,313 +1,260 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BBD4A4EE1
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0590F4A4F1B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:54:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484050; cv=none; b=IN+FyQPBJ9R6PChMjE9R78ByYr5xfG6OhglB5t2SCvDScSUH/RNdH+X/NFPadCP0uei5J2WUSg9ImsKQhZt1kufTu0wDMWWT1LgKLoVHqaCxovDOJF+PDlXJGBt5RbUFI8eSbUVbnQ7McCbYwaU0osg1eF/gg9Rjo7YyMS5gt0w=
+	t=1789484054; cv=none; b=twgkJ1hJ+eopC3eR6dsXHfckGwEMzki8xFRUXx6spxQ5DAsr00DD48FmyjOz5nozDbYqXDjNETnt7Or7OytA2A25o55OgCryDVKSfJkSvuRMfZXJXbsf3OL8HbgsO7J+tgCRcimJnQE2yrLn3LO8pLZc+jEjuSN/Sg2xcLt+c2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484050; c=relaxed/simple;
-	bh=OspN7MKSFmprrrS2PxdNlMmUOibbtdADDRJnLjEgeMQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Pr/B6PZCbqTdBSifqqKanJIeGlBM3RlHEPF16rAhHJP0Lqo0Ha8tqqx8wZdi7Y7slKdtylQzX6cwrXqKMk4z4yt5ZzPwzt2R3tjS5hCgh8GOf2ZzhCPko4H7uuO8jqSvlg5ZWlmOCAwPg6TVBWtzW7+uG/R/Me9Qty4gNAa/M98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eP/Gw6sO; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1789484054; c=relaxed/simple;
+	bh=ZmjEB8NGYbYstUhk7EXsXHGAJRTCBRS05ZAeq1d0Oes=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a86RP8EuuZjKLE6SCfPCvVzXCMmcVuhpCyRF0vPF/3F8UiHaSXC0BT32RVEIhMI/WSQ0cQyOwXcf4IbIkHmOwPyHxtLYmuk5UxKLzBSf20uulj74mOjBNN1vz25iOLXE7GyzQpM47/E/2mgUtybnTN9Lx0sR4HewkcR+mG6zDNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J3Y423BC; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eP/Gw6sO"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f38so36424525ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:54:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J3Y423BC"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e211a3so2598250b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:54:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789484048; x=1790088848; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dMa7SuymF3JpSxZj/WgqSEvagr3KGVZWyIDh4Tap88k=;
-        b=eP/Gw6sO7TcCjNS7FfkEjVNfwIPnx+hYEEZrh7f56v8Z87oHSBODy0vuRo0jWozWpN
-         Pje5pd/1ufqGJwx3DkRT0Q1MccNBLYzbVqDHNmlP/8Ky3x4XL4W8kAumgt0+5rj48Uul
-         mg5Nmk3Bw+W/Y5FwEFpi3qWfbuSLhZ+W9+Ro8Pq4K2t5AQQ8hnrWihlYhr7Gc0fm7Qg+
-         ajSU4/WH9/ZFJmmAkiIxJIIDwdCmtAl0Yyre3RhoNlR9QN8mmYQ2XZ/V6zjfAbS9XNYR
-         Eu9PWZSctvhbzHniWuDVw3ukhAEPRgkpbE/q+73dpx6EWwfZ8+q8WDqj7gG38GmJmyaO
-         DtDA==
+        d=gmail.com; s=20251104; t=1789484051; x=1790088851; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1LHrAOg3floaT1iC6iBo1fU/J9sjxdoLj89uhRqAue4=;
+        b=J3Y423BCGVoLzcU97SYD6xUHqqIBLq7xQ/17ya5Phv2A68wolodCpLpc52CBO1VkGy
+         6DzO2mcEUgLL5myGvdy59JmYZpxWdNCUpW9FBgPv3A17i9Jbq1YP3mxKliwG8iOY8Vou
+         nFC4u4eoDOzrQSRIuyhneXTXzdtMs42yw/zaQL6B/Rb64oLHr0OST3e4L9RZqc2BlfS5
+         AR6hbVt9i0Qsnd8/asoJd724uhF5kPlXw63yIyUz4/Q6vMEj6fmvvWAcZkrIrzpef7IU
+         4UUEdnGGoRU331IntJHB+afpWnblTB7+DVJuxgmRhlj/PiHan52Y8gLjZ1/Ic1iCLtsE
+         qgTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484048; x=1790088848;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dMa7SuymF3JpSxZj/WgqSEvagr3KGVZWyIDh4Tap88k=;
-        b=Mrlzd+cQyMGpQq8TqIHKyH4nGQtuxuJ1ktFTAE9131C2vPlY+VbbHQtvKq+RfMPRT4
-         bqhbuKG48/RnToeItnzEpG7oY5tfQE65023ja7d8iqx5i20t6wfI+Zsm66puUg1pXTNP
-         N3qOqLiEOhomdz3NDcCcZBUF7bShJfkb7jYlMkv7c/+TUkRxOo0Vx6bz3j3OZFT+qXgD
-         n4PSSoRlpbYQ04ei7beON67eycopHw4zxsgpyloF4sMmo0xq+JR2vsW0Ky60WVKg1shQ
-         0wG1bTP/5ZZDCUNGpRi6EGNol50g9iUUl012YkDY7Pqu7jCiNcmhmwGz1W7kncVwuC8w
-         f5Lg==
-X-Forwarded-Encrypted: i=1; AKwUvBycfcYK5Alv+qqZnRHg4fsCzSRYXmWGkb2nRuwhiHPqERtB6D68mGHHDRE+4qf7qXQL3aRhsXACxBWYUtc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mX0pRbW1oR7fwUpHtmrREd0Y/w4UyTCn1XEU9LCzvP4R80WBCO
-	qU2gao+4HEHVjebdcui7Ci6MkYKVYIaM3UQotQ/4ViLPk6gg4PZq0Z1H
-X-Gm-Gg: AYBFou1ikqmDQP/o+jnl3ftVv80IdZV4JnWfLZ27a1AJuBhROoai63l7up7l9EYOhrx
-	h/v8fqgHyQvQB2pSY9YbP7gJGnzdbwQVfI07Oh2/TmRLNT0rjzjMA/rZ7O36cd5e+QzWub6oxSH
-	g7ws20gTYEErukpXBNoEBzxsa2db0QcB51Yp2BtfTrY/L8YUv6pyTfby3mpqLDFApopaXXotg0u
-	62qTUYte7btqqgQw7p4yTTs0vgJbZ11t8xssYkd3XljLhwsBMAyS41Cv8TdB8MNPux93Hhy5Pay
-	STB9ShKyntA9ppuv5mp6Fn9m3R/dKa9GWlaTlsDzIe9DyIGEosC7Zh4saazEQ0k3XxqjukJ7AGh
-	s8ZcBhsuM3dfjhDppwZqxzKcdFytlqDoHK8Pm1woKzbcagY7gzW409rz+lrNkR4ly/DuAaMI8uQ
-	aByVQ26Ic3x47rx5yVbAm/+lFcPYKvVnkrKJINMb2kl6o4YkmXIAPSEDmJlHt0o5kRlEm1Lu32S
-	doN02W+jNJdlu1b0CWwr+gl/kZDVQNnI1ki4moTmJVte4Unb2feQ2fd1QA4NcEcXFLL/67mnNFw
-	GY9ES2cAr3Zj4gPHla0DBcAwvhvGRkY=
-X-Received: by 2002:a17:903:240d:b0:2d8:d4cc:be68 with SMTP id d9443c01a7336-2dd6c75858dmr177039915ad.21.1789484047919;
-        Tue, 15 Sep 2026 07:54:07 -0700 (PDT)
-Received: from NV-9MNJ414.tailae2068.ts.net (2001-b011-2005-787e-21e6-43b5-0185-f167.dynamic-ip6.hinet.net. [2001:b011:2005:787e:21e6:43b5:185:f167])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cff297esm68555405ad.73.2026.09.15.07.54.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:54:06 -0700 (PDT)
-From: Yiwei Lin <s921975628@gmail.com>
-To: alim.akhtar@samsung.com,
-	avri.altman@sandisk.com,
-	bvanassche@acm.org
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robelin <robelin@nvidia.com>,
-	Yiwei Lin <s921975628@gmail.com>
-Subject: [PATCH v2] ufs: sysfs: fix current_power_mode read without SSU
-Date: Tue, 15 Sep 2026 22:53:54 +0800
-Message-Id: <20260915145354.8194-1-s921975628@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1789484051; x=1790088851;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1LHrAOg3floaT1iC6iBo1fU/J9sjxdoLj89uhRqAue4=;
+        b=NPJG9SaEMAOPrNfmYTjKOX6H1bCWELJp1SHMzjFMuK2cva3Noz8LtHtZzBBfXRDfba
+         NPCDXAUCM7Wzb+VbLHQti6ZoA/a4NIHEDhDS80CpwLGEVSEgJa+q3OAXlqeiVCLShmYj
+         hxrqyR4L52/CSFP1mZvRIlA9LeR0QgpUPCj8vrg9cBsbrzUtLvnhhJFhl5T2DJ4e7mVA
+         5A9hm94/u/ISgvXfivSiEjDoqE7xAgb8EVpxxNcnjJu6TQPcQYuUHNMDVTqScjP/M+Vr
+         XFB0AH67Be18kk545l7Sajo0zBN7zsPsCd86VNBS23XqNwOiLocVtXQyGcMpUxw5xxl4
+         hUiA==
+X-Forwarded-Encrypted: i=1; AKwUvByZSdHt4/9P4XiSbkrwBVc2lycROI3J0q3cNJ75SayCtO6MYwRioUBTx5KfcayGfxhwlbu+Ks9Be2vEBak=@vger.kernel.org
+X-Gm-Message-State: AFuF++larB0NTzFG8NNnwGnNBiR1icAfZLFbcNz+qgZC9YE//Fbz/4io
+	HRvvl2T2S6hm/tWYL040HGcEjuglRhUmCKnxdl1PNze6hZRyGOH9XCkB
+X-Gm-Gg: AYBFou1hRbHbf1FRNyx8SXwn4XZuLA1rYK3YElA5LgzJsQSLJB75uQGcprsq15oM0mK
+	jyyMs2Z3KrLzIsUTDsnaKOP24n+HbbPOsLuPlmZa0S1+qSHV2sk8Je0SPuo4GRm86w8kDQZD+OM
+	wMsxJIzNTdcHdPKyGmYo9hitPQSvxxmtE2d8dJIq8ngooI7EfQKp5vC36+aAYkwSAsUJw9GBPKO
+	NP2Cm7MonxYbxu7/C+7mtWDnnkmhTeUuDVVlIVtl82v0yB1ufKZHzRUOWPade5nKNuBCWB+Zpgy
+	zScRfS29lO2+GqVRrqaraGsGiSDgKf1kdY52PYh8WAnJZza47josX4RdscennwZrSDSQGgmKlhM
+	V/wsvO7HC/6zLADsM4wGrbK0c0pv5CLoZ/E7i0HwLN+FpHsQRjJGiy0s2y81ohEAScAwKaC6UjG
+	5RfvZ/Fn2PRFBibnghyB09o9vYvbnWxgKofob1Xy9TiGf+DkCUOcN9/OZgN4EacDDxU90drtber
+	vzKl9+VUIDPHj+WG3ljNARoBA9i3D0tTV3pUazJN0ZCqiTv
+X-Received: by 2002:a05:6a00:430e:b0:85c:2d83:bbf1 with SMTP id d2e1a72fcca58-86f85dd8726mr15672736b3a.20.1789484050863;
+        Tue, 15 Sep 2026 07:54:10 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b286c3f3csm6713624b3a.16.2026.09.15.07.54.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 07:54:10 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <4b314524-c0f9-4528-b86d-645747b59ac9@roeck-us.net>
+Date: Tue, 15 Sep 2026 07:54:09 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hwmon: acpi_power_meter: use named initializers for
+ acpi_device_id
+To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>,
+ Luca Tettamanti <kronos.it@gmail.com>, Cosmo Chou <cosmo.chou@quantatw.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260915-acpi-hwmon-v1-1-20747f6fd218@thegoodpenguin.co.uk>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260915-acpi-hwmon-v1-1-20747f6fd218@thegoodpenguin.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: robelin <robelin@nvidia.com>
+On 9/15/26 06:40, Pawel Zalewski wrote:
+> Use a designated initializer for the acpi_device_id fields which makes the
+> code more readable and consistent with how lists are initialized in the
+> rest of the kernel code base. Also drop explicitly setting fields to 0
+> where it is redundant.
+> 
+> Unify the list terminator to have a single space between the brackets and
+> no trailing comma.
+> 
+> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+> ---
+> This series is converting lists that contain the acpi_device_id struct,
+> which is defined in the include/linux/device-id/acpi.h to make use of named
+> initializers (which they do not use currently). This work is part of the on
+> going effort in the kernel associated with device-ids [1]
+> 
+> The plan is to convert acpi_device_id::driver_data to have an anonymous
+> union, similarly to what was introduced for PCI and I2C device ID tables.
+> The goal is to increase type-safety (most of the existing casts are gone),
+> to improve readability and to make use intent a bit more clear:
+> 
+> ```
+> union {
+> 	kernel_ulong_t driver_data;
+> 	const void *driver_data_ptr;
+> }
+> ```
+> 
+> But for that to work all lists containing the structs need to use named
+> initializers first to avoid triggering -Wmissing-braces. I already have
+> patches that implement this and touching a lot of kernel subsystmes that
+> use the acpi_device_id struct and that list keeps on growing. Therefore,
+> I have decided to split the series per every subsystem into:
+> - pre-clean-ups that convert the lists to use named initializers
+>    (which is this series)
+> - actual implementations that make some of the modules use the new
+>    driver_data_ptr member
+> 
+> That way the task can be fragmented into manageable and independent chunks
+> of work and makes this effort easier to review.
+> 
+> Tested builds on x86-64 in Yocto using 7.3-rc3.
+> 
+> [1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
+> ---
+>   drivers/hwmon/acpi_power_meter.c | 4 ++--
+>   drivers/hwmon/asus_atk0110.c     | 4 ++--
+>   drivers/hwmon/pt5161l.c          | 4 ++--
+>   drivers/hwmon/xgene-hwmon.c      | 6 +++---
 
-current_power_mode was generated by UFS_ATTRIBUTE(), which calls
-ufshcd_rpm_get_sync() before issuing the query.  That resumes the UFS
-device WLUN, and ufshcd_wl_runtime_resume() sends START STOP UNIT to
-bring the device back to Active.  As a result bCurrentPowerMode always
-read back as 0x11 (Active) no matter what state the device was actually
-in: the act of reading the attribute woke the device, so Sleep could
-never be observed through sysfs.
+The subject and patch description fail to mention that it touches four
+drivers and not just acpi_power_meter. Do not sneak in undocumented changes,
+please.
 
-Per the UFS spec, bCurrentPowerMode is the one attribute the device
-must answer in any power mode, so there is no need to wake it.  Give
-current_power_mode its own show function that deliberately does not
-resume the WLUN.  It only resumes the host controller then reads the
-attribute over whatever link state the WLUN suspend left behind:
+>   4 files changed, 9 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
+> index 8a539e8d1334..d8e871509405 100644
+> --- a/drivers/hwmon/acpi_power_meter.c
+> +++ b/drivers/hwmon/acpi_power_meter.c
+> @@ -54,8 +54,8 @@ static int can_cap_in_hardware(void)
+>   }
+>   
+>   static const struct acpi_device_id power_meter_ids[] = {
+> -	{"ACPI000D", 0},
+> -	{"", 0},
+> +	{ .id = "ACPI000D" },
+> +	{ }
 
- - link active: query directly.
- - link in Hibern8: exit Hibern8, query, then re-enter Hibern8 so the
-   link is left exactly as rpm_lvl requested.
- - device powered down or link off (rpm_lvl 4/5/6): fail, the device
-   cannot answer without a full resume.
+This is a functional change. It replaces a pointer to an empty string
+with a NULL pointer. I don't know ACPI expectations (drivers use both),
+but the change needs to be explained.
 
-Tested on hardware: with the device runtime-suspended (wb_on=0, so the
-device actually reaches Sleep instead of being held Active for a WB
-flush), reading current_power_mode used to return 0x11; after this
-change it returns 0x22 (Sleep), matching the device's real state.
-
-Assisted-by: LLM
-Signed-off-by: Yiwei Lin <s921975628@gmail.com>
-
----
-Change-Logs in V2:
-- Synchonize the race between WLUN suspend/resume and other contexts
-  that change the link power state.
-- Restore UFS link if exiting Hibern8 for the query, then re-enter Hibern8 so the link   is left exactly as rpm_lvl requested.
-
----
- drivers/ufs/core/ufs-sysfs.c   | 74 +++++++++++++++++++++++++++++++++-
- drivers/ufs/core/ufshcd-priv.h | 11 +++++
- drivers/ufs/core/ufshcd.c      | 12 +++---
- include/ufs/ufshcd.h           |  3 ++
- 4 files changed, 94 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/ufs/core/ufs-sysfs.c b/drivers/ufs/core/ufs-sysfs.c
-index 63e670d1a9d9e..a500ca697e5d3 100644
---- a/drivers/ufs/core/ufs-sysfs.c
-+++ b/drivers/ufs/core/ufs-sysfs.c
-@@ -1786,7 +1786,79 @@ out:									\
- static DEVICE_ATTR_RO(_name)
- 
- UFS_ATTRIBUTE(boot_lun_enabled, _BOOT_LU_EN);
--UFS_ATTRIBUTE(current_power_mode, _POWER_MODE);
-+
-+/*
-+ * Per UFS spec, bCurrentPowerMode is the only attribute the device must
-+ * respond to in any power mode.  Read it without waking the device to
-+ * Active.
-+ */
-+static ssize_t current_power_mode_show(struct device *dev,
-+	struct device_attribute *attr, char *buf)
-+{
-+	struct ufs_hba *hba = dev_get_drvdata(dev);
-+	bool exited_h8 = false;
-+	u32 value;
-+	int ret = 0;
-+
-+	down(&hba->host_sem);
-+	if (!ufshcd_is_user_access_allowed(hba)) {
-+		ret = -EBUSY;
-+		goto out_unlock;
-+	}
-+
-+	pm_runtime_get_sync(hba->dev);
-+
-+	ufshcd_hold(hba);
-+	scoped_guard(ufshcd_wl_pm, hba) {
-+		if (ufshcd_is_link_off(hba) || ufshcd_is_ufs_dev_poweroff(hba)) {
-+			/*
-+			 * Device is powered down (rpm_lvl 4/5) or link is off
-+			 * (rpm_lvl 5/6): nothing to query until a full resume.
-+			 */
-+			ret = -EINVAL;
-+			break;
-+		}
-+
-+		if (ufshcd_is_link_hibern8(hba)) {
-+			ret = ufshcd_uic_hibern8_exit(hba);
-+			if (ret) {
-+				dev_err(hba->dev, "%s: hibern8 exit failed %d\n",
-+					__func__, ret);
-+				break;
-+			}
-+			ufshcd_set_link_active(hba);
-+			exited_h8 = true;
-+		}
-+
-+		ret = ufshcd_query_attr(hba, UPIU_QUERY_OPCODE_READ_ATTR,
-+			QUERY_ATTR_IDN_POWER_MODE, 0, 0, &value);
-+
-+		if (exited_h8) {
-+			int h8_ret = ufshcd_uic_hibern8_enter(hba);
-+
-+			if (h8_ret) {
-+				dev_err(hba->dev, "%s: hibern8 enter failed %d\n",
-+					__func__, h8_ret);
-+				ret = h8_ret;
-+			} else {
-+				ufshcd_set_link_hibern8(hba);
-+			}
-+		}
-+	}
-+	ufshcd_release(hba);
-+	pm_runtime_put_sync(hba->dev);
-+
-+	if (!ret)
-+		ret = sysfs_emit(buf, "0x%08X\n", value);
-+	else
-+		ret = -EINVAL;
-+
-+out_unlock:
-+	up(&hba->host_sem);
-+	return ret;
-+}
-+static DEVICE_ATTR_RO(current_power_mode);
-+
- UFS_ATTRIBUTE(active_icc_level, _ACTIVE_ICC_LVL);
- UFS_ATTRIBUTE(ooo_data_enabled, _OOO_DATA_EN);
- UFS_ATTRIBUTE(bkops_status, _BKOPS_STATUS);
-diff --git a/drivers/ufs/core/ufshcd-priv.h b/drivers/ufs/core/ufshcd-priv.h
-index e55c2a02c1f50..df61074843f06 100644
---- a/drivers/ufs/core/ufshcd-priv.h
-+++ b/drivers/ufs/core/ufshcd-priv.h
-@@ -3,6 +3,7 @@
- #ifndef _UFSHCD_PRIV_H_
- #define _UFSHCD_PRIV_H_
- 
-+#include <linux/cleanup.h>
- #include <linux/pm_runtime.h>
- #include <ufs/ufshcd.h>
- 
-@@ -15,6 +16,16 @@ static inline bool ufshcd_is_user_access_allowed(struct ufs_hba *hba)
- 
- void ufshcd_schedule_eh_work(struct ufs_hba *hba);
- 
-+DEFINE_LOCK_GUARD_1(ufshcd_wl_pm, struct ufs_hba,
-+	({
-+		mutex_lock(&_T->lock->wl_pm_mutex);
-+		_T->lock->pm_op_in_progress = true;
-+	}),
-+	({
-+		_T->lock->pm_op_in_progress = false;
-+		mutex_unlock(&_T->lock->wl_pm_mutex);
-+	}))
-+
- static inline bool ufshcd_keep_autobkops_enabled_except_suspend(
- 							struct ufs_hba *hba)
- {
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 2ba244cf40ac7..7431c0ae9ce74 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -10294,7 +10294,8 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 	enum ufs_dev_pwr_mode req_dev_pwr_mode;
- 	enum uic_link_state req_link_state;
- 
--	hba->pm_op_in_progress = true;
-+	guard(ufshcd_wl_pm)(hba);
-+
- 	if (pm_op != UFS_SHUTDOWN_PM) {
- 		pm_lvl = pm_op == UFS_RUNTIME_PM ?
- 			 hba->rpm_lvl : hba->spm_lvl;
-@@ -10467,7 +10468,6 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 		hba->clk_gating.is_suspended = false;
- 		ufshcd_release(hba);
- 	}
--	hba->pm_op_in_progress = false;
- 	return ret;
- }
- 
-@@ -10475,9 +10475,11 @@ static int __ufshcd_wl_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- {
- 	int ret;
--	enum uic_link_state old_link_state = hba->uic_link_state;
-+	enum uic_link_state old_link_state;
-+
-+	guard(ufshcd_wl_pm)(hba);
- 
--	hba->pm_op_in_progress = true;
-+	old_link_state = hba->uic_link_state;
- 
- 	/*
- 	 * Call vendor specific resume callback. As these callbacks may access
-@@ -10568,7 +10570,6 @@ static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 		ufshcd_update_evt_hist(hba, UFS_EVT_WL_RES_ERR, (u32)ret);
- 	hba->clk_gating.is_suspended = false;
- 	ufshcd_release(hba);
--	hba->pm_op_in_progress = false;
- 	return ret;
- }
- 
-@@ -11256,6 +11257,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
- 	INIT_WORK(&hba->eeh_work, ufshcd_exception_event_handler);
- 
- 	sema_init(&hba->host_sem, 1);
-+	mutex_init(&hba->wl_pm_mutex);
- 
- 	/* Initialize UIC command mutex */
- 	mutex_init(&hba->uic_cmd_mutex);
-diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
-index dfd302f2dc7c1..ac7da4bd260cb 100644
---- a/include/ufs/ufshcd.h
-+++ b/include/ufs/ufshcd.h
-@@ -1010,6 +1010,8 @@ enum ufshcd_mcq_opr {
-  * @is_powered: flag to check if HBA is powered
-  * @shutting_down: flag to check if shutdown has been invoked
-  * @host_sem: semaphore used to serialize concurrent contexts
-+ * @wl_pm_mutex: serializes WLUN suspend/resume against other contexts that
-+ *	change the link power state while the WLUN may be suspended
-  * @eh_wq: Workqueue that eh_work works on
-  * @eh_work: Worker to handle UFS errors that require s/w attention
-  * @eeh_work: Worker to handle exception events
-@@ -1176,6 +1178,7 @@ struct ufs_hba {
- 	bool is_powered;
- 	bool shutting_down;
- 	struct semaphore host_sem;
-+	struct mutex wl_pm_mutex;
- 
- 	/* Work Queues */
- 	struct workqueue_struct *eh_wq;
--- 
-2.34.1
+>   };
+>   MODULE_DEVICE_TABLE(acpi, power_meter_ids);
+>   
+> diff --git a/drivers/hwmon/asus_atk0110.c b/drivers/hwmon/asus_atk0110.c
+> index 92afb64c09df..868c4e14d26a 100644
+> --- a/drivers/hwmon/asus_atk0110.c
+> +++ b/drivers/hwmon/asus_atk0110.c
+> @@ -141,8 +141,8 @@ typedef ssize_t (*sysfs_show_func)(struct device *dev,
+>   			struct device_attribute *attr, char *buf);
+>   
+>   static const struct acpi_device_id atk_ids[] = {
+> -	{ATK_HID, 0},
+> -	{"", 0},
+> +	{ .id = ATK_HID },
+> +	{ }
+>   };
+>   MODULE_DEVICE_TABLE(acpi, atk_ids);
+>   
+> diff --git a/drivers/hwmon/pt5161l.c b/drivers/hwmon/pt5161l.c
+> index 2b408a69b085..1638f54f8eae 100644
+> --- a/drivers/hwmon/pt5161l.c
+> +++ b/drivers/hwmon/pt5161l.c
+> @@ -611,8 +611,8 @@ static const struct of_device_id __maybe_unused pt5161l_of_match[] = {
+>   MODULE_DEVICE_TABLE(of, pt5161l_of_match);
+>   
+>   static const struct acpi_device_id __maybe_unused pt5161l_acpi_match[] = {
+> -	{ "PT5161L", 0 },
+> -	{},
+> +	{ .id = "PT5161L" },
+> +	{ }
+>   };
+>   MODULE_DEVICE_TABLE(acpi, pt5161l_acpi_match);
+>   
+> diff --git a/drivers/hwmon/xgene-hwmon.c b/drivers/hwmon/xgene-hwmon.c
+> index 38b140c23c88..eebbb741deac 100644
+> --- a/drivers/hwmon/xgene-hwmon.c
+> +++ b/drivers/hwmon/xgene-hwmon.c
+> @@ -595,9 +595,9 @@ static void xgene_hwmon_tx_done(struct mbox_client *cl, void *msg, int ret)
+>   
+>   #ifdef CONFIG_ACPI
+>   static const struct acpi_device_id xgene_hwmon_acpi_match[] = {
+> -	{"APMC0D29", XGENE_HWMON_V 1},
+> -	{"APMC0D8A", XGENE_HWMON_V2},
+> -	{},
+> +	{ .id = "APMC0D29", .driver_data = XGENE_HWMON_V1 },
+> +	{ .id = "APMC0D8A", .driver_data = XGENE_HWMON_V2 },
+> +	{ }
+>   };
+>   MODULE_DEVICE_TABLE(acpi, xgene_hwmon_acpi_match);
+>   #endif
+> 
+> ---
+> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+> change-id: 20260915-acpi-hwmon-12061c767bc7
+> 
+> Best regards,
+> --
+> Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 
