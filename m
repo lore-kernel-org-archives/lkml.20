@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-44.mta0.migadu.com [91.218.175.44])
+Received: from mta0.migadu.com (out-59.mta0.migadu.com [91.218.175.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F234A6CDD
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA374AD7ED
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789475937; cv=none; b=AfZ6BrD9SYqNyNpHjkhX9XotiOcgcVwVT+c7ZcJhd66z7P1qXh6RtGe0g3g7vjBaU6SA9WdCtap3ZUhOxfUKS2e4FWX7xBN1fjfxPEayJeBBhYH4Acx7eaHcSpoz1cr2TAtxcmK88hronMvC5ggcqHlKX6venO7sh0rJ423RXQA=
+	t=1789475942; cv=none; b=Q41EfLZB6nw6OQqBsTa5xLm0KULy/5mTXzQNgfa7F5/17TdIcfPFSlfkoloBNJoM118F1+h152E67gUeAA+Qx+4cFbS6okZ2VsnXcudEJqBx6S5zzHlPcORpHqh7e3jgtQupqtuS7WQNP7SqfQ66riO0Wam+hABuJfkjPDJDsb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789475937; c=relaxed/simple;
-	bh=OYn21/OL8lrH8NaEq6iDghNkvvHb7mfdPr+Xymc5Uv4=;
+	s=arc-20240116; t=1789475942; c=relaxed/simple;
+	bh=tRWMpaS2zOGMIhR9Ho3dwkRGEMdtnMmq18pcvS3WgPs=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eOYktqhAhSioOnKSpwtK/Xocv3Szc2Puj7PW1S4upR2FFwBwBbWuVPl2xhgqRbrlnzbHrjkwy0l5Dyh5Q9zzCy8Cia7pGcfT/yhswa2qwSsE+iCXjlFaIIbjon53LML8c3n6ZwZ27gooyIW3p16IWdY4rkBqrspwtLLC9ciZ2po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sLGOpyzw; arc=none smtp.client-ip=91.218.175.44
+	 MIME-Version; b=Ivgnb9W+Me8LlAU7LJNjsoh55O7Xubc0BTyXD5WLplIpqlCNCIqhb3Q8DG+G2HvnWVLMHtD7JWXkx1RMaZdjPim6YKr3mJcfYCcQvMqmEdLbnBTEzcrhh1uuLzrCE3tEUKgOOSX5cIq+sGwPaue6sXHPZj7LFi7IaXbUf9KQB6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oGT2/rTV; arc=none smtp.client-ip=91.218.175.59
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sLGOpyzw"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oGT2/rTV"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OYn21/OL8lrH8NaEq6iDghNkvvHb7mfdPr+Xymc5Uv4=;
+DKIM-Signature: a=rsa-sha256; bh=tRWMpaS2zOGMIhR9Ho3dwkRGEMdtnMmq18pcvS3WgPs=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789475932; v=1; x=1790080732;
- b=sLGOpyzwzs54A3Ahsz95fdgWWwkR5suF6AwRR5E7V8bnM5uZ28ZHrx4Kw48HOmSaRv06YUeU
- 0ELla9oGYkEsAS0+MqXHzufqg10BAyYM9c7lUAAKUAt+OU8gh3p9Kg6FQ6GyWjLWFkuBNNCRpg+
- l87OkMPlYVzaLsyc/IFh9RvU=
+ t=1789475937; v=1; x=1790080737;
+ b=oGT2/rTV1ZXXdvjHISk6X8hvyDgUNuQZQlzxdavVhJF4reWxcubYcPw02fXog9f+A1tL7XbQ
+ 27wGSgYVsxFk+kCbqMVfMuSKMwGdMBhZnY0ovcp/DtOeBUJNEJwZPa5vTZioYpRoByIYVkUTPj9
+ FqM0ueysfvCwDJed7vNWipM4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c54ddb4cd2b28d49;
-	Tue, 15 Sep 2026 12:38:52 +0000
-X-Mizu-Trace-ID: c54ddb4cd2b28d49
+Received: by smtp.migadu.com with ESMTPS id 9b55889483332976;
+	Tue, 15 Sep 2026 12:38:57 +0000
+X-Mizu-Trace-ID: 9b55889483332976
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: maz@kernel.org,
@@ -47,9 +47,9 @@ Cc: catalin.marinas@arm.com,
 	Sascha.Bischoff@arm.com,
 	steven.price@arm.com,
 	tabba@google.com
-Subject: [PATCH 1/7] KVM: arm64: Reject the GICv5 CPU interface hypercalls under pKVM
-Date: Tue, 15 Sep 2026 13:38:40 +0100
-Message-Id: <20260915123846.2317931-2-fuad.tabba@linux.dev>
+Subject: [PATCH 3/7] KVM: arm64: Validate the host-provided vgic model in pKVM
+Date: Tue, 15 Sep 2026 13:38:42 +0100
+Message-Id: <20260915123846.2317931-4-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260915123846.2317931-1-fuad.tabba@linux.dev>
 References: <20260915123846.2317931-1-fuad.tabba@linux.dev>
@@ -61,64 +61,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__vgic_v5_save_apr() and __vgic_v5_restore_vmcr_apr() remain callable
-once pKVM has finalised. pKVM never registers a GICv5 vgic, so neither
-has a valid caller in protected mode, and on a GICv3 machine both reach
-a register that is UNDEFINED at EL2 and panic the hypervisor.
+EL2 copies vgic_model from the host's struct kvm unchecked, and the nVHE
+world switch dispatches on it with no cpucap guard. A host writing
+KVM_DEV_TYPE_ARM_VGIC_V5 makes EL2 access GICv5 CPU interface registers
+that are UNDEFINED without FEAT_GCIE, and panics the hypervisor on any
+GICv3 machine.
 
-Move both into the band the dispatcher rejects once pKVM has finalised.
+Accept only GICv3, the one model pKVM supports, forcing anything else
+to 0.
 
-Fixes: af325e87af5da ("KVM: arm64: gic-v5: Add vgic-v5 save/restore hyp interface")
+Fixes: 9b8e3d4ca0e73 ("KVM: arm64: gic-v5: Implement GICv5 load/put and save/restore")
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/include/asm/kvm_asm.h   | 4 ++--
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ arch/arm64/kvm/hyp/nvhe/pkvm.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
-index e5b92ac09e69e..ea319c496bb26 100644
---- a/arch/arm64/include/asm/kvm_asm.h
-+++ b/arch/arm64/include/asm/kvm_asm.h
-@@ -62,6 +62,8 @@ enum __kvm_host_smccc_func {
- 	__KVM_HOST_SMCCC_FUNC___kvm_enable_ssbs,
- 	__KVM_HOST_SMCCC_FUNC___vgic_v3_init_lrs,
- 	__KVM_HOST_SMCCC_FUNC___vgic_v3_get_gic_config,
-+	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
-+	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
+diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+index 459bd9eb7e4bc..4c33c863e90e1 100644
+--- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
++++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+@@ -340,13 +340,19 @@ static void pkvm_init_features_from_host(struct pkvm_hyp_vm *hyp_vm, const struc
+ {
+ 	struct kvm *kvm = &hyp_vm->kvm;
+ 	unsigned long host_arch_flags = READ_ONCE(host_kvm->arch.flags);
++	u32 vgic_model = READ_ONCE(host_kvm->arch.vgic.vgic_model);
+ 	DECLARE_BITMAP(allowed_features, KVM_VCPU_MAX_FEATURES);
  
- 	MARKER(__KVM_HOST_SMCCC_FUNC_MIN_PKVM),
+ 	/* CTR_EL0 is always under host control, even for protected VMs. */
+ 	hyp_vm->kvm.arch.ctr_el0 = host_kvm->arch.ctr_el0;
  
-@@ -87,8 +89,6 @@ enum __kvm_host_smccc_func {
- 	__KVM_HOST_SMCCC_FUNC___tracing_write_event,
- 	__KVM_HOST_SMCCC_FUNC___vgic_v3_save_aprs,
- 	__KVM_HOST_SMCCC_FUNC___vgic_v3_restore_vmcr_aprs,
--	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
--	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
+-	/* Preserve the vgic model so that GICv3 emulation works */
+-	hyp_vm->kvm.arch.vgic.vgic_model = host_kvm->arch.vgic.vgic_model;
++	/*
++	 * GICv3 is the only model pKVM runs, and the GICv5 world switch
++	 * touches registers UNDEFINED at EL2 without FEAT_GCIE.
++	 */
++	if (vgic_model != KVM_DEV_TYPE_ARM_VGIC_V3)
++		vgic_model = 0;
++	hyp_vm->kvm.arch.vgic.vgic_model = vgic_model;
  
- 	MARKER(__KVM_HOST_SMCCC_FUNC_PKVM_ONLY),
- 
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index 9a3b92e626adb..7c939baf9c1ba 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -911,6 +911,8 @@ static const hcall_t host_hcall[] = {
- 	HANDLE_FUNC(__kvm_enable_ssbs),
- 	HANDLE_FUNC(__vgic_v3_init_lrs),
- 	HANDLE_FUNC(__vgic_v3_get_gic_config),
-+	HANDLE_FUNC(__vgic_v5_save_apr),
-+	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
- 	HANDLE_FUNC(__pkvm_prot_finalize),
- 
- 	HANDLE_FUNC(__kvm_adjust_pc),
-@@ -932,8 +934,6 @@ static const hcall_t host_hcall[] = {
- 	HANDLE_FUNC(__tracing_write_event),
- 	HANDLE_FUNC(__vgic_v3_save_aprs),
- 	HANDLE_FUNC(__vgic_v3_restore_vmcr_aprs),
--	HANDLE_FUNC(__vgic_v5_save_apr),
--	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
- 
- 	HANDLE_FUNC(__pkvm_host_share_hyp),
- 	HANDLE_FUNC(__pkvm_host_unshare_hyp),
+ 	/* No restrictions for non-protected VMs. */
+ 	if (!kvm_vm_is_protected(kvm)) {
 -- 
 2.39.5
 
