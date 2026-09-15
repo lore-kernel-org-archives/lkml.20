@@ -1,83 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13564078E0;
-	Tue, 15 Sep 2026 17:01:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830A930C618;
+	Tue, 15 Sep 2026 17:01:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789491673; cv=none; b=pShcjIHAGOFdbthWhIh59Gn/9jognYyeB/jQQ2NSkPyGdatndtU4V3TNGevz6pBIGbn3aUVM98kwAiZgItGmGal6+MwEZjWu42zv2Pi0PYK53cWhj7IT/+80NckYQS2hDaJ8SK/Xh1y0kgKluCODCAcfGn0PgHKbkhwEGq1JaJU=
+	t=1789491711; cv=none; b=mP5ArFlihb42A+zFUoHTiFFf7pbGHWlGxp6KN0Mii++y1aZMaLuPQxr//oj7LdGfhC1UYlu9ZAWctOxF9Mc88ej5oQx1n0V5eiLezgIZ8KSYiZ3DiJtHFZnLxg6NrQZS+ZURiFMSRDdOlcRGacR7Omnaj4YDZL+CDUcfsZ4ayHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789491673; c=relaxed/simple;
-	bh=1INvFVGtwVc+KjLGC2f6uzcw6Eo7XyKN3FD5O/gnxj8=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=qi7DdEuxEDBFSTopdApWX8pSqTemW5L/UIxaFydcJ4+ODadresf8FYGNm+ItTL8ZA2mJMBgVMHenKUoj7etbjb9XqijgvVGxRh204L23yzmWmg+jhgk65K6EVVt2eSm4rNwM8Akf1tcaQIkVYkhZ+NiTrVYEYsUJr88FY6Qjkwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gztKKsCF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789491711; c=relaxed/simple;
+	bh=wkI+Uq9CoTiFuOD2krFI0IZ7m1fd2wBgU5Jf/Dso6Pw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=Trzg2IHf5QanrOiOGwaYblo6XCMpBiliwsYdv5J32/8x0WzGxJzza8h7R0ELS09bzaYbayKYw9iLfHRcAQVEcJcrFqP3FlTYefVvzKBGpbYf/lCrvAsTXR+nExBIqsnc2JmMpKSgJZtFb5Zqz7vQzvNqnB8Ptu2rhuJBcOl9EAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XvwPg9gu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gztKKsCF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 756EF1F00893;
-	Tue, 15 Sep 2026 17:01:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XvwPg9gu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E28961F000FF;
+	Tue, 15 Sep 2026 17:01:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789491671;
-	bh=IxUZ5FsbZXa9xx+yT6cPwJROURd1Q9oeUXRrQ7S4cqM=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=gztKKsCFIseOzCGP6aM2Gm+Aqsmd7o3zkG0x3y6cgFNfOJpH95of8GeVlA6NSDb8F
-	 dm8ddP9RCKWmtPj+pMcw50PQ2MUvtOB1lZu6WqjFb84YsmsNG2IzQI+vvgziqkN05I
-	 iBY/GK8s7Hm5qNv3p9ctH4ordCQgckzRN9OnJoTCk0+MYdrCthh9rhMeWsFg8ahSVI
-	 HLcRbZ2Bwe6bPWZbjdg0yQ8mdQU/mrPhW3N+BdGpJDR0oHEQnLmCmsQBTb6YvWPosS
-	 q7FQAlwl8oITA4AIcE/IHorzh2Y2d0zdrgEmz7Im3Zs0W4WmKoAJXQudvZ5QlLocv3
-	 VspxW+eN4a4bw==
-Message-ID: <7394c719-5e5c-4e38-8b83-c22868fb2425@kernel.org>
-Date: Tue, 15 Sep 2026 19:01:09 +0200
+	s=k20260515; t=1789491710;
+	bh=fUdvVWUeeMhxJ/c8azgXuwRmK/SDZMMRuDb+OuJ+VNw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XvwPg9gujN+iVIX6J8gs5z5aBhg+F9B3JHHMp7/PV6fAkMGLkJSMVImvytlclOAz7
+	 pTmvDJ4D0MMxxlzzZ1nvkwUT64aG3tmVwTW5unJEQac8GMX1sqhYI9t0BTNskjUK2R
+	 Ar1KUv/5fjTd+rUToussysWizbvaJXLovrawMAc0A8EBXxqbOOwEyzEsZB7M6SLdoD
+	 etoB0k0t7Iim98Gz6fuXl7ejtObHwz8akyOypydhEnNHWSCFos5SEddhJYU2bzMdnl
+	 pzMjKQIpvVI+IQUvWRoxm3JhBVGzp8cPAt1DJ9OLW5ybe3MHNKjTzDyleL5x7FJjJR
+	 6NtMuUXynAsnw==
+Date: Tue, 15 Sep 2026 07:01:49 -1000
+Message-ID: <17cdcfca5509c320dd1344c66fff4289@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+ Changwoo Min <changwoo@igalia.com>
+Cc: Tejun Heo <tj@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org,
+ sashiko-bot@kernel.org
+Subject: Re: [PATCHSET v2 sched_ext/for-7.3-fixes] sched_ext: Idle claim
+ recovery and online cid mask
+In-Reply-To: <20260915082725.3881071-1-tj@kernel.org>
+References: <20260915082725.3881071-1-tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Vincent Mailhol <mailhol@kernel.org>
-Subject: Re: [PATCH v2 06/10] efi/libstub: Avoid efi_puts() for compile time
- constant strings
-To: Ard Biesheuvel <ardb+git@google.com>, linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
- x86@kernel.org
-References: <20260909115530.1924665-12-ardb+git@google.com>
- <20260909115530.1924665-18-ardb+git@google.com>
-Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
- 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
- dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
- zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <20260909115530.1924665-18-ardb+git@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 9/9/26 13:55, Ard Biesheuvel wrote:
-> From: Ard Biesheuvel <ardb@kernel.org>
-> 
-> efi_puts() performs a UTF-8 to UTF-16 conversion on its input, as the
-> EFI console's native character set is UTF-16.
-> 
-> This is pointless for compile time constant strings, since we can
-> simply define those as UTF-16 to begin with.
+Hello,
 
-I would nuance this a bit. This is a trade-off between space and time.
-ASCII text takes half of the space but needs a runtime conversion.
+On Mon, Sep 14, 2026 at 10:27:23PM -1000, Tejun Heo wrote:
+> This patchset contains the following 2 patches.
+>
+>  0001 sched_ext: scx_qmap: Restore unused idle claims from ops.dispatch()
+>  0002 sched_ext: Maintain an online cid mask in the scheduler arena
 
-Note this is not an objection to the patch itself, but I think the
-commit message could be slightly more nuanced.
+Applied 1-2 to sched_ext/for-7.3-fixes with Andrea's Reviewed-by added.
 
-> Note that efi_puts() also performs LF to CR-LF conversion, so this needs
-> to be taken into account as well.
-> 
-> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+Thanks.
 
-(...)
-
-Yours sincerely,
-Vincent Mailhol
+--
+tejun
