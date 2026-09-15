@@ -1,112 +1,169 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174B93C10AF;
-	Tue, 15 Sep 2026 13:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 585FD3CA4AF
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478806; cv=none; b=rC2s9YAlK8+4MrN17Z4LKf8Btl4VHlzLB/cXNVJOxoVPjgxdaB1B0pO23t64ADl5NatMnKzCPwwZLUBx/L8IwfeavVcT60NsNfc50IxYZgQTnDVVyfLolOO9VfMS3DuBPWmFPFb+5IAjw409AsO6nAvwdeRzA1nHr9gEhgrjURs=
+	t=1789478812; cv=none; b=OnEhsJR5k7iSdp8Nb814N2x8wAiJcIZdmMcJJdrhoTZButu/PhOB5xzXExO9jarip+WECOWRhuaDqZBTF9QlOgCmXLjFCnPxuihTEkpyzIb9YWu4NpMzewWhGlRV1fBU4djBl/UFx6exX9QbE6lKdlmezqZAlOvHT5udkEVAYhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478806; c=relaxed/simple;
-	bh=sk0GpVTuDyxzFHdUWJhUkLuwP5xOab3A1wc2PKBTvmg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t5Tg/vApiKGtEsL5cwXcnyX2h48djobTAawSG6S80s3PeGxBnVV6zdy5+OB+V/Uu4DXvM+zy/TC6r+iBrSVp3Ma/bAGJqGbNfZ06YQRzl6zUl98TJNNC//RTidH2AdJ+uU2ZLdR/FTFTscBt7O2caTxTlg17YuAGDKC4i0xHAOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Ulo7PBC9; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789478812; c=relaxed/simple;
+	bh=LAW/+opkb17tEgnhLmIb0sP0Lfex11T9HhnlYQp9l6w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tT3/4d3WNOYgcU/EfaOPynikcj57/M9xz0mfuJMcEDQx+O8b4gPflLcMf66XkGlQGaMjLg8g3eBR8+Sz6IfTfe7yCl9K/zjFnQoQ5wz4PAHrvMSF4wQlUjNZqTUmqJFsSQIcJNXBS3RvlGUsaljp+wFZz9KvqiV+zpiKbe7JdLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=s8kEk/77; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Ulo7PBC9"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=1aLCrCY83kZmeumsZ3gfrMmWKqOZ+LFH4SgSm2GvtO4=;
-	b=Ulo7PBC9+384LLGpKjq1CHJP8849stoAn9H763QxZmixrE2zbfELnU07fvHP0qSI7iutqwwvK
-	bxqG4/bSe5oMrPMdNqW7Yr630Isg09cjQfQWmDeQG3phFhgrtwNhMTnWN3/+hKxJfmRPekHdnVH
-	8S0f3aGwud73SoUywN72gV0=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hkjFC4k1GzLlSh;
-	Tue, 15 Sep 2026 21:15:43 +0800 (CST)
-Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
-	by mail.maildlp.com (Postfix) with ESMTPS id C5E154048B;
-	Tue, 15 Sep 2026 21:26:41 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 15 Sep 2026 21:26:41 +0800
-From: Jijie Shao <shaojijie@huawei.com>
-To: <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <andrew+netdev@lunn.ch>, <horms@kernel.org>
-CC: <shenjian15@huawei.com>, <liuyonglong@huawei.com>,
-	<chenhao418@huawei.com>, <yangshuaisong@h-partners.com>,
-	<ningwei15@huawei.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <shaojijie@huawei.com>
-Subject: [PATCH net 1/3] net: hns3: fix vector resource leak in hns3_nic_alloc_vector_data
-Date: Tue, 15 Sep 2026 21:24:32 +0800
-Message-ID: <20260915132434.1141742-2-shaojijie@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915132434.1141742-1-shaojijie@huawei.com>
-References: <20260915132434.1141742-1-shaojijie@huawei.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="s8kEk/77"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DEC0515A1;
+	Tue, 15 Sep 2026 06:26:44 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B76623F7B4;
+	Tue, 15 Sep 2026 06:26:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789478808; bh=LAW/+opkb17tEgnhLmIb0sP0Lfex11T9HhnlYQp9l6w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=s8kEk/77TSm2d+I6O0ScM07ODaYn0VC3K+dfjQ7KgAPXepqOTspHFJY4H8P8pw8ck
+	 l74zR42ErimR1aa4eAboRwQCKknTnFN8gPtmYzyK0ExCc1pbVNdC8AFOLEZqKG+iTO
+	 MpPctOlfJdPnGS/O6n03PY/0jUoNQAgO0DvL+Fwo=
+Date: Tue, 15 Sep 2026 14:26:45 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-rt-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v11 1/9] coresight: etm4x: prohibit modifying ss_status
+ and cntr_val while session is enabled
+Message-ID: <aqlHlcPCFF1FHBHO@e129823.arm.com>
+References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
+ <20260915-separate_etm_cfg_v2-v11-1-d2b258d51747@arm.com>
+ <20260915115115.E6B2A1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemo500018.china.huawei.com (7.202.195.199)
+In-Reply-To: <20260915115115.E6B2A1F000FF@smtp.kernel.org>
 
-After h->ae_algo->ops->get_vector() has acquired MSI-X vectors, a
-subsequent devm_kcalloc failure for priv->tqp_vector jumps to 'out'
-and returns without calling put_vector() to release them. The
-underlying hclge/hclgevf bookkeeping (num_msi_used, num_msi_left,
-vector_status[]) is left inconsistent: the vectors are marked as in
-use but hns3_enet never tracks or releases them.
+On Tue, Sep 15, 2026 at 11:51:15AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] coresight: NULL pointer dereference in sysfs stores during device initialization
+> - [Medium] coresight: TOCTOU race in sysfs store functions bypasses session check
+> --
+> 
+> commit e0461b6a1ca35a227d37c4654e32e424dc9d60f7
+> Author: Yeoreum Yun <yeoreum.yun@arm.com>
+> 
+> coresight: etm4x: prohibit modifying ss_status and cntr_val while session is enabled
+> 
+> This commit adds checks to prohibit modifying ss_status and cntr_val via sysfs
+> while a trace session is enabled. It prevents changes to these values from
+> being silently overwritten and lost when the session is disabled.
+> 
+> > diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> > index cc6cdd3ae29d5..8d73248b840a6 100644
+> > --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> > +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+> > @@ -1613,6 +1613,8 @@ static ssize_t cntr_val_store(struct device *dev,
+> >  		return -EINVAL;
+> >  	if (val > ETM_CNTR_MAX_VAL)
+> >  		return -EINVAL;
+> > +	if (coresight_get_mode(drvdata->csdev))
+> 
+> [Severity: High]
+> Can drvdata->csdev be NULL here if this sysfs attribute is accessed during
+> device initialization?
+> 
+> If userspace writes to this sysfs attribute immediately upon device creation
+> (e.g., via udev rules), coresight_register() might not have returned yet to
+> assign drvdata->csdev in etm4_probe(), leading to a NULL pointer dereference.
+> 
+> Could we use to_coresight_device(dev) instead to avoid this?
+> 
+> > +		return -EBUSY;
 
-On the reset path this leak accumulates across failed reset attempts,
-steadily reducing num_msi_left until get_vector() can no longer
-satisfy the requested count, at which point the interface fails to
-recover.
+Vaild. theorically, It's possible but it seems enoguh to check whether
+drvdata->csdev is NULL or not.
 
-Call put_vector() for every vector acquired by get_vector() before
-returning an error, and reset priv->vector_num so the dealloc path
-cannot dereference a NULL priv->tqp_vector.
+> >  
+> >  	raw_spin_lock(&drvdata->spinlock);
+> 
+> [Severity: Medium]
+> Is there a race condition here since the mode check happens before acquiring
+> the spinlock?
+> 
+> If Thread A writes to cntr_val and passes the mode check, Thread B could
+> concurrently enable the session (taking the spinlock, configuring the hardware,
+> and changing the mode). Thread A would then acquire the spinlock and modify
+> the software configuration, leaving it out of sync with the active hardware.
+> 
+> Should the mode check be moved inside the spinlock?
 
-Fixes: dd38c72604dc ("net: hns3: fix for coalesce configuration lost during reset")
-Signed-off-by: Jijie Shao <shaojijie@huawei.com>
----
- drivers/net/ethernet/hisilicon/hns3/hns3_enet.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Not matter. anyway the etmX_enable() will set with the value when it
+see. This is for preventing overwriting at the time of disable.
+not the race in the enable. So it is ignorable.
 
-diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-index 47788be64be6..2f3aeade558c 100644
---- a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-+++ b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
-@@ -4854,7 +4854,7 @@ static int hns3_nic_alloc_vector_data(struct hns3_nic_priv *priv)
- 			     GFP_KERNEL);
- 	if (!priv->tqp_vector) {
- 		ret = -ENOMEM;
--		goto out;
-+		goto err_put_vector;
- 	}
- 
- 	for (i = 0; i < priv->vector_num; i++) {
-@@ -4865,7 +4865,13 @@ static int hns3_nic_alloc_vector_data(struct hns3_nic_priv *priv)
- 		hns3_vector_coalesce_init(tqp_vector, priv);
- 	}
- 
--out:
-+	devm_kfree(&pdev->dev, vector);
-+	return 0;
-+
-+err_put_vector:
-+	for (i = 0; i < vector_num; i++)
-+		h->ae_algo->ops->put_vector(h, vector[i].vector);
-+	priv->vector_num = 0;
- 	devm_kfree(&pdev->dev, vector);
- 	return ret;
- }
+> 
+> >  	idx = config->cntr_idx;
+> [ ... ]
+> > @@ -1797,6 +1799,8 @@ static ssize_t sshot_ctrl_store(struct device *dev,
+> >  
+> >  	if (kstrtoul(buf, 16, &val))
+> >  		return -EINVAL;
+> > +	if (coresight_get_mode(drvdata->csdev))
+> 
+> [Severity: High]
+> Does this suffer from the same NULL pointer dereference risk during device
+> initialization as cntr_val_store()?
+> 
+> > +		return -EBUSY;
+> >  
+> >  	raw_spin_lock(&drvdata->spinlock);
+
+Same above. Will add NULL check.
+
+> 
+> [Severity: Medium]
+> Is this check also vulnerable to the same race condition by being outside
+> the spinlock?
+
+See above.
+
+> 
+> >  	idx = config->ss_idx;
+> [ ... ]
+> > @@ -1847,6 +1851,8 @@ static ssize_t sshot_pe_ctrl_store(struct device *dev,
+> >  
+> >  	if (kstrtoul(buf, 16, &val))
+> >  		return -EINVAL;
+> > +	if (coresight_get_mode(drvdata->csdev))
+> 
+> [Severity: High]
+> Does this suffer from the same NULL pointer dereference risk during device
+> initialization as cntr_val_store()?
+> 
+> > +		return -EBUSY;
+> >  
+> >  	raw_spin_lock(&drvdata->spinlock);
+
+Same above. Will add NULL check.
+
+> 
+> [Severity: Medium]
+> Is this check also vulnerable to the same race condition by being outside
+> the spinlock?
+> 
+> >  	idx = config->ss_idx;
+
+Ignorable.
+
+
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com?part=1
+
 -- 
-2.43.0
-
+Sincerely,
+Yeoreum Yun
