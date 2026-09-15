@@ -1,127 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93914314A65;
-	Tue, 15 Sep 2026 09:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0621247C10B;
+	Tue, 15 Sep 2026 09:47:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789465644; cv=none; b=j4D+hB+0HuBD8P9zMUL1WatXKnm/T4dRpN9+l+v3kYa6w7IOPsvTUlqys/R/hXE6ycWWvKbqSjvlGLzgy7LL0wiOXTYIUWvqnOS9Is5wH6PFnh7EvBGJr0eOsZATLSTGYNPcWrgeEhhXbv7OPz7/0MyiHh/R5VCvQzOqvUtg8oo=
+	t=1789465649; cv=none; b=LL+F5mnm9rEFlHkPBvoKTZ6KgDx7DtVLJQFlfasE4hOC6+sY8PJT9oYv4uY7fVZzFuvSGCtIv8qelxXEyv3Veozx7e4H1n2t1ssE/8wGDpF2LdfOBT0eMM2GfbKV50MI4Q/nqvpt1lFULYPfXMMVnnCwJE/fh5mp2HsWboqkz5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789465644; c=relaxed/simple;
-	bh=/kuZIJKnsytx4FqD3eBz3HWjO93XOyJjcVq9h7/CvSE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uiUYIusy2z/6PdKiZo2gRlTqjD7DMbnaWquN86bd/Y9zwWhegtdVYxvs9gxgHG9AJILoaacel6HD2sEUim4XFaJx/nuAVyDTisTsVqXmObaShph64DGQmRJ8lYomQEXuzsr+0Npq1uQqWmUi4/nWv3rJdzKvUOPODNzjy1Yl21Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GMa0ym2m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789465649; c=relaxed/simple;
+	bh=TgiYyAGTrTLCELCWwltNRoXatU+CAWXmARo8WzAWAuw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NyCm2+ha9AooPsREt/Y6pOQuEz0iPUsoMiRWGcbl7Kjohuyfi/2HFr5RbCyDAid48+625bIMjRDZH7vm572PoJbI+HBpylng046mh+FuI+K8Kf4xXIVhoLQes8du0Hwh5odB8wpKFrv1HDfoDcmr02hRT3eDbp+VvCKUAMQjSPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cfMi/f1w; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GMa0ym2m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F68F1F000FF;
-	Tue, 15 Sep 2026 09:47:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789465643;
-	bh=yVmLO1UYGkx18xnxGFa0+LCVtikSySUatIbQx6T/PzY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GMa0ym2mM1D+E4+ci5FioPgbcRLnrZDb2o8B4lhoi53VLJ74eLOlHuywT8ww2Lhvw
-	 3dQqJid17LClhpCFyO26TQY1rNh166eQhFTSg3joPw8gcjSmEq0Wg3+WSn+5Gvh91v
-	 hR51H0nJFliEkZo9BIbdj+dyDZqtus4zroITYuzUSK9ZuLdAdI1YintS7I8BYEG9oy
-	 CltaEh3D0kQhBaUcjQzZBLlh4b78hC741zA/NU3r0aCvpTiEA+sHgSxinqCnnTi2SZ
-	 YTh9nZFBx8GrbKQ4W8UzV6MVuEuB0zOJcZPCtrbR5ypDVyRnr7nWu2pGeUWVrKsryU
-	 eBYeHZTgKboFw==
-Subject:
- Re: [PATCH net-next] net: phy: broadcom: enable jumbo frames on BCM54xx
-From: netdev-bot+sashiko@kernel.org
-To: nb@tipi-net.de
-Cc: florian.fainelli@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
- andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- justin.chen@broadcom.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 15 Sep 2026 09:47:22 +0000
-Message-ID: <178946564204.22033.11365695579281446109@kernel.org>
-In-Reply-To: <20260914094703.1093504-1-nb@tipi-net.de>
-References: <20260914094703.1093504-1-nb@tipi-net.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cfMi/f1w"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B05ED169C;
+	Tue, 15 Sep 2026 02:47:22 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 468CE3F9A2;
+	Tue, 15 Sep 2026 02:47:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789465646; bh=TgiYyAGTrTLCELCWwltNRoXatU+CAWXmARo8WzAWAuw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cfMi/f1wlLVTG20Jg2wnJ6+DbyNLJTUAHFTMYihB7bLYPbjDzjaujrlPV144QpPV8
+	 XSl+d7YX01gX2yWrh42B5ii8sgq0sY8AEv8XA/835O7vsqb1KxpCDs4rzB+0+1PQAF
+	 vbG/dZlaGXwMv7aR8+YBHgWDaIYqkeTcsSaiHCSg=
+Date: Tue, 15 Sep 2026 10:47:20 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shuah Khan <shuah@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: Re: [PATCH v3 3/3] kselftest: mm: introduce size_to_shift() helper
+Message-ID: <aqkUKDJYytjTsQvm@e129823.arm.com>
+References: <20260914-fix_hpage_macro-v3-0-c9a305a01d39@arm.com>
+ <20260914-fix_hpage_macro-v3-3-c9a305a01d39@arm.com>
+ <b88f4ec0-61a8-47b0-901a-d63db115936c@kernel.org>
+ <aqf_XGKDq6jH6pJW@e129823.arm.com>
+ <c60fa1c7-ac83-4e41-9911-a426c6b42191@kernel.org>
+ <aqkIQF6XcLeXSHWO@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqkIQF6XcLeXSHWO@gremlin>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Tue, Sep 15, 2026 at 10:01:58AM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Sep 14, 2026 at 04:08:30PM +0200, David Hildenbrand (Arm) wrote:
+> > On 9/14/26 16:06, Yeoreum Yun wrote:
+> > > On Mon, Sep 14, 2026 at 04:01:02PM +0200, David Hildenbrand (Arm) wrote:
+> > >> On 9/14/26 09:30, Yeoreum Yun wrote:
+> > >>> Introduce size_to_shift() for future users that need to
+> > >>> obtain shift of a huge-page which is other than pmd_psize().
+> > >>>
+> > >>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> > >>> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > >>> ---
+> > >>>  tools/testing/selftests/mm/vm_util.c | 10 +++++++++-
+> > >>>  tools/testing/selftests/mm/vm_util.h |  1 +
+> > >>>  2 files changed, 10 insertions(+), 1 deletion(-)
+> > >>>
+> > >>> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> > >>> index fd1432dc6152..1fef1266429f 100644
+> > >>> --- a/tools/testing/selftests/mm/vm_util.c
+> > >>> +++ b/tools/testing/selftests/mm/vm_util.c
+> > >>> @@ -157,6 +157,14 @@ bool check_for_pattern(FILE *fp, const char *pattern, char *buf, size_t len)
+> > >>>  	return false;
+> > >>>  }
+> > >>>
+> 
+> Probably worth a comment here saying it's only for power-of-two sizes.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Okay.
 
-- [Medium] The new unconditional bcm_phy_enable_jumbo() call in
-  bcm54xx_config_init() (drivers/net/phy/broadcom.c:543) sets…
+> 
+> > >>> +uint64_t size_to_shift(uint64_t size)
+> > >>> +{
+> > >>> +	if (__builtin_popcountll(size) != 1)
+> 
+> I wonder if it wouldn't be better to just do the old trick of:
+> 
+> 	if (!size || (size & (size - 1)))
+> 		return 0;
+> 
+> ?
+> 
+> > >>> +		return 0;
+> > >>> +
+> > >>> +	return ffsl(size) - 1;
+> > >>> +}
+> > >>
+> > >> Could likely just be an inline helper?
+> > >
+> > > Okay. If there is no comments on today, I'll post tomorrow with this.
+> > >
+> >
+> > No need to rush, leave some more days for people to catch up.
+> 
+> Agree with David seems better as an inline thing, the __builtin_xxx() should
+> be... built-in hopefully :P though I suggest something that wouldn't need that.
 
---
+Whatever is, okay. I'll change with old-classic trick :)
+> 
+> As long as strings.h is included in the header ofc for ffsl().
+> 
+> With the stuff above addressed, seems fine to me so:
+> 
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-net: phy: broadcom: enable jumbo frames on BCM54xx
+Thanks!
 
-This adds an unconditional bcm_phy_enable_jumbo() call to
-bcm54xx_config_init(), which sets the extended packet length bit in the
-auxiliary control register and the PCS transmit FIFO elasticity bit in the
-extended control register so that jumbo frames are not dropped at 100M.
-
-> diff --git a/drivers/net/phy/broadcom.c b/drivers/net/phy/broadcom.c
-> index d1a4edb34ad2e..b515e38755041 100644
-> --- a/drivers/net/phy/broadcom.c
-> +++ b/drivers/net/phy/broadcom.c
-> @@ -537,6 +537,13 @@ static int bcm54xx_config_init(struct phy_device *phydev)
->  
->  	bcm54xx_ptp_config_init(phydev);
->  
-> +	/* Transmit is limited to 4.5 KB without it, see the BCM54210PE
-> +	 * datasheet section 5.4.12.14.
-> +	 */
-> +	err = bcm_phy_enable_jumbo(phydev);
-> +	if (err < 0)
-> +		return err;
-> +
-
-[Severity: Medium]
-This lands directly after bcm54xx_ptp_config_init() has armed the
-TimeSync block on PTP-capable parts such as the BCM54210E, whose driver
-entry in broadcom_drivers uses this same .config_init.  How does the added
-elastic FIFO delay interact with the PHY timestamping path?
-
-bcm_phy_enable_jumbo() in drivers/net/phy/bcm-phy-lib.c ends with:
-
-	/* Enable the elastic FIFO for raising the transmission limit from
-	 * 4.5KB to 10KB, at the expense of an additional 16 ns in propagation
-	 * latency.
-	 */
-	return phy_set_bits(phydev, MII_BCM54XX_ECR, MII_BCM54XX_ECR_FIFOE);
-
-If that FIFO sits in the copper PCS transmit path downstream of the 1588
-egress capture point, would egress timestamps then be reported
-systematically early by that fixed delay?  A link where only one end has
-MII_BCM54XX_ECR_FIFOE set would also become asymmetric.
-
-Grepping drivers/net/phy/bcm-phy-ptp.c for latency or compensat returns no
-matches, so there appears to be no TX/RX latency correction programmed
-anywhere in the PHY PTP driver that could absorb the new delay.
-
-There is also no gating here: no MTU or jumbo condition, no device tree
-property and no ethtool knob, and the bit is re-armed on every
-config_init() and via bcm54xx_resume().  tg3 sets the same hardware bit
-only when tg3_flag(tp, JUMBO_CAPABLE) is set.
-
-Would it make sense to gate the FIFO elasticity bit on an actual
-jumbo/large-MTU requirement, or to account for the extra delay in the PTP
-path?
-
->  	/* Acknowledge any left over interrupt and charge the device for
->  	 * wake-up.
->  	 */
-
-Also, the changelog says the elasticity bit raises the transmit limit
-"from 4.5 KB to 9 KB", while the in-tree comment on the same register
-write in bcm_phy_enable_jumbo() says 4.5KB to 10KB.  Which figure is
-intended, and could the two be reconciled?
+> 
+> >
+> > --
+> > Cheers,
+> >
+> > David
+> 
+> --
+> Cheers, Lorenzo
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914094703.1093504-1-nb%40tipi-net.de
+Sincerely,
+Yeoreum Yun
