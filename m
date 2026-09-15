@@ -1,71 +1,64 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA63B4756DC
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:26:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83DB4A3D4E
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789475214; cv=none; b=edQ7AvUY0qwY1pCEkdGoLllhelTA8ldNkEaN2JM2ebagW7QtA5HQag6lgKCn0qJggroXg4x/tyH3sp8Kx0TsXkmJ/bqjiiO9jlJWkmH+UXtauIDxwiW3dWaloxtEpyPPnBOO+4KL1cCzQOEmVHU9wXILJdWbryXHxYQYKH3Jr8g=
+	t=1789475221; cv=none; b=nl6dW9bY/+yj/vcPEHLjdw7KT+4e2FJwmLUVGDOOuRijbg+PVyEerfdkhcATGeJSkMMIkQkM2yym0r+/+KbMUBfj6r3OF2YYye8mnPwi0G4EllFhWl0TdxN5ditUwv2NMKTZQZi6HIPROjaHYQYS4BGd5p7hmCgUYbACvbCTcGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789475214; c=relaxed/simple;
-	bh=xpmNOMEFZ79Zl34tT053pt+ZMJVypP0OCV382hkhG+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iDXZMg8l3O3lUPup1oMmOXJ2wJYouahSDZuhc86CIQ6UX+q1skc8CnM39OIhbvwTcQF+/+yPp2UEta+bYviSGsdHCmeNr+KlqBVKAHp8/tP7tAIBHjqKMR8MJUOQgUfD0M6aOxIaJOe67jA8RghXMRBghGlxLB8Uy28U/e9pHGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FTc3sQ7w; arc=none smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789475221; c=relaxed/simple;
+	bh=TwEBITxsjqDNfr67b1FnkWbtZJvna7apEgcotdHSFX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=M4ianhBYiciSOI/KXi7XvO9MeLZbxeGKCXgiD75htRyg50rQGuNzGBWJ9RLYX60HqCTSmnYjopH954X6VmXuUYmoljx4dYmVIwS49MWjRYIPNuVrMyu8mqfQVr85+NlBCplad1ApB/tpbAvc2lsEWswUOfyA4yu+gPsbKXVNhD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DBkHkjjm; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FTc3sQ7w"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a306a4f735so26268851fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:26:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789475211; x=1790080011; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6k2WCPX2Lro+tylch1akShaYbgtzv4QoGFTVB6XS47g=;
-        b=FTc3sQ7wO0uJ9NIQo5nNP6Rl1r/hwqg6LlNn1wre4Vt1kfJ0UPkteahV9h/y2BUJss
-         K+Qm+mmHwtzAWAMdierL50qlC1S2gDLrl7LWSrIoR4Q+oNPlk8CO4m0y4oGxJUyAmzvj
-         5LX/I50SeyeAcqOErl638QI9HCCoRGSS10/hcFZy4gXRBBLL8bPzzRCwnpbmIw161cSb
-         BpF3JgKA6/iuLOnrzxWPT4pPQuKl2rq8UuOebQdHAyd5PVo98obnU7ywYFW3epuCOd09
-         gClMuM/rsEdAutstghDMGyKzm65uye/5yvefWgrjPiBZEuXR6Q2fCH5gHopjrYMo59Ut
-         F7qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789475211; x=1790080011;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6k2WCPX2Lro+tylch1akShaYbgtzv4QoGFTVB6XS47g=;
-        b=iAhYIP0cQDpAzWZ1gTGbh/N3HHIp4Hl/4pYe3G1uWKBTUurkTv7w0EakxgrP6/maBJ
-         /ARanzHX1MBED7EVilWVLAjmMkPr971HTboyDkwHOe3HIv9TGpqCS17m+kQ8QMFAaw16
-         1iMBvxXW/qnbpP6eFwVcOzU1eHxTsM2y0IUtq4BlZAJmO+8CSTivuB+YAUH2I4we1ICx
-         fwnLAnLX4lPtaU+oEyIcuZvHRFU/Ikq//Utw+oNi+Rmq+Z9JczsJzou5jo7/JaOfyHhl
-         5rAhtFDpzRdhqLRkaNYQs2m/1CXfFEf6NSYfg76sdHLOtYIlYCNuzLEkrkVCx9lT4Haa
-         93Fg==
-X-Forwarded-Encrypted: i=1; AKwUvBxLiTAft87kBt6NFKw1+wR+zvVMJtU8kn9Xz/gjaT0G6UQe/dVqftzVJp1sqbrkjiz0eoqP47Ti+AUpIR4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCiD9lXMUOgshsGKV6NTT5VjkTj+pA3GLY2sSB9rRXCm9IG4qQ
-	FS3rU2XnEiXDxmN7nzYrBoSSXeYe9U5svbpQzeOiRDroYmPqHwAbCbp1
-X-Gm-Gg: AYBFou0TR7H2sHuFCXcVC02PD0WYnlteig+vx195xC5wY32XSa+Fm+jBmtmcJwUnbdR
-	+yowdwsQDwVq1WN2WKs6fgzxxwqf+0dNXbqW6QwulAHu8E+3eeJhN0XDR53okdWVNTaM6jdN0kC
-	QSCIzGw8gCOROgVtWQO7se5Jazs5JAMhspZz3x+DsbdjisXnffFdTJ352iVcsq9XpOz2NO5BzQk
-	tSnguqGgeiIALtxUkFc6zAvX9VbsuvQ4AU5NQUxNfHEnTcit1hfdTG4Hxsm0rUspFATsatcRLr2
-	89GcftnTl5IAG0MKfsY4EKvlwjqmDA++cqY3SOQwIL67+i2S3eCw9rzB6XhsBCZki6yECTabY07
-	0Du2ousdJXo9/D7on865oc2dbrwdC7Tn6r1enEizWxRVoUtGhIvZ/EbhX6Jvcuyxpf4YbGNJ0fz
-	qeVZhIpk7gbCehSzZ4HMb1+fTaUq0GDuAR4XQEmHOIa3Sto0KCYwdXu9VZKtpn/D5rwQZyM3R8q
-	VI7NxyVUjHMILoZ
-X-Received: by 2002:a2e:be9c:0:b0:3a5:a139:526e with SMTP id 38308e7fff4ca-3a5c897d9c2mr11521781fa.20.1789475210365;
-        Tue, 15 Sep 2026 05:26:50 -0700 (PDT)
-Received: from localhost.localdomain ([80.66.93.67])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a04600a2sm3235840e87.36.2026.09.15.05.26.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 05:26:49 -0700 (PDT)
-From: Maxim Skokov <skokovmaksimevg@gmail.com>
-To: pkshih@realtek.com
-Cc: linux-wireless@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DBkHkjjm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789475218;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=owXpxkdaiz3FjoIP3af9pZnf5S2SeMbdOA3eIgSOhpI=;
+	b=DBkHkjjmhXUEHxovENqFkit+yc8v3ZSjIerXoWtNfbzfPCyi3YN3PE1nk6ceHRERJ1lNIy
+	ijLEA/58lBGvtk0+TzYykJc13Pt0onUnT38HGxS+P4XYUoPfpCOHaDMxvqDMVkvpK790u2
+	YizjuTTvISQAYW7HVRbYswutEpeREvk=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-22-AOyTse_KPj22WjctNb7Zzw-1; Tue,
+ 15 Sep 2026 08:26:55 -0400
+X-MC-Unique: AOyTse_KPj22WjctNb7Zzw-1
+X-Mimecast-MFC-AGG-ID: AOyTse_KPj22WjctNb7Zzw_1789475213
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A5099185FDA2;
+	Tue, 15 Sep 2026 12:26:53 +0000 (UTC)
+Received: from fballuch-thinkpadx1carbongen13.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C73D93003EEE;
+	Tue, 15 Sep 2026 12:26:50 +0000 (UTC)
+From: Filip Balluch <fballuch@redhat.com>
+To: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Maxim Skokov <skokovmaksimevg@gmail.com>
-Subject: rtw89: BT connect state differs between scoreboard and bt_info on RTL8851B
-Date: Tue, 15 Sep 2026 15:26:22 +0300
-Message-ID: <20260915122625.6341-1-skokovmaksimevg@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	Filip Balluch <fballuch@redhat.com>
+Subject: [PATCH] i40e: fix freeing of TX rings on RX allocation failure
+Date: Tue, 15 Sep 2026 14:26:39 +0200
+Message-ID: <20260915122639.64936-2-fballuch@redhat.com>
+In-Reply-To: <20260915122639.64936-1-fballuch@redhat.com>
+References: <20260915122639.64936-1-fballuch@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,30 +66,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On RTL8851B with an A2DP sink connected and playing, btc_info shows
-bt->link_info.status.map.connect flipping between Y and N, while the
-scoreboard value stays the same:
+When ethtool -G is used to change ring buffer sizes while the interface is up, i40e_set_ringparam()
+allocates temporary TX and RX rings. If the RX ring allocation fails, the error path at the
+free_tx label incorrectly calls i40e_free_tx_resources(vsi->tx_rings[i]), freeing the live TX rings
+instead of the temporary tx_rings[i].
 
-  reason                connect   action     BT0->WL
-  NTFY_RADIO_STATE      N         WL_OFF     0x40000013
-  UPDATE_BT_INFO        Y         FREERUN    0x40000013
-  UPDATE_BT_INFO        Y         FREERUN    0x40000013
-  NTFY_RADIO_STATE      N         WL_OFF     0x40000013
+Since the interface is still up, the next TX completion interrupt causes i40e_clean_tx_irq() to dereference
+the freed ring descriptors, resulting in a NULL pointer dereference in IRQ context and a kernel panic.
 
-BTC_BSCB_BT_CONNECT, BIT(16), is never set in BT0->WL, while the bt_info
-mailbox reports the device as connected:
+This can be reproduced on systems with Intel X710 NICs under memory pressure, where
+the second port's DMA allocation fails after the first port succeeds.
 
-  [bt_info] : raw_data[49 00 d0 00 04 00]
-              raw_info[2] = 0x49: connect=1, acl_busy=1, a2dp=1
-              raw_info[6] = 0x04: a2dp_active=1
+Fix by freeing the temporary tx_rings[i] in the error path instead of
+the live vsi->tx_rings[i].
 
-The field is written from both paths, _update_bt_info() and the
-scoreboard read in _update_bt_scbd(), so it ends up holding whichever
-event arrived last.
+Signed-off-by: Filip Balluch <fballuch@redhat.com>
+---
+ drivers/net/ethernet/intel/i40e/i40e_ethtool.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Is the scoreboard connect bit expected to be set by BT firmware here, or
-is the mailbox the authoritative source and the scoreboard write
-intentional?
+diff --git a/drivers/net/ethernet/intel/i40e/i40e_ethtool.c b/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
+index 3da9ec49cc74..6d2b076049f7 100644
+--- a/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
++++ b/drivers/net/ethernet/intel/i40e/i40e_ethtool.c
+@@ -2249,7 +2249,7 @@ static int i40e_set_ringparam(struct net_device *netdev,
+ 	if (tx_rings) {
+ 		for (i = 0; i < tx_alloc_queue_pairs; i++) {
+ 			if (i40e_active_tx_ring_index(vsi, i))
+-				i40e_free_tx_resources(vsi->tx_rings[i]);
++				i40e_free_tx_resources(&tx_rings[i]);
+ 		}
+ 		kfree(tx_rings);
+ 		tx_rings = NULL;
+-- 
+2.55.0
 
-WL_FW 0.29.41.3, BT_FW 0xf8ad230(patch), Coex 9.24.1, kernel 7.3.0-rc1.
