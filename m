@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE503DE43B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A035C4A5ED0
 	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485886; cv=none; b=aKacXr8p/osbsYVrXniUT6NlDPOXcOJnFZ7WR8SVI08VqOwq3J4m/T1d6j4CPDxOUzQ4diI3rrgym9BOi4UQFsq9kD8OUoBWmVO+tgT+xIf38V4D5TXaqjHrKPb8WL/6La+cI7mU0rPt4GgCGwbNUyH90XzTckwkCe0MBC+NHkY=
+	t=1789485888; cv=none; b=mBqo843M3k0epCasTIAAMDoPPuvvrMjXNsjpesCLtzViDU9/jMOrGdWMFZucZmlqLrPA2V7Z66MFGP4pqsZxFX7+t35+N9gSvu7KayJiytWzP2erlQ8nQGZP+5jBS4qqodRStK0nwaTmswzf2DwPuneAZ0PI18fiTAhQyyhQjpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789485886; c=relaxed/simple;
-	bh=etGtnSWZgJt0HPDqk/NB+D243/kHXNwRXgeVfRlwx3c=;
+	s=arc-20240116; t=1789485888; c=relaxed/simple;
+	bh=oiWpryU94UrJ+uF/zSlZU6f5uT1S+DU65ym4mT9dP4g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KETSXFcLaFAqD9Zkz97z6DO3S7JIv3qNiSBd5WA/x7++EmzRCPYab4KjAkaUnzfzrjHucF8KsOSBUk4wBwErf9GJSoYCEDklzVYYctn0O27p80hAlbasNLCV064zXVlJCsFV3F2hjYE/ymvbfZE9WveYF2Vsy2BTFttVwQGsB8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WpFtdi1k; arc=none smtp.client-ip=220.197.31.3
+	 MIME-Version; b=NhM8wLiMTtm/Y9PqjnUz6r1RZAAbBtWb6cq+jr/2dirFgJ2pSR+vpHxbP4YCS6Veq185bP+UNopiCBDF2u/OG7DvgdeQ3z0hLeiOVYW8smjoKb7wyccGYcZP9oslASodyNgRigWD5iHidEK407uoWJNmO8Yi4SuZqduaJNjMm2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RRHRd0NT; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WpFtdi1k"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RRHRd0NT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=I+
-	EDjYdUiVp47imiKeO3dfc9fxyKX7XcOzgelislojA=; b=WpFtdi1kkpqGrSKW5z
-	9kmemIcYj4hWSDkCRiqij3OogB3ekvGwvisBCNQ+WrT1Y8qtIVEwdS0zIVq0ZU51
-	II9/hbduMCdb+W96ei/JRzFOSakFa5NJ0TgPAaPP+a5R+FMB4ednD87cpOxWs5Sx
-	SoA++PXVuEWvJrJ4QGfW+XD+E=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Xu
+	5Nis9Fy2g0jTkf2lh9NOxXBZCd0nEic7P0WemrVuw=; b=RRHRd0NTVaD+w5oNbI
+	CUDrJxEGXYIpd3Sdv/4Wy0hWN7eOpoqjW7JO86FAiwKKamvtKuuOv7gGKi8wUiKB
+	Mvo+GhjM7/E3v2Fgmh+v64W/ETTAqPYj4yeMlg/wQ5UMBzOc2SkPCVA/GEhW8cVM
+	/AgKFvoht248hcYg0wBaXQU5o=
 Received: from VM-0-3-ubuntu.. (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wDHvVwYY6lqm28iAw--.18968S5;
-	Tue, 15 Sep 2026 23:24:10 +0800 (CST)
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wDHvVwYY6lqm28iAw--.18968S3;
+	Tue, 15 Sep 2026 23:24:09 +0800 (CST)
 From: Longlong Xia <xialonglong2025@163.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	linux-mm@kvack.org
@@ -33,9 +33,9 @@ Cc: Longlong Xia <xialonglong@kylinos.cn>,
 	Xu Xin <xu.xin@linux.dev>,
 	Chengming Zhou <chengming.zhou@linux.dev>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 14/14] mm/ksm: update merge helper comments for folios
-Date: Tue, 15 Sep 2026 23:23:50 +0800
-Message-ID: <20260915152351.7955-4-xialonglong2025@163.com>
+Subject: [PATCH 12/14] mm/ksm: take the ksm folio in try_to_merge_one_page()
+Date: Tue, 15 Sep 2026 23:23:48 +0800
+Message-ID: <20260915152351.7955-2-xialonglong2025@163.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260915152351.7955-1-xialonglong2025@163.com>
 References: <20260915151236.5200-1-xialonglong2025@163.com>
@@ -47,94 +47,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDHvVwYY6lqm28iAw--.18968S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw1ftw4UAryrur13KF4kWFg_yoWrJr47p3
-	ZF93sIyrZ5JryxWw1xtrW09343Z397tr4UArWDC34fC3Z8tryvgF12v34YvFy5JFW8Ca1Y
-	vr4jqF109a1vy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jHCJPUUUUU=
-X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC+Brj3GqpYxp+IAAA35
+X-CM-TRANSID:_____wDHvVwYY6lqm28iAw--.18968S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXF48AryfZFy5JF48Cw17Jrb_yoW5Cr1UpF
+	Z2kasrCrW7JFWruryxAr4qyr1ak3sxtay0yF13J3y3Aa43t340kFyfKa4rArW3XrWrCa1f
+	tw4UAF1jgay5AwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jzwZcUUUUU=
+X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC+Bnj3GqpYxl+CwAA3S
 
 From: Longlong Xia <xialonglong@kylinos.cn>
 
-Update stale page names and the put_page() reference in the folio
-helpers' comments. Correct stable_tree_search()'s return-value
-description to match its folio and error-pointer results.
+Pass the order-0 KSM or zero-page target as a folio, preserving NULL
+for the initial KSM upgrade. Keep the source as struct page because
+it may be a tail page of a large folio that is split before merging.
+
+No functional change intended.
 
 Assisted-by: Zcode:GLM-5.3
 Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
 
 ---
- mm/ksm.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ mm/ksm.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/mm/ksm.c b/mm/ksm.c
-index 937d1ffea4cc..8deb1abd64c2 100644
+index 4a4347e9ce39..10fcae7132b1 100644
 --- a/mm/ksm.c
 +++ b/mm/ksm.c
-@@ -1707,8 +1707,8 @@ static int try_to_merge_with_ksm_folio(struct ksm_rmap_item *rmap_item,
-  * try_to_merge_two_pages - take two identical pages and prepare them
-  * to be merged into one page.
-  *
-- * This function returns the kpage if we successfully merged two identical
-- * pages into one ksm page, NULL otherwise.
-+ * This function returns the KSM folio if we successfully merged two
-+ * identical pages into one, NULL otherwise.
-  *
-  * Note that this function upgrades page to ksm page: if one of the pages
-  * is already a ksm page, try_to_merge_with_ksm_folio should be used.
-@@ -1797,7 +1797,7 @@ static struct folio *stable_node_dup(struct ksm_stable_node **_stable_node_dup,
- 			found = dup;
- 			found_rmap_hlist_len = found->rmap_hlist_len;
- 			tree_folio = folio;
--			/* skip put_page for found candidate */
-+			/* Skip folio_put() for the selected candidate. */
- 			if (!prune_stale_stable_nodes &&
- 			    is_page_sharing_candidate(found))
- 				break;
-@@ -1870,13 +1870,13 @@ static struct folio *stable_node_dup(struct ksm_stable_node **_stable_node_dup,
- 
+@@ -1556,20 +1556,20 @@ static int replace_page(struct vm_area_struct *vma, struct folio *folio,
  /*
-  * Like for ksm_get_folio, this function can free the *_stable_node and
-- * *_stable_node_dup if the returned tree_page is NULL.
-+ * *_stable_node_dup if the returned folio is NULL.
+  * try_to_merge_one_page - take two pages and merge them into one
+  * @vma: the vma that holds the pte pointing to page
+- * @page: the PageAnon page that we want to replace with kpage
+- * @kpage: the KSM page that we want to map instead of page,
+- *         or NULL the first time when we want to use page as kpage.
++ * @page: the PageAnon page that we want to replace with kfolio
++ * @kfolio: the ksm folio that we want to map instead of page,
++ *          or NULL the first time when we want to use page as ksm page.
   *
-  * It can also free and overwrite *_stable_node with the found
-  * stable_node_dup if the chain is collapsed (in which case
-  * *_stable_node will be equal to *_stable_node_dup like if the chain
-- * never existed). It's up to the caller to verify tree_page is not
-- * NULL before dereferencing *_stable_node or *_stable_node_dup.
-+ * never existed). It's up to the caller to verify the returned folio is
-+ * not NULL before dereferencing *_stable_node or *_stable_node_dup.
-  *
-  * *_stable_node_dup is really a second output parameter of this
-  * function and will be overwritten in all cases, the caller doesn't
-@@ -1917,8 +1917,8 @@ static __always_inline struct folio *chain(struct ksm_stable_node **s_n_d,
-  * This function checks if there is a page inside the stable tree
-  * with identical content to the page that we are scanning right now.
-  *
-- * This function returns the stable tree node of identical content if found,
-- * -EBUSY if the stable node's page is being migrated, NULL otherwise.
-+ * This function returns a referenced folio with identical content if found,
-+ * ERR_PTR(-EBUSY) if the matching folio could not be locked, NULL otherwise.
+  * This function returns 0 if the pages were merged, -EFAULT otherwise.
   */
- static struct folio *stable_tree_search(struct page *page)
+ static int try_to_merge_one_page(struct vm_area_struct *vma,
+-				 struct page *page, struct page *kpage)
++				 struct page *page, struct folio *kfolio)
  {
-@@ -2005,11 +2005,11 @@ static struct folio *stable_tree_search(struct page *page)
- 			}
+ 	struct folio *folio = page_folio(page);
+ 	pte_t orig_pte = __pte(0);
+ 	int err = -EFAULT;
  
+-	if (page == kpage)			/* ksm page forked */
++	if (kfolio && page == &kfolio->page)	/* ksm page forked */
+ 		return 0;
+ 
+ 	if (!folio_test_anon(folio))
+@@ -1597,7 +1597,7 @@ static int try_to_merge_one_page(struct vm_area_struct *vma,
+ 	 * case, we need to lock and check page_count is not raised.
+ 	 */
+ 	if (write_protect_page(vma, folio, &orig_pte) == 0) {
+-		if (!kpage) {
++		if (!kfolio) {
  			/*
--			 * Lock and unlock the stable_node's page (which
--			 * might already have been migrated) so that page
--			 * migration is sure to notice its raised count.
-+			 * Lock and unlock the stable_node's folio (which
-+			 * might already have been migrated) so that
-+			 * folio migration is sure to notice its raised count.
- 			 * It would be more elegant to return stable_node
--			 * than kpage, but that involves more changes.
-+			 * than tree_folio, but that involves more changes.
- 			 */
- 			tree_folio = ksm_get_folio(stable_node_dup,
- 						   KSM_GET_FOLIO_TRYLOCK);
+ 			 * While we hold folio lock, upgrade folio from
+ 			 * anon to a NULL stable_node with the KSM flag set:
+@@ -1612,9 +1612,8 @@ static int try_to_merge_one_page(struct vm_area_struct *vma,
+ 			if (!folio_test_dirty(folio))
+ 				folio_mark_dirty(folio);
+ 			err = 0;
+-		} else if (pages_identical(page, kpage))
+-			err = replace_page(vma, folio, page_folio(kpage),
+-					   orig_pte);
++		} else if (pages_identical(page, &kfolio->page))
++			err = replace_page(vma, folio, kfolio, orig_pte);
+ 	}
+ 
+ out_unlock:
+@@ -1644,7 +1643,8 @@ static int try_to_merge_with_zero_page(struct ksm_rmap_item *rmap_item,
+ 		mmap_read_lock(mm);
+ 		vma = find_mergeable_vma(mm, rmap_item->address);
+ 		if (vma) {
+-			err = try_to_merge_one_page(vma, page, zero_page);
++			err = try_to_merge_one_page(vma, page,
++						     page_folio(zero_page));
+ 			trace_ksm_merge_one_page(page_to_pfn(zero_page),
+ 						 rmap_item, mm, err);
+ 		} else {
+@@ -1678,7 +1678,7 @@ static int try_to_merge_with_ksm_page(struct ksm_rmap_item *rmap_item,
+ 	if (!vma)
+ 		goto out;
+ 
+-	err = try_to_merge_one_page(vma, page, kpage);
++	err = try_to_merge_one_page(vma, page, page_folio(kpage));
+ 	if (err)
+ 		goto out;
+ 
 -- 
 2.43.0
 
