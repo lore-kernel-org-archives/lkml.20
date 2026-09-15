@@ -1,58 +1,58 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBE747FAED;
-	Tue, 15 Sep 2026 08:33:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B72E48A8AC;
+	Tue, 15 Sep 2026 08:33:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461193; cv=none; b=uEznToYN1kgstC/BDIetD89ldYeahtSdIpmuWqZ7DEgPLWr1Qc6Jq7IL214K3Gsxhgm22HZySpMGReSO2TWKZNsieeVbMts/RIpRCJpP459DfwPV7RTN0QxvERKn5b2Qi/H9Qx+j56fDdgld1Ux2w0nU9VUy9qPmjgo8icPnU5U=
+	t=1789461196; cv=none; b=r6NR8dnShpGGiXxh9dmmCeF0AOcCmRuwdtuMJftTPBVPAyjLM1UoRUvf1q1KQBqvXLeV4Icg7iaqQI1GrHmWDdaNkrSFHHPmFAI/zjLW6p+Iz1xgulIuaUaM8p0h0/3wJP3XxbqFofSBmU5d/JfvepqabJ5Wf9S+bTcMK4ALoZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461193; c=relaxed/simple;
-	bh=L6VFKfmee1uTNc8tnf6QAD3qGZFHOm47O9UhCCytAgY=;
+	s=arc-20240116; t=1789461196; c=relaxed/simple;
+	bh=nYRd7yY2iQrxXpFpibHfZxMG2K6deJ630SG9D69fwSc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eQsKVIGTE6m/d/G5p0d5vhSMgSsMmWescfex2eY+vn47LvuBqMlOW9H4i3lmOSfBAOXgNKsGJVtYI2SDlZCg/YZP6DHmoGA6TpcnfffmYCCDlXh8psknPosg70J83bz85cT4zlNoxSUuaR8cucvYHp3weshqjkfAnXMKNG4VzTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=ljRKywPu; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=ljRKywPu; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=l3m4E2vYCutEWCY2W/dpZGCQoDv0eGf7pU8Z1xdM8zH6MrnrHtA//o3+gzlHJsUnFhCEdR7En8YD7Y4oBlzVCmWp/lbgu457UNLCz2H7zU/xkantmWh5lfSz17t36wwCPSMvLS5HFn4n4yF+Ztaa/4H2/cldhyUTaN70PG6SHBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=eTkyyT4V; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=eTkyyT4V; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="ljRKywPu";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="ljRKywPu"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="eTkyyT4V";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="eTkyyT4V"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461189; bh=L6VFKfmee1uTNc8tnf6QAD3qGZFHOm47O9UhCCytAgY=;
+	t=1789461192; bh=nYRd7yY2iQrxXpFpibHfZxMG2K6deJ630SG9D69fwSc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ljRKywPu1VFtBKR4dK9EbkSL790mVFb1SVmtVEqszCkUknOjXqxJfloWrAXnwJx2w
-	 s82RnSfD98B7s3jzhZihDphUfQ2kwBh3CRX9iFd7nXaneSQZqzShlXbbvW1VuvSoxq
-	 kC2ZDpeU8QPMZtKJohHah+SgqBg+0yXwrzJRZ782aT1xg/ioI7ANf75OxNjyer34/B
-	 xC0EeNNf/+bYOEkyRueoUWNW7qEQjUfRa1/N/gDNnokgVNuh84hUiDOdVENu80d4ge
-	 OKaErldUtBZ7xf8ujKwItUbP6CRmfRIXSsEeCrbcZ/U4IJXbbrJAcSR7/Gd7TtuYXC
-	 e5TuUjJ8XD1/Q==
+	b=eTkyyT4Vz1HC0Rd0RYGsQmkLBD3ykr3jUN8GtX/vDz8d4QCLrkO3s+JhYtwtM0hAg
+	 6zH17hB6LAiRJaaXzkZXFtHbcHtJ/31d88IiKWwJsdbyYSoYmBFZhJ4cyGS83hUNmJ
+	 puWLev8RqDWM6k7YCyRXuCoFo3NT8sMcs6ES1BRHoVbUuollVF003TLOEphGguMSZf
+	 nBLuuR6ehr/ORtWKxDyweFR0jWlhs5ENQftxvoG6LC0bEucUhrmUm7qaDohZeurv7J
+	 J4Ov/xxt3ytTPym0Pet/DTmmWc6gWEPgBuTST8tgS9asOqM79LXRh0n8jFBp0BDA73
+	 rHyzArjwSZcpA==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id C6DFE40BA8; Tue, 15 Sep 2026 09:33:09 +0100 (BST)
+	id C4A1A40BA6; Tue, 15 Sep 2026 09:33:12 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461189; bh=L6VFKfmee1uTNc8tnf6QAD3qGZFHOm47O9UhCCytAgY=;
+	t=1789461192; bh=nYRd7yY2iQrxXpFpibHfZxMG2K6deJ630SG9D69fwSc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ljRKywPu1VFtBKR4dK9EbkSL790mVFb1SVmtVEqszCkUknOjXqxJfloWrAXnwJx2w
-	 s82RnSfD98B7s3jzhZihDphUfQ2kwBh3CRX9iFd7nXaneSQZqzShlXbbvW1VuvSoxq
-	 kC2ZDpeU8QPMZtKJohHah+SgqBg+0yXwrzJRZ782aT1xg/ioI7ANf75OxNjyer34/B
-	 xC0EeNNf/+bYOEkyRueoUWNW7qEQjUfRa1/N/gDNnokgVNuh84hUiDOdVENu80d4ge
-	 OKaErldUtBZ7xf8ujKwItUbP6CRmfRIXSsEeCrbcZ/U4IJXbbrJAcSR7/Gd7TtuYXC
-	 e5TuUjJ8XD1/Q==
+	b=eTkyyT4Vz1HC0Rd0RYGsQmkLBD3ykr3jUN8GtX/vDz8d4QCLrkO3s+JhYtwtM0hAg
+	 6zH17hB6LAiRJaaXzkZXFtHbcHtJ/31d88IiKWwJsdbyYSoYmBFZhJ4cyGS83hUNmJ
+	 puWLev8RqDWM6k7YCyRXuCoFo3NT8sMcs6ES1BRHoVbUuollVF003TLOEphGguMSZf
+	 nBLuuR6ehr/ORtWKxDyweFR0jWlhs5ENQftxvoG6LC0bEucUhrmUm7qaDohZeurv7J
+	 J4Ov/xxt3ytTPym0Pet/DTmmWc6gWEPgBuTST8tgS9asOqM79LXRh0n8jFBp0BDA73
+	 rHyzArjwSZcpA==
 Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id EE0ED40B71;
-	Tue, 15 Sep 2026 09:33:08 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 45BEC40B71;
+	Tue, 15 Sep 2026 09:33:12 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Rik van Riel <riel@surriel.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 09/20] media: rc: Use binary search for adding or updating a scancode
-Date: Tue, 15 Sep 2026 09:32:19 +0100
-Message-ID: <042abeb49891d9d6be5035559c656da18eb22fc9.1789460680.git.sean@mess.org>
+Subject: [PATCH v5 11/20] media: ir_toy: Remove unused struct field
+Date: Tue, 15 Sep 2026 09:32:21 +0100
+Message-ID: <6777105f1412441517c30126fc580e41e31179f6.1789460680.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1789460680.git.sean@mess.org>
 References: <cover.1789460680.git.sean@mess.org>
@@ -64,60 +64,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-We can have up to 1024 scancodes entries which are always sorted, so make
-this a little faster.
-
-We need to either get an scancode entry, or find the insertion point
-in the sorted array if no existing entry was found. The bsearch() function
-cannot do this as it runs NULL is no matching entry is found. Therefore,
-we provide an open coded binary search.
+Never assigned or read.
 
 Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/rc-main.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ drivers/media/rc/ir_toy.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index 37ba19164875..ed746255b0a2 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -391,7 +391,7 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
- 					  struct rc_map *rc_map,
- 					  u64 scancode, bool resize)
- {
--	unsigned int i;
-+	unsigned int i, lo, hi;
+diff --git a/drivers/media/rc/ir_toy.c b/drivers/media/rc/ir_toy.c
+index ee645882dd5a..286c8543aa5a 100644
+--- a/drivers/media/rc/ir_toy.c
++++ b/drivers/media/rc/ir_toy.c
+@@ -55,7 +55,6 @@ enum state {
  
- 	lockdep_assert_held(&rc_map->lock);
+ struct irtoy {
+ 	struct device *dev;
+-	struct usb_device *usbdev;
  
-@@ -406,15 +406,21 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
- 	if (dev->scancode_mask)
- 		scancode &= dev->scancode_mask;
+ 	struct rc_dev *rc;
+ 	struct urb *urb_in, *urb_out;
+@@ -441,7 +440,6 @@ static int irtoy_probe(struct usb_interface *intf,
+ 			  irtoy_out_callback, irtoy);
  
--	/* First check if we already have a mapping for this ir command */
--	for (i = 0; i < rc_map->len; i++) {
-+	/*
-+	 * Binary search for an existing mapping for this ir command.
-+	 */
-+	lo = 0;
-+	hi = rc_map->len;
-+	while (lo < hi) {
-+		i = lo + (hi - lo) / 2;
- 		if (rc_map->scan[i].scancode == scancode)
- 			return i;
--
--		/* Keytable is sorted from lowest to highest scancode */
--		if (rc_map->scan[i].scancode >= scancode)
--			break;
-+		if (rc_map->scan[i].scancode < scancode)
-+			lo = i + 1;
-+		else
-+			hi = i;
- 	}
-+	i = lo;
- 
- 	/* No previous mapping found, we might need to grow the table */
- 	if (rc_map->size == rc_map->len) {
+ 	irtoy->dev = &intf->dev;
+-	irtoy->usbdev = usbdev;
+ 	irtoy->rc = rc;
+ 	irtoy->urb_out = urb;
+ 	irtoy->pulse = true;
 -- 
 2.55.0
 
