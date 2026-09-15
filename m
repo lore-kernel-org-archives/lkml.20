@@ -1,171 +1,244 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE18343F8AC
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:20:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789496408; cv=none; b=CEIev3KKbH8O5oQmWtffS9vMzH4iIxb68tfFhKxNh44BaZ/KpIiJnyIm57STP2jjxVZkfeqoeaCT3RgCLIdsMTZ8IF/xOhTAQamIvuYB0sgyUeHgqUDxFIXrpXtog1ifRg+y8nwyzV6jdR6JjhEBin7Wfcxn2PnoUpUB6q0rvDQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789496408; c=relaxed/simple;
-	bh=hJ+lJ4a5Pk65jOblaW+yIROjEZLfIVMIfsKfvzrFVxw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bhPMfgxo6tAh8PL9ircBPDfqQw/7xjD4Lst4BmL5i/bpffI2s1mm7nehTZumOVzwsiQL+sPQbwCNPxqmLnotKlfEdqMMN+FyOOBB1fP904V0Ey0kEGgccGY+ZaJ/Tl+SeKu9IDurpmnYpVtRa21NyWInRMqEB3/ScTzKT5JfcLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q4F918J5; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15784428498
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:20:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789496433; cv=pass; b=FJfHrwOGS1kXCqcKMfVTAhtRx8lZVgUUai8AR/ZhiECS9pNkrq8HdHPG8FnvJwDcmwEM1bp0zCqoIC1NOfSrHO66K0KCIBUhjMn9RG8UmrVxCC0rRDIRjeHuF9b3sc7ZKM6Lnp650EGbXn0snftsxI06ONNWDniL/pWZUX08xAE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789496433; c=relaxed/simple;
+	bh=Q6bCmmxNwha2xCAbpsn/FcAb1BFAxRBVX4B/Cpbli1g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b+ALwxPTxKiSoKlmEa8PubEWIKUS1pVLArXye06aHyRx5B+/MdGUyCbQyFQFq4/Qd79LwW+sUN9OPIoY+5qyt3a282o09S8t90K6MATXxLBBCMaBZzX4zsOfokMQv7M6hIzNBcT3e5wZnhiHV6LGnE/V+IGYQ/KhdBZ6MHv/SoE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fvo7yOzz; arc=pass smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q4F918J5"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cfbdac7a1so81475e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:20:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fvo7yOzz"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ef15c1so23475966b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:20:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789496428; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z/JayRUwy9HXD92E6iJJrw2SS1oXs3fTnoBW/XbM+GjAGuLCNXr6ADVy+Pjd0ar0zo
+         R1sdm4GideO8BvwHyZ6Xij8E6u8bjgE4hJpcbv1FRqpuUWmyRVg1rG+99nLSKCkpQc8h
+         5my0OQ76W4QIknKW+hOjsVqtQrsBUZJGtgKUDd4lqVIFpwJlSipVZkIObE004mR6pmjU
+         Q9RuMYjzilLxD2GSEoYX6soU+cE7pcn15ELXMBbcLTyxJvicjN4UKMc2PRa+iyikPvrB
+         Uby1H+wKYCvpbFdhhKVYIC5Iv5FzruAKYz2t8c7e3mZ3DgD5Ompi9RCzakEHlZXoTRtL
+         gjJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pXLChR3Cua/hV/+FH65ITHAtn+7ekjTkhk2MiyXe18I=;
+        fh=D/V1UGTUZmzUhkXQC193q7l+mA9c6yeRy2CkCc49ndQ=;
+        b=ERGdLrDLQYGia15uV4yV1ggQQGCIKdIb5iaNCybREYO9wXK3X2pO7YjWXGQXFJil7I
+         Ps2razzAgv5DiUS4DFbLOqZWY5BPUve2ZZduKQRelt89vNLOR+L1hP5ZIBeEQ8ThpRWC
+         oruv4kKT5aATFylXcSm9mwwqinamYNFxu3cmJBpEWteG8/tikhBhYeHdszNQVEr7wTW4
+         J3HpURGUid0WYcIfsPUKAd4ZsiQ6hGOZ35eQNMt1aRjTsOpWO2hi30k3kvK7ybjk381V
+         sCiKMhobsvtPd30Y/PqcJLT6NCqITY2xzgk2CxVxXES50wvQtcfUeomq5fO1jgSlP8kV
+         XrTg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789496404; x=1790101204; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1/Ag4fL+aG7J8cjybeZI8wOuE3igVH0Ar05BUJWG3UQ=;
-        b=Q4F918J5TW2zueIH5eBHk8aVnqJYYhclk6lFlFaBaJLjAN+qiElus3FybinVomEky7
-         Q0tr7dKpk5NbvUT7rrmWddPR1faO7mZigRHqtIvreW9GeiikkBwp/nVDNx4AjaIjI9DI
-         /enAyOAYRA2G1XsNHeXSxbTfD6FrR5kZE8kKeQseAqSX5JPsv1KOuf3SCDb1PgyJsHjy
-         qBrgzLayMfcdSeNf6kvqcVDynNJ8u/0Zku9T+nk/gARu0VsIC4BB1SS3Cw6vL1w4Wtz7
-         xbdlBKUTz+qucAVktF8MsvPeKvmBbRBWX863mWh0XiqqxtZpKchclmn4XwM/B7/2ohzs
-         FpkQ==
+        d=gmail.com; s=20251104; t=1789496428; x=1790101228; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pXLChR3Cua/hV/+FH65ITHAtn+7ekjTkhk2MiyXe18I=;
+        b=Fvo7yOzzjfi111EuSW2meRmUaIov22B8heaBaVlO1gzaajC/RsCeSJRvai34FlKEvm
+         +jHGNMY77Z5+98F8CgjIFaky+Jj1I06l8uul36/D0dO3W18oHikd4Bdmn20Xfgovb2xb
+         TFVcm8N/3GiECiDmSwKV4qdYammM5qiAe/FIH9YII+ixQDZO6CDv0BlzgfNwq4h4XkUv
+         mYmhzu8iwhqkIwhcA/DOiPEk5l8pSZ8idUnZK0egZw0PSBKsu9VzcBJvmoXHeDDsR+9E
+         11NTzp6FmiTcnTeNljfMeZb6Zhc/UKMD40A7FM0iBgkvda+ilKOVFFuJnB2HrFRD//5n
+         Y+2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789496404; x=1790101204;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1/Ag4fL+aG7J8cjybeZI8wOuE3igVH0Ar05BUJWG3UQ=;
-        b=XJ8q5hrNuzNUPMwslWo4O89kgtTFt1mYAzvSYDZfZsxqzz4OXffbuyQqn6lQguFip2
-         VvY7+JTFTp4WAQ9jrCQEZ45+ABJmGZ5vofLWNFDOR601N/c11MR6HYqmwjTwaw8SGAjv
-         eL8frOOgvEBBIV7Iz3lx7ytiLtbUZOksq8/+asvJtDOkgn0PDB3oVA2Yx8C7jI5XXAsa
-         7Hv5AkKbu3Mi6JSQ/a8LfKoGCZxq/t7VCgMJ/v27Wb2ZGcJTvMl73LXWIgf6XGFRWrnq
-         iYXwWPz0sW4dhsJJ3DxPtPXKJae8JaGVPxNOXWkOXgBMEs/sbVuzhSrUA8PUFH3Ke/Hw
-         Imdw==
-X-Forwarded-Encrypted: i=1; AKwUvBySA8c7RaUDrHuq8/3P0OF21AJZMegz/5h+kAVnjnknQVrN/qwzwcg/tsfneUB/jtNdMUFE+BZ/kUcLf2s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLDrYL1Yiz7cyzvWptZWG7y/zn+ajbZL3MGCdJmeFGCoQaJSiR
-	kNake1NvZItHqIEhNGYEPM611gFjluTLASWMT2ahBUS2q2e07GMDgtgM
-X-Gm-Gg: AYBFou3m/XzBvW6dM4Mb9nF87O37Vai8d/34p6Vu0mGePxqf1tD0kf9Lg38r4DV+G7a
-	6l7HZ0gzg4m7k+QtzF1YHoIMw8HiYczl08Gf5XKnZ390Mdp+0YJdydmRe3hhGLiD20Qg0pj7Ytx
-	dg6/X2bABcuiCHBH0ABvgdkZseciHhuviguV/0lgjeFy13x5laqjC0OZnf2VDjlXYuPNTKjli+S
-	mros+WS69CxubosTM4xckIBKNejNCpbrQ4BVehfSqLgD4VkI4JsCFcLblvS5a5lbdmonTlo4rxX
-	NV6Sg3mYko7gWYRwxaxPumVCUZY2tq9LGfDxBnBZIy/atbOHld0PbsA/2YWLCveEc+0VYTnNkpk
-	dlTh6wc/7YSwbF9Djs0D2OiCdH2MXtfG3JtEMCJLRjjKLybWWmOhMCmTv1K3ufDXAOvpFR0hFo8
-	p8zNDh9Gq6/2u19PKfJ4hz2uPVokTPSHybB/wT3GLHBzUjn71+/K3/RsxL+uCyv3MjjJIAnxZnW
-	MyFQMuICbD31Bn5TY8i6ytBMvke+rgP
-X-Received: by 2002:a05:600c:3ba4:b0:49e:6806:5712 with SMTP id 5b1f17b1804b1-49e7a66d0f5mr118537725e9.2.1789496404252;
-        Tue, 15 Sep 2026 11:20:04 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83f43ed9sm5981075e9.0.2026.09.15.11.20.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 11:20:02 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: jackzxcui1989@163.com
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kayracizmeci@gmail.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [RFC PATCH RESEND 05/10] sched/fair: Introduce select_task_rq_fair_thin() to select rq when LB_PROMOTE
-Date: Tue, 15 Sep 2026 21:19:59 +0300
-Message-ID: <20260915181959.19936-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910145658.2003786-1-jackzxcui1989@163.com>
-References: <20260910145658.2003786-1-jackzxcui1989@163.com>
+        d=1e100.net; s=20260707; t=1789496428; x=1790101228;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pXLChR3Cua/hV/+FH65ITHAtn+7ekjTkhk2MiyXe18I=;
+        b=nFQV8M+A/bY/h4fIvkVvBy8+fsTuVTI/Ct5nLLnFlnHzdcVpDiGwuRD4rzjWEQpldh
+         7pX4v2hBersrrrzTVVZaczC8xpO4zguPeqShu5jx0dxelqWFzzabPBKpSZYurJLanGHE
+         TyFleWMxiDnEv/ZB5H/vME0aOoT8zvLE/d/GWoxqjamD+s6mCbBbGJNb6OuFOeUk9jf4
+         VYJ7N1lwNUXfm8mhPdaDuLdVLp59jiN0p6MuvGxM09UNw+ujQyrmt+sJLEDPjejdCSko
+         d63FUKA2hZAh9xJKjFdVC7aWvGgak+G3WuelvOu08S30WAYJ6VhOEDY1j84mQRPTVek8
+         l77g==
+X-Forwarded-Encrypted: i=1; AKwUvBx5eeBoIRtQlbIMEkjbd2Nd3QygONGKK3xsLWz1PxDZxrYalEDmP5lC7QqN4N4moIVAbPGUUnwjgQAiNuw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6xRNH+1uQedCMrgldGBH/7uMRDzik8OwF92I23n7tHq0No6ee
+	xVR2N2J/L1Fwn1GkFSN6dbSfRAHV5GWJdAnXBMKCLfjUF0YOgTlDyv65RpJuf3BkI0ktfJWv6Ee
+	oGwbT7NnKhC2b3KuZPdMIeqsmXjTT5Oo=
+X-Gm-Gg: AYBFou3nrBZbu7GWON3n5l2/1C6mbA4fcOcgwP8mT1wkyV3uMvY8E/gQC1kKM4kk1dy
+	nVBYmqYPSJhx8ysa9S9dkju8YsJboOldjPAQ3OPhrTK+1hSGpXPvpGRDjhIU75X4r8/lgCR8bxh
+	WgYIS7C3d1iWNrNrXeICKvXoc03a79TXc1PkiX15+jcTYWG1NtDGXzVcDHM6jSs0tYm2IyWCQAl
+	W8I5LqLlITQAw2c0lsfNA6NPcnq1r9gKn+Fv7q9PdU2YDiOhjERNJOz/GlVOVlJ85okGU5+UEQV
+	2b3RfmKSCM7jSTcCiwmKNa9+KNv8biHfP9HkXS8giz3hlwz5ZxWv+7ld//IGGSqNzOdnoN8Ujsv
+	I3HgQTTJY0FIiAPLFUTiI5Z0DGZ8oDO7Y+UPM7ZIbXweXaVebCnTQQLLhsNEajPb6R1cds5KlQE
+	abS7xR4QvzbjStA/KU7eXuGX7RFpj4bowjHYvCDrTatpi+54kwk5cuegU226eEPOvIrCg=
+X-Received: by 2002:a17:907:c08c:b0:c25:91bc:ff55 with SMTP id
+ a640c23a62f3a-c29d78fe104mr158403866b.23.1789496427760; Tue, 15 Sep 2026
+ 11:20:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260915180401.7809-1-rosenp@gmail.com>
+In-Reply-To: <20260915180401.7809-1-rosenp@gmail.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Tue, 15 Sep 2026 11:20:16 -0700
+X-Gm-Features: AcwNN1XY15gfxhnZUjtT9upTFPFoC0v82P4B2b-BJxQ86TC0qzSFbhj-ZOfq44k
+Message-ID: <CAKxU2N_dF-CPSJ_pFDce+KHVMVi02r8nCfs31FKRzn34_K=i6w@mail.gmail.com>
+Subject: Re: [PATCH] mmc: sdhci-pxav3: use managed clock enablement
+To: linux-mmc@vger.kernel.org
+Cc: Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello Xin,
-
-> > > Testing has shown that in our system with 18 CPUs running at 2.1GHz, where
-> > > the first three sd_llc domains each contains 4 CPUs and the last sd_llc
-> > > contains 2 CPUs, under same fillback scenario, select_task_rq_fair_thin()
-> > > executes 25% faster than the original select_task_rq_fair(). It saves 22ms
-> > > over a 10-second period, with this optimization accounting for 0.174% of
-> > > total system time. Additionally, we measured the execution time of
-> > > update_idle_cpu_scan, which took 0.5ms over the same 10-second period. If
-> > > we use select_task_rq_fair_thin() instead, this time can be eliminated,
-> > > accounting for 0.04% of total system time. Therefore, the overall
-> > > optimization contributes to a reduction of 0.214% of total system time.
-> > 
-> > Okay. Can you specify which tests you ran or what you used? If you can?
-
-> I used a relatively crude and straightforward method, which involves
-> subtracting the time at the beginning and end of the select_task_rq_fair()
-> function and then accumulating the per-CPU time. I retrieve this accumulated
-> value a kernel module (ko). The detailed script is as follows:
-
-> Below is the test script for comparing the effect of select_task_rq_fair()
-> with and without the patch:
-
-> #!/bin/bash
-
-> insmod testselecttask. patch=0 on=1
-> sleep 10
-> insmod testselecttask.ko patch=0 on=0
-> cat testselecttask_patch_0.txt
-
-> sleep 1
-> insmod testselecttask.ko patch=1 on=1sleep 10
-> insmod testselecttask.ko patch=1 on=0
-> cat testselecttask_patch_1.txt
-
-> Test results:
-
-> root@hobot:/map/zhaoxin# ./smalltest.sh
-> ins: ERROR: could not insert module testselecttask.ko: Invalid parameters
-> insmod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-> zhaoxin: enable[0] count[179226] timens[09325] avg[460]
-> insmod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-> insmod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-> zhaoxin: enable[1 count[180836] timens[59444800] avg[328]
-
-> From the test results, combined with the following information:
-
-> Currently, the machine's overall sys time is about 7%, multiplied by 18
-> cores, which results approximately 126% for a multi-core CPU. The test
-> duration is 10 seconds, and within that time, 22 ms is saved, which
-> translates to 2.2 ms per second, equating to 0.0022 for multi, or 0.22%.
-> The time taken by this function is generally linked to the total sys time,
-> and the optimized portion accounts for about 0.174% of the total sys time.
-
-> Below are the test results for the execution time ofupdate_idle_cpu_scan`:
-
-> root@hobot:/map/zhaoxin# ./smalltest.sh
-> insmod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-> insmod: ERROR: could not insert moduleselecttask.ko: Invalid parameters
-> zhaoxin: enable[0] count[179226] timens[82509325] avg[460]
-> insmod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-> mod: ERROR: could not insert module testselecttask.ko: Invalid parameters
-> zhaoxin: enable[1] count[180836] timens[59444800] avg[328]
-
-> From the test results, combined with following information:
-
-> Currently, the machine's overall sys time is about 7%, multiplied by 18
-> cores, which results in approximately 126% for a multi-core CPU. The test
-> duration is 10 seconds, and within that time, 22 is saved, which translates
-> to 2.2 ms per second, equating to 0.0022 for multi-core, or 0.22%. The time
-> taken by this function is generally linked to the total sys time, and the
-> optimized accounts for about 0.174% of the total sys time.
-
-Are you trying to measure the time that it takes to take to reach end of the function?
-
-I'm really not understanding anything from here. There are multiple errors. 
-Can you give more details?
-
-It would be better if you could use ftrace or something like that instead a custom test.
-
-
-
+On Tue, Sep 15, 2026 at 11:04=E2=80=AFAM Rosen Penev <rosenp@gmail.com> wro=
+te:
+>
+> Replace devm_clk_get() plus clk_prepare_enable() with the managed
+> variants devm_clk_get_enabled() and devm_clk_get_optional_enabled().
+> The core clock becomes optional, which removes the IS_ERR() guards
+> in runtime suspend/resume and lets devms unwind the clocks, so the
+> manual clk_disable_unprepare() calls in the probe error paths and
+> remove are dropped.
+>
+> clk_prepare_enable() and friends are NULL safe, so no need to check if
+> the optional clock is present.
+>
+> Also handle failures of clk_prepare_enable() in runtime resume instead
+> of ignoring them: a failed enable would leave controller register
+> accesses hitting unclocked hardware. Bail out before resuming the host
+> and unwind clk_io when enabling clk_core fails. This also drops the
+> now unused pltfm_host variable from remove().
+>
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+ugh this should have been a v2. I'll send a v3 tomorrow.
+> ---
+>  drivers/mmc/host/sdhci-pxav3.c | 42 +++++++++++++++-------------------
+>  1 file changed, 19 insertions(+), 23 deletions(-)
+>
+> diff --git a/drivers/mmc/host/sdhci-pxav3.c b/drivers/mmc/host/sdhci-pxav=
+3.c
+> index f39764ffd4a0..c2ad801dc9a8 100644
+> --- a/drivers/mmc/host/sdhci-pxav3.c
+> +++ b/drivers/mmc/host/sdhci-pxav3.c
+> @@ -413,19 +413,18 @@ static int sdhci_pxav3_probe(struct platform_device=
+ *pdev)
+>         pltfm_host =3D sdhci_priv(host);
+>         pxa =3D sdhci_pltfm_priv(pltfm_host);
+>
+> -       pxa->clk_io =3D devm_clk_get(dev, "io");
+> +       pxa->clk_io =3D devm_clk_get_enabled(dev, "io");
+>         if (IS_ERR(pxa->clk_io))
+> -               pxa->clk_io =3D devm_clk_get(dev, NULL);
+> +               pxa->clk_io =3D devm_clk_get_enabled(dev, NULL);
+>         if (IS_ERR(pxa->clk_io)) {
+>                 dev_err(dev, "failed to get io clock\n");
+>                 return PTR_ERR(pxa->clk_io);
+>         }
+>         pltfm_host->clk =3D pxa->clk_io;
+> -       clk_prepare_enable(pxa->clk_io);
+>
+> -       pxa->clk_core =3D devm_clk_get(dev, "core");
+> -       if (!IS_ERR(pxa->clk_core))
+> -               clk_prepare_enable(pxa->clk_core);
+> +       pxa->clk_core =3D devm_clk_get_optional_enabled(dev, "core");
+> +       if (IS_ERR(pxa->clk_core))
+> +               return PTR_ERR(pxa->clk_core);
+>
+>         host->mmc->caps |=3D MMC_CAP_NEED_RSP_BUSY;
+>         /* enable 1/8V DDR capable */
+> @@ -434,17 +433,17 @@ static int sdhci_pxav3_probe(struct platform_device=
+ *pdev)
+>         if (device_is_compatible(dev, "marvell,armada-380-sdhci")) {
+>                 ret =3D armada_38x_quirks(pdev, host);
+>                 if (ret < 0)
+> -                       goto err_mbus_win;
+> +                       return ret;
+>                 ret =3D mv_conf_mbus_windows(pdev, mv_mbus_dram_info());
+>                 if (ret < 0)
+> -                       goto err_mbus_win;
+> +                       return ret;
+>         }
+>
+>         match =3D of_match_device(of_match_ptr(sdhci_pxav3_of_match), &pd=
+ev->dev);
+>         if (match) {
+>                 ret =3D mmc_of_parse(host->mmc);
+>                 if (ret)
+> -                       goto err_of_parse;
+> +                       return ret;
+>                 sdhci_get_of_property(pdev);
+>                 pdata =3D pxav3_get_mmc_pdata(dev);
+>                 pdev->dev.platform_data =3D pdata;
+> @@ -499,27 +498,18 @@ static int sdhci_pxav3_probe(struct platform_device=
+ *pdev)
+>  err_add_host:
+>         pm_runtime_disable(&pdev->dev);
+>         pm_runtime_put_noidle(&pdev->dev);
+> -err_of_parse:
+> -err_mbus_win:
+> -       clk_disable_unprepare(pxa->clk_io);
+> -       clk_disable_unprepare(pxa->clk_core);
+>         return ret;
+>  }
+>
+>  static void sdhci_pxav3_remove(struct platform_device *pdev)
+>  {
+>         struct sdhci_host *host =3D platform_get_drvdata(pdev);
+> -       struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
+> -       struct sdhci_pxa *pxa =3D sdhci_pltfm_priv(pltfm_host);
+>
+>         pm_runtime_get_sync(&pdev->dev);
+>         pm_runtime_disable(&pdev->dev);
+>         pm_runtime_put_noidle(&pdev->dev);
+>
+>         sdhci_remove_host(host, 1);
+> -
+> -       clk_disable_unprepare(pxa->clk_io);
+> -       clk_disable_unprepare(pxa->clk_core);
+>  }
+>
+>  static int sdhci_pxav3_suspend(struct device *dev)
+> @@ -560,8 +550,7 @@ static int sdhci_pxav3_runtime_suspend(struct device =
+*dev)
+>                 mmc_retune_needed(host->mmc);
+>
+>         clk_disable_unprepare(pxa->clk_io);
+> -       if (!IS_ERR(pxa->clk_core))
+> -               clk_disable_unprepare(pxa->clk_core);
+> +       clk_disable_unprepare(pxa->clk_core);
+>
+>         return 0;
+>  }
+> @@ -571,10 +560,17 @@ static int sdhci_pxav3_runtime_resume(struct device=
+ *dev)
+>         struct sdhci_host *host =3D dev_get_drvdata(dev);
+>         struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
+>         struct sdhci_pxa *pxa =3D sdhci_pltfm_priv(pltfm_host);
+> +       int ret;
+>
+> -       clk_prepare_enable(pxa->clk_io);
+> -       if (!IS_ERR(pxa->clk_core))
+> -               clk_prepare_enable(pxa->clk_core);
+> +       ret =3D clk_prepare_enable(pxa->clk_io);
+> +       if (ret)
+> +               return ret;
+> +
+> +       ret =3D clk_prepare_enable(pxa->clk_core);
+> +       if (ret) {
+> +               clk_disable_unprepare(pxa->clk_io);
+> +               return ret;
+> +       }
+>
+>         sdhci_runtime_resume_host(host, 0);
+>         return 0;
+> --
+> 2.55.0
+>
