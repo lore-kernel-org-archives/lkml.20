@@ -1,292 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED2D35AC13;
-	Tue, 15 Sep 2026 14:06:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D6D35A93C;
+	Tue, 15 Sep 2026 14:07:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481194; cv=none; b=KZmelO7r9d60bqDdAhqpMOvT1nWby5L4FY8qy3y3O4NzG3G+fykgcPMX7mnszP6YaYImIf/L1vLj+sLHxkfvEhQOcBVeVKdWF6n2AcxLxP1x/sYnMAs602q+n4yIAtJ1KyXciQBuuyOMs9289e5MXFKjZXp0VckUBcP1ikDpDLc=
+	t=1789481230; cv=none; b=IwsS1mCHPS86dbrhX2VSSORXUfVQrJfpSvWT+5lsuSY9xwdy5vAcN1TL69fr1ydJpQe8a/70AMKWcd1a1508QhXiWaDQyQUpsbmV+40VMMxlxkWDt87mKHEnx1MxwZ6ky/bsM/tM7xDHaWbJNzehePZ4OYNUBv0kfQeqUXs6T/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481194; c=relaxed/simple;
-	bh=Ydvqmi7oGtXorKICVb6rxVCDdI63+NfGhRObRmmQEn8=;
+	s=arc-20240116; t=1789481230; c=relaxed/simple;
+	bh=I40wY3GFOz1DkySg9G045B+2Ds/eVZ5D5aNVa2uapnM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OXESX9wKLSiqQM3AQUcWFJmsWjmDj7Lql/WtNKcMYUgXTtlWueoL6SHW2bQPjp2TmP3BBL+XRCGtno3HDthQhN/p218CtKsQ8x1PFvJyhLM8sOmn9finj1PFjaA8goh95ebll584CwSV6+PAFrGApy6/ZxX2pGjTrEk8v+5ubyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afNAdbEZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ThQidw8+RIkDq8/B5XHRgM9d0v+zu8gKSUmu12VGO0VOz5AcCggVELRS3Yj9ldkY/EiFzHtI0mRoWbMsGhB5FGeJtJ5HcUwf+/6/UYwgMzooP6XotS8CjMh0FgnqKoKR/A0wMYw3hTKguFGC6946VkFpCOOqoFu80kFY6VJom8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFbPpyUd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afNAdbEZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 754EC1F000FF;
-	Tue, 15 Sep 2026 14:06:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFbPpyUd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57941F000FF;
+	Tue, 15 Sep 2026 14:07:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789481192;
-	bh=vDrgeCfksilqmV+oRZGdr+ouCSw9J7x6MWCnT6kEu4Y=;
+	s=k20260515; t=1789481229;
+	bh=kUIpQJBe/rvVMC0HTZygXoU+NTwMte1oixn3by3XUZU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=afNAdbEZyXIqyX2NcvX9f52Rb1Iq1odZMGLzNamM1ZB/EtWjzfFSnaXhjvDs0q5io
-	 bUZduPHz1gtZkxEblhNXBo9YXOqbz8DgzWt0b2XM4oLM65sadWnSzN1GUxqqeTuBAw
-	 XQQy6JjY5kl/Qgs/fGfo7eQZ0iolI5ySmWv7xAbPlOskIwZz275EjG0Qz/9f3MOb1M
-	 NuwMv952Q8g6tzst2Ncu/okeUcrsy0oej4XQOfRDDV0V1FZGJ898aYjufMf/NJ8UoQ
-	 DxcjJlK7cdTEHgcDpvkHc1mX5L49KvpIPrhhHTixrbMti6UbnFQIZjFs/hy/0dyzkJ
-	 M8ae1igGwJLUg==
-Date: Tue, 15 Sep 2026 15:06:27 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux@analog.com, jic23@kernel.org, nuno.sa@analog.com,
-	dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
-Subject: Re: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI
- connection mode
-Message-ID: <20260915-barbell-divided-6dcb0c59af9a@spud>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
- <20260903-liquefy-prologue-9ec914cccf04@spud>
- <apsufKf-EOvTfpwf@debian-BULLSEYE-live-builder-AMD64>
- <aptA9HP82-ss45JF@debian-BULLSEYE-live-builder-AMD64>
- <20260907-spectator-venomous-7528abe370d8@spud>
- <aqMs2CbWbhzCoDOB@debian-BULLSEYE-live-builder-AMD64>
+	b=lFbPpyUdcQhmGTF0C6P0i5iY5PeU+ELUljyxDW14y0XQGql121J6r4k9Y5Jd20elU
+	 J1Eg7aUyMKeh/m1Qw0V1OFLmDmiOWTJBP954cVF7bYZzrRaROf9TaY+wfwOS6fLMjt
+	 o+VzobJfm4TYmQpOQuilz5SzjwpAnqtESvpBgAoLalDPjDAIKw5eFf9wGN+nymkRPw
+	 PfylP/pga28zsFOdyjUeqz05ErMc6DGRST1cmM7D6YQzq0Li9ZqxsgtrpgMN9UhOPw
+	 fX77MqAcagyGwmh+f8lTGJd6UU/7TczJtQ8sz1RDBBYyrHGtINZLMsXuKyCCVGmTgC
+	 ygNUh/fw1rKzg==
+Date: Tue, 15 Sep 2026 16:07:04 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: markdamirkan@gmail.com
+Cc: Jiri Kosina <jikos@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] HID: bpf: reject oversized device events before copying
+Message-ID: <aqlGkhF3ntBnhEM5@beelink>
+References: <20260913-b4-send-hid-bpf-event-bounds-v1-1-614fb56a0635@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="02j8IEISV4+meAWL"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqMs2CbWbhzCoDOB@debian-BULLSEYE-live-builder-AMD64>
+In-Reply-To: <20260913-b4-send-hid-bpf-event-bounds-v1-1-614fb56a0635@gmail.com>
 
---02j8IEISV4+meAWL
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Mark,
 
-On Thu, Sep 10, 2026 at 07:19:04PM -0300, Marcelo Schmitt wrote:
-> Hello Conor, sorry for delayed reply.
->=20
-> On 09/07, Conor Dooley wrote:
-> > On Fri, Sep 04, 2026 at 07:06:44PM -0300, Marcelo Schmitt wrote:
-> > > On 09/04, Marcelo Schmitt wrote:
-> > > > On 09/03, Conor Dooley wrote:
-> > > > > On Wed, Sep 02, 2026 at 02:24:02PM -0300, Marcelo Schmitt wrote:
-> > > > > > Document how AD4134 chips are connected to the host SPI control=
-ler
-> > > > > > according to different wiring configurations.
-> > > > > >=20
-> > > > > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > > > > > ---
-> > > > > >  .../bindings/iio/adc/adi,ad4134.yaml          | 22 +++++++++++=
-++++++++
-> > > > > >  1 file changed, 22 insertions(+)
-> > > > > >=20
-> > > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad41=
-34.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > > > index ea6d7e026419..d843c02a394a 100644
-> > > > > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > > > @@ -131,6 +131,28 @@ properties:
-> > > > > >      enum: [ free-running, gated ]
-> > > > > >      default: gated
-> > > > > > =20
-> > > > > > +  adi,spi-mode:
-> > > > > > +    $ref: /schemas/types.yaml#/definitions/string
-> > > > > > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chai=
-n ]
-> > > > > > +    description: |
-> > > > > > +      This property indicates the SPI wiring configuration.
-> > > > > > +
-> > > > > > +      When this property is omitted, it is assumed that the de=
-vice is using
-> > > > > > +      'no-cs' wiring. When this property is present, it indica=
-tes that the
-> > > > > > +      device is using one of the following wiring configuratio=
-ns:
-> > > > >=20
-> > > > ...
-> > > > > I'd also really appreciate a dts example for a system
-> > > > > with one-channel-chain or two-channel-chain looks, given the seco=
-nd
-> > > > > device may require different supplies etc. I have no impression i=
-n my
-> > > > > head of how the dt would be constructed, so I'd like to see wht y=
-ou have
-> > > > > in mind.
-> > > >=20
-> > > ...
-> > >=20
-> > > Realized what I said doesn't make much sense. The peripherals can all=
- have
-> > > the same configuration and thus share CS, SCLK, and controller SDO. T=
-he wiring
-> > > would be like the following
-> > >=20
-> > > ::
-> > >=20
-> > >   +-----------------------+                               +----------=
--------+
-> > >   |         AD4134        |                               | SPI Contr=
-oller  |
-> > >   |                       |                               |          =
-       |
-> > >   |                       |                               |          =
-       |
-> > >   | SPI interface    SCLK |<--------------------+---------| SCLK     =
-       |
-> > >   | for register       CS |<--------------------|-+-------| CS       =
-       |
-> > >   | access            SDI |<--------------------|-|-+-----| SDO      =
-       |
-> > >   |                   SDO |------->|=AF=AF=AF=AF\       | | |     |  =
-               |
-> > >   |                       |        |MUX  >------|-|-|---->| SDI0     =
-       |
-> > >   | Data interface  DOUT0 |------->|____/<------|-|-|---- | GPIO     =
-       |
-> > >   | for ADC sample  DOUT1 |---------------------|-|-|---->| SDI1     =
-       |
-> > >   | data read        DCLK |<-------------+------|-|-|-----| DCLK     =
-       |
-> > >   |                 DOUT2 |<-+           |      | | |     |          =
-       |
-> > >   |                 DOUT3 |<-|-+         |      | | |     |          =
-       |
-> > >   |                   ODR |<-|-|---------|--+   | | |  +->| Offload T=
-rigger |
-> > >   +-----------------------+  | |         |  |   | | |  |  +----------=
--------+
-> > >                              | |         |  |   | | |  +--| PWM1     =
-       |
-> > >                              | |         |  +---| | | ----| PWM0     =
-       |
-> > >                              | |         |  |   | | |    +-----------=
-------+
-> > >                              | |         |  |   | | |
-> > >   +-----------------------+  | |         |  |   | | |
-> > >   |         AD4134        |  | |         |  |   | | |
-> > >   |                       |  | |         |  |   | | |
-> > >   | SPI interface         |  | |         |  |   | | |
-> > >   | for register     SCLK |<-|-|---------|--|---+ | |
-> > >   | access             CS |<-|-|---------|--|---|-+ |
-> > >   |                   SDI |<-|-|---------|--|---|-|-+
-> > >   |                   SDO |  | |         |  |   | | |
-> > >   | Data interface        |  | |         |  |   | | |
-> > >   | for ADC sample  DOUT0 |--+ |         |  |   | | |
-> > >   | data read       DOUT1 |----+         |  |   | | |
-> > >   |                 DOUT2 |<-+           |  |   | | |
-> > >   |                 DOUT3 |<-|-+         |  |   | | |
-> > >   |                  DCLK |<-|-|---------+  |   | | |
-> > >   |                   ODR |<-|-|---------|--+   | | |
-> > >   +-----------------------+  | |         |  |   | | |
-> > >                              | |         |  |   | | |
-> > >                              | |         |  |   | | |
-> > >                              | |         |  |   | | |
-> > >   +-----------------------+  | |         |  |   | | |
-> > >   |         AD4134        |  | |         |  |   | | |
-> > >   |                       |  | |         |  |   | | |
-> > >   |                       |  | |         |  |   | | |
-> > >   | SPI interface    SCLK |<-|-|---------|--|---+ | |
-> > >   | for register       CS |<-|-|---------|--|-----+ |
-> > >   | access            SDI |<-|-|---------|--|-------+
-> > >   |                       |  | |         |  |
-> > >   | Data interface        |  | |         |  |
-> > >   | for ADC sample  DOUT0 |--+ |         |  |
-> > >   | data read       DOUT1 |----+         |  |
-> > >   |                 DOUT2 |              |  |
-> > >   |                 DOUT3 |              |  |
-> > >   |                  DCLK |<-------------+  |
-> > >   |                   ODR |<----------------+
-> > >   +-----------------------+
-> > >=20
-> > >=20
-> > > So we would set them as only one daisy-chained device.
-> > >=20
-> > >     spi {
-> > >         ...
-> > >         adc@0 {
-> > >             compatible =3D "adi,ad4134";
-> > >             reg =3D <0>;
-> > >             spi-rx-bus-width =3D <1>, <1>; /* 2 lanes of 1 bit each */
-> > >=20
-> > >             <supplies, clock, and other properties ...>=20
-> > >=20
-> > >             #daisy-chained-devices =3D <2>;
-> >=20
-> > Does this property actually provide value here? I assume it does because
-> > otherwise you don't know how many devices there are.
->=20
-> Yes, the number of daisy-chained-devices is needed to determine how much =
-data
-> to transfer on ADC sample read. We already have some documentation in
-> Documentation/devicetree/bindings/common-properties.txt
->=20
-> >=20
-> > >             adi,spi-mode =3D "two-channel-chain";
-> >=20
-> > How does this interact with spi-rx-bus-width? Is the value of this
-> > consistent with adi,spi-mode? IOW, for adi,spi-mode =3D "one.." will th=
-ere
-> > only ever be Dout0 connected to the host and for adi,spi-mode =3D "two.=
-=2E"
-> > will Dout1 and Dout0 both be connected?
->=20
-> For this particular ADC design, yes.
-> adi,spi-mode =3D "one-channel-chain" always expects spi-rx-bus-width =3D =
-<1> (only DOUT0) and
-> adi,spi-mode =3D "two-channel-chain" always expects spi-rx-bus-width =3D =
-<1>, <1> (DOUT0, DOOUT1).
-> Though, it is possible to have spi-rx-bus-width =3D <1> and
-> spi-rx-bus-width =3D <1>, <1> in non-chained setups.
->=20
-> Will make the constraints explicit on v2.
+Couple of comments:
 
-If you think that helps, sure. I was mostly asking this for my own
-education, because this kind of device is new to me, so that I know what
-to expect from future bindings of the same kind (and to have a record on
-lore when I inevitably forget).
+On Sep 13 2026, Mark Amirkan via B4 Relay wrote:
+> From: Mark Amirkan <markdamirkan@gmail.com>
+> 
+> HID-BPF allocates its device-event buffer from the largest report in the
+> device's parsed report descriptor.  dispatch_hid_bpf_device_event() then
+> copies the transport-provided report into that buffer before checking its
+> size.
+> 
+> An input report larger than the allocated event buffer therefore causes
+> a heap out-of-bounds write when a device-event program is attached.  The
+> later check of the BPF program's return value cannot prevent the initial
+> copy.
+> 
+> Reject reports that exceed either the transport buffer or the persistent
+> HID-BPF event buffer before clearing or copying the data.
+> 
+> With a 64-byte event allocation, a same-file KUnit test produced a
+> one-byte KASAN out-of-bounds write for a 65-byte report in three runs.
+> The 64-byte boundary remained clean.  After this change, both cases were
+> clean in three runs and the oversized report returned -EINVAL.  The test
+> exercised the production dispatch function but not the complete UHID and
+> BPF attachment path.
 
-> allOf:
->   ...
->   - oneOf:
->       - required: [adi,spi-mode, '#daisy-chained-devices']
->         properties:
->           adi,spi-mode:
->             const: one-channel-chain
->           spi-rx-bus-width:
->             maxItems: 1
+As mentioned by the bpf bot: if you already have tests, why not upstream
+them? And even better: there are already selftests at
+tools/testing/selftests/hid/hid_bpf.c -> why not add some more here as
+well?
 
-Is this enough of a constraint? Someone could still put in
-spi-rx-bus-width =3D <2>...
+> 
+> Fixes: 658ee5a64fcf ("HID: bpf: allocate data memory for device_event BPF programs")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM Symbolic
+> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
+> ---
+>  drivers/hid/bpf/hid_bpf_dispatch.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/hid/bpf/hid_bpf_dispatch.c b/drivers/hid/bpf/hid_bpf_dispatch.c
+> index 536f6d01fd..06ba833eb9 100644
+> --- a/drivers/hid/bpf/hid_bpf_dispatch.c
+> +++ b/drivers/hid/bpf/hid_bpf_dispatch.c
+> @@ -50,6 +50,9 @@ dispatch_hid_bpf_device_event(struct hid_device *hdev, enum hid_report_type type
+>  	if (!hdev->bpf.device_data)
+>  		return data;
+>  
+> +	if (*size > *buf_size || *size > ctx_kern.ctx.allocated_size)
 
->       - required: [adi,spi-mode, '#daisy-chained-devices']
->         properties:
->           adi,spi-mode:
->             const: two-channel-chain
->           spi-rx-bus-width:
->             minItems: 2
->             maxItems: 2
+I had a hard time figuring out why `*size > *buf_size` wasn't there in
+the first place. You can call it overlooked, but:
+- when the call chain of dispatch_hid_bpf_device_event() contains
+	hid_input_report() -> *size == *buf_size
+- when the call chain contains hid_safe_input_report(), the bufsize and
+	size are forwarded from the lower transport drivers.
 
-=2E..or spi-rx-bus-width =3D <2>, <3> here which conflicts with your
-comment above, right?
+We only have 3 callers of hid_safe_input_report():
+- uhid.c -> min_t(size_t, ev->u.input.size, UHID_DATA_MAX) is present
+- i2c-hid-core.c -> size can'be greater than bufsize because it either
+	truncate the input report when I2C_HID_QUIRK_BAD_INPUT_SIZE is set or
+	plainly reject too long size
+- usbhid/hid-core.c -> we rely on usb to set the size and the transfer
+	buffer, so it should be OK
 
-Prob worth limiting the actual item to 1, if you're gonna add
-constraints like this.
+Regarding `*size > ctx_kern.ctx.allocated_size`:
+- usbhid/i2c-hid: both are allocating their transfert buffer through the
+	exact same call to hid_report_len() and finding the biggest of all reports
+	-> so they are not affected
+- uhid: here we don't control really what's going on, because size is a
+	user provided parameter.
 
->       - properties:
->           '#daisy-chained-devices': false
->=20
->=20
+All in all: the first test is IMO probably redundant. Maybe we can just
+add a comment in hid_safe_input_report() that the caller must ensure
+`size <= bufsize`.
+
+The second one matters only for the uhid case, so technically yes, we
+can demonstrate a malicious OOB with uhid (but you should already be
+root to create/controll a uhid device).
+
+> +		return ERR_PTR(-EINVAL);
+
+The whole point of hid-bpf is to fix bogus devices. So plainly returning
+-EINVAL means we don't even let the user the chance to fix the device.
+
+Later, hid_report_raw_event() has a similar check and when size is too
+big, it would also break the processing but at least give a warning in
+the dmesg.
+
+So, how about we conditionally memcpy the size to min(*size,
+allocated_size), and let the bpf change the size later on by itself ?
+This should allow a HID-BPF program to amend the provided size on a
+given device. This works because hid_bpf_get_data() doesn't know about
+.size, but only .allocated_size, so the kernel will prevent a BPF to
+access beyond the allocated_size.
+
+
+TL;DR: please,
+- make a decision regarding "*size > *buf_size"
+- change memcpy(size) into memcpy(min(size, allocated_size))
+- add tests in selftests
+
+Cheers,
+Benjamin
+
+> +
+>  	memset(ctx_kern.data, 0, hdev->bpf.allocated_data);
+>  	memcpy(ctx_kern.data, data, *size);
+>  
+> 
+> ---
+> base-commit: 9cdc7e6dc7a99ad7311ad5e7c145f2b9ce4e24b0
+> change-id: 20260913-b4-send-hid-bpf-event-bounds-4d0e8170ceb4
+> 
 > Best regards,
-> Marcelo
-
---02j8IEISV4+meAWL
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqlQ4wAKCRB4tDGHoIJi
-0jK8AP4kewj6h6y9P7+FEpGzYtadpIaHbtheWP44Wr85QSVzFQEAhPRUAYfd97Zq
-5S1/yVIYUtFRR6FZCaS9c+pO00E7kQ8=
-=5ej0
------END PGP SIGNATURE-----
-
---02j8IEISV4+meAWL--
+> --  
+> Mark Amirkan <markdamirkan@gmail.com>
+> 
+> 
+> 
