@@ -1,225 +1,112 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14531248881;
-	Tue, 15 Sep 2026 07:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADDD43F4AB;
+	Tue, 15 Sep 2026 07:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457965; cv=none; b=FC330hX53fXyWCZabuIUtJsXg4NNJbW20wHWY8rYGZ6j441kuSTkZaRngoufRfzikOLi27+JjGtRCJ7bo/525Qh54RTyDtIXoWvp5wsn7Uw7k2r2gQWwelhvdOhq48LRrREzR68lrA76PYdAop5oBI2nS5RsvzAHGgswJCfjtUY=
+	t=1789457988; cv=none; b=PEQZ5vDa1Q4//0bKC7d9t9pWe+kyRNPy32ECghU80+4Fb8ps6XonGOwTnlGm91WIlMi1WT6CGRQR5pVIK7WtUytUtPdT9NVHoYNZGfJ7UxaTTAkrNxcgBVXaFqFDBUqZbZyH/sUxwJZZng943L7vh3ney3y62c1pL/JKGGbszs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457965; c=relaxed/simple;
-	bh=3za1xEBwxCASiKysG5KnCpfCygeiBcxKDPJYawuy0so=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ClwF3WKUYb9BbEHJUthEG92fL1nOCBIxrzPnV0ZV88Q9Lk5etn6lx9AuK7PAZT2DwHbLipe2S5I044+JXWzS10OADIQuBhgttTEMTLjAZREW1DJcoVw7WfvDmAvBHLERYFijaLBwQC+zq8lHA9KPnXYMAkecjVGcPQmAuFdAsks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=JSUjHzpt; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1789457988; c=relaxed/simple;
+	bh=X2czHbrSs18WUTeT1j+/DpL6IMrShozvKKb9NfGC9O0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LBvo1gmgnwwQGNSdwS2NeazpI0Y3fh8rzaqss2KYIHSAyDyVbf55K81ALGuob33W6bko9i5YX5UrKIzPa1jicegDnRpxndU0bK5+ca9PFK71HmFsgr6g8Vm0A8gNx9H1U478adb2acU2GuS9/fJNMXY3K0hbwiT/8k7d4VTzBbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fPVPEsUY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="JSUjHzpt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=zJlBVWV/3RAEteqVHBhzyAqeRpIeBaIJLBky+iz7yR4=; b=
-	JSUjHzpthOwRYKnLJCYqqjCbt3mVss72IovqW5qkMxX8hoB66eWMNswchM2l7PJfA6i82ozTTiEpD
-	42bCAQhWHi/vDMq/QwpkTBOpa07U6HT26lvMjNJiDuJNk3A057FGOURW87Sr00N+OruijuQPXnkgj
-	kf93HoeZIGHWuFvQq/E1o1PjfJ/OmkNqyH1Ri3LJ5BWIaaIw7VFtA6CpcVzGAnlLEz0xAeMzRak9I
-	Ik1mBeaR99k5pbVDOmOoy3rN8+OiDOGaVjwvAp/UXeLle4NwKfQE36JabzLPMdwhCjqnlqNJ3hGZF
-	EiW8W0cqtjZaPl1dFnahYk29OdYA66Hm0Q==;
-Received: from [49.36.127.23] (helo=uajain)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x6Nl1-002IOX-FN; Tue, 15 Sep 2026 09:39:11 +0200
-From: Umang Jain <uajain@igalia.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lucas De Marchi <demarchi@kernel.org>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel-dev@igalia.com,
-	Umang Jain <uajain@igalia.com>
-Subject: [PATCH v2] early: usb: xhci-dbc: Handle out of bounds xhci-xdbc capability
-Date: Tue, 15 Sep 2026 13:10:49 +0530
-Message-ID: <20260915074049.613842-1-uajain@igalia.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fPVPEsUY"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2FE72C2BCFB;
+	Tue, 15 Sep 2026 07:39:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789457988;
+	bh=X2czHbrSs18WUTeT1j+/DpL6IMrShozvKKb9NfGC9O0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=fPVPEsUYtgGhSjoyqoCH5SypUQD2O+jtI/Dr/75hOOIvBvixu8X1intHt3G/Ri3Kc
+	 XNHoG1iSACVrswnzhZNRctrX/VsuYINncWAwkoSqO9K0dygA/AynktHxYY7t+D7PTK
+	 cuPh5piS6icVaiaaDPTx5STZRYIRfzbjZO58Ly0Z8zjlg3oIdJgYKSEp7jWCTaH+cX
+	 uInYBL1qJdpkGBazkjCaZ1g+19/MhOcpk1CjKGL7JGQBssWyb1j9ouxJnOk6r0ICTZ
+	 G6JvizFRWYYdd6jdjxnfptTTAifC7HxP9ZxR7PVB5jgeH69gj7evp5/Q27eZVUhhsq
+	 cXo3AGr4+2o7Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 068BEC88E73;
+	Tue, 15 Sep 2026 07:39:48 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Subject: [PATCH v2 0/4] drm/virtio: fix GEM object leaks on error paths
+Date: Tue, 15 Sep 2026 15:39:09 +0800
+Message-Id: <20260915-fixes-v2-0-a0d799e4db66@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB32qGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHQUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0NT3bTMitRiXYtkM0tD81RLAzMzUyWg2oKiVLAEUGl0bG0tAJP91iF
+ XAAAA
+X-Change-ID: 20260915-fixes-8c6917e90665
+To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Simona Vetter <simona@ffwll.ch>, "Michael S. Tsirkin" <mst@redhat.com>, 
+ Dave Airlie <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1536;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=X2czHbrSs18WUTeT1j+/DpL6IMrShozvKKb9NfGC9O0=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBXfHN90179brFw37+qpt7Fmt+eoMjV+P7nk3s4JO
+ nJyRscL4uo7SlkYxLgYZMUUWY4XXPpm4btFd4vPlmSYOaxMIEMYuDgFYCIJAQx/hdckFe99sNTx
+ R8R8lSk5FV8WXbeZXcHwuKmgaN2O9coHnzIy3M0z/2R5xODBp9l/+FmXXbHK4nXaU5tveGFSX76
+ ir+xpTgBXL07U
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+Reply-To: moonafterrain@outlook.com
 
-Currently, the early xhci-dbc assumes that the entire PCIe memory IO
-can be entirely mapped  within the fixed boot time mappings
-dictated by NR_FIX_BTMAPS. This patch handles the case where the PCIe
-memory IO size can be larger than the fixed boot time mappings and
-query the xhci debug extended capability in xdbc_map_pci_mmio().
+v1 fixed one drm_gem_object_release() misuse in virtio_gpu_gem_create().
+Dmitry asked for the other occurrences the Sashiko bot pointed at [1], so
+v2 turns it into a series.
 
-This commit ensures that the xHCI debug capability can still be queried
-when the PCIe memory IO space exceeds the fixmap size. In this scenario,
-the base address is mapped uptil fixmap size and debug capabilities are
-queried thereafter. Iterating over the entire PCIe BAR address size is
-left for future improvement as and when, such a case arises.
+Patches 1-3 replace drm_gem_object_release() with drm_gem_object_put() on
+the GEM creation error paths. Patch 1 is unchanged from v1.
 
-Additionally, this brings the need to track the early_ioremap() mapped
-size separately hence, introduce additional struct member xhci_base_length
-in struct xdbc_state.
+Patch 4 adds the missing drm_gem_object_release() before kfree(vram) in
+virtio_gpu_vram_create().
 
-Signed-off-by: Umang Jain <uajain@igalia.com>
----
+Only compile-tested (x86_64, CONFIG_DRM_VIRTIO_GPU=m).
+
+[1] https://lore.kernel.org/all/55240372-c265-4b38-be94-f29a58ddbb22@collabora.com/
+
 Changes in v2:
-- Commit message update
-- Changed and tested behaviour for mapping only first fixmap_size
-  of PCIe Base address size instead of iteration over entire BAR size
-- Updated comments
-- Updated XDBC MAPPING SIZE to 64
+- Add patches 2-4 covering the other occurrences reported by the bot
+  (Dmitry Osipenko)
+- Link to v1: https://lore.kernel.org/r/20260815-virtgpu-gem-create-leak-v1-1-a4e9fb18caa3@outlook.com
 
-v1:
-- https://lore.kernel.org/all/20260720191249.1272328-1-uajain@igalia.com/
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- drivers/usb/early/xhci-dbc.c | 78 ++++++++++++++++++++++++++++++++----
- drivers/usb/early/xhci-dbc.h |  1 +
- 2 files changed, 71 insertions(+), 8 deletions(-)
+Junrui Luo (4):
+      drm/virtio: fix object leak when drm_gem_handle_create() fails
+      drm/virtio: fix object leak in virtio_gpu_resource_create_ioctl()
+      drm/virtio: fix object leaks in virtio_gpu_resource_create_blob_ioctl()
+      drm/virtio: release the GEM object on virtio_gpu_vram_create() errors
 
-diff --git a/drivers/usb/early/xhci-dbc.c b/drivers/usb/early/xhci-dbc.c
-index 41118bba9197..d2e6ae410b0d 100644
---- a/drivers/usb/early/xhci-dbc.c
-+++ b/drivers/usb/early/xhci-dbc.c
-@@ -35,10 +35,23 @@ static bool early_console_keep;
- static inline void xdbc_trace(const char *fmt, ...) { }
- #endif /* XDBC_TRACE */
- 
-+/* Size of xHCI debug capability structure as per section 7.6.8 of xHCI spec. */
-+#define XDBC_MAPPING_SIZE	64
-+
-+enum xdbc_capability_flags {
-+	XDBC_CAP_FLAG_NONE		= 0,
-+	XDBC_CAP_FLAG_LEGACY		= 1 << 0,
-+	XDBC_CAP_FLAG_PROTOCOL		= 1 << 1,
-+	XDBC_CAP_FLAG_DEBUG		= 1 << 2,
-+};
-+
- static void __iomem * __init xdbc_map_pci_mmio(u32 bus, u32 dev, u32 func)
- {
--	u64 val64, sz64, mask64;
-+	u64 val64, sz64, mask64, fixmap_size, mapped_size;
-+	enum xdbc_capability_flags cap_flags = XDBC_CAP_FLAG_NONE;
-+	bool found_all_caps = false;
- 	void __iomem *base;
-+	int offset;
- 	u32 val, sz;
- 	u8 byte;
- 
-@@ -85,7 +98,56 @@ static void __iomem * __init xdbc_map_pci_mmio(u32 bus, u32 dev, u32 func)
- 
- 	xdbc.xhci_start = val64;
- 	xdbc.xhci_length = sz64;
--	base = early_ioremap(val64, sz64);
-+
-+	fixmap_size = NR_FIX_BTMAPS << PAGE_SHIFT;
-+	if (sz64 < fixmap_size) {
-+		xdbc.xhci_base_length = sz64;
-+		return early_ioremap(val64, sz64);
-+	}
-+
-+	/*
-+	 * Base address size is greater than fixed size boot time mappings
-+	 * hence, map maximum allowed fixmap size from base address and
-+	 * determine if the required extended capabilities lies within the
-+	 * fixmap.
-+	 */
-+	base = early_ioremap(val64, fixmap_size);
-+	offset = xhci_find_next_ext_cap(base, 0, 0);
-+	mapped_size = fixmap_size;
-+
-+	while (offset < fixmap_size) {
-+		val = readl(base + offset);
-+		switch (XHCI_EXT_CAPS_ID(val)) {
-+		case XHCI_EXT_CAPS_DEBUG:
-+			if (offset + XDBC_MAPPING_SIZE < fixmap_size)
-+				cap_flags |= XDBC_CAP_FLAG_DEBUG;
-+			break;
-+		case XHCI_EXT_CAPS_PROTOCOL:
-+			cap_flags |= XDBC_CAP_FLAG_PROTOCOL;
-+			break;
-+		case XHCI_EXT_CAPS_LEGACY:
-+			cap_flags |= XDBC_CAP_FLAG_LEGACY;
-+			break;
-+		}
-+
-+		if ((cap_flags & XDBC_CAP_FLAG_DEBUG) &&
-+		    (cap_flags & XDBC_CAP_FLAG_PROTOCOL) &&
-+		    (cap_flags & XDBC_CAP_FLAG_LEGACY)) {
-+			found_all_caps = true;
-+			break;
-+		}
-+
-+		offset = xhci_find_next_ext_cap(base, offset, 0);
-+		if (!offset)
-+			break;
-+	}
-+
-+	if (found_all_caps) {
-+		xdbc.xhci_base_length = fixmap_size;
-+	} else {
-+		xdbc.xhci_base_length = 0;
-+		base = NULL;
-+	}
- 
- 	return base;
- }
-@@ -643,9 +705,9 @@ int __init early_xdbc_parse_parameter(char *s, int keep_early)
- 	offset = xhci_find_next_ext_cap(xdbc.xhci_base, 0, XHCI_EXT_CAPS_DEBUG);
- 	if (!offset) {
- 		pr_notice("xhci host doesn't support debug capability\n");
--		early_iounmap(xdbc.xhci_base, xdbc.xhci_length);
-+		early_iounmap(xdbc.xhci_base, xdbc.xhci_base_length);
- 		xdbc.xhci_base = NULL;
--		xdbc.xhci_length = 0;
-+		xdbc.xhci_base_length = 0;
- 
- 		return -ENODEV;
- 	}
-@@ -682,9 +744,9 @@ int __init early_xdbc_setup_hardware(void)
- 		xdbc.table_base = NULL;
- 		xdbc.out_buf = NULL;
- 
--		early_iounmap(xdbc.xhci_base, xdbc.xhci_length);
-+		early_iounmap(xdbc.xhci_base, xdbc.xhci_base_length);
- 		xdbc.xhci_base = NULL;
--		xdbc.xhci_length = 0;
-+		xdbc.xhci_base_length = 0;
- 	}
- 
- 	return ret;
-@@ -987,7 +1049,7 @@ static int __init xdbc_init(void)
- 	}
- 
- 	raw_spin_lock_irqsave(&xdbc.lock, flags);
--	early_iounmap(xdbc.xhci_base, xdbc.xhci_length);
-+	early_iounmap(xdbc.xhci_base, xdbc.xhci_base_length);
- 	xdbc.xhci_base = base;
- 	offset = xhci_find_next_ext_cap(xdbc.xhci_base, 0, XHCI_EXT_CAPS_DEBUG);
- 	xdbc.xdbc_reg = (struct xdbc_regs __iomem *)(xdbc.xhci_base + offset);
-@@ -1004,7 +1066,7 @@ static int __init xdbc_init(void)
- 	memblock_phys_free(xdbc.table_dma, PAGE_SIZE);
- 	memblock_phys_free(xdbc.out_dma, PAGE_SIZE);
- 	writel(0, &xdbc.xdbc_reg->control);
--	early_iounmap(xdbc.xhci_base, xdbc.xhci_length);
-+	early_iounmap(xdbc.xhci_base, xdbc.xhci_base_length);
- 
- 	return ret;
- }
-diff --git a/drivers/usb/early/xhci-dbc.h b/drivers/usb/early/xhci-dbc.h
-index 8b4d71de45fc..e2aefb796084 100644
---- a/drivers/usb/early/xhci-dbc.h
-+++ b/drivers/usb/early/xhci-dbc.h
-@@ -144,6 +144,7 @@ struct xdbc_state {
- 	u32			dev;
- 	u32			func;
- 	void __iomem		*xhci_base;
-+	size_t			xhci_base_length;
- 	u64			xhci_start;
- 	size_t			xhci_length;
- 	int			port_number;
+ drivers/gpu/drm/virtio/virtgpu_gem.c   |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c |  6 +++---
+ drivers/gpu/drm/virtio/virtgpu_vram.c  | 17 +++++++++--------
+ 3 files changed, 13 insertions(+), 12 deletions(-)
+---
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+change-id: 20260915-fixes-8c6917e90665
+
+Best regards,
 -- 
-2.55.0
+Junrui Luo <moonafterrain@outlook.com>
+
 
