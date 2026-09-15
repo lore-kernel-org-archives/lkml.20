@@ -1,337 +1,342 @@
-Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C8C3BBFC3
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.212
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B4F3C062D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478008; cv=none; b=ZddYFGREMyxLtZ84sAGVtII9Ki6KBCEpeOOm7lA2lpRNWYSNBET9ZwK5YfiAlCED+nzmiwEEAp1Zgt0sZ2l8PeRufMnUVsFaSWZcMDd9PNT0smrP5zeGzmdfGQAsDOERj2Ni1CqdjTD0912tpP48ddAUHhMtbNL6nfeOU/+wO/o=
+	t=1789478011; cv=none; b=OV6I6PXdA9x7xwcTO+KjS76JinhihEr/0Wf4MTf0kgHFDKPHSvXXjQtVJME1keStBUwNytkw1yVXTregEF05Q92gPiTHzu9hahjRyM0EZdzFMGvo+8KGjKdkn1TG4OWl9K17h50/Y+35T9Y6cIogg4AY0Ijep4BIBa2pQrDmakM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478008; c=relaxed/simple;
-	bh=sxgCcXsVUgd/NZQaj7eoMIiwtZuGOSGHsbhHSkNY9/Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nG4xqjF0jomH4UhqQ32nSIdbVgIw9C+bYcohm5q9A/hIHfKaDXTAW0Z87pj/YWR9qcynCUS1KNOTKlVaD0hu6Y6H9fGLlqEtX+I/JRF4/rliL85ZsSqUPsdwuOMxWyjbjsy1Ac3xtREiebY2WPzw+xMFcJv3a2bltaPROUTa1fQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AgKqjuJp; arc=none smtp.client-ip=91.218.175.212
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789478011; c=relaxed/simple;
+	bh=2qZOTgApo+urlVkwDJfR03ySBnHo7d7qJlq0MTLAgT0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a+7CQjP+/nSAN8J7Z9nMR6oQV9wg2PKUa2Bjdgznf7yB8dRjGTp5KXe2VGbDOQCIPtcoO53rbiIdoFc3LTM4WkmMyNGbfiKFzDVR96KN9TxcbEfKb1/OxuDSmYgpl0o2etpN3Tx0Kk4rZJ9aHMDIRlyXNlrxJU1qL4LdcZ5uTkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c+4v3h+d; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AgKqjuJp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sxgCcXsVUgd/NZQaj7eoMIiwtZuGOSGHsbhHSkNY9/Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789478003; v=1; x=1790082803;
- b=AgKqjuJp+ugdldX+QGlrYnmEuztbSQarp+vTf7ORWT8RTUkg70IRukuHe7f7e76dMTeWkkJW
- iWY0L6boHzjKWjVrCsGFSzGEX6z3oFqMo52Nsm70qgP8MiOmb9OW4+4pivUE0pubONgoDszyzMu
- SOd1uGDCsoLZy78GA6q+Hzcg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0a9ba748f704e284;
-	Tue, 15 Sep 2026 13:13:23 +0000
-X-Mizu-Trace-ID: 0a9ba748f704e284
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b78e073980so378e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:13:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy+rliPwZTA9OPsbQRd0YLVp7wt9fwZrqqzDElAYtsmTOC7yAJctu/Ao7x69QoJoAMi4ZEMp83G6HYr5lw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjdl/loI8DYy/JVe5p/+UtC2kXaLeGVkSsq29ytM7QVyiblCPw
-	JGcNwjgUnkQzhA/y/sq9jCvDrHck04NrQ8IJJpQIq3Ux/xNEqBh8AEAlcVQ2KWBAfJ014qxFycD
-	83SJLUejx5qsuFWaaHxr+eHCKUR4jO09joXX9g36T
-X-Received: by 2002:a05:6512:3b0f:b0:5b2:a967:c0c9 with SMTP id
- 2adb3069b0e04-5b8b31fbc42mr139494e87.7.1789478001771; Tue, 15 Sep 2026
- 06:13:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c+4v3h+d"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso566607066b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:13:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789478005; x=1790082805; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mgnuiebg13Nmlc9SkFBtnZR2vUiE46R6S1Zezq82mgc=;
+        b=c+4v3h+d9YdhQn3BJ9syY+/RfhivgjrU69kct3JzMCi9POxL5X+DEaWkU37nuc59sV
+         zl7OEIRGrUQcmahF/r+hewZCmuNzMWmDM5SAFUmlYm4MSSpI21e0NixueEDKWqNab4sx
+         0GWnkJReA9xl+Gvoks4RfY45yBujEaHcfJhcfcUpYqeNX1ey084sNHzHzS5qNzDy5ABm
+         A57aINOvHYJ2c+a8VTm3hzN8gKxS2GTuoLUUp12qdaXS5ambhSDl/Ay0oeiUMaJ6Ppt6
+         ZkkZB5af46KNtCJmdO8IMkNIt5ZE+/BkKyWAON7QiMJvXZ++4JcMJ3h8kjjVuQ+1J13Q
+         bVBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789478005; x=1790082805;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mgnuiebg13Nmlc9SkFBtnZR2vUiE46R6S1Zezq82mgc=;
+        b=LBN/wPNUc8C/jS7duh5KYfX12nNrJmhD7JUJPdWvR8xgIdvN+SyFgYfhwUltUF6tsm
+         t0jcWLCZlwTvFNFDUY1F7162nNNTE/5FVmv1Lou2V2ESfzmrdWSYI5EQG2+MhRniNZVJ
+         RCDyw82o8znjKsHCIvZNFVWNWdi/z+0Gllsdv6m0bhU7wScdv1V9yEudxAxEWqiRWCHy
+         acP17uuOH0yTkqek7QZZxOGBmkrV2qYGKGfdMDkjnK4JsEFB9Q6TTOZ+VNSU9tL9kKaO
+         XSayQEgrcVGm0w7nd3ry3t4aVGFv+xHAwtiFxA/aJ2B50dXgSNKl4Ygln2DpN8zMo6VO
+         uWUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwC6lF5jHfULao9lZe8Q87mKWzrKDntUqEjsFm4yEW0OuLSYz7NfJ21qy6Rl8HzLaRH4hWwnHP8TxWMqQ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3n4bZx88qH9o9+VbqwyLk5Nm6laxRpissKOLvBheHCAWQ2KXm
+	7cuooWFlAPFirl3z2Xp8dXNf2ForFuxZ8BLkIMQfanHZEjlmPqH4V8OU
+X-Gm-Gg: AYBFou1N41Vo8VIJiqth/CDSdUQasTcdVGeLhj55xpMpXzJjOcyZX51WcUG+fZocPFu
+	veDO2VYbHTVzOkcfMaB9KQVbp3S8tQeENDloveQ6epOjEx+HKFdl892ofYZD+e4mRbDwCsG2iei
+	k+faTl8kCHLGImtgN1gSCyA1bggsIoSa1Y5+ZGuJcs5j9C2iNblVC4iveB3gpgNSG5NFU1Q0SZR
+	dHiSi2abXfoDXlEqd2mrUJXjNshDz9JaGCRMJJlqHzLnbltCVNqVbrfvHEcm1reKVA3MHyE4JfC
+	x9Jmb3a2seBAKv/0bS3kMmVraLFRsIpZl5DwBeHOE9MwDi01Y60ZcrfMn+r3YJDyQmb6JAv4rsL
+	78n/EQ0ROtLZgXtLe3oN+/iAb65TNrDNPdKwlskI4wvewmu8TVwXhcYWDuripYeO+zLydWqeu5E
+	81Ez3Cxw3M1t1Pcnk7htlcucGFNit5l8ugtoUyx/tO7HwigRn9Cr7FvG9eblbUXSvezaoEgs2fH
+	wlDJHLwol2K8SZKewsxb585/Kyke5ikigEtveUO/uUyyrU3yZPaqKyXw287gwLL2pJ7yNsYUoX2
+	dsE=
+X-Received: by 2002:a17:907:1ca4:b0:c28:599b:7782 with SMTP id a640c23a62f3a-c29b8672548mr503726766b.21.1789478004635;
+        Tue, 15 Sep 2026 06:13:24 -0700 (PDT)
+Received: from ?IPV6:2001:8a0:e962:d100:4d53:b3b:9260:9351? ([2001:8a0:e962:d100:4d53:b3b:9260:9351])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e8a1sm598251066b.6.2026.09.15.06.13.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 06:13:24 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <08755883-4332-4892-98d1-92e530bfa8bd@gmail.com>
+Date: Tue, 15 Sep 2026 14:13:22 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260807164322.2970811-2-sebastianene@google.com> <20260807164322.2970811-7-sebastianene@google.com>
-In-Reply-To: <20260807164322.2970811-7-sebastianene@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 15 Sep 2026 14:12:45 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTw84p44gZ=qGJq1M7FAg47uJkDMZxxebHx79fzcsETA7w@mail.gmail.com>
-X-Gm-Features: AcwNN1U5YrLQgZHFUd0Pkt0i-x1LoJbyUs7P4djhMll5Y6K5gu4LvMmdOU3oihM
-Message-ID: <CA+EHjTw84p44gZ=qGJq1M7FAg47uJkDMZxxebHx79fzcsETA7w@mail.gmail.com>
-Subject: Re: [PATCH v2 05/13] irqchip/gic-v3-its: Add support for the ITS
- emulation setup
-To: Sebastian Ene <sebastianene@google.com>
-Cc: catalin.marinas@arm.com, joey.gouly@arm.com, mark.rutland@arm.com, 
-	maz@kernel.org, oupton@kernel.org, rananta@google.com, 
-	Sascha.Bischoff@arm.com, suzuki.poulose@arm.com, will@kernel.org, 
-	kvmarm@lists.linux.dev, android-kvm@google.com, bgrzesik@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	nathan@kernel.org, perlarsen@google.com, seiden@linux.ibm.com, 
-	smostafa@google.com, tglx@kernel.org, vdonnefort@google.com, 
-	vladimir.murzin@arm.com, yuzenghui@huawei.com, zenghui.yu@linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] kconfig: warn about malformed KCONFIG_PROBABILITY
+ values
+To: Dmitrii Tulnov <tulnov.dl@gmail.com>, nathan@kernel.org, nsc@kernel.org
+Cc: jacmet@uclibc.org, yann.morin.1998@free.fr, linux-kbuild@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <55e18f27-0ba1-433e-b4dc-a7db70172f7a@gmail.com>
+ <20260910215224.26-1-tulnov.dl@gmail.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260910215224.26-1-tulnov.dl@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Seb,
+Hi Dmitrii,
 
-On Fri, 7 Aug 2026 at 17:43, Sebastian Ene <sebastianene@google.com> wrote:
->
-> Introduce two new helper functions to allow locking the ITS and setting
-> up a copy of the host ITS state that will be given to the pKVM
-> emulation. The caller of these functions is responsible to implement a
-> callback which will be used to setup the emulation layer. The calling
-> flow is expected to do the following:
->
-> pkvm_its_emulate_setup(its_phys, host)
->         // allocate memory for the priv state of the ITS emulation
->         // call the its emulation setup(its_phys, host, priv_state);
->
-> pkvm_drop_host_privileges()
->         its_emulate_acquire_locks(&flags);
->                 on_each_cpu(_kvm_host_prot_finalize, &ret, 1);
->         its_emulate_release_locks(ret, &flags, pkvm_its_emulate_setup);
->
-> Augment the its_baser structure with a new fiels that will hold a
-> pointer to the base table copy. The gic ITS driver will use the pointer
-> to the base table copy when emulation is enabled, as this allows us to
-> hide away the original first level of an indirect table to prevent the
-> following:
->
-> // assumming an indirect Device Table layout
-> 1. malicious host patches an entry in the 1st level table with an
->    address that it wants to write to.
-> 2. malicious host issues MAPD to install a DTE in the table pointed by
->    the address from (1).
->
-> As the driver only manipulates a copy of the table, the emulation is
-> responsible for looking at the updates from the copy table, sanitizing
-> them and updating the original table before talking to the hardware.
->
-> In a simillar fashion, when emulation is in place we no longer let the
-> gic ITS driver use the original command queue but we present the driver
-> a copy of it and we hide away the original command queue from the driver
-> as this will be used entirely by the emulation layer.
->
-> Co-authored-by: Bart=C5=82omiej Grzesik <bgrzesik@google.com>
-> Signed-off-by: Sebastian Ene <sebastianene@google.com>
-
-A few typos, "fiels" and "simillar" here, "innaccessible" and
-"assumming" further down.
-
-Missing SoB.
-
-
+On 9/10/26 22:52, Dmitrii Tulnov wrote:
+> randconfig checks the numeric range of each probability but does not
+> validate where strtol() stops. For example, KCONFIG_PROBABILITY=50% is
+> accepted as 50:0:0: the '%' is parsed repeatedly as zero. For the
+> documented value 50, tristate y/m/n probabilities are 25%/25%/50%.
+> With 50%, both y/m probabilities silently become zero, reducing the
+> coverage of random configuration builds. Empty fields and extra fields
+> are also accepted.
+> 
+> Warn when the value does not follow the documented decimal format. For
+> malformed inputs whose parsed probabilities are in range, preserve the
+> existing interpretation unless KCONFIG_WERROR is set. In that case, exit
+> with an error before writing the configuration. Leading whitespace and
+> signs are accepted by strtol(), but also trigger the warning because they
+> are outside the documented format.
+> 
+> Keep the strtol() result as long until the range check. This rejects
+> out-of-range values that narrowing to int previously made valid, such as
+> 4294967296 becoming zero on a 64-bit host, regardless of KCONFIG_WERROR.
+> 
+> Add regression tests for one warning per malformed input, preserved
+> configurations, KCONFIG_WERROR, out-of-range values, the supported
+> probability formats, and the documented empty-value default.
+> 
+> Fixes: e43956e60769 ("kconfig: implement KCONFIG_PROBABILITY for randconfig")
+> Assisted-by: LLM
+> Signed-off-by: Dmitrii Tulnov <tulnov.dl@gmail.com>
 > ---
->  drivers/irqchip/irq-gic-v3-its.c   | 157 +++++++++++++++++++++++++++--
->  include/linux/irqchip/arm-gic-v3.h |  39 +++++++
->  2 files changed, 185 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v=
-3-its.c
-> index 6f5811aae59c..e74ae9220af5 100644
-> --- a/drivers/irqchip/irq-gic-v3-its.c
-> +++ b/drivers/irqchip/irq-gic-v3-its.c
-> @@ -78,17 +78,6 @@ struct its_collection {
->         u16                     col_id;
->  };
->
-> -/*
-> - * The ITS_BASER structure - contains memory information, cached
-> - * value of BASER register configuration and ITS page size.
-> - */
-> -struct its_baser {
-> -       void            *base;
-> -       u64             val;
-> -       u32             order;
-> -       u32             psz;
-> -};
-> -
->  struct its_device;
->
->  /*
-> @@ -5226,6 +5215,152 @@ static int __init its_compute_its_list_map(struct=
- its_node *its)
->         return its_number;
->  }
->
-> +static void its_free_snapshot(struct its_host_state *snapshot)
-> +{
-> +       int i;
+> Thanks, Julian. I've moved the KCONFIG_WERROR cleanup fixture to
+> scripts/kconfig/tests/conftest.py.
+> 
+> Changes since v3:
+> - Move the KCONFIG_WERROR cleanup fixture to the shared conftest.py,
+>   as requested by Julian. Explicit extra_env settings still enable WERROR.
+> 
+> Changes since v2:
+> - Move the expected tristate distribution into the problem description.
+> - Simplify the initial format check to !isdigit((unsigned char)*env).
+> - Pass probability values and seeds through conf._run_conf(extra_env=...).
+>   Use monkeypatch.delenv only to remove inherited variables.
+> - Add -0, +0, bare + and - warning cases, and the +101 range-error case.
+> - Honor KCONFIG_WERROR for malformed format warnings, as discussed with
+>   Julian. Check unset, empty, 0 and 1 flag behavior.
+> - Compare 50% with 50:0:0 and -0 with 0 across 20 fixed seeds and check
+>   that each malformed input produces exactly one warning.
+> - Clarify that compatibility applies to malformed in-range inputs with
+>   KCONFIG_WERROR unset; values previously accepted by narrowing now fail.
+> 
+> Changes since v1:
+> - Warn about malformed in-range values while retaining their previous
+>   interpretation by default.
+> - Warn about leading whitespace and signs as undocumented input.
+> - Clarify that 50 gives tristate y/m/n probabilities of 25%/25%/50%, and
+>   compare it with the equivalent input 50:25:25 across 20 fixed seeds.
+> 
+> Validation on kbuild-next, x86_64, GCC 13.3.0:
+> - make testconfig with HOSTCFLAGS=-Werror: 138 passed. The same 138 tests
+>   passed with KCONFIG_WERROR=1 inherited from the test runner, including
+>   the explicit strict-mode cases for empty, 0 and 1 flag values.
+> - The same two runs passed on the existing ASan/UBSan build at -O1, with
+>   leak detection disabled: 138 passed in each run.
+> - C code, test inputs and assertions are unchanged from the submitted v3.
+>   Its earlier checks remain applicable: 74 regression failures on the
+>   original; 1,635 comparisons with v2 and 380 documented-input comparisons
+>   with the original per build; 120 strict error file-preservation checks
+>   per build, including ALLCONFIG and OVERWRITECONFIG. These broader C
+>   checks were not rerun for the fixture move.
+> - No vmlinux build or boot test; this changes the host configuration tool.
+>   32-bit hosts and other libc implementations were not tested.
+> 
+>  scripts/kconfig/conf.c                        |  16 ++-
+>  scripts/kconfig/tests/conftest.py             |   6 +
+>  .../tests/randconfig_probability/Kconfig      |  12 ++
+>  .../tests/randconfig_probability/__init__.py  | 131 ++++++++++++++++++
+>  4 files changed, 164 insertions(+), 1 deletion(-)
+>  create mode 100644 scripts/kconfig/tests/randconfig_probability/Kconfig
+>  create mode 100644 scripts/kconfig/tests/randconfig_probability/__init__.py
+> 
+> diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
+> index fe8ba09b0..ca6d9d735 100644
+> --- a/scripts/kconfig/conf.c
+> +++ b/scripts/kconfig/conf.c
+> @@ -186,12 +186,23 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
+>  
+>  	if (mode == def_random) {
+>  		int n, p[3];
+> +		bool warned = false;
+>  		char *env = getenv("KCONFIG_PROBABILITY");
+>  
+>  		n = 0;
+>  		while (env && *env) {
+>  			char *endp;
+> -			int tmp = strtol(env, &endp, 10);
+> +			long tmp = strtol(env, &endp, 10);
 > +
-> +       if (snapshot->cmd_host_copy)
-> +               its_free_pages(snapshot->cmd_host_copy, get_order(ITS_CMD=
-_QUEUE_SZ));
+> +			if (!isdigit((unsigned char)*env) ||
+> +			    (*endp && *endp != ':') ||
+> +			    (*endp == ':' && (!endp[1] || n == 2))) {
+> +				if (!warned) {
+> +					fprintf(stderr,
+> +						"warning: KCONFIG_PROBABILITY has malformed format\n");
+> +					warned = true;
+> +				}
+> +			}
+>  
+>  			if (tmp >= 0 && tmp <= 100) {
+>  				p[n++] = tmp;
+> @@ -227,6 +238,9 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
+>  			perror("KCONFIG_PROBABILITY");
+>  			exit(1);
+>  		}
 > +
-> +       for (i =3D 0; i < GITS_BASER_NR_REGS; i++) {
-> +               if (!snapshot->tables[i].base_snapshot)
-> +                       continue;
+> +		if (warned && getenv("KCONFIG_WERROR"))
+> +			exit(1);
+>  	}
+>  
+>  	menu_for_each_entry(menu) {
+> diff --git a/scripts/kconfig/tests/conftest.py b/scripts/kconfig/tests/conftest.py
+> index 66f95e4ed..2263bd2a3 100644
+> --- a/scripts/kconfig/tests/conftest.py
+> +++ b/scripts/kconfig/tests/conftest.py
+> @@ -312,6 +312,12 @@ class Conf:
+>          return self._matches('stderr', expected)
+>  
+>  
+> +@pytest.fixture(autouse=True)
+> +def clear_werror(monkeypatch):
+> +    # extra_env can set strict mode, but cannot remove an inherited flag.
+> +    monkeypatch.delenv('KCONFIG_WERROR', raising=False)
 > +
-> +               its_free_pages(snapshot->tables[i].base_snapshot, snapsho=
-t->tables[i].order);
-> +       }
 > +
-> +       its_free_pages(snapshot, 0);
-> +}
+>  @pytest.fixture(scope="module")
+>  def conf(request):
+>      """Create a Conf instance and provide it to test functions."""
+> diff --git a/scripts/kconfig/tests/randconfig_probability/Kconfig b/scripts/kconfig/tests/randconfig_probability/Kconfig
+> new file mode 100644
+> index 000000000..84f4e5fcc
+> --- /dev/null
+> +++ b/scripts/kconfig/tests/randconfig_probability/Kconfig
+> @@ -0,0 +1,12 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
 > +
-> +static struct its_host_state *its_snapshot_host_state(struct its_node *i=
-ts)
-> +{
-> +       void *page;
-> +       struct its_host_state *snapshot;
-> +       int i;
+> +config MODULES
+> +	bool
+> +	default y
+> +	modules
 > +
-> +       page =3D its_alloc_pages_node(its->numa_node, GFP_ATOMIC | __GFP_=
-ZERO, 0);
-> +       if (!page)
-> +               return NULL;
+> +config BOOL
+> +	bool "Bool"
 > +
-> +       snapshot =3D (void *)page_address(page);
-> +       page =3D its_alloc_pages_node(its->numa_node, GFP_ATOMIC | __GFP_=
-ZERO,
-> +                                   get_order(ITS_CMD_QUEUE_SZ));
+> +config TRI
+> +	tristate "Tristate"
+> diff --git a/scripts/kconfig/tests/randconfig_probability/__init__.py b/scripts/kconfig/tests/randconfig_probability/__init__.py
+> new file mode 100644
+> index 000000000..78d367a9c
+> --- /dev/null
+> +++ b/scripts/kconfig/tests/randconfig_probability/__init__.py
+> @@ -0,0 +1,131 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +"""Validate KCONFIG_PROBABILITY without changing the supported distributions."""
+> +
+> +import pytest
+> +
+> +
+> +@pytest.mark.parametrize('probability', [
+> +    'invalid', ' ', '50%', '50 ', '0x32', '10 20', '10:20x',
+> +    '10:20:invalid', '10:20:30x',
+> +    ':50', '50:', '10::20', '10:20:', '10:20:30:', '10:20:30:40',
+> +    '-0', '+0', '+', '-', '+100:0', ' \t100:0', '0: \t100:0',
+> +])
+> +def test_malformed_warns(conf, probability):
+> +    assert conf._run_conf('--randconfig', extra_env={
+> +        'KCONFIG_PROBABILITY': probability,
+> +        'KCONFIG_SEED': '0',
+> +    }) == 0
+> +    assert 'warning: KCONFIG_PROBABILITY has malformed format' in conf.stderr
+> +    assert conf.stderr.count('warning:') == 1
+> +    assert conf.config is not None
+> +
+> +
+> +@pytest.mark.parametrize('probability, equivalent', [
+> +    ('50%', '50:0:0'),
+> +    ('-0', '0'),
+> +])
+> +@pytest.mark.parametrize('seed', range(20))
+> +def test_malformed_preserves_config(conf, probability, equivalent, seed):
+> +    assert conf._run_conf('--randconfig', extra_env={
+> +        'KCONFIG_PROBABILITY': probability,
+> +        'KCONFIG_SEED': hex(seed),
+> +    }) == 0
+> +    assert 'warning: KCONFIG_PROBABILITY has malformed format' in conf.stderr
+> +    assert conf.stderr.count('warning:') == 1
+> +    malformed = conf.config
+> +
+> +    assert conf._run_conf('--randconfig', extra_env={
+> +        'KCONFIG_PROBABILITY': equivalent,
+> +        'KCONFIG_SEED': hex(seed),
+> +    }) == 0
+> +    assert 'warning:' not in conf.stderr
+> +    assert conf.config == malformed
+> +
+> +
+> +@pytest.mark.parametrize('werror', ['', '0', '1'])
+> +@pytest.mark.parametrize('probability, status', [
+> +    ('', 0), ('50', 0), ('50%', 1), ('-0', 1), ('10:20:30:40', 1),
+> +])
+> +def test_werror(conf, probability, status, werror):
+> +    assert conf._run_conf('--randconfig', extra_env={
+> +        'KCONFIG_PROBABILITY': probability,
+> +        'KCONFIG_SEED': '0',
+> +        'KCONFIG_WERROR': werror,
+> +    }) == status
+> +    if status:
+> +        assert 'warning: KCONFIG_PROBABILITY has malformed format' in conf.stderr
+> +        assert conf.stderr.count('warning:') == 1
+> +    else:
+> +        assert 'warning:' not in conf.stderr
+> +
+> +
+> +@pytest.mark.parametrize('probability', [
+> +    '-1', '101', '+101', '0:101', '0:0:101', '60:41', '0:60:41',
+> +    '4294967296', '-4294967296',
+> +    '999999999999999999999999', '-999999999999999999999999',
+> +])
+> +def test_out_of_range(conf, probability):
+> +    assert conf._run_conf('--randconfig', extra_env={
+> +        'KCONFIG_PROBABILITY': probability,
+> +        'KCONFIG_SEED': '0',
+> +    }) == 1
+> +    assert 'KCONFIG_PROBABILITY:' in conf.stderr
 
-Once its_emulate_release_locks() has a caller, all of these run under
-its_lock and every its->lock with interrupts off. Could the buffers be
-allocated before the locks are taken, leaving only the copies under
-them? (Sashiko is trying to say the same thing I think)
+So I've finally had some time to test this, and I found that all of
+these pytest.mark.parametrize() calls are causing the number of test
+results to skyrocket. As in, this one test would actually make up the
+absolute majority of results.
 
-...
-> +static int its_emulate_switch_queues_locked(struct its_node *its, its_em=
-ulate_setup cb)
-> +{
-...
-> +               baser_phys =3D virt_to_phys(host.tables[i].base_snapshot)=
-;
-> +               if (IS_ENABLED(CONFIG_ARM64_64K_PAGES) && (baser_phys >> =
-48))
-> +                       baser_phys =3D GITS_BASER_PHYS_52_to_48(baser_phy=
-s);
+Could you remove them (and then the 'import pytest') and simply loop
+over the values in a list? For example, something like this:
 
-its_setup_baser() has a third condition here: it fails unless psz is
-SZ_64K, since 52-bit PA needs a 64K page size. This converts at any
-page size, and psz is in host.tables[i].psz. Could that check come
-too?
+  def test_out_of_range(conf):
+    probabilities = [
+      '-1', '101', '+101', '0:101', '0:0:101', '60:41', '0:60:41',
+      '4294967296', '-4294967296',
+      '999999999999999999999999', '-999999999999999999999999',
+    ]
+    for probability in probabilities:
+      assert conf._run_conf('--randconfig', extra_env={
+        'KCONFIG_PROBABILITY': probability,
+        'KCONFIG_SEED': '0',
+      }) == 1, repr(probability)
+      assert 'KCONFIG_PROBABILITY:' in conf.stderr, repr(probability)
 
-Also "host_snaphsot" in this function.
-
-> +
-> +               its->tables[i].val &=3D ~GENMASK(47, 12);
-> +               its->tables[i].val |=3D baser_phys;
-> +               its->tables[i].base =3D host.tables[i].base_snapshot;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +void its_emulate_acquire_locks(unsigned long *flags)
-> +{
-> +       struct its_node *its;
-> +
-> +       if (WARN_ON(!flags))
-> +               return;
-> +
-> +       raw_spin_lock_irqsave(&its_lock, *flags);
-> +
-> +       list_for_each_entry(its, &its_nodes, entry)
-> +               raw_spin_lock(&its->lock);
-
-pkvm_drop_host_privileges() runs on_each_cpu() inside this section, so
-the IPI goes out with interrupts off and lockdep_assert_irqs_enabled()
-in smp_call_function_many_cond() fires on a PROVE_LOCKING build.
-
-Moving the locks isn't free, though: priv is only set by the setup
-hypercall after the IPI, and the handler drops every ITS access until
-then. Would running the setup before the stage-2 install work, or
-forwarding on a NULL priv?
-
-> +}
-> +
-> +int its_emulate_release_locks(int ret_pkvm_finalize, unsigned long *flag=
-s, its_emulate_setup cb)
-> +{
-> +       struct its_node *its;
-> +       int ret =3D 0;
-> +
-> +       if (WARN_ON(!flags || !cb))
-> +               ret =3D -EINVAL;
-
-The acquire returns with no locks held, and the release then unlocks
-them anyway and reads *flags. The only caller passes &its_flags, so
-could both go?
-
-> +
-> +       list_for_each_entry(its, &its_nodes, entry) {
-> +               if (!ret_pkvm_finalize && !ret)
-> +                       ret =3D its_emulate_switch_queues_locked(its, cb)=
-;
-> +
-> +               raw_spin_unlock(&its->lock);
-> +       }
-> +
-> +       raw_spin_unlock_irqrestore(&its_lock, *flags);
-> +
-> +       return ret;
-> +}
-> +
->  static int __init its_probe_one(struct its_node *its)
->  {
->         u64 baser, tmp;
-> diff --git a/include/linux/irqchip/arm-gic-v3.h b/include/linux/irqchip/a=
-rm-gic-v3.h
-> index ea5fd2374ebe..b75f82cef4bf 100644
-> --- a/include/linux/irqchip/arm-gic-v3.h
-> +++ b/include/linux/irqchip/arm-gic-v3.h
-> @@ -657,6 +657,45 @@ static inline bool gic_enable_sre(void)
->         return !!(val & ICC_SRE_EL1_SRE);
->  }
->
-> +/*
-> + * The ITS_BASER structure - contains memory information, cached
-> + * value of BASER register configuration and ITS page size.
-> + */
-> +struct its_baser {
-> +       void            *base;
-> +
-> +       /*
-> +        * The table used when emulation is in place and indirect layout =
-is
-> +        * configured.
-> +        */
-> +       void            *base_snapshot;
-> +       u64             val;
-> +       u32             order;
-> +       u32             psz;
-> +};
-> +
-> +struct its_host_state {
-> +       struct its_baser        tables[GITS_BASER_NR_REGS];
-> +
-> +       /* The command queue used after the emulation is in place */
-> +       void                    *cmd_host_copy;
-> +
-> +       /* The command queue configured by the ITS driver at boot */
-> +       void                    *cmd_original;
-> +       void                    *cmd_write;
-> +       size_t                  cmdq_len;
-> +};
-
-struct its_baser was private to irq-gic-v3-its.c. Would it be better
-for these to have their own header?
-
-Cheers,
-/fuad
-
-
-> +/*
-> + * Callback used to initialize the emulation. It is expected to allocate=
- memory for the private
-> + * state of the emulation and receive as arguments copy of the host ITS =
-driver state along
-> + * with the address of the ITS.
-> + */
-> +typedef int (*its_emulate_setup)(phys_addr_t its_phys_base, struct its_h=
-ost_state *host);
-> +
-> +void its_emulate_acquire_locks(unsigned long *flags);
-> +int its_emulate_release_locks(int ret_pkvm_finalize, unsigned long *flag=
-s, its_emulate_setup cb);
-> +
->  #endif
->
->  #endif
-> --
-> 2.55.0.654.g21b8a5bc05-goog
->
+- Julian Braha
