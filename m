@@ -1,163 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E196495048;
-	Tue, 15 Sep 2026 11:58:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94AFC39E6EB;
+	Tue, 15 Sep 2026 11:58:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473502; cv=none; b=re0guxtOKnUFDBiPYJBALjLn1ZVdv8VSyKU8OSqS0hubUn6KO0Vw6hFdyWb3PnDDeHq4ut6Tetpm48FUmmMXhJoBgp0PtK2RtAkXy3FOa/h0ysYrf6lgH91G8yVgTpBqdxV5JZch12IHxHea0qZksSus/3HGXKjZsGAknMGQQnw=
+	t=1789473521; cv=none; b=H9kp2IWTjM+vBiFS/+mSTtNmIpJPqBmvzWwwsLiOO7nsrH3RWokXdWvxoFR03KpWxGBQlPWAhiThD+NpRkDg7RB1sMio/pIIgJ55rAN9yUzVoX4yNGOl2RPIG7VFZy/rvcUhnU3up2yOy/6ggeEBrTupidA/Fowj/tv5cCYVpiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473502; c=relaxed/simple;
-	bh=QA8zwAoolKTPM25sBgdo58tGELS5tC+ij7uhJxavzjk=;
+	s=arc-20240116; t=1789473521; c=relaxed/simple;
+	bh=a6BeIQkyBXeFZQqSm2GDwlOuCTRWkkmfEGCNEf3KJ54=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DrPQSaLm7fLg8z9MB6vOzGQha4UOLg7urPs6MJtKkCdFZtTPh3oWjcgcxnj0h47Ka+0+yO9+RPibKZ5UvWaxSmWFUgG45obMWPL0oXER/Tk8eCYw4uLcTrJLmc24P0qRnDWARCIehNTr1siQ+0qKEPOionDS/nYzDazZ9wkNhp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IrCTlWuj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hP2cgPLyDuaQtWIEsS7Oy8zIH2Qr+5A60S9SnjeK9V7/Zkzq7oVxPH1ewgJGq1ld24Ewa9XJhHjk2sm6FcM9TywwKt8ecX7rs2Ip98vPhMhbyaReHI4slB3mzs5hfaZBvZpSYNxRY71flkOVLKNgufZnO8G+Ml05cRTAgfvWhRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/Fm9y/h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IrCTlWuj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11EBA1F000FF;
-	Tue, 15 Sep 2026 11:58:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/Fm9y/h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7865D1F000FF;
+	Tue, 15 Sep 2026 11:58:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789473501;
-	bh=jlX8Yrsnfl7deC4qnmmV5NCpDXqR14GNWi2FZvg8+jE=;
+	s=k20260515; t=1789473520;
+	bh=G81COMtQNhYX0zALp20voZ321dKl8PDyZRagFYkHh1s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IrCTlWujJ6nrzWR+kPElXgrplKR56V6WHeWWuPOUliQNc2EyivO33TLnPPz8rfLyd
-	 k88kypZAu/qjMeNrQ811FOAXJBmQDSOix2pyOY/x4jM4YumgSk11AyXYI3nb1GaMb/
-	 cKV4ELQNL9Hc5yAAA9nrg40m1XlqvJTZymo8EyPnbEC7HDmNCGf9nS/jE4eGBEHGNH
-	 OASPNxuETHcj7kQOGDaogiKcS/n2iRUy/nYmg6ZAQyWKNgAx9toAxZWJasN3L/YRTP
-	 tOgxJoqOAtmjQdN0oSUwjzjs66GznaaahuRcshoM7dapuGX/OrmyTJbin2BisCJOR1
-	 BPf8ccBp31CiA==
-Date: Tue, 15 Sep 2026 12:58:10 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 20/21] kbuild: build rust crates in parallel with the
- rest of the build
-Message-ID: <aqkv9SqIdh0qKPFc@gremlin>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-20-39817ec5db23@kernel.org>
- <202609141133.7CA979C89@keescook>
+	b=C/Fm9y/hK6rlSZdEGpKbT1jnv9paCGDvoSpb8618BD4yppO9A1nAYbp3VvMWM7br0
+	 b7ND7V1FJjbe05XBFNu6PyyR6AfCem1seXzqB1XuLnqqp5P2Q8nUJbdZHs9YQ9Wf1y
+	 C1DyeWSMoFUiH9ZDN8oiZ9VnKoAOB2zEEiDTCbnBw/eHUWFfvL7XwF0r7HiACNkceh
+	 ZTObiOIcF1/SjEmZOoifoOngOVts0tdfVHnKJifSpYqsaWG6YOc4ts+vDB8ULp7OVP
+	 Fz/LJIXyKA0NjBkGl5mJQx9LopYnq/xEGSjvn5DlerLiraJQZcw4pjvZIcKaLbr33A
+	 m6dqV8Srdaeaw==
+Date: Tue, 15 Sep 2026 14:58:36 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Ratheesh Kannoth <rkannoth@marvell.com>
+Cc: davem@davemloft.net, gakula@marvell.com, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, sgoutham@marvell.com, andrew+netdev@lunn.ch,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
+Subject: Re: [PATCH v9 net] octeontx2-af: switch qmem from coherent DMA alloc
+ to streaming DMA mapping
+Message-ID: <20260915115836.GN13683@unreal>
+References: <20260911022649.573300-1-rkannoth@marvell.com>
+ <20260915081633.GH13683@unreal>
+ <aqkGNiu_BWOkA0A9@rkannoth-OptiPlex-7090>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <202609141133.7CA979C89@keescook>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqkGNiu_BWOkA0A9@rkannoth-OptiPlex-7090>
 
-On Mon, Sep 14, 2026 at 11:37:54AM -0700, Kees Cook wrote:
-> On Mon, Sep 14, 2026 at 10:22:19AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Care is taken to ensure that external rust modules can still be built
-> > against the tree - make modules_prepare ... (where ... are other goals)
-> > will build rust/ first.
-> > [...]
-> >  prepare: prepare0
-> >  ifdef CONFIG_RUST
-> >  	+$(Q)$(CONFIG_SHELL) $(srctree)/scripts/rust_is_available.sh
-> > -	$(Q)$(MAKE) $(build)=rust
-> >  endif
+On Tue, Sep 15, 2026 at 02:17:50PM +0530, Ratheesh Kannoth wrote:
+> On 2026-09-15 at 13:46:33, Leon Romanovsky (leon@kernel.org) wrote:
+> > On Fri, Sep 11, 2026 at 07:56:49AM +0530, Ratheesh Kannoth wrote:
+> > > qmem_alloc() uses dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS, which
+> > > allocates CPU-cache-coherent DMA memory and, with CMA enabled, draws from
+> > > the CMA pool. qmem backs NIX/NPA queue contexts, admin queues, and LMTST
+> > > regions (including CN10K LMTST areas that span page boundaries), so
+> > > consumption grows with enabled interfaces and is hard to provision in CMA.
+> > >
+> > > Switch qmem to a streaming-DMA-style path: allocate memory with kmalloc(),
+> > > then map it for device access with dma_map_single(). Add
+> > > otx2_dma_alloc_coherent() and otx2_dma_free_coherent() helpers and wire
+> > > qmem_alloc()/qmem_free() through them instead of dma_alloc_attrs()/
+> > > dma_free_attrs().
+> > >
+> > > This works on Octeon because the octeontx2 driver is written for
+> > > DMA-coherent devices: Octeon platforms provide IO coherency (via SMMU), so
+> > > the driver already uses streaming DMA APIs for packet data while
+> > > deliberately skipping explicit CPU cache sync (DMA_ATTR_SKIP_CPU_SYNC).
+> > > The same IO coherency lets qmem use a streaming map of kmalloc-backed
+> > > memory instead of a dedicated coherent allocator or CMA reservation. That
+> > > is valid because the platform is DMA-coherent, not because omitting
+> > > dma_sync_* magically makes memory coherent.
+> > >
+> > > cc: Leon Romanovsky <leon@kernel.org>
+> > > Fixes: 73d33dbc0723 ("octeontx2-af: Use DMA_ATTR_FORCE_CONTIGUOUS attribute in DMA alloc")
 > >
-> >  PHONY += remove-stale-files
-> > @@ -1760,6 +1763,12 @@ modules: modules_prepare
-> >  # Target to prepare building external modules
-> >  modules_prepare: prepare
-> >  	$(Q)$(MAKE) $(build)=scripts scripts/module.lds
-> > +ifdef CONFIG_RUST
-> > +# Ensure rust/ is built before any external rust module which will rely upon it.
-> > +ifneq ($(filter modules_prepare,$(MAKECMDGOALS)),)
-> > +	$(Q)$(MAKE) $(build)=rust
-> > +endif
-> > +endif
->
-> As far as I can see, nothing orders this recipe against the tree build,
-> which also descends into rust/ through "obj-$(CONFIG_RUST) += rust/"
-> in Kbuild, while $(build-dir) only depends on prepare. Before this
-> patch that was fine, because prepare had already built rust/ by the
-> time either of them ran. Now "make -jN modules_prepare all" can have
-> two make processes building rust/ at the same time, and so can
-> "make -jN rustdoc all" or "make -jN rusttest all", whose recipes also
-> run "$(MAKE) $(build)=rust". That means two rustc runs writing the same
-> objects in rust/ ...
+> > The code itself looks fine now, but the commit message does not explain
+> > why this patch is needed. It only describes what the patch does, which is
+> > unnecessary here since the change itself is straightforward.
+> >
+> > Also, no bug is described, so neither the Fixes tag nor the "net" target
+> > is appropriate for this patch.
+> >
+> 
+> Below commit message is Okay ?
 
-Ack.
+How about a simpler message?
 
-It seems make can't order two independent sub-makes, so will change the patch so
-it skips the modules_prepare rust build when a goal that builds the tree* is
-present, as they all descend into rust/ themselves.
+octeontx2-af: Fix memory scaling limitation in SR-IOV mode
 
-I checked the change against:
+The original code used DMA_ATTR_FORCE_CONTIGUOUS, which could exhaust
+the CMA pool when a large number of VFs were requested.
 
-	$ make modules_prepare
-	$ make modules_prepare scripts
-	$ make -j128 modules_prepare all
+Fix this by switching to the DMA streaming API. This is equivalent on
+Octeon platforms, which provide full I/O coherency via the SMMU.
 
-+ confirmed they all built rust/ once only for each.
+Thanks
 
-* LLM says: all, vmlinux, modules, image targets, dtbs, rustdoc, rusttest
-
-So, fixed in v3 :)
-
->
-> > +# Rust code elsewhere in the tree depends upon rust/.
-> > +ifdef CONFIG_RUST
-> > +$(KBUILD_RUST_DIRS): | rust
-> > +endif
-> > [...]
-> > +export KBUILD_RUST_DIRS := drivers lib mm samples
->
-> Doesn't this make all of drivers/, lib/, mm/ and samples/ wait for rust/?
-> That's a lot of stall: drivers/ is most of the tree. I think then a
-> CONFIG_RUST build has most of its C work waiting on the rust chain;
-> only the other top-level directories start early? This didn't create new
-> build delays for those configurations?
-
-Yeah good point.
-
-For a defconfig+rust clean build on 128 threads the other top-level directories
-were done at ~14s while rust ran to ~18.6s, so there was 4-5 of idle.
-
-However the patch improves things by net -3.9s regardless.
-
-This is really only a big box issue though. With fewer threads the rest of the
-tree takes longer so it has no impact on the build.
-
-(An aside - this kind of trade-off is what the series is all about really - the
- 'serial tail' - i.e. the single threaded stuff that _overlaps_ the end of the
- build is what slows you down.)
-
-Since this _still_ gives you a significant speed up on bigger boxes, I think
-it's fine as-is.
-
-The LLM says a fix for this would need significant work - a cross-instance lock
-and an on-demand rust/ build. So I think best as a follow-up?
-
->
-> --
-> Kees Cook
-
---
-Cheers, Lorenzo
+> 
+> octeontx2-af: switch qmem from coherent DMA alloc to streaming DMA mapping
+> 
+> On platforms with CMA enabled, qmem_alloc() silently drains the CMA pool.
+> qmem_alloc() calls dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS, which
+> routes every allocation through the CMA allocator. qmem backs NIX/NPA queue
+> contexts, admin queues, and LMTST regions (including CN10K LMTST areas that
+> span page boundaries), so the total footprint scales with the number of
+> enabled interfaces and SR-IOV VFs. On systems with many active interfaces or
+> many VF counts, this exhausts the CMA pool and causes qmem_alloc() to fail
+> at interface bring-up or probe time
+> 
+> Octeon platforms provide full IO coherency via SMMU, so the driver already
+> uses streaming DMA APIs for packet data while deliberately skipping explicit
+> CPU cache sync (DMA_ATTR_SKIP_CPU_SYNC). The same IO coherency means qmem
+> does not need a dedicated coherent allocator or CMA reservation — a
+> streaming map of ordinary kmalloc-backed memory works correctly.
+> 
+> Fix this by switching qmem to a streaming-DMA path: allocate memory with
+> kzalloc(), then map it for device access with dma_map_single(). Add
+> otx2_dma_alloc_coherent() and otx2_dma_free_coherent() helpers and wire
+> qmem_alloc()/qmem_free() through them instead of dma_alloc_attrs()/
+> dma_free_attrs(). This is valid because the platform is DMA-coherent, not
+> because omitting dma_sync_* magically makes memory coherent.
+> 
+> Fixes: 73d33dbc0723 ("octeontx2-af: Use DMA_ATTR_FORCE_CONTIGUOUS attribute in DMA alloc")
+> Signed-off-by: Ratheesh Kannoth rkannoth@marvell.com
