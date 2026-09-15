@@ -1,230 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E009A3E49F8
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:16:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0105F3E022D;
+	Tue, 15 Sep 2026 15:18:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485421; cv=none; b=nIIrmtgAnY7HHsWI8Tev7hL13I+dsn4Ik2E3Us+PMnyKgMpeuI2DIcXBldC0i2Oxh/LESGa22SE8wGayE2Dmq1DMRWQAcaBTfkOZSQrJWqMgvi5B9Ij1N+1bQKJzgYrhSEpWYkJg8OCMqNxZ8/Ajh7Ti31XPq4y01/Ao1B+J9fY=
+	t=1789485491; cv=none; b=U26AnMzMk+w2TMtAwnoQ2HibhpbB6WKsPNcIJWdPpe5yB4d5ncKCUQzQFgvfzg2EJwXczeo5outlv9AGSALFmpNlNtYT3JfmFe4hApdIkTYhDcCmZdhp7kaSm47SCoKrZEiK1TvTCYOkK2v9ZmE2q8T4cYIj/hsyXmLHZ65wJIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789485421; c=relaxed/simple;
-	bh=+dVu5sGWbQKQwOma7Xi4cL5jAvE0AQRc4TSNUprY5+E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=f6WKcjCX7adGgb0Fw13UdS9xV3bnG/RPUydrQAf4wwW63ZyRWoFm3Yq9sfTHQRdVXxjrpM+z4Foc9rMyxAllG+2Sv4TcXN32klgUMzurMdcCt863vaOulb6VmVTO1/EqkQW4ODWBKYCOdtKh8DKD2cJ+KHxUe4kwyIIyIMC/PKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKwXBujt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789485491; c=relaxed/simple;
+	bh=MYz6XguZYRFZ4/3nNJ/XuJ1PYCEYaFIUdFf95sJVHvM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iX80VSgnHyrdbEvnnaN4NTqPKz+9XYZK6yEwYSZJvi0Ncii0j6nAuMBgS44TxW9OYJ8Wk/k3bxHVFaoDtZ8TS4+dAcipEftCA9YwPzZk8xUGcfR+ltt/o6F8H1I89l9E21veO31jPpxKE8MxcdYzBMLuXYdRYgxAkvnhb9rsOUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=HlffO9R0; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKwXBujt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F3D1F0089D
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789485416;
-	bh=+dVu5sGWbQKQwOma7Xi4cL5jAvE0AQRc4TSNUprY5+E=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=IKwXBujtiq0ha8T8DARsdFuYpzysYWxzbW6bLVocjyfaygL3QUFjlIlnjANxOABKp
-	 Ngl1Etijj2DojJpbizndyMWR3OebPB6Mm+oeCZuWoA7mLvY6pWQnpKPYwhyQseoUKx
-	 BzWGozlyBravBMTPky+8ZB5upHVF3TnIUYsc/U0R9T+pTKzV662v/utcqELTzHan9E
-	 iJJVt+ebOLQ+c5IesLnkKr5OOhxKacD7M4xUU6FsiKzvQQcxI/VlUJ2GXQTcPcf5pF
-	 1FeTNO7ljgNnbFPg8VA0kgD9A/7tE5jofhG44fV502PzyJWVRzwNBzbWhBWtV37KJg
-	 bTn4H+p6ZOjuA==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b899413537so5555281e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:16:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByta59zK8s8VdhWdJKVSyceYrHI3Lul1RBcVliam/IFMrYnwbpwdrdJEpuu1tvhBgXXn2bY6wS1jT0zqMY=@vger.kernel.org
-X-Gm-Message-State: AFuF++km6oIVB0NlwhTFM6y52dPOQXeBVXTFddI7hE++tFGEkeR6WXDP
-	BHV6RIa17JlmpgwdeAchngdbqN/riZnq79PoypqIlS3HWjO9++6R2PdeRbxI+1mmgvLKc/phCcp
-	zUAd9cEFOMtwUh8V3zbL2PxqaJuGMpSs=
-X-Received: by 2002:a05:6512:114a:b0:5b5:e53e:5710 with SMTP id
- 2adb3069b0e04-5b8ae662458mr2061203e87.2.1789485414817; Tue, 15 Sep 2026
- 08:16:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="HlffO9R0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789485488;
+	bh=MYz6XguZYRFZ4/3nNJ/XuJ1PYCEYaFIUdFf95sJVHvM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=HlffO9R0nkIt8kdPbWs85LU4bd1vKP40e/JICj4qRcGgdF5Rx4ROVk4mGXX+8HsZk
+	 JjyH3cue1+TtjQIWP8I2RgeVevfIPEDO/uuhXcd5hebdml/DogsWCXDyUCL8FFbYhf
+	 S+jWDsElqQW9llGqLYhP62MQmQoeVIHs2u7i6l17RvbONcIsNZCE0d0L2ZzcNHCewj
+	 zDGqK0iLoJPChW7QkZaVftU4P0aMLzGxidpm4Tn+tNk6Ccd70UQ3T5Ui6C/9Wp1hPE
+	 hC3nXfTvRpyt3HGAtpV+zz7H79M3udazCq7CaRNmbS8bhQZVYU00/a7Lz+PMW7Sd++
+	 hKvS3zamxAEUw==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0FE1B17E0B0F;
+	Tue, 15 Sep 2026 17:18:08 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id C0339480030; Tue, 15 Sep 2026 17:18:07 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 15 Sep 2026 17:17:43 +0200
+Subject: [PATCH 3/5] usb: dwc3: core: add post PHY registration hook for
+ platform glue
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260509190015.79086-1-jernej.skrabec@siol.net>
- <nIKN_benRn2Bk8SDZrkMCA@gmail.com> <86943057-f5b4-4fae-9172-45f13814494f@kernel.org>
- <0r4us4OeRRWtJhxvps-bZw@gmail.com> <b1f03d81-85db-4303-89ff-64440b6e1890@kernel.org>
- <4709b24a-f421-4c81-a023-c37ea66c88bd@arm.com>
-In-Reply-To: <4709b24a-f421-4c81-a023-c37ea66c88bd@arm.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 15 Sep 2026 23:16:41 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64d-UOdKkDF9u62NB-a5EsFLQckUH1hoqDbmz7eE7wQiA@mail.gmail.com>
-X-Gm-Features: AcwNN1Ua9fzIlsNRznQ7xIwsHTsfTLXcvWghC51yBM4u0ScR5WKMEqw88iUtY7s
-Message-ID: <CAGb2v64d-UOdKkDF9u62NB-a5EsFLQckUH1hoqDbmz7eE7wQiA@mail.gmail.com>
-Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
- layer reg space
-To: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, conor+dt@kernel.org
-Cc: Andre Przywara <andre.przywara@arm.com>, =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
-	samuel@sholland.org, mripard@kernel.org, maarten.lankhorst@linux.intel.com, 
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, krzk+dt@kernel.org, 
-	mturquette@baylibre.com, sboyd@kernel.org, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-3-763bb546824e@collabora.com>
+References: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
+In-Reply-To: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-phy@lists.infradead.org, kernel@collabora.com, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Igor Paunovic <royalnet026@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2023;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=MYz6XguZYRFZ4/3nNJ/XuJ1PYCEYaFIUdFf95sJVHvM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpYa/BGNBrdPkstSJPufa+Kj1IefMXRoHk0
+ fWH1gVhwkYvxokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqWGvAAoJENju1/PI
+ O/qanX0P/iCmrS/h4fj6sLF5rrWdGs5mYFbqm81Q8fMVgHaz5p5xKnTP2PQl8oxyLOayEp53VDm
+ Qf1Z4bE1xVKGhhkW5nh/CtPtnF/ZYXuF5SARN8JKafFS1T5pSKlPB5VrOXga8pyoC2JoZJIw6hi
+ VYN5w9a5SbWl8gUCdZR3MoOERkwf9LAouV7xv0p2PuEldQRKUSxUzwZw9sjfJTEhv6iYVI7N+Ai
+ sfy64yc8KIu5x7dLXrwu558iGQnObiVgWxXopRtf9zKFVWI7GpMux6VlCSG5x2lGaLs6nDlRRHY
+ /KWCigOROGHVDRgy4XTiH7LnkdVqOzr1JAYVIA5xIcJmelr/cEOuX7hx0Fe55DMhp7Z42yYdBB4
+ Mga6h0iA6PTifQg4fPL9X2JDgHeRlKzSQNxNZMdD+U3mv4H86AdD/Q1aaJz7czxRmEP1/mrcOnj
+ oFoOMp45FEttkvlfVZ5LtjtFNJ7ZrRzVpIQP7KPOE1fXk8E7twef2t/EIFPVkGVqQjnB3eWuhSr
+ o/QzG9kByhcaXiTxIh3bUjGuQGKno5AdZLJzmRERBW4M9Xqyc9Z52WTCNsM15XO6LmDRO8d2tov
+ FUOubk21rcQnYwtrqCLSJ2pagO8Nn4ankvzs/qerljBsMMvjiGC97EFZIUETW67zwBk6x5cD7xP
+ uwbJlXkp49MZra9HC8Qkwiw==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Tue, Jun 16, 2026 at 9:39=E2=80=AFPM Andre Przywara <andre.przywara@arm.=
-com> wrote:
->
-> Hi,
->
-> On 6/16/26 05:51, Krzysztof Kozlowski wrote:
-> > On 15/06/2026 17:47, Jernej =C5=A0krabec wrote:
-> >> Dne ponedeljek, 15. junij 2026 ob 06:28:54 Srednjeevropski poletni =C4=
-=8Das je Krzysztof Kozlowski napisal(a):
-> >>> On 14/06/2026 16:08, Jernej =C5=A0krabec wrote:
-> >>>> Dne ponedeljek, 25. maj 2026 ob 14:10:38 Srednjeevropski poletni =C4=
-=8Das je Krzysztof Kozlowski napisal(a):
-> >>>>> On 24/05/2026 23:33, Chen-Yu Tsai wrote:
-> >>>>>> Hi,
-> >>>>>>
-> >>>>>> (resent from new email)
-> >>>>>>
-> >>>>>> On Thu, May 14, 2026 at 2:04=E2=80=AFPM Krzysztof Kozlowski <krzk@=
-kernel.org> wrote:
-> >>>>>>>
-> >>>>>>> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
-> >>>>>>>> From: Jernej Skrabec <jernej.skrabec@gmail.com>
-> >>>>>>>>
-> >>>>>>>> As it turns out, current H616 DE33 binding was written based on
-> >>>>>>>> incomplete understanding of DE33 design. Namely, planes are shar=
-ed
-> >>>>>>>> resource and not tied to specific mixer, which was the case for =
-previous
-> >>>>>>>> generations of Display Engine (DE3 and earlier).
-> >>>>>>>>
-> >>>>>>>> This means that current DE33 binding doesn't properly reflect HW=
- and
-> >>>>>>>> using it would mean that second mixer (used for second display o=
-utput)
-> >>>>>>>> can't be supported.
-> >>>>>>>>
-> >>>>>>>> Remove layer register space, which will be represented with addi=
-tional
-> >>>>>>>> node, and replace it with phandle, which will point to that new,=
- shared
-> >>>>>>>> node. That way, all mixers can share same layers.
-> >>>>>>>>
-> >>>>>>>> There is no user of this binding yet, so changes can be made saf=
-ely,
-> >>>>>>>> without breaking any backward compatibility.
-> >>>>>>>
-> >>>>>>> There is user. git grep gives me:
-> >>>>>>> drivers/gpu/drm/sun4i/sun8i_mixer.c
-> >>>>>>>
-> >>>>>>> which means this is a released ABI. As I understood, the old code=
- was
-> >>>>>>
-> >>>>>> We held off on merging the DT changes so that we could rework this=
-.
-> >>>>>> I can't find the actual request though. It was probably over IRC.
-> >>>>>>
-> >>>>>>> working fine but just did not support all use cases. Why this can=
-not be
-> >>>>>>> kept backwards compatible?
-> >>>>>>
-> >>>>>> AFAIK the "planes" block is shared between two display mixers. As =
-the
-> >>>>>> commit message explains, this prevents using the second mixer, sin=
-ce
-> >>>>>> only one of them can claim and map the register space. And on the =
-H700
-> >>>>>> (which is the same die as the H616 discussed here but with more ex=
-posed
-> >>>>>> interfaces), there could actually be a use case for the second mix=
-er.
-> >>>>>
-> >>>>> It explains why you want to make the changes but not why you cannot=
- keep
-> >>>>> it backwards compatible.
-> >>>>
-> >>>> I guess it can be backward compatible, but I don't think it makes se=
-nse.
-> >>>> Yes, original driver implemented original DT bindings, but there is =
-no node
-> >>>> which uses that binding. If there is no user of that, why would driv=
-er
-> >>>
-> >>> Did you check all out of tree users of the ABI? All vendor kernels,
-> >>> forks and all of them for which the ABI was made for?
-> >>
-> >> Since when do we care about out of tree users? I understand that drive=
-rs
-> >
-> > Since always? That is the meaning of ABI. Otherwise there is no point t=
-o
-> > discuss ABI at all. Why would it exist if you had all DTS inside kernel
-> > always matching the code?
->
-> In general I would agree with Krzysztof, merged binding means we need to
-> stick to it, but in this case I think that would be over the top. As
-> Jernej said, there are no users, since we didn't commit on the DTs, and
-> the DE33 graphics support in the kernel (bindings and code) is
-> incomplete: it's really just the mixer, but no other components (TCON or
-> output PHYs) required. So it never worked as such.
->
-> In hindsight we could say that we should have never merged the bindings
-> without having fully working, reviewed and accepted driver code, for the
-> whole display chain. Which we need to do because we create those
-> bindings based on reverse engineering efforts, not by looking at
-> documentation or design documents (which we don't have).
->
-> >> must support old device tree files. Once they work, compatibility must
-> >> be carried forward. But that's not the case here.
-> >>
-> >> In any case, vendor kernels have completely different DT structure. Th=
-is
-> >> was developed independently from them. Take a look at [1] how BSP DT l=
-ooks
-> >> like, specifically Display Engine node.
-> >>
-> >> Of course there are some distros which grab WIP patches from mailing l=
-ists
-> >> soon after they are available. For example, I know that Armbian carrie=
-d old
-> >> WIP patches which used old ABI. However, such distros generally don't =
-care
-> >> about exact solution and ditch patches as soon as proper solution is m=
-erged
-> >> upstream or even when better WIP patches come around. DT files in such
-> >> distros get updated alongside kernel, they are not hidden in firmware.
-> >>
-> >
-> > I am not talking about BSP. I am talking about out of tree users for
-> > which we defined the ABI and called it that way.
->
-> If you are looking for DT users outside of the Linux kernel, this is the
-> result of a quick check (list of users from ChatGPT, checks by myself
-> with git clone/git grep):
-> Zephyr RTOS: no graphics support
-> FreeBSD: no H616 support
-> OpenBSD: no H616 graphics support
-> NetBSD: no H616 support
-> U-Boot: no H616 graphics support
-> Barebox: no H616 support
-> TF-A: no graphics support
-> OP-TEE: no (Allwinner) graphics support
-> EDK2: no Allwinner support
+Add support for custom PHY handling steps in platform glue code
+by adding a post registration hook. This will be used for handling
+PHY reset notifications on the Rockchip platform.
 
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/usb/dwc3/core.c | 2 +-
+ drivers/usb/dwc3/core.h | 9 +++++++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-We really need to move forward with this.
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index 4b7132887a03..daf5aec07fbf 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -1613,7 +1613,7 @@ static int dwc3_core_get_phy(struct dwc3 *dwc)
+ 		}
+ 	}
+ 
+-	return 0;
++	return dwc3_post_phy_registration(dwc);
+ }
+ 
+ static int dwc3_core_init_mode(struct dwc3 *dwc)
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index 608daeb7ef10..e9d8df0a298e 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -995,10 +995,12 @@ struct dwc3_scratchpad_array {
+  *				need to be passed on to glue layer
+  * @pre_set_role: Notify glue of role switch notifications
+  * @pre_run_stop: Notify run stop enable/disable information to glue
++ * @post_phy_registration: Called directly after PHY got registered
+  */
+ struct dwc3_glue_ops {
+ 	void	(*pre_set_role)(struct dwc3 *dwc, enum usb_role role);
+ 	void	(*pre_run_stop)(struct dwc3 *dwc, bool is_on);
++	int	(*post_phy_registration)(struct dwc3 *dwc);
+ };
+ 
+ /**
+@@ -1655,6 +1657,13 @@ static inline void dwc3_pre_run_stop(struct dwc3 *dwc, bool is_on)
+ 		dwc->glue_ops->pre_run_stop(dwc, is_on);
+ }
+ 
++static inline int dwc3_post_phy_registration(struct dwc3 *dwc)
++{
++	if (dwc->glue_ops && dwc->glue_ops->post_phy_registration)
++		return dwc->glue_ops->post_phy_registration(dwc);
++	return 0;
++}
++
+ #if IS_ENABLED(CONFIG_USB_DWC3_HOST) || IS_ENABLED(CONFIG_USB_DWC3_DUAL_ROLE)
+ int dwc3_host_init(struct dwc3 *dwc);
+ void dwc3_host_exit(struct dwc3 *dwc);
 
-Are there any concerns other than backward compatibility?
+-- 
+2.53.0
 
-As Andre already pointed out, there are no other notable projects
-implementing the old, incorrect binding.
-
-Out of tree users such as Armbian are likely cherry-picking WIP patches
-from Jernej's tree or the mailing list, even the current stuff like this
-patch[1], and they can and will continue to do so until the stuff is merged=
-.
-
-
-Thanks
-ChenYu
-
-[1] https://github.com/armbian/build/blob/main/patch/kernel/archive/sunxi-6=
-.18/patches.drm/0036-dt-bindings-display-allwinner-Update-H616-DE33-bindi.p=
-atch
