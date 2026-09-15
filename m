@@ -1,293 +1,296 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F94149DBB9;
-	Tue, 15 Sep 2026 08:27:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0501F4A0938
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:27:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460850; cv=none; b=koVr7PIcfhMTJXzOBeYwNFpEZ00onrUiogsrZtA41eQTQzRM0kb6BLNI8RerMSlSiJBLkvV6XvNE2pJb7IPLGy3LyfP5OYQoWsziObv6fuyCHO46yASNS/Vdhw09S9g1RQf9RseyBdqzKpqa/qBv9ahgvV1I3/Tpaz++cripju0=
+	t=1789460854; cv=none; b=ZQK1ZiuA45GpN3WEw8pz540pQSf15LB5ymjEdU5srLQMQfFZKxDJTRXI0z9Mt0dm4VYlyKSaimdDQiIEQDCidEDjc9Q6/Lzurc2X5f84obki7Cd6IZ7ed8kBWKnGU/4KHEbOD/tZR/vxgU2AxaDTFz0gKiRObPsY/pRLFPap3OU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460850; c=relaxed/simple;
-	bh=Rf6vDjJ9YQPHHhCbEsefcg1KFicJPVI8AWG9IkgH8HE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=upaaFUQOKn2WPqhgdWuqg32+FfCUTDhBeUtm9BcMz4aXc0KzVdcb1Cldmj6nP4sksFGDdup/iwaeoPZlXupERZSQNIXPnfHML6vq+mbuk/WfTJc0ibdmT/5bfEb2bLKzJeUjlqRa5Wgzsd89bP4uIPKHpkdftO00r4XJ81zLtb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAgSykCJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789460854; c=relaxed/simple;
+	bh=WLXzasjY0mBK/NrbpJfTCOFtGklzxJ8+ta6QqRZkwNM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=bpCi3PYQqFp7LzpdEK2446tLaU7i0QGxKVYFJTIBeBdUnrH3oLWdyAplZ1M46bM86lWFn6+wadfHwEfsaf3X5N0otPoo/7nln51fStcOJ7DjuJ5AtudVUNqJzxyRlwAR6398tl09jgDjjvtzKDcZ3cZS9v5+wfa+dbDnBM4gW18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ABYdo4RB; arc=none smtp.client-ip=209.85.217.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAgSykCJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED841F00898;
-	Tue, 15 Sep 2026 08:27:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789460848;
-	bh=YCD+eaM0vQuBoorLLP6R8i7M/O+TRaN06s+Q/kXHLGk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VAgSykCJllc/wtP85OAkGoHIbpO84YyG2qxV3KZE7befltimgXvYW9KF4o/KreBKv
-	 WuaCySsq//0SzY9CCyLNdF7u3bEyhQ4Jthc5EPOu2lahscOtJbri0oC4CMYNhNz+uD
-	 GjpKkKePgVXzG16+M7brEfor12j5wUJC3lN0Hpzc8OJx9ydIo+B8VbmiQ+ZsL3S3IB
-	 f7aSSube6jkGaLV8XK3d0KtXi8GCKD5+JInPj8qRCAaMBHCYWg886R1u5Dry+maDtn
-	 3ubjNvcYqdJBoIgp8mYrJRzgwZN7fbmc568SVdBB068i9XMQazYNYvO0NkWeDdZbh4
-	 Os4rpImgG3/BA==
-From: Tejun Heo <tj@kernel.org>
-To: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: Emil Tsalapatis <emil@etsalapatis.com>,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 2/2] sched_ext: Maintain an online cid mask in the scheduler arena
-Date: Mon, 14 Sep 2026 22:27:25 -1000
-Message-ID: <20260915082725.3881071-3-tj@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260915082725.3881071-1-tj@kernel.org>
-References: <20260915082725.3881071-1-tj@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ABYdo4RB"
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7866c4ed349so3748900137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:27:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789460851; x=1790065651; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RYxDJLbbwpCoc34IeHntB/eNfLB4EmZZnrz8tORBuFs=;
+        b=ABYdo4RBG2ZmptvlGxRDxUUy/g4NQCosh9cjApgRIEyfEkPzxdCxI1KO9EsoQ3RpCF
+         ocMhm08n7dI1Y2t7wi4QWs92EyKoMLQI9u9ENLYnz4DzJMAt/zaL5H10nc93fX5Ddoql
+         djiVU6ZQ8qxO6kxl9gY/pfd3vyeRMS6zRxoaI1mDAEPjbc0Md288vjQXqmT7VzomGFJ0
+         vLsYCG0mVK119B4Nzw7znaLkP3FLIr+nee7+g32GCS9HHkd2J9gnuLLEP7DHEU8ReMYO
+         ue4FUJBUh/3RSB4lInkUe6SIJsxqicymTyoJZijUCP1vrUwQ5H1feSB+rqMK50+BqNYD
+         0/nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789460851; x=1790065651;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RYxDJLbbwpCoc34IeHntB/eNfLB4EmZZnrz8tORBuFs=;
+        b=EG1g91O4fqP4kikFVbdyM2Jq6i5gllHQtw9yt82lpmLx+MylsQcVoFVSJpUpjsA5fn
+         ukzyZzU4iebc4Be99o0TmwNYctmPjHlyzICGs15e9+kAjv/8XoVOlQz7kbAs5e/TC3ZW
+         fWz10PnCKVDWQPLztnUdFIGHX71+RHMr//2NWav1DPPpTUJoXs7QN6RGhx0cFK4nFciz
+         4qxZ+z2bCNAPPSTmHrSIxPCBuf9Z5Lfo8z7uwVYFzaFRiFWdrl63kafpCjk+UH4O7CX1
+         II9ozda2r3YVOjXrwQN2M9aA+Lnunz2d3GPiS3URAjmC1LfAUETloZVn71NjQ8/RHEVx
+         Kunw==
+X-Gm-Message-State: AFuF++ky5xGM37ONWYdmc1gPIyoRj9We5S7c32EG8ATg9rT7CJZIH7Q0
+	y2Cwb/mMaUSJ6QaTmu+qpoSWC+al28fQx6zaM9aKsCzrc/JqNiTvascEj6SoWsUH6EfQrqVLVI9
+	c1GUCguB4VX0FQGWHyXTQhM55eFZRBkApNsGF2+kR53QVt7Pvdjb/6kkYruz30pTiIj6AqpJU8o
+	9uHUK7qDKNjgTEbLZn70a5dNT57VuuW7vECo9eUg==
+X-Received: from plas19.prod.google.com ([2002:a17:903:2013:b0:2dd:75f1:13f5])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:40c6:b0:2d0:cc92:f7a9
+ with SMTP id d9443c01a7336-2dd837a6aeemr1077095ad.4.1789460419151; Tue, 15
+ Sep 2026 01:20:19 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:45 +0000
+In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260915081910.4142719-1-morbo@google.com>
+X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
+Message-ID: <20260915081910.4142719-29-morbo@google.com>
+Subject: [PATCH 28/28] drm/xe/pf: Refactor strlcat() to seq_buf in sched_group_engines_read()
+From: Bill Wendling <morbo@google.com>
+To: linux-kernel@vger.kernel.org
+Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
+	Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
+	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Matthew Brost <matthew.brost@intel.com>, 
+	"=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Matthias Schwarzott <zzam@gentoo.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
+	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
+	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Kees Cook <kees@kernel.org>, 
+	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, 
+	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
+	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
+	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
+	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
+	Johannes Berg <johannes.berg@intel.com>, 
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
+	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
+	"=?UTF-8?q?C=C3=A1ssio=20Gabriel?=" <cassiogabrielcontato@gmail.com>, Rong Zhang <i@rong.moe>, 
+	Arun Raghavan <arunr@valvesoftware.com>, linux-arm-kernel@lists.infradead.org, 
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+	linux-input@vger.kernel.org, linux-media@vger.kernel.org, 
+	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
+	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org, 
+	devel@lists.orangefs.org, linux-hardening@vger.kernel.org, 
+	linux-sound@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Schedulers on the default cid mapping treat [0, nr_online_cids) as the
-online set and restart on hotplug. Schedulers that install their own mapping
-with scx_bpf_cid_override() have no way to learn which cids are online: the
-count no longer identifies members and the CPU-form cpumask is unusable from
-cid programs. This is an obvious hole in the cid API.
+Similar to control_read(), sched_group_engines_read() constructs a
+space-separated list of hardware engine names in a stack buffer using
+repeated strlcat() calls inside a loop.
 
-Add scx_bpf_online_cmask(), a kernel-maintained cmask in the scheduler's
-arena, allocated alongside the per-CPU scratch masks and populated after the
-cid mapping is finalized and before ops.init(), for child schedulers too.
-The pointer stays valid through ops.exit() with no reference to take. It is
-the arena offset as a void pointer, the same form struct_ops arena arguments
-arrive in. The verifier types the void return as a scalar for the program's
-arena cast.
+In preparation for removing the deprecated strlcat() API[1], refactor
+sched_group_engines_read() to use struct seq_buf and seq_buf_printf().
 
-The mask follows the SCX hotplug notifications: seeded from cpu_active_mask
-and updated before ops.cid_online/offline() runs, so it lags cpu_online_mask
-only inside a hotplug transition. Updates walk the scheduler list under the
-lock that also serializes unlinking. Reads are live, not atomic snapshots.
-Root initialization excludes hotplug.
-
-v2: Reworded the getter kerneldoc (Andrea Righi).
-
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Cc: codemender-patching+linux@google.com
+Assisted-by: Developer:Gemini [editor_update_file, make_kernel_build_single=
+_file, shell_command_run]
+Signed-off-by: Bill Wendling <morbo@google.com>
 ---
- kernel/sched/ext/ext.c                   | 75 ++++++++++++++++++++++--
- kernel/sched/ext/internal.h              |  3 +-
- kernel/sched/ext/sub.c                   | 10 ++--
- tools/sched_ext/include/scx/common.bpf.h |  1 +
- 4 files changed, 78 insertions(+), 11 deletions(-)
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Ian Abbott <abbotti@mev.co.uk>
+Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
+Cc: Tony Luck <tony.luck@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Matthias Schwarzott <zzam@gentoo.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>
+Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Saravana Kannan <saravanak@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Anil Gurumurthy <anil.gurumurthy@qlogic.com>
+Cc: Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>
+Cc: "Martin K. Petersen" <mkp@kernel.org>
+Cc: Trond Myklebust <trondmy@kernel.org>
+Cc: Anna Schumaker <anna@kernel.org>
+Cc: Mike Marshall <hubcap@omnibond.com>
+Cc: Martin Brandenburg <martin@omnibond.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Jiri Pirko <jiri@resnulli.us>
+Cc: Simon Horman <horms@kernel.org>
+Cc: Chuck Lever <cel@kernel.org>
+Cc: Jeff Layton <jlayton@kernel.org>
+Cc: NeilBrown <neil@brown.name>
+Cc: Olga Kornievskaia <okorniev@redhat.com>
+Cc: Dai Ngo <Dai.Ngo@oracle.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Bill Wendling <morbo@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Kanglong Wang <wangkanglong@loongson.cn>
+Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Qiang Ma <maqianga@uniontech.com>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: Thorsten Blum <blum@kernel.org>
+Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Johan Hovold <johan@kernel.org>
+Cc: Johannes Berg <johannes.berg@intel.com>
+Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>
+Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Cryolitia PukNgae <cryolitia@uniontech.com>
+Cc: Jiaming Zhang <r772577952@gmail.com>
+Cc: Will Porter <mrwillporter@gmail.com>
+Cc: Cen Zhang <zzzccc427@gmail.com>
+Cc: "C=C3=A1ssio Gabriel" <cassiogabrielcontato@gmail.com>
+Cc: Rong Zhang <i@rong.moe>
+Cc: Arun Raghavan <arunr@valvesoftware.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: loongarch@lists.linux.dev
+Cc: linux-mips@vger.kernel.org
+Cc: linux-parisc@vger.kernel.org
+Cc: linux-edac@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: intel-wired-lan@lists.osuosl.org
+Cc: netdev@vger.kernel.org
+Cc: linux-wireless@vger.kernel.org
+Cc: brcm80211@lists.linux.dev
+Cc: brcm80211-dev-list.pdl@broadcom.com
+Cc: devicetree@vger.kernel.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org
+Cc: linux-nfs@vger.kernel.org
+Cc: devel@lists.orangefs.org
+Cc: linux-hardening@vger.kernel.org
+Cc: linux-sound@vger.kernel.org
+---
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 83999203a63a..70b711c4de6e 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -3670,8 +3670,20 @@ static void handle_hotplug(struct rq *rq, bool online)
- 		s16 *tbl = rcu_dereference_check(scx_cpu_to_cid_tbl,
- 						 lockdep_is_cpus_held());
- 
--		if (tbl)
-+		if (tbl) {
-+			struct scx_sched *pos;
-+
- 			cpu_or_cid = tbl[cpu];
-+
-+			guard(raw_spinlock_irqsave)(&scx_sched_lock);
-+			list_for_each_entry(pos, &scx_sched_all, all) {
-+				struct scx_cmask *mask = pos->online_cmask;
-+
-+				if (mask)
-+					__assign_bit(cpu_or_cid, (unsigned long *)mask->bits,
-+						     online);
-+			}
-+		}
+diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c b/drivers/gpu/drm/=
+xe/xe_gt_sriov_pf_debugfs.c
+index 5db7fc067c4d..548a50f74422 100644
+--- a/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
++++ b/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
+@@ -377,8 +377,10 @@ static ssize_t sched_group_engines_read(struct file *f=
+ile, char __user *buf,
+ 	struct xe_hw_engine *hwe;
+ 	enum xe_hw_engine_id id;
+ 	char engines[128];
++	struct seq_buf s;
++	const char *s_str;
+=20
+-	engines[0] =3D '\0';
++	seq_buf_init(&s, engines, sizeof(engines));
+=20
+ 	if (group < num_groups) {
+ 		for_each_hw_engine(hwe, gt, id) {
+@@ -386,15 +388,14 @@ static ssize_t sched_group_engines_read(struct file *=
+file, char __user *buf,
+ 			u16 guc_logical_instance =3D xe_hwe_guc_logical_instance(hwe);
+ 			u32 mask =3D groups[group].engines[guc_class];
+=20
+-			if (mask & BIT(guc_logical_instance)) {
+-				strlcat(engines, hwe->name, sizeof(engines));
+-				strlcat(engines, " ", sizeof(engines));
+-			}
++			if (mask & BIT(guc_logical_instance))
++				seq_buf_printf(&s, "%s ", hwe->name);
+ 		}
+-		strlcat(engines, "\n", sizeof(engines));
++		seq_buf_puts(&s, "\n");
  	}
- 
- 	if (online && SCX_HAS_OP(sch, cpu_online))
-@@ -5280,12 +5292,17 @@ static void free_exit_info(struct scx_exit_info *ei);
- static const char *scx_exit_reason(enum scx_exit_kind kind);
- static bool scx_claim_exit(struct scx_sched *sch, enum scx_exit_kind kind);
- 
--s32 scx_set_cmask_scratch_alloc(struct scx_sched *sch)
-+s32 scx_alloc_kern_arena_objs(struct scx_sched *sch)
- {
- 	size_t size = struct_size_t(struct scx_cmask, bits,
- 				    SCX_CMASK_NR_WORDS(num_possible_cpus()));
-+	struct scx_cmask *online;
-+	struct scx_cmask_ref ref;
- 	int cpu;
- 
-+	/* hotplug stays excluded until the online mask is published */
-+	lockdep_assert_cpus_held();
-+
- 	if (!sch->is_cid_type || !sch->arena_pool)
- 		return 0;
- 
-@@ -5301,15 +5318,28 @@ s32 scx_set_cmask_scratch_alloc(struct scx_sched *sch)
- 			return -ENOMEM;
- 		scx_cmask_init(*slot, 0, num_possible_cpus());
- 	}
-+
-+	/* pack the online mask alongside the scratch masks */
-+	online = scx_arena_alloc(sch, size);
-+	if (!online)
-+		return -ENOMEM;
-+
-+	scoped_guard(rcu) {
-+		scx_cmask_ref_init_kern(sch, online, 0, num_possible_cpus(), &ref);
-+		scx_cmask_ref_from_cpumask(&ref, cpu_active_mask);
-+	}
-+	sch->online_cmask = online;
-+
- 	return 0;
+=20
+-	return simple_read_from_buffer(buf, count, ppos, engines, strlen(engines)=
+);
++	s_str =3D seq_buf_str(&s);
++	return simple_read_from_buffer(buf, count, ppos, s_str, strlen(s_str));
  }
- 
--static void scx_set_cmask_scratch_free(struct scx_sched *sch)
-+static void scx_free_kern_arena_objs(struct scx_sched *sch)
- {
- 	size_t size = struct_size_t(struct scx_cmask, bits,
- 				    SCX_CMASK_NR_WORDS(num_possible_cpus()));
- 	int cpu;
- 
-+	scx_arena_free(sch, sch->online_cmask, size);
- 	if (!sch->set_cmask_scratch)
- 		return;
- 
-@@ -5396,7 +5426,7 @@ static void scx_sched_free_rcu_work(struct work_struct *work)
- 
- 	rhashtable_free_and_destroy(&sch->dsq_hash, NULL, NULL);
- 	free_exit_info(sch->exit_info);
--	scx_set_cmask_scratch_free(sch);
-+	scx_free_kern_arena_objs(sch);
- 	scx_arena_pool_destroy(sch);
- 	if (sch->arena_map)
- 		bpf_map_put(sch->arena_map);
-@@ -7601,7 +7631,7 @@ static void scx_root_enable_workfn(struct kthread_work *work)
- 		goto err_disable;
- 	}
- 
--	ret = scx_set_cmask_scratch_alloc(sch);
-+	ret = scx_alloc_kern_arena_objs(sch);
- 	if (ret) {
- 		cpus_read_unlock();
- 		goto err_disable;
-@@ -10338,13 +10368,45 @@ __bpf_kfunc u32 scx_bpf_nr_cids(void)
-  * hotplug, which lets schedulers treat [0, nr_online_cids) as the online
-  * range. Schedulers that prefer to handle hotplug without a restart should
-  * install a custom mapping via scx_bpf_cid_override() and track onlining
-- * through the ops.cid_online / ops.cid_offline callbacks.
-+ * through the ops.cid_online / ops.cid_offline callbacks, starting from the
-+ * mask scx_bpf_online_cmask() returns.
-  */
- __bpf_kfunc u32 scx_bpf_nr_online_cids(void)
- {
- 	return num_online_cpus();
- }
- 
-+/**
-+ * scx_bpf_online_cmask - Return the online cid mask in the scheduler arena
-+ * @aux: implicit BPF argument to access bpf_prog_aux hidden from BPF progs
-+ *
-+ * Return a kernel-maintained cmask covering [0, scx_bpf_nr_cids()), or NULL if
-+ * the calling program is not associated with a live cid-form scheduler or the
-+ * mask is not allocated yet, as in ops.init_cids(). Treat the mask as read-only
-+ * even though arena memory stays writable by the BPF scheduler. The mask
-+ * follows the SCX hotplug notifications: a cid's bit is updated before
-+ * ops.cid_online/offline() runs for it. The pointer is valid from ops.init()
-+ * through ops.exit(). Root ops.init() runs with hotplug excluded. Other
-+ * contexts can observe concurrent updates.
-+ */
-+__bpf_kfunc const void *scx_bpf_online_cmask(const struct bpf_prog_aux *aux)
-+{
-+	struct scx_sched *sch;
-+	struct scx_cmask *online;
-+
-+	guard(rcu)();
-+
-+	sch = scx_prog_sched(aux);
-+	if (unlikely(!sch))
-+		return NULL;
-+	online = sch->online_cmask;
-+	if (unlikely(!online))
-+		return NULL;
-+
-+	/* BPF rebases by the low 32 bits, like __arena callback args */
-+	return (void *)((unsigned long)online - sch->arena_kern_base);
-+}
-+
- /**
-  * scx_bpf_this_cid - Return the cid of the CPU this program is running on
-  *
-@@ -10708,6 +10770,7 @@ BTF_ID_FLAGS(func, scx_bpf_nr_node_ids)
- BTF_ID_FLAGS(func, scx_bpf_nr_cpu_ids)
- BTF_ID_FLAGS(func, scx_bpf_nr_cids)
- BTF_ID_FLAGS(func, scx_bpf_nr_online_cids)
-+BTF_ID_FLAGS(func, scx_bpf_online_cmask, KF_IMPLICIT_ARGS | KF_ARENA_RET)
- BTF_ID_FLAGS(func, scx_bpf_this_cid)
- BTF_ID_FLAGS(func, scx_bpf_get_possible_cpumask, KF_ACQUIRE)
- BTF_ID_FLAGS(func, scx_bpf_get_online_cpumask, KF_ACQUIRE)
-diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index 0adaf649d5e0..3464e0f113c1 100644
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -1561,6 +1561,7 @@ struct scx_sched {
- 	 * and passes it to the callback's __arena argument.
- 	 */
- 	struct scx_cmask * __percpu *set_cmask_scratch;
-+	struct scx_cmask *online_cmask;
- 
- 	DECLARE_BITMAP(has_op, SCX_OPI_END);
- 
-@@ -2087,7 +2088,7 @@ void scx_disable_and_exit_task(struct scx_sched *sch, struct task_struct *p);
- void scx_cgroup_lock(void);
- void scx_cgroup_unlock(void);
- #endif
--s32 scx_set_cmask_scratch_alloc(struct scx_sched *sch);
-+s32 scx_alloc_kern_arena_objs(struct scx_sched *sch);
- void scx_disable_bypass_dsp(struct scx_sched *sch);
- void scx_bypass(struct scx_sched *sch, bool bypass);
- s32 scx_link_sched(struct scx_sched *sch);
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index 385302d19914..f7aeb1488566 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -1805,6 +1805,12 @@ void scx_sub_enable_workfn(struct kthread_work *work)
- 		goto err_disable;
- 	}
- 
-+	scoped_guard(cpus_read_lock) {
-+		ret = scx_alloc_kern_arena_objs(sch);
-+		if (ret)
-+			goto err_disable;
-+	}
-+
- 	if (sch->ops.init) {
- 		ret = SCX_CALL_OP_RET(sch, init, NULL);
- 		if (ret) {
-@@ -1815,10 +1821,6 @@ void scx_sub_enable_workfn(struct kthread_work *work)
- 		sch->exit_info->flags |= SCX_EFLAG_INITIALIZED;
- 	}
- 
--	ret = scx_set_cmask_scratch_alloc(sch);
--	if (ret)
--		goto err_disable;
--
- 	struct scx_sub_attach_args sub_attach_args = {
- 		.ops = &sch->ops,
- 		.cgroup_path = sch->cgrp_path,
-diff --git a/tools/sched_ext/include/scx/common.bpf.h b/tools/sched_ext/include/scx/common.bpf.h
-index 76f5e025e107..2ddb01a059fd 100644
---- a/tools/sched_ext/include/scx/common.bpf.h
-+++ b/tools/sched_ext/include/scx/common.bpf.h
-@@ -113,6 +113,7 @@ s32 scx_bpf_this_cid(void) __ksym __weak;
- struct task_struct *scx_bpf_cid_curr(s32 cid) __ksym __weak;
- u32 scx_bpf_nr_cids(void) __ksym __weak;
- u32 scx_bpf_nr_online_cids(void) __ksym __weak;
-+const void __arena *scx_bpf_online_cmask(void) __ksym __weak;
- u32 scx_bpf_cidperf_cap(s32 cid) __ksym __weak;
- u32 scx_bpf_cidperf_cur(s32 cid) __ksym __weak;
- s32 scx_bpf_cidperf_set(s32 cid, u32 perf) __ksym __weak;
--- 
-2.55.0
+=20
+ static const struct file_operations sched_group_engines_fops =3D {
+--=20
+2.55.0.1032.g73a4cd73de-goog
 
