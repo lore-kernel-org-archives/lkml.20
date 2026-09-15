@@ -1,162 +1,167 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-pz2-f23.google.com (mail-pz2-f23.google.com [74.125.228.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2691345D91C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460608; cv=pass; b=nx8EhohZguDkf5XxfOxmOLRm56vaFUuswiEdXSnDxpkTyb0DI4AZ9rGpeqtNn+8QX9ymnetreeoRwXf+B+D8PDBOATDegtN7tLjL2Lkrnp8Y4xKZz2ryLb/ntEUqxaJxRWB6m3O0rpGH43nCntBxs5LJshXJBeDk3/33uupeXig=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460608; c=relaxed/simple;
-	bh=zrSbisXnRqG6tuaqy924oPWL1X1bSlGGV0YFTsGVVTY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mx0BcqSTSmoloCI3fFswACZivOql0CUwvDd1kVr+Gw5MYBw8ZOeVdklzhykdbAoN3pJogLQ0XmryGXR2Ugvt5cqjBlDpeAahmyWxWk8n7RlHRTIjnmgdcpvGn6O8xtYtNikvy/9o3AErx2jd90Erem/AvtP+liipn6u4O/7oty4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XNiOCsP6; arc=pass smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854523F1ACF
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.23
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789460672; cv=none; b=t33++moGG7d/gTEf76qQhdlVoCCB6XqZyg4aHg+2RUQGYvzfNiVp5+/AOKe224jjqn3MMaVHyCGbYVLOwMhYK8DTetL1KK2sADf8cvi8GZO8eQeNT8Uhkrj9fVjSSLPAYi6Stpv61YPlc0mkaZpKS5hXgMbJvxsl8nBOg7r9vMU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789460672; c=relaxed/simple;
+	bh=VaSVSvGNOEyimvK4Anlo4Z8wexqycRFEXogcDwlR67A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JHRzt1XRRRpwJRifolwLj+uD4+/qcwrvZFiAL+2IOl5M+InQAFOCnaS/ivqTiYm4X5f3jRYTgrtNBC59N1eLN8VPwXnPJzb0isMLVexij/sdPdF6YRvsl1eCChAgKR6Izdy60gqQwEyFhNakj8mo+JdPHwxIoYve7DSGgvHECcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=AZ4vnQsL; arc=none smtp.client-ip=74.125.228.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XNiOCsP6"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8686f46e4adso2715551b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:23:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789460606; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JZ2P1zodUoC9CrCubcMrESANXdSrXOa2wtYhdgOHXTu9Q6zjCjHwE2eSyNnEccAfy+
-         geL5vK3bYvbqORF9Uh9nepmhq6zejmL4c8X0QndgGM3k8u1H6xbTT4iYHfNqaAdbaF9+
-         EbmxcKS7JM87ZWe+rr+LuJoAnvkTb/u6ZAcTZOfuoXjl4sM+4xq6AeugQt5tdUv5Zsyj
-         ud/MdAbcPegq08yi9a0LmYmv3m8dM6VLRZIaiFaG815BnFdWOj9kQ4bSXlZ8IUFVuJKf
-         F8uhAG95W507+GmPX/WnUOmCuHNStnOs8DpikZTxdXUCE432iQ9YX3Rj9NgZ9RD5T6/+
-         j8qA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=h/xcej/j7S2rGPSD8Gyx86eUYHBjb6muKeX/bEp2HCY=;
-        fh=S+u70cKr5iJaphZTOdGoYPM9ygJx4ZzcqAWIW211WrM=;
-        b=C4Jhlka1GnDk9pMW2ZbKnf+oSe5eMLqg2lujT7Ps8P9wcSoKlQKi9sxe4if++7DI8v
-         VTqsZqEVFad/YbV8nvLrW2MEYxzhRyM5B0hE4w0RqEzvTI30yf0v38k1WaP601C9BoLD
-         2dgAJDLb4e4nO76tfAK+brk6ijxzgggQF5uXk6nPa7lqUm6ZsU6cv5ok9lWdKhvbKyRX
-         rbIGlWrN+gEOFTGPHmBaVSefKgAZwHEsZgJT8aGO5aM6yfUKoYV2TcBohMBBFI1KQlZm
-         ta9ScwwbnzWqVCHdO1uovE3d5alCAk1EhdTpsXplMjUbRvJHXxJAc//Z1hD9/NdGDRG2
-         DMPA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="AZ4vnQsL"
+Received: by mail-pz2-f23.google.com with SMTP id 41be03b00d2f7-cc4d2fe205dso7778a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:24:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789460606; x=1790065406; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h/xcej/j7S2rGPSD8Gyx86eUYHBjb6muKeX/bEp2HCY=;
-        b=XNiOCsP6Gdi1amzLUOjgViWvXP7BpRIlXCrMbjh2QXLP3axR+M5LSLNJjbVoI1WzN2
-         mGf5TInJeaSHuEzKMhRfEyXcSnKbHa2HzhkhS97eWUGhqgZD2aI9eh/hpr6x1utG3vzH
-         xWY6G9R2Ti2l544wvospp5ZHLPIEJevNz+/0gWWcDcEBNUyZgiDW+9EGMmPcpLR1AoH8
-         nMhB0EhjvS3mF/on8GoxI0gyJNRBzEu+1wNvfeWbYaQNZG5gyFzLzvE22NBtT3J6lFhp
-         Eyauatg0oSnt4dEtmt42IQAbJfUINmPvAaQ7bQpu8TlKWLV1rfIMQob5pG2SEWNrSN46
-         j0gQ==
+        d=asu.edu; s=google; t=1789460669; x=1790065469; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GkgxmHG570UDfiLBKnKDfBvipL+pxKJzUQX50Pt2PMw=;
+        b=AZ4vnQsL3TZW1Wr28/Y1ZGo3lqhXyne4c2FxH5RPrRWpXnf4RhXTdVTCQyrWrBc/qC
+         a73amykBPBR1Eujos0/9wua916z2PSj6QJPI87ixEhSGkmEaJSbG8YDZdCq3euW0uHxm
+         ey2Op3MD3WsdT2wxaxAd5DZrUGTF2GRafXe7CtfOnmGR8p16N/0FiS6cCSKZCXu+rlUy
+         UXKylnZi5RhRjz+Bubfv+xE2IadF0QzuWFimEs0LhFkp4dXFkqGWGm+VOZP0TnWLmxYo
+         MtDWPVc+7igq6c0HhshNfVaki2pZtBneii4ByLLJjST6xpUeVrvUUCYj+tgNatL2JpDm
+         3hyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460606; x=1790065406;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=h/xcej/j7S2rGPSD8Gyx86eUYHBjb6muKeX/bEp2HCY=;
-        b=bF1NSl6BxSPmrYf9VJKib4KXf/bUU2cblYfgSiOismRoPqGUUVAhP/yJe2zrmOJ8Gn
-         Ir+zVTgVKDS24pLOLicY8YgRG8eYhn8h2edBkgIGLlsghxJYBkl0+hnL1ZuWC1sUNKMS
-         4vnjLf+MYf8Yl56yMbsRUiZM8upcAC34RUPvGVEkCWjUPcSRNtqqnjRLRe/3ePVERAoJ
-         zo0T6aFnZ7CwLWy2it+ameWoJ5fJaDaOycN2/Bl2yMrslaz6FelHRJ23xw7/P7P+ERrh
-         7LPA5ZsiJvArkae8WhKbpfptnRD7DJ8hLpqz9L88Wx9RDX8QuNC9KPJs9SYTE4o5DdXG
-         /hgw==
-X-Forwarded-Encrypted: i=1; AKwUvBwmsUDf8HLmfwl04WFLZPqTd5xlzwXrw3T2lix1iD29hBdDnOawBmpCCvihyn5oUGaKGKiHwQC9DvexGgE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmTYD1XkUNmvxjacG/DYD+5Qt4O0GOUFNkhtuQbLpaPzpLzDmV
-	jD6MzbjcPIWPhbG8ER4A78if9ktt3yxWnwT3AALGNzuHbaSQS8geezIwXG9T9pvs0udE9o3uZrr
-	KtKGe41x3OGQtAnVzXc1pLbCbty2+K6w=
-X-Gm-Gg: AYBFou3iJvfNT7Zru43e1v9qZGi/qlm5SI2GlX25GV5vtIUgkaklBz9Gf6e53stKwDJ
-	dFVrDGhabn8Ajq9/cJPkq1BuGc26YUwFtmVDeaB+qQEtj7MYvJJaRQGQ60J9A9+qlNe6Kw7Dza1
-	6+GZDe+pYm/+WQcFzrgD4CT3H3kQQI+JTFX6YnAuraCIgipcvGIl71EhbhDQ6fNCkPNZH35iz3K
-	LgrtJG8EQWV7PwnIYXQu9Y2cDY7lmXkMfwdFvFMqVV0ji2c1ay8cOik14OzG7AmVW6WiN64rhv7
-	6Pt87MuTpSYMXJtI4KBZv6lUfFB4kn4vkbzPpVvF5vG99eMDp3H2T4PF1lQelBzitLczKxT8ynx
-	5tEvhHwSHdcIFiCAWFINODUr4PFKEHhdI2MepFIET+O0GxkgCPNo8RwUPA01WSapam64=
-X-Received: by 2002:a05:6a00:3995:b0:84f:a82e:d32f with SMTP id
- d2e1a72fcca58-86f82e5bc49mr11440122b3a.3.1789460606294; Tue, 15 Sep 2026
- 01:23:26 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789460669; x=1790065469;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GkgxmHG570UDfiLBKnKDfBvipL+pxKJzUQX50Pt2PMw=;
+        b=cvh0QtaLmMHIkK7K8Z/U1c//htfnK5Iu0eJkMxHhFUQn0kpl7tQhIJZ3dniy7pWwMV
+         yYfy3VRW6W6WcX2wQCAnqzZtqxMKmcVhBLjDqXS8RI3+Y46YM/f17ERHP6hwKEJQpEBW
+         dHs+WLIHVLxKPJXqd4jmrtLA90xX97FfHcQrF7dlq7i1eMVedJApwlO1ntGAViMv16EQ
+         TFsIzY2RfF0MVYM4OsbzY683wePhGbH5VeMUiR2R5uWp/bJyIuWkc4HiZ4UqA2OGLV5J
+         M4pcsnua3PVseJS2i3q3y/Q3gIgXa9EhfvF3+Dd1qNMshKPeJhCO4kd9J+9P4vxCPiGD
+         gw7g==
+X-Forwarded-Encrypted: i=1; AKwUvBzlhHs2FyR0hIKCpaxXJ4vTe0fT+bQeBKR8AipWzaRn/mbY7PmibKTknp0TUAxMadmeKr52vOQc0tELp4I=@vger.kernel.org
+X-Gm-Message-State: AFuF++noPtGF9M8ODmsLvwNV+qJZVP+oCtRcdhrr/WAT3avtxc7l/t1Z
+	oVOL/2lkNbAqFAgPMCDR+7VEubGI3DL6PofYSl5ok7pG99N9pfVwjD4oQJ8p96HC1Q==
+X-Gm-Gg: AYBFou19O3Vno8DR15R3tZaDxYXD3286KlG4KZqCE7yFX3Czxh20+yH22otG/aOZF1D
+	qjvY82gD178VPAokUnW2y3ohTAUXCvU+v7LsIODRYP3aSIKS1vNCBFDuTbD25IrcHhqiDrDrd36
+	KOJgoJUFg8evPQ2E2typ7A7iNDEEKsWKpA1+nazTP7djY+noDFjx/4BgFokXkDjGHBFUj+C6RQG
+	5xG6mqIEmrxTYDaoPuq0mBYWndPFiq3wMLZb27nSTJAwZsL4+RllhFEaHIcvrZsU7XtOAr3MrGm
+	v+wp1YskBtbW4JZ2UUF+0i3p2z9f4s3gqcxk3XW0OBQcJnqnar3aiu2YQDeSQujRksILAkNDPSd
+	A0vNLlIUBKM6yuDOyx8PdyyiLHKm0w01aBlMLxfmSHKjebFldufR/dyQJXBOtF16cJwou5qmbo2
+	7bV89Bha3RevQpJItBi5Ggs9cC6ygszcGQr7QaAvzeGuSsOu228ww9S5HeIVVOl5Ke2LN8g+BkX
+	tRh63O6MrWsTlZBZ6x8+YsVBpMcGyA5zgoErVax6GFwJlAIbkSXHW2v
+X-Received: by 2002:a05:6a20:244e:b0:3d1:be60:281b with SMTP id adf61e73a8af0-3dd5285001fmr315141637.15.1789460668846;
+        Tue, 15 Sep 2026 01:24:28 -0700 (PDT)
+Received: from xps.tailc0aff1.ts.net (149-169-99-5.nat.asu.edu. [149.169.99.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365bb6ba0sm29374866c88.15.2026.09.15.01.24.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:24:28 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jakub@cloudflare.com,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Justin Chen <justin.chen@broadcom.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>
+Subject: [PATCH net] net: bcmgenet: restore the hardware filters on open
+Date: Tue, 15 Sep 2026 01:24:24 -0700
+Message-ID: <20260915082426.703892-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914072842.24420-1-phucduc.bui@gmail.com> <20260914072842.24420-8-phucduc.bui@gmail.com>
- <693fea96-1905-49c9-b1c5-3fa1ceb4874a@collabora.com> <CAABR9nH5e=kKRsHQYx7u3HtWgA3C897d9dH4h+wQTpZNGaTRHQ@mail.gmail.com>
-In-Reply-To: <CAABR9nH5e=kKRsHQYx7u3HtWgA3C897d9dH4h+wQTpZNGaTRHQ@mail.gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 15 Sep 2026 15:23:14 +0700
-X-Gm-Features: AcwNN1VJxWS0kfmgYMTWj5HmLKEavOhSqOjDUWyYXdNn-q4rjwexIxFPMbacpHc
-Message-ID: <CAABR9nGVYghGE-kshpeJQJrvuUFJmDATW_mBCoJfVwDNVnSErw@mail.gmail.com>
-Subject: Re: [PATCH v2 07/13] ASoC: mediatek: mt8189: Propagate runtime resume errors
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Cezary Rojewski <cezary.rojewski@intel.com>, Cyril Chao <Cyril.Chao@mediatek.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Dan Carpenter <error27@gmail.com>, 
-	cassiogabrielcontato@gmail.com, linux-sound@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Angelo,
+From: Nicolai Buchwitz <nb@tipi-net.de>
 
+bcmgenet_hfb_init() runs INIT_LIST_HEAD() on priv->rxnfc_list, which drops
+every rule off the list, and bcmgenet_open() calls it on each ifup. Every
+rule the user configured is silently lost:
 
-> >
-> > In the probe function, there's a call to devm_regmap_init_mmio(), and that's being
-> > correctly checked for error as in, if any, probe will fail.
-> >
-> > So... during suspend or resume or anywhere else in this driver really, the regmap
-> > pointer can't be NULL.
-> > The right thing to do here would be to just remove the useless check.
-> >
-> > Mind you, this comment applies to some other commits in this series as well.
-> >
+  # ethtool -N eth0 flow-type ether dst $MAC action 0
+  Added rule with ID 0
+  # ethtool -n eth0 | grep -c Filter:
+  1
+  # ip link set eth0 down && ip link set eth0 up
+  # ethtool -n eth0 | grep -c Filter:
+  0
 
-I found something interesting:
+Initialise the lists once at probe and restore the rules on open, as
+bcmgenet_resume() already does.
 
-in mt8189_afe_pcm_dev_probe()
+Fixes: 3e370952287c ("net: bcmgenet: add support for ethtool rxnfc flows")
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Reviewed-by: Justin Chen <justin.chen@broadcom.com>
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Link: https://patch.msgid.link/20260913190052.939955-1-nb@tipi-net.de
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+---
+ .../net/ethernet/broadcom/genet/bcmgenet.c    | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
--------------------------------------
-afe->runtime_resume = mt8189_afe_runtime_resume;
-afe->runtime_suspend = mt8189_afe_runtime_suspend;
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index a2305e6428d1..b916080f4ff1 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -749,8 +749,17 @@ static void bcmgenet_hfb_init(struct bcmgenet_priv *priv)
+ 		INIT_LIST_HEAD(&priv->rxnfc_rules[i].list);
+ 		priv->rxnfc_rules[i].state = BCMGENET_RXNFC_STATE_UNUSED;
+ 	}
++}
++
++static void bcmgenet_hfb_restore(struct bcmgenet_priv *priv)
++{
++	struct bcmgenet_rxnfc_rule *rule;
+ 
+ 	bcmgenet_hfb_clear(priv);
++
++	list_for_each_entry(rule, &priv->rxnfc_list, list)
++		if (rule->state != BCMGENET_RXNFC_STATE_UNUSED)
++			bcmgenet_hfb_create_rxnfc_filter(priv, rule);
+ }
+ 
+ static int bcmgenet_begin(struct net_device *dev)
+@@ -3376,8 +3385,8 @@ static int bcmgenet_open(struct net_device *dev)
+ 
+ 	bcmgenet_set_hw_addr(priv, dev->dev_addr);
+ 
+-	/* HFB init */
+-	bcmgenet_hfb_init(priv);
++	/* Restore the filters, the MAC was reset above */
++	bcmgenet_hfb_restore(priv);
+ 
+ 	/* Reinitialize TDMA and RDMA and SW housekeeping */
+ 	ret = bcmgenet_init_dma(priv, true);
+@@ -4075,6 +4084,7 @@ static int bcmgenet_probe(struct platform_device *pdev)
+ 
+ 	/* Mii wait queue */
+ 	init_waitqueue_head(&priv->wq);
++	bcmgenet_hfb_init(priv);
+ 	INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
+ 
+ 	priv->clk_wol = devm_clk_get_optional(&priv->pdev->dev, "enet-wol");
+@@ -4272,10 +4282,7 @@ static int bcmgenet_resume(struct device *d)
+ 	bcmgenet_set_hw_addr(priv, dev->dev_addr);
+ 
+ 	/* Restore hardware filters */
+-	bcmgenet_hfb_clear(priv);
+-	list_for_each_entry(rule, &priv->rxnfc_list, list)
+-		if (rule->state != BCMGENET_RXNFC_STATE_UNUSED)
+-			bcmgenet_hfb_create_rxnfc_filter(priv, rule);
++	bcmgenet_hfb_restore(priv);
+ 
+ 	/* Reinitialize TDMA and RDMA and SW housekeeping */
+ 	ret = bcmgenet_init_dma(priv, false);
+-- 
+2.43.0
 
-ret = devm_pm_runtime_enable(dev);
-if (ret)
-return ret;
-
-/*
-* Audio device is part of genpd. Registering it as a syscore device
-* ensure the proper power-on sequence of the AFE device.
-*/
-dev_pm_syscore_device(dev, true);
-
-/* enable clock for regcache get default value from hw */
-ret = pm_runtime_resume_and_get(dev);
-if (ret)
-return dev_err_probe(dev, ret, "failed to resume device\n");
-
-afe->regmap = devm_regmap_init_mmio(dev, afe->base_addr,
-   &mt8189_afe_regmap_config);
-if (IS_ERR(afe->regmap)) {
-ret = PTR_ERR(afe->regmap);
-goto err_pm_put;
-}
------------------------------------------------
-
-Here, it looks like mt8189_afe_runtime_resume() gets called
-before devm_regmap_init_mmio().
-
-So if we remove this part:
----------------------
-if (!afe->regmap) {
-        dev_warn(afe->dev, "skip regmap\n");
-        return 0;
-    }
------------------------
-from mt8189_afe_runtime_resume(), that could actually trigger the bug
-we were just discussing.
-
-Best regards,
-Phuc
