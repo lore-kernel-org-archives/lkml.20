@@ -1,146 +1,168 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726DE478E36
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6C13A0B3B;
+	Tue, 15 Sep 2026 08:38:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461432; cv=none; b=kxuisKojNPn4yEY3/RDYdcYr3tJ5RV45DnPiZtUUs8guAi48XNPL7zsuGWSAoadwDMeEB0fgJ6/A2+uB3KoPoJsVxsNlc3hHcGgLU3k4ZDjrXWXOPzwfMxKD7Fle3tZP8Gk4WfdeU/maFXk/Jx7fclPaacWpXFYfWbGAXYDgUbM=
+	t=1789461535; cv=none; b=Ld6sLk+ry7U0clv6laKpIBC93ShoeoWHUJr12YmIpKTJ8k0BWIqoUm4CnC12AClmeIDcIea/Ww4Df1dFRzERLptFrFhs9Se3qDCP9sEL7o2jFNalyo1NxFdMXhnHo6pdu1DEUwe9qTYGh6x+GnkBB1B8kRYGy1clZlyeEJWvVLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461432; c=relaxed/simple;
-	bh=YdR/sKqrRiv7YYNQfguHi7aoV7SCf4GdbKhjott7G9E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EtgY1rmodw0kaZiOnHFuFna+XSekDdazBHLGs0x/N9qZVFLakYlaI/FnHT6vpkSolO8YYaYKIgisVBh60Y+zpO00KOwdeBhI8hXMbG3o/nRotBecyqyjgX8zk9MBm45LmaoPeIOc/cvFRUJbIXJU8PyVC7hAUSuVvjyOk2/pgUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DFbucj0H; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aYu3d4RB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789461535; c=relaxed/simple;
+	bh=zNKy/IzJ6qU7dVGDGyF1IZC2cGwnLBmyfREtiaXVX7Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VX77HUrX6fpV9NAOkKLCOMdKijmqMpE6DqTXma/5kt2CAtPwPb04PSmAliSIPBoh7ErOt4c45ayEjLrsqJSlNmYBjOJY1UPkAXTlnd7GzgnmGoT1qU6qgPSz2L4ClHfT/QIqpqe3T9mGvcnq8twEvW+Xvr83G8IgmdVvRls9XKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ipEX5J/u; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DFbucj0H";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aYu3d4RB"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6Z8Xh2249692
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:37:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=eMrZ14PD1b5lu0Pk+aBr+n+H
-	IHnLdCKjZ3wX7nYZV14=; b=DFbucj0H19FopdNPJhK+wMf9I9uDX/qZL3ZVMjP/
-	GCDqKa/AevPpcGvoOZumXYNpDtueSqkyMb4eXa3UY+PmvRk44t+h/C2J/Nw4bEyc
-	iCRuAyabKGrsRXAOEMxJN8Rdk9ufTGjGKgf9IYwhu41OMRSeQS3VKgcwpNiiovfS
-	JTii++W83AKWuQ0X0Un5HHUihMq5xzU9JOEJQWYVuG0PEXPxIf5a6pLOo1dD1DXw
-	Gp08sY5gDtstyaNdHuevMDCT5xpgpbAExTGvUOYw43kUj2+sEHQyNImMWUvSSDhH
-	LxL/KumD8iYvCMN9QrnUQfxI7xOrYz/g3mX/m/5FVFuCmw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpye70ubf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:37:10 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a0b66ecd9so342734585a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:37:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789461430; x=1790066230; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eMrZ14PD1b5lu0Pk+aBr+n+HIHnLdCKjZ3wX7nYZV14=;
-        b=aYu3d4RBCne6K+j25qtIQm5qroGFty+KHGiTaTby2SLOgi/+R3R2/pWanpOTzpJHsN
-         YYJE51srdTOnoEKth7ciV2lnFnvjH4VYv4ATspUgzAfsZhkIMtR3wJ25lURTiJL/KwWs
-         csglEuFRpY/BfLeBbx2HX4+V6rgGfHasRqPLm7MTnrhq7LworpjXMYDKPU1Kfvs5tq58
-         Y44eNEnKs0Bb21B5uNNzD85FuhZvT6dTl1iDgOdxexfumeeBpjB2xSM17kJTYHXXqKil
-         DJrn0f1mGYYXzX9GAqCcIsj7WcYb8p33lMX9us1MtVU/U9SBWRYq4mYZgBBCLGy+fuEI
-         IqIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789461430; x=1790066230;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eMrZ14PD1b5lu0Pk+aBr+n+HIHnLdCKjZ3wX7nYZV14=;
-        b=vqaBeFSESWnwlV9RF3NGgNXM9lF0a1eiyifMS42NxG3AYQuc+KnopF9DuvopR6n1hS
-         dfoYWviqVQx2EcyGjH/qciaM3u89SW10jK4f86igCe1E91wkhhr/2eEew82bpXYKuW/y
-         EyQgN87Utr4ntkXgEcLpfLkYgjE/l6FhR2wbLtSd9haQzSPRo788vGJpljMMnyPipsip
-         NWYNm2iy5eX1PgyYPQj1BQcSTQpiV+QAd1pQG7sJrAMmAmbWcyEA6VYmP3SNAWLU+Xbw
-         KApsAPIL3iLC1l86f595jlyJZZl2n1j4/r3Ubz3bCYmY64TnQZT9Gz2v27+5EXnzs7ER
-         Pigg==
-X-Forwarded-Encrypted: i=1; AKwUvBzWmV+pIaDTmavmEeaJSF0xgaRBa5xOaF28sqvj0J7O7EvIiun3guKpuSNnKbUOqwJgM7Po6WpJ10U2TcQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJAZDyQDjMu+t1+EVBu0JDNkVMK+1owaAspGSdH1B+ypFmiTdi
-	b4PPofpoMBzvBzoYOL+I/5/bTJmjIdwOKW71ZQcHz4QWFtHfb/v+PlxjJ4cfnCjp4LiktcIGP20
-	qxAsKV7NPDDPNunurVnzcqtkowXOreXJYM7thEMUNchh4LXmYzOhh7wO2ezVcGzdhfB0=
-X-Gm-Gg: AYBFou3IPMj0eySDgd+rKNAwrMRCnNeBE8VtgrdbJUL2xxV3WkSmpfmXb1LLL38FeL/
-	W8dOJOqgxREquI0f3AL0g+bOCvrPMIem27u4PwDmO67jHPdV/BO4ujlKkRCC+XeoYm+fEeFImdZ
-	N4UUw72beWsY+CO+GgT/rLpdqmbNE6/R/9ssoRBiIR0X2elE6CtvpQir3cjyokNghyfaN8h0TlY
-	cCC05Cu7Mb8uoRkhEYABnUYHyvND0xYSMe5xqPf8R8rGPHFVssZAGTW3D6ScNSnrDJ8MiqM/it7
-	LWvXBdtsYcHtpC/v+imnCodq3YGwoKwzV4S8Gd2UiFRoi1E8rVRoeIMZvGwVFWuFRI6avBCRFGs
-	3zv5T2WcMmodk7A==
-X-Received: by 2002:a05:620a:1d0c:b0:939:bc7c:15c8 with SMTP id af79cd13be357-93a29a97b1bmr986442085a.45.1789461429558;
-        Tue, 15 Sep 2026 01:37:09 -0700 (PDT)
-X-Received: by 2002:a05:620a:1d0c:b0:939:bc7c:15c8 with SMTP id af79cd13be357-93a29a97b1bmr986438385a.45.1789461428954;
-        Tue, 15 Sep 2026 01:37:08 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d695677sm54843475e9.5.2026.09.15.01.37.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:37:07 -0700 (PDT)
-Date: Tue, 15 Sep 2026 11:37:05 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        sashiko-bot <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] arm64: dts: qcom: sm8150: Use SM8150_MSS for the SDHC
- power domain
-Message-ID: <kn36ymkh6ky3dakcq2hrblnqunwc7i2w3ny7c65tramfpbnomo@gx6e3glriqgw>
-References: <20260915-dts-qcom-sm8150-sdhc-use-mss-for-pd-index-v1-1-c4f3857204fd@oss.qualcomm.com>
- <158d06a0-2e93-4300-bf96-eb8937ed28af@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ipEX5J/u"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F71SYm150551;
+	Tue, 15 Sep 2026 08:38:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=k3FH4x
+	5L80jGTzVXyd1FgcnuV1kZzhrBCb0yGo4D9cc=; b=ipEX5J/ugvexfodCIvoUbm
+	IRSxsEOyc04z5U5T9epHAnVnptHmf5S5gLqHb2heAYKh0AUyJEV8DKCLZVt6DCI1
+	dIZUS7+2bh5wXsTFMfGpeTt5X7cLf9YtXkYH06TLO/XUjYzHZjPsSweMdte+m9JA
+	UgSG3T9FXECuzDu7uaPgO6RnQE4nxLgdrbJq59fWOG0kUthilXgPmi0Gs/ZI/TJS
+	GNufu21fxC+IL9ehtxWv99biuNPeUk9jUEvgzpW0nq+5SB4xmV+ZAtwU4fTOpRfx
+	RKUCPWi20HatHvKjz3eR+VU/97lvP8chCgwo2v7xIxq2dVmvI3fP0NzWW9JABpvw
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf4x3uc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 08:38:35 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZI6B3613555;
+	Tue, 15 Sep 2026 08:38:34 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gpywerjvs-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 08:38:34 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68F8cVhw41222544
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 15 Sep 2026 08:38:31 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 136492004B;
+	Tue, 15 Sep 2026 08:38:31 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4578A20040;
+	Tue, 15 Sep 2026 08:38:29 +0000 (GMT)
+Received: from [9.123.2.177] (unknown [9.123.2.177])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 15 Sep 2026 08:38:29 +0000 (GMT)
+Message-ID: <647f3494-1e79-43ea-a8ed-157b3f0e6c54@linux.ibm.com>
+Date: Tue, 15 Sep 2026 14:08:28 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <158d06a0-2e93-4300-bf96-eb8937ed28af@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEyMiBTYWx0ZWRfXxO7RlQ8qpGOx
- Qn7AsNjdt+8IVVevuqf7lj/WNvms3kvj93Eb6qnlVZAXihNlqwR3QQ+zSX2PVWqxaIqEeKUWFna
- uNDph1o0C3HgHdZdZ9yuXDeu81Une+N8BJxWvQbqmeayqjgg5MKRvwlSEg2af/aoH1wZEkh5Ooi
- tkx7kWXpU6uC1CIugeA3zqlTsoUAtTY2vXJhRdkKSWJkxbP3TYTpLOxpXf5pfujivl8OouLuvtn
- 69V9KkIjPIIfCh3TqgiZFvO15HNoQqrqeDOtoIbbwIPSQwiQKXOBsGfY/0yNFap2riYH9rNAMq9
- RUu4Rts/wSM2Dzk/Qncy7HKON1WNvH5/gsFfLUe4OOa9KuNuWZM5rGcvnjeyO9vGXpXhhCPoKlD
- pqtAIo/B0/4N84kj4MspH8LGOMg1aiMGGAp2zS45LnZngLk4YzFwVxXPsXfV3IgBnWMxh5NVgN3
- HgiKgHXMzRlslc7rvyg==
-X-Proofpoint-GUID: ARqf_5aae_5Afr1U_FmD5oygjdPHeeK_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEyMiBTYWx0ZWRfX1rFH6+Xr7plM
- Vjz0xrDy/+Le1h83ydmPFZkuO8cGTc9cVmKir8B0wmyNvxTBR4p/OkwkE+xM2582ENBwpzv37AS
- L9Q5RNADOoWdPH0HIWp6tDw0hWQpZUs=
-X-Authority-Analysis: v=2.4 cv=fck4WEQF c=1 sm=1 tr=0 ts=6aa903b6 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=VEMV0py1LmJu7ly8yMIA:9
- a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: ARqf_5aae_5Afr1U_FmD5oygjdPHeeK_
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] KVM: PPC: Book3S HV: Avoid triggering an extra interrupt
+ for a vCPU
+To: Gautam Menghani <gautam@linux.ibm.com>, maddy@linux.ibm.com,
+        npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org,
+        tpearson@raptorengineering.com
+Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260915060146.33410-1-gautam@linux.ibm.com>
+Content-Language: en-US
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+In-Reply-To: <20260915060146.33410-1-gautam@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: WBWQJk8CS2rSJ-gzFi8ni3i-Z7ly88h2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEyMiBTYWx0ZWRfX+e06gwGvGJ43
+ o5vMknaE4HWsvQ4+Dkdc6cCZ8qDrltltDnAeAhUFugJi1CQNpF+acI6xqKMXQeZtFWdVnjjrJQx
+ 37cg0wN8bP5x54atR9GxV7JwZ6t2c6g=
+X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aa9040c cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8 a=VnNF1IyMAAAA:8 a=C-dYcwNCrXqwm9yQvhYA:9
+ a=QEXdDO2ut3YA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
+X-Proofpoint-ORIG-GUID: Kady2yuf0ChdC2klB7QZEB5XWAWuVf-r
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEyMiBTYWx0ZWRfX0AvzrU1jlVxj
+ vLPICeDcq1FCC6OdIyT4skJOrGWoT6patSLqr5YYZFjr5ACAnX1fdKzRrJPTL+TCk/GS9oGyaNi
+ bOvQIOVGSXx/XxSv+MJWqxEcvgvaPRZuK951EzEakhxA3InbVBVNEb6QDj179F1ZZrQ+INUzW15
+ 1OR3TY+CFL8alyV86bITAup+9odiN4d0DwxpFmXECWEmnLSV8X6XHxICCHRBQ8YmF1o+up4I1K+
+ FVMrwLUAj7Dlek4O97bxB6Hsz7Hdy9KGOatmfcLx0+8ucqHELQHwNariGZLYhWq+7XIeo30zx5b
+ DB8hpWnK3Hq0eSu9Ro4S+gJBQJs+wnIObeuCLxG8xGZfFUcXVqd5SFhTgN9mBoJK1eTi1M6fvpn
+ a5pm1tL7YrE52bPcXmte6Cs3Hdn3wn+76PmaphsZPEM4sg7MmarFktXzW9s+x2xZFX2whb3JHuS
+ 58pVoGWKNCwAm3brXwA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 bulkscore=0 malwarescore=0 phishscore=0
- spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150122
+ malwarescore=0 lowpriorityscore=0 clxscore=1011 priorityscore=1501
+ suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150122
 
-On 26-09-15 10:13:36, Konrad Dybcio wrote:
-> On 9/15/26 10:02 AM, Abel Vesa wrote:
-> > Replace the raw power-domain index of SDHC2 with the SM8150_MSS binding
-> > constant. This documents the selected RPMh power domain and avoids using
-> > a magic value.
-> > 
-> > Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> > Link: https://sashiko.dev/#/patchset/20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com?part=45
-> > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> > ---
+Hi Gautam,
+
+On 15/09/26 11:31 AM, Gautam Menghani wrote:
+> A huge number of spurious interrupts can be seen immediately after a KVM
+> on PowerNV guest boots up in XIVE mode.
 > 
-> MSS is the modem power supply, this should be CX
+> $ cat /proc/interrupts  | grep SPU
+> SPU:     223705     192439     273526     147623   Spurious interrupts
+> 
+> This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
+> Handle pending exceptions on guest entry with MSR_EE"). The root cause
+> is that when there is an interrupt pending for a vCPU
+> (xive_interrupt_pending() returns true) and MSR_EE is disabled for the
+> vCPU, LPCR_MER ends up getting set for the VCPU. When the vCPU starts
+> running, the XIVE hardware presents the pending interrupt to the vCPU
+> (since the KVM guest has native XIVE support) and then a second spurious
+> interrupt gets presented to the vCPU due to the LPCR_MER bit being set.
+I agree that we should avoid setting LPCR_MER when the pending interrupt 
+will already be delivered natively by XIVE on PowerNV.
+> 
+> Fix this behaviour by not queuing up any extra interrupts with LPCR_MER
+> if there is an interrupt already pending in the case of KVM on PowerNV.
+> This reduces the number of spurious interrupts drastically.
+> 
+> Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
+> Cc: stable@vger.kernel.org #6.8+
+> Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
+> Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
+> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+> ---
+>   arch/powerpc/kvm/book3s_hv.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+> index 7667563fb9ff..fda3767ebc9e 100644
+> --- a/arch/powerpc/kvm/book3s_hv.c
+> +++ b/arch/powerpc/kvm/book3s_hv.c
+> @@ -4937,9 +4937,8 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
+>   
+>   	if (!nested) {
+>   		kvmppc_core_prepare_to_enter(vcpu);
+The current code handles two different indications of an external interrupt:
+> -		if (test_bit(BOOK3S_IRQPRIO_EXTERNAL,
+> -			     &vcpu->arch.pending_exceptions) ||
+> -		    xive_interrupt_pending(vcpu)) {
+> +		if (!xive_interrupt_pending(vcpu) && test_bit(BOOK3S_IRQPRIO_EXTERNAL,
+> +							      &vcpu->arch.pending_exceptions)) {
+>   			/*
+>   			 * For nested HV, don't synthesize but always pass MER,
+>   			 * the L0 will be able to optimise that more
+This means xive_interrupt_pending() now gates the entire block, 
+including the BOOK3S_IRQPRIO_EXTERNAL handling, rather than only 
+avoiding the LPCR_MER which causes the duplicate interrupt.
 
-Correct. I'll respin with CX attached instead.
+Also, the changelog describes the issue as specific to KVM on PowerNV, 
+while this condition also affects the pSeries/nested handling in the 
+same block.
+
+Thanks,
+Narayana Murty N
