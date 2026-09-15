@@ -1,67 +1,87 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA3F4BD783
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:49:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE194BD785
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:49:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487384; cv=none; b=XR3Gg25iVbnXCZzzvc6jim0hNt1RVamn8q9uflmBbnL42mm13cbcMDaxq8Rdc3+GeBcmM5xRuHQXiZO4XLHVxIkfZ8KbTXcD3QvjqaTJ3nUMrAmcQsLIb++X5v0mclQq+jsA8jTJkmhH7rlR2jFIr9CfPveaNp7QpZJNjHDXKoE=
+	t=1789487386; cv=none; b=MC8C218gyrmwlKjyvFCzLfvKlEnIF7GOyhRxfmQ9tNbGx6MUdLcEYLweMYurI4lsJwZLWh6q8ZabEizIvUheHSP8DDtRqPjKjUKtOwtVJutfD9zW/6iQPV6MUwITOxcTF+9kj1iBxZXNWtm+/ss5M6V3Vwb+IXNyCdsh+91IQZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487384; c=relaxed/simple;
-	bh=+XBllqbsJ71y2OMACCOWTTRe/OpCpvOrPstex5Z1CiU=;
+	s=arc-20240116; t=1789487386; c=relaxed/simple;
+	bh=4ei91b2R3LhpqavB/TmX7B5aep0BPPMa3xpepuWnm3o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F82fThfasy6bUuysL/iDtWmJovBfWzPvCPJmVTlqMNUS5uGkbjcZKUNhLG4dRv754ASmi6MOwYFIjtIOiLUY2ySRt4Ea7AH1TnrOhq69ZBrJaJSxFT1n2xcKLjZRrWQuVCdWZsREszKC+nyeIQmn8tAsOXIcVB6h6SKGC+LvPzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OoyED1/R; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=hcUGm6swWAwLLufVg66xrqihoCO9OQTe/yPZInF9MWFWy8GN7phQTKLBDtqKg5O+wA8yAQQKy85qBE+Rh5tpYUcIBisPOJRHj5L7fzkSaoGMLsLVeKnQ+pfJOoSfnBihrqbRZHjTYFzOYz2JXcN1xA1cmAKU9lYx/tyNKxKy+hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h6Rg5v5F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Un9nBENj; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OoyED1/R"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d45ae011cso5875887b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:49:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h6Rg5v5F";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Un9nBENj"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFAYdl1014294
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:49:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EaIdKmli7v2LIFD3GMLQcKRecXvx+ZCUfvZafIxPoyo=; b=h6Rg5v5FSw/YNtTU
+	vroXO3zDJH9SA1yOYDyj3IVvfIBTQ9lrDeBr6d0zGrmPT2nAiFPEF/p2VlTOTb4M
+	Cjao1j3rFUPIjobRMHQiAXDxhVtGwVXD2anwGZvxoklUYzWZPUdahvwu2mLWKRM2
+	wGyXwkIUZ8ANcEaTL3+lISNjixWZxrYN+Sn3zoGc3jj0x3iEJTByKMx9PLYeraD3
+	b6nnUhtAV+UgtAdptqN5XW18hhCvbDuHrJZQ0SRXvX0XCdW6FfCLQswuzfEUuS8h
+	L/PCdbqGVNh7JvWG+B5nsxCKtJ1V2bMo1UMvbtkSUr0UzN/I/xgabZjSprGJJZWx
+	UyBrqA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpyea2r4q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:49:44 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39533bb224cso5976006a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:49:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789487381; x=1790092181; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0oyD/F9PlwtiOwMSHcssA0x8M3nxK1wxyEuv3ztZ73g=;
-        b=OoyED1/R2+YB+q4oQsj7Es/RAPHnGm7GkWU1XMAXKKe2u6weZlTUTdn2Nems8scryq
-         9L7paOBm19AfNa+6S4zfcA7+LSSWlpkPGvqCNc05SwoY0mE5U5QlSG8Fbt00U/c45V31
-         FCA+eNF0IE5nU0ca1FueUY7ryYJwt8nqkuMuuPSXUmTdDCvGzWl0xMRCf3CJm8UEgdk5
-         4JkBUJ+B47rqswzdN1xu7iWxU5oXcE0zL06Bdb4wKHZdAB2Em8NZ5JjQR2YIKfU/vV3+
-         Uy4fl/t8yHzMI/QQ3nC0qNIXvmCeISXJj/fFP5yF1F+1ZbiKZPeFHFNuHRViBX2y3raH
-         DwfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789487381; x=1790092181;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1789487384; x=1790092184; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0oyD/F9PlwtiOwMSHcssA0x8M3nxK1wxyEuv3ztZ73g=;
-        b=w8X/a7Sg2GT+tmxndh1PuuQMQqKdE2AoBZrhzH5BuS4qeY8cCokH/JeH7YhH4y5nG1
-         vD5ogiu56Dnge6RspySaS/DuATPz5w48ZO6OCshohT5pOLzCdmwX5uZnDMO2u9BLg8kg
-         b0InQ5/QIb8Z40c4RzhPuRPBkE53tfdIloh4IChDxFtL4SgqmIWwO2yqf3Bp1CTKeUxN
-         LmGV4p/eM+MLxtlNahPM8ruFa2+z9iQZAjUY4iD8Z3lFhZ3+16eAtwPFsCZIIcLmI1la
-         luETIm1GTGTDRBLB5fsJO4g+MH7FDMfjR0qzubBxbJMyAsIBoCFssiNbHyQU8wUCH1q+
-         Fdvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxF946Ddw4VxyLCKcExro7yWfENtItWPWe4W2zz0zq9aVXIdoBIB+I+v6cVZ8gdFz6HA4EYnlHgwefgwJw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNtRczfqKuMk4MZh7RKEx7TSHJsx6iwmTrPtT0KDPinMQtiwJc
-	fBAZgWnxmtKgUJm57Lx9DQAa2nWIbenwZ7/2GtyUoMvQtlhuyQhhqMjR
-X-Gm-Gg: AYBFou3jDHs2UlRXW16u0PJb5slvBwVxe08+MslqEIcudewLAwp4h1Fl5ORBRlR0U1X
-	+4cOZ52Gb40g81LcsAt47RcqWLk1RRhhtfKk3fPLxOPMPJs4ZAXJXD0XNYKZhctzoBjIR5WoHc0
-	MPfvGCr2iWx2zo059A4TbQ3O/FAZPxA5O1JjifrfJrO9+w/0xrLR8ndFnVNEA6Zg52uWgBmiVLE
-	TbpqBLhnUwKKVLeVDrTKb8wJmHIYgSLx631D64nr+2Ylqf2h+B8qZxSIyYJS8bNmy5eESTPiALy
-	9l1JDAMPGNxXzNw8xHwHbGBWJunPjtNqyb8CWqqKhGbzUaTbkGIciZuO/VnKA56a4Msx96et7mc
-	6dUWV+uvomWGPJIGiGExR/HHsev2jSPT8x+a8rjVWu0vAbr+piioNSAs/DjMrxZ6tgSMYt+6PQE
-	tKVBnxHW74is1lzn/d6ptEcTbWB6oSmyArei9FHhzRiy8xeXYX+RBHmukAdDbcLZ3IY1ravkGog
-	T6qKVaRRb+O
-X-Received: by 2002:a05:690c:6604:b0:866:4769:d60d with SMTP id 00721157ae682-890f27e0341mr7332937b3.22.1789487380614;
-        Tue, 15 Sep 2026 08:49:40 -0700 (PDT)
-Received: from [10.138.10.6] ([185.98.168.14])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-884871190acsm49345007b3.23.2026.09.15.08.49.37
+        bh=EaIdKmli7v2LIFD3GMLQcKRecXvx+ZCUfvZafIxPoyo=;
+        b=Un9nBENjl+gtMN8FS8w1CAMgtVO0hPSffRcdY8fonRLBHOdKUQrOXjfEllXyGHwpSf
+         LEcOEv8xvbDpQyN49J3S5K0/qwR+Ovwf861gTxfLDksOFEpjGpMk0zswwDxVD8vTGK1s
+         qzL1MDBoHaHqpeg3sA0XjmTHgansInLhU+oQIFHoUE+2eJtbNqnob049xZcxAwOPeMjH
+         yArR3UmvYhT9voZtkkadG5Oo4PUJJ1FFtM85JCxY4x3nA6Gu2pUzS11y9OydBMPre4Xh
+         JZ3pgkXDnc3tR0J6wYfnoJInHZU1ufDKz/F/P4jP5R9I2T7ig8MkvLOmD+TPRNi2hYmC
+         vNuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789487384; x=1790092184;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EaIdKmli7v2LIFD3GMLQcKRecXvx+ZCUfvZafIxPoyo=;
+        b=KJhy6oJ3i/EccnYB77R9ryUMHKMvUQhg2CziV8+qH8YQwJtIC/aKKuMAYci3dQNaiS
+         HH2WLyIVZVw7vZErF8HYpmkLRo+8bmWhj/OdXagbjg7/YptolPFIkD+0GWRLx1ca8egT
+         RW7genzh7uL1kLUZ+0jJCoHz3GntxP+GSI+KJYs5O2wCZUOkCH5PAnRBeF3oMkoNu3mA
+         cHcwCZ7xEsbosTxhidaR/f2ViJEIUzdkZsAtGDMcQHF4U0MSuOd3O4tKKYmVVAmaZkgO
+         RpMMK1IgkUE31p44+Y6NL+u93FbEY7GxlMglTR0PLNE3RANFnS3XvqCIT+yjl3S6jNel
+         v2kw==
+X-Forwarded-Encrypted: i=1; AKwUvBz5O8+vHBt+Y7Kzd6+tN1OtHae5jYxaSemGh5P9GEAihqY9JNfyEYF519pKfrTRSudh1l8YrAnJOkyic8I=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0PrKSfxOJBDrpOV1w59pWlk0Jb9UJvQEAulRhLJSNWY8zyyVi
+	+ayw7wCA/HzeQyvPsL9Z85dUAtTZ9T+1lBPjcw6OJtte2lSKBMvEkxbPocsQxREuWOHAP1E5hq6
+	VCVwSyLpCqUuAZDOJwQHl/C5jALsfUrI80uWQ0SgfK9jq1jMJFutmt3mp5qmSun/A7kg=
+X-Gm-Gg: AYBFou0pXWnmbVD5bCeFuZ4uTiDrIoDUUBLFSA62U+C4/+g2rZb+m0grCWWGFrcwveQ
+	RH/jfe6bv9qTHqMqdmXfu3PZ4rH4Scv2LTAyhaBTrpPYVltD2bFPZ+BEybNzz3jOBOQixP9Y4Uv
+	9Rl5thJf9BFOY3rWu03cxn2lGCOs2PFEc0+mDdzmZybU3HeJRMhFTlX70ZS1EiduDoMekbVx/SP
+	w3WjeiwNgRKvAMHqyURXj8Tv2RV6eBn23fjJQw7928/kCjU7H195ZozMWgTBos9XoAMehqPuQ/W
+	bmBZpih727z46YITKWB8MSzysZhtC5aHpkXARVIw++BKe+qWOMIV9DWcVQ7nwp4XKXEFLxaZeAF
+	4hPpfLQVY7EmFx5OYpSi2pXM0/nhlgL43Pud3s9Pa
+X-Received: by 2002:a17:90b:2f0d:b0:39d:f024:c7ee with SMTP id 98e67ed59e1d1-39df024cbbfmr14331072a91.25.1789487383603;
+        Tue, 15 Sep 2026 08:49:43 -0700 (PDT)
+X-Received: by 2002:a17:90b:2f0d:b0:39d:f024:c7ee with SMTP id 98e67ed59e1d1-39df024cbbfmr14330999a91.25.1789487383005;
+        Tue, 15 Sep 2026 08:49:43 -0700 (PDT)
+Received: from [192.168.1.5] ([122.169.220.106])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfda7cc42sm6221221a91.9.2026.09.15.08.49.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 08:49:39 -0700 (PDT)
-Message-ID: <00a0910e-0c15-4f5a-add0-3cbc3457972f@gmail.com>
-Date: Tue, 15 Sep 2026 11:49:33 -0400
+        Tue, 15 Sep 2026 08:49:42 -0700 (PDT)
+Message-ID: <bf2a490f-4bbd-4223-9cc7-685e5a90ec9d@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 21:19:37 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,236 +89,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 09/12] crypto: qce - remove the BROKEN label
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- Stanimir Varbanov <svarbanov@mm-sol.com>,
- Eneas U de Queiroz <cotequeiroz@gmail.com>,
- Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-crypto@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Eric Biggers <ebiggers@kernel.org>
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
- <20260910-qce-fix-self-tests-v7-9-cdbd2718af14@oss.qualcomm.com>
- <20260910143140.GA5719@quark>
- <CAMRc=McDHXWRfYTwRasdBCXMnoVkXK9T7RB+gBNgCsGof-euyg@mail.gmail.com>
- <c08519bb-b912-4d34-a164-5a9d65162716@gmail.com>
- <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
+Subject: Re: [PATCH v2 9/9] arm64: defconfig: Enable Qualcomm PM4125 and
+ WSA885X drivers
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260910231642.1794948-1-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260910231642.1794948-10-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260911-tireless-sincere-flounder-5fdfb0@quoll>
 Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------vuZP1Q4ZVZ0NeQeK20nvEN3W"
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <20260911-tireless-sincere-flounder-5fdfb0@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: -Oq4ziH8x1ubfrNgS8VgWA_ouK0dImjD
+X-Authority-Analysis: v=2.4 cv=cehHPXDM c=1 sm=1 tr=0 ts=6aa96918 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ww153nmMuBeTcjqybhOiGw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=5zVXc8y5ZMJFenxCD80A:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: -Oq4ziH8x1ubfrNgS8VgWA_ouK0dImjD
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIzMSBTYWx0ZWRfX385DNc6te6nd
+ gqoE1gfC4vinCXZgAoY7JH47Z8V1bNqAOxjv5BScCMr1Kma2z6O5zUGB00wEdmMMlhbV9Ht4/p3
+ rlL/GHyLwJXuF8+tJk8CGRBdPOJNes8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIzMSBTYWx0ZWRfX2OKWz/FEg2lg
+ 04eAmbVLgTNn3kCxSDLirTD++iz8wDTF64XoUERtuZJ5JXeVW4x+XbFqTHAufOiXX/QAWl+BGcq
+ 8sSnYvbwrIoZ3d+wTg+EJtDEHI10AtTLZCfcjSFeDop682OlbqIucXEMBOKS1ttfZxOMuc/d6uQ
+ o9US+2w7t+udDEmL9biSAVub1JiNmoG3BlTAMUhAfcVw+0muF7uPqZV+0p5UD8buhX+kiYzrWh5
+ GS+z1GncYL8ATWIMpDaGtr0tWUik8JmZ96Ir5qqDfifzNjbQ14O0rJiJ6nsEIZVG7q+Jf5kc0V2
+ x57EMllnwEz2ZT5ZPYtEriMYkAz9LdDPVvLHfaecpEcXHAbl+ohltNkeYVRMsCv/cYbDQxm52YU
+ CSnogjxWXc/jo+akUTmqewiDmvDlZwdWynAtced7to0/NaA6Tf3Uj7ZOcRiDStF3zBHItzxC0/p
+ Xyvu/tKj7lA6i2HIukw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150231
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------vuZP1Q4ZVZ0NeQeK20nvEN3W
-Content-Type: multipart/mixed; boundary="------------IByifCyeWEU0H7y66NiZ3XNB";
- protected-headers="v1"; hp="clear"
-Message-ID: <00a0910e-0c15-4f5a-add0-3cbc3457972f@gmail.com>
-Date: Tue, 15 Sep 2026 11:49:33 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 09/12] crypto: qce - remove the BROKEN label
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- Stanimir Varbanov <svarbanov@mm-sol.com>,
- Eneas U de Queiroz <cotequeiroz@gmail.com>,
- Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-crypto@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Eric Biggers <ebiggers@kernel.org>
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
- <20260910-qce-fix-self-tests-v7-9-cdbd2718af14@oss.qualcomm.com>
- <20260910143140.GA5719@quark>
- <CAMRc=McDHXWRfYTwRasdBCXMnoVkXK9T7RB+gBNgCsGof-euyg@mail.gmail.com>
- <c08519bb-b912-4d34-a164-5a9d65162716@gmail.com>
- <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
 
---------------IByifCyeWEU0H7y66NiZ3XNB
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On 9/15/26 05:46, Bartosz Golaszewski wrote:
-> On Fri, 11 Sep 2026 20:35:58 +0200, Demi Marie Obenour
-> <demiobenour@gmail.com> said:
->> On 9/11/26 07:14, Bartosz Golaszewski wrote:
->>> On Thu, 10 Sep 2026 16:31:40 +0200, Eric Biggers <ebiggers@kernel.org=
-> said:
->>>> On Thu, Sep 10, 2026 at 03:00:50PM +0200, Bartosz Golaszewski wrote:=
+On 9/11/2026 2:26 PM, Krzysztof Kozlowski wrote:
+> On Fri, Sep 11, 2026 at 04:46:42AM +0530, Mohammad Rafi Shaik wrote:
+>> Enable the PM4125 and WSA885X I2C codec as modules in
+>> arm64 defconfig.
+> 
+> Why?
+> 
+> Same question as usually. I even documented it in maintainer soc
+> profile. Dunno how to improve it more.
+> 
+> Can you tell me?
+> 
 
->>>>> All self-tests now pass.
->>>>
->>>> Have the other bugs that were reported been fixed?  For example:
->>>> https://lore.kernel.org/linux-crypto/20260723202704.GB110634@quark/
->>>> https://lore.kernel.org/linux-crypto/20260723183438.GB93534@quark/
->>>> https://lore.kernel.org/linux-crypto/20260723205342.GC110634@quark/
->>>>
->>>
->>> I will get to these too. For now, the series allows the self-tests to=
- pass,
->>> I assume it it's enough to not keep the BROKEN label.
->>
->> Personally, I think the driver should stay BROKEN until all the
->> known bugs have been fixed.  The self-tests aren't enough for HW
->> crypto drivers.
->>
->>>>>  	help
->>>>>  	  This driver supports Qualcomm crypto engine accelerator
->>>>
->>>> As this patch would make the kconfig option visible again and would
->>>> result in everyone running "make oldconfig" being asked about it, it=
+I reviewed the guidance in Documentation/process/maintainer-soc.rst and 
+realized that my original commit description did not sufficiently 
+explain why these options should be enabled in arm64_defconfig.
 
->>>
->>> I don't mind changing the symbol if you prefer it to avoid any accide=
-ntal
->>> `make oldconfig` carry-overs.
->>>
->>>> needs to be fixed to accurately document why anyone would want to en=
-able
->>>> this option.  As you've stated, it's actually just for "testing".  T=
-he
->>>> false claim that it's an "accelerator" also needs to go.
->>>>
->>>
->>> "Offloader" for lack of a better word?
->> Could it be called a "decelerator"?  That would give users an idea
->> of what to expect from the driver.  Maybe explicitly mention that
->> you will take at least a 50x performance hit?
->> --
->=20
-> Yeah, very funny. Jokes aside: "Offloader" says what it both *aims* to =
-do and
-> really *does* without claiming it *accelerates* anything.
+I will improve the commit message to provide the board-specific 
+justification, for example:
 
-This wasn't meant as a joke, but I could see how it could be seen as
-one.  Sorry about that.  No offense intended.  "Offloader" also works.
+"Qualcomm Shikra CQM and CQS EVK boards use the PM4125 audio codec for 
+headphone playback and capture, and the WSA8855 amplifier for speaker 
+playback. Enable both drivers as modules in arm64_defconfig so that 
+audio functionality is available on these boards with the default arm64 
+configuration."
 
-As an aside, I trust that you are doing the best you can.  Maintaining
-an unpopular driver is not an enviable task.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
+Thanks for pointing this out.
 
---------------IByifCyeWEU0H7y66NiZ3XNB--
+Best Regards,
+Rafi
 
---------------vuZP1Q4ZVZ0NeQeK20nvEN3W
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
------BEGIN PGP SIGNATURE-----
+> Best regards,
+> Krzysztof
+> 
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmqpaQ4ACgkQszaHOrMp
-8lM6BBAAiz3vwhbkTZCjeNU85AKdXDPBAQecchq8P22HNlj9MpKYAYGpg/VSPyJP
-MDYb1PN5Cm/D3ZbFYkqICuAa8PInhA+knhDP+Iz5867DS+fAom4I6BTrxXKDvWmT
-0sdQLCSExrxY24OUP9i5ajSrlTZhSJbeo2rV0MImi5I6qM7YJc2d+WXyXES2j+Eu
-Y6YK+/siNC1N4qbN97B3zzacMc1fs0pQzNsq3Pbe0Z3UdUHyIcibNOsoM5r3LYye
-2CPpF0BRIROL7ydGrcsgNS38W0PuPHajbNZsyjlagWor7Pk3zTZCtuonqgDINoZ6
-io6remDuynXyozSSXP5gj+xfg34evwbrbDOgrDZYRfD1e32bnTFvEoqcqjNM1Q9D
-axP3Y+b1nAxE/aD+xWJX7Jp1QkrvdJaWfwk29I+uI3vLlZau5YzEjqaGfuKMWSP+
-+H+guHBTUEDMi7jSv8JVM22v7VhGRew7KAsCvJGHcf+yA4A5zQSb5GKLHI+wnb4f
-klWhIHk92C6bD4Vg9FjSl3AKtjs27fgGO4m4y9q/Y3zNdWO5aPT7o3CYs6I8OyXB
-Sf2lqGihrj8nCbi+MWOzrlSigFO/Y7lre+qk34vYX59S64sM70tRxywyTBvF8967
-aLm4WfQRy1Zz0CMeyFZ4qTw2g0uH955BXAQKP/UsosVImYv6ysU=
-=8w5m
------END PGP SIGNATURE-----
-
---------------vuZP1Q4ZVZ0NeQeK20nvEN3W--
