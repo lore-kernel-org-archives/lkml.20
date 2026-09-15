@@ -1,32 +1,35 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDBEB48F852;
-	Tue, 15 Sep 2026 14:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0BF4A2604;
+	Tue, 15 Sep 2026 14:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483540; cv=none; b=kgbgIg6bkF6RMtXoFvGNp3qF0keIYTSU3BZlhD1yw4FzpzbV6Orz17h1/iS33MMGN0drMHoMewLvqUzpqftc4XkysFbD213fGL+YgCOSssQfOBjTWTOq5ByL7rNVnJ5wh3h4WdGLWoAqvK1hIkt7wlpb4IzXsVYkmi96jhElbOc=
+	t=1789483553; cv=none; b=r/4ieyI9rYcQXH3S3a2qJXnfWc8I+/Ze7rDhQYPLnA20PeKHVEBJLX7ulEyJ9QrAO8frIPz9Ylg4LlGrBNlUMTCGqq8C/vFi8XAOp6aPPW0n5/GKDJ7BlBu+tOXnNhocszXO6Nsu+HFNtVOH98POTOTRwC5yCtEEWDXuRGrF3Fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483540; c=relaxed/simple;
-	bh=ngtFN2V7ULql4DUgNtKS4FIutat4Fea3e7vRM4yoZuo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AmZ/mk+UwnNtb3Xc33cYoWKLuEvfDpDtFtJUULRX/jeKZeq6nTm/l2dc1kmon76xpCbyOy2mi7yTCr6xg9VyeblAWxQn/He9s4QgQY3FA1tFxMl7BqOv9LuG7gtRuZCI0MOh514rlwl1Ay8k4BFfHYbsokGiXDTUNvGV1xcAWvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=vo9uy1po; arc=none smtp.client-ip=45.254.49.198
+	s=arc-20240116; t=1789483553; c=relaxed/simple;
+	bh=sryxKvjfZ9SXWJkloWRmv7gAM/1bQTdAxnTAiQXiuLw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=L21SnQeATQ5k1gRxN2ILsUD6Ue/srCgltCVQnImEIaGkKiv0qkKnaI7PA839BjUu3zSloW+iB93NpKiYl4YmP20MwWXGBPhYZqSQ+wrCTk7oKTRbYPpgeqMZjKxZcf5bCexsf+zRRuidJwUMvwpYHQFcNqeDuV7d3NJWriplI2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=OqY9PXnF; arc=none smtp.client-ip=101.71.155.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="vo9uy1po"
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="OqY9PXnF"
 Received: from tju.edu.cn (gy-adaptive-ssl-proxy-3-entmail-virt135.gy.ntes [183.242.150.9])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4ddceb51f;
-	Tue, 15 Sep 2026 22:45:25 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4ddceb521;
+	Tue, 15 Sep 2026 22:45:34 +0800 (GMT+08:00)
 From: Yibo Tan <lhfff@tju.edu.cn>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>
-Cc: Nick Cheng <nick.cheng@areca.com.tw>,
-	linux-scsi@vger.kernel.org,
+To: Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Helge Deller <deller@gmx.de>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] scsi: arcmsr: Flush message work after stopping IRQs
-Date: Tue, 15 Sep 2026 22:45:21 +0800
-Message-Id: <20260915144521.3464486-1-lhfff@tju.edu.cn>
+Subject: [PATCH v1] fbdev: atmel_lcdfb: Prevent FIFO work after removal
+Date: Tue, 15 Sep 2026 22:45:28 +0800
+Message-Id: <20260915144528.3464726-1-lhfff@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,90 +37,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0a587a5c303a1kunme20085972df811
+X-HM-Tid: 0aa0a587c6a003a1kunmb39ec71c2df824
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT09NVhkaTkJNTUhLSh1LQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGB1LVhhOTUhIHUoaHx5MQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0hKTk
+	xOVUpLS1VKQktLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=vo9uy1poMbqPZhfneFB4JBnF0i9dhN8ZM7S3D9XMk0JVpZXKmMsJt7rqt18W7ud+p+KNZr+O+96rqLWwXSnp5aTeGF6fSm98+OdkprtvIabkdp/ByLyk1N3kg8ZrtKPDuK4Zu90q2aU8wB7FRWLbdBV1F7jMBt+0AbEGg2veLUg=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
-	bh=I8vSmh7Ds3qx5wd4jSnnaD0chD8RLu19OJ58Uz1XJDM=;
+	b=OqY9PXnFOEYsBrY58XRsakZ/d8919hvn1n6Ev5om59QW4+FMvm7VfjVtVqBmg6Z8T1jEGbSJQW2DRAk18hgz6sCCmegwOc5ocY+ngoRlDkrmOOHqA1n87PwUajgPcOTGZdFjQrtSnUY16cy407TTEUN9lK57an0zoHN831uMjJg=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
+	bh=R/WqiFUDtj9hW8jTIp2hYqJBQvF/QvuI4kKPkm5/LJo=;
 	h=date:mime-version:subject:message-id:from;
 
-The adapter message interrupt handlers schedule
-arcmsr_do_message_isr_bh.  The work item is embedded in the adapter control
-block, which is released with the SCSI host.
+The LCD controller IRQ schedules sinfo->task to recover from a FIFO
+underflow.  Probe currently requests the IRQ before initializing the
+work, so an early interrupt can schedule an uninitialized work item.
 
-The probe error path, hot-disconnect path and normal remove path all
-flush this work before arcmsr_free_irq().  An interrupt can therefore
-queue it again after the flush.  The normal remove path can also call the
-interrupt handler while it waits for outstanding commands.  The SCSI
-host can then be freed while the new work is still pending.
+The probe error path and remove path cancel the work before freeing the
+IRQ.  A FIFO-underflow interrupt can schedule the work again after that
+cancellation.  framebuffer_release() may then free sinfo while the work
+is still pending.
 
-KASAN reported a use-after-free in arcmsr_message_isr_bh_fn() in two
-unload tests.  Moving the flush after arcmsr_free_irq() made unload wait
-for the work to finish, and both tests completed without a kernel
-diagnostic.
+KASAN reported a use-after-free in atmel_lcdfb_task() when an underflow
+interrupt occurred during removal.  With the IRQ freed before the work
+was cancelled, the same test completed without a kernel diagnostic.
 
-Move the existing flush after arcmsr_free_irq() in all three paths.  This
-matches arcmsr_shutdown(): remove and synchronize the IRQ handlers, wait
-for the work to finish, and then free the SCSI host.
+Initialize the work before requesting the IRQ.  In both cleanup paths,
+free the IRQ before cancelling the work so that it cannot be scheduled
+again after cancellation.
 
-Fixes: 36b83ded062a ("[SCSI] arcmsr: Support HW reset for EH and polling scheme for scsi device")
+Fixes: d22579b83735 ("atmel_lcdfb: FIFO underflow management")
 Cc: stable@vger.kernel.org
 Assisted-by: Codex:GPT-5
 Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
 ---
- drivers/scsi/arcmsr/arcmsr_hba.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/video/fbdev/atmel_lcdfb.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/scsi/arcmsr/arcmsr_hba.c b/drivers/scsi/arcmsr/arcmsr_hba.c
-index 8aa948f06cac..1a497de2a762 100644
---- a/drivers/scsi/arcmsr/arcmsr_hba.c
-+++ b/drivers/scsi/arcmsr/arcmsr_hba.c
-@@ -1164,10 +1164,10 @@ static int arcmsr_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	if (set_date_time)
- 		timer_delete_sync(&acb->refresh_timer);
- 	timer_delete_sync(&acb->eternal_timer);
--	flush_work(&acb->arcmsr_do_message_isr_bh);
- 	arcmsr_stop_adapter_bgrb(acb);
- 	arcmsr_flush_adapter_cache(acb);
- 	arcmsr_free_irq(pdev, acb);
-+	flush_work(&acb->arcmsr_do_message_isr_bh);
- scsi_host_remove:
- 	scsi_remove_host(host);
- free_ccb_pool:
-@@ -1685,12 +1685,12 @@ static void arcmsr_free_pcidev(struct AdapterControlBlock *acb)
- 	host = acb->host;
- 	arcmsr_free_sysfs_attr(acb);
- 	scsi_remove_host(host);
--	flush_work(&acb->arcmsr_do_message_isr_bh);
- 	timer_delete_sync(&acb->eternal_timer);
- 	if (set_date_time)
- 		timer_delete_sync(&acb->refresh_timer);
- 	pdev = acb->pdev;
- 	arcmsr_free_irq(pdev, acb);
-+	flush_work(&acb->arcmsr_do_message_isr_bh);
- 	arcmsr_free_ccb_pool(acb);
- 	if (acb->adapter_type == ACB_ADAPTER_TYPE_F)
- 		arcmsr_free_io_queue(acb);
-@@ -1718,7 +1718,6 @@ static void arcmsr_remove(struct pci_dev *pdev)
+diff --git a/drivers/video/fbdev/atmel_lcdfb.c b/drivers/video/fbdev/atmel_lcdfb.c
+index 53f0156992e6..9a0cc09004b7 100644
+--- a/drivers/video/fbdev/atmel_lcdfb.c
++++ b/drivers/video/fbdev/atmel_lcdfb.c
+@@ -1146,6 +1146,9 @@ static int atmel_lcdfb_probe(struct platform_device *pdev)
+ 	/* Initialize PWM for contrast or backlight ("off") */
+ 	init_contrast(sinfo);
+ 
++	/* Some LCDC recovery operations require process context. */
++	INIT_WORK(&sinfo->task, atmel_lcdfb_task);
++
+ 	/* interrupt */
+ 	ret = request_irq(sinfo->irq_base, atmel_lcdfb_interrupt, 0, pdev->name, info);
+ 	if (ret) {
+@@ -1153,10 +1156,6 @@ static int atmel_lcdfb_probe(struct platform_device *pdev)
+ 		goto unmap_mmio;
  	}
- 	arcmsr_free_sysfs_attr(acb);
- 	scsi_remove_host(host);
--	flush_work(&acb->arcmsr_do_message_isr_bh);
- 	timer_delete_sync(&acb->eternal_timer);
- 	if (set_date_time)
- 		timer_delete_sync(&acb->refresh_timer);
-@@ -1750,6 +1749,7 @@ static void arcmsr_remove(struct pci_dev *pdev)
- 		}
- 	}
- 	arcmsr_free_irq(pdev, acb);
-+	flush_work(&acb->arcmsr_do_message_isr_bh);
- 	arcmsr_free_ccb_pool(acb);
- 	if (acb->adapter_type == ACB_ADAPTER_TYPE_F)
- 		arcmsr_free_io_queue(acb);
+ 
+-	/* Some operations on the LCDC might sleep and
+-	 * require a preemptible task context */
+-	INIT_WORK(&sinfo->task, atmel_lcdfb_task);
+-
+ 	ret = atmel_lcdfb_init_fbinfo(sinfo);
+ 	if (ret < 0) {
+ 		dev_err(dev, "init fbinfo failed: %d\n", ret);
+@@ -1192,8 +1191,8 @@ static int atmel_lcdfb_probe(struct platform_device *pdev)
+ 	dev_set_drvdata(dev, NULL);
+ 	fb_dealloc_cmap(&info->cmap);
+ unregister_irqs:
+-	cancel_work_sync(&sinfo->task);
+ 	free_irq(sinfo->irq_base, info);
++	cancel_work_sync(&sinfo->task);
+ unmap_mmio:
+ 	exit_backlight(sinfo);
+ 	iounmap(sinfo->mmio);
+@@ -1230,6 +1229,7 @@ static void atmel_lcdfb_remove(struct platform_device *pdev)
+ 		return;
+ 	sinfo = info->par;
+ 
++	free_irq(sinfo->irq_base, info);
+ 	cancel_work_sync(&sinfo->task);
+ 	exit_backlight(sinfo);
+ 	atmel_lcdfb_power_control(sinfo, 0);
+@@ -1238,7 +1238,6 @@ static void atmel_lcdfb_remove(struct platform_device *pdev)
+ 	clk_put(sinfo->lcdc_clk);
+ 	clk_put(sinfo->bus_clk);
+ 	fb_dealloc_cmap(&info->cmap);
+-	free_irq(sinfo->irq_base, info);
+ 	iounmap(sinfo->mmio);
+  	release_mem_region(info->fix.mmio_start, info->fix.mmio_len);
+ 	if (platform_get_resource(pdev, IORESOURCE_MEM, 1)) {
 -- 
 2.39.5
 
