@@ -1,149 +1,296 @@
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+Received: from ironport.ite.com.tw (itemail.ite.com.tw [60.251.196.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF3A4446E1
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=183.62.165.209
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE663332601;
+	Tue, 15 Sep 2026 07:27:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.251.196.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457238; cv=none; b=Xc7KIK4Z5jYSpzkCckQ7IfVFbDy5cCh+347PrqoPLuIvTgtjGxWrCP5in8D36wnUgj5jBt+q6i+gQgvpU5DPNg7qY5kAZH/NvGbHOKACPdZYHGQYLFZTNp006e4FPAYF6bvaUSvnMusxK+BaBUlfZ0yBG8OAmQf+tCJmm3sVXrE=
+	t=1789457237; cv=none; b=e5YjeXM+PEPKK9zsaAxQj3PLp32rBRQabpNvFtCqO7t0VmxI2jFIIQlgmxQSmJIL6oHIzIzVPwiRRjnpP+lq3hMs+4Yrvkmzfte62qsmwj+8hngJe7W9PU+QIC80tQNFdrUbOdeOmTToL+uAxxzaNr+MiQD58HRLOg7Ke7upmpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457238; c=relaxed/simple;
-	bh=ahrYY11mJTkQU0QzOygWS5gatI38eVNrce34N4PSn5E=;
-	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=ZhNwoKolbzw2PWzi9HHVJG/+JvpggBx03L7nfdOmcYfaFTKvJGaHaKMR3GepYMTxMAXupscR4BJFfWbMtAKpFi7ov77hpfgZs7OW7HRmP0uhwr+/S7F09GfIYdqqX5ha7/O96n3F1feKPAvUK9cZdA4ORWU9qUUw7ReLxXhdgKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=183.62.165.209
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4hkYVw5BXdz4x69s;
-	Tue, 15 Sep 2026 15:27:04 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl2.zte.com.cn with SMTP id 68F7Qsdi053927;
-	Tue, 15 Sep 2026 15:26:54 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Tue, 15 Sep 2026 15:26:56 +0800 (CST)
-X-Zmail-TransId: 2afb6aa8f34035a-cfb46
-X-Mailer: Zmail v1.0
-Message-ID: <20260915152656708z04s4oSYY2BGj34F36RZa@zte.com.cn>
-Date: Tue, 15 Sep 2026 15:26:56 +0800 (CST)
+	s=arc-20240116; t=1789457237; c=relaxed/simple;
+	bh=s3NdJpBL2H3T34Cjcf3/iU7S/YWt1F7gDytj+EPvTfY=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 In-Reply-To:References:To:CC; b=PRnbg8R0h1vKTV9ACSZF+CZE3ZT3Uyg08lkkXpdFUy8OlrKft94RQCEr9Um5IAirq2Vbj2o6bbx3TrjFZhG8cF/LjEPCKzAb7ChiOFvr4q/2dfj3D5NZzjkEC/hyMs9OE1UWi8m4dJDB/RCe6LRnuUuWl44Cv4/Epdltbq0cn40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=fpPYsWDs; arc=none smtp.client-ip=60.251.196.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="fpPYsWDs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:in-reply-to:references:to:cc;
+  bh=QrAgWkImRd7ho2JuXHNUm0qpLVkPKY3YCQcWe9zC/hg=;
+  b=fpPYsWDsCrOQoow+ZbS9wjl6mhDE+Li0pXhwWMpsQ/9bgotgGmmpmcpK
+   1mGug7lqOBbqEUFJEX11KRMlNWDwaXxXnqLMDlmueb7bVO/7amR402lzA
+   AkgBFjk8bVKBiYpXQN6tKj0ZOD3bNt4Lk1hL8EengHuC1ncfxkbhTz1qR
+   EnycwyistuU0muOC9D3KZKh6j5dpo+xiisVubbJbQkHy4B3paPtYK/MkZ
+   YoWeXvv82q9+nVNzsI5yiLQHfItZiC01r+xYWX/k8/wXOGqHbRUqNy4pO
+   wwHfupXsph5TPf43DNeqsPvZliZfSsgoksZjEFMscku7gi0G4SQsN5MPw
+   Q==;
+X-CSE-ConnectionGUID: b7M7O5qkRwGJPew7eezEgg==
+X-CSE-MsgGUID: Ubrx7M2EQ3SreZavDRfeLg==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 15 Sep 2026 15:27:04 +0800
+Received: from CSBMAIL1.internal.ite.com.tw (CSBMAIL1.internal.ite.com.tw [192.168.65.58])
+	by mse.ite.com.tw with ESMTP id 68F7QxjR029913;
+	Tue, 15 Sep 2026 15:26:59 +0800 (+08)
+	(envelope-from Pet.Weng@ite.com.tw)
+Received: from [127.0.1.1] (192.168.72.40) by CSBMAIL1.internal.ite.com.tw
+ (192.168.65.58) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
+ 2026 15:26:59 +0800
+From: Pet Weng <pet.weng@ite.com.tw>
+Subject: [PATCH v10 0/2] Add ITE IT61620 MIPI DSI to HDMI bridge driver
+Date: Tue, 15 Sep 2026 15:26:28 +0800
+Message-ID: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <pjw@kernel.org>, <mikey@neuling.org>
-Cc: <jiangfeng@kylinos.cn>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-        <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
-        <linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        <mikey@neuling.org>, <zhang.yue5@zte.com.cn>,
-        <david.laight.linux@gmail.com>, <qingfang.deng@linux.dev>
-Subject: =?UTF-8?B?W1BBVENIIHY0XSByaXNjdjogbGliOiBGaXggWkJCIHN0cm5sZW4gd3JhcC1hcm91bmQgcmVncmVzc2lvbiBvbsKgaHVnZSBjb3VudHM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 68F7Qsdi053927
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Tue, 15 Sep 2026 15:27:04 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AA8F348.000/4hkYVw5BXdz4x69s
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACTzqGoC/3XQz04DIRAG8FdpOLvNzAADePI9jAeWP5aDrdndr
+ Jqm7y7bRFshJnP5Jvl9TDiLOU0lzeJxdxZTWstcTscaEB52Ihz88TUNJdaFICANBtVQFkYmGK7
+ Bj6pOSDmTE5W8TymXz2vf80vNhzIvp+nrWr/itv2naMUBBmkYkVWE0dmnsqR9OL3tlw+xNa100
+ 5Zso6lqbTlrJ1XUudfyVyOAa7TcdGRLEcgqhZ1WN03IjVZVu0g5eWOV8anT+k4TNVpX7fPIyjg
+ fZfCd5h/NgBIazVUb8NmzdiRH3Wlz0xJlo8325+yRYwDJkTtt7zS1b9uqIRkggyFr7zrt7rVpt
+ Nu0JCdtGF20fy+/XC7fH9Pn2ZoCAAA=
+X-Change-ID: 20250714-it61620-0714-ab4ab4ceff29
+In-Reply-To: <20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw>
+References: <20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong
+	<neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart
+	<Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej
+ Skrabec <jernej.skrabec@gmail.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Luca
+ Ceresoli <luca.ceresoli@bootlin.com>,
+        Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Hermes Wu <hermes.Wu@ite.com.tw>,
+        Kenneth
+ Hung <kenneth.Hung@ite.com.tw>,
+        Pet Weng <pet.weng@ite.com.tw>,
+        Jau-chih
+ Tseng <jau-chih.tseng@ite.com.tw>,
+        Pin-yen Lin <treapking@google.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457257; l=9375;
+ i=pet.weng@ite.com.tw; s=20250702; h=from:subject:message-id;
+ bh=s3NdJpBL2H3T34Cjcf3/iU7S/YWt1F7gDytj+EPvTfY=;
+ b=YRRrJmXe09U6sh/E5peJnV366UAjl6jFEM2YrYIwVXwbs5xGI24C8In0qoEgwMUXRvtd1Z0Pl
+ fLjkxVFHOLWAdV3H2lnvlnX67p91Ycs4aN5mxcM5NTHZ+53tcyH2i9j
+X-Developer-Key: i=pet.weng@ite.com.tw; a=ed25519;
+ pk=wd08uBtTLb93x2ixbKVNsxiZPdMh1Ov4z5klodh2bqo=
+X-ClientProxiedBy: CSBMAIL1.internal.ite.com.tw (192.168.65.58) To
+ CSBMAIL1.internal.ite.com.tw (192.168.65.58)
+X-TM-SNTS-SMTP:
+	732AF0DB9A6B5B4AC802CD8F91F77CA42CF57B4039588DBC229065194A3180D02002:8
+X-MAIL:mse.ite.com.tw 68F7QxjR029913
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+This patch series adds support for the ITE IT61620 MIPI DSI to HDMI 
+bridge chip.
 
-The aligned scan boundary is derived from the last valid byte,
-(s + count - 1).  When count is huge (e.g. SIZE_MAX, which FORTIFY
-strcat/strlcat pass when the destination size is not known at compile
-time), s + count wraps around and the boundary lands before s, so the
-ZBB path returns a bogus length.  The original implementation
-(5ba15d419fab) had the same wrap-around in its (s + count) & ~7
-boundary computation; after 5d588c684833 the wrapped boundary is caught
-by the pre-loop guard "bgeu t0, t4, 2f", which then always exits for
-aligned strings of 8 or more characters and strnlen() returns 8
-instead of the real length.
+The IT61620 is an I2C-controlled bridge that receives MIPI DSI input 
+and outputs HDMI signals. A single-port MIPI DSI input is converted to 
+an HDMI 1.4 output. This series introduces:
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
 
-This silently truncates strings built by fortified strcat: the dm
-sysfs name attribute shows "live-bas" instead of "live-base", the
-truncated name pollutes the udev database, and blivet/anaconda (as
-well as LVM/dm-crypt/multipath userspace) break on RISC-V systems.
+Hotplug may be provided by the next bridge (typically hdmi-connector
+with hpd-gpios). If that bridge already implements OP_HPD / OP_DETECT,
+this driver leaves those ops to it and only receives hpd_notify().
+Otherwise it owns connector status from the chip HPD pin. That pin also
+carries HDCP Ri pulses, so chip HPD IRQs are debounced before
+drm_bridge_hpd_notify().
 
-Detect the wrap-around and saturate the boundary to the top of the
-address space, making the scan equivalent to strlen().  The saturation
-clamps the increment to ~s, so it stays branchless and wrap-free:
-
-	s + min(count - 1, ~s) == saturating_add(s, count - 1)
-
-Normal counts are unaffected.
-
-Fixes: 5ba15d419fab ("riscv: lib: add strnlen() implementation")
-Cc: stable@vger.kernel.org
-Suggested-by: David Laight <david.laight.linux@gmail.com>
-Suggested-by: Qingfang Deng <qingfang.deng@linux.dev>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-Acked-by: Michael Neuling <mikey@neuling.org>
+Signed-off-by: Pet Weng <pet.weng@ite.com.tw>
 ---
+Changes in v10:
+- dt-bindings: no change since v9; keep Reviewed-by from Krzysztof
+- drm/bridge: dropped Reviewed-by from Dmitry due to functional changes
+  1. HDMI IRQ: test int_status1 bits, not the TX_REG_INT1 address
+  2. Use pm_runtime_get_if_in_use() in the threaded IRQ to avoid
+     deadlocking with disable_irq() in runtime suspend
+  3. Update HDCP content-protection from work that takes
+     connection_mutex (do not call the helper from IRQ / hdcp_work)
+  4. Serialize DDC abort on HDCP auth fail with ddc_lock
+  5. Clamp KSV FIFO reads; treat an empty FIFO as an error
+  6. Include the 8 M0 bytes in the HDCP SHA-1 input length
+  7. Write AVI infoframe after clearing the AVI packet, not VSIF
+  8. Write A0 pattern-generator registers through tx_regmap
+  9. Parse MIPI endpoint data-lanes / lane-polarities; attach DSI with
+     the parsed lane count instead of a hard-coded 4
+ 10. Implement OP_DETECT / OP_HPD when the next bridge does not:
+     detect() and edid_read() resume the chip; hpd_enable() holds
+     runtime PM; HPD IRQs are debounced; power-on W1Cs latched HPD_CHG
+     before enable_irq()
+ 11. hpd_notify() does not touch runtime PM when this driver owns OP_HPD
+ 12. Use devm_pm_runtime_enable(); cancel HDCP/HPD work on remove and
+     let devres unwind DSI, bridge and PM (no early mutex_destroy)
+ 13. Switch to drm_atomic_commit / atomic_create_state
+ 14. Use abs_diff() for the MIPI htotal delay; drop redundant
+     pm_runtime_mark_last_busy(); log pre_enable resume failures
+- Link to v9: https://lore.kernel.org/r/20260327-it61620-0714-v9-0-032938cb9d85@ite.com.tw
+
+Changes in v9:
+- Fix commit message wrapping to follow kernel style
+- Run checkpatch.pl and address reported issues
+- Restore Reviewed-by from Krzysztof as the change is non-functional
+- Link to v8: https://lore.kernel.org/r/20260320-it61620-0714-v8-0-0e70271cf5a9@ite.com.tw
+
+Changes in v8:
+- dt-binding:
+ 1. Clarify the hardware differences between IT6162 and IT61620 in the
+    description (IT61620 is single-port and lacks an internal MCU). 	[Krzysztof]
+ 2. Dropped Reviewed-by from Krzysztof due to description changes.
+- Call drm_atomic_helper_connector_hdmi_clear_audio_infoframe() in audio
+  shutdown path								[Dmitry]
+- Link to v7: https://lore.kernel.org/r/20260313-it61620-0714-v7-0-36a16dc036d6@ite.com.tw
+
+Changes in v7:
+- The dt-bindings were previously reviewed by Krzysztof Kozlowski.
+- drm/bridge:								[Dmitry]
+ 1. drop redundant register access wrappers and use regmap APIs directly
+ 2. use drm_dbg_kms() instead of drm_dbg() when printing display timing information
+ 3. use drm_display_mode directly for video timing
+ 4. add helper for writing 16-bit timing registers
+ 5. simplify HDMI interrupt handling
+ 6. add mono audio support
+ 7. program audio parameters directly
+ 8. inline audio infoframe disable logic
+- MAINTAINERS: squash to driver patch					[Dmitry]
+- Link to v6: https://lore.kernel.org/r/20260130-it61620-0714-v6-0-70afa65923b5@ite.com.tw
+
+Changes in v6:
+- In patch 1								[Luca] 
+ 1. Fix a typo in the commit message.
+ 2. Remove redundant assignment of bridge.funcs, which is already set by 
+    devm_drm_bridge_alloc().
+- Link to v5: https://lore.kernel.org/r/20251222-it61620-0714-v5-0-afb6479ad3ca@ite.com.tw
+
+Changes in v5:
+- Fix dt_binding_check errors by adding missing unevaluatedProperties constraints
+  for port and endpoint nodes in the device tree binding.		[Rob]
+- Link to v4: https://lore.kernel.org/r/20251216-it61620-0714-v4-0-9d2fea7847ae@ite.com.tw
+
 Changes in v4:
-- Use Zbb minu to clamp the increment (addi/not/minu/add): one
-  instruction less than the sltu/mask/or sequence and no extra
-  register (Qingfang Deng).  Clobbers stays t0-t4.
+- In patch 1								[Krzysztof]
+ 1. Remove redundant "description" fields from interrupts and regulators
+ 2. Drop pinctrl-names and pinctrl-0; driver does not require them
+ 3. Remove port/endpoint properties already covered by video interfaces schema
+ 4. Fix example indentation to 4 spaces for readability
+- In patch 2								[Jani]
+ 1. Use connector->display_info from DRM helper instead of parsing EDID manually
+- In patch 2								[Dmitry]
+ 1. Remove redundant powered check in reg access
+ 2. Use TMDS character rate instead of pixel clock for N/CTS
+ 3. Use consistent lowercase naming for tmds.
+ 4. Use test_bit() instead of custom bit-test helper
+ 5. Use tmds_char_rate_valid instead of custom mode_valid
+ 6. Use custom EDID read instead of DDC bus for segment handling
+ 7. Drop redundant atomic feature check
+ 8. Pass flags directly to drm_bridge_attach()
+ 9. Check DRM_BRIDGE_ATTACH_NO_CONNECTOR flag before drm_bridge_attach()
+ 10. Short-circuit HPD update if connector status unchanged
+ 11. Remove unnecessary NULL check for connector state
+ 12. Rename cached_edid to edid since it's no longer cached
+ 13. Remove redundant sample rate checks; rely on hdmi-codec validation
+ 14. Remove unsupported 18-bit audio sample size; rely on hdmi-codec
+ 15. Remove unnecessary fmt switch; rely on hdmi-codec defaults
+ 16. Check and propagate errors from it61620_audio_update_hw_params instead of
+     ignoring them
+- In patch 3								[Krzysztof]
+ 1. Remove unnecessary T: field pointing to git; subsystem already defines it
+- Link to v3: https://lore.kernel.org/r/20251009-it61620-0714-v3-0-5d682d028441@ite.com.tw
 
 Changes in v3:
-- Replace the taken branch in the saturation with a branchless
-  sltu/mask/or sequence (David Laight).
-- Update the Clobbers list for the additional t5 register.
-- Michael's Acked-by is kept: the patch semantics are unchanged, only
-  the saturation sequence is branchless now.
+- Wrapped description lines to comply with 80-character line length limit
+  in patch 1.								[Rob]
+- Renamed node from "it61620@58" to "bridge@58" in patch 1.		[Rob]
+- Add port@2 for I2S audio input in patch 1.				[Dmitry]
+- Updated the Kconfig dependency from CRYPTO and CRYPTO_HASH to 
+  CRYPTO_LIB_SHA1 in patch 2.						[Eric]
+- In patch 2								[Dmitry]
+ 1. Audio and InfoFrame
+   - Rename audfmt to i2s_input_format for clarity.
+   - Remove unused infoframe[HDMI_INFOFRAME_SIZE(AUDIO)].
+ 2. Platform data and structure
+   - Drop platform data usage; migrate members into struct it61620
+ 3. Code organization
+   - Reorder functions to avoid the need for forward declarations.
+   - Add static inline to small helper functions
+     (e.g. bridge_to_it61620()).
+ 4. HDCP handling
+   - Make HDCP enable/disable conditional on conn_state->content_protection.
+   - Report authentication result using drm_hdcp_update_content_protection().
+ 5. Error handling
+   - Replace manual error path with dev_err_probe().
+ 6. Power management
+   - Inline suspend/resume callbacks.
+   - Use DEFINE_RUNTIME_DEV_PM_OPS() instead of explicit struct definition.
+ 7. Bridge callbacks
+   - Drop empty bridge_detach().
+   - Inline it61620_bridge_mode_valid().
+ 8. EDID handling
+   - Remove unnecessary cached EDID duplication.
+ 9. Mode set and pixel clock
+   - Move mode handling to atomic_enable().
+   - Keep only pixelclock for future N/CTS audio calculations.
+ 10. Logging
+    - Replace noisy drm_err() calls with drm_dbg().
+ 11. InfoFrame support
+    - Add support for SPD and Vendor InfoFrames.
+- Link to v2: https://lore.kernel.org/r/20250828-it61620-0714-v2-0-586f5934d5f8@ite.com.tw
 
 Changes in v2:
-- Point Fixes: at the original implementation (5ba15d419fab) and reword
-  the commit message accordingly: the wrap-around exists since the
-  original implementation, 5d588c684833 only changed how it surfaces
-  (Michael Neuling).
-- Add Acked-by from Michael Neuling.
+- Call the sha1() library function instead of using the crypto_shash
+  "sha1" in patch 2.
+- Rewrite it61620_hdmi_ddc_wait() with readx_poll_timeout() in patch 2.	[Pin-yen]
+- Rewrite it61620_hdmi_hdcp_wait_ksv_list() with readx_poll_timeout() in
+  patch 2.
+- Replace interrupts-extended with interrupts in patch 1.		[Rob]
+- Replace dsi-lanes with the standard property data-lanes from the graph
+  binding.								[Rob]
+- Replace "#/$defs/port-base" with "#/properties/port" in patch 1.	[Rob]
+- Drop unused labels and "hdmi" for the node name.			[Rob]
+- Drop status in patch 1.						[Rob]
+- Link to v1: https://lore.kernel.org/r/20250714-it61620-0714-v1-0-3761164d0b98@ite.com.tw
 
-v3: https://lore.kernel.org/all/20260914162123230u1y1M4UHrO8E-cU-opJ_7@zte.com.cn/
-v2: https://lore.kernel.org/all/20260914145205778-sZJbZc1D-XBfWRXO2f-o@zte.com.cn/
-v1: https://lore.kernel.org/all/20260828145152578tXQPUG9lxxgbJjmfpuaQz@zte.com.cn/
+---
+Pet Weng (2):
+      dt-bindings: display: Add ITE IT61620 MIPI DSI to HDMI bridge
+      drm/bridge: Add ITE IT61620 MIPI DSI to HDMI bridge driver
 
- arch/riscv/lib/strnlen.S | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml |  152 ++++++++
+ MAINTAINERS                                                       |    7 +
+ drivers/gpu/drm/bridge/Kconfig                                    |   18 +
+ drivers/gpu/drm/bridge/Makefile                                   |    1 +
+ drivers/gpu/drm/bridge/ite-it61620.c                              | 2763 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 2941 insertions(+)
+---
+base-commit: 7d66a68c6f216b78ea22ce8a4c7f8d456c76e8ba
+change-id: 20250714-it61620-0714-ab4ab4ceff29
 
-diff --git a/arch/riscv/lib/strnlen.S b/arch/riscv/lib/strnlen.S
-index a8911605c248..5b3bbf0a3098 100644
---- a/arch/riscv/lib/strnlen.S
-+++ b/arch/riscv/lib/strnlen.S
-@@ -87,9 +87,25 @@ strnlen_zbb:
- 	 * Aligned boundary.  Use the address of the last valid byte
- 	 * (s + count - 1) to avoid loading a word past the count
- 	 * boundary in the loop below.  count == 0 is handled above.
-+	 *
-+	 * Saturate the boundary when s + count would wrap around (very
-+	 * large counts, e.g. SIZE_MAX passed by FORTIFY strcat/strlcat
-+	 * with a destination whose size is unknown at compile time).
-+	 * Without this, the wrapped boundary lands before s and the
-+	 * pre-loop guard below always exits, returning a truncated
-+	 * length.
-+	 *
-+	 * Clamping the increment to ~s (== SIZE_MAX - s) keeps the
-+	 * computation branchless and wrap-free:
-+	 *
-+	 *     s + min(count - 1, ~s) == saturating_add(s, count - 1)
-+	 *
-+	 * Saturating makes the scan equivalent to strlen().
- 	 */
--	add	t4, a0, a1
--	addi	t4, t4, -1
-+	addi	t4, a1, -1	/* count - 1 */
-+	not	t1, a0		/* SIZE_MAX - s */
-+	minu	t4, t4, t1	/* clamp, so s + t4 can never wrap */
-+	add	t4, a0, t4	/* saturated s + count - 1 */
- 	andi	t4, t4, -SZREG
-
- 	/* Get the first word.  */
+Best regards,
 -- 
-2.27.0
+Pet Weng <pet.weng@ite.com.tw>
+
