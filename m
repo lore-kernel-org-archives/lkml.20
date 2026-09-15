@@ -1,274 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010030.outbound.protection.outlook.com [52.101.228.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A601477E4D;
-	Tue, 15 Sep 2026 09:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464469; cv=none; b=k0C/eOcfJsRj9ihRwM1uXyjciZqDLjUeViSriO36LO5mKKStgT680yTjKpkJh6IKk2MUSrHOHRk0UDFi3/MbIAGl3fLKCkMMgQ8I6EBfmXs/mIlvrpEPddsTBCnBn0W0WOuzv9eM2J7Pvg/kZQ4msG8jhsgqdzZuSggtNqwHwJI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464469; c=relaxed/simple;
-	bh=Woa+UVR+lUCwlGcZ5UZNgO5+x5Um9szm1kj58H3qW8U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HswkOKwH2SDHt3TOQSETdu/p4S4rduLusxFOm05myLCiTNolTJY2TiLDRAiVtRDrnFfBeR/E4/Jm36udaD47r9H49aE+U1NX9v0kffUi0mfMLBx7PRH28S/KI6ze08JUnxyKMtzPiD6k7aecdcblLipgdhnF6hVJTtPXjWM067Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JP8sQ/j2; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991B747A894;
+	Tue, 15 Sep 2026 09:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789464477; cv=fail; b=DlsipBEMbc2we272lOclTqVRLJS/4GVHD8JUxkLIvtgQXVL91HFA/Ql3aTIYpHU0RTfYs8UWY8uBIAKS28BNLMIQJ0ITOBLVzOXLhulB3Lq1v2DgaavG2z6TKgAfSV2TyE0xj8rCPANCggP0fBFJ0rYy9a6uKCs10RFa5Rh36Sc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789464477; c=relaxed/simple;
+	bh=QG926t0eDXcNpKo79cGWH+PMpXq/mR3E3lyUSWxn124=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=KLRgKeaBQs+avpGO/0AT6aYhqW+hee7t7x7ttsUNzDLasHmz90qwGn70jQuEH2+5xTnsMffjTqu8KTXGkBTOq2SL7gFA4Z3/vlt4LRbr8hwIgO66hb4HSrMRpiScyaDQ0XQzsH+5pNN54QtHgyNUmsVqQdGGpxSOs4W6UjMSYss=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=JarXZbEY; arc=fail smtp.client-ip=52.101.228.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JP8sQ/j2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CA35CC2BCF6;
-	Tue, 15 Sep 2026 09:27:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789464468;
-	bh=Woa+UVR+lUCwlGcZ5UZNgO5+x5Um9szm1kj58H3qW8U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JP8sQ/j29YuPCXzLxARpBriWnOdr0Nz7KkUs4vuRjdQz9v6QJeFokZoHHSKe8smwu
-	 LLPkwFMfnJb00dA1Qz7vaTVSrZNMvyp7VWlzwwWeD3WCgtVCV2Hm2XtMWtEZDNe9Pk
-	 D1P8rEECVQrVBQpg52VTLlpg1zRJ2NaiYXJdft94zZYLv5kvlJzD+SoQJ8cJHRtOb2
-	 wgGy0rhxoG8Z4RQrR2/h7LJB8Mc4ehFb9vFsSD/NWWMjM1sWJSTz6ThkDhHLBI2lde
-	 WaI0zUnwaCa0WsjtRG9zP+bDJjW9vGKufyHzvOCKylNcMk/NStvbGtx93VLOK6w55a
-	 AHkmoHRkn99bA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AA739C88E7D;
-	Tue, 15 Sep 2026 09:27:48 +0000 (UTC)
-From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
-Date: Tue, 15 Sep 2026 09:27:40 +0000
-Subject: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="JarXZbEY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WRpRRhzA3+hKrmO9b442uPwbE6zs9dQboBOoDPevFhIzvtiDic9nW+gUSPClrB6opjDMOhLgot7yhLOWekGBZshd3Teb/IXwQHKLAqT5a/b8Q+f6ldrEvUlxDSWO6zLsXRY8eZPQZq+x0t3cUvJn1TFvJc39GYLrMDW+g764NumkW58wuEAaz1ONq0aWpBErRXKZoSZNIePvlROvinoD488MJ3WU+zxWPWEnoN7iqhm1CqGBqO5+9HuTm6Hl3+NDrtZOzCdFwveuZZtY4X+rgH9y4LSMgL86pasbSosL1UgFoLIABzd/K/a/k5WXGIbrRtZIeuM+c6zJzU8ZLfjFdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QG926t0eDXcNpKo79cGWH+PMpXq/mR3E3lyUSWxn124=;
+ b=XhyjuDnXJ5y1YMTzuBu1NqMuQKnhwUXB1Of8d+db3ygPBj1+plupFrZrEYEDwWNUj4l9ceUAiOliQHorvT+NiOw/Xy3HKYcMlwF2zwKNBeaLn4cWbprykYn0icnCAE5iT63GW33fCLI81RY2tYFdGyJVyxBUkLQXSJvrIoajvo2vJY7CJhzUYeHWYaeq+USjO7KhBsuNrewVcmWylXuyabLjnGaI3n6LpKB3OruHW8kedlNtC9aa87G54FCn3kmae1jDTshZbFSLNXqMaeGxLMYLWzr6POARh+PTQCc7UEJHuXlhKmvKYLhzfXL7LgQb8Lmm9wFVaioHs7tHqSmC+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QG926t0eDXcNpKo79cGWH+PMpXq/mR3E3lyUSWxn124=;
+ b=JarXZbEYACwf7pZHsMAtLd5y8bkNCs2gI2j6INQN22Tmfams2HrVOJcMo6ka4uYhTELyPftEBxGHZf4EJ+LK/c9Hr09ExRPmZTehlKYdbz/zkEHg7P39HAPRKCsupaw5K1cd5HACqLDKcoMl0prH23z1mYnnY7MQdx8JValQzYE=
+Received: from OSCPR01MB12769.jpnprd01.prod.outlook.com (2603:1096:604:33c::9)
+ by TY7PR01MB14443.jpnprd01.prod.outlook.com (2603:1096:405:23f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Tue, 15 Sep
+ 2026 09:27:51 +0000
+Received: from OSCPR01MB12769.jpnprd01.prod.outlook.com
+ ([fe80::aa72:ef1b:2a85:fc2f]) by OSCPR01MB12769.jpnprd01.prod.outlook.com
+ ([fe80::aa72:ef1b:2a85:fc2f%5]) with mapi id 15.21.0406.012; Tue, 15 Sep 2026
+ 09:27:51 +0000
+From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+To: Joseph Steel <recv.jo@gmail.com>
+CC: "maxime.chevallier@bootlin.com" <maxime.chevallier@bootlin.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+	"alexandre.torgue@foss.st.com" <alexandre.torgue@foss.st.com>,
+	"shuah@kernel.org" <shuah@kernel.org>, "joabreu@synopsys.com"
+	<joabreu@synopsys.com>, "yi.fang.gan@intel.com" <yi.fang.gan@intel.com>,
+	"jun.ann.lai@intel.com" <jun.ann.lai@intel.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-stm32@st-md-mailman.stormreply.com"
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kselftest@vger.kernel.org"
+	<linux-kselftest@vger.kernel.org>
+Subject: RE: [PATCH net v4 3/7] net: stmmac: Rework S-VLAN handling
+Thread-Topic: [PATCH net v4 3/7] net: stmmac: Rework S-VLAN handling
+Thread-Index: AQHdP7FBHec8YOvxvk68IcIebRlwK7bPZRCAgAAAqgA=
+Date: Tue, 15 Sep 2026 09:27:51 +0000
+Message-ID:
+ <OSCPR01MB12769E621C234C53F33FA88F7D3BA2@OSCPR01MB12769.jpnprd01.prod.outlook.com>
+References: <20260908164309.59282-1-ovidiu.panait.rb@renesas.com>
+ <20260908164309.59282-4-ovidiu.panait.rb@renesas.com>
+ <ybotecadvx2x3ucgqjunv77fuyeaxmwl5tn77fswraztiklrdo@ajhpl4c52hcy>
+In-Reply-To: <ybotecadvx2x3ucgqjunv77fuyeaxmwl5tn77fswraztiklrdo@ajhpl4c52hcy>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OSCPR01MB12769:EE_|TY7PR01MB14443:EE_
+x-ms-office365-filtering-correlation-id: 2af55dc9-96e7-48ab-e355-08df130b9d4a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|23010399003|7416014|366016|376014|10067099003|22082099003|56012099006|5023799004|11063799006|4143699003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ 7otVuJNKeG27jEMPBaZQIHnDgQPSNp4dS+4oMBsB3wPcJvL27x02j1tq140llNr9Q+ZXTBiWYvLAWEmz1T1u3m5XikgThzxrNJZBKnmlb/FAKibirxDbkFjuWsvZUCLUZ6wWQrLTzcsgBOeOt+JRuJjwYTdaRTbgK1LoSAaUN72zjgNP3CH09HLiUItCSo+y4TORzfGH5yXsDJKGbbmcN1RrieeFJTT6DtLmw5Qy0JV6JSjqLppGRWp6yRy2rC7w3HXR0EzYzZ41BWnJBpVHuHaKbcTduHBlXvPV183kwYINStMtEIfvHkwaMiCN9feT2D49h1urAbdWOTCBXl/Kn4BKAe0LzbQW/CEWSn9IhSJrplgAb7emm05cTNDn4vu6W8El4WT1NSKBOyvAucOf6cJ5X4d6ytKw2WdgUEojdT9yED7Ai44iujPRXZ9cNsldbCLOZJstYSDJ6YYz2gk+TXf7m7UeZU0dQeN9xzyUQyTLaG/DQTIotnyOfKa0sH2qn4/9d//EYp526+pl4glwSmBVKnbAxjF1seYBfcqKhYQPyeDpZiRH0/zahvz5xExADbXYyGSqxgWiAJ65c3hExFZFLACKLlvEEnBeahP8UaaXmpQSETd7hdnZ+N1qHhF1xfn9mtbJJT5rgMn107GL5OH+RxR8tLSH9Gs9lnq1NM4WociVU1ajT102mzLdWlbZ1u9apBcVQa1h02dmR/bDldEjjmlIuwnOUtqWW+OHNwo=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSCPR01MB12769.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(366016)(376014)(10067099003)(22082099003)(56012099006)(5023799004)(11063799006)(4143699003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?c24PCWcCqUJQWT2f7Q+xSG0uOohJwpq/7fvRLRKfGvlwk8cnsg7PvXCf2M0U?=
+ =?us-ascii?Q?xRNXSZ6pIHTCgwk3I/ij9QrStjXRvD36ux0m7Q7UaGdcC/zylB+yE0wcvcSK?=
+ =?us-ascii?Q?qhXhbzhWzPNAZucj4eHH8sjxGCy9hWGCb9UzFwOX8iIneVTuWI6Q3wGKfn2h?=
+ =?us-ascii?Q?Mi6RqKAdvDD7JdHIv6NBTKnr1zCxZZlTxI7yHOc7ZKHEk2yTgLe7mnOt4SSZ?=
+ =?us-ascii?Q?s/LlXnj9BvBPj/uvcuLJKW+mz55MUkf0qpY5IGjdKvspSHzeT5UI5r/nDJaR?=
+ =?us-ascii?Q?+J8Dh2pUWYNpyvCaJw2+9ZYgHs/Mr4Ssg9ZzOEvUlSDSsNhOiKGFhP89jZKv?=
+ =?us-ascii?Q?UfKlFQahK5kekOv68r0XHUXI+8xW1ItC6mku1Kr8xOw5yukieGNmwyhlX2UW?=
+ =?us-ascii?Q?mdGppc2/AKcScu834AgZH1w8dTt+cKsQka/grpcQaRB0+sQkjEpvAylz7Qqo?=
+ =?us-ascii?Q?laMOspj5yMAeYoDtBC5y5MvIqQE2OuktzTKdA2m+dUzJgbGnz8Mex/ogQemc?=
+ =?us-ascii?Q?4kvdUNABHD4vUnsoiO/9TvxiOsWUsFkhGdac1Dtr4l54XQB0iMFQ07aLJDfR?=
+ =?us-ascii?Q?lEb8Z1bN3sEfsjc10LNhSYRvxChBM2zJv37DpyGq6aqcVNjB6hUIv28VQJ6s?=
+ =?us-ascii?Q?RlTKrzKhCfcmButdTHyCgawuVIw1vEumjfQyS0x7gKYv7Go3dj2IVa9ma2I6?=
+ =?us-ascii?Q?Dhe3MDupXFeC7mJbIT56SJtHiwdF/jnm16yJ2nx4ze6Ris9bhFjfFqY7tJIL?=
+ =?us-ascii?Q?shfm8qy5bJjmi9y24t2jvSTbzBKK5IzdWdKbQfKirO7RVdU1Ij+Hv+TwAPTQ?=
+ =?us-ascii?Q?nzk8hPsvXgwgKMu5VDcKoqEixnNJDlICO/pMZ6o4XcqfhaNOtzoYmE7q7bWX?=
+ =?us-ascii?Q?yGSf5AOU+kp+nUfojD2im6RwOJ/mrpbgLA8oL8VFWHyNtqagfcf2vkHIOTD6?=
+ =?us-ascii?Q?9MHAygKoUzBUFzV8HEn2W7UJfaZDd3SZf5ZVOBmC29DMvHFGLGse4HHORPLw?=
+ =?us-ascii?Q?lup/5pxfB4dCQzuNtPOAKi9aOolQkuX0uZXAFCHdRRPbIHu4qUQNhSwtqzft?=
+ =?us-ascii?Q?Z1wR2X8GmwP1oZQ79qoCOKkcFT8lEpXIv8/vkPnLBV4bs2UPphQFb4tDmgBV?=
+ =?us-ascii?Q?wV8Ri+ZkfLWa6rlJMwARkD7ViiZZvHtVLbdZIA0URmz1z4Rd/zvqOn/UFrFU?=
+ =?us-ascii?Q?2BvQE6tXLkzWnEEek0bAY7cVQH8L6+9SRmVFbqft36ZZbWsFFYnluPP5GV0T?=
+ =?us-ascii?Q?G/92g/qR181Ce09SZ74MRyu02jCbVBRhQa0tYk5+VztVRk6SuzPZVRA3qu5b?=
+ =?us-ascii?Q?q3T1ypQ8mGP5CBADvIBOk/w3fw4pX0VEO8yUUeQis8d1iGz0WYPoExjFU8q4?=
+ =?us-ascii?Q?IXAIylaBl8fRp1L7oGxRcqdGb31AE6g1vJsnRZRmGb50z2ck8tHS4aGDr5AO?=
+ =?us-ascii?Q?QHTE7pGX4FNa06Qps9WPaGiR1dZR1+9w9Je47NspLIomZwQyaXWTzRW+iLDl?=
+ =?us-ascii?Q?qfw2sxyWbNopHMw4EqDli5AT2c4SvMScZuN5fyO36xbCQT9tUYKrGr7RQFkL?=
+ =?us-ascii?Q?r9mb9djNjQK6KXVElkuPzSxgMkcHWnp9yU4tNEDi2jTiv8/8SNzSL0pNimkY?=
+ =?us-ascii?Q?QsFBlXz4zLgMDJcZj3SP12L0XJN+BgcVFw1bZxwemoIzZ679qkb3QJwmLPl5?=
+ =?us-ascii?Q?f5Do1Te6VN7kUBhIGgKo3tiMotk4//xSXSiftuuRA0XJzCCL9UtCCaRJcc6/?=
+ =?us-ascii?Q?9Ji1yljT27Vn41sqoTbGJvW//USNrwU=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
-References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
-In-Reply-To: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
- Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789464467; l=5873;
- i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
- bh=nirKesIVE9mcT8oiPNP1IW1AFY1kSjQQQFntoBbVofE=;
- b=acbuq9plX3EJHJOj0S/5azwe9hFdHBGAlmRXnHuBg3vDOmR1/Z8NTrY7x3ysflkUwsV3wlu99
- Pigylj+07NwA1cIRqFWq3kUM6sFjF0/ohCnE1kZ/xCPbxqiTf0UUmFg
-X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
- pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
-X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
- auth_id=686
-X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Reply-To: V.Yurkov.EXT@bruker.com
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OSCPR01MB12769.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2af55dc9-96e7-48ab-e355-08df130b9d4a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2026 09:27:51.4363
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lBmBoFk5GlBh6Nd11etGGOyUCYuNrMD+b+KcLjnI6wdi3BACCCJwVEFdGCBrBWx+b+knLaEocpajVw1KpeIPdJe0PRzSfM16nBtzDrwivBo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB14443
 
-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Hi Joseph,
 
-A gpio-locked clock exposes a clock, which status is determined by a
-GPIO signal. The common use-case is a FPGA-assisted clocking design
-where peripheral clocks are generated by FPGA PLLs that are outside
-CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
-Consumers can use the output clock to wait until the input clock is locked
-and only then initialize dependent peripherals.
+>=20
+> Hi
+>=20
+> On Tue, Sep 08, 2026 at 04:43:05PM +0000, Ovidiu Panait wrote:
+> > The ESVL and DOVLTC bits control S-VLAN tag processing and have
+> > nothing to do with the double VLAN feature, which only provides a way
+> > to process an additional inner VLAN tag. However, the driver code
+> > that handles them always refers to "double VLAN", which is unrelated
+> > and makes the implementation confusing. The driver does not use any
+> > of the inner VLAN tag features, and the networking core does not
+> > support offloads for the inner tag anyway.
+> >
+> > To simplify the logic and to reduce the confusion regarding S-Tag vs
+> > double VLAN handling, drop the is_double logic and add a hw_svlan_en
+> > flag that is set when S-Tag hardware handling is enabled.
+>=20
+> I believe I suggested to just change the "double" word to "svlan", and
+> not to drop the respective logic completely. The number of S-VLAN tags
+> added/removed must be still counted, otherwise any subsequent VLAN
+> S-Tag removal will disable S-VLAN processing even if there are S-Tags
+> left added.
+>=20
 
-Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
----
- drivers/clk/Makefile          |   1 +
- drivers/clk/clk-gpio-locked.c | 169 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 170 insertions(+)
+While working on this I realized we don't actually need to toggle the
+S-VLAN bits on/off whenever a S-VLAN tag is added/removed. We can just
+keep them always set as long as the NETIF_F_HW_VLAN_STAG_RX or
+NETIF_F_HW_VLAN_STAG_FILTER features are advertised.
 
-diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index b18af485d7f0..b904f292d683 100644
---- a/drivers/clk/Makefile
-+++ b/drivers/clk/Makefile
-@@ -46,6 +46,7 @@ obj-$(CONFIG_CLK_FD_KUNIT_TEST) += clk-fractional-divider_test.o
- obj-$(CONFIG_COMMON_CLK)	+= clk-gpio.o
- ifeq ($(CONFIG_OF), y)
- obj-$(CONFIG_COMMON_CLK)	+= clk-conf.o
-+obj-$(CONFIG_COMMON_CLK)	+= clk-gpio-locked.o
- endif
- 
- # KUnit specific helpers
-diff --git a/drivers/clk/clk-gpio-locked.c b/drivers/clk/clk-gpio-locked.c
-new file mode 100644
-index 000000000000..b648f8763922
---- /dev/null
-+++ b/drivers/clk/clk-gpio-locked.c
-@@ -0,0 +1,169 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Clock Controller Guard Driver
-+ *
-+ * Copyright 2026 Bruker Corporation
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/slab.h>
-+
-+/**
-+ * struct gpio_locked_clk_priv - private state for the whole driver
-+ * @dev:		platform device
-+ *
-+ * @input_clk	input clock
-+ * @gpios:		input GPIO descriptor
-+ *
-+ * @output_hw_clk:      output clock HW descriptor
-+ * @output_clock_name:  output clock name
-+ */
-+struct gpio_locked_clk_priv {
-+	struct device *dev;
-+
-+	struct clk *input_clk;
-+	struct gpio_desc *gpios;
-+
-+	struct clk_hw output_hw_clk;
-+	const char *output_clock_name;
-+};
-+
-+#define to_gpio_locked_clk_priv(_hw) \
-+	container_of(_hw, struct gpio_locked_clk_priv, output_hw_clk)
-+
-+static int gpio_locked_clk_is_enabled(struct clk_hw *hw)
-+{
-+	struct gpio_locked_clk_priv *priv = to_gpio_locked_clk_priv(hw);
-+
-+	int data = gpiod_get_value(priv->gpios);
-+
-+	if (data < 0) {
-+		dev_err(priv->dev, "Failed to get data gpio val: %d\n",
-+				data);
-+		return data;
-+	} else if (!data) {
-+		dev_warn(priv->dev, "GPIO is not ready");
-+		return -EBUSY;
-+	}
-+
-+	return 0;
-+}
-+
-+/* We can't enable the clock, but the Common Clock Framework calls only
-+ * enable() not is_enabled()
-+ */
-+static int gpio_locked_clk_enable(struct clk_hw *hw)
-+{
-+	return gpio_locked_clk_is_enabled(hw);
-+}
-+
-+/* We have to implement it, but we are not going to control
-+ * parent clock selection
-+ */
-+static u8 gpio_locked_clk_get_parent(struct clk_hw *hw)
-+{
-+	return 0;
-+}
-+
-+static const struct clk_ops gpio_locked_clk_ops = {
-+	.enable =	gpio_locked_clk_enable,
-+	.is_enabled =	gpio_locked_clk_is_enabled,
-+	.get_parent =	gpio_locked_clk_get_parent,
-+};
-+
-+static int gpio_locked_clk_parse_outputs(struct gpio_locked_clk_priv *priv)
-+{
-+	struct device *dev = priv->dev;
-+	struct device_node *np = dev->of_node;
-+	int ret;
-+
-+	of_property_read_string_index(np, "clock-output-names", 0,
-+		&priv->output_clock_name);
-+
-+	if (!priv->output_clock_name)
-+		priv->output_clock_name = dev_name(priv->dev);
-+
-+	priv->output_hw_clk.init =
-+		CLK_HW_INIT_FW_NAME(priv->output_clock_name,
-+				    __clk_get_name(priv->input_clk),
-+				    &gpio_locked_clk_ops, 0);
-+
-+	ret = devm_clk_hw_register(dev, &priv->output_hw_clk);
-+	if (ret) {
-+		dev_err(dev, "failed to register output clk'%s': %d\n",
-+			priv->output_clock_name, ret);
-+		return ret;
-+	}
-+
-+	dev_info(priv->dev, "Output clock '%s' registered\n", priv->output_clock_name);
-+
-+	return 0;
-+}
-+
-+static int gpio_locked_clk_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct gpio_locked_clk_priv *priv;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->dev = dev;
-+	platform_set_drvdata(pdev, priv);
-+
-+	priv->input_clk = devm_clk_get_enabled(priv->dev, NULL);
-+	if (IS_ERR(priv->input_clk))
-+		return dev_err_probe(priv->dev, PTR_ERR(priv->input_clk),
-+				"Failed to get locked fixed clock, not yet ready\n");
-+
-+	priv->gpios = devm_gpiod_get(priv->dev, "locked", GPIOD_ASIS);
-+	if (IS_ERR(priv->gpios)) {
-+		dev_err(dev, "failed to get locked gpios: %ld\n",
-+				PTR_ERR(priv->gpios));
-+		return PTR_ERR(priv->gpios);
-+	}
-+
-+	ret = gpio_locked_clk_parse_outputs(priv);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_of_clk_add_hw_provider(priv->dev, of_clk_hw_simple_get,
-+		&priv->output_hw_clk);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to register clock provider '%s': %d\n",
-+			priv->output_clock_name, ret);
-+		return ret;
-+	}
-+
-+	dev_info(dev, "registered %s gpio locked clock\n",
-+		 clk_hw_get_name(&priv->output_hw_clk));
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id gpio_locked_clk_of_match[] = {
-+	{ .compatible = "gpio-locked-fixed-clock" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, gpio_locked_clk_of_match);
-+
-+static struct platform_driver gpio_locked_clk_driver = {
-+	.probe  = gpio_locked_clk_probe,
-+	.driver = {
-+		.name           = "gpio-locked-fixed-clock",
-+		.of_match_table = gpio_locked_clk_of_match,
-+	},
-+};
-+module_platform_driver(gpio_locked_clk_driver);
-+
-+MODULE_AUTHOR("Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>");
-+MODULE_DESCRIPTION("GPIO-locked clock driver");
-+MODULE_LICENSE("Dual BSD/GPL");
+This simplified the S-VLAN logic quite a bit, by getting rid of the countin=
+g.
 
--- 
-2.34.1
+Ovidiu
 
+> -Joseph
+>=20
+> >
 
