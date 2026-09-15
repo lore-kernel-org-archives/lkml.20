@@ -1,188 +1,190 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-99.mta0.migadu.com [91.218.175.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23218330B09;
-	Tue, 15 Sep 2026 06:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195DA1F5821
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:59:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789455551; cv=none; b=NB6falu0Wk5yJr2CMpSEuv5ImjXZmvMlzn5g0zgPmkExYeXAKXipuyYTih4kqLSGJsx7Rm4pyrARjQMFLtWpJY4g8zIJxvthCcxVDJ/uiHk/fPNCvDyukpJfx7KRFqmDwf0EyqTcjuxyMXkN1TLFS91r5sonb+RipOLk8zFuC7U=
+	t=1789455558; cv=none; b=TOWDdd8HUyUOAkI90MQX594fZYu9/dgbLOiMMJ2kN06dEaaGvl4eaW1FoAUhX64RECoIdRziTGNZUKDmPP+2d5dMl02f3A9G4aNZpLGHKcWMYubB9S5MPRHbsFMxcmzJIBKnG3KTkkim+pKaG79HmzUj1H9NqvRC6MidyJVYwJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789455551; c=relaxed/simple;
-	bh=Gg+EoPsEW5gzv+8dPtkA20rhKnMNGE7ZUSVxfGzFb9Q=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=bRZWddivtqSEiRtoQK6wI/OLVb7qphISnBDTv59pOPrhOO0vqWemWthmGTWDgvD6R3TjmQvnbisEZVAeoCM8cceXQmhyhWXg6JDPyPYLXB8lay0nDzQ9swdfFDB17upk0TXYNnhdqZdGMXkcoFT+U5nsbghENvu1Oh4fKRbdxdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=EtufcZ70; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789455558; c=relaxed/simple;
+	bh=1hrOUU2WscT9i12+q2dsMTJyNqNUXrCyPWNHR9ygX74=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=mLF7hQ+l3Y4oGRTsuLXXgo34FWS6P2Aisc0U+ZMTN/kWPKZvK4q9nB04xMSutlZKgFgNfay6sbPkrT9QuYs/DZTM1h3vKfQWUpVOoC+Pn2zcOyRGCQY6sGveF1mRaM9hXPiCGtO1BI8GvijTMOtH2hwmrWBRWUgf7ji5ud/6i2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Dz+c9LRn; arc=none smtp.client-ip=91.218.175.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="EtufcZ70"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F31TVd3867980;
-	Tue, 15 Sep 2026 06:58:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=xqlFK0
-	yj4P5BCqBGmrtySPTD4NnZjt1wjZ1E89dzkfY=; b=EtufcZ70jx85+h8jFPT9ln
-	lH1CCStHETzeZCUEE2w8Sw/no84RTIbDODOZzanSJGgSoY8f/YX3w665tGe/Dpsi
-	IhJhUWStslNEUC/TxdoTmxSMinjXM/iwrD0Jg5CkvQ9kyEPsZUossi1Rn2Jrdc2u
-	kYimusJbd34qsmKBfn9aViR14zALaP3WrmBGsfV3J9v6Py9ExQS9D35TZYmugE5s
-	9GXR6cCRAtF9Eim3CJevRjScdMmCThKzBAe/awPGD2cDnmp/FzcWjAxHB4pMiprd
-	17y9mZ4GZGF/EfRhKCrU5Fb14lHoD4zSKUdCZNUnhBXsinb0T5XInFumcr7US3CQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf4wq1h-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 06:58:51 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZHW13523880;
-	Tue, 15 Sep 2026 06:58:51 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gpyxs884h-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 06:58:50 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68F6wko628770658
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 15 Sep 2026 06:58:46 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BA4CE2004E;
-	Tue, 15 Sep 2026 06:58:46 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6B4502004B;
-	Tue, 15 Sep 2026 06:58:42 +0000 (GMT)
-Received: from smtpclient.apple (unknown [9.39.20.113])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue, 15 Sep 2026 06:58:42 +0000 (GMT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Dz+c9LRn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1hrOUU2WscT9i12+q2dsMTJyNqNUXrCyPWNHR9ygX74=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789455553; v=1; x=1790060353;
+ b=Dz+c9LRn+U4BKwUguORIFZqNQQxieg5o6zVodNBkoC2JEXt8UFf3IAGlY2Ygdn+0XcweaVfN
+ RyzXkNvwdBOTnbJydG4u2KGY58++n+UcMBnQKR4CbLBnkhksvsIBdLOWisrIpXrFWhTKTay03rA
+ jLB+iD4fMXYWigsmUd+sRAvg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6a28f1219eb0585b;
+	Tue, 15 Sep 2026 06:59:13 +0000
+X-Mizu-Trace-ID: 6a28f1219eb0585b
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Kent Overstreet <kent.overstreet@linux.dev>,
+	Hao Ge <hao.ge@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-modules@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v10 1/6] alloc_tag: move release_module_tags() above reserve_module_tags()
+Date: Tue, 15 Sep 2026 14:59:56 +0800
+Message-Id: <20260915070001.113559-2-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260915070001.113559-1-hao.ge@linux.dev>
+References: <20260915070001.113559-1-hao.ge@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH] crypto: powerpc/vmx - clean up includes, metadata, and
- p8_init()
-From: Sudhakar Kuppusamy <sudhakar@linux.ibm.com>
-In-Reply-To: <20260914081500.65737-2-blum@kernel.org>
-Date: Tue, 15 Sep 2026 12:28:28 +0530
-Cc: =?utf-8?Q?Breno_Leit=C3=A3o?= <leitao@debian.org>,
-        Nayna Jain <nayna@linux.ibm.com>,
-        Paulo Flabiano Smorigo <pfsmorigo@gmail.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, linux-crypto@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0974915C-5714-43CD-A04C-C4ABB534D7F2@linux.ibm.com>
-References: <20260914081500.65737-2-blum@kernel.org>
-To: Thorsten Blum <blum@kernel.org>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: ltkHWBcQvt7Z-jXyf4QksDgq_e7g8Oe3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDA5MiBTYWx0ZWRfX69HbRwDVIlM6
- PM9ur1Xj+RlxfvHL60W49Ixr11J8Zf0Nz5uCWCARTEs3ukwbeBW0ItYatfaZL9oQkz0NuK7jFig
- fpLjWxZjrscFz6fm7fE7Sb4QCnek1A0=
-X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aa8ecac cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=a0PVYM7KTqR9pnvm3HMA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: Iqp_z3-sGWrdUCLWQJ0DLUmAA_Q6Xbc_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDA5MiBTYWx0ZWRfXy5uRAZuwpDoi
- NjLyuPQZoRGeWfZnBYsWEEW/gLuo9LJpFikobd3PVtCokKfGArGedZXVpwMUJJc+oe/IP21LbTH
- +PVYjdi2BJjtXtCkANRhlz7YjaV4RpsXKAqKF1NvqDxDSjTujCH0ui98CpjhIPHUAem/zdIrJi1
- 1ao+Nn/OBIh216wCR9huhbO3LcLkwAs0ajnK1aQ8pl49BlXuUr5kSRsXojPwSxZVgIQuKP/t2lx
- jBcabbrZQkk8+4sFYOAlve+1kwVvTmjXHinSdZ59v5/JHOqN2+dNccv0hOP/fpwCNk7e8pWHZq1
- OzysmrPBO8ZSM9s1TGKcp3clSx9JTRSHLDoaVsK5Hblmf6GOTCdfMN6W90KWaNRc+mQRdwaUSZd
- Di21ARiZ4OswGpcEGtU0dlAZL0RjGF4lTvfE3NLCLdYr9/FUNb5dy9nSD7mSeDq7DBPOapHIv7D
- rjdM/zMeAMYAFZEhdaQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_01,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1011 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150092
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+release_module_tags() is a cleanup helper. reserve_module_tags() can
+also fail after storing the reservation in the maple tree, in which
+case it should call release_module_tags() to undo it. Move the helper
+above reserve_module_tags() so no forward declaration is needed.
 
+No functional change.
 
-> On 14 Sep 2026, at 1:45=E2=80=AFPM, Thorsten Blum <blum@kernel.org> =
-wrote:
->=20
-> In p8_init(), remove the goto statement and return ret directly.
->=20
-> Remove any redundant includes, add a missing space in MODULE_AUTHOR(),
-> and join the MODULE_DESCRIPTION() strings for better grepability.
->=20
-> Also remove MODULE_VERSION(). It has never been updated and the kernel
-> release better reflects the module version.
->=20
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
+Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Cc: stable@vger.kernel.org
+Acked-by: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+ mm/alloc_tag.c | 92 +++++++++++++++++++++++++-------------------------
+ 1 file changed, 46 insertions(+), 46 deletions(-)
 
-
-Reviewed-by: Sudhakar Kuppusamy <sudhakar@linux.ibm.com>
-
-Thanks,
-Sudhakar
-
-> ---
-> arch/powerpc/crypto/vmx.c | 14 +++-----------
-> 1 file changed, 3 insertions(+), 11 deletions(-)
->=20
-> diff --git a/arch/powerpc/crypto/vmx.c b/arch/powerpc/crypto/vmx.c
-> index 08da5311dfdf..8abc4db8ee4e 100644
-> --- a/arch/powerpc/crypto/vmx.c
-> +++ b/arch/powerpc/crypto/vmx.c
-> @@ -8,12 +8,7 @@
->  */
->=20
-> #include <linux/module.h>
-> -#include <linux/moduleparam.h>
-> -#include <linux/types.h>
-> -#include <linux/err.h>
-> #include <linux/cpufeature.h>
-> -#include <linux/crypto.h>
-> -#include <asm/cputable.h>
-> #include <crypto/internal/skcipher.h>
->=20
-> #include "aesp8-ppc.h"
-> @@ -24,7 +19,7 @@ static int __init p8_init(void)
->=20
-> ret =3D crypto_register_skcipher(&p8_aes_cbc_alg);
-> if (ret)
-> - goto err;
-> + return ret;
->=20
-> ret =3D crypto_register_skcipher(&p8_aes_ctr_alg);
-> if (ret)
-> @@ -40,7 +35,6 @@ static int __init p8_init(void)
-> crypto_unregister_skcipher(&p8_aes_ctr_alg);
-> err_unregister_aes_cbc:
-> crypto_unregister_skcipher(&p8_aes_cbc_alg);
-> -err:
-> return ret;
-> }
->=20
-> @@ -54,8 +48,6 @@ static void __exit p8_exit(void)
-> module_cpu_feature_match(PPC_MODULE_FEATURE_VEC_CRYPTO, p8_init);
-> module_exit(p8_exit);
->=20
-> -MODULE_AUTHOR("Marcelo Cerri<mhcerri@br.ibm.com>");
-> -MODULE_DESCRIPTION("IBM VMX cryptographic acceleration instructions "
-> -   "support on Power 8");
-> +MODULE_AUTHOR("Marcelo Cerri <mhcerri@br.ibm.com>");
-> +MODULE_DESCRIPTION("IBM VMX cryptographic acceleration instructions =
-support on Power 8");
-> MODULE_LICENSE("GPL");
-> -MODULE_VERSION("1.0.0");
->=20
+diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+index b33410310477..2070e682fe10 100644
+--- a/mm/alloc_tag.c
++++ b/mm/alloc_tag.c
+@@ -835,6 +835,52 @@ static int vm_module_tags_populate(void)
+ 	return 0;
+ }
+ 
++static void release_module_tags(struct module *mod, bool used)
++{
++	MA_STATE(mas, &mod_area_mt, module_tags.size, module_tags.size);
++	struct alloc_tag *start_tag;
++	struct alloc_tag *end_tag;
++	struct module *val;
++
++	mas_lock(&mas);
++	mas_for_each_rev(&mas, val, 0)
++		if (val == mod)
++			break;
++
++	if (!val) /* module not found */
++		goto out;
++
++	if (!used)
++		goto release_area;
++
++	start_tag = (struct alloc_tag *)(module_tags.start_addr + mas.index);
++	end_tag = (struct alloc_tag *)(module_tags.start_addr + mas.last);
++	if (!clean_unused_counters(start_tag, end_tag)) {
++		struct alloc_tag *tag;
++
++		for (tag = start_tag; tag <= end_tag; tag++) {
++			struct alloc_tag_counters counter;
++
++			if (!tag->counters)
++				continue;
++
++			counter = alloc_tag_read(tag);
++			pr_info("%s:%u module %s func:%s has %llu allocated at module unload\n",
++				tag->ct.filename, tag->ct.lineno, tag->ct.modname,
++				tag->ct.function, counter.bytes);
++		}
++	} else {
++		used = false;
++	}
++release_area:
++	mas_store(&mas, used ? &unloaded_mod : NULL);
++	val = mas_prev_range(&mas, 0);
++	if (val == &prepend_mod)
++		mas_store(&mas, NULL);
++out:
++	mas_unlock(&mas);
++}
++
+ static void *reserve_module_tags(struct module *mod, unsigned long size,
+ 				 unsigned int prepend, unsigned long align)
+ {
+@@ -922,52 +968,6 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+ 	return (struct alloc_tag *)(module_tags.start_addr + offset);
+ }
+ 
+-static void release_module_tags(struct module *mod, bool used)
+-{
+-	MA_STATE(mas, &mod_area_mt, module_tags.size, module_tags.size);
+-	struct alloc_tag *start_tag;
+-	struct alloc_tag *end_tag;
+-	struct module *val;
+-
+-	mas_lock(&mas);
+-	mas_for_each_rev(&mas, val, 0)
+-		if (val == mod)
+-			break;
+-
+-	if (!val) /* module not found */
+-		goto out;
+-
+-	if (!used)
+-		goto release_area;
+-
+-	start_tag = (struct alloc_tag *)(module_tags.start_addr + mas.index);
+-	end_tag = (struct alloc_tag *)(module_tags.start_addr + mas.last);
+-	if (!clean_unused_counters(start_tag, end_tag)) {
+-		struct alloc_tag *tag;
+-
+-		for (tag = start_tag; tag <= end_tag; tag++) {
+-			struct alloc_tag_counters counter;
+-
+-			if (!tag->counters)
+-				continue;
+-
+-			counter = alloc_tag_read(tag);
+-			pr_info("%s:%u module %s func:%s has %llu allocated at module unload\n",
+-				tag->ct.filename, tag->ct.lineno, tag->ct.modname,
+-				tag->ct.function, counter.bytes);
+-		}
+-	} else {
+-		used = false;
+-	}
+-release_area:
+-	mas_store(&mas, used ? &unloaded_mod : NULL);
+-	val = mas_prev_range(&mas, 0);
+-	if (val == &prepend_mod)
+-		mas_store(&mas, NULL);
+-out:
+-	mas_unlock(&mas);
+-}
+-
+ static int load_module(struct module *mod, struct codetag *start, struct codetag *stop)
+ {
+ 	/* Allocate module alloc_tag percpu counters */
+-- 
+2.25.1
 
