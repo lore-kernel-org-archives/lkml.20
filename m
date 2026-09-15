@@ -1,116 +1,113 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD2D2AE76
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F3E2AE76;
+	Tue, 15 Sep 2026 07:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457042; cv=none; b=HuqwesJglFwp3KOC565TkLYyLJxx0XuYcrRqgkjP1Rb66dOGU2WhBViyuFc2c1PlGFhNLpg9m2J6ps/lBgp8Vx0amYZN4KILRUoNtITOP7eA8XuZ7kaFMAVxZwHcLHicuDsjgiFZDm2usVNgL6ZHO7dOETk4mng1NcbbKEGgLAg=
+	t=1789457070; cv=none; b=cDz4DzkbfzEnJHvWuDDSWgeTB6kz10KTOWj9EkItSG8tHwMEBLQ7CU8vO/r4C7XM+DYG1il0FFnFPOSkKtOVfsxGfM7rokT1IHwZo1eZCMHMudJ9gr5iVWmvV+DqBD9R521s8YzEKNGr2fhPaISCiiJY5w49SMbgahMoSrm/hHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457042; c=relaxed/simple;
-	bh=AFY3lN0nPpdQzHz01v1mY6oxQ6Y3SsL8Xqae2tfNAfM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gqV6OVBnFW7qP5Dj73BV0awEM5D77HI4qSA7BIUWarwHfTDRLUhqCK16fDMWrts67/3gK+fkHvF8kYweS9NAQfwHzfIwCUVlEMN3mFvHTzg0N6FPS6NmDC/yk90VVa94d+tZ18nPU5dn8ySI4vUaSSaDQ57H+qFqE+iZqupMnx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kohRUwf4; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789457070; c=relaxed/simple;
+	bh=HCg/jEVlCo7Ue6o157N4zHJlzVQJsaptGKsAbPUhy7Q=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Xf2VQGGGSy9OfCpkuqO2vTQhXJuxd0WhzUTOHP7vDoT52U0rtdgxZL0hTtG6entc0z15kDPenV5sMdh8/eDPethqAFEZF5NnhN8vvjfGt1jHBTMtM7i2x4+r1d3eO6UL1faJOyA22zEGZot/0HjurTDgO6Rb933wA+OK1mV1kS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=Ac5CNcsH; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kohRUwf4"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so9799445e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:24:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789457039; x=1790061839; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3byU7IfKsmqkwQHBDdGKLnfWdbNnlxn1U1wY0CrzBZc=;
-        b=kohRUwf42q58l3LOwCyUoujPif/jPGfLDXZiu/W+Spd+D4YG3HA+wfKN0cCbrb2hZ9
-         l1aeg0lnWE0IwoKYyISxHoWVOhHTXoQ0VuXW+eQCNWZYo+WZtpjBXITO92VgVNyRP5x6
-         ZsUAo4yP9ypAgcRphvB6H9SoCO4lj3fYhpsZ57pshht6428MjHMDX19S7+yFssmo7mTJ
-         yD83n6PEC+sQY1Uq1QR964ecr8wVSj3XdSf3MhpBRQ/JMcF42G0cOSdHAQ3VBskhj3ic
-         /chiz0vupX/QUJYSMFizeXD1kAc2wede0GpsNbPTNEVm2oW6o9Zc7C9SutCJyY58Iwpp
-         MxHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789457039; x=1790061839;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3byU7IfKsmqkwQHBDdGKLnfWdbNnlxn1U1wY0CrzBZc=;
-        b=G0LVb+BMcuiaHVoiVIxySaGlGHetxNgc/GpkmRGvHI5Ljs04V5nM+9AhuwzD8JuAjS
-         xxPTAblDQ9r/0HeXZ97Vc8Ro4ZmrUldO/OUJitED3oVqgA5p4EgSeuhqXD7jf8hmLU00
-         OR/VgGTOEXSHpj81sZHF9pbk//9lH2qCFaJvBbfObfHGtxAtYBEGR4m/PDBK0eINlMEd
-         OILjIkqYdXRXStdk+ggWlNBlDtRmGDclLhUr9liQXZ42VxbhKHmqvHtV7lczvEW69fl8
-         3o20xHaiMBWY825643YVAI0mn4Bh1Z9gFO/47+4f7mqfBeAdKsu0Jn9ulJzt6kvwa+wS
-         71oA==
-X-Forwarded-Encrypted: i=1; AKwUvBx1Fe1m4j2ldGtvWLf04qIHLfMnnRHEA4IOQyxFGb5V+TPXIqUqwamLpFZXI7yY9G1nJdkbeUfc/9ve5hc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ku1UL7Y59SccEhiCbZxKUud6bOUjJ/N+jiWojCSeeqHPcgplCy
-	frJLw7lClRNO3HzQwklX70qP3Lu2wdlK/VHkOx6yER9mC/k8DR32jpPFQgiepaXnLQ==
-X-Gm-Gg: AYBFou0ktUYo2B1YVNKETffV1YJn4zZHNjtTvPnaKg61yHh4IwQhdPKuuuBiFdF398i
-	8dIts55CfelYzYUGRVN4oYOZIakFCELvurQhCRPCXRuiMF03P/tSgU2JQ96m9JB9v6o45Oa4XTC
-	AoJ7gnSvpR95dpWFGJmZkivhsuPPMmjZmcxbwCtc6izN8QjjaUvqGjxtBi2tY6lWQaWorqkbVEm
-	c6GWDPjuaQ+WjK8BXYJ1wdbiEs2uTYSuSccQiMgPcZDdqri8M9+TBmMTOKf5tbU7c8PTbxHHWET
-	9W53cosKIE+4LMrUMX3YvyE44EoiZO0SGwyJg5vgF0jubQCQm4jZs2PYW47415QaVU99DircvoQ
-	z6BwwYTNHWg+d8GE0jSnUx9tqtD53N492LE0YLrVS28P44lgNEquMGqu0z4Qoo6A0kkeEd+fIJf
-	HGvlr4PGt7BA3hplf1052l11ppU42rclLEVhoshoqszy86lllG6brHfKy2h4xmzH1VKuIzIdDJr
-	cy7D3mS3IDMMCpwhOPUGQNoHM0AwMy8OMuFix7arj7u/KF8tJosuA==
-X-Received: by 2002:a05:600c:c162:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49e7d72b000mr32527185e9.5.1789457038909;
-        Tue, 15 Sep 2026 00:23:58 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6a9d1dsm52818775e9.10.2026.09.15.00.23.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:23:58 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:23:55 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: David CARLIER <devnexen@gmail.com>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org,
-	linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
-	kernel-team@android.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] ring-buffer: Clean up resize_disabled checks
-Message-ID: <aqjyi2RD4oSCAY7z@google.com>
-References: <20260914175907.1027349-1-vdonnefort@google.com>
- <CA+XhMqxp2XOB9PnfHJwBvK0up8Oej4hGcnsM0a=fdoRDyVoEyQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="Ac5CNcsH"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZZwc2902158;
+	Tue, 15 Sep 2026 00:24:09 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=xwQJSthqhpQRUcpdYVjpifI
+	Ui//qbqgaljTKOeSdF0c=; b=Ac5CNcsHm8f1s1t78ryprPp8UDu5oytcna/mdCc
+	TZ1M29jhyXhcG53Qg6dv2S3VeOXV4+lTM28RU2VbGd+PpTKHW80Ku20OblSDFRpA
+	gNXa63ZtEcnordHRuAqCLl8wED7/JY0SFQPpKq708roSxxNXOTdbeYEfuieexhs3
+	/++jeAtVZ6UO/i+dsyV415SU8h5ttLAiIjbBp4oDNZ9TMLdZAGVj5EDpEf3CpIve
+	NqTfflw9LqBhhKci/MXK9LXAjrinuCuNkL9X+QUDsyxtLhFyQ/zd2K/ymca6q4Ml
+	//MeL5gbnjZs6P/di2L6q2pl4C6+tQ4oY3d6uSBK0WSAnvg==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gpsc7t0cy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 00:24:08 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Tue, 15 Sep 2026 00:24:08 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Tue, 15 Sep 2026 00:24:08 -0700
+Received: from rkannoth-OptiPlex-7090.. (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with ESMTP id E73C63F7098;
+	Tue, 15 Sep 2026 00:24:04 -0700 (PDT)
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <davem@davemloft.net>, <gakula@marvell.com>,
+        <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+        <sgoutham@marvell.com>
+CC: <andrew+netdev@lunn.ch>, <edumazet@google.com>, <kuba@kernel.org>,
+        <pabeni@redhat.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
+        "Ratheesh
+ Kannoth" <rkannoth@marvell.com>
+Subject: [PATCH net] octeontx2-af: nix: Export CN10K admin queue enqueue mbox handler
+Date: Tue, 15 Sep 2026 12:53:57 +0530
+Message-ID: <20260915072357.980485-1-rkannoth@marvell.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+XhMqxp2XOB9PnfHJwBvK0up8Oej4hGcnsM0a=fdoRDyVoEyQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Authority-Analysis: v=2.4 cv=aIhlOr9m c=1 sm=1 tr=0 ts=6aa8f299 cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=EAYMVhzMl8SCOHhVQcBL:22 a=M5GUcnROAAAA:8 a=0bvFSw5o0_g-J61_eCYA:9
+ a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-ORIG-GUID: gsq_pA4EfySjc_RzOIsx1Vfm6wVAtxnB
+X-Proofpoint-GUID: gsq_pA4EfySjc_RzOIsx1Vfm6wVAtxnB
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwNSBTYWx0ZWRfX29RnSCVTmXZZ
+ z2wr/K2EO+FvUdAdbaRPtLwJS22RhP6kJLeM3IX/Jln82SEhGnbjEQSiphsIELljBo2D5x7/21v
+ zRcMGnbkZeQTe232iL12Sl3BibNt+0E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwNSBTYWx0ZWRfX8djpcmEePruV
+ tT9K7IlOYiR0ztVlHZfendC3xYqr0SlsiSEM7Y5HabYVj2MhqdNRxF4FrkybiRem/POTMcyekW8
+ +ZPyamkbnhAXtatynhRHtV2jf7OXqP2F8QR6JkOb/KlkOr5SPFv/tS3Ono8zE08zfFd57PPpcvO
+ wNnswz/Y4FRlSadiNxsZ4mpUFMOAZdkVlgLk1yvDMGv5vXlcpUzVlzZLBC9dae20Guj+nzE4wFy
+ qOPil9KaBhjEAmU7Ckeb2uQsq5CJ/awCjGVIBJXw9HmWFPeXum0XWXlYF5tP8rT5XLLKZ5MFR+z
+ ilS1Ah6ccGesOj76iXnvuPP7A76kXn2TiXZ6DnpxKJn3WIy7MlGmOUmLqXewues0XoRZ32Tw17H
+ GG+V9Ord7mqmW69DcWZkRF11y0RZhKPAUs7c1XTW0v1EzjKtz43iJURXh7tD8aSxlw7P9kJB1pC
+ TWDOU2oqbb/tosmEeRQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
 
-On Mon, Sep 14, 2026 at 08:09:24PM +0100, David CARLIER wrote:
-> Hi Vincent.
-> 
-> > +   if (rb_resize_disabled(buffer, cpu_id)) {
-> > +           err = -EBUSY;
-> > +           goto out_err_unlock;
-> > +   }
-> 
-> For a single CPU, this now happens before the nr_pages == cpu_buffer->nr_pages
-> early exit, so writing the same size to per_cpu/cpuN/buffer_size_kb on a
-> mapped or persistent instance CPU fails with EBUSY instead of succeeding.
-> Intended ?
+From: Subbaraya Sundeep <sbhatta@marvell.com>
 
-Actually no, I didn't see that it is also "fixing" this discrepancy between the
-per_cpu buffer_size_kb and the global one.
+rvu_mbox_handler_nix_cn10k_aq_enq() is used by out-of-tree CN10K
+modules but was not exported, causing unresolved symbol failures at
+module load time.
 
-It seems to me better to align the behaviour for both interface, but then it is
-touching something that is user interface... 
+Fixes: 30077d210c83 ("octeontx2-af: cn10k: Update NIX/NPA context structure")
+Signed-off-by: Subbaraya Sundeep <sbhatta@marvell.com>
+Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
+---
+ drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Steven, WDYS?
-
-> 
-> > Additionally, remove the unnecessary cpumask_test_cpu in
-> > ring_buffer_subbuf_order_set().
-> 
-> The install loop still has one.
-> 
-> Otherwise removing the second check is fine, the hotplug window is
-> covered by the cpus_read_lock() patch I sent separately.
-> 
-> Cheers.
-
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+index 153eb57bad06..95776ab924e5 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
+@@ -1501,6 +1501,7 @@ int rvu_mbox_handler_nix_cn10k_aq_enq(struct rvu *rvu,
+ 	return rvu_nix_aq_enq_inst(rvu, (struct nix_aq_enq_req *)req,
+ 				  (struct nix_aq_enq_rsp *)rsp);
+ }
++EXPORT_SYMBOL(rvu_mbox_handler_nix_cn10k_aq_enq);
+ 
+ int rvu_mbox_handler_nix_hwctx_disable(struct rvu *rvu,
+ 				       struct hwctx_disable_req *req,
 -- 
-Vincent
+2.43.0
+
