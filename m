@@ -1,43 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF51B4A1DED;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193934A0EE6;
 	Tue, 15 Sep 2026 13:50:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480209; cv=none; b=niKYcVVcANuoYPuQBZHqd7FxudpU9c8/E9Wd/tfArQTtl0SugYYXwz6ETZC9Pk6G/E6ubLT/mkteiy1an6e36CqynailxcY1i8M9r0S7U4mnNr6MWG8kBZGoWD4nzZrC0UnTDSeKmazuctuwGRJop4ZQAmrWYtWt+WaH0+lRiMg=
+	t=1789480209; cv=none; b=ZQG02nRqWWYMH9S9Hbkpj8fmZRfowh9RNFXT9Z6eX6RYozUFQUp4JMSzrAhbA4d+4Az8bg/ALdbJrsxzWPDn9pX+YHtiRdZ+CV4IoG7Vl0Efy6d9+nSrpHmENQB5gSL1FtukF7sai8b/FMqso13RAqiZwrzJP7DDTtZLzWoT98k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789480209; c=relaxed/simple;
-	bh=9VMQh39CWRjHT3gfwr1EesYUI9gwspmu8UF0atDN+3c=;
+	bh=sj9LBh28iAOPdKC2Yk3iBAPDw/iU870tFO75CLAFURw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GFfP8rq6ul87ZCm+xigswow9ks7di5IKkign1rmjqLrNXNLyPxuCFReKF9LjYkeZf0VL7N+nGiYrTTobxYdjN/jTKl1CvCLc7S8dwXbA7vgaltnVFZos3GCExJSdBYrqnQeA6YH23Yx2dpVHkkRkTj0e2IqLCaNsDFwvxZUd6go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=atbBGLW1; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=DniIbmucF8r1rUt8yyhxXlHa4LVTg2em2X6i8v2uqGi9jx5hndGf0qrZKdmtY2KacAwl/l/zSesUzw9sL71jLEh9wOhGc9Wj5U/ikc2Lwry1GOmYblYqdy8wuzOVZijfLRtQY+ANPEfw9tIiMjzMIv/jSlvjAHLGWSfgVjvld3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=JEgRlZ/B; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="atbBGLW1"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="JEgRlZ/B"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1789480199;
-	bh=9VMQh39CWRjHT3gfwr1EesYUI9gwspmu8UF0atDN+3c=;
+	bh=sj9LBh28iAOPdKC2Yk3iBAPDw/iU870tFO75CLAFURw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=atbBGLW1t4S36gylapB2P2U6aILW7hv77CwOVYl0htHMy5aAfwAmQLCj4Uk1lDrqc
-	 6fEkzW8adbfMdtRsKZ1ix4daOeynfAxtFNXZzRFfztqVstPNUtTL7AuqbRsFjsXi1r
-	 dRkP0gWtfpOod0XsirxdAofhlTgl+IGlMK5y+7Wc0CfXHqImOzrhL5XSrZLWfBjIO3
-	 RFElF4crcVM7hJYIt8+oI0zCR1GpgnMSaHFyz4llxumIbmhqhFSHkpJKJF2dh9hD4H
-	 r74oMp1vL19pgqmfuDy+6Jwz1+k6hWlur7t4Ac0HjheMi12FXXGF1cpMMzhZXlRxbC
-	 ApdljWPSaAu8w==
+	b=JEgRlZ/B+KK74YnwUdsf2qtsN1MLgxw8O5T00EcuaYfG6QXvizjVhfnLbIfKdZaV4
+	 DdxJ6csbVDEfHSNzEqkWFPBWEp002KzGsSnVtveBuRdNzBiMaLrxoAZiNKzI85jOJz
+	 I0UqxOvKM5bUrniHYwmH/4gWH+KthBsZaIstLg/BvEUfD1RR15wsexEOZKsP34LKjb
+	 /IhWgw2a/OmgFZ5jMleqcWuq9MkHnFGuLJUp0MWAEwoNL/oPvatMWuj9e0EHh1ljcW
+	 vaGONoQQwdBQoqIE+gJeMA/dgUr8NGj5jiAnBRcOJ1pgORLiYM0/h9XcqCeYhzN8HJ
+	 B10YNM9I3hbUw==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0650817E0E71;
-	Tue, 15 Sep 2026 15:49:59 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D7D5817E0D7F;
+	Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 3FC2B480055; Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
+	id 35C5B48003D; Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 15 Sep 2026 15:50:01 +0200
-Subject: [PATCH v15 14/16] phy: rockchip: usbdp: Use FIELD_PREP_WM16_CONST
+Date: Tue, 15 Sep 2026 15:49:55 +0200
+Subject: [PATCH v15 08/16] phy: rockchip: usbdp: Amend SSC modulation
+ deviation
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,7 +47,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-rockchip-usbdp-cleanup-v15-14-80e2c11d1ce8@collabora.com>
+Message-Id: <20260915-rockchip-usbdp-cleanup-v15-8-80e2c11d1ce8@collabora.com>
 References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
 In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
@@ -62,65 +63,74 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  kernel@collabora.com, devicetree@vger.kernel.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1614;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1834;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=9VMQh39CWRjHT3gfwr1EesYUI9gwspmu8UF0atDN+3c=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpTQYznBMDL+f0+xGlt5Gypk8LaeHM/t2WF
- Uf9FQw1hlZ4TokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqU0GAAoJENju1/PI
- O/qaQUAP/2+pgTDfnaN04Meq97fi3/xKN78cLmIA7pRVhe50d1hY5kxyy2i12qVfAA4NUv2/F/E
- XDYBIDv2/IfYxxqDUh0SUkwYJLMKo9X9pA/rLEzDFX9GoslqYC+QuLb/VBN6AJahH9/D+9YhFon
- xyt5bQZNGyMy3yjUwu9esnAn2PkjQmf8xLTQlWndQy/eY2XS6rj5CE6x0gu7i7mECe6NkZMz8dP
- /feKWnEFa6VH6ArNCFROAg+PPKfqex6x1B6AIlF5nl2djmk3953f6aZe5FgUU4E/ebZqgcm7baV
- 2nrGLCJOxuBBXQYtTbxsNPfrOgLGVU5TKwYpVVHS9wgaMqdDHfJiEFuOuXra6PgFiNQV8EnHi1Z
- SIKeWknkrQXFmLrDIjUBGNHEnX2jaDNOXIIeLKFj7oVTlRMKNm+foPxktZWtcWMTic4OFpxfnxQ
- H02Li3Q/Pb+c3RNjzaTQHWknhAB/jSt4GDTRuFhFNt/lycGScIITI7O92Y3c+2DGMaGp7hQcKu2
- i5O7VCkjwd+E/kf5WnfxbYUMKQfFJNjgItbT9986wENyxXdql/9evSnoAd9qR/lKCfs4XOmEnTR
- FERlxnk9OemE3WLVDS+6p3lJYJi8Xyicp0PIqAP5MQEbAVT1gbRhsrN4G4uOLNTZEVO5qMnM4bz
- 56ARRD+BSHebhHrrOtlwrYg==
+ bh=1Q1JW1JnKNYhx66aUCknN/wu+6hBR/DH+Mx6zdtRaUU=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpTQXPaIxRkb5kjjtuP4ok1jEwKIvhPwJ8P
+ CE32ThhaTymWokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqU0FAAoJENju1/PI
+ O/qa8h4QAI4It8W+Uui97+UEHo2/alY3B6AGcn6av2UWNmhv6smvxwMeSeO+S5GtA6wcj9jZKGo
+ Fd8rCGSbSYiBjd0qB39cYLEevl/btaie1YLV1O+1xTIxDDaj6Myexmok83OzvpbuqPB6GP5P2B8
+ aKLDcgomiJKQbqNPbmT51IJtjEH7QA+3isugidM3moZhQGTZ29e68zBKwMCuHonFoLDvG/j5Mzf
+ r2CKwMvzL5Frc0unzbVbfI2+eIew1wkT3Nzel0DHyCeoaM28pXse7Lr6CWEGjQlP25h+nKBNdoq
+ gqQTC1c42QGXyfHb4FBqZUdKau8bM0hYHaLPMXR4XNptwusvEQdqubBMHVv7lxKTRRaO7F0nqRn
+ wdL/I2h5rp5T8Zo4JlQiN35ZpoxYjLSqqd//nGwXws+Yetc/VXDp5R7fmaiv6WcC1CreEc+4XdQ
+ hwpb5Pq+L6QGko7dGBYK7xELkIs3WhucTAP4Rjww6c6fcJq6EJseoDHDJpMg54ui/VzmH4C9JEh
+ lWRkY20KY7sq0Jq89Sp4N3jy8MVoQvVI93NCAom5VyS0o8kxq7dnGk6Cc+kU0ZN7n9RbX0wxn/g
+ qXL3+tqLW6Lt9MsJWcWqjmCwamXb2kHYv9lSWrDEVxdtRN8/6ynw99o2sdB9/ucAo47FX+q+sS/
+ 3NtYy4xihVPbcEToKvUYsyw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Cleanup code by replacing open-coded version of FIELD_PREP_WM16_CONST
-with the existing helper macro.
+From: Frank Wang <frank.wang@rock-chips.com>
 
+Move SSC modulation deviation into private config of clock
+
+ - 24M: 0x00d4[5:0] = 0x30
+ - 26M: 0x00d4[5:0] = 0x33
+
+Signed-off-by: Frank Wang <frank.wang@rock-chips.com>
+[Taken over from rockchip's kernel tree; register 0x00d4 is not
+described in the TRM]
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 9dae41239e48..d95a44835caf 100644
+index 925f2d162212..586363f5ca20 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -12,6 +12,7 @@
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/hw_bitfield.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-@@ -74,7 +75,6 @@
- #define TRSV_LN2_MON_RX_CDR_DONE_OFFSET		0x1b84	/* trsv_reg06E1 */
- #define TRSV_LN2_MON_RX_CDR_LOCK_DONE		BIT(0)
+@@ -349,7 +349,8 @@ static const struct reg_sequence rk_udphy_24m_refclk_cfg[] = {
+ 	{0x0a64, 0xa8}, {0x1a3c, 0xd0},
+ 	{0x1a44, 0xd0}, {0x1a48, 0x01},
+ 	{0x1a4c, 0x0d}, {0x1a54, 0xe0},
+-	{0x1a5c, 0xe0}, {0x1a64, 0xa8}
++	{0x1a5c, 0xe0}, {0x1a64, 0xa8},
++	{0x00d4, 0x30}
+ };
  
--#define BIT_WRITEABLE_SHIFT			16
- #define PHY_AUX_DP_DATA_POL_NORMAL		0
- #define PHY_AUX_DP_DATA_POL_INVERT		1
- #define PHY_LANE_MUX_USB			0
-@@ -103,8 +103,8 @@ struct rk_udphy_grf_reg {
- #define _RK_UDPHY_GEN_GRF_REG(offset, mask, disable, enable) \
- {\
- 	offset, \
--	FIELD_PREP_CONST(mask, disable) | (mask << BIT_WRITEABLE_SHIFT), \
--	FIELD_PREP_CONST(mask, enable) | (mask << BIT_WRITEABLE_SHIFT), \
-+	FIELD_PREP_WM16_CONST(mask, disable), \
-+	FIELD_PREP_WM16_CONST(mask, enable), \
- }
+ static const struct reg_sequence rk_udphy_26m_refclk_cfg[] = {
+@@ -376,7 +377,7 @@ static const struct reg_sequence rk_udphy_26m_refclk_cfg[] = {
+ 	{0x0c30, 0x0e}, {0x0c48, 0x06},
+ 	{0x1c30, 0x0e}, {0x1c48, 0x06},
+ 	{0x028c, 0x18}, {0x0af0, 0x00},
+-	{0x1af0, 0x00}
++	{0x1af0, 0x00}, {0x00d4, 0x33}
+ };
  
- #define RK_UDPHY_GEN_GRF_REG(offset, bitend, bitstart, disable, enable) \
+ static const struct reg_sequence rk_udphy_init_sequence[] = {
+@@ -411,8 +412,7 @@ static const struct reg_sequence rk_udphy_init_sequence[] = {
+ 	{0x0070, 0x7d}, {0x0074, 0x68},
+ 	{0x0af4, 0x1a}, {0x1af4, 0x1a},
+ 	{0x0440, 0x3f}, {0x10d4, 0x08},
+-	{0x20d4, 0x08}, {0x00d4, 0x30},
+-	{0x0024, 0x6e},
++	{0x20d4, 0x08}, {0x0024, 0x6e}
+ };
+ 
+ static inline int rk_udphy_grfreg_write(struct regmap *base,
 
 -- 
 2.53.0
