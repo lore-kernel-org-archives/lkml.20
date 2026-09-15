@@ -1,136 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4946129993F;
-	Tue, 15 Sep 2026 13:15:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8493B42FD
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478132; cv=none; b=mOkYTG7fruC8UEKpews2EAlRP29eVEYvrnzoyCWT6OBoYYxDKC84QyfFOcAQSKKG6Q3w8m+66FYosoM2myhgWBeACusQpy7vsiCI8ojbvdV1wjhHeho+ju6Wdo6vgYdSN1kRUE8CjzQF5o91mvHiilfmEDQNoS3k4Q7RvQqwGPY=
+	t=1789478155; cv=none; b=mJ64VrHq6KPOrIjKZNYZ5qxiYh2v9397wfpA/W3H7Ih08s4wmmqzr6ExE2axuFHDZYtYcytKAFfxe8DN6xttQKKUw88oVe8iuly6Q1iMQGo/OIEk2uQOwS83LCAKtPxj4NWyubQptJ/We6FPPqrV4ZUHx2RycKApq94CCbYtB1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478132; c=relaxed/simple;
-	bh=qZeokzXWIiLmJvazIOfaehqd+JttbxxVqV2hdZXETeI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IwM2aSyRgx4nGQ2D8cjp6ds0/2+RqbFKXdtbAkuAzixPrETHyjGEY10fBtzcQcwzo+W4baw6hzUXsMypJd1oEvUk6/4waOiVOcjhqkLO5RrvqP2Te8MlkpPpRE3V3J8B6YlmAXB2oSkTMEHkqeQx5u73C7WSlZ9uzvYf6KHz53A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V4EdpEhk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789478155; c=relaxed/simple;
+	bh=O32bwyHEYNFiX/7kOJzHjTGw2Z3yVYaaKKq+w7ibBMk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mv0WdKgmE9EzJ1jKd49d7ahCOaHbIuo9usCj1wc9n60Gb10GoGvz4/dPk4xcvmedtKMpXt6wCbcsj6ANbGq5aYEhgeWKryfB75jwPFyblvk97/PDkYZ39Y3nk62LX0sPxrDOjZ8HRGVXpdwU9KAu1lXKEtqEtXmVmuV0aE//vys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gd+JNABK; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V4EdpEhk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFB261F0089A;
-	Tue, 15 Sep 2026 13:15:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789478130;
-	bh=VzikfrdXoe4OKdqIVI5MhWMg7/FGoAHvmjSaSoohyws=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V4EdpEhkDelvZkC/X/3bK3vl9pG/mNCj4Y9fnQXsUyUjfO/C0WIiHtAE7wUFnpIJl
-	 hf0m/zLPCJxaZOLx5gA1XcJJcyM0/Uwj48vUqKR2OOSz37Capy4w5XMFn4On3XQ+Qf
-	 KJpsPuIDKAOrTGf4xYES5OyMcVKeiupxsGAG72zhWHFQTMAf7voR40D27dtYgU3ApH
-	 8lKtecKBw1KA6sqz/3HTKKHhPKKiHHj46fRvgiZoudqwdy24NRL7Gtou8rddlFICmZ
-	 SZ2KeUkDOqE1SfCUntS3mJ5Sx3OL7g5dd9LgQ4Mx2s5CqVa8s6KdFslIYwtccHAxlo
-	 ocVNOhI1yr1Xg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/9] mm/memory-failure: libstub: install the
- poisoned-memory EFI table
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Suren Baghdasaryan" <surenb@google.com>, "Johannes Weiner" <hannes@cmpxchg.org>, "Mike
- Rapoport" <rppt@kernel.org>, "Brendan Jackman" <brendan.jackman@linux.dev>, "Ilias
- Apalodimas" <ilias.apalodimas@linaro.org>, "Zi Yan" <ziy@nvidia.com>, "Miaohe
- Lin" <linmiaohe@huawei.com>, "H. Peter Anvin" <hpa@zytor.com>, shakeel.butt@linux.dev, kas@kernel.org, "Ard
- Biesheuvel" <ardb@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>, "Rafael
- J. Wysocki" <rafael@kernel.org>, x86@kernel.org, hannes@cmpxchg.or, "Thomas
- Gleixner" <tglx@kernel.org>, "Naoya Horiguchi" <nao.horiguchi@gmail.com>, "Ingo
- Molnar" <mingo@redhat.com>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Danilo
- Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Michal
- Hocko" <mhocko@suse.com>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>, "Borislav Petkov" <bp@alien8.de>, "Dave
- Hansen" <dave.hansen@linux.intel.com>, "Oscar Salvador" <osalvador@suse.de>, "David
- Hildenbrand" <david@kernel.org>, "Breno Leitao" <leitao@debian.org>
-Cc: kernel-team@meta.com, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org, kexec@lists.infradead.org, linux-efi@vger.kernel.org, linux-mm@kvack.org
-In-Reply-To: <20260915-hwpoison-kho-v5-3-3bc7a57bd503@debian.org>
-References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
- <20260915-hwpoison-kho-v5-3-3bc7a57bd503@debian.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 13:15:27 +0000
-Message-Id: <20260915131527.AFB261F0089A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gd+JNABK"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7dbeso46841466b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:15:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789478151; x=1790082951; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4U3SB71ReF0ifx8bqGHa72DWklfVhQ9vcJBUaK3Uflc=;
+        b=Gd+JNABKP/rtp/uJER+eqAFy4Zi9jl9JT2XBDRHGH0+f6zX7ZmE8Ae459f5hohYhwI
+         ncRq4S4YtvAfdmUwR/TQHSD8L55xaKafTzS62/FeOQRQp9tfAjnfLcmm6pno34wPocho
+         5RMrmQRQMajPvjAqMvw5sZBfXxmFxH+sJYJVQBoyxCP/Jkao3h8+Xxgx7E/LaQBvYC7y
+         FA74xHli26/5BbJn7Kw8P3SDlIKQSEDPPnn6kFRQ8TyxUg6PV3BsKo6bHFyjDakdGdgr
+         XkhAqeVVchZD6UK4MrVACFj6KL7nwoishxJrsdHZlR7ZMGdnPITxGcU9Yd6XfGDeiIla
+         ZvJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789478151; x=1790082951;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4U3SB71ReF0ifx8bqGHa72DWklfVhQ9vcJBUaK3Uflc=;
+        b=RD/ehYKLrRdJ3bkMvhn+EO47gKpPKFZCQVHvx7SGasxTsCxo26pZXmFiUGz9I0EsfM
+         76esh7CfpiZFmNXiTWiKpLUM0aTyBccyoWmY+MJGtXxc+HYwn82jMY9tSmFmR7T5GrkZ
+         T6qFsZR0DH9mSv7JAsXQbJVWIQGLCJv3jdmPDUEolnF5hLcC9m/7aRF+fmomq/ZI5OK3
+         lvO6c4URVPkTTfrQRGvAQ5kIcIwFe3XZjrmasEunbK0W2dKgrCX1LzRctTGFgez7rp6c
+         PLg5/rOBnvtEXFl1oxEmnXlZpWqS/q+JH+tKbOvoWdIxTcYWVVvVT4PxCi9zlmCq8GCb
+         TEKQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVc4BsBK6wAA4jaxJXotLR4nB+aR2zC6vJ+90i608gkCuyQmnV9+M74aZoFRmdVaKJxMwpa/zXHA7A7uI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrlIiEjQf0hoyy8q242Q1cwdIXx1XiAVtzVUK3dgeJGjvJ2EXe
+	Re52IUnHIiImeo+0XPBQmlk5UYBEzQGtkgie2M1d0M/zZAkMk69fULkA
+X-Gm-Gg: AYBFou243B0f24GFbXLhqOk5ytPv0Vb1O5DKl4yGiWmni2XzJSZ1iauHUjXODGLahrp
+	e48Vc2P/fQH5eSkzV6tOsR6PdGQ1hjeVk78pkks/G91E9XUaWmJeEl09ddosR9H6HQgm4j+yABs
+	Srus/eUYENaEIa4jFCff1tWLcztqwij36texpthrxAOpkDA+HJAsfWKuvOPMYebY0l2QvICLazD
+	6NVGNS0IwBPMAFl7+B6hVUvCTJNHv9GCIFCiCEzdpXfs1ryxdKPPOXDnT316Adr6w+MDcJQiXK8
+	7Agl4EQNMeHQweLIIvdnRpGussF+1NsA0gAwEWp1L1FJsWKkblRzF8GYQQTadb2MqAFsPoRvhq2
+	TOtHupdHDZItmqsBHH9RQveFgjWbFYhusN7Y8OpBvE0/Blp00c/fExd+rWEUX+B1mJjLrNZgONK
+	qJM5Yx1WAsnE5Eztx308qpgInqdEQk09ye9HrxMucSVnMPYCnMEk0sEvWBw8WkTZ2ZMqIKftjlr
+	US2382MIa4/vOxSjxm2A84ULqb6kwuvSnwQxNpqnCmZd8OKdkwgjYjJT35v
+X-Received: by 2002:a17:907:c1b:b0:c26:19de:9aec with SMTP id a640c23a62f3a-c29d79c7b95mr73457266b.43.1789478151079;
+        Tue, 15 Sep 2026 06:15:51 -0700 (PDT)
+Received: from misharu.home (2a02-a463-a071-0-a3ef-793b-4960-e77.fixed6.kpn.net. [2a02:a463:a071:0:a3ef:793b:4960:e77])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966066b76sm90275266b.29.2026.09.15.06.15.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 06:15:50 -0700 (PDT)
+From: Hari Mishal <harimishal1@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: airlied@gmail.com,
+	simona@ffwll.ch,
+	lijo.lazar@amd.com,
+	Jiawei.Gu@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	Hari Mishal <harimishal1@gmail.com>
+Subject: [PATCH] drm/amdgpu/atom: bound the VBIOS date, part number, version and build getters
+Date: Tue, 15 Sep 2026 15:15:48 +0200
+Message-ID: <20260915131548.28292-1-harimishal1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mm: efi: integer overflow in poisoned memory bitmap allocation on =
-32-bit
---
+atom_get_vbios_date(), atom_get_vbios_pn(), atom_get_vbios_version()
+and atom_get_vbios_build() all walk the BIOS image using offsets and
+counts taken from the image itself, checked only against each other
+and never against ctx->bios_size:
 
-commit 591eef51f672049b14b50a75d67dac823925a19a
-Author: Breno Leitao <leitao@debian.org>
+ - atom_get_vbios_date() reads 14 bytes at a fixed offset that
+   check_atom_bios()'s minimum size (0x49) does not cover.
+ - atom_get_vbios_pn() dereferences an image-supplied u16 string
+   offset unchecked, then walks and copies from it with only a length
+   cap, not an image cap.
+ - atom_get_vbios_version() takes its search bounds from image u16s;
+   atom_find_str_in_rom() already clamps the search itself, but the
+   match is then advanced by a fixed 18 bytes and STRLEN_NORMAL bytes
+   are copied from there with no check that this still lands inside
+   the image.
+ - atom_get_vbios_build() walks from an image-supplied config-string
+   offset toward the ROM header; a config offset at or past the
+   header makes the pointer difference negative, wrapping through the
+   u16 'len' and passing strscpy() a bound far larger than the
+   32-byte destination.
 
-mm/memory-failure: libstub: install the poisoned-memory EFI table
+Bound each getter's reads, walks and copies to ctx->bios_size, falling
+back to an empty string on a malformed image.
 
-This commit introduces a new poisoned-memory EFI table installed by the stu=
-b.
-It sizes a bitmap based on the UEFI memory map to describe the RAM span and
-allocates it as EFI_ACPI_RECLAIM_MEMORY so the next kernel does not take it
-as free RAM.
+Fixes: 29b4c589b43d ("drm/amdgpu: Add vbios info ioctl interface")
+Fixes: d6fa80266178 ("drm/amdgpu: Add vbios build number interface")
+Assisted-by: gkh_clanker_t1000
+Signed-off-by: Hari Mishal <harimishal1@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/atom.c | 29 ++++++++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
 
-> diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c b/drivers/fir=
-mware/efi/libstub/efi-stub-helper.c
-> index 48f93f7758e9e..9c66e06c972c5 100644
-> --- a/drivers/firmware/efi/libstub/efi-stub-helper.c
-> +++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index e74253682929..fe9af26ccc11 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -1445,6 +1445,11 @@ static void atom_get_vbios_date(struct atom_context *ctx)
+ 
+ 	p_rom = ctx->bios;
+ 
++	if (ctx->bios_size < OFFSET_TO_VBIOS_DATE + 14) {
++		ctx->date[0] = '\0';
++		return;
++	}
++
+ 	date_in_rom = p_rom + OFFSET_TO_VBIOS_DATE;
+ 
+ 	ctx->date[0] = '2';
+@@ -1513,17 +1518,24 @@ static void atom_get_vbios_pn(struct atom_context *ctx)
+ 		vbios_str = p_rom + OFFSET_TO_VBIOS_PART_NUMBER;
+ 	}
+ 
+-	if (*vbios_str == 0) {
++	if (vbios_str >= p_rom + ctx->bios_size)
++		vbios_str = NULL;
++
++	if (vbios_str == NULL || *vbios_str == 0) {
+ 		vbios_str = atom_find_str_in_rom(ctx, BIOS_ATOM_PREFIX, 3, 1024, 64);
+ 		if (vbios_str)
+ 			vbios_str += sizeof(BIOS_ATOM_PREFIX) - 1;
++		if (vbios_str >= p_rom + ctx->bios_size)
++			vbios_str = NULL;
+ 	}
+ 	if (vbios_str != NULL && *vbios_str == 0)
+ 		vbios_str++;
+ 
+ 	if (vbios_str != NULL) {
+ 		count = 0;
+-		while ((count < BIOS_STRING_LENGTH) && vbios_str[count] >= ' ' &&
++		while ((count < BIOS_STRING_LENGTH) &&
++		       vbios_str + count < p_rom + ctx->bios_size &&
++		       vbios_str[count] >= ' ' &&
+ 		       vbios_str[count] <= 'z') {
+ 			ctx->vbios_pn[count] = vbios_str[count];
+ 			count++;
+@@ -1556,9 +1568,10 @@ static void atom_get_vbios_version(struct atom_context *ctx)
+ 	/* find anchor ATOMBIOSBK-AMD */
+ 	vbios_ver =
+ 		atom_find_str_in_rom(ctx, BIOS_VERSION_PREFIX, start, end, 64);
+-	if (vbios_ver != NULL) {
+-		/* skip ATOMBIOSBK-AMD VER */
+-		vbios_ver += 18;
++	if (vbios_ver != NULL)
++		vbios_ver += 18; /* skip ATOMBIOSBK-AMD VER */
++
++	if (vbios_ver != NULL && vbios_ver + STRLEN_NORMAL <= p_rom + ctx->bios_size) {
+ 		memcpy(ctx->vbios_ver_str, vbios_ver, STRLEN_NORMAL);
+ 	} else {
+ 		ctx->vbios_ver_str[0] = '\0';
+@@ -1574,7 +1587,13 @@ static void atom_get_vbios_build(struct atom_context *ctx)
+ 	base = CU16(ATOM_ROM_TABLE_PTR);
+ 	atom_rom_hdr = CSTR(base);
+ 
++	if ((uint32_t)base + ATOM_ROM_CFG_PTR + sizeof(uint16_t) > ctx->bios_size)
++		return;
++
+ 	str = CSTR(CU16(base + ATOM_ROM_CFG_PTR));
++	if (str >= atom_rom_hdr)
++		return;
++
+ 	/* Skip config string */
+ 	while (str < atom_rom_hdr && *str++)
+ 		;
+-- 
+2.43.0
 
-[ ... ]
-
-> +static struct linux_efi_poisoned_memory *efi_poison_alloc(u64 phys_base,
-> +							  u64 bitmap_size)
-> +{
-> +	struct linux_efi_poisoned_memory *pm;
-> +	efi_status_t status;
-> +
-> +	status =3D efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
-> +			     sizeof(*pm) + bitmap_size, (void **)&pm);
-
-[Severity: High]
-Could this allocation size wrap around on 32-bit EFI architectures if the
-memory map is extremely sparse?
-
-In efi_get_ram_range(), ram_top is determined from EFI memory map
-descriptors. If a descriptor is placed at a very high physical address,
-bitmap_size could be large enough to wrap around 32-bit arithmetic.
-
-On 32-bit EFI, the allocation size passed to allocate_pool (which takes
-a 32-bit UINTN) is implicitly truncated. For example, if bitmap_size modulo
-2^32 is very large (e.g., 0xFFFFFFF0), sizeof(*pm) + bitmap_size could
-truncate to a tiny allocation (e.g., 8 bytes).
-
-> +	if (status !=3D EFI_SUCCESS)
-> +		return NULL;
-> +
-> +	pm->version =3D 1;
-> +	pm->unit_size =3D EFI_POISON_UNIT_SIZE;
-> +	pm->phys_base =3D phys_base;
-> +	pm->size =3D bitmap_size;
-> +	memset(pm->bitmap, 0, bitmap_size);
-
-[Severity: High]
-If the allocation size wrapped around, could this memset cause a heap
-buffer overflow?
-
-The 64-bit bitmap_size is passed to memset, which takes a 32-bit size_t on
-32-bit architectures. This independently truncates bitmap_size (e.g., to
-0xFFFFFFF0). Since the prior allocation could have wrapped to a very small
-size, this would write gigabytes of zeroes into a tiny allocation, causing
-boot-time memory corruption.
-
-Would it be safer to check if bitmap_size exceeds the maximum allocation
-size for the architecture, or use a safe addition helper before allocating?
-
-> +
-> +	return pm;
-> +}
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-hwpoison-k=
-ho-v5-0-3bc7a57bd503@debian.org?part=3D3
