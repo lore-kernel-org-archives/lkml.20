@@ -1,95 +1,74 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0316B404BE9
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E0F3D8918;
+	Tue, 15 Sep 2026 07:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456172; cv=none; b=u6yVKahBRo5Ho8KXbox2g8wfG/xwtdwaT+o4g/Dx+ccr/rqnx44/bnEdmc9gjAVjUWxEOMHTHSpV9wrXVjH+RpioVlPX+G93dBI2PKFVjRYjCLulmr9LC+nTMEHLfpDv0GIyGEmqriFSTgNz54R1yZYX6IXIpQ9DYz7NFbtWVKo=
+	t=1789456189; cv=none; b=HoUepJdgPHHstdfy+dQniyUaY6XCNVP5VfqkPvbXZ3ao09Jf0ICJjEwUR5x0jg5R4CigAcVqFa5+tuTazxsnNH7AY2w/d6fmv23aaKaesQoucpEH24JdCyFdvUEjX8XJwbB8wB/ZgnZcDfOL2z4T06vEqnljBovD7FxPUvOp29I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456172; c=relaxed/simple;
-	bh=zeWgHcoA+7eglTikukOUTmjeAqgmaZOiPJv96a4uDdk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FHccaJ8CgtTilA9SA/BEez/63jVz+evazTd9N2eZqHVqyZ2ifq8wAeOBr0gJx0motpAT/BdbQuvtarp7ZtbvA6NlID9sECk6IpAHfR2lZQ1Rey5NhL47MtsoK6sLYto9VhXry+r4NpglJ2O4M7b0MDtr6ujCE1rctPmqDRtD0PE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=Pq0itti6; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	s=arc-20240116; t=1789456189; c=relaxed/simple;
+	bh=nfEscqhaF7B6NqUvS9RBcBrgOGsuW0ue7kkwzy5KLTg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=JvD6E84lYvNmvqHKY6g4rYOFVdygaCzkNRsZIKIxXtGMDkwUZXdSv4BXwNN2FqW/+jmJPg1P2tbPsbiF7eX4wP3Y85ErEZjp+qeathD/1SXA3XzeLT6m0MvDQsej5uH74slOnjqbJd2TxLYEi5xtz9Y1nPeF2LrnZr98g0/X0xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B1UzSc44; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="Pq0itti6"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 42E6E14C2D6;
-	Tue, 15 Sep 2026 09:09:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789456166;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/fCEjRGvqmfU4DBZcQR+nvqqf7oRsqSZ0AziZW3psYs=;
-	b=Pq0itti6CckBBl20MVkOgB2buEDwXPGtTRjYjFKsG1YMhLxD0UbS/s1eybw7vi0Q7HEfmy
-	6gEwH2c9a+IF9kz0wot9P+deTm9ND8lt72YLuwDF2YxAsiKlLFYUT/4OQLqOrU+PJ60KcN
-	JoDrXx94X12amCQtP18oV1QwajFq21VdKuZSSLM/PFtYHT70K8Fo+98gseJaVgD0INi2+Q
-	DEfNdjrZrQRL+ysrDvU0h2mb7i/UO8WYHoNgryUjUThjpKkFAP8q20eRW8GrVUBVsjAQJ9
-	+xmqGNZdMbpk8yqMiR7l3l7aJ27K1qG1lko4y6naPzqgZD6TnQLkN7sf84C2iQ==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 75a35172;
-	Tue, 15 Sep 2026 07:09:21 +0000 (UTC)
-Date: Tue, 15 Sep 2026 16:09:06 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Michael Grzeschik <mgr@kernel.org>
-Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
-	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Subject: Re: [PATCH] net/9p/usbg: Fix use-after-free on usb9pfs_clear_tx
-Message-ID: <aqjvEj1ySKWCZz4U@codewreck.org>
-References: <20260529081026.77732-1-zhaoyz24@mails.tsinghua.edu.cn>
- <aqZichSBFZgqFn8F@codewreck.org>
- <aqjflEL_79A95MGc@line.checkpat.ch>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B1UzSc44"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D8541F00893;
+	Tue, 15 Sep 2026 07:09:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789456187;
+	bh=/K27mxe9awqLXCoqsJ9jRsb86rIPPKQr7g5yuTtOxfw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=B1UzSc44GeHez8fe4GxW50BmLJcwpPxJ5MBOv9/9uF4lPIvzChHxfAWDPhIIOrkJa
+	 YYuK9g4rNlRXLDEMetEwBg6K9T+RQvb1PQmtRBrcAZCQ7VpiBNN7SjRJSC8tDyL/Fu
+	 nxs2tLQO5/rm7IZg5slYRKJwohTxOzJkCT5iBUaBXrLqZxaQdXWObhx8kpLZjMy86x
+	 23ubFKkCTRg7poZNwd4p8iONlQz9v5NkWN3+K3AuvRu8Wii9MyBVgJm2K+hqr2MwT4
+	 r/ilSy3cPNU629VQofgcuR0hTsOTPZs2HVNcnroJZlhOeKlPR1cpnkMTkC52aoaODe
+	 aYeltPa4o9Z8A==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Yong Wu <yong.wu@mediatek.com>, Rob Herring <robh@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Congcong Yao <congcong.yao@mediatek.com>
+Cc: linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Zhengnan Chen <zhengnan.chen@mediatek.com>
+In-Reply-To: <20260831-8189-smi-support-v4-0-8ae66dd3eeed@mediatek.com>
+References: <20260831-8189-smi-support-v4-0-8ae66dd3eeed@mediatek.com>
+Subject: Re: [PATCH v4 0/2] memory: mtk-smi: add MT8189 SMI support
+Message-Id: <178945618368.44717.5402356332875633769.b4-ty@b4>
+Date: Tue, 15 Sep 2026 09:09:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqjflEL_79A95MGc@line.checkpat.ch>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Thank you for the acks!
 
-Michael Grzeschik wrote on Tue, Sep 15, 2026 at 08:54:22AM +0200:
-> >  - You had a rework in progress (before leaving Pengutronix, which I can
-> >  totally understand you don't have time or want to keep carrying going
-> >  forward, but is someone else from Pengutronix taking your place?)
+On Mon, 31 Aug 2026 14:52:05 +0800, Congcong Yao wrote:
+> This patchset adds MT8189 SMI support.
 > 
-> I am actually carrying to improve the series. I just now got some time
-> and started to build an setup where I can easily test further changes.
-
-That is great news, thank you!
-
-> Also my leftover patches are also tested and ready for updates on the
-> list.
-
-I'm afraid I've lost track of them, I could dig them out but am more
-likely to fudge something up than not, so could you resend after
-rebasing on top of https://github.com/martinetd/linux/commits/9p-test ?
-(that should contain all of the pending patches I picked up so far,
-including the two you just looked at; I'll add your Acks later™)
-
-> > Thanks (and sorry Yizhou Zhao / Chengfeng Ye)
+> The series updates the MediaTek SMI bindings for MT8189 and adds the
+> corresponding SMI common and LARB support in the mtk-smi driver.
 > 
-> Thank you for caring and sorry for the long delay. Things are in
-> steady motion, but will hopefully smooth out soon. ;)
+> Based on commit e30626823a40 ("Add linux-next specific files for 20260828")
+> 
+> [...]
 
-No worry, I've been MIA a few months as well - I honestly didn't expect
-you to continue (seriously) so this is awesome news :)
+Applied, thanks!
 
-Cheers,
+[1/2] dt-bindings: memory-controllers: mtk-smi: Add support for mt8189
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/605e6053de5c639abe4cba71644cd3c5fae46374
+[2/2] memory: mtk-smi: Add MT8189 support
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/771c036d72eefe36aa6c953ecf44bee4c000a368
+
+Best regards,
 -- 
-Dominique Martinet | Asmadeus
+Krzysztof Kozlowski <krzk@kernel.org>
+
