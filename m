@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB3D3DB62E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDE93DAAAF
 	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:06:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484782; cv=none; b=s7RXbexGsar21Dw6usATlU6Rb3S+3Hl6tp3DX4bHsySCVMhpLzVFoJcwndOdSn2VlyIUawrKZH8sJrT+tqSIm2+633+GIA4VdzRSNbSDokXM4clGYDOVcBMhwcwIPUDR0VPhrD5luzfpmXUtrVQl8/JfRbM/YGcB55BTeYgHHvI=
+	t=1789484783; cv=none; b=N35t/QZMt+WIoQfO6din0Pfd2MeeV9QiisfJGdMnyOpruljMTwGqmWVxR/hRt5xMoQDtP9/ao6lIV2vcJzgC6TxbTDNoLrqkYELZj3gRFA/yRtHZiuX/dCQz2eA1H0bpAqCe8Lk8kFERPg3B3nDcm2dj3P+jBO/Lw/w5OvTjIUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484782; c=relaxed/simple;
-	bh=xWOZIz9WSUhLjBYsv6AkugFXIXpASrJ7YH862/vRHwI=;
+	s=arc-20240116; t=1789484783; c=relaxed/simple;
+	bh=ORTgeXoBWHzhph1db5nH3ROLXbfd5UE84Yvg8siOcNc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Yf3tRnOvfOkmou6oiYVDwZ8QS2z8Vvx2msd5JxlDj3+anKcgqcCH3pOlVWnVt9219jxkArZxcd9KWO7a+BjibQxvZoCCvYCcVYlOr+PllNRgxtxYn2b00xFB86ZsddY6Ce3KIMdxzkCRa5RrErZuUuQih4anHCQIV+YMqx+2Go0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=NsWtqok7; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=LfwqrC3t6aGNdw9X11FqICYtKtp9Q6Kr8Deb9h5fGjn0cHYI6jVdn7sKiQQd+uRLW4hzD4ghYg7rgBa+ZIM1J3t5DtIb9Y3HXe4SoQaNNJ1rdgu3IX8dUWxSk7GWXLmhoi9/L+V7aU1Zvc7j8LlLk/OAsMekBR6fyUMAJmqcEAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VZbpz08/; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="NsWtqok7"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VZbpz08/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1789484778;
-	bh=xWOZIz9WSUhLjBYsv6AkugFXIXpASrJ7YH862/vRHwI=;
+	bh=ORTgeXoBWHzhph1db5nH3ROLXbfd5UE84Yvg8siOcNc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=NsWtqok7OIvqJhETVLpGUtUt9pXgY/3MC1yfRNLjeXKB0QrhEIoSxrR4fCl/RhuL5
-	 cMjxmbg5PKb+UKYEBS+0VXfBp6PN9sdxotXBKxpiEvtiOZVAqU7ip5YCqZdneN5jG4
-	 nvsVU6W8An79ymhsKaSJ4oS5sd96NegEYBUYPk0d8RgarazFJ8UpYHShthCBkUJcCi
-	 yJi3Ei6cInrlr16wRK1CY5BPaIxE8tm/HW3bCxTdFL4OQhF37aPbmML53J61W8q9x6
-	 naElGKcnRDw++vSuOVfSCCMn7T1gGXssKejZbEGHlid7CpVJtXq0Lrw59djIKaFRSQ
-	 swnjmCTN/wJJg==
+	b=VZbpz08/GTHJOTDuae6L1HH4jzDWq4Jj0uF0HEt0TRnI5m9k95yAnqyXddXsrASC/
+	 5yLENW2jbDN6Hd46JbA7cNxn5pabLEhexpbBJ61Dyj+MoqegCyqph4ZSI8qMbxuVwW
+	 yceQO3s+43k1YPtVH0W/v5q78mOeF4Gll9xnGjdSROkCNjZ3WmYl4QhLglzwaBFJ8H
+	 X7H2ttQ1FGrygms5luyj7G9b6RTwg0NXuq8jwc2mzFcrynQA36DkhZr50pH/m/VXpY
+	 mGzqYUVhlX2LgDqHsKfmpXHaGi1oKU01RHfUdqx4OXAYgaajP2moW6llfozn/TlvD4
+	 LJAPVUUqUldbw==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A056217E090C;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9C26817E015A;
 	Tue, 15 Sep 2026 17:06:18 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 64629480031; Tue, 15 Sep 2026 17:06:18 +0200 (CEST)
+	id 622DA480030; Tue, 15 Sep 2026 17:06:18 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 15 Sep 2026 17:06:07 +0200
-Subject: [PATCH v15 04/11] phy: rockchip: usbdp: Factor out lane_mux_sel
- setup
+Date: Tue, 15 Sep 2026 17:06:06 +0200
+Subject: [PATCH v15 03/11] phy: rockchip: usbdp: Re-init the PHY on
+ orientation change
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-rockchip-usbdp-cleanup-part2-v15-4-8d507cb1174f@collabora.com>
+Message-Id: <20260915-rockchip-usbdp-cleanup-part2-v15-3-8d507cb1174f@collabora.com>
 References: <20260915-rockchip-usbdp-cleanup-part2-v15-0-8d507cb1174f@collabora.com>
 In-Reply-To: <20260915-rockchip-usbdp-cleanup-part2-v15-0-8d507cb1174f@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -60,160 +60,57 @@ Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>, 
  Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4649;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1326;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=xWOZIz9WSUhLjBYsv6AkugFXIXpASrJ7YH862/vRHwI=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpXuoQiwfZlfIqn6Dg0xpcyts0Z614HPXjz
- el21LiN6n78FokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqV7qAAoJENju1/PI
- O/qaAwIP/iIvARM5eDLOjPhxPPBQbcPUU+UHY871DMd+MDL3eCbpCIa96Vwu5fLpopX4qS+n901
- yTEBNbjxvJ1i5qjYwc90xlmrNQHbGmldGtjt+kxQXrPtIdYM+gOS6A7Bo9blYOXhvAs2ibqyDRo
- Qs6O4RqBINOUISoNrGHvHsqVHO06iIFhnEeAGw5YeuySATPBgjfM7ccEnTULSmbN386qFOEOTHC
- LW04HuKd+/R6CAVwuMYd5N1/gQ8j3gtxs9GWcu8dcTY6uMitR7oB+Vr29z9aOI0s0VcbtOG0b64
- YyobVV3I8WxFzAk0zCH4OPebZMMzGSYYNI3OWcePaU9Lk7K3ulwCvLyNkTnZKjKnkYMtfjDrUxi
- SONjhg4a9JRoF8QLYvZFnayoKk7Hz23bgP7OA58PMpbExf0CD6O+urP+fO4mIx3AoqBCyWETu7l
- O6r/pfyEPBfp4SnVGTwXbS2W+V7798JfPlj2h7UONNmaa6t1VaHlDimvFG2encldSSV5Xm9P8ta
- 0vFTB6fq0r459bOergYbsUH14tWD6OLUnXtwGf7oDKhaJKe16K2sjYoE6UlBALwMtO2nWGYG0Rl
- mQl0uL0ikrcwobb12ToQporw/uTNxdcKk1Qt6csfVsm8BAtxbkqTi0th0b6m4A/aStT24Lryf6X
- 3YNoq/Yi6c14QoAJUCnw/8g==
+ bh=ORTgeXoBWHzhph1db5nH3ROLXbfd5UE84Yvg8siOcNc=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpXuqvJxfb6SjKucFa5VdpqsNmkVhLhP8fG
+ UXucuxt7FkaRYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqV7qAAoJENju1/PI
+ O/qa9HwP/2cU48QE1osoI9QFtS6x+MpynnM2oZW33/E0WStGxTuofP+w3S3EOwKzEEevJVq9r8O
+ 0XvzFn/jT5Ovkvz+xKgRrmxpzJtwe9iA5tpIJsut9t/1Es8dpC8EBNOSGwzbkg9841NpYEtoDR+
+ rAlZWnbp0oYchd1/58Bf2uVoaKXc19P7LBKvxYvIxEHW/umRx7xaPEjLPpt7F5/qocaAfZljazt
+ j2KxWKG1D03cDYKijbmqY4+XL5oLBZNje2oKyDiu/+fIKKjv4BXqgxNpv9fgXgSdBm4PhfddOXC
+ 4AvVyFIf8T5BvMBN/c5XTvaJ0bOiazhzBl1YuSTtskz0zfDkU9Ebz9Cw5wcGP10J8QUnG8qJj38
+ Mh+6EzipsJXhxTpP78gm1DxvmSbnR0TQoGsq5UrLAQTSqWNGJDT33yh0OYCGYIIiAxUqyoIr8NV
+ rtYdkyKCLlW8cGtVCLwkvIxs9NvWopOn13usow8WvbJZ//E7qv41Yl+OFLPWPr8hawnmpxrB/39
+ fm4tSqLCK/hofRBOHl8EWzg+ho199M20pfLkDyLULrTWpg3+y/XZDX/sBGY8X8SiyW5XccRny95
+ KuB7bYg7tSl2/jAklL42I07rM1DGTYrCuJxNTQb4QlRBOKr3GVms8CPBkneIxUU6oNmxWtPRJMz
+ b/414njHDrwxxv0oD1pI6LA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Avoid describing the USB+DP lane_mux_sel logic twice by introducing
-a helper function to reduce code duplication.
+Changing the cable orientation reconfigures the lane muxing, which
+requires re-initializing the PHY. Without this DP functionality
+breaks, if the cable is re-plugged with swapped orientation.
 
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 81 +++++++++++++++----------------
- 1 file changed, 40 insertions(+), 41 deletions(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 9a4ead585151..4a073301067f 100644
+index 9767fba23660..9a4ead585151 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -581,6 +581,42 @@ static void rk_udphy_mode_set(struct rk_udphy *udphy, u8 mode)
- 	udphy->mode = mode;
- }
- 
-+static void rk_udphy_set_typec_state(struct rk_udphy *udphy, unsigned long state)
-+{
-+	u8 mode;
-+
-+	switch (state) {
-+	case TYPEC_DP_STATE_C:
-+	case TYPEC_DP_STATE_E:
-+		udphy->lane_mux_sel[0] = PHY_LANE_MUX_DP;
-+		udphy->lane_mux_sel[1] = PHY_LANE_MUX_DP;
-+		udphy->lane_mux_sel[2] = PHY_LANE_MUX_DP;
-+		udphy->lane_mux_sel[3] = PHY_LANE_MUX_DP;
-+		mode = UDPHY_MODE_DP;
-+		udphy->dp_lanes = 4;
-+		break;
-+
-+	case TYPEC_DP_STATE_D:
-+	default:
-+		if (udphy->flip) {
-+			udphy->lane_mux_sel[0] = PHY_LANE_MUX_DP;
-+			udphy->lane_mux_sel[1] = PHY_LANE_MUX_DP;
-+			udphy->lane_mux_sel[2] = PHY_LANE_MUX_USB;
-+			udphy->lane_mux_sel[3] = PHY_LANE_MUX_USB;
-+		} else {
-+			udphy->lane_mux_sel[0] = PHY_LANE_MUX_USB;
-+			udphy->lane_mux_sel[1] = PHY_LANE_MUX_USB;
-+			udphy->lane_mux_sel[2] = PHY_LANE_MUX_DP;
-+			udphy->lane_mux_sel[3] = PHY_LANE_MUX_DP;
-+		}
-+		mode = UDPHY_MODE_DP_USB;
-+		udphy->dp_lanes = 2;
-+		break;
-+	}
-+
-+	rk_udphy_mode_set(udphy, mode);
-+}
-+
- static void rk_udphy_set_typec_default_mapping(struct rk_udphy *udphy)
+@@ -619,6 +619,7 @@ static int rk_udphy_orien_sw_set(struct typec_switch_dev *sw,
+ 				 enum typec_orientation orien)
  {
- 	if (udphy->flip) {
-@@ -588,10 +624,6 @@ static void rk_udphy_set_typec_default_mapping(struct rk_udphy *udphy)
- 		udphy->dp_lane_sel[1] = 1;
- 		udphy->dp_lane_sel[2] = 3;
- 		udphy->dp_lane_sel[3] = 2;
--		udphy->lane_mux_sel[0] = PHY_LANE_MUX_DP;
--		udphy->lane_mux_sel[1] = PHY_LANE_MUX_DP;
--		udphy->lane_mux_sel[2] = PHY_LANE_MUX_USB;
--		udphy->lane_mux_sel[3] = PHY_LANE_MUX_USB;
- 		udphy->dp_aux_dout_sel = PHY_AUX_DP_DATA_POL_INVERT;
- 		udphy->dp_aux_din_sel = PHY_AUX_DP_DATA_POL_INVERT;
- 		gpiod_set_value_cansleep(udphy->sbu1_dc_gpio, 1);
-@@ -601,18 +633,14 @@ static void rk_udphy_set_typec_default_mapping(struct rk_udphy *udphy)
- 		udphy->dp_lane_sel[1] = 3;
- 		udphy->dp_lane_sel[2] = 1;
- 		udphy->dp_lane_sel[3] = 0;
--		udphy->lane_mux_sel[0] = PHY_LANE_MUX_USB;
--		udphy->lane_mux_sel[1] = PHY_LANE_MUX_USB;
--		udphy->lane_mux_sel[2] = PHY_LANE_MUX_DP;
--		udphy->lane_mux_sel[3] = PHY_LANE_MUX_DP;
- 		udphy->dp_aux_dout_sel = PHY_AUX_DP_DATA_POL_NORMAL;
- 		udphy->dp_aux_din_sel = PHY_AUX_DP_DATA_POL_NORMAL;
- 		gpiod_set_value_cansleep(udphy->sbu1_dc_gpio, 0);
- 		gpiod_set_value_cansleep(udphy->sbu2_dc_gpio, 1);
- 	}
- 
--	rk_udphy_mode_set(udphy, UDPHY_MODE_DP_USB);
--	udphy->dp_lanes = 2;
-+	/* default to USB3 + DP as 4 lane USB is not supported */
-+	rk_udphy_set_typec_state(udphy, TYPEC_DP_STATE_D);
- }
- 
- static int rk_udphy_orien_sw_set(struct typec_switch_dev *sw,
-@@ -1268,7 +1296,6 @@ static int rk_udphy_typec_mux_set(struct typec_mux_dev *mux,
- 				  struct typec_mux_state *state)
- {
- 	struct rk_udphy *udphy = typec_mux_get_drvdata(mux);
--	u8 mode;
- 
- 	/*
- 	 * Ignore mux events not involving DP AltMode, because
-@@ -1280,38 +1307,10 @@ static int rk_udphy_typec_mux_set(struct typec_mux_dev *mux,
+ 	struct rk_udphy *udphy = typec_switch_get_drvdata(sw);
++	bool flipped = orien == TYPEC_ORIENTATION_REVERSE;
  
  	mutex_lock(&udphy->mutex);
  
--	switch (state->mode) {
--	case TYPEC_DP_STATE_C:
--	case TYPEC_DP_STATE_E:
--		udphy->lane_mux_sel[0] = PHY_LANE_MUX_DP;
--		udphy->lane_mux_sel[1] = PHY_LANE_MUX_DP;
--		udphy->lane_mux_sel[2] = PHY_LANE_MUX_DP;
--		udphy->lane_mux_sel[3] = PHY_LANE_MUX_DP;
--		mode = UDPHY_MODE_DP;
--		udphy->dp_lanes = 4;
--		break;
--
--	case TYPEC_DP_STATE_D:
--	default:
--		if (udphy->flip) {
--			udphy->lane_mux_sel[0] = PHY_LANE_MUX_DP;
--			udphy->lane_mux_sel[1] = PHY_LANE_MUX_DP;
--			udphy->lane_mux_sel[2] = PHY_LANE_MUX_USB;
--			udphy->lane_mux_sel[3] = PHY_LANE_MUX_USB;
--		} else {
--			udphy->lane_mux_sel[0] = PHY_LANE_MUX_USB;
--			udphy->lane_mux_sel[1] = PHY_LANE_MUX_USB;
--			udphy->lane_mux_sel[2] = PHY_LANE_MUX_DP;
--			udphy->lane_mux_sel[3] = PHY_LANE_MUX_DP;
--		}
--		mode = UDPHY_MODE_DP_USB;
--		udphy->dp_lanes = 2;
--		break;
--	}
--
--	rk_udphy_mode_set(udphy, mode);
-+	rk_udphy_set_typec_state(udphy, state->mode);
+@@ -630,7 +631,10 @@ static int rk_udphy_orien_sw_set(struct typec_switch_dev *sw,
+ 		goto unlock_ret;
+ 	}
  
- 	mutex_unlock(&udphy->mutex);
+-	udphy->flip = orien == TYPEC_ORIENTATION_REVERSE;
++	if (udphy->flip != flipped)
++		udphy->phy_needs_reinit = true;
 +
- 	return 0;
- }
++	udphy->flip = flipped;
+ 	rk_udphy_set_typec_default_mapping(udphy);
+ 	rk_udphy_usb_bvalid_enable(udphy, true);
  
 
 -- 
