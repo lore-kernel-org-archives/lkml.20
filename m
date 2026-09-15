@@ -1,224 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5413CEBA7;
-	Tue, 15 Sep 2026 01:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDB433936B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437091; cv=none; b=LfGgG7+H4xO651MIxi5uz/QrUQK8eGUx5ImCBmfP23FIo0YU4ja6WOxEEsAqXhRA4ySE3Yg6D33i+IPfnFkhe1pMJMzpE21b9VpBPnBC3VmaUZS4PNS5c/058W7l70ozv3dMijM0CzHiILWBnX8Gt4xvyMVjhKwNaG5F8CXDDWw=
+	t=1789437191; cv=none; b=FHd5Xq4KZiqzT3IBTifCyhDeAdjS0xbFwoq3q6s6B3dH27ac8vwa/AImmiWKxccdV9jxBq6SPcdxfrOw9aTpAxyo9MKVmuxk+4oDPCpFSLi3gwiFOwFxufirKTunnzM0Fx9XF/2KnAekoIoZn5kBlXoUwe7wrUMCzKOF6mQAzCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789437091; c=relaxed/simple;
-	bh=6XCLumPsIXQ/BULMGaecKqPQOW025FYUVFfWnI0Qn+0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GvMGj3UTcii168+NOQcbcWeFxW3W8T3/dYkGvisxmfI7bogmPefd+HqFOLyRNJXbWjhSoQlQhY2htkmWGqciPrtIfICiDcOhFeus7WqlFNWLHZrHarje8R4UCDk+ntcaJAAXC+u8K3wuDntn8dS6FqP7wFy1qv5PSLR/n/kVkG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KsTyS5PD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789437191; c=relaxed/simple;
+	bh=YLhZ1J4p3EUdKxhsg9iYuJO51jHcBUEBJC612xT7c3M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uJwIidpZD2J/hSEe42xIYMi6xtVx3C8tofOD6pN/xRnrwBrQYIj0w5pIsgt6TZ3iMhLwpEek12owURB6mIjZuESNvfwI4s97hwsqQfNc9FT5lIeuh+bczIA12Co+Wq3j+UPQp1v7z2oxe104lK48REC0IMgAVu4exnuSbdkAZK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oc5GWSi6; arc=none smtp.client-ip=209.85.217.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KsTyS5PD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A2301F000FF;
-	Tue, 15 Sep 2026 01:51:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789437088;
-	bh=qAr+28TuufFKWB0DyivQh4D5ccnl8xbwK4LXHENZXpE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KsTyS5PDnMqxntjK51+xnZbu42i6jAGjcP6J7uw3n/mB+/WDn6A8F+L98jFVEBgvE
-	 aKFk8GHJ2UIOnVYsDc6nL6TOroOzYpxpWd/Gw8E4Beiibj2FiwQ3HUgY9gzowR/Ao2
-	 ULUw1G5mYxxADGYELSNs8im91EwliAswf2msEA10t7eSKeyiAfPFkYs6ZwZ223IOLV
-	 1bGaP6iKxnHMm7p2gyjMeqplpXNd+QYwzVX/qvuxli7Z3+l8BU3/RW+Iela6CmPrXJ
-	 fjplnQ8dnIA2GgoB2OSSAFG8y9tKH5s32or+4HwOVvY7NAqA5ThNie5e34nO3AsrNg
-	 +LfnuR3Uuff8g==
-From: Jakub Kicinski <kuba@kernel.org>
-To: tariqt@nvidia.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	edwards@nvidia.com,
-	gal@nvidia.com,
-	jgg@ziepe.ca,
-	leon@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	msanalla@nvidia.com,
-	mbloch@nvidia.com,
-	ohartoov@nvidia.com,
-	saeedm@nvidia.com,
-	shayd@nvidia.com
-Subject: Re: [PATCH net 5/5] {RDMA,net}/mlx5: notify RoCE LAG speed change via driver event
-Date: Mon, 14 Sep 2026 18:51:27 -0700
-Message-ID: <20260915015127.875561-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910102432.3845360-6-tariqt@nvidia.com>
-References: <20260910102432.3845360-6-tariqt@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oc5GWSi6"
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7981646dcd1so726819137.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:53:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789437189; x=1790041989; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U4Jx0gqCqlP6JSyM7YNUSbMymSXVv7Wb6Hva9YnJeBQ=;
+        b=oc5GWSi6ruZgDn+fmMBFLltiANvq9YrwHR4NcZ5Sut2pjYxdQFpNfSSZo2HfYFMU4V
+         51q62O7mAI/E5+1KY25tmuAX39JaDrk1Ioduvdk1jJbpw69hz40r1P0ts8xGJRCK2+jO
+         dn2f0CdxgvxxAAUrZG43EM9yDaH6oI4W0LBzayrxz0WqYc8JCjNrVfsRFFZQLxpov+jA
+         ++/fB/S6C+Z8uvnG7dVHTxU8TWVizBIWvjNn5ChE302E00AtB/y3PW5XsPbZLZzhf4EA
+         uWb6j7QR1f8xCyhQ8S2sEyHURWqjHobSuKagyLvIP0FgoAa8AeEmsNah4ZEiGN5ePt+o
+         3Ddw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789437189; x=1790041989;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U4Jx0gqCqlP6JSyM7YNUSbMymSXVv7Wb6Hva9YnJeBQ=;
+        b=dNbXReGWf4X/57tWKMVLPB5S6JR9uYprCH0UBxZTXH3/d3qUV1QIdSdl2kIV6iiNax
+         w0uDABCGrirgbJE5xuXaimA3zMCJr8HPLiijLHfMjS7mupeYlQ0itL6nzjXhspnN3ufL
+         He7nP2RvlqEDS7Dhbzbd3n3ypoLzuKsf8Eyf0j9UgAYMkTlKr6LBx7390ikA7h545R59
+         fVFQQ13+GSMN4nfkUPFngemMju6YFAKpvvOS3ibpQ8XNcrEl43k14+q/QyJ1QpIoOxUW
+         d8Et8UL3e+7q7vgZ5eg4amH5i1Y3UGcftL6vR5c9OpCqZo5MQKjsswgMV1fPsuZT1szZ
+         uwQA==
+X-Forwarded-Encrypted: i=1; AKwUvBwlXKYYbx9ZJ+vOGrDuqhpux3AEo2Tz6MOjMBZKcglO7vFZmDaGz+8xlz+LwAQFB3eTbTXf3JpUCxCaqDg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mO2b7xGJqmLcv5b3glB4RleEtlm/QTxV6XEhrzBEXgnmjFJrte
+	sgPFzf42F0Wg8KZduyOKyKNoH+mLQc0/hfxdF2IO5h0FRa+zrcIETNj6
+X-Gm-Gg: AYBFou1lqU2KlctFJ1HavmS/UOwiFc760LTR5em1JTB0rMmjfwSlrFNeGClv7mmCHAl
+	Nnh7R/mcCeprLWvVWdu8ybvyPWtQ8HOy0obPeVVfWMqWarfQtpL7pwcf8tMkFUjbpWHo3AsAocV
+	0smLyjU73wxYt1FnhxfO9m/q1P1JasXdfH19PKfmyrFoOhAZZ031p25f7WddMw1biLoZM+CzjMB
+	cIG+paCcsw4XV9GVaPaE7zdN3IFTfVIjj/p9TySAHK2J/550q+vlA9dd2Ozuos5UzE7iQVoXrwh
+	eTfM6cVDKzOm0unm0p7fLDZfR8g4GRQPbrTUlLYT2SyBeh9ugFyv+sJU4l7angfjEIFBWa7PjzN
+	22OyRkxO2EH5tqMLC+m7Ehamkr7X3F6kMaDrsFGPsyMXOAWW2mRk5QlyU0Ck+oRp1JZsoYkha3U
+	+JIJomvEtLaYEMePPmcEHNlp8Pd78IqEcji6N5Uw0IVJ24S33okdrqP4umkf4lJR/e8mHtw2dut
+	AhKFw==
+X-Received: by 2002:a05:6102:3a0f:b0:79d:63bb:249b with SMTP id ada2fe7eead31-79d63bb25fbmr1122940137.13.1789437188656;
+        Mon, 14 Sep 2026 18:53:08 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-982b9fac504sm13361055241.8.2026.09.14.18.53.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 18:53:07 -0700 (PDT)
+Date: Mon, 14 Sep 2026 22:54:07 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: mdshahid03@gmail.com
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	bcm-kernel-feedback-list@broadcom.com, linux-iio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] iio: adc: bcm_iproc_adc: convert to devm-managed
+ APIs
+Message-ID: <aqilP8FSTmrLpqEQ@debian-BULLSEYE-live-builder-AMD64>
+References: <20260908172359.30003-1-mdshahid03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908172359.30003-1-mdshahid03@gmail.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-{RDMA,net}/mlx5: notify RoCE LAG speed change via driver event
+On 09/08, mdshahid03@gmail.com wrote:
+> From: Mohammad Shahid <mdshahid03@gmail.com>
+> 
+> Changes in v4:
+> - Move the ADC enable error-path cleanup simplification into the
+>   clock conversion patch.
+> - Simplify the ADC devm cleanup action.
+> - Restore the blank line after the copyright header.
+> 
 
-This adds a new MLX5_DRIVER_EVENT_LAG_SPEED_CHANGE driver event that the
-LAG layer raises from mlx5_lag_update_agg_speed() when the cached
-aggregate speed changes, and the mlx5_ib lag_event() handler turns it
-into an IB_EVENT_DEVICE_SPEED_CHANGE for the IB device.  A couple of
-questions below about the emit condition and the commit message.
-
-> In RoCE LAG we don't modify any max_tx_speed, so no
-> IB_EVENT_DEVICE_SPEED_CHANGE is ever fired.
-
-[Severity: Medium]
-Is this description of the existing behaviour accurate?  handle_port_change()
-in drivers/infiniband/hw/mlx5/main.c already dispatches this event, and it
-does so before the Ethernet link layer early return:
-
-	case MLX5_PORT_CHANGE_SUBTYPE_ACTIVE:
-	case MLX5_PORT_CHANGE_SUBTYPE_DOWN:
-	case MLX5_PORT_CHANGE_SUBTYPE_INITIALIZED:
-		if (ibdev->ib_active) {
-			struct ib_event speed_event = {};
-
-			speed_event.device = &ibdev->ib_dev;
-			speed_event.event = IB_EVENT_DEVICE_SPEED_CHANGE;
-			ib_dispatch_event(&speed_event);
-		}
-
-		/* In RoCE, port up/down events are handled in
-		 * mlx5_netdev_event().
-		 */
-		if (mlx5_ib_port_link_layer(&ibdev->ib_dev, port) ==
-					    IB_LINK_LAYER_ETHERNET)
-			return -EINVAL;
-
-So for the master device of a RoCE LAG whose own physical port changes
-state, the event is fired today.
-
-The gap this patch appears to close is narrower: aggregate changes driven by
-a port EQE that only lands on a peer mdev whose IB device was removed by
-mlx5_lag_remove_devices(), and bonding state changes (tracker tx_enabled,
-v2p remap) that update the cache asynchronously from the port EQE, where a
-consumer querying on the existing event can still read the old aggregate.
-
-Since the patch carries a Fixes: tag and is a stable candidate, would it be
-worth rewording this to describe the case that is actually uncovered instead
-of saying no such event is ever fired?
-
-> diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/mlx5/main.c
-> index 6ab7f945e712c..bd54af47eda73 100644
-> --- a/drivers/infiniband/hw/mlx5/main.c
-> +++ b/drivers/infiniband/hw/mlx5/main.c
-> @@ -3693,6 +3693,16 @@ static int lag_event(struct notifier_block *nb, unsigned long event, void *data)
->  			rdma_roce_rescan_port(ibdev, portnum + 1);
->  		}
->  		break;
-> +	case MLX5_DRIVER_EVENT_LAG_SPEED_CHANGE: {
-> +		struct ib_event speed_event = {};
-> +
-> +		if (!dev->ib_active)
-> +			break;
-> +		speed_event.device = ibdev;
-> +		speed_event.event = IB_EVENT_DEVICE_SPEED_CHANGE;
-> +		ib_dispatch_event(&speed_event);
-> +		break;
-> +	}
->  	default:
->  		return NOTIFY_DONE;
->  	}
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-> index fd91becd6848f..5e70ca3b09ba9 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
-> @@ -1503,8 +1503,24 @@ static int mlx5_lag_get_devices_max_speed(struct mlx5_lag *ldev, u32 *max_speed)
->  	return 0;
->  }
->  
-> +void mlx5_lag_notify_speed_change(struct mlx5_lag *ldev)
-> +{
-> +	struct lag_func *pf;
-> +	int idx;
-> +
-> +	idx = mlx5_lag_get_dev_index_by_seq(ldev, MLX5_LAG_P1);
-> +	if (idx < 0)
-> +		return;
-> +	pf = mlx5_lag_pf(ldev, idx);
-> +	if (!pf)
-> +		return;
-> +	blocking_notifier_call_chain(&pf->dev->priv.lag_nh,
-> +				     MLX5_DRIVER_EVENT_LAG_SPEED_CHANGE, NULL);
-> +}
-> +
->  void mlx5_lag_update_agg_speed(struct mlx5_lag *ldev)
->  {
-> +	u32 old_speed;
->  	u32 speed;
->  
->  	lockdep_assert_held(&ldev->lock);
-> @@ -1516,7 +1532,11 @@ void mlx5_lag_update_agg_speed(struct mlx5_lag *ldev)
->  	if (!speed && mlx5_lag_get_devices_max_speed(ldev, &speed))
->  		return;
->  
-> +	old_speed = ldev->agg_speed_mbps;
->  	ldev->agg_speed_mbps = speed;
-> +
-> +	if (mlx5_lag_is_roce_lag(ldev) && speed != old_speed)
-> +		mlx5_lag_notify_speed_change(ldev);
->  }
-
-[Severity: Medium]
-Should the emit be gated on mlx5_lag_is_roce_lag() here?  The same cached
-value that was just updated is also what the IB layer reports for the
-switchdev uplink representor, in mlx5_ib_query_port_speed_rep():
-
-	if (rep->vport == MLX5_VPORT_UPLINK) {
-		if (mlx5_lag_is_sriov(mdev))
-			return mlx5_ib_query_port_speed_from_bond(dev,
-								  port_num,
-								  speed);
-
-mlx5_lag_is_roce_lag() is a "no SR-IOV and legacy eswitch" predicate:
-
-	mlx5_ldev_for_each(i, 0, ldev) {
-		pf = mlx5_lag_pf(ldev, i);
-		roce_lag = roce_lag && !mlx5_sriov_is_enabled(pf->dev);
-	}
-	...
-		roce_lag = roce_lag && is_mdev_legacy_mode(pf->dev);
-
-so in exactly the SR-IOV/shared-FDB LAG configuration where the uplink
-representor reader is used, the gate is always false and no
-IB_EVENT_DEVICE_SPEED_CHANGE is delivered even though the value exported
-through QUERY_PORT_SPEED changed.
-
-The reasoning given in the commit message applies to that reader too, since
-mlx5_lag_modify_device_vports_speed() skips the uplink vport:
-
-		if (vport->vport == MLX5_VPORT_UPLINK)
-			continue;
-
-The path I have in mind is: both PFs in switchdev mode and bonded, LAG comes
-up in MLX5_LAG_MODE_SRIOV, then the peer PF link goes down and the bond work
-runs mlx5_modify_lag() -> mlx5_lag_set_vports_agg_speed() ->
-mlx5_lag_update_agg_speed(), which stores a different agg_speed_mbps with no
-notification, while the peer's physical port EQE never reaches this IB
-device's handle_port_change().
-
-Separately, mlx5_lag_notify_speed_change() only calls the MLX5_LAG_P1 device's
-priv.lag_nh, but each IB device registers on its own mdev's chain:
-
-	dev->lag_events.notifier_call = lag_event;
-	blocking_notifier_chain_register(&dev->mdev->priv.lag_nh,
-					 &dev->lag_events);
-
-In SR-IOV LAG the slave IB devices are not removed, so would the second PF's
-IB device be reachable at all here even if the gate were relaxed?
-
-[ ... ]
+For the whole series,
+Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
