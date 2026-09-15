@@ -1,262 +1,338 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBFE3B9D9D;
-	Tue, 15 Sep 2026 13:32:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36DB3B71AA;
+	Tue, 15 Sep 2026 13:33:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479177; cv=none; b=rc48/shk3me42ZaE402sx6sfKVXOAVMwvKMjoawYZ14hkDqpJLwF+7bJELN9Q3RGakQccp7r3QCL7ig6Uii2Det4NXIvYNIrAQujYatfAwhuf97syJn/Zgb6L4MRrWv/PLpVopXP5hmOW13wJWiSt8NTgUEO3NvH0xgyS7s2coY=
+	t=1789479202; cv=none; b=ZogHsNsH6+8uZB/WLCgRCULdKgX2KQOI7N62hBWxlBSSUKwZmJkG4oE8snVSq/kldO0Qd6+QCuCLpmJ8WxkLwJyFTn0dsIqanfCV/bRpJ06xS8lBDAlPZ6GIJ+7NWNijJ3QTf0JsQIj36Cb6hMS9GprSerG64gAPYbofOk6itXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479177; c=relaxed/simple;
-	bh=yWBtMuxeK7sbo0tMcx/sExdVrXaZxM0nuHtLXyJlP9Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=aoY9A8uYIUHjcgfQxgYD/9koW6aXeCyT3iRM8ptR+l7jlEjM3wmFwHHVXz7QlzKL2yiO9Tg9LpDZESOmUnf45IzMFsagHtpaJd1RAZ31NylxRfNqj835grkm0FSY+tf0l/XQM5vjSSGDFVcs8c3F4Dl5UOvCmcfZf0ztmnzuRF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aDqZ8dTq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789479202; c=relaxed/simple;
+	bh=b0peGYdWEEsh9OK0MX3VmPtU+5Bvci5RSC+YS7jV+f4=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=s47pPYVtb0Twtx6LXcCbumZzSVhmy67ygXVweq2FvM5N/8Km7U10DRRYgF0ulfWlr0ICusH6pEmLy45qe1934bZui3Pcp5Qfg5/FpWxhPFp07eoqa2SLLyykspgHB1/rcDgokywV+THvTfKLTZTdcwqbfwVYarDpcCUBYKFeR14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HANA76hn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aDqZ8dTq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018821F000FF;
-	Tue, 15 Sep 2026 13:32:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HANA76hn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D391F000FF;
+	Tue, 15 Sep 2026 13:33:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789479176;
-	bh=7CjjBVJ41zEYOrvRvY5GZQku+YykUi3656ahu5D9S0k=;
-	h=Date:From:To:Cc:Subject;
-	b=aDqZ8dTq6U3pTePDGu9UQfBooL1Uo4Ive2XEVcaXHHg0IPtqcc7/evFTXrCT69JnR
-	 96kEf40JScVGam8c/+wXup7HC3g/Krtois0CvIgxyPuWzL7f1qSIj35VzbhI6nso94
-	 M/eW8ZdQ7vIL+FuqXEtzR4IDLzfe6LTgmL4ELOI/njkJ1v4AHBHuaaSgu5vx/JCF9L
-	 jDQLYbHvX0JKfrGRG0G2TuCXyF0pLNNDEtK1XTgL5DG3tGZT93jNjt6yafticrGbSd
-	 QrB7MTd4WKfm47L9kJcdw8d3S73LNWvN6q+nrJM6Hn/Tdi3EudOQEIqGtlSQKI4mZn
-	 M+w8ODXtyxmXQ==
-Date: Tue, 15 Sep 2026 14:32:52 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: JonasZhou <jonaszhou-oc@zhaoxin.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>
-Subject: linux-next: manual merge of the mm-nonmm-unstable tree with the mm
- tree
-Message-ID: <aqlJBMANnd0-yQIs@sirena.org.uk>
+	s=k20260515; t=1789479200;
+	bh=Da33iyX8RrUrhHPC36ssZZP7j4KMf25stiTxEiTRjDU=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=HANA76hn+RCjD4WFujdVFLp+r7nx14r2j+1Nwvbt+QhrcjXcd0R6HRif0YgSlAb0e
+	 FpDWKe0S3k8QV5X6Ycl51OskSSp93MiXwn4jRtFI3wwqmSuyQDTzOp7TDDh5gMq6r0
+	 vDnAMqq7rK1qd9sKu54VGjSOOIJmxrfyNiV0GAV4hMHZLcFVCZA4wXothga+8gupSp
+	 4VUJheuA3sj0cPQJBL+9ZxeSFYNr4M7E5VSIlG3vx4L91yHCkKR/T0qS/LyLRYLMOs
+	 45xhbManJxeliLDDEfVEaRQ1AsO9NeYiAXxC6Ey44kCfaN1X6Y0WrRzS4udvCq8FyD
+	 Mzhf2wHc8m1ZA==
+Content-Type: multipart/mixed; boundary="===============7419760775756817736=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HRvDUwmlzWmCmHhb"
-Content-Disposition: inline
+Message-Id: <89f9e7223c18671a3a7025c9b3492c7e92539d00a289c2d83610918f8c53fe0f@mail.kernel.org>
+In-Reply-To: <93289af4317b57caa4e393d73fe6c786b24a4c2a.1789475073.git.zhuhui@kylinos.cn>
+References: <93289af4317b57caa4e393d73fe6c786b24a4c2a.1789475073.git.zhuhui@kylinos.cn>
+Subject: Re: [PATCH bpf-next v11 2/2] selftests/bpf: Add memcg async reclaim test
+From: bot+bpf-ci@kernel.org
+To: hui.zhu@linux.dev,roman.gushchin@linux.dev,inwardvessel@gmail.com,shakeel.butt@linux.dev,akpm@linux-foundation.org,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,shuah@kernel.org,baohua@kernel.org,geliang@kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-mm@kvack.org,linux-kselftest@vger.kernel.org
+Cc: zhuhui@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 15 Sep 2026 13:33:19 +0000 (UTC)
+
+--===============7419760775756817736==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> diff --git a/tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c b/tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c
+> new file mode 100644
+> index 000000000000..7c7d299b3b28
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c
+> @@ -0,0 +1,779 @@
+
+[ ... ]
+
+> +static int real_test_child_work(const char *cgroup_path, char *data_filename,
+> +				char *time_filename, int read_times)
+> +{
+> +	struct timespec start, end;
+> +	double elapsed;
+> +	FILE *fp;
+> +
+> +	if (join_parent_cgroup(cgroup_path))
+> +		return CHILD_EXIT_JOIN_CGROUP;
+> +
+> +	clock_gettime(CLOCK_MONOTONIC, &start);
+> +
+> +	if (write_file(data_filename))
+> +		return CHILD_EXIT_WRITE_FILE;
+> +
+> +	if (read_file(data_filename, read_times))
+> +		return CHILD_EXIT_READ_FILE;
+> +
+> +	clock_gettime(CLOCK_MONOTONIC, &end);
+> +
+> +	if (!time_filename)
+> +		return CHILD_EXIT_OK;
+> +
+> +	elapsed = (end.tv_sec - start.tv_sec) +
+> +		  (end.tv_nsec - start.tv_nsec) / 1000000000.0;
+> +
+> +	fp = fopen(time_filename, "w");
+> +	if (!fp)
+> +		return CHILD_EXIT_TIME_FILE;
+> +	fprintf(fp, "%.6f", elapsed);
+> +	fclose(fp);
+> +
+> +	return CHILD_EXIT_OK;
+> +}
+> +
+> +static int get_time(char *time_filename, double *time)
+> +{
+> +	int ret = -1;
+> +	FILE *fp;
+> +	char buf[64];
+> +
+> +	fp = fopen(time_filename, "r");
+> +	if (!ASSERT_OK_PTR(fp, "fopen"))
+> +		goto out;
+> +
+> +	if (!ASSERT_OK_PTR(fgets(buf, sizeof(buf), fp), "fgets"))
+> +		goto cleanup;
+
+Is ASSERT_OK_PTR valid for checking fgets() return values? fgets()
+returns NULL at end-of-file without setting errno, so ASSERT_OK_PTR (which
+expands to libbpf_get_error()) would read from the ambient errno rather
+than detecting the EOF. If the timing file is empty, fgets() returns NULL
+with errno still zero from the previous successful fopen(), causing
+ASSERT_OK_PTR to pass silently and execution to fall through to
+sscanf(buf, "%lf", time) with buf uninitialized.
+
+The empty-file case is reachable: real_test_child_work() does not check
+the result of fprintf()/fclose() on the timing file, so a child whose
+write failed (ENOSPC on /tmp after writing two 32 MB workload files) still
+exits CHILD_EXIT_OK, and run_high_low_workload() then calls get_time() on
+a zero-length file.
+
+> +
+> +	if (sscanf(buf, "%lf", time) != 1) {
+> +		PRINT_FAIL("sscanf %s", buf);
+> +		goto cleanup;
+> +	}
+
+[ ... ]
+
+> +/*
+> + * test_progs hijacks stdout and only prints the captured log when the
+> + * test fails, so benchmark numbers go straight to the real stdout to
+> + * keep them from drowning in ASSERT output.
+> + */
+> +static void bench_printf(const char *fmt, ...)
+> +{
+> +	va_list ap;
+> +
+> +	va_start(ap, fmt);
+> +	vfprintf(env.stdout_saved ?: stdout, fmt, ap);
+> +	va_end(ap);
+> +}
+
+A subsystem pattern flags this as potentially concerning: bench_printf()
+writes benchmark text straight to env.stdout_saved, bypassing the test
+framework's stdout hijacking. Outside test_progs.c itself this is the only
+writer of env.stdout_saved in the whole selftests/bpf tree - every other
+test writes through the hijacked stdout so the framework owns when and
+whether the text appears.
+
+The effect is free-form lines interleaved directly into the stream from
+which runners and CI parse the per-test pass/fail records, on a path
+enabled only by an environment variable, so the same binary produces two
+different output shapes. The benchmark timings emitted are informational
+(not pass/fail verdicts), the path is gated behind
+TEST_MEMCG_ASYNC_RECLAIM_BENCH=1, and prog_tests/ files run under
+test_progs rather than kselftest.h. Would dumping benchmark numbers via
+the framework's normal stdout keep the output under framework control?
+
+[ ... ]
+
+> +void test_memcg_async_reclaim(void)
+> +{
+> +	u64 high_cgroup_id, low_cgroup_id;
+> +	double high_time = 0.0, low_time = 0.0;
+> +	double base_high_time = 0.0, base_low_time = 0.0;
+> +	struct memcg_async_reclaim *skel = NULL;
+> +	int err, bench;
+> +
+> +	bench = !!getenv("TEST_MEMCG_ASYNC_RECLAIM_BENCH");
+> +
+> +	err = setup_high_low_cgroups(&high_cgroup_id, &low_cgroup_id);
+> +	if (!ASSERT_OK(err, "setup_high_low_cgroups reclaim"))
+> +		return;
+> +
+> +	/*
+> +	 * Optional baseline for the benchmark numbers below: run the
+> +	 * same workload once without the BPF program, so the log can
+> +	 * report how much async reclaim improved the pressured cgroup.
+> +	 */
+> +	if (bench) {
+> +		err = run_high_low_workload(&base_high_time, &base_low_time,
+> +					    READ_TIMES);
+> +		if (!ASSERT_OK(err, "run_high_low_workload baseline"))
+> +			goto out;
+> +	}
+> +
+> +	err = setup_bpf(high_cgroup_id, low_cgroup_id, &skel);
+> +	if (!ASSERT_OK(err, "setup_bpf"))
+> +		goto out;
+> +
+> +	err = run_high_low_workload(&high_time, &low_time, READ_TIMES);
+> +	if (!ASSERT_OK(err, "run_high_low_workload reclaim"))
+> +		goto out;
+> +
+> +	/*
+> +	 * The timing comparison below alone cannot distinguish a working
+> +	 * reclaim from a no-op one, so require that the BPF program
+> +	 * actually reclaimed memory from the low cgroup.
+> +	 */
+> +	if (!ASSERT_GT(skel->bss->reclaim_calls, 0, "reclaim_calls"))
+> +		goto out;
+> +	if (!ASSERT_GT(skel->bss->reclaimed_bytes, 0, "reclaimed_bytes"))
+> +		goto out;
+> +
+> +	/*
+> +	 * The timing comparison is a benchmark and too flaky to fail CI
+> +	 * runs, so it only logs the numbers; the counters above already
+> +	 * proved that the BPF program reclaimed memory.
+> +	 */
+> +	if (bench && base_high_time > 0.0) {
+> +		double speedup = base_high_time / high_time;
+> +
+> +		bench_printf("memcg_async_reclaim: baseline high=%f low=%f, "
+> +			     "reclaim high=%f low=%f, speedup=%.2fx\n",
+> +			     base_high_time, base_low_time,
+> +			     high_time, low_time, speedup);
+> +	}
+> +	else if (high_time >= low_time)
+> +		printf("memcg_async_reclaim: high cgroup not improved: high=%f low=%f\n",
+> +		       high_time, low_time);
+
+Can this printf() output ever be read? test_progs redirects stdout and
+stderr to an in-process memstream, and dump_test_log() only prints that
+buffer when the test fails. Both printf() calls added by the patch are
+emitted on paths where the test then passes, so their output is discarded.
+
+The same file documents this behaviour and works around it for the
+benchmark numbers through bench_printf() and env.stdout_saved. Should
+these two informational printf() calls go through bench_printf() as well,
+or be dropped?
+
+[ ... ]
+
+> +void test_memcg_async_reclaim_dying(void)
+> +{
+> +	u64 trigger_cgroup_id, target_cgroup_id;
+> +	u64 calls_before, bytes_before;
+> +	char data_file[PATH_MAX] = "";
+> +	struct reclaim_events_seen seen = {};
+> +	struct memcg_async_reclaim *skel = NULL;
+> +	struct ring_buffer *rb = NULL;
+> +	pid_t reader_pid = -1;
+> +	int err, fd, i;
+> +
+> +	err = setup_dying_cgroups(&trigger_cgroup_id, &target_cgroup_id);
+> +	if (!ASSERT_OK(err, "setup_dying_cgroups"))
+> +		return;
+> +
+> +	err = setup_bpf(trigger_cgroup_id, target_cgroup_id, &skel);
+> +	if (!ASSERT_OK(err, "setup_bpf"))
+> +		goto out;
+> +
+> +	rb = ring_buffer__new(bpf_map__fd(skel->maps.reclaim_events),
+> +			      on_reclaim_event, &seen, NULL);
+> +	if (!ASSERT_OK_PTR(rb, "ring_buffer__new"))
+> +		goto out;
+> +
+> +	snprintf(data_file, sizeof(data_file),
+> +		 "%s/memcg_async_dying_XXXXXX", workload_files_dir());
+> +	fd = mkstemp(data_file);
+> +	if (!ASSERT_GE(fd, 0, "mkstemp"))
+> +		goto out;
+> +	close(fd);
+> +
+> +	reader_pid = spawn_keepalive_reader(data_file);
+> +	if (!ASSERT_GT(reader_pid, 0, "fork keepalive reader"))
+> +		goto out;
+
+Could the keepalive reader child's failure modes be diagnosed?
+spawn_keepalive_reader() reports its failures through distinct exit codes
+(CHILD_EXIT_JOIN_CGROUP, CHILD_EXIT_WRITE_FILE, CHILD_EXIT_READ_FILE),
+but the caller only checks that fork() succeeded. At cleanup the status is
+discarded:
+
+	kill(reader_pid, SIGKILL);
+	(void)waitpid(reader_pid, NULL, 0);
+
+If the child dies immediately - for example join_parent_cgroup() fails, or
+write_file() cannot create the 32 MB file - the parent still spends 50 *
+100ms in the first poll loop and then fails with ASSERT_GT(seen.called, 0,
+"reclaim events"), pointing at the kernel rather than at the child.
+
+The child's own diagnostics do not survive either: test_progs sets stdout
+and stderr to a per-process memstream, so log_err() output from
+join_parent_cgroup() and the fprintf() in read_file() land in the forked
+child's private copy of that buffer and are lost at _exit().
+
+The file already has the machinery to handle this - child_exit_str() and
+the WIFEXITED/WEXITSTATUS handling in run_high_low_workload(). Would a
+waitpid(reader_pid, &status, WNOHANG) probe before or after the poll loop,
+reported through child_exit_str(), make this diagnosable?
+
+> +
+> +	/* Wait for reclaim rounds to reach the live target cgroup. */
+> +	for (i = 0; i < EVENT_POLL_ROUNDS && !seen.called; i++) {
+> +		err = ring_buffer__poll(rb, EVENT_POLL_TIMEOUT_MS);
+> +		if (!ASSERT_GE(err, 0, "ring_buffer__poll"))
+> +			goto out;
+> +	}
+> +	if (!ASSERT_GT(seen.called, 0, "reclaim events"))
+> +		goto out;
+> +
+> +	remove_cgroup(CG_DYING_TARGET_DIR);
+> +
+> +	usleep(DYING_SETTLE_US);
+> +	seen = (struct reclaim_events_seen){};
+> +
+> +	calls_before = skel->bss->reclaim_calls;
+> +	bytes_before = skel->bss->reclaimed_bytes;
+> +
+> +	/* Wait for a reclaim round to report the removed target. */
+> +	for (i = 0; i < EVENT_POLL_ROUNDS &&
+> +		    !seen.skipped_dying && !seen.target_gone; i++) {
+> +		err = ring_buffer__poll(rb, EVENT_POLL_TIMEOUT_MS);
+> +		if (!ASSERT_GE(err, 0, "ring_buffer__poll"))
+> +			goto out;
+> +	}
+> +
+> +	if (!seen.skipped_dying && !seen.target_gone) {
+> +		PRINT_FAIL("no reclaim round hit the removed cgroup within "
+> +			   "the poll window");
+> +		goto out;
+> +	}
+> +
+> +	if (!ASSERT_EQ(skel->bss->reclaim_calls, calls_before, "reclaim_calls"))
+> +		goto out;
+> +	if (!ASSERT_EQ(skel->bss->reclaimed_bytes, bytes_before, "reclaimed_bytes"))
+> +		goto out;
+
+[ ... ]
 
 
---HRvDUwmlzWmCmHhb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Hi all,
-
-Today's linux-next merge of the mm-nonmm-unstable tree got a conflict in:
-
-  mm/vmalloc.c
-
-between commits:
-
-  f71e94f83c2a2 ("mm/vmalloc: ase dedicated unbound workqueues for vmap dra=
-in")
-  662d2275549a8 ("mm/vmalloc: avoid false sharing with drain_vmap_work")
-
-=66rom the mm tree and commit:
-
-  75b41adb019c4 ("mm/vmalloc: ase dedicated unbound workqueues for vmap dra=
-in")
-
-=66rom the mm-nonmm-unstable tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined mm/vmalloc.c
-index 859e6d2d57a38,89c327a6ce7d9..0000000000000
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@@ -1090,12 -1090,7 +1090,12 @@@ RB_DECLARE_CALLBACKS_MAX(static, free_v
-  static void reclaim_and_purge_vmap_areas(void);
-  static BLOCKING_NOTIFIER_HEAD(vmap_notify_list);
-  static void drain_vmap_area_work(struct work_struct *work);
- -static DECLARE_WORK(drain_vmap_work, drain_vmap_area_work);
- +/*
- + * Keep the work item, whose pending bit is updated by freeing CPUs,
- + * away from vmap metadata read by allocation and free paths.
- + */
- +static __cacheline_aligned_in_smp
- +DECLARE_WORK(drain_vmap_work, drain_vmap_area_work);
-  static struct workqueue_struct *drain_vmap_helpers_wq;
-  static struct workqueue_struct *drain_vmap_wq;
- =20
-@@@ -2452,8 -2447,7 +2452,8 @@@ static bool __purge_vmap_area_lazy(unsi
-  static void reclaim_and_purge_vmap_areas(void)
- =20
-  {
- -	mutex_lock(&vmap_purge_lock);
- +	if (!mutex_trylock(&vmap_purge_lock))
- +		return;
-  	purge_fragmented_blocks_allcpus();
-  	__purge_vmap_area_lazy(ULONG_MAX, 0, true);
-  	mutex_unlock(&vmap_purge_lock);
-@@@ -3138,7 -3132,7 +3138,7 @@@ EXPORT_SYMBOL(vm_map_ram)
- =20
-  static struct vm_struct *vmlist __initdata;
- =20
- -static inline unsigned int vm_area_page_order(struct vm_struct *vm)
- +static inline unsigned int vm_area_page_order(const struct vm_struct *vm)
-  {
-  #ifdef CONFIG_HAVE_ARCH_HUGE_VMALLOC
-  	return vm->page_order;
-@@@ -3147,7 -3141,7 +3147,7 @@@
-  #endif
-  }
- =20
- -unsigned int get_vm_area_page_order(struct vm_struct *vm)
- +unsigned int get_vm_area_page_order(const struct vm_struct *vm)
-  {
-  	return vm_area_page_order(vm);
-  }
-@@@ -3372,18 -3366,14 +3372,18 @@@ struct vm_struct *remove_vm_area(const=
-=20
-  }
- =20
-  static inline void set_area_direct_map(const struct vm_struct *area,
- -				       int (*set_direct_map)(struct page *page))
- +				       int (*set_direct_map)(struct page *page,
- +							     unsigned int nr))
-  {
- -	unsigned long i;
- +	unsigned int nr =3D (1U << vm_area_page_order(area));
- =20
- -	/* HUGE_VMALLOC passes small pages to set_direct_map */
- -	for (i =3D 0; i < area->nr_pages; i++)
- -		if (page_address(area->pages[i]))
- -			set_direct_map(area->pages[i]);
- +	for (unsigned long i =3D 0; i < area->nr_pages; i +=3D nr) {
- +		if (page_address(area->pages[i])) {
- +			int err =3D set_direct_map(area->pages[i], nr);
- +
- +			WARN_ON_ONCE(err);
- +		}
- +	}
-  }
- =20
-  /*
-@@@ -3890,7 -3880,7 +3890,7 @@@ static void *__vmalloc_area_node(struc
-  	unsigned long size =3D get_vm_area_size(area);
-  	unsigned long array_size;
-  	unsigned long nr_small_pages =3D size >> PAGE_SHIFT;
- -	unsigned int page_order;
- +	unsigned int page_order =3D page_shift - PAGE_SHIFT;
-  	unsigned int flags;
-  	int ret;
- =20
-@@@ -3918,6 -3908,9 +3918,6 @@@
-  		goto fail;
-  	}
- =20
- -	set_vm_area_page_order(area, page_shift - PAGE_SHIFT);
- -	page_order =3D vm_area_page_order(area);
- -
-  	/*
-  	 * High-order nofail allocations are really expensive and
-  	 * potentially dangerous (pre-mature OOM, disruptive reclaim
-@@@ -3972,7 -3965,6 +3972,7 @@@
-  		goto fail;
-  	}
- =20
- +	set_vm_area_page_order(area, page_order);
-  	return area->addr;
- =20
-  fail:
-@@@ -4035,12 -4027,6 +4035,12 @@@ static gfp_t vmalloc_fix_flags(gfp_t fl
-   * %__GFP_SKIP_KASAN can be used to skip unpoisoning of mapped pages
-   * (when prot=3D%PAGE_KERNEL).
-   *
- + * %VM_ALLOW_HUGE_VMAP allocates huge pages when possible and falls back =
-to
- + * base pages if huge page allocation fails.
- + *
- + * %VM_REQUIRE_HUGE_VMAP implies %VM_ALLOW_HUGE_VMAP and fails instead of
- + * silently falling back to base pages.
- + *
-   * Can not be called from interrupt nor NMI contexts.
-   * Return: the address of the area or %NULL on failure
-   */
-@@@ -4066,10 -4052,6 +4066,10 @@@ void *__vmalloc_node_range_noprof(unsig
-  		return NULL;
-  	}
- =20
- +	/* VM_REQUIRE_HUGE_VMAP implies VM_ALLOW_HUGE_VMAP */
- +	if (vm_flags & VM_REQUIRE_HUGE_VMAP)
- +		vm_flags |=3D VM_ALLOW_HUGE_VMAP;
- +
-  	if (vmap_allow_huge && (vm_flags & VM_ALLOW_HUGE_VMAP)) {
-  		/*
-  		 * Try huge pages. Only try for PAGE_KERNEL allocations,
-@@@ -4086,9 -4068,6 +4086,9 @@@
-  		align =3D max(original_align, 1UL << shift);
-  	}
- =20
- +	if ((vm_flags & VM_REQUIRE_HUGE_VMAP) && shift =3D=3D PAGE_SHIFT)
- +		return NULL;
- +
-  again:
-  	area =3D __get_vm_area_node(size, align, shift, VM_ALLOC |
-  				  VM_UNINITIALIZED | vm_flags, start, end, node,
-@@@ -4163,7 -4142,7 +4163,7 @@@
-  	return area->addr;
- =20
-  fail:
- -	if (shift > PAGE_SHIFT) {
- +	if (shift > PAGE_SHIFT && !(vm_flags & VM_REQUIRE_HUGE_VMAP)) {
-  		shift =3D PAGE_SHIFT;
-  		align =3D original_align;
-  		goto again;
-@@@ -5548,20 -5527,10 +5548,20 @@@ vmap_node_shrink_scan(struct shrinker *
-  {
-  	struct vmap_node *vn;
- =20
- -	guard(mutex)(&vmap_purge_lock);
- +	/*
- +	 * This shrinker is invoked from direct reclaim where memory
- +	 * pressure is already high.  Blocking on vmap_purge_lock here
- +	 * can deadlock the system: the lock holder may be blocked in
- +	 * flush_work() waiting for a worker that is stuck in this same
- +	 * reclaim path trying to acquire the same lock.  Use trylock
- +	 * to avoid this; skipping a pool decay cycle is harmless.
- +	 */
- +	if (!mutex_trylock(&vmap_purge_lock))
- +		return SHRINK_STOP;
-  	for_each_vmap_node(vn)
-  		decay_va_pool_node(vn, true);
- =20
- +	mutex_unlock(&vmap_purge_lock);
-  	return SHRINK_STOP;
-  }
- =20
-
---HRvDUwmlzWmCmHhb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqpSQMACgkQJNaLcl1U
-h9Du4gf/YVJS4teLPtDMlOtj5eLI9cgJARnF6NzGJp39Tor5d94esJkhN7FbuxSs
-DsOECSkXcuXd4l4IP3I7foQt6jfuKGCbuFnfXDBp9B1s5B3uZFb0UkxIlp/6OJ48
-mI8mW6JJmmKfHG6vuZe6U10YhprGxU/HYLfDmhFdgACJHOrbykklAS3qcmbtWkx2
-9um2vQkg61M9drs8Jd3cvDAEiH+tUU17JulWe0QmKcjxX//Xv4XLbIvHXnSsBps5
-Kh9bGkJ5irdkpEAQBXEhIFbxrPEaQz//3tayaB/XyTZjiNn8999UbzkM3jhtZ9Py
-8RHlrfbq0ETf2JS0RcmsL++mZUNvBQ==
-=EjCf
------END PGP SIGNATURE-----
-
---HRvDUwmlzWmCmHhb--
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34970614671
+--===============7419760775756817736==--
