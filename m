@@ -1,90 +1,77 @@
-Received: from mail-oo2-f35.google.com (mail-oo2-f35.google.com [74.125.231.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171B54BE445
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:14:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4842C440A28
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:15:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789496095; cv=none; b=IAuAX29rPQdPuIukL2+kvnzBDwcnKHg9giTLuPxSmqvsRutaDK6l3dG04h/mQZ9ARyn3UB75nAraQH0QRChltOxvg6PSIg+qgb3sU5JOPAJYhX4IGx/S7rKYGWy8AoaJp7BkWfNHXxnsQql352sjuhJ6jLjpPXylza1z76MHMHA=
+	t=1789496121; cv=none; b=T53clui/ydJHbQKb8Ci+sXgLQa1sbkZBB8FZClc0+FS+yVSB1qZhBACyL199brhUkoRJRZURiHwhi73/ik0mMEXl7R2b1yzJ4bZ1uQgC/D8v5WVk4BmSS7zvpn9ZOVjyV/Kp68C8FyijcpFCQTzmINJj/sVrvVxOs2EBNTdY8Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789496095; c=relaxed/simple;
-	bh=Zqxttmoi5XngJammIPSIG6qDpq3OZ3kZrZhzLN5W27E=;
+	s=arc-20240116; t=1789496121; c=relaxed/simple;
+	bh=Br0uOS1hjjoLwdqItpas3WKnH/cbZHDOQUl892KMCdk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d3ynAmwQwyfNvHS2xJphcmF/l5gfrSNg/h+aNAxNwhYvuYzW9bulwFLfN5rPqwsK7MoMAuqjgK3vXaDdahYXrrtFWtlun5DDiTfnMEOTMXi/+cUXONGzMeJfh6TLODwX7UilGToidzSS7t/YXL0CnDMyu/CFx6HvKU3HYU04j5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=abmd9RTM; arc=none smtp.client-ip=74.125.231.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=M7HfTGvsFbOpXaHnk5R+xV7G0BybhNrjjk8uduCPhLmeCyCKK3YgxZt5nQhmy/e053PkR7P/GRj1lVD/fMQFe2WkPEjE9oYS6qFEpFMJP17l0op8Z79ZM7l2bI5OdDB/KsnjOfSpFBkci3cJzEX0PDjUDPYTSuPKwJwztWlvI1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sf4VVuCq; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="abmd9RTM"
-Received: by mail-oo2-f35.google.com with SMTP id 006d021491bc7-6b1ae736c64so98401eaf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:14:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789496092; x=1790100892; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F+aeTxhSeWnPEIt7QVJiINGNEEjF9/lqEswuPk0DNjA=;
-        b=abmd9RTMWEHC4D1pnO27SnbXu1y/pm4qIDT0WA0sc99tY2QaXG3uYveQKYQ61uvPgK
-         F9y2zn7s+lKxQH6hF9aKGxtKyNRg1gfLk+mbjLmZCn4ttFjd4jmttZwT3Khhy4434JhE
-         b4ZlrsD05U9pLCuImu77A+Pjal2TCcMj5R84x/B/l8X24WtfKYx4gc0pTEtevr2t6edH
-         jtqPIQpLKL1fM879/+tjEuyv/sPqH21ULXSgklwKlnA5Qgh/EfThqOit6TivJwrBzMl3
-         z/ECNn9yCvcin6dxkq2dakQDKDnBdPvfGT0E9HaDO2ylfQKEGIRwrU6NTgKIOT5vp0ru
-         4K9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789496092; x=1790100892;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F+aeTxhSeWnPEIt7QVJiINGNEEjF9/lqEswuPk0DNjA=;
-        b=aNPgrynnjoJvoEkjHRnDpxVjJKoCOgj/GytffwrYywgumwxIvMqCev8CGXp7za5sXI
-         7bzxpwMKdgG+EfRR8PFADGi8yPys4bVZtsryjmODWrPJNIBIIpMixRJ+8nH4ynuWPVmk
-         Df7tMR74MQVCqFXslbP63lrQ+qtTU0tIoA74SOUy5UnEkyZWcrLLbNNhCQ4c1w9W36/z
-         i02aIGS35JzoeIAzkHLyJzbuukD9uJ/d2MLhv8YcGSAeuFPwK91Y1pCOvheVIAccYvYp
-         /cst6CzQKrUS3sxsqErMKzSZFTHKXfwpE4loTErTDKwXpKa4nGYn7FoNpWyhlU6qZRDo
-         cdog==
-X-Forwarded-Encrypted: i=1; AKwUvBx4eJkgqXiwZWztlMLbnqZAJPz+aMFfKzDQnCw4fu5bvVWGVVu0bOWZSAVQtOvUDOH/DSowa0bE/M9UN0o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSV0x3D3ddbGzSNLCrYsBgzZXnaRvr1l/fuMVv2vw/sJiSzvc/
-	FNF04Ewrev+7HYtakqIh1EbCiRBiIBK87wyrgpy8w2PKVMz/pVAcLM1R
-X-Gm-Gg: AYBFou3C04EnZFYwKF/uRSWw4mPH66hG0B/Os1htoScq38QnsLSd5mAHoF3Er1sWNtG
-	M9Y9zub8Q8t3I6XtNOVanuqTszb9Naxrhoq4UKF4y+cNrGZ+3pJhnmple0G88U01yGAXwNBLDVj
-	ftSiX1wPuSQ2hEN3YczZ/MNi5ScfQZmRNgN3hzGu6Lk4jraa+ThWh78slpjtXs0uoOqQ+SplJT8
-	l9h293sQSo0+kpUhD03qcz7o0axa9DVQu+Tx6AbyR2oxMZDkDJ6dTnqK1FNneRX3JEhdr0YaK2t
-	nKFQ69brxc/ruj/V3uElLZ9EojWDISIW9G5INGjE4f89wiaC22N7oaJbnBVu3oRV3+HRCVSYjFM
-	nN2EbqGm1rBo2CxZQpOWaRXqF9k+aw/yina9tmSb43oIitGKu49pO1u22c/fgTmN/cbmxLc/A3x
-	VeyJhMl24R4qcuyz0yGj6cm85pvdUI4kGyYkaNi3Eyi61FmrrSHJ3O+HwupiwAh6ZPEtHsVSbbB
-	Tsy19475H3AQgm7L5lSPVgV1YOZRFA=
-X-Received: by 2002:a05:6820:1c94:b0:6b7:8415:d780 with SMTP id 006d021491bc7-6c738db60e1mr1840407eaf.43.1789496091809;
-        Tue, 15 Sep 2026 11:14:51 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:70::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80b049fb51asm115974a34.1.2026.09.15.11.14.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 11:14:51 -0700 (PDT)
-Date: Tue, 15 Sep 2026 11:14:47 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-	virtualization@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	sargun@sargun.me, jlinbox@meta.com,
-	Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next 3/6] vsock/virtio: support guest device network
- namespace
-Message-ID: <aqmLFzcF3MmwRITz@devvm29614.prn0.facebook.com>
-References: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
- <20260902-vsock-guest-ns-v1-3-9995383e9a8b@meta.com>
- <aqlkWGyoUYrgQUzz@sgarzare-redhat>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sf4VVuCq"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FI1ZCX3831659;
+	Tue, 15 Sep 2026 18:14:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=uvA5/TO5P6M2Idzun76aKSR7Ui7dxa
+	oPG4sX66ahxek=; b=sf4VVuCqDoK7FQEDSt+IONGJTetoikI08XcuAKQnYNg9VD
+	VdXJtrpzh3O3dL6A28beHZJh6ww+E3tWA5QmrJj7rE+VU3ZL8ygm5MmckWBEBqc6
+	xIoWWkVAL0P406zI344YrDpl2KP4vmnctwgtfROWbyASxHM/Rt/s7LTuCOMfcBMZ
+	rmuwVhltwBwB0BL81k4UibtIOnjI0Z7cLLhr4JDmVf9dXqoYirejxioPmBwhEFLE
+	HS4Z2DmzolDsPRLE+xc/hcdLZwfu2IjwhsAcIhNIVNpB3PGe22OgjHW5ykd8uSxN
+	EPtQprJVoavsw9IkXEr7yaiCyOaTJ5DOg/7zjNvQ==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxdq8mda-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 18:14:55 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68FHphnL113848;
+	Tue, 15 Sep 2026 18:14:54 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gpyxsaps1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 18:14:54 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68FIEo9n42402140
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 15 Sep 2026 18:14:50 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B1FEB2004B;
+	Tue, 15 Sep 2026 18:14:50 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B5B4920049;
+	Tue, 15 Sep 2026 18:14:48 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue, 15 Sep 2026 18:14:48 +0000 (GMT)
+Date: Tue, 15 Sep 2026 23:52:34 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Geoff Levand <geoff@infradead.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] powerpc/ps3: Simplify control flow in
+ ps3_{virq,irq_plug}_setup()
+Message-ID: <20260915235154.256e29f4-4d-amachhiw@linux.ibm.com>
+Mail-Followup-To: Thorsten Blum <blum@kernel.org>, 
+	Geoff Levand <geoff@infradead.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+References: <20260914215900.84712-2-blum@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,144 +80,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqlkWGyoUYrgQUzz@sgarzare-redhat>
+In-Reply-To: <20260914215900.84712-2-blum@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDI2MyBTYWx0ZWRfX5Ix5HMNypj3Q
+ yd/pQXofY8+OYzdfD9kcMniI1L9Ia+PTUE/CsQVAcVxXVS+8dmqkgjTM4rxWiZaPnhfKTQCBXZF
+ EBlijAgHCT3MeJnRlV4XExcqQgH28Avm5OXU/0xd4X4ocwxctA1YijFvJbEgqQcRVZfycAdZpNH
+ cOwzmWDu+ZyHzjCN6RjmUmVp0I0NNSJm3QHxvW8usHt9UVNEmKN3qrYPM66AXFudKCmquISYUKW
+ pxCJ5BFXnIITnFHXNiYdidf/QCZe0CCMYx7vqwAu6UstJ9/FWzk3BFXLNb3We82d9ltTMu96zc3
+ 6HwJ5ti7jClSvHrc9KDY/9Q9fQENXqbEFKqKdEb4n7UPgul6gQUqx8Vp8on1qDiHat4DBGtjXDH
+ JDsOpZGJiuO3uGjG1uq6Mocfe9+eJozv7s9SKhsV+tocmioeTub5wvRyqJGisefKrXQ5CKH4q+Z
+ 7wtmUTtPdx9NgaTNGDA==
+X-Proofpoint-GUID: tH6YjG9xqc7pUooKYDQJj6BrSpKMbia6
+X-Authority-Analysis: v=2.4 cv=DobDa2/+ c=1 sm=1 tr=0 ts=6aa98b20 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=d86c0OqMtwPQ0Kf90R0A:9 a=CjuIK1q_8ugA:10 a=L9aGTTkzY1kA:10
+X-Proofpoint-ORIG-GUID: kxIfSZc-r_7RBTAsKrbHm9ZJ9N5hVPl-
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDI2MyBTYWx0ZWRfX89glYB6yDMXP
+ xgpiRnEzudIwcOh3euq12bGMlr5uxVpk4gSt0eLa7oT5S8d1uo0F/nkbS5Xn3Nn9x5JfLgtF20w
+ rf45L5vWvpTYeEkkreC6eZOk0XcGqJo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 impostorscore=0
+ spamscore=0 clxscore=1011 adultscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150263
 
-On Tue, Sep 15, 2026 at 05:47:02PM +0200, Stefano Garzarella wrote:
-> On Wed, Sep 02, 2026 at 04:00:49PM -0700, Bobby Eshleman wrote:
-> > From: Bobby Eshleman <bobbyeshleman@meta.com>
-> > 
-> > virtio-vsock did not have namespace support (the device was always
-> > accessible to any global namespace).
-> > 
-> > Make the virtio-vsock device assignable to a namespace and initialize it
-> > to init_net. Because virtio-vsock and init_net are both hardcoded to
-> > global mode, nothing changes until the assign ioctl is issued.
-> > 
-> > When the device's local-mode namespace is being destroyed, received
-> > packets are reset until new valid a namespace has been assigned and/or
-> > automatically returned to, and the next RX batch begins (in
-> > virtio_transport_rx_work). They are reset rather than dropped because
-> > vsock does not retransmit, so a silent drop would leave the host waiting
-> > for a timeout, and a connection request arriving in that window has no
-> > socket whose teardown would tell it otherwise. This requires making
-> > virtio_transport_reset_no_sock() available outside of the common code.
-> > 
-> > When a device is assigned to a namespace, every already established
-> > vsock socket that is no longer able to reach the device is forcibly
-> > reset. For that reason, adding new sockets to the connected table must
-> > be performed atomically with regards to namespace assignment. This
-> > ensures that when the socket is added to the connected table that it
-> > actually passes the new reachability conditions set by ns assignment. If
-> > it wins the race to the table and does NOT pass the reachability tests,
-> > then the reset sweep will correctly catch it. This is the purpose
-> > of the new helper 'vsock_maybe_set_connected()'.
-> > 
-> > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
-> > ---
-> > include/linux/virtio_vsock.h            |  2 ++
-> > net/vmw_vsock/virtio_transport.c        | 28 ++++++++++++++++++++++------
-> > net/vmw_vsock/virtio_transport_common.c | 28 +++++++++++++++++++++-------
-> > 3 files changed, 45 insertions(+), 13 deletions(-)
-> > 
-> > diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
-> > index f91704731057..9c68ce1d7fb4 100644
-> > --- a/include/linux/virtio_vsock.h
-> > +++ b/include/linux/virtio_vsock.h
-> > @@ -286,6 +286,8 @@ void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *
-> > u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
-> > void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
-> > void virtio_transport_deliver_tap_pkt(struct sk_buff *skb);
-> > +int virtio_transport_reset_no_sock(const struct virtio_transport *t,
-> > +				   struct sk_buff *skb, struct net *net);
-> > int virtio_transport_purge_skbs(void *vsk, struct sk_buff_head *list);
-> > int virtio_transport_read_skb(struct vsock_sock *vsk, skb_read_actor_t read_actor);
-> > int virtio_transport_notify_set_rcvlowat(struct vsock_sock *vsk, int val);
-> > diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
-> > index 4f9aa9c4c3aa..a453a4f828dc 100644
-> > --- a/net/vmw_vsock/virtio_transport.c
-> > +++ b/net/vmw_vsock/virtio_transport.c
-> > @@ -540,9 +540,14 @@ static bool virtio_transport_msgzerocopy_allow(void)
-> > 	return true;
-> > }
-> > 
-> > +static bool virtio_transport_netns_assign_allow(void)
-> > +{
-> > +	return true;
-> > +}
-> > +
-> > bool virtio_transport_stream_allow(struct vsock_sock *vsk, u32 cid, u32 port)
-> > {
-> > -	return vsock_net_mode_global(vsk);
-> > +	return vsock_g2h_net_reachable(sock_net(sk_vsock(vsk)));
-> > }
-> > 
-> > static bool virtio_transport_seqpacket_allow(struct vsock_sock *vsk,
-> > @@ -587,6 +592,7 @@ static struct virtio_transport virtio_transport = {
-> > 		.seqpacket_has_data       = virtio_transport_seqpacket_has_data,
-> > 
-> > 		.msgzerocopy_allow        = virtio_transport_msgzerocopy_allow,
-> > +		.netns_assign_allow       = virtio_transport_netns_assign_allow,
-> > 
-> > 		.notify_poll_in           = virtio_transport_notify_poll_in,
-> > 		.notify_poll_out          = virtio_transport_notify_poll_out,
-> > @@ -616,7 +622,7 @@ virtio_transport_seqpacket_allow(struct vsock_sock *vsk, u32 remote_cid)
-> > 	struct virtio_vsock *vsock;
-> > 	bool seqpacket_allow;
-> > 
-> > -	if (!vsock_net_mode_global(vsk))
-> > +	if (!vsock_g2h_net_reachable(sock_net(sk_vsock(vsk))))
-> > 		return false;
-> > 
-> > 	seqpacket_allow = false;
-> > @@ -634,6 +640,9 @@ static void virtio_transport_rx_work(struct work_struct *work)
-> > 	struct virtio_vsock *vsock =
-> > 		container_of(work, struct virtio_vsock, rx_work);
-> > 	struct virtqueue *vq;
-> > +	struct net *net;
-> > +
-> > +	net = vsock_g2h_net_get();
-> > 
-> > 	mutex_lock(&vsock->rx_lock);
-> > 
-> > @@ -682,10 +691,14 @@ static void virtio_transport_rx_work(struct work_struct *work)
-> > 
-> > 			virtio_transport_deliver_tap_pkt(skb);
-> > 
-> > -			/* Force virtio-transport into global mode since it
-> > -			 * does not yet support local-mode namespacing.
-> > -			 */
-> > -			virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
-> > +			if (unlikely(!net)) {
-> > +				virtio_transport_reset_no_sock(
-> > +					&virtio_transport, skb, &init_net);
+On 2026/09/14 11:59 PM, Thorsten Blum wrote:
+> In ps3_virq_setup() and ps3_irq_plug_setup(), remove the goto statements
+> and handle errors directly.
 > 
-> Why init_net?
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
 
-This parameter is actually unused by virtio_transport_reset_no_sock(),
-its call to virtio_transport_send_pkt(), and even the eventual call to
-virtio_transport_deliver_tap_pkt()... so maybe NULL w/ a comment would
-be better?
-
-> 
-> > +				kfree_skb(skb);
-> > +				continue;
-> > +			}
-> > +
-> > +			virtio_transport_recv_pkt(&virtio_transport, skb, net);
-> > 		}
-> > 	} while (!virtqueue_enable_cb(vq));
-> > 
-> > @@ -694,6 +707,9 @@ static void virtio_transport_rx_work(struct work_struct *work)
-> > 		virtio_vsock_rx_fill(vsock);
-> > out_nofill:
-> > 	mutex_unlock(&vsock->rx_lock);
-> > +
-> > +	if (net)
-> > +		put_net(net);
-> 
-> put_net() should handle NULL net, right?
-
-It does, and somehow I forgot that.
+Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
 
 Thanks,
-Bobby
+Amit
