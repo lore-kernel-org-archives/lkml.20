@@ -1,164 +1,396 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61A54A8FD0;
-	Tue, 15 Sep 2026 15:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8DB3F44CD
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:18:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485495; cv=none; b=CcDzxSku+kruu57ExHJ5p+KGSTZTgU7oatvqipm3/xhzxW8CaMAUqCJvvdO6ovDv68uKyNJPG7a1nYzllBTqqCNW9giiDlyfKYlFUf5md1Gm3K09m+9FUfmkLyvsmAWv1tdX0chAu1NXjFp3LA3L0W9MotVV4U/99iF1j+mVLy8=
+	t=1789485513; cv=none; b=q9j63X+9ygE6/yRtKUtF7RiRRfVypX/sMIOJ31OPzgHCiPDD4LEGbUSYbzSS2xqKyp6ZU7drLI9y8gcUzYA2QkjLrzQDSyG0wg4O0rNOaEbUoNw1HNUZb1jF+buf0QPhiSUGTMlP0CTroogCGA+rVvufIUNxHW40EY90iaCn4No=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789485495; c=relaxed/simple;
-	bh=4ay9HedzmaAw9AOpIB2HEj425HBli4lesEM/GeDH6Ws=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cPzY0Fhc3RgG5rHSwkh8MyDdfTT6VbFpLzG75CFnW5u2dlidw0fvkQZ7oV9Zp2VQHSaxa/+czHIDQCoM3W1Pl8w0DxJ4GTCCN0nw9TaEaVKvttogYwEEIVBpbJQcVtRVkehE3BtJ7zKq1f4YlNxcID6InEnduXrECwPOqQDbBeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=cg5t7IhU; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789485513; c=relaxed/simple;
+	bh=MumoQVNgfiDJMsBB8qF3pvzW58d2gQBO0//95sZHmNI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Vgd8sWs8ngH+GJ+WDYBNRKYRPsveqwUDM0lPX21Ma6C9EiIEjapPM2usnRdyjTYQa2rtvUzCH8Amh6febN7kQrAA25muT3MIKCiDNERIHnxq0taVXtRGtKBjNHjppPN2VbP+42U0vRRpIpe6OEdxIeC6OBJJ6bJQ0S9eqTe/Ep8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mcw/1H9z; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="cg5t7IhU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789485488;
-	bh=4ay9HedzmaAw9AOpIB2HEj425HBli4lesEM/GeDH6Ws=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=cg5t7IhUmD/nWSFCnqRs0kiBU8ihPO0fdhDugaflmmpoalPii7a0j2R089ON6QrY1
-	 uRItSeFGKSn/JajS9cj78LiOPFFcKZc8NxQR05smag0ij9wof8oX6q4r/kHGAN3l+Z
-	 WNNEWsdu5H/P9IYlNnFEjpeyX3e6jVOoZYjC/8XOAPvmpYpfvn5APk0ulpGR+vcJUq
-	 Xt+CM3jphiWQDyEZbSvgGFyhGi6GS5QIV9pkHZniGWcG2PQcAxbOiFwnmWlWpvG8pR
-	 KqeMArgv8RTCkcUJWUhv5zJAyPT/WMNEvU5J4Rznb23bpD7QzuNufkA+q4EMmZ5oUN
-	 gdoc72h0GbWFQ==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5DFAF17E0D43;
-	Tue, 15 Sep 2026 17:18:08 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id C3960480035; Tue, 15 Sep 2026 17:18:07 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 15 Sep 2026 17:17:45 +0200
-Subject: [PATCH 5/5] usb: dwc3: rockchip: fix USB-C reconnect in gadget
- mode
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mcw/1H9z"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b74d0133e0so503595e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:18:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789485507; x=1790090307; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XdXhqDpDl3/N6RX3IypjElBtM0v5Yn22z+DcbLGv0Ho=;
+        b=Mcw/1H9zYrRDVZSuJkjUMkg8qjtwW7yQ4+EEn+ZfU23aIQO4PzUPS3IEq/OKOWS+yC
+         QtWa4lCD6izNE/SJZWGoaIblxst+H5PBGkDdr1PG86IiPYulkWe9EJayicPxbZzWAjt4
+         03D+YW68bDaGIYw3DR3wEEvkgikLIYRwdZzj+Kv6Lqm/tnAhxBXMLmqN/vJWCJGhFm9+
+         JZQ2qLqOnW7BKsuMOly3L9CFnEz/2I81vxUY7abh+AYXTXpPZG8R3B1VAyNP/31g7LrV
+         2nBVGYofkjl5L57FDs4TDofy/C0zFkU4YNJZyhRwXgQjArOgCkgOA8nWqbDdbcnl/nuf
+         Nvwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789485507; x=1790090307;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XdXhqDpDl3/N6RX3IypjElBtM0v5Yn22z+DcbLGv0Ho=;
+        b=Rdgd0EZ9x11vvb/IvfEjOxkpl50rB9Qzz/l5E7YWxAO16MHCXS8vrC4clxHXSBMrtK
+         EyKxHr6xzpVg68OsIP5jDD6rEEOSNTqtOATngV/+IArt8qkWKS01AHZvoC2q633eQ1Cj
+         HEv/kI2d24d9CezTEkb7cwiFJEsHXA4pF7TvjyM8/rtHI0sEbbOo4aEZlh7+AoRASZE2
+         8FKurbXJHmuqWRFuWn6iSZOyrLaV0JrvUHpF8KKjnMeyftZJOzltpDUFRUwT2ncdpR5k
+         cwU+ybfQbI+HOBmUVNUdWyJCt6gk/iLh0vK9dyQf0OnoH4iOkBu6U57SO8aIRaz1vo9I
+         DwCA==
+X-Forwarded-Encrypted: i=1; AKwUvBzZHogJkI3249DKyPvXYeDrz2XIvHDsRdRlqK8pah4302asEFm9HURXsTz0LV/dSE6uOJosYxMq8+eiZtc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8D4wfeLxCsQorAPIOXym3vB1atBkz7Lb6QxaZGR4kt1frmzi/
+	VJNBS8JaOdKagKpNsZc1aMLLBMX/fiaOWlfYk5LbNSyAQ0WYONFdp4w=
+X-Gm-Gg: AYBFou19Goe6+qrKhKv3Z5eWM1BbsrBn7EUCBmn4SbQK/THrF1whySqfSbJD4sdaBQE
+	Wgv0CqQbQNIv1au3cdrUYzTYt0jxP7+r5IhwQhgI1WdlYiCeoQYL49EOqoO/68+BPt8ZcIhASI5
+	yKDfPcF/RcpPPq3z9Hv73qrm3jsG5zSlhiGrTY+KIh1yH+TxiNpqtjEl5kbp6V63KO18vta3fOn
+	S0NVU/6JBmmZ6y+DD+3d3KvdnV0lqbREMvu42ql3+4xjLRhDjBw+nnu83SJyztY0jpNRsw1oWvP
+	TmA2Z3IldcjkpGkl9fOVbtCGhzrwv9aJsh5GJNcGlV7jFgI4cjbn4GGTTfRY85zO7y3CHBK1dn0
+	AA96ZPFgP2mtgB2tuPwPZlGENfpNl002BPiPPyCSLnsHCQD9tDcOmyk+Pkcmh36mgSJ/R41ZFMr
+	vkjE7LVjYKFx9l5DSAo8RuAACI5G7VkSsexhQnzL2/Ucp1NXXxgg9PnaQC+gTVn/kMoZ2sl0Bd5
+	cMatMAVZFyvP55A2dIzkbTpGc6c/+iZn/EJpzRW2K5/YRYz9WjtbRnaSRFg6lpSTRkgfq0Ue2Re
+	aIycT9PGJ2dJQM8=
+X-Received: by 2002:a05:6512:3b2a:b0:5b6:4b1:f8bd with SMTP id 2adb3069b0e04-5b8b4fd87femr427259e87.30.1789485506309;
+        Tue, 15 Sep 2026 08:18:26 -0700 (PDT)
+Received: from insciwin.localdomain (224.105.88.34.bc.googleusercontent.com. [34.88.105.224])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b57d7cc4sm24596e87.53.2026.09.15.08.18.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 08:18:25 -0700 (PDT)
+From: Dmitrii Tulnov <tulnov.dl@gmail.com>
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: julianbraha@gmail.com,
+	jacmet@uclibc.org,
+	yann.morin.1998@free.fr,
+	linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5] kconfig: warn about malformed KCONFIG_PROBABILITY values
+Date: Tue, 15 Sep 2026 18:18:23 +0300
+Message-ID: <20260915151823.50-1-tulnov.dl@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <08755883-4332-4892-98d1-92e530bfa8bd@gmail.com>
+References: <08755883-4332-4892-98d1-92e530bfa8bd@gmail.com>
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-5-763bb546824e@collabora.com>
-References: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
-In-Reply-To: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-phy@lists.infradead.org, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2823;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=4ay9HedzmaAw9AOpIB2HEj425HBli4lesEM/GeDH6Ws=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpYa/a9SOAir0KW4AaNxa0ywVhpg488MTBD
- S0OITRoVLsQzYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqWGvAAoJENju1/PI
- O/qa5RwQAKpvcFHb8bI5rMhfqAImvq7YJvT7RXR6ReF/8jl2T1nEvc6xW4/s2rJOnlbm8PQr6yj
- JesP2eExEyH6PNp1mNauTAmwALyAoeFG2iircznSMEpXFgXZjWjTzngeP2I4yW2LVfovn2oy0to
- UyiyGI4VTJ8YBiXTPT2QmaRzfN5IL+1+JHds6tAsnc1MvHG2Yq9Y2EzGFitweX3Q2LS4mSgMU6R
- fosX2KjeozFlR9Xdn9EHtmgnqjPBnkTw587QJMDeC8xXfUNXWLxgZ9eaEl3Y/IDwnCV/1jQKnQp
- fnSmknaz5xG0ChuKLhIOEJiazDS56oQcWXFO2hx85CXvDpr9TndZhSuZy/2y0Vb1BfUyWIzgts+
- MvdjtlQPoPZiV93AEL9Ib1gSjssPuU8sEPKloDX27V8wBZqhck/9aUhMbe/ku3m+Yrq13g1/qr+
- Mu8Hj2eg8whfz3OK4Ao7FZKWMTLx60UVFGrspmu6uCQDJE1vvXdMZY3nY+iGn7PjhoaZjbhAWqR
- 2ug3lh5K9u2/lj3gGECQDoWMWdD0ai55PyeYKM8jPQZiwap2nUkA+sX2+s3c7wYlvoo+mpEB6AZ
- GyBXi8HOHTGN8d9wxnNNLmCCQiYaD8T4gvoEOlIgVaLiWDCFX4yV5nehFW/clwcwYEh26hbNJRq
- zTBYrZVo69pN8Vyq1904r2A==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Transfer-Encoding: 8bit
 
-When USB-C is configured in gadget mode and the cable is unplugged
-the USB controller is suspended. After plugging in the cable again,
-the USB controller stays suspended and thus the port status remains
-not-attached.
+randconfig checks the numeric range of each probability but does not
+validate where strtol() stops. For example, KCONFIG_PROBABILITY=50% is
+accepted as 50:0:0: the '%' is parsed repeatedly as zero. For the
+documented value 50, tristate y/m/n probabilities are 25%/25%/50%.
+With 50%, both y/m probabilities silently become zero, reducing the
+coverage of random configuration builds. Empty fields and extra fields
+are also accepted.
 
-Fix this by triggering a runtime PM resume when the role is changed.
-The Runtime PM reference counter is immediately decreased again - the
-auto-suspend time is big enough to detect the connection status, which
-will then keep its own reference.
+Warn when the value does not follow the documented decimal format. For
+malformed inputs whose parsed probabilities are in range, preserve the
+existing interpretation unless KCONFIG_WERROR is set. In that case, exit
+with an error before writing the configuration. Leading whitespace and
+signs are accepted by strtol(), but also trigger the warning because they
+are outside the documented format.
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Keep the strtol() result as long until the range check. This rejects
+out-of-range values that narrowing to int previously made valid, such as
+4294967296 becoming zero on a 64-bit host, regardless of KCONFIG_WERROR.
+
+Add regression tests for one warning per malformed input, preserved
+configurations, KCONFIG_WERROR, out-of-range values, the supported
+probability formats, and the documented empty-value default.
+
+Fixes: e43956e60769 ("kconfig: implement KCONFIG_PROBABILITY for randconfig")
+Assisted-by: LLM
+Signed-off-by: Dmitrii Tulnov <tulnov.dl@gmail.com>
 ---
- drivers/usb/dwc3/dwc3-rockchip.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Thanks, Julian. I've replaced the parametrization with loops and removed
+the unused pytest import. All input combinations and checks are preserved.
+Assertion messages identify the failing input and, where applicable, the
+seed and KCONFIG_WERROR value. Each test function now stops at its first
+failing case.
 
-diff --git a/drivers/usb/dwc3/dwc3-rockchip.c b/drivers/usb/dwc3/dwc3-rockchip.c
-index 7bdd6e2eb22d..bedec3295bb1 100644
---- a/drivers/usb/dwc3/dwc3-rockchip.c
-+++ b/drivers/usb/dwc3/dwc3-rockchip.c
-@@ -25,8 +25,17 @@ struct dwc3_rockchip {
- 	struct dwc3		dwc;
- 	struct dwc3_rk_phy_nb	usb3_phy_nb[DWC3_USB3_MAX_PORTS];
- 	u8			phy_reset_active;
-+	enum usb_role		role;
- };
+Changes since v4:
+- Replace pytest.mark.parametrize with loops and remove the unused pytest
+  import from the probability test module, as requested by Julian.
+- Include the probability and, where applicable, seed and WERROR value in
+  assertion messages. Preserve all input combinations and checks.
+
+Changes since v3:
+- Move the KCONFIG_WERROR cleanup fixture to the shared conftest.py,
+  as requested by Julian. Explicit extra_env settings still enable WERROR.
+
+Changes since v2:
+- Move the expected tristate distribution into the problem description.
+- Simplify the initial format check to !isdigit((unsigned char)*env).
+- Pass probability values and seeds through conf._run_conf(extra_env=...).
+  Use monkeypatch.delenv only to remove inherited variables.
+- Add -0, +0, bare + and - warning cases, and the +101 range-error case.
+- Honor KCONFIG_WERROR for malformed format warnings, as discussed with
+  Julian. Check unset, empty, 0 and 1 flag behavior.
+- Compare 50% with 50:0:0 and -0 with 0 across 20 fixed seeds and check
+  that each malformed input produces exactly one warning.
+- Clarify that compatibility applies to malformed in-range inputs with
+  KCONFIG_WERROR unset; values previously accepted by narrowing now fail.
+
+Changes since v1:
+- Warn about malformed in-range values while retaining their previous
+  interpretation by default.
+- Warn about leading whitespace and signs as undocumented input.
+- Clarify that 50 gives tristate y/m/n probabilities of 25%/25%/50%, and
+  compare it with the equivalent input 50:25:25 across 20 fixed seeds.
+
+Validation on kbuild-next, x86_64, GCC 13.3.0:
+- make testconfig with HOSTCFLAGS=-Werror: 28 passed, both normally and
+  with KCONFIG_WERROR=1 inherited from the test runner. Explicit strict
+  cases for empty, 0 and 1 flag values still pass.
+- The same suite passed on the existing ASan/UBSan build at -O1, with
+  leak detection disabled: 28 passed in each environment.
+- The probability module now reports 7 tests instead of 117. Tracing
+  confirms that all 178 actual conf calls match v4 in order, inputs,
+  exit status, stdout, stderr and generated configuration.
+- The new suite gives 4 expected failures and 24 passes on the original
+  binary; the version before WERROR gives 1 expected failure and 27
+  passes. Loops stop at their first failure, so these counts differ
+  from the earlier parametrized regression results.
+- C code, test Kconfig and shared fixtures are unchanged from v4.
+  Earlier C compatibility and file-preservation checks were not rerun.
+- No vmlinux build or boot test; this changes the host configuration tool.
+  32-bit hosts and other libc implementations were not tested.
+
+ scripts/kconfig/conf.c                        |  16 +-
+ scripts/kconfig/tests/conftest.py             |   6 +
+ .../tests/randconfig_probability/Kconfig      |  12 ++
+ .../tests/randconfig_probability/__init__.py  | 139 ++++++++++++++++++
+ 4 files changed, 172 insertions(+), 1 deletion(-)
+ create mode 100644 scripts/kconfig/tests/randconfig_probability/Kconfig
+ create mode 100644 scripts/kconfig/tests/randconfig_probability/__init__.py
+
+diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
+index fe8ba09b0..ca6d9d735 100644
+--- a/scripts/kconfig/conf.c
++++ b/scripts/kconfig/conf.c
+@@ -186,12 +186,23 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
  
-+static void dwc3_rockchip_vbus_handler(struct dwc3 *dwc, bool present)
-+{
-+	if (!dwc->gadget || !dwc->gadget_driver)
-+		return;
-+
-+	usb_udc_vbus_handler(dwc->gadget, present);
-+}
-+
- static int dwc3_usb3_phy_notify(struct notifier_block *nb,
- 				unsigned long action, void *data)
- {
-@@ -57,6 +66,8 @@ static int dwc3_usb3_phy_notify(struct notifier_block *nb,
- 		if (!ret)
- 			return NOTIFY_OK;
+ 	if (mode == def_random) {
+ 		int n, p[3];
++		bool warned = false;
+ 		char *env = getenv("KCONFIG_PROBABILITY");
  
-+		dwc3_rockchip_vbus_handler(dwc, false);
+ 		n = 0;
+ 		while (env && *env) {
+ 			char *endp;
+-			int tmp = strtol(env, &endp, 10);
++			long tmp = strtol(env, &endp, 10);
 +
- 		/*
- 		 * Assert USB3 PHY soft reset within DWC3 before the external
- 		 * PHY resets. This disconnects the PIPE interface, preventing
-@@ -69,6 +80,7 @@ static int dwc3_usb3_phy_notify(struct notifier_block *nb,
- 		reg |= DWC3_GUSB3PIPECTL_PHYSOFTRST;
- 		dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
- 		spin_unlock_irqrestore(&dwc->lock, flags);
-+
- 		break;
++			if (!isdigit((unsigned char)*env) ||
++			    (*endp && *endp != ':') ||
++			    (*endp == ':' && (!endp[1] || n == 2))) {
++				if (!warned) {
++					fprintf(stderr,
++						"warning: KCONFIG_PROBABILITY has malformed format\n");
++					warned = true;
++				}
++			}
  
- 	case PHY_NOTIFY_POST_RESET:
-@@ -89,6 +101,8 @@ static int dwc3_usb3_phy_notify(struct notifier_block *nb,
- 		dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
- 		spin_unlock_irqrestore(&dwc->lock, flags);
- 
-+		dwc3_rockchip_vbus_handler(dwc, dwc_rk->role == USB_ROLE_DEVICE);
+ 			if (tmp >= 0 && tmp <= 100) {
+ 				p[n++] = tmp;
+@@ -227,6 +238,9 @@ static void conf_set_all_new_symbols(enum conf_def_mode mode)
+ 			perror("KCONFIG_PROBABILITY");
+ 			exit(1);
+ 		}
 +
- 		pm_runtime_put_autosuspend(dwc->dev);
- 		break;
++		if (warned && getenv("KCONFIG_WERROR"))
++			exit(1);
  	}
-@@ -130,7 +144,16 @@ static int dwc3_rk_phy_register_notifiers(struct dwc3 *dwc)
- 	return devm_add_action_or_reset(dwc->dev, dwc3_rk_phy_unregister_notifiers, dwc_rk);
- }
  
-+static void dwc3_rockchip_set_role(struct dwc3 *dwc, enum usb_role role)
-+{
-+	struct dwc3_rockchip *dwc_rk = container_of(dwc, struct dwc3_rockchip, dwc);
-+
-+	dwc_rk->role = role;
-+	dwc3_rockchip_vbus_handler(dwc, role == USB_ROLE_DEVICE);
-+}
-+
- static struct dwc3_glue_ops dwc3_rockchip_glue_ops = {
-+	.pre_set_role = dwc3_rockchip_set_role,
- 	.post_phy_registration = dwc3_rk_phy_register_notifiers,
- };
+ 	menu_for_each_entry(menu) {
+diff --git a/scripts/kconfig/tests/conftest.py b/scripts/kconfig/tests/conftest.py
+index 66f95e4ed..2263bd2a3 100644
+--- a/scripts/kconfig/tests/conftest.py
++++ b/scripts/kconfig/tests/conftest.py
+@@ -312,6 +312,12 @@ class Conf:
+         return self._matches('stderr', expected)
  
+ 
++@pytest.fixture(autouse=True)
++def clear_werror(monkeypatch):
++    # extra_env can set strict mode, but cannot remove an inherited flag.
++    monkeypatch.delenv('KCONFIG_WERROR', raising=False)
++
++
+ @pytest.fixture(scope="module")
+ def conf(request):
+     """Create a Conf instance and provide it to test functions."""
+diff --git a/scripts/kconfig/tests/randconfig_probability/Kconfig b/scripts/kconfig/tests/randconfig_probability/Kconfig
+new file mode 100644
+index 000000000..84f4e5fcc
+--- /dev/null
++++ b/scripts/kconfig/tests/randconfig_probability/Kconfig
+@@ -0,0 +1,12 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++config MODULES
++	bool
++	default y
++	modules
++
++config BOOL
++	bool "Bool"
++
++config TRI
++	tristate "Tristate"
+diff --git a/scripts/kconfig/tests/randconfig_probability/__init__.py b/scripts/kconfig/tests/randconfig_probability/__init__.py
+new file mode 100644
+index 000000000..5f9c90e17
+--- /dev/null
++++ b/scripts/kconfig/tests/randconfig_probability/__init__.py
+@@ -0,0 +1,139 @@
++# SPDX-License-Identifier: GPL-2.0-only
++"""Validate KCONFIG_PROBABILITY without changing the supported distributions."""
++
++
++def test_malformed_warns(conf):
++    probabilities = [
++        'invalid', ' ', '50%', '50 ', '0x32', '10 20', '10:20x',
++        '10:20:invalid', '10:20:30x',
++        ':50', '50:', '10::20', '10:20:', '10:20:30:', '10:20:30:40',
++        '-0', '+0', '+', '-', '+100:0', ' \t100:0', '0: \t100:0',
++    ]
++    for probability in probabilities:
++        assert conf._run_conf('--randconfig', extra_env={
++            'KCONFIG_PROBABILITY': probability,
++            'KCONFIG_SEED': '0',
++        }) == 0, repr(probability)
++        assert ('warning: KCONFIG_PROBABILITY has malformed format' in
++                conf.stderr), repr(probability)
++        assert conf.stderr.count('warning:') == 1, repr(probability)
++        assert conf.config is not None, repr(probability)
++
++
++def test_malformed_preserves_config(conf):
++    probabilities = [('50%', '50:0:0'), ('-0', '0')]
++    for seed in range(20):
++        for probability, equivalent in probabilities:
++            context = 'probability={!r}, equivalent={!r}, seed={}'.format(
++                probability, equivalent, seed)
++            assert conf._run_conf('--randconfig', extra_env={
++                'KCONFIG_PROBABILITY': probability,
++                'KCONFIG_SEED': hex(seed),
++            }) == 0, context
++            assert ('warning: KCONFIG_PROBABILITY has malformed format' in
++                    conf.stderr), context
++            assert conf.stderr.count('warning:') == 1, context
++            malformed = conf.config
++
++            assert conf._run_conf('--randconfig', extra_env={
++                'KCONFIG_PROBABILITY': equivalent,
++                'KCONFIG_SEED': hex(seed),
++            }) == 0, context
++            assert 'warning:' not in conf.stderr, context
++            assert conf.config == malformed, context
++
++
++def test_werror(conf):
++    probabilities = [
++        ('', 0), ('50', 0), ('50%', 1), ('-0', 1), ('10:20:30:40', 1),
++    ]
++    for probability, status in probabilities:
++        for werror in ['', '0', '1']:
++            context = 'probability={!r}, werror={!r}'.format(
++                probability, werror)
++            assert conf._run_conf('--randconfig', extra_env={
++                'KCONFIG_PROBABILITY': probability,
++                'KCONFIG_SEED': '0',
++                'KCONFIG_WERROR': werror,
++            }) == status, context
++            if status:
++                assert ('warning: KCONFIG_PROBABILITY has malformed format' in
++                        conf.stderr), context
++                assert conf.stderr.count('warning:') == 1, context
++            else:
++                assert 'warning:' not in conf.stderr, context
++
++
++def test_out_of_range(conf):
++    probabilities = [
++        '-1', '101', '+101', '0:101', '0:0:101', '60:41', '0:60:41',
++        '4294967296', '-4294967296',
++        '999999999999999999999999', '-999999999999999999999999',
++    ]
++    for probability in probabilities:
++        assert conf._run_conf('--randconfig', extra_env={
++            'KCONFIG_PROBABILITY': probability,
++            'KCONFIG_SEED': '0',
++        }) == 1, repr(probability)
++        assert 'KCONFIG_PROBABILITY:' in conf.stderr, repr(probability)
++
++
++def test_valid(conf):
++    probabilities = [
++        ('0', 'n', 'n'),
++        ('0:0', 'n', 'n'),
++        ('100:0', 'y', 'y'),
++        ('0:100', 'y', 'm'),
++        ('100:0:0', 'y', 'n'),
++        ('0:100:0', 'n', 'y'),
++        ('0:0:100', 'n', 'm'),
++        ('000:000:100', 'n', 'm'),
++    ]
++    for probability, boolean, tristate in probabilities:
++        assert conf._run_conf('--randconfig', extra_env={
++            'KCONFIG_PROBABILITY': probability,
++            'KCONFIG_SEED': '0',
++        }) == 0, repr(probability)
++        assert 'warning:' not in conf.stderr, repr(probability)
++        for symbol, value in [('BOOL', boolean), ('TRI', tristate)]:
++            if value == 'n':
++                expected = '# CONFIG_{} is not set'.format(symbol)
++            else:
++                expected = 'CONFIG_{}={}'.format(symbol, value)
++            assert expected in conf.config.splitlines(), repr(probability)
++
++
++def test_single_probability_matches_tristate_split(conf):
++    for seed in range(20):
++        context = 'seed={}'.format(seed)
++        assert conf._run_conf('--randconfig', extra_env={
++            'KCONFIG_PROBABILITY': '50',
++            'KCONFIG_SEED': hex(seed),
++        }) == 0, context
++        assert 'warning:' not in conf.stderr, context
++        single = conf.config
++
++        # 50% boolean y; 25% tristate y, 25% m, and 50% n.
++        assert conf._run_conf('--randconfig', extra_env={
++            'KCONFIG_PROBABILITY': '50:25:25',
++            'KCONFIG_SEED': hex(seed),
++        }) == 0, context
++        assert 'warning:' not in conf.stderr, context
++        assert conf.config == single, context
++
++
++def test_empty(conf, monkeypatch):
++    # extra_env overrides inherited variables, but cannot remove them.
++    monkeypatch.delenv('KCONFIG_PROBABILITY', raising=False)
++    assert conf._run_conf('--randconfig', extra_env={
++        'KCONFIG_SEED': '0',
++    }) == 0
++    assert 'warning:' not in conf.stderr
++    default_config = conf.config
++
++    assert conf._run_conf('--randconfig', extra_env={
++        'KCONFIG_PROBABILITY': '',
++        'KCONFIG_SEED': '0',
++    }) == 0
++    assert 'warning:' not in conf.stderr
++    assert conf.config == default_config
 
--- 
-2.53.0
-
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
