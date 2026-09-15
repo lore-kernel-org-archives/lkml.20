@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168FE39CCE3
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:07:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0389477998
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789506451; cv=none; b=pemJppy5vUKzoxpBEO1MfUu4P+u0zc6ZVrxbGGX40rUoAafKT069AYEAE+3Bh2D0IthxjchATRWTK1m5dh2DXXEq+Q3plNYf4MQ6nlyTbvFg/yFKckk4tlIvJj7hhWo9pg3KAE4tW93lWSUUZxyIdyOgZXcTZZBpN81D/vMWJFs=
+	t=1789506465; cv=none; b=ms8fZns+Es2+oX3e/lermkTl6JBdpKYP/ZM/yi4YDq5WCDMao9AnyW4R+6sCTKQt8FeOPONqB001rXpEpGZJ8z7nJH50vbQrcY5xDf2hKQ2+AejEW5nz6i/9efjb/UasdZMg48zRjZh10QwNZkgJvTM2oS0gEUsWdm162/O5zSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789506451; c=relaxed/simple;
-	bh=EMW93dv4mZE0qTnFayjEqduM0sMwnJb1ezCkUn4MbkM=;
+	s=arc-20240116; t=1789506465; c=relaxed/simple;
+	bh=oQNXBMp6MRSw/eKeZzWD/lSWOxkkp0DvW/aa4qCvkEU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pLOWX1fHjmtvNSdacNvFT5JTCkpfxxG+HwZJlN6KT+QZtuUn65BqPv88s5xhZFM1kfLq3Ol/5na7JqGAF+vgWod6CZbk+mi2pEoKi/BbP/ExgNpoB7GsHFdbOd4KjcfsfZeYa+VugM0u3QhyCdayH5hxoaIqFrEP8idcxsTCz1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=S2Un1U3V; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=sQ7yhRS5DPJLeCG2786mnHPIrePcRyJTHSkKDXToWXmoRqD1G8nOHfxxVBLivlR5U3p1aHJsahgAJlL1mEbTlyy4zG3TNGIFUcvsBdLKzgh48WPQgw/WGqj/n3bHpZB6f2HY2oXJWSYoAQbv5GN7A3RQ8GnaGfejO1imTy4uH0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NXepQ8zs; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="S2Un1U3V"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NXepQ8zs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789506448;
+	s=mimecast20190719; t=1789506462;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=aS9CJ6a5mDPOCckG4U1k7Yinjt22rR82uZwHt40L5ZM=;
-	b=S2Un1U3VVSJ2wN9dPzaNcNBupUALzuNokc3IUu40ZteNBAGx9TFFeyIkfo125uQf/l34zN
-	TUdg0iF0ljw0mU16PnRbK1ziz+FLVmxDjOtvYKRLbtZtzIqZWXNAE7uKM52lZbSY+F1Pw9
-	pQUKT31Ycgr6DbET2Zn5K2hm5d6b+NQ=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+	bh=kl861zy6Ub7DyVuYiyHgFrMcT8bEUnJjQS5VfDpwScM=;
+	b=NXepQ8zsdKex9BK8A0b9ga1KhkwcfPcefj7I5ovOBb8P9if4BEqHPs3wqJyEuN5BBPUr9O
+	jRYipgPKhza5CZbyOoFUcslBTsVLrzukRoEJ+Y29CGv8Y9MuncN+1Z42JkKXb2j3LE9cPU
+	3kJg874kcl6xaXqjexfaPqY73FkPeIE=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-472-sjzzTnZQOwaX_4aI7rOtMg-1; Tue,
- 15 Sep 2026 17:07:25 -0400
-X-MC-Unique: sjzzTnZQOwaX_4aI7rOtMg-1
-X-Mimecast-MFC-AGG-ID: sjzzTnZQOwaX_4aI7rOtMg_1789506443
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-91-IppXZmEzPiyLKP715-27bg-1; Tue,
+ 15 Sep 2026 17:07:38 -0400
+X-MC-Unique: IppXZmEzPiyLKP715-27bg-1
+X-Mimecast-MFC-AGG-ID: IppXZmEzPiyLKP715-27bg_1789506456
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E44CA195608C;
-	Tue, 15 Sep 2026 21:07:22 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 24A041956042;
+	Tue, 15 Sep 2026 21:07:36 +0000 (UTC)
 Received: from GoldenWind.redhat.com (unknown [10.22.80.179])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 98C2F180034C;
-	Tue, 15 Sep 2026 21:07:20 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E60D21800446;
+	Tue, 15 Sep 2026 21:07:33 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org,
 	nouveau@lists.freedesktop.org,
@@ -60,9 +60,9 @@ Cc: "Timur Tabi" <ttabi@nvidia.com>,
 	"Mel Henning" <mhenning@darkrefraction.com>,
 	"Danilo Krummrich" <dakr@kernel.org>,
 	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v2 2/5] drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
-Date: Tue, 15 Sep 2026 14:51:49 -0400
-Message-ID: <20260915210647.695187-3-lyude@redhat.com>
+Subject: [PATCH v2 3/5] drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
+Date: Tue, 15 Sep 2026 14:51:50 -0400
+Message-ID: <20260915210647.695187-4-lyude@redhat.com>
 In-Reply-To: <20260915210647.695187-1-lyude@redhat.com>
 References: <20260915210647.695187-1-lyude@redhat.com>
 Precedence: bulk
@@ -74,211 +74,122 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-This is a GSP structure describing various characteristics of the memory
-management system that GSP provides. Start by fetching it during driver
-load, but don't do anything with the information we get from it just yet.
+One of the things that OpenRM does right before initiating fbsr is apply a
+special workaround (nvidia issue #3172217) which temporarily disables raw
+compression mode on the GPU. It is later re-enabled after resuming with
+fbsr completes.
+
+Since we don't currently save the compbit backing with fbsr, this shouldn't
+currently make any functional difference in the suspend/resume process. But
+it will be required for implementing support for saving and restoring
+compbit backings from the GPU.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  4 ++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 17 +++++++
- .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 45 +++++++++++++++++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  8 +++
- .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        | 50 +++++++++++++++++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  1 +
- 6 files changed, 125 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-index 64fed208e4cf8..0e193baaf9bbb 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-@@ -156,6 +156,10 @@ struct nvkm_gsp {
- 		struct sg_table fbsr;
- 	} sr;
- 
-+	struct {
-+		bool use_raw_mode_comptagline_alloc;
-+	} memsys;
-+
- 	struct {
- 		struct nvkm_gsp_mem mem;
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index 09b17b85dc1ac..c57a3250d6b96 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -1808,6 +1808,23 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
- 	return 0;
+---
+V2:
+* Fix gsp object mismatch in r570_memsys_enable_raw_comp_mode()
+* Clarify debug message a bit in r570_memsys_enable_raw_comp_mode()
+
+ .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 48 +++++++++++++++++++
+ .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       |  6 +++
+ 2 files changed, 54 insertions(+)
+
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+index af5aa5065c3dd..569732320f3dd 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
+@@ -26,6 +26,35 @@ r570_fbsr_suspend_channels(struct nvkm_gsp *gsp, bool suspend)
+ 	return nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
  }
  
-+int
-+r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp)
++static int
++r570_memsys_enable_raw_comp_mode(struct nvkm_gsp *gsp, bool enable)
 +{
-+	NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS *ctrl;
++	NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS *ctrl;
++	int ret;
 +
-+	ctrl = nvkm_gsp_rm_ctrl_get(&gsp->internal.device.subdevice,
-+				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG,
++	ctrl = nvkm_gsp_rm_ctrl_get(&gsp->internal.device.object,
++				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE,
 +				    sizeof(*ctrl));
 +	if (IS_ERR(ctrl))
 +		return PTR_ERR(ctrl);
 +
-+	gsp->memsys.use_raw_mode_comptagline_alloc = ctrl->bUseRawModeComptaglineAllocation;
++	ctrl->bRawMode = enable;
 +
-+	nvkm_gsp_rm_ctrl_done(&gsp->internal.device.subdevice, ctrl);
-+	return 0;
++	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.object, ctrl);
++	if (!ret)
++		nvkm_debug(&gsp->subdev, "memsys: Raw compression mode %s\n",
++			   str_enabled_disabled(enable));
++
++	return ret;
 +}
 +
- int
- r535_gsp_init(struct nvkm_gsp *gsp)
++static bool
++r570_need_raw_comp_war(struct nvkm_gsp *gsp, struct nvkm_device *device)
++{
++	return (device->card_type == GA100 || device->card_type == AD100) &&
++	    gsp->memsys.use_raw_mode_comptagline_alloc;
++}
++
+ static void
+ r570_fbsr_resume(struct nvkm_gsp *gsp)
  {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-index fd1170037c030..fee5418a72a68 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
-@@ -789,6 +789,51 @@ typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS {
-     NvBool bIsGCOFFSatisfied;
- } NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
+@@ -33,6 +62,7 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
+ 	struct nvkm_instmem *imem = device->imem;
+ 	struct nvkm_instobj *iobj;
+ 	struct nvkm_vmm *vmm;
++	int ret;
  
-+typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
-+    /*! Determines if RM should use 1 to 1 Comptagline allocation policy */
-+    NvBool bOneToOneComptagLineAllocation;
-+
-+    /*! Determines if RM should use 1 to 4 Comptagline allocation policy */
-+    NvBool bUseOneToFourComptagLineAllocation;
-+
-+    /*! Determines if RM should use raw Comptagline allocation policy */
-+    NvBool bUseRawModeComptaglineAllocation;
-+
-+    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)? */
-+    NvBool bDisableCompbitBacking;
-+
-+    /*! Determine if we need to disable post L2 compression */
-+    NvBool bDisablePostL2Compression;
-+
-+    /*! Is ECC DRAM feature supported? */
-+    NvBool bEnabledEccFBPA;
-+
-+    NvBool bL2PreFill;
-+
-+    /*! L2 cache size */
-+    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
-+
-+    /*! Indicate whether fpba is present or not */
-+    NvBool bFbpaPresent;
-+
-+    /*! Size covered by one comptag */
-+    NvU32  comprPageSize;
-+
-+    /*! log32(comprPageSize) */
-+    NvU32  comprPageShift;
-+
-+    /*! RAM type */
-+    NvU32  ramType;
-+
-+    /*! LTC count */
-+    NvU32  ltcCount;
-+
-+    /*! LTS per LTC count */
-+    NvU32  ltsPerLtcCount;
-+} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
-+
-+#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG        (0x20800a1c) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID << 8) | NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID" */
-+
- typedef union rpc_message_rpc_union_field_v03_00
- {
-     NvU32      spare;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-index b45781cd0dfdc..5a51fe7e5ab98 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-@@ -137,6 +137,14 @@ r570_gsp_get_static_info(struct nvkm_gsp *gsp)
- 		}
- 	}
+ 	/* Restore BAR2 page tables via BAR0 window, and re-enable BAR2. */
+ 	list_for_each_entry(iobj, &imem->boot, head) {
+@@ -59,6 +89,13 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
  
-+	ret = r535_gsp_get_static_memsys_info(gsp);
-+	if (ret) {
-+		nvkm_error(&gsp->subdev, "Retrieving static memsys info failed\n");
-+		return ret;
+ 	/* Finish cleaning up. */
+ 	r535_fbsr_resume(gsp);
++
++	/* Re-enable raw mode if it was previously disabled */
++	if (r570_need_raw_comp_war(gsp, device)) {
++		ret = r570_memsys_enable_raw_comp_mode(gsp, true);
++		if (ret)
++			nvkm_error(&gsp->subdev, "Failed to re-enable raw comp mode\n");
 +	}
-+	nvkm_debug(&gsp->subdev, "memsys: Use raw mode for comptag allocations? %s\n",
-+		   str_yes_no(gsp->memsys.use_raw_mode_comptagline_alloc));
-+
- 	return 0;
  }
  
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-index c458569af9d72..e2d9d1949e4e1 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
-@@ -494,6 +494,56 @@ typedef struct
+ static int
+@@ -104,6 +141,17 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
+ 	/* Stop channel scheduling. */
+ 	r570_fbsr_suspend_channels(gsp, true);
  
- #define GSP_FW_WPR_META_REVISION  1
++	/* Temporarily disable raw mode to prevent FBSR restore operations from corrupting
++	 * compressed surfaces. Required for ampere and ada.
++	 *
++	 * Nvidia bug #3172217
++	 */
++	if (r570_need_raw_comp_war(gsp, device)) {
++		ret = r570_memsys_enable_raw_comp_mode(gsp, false);
++		if (ret)
++			return ret;
++	}
++
+ 	/* Save BAR2 allocations to system memory. */
+ 	list_for_each_entry(iobj, &imem->list, head) {
+ 		if (iobj->preserve) {
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
+index 8af432375f7a2..9050a8274b273 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
+@@ -16,4 +16,10 @@ typedef struct NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS {
+     NV_DECLARE_ALIGNED(NvU64 sysmemAddrOfSuspendResumeData, 8);
+ } NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS;
  
-+#define NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID (0x1CU)
++#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE (0x20800a6f) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID << 8) | NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS_MESSAGE_ID" */
 +
-+typedef struct NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS {
-+    /*! Determines if RM should use 1 to 1 Comptagline allocation policy */
-+    NvBool bOneToOneComptagLineAllocation;
++typedef struct NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS {
++    NvBool bRawMode;
++} NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS;
 +
-+    /*! Determines if RM should use 1 to 4 Comptagline allocation policy */
-+    NvBool bUseOneToFourComptagLineAllocation;
-+
-+    /*! Determines if RM should use raw Comptagline allocation policy */
-+    NvBool bUseRawModeComptaglineAllocation;
-+
-+    /*! Has COMPBIT_BACKING_SIZE been overridden to zero (i.e. disabled)? */
-+    NvBool bDisableCompbitBacking;
-+
-+    /*! Determine if we need to disable post L2 compression */
-+    NvBool bDisablePostL2Compression;
-+
-+    /*! Is ECC DRAM feature supported? */
-+    NvBool bEnabledEccFBPA;
-+
-+    NvBool bL2PreFill;
-+
-+    /*! L2 cache size */
-+    NV_DECLARE_ALIGNED(NvU64 l2CacheSize, 8);
-+
-+    /*! Indicate whether fpba is present or not */
-+    NvBool bFbpaPresent;
-+
-+    /*! Size covered by one comptag */
-+    NvU32  comprPageSize;
-+
-+    /*! log32(comprPageSize) */
-+    NvU32  comprPageShift;
-+
-+    /*! RAM type */
-+    NvU32  ramType;
-+
-+    /*! LTC count */
-+    NvU32  ltcCount;
-+
-+    /*! LTS per LTC count */
-+    NvU32  ltsPerLtcCount;
-+} NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS;
-+
-+/*!
-+ * Retrieve Memory System Static data.
-+ */
-+#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_GET_STATIC_CONFIG        (0x20800a1c) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID << 8) | NV2080_CTRL_INTERNAL_MEMSYS_GET_STATIC_CONFIG_PARAMS_MESSAGE_ID" */
-+
- typedef struct {
-     NvU64 sharedMemPhysAddr;
-     NvU32 pageTableEntryCount;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-index 3de7871e22934..46fdd11c4d2b3 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-@@ -175,6 +175,7 @@ int r535_gr_promote_ctx(struct r535_gr *, bool golden, struct nvkm_vmm *,
- 			struct nvkm_memory **pctxbuf_mem, struct nvkm_vma **pctxbuf_vma,
- 			struct nvkm_gsp_object *chan);
- int r535_gsp_gcx_ready(struct nvkm_gsp *gsp);
-+int r535_gsp_get_static_memsys_info(struct nvkm_gsp *gsp);
- extern const struct nvkm_rm_api_engine r535_nvdec;
- extern const struct nvkm_rm_api_engine r535_nvenc;
- extern const struct nvkm_rm_api_engine r535_nvjpg;
+ #endif
 -- 
 2.55.0
 
