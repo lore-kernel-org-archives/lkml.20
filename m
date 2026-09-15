@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34F53DAAB8
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B5A3E0C57
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485258; cv=none; b=bNjcDuFTzPt3x8NdRwPB4lP9jR10dS+1My1ILawc+Fyudf6sMvim5FiUkOhNIrvbDKl+IW4EyUed5JtgPlqk9+mgC96wbqurUKPsnGJlI+FjlRLEOXUzUahahJrmDsYrbzv/aX4BWasXwrIQJLkBKsGDvKbGrQFjFuGS/hE8M2c=
+	t=1789485260; cv=none; b=q3D21ovGO9gfpwk8dqPikASHhYNV/HsV3Gr6Mzu9YsCEfuk0yeDQu6AfuS7VC2qU8oCJh8PJ52RZD0NmXHs1tSyx8uzKfUaW/IsEcedfQ7SuH5VNorxueDrYZUwxDw9NtbONoXaeW07X2/+tuQdXd4Hd/WSGw74PybCyjd2EnKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789485258; c=relaxed/simple;
-	bh=ycfiJ0wN/gPOpzPHvEhz2H9OE1m9HLT0yriw3120bzU=;
+	s=arc-20240116; t=1789485260; c=relaxed/simple;
+	bh=M6SIR8WirwvgYqDCnL2rODt9VmGKbSd+JdE5BlTYpe4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VSqpe1ardeau3muykLx/h67keMF4JGb6adC0y8JU9S2wSI/8c2VTVSGG2SO7XgyjylF1Q8xQJyb8aVc5KuQ0L9+4EPRbhI+B4Woi6Ej/miUI09xuXxrohP93gsLCv1CGbDzUDxqT8MUILxMs75ae9agPlLheBCiQXq5489R4NEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=QVMt8CU8; arc=none smtp.client-ip=117.135.210.4
+	 MIME-Version; b=L3dzAerzZsVgV9B4PrMtso8fEVfn1+82YlzOd4WUu1Sj/UAQHVlyRcYHZPkznVrVb2bSEtQ0lcZLMbZ1MB+l/DWbhoKTSBqsYLu+TnT0/8xF9aNdlbexNseXPYaTIRogS5qohW+dq02hf35xflC3UPWj07sO8rd/x+KxQMvGXKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mW2YydQ2; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="QVMt8CU8"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mW2YydQ2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=oS
-	GOZuIlLi/kWLWERFDika52b/inT5K3imQnR+07eJM=; b=QVMt8CU8GnRT6gyCY+
-	QsEg19St/c65BK6C3qXQfV+DpxrA/Y9FUZL2zqUlrm3nZeUlfzSzCV9xOrvpxp4j
-	5lP08J7yf5j8kRF1u1GIL/b1Izvh6zRmZwBk+UZXcc9GbVUHLt1nFZsRNZXeFT8D
-	ywt8VrlQ5l03aJQn3TyklBOlw=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Sv
+	09B+MaJGyVcGZqapK5SgsF5E0P5ewgC7egR+zOg9M=; b=mW2YydQ2/Df4qOjQZl
+	WJUurtKDSLzDtccttVq3nN9SgLQEm6EgJfhZYIRdn5vZhOnT21sedebXH+GPvAsz
+	UtO8c6RS+ndCRGd38QYIHn82M9bdRvKglhejZfJ8OjV2j+BtSE1alusPKgSWvtq8
+	qxF1OwzNtftoXWAO8cPfWOqus=
 Received: from VM-0-3-ubuntu.. (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wAn2xWOYKlqc0VUAw--.40469S4;
-	Tue, 15 Sep 2026 23:13:20 +0800 (CST)
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wAn2xWOYKlqc0VUAw--.40469S12;
+	Tue, 15 Sep 2026 23:13:24 +0800 (CST)
 From: Longlong Xia <xialonglong2025@163.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	linux-mm@kvack.org
@@ -33,9 +33,9 @@ Cc: Longlong Xia <xialonglong@kylinos.cn>,
 	Xu Xin <xu.xin@linux.dev>,
 	Chengming Zhou <chengming.zhou@linux.dev>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 02/14] mm/ksm: rename advisor_ctx to ksm_advisor_ctx
-Date: Tue, 15 Sep 2026 23:12:16 +0800
-Message-ID: <20260915151236.5200-3-xialonglong2025@163.com>
+Subject: [PATCH 10/14] mm/ksm: extract ksm_begin_full_scan() from scan_get_next_rmap_item()
+Date: Tue, 15 Sep 2026 23:12:24 +0800
+Message-ID: <20260915151236.5200-11-xialonglong2025@163.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260915151236.5200-1-xialonglong2025@163.com>
 References: <20260915151236.5200-1-xialonglong2025@163.com>
@@ -46,17 +46,20 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAn2xWOYKlqc0VUAw--.40469S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZFy5Kw15JFykXF13tw1DKFg_yoW5Zr48pr
-	W5ursFkrW8ZFWYqa4UZrn5Xw17KrZ8Gw40gF1jkw45Crsa9ryUtrWxK3W0yF1UAa4vvry8
-	XryFgFyUtF4UtFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jzUDJUUUUU=
-X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC+BBBOmqpYJBV3QAA3o
+X-CM-TRANSID:_____wAn2xWOYKlqc0VUAw--.40469S12
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Jr4kKFykWF48tr15XFWUurg_yoW7WF43pr
+	Wak3yakrs5Ar10grWfJr48CrWavrWkKw48Jw13Cw4xCwn8KryIqF1xt3W0qFy5CFykZwnI
+	va1jkF1DCrsay3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jU0edUUUUU=
+X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC9xRCO2qpYJRR-QAA3B
 
 From: Longlong Xia <xialonglong@kylinos.cn>
 
-Rename the advisor context to match the ksm_advisor_ prefix used by
-its tunables.
+Extract the once-per-full-scan setup into ksm_begin_full_scan() to
+shorten scan_get_next_rmap_item().
+
+Move next_mm out of the if block. Reset address and rmap_list only when
+starting a new mm, preserving both cursors when resuming a scan.
 
 No functional change intended.
 
@@ -64,84 +67,159 @@ Assisted-by: Zcode:GLM-5.3
 Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
 
 ---
- mm/ksm.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ mm/ksm.c | 108 ++++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 64 insertions(+), 44 deletions(-)
 
 diff --git a/mm/ksm.c b/mm/ksm.c
-index f637f3baea69..1e4d77852fc8 100644
+index 59887a2b4406..8884964d5a53 100644
 --- a/mm/ksm.c
 +++ b/mm/ksm.c
-@@ -334,7 +334,7 @@ struct advisor_ctx {
- 	unsigned long change;
- 	unsigned long long cpu_time;
- };
--static struct advisor_ctx advisor_ctx;
-+static struct advisor_ctx ksm_advisor_ctx;
- 
- /* Define different advisor's */
- enum ksm_advisor_type {
-@@ -356,7 +356,7 @@ static void set_advisor_defaults(void)
- 	if (ksm_advisor == KSM_ADVISOR_NONE) {
- 		ksm_thread_pages_to_scan = DEFAULT_PAGES_TO_SCAN;
- 	} else if (ksm_advisor == KSM_ADVISOR_SCAN_TIME) {
--		advisor_ctx = (const struct advisor_ctx){ 0 };
-+		ksm_advisor_ctx = (const struct advisor_ctx){ 0 };
- 		ksm_thread_pages_to_scan = ksm_advisor_min_pages_to_scan;
- 	}
- }
-@@ -365,7 +365,7 @@ static void set_advisor_defaults(void)
- static inline void advisor_start_scan(void)
- {
- 	if (ksm_advisor == KSM_ADVISOR_SCAN_TIME)
--		advisor_ctx.start_scan = ktime_get();
-+		ksm_advisor_ctx.start_scan = ktime_get();
+@@ -1137,6 +1137,64 @@ static struct ksm_mm_slot *advance_scan_mm_slot(struct ksm_mm_slot *mm_slot)
+ 	return ksm_scan.mm_slot;
  }
  
++/*
++ * ksm_begin_full_scan - start a new full scan of all mergeable mms
++ *
++ * Called when the scanning cursor has come back around to ksm_mm_head:
++ * drain the per-cpu pagevecs, prune the migrate_nodes list and reset
++ * the unstable trees for the new pass, then move the cursor onto the
++ * first mm slot.  Returns the new cursor, which is &ksm_mm_head itself
++ * if a racing __ksm_exit removed the last mm from the list.
++ */
++static struct ksm_mm_slot *ksm_begin_full_scan(void)
++{
++	struct ksm_mm_slot *mm_slot;
++	int nid;
++
++	advisor_start_scan();
++	trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
++
++	/*
++	 * A number of pages can hang around indefinitely in per-cpu
++	 * LRU cache, raised page count preventing write_protect_page
++	 * from merging them.  Though it doesn't really matter much,
++	 * it is puzzling to see some stuck in pages_volatile until
++	 * other activity jostles them out, and they also prevented
++	 * LTP's KSM test from succeeding deterministically; so drain
++	 * them here (here rather than on entry to ksm_do_scan(),
++	 * so we don't IPI too often when pages_to_scan is set low).
++	 */
++	lru_add_drain_all();
++
++	/*
++	 * Whereas stale stable_nodes on the stable_tree itself
++	 * get pruned in the regular course of stable_tree_search(),
++	 * those moved out to the migrate_nodes list can accumulate:
++	 * so prune them once before each full scan.
++	 */
++	if (!ksm_merge_across_nodes) {
++		struct ksm_stable_node *stable_node, *next;
++		struct folio *folio;
++
++		list_for_each_entry_safe(stable_node, next,
++					 &migrate_nodes, list) {
++			folio = ksm_get_folio(stable_node,
++					      KSM_GET_FOLIO_NOLOCK);
++			if (folio)
++				folio_put(folio);
++			cond_resched();
++		}
++	}
++
++	for (nid = 0; nid < ksm_nr_node_ids; nid++)
++		root_unstable_tree[nid] = RB_ROOT;
++
++	spin_lock(&ksm_mmlist_lock);
++	mm_slot = advance_scan_mm_slot(&ksm_mm_head);
++	spin_unlock(&ksm_mmlist_lock);
++	return mm_slot;
++}
++
+ #ifdef CONFIG_SYSFS
  /*
-@@ -419,18 +419,18 @@ static void scan_time_advisor(void)
- 	unsigned long scan_time;
+  * Only called through the sysfs control interface:
+@@ -2633,65 +2691,24 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ 	struct vm_area_struct *vma;
+ 	struct ksm_rmap_item *rmap_item;
+ 	struct vma_iterator vmi;
+-	int nid;
  
- 	/* Convert scan time to seconds */
--	scan_time = div_s64(ktime_ms_delta(ktime_get(), advisor_ctx.start_scan),
-+	scan_time = div_s64(ktime_ms_delta(ktime_get(), ksm_advisor_ctx.start_scan),
- 			    MSEC_PER_SEC);
- 	scan_time = scan_time ? scan_time : 1;
+ 	if (list_empty(&ksm_mm_head.slot.mm_node))
+ 		return NULL;
  
- 	/* Calculate CPU consumption of ksmd background thread */
- 	cpu_time = task_sched_runtime(current);
--	cpu_time_diff = cpu_time - advisor_ctx.cpu_time;
-+	cpu_time_diff = cpu_time - ksm_advisor_ctx.cpu_time;
- 	cpu_time_diff_ms = cpu_time_diff / 1000 / 1000;
+ 	mm_slot = ksm_scan.mm_slot;
+ 	if (mm_slot == &ksm_mm_head) {
+-		advisor_start_scan();
+-		trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
+-
+-		/*
+-		 * A number of pages can hang around indefinitely in per-cpu
+-		 * LRU cache, raised page count preventing write_protect_page
+-		 * from merging them.  Though it doesn't really matter much,
+-		 * it is puzzling to see some stuck in pages_volatile until
+-		 * other activity jostles them out, and they also prevented
+-		 * LTP's KSM test from succeeding deterministically; so drain
+-		 * them here (here rather than on entry to ksm_do_scan(),
+-		 * so we don't IPI too often when pages_to_scan is set low).
+-		 */
+-		lru_add_drain_all();
+-
+-		/*
+-		 * Whereas stale stable_nodes on the stable_tree itself
+-		 * get pruned in the regular course of stable_tree_search(),
+-		 * those moved out to the migrate_nodes list can accumulate:
+-		 * so prune them once before each full scan.
+-		 */
+-		if (!ksm_merge_across_nodes) {
+-			struct ksm_stable_node *stable_node, *next;
+-			struct folio *folio;
+-
+-			list_for_each_entry_safe(stable_node, next,
+-						 &migrate_nodes, list) {
+-				folio = ksm_get_folio(stable_node,
+-						      KSM_GET_FOLIO_NOLOCK);
+-				if (folio)
+-					folio_put(folio);
+-				cond_resched();
+-			}
+-		}
+-
+-		for (nid = 0; nid < ksm_nr_node_ids; nid++)
+-			root_unstable_tree[nid] = RB_ROOT;
+-
+-		spin_lock(&ksm_mmlist_lock);
+-		mm_slot = advance_scan_mm_slot(mm_slot);
+-		spin_unlock(&ksm_mmlist_lock);
++		mm_slot = ksm_begin_full_scan();
+ 		/*
+ 		 * Although we tested list_empty() above, a racing __ksm_exit
+ 		 * of the last mm on the list may have removed it since then.
+ 		 */
+ 		if (mm_slot == &ksm_mm_head)
+ 			return NULL;
+-next_mm:
+ 		ksm_scan.address = 0;
+ 		ksm_scan.rmap_list = &mm_slot->rmap_list;
+ 	}
  
- 	cpu_percent = (cpu_time_diff_ms * 100) / (scan_time * 1000);
- 	cpu_percent = cpu_percent ? cpu_percent : 1;
--	last_scan_time = prev_scan_time(&advisor_ctx, scan_time);
-+	last_scan_time = prev_scan_time(&ksm_advisor_ctx, scan_time);
++next_mm:
+ 	slot = &mm_slot->slot;
+ 	mm = slot->mm;
+ 	vma_iter_init(&vmi, mm, ksm_scan.address);
+@@ -2811,8 +2828,11 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
  
- 	/* Calculate scan time as percentage of target scan time */
- 	factor = ksm_advisor_target_scan_time * 100 / scan_time;
-@@ -442,7 +442,7 @@ static void scan_time_advisor(void)
- 	 */
- 	change = scan_time * 100 / last_scan_time;
- 	change = change ? change : 1;
--	change = ewma(advisor_ctx.change, change);
-+	change = ewma(ksm_advisor_ctx.change, change);
+ 	/* Repeat until we've completed scanning the whole list */
+ 	mm_slot = ksm_scan.mm_slot;
+-	if (mm_slot != &ksm_mm_head)
++	if (mm_slot != &ksm_mm_head) {
++		ksm_scan.address = 0;
++		ksm_scan.rmap_list = &mm_slot->rmap_list;
+ 		goto next_mm;
++	}
  
- 	/* Calculate new scan rate based on target scan rate. */
- 	pages = ksm_thread_pages_to_scan * 100 / factor;
-@@ -458,9 +458,9 @@ static void scan_time_advisor(void)
- 	pages = min(pages, ksm_advisor_max_pages_to_scan);
+ 	advisor_stop_scan();
  
- 	/* Update advisor context */
--	advisor_ctx.change = change;
--	advisor_ctx.scan_time = scan_time;
--	advisor_ctx.cpu_time = cpu_time;
-+	ksm_advisor_ctx.change = change;
-+	ksm_advisor_ctx.scan_time = scan_time;
-+	ksm_advisor_ctx.cpu_time = cpu_time;
- 
- 	ksm_thread_pages_to_scan = pages;
- 	trace_ksm_advisor(scan_time, pages, cpu_percent);
 -- 
 2.43.0
 
