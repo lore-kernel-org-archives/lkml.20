@@ -1,110 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBC4481FA1;
-	Tue, 15 Sep 2026 16:52:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCCD480DD5;
+	Tue, 15 Sep 2026 16:53:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789491152; cv=none; b=b8gi//R5FtFvgu1mv4Ke0ilAfMXY8N22gXF3GAz8cgwtKQ51Ccl3vONNHz0PQoDNiA8jTwH5U63dhUTwGDgIcj1HNfIIBX4wsT/D9ngKM14fW8WhK8B7M6rGPnD43BbGrk1ed12Q/I0+nfTnCRdk0WgJYIHkF+PHGG8WAl7Jr30=
+	t=1789491228; cv=none; b=MQ5ekqN/OMUa5WMatBl6tIitrMalZnHK36qJUlRUorPn2Ji9RzxYjOPZNxPMc3Jiil3wcu4RvBSOcN2Xl3GOpuOh9M47jtXK5qL1ZrviIk7zWOs0a2PaclvSjQbYoPXCe+qyKck4msQ6P9AnFif8VhYJKsrOjGXzraNz3t8oark=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789491152; c=relaxed/simple;
-	bh=ypzeoRTb6xYEsb/0WCuvTZKzTa2DaEvHlXj54ddwHQY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N7hYa4lrVtnxf5x5UhpgXyqTt1UBwcejW8SJu9EobR8bx4wdu6kyeHbh2pL/At+Isl4Iikp5k4Wooomm4mjNQ70I5X0nvgqFWMxO4b4fuB+iEt97jxK9UbFBZTgSbOTE9CGetkLVSNzqHkslhdAl2QOMT7Ywq+h/ZmyMeUDfzro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuDOM1nN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789491228; c=relaxed/simple;
+	bh=l3ZvLuYlx/+t7ctdiTcG4avgC+vc0rEh+LzyXNpB4p8=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=c5ixQg0Yxgjauxm6FIoHmDeDHnkqdw/FwRAFeIWW3hgDxCTfn1x/7YUzj/CKKG98osKT8dTwYKm55O4gHV96UQLg977aTBRGSmsy73ouaZxoohkVDTERggYQEfc7mklwKpAj03Ujue/uQjp00WVlvjFY1Gjjs/FWJWs80R/ll88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fWVnpwJb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuDOM1nN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB07D1F000FF;
-	Tue, 15 Sep 2026 16:52:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fWVnpwJb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE341F000FF;
+	Tue, 15 Sep 2026 16:53:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789491151;
-	bh=ypzeoRTb6xYEsb/0WCuvTZKzTa2DaEvHlXj54ddwHQY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cuDOM1nNDsxtF7PlFuKdms5h3NHvIeOPwqUQNtOl5kbk9O5dbaHIR/RrEzZUyG/3i
-	 qSeL1n5WZRN1ll37KYIKax7VZLddYiaN5mCgEA+o5Jyf4GNB5aC/E77HsxtUsnI0Nl
-	 TizghtMccZece/nmMV3joeDyInkBxIB4OBAn5L2KplAWNR6bK5s1N1tafFN5vdesA0
-	 mzBUc/1bIzzXDMQsb27ampVmHD+ZSaxXeuOhxBtBRcKTAhYKq3nIPvhi6hW3nkeHk/
-	 x8tY7cksKZJULwkgj3LWM16v3X62dPLE/HyWNWZe9O8tqegycyv7ZTSrdYI+6t4ilu
-	 /oyUBJKLv7xuw==
-Date: Tue, 15 Sep 2026 17:52:23 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Guodong Xu <guodong.xu@oss.qualcomm.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Chen Wang <chen.wang@linux.dev>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	devicetree@vger.kernel.org, spacemit@lists.linux.dev,
-	sophgo@lists.linux.dev, linux-kselftest@vger.kernel.org,
-	Palmer Dabbelt <palmer@sifive.com>,
-	Andy Chiu <tchiu@tenstorrent.com>,
-	Florian Weimer <fweimer@redhat.com>,
-	Peter Bergner <bergner@oss.tenstorrent.com>,
-	Zihong Yao <zihong.plct@isrc.iscas.ac.cn>,
-	Mark Harris <mark.hsj@gmail.com>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>
-Subject: Re: [PATCH v7 09/11] riscv: cpufeature: Introduce ISA bases bitmap
- and rva23u64 detection
-Message-ID: <20260915-widget-defiling-e22497c228cc@spud>
-References: <20260915-rva23u64-hwprobe-v2-v7-0-aa35ebd9ae96@oss.qualcomm.com>
- <20260915-rva23u64-hwprobe-v2-v7-9-aa35ebd9ae96@oss.qualcomm.com>
+	s=k20260515; t=1789491227;
+	bh=vDad/MI7AmkmvEdvfkDBOgNfs9MAtrTUC2XCTt9mqIA=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=fWVnpwJbo7S9YhN+sHSDYsZEDcMG/kA9hlTe36gltxqI3F0fjzYCgQrCawvw8+W4k
+	 +nNLnvg6yDDo/hWi97B6g3pITdMBoIpWRNausiVuN4+1NfkVPwwhZ1LLLRPwTK6EhI
+	 f+IZXVaf52psSgGRUlQ+OyiDToDozOjig3yofqnulmxX9P44zOwoutBlg4gqW7kJWq
+	 /rzhgXm0oruGpKnBXskBXFqje8sCjGwDfAOYtscSs20gszVz2yBfsd7d5Cf2jzSSlw
+	 NwI7rXISnKKUOXSjf/xSHRqn26LZARFbFURzc5rnoEZg8TWdv9TcerEaNnNKPH7O3P
+	 Sd2183WhaS4Eg==
+Content-Type: multipart/mixed; boundary="===============8549227262384245125=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HzK562KHekWwgPYZ"
-Content-Disposition: inline
-In-Reply-To: <20260915-rva23u64-hwprobe-v2-v7-9-aa35ebd9ae96@oss.qualcomm.com>
+Message-Id: <10b12a0016e965f98f6789b11c4eaa5afbce2d623d6ddd80bd92105830ec2c13@mail.kernel.org>
+In-Reply-To: <20260915161450.96249-1-leon.hwang@linux.dev>
+References: <20260915161450.96249-1-leon.hwang@linux.dev>
+Subject: Re: [PATCH bpf-next v3] bpftool: Compute map size of light skeletons at runtime
+From: bot+bpf-ci@kernel.org
+To: leon.hwang@linux.dev,bpf@vger.kernel.org
+Cc: qmo@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,linux-kernel@vger.kernel.org,leon.hwang@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 15 Sep 2026 16:53:46 +0000 (UTC)
 
---HzK562KHekWwgPYZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+--===============8549227262384245125==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 03:15:35AM -0400, Guodong Xu wrote:
-> Introduce a per-hart and host-wide bitmap of conformant ISA "bases"
-> (named profile-class sets such as IMA and RVA23U64), computed at init
-> time by riscv_init_isa_bases().
->=20
-> Register riscv_init_isa_bases() as an arch_initcall. That is late
-> enough that core_initcall(tagged_addr_init) has probed senvcfg.PMM and
-> populated have_user_pmlen_*; without that ordering,
-> riscv_have_user_pmlen(7) would still return its default false and the
-> RVA23U64 detection path would always bail. It is also early enough that
-> arch_initcall_sync(init_hwprobe_vdso_data) finds the bases populated
-> when it snapshots the hwprobe values into the vDSO data page.
->=20
-> Consider this as the cache that subsequent consumers (hwprobe's
-> RVA23U64 base behavior bit, /proc/cpuinfo's "isa bases" lines, etc.)
-> can read without recomputing, which keeps them consistent with
-> each other.
->=20
-> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-> Signed-off-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
+> diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
+> index a50540ef6521..ee680f7c2116 100644
+> --- a/tools/bpf/bpftool/gen.c
+> +++ b/tools/bpf/bpftool/gen.c
 
-Something is wrong here with the signoffs here, Drew's probably missing
-either authorship or a Co-developed-by tag?
+[ ... ]
 
---HzK562KHekWwgPYZ
-Content-Type: application/pgp-signature; name=signature.asc
+> diff --git a/tools/lib/bpf/skel_internal.h b/tools/lib/bpf/skel_internal.h
+> index 1f3f332dffbe..9e16b8e8cb7c 100644
+> --- a/tools/lib/bpf/skel_internal.h
+> +++ b/tools/lib/bpf/skel_internal.h
+> @@ -11,6 +11,7 @@
+>  #include <linux/bpf.h>
+>  #else
+>  #include <unistd.h>
+> +#include <sys/param.h>
+>  #include <sys/syscall.h>
+>  #include <sys/mman.h>
+>  #include <linux/keyctl.h>
+> @@ -127,7 +128,7 @@ static inline void skel_free(const void *p)
+>   * either bpf_probe_read_kernel() or bpf_copy_from_user() from initial_value
+>   * depending on bpf_loader_ctx->flags.
+>   */
+> -static inline void skel_free_map_data(void *p, __u64 addr, size_t sz)
+> +static inline void skel_free_map_data(void *p, __u64 addr, size_t val_sz, __u32 max_entries)
+>  {
+>  	if (addr != ~0ULL)
+>  		kvfree(p);
+> @@ -138,18 +139,20 @@ static inline void skel_free_map_data(void *p, __u64 addr, size_t sz)
+>  	 */
+>  }
+>
+> -static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, size_t val_sz)
+> +static inline void *skel_prep_map_data(const void *val, size_t val_sz, __u32 max_entries,
+> +				       size_t data_sz)
+>  {
+>  	void *addr;
+>
+> -	addr = kvmalloc(val_sz, GFP_KERNEL);
+> +	addr = kvmalloc(data_sz, GFP_KERNEL);
+>  	if (!addr)
+>  		return NULL;
+> -	memcpy(addr, val, val_sz);
+> +	memcpy(addr, val, data_sz);
+>  	return addr;
+>  }
 
------BEGIN PGP SIGNATURE-----
+This isn't a bug, but would naming these something like value_sz and
+init_sz make it harder to mix up the map value size and the embedded
+blob length? The two names differ by three characters and describe
+different quantities, and in the __KERNEL__ variant above val_sz is not
+referenced at all while data_sz drives both the kvmalloc() and the
+memcpy(). A future edit that reaches for the wrong one would size an
+allocation or a copy incorrectly.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaql3xwAKCRB4tDGHoIJi
-0j7yAP91eT382HzKXLp423gHB51yfWxN+iAs4R+MhBlF05j5GwEA5GjMcnOJVD8Y
-sEFBqUBTL8evUR1CilJLWuZxaN1wQAU=
-=myHc
------END PGP SIGNATURE-----
+>
+> -static inline void *skel_finalize_map_data(__u64 *init_val, size_t mmap_sz, int flags, int fd)
+> +static inline void *skel_finalize_map_data(__u64 *init_val, size_t val_sz, __u32 max_entries,
+> +					   int flags, int fd)
 
---HzK562KHekWwgPYZ--
+[ ... ]
+
+> @@ -193,25 +197,39 @@ static inline void skel_free(void *p)
+>  	free(p);
+>  }
+
+[ ... ]
+
+>
+> -static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, size_t val_sz)
+> +static inline void *skel_prep_map_data(const void *val, size_t val_sz, __u32 max_entries,
+> +				       size_t data_sz)
+>  {
+> +	size_t mmap_sz = skel_map_mmap_sz(val_sz, max_entries);
+>  	void *addr;
+>
+>  	addr = mmap(NULL, mmap_sz, PROT_READ | PROT_WRITE,
+>  		    MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+>  	if (addr == (void *) -1)
+>  		return NULL;
+> -	memcpy(addr, val, val_sz);
+> +	memcpy(addr, val, data_sz);
+>  	return addr;
+>  }
+
+[ ... ]
+
+commit 417792b69014155cfa0ecc10cdffc4c2e54b9e60
+Author: Leon Hwang <leon.hwang@linux.dev>
+
+>     bpftool: Compute map size of light skeletons at runtime
+>
+>     bpftool rounds memory-mapped data map sizes to the host page size when
+>     generating a light skeleton. The generated code therefore uses a 64K
+>     mapping size when bpftool runs on a 64K-page host, even if the skeleton
+>     runs on a 4K-page target. The target rejects the oversized map mmap(),
+>     causing failure of loading the light skeleton.
+>
+>     When try to run 64K-page selftests on 4K-page VM, the error message does
+>     not provide the reason about page size.
+>
+>      test_atomics:PASS:atomics skeleton open 0 nsec
+>      test_atomics:FAIL:atomics skeleton load unexpected error: -12 (errno 22)
+>      #15      atomics:FAIL
+
+This isn't a bug, but could this sentence be reworded ("When running
+64K-page selftests on a 4K-page VM ...") or dropped, since the patch
+does not change the error message itself? The sentence is missing a
+subject and describes a diagnostics shortcoming that this patch does not
+address.
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34994524877
+--===============8549227262384245125==--
