@@ -1,459 +1,174 @@
 Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73754DF4D3
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789515812; cv=none; b=s82Nqrf65Tj4573QTd6oTQ8Gpk5GVUvrgdtb507PNtRRjXxEhGt3jGmWw81oK9ZJUXSAOTjrvh4kc7KjLoXDJNfdNCNMi2XZHWZ8xc/HIAwGqLiGgDkD2gMTyACM0dmG+DjD3P0x4p2QVP2WU2jEpqSrZy2r/li5il/hRaStoQY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789515812; c=relaxed/simple;
-	bh=AkZ/mquUAbTjLRHst2XaA5s+6LdoAMX58wgnGvmwolQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EZV5bX3LUo0Edr+2MBmaZazavODiROqIqNNUcIyOaT9hGTrK8ugO1wa30YbP9ba1eD3EjRWHpUZ+Dp1b9eo10ljpsFJkaFu27xrucGq38h44Ko/exWcAl/psiss+L5rSlJr8Jv834Gnvnqh6SfK9xxSMx6ftlsncExn3L5fcd2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=0myxA3R5; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B7C4AA57A
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789515850; cv=pass; b=J7CyBV/hUHH3HVV3EK/JY/BptPz+Ia+3kfQCDH+y2LFXNP3tkb0cOk3h6C4caUP2/nQrOn6U1M9mSttbmggj5b1kii/e8KAhVepew7n/+BlVxgUxNqEv3JS5rq+68IkJd4RH83buZP0M3v9pAtKlNAgS966VjieFpgZvNAV9DgM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789515850; c=relaxed/simple;
+	bh=SGIjU28TwfoxKzBSfbsOu+03oHMa8aeBE3oxpeVz2OE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dyAVRZQrAlrfwGEVYZea4aro2CIimGGR8jdI2lr7XpL0gVUn8Tsm2Adr2RzTGYtDxY2OrV6VA6nWQKWeAcyBC4/RxU498NTofIONvcGHkppiQ26hp1dibFrYTVtRyMMSwNw53CA+0JUS4UQ6EIihduLJqC1lbGmEms+U9ADYooU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=grjZos/c; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="0myxA3R5"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d46e4cdccso2072397b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:43:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="grjZos/c"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d440939e3so2884767b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:44:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789515848; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jnFuVm/pdD/bnoZhU0gnc0QGxjHlURosTt4nNtS+QbkMhJrFAMsK1HvJBh8aQcxZBZ
+         J9w1FLUjDeyE3j0XIV3dKM3kHu9H5i7WEoS8O1XzgDcq7UQGv19o+VZ42O6VzPSdavR5
+         s9R0rWZNzwip/EwULxq4SQpNnBsADlQj2t/nczm6RyIPm3AC4BUqOytKr5TyGlocHJ82
+         17EU9JFw2l0FynX1DZWdiWMIDKdOVCA5zzfCCwA/f01WMGLQu90DeagMBWSjdWM8lN9+
+         0w+KZSP2BfUMEN2OH7fgANlLcfiFBU8JGq5wOsE3KKw6S4C7WElObV6pdyqBK/Qsih0Z
+         ELsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ESrn/qED2M2tTRTVQuuTadkdChzosu4LGKtajzfHSeU=;
+        fh=NlTySFBDfI6NEy//+rZmArhic8X0+UHdvYij2mA+Nms=;
+        b=mjhyTvZ1+j4JgFRERTDazsFfIlB4IFPP8XJojHVQegsMhG9hzdsssTHxmS6AWOXGHO
+         9VXH4j2RZ8EQr3XtI/k3oV62HFE+b5s9HWukZZ/wTGBaPUhi0aes/37Rlo26kcQ6uoMt
+         HFktFnvGhxiEQ5fSAWoP6HJ2FkN7A9SAA9SpqMoIj3+bG4sMJ5ev6UiLUeb0Em+IXxFl
+         w2Q4gUmGX10oeT2erM9nEGKSpSG9DCPgmcH9ALHTMIKgJzlHr9xbNQA7trdln73f2uwj
+         3MYDfTmtj5Ub8RbIiVvSBGNk+KGprzt7gT6sIERKk6LA7Z1Nyqz3n5HqRhRS1hzi3Jxb
+         hvjw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789515809; x=1790120609; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G/Zr8CKz0IioKAvYxwKHiO3Nbvfle1Hi47nbnYM+5uU=;
-        b=0myxA3R5X//GK+1YV/HnTt9xAL8Cz+bRWL65WPmq24MmPx+whrfeL90IRgx9UG78qr
-         63Qa/uP9dCh6vS/hb35vQStpgVTs10dR0TKIGgcehtanQqk07thzdsjwLc7y7JVIX2zK
-         kSh9UA339TGpUjZjZjJhFsaF9LJyESVkhixT7FW5Npd2KSMgDEhVEBlxIzrTF0PQW197
-         bNsNM+U9sC0GJDKL/fbsNj5TXtrInHdyQJA+LHO2s32wIY2ITCFt/ASnd6Jw8h9NrDpS
-         AfTbq3qu2GvyJGkLdqlvSDvlPfzAVZtdge6Rl6mrkFUnRVkzBpF47MP3JZXsTX3kpxg1
-         nXsg==
+        d=google.com; s=20251104; t=1789515848; x=1790120648; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ESrn/qED2M2tTRTVQuuTadkdChzosu4LGKtajzfHSeU=;
+        b=grjZos/cB8daM+wImghtlmehDT+zHXQnu+L79L1W0s0Hqxi9V6I9/MfZCdEnoQQZ8G
+         rtQ9e17QfGv+U5W+eKuyKSilSxI9TwHwln0RKgTryqhjKjXFRYrGku6zbtpznk3b60n5
+         Og/TrMWP4nccbEGy5joylQAlNfYRAPK8AmaXikzRkFNDoysgMprSmPBTCbv5cA8qdJs+
+         ZJx9EjFKvgspDvKI7T82PXDa3L62S7S4RB+a0NbkURuF1U+UfRHaL/T1EyVDoLiODHSd
+         cLFzagp5VNolb1DnHF8qd9BryxcuWOePuJKBexnXtrj/YpW2r/ETFFHrKFesvOoLv+mw
+         xAww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789515809; x=1790120609;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=G/Zr8CKz0IioKAvYxwKHiO3Nbvfle1Hi47nbnYM+5uU=;
-        b=a05cNYwx73pL5RRt7MF1KRk/vmNA+rYkHqN0Lkzq0I+G50vX+L7paNRpSeu6fz51f1
-         FwQFk5i4YK6WV13RceznBwQbvGNNbrRVjsznJ8a2nkudczsumzuXjmLuhTJiXMHvc4oP
-         TuaWYb7YCZGhunC1t9E67F2yF740AsLr5JxBjrULbsu10fGrvaxeOtIbFt4ivSbeK89+
-         Ge3xvUKciCgE0ZwEyZndPodCEdPrF8StcsyXGGrtLFzGjIKSXTE4ECeFnG8JujrZl2X8
-         8mflshxUPq6ux/IdoWTHTZco6RRgZuAyaQAzJ31mUDHqnT4QLC/k9SMHV/zujd5tJ8UB
-         rwfg==
-X-Forwarded-Encrypted: i=1; AKwUvBwOfqbiJ37P6vZSA1rSscoyQty1ZPxtH6Yw0VsXA9tKCg22jv6WnCN4GWA7emQg2gN7aUCdwTzQgiqC31U=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5u2gsv8W5x0MbxfijoSuxpGa5eExdYrSFNXxhS7+WYX7r/vvH
-	nqRovq8dH/AqgxHa6jEIXMUU09gwyjitKMnASei6vf1WDiKGLoX8TPIHE+Y3MLe+nsA=
-X-Gm-Gg: AYBFou1itjFrPaQvacTr1u53Kjhvhyp7vRNXIp7LFQ01DVxwUKnfbDSudboyjcw+jqJ
-	x30/2zaihABliFNPsmJ2ej8Rn/mnup5vv5MD/oe+FnKKvWFjh8PZ7MQCMzZ3drHtxI7SHzmrAvv
-	LtDtIgSxaLtLsIr4zxjeME/SY/Kd35HkXhLMPoKrsFhjh6JWx9oDBVu2V7KNCqaM88ZLHaTsX1x
-	u0ukxE06ktDac+A9oaQO//rf+9dzUWXYNXr63dGZhQalPUmWqCStYwgKi9Td8IXjeF2c+tY6r2m
-	HTKSz5YKmFy1olIcb3NjbJx80tJhzzibY0ktThdoL7Dutj1ZafQUX4F9m9bZgb+/4PlSvIbUUXY
-	zX060xqpiD8EFrkVxRWdY9Q1s0xiQ9ZcVObgxDkHZyCDefPWUUFD2Ojati8PgTLysn20x1YD2Q3
-	Sd9057hxoKj//OUhuw2YhsX6jy8lmxvXc+xImVMbSJJy+xB4/mmqH/pCdzjIjqWcc515cRWT9r5
-	PqanKxcRnXuYiSuOKmlkTBdG6vHTyZKkyzigO0iPzo3Fw8fkGjOTwmJbTodpbVw5h/3ikHmqBsl
-	u7PLMFxsM9kJMACc0hSvvIjoB6wPhg72ci6EIsUiunlnlN2M7Yapxgfsgy1WV6Na
-X-Received: by 2002:a05:690c:e287:20b0:85b:35f6:bc5d with SMTP id 00721157ae682-89221bcf592mr2626177b3.13.1789515809420;
-        Tue, 15 Sep 2026 16:43:29 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:e9c6:4a77:70a9:9f1d? ([2600:1700:6476:1430:e9c6:4a77:70a9:9f1d])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-891f135b8dcsm2491527b3.42.2026.09.15.16.43.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 16:43:28 -0700 (PDT)
-Message-ID: <d2fe4964f232952f913c9896ef528ab90ea92e2b.camel@dubeyko.com>
-Subject: Re: [PATCH v4 1/2] hfsplus: fix recursive tree_lock in
- hfsplus_file_extend()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
-	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
-Date: Tue, 15 Sep 2026 16:43:27 -0700
-In-Reply-To: <20260915140726.17414-1-ngocthang2710.1999@gmail.com>
-References: <d66b55454add2f2a48a6dabdb4569051bebb5d42.camel@dubeyko.com>
-	 <20260915140726.17414-1-ngocthang2710.1999@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        d=1e100.net; s=20260707; t=1789515848; x=1790120648;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ESrn/qED2M2tTRTVQuuTadkdChzosu4LGKtajzfHSeU=;
+        b=Xc2Zae1s79JbOWlxOhQcXtTr8hVyU+cl/2btyoJiIMmOCw1YukTOC2kkdmMu0NJqPP
+         HykbQAFONuVrKCsfNhDtXZ7+Va/6taFz8tQAYxTsnPzFXGX5P82KYYfmyEOTNj7f8bkv
+         LKIdWG8J6J8bD2V8bhutEg08VX0AtrngKwwzlKMqQoAV1DDOcI6EaxlW93dWfdILT84j
+         TXU1WsxzQqVDyjdiSr8RC4D1o3Oy+6RPnDURf+cl319qvECX8CyQKqjsLcaSxWqtABbY
+         cRf5zEEiHu0fNotxOqqj/4SgT9qfeXWOU9pe8VhYTZqrYUa1lZ4BvBpx2up/K2FgkxAa
+         sxDA==
+X-Forwarded-Encrypted: i=1; AKwUvBxwXFSN/sEgPEo3nsC0amv0qh32B0JTrbVPzZ9R71WGonVAntL/gZ1X5QbDwvOo/KnPLgO/jwp7UElJ2hw=@vger.kernel.org
+X-Gm-Message-State: AFuF++maFjsqtDc/hNqoyM/VU/2KXYECp9YFsq+hOhf7MXHB4bwlz1pc
+	MkGf4EysIPotgNtRvUjmw7qfQbwhqerSUZRibOfdFLCwIyxlDWRjaeVQyThwCx/WvQWa7o2GTjc
+	OCkEf9rxTcqiVCFzRGZcHbOi+qnHGYaFzf4K/mCrL
+X-Gm-Gg: AYBFou3yRC27elj6Jg2R0UAZozzsfD5Ib08MHZTqW5OaXv5EwTYiEUqIM4n2KoiKBi3
+	GNPu9Y4WnWuAdckM6TrPg3EpTgnFIJeR7OA8oSHihYLIL4U2yMjqvbK9/IXxr4BebX09n748iNk
+	99kE0jiaFZ/lTuYIiqwoBUUYjvjqS7p7KWJV+ClR0ct7fKuGjGRT9gXyAyq695KmRp4Ld4H+scZ
+	tS9neIfcZjq7CrlPIwaFiZD2R8bHDIaGsQPEVsM5NSSd8V3zLWBVBTkjeBMEQblUzUKOWHTVg3o
+	IhFcFZM1urbA7tDqbDd9PYXVHeED7M5y0xhxq66t1iGQ59XQco4uV2CbSRWV81W5YeCHAaj29mK
+	LG8Ot+jHwYBdlhudplyRJ7mpFpkb5+hZvBzBwuM5m9q7Dx6PFkYGQ7HuhTgObHjhyDmVGaNCCg2
+	9pbvce5QeiWLnCJ+KBU8uSON6POCQCJgU=
+X-Received: by 2002:a05:690c:c045:b0:873:5bb2:6c1b with SMTP id
+ 00721157ae682-89226db4172mr1528937b3.69.1789515847086; Tue, 15 Sep 2026
+ 16:44:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260908060410.3982-1-nashuiliang@gmail.com> <20260908133636.2ea807d9@kernel.org>
+ <CACueBy4BvJ6E0RuUDsQmwPq_zt9Xh6T19DOAkA5MW-uU1yNpKQ@mail.gmail.com>
+ <CANn89iKYQMPm_LyYY4v48QmoFc0MwkkKQwggd_BLGDJL78=8qA@mail.gmail.com> <CACueBy4u-2yHHysZvs_a=VQLe4PtY9-qjkdZ3gFn_eVKmyspOA@mail.gmail.com>
+In-Reply-To: <CACueBy4u-2yHHysZvs_a=VQLe4PtY9-qjkdZ3gFn_eVKmyspOA@mail.gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Tue, 15 Sep 2026 16:43:55 -0700
+X-Gm-Features: AcwNN1XvjZOB1E1lMNws61UgnRr4-SLHJpFjowvX10dxrWry6rWUlTn5Utv135Y
+Message-ID: <CANn89iJkPPXruitnot9D28Xe5LWnD-irtgCUEOpmFfVkG4M=-g@mail.gmail.com>
+Subject: Re: [PATCH net-next v9] net: reduce RFS/ARFS flow updates by checking
+ LLC affinity
+To: chuang <nashuiliang@gmail.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>, 
+	Stanislav Fomichev <sdf.kernel@gmail.com>, Hangbin Liu <liuhangbin@gmail.com>, 
+	Samiullah Khawaja <skhawaja@google.com>, Neal Cardwell <ncardwell@google.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-09-15 at 21:07 +0700, Nguyen Ngoc Thang wrote:
-> Hi Slava,
->=20
-> Thanks a lot for the detailed review, this caught a real bug. Replies
-> inline, v5 diff at the bottom.
->=20
-> > static inline?
-> >=20
-> > > +{
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 int i;
-> > > +
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < 8; ext++, i++)
-> >=20
-> > I am introducing the special constant for the 8 extents of the fork
-> > in
-> > HFS+ iomap patchset. How can we handle this? Because I would like
-> > to
-> > see the named constant instead of hardcoded value.
->=20
-> Added HFSPLUS_EXTENT_COUNT in hfsplus_fs.h and used it here. I don't
-> know what name you're using in the iomap patchset -- happy to rename
-> to match once you let me know, so we don't end up with two constants
-> for the same thing when that series lands.
+On Mon, Sep 14, 2026 at 5:01=E2=80=AFAM chuang <nashuiliang@gmail.com> wrot=
+e:
+>
+> Although there is a slight semantic difference compared to
+> net_hotdata.rps_sock_flow_table, meaning the CPU recorded in
+> `sock_flow_table[flow_id].ent` might not perfectly align with the one
+> used in `set_rps_cpu`. It is still the least intrusive approach.
+>
+> How about the following simple change?
+>
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 3a0dd1f98084..7c513bf14221 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -5236,7 +5236,7 @@ static int get_rps_cpu(struct net_device *dev,
+> struct sk_buff *skb,
+>                  *     have been dequeued, thus preserving in order deliv=
+ery.
+>                  */
+>                 if (unlikely(tcpu !=3D next_cpu) &&
+> -                   (tcpu >=3D nr_cpu_ids || !cpu_online(tcpu) ||
+> +                   (tcpu >=3D nr_cpu_ids || !cpu_online(tcpu) ||
+> !rps_check_llc_affinity(tcpu, next_cpu) ||
+>                      ((int)(READ_ONCE(per_cpu(softnet_data,
+> tcpu).input_queue_head) -
+>                       rflow->last_qtail)) >=3D 0)) {
+>                         tcpu =3D next_cpu;
 
-You cannot simply declare the same constant because our patchsets will
-conflict. Probably, you need to keep 8 as hardcoded value now. And it
-will be good to make the refactoring after my patchset will be in
-HFS/HFS+ git tree.
+This diff in get_rps_cpu() has two issues:
 
->=20
-> I kept hfsplus_ext_fork_full() itself as plain "static", not "static
-> inline": it's not a single-line wrapper, and the compiler already
-> inlines small static functions like this at -O2, so an explicit
-> "inline" in a .c file (as opposed to a header) doesn't buy us
-> anything here. I did make the new one-line is_extents_btree() helper
-> below "static inline", since that one really is just a trivial
-> predicate wrapper.
->=20
-> > The comment is not fully correct. We should not be here for the
-> > case of
-> > Extents Overflow file because there is no forks other than in
-> > superblock. It's not about the lock issue. We simply should not be
-> > here
-> > at all.
->=20
-> You're right, fixed. The comment now says: "Per the HFS+ format, the
-> extents overflow file is fully described by its own eight fork
-> extents and can never have an overflow extent of its own recorded in
-> the tree; this function should never legitimately be reached for it."
->=20
-> > Maybe, we need to introduce something like is_extents_btree()
-> > method?
-> > What do you think?
->=20
-> Done -- added is_extents_btree() and used it at all three call sites
-> in this patch (hfsplus_ext_read_extent(), the fork-full check in
-> hfsplus_file_extend(), and the insert_extent backstop).
->=20
-> > It looks like complicated condition and it deserves a static inline
-> > function, from my point of view.
->=20
-> Extracted into hfsplus_ext_file_needs_contig_grow().
->=20
-> > Maybe, instead of this long comment we need to introduce a
-> > dedicated
-> > method for processing Extents Overflow file allocation case?
->=20
-> Extracted into hfsplus_ext_file_grow(), replacing the inline comment
-> with a doc comment on the function itself.
->=20
-> > Maybe, I am missing something here. But goal + 1 sounds like we
-> > request
-> > to allocate only one block. Is it correct? If yes, why only one
-> > block?
-> > Usually, we need to try to allocate a clumpSize.
->=20
-> You're right, and this was an actual bug, not just a readability
-> issue. I traced hfsplus_block_allocate(): the `size` argument bounds
-> both where the scan stops *and* the returned run length via
-> `len =3D min(size - start, len)`. With `size =3D goal + 1` and
-> `start =3D goal`, that clamps `len` to 1 no matter what clump_blocks
-> was, so this path only ever allocated a single block. Fixed to use
-> `goal + *len` (the original clump_blocks) as the bound instead, in
-> hfsplus_ext_file_grow(). That keeps the "must start exactly at goal"
-> rejection (still checked via `start !=3D goal` by the caller) while
-> allowing a full clump to be granted when the space is there.
->=20
-> > Can we be here at all? If start !=3D goal, then we cannot allocate at
-> > all. And we can be here only if we have empty slot it the fork. Am
-> > I
-> > right?
->=20
-> The other way around: this branch is taken when
-> hfsplus_ext_fork_full() returns true, i.e. there is *no* free slot
-> left in the fork. If there is a free slot, we fall through to the
-> regular allocate-anywhere path and hfsplus_add_extent() just records
-> it in that slot -- no special-casing needed. I renamed the condition
-> to hfsplus_ext_file_needs_contig_grow() to make that unambiguous.
->=20
-> > checkpatch.pl --strict flags one alignment style issue [...]
-> > continuation should align with the open paren =E2=80=94 cosmetic only
->=20
-> Fixed.
->=20
-> Thanks again for catching the goal+1 bug in particular -- v5 below.
+Boolean logic / packet reordering bug:
+Adding || !rps_check_llc_affinity(tcpu, next_cpu) inside the || list
+does not prevent calling set_rps_cpu() when the queue is drained
+(because false || queue_drained still evaluates to true). Worse, when
+!rps_check_llc_affinity() is true, it short-circuits the || expression
+and bypasses the input_queue_head - rflow->last_qtail >=3D 0 check,
+switching CPUs before the backlog drains and causing packet
+reordering.
 
-I cannot treat as a v5 of the patch because it's not the patch but
-simple discussion. And it makes the review process really complicated.
-Please, don't mess the discussion with the formal patches.
+Per-packet slow path:
+Even if gated with &&, skipping set_rps_cpu() leaves rflow->cpu (tcpu)
+unchanged while sock_flow_table holds next_cpu.
+This causes unlikely(tcpu !=3D next_cpu) to evaluate to true on every
+subsequent packet for that flow instead of once per migration.
 
->=20
-> ---
-> Changes since v4:
-> =C2=A0- Fix hfsplus_file_extend() requesting only 1 block instead of a
-> =C2=A0=C2=A0 full clump when growing the extents overflow file's fork
-> =C2=A0=C2=A0 (goal + 1 -> goal + len in the block_allocate() call).
-> =C2=A0- Add HFSPLUS_EXTENT_COUNT instead of hardcoding 8.
-> =C2=A0- Add is_extents_btree() instead of repeating the i_ino comparison.
-> =C2=A0- Extract hfsplus_ext_file_needs_contig_grow() and
-> =C2=A0=C2=A0 hfsplus_ext_file_grow() out of hfsplus_file_extend().
-> =C2=A0- Fix comment on the HFSPLUS_EXT_CNID guard in
-> =C2=A0=C2=A0 hfsplus_ext_read_extent() to state the real reason.
-> =C2=A0- Fix checkpatch --strict alignment nit on pr_err() continuation.
-> (all per Slava's review)
->=20
-> diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-> index eb7c11524d18..f3a4b8fd567f 100644
-> --- a/fs/hfsplus/extents.c
-> +++ b/fs/hfsplus/extents.c
-> @@ -84,6 +84,23 @@ static u32 hfsplus_ext_lastblock(struct
-> hfsplus_extent *ext)
-> =C2=A0	return be32_to_cpu(ext->start_block) + be32_to_cpu(ext-
-> >block_count);
-> =C2=A0}
->=20
-> +/* True if the inode is the extents overflow file's own inode */
+Instead, place the check in set_rps_cpu() under #ifdef CONFIG_RFS_ACCEL:
 
-This comment is useless because the name is informative enough.
+diff --git a/net/core/dev.c b/net/core/dev.c
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -5113,6 +5113,10 @@ set_rps_cpu(struct net_device *dev, struct sk_buff *=
+skb,
+  if (!skb_rx_queue_recorded(skb) || !dev->rx_cpu_rmap ||
+     !(rxqueue =3D dev->_rx))
+  goto out;
++
++ if (static_branch_unlikely(&rps_feat_llc_affinity) &&
++    cpus_share_cache(raw_smp_processor_id(), next_cpu))
++ goto out;
 
-> +static inline bool is_extents_btree(struct inode *inode)
-> +{
-> +	return inode->i_ino =3D=3D HFSPLUS_EXT_CNID;
-> +}
-> +
-> +/* True if all extents of a fork are in use (no free slot left) */
+  rxq_index =3D cpu_rmap_lookup_index(dev->rx_cpu_rmap, next_cpu);
+  if (rxq_index =3D=3D skb_get_rx_queue(skb))
 
-I assume that you are practicing AI assistant a lot. Please, clean upo
-useless comments after this stuff. The name of function is informative
-enough.
-
-> +static bool hfsplus_ext_fork_full(struct hfsplus_extent *ext)
-
-hfsplus_fork_full()...
-
-If you would like to be sure that fork is not corrupted and it is full,
-then you need to analyze the fork structure. Otherwise, it is enough to
-check the latest extent in the fork.
-
-> +{
-> +	int i;
-> +
-> +	for (i =3D 0; i < HFSPLUS_EXTENT_COUNT; ext++, i++)
-> +		if (!ext->block_count)
-> +			return false;
-> +	return true;
-> +}
-> +
-> =C2=A0static int __hfsplus_ext_write_extent(struct inode *inode,
-> =C2=A0		struct hfs_find_data *fd)
-> =C2=A0{
-> @@ -217,6 +234,15 @@ static int hfsplus_ext_read_extent(struct inode
-> *inode, u32 block)
-> =C2=A0	=C2=A0=C2=A0=C2=A0 block < hip->cached_start + hip->cached_blocks)
-> =C2=A0		return 0;
->=20
-> +	/*
-> +	 * Per the HFS+ format, the extents overflow file is fully
-> +	 * described by its own eight fork extents and can never
-> have an
-> +	 * overflow extent of its own recorded in the tree; this
-> function
-> +	 * should never legitimately be reached for it.
-> +	 */
-> +	if (is_extents_btree(inode))
-> +		return -ENOSPC;
-> +
-> =C2=A0	res =3D hfs_find_init(HFSPLUS_SB(inode->i_sb)->ext_tree, &fd);
-> =C2=A0	if (!res) {
-> =C2=A0		res =3D __hfsplus_ext_cache_extent(&fd, inode, block);
-> @@ -392,6 +418,34 @@ static int hfsplus_free_extents(struct
-> super_block *sb,
-> =C2=A0	}
-> =C2=A0}
->=20
-> +/*
-> + * True when growing the extents overflow file's own inode needs the
-> + * contiguous-only special case below: its fork's eight extents are
-> + * all in use, so there is no free slot left to record a new extent
-> + * for it.
-> + */
-
-Comment is longer than the function itself. It is not necessary at all.
-
-> +static bool hfsplus_ext_file_needs_contig_grow(struct inode *inode,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct
-> hfsplus_inode_info *hip)
-
-is_ext_file_need_grow() ?
-
-> +{
-> +	return is_extents_btree(inode) &&
-> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hip->alloc_blocks =3D=3D hip->firs=
-t_blocks &&
-> +	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hfsplus_ext_fork_full(hip->first_e=
-xtents);
-> +}
-> +
-> +/*
-> + * Allocate blocks to grow the extents overflow file itself once its
-> + * fork is full (see hfsplus_ext_file_needs_contig_grow()). Per the
-> + * HFS+ format this file can never record an overflow extent of its
-> + * own, so the only way to grow it further is a contiguous extension
-> + * of the last extent already in the fork: search for up to *len
-> free
-> + * blocks starting exactly at goal, and return a start block other
-> + * than goal if the block at goal itself isn't free.
-> + */
-
-Ditto.
-
-> +static u32 hfsplus_ext_file_grow(struct super_block *sb, u32 goal,
-> u32 *len)
-> +{
-> +	return hfsplus_block_allocate(sb, goal + *len, goal, len);
-> +}
-
-This doesn't make sense at all.
-
-> +
-> =C2=A0int hfsplus_free_fork(struct super_block *sb, u32 cnid,
-> =C2=A0		struct hfsplus_fork_raw *fork, int type)
-> =C2=A0{
-> @@ -465,13 +519,21 @@ int hfsplus_file_extend(struct inode *inode,
-> bool zeroout)
-> =C2=A0	}
->=20
-> =C2=A0	len =3D hip->clump_blocks;
-> -	start =3D hfsplus_block_allocate(sb, sbi->total_blocks, goal,
-> &len);
-> -	if (start >=3D sbi->total_blocks) {
-> -		start =3D hfsplus_block_allocate(sb, goal, 0, &len);
-> -		if (start >=3D goal) {
-> +	if (hfsplus_ext_file_needs_contig_grow(inode, hip)) {
-> +		start =3D hfsplus_ext_file_grow(sb, goal, &len);
-> +		if (start !=3D goal) {
-> =C2=A0			res =3D -ENOSPC;
-> =C2=A0			goto out;
-> =C2=A0		}
-> +	} else {
-> +		start =3D hfsplus_block_allocate(sb, sbi-
-> >total_blocks, goal, &len);
-> +		if (start >=3D sbi->total_blocks) {
-> +			start =3D hfsplus_block_allocate(sb, goal, 0,
-> &len);
-> +			if (start >=3D goal) {
-> +				res =3D -ENOSPC;
-> +				goto out;
-> +			}
-> +		}
-
-This didn't make the situation better. Probably, all this piece of code
-should be one function.
-
->=20
-> =C2=A0	}
->=20
-> =C2=A0	if (zeroout) {
-> @@ -526,6 +588,20 @@ int hfsplus_file_extend(struct inode *inode,
-> bool zeroout)
-> =C2=A0	return res;
->=20
-> =C2=A0insert_extent:
-> +	/*
-> +	 * The fork-full precheck above keeps the extents overflow
-> file's
-> +	 * own inode from ever landing here with blocks already
-> allocated;
-> +	 * this is a backstop, so still free what was allocated
-> rather
-> +	 * than leak it.
-> +	 */
-> +	if (is_extents_btree(inode)) {
-> +		if (hfsplus_block_free(sb, start, len))
-> +			pr_err("can't free extent: start %u, count
-> %u\n",
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 start, len);
-> +		res =3D -ENOSPC;
-> +		goto out;
-> +	}
-
-It's hard to discuss if you are moving discussion out of the code. My
-question still the same here. Because I cannot connect your answer with
-my question and code.
-
-Thanks,
-Slava.=20
-
-> +
-> =C2=A0	hfs_dbg("insert new extent\n");
-> =C2=A0	res =3D hfsplus_ext_write_extent_locked(inode);
-> =C2=A0	if (res)
-> diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
-> index 1e5b58e6a13f..7c53832f2784 100644
-> --- a/fs/hfsplus/hfsplus_fs.h
-> +++ b/fs/hfsplus/hfsplus_fs.h
-> @@ -24,6 +24,9 @@
-> =C2=A0#define HFSPLUS_TYPE_DATA 0x00
-> =C2=A0#define HFSPLUS_TYPE_RSRC 0xFF
->=20
-> +/* Number of extent slots in a fork (hfsplus_extent_rec,
-> hfs_common.h) */
-> +#define HFSPLUS_EXTENT_COUNT 8
-> +
-> =C2=A0typedef int (*btree_keycmp)(const hfsplus_btree_key *,
-> =C2=A0		const hfsplus_btree_key *);
->=20
-> --
-> Thanks,
-> Nguyen Ngoc Thang
+This skips ndo_rx_flow_steer() when the CPU servicing the current RX
+queue already shares an LLC with next_cpu,
+while still reaching WRITE_ONCE(rflow->cpu, next_cpu) at out:
+so subsequent packets take the fast path (tcpu =3D=3D next_cpu).
