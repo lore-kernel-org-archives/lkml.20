@@ -1,102 +1,90 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054FB430797
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:12:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF24F3CC7CA;
+	Tue, 15 Sep 2026 17:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789492328; cv=none; b=r+keiObXx2JwtUuJoto9FIqh9mcoAsLUL4C8FgpC9gmn1UklBkw2SeOe00qc1jPINHgZtkzH9uXGxp9Wd5poGiHP1UbVo9bEm9rDZs9xquv2/4aF1FqnqUDP8r0R2G49ZIckGa4oiyuGnL56Tba2/kE5L/DrzSb35z2lP9AJUGo=
+	t=1789492357; cv=none; b=J0xeuudjIxLe6PhFHKDnS+vAq1EFUW9RZHpINd327WlYLk8PVGVZNSodd64V8PNb/dxFPdPZjfRcsdFojwM0M48fkR1hFiczpCmYAXmiHbwnbSjOgJbwbdMQ35LZx2Cy4t7c8D1NpFh8IxmVic3H4u13bvejqt6BroeXLfeV774=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789492328; c=relaxed/simple;
-	bh=Ar50DIJIwcExT1ZRSJD/v5WeHuSpaiWekI1I0rTSM7s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hD7ZZirQpV3R+1/89Ov5BcpJDGdBgJc23emh+QVPBD5itVSiuJDEMCffe92tcwmwDdTZsY03ilr622TfGnNgxKLWsh/0DoYR7G/Bs6HIQI4D2Y/tIDY37kgKuLNOyqRdlKO0E/9sC/M2iGqwodgIU9fq+CJ0bpzOa1ORtwAuPoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=rPpBF/tD; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789492357; c=relaxed/simple;
+	bh=GTqazvYCcPJeD74DZfO8rcND1yC//Bo2ohe8JDKdv4g=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=VD25LUy+b7mwDGgdDuxWgF402uax1zoQej6tjrPwe2XwYOfbpH9mE1IT5PCwC5nNUd0zldb/DmIqFAVm6E5Bp80IH7nzd3WBZfdhElKe4EaWN2qSHUJJ8Ja0Q49qqj6sIZRpFR7qz9NjobswrUHCLAVDjQgUrFkEdwHxkp8gxI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LclWOJgW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="rPpBF/tD"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530de452c33so43316531cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:12:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789492326; x=1790097126; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uS2ss2dRiKmKR68mKWZI7ZnqjRyXAQoUa35bmbT36M4=;
-        b=rPpBF/tDepfYNzodihDvHjo4xMXpo3zJLc+VkDFvxFCcRj9lDn1d5EQoo4fIOyjTO2
-         ssccakFpJdH9rIVG1ZMAbsFGuVpLRum1F3B11VBeAope73LSOyziQNd3123Ko/Hhk1PL
-         3ecxrh80TVL9fXYn2xnZWmqu7PFcBpNh/5Ws1flqHS9faWzfhWlEl8nHqGWAmzho5EyJ
-         EAd+qJK7dv8+87VW4gCKSbuZLPET/lzEXbJLS641Ji//Z4/Hfcowv4/YS9/CadmrW1mt
-         6cChpBo/FoO44uRCSNIFmhePkYINk9R4sWWv/AqU+say6lZ+xUP3n9tEyZ1y6BOJpF4J
-         vspQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789492326; x=1790097126;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uS2ss2dRiKmKR68mKWZI7ZnqjRyXAQoUa35bmbT36M4=;
-        b=UiAVDrjvToF5clgHE7aEmGTuvkMuiUAV/0fZvTHx5Tiq1PeAr0IYgovzQp3bm5MhmP
-         xZqy6eHumcMRSLCVihe+sQ1xmABVPNQFdta96OtfZxN4rq72fgWbifBbPNdo75l+rVWC
-         rH8IKOBi0fguIhY6RtVY+7ZrYesM5bC1pNHsi0Iqivr/n4yPsETSABWU2lgbHHH+WV4m
-         cQ/V+icmJxEIxKmdof4taorqgIFb8CBvmbQoXHjRYGC5z0epafN7040aFf3jHA8RYGSG
-         WN40y2irZSR9vVNYm4xnbf0hwEPFCy2gLhik+LnC91KQhP3o+5v0VZb19ZPYcF3M3fya
-         ejBQ==
-X-Forwarded-Encrypted: i=1; AKwUvByc1x34IFItmGllzPwfxwWpk92X0UCIw0T8qHoqnVxPgTBnt9Jgv62TaL+9KJDRVtRBIJ9yxFcC1dNd7K8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2dMGJPG5w7Naor+sPGm7WGLw3DwyDSAvhzMa+GVD2l6C59+m1
-	hTHnfQvClcUya29bYU8emm1wU2CK6EU26SyB7dhQlAvAHDQFIcv0O7CJfnxO1b0EUl4=
-X-Gm-Gg: AYBFou0CNx/DgTFfCVPssRmY9p9JjA+E+ZRJWtq53hEgWCQ9li7Wr3gRCWhfSxyRF1w
-	hpEcmUVvzcTnPrgRpDit+/JKP5Tq/qp4Wda95Tn1jeJnjluU9Rl92qyWGjcU6J2bpFxz2lOJNlL
-	Q8pwoAlp8HLNGmyMsL34f//vvAqbG53AFTwVZLNOHnJuTExG3+oVgyFeOn4HhFhz/HpjMeWB055
-	vy8Ez30n6dPPabTsNMX7fJfj8XMPddXwzy0Fv0RgbSlPF9eJk1Thxc9B7OvrDXJxC92WaVU2het
-	lNHqvSfDkHdThl40IiAlpBTsuFOrg2WWJ5bAouLp8kU7cH6KFFJeZ2fb5TaZwhx7plhYf3+jOhC
-	IX8ZR8D4mInQmuQtRMciYkvJy8BPknxaTnjlw5utaPYUhNDUZUKuJMT3Wu27qvibsgmwW/rtwoO
-	NaSXvV+qRPmq7ZsNRQdRMCCEavEn6Cj+H+jY8a/lSDRIkbDZuewI5Xb1oJcWbc5PVM+HM42gRDL
-	ONCbfPMu3wVcTamQQq2+5yFk9CYMEZ034d6+Ms7VAFB1zqJEl+wjZY=
-X-Received: by 2002:a05:622a:8c0a:b0:531:d7d:64ea with SMTP id d75a77b69052e-5310d7d657fmr98074341cf.26.1789492325495;
-        Tue, 15 Sep 2026 10:12:05 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ce4ec298sm136165741cf.16.2026.09.15.10.12.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:12:05 -0700 (PDT)
-Date: Tue, 15 Sep 2026 13:12:03 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
-	jannh@google.com, wangjiexun@tinylab.org, sashiko-bot <sashiko-bot@kernel.org>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
-Message-ID: <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
-References: <20260912110832.3203902-1-gourry@gourry.net>
- <aqloB0zm3RjJ47m1@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LclWOJgW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6E101F000FF;
+	Tue, 15 Sep 2026 17:12:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789492355;
+	bh=4oNJhN4dtu+O5waoWkTE7D/IWivUyBKL0wFJq/5iKHU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=LclWOJgWHF/EmBn4ceEDh8W5qYgTCUHPUzIY50SaLlCWpIzwcGnUpgc9UbKpL7FxP
+	 UEWc6/mYROJoKSiACqAH3wcoILGp2tmIwGUDhnNxrCTy1xM7sIC0dPrw4GWHXH69bN
+	 6yxycrBLsf5KhHfd/LjCFhMqNm4Y3Ko0ATNjAfyj1gNbHgOWnCblC5XG0/wJyo2838
+	 9ICJCG+ErcnDjFDA+u6dxqkdoZGIykLPgdJLJx4NIyu+MjHp6RtwasM3/9ObNS0JnD
+	 8sqKpzkYJHluSIw4KNBbt2plGR45as4PiKEUk6a5Y/CAZQ/M689PDL/uVIK2MgaajH
+	 z76YlDiwBuHrw==
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ patches@opensource.cirrus.com
+In-Reply-To: <20260915103121.3306373-1-rf@opensource.cirrus.com>
+References: <20260915103121.3306373-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs35l56: Add KUnit tests for regmap defaults
+ table
+Message-Id: <178948372708.151760.7628471833380828294.b4-ty@b4>
+Date: Tue, 15 Sep 2026 15:48:47 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqloB0zm3RjJ47m1@gremlin>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1136; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=GTqazvYCcPJeD74DZfO8rcND1yC//Bo2ohe8JDKdv4g=;
+ b=kA0DAAoBJNaLcl1Uh9AByyZiAGqpfIDIu0p9qR+cmMQfplha6bCmkmyYXceCvBOoeFTZJQLgd
+ YkBMwQAAQoAHRYhBK3maKpnVxi1n+Kf6iTWi3JdVIfQBQJqqXyAAAoJECTWi3JdVIfQeWAH/3H+
+ +o6EVf+zwliQPuglCVOM5olwztsHQIdKfBsMAJA7PqXohWQUt+n6OAtKTKhpz6D0Je5jXDw6No+
+ rsuuSPCnzV5NQ9ek5B0uM9VXZLXUBhdDWjNHeBp8j7lg23m65j45DDMP3bucpyITaH7YDoqu8qJ
+ LJPrUdX9J/5pxzdfvX5j9Ow5p/+eDpYXdL98WpUe61Djtm+k/fHyfqjueq0zoy9NZFaPeR1Dusa
+ V7eUWEnhkUAlW3FZ58UTpqaBO3PTqwAPDRIhMmiCakOYfIYoNL0Rx915G9V2VXqWQ+mPWkx2r24
+ H3AQTcyjmTUzKq+ovXUYbiZaNd+Vul5VCETkLa0=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Sep 15, 2026 at 04:55:47PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Sat, Sep 12, 2026 at 07:08:32AM -0400, Gregory Price wrote:
-> > MADV_PAGEOUT collects isolated folios on a local list before reclaiming
-> > them after the PTE walk.  The reschedule path drops the PTE lock and then
-> > restarts the mapping with pte_offset_map_lock().
-> 
-> Is this reschedule path even necessary? It's pretty bloody sketchy.
-> 
-> I thought the modern approach (TM) was to not do cond_resched() and friends so
-> can we actually look at removing this?
-> 
+On Tue, 15 Sep 2026 11:31:21 +0100, Richard Fitzgerald wrote:
+> ASoC: cs35l56: Add KUnit tests for regmap defaults table
 
-Sorry - meant to reply to this.
+Applied to
 
-Honestly there's so much jammed into this function i can't give you a
-straight answer. I can take a short detour to figure out if we can
-rework this as a whole.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-~Gregory
+Thanks!
+
+[1/1] ASoC: cs35l56: Add KUnit tests for regmap defaults table
+      https://git.kernel.org/broonie/sound/c/f4c49ebff706
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
