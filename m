@@ -1,90 +1,330 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF24F3CC7CA;
-	Tue, 15 Sep 2026 17:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0EE5B438470
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789492357; cv=none; b=J0xeuudjIxLe6PhFHKDnS+vAq1EFUW9RZHpINd327WlYLk8PVGVZNSodd64V8PNb/dxFPdPZjfRcsdFojwM0M48fkR1hFiczpCmYAXmiHbwnbSjOgJbwbdMQ35LZx2Cy4t7c8D1NpFh8IxmVic3H4u13bvejqt6BroeXLfeV774=
+	t=1789492389; cv=none; b=d4zyrI0QHoWKRz4ZqbdBWehw77EjTJVy9vo/3roln/KK9nR7MTsRQ74pIQvNo6GWokdnPz4pRSjdZfeL9pE6ehDD2EpwOajkFjH9frmnYUM3kVHhwBMzOW2cJ8XdR/YBzwKBL9NAob3S+stK3+S7VDCN3jSMnvCVclNSpX9Kjtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789492357; c=relaxed/simple;
-	bh=GTqazvYCcPJeD74DZfO8rcND1yC//Bo2ohe8JDKdv4g=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=VD25LUy+b7mwDGgdDuxWgF402uax1zoQej6tjrPwe2XwYOfbpH9mE1IT5PCwC5nNUd0zldb/DmIqFAVm6E5Bp80IH7nzd3WBZfdhElKe4EaWN2qSHUJJ8Ja0Q49qqj6sIZRpFR7qz9NjobswrUHCLAVDjQgUrFkEdwHxkp8gxI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LclWOJgW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789492389; c=relaxed/simple;
+	bh=BMNCXnidTpeka8q3dT25YVOhSkz2hWst7Qm/Kj9ribs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=jCf0mq4udGF/8IetEuW+D7O9Erl4gB2xos/++SZ0CTjQcElj3D8ALpqSH0ZY77gkDgLlkSjSRrxTJ+PCqSq2iyFjeju5iQ4fTBU9G4BAaJ2TENLT1byqbXZuC0EOLKhDWJ4A6WUFcvyv7wJaplLaD4V7QHjO0XPI3sY4bNK/NZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BaZcsrcJ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LclWOJgW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6E101F000FF;
-	Tue, 15 Sep 2026 17:12:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789492355;
-	bh=4oNJhN4dtu+O5waoWkTE7D/IWivUyBKL0wFJq/5iKHU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=LclWOJgWHF/EmBn4ceEDh8W5qYgTCUHPUzIY50SaLlCWpIzwcGnUpgc9UbKpL7FxP
-	 UEWc6/mYROJoKSiACqAH3wcoILGp2tmIwGUDhnNxrCTy1xM7sIC0dPrw4GWHXH69bN
-	 6yxycrBLsf5KhHfd/LjCFhMqNm4Y3Ko0ATNjAfyj1gNbHgOWnCblC5XG0/wJyo2838
-	 9ICJCG+ErcnDjFDA+u6dxqkdoZGIykLPgdJLJx4NIyu+MjHp6RtwasM3/9ObNS0JnD
-	 8sqKpzkYJHluSIw4KNBbt2plGR45as4PiKEUk6a5Y/CAZQ/M689PDL/uVIK2MgaajH
-	 z76YlDiwBuHrw==
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- patches@opensource.cirrus.com
-In-Reply-To: <20260915103121.3306373-1-rf@opensource.cirrus.com>
-References: <20260915103121.3306373-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l56: Add KUnit tests for regmap defaults
- table
-Message-Id: <178948372708.151760.7628471833380828294.b4-ty@b4>
-Date: Tue, 15 Sep 2026 15:48:47 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BaZcsrcJ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 82299153B;
+	Tue, 15 Sep 2026 10:13:01 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (unknown [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C33153F7B4;
+	Tue, 15 Sep 2026 10:13:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789492385; bh=BMNCXnidTpeka8q3dT25YVOhSkz2hWst7Qm/Kj9ribs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=BaZcsrcJl8hj8fmRPiJ9+La/vWcCUfRrkIxk4Zi17F1nfELXkn/kheNdmgqLFVB8J
+	 hvAlQqh+ydjHWspW+I1AKGaJIxuVRlXDzm1wDUrR9lCsci3sot2UVuBKnMwkz2EQLq
+	 8xe/aA1A6Fbit9xN8bvOAnZTE+WSoFurx+0OIpqg=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Tian Zheng <zhengtian10@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from S2AP_W to DBM
+Date: Tue, 15 Sep 2026 18:12:45 +0100
+Message-ID: <aql8jY4o8SzjJuFU@LeoBrasDK>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <86bja17cg7.wl-maz@kernel.org>
+References: <20260901171558.2674031-1-leo.bras@arm.com> <20260901171558.2674031-2-leo.bras@arm.com> <86bja17cg7.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1136; i=broonie@kernel.org;
- h=from:subject:message-id; bh=GTqazvYCcPJeD74DZfO8rcND1yC//Bo2ohe8JDKdv4g=;
- b=kA0DAAoBJNaLcl1Uh9AByyZiAGqpfIDIu0p9qR+cmMQfplha6bCmkmyYXceCvBOoeFTZJQLgd
- YkBMwQAAQoAHRYhBK3maKpnVxi1n+Kf6iTWi3JdVIfQBQJqqXyAAAoJECTWi3JdVIfQeWAH/3H+
- +o6EVf+zwliQPuglCVOM5olwztsHQIdKfBsMAJA7PqXohWQUt+n6OAtKTKhpz6D0Je5jXDw6No+
- rsuuSPCnzV5NQ9ek5B0uM9VXZLXUBhdDWjNHeBp8j7lg23m65j45DDMP3bucpyITaH7YDoqu8qJ
- LJPrUdX9J/5pxzdfvX5j9Ow5p/+eDpYXdL98WpUe61Djtm+k/fHyfqjueq0zoy9NZFaPeR1Dusa
- V7eUWEnhkUAlW3FZ58UTpqaBO3PTqwAPDRIhMmiCakOYfIYoNL0Rx915G9V2VXqWQ+mPWkx2r24
- H3AQTcyjmTUzKq+ovXUYbiZaNd+Vul5VCETkLa0=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Tue, 15 Sep 2026 11:31:21 +0100, Richard Fitzgerald wrote:
-> ASoC: cs35l56: Add KUnit tests for regmap defaults table
+On Sun, Sep 13, 2026 at 10:00:40AM +0100, Marc Zyngier wrote:
+> On Tue, 01 Sep 2026 18:15:52 +0100,
+> Leonardo Bras <leo.bras@arm.com> wrote:
+> > 
+> > As a first step of changing the encoding for the Stage2 PTE descriptor,
+> > introduce the DBM bit, and adapt every usage of writable to use the DBM bit
+> > (51) instead of S2AP[1]/Dirty bit (7).
+> > 
+> > For this step, we convert usages of RW(Dirty) -> WD(DBM|Dirty).
+> > 
+> > Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+> > ---
+> >  arch/arm64/include/asm/kvm_pgtable.h | 3 +++
+> >  arch/arm64/kvm/hyp/pgtable.c         | 8 +++++---
+> >  arch/arm64/kvm/nested.c              | 4 +++-
+> >  arch/arm64/kvm/ptdump.c              | 4 ++--
+> >  4 files changed, 13 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+> > index 41a8687938eb..37baa86d6fd8 100644
+> > --- a/arch/arm64/include/asm/kvm_pgtable.h
+> > +++ b/arch/arm64/include/asm/kvm_pgtable.h
+> > @@ -86,24 +86,27 @@ typedef u64 kvm_pte_t;
+> >  #define KVM_PTE_LEAF_ATTR_HI		GENMASK(63, 50)
+> >  
+> >  #define KVM_PTE_LEAF_ATTR_HI_SW		GENMASK(58, 55)
+> >  
+> >  #define KVM_PTE_LEAF_ATTR_HI_S1_XN	BIT(54)
+> >  #define KVM_PTE_LEAF_ATTR_HI_S1_UXN	BIT(54)
+> >  #define KVM_PTE_LEAF_ATTR_HI_S1_PXN	BIT(53)
+> >  
+> >  #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
+> >  
+> > +#define KVM_PTE_LEAF_ATTR_HI_S2_DBM	BIT(51)
+> > +
+> >  #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
+> >  
+> >  #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
+> >  					 KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W | \
+> > +					 KVM_PTE_LEAF_ATTR_HI_S2_DBM | \
+> >  					 KVM_PTE_LEAF_ATTR_HI_S2_XN)
+> >  
+> >  /* pKVM invalid pte encodings */
+> >  #define KVM_INVALID_PTE_TYPE_MASK	GENMASK(63, 60)
+> >  #define KVM_INVALID_PTE_ANNOT_MASK	~(KVM_PTE_VALID | \
+> >  					  KVM_INVALID_PTE_TYPE_MASK)
+> >  
+> >  enum kvm_invalid_pte_type {
+> >  	/*
+> >  	 * Used to indicate a pte for which a 'break-before-make'
+> > diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+> > index b74dd5ce1efd..ca49f1bd7c34 100644
+> > --- a/arch/arm64/kvm/hyp/pgtable.c
+> > +++ b/arch/arm64/kvm/hyp/pgtable.c
+> > @@ -725,42 +725,43 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
+> >  	}
+> >  
+> >  	r = stage2_set_xn_attr(prot, &attr);
+> >  	if (r)
+> >  		return r;
+> >  
+> >  	if (prot & KVM_PGTABLE_PROT_R)
+> >  		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> >  
+> >  	if (prot & KVM_PGTABLE_PROT_W)
+> > -		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > +		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> 
+> What makes it acceptable to always set DBM? This is an optional
+> feature, and I'm not exactly comfortable setting bits that are
+> supposed to be RES0. 
 
-Applied to
+The alternative would be to introduce WC/WD as an alternative encoding
+infrastructure, and keep making decisions based on having HAFDBS available 
+or in the system. My intention was to adapt things in a way to avoid 
+multiple behaviors if we could avoid.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+My rationale is, based on our possibility of setting DBM=1:
+If HAFDBS/HDBSS/HACDBS are not available, or available but disabled, 
+then the DBM bit is just ignored:
+RO -> RO
+WC -> RO
+WD -> RW
 
-Thanks!
+(for reference:
+- Read-Only (RO):      DBM=0, S2AP[1]=0
+- Writable-Clean (WC): DBM=1, S2AP[1]=0
+- Writable-Dirty (WD): DBM=1, S2AP[1]=1
+)
 
-[1/1] ASoC: cs35l56: Add KUnit tests for regmap defaults table
-      https://git.kernel.org/broonie/sound/c/f4c49ebff706
+And the behavior should just the same as what we have today.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> Yes, the HW should ignore it. But we have also
+> seen quite a few broken designs in this area...
+> 
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+I lack experience on what bad thing could happen. So I will expand on what 
+I belive to understand up to here:
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+- The PTE is in memory, so the DBM bit can be set regardless of being RES0
+- For SW pagetable walking, I don't think 'bit 51 == 0' is checked
+- For HW pagetable walking, maybe some faulty implementation may rely on 
+  bit51 being RES0, and fault otherwise.
 
-Thanks,
-Mark
+If that's the case, then we would have to actually support both encodings, 
+and only enable the new one if HAFDBS is available in the system. 
 
+I just wonder how high are the chances to have such a broken design, 
+or other broken designs did not come to my mind, and if we have to start 
+with that multiple-encoding option.
+
+> > +
+> >
+> 
+> Spurious newline.
+> 
+
+Oh, ok, will get rid of it.
+
+> >  	if (!kvm_lpa2_is_enabled())
+> >  		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
+> >  
+> >  	attr |= KVM_PTE_LEAF_ATTR_LO_S2_AF;
+> >  	attr |= prot & KVM_PTE_LEAF_ATTR_HI_SW;
+> >  	*ptep = attr;
+> >  
+> >  	return 0;
+> >  }
+> 
+> I don't know how you have configured git on your end, but there is *a
+> lot* of context...
+> 
+
+diff.context=10, i.e. 10 lines before and after a change.
+To me it looks helpful to get more context around the change. 
+
+I can change it back to 5 if it bothers you.
+
+> >  
+> >  enum kvm_pgtable_prot kvm_pgtable_stage2_pte_prot(kvm_pte_t pte)
+> >  {
+> >  	enum kvm_pgtable_prot prot = pte & KVM_PTE_LEAF_ATTR_HI_SW;
+> >  
+> >  	if (!kvm_pte_valid(pte))
+> >  		return prot;
+> >  
+> >  	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R)
+> >  		prot |= KVM_PGTABLE_PROT_R;
+> > -	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W)
+> > +	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM)
+> >  		prot |= KVM_PGTABLE_PROT_W;
+> >  
+> >  	switch (FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, pte)) {
+> >  	case 0b00:
+> >  		prot |= KVM_PGTABLE_PROT_PX | KVM_PGTABLE_PROT_UX;
+> >  		break;
+> >  	case 0b01:
+> >  		prot |= KVM_PGTABLE_PROT_UX;
+> >  		break;
+> >  	case 0b11:
+> > @@ -1281,20 +1282,21 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
+> >  		*orig_pte = data.pte;
+> >  
+> >  	if (level)
+> >  		*level = data.level;
+> >  	return 0;
+> >  }
+> >  
+> >  int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
+> >  {
+> >  	return stage2_update_leaf_attrs(pgt, addr, size, 0,
+> > +					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+> >  					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+> >  					NULL, NULL,
+> >  					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
+> >  }
+> >  
+> >  void kvm_pgtable_stage2_mkyoung(struct kvm_pgtable *pgt, u64 addr,
+> >  				enum kvm_pgtable_walk_flags flags)
+> >  {
+> >  	int ret;
+> >  
+> > @@ -1361,21 +1363,21 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
+> >  	s8 level;
+> >  	int ret;
+> >  
+> >  	if (prot & KVM_PTE_LEAF_ATTR_HI_SW)
+> >  		return -EINVAL;
+> >  
+> >  	if (prot & KVM_PGTABLE_PROT_R)
+> >  		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> >  
+> >  	if (prot & KVM_PGTABLE_PROT_W)
+> > -		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > +		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> >  
+> >  	if (prot & KVM_PGTABLE_PROT_X) {
+> >  		ret = stage2_set_xn_attr(prot, &xn);
+> >  		if (ret)
+> >  			return ret;
+> >  
+> >  		set |= xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
+> >  		clr |= ~xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
+> >  	}
+> >  
+> > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > index 17123f0b6dab..eb8dfffc32c7 100644
+> > --- a/arch/arm64/kvm/nested.c
+> > +++ b/arch/arm64/kvm/nested.c
+> > @@ -379,21 +379,23 @@ static int walk_nested_s2_pgd(struct kvm_vcpu *vcpu, phys_addr_t ipa,
+> >  	}
+> >  
+> >  	addr_bottom += contiguous_bit_shift(desc, wi, level);
+> >  
+> >  	/* Calculate and return the result */
+> >  	paddr = (desc & GENMASK_ULL(47, addr_bottom)) |
+> >  		(ipa & GENMASK_ULL(addr_bottom - 1, 0));
+> >  	out->output = paddr;
+> >  	out->block_size = 1UL << ((3 - level) * stride + wi->pgshift);
+> >  	out->readable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> > -	out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > +	/* Takes care of both RO/RW and RO/WC/WD encodings */
+> > +	out->writable = desc & (KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+> > +				KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W);
+> 
+> Absolutely NOT. For a start, NV doesn't support FEAT_HAFDBS. But even
+> if it did, you are now actively corrupting memory by turning a RO
+> mapping with a spurious DBM bit set into a writable mapping.
+> VTCR_EL2.HD exists for a reason.
+> 
+> Do you see why your blanket approach of equating DBM with writable is
+> plain wrong?
+
+Sorry, not really... please help me understand it.
+
+When you say a spurious DBM bit, what does it mean?
+
+All I can think is something like a buggy HW implementation setting DBM in 
+a HAFDBS-disabled machine, which has been unnoticed up to now, and now 
+could cause problems. 
+
+If that's what you mean, then yes, that would be a problem. But that would 
+also violate the architecture, and become a errata, right?
+
+On DBM=writable, that's basically what the Arm ARM says now:
+
+R_LRMSH
+For the purpose of FEAT_HAFDBS dirty state management, a Block descriptor 
+or Page descriptor can be described as having one of the following states:
+    Non-writable.
+    Writable-clean.
+    Writable-dirty.
+
+R_XSTDV
+
+    If a Block descriptor or Page descriptor is not writable-clean and not 
+    writable-dirty, then it is described as non-writable.
+
+And since both RBRFGY and RXZFQH define Writable-Clean and Writable-Dirty 
+as seting DBM=1, Writable <=> DBM=1
+
+
+I am _not_ trying to say I am right here, as I really value your experience 
+over whatever I could understand of the documentation, I am honestly 
+confused right now on what I have done wrong.
+
+Thanks for your patience, 
+Leo
