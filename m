@@ -1,110 +1,114 @@
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9631F364E85
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:04:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC8A315D43
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:04:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459454; cv=none; b=QBXOwJ3cTvg5YcRS8FgSphltAhPif3NFHVDKl95q5DPTvRD/+kqgrEMJs8YVoZyd10dkuV81WnHhSGcMYMM1nPnBZ5e2Omhy4/SObN9YEnLAUOqIhHshb3cq4jEoRjeX0tIgmPIzo7KdhoFUzpXmD001hk8VgXndL++PT44FAS0=
+	t=1789459473; cv=none; b=EE4iU8Ca2j6X/KRE+lpAB2Fch9+x58Kk1R5ox0jNKgmvSB9EECIV2s1UyEeHMA+d/p2FAFtQP+s9ERjg41v7H2cA0Zro6YM7Xz/KPaOCCrEwt9r6ZSwXsxS03rupJrEhUPtORmdjkFEaJSgt/vdjVnvFFL5nNv48oieZLfxKWCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459454; c=relaxed/simple;
-	bh=GPKtH/OWWOMpvaRAq0q/oZ/4JxZxKopos6ivVhFrOqA=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=bLKxEOS5ORr7GR7F7IFnW3AeNeywo5ClWKC5g7MHuHRnK9sWOixzCkalgMQjDoc+3feavcNBuBu619eF6Lgt+kcwQxaUsCaJV/D3BKrY5A+5dDZifI6GyVMDWC4TwDvT+lXzbHYmsXnttmMnmsnczmtg53BsCU+qV5PPU/z1sQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VKXqTuVB; arc=none smtp.client-ip=209.85.161.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789459473; c=relaxed/simple;
+	bh=2QHwNegqTYNEhFn3uRl/78zEGrvHKNKw3w3xL2Ook/c=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=YxUVD9WzZ/8Zawl7x6Bb2MV85Bu5anuZh1JhI+1w/PqY/UDPCm78RSBTLJ7j+4SxZEOFj6Lt50E8owPtk8B+wAQ/yIefkGvKh86oiddv7iuM3IMnY8oeNWgitF9Oybvj+B09acWGd8Ug2oNMmtWv7czdtPrR1eU1R5uYDvkjlGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=UhxTuDRK; arc=none smtp.client-ip=185.132.180.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VKXqTuVB"
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6b12942ed04so3911791eaf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:04:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789459451; x=1790064251; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=skIHTRCMg076kDWG2pdx8YKlOQsvXC/Hd109poRNzB4=;
-        b=VKXqTuVB6bwRAuMvauNyTgI4yvTz9pBgt1AZzEQpWW9VBlDLo26GDcuY7FxjFNYuZJ
-         n0xRMcBU+VW9zgtsn6lqVSfvVhmv9Rg/cLCTbRR16Lcs5stul8I24BunrSmwV4Y+abgM
-         OeZTUHHRBj33nnf3RD/U0tuofHjlXxFIbRrDh2BsIKxIPvmR2Lfrk2yaCF2Mejs855/n
-         GbUAaZI1w57gRTI/fO2nnxtaTy8/+V+k6ErKKlfFeCxa7Mxkwj3UCLwFLSIVKGTnnihR
-         4A2lTlb6leSrkRIK2sCZd27DVQRtL1vZ0YqDP7BSuso0Ia84Vivj8eq5UeDtqC1I4TT7
-         gTyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789459451; x=1790064251;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=skIHTRCMg076kDWG2pdx8YKlOQsvXC/Hd109poRNzB4=;
-        b=aM9knbkinwWVcmWQL6WGp7SCLzdr9CNWBIHjHR5ODe0rEo/eOmzIK9xbWKoDblDhhE
-         u5M/klM59b9iFiiHKfwfvt6M8RZjNwkdjkIiY1Y8SWA8Sbrsv7A+RXa5iQ3+ITg8wl5O
-         xA0EFKIDhTkeJvR45YBIVOItBNCMd9H9HNxSwq6zyhuSgcAL/EpmBq/TNemPKnhovhnB
-         xTB4P44Gchayn9CSDC1PWURz2cxUsPyLEHJYEJidz5qWqQSln9TLP2jKyBUKsmqH7KKc
-         Y9KhrT5szshOCgRBUdFj9jCOsCrFmUtkC68ebd22OCZALD2zfzPMHVF/PDH451qrUqkm
-         RMnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzsjtRhbEBWOY+vCtxb2B4zz97taGpUKYXm716S4zwfElD0bclHQ5y8lmrgmfs02P/uCuo7qx+CasEA+M=@vger.kernel.org
-X-Gm-Message-State: AFuF++k46gX/Ym13hRwOgAplegQEfhnH2RkoLNbQgFYNhCPDhHWT7pR1
-	2hW9z17Ef62WEteYIwshSDm/w8EkgpFAU8DLeIy7k/nPiH6AWDGA7oR8
-X-Gm-Gg: AYBFou2dVbkoRYP8+RIshpUHKfobbChdMhhbrFxfZaLE8pHHqExuOhKMJoKTrASeUl8
-	DKiZg0Z/CswW25Aimzt/Z65+6gW9NCx8jlNS1pmloFXvwrvqJhM4d5IsFQ7KndeR5CWS5Np+t1i
-	r+q/27CIuVcOJwXg7hBozjEQy4R9jjR0wwS8+GIEU7Y8Yv4pEy2NE904lWxoEKo/3RfTviDBUPD
-	qEaosBln6WqWz4pBGnf+9XQwC2OtbSqLa2OH6sz0thqXwVQh2vBFIciU4Q3xvbg3Rgu60IXiyQf
-	kK5sOc5ZOCieOzmuWvG9uJM8smXCyyk5k5lEII8CzGczbOQ+voOlpz9Se2kvGUGN95C+12eQ+26
-	Zdq1wiPzTeBLNwqA0oSslq67NHuOmWi6cqbk6FGGMyI2rRekNMkGzHqo6/joHjIWbc2dg3I7LOR
-	xptDiBGWOfD88KeOWKC785f/TvGBhutSxZBSKqhWzS5aaEi+EBKgw53BQsCY1Vp32TMaqBqeiNe
-	1wV0OV16KHFvwQ6wB/0JZQfFb7xUrYV0PJwgfyW4mAfwlmot8OWd64=
-X-Received: by 2002:a05:6820:1628:b0:6b8:ef7d:e181 with SMTP id 006d021491bc7-6c544daaf8cmr3999047eaf.54.1789459451326;
-        Tue, 15 Sep 2026 01:04:11 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b97994sm57642954c88.12.2026.09.15.01.04.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:04:10 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Chris Chiu <chris.chiu@canonical.com>, maddy@linux.ibm.com, shuah@kernel.org
-Cc: sshegde@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, Chris Chiu <chris.chiu@canonical.com>
-Subject: Re: [PATCH] selftests/powerpc: Fix exec_prot test failure on Hash MMU
-In-Reply-To: <wlsnyvt2.ritesh.list@gmail.com>
-Date: Tue, 15 Sep 2026 13:32:02 +0530
-Message-ID: <v787ymbp.ritesh.list@gmail.com>
-References: <20260909050919.3344699-1-chris.chiu@canonical.com> <wlsnyvt2.ritesh.list@gmail.com>
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="UhxTuDRK"
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6YX3C2004284;
+	Tue, 15 Sep 2026 09:04:04 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=MqnkhrEECCI0olLRahm1wuL
+	5//hXevtCEX0ibgxGSvE=; b=UhxTuDRKynaZ4j2kjiJ4zyjTE7E9zeZh8F6cef8
+	56rsPojFuXLJfwxCw0PIiR3Tf2Nak4hqHGdyXydrzyOsQePh+bUVt66gVjEwPs0g
+	bUX129iIrv8fY2Loyo+2o+HL8kAgfWhUs6+mLW0MWkiCbMGu0/P2o8oZ63mLRAX/
+	C2bGGRyxZ8JrA+91+qF+HYWPKxZsqfG10JVvsySAeGn2SgO+//B67DDX5v/NLT6V
+	mCPUz3scgCL9xKusy+hvhw38ftUwWxGLoDYrpXRk3YrLr54fJeLsJnzE6JYqSf4C
+	LumXIKduapYs4sXxr5Z5fjWMGBhpkbY4mCyWsrBT2sZGanA==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gmxtujca6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 09:04:04 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
+ 2026 09:04:02 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Subject: [PATCH 0/2] drm/imagination: Firmware interface cleanup
+Date: Tue, 15 Sep 2026 11:03:44 +0300
+Message-ID: <20260915-b4-do-not-map-if-structs-unnecessarily-v1-0-a0e2ccee154a@imgtec.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOD7qGoC/yXNTQ6CMBBA4auQWTsJECTFqxgX/Rl0jE5JpyUaw
+ t2tuvw2722glJgUTs0GiVZWjlLRHRrwNytXQg7V0Lf92E7dgG7AEFFixqddkGfUnIrPikWEPKn
+ axI83BjJmNC4cTZigxpZEM79+o/Plby3uTj5/67DvH2BuF+GKAAAA
+X-Change-ID: 20260914-b4-do-not-map-if-structs-unnecessarily-de8868bd58d9
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789459442; l=829;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=2QHwNegqTYNEhFn3uRl/78zEGrvHKNKw3w3xL2Ook/c=;
+ b=Pks2u9Z6IQoFSXXuxAMR2kWbiH2CVkuxan/bt5gOYtoKwbVPdPTqcPd7Db6aCiLYcz6sBgyBj
+ dIdMvJrBJU6Bk44xHVlWrWgmrg4D9vtFcEjwMRknXM6QoKP5VjLmNt7
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Authority-Analysis: v=2.4 cv=Se9i5fRu c=1 sm=1 tr=0 ts=6aa8fbf4 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=nOyVeRINTYQrkHNToBwA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: St5zqxhleYfyVmPltJRh32UECYD8dWsx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDExNSBTYWx0ZWRfX8ja8LId8KMtc
+ hInrUTmiZttSd+uvfhngLqQ2VKHhwn66NbmX6szqdZF0Ml3yvLde5+thHiAtCIepq+Q/f5sJDgJ
+ ndEsWgsPdOOonQya4fZ/hLO5datln6XDKGKRjnoHTceVwTW1HeuaWLoyGMvCTloScKsGCF66+2f
+ UkHAR1vznuSaZjyblpnWUkqN3WSDwsWsND2ZFQrIxbD4TLQkd6TJtm5AKf+vPLErujWr4W4lbqu
+ ROBt6z1ww5/wi/rqryKjx0bvdl4EyDqRlsIvGpB9lT2BU0dHNEaf9+HPZpEnJ97j8OUq3Ma/jWj
+ OC5epk5MmxzUJ9bLEB115KrDJJpQN8Dw3JPwaMQ6RV38Wjk5z1ONTMSlQwz3f4mRBdjXoFixZsK
+ zU71OitFGj3AVJKqN64J6y/Yf8Aj69IeN6IhDHezP1JB7hd3KEw4zGfulh0OGT8uUDt4yQd8oaz
+ ppQusQeLSwxlW/OWzFA==
+X-Proofpoint-GUID: St5zqxhleYfyVmPltJRh32UECYD8dWsx
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDExNSBTYWx0ZWRfX7jWjAZmf9QT7
+ ADjaoYawS0sqcRk0MZHVIEmMyvRR+1+OX3gyCU6VLr6ELpUbTfII34VdYA/kucNfNoUNsC3dlXY
+ Z+wn5UcSPj09bE8ZxB3UrIm/0m+S68A=
 
-Ritesh Harjani (IBM) <ritesh.list@gmail.com> writes:
+Series contains cleanup commits targeted to FW interface.
+    - Firmware connection ctl moved in the same place as the other
+      firmware ctl structures.
+    - Remove unnecessary structure mapping.
 
-> So, I think what we need here is:
->
-> diff --git a/tools/testing/selftests/powerpc/mm/exec_prot.c b/tools/testing/selftests/powerpc/mm/exec_prot.c
-> index db75b2225de1..51ac2f9c14a6 100644
-> --- a/tools/testing/selftests/powerpc/mm/exec_prot.c
-> +++ b/tools/testing/selftests/powerpc/mm/exec_prot.c
-> @@ -167,13 +167,17 @@ static int test(void)
->          * Read an instruction word from the address when the page
->          * is execute only. This should generate an access fault.
->          */
-> -       fault_code = -1;
-> -       remaining_faults = 1;
-> -       printf("Testing read on --x, should fault...");
-> -       FAIL_IF(mprotect(insns, pgsize, PROT_EXEC) != 0);
-> -       i = *fault_addr;
-> -       FAIL_IF(remaining_faults != 0 || !is_fault_expected(fault_code));
-> -       printf("ok!\n");
-> +       if (pkeys_supported) {
-One quick correction - I think this should be
-            if (!hash_mmu || pkeys_supported)
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Alessio Belle (2):
+      drm/imagination: Treat FW connection ctl like other interface structures
+      drm/imagination: Don't map FW interface structures unnecessarily
 
-> +               fault_code = -1;
-> +               remaining_faults = 1;
-> +               printf("Testing read on --x, should fault...");
-> +               FAIL_IF(mprotect(insns, pgsize, PROT_EXEC) != 0);
-> +               i = *fault_addr;
-> +               FAIL_IF(remaining_faults != 0 || !is_fault_expected(fault_code));
-> +               printf("ok!\n");
-> +       } else {
-> +               printf("Testing read on --x, skipped on Hash MMU without pkeys\n");
-> +       }
->
->
+ drivers/gpu/drm/imagination/pvr_fw.c | 130 ++++++++++++++++++++---------------
+ drivers/gpu/drm/imagination/pvr_fw.h |  18 ++---
+ 2 files changed, 80 insertions(+), 68 deletions(-)
+---
+base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
+change-id: 20260914-b4-do-not-map-if-structs-unnecessarily-de8868bd58d9
 
--ritesh
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
+
