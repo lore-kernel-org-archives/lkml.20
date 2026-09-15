@@ -1,141 +1,194 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013047.outbound.protection.outlook.com [52.101.83.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E4F38D404;
-	Tue, 15 Sep 2026 01:48:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436902; cv=none; b=mqXPUKXiXSkBNL2fZjAGvSRxMMcEgJMYbZ0NlltIbGYpkcCwSsY6OAPkwYkdMVkxdWNajqktxCLo9apYOrOTShziv6CtkjEzIganp2cri5bCqoxKV/lPBYGxVwvxxL7/Hk+8KD41TC1HzEEhG7S9ch/4Smwp3jYXJBCHR7l/B28=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436902; c=relaxed/simple;
-	bh=hUIfNnou6ovFMDLs5yxlmM6lO/lTTNtR0RNXvTC1+RQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pGTWQqTS4Oluw4yBwzr+RRI39avQQRtl0QM6yXHPh2SwAXuxowZ8tb3mfyI5X2OnufX9oFqcqekfxAa2iPNL/gDbAcs4LoC+sLKeSPGCADAW0Wo5WzQz9uNgDoPjfVQGkVoN+Ldlr8bxhon8lRWKy4SWFTyI17+mhJ2owyEzNWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=R4AktlDL; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2A32EEE7C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:48:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789436930; cv=fail; b=f7D0OhtpfkS2dbHNLCkd0MpS1GgzOEfEkxUWUXwH9xyB9fC8ps3IErQi8MXzdw6QKHiq31KtNQuougLP0PiYGN8F0BOxus1c9qfjR6H+i5o+5VCZCrZlW8mML6V3ax99MSKTFs3cMqSTZeP9uHKBojjuIEz0advFcZIIsib5WX0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789436930; c=relaxed/simple;
+	bh=SQoIYOTYgbkw3fefh8p/qTbOX9PdJp2g/mxjF9ja0dw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WGA4V1EbDKX4yidwG4pMvaesiPJuVoeMGGfvRSFtBO/xMbemzW4e1I6rbUXBc4XvTXX+0vNxz+j04OZ0qIdF4hzh92RhQdOBy+KTVmDyynnkY2AcEAJ2VNuiWIzA6bvFnx6jmtdPgfUzmRXcTDlhN9uQlxSoZSLp8MFJwKdmSsU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XRYpUH3P; arc=fail smtp.client-ip=52.101.83.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="R4AktlDL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=C2ySufB8qIgdFzFi9UXQjn6aj3wZMisMNSVvEPIZl4Y=; b=R4AktlDLsKmuMDDJ06eEePYthH
-	gV4WWWPMyBUj1MS+xpS6pMCPl5kR6hVF35757qNAqQ9B8b5yMwgTkBX2lujIHsrL8YnmK10nHlzzp
-	7SVlCMFFC0gKR9wYztA8IDCicj/n3jWoDxYmT5Ag0uzF0NKdgbVL8cYvC4Kuc2Zj3lSE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6IHL-005ANR-3f; Tue, 15 Sep 2026 03:48:11 +0200
-Date: Tue, 15 Sep 2026 03:48:11 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: Frank.Sae@motor-comm.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
-	jie.han@motor-comm.com
-Subject: Re: [PATCH net-next v17 2/2] net: phy: Add driver for Motorcomm Quad
- 2.5GbE phy
-Message-ID: <03664dd8-8f95-4ee3-8237-3c64febd90c3@lunn.ch>
-References: <20260912065224.2723883-1-kyle.switch@motor-comm.com>
- <20260912065224.2723883-3-kyle.switch@motor-comm.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XRYpUH3P"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hJgASDMavUxljAt4em20pHcjj/6JOw5GWFZLQHeNXpQNY75Wjp5uGOdxsldV7gGhuEKoNi9qemYDd8JjHbBq/1Mnp7OeJbUL3+V1rVQY7Gx1Jrftt3BUzKHtpSciG1xkNcO2wtUHIqdpvIkPGZ7lYnkVQkGIUOvptdtlpKnOjA5fd7sU1rb8cOOiJDz6xmMNmNElRVNqMB1X9nMgn/A+J+EPeEPW4szwmHijQzMPyPUNY3Gvj5ZstoEH+jdW8Zrqf0yfh4t2lqIgrl6nhyk3HMKIeulpK6bsJwvKLBHGVgRalV5qxWpdqB4LfJQc5DjJCuz8KI84rVIL8xxp1eFQ1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GIynHDBc94pDEmU9/s8YYPjSVA1qnHxkbVhY2g4lxws=;
+ b=ATwdG4LiscimCyJ+2PQ5uUJ4dRk9i66dOIMghHqAhr8Rk+hKgvWW2u3/3nRmxvDPqeMKPOrLH/kPbhsSKz7pU+qL77aj4DmGZ7uN2w7f8Qa8ULxgNxG+eHCIir2EOji3ryc59igN9vlBAO93p5XdT8fH/BD3yuV4tfIneN1Eb8MpekIs2DhK8PjgSUCakQ/IDOrg6N4802ziPjWiBRrSJYpuuSlsxWNz4os+bRkaXQHDdBoa6v9KxnzZu7EoY9Zy/cEJApNjV4zWhHO+U5iTsMEgN25awtzxQKiyAhj+HC3a83dBYtyy6/OfcEHQ2GvLaOmh9KfSEAgg+Zo2XBdWkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GIynHDBc94pDEmU9/s8YYPjSVA1qnHxkbVhY2g4lxws=;
+ b=XRYpUH3PN6monLA5+DO7CrGhnXOSAur+m8MpbEwnsobiRHI5ZHCPuvCiYTlQYvONdA3P8fTKJ7nl+4L9W30vu2EnxpJ/8yi34SQbFSoOFCmS5Fs8OzjaHOTU8oaft+82wtSWa9AFPNlVzj5n0UmyXpwWcE4k1ljM+k8lwkHCkWwSmG8LO8l1YdDHmbrXWd064FsBh33ijFDJmpUeMy/ozO4yRMKT+7Ug+IF3g0wuo8HunqHOsxRWZPuwhqn/cvFDMDsbgWDlyR+kp3lZcOlcTzI6Wuus5SEoEFKDrPzm8pvOYSSp/gAtW8Pvp8KwaWzPrbh/1Wc0/HvRxsskrIevZg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::13) by PAXPR04MB9328.eurprd04.prod.outlook.com
+ (2603:10a6:102:2b6::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 01:48:43 +0000
+Received: from PA3PR04MB11203.eurprd04.prod.outlook.com
+ ([fe80::80e9:ab1c:dbc4:6930]) by PA3PR04MB11203.eurprd04.prod.outlook.com
+ ([fe80::80e9:ab1c:dbc4:6930%3]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 01:48:43 +0000
+From: marouene.boubakri@oss.nxp.com
+To: Jens Wiklander <jenswi@kernel.org>,
+	Sumit Garg <sumit.garg@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-kernel@vger.kernel.org,
+	op-tee@lists.trustedfirmware.org,
+	linux-riscv@lists.infradead.org
+Cc: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
+Subject: [PATCH v2] tee: optee: prepare the driver for RISC-V
+Date: Tue, 15 Sep 2026 04:02:32 +0200
+Message-Id: <20260915020235.507302-1-marouene.boubakri@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260914175435.118303-4-marouene.boubakri@oss.nxp.com>
+References: <20260914175435.118303-4-marouene.boubakri@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CY5PR17CA0055.namprd17.prod.outlook.com
+ (2603:10b6:930:12::26) To PA3PR04MB11203.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260912065224.2723883-3-kyle.switch@motor-comm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA3PR04MB11203:EE_|PAXPR04MB9328:EE_
+X-MS-Office365-Filtering-Correlation-Id: 450664a6-27ae-4835-bfd8-08df12cb792c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|19092799006|6133799003|22082099003|18002099003|3023799007|10067099003|56012099006|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	h7kpcykv2RgkiWXsBXc1qkjJvepjpZYaU1NtefV0WBhzlM6msuGqzS8ytEwWjAH/l+477T20QbSemHkHJvVgjXndXpUqm6fByAAf0+p9Es+vjVg9U6YEV6v4/DonP30eAXWQd0lj8UQ8mFo7S4zyxhjAN3N6R250uouoy3GX6hPhjs0c2YMlNCSuDBgEx6yjEs/eBNDyuVWV/oXdFceEuc1OYaP6m+csVhANDynDFLGtnFg08HOWJ49I6vcpDt4zraOF01euFAKPl7ttjF/ovJgPpE0MaWbbo9+JPaUMv9DxrKVJfoq2HZbvyyWkQRU91ah8dgliYxzFarFY85/3mjsfJihjo8JR6nVuRZeq+xpTwhDKdfp/oYwt2Rn+t7Rj9A92tErXvrzCM4eeWl0moPS2LZVINqOaQFLMWSP4/5Qjw6GzPVJGZDyyR/UI5dirFOtdnvcmGsjXznFh54MNhEVsviQgL+Q8zw/ITs50N65Tf6CQTuAy5dduWd5GIKBF4I42Rj/1Kc91qJd+jxXGlWZ/xD/qCdW5D3ZHy9OXeqfh9/KBFRlKFLMBGojVAnQ4zgmj0rujwEsVLVupjexzxJD+SBLwzBsmtAjCTiLsd+WVte+bQ6OOr6NTSKFzgvh0if77YmF63zs5fgUDR3o9dHBzCQxzsyiDWkuX9UKKGQY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11203.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(19092799006)(6133799003)(22082099003)(18002099003)(3023799007)(10067099003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?BPNOZd+i02Bf5nmfwNPjNMsRB+/ZGef5lZN4hjRj3StqttHjtAol6qI07mQe?=
+ =?us-ascii?Q?1KCDXhWmd0pVND4xkehZwqg8/se4OKK7YJEbqv0njNsG16KjKWD5jqo7LAeo?=
+ =?us-ascii?Q?jgTbNQ3IYoIuYAFlq7K0bLORrwrXdkUY8W+HRHcC5eTIGhLFfDbtYYc7FU4F?=
+ =?us-ascii?Q?2gkXeRxJB6W1ooAAFNmXnYWL47elIMofAg49/CZE2ipRDzm83xhd6jvCaJEw?=
+ =?us-ascii?Q?YglfeqAqqAYKhZKcKb1OOQpGCEFTJbGXmUXqO6EQhSx8fIabFq829m1o0rsW?=
+ =?us-ascii?Q?KpTDZSyCE5rxWU7lL+EjnklGUt0w77IY+V6cjyvdaU83vODgP5AO79hRyHb8?=
+ =?us-ascii?Q?OzkG1Q9EAStQmOwzWjJXqCmQSpXmyYlJr1/ym3HlobLjM3YcnmnrAeqzOIp5?=
+ =?us-ascii?Q?G15o1X/IeXpZbQoU9Pv4o/r/PYqxFThNFe8+hFUjam+vNuKGWaQ51cU3Ko49?=
+ =?us-ascii?Q?93kS/pNzqS+GqJAJUf0EAzaGB3I0MOQeRBOX6+6J5nz/jimloYi6CXm18WBQ?=
+ =?us-ascii?Q?qFoobteo18LlELGmiip8pKNCxVGJZesniXf2ngxmrboceT/mRiPAvtpAEoPM?=
+ =?us-ascii?Q?4O4sGATrr4T3zbFfGMX8ny56F1zuzQGTNFsuwq3RUnfnN0WxeIsYXIDLpZTJ?=
+ =?us-ascii?Q?zPe0ZtIf+iqQA/SC44eW4z1Wk6dYyQ+WXLCzH598e/xFNP4xeglZN2AYh/zN?=
+ =?us-ascii?Q?/afp9+gF11sL8GS370CvWwbbrhenGhYF6e3ty4MAUxKWEyk6ikBLNB5BnK+k?=
+ =?us-ascii?Q?Zny4m/d3GFZHVDGg3uX6ngktZPjhVlQLpeBd3hJmP21ek+ep9xrcbqGO3VGl?=
+ =?us-ascii?Q?n+X5zWU46SsBt3/jDChYKc3wahm1GK0fomMqYFPfaODPPZg/RXJMgNOSHRjt?=
+ =?us-ascii?Q?Ie1j7QX0xOZkkH2Np7hL6qTAgrWCouWwASlTwXt87Szgk5TKNUbzl7UAFRY+?=
+ =?us-ascii?Q?Dd/f5a2pH5QP4rebWfHv6StoJFkp0XVAT7zHIhHL8LG7iBIyb20jRIzL4LIF?=
+ =?us-ascii?Q?coMhuEh1Kz9EjH07ioLuErrRaNtbmP0ce5swMGseGZhnM9QUeIzj2RlBJgm7?=
+ =?us-ascii?Q?dC6JgDX/X/ZCTKNripAhlHVCfLFlm6XyPK8odTrZR6jAlzCjTo8hz90028xf?=
+ =?us-ascii?Q?NCvh8Uz1uJbbdWawpqsRtGAThcFp4p3YMPNx507TSxqm6t7/9wrrRpKOYu6f?=
+ =?us-ascii?Q?kYYwliqigXMVssA6a7kI8IQRBhplTjTGQsuqm3xjrPd+itVby0TX/1Gr7R0k?=
+ =?us-ascii?Q?E8tN2stHCZNndOyNSbsJ1K06ojWfYlMT9MyzRqfzMWayYVu3Yfy3inyuI+aT?=
+ =?us-ascii?Q?Vb5vziuAEDAQVMAOcVmx67mvkAcQgXlIBSxTYQN+JxTQ2twUs2tISFthfFBS?=
+ =?us-ascii?Q?tIof0Ceolh/n7vQuMntBRNSHSTy7ph4VEwMQS6l73ed2F84JQ0e86S3REYeK?=
+ =?us-ascii?Q?/T1sbzzT4JgTBmDOKMlGq3qrseAKB85ZZEYs6CI0gQ8cdo9Ms9sk9LosJWcL?=
+ =?us-ascii?Q?sy7isSs9dq/uji/4GLftSj4ktY4q6lYOn/P45ZAlDry8QX2aqC6RrNVRNJGW?=
+ =?us-ascii?Q?pAnyivd3jo9lX7fbl+7l4MvF80NHBs1dDbiL6JUaXU9P3zXTPIlOl/xmG+CC?=
+ =?us-ascii?Q?06Q6IKHyj5KZ7POC8pdEGYEylCdTmRVXBwNeqnIXIwSONC/4KlWiWb0Qkbo9?=
+ =?us-ascii?Q?S2rmn/KGFc+aV97NUEhyw5WGJRg01XgXWvP6bVYewZZGG70ixoR/AH+k+ey9?=
+ =?us-ascii?Q?DfS+IghAfdgfoz02/0fGbKjDD4tJPp7oy2O57ag1plbZAOrtU4NPxOY+dM2/?=
+X-MS-Exchange-AntiSpam-MessageData-1: TQP8m2QWt5KS8w==
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 450664a6-27ae-4835-bfd8-08df12cb792c
+X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11203.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 01:48:43.3727
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aDI9MSJWNJ9xmQOyBLJim579e+/uWs1gGtl0C/fskkR69QuwlN32ku7SGWGXuvbwYjzRAmI5AUXKt157+CwYdvwuNQdBrbJXYVJIROnbtWTyNNhV5Tq9/vz87EDh+UfHW6Oj10IGAscaxwrxGf8PkA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9328
 
-> +struct yt8824_shared_priv {
-> +	unsigned int interface_mode;
+From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
 
-phy_interface_t
+The OP-TEE driver reaches OP-TEE through the SMC ABI or the FF-A ABI,
+both specific to Arm, and the TEE subsystem and the OP-TEE driver
+depend on HAVE_ARM_SMCCC. On RISC-V there is no SMC instruction: OP-TEE
+runs in a domain isolated by the M-mode firmware and is reached through
+the RISC-V Platform Management Interface (RPMI), carried on an SBI
+Message Proxy (MPXY) channel, for which Linux already has a mailbox
+driver.
 
-> +	if (!of_property_read_string(np, "phy-mode",
-> +				     &interface_mode_name)) {
-> +		if (!strcasecmp(interface_mode_name,
-> +				phy_modes(PHY_INTERFACE_MODE_USXGMII))) {
-> +			priv->interface_mode = PHY_INTERFACE_MODE_USXGMII;
-> +		} else if (!strcasecmp
-> +				(interface_mode_name,
-> +				 phy_modes(PHY_INTERFACE_MODE_INTERNAL))) {
-> +			priv->interface_mode = PHY_INTERFACE_MODE_INTERNAL;
-> +		} else {
-> +			return -EINVAL;
-> +		}
-> +	} else {
-> +		phydev_warn(phydev, "%s, phy-mode missing in DTS.\n",
-> +			    __func__);
-> +	}
+This series only puts the build plumbing in place for a third ABI next
+to the SMC and FF-A ones:
 
-Please don't reinvent the wheel. Look around to find an existing
-wheel.
+- patch 1 builds the Arm-specific code of the driver only on Arm:
+  smc_abi.c when HAVE_ARM_SMCCC is set and ffa_abi.c when
+  ARM_FFA_TRANSPORT is enabled, with stubs for their registration
+  otherwise. The SMCCC header, the SMC and FF-A specific types and the
+  SMC RPC register parameters in optee_private.h are kept under the
+  same conditions, so that nothing Arm-specific is left in the common
+  part of the driver;
 
-> +/**
-> + * genphy_c45_template_testmode - configure template testmode registers
-> + * @phydev: target phy_device struct
-> + * @test_mode: testmode includes Normal to Test mode 7
-> + *
-> + * Description: Set template testmode include Normal to Test mode 7
-> + *
-> + * Return: 0 on success, or a negative error code on failure (e.g. register
-> + *	read/write error).
-> + */
-> +int genphy_c45_template_testmode(struct phy_device *phydev, int test_mode)
-> +{
-> +	int ctrl = 0;
-> +
-> +	switch (test_mode) {
-> +	case 0:
-> +		ctrl = MDIO_PMA_10GBT_TESTMODE_NORMAL;
-> +		break;
-> +
-> +	case 1:
-> +		ctrl = MDIO_PMA_10GBT_TESTMODE_1;
-> +		break;
-> +
-> +	case 2:
-> +		ctrl = MDIO_PMA_10GBT_TESTMODE_2;
-> +		break;
-> +
-> +	case 3:
-> +		ctrl = MDIO_PMA_10GBT_TESTMODE_3;
-> +		break;
-> +
-> +	case 4:
-> +		ctrl = MDIO_PMA_10GBT_TESTMODE_4;
-> +		break;
-> +
-> +	case 5:
-> +		ctrl = MDIO_PMA_10GBT_TESTMODE_5;
-> +		break;
-> +
-> +	case 6:
-> +		ctrl = MDIO_PMA_10GBT_TESTMODE_6;
-> +		break;
-> +
-> +	case 7:
-> +		ctrl = MDIO_PMA_10GBT_TESTMODE_7;
-> +		break;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +	return phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_PMA_10GBT_TESTMODE,
-> +			      MDIO_PMA_10GBT_TESTMODE_MASK, ctrl);
-> +}
-> +EXPORT_SYMBOL_GPL(genphy_c45_template_testmode);
+- patch 2 adds an RPMI ABI placeholder: an OPTEE_RPMI_ABI option built
+  when the MPXY mailbox driver is enabled, rpmi_abi.c and its
+  registration from the driver core. The transport is not implemented,
+  so the registration fails with -EOPNOTSUPP;
 
-It would be normal to put this in a patch of its own. We just need to
-see a user of it within the same patchset.
+- patch 3 lets the TEE subsystem and the OP-TEE driver be enabled on
+  RISC-V, and teaches the memory type check of the driver about the
+  RISC-V page attributes, without which the driver does not build
+  there. It is kept separate as it changes the dependencies of the
+  subsystem-wide TEE menu.
 
+There is no functional change. On Arm, OPTEE still depends on
+HAVE_ARM_SMCCC and the SMC and FF-A ABIs are built whenever they can be
+registered. On RISC-V the driver builds without any Arm-specific code
+but no ABI registers, so it does not load. The RPMI transport will be
+implemented on top of this in a separate series.
 
-    Andrew
+Testing: Tested with the configurations below, riscv64 and arm64,
+built-in and as modules, and W=1 at every step of the series.
 
----
-pw-bot: cr
+  - riscv64, minimal config + CONFIG_TEE=y CONFIG_OPTEE=y
+  - riscv64, minimal config + CONFIG_TEE=m CONFIG_OPTEE=m
+  - arm64, minimal config + CONFIG_OPTEE=y CONFIG_ARM_FFA_TRANSPORT=y
+  - arm64, minimal config + CONFIG_OPTEE=y CONFIG_ARM_FFA_TRANSPORT=m
+  - arm64, minimal config + CONFIG_OPTEE=y CONFIG_ARM_FFA_TRANSPORT=n
+
+Marouene Boubakri (3):
+  tee: optee: build the Arm-specific code only on Arm
+  tee: optee: add an RPMI ABI placeholder
+  tee: optee: allow enabling the driver on RISC-V
+
+ drivers/tee/Kconfig               |  2 +-
+ drivers/tee/optee/Kconfig         | 10 +++++-
+ drivers/tee/optee/Makefile        |  5 +--
+ drivers/tee/optee/call.c          |  8 +++++
+ drivers/tee/optee/core.c          |  8 +++--
+ drivers/tee/optee/notif.c         |  1 -
+ drivers/tee/optee/optee_private.h | 52 ++++++++++++++++++++++++++++++-
+ drivers/tee/optee/rpmi_abi.c      | 23 ++++++++++++++
+ 8 files changed, 101 insertions(+), 8 deletions(-)
+ create mode 100644 drivers/tee/optee/rpmi_abi.c
+
+-- 
+2.34.1
+
