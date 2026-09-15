@@ -1,76 +1,33 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6546B3D8104
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:25:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E343AFD05
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464337; cv=none; b=PkwitjRwTrxi4WJAl8esjbH76HrmPzn/+ugI+cmCFK7DYl1pxwfvMSVfVlDVVdcfXY/cJAlYR1u2c5vNUjdQ4DsY9tPIYyorHmTKd92pbAr1k8HUw8D6PhqX+d1ztnVccighflrqfBQ40buNaYw+tZCxZYYdAYHqEuBplPaUKUM=
+	t=1789464361; cv=none; b=kpDFuGAXyig9goyT7hAaB+t+6hVJTtpElgBe+C4vxuow8ai9DlfNaPI+0WKKSbninOy+l37glQ1Sc4Y2Ga5/t9vP/mWAB2eDwzeY7BUY/xJD1qckyAqKkG2YQ7Gl3Y/5H63kaiCKCC3e3B+tqIMNxlkudJOESZUi5B32u3TyoQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464337; c=relaxed/simple;
-	bh=lXe6aSYFPWJ7c/AmG9xUu7LcDVy6kBr+8frdycfYPTc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SDA/5BVRKzXX3xOxVn77GgySnd8E3Lm0mHOx75kPqpapb4onAcYUKtbsS55WdZHBSOikzhbgt0aCHrIpfecjUZ6xyOJSt975wvHpGpoYzZzHT4Owy47apK8Ro8UgfHxsrnjeaXQYcpVfBIzrA1QDkdHWtgRo/T21j5koL5DyPiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gDQSHAt1; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gDQSHAt1"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6188so369225ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:25:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789464336; x=1790069136; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3AeTuTtLFD6wST7Qvf0FgJNMqRZl8DBcYMCo5RZWoxc=;
-        b=gDQSHAt1THzTAMx9jCiyrVan1OKnQccbJig0dRPSnKqBKnQSJ1pyrJRLjkiT5y+757
-         Xq8rH32wQs/sC176XSKBiEJKJo6Rh5djuw2rQb9/BHFv1Frip9V4hTO3e0zVZC5tdiM7
-         BgV7RvcP4IyAPDHOCAqySJRL4I9npIiMUIopsSpPy+gAF7ialT6+xO0ZBYV/iiLt3Wjl
-         +lZHb0onrT/XTD+U90ZEO2OUIkWn3RWw2l8wmmOa40L5Jsk2mGYxj+iYQCWnqnURcH8p
-         hUEtleOlv9A4txHlM6razBoOm/JujUbEgIF6YchSD4pubZvAbVLZZRunX/nhXYVF4Vm7
-         qB2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789464336; x=1790069136;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3AeTuTtLFD6wST7Qvf0FgJNMqRZl8DBcYMCo5RZWoxc=;
-        b=J1L/54lLd0w+CpIchdRBg9kb4l9zTvzzx88BMnw9/ekalBQ63RUlamdNso3pVxoUwJ
-         EKfwFUsiyK2ilMlalQJ7jVuGeZg5WYej9zSeijvYe8OJZomXNur3nn0jr5EDZpB8xo20
-         cZEfCWyEu9/t3V3h8wUUem4M7MBijVxgiO9aCwYAFfRkEHutaVUtUrUmzFYmP9zl08uB
-         Cu5cOGA53bB+H7Jyg5draWt7mlyHf/nvacDVNqRVqbz5Usr5EFN8vRBZgyWeTWScJ0Ia
-         ISeAUjTrHcJAPJ9XRJYEbh1Zl/OpQ2JPu/3cTYKRn+Rnzoa5LwD/zfAb6EVgxAO+xhGF
-         liAA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDzCQHfV51fIUxQvhdLIzhzj5VsRkOhN4kTx68a55Z7fwUxvpUy8r9cVS3SIYKpL99H2GVUhgYR8m4eo8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0JTna8jLMmjh56oTj2TrFbEqQnL9bDj+fi7dgF9d57960FVoR
-	BRTX48TBDgwLha0ZEPvTVC7c3Swi5BhROzh84SMxstHk8g0NlGtp7DlB
-X-Gm-Gg: AYBFou2KB2/fw0J7chTV/w0Hd3ByKtrWNFIarLR2RV9+vLyndcE9V/c0jT9OGEigjvS
-	RksO1O44lyyv40mNWxwOUG6z2BkTB5ICL953vbIfO3sni1dtZCwPvnR8rvwCMQA6m4S106rPIdz
-	NtWTEzM8nsTh6Z3kSwW/0sKNJvu8aEYEXfZOwKR+Ie7jaRYnG1ds1VoQyuvFaR23mahqXCIASOd
-	KukaJRk/Z2hGiDRNKrdkBW/A+ZEZnCr3vbgQgNL1ysTaYFwyAmisn29S01u+wxY2K794ZVQOcsY
-	EEcT0CzaoFfn3Q0fGSa4B8OBoTYkTcRf1jai86+QYECVjr2O8vgDW+SPwldRLu/pPQOpRoaIBww
-	b+y4P93SEaoUE8hP3ddDjhQjQLAWhxOUj0slZK8hgc0dqOrQY69BqFVnGQGHJc6OCHfiK6Weq6C
-	Per02ecLQjZ9K04tK7Usb7NeIyiEej2qJWYNsElf3sy7FhsiTFfOxG1BhX6kezcqIhrfPK6kX7F
-	TmHcXOQ7/dOr2uZles86xew/bAyyNitfeKswPl4HBVpMWL2WEz3VUWsfe3VMKyp1PPVQxPdVVCB
-	HnIB/f1jrlw=
-X-Received: by 2002:a17:90b:560e:b0:39d:fcbe:fe04 with SMTP id 98e67ed59e1d1-39e10c45eedmr148835a91.2.1789464335615;
-        Tue, 15 Sep 2026 02:25:35 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd58af8sm4123719a91.12.2026.09.15.02.25.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 02:25:35 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	mripard@kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH] ASoC: hdmi-codec: Report a change when the channel status moves
-Date: Tue, 15 Sep 2026 18:25:15 +0900
-Message-ID: <20260915092515.2638542-1-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1789464361; c=relaxed/simple;
+	bh=GHHsrZIB+poW6H55aoLeqQcet8zMlrq7Lbt0vt+UVyg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=s3bUnvvkFNMSRmm55In7k6BfhBuagBSWkYbOCkx7T3it/OBe59uw86EeiUIsM2Rx42mhYrEVG7/LC+CD6BcJ8jLerSjfNfWn+cJZM5VF2Dfw490fAb9Xs4MOY/QXJRFiHYKpJdQNQT+fF/MIx3IvNrKeCFsIb5jC7Yb0MO8BqfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnUDsaD6lq_ENOCA--.52528S2;
+	Tue, 15 Sep 2026 17:25:46 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: brgl@kernel.org
+Cc: daniel.lezcano@kernel.org,
+	tglx@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/6] clocksource/drivers/davinci: Fix clock reference leak in of_davinci_timer_register
+Date: Tue, 15 Sep 2026 09:25:18 +0000
+Message-Id: <20260915092518.1868587-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
+References: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,49 +35,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnUDsaD6lq_ENOCA--.52528S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WrW7Cryxtr48Cw4UZr1fWFg_yoW8JFWDpr
+	Z5Kw40kF4kGF4S9Fs7tFsrur1Fvw12yFW3Gr93CasrZ3yfJ34fKFyrKFyqvFWUCrZYvwnF
+	yr1IqF1kCr45AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyvb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F
+	4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64vIr41l
+	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
+	AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
+	cVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI
+	8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU86VbDUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcLA2qo-tpJxgAAsg
 
-The put() callback of "IEC958 Playback Default" stores all 24 channel
-status bytes and then returns 0. The core notifies userspace only on a
-positive return, so a write that changes what the get() callback hands
-back is never announced, and a mixer holding the control open keeps
-showing the old value.
+On Tue, 15 Sep 2026 07:55:06 +0200, Bartosz Golaszewski <brgl@kernel.org> said:
+> I'm not following. If we keep the clock enabled, we must keep the reference. We
+> just never disable it anywhere, so you correctly don't see the clk_put() in
+> success path.
 
-Compare the stored bytes and return 1 when they move, the way
-snd_hda_spdif_default_put() does.
+Hi Bart,
 
-The same shape is in img-spdif-out and uniperif_player.
+Thanks for taking a look. Let me clarify the point about ownership:
+prepare/enable state is tracked on struct clk_core and is orthogonal to
+the consumer reference. clk_put() merely unlinks the consumer and drops
+the kref on the core clock (see __clk_put() in drivers/clk/clk.c) -- it
+neither disables nor unprepares the clock. So releasing the reference
+does not change the clock's state; the timer clock stays enabled for the
+lifetime of the system either way. This is the same reasoning used by
+callers that enable a clock and then put the consumer handle.
 
-No board with this codec was to hand. The change is a comparison of
-driver state with no hardware behaviour in it, and mixer-test counts the
-missing notification as event_missing.
+That said, I do understand the convention for these early boot timers
+that are never disabled -- dw_apb_timer_of, timer-owl and asm9260_timer
+also keep (or simply never put) the reference on success. If you consider
+the reference intentionally retained as a subsystem convention, I'm fine
+with dropping this patch; alternatively I could send a version that only
+adds a comment documenting the intent. Please let me know which you
+prefer.
 
-Fixes: 7a8e1d44211e ("ASoC: hdmi-codec: Add iec958 controls")
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Assisted-by: Claude:claude-opus-5
----
- sound/soc/codecs/hdmi-codec.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index bc2c22436ba6..7aa50c5bd3df 100644
---- a/sound/soc/codecs/hdmi-codec.c
-+++ b/sound/soc/codecs/hdmi-codec.c
-@@ -426,10 +426,14 @@ static int hdmi_codec_iec958_default_put(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
- 	struct hdmi_codec_priv *hcp = snd_soc_component_get_drvdata(component);
- 
-+	if (!memcmp(hcp->iec_status, ucontrol->value.iec958.status,
-+		    sizeof(hcp->iec_status)))
-+		return 0;
-+
- 	memcpy(hcp->iec_status, ucontrol->value.iec958.status,
- 	       sizeof(hcp->iec_status));
- 
--	return 0;
-+	return 1;
- }
- 
- static int hdmi_codec_iec958_mask_get(struct snd_kcontrol *kcontrol,
--- 
-2.43.0
+Best regards,
+Wentao Liang
 
