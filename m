@@ -1,159 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 023E23F4DD0;
-	Tue, 15 Sep 2026 13:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23963368D4A
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:15:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478028; cv=none; b=X3V3Nh45LBlBxBVVr/4oV4V7MHiUod9Z47Nzg4/PEk2SV227NUbYJWEbd/9zTyTWFuO6a2/pu4HDIxsmMwojQQsAIlji1eOtWrvdvNIsyBGGjWptjluMT5fKq6W213bnfFgg6UhjBffb+Y3WeTEYQ1pxygA4LPNyp3/CBg7moAw=
+	t=1789478115; cv=none; b=MDWkcBRw4fQgRmS+sIIHnzdTPz+slozj3arCFBOpatpp+cfdXUKjJS9B7VOWm1BGT5Ko6nsvcW2LntAGWnaJa+dG9KrXOZS3LWKcSDcip/mO4dlOyDZ01rLrE5R7wYLX5AxqX50q0ignBhcY8PwJjwd3OME87NWIBJmFaMo6BDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478028; c=relaxed/simple;
-	bh=byas6azvYHTCZERk/vafvd8gjLFgeA6zisT+bW3iEik=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YAMZ04Mz6v81/CXyECKhhCxdSN938qJ2oFXqFuRpzuEl+8HS8XBrvYjHeEAMR5AGWqQdKesMXveLaSF61XAl35Ar+oNIhKiuPjP94CDJFkRUzzSoyUYUbNuL6CSJasuio3aNSp+V2N1Zd+do5HO7J1uCnfbYv4keKGq8+JFzlx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lFk/boQ9; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789478115; c=relaxed/simple;
+	bh=1fAqN2Hmj00mBN2MauPqVpeRsaDH4ENoIOT9+clisXE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iJJZdZus2Yx1GLEtLGjDReC0CZfi9FzUUP7cuMZrF4PmWgVpOyOF2N9zeMO95vULlD900sQzxOsKIJP1b8HfTFsyYHrokvvwmYvLGTpnFV12/fLJwdpHTHy2BbPvoDbblW+1vdrycD5EHivkEeeChI0MLFaRKCgjX4WoxNEY+Rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=udvVsOLG; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lFk/boQ9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789478027; x=1821014027;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=byas6azvYHTCZERk/vafvd8gjLFgeA6zisT+bW3iEik=;
-  b=lFk/boQ9c8h0eLp6FB6N5gueK0fEIy0xePaxWvszsr9FSoh7JfjiAzrY
-   cv6gIRofAqBp+PUkLqRuniIwS+ZgJ8VefBcDurvhH9a8v9VEWu+XosEoP
-   jsHSI3ePiw+Eb6zK/EMULdBItpiusPyusUTYFI57djgGG/MlU3clYlCdo
-   nkLjbs1UMpvxNSV0z4jJQyVzoHdEUu/CdJkLnGdA9ZN3YnO47qCO/qavb
-   CHFkZPnIu1lHM8K7DkVmKPJdy21e2g1nwNt3sI0G2wWRIyahozPrb33fw
-   BwTgDpUqOWP0rBn53S8LWE5OAoKyXrH3S7ybyswuEcZHZBoMR6rupbMTj
-   w==;
-X-CSE-ConnectionGUID: xLmeJY9JTOKCLS3ka0eV+g==
-X-CSE-MsgGUID: Ov3Niq1jRV2ZaWyzqQbCdw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112608449"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="112608449"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 06:13:47 -0700
-X-CSE-ConnectionGUID: FX6OGsXGQKSoOpmGkSDflw==
-X-CSE-MsgGUID: ixNK6jJwR8C1Y+ZZTQO2Cg==
-X-ExtLoop1: 1
-Received: from yungchua-desk.itwn.intel.com ([10.227.8.136])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 06:13:44 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: linux-sound@vger.kernel.org,
-	vkoul@kernel.org,
-	broonie@kernel.org,
-	tiwai@suse.de
-Cc: vinod.koul@linaro.org,
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="udvVsOLG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=x6mNe2qU+brDp+XEHWP0KkrYWNUS60gvoqvnxlNQ03g=; b=udvVsOLGWUIsGvtAj/GBFJupXO
+	Tq0AY+0s2Ije803aaqEz0ZIjzlSnQxmXchmXz05VpzF/ve2HQ9W/1kCH+BmUTYBvaHdIvznBO28Im
+	mddjMbxls/O2XVRAFyDXnSwlQ7taMYqX291PTDGWF6KM+6vUDVrlSUe/3zRBUKkudUajrjSQTL/rc
+	IGD8LrKINAvUUNl0DIn4B5LSEJm3gtHuO2Odg5L+6FeUhAFrkui8WU3MbHjrP0Et6PQULhatWcVAe
+	SZ7wTetlAyOQSB1FMD/mOjCUxgo3JRAz52mjZryNJTkKDWUb7vMiGOP087Q/yF+hjxi0sO5hblzjs
+	/5IXd4gQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6T0A-0000000GA9I-279V;
+	Tue, 15 Sep 2026 13:15:10 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 14EA4300969; Tue, 15 Sep 2026 15:15:10 +0200 (CEST)
+Date: Tue, 15 Sep 2026 15:15:10 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.dev,
-	peter.ujfalusi@linux.intel.com,
-	bard.liao@intel.com
-Subject: [PATCH 3/3] ASoC: SOF: Intel: wait and verifies the presence of SoundWire peripherals
-Date: Tue, 15 Sep 2026 21:13:27 +0800
-Message-ID: <20260915131327.1783551-4-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915131327.1783551-1-yung-chuan.liao@linux.intel.com>
-References: <20260915131327.1783551-1-yung-chuan.liao@linux.intel.com>
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Yafang Shao <laoar.shao@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
+ locked=1
+Message-ID: <20260915131510.GD4121620@noisy.programming.kicks-ass.net>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+ <20260907084133.3696-4-david.laight.linux@gmail.com>
+ <20260915131314.GB2009045@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915131314.GB2009045@noisy.programming.kicks-ass.net>
 
-Wait and verifies the presence of SoundWire peripherals listed in the
-ACPI table. This prevents the system from probing non-existent (ghost)
-SoundWire devices.
+On Tue, Sep 15, 2026 at 03:13:15PM +0200, Peter Zijlstra wrote:
+> On Mon, Sep 07, 2026 at 09:41:27AM +0100, David Laight wrote:
+> 
+> > +	/*
+> > +	 * If 'prev' tries to remove itself from the list before we write
+> > +	 * a new value to prev->next it will spin in osq_wait_next().
+> > +	 */
+> 
+> This comment pertains to what? 
+> 
+> > +	/* Invalidate prev_cpu matching osq_unlock() */
+> > +	node->prev = 0;
+> 
+> I'm confused, osq_unlock() does no such thing.
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
- sound/soc/sof/intel/hda.c | 47 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 45 insertions(+), 2 deletions(-)
+The next patch adds a comment stating that this store is not strictly
+needed. And only serves to ensure node->prev ends up being 0 in all
+paths.
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 4dbba9186b29..e1815bfe358b 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -1304,6 +1304,8 @@ static struct snd_soc_acpi_adr_device *find_acpi_adr_device(struct device *dev,
- 	return adr_dev;
- }
- 
-+#define SDW_ENUM_TIMEOUT_MS 3000
-+
- static struct snd_soc_acpi_mach *hda_sdw_machine_select(struct snd_sof_dev *sdev)
- {
- 	struct snd_sof_pdata *pdata = sdev->pdata;
-@@ -1313,7 +1315,9 @@ static struct snd_soc_acpi_mach *hda_sdw_machine_select(struct snd_sof_dev *sdev
- 	struct sdw_peripherals *peripherals;
- 	struct snd_soc_acpi_mach *mach;
- 	struct sof_intel_hda_dev *hdev;
-+	struct sdw_slave *slave;
- 	int link_index, link_num;
-+	unsigned long time;
- 	int amp_index = 1;
- 	u32 link_mask = 0;
- 	int i;
-@@ -1415,14 +1419,53 @@ static struct snd_soc_acpi_mach *hda_sdw_machine_select(struct snd_sof_dev *sdev
- 	if (!links)
- 		return NULL;
- 
-+	/*
-+	 * Recalculate the link_mask as a link will be empty if all peripherals on the link are
-+	 * not enumerated
-+	 */
-+	link_mask = 0;
- 	/* Generate snd_soc_acpi_link_adr struct for each peripheral reported by the ACPI table */
- 	for (i = 0; i < peripherals->num_peripherals; i++) {
-+		slave = peripherals->array[i];
-+
-+		if (!slave->bus->is_present)
-+			continue;
-+
-+		if (link_mask & BIT(slave->bus->link_id)) {
-+			/*
-+			 * At least one peripheral is present on the link which means that this
-+			 * link has already been enumerated
-+			 */
-+			goto skip_wait_link_enumeration;
-+		}
-+
-+		if (sdw_show_ping_status(slave->bus, true) == 0) {
-+			/* no peripherals attached on this link */
-+			slave->bus->is_present = false;
-+			continue;
-+		}
-+
-+		time = wait_for_completion_timeout(&slave->bus->enumeration_complete,
-+						   msecs_to_jiffies(SDW_ENUM_TIMEOUT_MS));
-+		if (!time) {
-+			dev_warn(slave->bus->dev, "No peripheral is present\n");
-+			slave->bus->is_present = false;
-+			continue;
-+		}
-+
-+skip_wait_link_enumeration:
-+		/* Check if the SoundWire peripheral is present */
-+		if (!slave->dev_num_sticky) {
-+			dev_warn(&slave->dev, "SoundWire peripheral is not present\n");
-+			continue;
-+		}
- 		/* link_index = the number of used links below the current link */
--		link_index = hweight32(link_mask & (BIT(peripherals->array[i]->bus->link_id) - 1));
--		links[link_index].adr_d = find_acpi_adr_device(sdev->dev, peripherals->array[i],
-+		link_index = hweight32(link_mask & (BIT(slave->bus->link_id) - 1));
-+		links[link_index].adr_d = find_acpi_adr_device(sdev->dev, slave,
- 							       &links[link_index], &amp_index);
- 		if (!links[link_index].adr_d)
- 			return NULL;
-+		link_mask |= BIT(slave->bus->link_id);
- 	}
- 
- 	mach->drv_name = "sof_sdw";
--- 
-2.43.0
-
+That comment *should* obviously have been here. Also, I would *much*
+rather have this store at the top, next to node->next = NULL; That is
+much saner.
