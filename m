@@ -1,173 +1,166 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-215.mta0.migadu.com [91.218.175.215])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4A2332601;
-	Tue, 15 Sep 2026 20:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789505258; cv=pass; b=FqcdZYX3mF/RN3nczDnJ4mUky0PMQ1umdxupBcdohYwVGJ2z/T4sueM+UPLf+Gct/U7+Vdtj+vdLaCMsKET7KgPtoy7eWTSfLtDnUcaMihDZpQQ210Nvrc3vlo/7SccyzgEoTHDD63QOuuRkVxxvyAQuDGntWQkVjjKKcSy1Gxg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789505258; c=relaxed/simple;
-	bh=ntNiylShBzGcB5/5rfpspjPgxnjmU8ThnIg9OlDoZD0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=m3glu0Jx/iNqXpqjdmtNEtepmulP5kayG6/4EDrznlmzXTaTfA40ZuFTnvzMpcF/FLlWAjKqoCn6mr0fYke3yTSF5/Ff1BGUKYVQDrpx8LQM34Uek7QaDaIm9lnBTy5jk2OLBVvOM/W2i99jU8wT/v5yp4yxVw0pxHJwj278AxE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=jLO2Gfab; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=dOYYzIyd; arc=pass smtp.client-ip=185.56.87.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFCC9331237
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.215
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789505339; cv=none; b=CXAUTPFVGNBK07RTtl7Af8RauO5yh8OcglU1wjfL6LnuuAKOvbZBsG90rES7Rrgu36wH1inAT1ey24lfB5nHfkz/zIC+iGfPV7nRjnSbzyI1f0KMaxFvvgBFT9pWq2vEA3FTJ4NanzIOm+jtAOcqcyzzfC8O/oZEiUG9aJeSAWU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789505339; c=relaxed/simple;
+	bh=fwiMmFt1VJm1uGUZxh+85kVRbnA0eL94/9dO1pSY2Uk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UIWFYgaywVVpnPu93yt54fLk1NSGyB0FsLjGRax+h8+UJxNEkRGYJTBz3wuiOwRbyq8b1qRw8XIkmAPzOLNPnggS8vgtYoxaZIIrD+fH9Dls5r1Dl0T4M0cm/VYq0Mr5oQzwUKeYjjl2WVc+cK3T4roDD8GiMPAf8wJd7X7rl0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VZDW5op5; arc=none smtp.client-ip=91.218.175.215
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="jLO2Gfab";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="dOYYzIyd"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com; s=arckey; t=1789505256;
-	 b=eLV8HIW+DjQvYRNgI8S1S0gRdITGdsU1vEruTs9MJJFJ8dvp+oYsDRmNFze7gdukEODM8yZopS
-	  QYOWrTPixH52SqDV+U/IYRNRqbUDGKyHt+omViTnRXwt/yQ/SXgY1w4Or9E/uLxNqIeBk6GFrt
-	  L3fWiy31pBsYQ/uZEIILV0nxIFUYH+wuMEpyw097/rsPyDbeFGYMhuJLNw45kVGBoCLvk+68l7
-	  gKeRsF7zljNbnGBGy/TtgxIM16Yf/4LUxlB6YmDkbpit5z5x+Yazv2Xs/ORIUq2q3volEKVUKi
-	  jVxo6J87IAbUehWRA97HZxBs55BicsmcjddncpLdZ9UfTQ==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com; s=arckey; t=1789505256;
-	bh=ntNiylShBzGcB5/5rfpspjPgxnjmU8ThnIg9OlDoZD0=;
-	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
-	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
-	b=qB5LHPoNYnt4ylfh0l4g5u4m2s+9Nc0cqXfnXoDGPBGnIC+6cFy7aNQ/3NimNGpY5NB8iY1q6z
-	  XdpDRTPMIy4N268UMX5sWD3oDjri0an16OnFJ1Jce7QAnJA/d1sx8UeFEi94FEvEUyfZykZKwG
-	  V2W2FDV3vf9/JuL6hcqtd2KxtmK0ToMkbzHOtAq0v8ph7MpO7XsBR2NPC9ZZ9uoJvvBVcRLb0I
-	  aRglMihyTvok8PkSm+h41J0ufDhakn3EV1KJVHWpSOf5MO+546PHuSxWx2lSUHh9FPci9SkFum
-	  Lmi2M/fzZkjaAyLP28y57lkHSymUBMap7DiEZ1FVn3nQvQ==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
-	:Date:From:Reply-To:List-Unsubscribe;
-	bh=wm+I9snef4pclMeBCfkCtB56yKFNZvRgPCZYc0fCzO0=; b=jLO2Gfabhf1bsnJFxG91ehSaeb
-	M/s5M+jGa71e4aiQxGdZfmeea64aQR5UuVriz3M28wEuB7WVvOZjuKVz4R6Fpm+7xftH1vZq7miNH
-	sVvubnfG2UTF+lUMmyXohfezzoprsGNWidTQPSnbz6U+bueWPdb80qPu9bMmUWbiroes=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-k0hs.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x6Zhx-00000002dcD-2TNo;
-	Tue, 15 Sep 2026 20:24:51 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=wm+I9snef4pclMeBCfkCtB56yKFNZvRgPCZYc0fCzO0=; b=dOYYzIydIQ90uoiCxrNhg+eMNW
-	sJ2WoTVHBgxN2e8d958BlJdu1UK0yGR7lubSjTO1BxomUlJJV6ulvZ0c4EWpyecxxXXBlf8th14JO
-	3TFUISbuO9ao67lsX48FpF8I4jlTLUWIfmqNOc+505R4WR0FfSxC9qy0xrqBwH7I0CoQ=;
-Received: from [95.233.221.121] (port=64541 helo=[192.168.178.175])
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x6Zhs-00000000HDi-3iBa;
-	Tue, 15 Sep 2026 20:24:44 +0000
-From: Francesco Valla <francesco@valla.it>
-Date: Tue, 15 Sep 2026 22:24:37 +0200
-Subject: [PATCH 2/2] spi: virtio: drop unused field from private data
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VZDW5op5"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fwiMmFt1VJm1uGUZxh+85kVRbnA0eL94/9dO1pSY2Uk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789505334; v=1; x=1790110134;
+ b=VZDW5op539vWcdGgrulx/7tuhW0FS5D1vALyXRAOum9weFmxoqmS1jYoA93g9Yq/KHsyI3T6
+ GlX6pC2VBwkOv/FLFVJDKNa4lwDCI67XXIirXlLw1uefP8XzhJ/tq4U84HwGkk8rxnESwwLDkt5
+ 6DG3FZjLudV9NTYMuC4ceJMs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 570ecb3681ec1724;
+	Tue, 15 Sep 2026 20:48:44 +0000
+X-Mizu-Trace-ID: 570ecb3681ec1724
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b647e0a5-4122-4772-b317-d2d7a8cb4d31@linux.dev>
+Date: Tue, 15 Sep 2026 22:48:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-virtio-spi-fix2-v1-2-7a474cb1b13b@valla.it>
-References: <20260915-virtio-spi-fix2-v1-0-7a474cb1b13b@valla.it>
-In-Reply-To: <20260915-virtio-spi-fix2-v1-0-7a474cb1b13b@valla.it>
-To: Haixu Cui <quic_haixcui@quicinc.com>, Mark Brown <broonie@kernel.org>
-Cc: virtualization@lists.linux.dev, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Francesco Valla <francesco@valla.it>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2452; i=francesco@valla.it;
- h=from:subject:message-id; bh=ntNiylShBzGcB5/5rfpspjPgxnjmU8ThnIg9OlDoZD0=;
- b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFkrV3b3e/sU3Przy7ydMfrr9h3Bjw87aGcxLs27lhdYd
- P8ji7VqRykLgxgXg6yYIkvIuhv39sw1/5a2gfERzBxWJpAhDFycAjCRXE2G//F7fh2TqFj9Yt51
- ebO4Z9O7Dm8Nci9cPTP922b9xtoc5jiGf2bZh1/FHVmdZKJypPSC6IUD3VXJZhNfCX6/dNVS7bG
- eIhsA
-X-Developer-Key: i=francesco@valla.it; a=openpgp;
- fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 377f1d07a2e083c79fd3a4b8d255957d
-X-AntiAbuse: ID - 377f1d07a2e083c79fd3a4b8d255957d
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1x6Zhx-00000002dcD-2TNo-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: asus-armoury: add dGPU disable fallback
+ DEVID for ProArt H7606 series
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ busybox11 <busybox11th@gmail.com>
+Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones"
+ <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+ platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+References: <20260810-asus_armoury_dgpu_new_devid-v1-1-0a5c845414e4@gmail.com>
+ <40f1840a-e3e4-29d3-66b5-a13737224f99@linux.intel.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <40f1840a-e3e4-29d3-66b5-a13737224f99@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The mode_func_supported field is read from the config space into the
-driver's private data, but then never used outside of the function it is
-read in. Drop the variable from the private data and parse it from the
-stack instead.
 
-Signed-off-by: Francesco Valla <francesco@valla.it>
----
- drivers/spi/spi-virtio.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+On 9/15/26 22:38, Ilpo Järvinen wrote:
+> On Mon, 10 Aug 2026, busybox11 via B4 Relay wrote:
+>
+>> From: busybox11 <busybox11th@gmail.com>
+>>
+>> Newer ASUS ProArt laptops (e.g. H7606 series) implement dGPU power
+>> control on WMI DEVID 0x00090120 instead of the usual 0x00090020.
+>> The default DEVID returns 0xFFFFFFFE on these models, so the
+>> dgpu_disable firmware attribute is never created and the dGPU cannot
+>> be re-enabled from Linux at all.
+>>
+>> Add a fallback probe for device ID 0x00090120 following the same
+>> approach as the gpu_mux_dev_id probe.
+>>
+>> Details for 0x00090120 (confirmed on H7606W using direct WMNB calls
+>> and inspecting the DSDT DEVS handler):
+>>   - Reading DSTS returns 0x00010001 when the dGPU is off (CUMA=1),
+>> 	or 0x00010000 when it's on.
+>>   - Writing DEVS: 0 enables the dGPU (calls PG00._ON() + Notifies
+>> 	PEGP, Device Check), and 1 disables or ejects it.
+>>
+>> This behavior matches the dgpu_disable attribute (1 = disabled).
+>>
+>> Signed-off-by: busybox11 <busybox11th@gmail.com>
+> Unfortunately, we cannot accept anonymous or pseudonym signed 
+> contributions so please sign off with your real name. For more 
+> information about signing of patches, please see:
+>
+> Documentation/process/submitting-patches.rst
+>
+>> ---
+>>  drivers/platform/x86/asus-armoury.c        | 32 +++++++++++++++++++++++++-----
+>>  include/linux/platform_data/x86/asus-wmi.h |  3 +++
+>>  2 files changed, 30 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
+>> index 495dc1e31..f39b52451 100644
+>> --- a/drivers/platform/x86/asus-armoury.c
+>> +++ b/drivers/platform/x86/asus-armoury.c
+>> @@ -93,6 +93,7 @@ struct asus_armoury_priv {
+>>  
+>>  	u32 mini_led_dev_id;
+>>  	u32 gpu_mux_dev_id;
+>> +	u32 dgpu_disable_dev_id;
+>>  };
+>>  
+>>  static struct asus_armoury_priv asus_armoury = {
+>> @@ -452,8 +453,8 @@ static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
+>>  	if (err)
+>>  		return err;
+>>  
+>> -	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU)) {
+>> -		err = armoury_get_devstate(NULL, &result, ASUS_WMI_DEVID_DGPU);
+>> +	if (asus_armoury.dgpu_disable_dev_id) {
+>> +		err = armoury_get_devstate(NULL, &result, asus_armoury.dgpu_disable_dev_id);
+>>  		if (err)
+>>  			return err;
+>>  		if (result && !optimus) {
+>> @@ -507,7 +508,8 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
+>>  	}
+>>  
+>>  	scoped_guard(mutex, &asus_armoury.egpu_mutex) {
+>> -		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL, ASUS_WMI_DEVID_DGPU);
+>> +		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL,
+>> +					   asus_armoury.dgpu_disable_dev_id);
+>>  		if (err)
+>>  			return err;
+>>  	}
+>> @@ -516,7 +518,7 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
+>>  
+>>  	return count;
+>>  }
+>> -ASUS_WMI_SHOW_INT(dgpu_disable_current_value, ASUS_WMI_DEVID_DGPU);
+>> +ASUS_WMI_SHOW_INT(dgpu_disable_current_value, asus_armoury.dgpu_disable_dev_id);
+>>  ASUS_ATTR_GROUP_BOOL(dgpu_disable, "dgpu_disable", "Disable the dGPU");
+>>  
+>>  /* Values map for eGPU activation requests. */
+>> @@ -790,7 +792,6 @@ ASUS_ATTR_GROUP_INT_VALUE_ONLY_RO(nv_base_tgp, ATTR_NV_BASE_TGP, ASUS_WMI_DEVID_
+>>  static const struct asus_attr_group armoury_attr_groups[] = {
+>>  	{ &egpu_connected_attr_group, ASUS_WMI_DEVID_EGPU_CONNECTED },
+>>  	{ &egpu_enable_attr_group, ASUS_WMI_DEVID_EGPU },
+>> -	{ &dgpu_disable_attr_group, ASUS_WMI_DEVID_DGPU },
+>>  	{ &apu_mem_attr_group, ASUS_WMI_DEVID_APU_MEM },
+>>  
+>>  	{ &ppt_pl1_spl_attr_group, ASUS_WMI_DEVID_PPT_PL1_SPL },
+>> @@ -934,6 +935,21 @@ static int asus_fw_attr_add(void)
+>>  		}
+>>  	}
+>>  
+>> +	asus_armoury.dgpu_disable_dev_id = 0;
+>> +	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU))
+>> +		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_DGPU;
+>> +	else if (armoury_has_devstate(ASUS_WMI_DEVID_GPU_MODE))
+>> +		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_GPU_MODE;
+>> +
+>> +	if (asus_armoury.dgpu_disable_dev_id) {
+> Now I started to wonder why are we doing it like this and not using 
+> .is_visible?
+>
+> This question applies to the similar, existing cases as well.
+>
+> Denis?
+>
+>
+I don't understand the question. There are a bunch of .is_visible in the kernel and
+I'm not sure if I am looking the right one and therefore if I understood the question correctly.
 
-diff --git a/drivers/spi/spi-virtio.c b/drivers/spi/spi-virtio.c
-index 033268908bca..489970ed7eae 100644
---- a/drivers/spi/spi-virtio.c
-+++ b/drivers/spi/spi-virtio.c
-@@ -31,8 +31,6 @@ struct virtio_spi_priv {
- 	struct virtio_device *vdev;
- 	/* Pointer to the virtqueue */
- 	struct virtqueue *vq;
--	/* Copy of config space mode_func_supported */
--	u32 mode_func_supported;
- };
- 
- static void virtio_spi_msg_done(struct virtqueue *vq)
-@@ -256,7 +254,7 @@ static int virtio_spi_transfer_one(struct spi_controller *ctrl,
- static void virtio_spi_read_config(struct virtio_device *vdev)
- {
- 	struct spi_controller *ctrl = dev_get_drvdata(&vdev->dev);
--	struct virtio_spi_priv *priv = vdev->priv;
-+	u32 mode_func_supported;
- 	u8 cs_max_number;
- 	u8 tx_nbits_supported;
- 	u8 rx_nbits_supported;
-@@ -266,18 +264,18 @@ static void virtio_spi_read_config(struct virtio_device *vdev)
- 	ctrl->num_chipselect = cs_max_number;
- 
- 	/* Set the mode bits which are understood by this driver */
--	priv->mode_func_supported =
-+	mode_func_supported =
- 		virtio_cread32(vdev, offsetof(struct virtio_spi_config,
- 					      mode_func_supported));
--	ctrl->mode_bits = priv->mode_func_supported &
-+	ctrl->mode_bits = mode_func_supported &
- 			  (VIRTIO_SPI_CS_HIGH | VIRTIO_SPI_MODE_LSB_FIRST);
--	if (priv->mode_func_supported & VIRTIO_SPI_MF_SUPPORT_CPHA_1)
-+	if (mode_func_supported & VIRTIO_SPI_MF_SUPPORT_CPHA_1)
- 		ctrl->mode_bits |= VIRTIO_SPI_CPHA;
--	if (priv->mode_func_supported & VIRTIO_SPI_MF_SUPPORT_CPOL_1)
-+	if (mode_func_supported & VIRTIO_SPI_MF_SUPPORT_CPOL_1)
- 		ctrl->mode_bits |= VIRTIO_SPI_CPOL;
--	if (priv->mode_func_supported & VIRTIO_SPI_MF_SUPPORT_LSB_FIRST)
-+	if (mode_func_supported & VIRTIO_SPI_MF_SUPPORT_LSB_FIRST)
- 		ctrl->mode_bits |= SPI_LSB_FIRST;
--	if (priv->mode_func_supported & VIRTIO_SPI_MF_SUPPORT_LOOPBACK)
-+	if (mode_func_supported & VIRTIO_SPI_MF_SUPPORT_LOOPBACK)
- 		ctrl->mode_bits |= SPI_LOOP;
- 	tx_nbits_supported =
- 		virtio_cread8(vdev, offsetof(struct virtio_spi_config,
-
--- 
-2.55.0
+It is written as this to memorize what the correct id is and therefore what
+to do.... but I doubt this answers you.
 
