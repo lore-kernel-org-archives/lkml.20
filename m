@@ -1,129 +1,243 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24253D8104
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:00:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E263AA9F4;
+	Tue, 15 Sep 2026 09:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462808; cv=none; b=N0kmz4q7CcA0DF1ZE/Z1r/t2rkOMHbKhq1lThez07PnnFB+qrpq4N35ykgw8muO/rocoW9t3wQEoGplN+kQf0GJGhyuhFIxw9tzyFjUegxOz8SiRtaI6CiVb3HXgVX88L7bYPwQAXLpZTrDSSsMtoufmHAgkCzxqZa7bPkkh0Lk=
+	t=1789462906; cv=none; b=GbNr1B8hfB0ZEG71HEdzvsCzOmwHisoDjmvfIXxqA6/Dxuh7Nf3/JhXH7tlj0KxAojLQ7OKKZ7wErnFk1xtN54bLtBMqCtYWyaFCmuJe+Bkh9Wy3Nsv/MbfhItjT5qlKPMNHFDR0gdqlU/6ikyP7Sr1giXJgOiK0dvC9GYBRE2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789462808; c=relaxed/simple;
-	bh=Ma9vhHsFT3GKyy+r48cmE2rj/TqIbzPQu2RdVnWvcYE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YuYD759DT0mNKxupQdKcGI6XIYC8DQssKsh2T/CBpjJJFmcWnQtjnKZJWYqOg0VGt/rcVPT5O0P/JvBm8Z+nldz0uN0BM0La8rpzSAGAVMB1dz7Ro2FvN+I7kVp4orT1YiLTGkMOjiDzPzdNAcs+naEigRPM+3VPKRt4rx1Diig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D0JbWlCl; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789462906; c=relaxed/simple;
+	bh=BdB/7ghHFrGbaVFHN+Hqhcby9TJE3K7duQr/idBMo6g=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=GCdRYQ/KekdATfCtsuvQbJU59xVkwLKGGjuk57N3NDmhJafKa0sFwQdXIzIhsW8aHAAafU6IZS/ZCUFAy5aCW8TNYJ4t0fSaUwcY+rKRFKaqDhHtWj6j8JmqSXzHAlVWTqX+oI3h4C71GWS13RnceibWTFltfOERFWe7hRAlYTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NHD62V57; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D0JbWlCl"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e25187so2259375b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:00:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789462805; x=1790067605; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DATieKM+IrnhcJS92QKz+qmlrQJPe8M5vyN/L8cE7Fk=;
-        b=D0JbWlClNDmDa011ZH0fFPk2HE9Kmr2i0nD5CzDQEXNQhcRYU2jmqvH2RCS3FFWBE7
-         V5OhEA1f2ALmJecP9siepqnzquJi+THFsyPdZMYw9+4gFOOCixa1n4/Qb8tkoQJZPhJn
-         jhKtSCs0sOUULU7LMXO+LaKwmBFKmKvDRwpm+xyG+YMRE3vznOdXoT7i0a/ZnVcJOss3
-         vArLUNhMmSDu9416w3EwwzUmxsSOEV4iDERmfgCSobFMfpAWx8Jm3j61DALWyyg4pKPd
-         MctkCE1Q6VddeBrWZPLW5BCrbD16E+kstlBjv6FvPbpgbLZYxmhSaaDaAAcVwFoSCwx8
-         Genw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789462805; x=1790067605;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DATieKM+IrnhcJS92QKz+qmlrQJPe8M5vyN/L8cE7Fk=;
-        b=bWiFfCuWH4DWI7TY60RtNXijaOED0MIb9C9AmAbw/5gcCSa1LUeEoUnTrDVlPecdRs
-         QXWIpgH5AgPvYbY+2dUMHw8bbs2H1z7x2Owe6Nd4gOK5cBvEHSN78KyhZSS+Ppi53e7G
-         cE9MMgev0seQSqtwHISwdx1iNNOkl1w7w/BV1cjfLF1SXferRRpIf360J8JfjNcj0zE7
-         RCBUCtTbH57chXjRbepbsVQG2MGusO4vZ7fKSPrZhvjWVxnEDV10EtaKtuSUwznnLLm4
-         OZfuB20iNh6FiVRMffLpAHbBo39dJnGUe9fFFOcr7sygPeD4OAYC0nw5UAWIhOL/K1nq
-         uvSA==
-X-Forwarded-Encrypted: i=1; AKwUvBwpNygrlWlsXHKhLMO0Swdb2Xz+VvNIaG6KYeHNdnDdr5CyAxp5ZIztIJOLINpWEdJGOOHJS9OXOWwXYtg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxmbtM6NyqJPKRPUe53GVTgs09xU1uiE8hme+2EU+vEm/BuC0l
-	sDYZCXfZQ+RAzlN8XVETJKH1be5wCPf7p3HJyE2ztVbJI7tJS9A3T27d
-X-Gm-Gg: AYBFou1lfZ+wSa9LW9jbsSf1CSKeRGS57Uc0FGDmnHiY23URq12pAPJQFzimg2xjSpV
-	S1dPe5sOcaRsjieHuAx9HdP4QvQflc83+2cy/KMjZ8iWT+Fr1h9w8ghqwd7QeRsoFbRBWhu4zto
-	/iMiLTmjuflNJOHH/DaEfKcYbA06ee82XJtC1gRLYLqTtxjvmBLrTK8cT40pNr/g8raPR/pf3b1
-	CQRBwFxyxsQhmIxTN75rOMLHbd7ZpdDMgJj6vJdwuPgPILIAvvwuRcqwjTUYjLkui9qdea6GEOa
-	Uxy3XwlqeNRUmYk3IFT1VEBG0qQQ31MMKture4m+2uZN2Ke+wXtD0MfQxrQHr4JalX2fCa8VQI9
-	x8NfXwNxyoEbyjlbEOqow8XNIb1aYp7ZCrQfSqZSvs7CBlKsejrehBRv6P1oRzhNsHa1nrrAvt0
-	Ck/sQ5rJGOqmQTRikWn9OwY8Im2A2KsbVsFVxaB9FUEdolTsXA1vqZKUsk0oBfk5B3czvmLPssO
-	Ct1y++dZsVEF0B54FvJi6RhIfJFK7kz9zX5z5HEgJAFvEU=
-X-Received: by 2002:a05:6a00:94c9:b0:848:2ab3:ddeb with SMTP id d2e1a72fcca58-86f858ed348mr12207289b3a.14.1789462804931;
-        Tue, 15 Sep 2026 02:00:04 -0700 (PDT)
-Received: from localhost.localdomain ([2605:bc80:3010:503:f816:3eff:fe99:6bb3])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6550df9sm6124342a12.16.2026.09.15.02.00.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 02:00:04 -0700 (PDT)
-From: Zhouyi Zhou <zhouzhouyi@gmail.com>
-To: paulmck@kernel.org,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lance@osuosl.org
-Cc: Zhouyi Zhou <zhouzhouyi@gmail.com>
-Subject: [PATCH v2] rcutorture: kvm-again.sh: Fix re-run failure on ppc64
-Date: Tue, 15 Sep 2026 08:59:49 +0000
-Message-Id: <20260915085949.3708122-1-zhouzhouyi@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NHD62V57"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D5B1F000FF;
+	Tue, 15 Sep 2026 09:01:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789462905;
+	bh=xJ8CbAqVK2aEgiqfWN4NFXkmv4VYk8DZM71F2uwFagc=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=NHD62V572xPJ/b/UFoosJzqQZDLqRIj7lYKIwbmiidi3PShI4GU5dw1eZ/fPw/E1w
+	 dxOluJN3f5MdHNtsU9guU18PH3jkdDOAUK6im4SFyEoBal3FyClbCXMEDCUMK1w+js
+	 kkrE2rlEqZpuaf1hxP7uMo5IcfleTm3+9BDk/pbsnxBbDvEQ0cBdhoRRVcG6j0ATDB
+	 I0QcViQB0xgY/DEkvc35yPFUILp1223U6DXOhcrK4NojzL82ZZE1UA79sqGsD5EuRx
+	 X3r2YohU6WP7Kz9DSBzyQlTcG5xAxr2DIesZhaHtu3kdkptRpThd5/0qWIkEuQpftK
+	 QgNHCGSmBD14g==
+Content-Type: multipart/mixed; boundary="===============3452030992566982035=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <18aa34104b455963bb39e0b34a5c5285543cec411c701b59d803dce126d8c40e@mail.kernel.org>
+In-Reply-To: <20260915080255.48929-2-tasos.papagiannnis@gmail.com>
+References: <20260915080255.48929-2-tasos.papagiannnis@gmail.com>
+Subject: Re: [PATCH bpf-next v7 1/5] mm: Add copy_remote_mm_str()
+From: bot+bpf-ci@kernel.org
+To: tasos.papagiannnis@gmail.com,bpf@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org,linux-kernel@vger.kernel.org,linux-mm@kvack.org,david@kernel.org,akpm@linux-foundation.org,andrii@kernel.org,ast@kernel.org,brauner@kernel.org,daniel@iogearbox.net,eddyz87@gmail.com,kpsingh@kernel.org,ljs@kernel.org,matt@bobrowski.net,memxor@gmail.com,song@kernel.org,sun.jian.kdev@gmail.com,utilityemal77@gmail.com,viro@zeniv.linux.org.uk,tasos.papagiannnis@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 15 Sep 2026 09:01:43 +0000 (UTC)
 
-Discovered in the Open Source Lab of Oregon State University when running
-torture.sh on a ppc64le VM.  Two bugs were exposed:
+--===============3452030992566982035==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-1. The kvm-transform.sh call hard-coded "bzImage" as the kernel image
-   name.  On ppc64, the boot image is vmlinux, not bzImage, so the
-   re-run failed to find the image.  Fix this by extracting the QEMU
-   binary from the qemu-cmd file and passing it to identify_boot_image()
-   to obtain the correct architecture-specific image name, the same way
-   kvm.sh already does.
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index dd09c438fa23e..63f40e615754d 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -3325,10 +3325,10 @@ extern int access_process_vm(struct task_struct *tsk, unsigned long addr,
+>  extern int access_remote_vm(struct mm_struct *mm, unsigned long addr,
+>  		void *buf, int len, unsigned int gup_flags);
+>
+> -#ifdef CONFIG_BPF_SYSCALL
+> -extern int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
+> -			      void *buf, int len, unsigned int gup_flags);
+> -#endif
+> +int copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
+> +		void *buf, int len, unsigned int gup_flags);
+> +int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
+> +		void *buf, int len, unsigned int gup_flags);
+>
+>  long get_user_pages_remote(struct mm_struct *mm,
+>  			   unsigned long start, unsigned long nr_pages,
 
-2. The rm -f invocation on re-run listed vmlinux among the files to
-   delete.  On ppc64 vmlinux is the boot image, so deleting it broke
-   the re-run on that architecture.  Drop vmlinux from the list.
+[ ... ]
 
-Tested on a local x86_64 machine and on a PPC VM of the Open Source Lab
-of Oregon State University.
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 8b0c2c735d3de..fe2f5e988fb90 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -7331,8 +7331,8 @@ EXPORT_SYMBOL_GPL(access_process_vm);
+>   * Copy a string from another process's address space as given in mm.
+>   * If there is any error return -EFAULT.
+>   */
+> -static int __copy_remote_vm_str(struct mm_struct *mm, unsigned long addr,
+> -				void *buf, int len, unsigned int gup_flags)
+> +int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
+> +			 void *buf, int len, unsigned int gup_flags)
+>  {
+>  	void *old_buf = buf;
+>  	int err = 0;
 
-Signed-off-by: Zhouyi Zhou <zhouzhouyi@gmail.com>
+[ ... ]
+
+> @@ -7407,43 +7407,6 @@ static int __copy_remote_vm_str(struct mm_struct *mm, unsigned long addr,
+>  		return err;
+>  	return buf - old_buf;
+>  }
+> -
+> -/**
+> - * copy_remote_vm_str - copy a string from another process's address space.
+> - * @tsk:	the task of the target address space
+> - * @addr:	start address to read from
+> - * @buf:	destination buffer
+> - * @len:	number of bytes to copy
+> - * @gup_flags:	flags modifying lookup behaviour
+> - *
+> - * The caller must hold a reference on @mm.
+> - *
+> - * Return: number of bytes copied from @addr (source) to @buf (destination);
+> - * not including the trailing NUL. Always guaranteed to leave NUL-terminated
+> - * buffer. On any error, return -EFAULT.
+> - */
+> -int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
+> -		       void *buf, int len, unsigned int gup_flags)
+> -{
+> -	struct mm_struct *mm;
+> -	int ret;
+> -
+> -	if (unlikely(len == 0))
+> -		return 0;
+> -
+> -	mm = get_task_mm(tsk);
+> -	if (!mm) {
+> -		*(char *)buf = '\0';
+> -		return -EFAULT;
+> -	}
+> -
+> -	ret = __copy_remote_vm_str(mm, addr, buf, len, gup_flags);
+> -
+> -	mmput(mm);
+> -
+> -	return ret;
+> -}
+> -EXPORT_SYMBOL_GPL(copy_remote_vm_str);
+>  #endif /* CONFIG_BPF_SYSCALL */
+
+[ ... ]
+
+> diff --git a/mm/util.c b/mm/util.c
+> index bf0513d1d3d08..47c2e3ae84961 100644
+> --- a/mm/util.c
+> +++ b/mm/util.c
+> @@ -1061,6 +1061,68 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen)
+>  	return res;
+>  }
+>
+> +#ifdef CONFIG_BPF_SYSCALL
+> +/**
+> + * copy_remote_mm_str - copy a string from a remote address space.
+> + * @mm:         the remote address space
+> + * @addr:       start address to read from
+> + * @buf:        destination buffer
+> + * @len:        number of bytes to copy
+> + * @gup_flags:  flags modifying lookup behaviour
+> + *
+> + * The caller must hold a reference on @mm.
+> + *
+> + * Return: number of bytes copied from @addr (source) to @buf (destination),
+> + * not including the trailing NUL. If @len is zero, return 0 without accessing
+> + * @buf. Otherwise, @buf is always NUL-terminated. On any error, return
+> + * -EFAULT.
+> + */
+> +int copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
+> +		void *buf, int len, unsigned int gup_flags)
+> +{
+> +	if (unlikely(len == 0))
+> +		return 0;
+> +
+> +	return __copy_remote_mm_str(mm, addr, buf, len, gup_flags);
+> +}
+> +
+> +/**
+> + * copy_remote_vm_str - copy a string from another process's address space.
+> + * @tsk:	the task of the target address space
+> + * @addr:	start address to read from
+> + * @buf:	destination buffer
+> + * @len:	number of bytes to copy
+> + * @gup_flags:	flags modifying lookup behaviour
+> + *
+> + * Return: number of bytes copied from @addr (source) to @buf (destination),
+> + * not including the trailing NUL. If @len is zero, return 0 without accessing
+> + * @buf. Otherwise, @buf is always NUL-terminated. On any error, return
+> + * -EFAULT.
+> + */
+> +int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
+> +		void *buf, int len, unsigned int gup_flags)
+> +{
+> +	struct mm_struct *mm;
+> +	int ret;
+> +
+> +	if (unlikely(len == 0))
+> +		return 0;
+> +
+> +	mm = get_task_mm(tsk);
+> +	if (!mm) {
+> +		*(char *)buf = '\0';
+> +		return -EFAULT;
+> +	}
+> +
+> +	ret = __copy_remote_mm_str(mm, addr, buf, len, gup_flags);
+> +
+> +	mmput(mm);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(copy_remote_vm_str);
+> +#endif /* CONFIG_BPF_SYSCALL */
+
+Does this silently drop the kernel-doc from the generated documentation?
+
+Before this patch, copy_remote_vm_str() had both its kernel-doc block
+and EXPORT_SYMBOL_GPL() in mm/memory.c. Documentation/core-api/mm-api.rst
+pulls mm/memory.c wholesale for exported symbols:
+
+    .. kernel-doc:: mm/memory.c
+       :export:
+
+so its documentation was rendered by that directive.
+
+After this patch both copy_remote_vm_str() and the new
+copy_remote_mm_str() live in mm/util.c. But mm/util.c is never pulled in
+with ':export:'. Every kernel-doc directive for it uses an explicit
+':functions:' allowlist:
+
+    Documentation/core-api/mm-api.rst:46   :functions: kfree_const kvmalloc_node kvfree
+    Documentation/core-api/mm-api.rst:111  :functions: folio_mapping
+    Documentation/core-api/kernel-api.rst:42 :functions: kstrdup kstrdup_const ...
+
+So after the move, the kernel-doc blocks at mm/util.c:1089-1101
+(copy_remote_vm_str) and mm/util.c:1065-1079 (copy_remote_mm_str) are no
+longer rendered anywhere.
+
+As a side effect, neither block is checked by the kernel-doc build, so
+future mistakes in them will go unnoticed.
+
+None of the follow-up commits in the series touch Documentation/, so this
+is not restored later. Adding the two names to one of the existing
+mm/util.c ':functions:' lists would preserve the previous documentation
+coverage.
+
+
 ---
-Changes in v2:
- - Remove blank line between qemu_binary and boot_image assignments
-   for cleaner style.
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
- tools/testing/selftests/rcutorture/bin/kvm-again.sh | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/tools/testing/selftests/rcutorture/bin/kvm-again.sh b/tools/testing/selftests/rcutorture/bin/kvm-again.sh
-index b5239b52cb5d..cacc9f2b230d 100755
---- a/tools/testing/selftests/rcutorture/bin/kvm-again.sh
-+++ b/tools/testing/selftests/rcutorture/bin/kvm-again.sh
-@@ -189,7 +189,7 @@ then
- 		echo "Cannot copy from $oldrun to $rundir."
- 		usage
- 	fi
--	rm -f "$rundir"/*/{console.log,console.log.diags,qemu_pid,qemu-pid,qemu-retval,Warnings,kvm-test-1-run.sh.out,kvm-test-1-run-qemu.sh.out,vmlinux} "$rundir"/log
-+	rm -f "$rundir"/*/{console.log,console.log.diags,qemu_pid,qemu-pid,qemu-retval,Warnings,kvm-test-1-run.sh.out,kvm-test-1-run-qemu.sh.out} "$rundir"/log
- 	touch "$rundir/log"
- 	echo $scriptname $args | tee -a "$rundir/log"
- 	echo $oldrun > "$rundir/re-run"
-@@ -217,7 +217,10 @@ do
- 	qemu_cmd_dir="`dirname "$i"`"
- 	kernel_dir="`echo $qemu_cmd_dir | sed -e 's/\.[0-9]\+$//'`"
- 	jitter_dir="`dirname "$kernel_dir"`"
--	kvm-transform.sh "$kernel_dir/bzImage" "$qemu_cmd_dir/console.log" "$jitter_dir" "$dur" "$bootargs" < $T/qemu-cmd > $i
-+	qemu_binary="`grep -v '^#' $T/qemu-cmd | awk 'NF { print $1; exit }'`"
-+	boot_image="`identify_boot_image "$qemu_binary"`"
-+	kvm-transform.sh "$kernel_dir/`basename $boot_image`" "$qemu_cmd_dir/console.log" "$jitter_dir" "$dur" "$bootargs" < $T/qemu-cmd > $i
- 	if test -n "$arg_remote"
- 	then
- 		echo "# TORTURE_KCONFIG_GDB_ARG=''" >> $i
---
-2.43.0
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34946192265
+--===============3452030992566982035==--
