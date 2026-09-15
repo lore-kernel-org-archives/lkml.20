@@ -1,81 +1,108 @@
-Received: from mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
+Received: from mail-wr2-f19.google.com (mail-wr2-f19.google.com [74.125.225.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633353876CC
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:29:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A58D3B7767
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:31:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789507790; cv=none; b=sgv5fti/Ms+qo7Qs/d9PznhP+KpV4IW6MIqJJRIsue/P4AU71babp3naQB2fsfle4aM1/4HsxoKRTNk/QTZ7JbysXeMRrN9U0/a59LxRbna29ATEIqzQN3Ggq38ZEQ/W8amV4rfgsIT2BVzQIeS0MBJqno835heTl12fuJ+w+vU=
+	t=1789507868; cv=none; b=J79QAYBR2QxcZ8ICRTyBEH+TXfFFgMY+FlrqtRmahBb6VlrxYNENAg5QbnhK2LA/HLItQpv1WpXEAZJ7bjnJwmNnXXCyOUBO4pYNFb4LPzbBUNYJcxNBs6gQWCbHhcr5w4GP7ee1MRafKoQkMKKpLqpARkqoIJR5haJzIKcYCcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789507790; c=relaxed/simple;
-	bh=yx5Fr+divRbcs9QYGD9iNt36K1csv117Cvf/nf+9DGk=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=P81KgPJs2fVVWzzd99fuGdlBzyr5a9igOU2014s2PxGqt8cJ8HOT/weKhht0DRA2zfSKCBzdPYgecs1L4di19sGbNpYGbSGb4J4QioqyRSCwpd2GDUVfRwyuTahUQ7/vNlAFwCnzyCobrirxwSKjftkCiv0/hbs9Q3PQqIylpdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NXScDh/5; arc=none smtp.client-ip=91.218.175.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789507868; c=relaxed/simple;
+	bh=hxkVFZZoMQECY3fDO3cdjGvVbbJxX4hdwI6RfZfrqKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b9cMbY4ilXk5aCHEwn4qGftzjM8GStwDnrAFliKtfQCBFQzXgsCpHWlZ32fZPcd5a0iWXpGz1Zf04Pv2Th1a/XGJzxifhFh9IoGbF70QNBinoS15+53o2MajNpieSU7XgFrR8Kt3K7yjsX6fIs+mDboUyILDYRXfr4jvcnRhFeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DTyDZJI3; arc=none smtp.client-ip=74.125.225.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NXScDh/5"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yx5Fr+divRbcs9QYGD9iNt36K1csv117Cvf/nf+9DGk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789507786; v=1; x=1790112586;
- b=NXScDh/5Kt6PuKHPxL8z2ZNGhXF8x8/+5McOWFwZYhBW3qHEv+AKZC6UXAAqOu4hwJEiYOMb
- /Gwl6Fop+kcDDxbep9x4DlSkciBHFXbLIalkRTYC3C4Ej3eiyq0v3Q3Vfrf0irBpmZa7L1nIZuU
- dUbrwAKuaFlUh1iSEAxI5DDQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bf330ec59736de2f;
-	Tue, 15 Sep 2026 21:29:36 +0000
-X-Mizu-Trace-ID: bf330ec59736de2f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <829d5857-6f28-44c2-ba9a-d9b7a3069b89@linux.dev>
-Date: Tue, 15 Sep 2026 23:29:31 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DTyDZJI3"
+Received: by mail-wr2-f19.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so75043f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:31:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789507865; x=1790112665; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f43s6nsHY5Ivj1yPDbhwSaNlMFWcD03sTjXZTf3Cl8Q=;
+        b=DTyDZJI30sZ323NGKdvALZAwO5cVZbJlLYLl0MJHW5HCQtocmhOIFLcgvGyir78Jze
+         KMMRLs/eACl8fuQgvKRoCx0U0euZMg79Qk0etGIRudoOhuerjNmc5oEEuNbvHczoQ/YO
+         Qx8fwfmk3B1K4sFose5nOOPrGv6a0yr80iHKveapxFA98aJdpSUEnsIuWXX+nfzW0UXW
+         ju1upRb2DQKRhoSFiw8ESB9g2TqiEygh0kDH7s3M99nfLBdeU7BqDS+Hbd/n3jN7fqAq
+         ReXY0fzweUUwgMaLT2C0LdzyKqn2HR/Pfa19ny6E/tkPYcT54bY1RbNYCJep/w3ZQmMo
+         IQRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789507865; x=1790112665;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f43s6nsHY5Ivj1yPDbhwSaNlMFWcD03sTjXZTf3Cl8Q=;
+        b=nuq8RwOeQ6m072RRnO6DgvPlDJ2Xn21ZZQpixhtmkS5OK1Utx9Y8NP66KaQOXcA5gK
+         zflM6zz0d82SkkfFk7g3IZumssA3G99P1b2FbORNXaKMEf5vdhKKP4eO0N/0hhm2p7k5
+         NkYYvlLE4yjQf7FfSDMWOuF/P7ABGPUnlQzw4aRJccFiQcayJwdfcxGb1wx67/ZBlN97
+         PFX1wRG7NQvKmolK2cwgUXbPbcakHCqetAkSdZ04uoIXQ1xj1i3xq2jsnasL4SKWRsd4
+         GH9b8LMF78lAZ92uV/mzI/8N2mtNjzStNLZ726pX9E7dp/1kQZ+kC18SFkSnu+vPyPg2
+         yyzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxaURRVCdfkpL5ARIG/hxIujEPeg+pOKUWdpvZcp6SHBGfy6bshkpv5ono9KvbgH2j+Z9MS+0Wkfp2UNvo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQwn2QMf8RQ6KfympoILNnqHjiIfI+ZcxIt88TPjEuuUE1ALrW
+	Yh0NQjrG5B/gIkxmOQ6r4y1ylTxwIqcaCgEX+YI7KYWhUzC2iCqgZQ8d
+X-Gm-Gg: AYBFou2knxQykOtLZHBouBw+avX5wgulHC9eVAqm6L63ydWSa8EsWQ3c0LcQOFK/wFG
+	kKJTSbwKdxZC+YSlXDkCsLUIGyMfN7C8gQc1y6zbciO7422W2abx+0e7Ulg1R2F+0UGRr6Qd9VT
+	ajB3dd8ZejEDnZUK7pu1crLRvJwT//YXUdmZj11nt5MSze3g+JZvYG+tRq4cmFhS1ioKr0/mkPP
+	gvoSy5svgN4kE13JBt9xBhW2sH1cvyn+Cc/h9ytiX/LwSm8D3oszZpunn5u6+/QOaZxYnBsBPbD
+	9mFIsbPTWaEkSAGTDGyLS3qOh5pI2UlcaoMP9fG9eDVOqgwAxOkzODOGNbnrbo5EnRR4fFsIqHJ
+	qbtjyMSdH7jg82hsywMGAkQgVhWQdy0kzMvKjhqiyoPE9Nh5GZJdyh91uzC/NdbrCoBX58LSVwR
+	1WU+EjFh41jCtdoYjuBIDtHQxTLX9X9/SPbvBQmcWn539g5p94/Curg7jIqTlhC9xAc9BzUQazU
+	JfUTA7Oe/dUstktQk4czE5g9+JA6Mp5mtuLi0nqXB84srbN5R0RGcYQ5wjkUlQcJNtX1I6Gadv2
+	TJifKQ8URLT714tSorCS8tYX9iVmN6hh19LVHJKy58m018XPJupHAwD1juCOUOvenqxhEecl
+X-Received: by 2002:a05:6000:400c:b0:486:e9ab:2b86 with SMTP id ffacd0b85a97d-4870d0717damr254328f8f.39.1789507865223;
+        Tue, 15 Sep 2026 14:31:05 -0700 (PDT)
+Received: from MBP-von-Karl (dynamic-2a02-3100-afd5-c801-ec9e-1a2a-2fc8-3f88.310.pool.telefonica.de. [2a02:3100:afd5:c801:ec9e:1a2a:2fc8:3f88])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf43511sm1713554f8f.33.2026.09.15.14.31.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 14:31:04 -0700 (PDT)
+Date: Tue, 15 Sep 2026 23:31:02 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Lian Wang <lianux.mm@gmail.com>, damon@lists.linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] mm/damon/tests/core-kunit: test PSI goal rounds
+ under the temporal tuner
+Message-ID: <aqm4xSben7Aq1iNO@gmail.com>
+References: <20260915060937.3423-1-kmehltretter@gmail.com>
+ <20260915060937.3423-3-kmehltretter@gmail.com>
+ <CAN_Opa9rS45S_MHbmf63KC0LY9AGAdAC5r=vv_qcYMVAenWosQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [v2 for-next 2/3] block: allow error injection rules to delay
- bios
-From: Haris Iqbal <haris.iqbal@linux.dev>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, Keith Busch <kbusch@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org
-References: <20260830012002.80275-1-haris.iqbal@linux.dev>
- <20260830012002.80275-3-haris.iqbal@linux.dev>
- <20260915091146.GC15715@lst.de>
- <6bb6b89f-d71a-4c1b-b6a3-89e3f3c02e2b@linux.dev>
-Content-Language: en-US
-In-Reply-To: <6bb6b89f-d71a-4c1b-b6a3-89e3f3c02e2b@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAN_Opa9rS45S_MHbmf63KC0LY9AGAdAC5r=vv_qcYMVAenWosQ@mail.gmail.com>
 
+On Tue, Sep 15, 2026 at 03:04:06PM +0100, KunWu Chan wrote:
+> Could we also check goal->last_psi_total here?
+> 
+> The first tuning round should consume the U64_MAX sentinel
+> and establish the measured state.
+> 
+> Testing this explicitly would lock in that state transition.
+> 
 
+Thanks for the review, good idea! The test only inferred the state
+from the effective quota, a direct check of last_psi_total is clearer
+and stricter.
 
-On 9/15/26 23:24, Haris Iqbal wrote:
-> 
-> 
-> On 9/15/26 11:11, Christoph Hellwig wrote:
->> The delay does look fine, but I'd really like to not use up one of the
->> scare bio flags for it.  Can we insist on the delay only working for
->> an error, so that we never have to reinsert?
-> 
-> We can do that, but that's only half of the feature, and the weaker half 
-> IMHO. Only delay with a successful completion covers a more useful 
-> scenario for testing in the upper layers.
-> 
-> I am thinking about how else we can do this, but did not find a nice 
-> approach.
-> 
-> Maybe we can #ifdef the new flag on CONFIG_BLK_ERROR_INJECTION?
+It also fits the v2 fix. I plan to keep last_psi_total across a
+commit of an existing PSI goal instead of touching the tuners, so
+that value is what the test should assert.
 
-I forgot one small point in favour of the flag.
+For the v2 test I plan to check last_psi_total at each transition:
+not U64_MAX after the first round, still the kept sample after a
+commit of the same metric, U64_MAX again after a commit that changes
+the metric and back. The quota checks stay to cover the tuners.
 
-We can remove addition of __submit_bio_noacct_nocheck() function, since 
-with the flag the re-entry after the delay would fail on 
-blk_error_inject(). This would remove confine the change to 
-error_injection files.
+Karl
