@@ -1,98 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D359330C618
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B11A3603EF
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458656; cv=none; b=nqgB2loJadk1aBClIFO8WLnKgmv2MmEavF38bGZB1NWJlSUPx94Mc4ThEfBaEdRbXpBvlxAOWvCmvnxZE6DyXLA0Tq1P4I90zZUUWPSiRCpHOniTsyDIuyGQm2UhiGuXDSNidSuikpy+68cqxyEVQcNUmykgE1/k59vbk5/WXLk=
+	t=1789458696; cv=none; b=GR3xWqg4/wQfDHS+iZwNGMdZwlhCipyT2v7u0tINGIpPqkAcjvALvGZ/Czk8LUaNRJkAo5Y1bKC1tclfInETCNzK6+misdX6nkCzG4sX+Tmi3x5WhcbNytnVx7kh+Fq//YWvdDJRamRCrpc8DE5lL7R99enoxwtEcB4MflllvKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458656; c=relaxed/simple;
-	bh=U+1lMvM7Kq/7Oc1lqazrAL/weMJVKlM7jTb492fFhpI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KJHoCzHjiqivfs/ACesJ7MWCCXNhuvo1OBaHViLqfeBp6Jn54dQcMe/lxwVvm2lZVVLbkDmZnZK33bp/zoUnESWNq/lfWv42KKol2/JxfEy3ldGnQUvx3I2SAq4kpV0FrvkFYeCx3egzktqqt6eeIJv2KkkEtLdiO+IoDFR9gDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lgHiq6iJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789458696; c=relaxed/simple;
+	bh=LoRM7x+NJoaF+LjOdayvSv4rrTQjM9W0JjI2UcIRgrE=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=FRuwWfUBxtTxgRasBo7UFT2Fyng+jqofrgrHFOOl4XiLz2KaQzF1rZM8nRroZqU0fRxCrAmHZW52Bn696wbOuaWgjUxufPr2u1fbQewWDHWZcEnzPymM50j9zQmD9ffBwOAvBBIFfe0hTSA7zL5JaKP+1O6IBGh/ITgxvc0w6Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=EKT6Pba3; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lgHiq6iJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA7E1F000FF;
-	Tue, 15 Sep 2026 07:50:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789458655;
-	bh=xOZZTAMqyxT0SJ9hM2Vwc5oJ2q8QNjstQzoWrhFGVXw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lgHiq6iJBBcBBN4TCTKx9M/ztzio1omV9XLe1ZazKh2UdpDlXmpodJTM2fbZOoOzk
-	 iF0bmRwQtRhRtSCG2klQL9meoGD3bAJ4o+xYALJEKPJ+2tbV6yf45iBMgtUqbgmzoH
-	 a+36ZOanL2eKBI/35u1fS36sv6U7uC1KimU+2N48sBlIUxLpsFrxqglNp8kdGRRoxj
-	 0tDVP3xa2mpA2hOPwyLZNLb+ezp9951Nt+g6+8Hduee3BgjsfzsY4hsgSLwIXhsTUV
-	 CeprwFXd0wXh0E8J0OOFWdB8eFwdMW5mUaRoYOHVpGFUbvyLtUkkqbkHtX1UlPxhbd
-	 8j5rrY4K4PMGA==
-Date: Tue, 15 Sep 2026 07:50:51 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Petr Mladek <pmladek@suse.com>
-Cc: Kees Cook <kees@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>, tfiga@chromium.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] printk: Introduce loglevel bypass for pstore console
-Message-ID: <aqj426Zjg8pw1I97@google.com>
-References: <20260831070346.3490745-1-tzungbi@kernel.org>
- <aqEmwXTLaTyUhhYG@pathway.suse.cz>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="EKT6Pba3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=LoRM7x+NJoaF+LjOdayvSv4rrTQjM9W0JjI2UcIRgrE=; b=E
+	KT6Pba3LxaLgvdMdOAVTCiCCpBTGhsY2W2dBGDs1RLVBytn8+1/AhL21JV9YAJyJ
+	DmVTvKa9uz6/M0NE6MqzuAGFP+Kq0MvS7juzYPgIzZDki7WiMSLKmsVLwK42Zl5R
+	7NlCKWr47Smz6jbwS+Oy2/1+U9zvrzVIA4bEqmOVKc=
+Date: Tue, 15 Sep 2026 15:51:10 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: shaggy@kernel.org, yun.zhou@windriver.com, kees@kernel.org
+Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: [BUG] jfs: UBSAN shift-out-of-bounds in dbSplit
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/iet04s5iOYYOkdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/cawM7cD/kjzc42PV91aTPg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqEmwXTLaTyUhhYG@pathway.suse.cz>
+Message-ID: <4f5505ef.6e0f.1a0a40c62eb.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hygvCgC3553u+KhqJA0QAA--.21623W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3g4+72qo+O7ccAAA35
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Wed, Sep 09, 2026 at 11:28:33AM +0200, Petr Mladek wrote:
-> On Mon 2026-08-31 07:03:44, Tzung-Bi Shih wrote:
-> > Currently, offline consoles (e.g., pstore_console backed by ramoops)
-> > inherit the system's global console_loglevel.
-> > 
-> > In production environments, physical serial consoles (UARTs) are often
-> > heavily rate-limited to prevent verbose messages from causing severe
-> > execution bottlenecks.  Unfortunately, this identically silences the
-> > pstore console.  When a kernel panic or lockup occurs, engineers are
-> > left inspecting a crash dump that has been stripped of the verbose logs
-> > that could have identified the root cause.
-> > 
-> > This series introduces CON_BYPASS_LOGLEVEL, a simple flag that allows
-> > specialized offline consoles to request unsuppressed logs directly.
-> > 
-> > Patch 1 introduces the CON_BYPASS_LOGLEVEL flag.
-> > Patch 2 adopts the flag in pstore_console.
-> 
-> I believe that a better solution for this problem would be adding
-> the per-console loglevel feature, see
-> https://lore.kernel.org/all/cover.1764272407.git.chris@chrisdown.name/
-> 
-> It is currently blocked by a cleanup of the console registration code,
-> see https://lore.kernel.org/all/20260604101459.393162-1-pmladek@suse.com/
-> 
-> I am going to send v5 of the console registration code cleanup soon,
-> hopefully later this week or the following week. It would be nice
-> when it gets some more review.
-
-Thanks for the context.  I completely agree that the per-console
-loglevel is the proper long-term solution, and I understand that console
-registration cleanup and the larger printk reworks are massive and
-complex efforts.
-
-Because those foundational changes naturally take time, I was wondering
-if we could consider my approach as a narrow and localized exception
-just for offline consoles like pstore.
-
-Given that we already use LOG_FORCE_CON to bypass loglevels on a
-per-message basis, introducing a symmetric per-console flag like
-CON_BYPASS_LOGLEVEL might be an acceptable short-term solution.
-
-Would you be open to a localized flag like this in the interim, or do
-you strongly prefer to hold off until the full per-console loglevel
-architecture lands?
+CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEgVUJTQU4gc2hpZnQtb3V0LW9mLWJvdW5kcyBpbiB0aGUg
+SkZTIGRtYXAgc3BsaXQgcGF0aCwgdHJpZ2dlcmVkCmJ5IGEgc3l6a2FsbGVyIHJlcHJvZHVjZXIg
+dGhhdCBtb3VudHMgYSBjcmFmdGVkIEpGUyBpbWFnZS4gIFRoZSBpc3N1ZSBpcwpyZXByb2R1Y2li
+bGUgd2l0aCBIRUFEIGNvbW1pdCBjZWU5Mzk1YWNkODA0M2JlMDY0NGIyNWMzNGJmYTg2NjIzZjJi
+OTM1Cih2Ny4zLXJjMSwgTGludXggNy4zLjAtcmMxKS4KCgpUaGUgcmVwcm9kdWNlciBtb3VudHMg
+YSBjcmFmdGVkIEpGUyBmaWxlc3lzdGVtIGltYWdlIG9uIGEgbG9vcCBkZXZpY2UgYW5kCmFsbG9j
+YXRlcyBibG9ja3MsIHdoaWNoIG1ha2VzIHRoZSBhbGxvY2F0b3Igc3BsaXQgYSBkbWFwIGNvbnRy
+b2wgcGFnZS4KCgpVQlNBTiByZXBvcnRzIGEgc2hpZnQtb3V0LW9mLWJvdW5kcyBhdCBmcy9qZnMv
+amZzX2RtYXAuYzoyNzI4IHdpdGggYSBzaGlmdApleHBvbmVudCBvZiAxMjEsIHdoaWNoIGlzIGZh
+ciBiZXlvbmQgdGhlIHdpZHRoIG9mIHRoZSAzMi1iaXQgaW50IGJlaW5nIHNoaWZ0ZWQuClRoZSBj
+YWxsIHBhdGggaXMgZGJTcGxpdCAtPiBkYkFsbG9jQml0cyAtPiBkYkFsbG9jRG1hcCAtPiBkYkFs
+bG9jRG1hcExldi4gIEluIHRoZQpvcmlnaW5hbCByZXBvcnQgdGhlIHNhbWUgcmVwb3J0IHdhcyBy
+ZWNvcmRlZCBhdCBmcy9qZnMvamZzX2RtYXAuYzoyNzA3IHdpdGggdGhlCnNhbWUgc2hpZnQgZXhw
+b25lbnQsIHNvIG9ubHkgdGhlIHNvdXJjZSBsaW5lIGhhcyBtb3ZlZC4KCgpPbmUgcG9zc2libGUg
+Y2F1c2UgaXMgdGhhdCBhIHZhbHVlIHJlYWQgZnJvbSB0aGUgZG1hcCBjb250cm9sIHBhZ2UgaW4g
+dGhlIGNyYWZ0ZWQKaW1hZ2UgaXMgdXNlZCBhcyBhIHNoaWZ0IGFtb3VudCB3aXRob3V0IGEgcmFu
+Z2UgY2hlY2ssIHNvIHRoZSBzaGlmdCBpcyB1bmRlZmluZWQuClRoaXMgbG9va3MgbGlrZSBhIG1p
+c3NpbmcgdmFsaWRhdGlvbiBvZiBhbiBvbi1kaXNrIGZpZWxkIHVzZWQgaW4gYW4gYXJpdGhtZXRp
+YwpleHByZXNzaW9uLiAgSSBhbSByZXBvcnRpbmcgdGhlIHNhbml0aXplciBmaW5kaW5nIGFuZCB0
+aGUgcGF0aCBhcyBvYnNlcnZlZC4KCgpUaGlzIGFwcGVhcnMgdG8gYmUgYSByZWN1cnJlbmNlIG9m
+IHRoZSBzeXpib3QgaXNzdWUgd2hvc2UgZXh0ZXJuYWwgaWQgaXMKZWFjODRjZThiMzg5OTJjYTM0
+NDEuICBJdCByZW1haW5zIHJlcHJvZHVjaWJsZSBvbiB2Ny4zLXJjMS4KCgpSZXByb2R1Y2VyOgoK
+CnN5eiByZXByb2R1Y2VyOiBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvSzQxcnZXaTgKCmNvbnNv
+bGUgb3V0cHV0OiBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvcFVjbTd4SkIKCmtlcm5lbCBjb25m
+aWc6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy9EbXVkYlZDZgoKCktlcm5lbDoKCgpIRUFEIGNv
+bW1pdDogY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkzNQpnaXQgdHJlZTog
+dXBzdHJlYW0gKGxpbnV4LmdpdCksIHRlc3RlZCB0aHJvdWdoIHRoZSB2Ny4zLXJjMSBhbm5vdGF0
+ZWQgdGFnIG9iamVjdArCoCDCoCDCoCDCoCDCoCDCoGU1ZTA0NzI2Y2RkMDQzZTMwOTY3NzA3MWFi
+MWI2NWE0YjE4ZjQyMmIKa2VybmVsIHZlcnNpb246IDcuMy4wLXJjMSAjMSBQUkVFTVBUKGZ1bGwp
+CnRlc3RlZCB0YWc6IHY3LjMtcmMxIChMaW51eCA3LjMtcmMxLCAyMDI2LTA4LTMwKQoKCkxldCBt
+ZSBrbm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0YWlscyBvciB0ZXN0aW5nLgoKCkJlc3QgcmVnYXJk
+cywKQ2hhbmdqaWFuCgo=
