@@ -1,136 +1,299 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A17F411F9F;
-	Tue, 15 Sep 2026 07:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A041A35F5ED
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457525; cv=none; b=d4egiaaVtnD8UuRMJF55n9UxUV3MTn8Rmh9qd5cH4Ypm9y1D9b0Yjkzo/qh1GOoN3q791nuyk5BbojlPgLYgKo14i43bXCLvAC/0b6rAuThw1ZJfXXOQ4Bgz2HyjQQluhCwBZSpx+a1Gv+pocenUMJ80DjLrbZNdEaLU8SdIoGM=
+	t=1789457536; cv=none; b=T0ouc7WoXMNiIHrS36iN5rNT3/QXGMqg48XlHpj0MDv/5kYBIzC4dUBeBsciENrw7aBZ3FrXFc3gFwaO7eRM5YnjqJCXLpevBZnpUtzJovk38A55lbiHZTzysPj3bW2v22HvL/GtufBV4yXUL73U+UIAGyyPTFladg6Ajuw5AnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457525; c=relaxed/simple;
-	bh=hu4d0MW3Bf04FU74NUpVLNtB72nLl1SrcA3Swz/HQ8A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LQf3Mj6xH1l912/81RbbNbU59JTRPxfQSMMm99qRSsOziXdMFKc+SnAqC4W/Ju6GqpQjZRcg0vaOZ+Y533VaMRQSnajJ3cD8toyPbqNlqIpW9kXnJ2nC14h0CmGLycUye3FmMWoPIqnXa3VgoXq+NVBMAmCX0UPSlCpxgh+oVbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CRuCT8m4; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789457536; c=relaxed/simple;
+	bh=w35L/X/yrp6/Nv+rbNSDZHE7P3jG6pNoKNEPEFxbflM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=bt4XHNlGdvH15TrtkDImt26Dt31Qm2YOAuFuaqiHU0eP972JYIAVEei5ZiDYkPVYBN+UQHAvmkc9ycXHq+BWUx20s1jg3yZEJcG3IyHKFD6ay+RetcnmlwJSQ4RYAtuVhe66vGMXMjMRww0kEtIXJ6lg+df9ig80DE+9pGqugB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=M4tlVxKg; arc=none smtp.client-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CRuCT8m4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789457523; x=1820993523;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=hu4d0MW3Bf04FU74NUpVLNtB72nLl1SrcA3Swz/HQ8A=;
-  b=CRuCT8m4i6SYNMz9Bg0gJ7F2jiNOKfxP04vAc9TjuPKENMPRHqF/0eo4
-   bsD+IEZMaTNCgRPWeq7lnMb1s4IT0yLukTJPT7tveAdzMhG8fmDZzxQVU
-   QzPOcWV+jrb6L1iq3NO5yuwLyFN7psww3tnICpfxtysHkz+DgwcFqJ8NX
-   wwyXkbV0eY0Ds2wj6xVWyRwR2E0zIrx5Hah4IalnBquvzmc2GdJ78M+qm
-   cA4NAnk4yYl3q7ygxL5K2ADD1qujDtbS3bGY1OWgud9FSxhyFeMGlqQuf
-   aIloh7ksoOY3iVE+tHiJywgORzR+1kUlXQUHcECXzYWjgLIJ9ClxrFLMv
-   w==;
-X-CSE-ConnectionGUID: u61zRsqXTMOj7MBabWAKEQ==
-X-CSE-MsgGUID: 4d5eij4uTt6PeLVwnI1HWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100967378"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100967378"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 00:32:02 -0700
-X-CSE-ConnectionGUID: gcNLgQiYRZKOETkK+/DZpA==
-X-CSE-MsgGUID: rfWMtsATQle5Hq81vExF3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269199181"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.203])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 00:31:57 -0700
-Date: Tue, 15 Sep 2026 10:31:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v4 08/10] ALSA: pcm_dmaengine: Use dma_slave_caps bus
- width helpers
-Message-ID: <aqj0a2ttFTXdgGx5@ashevche-desk.local>
-References: <20260911-dmaengine-support-wider-dma-masks-v4-0-72b8fd4cc78e@analog.com>
- <20260911-dmaengine-support-wider-dma-masks-v4-8-72b8fd4cc78e@analog.com>
- <aqesWfdIsiR31sql@ashevche-desk.local>
- <aqgUo4-r0-TIKZLl@nsa>
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="M4tlVxKg"
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F7SBYc3263595;
+	Tue, 15 Sep 2026 08:30:52 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=fRNJt0AS2s0bmHy9+1Wpf3w
+	aF0oHCu+6NWprJ5UDI9g=; b=M4tlVxKggabXNxLJEmuozYXD0dS5639D+sh4Qg2
+	/M1HnAUm/7qlTNzVL1xfA/1wqFY6wqwO4epmIm76LPhuy4+wCIcTD6WZ+z6Q+uUM
+	HXziUvoaPatfffAinh9Q++n84ILd3rUnAG2+ZKvAZ6hnyULHow3o3+qJkUq2nXWx
+	6/bLVfRznV/aymwMJjEy1ORqY673XIaTolETmqrqsMXDQlSPjvvszd27UpiipPz8
+	EKXuXa30PWXpwNxEQvcsAnbbcXnnnx6EnH5IpUcIspcyJi8HgQXfr59JZQrI1WAd
+	ix19OfBL+ODGkShOSymIGCZnV/3DfBAj93e2iGOGkQPLwOw==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gmw0q23c2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 08:30:52 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 15 Sep
+ 2026 08:30:50 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Tue, 15 Sep 2026 10:30:42 +0300
+Subject: [PATCH v2] drm/imagination: Manage FW VM context from its init and
+ fini callbacks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqgUo4-r0-TIKZLl@nsa>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260915-b4-upstream-manage-fw-vm-context-from-init-and-fini-v2-1-c9cb43667143@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIACH0qGoC/6WOQQ7CIBBFr2JYOwZQibryHsYFnQ46JkADFDVN7
+ y7VI7j7L3n5/08iU2LK4rSaRKLKmWNooNcrgXcbbgTcNxZaaiMPSkK3g3HIJZH14G2wzXBPqB4
+ whkKvAi5FDxy4gA09uJZAHffY91IhGila85DI8eu7ern+OI/dg7AsU4tx51xien9vVbV4/z2oC
+ hRoNFofaWtoT2f2t0K4wejFdZ7nDzb1LVcJAQAA
+X-Change-ID: 20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-195cdd01cc60
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Paul Walmsley <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, "Alexandre
+ Ghiti" <alex@ghiti.fr>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+        "Brajesh
+ Gupta" <brajesh.gupta@imgtec.com>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789457450; l=6458;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=wis1y2leDS3yLg78oRg2pViZyXbUSkczoiYkjBNdENU=;
+ b=uKMPHLS0DyWAz5sBn3Ur6J7h/GTqgU/aek84HhzqyGcmoLZhHzpIOmeg22jG2akvZvsl7JTae
+ rK5kLJKHAHTAZpP6xAKe3OaJSU/mnDeGGTLip6JxFhzNNAOrX9FJMFt
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwNiBTYWx0ZWRfX8smui4uzZAsh
+ IXMNLx7ht0XGznm68tTK2Vve5l3My+fvIpGUx4RexBB5QdgeFks5kGD1qUQps/ZPifRDiagbn9d
+ 8uz/AkUFyBVHVaotlOQduJCV/K2hcaTYLJF/Jnwk1Itxlwpne3eKszKXPwuAP1gkYY4k/DUL7Jo
+ CMN3dWmdmG58kGNraKCgYFW9PICk5wmTPQbyJRqohl+JswMWZcheWNtZ3xy3FQIbajgPG3LHG7w
+ 4udrv8z1fK7Xs2Ww0FHSQ372Hlbqg5GUMs/lpmY+LNooDEwljs1zvJQ1QjkXYAMIslTX/LvQQoF
+ eRU8d96gYUCLieK1FzpQY1BlIGSsRf31BbgvcleoHikC/M7EbXiopkxAFvhZj+iNYnRn1XnWpuU
+ gfMAZ0Kcend77CDJnwGF91KR/59PeYIBmd3gzswX3PeRlEJT0rXDHbtCyuaN3dsavqaWLVVVWSK
+ U3uiLhAXqSpNqZarAxg==
+X-Authority-Analysis: v=2.4 cv=c8M+0h9l c=1 sm=1 tr=0 ts=6aa8f42c cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=_O3DOGVWAAAA:8 a=e5mUnYsNAAAA:8 a=JfrnYn6hAAAA:8
+ a=pq3Wg1XxJzrTNXcWAXAA:9 a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
+ a=t8nPyN_e6usw4ciXM-Pk:22 a=2TKV-7w1aU1AVAwN0oqT:22 a=Vxmtnl_E_bksehYqCbjh:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-ORIG-GUID: swSY0G-qtMr705ozNuILUNtzDg4aSgHz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwNiBTYWx0ZWRfXwSYFnBPF2Vkp
+ qcYZXgqQ+DX+129oo4yASB/vnNraG/BjtfIK0utq+bRGwtvfZymWfEQbS4GfHrWJ1oMrAHio8gO
+ wqG0Ptyru9CGGJaXT91YXA8iNptsEfg=
+X-Proofpoint-GUID: swSY0G-qtMr705ozNuILUNtzDg4aSgHz
 
-On Mon, Sep 14, 2026 at 04:39:38PM +0100, Nuno Sá wrote:
-> On Mon, Sep 14, 2026 at 11:12:09AM +0300, Andy Shevchenko wrote:
-> > On Fri, Sep 11, 2026 at 06:25:43PM +0100, Nuno Sá wrote:
+From: Alessio Belle <alessio.belle@imgtec.com>
 
-...
+While the MIPS firmware virtual memory context is created and destroyed
+from within the MIPS firmware init and fini callbacks, the META and
+RISC-V firmware contexts are created and destroyed from within blocks
+right before or after those callbacks.
 
-> > > int snd_dmaengine_pcm_refine_runtime_hwparams(
-> > >  	struct snd_pcm_hardware *hw,
-> > >  	struct dma_chan *chan)
-> > >  {
-> > > +	enum dma_slave_buswidth default_widths[] = {
-> > > +		DMA_SLAVE_BUSWIDTH_1_BYTE,
-> > > +		DMA_SLAVE_BUSWIDTH_2_BYTES,
-> > > +		DMA_SLAVE_BUSWIDTH_4_BYTES,
-> > > +	};
-> > >  	struct dma_slave_caps dma_caps;
-> > > -	u32 addr_widths = BIT(DMA_SLAVE_BUSWIDTH_1_BYTE) |
-> > > -			  BIT(DMA_SLAVE_BUSWIDTH_2_BYTES) |
-> > > -			  BIT(DMA_SLAVE_BUSWIDTH_4_BYTES);
-> > 
-> > > +	dma_buswidth_mask_t bus_widths = {};
-> > 
-> > Do you really need the zeroing?
-> 
-> I think so. dma_bus_width_set_many() just does __set_bit() under the
-> hood so if we do not zero initialize I think we could be left with some
-> random bits in the mask. Unless I'm missing something.
+Match the logic for all firmware processors by moving those blocks to
+the META and RISC-V init and fini callbacks.
 
-Hmm... Since it's a recipient, I would expect it will be filled correctly
-independently on the garbage it might have had initially. So, perhaps call a
-bitmap_zero() with the maximum size in there?
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Reviewed-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+Changes in v2:
+- Added Signed-off-by and Reviewed-by lines in the commit message.
+- Link to v1: https://patch.msgid.link/20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-v1-1-2c6229e36e5e@imgtec.com
 
-> > >  	snd_pcm_format_t i;
-> > >  	int ret = 0;
-> > 
-> > >  	if (!hw || !chan || !dma_data)
-> > >  		return -EINVAL;
-> > >  
-> > > +	ret = dma_bus_width_set_many(bus_widths, default_widths,
-> > > +				     ARRAY_SIZE(default_widths));
-> > > +	if (ret)
-> > > +		return ret;
-> > 
-> > I assume that if ret == 0, bus_widths should be set accordingly.
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-riscv@lists.infradead.org
+---
+ drivers/gpu/drm/imagination/pvr_device.c   | 25 +------------------------
+ drivers/gpu/drm/imagination/pvr_fw.c       |  6 ++----
+ drivers/gpu/drm/imagination/pvr_fw.h       |  2 +-
+ drivers/gpu/drm/imagination/pvr_fw_meta.c  | 12 ++++++++++++
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c | 12 ++++++++++++
+ 5 files changed, 28 insertions(+), 29 deletions(-)
 
-As mentioned here, if no error, bus_widths should be fine to use.)
+diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/imagination/pvr_device.c
+index 54fe4180c73c..35eaa54f75ed 100644
+--- a/drivers/gpu/drm/imagination/pvr_device.c
++++ b/drivers/gpu/drm/imagination/pvr_device.c
+@@ -697,25 +697,7 @@ pvr_device_gpu_init(struct pvr_device *pvr_dev)
+ 	if (err)
+ 		return err;
+ 
+-	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
+-		pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
+-		if (IS_ERR(pvr_dev->kernel_vm_ctx))
+-			return PTR_ERR(pvr_dev->kernel_vm_ctx);
+-	}
+-
+-	err = pvr_fw_init(pvr_dev);
+-	if (err)
+-		goto err_vm_ctx_put;
+-
+-	return 0;
+-
+-err_vm_ctx_put:
+-	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
+-		pvr_vm_context_put(pvr_dev->kernel_vm_ctx);
+-		pvr_dev->kernel_vm_ctx = NULL;
+-	}
+-
+-	return err;
++	return pvr_fw_init(pvr_dev);
+ }
+ 
+ /**
+@@ -726,11 +708,6 @@ static void
+ pvr_device_gpu_fini(struct pvr_device *pvr_dev)
+ {
+ 	pvr_fw_fini(pvr_dev);
+-
+-	if (pvr_dev->fw_dev.processor_type != PVR_FW_PROCESSOR_TYPE_MIPS) {
+-		WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
+-		pvr_dev->kernel_vm_ctx = NULL;
+-	}
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index 850a3ec8e775..58ee51cd65df 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -1029,8 +1029,7 @@ pvr_fw_init(struct pvr_device *pvr_dev)
+ err_mm_takedown:
+ 	drm_mm_takedown(&fw_dev->fw_mm);
+ 
+-	if (fw_dev->defs->fini)
+-		fw_dev->defs->fini(pvr_dev);
++	fw_dev->defs->fini(pvr_dev);
+ 
+ 	return err;
+ }
+@@ -1063,8 +1062,7 @@ pvr_fw_fini(struct pvr_device *pvr_dev)
+ 
+ 	drm_mm_takedown(&fw_dev->fw_mm);
+ 
+-	if (fw_dev->defs->fini)
+-		fw_dev->defs->fini(pvr_dev);
++	fw_dev->defs->fini(pvr_dev);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
+index 3390c84e4fd3..4b25291135b6 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.h
++++ b/drivers/gpu/drm/imagination/pvr_fw.h
+@@ -86,7 +86,7 @@ struct pvr_fw_defs {
+ 	 * FW processor specific finalisation.
+ 	 * @pvr_dev: Target PowerVR device.
+ 	 *
+-	 * This function is optional.
++	 * This function is mandatory.
+ 	 */
+ 	void (*fini)(struct pvr_device *pvr_dev);
+ 
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
+index 9ff03bc60a08..6c5dc711e81e 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
+@@ -500,9 +500,20 @@ pvr_meta_init(struct pvr_device *pvr_dev)
+ {
+ 	pvr_fw_heap_info_init(pvr_dev, ROGUE_FW_HEAP_META_SHIFT, 0);
+ 
++	pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
++	if (IS_ERR(pvr_dev->kernel_vm_ctx))
++		return PTR_ERR(pvr_dev->kernel_vm_ctx);
++
+ 	return 0;
+ }
+ 
++static void
++pvr_meta_fini(struct pvr_device *pvr_dev)
++{
++	WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
++	pvr_dev->kernel_vm_ctx = NULL;
++}
++
+ static u32
+ pvr_meta_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
+ {
+@@ -550,6 +561,7 @@ pvr_meta_irq_clear(struct pvr_device *pvr_dev)
+ 
+ const struct pvr_fw_defs pvr_fw_defs_meta = {
+ 	.init = pvr_meta_init,
++	.fini = pvr_meta_fini,
+ 	.fw_process = pvr_meta_fw_process,
+ 	.vm_map = pvr_meta_vm_map,
+ 	.vm_unmap = pvr_meta_vm_unmap,
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
+index fc13d483be9a..58bacc522e72 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
+@@ -103,9 +103,20 @@ pvr_riscv_init(struct pvr_device *pvr_dev)
+ {
+ 	pvr_fw_heap_info_init(pvr_dev, ROGUE_FW_HEAP_RISCV_SHIFT, 0);
+ 
++	pvr_dev->kernel_vm_ctx = pvr_vm_create_context(pvr_dev, false);
++	if (IS_ERR(pvr_dev->kernel_vm_ctx))
++		return PTR_ERR(pvr_dev->kernel_vm_ctx);
++
+ 	return 0;
+ }
+ 
++static void
++pvr_riscv_fini(struct pvr_device *pvr_dev)
++{
++	WARN_ON(!pvr_vm_context_put(pvr_dev->kernel_vm_ctx));
++	pvr_dev->kernel_vm_ctx = NULL;
++}
++
+ static u32
+ pvr_riscv_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
+ {
+@@ -154,6 +165,7 @@ pvr_riscv_irq_clear(struct pvr_device *pvr_dev)
+ 
+ const struct pvr_fw_defs pvr_fw_defs_riscv = {
+ 	.init = pvr_riscv_init,
++	.fini = pvr_riscv_fini,
+ 	.fw_process = pvr_riscv_fw_process,
+ 	.vm_map = pvr_riscv_vm_map,
+ 	.vm_unmap = pvr_riscv_vm_unmap,
 
--- 
-With Best Regards,
-Andy Shevchenko
+---
+base-commit: e55fead22ff9ee047ab9f1903860c4b43043514e
+change-id: 20260810-b4-upstream-manage-fw-vm-context-from-init-and-fini-195cdd01cc60
 
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
