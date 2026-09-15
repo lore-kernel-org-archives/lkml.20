@@ -1,83 +1,82 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132373921C6
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E619436403D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436703; cv=none; b=UdAtoRsW8JdDHPAd45DVB0z4diruFlgP7rWJnL7LiMxSTeHXJ7lSTUC/PE/hEgGUtTI02anxvID+uP/qqI0AZ9UG+69YPIJEmIqmQCvZYTck8g5jorcOdD9MVV8LB159i4VkyKhiGuXZVb+PBBBZChI+KS0kCn4eKaUMv+uxZbA=
+	t=1789436706; cv=none; b=BscVb64E9L+7VYkhHsJpJFI3ryq4fNv6UhoMyAeo7YN/E7bEhHkZpK3zMPz0GJGReeBTa7yxURGfwTKPpBwdCPO5HFDON/cmINcedwYRSrgLMJYxcsJ1p4D7AO/wD+o9re0WyhkWS/sdfE2S+BGxKYXcdoMa1Depi9QtWBspC7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436703; c=relaxed/simple;
-	bh=cxClLc3F7b9To+aBikoH1pXoLnHbZKhAEcLjvpWeTsk=;
+	s=arc-20240116; t=1789436706; c=relaxed/simple;
+	bh=8Xx39gvjAdBP5KCPHnpT8nFQ4HEoiyju0OpagmBgeDU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KJFNQx6vh81LNWc9/5lLKjyjQEb/yt/aawrX2axSXzVVAXx9hir281l5ouir23oh1xZpqQTsywL/+YAjpIt0Xn7npBnIPWuSjB2bGC9Y+i3BKPXpeWCtqOO0p2mEMmwFy91KW3jcATCsr/SxIpLHiNcHC87+09XgU+9rVW3XzLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SVcy8ueA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WAMYeG+0; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=jAcHbPs1bwmU4HB+AMlPVCc3WVYWmvdvS8PJ4hhKBIpYC9CUVX7/m9Su7o4zANc0W/twbaD4uPvEQ+BtNJKgfZxDNawe5ZQ9KisfyvuyTbRUelvIlYN58D7I4lKq7mJWfpEDdK/7DrQ+gendBA/k2byAwweR30jcQ8u4sXnsAec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SgmyXduq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CeTn1KmY; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SVcy8ueA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WAMYeG+0"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SgmyXduq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CeTn1KmY"
 Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EN0buL1198952
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:01 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EN0buM1198952
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=NOXUuKR44XL
-	Tchlp/J2XJqSJVBG1NIbxSHz7scbWsJ0=; b=SVcy8ueAHX039/L2e5gjvTML7O5
-	Jw81d4yObxCi8ur1/16tCcKBwbqfDOC5ZI5DJeau6duPQ7HKA1UHFRKpuKSXdovk
-	jXwrP8vaMPSIu9h05J0GTrHpYDj0G2UmBdo7oNAHg9O2xdBPrTBjimrD6kAtyRUC
-	67toXKxcgMExJz7RTzm6hq6jOliwpHHqlU7UiTY5s0YbkMOTg9YXZNdoqdxHyyAj
-	br1564O7tBz4tk4VdkqLPfgGfHsI9kZNrHYEHt0nZTzfDzqn2Fz8k+Jwpeg4eBql
-	UNxG9mJBHZ18SkhmGzYtCvTKkYqQ9pyZQsbtfF61kFb7p3aFj2h3Ti9eo5w==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=JIf7ZLgTwR+
+	tXJDOSnsUFYSDR50wgvOhy8cyjzdZAws=; b=SgmyXduq3xJU0ZwlYsLCiGP5D+J
+	Bj0gFQsnEJke4vig+230vs+NQtTBey/oJ2rFLxRXzMO0J3bC/wI6NxNMO52hW03U
+	Xft/E9Kcaa2Z7WiTXgUlGRhoDtPAsDH5NQGdyDK2JAYnJpvs5xzPKISHjzhHnsWF
+	2wzFENh7PNiyKJVDUIsjemL+7mCnKWYj0oNYvoXOjDrmfo7GyFfKyUdeePder+8J
+	AiSTqtbIu4oU8Nnxx9d3ngO/AZybl+RtQDTAqvN8UalLx0tWQgTrB5NxYuHxr/tm
+	SWXCNcTyQfitHipSJnqIEmwM6/Bd3jDPsPljHul2rdJaWwG3qaVV09aEdCQ==
 Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpcjg3vmu-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpcjg3vn2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:01 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1cdfb337eso5256425a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:45:01 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:45:04 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc2229450b4so3509306a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:45:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789436701; x=1790041501; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789436703; x=1790041503; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NOXUuKR44XLTchlp/J2XJqSJVBG1NIbxSHz7scbWsJ0=;
-        b=WAMYeG+0wNd7fIElcyt86mTmLB19nNW0yiOiiIjAQflY41i7RK025gdKFy3PUJxdHv
-         gk4kI/MoKUwYvQRr1JNEIew0T+yduPRDKgIjv37V+CatGX6BmAd1OchVlLbdz52XXyK0
-         QNB9aTyOO6I/jN4ihU79BmGahneS0p2vZj+wXNgbEVfyHKexu5TmJAxdUFKTV+PlIqHE
-         jX/WDelsHpkKJEdjqLoj+yQ9fFIxdboMgIcy9+K2O5ayO88+VzB8GrCpzRaTHYA2mciB
-         PX19nv7QgEgnNJd3wDx5dm1YpcXYpO5JqQcChz0+MNHZbgTBY15mLAAOzziiLP0IkJpA
-         fgPQ==
+        bh=JIf7ZLgTwR+tXJDOSnsUFYSDR50wgvOhy8cyjzdZAws=;
+        b=CeTn1KmYR8ccySjpsnvA/DUZuYXiG4F6FUaHyS+dGDTMQv7Wi8gac9DkObqNSTmeJB
+         m7E7ZkBVc/8glQXh/YnT9W2ENsRxvVDOyUzs8wzm0Pw3MsBneTYznZJBn5ixJ9LlRkJu
+         1W6g+R3qvL7yBQfKM212kCC8mQ5cZH89PuSnzjFoItt02GPdrgbrFNK098+rTlF/7pWQ
+         SdZ8jWo09OTUAE2ZbLUicJ+eLW+j2Xy36+MSbxTDUVmE5QrC/9Go/D8RZxwXnU8FSHFj
+         Dje3X70my6zR5E1ZQFeJTpxHANAhbtQ5wpIZ4CFxvNgDtdxuvcP9vQ5d0FLY5z7l6pSg
+         hfkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789436701; x=1790041501;
+        d=1e100.net; s=20260707; t=1789436703; x=1790041503;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NOXUuKR44XLTchlp/J2XJqSJVBG1NIbxSHz7scbWsJ0=;
-        b=uk8YNX6+boAkCeEw+6TkDM1lGYLCz3WslLBt7OjnKjFj0wVf/Z/x72KpfLLPvJtvt3
-         5h6QSH+zFoiANVMMXoIHJEZUwtOW+xRz7oWFjJWi1ANwEIBaHiIF1Gv3uTnxlfUiVI3c
-         6Nb4Zws+1ZB5kGnZq7YktA1BSqRVNimNRlzH6Z4LMM+Ae0qJLldWNNi1DtORTZdka1TN
-         +RIPUJajCNKF6vFS7wPcRJJxTdiFaHmwpQHm0QvUUKevukg2HBdPfcJjo0JHO4EjQk/k
-         4gacPAF2Xvt/6lR0cz0CMD9xPYXsgjbxyH30Q9RAILvgl7qtKscBCffF7eY3YUmrfm+W
-         lFXg==
-X-Forwarded-Encrypted: i=1; AKwUvBxPkBi6cltIel3j/DYSa7GrzOlLMT/13Y1JMM0PPFxLfUWCNksfqYtSXPXHkahLAFvqcB6XGQAO5EqaZXs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIvMOBxAlcH6KBUhpwnbo8TtXZ9he1rQ8EaQzQLPHnCcO4WHRz
-	RJqfEl6EncEPjYJbJU2q7l5b8SqS4dvM+x3womHWdXTz0Vz+HyN+65p9cTwQ0E+/AAdY62eMSaL
-	Gk5dlpB6OMclfUJ4/DrHorDVOO68BA+EnYZ3qa1dxuVMvCP0F3vpk1akdM/G5voQmTNbge9KpeU
-	o=
-X-Gm-Gg: AYBFou3oKCEHgRN1SYGxpP/PKKzVWJ97K3pMYuqKNuLJdXiFMWWXsr9nPHBQXUekCeJ
-	9V005rlkCMAnu3JtHmDThO+hHASIhjfy2bSWU1EWTStrqI/rWt1g3pVi3nH5QVXANIUUoodn83z
-	8bIWoXAtpBY/kG/ZOfjFmzLguJgwJ6q48xHZ7/sJ5hc3x+sDcT8uLV5SHpG+5qqhHpsKWdZEYgK
-	iwgyRt2od/jcQddvNz2J5lG+5QiHGmR8rOidQ6WOSxKWbphpva8xMYPqE9ZPDXuxYHydFSMzToW
-	MXj3VRNB5VwBdYykm9UFXp0bpsXqZiWdt8+F8y909HHj4gmVOv1tG79fW/wBLGScoibUFSkI/ZD
-	On6i/7mMNEI64rBt4W1MWtb1r9me5r+jOG8RiCdu5x7Iw0Ifk1JtIi6PC1xei
-X-Received: by 2002:a05:6a20:3952:b0:3d8:f78a:9349 with SMTP id adf61e73a8af0-3db4064eb17mr10424772637.13.1789436700588;
-        Mon, 14 Sep 2026 18:45:00 -0700 (PDT)
-X-Received: by 2002:a05:6a20:3952:b0:3d8:f78a:9349 with SMTP id adf61e73a8af0-3db4064eb17mr10424715637.13.1789436700059;
-        Mon, 14 Sep 2026 18:45:00 -0700 (PDT)
+        bh=JIf7ZLgTwR+tXJDOSnsUFYSDR50wgvOhy8cyjzdZAws=;
+        b=KJhlKPtYdTuB8YMiHNPuQvRsO0w9hDYVEQ/nss28z87RobGrT/+flUaDczxNb5WKwB
+         IUbxuBBLzUTkvLiPnDiXhHqvrBRCi58BUy/15IwJvvl78gnktlSb5fiRQ5zH4JJ3jpmk
+         jIswTz5DgYhKDT5aM74K42Bf38RxJRyIbM6xGC0dzVuysDrQMl95H9svhJEHDBDy/BhM
+         hSFR31AT+0p+2eYcOQhxV9/m5CEHLieFl2mZqEH8Vmg4Me85tRXMJHsZcEAMhN25V1mH
+         EbRECtkMDZ4aW1KQMZ9Pa4fp1/sKXdwkVG2CeR3ox1U2fMEwUbJZY31Fmbe7ex4Qfqpt
+         FKEA==
+X-Forwarded-Encrypted: i=1; AKwUvBz9wx3PDKGmreJ4yHqoSjdHJHQVbK2gLEd2SNErladiN8y7iZVWkb0t3rkilNOjgqnKUI8N+Tz/tFfDvOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGb4S0IhvomKX+cZU71Qn8JiII8pu2z7PF5pyEuCMHYWdgtOEB
+	A0DFOp+a9nD80X0PzBynPoiSD4FRYYANsZ7ZRtSqlt0qSBVyi3fXA7Jt+xCXHj/33UNH9nieRE4
+	6f/YJdI142VN3+6k9LvYJv4gujg0xzl6lgm5PbjyD6LMEQNBhgPKPvS1hT984zd4/U/E=
+X-Gm-Gg: AYBFou0Tn75XQtFa+DWUgUFTbIh/qKo2uApq7T5f43GcLoYewCfqZSpH+vDtK1xXj9b
+	032SobB19ay1Hf4/+LF+sL4viVGj+tPPToEZplwTWg46sR2SBXP/Wvb+atKG2xMnKGuyeH3X4o2
+	0Wybyn8xHt52rJrJ/cp6w6OreLzvHjlsaCh7AVJtwBz1HI8xQ2YpmX0bOxTOP1wsVuQcAHTp/BP
+	QPblc51z3hdxe3N6s9ZDRi3UWaZRj/EM9uL82XHe5N6/g9RdANf/wTrPWb4gAkH/4Wut0zSGoLH
+	Q5Sv3iNUeEc5z2olbE8BDq+WTN+9YF5POVVfof/1GSSpP4vhHNC/ZF45xba+xxqAlRXYG92ehIh
+	vD9366ktJpHSwZiJHlYjYckrclUtdDmMSTfy0A47uPs0Axeh8hnQRTp7Xjxi+
+X-Received: by 2002:a17:90b:54c3:b0:39d:fced:6fb2 with SMTP id 98e67ed59e1d1-39dfced700fmr4411669a91.5.1789436703548;
+        Mon, 14 Sep 2026 18:45:03 -0700 (PDT)
+X-Received: by 2002:a17:90b:54c3:b0:39d:fced:6fb2 with SMTP id 98e67ed59e1d1-39dfced700fmr4411632a91.5.1789436703070;
+        Mon, 14 Sep 2026 18:45:03 -0700 (PDT)
 Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fa50efsm33104723eec.28.2026.09.14.18.44.57
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fa50efsm33104723eec.28.2026.09.14.18.45.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 18:44:59 -0700 (PDT)
+        Mon, 14 Sep 2026 18:45:02 -0700 (PDT)
 From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 To: Linus Walleij <linusw@kernel.org>
 Cc: Bartosz Golaszewski <brgl@kernel.org>,
@@ -85,9 +84,9 @@ Cc: Bartosz Golaszewski <brgl@kernel.org>,
         Yu Zhang <yu.zhang@oss.qualcomm.com>, linux-gpio@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH 1/2] gpio: shared-proxy: track direction instead of reading it back
-Date: Tue, 15 Sep 2026 09:44:46 +0800
-Message-ID: <20260915014447.282121-2-shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH 2/2] pinctrl: qcom: spmi-gpio: make direction changes exclusive
+Date: Tue, 15 Sep 2026 09:44:47 +0800
+Message-ID: <20260915014447.282121-3-shengchao.guo@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260915014447.282121-1-shengchao.guo@oss.qualcomm.com>
 References: <20260915014447.282121-1-shengchao.guo@oss.qualcomm.com>
@@ -98,24 +97,24 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=CKa/zhrD c=1 sm=1 tr=0 ts=6aa8a31d cx=c_pps
+X-Authority-Analysis: v=2.4 cv=CKa/zhrD c=1 sm=1 tr=0 ts=6aa8a320 cx=c_pps
  a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=pDVGNxEPf9UmUjjSLAIA:9 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: Bgn2GgCMen6gaTDQCkj_Cgj5weYM7hJ8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDAyMSBTYWx0ZWRfX2v3xXp9gYkn7
- n+6siB36b5NWpiOh8xwcmGOroUV6QPWGN3umyI7WF0ZLndobS+f2okWnwCTvakRA6zGpLFv1Z1B
- /LGyhAG364HlkbGZWExvgf/1rdsgZIE=
-X-Proofpoint-GUID: Bgn2GgCMen6gaTDQCkj_Cgj5weYM7hJ8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDAyMSBTYWx0ZWRfXz06XM8qdQ/qk
- 8pLo0z5Vsaf5ECt7wBkLZN7qrijjdLpmi9zKXRMZFg94viUDI9DoXtqz7dG4TftW4LBxa+FoIAD
- RGtMPzt1UYR08nCcYncZZxVSd/9JdahBm+I4NzUE0VUv6jtOG6puLy6dELoW18I7rcx3eFaistt
- FHqxPhXC8fiUF/BX58C8D7sMtFMWo4f9JBMrE4gPgE5WMD+DWEKr5it6Eb+lpAIo49yhtH4UkPZ
- iDAdW3MWAjVPLSbxU9/1PLZf1jl7MKO1mGKX3lvnA7GzFbgX4m1iwo7yMHFWTXgfcwb8MM7VQbH
- bRp6js0VMJOuBBTeewCR6nlbQ2KBLo2QIN5T4j0oFsKnk3XXSquv+7c/8vZewSAe/Fc9xpihPiD
- dfw7evYsAjCpgxjaRgxOO9zICjg7hz0yi+PShLW5AXvoiky79bmOYrJjymmgXQGhKR+eVeDrrmp
- 1QmI1e7eXB9Jq1/1qpQ==
+ a=jHABHta5L3jSstw6_KYA:9 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-ORIG-GUID: 4wnbAs6cZnZOR_GYgrLVElYWYeC0aAxz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDAyMSBTYWx0ZWRfX5XhM0oLH31v6
+ gGPlggOuY0FQ5OixhfWbafOh0s2yQFrS5KDm5zwgfVJ3/vnwd29YzkzMpcG2/SOmHHWCXEw4mET
+ bYPGF4GmBmdQA4G2rk7ySaEkkK3fFy4=
+X-Proofpoint-GUID: 4wnbAs6cZnZOR_GYgrLVElYWYeC0aAxz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDAyMSBTYWx0ZWRfX5JR+NEW8ZJji
+ Zbe8IacJMyZEqjosCbMejWFjGjhSelwM7srlMWFovpeZzEq6R0wke+4f1wdzumt8uAdgxmnq4he
+ Ky5HJHSzdbnI42v/+106hM5u6nOlRr5d28FHYbkaP+vVT+wApXKRVpQ0NE3g94ds1re5JZn1F/P
+ 2JQ+ft5S9d4YDEHfdWVKpDMv4Ja6Zt9wh9nB3uFqOf+12WurToR5+1yJm+VySQdS8fck4N7GrW2
+ DPULlz3jX0UcaBvALdsnldveMmodJV5hm0+JUTCzouJZnxPnthQkdSIBsn0Va6GKRyZjGb1d7Fv
+ vDyMzE0GbARinzfRjlfAie1T/boq6aII2mD1QekRPwVuzx5FTKAUdFxaZ8sll4TZ8UNPybInoPB
+ uD88CnbrEUr3Vxmz1c3DbIbU3ePF6JoCID5Ttk5jYveD7LoQEUVzaGjSPVdBBkyPTTZMoCFBect
+ SA05iiavufpVqBIDt8w==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-14_05,2026-09-14_02,2025-10-01_01
@@ -125,160 +124,82 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150021
 
-On boards where more than one consumer shares a Qualcomm SPMI PMIC GPIO,
-all but the first consumer fail to configure the line as output:
+pmic_gpio_populate() seeds pad->input_enabled and pad->output_enabled from
+the hardware MODE_CTL register, so a pad left in DIGITAL_INPUT or
+DIGITAL_INPUT_OUTPUT mode by the bootloader starts out with the input
+buffer enabled.  Neither direction callback clears the opposite buffer:
+.direction_output() only packs PIN_CONFIG_LEVEL, which sets
+output_enabled, and .direction_input() only packs PIN_CONFIG_INPUT_ENABLE,
+which sets input_enabled.  Requesting either direction on such a pad
+therefore programs MODE_DIGITAL_INPUT_OUTPUT rather than the requested
+direction.
+
+That silently breaks both directions.  After gpiod_direction_input() the
+pad keeps driving the line, since the output buffer is never disabled.
+And after gpiod_direction_output() pmic_gpio_get_direction() still reports
+GPIO_LINE_DIRECTION_IN, because it cannot tell plain input from
+input+output, which makes gpiolib consider the line an input while the
+driver is driving it.  On a board where several regulator-fixed nodes
+share one PMIC GPIO the shared GPIO proxy reads that direction back and
+rejects every consumer after the first:
 
   reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
   reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
 
-The first consumer takes the usecnt == 1 branch and really does set the
-underlying line to output.  Later consumers instead read the direction
-back with gpiod_get_direction() and refuse with -EPERM if it reports
-input.  pmic_gpio_get_direction() derives the direction from the pad's
-input buffer (pad->input_enabled), which pmic_gpio_direction_output()
-never clears, so a pad whose input buffer is enabled at power-up reports
-input forever and the proxy rejects every consumer after the first.
+Pack the opposite buffer's PIN_CONFIG_*_ENABLE along with the requested
+direction so that the resulting MODE_CTL is DIGITAL_INPUT or
+DIGITAL_OUTPUT, never both.  pmic_gpio_config_set() programs the registers
+once after walking all configs, so this stays a single register write.
 
-The readback is not needed: the proxy is the only entity configuring the
-line, so it already knows which direction it asked for.  Record that in
-struct gpio_shared_desc and compare against the recorded value.  Keep a
-readback in the get_direction() callback for the case where no proxy has
-configured the line yet, and reset the recorded direction once the last
-user goes away so that the next requester establishes it again.
+Pads that are genuinely bidirectional can still be described that way
+through pinconf, which is the interface that has always been able to
+express it; the gpiolib direction callbacks now mean what gpiolib says
+they mean.
 
 Assisted-by: LLM
-Fixes: e992d54c6f97 ("gpio: shared-proxy: implement the shared GPIO proxy driver")
+Fixes: eadff3024472 ("pinctrl: Qualcomm SPMI PMIC GPIO pin controller driver")
 Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
- drivers/gpio/gpio-shared-proxy.c | 43 +++++++++++++++++++-------------
- drivers/gpio/gpiolib-shared.c    |  1 +
- drivers/gpio/gpiolib-shared.h    |  1 +
- 3 files changed, 27 insertions(+), 18 deletions(-)
+ drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpio/gpio-shared-proxy.c b/drivers/gpio/gpio-shared-proxy.c
-index bc69b8729d19..a8f0d08c6d9f 100644
---- a/drivers/gpio/gpio-shared-proxy.c
-+++ b/drivers/gpio/gpio-shared-proxy.c
-@@ -116,6 +116,8 @@ static void gpio_shared_proxy_free(struct gpio_chip *gc, unsigned int offset)
- 	}
- 
- 	proxy->shared_desc->usecnt--;
-+	if (!shared_desc->usecnt)
-+		shared_desc->dir = -1;
- 
- 	dev_dbg(proxy->dev, "Shared GPIO freed, number of users: %u\n",
- 		proxy->shared_desc->usecnt);
-@@ -155,22 +157,24 @@ static int gpio_shared_proxy_direction_input(struct gpio_chip *gc,
- 	struct gpio_shared_proxy_data *proxy = gpiochip_get_data(gc);
- 	struct gpio_shared_desc *shared_desc = proxy->shared_desc;
- 	struct gpio_desc *desc = shared_desc->desc;
--	int dir;
-+	int ret;
- 
- 	guard(mutex)(&shared_desc->mutex);
- 
--	if (shared_desc->usecnt == 1) {
-+	if (shared_desc->usecnt == 1 || shared_desc->dir < 0) {
- 		dev_dbg(proxy->dev,
--			"Only one user of this shared GPIO, allowing to set direction to input\n");
-+			"Setting the direction of the shared GPIO to input\n");
- 
--		return gpiod_direction_input(desc);
--	}
-+		ret = gpiod_direction_input(desc);
-+		if (ret)
-+			return ret;
- 
--	dir = gpiod_get_direction(desc);
--	if (dir < 0)
--		return dir;
-+		shared_desc->dir = GPIO_LINE_DIRECTION_IN;
-+
-+		return 0;
-+	}
- 
--	if (dir == GPIO_LINE_DIRECTION_OUT) {
-+	if (shared_desc->dir == GPIO_LINE_DIRECTION_OUT) {
- 		dev_dbg(proxy->dev,
- 			"Shared GPIO's direction already set to output, refusing to change\n");
- 		return -EPERM;
-@@ -185,19 +189,20 @@ static int gpio_shared_proxy_direction_output(struct gpio_chip *gc,
- 	struct gpio_shared_proxy_data *proxy = gpiochip_get_data(gc);
- 	struct gpio_shared_desc *shared_desc = proxy->shared_desc;
- 	struct gpio_desc *desc = shared_desc->desc;
--	int ret, dir;
-+	int ret;
- 
- 	guard(mutex)(&shared_desc->mutex);
- 
--	if (shared_desc->usecnt == 1) {
-+	if (shared_desc->usecnt == 1 || shared_desc->dir < 0) {
- 		dev_dbg(proxy->dev,
--			"Only one user of this shared GPIO, allowing to set direction to output with value '%s'\n",
-+			"Setting the direction of the shared GPIO to output with value '%s'\n",
- 			str_high_low(value));
- 
- 		ret = gpiod_direction_output(desc, value);
- 		if (ret)
- 			return ret;
- 
-+		shared_desc->dir = GPIO_LINE_DIRECTION_OUT;
- 		shared_desc->def_val = value;
- 		shared_desc->votecnt = 0;
- 		proxy->voted_change = false;
-@@ -205,11 +210,7 @@ static int gpio_shared_proxy_direction_output(struct gpio_chip *gc,
- 		return 0;
- 	}
- 
--	dir = gpiod_get_direction(desc);
--	if (dir < 0)
--		return dir;
--
--	if (dir == GPIO_LINE_DIRECTION_IN) {
-+	if (shared_desc->dir == GPIO_LINE_DIRECTION_IN) {
- 		dev_dbg(proxy->dev,
- 			"Shared GPIO's direction already set to input, refusing to change\n");
- 		return -EPERM;
-@@ -240,8 +241,14 @@ static int gpio_shared_proxy_get_direction(struct gpio_chip *gc,
- 					   unsigned int offset)
+diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+index f6dc43e27b38..eb4431591331 100644
+--- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
++++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+@@ -741,22 +741,26 @@ static int pmic_gpio_get_direction(struct gpio_chip *chip, unsigned pin)
+ static int pmic_gpio_direction_input(struct gpio_chip *chip, unsigned pin)
  {
- 	struct gpio_shared_proxy_data *proxy = gpiochip_get_data(gc);
-+	struct gpio_shared_desc *shared_desc = proxy->shared_desc;
-+
-+	guard(mutex)(&shared_desc->mutex);
-+
-+	if (shared_desc->dir < 0)
-+		return gpiod_get_direction(shared_desc->desc);
+ 	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+-	unsigned long config;
++	unsigned long configs[2];
  
--	return gpiod_get_direction(proxy->shared_desc->desc);
-+	return shared_desc->dir;
+-	config = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
++	configs[0] = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
++	configs[1] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
+ 
+-	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
++	return pmic_gpio_config_set(state->ctrl, pin, configs,
++				    ARRAY_SIZE(configs));
  }
  
- static int gpio_shared_proxy_to_irq(struct gpio_chip *gc, unsigned int offset)
-diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
-index 5f9623e40b0f..8267b5089244 100644
---- a/drivers/gpio/gpiolib-shared.c
-+++ b/drivers/gpio/gpiolib-shared.c
-@@ -661,6 +661,7 @@ gpiod_shared_desc_create(struct gpio_shared_entry *entry)
- 	}
+ static int pmic_gpio_direction_output(struct gpio_chip *chip,
+ 				      unsigned pin, int val)
+ {
+ 	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+-	unsigned long config;
++	unsigned long configs[2];
  
- 	shared_desc->desc = &gdev->descs[entry->offset];
-+	shared_desc->dir = -1;
- 	mutex_init(&shared_desc->mutex);
+-	config = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
++	configs[0] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 0);
++	configs[1] = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
  
- 	return shared_desc;
-diff --git a/drivers/gpio/gpiolib-shared.h b/drivers/gpio/gpiolib-shared.h
-index 618756f6c6aa..0ef3bc7a7916 100644
---- a/drivers/gpio/gpiolib-shared.h
-+++ b/drivers/gpio/gpiolib-shared.h
-@@ -43,6 +43,7 @@ struct gpio_shared_desc {
- 	unsigned int usecnt;
- 	unsigned int votecnt;
- 	int def_val;
-+	int dir; /* GPIO_LINE_DIRECTION_* as configured by the proxies, -1 if unset */
- 	struct mutex mutex; /* serializes all proxy operations on this descriptor */
- };
+-	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
++	return pmic_gpio_config_set(state->ctrl, pin, configs,
++				    ARRAY_SIZE(configs));
+ }
  
+ static int pmic_gpio_get(struct gpio_chip *chip, unsigned pin)
 -- 
 2.43.0
 
