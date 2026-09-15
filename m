@@ -1,128 +1,101 @@
-Received: from mail.mdapi.ch (mail.mdapi.ch [31.3.128.54])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D787839C637;
-	Tue, 15 Sep 2026 12:12:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.3.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A955D3C0634;
+	Tue, 15 Sep 2026 12:12:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474353; cv=none; b=mYBdIf8kMpVHZmlTW7Ue2ENw+xeX9r3H/qx8LusVG3i8gLQkb9E7/111lcVuYb3TcSKDbG/N7WPRfUSVd5p61gwsCnCSOzBAK1GasuJ+DGXlg6QvNFJfwQjgNhtgE3ehXUzT+agByg7SxwEmqQipoAGxaMHhRVff5t5bzpA9hvo=
+	t=1789474378; cv=none; b=FnzAqxJ0qPIrFSd9c+6l+J/6Fnjd2XVrSfsLaBfM+KdCv+vFpWt7hsH4PRppPc1o3V9IENKD6xWjwm1kE59ytnm736VtKs4C0p6Qmq6SbC7GO6hxYURWesQUYZprTLyt6M5HCkC3FFBlNCNr4KeFhzPt48BOmAngQi8avEp4Hp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474353; c=relaxed/simple;
-	bh=y7hTY41aUfVQK1EaUfYpy+/9tFS3eggcocITc2b38Dk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=JAw+opiryJMcGwIzJvArYdHyVzFQJzW+3VdupCzltyGAUWzgOK/xUOCqsX/yx63EA0iTu3Nl70jdTFnGHozWRxEa+dyNfEFwjy5V8PIc0mlgkkvYQK5kQ5Cb1QcKaO67EM1f6dVsfp2wSolDxOHtwRZGjP07KLRWWBYRP2PvkWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch; spf=pass smtp.mailfrom=tillo.ch; dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b=TFMoI+9f; arc=none smtp.client-ip=31.3.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tillo.ch
+	s=arc-20240116; t=1789474378; c=relaxed/simple;
+	bh=NpGI2bqE37VIAM71gUv+Uu10+QoYkdrbqDH2oYhLvs4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pjPoV/Rmf3Yr/krNjjNQA6RWMKFFvdJ1kUNH+dzqRBjIJvAVlFn1xrQZdjCcIZaKpas0ls4iUad8jQxcDvLBSZ/W0CKM6OCPis6HXIUhmtNY/SgDvgcOM5MRQehnCGucz88QQEQ/yf09CWShFShVX/ADJsLoWTJJwRle0kVzq/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dMecOfkG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b="TFMoI+9f"
-From: Martino Dell'Ambrogio <tillo@tillo.ch>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tillo.ch; s=mail202603;
-	t=1789474346;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=crTiarevnQnKIMMV9H7NWGBFcK3peD/bzvBVhBr5ui4=;
-	b=TFMoI+9f/IMg/rjhqVMcsjEph0zoixESn9bn4E3w9GZdu4SqRV93qFEfXbW4vym+ARMsoF
-	6ro39G2XdYJXQ8MuiUBU8F8HkYQ6U8hDTcyKMqsoQq8CtivPzHao7TqpCNUPoB8Ksxema8
-	hARaJqD5FAqj8jAu++rX5sJ7Y1KpoUXJ46puiWkmmuSWocl8aR9dZgUUZn0GHnwuCxRKiQ
-	Zqk6QipU1gZQFyU0zE2aLAxPVOgFM9eFNGKm+9K2B8i6VzscRJZ8pJqDM8VGZ46VNf/Atf
-	Of4jkuY+5HOCXUksZoj/XY4XQ1NWHTxpqS/x64xBW8wdgro4iW5pHk+QYrDNGw==
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kees@kernel.org,
-	tony.luck@intel.com,
-	gpiccoli@igalia.com
-Subject: [PATCH v5] arm64: dts: mediatek: mt7986a-bananapi-bpi-r3: add ramoops region
-Date: Tue, 15 Sep 2026 14:12:26 +0200
-Message-ID: <20260915141226.600486-1-tillo@tillo.ch>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dMecOfkG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8041F000FF;
+	Tue, 15 Sep 2026 12:12:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789474376;
+	bh=TyC2gpsaXN4JBLWKNmm7J702tnSFqXToNgpiVHAQLkg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dMecOfkGD9IVBc5A1wOJ7RaGIcLenu0fPPaNj6ULgetn0QKiid3SmCobziHh5dth/
+	 nsDFEIkSHNG8yfPhdRtOGhuiglEEp7ZCUa/9k5QBoF5PdykrhfAZSEXZHUgx1U1BVK
+	 xGkTFAq/PNyGxR26wFeby3W2dyLnU3iQBk2jD4P50ZyW+dlHVBfMUvzMpwJaiHHOfs
+	 K2RpX/7yFozlGNknDOJ672FQSl3wdlWEAAzJJOS7dXtYw4h5/AJzF587NEwZ4BMyPj
+	 9pfv4RMOw/V3LIbDZ0K3TuOXdj2r4FW+lleHFXb0J74YtGlz0qeP1Rx8Bjz9BMVApD
+	 0vMrkjCKJ1HWA==
+Date: Tue, 15 Sep 2026 13:12:54 +0100
+From: Harry Yoo <harry@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>, kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	rmikey@meta.com, riel@surriel.com, kernel-team@meta.com
+Subject: Re: [PATCH v4 2/5] mm/memory-failure: libstub: install the
+ poisoned-memory EFI table
+Message-ID: <aqkyT0Ui9h5KWuzn@thinkstation>
+References: <20260909-hwpoison-kho-v4-0-359313564495@debian.org>
+ <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
+ <2c9a7bef-3189-4f78-a6cb-61d2f7afd643@app.fastmail.com>
+ <aqKhgPKzRf0e22s3@gmail.com>
+ <aqkIdVhoG2wwVBtb@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqkIdVhoG2wwVBtb@gmail.com>
 
-Reserve 64 KiB of RAM just below the ARM Trusted Firmware secmon region
-(0x42ff0000-0x43000000) for persistent kernel log storage via pstore/ramoops,
-allowing post-panic console output and oops dumps to be recovered after a
-warm reset. Without it, kernel crash logs on this board are lost when the
-SoC reboots.
+On Tue, Sep 15, 2026 at 02:03:48AM -0700, Breno Leitao wrote:
+> On Thu, Sep 10, 2026 at 06:11:53AM -0700, Breno Leitao wrote:
+> > So I'd say we have two options:
+> >
+> > 1) Keep it similar to unaccepted memory, with 2M granularity.
+> >    - Pro : Similar mental model as unnacepted memory
+> >    - Cons: 2 MB might be a bit wasteful
+> >
+> > 2) Move to a linked list like the RFC, keeping it outside of the EFI
+> >    table.
+> >    - Pro: Reduce the memory granularities to page instead of 2M blocs.
+> >    - Cons: Another way of passing memory information between kexec
+> >      kernels.
+> >
+> > Any any other option or strong preference?
+> 
+> Since nobody voiced a strong preference, I will stick with option (1),
+> the bitmap, for these reasons:
 
-The zone sizes (record-size=8 KiB, console-size=32 KiB, ftrace-size=8 KiB,
-pmsg-size=8 KiB) consume the full 64 KiB carve-out. The requested ecc-size=16
-reserves a small Reed-Solomon parity block from each zone's own allocation
-in persistent_ram_new(), which lets pstore recover dumps even when the panic
-path truncates writes mid-record.
+Not sure if this was discussed already, but perhaps we need to have
+a chain of struct linux_efi_poisoned_memory rather than a single
+bitmap, to easily add support for hot-added memory later?
 
-The no-map property is required so the reserved region is kept out of the
-kernel linear map. ramoops remaps the carve-out write-combine via
-ioremap_wc(); on arm64, leaving the same physical RAM mapped cacheable in
-the linear map at the same time is an attribute-mismatch and risks losing
-panic data to dirty cache evictions from the linear alias.
+Also, I wonder if some architectures have a scattered set of pfn
+ranges so that the span from the start pfn to the end pfn being much
+larger than the actual physical memory size.
 
-The region sits immediately below the ATF block already declared at
-0x43000000 in mt7986a.dtsi, so no other reserved-memory child is moved or
-resized. BPI-R3 ships with 2 GiB of DRAM starting at 0x40000000, well above
-0x43000000, so the region is always within installed memory.
+If so it might make more sense to have a bitmap for each pfn range.
 
-For the carve-out to actually preserve content across a reset, the boot
-loader must avoid touching this region on warm reset; on standard BPI-R3
-boards with the stock OpenWrt U-Boot fork this already holds.
-
-Signed-off-by: Martino Dell'Ambrogio <tillo@tillo.ch>
----
-Changes in v5:
- - Restore this board's own carve-out. v4 carried the BPI-R4 values by
-   mistake - 1 MiB at 0x42f00000 with 128/256/64/64 KiB zones - while the
-   commit message still described the BPI-R3 layout. That would have reserved
-   1 MiB instead of 64 KiB on a 2 GiB board and contradicted its own message.
-   Back to 64 KiB at 0x42ff0000 with 8/32/8/8 KiB, as in v3. Thanks to the
-   Sashiko review for catching it; entirely my error in regenerating the patch.
- - No other change: the plain reserved-memory node from v4 is kept.
-
-The BPI-R4 patch is unaffected - its values were correct in v4 and it needs no
-resend:
-https://lore.kernel.org/all/20260915135722.566918-1-tillo@tillo.ch/
-
-v4: https://lore.kernel.org/all/20260915135727.567145-1-tillo@tillo.ch/
-v3: https://lore.kernel.org/all/20260915064302.1595204-1-tillo@tillo.ch/
-v2: https://lore.kernel.org/all/20260528123655.2650868-1-tillo@tillo.ch/
-v1: https://lore.kernel.org/all/20260528093038.1945245-1-tillo@tillo.ch/
-
- .../boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts   | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts b/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-index 637e556..70c693f 100644
---- a/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-@@ -140,6 +140,19 @@
- 		tx-disable-gpios = <&pio 15 GPIO_ACTIVE_HIGH>;
- 		tx-fault-gpios = <&pio 48 GPIO_ACTIVE_HIGH>;
- 	};
-+
-+	reserved-memory {
-+		ramoops@42ff0000 {
-+			compatible = "ramoops";
-+			reg = <0 0x42ff0000 0 0x10000>;
-+			no-map;
-+			record-size = <0x2000>;
-+			console-size = <0x8000>;
-+			ftrace-size = <0x2000>;
-+			pmsg-size = <0x2000>;
-+			ecc-size = <16>;
-+		};
-+	};
- };
- 
- &cpu_thermal {
 -- 
-2.47.3
+Cheers,
+Harry / Hyeonggon
 
-
+> 1) It follows the same mental model as unaccepted memory, which people
+>    are already familiar with.
+> 
+> 2) It is simpler to query at boot time, especially as the number of
+>    poisoned memory regions grows. Walking a bitmap is easier than
+>    walking a linked list when freeing memory back to the buddy
+>    allocator.
