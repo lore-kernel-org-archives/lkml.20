@@ -1,276 +1,191 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011055.outbound.protection.outlook.com [40.107.130.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110833B71A6
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:37:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483067; cv=none; b=HPqLsUHEDEAzpGam169FtQNk3yiqRPzVjckEVY1V14fPJPHrKJGDlNc6Ry3UPDfHwLrmDcEOrBo3fByoMsHReDpCRihbocynmywxtOUg5JBVr5yCM4jrunXzD0Wh5e2LHyYDtgXaU4ZCILOlHnmgWuHE2Xt4osOWRnM8TbOU9Fo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483067; c=relaxed/simple;
-	bh=rb12uoRVB4GQEx5rKrFmaADZveIVmDJVmDoyUxjt1Jo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oSkGNQgwRmvE1Fcych96idVos4E8GpihZpw9mhzJotIfGCq7uCnbgpFX/iGaO1DB4DoyYc/PGAtq5sXDBsIYKnPGhKFoH4HX4dpcnBHb1+GvLj3TSqveJkxpcYXFjU/ln5bPFD1MuITsyUw/S6oJ5eyAiCMMQSFVysrmFcDIgg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W/QOi9PQ; arc=none smtp.client-ip=74.125.231.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2368F3C5856;
+	Tue, 15 Sep 2026 14:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789483082; cv=fail; b=Pouljs/hjAdjKMypEf4R/vNoyXVHRTpQOK/KtR7Gip7fyUycIBZF0uwzCXXp52XrI3fRh4X2Hrt72AfV+6XdgmeY4J8KkHMrcQEs8WKlggMn3bcL+G8DMVV66GPSUHLMiQQGuMjHYiO3iJVFI8b/iO1ILKd3W9xvbIc6mZmZ8N8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789483082; c=relaxed/simple;
+	bh=fxPxSQSEWU+tlTxw1QnNwG0Tce1bKNWlqJTBv0HfzqQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=TSnAfHv2fXOQ3Rwr2dvq8xjpoq63tzUM94OoUhvKnnXQ8xq6vmwhiGGoUFKSCvUbiybl5+EcEkwXIQ/6joe1lyYgEX1P2V41GzuSMeHiiriQVZXocOojW0tRhDQSiJ09w49EXRJPNGJHjY3Hdq4TI8yxnMIBFK9L0dd3w3H6OH0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=igV7gQNf reason="signature verification failed"; arc=fail smtp.client-ip=40.107.130.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W/QOi9PQ"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466ccdd77e2so1644304fac.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:37:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789483064; x=1790087864; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=twZQdobyrOF6/2xqxEJFQWUmLmsexxdGoJngeBJlLv4=;
-        b=W/QOi9PQZpbBsRyXN6RYBzM4XnZu8XHZoo00wGjYcA28kr88j4vv7+Mlmp2Y36EWuB
-         e85NfiNQiwxD8xJIan6jltDxjKJw5/ZVNmDGZVMcLb9nh3qeGcFLd80ZP+GRu4mdGne2
-         kacYW97gkJ/MwpEo2qRrNEDPq5vmjrfZToGqYQR0r5ErM32tQEKXuG1yCUKeN+4/SEyP
-         cK59sLnaQsaB2wri0xvu/GVrco8wkQuoEzU/W3qRoy0jNd3WbSZ6UWODsbyTJq8Ins4a
-         mq08OtVitgsNEt7T+/23wMbIlqpyB5Xu0vAda9zvpLcCpsv7Q8Y4hRkh6EujV/MoF804
-         Dwcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789483064; x=1790087864;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=twZQdobyrOF6/2xqxEJFQWUmLmsexxdGoJngeBJlLv4=;
-        b=I/mypVvLm+V104MK7fJlDjf2Fd8Az6SWOEIvBzxZADh3pVgkg/q1o7mMDl9c4GdWgT
-         mDapn3k0maeSNatKjrcIHMJAsaSs5ZU83iU4Y6WnYcmDBkdrKzaUQwVVbRn1Bds9qxdc
-         8ZA4e8Jz7k5Sa0yGqFuza9UzEjrSRz+T90QufuAMnmPxw8NCLn7xthDun2XDB4hoCKZ4
-         fCEZv7r+FwACq0DUn1UNJLnugWiQ+KbzbbTIXoajMaJQ43jRN9aP1NYYteABEBe4mXyX
-         D3lMN4Y2v6Wv+jLXFrSX6i2vIiW5diUHRoH2hZRwyG4aFbT2tMuNIGanYMycMdXPOoy1
-         g5GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwEBypvpJdSVYhlVs8QeocTTgRIUNMq15A5uuOm2M2qD2gNUAOLo6ochOQu/8q9DKb6nTgOby+Js3+Yk4k=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5Cp53I8KbF2yQnZCsIZXqV79E/0PPNyQ6NoChVl0u7t6Ux335
-	VbcQUojs47Iv+ZhBhnTRgOzZ8oR6kI8CJle+EZWdoJ2xH/VPJHlkFCd3
-X-Gm-Gg: AYBFou0Wl9k0M8z8caWPrW36X8fYhG2uzJkVFBFUylOu/N4+Kus8R9MGZYDz45JtiJQ
-	sOU+JQRrlf0V1SSycLKjp2w4hqQr+FaTY2YH7kSWmdnhD6TBx9/v9CvgEpuO62lCf7TFc4edlnW
-	FZjE2lmiiFoZRUAfW0QvOk2ysGzQOp3if7MFoqoQlcPehuUP5iS+nPE70AByh425Vld2P7Ybp1E
-	SiQcyRidmIMsAh8guI+oJxDeyGUemFNJuJnqwIkdsIqbgWx3ahVqhdtWf2eqROxPUsAYjTIU2Vp
-	0CEDugjo6SFtMq1FkShMCHi5DKwaN4pyZOPpymrPEiJ+8WpEZVtt4kHqfdiNmzqAh+vr7v0Wyix
-	mz563b7uNF59OxcYtMzANVvvCAg2y+tPr2JD08tS3x6uVoPvqsJ3DBCmeQcy4MtdsKewmlvbsT+
-	Rn1ZeZDoUUM142z1YdJvEmjUOOC/cwGYiVlfxEZviJ3ZAVBFYqToD6vOuAZFWk+PCTZ1EaCeCTM
-	7uXZCSjrM/BA696X4d4NkjyQFLNbqDv04sG6vbihAdFjIb+
-X-Received: by 2002:a05:6820:4cc1:b0:6b1:42ab:d040 with SMTP id 006d021491bc7-6c53f5548a6mr4930828eaf.28.1789483063715;
-        Tue, 15 Sep 2026 07:37:43 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50a7a3526sm43199a12.0.2026.09.15.07.37.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 07:37:43 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <f60a440e-1b9d-457b-865f-b3c4778d966b@roeck-us.net>
-Date: Tue, 15 Sep 2026 07:37:41 -0700
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="igV7gQNf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sSdHMCGb5g2O8A8Tnla9EauWAeuDKO71ZrmMeWJ6++IbzatJLkBzSVEy8KoyCshGk28EjBluab4+EBvLM7f3EoI46XfkRGDViZhlAYH4LunNW8aUnNhezNKYlD0NeisOahliWtSgZxtVMCcYcuEocICMxQMDTeO+dcJ1NslRXkD74xTtY94IY+0xw0VW8lZBHpQqllN6vUqr8ZXFKaTbI8P9DCszys8WMsihUbybQgzUvXvLGiaEps/tdp6LeP5Igp1/+aBuXuPa40WXojxc4A3HWjFuiHbufZ2bZCwhCReWZNGBaq6stHFx8wG37C8tlNFj5/y5HqZRRzZ8OIGreA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7U4D15ZDlQ89hKgU4y2s1p3qrJrjQyTxJYl9nYvoh/o=;
+ b=rZcoxgoUwnRKnQumHlE5Rx/uPZEdsajsiV+Yvds1e+j124UtneN6Y9mGtim3guA5nOcIRTl8t84isy+zdxm/TeHveXtf7qxaeIdcTmxBfe7eayjmBg/ChPAjjky2jPFYD4glGKlFXxDi7/rb7+cWLyJbnNSA/3x968o8OeaLmNNA5XWrnb21aSfnoF9HrY329Idh00mN+dblBkQMwfY3aHzRSklK6VqFVvWOnzBz3dKOysvAK9VfxhvDAYBMsTst5yOfm9Am9BfGsx0G2LBQ8QHKTCdzY5x9p94LG9ef147XhRk45s9D/JHak4ytEtvSKaz/kt6l9Jvzctd3WfC4Mg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7U4D15ZDlQ89hKgU4y2s1p3qrJrjQyTxJYl9nYvoh/o=;
+ b=igV7gQNfOBnGWSOYTnX4Xq0eM3ydvl564wafhu3Fg0MzAm8TrnCgj962OqRhfexu43Cg6de/Y7aUUyc6+C4nW8mGnltme3ugVutpPd5kYmndpVPKd6E4iwuWaFxa1f9VbDRQMGrZA+Jqxj+/lcSBn7CyF1x5+M0cgtGnGAmVU7sL8J3u1kkgws8sfjDwrYGxzU0RFueEEmDlancq33yXaGkGWNunWS842BAn1nCiEz24GnRV/owmh/i4CfoqbSWLwoyto97I6t6OlN3vAT9JTwd6RFsTutZSHtdFlGtAhxNX/wZn9MEJP9b7AzFqDzC7+PjIROxNHAVU5LKW4WmYRg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB602228.eurprd04.prod.outlook.com (2603:10a6:800:363::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
+ 2026 14:37:56 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Tue, 15 Sep 2026
+ 14:37:56 +0000
+Date: Tue, 15 Sep 2026 09:37:44 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
+ new header
+Message-ID: <aqlYOHIFU_dB72I3@SMW015318>
+References: <20260911-dmaengine-support-wider-dma-masks-v4-0-72b8fd4cc78e@analog.com>
+ <20260911-dmaengine-support-wider-dma-masks-v4-1-72b8fd4cc78e@analog.com>
+ <aqgCQvRw9fns__0d@SMW015318>
+ <aqjzvxI4ecoFvRLT@ashevche-desk.local>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqjzvxI4ecoFvRLT@ashevche-desk.local>
+X-ClientProxiedBy: PH8P220CA0002.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:345::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] hwmon: (lm75) Add support for Nuvoton NCT7715
-To: hsyemail2@gmail.com, linux-hwmon@vger.kernel.org
-Cc: Sheng-Yuan Huang <syhuang3@nuvoton.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Jean Delvare <jdelvare@suse.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20260915052021.6959-1-syhuang3@nuvoton.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260915052021.6959-1-syhuang3@nuvoton.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB602228:EE_
+X-MS-Office365-Filtering-Correlation-Id: d93da7fd-092d-417c-2763-08df1336ee6e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|19092799006|1800799024|5023799004|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	e3mvwU2N472ONvpKS37W4Uknmr6cFp8+5wXp7Lznclq5tifA68prP9AoPy0umIp2qG/1dusw0HWlSbKgFBfw6PfD7z3dyykVBfMa+M+GbZ7KyPXIR1x9aLv7rJV874VOeUKmlkLUovDHr6/WoeTprNyIyCk9JAc3itvE0rrO6ipb/TeQ3JxcfxsdBa+BL7Q4wS3UVVMOquDjHn3wm7dHoIss5ybIVUrY0+LLVTtNoY3quxpycH5DhPn2YZ/dugJWu6N3r/+W8ZHrUk+8ebE+2hRxtTSs2Rj/zy2HbOVnp+XhDbVZUuUokjOFtb8W85O4XudxwTnb8PfVVHGBpd/h+ClpGnwmqqW4JL3v6XZLI6F96vt6Gof1UVS/4KERONrIomvNBQgljg8/w94jr6HQWoq9SL2Yh3MZPU/NvzshA7D/M1vKfMnjsG93zbWge6ZSxZ6hLlc3b/qUfImLLzOBpvyn3uWmp+aYERgq7V/YvRwPto/xcBT8P7R2g0FAJ1cS5sOJvFHMWfpxDMlFJUh+VkC7ilVpWQFA6kOGmZdrc6YLqWw3QH6opg5iOds2ckE47BlslHwde+XEhSn7Fr9Wuu1nRYyd2qg91BljNGnyU0StqZ492kMVIjp00InCVLJMKj6eLOmGSxlcbM6GQsaJlxO6wrhmosy5hF2bFDuv5qI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(19092799006)(1800799024)(5023799004)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?BYHGDnH4TpFRi9wbDZAx5T3LGfOFWLhQVZX/qXzL4K5v/PPpTx9lqpVT8H?=
+ =?iso-8859-1?Q?Sik9VkBoaVOxXioqXhpke2bhNbix6jNByDmy8PUAxvLU7Py55NtIpOxgSU?=
+ =?iso-8859-1?Q?maLvBRJAZ2u+aTHAuZ74jOOnm0Jwmrp5zlHSksmz4xSlQGk2uAfjaER+if?=
+ =?iso-8859-1?Q?yl4XGZZ6jvQMGgV9NOSjx5E1GhnMbstFXLBLaIlmExKmRrlZemm4LBjw3s?=
+ =?iso-8859-1?Q?taZq1rgbg1uvnRru2DIalxIM9O0076GtH7Fz1lCfOSKQwE/jwxBW0MgwUR?=
+ =?iso-8859-1?Q?Bg2C+GvRBN/7Y1DgOLB2aXdwb4qKqv3sUI2CMF8H2xEESmgACsBamBuTt1?=
+ =?iso-8859-1?Q?Is1v3AkaIPRB/azciUF0IoNPXLCxGUYt40mkSBTR2qjS1Ztl4B1L1ysYjN?=
+ =?iso-8859-1?Q?Dx4VL/PPUqpt4zydkW/awl+twAJ72QSqbuI49ptlYzvwfHHISghwCxHIcc?=
+ =?iso-8859-1?Q?EKVAsok9+WnbFa7pFFSBgWEnUfxtQJUasJCsv7j79nccIVYTzxr2Nh9HFP?=
+ =?iso-8859-1?Q?UNemECSFUWLxG/ts2HKecBY4IYdmq9UZLy+nnIFboKobxhwsoVDdtNZ062?=
+ =?iso-8859-1?Q?QTotdm6GHED/nj4sxYl6vNDsiNMWsXIIpewmZwFGFokkWR0h3SZleTVVkg?=
+ =?iso-8859-1?Q?JFGXGU9iW7T2/YFKj33RuQgNVhZzvoUSKMIf8agmrF+XHaQmrThh9rO03/?=
+ =?iso-8859-1?Q?n+WX+4Nq1bcSWTIPTgs4sdi1M2oMDZMpGYkSUEBuhg/9D9NufN9TFqm/LL?=
+ =?iso-8859-1?Q?pSVxpFRzV3rptTGEe1XsrYBDPCYcY+aNp7EJo9qmkOvONzSUcLxEnb4hfU?=
+ =?iso-8859-1?Q?+432BC7T3/a1CxWRiGttWUd/Zi1r/TbALWj5op+UV47XsG/bvF6DN9zDDP?=
+ =?iso-8859-1?Q?zitG71lAubqkli7AEwzg611ugFDhRXd373944LQeGx4m5YmMSZQcx/ksYF?=
+ =?iso-8859-1?Q?KGxjUcM26PM1zSo2xqsPmCkbv7cC5AxmNUJM5gcKCz7bLmNInWXSeebPrZ?=
+ =?iso-8859-1?Q?q+9FNyJKhkv5Bkd6kuQNg/wFVDK0GzExZZVZdEI3/aCgienaf+kzxb7DHy?=
+ =?iso-8859-1?Q?rpkvk03bd6SPESUgXhRtxwZUXMPJZ6Rh5imnkhe4edeR7ucI9ZLVt2w602?=
+ =?iso-8859-1?Q?MpPErz1+FxHPPlVoQROLFAsX25BUExUQ7L6OcY80k5dlo6Gqi1BzPh5yfm?=
+ =?iso-8859-1?Q?gxsCSWQSNrn8MBU64T7FQ8NQfrPb/2LXshyCRL0/tOmFxVssz2OJkReOlj?=
+ =?iso-8859-1?Q?GKwgaE4/4+bxSNLjt23iH71tqjs7Pdyx5vh1MtFTKPx539RougHpepvPqq?=
+ =?iso-8859-1?Q?o7RdWARQxBo+kwpug+HEy+QTZgPBwPkekn8zl1jeIGuOQm7b+7D6l0BUWq?=
+ =?iso-8859-1?Q?ltNaXZafVlnUUM0H6Fk6oC8scBlBfwOLJkhKWpV4bIDs5n9ZrXJlhLkK5K?=
+ =?iso-8859-1?Q?r+VLxbiLsTAvy8k8Zl47dT2Ws3VoEx/B6BMfJYWf6yV2LB6Aa9bnp/zetv?=
+ =?iso-8859-1?Q?FaWPUw4tSZrJ0Wp7+3fh97OQ4Y2nS0DU1ClA4aqALSh1MW0blWDj3SBYq3?=
+ =?iso-8859-1?Q?5j8VIbaGEu7PUPpjzZ9Kk3xK9Sl+tuDVxupS13lSP+YSxrxHRhiR1RFIGP?=
+ =?iso-8859-1?Q?0+G6iByw7ZkLqOALcJ9OzTvgiO2nhM9KoDYaPJzFk73ODl2eA7YoyvDli4?=
+ =?iso-8859-1?Q?DviAB2O299t9DUAUT6NKIwPNlz/i7S0/eap5RcmLrVi4drlkmq+uA+DfTP?=
+ =?iso-8859-1?Q?t5gqkUhXe8i8cmMUO8IpfMxKYoDgqt2Mx3MtNLnSyb7KmGQuW3d+kC4SJN?=
+ =?iso-8859-1?Q?UuwQXO7NOpzqokGviv3B566VMBkrekbf0KtIYFCLwBM+LdeZZDZM?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d93da7fd-092d-417c-2763-08df1336ee6e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 14:37:56.2526
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Mdzdd3luSU5h5lonpnhdlgkpIUaUqkcgh/qkqfpuF59lL9cjsbJnNc/yr556Ttm5IRIGzzJOWLVvlSYvqBKDtt22/zRhErFxYX3x7FQ5UCHjE4Fj8qpf1KKOI5THHZuJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB602228
 
-On 9/14/26 22:20, hsyemail2@gmail.com wrote:
-> From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
-> 
-> The Nuvoton NCT7715 is compatible with the LM75 temperature and
-> limit register layout. Its 16-bit configuration register shares the
-> TMP112 configuration layout.
-> 
-> Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
-> ---
-> v3:
-> - Reuse the existing TMP112 handling for NCT7715 configuration,
->    update intervals, and alarms.
-> 
-> v2:
-> - Use the standard SMBus word representation for the NCT7715
->    configuration register, removing the NCT7715-specific byte swapping
->    and updating its configuration masks accordingly.
->    
->   .../devicetree/bindings/hwmon/lm75.yaml       |  2 ++
->   Documentation/hwmon/lm75.rst                  |  6 ++++++
->   drivers/hwmon/lm75.c                          | 21 ++++++++++++++++++-
->   3 files changed, 28 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/lm75.yaml b/Documentation/devicetree/bindings/hwmon/lm75.yaml
-> index b48bf3fd721f..d55b8b7e49c5 100644
-> --- a/Documentation/devicetree/bindings/hwmon/lm75.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/lm75.yaml
-> @@ -31,6 +31,7 @@ properties:
->         - nxp,p3t1750
->         - nxp,p3t1755
->         - nxp,pct2075
-> +      - nuvoton,nct7715
+On Tue, Sep 15, 2026 at 10:29:03AM +0300, Andy Shevchenko wrote:
+> On Mon, Sep 14, 2026 at 09:18:42AM -0500, Frank Li wrote:
+> > On Fri, Sep 11, 2026 at 06:25:36PM +0100, Nuno Sá wrote:
+> > > In preparation for the bitmap based bus width capabilities, move
+> > > enum dma_slave_buswidth out of linux/dmaengine.h into a new
+> > > include/linux/dma/engine/types.h.
+> > >
+> > > linux/dmaengine.h is included nearly everywhere, so growing it with the
+> > > new interface would make every one of its users pay for it. Keeping the
+> > > basic types in a separate header lets the new interface live next to it
+> > > without that cost. linux/dmaengine.h includes the new header, so its
+> > > users are unaffected.
+> > >
+> > > While at it, add the missing kernel-doc for the enum members. The block
+> > > already opened with /**, so kernel-doc expected every member to be
+> > > described and warned about each one of them. Describe the UNDEFINED case
+> > > in particular, as its meaning depends on where the value is used.
+>
+> ...
+>
+> > >  include/linux/dmaengine.h        | 20 +++-----------------
+> >
+> > I think it is good to split dmengine consumer and provider header files to
+> > hidden dmaengine's detail.
+>
+> It's indeed desirable change. but isn't it a bit out of scope of the series?
+> I suggest to do one step at a time. Would it work for you?
 
-Sorry, I did not notice this before. Devicetree changes have to be
-made with a separate patch.
+Yes, but I hope the file name is finial expected file name. it is okay
+just move enum dma_slave_buswidth to there now.
 
->         - st,stds75
->         - st,stlm75
->         - microchip,tcn75
-> @@ -78,6 +79,7 @@ allOf:
->                   - ti,tmp101
->                   - ti,tmp112
->                   - ti,tmp75
-> +                - nuvoton,nct7715
->       then:
->         properties:
->           interrupts: false
-> diff --git a/Documentation/hwmon/lm75.rst b/Documentation/hwmon/lm75.rst
-> index ca46754e028b..fac0b8f29ddc 100644
-> --- a/Documentation/hwmon/lm75.rst
-> +++ b/Documentation/hwmon/lm75.rst
-> @@ -150,6 +150,12 @@ Supported chips:
->   
->                  https://ams.com/documents/20143/36005/AS6200_DS000449_4-00.pdf
->   
-> +  * Nuvoton NCT7715
-> +
-> +    Prefix: 'nct7715'
-> +
-> +    Addresses scanned: none
-> +
->   Author: Frodo Looijaard <frodol@dds.nl>
->   
->   Description
-> diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
-> index 2d2d752aeac9..1a98ecb142c9 100644
-> --- a/drivers/hwmon/lm75.c
-> +++ b/drivers/hwmon/lm75.c
-> @@ -39,6 +39,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
->   	max6626,
->   	max31725,
->   	mcp980x,
-> +	nct7715,
->   	p3t1750,
->   	p3t1755,
->   	pct2075,
-> @@ -259,6 +260,16 @@ static const struct lm75_params device_params[] = {
->   		.sample_times = (unsigned int []){ 30, 60, 120, 240 },
->   		.resolutions = (u8 []) {9, 10, 11, 12 },
->   	},
-> +	[nct7715] = {
-> +		.config_reg_16bits = true,
-> +		.set_mask = 0x8060,	/* 12-bit mode, 4 samples / second */
-> +		.clr_mask = 1 << 7,	/* no one-shot mode */
-> +		.default_resolution = 12,
-> +		.default_sample_time = 250,
-> +		.num_sample_times = 4,
-> +		.sample_times = (unsigned int []){ 125, 250, 1000, 4000 },
-> +		.alarm = true,
-> +	},
->   	[tmp100] = {
->   		.set_mask = 3 << 5,	/* 12-bit mode */
->   		.clr_mask = 1 << 7,	/* not one-shot mode */
-> @@ -417,6 +428,7 @@ static int lm75_read(struct device *dev, enum hwmon_sensor_types type,
->   		if (attr == hwmon_temp_alarm) {
->   			switch (data->kind) {
->   			case as6200:
-> +			case nct7715:
->   			case tmp112:
->   				*val = !!(regval & BIT(13)) == !!(regval & BIT(2));
->   				break;
-> @@ -486,6 +498,7 @@ static int lm75_update_interval(struct device *dev, long val)
->   		if (data->params->resolutions)
->   			data->resolution = data->params->resolutions[index];
->   		break;
-> +	case nct7715:
->   	case tmp112:
->   	case as6200:
->   		err = regmap_update_bits(data->regmap, LM75_REG_CONF,
-> @@ -848,6 +861,7 @@ static const struct i2c_device_id lm75_i2c_ids[] = {
->   	{ .name = "max31725", .driver_data = max31725 },
->   	{ .name = "max31726", .driver_data = max31725 },
->   	{ .name = "mcp980x", .driver_data = mcp980x },
-> +	{ .name = "nct7715", .driver_data = nct7715 },
->   	{ .name = "p3t1750", .driver_data = p3t1750 },
->   	{ .name = "p3t1755", .driver_data = p3t1755 },
->   	{ .name = "pct2075", .driver_data = pct2075 },
-> @@ -972,6 +986,10 @@ static const struct of_device_id lm75_of_match[] = {
->   		.compatible = "nxp,pct2075",
->   		.data = (void *)pct2075
->   	},
-> +	{
-> +		.compatible = "nuvoton,nct7715",
-> +		.data = (void *)nct7715
-> +	},
->   	{
->   		.compatible = "st,stds75",
->   		.data = (void *)stds75
-> @@ -1129,7 +1147,8 @@ static int lm75_suspend(struct device *dev)
->   {
->   	struct lm75_data *data = dev_get_drvdata(dev);
->   
-> -	return regmap_update_bits(data->regmap, LM75_REG_CONF, LM75_SHUTDOWN, LM75_SHUTDOWN);
-> +	return regmap_update_bits(data->regmap, LM75_REG_CONF,
-> +				  LM75_SHUTDOWN, LM75_SHUTDOWN);
+Frank
 
-Drop this change.
-
-Thanks,
-Guenter
-
->   }
->   
->   static int lm75_resume(struct device *dev)
-
+>
+> > suggest name
+> > 	dma/engine.h
+> >
+> > so we can start move more API to this files.
+> >
+> > after all user include this consumer header file,  old
+> > include/linux/dmaengine.h rename to include/linux/dmaengine-provider.h,
+> > which only include by dmaengine drivers.
+>
+> Traditional naming would be
+> dma/engine/provider.h
+> dma/engine/consumer.h
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
