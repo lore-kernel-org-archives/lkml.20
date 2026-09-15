@@ -1,129 +1,65 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B4C3C062D
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:12:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A403C65FD;
+	Tue, 15 Sep 2026 12:13:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474379; cv=none; b=aGpr3/Z+q2LfZCdPgEI37UO5a9uS+uqXoEEmpTQv1dHYGKGqnaF3HNmqdaUwRKlH52wzwQDa4Wig8gaKxTPGVGyfq+EDUERZIXinT0MYGpN/0E0UxAYPOwN8z96CusOlPdjTwg8dVq/rKvd/sz0GJaeXRbbU0k1ioZ4Tt1+CbYg=
+	t=1789474393; cv=none; b=MFPaSUaOUstIdoqpLMOASRd1f4gA7e60mUZ+iJIShvLyeVWiTCs2F5SUEgclmbxjyegBqZGSv2+9emGD4SD7OAurqh23LR/W82jzYPve3t7YN4XwQtyYzyqI2OnmHFXixfTd/S27fSPrVpLln/6Xc8X1+YrTU7BuCT8pmGCVoGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474379; c=relaxed/simple;
-	bh=gw8YgWsYGT7lofU04wNq0RsE/wO4Kqm6A07sl/aqbHI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a/GOHHXqO10hHkc1Ow3QWRrhZPp3SFHk8XLg1aRUx2yxhRS9xvU3Yat29FzYINs9PpNd21O4F/mRMRjqGI/JGJy6520ufULt5Vvli+AF4T/SGa3FVdiKl+DjDaPcMvmy+x+ki0s2Uh1OwKsuUuDPyaEzKqdiAk3rm1UwWK190YQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=X5pW1zjC; arc=none smtp.client-ip=194.59.206.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1789474393; c=relaxed/simple;
+	bh=rcP1Zt+r+c8i7P9HMLnfG+KSwnTlxlPDfufoMKFt0yM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QvUZtmumZ+YiDJScMHMKPG291kcRlEOLAvX3IDyooh1JgopIEicom+ip84wwgd9lY08NQdO4iTQOQMxq8a/VieVrg7/kh4v3PkdMCs56qt19zMOkyY76GB31YwEp8+p/P8E4KDrM/+xQcUluc3K0cgz2n2NUjaNge3+pYNZun5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxoLtCbZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="X5pW1zjC"
-Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hkgrN6ls0z4RKN;
-	Tue, 15 Sep 2026 14:12:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789474357;
-	bh=gw8YgWsYGT7lofU04wNq0RsE/wO4Kqm6A07sl/aqbHI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=X5pW1zjCo4C1yvF5uU2SDe5awS4ZJsVVyMc9nYCe0hYcop1sIpbtXLwJz+DBL7W5w
-	 Vim6RriwEvJ/1DwQoAkV/8nzymlF85q2Ue9l8XkC1I9BL3Ae8OzaXVnwLIz0O/sqqK
-	 If/4eUtiMRQ4N0KX7C73CYkGuwSLE8C3SWJBCjoej7fRR78wK+jNPUDcS4tXZ1QHCK
-	 L7Xt1VLK7afM5bSo888qEPgovD7/SkOsfNQqi3dR2au9q3oSNhmRlXcZFymqzeniQF
-	 oLd3CnSRtNBW/V0SbQlXwKfDS1IBrp58+UGSq7bz7BI+WvcrdwAX57gu19MfSlZ++N
-	 2Mp4zKOoEmnPw==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hkgrN62smz7xkH;
-	Tue, 15 Sep 2026 14:12:36 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hkgrM2dx2z8tJf;
-	Tue, 15 Sep 2026 14:12:35 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 7F3425F9C8;
-	Tue, 15 Sep 2026 14:12:30 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <e84587e5-904a-4cd1-bbc1-408a674ec1d2@leemhuis.info>
-Date: Tue, 15 Sep 2026 14:12:30 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxoLtCbZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CCF61F000FF;
+	Tue, 15 Sep 2026 12:13:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789474391;
+	bh=rcP1Zt+r+c8i7P9HMLnfG+KSwnTlxlPDfufoMKFt0yM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mxoLtCbZ5g8NJT38V2nXx3kQMXq8zz7wa261boot03y/1mmOb8uEpnb4HgvVzXqbE
+	 Lc+BLr2MEwB+7zjlCcD9Q9qeYqKVACCOsKFW9yMVpHmTXMqtHVkiNOOQlElz6DH2cL
+	 qfBphOZ3delbUDrFqm1dV52+sHB7JppWyVGvQVAhcP+Vcr7mTyrRaVGoKVuRlWxgrA
+	 a0ZQjTcB9Fxaqpd6c2a/Z1vb/mAmnfz0/bCd8zDO3h3sznLEIo6QHFgrENGMHDk9qf
+	 flDXJ4YX6mmlM4kAG/dg8PRmGwgcbH40eS5i4n9wiRd9k9l8mEd5AlXPVBescbcVDo
+	 rqQ5leD9k9+dQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC POC 36/50] nitro_enclaves: install the enclave
+ descriptor when the ioctl returns
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Brauner" <brauner@kernel.org>, "Linus Torvalds" <torvalds@linux-foundation.org>
+Cc: linux-hexagon@vger.kernel.org, io-uring@vger.kernel.org, linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ =?utf-8?b?Q2hyaXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, "Oleg
+ Nesterov" <oleg@redhat.com>, linux-fsdevel@vger.kernel.org, linux-openrisc@vger.kernel.org, "Jens
+ Axboe" <axboe@kernel.dk>, linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, "David
+ Airlie" <airlied@redhat.com>, "Jann Horn" <jannh@google.com>, linux-gpio@vger.kernel.org, sparclinux@vger.kernel.org, "Jan
+ Kara" <jack@suse.cz>, "Eugenio Perez" <eperezma@redhat.com>, linux-alpha@vger.kernel.org, "Peter
+ Zijlstra" <peterz@infradead.org>, linux-sh@vger.kernel.org, linux-parisc@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org, "Ingo
+ Molnar" <mingo@redhat.com>, linux-um@lists.infradead.org, "Michael S.
+ Tsirkin" <mst@redhat.com>, "Alexander Viro" <viro@zeniv.linux.org.uk>, linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org, virtualization@lists.linux.dev, linux-m68k@lists.linux-m68k.org, linux-snps-arc@lists.infradead.org
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-36-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-36-4d5217d6b246@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 12:13:09 +0000
+Message-Id: <20260915121309.7CCF61F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] interconnect: qcom: icc-rpmh: Add opt-out parameter for
- QoS settings
-To: Marc Zyngier <maz@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Mostafa Saleh <smostafa@google.com>,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260907171729.1735641-1-maz@kernel.org>
- <v2gxqazjoxe74q5364jucy4pjds6gx4gfdchgulekl5mwk2azk@we4ibolioibm>
- <87ld9c4vc2.wl-maz@kernel.org>
- <6iixty74opjqkegpdmtytffgrllcjvrmhlsv53xtackdqzvwge@6fh5onz27p6c>
- <867bkw3zic.wl-maz@kernel.org>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <867bkw3zic.wl-maz@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178947435100.1590392.4866281565346045528@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 7F3425F9C8
-X-NC-CID: X8yQY5b46QOGgkRC7KMh3x3Dn9ay1/I95uA+3TcajQiagkk/Udk=
 
-On 9/8/26 10:42, Marc Zyngier wrote:
-> On Tue, 08 Sep 2026 08:34:18 +0100,
-> Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
->> On 26-09-07 22:15:09, Marc Zyngier wrote:
->>> On Mon, 07 Sep 2026 21:21:44 +0100,
->>> Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
->>>> On 26-09-07 18:17:29, Marc Zyngier wrote:
->>>>> Recent addition of QoS configuration to the X1 variants resulted in
->>>>> systems that spontaneously reset at boot time or under load.
->>>>>
->>>>> Given that this is both very unpleasant and hard to debug, give the
->>>>> affected user the option to survive such event with a module parameter.
->>>>>
->>>>> Passing "icc_rpmh.enable_qos=0" to the kernel command-line will skip the
->>>>> offending QoS setup.
->>>>
->>>> Lets not start doing this, please.
->>>>
->>>> Can we figure out which platform deosn't work and then maybe we can 
->>>> add a quirk in DT per platform?
->>>
->>> We have at least 3 machines that are dysfunctional since [1] was
->>> merged (mini-x, sp12 and devkit). Probably some more, but I'm not
->>> going to be the one doing a survey.
->>>
->>> What really should happen is [1] to be reversed until QC figures out a
->>> set of parameters that actually works, instead of making this platform
->>> even more unreliable than it already is.
->>
->> I'd rather have the patch reverted than adding a module parameter which
->> users might not know about and distros will probably never addopt.
->>>
->>> Just like [2] should have been reverted.
->>>
->>> Until then, we'll have to paper over this stuff.
->>
->> But a module parameter complicates things rather than just papering over.
->>
->> I suggest we get both reverted if they break existing platforms.
-> 
-> We're in violent agreement.
-Did anyone submit those reverts? Doesn't look like it from what I see.
-Do we maybe need to poke the subsystem maintainers?
+> Rely on the fd exit path machinery.
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Side note for the record (noticed it just by chance): afaics one fix for
-[2] was submitted meanwhile:
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-https://lore.kernel.org/all/20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz/
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D36
 
-Ciao, Thorsten
