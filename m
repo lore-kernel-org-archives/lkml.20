@@ -1,61 +1,64 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazolkn19011030.outbound.protection.outlook.com [52.103.33.30])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazolkn19010023.outbound.protection.outlook.com [52.103.32.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5731435AC03;
-	Tue, 15 Sep 2026 15:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245C54A5C38;
+	Tue, 15 Sep 2026 15:59:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.23
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487971; cv=fail; b=tIVxqg/e4QMD530kzj238HEUi6qeIlSfLISs1nMoKBIKxP/MJAt/CuC7NnWQcNFB3rwdoNZrdPCIKh8B1nvUHYRkuQE+2DbJW3YE7EfMShogpsbhmol3ps2LR3o7cRwKrIfC8yYri+t4jaVUNWfe+IigyzgxnMp/9hUhQPNDDMM=
+	t=1789487975; cv=fail; b=P4WxkOvXvBIvDKCSUY5nVodU27/ALmKiGbtNYwadzWOADtRlihbs/XBLGWEi6rm0oVwVZwKTjBRyN/2gdRfxZcqYdxPX0lvAb+DFMDEoEtAMGLKiiJW9XO0VzgC/jR3iR/atzwllShEa4KjBdBLJ8StuMRbloeDFUSkYoyJTk/E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487971; c=relaxed/simple;
-	bh=q3+D5Kfq/3Rw56J5Y3uKc6S7M8PW7ypCSUr81L+ChgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=p0Ku/os1CNzfnoOnnrYcBDbZYMbAESKLV2myGBTnfEK0mJy3Axsf1k+KEfGW4H+E/aw0ShBE+x9YiNar85FeP8hGalOnK7dcOE1ifEwvYiWSzHyxYI81WUrU2zfX6Xo8/L3gqRZ3VYlK2CnHaF0nrra8RP9i1lvRn+fQJevHuDQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de; spf=pass smtp.mailfrom=outlook.de; dkim=pass (2048-bit key) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.b=kkMFDq4e; arc=fail smtp.client-ip=52.103.33.30
+	s=arc-20240116; t=1789487975; c=relaxed/simple;
+	bh=4WNqPyO1EJjW6yRwms2Tou3oa7TvxFURxIJDGTFVir0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jAHzNXN9XfvXZeucm3cEFc/bR4/fv4G0mi/vG9LiQ+m/NcmSnD3SAl8kKVzaDHeoM4maV2Q+s1umoUfnLyb07+jIyxZQHj/n6uQ2PubyyXiCstjqSL2XuZXByUx/k7W/7xqcbbRPvAWVZ0FdPOXehm2vjRYqyYQ385QRpBIByHU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de; spf=pass smtp.mailfrom=outlook.de; dkim=pass (2048-bit key) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.b=g+mzvWgc; arc=fail smtp.client-ip=52.103.32.23
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=outlook.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.b="kkMFDq4e"
+	dkim=pass (2048-bit key) header.d=OUTLOOK.DE header.i=@OUTLOOK.DE header.b="g+mzvWgc"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q/nK+DEG+GKdNPBTn89dCn4GlsvK+3B0zFUw3GL+9HFtzcY+04SyS7sSNiQIZP7+/qVq6rLyreCV5l8TbmoLyBLZzt2mt2EhadlAXs3yVeRXDfyxRuMj0wSKJbyBjVoCFHRnLJQa/jVYRVnMzbSVFBTyfFPUl7Vvilbd4BCKYr6VRdnfNwGDKm5Mddc2vK2LmBJ4vHdep8BUhmY0kKz6P/kjDaG3VNg6xKFYiHD4bpUfej68a3PZO6bvaqtoaHQH/jRQVxane56j6xP8Yy6lkGvGGsaEeoXP4EioYyEbsXW1m9hqz+XYVpzBTVMeaa4ipy6IzeFXB7qmOgYBL1/HRQ==
+ b=XFNz3LFIaTPLjwb44EO7Pfz7FjDuZwZZCKeqapfawaqIc2Z0w4aKdY/CqlOoLncv16FpIexrg8WwHe4URBQoL6oN0872+Fg8LTodHe0faZcAibLN6FFiRbptsAZj+xYUVwCAEcV9Kvcu+LIx8ntepYk9Xdl3INEvpwcy4hwgOkQGQP0Qe6hYy9Rpoyl1YqxmIqDxZSZSa+NkLh/Z1tQX0enEA6OhlihxKE8XdUCUNzEH3m3RM1ggJjJw9aPQfvgAlKv8sUJrh8YO85W8PPLO3lSH7fcNY1aEuFlSL7R9TbgMDlzTOMK7JcBbes/R2ylM2c3zpOseOzCrNvjjmw7xhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BNLJ20R7CVgBMHMxyrcj0Xv0lokdUSdycinChYaoCVA=;
- b=XMRN+vzqjjZyr6r1lj16V36MmajF53aiWjZjld9si7fflH8BF+FpcJxr9PQ27R0ujKxPY9sjdoEfuddCOo61TD6Cqt0cyegbuYfdkjl4e7HCow6gAqv7Cd7rOoVuAm7EgLUpAh3OPwPxjQ6q74Edq5MPfmWMluUBqH/M1wwovC5ZGRk/+a9tprW/thLOdx4IZOa/w1V7ilK7KzxPrw6wgbeBnsfh0EvAA1DdrupRrwV6QXMr6cUfWwdiLNfYHY1u6lCSwRd+v2Vn1hMQf4Ez01Jg4YxtorLAt0PDM4UUvEjiNpra5Brjcahhszxk3VlNh0whQ5Fw1VLp/LjZVhjWFw==
+ bh=KN+pSNUTDaJzwY+tFGc1+GNldwKyYYTHp69T+N17z70=;
+ b=oXTk/T/fwd5zEr48YYbXPWFIOxgKn+I2IrE8BDBf6SKF5rChspMJMV7wPB7YlL3R3yox1eVG5qpj2x9iv2rTJ3qx/2g9iH2IagBAxoYT67zQbWQtk+VdiPq/RsSshxxDfMhra7ym9MTyaknIGzjn+wbkFgcAbrXxM46FNAzV6cIcHdlQQtGPgrNy5IWqlKR8WpGs8td41mSlIBX8SSJY+YpICIU+ekmpASY57p74IGO7iOUX56ACAYk8C1MXv0+ZlQcVk43+TTHrWYc9Nk9pSQjgUSkSUVEOs8FyX4Osnlu7XVOZlTrbjc5J4O6ibbmyNilo9lM+twXklP6kp40wvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.DE;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BNLJ20R7CVgBMHMxyrcj0Xv0lokdUSdycinChYaoCVA=;
- b=kkMFDq4epGvWRzUTYQleNXUI9HC6ln9eUIesfUiy1yvV4Pll5TOx2r93sp57uO2RAgknoMx14OHjNnzqms2S1Z4wuIH54cQaHbW59PZOtHMo7Rv79ODw72J46eRZ9B3Y6jcyNA03z9w05vL+mLlq3oxZyBq3xov7PQRpbMiThanjlb4DaPF1txkkfCe7c/3uHJ88Jg5/5WBaSP1R+gMoEWXrg0cplcpmDwKRpHLDD35GEdrd9W7O1lf8Wu9nSmTID8urpsR8EUqcWGltvP2DbFQ/CfOCQ4djEdlaxd+GO1yK8Pil+/xoFCV4rsO66ZEt1FizRWWjn49kFm8nar/AAw==
+ bh=KN+pSNUTDaJzwY+tFGc1+GNldwKyYYTHp69T+N17z70=;
+ b=g+mzvWgcR8nJUGCMYMRGI4dHNLfcIZdit3dXxx1IX+A3L+JeJXJAkNF+CmUObVOHlUSqVx1K64LB24exakkYocbpZiogqZCnUUfaHd9XxEViCHrbJXrk2nz4EUGEXd0RnyodUU9Y8OvQA9OlvZ+0RBastJ+sduC8sp03AZ+hzZ16QgN6daaK7/TnsBFDUjPCp7ikSKECpLxmoutDkrK5Oy6dVp1JDIbh2fvUSKX+wv3TXOy7yKm2PxaHE0hJ21djlWGKUjQUVssLgRxM0/BhdNHgmVANnLwjjrniSOX9ZwlOAZgsdf7d0JxBziAsb6I4eBe6HUqvY9sqzz0+yysv7Q==
 Received: from AMBP191MB2886.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:6b0::11)
  by GV2P191MB2334.EURP191.PROD.OUTLOOK.COM (2603:10a6:150:d5::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 15:59:22 +0000
+ 2026 15:59:23 +0000
 Received: from AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
  ([fe80::f9f:9408:b010:9883]) by AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
  ([fe80::f9f:9408:b010:9883%4]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 15:59:22 +0000
+ 15:59:23 +0000
 From: =?UTF-8?q?Luca=20Rodenh=C3=A4user?= <otzelot2021@outlook.de>
 To: perex@perex.cz,
 	tiwai@suse.com
 Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Luca=20Rodenh=C3=A4user?= <otzelot2021@outlook.de>
-Subject: [RFC PATCH 0/8] ALSA: untruncated card names
-Date: Tue, 15 Sep 2026 17:59:00 +0200
+Subject: [RFC PATCH 2/8] ALSA: control: copy the card bytes outside snd_ioctl_rwsem
+Date: Tue, 15 Sep 2026 17:59:02 +0200
 Message-ID:
- <AMBP191MB2886193B1F896974A7CE23E1CEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
+ <AMBP191MB2886BC8F731179ADEAE6CB63CEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <AMBP191MB2886193B1F896974A7CE23E1CEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
+References: <AMBP191MB2886193B1F896974A7CE23E1CEBA2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ClientProxiedBy: FR3P281CA0190.DEUP281.PROD.OUTLOOK.COM
  (2603:10a6:d10:a4::8) To AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
  (2603:10a6:20b:6b0::11)
 X-Microsoft-Original-Message-ID:
- <20260915155913.421839-1-otzelot2021@outlook.de>
+ <20260915155913.421839-3-otzelot2021@outlook.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,82 +68,79 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AMBP191MB2886:EE_|GV2P191MB2334:EE_
-X-MS-Office365-Filtering-Correlation-Id: 645ed2c1-d711-4e11-f512-08df13424eb1
+X-MS-Office365-Filtering-Correlation-Id: 927b11fe-84ee-456c-f0e0-08df13424f2c
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|25010399006|51005399006|24021099003|55001999006|4140399003|41001999006|15080799012|12121999013|19110799012|5072599009|8060799015|23021999003|6090799003|5062599005|25031999004|22091999003|24121999003|40105399003|12091999003|1602099012|10035399007|26121999007|2607281247196008|56899033|4302099013|3412199025|440099028|1710799026;
+	BCL:0;ARA:14566002|25010399006|51005399006|24021099003|55001999006|41001999006|15080799012|19110799012|5072599009|8060799015|23021999003|6090799003|25031999004|22091999003|24121999003|40105399003|12091999003|26121999007|2607281247196008|18061999006|3412199025|440099028|1710799026;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bERaKzB1Yzl1QTU4ZFhrRXNrNGU3SlgvZkRSTnowbUFzdTNKb05XKzRzYVZY?=
- =?utf-8?B?aGlIM2dBMDRqbWg0ZytyWHQzeGY4cUhCbjJjdnpWQ0szWG80Q3VNdk84UUdC?=
- =?utf-8?B?ZXNERmVTTXZtVS9hQk1samJWOHVZaFhJaFRsN3UzU29qNXgxYm5kRThSeGto?=
- =?utf-8?B?Mkp3OUZzaTFBV0hNaDVvQ1pqcFhoSWxhdEhXT3lXeXJEZFkweFVtT0N1WGsw?=
- =?utf-8?B?dmVDRDNsRUY0aW5EU1FRaW1Wbm83b1pDTEdlakUzWkZrZkdZNXR2U3lVNldR?=
- =?utf-8?B?d3pkeGpXN2J4ejltMW1NdFRIUFlpNm5TRWxWUXc5STZmNWdwYkROUUJLWW9r?=
- =?utf-8?B?TW55NkxKM2dwakVnVWNQVDZrYlRwUlFmd0dUemo1ZDhMejV2ZFpBb1lrdnZm?=
- =?utf-8?B?dTVobXhkMkxQVG1pWmV5aG5JamFESEdCMTd0bEFEc1owcXpCdjdEa1JrRWZB?=
- =?utf-8?B?UmZBdi9reHptMEpNbFpFVko5eXBXQmNUV0FrTGltVWk2L2VYVFNhT0h3ZTJk?=
- =?utf-8?B?NmdtMHY4ZmhaSG5Ia0pwYnV0YVVvRmFpSVlheTRqOHl4emJqWkY3WjJ3VE4y?=
- =?utf-8?B?V05zRDVFTks2cmFiZTZwK3FNckVsU2tueTAxUERJMU1CMHo5ajlySU13VS9T?=
- =?utf-8?B?MXQxTEVyejRiTENONHUzM3ByM3Y5VVl2dCtZb3d3RXJjUE1uQitnM2RydFhZ?=
- =?utf-8?B?Qk5paGVoQ0VadkFUR0drL1d1WmdBaFBPbGRoY0piTzR4cTlxekZpRVlWempH?=
- =?utf-8?B?NytBNEYzMStnYUdUZW93STM0VGFJTWdTMzJ5R0hHb1NpaVUrQTgxWUU1ZW50?=
- =?utf-8?B?NEx3NCsyWGtBSk1qRHhveG9PdUQyaU80bEdpMUVnMGR2T3JPTmdLY0Mxc3Yw?=
- =?utf-8?B?RVFnb3lETDZRM084VzNyeU5WdTB0M1JqU2YrdDV4eVBHNzM5TmlUOGwzQTU0?=
- =?utf-8?B?YldzbmtwUk9Zc1Y3ejlMaTRMSzY1YVZUZkpYRFVGajJHdHAzQ28vTzBsWEZD?=
- =?utf-8?B?V296RGxhTkIrd29HWDU2OHhZQ1dPenJiYkl1WXZDYjloQjg1c2NRUnR5bHFY?=
- =?utf-8?B?Mzhaa0VyQ3JVWE8yK3h2WVlKSVVodGpCTHA5dkhLQXd2YnhJVkpsWGZvT1NT?=
- =?utf-8?B?VTR1NDhjcFhDUC90NE5KZ0liM2c2ZFJmUDJ2cmJ1WG5lSHMzT1M0bmlKbW0r?=
- =?utf-8?B?d2k1bG15UFFNalZNb3BnaTIydkhRb3BqMGxHc3ZDQW1HTXlPVmhFRWVsM1Mv?=
- =?utf-8?B?aFN3Y21zbS82b1lHWk83cGNQR0wvVlhhb3h3SUhJeG1KcTBYSkNmTy9SSm4x?=
- =?utf-8?B?dEhLR3JUUmt2WmI4ZU11UGhnV3dURlE3ajcvblBRQk1nZVd1dXJTWUZSVUln?=
- =?utf-8?B?MEw0OG5hSU0vNGloQjFzTHBpeW1OK3JJNUlMVERnaDk2bWM1NU9FekFmSUM0?=
- =?utf-8?B?bmRWNHBpSmtKQi9hcXMwTVFGc1NTVWJCd1pNajZTY0pvQ0hsbFVrRU91RUxW?=
- =?utf-8?B?V3ZsRTJiYkNtQmdrS0hnaE82cTNXeVhFSkNFUXl3RjVKWVBXL1RINUgwZFgw?=
- =?utf-8?B?Unh0L1dXZU9lcFErN2JqSWJWOGIxUUZnd1FQcHdGdkhBbW9QSXpyUUV3OXkw?=
- =?utf-8?B?RWRSRkl6TUgrVEY4ZkNpL25EbGtERFJZb3ZnWDRMWVBRSkoyQi9pVVplV0VK?=
- =?utf-8?B?ZUJncEg5S3dncHl5Wk5GNXREMGc5WVNTRnhwVlY3enllSlpxQXUrbERTYVVt?=
- =?utf-8?B?ejkrcStwUUtVU01VWVJscHQzbURsTFZpVmh3N3Q3cUVYdS9xK291MHRFZVJG?=
- =?utf-8?B?eWVoTkpVNFBjcWJPSGdNa3U2Wnd3c1RwL2NtT1pRQmFRUDBlM2dOUTZNVW02?=
- =?utf-8?Q?SqLNGUFd9/6QI?=
+	=?utf-8?B?MGg3aGd0RG9XSjc4dEsyejBwZVl2VlhPeTNkVUpGdUl1SHlzSnR2endPOTcz?=
+ =?utf-8?B?SVdGZDdDOVcyYUJMazdjcCtDWFk4amhCeDltWERmbTNCaFJNSlBBbU9heE13?=
+ =?utf-8?B?RElEQWRkbWhjclNpMnU2OHpGaHdiUGt2dC90TkhRSWN0OW1hTVB5a1h1ZnVJ?=
+ =?utf-8?B?NEZLdWpWejFWTW1KNTE1aU1ERDVJQTFzZW0vWUpCQ0l1TDU1WXZZMmFFSm4z?=
+ =?utf-8?B?WEhwdFRoK05PMGp3V29MY1dMaGNJbHF2TjN6V2RlVm53ZUxIYzVKN2hrOVg4?=
+ =?utf-8?B?T00yalpBUjQ0cXRya3pMVmwrK3FOaWpPenV5NG9XY2VlZE1PVFBDT3FXK3Z6?=
+ =?utf-8?B?WTEySU5UZFd6dFFZK0RYa21PcHBRYlM5OVVMY1lGN3BqeU9aN2pZVmFyNlZ0?=
+ =?utf-8?B?R2pabGdyYnJ1NTA3cEpCRWU5T3BLMjkrWTNNdWEyQUM0MjAvcXlDY01xNXJm?=
+ =?utf-8?B?MkhUNThEcUVjTHBIaElFbXZKTjkzREcwVWRrRWxvWGxqQU5oRjV5SW1sYUVJ?=
+ =?utf-8?B?NVkyMXJCb0c1YTlPYnd0Yk0xNktkWmk5ZWZBcHh5L2Z1b0hQZ2NaL3lyci8y?=
+ =?utf-8?B?S0hzMTM5eDlteklhdko3ZEFSU1I2cVJmQjd1VUY5MXdEMHVCZnFPOHhveEF4?=
+ =?utf-8?B?TDdsNUFMVU1SYzN4L3QxNy8xUzc4VlZLR2FEaFMzUlZScnlIVFhSUS95UjV3?=
+ =?utf-8?B?K2R3blZYbms4cGFZMHJOQ3dXN3NnaGZvYldrNHlSSy9VUUFMNURITkF4dW5L?=
+ =?utf-8?B?ZHJrcWlUSVlveFBOK0JKUU1Pa3VxZ3Ixd1JUeThEVGdWK1AvV3BDM1FodFVz?=
+ =?utf-8?B?eEFrVjNWSnp2ZENKU3RuRCswcFg1V1A2SEJ4dG4rdmY5UmZrL2wwOHlSbUUx?=
+ =?utf-8?B?N0tzcGhMM0l1TEhTcVhiYUpQOVpsOTFYWWxSZmZ4MDFHZmc4S2ZEK1EzWS9y?=
+ =?utf-8?B?aGlkdjhnb2ZYWVE4WktkblR0UHRZeFNXN3YxY0Z1N08xZ3lBK3hReGo3eHdF?=
+ =?utf-8?B?S01SYkc5OXMvdkZOV0ZURWZUcUpBWjdrdG90emxVZlJWNjZIUEpxUG9HMU1w?=
+ =?utf-8?B?Z292MCtKMVVpM2pJc3lrN25OemVMdEFUZGxqWXAxT2xpY3RiZUNLdk4zekxG?=
+ =?utf-8?B?ZmVwWG5HRHAvWG8vK0F2RFFSeG5nenZSdjJsNVUxSkYyVGVqL1BNNDA1YjN1?=
+ =?utf-8?B?Nk5JaWhSc1FJZ0VQb01jYXBhMVFaQTEvSkJVblpSU0xueDhOM0h3MDFGSmpO?=
+ =?utf-8?B?aTBDYmh3RHNkekl3ZWhFVGRIc1RPYlhTSE0vQ0p3MEdoRmtqckJzamlWdmJN?=
+ =?utf-8?B?Z1VWc0xSNE9vZFJrVUI5eTkvUFo0MThBR2tXbS9pUE00SU9QYmxlS0YyQm83?=
+ =?utf-8?B?SmxYOFNYOXkvSE9jblNIdGFNU0VLaTA4Q0xYVUMvb3dnY2RtQkw2aWU0c2Vo?=
+ =?utf-8?B?Ui9aeXQzME0yNmZXUW9TZXZrUDg4YkozZGxBSlVldVVxYXF0LzJSOTJPYzNT?=
+ =?utf-8?B?Q1VnU2tvd0ZldTU0ZWVTWVNxZVgrWjFBTWl0ZlY4REY4L2xaTjc5VTNzbHJX?=
+ =?utf-8?B?YXNoSjM3bnJteEdiaXhKWC9FU20zdnZEa3B6MHordjNOeFdmYzd0K0IwblJS?=
+ =?utf-8?B?NGtXUEhNNXVmWjZCeHIxdG52RGxybjM4K0xHTjRNM1NzaFlKOG5FS042aFdV?=
+ =?utf-8?Q?708B8C0GvcIvhSS0NJxl?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q2lYTUZGNFZqOENQeXVwZWRyQmxCY1FvUHhsLzlJWjB3VXo2YUs0RHQ3czJx?=
- =?utf-8?B?eFRjckZ1Mk5UVlY4VEkrRnRLdTloWlZkd3F0M25xOUtldTBsTXBGazBYYzcz?=
- =?utf-8?B?bWxsR1VVbjB4Y2ZOVGVXL0Y3ekw1WnNJVm9rY25maVRhQWZZL0hDZ2dyNHVK?=
- =?utf-8?B?MGdSRC9ab2FSU1IwOEYvYlpqMmdWWXRJVVI5TDdNb25yN1RUOWMxRTBONXhk?=
- =?utf-8?B?dWtUVDRPOTZFMFNzNlRHYVNlZElvMkJweCtuU0JQWUoyblFKbHYyaExnTWVH?=
- =?utf-8?B?aHpUSDhNbm5UYzh4dUNZTzQzMVhEQ1lxaFRCZmh5T2FhUkZMaCtXL1NQb0N6?=
- =?utf-8?B?cDBWNUNrbGU3dGUyb21hc0JzTldoQnZicFl3VnExaHlvUnFiY09BUythSmNK?=
- =?utf-8?B?VS9jTDR2RkxFUFdNQnFHL1ZQbkZ2N1FoUXV1Z2dEUWxGSWRyRjFpT3pZb0E3?=
- =?utf-8?B?MWk4bWlFQzNkV1RhUUpyUk5hZWhZaXpoZWV0cVQwcHVxbndzTDd0WEozeVBB?=
- =?utf-8?B?QVYrTHVwaWRUd2NPdUs4SFU4aDdlc2RsZnNZSHRxUk9HSkpBM2FXVGJOYXAw?=
- =?utf-8?B?d1JRYkVXelEzSWxwK0RJaThaK0RXVTNYUjBCRGMvOGtPbnRJTlorclA3Um4w?=
- =?utf-8?B?L1U0MEpHOTJmRWJ2d0ZlVzRjUlJLYU0waHkxTUNjRDFzWE43WXpZcVR6R2Fr?=
- =?utf-8?B?bGtEK3RjUnVQbGV6ZVl2KzV2c202Nm1BblBzbFpsRW1IaFcyWmozVWVHRXhK?=
- =?utf-8?B?T3pTdUxOMlRiSStXM0VPanBtbzl5ZXR6dzVkVlpXZ0lHcWsrMW90dUtyMFl1?=
- =?utf-8?B?NnBCUGQxZXYrdWhGUWw3djd1N2kxWngrenhJemYvV1hRcmIxUnNGK3phRHEw?=
- =?utf-8?B?eG5Kb2d3NWx0MXFOcitRWno1b0xmdDJnVnAzOFZCazZXbmxjU3ZmaCtnTUVn?=
- =?utf-8?B?YkFRZTZyc1d4TEs2OU1ReldDM2FiSG9WT1NqU0k4Yk43RFlBenZ3eGcxaHdm?=
- =?utf-8?B?TVZOcG43a0ZGMkQ2SDRhSHBmakc0b0NVOXJWWkpxblAzcEJEaWt6RFZyNUxj?=
- =?utf-8?B?T2xlK0FwSmJmL0xhNkFubDZiUjR0RGtGOU1NSHpDb0pZR2ErUmV1NE5ocU5i?=
- =?utf-8?B?eEZwaGZJRVpOYTVac3VINmlpR1BGSXU2U25KWnk4czVBMWZtQnM4c0dlS3A1?=
- =?utf-8?B?bC9leEtCTU8wNGMxMlBLK3FHUmpKeENvMnRBLzdNSnRlbTFmaWhIUFZLbFlW?=
- =?utf-8?B?YWtNWjVRSFJYQkloNTVyakJuQndpcFphZWFvdGwya1BzN3czVldEQkduVUtF?=
- =?utf-8?B?YU9HT0wzUG4yV2FEa2xVTG1hS3ErRVdKQjNQcXh4dW92SmkxQWtWM2o4aHp5?=
- =?utf-8?B?YkVFdWladVA1RVhwUzNwVE1RUU5SRVlMeGhxM1hIYUorc3B0UVU3R1ZPbDlB?=
- =?utf-8?B?OTR1MTc2ZkdqUER3SmhOd09wQVZ1RklEc1FFa1ZaZEl0bVhYeEhremo5YzM2?=
- =?utf-8?B?eUdybG1yLzBlSitiQ1N5eUdoRVlXQnIyVE91cUg5eHJxSW41LzdNSDMvNkE4?=
- =?utf-8?B?aW5jd3NVWVVGT2cyMUEzY0ltcFdjZUt3RCtXY2p3YzFNOHlmeE4wM2k4TlNU?=
- =?utf-8?B?eDhwMm5WYkVOYStTb1diOU9tckk5U25vR0Z5YjRzRE1HbFJUWUYxdGtrdmU3?=
- =?utf-8?B?OG9HNHQrcHdjNDRSWVZ5alJjdi9vOWQ3bGNoNFBvMmZHQTgyb2dkRDJnZmhV?=
- =?utf-8?B?dVlkUU4zQnZnb0lxcEpoWHZTdlpuUXgwK0RRWTRRQUtwODF3bUdvWHBVdXdT?=
- =?utf-8?B?TlNlT00wVzhPQ0hudk00WXptS2ZTU0E2N1NpcEUrd2JGdk85MGJQeWdJaDRB?=
- =?utf-8?B?Mm04dGdsNjJuZTlwcHNwR0xPSDRVeHpZQ241NFNOMjBRa25VZk1EeTRFNWlh?=
- =?utf-8?Q?JK67CYr4IjYp+6Wf7ckrrGEKrv24sRqf?=
+	=?utf-8?B?OGtYUjlRRmZKc1BIUXZ5MEpxUXJ1ODhwRDg2NXVwbmV4N0FJbTR5Wkh2ZGg2?=
+ =?utf-8?B?NTdvVlNpaXJTb3NmMkhSR25jb3MrdVNpUkVjcDN3cDM2MGRGWFEzUmpnQTFG?=
+ =?utf-8?B?UXNQR3dBWDh6dXdQZEJ1d3BXWU01SkVpcFFwZElidXhETFhaZXBGV28rWWFH?=
+ =?utf-8?B?Q1dndTRoK0tMWllHV0tDcTBHMS9LVUdYdmNrVFQ0UWQ4bTFzaE51WlBpaVU1?=
+ =?utf-8?B?QnFxUHVZK0NKdjdjMG1yWWtWVU9zaSt5NlNETy9ZOXRhZlBSU09SamdZSzRI?=
+ =?utf-8?B?RWFmb1lZYWxCSC95dldmTTlSMnI4R1FNenBDQnZvSUJGbTQxL1hieS9YeWdi?=
+ =?utf-8?B?akpaeDMyNDJHZFg2WkVwS2o2WlNEWXZpT2Y3S3poTU8zakFLQmtyS3NZVDNr?=
+ =?utf-8?B?VDR2WmdTZVVCMGNUdkRwNVYwcFJYdWxETmxHOU1pRUhBUkpZVndnNFNRSDdE?=
+ =?utf-8?B?MEpLelZEUER3Q3lLZmVlVTZmNG40VTJCWkx5TmJMZnhoVHJaejloZlYwSEJu?=
+ =?utf-8?B?T2h4L0szQ1ZXNk9KcG5qbmQ3Q0duakJRVFRMWDZOQjRCOVpVZDJnOUkwR242?=
+ =?utf-8?B?ajROb0RhVFZsNHA3RXoyZ2tMVUk2MVZVR3EvL1F0N1VYcFBleS9NN0hURUF0?=
+ =?utf-8?B?S3FldzlCbnpLUlRxZko0L3hDOC9ZcVBGTW1WSkF1ZHplb3ljc3Y5M0ZUQ2lq?=
+ =?utf-8?B?QnF1Rjg5Y3kzTXVGMHhLMEZ3TEJIMFBUWUVaSmFZNld4SnNETGZ0L1k2WmxC?=
+ =?utf-8?B?K1VuR0ZCSlJMKzVYbUc5MmRlMXNGbG9FMVRwMDVsRDVZY3pWYjRndVpuOSs3?=
+ =?utf-8?B?enpBODdRNDhDdDJNb2srSERlUHhCSXJyZFlOWmxjYTIySzFNWkdlT0hPNnpL?=
+ =?utf-8?B?Tlh2WThIVDZiaHZOMXE1NW1HWjFtb1ZzeS80ZGJqU2laak9xalRUMmdGM3Vk?=
+ =?utf-8?B?VjZGZC9FS2kwd2N0NnZaWnVPRzZtSGF3Vmx5ZllxcW91SjhtNzFkQXBzUFdq?=
+ =?utf-8?B?U2ZIWS9RRGRDdGhFOHVKaVZYUE45UFhCYzFjaDcyelJxSG9iSkJDbGl3MEJN?=
+ =?utf-8?B?L2J4dUtTUUtIN1MrQWdiREIvSHZlMlRRRDgxUW5HNERjUHg2MDJXQkZKRDZH?=
+ =?utf-8?B?bGd3ZFB1QmhuelpxdUtkSDQ3MlJyZW50S2FUL2RnNnlDbDVtWkFtOXB5aStH?=
+ =?utf-8?B?WG5aMjJqUVFma0NtSDRtczRWdnhuTUR5N292RjN4ZkVPdE80YmdqME4wdWlC?=
+ =?utf-8?B?VExuamt3UHBLR3RnYVhrN21tUWxxMXZoNnRWNHphNVdmblVSTHNmNjZMVFUv?=
+ =?utf-8?B?bk5IZUwrUG5KQUNNay9vK2crVUFrTURXNmd6SEhXSk0rdDV1dXU0a2FXSWla?=
+ =?utf-8?B?L0gwY2VDSy91aGhQbE8rVDZMdFQ4eGRRZmZ5NEVrY3UvTFBmM2VrU085S2x4?=
+ =?utf-8?B?RXBZZDVzY2ZoYVJUU25aYmdiOVBRRjM1OW9uRXZpWlFwUmcxcGt0L0VkUnRr?=
+ =?utf-8?B?ejgyWFU0ekNhNlNVWFdPU2ozNk5BZm9WdEtlek1aTGdBSFlVY0lGbldqT09r?=
+ =?utf-8?B?Q09sVHcrOGJwZ0NDMzdvU3JzWmJ2TVhBK3UyMXl0OGIxdHZtVWhCTXJVM3Zi?=
+ =?utf-8?B?NGVnTit4Y2VyaTQ2S0hqcDRFcDQvaXJ5ZkY3dm01ZXBTdTQyM3dsKzg1TUx1?=
+ =?utf-8?B?WnhEVEw3QUhYQ1NGYmMvZmo0aEcxUkp2dHBaU2YzYUJUN0VObW5SbEtOQmlW?=
+ =?utf-8?B?N09zK1VxWEk0OWZNZ1hXMUswSDFnaUVVVE5FS21xMi81MEVWOTlYOUpZSmc5?=
+ =?utf-8?B?MFJicVd6aTAzYWFZM052czRSQlVGd1NMemRoQ3dFSmtENHNXekZmdmg3NjZa?=
+ =?utf-8?B?M3RjdGxXeGY3VC9LT2swdldua2RPVmxlQW9WdHBHS2tWbER2NGhJVWl0bzJN?=
+ =?utf-8?Q?vXQt2YBktrCRpSifQAA/Je0ncLvJIHqN?=
 X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-061ba.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 645ed2c1-d711-4e11-f512-08df13424eb1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 927b11fe-84ee-456c-f0e0-08df13424f2c
 X-MS-Exchange-CrossTenant-AuthSource: AMBP191MB2886.EURP191.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 15:59:22.1060
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 15:59:22.8875
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
@@ -148,232 +148,109 @@ X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
 	00000000-0000-0000-0000-000000000000
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2P191MB2334
 
-This is the series behind the design question from last week, shaped by
-what both of you said there.
+snd_ctl_card_bytes() holds snd_ioctl_rwsem for reading across its
+copy_to_user().  That lock is global to ALSA and is taken for writing from
+the card probe path, by snd_component_add().
 
-Link: https://lore.kernel.org/linux-sound/AMBP191MB2886BF4BED02C050FB4D6B76CEBB2@AMBP191MB2886.EURP191.PROD.OUTLOOK.COM/
+A user buffer that faults can be made to take arbitrarily long: with
+userfaultfd, or with the target buffer mapped from a FUSE file, an
+unprivileged process controls when the fault resolves.  While it holds the
+reader, a writer from a probing card queues up behind it, and because rwsem
+is writer-fair every later reader queues behind the writer.  Card teardown
+then waits on the probe path, so an unprivileged reader can stall the
+removal of a card it does not own.
 
-Takashi:
+Take a copy of the string under the lock, drop the lock, and copy to user
+space afterwards.  The extra allocation is a card name sized string on a
+path that is not hot.
 
-  "I personally find it OK to have UTF-8 strings in short / long / mixer
-   names.  That's no new problem, and it's been over decades.  Of course,
-   a broken letter at the end could be a problem and we can fix it in
-   either kernel or alsa-lib, too."
+While at it, report the required length even when the caller's buffer was
+too small.  The -ENOMEM return told the caller to try again with a bigger
+buffer without telling it how big, and data_len is what the query form of
+this ioctl exists for.
 
-Jaroslav:
+Assisted-by: LLM
+Signed-off-by: Luca Rodenhäuser <otzelot2021@outlook.de>
+---
+ sound/core/control.c | 46 +++++++++++++++++++++++++++-----------------
+ 1 file changed, 28 insertions(+), 18 deletions(-)
 
-  "The fields are printed in procfs, so the kernel code should do this."
-
-  "Accepting UTF-8 in fields and provide short-long/long-long name through
-   SNDRV_CTL_IOCTL_CARD_BYTES when it does not fit to the standard field
-   length is also acceptable (as for the components string)."
-
-So the series does not introduce a second, differently encoded set of name
-fields, which is what my first sketch proposed.  It treats the existing
-fields as what they are - UTF-8, fixed size - and fixes the two things that
-follow from the fixed size.
-
-The problem
------------
-
-usb_string() converts the UTF-16LE string descriptors of a device into
-UTF-8, so dev->product reaches the card name fields as UTF-8 already.
-usb_audio_make_shortname() copies it into the 32-byte card->shortname with
-strscpy(), which cuts at a byte boundary, so the last sequence can end up
-truncated.  What user space receives is then not valid UTF-8 and cannot be
-repaired, because the missing bytes never left the kernel.
-
-And cutting cleanly is still cutting: 32 bytes is eight CJK characters.
-
-The series
-----------
-
-Two pre-existing fixes first, both in code this series then builds on:
-
-1/8 stops a non-ASCII byte from reaching card->id.  copy_valid_id_string()
-    has a path that copies the source byte guarded only by isalpha(), and
-    the ctype table classifies the Latin-1 high bytes as letters, so a USB
-    product name like "\xc3\x84" "3000" yields an id starting with 0xc3.
-    That id becomes a /proc/asound directory name and the hw:CARD= handle,
-    and sysfs id_store() rejects exactly what the kernel produces here.
-
-2/8 moves the copy_to_user() in snd_ctl_card_bytes() out of
-    snd_ioctl_rwsem.  A user buffer that faults can be made to take
-    arbitrarily long, and that lock is global and taken for writing from
-    the card probe path.
-
-Then the truncation, which is Takashi's point and, per Jaroslav, belongs in
-the kernel because the kernel is what prints these names into procfs:
-
-3/8 adds snd_utf8_strscpy(), which is strscpy() except that it ends the
-    copy after the last complete sequence that fits, and uses it in
-    usb-audio.  For pure ASCII the output is byte for byte what strscpy()
-    produced.  If the string turns out not to be UTF-8 after all, the plain
-    cut stands.
-
-    This one stands alone: it is worth applying whether or not the rest of
-    the series goes anywhere, and nothing later depends on it.
-
-Then the length, in the shape Jaroslav described:
-
-4/8 adds card->full_shortname and friends, holding the whole name,
-    allocated on demand, NULL when the name fit - exactly as
-    card->components holds the whole components string of which
-    snd_ctl_card_info::components is a cut copy.  "Set" therefore means
-    "the fixed field is not the whole story": one name per card, in two
-    lengths, never a pair that could disagree.
-
-5/8 returns them as three more SNDRV_CTL_IOCTL_CARD_BYTES types, next to
-    the existing _COMPONENTS.  No existing struct or ioctl changes; an old
-    kernel answers -EINVAL for an unknown type, which means the same as the
-    empty string: the fixed field already holds the whole name.
-
-6/8 adds KUnit coverage.
-
-7/8 makes usb-audio offer them.
-
-8/8 documents it, including what the kernel does not promise.
-
-What stays out of the fixed fields
-----------------------------------
-
-Takashi asked what the fixed short/long/mixer names should hold once the
-untruncated ones exist - embedded ids like "USB 1234:abcd", or the vendor
-and product names when they happen to be ASCII, falling back otherwise.
-
-This series does neither: those fields keep exactly what they hold today,
-minus the mid-character cut.  A card that shows up as "Caf\xc3\xa9 Audio"
-today is displayed correctly by anything that treats the bytes as UTF-8,
-and replacing that with a hex id takes a readable name away.  Falling back
-only for non-ASCII names does the same to exactly the devices this is
-about, and makes the content depend on a property of the string that user
-space cannot predict.  Keeping the fixed fields literally unchanged is also
-what makes the untruncated ones safe to add: no existing reader can
-regress, because no existing reader sees anything different.
-
-On the id, Jaroslav noted that this is really the only field where
-normalisation is needed, since usb-audio hardcodes driver and mixername:
-
-  driver_name: USB-Audio
-  mixer_name: USB Mixer
-
-1/8 keeps the id valid, but the result for a non-ASCII name is a fairly
-meaningless "D3000".  Deriving it from the USB id instead, as suggested,
-would read better, but it changes existing card ids, which udev rules and
-hw:CARD= entries point at.  That deserves its own patch and its own
-discussion, so it is not in this series; I will send it separately unless
-you would rather have it here.
-
-What the kernel promises
-------------------------
-
-Two things: a name is well-formed UTF-8 and is never cut inside a sequence,
-and it carries no code point that would break a line (C0 and C1 controls,
-U+2028, U+2029).  The second one is not cosmetic, since /proc/asound/cards
-is line based.
-
-Nothing else.  Invisible and bidirectional format characters, the tag
-block, variation selectors and non-characters all pass through, and the
-header says so and tells the reader to isolate names for display and to
-filter Default_Ignorable_Code_Point itself.
-
-An earlier draft did try to filter those, with a list of ranges.  An
-outside review took it apart: U+061C, a real Bidi_Control, fell through, as
-did U+2065 and U+206A-206F in the middle of a range the code claimed to
-cover, the whole tag block, the variation selectors and U+00AD.  Completing
-the list means carrying Unicode character properties in the sound core and
-revisiting them every Unicode release, which is the same dependency avoided
-by leaving NFC to drivers.  A partial list is worse than none, because the
-promise in the header invites user space to skip its own filtering.
-
-The same review found the more basic problem: rejecting a name achieved
-nothing, because the fixed field still holds it and readers are told to use
-that.  So names are repaired instead - a malformed sequence becomes U+FFFD,
-one per bad byte as recommended for a maximal subpart in Unicode TR#36, and
-a line breaking code point becomes a space.  The setters cannot fail except
-with -ENOMEM.
-
-Still open
-----------
-
-1. Limits.  Each untruncated field has a byte cap of four times the
-   matching fixed field (128/320/320), so the same number of characters
-   always fits.  For card->components the request was to drop the
-   artificial cap and let the ioctl report the length.  The same argument
-   applies here; say the word and the caps go.
-
-2. full_mixername has no in-tree user, since usb-audio hardcodes
-   "USB Mixer".  It is there because the three name fields are one set, but
-   if "no user, no API" applies it can be dropped and added with its first
-   caller.
-
-3. Should the fixed fields carry the '>' truncation marker that components
-   uses, to tell a reader that more is available?  It would be consistent,
-   but it changes what every existing reader sees, so I have not done it.
-
-4. Consumers.  alsa-lib and PipeWire have not been asked yet.  If you would
-   rather see their interest first, I will do that before a v2.
-
-Testing
--------
-
-18/18 cases of the sound-core-test KUnit suite pass under ARCH=um, also
-with CONFIG_KASAN=y.  Two of the new cases are regression tests for the
-review findings: one pins that card->id stays ASCII (it fails without 1/8,
-with card->id[0] = 0xc3), one pins that the characters the kernel does not
-filter really do pass through unchanged, so that nobody later mistakes that
-for an oversight.
-
-The sanitiser was fuzzed for 400 000 iterations under ASan and UBSan
-against an independent UTF-8 decoder, with the real limits and with limits
-small enough that a replacement character cannot fit: no memory errors, no
-malformed output, no output over the limit.  The harness includes the
-function verbatim from init.c; it can be posted if useful.
-
-sound/ builds warning-free with W=1 on an x86_64 defconfig plus SND,
-SND_USB_AUDIO and SND_CORE_TEST.  Each patch builds on its own.
-checkpatch --strict is clean apart from warnings about deliberately split
-string literals in the test data, where a hex escape is followed by a hex
-digit.
-
-The usb-audio patches are tested by build and by inspection only; I have no
-device with a non-ASCII product string, so that is the piece that would
-benefit from a real test.
-
-Tooling
--------
-
-Per Documentation/process/generated-content.rst: the implementation was
-written with the help of an LLM coding assistant, from a prompt describing
-the problem and the constraint to fit the existing kernel structure.  The
-first draft was then reviewed by a second, independent assistant run that
-had not written it, which produced the findings described above; the KUnit
-and fuzzing work backing them is that review's, and the series was reworked
-in response, and reshaped again after your replies.  Every patch carries an
-Assisted-by tag.  I have reviewed the result and stand behind it.
-
-Luca Rodenhäuser (8):
-  ALSA: core: keep non-ASCII bytes out of the card id
-  ALSA: control: copy the card bytes outside snd_ioctl_rwsem
-  ALSA: usb-audio: don't cut the card name inside a UTF-8 character
-  ALSA: core: carry the untruncated form of the card names
-  ALSA: control: return the untruncated card names via CARD_BYTES
-  ALSA: core: add KUnit coverage for the card names
-  ALSA: usb-audio: offer the untruncated card names
-  ALSA: Documentation: describe the card name fields
-
- Documentation/sound/designs/card-names.rst    | 178 ++++++++++
- Documentation/sound/designs/index.rst         |   1 +
- .../kernel-api/writing-an-alsa-driver.rst     |  12 +
- include/sound/core.h                          |  28 ++
- include/uapi/sound/asound.h                   |  30 +-
- sound/core/control.c                          |  68 +++-
- sound/core/init.c                             | 333 ++++++++++++++++-
- sound/core/sound_kunit.c                      | 334 ++++++++++++++++++
- sound/usb/card.c                              | 106 ++++--
- 9 files changed, 1045 insertions(+), 45 deletions(-)
- create mode 100644 Documentation/sound/designs/card-names.rst
-
+diff --git a/sound/core/control.c b/sound/core/control.c
+index 4199342d4f..e404cb55a5 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -14,6 +14,7 @@
+ #include <linux/mm.h>
+ #include <linux/math64.h>
+ #include <linux/sched/signal.h>
++#include <linux/cleanup.h>
+ #include <sound/core.h>
+ #include <sound/minors.h>
+ #include <sound/info.h>
+@@ -904,36 +905,45 @@ static int snd_ctl_card_bytes(struct snd_card *card,
+ 			      struct snd_ctl_card_bytes *info,
+ 			      unsigned int __user *data_len_out)
+ {
++	char *copy __free(kfree) = NULL;
++	bool too_small = false;
+ 	unsigned int data_len;
+ 
+-	switch (info->type) {
+-	case SND_CTL_CARD_BTYPE_COMPONENTS:
+-		scoped_guard(rwsem_read, &snd_ioctl_rwsem) {
+-			const char *components = card->components;
+-
+-			if (!components)
+-				components = "";
++	if (info->type != SND_CTL_CARD_BTYPE_COMPONENTS)
++		return -EINVAL;
+ 
+-			data_len = strlen(components) + 1;
++	scoped_guard(rwsem_read, &snd_ioctl_rwsem) {
++		const char *components = card->components;
+ 
+-			if (!info->data || info->data_allocated == 0)
+-				break;
++		if (!components)
++			components = "";
+ 
+-			if (info->data_allocated < data_len)
+-				return -ENOMEM;
++		data_len = strlen(components) + 1;
+ 
+-			if (copy_to_user(u64_to_user_ptr(info->data), components, data_len))
+-				return -EFAULT;
++		if (info->data && info->data_allocated != 0) {
++			if (info->data_allocated < data_len) {
++				too_small = true;
++			} else {
++				copy = kmemdup(components, data_len, GFP_KERNEL);
++				if (!copy)
++					return -ENOMEM;
++			}
+ 		}
+-		break;
+-	default:
+-		return -EINVAL;
+ 	}
+ 
++	/* Copy outside the lock.  A user buffer that faults can be made to take
++	 * arbitrarily long (userfaultfd, FUSE), and snd_ioctl_rwsem is global:
++	 * holding it across the copy lets an unprivileged reader block the card
++	 * probe path, and with it a card teardown waiting on that path.
++	 */
++	if (copy && copy_to_user(u64_to_user_ptr(info->data), copy, data_len))
++		return -EFAULT;
++
++	/* report the required size even when the buffer was too small */
+ 	if (put_user(data_len, data_len_out))
+ 		return -EFAULT;
+ 
+-	return 0;
++	return too_small ? -ENOMEM : 0;
+ }
+ 
+ static int snd_ctl_card_bytes_user(struct snd_card *card,
 -- 
 2.43.0
 
