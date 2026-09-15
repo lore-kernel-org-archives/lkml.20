@@ -1,76 +1,59 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mta0.migadu.com (out-169.mta0.migadu.com [91.218.175.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D31495026
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E7F4968EE
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461891; cv=none; b=EcTfjFBqOu+6whyoyAD0cDXAOk0HjYRIV6N9tjMrIurk5vD1iTRHGu2X8FTkyZCPdBQOG61xGH46t0XW/tLZjC5cYq6c3kG9Bgv3QHGCrDoGbXVclYYkWTAnnnczFzCLzlKopNWLkjqMveKtESQpNj+o91oPoquBIoDAxJmiktw=
+	t=1789461893; cv=none; b=M7nzchAbjKFv8lw1hGjtZ9zzLdXk/ivbwNR74ChrrDMRcLK/ATLrYSzf20T3ANS4FD8LoIUzTPx0byN0Sdh3Qi/ntyXoiHilWJt9DI1EXvltF3hSb7DK7GH/tiFsAWpmAgNs3UBgYUtofXNu7bSGTID4HBVtd/S6EGV/dVVgAtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461891; c=relaxed/simple;
-	bh=sIWXsFOViFSc+IDafr5CEvfwl5IYge2eVO88nxfFni0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N/79sf4FoSF+Zd3yssOZAvFe2sJBUTDFNf5kWBkav/njPwDQZsRDmaSko14PyLr6Y8GrVuVWdhSQqM2Hz34Ye1FvwSUmIoL553uQp9NwegUGspfUm1oEPJlDIDIdNvKezrQmwKVx6cKHg0ZiVOm4i5/0VF9M/p7L9lNV7rZQ2eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jI8qnZnu; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789461893; c=relaxed/simple;
+	bh=cfJHLD9q9zHmMljo9vPmqqbTUt1+su2cEdMIw8eDGo0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=XeOrnH1YCNWqSGZJ2PUilwKls8KPjUCJmY9Ksb7yfRuJ8UdbFRKQZuP0/ZgdZermfbIVwOooShW9c13bmjvOI5B2XdbRfjeNVy0QrvRbjtbiBGYSY0A7PZgP8fE5NDkDsgjMFdWN/Dkg8YjIYQyxt2J3v1+eggxPncPmrDrhPeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wWIoWV5c; arc=none smtp.client-ip=91.218.175.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jI8qnZnu"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso17475a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:44:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789461888; x=1790066688; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZZpYund0BctTk6ZH3SpbNGSO6zmMyboEAdN+GkOuIBA=;
-        b=jI8qnZnu7uDOdAVW2I8qt620CwL1qYLkLRpFYssH/rWpXNRd0J3r5TMKdv+11vPr0J
-         L67H/ULryeVp3mjXhiCycncaZ1R2FFURGZm6ss7salhjCCobfTJovosHdGZWK/uMTwZB
-         31+R0BP9vX9CFJx/y6K+LNzpNxpDi9aCuCFrtsrlPGNJhVvBlrhSZkuUUkE26G5zTsqZ
-         i8VXrnxtO3GarP75GwZtW/PgOvatJWxChudVV8Rah4Pd7WmFHN5Ahej1w+zFIUKKBCSG
-         h2nzLLIA+sxd2wfm2P8kRQrpmRxNZ1EBAdALsl789N8e3O095KUcVmYhafm39XEMQgpK
-         Am/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789461888; x=1790066688;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZZpYund0BctTk6ZH3SpbNGSO6zmMyboEAdN+GkOuIBA=;
-        b=NGQCyLGO3aANCugkvo+lXiZfCKbPITHSLiTT6k2lLGHCDeISAhG9sLvF3VoUjvSf1F
-         ipizcH40hQP2ysslNz1zR8s2yiCSNNldyehtKuNGg01HMjXYvvcZ1Z/Wp/3TXAJ6u6Bu
-         vBgblVqY2dEJ6s80384GyxGOkuPmHMHuQ+V5cuSyf/tBbrW5AbRJeO2ovK4QZJoMaP5O
-         UgoEu+Zb2MStKDWVxu1HDgbSR7gfiOLLJkyfxCQUyfwgAMXWZd14RKiCnEoj5RDwmfqX
-         A0J9e96cMsKDyQVU4cVMcjqOrfL+VyiALg3A13O15akdT+q/B6eE5fimtDbSGSwPKBwL
-         Ijhg==
-X-Forwarded-Encrypted: i=1; AKwUvBxLJYVb0qePqpn+ZYL3uy4IcaZ8W0lCUWjcvE4maFnyFMGDYUdlT5M8aoU/CKg1Sra/nnpDTCbszXWuW/0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJsI+b2GJr9Bu6Q8x1mYSNwuwLlik44CpJL/tqKLyrw8pqCX+T
-	+2sSgXdU1shbLj5d8Wh5PLCMDHiOglWNIBWCkKZk6N05p1UzxWkagMnl
-X-Gm-Gg: AYBFou2S2UNajC16DqrOjZhuE7RXNMWDIHFN4xcvtBs+bcuZ+l3ERG37omO9IUgxJu/
-	2MAce0nWRZBffyuPlIWwMFCZFAENi+KsG28SieHVipB4EDnWw4TEpFFGPp77irzi4blO68QC9cS
-	MoQxdky1y8//0NnO5NsXX9cz/m3+j7ufg9mxlV1nHaI04CV4QGp7GiF7wj3JFZ1qwChBRKpfz8S
-	3+MzL7hkMTFQUWNUnHv6Prb6NgIC3kb97bFc9KbF78l5VJtB6WaOD+KJrGFROEynzgUPyi4IXH5
-	91pKNZ9PCkMrNIsS1cDNeqML324nbQ4P/tCKjD34WfmWtY3eyxCcRo/Rrni+F2/TP/N6HwPKmi8
-	yHhiwtT5oYAxWZFxOT3iKYpXGRvTYnEA9ywqeLXNbcJ6uuAW/bkLEc599TdSCiHOby/LTpaX+T7
-	QKqsI8xdHf55+ywgyHXItbLvdpSvRcx4nG3ZBBJFFsxgbvBNeSg1f0qDQ=
-X-Received: by 2002:a05:6a20:7f8a:b0:3da:7140:da35 with SMTP id adf61e73a8af0-3dd52823778mr469275637.15.1789461887506;
-        Tue, 15 Sep 2026 01:44:47 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6528fb9sm6186338a12.10.2026.09.15.01.44.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:44:45 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Arec Kao <arec.kao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Hao Yao <hao.yao@intel.com>,
-	linux-media@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wWIoWV5c"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cfJHLD9q9zHmMljo9vPmqqbTUt1+su2cEdMIw8eDGo0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789461887; v=1; x=1790066687;
+ b=wWIoWV5cpeF748EZKF4qUjmySh+AeOazXhk3ZpzY9g4wi78jsEF6B7/+HQb3FJKrpDn30guD
+ Jbh65kcGcmxMcaRUxAxNVQUNgX09uNekzmWpiofDl1xfyETXnYybGmTVNM500yHhsrX6RnhjhcD
+ 9J2Bcb3uhcqMz7YIJAgT33SI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 53447c2444ce877a;
+	Tue, 15 Sep 2026 08:44:46 +0000
+X-Mizu-Trace-ID: 53447c2444ce877a
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: ov13b10: fix power cleanup on remove
-Date: Tue, 15 Sep 2026 16:44:36 +0800
-Message-ID: <20260915084436.2329278-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH 1/3] KVM: Fix comments that refer to the non-existent VCPU_RUN ioctl
+Date: Tue, 15 Sep 2026 09:44:39 +0100
+Message-Id: <20260915084441.3846947-2-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260915084441.3846947-1-fuad.tabba@linux.dev>
+References: <20260915084441.3846947-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,42 +62,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ov13b10_remove() disables runtime PM and marks the device suspended, but
-does not power off the sensor if it is still runtime active.
+Neither the VCPU_RUN in kvm_main.c nor the VCPU RUN in kvm_host.h names
+an ioctl that exists. The one that enters the guest is KVM_RUN, so refer
+to it by that name.
 
-pm_runtime_disable() prevents further runtime PM callbacks, but does not
-force the runtime suspend callback to run. If the sensor is active when
-the driver is removed, pm_runtime_set_suspended() only updates the
-runtime PM state while the imaging clock and regulators can remain
-enabled and the reset line can remain deasserted.
-
-After disabling runtime PM, check whether the device is already
-suspended and call ov13b10_power_off() if it is still active. Avoid
-calling the power-off helper for an already suspended device to prevent
-unbalanced clock and regulator disable operations.
-
-This issue was found by manual code inspection.
-
-Fixes: 6e28afd152280 ("media: ov13b10: add PM control support based on power resources")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- drivers/media/i2c/ov13b10.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/kvm_host.h | 2 +-
+ virt/kvm/kvm_main.c      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
-index b0d34141a13a..6d57da39c371 100644
---- a/drivers/media/i2c/ov13b10.c
-+++ b/drivers/media/i2c/ov13b10.c
-@@ -1688,6 +1688,8 @@ static void ov13b10_remove(struct i2c_client *client)
- 	ov13b10_free_controls(ov13b);
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 03bfc92864b6e..acae5a61e7f8f 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -562,7 +562,7 @@ static inline int kvm_vcpu_exiting_guest_mode(struct kvm_vcpu *vcpu)
+ 	/*
+ 	 * The memory barrier ensures a previous write to vcpu->requests cannot
+ 	 * be reordered with the read of vcpu->mode.  It pairs with the general
+-	 * memory barrier following the write of vcpu->mode in VCPU RUN.
++	 * memory barrier following the write of vcpu->mode in KVM_RUN.
+ 	 */
+ 	smp_mb__before_atomic();
+ 	return cmpxchg(&vcpu->mode, IN_GUEST_MODE, EXITING_GUEST_MODE);
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 65eb26a0520d8..cc391b0666a6d 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -470,7 +470,7 @@ static void kvm_vcpu_destroy(struct kvm_vcpu *vcpu)
+ 	kvm_dirty_ring_free(&vcpu->dirty_ring);
  
- 	pm_runtime_disable(ov13b->dev);
-+	if (!pm_runtime_status_suspended(ov13b->dev))
-+		ov13b10_power_off(ov13b->dev);
- 	pm_runtime_set_suspended(ov13b->dev);
- }
- 
+ 	/*
+-	 * No need for rcu_read_lock as VCPU_RUN is the only place that changes
++	 * No need for rcu_read_lock as KVM_RUN is the only place that changes
+ 	 * the vcpu->pid pointer, and at destruction time all file descriptors
+ 	 * are already gone.
+ 	 */
 -- 
-2.43.0
+2.39.5
 
