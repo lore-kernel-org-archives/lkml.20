@@ -1,58 +1,74 @@
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C3B3A1A55
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533E63B1014
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789463096; cv=none; b=mQa3RDviXtEqxyzMS3j5umEJpo8BHKLVXxJwl5MtxoLaOr4PY6scKRyMFedy32KI22HgZM1U9mYz/muwNQSWZwoCYLqKoD5DTqUlA41vBUIeXMCZFSE4GtH3cigbVT5eWL3D86+wAOwyRMRdBH8k1+QVb3+NrC+O4ix48PYBaa4=
+	t=1789463109; cv=none; b=t3GujcX8RjPRPkUcSlQjmbxw7itCG4IuihEozm7qmeLQ5TTTUiozrcIdEvBEnovxgLcizJqRNmbTQLDiTz7hw7Qfo1Ger2RFsv+ehFsJWKIZx8muAGQQT6hyChWkXZR6KtYt/k4UnR3MpNYsZ7uPbNItrl1BquUHMc2nzMW7n0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789463096; c=relaxed/simple;
-	bh=slwCTfyGtFEkbOKCo5bVfeyGm1DOvwjOyySd+b8MD0U=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=aL7sMOpEypzE5OwimPoQKC7tOyoQmf1FmVoGH8lchfY4vz//S1lU2qa/qPEeQvadr3U5jDkqJ5sI5NK/1KJ4TVPgtDxnVxLvr4klo46dinEteC/fBuA6KrAO8ZTpNcitX92dNU2F3zEgmMISnEQW4w0KsLokgc7ghOx9ka5x+tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=ryQmUQn+; arc=none smtp.client-ip=162.62.57.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1789463109; c=relaxed/simple;
+	bh=NEHGUz9YYNPdsfRd5nud5yegJaqx7Zkjlu4HqFW8TRI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JxHmwirQTodYDBYB9xvoRAIyjZqBhKiGZyMLAV6WOTz3d5jsanAYVv1XWXxlzqitICSSnzXimrWuOA1MfXaxNxUv7VpH0KKR3QEgJXzGQESVbxwA9d3ZhL0YT2L3IJxjbNCyWkNfLkcZkxs8NPfd1UGdPelkdomQkMq20IDiMXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kTFAMK+o; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="ryQmUQn+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1789463089; bh=Q7wi6r9wAePoWVCptBPKcLKqO0Nzc9N9NB8MrkgmWxo=;
-	h=From:To:Cc:Subject:Date;
-	b=ryQmUQn+MABfd6Kli6Jq5yz5Ocr1UaQk+ze64EYDTD6jQQZlplSwHnYS47H8HWQdT
-	 PpfHrSGAlyzhPSYIyggkLFVnNyvqwyzXko9dLqRHu56XkU8F/4tf7OaTS3jkKZXa4A
-	 wP/HkdqTrxFgKgKThWuum+Pjo7AHybtSAkZhv9GA=
-Received: from winnan.localdomain ([2408:8207:7883:f750:f55f:bb89:a2d7:fb33])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 12E94204; Tue, 15 Sep 2026 17:04:46 +0800
-X-QQ-mid: xmsmtpt1789463086t9soi69em
-Message-ID: <tencent_FC9BD4844FBADF31F931DC723D8F4C3E1808@qq.com>
-X-QQ-XMAILINFO: OTDiW3m6JtSJAr5KUinNGlyDnf8h29tlDnDBzEmlhhpm6TSgUqEfM+n5gTcjfo
-	 oa2ok5p7JxStcKx8CtV6Uz6t2oCBQgjIVIXq6qI+vo2KhrRAdO4g55GharhrONzFsnJTb+OHI8fh
-	 AuuIOZFX/cSbGfDkI3keyAFX+CnflcMgANAzmuX37O/01eXj+5h6QOL3wzoqdjSE8xXPB7kpvgaV
-	 BXyNZYrUkmsf8ms0KqrAAA9OdPKCphUZxdFHHtEBMdNOHM6R6V78gQICvfIkLccgWuWWES+cMI8B
-	 o1ZdUn0z4d8lWc3HEauSQprZx07t86Wbpdq4GN37t8v56yvrOo3cJgxXWHh9OBAAu+mpbh0TwNoL
-	 xWO/5psnCOlk1pc6kZPHM6Dsu0qMDvFP8Oc4/rVzy5gFOO1iqN+60664QuqEWH4+Me4SgJO1OLk4
-	 cAhw2+wU7BSTLLg43VRj152qFG7C9EWvpmaTnIQNLWl03HxRpzDHmKifpNm2FbEnr366U2IFMlr2
-	 mHmetMJjO3W8JV52QPYoWAkDg9oouvNDjsNbiatt1V/9bBbOF87D/89AYVbeGMhi9A9jRVAenLph
-	 Y+tgtESzjZJ3y6ihx28noxnYaYzd/iD3vGHJB5RvgNuNPiJihuoyQ7ZedUODh5vlzzqWYrMHUj5i
-	 3eyacnWmAyaYia6Fm9FT8j8no1FPboJKHkgS1QMLeLO1L40dYuF2Hm2iAow7FNbnKarU/XrWSJyd
-	 3oQfT6vxxGChVBGiNEw/J+UpfSiSMRG5jd82f5pxbQu3Ct5m/Obt5/oqgivjeGos43lrJeS0TZ4C
-	 m7+S/M/8qfXyd33ksETgl0+QOZkUBj12qIpzzMh90/zWS5lSaIexoYl0E8kyn4AZ6ybWlxknA2I9
-	 febqgb7DcgWyGPHwN9vJxiQigWyHXQp3l764slLx1cKEYeDo/cHkuhjeUtwkTeMaB1as1TjKXfmj
-	 hn4w4IGVGAC4+fuI1w6TpblGLU6qQGdQYviLKECsRH6sKapTJztl+6lMjAkCdW33WPrWqQrmR921
-	 M53/XfscCg8VD280lkLrc4fd9FdMaz3M+YaKie66dnoqr3DZsWSbikGLEKimI=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: Xiaonan Chen <chenxiaonan101@qq.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Radu Rendec <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Xiaonan Chen <chenxiaonan101@qq.com>
-Subject: [PATCH] irqchip/gic-v3: Fix typo in eoimode1 comment
-Date: Tue, 15 Sep 2026 17:02:43 +0800
-X-OQ-MSGID: <20260915090243.170981-1-chenxiaonan101@qq.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kTFAMK+o"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed1368so29299235ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:05:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789463108; x=1790067908; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oTZ8gBM+3gnYnTYBNkjTwF/jY8mB3m3p32yQI1BVbeA=;
+        b=kTFAMK+ox6p7RV2PXK5RFdOTdr8FSNsTNPgnroi6MMWVo+n+efkz3MqwJJMkHFBieA
+         C/LzL3ZMH2Dc+7C80r4HWaKoYdKBB/pW9u6sMSdLsSvaI4aHOT1tklphjQeZVTRdjp7A
+         mfX/3Rym/jQcNcDoH9GmTejg47c3YARdujcckOflE/quCNhw+gyThQJvox4CmBMuiRcH
+         aicomc0rIMhSe4Ix+Oq+vtg58mwoISVrMFIhJH/E1fC9pOxDWuvctxUKy2j+JokjTEWh
+         Tq9fbKRYhExxzTdQh0l0i6cVjuZgm9OL+EXDYKV50eSzjkbXbQMYYc3+6mtZ2F7wNhXj
+         arFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789463108; x=1790067908;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oTZ8gBM+3gnYnTYBNkjTwF/jY8mB3m3p32yQI1BVbeA=;
+        b=xEXpJ5CSJY5jHkrg0Njn6LoSxWqZouOyd+/N+QNXCW+zTIUNP+JE/+uBgYYB/sA9/K
+         3ivq/1fkbNpe2OB+ZLFuA2ObabO6E63OalC7XKlqh7GYzB++o4Rp6eZk8DuigzVWEmNq
+         XliIisBrR/X669QBe7qsCQq08J/gPvqOJHwuH4ObtqZLGBjLROZOyfoGEQ3eSx22aVkA
+         t/c7wKUnLgechp9TBv8up+D4NCCr3eEMAqogQPg23mUO/LWsAFBxJR0HkJXZiLBS7laW
+         dtfVSMEsZm83fBJzBNI5UEgOZgB87f/mL0O74hYFCHZjeeXNc6e08fVtQlDvzFCkAQux
+         m6sA==
+X-Forwarded-Encrypted: i=1; AKwUvBwoe8l7+L8sCJGkxbGNbq4oVtALVX/RS3KPdCrZwXDgor+iL5Nyfr8wv+5FyeFXP0r9Khkrj0kPCmH0g4E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxbgPn6d3cky2Gn0VKLldDTdJwqeRupojVVxC8Km5JpE7QHjjl
+	IuESsixIyP0eaXjo8XL9iD64KzTmJXFV+b0Q6PhVWP/FZoIiuHDEGnsf
+X-Gm-Gg: AYBFou0UkFI527h28VLJt1t2cg57YeNzDsddLkSRrJ+M6Xm7vHjqcd5L+p5whCi3NyJ
+	gMgVI0AiNZN7p89to5XCuu6VCW+03DankYgPa0CEfc/MOTla6I5FjW7e2HJBpPfYFK+6d7MTdf2
+	NDX79pqhWXHVgd4utSSWrk6UU64azo2hpyLfGDkaaP2yZtB0Cbq3rLcsQ7NnoRfXE0/bqkt2yzr
+	6tnepeNHNYNg+Z/LeYpT1bd06rQ82G921xoDwtqkabDvGf3wqscdSykM0fFiIkQwchWDdki+mJx
+	lriGJfSBQDXxKYgRo1U7SiiG4dhRtcM7la8BfSsv1PaHddfDIKym/51Dno/188omLY+9KHZN3mx
+	ALTtQONaCoSBfAZKECtnAHW6NgdO+xOsvzwgyb9rGSp58JHJE/PuwX7ejyqna1libXRjivwnjH9
+	NE029t+HnnsvWPhaNEzvmFKavMM0ujOU2fuNATOWA1wVsPGNgncZQPTQ==
+X-Received: by 2002:a17:903:244d:b0:2c8:248a:5dbb with SMTP id d9443c01a7336-2dd6c5eecb7mr126491905ad.7.1789463107311;
+        Tue, 15 Sep 2026 02:05:07 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cff6780sm62702075ad.76.2026.09.15.02.05.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 02:05:06 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: ov5647: fix power cleanup on remove
+Date: Tue, 15 Sep 2026 17:04:57 +0800
+Message-ID: <20260915090457.2342778-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,26 +77,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drop the duplicated word in the gic_eoimode1_eoi_irq() comment.
+ov5647_remove() disables runtime PM without powering off the sensor if
+it is still runtime active or updating the runtime PM state to
+suspended.
 
-Signed-off-by: Xiaonan Chen <chenxiaonan101@qq.com>
+pm_runtime_disable() prevents further runtime PM callbacks and waits for
+pending operations, but it does not force the runtime suspend callback
+to run. If the sensor is active when the driver is removed, the external
+clock and regulators can remain enabled and the power-down GPIO can
+remain deasserted.
+
+After disabling runtime PM, call ov5647_power_off() if the device is not
+already runtime suspended, and then mark the runtime PM state as
+suspended. Checking the runtime status avoids disabling the hardware
+resources a second time when runtime PM has already powered off the
+sensor.
+
+This issue was found by manual code inspection.
+
+Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/irqchip/irq-gic-v3.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/i2c/ov5647.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-index 6e1fa5b247fc..69ca208eeee6 100644
---- a/drivers/irqchip/irq-gic-v3.c
-+++ b/drivers/irqchip/irq-gic-v3.c
-@@ -687,7 +687,7 @@ static void gic_eoimode1_eoi_irq(struct irq_data *d)
- {
- 	/*
- 	 * No need to deactivate an LPI, or an interrupt that
--	 * is is getting forwarded to a vcpu.
-+	 * is getting forwarded to a vcpu.
- 	 */
- 	if (irqd_to_hwirq(d) >= 8192 || irqd_is_forwarded_to_vcpu(d))
- 		return;
+diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
+index 3facf92b3841..d42d009772ac 100644
+--- a/drivers/media/i2c/ov5647.c
++++ b/drivers/media/i2c/ov5647.c
+@@ -1271,6 +1271,9 @@ static void ov5647_remove(struct i2c_client *client)
+ 	v4l2_ctrl_handler_free(&sensor->ctrls);
+ 	v4l2_device_unregister_subdev(sd);
+ 	pm_runtime_disable(&client->dev);
++	if (!pm_runtime_status_suspended(&client->dev))
++		ov5647_power_off(&client->dev);
++	pm_runtime_set_suspended(&client->dev);
+ }
+ 
+ static const struct dev_pm_ops ov5647_pm_ops = {
 -- 
-2.34.1
+2.43.0
 
