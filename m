@@ -1,199 +1,96 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD46495503
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460818; cv=pass; b=V82GUhVtN/xHIni22Tp/kfRdPmcFHMAdMQn+aRbiSJlxtqjCyaaAP/FCJvxhXLBE4U9cgAr3CFIQQkIpfV0wzVScjcjoW8qsYDDDGtjwMH1/6u2NSNFud9gSAA3nCufPgtv9fKxYvFtdSFdMETjZlS9EnbL1o1V1fyMH4LKNsJ8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460818; c=relaxed/simple;
-	bh=nPB8HKMrWHw3m7s8Z1NEO0K4n5NwCAXwyUr1xW5XU7o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HIOTmgHywz/z4zYF0LwJmKbbzc5qJzxqdj3D+lafUmw9SyHw56GU1gNwkm+fernWpf832rZZBVEsF4PC1Tezx4Dyd1ty3YmyyQVlDy1PghuQ9yknpoJjme54QUD8cZDXaRGYNPBNM3lvEkmEcH6lyUegJowX/cubr1YAqu7wLFY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=LGyD24N5; arc=pass smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDFD4746C8;
+	Tue, 15 Sep 2026 08:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789460820; cv=none; b=fsHrYvPPAKUKr9mL4mtcAKpXA/vxltCC0E4V/mkNbdT7uI3otr7Qfhkjy4a0Hc159upK1EzD/A9KytnULIILP2ThunLxi1XoFPAeIASnwJJpfg04YMn2jlGhY3Zz7tOq+UCY8vi6ajT9mJppHq94kO7CnGHLAnUL7IBRA/PMGC0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789460820; c=relaxed/simple;
+	bh=k/kXBbvUnsR2JZE7L5PkepCXLAnreHT5OcvsBEAggn4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DaPjcFCBhxTGSLTXfllXKt2i9kKhSvBXwHJkpi3h7LoW1qY1bFRk7QSVQppx8MqDS5qsF2kP6FBJTA65B6+FIuQMA8N0+o/NrMWUvcSwk4GOAM2orlrE1tyqFQUm4Cm6TrQejq24U4tZjMnklwZPHDlCtB0ozhG0pJQNXfgacdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=O37J8NVR; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="LGyD24N5"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469a3490bso2877660b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:26:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789460816; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SqWnsD4KLLr/ro2fUTDK8kJB20GkJn48J48rIa7UMQyJqDY+7lvHjAKlwfzbkcfeom
-         A9Qo720LWbJqYu9f6fMscfSF1PZHQlKosadoOZUJ426lB7iJOiUe8E5TFl9Q5fQTj4eb
-         v9/i7Et7xQZCH1jNl/tcI4tj0gFgjpU2S8RiFNNaGYVjlyDHr9l/s2U4tOVv/BDEcT0g
-         B5fp8xcQf1qvmPQno+rccwzO7HB/twNkneGemNI3LrxfAPhPmcWs20L9WjQ2g2jE0qfh
-         UZ6M5JPgWlIehul6gmVqbophs9CT8xXenS/rjK1B/BHbFGOC4sBO6CYBkfdjnbZKa3u4
-         YN2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lnh5CgWNygQ5nJ5BcAug/UGA2XoqYnoWr3xk+1LgwT0=;
-        fh=HAug0gYFtwH5nESQWZiMXpJIw4PO54YKsJHzj2hhiHk=;
-        b=NByED7Oh5TGkQDngE97nt2JZ0tXhfCwUoc7KbBRDc0C08AH/UcBWBV/j6/zfXcZ7+f
-         7G1I3+z890UL8+hg7TBKDsm1XrqZAyM7V2uTzJtc6SkELSoWwcG8VPWEE9O8T9QVE+Pu
-         v6aj+uagnv/gdA8nNYlspRsURr9Y1trFnCR7cEDeyVslrr5Dg302ycAHMOopP2QDqDzI
-         i4g9wGvQpSYRkUbH05/RWcLPYN2fEVW1u0KXy+JrUteCffq6YcqeuD0h3FkLUvOTdH54
-         ZtTJY246ailQYCAQy9a8/6rwDr/yQvLjprBi20FPC9E81zK4CPrXLqiXJgGg4jEqS8pP
-         DNvw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789460816; x=1790065616; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lnh5CgWNygQ5nJ5BcAug/UGA2XoqYnoWr3xk+1LgwT0=;
-        b=LGyD24N5l64zOz1F5J3fHUPcg+6M1qW99Yar6dgJRHRQ/M5ve/6QkiNuWBnYTnSdSA
-         x1neQC61BUcK87a1lGXNkl0PTLYYh9toSY5PlqsPORHkjXGAKPA3ku28hqt0jTpp7LUb
-         EWcW9Q3mpH7hWLZEMXYX8w/5JlVa0NfXXPoM1AUj80OaGhPOeDXwKnrnKIAy7YfjECEJ
-         5czUC3+GUo6x6S4bZDYuxTOOv2B4/f1g2bj7URhijvuJBAGHOPFHfE7q9B+E6aASuX5b
-         rTWpO119zUSVLFscBSRvBLPkLz1Yr6zmR1HZEAtsewQbZX+rtkbVtPvUNpx+hb7HGqvu
-         l4Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460816; x=1790065616;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lnh5CgWNygQ5nJ5BcAug/UGA2XoqYnoWr3xk+1LgwT0=;
-        b=pysJX6Zlr8Qn3bYQOB1vMbHbmGKWWY05+gXaZMXuqbCdWx5162hJMw9tTIp/n3q1MJ
-         dpmy22RDwZi3NpcMDqrDZGENamrjkTHeEGC1/+6sxyqzjctwaJiJzBS/PmIYdSJPTHHi
-         uN/cbg1JC3EQ2QKI0geAIPK+e3ICVnq9E7I0RoPLJ90aGDtsAm7Wf9YHBnjJzob2hNVd
-         hJV4VxIVFUYjbCwsrDaX1Bxn5SMIEp5bbF/lSpSa/D7ta2+ea5VUF8mA8HHLYZThQvSY
-         EEXhw45QwDu/ibULWuRj0NWJyCK47O8/cP7+s+3xtx0A+3GvSHgxkgjmcEVYrxT+XBDw
-         laDA==
-X-Forwarded-Encrypted: i=1; AKwUvBx1X0Rsskn16ztp8bjyrLGE9Siz6ASAPLoJsQFTk/umpJnbuLFK9hazZMIKQIGAEtFi0wYsniZ2V2ll8Qc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgfkjUt0F/uZjOcN0Ygz/JU9i57JBalDGkb8nMIRC9gs49eYj6
-	bMUW2dzOCmbHuc413aEpXzS1RJhrYL9I2z/dxpY5TZ8vl4L3D12FhuubfT2IjqGHB69rFp4xVCM
-	qOFKRS1z+Rdk6/rZAIlfdmLwamLjcaV+EQT4XeUpg
-X-Gm-Gg: AYBFou3fueu5O2qfrEoa56pz1GiV6BHfDQjl4a1LWMl8W9xdcudw4UjKUKDvdFkpzuO
-	CVuO+ZHb6TRV/5Rh2nAU9R9ppFwOM+Yo4BLks3wV8UE4RO+wBlAPefySN59xysqE17i1lZosEwN
-	0CJgn4+S64UWyxrOglNrxzd27gvqsBXs40+ljzHwIkbYKLgc8T/wPDPjhE7B7GykV75J0vnELE+
-	ro4S9mxRHQZmBJpw+JefjXfEBrMTogkjXJcLQI/f930oLb0tsShO8qdUWNeWDAUmgkwBhL2yUo9
-	J4H8BWYvluTC2aM/eXrqhv3l1W+TRP53HLj8sElqDlS/e4+UQy+S0Efr33BKjhRMtuIH4t6UBtx
-	Tix3paIIDApOmpwJuXYqRt/FIdoIoIYFCOCuKzVGSgLNdtOvS+5oXmg2I
-X-Received: by 2002:a05:6a00:22d4:b0:857:7337:5db6 with SMTP id
- d2e1a72fcca58-86f857f03e4mr11800026b3a.20.1789460815852; Tue, 15 Sep 2026
- 01:26:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="O37J8NVR"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4dd202c5e;
+	Tue, 15 Sep 2026 16:26:44 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Lars-Peter Clausen <lars@metafoo.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hans.verkuil@cisco.com>,
+	Federico Vaga <federico.vaga@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	jianhao.xu@seu.edu.cn
+Subject: [PATCH] media: adv7180: Initialize mutex before ancillary clients
+Date: Tue, 15 Sep 2026 16:26:38 +0800
+Message-Id: <20260915082638.1319954-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915082426.703892-1-xmei5@asu.edu>
-In-Reply-To: <20260915082426.703892-1-xmei5@asu.edu>
-From: Xiang Mei <xmei5@asu.edu>
-Date: Tue, 15 Sep 2026 01:26:44 -0700
-X-Gm-Features: AcwNN1VHk4qFiOTVVqpCxopv6W4c447U28-fnrK3q7ySLfaNNx1iHuyYYDxzrTc
-Message-ID: <CAPpSM+SviG8h4CYfjYf3FtowDcj8JE11ThBTip=+f690514uBw@mail.gmail.com>
-Subject: Re: [PATCH net] net: bcmgenet: restore the hardware filters on open
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com
-Cc: netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	jakub@cloudflare.com, Nicolai Buchwitz <nb@tipi-net.de>, 
-	Justin Chen <justin.chen@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0a42cf3e103a1kunmab96dc082cab21
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGk9PVk4aGU5KHUsaQhpLHlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=O37J8NVRpE0hIv8XdkWxdyI9wVehzOR9TI3pBmGql6Hr/E1wOAVzEDWfZKORRt0GLb9onNMO5f/ntFdVmPugTg1nDp4A81y8aGoIMsuvFxn6U/eNrMIPO/TkMvZ/ZK4d1PeVIf0rIZ+wBeUwa5Ph6DpX2c9NsfcHI46Y0C5VgvE=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=2hxudm3/8OerbnXxJeguxeo2vni+wS29uEEipI4Ld0w=;
+	h=date:mime-version:subject:message-id:from;
 
-Please ignore this email. It's an email sent by mistake.
+The VPP ancillary-client error path unregisters the CSI client before
+destroying state->mutex. For I2P variants, the failure can occur before
+mutex_init(), so cleanup destroys an uninitialized mutex.
 
-I got this patch for testing and wrongly sent it out. Sorry about that.
+Initialize the mutex immediately after allocating the driver state, before
+creating any ancillary clients. This keeps every cleanup path matched with
+a completed mutex initialization.
 
-Xiang
+A QEMU x86_64 test using an i2c-stub bus instantiated an ADV7280 client
+at address 0x21 and occupied its VPP ancillary address 0x42. This forced
+i2c_new_ancillary_device() to return -EBUSY. An instrumentation oracle
+observed an uninitialized mutex on the buggy kernel and an initialized
+mutex on the fixed kernel. The failure was deliberately injected to
+exercise the error path; no natural crash was observed.
 
+Fixes: 851a54effbd8 ("[media] adv7180: Add I2P support")
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/media/i2c/adv7180.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Tue, Sep 15, 2026 at 1:24=E2=80=AFAM Xiang Mei <xmei5@asu.edu> wrote:
->
-> From: Nicolai Buchwitz <nb@tipi-net.de>
->
-> bcmgenet_hfb_init() runs INIT_LIST_HEAD() on priv->rxnfc_list, which drop=
-s
-> every rule off the list, and bcmgenet_open() calls it on each ifup. Every
-> rule the user configured is silently lost:
->
->   # ethtool -N eth0 flow-type ether dst $MAC action 0
->   Added rule with ID 0
->   # ethtool -n eth0 | grep -c Filter:
->   1
->   # ip link set eth0 down && ip link set eth0 up
->   # ethtool -n eth0 | grep -c Filter:
->   0
->
-> Initialise the lists once at probe and restore the rules on open, as
-> bcmgenet_resume() already does.
->
-> Fixes: 3e370952287c ("net: bcmgenet: add support for ethtool rxnfc flows"=
-)
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
-> Reviewed-by: Justin Chen <justin.chen@broadcom.com>
-> Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> Link: https://patch.msgid.link/20260913190052.939955-1-nb@tipi-net.de
-> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-> ---
->  .../net/ethernet/broadcom/genet/bcmgenet.c    | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net=
-/ethernet/broadcom/genet/bcmgenet.c
-> index a2305e6428d1..b916080f4ff1 100644
-> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> @@ -749,8 +749,17 @@ static void bcmgenet_hfb_init(struct bcmgenet_priv *=
-priv)
->                 INIT_LIST_HEAD(&priv->rxnfc_rules[i].list);
->                 priv->rxnfc_rules[i].state =3D BCMGENET_RXNFC_STATE_UNUSE=
-D;
->         }
-> +}
-> +
-> +static void bcmgenet_hfb_restore(struct bcmgenet_priv *priv)
-> +{
-> +       struct bcmgenet_rxnfc_rule *rule;
->
->         bcmgenet_hfb_clear(priv);
-> +
-> +       list_for_each_entry(rule, &priv->rxnfc_list, list)
-> +               if (rule->state !=3D BCMGENET_RXNFC_STATE_UNUSED)
-> +                       bcmgenet_hfb_create_rxnfc_filter(priv, rule);
->  }
->
->  static int bcmgenet_begin(struct net_device *dev)
-> @@ -3376,8 +3385,8 @@ static int bcmgenet_open(struct net_device *dev)
->
->         bcmgenet_set_hw_addr(priv, dev->dev_addr);
->
-> -       /* HFB init */
-> -       bcmgenet_hfb_init(priv);
-> +       /* Restore the filters, the MAC was reset above */
-> +       bcmgenet_hfb_restore(priv);
->
->         /* Reinitialize TDMA and RDMA and SW housekeeping */
->         ret =3D bcmgenet_init_dma(priv, true);
-> @@ -4075,6 +4084,7 @@ static int bcmgenet_probe(struct platform_device *p=
-dev)
->
->         /* Mii wait queue */
->         init_waitqueue_head(&priv->wq);
-> +       bcmgenet_hfb_init(priv);
->         INIT_WORK(&priv->bcmgenet_irq_work, bcmgenet_irq_task);
->
->         priv->clk_wol =3D devm_clk_get_optional(&priv->pdev->dev, "enet-w=
-ol");
-> @@ -4272,10 +4282,7 @@ static int bcmgenet_resume(struct device *d)
->         bcmgenet_set_hw_addr(priv, dev->dev_addr);
->
->         /* Restore hardware filters */
-> -       bcmgenet_hfb_clear(priv);
-> -       list_for_each_entry(rule, &priv->rxnfc_list, list)
-> -               if (rule->state !=3D BCMGENET_RXNFC_STATE_UNUSED)
-> -                       bcmgenet_hfb_create_rxnfc_filter(priv, rule);
-> +       bcmgenet_hfb_restore(priv);
->
->         /* Reinitialize TDMA and RDMA and SW housekeeping */
->         ret =3D bcmgenet_init_dma(priv, false);
-> --
-> 2.43.0
->
+diff --git a/drivers/media/i2c/adv7180.c b/drivers/media/i2c/adv7180.c
+index a1c7f6822..8c2cf3f53 100644
+--- a/drivers/media/i2c/adv7180.c
++++ b/drivers/media/i2c/adv7180.c
+@@ -1454,6 +1454,7 @@ static int adv7180_probe(struct i2c_client *client)
+ 	if (state == NULL)
+ 		return -ENOMEM;
+ 
++	mutex_init(&state->mutex);
+ 	state->client = client;
+ 	state->field = V4L2_FIELD_ALTERNATE;
+ 	state->chip_info = i2c_get_match_data(client);
+@@ -1497,7 +1498,6 @@ static int adv7180_probe(struct i2c_client *client)
+ 	}
+ 
+ 	state->irq = client->irq;
+-	mutex_init(&state->mutex);
+ 	state->curr_norm = V4L2_STD_NTSC;
+ 
+ 	state->input = 0;
+-- 
+2.34.1
+
