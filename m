@@ -1,184 +1,140 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856244A4998
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B809C37D12E;
+	Tue, 15 Sep 2026 14:53:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483972; cv=none; b=L4VliSBykKoLYSrC39RSNr3wHuZjiRUGBPz3AL9DpAy8nJXbtc4rVuoWb6DgXgjDLT5acbpgdbs5jJErATnxYL7NYxGGrULlGygFdXZHyDPVWfDdkgAottuzeahYtr+9X8G0g23AgXOglT4IjBQbk2lHHywh8+wk1M/ScgmUkHo=
+	t=1789484016; cv=none; b=TyW48riov+3rDgrX2m+YrF5NcgbH0yiyAOt2wG4/vQLhEeQDcOPKIc+E8whdhH66/179y875sxwWy2bHkmDiMbRuKffLXv5SBClJn5n+Bu2PaNlQ03yJaDgnTT15Z/UIviWT05eQni0LTtUbDEDmDMCDG4uuYbw/v65EF2Twm4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483972; c=relaxed/simple;
-	bh=YhMG3fUk/XjIoLHujEEjCo8Xx/HTzgB3tQ6DnSl55zI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LXVO7QxX41aEiyQtezp2KSpyQEWQX4PhZKwPUrza/fg+pTCHuwz6GvnR2H5ZBAmTHF3g1YYVtuMRJPFMEVPwCi805NHKfgA/AluAKzehVpq0q2xKvayfs2O5XRWmlzPZ2pqgdvU3tJzQmyrh0+Xlh2iL4gmEnTbfxXFCNW0Uo3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MSIbLynl; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789484016; c=relaxed/simple;
+	bh=PeCPQwsh+qKGrcT3bTdkFKnhdBA1fVZf3KBFD/Bg9AY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eH6D+Rf4VPPwVjnW+9cjeYaxzemGKNRTlQ/FMfiUc5cGSf2m5atZcuCEDTTntM1hyzSFIvSm61WafJWu57M40+MsDCd/UJNhCKZZMrB1g2rVD6WFgifcVyN2p2ge++ELArPMJh/G7GM/KC5nDyy60hEBhbKh1LrKnibNVXFrAA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Tc9Dk6Yy; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MSIbLynl"
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c963a787c9so1241289e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:52:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789483968; x=1790088768; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F87Nj6cbUlhN8QRz95TtuecHNAPdmCP6EjjN+M7wdxM=;
-        b=MSIbLynlHZ8B6MpNrb7NQ6YMUvpug/Afg25eeHj/I7tIl0u2A2YF6P03IwZIz9vkKy
-         5mdaHLXYsvZzkQ6SeKHbiQig+r2TSywFGB6Zy3nwqyeGrKndSxCjImmcc92bH/bRPpQb
-         HF4VDGWwGmFkuO46L+8I5uyTKhI3TkyyQurPuQn+NzThChPDkEwY0QpC+w6bB59mSk0n
-         Mfd5h/wD/kV8NipVGntbIy3tbkWgKsSf2KmZ2C/PMdXLLKQIK7XvI/ufyZv7rLSJ5wg0
-         JKfjGDSzl91+zO5WiExCBP6QIf+H+ceypuQ4yIrnyPkNzxhDziDTMiesQUH1UtgaZy/N
-         sZ/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789483968; x=1790088768;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F87Nj6cbUlhN8QRz95TtuecHNAPdmCP6EjjN+M7wdxM=;
-        b=ltAjIHgyu/fvgKtv27aImI17fOCKfxswhGNMODuanF6J5E/1rOZxiIh6OwnsR2M5nR
-         YWnBX/8uVH4zeTGTL3WngvprJ8tEbvl5VkmlkeP1qdtESZzgNZQ8Sxda5Om4lSxn1a1F
-         LoYn7U0rVNFC9RR4yltCA5KZvcw4THJCqywQJ/thQxa8EvLNR/2mjcDip+6FXTC9xjRB
-         h/SCX7mBabsFgmxUZUjM2NK5X0vpHXbpGIMmRcPpD0kI4wmShnFben+aXF2MFnkyqGu9
-         dfOJ304PmXA6MrfDUYpmk1MQaMd386xyH/IjNNOegCy8nTqnW2w/onvM2OxwyP2kPOn/
-         IC8A==
-X-Forwarded-Encrypted: i=1; AKwUvByZ5cX/x59hmSTFXIIm4wsiHlRwee5h31XZ0fjxw/WkntKYG3uarC9EnMl/d/HgNza3TiXmSxJrrYeusUU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzKewsLkX91VnIjlv+DC+j4xX0XrFZxYJigbaWhYsGRnHoIgMI
-	RVkfyCouKLjl+ZVgtkQXvI8XdH8TSQ1jhXqInLIy2Eq1s2lcxqD4ZKlj
-X-Gm-Gg: AYBFou34C1SZ+4gNd3XX076uitY1L5QdieHFkf3MnGoyZWEmJ6i5fbfsF/ls1JK+akZ
-	2bqhUkRF1TSbM4G8tDuU4qtIyFw/RYBqVmot03cOo/rDkJZc56uFbbPq5s5yJz03+lcpy4q1QQ7
-	UxcuzFVVA6+diFLJMdeTPuVrGQHH6Lc1rDHFIvv+rbQaH+Yeg0o2Nc8lKO1QdGVmgocOrBQAE6M
-	SXQ3qPWSCJokkOXzJyi/769qRewyDeLNFIQsgsWugqOhTayO1xC/s0WXO7TVwVakPmWtwD+vgJx
-	eiP4ZxMJO9M6uYE9syH0tB4Bky54n3l7iaB9WcLResFPV68fGWwbPnhPnA0W2wLz4PnI9cs7kIy
-	qEd8KoWp9g6NO8qiLWygymDAwgbDCpcs0MWoahP0AK7HhI5EZY3L5g+hFozMVISX4nl/R/wtoSM
-	KGpukG55iacUVmSauZyorK2/A/u/UqkFUKGsQPTctyi66VLiTkH62Kfo5fn/yakiBo
-X-Received: by 2002:a05:6122:4f91:b0:5c6:58df:5826 with SMTP id 71dfb90a1353d-5c981d5fca1mr10648335e0c.5.1789483968151;
-        Tue, 15 Sep 2026 07:52:48 -0700 (PDT)
-Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c84714c380sm15063108e0c.15.2026.09.15.07.52.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:52:47 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v3] HID: wacom: avoid overflows in sequence number tracking
-Date: Tue, 15 Sep 2026 11:52:29 -0300
-Message-ID: <20260915145229.3036596-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915111448.2726869-1-qwe.aldo@gmail.com>
-References: <20260915111448.2726869-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Tc9Dk6Yy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789484015; x=1821020015;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=PeCPQwsh+qKGrcT3bTdkFKnhdBA1fVZf3KBFD/Bg9AY=;
+  b=Tc9Dk6YyScGEtemGXaTh9nko1vd+MmLxHp0f+fRLtzZjZwSoUoanPi4a
+   ISgxOZcTDwk8zAtiWRjSgQGt56ttaIahGcbcgdqg2dOn7amwn6V0Ulrrx
+   KRodF9Z6j4qNpC75xH7FFGn9bBp4rYRX4cXsNxVbYUT2dBd1zNoxfJGC0
+   +5hnAPGqQEXQ2O4dhGMwqV69QGwnEdGawo9bgJ6A/h10ChAY+CzdbEva2
+   Vh24SbsY+tmUgcou1/fANVZSR/AAb2m6S27yWduTztipHkO8t7udx4S60
+   gfNu6bJSTqYLK8JoAHh/YPv2CKYs4gNleDXoZM31TJoa2dXKcVKxDF8pj
+   A==;
+X-CSE-ConnectionGUID: xjQH2LblSqWHRjGFDAU1/w==
+X-CSE-MsgGUID: tkMc6KQWSiW+FeMThGZ7DA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112619422"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="112619422"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:53:34 -0700
+X-CSE-ConnectionGUID: pD+gpyMUTpWXizQXOXxYtA==
+X-CSE-MsgGUID: MNUHoTn5StWYHXkAWDsF7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="277156120"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.57])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:53:29 -0700
+Date: Tue, 15 Sep 2026 17:53:26 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
+ new header
+Message-ID: <aqlb5iZQ07Xicq0m@ashevche-desk.local>
+References: <20260911-dmaengine-support-wider-dma-masks-v4-0-72b8fd4cc78e@analog.com>
+ <20260911-dmaengine-support-wider-dma-masks-v4-1-72b8fd4cc78e@analog.com>
+ <aqgCQvRw9fns__0d@SMW015318>
+ <aqjzvxI4ecoFvRLT@ashevche-desk.local>
+ <aqlYOHIFU_dB72I3@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqlYOHIFU_dB72I3@SMW015318>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The dropped-packet calculation derives the sequence range in signed int
-arithmetic. A sequence field whose logical range spans all 32-bit values
-makes the range calculation wrap to zero, so the following modulo triggers
-a divide exception.
+On Tue, Sep 15, 2026 at 09:37:44AM -0500, Frank Li wrote:
+> On Tue, Sep 15, 2026 at 10:29:03AM +0300, Andy Shevchenko wrote:
+> > On Mon, Sep 14, 2026 at 09:18:42AM -0500, Frank Li wrote:
+> > > On Fri, Sep 11, 2026 at 06:25:36PM +0100, Nuno Sá wrote:
+> > > > In preparation for the bitmap based bus width capabilities, move
+> > > > enum dma_slave_buswidth out of linux/dmaengine.h into a new
+> > > > include/linux/dma/engine/types.h.
+> > > >
+> > > > linux/dmaengine.h is included nearly everywhere, so growing it with the
+> > > > new interface would make every one of its users pay for it. Keeping the
+> > > > basic types in a separate header lets the new interface live next to it
+> > > > without that cost. linux/dmaengine.h includes the new header, so its
+> > > > users are unaffected.
+> > > >
+> > > > While at it, add the missing kernel-doc for the enum members. The block
+> > > > already opened with /**, so kernel-doc expected every member to be
+> > > > described and warned about each one of them. Describe the UNDEFINED case
+> > > > in particular, as its meaning depends on where the value is used.
 
-Normalize the maximum and current value according to the HID parser's
-signedness rule, and keep the sequence state and arithmetic in s64. Use
-div64_s64() for the remainder to avoid __moddi3 link failures on 32-bit
-architectures. This also avoids overflowing value + 1 at the logical
-maximum.
+...
 
-Fixes: 359673ea3a20 ("HID: wacom: Support sequence numbers smaller than 16-bit")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
+> > > >  include/linux/dmaengine.h        | 20 +++-----------------
+> > >
+> > > I think it is good to split dmengine consumer and provider header files to
+> > > hidden dmaengine's detail.
+> >
+> > It's indeed desirable change. but isn't it a bit out of scope of the series?
+> > I suggest to do one step at a time. Would it work for you?
+> 
+> Yes, but I hope the file name is finial expected file name. it is okay
+> just move enum dma_slave_buswidth to there now.
 
-Changes in v3:
-  - Replace raw s64 modulo with div64_s64()-based remainder to avoid
-    __moddi3 link failure on 32-bit architectures (i386, arm32).
-    Reported by Sashiko AI review.
+Hmm... The whole split as is in this series is due to bitmap.h and the whole
+train wreck with headers we have. I haven't checked that particular enum, but
+if it's possible to gather it in one of provider.h/consumer.h at the end, then
+yes, we may name file accordingly from day 1.
 
-Changes in v2:
-  - Normalize logical_maximum/value as unsigned when logical_minimum >= 0,
-    matching HID parser signedness. Store sequence state as s64.
-    Fixes unsigned 0..UINT32_MAX range that broke v1.
+> > > suggest name
+> > > 	dma/engine.h
+> > >
+> > > so we can start move more API to this files.
+> > >
+> > > after all user include this consumer header file,  old
+> > > include/linux/dmaengine.h rename to include/linux/dmaengine-provider.h,
+> > > which only include by dmaengine drivers.
+> >
+> > Traditional naming would be
+> > dma/engine/provider.h
+> > dma/engine/consumer.h
 
- drivers/hid/wacom_wac.c | 33 ++++++++++++++++++++++++---------
- drivers/hid/wacom_wac.h |  2 +-
- 2 files changed, 25 insertions(+), 10 deletions(-)
+-- 
+With Best Regards,
+Andy Shevchenko
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index da1f0ea856..af94f59a5d 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -7,6 +7,7 @@
- #include "wacom.h"
- #include <linux/input/mt.h>
- #include <linux/jiffies.h>
-+#include <linux/math64.h>
 
- /* resolution for penabled devices */
- #define WACOM_PL_RES		20
-@@ -2527,18 +2528,33 @@ static void wacom_wac_pen_event(struct hid_device *hdev, struct hid_field *field
- 	case WACOM_HID_WD_BARRELSWITCH3:
- 		wacom_wac->hid_data.barrelswitch3 = value;
- 		return;
--	case WACOM_HID_WD_SEQUENCENUMBER:
--		if (wacom_wac->hid_data.sequence_number != value &&
-+	case WACOM_HID_WD_SEQUENCENUMBER: {
-+		s64 sequence_minimum = field->logical_minimum;
-+		s64 sequence_maximum = sequence_minimum < 0 ?
-+			(s64)field->logical_maximum :
-+			(s64)(u32)field->logical_maximum;
-+		s64 sequence_value = sequence_minimum < 0 ?
-+			(s64)value : (s64)(u32)value;
-+
-+		if (wacom_wac->hid_data.sequence_number != sequence_value &&
- 		    wacom_wac->hid_data.sequence_number >= 0) {
--			int sequence_size = field->logical_maximum - field->logical_minimum + 1;
--			int drop_count = (value - wacom_wac->hid_data.sequence_number) % sequence_size;
--			hid_warn(hdev, "Dropped %d packets", drop_count);
-+			s64 sequence_size = sequence_maximum -
-+					    sequence_minimum + 1;
-+			s64 drop_count = sequence_value -
-+					 wacom_wac->hid_data.sequence_number;
-+
-+			drop_count -= div64_s64(drop_count, sequence_size) *
-+				      sequence_size;
-+			if (drop_count < 0)
-+				drop_count += sequence_size;
-+			hid_warn(hdev, "Dropped %lld packets",
-+				 (long long)drop_count);
- 		}
--		wacom_wac->hid_data.sequence_number = value + 1;
--		if (wacom_wac->hid_data.sequence_number > field->logical_maximum)
--			wacom_wac->hid_data.sequence_number = field->logical_minimum;
-+		if (sequence_value >= sequence_maximum)
-+			wacom_wac->hid_data.sequence_number = sequence_minimum;
-+		else
-+			wacom_wac->hid_data.sequence_number = sequence_value + 1;
- 		return;
- 	}
-+	}
-
- 	/* send pen events only when touch is up or forced out
- 	 * or touch arbitration is off
-diff --git a/drivers/hid/wacom_wac.h b/drivers/hid/wacom_wac.h
-index 126bec6e5c..74e7c5a04a 100644
---- a/drivers/hid/wacom_wac.h
-+++ b/drivers/hid/wacom_wac.h
-@@ -324,7 +324,7 @@ struct hid_data {
- 	int bat_connected;
- 	int ps_connected;
- 	bool pad_input_event_flag;
--	int sequence_number;
-+	s64 sequence_number;
- 	ktime_t time_delayed;
- };
-
---
-2.43.0
