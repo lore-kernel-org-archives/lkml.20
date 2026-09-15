@@ -1,170 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6684AC158;
-	Tue, 15 Sep 2026 19:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465824CE668
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789498821; cv=none; b=FDnaBcsFlabd+XjBfgNOIYpWDjq4fsMeJcCcRdIhS3FE9sFf3sgcUQKBMyISt/3VNFJPj7U8TcFTBm6JNFwksv4l2lHKtlVjZKI16YaJpZU1fp/S19Kw/HR2ZGY1GhHMjoWIkVCCr+koSVaE0jHp6A00snK8EFN8pwY2KDRYlis=
+	t=1789498879; cv=none; b=lkJdQemKf/h4oJW1ffe2jE6JUZ3JIeZ8xwlxZholiwHNIc7+4yrh3gA4myNmeIMb2gWSsCxL5Wg5E1/qF2LdyWpIx1RfEl0d8N0Qx2viERODRDevkpmxT7AJ9GVdh31NVd9VVocROxmFCsRSUjGTwCeQjD6oubPFKvJAWIFEbTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789498821; c=relaxed/simple;
-	bh=/pxPtBDRL/rubNz3T85ru1lxCUdEgL1csnJGWfVKvsw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GqmGZ+D+b0m16WrZ+LAU4nCNq7ZeqY8/MkYDWu7U8ZexwCzwKZMJHnBobpJLv1Y7OedjvbrLV4gt3JE5DLSw1kPRr7qVLfc/fQ1o+XSlxmD98yWl+6iUXp7iCHF8kKIPpRvIieZi+ah2VKfvPPY2DtWTTyfIVZV3L5Jv22r+pR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j0iSBaet; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789498879; c=relaxed/simple;
+	bh=l4t1jNOLy02YBOh7dmJnJlpg7s8WJAsAgZVpnp46ojU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ClVcYdynWAX0mh26n/yzQbuVqljMCobFXiL5G8fj1vocz7DQwk1supJIzJeQQYTE4jv/Gv3HfKoHJfbMVgzEGuhMIsFFvRl9Tu+uOEYjBfcd2Y75HnBP/+fLpn8oz1vejJJ/cKqzo0ND1bUKWtNelMg9NYtncIfI2iBHdODpUr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m35+zrJ6; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j0iSBaet"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7C11F00899;
-	Tue, 15 Sep 2026 19:00:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789498819;
-	bh=bH9D6fx46WAVM8PGx4wEKkSYBjKGmw5AvziupNUvWGk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j0iSBaetC/3YCi18xNuSeB+n+7VnOF+QOgAvJx7ktLSNyWzdoyXHzZ/YPBs5rtm+n
-	 WA6gaCeYDOM7G68qSWfRsHvbbAN1voKYHzwbAYckQsRPEBWlfdZePBmdFPmQ1OMU/N
-	 sUCxn5+r/cR7FN5oCIcXoHFsLztawdQ7lZ2pVlHqL5qvTKh/9Qqc0Ta8A275Irt74k
-	 zf/eAGrgknulaZr5ylmpMNiuL5cL1xjelXuos4e0Xj/d9MPGQhh5E4WSCnRmy8X7rs
-	 HaD3mC4eIWM8qko0PgiUDZhDxobQu7+Yi4Weeos/5iSyNoUm6TMJqr9E5mfS6sKjxo
-	 y4BshIH81fNpw==
-Date: Tue, 15 Sep 2026 12:00:19 -0700
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>
-Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Matthias Schwarzott <zzam@gentoo.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Mike Marshall <hubcap@omnibond.com>,
-	Martin Brandenburg <martin@omnibond.com>,
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
-	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Kanglong Wang <wangkanglong@loongson.cn>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Qiang Ma <maqianga@uniontech.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Thorsten Blum <blum@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Imre Deak <imre.deak@intel.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Cryolitia PukNgae <cryolitia@uniontech.com>,
-	Jiaming Zhang <r772577952@gmail.com>,
-	Will Porter <mrwillporter@gmail.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
-	=?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
-	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
-	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
-	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 03/28] ARM: atags: Replace strlcat() with snprintf() for
- cmdline extend
-Message-ID: <202609151155.CC22827@keescook>
-References: <20260915081910.4142719-1-morbo@google.com>
- <20260915081910.4142719-4-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m35+zrJ6"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398beb616f5so31752a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:00:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789498849; x=1790103649; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k9ubRUCKOUA2J3XCgMm19BhpyuYjCphiG49HTeWE9Tk=;
+        b=m35+zrJ6UMUTGSAaBA5BIUl2WiDBffuk8IhgAmy5jml98aYwSppkDdPdm6pKzGYXkU
+         bxVwMffzx/pYksXKOvYPYVkJcJM5gNUVkBzKnSefXbJFdrregMxWhuai0hmAoNX+OMfd
+         KigOLE8yFeVro07CbCay3rkaN3Z3SPgjKfX18IVgPo3Dki0Bvv668PrkZ7m3WQ4bnynM
+         9rJ5X71YlwuKIIid/ejCaE77FNB0w3PMu5rZbufxdBbJONzQ+cXDDD9VHvtuHTTtRXMU
+         ExKVxbxZNBSNdUcDlh0g7TebsVnSQmHwkIg0qxPM4yuSg5dLxqZx3tDvxJ9rkyWCfjwo
+         bRFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789498849; x=1790103649;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k9ubRUCKOUA2J3XCgMm19BhpyuYjCphiG49HTeWE9Tk=;
+        b=2VH+OhfquLIOiX383B0Jh6MOmLXv3xlvERXQtwVV4dAz7OEvEFpHF7RS2qmLbX5mAi
+         l00s/3j8foklH+a7X5yQD7ZwuRKR1yEJ8rg54H7f8WJkvmjnVk2BqwYj1w99C/4PKrGe
+         R+LN4pzdvdlf471Pn+rg7SkSNSdIssA2RZ+IsviMMsnupNsc3o/yjPlYzBq24oYK+YY4
+         Hbooxq71G5TOFFw6fMO6oj3Hz1b8M+RZgM1k+mqjpgMK1X1EkNpol6hVmZbVd6z19saB
+         DRogVPTZoA3dJQKZ83giT9jwFRCqZHSO9LHCqXgP7W1gHltdYiG9MjklAv1rhrL6i8KD
+         LKHg==
+X-Forwarded-Encrypted: i=1; AKwUvByq5HiPIxPd2YKxE0zdRYH35jPXIHy5bjLwC3c2ciz+Mm09B5f74gts/IfrCvZl9Pv12GAVbVC40cAvDK4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6UhJtg2FZzMjRh8VemRUxdhkJMpG3+9AH4V2OFh4j4/Q8NIlz
+	jqZofN4JlfRVrNWflb+X8L6zTFzgiJktjnsvQJurF61AnM13hair3VaK
+X-Gm-Gg: AYBFou33hq3LR8J0I90lMWl5HaCtDdnfmSxKP8zo07xsWpKQXEZg1dsnh1Lw2WnByYr
+	4cAAylHfA/YR/VGmpvRrv0B01bG5Khx/B5cdb+rcWJ/1p8FnIbrRy/zFVYb3ZVC2RaN0K//EFoX
+	z+62SLsTM8KcwijwWIXi5VuiNECBlQ6OCwnpfBs1TploAMezB3yUcm7ZiB1N1+aniFRFHRge4h5
+	eCs/T6SKu0N8wlR1V8pzo7xDhjQVufWTa/I4aRzrCMvcT05QUfJMCKBF2sUPuqXhShqpYAi0g2l
+	asbu0iqzR6IhaQo6+wzlNEmjXx7XcpPYES+bk4ETCXxrCtbaNMflWFDSSWiMDDAjXXyIuCmUuM+
+	kL/WtOwpvcxjb9J0t3RjYpxc1f0an2vLI+sbr4oQWXG9kHSb+og+SPAqzvJNf22oK63UAtm1zNf
+	KOk20DOlxK7SxodWE9pJuFd2JnEJQZZuZxgFj7ymxyOotPMUY3k4ScqRre4Zbwbi8Q07HpHH94S
+	NlO+ZjrveQxhNLx1FiCT/ipXCKtRaVTkBfK/fwN6it6AH49AGZ8xqKbZ/qtKC4oWs2zaSYEJp+n
+	DUUfK3U2H+N+D8NM4oMbI32WDOFqCazj2Oj9w8yPYNMx/EG3uozOlQ9+1Q8=
+X-Received: by 2002:a17:90b:3842:b0:39e:b0d:d274 with SMTP id 98e67ed59e1d1-39e0b0dd4c1mr2936420a91.10.1789498849414;
+        Tue, 15 Sep 2026 12:00:49 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b7a3cc9sm201919a91.14.2026.09.15.12.00.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 12:00:48 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Xuelin Shi <xuelin.shi@freescale.com>,
+	Harninder Rai <harninder.rai@freescale.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv5] dmaengine: fsl_raid: check fsl_re_chan_probe() return value
+Date: Tue, 15 Sep 2026 12:00:47 -0700
+Message-ID: <20260915190047.86218-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915081910.4142719-4-morbo@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 08:18:20AM +0000, Bill Wendling wrote:
-> --- a/arch/arm/kernel/atags_parse.c
-> +++ b/arch/arm/kernel/atags_parse.c
-> @@ -121,9 +121,10 @@ __tagtable(ATAG_REVISION, parse_tag_revision);
->  static int __init parse_tag_cmdline(const struct tag *tag)
->  {
->  #if defined(CONFIG_CMDLINE_EXTEND)
-> -	strlcat(default_command_line, " ", COMMAND_LINE_SIZE);
-> -	strlcat(default_command_line, tag->u.cmdline.cmdline,
-> -		COMMAND_LINE_SIZE);
-> +	size_t len = strlen(default_command_line);
-> +
-> +	snprintf(default_command_line + len, COMMAND_LINE_SIZE - len,
-> +		 " %s", tag->u.cmdline.cmdline);
->  #elif defined(CONFIG_CMDLINE_FORCE)
->  	pr_warn("Ignoring tag cmdline (using the default kernel command line)\n");
->  #else
+fsl_re_probe() ignores the return value of fsl_re_chan_probe() and
+unconditionally increments total_chans. When a channel fails to probe
+(for example, an IRQ mapping failure) its re_jrs[] slot is left NULL, yet
+total_chans still advances, so fsl_re_remove_chan() later dereferences the
+NULL pointer during device removal.
 
-It's pretty clear we have a pattern of "simple append" that is needed,
-and while strlcat() does that, it's horrible. I feel like we need an
-appending scnprintf(), and it needs to return like strscpy() does (i.e.
--E2BIG on truncation).
+Check return value and only count successfully probed channels, and guard
+fsl_re_remove() against NULL entries.
 
-My goal would be:
+Fixes: ad80da658bbc ("dmaengine: Driver support for FSL RaidEngine device.")
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v5: put some stuff on one line for easier readability.
+ v4: use break;
+ v3: fix sashiko review
+ v2: fix description
+ drivers/dma/fsl_raid.c | 26 ++++++++++++++++++--------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
-- don't open-code string length math
-- never leave the destination unterminated
-- allow for format strings
-- yes/no return indication for "did this truncate?"
-
-Initializing a whole seq_buf struct for these small cases is too much
-overhead...
-
-For both cases (small without seq_buf, large with seq_buf), it is also
-frequently needed to know the resulting strlen. seq_buf doesn't do this
-right today, and a strscpy-style return value also doesn't tell us. :(
-
+diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
+index 9cc289f7129e..b4355eb0098d 100644
+--- a/drivers/dma/fsl_raid.c
++++ b/drivers/dma/fsl_raid.c
+@@ -836,18 +836,27 @@ static int fsl_re_probe(struct platform_device *ofdev)
+ 		}
+ 		/* Find out the Job Rings present under each JQ */
+ 		for_each_child_of_node(np, child) {
+-			rc = of_device_is_compatible(child,
+-					     "fsl,raideng-v1.0-job-ring");
++			if (ridx >= FSL_RE_MAX_CHANS) {
++				dev_warn(dev, "too many job rings, max %d\n", FSL_RE_MAX_CHANS);
++				of_node_put(child);
++				break;
++			}
++
++			rc = of_device_is_compatible(child, "fsl,raideng-v1.0-job-ring");
++			if (!rc)
++				continue;
++
++			rc = fsl_re_chan_probe(ofdev, child, ridx, off);
+ 			if (rc) {
+-				fsl_re_chan_probe(ofdev, child, ridx++, off);
+-				re_priv->total_chans++;
++				dev_err(dev, "job ring %d probe failed: %d\n", ridx, rc);
++				continue;
+ 			}
++			ridx++;
++			re_priv->total_chans++;
+ 		}
+ 	}
+ 
+-	dma_async_device_register(dma_dev);
+-
+-	return 0;
++	return dma_async_device_register(dma_dev);
+ }
+ 
+ static void fsl_re_remove_chan(struct fsl_re_chan *chan)
+@@ -872,7 +881,8 @@ static void fsl_re_remove(struct platform_device *ofdev)
+ 
+ 	/* Cleanup chan related memory areas */
+ 	for (i = 0; i < re_priv->total_chans; i++)
+-		fsl_re_remove_chan(re_priv->re_jrs[i]);
++		if (re_priv->re_jrs[i])
++			fsl_re_remove_chan(re_priv->re_jrs[i]);
+ 
+ 	/* Unregister the driver */
+ 	dma_async_device_unregister(&re_priv->dma_dev);
 -- 
-Kees Cook
+2.55.0
+
