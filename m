@@ -1,66 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E112F83B5;
-	Tue, 15 Sep 2026 06:53:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC95A420E9D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789455232; cv=none; b=f1LrWfuErUsPbcEdnf1j/+2kDzb3nPHHLRoo+1ld2/F1yeNxZYSWbXhMtiTZ7npTUDg+rV0CU92SgwEik9OsLW4va1IDaV9JHnmNePNQSgo31jqNFjXeHhyuGE9LGCFHfvYxMoXeMdqyoW76um5I6Or1dawUcmxONILR084TjrE=
+	t=1789455233; cv=none; b=Yo8g4oZt89mc+ovx1wXzPxoFEXq4IigxRZMp2o0yNho1LA9+Gh8EX/N7ANTuY8eGQUEeg8U87xUYNgQ0EiyYXK11ORqazWffyY93MSnL+xll0fCWOSBK3/mM2irf5KiE0tHcsJFa1MUQ3Mq64gDq+UaAQo7sbOd7UupEfX8Afno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789455232; c=relaxed/simple;
-	bh=v4/qK/h4ZZ/YunWGTPg8FkPgQlyTl13jW7uuTg0YKF4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=aHdCH8sdqh9j+MypjxDBDB66Gjc6ZKo8mevFpjkZuf8cjsWHXN9iQw3I5KbTvXgQQfPqLxqVw3sSK5P9fK5V7C+xjY4LHHdPsYewgid678p6GDK/REwyUfSdYPnTHWBOSuqg2z3wljmDZ7+w1hVn0ppJ5uuqSFkWAP9bpdgtxAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5MvIzGv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789455233; c=relaxed/simple;
+	bh=W+VTZlbEEDdrw77z+kwtZgySeGpiY0lXE0J3jrAT01M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=C94LOxYlSZOKN9iWrVIW8I9L+PoYPc9Wfm2FdaFS1xi6+tfK6n4IwGMhIhofaj1GjNURJppdwzvX2fMBrpAtNdK1m5fllnl/WqkwLYUN7PnlIJHzK1l5tN2DgSln431RRYdEsfjkOT/nYbNjPcd3vO3VrTUlitWWbFrgQye9jXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=GwHlrbR5; arc=none smtp.client-ip=117.135.210.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5MvIzGv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0681F000FF;
-	Tue, 15 Sep 2026 06:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789455231;
-	bh=cUchE1Zh7ptn0AzvKmzY84GNBKfh/QkAkDlMN6pv/uc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=J5MvIzGv+Dci9Dofw9ky6uwD9+X0OI+FIS5OkosuOl9CYRKS4/YdyZlQ5I/i+BezT
-	 loq9ybmRbtTcesAHwvc74xFl5ucQFN6HmJ5e2DdEVtksjpZ5scwaNysWWcz5uK9SjE
-	 9D9tm11oIq38cxnN7uNYE99m4ltoI6TFAVar+0rJypbMNtNLrqXJJBYcvVFUZ+07P6
-	 1W4/lsWp86wMdbAK77jvE+QAMXwJocOvZAW+q000bZ87OUQD2ezT3T8o3dAJ1AZaXM
-	 PssUmWyuJLdA9Ntz+E60Ut79PtmxGVQ7B9NV7ieWemMC6qxnfxNV6YdJ/j+/e5OqbE
-	 BsZczW2N/ozsw==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sam Protsenko <semen.protsenko@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, 
- linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260914-exynos850-mbox-dts-v2-1-798585c8f1ba@linaro.org>
-References: <20260914-exynos850-mbox-dts-v2-1-798585c8f1ba@linaro.org>
-Subject: Re: [PATCH RESEND v2] arm64: dts: exynos850: Add ap2apm mailbox
-Message-Id: <178945522767.39169.14365156505199938615.b4-ty@b4>
-Date: Tue, 15 Sep 2026 08:53:47 +0200
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="GwHlrbR5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=W+VTZlbEEDdrw77z+kwtZgySeGpiY0lXE0J3jrAT01M=; b=G
+	wHlrbR5xA8pJm0QuxQairSFZPw7h/yjCjG4N2MyDnrRgFOtDu0M+Cobuj5sMGhVI
+	acUweA41ZY55eOth2UDcZ2WiRWJiZBp7q9LEaqmyk6bkfK9N2V7YQYyNiuB/h+rl
+	5mLY8P2w2iheX2BU/qO27xsOLjlfXAw3tw7fTMIVJs=
+Date: Tue, 15 Sep 2026 14:53:29 +0800 (CST)
+From: dd  <zhongling0719@126.com>
+To: "Hyunchul Lee" <hyc.lee@gmail.com>
+Cc: "Hongling Zeng" <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+	ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH v11 0/6] ntfs: fix volume flag races and persist the
+ recorded error state
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
+In-Reply-To: <CANFS6bZi+Nsrieh1M1sxwc7SPyjy8xx9KJcfUQdctsUrYrQedQ@mail.gmail.com>
+References: <20260914054926.78808-1-zenghongling@kylinos.cn>
+ <CANFS6bZi+Nsrieh1M1sxwc7SPyjy8xx9KJcfUQdctsUrYrQedQ@mail.gmail.com>
+X-NTES-SC: AL_Qu2TC/ieukor7ymcZukWk00RgOk9WsG1vfQi24NQP500ly728SsKQVxoP37pze6IFy6zkCWzdid8y9xQVLVEVZrd4FEEonY9QKRpjtW3I13V
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Message-ID: <162ea4b2.489f.1a0a3d795e2.Coremail.zhongling0719@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:dikvCgD3V9Jq66hqu5NAAA--.14806W
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrwnZqmqo62my5QAA3C
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-On Mon, 14 Sep 2026 17:32:45 +0100, Alexey Klimov wrote:
-> Add mailbox node that describes AP-to-APM mailbox, that can be
-> used for communicating with APM co-processor on Exynos850 SoCs.
-
-Applied, thanks!
-
-[1/1] arm64: dts: exynos850: Add ap2apm mailbox
-      https://git.kernel.org/krzk/linux/c/61c04d2173896eb36f2bf55ce1804f7f8477d0e8
-
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
-
+CgpBdCAyMDI2LTA5LTE1IDEzOjQ4OjA1LCAiSHl1bmNodWwgTGVlIiA8aHljLmxlZUBnbWFpbC5j
+b20+IHdyb3RlOgo+SGkgSG9uZ2xpbmcsCj4KPlRoYW5rIHlvdSwgYW5kIHRoaXMgcGF0Y2ggc2V0
+IGxvb2tzIGdvb2QgdG8gbWUuCj4KPkFzIGEgZm9sbG93IHVwLCBpdCB3b3VsZCBiZSB1c2VmdWwg
+dG8gZGlzY3VzcyBtYWtpbmcgdm9sdW1lIGRpcnR5Cj53aGVuIGFuIFJXIG1vdW50IGlzIGVzdGFi
+bGlzaGVkIGFuZCBjbGVhcmluZyBpdCBvbmx5IGFmdGVyIGEgY2xlYW4KPnVubW91bnQuCj4KPlRo
+ZSBjdXJyZW50IGltcGxlbWVudGF0aW9uIHN0aWxsIGhhcyBhIHdpbmRvdyB3aGVyZSBtZXRhZGF0
+YQo+Y2hhbmdlcyBtYXkgYmUgd3JpdHRlbiB3aGlsZSB0aGUgb24tZGlzayB2b2x1bWUgZmxhZyBp
+cyBzdGlsbAo+Y2xlYW4sIGFuZCBhbHNvIGRvZXMgbm90IGNsZWFyIHRoZSBkaXJ0eSB2b2x1bWUg
+Zm9yIHN5bmMoMikuCj4KSGkgSHl1bmNodWwsCgpUaGFuayB5b3UgZm9yIHRoZSByZXZpZXcgYW5k
+IGZvciBjb25maXJtaW5nIHRoYXQgdGhlIHBhdGNoIHNldCBsb29rcwpnb29kLgoKSSBhZ3JlZSB0
+aGF0IG1hcmtpbmcgdGhlIHZvbHVtZSBkaXJ0eSB3aGVuIGVzdGFibGlzaGluZyBhbiBSVyBtb3Vu
+dCwKYW5kIGNsZWFyaW5nIGl0IG9ubHkgYWZ0ZXIgYSBjbGVhbiB1bm1vdW50LCB3b3VsZCBjbG9z
+ZSB0aGUgcmVtYWluaW5nCndpbmRvdyBiZWZvcmUgdGhlIGZpcnN0IG1ldGFkYXRhIHVwZGF0ZS4g
+SSBhbHNvIGFncmVlIHRoYXQgc3luYygyKQpzaG91bGQgbm90IGNsZWFyIHRoZSB2b2x1bWUgZGly
+dHkgZmxhZywgc2luY2UgdGhlIGZpbGVzeXN0ZW0gcmVtYWlucwp3cml0YWJsZSBhZnRlciBzeW5j
+IGNvbXBsZXRlcy4KCkkgd2lsbCBmb2xsb3cgdXAgd2l0aCBhIHNlcGFyYXRlIHBhdGNoL2Rpc2N1
+c3Npb24gZm9yIHRoaXMgYmVoYXZpb3IuCgpUaGFua3MsCkhvbmdsaW5nCj4yMDI264WEIDnsm5Qg
+MTTsnbwgKOyblCkg7Jik7ZuEIDI6NDksIEhvbmdsaW5nIFplbmcgPHplbmdob25nbGluZ0BreWxp
+bm9zLmNuPuuLmOydtCDsnpHshLE6Cj4+Cj4+IFRoZSBmcy9udGZzIHJ1bnRpbWUgbWV0YWRhdGEt
+Y29ycnVwdGlvbiBwYXRocyBvbmx5IHJlY29yZCB0aGUgaW4tbWVtb3J5Cj4+IE5Wb2xFcnJvcnMo
+KSBmbGFnLCBhbmQgdGhlIGNhbGxlci1zaWRlIGRpcnR5LWJpdCBtYXJraW5nIHJhY2VzIHdpdGgK
+Pj4gbnRmc19zeW5jX2ZzKCk6IGEgdm9sdW1lIGNhbiBlbmQgdXAgd2l0aCBhIGNsZWFuIG9uLWRp
+c2sgZGlydHkgZmxhZwo+PiBkZXNwaXRlIG1vZGlmaWNhdGlvbiBvciByZWNvcmRlZCBjb3JydXB0
+aW9uLCBzbyBjaGtkc2sgbmV2ZXIgcnVucyBvbgo+PiB0aGUgbmV4dCBtb3VudC4gIEJhc2VkIG9u
+IG50ZnMvbnRmcy1uZXh0ICg5YTA1YjU3MTVjZmEpLgo+Pgo+PiAgMS80IG1ha2VzIHRoZSB2b2x1
+bWUgZmxhZyByZWFkLW1vZGlmeS13cml0ZSBhdG9taWMgdW5kZXIgdGhlCj4+ICAgICAkVm9sdW1l
+IG1yZWNfbG9jazsKPj4gIDIvNCBtYXJrcyB0aGUgdm9sdW1lIGRpcnR5IHVuY29uZGl0aW9uYWxs
+eSBvbiBtZXRhZGF0YSBjaGFuZ2VzLAo+PiAgICAgZHJvcHBpbmcgdGhlIHJhY3kgY2FsbGVyLXNp
+ZGUgY2hlY2tzIGluIGZpbGUuYyBhbmQgbmFtZWkuYzsKPj4gIDMvNCBkZXJpdmVzIHRoZSBvbi1k
+aXNrIGRpcnR5IGJpdCBmcm9tIHRoZSByZWNvcmRlZCBlcnJvciBzdGF0ZSBhdAo+PiAgICAgdGhl
+IHBlcnNpc3RlbmNlIHBvaW50cyAoc3luY19mcywgcmVtb3VudC1ybywgcHV0X3N1cGVyKSBhbmQg
+bmV2ZXIKPj4gICAgIHdyaXRlcyBhIGhpYmVybmF0ZWQgdm9sdW1lOwo+PiAgNC80IHBlcnNpc3Rz
+IHRoZSBkaXJ0eSBzdGF0ZSBhZnRlciB0aGUgZmluYWwgcHV0X3N1cGVyKCkgY29tbWl0cyBzbwo+
+PiAgICAgbGF0ZSBlcnJvcnMgY2Fubm90IHVubW91bnQgY2xlYW4uCj4+Cj4+IENoYW5nZXMgaW4g
+djExOgo+Pgo+PiAtIEFkZCA1LzY6IFN0b3AgY2xlYXJpbmcgVk9MVU1FX0lTX0RJUlRZIGR1cmlu
+ZyBzeW5jLiBUaGUgYml0IGlzIG5vdwo+PiAgIGNsZWFyZWQgb25seSBvbiByZW1vdW50IHRvIHJl
+YWQtb25seSBvciBjbGVhbiB1bm1vdW50LCBwcmV2ZW50aW5nIGEKPj4gICBjcmFzaCBkdXJpbmcg
+bWV0YWRhdGEgdXBkYXRlcyBmcm9tIGJ5cGFzc2luZyBjaGtkc2suIFZlcmlmaWVkIGluIFFFTVUu
+Cj4+Cj4+IC0gQWRkIDYvNjogQ2hlY2sgY29tbWl0IGFuZCBmbHVzaCBlcnJvcnMgZHVyaW5nIHJl
+bW91bnQgYW5kIHVubW91bnQuCj4+ICAgUmUtY2hlY2sgTklub0RpcnR5KCkgYWZ0ZXIgX19udGZz
+X3dyaXRlX2lub2RlKCkuIEEgZmFpbGVkIHJlbW91bnQgaXMKPj4gICByZWplY3RlZCBzbyB1bm1v
+dW50IGNhbiByZXRyeTsgdW5tb3VudCBmYWlsdXJlcyBhcmUgcmVwb3J0ZWQgYXMgd2FybmluZ3Mu
+Cj4+Cj4+Cj4+IEhvbmdsaW5nIFplbmcgKDQpOgo+PiAgIG50ZnM6IGZpeCB2b2x1bWUgZmxhZyB1
+cGRhdGUgcmFjZXMKPj4gICBudGZzOiBzZXQgdGhlIHZvbHVtZSBkaXJ0eSBiaXQgdW5jb25kaXRp
+b25hbGx5IG9uIG1ldGFkYXRhIGNoYW5nZXMKPj4gICBudGZzOiBzeW5jIHRoZSB2b2x1bWUgZGly
+dHkgYml0IHdpdGggdGhlIHJlY29yZGVkIGVycm9yIHN0YXRlCj4+ICAgbnRmczogcGVyc2lzdCB0
+aGUgZGlydHkgc3RhdGUgYWZ0ZXIgdGhlIGZpbmFsIHB1dF9zdXBlcigpIGNvbW1pdHMKPj4KPj4g
+IGZzL250ZnMvZmlsZS5jICAgfCAgMjAgKystLS0KPj4gIGZzL250ZnMvbmFtZWkuYyAgfCAgMjQg
+KystLS0tCj4+ICBmcy9udGZzL250ZnMuaCAgIHwgICAxIC0KPj4gIGZzL250ZnMvc3VwZXIuYyAg
+fCAxOTEgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0KPj4g
+IGZzL250ZnMvdm9sdW1lLmggfCAgIDQgKwo+PiAgNSBmaWxlcyBjaGFuZ2VkLCAxNzEgaW5zZXJ0
+aW9ucygrKSwgNjkgZGVsZXRpb25zKC0pCj4+Cj4+IC0tCj4+IDIuMjUuMQo+Pgo+Cj4KPi0tIAo+
+VGhhbmtzLAo+SHl1bmNodWwK
