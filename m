@@ -1,219 +1,86 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C250390CAE
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460793CFF55;
+	Tue, 15 Sep 2026 02:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437837; cv=none; b=Vdf752NmQ7Ye/5deVsPhSD3Cl/kIqkLSEevnTyijMXCVWlZtYRBXxwiIvZpic0TTHjsIUR92659JJiKmRcPWvEieK+v6mAy+dOS5ZVodK+36i5j0nwhoPVJq/sWQiPq893Y2PK/oVliEPV+Jmz/1Lq482Wl9xNya++gG9pOUK5o=
+	t=1789437840; cv=none; b=IAcB9tEM6OZSGwSHqto0bATuDTAQMfeNHrXu7mW7wQfsHoP1GTnB9dKaJoSjfMKX8Aa6mPWWVSd63IJ76duiiUi1oUZq53rMZ8XUwFZ7yveDtpBpskJLPjCT3VuqqHXq6ITvoD06gNubb2clXA6e25exP9z+8HMhToXw+wj/CPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789437837; c=relaxed/simple;
-	bh=4KlU6IioCAwNk3jDxqQyOgDpHDc+AmeDeXmdSyc+iYU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GIoa7Uj/x25XR63cKbnHfwTSvP2JSyVlZwn4JWj8A/9A1qAvBB9crg61T0F3STNZ/bXwhrIErMVTh1AoWxdeG3uKFpedsvPQ1gvhM2LIqhXSBE+IJhEZt/NJjAJxjetfnQUmNu3SRnMNo+p4kTlLCWJbljGtflTVzJHzwhlIcq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=AXozjsoW; arc=none smtp.client-ip=74.125.231.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	s=arc-20240116; t=1789437840; c=relaxed/simple;
+	bh=0I/otgPlBKLGHuU2YvX6jFtyfcM4XulavRj5rilrl8Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k6JEpju32O8p+MGfW5Q0kEEYNXi/KZOyI0Dm7XqzmGZVUUEo5yJcrpjnwpAhpPTo1Dw0v57sNpxrhqkJ0Jn5BR0f8M97VybbDzuRnzK4fu7Lk9laTAC9W17h4FC1fyH1dY7098Wv7XuhXKMEXXnWW2/yYPVYwkbEizZEPYfo05M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKIveioP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="AXozjsoW"
-Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-7f4f0cfb29cso1288610a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:03:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1789437834; x=1790042634; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/CaPcfjF5HqH3+aS6ruNpmYZeARPkCepH2Ne0CkwEFA=;
-        b=AXozjsoWqy9neo+jCEGvb3bill5+DF9FUr2yVLJGa7+0kr+KvDCZFyiSeZ5Rb9Z8JB
-         9IIM27xav14EzxUsYTwSLG3BYZ8+31FG+zkYwgradPE/8RSTZoD3noVSYnx5WoUjbLPH
-         HOAfpNrP+Inn2bnBb84ckHlS5uRYMTpoMKdHHd/DIxVU4gMe5YXFYmbxA+PVZEztFHkt
-         H8ef5cHIrEVo83Oe2Jeql/FBV/qLXjwsJLXgwxdE+L4I03f4TkPQPkoRJwX6BYQ8v0bh
-         LmJTdJj6Vt/pPj/SAodfBro+7QrNkLDaIBq753jqcla2IQhiuulBx1Si4pj2huNmKgNH
-         QiXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789437834; x=1790042634;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/CaPcfjF5HqH3+aS6ruNpmYZeARPkCepH2Ne0CkwEFA=;
-        b=Pm1tduitINxRrue/BdVtR85cP+iPf9KC21LR7m44JrGGgFdAak2fIOTyV5n2MbuUXW
-         3I2mkW5soulq5YAtXl2ZltssEwYjDABz0CdzEZd2t9WNnVlB4NtIatr/Z7qYMbHnIrR5
-         n78kCnboYnb4SyueWstbWNVdFhMYDhxpHNntQSiwQe5K1XjyqPew+ZJi05L25cVmnqQG
-         MFdtq8PQMK8KNLTN3hH5hxZW8L1pqI8olDHGJtEyG1Ctgj2/11eOP7k9cflsx+89Hsca
-         r3Tk8GDGN+fGPQciitS8qXrRfqS9ZAo5i+9wy+x6Lh7WJHgXuo+XdcgYiempq0R7mCzE
-         W2eg==
-X-Forwarded-Encrypted: i=1; AKwUvByQIpSUWmDSbpFVTfR4Cu2MOuX7fDPacRpguH9La9Dup0smGYhEkBO4qq2eqCtSr/+e5VeqLu4AyNdm048=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1IcyUQCD9D9xqRTdgkSqcfdFCnCaAaN9jTfxYZIJYLLiWcovt
-	jtCcwrhoTNFlAGUnFMhutk+/h574xiLDyw1JxRoePDAAwNHHhgmZFJhkxJr7f6yS5JQ=
-X-Gm-Gg: AYBFou0YUiMIjr3DLjk2sv4EsI4KiIcrVeyP7oCwQmcMsbyc4eiwmQr9i7fhwSpkKv/
-	XHmdgRmfXhOW3O7lPji9XQ4A5cK3mJ0tirM0RiX3sebtfB1jWM8jbd6j3UZGHxQDUdDB7k4JU+o
-	0YxM2G5Ea0y0LVbsF3/OcOOx//TV/tQbp0fVM8RXkEw1dihvVNs/H6txbL31zF4Y3RwJvs0zm65
-	hWT68nPVJKMRcfFtgitlYqQzdU94Kcc7yCuTzTyqUzJr/IsSXrV7qL8A72TBmHrHD4QcGzDXJqg
-	iy9+56kqLoTQ/QBt1cwDdLhU0+RU/z0Wk5A7RlWZeZwAONkTPod32kYgI4SZpHirCto8MVyRqMq
-	4SAcuSRDBMI3j6dHP3o1kTnemr5NxFUHPvmYo5ZQ3F+qAwETwJSvJvzBRqkrWZyJhXC6X9fZKyV
-	UUl7Pbph3UklYjGpfN/9YiNNxtJRCsk4CHuEPDDrD8fHmAqDlR5oAI8WqXvQycOY+HxuAo4U0=
-X-Received: by 2002:a05:6830:8285:b0:806:1728:aed9 with SMTP id 46e09a7af769-8089759dffcmr5874003a34.5.1789437834177;
-        Mon, 14 Sep 2026 19:03:54 -0700 (PDT)
-Received: from [127.0.1.1] ([2a09:bac6:bf21:2e46::49c:4c])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-804de582afcsm10795696a34.16.2026.09.14.19.03.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 19:03:52 -0700 (PDT)
-From: Chris J Arges <carges@cloudflare.com>
-Date: Mon, 14 Sep 2026 21:03:35 -0500
-Subject: [PATCH net-next v2 1/3] ipv4: hash uncached routes by device
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKIveioP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA0291F0089B;
+	Tue, 15 Sep 2026 02:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789437838;
+	bh=z0vL2p+Bd88btvl3Ksm1wFnOPohiOiTkBKSRUoYcHVM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jKIveioPNhMqPBhOJHPVrFRe2TZU9csQBTAj24Nftp8XjhJudo+o/kpgK4cZ9MEcD
+	 kfA2tqmfMEdKI0BdpYR4ayV7j+459XEIq9gzICqy3hOEpaofPwq7TC+hl1NmMMG17z
+	 wCcRRadLkpzn0xRHzUC3oJKos4jCot8G5C1ithqxsMhAMMv8oyHfelW4JRr8etH37T
+	 GwNf4RHs6YbK+/yV7P9LIhZEMZhqIUO4xRHVw4e5XYRBcWd/V00wUpfmCL3sA3P+sx
+	 Vx42Jksvt7+Zz4nVDvdlyQS8amvJSZMFva2Y6tUF0yGBNOt59vIF+yBTAsmBQwuIQQ
+	 KXUEDFhiZWbCA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Roman Demidov <roman.demidov.nn@gmail.com>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Xinhui Pan <Xinhui.Pan@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Wayne Lin <Wayne.Lin@amd.com>,
+	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Fangzhi Zuo <Jerry.Zuo@amd.com>,
+	Mario Limonciello <Mario.Limonciello@amd.com>,
+	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	Ivan Lipski <ivan.lipski@amd.com>,
+	Melissa Wen <mwen@igalia.com>,
+	Alex Hung <alex.hung@amd.com>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sunil Khatri <sunil.khatri@amd.com>,
+	Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
+	Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	WenTao Liang <vulab@iscas.ac.cn>,
+	George Zhang <george.zhang@amd.com>
+Subject: Re: [PATCH 5.10/6.1] drm/amd/display: set new_stream to NULL after release
+Date: Mon, 14 Sep 2026 22:03:31 -0400
+Message-ID: <daily-reply-0015-re-amd-display-new-stream-null@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260914081639.12512-1-roman.demidov.nn@gmail.com>
+References: <20260914081639.12512-1-roman.demidov.nn@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-hash-bucket-route-lists-v2-1-29f6297d8a5a@cloudflare.com>
-References: <20260914-hash-bucket-route-lists-v2-0-29f6297d8a5a@cloudflare.com>
-In-Reply-To: <20260914-hash-bucket-route-lists-v2-0-29f6297d8a5a@cloudflare.com>
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, kernel-team@cloudflare.com, 
- Chris J Arges <carges@cloudflare.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1789437828; l=4312;
- i=carges@cloudflare.com; h=from:subject:message-id;
- bh=4KlU6IioCAwNk3jDxqQyOgDpHDc+AmeDeXmdSyc+iYU=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgaxY1IIT5oTohBZJmhnVgJo2HsM7Sv
- 9I0LdJCgpeGX6gAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QO7WoBzgXhIPhQvuy6eQZpcCD8KJdm3/hK/o2ENFnBRTFbGEk5OtQu7hB1DhZyQqI7qL7HYZVnS
- Zy/j/lz3suAo=
-X-Developer-Key: i=carges@cloudflare.com; a=openssh;
- fpr=SHA256:Cun99EBiH0EV7wvmfTBF9eDrld2NJx+aD4ScWZ45Q5M
+Content-Transfer-Encoding: 8bit
 
-rt_flush_dev() currently walks every per-CPU uncached route list for each
-device being removed. This repeatedly examines unrelated routes and makes
-teardown increasingly expensive as the number of devices grows.
+> If a later error (e.g., color management failure) triggers the fail
+> label, the error path calls dc_stream_release() again on the same
+> dangling pointer, causing a double release and potential use-after-free.
 
-Replace each per-CPU list with a hash table keyed by the route's netdevice.
-Keep the owning-list pointer in dst_entry so route removal remains
-unchanged, while device teardown only walks the matching bucket on each
-CPU. Hash collisions are filtered by the existing device comparison.
+5.15 carries the same double release of new_stream in dm_update_crtc_state()
+and has no fix for it, so taking 6.1 and 5.10 alone would make a 5.10 to 5.15
+upgrade a regression.
 
-The table has 2^CONFIG_IP_UNCACHED_ROUTE_HASH_BITS buckets and defaults to
-64. Larger values shorten each bucket, but every additional bit doubles the
-per-CPU memory used by the table. The default costs approximately 1.5 KiB
-per possible CPU on x86-64.
-
-Signed-off-by: Chris J Arges <carges@cloudflare.com>
----
- net/ipv4/Kconfig | 13 +++++++++++++
- net/ipv4/route.c | 36 +++++++++++++++++++++++++++++-------
- 2 files changed, 42 insertions(+), 7 deletions(-)
-
-diff --git a/net/ipv4/Kconfig b/net/ipv4/Kconfig
-index 301b47660305..7d40ca22d2b2 100644
---- a/net/ipv4/Kconfig
-+++ b/net/ipv4/Kconfig
-@@ -103,6 +103,19 @@ config IP_ROUTE_VERBOSE
- config IP_ROUTE_CLASSID
- 	bool
- 
-+config IP_UNCACHED_ROUTE_HASH_BITS
-+	int "IPv4 uncached route hash bits"
-+	range 1 10
-+	default 6
-+	help
-+	  This option sets the number of buckets used in the IPv4 uncached
-+	  route hash table to 2^IP_UNCACHED_ROUTE_HASH_BITS buckets. The
-+	  allowed values select between 2 and 1024 buckets. Larger values
-+	  reduce collisions, but each additional bit doubles the per-CPU
-+	  memory used by the table.
-+
-+	  If unsure, use the default of 6 bits (64 buckets).
-+
- config IP_PNP
- 	bool "IP: kernel level autoconfiguration"
- 	help
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index d7da2f1acbb5..e28e2140cf62 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -74,6 +74,7 @@
- #include <linux/init.h>
- #include <linux/skbuff.h>
- #include <linux/inetdevice.h>
-+#include <linux/hash.h>
- #include <linux/igmp.h>
- #include <linux/pkt_sched.h>
- #include <linux/mroute.h>
-@@ -1552,11 +1553,21 @@ struct uncached_list {
- 	struct list_head	head;
- };
- 
--static DEFINE_PER_CPU_ALIGNED(struct uncached_list, rt_uncached_list);
-+#define RT_UNCACHED_HASH_SIZE	BIT(CONFIG_IP_UNCACHED_ROUTE_HASH_BITS)
-+
-+struct uncached_table {
-+	struct uncached_list buckets[RT_UNCACHED_HASH_SIZE];
-+};
-+
-+static DEFINE_PER_CPU_ALIGNED(struct uncached_table, rt_uncached_table);
- 
- void rt_add_uncached_list(struct rtable *rt)
- {
--	struct uncached_list *ul = raw_cpu_ptr(&rt_uncached_list);
-+	struct uncached_table *table = raw_cpu_ptr(&rt_uncached_table);
-+	struct uncached_list *ul;
-+
-+	ul = &table->buckets[hash_ptr(dst_dev(&rt->dst),
-+				      CONFIG_IP_UNCACHED_ROUTE_HASH_BITS)];
- 
- 	rt->dst.rt_uncached_list = ul;
- 
-@@ -1588,14 +1599,19 @@ void rt_flush_dev(struct net_device *dev)
- 	int cpu;
- 
- 	for_each_possible_cpu(cpu) {
--		struct uncached_list *ul = &per_cpu(rt_uncached_list, cpu);
-+		struct uncached_table *table;
-+		struct uncached_list *ul;
-+
-+		table = per_cpu_ptr(&rt_uncached_table, cpu);
-+		ul = &table->buckets[hash_ptr(dev,
-+					      CONFIG_IP_UNCACHED_ROUTE_HASH_BITS)];
- 
- 		if (list_empty(&ul->head))
- 			continue;
- 
- 		spin_lock_bh(&ul->lock);
- 		list_for_each_entry_safe(rt, safe, &ul->head, dst.rt_uncached) {
--			if (rt->dst.dev != dev)
-+			if (dst_dev(&rt->dst) != dev)
- 				continue;
- 			rcu_assign_pointer(rt->dst.dev_rcu, blackhole_netdev);
- 			netdev_ref_replace(dev, blackhole_netdev,
-@@ -3771,10 +3787,16 @@ int __init ip_rt_init(void)
- 	ip_tstamps = idents_hash + (ip_idents_mask + 1) * sizeof(*ip_idents);
- 
- 	for_each_possible_cpu(cpu) {
--		struct uncached_list *ul = &per_cpu(rt_uncached_list, cpu);
-+		struct uncached_table *table;
-+		int bucket;
-+
-+		table = per_cpu_ptr(&rt_uncached_table, cpu);
-+		for (bucket = 0; bucket < RT_UNCACHED_HASH_SIZE; bucket++) {
-+			struct uncached_list *ul = &table->buckets[bucket];
- 
--		INIT_LIST_HEAD(&ul->head);
--		spin_lock_init(&ul->lock);
-+			INIT_LIST_HEAD(&ul->head);
-+			spin_lock_init(&ul->lock);
-+		}
- 	}
- #ifdef CONFIG_IP_ROUTE_CLASSID
- 	ip_rt_acct = __alloc_percpu(256 * sizeof(struct ip_rt_acct), __alignof__(struct ip_rt_acct));
+Could you send a v2 covering 5.15 as well?
 
 -- 
-2.43.0
-
+Thanks,
+Sasha
