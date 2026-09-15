@@ -1,152 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C666374E6D;
-	Tue, 15 Sep 2026 07:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C943CC303;
+	Tue, 15 Sep 2026 07:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457630; cv=none; b=px182ZFk7pyomwCuj6y6JdxUTamZMLwH9ergMe96D3wKFZB7d4AJjqd1O2vUOoWzy/9gd5LrxWeFzyh7tRdWlZTl45ZgcHZ41ySrAqAfqSTS03Upi/r+eFYOHclZUi9v9xpn6dJbESgvwICtGhYpVgR0/XNFoIXhHWozUyuP4dw=
+	t=1789457661; cv=none; b=GspY7CiT4TIs+NPNCX6oVPcQ0lfdmL8zlECh/0G6NPSZii69m3vS4wvnd+dccIcs+TBk9ECZ/3HmPATKdXArZRQU3DD0bH/T1KnXqZbM+zQnGK3hA2GB++FZg0CoNhF0Ara0ppeQW0vNNQY3vtiFW2+PLRb+Omqy20go33eRFRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457630; c=relaxed/simple;
-	bh=088kb9nc5A3Gq69SW1czJbSfvuN74/Ty0116Tk+GSrI=;
+	s=arc-20240116; t=1789457661; c=relaxed/simple;
+	bh=yqXh3wBBDWPC71mN/8FPaKt8dm8okOjefQD0eCpqUxA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k0EWGqEyIB1f7WdAueq9CsgIACOF4f4JSOr4YL1ZFbA8UjByb3NxMasllSFAEu49vfDE8spGu/+/Mo634zcFKDNCraMla6n75fDiFOmZ8pcMX5ir1uQsJwNJONflIftlfGirsm/WJ02NcrtP+G9hQKOF8tCURiByAbm/AA5yyQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QVkyQkLM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=bTUsQyr11ctyY9SF9PO1GTJ6EFQzFNcStKY3pqMv0bC5XJn11hII+l25jZYsn4iR3FfAaOcBsWYa9jsqyhjBEKUc8BLd9dzdPfQbSkFYm9U05VCv3nOPnRPkPEKji7LhEiYppZKuRriHivuSmXk7KiHSW3VvX2SneUp4UIS8b08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iSVf8EDl; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QVkyQkLM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ADDF1F00893;
-	Tue, 15 Sep 2026 07:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789457629;
-	bh=IYrygcN/fKEZ7Dz1Tm1KMKWzP8xVJKijwot8Fek0umo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QVkyQkLML0XYRwSCHDHWRhByNLpehK8nhlmsfS9cA0rzBruiyUEmHKY1RL4XzzCFM
-	 PQjp85W/qirqTtrSVi7N4IBFLv84lGMgjx2ULavwNjUssWI4Cg8oT1ylWsZFlufI15
-	 oOz6eXa2K604QXpENZwfXfGd3qBGsR/OX9Xu3MiK/HTwErwTWx/Of9Ewkvu9k2IAu+
-	 PwkmxzSsjDoYj4nwD29Co2r8aUscWJGl8AknRTS5bCoi6CRhx6u4sc8639mlAgAQPh
-	 YEQw1tFQyUSmvoOagCgkt5FNmZN1VEVv8GIOH4/n9EoXpMagdOdl5PqJ5XzYIG/wYc
-	 ZFuqQFn6irrmA==
-Date: Tue, 15 Sep 2026 09:33:45 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wangao Wang <wangao.wang@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, 
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] dt-bindings: media: qcom,maili-iris: Add maili video
- codec binding
-Message-ID: <20260915-brass-fossa-from-pluto-858e2b@quoll>
-References: <20260914-add_iris_for_maili-v1-0-09df2b54c317@oss.qualcomm.com>
- <20260914-add_iris_for_maili-v1-2-09df2b54c317@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iSVf8EDl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789457660; x=1820993660;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yqXh3wBBDWPC71mN/8FPaKt8dm8okOjefQD0eCpqUxA=;
+  b=iSVf8EDlkqKQ0bfQgzRsf0Bw3XgBicw3jyo9V0Xg4Cztkma/J1J2nqNl
+   SGBPx89ZAzd4DaLF8zNr3C8gGNxlN74fppCWdkNl74yV7lrD4BDTr4TgN
+   PY7gUK4BRn1lgloIEIIBU7ODr87XWkBJPEpDldRhOxVzTagwpZXarRe14
+   xO1nyW4N5udQ91cEtM7QJIspfzZEi1rHI2/Eh508EgjuUDnnY7GPCl4WY
+   0DsVOp0gV8o3qjNrMO4+2Irwy0p87ZhP+nD6UmfWtXDv6vHIFtEAz8Zyi
+   7eV/f9vNAQTdrJ2U01AmT9Nf1QcX8NzIobhpyuIthYHw+TUUi8CGqLb8t
+   w==;
+X-CSE-ConnectionGUID: 7ZbaFh0/T1CEzOK1/8qJ8g==
+X-CSE-MsgGUID: 6vwL1LNhSN+fPgEAr03T/g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90019070"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90019070"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 00:34:12 -0700
+X-CSE-ConnectionGUID: Rb6xTnV3RxuXF+Xgp+x06A==
+X-CSE-MsgGUID: 0U/a7lm6QhCutLRD6UVCEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="272386890"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.203])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 00:34:08 -0700
+Date: Tue, 15 Sep 2026 10:34:06 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <aqj07iI_KFTDrjPR@ashevche-desk.local>
+References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
+ <20260912013912.51887-3-marcus.yu.56@gmail.com>
+ <aqepkmQS_p6K1Bd6@ashevche-desk.local>
+ <aqiyQOMGGIzu-91z@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914-add_iris_for_maili-v1-2-09df2b54c317@oss.qualcomm.com>
+In-Reply-To: <aqiyQOMGGIzu-91z@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Sep 14, 2026 at 09:00:25PM +0800, Wangao Wang wrote:
-> +
-> +maintainers:
-> +  - Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> +  - Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-> +
+On Mon, Sep 14, 2026 at 07:49:36PM -0700, Chang Yu wrote:
+> On Mon, Sep 14, 2026 at 11:00:18AM +0300, Andy Shevchenko wrote:
+> > On Fri, Sep 11, 2026 at 06:39:12PM -0700, Chang Yu wrote:
 
-A nit, subject: drop second/last, redundant "binding". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+...
 
-> +description:
-> +  The Iris video processing unit on Qualcomm Maili SoC is a video encode and
-> +  decode accelerator.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,maili-iris
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 8
-> +
-> +  clock-names:
-> +    items:
-> +      - const: iface
-> +      - const: core
-> +      - const: vcodec0_core
-> +      - const: iface1
-> +      - const: core_freerun
-> +      - const: vcodec0_core_freerun
-> +      - const: vcodec_bse
+> > > +	if (val != 0x81)
+> > > +		dev_info(dev, "Unknown device ID: %x\n", val);
+> > 
+> > Wouldn't be better to define 0x81 with meaningful name?
+> 
+> If I remeber correctly Jonathan prefers just putting 0x81 inline. I'm
+> OK with either style so I'll defer to the judgement to Jonathan here.
 
-bse? What does vcodec stand for? Isn't Iris a vcodec?
+OK!
 
-> +      - const: vcodec_vpp0
+...
 
-cpp?
+> > > +static int as7343_suspend(struct device *dev)
+> > > +{
+> > > +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+> > > +	struct as7343_data *data = iio_priv(indio_dev);
+> > > +	struct regmap *map = data->regmap;
+> > 
+> > > +	return regmap_clear_bits(map, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
+> > 
+> > Can this mess up the raw read? If so, also needs a mutex to be held.
+> 
+> People familiar with runtime PM correct me if I'm wrong, but I believe
+> PM_RUNTIME_ACQUIRE waits for any ongoing suspend callback to finish
+> before returning? If so I think there is no risk of a race here. In
+> the case of system suspend, worst case scenario SP_EN gets cleared
+> before we read ASTATUS or the data register, which for my use case
+> at least is OK since the entire system is suspending anyway.
 
-> +
-> +  firmware-name:
-> +    maxItems: 1
-> +
-> +  interconnects:
-> +    maxItems: 2
-> +
-> +  interconnect-names:
-> +    items:
-> +      - const: cpu-cfg
-> +      - const: video-mem
-> +
-> +  power-domains:
-> +    maxItems: 5
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: venus
-> +      - const: vcodec0
-> +      - const: mxc
-> +      - const: mmcx
-> +      - const: vpp0
-> +
-> +  resets:
-> +    maxItems: 4
-> +
-> +  reset-names:
-> +    items:
-> +      - const: bus0
-> +      - const: bus1
-> +      - const: core
-> +      - const: vcodec0_core
-> +
-> +  iommus:
-> +    maxItems: 4
-> +
-> +  dma-coherent: true
-> +
-> +  memory-region:
-> +    minItems: 1
+Yes, if the raw read is guarded. What about _setup()? Is it guaranteed
+to be free from races? If so, we are okay.
 
-Why is this flexible?
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> +    items:
-> +      - description: Firmware-loaded codec carveout
-> +      - description: IOMMU IOVA reservation region
-> +
-> +  operating-points-v2: true
-
-Best regards,
-Krzysztof
 
