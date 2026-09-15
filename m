@@ -1,125 +1,135 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59141474252;
-	Tue, 15 Sep 2026 09:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0933C471D0F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:24:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464220; cv=none; b=naz8KoshCO/uzEFH1mGmVk3WW2rzPtP3HWxUIXGd68Kcq/TK5vDdW0jcNzvrbVsw6dbcV3823+FnCgd6LaoLGsEER3LG83N3Ubas/QAYQ7cvXVWA11jcW1w0X/TIu9Z8Jge81pHQxPY/3+5NHn7LPgWtpcjlpWY+LABcNUin5cc=
+	t=1789464248; cv=none; b=r+7vKp/LBXpFl+x7tvPqp9dBII5o/oTID6z3nKXdQJyxnSsbm3iu41Dhh6XL4H1GdQzPb+CGQY42dEUpysMsNK3mzToMckEhUu0zW7lkB8ynJahjbkv1a3L5bS2bJdVQEJm6oNiBqKYSVYWlqcv3U94gw7qsQAZQujdEwPq+BtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464220; c=relaxed/simple;
-	bh=ELWtCmWKg9UffUuU8jX78aQx3ESv/i5dnSDtUNB7t6o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MwaBB2A0ONz6n43fF1o5Ll+i+wxqj7y4kBU1WB9Ekbl6bEwOnunwkkh84JvuthngDtuhsIBd+LOJL8QqsOQbxers2FfrImMXM/ckIN5rupH2u5GJzrcgL18BEgt8SXkIB8hKTMs+NLrcYeUCPpBNQ7atLxQefHBTi/Hd9nwLLmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PzWcz8Lc; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789464248; c=relaxed/simple;
+	bh=Xbm7hC2sIniT4/hXQr3ANkVc+vI1px3ZGag7Yl7bcss=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cIsDcaPM6HGcbVNJ/JqsUUTIbZ2iKW7j23nZ+575FNxYrajpyJf1gkvQKJqI9SeMFhGKQhzA2EAyXGw/BihkHHxNg0Yr5G9wjMhaVbdZ4Nee9GwWmobP7SSaQAbzrd+gpvMfFc5XYrQgNuO9tx4XRYB0+wqjhGoB20eATOn2Xao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=crdDg8/K; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PzWcz8Lc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789464219; x=1821000219;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ELWtCmWKg9UffUuU8jX78aQx3ESv/i5dnSDtUNB7t6o=;
-  b=PzWcz8LcWgzTwxU/eVvl/eS8S2ryuXZseRSk8o98NxD4xktTcdIaNa6F
-   7bGgMWrDoFKxWaU4lr15UH7pBQy3e3dx0ZHY8k93C59kfmNL+7M894K8V
-   qUFirjW7IH3WyxzfEm9iokfy+gMs3r+uWAMCM8mb+JYRX4KUsx630uKYO
-   825g1/WrjRbQx3hYnTbKOJze7PkrNr57IfUIi9Hjk1f/AnyjfgcYgkptH
-   8A/o3Z9eglTWVUkiXmjwFWpawz5+mNmIszfMXZyer//9qXKZmmYIIf1g9
-   NA4IzNmdumihPfX16zseUzO/TAMFgXIsrPpBtrYjd1aF7qREeqt00P3Ob
-   w==;
-X-CSE-ConnectionGUID: KU1O5q2ESQaV4yYuXDCruA==
-X-CSE-MsgGUID: 8xtrgrGwT9C5Eo7OxALalQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77382945"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="77382945"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 02:23:38 -0700
-X-CSE-ConnectionGUID: JdDWu1veSZmrKaPKqEo5DA==
-X-CSE-MsgGUID: bsyLqtywS2KjOqa98cCnfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="296409760"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.227])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 02:23:36 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id F104C11FB58;
-	Tue, 15 Sep 2026 12:23:42 +0300 (EEST)
-Date: Tue, 15 Sep 2026 12:23:42 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Sebastian Reichel <sre@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: gc0308: drop runtime PM reference after probe
-Message-ID: <aqkOniN8555x_kCF@kekkonen.localdomain>
-References: <20260915080501.2164892-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="crdDg8/K"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so10211835e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:24:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789464244; x=1790069044; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aLdhT2Q1x0+krLh05Drnda1oX9PUv34jY/LmETe5rwQ=;
+        b=crdDg8/KJVXkItsyrr7T2DYuQ82oQhp1H8esuXueNrwy65dwloqlFRim0gwHhmcxls
+         FZ2C5sr1NvFi9ZOhJouD8/oe7RhJcohELWooc4SrCkep9sBf4MT2KWfTj8XujpioVPmP
+         L0Z2rwmtSgRDgOg9wOZVE9BZA5Hd3Hy4faXblIumemvgeWzKlorGrEh/BrYCi5lJhzDY
+         JsiQ2416IcMJY9JaCY8kZMjqpGzPe1gjXbIPxzX10rxhylCJG3+uWtrvYGB/QWDHVj3R
+         hAQGjdWi/Q5zm+qeqAfWzivJivRdKXJD4h0cjEMtYh+2Kt5JEsdpqD62uPQaaXcapDge
+         bpCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789464244; x=1790069044;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aLdhT2Q1x0+krLh05Drnda1oX9PUv34jY/LmETe5rwQ=;
+        b=XSZY2W+p00BZVH3pByFjPyQmlXVQeHM7tYxRNB+fCG8JDT2Q8Ua9Zc6a6reOJdRJc4
+         lfUOWcyFil941VqQB/4qZvTs4Q/bXOhkAzk0gPPuuVU+JJ8D2sLmEvbAVOftcU4nTu2Z
+         YsmNZDZu2iOtYoibm0fm80FtpCzHqCoT8gnmzMT5FXEBuk4BSfBjzhzfJgwNV29zS+0/
+         Di6lpV71NaaP4gBazc9WSnj4fNKtDsZv7kqvxqK5/Uzy+pcC7TaUD+TNOrVezDxfEXqS
+         EWVc9+3ZP5d6SS4oo35DjHEKyEVyQcBFeU8tbwO0XgHeCvFP6W5W86K10WViXDvOh0EY
+         4SvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6kgx5BXgZ+W/6sktnrkVG2Gcj5ghz+VxSQSJN0XMEgqreRoCZhALnlzcEPJeGMBSKZgj18dXJYweyshs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUyfuGFKzDxDbYOeIvfPNsTqfvxu3nF9kdH39g1BLRjlb3Uad1
+	J5VAD1xsKufG1f4xVNlZUFhz6kme56yijrpUSDbAzpiH2BPSTQGA6Mv1
+X-Gm-Gg: AYBFou3W0sWVpOu1qemY6JndX8uigyjNVwOpQhTbJwY1PO4hrjE8jPMjaoU5IJodkY1
+	R62Mo8yBoOnsqoiEeW8aKi1CNeIvzwBkAVTTI7RIakVcmA67vli49FcFPuDfHQi11QrTZFb1Yk6
+	OhZtXKqFp59pMKuLY2pfCNcO184sJV/QzSHbf1SYY5BGY4n8v5Kry3wTiZMFKE2Wy598/jkHWy2
+	aetnNwUSQfb1jyEzSZYj0dhygzBTkY+jlgHMOCf0GjXH9t+SzX928RnCUfevo/ijS1KGgOBwbGW
+	E7zJDb1gWWFlWGTlasectt7qYSOyYUFEfKabmhDQrHjzn7d+fAcVcX+n5RPcXmf3HtYYQDug9ta
+	8wpfTl+A3FhZ4ihqGW75qwlDdeYfgDzgeeGuM0TwKzKMa4w+m5CMzV/NlXlo8WV14B8lGEIIIhR
+	lvo3zlnm4wgl0AsoWkHu+ly8sQX9CHWeTWKENOOQ6Fw/4f6UI0D1VQrBzC25ev0Owc4AosPfBx2
+	jA4gr+C3H3QBrT4WMIhYiNkHv8FOq4u8m4l
+X-Received: by 2002:a05:600c:c162:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49e7d72b000mr36925425e9.5.1789464243970;
+        Tue, 15 Sep 2026 02:24:03 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef9228fsm49333445e9.15.2026.09.15.02.24.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 02:24:03 -0700 (PDT)
+Date: Tue, 15 Sep 2026 10:24:01 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Yury Norov <ynorov@nvidia.com>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Matthew Wilcox
+ <willy@infradead.org>, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar
+ <mingo@redhat.com>, Will Deacon <will@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Waiman Long <longman@redhat.com>, Dennis Zhou
+ <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter
+ <cl@gentwo.org>, "Paul E. McKenney" <paulmck@kernel.org>, Frederic
+ Weisbecker <frederic@kernel.org>, Neeraj Upadhyay
+ <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Josh
+ Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Zqiang <qiang.zhang@linux.dev>, Onur =?UTF-8?B?w5Z6a2Fu?=
+ <work@onurozkan.dev>, Kees Cook <kees@kernel.org>, Joel Granados
+ <joel.granados@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ Thomas Gleixner <tglx@kernel.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
+ <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, Mel Gorman
+ <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
+ Nayak <kprateek.nayak@amd.com>, Mike Rapoport <rppt@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Vlastimil
+ Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato
+ <pfalcato@suse.de>, "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang
+ <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio
+ =?UTF-8?B?UMOpcmV6?= <eperezma@redhat.com>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, Nathan
+ Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, rcu@vger.kernel.org,
+ virtualization@lists.linux.dev, linux-rt-devel@lists.linux.dev,
+ llvm@lists.linux.dev, Yury Norov <yury.norov@gmail.com>
+Subject: Re: [PATCH 00/17] Treewide: enforce static storage for object
+ initializers
+Message-ID: <20260915102401.3c56aa95@pumpkin>
+In-Reply-To: <20260914231418.b15ec01f7225cf460f6e515a@linux-foundation.org>
+References: <20260915030336.1192299-1-ynorov@nvidia.com>
+	<20260914231418.b15ec01f7225cf460f6e515a@linux-foundation.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915080501.2164892-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Guangshuo,
+On Mon, 14 Sep 2026 23:14:18 -0700
+Andrew Morton <akpm@linux-foundation.org> wrote:
 
-Thanks for the patch.
-
-When you do similar kinds of changes to multiple drivers, it's better to
-form a patchset of these. There will be several versions of each, please
-collect them together for v2. I presume most need changes.
-
-On Tue, Sep 15, 2026 at 04:05:01PM +0800, Guangshuo Li wrote:
-> gc0308_probe() powers the sensor manually and takes a runtime PM
-> reference with pm_runtime_get_noresume() before enabling runtime PM and
-> autosuspend.
+> On Mon, 14 Sep 2026 23:03:18 -0400 Yury Norov <ynorov@nvidia.com> wrote:
 > 
-> The probe error path correctly drops this reference with
-> pm_runtime_put_noidle(), but the successful probe path never releases
-> it. As a result, the runtime PM usage count remains non-zero for the
-> entire lifetime of the bound driver, preventing the sensor from
-> runtime-suspending when idle.
+> > Declaration macros that statically initialize embedded locks require static
+> > storage when lockdep is enabled. Automatic objects must use runtime
+> > initialization so lockdep receives a persistent class key.
+> > 
+> > For automatic local objects, lockdep cannot use the lock address as a persistent
+> > class key and reports "INFO: trying to register non-static key" before disabling
+> > itself.  
 > 
-> Drop the initial runtime PM reference with
-> pm_runtime_put_autosuspend() after the V4L2 subdevice has been
-> successfully registered. This allows the usage count to reach zero and
-> the sensor to enter runtime suspend after the configured autosuspend
-> delay.
+> So why haven't we been buried in reports about this warning coming out?
 > 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 3ae52083b533 ("media: i2c: gc0308: new driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/media/i2c/gc0308.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/media/i2c/gc0308.c b/drivers/media/i2c/gc0308.c
-> index 15900d5414cf..266f737f9c5d 100644
-> --- a/drivers/media/i2c/gc0308.c
-> +++ b/drivers/media/i2c/gc0308.c
-> @@ -1385,6 +1385,7 @@ static int gc0308_probe(struct i2c_client *client)
->  		dev_err_probe(dev, ret, "failed to register v4l subdev\n");
->  		goto fail_rpm;
->  	}
-> +	pm_runtime_put_autosuspend(dev);
 
-Instead of doing this, drop getting references in probe and remove and call
-pm_runtime_idle() here.
+Are there any code changes outside of testing?
 
->  
->  	return 0;
->  
-
--- 
-Regards,
-
-Sakari Ailus
+David
