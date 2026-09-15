@@ -1,260 +1,140 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0590F4A4F1B
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:54:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263D14A6CC0
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484054; cv=none; b=twgkJ1hJ+eopC3eR6dsXHfckGwEMzki8xFRUXx6spxQ5DAsr00DD48FmyjOz5nozDbYqXDjNETnt7Or7OytA2A25o55OgCryDVKSfJkSvuRMfZXJXbsf3OL8HbgsO7J+tgCRcimJnQE2yrLn3LO8pLZc+jEjuSN/Sg2xcLt+c2c=
+	t=1789484117; cv=none; b=b1OP3mdrOt4PY415M7KZQBXfupGh1m4CVL+b0QnWwxmL/iao64gKI4L31vcCACraVj6p+mQx+guXOFF8JT+iT/cGqK14t2vqRJKDtgY3cMX6nr4ESVXvl2oZ19EE6GVJocerPdQ4nGZOa4P7yBo5FK88hEDtdgB22X8YMm+PX3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484054; c=relaxed/simple;
-	bh=ZmjEB8NGYbYstUhk7EXsXHGAJRTCBRS05ZAeq1d0Oes=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a86RP8EuuZjKLE6SCfPCvVzXCMmcVuhpCyRF0vPF/3F8UiHaSXC0BT32RVEIhMI/WSQ0cQyOwXcf4IbIkHmOwPyHxtLYmuk5UxKLzBSf20uulj74mOjBNN1vz25iOLXE7GyzQpM47/E/2mgUtybnTN9Lx0sR4HewkcR+mG6zDNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J3Y423BC; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1789484117; c=relaxed/simple;
+	bh=jzGIp/iEDHM8UF9ReTwzvy3AmC89cJO19GxIcAiCFog=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iWUHSJArMVP4qgr3l8ED0qaYwwJURejm9HXztAyv7JB+iohPYBHrT1/hfmjUmRXWL7ULrOmPiY1/FRLI4+JOIkftwy8/eLWYTPphleiaW2R08wF5SWufeJ5jvofY8JOBxcDfVtxSHjQ2Jl5XwexUr1fXhsDLWPh81d6m68zKovQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P+Njct6d; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J3Y423BC"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e211a3so2598250b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:54:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P+Njct6d"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7db0so73164366b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:55:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789484051; x=1790088851; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1LHrAOg3floaT1iC6iBo1fU/J9sjxdoLj89uhRqAue4=;
-        b=J3Y423BCGVoLzcU97SYD6xUHqqIBLq7xQ/17ya5Phv2A68wolodCpLpc52CBO1VkGy
-         6DzO2mcEUgLL5myGvdy59JmYZpxWdNCUpW9FBgPv3A17i9Jbq1YP3mxKliwG8iOY8Vou
-         nFC4u4eoDOzrQSRIuyhneXTXzdtMs42yw/zaQL6B/Rb64oLHr0OST3e4L9RZqc2BlfS5
-         AR6hbVt9i0Qsnd8/asoJd724uhF5kPlXw63yIyUz4/Q6vMEj6fmvvWAcZkrIrzpef7IU
-         4UUEdnGGoRU331IntJHB+afpWnblTB7+DVJuxgmRhlj/PiHan52Y8gLjZ1/Ic1iCLtsE
-         qgTw==
+        d=gmail.com; s=20251104; t=1789484104; x=1790088904; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zUhDI+dzHo2x9QlE6sWGtPeMOZNYE2a9quEmjR2fQ2o=;
+        b=P+Njct6dgw/qM+dkOuFwKsxVO68QV8I+r453aPskyvtFJIGn8MqKm34dqbP7Lmb9+D
+         XLXcJAqkJQydxbzAC9gcHjzJ7LXwMx0OHxcmrkk8hFgwPQ4IPGl0/lfHi0Q+ptitv8It
+         8lySSH4s+1Mq5mo/Bn4wHUKBKg6XbA6Jnvwy55UE+bAZoc2+P6/QrmY0dxmvgH+wKSoH
+         RDswxO91YfcDGzkydtDXLRNLglMSEgEOai7jryLuc2HW6AvA5pSROj/XYVxvsWBK/wQX
+         zFogEJznjDGOlSWITNj3SA36bNOsA/VG/KWKcPfLjV0ajQHpKR1PRlAqWUoFhYc6krBi
+         RQBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484051; x=1790088851;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1LHrAOg3floaT1iC6iBo1fU/J9sjxdoLj89uhRqAue4=;
-        b=NPJG9SaEMAOPrNfmYTjKOX6H1bCWELJp1SHMzjFMuK2cva3Noz8LtHtZzBBfXRDfba
-         NPCDXAUCM7Wzb+VbLHQti6ZoA/a4NIHEDhDS80CpwLGEVSEgJa+q3OAXlqeiVCLShmYj
-         hxrqyR4L52/CSFP1mZvRIlA9LeR0QgpUPCj8vrg9cBsbrzUtLvnhhJFhl5T2DJ4e7mVA
-         5A9hm94/u/ISgvXfivSiEjDoqE7xAgb8EVpxxNcnjJu6TQPcQYuUHNMDVTqScjP/M+Vr
-         XFB0AH67Be18kk545l7Sajo0zBN7zsPsCd86VNBS23XqNwOiLocVtXQyGcMpUxw5xxl4
-         hUiA==
-X-Forwarded-Encrypted: i=1; AKwUvByZSdHt4/9P4XiSbkrwBVc2lycROI3J0q3cNJ75SayCtO6MYwRioUBTx5KfcayGfxhwlbu+Ks9Be2vEBak=@vger.kernel.org
-X-Gm-Message-State: AFuF++larB0NTzFG8NNnwGnNBiR1icAfZLFbcNz+qgZC9YE//Fbz/4io
-	HRvvl2T2S6hm/tWYL040HGcEjuglRhUmCKnxdl1PNze6hZRyGOH9XCkB
-X-Gm-Gg: AYBFou1hRbHbf1FRNyx8SXwn4XZuLA1rYK3YElA5LgzJsQSLJB75uQGcprsq15oM0mK
-	jyyMs2Z3KrLzIsUTDsnaKOP24n+HbbPOsLuPlmZa0S1+qSHV2sk8Je0SPuo4GRm86w8kDQZD+OM
-	wMsxJIzNTdcHdPKyGmYo9hitPQSvxxmtE2d8dJIq8ngooI7EfQKp5vC36+aAYkwSAsUJw9GBPKO
-	NP2Cm7MonxYbxu7/C+7mtWDnnkmhTeUuDVVlIVtl82v0yB1ufKZHzRUOWPade5nKNuBCWB+Zpgy
-	zScRfS29lO2+GqVRrqaraGsGiSDgKf1kdY52PYh8WAnJZza47josX4RdscennwZrSDSQGgmKlhM
-	V/wsvO7HC/6zLADsM4wGrbK0c0pv5CLoZ/E7i0HwLN+FpHsQRjJGiy0s2y81ohEAScAwKaC6UjG
-	5RfvZ/Fn2PRFBibnghyB09o9vYvbnWxgKofob1Xy9TiGf+DkCUOcN9/OZgN4EacDDxU90drtber
-	vzKl9+VUIDPHj+WG3ljNARoBA9i3D0tTV3pUazJN0ZCqiTv
-X-Received: by 2002:a05:6a00:430e:b0:85c:2d83:bbf1 with SMTP id d2e1a72fcca58-86f85dd8726mr15672736b3a.20.1789484050863;
-        Tue, 15 Sep 2026 07:54:10 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b286c3f3csm6713624b3a.16.2026.09.15.07.54.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 07:54:10 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <4b314524-c0f9-4528-b86d-645747b59ac9@roeck-us.net>
-Date: Tue, 15 Sep 2026 07:54:09 -0700
+        d=1e100.net; s=20260707; t=1789484104; x=1790088904;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zUhDI+dzHo2x9QlE6sWGtPeMOZNYE2a9quEmjR2fQ2o=;
+        b=xclXGDUaoowjT88fAYEg/BF8by7D27+lOR56W2n4FOCLj2HUxjm6cn6ay5qOiccuma
+         vOKyRd3vnPvFsEiW1vR87IDA6axspcjHN0u+zwu9dsXd2/HART7njjch3KYKcJPX/FIg
+         EKVIikvVwDOLpoprsMJgqKLY4PEKP3ogRdaoTH5ldPZd2fwzSxelAbBabpo7Sp5Qy0rr
+         1/eto97yGOEkgzvp1IItZRe9TAYacQ4woYkA8lf6GPLKZXBveRvBAxhEO7fpeGDli2Ep
+         mydAUE400NfFnRdGjwySlqa9ts5hOnmYH6Guj0sgy/fba84DZ7L1gM/2lXJPqKunDeay
+         rFig==
+X-Forwarded-Encrypted: i=1; AKwUvBwpah0FAfuDTbkqA+ldLIvb8TcJiGT2vgUSFJtiscwUlkWxjkKbjHeRczsSoASCrUb93rDckW/SRaetb0w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lItR4lE+vTyKhzF7lrM3A/x86GWyAAaGM9TR4WwwoIb2jRe+Dl
+	jgNeRDIviHe0/hPc4BeG+4d4n3GM1T1vyQhKbe1SMmv97ZZC1KZssben
+X-Gm-Gg: AYBFou2prhCoNQP9hbmh6iibpZDRgFcrH+OHgr/fuFsK/sHeHQ5glFgt17m6WzUPrD7
+	JjlEWJ5G0m2Kb7jaspllyuZ/hGfgodW9lUZwSZ7TcZNZKJVYufjyuaJizuezkYl9uoiDmU8oovk
+	sHbP8cZ+8hkPB7xZNNHk199DPBiyg4wAOYw1yhKuS6sejzwI031z1PScYlfvJfLmX/OONsaRZqi
+	CIe0vGwoke7UOGFqNEER33ZNhPd6qJMi8d2RSSdIPVaCnESl9IGHZu38vs6hGEhTkVBiZnV+aEi
+	Fag7UtcQTjQmmD9v2V772JB2tdrH2QJ43Vmwe6RTzSR394f9yVR3DmDdJeybsq5JLciHg2lDFFD
+	pnuFDMMNmFfxbkuohBCXM0bXd5CkKGNVU38ghOgqSzsJphSyQcGC0EUyRo46so+SO20omNddkAt
+	XPXjHfUjE8cbY8W/vETJr+GCfMyparWGK538B5
+X-Received: by 2002:a17:907:1c12:b0:c26:19de:9adb with SMTP id a640c23a62f3a-c29d78edda1mr121688666b.26.1789484104486;
+        Tue, 15 Sep 2026 07:55:04 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29660234f2sm606861766b.12.2026.09.15.07.55.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 07:55:04 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Tue, 15 Sep 2026 16:55:02 +0200
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Ye Liu <ye.liu@linux.dev>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	Ye Liu <liuye@kylinos.cn>
+Subject: Re: [PATCH 3/3] mm/vmalloc: extract show_busy_info from
+ vmalloc_info_show
+Message-ID: <aqlcRjH9JStZ_eJD@milan>
+References: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
+ <20260914-vmalloc_study-v1-3-526f68559706@linux.dev>
+ <aqgqjRJ8qpYmx04v@milan>
+ <20260914213824.2b5d9af8a5be89fe09e1629b@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: acpi_power_meter: use named initializers for
- acpi_device_id
-To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>,
- Luca Tettamanti <kronos.it@gmail.com>, Cosmo Chou <cosmo.chou@quantatw.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260915-acpi-hwmon-v1-1-20747f6fd218@thegoodpenguin.co.uk>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260915-acpi-hwmon-v1-1-20747f6fd218@thegoodpenguin.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914213824.2b5d9af8a5be89fe09e1629b@linux-foundation.org>
 
-On 9/15/26 06:40, Pawel Zalewski wrote:
-> Use a designated initializer for the acpi_device_id fields which makes the
-> code more readable and consistent with how lists are initialized in the
-> rest of the kernel code base. Also drop explicitly setting fields to 0
-> where it is redundant.
+On Mon, Sep 14, 2026 at 09:38:24PM -0700, Andrew Morton wrote:
+> On Mon, 14 Sep 2026 19:10:37 +0200 Uladzislau Rezki <urezki@gmail.com> wrote:
 > 
-> Unify the list terminator to have a single space between the brackets and
-> no trailing comma.
+> > On Mon, Sep 14, 2026 at 11:34:02AM +0800, Ye Liu wrote:
+> > > From: Ye Liu <liuye@kylinos.cn>
+> > > 
+> > > Extract the busy vmap area iteration into show_busy_info, mirroring
+> > > the existing show_purge_info pattern.
+> > > 
+> > > Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> > > ---
+> > >  mm/vmalloc.c | 14 ++++++++++----
+> > >  1 file changed, 10 insertions(+), 4 deletions(-)
+> > > 
+> > > diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> > > index 797933ba9451..7638845377f5 100644
+> > > --- a/mm/vmalloc.c
+> > > +++ b/mm/vmalloc.c
+> > > @@ -5345,12 +5345,12 @@ static void show_purge_info(struct seq_file *m)
+> > >  	}
+> > >  }
+> > >  
+> > > -static int vmalloc_info_show(struct seq_file *m, void *p)
+> > > +static void show_busy_info(struct seq_file *m)
+> > >  {
+> > >  	struct vmap_node *vn;
+> > >  	struct vmap_area *va;
+> > >  	struct vm_struct *v;
+> > > -	unsigned int *counters;
+> > > +	unsigned int *counters = NULL;
+> > >
+> > Is setting counters setting to NULL odd here?
 > 
-> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-> ---
-> This series is converting lists that contain the acpi_device_id struct,
-> which is defined in the include/linux/device-id/acpi.h to make use of named
-> initializers (which they do not use currently). This work is part of the on
-> going effort in the kernel associated with device-ids [1]
+> static void show_busy_info(struct seq_file *m)
+> {
+> 	...
+> 	unsigned int *counters = NULL;
 > 
-> The plan is to convert acpi_device_id::driver_data to have an anonymous
-> union, similarly to what was introduced for PCI and I2C device ID tables.
-> The goal is to increase type-safety (most of the existing casts are gone),
-> to improve readability and to make use intent a bit more clear:
+> 	if (IS_ENABLED(CONFIG_NUMA))
+> 		counters = ...
 > 
-> ```
-> union {
-> 	kernel_ulong_t driver_data;
-> 	const void *driver_data_ptr;
+> 	...
+> 
+> 	if (IS_ENABLED(CONFIG_NUMA))
+> 		kfree(counters);
+> 	...
 > }
-> ```
 > 
-> But for that to work all lists containing the structs need to use named
-> initializers first to avoid triggering -Wmissing-braces. I already have
-> patches that implement this and touching a lot of kernel subsystmes that
-> use the acpi_device_id struct and that list keeps on growing. Therefore,
-> I have decided to split the series per every subsystem into:
-> - pre-clean-ups that convert the lists to use named initializers
->    (which is this series)
-> - actual implementations that make some of the modules use the new
->    driver_data_ptr member
-> 
-> That way the task can be fragmented into manageable and independent chunks
-> of work and makes this effort easier to review.
-> 
-> Tested builds on x86-64 in Yocto using 7.3-rc3.
-> 
-> [1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
-> ---
->   drivers/hwmon/acpi_power_meter.c | 4 ++--
->   drivers/hwmon/asus_atk0110.c     | 4 ++--
->   drivers/hwmon/pt5161l.c          | 4 ++--
->   drivers/hwmon/xgene-hwmon.c      | 6 +++---
+> Presumably some dumb compiler or checker warned about
+> kfree(uninitialized-val).
+>
+Probably.
 
-The subject and patch description fail to mention that it touches four
-drivers and not just acpi_power_meter. Do not sneak in undocumented changes,
-please.
-
->   4 files changed, 9 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
-> index 8a539e8d1334..d8e871509405 100644
-> --- a/drivers/hwmon/acpi_power_meter.c
-> +++ b/drivers/hwmon/acpi_power_meter.c
-> @@ -54,8 +54,8 @@ static int can_cap_in_hardware(void)
->   }
->   
->   static const struct acpi_device_id power_meter_ids[] = {
-> -	{"ACPI000D", 0},
-> -	{"", 0},
-> +	{ .id = "ACPI000D" },
-> +	{ }
-
-This is a functional change. It replaces a pointer to an empty string
-with a NULL pointer. I don't know ACPI expectations (drivers use both),
-but the change needs to be explained.
-
->   };
->   MODULE_DEVICE_TABLE(acpi, power_meter_ids);
->   
-> diff --git a/drivers/hwmon/asus_atk0110.c b/drivers/hwmon/asus_atk0110.c
-> index 92afb64c09df..868c4e14d26a 100644
-> --- a/drivers/hwmon/asus_atk0110.c
-> +++ b/drivers/hwmon/asus_atk0110.c
-> @@ -141,8 +141,8 @@ typedef ssize_t (*sysfs_show_func)(struct device *dev,
->   			struct device_attribute *attr, char *buf);
->   
->   static const struct acpi_device_id atk_ids[] = {
-> -	{ATK_HID, 0},
-> -	{"", 0},
-> +	{ .id = ATK_HID },
-> +	{ }
->   };
->   MODULE_DEVICE_TABLE(acpi, atk_ids);
->   
-> diff --git a/drivers/hwmon/pt5161l.c b/drivers/hwmon/pt5161l.c
-> index 2b408a69b085..1638f54f8eae 100644
-> --- a/drivers/hwmon/pt5161l.c
-> +++ b/drivers/hwmon/pt5161l.c
-> @@ -611,8 +611,8 @@ static const struct of_device_id __maybe_unused pt5161l_of_match[] = {
->   MODULE_DEVICE_TABLE(of, pt5161l_of_match);
->   
->   static const struct acpi_device_id __maybe_unused pt5161l_acpi_match[] = {
-> -	{ "PT5161L", 0 },
-> -	{},
-> +	{ .id = "PT5161L" },
-> +	{ }
->   };
->   MODULE_DEVICE_TABLE(acpi, pt5161l_acpi_match);
->   
-> diff --git a/drivers/hwmon/xgene-hwmon.c b/drivers/hwmon/xgene-hwmon.c
-> index 38b140c23c88..eebbb741deac 100644
-> --- a/drivers/hwmon/xgene-hwmon.c
-> +++ b/drivers/hwmon/xgene-hwmon.c
-> @@ -595,9 +595,9 @@ static void xgene_hwmon_tx_done(struct mbox_client *cl, void *msg, int ret)
->   
->   #ifdef CONFIG_ACPI
->   static const struct acpi_device_id xgene_hwmon_acpi_match[] = {
-> -	{"APMC0D29", XGENE_HWMON_V 1},
-> -	{"APMC0D8A", XGENE_HWMON_V2},
-> -	{},
-> +	{ .id = "APMC0D29", .driver_data = XGENE_HWMON_V1 },
-> +	{ .id = "APMC0D8A", .driver_data = XGENE_HWMON_V2 },
-> +	{ }
->   };
->   MODULE_DEVICE_TABLE(acpi, xgene_hwmon_acpi_match);
->   #endif
-> 
-> ---
-> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
-> change-id: 20260915-acpi-hwmon-12061c767bc7
-> 
-> Best regards,
-> --
-> Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-
+--
+Uladzislau Rezki
