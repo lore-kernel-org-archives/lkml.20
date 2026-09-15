@@ -1,119 +1,304 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 806FC4BD0FD;
-	Tue, 15 Sep 2026 15:49:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA3F4BD783
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487383; cv=none; b=bZSQUPfCXpPnSugt6ox9R+wIesQOl7SW+D8PDEMEwRHYJazoE1nBqWlYskS68gx3AUFP9ufizJ+fvMojOXTEfGgmHNcp6tyjdAaGzhx0jSDn7/JxfZx5WcR3dmbUJ1XaodhfK1Xly5SjCTvwSwuV7YI00Y2OfWKB+SWvD0/KgNA=
+	t=1789487384; cv=none; b=XR3Gg25iVbnXCZzzvc6jim0hNt1RVamn8q9uflmBbnL42mm13cbcMDaxq8Rdc3+GeBcmM5xRuHQXiZO4XLHVxIkfZ8KbTXcD3QvjqaTJ3nUMrAmcQsLIb++X5v0mclQq+jsA8jTJkmhH7rlR2jFIr9CfPveaNp7QpZJNjHDXKoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487383; c=relaxed/simple;
-	bh=ZLhP9+hk4aabaXSGT54lI6NuOvSPZUJCkdIwDLOtAu4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=d0hFTr+ahiZOtl5rkqpU7S6K+bzcfoQI7wRcBNiwid6/XFb+N1mtI5prulLBnPqiE3nDyyKYrzdbMKSraifrqqi32goCYmWoTciZ4u9/cMLYMMg5b3qbvBgHqfBhrX1pu1ImZxMZy+FStdXs41R5io9aNb1bR7Q8W0uLSYXxswQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BdAXaQPh; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789487384; c=relaxed/simple;
+	bh=+XBllqbsJ71y2OMACCOWTTRe/OpCpvOrPstex5Z1CiU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F82fThfasy6bUuysL/iDtWmJovBfWzPvCPJmVTlqMNUS5uGkbjcZKUNhLG4dRv754ASmi6MOwYFIjtIOiLUY2ySRt4Ea7AH1TnrOhq69ZBrJaJSxFT1n2xcKLjZRrWQuVCdWZsREszKC+nyeIQmn8tAsOXIcVB6h6SKGC+LvPzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OoyED1/R; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BdAXaQPh"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E9DF1570;
-	Tue, 15 Sep 2026 08:49:37 -0700 (PDT)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 640363F882;
-	Tue, 15 Sep 2026 08:49:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789487380; bh=ZLhP9+hk4aabaXSGT54lI6NuOvSPZUJCkdIwDLOtAu4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=BdAXaQPhr83OQa7dCtrINo7V0Ik022DcCN3ePCCAPmH0rPYM2/ka84ZuMHgCI0Nj7
-	 79/IvJE6eiWpBtG7rAU3MfDfD2yRisiHh3S6xevjvez5+zw3oui0mqnqIhhWqQNkcs
-	 pzR8eFyE9xwoyT+/G2Kry12YSH7rPk0hUdw1k5mQ=
-From: Leo Yan <leo.yan@arm.com>
-Date: Tue, 15 Sep 2026 16:49:00 +0100
-Subject: [PATCH 14/25] coresight: perf: Look up the trace path in
- etm_event_pause()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OoyED1/R"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d45ae011cso5875887b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:49:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789487381; x=1790092181; darn=vger.kernel.org;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0oyD/F9PlwtiOwMSHcssA0x8M3nxK1wxyEuv3ztZ73g=;
+        b=OoyED1/R2+YB+q4oQsj7Es/RAPHnGm7GkWU1XMAXKKe2u6weZlTUTdn2Nems8scryq
+         9L7paOBm19AfNa+6S4zfcA7+LSSWlpkPGvqCNc05SwoY0mE5U5QlSG8Fbt00U/c45V31
+         FCA+eNF0IE5nU0ca1FueUY7ryYJwt8nqkuMuuPSXUmTdDCvGzWl0xMRCf3CJm8UEgdk5
+         4JkBUJ+B47rqswzdN1xu7iWxU5oXcE0zL06Bdb4wKHZdAB2Em8NZ5JjQR2YIKfU/vV3+
+         Uy4fl/t8yHzMI/QQ3nC0qNIXvmCeISXJj/fFP5yF1F+1ZbiKZPeFHFNuHRViBX2y3raH
+         DwfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789487381; x=1790092181;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0oyD/F9PlwtiOwMSHcssA0x8M3nxK1wxyEuv3ztZ73g=;
+        b=w8X/a7Sg2GT+tmxndh1PuuQMQqKdE2AoBZrhzH5BuS4qeY8cCokH/JeH7YhH4y5nG1
+         vD5ogiu56Dnge6RspySaS/DuATPz5w48ZO6OCshohT5pOLzCdmwX5uZnDMO2u9BLg8kg
+         b0InQ5/QIb8Z40c4RzhPuRPBkE53tfdIloh4IChDxFtL4SgqmIWwO2yqf3Bp1CTKeUxN
+         LmGV4p/eM+MLxtlNahPM8ruFa2+z9iQZAjUY4iD8Z3lFhZ3+16eAtwPFsCZIIcLmI1la
+         luETIm1GTGTDRBLB5fsJO4g+MH7FDMfjR0qzubBxbJMyAsIBoCFssiNbHyQU8wUCH1q+
+         Fdvg==
+X-Forwarded-Encrypted: i=1; AKwUvBxF946Ddw4VxyLCKcExro7yWfENtItWPWe4W2zz0zq9aVXIdoBIB+I+v6cVZ8gdFz6HA4EYnlHgwefgwJw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNtRczfqKuMk4MZh7RKEx7TSHJsx6iwmTrPtT0KDPinMQtiwJc
+	fBAZgWnxmtKgUJm57Lx9DQAa2nWIbenwZ7/2GtyUoMvQtlhuyQhhqMjR
+X-Gm-Gg: AYBFou3jDHs2UlRXW16u0PJb5slvBwVxe08+MslqEIcudewLAwp4h1Fl5ORBRlR0U1X
+	+4cOZ52Gb40g81LcsAt47RcqWLk1RRhhtfKk3fPLxOPMPJs4ZAXJXD0XNYKZhctzoBjIR5WoHc0
+	MPfvGCr2iWx2zo059A4TbQ3O/FAZPxA5O1JjifrfJrO9+w/0xrLR8ndFnVNEA6Zg52uWgBmiVLE
+	TbpqBLhnUwKKVLeVDrTKb8wJmHIYgSLx631D64nr+2Ylqf2h+B8qZxSIyYJS8bNmy5eESTPiALy
+	9l1JDAMPGNxXzNw8xHwHbGBWJunPjtNqyb8CWqqKhGbzUaTbkGIciZuO/VnKA56a4Msx96et7mc
+	6dUWV+uvomWGPJIGiGExR/HHsev2jSPT8x+a8rjVWu0vAbr+piioNSAs/DjMrxZ6tgSMYt+6PQE
+	tKVBnxHW74is1lzn/d6ptEcTbWB6oSmyArei9FHhzRiy8xeXYX+RBHmukAdDbcLZ3IY1ravkGog
+	T6qKVaRRb+O
+X-Received: by 2002:a05:690c:6604:b0:866:4769:d60d with SMTP id 00721157ae682-890f27e0341mr7332937b3.22.1789487380614;
+        Tue, 15 Sep 2026 08:49:40 -0700 (PDT)
+Received: from [10.138.10.6] ([185.98.168.14])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-884871190acsm49345007b3.23.2026.09.15.08.49.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 08:49:39 -0700 (PDT)
+Message-ID: <00a0910e-0c15-4f5a-add0-3cbc3457972f@gmail.com>
+Date: Tue, 15 Sep 2026 11:49:33 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-arm_cs_support_aux_sample-v1-14-35cf6f297d20@arm.com>
-References: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
-In-Reply-To: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- James Clark <james.clark@linaro.org>, Mike Leach <mike.leach@arm.com>, 
- Anshuman Khandual <anshuman.khandual@arm.com>, 
- Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org, 
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org, 
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
- Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789487340; l=2117;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=ZLhP9+hk4aabaXSGT54lI6NuOvSPZUJCkdIwDLOtAu4=;
- b=xElk10YnXyUhppvLhUxoiFU+LW5Fv+8kQIwvgFAKzhUuLDJByQtapb0TsuCyCt6DtEpgYaPHC
- SD9k9LTKFx+B2aE3gtHt8F8WAVaE/zrwGnWOwU4xe+wyxQRCPwyqehr
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 09/12] crypto: qce - remove the BROKEN label
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ Stanimir Varbanov <svarbanov@mm-sol.com>,
+ Eneas U de Queiroz <cotequeiroz@gmail.com>,
+ Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-crypto@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Eric Biggers <ebiggers@kernel.org>
+References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+ <20260910-qce-fix-self-tests-v7-9-cdbd2718af14@oss.qualcomm.com>
+ <20260910143140.GA5719@quark>
+ <CAMRc=McDHXWRfYTwRasdBCXMnoVkXK9T7RB+gBNgCsGof-euyg@mail.gmail.com>
+ <c08519bb-b912-4d34-a164-5a9d65162716@gmail.com>
+ <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------vuZP1Q4ZVZ0NeQeK20nvEN3W"
 
-Have etm_event_pause() retrieve the active path from the event context
-instead of passing the path from etm_event_stop(). Move the stop path
-lookup after the pause dispatch so each operation resolves its own path.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------vuZP1Q4ZVZ0NeQeK20nvEN3W
+Content-Type: multipart/mixed; boundary="------------IByifCyeWEU0H7y66NiZ3XNB";
+ protected-headers="v1"; hp="clear"
+Message-ID: <00a0910e-0c15-4f5a-add0-3cbc3457972f@gmail.com>
+Date: Tue, 15 Sep 2026 11:49:33 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 09/12] crypto: qce - remove the BROKEN label
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ Stanimir Varbanov <svarbanov@mm-sol.com>,
+ Eneas U de Queiroz <cotequeiroz@gmail.com>,
+ Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-crypto@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Eric Biggers <ebiggers@kernel.org>
+References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+ <20260910-qce-fix-self-tests-v7-9-cdbd2718af14@oss.qualcomm.com>
+ <20260910143140.GA5719@quark>
+ <CAMRc=McDHXWRfYTwRasdBCXMnoVkXK9T7RB+gBNgCsGof-euyg@mail.gmail.com>
+ <c08519bb-b912-4d34-a164-5a9d65162716@gmail.com>
+ <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
 
-This prepares etm_event_stop() to coordinate hardware access before
-looking up the active context.
+--------------IByifCyeWEU0H7y66NiZ3XNB
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Assisted-by: Codex:gpt-6
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- drivers/hwtracing/coresight/coresight-etm-perf.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+On 9/15/26 05:46, Bartosz Golaszewski wrote:
+> On Fri, 11 Sep 2026 20:35:58 +0200, Demi Marie Obenour
+> <demiobenour@gmail.com> said:
+>> On 9/11/26 07:14, Bartosz Golaszewski wrote:
+>>> On Thu, 10 Sep 2026 16:31:40 +0200, Eric Biggers <ebiggers@kernel.org=
+> said:
+>>>> On Thu, Sep 10, 2026 at 03:00:50PM +0200, Bartosz Golaszewski wrote:=
 
-diff --git a/drivers/hwtracing/coresight/coresight-etm-perf.c b/drivers/hwtracing/coresight/coresight-etm-perf.c
-index f66c99b26e1862ab04105704276c901b21728207..8f803914e9abfb18e080ff68371ad8b32042f180 100644
---- a/drivers/hwtracing/coresight/coresight-etm-perf.c
-+++ b/drivers/hwtracing/coresight/coresight-etm-perf.c
-@@ -694,10 +694,10 @@ static void etm_event_update_buffer(struct perf_event *event,
- 	perf_aux_output_end(handle, 0);
- }
- 
--static void etm_event_pause(struct coresight_path *path,
--			    struct perf_event *event,
-+static void etm_event_pause(struct perf_event *event,
- 			    struct etm_ctxt *ctxt)
- {
-+	struct coresight_path *path = etm_event_get_ctxt_path(ctxt);
- 	struct perf_output_handle *handle = &ctxt->handle;
- 	struct coresight_device *source, *sink;
- 	struct etm_event_data *event_data;
-@@ -735,7 +735,7 @@ static void etm_event_stop(struct perf_event *event, int mode)
- 	struct coresight_device *source, *sink;
- 	struct etm_ctxt *ctxt = this_cpu_ptr(&etm_ctxt);
- 	struct perf_output_handle *handle = &ctxt->handle;
--	struct coresight_path *path = etm_event_get_ctxt_path(ctxt);
-+	struct coresight_path *path;
- 	struct hw_perf_event *hwc = &event->hw;
- 	struct etm_event_data *event_data;
- 
-@@ -744,7 +744,9 @@ static void etm_event_stop(struct perf_event *event, int mode)
- 		return;
- 
- 	if (mode & PERF_EF_PAUSE)
--		return etm_event_pause(path, event, ctxt);
-+		return etm_event_pause(event, ctxt);
-+
-+	path = etm_event_get_ctxt_path(ctxt);
- 
- 	/*
- 	 * With no path enabled, there is no hardware to stop or trace data
+>>>>> All self-tests now pass.
+>>>>
+>>>> Have the other bugs that were reported been fixed?  For example:
+>>>> https://lore.kernel.org/linux-crypto/20260723202704.GB110634@quark/
+>>>> https://lore.kernel.org/linux-crypto/20260723183438.GB93534@quark/
+>>>> https://lore.kernel.org/linux-crypto/20260723205342.GC110634@quark/
+>>>>
+>>>
+>>> I will get to these too. For now, the series allows the self-tests to=
+ pass,
+>>> I assume it it's enough to not keep the BROKEN label.
+>>
+>> Personally, I think the driver should stay BROKEN until all the
+>> known bugs have been fixed.  The self-tests aren't enough for HW
+>> crypto drivers.
+>>
+>>>>>  	help
+>>>>>  	  This driver supports Qualcomm crypto engine accelerator
+>>>>
+>>>> As this patch would make the kconfig option visible again and would
+>>>> result in everyone running "make oldconfig" being asked about it, it=
 
--- 
-2.34.1
+>>>
+>>> I don't mind changing the symbol if you prefer it to avoid any accide=
+ntal
+>>> `make oldconfig` carry-overs.
+>>>
+>>>> needs to be fixed to accurately document why anyone would want to en=
+able
+>>>> this option.  As you've stated, it's actually just for "testing".  T=
+he
+>>>> false claim that it's an "accelerator" also needs to go.
+>>>>
+>>>
+>>> "Offloader" for lack of a better word?
+>> Could it be called a "decelerator"?  That would give users an idea
+>> of what to expect from the driver.  Maybe explicitly mention that
+>> you will take at least a 50x performance hit?
+>> --
+>=20
+> Yeah, very funny. Jokes aside: "Offloader" says what it both *aims* to =
+do and
+> really *does* without claiming it *accelerates* anything.
 
+This wasn't meant as a joke, but I could see how it could be seen as
+one.  Sorry about that.  No offense intended.  "Offloader" also works.
+
+As an aside, I trust that you are doing the best you can.  Maintaining
+an unpopular driver is not an enviable task.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+
+--------------IByifCyeWEU0H7y66NiZ3XNB--
+
+--------------vuZP1Q4ZVZ0NeQeK20nvEN3W
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmqpaQ4ACgkQszaHOrMp
+8lM6BBAAiz3vwhbkTZCjeNU85AKdXDPBAQecchq8P22HNlj9MpKYAYGpg/VSPyJP
+MDYb1PN5Cm/D3ZbFYkqICuAa8PInhA+knhDP+Iz5867DS+fAom4I6BTrxXKDvWmT
+0sdQLCSExrxY24OUP9i5ajSrlTZhSJbeo2rV0MImi5I6qM7YJc2d+WXyXES2j+Eu
+Y6YK+/siNC1N4qbN97B3zzacMc1fs0pQzNsq3Pbe0Z3UdUHyIcibNOsoM5r3LYye
+2CPpF0BRIROL7ydGrcsgNS38W0PuPHajbNZsyjlagWor7Pk3zTZCtuonqgDINoZ6
+io6remDuynXyozSSXP5gj+xfg34evwbrbDOgrDZYRfD1e32bnTFvEoqcqjNM1Q9D
+axP3Y+b1nAxE/aD+xWJX7Jp1QkrvdJaWfwk29I+uI3vLlZau5YzEjqaGfuKMWSP+
++H+guHBTUEDMi7jSv8JVM22v7VhGRew7KAsCvJGHcf+yA4A5zQSb5GKLHI+wnb4f
+klWhIHk92C6bD4Vg9FjSl3AKtjs27fgGO4m4y9q/Y3zNdWO5aPT7o3CYs6I8OyXB
+Sf2lqGihrj8nCbi+MWOzrlSigFO/Y7lre+qk34vYX59S64sM70tRxywyTBvF8967
+aLm4WfQRy1Zz0CMeyFZ4qTw2g0uH955BXAQKP/UsosVImYv6ysU=
+=8w5m
+-----END PGP SIGNATURE-----
+
+--------------vuZP1Q4ZVZ0NeQeK20nvEN3W--
