@@ -1,168 +1,219 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6C13A0B3B;
-	Tue, 15 Sep 2026 08:38:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9F944999F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:38:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461535; cv=none; b=Ld6sLk+ry7U0clv6laKpIBC93ShoeoWHUJr12YmIpKTJ8k0BWIqoUm4CnC12AClmeIDcIea/Ww4Df1dFRzERLptFrFhs9Se3qDCP9sEL7o2jFNalyo1NxFdMXhnHo6pdu1DEUwe9qTYGh6x+GnkBB1B8kRYGy1clZlyeEJWvVLU=
+	t=1789461540; cv=none; b=kXQysYZQD03oN/xiM/lhhxis+mUyqCT3hSBq+L2aHP0CZnRlRBWGbqAWZRQ9mKq4gQdMmVS7zdZs+2rqJq83wLzy/cECN0tmSUCu1jIFRUIbguHZdmikqHL0HhT8dnRl7814L1RLJhdKqIi4dQFy9KG7GiZC1FmJO3S2cnq5AK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461535; c=relaxed/simple;
-	bh=zNKy/IzJ6qU7dVGDGyF1IZC2cGwnLBmyfREtiaXVX7Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VX77HUrX6fpV9NAOkKLCOMdKijmqMpE6DqTXma/5kt2CAtPwPb04PSmAliSIPBoh7ErOt4c45ayEjLrsqJSlNmYBjOJY1UPkAXTlnd7GzgnmGoT1qU6qgPSz2L4ClHfT/QIqpqe3T9mGvcnq8twEvW+Xvr83G8IgmdVvRls9XKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ipEX5J/u; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789461540; c=relaxed/simple;
+	bh=PmAlNaVoW6WDiKOvty/3z/+Xv8BfHbEI30u3GF10bC8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ktwFuSIo8sJGYQDwnVCxQviKxfmqXcy5RZiaM863SULEU+20OrCRjwZuJFA1mQb/9e4GHe39+JWhYW4q0bI23lUuVb5Wv3S+mGacBaKRHVerZ7NhyS3aezb1e0gaFNTSW7aG0S2lnrmBVKuNct2d87uHL3r1kFA503Wb/tdzoxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ES2ZCoOZ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ipEX5J/u"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F71SYm150551;
-	Tue, 15 Sep 2026 08:38:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=k3FH4x
-	5L80jGTzVXyd1FgcnuV1kZzhrBCb0yGo4D9cc=; b=ipEX5J/ugvexfodCIvoUbm
-	IRSxsEOyc04z5U5T9epHAnVnptHmf5S5gLqHb2heAYKh0AUyJEV8DKCLZVt6DCI1
-	dIZUS7+2bh5wXsTFMfGpeTt5X7cLf9YtXkYH06TLO/XUjYzHZjPsSweMdte+m9JA
-	UgSG3T9FXECuzDu7uaPgO6RnQE4nxLgdrbJq59fWOG0kUthilXgPmi0Gs/ZI/TJS
-	GNufu21fxC+IL9ehtxWv99biuNPeUk9jUEvgzpW0nq+5SB4xmV+ZAtwU4fTOpRfx
-	RKUCPWi20HatHvKjz3eR+VU/97lvP8chCgwo2v7xIxq2dVmvI3fP0NzWW9JABpvw
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf4x3uc-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 08:38:35 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZI6B3613555;
-	Tue, 15 Sep 2026 08:38:34 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gpywerjvs-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 08:38:34 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68F8cVhw41222544
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 15 Sep 2026 08:38:31 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 136492004B;
-	Tue, 15 Sep 2026 08:38:31 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4578A20040;
-	Tue, 15 Sep 2026 08:38:29 +0000 (GMT)
-Received: from [9.123.2.177] (unknown [9.123.2.177])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 15 Sep 2026 08:38:29 +0000 (GMT)
-Message-ID: <647f3494-1e79-43ea-a8ed-157b3f0e6c54@linux.ibm.com>
-Date: Tue, 15 Sep 2026 14:08:28 +0530
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ES2ZCoOZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789461537;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4ehSxidN9kKTCmVpgH+gSlUIAf/GxkvQJrzHZAwyKwo=;
+	b=ES2ZCoOZfle+QQYEYpSAH4g8cJjNbXFqApKQxz8feGSGQaeYSDtqLrzJmJm2Gr2wumtHCW
+	9N84BRtbjiptLJlnspjeLjbrB4+lx3AE7slZch8uMavSi/P081retBtuAopEEAy7XnWd5A
+	iDh1arwabbo0Pp/X/KgIzXsKVSwYHqg=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-616-UXMCkD7lPY-rjKgFJ8dg1g-1; Tue,
+ 15 Sep 2026 04:38:51 -0400
+X-MC-Unique: UXMCkD7lPY-rjKgFJ8dg1g-1
+X-Mimecast-MFC-AGG-ID: UXMCkD7lPY-rjKgFJ8dg1g_1789461529
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 388D11802159;
+	Tue, 15 Sep 2026 08:38:49 +0000 (UTC)
+Received: from gerbillo.redhat.com (unknown [10.44.48.83])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 184E9180025F;
+	Tue, 15 Sep 2026 08:38:44 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: 5mghybrid@khu.ac.kr
+Cc: netdev@vger.kernel.org,
+	theo.lebrun@bootlin.com,
+	conor.dooley@microchip.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	richardcochran@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net RESEND 1/2] net: macb: Preserve one-step mode on rejected timestamp requests
+Date: Tue, 15 Sep 2026 10:38:39 +0200
+Message-ID: <20260915083839.71546-1-pabeni@redhat.com>
+In-Reply-To: <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr>
+References: <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: PPC: Book3S HV: Avoid triggering an extra interrupt
- for a vCPU
-To: Gautam Menghani <gautam@linux.ibm.com>, maddy@linux.ibm.com,
-        npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org,
-        tpearson@raptorengineering.com
-Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260915060146.33410-1-gautam@linux.ibm.com>
-Content-Language: en-US
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-In-Reply-To: <20260915060146.33410-1-gautam@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: WBWQJk8CS2rSJ-gzFi8ni3i-Z7ly88h2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEyMiBTYWx0ZWRfX+e06gwGvGJ43
- o5vMknaE4HWsvQ4+Dkdc6cCZ8qDrltltDnAeAhUFugJi1CQNpF+acI6xqKMXQeZtFWdVnjjrJQx
- 37cg0wN8bP5x54atR9GxV7JwZ6t2c6g=
-X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aa9040c cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8 a=VnNF1IyMAAAA:8 a=C-dYcwNCrXqwm9yQvhYA:9
- a=QEXdDO2ut3YA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
-X-Proofpoint-ORIG-GUID: Kady2yuf0ChdC2klB7QZEB5XWAWuVf-r
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEyMiBTYWx0ZWRfX0AvzrU1jlVxj
- vLPICeDcq1FCC6OdIyT4skJOrGWoT6patSLqr5YYZFjr5ACAnX1fdKzRrJPTL+TCk/GS9oGyaNi
- bOvQIOVGSXx/XxSv+MJWqxEcvgvaPRZuK951EzEakhxA3InbVBVNEb6QDj179F1ZZrQ+INUzW15
- 1OR3TY+CFL8alyV86bITAup+9odiN4d0DwxpFmXECWEmnLSV8X6XHxICCHRBQ8YmF1o+up4I1K+
- FVMrwLUAj7Dlek4O97bxB6Hsz7Hdy9KGOatmfcLx0+8ucqHELQHwNariGZLYhWq+7XIeo30zx5b
- DB8hpWnK3Hq0eSu9Ro4S+gJBQJs+wnIObeuCLxG8xGZfFUcXVqd5SFhTgN9mBoJK1eTi1M6fvpn
- a5pm1tL7YrE52bPcXmte6Cs3Hdn3wn+76PmaphsZPEM4sg7MmarFktXzW9s+x2xZFX2whb3JHuS
- 58pVoGWKNCwAm3brXwA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1011 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150122
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Hi Gautam,
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+---
+net: macb: Preserve one-step mode on rejected timestamp requests
 
-On 15/09/26 11:31 AM, Gautam Menghani wrote:
-> A huge number of spurious interrupts can be seen immediately after a KVM
-> on PowerNV guest boots up in XIVE mode.
-> 
-> $ cat /proc/interrupts  | grep SPU
-> SPU:     223705     192439     273526     147623   Spurious interrupts
-> 
-> This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
-> Handle pending exceptions on guest entry with MSR_EE"). The root cause
-> is that when there is an interrupt pending for a vCPU
-> (xive_interrupt_pending() returns true) and MSR_EE is disabled for the
-> vCPU, LPCR_MER ends up getting set for the VCPU. When the vCPU starts
-> running, the XIVE hardware presents the pending interrupt to the vCPU
-> (since the KVM guest has native XIVE support) and then a second spurious
-> interrupt gets presented to the vCPU due to the LPCR_MER bit being set.
-I agree that we should avoid setting LPCR_MER when the pending interrupt 
-will already be delivered natively by XIVE on PowerNV.
-> 
-> Fix this behaviour by not queuing up any extra interrupts with LPCR_MER
-> if there is an interrupt already pending in the case of KVM on PowerNV.
-> This reduces the number of spurious interrupts drastically.
-> 
-> Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
-> Cc: stable@vger.kernel.org #6.8+
-> Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
-> Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
-> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
-> ---
->   arch/powerpc/kvm/book3s_hv.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-> index 7667563fb9ff..fda3767ebc9e 100644
-> --- a/arch/powerpc/kvm/book3s_hv.c
-> +++ b/arch/powerpc/kvm/book3s_hv.c
-> @@ -4937,9 +4937,8 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
->   
->   	if (!nested) {
->   		kvmppc_core_prepare_to_enter(vcpu);
-The current code handles two different indications of an external interrupt:
-> -		if (test_bit(BOOK3S_IRQPRIO_EXTERNAL,
-> -			     &vcpu->arch.pending_exceptions) ||
-> -		    xive_interrupt_pending(vcpu)) {
-> +		if (!xive_interrupt_pending(vcpu) && test_bit(BOOK3S_IRQPRIO_EXTERNAL,
-> +							      &vcpu->arch.pending_exceptions)) {
->   			/*
->   			 * For nested HV, don't synthesize but always pass MER,
->   			 * the L0 will be able to optimise that more
-This means xive_interrupt_pending() now gates the entire block, 
-including the BOOK3S_IRQPRIO_EXTERNAL handling, rather than only 
-avoiding the LPCR_MER which causes the duplicate interrupt.
+This moves the gem_ptp_set_one_step_sync() calls in gem_set_hwtst() out of
+the tx_type switch and down past the rx_filter validation, so a request
+rejected with -ERANGE no longer changes NCR.OSSMODE.  The cached
+bp->tstamp_config and the TXBDCTRL/RXBDCTRL programming are unchanged.
 
-Also, the changelog describes the issue as specific to KVM on PowerNV, 
-while this condition also affects the pSeries/nested handling in the 
-same block.
+> diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
+> index e5195d7dac1d5..51659bbdfac9a 100644
+> --- a/drivers/net/ethernet/cadence/macb_ptp.c
+> +++ b/drivers/net/ethernet/cadence/macb_ptp.c
+> @@ -418,11 +418,9 @@ int gem_set_hwtst(struct net_device *netdev,
+>  	case HWTSTAMP_TX_OFF:
+>  		break;
+>  	case HWTSTAMP_TX_ONESTEP_SYNC:
+> -		gem_ptp_set_one_step_sync(bp, 1);
+>  		tx_bd_control = TSTAMP_ALL_FRAMES;
+>  		break;
+>  	case HWTSTAMP_TX_ON:
+> -		gem_ptp_set_one_step_sync(bp, 0);
+>  		tx_bd_control = TSTAMP_ALL_FRAMES;
+>  		break;
+>  	default:
+> @@ -460,6 +458,11 @@ int gem_set_hwtst(struct net_device *netdev,
+>  		return -ERANGE;
+>  	}
+>  
+> +	if (tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC)
+> +		gem_ptp_set_one_step_sync(bp, 1);
+> +	else if (tstamp_config->tx_type == HWTSTAMP_TX_ON)
+> +		gem_ptp_set_one_step_sync(bp, 0);
+> +
+>  	bp->tstamp_config = *tstamp_config;
 
-Thanks,
-Narayana Murty N
+[Severity: High]
+Does this leave the same hardware/cache divergence reachable for the
+HWTSTAMP_TX_OFF transition that the commit message sets out to remove?
+
+Neither arm of the new conditional runs for HWTSTAMP_TX_OFF, but the next
+statement caches the request unconditionally and the call after it programs
+TXBDCTRL = TSTAMP_DISABLED:
+
+	if (tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC)
+		gem_ptp_set_one_step_sync(bp, 1);
+	else if (tstamp_config->tx_type == HWTSTAMP_TX_ON)
+		gem_ptp_set_one_step_sync(bp, 0);
+
+	bp->tstamp_config = *tstamp_config;
+
+	if (gem_ptp_set_ts_mode(bp, tx_bd_control, rx_bd_control) != 0)
+
+So for the sequence
+
+  SIOCSHWTSTAMP{tx_type = HWTSTAMP_TX_ONESTEP_SYNC}   -> OSSMODE = 1
+  SIOCSHWTSTAMP{tx_type = HWTSTAMP_TX_OFF}            -> returns 0
+
+gem_get_hwtst() then reports HWTSTAMP_TX_OFF via
+
+	*tstamp_config = bp->tstamp_config;
+
+while gem_ptp_set_one_step_sync() in macb_ptp.c is the only writer of
+MACB_BIT(OSSMODE) in the driver, so One Step Synchro Mode stays enabled in
+NCR.  Does the MAC then keep rewriting the originTimestamp of transmitted
+PTP Sync frames?  The driver assumes it does elsewhere, since
+ptp_one_step_sync() in macb_main.c is used to suppress software FCS/CRC
+insertion for exactly those frames.
+
+Would an unconditional call be preferable to the two-arm conditional, for
+example:
+
+	gem_ptp_set_one_step_sync(bp,
+				  tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC);
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but while the call site is being
+moved, is the read-modify-write inside gem_ptp_set_one_step_sync()
+sufficiently serialized?
+
+	reg_val = macb_readl(bp, NCR);
+
+	if (enable)
+		macb_writel(bp, NCR, reg_val | MACB_BIT(OSSMODE));
+	else
+		macb_writel(bp, NCR, reg_val & ~MACB_BIT(OSSMODE));
+
+The SRTSM update in the rx_filter switch of gem_set_hwtst() does the same
+thing:
+
+		regval = macb_readl(bp, NCR);
+		macb_writel(bp, NCR, (regval | MACB_BIT(SRTSM)));
+
+Both run from process context with BHs enabled and without bp->lock, while
+other NCR updaters take bp->lock, for example macb_tx_restart() from
+NAPI/softirq context:
+
+	spin_lock(&bp->lock);
+	macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TSTART));
+	spin_unlock(&bp->lock);
+
+and macb_tx_lpi_set(), which asserts it:
+
+	lockdep_assert_held(&bp->lock);
+
+	ncr = macb_readl(bp, NCR);
+
+Can a concurrent locked writer's bit be lost if it lands between the
+macb_readl() and macb_writel() here?  In the worst case the stale write-back
+would drop MACB_BIT(RE) | MACB_BIT(TE) just restored by macb_mac_link_up(),
+leaving RX/TX disabled while the stack considers the link up; more commonly
+a TSTART or TXLPIEN update is lost.  The same unlocked pattern already
+exists in macb_mac_link_up() after it releases bp->lock and in the RXUBR
+errata path of macb_interrupt(), so this predates the patch, but would
+wrapping both NCR read-modify-writes in gem_set_hwtst() with
+spin_lock_irqsave(&bp->lock, ...) be the right direction?
+
+[Severity: Low]
+This is a pre-existing inconsistency rather than something this patch
+introduces, but since gem_set_hwtst() is being touched: gem_get_ts_info()
+in macb_main.c advertises only
+
+	info->rx_filters =
+		(1 << HWTSTAMP_FILTER_NONE) |
+		(1 << HWTSTAMP_FILTER_ALL);
+
+while the rx_filter switch in gem_set_hwtst() accepts the nine
+HWTSTAMP_FILTER_PTP_V2_* values and reports back a filter the ts_info
+bitmap says is unsupported:
+
+		rx_bd_control =  TSTAMP_ALL_PTP_FRAMES;
+		tstamp_config->rx_filter = HWTSTAMP_FILTER_PTP_V2_EVENT;
+
+Neither the legacy ioctl path via net_hwtstamp_validate() nor the ethtool
+netlink tsconfig path checks the request against the driver's advertised
+bitmap, so userspace can end up with an rx_filter value that is absent from
+the supported set.  Should HWTSTAMP_FILTER_PTP_V2_EVENT be added to
+info->rx_filters?
+
+For reference, the related concern about HWTSTAMP_FILTER_PTP_V1_L4_SYNC and
+HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ returning success while leaving
+rx_bd_control at TSTAMP_DISABLED is addressed later in this series by "net:
+macb: Use all-frame timestamping for PTPv1 RX filters", which folds both
+cases into the TSTAMP_ALL_FRAMES arm.
+-- 
+This is an AI-generated review.
+
