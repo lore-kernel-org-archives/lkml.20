@@ -1,41 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2516544C50B;
-	Tue, 15 Sep 2026 20:01:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FC937C0FD;
+	Tue, 15 Sep 2026 20:01:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789502473; cv=none; b=HkCWBuTEs6mnkCcRkvZ4mrPuoP7NJmdr5I4n6+6wkLCEp0JZrSrTq7dVlt37EraiO+iYBZsDWPeeruFy5U1yGXfxGYfq0uwPXD2zzWl0j6Nqt5sT+3bAIY6Ux2cE7pSu/4pCjdiRA0bDdIP4coiLcdg2+nqjFF+Bl2n96oGqseY=
+	t=1789502481; cv=none; b=AQvcF2W7iqKWdi42ynAzBCMx+UqXowqLSlmldLpmhUp0guhc25UBFX5rOj/04Ni+2bmiepav7IRjendIij9s5PTVS52+aBWcBe7RyaitVCmGthmH72M2DddFSfpnmsWfZXxeBflg7Nio8ETP+ztCC+MsUbbIVV6hqEoz/VWP17k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789502473; c=relaxed/simple;
-	bh=5BXj3GYAp+K0PEWPKETO0y+KRxP+PxfG6Uos6q6Hx2I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kz8sPpsKFI0NPzq5jeBrSm2Wz/1HoNwstMJQ5x2x007ii4GRFuE29czosrhGc0lMsI/IPSWwj5igwGgkUjpYAHWcDKvL7Y4minpdSXBN025KpK64fXDKA0QPs6ZgCOk7Xu9XrqZvbs4A9aDCiz0iaLrWdGd7wAwbaXip9egmjos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IG5+8vNd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789502481; c=relaxed/simple;
+	bh=6oJ62CEgj/ODiNF7VRl0QftVoMnL9Cbrnv+Km3iUADg=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=J8fl40jIARR+Z40vLJ4zsASveFX5KLCLXJqN3vmCnIrQGwtZMiu4WeBNi7Lf6mcy8NYLQK+HjoDVwALDf9ppht+f4wtd3LiuefDfcYPjBxIQ2gArMoIec4HwYHyQDEzOCb/ipRsMOSs46SswGcNUjMjSQUdn0BX5shbvcGs8/fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mm610+ca; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IG5+8vNd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68BD1F000FF;
-	Tue, 15 Sep 2026 20:01:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mm610+ca"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DA251F000FF;
+	Tue, 15 Sep 2026 20:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789502471;
-	bh=92nr8IGaQH5EjHNWCGT9F67ybnm5tD52y6P8CzHrxf4=;
-	h=From:To:Cc:Subject:Date;
-	b=IG5+8vNdUIUVZTp/0K6hwT1phJUCkIKpdU+PJguUwgpD2C35hLKBmdqA6jKx2e7ji
-	 Jpbie10mWoQ5u4s7aAUZdA41yew/dLcbvKRkiqXBWrvptltkZ1yBeDUACsCap2VEz3
-	 wJyVmvDTtuw8kZyswcikFz1zwttOohsd7GAyLIwF/v0S1qm/FfuVJyg3TzwpBk6cbi
-	 gPFnIRwXHJlND3A4L0p7+0UxllaUVBL6V2+ij1Mj46hXgJQcO4AgWwxs2Deq4pGset
-	 3N34WpWvpRuev/qgMm0YStZoJDF5QXJdZNLO2GWXDFS6FutNhaYMWbJJ+FTvwiVpHh
-	 M7GVE4A9a0v3Q==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Ming Lei <tom.leiming@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Caleb Sander Mateos <csander@purestorage.com>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ublk: reduce stack usage in __ublk_shmem_remove_ranges
-Date: Tue, 15 Sep 2026 22:00:56 +0200
-Message-ID: <20260915200107.3522560-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1789502479;
+	bh=tgBs0QSoGRbOfzpW91bJ73IDZjsFZj8r3Xef42jcmEQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Mm610+caItDvmzKd9Kl9dQX4aDdBEp1b/UiaGLRXMp1+p2CZ9pcXVJPcPc7MfJOro
+	 Q/g0MhyHznXg6yYPt5Atz56bR1JWyDvLJTVlbiLlw8Zx5s4Tw75SSuZroUEPNm0IQ0
+	 9sYUWWKLcOPjWSps9lPFYkvlZ2ZGrsnboH+BdcV65WtyI9QjDPmni6OtGTzUU2UEJ+
+	 BHWLQu6+CimAUqRYta3V3wyifTFbGrJlcEQX/EJIZSg5T5ohTRdx1Y/+Uws5l3oC6Q
+	 Y2NkDteJ39N5uVttbqnovoY9iOMLqI4aEL/DabDZ82U6IkNJivao5uorc3046KEgjR
+	 v9sA6nFvRWr+Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56CB8392705B;
+	Tue, 15 Sep 2026 20:00:15 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,43 +37,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v1] Bluetooth: virtio_bt: Fix probe error cleanup
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <178950241387.2253397.3488916674710358417.git-patchwork-notify@kernel.org>
+Date: Tue, 15 Sep 2026 20:00:13 +0000
+References: <20260911024124.1527637-1-oss.patchbox@gmail.com>
+In-Reply-To: <20260911024124.1527637-1-oss.patchbox@gmail.com>
+To: Yuho Choi <oss.patchbox@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
-From: Arnd Bergmann <arnd@arndb.de>
+Hello:
 
-The array in __ublk_shmem_remove_ranges() is one kilobyte long,
-which is really too much for an on-stack allocation, as can be
-seen with a frame warning limit of 1.25kb that otherwise produces
-a clean build on my test system:
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-drivers/block/ublk_drv.c: In function '__ublk_shmem_remove_ranges':
-drivers/block/ublk_drv.c:5573:1: error: the frame size of 1392 bytes is larger than 1280 bytes [-Werror=frame-larger-than=]
+On Thu, 10 Sep 2026 22:41:24 -0400 you wrote:
+> Once hci_register_dev() succeeds, the HCI device is published, a
+> registration reference is held, and power-on work is queued. If
+> virtbt_open_vdev() fails, the error path only drops the caller's
+> reference before deleting the virtqueues.
+> 
+> The registration reference keeps the HCI device and its callbacks alive.
+> Therefore, a later HCI send can dereference a freed virtqueue through
+> vbt->vqs.
+> 
+> [...]
 
-Maybe half the size is good enough here, so try 32 entries.
-If 64 entries are really required, the array could be dynamically
-allocated, but that would risk an allocation failure.
+Here is the summary with links:
+  - [v1] Bluetooth: virtio_bt: Fix probe error cleanup
+    https://git.kernel.org/bluetooth/bluetooth-next/c/8ec80e64922f
 
-Fixes: 309e02dccf64 ("ublk: avoid unpinning pages under maple tree spinlock")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
-I have really no idea if the 64 number was significant or just chosen
-to fit within usual stack frames.
----
- drivers/block/ublk_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 66eb55e7162e..6fe85aba32ce 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -5531,7 +5531,7 @@ static void ublk_unpin_range_pages(unsigned long base_pfn,
-  *
-  * Returns true if the tree walk completed, false if more ranges remain.
-  */
--#define UBLK_REMOVE_BATCH	64
-+#define UBLK_REMOVE_BATCH	32
- 
- struct ublk_unpin_range {
- 	unsigned long base_pfn;
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
