@@ -1,116 +1,69 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91A844A2A46
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949394A263C;
+	Tue, 15 Sep 2026 13:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480560; cv=none; b=Y7L15PUh5UT45hTTpeXs32IJy3ucRKgxHpYkM9SdfCOYz5G3fwkpMe6Nda/k20OsTRfqW+V2zLrUGOTzsJTMRErBMHhvhSgZFJz0cgd1JEMGy/OA0AhuxA5e1UnQIIA3wpHcpzOdIF4Jd3TdnHgsuqXfy/zrIUdBGYnSFSL+vMk=
+	t=1789480602; cv=none; b=Faad5fnL3kq16fkyd9v1X5b4bBxkfb6benRi1KGOeIHm9DnjoRemVjhcfCODBwLgkHUjLJGAFtnUa6S4uFSra9XefAlHEOF+3/ZlgBNzTFS++T5iRnkX3Qs+4Zn0mvvIb5t5BEnCi/HVNhVWFRgKBcbkg6WgLcTW6Ah/Dm4wiKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480560; c=relaxed/simple;
-	bh=22VdWAtHPIAzlrnKp7utmfDAoVYxyCCYJOO5EOr8ej4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EsHlO7khjPKzlSTVi5Hwov5H0A5WtmPkamImcTQ87P49v7Yum9TmfP37DDY+vFZlozCO6Yb8dbo+HlPH8e9KLgCicbok90x4eK8CO92YhlOsWoz4Z3v23rGKhFSDeNpdeI+XI6PYdZjKOc2aFBgo1kkFjcWzcxtZc8jzk7wGNyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FZLPx5Pv; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789480602; c=relaxed/simple;
+	bh=hlVuAqoTZoPF6dE9e8ruGMTS+jYmOtXqwPNeAEXaFpE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ik4dVVe6qy+zww7vPF8L4bDrK4zS6PiNdBmUAHTd9qbcOtHpjSUgvWA4NctzfouKyUtaG+wi7JQYsZ1qKeFtVIaBjkl+Vh7Ps/hNz0iEVbPTp5cpM4MyQ/lNedJ5x/FrPiaVDsvDJwAIQYz8roW6kzU7t2d4/cW63B2mnClCFjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUVk5vGX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FZLPx5Pv"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 215A515A1;
-	Tue, 15 Sep 2026 06:55:52 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ED53C3F7B4;
-	Tue, 15 Sep 2026 06:55:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789480555; bh=22VdWAtHPIAzlrnKp7utmfDAoVYxyCCYJOO5EOr8ej4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FZLPx5Pv6BiK66qfwlEXpBI5sH/r7TDKHp69TWUdZ6TgeXwiGLJILxWhMkVrxowt3
-	 lnnrjP4cciK3wImId9RfGrpRgNUDoPfhAPk/Vl34jeb+DIDmHRzCimgIjwVpOmVlSR
-	 DdFhzM79qSGC4pgEe3uEaQ6j4vRpp5XNrxQfs0CI=
-Date: Tue, 15 Sep 2026 14:55:52 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v11 2/9] coresight: etm3x: prohibit modifying cntr_val
- and reset while session is enabled
-Message-ID: <aqlOaAUneO1xso7R@e129823.arm.com>
-References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
- <20260915-separate_etm_cfg_v2-v11-2-d2b258d51747@arm.com>
- <20260915114845.CFA601F000FF@smtp.kernel.org>
- <aqlIXrqCCkpNmv6y@e129823.arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUVk5vGX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38B791F00893;
+	Tue, 15 Sep 2026 13:56:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789480599;
+	bh=Jc4nx+Zn8Bf8du3OMyUcsplHpkf66ZLbdrJ77R8vacI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RUVk5vGXcc8cnHsnZuUYnZav0BkKxppz6Q9ewDXK3gWaglJL/CL3wFlbEme7Q+7hH
+	 vBRBtakUVEpQi02SYbPqy7HU/WaLZPVlgS4scqehdTfBY77FQOo6VEG3AbpiImfa30
+	 jIFYJqcIDZorVXpBG9UR/hO/e9yCdWZ72/ap8iedigBo2kMelcbdt1HxmBUrlOqM/D
+	 IEuE1ONZssyVSSK1TSzBvGY9kei69BquFK0a2spLPw4fNG4GmJ5fyqZkhg4sFEMTwO
+	 qYjna5cd1XO+4Hs1YBI/GvjMPKWYbf1E/guMUCCm4OazxYwvd9xtaxTDWcpc7BtjqT
+	 2kNA/Z0Zcroaw==
+From: Chuck Lever <cel@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] nfsd: propagate SETXATTR value decode errors
+Date: Tue, 15 Sep 2026 09:56:36 -0400
+Message-ID: <178948058842.1050566.15909141985888769689.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260915125636.2849626-1-qwe.aldo@gmail.com>
+References: <20260915125636.2849626-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqlIXrqCCkpNmv6y@e129823.arm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 02:30:06PM +0100, Yeoreum Yun wrote:
-> On Tue, Sep 15, 2026 at 11:48:44AM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > - [Medium] coresight: TOCTOU race in sysfs configuration store functions
-> > --
-> > 
-> > commit 9a331a4cd5a9fd51e7380e92ed6bdd6d8e20d5e4
-> > Author: Yeoreum Yun <yeoreum.yun@arm.com>
-> > 
-> > coresight: etm3x: prohibit modifying cntr_val and reset while session is enabled
-> > 
-> > This commit attempts to prevent modifications to cntr_val and reset while
-> > a CoreSight trace session is enabled. It adds a check for the current
-> > mode using coresight_get_mode() before proceeding with the sysfs store
-> > operations.
-> > 
-> > > diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > > --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > > +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > > @@ -74,6 +74,8 @@ static ssize_t reset_store(struct device *dev,
-> > >  	ret = kstrtoul(buf, 16, &val);
-> > >  	if (ret)
-> > >  		return ret;
-> > > +	if (coresight_get_mode(drvdata->csdev))
-> > > +		return -EBUSY;
-> > >  
-> > >  	if (val) {
-> > >  		spin_lock(&drvdata->spinlock);
-> > 
-> > [Severity: Medium]
-> > Could this lockless check introduce a time-of-check to time-of-use race?
-> > 
-> > If a concurrent thread starts a trace session via the enable_source sysfs
-> > file right after coresight_get_mode() returns false, it might win the race
-> > before spin_lock() is acquired here.
-> > 
-> > This could result in resetting the configuration of an active trace session
-> > and erroneously releasing its trace ID, potentially leading to trace ID
-> > collisions and hardware trace stream corruption.
-> > 
-> > [ ... ]
-> > 
-> > > @@ -744,6 +746,8 @@ static ssize_t cntr_val_store(struct device *dev,
-> > >  	ret = kstrtoul(buf, 16, &val);
-> > >  	if (ret)
-> > >  		return ret;
-> > > +	if (coresight_get_mode(drvdata->csdev))
-> > > +		return -EBUSY;
-> > >  
-> > >  	spin_lock(&drvdata->spinlock);
-> > 
-> > [Severity: Medium]
-> > Is this susceptible to a similar race condition as reset_store?
-> > 
-> > Since coresight_get_mode() is checked outside the spinlock, a concurrent
-> > thread could enable the session just before spin_lock() is acquired,
-> > allowing the counter value to be modified while the session is active.
+On Tue, 15 Sep 2026 09:56:36 -0300, Aldo Ariel Panzardo wrote:
+> nfsd4_decode_setxattr() stores the status returned while assembling a
+> non-empty attribute value, but then unconditionally returns nfs_ok. An
+> allocation failure can therefore leave a NULL value buffer paired with a
+> non-zero length and allow compound processing to continue.
 > 
-> Anyway, the reset interface is nausty. but yeap it would be better to
-> check after grabbing *lock*  in here.
+> Return the decoder status so that the operation stops on the original
+> error.
+> 
+> [...]
 
-But, later patch seperates the config. So it could be ignored.
+Applied to nfsd-testing, thanks!
 
--- 
-Sincerely,
-Yeoreum Yun
+[1/1] nfsd: propagate SETXATTR value decode errors
+      commit: f6c38392f815da751d4330adad2b937586a0f0fa
+
+--
+Chuck Lever
+
