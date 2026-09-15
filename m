@@ -1,164 +1,203 @@
-Received: from esa3.hc1455-7.c3s2.iphmx.com (esa3.hc1455-7.c3s2.iphmx.com [207.54.90.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0268F3876CC
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.54.90.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7D644F576
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789509015; cv=none; b=df9+6OnD6UMLDzdchgpwOCOh8IyZ0jjaMgMhr4G4TkLQ/YdAFgnysdae8+noFg7F/syZSjZuUuXFRU9Ed5tYKDBNh8uQlTmXJjcJ3/A3osVmHswB80zZJtJungxEMzpb4yvg47maifJxpPLbzLqbDSz/AVf2HDcd1y53c2hjv2U=
+	t=1789509042; cv=none; b=aTAC6ibjehbQ8PARfJPdNci2/04/YklXT+P5Qswwq3X/z5MHHs/sLVvujIQA2E7vLQNV9w685nslFKg8Kn8oGW0NP3mtmdjnKmMBn93sTtxHCGhlwQ+Av1I+yR36AtQkNUHPYeIBykb9B6WtXY1iIngZeSigggWaQGis3SmDvxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789509015; c=relaxed/simple;
-	bh=XBD1UvlBlRAVfbgJdKlrQtWgl0n/EsOA+/7NfYLSFM4=;
+	s=arc-20240116; t=1789509042; c=relaxed/simple;
+	bh=AsFvnPiEI4hoktzSDE+YxskYQoeQcCquOAQl0eZZ2bU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RZo4VUTC0e1Uffu4HVi5Hu2MA1kUom3GJcYMOrVeTdRHpyPvf+DgvDDdy48dlDdzWgyE4CMnj8dnN6VMVMzzYdFU1kYZSIT41R+rUGfuwBggJyqYzrLvxgZCklWmulQMrPNI6whqLwK3Bo+S8E83nAalH8DRG6ObU7IeRAI83jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=NQlDH2Z4; arc=none smtp.client-ip=207.54.90.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=oGMiHNlFgfbtxFwlRemP7U7FlHP0Q6G6ortss0ZH3j28I5A9MX0rFfx+z7R+wYurL4aQWpviuK9bFAMdANFLz0SOXJAAVNWokEZPssbIMj8bvt5LwcM/Jv5nGBBqSUP17ZYusc/+QVI4q5nN1VL4P3xjPSGWXSX+89dQmkjw7Lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gp6m48Bl; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="NQlDH2Z4"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1789509014; x=1821045014;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XBD1UvlBlRAVfbgJdKlrQtWgl0n/EsOA+/7NfYLSFM4=;
-  b=NQlDH2Z4Zo9qcljSjsfrn767jVrpQQDZe4a0Atds3bEBEPV9JM7xBXWp
-   eAeIbANwcrJmP3Q/Cm8DgFM9s755gkIcrmHAcrX0gZNDxle1kKvDZW9e5
-   Wetc1ydO/H4LwdK/8GHPGGmN5YFt1w4pzZujpCb3dTWyCyWTqhitLasvo
-   WFc9EnWd6UNi5hGpibik4NKUz33nDUc4bVIrPGD4PVhweSCwuStuPO1PO
-   L7nYRuohWTl2bAAcQz/b49/nNx8qKRUNywwHNd1GS++hIIPUsIiQxkTYR
-   GE5yjbHSwTx5S70gl+/qm9o8UK2WMJ1tcrXhvAKMXReAbIAfMNnEWPn9o
-   g==;
-X-CSE-ConnectionGUID: RxmAatrCQcmqazfzINj58A==
-X-CSE-MsgGUID: roKuzzo8QpSz2tLO9WtmnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="255086498"
-X-IronPort-AV: E=Sophos;i="6.27,103,1786978800"; 
-   d="scan'208";a="255086498"
-Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
-  by esa3.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 06:50:06 +0900
-Received: from az2uksmgm4.o.css.fujitsu.com (unknown [10.151.22.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id 39CE1C020FA
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:50:06 +0000 (UTC)
-Received: from az2uksmom3.o.css.fujitsu.com (unknown [10.151.22.205])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2uksmgm4.o.css.fujitsu.com (Postfix) with ESMTPS id E3B6F14003AE
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:50:05 +0000 (UTC)
-Received: from sm-arm-grace07 (unknown [10.124.178.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2uksmom3.o.css.fujitsu.com (Postfix) with ESMTPS id 29FD410001C5;
-	Tue, 15 Sep 2026 21:49:59 +0000 (UTC)
-Date: Wed, 16 Sep 2026 06:49:57 +0900
-From: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-To: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Wang Han <wanghan@linux.alibaba.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH v6 0/7] KVM: arm64: nv: Implement nested stage-2 reverse
- map
-Message-ID: <aqm9hXB6X9IQ8wHz@sm-arm-grace07>
-References: <20260915154305.3852871-1-weilin.chang@arm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gp6m48Bl"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db425c9050so16415ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:50:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789509039; x=1790113839; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tI17L7xSTrsApSfRoy8c9Azix9/YhE00k0p3SqEz6us=;
+        b=gp6m48BlmwRjmbSm6Ml85gR0xlMaoJo5RCJdbsJwK1kJlOZDpsXe7/tJoZ4f8Nxn6h
+         hm9ilgTnI7bmSHn2mWCdi5bSyiVzGi5gIjGz2ugS6RlceEhvy5DyL3WniFEyhVpXTuge
+         lzZszXP03BZ49jasqeSZrtgs92Ycv4UybsqVwei48c73CgmVJyVgvLIXz5kcEhJfUeK9
+         AHbAeEzYMAD3LANH7f/wHTOsLc4eov5C7nAX+b0AK1N1axfvagO7ql4oAbUJrxEgUpjI
+         LwX4xBuMZLk2bWYDPFOqodryjhHQzRMA5Oj2rlolqHLeg8JlO/NmZGPLke6J3FOqrMiK
+         eqYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789509039; x=1790113839;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tI17L7xSTrsApSfRoy8c9Azix9/YhE00k0p3SqEz6us=;
+        b=u1boJ/bfFyoNgqPKBiX3qUbYX39k0trlKxhvK9CSw71W1ggyvxYJuNdrynYV2F2VXm
+         he8CtQdQ02J3dCr5evPTjxB+fP0v1mlm4hZJsk4FG04898yvVyPKV8zH9Nl7mUptpfJw
+         t6ZvFjUw1Lk351lkKy1UszkT3YfoJ/b5JaQjlwRK3PLX4iQoaafxF31dkClTilUIfugj
+         Adm/VJBBZ98BXXejYp9LMQEQ4T7XYHHVoT7pR9VFUc+qZiEKGO8OZQwKQXcbGlfITcCY
+         vua2ahT95OH3h54W4zlaq9rbFMqyzYr0TcrP6wU7iAxpmdi9oAZP736rJgR0wGwvAPoK
+         OagQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7XUDmFQ9nWEudXOSZhsctUqGllhrYfDxSSv+4c6kRaA05Rh4+pouGCq9WpiN+FuI0r1QFK3zsfbD7zPY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZmQSVxTQD/qdgO/g5x4ypFK8u0lRrOYd3otB5KbLrE/80wub0
+	NqHCQ7F22g3n4cEXBmdGi74iZzQ5ZmSg1HnRFt3QjNrNd3h7gpmw7//A/YB88lJ8IQ==
+X-Gm-Gg: AYBFou1ZL+myhNX+6D+UdLnbdxCvXMH1KoOCxqTdILZjB0LpTjcF3SZF4KqA9bcsPhN
+	UH1eSyJNkU3BZK09GL9ddVAE3pj7ZxCqgJDcsGlG4ABakUyhf1QfYycl16MoIk/WmzXctvQ7tI3
+	4rfW0xZ9DR63Ann0FmZj24FLxb8AlZUEk078SfPxwdLtjsVUcpPzp8BAINuE3DIyfLPlRKWe6dP
+	75uEeFmcGhbJ53EYbVa0GYRREAvsAVfv+j+8RIZuyOsdxzr9SKlkaYJwMF+vTzJkB9fs7AdhI1G
+	7CzGAiWXa3CDa0gFdMkVDGgSf5E7Td1Zo9dtNzP5+ClaylfBYlN0INnKrAdKRKP73pVEOCqpXRY
+	iZ1qCRQSFPN+Gk0WJdaKE7q89hEXmp9bDnU1DMoXvQCc0vdCpxeLDeidSDha4dgDub7JasgmD7y
+	2VfjtHPNvS6284y6I64mp2/rRtYa8T6i8L7kVSVeFW+nATK4LUI6Gy0XPFM7ra/5K2nKnXZ68JM
+	PuI/hfyAfgtxBKwD+WqqzflhhtfI1GR3dA6rfdimS+S5p3BzMk=
+X-Received: by 2002:a17:902:f693:b0:2d0:1aaf:daec with SMTP id d9443c01a7336-2dd8be54ab9mr842285ad.9.1789509038186;
+        Tue, 15 Sep 2026 14:50:38 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2e51:8:8352:5e93:3fd9:766d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5af4f0bsm2082822eec.24.2026.09.15.14.50.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 14:50:37 -0700 (PDT)
+Date: Tue, 15 Sep 2026 14:50:31 -0700
+From: Isaac Manjarres <isaacmanjarres@google.com>
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: =?utf-8?B?6auY57+U?= <gaoxiang17@xiaomi.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Xiang Gao <gxxa03070307@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	=?utf-8?B?5Y2w6Zev?= <yinchuang1@xiaomi.com>,
+	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Lorenzo Stoakes (Arm)" <ljs@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [External Mail]Re: [RFC] bpf: account ring buffer backing pages
+ separately from Lost RAM
+Message-ID: <aqm9p1uW7ls65_S-@google.com>
+References: <20260815091819.3651099-1-gaoxiang17@xiaomi.com>
+ <04f3ce2f-67f5-4829-9551-a69b9df29854@kernel.org>
+ <CAEf4BzbwZkoacX-iP1j4+p8YNbWsq0pc3eTermh2uT5ir66zbw@mail.gmail.com>
+ <8d2e20842c24460296e4c83e6dc0dde3@xiaomi.com>
+ <CAEf4BzYQvhSVN=Hggg5FHzFdkRr4UNBD6yXaBsOaAwbsRpXpsw@mail.gmail.com>
+ <aqSNkbhIuaB5D0H0@google.com>
+ <CAEf4BzbAOgwQqsRQnY4yxvubLtioQNL_BBHer4ExvNF7Rvvu4w@mail.gmail.com>
+ <aqhZEuQTu394hYB6@google.com>
+ <aqh17GTlWiDVJ-N1@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260915154305.3852871-1-weilin.chang@arm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqh17GTlWiDVJ-N1@google.com>
 
-On Tue, Sep 15, 2026 at 04:42:58PM +0100, Wei-Lin Chang wrote:
-> Hi,
+On Mon, Sep 14, 2026 at 03:32:12PM -0700, Isaac Manjarres wrote:
+> On Mon, Sep 14, 2026 at 01:29:06PM -0700, Isaac Manjarres wrote:
+> > On Fri, Sep 11, 2026 at 05:04:55PM -0700, Andrii Nakryiko wrote:
+> > > On Fri, Sep 11, 2026 at 4:24 PM Isaac Manjarres
+> > > <isaacmanjarres@google.com> wrote:
+> > > >
+> > > > On Wed, Aug 19, 2026 at 10:24:28AM -0700, Andrii Nakryiko wrote:
+> > > > > On Tue, Aug 18, 2026 at 6:46 AM 高翔 <gaoxiang17@xiaomi.com> wrote:
+> > > > > >
+> > > > > > Thanks for the pointer. Understood — no new NR_* counter or
+> > > > > > /proc/meminfo entry.
+> > > > > >
+> > > > > >
+> > > > > > The remaining question is on the consumer side: Android's Lost RAM
+> > > > > > accounting would need to enumerate all live BPF ringbuf maps
+> > > > > > (BPF_MAP_GET_NEXT_ID) and read each map's fdinfo memlock to sum them.
+> > > > > >
+> > > > >
+> > > > > For BPF ringbufs specifically, you should be fine just iterating all
+> > > > > map with BPF_MAP_GET_NEXT_ID, getting its FD with
+> > > > > BPF_BTF_GET_FD_BY_ID, and then passing that fd to
+> > > > > BPF_OBJ_GET_INFO_BY_FD to get map's size.
+> > > > >
+> > > > Hi Andrii,
+> > > >
+> > > > Thanks for the suggestion on this! I did want to express a couple of
+> > > > concerns with this:
+> > > >
+> > > > Scalability
+> > > >
+> > > > I counted the number of maps on one of our devices, and there are 112
+> > > > maps, meaning that there will be between 224-336 syscalls with this
+> > > > approach. eBPF is becoming more popular, so I'm concerned about how well
+> > > > this will scale, if we have to invoke 2-3 syscalls per map.
+> > > >
+> > > > I had a test program that implemented your suggestion, and it took about
+> > > > 2 ms to identify 39/112 ringbufs. As the number of maps in the system
+> > > > grows, I'm concerned that the latency associated with computing the
+> > > > memory usage from ringbufs will become even more expensive. This is
+> > > > something we had an issue with before on Android, where we had to
+> > > > iterate through various sysfs files to gather wakeupsource metrics [1].
+> > > >
+> > > > To improve on this, I was wondering if we could expose the ringbuf
+> > > > memory usage and potentially other bpf stats through bpffs
+> > > > (/sys/fs/bpf/stats)? This counter could be a lightweight counter that is
+> > > > incremented/decremented on ringbuf allocation/freeing so that when it is
+> > > > read, there aren't any expensive computations.
+> > > >
+> > > > For this specific metric, we could just use a counter to track how much
+> > > > memory is being used by ringbufs and have userspace read that. That also
+> > > > brings me to my next point.
+> > > >
+> > > 
+> > > I just don't see a good enough reason to single out ringbuf maps
+> > > specifically. other map types also use memory, why would they be
+> > > excluded?
+> > 
+> > I was looking at ringbuf maps specifically because they allocate memory
+> > for the ringbuf via alloc_pages() and aren't attributed to any counter
+> > that is exposed to userspace. The other maps use either the slab
+> > allocator or vmalloc() to allocate memory, and those entries are visible
+> > via /proc/meminfo.
+> > 
+> > > If you are worried about too many syscalls, look into map iterator
+> > > program types (grep for SEC("iter/bpf_map") in selftests). That will
+> > > be super fast and way more generic than what you propose. You can ping
+> > > such program in bpffs and that will be you custom /sys/fs/bpf/stats
+> > > implementation that you have full control and customizability of
+> > > 
+> > 
+> > Thanks for the suggestion; I'll look into this and let you know if I
+> > have any questions!
+> > 
+> I looked into this, and this works in reducing the overhead from number
+> of syscalls, but the other part about correctness isn't handled by this.
 > 
-> This is v6 of optimizing the shadow s2 mmu unmapping during MMU
-> notifiers.
+> For ringbuf maps we would have access to max_entries, but that just gives
+> us the amount of memory consumed by the data portion of the ringbuf, but
+> it doesn't include the 3 metadata (kernel structures, consumer idx page,
+> and producer idx page). I don't see how to derive this value--rather
+> than hardcoding it.
 > 
-> This version fixes a few issues, and adds Marc's space optimization
-> for kvm_guest_s2_mapping [1]. Please see the changelog for the details.
+> I did see that fdinfo for the maps does give the total memory usage
+> via bpf_map_memory_usage(). However, that value includes structures that
+> are allocated through the slab allocator and vmalloc, so using that
+> value would double count the memory usage in the system. Userspace
+> doesn't have the information required to break that value up to extract
+> just the part that is allocated through alloc_pages() directly.
 > 
-> Tested by booting L3, and running in-kernel targetted tests described
-> in [2]. v5 got some tested-by's from Itaru and Wang (thanks), I didn't
-> carry them over since some bugs fixed in v6 are non-obvious. Some
-> retest would be much appreciated!
+> I think it's worthwhile accounting this data correctly, as on our setup
+> there are 39 ringbufs. This can lead to 468 kB -- 1872 kB of unaccounted
+> memory depending on the page size.
+> 
+> --Isaac
+>
+Please disregard my previous email. A colleague pointed out that I can
+use bpf_core_type_size() to compute the size of the metadata that I was
+referring to and that worked.
 
-How did you boot into L3, with KVM selftest or recrusively boot on HW?
-
-Thanks,
-Itaru.
-
-> 
-> Series based on v7.3-rc3 + Marc's nested mmu lifecycle fixes [3].
-> 
-> * Changes from v5 [4]:
-> 
->   - Align the addresses down to the mapping size when recording the
->     guest s2 mappings. s2fd->fault_ipa isn't necessarily PAGE_SIZE aligned.
-> 
->   - Record guest s2 mappings even when page table maps return -EAGAIN.
->     kvm_pgtable_stage2_map() can create mappings while returning -EAGAIN.
->     For example, a 2M block map (A) could race with a 4K page map (B):
->     1. (A) maps the 2M block in kvm_pgtable_visitor_cb()
->     2. (B) breaks that block into a table and maps 4K
->     3. (A) reloads and finds the table after kvm_pgtable_visitor_cb(),
->        then descends into it.
->     4. (A) maps some 4K, but before it finishes reads entry mapped by (B).
->     5. (A) returns -EAGAIN although it had mapped a few pages.
->     In this case, we don't know what subrange is mapped, just track the whole
->     requested mapping range.
-> 
->   - Don't remove tracked mappings from the interval trees if they only
->     partially overlap the removal range. Because of the previous bullet point
->     we can have a 4K shadow mapping tracked as a 2M range in the interval
->     trees. It would be wrong to remove the 2M range when a guest TLBI doesn't
->     touch the 4K mapped.
-> 
->   - Check mmu->pgt during mmu unmap notifier, as it could race against
->     MMU teardown.
-> 
->   - Make guest_s2_tracking_destroy() canonical mmu only. We simply don't
->     need to detach the nodes from the nested mmus' trees. Freeing them
->     during canonical mmu's teardown is enough.
-> 
-> Thanks!
-> 
-> [1]: https://lore.kernel.org/kvmarm/86h5jv7qrd.wl-maz@kernel.org/
-> [2]: https://lore.kernel.org/kvmarm/gerjpm62a2gszzggc6vuai22bf3prfquvfsp7ueumps7vz2ev3@odlmovaklg2b/
-> [3]: https://lore.kernel.org/kvmarm/20260911162203.1919330-1-maz@kernel.org/
-> [4]: https://lore.kernel.org/kvmarm/20260810205038.118843-1-weilin.chang@arm.com/
-> 
-> Marc Zyngier (1):
->   KVM: arm64: nv: Drop kvm_s2_mmu pointer from kvm_guest_s2_mapping
-> 
-> Wei-Lin Chang (6):
->   KVM: arm64: Use a variable for the canonical IPA in kvm_s2_fault_map()
->   KVM: arm64: nv: Introduce guest stage-2 tracking structures
->   KVM: arm64: nv: Track guest stage-2 mapping creation
->   KVM: arm64: nv: Track guest stage-2 mapping removal
->   KVM: arm64: nv: Avoid full shadow stage-2 unmap
->   KVM: arm64: Refactor kvm_unmap_gfn_range() with common variables
-> 
->  arch/arm64/include/asm/kvm_host.h   |  31 +++++-
->  arch/arm64/include/asm/kvm_nested.h |   7 ++
->  arch/arm64/kvm/mmu.c                | 109 +++++++++++++++++++---
->  arch/arm64/kvm/nested.c             | 140 +++++++++++++++++++++++++++-
->  4 files changed, 269 insertions(+), 18 deletions(-)
-> 
-> -- 
-> 2.43.0
-> 
+Thanks for all the help!
+--Isaac
