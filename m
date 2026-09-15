@@ -1,145 +1,93 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0621247C10B;
-	Tue, 15 Sep 2026 09:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1600D429CEE
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789465649; cv=none; b=LL+F5mnm9rEFlHkPBvoKTZ6KgDx7DtVLJQFlfasE4hOC6+sY8PJT9oYv4uY7fVZzFuvSGCtIv8qelxXEyv3Veozx7e4H1n2t1ssE/8wGDpF2LdfOBT0eMM2GfbKV50MI4Q/nqvpt1lFULYPfXMMVnnCwJE/fh5mp2HsWboqkz5I=
+	t=1789465662; cv=none; b=PwJP0Ia9v7MCp1wZFAzFDpcsDL7ucLzbKXoUDL2gSWSa6IZpYw7cbtWGSTEYyswcfFzmf6p4C58kOFTthSIV+LokbdEiOCC5NR2l/8bL8lwUVE3fdS1uX8YhcjgvovbH0nXAzE9kenhJNia3/wYs+21J7PUsrjtwkxrxyNidDkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789465649; c=relaxed/simple;
-	bh=TgiYyAGTrTLCELCWwltNRoXatU+CAWXmARo8WzAWAuw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NyCm2+ha9AooPsREt/Y6pOQuEz0iPUsoMiRWGcbl7Kjohuyfi/2HFr5RbCyDAid48+625bIMjRDZH7vm572PoJbI+HBpylng046mh+FuI+K8Kf4xXIVhoLQes8du0Hwh5odB8wpKFrv1HDfoDcmr02hRT3eDbp+VvCKUAMQjSPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cfMi/f1w; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789465662; c=relaxed/simple;
+	bh=skfTdMptS4ZL+2/wPwGapYUZqUFhhidkoXgLmyorqww=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=txee9PtIkAeitjuaDwnP3rIZikDqK3gR9Uik7RDbaMxv2szg7Nxj36IyGyPUm9QeThSoguyD3uYvu2ZNiJroUX2EksJ9JTwA6h9YlaYVJDdrO5j/CtEmyTgPN9RDaZH9SpD+SRlalWd5BnErd/KkiPzzbQ7o4lswi4QfbNREjkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WXr+Xfj3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cfMi/f1w"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B05ED169C;
-	Tue, 15 Sep 2026 02:47:22 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 468CE3F9A2;
-	Tue, 15 Sep 2026 02:47:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789465646; bh=TgiYyAGTrTLCELCWwltNRoXatU+CAWXmARo8WzAWAuw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cfMi/f1wlLVTG20Jg2wnJ6+DbyNLJTUAHFTMYihB7bLYPbjDzjaujrlPV144QpPV8
-	 XSl+d7YX01gX2yWrh42B5ii8sgq0sY8AEv8XA/835O7vsqb1KxpCDs4rzB+0+1PQAF
-	 vbG/dZlaGXwMv7aR8+YBHgWDaIYqkeTcsSaiHCSg=
-Date: Tue, 15 Sep 2026 10:47:20 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: Re: [PATCH v3 3/3] kselftest: mm: introduce size_to_shift() helper
-Message-ID: <aqkUKDJYytjTsQvm@e129823.arm.com>
-References: <20260914-fix_hpage_macro-v3-0-c9a305a01d39@arm.com>
- <20260914-fix_hpage_macro-v3-3-c9a305a01d39@arm.com>
- <b88f4ec0-61a8-47b0-901a-d63db115936c@kernel.org>
- <aqf_XGKDq6jH6pJW@e129823.arm.com>
- <c60fa1c7-ac83-4e41-9911-a426c6b42191@kernel.org>
- <aqkIQF6XcLeXSHWO@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WXr+Xfj3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 995D61F00893
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:47:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789465660;
+	bh=skfTdMptS4ZL+2/wPwGapYUZqUFhhidkoXgLmyorqww=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=WXr+Xfj31rdG0UcaEspgbNurtK5vPmZ/fW+HFGAyahEZoqKAj6PaPTIeY2aJUsiY2
+	 2e36V7CUnRKShpRzRBadEvjvTY+mXZCBWg7qUoLyoULztWwadbT+gUxOkgRNiuCSUW
+	 7miYofF7xHOlL3Qm3uRoVn+2pAmLnmVaCDzTvnvGx4Qiio+U5y1nIJSCa4ZMyyQ/If
+	 FvEDPpfwWV/L3KkpMhSMX+gWPt5/v8vzKTy2KvjYtxU8BDtVz0WU2Bl3qBFLixsG2R
+	 1hqxY+JuCfBRD+nnE2YEkRXK4N80Mo0AkMhxubkvQ9AruM0PabRcIK1K5ioOZIAB38
+	 ThCt+gLkRfw+A==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5d4688decso716771fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:47:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwQfwnyV8wCH9vofwBZPPgOFQyDatg9Q91trtA+9jv8w4OZ+pamiACzOeNGHyogf9uxKJg09WbvPyInWpM=@vger.kernel.org
+X-Gm-Message-State: AFuF++meenfYA8Fzo2FCvoPGOClmIakEHWsptpw1z6uUiobDB39lnQTS
+	0omzVc2kquh7TF7J4JjqiQd5NBWzha59PRNOTqhKwTNh2sRlc3zzEa2TvCYBB7ENzNIO76LRas5
+	0dMMhU+dvNxXnGwDZJL9dys1J8s6VuUXa3kw/pB8YCA==
+X-Received: by 2002:a05:651c:15c9:20b0:3a3:7682:49a8 with SMTP id
+ 38308e7fff4ca-3a5d857a474mr564851fa.29.1789465659280; Tue, 15 Sep 2026
+ 02:47:39 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 15 Sep 2026 05:47:38 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 15 Sep 2026 05:47:38 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260915092518.1868587-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqkIQF6XcLeXSHWO@gremlin>
+References: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
+ <20260915092518.1868587-1-vulab@iscas.ac.cn>
+Date: Tue, 15 Sep 2026 05:47:38 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MdzjvFovn5_QCtLQr5zGR4zjJraPXCaXNe3hxSVY39uYg@mail.gmail.com>
+X-Gm-Features: AcwNN1VqxaWK1cHzn5JnVgZlXU3qMnSpPRRe8usydb5HcbbuLI2Q5VH8NGJ5BjU
+Message-ID: <CAMRc=MdzjvFovn5_QCtLQr5zGR4zjJraPXCaXNe3hxSVY39uYg@mail.gmail.com>
+Subject: Re: [PATCH 4/6] clocksource/drivers/davinci: Fix clock reference leak
+ in of_davinci_timer_register
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: daniel.lezcano@kernel.org, tglx@kernel.org, linux-kernel@vger.kernel.org, 
+	brgl@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 15, 2026 at 10:01:58AM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Mon, Sep 14, 2026 at 04:08:30PM +0200, David Hildenbrand (Arm) wrote:
-> > On 9/14/26 16:06, Yeoreum Yun wrote:
-> > > On Mon, Sep 14, 2026 at 04:01:02PM +0200, David Hildenbrand (Arm) wrote:
-> > >> On 9/14/26 09:30, Yeoreum Yun wrote:
-> > >>> Introduce size_to_shift() for future users that need to
-> > >>> obtain shift of a huge-page which is other than pmd_psize().
-> > >>>
-> > >>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> > >>> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > >>> ---
-> > >>>  tools/testing/selftests/mm/vm_util.c | 10 +++++++++-
-> > >>>  tools/testing/selftests/mm/vm_util.h |  1 +
-> > >>>  2 files changed, 10 insertions(+), 1 deletion(-)
-> > >>>
-> > >>> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> > >>> index fd1432dc6152..1fef1266429f 100644
-> > >>> --- a/tools/testing/selftests/mm/vm_util.c
-> > >>> +++ b/tools/testing/selftests/mm/vm_util.c
-> > >>> @@ -157,6 +157,14 @@ bool check_for_pattern(FILE *fp, const char *pattern, char *buf, size_t len)
-> > >>>  	return false;
-> > >>>  }
-> > >>>
-> 
-> Probably worth a comment here saying it's only for power-of-two sizes.
+On Tue, 15 Sep 2026 11:25:18 +0200, Wentao Liang <vulab@iscas.ac.cn> said:
+> On Tue, 15 Sep 2026 07:55:06 +0200, Bartosz Golaszewski <brgl@kernel.org> said:
+>> I'm not following. If we keep the clock enabled, we must keep the reference. We
+>> just never disable it anywhere, so you correctly don't see the clk_put() in
+>> success path.
+>
+> Hi Bart,
+>
+> Thanks for taking a look. Let me clarify the point about ownership:
+> prepare/enable state is tracked on struct clk_core and is orthogonal to
+> the consumer reference. clk_put() merely unlinks the consumer and drops
+> the kref on the core clock (see __clk_put() in drivers/clk/clk.c) -- it
+> neither disables nor unprepares the clock. So releasing the reference
+> does not change the clock's state; the timer clock stays enabled for the
+> lifetime of the system either way. This is the same reasoning used by
+> callers that enable a clock and then put the consumer handle.
+>
+> That said, I do understand the convention for these early boot timers
+> that are never disabled -- dw_apb_timer_of, timer-owl and asm9260_timer
+> also keep (or simply never put) the reference on success. If you consider
+> the reference intentionally retained as a subsystem convention, I'm fine
+> with dropping this patch; alternatively I could send a version that only
+> adds a comment documenting the intent. Please let me know which you
+> prefer.
+>
 
-Okay.
+Can you test it on real hardware? I still have a davinci board somewhere but
+I haven't booted it in years. If you can test it, I'm fine with it, otherwise,
+I'd leave it as is just to be sure.
 
-> 
-> > >>> +uint64_t size_to_shift(uint64_t size)
-> > >>> +{
-> > >>> +	if (__builtin_popcountll(size) != 1)
-> 
-> I wonder if it wouldn't be better to just do the old trick of:
-> 
-> 	if (!size || (size & (size - 1)))
-> 		return 0;
-> 
-> ?
-> 
-> > >>> +		return 0;
-> > >>> +
-> > >>> +	return ffsl(size) - 1;
-> > >>> +}
-> > >>
-> > >> Could likely just be an inline helper?
-> > >
-> > > Okay. If there is no comments on today, I'll post tomorrow with this.
-> > >
-> >
-> > No need to rush, leave some more days for people to catch up.
-> 
-> Agree with David seems better as an inline thing, the __builtin_xxx() should
-> be... built-in hopefully :P though I suggest something that wouldn't need that.
-
-Whatever is, okay. I'll change with old-classic trick :)
-> 
-> As long as strings.h is included in the header ofc for ffsl().
-> 
-> With the stuff above addressed, seems fine to me so:
-> 
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-Thanks!
-
-> 
-> >
-> > --
-> > Cheers,
-> >
-> > David
-> 
-> --
-> Cheers, Lorenzo
-
--- 
-Sincerely,
-Yeoreum Yun
+Bartosz
