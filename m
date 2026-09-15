@@ -1,197 +1,143 @@
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B633603EF;
-	Tue, 15 Sep 2026 07:46:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458401; cv=none; b=BFDcQzxGK4e4I1ysXU7Ygnm4hxaG3nvC5Xh2bzhHZGw6vgFgowbAVtQU3shfKB0w1EGIsct13O9stJOjpvuBKziCrcOG25l+LAhLx5b88sI8U/hq8m+Z6L5ii9QNX4G4M8vwgVjFpMUGJDdjNsZyT5HXax0zF0ZReHQ2wpdY4sQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458401; c=relaxed/simple;
-	bh=TGxiytZbwlmv2BP60EKFFTrI1970pAfKpcdYND/NbhU=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=ss4mmL7pK104vP9ztMmaWmMWoI8sFHMZwt46sl309JMcHlCucR9SfcV2jEbsPhGEh2Qp28ERVWVzBzW8NXF5WEfi3ItLdIu3ypC+jGcQf6f9BK/V5/2c5D631Js1p/12fYAd9QLr0OJAv1LNxfbLSsI4G8njjMWr/JTtV8oOq1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=gWJOwkn8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=qdEMAFAK; arc=none smtp.client-ip=103.168.172.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CAD3876CC;
+	Tue, 15 Sep 2026 07:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789458405; cv=pass; b=bp/yVilX6fBgl5BL/bYK4oj+Eh1oRuQjd5Xq/hOWcg3WEIbqvtRx1HEUsygxmyb/3HeavKUxvAHsfCXfpbP14sZIGbqRHqlnw5GrQjoBncaERwDPoovZ1xHHsEcoxYbbEIGWZGrG/OwuyRlAgErILLQzfY/ZABE2DUM29Fe/iXE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789458405; c=relaxed/simple;
+	bh=CjIuEh27k1Xal8RS7CusYRx4cMVCNqvokJf2yY4eXCU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=sEQPQwFas1nhvsg8dGE9ZTcFv2b0TW9FIhoRv7A8+TaFJybjYAHdH9QeXXsj1WvFoN/t09aHIgndcan9IZ2Jq/i3Sn5hzYBjGQIJLfVolbtYv7l/PgrcN+UkIMUBY9udR8dvxcGDEubppUZChM07zBnfQb4pOE/6c2xwoWL06cI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=OqNGYX7v; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="gWJOwkn8";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="qdEMAFAK"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 44038EC062E;
-	Tue, 15 Sep 2026 03:46:36 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 15 Sep 2026 03:46:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789458395;
-	 x=1789544795; bh=J9TVHqMg6DzzuOSZ1h26Nn1hQ6ISaDnr9mEy//ELed0=; b=
-	gWJOwkn8qVN0hj5f7WGvUZAhs3CZBeo3GtMSnu/ybA444ItsfZGyyR6+lz82aTX5
-	EL7LNzJnDcPjzFwK7THKOIdKd+pVUpYX7LxF27ZbNQbvDamNN35AuOBsC6X6iWWC
-	gMkW8RwX1lPflvdT5EZNkGaqcVLkBypc3ZpdJkP6I0hlpxBI5eDHQSNs3Ihflz9Z
-	wfy+YCcLbTeW11trLS8vNBqg3sMcfvIdPtn4qbJzLODTh6jfPUY6L4WJ/xqWajfC
-	8l1ukToruj4EtuzHVD/1s/GJ72cqNlWjljgzwiZeZPlvGw6BdC45WzYMl8uxChxm
-	ILs5ft66VzolU0WB9BwLkQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789458395; x=
-	1789544795; bh=J9TVHqMg6DzzuOSZ1h26Nn1hQ6ISaDnr9mEy//ELed0=; b=q
-	dEMAFAKJsWQ2+R7P4+Ed6WvD9pC356dz6S04fOLECMzm8F3kEeumGyrGIp9GdH7n
-	rJAZrdpKqns8Sh0JpUZPL+7pZL7A88OOFpWfWmUBFH4cB/ST9byyoJ1fU0/7v3rk
-	Cw5a6/yyFr44xw34IwXHNnDR6Ek7yGWQRcAGYSaNnktd1J993qmFQS56O2ETIj8+
-	Fi8RqszY9Z+VOG+LjF6463mAlf4Al91GBm9J5INvRXbC4KWaEvQ6BtT7ONVMppEf
-	ClnohD6ujLK7MKzAw41NP3nTQtUCgsrb/SAM8tZBZgLHczjucu127P6jZbts1dar
-	670Hd9OULOrJVEuZN79Xw==
-X-ME-Sender: <xms:1veoaq-s-zK2UArd3jLyOSO5wgaVrbeebs-nQ5DuVrX_z0-9H71hyQ>
-    <xme:1veoaliUMKFoItbNkdFPzPq-h_rIyk8e6dnqDrRxPIacByiVZzEhzZipYdnRVMavs
-    bYeTGnTMAU98JOQ1tFDypHz-PO5QqWM3P7qsj-YmmYJu9ofMetskFM>
-X-ME-Proxy-Cause: dmFkZTFjBJTPSsEvy7MdPYY6zoz5hEujSdjlA0j1/ndTB6CM/iz4MVRXgkhD+6Up0/ryRu
-    xEKhw7XJzajgoXQusJgmwVrHZmGtqCQvgETtVrkeGYuXdxEoqFrBwJbIKAeiBLsoCdS4by
-    UTMePArx3+74ccqnNttcOua34hzVwQqbxzZEliOytewiy6U/yDTXlu01lwA1i4z02FxOeY
-    cQMGEYrfctlDcOg/PWPqgycJxZY6uswSnNn9EWOz2NKeVkGVxOPeVjyHqG+aa3YRBLZK3+
-    qDvmOvsQTDC4uQg9wePtcFpouKeI+yVVPp4ahrnz+mqeTgRbjRkbmT7F4A7l5Zg3mRtZem
-    V1YTrkyQYtU/UrXQRE+v6Up2nhaqvUqzuxKIYY28PgJxjwr8y6dyBPzzJ8q3igIyZSzb8a
-    yi/2ZGz1krnOkI63xE7YqxxTTZTzmzbynlxlCj6WWZOJKyzTNJ/5eL/sHFZ1/cVfS51at/
-    gb1AdH/c/zYpgO4Vcice7yl/S7IAL2p29oJAbte/BKvAByatZfMVfT1Gq6V7IXwyrXZ8Ko
-    VfyG6z/JW8cm3p2JBFul+1KZzSruB/ey6Nb71FEe7/u1j9S7r6SnUqmz38RuV0/LPP77cl
-    eEgXy9ucq2nzC/+/yMwfyDCiv6sTZB0cQCjs5hveFN0OaIIdbgsZibgZq5mQ
-X-ME-Proxy: <xmx:2feoauhm05MVTTJFNChLLZ1eEI5vzlR1J4HNxrorZrOq3zNpDqSXkg>
-    <xmx:2feoavezASGoXoYquy_goSx0civPySVKcBZ1RDM6sU5tu2LUzLSjCQ>
-    <xmx:2feoal36ABBh5m1iTrh0wreAOmUA8HFVmzS3bQvWmDTc_87EzWkVMw>
-    <xmx:2feoajr3p3sPVKfBW7otUAqGoHu_zctcV3NxIEfgODa2TeI_vp-uwA>
-    <xmx:2_eoahL73tD2rKVLVCoyvzx-4DgTHujZF_SW7UbuyouYn8oDxnXmPXfq>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id A85E332A0081; Tue, 15 Sep 2026 03:46:30 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="OqNGYX7v"
+Received: from mandelbrot.. (xdsl-83-150-90-33.nebulazone.fi [83.150.90.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: jmtilli)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4hkYxT3qlZzySb;
+	Tue, 15 Sep 2026 10:46:37 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1789458397;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vRs19l52ovGuAIjGa7YqoKMg2NfGlSjJwTPL4k7vc2c=;
+	b=OqNGYX7vVbvIxmsjtk2iQWRf8dbYFihlNE89E8lbUVn7GPXTxHKhx9rEZduo3om+1v6KJR
+	LG07Ihot+saV2Mnj5N6DksBKYcVoX9PkMIjs5cvGfd1p6EzyFsMyjRP4d+GezG/iJIvsUY
+	P118wN8WCBkY7dViRsPQbn2lhp1t5jc=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1789458397;
+	b=oggymuq6kYnCD9ygbnfq5pW2izEpq/HMDNiT8xlKY8NWS088zm19ixvqM3dWW3yWQrJ2SK
+	AsPM/clBPb83G8I4zNv6M8YaQ8CrY0QIEpT7u2h7bCiI6aDJA0VE5F1yIvTQgN1jLEynNQ
+	YPfiB68/TscZLuN3RixRNXAJahCaELg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1789458397;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vRs19l52ovGuAIjGa7YqoKMg2NfGlSjJwTPL4k7vc2c=;
+	b=fax/XSqyVU8LzgedToyLxUTctI5UAwgECN+5d1KbxtWPNGFmjzQYWPHDpWCCOiGoUKUf4k
+	Mmj7uPTrxtFm8X2kkh/SrOFSQT8rSJ3a0iZzbhWcrrwRGuOx4faPha9xUtLG7tUVoxkVWN
+	7iqeCFgqnMB+a7sHjS1PALni7QuZNjc=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
+From: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+To: ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	mhi@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Jeff Johnson <jjohnson@kernel.org>
+Cc: Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
+	Mihai Moldovan <ionic@ionic.de>,
+	Denis Kenzior <denkenz@gmail.com>
+Subject: [PATCH v4 12/12] wifi: ath12k: bind to QRTR endpoint ID in ath12k_qmi_init_service
+Date: Tue, 15 Sep 2026 10:41:35 +0300
+Message-Id: <20260915074135.2567411-13-juha-matti.tilli@iki.fi>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260915074135.2567411-1-juha-matti.tilli@iki.fi>
+References: <20260915074135.2567411-1-juha-matti.tilli@iki.fi>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AA0MNwphKERR
-Date: Tue, 15 Sep 2026 09:45:50 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- "Masami Hiramatsu" <mhiramat@kernel.org>
-Cc: "Christian Brauner" <brauner@kernel.org>, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, kernel-dev@igalia.com,
- "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
- linux-alpha@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev,
- linux-mips@vger.kernel.org, sparclinux@vger.kernel.org
-Message-Id: <95b693c0-ca51-4355-99ba-2b37a1ab2169@app.fastmail.com>
-In-Reply-To: <20260828-tonyk-syscall_table-v6-0-fdd358456cf1@igalia.com>
-References: <20260828-tonyk-syscall_table-v6-0-fdd358456cf1@igalia.com>
-Subject: Re: [PATCH v6 00/13] syscalls: Add a shared table for all archs
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 29, 2026, at 01:19, Andr=C3=A9 Almeida wrote:
-> While implementing a new syscall, we need to wire up it's number to th=
-e arch
-> table. Since syscall number 403, all architectures are on sync regardi=
-ng the
-> number (except alpha), which make things a lot easier but more repetit=
-ive as
-> well. Have a look at commit b36d4b6aa88 ("arch: hookup listns() system=
- call"),
-> with 15 lines of mostly:
->
->   +470    common  listns                          sys_listns
->
-> There's already a "common" table shared with a bunch of archs at
-> `scripts/syscall.tbl`, but due to historical reasons some archs will n=
-ever be
-> able to move to this table and share all the numbers.
->
-> The generic table starts from 403 (clock_gettime64), the first common =
-syscall.
->
-> I've compile tested for arm32, arm64, s390, mips, sparc and alpha by c=
-omparing
-> the syscalls_*.h and unistd_*.h files generated before and after this =
-patchset.
-> For most of cases the files are identical, for the few cases that they=
- are not,
-> there's a note in the commit explaining why they are equivalent.
+From: Mihai Moldovan <ionic@ionic.de>
 
-I've tried merging these for the asm-generic tree now, and would like to
-send them for 7.4.
+If possible, fetch the QRTR endpoint ID in ath12k_qmi_init_service, just
+before calling qmi_handle_init, and make it available in the qmi_handle.
 
-Unfortunately, the build bot flagged problems on mips, see the patch bel=
-ow
-for my workarounds=3D, but I think we have to improve that still and did=
-n't
-just fold it into your patch.
+qmi_helpers will then automatically bind to this endpoint for us.
 
-As you took out the dependencies on the syscall_*.tbl files, the
-output does not get rebuilt if changes are made to the table, and I
-have not come up with a good solution for mips. My hack just adds both
-input files to all outputs, which works but is not technically correct.
+This finally allows using multiple ath12k-based cards with the same QRTR
+node/port combination to work simultanenous (and, for that matter, at
+all), including combinations of ath11k-based and ath12k-based cards.
 
-The rt_sigtimedwait and ustat entries had a typo that caused a link
-error, but I did not check if there were any additional mistakes that
-caused incorrect output data without causing a link failure.
+Signed-off-by: Mihai Moldovan <ionic@ionic.de>
+Old-version-tested-by: Mihai Moldovan <ionic@ionic.de>
+Old-version-tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.0.c5-00481-QCAHMTSWPL_V1.0_V2.0_SILICONZ-3
+Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+---
+ drivers/net/wireless/ath/ath12k/qmi.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-       Arnd
+diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
+index 50082505c882d..3611d0eff22b3 100644
+--- a/drivers/net/wireless/ath/ath12k/qmi.c
++++ b/drivers/net/wireless/ath/ath12k/qmi.c
+@@ -9,11 +9,13 @@
+ #include "qmi.h"
+ #include "core.h"
+ #include "debug.h"
++#include "hif.h"
+ #include <linux/of.h>
+ #include <linux/firmware.h>
+ #include <linux/of_address.h>
+ #include <linux/ioport.h>
+ #include <linux/of_reserved_mem.h>
++#include <net/sock.h>
+ 
+ #define SLEEP_CLOCK_SELECT_INTERNAL_BIT	0x02
+ #define HOST_CSTATE_BIT			0x04
+@@ -4075,6 +4077,13 @@ int ath12k_qmi_init_service(struct ath12k_base *ab)
+ 	ab->qmi.ab = ab;
+ 
+ 	ab->qmi.target_mem_mode = ab->target_mem_mode;
++
++	ret = ath12k_hif_set_qrtr_endpoint_id(ab);
++	if (ret) {
++		ath12k_warn(ab, "failed to set QRTR endpoint ID: %d\n", ret);
++		ath12k_warn(ab, "only one device per system will be supported\n");
++	}
++
+ 	ret = qmi_handle_init(&ab->qmi.handle, ATH12K_QMI_RESP_LEN_MAX,
+ 			      &ath12k_qmi_ops, ath12k_qmi_msg_handlers);
+ 	if (ret < 0) {
+-- 
+2.34.1
 
-diff --git a/arch/mips/kernel/syscalls/Makefile b/arch/mips/kernel/sysca=
-lls/Makefile
-index aaa5443ea906..51b9939ecff0 100644
---- a/arch/mips/kernel/syscalls/Makefile
-+++ b/arch/mips/kernel/syscalls/Makefile
-@@ -40,10 +40,10 @@ src_n32 :=3D $(src)/syscall_n.tbl
- src_n64 :=3D $(src)/syscall_n.tbl
- src_o32 :=3D $(src)/syscall_o32.tbl
-=20
--$(kapi)/unistd_nr_%.h: $(systbl_common) $(sysnr) FORCE
-+$(kapi)/unistd_nr_%.h: $(src_o32) $(src_n64) $(systbl_common) $(sysnr) =
-FORCE
-        $(call if_changed,sysnr)
-=20
--$(kapi)/syscall_table_%.h: $(systbl) $(systbl_common) FORCE
-+$(kapi)/syscall_table_%.h: $(src_o32) $(src_n64) $(systbl) $(systbl_com=
-mon) FORCE
-        $(call if_changed,systbl)
-=20
- uapisyshdr-y           +=3D unistd_n32.h                 \
-diff --git a/arch/mips/kernel/syscalls/syscall_n.tbl b/arch/mips/kernel/=
-syscalls/syscall_n.tbl
-index e3d278f715b7..84c35c1f0c3e 100644
---- a/arch/mips/kernel/syscalls/syscall_n.tbl
-+++ b/arch/mips/kernel/syscalls/syscall_n.tbl
-@@ -133,14 +133,14 @@
- 123    common  capget                          sys_capget
- 124    common  capset                          sys_capset
- 125    common  rt_sigpending                   sys_rt_sigpending       =
-compat_sys_rt_sigpending
--126    common  rt_sigtimedwait                 sys_rt_sigtimedwait_time=
-        compat_sys_rt_sigtimedwait_time32
-+126    common  rt_sigtimedwait                 sys_rt_sigtimedwait     =
-compat_sys_rt_sigtimedwait_time32
- 127    common  rt_sigqueueinfo                 sys_rt_sigqueueinfo     =
-compat_sys_rt_sigqueueinfo
- 128    common  rt_sigsuspend                   sys_rt_sigsuspend       =
-compat_sys_rt_sigsuspend
- 129    common  sigaltstack                     sys_sigaltstack         =
-compat_sys_sigaltstack
- 130    common  utime                           sys_utime               =
-sys_utime32
- 131    common  mknod                           sys_mknod
- 132    common  personality                     sys_personality         =
-sys_32_personality
--133    common  ustat                           sys_usta                =
-compat_sys_usta
-+133    common  ustat                           sys_ustat               =
-compat_sys_ustat
- 134    common  statfs                          sys_statfs              =
-compat_sys_statfs
- 135    common  fstatfs                         sys_fstatfs             =
-compat_sys_fstatfs
- 136    common  sysfs                           sys_sysfs
