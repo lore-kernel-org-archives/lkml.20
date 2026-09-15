@@ -1,139 +1,324 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445884AEBED
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:30:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A6E395D8E;
+	Tue, 15 Sep 2026 12:31:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789475444; cv=none; b=UPkUIzyOXD6QDCtMJ/Oyy1eLVeteWL9RDNspGSLvvgI6sZtgXnnH0TtRd7hT81GM7BDVR32eRT8g3VQaKsmH28qnkvapNDNVuQcIdD7d6EPFvCB6AainLEIpHPQyYbna2tvfCc3mIsTcO43v3hxWyi0C1Bo6oFld7gSqri4JgVA=
+	t=1789475501; cv=none; b=NqlQTF7WHSBVd0aZWPhE/4RK89uAsYqhEnzEnZUIoupDhTcyi94Et4WQRpBtZG9hRjS8ToPJcO/KEY7x00gxlkk+p3gD2KCfUbLw6rOAqocWG0l59xn7d9k3f9BDOBZGkMII4xKkv2GZzff4/u6kuFD+mrMTMdPsyhLBhdp6Uqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789475444; c=relaxed/simple;
-	bh=rD24ettfq/yp1pQmJ0kLVwsU5W/LV5RYcqusbnnOepQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q+tutuu062yv1uoOtitTHgRdW0O/vapj0eKmbhjC6XR959PsouDUVzsecGjQHQvI1AFZ7y9T9fFNZMpOqGdcmwFMakdTNQ4oG/deRHqRTX+BogF9h8+zED2SJGk/wsKjnPoN+xqkVmq9cC6ofu+btN+kk4lJejTZzHA2Nf5Hq3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U/COkGoT; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789475501; c=relaxed/simple;
+	bh=32KwHaouwkg2IFwHsP/xenwquCRjaCAgeCXIRNVazDA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=uvIQcbpPf4DB4LQbE+JEgBr6JMwHJqp0bnOq/ZGsPWZsUfUTVLE1sSjOO11j9PCvmClXKqP0Yr3ceU9ab8dSkpNADA82i3R+9WMvw+7yYKjdXSU5KXeqDLfPffZURx3ryPJPlcPTnCLeh7II9JNbPy3k6b57JOsKMrpt8i6dm7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hJ+lJtZG; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U/COkGoT"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed9866so33590545ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:30:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789475441; x=1790080241; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xqadnkZnQpvwO0yu2aZCQtLbtAViRwE5+Ankys+V6vM=;
-        b=U/COkGoTdqCZ3PzMJeQoGEqlBmkJtD462nSvTKU8IJtDFfhKPkKvN7wlWYcdkVes8Y
-         +SRiXks97fDsrx5QAXMyWGa2ZEHBA2SDlbdsHdn6hnD3HkP0wDPym6ySyBezYy1WxXW6
-         HAbvikdPtdyIATJ5l3iW1WgawFyBe9Y6QWLlwg7tlrvfvHBjLb5pmttoltbgU7a1gOJf
-         NaBv+Hc8gKigH9ffHQYHczHV+dQ8mfT0D16iUVdmlfH4yONVwAlWYbX5nDlenuE5bC2s
-         0SEM2OnjDqp3ZcYvjsCFa0DjI5VNmzc2r4R7LZosqX0M6QxKmCGbIyxuD96k+2Qzid/8
-         QgIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789475442; x=1790080242;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xqadnkZnQpvwO0yu2aZCQtLbtAViRwE5+Ankys+V6vM=;
-        b=vxaCzqFV/xV5TOuahzNNSo4jTSiiTnNAcId2f2G2Wqlo9Hbg1csrZDkO5yfKuhIPJ2
-         AaZsC+P+3fxMzlFfUNFaLYN+sFmV0EdvQtgDHGhKroJDrnOhEaQnAzpQUK6/X++VchZt
-         tjEcb67kNsa2eq0R3MYw54xiXBIv83uASCw3JC3Xh/oML7OgHY4z0uvmDCJgirKIHHl1
-         QU4D0NSWVB1Aj0YYua1bg76PViMrbi1pg8weStnA7OMN1kiVfnLg/y94b4zYcrRzmXdA
-         hFUOvJfUaRjXIcsbauxXYp/XMAT7Mbc9oCdo8I3pVr0XxXA5Khq37utngY2pVo/4HExq
-         jSEg==
-X-Forwarded-Encrypted: i=1; AKwUvBy0Li/rtRxRIJNKf0vlrZanAFKfKvTinelrgBXP19+tNkhtoRJ6EZ2GJMyli2GtRiJipbsE1d55oSJjMP0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOgLBP6i/+Fa+JldE2L/YfpJsvTXX9LFCmkjUpv8ciTHq660Vt
-	wtVy/lR1zNaNuXTjdMNrn/+emtK6SEpFAyEpDOqunavoHGJWqXZYi4Ad
-X-Gm-Gg: AYBFou3oto4/u8OowA+1aZsP/RJaGe56NLjPUxLMTT4wZ/ds34VjDcKLkKOMTH76DFd
-	/ECt4y6HcDMt/Xj+igAko4LESEpW8CWNJS5JL5ZsfiX4xLrL5zOReC0RnBNFpOLRgGBlw0q1MrF
-	ptsVagbssyLOz8KFPHih1oceAvPojp0qsaxQFC3hZhEPnv2aJKEVP4gr4b0IjpUjovOV+/iQB3n
-	NWoDWZoK3BO+F2NsLp7/E4lNzvDRYxnbSzg03OAG4ANnTImAy9L+W7qtTjK9tQ7FaHBhnP+2sXi
-	eQFaRHGPywqe5r6hAB6XZM2V/S8KWx8s91UotSbR+6qFlGOgbi5ySrm56Iz3rQad8iUoaZBExhA
-	S0yDEsbirJcPUQeGtmgBjGs71DRYzyIzfX0gWyerumtAQDyOq19IsMmhBzHGlrj4u6wRmkYDTKI
-	0Z6UPHmyeKtZzwnsfxHB7Y6fuH1GgNP28zZ12b0WjG9dqNec0FsWwQvno=
-X-Received: by 2002:a17:902:e54b:b0:2d7:203b:9863 with SMTP id d9443c01a7336-2dd6c5b1084mr131399045ad.1.1789475441464;
-        Tue, 15 Sep 2026 05:30:41 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd76fc2c54sm12402345ad.72.2026.09.15.05.30.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 05:30:40 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	"Bryan O'Donoghue" <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: venus: avoid HFI resource leak on IRQ request failure
-Date: Tue, 15 Sep 2026 20:30:09 +0800
-Message-ID: <20260915123009.2420780-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hJ+lJtZG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789475499; x=1821011499;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version:content-transfer-encoding;
+  bh=32KwHaouwkg2IFwHsP/xenwquCRjaCAgeCXIRNVazDA=;
+  b=hJ+lJtZGPKUSn/L2DsFexOyf2JqhQaDaOwVNlMmc9pU/uK+IrMD4mRQJ
+   d4+SSKP/HhuFeM7ZyTqq05YWWj35cGG1smah6h5RJQd8LLuX326RgujVE
+   0YUIK/Og4VxzpZHyOITPsRAZ6ZZGlOfC0RDj/JPIrUapT8l5kLIeOoPbY
+   p8rpQx5InDr1kXNoUma9Gqa3kp6pz2NRT/Xf9WuzaQmMsT+dvrWitiIU9
+   6TMLUZMYM7cMrOZAF74qCLRltYyLRUIdaUjXWYptXA8IWkUNqIwl7xSmv
+   W6FNaGRUuEhe0ZGe+UfLXE1NIdp85wFUXSqPm8409w93TxidMQQopCPnf
+   Q==;
+X-CSE-ConnectionGUID: k+trTBR6SoerRQah2+hdcA==
+X-CSE-MsgGUID: 8Moda+stRkOxeUBSdu4pPw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89678868"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89678868"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 05:31:38 -0700
+X-CSE-ConnectionGUID: 5CzhA7o5R7Oo8KIgkAMvug==
+X-CSE-MsgGUID: JuygdXRlSY+0CJx23WbFTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="266786085"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.243])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 05:31:32 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Armin
+ Wolf <W_Armin@gmx.de>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "hansg@kernel.org"
+ <hansg@kernel.org>, "platform-driver-x86@vger.kernel.org"
+ <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux@weissschuh.net"
+ <linux@weissschuh.net>, "rafael@kernel.org" <rafael@kernel.org>,
+ "lenb@kernel.org" <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
+ <linux-acpi@vger.kernel.org>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "patrik.r.jakobsson@gmail.com"
+ <patrik.r.jakobsson@gmail.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
+ "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net"
+ <tursulin@ursulin.net>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>, "matthew.brost@intel.com"
+ <matthew.brost@intel.com>, "thomas.hellstrom@linux.intel.com"
+ <thomas.hellstrom@linux.intel.com>, "intel-xe@lists.freedesktop.org"
+ <intel-xe@lists.freedesktop.org>
+Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+ nvidia_wmi_ec_supported()
+In-Reply-To: <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <20260724025959.142826-3-W_Armin@gmx.de>
+ <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
+ <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de>
+ <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
+Date: Tue, 15 Sep 2026 15:31:29 +0300
+Message-ID: <11976ed3784675ad241646287a909286a42675a8@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-venus_probe() calls hfi_create() before requesting the IRQ, but the IRQ
-request failure path does not call hfi_destroy().
+On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> wro=
+te:
+> GPU people heads up!!
+>
+> On Wed, 2 Sep 2026, Armin Wolf wrote:
+>
+>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
+>>=20
+>> > Public
+>> >=20
+>> > > -----Original Message-----
+>> > > From: Armin Wolf <W_Armin@gmx.de>
+>> > > Sent: Thursday, July 23, 2026 11:00 PM
+>> > > To: hansg@kernel.org; ilpo.jarvinen@linux.intel.com
+>> > > Cc: platform-driver-x86@vger.kernel.org; linux-kernel@vger.kernel.or=
+g;
+>> > > linux@weissschuh.net; rafael@kernel.org; lenb@kernel.org; linux-
+>> > > acpi@vger.kernel.org; Deucher, Alexander <Alexander.Deucher@amd.com>;
+>> > > Koenig, Christian <Christian.Koenig@amd.com>; airlied@gmail.com;
+>> > > simona@ffwll.ch; amd-gfx@lists.freedesktop.org; dri-
+>> > > devel@lists.freedesktop.org; patrik.r.jakobsson@gmail.com;
+>> > > maarten.lankhorst@linux.intel.com; mripard@kernel.org;
+>> > > tzimmermann@suse.de; jani.nikula@linux.intel.com;
+>> > > joonas.lahtinen@linux.intel.com; rodrigo.vivi@intel.com;
+>> > > tursulin@ursulin.net; intel-gfx@lists.freedesktop.org;
+>> > > matthew.brost@intel.com; thomas.hellstrom@linux.intel.com; intel-
+>> > > xe@lists.freedesktop.org
+>> > > Subject: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+>> > > nvidia_wmi_ec_supported()
+>> > >=20
+>> > > The WMI-ACPI driver now supports architectures other than x86.
+>> > > Remove the CONFIG_X86 handling from video-detect and the associated
+>> > > drivers to simplify the resulting code.
+>> > >=20
+>> > > Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+>> > > Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+>> > > ---
+>> > >   drivers/acpi/Kconfig               | 2 +-
+>> > >   drivers/acpi/video_detect.c        | 8 --------
+>> > >   drivers/gpu/drm/amd/amdgpu/Kconfig | 4 +---
+>> > >   drivers/gpu/drm/gma500/Kconfig     | 1 -
+>> > >   drivers/gpu/drm/i915/Kconfig       | 1 -
+>> > >   drivers/gpu/drm/radeon/Kconfig     | 4 +---
+>> > >   drivers/gpu/drm/xe/Kconfig         | 5 ++---
+>> > >   drivers/platform/loongarch/Kconfig | 1 +
+>> > >   8 files changed, 6 insertions(+), 20 deletions(-)
+>> > >=20
+>> > > diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig index
+>> > > f165d14cf61a..cc1e58fa664b 100644
+>> > > --- a/drivers/acpi/Kconfig
+>> > > +++ b/drivers/acpi/Kconfig
+>> > > @@ -224,7 +224,7 @@ config ACPI_VIDEO
+>> > >        tristate "Video"
+>> > >        depends on BACKLIGHT_CLASS_DEVICE
+>> > >        depends on INPUT
+>> > > -     depends on ACPI_WMI || !X86
+>> > > +     depends on ACPI_WMI
+>> > >        select THERMAL
+>> > >        help
+>> > >          This driver implements the ACPI Extensions For Display Adap=
+ters
+>> > > diff
+>> > > --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c in=
+dex
+>> > > 458efa4fe9d4..af9280b244f1 100644
+>> > > --- a/drivers/acpi/video_detect.c
+>> > > +++ b/drivers/acpi/video_detect.c
+>> > > @@ -82,8 +82,6 @@ find_video(acpi_handle handle, u32 lvl, void *cont=
+ext,
+>> > > void **rv)
+>> > >        return AE_OK;
+>> > >   }
+>> > >=20
+>> > > -/* This depends on ACPI_WMI which is X86 only */ -#ifdef CONFIG_X86
+>> > > static bool nvidia_wmi_ec_supported(void)  {
+>> > >        struct wmi_brightness_args args =3D {
+>> > > @@ -105,12 +103,6 @@ static bool nvidia_wmi_ec_supported(void)
+>> > >         */
+>> > >        return args.ret =3D=3D WMI_BRIGHTNESS_SOURCE_EC;  } -#else -s=
+tatic bool
+>> > > nvidia_wmi_ec_supported(void) -{
+>> > > -     return false;
+>> > > -}
+>> > > -#endif
+>> > >=20
+>> > >   /* Force to use vendor driver when the ACPI device is known to be
+>> > >    * buggy */
+>> > > diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>> > > b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>> > > index 12e4a41bf1f0..50305630f533 100644
+>> > > --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+>> > > +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+>> > > @@ -30,9 +30,7 @@ config DRM_AMDGPU
+>> > >        # ACPI_VIDEO's dependencies must also be selected.
+>> > >        select INPUT if ACPI
+>> > >        select ACPI_VIDEO if ACPI
+>> > > -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+>> > > -     select X86_PLATFORM_DEVICES if ACPI && X86
+>> > The change below makes sense, but this one looks like it should remain
+>> > unless X86_PLATFORM_DEVICES is handled some other way?
+>> >=20
+>> > Alex
+>>=20
+>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary because
+>> ACPI-WMI depended on it in the past.
+>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 anymore.
+>
+> Hi all,
+>
+> Could more GPU people besides Alex take a look on this. I'd want to make=
+=20
+> progress with this series within this cycle but would prefer to have Acks=
+=20
+> from GPU side.
 
-The history patch moved hfi_create() before the IRQ request to ensure
-that the interrupt handler context is initialized before an interrupt
-can be delivered. However, if devm_request_threaded_irq() fails after
-hfi_create() succeeds, the error path jumps directly to err_core_put
-and leaves the HFI resources allocated.
+I share the same concern with Alex. It seems to me we could now end up
+with x86 configurations without X86_PLATFORM_DEVICES, which handle
+e.g. backlight on a lot of platforms.
 
-Request the IRQ with IRQF_NO_AUTOEN before creating the HFI device so
-that the interrupt remains disabled during HFI initialization. Enable
-the IRQ only after hfi_create() succeeds.
+I think the safer option might be to go for:
 
-This preserves the protection against interrupts arriving before HFI
-initialization while ensuring that an IRQ request failure cannot leak
-HFI resources.
+	depends on X86_PLATFORM_DEVICES || !X86
 
-This issue was found by manual code inspection.
+in all of the cases that select/depend on X86_PLATFORM_DEVICES in drm.
 
-Fixes: 3200144a2fa4 ("media: venus: protect against spurious interrupts during probe")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/platform/qcom/venus/core.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+The alternative is to find out, and handle the fallout, if any.
 
-diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/platform/qcom/venus/core.c
-index 243e342b0ae7..42348bdc2332 100644
---- a/drivers/media/platform/qcom/venus/core.c
-+++ b/drivers/media/platform/qcom/venus/core.c
-@@ -432,16 +432,19 @@ static int venus_probe(struct platform_device *pdev)
- 	INIT_DELAYED_WORK(&core->work, venus_sys_error_handler);
- 	init_waitqueue_head(&core->sys_err_done);
- 
--	ret = hfi_create(core, &venus_core_ops);
-+	ret = devm_request_threaded_irq(dev, core->irq, hfi_isr,
-+					venus_isr_thread,
-+					IRQF_TRIGGER_HIGH | IRQF_ONESHOT |
-+					IRQF_NO_AUTOEN, "venus", core);
- 	if (ret)
- 		goto err_core_put;
- 
--	ret = devm_request_threaded_irq(dev, core->irq, hfi_isr, venus_isr_thread,
--					IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
--					"venus", core);
-+	ret = hfi_create(core, &venus_core_ops);
- 	if (ret)
- 		goto err_core_put;
- 
-+		enable_irq(core->irq);
-+
- 	venus_assign_register_offsets(core);
- 
- 	ret = v4l2_device_register(dev, &core->v4l2_dev);
--- 
-2.43.0
 
+BR,
+Jani.
+
+
+>
+>> > > -     select ACPI_WMI if ACPI && X86
+>> > > +     select ACPI_WMI if ACPI
+>> > >        help
+>> > >          Choose this option if you have a recent AMD Radeon graphics=
+ card.
+>> > >=20
+>> > > diff --git a/drivers/gpu/drm/gma500/Kconfig
+>> > > b/drivers/gpu/drm/gma500/Kconfig index a2acaa699dd5..dc4c56638819
+>> > > 100644
+>> > > --- a/drivers/gpu/drm/gma500/Kconfig
+>> > > +++ b/drivers/gpu/drm/gma500/Kconfig
+>> > > @@ -11,7 +11,6 @@ config DRM_GMA500
+>> > >        select ACPI_VIDEO if ACPI
+>> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
+>> > >        select INPUT if ACPI
+>> > > -     select X86_PLATFORM_DEVICES if ACPI
+>> > >        select ACPI_WMI if ACPI
+>> > >        help
+>> > >          Say yes for an experimental 2D KMS framebuffer driver for t=
+he
+>> > > diff --
+>> > > git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig in=
+dex
+>> > > 5e939004b646..71426b9c91f0 100644
+>> > > --- a/drivers/gpu/drm/i915/Kconfig
+>> > > +++ b/drivers/gpu/drm/i915/Kconfig
+>> > > @@ -28,7 +28,6 @@ config DRM_I915
+>> > >        # but for select to work, need to select ACPI_VIDEO's depende=
+ncies,
+>> > > ick
+>> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
+>> > >        select INPUT if ACPI
+>> > > -     select X86_PLATFORM_DEVICES if ACPI
+>> > >        select ACPI_WMI if ACPI
+>> > >        select ACPI_VIDEO if ACPI
+>> > >        select SYNC_FILE
+>> > > diff --git a/drivers/gpu/drm/radeon/Kconfig
+>> > > b/drivers/gpu/drm/radeon/Kconfig index c479f0c0dd5c..3cd70aef770e
+>> > > 100644
+>> > > --- a/drivers/gpu/drm/radeon/Kconfig
+>> > > +++ b/drivers/gpu/drm/radeon/Kconfig
+>> > > @@ -25,9 +25,7 @@ config DRM_RADEON
+>> > >        # ACPI_VIDEO's dependencies must also be selected.
+>> > >        select INPUT if ACPI
+>> > >        select ACPI_VIDEO if ACPI
+>> > > -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+>> > > -     select X86_PLATFORM_DEVICES if ACPI && X86
+>> > > -     select ACPI_WMI if ACPI && X86
+>> > > +     select ACPI_WMI if ACPI
+>> > >        help
+>> > >          Choose this option if you have an ATI Radeon graphics card.
+>> > > There
+>> > >          are both PCI and AGP versions.  You don't need to choose th=
+is to
+>> > > diff -
+>> > > -git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig index
+>> > > 4d7dcaff2b91..502c7b3c1f16 100644
+>> > > --- a/drivers/gpu/drm/xe/Kconfig
+>> > > +++ b/drivers/gpu/drm/xe/Kconfig
+>> > > @@ -4,7 +4,6 @@ config DRM_XE
+>> > >        depends on DRM && PCI
+>> > >        depends on KUNIT || !KUNIT
+>> > >        depends on INTEL_VSEC || !INTEL_VSEC
+>> > > -     depends on X86_PLATFORM_DEVICES || !(X86 && ACPI)
+>> > >        depends on PAGE_SIZE_4KB || COMPILE_TEST || BROKEN
+>> > >        select INTERVAL_TREE
+>> > >        # we need shmfs for the swappable backing store, and in parti=
+cular
+>> > > @@ -29,8 +28,8 @@ config DRM_XE
+>> > >        # but for select to work, need to select ACPI_VIDEO's depende=
+ncies,
+>> > > ick
+>> > >        select BACKLIGHT_CLASS_DEVICE if ACPI
+>> > >        select INPUT if ACPI
+>> > > -     select ACPI_VIDEO if X86 && ACPI
+>> > > -     select ACPI_WMI if X86 && ACPI
+>> > > +     select ACPI_VIDEO if ACPI
+>> > > +     select ACPI_WMI if ACPI
+>> > >        select SYNC_FILE
+>> > >        select CRC32
+>> > >        select SND_HDA_I915 if SND_HDA_CORE
+>> > > diff --git a/drivers/platform/loongarch/Kconfig
+>> > > b/drivers/platform/loongarch/Kconfig
+>> > > index 447528797d07..db7833842142 100644
+>> > > --- a/drivers/platform/loongarch/Kconfig
+>> > > +++ b/drivers/platform/loongarch/Kconfig
+>> > > @@ -23,6 +23,7 @@ config LOONGSON_LAPTOP
+>> > >        depends on INPUT
+>> > >        depends on MACH_LOONGSON64
+>> > >        select ACPI_VIDEO
+>> > > +     select ACPI_WMI
+>> > >        select INPUT_SPARSEKMAP
+>> > >        default y
+>> > >        help
+>> > > --
+>> > > 2.39.5
+>> >=20
+>>=20
+
+--=20
+Jani Nikula, Intel
