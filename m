@@ -1,301 +1,133 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3392E402BAB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:02:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3473F2118;
+	Tue, 15 Sep 2026 17:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789491733; cv=none; b=qwbsgU+OuFFjfFLtcmfF2pQkAiiBaestJBCP6jjmIbRPgK/oPd8xP6eYzwmm6BNO7lsYqzA2JEo8bZ5iCU8l8imf1LeVZotvGJNbuvFZndyhkvtmb4thZ0lqLoEbbofVsUjFppD+vKv1ixMX2+z1WLR5w7WNt7q0x9KbqvHYoAw=
+	t=1789491778; cv=none; b=kbYQHo/c79lWaohnJFqjFnHUv0qEGphTOqeIiQyTfw6zW6TX3QtxuTBggcCIlJMO8MwaC66xrRZjoY1oSUoswH3Qmb0lJv9PLEGVL4tYMojJj25pfdEBacQpna16eGEtrLuPYUmpgK/fHaMoKJV/jF1PEv0u1KXOXLO/wxbcVDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789491733; c=relaxed/simple;
-	bh=u4UFiko82A9oo6jDjjqR7lvD3n1v6npulk8uWYC3A9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=htBrD8AXKiD7mC6dGxdm9/riWQPFX1LcouHHcGJ5zO5EimJljbYzNwj59ZhUsBVLV0JgsQYIcY4/klbt192YWxrSJweKzYFaJp3XHgp+E+0KgqRxBG+MHzdiDxJOUrHl8KOsrl+Q43q4hrvequHTTHNudiucOXL5Al2edBLpveM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FL6BZ37p; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789491778; c=relaxed/simple;
+	bh=HQQcSvXWwWkznCA2oz45yowmtAQOi+aqkAekUHPwtxI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=cJBQel64JTKVdASwVSq2Nkmq/ZZFoyJcFYJCHu44fCrS3xt2XeWbh8ZKw9WcfxcFsGCQQ1npze5904yOnnoJo8uckkQtDJdo7hz/3PlXEqb5Lq+O0PoXuoLxbc15vxdKo/LPqh0Ec8tC5cScotcnKZfcG+RQC8xi9SMm6NNf5ZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l29wTyxC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FL6BZ37p"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6188so4098115ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:02:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789491730; x=1790096530; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TCDRZ9weVwG1Wz3S9zGQh/wTKxjjL9VQFaV4nXxX7Mw=;
-        b=FL6BZ37popkupd+qSWbFcW0Y2TIWXGpD56kVYAxD1wYOxUJJPL8NyzQM4aPyKRK0Dt
-         ddxUWztMOWgY8bQvPfJWjza/EVFhfXI2sb1LRLoxq4gpdfg3ylarMKzcv5/1zxKZcgo6
-         xoA7L9pSsl00v2ILn7tdKpcFaQRZIXX6DnqUmxyjpSQJpyhd0wup/S20GA/9IeGYmuc0
-         Xa8HJ3nKGMpgpeVYEfJxLp/VuJqSyijKU6qXHhrVrviP/SDEmB8RQD/JHNs34xv2VhYO
-         vx6w98fO4jexhN0wcQOl9pFjaLZOAQNXOI1wIccSgi7rAhhys9o5/VKLTwClWQVZ9cit
-         6t5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789491730; x=1790096530;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TCDRZ9weVwG1Wz3S9zGQh/wTKxjjL9VQFaV4nXxX7Mw=;
-        b=H/2igDMfzi2NdjpoI0yv6ZSYy+aHxcJCEknCR4R8AJUQgE9JHYACbw6KOTcv7UunsM
-         c7L0PT6krkKEfYjSaOVLeiV0Kksreng7T3hkNILm+axPxgsaL1pB12hELfonhFqwzx3+
-         erFRvgcr0IjwEqWpWGqkxZ8du1IXri2wAITzlXRdHmMLTAs4qN45YaqhTCrtOKqyIMA7
-         sOdAe351sGAYEBq8BA/oGFuqXbEwhCBrYuQTy48qwHDQw/dtYhZvUX0XUDcJ7RYCOmjg
-         aR4y7O57Nfk5GASVlMA+skCX2Ey4FAB2S33paj/dfHrqyUHP1ekz+fRL3AvufN7W4/ag
-         2VCw==
-X-Forwarded-Encrypted: i=1; AKwUvBzDb9+DFQtmu0DawiOb5+F5xyQqjFKIeIoZNxvFgDd0SB8janDXv6fOC78TtJRbopJOM6R/Oj8fmqWdxSQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhovsG2ZO8p+8epVQRiAkVuwLp7Ly+MHHtUnaE3QydmIpCxEQC
-	OVvNqlkQtEqHiENu3TM3ob1Il4sYYRZzsxCMhymngX8qV1fPzq6dtGsh
-X-Gm-Gg: AYBFou2YOo81VxxpwnVnbDGAYzOK5jG4vMEQVKDNioMr7O1bSWDIChayBF/3T3lcw8A
-	RISTQgwIn1Vy6KJUj9WnFGgGkrlP/+ygWiKr0ALjnH23eMPU6HhJmiyIjIiTk3K1/lY3CtWS91U
-	8rISp4s3/en/jZ/p3SDR+wd5M/3/n1K9J5b1s80ZPK3cWZIsgas/M9ktUBiX2wtuB1kWWyCl5L8
-	WQDTm2GZnEo/obSFocmzfO59t7OW+jg2Zc2cHj7z57A1X0+DFCUnT70otkoKXcsSDPpWzkwQzbi
-	paTgiF0BOSTNlXGFz/SN2HNBsn/0D1/igvArmJyTCeVwj5R370Kd7SpUzcPT8sRHyHmko7diJq+
-	CG1lYtyOI4E6QnguRYIdXTpQ58ogM9uzXZAK6AXSC+TN3CyRYyhaGamZPwZF2o9KmCI3PA47Cnc
-	U1Q43IdcqtqkKS8SsQi2/PPrC6Id9VtOwNlasHWj4aZ3P4PCwNFzXXqu82GMvnEw+9ES3u3Vmmf
-	L7sKYMtxMiuGQVoXbj4sV/r+ecHnn39
-X-Received: by 2002:a17:902:c942:b0:2d8:df44:a5c2 with SMTP id d9443c01a7336-2dd8387cbdbmr33512745ad.20.1789491730384;
-        Tue, 15 Sep 2026 10:02:10 -0700 (PDT)
-Received: from 192.168.50.3 ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd34c7f976sm68439925ad.81.2026.09.15.10.01.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:02:09 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Peter Oskolkov <posk@google.com>,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>
-Subject: [PATCH] bpf: clear stale IPv4 options after LWT encapsulation
-Date: Wed, 16 Sep 2026 01:01:48 +0800
-Message-ID: <20260915170147.3943392-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l29wTyxC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079281F000FF;
+	Tue, 15 Sep 2026 17:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789491776;
+	bh=WTXKV6wijB+L2zgRoU/8AHp8dn9P8hPtyu3Zx1VPL+0=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=l29wTyxC6FhDaQS8M/8A306/NCuQLDXn4drwuAarN43UAzz0IrGw2it1NK1KdSyzg
+	 GemuyhqgyTs7m+44kFz+SLQPRkDdmMIWbpT3tLRSCvP6N+fo8oFE5GHNq9W/TKidH4
+	 DTDxcwglfYR+DcdHiuHZJ4xUtho2tgvqV1hRmvy2kqh4aIz30UGHS4v+jTKUJEAEzK
+	 GaNIh67ML+THgYoz0LlgHy2y1hi22DvorrLhmn6uQ2fCKwSoxBUgSGdnyUcehmZ5no
+	 jBGNbycFYQqYyLhcl3kXGhW+Lap+cl066HVDbl+fQsfxSyK2H7pXkE8yUOi9qD+joa
+	 d9LLeqqEEhlAw==
+Message-ID: <2febb9ac-6b25-4037-8cdb-f8fe5734ec01@kernel.org>
+Date: Tue, 15 Sep 2026 19:02:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Vincent Mailhol <mailhol@kernel.org>
+Subject: Re: [PATCH v2 10/10] efi/libstub: add initial Boot Loader Interface
+ support
+To: Ard Biesheuvel <ardb+git@google.com>, linux-efi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
+ x86@kernel.org
+References: <20260909115530.1924665-12-ardb+git@google.com>
+ <20260909115530.1924665-22-ardb+git@google.com>
+Content-Language: en-US
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
+ F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
+ 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
+ dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
+ zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <20260909115530.1924665-22-ardb+git@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Xiang Mei <xmei5@asu.edu>
+On 9/9/26 13:55, Ard Biesheuvel wrote:
+> From: Vincent Mailhol <mailhol@kernel.org>
+> 
+> The Boot Loader Interface (BLI) [1] defines EFI variables that expose
+> boot loader state to the running OS. LoaderInfo identifies the boot
+> loader, while LoaderDevicePartUUID records the GPT partition UUID of
+> the partition containing it.
+> 
+> LoaderDevicePartUUID is used, for example, by systemd-gpt-auto-generator
+> [2] to identify the disk the boot loader was launched from and
+> automatically detect and mount partitions on it.
+> 
+> GRUB [3] and systemd-boot [4] populate these variables, but when the
+> kernel is started directly by EFI firmware, there is no conventional
+> external boot loader to provide them. In that case, because the EFI stub
+> performs the boot loader role, it should provide the variables itself.
+> 
+> Use LoaderInfo as a sentinel: if it is already set by an earlier boot
+> stage or cannot be set, bail out. Otherwise, populate the other BLI
+> variables.
+> 
+> Parse the loaded image device path, extract the GUID signature from its
+> GPT HD() node and publish it under the Linux loader entry vendor GUID as
+> the volatile LoaderDevicePartUUID EFI variable.
+> 
+> Install the efi_bli_set_variables() hook in both the generic efi-stub.c
+> path and the x86-specific x86-stub.c path.
+> 
+> [1] The Boot Loader Interface
+> Link: https://systemd.io/BOOT_LOADER_INTERFACE/
+> 
+> [2] systemd-gpt-auto-generator
+> Link: https://www.freedesktop.org/software/systemd/man/latest/systemd-gpt-auto-generator.html
+> 
+> [3] GRUB -- §16.2 bli
+> Link: https://www.gnu.org/software/grub/manual/grub/html_node/bli_005fmodule.html
+> 
+> [4] systemd -- systemd-boot UEFI Boot Manager
+> Link: https://github.com/systemd/systemd/blob/main/docs/BOOT.md?plain=1#L102
+> 
+> Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
+> [ardb: - constify 'image' pointer parameter
+>        - pass efi_guid_t* to efi_snprintf()]
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> ---
 
-bpf_lwt_push_ip_encap() rebases the network header after prepending an IP
-header, but leaves IPCB(skb)->opt describing the inner IPv4 header.  An
-ingress LWT route can consequently make an ICMP error interpret an
-inner-header byte as an option length and copy 255 bytes into 40 bytes of
-stack storage.  The trace decoded with scripts/decode_stacktrace.sh is:
+(...)
 
-  BUG: KASAN: stack-out-of-bounds in __ip_options_echo
-  Write of size 255
-  Call Trace:
-   <IRQ>
-   __asan_memcpy (mm/kasan/shadow.c:106)
-   __ip_options_echo (net/ipv4/ip_options.c:96)
-   __icmp_send (net/ipv4/icmp.c:949)
-   ip_forward (net/ipv4/ip_forward.c:176)
-   lwtunnel_input (net/core/lwtunnel.c:465)
-   ip_rcv (net/ipv4/ip_input.c:612)
-   __netif_receive_skb_one_core (net/core/dev.c:6264)
-   process_backlog (net/core/dev.c:6728)
-   __napi_poll (net/core/dev.c:7787)
-   net_rx_action (net/core/dev.c:8007)
-   handle_softirqs (kernel/softirq.c:645)
-   do_softirq.part.0 (kernel/softirq.c:546)
-   </IRQ>
-   <TASK>
-   __local_bh_enable_ip (kernel/softirq.c:473)
-   __dev_queue_xmit (net/core/dev.c:4961)
-   packet_sendmsg (net/packet/af_packet.c:3143)
-   __sys_sendto (net/socket.c:2281)
-   __x64_sys_sendto (net/socket.c:2288)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:84)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-   </TASK>
+> diff --git a/drivers/firmware/efi/libstub/bli.c b/drivers/firmware/efi/libstub/bli.c
+> new file mode 100644
+> index 000000000000..b2407f63b743
+> --- /dev/null
+> +++ b/drivers/firmware/efi/libstub/bli.c
+> @@ -0,0 +1,87 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <generated/utsrelease.h>
+> +
+> +#include <linux/efi.h>
+> +#include <linux/errno.h>
 
-A helper-only reset can be restored by bpf_prog_run_save_cb(), while a
-program without ctx->cb[] access can clone-redirect the skb before a
-return-only reset.  Track active LWT runs and their control-block family
-in the BPF network context.  Reset it immediately when the control block
-is not BPF scratch space, and after bpf_prog_run_save_cb() restores it.
-Preserve the state across nested runs and retain the ingress interface and
-L3-slave state when the protocol family changes.
+<linux/errno.h> is not needed anymore following the changes in v3.
 
-Fixes: 52f278774e79 ("bpf: implement BPF_LWT_ENCAP_IP mode in bpf_lwt_push_encap")
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Assisted-by: LLM
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
- include/linux/filter.h | 10 ++++++
- net/core/lwt_bpf.c     | 81 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 91 insertions(+)
+(Sorry, this is my mistake)
 
-diff --git a/include/linux/filter.h b/include/linux/filter.h
-index 39decde7fc730..0edd3e6ce563f 100644
---- a/include/linux/filter.h
-+++ b/include/linux/filter.h
-@@ -848,6 +848,15 @@ struct bpf_nh_params {
- #define BPF_RI_F_CPU_MAP_INIT	BIT(2)
- #define BPF_RI_F_DEV_MAP_INIT	BIT(3)
- #define BPF_RI_F_XSK_MAP_INIT	BIT(4)
-+#define BPF_RI_F_LWT_IP_ENCAP	BIT(5)
-+#define BPF_RI_F_LWT_RUN	BIT(6)
-+
-+struct bpf_lwt_ip_encap_state {
-+	int iif;
-+	__be16 cb_proto;
-+	bool l3slave;
-+	bool cb_access;
-+};
- 
- struct bpf_redirect_info {
- 	u64 tgt_index;
-@@ -858,6 +867,7 @@ struct bpf_redirect_info {
- 	enum bpf_map_type map_type;
- 	struct bpf_nh_params nh;
- 	u32 kern_flags;
-+	struct bpf_lwt_ip_encap_state lwt_ip_encap;
- };
- 
- struct bpf_net_context {
-diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
-index da49364ec63de..762d62c959f9f 100644
---- a/net/core/lwt_bpf.c
-+++ b/net/core/lwt_bpf.c
-@@ -36,19 +36,88 @@ static inline struct bpf_lwt *bpf_lwt_lwtunnel(struct lwtunnel_state *lwt)
- #define NO_REDIRECT false
- #define CAN_REDIRECT true
- 
-+static void bpf_lwt_reset_ip_cb(struct sk_buff *skb, __be16 orig_proto,
-+				int iif, bool l3slave, bool use_new_proto)
-+{
-+	__be16 cb_proto = orig_proto;
-+
-+	if (use_new_proto)
-+		cb_proto = skb->protocol;
-+
-+	if (cb_proto == htons(ETH_P_IP)) {
-+		if (orig_proto == htons(ETH_P_IP)) {
-+			memset(&IPCB(skb)->opt, 0, sizeof(IPCB(skb)->opt));
-+		} else {
-+			memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
-+			IPCB(skb)->iif = iif;
-+			if (l3slave)
-+				IPCB(skb)->flags |= IPSKB_L3SLAVE;
-+		}
-+	} else if (cb_proto == htons(ETH_P_IPV6)) {
-+		memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
-+		IP6CB(skb)->iif = iif;
-+		IP6CB(skb)->nhoff = offsetof(struct ipv6hdr, nexthdr);
-+		if (l3slave)
-+			IP6CB(skb)->flags |= IP6SKB_L3SLAVE;
-+	} else if (orig_proto == htons(ETH_P_IP)) {
-+		memset(&IPCB(skb)->opt, 0, sizeof(IPCB(skb)->opt));
-+	}
-+}
-+
- static int run_lwt_bpf(struct sk_buff *skb, struct bpf_lwt_prog *lwt,
- 		       struct dst_entry *dst, bool can_redirect)
- {
- 	struct bpf_net_context __bpf_net_ctx, *bpf_net_ctx;
-+	struct bpf_lwt_ip_encap_state nested_lwt_ip_encap_state;
-+	struct bpf_redirect_info *ri;
-+	bool lwt_ip_encap, nested_lwt_ip_encap, nested_lwt_run;
-+	__be16 orig_proto = skb->protocol;
-+	bool l3slave = false;
-+	int iif = 0;
- 	int ret;
- 
-+	if (orig_proto == htons(ETH_P_IP)) {
-+		iif = IPCB(skb)->iif;
-+		l3slave = ipv4_l3mdev_skb(IPCB(skb)->flags);
-+	} else if (orig_proto == htons(ETH_P_IPV6)) {
-+		iif = IP6CB(skb)->iif;
-+		l3slave = ipv6_l3mdev_skb(IP6CB(skb)->flags);
-+	}
-+
- 	/* Disabling BH is needed to protect per-CPU bpf_redirect_info between
- 	 * BPF prog and skb_do_redirect().
- 	 */
- 	local_bh_disable();
- 	bpf_net_ctx = bpf_net_ctx_set(&__bpf_net_ctx);
-+	ri = bpf_net_ctx_get_ri();
-+	nested_lwt_run = ri->kern_flags & BPF_RI_F_LWT_RUN;
-+	nested_lwt_ip_encap = ri->kern_flags & BPF_RI_F_LWT_IP_ENCAP;
-+	if (nested_lwt_run)
-+		nested_lwt_ip_encap_state = ri->lwt_ip_encap;
-+	ri->kern_flags &= ~BPF_RI_F_LWT_IP_ENCAP;
-+	ri->kern_flags |= BPF_RI_F_LWT_RUN;
-+	ri->lwt_ip_encap.iif = iif;
-+	ri->lwt_ip_encap.cb_proto = orig_proto;
-+	ri->lwt_ip_encap.l3slave = l3slave;
-+	ri->lwt_ip_encap.cb_access = lwt->prog->cb_access;
- 	bpf_compute_data_pointers(skb);
- 	ret = bpf_prog_run_save_cb(lwt->prog, skb);
-+	lwt_ip_encap = ri->kern_flags & BPF_RI_F_LWT_IP_ENCAP;
-+	ri->kern_flags &= ~BPF_RI_F_LWT_IP_ENCAP;
-+
-+	if (lwt_ip_encap && ri->lwt_ip_encap.cb_access)
-+		bpf_lwt_reset_ip_cb(skb, ri->lwt_ip_encap.cb_proto,
-+				    ri->lwt_ip_encap.iif,
-+				    ri->lwt_ip_encap.l3slave,
-+				    (ret == BPF_LWT_REROUTE &&
-+				     lwt->prog->type != BPF_PROG_TYPE_LWT_OUT) ||
-+				    (ret == BPF_REDIRECT && can_redirect));
-+	if (nested_lwt_run)
-+		ri->lwt_ip_encap = nested_lwt_ip_encap_state;
-+	else
-+		ri->kern_flags &= ~BPF_RI_F_LWT_RUN;
-+	if (nested_lwt_ip_encap)
-+		ri->kern_flags |= BPF_RI_F_LWT_IP_ENCAP;
- 
- 	switch (ret) {
- 	case BPF_OK:
-@@ -604,6 +673,7 @@ static int handle_gso_encap(struct sk_buff *skb, bool ipv4, int encap_len)
- 
- int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
- {
-+	struct bpf_redirect_info *ri;
- 	bool is_udp_tunnel;
- 	struct iphdr *iph;
- 	bool ipv4;
-@@ -657,6 +727,7 @@ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
- 	memcpy(skb_network_header(skb), hdr, len);
- 	bpf_compute_data_pointers(skb);
- 	skb_clear_hash(skb);
-+	ri = bpf_net_ctx_get_ri();
- 
- 	if (ipv4) {
- 		skb->protocol = htons(ETH_P_IP);
-@@ -669,6 +740,16 @@ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
- 		skb->protocol = htons(ETH_P_IPV6);
- 	}
- 
-+	if (ri->kern_flags & BPF_RI_F_LWT_RUN) {
-+		ri->kern_flags |= BPF_RI_F_LWT_IP_ENCAP;
-+		if (!ri->lwt_ip_encap.cb_access) {
-+			bpf_lwt_reset_ip_cb(skb, ri->lwt_ip_encap.cb_proto,
-+					    ri->lwt_ip_encap.iif,
-+					    ri->lwt_ip_encap.l3slave, true);
-+			ri->lwt_ip_encap.cb_proto = skb->protocol;
-+		}
-+	}
-+
- 	if (skb_is_gso(skb))
- 		return handle_gso_encap(skb, ipv4, len);
- 
+> +#include <linux/unaligned.h>
+> +
+> +#include "efistub.h"
+
+(...)
+
+
+Yours sincerely,
+Vincent Mailhol
