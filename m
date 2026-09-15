@@ -1,355 +1,175 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C6248E0F5;
-	Tue, 15 Sep 2026 11:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6496C493653
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471422; cv=none; b=r9RfRQCFqhMoITxOCpo1A0jwEDOBtxwVDE6vez0BelbeHpMjj7HFlGYWT/IR9LZWQmxrP/BC4Ro2z+stc5WoT0qLCo/RPOD8CHRtTRdyWp6e5Zi8Eq3kyQRF1Qw2HWTjPKqw3bl8ZO+FeAhHqdUOdoV0yRWG9NXhvgEdMfBS3N0=
+	t=1789471479; cv=none; b=MNJHFLcxF1Mu84NpehY4eRetldXWqFKeimOybPsmaSUBgEEPC/JTGY2tKLKU6f8xZoCwfFt/aQZPZ9ABEYk6crqIcNsJiYp9bD4aas/YOVHbgA5JuerQ0sJIH5mK9boM1QLsG6KUpoKuzgITwEy9JdhRP21qvihdpeHfGMcTDUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471422; c=relaxed/simple;
-	bh=ljskRcMdf2XYphYJmHCVJgisZOIL+BdrJ5ob2W9wZ6U=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tPah0GglblAY136hPpeqTWOc7milaMAWX6I4wOraOv5WTpZiJ9cSppJLd4jYAxWfVeU/ppUc70Xy6U4EXQbYRPlqi49nKhnh8OUo3q1+AlHr8+B6hdW7s8keotuNvUQeGOQXzz/N1H8Fna3Sc9AKsAI78I/HwK05UdJMWtby5lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sW5W091j; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0K9y0T3s; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789471479; c=relaxed/simple;
+	bh=yrTda4IGxlPJdP7jy9TCpvdj+4mLWt578NbG+mNspc0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CeRT36UcsLYWQNJ22my7zyIxOzOtZM4W5s3rX6RtF3Z2YmYGTj395nDkvu0eI5frNuvTEDMkCG9rpsZGj+XS+DCSh08+sOtfOkhqkE2LrxWrp0nOOj7Ok8R527WOrZmMoJhwpHVd1iZChVTRGnV1kLo9wh4XxtYxM5xmFa/Qr1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JS/PmAip; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gIy0ezBH; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sW5W091j";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0K9y0T3s"
-Message-ID: <c863e105257ae512d32e94b56ac081c41c4284f6.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789471413;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P5YjS13qvbadUK35UlDy89MYgOvcwR+tWSGlVIQ/VWc=;
-	b=sW5W091j3UDBScCJhLbxbxDHgvyZTgpww7h/o5pW0b30/ZhQTx9Y+zffkBSE+WffXB8Gkx
-	zuDCyTSUjzsoZHneWFQCxq7vPWfQhurt4o0jOZOJCUWPNr/3PXxhoIJyC33Ko7Pq7W441l
-	SvyhTRGKwqtdPSQFk7oAXgHt+rOW1rbUzLX2KBqLLEg3la88Q8bC/P7XY1849QkQuKvT+W
-	pPaOI8rio+VtlliHY+n+/lLdIr7MzhQz2Lpz2xyPOEZL7QDJBYVFCRacXbm/9wDquSARog
-	pGMgQ2vrc4Y+9eqTSZx8n4MGQf2CzMtV9B/rZ5NSRU3NZP2sh+7PKsjj9sv0fA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789471413;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P5YjS13qvbadUK35UlDy89MYgOvcwR+tWSGlVIQ/VWc=;
-	b=0K9y0T3soY9wKIec21PHBPzbPVB2NK6VeAw5DLPr7SUUE5RJEPHvwqfF+gHg6nL0HyGCF3
-	WBlCJOdcf3RrOECQ==
-Subject: Re: [PATCH net-next v2 4/4] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrew@lunn.ch,  olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org,  pabeni@redhat.com, horms@kernel.org,
- linux@armlinux.org.uk,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- martin.kaistra@linutronix.de, b.spranger@linutronix.de
-Date: Tue, 15 Sep 2026 13:23:32 +0200
-In-Reply-To: <178895594761.219967.4769482322073838475@kernel.org>
-References: 
-	<20260903-devel-vstrassheim-soce-dsa-ml-v2-4-fb0587cb466b@linutronix.de>
-	 <178895594761.219967.4769482322073838475@kernel.org>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JS/PmAip";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gIy0ezBH"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9h3CU3415738
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:24:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VaRSUKstZ4CTC8hksspLRm3sVDg2vrM+W5pHvrhsgG8=; b=JS/PmAipCPoTd4l5
+	f/hiOFs6C1Xpl7JJ2E6ptXsUYIT6dtrkX/SLHcDhGtjfXHvzKzNERXufA2EmmPjf
+	RQKzYq0za9rTZdU8Ysulio6EWP1+4Jkd1mNMg24rGPRaMNm6VQMPh5Jpgiv7CWLv
+	n5YghcylImfbP2qE5FKN7FfHJx+3zfs6XeJmEJBroqvdV+xw8J4yx5tMlI/MiezB
+	wQ0JoOnkY/76lICM+cW78iXZ9EW8iB+lBjqjLg8kD5DCfmddcIzLGgBfT4nVyWK+
+	2Xjk2j9qsQ6iwVnSvizrTmMV8+oGRJgeu5YDpImN+U9bo0PocjNt4ac7F+MUc/la
+	du79Ig==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq3hc0hmq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:24:37 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d6df0a1e18so85077565ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:24:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789471477; x=1790076277; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VaRSUKstZ4CTC8hksspLRm3sVDg2vrM+W5pHvrhsgG8=;
+        b=gIy0ezBHv4YgKi/A7WimCbu8BaeMb/udHHzkeEioUgIYkF+hrKN78ylr9tbknUUCz/
+         q7ythKLMMijg7RQxsxjqkciwl2flORnY9FIOWbsxiDlo3duHtD+tr7jOUCblwsy3Rwfp
+         nIOA9qvoClVvLDPm6ZaUcdMudEI1S0URugNzSdSWM8CyQZ2d4Rz7kNbE2C0CnGq63sAl
+         sIu2ZnCdOxS41ZspH60PwTeks5w4BOJqKCHUxxVsvBZeluZdNTrqtx1nd1rwn/UAm7Jd
+         mQ+9S40X0IhyOfIU1fgF3madwaQKATrdg6/d04L67mVZYACr3/qASx+cXNg5gsv6jRQg
+         b1LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789471477; x=1790076277;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VaRSUKstZ4CTC8hksspLRm3sVDg2vrM+W5pHvrhsgG8=;
+        b=NgZREMOsfLwNWvX1/pzXUm+74pZBDVE6LibkUqeTH1v8h3giWLIXHMWTjdOarqPWwG
+         yLpv6/QNKu3sSlxaaIQuJNl+QrSKggl0jegFH7+xTV1gVntEEzGNxpsfq0Ppq5XUPH4c
+         Z7Grpj8FjQOjhUU8aSq2I15qikFetoDXe/hEVgm6iIXaYu6CQ/XUSzAD+Eu8xmThtzVZ
+         pfbqjF4AX9FuqCUxs304zFIXiiNmQ9y4W/VCNrusmT5efZrubj/2I+KJH4wJs2sfZcLF
+         PtOiIvjNni0y/AkabgdGBgqT56e+bojA/bkZOn+728Lb5PsbpavSKYcLz8tMZgli6nyz
+         QTGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwaYVLrHaBnlgDGv3XvkmrUlgNJBQ92MW0aTq4FOZgXt7ohdOXhWlj3BCwEYKM8MnokLeDcK8TG/Ds+V8A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzpxVTHCjiXWzv2/Gte5LfxKmeZ8xY1NJ7jVmh4Y63M1TA4no9
+	IUKxftV91CnHSigDysYcR0FYPuTOqjNcv+KEOkl8GP9MXLr1aYuVStfhUAcMNSHwLl5EOwmZbCh
+	Lu0fweUfocmxV8fNTYkFGhF58s9K8+PP8z4p3Drek73S0v/Lv6Qq4gbUlmPBLv8BupdY=
+X-Gm-Gg: AYBFou3ppz0B0Asd/PiA8SnVXViPG+r+GOSHrZRbg7CoMSegv2Cj1uvLy8jooaQ9gxS
+	zELpqa2c9cV3ilaLDbdXYqtO21c+rZk5uSDNx8XfzFJ4Hby1AnuLLAWUr4EJUcwBmkC8hwhkg5W
+	VqduPVgEJWbASlrBKOpWElVHnxFkAP142UD+Cgx22gmw4e/lkEYd3IMoDhnaPWu2cTc5hWkh5FW
+	NMzdceHUPxY/Abv79jT2b2vZibNDAwiTcJyVlg+R7z/lmwPmRYIxLC22OgCpsq2aAV8u6HwdhOt
+	CfUUKLrwV3rv17iy/mVuA0gMspM1ZLaAJ769P/r+woJgToY3/g028bZ1slmhI8/5Ade3rNHQ6JI
+	u65E00GrA6M50beIsBcPP0OmvvXAOTw==
+X-Received: by 2002:a17:902:ce0a:b0:2d7:3f6e:5cb9 with SMTP id d9443c01a7336-2dd6c5ef145mr148322555ad.8.1789471476923;
+        Tue, 15 Sep 2026 04:24:36 -0700 (PDT)
+X-Received: by 2002:a17:902:ce0a:b0:2d7:3f6e:5cb9 with SMTP id d9443c01a7336-2dd6c5ef145mr148321945ad.8.1789471476469;
+        Tue, 15 Sep 2026 04:24:36 -0700 (PDT)
+Received: from [192.168.29.80] ([49.43.225.229])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f739b5sm33036473eec.25.2026.09.15.04.24.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 04:24:35 -0700 (PDT)
+Message-ID: <7a235d8b-871c-45c3-aa15-946abb6c9135@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 16:54:30 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] soc: qcom: qcom_stats: Add support for NSP subsystem
+ stats
+To: Navya Malempati <navya.malempati@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260908-nord_stats-v1-1-a55adb083d65@oss.qualcomm.com>
+Content-Language: en-US
+From: Maulik Shah <maulik.shah@oss.qualcomm.com>
+In-Reply-To: <20260908-nord_stats-v1-1-a55adb083d65@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: y9f17R7GVTl5VvsSD7ps7tAPFemquNOZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE2NSBTYWx0ZWRfX2gsrm9Yn9edh
+ +DxARzHQXHg4g5+Nulmfg2NI+qSxTid9X6eIsIwGvx8q4xG+jMOPvgcrCiNLsGEk+abAvZYqLvZ
+ z8ilDPehJ9ZHtStFOIjPgbnjGwRc8KQ=
+X-Authority-Analysis: v=2.4 cv=dcUVTnXe c=1 sm=1 tr=0 ts=6aa92af5 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=BTtvqVXTyf5R/HSe+eGPoA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=DCVHxXmDXcIwS6LAp3oA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE2NSBTYWx0ZWRfX001UtGmOPBnY
+ jyvkrShtXCEuydoqlZmRqpGvmESC+PH3E8396eJ4HhUy9TdqkEcz+39MecjjuXwIgGQw58HGBp/
+ z1EHJK/teWfoXiRoW2GM0+Sx/STcYKJVSZUv2N7UOoqmEzNpsZoJFmGJqzUm4/XjRBdrkgjMrRl
+ AXadahuRxltPLu2+/umJVrQlNZYNGykMBh7pEb28iOXGOMWULqm8554DrClLmj34VppF10SREF0
+ sp8w9yXqJ3YybhJerb1HXju2D1U3Kbku1t/44+17w1QkR+XrCP5ZNCAt5jg8nhe1u2hv4cK7fyo
+ BKftQPpxGaCJITZhBYr/gKXrCuElG46lSX6FPff6eeUatiH4dh0ovxx4XTg8tJJdWy5Z8eAJ81m
+ rCLvVaKs/NqLeXiUJL3cbDMAEsswu+bm1AlJqUO0pYghqa5AZqAl5YntPnQODQZcaxiZhfjqQ7/
+ B5p2z9KJtcFkg6JOmwg==
+X-Proofpoint-GUID: y9f17R7GVTl5VvsSD7ps7tAPFemquNOZ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0
+ suspectscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150165
 
-On Wed, 2026-09-09 at 12:12 +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider:
->=20
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 1
->=20
-> - [Medium] The MDIO master transaction sequence never verifies that the
->   shared controller is idle before programming PARAMS/WRITE and kicking=
-=E2=80=A6
-> - [Medium] soce_setup() arms the switch's "tag all frames" and "DSA
->   custom rules tagging" bits, but the driver provides no .teardown=E2=80=
-=A6
-> - [Low] The compatible string and its binding description declare a
->   register layout with "the core version register at offset 0x00 and=E2=
-=80=A6
->=20
-> --
->=20
-> [ ... ]
->=20
-> > +struct soce_probe_desc {
-> > +	u32 core_version_offset;
-> > +	u32 licensed_features_offset;
-> > +	u32 implemented_features0_offset;
-> > +	u32 mdio_master_offset;
-> > +};
-> > +
-> > +static const struct soce_probe_desc soce_probe_desc_swip_00_04_0c_10 =
-=3D {
-> > +	.core_version_offset		=3D 0x0000,
-> > +	.licensed_features_offset	=3D 0x0004,
-> > +	.implemented_features0_offset	=3D 0x000c,
-> > +	.mdio_master_offset		=3D 0x0200,
-> > +};
->=20
-> [Severity: Low]
-> The compatible name soce,swip-00-04-0c-10 and the binding text describe a
-> register layout with "the core version register at offset 0x00 and featur=
-e
-> identification registers at offsets 0x04, 0x0c, and 0x10", but this
-> descriptor only models 0x00, 0x04 and 0x0c.
->=20
-> Is the 0x10 register meant to be read somewhere?  soce_sw_detect_features=
-()
-> reads only licensed_features_offset and implemented_features0_offset:
->=20
-> 	regval =3D readl(local->base_addr + probe_desc->licensed_features_offset=
-);
-> 	...
-> 	regval =3D readl(local->base_addr +
-> 		       probe_desc->implemented_features0_offset);
->=20
-> The "features0" suffix also suggests a features1 register at 0x10 that is
-> currently ignored.
->=20
-> Going the other way, mdio_master_offset =3D 0x0200 is a register block th=
-e
-> driver depends on for every MDIO transaction, but the binding does not
-> mention it at all.  Should the binding describe that block too, or should
-> the offset list in the compatible description match what the driver
-> actually models?
 
-I will remove this abstraction since only one switch register layout is
-currently supported. The MDIO master offset will be removed as well,
-because the MDIO controller will be represented by separate child
-devices with their own compatibles.
 
-The offsets encoded in soce,swip-00-04-0c-10 describe the complete
-switch identification register layout. The current minimal DSA driver
-only reads the registers and feature fields it needs, so it does not
-access the implemented-features register at 0x10 yet. I would prefer to
-retain this information for future compatible driver extensions that
-may need that register.
+On 08-09-2026 13:43, Navya Malempati wrote:
+> Add SMEM items for four NSP subsystems stats which are present in Nord
+> SoC. Rename CDSP stats as CDSP_NSP as both use same PID and SMEM item
+> id. Add new entries for NSP1/2/3.
 
->=20
-> [ ... ]
->=20
-> > +static void soce_sw_enable_tagging(struct soce_dsa_local *local)
-> > +{
-> > +	u32 regval;
-> > +
-> > +	regval =3D readl(local->base_addr + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-> > +	regval |=3D SOCE_TAG_ALL_FRAMES_ENABLE;
-> > +	writel(regval, local->base_addr + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-> > +
-> > +	regval =3D readl(local->base_addr + SOCE_CUSTOM_RULES_TAGGING_OFFSET)=
-;
-> > +	regval |=3D SOCE_CUSTOM_RULES_TAGGING_ENABLE;
-> > +	writel(regval, local->base_addr + SOCE_CUSTOM_RULES_TAGGING_OFFSET);
-> > +}
-> > +
-> > +static int soce_setup(struct dsa_switch *ds)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +
-> > +	soce_sw_enable_tagging(&priv->local);
-> > +
-> > +	return 0;
-> > +}
->=20
-> [ ... ]
->=20
-> > +static const struct dsa_switch_ops soce_switch_ops =3D {
-> > +	.get_tag_protocol	=3D soce_get_tag_protocol,
-> > +	.setup			=3D soce_setup,
-> > +	.phylink_get_caps	=3D soce_phylink_get_caps,
-> > +};
->=20
-> [Severity: Medium]
-> Should there be a .teardown counterpart that clears what soce_setup()
-> armed?
->=20
-> soce_sw_enable_tagging() sets SOCE_TAG_ALL_FRAMES_ENABLE and
-> SOCE_CUSTOM_RULES_TAGGING_ENABLE, and nothing in the driver ever clears
-> them again.  There is no .teardown in soce_switch_ops, and the platform
-> callbacks only unregister:
->=20
-> soce_sw_remove()
-> 	dsa_unregister_switch(priv->ds);
->=20
-> soce_sw_shutdown()
-> 	dsa_switch_shutdown(priv->ds);
->=20
-> After an unbind or rmmod, does the core keep inserting SDSA source-port
-> tags into every frame delivered to the CPU port, with the tagger that
-> would strip them gone?  As described in the commit message, the same bits
-> also keep the user ports in CPU-directed operation:
->=20
->     "Enabling this tagging feature of the switch, places all user ports
->     into CPU-directed operation"
->=20
-> so the switch would also stay locked out of normal port-to-port
-> forwarding after the driver is removed.
+Reviewed-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
 
-Yes, I had not considered this use case. The tagging state currently
-remains enabled after unbind or shutdown. In v3, I will add a .teardown
-callback that clears both SOCE_TAG_ALL_FRAMES_ENABLE and
-SOCE_CUSTOM_RULES_TAGGING_ENABLE, returning the switch to an unmanaged
-state.
+Thanks,
+Maulik
 
->=20
-> > +static void soce_sw_remove(struct platform_device *pdev)
-> > +{
-> > +	struct soce_priv *priv =3D platform_get_drvdata(pdev);
-> > +
-> > +	if (!priv)
-> > +		return;
-> > +
-> > +	dsa_unregister_switch(priv->ds);
-> > +	platform_set_drvdata(pdev, NULL);
-> > +}
->=20
-> [ ... ]
->=20
-> > diff --git a/drivers/net/dsa/soce/soce_mdio.c b/drivers/net/dsa/soce/so=
-ce_mdio.c
-> > new file mode 100644
-> > index 0000000000000..692dcbe57d1a6
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/soce/soce_mdio.c
->=20
-> [ ... ]
->=20
-> > +static int soce_mdio_read(struct mii_bus *bus, int addr, int reg)
-> > +{
->=20
-> [ ... ]
->=20
-> > +	mutex_lock(&local->mdio_lock);
-> > +	ret =3D local->mdio_ops->phy_read(state->ds, state->mdio_output, addr=
-,
-> > +					reg);
-> > +	mutex_unlock(&local->mdio_lock);
-> > +
-> > +	return ret;
-> > +}
->=20
-> [ ... ]
->=20
-> > +static int soce_mdio_23_02_wait_for_idle(struct dsa_switch *ds)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +	struct soce_dsa_local *local;
-> > +	void __iomem *ctrl;
-> > +	u32 val;
-> > +
-> > +	local =3D &priv->local;
-> > +	ctrl =3D local->mdio_master_addr + SOCE_MDIO_CTRL_OFFSET;
-> > +
-> > +	return readl_poll_timeout(ctrl, val,
-> > +		!(val & (0x1 << SOCE_MDIO_23_02_CTRL_OPSTATUS_OFFSET)), 10,
-> > +		SOCE_MDIO_TIMEOUT * 1000);
-> > +}
->=20
-> [Severity: Medium]
-> What happens to the hardware state when this poll times out?
->=20
-> On -ETIMEDOUT the OPSTATUS bit is still set, meaning the operation is
-> still in flight, and the callers just propagate the error without abortin=
-g
-> or resetting the master:
->=20
-> 	ret =3D soce_mdio_23_02_wait_for_idle(ds);
-> 	if (ret)
-> 		return ret;
->=20
-> The bus wrappers soce_mdio_read(), soce_mdio_write(), soce_mdio_read_c45(=
-)
-> and soce_mdio_write_c45() then drop mdio_lock unconditionally, so the
-> software lock protecting the shared master is released while the hardware
-> is still busy.
->=20
-> None of the transaction helpers check for idle before programming the
-> registers either.  In soce_mdio_23_02_read_c22():
->=20
-> 	regvalue =3D (regnum << SOCE_MDIO_23_02_CTRL_REGADDRDEVTYPE_OFFSET) +
-> 		   (phy_addr << SOCE_MDIO_23_02_CTRL_PHYADDR_OFFSET);
-> 	writel(regvalue, params);
->=20
-> 	regvalue =3D ((mdio_output << SOCE_MDIO_23_02_CTRL_BUS_OFFSET) + ...
->=20
-> Can the next transaction, possibly issued through a different logical bus
-> sharing the same master, reprogram PARAMS/WRITE and kick CTRL underneath
-> a still-running operation?
->=20
-
-Good point. The current implementation releases the software lock after
-a timeout, allowing a subsequent transaction to overwrite the parameter
-registers while the controller may still be busy.
-
-The hardware documentation exposes no abort or reset mechanism. In v3, I
-will therefore check that the controller is idle before programming any
-transaction register. If OPSTATUS remains set, subsequent accesses will
-time out without modifying the controller state or starting another
-transaction.
-
-> > +int soce_mdio_23_02_read_c45(struct dsa_switch *ds, int mdio_output,
-> > +			     int phy_addr, int devad, int regnum)
-> > +{
->=20
-> [ ... ]
->=20
-> > +	regvalue =3D (devad << SOCE_MDIO_23_02_CTRL_REGADDRDEVTYPE_OFFSET) +
-> > +		   (phy_addr << SOCE_MDIO_23_02_CTRL_PHYADDR_OFFSET);
-> > +	writel(regvalue, params);
-> > +
-> > +	writel(regnum, write_reg);
-> > +
-> > +	/* address cycle */
-> > +	regvalue =3D ((mdio_output << SOCE_MDIO_23_02_CTRL_BUS_OFFSET) +
-> > +		    (0x0 << SOCE_MDIO_23_02_CTRL_TRANSTYPE_OFFSET) +
-> > +		    (0x1 << SOCE_MDIO_23_02_CTRL_CLAUSE_OFFSET) +
-> > +		    (0x1 << SOCE_MDIO_23_02_CTRL_OPSTATUS_OFFSET));
-> > +	writel(regvalue, ctrl);
-> > +
-> > +	ret =3D soce_mdio_23_02_wait_for_idle(ds);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* read cycle */
->=20
-> [Severity: Medium]
-> For Clause 45 the address cycle and the data cycle are separate hardware
-> operations.  If the address cycle times out here and is never aborted, ca=
-n
-> a later data cycle land on a stale address, and can the following
->=20
-> 	return readl(read_reg) & 0xffff;
->=20
-> hand the previous transaction's result back to phylib as a valid register
-> value?
->=20
-> Would it make sense to poll for idle before programming PARAMS/WRITE, and
-> to clear or reset the master on the timeout path before releasing
-> mdio_lock?  The same applies to soce_mdio_23_02_write_c22() and
-> soce_mdio_23_02_write_c45(), where a corrupted transaction would write to
-> an unintended PHY register.
->=20
-
-Yes, this will be addressed in v3. All transaction paths will poll for
-idle before modifying PARAMS or WRITE. A failed Clause 45 address cycle
-will return immediately, without starting the data cycle or returning
-stale read data. Subsequent accesses will leave the controller untouched
-while OPSTATUS remains set. The hardware documentation does not describe
-an abort or reset mechanism, so recovery is not available.
-
-> [ ... ]
->=20
+>
+> Signed-off-by: Navya Malempati <navya.malempati@oss.qualcomm.com>
+> ---
+>  drivers/soc/qcom/qcom_stats.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/soc/qcom/qcom_stats.c b/drivers/soc/qcom/qcom_stats.c
+> index 06923408bfce..91f2d1293124 100644
+> --- a/drivers/soc/qcom/qcom_stats.c
+> +++ b/drivers/soc/qcom/qcom_stats.c
+> @@ -43,8 +43,11 @@ static const struct subsystem_data subsystems[] = {
+>  	{ "modem", 605, 1 },
+>  	{ "wpss", 605, 13 },
+>  	{ "adsp", 606, 2 },
+> -	{ "cdsp", 607, 5 },
+> +	{ "cdsp_nsp", 607, 5 },
+>  	{ "cdsp1", 607, 12 },
+> +	{ "cdsp_nsp_1", 607, 69 },
+> +	{ "cdsp_nsp_2", 607, 133 },
+> +	{ "cdsp_nsp_3", 607, 197 },
+>  	{ "gpdsp0", 607, 17 },
+>  	{ "gpdsp1", 607, 18 },
+>  	{ "soccp", 607, 19 },
+>
+> ---
+> base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
+> change-id: 20260907-nord_stats-ea163d025d43
+>
+> Best regards,
+> --  
+> Navya Malempati <navya.malempati@oss.qualcomm.com>
 
