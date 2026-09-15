@@ -1,203 +1,216 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010025.outbound.protection.outlook.com [52.101.46.25])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE2737DE85
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789505760; cv=fail; b=Lpo3q0BtqZolf+kGzRFP1Gubr+5lX2kfeF79M7vK+qBtY0KA4a3QFhL1BURbMnMNiSZkBK02onNR7IG0Iq4baNW0M4gzAr2EA4htsd/UVbtqJHyt3vn7+OEVYokteED/mAa1hbDa/QEDKdhfr/QjQEMfvFWTKXxdVodjWt33WC0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789505760; c=relaxed/simple;
-	bh=Doaky4pCWUhOzFg+q4qPoVaiQvmVAFimVXglzyPyPlo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=uM9fE7dbKp6Mt/Z3r+3Q2efth2jn32oOkJ9I0ksXC5WFqBbuqZV4/sAJrwnMEU3lVnTPYZUFxoPQ3/S132jdfibs2UsYusJ+mCHp4F4iCOV6izVzhuLUQBaaGvNWsuv7g148T/r6LhqT6eC/HpEkqU2J0gut7N2XcwsbWOvYZEQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GS+OLFOh; arc=fail smtp.client-ip=52.101.46.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7A9455184;
+	Tue, 15 Sep 2026 20:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789505790; cv=none; b=FCGGwrE3u8R90Du5XyoPOwfhUSyJ016cUIlc4HyssDdxKU5MqdPxH7/1hEH9RwlGhQORRzOLnXpRFs24uCiFXj35koeQ3zqr00L50CyDLSK071fwxBdRxryzquZqJ67OW2NNIuWzptVU4fKvhL9m9k+x+jNqDEJBjhjsvUi7wCI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789505790; c=relaxed/simple;
+	bh=YmSm6uUiRGSBUorMyzVSyj4LFelQ+7u9nHh6pb/5p1E=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=sD+JIBh2y3dlfwPxAF/HDzy82SDoevaqjfzxdIzl+9yjXNA3Jn7KjHh9VzehC6glzGB6qPgUApxz1omV9mKT0O5TqxIL9QONKpK5bbnBiyNOc6vEgEFcaIrTqvBidHdVoTSoTDC1gszDdBOG6XXpu4TJW4y/Aux2bzwpOUjiyuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dKxsZo8U; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GS+OLFOh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hcAg/etAOn/zulK5xPuWIapZdTzB7Il4jRY+DP4t6VfI6CSMk/cotmXI3iwOIqJTE0NTMoQljQaXKZtCIV8VWX0xVhGgKol3D3c/Cof+IPq8Vyk85PXFafokWRhGIWW7FwRZdSbc63vmg2MqO5jKRVzrp7kt9FDmY1n3LobGMahCGzTiNX7XaRx0cp68kv9AYGVVJ22gO9rF5qYWOxydhOHgjAKHxiNNa9uUIbE9laUWb0vfPwoSQu6Smi8pHVbUSChY9tFq7l6zodV13Ap+UGy40hA0y8gXquFWI+6WrHYy+vY5ttqhsoyp8I/Vx4GrtiX9ab4snYFsrE6uzoDixA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qY8GMpjb0WhaZciQoC5eF0WTYeohQcz3VEihl68xWfo=;
- b=GeghCC42EPwWxpgFKZqUTtB7AFGRCUZEwDSIyVd96Hzw7tmzhWYLW9KNJf7IQhFQdaqlddpSS9TYSh1eM6L+iz5ZgDXNQLFlndNjcOKUhERSWJijM/A3O7Uoq0IYmoNCyz1IW8Pa7I+6Zsqi9xvcV/i6cI6P6e2kYw1mOlaXxc4jpcbRv1XDz/Nq4jpkuYjNdP8hHas1RJZh1H6gcYGvxalC4+444ZUPQQj2JxAmFVke/vN7pOq0OO+iktBjBC2LbJTNZjA7w+zGYmMBXSfjkYTTE0l1q21YCUtaPGFPAPBqbzGaLC/DkyVzSPAAOb6j+RSNK4dn49R3UfMjx5etqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qY8GMpjb0WhaZciQoC5eF0WTYeohQcz3VEihl68xWfo=;
- b=GS+OLFOh5BPEKoMULCEL3rlWM/bWyevhFhn5bYaFNCNMMC0ZE8KrmxBAxCBBPPbsr10N8iRj2Pxp013X0b6xKTV6mPblaSm6OF6CS4z9OlVTficNVId+RJ3su1n7hO3Pnb2N97IX428Z054yHfzhupBoTIVmj4GqNt7aYbUufh+0tBwyflMgnyVJr1E3/5G8BbgfBgKW7XPWzJBD/TNJ2Bjr+lN9Fp4QhVdLgcHix1MAqq0xVJJ18TGkC0A8UGM7K4cTUNgENCGKTg7SuZDK+UwaN2o6uJIRFJFHcfHWetOpUkydjUvIQY4dgdaFGDwh/lampWuQ8unKMnVqKOJkCw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by LV0PR12MB507217.namprd12.prod.outlook.com (2603:10b6:408:3b7::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 20:55:54 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 20:55:54 +0000
-Date: Tue, 15 Sep 2026 22:55:44 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 08/18] sched: Introduce WF_ON_RQ wake flag
-Message-ID: <aqmw0OT5cCtge-QI@gpd4>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-9-arighi@nvidia.com>
- <20260910104528.GI4120091@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910104528.GI4120091@noisy.programming.kicks-ass.net>
-X-ClientProxiedBy: MI1PEPF000008C2.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::43c) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dKxsZo8U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789505788; x=1821041788;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=YmSm6uUiRGSBUorMyzVSyj4LFelQ+7u9nHh6pb/5p1E=;
+  b=dKxsZo8UHIcADPUipVBaQkhmIBbm3Yz6SCd2ECO9h+DruyZmA/pVRd1H
+   /E0gt9KHHWLgVlbv6/Ac50SPyf/PpMMaxv7sYiHZA2jcXDjS5t59EuAkd
+   r9qQAaeO+4Ia0c2YsDK5JsevrdpEjYo0tqaEWwloZVEeIO2QNQVBvM7hf
+   nydb7HjxR4b8d35aVQWRfwOm0OlyWbfgaMDrCx72jRB1jRMAW6o1PBf8y
+   VkgUYr6ucNCcn9HtCyPXixqfCeRi9i7T/JVcGSBwBoHpAg0XTVI8fAYFS
+   jWxfwS//z99fqt4QSOmZa0ojFg4fkpCUAysrF7mms9UUM9EdD4oZV2/3h
+   w==;
+X-CSE-ConnectionGUID: /P7h0ScXTricWDYYzhK2uw==
+X-CSE-MsgGUID: sQfwahz6T6aDRq+AMs/sAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90017815"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90017815"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:56:26 -0700
+X-CSE-ConnectionGUID: EZoOcekBSZ2koO8wh6qEPg==
+X-CSE-MsgGUID: NZUC+kvPTuGuzETeXuRoNA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="270499703"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:56:23 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 15 Sep 2026 23:56:21 +0300 (EEST)
+To: Denis Benato <denis.benato@linux.dev>
+cc: busybox11 <busybox11th@gmail.com>, 
+    Corentin Chary <corentin.chary@gmail.com>, 
+    "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] platform/x86: asus-armoury: add dGPU disable fallback
+ DEVID for ProArt H7606 series
+In-Reply-To: <b647e0a5-4122-4772-b317-d2d7a8cb4d31@linux.dev>
+Message-ID: <c2d620e4-25ba-c31b-0143-4a53ff3edd8b@linux.intel.com>
+References: <20260810-asus_armoury_dgpu_new_devid-v1-1-0a5c845414e4@gmail.com> <40f1840a-e3e4-29d3-66b5-a13737224f99@linux.intel.com> <b647e0a5-4122-4772-b317-d2d7a8cb4d31@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|LV0PR12MB507217:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0524b34b-6932-4262-36c1-08df136bbbab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|23010399003|366016|56012099006|4143699003|11063799006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	BsFO5Y+XFcUwNeSIYqxW1IJy7f7asC+hxgp81ECE6tPeVnLm9EunDiM9m+rPQi29wCwlne35ycP9Or6MO5dGdeGdmuave0y9XRw7QDYGlxisZQILS+efBHSYT7vJ8J3g51ih1jy4VygQ4o4FIuMBQxbIHjL97fRCK9HSKBcmOew3jM/9KLzypbLQ8bgL6Rc995INp35UswraPtbqNYm6Qbp5yXJgnzrDXr8rI/4Uw87zl11TuiABZHl6mQsM3U3bOBsOaHkMcIzXJyfNgoKiDsDhKN5ZgrLrmDU/diPd9CAy4gZB9dkJEFVxX8REkpNp7yEDhy3UIWoUNcVHm0IlGK8FbNMKCd0ar0FxaWHkeb39wWGPVYt5HPLJwkKBVbkdWbjG2dmtOeSJW0817R+IlAA44Ey6gDTemLHIagB/JsaO+98zmVM0DwRtr/YHUR2uTE6X3B1RcgYHMLbzNHoZHtidiIdu0alhL2B8OitaA+tsvXarsDmFtJ6Z2iPQtoYMJ+soaCFnYrjD7B+V3LzXPqB2l81oUNzjwO8fcFvOpswi4ijSU55Gmsc6QYA+ilSBpCz872ZrZUqYMxStVFJFUPncehi8s7EbCWKtcIRl6rDXurE1UXaAia9/9jlW/Zx4BmjAXE+Z74K1IHKMDIkjuqzaUBMEE/lz3qMRQD3O4CQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(23010399003)(366016)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GTqQPebiLDYFkBw0SJzz1WDEjeitm8OBjVtbCPfmPzr9Gihpok17Z6y0BaIP?=
- =?us-ascii?Q?ZZ3LUdIkGUZTy8P62OAhQHZZTNFzSeIe6UGPv9PDDEa3/qEw2XppuOReoD1D?=
- =?us-ascii?Q?THL4gA9LI0zkb7TM7yD2T3tFMGmd71Om8Hkm5WJjWK72a2cpuyzV7qy8Q4Wt?=
- =?us-ascii?Q?aQmv+n+KwltwwUypJuwqa5IggTwlsgGry+Vv+JFBBj9jyNgYD/YkHVZiZc0Y?=
- =?us-ascii?Q?Rx3z0o+v88iCzVknKzhnfrbgedYo62kFLKRitYN/TjNMdqVH7+01qvuvHNEH?=
- =?us-ascii?Q?RjA3xANn6GCu2puykMGQDSXKhHBPqn4vI93YJH43glgvlYtpaXiGhSlKTwbb?=
- =?us-ascii?Q?aWUWX5l+BbnMYX7VvUOA6euvIGXAYq1mMNqSKgtcnoiCBDfppJQkRduArejY?=
- =?us-ascii?Q?WCSlMdw+FdZqsJGxadUYldd051MGXZgTbXIaFRattn9q+K1O8GxsPU4JkTr4?=
- =?us-ascii?Q?VMKvL0kEQdWfVcF701mAlOckg0H87YGz4hN/9ItUPlk7p1CnlrYx0eutJyjf?=
- =?us-ascii?Q?p66Wxl/yf2hl2liVBbHEe0X+ldu7tLtc5SVGTUp3znsIDSFvKOHgQ8zTWIVQ?=
- =?us-ascii?Q?dKan50JGxYWltpKJu+4riWpBqE0UeOC287/7U5igdd9aIxs3ZrvwUgIqKLGI?=
- =?us-ascii?Q?a+dDulK3rZT+1sBcL+QgGlALTqwOAMIKmiKoqr3hnDwCgaWQ165hcHlezrHB?=
- =?us-ascii?Q?RSI5aEwAU5LmDXwHGADgUgDDYJ7P0zr5esoaxhiAFDIs1OX5CYxAkdkHXOur?=
- =?us-ascii?Q?D0SZThDJNarIRD48uJ3qE+H3kBRvZ2Qn9VL2ZJR7HIIxQ3GPEu1Yen8ieLSj?=
- =?us-ascii?Q?P/vvowMqpD9r/VypYZId3dnK+4u+7BOIERq9aN1NDDk6e+rGurVnjeVXHBnW?=
- =?us-ascii?Q?2DijMYoBdNX4L5A/T69SxJKEUxNZqd01ya9dKy3OdUxtGytes2NTgn9mKBhj?=
- =?us-ascii?Q?PMPv3LsLj06cecI6QByhPzhC41FemUfXW5uupMN8VUr0Fkwua0grYkOz2QVe?=
- =?us-ascii?Q?9k+ah3N0deJG1AgeXI437LvnxYyQLQKLjecOrcRItUly4dzc9FecENp0L69L?=
- =?us-ascii?Q?tygGNE8mgTSiCDHCUava+1gDNvZRc3XjqiW7Ztn7FOYApVhkYVaiYxqSxJ/Q?=
- =?us-ascii?Q?7UbQJBsRR4Ebp6LA/no0VgK88R5e4fs4WF7zRDR9V110WFuu1++ayhnvxZrT?=
- =?us-ascii?Q?hFALIYN4Rs89DwBD39qVbH86rT+qKRjuF4k3mERkzqXpDCW/Ayc5NUtpVAYg?=
- =?us-ascii?Q?KFBKCvEA+VVvBB6eLxLJIGvP66z/wxtGdnepaH++ALpgZf0qgAbYa5dHioaa?=
- =?us-ascii?Q?3Ks1Q2VGOHLZEbBQRYUHRZ54Zu1F7Zz8NR0sHCTKcMFKEYUKX1iej/ovDDtM?=
- =?us-ascii?Q?pOByHC9pIiEiBkF2a6JwCKKRbHwa9wGU3xLQTQFWV6Hku+n+9a9U+uarG8QN?=
- =?us-ascii?Q?3f9UicZYivRxhz09HyyJCLvcMKP8nNKBp0QZwX1j7T/PC9XOWZQzqDbUKKHU?=
- =?us-ascii?Q?ylvnABV8mHUc7L64xwShN8pRT/+yaJhT+W1vxe+AjTeimvmSlEpU5Q7eTtoJ?=
- =?us-ascii?Q?vss8fQ6p9AS//qPYGu7DOVm3Ya8zMMLmrBung9O5+wuYjKWXbpKIUWWTEaow?=
- =?us-ascii?Q?6xQOvVFbAHo/Ebx2SCEFDKzDfF+V/dF2f2/8H9uJEw+l6YAzVmscGNrg75up?=
- =?us-ascii?Q?tCO19V7Yu4eS0tFIMPWnBIcQLpwH/EVxVOUD69Ig2so2hEKDqE/I7Yms/fjk?=
- =?us-ascii?Q?/CNi9+7loA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0524b34b-6932-4262-36c1-08df136bbbab
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 20:55:54.2888
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AHjC9gaGxMPKo6vm6hNzEB3PvnSdPnDwI3LDQ6FzZbtgH0PLwlr60McIOIMpG9VTZHdiw++4Y4xr5HVWR+OM8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB507217
+Content-Type: multipart/mixed; boundary="8323328-138060363-1789505781=:27301"
 
-On Thu, Sep 10, 2026 at 12:45:28PM +0200, Peter Zijlstra wrote:
-> On Mon, Aug 31, 2026 at 03:42:18PM +0200, Andrea Righi wrote:
-> > ttwu_runnable() handles wakeups for tasks which are already on the
-> > runqueue, but scheduling classes cannot distinguish that path from a
-> > full wakeup activation in wakeup_preempt().
-> > 
-> > Pass WF_ON_RQ to wakeup_preempt() from ttwu_runnable() so scheduling
-> > classes can handle already-runnable wakeups separately.
-> > 
-> > This is a preparatory change to support proxy execution with sched_ext.
-> > No functional change.
-> > 
-> > Signed-off-by: Andrea Righi <arighi@nvidia.com>
-> > ---
-> >  kernel/sched/core.c  | 2 +-
-> >  kernel/sched/sched.h | 1 +
-> >  2 files changed, 2 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> > index d578dd635f2eb..f142ab455b797 100644
-> > --- a/kernel/sched/core.c
-> > +++ b/kernel/sched/core.c
-> > @@ -3908,7 +3908,7 @@ static int ttwu_runnable(struct task_struct *p, int wake_flags)
-> >  		 * When on_rq && !on_cpu the task is preempted, see if
-> >  		 * it should preempt the task that is current now.
-> >  		 */
-> > -		wakeup_preempt(rq, p, wake_flags);
-> > +		wakeup_preempt(rq, p, wake_flags | WF_ON_RQ);
-> >  	}
-> >  	ttwu_do_wakeup(p);
-> >  	return 1;
-> > diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> > index 56ac104f1f825..f30d122909e7b 100644
-> > --- a/kernel/sched/sched.h
-> > +++ b/kernel/sched/sched.h
-> > @@ -2538,6 +2538,7 @@ static inline int task_on_rq_migrating(struct task_struct *p)
-> >  #define WF_MIGRATED		0x20 /* Internal use, task got migrated */
-> >  #define WF_CURRENT_CPU		0x40 /* Prefer to move the wakee to the current CPU. */
-> >  #define WF_RQ_SELECTED		0x80 /* ->select_task_rq() was called */
-> > +#define WF_ON_RQ		0x100 /* Wakeup of an already runnable task */
-> 
-> I are confused again... help?
-> 
-> wakeup_preempt() can only ever be called for tasks that are on the
-> runqueue. That is more or less the point of wakeup-preemption.
-> 
-> Even the already-runnable distinction would mean things like
-> move_queued_task() should also have this. The task is new to this
-> runqueue, but was definitely already runnable before.
-> 
-> What actual distinction are you needing?
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Hm... yeah, WF_ON_RQ describes the wrong distinction.
+--8323328-138060363-1789505781=:27301
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-What sched_ext actually needs to know is: did this wakeup use ttwu_runnable(),
-changing the task back to TASK_RUNNING without calling activate_task() /
-enqueue_task()?
+On Tue, 15 Sep 2026, Denis Benato wrote:
 
-We need the distinction because a retained proxy donor remains on the runqueue
-while blocked. When it wakes, ttwu_runnable() can clear its blocked state
-without calling enqueue_task_scx() again.
+>=20
+> On 9/15/26 22:38, Ilpo J=C3=A4rvinen wrote:
+> > On Mon, 10 Aug 2026, busybox11 via B4 Relay wrote:
+> >
+> >> From: busybox11 <busybox11th@gmail.com>
+> >>
+> >> Newer ASUS ProArt laptops (e.g. H7606 series) implement dGPU power
+> >> control on WMI DEVID 0x00090120 instead of the usual 0x00090020.
+> >> The default DEVID returns 0xFFFFFFFE on these models, so the
+> >> dgpu_disable firmware attribute is never created and the dGPU cannot
+> >> be re-enabled from Linux at all.
+> >>
+> >> Add a fallback probe for device ID 0x00090120 following the same
+> >> approach as the gpu_mux_dev_id probe.
+> >>
+> >> Details for 0x00090120 (confirmed on H7606W using direct WMNB calls
+> >> and inspecting the DSDT DEVS handler):
+> >>   - Reading DSTS returns 0x00010001 when the dGPU is off (CUMA=3D1),
+> >> =09or 0x00010000 when it's on.
+> >>   - Writing DEVS: 0 enables the dGPU (calls PG00._ON() + Notifies
+> >> =09PEGP, Device Check), and 1 disables or ejects it.
+> >>
+> >> This behavior matches the dgpu_disable attribute (1 =3D disabled).
+> >>
+> >> Signed-off-by: busybox11 <busybox11th@gmail.com>
+> > Unfortunately, we cannot accept anonymous or pseudonym signed=20
+> > contributions so please sign off with your real name. For more=20
+> > information about signing of patches, please see:
+> >
+> > Documentation/process/submitting-patches.rst
+> >
+> >> ---
+> >>  drivers/platform/x86/asus-armoury.c        | 32 +++++++++++++++++++++=
+++++-----
+> >>  include/linux/platform_data/x86/asus-wmi.h |  3 +++
+> >>  2 files changed, 30 insertions(+), 5 deletions(-)
+> >>
+> >> diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x8=
+6/asus-armoury.c
+> >> index 495dc1e31..f39b52451 100644
+> >> --- a/drivers/platform/x86/asus-armoury.c
+> >> +++ b/drivers/platform/x86/asus-armoury.c
+> >> @@ -93,6 +93,7 @@ struct asus_armoury_priv {
+> >> =20
+> >>  =09u32 mini_led_dev_id;
+> >>  =09u32 gpu_mux_dev_id;
+> >> +=09u32 dgpu_disable_dev_id;
+> >>  };
+> >> =20
+> >>  static struct asus_armoury_priv asus_armoury =3D {
+> >> @@ -452,8 +453,8 @@ static ssize_t gpu_mux_mode_current_value_store(st=
+ruct kobject *kobj,
+> >>  =09if (err)
+> >>  =09=09return err;
+> >> =20
+> >> -=09if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU)) {
+> >> -=09=09err =3D armoury_get_devstate(NULL, &result, ASUS_WMI_DEVID_DGPU=
+);
+> >> +=09if (asus_armoury.dgpu_disable_dev_id) {
+> >> +=09=09err =3D armoury_get_devstate(NULL, &result, asus_armoury.dgpu_d=
+isable_dev_id);
+> >>  =09=09if (err)
+> >>  =09=09=09return err;
+> >>  =09=09if (result && !optimus) {
+> >> @@ -507,7 +508,8 @@ static ssize_t dgpu_disable_current_value_store(st=
+ruct kobject *kobj,
+> >>  =09}
+> >> =20
+> >>  =09scoped_guard(mutex, &asus_armoury.egpu_mutex) {
+> >> -=09=09err =3D armoury_set_devstate(attr, disable ? 1 : 0, NULL, ASUS_=
+WMI_DEVID_DGPU);
+> >> +=09=09err =3D armoury_set_devstate(attr, disable ? 1 : 0, NULL,
+> >> +=09=09=09=09=09   asus_armoury.dgpu_disable_dev_id);
+> >>  =09=09if (err)
+> >>  =09=09=09return err;
+> >>  =09}
+> >> @@ -516,7 +518,7 @@ static ssize_t dgpu_disable_current_value_store(st=
+ruct kobject *kobj,
+> >> =20
+> >>  =09return count;
+> >>  }
+> >> -ASUS_WMI_SHOW_INT(dgpu_disable_current_value, ASUS_WMI_DEVID_DGPU);
+> >> +ASUS_WMI_SHOW_INT(dgpu_disable_current_value, asus_armoury.dgpu_disab=
+le_dev_id);
+> >>  ASUS_ATTR_GROUP_BOOL(dgpu_disable, "dgpu_disable", "Disable the dGPU"=
+);
+> >> =20
+> >>  /* Values map for eGPU activation requests. */
+> >> @@ -790,7 +792,6 @@ ASUS_ATTR_GROUP_INT_VALUE_ONLY_RO(nv_base_tgp, ATT=
+R_NV_BASE_TGP, ASUS_WMI_DEVID_
+> >>  static const struct asus_attr_group armoury_attr_groups[] =3D {
+> >>  =09{ &egpu_connected_attr_group, ASUS_WMI_DEVID_EGPU_CONNECTED },
+> >>  =09{ &egpu_enable_attr_group, ASUS_WMI_DEVID_EGPU },
+> >> -=09{ &dgpu_disable_attr_group, ASUS_WMI_DEVID_DGPU },
+> >>  =09{ &apu_mem_attr_group, ASUS_WMI_DEVID_APU_MEM },
+> >> =20
+> >>  =09{ &ppt_pl1_spl_attr_group, ASUS_WMI_DEVID_PPT_PL1_SPL },
+> >> @@ -934,6 +935,21 @@ static int asus_fw_attr_add(void)
+> >>  =09=09}
+> >>  =09}
+> >> =20
+> >> +=09asus_armoury.dgpu_disable_dev_id =3D 0;
+> >> +=09if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU))
+> >> +=09=09asus_armoury.dgpu_disable_dev_id =3D ASUS_WMI_DEVID_DGPU;
+> >> +=09else if (armoury_has_devstate(ASUS_WMI_DEVID_GPU_MODE))
+> >> +=09=09asus_armoury.dgpu_disable_dev_id =3D ASUS_WMI_DEVID_GPU_MODE;
+> >> +
+> >> +=09if (asus_armoury.dgpu_disable_dev_id) {
+> > Now I started to wonder why are we doing it like this and not using=20
+> > .is_visible?
+> >
+> > This question applies to the similar, existing cases as well.
+> >
+> > Denis?
+> >
+> >
+> I don't understand the question. There are a bunch of .is_visible in the =
+kernel and
+> I'm not sure if I am looking the right one and therefore if I understood =
+the question correctly.
+>=20
+> It is written as this to memorize what the correct id is and therefore wh=
+at
+> to do.... but I doubt this answers you.
 
-sched_ext must therefore request a reschedule so the newly unblocked task
-is reconsidered for dispatch. We don't want this extra reschedule for a normal
-wakeup because that path already called enqueue_task_scx() and performed the
-required sched_ext bookkeeping.
+No, it doesn't.
 
-Thanks,
--Andrea
+With sysfs, .is_visible callbacks are normally used to hide attributes=20
+when feature is not supported or for other reasons, which simplifies the
+setup code. This one checks manually asus_armoury.dgpu_disable_dev_id !=3D =
+0=20
+in the setup code.
+
+(In addition, sysfs could even be asked to change the visibility=20
+on-the-fly so it would re-execute the .is_visible callbacks to determine=20
+which of the attributes to show.)
+
+
+--=20
+ i.
+
+--8323328-138060363-1789505781=:27301--
