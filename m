@@ -1,74 +1,74 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7555A3CD8B5
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:55:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E7833ADB0
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:55:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437335; cv=none; b=RrJ/zRnY8YF/8pK/AFMUXPt7N6MYxErfpcMT/6ANK5u6Lk6+E0Dn4se2R6xkrFG/Ba//dMQuVVZtvwcHSYyJVCA6XHbWtB1uU5a9ElxHMe64HgOTqE1WLKxORSVlZMarjYdQa95qCEB+H1rNOx7VFvYZHPJa/8PPletIV5C1ZYM=
+	t=1789437337; cv=none; b=nTYrvm2SZ72pE/GWiG59o8xOz9Zqux6ImkAuhgVcjt2a//58CrlrxOwUQdQfoFiQBNEJzD7gGj1ZuA05wt8lXlqbp2Eyru/56DOKN6k8Yzu3z1U2TzXjSbzimPA/f5u3yPxqkC8Y0Xi6e6GGYOG1aI7EXSmNLCAFO5XduhxXiDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789437335; c=relaxed/simple;
-	bh=H4sOniYLWo6+KB8DHXp68YHJ7qte+sqivFhogKC0E20=;
+	s=arc-20240116; t=1789437337; c=relaxed/simple;
+	bh=Xrq7jp89mGnekKQK3ThxX3L//Vp8Bi65jjsv4DPKdMg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SQFJdcfLI5xJpS+x8gWEthX1U7PLybWG/qBhsUB3V2p8N3D3S2ahQPtm6fTdvz1H75tTibANGTyJiFo6WZi7sU5ZRBlshymaserbZQqrOl/TZy34DkAeo+t0kQKMbAqQzOQEHdVbi6jvtk8VBzWwmSPbyy2qpDOn/C0JuXVIA2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JUY6W7KI; arc=none smtp.client-ip=209.85.219.42
+	 MIME-Version; b=Mon5VPmUUV14NSMpu7fYEylOULj0mqWqPrnAe6x5qUZB+Izr2O8JQyk1BzlAdpfpoTolZeWhUItt5pMZdO4ocBDT1j07t8IK/aFclRRglF01v0VnDr9rogevdut//bczReN9odWc/aM4Mn4BLiV2BHo+x0BGx3mTLX2rPNIria4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LyclTsES; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JUY6W7KI"
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-912333a94fdso8119516d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:55:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LyclTsES"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcbe20aso33769166d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:55:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789437333; x=1790042133; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789437335; x=1790042135; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AiIvJCNExljMSljYlzye2b1G5pTXXWKqhzAs8LgW/vk=;
-        b=JUY6W7KIpVOulb7t/xW9eD9JTVGNgk7pntYkjaevhtf8+GXqvGNAmyxwls8kr1BE0s
-         n2jReTbFh7bphN5veGmmBK7LyvF7tq1mh40oJWnvCb7ZPBfInp6CjN46t7Xkj5kawIPY
-         PiqsHYjCb/HbxkpZB+bnKhi81kyyF5UfeHB+6Yg01pIYft0ur9oZAIvjDZ30Ws0w+yUE
-         6o89HcdzZY9HtnEW9jG+XT6ivcTL7J+q0cIQaBAlgKRRkrESsEtbScy4cvsUuDKX5rXG
-         7NZu5uySQ9YIigwDyafrh3H9a+vQEmvxU1fRzr6xdU/FeAd3fRaCdpXqTIiZ6u0cDtEU
-         vUFQ==
+        bh=+t2pOcypXggyoA3oDjVoOfkJNIX87WTFu1zXhjCgQ3c=;
+        b=LyclTsES6m6Ir+dcgNm7EtaZw/ZhGSQsnflzrD0ogYh0SprlgK3aTBT3CKxjU7W5YD
+         Ux7p+rE7AwKomEeoedD0+GRJIRoLm6D2vqPuoEfVtaSDj9Dio9l0L4AVYceT9rheiIxC
+         1+MeTNqnL6JbVkLpY4trCf2Rlfv4xtqs2U0uCKHy+HtMNQe1cc+yhhZfu2CRip6kPug6
+         s3unVN+BaAsFfAYdMEy4MavaDTfl0dlTCGasvlsq4DRIc7g/eVHMyT0YtAAGoZDtFiKe
+         s8GamhjL7kelusn47mCPhb60WVGaHbQIOnA/KA7jJvu2RR8mrxbMozhvQF/MIh3gcrsB
+         aSKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789437333; x=1790042133;
+        d=1e100.net; s=20260707; t=1789437335; x=1790042135;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AiIvJCNExljMSljYlzye2b1G5pTXXWKqhzAs8LgW/vk=;
-        b=0TX/gOj5ZAbpIN5a52KIYJYBSxWM7zk9pun9WqZOBmkumwZpCMAIPlY0VZdSwB6GVV
-         ztjzR1KpJn/kyeZ2hRF0nzTApHy8XsJi1i7TpPs+EUsS282yulsYEJ9E1Wt/xRh7+89J
-         rNIpfhgfJAgHwsQrzeS1MtPQfXTMhPeE8hFusBDdeLwQBULSgITGF14CSbStyE8+DCcr
-         N6rGsuS+o+RdLuqoUXhNkmlYK7S5kam3KDdPd2gQKsHOn+Mc/tWTRN+D15Vjmpw+DZNu
-         8w47niNxxu07REvZWmy0A7MZItUWCJsn/Rzt+yIfnC9ZaPFbMp15OJrQpY/mcGMqev8i
-         NXbw==
-X-Forwarded-Encrypted: i=1; AKwUvBw23wJ4m+YDOTvbuHF+uB6KARHZYV3IJzfXkPzJdsRl4uqvvXlpt+ra/U9IeGu52t5sxw1p9iiperWOC7A=@vger.kernel.org
-X-Gm-Message-State: AFuF++ke9d9wLGTUDu9rK5cSfrgrAnzvAsIFX0ee01Znn0bG4256L6lT
-	Xie40y9J2T0EDox5AJJxJR7AHSIHrkRmeOSvSOprhzJ6R/bE48SZPCo=
-X-Gm-Gg: AYBFou0Y03ISA2O20FI9n8wa83W2be0GNHwjxWwzLRn1G63axwYyY9z/WpUYCJxH8Wi
-	Mltfm7e1whheN5xB7u7Y4H222fUd3GfwBZ73N5B1yFeRl9BW3sWntCEOG9mGUCfAs0H9m2suTBq
-	qIDuyNNQAwr16UplSWkjdqoVvmr4leMiaRmUAUOc6Gg4+fTxw284Oh80JlKxIvfdAmVK7i4qxk3
-	/CvyyNZJ81Kz1MyRiglAx9s8kwRiv5hKVNR//GYA3pU+omZzSfkvKBj2qx52jtucvFXWF0nBXNg
-	UVqQt+qaHK61rzz8SZWgYiguzlG8zjebtG13sZm/6Te0G8fUolCD1R4D4Z+YnFGtLlsNKaMJ4W3
-	iXb1wSD1F3Kiv8DCc+0D4FNJSAqevLrc/PjUaHw2i1/+PKliPRL2gXVxKUh4v1mjfgxGdXmdoGo
-	EX+8KagGQXFgDE+j0Rx4UTlVLUr7p4Z5xyUg9svTj3Sdby0PzDltia5/jAcBIYgiDRdD7yc1eTX
-	vVsKYK91dH1NxIn9VwVUXGYGxt8otTSc73O+1jfYuRLd6qd9EBzpu0+mvn/VYAK9TwO5Cl7/ggO
-	IINZCfvDem+qE3IBw1JU1t3y3IlcayYnXrJ86D8jrZGnu5Fzy5tQcH8Vd9r5CsKfL9iTKw==
-X-Received: by 2002:a05:622a:2285:b0:530:d491:d168 with SMTP id d75a77b69052e-5310d03093cmr74722151cf.34.1789437333195;
-        Mon, 14 Sep 2026 18:55:33 -0700 (PDT)
+        bh=+t2pOcypXggyoA3oDjVoOfkJNIX87WTFu1zXhjCgQ3c=;
+        b=E01kXIOqallu+tGMILMIRmRJrOADK+SiU9mS1ouFxodHLc6BcLsn4QM+mqeS45QIJB
+         1YJhOSFMc6LEN1BtftAKhT6k+bC6d9zVwjgxsMVQAJlrocEGSBJ3piKIkbDp5rkU6lSX
+         kq4K0ihYjopyWf9bxYcZG+gCWohUnR/OzSCx9uNSyx1fNA1ObLd3Ej7FcXBsYvI87nql
+         G/ErnI0UbOZoxghLYy4GPZyN8pyLVCgKbss97QpmWWokUQmj++XPEAw8nMRzl5dLKs2j
+         C4EhJd2rlHBBCmksyYdCMxqXwA6Wiqv2csn6YDkyaFHtFr1NCK22pJNueN43EKXn3n2a
+         TS2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzpaneHm/XMfb4yJURQPU2AvIwTQtAPwYldfr3HlhyvPaOGT30oODTtQE7k3WNwmYPcP1WyaVpAL90fmng=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkp5eZF8rj3Uxaewj5+ETx0PjEQiQbhd22IAkguPO+iEKRMByN
+	e45dn8JcyFMLB6dYuQHB6BcsclnYoftW9fCZpvwLyy4IoKQCkkRyM9Y=
+X-Gm-Gg: AYBFou0LHCdGsihe1R22QmZlwg5SZE/vLHw+9gbjCjkfEH8nLppaDM/0UJcvZcDzA7l
+	O6caYjciX0U9nQ+CpgZE+Kn2wWUjaXZkgiU7WRu8G4ehv2Kova2wearfruG7KsI+AwlbMArW2Kr
+	1QhZg1c5+fljEOjzEoPBK/07rxS6OTYv/Q5WLOPAepzLk/t3vk317sXa3vmoyWfdgHFINhQeYUj
+	0B+Cvl7WU872QNPw5tZuQAKSvrw0dGzJ5gYckuLirdUEDAizwHZUDgn3HVeLQSLZviR4iC909dG
+	bYTNdDWUpXfktroj5zP3i011uKqlQyGrvYC0xTRuyF95gI7ZUyOMfwCclf0BlYqCrNANVMCyO0G
+	PabOAQbMv8B42AmBhgW1ICTSBlx4az4vamUfFfK5f07DZ32//JhINjPDPDcTmeMzQ9wbGhGPDB1
+	uBXWin7tSYorV5V0gYUboBMBQ65zdzbyLI3HX+VjGLgFUDSqPORFMlU9lz2mN2En2kCZQ7mKu0e
+	ANxr93jHIDnC7wFFXZRg2FBR+2m22h6mzTMR3gjU3kBp5MGQ6ENixgDek+KYGrIqom1fN8o4vFC
+	uxUjT7d7YkT9NTAsWTF/OcGJ0SRmrMcQSqW22g7uZG2sBWwOOLzzlzb0EducjKs0EWEArQ==
+X-Received: by 2002:a05:6214:3c9e:b0:90e:98e7:4481 with SMTP id 6a1803df08f44-9122e67604cmr95381566d6.29.1789437335040;
+        Mon, 14 Sep 2026 18:55:35 -0700 (PDT)
 Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f5ebc79sm109264546d6.48.2026.09.14.18.55.27
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f5ebc79sm109264546d6.48.2026.09.14.18.55.33
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 18:55:27 -0700 (PDT)
+        Mon, 14 Sep 2026 18:55:33 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
 To: Borislav Petkov <bp@alien8.de>,
 	Tony Luck <tony.luck@intel.com>
 Cc: linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] EDAC/e752x: Use managed PCI device enablement
-Date: Mon, 14 Sep 2026 21:55:17 -0400
-Message-ID: <20260915015519.83833-2-mhun512@gmail.com>
+Subject: [PATCH 2/3] EDAC/i3000: Balance PCI device enablement
+Date: Mon, 14 Sep 2026 21:55:18 -0400
+Message-ID: <20260915015519.83833-3-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20260915015519.83833-1-mhun512@gmail.com>
 References: <20260915015519.83833-1-mhun512@gmail.com>
@@ -80,32 +80,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-e752x_init_one() enables the PCI device without balancing the enable
-reference on probe failure or removal. Use pcim_enable_device() so the
-PCI device is disabled after failed probing and after driver removal.
+i3000_init_one() leaves the PCI enable reference held when probing fails
+and when the controller is removed. Disable the device on probe failure
+and after removing the EDAC controller. Keep explicit cleanup because
+module initialization can call i3000_init_one() outside PCI driver binding.
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
 
-Fixes: 806c35f5057a ("[PATCH] EDAC: drivers for AMD 76x and Intel E750x, E752x")
+Fixes: 535c6a53035d ("drivers/edac: new inte 30x0 MC driver")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/edac/e752x_edac.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/edac/i3000_edac.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/edac/e752x_edac.c b/drivers/edac/e752x_edac.c
---- a/drivers/edac/e752x_edac.c
-+++ b/drivers/edac/e752x_edac.c
-@@ -1387,7 +1387,7 @@ static int e752x_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	edac_dbg(0, "\n");
- 
- 	/* wake up and enable device */
--	if (pci_enable_device(pdev) < 0)
-+	if (pcim_enable_device(pdev) < 0)
+diff --git a/drivers/edac/i3000_edac.c b/drivers/edac/i3000_edac.c
+--- a/drivers/edac/i3000_edac.c
++++ b/drivers/edac/i3000_edac.c
+@@ -461,6 +461,8 @@ static int i3000_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
  		return -EIO;
  
- 	return e752x_probe1(pdev, ent->driver_data);
+ 	rc = i3000_probe1(pdev, ent->driver_data);
++	if (rc)
++		pci_disable_device(pdev);
+ 	if (!mci_pdev)
+ 		mci_pdev = pci_dev_get(pdev);
+ 
+@@ -480,7 +482,9 @@ static void i3000_remove_one(struct pci_dev *pdev)
+ 	if (!mci)
+ 		return;
+ 
+ 	edac_mc_free(mci);
++
++	pci_disable_device(pdev);
+ }
+ 
+ static const struct pci_device_id i3000_pci_tbl[] = {
