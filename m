@@ -1,142 +1,111 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3020A21C173;
-	Tue, 15 Sep 2026 08:16:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6563B8405
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:16:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460174; cv=none; b=Pjkdhxdoq/pElzaFd3UeZ5lewJnNvMKwM+Sfje9/ukqUcSkSyOezJLY8jc8tbl3OCp4FasS2YIHMphd3qTgfm3yP5swKamCig7zDA4rcfp5oDo2MExoFV5KKX7shG58EdyBsTrUIRjYFW+aOx0r4sVET0kIJ5GuVooVeEsgY8es=
+	t=1789460178; cv=none; b=VA5phor/QyLvAAuUZQdf1cXYpC48GStrz70cIZnOIT1s20E/TGF5wg0AoWByGS8XpZh6kwCXRXZQk8dw9Elut57/mI+OoovOKju+k1n+4tMhREFXgTvgGPvjeWxo+61OQRNV0WEhjFF+NEZ14Il0yT/RV45XcEzMIdvHuxzrozg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460174; c=relaxed/simple;
-	bh=KK3epFEJIZvBiKL0GnFmvRR596hNeaW3d3VO1KIRJiA=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=hvyutjzPB+g4TkNtWvzFsjjx3gEScy2GjMcgCP8iHY3beejZwBjDihlEJVrnW6h+mq783/9XyBn/ySympPNY11MdE0ljtm7MBx+/sa+wpSCWGw9hEq3RewzEsNP8sE2dS9ULX87jDwd/bXuyUCwVf4Q5b/tkvs/2TLkHvN1N9S4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=pijrW107; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789460178; c=relaxed/simple;
+	bh=QjfKCloivmSOZFcGW1K8mgdOTYz7B4lmOP3pqpGXp54=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YSY5bJE9qDuVojhspDM4FgboPwU12pELO5mcEGilJxIYLe3HDddkQ42FTiy3l0BYaDAZvnDyWLxkUpp72zOay353b40K9LPwwO2X/0Yh9+VTd9dbCeBGh24Fm3J53Q9Ii28oP3Fb3eXMSOn4QrAdU/U7h5Lwj5WVDxiWeDbJnok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U58+4EAz; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="pijrW107"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B2F42A47BC;
-	Tue, 15 Sep 2026 10:16:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789460168; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=UWfZD0ncUW0ItxAIq9SE2xIusb6qLhUzEXxsMlCILUU=;
-	b=pijrW107OkWL2Homrrkn0XhV1JPT70vA+JjfxqxntJSEKMmV1x1BugJ/dH2Thxr3sKNNl/
-	Nbk/KbfPJ5vN+eCgFKUimi8d5rln3R3LURQT6IkDtlne/qnyj+mP+IxOK/KC3Oh4orppi0
-	6hB92wx/s9cxbQXyTcvxjEH9EpBFoGH46BMcFuvuFMAA1Oqg3kiMB9KeV08voHSBKVK6wu
-	tPzkMx1mzp+bF9KAU3FzNpW5kV/zNhBFWyr/iCWL+iFJIxrKaxATO2Fv9FqyZj0hi7tRQS
-	9uMYKljgm/s5punLBxzakAVCg8Qt3bFucA3vrOt6UBo/5CpAdR3/r5APz7zlsw==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U58+4EAz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789460177; x=1820996177;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=QjfKCloivmSOZFcGW1K8mgdOTYz7B4lmOP3pqpGXp54=;
+  b=U58+4EAznC4kbcNHZS/uIS50ykeDHP3mk0IAgVxzE5nxDKwxH3KQhqPD
+   SBXiGRy6kIgtOv2BKHxnlm0mHvz++F1/6QkIeJtdhUAu2qwQ1pVaeR8ye
+   u+MDITBm3/nckJkk16kMr2OC21NgLJTmijLqMs9OUDsEwu/xrq/2nF1lK
+   T49BxIJNq2uSCzAXeecha8a9OoRop2EblURQNVqH4olbQQmTN6ZkszyeL
+   SIYIeLLt9df5e+9ohw9gLbGeJM3xxD5oqe+dnFluy8CJzWWwnJUSD7rX5
+   Y8zBMcO2COzQwDbdFXHk1jLMY2iO28PAnNmrqrEejnHhosIcHtrXCdfbR
+   g==;
+X-CSE-ConnectionGUID: QcyvOtHGRd+YoCSNQz+jRQ==
+X-CSE-MsgGUID: w4mldrH4SNSOPA56layuWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93640096"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93640096"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 01:16:16 -0700
+X-CSE-ConnectionGUID: CJh6SlllT1O5pa22VkT8DA==
+X-CSE-MsgGUID: EmWw3GV+QWmCRIiBCh3Yfw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="266666702"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.203])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 01:16:14 -0700
+Date: Tue, 15 Sep 2026 11:16:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>,
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH v2] mfd: intel_soc_pmic_crc: Balance IRQ wake enable
+Message-ID: <aqj-zOf7VhWlGqg3@ashevche-desk.local>
+References: <CAGEsz8F1hk5UpR0tJ6LjnbTKTyfKAxu6E9=7TLM_ABgodF9TdQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 15 Sep 2026 10:16:06 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net-next 2/2] selftests: drv-net: Add VLAN test
-In-Reply-To: <20260913143926.77366-3-ovidiu.panait.rb@renesas.com>
-References: <20260913143926.77366-1-ovidiu.panait.rb@renesas.com>
- <20260913143926.77366-3-ovidiu.panait.rb@renesas.com>
-Message-ID: <62229b50d8cafb952fa234d46bc78782@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGEsz8F1hk5UpR0tJ6LjnbTKTyfKAxu6E9=7TLM_ABgodF9TdQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Ovidiu
-
-On 13.9.2026 16:39, Ovidiu Panait wrote:
-> Add a test that validates ping traffic over VLAN interfaces. It aims
-> to catch drivers which mishandle hardware VLAN tag stripping, in
-> particular QinQ.
+On Mon, Sep 14, 2026 at 03:18:51PM -0700, Myeonghun Pak wrote:
+> The INT33FD Crystal Cove driver enables the parent IRQ as a wake source
+> after registering its regmap IRQ chip.  When that succeeds, a later
+> mfd_add_devices() failure or driver removal leaves the wake enable
+> unbalanced.  Shutdown only disables IRQ handling, leaving IRQ wake enabled.
 > 
-> Three VLAN configurations are covered, each with hardware RX VLAN
-> stripping enabled and disabled (via the rx-vlan-offload and
-> rx-vlan-stag-hw-parse features):
-> - a single 802.1q VLAN interface
-> - a single 802.1ad VLAN interface
-> - an 802.1q VLAN stacked on top of an 802.1ad interface
+> Register a managed action only after enable_irq_wake() succeeds.  Since
+> the action is registered after the managed regmap IRQ chip, reverse devres
+> order disables IRQ wake before tearing down the IRQ chip.  Keep warning and
+> continuing when enable_irq_wake() itself fails.
+
+> Shutdown does not release managed resources, so explicitly release the
+> wake-disable action there if it was registered.  This also removes the
+> action, preventing a second disable during subsequent managed cleanup.
+
+Why? If it goes to shutdown, cleaning resources makes a little sense, no?
+
+> This is limited to the Bay Trail and Cherry Trail Crystal Cove PMIC
+> variants using the INT33FD ACPI ID.
 > 
-> The "hw" test variants enable the RX VLAN stripping features supported
-> by the device (rx-vlan-offload and rx-vlan-stag-hw-parse), the "sw"
-> test variants disable all of them. A test is xfailed if the requested
-> configuration is not possible.
+> This issue was identified during our ongoing static-analysis research while
+> reviewing kernel code.
+
+...
+
+> static void crystal_cove_shutdown(struct i2c_client *i2c)
+>  {
+>  	struct intel_soc_pmic *pmic = i2c_get_clientdata(i2c);
 > 
-> VLAN insertion offloads are not tested for now.
-> 
-> NETIF=end0 LOCAL_V4=172.16.0.2 REMOTE_V4=172.16.0.3 \
-> REMOTE_TYPE=ssh REMOTE_ARGS=root@172.16.0.3 \
-> run_kselftest.sh -t drivers/net/hw:vlan.py
->  TAP version 13
->  1..1
->  # timeout set to 0
->  # selftests: drivers/net/hw: vlan.py
->  # # Interface: end0, driver: st_gmac
->  # TAP version 13
->  # 1..6
->  # ok 1 vlan.test.8021q_hw
->  # ok 2 vlan.test.8021q_sw
->  # ok 3 vlan.test.8021ad_hw
->  # ok 4 vlan.test.8021ad_sw
->  # ok 5 vlan.test.qinq_hw
->  # ok 6 vlan.test.qinq_sw
->  # # Totals: pass:6 fail:0 xfail:0 xpass:0 skip:0 error:0
->  ok 1 selftests: drivers/net/hw: vlan.py
->  # Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
-> 
-> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+> +	if (devm_is_action_added(&i2c->dev, crystal_cove_disable_irq_wake, pmic))
+> +		devm_release_action(&i2c->dev, crystal_cove_disable_irq_wake, pmic);
 
-> [...]
+Is it legit to call devm at this point? When is .shutdown() called and what are
+the assumptions before and after for a certain device?
 
-> +def _setup(cfg, outer_proto, inner_proto, hw_strip):
-> +    """Configure VLAN stripping and create the VLAN interfaces."""
-> +
-> +    names = ["rx-vlan-offload"]
-> +    if outer_proto == "802.1ad":
-> +        names.append("rx-vlan-stag-hw-parse")
-> +
-> +    feat = ethtool(f"-k {cfg.ifname}", json=True)[0]
-> +    feats = {}
-> +    for name in names:
-> +        # hw: skip the features the device does not support
-> +        # sw: request all of them off
-> +        if hw_strip and feat[name]["fixed"] and not 
-> feat[name]["active"]:
-> +            continue
-> +        feats[name] = hw_strip
-> +
-> +    if hw_strip and not feats:
-> +        raise KsftXfailEx("Device does not support RX VLAN stripping")
-> +
-> +    set_ethtool_feat(cfg.ifname, feat, feats)
+>  	disable_irq(pmic->irq);
 
-If a driver refuses to set the feature, set_ethtool_feat() would not 
-fail
-and the test would be false positive.
+This looks a bit ugly. Can we start with no-devm? This will solve the above
+question as well.
 
-I did a quick search and at least intel iavf could run into this:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-    drivers/net/ethernet/intel/iavf/iavf_main.c:iavf_fix_strip_features() 
-{
-         [...]
-         if ((netdev->features & NETIF_F_RXFCS) && is_vlan_strip) {
-                 requested_features &= ~vlan_strip;
-         [...]
-    }
 
-IMHO the test should check if the feature actually got enabled. This
-could be wrapped in set_ethtool_feat() or be checked afterwards. I would
-lean towards the first one.
-
-> [...]
-
-Thanks,
-Nicolai
