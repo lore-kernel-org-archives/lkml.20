@@ -1,117 +1,100 @@
-Received: from mta0.migadu.com (out-144.mta0.migadu.com [91.218.175.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFEB352001
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8703655C3
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:10:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481368; cv=none; b=J6j9nXbG7euLU19w5VFUeaJaazc+FtsxwnBr3nutxlu1Jxn7HY1rAsydTKtqE4vIWxvxkZ8f8pHVjQN9R/EyGf96WxbsxXViQc2vk5HrysnV6bkInV2WK6QiB1q3/V42Qv8ZX3sqbjM6i1CFMNpfmUEzX0eyXbeK+FBfpaxllss=
+	t=1789481458; cv=none; b=NGbmVayyD5a2gy5rGkbwmTjowzfNOkQyx/p16Sru13ZKxNfeygc9gcER/EgUglnfZhBOgDEPplRQAMRBTjuduI0YB0qZm67NZREEz0X38dAtKI1bqiTWXmqMy9f+bJ1gsyK58Ykjl2DzBtQ8TuGeTnL+JPCHqoW0cjqGw5j4Rec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481368; c=relaxed/simple;
-	bh=He79VwyqA/A7y/x2AwYJsg4nK7NmCJ5xYttTnGrxq40=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m+KbtVDJEkDUTHEK+MH3D1EcPGCazVl1Hb1xDyA8VrW10qOEC+NCUJZppG87rhd5wJrNb2rtal1D0rnw4DZmYUEbKMgnkeSAR/IZUq31D3lWQ6PbdNHbOKYXvSERoXffOTInIobxDuMZHwI6UsgvGhWobHsm4HeBkB4ZgN3f8yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GyAX1npr; arc=none smtp.client-ip=91.218.175.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789481458; c=relaxed/simple;
+	bh=Oxxao6blWXExFijm5Fok3ZVkCi9b1qDzUnzbmJN9OrY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=FS0U0FOgF8WEmNQ0/t7V0LqfGpa7M6xqjgL3Noi0/1dT49AW2POHgagaXIcoZnMmi6gigvVNaL7geKnukdWcFS5LyP1CS8whSAbRKviFD9Bl0rfThRav2qYT0JM0kePNKkNSa6/LsdK3KusnMm1CD8SFMKfIRbYVsinf0ag8oZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Pyzat2xq; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GyAX1npr"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=He79VwyqA/A7y/x2AwYJsg4nK7NmCJ5xYttTnGrxq40=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789481363; v=1; x=1790086163;
- b=GyAX1nprE2u4WRK6BSmX+y6OtJWsBeAkdITNlSRYy7b/+9ZMUKpZpJ7x23Jdr+Sst38GcmAg
- yrIYt0NuWDa1TWRWeLtGuMUhV3LdjrnZghJ7n9JvCa/Po+mtlUOPCGWAAnidsZLV7Xuu6yJZ9YU
- x+5k9gt7xzEiFXAwp5pbOkeA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 167173392c468344;
-	Tue, 15 Sep 2026 14:09:23 +0000
-X-Mizu-Trace-ID: 167173392c468344
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ae847e8a-8c16-4170-a18c-19adb1a50de2@linux.dev>
-Date: Tue, 15 Sep 2026 15:09:16 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Pyzat2xq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789481456; x=1821017456;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=Oxxao6blWXExFijm5Fok3ZVkCi9b1qDzUnzbmJN9OrY=;
+  b=Pyzat2xqxenEOPdcBxn4kz5P6X98/50e9LjjxDhW2u6VpzTa9vahhg93
+   hfniIvGnrO2dS2dPUo4lE0LiQ9hWOqXSSnuLG8gvyIW4lj6Q8dQINItA6
+   MSmOed1qb0mfmvGdgQRlE4QNqVXTF30ikVm+gjuCFuckxgD4BHz8dn3su
+   th+UR7CmXc6mCfNz/7jXG/SoGxOaekIuolKV3a6AeDM/b7L59YRtre55C
+   xvX8VYeXliAkLo6an6vehevGp0Y/SpEX3+/g8rBN1b69pSm+wdo1xp4qI
+   6NIkbDaScS20XGpCmy3XXncO0DXWVY3AGmNDw523S6xtdwxHk9DET1nwv
+   Q==;
+X-CSE-ConnectionGUID: 0Jn1YuUHSkqyMwsel4gt4g==
+X-CSE-MsgGUID: t5BczzGmQvCweQVyt2r21Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77404367"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="77404367"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:10:55 -0700
+X-CSE-ConnectionGUID: YLPfbuBUTtOAfdrt260klg==
+X-CSE-MsgGUID: QkvsK42dSOCYYZM+mWL9+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="271206121"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.243])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:10:52 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "open
+ list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
+ I915 DRIVERS" <intel-xe@lists.freedesktop.org>, "open list:DRM DRIVERS"
+ <dri-devel@lists.freedesktop.org>, open list
+ <linux-kernel@vger.kernel.org>
+Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+Subject: Re: [PATCH] drm/i915/fb: replace kmalloc_array with kmalloc_objs
+In-Reply-To: <20260910155846.79513-1-lalitshankarch@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260910155846.79513-1-lalitshankarch@gmail.com>
+Date: Tue, 15 Sep 2026 17:10:50 +0300
+Message-ID: <c45b9b5e99c763e37aafdf0c8d794e2499543ceb@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND v7 00/29] mm: PMD-level swap entries for anonymous THPs
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: david@kernel.org, chrisl@kernel.org, kasong@tencent.com, ljs@kernel.org,
- ziy@nvidia.com, linux-mm@kvack.org, ying.huang@linux.alibaba.com,
- Baoquan He <baoquan.he@linux.dev>, willy@infradead.org,
- youngjun.park@lge.com, hannes@cmpxchg.org, riel@surriel.com,
- shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org, baohua@kernel.org,
- dev.jain@arm.com, baolin.wang@linux.alibaba.com,
- Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
- lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
- shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
- luizcap@redhat.com, kernel-team@meta.com
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
- <20260914203237.7cdfcd4c320470f4ae5cafd2@linux-foundation.org>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20260914203237.7cdfcd4c320470f4ae5cafd2@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
+On Thu, 10 Sep 2026, Lalit Shankar Chowdhury <lalitshankarch@gmail.com> wrote:
+> Replace the remaining kmalloc_array instance with kmalloc_objs.
+>
+> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
 
+Thanks, pushed to drm-intel-next.
 
-On 15/09/2026 04:32, Andrew Morton wrote:
-> On Mon, 14 Sep 2026 05:27:50 -0700 Usama Arif <usama.arif@linux.dev> wrote:
-> 
->> When reclaim swaps out a PMD-mapped anonymous THP today, the PMD is
->> split into HPAGE_PMD_NR PTE-level swap entries via TTU_SPLIT_HUGE_PMD
->> before unmap.  This series introduces a PMD-level swap entry so the
->> huge mapping can survive the swap round-trip and do_huge_pmd_swap_page()
->> can restore the PMD mapping directly on swap-in, without waiting for
->> khugepaged to collapse the range later.
-> 
-> Thanks.  I'd describe this as an inevitable step along our thp journey.
-> Has to be done sometime.
-> 
-> I'll await more review, especially of the core parts: pmd swap fault
-> handler (#27) and swapout producer (#28).
-> 
-> And it's a 29-patch performance optimization without any performance
-> testing results ;)  Is efficacy testing in the works?
+BR,
+Jani.
 
-I previously tested an older revision and reran the test this morning
-with the current revision. I used vm-scalability's case-swap-w-seq
-benchmark [1].
+> ---
+>  drivers/gpu/drm/i915/display/intel_fb.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+> index 1c0859d5f829..c3e4c3f6d8cf 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fb.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
+> @@ -596,7 +596,7 @@ u64 *intel_fb_plane_get_modifiers(struct intel_display *display,
+>  			count++;
+>  	}
+>  
+> -	list = kmalloc_array(count, sizeof(*list), GFP_KERNEL);
+> +	list = kmalloc_objs(*list, count);
+>  	if (drm_WARN_ON(display->drm, !list))
+>  		return NULL;
 
-The test configuration was:
-
-- 4 vCPUs and 4 GiB RAM
-- 4 pinned workers
-- 8 GiB NOCOW raw virtio swap, cache=none,aio=native
-- zswap disabled; THP allocation and defrag set to always
-- 6 GiB total anonymous working set
-- 8 sequential write passes
-
-Four workers repeatedly write the working set, forcing memory to be
-swapped out and back in. The results below are the medians of five
-interleaved runs per kernel, following one warm-up run:
-
-Metric                           Baseline median   Patched median   Change
-Aggregate benchmark throughput   584.3 MiB/s       2,408.9 MiB/s    +312.2% (4.12x)
-Elapsed time                     85.43 s           20.72 s          -75.7%
-Major faults                     1,814,699         228,466          -87.4%
-Swap I/O rate                    1.02 GiB/s        4.10 GiB/s       +303.9%
-
-The results look good as this is a swap-intensive workload.
-It primarily demonstrates the reduction in swap-fault and page-table
-overhead from preserving PMD mappings.
-
-For long-running workloads, where I believe the series will shine, I expect
-benefits from fewer TLB misses, less khugepaged work as well as less kernel churn
-due to larger folios, although there aren't a lot of benchmarks to test that.
-PMD swap entries also move us closer to eliminating page-table deposits for
-anonymous THPs, which would provide memory savings.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/wfg/vm-scalability.git/tree/case-swap-w-seq
-
+-- 
+Jani Nikula, Intel
