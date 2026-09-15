@@ -1,62 +1,452 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033634B1467;
-	Tue, 15 Sep 2026 12:39:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A8E4A204F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789475980; cv=none; b=KXWqPNjyn6UGUDP/Ywin8T/fDZ7whbdIsedeO7BYQSPqhQsoIaGnwFPxVYQBXJsnorp+bzVAd65FnI3tdyDTGBHsIak/4YsOArcWeg7Zkb5l8JowG5wXAFWXrPJyMLBEnqvVgkwUMIB7csoidT63Jahudydcr339v12xdTAk2S0=
+	t=1789475986; cv=none; b=vEhTwzXnlbty3C3mYLROgSkVqXKuI+XDDNeFTSNPNbOu7hwAzk4A4JCYYe0jOIIjSL4KHMssuZzarI9db6B1bVRWGq+TASOGKcB6XLtS4BDApYmnhe7BT6ekPLrH85wPvFmNwqYKN+yU2e9K4j2SsIogePN5Wh2fs9mzkbQNZ3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789475980; c=relaxed/simple;
-	bh=7ramMcXV5gDjdkj7xeW5JZkLkgely5R+wAaq1aPyU54=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hyzg4XmFpxJEq5Eudo5qVIa1FAampLcIc96KHan6BcXRGgX4NUh1AA7SxvHBlAHsuZYpfnhYrpnllJW9MAv6YIq8u4XmYwK9T7AjViBNPjVqTAf9h6Fjt87i0YgmcS9HD/F947ZSpnl1MWNaeaSoGazVZGBoYIuv/p9lNyvXxsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+lsjJCd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789475986; c=relaxed/simple;
+	bh=SN0jaXp0c6SD9w+L/ByqJUDlx7fO2IprhyNSvK2sFfk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tZSHEjVSFylmMKKRdscEnkWjcwRlIIAzZWUtriKAQSFo1vwmr0WKjNtGdXjYTWJpMfT4zUMuRg5FlyQyFSutOVfp1Of3OPl3PSDMrh4K0DnEW7ZM+o+BWQWNDiXE/QDjEztIF2A16y7t/syiBdqPb4oVUOFFWwyjBtZigPNQ6mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dw91M5vc; arc=none smtp.client-ip=74.125.227.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+lsjJCd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B29941F0089F;
-	Tue, 15 Sep 2026 12:39:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789475978;
-	bh=6bcWUaLRLetE24Lg9U+faOn8Kxcdt3OXRdtwLbu0uYQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W+lsjJCdXnZizp9ZRFqmdZt8bC1InSnKanDlBqVfy7Y20dV2jcBqylcJiBs1EQuZV
-	 C7A9LRtZVPDT/o/gLpjHUxSGrmG360qXGRUIYYX3tDOTSvtlS0rOKQZBL4nr9eWPLo
-	 yFm0SD9eyXthtf7v38vd3JNfz+LNamHJri/64DyOp5ewi3OPJTE2QM04AA740pC593
-	 QCDtwwTVe/FnShSYrrNM7Sk2G6UYdHfHrdIBvZhTYEysDFKSuCtT9kp4bQLF/sMqy1
-	 2ImxHDcBTehQclsmCCKUoWF45ubkvvZrbgOi6qjAAYAym5Vq32Q0mKae0fMBEZg9Ur
-	 pNYN1M9OelIRA==
-Date: Tue, 15 Sep 2026 14:39:31 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Andrew Halaney <andrew@amutable.com>
-Cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
-	Mikulas Patocka <mpatocka@redhat.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
-	David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Eric Biggers <ebiggers@kernel.org>, 
-	"Theodore Y. Ts'o" <tytso@mit.edu>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	bpf@vger.kernel.org, fsverity@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [PATCH 0/3] keys: Add well known IDs for fs-verity/dm-verity keys
-Message-ID: <20260915-endverbraucher-gerahmt-amten-cfe971232d4c@brauner>
-References: <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dw91M5vc"
+Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-398da2bdcb9so2065848a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:39:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789475982; x=1790080782; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ubo9VbgqedgVzI40sXkXBvC7QCfHEN/2mwH5780v1as=;
+        b=Dw91M5vcozV1k1T0l0M5MQmJj4koHIj3g0/gYOkk4jECSOzLW8CL8kjePUNH1IipL0
+         vOUPDN+y7RR90IQG4QoH/3mc7KHjX5A3lKgk496G1oFq2i7RO0qqV/jn/dvw2mm73/LT
+         1W9m8sE+J6FGx84cnc12aorf1PY1ByLTSAf4FEsV7NLyQzKBmIAsBG/nqKaa0Jo9w9EQ
+         GoNTdqZa9Ygd2q2UXT9vW6d07gU5H/dmXHedka/xSxhRuS1wGDbPwYpEK0O31Ya25dvs
+         7ywtdCMVdZuP8xn7DcD/dDobtgouqTDJMtZmcIiZY195c/cmGDg6PuJHX4kCpPCX93nZ
+         zZlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789475982; x=1790080782;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ubo9VbgqedgVzI40sXkXBvC7QCfHEN/2mwH5780v1as=;
+        b=aPdME9WGiPXT/DW+ItQwJLg5cP20g1zEuqqO8q5jfQUHfCtIMaT8Y8pdBNuN6isg2X
+         ulzJNkl28L3tqGOxdZTF7qbHdCvrlnatgqBcEjb1zQmN0RTe/ZAyi/zx0Ji2FFZjiKbj
+         lAC2XbOimDictWY6SFZB2Q6WGKYXXW8+kScZ9sWoCwcHTtXOEnO0oS9Ktq74oA/hZU6x
+         Q9dtQOu242oY/8yPJ850q4qguWAU3HLXblZZ2JDoYIhlLDNPcjW58ZmRJ8cTTffMcaDS
+         3RJlOA40Q30jQ7aXY74g9u9kY3N0s+LEIILyFY/IynBJQ4vHlJOBBacKBwNmy7zgCCu/
+         MfrA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQ4iH39k//JCiLBT3VH0/x50I5W156w3A+EKPiQQ+GPQUZ+0P0W4EZFFm1ZcjpFjJkuOoGcyOLZ/DgonY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7OjDi+y02uYgZaZ0xQmbzJY3aYJLOxDwNidnHvjCcEOR3A/t/
+	LY+S45OFhl7w6Uq5F4oAE2mFRxE7NVuPIuvbkhvqMzhSt7d/omas1YhJ
+X-Gm-Gg: AYBFou111H8bbNVZfs4jTG1USffjd7laafmPtpPPyLCfBHhcUVSeuHerbZLlD2YwfM5
+	aZcp+Qb9/0nAY6es0X6A1l6ZH3utncfoXr0kmd9ytUPDrxFNK1ZamtJZlwhZ+jjE1cz7TxkHmRb
+	nyMyGSH5pxbDvyli50g9iqpqskWX4TeOO5DAh+nKMtfgWBIRtcebQPYBZcqTB1O50BNbV1x58PI
+	OxuYQpNXI8qZ4MeheLIDGChuHz83WHDG2gKs2d2KBhdK6sO+NHQoXixShJIQskqkQiRj0SwOmdw
+	UW6KoJETA7XaT4MlTrdFSGzyjnYcU/KLbe4x47RlE8IQhywWcm8yjzWGhN8VAExfjCIG+hZSodU
+	NYE86eOXQejnTLJAg5RZa3e63D/8a6rx/gXG59TDpYkQg5VBscBqL1jguJppb+qODsQ1+k3vH6U
+	4VBflrmz5N7IWL3fukbJoNtlWKrCE0Guar2T2oo+KMeVsLBBxh+ooFPX/ulPXW7W0Ha2ju24W/z
+	T7mhxaF
+X-Received: by 2002:a17:90b:590b:b0:39d:f720:c5a5 with SMTP id 98e67ed59e1d1-39df720d07bmr12167003a91.15.1789475982466;
+        Tue, 15 Sep 2026 05:39:42 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd28acbsm5307259a91.10.2026.09.15.05.39.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 05:39:41 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Coia Prant <coiaprant@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	David Heidelberg <david@ixit.cz>,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH net-next v6 09/11] net: stmmac: dwmac-rk: add SGMII support for RK3568
+Date: Tue, 15 Sep 2026 20:37:58 +0800
+Message-ID: <20260915123802.1561724-10-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260915123802.1561724-1-coiaprant@gmail.com>
+References: <20260915123802.1561724-1-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260914-ajhalaney-dmverity-key-identifier-v1-0-01922dc1366a@amutable.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 11:41:41AM -0500, Andrew Halaney wrote:
-> This more or less follows the bpf keyring approach, allowing userspace
-> to easily find the keys instead of having to parse /proc/keys.
-> 
-> Signed-off-by: Andrew Halaney <andrew@amutable.com>
-> ---
+The RK3568 SoC integrates a Synopsys DesignWare XPCS that can be
+connected to GMAC0 or GMAC1 in SGMII mode.  Add the necessary glue
+logic to support this configuration.
 
-Thanks for doing this! Looks good to me,
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
+The current dwmac-rk driver does not support SGMII mode.  SGMII
+requires a PCS to handle auto-negotiation and link state reporting,
+but the existing driver only supports RGMII and RMII.
+
+Add a set_to_sgmii() callback to configure the GMAC GRF register for
+SGMII mode (bit 7 set, interface selection bits 4:6 ignored when set).
+Also add a set_to_rmii() callback for rk3568 to explicitly clear bit 7,
+since the new SGMII path leaves it set and the RMII branch previously
+relied on the SoC reset value.
+
+Provide pcs_init/pcs_exit callbacks to create/destroy the XPCS via
+xpcs_rk_create() from the Rockchip XPCS platform driver, and a
+select_pcs callback to return the XPCS to phylink.
+
+Reorder rk_gmac_powerup() so that gmac_clk_enable() is called before
+the SGMII check.  The SGMII path skips rk_get_phy_intf_sel(), so the
+clock must be enabled earlier to cover all register accesses in that
+path.  While at it, unify the error unwinding into a single
+clk_disable label and add error handling for the default (unhandled
+interface) case.
+
+SGMII In-band vs Out-of-band
+============================
+On RK3568, the MAC clock is fixed at 125 MHz and cannot be dynamically
+changed by the stmmac core's set_clk_tx_rate callback.  In-band mode
+works because the PCS handles rate adaptation internally.  Out-of-band
+mode does not work because the MAC would need to change the clock rate
+to 125/12.5/1.25 MHz for 1000/100/10 Mbps respectively, and the clock
+is fixed.
+
+Enable default_an_inband for SGMII and disable the generic stmmac
+set_clk_tx_rate callback.  This forces phylink to use in-band mode,
+where the PCS is responsible for speed/duplex negotiation.
+
+Note that default_an_inband can be overridden by a fixed-link node,
+and phylink may also fall back to out-of-band if the PHY does not
+support in-band signalling.  Out-of-band SGMII is not supported by
+this driver: the MAC clock would stay at 125 MHz for 10/100 Mbps,
+giving working TX but failing RX.  Boards must use in-band mode
+(managed = "in-band-status" or an in-band capable PHY).
+
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 386)
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 133 +++++++++++++++---
+ 2 files changed, 114 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index e3dd5adda5aca..5088acc06982e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -170,6 +170,7 @@ config DWMAC_ROCKCHIP
+ 	default ARCH_ROCKCHIP
+ 	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+ 	select MFD_SYSCON
++	select PCS_XPCS_ROCKCHIP
+ 	help
+ 	  Support for Ethernet controller on Rockchip RK3288 SoC.
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 8d7042e689261..b3d746dd966ff 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -20,6 +20,7 @@
+ #include <linux/delay.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/regmap.h>
++#include <linux/pcs/pcs-xpcs-rk.h>
+ #include <linux/pm_runtime.h>
+ 
+ #include "stmmac_platform.h"
+@@ -47,6 +48,7 @@ struct rk_gmac_ops {
+ 	void (*set_to_rgmii)(struct rk_priv_data *bsp_priv,
+ 			     int tx_delay, int rx_delay);
+ 	void (*set_to_rmii)(struct rk_priv_data *bsp_priv);
++	void (*set_to_sgmii)(struct rk_priv_data *bsp_priv);
+ 	int (*set_speed)(struct rk_priv_data *bsp_priv,
+ 			 phy_interface_t interface, int speed);
+ 	void (*integrated_phy_powerup)(struct rk_priv_data *bsp_priv);
+@@ -63,6 +65,7 @@ struct rk_gmac_ops {
+ 	bool clock_grf_reg_in_php;
+ 	bool supports_rgmii;
+ 	bool supports_rmii;
++	bool supports_sgmii;
+ 	bool php_grf_required;
+ 	bool regs_valid;
+ 	u32 regs[];
+@@ -98,6 +101,7 @@ struct rk_priv_data {
+ 	bool integrated_phy;
+ 	bool supports_rgmii;
+ 	bool supports_rmii;
++	bool supports_sgmii;
+ 
+ 	struct clk_bulk_data *clks;
+ 	int num_clks;
+@@ -809,6 +813,8 @@ static const struct rk_gmac_ops rk3528_ops = {
+ #define RK3568_GRF_GMAC1_CON1		0x038c
+ 
+ /* RK3568_GRF_GMAC0_CON1 && RK3568_GRF_GMAC1_CON1 */
++#define RK3568_GMAC_MODE_RMII_RGMII		GRF_CLR_BIT(7)
++#define RK3568_GMAC_MODE_SGMII_QSGMII		GRF_BIT(7)
+ #define RK3568_GMAC_FLOW_CTRL			GRF_BIT(3)
+ #define RK3568_GMAC_FLOW_CTRL_CLR		GRF_CLR_BIT(3)
+ #define RK3568_GMAC_RXCLK_DLY_ENABLE		GRF_BIT(1)
+@@ -836,6 +842,16 @@ static int rk3568_init(struct rk_priv_data *bsp_priv)
+ 	}
+ }
+ 
++static void rk3568_set_to_rmii(struct rk_priv_data *bsp_priv)
++{
++	u32 con1;
++
++	con1 = (bsp_priv->id == 1) ? RK3568_GRF_GMAC1_CON1 :
++				     RK3568_GRF_GMAC0_CON1;
++
++	regmap_write(bsp_priv->grf, con1, RK3568_GMAC_MODE_RMII_RGMII);
++}
++
+ static void rk3568_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 				int tx_delay, int rx_delay)
+ {
+@@ -851,19 +867,31 @@ static void rk3568_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 		     RK3568_GMAC_CLK_TX_DL_CFG(tx_delay));
+ 
+ 	regmap_write(bsp_priv->grf, con1,
++		     RK3568_GMAC_MODE_RMII_RGMII |
+ 		     RK3568_GMAC_RXCLK_DLY_ENABLE |
+ 		     RK3568_GMAC_TXCLK_DLY_ENABLE);
+ }
+ 
++static void rk3568_set_to_sgmii(struct rk_priv_data *bsp_priv)
++{
++	u32 con1;
++
++	con1 = (bsp_priv->id == 1) ? RK3568_GRF_GMAC1_CON1 :
++				     RK3568_GRF_GMAC0_CON1;
++
++	regmap_write(bsp_priv->grf, con1, RK3568_GMAC_MODE_SGMII_QSGMII);
++}
++
+ static const struct rk_gmac_ops rk3568_ops = {
+ 	.init = rk3568_init,
++	.set_to_rmii = rk3568_set_to_rmii,
+ 	.set_to_rgmii = rk3568_set_to_rgmii,
++	.set_to_sgmii = rk3568_set_to_sgmii,
++
+ 	.set_speed = rk_set_clk_mac_speed,
+ 
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(6, 4),
+ 
+-	.supports_rmii = true,
+-
+ 	.regs_valid = true,
+ 	.regs = {
+ 		0xfe2a0000, /* gmac0 */
+@@ -1208,6 +1236,43 @@ static void rk_phy_powerdown(struct rk_priv_data *bsp_priv)
+ 		dev_err(bsp_priv->dev, "fail to disable phy-supply\n");
+ }
+ 
++static int rk_pcs_init(struct stmmac_priv *priv)
++{
++	struct device_node *np = priv->device->of_node;
++	struct device_node *pcs_node;
++	struct dw_xpcs *xpcs;
++
++	pcs_node = of_parse_phandle(np, "pcs-handle", 0);
++	if (!pcs_node)
++		return -ENODEV;
++
++	xpcs = xpcs_rk_create(priv->device, pcs_node);
++	of_node_put(pcs_node);
++	if (IS_ERR(xpcs))
++		return PTR_ERR(xpcs);
++
++	priv->hw->xpcs = xpcs;
++	return 0;
++}
++
++static void rk_pcs_exit(struct stmmac_priv *priv)
++{
++	if (!priv->hw->xpcs)
++		return;
++
++	xpcs_destroy(priv->hw->xpcs);
++	priv->hw->xpcs = NULL;
++}
++
++static struct phylink_pcs *rk_select_pcs(struct stmmac_priv *priv,
++					 phy_interface_t interface)
++{
++	if (!priv->hw->xpcs)
++		return NULL;
++
++	return xpcs_to_phylink_pcs(priv->hw->xpcs);
++}
++
+ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+ 					  struct plat_stmmacenet_data *plat,
+ 					  const struct rk_gmac_ops *ops)
+@@ -1330,6 +1395,7 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+ 
+ 	bsp_priv->supports_rgmii = ops->supports_rgmii || !!ops->set_to_rgmii;
+ 	bsp_priv->supports_rmii = ops->supports_rmii || !!ops->set_to_rmii;
++	bsp_priv->supports_sgmii = ops->supports_sgmii || !!ops->set_to_sgmii;
+ 
+ 	if (ops->init) {
+ 		ret = ops->init(bsp_priv);
+@@ -1361,6 +1427,10 @@ static int rk_gmac_check_ops(struct rk_priv_data *bsp_priv)
+ 		if (!bsp_priv->supports_rmii)
+ 			return -EINVAL;
+ 		break;
++	case PHY_INTERFACE_MODE_SGMII:
++		if (!bsp_priv->supports_sgmii)
++			return -EINVAL;
++		break;
+ 	default:
+ 		dev_err(bsp_priv->dev,
+ 			"unsupported interface %d", bsp_priv->phy_iface);
+@@ -1379,16 +1449,19 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = gmac_clk_enable(bsp_priv, true);
++	if (ret)
++		return ret;
++
++	if (bsp_priv->phy_iface == PHY_INTERFACE_MODE_SGMII)
++		goto set_mode;
++
+ 	ret = rk_get_phy_intf_sel(bsp_priv->phy_iface);
+ 	if (ret < 0)
+-		return ret;
++		goto clk_disable;
+ 
+ 	intf = ret;
+ 
+-	ret = gmac_clk_enable(bsp_priv, true);
+-	if (ret)
+-		return ret;
+-
+ 	if (bsp_priv->gmac_phy_intf_sel_mask ||
+ 	    bsp_priv->gmac_rmii_mode_mask) {
+ 		/* If defined, encode the phy_intf_sel value */
+@@ -1399,10 +1472,8 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+ 				      bsp_priv->gmac_rmii_mode_mask);
+ 
+ 		ret = rk_write_gmac_grf_reg(bsp_priv, val);
+-		if (ret < 0) {
+-			gmac_clk_enable(bsp_priv, false);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto clk_disable;
+ 	}
+ 
+ 	if (bsp_priv->clock.rmii_mode_mask) {
+@@ -1410,13 +1481,12 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+ 				     bsp_priv->clock.rmii_mode_mask);
+ 
+ 		ret = rk_write_clock_grf_reg(bsp_priv, val);
+-		if (ret < 0) {
+-			gmac_clk_enable(bsp_priv, false);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto clk_disable;
+ 	}
+ 
+-	/*rmii or rgmii*/
++set_mode:
++	/* rmii, rgmii, sgmii */
+ 	switch (bsp_priv->phy_iface) {
+ 	case PHY_INTERFACE_MODE_RGMII:
+ 		dev_info(dev, "init for RGMII\n");
+@@ -1447,15 +1517,20 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+ 		if (bsp_priv->ops->set_to_rmii)
+ 			bsp_priv->ops->set_to_rmii(bsp_priv);
+ 		break;
++	case PHY_INTERFACE_MODE_SGMII:
++		dev_info(dev, "init for SGMII\n");
++		if (bsp_priv->ops->set_to_sgmii)
++			bsp_priv->ops->set_to_sgmii(bsp_priv);
++		break;
+ 	default:
+ 		dev_err(dev, "NO interface defined!\n");
++		ret = -EINVAL;
++		goto clk_disable;
+ 	}
+ 
+ 	ret = rk_phy_powerup(bsp_priv);
+-	if (ret) {
+-		gmac_clk_enable(bsp_priv, false);
+-		return ret;
+-	}
++	if (ret)
++		goto clk_disable;
+ 
+ 	pm_runtime_get_sync(dev);
+ 
+@@ -1463,6 +1538,10 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+ 		bsp_priv->ops->integrated_phy_powerup(bsp_priv);
+ 
+ 	return 0;
++
++clk_disable:
++	gmac_clk_enable(bsp_priv, false);
++	return ret;
+ }
+ 
+ static void rk_gmac_powerdown(struct rk_priv_data *gmac)
+@@ -1486,6 +1565,9 @@ static void rk_get_interfaces(struct stmmac_priv *priv, void *bsp_priv,
+ 
+ 	if (rk->supports_rmii)
+ 		__set_bit(PHY_INTERFACE_MODE_RMII, interfaces);
++
++	if (rk->supports_sgmii)
++		__set_bit(PHY_INTERFACE_MODE_SGMII, interfaces);
+ }
+ 
+ static int rk_set_clk_tx_rate(void *bsp_priv_, struct clk *clk_tx_i,
+@@ -1602,6 +1684,17 @@ static int rk_gmac_probe(struct platform_device *pdev)
+ 	plat_dat->suspend = rk_gmac_suspend;
+ 	plat_dat->resume = rk_gmac_resume;
+ 
++	if (plat_dat->phy_interface == PHY_INTERFACE_MODE_SGMII) {
++		/* SGMII clock always runs at 125 MHz */
++		plat_dat->set_clk_tx_rate = NULL;
++
++		/* SGMII requires a PCS */
++		plat_dat->default_an_inband = true;
++		plat_dat->pcs_init = rk_pcs_init;
++		plat_dat->pcs_exit = rk_pcs_exit;
++		plat_dat->select_pcs = rk_select_pcs;
++	}
++
+ 	plat_dat->bsp_priv = rk_gmac_setup(pdev, plat_dat, data);
+ 	if (IS_ERR(plat_dat->bsp_priv))
+ 		return PTR_ERR(plat_dat->bsp_priv);
+-- 
+2.47.3
+
