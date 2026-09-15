@@ -1,46 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95BD456E03;
-	Tue, 15 Sep 2026 20:04:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261F434FF45
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:10:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789502686; cv=none; b=PwGljrF2G/pSBa0L2qP2Uioc7PPc8iPe4SMEu5xQ6rdi2K2PDKMIoB1KgqI6nr6X296C3eMJ5y4T6Hg+/vMVdPLqc70jkig0VDhuisVzHKnhaWYeznL2Yp0zhgqBFERUBQoi+xZuj1I8LbUtHRnnpUZ152lBLo2GEJnPDxL4JWU=
+	t=1789503017; cv=none; b=mmrQON5RsS4tlqt0+nRi63pfByjjNYUCsM/TwUVdDS8pSA/BBBOEv3Ew541zCAxLC80cGTB2IeRJVCHSlDAuAwg5FG70tNBorfQvlT0YVhm0H/8JZPK68j02iuSu+kTWTcmpZ/iU/Qv8Hp84pWmxFc3ohs+OJFfzMlsZRkFbZ1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789502686; c=relaxed/simple;
-	bh=vlF93fqZgzjB9CFcevEyM2vWZFBAhMHI9qyOl+lZ9Og=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mou6bx8Bl+5vVyoIeno1x8c3AVTIp0Z3fMqR//jIny8EVXbBj8iN9SOpzgrzOxmFZTQ95K0PJv6OKDn2Wq5GaZwyx6+0tJ2cwMBjawPrWI+MXjWHqX+TRVadjfM43uld+DpN//Ke3OIw05JZyRfVEN3uvnEMHticobM+SHC29C8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ThaJ56Sg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789503017; c=relaxed/simple;
+	bh=UIbJhxmGcRGYjOmg6AVEITCjlUd3NFlh3DB/TZA3DAw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ciBpP4Rj14Y73emRVNKmMWK/JBJAoCf1EMKHTKIw9JvU7vWUPYR2lhZUz6mPBpC2Ut6qyNs0wSIDXCUWGRIxjUK+afXLQfIj+Yb4ZqDVraLNKV27wcGGqSaNv8hQfIAiiccjDZIwHjN59MEoh8o+1wCLXTOD5BrZMrBLwDYSoPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYE9Qded; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ThaJ56Sg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 872B81F000FF;
-	Tue, 15 Sep 2026 20:04:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYE9Qded"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E541F000FF;
+	Tue, 15 Sep 2026 20:10:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789502681;
-	bh=q78L4/vDO6Lu8fPZFSYnJqNi8VQABd/NBnCciOQTVW0=;
+	s=k20260515; t=1789503014;
+	bh=zTdmCvT/LodVy49e6H1NylhI2+YP6sAK6mN2yIy2bnY=;
 	h=From:To:Cc:Subject:Date;
-	b=ThaJ56SgqF2eWSPt87Sk3LTcRnaG0V21fUl40tuHXJo4oK/ydCm17boIRl8DS7Opm
-	 cLhf4O+K/+ol1wCaHD/NOHEUD4K4Xq07wv2F2uEy22EFY0MYi0K1AUASVIIHAXSmm9
-	 hoKgwuKoQuZJS2B4VxGTuQj2BRk3dlXPUc++jHBUMDEMGBd9F2ojHUmvq3QIr5/Ui5
-	 PCanTCL1Q46uMo2bH4K+Tb8TaBhudfk0DwK0ds2NfHYUGdYQkHbfVvZ7M4OhBgCNEU
-	 sDU9hmf4Wy+G7rGqZpmGgtkGMK5BqZh6PBHQQzZr8YjooB+4fkph+RXMSKR56ghS/E
-	 QrP3+qgFRj4Mg==
+	b=gYE9QdedSLB3Gr1CMO30FyGSRgJCZz7pMbXaOaUkg1Uj93eU51/otdoK/E8FTa04K
+	 2+h+7GYI4XIeOTO6oKPh+27q8XhFjDAzAhz1vWoF3lOSR3YpKb0777JEFDoUWGhxXw
+	 8sOjNu3TXtR+gczhzWqIuxV/YGueYRpQG0mcXRPRctgq1GWMxvTdNMpYx7Ul9uFfDc
+	 EIcLoO5sI8d9haNGSyPeyceR5GXAqG3BHDeSpjli2E352ASrhUPMW8ea8mqoTFX4DC
+	 PJUdsv59pYFrLofmCLbWCFMg/grhqX6ssgYK8rEfDQYuB4bO3gCaVxYYVMesFLvav6
+	 sbgjlshqXNQpw==
 From: Arnd Bergmann <arnd@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>,
+	Alex Huang <Alex.Huang2@amd.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+	Ray Wu <ray.wu@amd.com>
 Cc: Arnd Bergmann <arnd@arndb.de>,
-	Praveen Talari <praveen.talari@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-	Aniket Randive <aniket.randive@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: [PATCH] serial: qcom-geni: avoid unused-function warning
-Date: Tue, 15 Sep 2026 22:04:11 +0200
-Message-ID: <20260915200435.3524505-1-arnd@kernel.org>
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	George Zhang <george.zhang@amd.com>,
+	Wayne Lin <wayne.lin@amd.com>,
+	Fangzhi Zuo <jerry.zuo@amd.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/display: remove parse_edid_cea function, harder
+Date: Tue, 15 Sep 2026 22:09:02 +0200
+Message-ID: <20260915201006.3526945-1-arnd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -52,243 +61,440 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-The qcom_geni_serial_poll_rx_fifo_locked() function is only
-used for console support, but defined outside of the #ifdef block:
+These functions were removed already in the past, but came back
+in a mismerge against a branch that added pointless unit tests
+for the unused functions.
 
-drivers/tty/serial/qcom_geni_serial.c:918:13: error: 'qcom_geni_serial_poll_rx_fifo_locked' defined but not used [-Werror=unused-function]
-  918 | static void qcom_geni_serial_poll_rx_fifo_locked(struct uart_port *uport)
+Remove both the unused functions and the unit tests.
 
-Move the function definition to a more appropriate place that
-avoids the warning.
-
-Fixes: 8200871327d1 ("serial: qcom-geni: Keep FIFO RX active during console TX")
+Fixes: f65198b3d073 ("drm/amd/display: Use HDMI FreeSync range from common EDID parser")
+Fixes: 0412b1064a3b ("drm/amd/display: Cover EDID CEA parsing helpers")
+Fixes: 1bb4c385d6f7 ("Merge branch 'drm-next' of https://gitlab.freedesktop.org/agd5f/linux.git")
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/tty/serial/qcom_geni_serial.c | 190 +++++++++++++-------------
- 1 file changed, 96 insertions(+), 94 deletions(-)
+As far as I can tell, the mismerge is currently only in linux-next,
+but the fix may need to be in the amdgpu tree
+---
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 101 -------
+ .../display/amdgpu_dm/amdgpu_dm_connector.h   |  10 -
+ .../tests/amdgpu_dm_connector_test.c          | 264 ------------------
+ 3 files changed, 375 deletions(-)
 
-diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
-index 3633723acef8..21213f5546b5 100644
---- a/drivers/tty/serial/qcom_geni_serial.c
-+++ b/drivers/tty/serial/qcom_geni_serial.c
-@@ -171,7 +171,6 @@ static void qcom_geni_serial_cancel_tx_cmd(struct uart_port *uport);
- static int qcom_geni_serial_port_setup(struct uart_port *uport);
- static void qcom_geni_serial_start_tx_fifo(struct uart_port *uport);
- static void qcom_geni_serial_resume_tx(struct uart_port *uport);
--static void qcom_geni_serial_poll_rx_fifo_locked(struct uart_port *uport);
- 
- static inline struct qcom_geni_serial_port *to_dev_port(struct uart_port *uport)
- {
-@@ -467,6 +466,102 @@ static int qcom_geni_serial_poll_init(struct uart_port *uport)
- #endif
- 
- #ifdef CONFIG_SERIAL_QCOM_GENI_CONSOLE
-+static void handle_rx_console(struct uart_port *uport, u32 bytes, bool drop)
-+{
-+	u32 i;
-+	unsigned char buf[sizeof(u32)];
-+	struct tty_port *tport;
-+	struct qcom_geni_serial_port *port = to_dev_port(uport);
-+
-+	tport = &uport->state->port;
-+	for (i = 0; i < bytes; ) {
-+		int c;
-+		int chunk = min_t(int, bytes - i, BYTES_PER_FIFO_WORD);
-+
-+		ioread32_rep(uport->membase + SE_GENI_RX_FIFOn, buf, 1);
-+		i += chunk;
-+		if (drop)
-+			continue;
-+
-+		for (c = 0; c < chunk; c++) {
-+			int sysrq;
-+
-+			uport->icount.rx++;
-+			if (port->brk && buf[c] == 0) {
-+				port->brk = false;
-+				if (uart_handle_break(uport))
-+					continue;
-+			}
-+
-+			sysrq = uart_prepare_sysrq_char(uport, buf[c]);
-+
-+			if (!sysrq)
-+				tty_insert_flip_char(tport, buf[c], TTY_NORMAL);
-+		}
-+	}
-+	if (!drop)
-+		tty_flip_buffer_push(tport);
-+}
-+#else
-+static void handle_rx_console(struct uart_port *uport, u32 bytes, bool drop)
-+{
-+
-+}
-+#endif
-+
-+static void qcom_geni_serial_handle_rx_fifo(struct uart_port *uport, bool drop)
-+{
-+	u32 status;
-+	u32 word_cnt;
-+	u32 last_word_byte_cnt;
-+	u32 last_word_partial;
-+	u32 total_bytes;
-+
-+	status = readl(uport->membase +	SE_GENI_RX_FIFO_STATUS);
-+	word_cnt = status & RX_FIFO_WC_MSK;
-+	last_word_partial = status & RX_LAST;
-+	last_word_byte_cnt = (status & RX_LAST_BYTE_VALID_MSK) >>
-+						RX_LAST_BYTE_VALID_SHFT;
-+
-+	if (!word_cnt)
-+		return;
-+	total_bytes = BYTES_PER_FIFO_WORD * (word_cnt - 1);
-+	if (last_word_partial && last_word_byte_cnt)
-+		total_bytes += last_word_byte_cnt;
-+	else
-+		total_bytes += BYTES_PER_FIFO_WORD;
-+	handle_rx_console(uport, total_bytes, drop);
-+}
-+
-+#ifdef CONFIG_SERIAL_QCOM_GENI_CONSOLE
-+/* Caller holds the UART port lock. */
-+static void qcom_geni_serial_poll_rx_fifo_locked(struct uart_port *uport)
-+{
-+	struct qcom_geni_serial_port *port = to_dev_port(uport);
-+	struct tty_port *tport = &uport->state->port;
-+	u32 s_irq_status;
-+	bool drop_rx = false;
-+
-+	s_irq_status = readl(uport->membase + SE_GENI_S_IRQ_STATUS);
-+	writel(s_irq_status, uport->membase + SE_GENI_S_IRQ_CLEAR);
-+
-+	if (s_irq_status & S_RX_FIFO_WR_ERR_EN) {
-+		uport->icount.overrun++;
-+		tty_insert_flip_char(tport, 0, TTY_OVERRUN);
-+	}
-+
-+	if (s_irq_status & (S_GP_IRQ_0_EN | S_GP_IRQ_1_EN)) {
-+		if (s_irq_status & S_GP_IRQ_0_EN)
-+			uport->icount.parity++;
-+		drop_rx = true;
-+	} else if (s_irq_status & (S_GP_IRQ_2_EN | S_GP_IRQ_3_EN)) {
-+		uport->icount.brk++;
-+		port->brk = true;
-+	}
-+
-+	qcom_geni_serial_handle_rx_fifo(uport, drop_rx);
-+}
-+
- static void qcom_geni_serial_drain_fifo(struct uart_port *uport)
- {
- 	struct qcom_geni_serial_port *port = to_dev_port(uport);
-@@ -676,47 +771,6 @@ static void qcom_geni_serial_console_device_unlock(struct console *co,
- #endif
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index d76ebf145dfc..37d1508d656b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -3603,107 +3603,6 @@ void dm_restore_drm_connector_state(struct drm_device *dev,
  }
+ EXPORT_IF_KUNIT(dm_restore_drm_connector_state);
  
--static void handle_rx_console(struct uart_port *uport, u32 bytes, bool drop)
+-STATIC_IFN_KUNIT bool dm_edid_parser_send_cea(struct amdgpu_display_manager *dm,
+-		unsigned int offset,
+-		unsigned int total_length,
+-		u8 *data,
+-		unsigned int length,
+-		struct amdgpu_hdmi_vsdb_info *vsdb)
 -{
--	u32 i;
--	unsigned char buf[sizeof(u32)];
--	struct tty_port *tport;
--	struct qcom_geni_serial_port *port = to_dev_port(uport);
+-	bool res;
+-	union dmub_rb_cmd cmd;
+-	struct dmub_cmd_send_edid_cea *input;
+-	struct dmub_cmd_edid_cea_output *output;
 -
--	tport = &uport->state->port;
--	for (i = 0; i < bytes; ) {
--		int c;
--		int chunk = min_t(int, bytes - i, BYTES_PER_FIFO_WORD);
+-	if (length > DMUB_EDID_CEA_DATA_CHUNK_BYTES)
+-		return false;
 -
--		ioread32_rep(uport->membase + SE_GENI_RX_FIFOn, buf, 1);
--		i += chunk;
--		if (drop)
--			continue;
+-	memset(&cmd, 0, sizeof(cmd));
 -
--		for (c = 0; c < chunk; c++) {
--			int sysrq;
+-	input = &cmd.edid_cea.data.input;
 -
--			uport->icount.rx++;
--			if (port->brk && buf[c] == 0) {
--				port->brk = false;
--				if (uart_handle_break(uport))
--					continue;
--			}
+-	cmd.edid_cea.header.type = DMUB_CMD__EDID_CEA;
+-	cmd.edid_cea.header.sub_type = 0;
+-	cmd.edid_cea.header.payload_bytes =
+-		sizeof(cmd.edid_cea) - sizeof(cmd.edid_cea.header);
+-	input->offset = offset;
+-	input->length = length;
+-	input->cea_total_length = total_length;
+-	memcpy(input->payload, data, length);
 -
--			sysrq = uart_prepare_sysrq_char(uport, buf[c]);
+-	res = dc_wake_and_execute_dmub_cmd(dm->dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY);
+-	if (!res) {
+-		drm_err(adev_to_drm(dm->adev), "EDID CEA parser failed\n");
+-		return false;
+-	}
 -
--			if (!sysrq)
--				tty_insert_flip_char(tport, buf[c], TTY_NORMAL);
+-	output = &cmd.edid_cea.data.output;
+-
+-	if (output->type == DMUB_CMD__EDID_CEA_ACK) {
+-		if (!output->ack.success) {
+-			drm_err(adev_to_drm(dm->adev), "EDID CEA ack failed at offset %d\n",
+-					output->ack.offset);
 -		}
--	}
--	if (!drop)
--		tty_flip_buffer_push(tport);
--}
--#else
--static void handle_rx_console(struct uart_port *uport, u32 bytes, bool drop)
--{
+-	} else if (output->type == DMUB_CMD__EDID_CEA_AMD_VSDB) {
+-		if (!output->amd_vsdb.vsdb_found)
+-			return false;
 -
+-		vsdb->freesync_supported = output->amd_vsdb.freesync_supported;
+-		vsdb->amd_vsdb_version = output->amd_vsdb.amd_vsdb_version;
+-		vsdb->min_refresh_rate_hz = output->amd_vsdb.min_frame_rate;
+-		vsdb->max_refresh_rate_hz = output->amd_vsdb.max_frame_rate;
+-		vsdb->freesync_mccs_vcp_code = output->amd_vsdb.freesync_mccs_vcp_code;
+-	} else {
+-		drm_warn(adev_to_drm(dm->adev), "Unknown EDID CEA parser results\n");
+-		return false;
+-	}
+-
+-	return true;
 -}
- #endif /* CONFIG_SERIAL_QCOM_GENI_CONSOLE */
- 
- static void handle_rx_uart(struct uart_port *uport, u32 bytes)
-@@ -890,58 +944,6 @@ static void qcom_geni_serial_cancel_tx_cmd(struct uart_port *uport)
- 	port->tx_queued = 0;
+-EXPORT_IF_KUNIT(dm_edid_parser_send_cea);
+-
+-STATIC_IFN_KUNIT bool parse_edid_cea_dmcu(struct amdgpu_display_manager *dm,
+-		u8 *edid_ext, int len,
+-		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-{
+-	return false;
+-}
+-EXPORT_IF_KUNIT(parse_edid_cea_dmcu);
+-
+-STATIC_IFN_KUNIT bool parse_edid_cea_dmub(struct amdgpu_display_manager *dm,
+-		u8 *edid_ext, int len,
+-		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-{
+-	int i;
+-
+-	/* send extension block to DMCU for parsing */
+-	for (i = 0; i < len; i += 8) {
+-		/* send 8 bytes a time */
+-		if (!dm_edid_parser_send_cea(dm, i, len, &edid_ext[i], 8, vsdb_info))
+-			return false;
+-	}
+-
+-	return vsdb_info->freesync_supported;
+-}
+-EXPORT_IF_KUNIT(parse_edid_cea_dmub);
+-
+-STATIC_IFN_KUNIT bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
+-		u8 *edid_ext, int len,
+-		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-{
+-	struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
+-	bool ret;
+-
+-	mutex_lock(&adev->dm.dc_lock);
+-	if (adev->dm.dmub_srv)
+-		ret = parse_edid_cea_dmub(&adev->dm, edid_ext, len, vsdb_info);
+-	else
+-		ret = parse_edid_cea_dmcu(&adev->dm, edid_ext, len, vsdb_info);
+-	mutex_unlock(&adev->dm.dc_lock);
+-	return ret;
+-}
+-EXPORT_IF_KUNIT(parse_edid_cea);
+-
+ STATIC_IFN_KUNIT void parse_edid_displayid_vrr(struct drm_connector *connector,
+ 				     const struct edid *edid)
+ {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+index e42a0d53b549..6732e5e644cd 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+@@ -158,16 +158,6 @@ int get_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ 			const struct edid *edid,
+ 			struct amdgpu_hdmi_vsdb_info *vsdb_info);
+-bool dm_edid_parser_send_cea(struct amdgpu_display_manager *dm,
+-			     unsigned int offset, unsigned int total_length,
+-			     u8 *data, unsigned int length,
+-			     struct amdgpu_hdmi_vsdb_info *vsdb);
+-bool parse_edid_cea_dmcu(struct amdgpu_display_manager *dm, u8 *edid_ext,
+-			 int len, struct amdgpu_hdmi_vsdb_info *vsdb_info);
+-bool parse_edid_cea_dmub(struct amdgpu_display_manager *dm, u8 *edid_ext,
+-			 int len, struct amdgpu_hdmi_vsdb_info *vsdb_info);
+-bool parse_edid_cea(struct amdgpu_dm_connector *aconnector, u8 *edid_ext,
+-		    int len, struct amdgpu_hdmi_vsdb_info *vsdb_info);
+ void amdgpu_dm_connector_funcs_force(struct drm_connector *connector);
+ enum dc_status dm_validate_stream_and_context(struct dc *dc,
+ 					      struct dc_stream_state *stream);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 19ead11b5e73..7b6400ec8107 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -6134,259 +6134,6 @@ static void dm_test_restore_state_same_sink(struct kunit *test)
+ 	KUNIT_EXPECT_PTR_EQ(test, stream->sink, aconnector->dc_sink);
  }
  
--static void qcom_geni_serial_handle_rx_fifo(struct uart_port *uport, bool drop)
+-/* Mock DMCU plumbing for parse_edid_cea_dmcu() tests. */
+-static bool dm_test_dmcu_is_init(struct dmcu *dmcu)
 -{
--	u32 status;
--	u32 word_cnt;
--	u32 last_word_byte_cnt;
--	u32 last_word_partial;
--	u32 total_bytes;
--
--	status = readl(uport->membase +	SE_GENI_RX_FIFO_STATUS);
--	word_cnt = status & RX_FIFO_WC_MSK;
--	last_word_partial = status & RX_LAST;
--	last_word_byte_cnt = (status & RX_LAST_BYTE_VALID_MSK) >>
--						RX_LAST_BYTE_VALID_SHFT;
--
--	if (!word_cnt)
--		return;
--	total_bytes = BYTES_PER_FIFO_WORD * (word_cnt - 1);
--	if (last_word_partial && last_word_byte_cnt)
--		total_bytes += last_word_byte_cnt;
--	else
--		total_bytes += BYTES_PER_FIFO_WORD;
--	handle_rx_console(uport, total_bytes, drop);
+-	return true;
 -}
 -
--/* Caller holds the UART port lock. */
--static void qcom_geni_serial_poll_rx_fifo_locked(struct uart_port *uport)
+-static const struct dmcu_funcs dm_test_dmcu_funcs_vsdb = {
+-	.is_dmcu_initialized = dm_test_dmcu_is_init,
+-};
+-
+-static const struct dmcu_funcs dm_test_dmcu_funcs_novsdb = {
+-	.is_dmcu_initialized = dm_test_dmcu_is_init,
+-};
+-
+-static const struct dmcu_funcs dm_test_dmcu_funcs_ackfail = {
+-	.is_dmcu_initialized = dm_test_dmcu_is_init,
+-};
+-
+-/*
+- * Build a bare display manager carrying a dc with a resource pool whose DMCU
+- * uses the supplied funcs table (or no DMCU at all when @funcs is NULL). The
+- * DMCU CEA parser path only touches dm->dc->res_pool->dmcu, so no adev/ctx is
+- * required.
+- */
+-static struct amdgpu_display_manager *
+-dm_test_alloc_dm_dmcu(struct kunit *test, const struct dmcu_funcs *funcs)
 -{
--	struct qcom_geni_serial_port *port = to_dev_port(uport);
--	struct tty_port *tport = &uport->state->port;
--	u32 s_irq_status;
--	bool drop_rx = false;
+-	struct amdgpu_display_manager *dm;
+-	struct resource_pool *pool;
+-	struct dmcu *dmcu = NULL;
+-	struct dc *dc;
 -
--	s_irq_status = readl(uport->membase + SE_GENI_S_IRQ_STATUS);
--	writel(s_irq_status, uport->membase + SE_GENI_S_IRQ_CLEAR);
+-	dm = kunit_kzalloc(test, sizeof(*dm), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, dm);
+-	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, dc);
+-	pool = kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, pool);
 -
--	if (s_irq_status & S_RX_FIFO_WR_ERR_EN) {
--		uport->icount.overrun++;
--		tty_insert_flip_char(tport, 0, TTY_OVERRUN);
+-	if (funcs) {
+-		dmcu = kunit_kzalloc(test, sizeof(*dmcu), GFP_KERNEL);
+-		KUNIT_ASSERT_NOT_NULL(test, dmcu);
+-		dmcu->funcs = funcs;
 -	}
 -
--	if (s_irq_status & (S_GP_IRQ_0_EN | S_GP_IRQ_1_EN)) {
--		if (s_irq_status & S_GP_IRQ_0_EN)
--			uport->icount.parity++;
--		drop_rx = true;
--	} else if (s_irq_status & (S_GP_IRQ_2_EN | S_GP_IRQ_3_EN)) {
--		uport->icount.brk++;
--		port->brk = true;
--	}
--
--	qcom_geni_serial_handle_rx_fifo(uport, drop_rx);
+-	pool->dmcu = dmcu;
+-	dc->res_pool = pool;
+-	dm->dc = dc;
+-	return dm;
 -}
 -
- static void qcom_geni_serial_stop_rx_fifo(struct uart_port *uport)
- {
- 	u32 irq_en;
+-/*
+- * Build a display manager backed by an amdgpu_device and a dc with a ctx (but
+- * no DMUB), so the DMUB CEA send path can build a command, fail the execute,
+- * and log via drm_err() safely.
+- */
+-static struct amdgpu_display_manager *dm_test_alloc_dm_adev(struct kunit *test)
+-{
+-	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+-	struct dc *dc = dm_kunit_alloc_dc_with_ctx(test);
+-
+-	KUNIT_ASSERT_NOT_NULL(test, adev);
+-	KUNIT_ASSERT_NOT_NULL(test, dc);
+-	adev->dm.adev = adev;
+-	adev->dm.dc = dc;
+-	return &adev->dm;
+-}
+-
+-/**
+- * dm_test_send_cea_length_too_long - Test an oversized chunk is rejected
+- * @test: KUnit test context
+- */
+-static void dm_test_send_cea_length_too_long(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 data[16] = {0};
+-	bool ret;
+-
+-	ret = dm_edid_parser_send_cea(dm, 0, 128, data,
+-				      DMUB_EDID_CEA_DATA_CHUNK_BYTES + 1, &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_send_cea_dmub_unavailable - Test a failed DMUB command reports false
+- * @test: KUnit test context
+- */
+-static void dm_test_send_cea_dmub_unavailable(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 data[DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
+-	bool ret;
+-
+-	/* ctx->dmub_srv is NULL, so the DMUB command execute fails. */
+-	ret = dm_edid_parser_send_cea(dm, 0, 8, data,
+-				      DMUB_EDID_CEA_DATA_CHUNK_BYTES, &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_empty - Test an empty extension parses to no VSDB
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_empty(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm = dm_test_alloc_dm_dmcu(test, NULL);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[1] = {0};
+-
+-	KUNIT_EXPECT_FALSE(test, parse_edid_cea_dmcu(dm, ext, 0, &vsdb));
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_no_dmcu - Test a missing DMCU fails the first send
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_no_dmcu(struct kunit *test)
+-{
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_vsdb_none - Test the DMCU finds no AMD VSDB
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_vsdb_none(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm =
+-		dm_test_alloc_dm_dmcu(test, &dm_test_dmcu_funcs_novsdb);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
+-	bool ret;
+-
+-	ret = parse_edid_cea_dmcu(dm, ext, DMUB_EDID_CEA_DATA_CHUNK_BYTES,
+-				  &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_multi_chunk - Test intermediate chunks are acked
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_multi_chunk(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm =
+-		dm_test_alloc_dm_dmcu(test, &dm_test_dmcu_funcs_vsdb);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
+-	bool ret;
+-
+-	ret = parse_edid_cea_dmcu(dm, ext, 2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES,
+-				  &vsdb);
+-	KUNIT_EXPECT_TRUE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_ack_fail - Test a failed chunk ack aborts the parse
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_ack_fail(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm =
+-		dm_test_alloc_dm_dmcu(test, &dm_test_dmcu_funcs_ackfail);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
+-	bool ret;
+-
+-	ret = parse_edid_cea_dmcu(dm, ext, 2 * DMUB_EDID_CEA_DATA_CHUNK_BYTES,
+-				  &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_dmub_empty - Test an empty extension returns the flag
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmub_empty(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[1] = {0};
+-
+-	/* No chunks are sent, so the freesync flag is returned as-is. */
+-	vsdb.freesync_supported = true;
+-	KUNIT_EXPECT_TRUE(test, parse_edid_cea_dmub(dm, ext, 0, &vsdb));
+-}
+-
+-/**
+- * dm_test_parse_cea_dmub_send_fail - Test a chunk send failure aborts the parse
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmub_send_fail(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm = dm_test_alloc_dm_adev(test);
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[DMUB_EDID_CEA_DATA_CHUNK_BYTES] = {0};
+-	bool ret;
+-
+-	/* The first chunk send fails (no DMUB), so the parse bails out. */
+-	ret = parse_edid_cea_dmub(dm, ext, DMUB_EDID_CEA_DATA_CHUNK_BYTES,
+-				  &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_routes_dmub - Test a present dmub_srv routes to DMUB
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_routes_dmub(struct kunit *test)
+-{
+-	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+-	struct amdgpu_dm_connector *aconnector;
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[1] = {0};
+-
+-	KUNIT_ASSERT_NOT_NULL(test, adev);
+-	mutex_init(&adev->dm.dc_lock);
+-	adev->dm.dmub_srv = kunit_kzalloc(test, 1, GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, adev->dm.dmub_srv);
+-
+-	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+-	aconnector->base.dev = &adev->ddev;
+-
+-	/* len 0 routes to the DMUB parser, which returns the freesync flag. */
+-	vsdb.freesync_supported = true;
+-	KUNIT_EXPECT_TRUE(test, parse_edid_cea(aconnector, ext, 0, &vsdb));
+-}
+-
+-/**
+- * dm_test_parse_cea_routes_dmcu - Test a missing dmub_srv routes to DMCU
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_routes_dmcu(struct kunit *test)
+-{
+-	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+-	struct amdgpu_dm_connector *aconnector;
+-	struct amdgpu_hdmi_vsdb_info vsdb = {0};
+-	u8 ext[1] = {0};
+-
+-	KUNIT_ASSERT_NOT_NULL(test, adev);
+-	mutex_init(&adev->dm.dc_lock);
+-	adev->dm.dmub_srv = NULL;
+-
+-	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+-	aconnector->base.dev = &adev->ddev;
+-
+-	/* len 0 routes to the DMCU parser, which returns false. */
+-	KUNIT_EXPECT_FALSE(test, parse_edid_cea(aconnector, ext, 0, &vsdb));
+-}
+-
+ /**
+  * dm_test_get_amd_vsdb_unsupported - Test a zero VSDB version reports no support
+  * @test: The KUnit test context
+@@ -9083,17 +8830,6 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_restore_state_no_encoder),
+ 	KUNIT_CASE(dm_test_restore_state_no_stream),
+ 	KUNIT_CASE(dm_test_restore_state_same_sink),
+-	KUNIT_CASE(dm_test_send_cea_length_too_long),
+-	KUNIT_CASE(dm_test_send_cea_dmub_unavailable),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_empty),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_no_dmcu),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_vsdb_none),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_multi_chunk),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_ack_fail),
+-	KUNIT_CASE(dm_test_parse_cea_dmub_empty),
+-	KUNIT_CASE(dm_test_parse_cea_dmub_send_fail),
+-	KUNIT_CASE(dm_test_parse_cea_routes_dmub),
+-	KUNIT_CASE(dm_test_parse_cea_routes_dmcu),
+ 	/* get_amd_vsdb */
+ 	KUNIT_CASE(dm_test_get_amd_vsdb_unsupported),
+ 	KUNIT_CASE(dm_test_get_amd_vsdb_supported),
 -- 
 2.53.0
 
