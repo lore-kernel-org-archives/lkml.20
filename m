@@ -1,216 +1,140 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010068.outbound.protection.outlook.com [52.101.85.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E234908CB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:20:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.68
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789492858; cv=fail; b=Nme2MBIMJYpMkg8VWIJTO6F50aYdxbFzQ389VXPGrK1jy0wG8ZpGPPHWq0oVnbAN/Chjc5RgEbOB2SLi2oZQN8tNWGlh3Fi5VVXsDYvTTjHworSBG5SQRMXKBnAfZJ7TVbqGdctYVUAM5QZtzqeQYo4FHLCj4ImXue2XsgYTCcA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789492858; c=relaxed/simple;
-	bh=v53I8buvPv/SNt3Tzcf7JssvWKJK7GS7b7hYA4CBF9o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=p2QE9uK520Dm9YeOwNtrZfGqu7naCOgh5PC8idd2ZW3m2/MUZ1ZpsfyuLCx0qA7bz5hVaaz6RONr/ZG07tmj6qXpE/Gfw2r54kAKcwPgC9yDAQXM2Z04JmlidvDZ6ZZ2vzFrIuOn9QjjO6CIKK7knqOJciFfCz2T6XaOhu/FRVc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=OyjJGoO4; arc=fail smtp.client-ip=52.101.85.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F9C42378F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:22:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789492924; cv=none; b=Y+rXe7HkXOguBeBGZ8Vj4ippbZIkKMyPDC4dpREIeJpdJzHrimKGbeVxPx8qwk3bSljyWSbehn7atO+xgQI/1dvaUPz3nWcKWQpgObdeYIJTirc1HXtXAU9ajlbIAyIKSpbP7Pz7UZPEXLTCo2Jc+GD4xR4UN5mPDGmwLP09V7Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789492924; c=relaxed/simple;
+	bh=n5nQfesIhDoEpdn12rZpUX9ykWYK40jhHplwawvZ/D4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X5w6VbLlyVrE1RFDw/KJEqPHb3hsu9zK9gEbW9EYWawN72I6uyo4rpTXcARSAQfNpspIYEl/crlVlON5fVozC4k85BrXJFmef5zNfsJOvCWrZmsLwM/pvjeavqm5eyThlEmCBsCZ9N3Kq11c9/+Xnw7V5yaJhYCxTvdFpPCTuik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U01cnRxG; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="OyjJGoO4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BVrOWCZlQ/QYsmmjsgHjty0u/7gdXTKV3ohNkVocKGq5V/ssMKW+peyv48QTij/yMD7G+86AwD11z9iJ3vWxvc007vCbvYuhy4dImnczIUzTGUugCTTHiLp/9mwruL6/3gLi2dLKwFGSuencr1glVeKSW7t67WjodgXorde0cluhtikvTDBxHimyCqKCO9VC3YxtEYCO2QpUhZqbLOL5Qq0+ZbULd0R78c/Mz9KjOEwJVBsJ+I+JTTlA9xbQspOq7sJQyC2k4E1pXEnsqZatM9P+cjgZN0mK8gJSwJDPXMcBnwIDQgFXwOLtoId+KQnfOW4ZW150jGPl2di/FD4W6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MxisORoUnhw5fn2LzbvVjuHObQOqsTMlisdClSHMzvw=;
- b=j4Wcd6vEuYWvIpLaBVLwO8ahHyyQQM+fdOTm/phkHMyy52dCHtPAQyIN6/5YXQG2VGczHtdborwR3wbVciG7Y6qmudY6ZZT8/q7kqXVrrUgxqDuLScFMZ5+vBTsjcFx8ALuyIOuYo6r1mhfHfwzosdGx3QrWaohjvP/pr93qJodm51pWXdU0x0Xz9AhB+MQVlMb8XcfgOqX5f+jmW9wg3A6JzBIHMUpFy9Jw7z/SWhn+MTFuXQx1h8TsoGGwjwmxw7Taah7L9fpdKnjua38NdkPNzCoWyLiywKeHbo//LQdnAwP0qkmpvdjf7sqZTgDorV5QuUXltZbmOznUpBzZQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MxisORoUnhw5fn2LzbvVjuHObQOqsTMlisdClSHMzvw=;
- b=OyjJGoO4zxrOPs2SoseIIjyVY2MApTZUJ3KSRiYyKRnR5kH3+h2dfDr5Mn738fYSB/NzVRhaon1KhzD74Ra5AjSwywGFJ8TrTR5uCgwign6MFynQOqOo9qVYcAHEviO9/03Qh3jo4n8UvolgtVRj7LCC/Pt6KS1t5rCjG6Yolo+S9gg6IeUcJ/xmKTo5W6JWSFoQCqOstRYMRBcK36TNc3dOlnhgdOQOw83uyQJkdY2Nlqlm+N6ITghjlEePvB7D8lzYcVG6WC3sOj8sXkuM6F5/AIqgF0cfuhfp9oXN1UmtJOcEAZeKpcGM66VqZc/glO6c6IXCKbkMESjSjVUXPA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by SACPR12MB048696.namprd12.prod.outlook.com (2603:10b6:806:542::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 17:20:53 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 17:20:53 +0000
-Date: Tue, 15 Sep 2026 19:20:45 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/18] sched/core: Avoid false migration warning for
- proxy donors
-Message-ID: <aql-bQRXTP6lCcso@gpd4>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-5-arighi@nvidia.com>
- <20260910100652.GF4120091@noisy.programming.kicks-ass.net>
- <aqlstkw_QzFqe03A@gpd4>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqlstkw_QzFqe03A@gpd4>
-X-ClientProxiedBy: MI2PEPF00000B78.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::40c) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U01cnRxG"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea50db3so23466a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:22:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789492922; x=1790097722; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yF6h3RStIa2aUCRcCvGNobGgDUeR4bbMcNYID0OzPtY=;
+        b=U01cnRxGfz4fRpWK+z2e6M8PhrRO/prGWWkIWcQVOjRZMizJmxLcqxrMIp3irk125l
+         B7uEXsq5VnOH+2R5aE7nI2ZIt35p6pDnH+nu86hnzHfBuYXx7s1mVAIbnwFCaRtljER8
+         TgOYaVkKatMTFkuMynStkBwrU6SrmqvgUaEStAv4gI9bzRHP+72tjFe169vws8Q1VVf0
+         kEQrmFXv6flvrllY9Su0/RhqpxViLDapoOM86E1dtDk+KK9QMUQLo2DZVT7d1HHLpAjj
+         o6kFjF/TIsHEruW7MkffIlrDdZJf4ZuHPshBS7YTcIahtvm+NBFbmA9sa6FmMPOTCcZf
+         JgSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789492922; x=1790097722;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yF6h3RStIa2aUCRcCvGNobGgDUeR4bbMcNYID0OzPtY=;
+        b=cNrEIXxHzS0FBaxPSso9xUzqr0pRfSWbAE3uYNI9q4xIRo3Ws67ILHun2ekU3Bsm4C
+         5NZhLv+HMMfpE3byc5g1M6NDmxWe8PCWjn9QkN+Dejs4LNT8gq0nqpvWAKJBd8diOIL+
+         eoO620T2/lJYNpLAwLKdHYPYOSNa5rgFm/BW0fqudH6BpVjq0pJ92hP/tSLqREfzm5Xa
+         rbRyar9iqM5o8oJ9tZtaj87HtuC+il5O8WXWoW2uxE2356L+Te1BvyAz9ToqBITYKrgb
+         x6I4wCk0sMOisWv5oBZqYYLdZq/jcLZ688qVNAvOewrnyoDzr0K5r16sbB0sO6L1wxXv
+         xNyA==
+X-Forwarded-Encrypted: i=1; AKwUvBwxDUWlSIHAf/eFBWd5rU6zYunzQcicEyXee9LNKT7cT0kQDMiNRWTFt3GfVV3YJZiVh3wMDwMc01CMthM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nq9O3od/AKq9Uz7Eh3+doCXBv+7nVtkkOIoGVdCHPUQQfvhQta
+	CXInH71w+aaPJCtt/zyspbhFK5G5p1S4TU9WoXi0gy9GKDwWYcAX3TnB
+X-Gm-Gg: AYBFou21QczsaVunS4Y9A4/ogDYWVpHlNvxVmPmrHQSLVADtMoWhwt0RI80kOn+aDRw
+	3OjnvJHmV4td4sgZ77TgB0juCbod9c/eTIRMw0e6vSl4TlvyZQDl9rXcIFgSLGQDABrfDw9iVcM
+	GjV3lS/wwknurBjGqM3DEJhFuRojrLKDHCIKubfWjZwl0FLvoIFj01mYa5FUMlgK1qsxMl6ar5p
+	HzPMc4GuX2o/skSoyZLb0tVM4hhYxtZJu3cdd1K5/lWP+xwY+ZfsQrge7BVmOu3CKStdTCd+grk
+	qT+lYQBK1SKubm5Nr71V/IlZSqLzV+dn4QQ22MF4YqjOKT+AqbUoh+vHTbr/EGnVS2y8mgvoi09
+	pWvDf6Ck8tHSebKeBHyBXIx0HGYyeu/JAFwj8rj1bWlUdY8zTzRcwKfAzL1uodEYzLNiMZlUl/p
+	JFvNuPJlpMKtla/7gozBgarbIGqKworgFANxlxQLiiuhSeWbZU0iFRGg==
+X-Received: by 2002:a17:90b:17c3:b0:39d:eda9:fac2 with SMTP id 98e67ed59e1d1-39dedaa0e10mr15065469a91.18.1789492922160;
+        Tue, 15 Sep 2026 10:22:02 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdcb618bsm6349910a91.5.2026.09.15.10.21.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 10:22:01 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Per Dalen <per.dalen@cnw.se>,
+	Wolfgang Grandegger <wg@grandegger.com>,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] can: sja1000: kvaser_pci: fix duplicate PCI I/O unmapping
+Date: Wed, 16 Sep 2026 01:21:51 +0800
+Message-ID: <20260915172151.2507365-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|SACPR12MB048696:EE_
-X-MS-Office365-Filtering-Correlation-Id: 019b74f2-c7cf-4ce6-64f6-08df134db1f6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	jva4jmdyZXPF5ErYQVid0bTyBJPBAjr3VQzd7uWwdeWpxjUtxNe0jWbQdlbhiYITFfJ2/3tQn1h0lXI/G6+MFvuSTqElkohCkXGKC5DE6muGBf2F688L8N3kE8a1xF2nOfpZbbMBPG5dZF52pnR79eRHGMHXxq0nhKggedrdUqiHV89xwKAJF5TXhBBWCMhelzhKMEXXJShB1fH48IZaqIGk8hXJ/JY1N2Ehn9ohr2jqYSfPHoWUbhTCHIUhywa+badeKDVPXpO51GrjUEJjdfBHdkpikNjjXHX3g6XU2P53SqQpw8UU36d7u5HHiOfzvUUB3GtNQ2kfBmnmkAxxjtgxMOZwBIyw0L+7pmNMceNPVgU7w6br4X/BDyPejf1ETrYJs1q3a8dDAZtajn1/Lk0sPw4OiO2ueMfNEVSP7PmkKrpVrUbCUNQq20aO3tlZKmH0FRyTZoRoe/QJ6S8nD83FN06bkSB39Cq2BprbpellqwzLA4pb+wRFjk6Jp4MlqKNXIE1UK0IkcnItXV7O+16d+36DdP+gwz7yRX0eOe/sFG3VSgRnITyGpTvcnjCQ7Xi7q8YtKW8nrWbZcmDOAxSHozi2leHcXdOG9sUEOOmKPfLjmpvR/sMvgOwtJCT77qqhWShSCNiVOAJpvjJsZpKIa50mMDCkpczSzTHnPSw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?c3E1UxLgBJHUkEnp+i2DJmN2KUKpM+tjMEvFy1pEFKaecUxHVJ237kr8SUzd?=
- =?us-ascii?Q?eoZq06bpVblmmqTnyqkJGTmUOlX3+Kki7QHn/e224N3P7Dtp5fjghc73IJ8V?=
- =?us-ascii?Q?LqulFRTvQRsqcWAK4d6uERZh2rINkxBdgSB06dIQi9B3jC6ti64dQeXxwCro?=
- =?us-ascii?Q?3XMmyHT41KFue9C48XrWTRfEisZUykoguPnkKccV06q360Ib8XppTkNnCxdp?=
- =?us-ascii?Q?+cqS2p0xjUsCBuDCkKjAgEqu6NWc8x6BrI43r/aeoaUl6ntULYa4AzVi9r2p?=
- =?us-ascii?Q?PM5VXIqwaHsmi0wMmZvCmUy+VW+5hIXYhXC5v8LM6P+EtzDXeHEqpSU6vaQG?=
- =?us-ascii?Q?+bWSBQQCSMoyDTSlVYV4WXXnCE0Bv7blhSkFQ0yqcvBeox81uJbcKv/zHdxG?=
- =?us-ascii?Q?l5JqUT3rPJ0WDPwwy1uyYohyDqpoVA9BH3IeHDfK7jctDA3dA7sOxTWkKtvb?=
- =?us-ascii?Q?zpVuhrL9sCdiWWwr3FtTueWkRxgCoQlTcYW4O9oRJ3VKYbDnC5MtfAYunfgm?=
- =?us-ascii?Q?YuDHXAg1Lfwt7IS706hz1Tucoo7kKnAFH2Bq4PBdR4BgauKDEkdY/n3dGmdk?=
- =?us-ascii?Q?gjNLMotwPePdiwCyPwaHDrBezqu0GCWxjXmycNcYLasxz5WmZn5D7qmolVH/?=
- =?us-ascii?Q?ZFYQJs61/QEioxQc7HdnpoKnHd1GLEdIkqe/WlLK4FHG5+eWblKP+BiqGxMh?=
- =?us-ascii?Q?gV7rfcg3awGN+c/cmCiSOkPqdrxkbD9k4pN2vpsBHIQcU34N8786RWAnut+6?=
- =?us-ascii?Q?p0Z49XGncDxz/Y8bbvChgzHzZXU/JHy0W/5CYHp05z3SVQuS9G78LE21TJqo?=
- =?us-ascii?Q?qD6DzU6Os1YQrzXQ0JHlwgaM6dN0TUTATQFN2XFUmtF5d2e5sTTQMNfl0vW/?=
- =?us-ascii?Q?OsJl4xKYBrps+6HRCBX2TnFHfnFmcFB6wo12tvO/3iVWesm4pI3kOzZ+nry/?=
- =?us-ascii?Q?mPkw4JDZb4qY2Nx4BGiyNY060ONCdjDD6GZ7Y1AhBBLT+gtZo5u3ZNbuhuMf?=
- =?us-ascii?Q?LYlyvUoQyPVkHiKcSFRU+XbRrw4z/7SQSlnYtPTpYOL3SU9hpVJKP7W8C8df?=
- =?us-ascii?Q?8/3kUUW281NcgB/zLDl4RW/FmOodMWYpUJ29lm4KU4GgnhAYH6Fvkbve7Phs?=
- =?us-ascii?Q?xYzQ4OJnq0HY31a+iiKi8iTENT85BF9MHcwBTximSjkL2qJLgF1cOIqZYOWf?=
- =?us-ascii?Q?O+cqnRsjK949Nfjqb4kyU698SQ5Quj9hDRAeC+v0CREhrXS2s74XbFRwwRVy?=
- =?us-ascii?Q?2g71WbM6VZYDMFYFKfTuEExwd/gM5AC1REFtVzn7SQoh6jnLg9ugncPJpX05?=
- =?us-ascii?Q?LKz+p8HUal8MI8VTPcpBPCY0pPJleVkLzCYIN4gkQrZq5+Wxh+5rz6kbhqbb?=
- =?us-ascii?Q?/Y70sGo3hOssZhxNJka7glEqF7xKbvG+d+17FXZuNiujj5eLu1P8rWu7ayMy?=
- =?us-ascii?Q?aiHH9XhsAw8ZPYVfJA+rtEpK3KEcD9GBchtrGp9p/p/r8tPbV7WtDqjEDQFL?=
- =?us-ascii?Q?NaBJ35r2tpyRRMeJy3AnmG+VlmWw9c4VeCpezenGQNIN8qiveEncgrVOf8Aa?=
- =?us-ascii?Q?7vJkdS1Xxs9Kx4/HihfX6Ymxo6hf5zioaaisRnCXImsFeDrB2LkBu9H5Rhk6?=
- =?us-ascii?Q?uT4GQJBX8OsQYHO7ZlxPmjjLRU2oW26+XFRfFAfo6AZ52pSh6NHgcyqbyIHv?=
- =?us-ascii?Q?4AzHxHXKXmUJL+6CKLD/7ItoKrTbotobY8Zg4oSSW3H2TukC9g7/ZxenN0Y7?=
- =?us-ascii?Q?GKCSASvwAg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 019b74f2-c7cf-4ce6-64f6-08df134db1f6
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 17:20:53.0853
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h1wunMsNxFvCwVG5AfNcwVM4ngW49O9QMMcH5sftBykyNiACwljcawvKrvVWIGepQlpp1LqQlU82AzNBQcXDMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SACPR12MB048696
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 06:05:19PM +0200, Andrea Righi wrote:
-> On Thu, Sep 10, 2026 at 12:06:52PM +0200, Peter Zijlstra wrote:
-> > On Mon, Aug 31, 2026 at 03:42:14PM +0200, Andrea Righi wrote:
-> > > Proxy execution can move a blocked donor's scheduling context to the
-> > > lock owner's CPU even when the donor is migration-disabled. The donor
-> > > does not execute there, and its original execution CPU remains recorded
-> > > in wake_cpu.
-> > > 
-> > > set_task_cpu() warns unconditionally for migration-disabled tasks, so a
-> > > subsequent proxy migration or the wakeup path returning the donor home
-> > > triggers a false positive. Moving a blocked scheduling context does not
-> > > violate the migration-disabled execution context.
-> > > 
-> > > Exclude blocked proxy donors from the warning. The proxy wakeup path
-> > > restores an executable placement before clearing the blocked state.
-> > > 
-> > > This is a preparatory fix for enabling proxy execution together with
-> > > sched_ext.
-> > > 
-> > > Acked-by: John Stultz <jstultz@google.com>
-> > > Signed-off-by: Andrea Righi <arighi@nvidia.com>
-> > > ---
-> > >  kernel/sched/core.c | 9 ++++++++-
-> > >  1 file changed, 8 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> > > index 14d0d5c884393..0a2eabadfee02 100644
-> > > --- a/kernel/sched/core.c
-> > > +++ b/kernel/sched/core.c
-> > > @@ -3351,6 +3351,8 @@ void relax_compatible_cpus_allowed_ptr(struct task_struct *p)
-> > >  void set_task_cpu(struct task_struct *p, unsigned int new_cpu)
-> > >  {
-> > >  	unsigned int state = READ_ONCE(p->__state);
-> > > +	bool proxy_migrated = sched_proxy_exec() && p->is_blocked &&
-> > > +			      task_cpu(p) != p->wake_cpu;
-> > >  
-> > >  	/*
-> > >  	 * We should never call set_task_cpu() on a blocked task,
-> > > @@ -3386,7 +3388,12 @@ void set_task_cpu(struct task_struct *p, unsigned int new_cpu)
-> > >  	 */
-> > >  	WARN_ON_ONCE(!cpu_online(new_cpu));
-> > >  
-> > > -	WARN_ON_ONCE(is_migration_disabled(p));
-> > > +	/*
-> > > +	 * Proxy execution can move a blocked task's scheduling context to any
-> > > +	 * CPU without moving its migration-disabled execution context. The
-> > > +	 * wakeup path will return the task to a CPU where it can execute.
-> > > +	 */
-> > > +	WARN_ON_ONCE(is_migration_disabled(p) && !proxy_migrated);
-> > >  
-> > >  	trace_sched_migrate_task(p, new_cpu);
-> > 
-> > I'm not sure why we're not hitting this upstream?
-> 
-> I think this can be hit upstream as well. I'll try to create a reproducer.
+kvaser_pci_init_one() maps the PCI I/O regions with pci_iomap(), while
+kvaser_pci_del_chan() also unmaps the same mappings as part of channel
+cleanup.
 
-And I can reproduce this with the latest tip/master:
+If kvaser_pci_add_chan() fails after the master device has been
+initialized, the probe error path calls kvaser_pci_del_chan(), which
+unmaps the PCI I/O regions, and then falls through to failure_iounmap,
+where the same mappings are unmapped again.
 
-  proxy_migrate_repro: donor blocking on CPU0 with migration disabled
-  proxy_migrate_repro: donor moved from CPU0 to CPU1
-  WARNING: kernel/sched/core.c:3389 at set_task_cpu+0x1d3/0x280
-  ...
-  Call Trace:
-   try_to_wake_up+0x43f/0x780
-   __mutex_unlock_slowpath+0x330/0x540
-   owner_fn+0x9f/0xc0 [proxy_migrate_repro]
-  ...
-  proxy_migrate_repro: donor woke on CPU0, task_cpu=0
-  proxy_migrate_repro: completed
+Move the PCI I/O unmapping out of kvaser_pci_del_chan(). Let the probe
+error path release the mappings through failure_iounmap and explicitly
+release them in kvaser_pci_remove_one() after channel cleanup. This
+ensures that each PCI I/O mapping is released exactly once.
 
-The reproducer creates a mutex owner on CPU1 and a migration-disabled waiter on
-CPU0. The waiter is proxy-migrated to CPU1 while blocked. When the owner
-releases the mutex, try_to_wake_up() returns the waiter to its pinned CPU0
-through set_task_cpu(), triggering the warning.
+This issue was found by manual code inspection.
 
-I guess I can send this as a separate fix, it doesn't necessarily need to be in
-this series.
+Fixes: 3878fb6fdbce ("The patch adds support for the PCI cards: PCIcan and PCIcanx (1, 2 or 4 channel) from Kvaser (http://www.kvaser.com).")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/net/can/sja1000/kvaser_pci.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-Thanks,
--Andrea
+diff --git a/drivers/net/can/sja1000/kvaser_pci.c b/drivers/net/can/sja1000/kvaser_pci.c
+index 95fe9ee1ce32..b21ca65d2daa 100644
+--- a/drivers/net/can/sja1000/kvaser_pci.c
++++ b/drivers/net/can/sja1000/kvaser_pci.c
+@@ -186,10 +186,6 @@ static void kvaser_pci_del_chan(struct net_device *dev)
+ 	}
+ 	unregister_sja1000dev(dev);
+ 
+-	pci_iounmap(board->pci_dev, priv->reg_base);
+-	pci_iounmap(board->pci_dev, board->conf_addr);
+-	pci_iounmap(board->pci_dev, board->res_addr);
+-
+ 	free_sja1000dev(dev);
+ }
+ 
+@@ -367,9 +363,18 @@ static int kvaser_pci_init_one(struct pci_dev *pdev,
+ static void kvaser_pci_remove_one(struct pci_dev *pdev)
+ {
+ 	struct net_device *dev = pci_get_drvdata(pdev);
++	struct sja1000_priv *priv = netdev_priv(dev);
++	struct kvaser_pci *board = priv->priv;
++	void __iomem *base_addr = priv->reg_base;
++	void __iomem *conf_addr = board->conf_addr;
++	void __iomem *res_addr = board->res_addr;
+ 
+ 	kvaser_pci_del_chan(dev);
+ 
++	pci_iounmap(pdev, conf_addr);
++	pci_iounmap(pdev, res_addr);
++	pci_iounmap(pdev, base_addr);
++
+ 	pci_release_regions(pdev);
+ 	pci_disable_device(pdev);
+ }
+-- 
+2.43.0
+
