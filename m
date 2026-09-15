@@ -1,864 +1,474 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67460484237;
-	Tue, 15 Sep 2026 08:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1473B6BFD
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461747; cv=none; b=hdKs9KF659hQRkOfBqGCPL1+sGM2+NLEU72fg8QCwTk+R3hZGqlrHFs9C08jn6kwqLgUDOZZScGDjjItAT4ZQ078j/7QGuDby+u+gtoFL7QyV6wRLUe5+4co+fcFtnGupMmyduO9xvqSSpEDOOj9Vq/IQjKTXs5xg/jc+UctmiQ=
+	t=1789461776; cv=none; b=TO+YuXphfbrq49k8NerPnrbzf+KPFGwULz4rKKjPNmHSubVtGTBHGvpThKChpKbcgJbaOZV6Bgk0GC45/T5A5zYSusm49RdfP8B6WWTzz1XeSsWJEZhBY49YjK/XKXhWZjmfYtyT+xgxRlOblnevkb32kaKnB43BXYgiRpEgedM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461747; c=relaxed/simple;
-	bh=QpWDXMInbFN3WeBYM2f1WhDswqZtV+zcEfSv/zqQxCQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bXvx41K574AyfF/Kw97q7z35ufAeJDD0QRZnjzAOaqFWvQ1LlVgBLWz3TgssuA2//GvR6ywL7dyRKRvxdSyaJ1sQDfknGZrMSuESyiHTANv7va4y2H7QqNx4deBMATT6c8FST3hmP3sc73T8KUim4OhDbfqN9fzfj85FmxsJcTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=EoX/f5Mg; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789461776; c=relaxed/simple;
+	bh=yr+40TrBkOYI+OGlZk1IPLFD1X+xgHQnRX8pS4vHJhw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qtuTGyR/uCjelqnVXhmsJg0K5WAT34ZvFG4SY+ApC0/+qHga5EnB5y/5A4Oz+yJlM/qV6jSSAupq+8J5zvm0+V4MxsdL+HJ8xMLz0R1X8Cy52ixAkD19w2o4qpg9TEnl5u5c4qtyJR9wIzAk0/gX+D5P/sZ5tYwq1lxKtiL/YKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QFZkYl4p; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="EoX/f5Mg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789461741;
-	bh=QpWDXMInbFN3WeBYM2f1WhDswqZtV+zcEfSv/zqQxCQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=EoX/f5Mg1kIIaS+xeslFEg8THhHga+PljQs1li6PeC5K9nj+uNGh5aeYqbv+AGNQS
-	 /ZpfsXJJAAgNYSBal4xJaPF3gzUgaSzKay9zf/c0YYeR4g88N5kti+LKR34phk5LqM
-	 o1Fnz5xEM3VlhNkhTYouEOGyrA8Tn9+KmlRKRlSNaCWeQ96Z7uRrO2K15YiuAqeTh8
-	 SWCaFjTeSq/SBdzTYeZ7zvmzZ0ItlZCtcCFkLpBShdWL2NTWxoBIdL2lNhboWwKhyl
-	 155fumXt8a7vfcHNE1y3YAc/kBDyBx1604OG2osxWD+oXxyiOe7pSvyPMbY3Zqo2BZ
-	 WCED4FftZRa4g==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id BBF8517E090C;
-	Tue, 15 Sep 2026 10:42:19 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	jitao.shi@mediatek.com,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QFZkYl4p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789461774; x=1820997774;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=yr+40TrBkOYI+OGlZk1IPLFD1X+xgHQnRX8pS4vHJhw=;
+  b=QFZkYl4pPK+n/DvMIJqJOcn2CiGdj7BFJNohXs+PN3gyYC8EQq+ELSDm
+   wWs4oC6gySB88/pGMrd8HlTpZjy+QuPm+suMW3uigPNUx5b8aek5iB0rz
+   aEYx0nq+r6Y0o8TK2z0dBQ5Ys1DaBJE94t2BRNeQGj0K+JzMDxu6+zktT
+   gUI5se339ikpNmkPJNsChIzIdL/upICi9hxRo1v2XiQ8ot5xkZzrjNHtm
+   f1mWzBgwNuaayjvmdwpS2er1Xo0R7OhuWzq0gF6CEGMPS8jp6Be6Yij0Q
+   DA4VGessbVPH7S36DWeaYkZWRlL0/14CiSHGe9CSFixt12I+NMszxZ6jS
+   A==;
+X-CSE-ConnectionGUID: g+2NU0hvS/Sk04zcJy2jrQ==
+X-CSE-MsgGUID: Uq0Iv+TyRN+bILoo2vGhtw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77379502"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="77379502"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 01:42:53 -0700
+X-CSE-ConnectionGUID: 6UvzAamHSXuYckmVewVLWg==
+X-CSE-MsgGUID: EAE2XpSQS6yBwcA0JFS2+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="271469413"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa010.jf.intel.com with ESMTP; 15 Sep 2026 01:42:50 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id B3CBF99; Tue, 15 Sep 2026 10:42:49 +0200 (CEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	kernel@collabora.com,
-	justin.yeh@mediatek.com,
-	jason-jh.lin@mediatek.com
-Subject: [PATCH v8 13/13] drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
-Date: Tue, 15 Sep 2026 10:41:48 +0200
-Message-ID: <20260915084148.11385-14-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
-References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
+	linux-mediatek@lists.infradead.org
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH v1 1/1] CREDITS: Fix the ordering and other issues.
+Date: Tue, 15 Sep 2026 10:42:45 +0200
+Message-ID: <20260915084248.3460260-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add a basic driver for the Write DMA Engine and initial compatible
-for the MediaTek MT8173 and MediaTek Dimensity 1200 MT6893, and
-hook it up to the mtk_ddp_comp and mtk_drm_drv in order for it to
-probe.
+I assume that the ordering should be done in default (C) locale
+as other gives more lines shuffled. Fix the ordering accordingly.
+With that being said, clearly make at the top header how it should
+be sorted.
 
-This display controller component is used to enable the writeback
-engine that can be used for faster display image capturing in the
-userspace (for example, screenshots and screen recording).
+Note, I took some empirical assumptions that people usually put
+their names in accordance with the First name(s) Last Name(s) split
+based on the records around (before and after the move). I hope
+I made no or little amount of mistakes. In any case it's just a dozen
+of names to update.
 
-Note that, for full functionality, the mtk_crtc driver needs to
-implement support for vblank callbacks, format checking and layer
-setup from multiple concurrent components: this is not covered in
-this change, as will be implemented with an upcoming restructuring
-of the (almost all) mediatek-drm drivers.
-
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/gpu/drm/mediatek/Makefile        |   1 +
- drivers/gpu/drm/mediatek/mtk_ddp_comp.c  |  21 +-
- drivers/gpu/drm/mediatek/mtk_disp_drv.h  |  20 +
- drivers/gpu/drm/mediatek/mtk_disp_wdma.c | 628 +++++++++++++++++++++++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c   |   4 +
- drivers/gpu/drm/mediatek/mtk_drm_drv.h   |   1 +
- 6 files changed, 673 insertions(+), 2 deletions(-)
- create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
+ CREDITS | 181 ++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 91 insertions(+), 90 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/Makefile b/drivers/gpu/drm/mediatek/Makefile
-index 03b3470ea5b5..8079962597c8 100644
---- a/drivers/gpu/drm/mediatek/Makefile
-+++ b/drivers/gpu/drm/mediatek/Makefile
-@@ -11,6 +11,7 @@ mediatek-drm-y := mtk_crtc.o \
- 		  mtk_disp_ovl.o \
- 		  mtk_disp_ovl_adaptor.o \
- 		  mtk_disp_rdma.o \
-+		  mtk_disp_wdma.o \
- 		  mtk_drm_drv.o \
- 		  mtk_dsi.o \
- 		  mtk_dpi.o \
-diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-index 13aaf12ecbe5..94b356da6de7 100644
---- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-@@ -357,6 +357,22 @@ static const struct mtk_ddp_comp_funcs ddp_rdma = {
- 	.get_num_formats = mtk_rdma_get_num_formats,
- };
+diff --git a/CREDITS b/CREDITS
+index 8bdfde15e2ac..91494c88d262 100644
+--- a/CREDITS
++++ b/CREDITS
+@@ -1,6 +1,7 @@
+ 	This is at least a partial credits-file of people that have
+-	contributed to the Linux project.  It is sorted by name and
+-	formatted to allow easy grepping and beautification by
++	contributed to the Linux project.  It is sorted by family name,
++	assuming the used locale is default, e.g. by setting LC_ALL=C,
++	and formatted to allow easy grepping and beautification by
+ 	scripts.  The fields are: name (N), email (E), web-address
+ 	(W), PGP key ID and fingerprint (P), description (D), and
+ 	snail-mail address (S).
+@@ -344,6 +345,14 @@ D: Hardware spinlock (hwspinlock) subsystem
+ D: OMAP hwspinlock driver
+ D: OMAP remoteproc driver
  
-+static const struct mtk_ddp_comp_funcs ddp_wdma = {
-+	.clk_enable = mtk_wdma_clk_enable,
-+	.clk_disable = mtk_wdma_clk_disable,
-+	.config = mtk_wdma_config,
-+	.start = mtk_wdma_start,
-+	.stop = mtk_wdma_stop,
-+	.register_vblank_cb = mtk_wdma_register_vblank_cb,
-+	.unregister_vblank_cb = mtk_wdma_unregister_vblank_cb,
-+	.enable_vblank = mtk_wdma_enable_vblank,
-+	.disable_vblank = mtk_wdma_disable_vblank,
-+	.layer_nr = mtk_wdma_layer_nr,
-+	.layer_config = mtk_wdma_layer_config,
-+	.get_formats = mtk_wdma_get_formats,
-+	.get_num_formats = mtk_wdma_get_num_formats,
-+};
++N: Muli Ben-Yehuda
++E: mulix@mulix.org
++E: muli@il.ibm.com
++W: http://www.mulix.org
++D: trident OSS sound driver, x86-64 dma-ops and Calgary IOMMU,
++D: KVM and Xen bits and other misc. hackery.
++S: Haifa, Israel
 +
- static const struct mtk_ddp_comp_funcs ddp_ufoe = {
- 	.clk_enable = mtk_ddp_clk_enable,
- 	.clk_disable = mtk_ddp_clk_disable,
-@@ -460,8 +476,8 @@ static const struct mtk_ddp_comp_match mtk_ddp_matches[DDP_COMPONENT_DRM_ID_MAX]
- 	[DDP_COMPONENT_RDMA2]		= { MTK_DISP_RDMA,		2, &ddp_rdma },
- 	[DDP_COMPONENT_RDMA4]		= { MTK_DISP_RDMA,		4, &ddp_rdma },
- 	[DDP_COMPONENT_UFOE]		= { MTK_DISP_UFOE,		0, &ddp_ufoe },
--	[DDP_COMPONENT_WDMA0]		= { MTK_DISP_WDMA,		0, NULL },
--	[DDP_COMPONENT_WDMA1]		= { MTK_DISP_WDMA,		1, NULL },
-+	[DDP_COMPONENT_WDMA0]		= { MTK_DISP_WDMA,		0, &ddp_wdma },
-+	[DDP_COMPONENT_WDMA1]		= { MTK_DISP_WDMA,		1, &ddp_wdma },
- };
+ N: Krzysztof Benedyczak
+ E: golbi@mat.uni.torun.pl
+ W: http://www.mat.uni.torun.pl/~golbi
+@@ -362,14 +371,6 @@ S: 2322 37th Ave SW
+ S: Seattle, Washington 98126-2010
+ S: USA
  
- static bool mtk_ddp_comp_find(struct device *dev,
-@@ -642,6 +658,7 @@ int mtk_ddp_comp_init(struct device *dev, struct device_node *node, struct mtk_d
- 	    type == MTK_DISP_OVL_2L ||
- 	    type == MTK_DISP_PWM ||
- 	    type == MTK_DISP_RDMA ||
-+	    type == MTK_DISP_WDMA ||
- 	    type == MTK_DPI ||
- 	    type == MTK_DP_INTF ||
- 	    type == MTK_DSI)
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_drv.h b/drivers/gpu/drm/mediatek/mtk_disp_drv.h
-index 5a823de07cde..766092f18eb9 100644
---- a/drivers/gpu/drm/mediatek/mtk_disp_drv.h
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_drv.h
-@@ -180,6 +180,26 @@ void mtk_mdp_rdma_config(struct device *dev, struct mtk_mdp_rdma_cfg *cfg,
- const u32 *mtk_mdp_rdma_get_formats(struct device *dev);
- size_t mtk_mdp_rdma_get_num_formats(struct device *dev);
+-N: Muli Ben-Yehuda
+-E: mulix@mulix.org
+-E: muli@il.ibm.com
+-W: http://www.mulix.org
+-D: trident OSS sound driver, x86-64 dma-ops and Calgary IOMMU,
+-D: KVM and Xen bits and other misc. hackery.
+-S: Haifa, Israel
+-
+ N: Johannes Berg
+ E: johannes@sipsolutions.net
+ W: https://johannes.sipsolutions.net/
+@@ -393,14 +394,14 @@ S: 1549 Hiironen Rd.
+ S: Brimson, MN  55602
+ S: USA
  
-+int mtk_wdma_clk_enable(struct device *dev);
-+void mtk_wdma_clk_disable(struct device *dev);
-+void mtk_wdma_config(struct device *dev, unsigned int width,
-+		     unsigned int height, unsigned int vrefresh,
-+		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt);
-+unsigned int mtk_wdma_layer_nr(struct device *dev);
-+void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
-+			   struct mtk_plane_state *state,
-+			   struct cmdq_pkt *cmdq_pkt);
-+void mtk_wdma_start(struct device *dev);
-+void mtk_wdma_stop(struct device *dev);
-+void mtk_wdma_register_vblank_cb(struct device *dev,
-+				 void (*vblank_cb)(void *),
-+				 void *vblank_cb_data);
-+void mtk_wdma_unregister_vblank_cb(struct device *dev);
-+void mtk_wdma_enable_vblank(struct device *dev);
-+void mtk_wdma_disable_vblank(struct device *dev);
-+const u32 *mtk_wdma_get_formats(struct device *dev);
-+size_t mtk_wdma_get_num_formats(struct device *dev);
-+
- int mtk_padding_clk_enable(struct device *dev);
- void mtk_padding_clk_disable(struct device *dev);
- void mtk_padding_start(struct device *dev);
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_wdma.c b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
-new file mode 100644
-index 000000000000..0575fade92c6
---- /dev/null
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
-@@ -0,0 +1,628 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2021 MediaTek Inc.
-+ * Copyright (c) 2025 Collabora Ltd
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+ */
-+
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_edid.h>
-+#include <drm/drm_fourcc.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_gem_dma_helper.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/drm_writeback.h>
-+
-+#include <linux/align.h>
-+#include <linux/clk.h>
-+#include <linux/component.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/soc/mediatek/mtk-cmdq.h>
-+#include <linux/wordpart.h>
-+
-+#include "mtk_crtc.h"
-+#include "mtk_ddp_comp.h"
-+#include "mtk_disp_drv.h"
-+#include "mtk_drm_drv.h"
-+
-+#define DISP_REG_WDMA_INT_ENABLE		0x000
-+ #define WDMA_FRAME_COMPLETE_INT		BIT(0)
-+#define DISP_REG_WDMA_INT_STATUS		0x004
-+#define DISP_REG_WDMA_EN			0x008
-+ #define WDMA_ENGINE_EN				BIT(0)
-+#define DISP_REG_WDMA_CFG			0x014
-+ #define WDMA_CFG_OUT_FMT			GENMASK(7, 4)
-+  #define WDMA_OUT_FMT_RGB565			0
-+  #define WDMA_OUT_FMT_RGB888			1
-+  #define WDMA_OUT_FMT_RGBA8888			2
-+  #define WDMA_OUT_FMT_ARGB8888			3
-+  #define WDMA_OUT_FMT_UYVY			4
-+  #define WDMA_OUT_FMT_YUY2			5
-+  #define WDMA_OUT_FMT_P010			6
-+  #define WDMA_OUT_FMT_Y_ONLY			7
-+  #define WDMA_OUT_FMT_I420			8
-+  #define WDMA_OUT_FMT_ARGB2101010		11
-+  #define WDMA_OUT_FMT_NV12			12
-+ #define WDMA_CT_EN				BIT(11)
-+ #define WDMA_CFG_SWAP				BIT(16)
-+ #define WDMA_UFO_DCP_ENABLE			BIT(17)
-+ #define WDMA_INT_MTX_SEL			GENMASK(27, 23)
-+  #define WDMA_CT_COEF_RGB_TO_JPEG		0
-+  #define WDMA_CT_COEF_JPEG_TO_RGB		4
-+#define DISP_REG_WDMA_SRC_SIZE			0x018
-+#define DISP_REG_WDMA_CLIP_SIZE			0x01c
-+ #define WDMA_HEIGHT_PX				GENMASK(29, 16)
-+ #define WDMA_WIDTH_PX				GENMASK(13, 0)
-+#define DISP_REG_WDMA_CLIP_COORD		0x020
-+ #define WDMA_CLIP_Y_COORD			GENMASK(29, 16)
-+ #define WDMA_CLIP_X_COORD			GENMASK(13, 0)
-+#define DISP_REG_WDMA_SHADOW_CTRL		0x024
-+ #define WDMA_FORCE_COMMIT			BIT(0)
-+ #define WDMA_BYPASS_SHADOW			BIT(1)
-+#define DISP_REG_WDMA_DST_W_IN_BYTE		0x028
-+#define DISP_REG_WDMA_DST_UV_PITCH		0x078
-+ #define WDMA_UV_DST_W_IN_BYTE			GENMASK(15, 0)
-+#define DISP_REG_WDMA_DST_ADDR_LSB		0xf00
-+#define DISP_REG_WDMA_DST_ADDR_MSB_MT6893	0xf20
-+#define DISP_REG_WDMA_DST_ADDRX(r, x)		(r + (x * 0x4))
-+
-+static const u32 mtk_wdma_wb_output_formats[] = {
-+	DRM_FORMAT_RGB888
-+};
-+
-+static const u32 mt6893_formats[] = {
-+	DRM_FORMAT_XRGB8888,
-+	DRM_FORMAT_ARGB8888,
-+	DRM_FORMAT_BGRX8888,
-+	DRM_FORMAT_BGRA8888,
-+	DRM_FORMAT_ABGR8888,
-+	DRM_FORMAT_XBGR8888,
-+	DRM_FORMAT_RGB888,
-+	DRM_FORMAT_BGR888,
-+	DRM_FORMAT_RGB565,
-+	DRM_FORMAT_YUV420,
-+	DRM_FORMAT_YVU420,
-+	DRM_FORMAT_UYVY,
-+	DRM_FORMAT_YUYV,
-+};
-+
-+struct mtk_disp_wdma_data {
-+	u32 reg_wdma_dst_addr0_msb;
-+	const u32 *formats;
-+	size_t num_formats;
-+};
-+
-+struct mtk_disp_wdma {
-+	struct device			*dev;
-+	struct clk			*clk;
-+	void __iomem			*regs;
-+	struct cmdq_client_reg		cmdq_reg;
-+	const struct mtk_disp_wdma_data	*data;
-+	void				(*vblank_cb)(void *data);
-+	void				*vblank_cb_data;
-+	int				irq;
-+	struct drm_writeback_connector	wb_connector;
-+	bool				wb_pending;
-+};
-+
-+static inline struct mtk_disp_wdma *connector_to_wdma(struct drm_connector *connector)
-+{
-+	return container_of(connector, struct mtk_disp_wdma, wb_connector.base);
-+}
-+
-+static irqreturn_t mtk_disp_wdma_irq_handler(int irq, void *dev_id)
-+{
-+	struct mtk_disp_wdma *wdma = dev_id;
-+
-+	/* Clear frame completion interrupt */
-+	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
-+
-+	if (wdma->vblank_cb)
-+		wdma->vblank_cb(wdma->vblank_cb_data);
-+
-+	/* TODO: Move completion signaling to CMDQ interrupt callback */
-+	if (wdma->wb_pending) {
-+		drm_writeback_signal_completion(&wdma->wb_connector, 0);
-+		wdma->wb_pending = false;
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void wdma_update_bits(struct device *dev, unsigned int reg,
-+			     unsigned int mask, unsigned int val)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+	unsigned int tmp = readl(wdma->regs + reg);
-+
-+	tmp = (tmp & ~mask) | (val & mask);
-+	writel(tmp, wdma->regs + reg);
-+}
-+
-+void mtk_wdma_register_vblank_cb(struct device *dev,
-+				 void (*vblank_cb)(void *),
-+				 void *vblank_cb_data)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	wdma->vblank_cb = vblank_cb;
-+	wdma->vblank_cb_data = vblank_cb_data;
-+}
-+
-+void mtk_wdma_unregister_vblank_cb(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	wdma->vblank_cb = NULL;
-+	wdma->vblank_cb_data = NULL;
-+}
-+
-+void mtk_wdma_enable_vblank(struct device *dev)
-+{
-+	wdma_update_bits(dev, DISP_REG_WDMA_INT_ENABLE, WDMA_FRAME_COMPLETE_INT,
-+			 WDMA_FRAME_COMPLETE_INT);
-+}
-+
-+void mtk_wdma_disable_vblank(struct device *dev)
-+{
-+	wdma_update_bits(dev, DISP_REG_WDMA_INT_ENABLE, WDMA_FRAME_COMPLETE_INT, 0);
-+}
-+
-+const u32 *mtk_wdma_get_formats(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	return wdma->data->formats;
-+}
-+
-+size_t mtk_wdma_get_num_formats(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	return wdma->data->num_formats;
-+}
-+
-+int mtk_wdma_clk_enable(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	return clk_prepare_enable(wdma->clk);
-+}
-+
-+void mtk_wdma_clk_disable(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	clk_disable_unprepare(wdma->clk);
-+}
-+
-+void mtk_wdma_start(struct device *dev)
-+{
-+	wdma_update_bits(dev, DISP_REG_WDMA_EN, WDMA_ENGINE_EN,
-+			 WDMA_ENGINE_EN);
-+}
-+
-+void mtk_wdma_stop(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	if (wdma->wb_pending) {
-+		drm_writeback_signal_completion(&wdma->wb_connector, 0);
-+		wdma->wb_pending = false;
-+	}
-+
-+	wdma_update_bits(dev, DISP_REG_WDMA_EN, WDMA_ENGINE_EN, 0);
-+}
-+
-+void mtk_wdma_config(struct device *dev, unsigned int width,
-+		     unsigned int height, unsigned int vrefresh,
-+		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	writel(WDMA_FORCE_COMMIT | WDMA_BYPASS_SHADOW,
-+	       wdma->regs + DISP_REG_WDMA_SHADOW_CTRL);
-+}
-+
-+static u32 wdma_fmt_convert(unsigned int fmt)
-+{
-+	switch (fmt) {
-+	default:
-+	case DRM_FORMAT_RGB565:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB565);
-+	case DRM_FORMAT_BGR565:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB565) | WDMA_CFG_SWAP;
-+	case DRM_FORMAT_RGB888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB888);
-+	case DRM_FORMAT_BGR888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB888) | WDMA_CFG_SWAP;
-+	case DRM_FORMAT_RGBX8888:
-+	case DRM_FORMAT_RGBA8888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGBA8888);
-+	case DRM_FORMAT_BGRX8888:
-+	case DRM_FORMAT_BGRA8888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGBA8888) | WDMA_CFG_SWAP;
-+	case DRM_FORMAT_XRGB8888:
-+	case DRM_FORMAT_ARGB8888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_ARGB8888);
-+	case DRM_FORMAT_XBGR8888:
-+	case DRM_FORMAT_ABGR8888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_ARGB8888) | WDMA_CFG_SWAP;
-+	case DRM_FORMAT_UYVY:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_UYVY);
-+	case DRM_FORMAT_YUYV:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_YUY2);
-+	case DRM_FORMAT_YUV420:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_I420);
-+	case DRM_FORMAT_YVU420:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_I420) | WDMA_CFG_SWAP;
-+	}
-+}
-+
-+unsigned int mtk_wdma_layer_nr(struct device *dev)
-+{
-+	return 1;
-+}
-+
-+static void mtk_wdma_ddp_write_dst_addr(struct cmdq_pkt *cmdq_pkt, u64 val,
-+					u8 reg_id, struct mtk_disp_wdma *wdma)
-+{
-+	mtk_ddp_write(cmdq_pkt, lower_32_bits(val), &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_DST_ADDRX(DISP_REG_WDMA_DST_ADDR_LSB, reg_id));
-+
-+	if (wdma->data->reg_wdma_dst_addr0_msb == 0)
-+		return;
-+
-+	mtk_ddp_write(cmdq_pkt, upper_32_bits(val), &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_DST_ADDRX(wdma->data->reg_wdma_dst_addr0_msb, reg_id));
-+}
-+
-+static void mtk_wdma_format_config(struct mtk_disp_wdma *wdma,
-+				   struct mtk_plane_pending_state *pending,
-+				   const struct drm_format_info *fmt_info,
-+				   struct cmdq_pkt *cmdq_pkt)
-+{
-+	unsigned int u_off, u_stride, u_size, v_off;
-+	u32 val;
-+
-+	/*
-+	 * For RGB formats, this sets the image destination address;
-+	 * For YUV formats, this sets the Y component destination address.
-+	 */
-+	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr, 0, wdma);
-+
-+	if (!fmt_info->is_yuv) {
-+		/* Disable color transform matrix and data compression */
-+		mtk_ddp_write_mask(cmdq_pkt, 0, &wdma->cmdq_reg, wdma->regs,
-+				   DISP_REG_WDMA_CFG,
-+				   WDMA_UFO_DCP_ENABLE | WDMA_CT_EN);
-+		return;
-+	}
-+
-+	/* Additional format config required only for 420 sampling */
-+	if (!drm_format_info_is_yuv_sampling_420(fmt_info))
-+		return;
-+
-+	u_off = pending->pitch * pending->height;
-+	u_stride = pending->pitch / 2;
-+
-+	if (drm_format_info_is_yuv_planar(fmt_info)) {
-+		/* YUV420 or YVU420 */
-+		u_stride = ALIGN(u_stride, 16);
-+		u_size = u_stride * pending->height / 2;
-+		v_off = u_off + u_size;
-+	} else {
-+		/* NV12 or NV21 */
-+		u_size = u_stride * pending->height / 2;
-+		v_off = 0;
-+	}
-+
-+	/* Set U and V components destination addresses */
-+	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr + u_off, 1, wdma);
-+	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr + v_off, 2, wdma);
-+
-+	mtk_ddp_write(cmdq_pkt, FIELD_PREP(WDMA_UV_DST_W_IN_BYTE, u_stride),
-+		      &wdma->cmdq_reg, wdma->regs, DISP_REG_WDMA_DST_UV_PITCH);
-+
-+	/* Color transform coefficient selection */
-+	val = FIELD_PREP_CONST(WDMA_INT_MTX_SEL, WDMA_CT_COEF_JPEG_TO_RGB);
-+	mtk_ddp_write_mask(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
-+			   DISP_REG_WDMA_CFG, WDMA_INT_MTX_SEL);
-+
-+	/* Enable color transform matrix, disable data compression */
-+	mtk_ddp_write_mask(cmdq_pkt, WDMA_CT_EN, &wdma->cmdq_reg, wdma->regs,
-+			   DISP_REG_WDMA_CFG, WDMA_UFO_DCP_ENABLE | WDMA_CT_EN);
-+}
-+
-+void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
-+			   struct mtk_plane_state *state,
-+			   struct cmdq_pkt *cmdq_pkt)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+	struct mtk_plane_pending_state *pending = &state->pending;
-+	unsigned int pitch = pending->pitch & 0xffff;
-+	unsigned int fmt = pending->format;
-+	unsigned int con = wdma_fmt_convert(fmt);
-+	const struct drm_format_info *fmt_info = drm_format_info(fmt);
-+	u16 clip_sz_h = pending->height;
-+	u16 clip_sz_w = pending->width;
-+	u32 val;
-+
-+	val = FIELD_PREP(WDMA_HEIGHT_PX, pending->height);
-+	val |= FIELD_PREP(WDMA_WIDTH_PX, pending->width);
-+	mtk_ddp_write(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_SRC_SIZE);
-+
-+	val = FIELD_PREP(WDMA_HEIGHT_PX, pending->y);
-+	val |= FIELD_PREP(WDMA_WIDTH_PX, pending->x);
-+	mtk_ddp_write(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_CLIP_COORD);
-+
-+	if (fmt_info->is_yuv) {
-+		if ((pending->y + pending->height) % 2)
-+			clip_sz_h--;
-+
-+		if ((pending->x + pending->width) % 2)
-+			clip_sz_w--;
-+	}
-+	val = FIELD_PREP(WDMA_HEIGHT_PX, clip_sz_h);
-+	val |= FIELD_PREP(WDMA_WIDTH_PX, clip_sz_w);
-+	mtk_ddp_write(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_CLIP_SIZE);
-+
-+	mtk_ddp_write(cmdq_pkt, con, &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_CFG);
-+	mtk_ddp_write(cmdq_pkt, pitch, &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_DST_W_IN_BYTE);
-+
-+	mtk_wdma_format_config(wdma, pending, fmt_info, cmdq_pkt);
-+
-+	drm_writeback_queue_job(&wdma->wb_connector, wdma->wb_connector.base.state);
-+}
-+
-+static enum drm_connector_status
-+mtk_wdma_wb_connector_detect(struct drm_connector *connector, bool force)
-+{
-+	return connector_status_connected;
-+}
-+
-+static const struct drm_connector_funcs mtk_wdma_wb_connector_funcs = {
-+	.detect = mtk_wdma_wb_connector_detect,
-+	.fill_modes = drm_helper_probe_single_connector_modes,
-+	.destroy = drm_connector_cleanup,
-+	.reset = drm_atomic_helper_connector_reset,
-+	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-+};
-+
-+static int mtk_wdma_wb_atomic_check(struct drm_encoder *encoder,
-+				    struct drm_crtc_state *crtc_state,
-+				    struct drm_connector_state *conn_state)
-+{
-+	const struct drm_display_mode *mode = &crtc_state->mode;
-+	struct drm_framebuffer *fb;
-+	int i;
-+
-+	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
-+		return 0;
-+
-+	fb = conn_state->writeback_job->fb;
-+	if (fb->width != mode->hdisplay || fb->height != mode->vdisplay)
-+		return -EINVAL;
-+
-+	for (i = 0; i < ARRAY_SIZE(mtk_wdma_wb_output_formats); i++) {
-+		if (fb->format->format == mtk_wdma_wb_output_formats[i])
-+			return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static const struct drm_encoder_helper_funcs mtk_wdma_wb_encoder_helper_funcs = {
-+	.atomic_check = mtk_wdma_wb_atomic_check,
-+};
-+
-+static int mtk_wdma_wb_connector_get_modes(struct drm_connector *connector)
-+{
-+	struct drm_device *dev = connector->dev;
-+
-+	return drm_add_modes_noedid(connector, dev->mode_config.max_width,
-+				    dev->mode_config.max_height);
-+}
-+
-+static enum drm_mode_status
-+mtk_wdma_wb_connector_mode_valid(struct drm_connector *connector,
-+				 const struct drm_display_mode *mode)
-+{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_mode_config *mode_config = &dev->mode_config;
-+	int w = mode->hdisplay, h = mode->vdisplay;
-+
-+	if (w < mode_config->min_width || w > mode_config->max_width)
-+		return MODE_BAD_HVALUE;
-+
-+	if (h < mode_config->min_height || h > mode_config->max_height)
-+		return MODE_BAD_VVALUE;
-+
-+	return MODE_OK;
-+}
-+
-+static void mtk_wdma_wb_connector_atomic_commit(struct drm_connector *connector,
-+						struct drm_atomic_commit *state)
-+{
-+	struct drm_connector_state *conn_state =
-+		drm_atomic_get_new_connector_state(state, connector);
-+	struct mtk_disp_wdma *wdma = connector_to_wdma(connector);
-+	struct drm_framebuffer *fb;
-+	struct drm_gem_object *gem;
-+	struct drm_gem_dma_object *dma_obj;
-+	dma_addr_t addr;
-+
-+	if (WARN_ON(!conn_state->writeback_job))
-+		return;
-+
-+	fb = conn_state->writeback_job->fb;
-+	if (!fb)
-+		return;
-+
-+	gem = fb->obj[0];
-+	dma_obj = to_drm_gem_dma_obj(gem);
-+	addr = dma_obj->dma_addr;
-+
-+	/* Store writeback pending state before queuing the job */
-+	wdma->wb_pending = true;
-+
-+	mtk_wdma_ddp_write_dst_addr(NULL, addr, 0, wdma);
-+	drm_writeback_queue_job(&wdma->wb_connector, conn_state);
-+}
-+
-+static const struct drm_connector_helper_funcs mtk_wdma_wb_connector_helper_funcs = {
-+	.get_modes = mtk_wdma_wb_connector_get_modes,
-+	.mode_valid = mtk_wdma_wb_connector_mode_valid,
-+	.atomic_commit = mtk_wdma_wb_connector_atomic_commit,
-+};
-+
-+static int mtk_disp_wdma_bind(struct device *dev, struct device *master,
-+			      void *data)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+	struct drm_device *drm_dev = data;
-+	int crtcs, ret;
-+
-+	crtcs = mtk_find_possible_crtcs(drm_dev, wdma->dev);
-+	if (crtcs < 0)
-+		return crtcs;
-+
-+	drm_connector_helper_add(&wdma->wb_connector.base,
-+				 &mtk_wdma_wb_connector_helper_funcs);
-+
-+	ret = drm_writeback_connector_init(drm_dev, &wdma->wb_connector,
-+					   &mtk_wdma_wb_connector_funcs,
-+					   &mtk_wdma_wb_encoder_helper_funcs,
-+					   mtk_wdma_wb_output_formats,
-+					   ARRAY_SIZE(mtk_wdma_wb_output_formats),
-+					   crtcs);
-+	if (ret)
-+		return ret;
-+
-+	ret = pm_runtime_get_sync(dev);
-+	if (ret)
-+		dev_warn(dev, "Could not get PM Runtime!\n");
-+
-+	/*
-+	 * Disable and clear pending interrupts - write unconditionally as no
-+	 * crash (SError, etc) will happen as if unpowered/unclocked this is
-+	 * simply going to be ignored (and the registers will be 0 at reset).
-+	 */
-+	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_ENABLE);
-+	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
-+
-+	/* Put RPM only if refcount was incremented before to avoid unbalancing */
-+	if (ret >= 0)
-+		pm_runtime_put(dev);
-+
-+	enable_irq(wdma->irq);
-+	return 0;
-+}
-+
-+static void mtk_disp_wdma_unbind(struct device *dev, struct device *master,
-+				 void *data)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	disable_irq(wdma->irq);
-+}
-+
-+static const struct component_ops mtk_disp_wdma_component_ops = {
-+	.bind	= mtk_disp_wdma_bind,
-+	.unbind = mtk_disp_wdma_unbind,
-+};
-+
-+static int mtk_disp_wdma_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct mtk_disp_wdma *priv;
-+	struct resource *res;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->dev = dev;
-+
-+	priv->irq = platform_get_irq(pdev, 0);
-+	if (priv->irq < 0)
-+		return priv->irq;
-+
-+	priv->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(priv->clk))
-+		return dev_err_probe(dev, PTR_ERR(priv->clk),
-+				     "failed to get wdma clk\n");
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	priv->regs = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(priv->regs))
-+		return dev_err_probe(dev, PTR_ERR(priv->regs),
-+				     "failed to ioremap wdma\n");
-+#if IS_REACHABLE(CONFIG_MTK_CMDQ)
-+	ret = cmdq_dev_get_client_reg(dev, &priv->cmdq_reg, 0);
-+	if (ret)
-+		dev_dbg(dev, "get mediatek,gce-client-reg fail!\n");
-+#endif
-+
-+	priv->data = of_device_get_match_data(dev);
-+	platform_set_drvdata(pdev, priv);
-+
-+	ret = devm_request_irq(dev, priv->irq, mtk_disp_wdma_irq_handler,
-+			       IRQF_NO_AUTOEN, dev_name(dev), priv);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to request irq\n");
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = component_add(dev, &mtk_disp_wdma_component_ops);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add component\n");
-+
-+	return 0;
-+}
-+
-+static void mtk_disp_wdma_remove(struct platform_device *pdev)
-+{
-+	component_del(&pdev->dev, &mtk_disp_wdma_component_ops);
-+}
-+
-+static const struct mtk_disp_wdma_data mt6893_wdma_driver_data = {
-+	.reg_wdma_dst_addr0_msb = DISP_REG_WDMA_DST_ADDR_MSB_MT6893,
-+	.formats = mt6893_formats,
-+	.num_formats = ARRAY_SIZE(mt6893_formats),
-+};
-+
-+static const struct mtk_disp_wdma_data mt8173_wdma_driver_data = {
-+	.formats = mt6893_formats,
-+	.num_formats = ARRAY_SIZE(mt6893_formats),
-+};
-+
-+static const struct of_device_id mtk_disp_wdma_driver_dt_match[] = {
-+	{ .compatible = "mediatek,mt6893-disp-wdma", .data = &mt6893_wdma_driver_data },
-+	{ .compatible = "mediatek,mt8173-disp-wdma", .data = &mt8173_wdma_driver_data },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, mtk_disp_wdma_driver_dt_match);
-+
-+struct platform_driver mtk_disp_wdma_driver = {
-+	.probe		= mtk_disp_wdma_probe,
-+	.remove		= mtk_disp_wdma_remove,
-+	.driver		= {
-+		.name	= "mediatek-disp-wdma",
-+		.of_match_table = mtk_disp_wdma_driver_dt_match,
-+	},
-+};
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index aec8da072a41..7020fc0845cf 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -796,6 +796,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_RDMA },
- 	{ .compatible = "mediatek,mt8173-disp-ufoe",
- 	  .data = (void *)MTK_DISP_UFOE },
-+	{ .compatible = "mediatek,mt6893-disp-wdma",
-+	  .data = (void *)MTK_DISP_WDMA },
- 	{ .compatible = "mediatek,mt8173-disp-wdma",
- 	  .data = (void *)MTK_DISP_WDMA },
- 	{ .compatible = "mediatek,mt2701-dpi",
-@@ -1175,6 +1177,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
- 		    comp_type == MTK_DISP_OVL_2L ||
- 		    comp_type == MTK_DISP_OVL_ADAPTOR ||
- 		    comp_type == MTK_DISP_RDMA ||
-+		    comp_type == MTK_DISP_WDMA ||
- 		    comp_type == MTK_DP_INTF ||
- 		    comp_type == MTK_DPI ||
- 		    comp_type == MTK_DSI) {
-@@ -1283,6 +1286,7 @@ static struct platform_driver * const mtk_drm_drivers[] = {
- 	&mtk_disp_ovl_adaptor_driver,
- 	&mtk_disp_ovl_driver,
- 	&mtk_disp_rdma_driver,
-+	&mtk_disp_wdma_driver,
- 	&mtk_dpi_driver,
- 	&mtk_drm_platform_driver,
- 	&mtk_dsi_driver,
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.h b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-index 43aac2d956e7..8b5c51d93f72 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-@@ -77,6 +77,7 @@ extern struct platform_driver mtk_disp_merge_driver;
- extern struct platform_driver mtk_disp_ovl_adaptor_driver;
- extern struct platform_driver mtk_disp_ovl_driver;
- extern struct platform_driver mtk_disp_rdma_driver;
-+extern struct platform_driver mtk_disp_wdma_driver;
- extern struct platform_driver mtk_dpi_driver;
- extern struct platform_driver mtk_dsi_driver;
- extern struct platform_driver mtk_ethdr_driver;
+-N: Arnd Bergmann
+-D: Maintainer of Cell Broadband Engine Architecture
+-
+ N: Hennus Bergman
+ P: 1024/77D50909 76 99 FD 31 91 E1 96 1C  90 BB 22 80 62 F6 BD 63
+ D: Author and maintainer of the QIC-02 tape driver
+ S: The Netherlands
+ 
++N: Arnd Bergmann
++D: Maintainer of Cell Broadband Engine Architecture
++
+ N: Tomas Berndtsson
+ E: tomas@nocrew.org
+ W: http://tomas.nocrew.org/
+@@ -492,10 +493,6 @@ D: Various fixes (mostly networking)
+ S: Montreal, Quebec
+ S: Canada
+ 
+-N: Zoltán Böszörményi
+-E: zboszor@mail.externet.hu
+-D: MTRR emulation with Cyrix style ARR registers, Athlon MTRR support
+-
+ N: John Boyd
+ E: boyd@cis.ohio-state.edu
+ D: Co-author of wd7000 SCSI driver
+@@ -589,9 +586,6 @@ N: Zach Brown
+ E: zab@zabbo.net
+ D: maestro pci sound
+ 
+-N: Zefan Li
+-D: Contribution to control group stuff
+-
+ N: David Brownell
+ D: Kernel engineer, mentor, and friend.  Maintained USB EHCI and
+ D: gadget layers, SPI subsystem, GPIO subsystem, and more than a few
+@@ -632,6 +626,10 @@ S: Ravenhorst 58
+ S: 2317 AK Leiden
+ S: The Netherlands
+ 
++N: Zoltán Böszörményi
++E: zboszor@mail.externet.hu
++D: MTRR emulation with Cyrix style ARR registers, Athlon MTRR support
++
+ N: Michael Callahan
+ E: callahan@maths.ox.ac.uk
+ D: PPP for Linux
+@@ -703,6 +701,10 @@ S: Tamsui town, Taipei county,
+ S: Taiwan 251
+ S: Republic of China
+ 
++N: Landen Chao
++E: Landen.Chao@mediatek.com
++D: MT7531 Ethernet switch support
++
+ N: Michael Elizabeth Chastain
+ E: mec@shout.net
+ D: Configure, Menuconfig, xconfig
+@@ -715,10 +717,6 @@ D: Media subsystem (V4L/DVB) drivers and core
+ D: EDAC drivers and EDAC 3.0 core rework
+ S: Brazil
+ 
+-N: Landen Chao
+-E: Landen.Chao@mediatek.com
+-D: MT7531 Ethernet switch support
+-
+ N: Raymond Chen
+ E: raymondc@microsoft.com
+ D: Author of Configure script
+@@ -1447,6 +1445,10 @@ D: Made support for modules, ramdisk, generic-serial, etc. optional.
+ D: Transformed old user space bdflush into 1st kernel thread - kflushd.
+ D: Many other patches, documentation files, mini kernels, utilities, ...
+ 
++N: Andy Gospodarek
++E: andy@greyhouse.net
++D: Maintenance and contributions to the network interface bonding driver.
++
+ N: Masanori GOTO
+ E: gotom@debian.or.jp
+ D: Workbit NinjaSCSI-32Bi/UDE driver
+@@ -1459,10 +1461,6 @@ S: 8124 Constitution Apt. 7
+ S: Sterling Heights, Michigan 48313
+ S: USA
+ 
+-N: Andy Gospodarek
+-E: andy@greyhouse.net
+-D: Maintenance and contributions to the network interface bonding driver.
+-
+ N: Vivek Goyal
+ E: vgoyal@redhat.com
+ D: KDUMP, KEXEC, and VIRTIO FILE SYSTEM
+@@ -1535,6 +1533,14 @@ S: 44 St. Joseph Street, Suite 506
+ S: Toronto, Ontario, M4Y 2W4
+ S: Canada
+ 
++N: Nitin Gupta
++E: ngupta@vflare.org
++D: zsmalloc memory allocator and zram block device driver
++
++N: Justin Guyett
++E: jguyett@andrew.cmu.edu
++D: via-rhine net driver hacking
++
+ N: Richard Günther
+ E: rguenth@tat.physik.uni-tuebingen.de
+ W: http://www.tat.physik.uni-tuebingen.de/~rguenth
+@@ -1543,14 +1549,6 @@ D: binfmt_misc
+ S: 72074 Tübingen
+ S: Germany
+ 
+-N: Justin Guyett
+-E: jguyett@andrew.cmu.edu
+-D: via-rhine net driver hacking
+-
+-N: Nitin Gupta
+-E: ngupta@vflare.org
+-D: zsmalloc memory allocator and zram block device driver
+-
+ N: Danny ter Haar
+ E: dth@cistron.nl
+ D: /proc/cpuinfo, reboot on panic , kernel pre-patch tester ;)
+@@ -1945,16 +1943,6 @@ E: sjenning@redhat.com
+ D: Creation and maintenance of zswap
+ D: Creation and maintenace of the zbud allocator
+ 
+-N: Jeremy Kerr
+-D: Maintainer of SPU File System
+-
+-N: Michael Kerrisk
+-E: mtk.manpages@gmail.com
+-W: https://man7.org/
+-P: 4096R/3A35CE5E E522 595B 52ED A4E6 BFCC  CB5E 8561 9911 3A35 CE5E
+-D: Maintainer of the Linux man-pages project
+-D: Linux man pages online, at <https://man7.org/linux/man-pages/>
+-
+ N: Niels Kristian Bech Jensen
+ E: nkbj1970@hotmail.com
+ D: Miscellaneous kernel updates and fixes.
+@@ -2099,6 +2087,16 @@ S: Keplerstr. 6
+ S: 4050 Traun
+ S: Austria
+ 
++N: Jeremy Kerr
++D: Maintainer of SPU File System
++
++N: Michael Kerrisk
++E: mtk.manpages@gmail.com
++W: https://man7.org/
++P: 4096R/3A35CE5E E522 595B 52ED A4E6 BFCC  CB5E 8561 9911 3A35 CE5E
++D: Maintainer of the Linux man-pages project
++D: Linux man pages online, at <https://man7.org/linux/man-pages/>
++
+ N: Karl Keyte
+ E: karl@koft.com
+ D: Disk usage statistics and modifications to line printer driver
+@@ -2483,6 +2481,9 @@ D: and much more. He was the maintainer of MD from 2016 to 2018. Shaohua
+ D: passed away late 2018, he will be greatly missed.
+ W: https://www.spinics.net/lists/raid/msg61993.html
+ 
++N: Zefan Li
++D: Contribution to control group stuff
++
+ N: Stephan Linz
+ E: linz@mazet.de
+ E: Stephan.Linz@gmx.de
+@@ -2542,11 +2543,6 @@ D: misc. kernel hacking and debugging
+ S: Cambridge, MA 02139
+ S: USA
+ 
+-N: Martin von Löwis
+-E: loewis@informatik.hu-berlin.de
+-D: script binary format
+-D: NTFS driver
+-
+ N: H.J. Lu
+ E: hjl@gnu.ai.mit.edu
+ D: GCC + libraries hacker
+@@ -2575,6 +2571,11 @@ S: Puistokaari 1 E 18
+ S: 00200 Helsinki
+ S: Finland
+ 
++N: Martin von Löwis
++E: loewis@informatik.hu-berlin.de
++D: script binary format
++D: NTFS driver
++
+ N: Daniel J. Maas
+ E: dmaas@dcine.com
+ W: https://www.maasdigital.com
+@@ -2625,10 +2626,6 @@ S: PO BOX 220, HFX. CENTRAL
+ S: Halifax, Nova Scotia
+ S: Canada B3J 3C8
+ 
+-N: Kai Mäkisara
+-E: Kai.Makisara@kolumbus.fi
+-D: SCSI Tape Driver
+-
+ N: Asit Mallick
+ E: asit.k.mallick@intel.com
+ D: Linux/IA-64
+@@ -2912,13 +2909,6 @@ S: 12725 SW Millikan Way, Suite 400
+ S: Beaverton, Oregon 97005
+ S: USA
+ 
+-N: Eberhard Mönkeberg
+-E: emoenke@gwdg.de
+-D: CDROM driver "sbpcd" (Matsushita/Panasonic/Soundblaster)
+-S: Ruhstrathöhe 2 b.
+-S: D-37085 Göttingen
+-S: Germany
+-
+ N: Thomas Molina
+ E: tmolina@cablespeed.com
+ D: bug fixes, documentation, minor hackery
+@@ -3005,6 +2995,17 @@ S: Dragonvagen 1 A 13
+ S: FIN-00330 Helsingfors
+ S: Finland
+ 
++N: Kai Mäkisara
++E: Kai.Makisara@kolumbus.fi
++D: SCSI Tape Driver
++
++N: Eberhard Mönkeberg
++E: emoenke@gwdg.de
++D: CDROM driver "sbpcd" (Matsushita/Panasonic/Soundblaster)
++S: Ruhstrathöhe 2 b.
++S: D-37085 Göttingen
++S: Germany
++
+ N: Matija Nalis
+ E: mnalis@jagor.srce.hr
+ E: mnalis@voyager.hr
+@@ -3200,13 +3201,6 @@ S: RR #5, 497 Pole Line Road
+ S: Thunder Bay, Ontario
+ S: CANADA P7C 5M9
+ 
+-N: Inaky Perez-Gonzalez
+-E: inaky.perez-gonzalez@intel.com
+-E: linux-wimax@intel.com
+-E: inakypg@yahoo.com
+-D: WiMAX stack
+-D: Intel Wireless WiMAX Connection 2400 driver
+-
+ N: Yuri Per
+ E: yuri@pts.mipt.ru
+ D: Some smbfs fixes
+@@ -3214,6 +3208,13 @@ S: Demonstratsii 8-382
+ S: Tula 300000
+ S: Russia
+ 
++N: Inaky Perez-Gonzalez
++E: inaky.perez-gonzalez@intel.com
++E: linux-wimax@intel.com
++E: inakypg@yahoo.com
++D: WiMAX stack
++D: Intel Wireless WiMAX Connection 2400 driver
++
+ N: Thomas Petazzoni
+ E: thomas.petazzoni@bootlin.com
+ D: Driver for the Marvell Armada 370/XP network unit.
+@@ -3328,14 +3329,14 @@ N: Frederic Potter
+ E: fpotter@cirpack.com
+ D: Some PCI kernel support
+ 
+-N: Rui Prior
+-E: rprior@inescn.pt
+-D: ATM device driver for NICStAR based cards
+-
+ N: Roopa Prabhu
+ E: roopa@nvidia.com
+ D: Bridge co-maintainer, vxlan and networking contributor
+ 
++N: Rui Prior
++E: rprior@inescn.pt
++D: ATM device driver for NICStAR based cards
++
+ N: Stefan Probst
+ E: sp@caldera.de
+ D: The Linux Support Team Erlangen, 1993-97
+@@ -4023,12 +4024,6 @@ S: C/ Federico Garcia Lorca 1 10-A
+ S: Sevilla 41005
+ S: Spain
+ 
+-N: Björn Töpel
+-E: bjorn@kernel.org
+-D: AF_XDP
+-S: Gothenburg
+-S: Sweden
+-
+ N: Linus Torvalds
+ E: torvalds@linux-foundation.org
+ D: Original kernel hacker
+@@ -4082,17 +4077,6 @@ D: Linux-Workshop Köln (aka LUG Cologne, Germany), Installfests
+ S: Tacitusstr. 6
+ S: D-50968 Köln
+ 
+-N: Tsu-Sheng Tsao
+-E: tsusheng@scf.usc.edu
+-D: IGMP (Internet Group Management Protocol) version 2
+-S: 2F 14 ALY 31 LN 166 SEC 1 SHIH-PEI RD
+-S: Taipei
+-S: Taiwan 112
+-S: Republic of China
+-S: 24335 Delta Drive
+-S: Diamond Bar, California 91765
+-S: USA
+-
+ N: Theodore Ts'o
+ E: tytso@mit.edu
+ D: Random Linux hacker
+@@ -4109,6 +4093,17 @@ S: 1 Amherst Street
+ S: Cambridge, Massachusetts 02139
+ S: USA
+ 
++N: Tsu-Sheng Tsao
++E: tsusheng@scf.usc.edu
++D: IGMP (Internet Group Management Protocol) version 2
++S: 2F 14 ALY 31 LN 166 SEC 1 SHIH-PEI RD
++S: Taipei
++S: Taiwan 112
++S: Republic of China
++S: 24335 Delta Drive
++S: Diamond Bar, California 91765
++S: USA
++
+ N: Luben Tuikov
+ E: Luben Tuikov <ltuikov89@gmail.com>
+ D: Maintainer of the DRM GPU Scheduler
+@@ -4135,6 +4130,12 @@ S: 44 Campbell Park Crescent
+ S: Edinburgh EH13 0HT
+ S: United Kingdom
+ 
++N: Björn Töpel
++E: bjorn@kernel.org
++D: AF_XDP
++S: Gothenburg
++S: Sweden
++
+ N: Thomas Uhl
+ E: uhl@sun1.rz.fh-heilbronn.de
+ D: Application programmer
 -- 
-2.55.0
+2.50.1
 
