@@ -1,169 +1,185 @@
 Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F46E374A0A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:41:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AC544E66B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:42:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789508470; cv=pass; b=SvoKP8D+uPqwuIkMTh/iIi9jNJHsEUA4x22bQMH8bzS9rP5qm4nGmAX/sV4Dy+bsAHZu19oMHEkn9H91iI9XfJw9lZOicqy2SxegH+AZY3HyMmqRReVV+VlenokeG2H+VkU6aWGEXnaAUal7zBLHBcG+BAgtELnp1qWlzzUrEgA=
+	t=1789508578; cv=pass; b=OwnsrwKk8PjTRy4VH3oLIo06tGlZsrWh5QyA/Y9573xP4IajUZK4IlyuqBWzI6FDlYM3vUg76i7BtFFx4pwu9iyjc/QeEf6QLHtVYMU0/20GcixU5vpE1iCMPCA96nf0TQNk1lMczZl9IEVRnugHXE4jm5+ntd+1smPV8Ozfp6M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789508470; c=relaxed/simple;
-	bh=TQRGBrrDXcmDIzvEBw2UOVN7uPX1DaJFuWM/UhCsOCs=;
+	s=arc-20240116; t=1789508578; c=relaxed/simple;
+	bh=7FPuBKqfc5+V+XudiWfGUwcGgOF3XEWZ0MgBewJ876s=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nmmdQoR30QtvZ5qGw2aAFvEczr2pKeYsHEkjJ+brcNCm7U9vczQMn8a4WjQ79IfUDZxzN7Sb8Ay2JOasYSWbi8N1Nuka+vDLaMAaXqWmfjEBbswQKAuAwUz6IrHuPs5opbRy0eDGMGW/J6ESztR3l/IkTuC/Kas6Iz6C2wxWf5Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=q6epJbrz; arc=pass smtp.client-ip=74.125.230.204
+	 To:Cc:Content-Type; b=rsFToTKc6XURWIQIgYLk+3W4of6I/pG5N4vYqJ8RGhHmkLaWIvTo2deInCeXj73Bk/QWnFgyAFo9cFJndJMmxSACY8GrvIlfj7llSOubnO8G/iTtvEF0h5xi1DyIM50jhuB7YLm+gP9aMCgBGmcNO4ZVnQM+hFXwbscdQKa2Aow=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nvjLsVGg; arc=pass smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="q6epJbrz"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76c9deeso2444981cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:41:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789508468; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nvjLsVGg"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5306706e89dso32581cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:42:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789508576; cv=none;
         d=google.com; s=arc-20260327;
-        b=FtrQjC1S/69fAAPaRHeNgjuOcAXxms3iiZcR93g6Lw7bc/hIT4R/v5ARUHsxAwz4kV
-         cyiUnF8h8/GDsJwDvilm67VWIcfnMTCX82tWAQEXtASnwZYTFJmDY6g/lgSLAxhORjJs
-         Zzrv/XP+95ESIvt+I+Fw8QorDdMFKuOrKnaXrDqfREHcDA55mW1KFQdVMzn73eH/UWVC
-         xP1XBHxH04bzRXS3BWn0Z7DxhB1HmXsiKSbtMK2MQXRJ9KxtTjBI02hEHlW9ODdVDIO+
-         /Q04iBrST6KaR03SA13sd0N9zuOmqndEWXvYPdnWiwJq27n1pgaXsTbudVt9ABDe8ly6
-         Kn/w==
+        b=iBz7YbGJ965JCxAIeo0kLg4FetvJU7jxKnvG+g0O7He4e2pd36FEZMjtGUUlfXRFAz
+         1MKz0ubvhg/DtK5B/BpdmHhPDUBB9o+jOjGKY6af0xmBaoelIe4iSlmzhJsiVjlJZ/KV
+         vvsDUi0U7t/cMS1QPcgrDDR34x6EpYrwoKfMdCuFUqqO47V7NGkfimN2IuuTijq/c3vN
+         4Fqa8DyEtIk3kzPrzoX+r3wR5dnLMzHGPjiZHi9SOKj8C1j3xVlpjAHUk9ELJsCWS9t3
+         k+KaD+RKGEovBWZMuwK1HOxlRK4QcYqLeRVDYoS4XrQ0MCHCuC1mvl8FagMypojhdpUp
+         hCTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=mYh/6i1QA2nX7JSpaFmJOLlBXi3crvLXfZ91g38PHCk=;
-        fh=Z/C2NMEuHlKsqgNj/B8f/SX/FTdAhEAphLFg0ro0zzE=;
-        b=rDx0hTkEncHhqg1uNWeBXx728jOaKMMc0LE150vb7VPRe6AsoAJkTwTNVl3E/sOD5k
-         S3Tyb/7D5EaNYJ4qR7lNx4H3dSFW/dYnWRSSBDKdH5tP7wCds8c6hFdfAeS/D2jJ41YB
-         JPBterFWVogweUYIEb4wnSvwcZHCdtyuOc624E+dd4/Lq2QvQFkZnFyx98dyPs86k9co
-         YiRGahq7jbRjdKPvRcFXX7xgeAkqWSwJgZf7kux6Xscdg0HKLSIk4x9VyX8y5e5bzxtP
-         V01/s6B2zDzb1Hjlykb6GFqfA7cpa0pZ37leINHZQcoFTI+a15Syif74o1SSOyuPf70C
-         t+rA==;
+        bh=aD5DtmrQU1XAAN2n47o7245dkYOoODedHBlENsGW6Jo=;
+        fh=SYmUPOnrIxburhqjpaJswGhtHB5yS44OXawOsKCaYw4=;
+        b=HQGmgLk56NzgWC6jPNOTR9QB6K8cxrw0xMfduCF20naA/USadP6wfb9bUJkx0hFwme
+         YFB/K9h4ZevXDuGYdo+Z6M8EKuyWe7PVZUwYEXzwZA2pATacmYNSyF6LVRsapHTT3ByO
+         WkpqGqFUJERlvFPFHXUqFbk0UAkT6cpl73GUvaRqTvy2Abg2l04+IfN9N7c8uT8KPuNb
+         zP4OrzV0ORwcWNgVR0hhh5dB4AHITpoPZgXbh3fXhc70kBV8Hh1Z302RNUCIICmTdmt3
+         W1qK5LXjvEf0Z1KS05VwMqd6wRDd4srq9KRilAafJahg0lGW0hVd/N31uCn+aWNjfVqI
+         +DgQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789508468; x=1790113268; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789508576; x=1790113376; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=mYh/6i1QA2nX7JSpaFmJOLlBXi3crvLXfZ91g38PHCk=;
-        b=q6epJbrzKAr9h5U3XYJ43GUquH2ItqBdiYblt/gtLwzD2etHxH3LzdKAGPJA69ST8j
-         4Undrbb2kjxSpjqX6Eq+1Azi6TBhBovshA8koJg4FXSfHjxtbSDx5prGVq7yVINsFJN1
-         q6AKp7QrAkVODobKAKzcLR9QsrT4xbPDKXrO9/SUwu6MO9AA9QGHJz6lOH8OmJRw4GNb
-         5uFQWBMei9DMuL13wRrTmOFGbdidt20t9dMeV1zy4QvaMtCZ2grkzjjzYfAbSAf5diZP
-         bTyRhiaoVqy4eiZIJv/MBnBys4hM5nNPDG1dxkg/HHSl5VY4++w3pYJQOQUh6BEOiCSg
-         tTwg==
+        bh=aD5DtmrQU1XAAN2n47o7245dkYOoODedHBlENsGW6Jo=;
+        b=nvjLsVGgRj0yMKuH2ZW853ibeWabA+JxD/OqUDRpdbXU8+rvn6D4qQPVdjhzkouMbY
+         wsEIS306ZkSuh6KXf0XQHKsKByyJJfwQJvd8tshcsB9C+3E6+2y07HQvDfwAeu8liueV
+         pm251xUmcAfqM9DldAzZXxASE3N7GSOex7/cE4kXfqSr99Rm7ozyqzsqKFZsLPBNCziZ
+         x49WGmFvduSUAF0fHjYOZI6/RaxcbTJqfhcqtmH+Pjia03Xsr2Yo3IdpnywuyepAVlV8
+         myfW/wFz8QX+I61Q0D2fvcJcxCT3b5DO05GZWvAAbpFlIKesKvO+GBaRkJG+BDKKc51T
+         RBqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789508468; x=1790113268;
+        d=1e100.net; s=20260707; t=1789508576; x=1790113376;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mYh/6i1QA2nX7JSpaFmJOLlBXi3crvLXfZ91g38PHCk=;
-        b=r/DAOz8eProx1LdwKIOdEfJywKyawAMChI9maQhlPGWyivKGleOc+oVLiq1F1MV/1q
-         tTD2vW2v6xOJB3fD14Lw77kUAvTuTn/JItkSM2+vef/Pp8j+Uv5igQhBrk9EiuxmVstk
-         gzAFkimkYRb/ngSz/Aqr3JFZVphV2G8x72k1ljvZuTKN+2BaXmuPE0WLsHIPsGkS6ssf
-         prqsdn+VJpLvKTckXG2P9YEBx2LLfdmFuzPARxHueRHEBLkg05s6x9W4wl1+6E9cpldH
-         fDz+jsX1bNGo6eIfZuP+f4Zfh7OyAIADU3bHbp1gfau7g7HbNbKho52QasbBIA0UL2UB
-         p2aQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzptN9VyrrB8uvrU33khMxqQ2C/EXZx8ZfAdr8VXt7wgjCEzEXr2NMx6XZq5V3+jL3Aoh3IrvV3vfbMUQY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCosl7UqqLGKrvpLgmKVJWmyQ/XdsWhywt/5qYo5w/OLRhh+lr
-	/ehgvE7lAbjToJc5OOpIx1JuG25vkeF2KpM6aaKthNO85Z4GqTI79GNADefDqwuFpNdyxdpM24E
-	CSMBM+qvYSWfVsi+yjvRc9AV9I68IcZWcoWAUHKvh
-X-Gm-Gg: AYBFou1zQ+7osNN0SJETo0jpKqgkIOF3rGT/DgCvrOAEtFw0LqZZh2p1Zy4ZJ+jeeBo
-	JYPCl2iKLffrGrsBvj4vU+FqIJMBpjOsNrDs8vQxLgbjCZIWT69ugURfxApsf9tkFOdklCtMX1+
-	e8dpOduRTE7sGhldBxw2EsvHTvjUbsoakypdVxtCUN2Xs/dlhPGXZfWrOeFR59vuJwWymE/WexU
-	fBBpdywK6dGOQkRWjfuOoLi4pv4GTjjF+Wnbq4hYlMDEy2s2xDX8o9aCUX8ZFDWikMA4aW2SUhY
-	U1nX76uCr5T3BVsmlalt72QMovdTAXMJqory/32mgwIDBnbqzqJBZjbL137hkRGtNl0JpO42s1o
-	kXXyJKr/HvU8ElJ1yLQLW4U/X9hjkf0Ruzj5vyeZMV0MLko7pZryNGiB2zwAudstols6xC9zDog
-	20fywurnEtJGVrhJjryHiJlmwgCPaQQYg=
-X-Received: by 2002:a05:622a:4811:b0:530:f75a:5ca1 with SMTP id
- d75a77b69052e-5327f26256emr1796801cf.25.1789508467689; Tue, 15 Sep 2026
- 14:41:07 -0700 (PDT)
+        bh=aD5DtmrQU1XAAN2n47o7245dkYOoODedHBlENsGW6Jo=;
+        b=HO2kkq3EG5FmZCy3MkHt53W83Y73SA7pPAwbTMr/ePjeRqDaSnkSfB18Mat17xDmV7
+         nnGTO1E2PgNH4ZHfU24vI4frSPK+x/nbVk9tDND1wqh+OUyVKzdWXtpMIKxnjv/6yH0e
+         KljaO07ix9S0dysKs3Iw0DNN5QdW/JwAGagWBJegTEwJ5eWIibRver/DWFxFwPPzJQtl
+         udFMy2qtUapLN9AtiIcFFTiDsfq9Vy1UMo0Dp3KABpHGvVlkdbVUpBuZ3Ns+ONfPQF1c
+         QrtfA5KXk4MG4YCUO/O/NsKSuFOeKLeXkw0/CGCDJliKiEjhwEPi5lSbLAZWM1/hHqS2
+         xvOw==
+X-Forwarded-Encrypted: i=1; AKwUvBwora4L1zMwbZ5AVMi0YALJB89WakvCwbrRq1OVWbllzDNJ88KhfVKDNpF2aLdSNp53gQxyuhYGUCEtq/Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++kR542OJ8lNzm5KJ1VKHoPoeUhqSnsoQGiSt5EqFhgleD60Ui3M
+	u3snavrMi2LnVFOktT+Wowlzo3vm7JMA0//FBnAddxRSp1Kcfe1DZ+QM10knmT965XCNllSdJN2
+	5w/gDytSmAd0P6eLYSivbvqPCg8Xk01SrCLR2U2Ng
+X-Gm-Gg: AYBFou3dFUQifVeMqT3hVQErty0A4w/kn3hxg3clocMDeiopEv2y5/1szr5TkHlbart
+	lpsX8lKF7KPsMf4odw9gKUvCrdz3RlQ6M1Ht0WiyhyrtXSCWVSHEnNGIbLxu7wMaD3SAdvvIfLe
+	INVwnFdxT/shHgTQ0y+MHVfCrrKFjya5h3rBBDB+mDxQdwXXS1bWZH+cavKdghNymsfe1Z9N6st
+	EodXrJjo4gk9jFZ2jbr9MmAwTiGLN34xYftqeHeYBvvtib7nu+wDB4uAPrR5VNn28QB1bMrU5AD
+	C0R2KfeqA/xZi0d3Q9/6EUq2HhyrD9T7pZzFVXsLbIix6iN0khr7OYmtzfusGv+3fZ9l3RCqLu6
+	NEiewxYVWpshxyOEdY8rgmw==
+X-Received: by 2002:a05:622a:4d8c:b0:531:34b9:2532 with SMTP id
+ d75a77b69052e-5327ed8004emr1067291cf.4.1789508575206; Tue, 15 Sep 2026
+ 14:42:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <114FAFBD-F7BC-46AE-AF9F-0D15124F130E@doyensec.com> <de0fd2e5-8509-406c-9f92-cb644c42229d@ovn.org>
-In-Reply-To: <de0fd2e5-8509-406c-9f92-cb644c42229d@ovn.org>
-From: Eric Dumazet <edumazet@google.com>
-Date: Tue, 15 Sep 2026 14:40:56 -0700
-X-Gm-Features: AcwNN1UDwoPPJIYobKlWbkakSBHVH6lAHt1e7TNhgMdoK5J8Fcfu6-zh-uufg2c
-Message-ID: <CANn89iJbs9n=kmt1putx=izvr3w17U4g6RDoDzdh4NWz+7uRaw@mail.gmail.com>
-Subject: Re: [PATCH net] openvswitch: reject a negative transport length in
- the IPv6 L4 checksum update
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: Norbert Szetei <norbert@doyensec.com>, netdev@vger.kernel.org, 
-	Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, dev@openvswitch.org, linux-kernel@vger.kernel.org, 
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>
+References: <20260224062531.96304-1-yunbolyu@smu.edu.sg>
+In-Reply-To: <20260224062531.96304-1-yunbolyu@smu.edu.sg>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 15 Sep 2026 14:42:43 -0700
+X-Gm-Features: AcwNN1UXqi6h2JzlCIpIEM2PA8kElM-vlezQ38Lvvbn2yCoDh4fdAvu3ovmKIo8
+Message-ID: <CAP-5=fWHGZteCwCga6x09hzAECmc8wMWxHbD27pq+vefVCeNgA@mail.gmail.com>
+Subject: Re: [PATCH] alpha/perf: Clean up stale comments referencing old
+ hw_perf_* APIs
+To: Yunbo Lyu <yunbolv@gmail.com>
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
+	namhyung@kernel.org, richard.henderson@linaro.org, mattst88@gmail.com, 
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, 
+	adrian.hunter@intel.com, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
+	julia.lawall@inria.fr, ratnadiraw@smu.edu.sg, xutong.ma@inria.fr, 
+	kexinsun@smail.nju.edu.cn, Yunbo Lyu <yunbolyu@smu.edu.sg>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 15, 2026 at 2:13=E2=80=AFPM Ilya Maximets <i.maximets@ovn.org> =
-wrote:
+On Mon, Feb 23, 2026 at 10:25=E2=80=AFPM Yunbo Lyu <yunbolv@gmail.com> wrot=
+e:
 >
-> On 9/15/26 9:55 PM, Norbert Szetei wrote:
-> > update_ipv6_checksum() computes
-> >
-> >       int transport_len =3D skb->len - skb_transport_offset(skb);
-> >
-> > and gates the L4 access on
-> >
-> >       if (likely(transport_len >=3D sizeof(struct tcphdr)))
-> >
-> > sizeof yields size_t, so transport_len is converted to unsigned and eve=
-ry
-> > negative value passes the guard.  inet_proto_csum_replace16() then read=
-s
-> > the transport checksum field out of bounds, and writes the updated valu=
-e
-> > back to the same address:
-> >
-> >   BUG: KASAN: slab-use-after-free in inet_proto_csum_replace16+0x445/0x=
-470
-> >   Read of size 2 at addr ffff888131a4cb06 by task ovs_ipv6_oob/696
-> >   CPU: 3 UID: 1000 PID: 696 Comm: ovs_ipv6_oob Tainted: G N 7.3.0-rc2+ =
-#338
-> >   Call Trace:
-> >    inet_proto_csum_replace16+0x445/0x470
-> >    set_ipv6_addr+0x3dd/0x460
-> >    do_execute_actions+0x6a3d/0x7c40
-> >    ovs_execute_actions+0xfd/0x480
-> >    ovs_packet_cmd_execute+0xc38/0xf20
-> >    genl_rcv_msg+0x59e/0x870
-> >    netlink_rcv_skb+0x18b/0x450
-> >    genl_rcv+0x2d/0x40
-> >    netlink_unicast+0x6bc/0xa20
-> >
-> >   The buggy address belongs to the object at ffff888131a4c980
-> >    which belongs to the cache skbuff_small_head of size 704
-> >   The buggy address is located 390 bytes inside of
-> >    freed 704-byte region [ffff888131a4c980, ffff888131a4cc40)
-> >
-> > ipv6_find_hdr() walks the extension header chain, skipping each header
-> > by the length that header itself declares, and ipv6_optlen() returns up
-> > to 2048.  The last skip is never checked against skb->len, and
-> > parse_ipv6hdr() installs the result as the transport header.
+> Two outdated comments in arch/alpha/kernel/perf_event.c referred to
+> functions from the deprecated hw_perf_* APIs that were removed more
+> than a decade ago:
 >
-> Hi, Norbert.
+> 1. hw_perf_disable():
+>    This was superseded by per-PMU disable APIs such as
+>    alpha_pmu_disable(), after commit 33696fc0d141 ("perf: Per PMU
+>    disable"). The comment has been updated to reflect the correct
+>    function name.
 >
-> This looks like something that needs to be fixed in the ipv6_find_hdr().
-> IMO, this function should not return an offset that doesn't exist in the
-> packet, i.e. we should not be able to find what's not in there.
+> 2. hw_perf_group_sched_in():
+>    This function was removed in commit a13c3afd9b62 ("perf, sparc:
+>    Implement group scheduling transactional APIs"). The corresponding
+>    comment mentioning it has been removed. The if (n_ev =3D=3D 0) check i=
+n
+>    alpha_check_constraints() has also been removed, as this condition is
+>    never true. The alpha_check_constraints() function is only called
+>    from two places:
 >
-> CC: David and Ido.
+>    - alpha_pmu_add(), which calls alpha_check_constraints() with
+>      n0 + 1, where n0 is the number of existing events (>=3D 0).
+>    - __hw_perf_event_init(), which calls it with n + 1, where n is the
+>      number of events in the group (>=3D 0).
 >
-> In general, we should be able to trust the skb_transport_offset(),
-> otherwise there could be other issues all over the place, not only in
-> openvswitch.
+>    In both cases, the n_ev argument is guaranteed to be at least 1.
+>    Therefore, the check is redundant.
+>
+> No functional changes; comments and dead code cleanup.
+>
+> Fixes: 33696fc0d141 ("perf: Per PMU disable")
+> Fixes: a13c3afd9b62 ("perf, sparc: Implement group scheduling transaction=
+al APIs")
+>
+> Signed-off-by: Yunbo Lyu <yunbolyu@smu.edu.sg>
 
-Totally agree.
-We keep receiving defensive code instead of finding and fixing the
-root causes :/
+Thanks for the cleanup! A nit: the commit message mentions comments
+but there is also the dead code clean up. Someone bisecting may
+struggle to attribute this change if the commit message suggests it
+only impacts comments. Could we either do 2 patches (comments + dead
+code) or change the commit title to mention dead code?
 
-Fix ipv6_find_hdr() in net/ipv6/exthdrs_core.c
+Thanks,
+Ian
 
-if (skb->len - start < hdrlen)
-    return -EBADMSG;
+> ---
+>  arch/alpha/kernel/perf_event.c | 6 +-----
+>  1 file changed, 1 insertion(+), 5 deletions(-)
+>
+> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
+t.c
+> index a3eaab094ece..2f57626ffcfb 100644
+> --- a/arch/alpha/kernel/perf_event.c
+> +++ b/arch/alpha/kernel/perf_event.c
+> @@ -35,7 +35,7 @@ struct cpu_hw_events {
+>         int                     enabled;
+>         /* Number of events scheduled; also number entries valid in array=
+s below. */
+>         int                     n_events;
+> -       /* Number events added since last hw_perf_disable(). */
+> +       /* Number of events added since last alpha_pmu_disable(). */
+>         int                     n_added;
+>         /* Events currently scheduled. */
+>         struct perf_event       *event[MAX_HWEVENTS];
+> @@ -372,10 +372,6 @@ static int alpha_check_constraints(struct perf_event=
+ **events,
+>                                    unsigned long *evtypes, int n_ev)
+>  {
+>
+> -       /* No HW events is possible from hw_perf_group_sched_in(). */
+> -       if (n_ev =3D=3D 0)
+> -               return 0;
+> -
+>         if (n_ev > alpha_pmu->num_pmcs)
+>                 return -1;
+>
+> --
+> 2.25.1
+>
