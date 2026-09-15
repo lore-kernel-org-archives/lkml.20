@@ -1,108 +1,80 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7150472081
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:40:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85026474255;
+	Tue, 15 Sep 2026 08:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461654; cv=none; b=iHYHhcvkCA8iMYWyJJk9SzKBzCkWAv6+/OsD9jyQQZAMJXNYcnTrJyzQGxvFTfETAWIAbBFhdES69P7HB7rKMLyxAnIMzZLxnNiVrIh54uxfmrnn7jKu6sbj2qz3pDyKpmubzX427+x1GliGAkkb2WfCpAI51/laRTwe0q/kphg=
+	t=1789461670; cv=none; b=m1LxRQqHf7Zm9Dshx7uTqJ2lxcDFLSpklp00qxek2ZwCO+J4tKdgyFdu4kIZsTaHo/sxVE73dL83r6zXW62oB02EipZ8kAEkib9dtPeQzsSoNE+tYS70Os+bMygBC9PpPVWUW7EpQvKzidyLHmsIOz6OlnRfVBMrHrD7QTmkIjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461654; c=relaxed/simple;
-	bh=1H2C+xlCW4YPQ3HVe+N/EXdhKLaNvF9cgHQV4zIKcPc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I680i3WtjQ1s4lJNZHIDIUp5wswNBAYgNpt4CPc+JvgS+oCK2iNuavquC6AB/h1U2MkCHBPj7Gvu1fP9G46QW/G1sMHc19TdwRA6lsapGcLrIjO+UkptSYhyi1g8DlLis99vKiYSjnKYmIZCUEmt/hhVDsyKs8zyF/l1dFVDV5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=XkY5nUZ7; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789461670; c=relaxed/simple;
+	bh=uYOg4r3aPPRdb+mIgzHjOYWcHGGPcnYGfNRjIiDB+Eg=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=eUDc5Fm8BsXGDtS8F5PagIr1XDBCxepv344y5D0YLXd6GCKK0R4Wj4qqFR1f4Lm/mIBsorcqn0LqQ5ULLHTRga6Cwnc3J40xOHsTI33UKSZi1qp8TSH2iqmu49b8X7KajreifU5GF6mlCoUZ/kG1hfbGBQrLu9XhgfpMsIDAS44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b6Fsa7m4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="XkY5nUZ7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=jABC/jOzBZVbCrRD3hAyTtBBgrGnvhnmrIGZHtQ5piE=; b=XkY5nUZ7Q93cuW2/Vc+5xrlCVj
-	Ht+IGhtFojG4GECLym3E8yVHdDtzA3jVg/SQP5uPrmRp7XVzgMyxM0+Y5iDk6NzCLTvHhdjEWKfvY
-	nfOWTtDUyLaTsWrFylirUyGMaH6HzOKru7nIJPAkygU489SBJg6W2MTqTEe6o9fqMRmgiLnrzddOs
-	JpUXlZGdAM5Jny3Kx8/xTqFAH9z7ifGDRprTmgI9x3ksutpqFUzM9u+p95JNgHNCrBPXSjVvjkdfP
-	hrVV2mKr2yXqmBaq33BZ+dZ9ZYn5mHfGvVYyZXiXEoCe+00UUUMBRROiqSy5RxJ4snl9BTQQGtucg
-	IzkYTl7Q==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x6Oie-00000006RW0-1IKM;
-	Tue, 15 Sep 2026 08:40:48 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 9C3C4301BD5; Tue, 15 Sep 2026 10:40:47 +0200 (CEST)
-Date: Tue, 15 Sep 2026 10:40:47 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Yafang Shao <laoar.shao@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
- locked=1
-Message-ID: <20260915084047.GZ4121339@noisy.programming.kicks-ass.net>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
- <20260907084133.3696-4-david.laight.linux@gmail.com>
- <20260914120352.GE3500130@noisy.programming.kicks-ass.net>
- <20260914140832.676eb1ad@pumpkin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b6Fsa7m4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2921F000FF;
+	Tue, 15 Sep 2026 08:41:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789461669;
+	bh=RixgAfwJ7FOy0z4gd1dgG06QcqvthFck4BfXdnCPyFo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=b6Fsa7m4VbOlThCGxWERam5ghd5zVaK5o8yzQn1R7MTUZV37LWWvslhFpnjvgazN1
+	 J0blXvLM2f0wDEKeZ3f0rzPJnuekbG6Izl8VYlx/PR3KaOI8xXWaHKa0nWn/0raT0X
+	 HZ+8+Gx4fVimfPfyjCNb9pct/gNcfpOjpy4u2d4bTb6vZ/PGjoP4ZFEkcetrmC37np
+	 qnTbrEED43zNx8nKaKVVjpnJ/UXODYHZEI/LRUb6ugWxZmEMEtDgtA66OnaQoWcgsh
+	 QxfQixMc9mNLPW+BX2AgHC65UARn31yZ0dWpsetje5HyKxg143QkphSes6s6PdznzU
+	 kTUhd8sFq0eow==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1983539253F5;
+	Tue, 15 Sep 2026 08:40:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914140832.676eb1ad@pumpkin>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: fddi: skfp: fix NULL deref when setting the MAC
+ address while down
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178946160391.1451124.5423515994250992664.git-patchwork-notify@kernel.org>
+Date: Tue, 15 Sep 2026 08:40:03 +0000
+References: <20260910063743.110747-1-tlaghgus0425@korea.ac.kr>
+In-Reply-To: <20260910063743.110747-1-tlaghgus0425@korea.ac.kr>
+To: Hohyun Sim <tlaghgus0425@korea.ac.kr>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-On Mon, Sep 14, 2026 at 02:08:32PM +0100, David Laight wrote:
-> On Mon, 14 Sep 2026 14:03:52 +0200
-> Peter Zijlstra <peterz@infradead.org> wrote:
-> 
-> > On Mon, Sep 07, 2026 at 09:41:27AM +0100, David Laight wrote:
-> > 
-> > > -	for (;;) {
-> > > -		/*
-> > > -		 * cpu_relax() below implies a compiler barrier which would
-> > > -		 * prevent this comparison being optimized away.
-> > > -		 */
-> > > +	for (;; prev = READ_ONCE(node->prev)) {
-> > > +		if (!prev)
-> > > +			/* Lock acquired */
-> > > +			return true;  
-> > 
-> > This lacks {}, but also, is not ACQUIRE like the return you remove
-> > below. Did you want smp_acquire__after_ctrl_dep() in there?
-> 
-> I need to get my head around the acquire/release logic.
-> I think the READ_ONCE() in the for(;;) needs to be an acquire
-> (matching the smp_cond_load - which seems to have been wrong for ages).
-> I may have decided that because the smp_cond_load was relaxed this
-> read could be as well.
-> (They both need to be the same.)
+Hello:
 
-You cannot change ordering and not mention in the changelog. If you're
-unsure, retain existing ordering and make note in changelog.
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-> > 
-> > > +
-> > > +		prev_ptr = decode_cpu(prev);
-> > > +
-> > >  		if (data_race(prev_ptr->next) == node &&
+On Thu, 10 Sep 2026 15:37:43 +0900 you wrote:
+> skfp_ctl_set_mac_address() calls ResetAdapter() unconditionally, without
+> checking netif_running(). ResetAdapter() first calls card_stop(), which
+> sets smc->hw.hw_state to STOPPED, and then mac_drv_clear_tx_queue(),
+> which walks the two transmit queues:
 > 
-> I'm also going to remove that 'optimisation' check.
-> It is there to avoid the atomic below - but it only fails under
-> race conditions.
+> 	for (i = QUEUE_S; i <= QUEUE_A0; i++) {
+> 		queue = smc->hw.fp.tx[i] ;
+> 		...
+> 		t = queue->tx_curr_get ;
 > 
-> David
-> 
-> > >  		    cmpxchg(&prev_ptr->next, node, NULL) == node)
-> > >  			break;
+> [...]
 
-Someone will put it back eventually. It is typically good form to have
-this pre check. It improved the contended behaviour of these loops. The
-regular load can be a forward, while CAS requires an exclusive load --
-or something along those lines.
+Here is the summary with links:
+  - [net] net: fddi: skfp: fix NULL deref when setting the MAC address while down
+    https://git.kernel.org/netdev/net/c/7c8810c2e69c
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
