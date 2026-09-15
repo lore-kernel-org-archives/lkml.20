@@ -1,138 +1,113 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DE640681A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:53:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7D04052AF
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:53:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789494801; cv=none; b=VqXotCgSM/D2itooJ5Y9LcAFJjDnOjC3aSKy+MWlMBkeogd1slkdhy0MwqIjHFOmeJoW1RfQqMWPY9wlxwTxYUn5FsddMjdClslrg6avTGKpm/KgZeP/uHdyc4OIUPTePvXKt7A12JnUxftgHUREcDFANY1oxQj9Zr10moZiDYA=
+	t=1789494836; cv=none; b=lqI/2OgnkcczxqkHXmD93ws4z6FKMJ5g2Si1o1ssHYjBukB6dKofP7PAFFpKFfcX0Ib3HnamJBdZNY/3RM4BLXlPfyscLfLhrFOB0W+72Rt+SDUc/AjpugZv5iXQxHlw6TN4pjb9F2/yAONT1HDROERXZktBYNITgGajvycp5z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789494801; c=relaxed/simple;
-	bh=v3wNVkWkkN/EzfCplaLcr5AT/e0B7Vd0wREKxVa6DLg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t4vnHKjuEOCMhzJMnNfD2Qy/Lkm7ADDzloBqBebQS27jcvqRjY6Q7hkvIBC4RDiF3DSeKTp6ZvtNLKJzG0zlY7TXGojY2dcYOrZbFZi0azkvnxuDk5oKuI2yneh4zPepm5bmxUcTHy3MS9EoCzOCJZQXJ8nm1H3YNa38kM2IqIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gL1kNHtO; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789494836; c=relaxed/simple;
+	bh=ZPw9lXjYo/re2jHD+iFfey94YnYwBpvO2yjlzKfJ5a8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BaWWlrX1SWM1+wu6FMsEAbs3KOUYIvV0Pr3BftLfIKJdLpmZQARhJgX7J2bcAz95sikWXmopmqdipIXcEtSt1Fid+Lwa/32A8PQW4oqQVqvfoCCi0jD6S8MpN7YL331W4PEtvtIaKcwlhZoZVkQ1Jh+L0jZAcvK7sXq8Mayj2vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WofBKwCw; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gL1kNHtO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789494797;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EPS6LpYPDrRZ7uEznT0WYQvf+3yiiVKnwbADij39zcs=;
-	b=gL1kNHtOFdf+TP6DUsdpS4eKHEMxIZz20aNkitFGoj3GXNwv8imcuTKFI4Incd8V7zYooy
-	ZFyl1PHq3QzXtQgVEd8IbULROOlid0QCEvoDuPGeZG9LvIf5ACD9k3R7/Y4LwgpXA50DED
-	0r1i2bQN34EX+LeWnNMFMHnT4k3tFLQ=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-191-gUAWjOZiOkmVdeOC8s2PrA-1; Tue,
- 15 Sep 2026 13:53:11 -0400
-X-MC-Unique: gUAWjOZiOkmVdeOC8s2PrA-1
-X-Mimecast-MFC-AGG-ID: gUAWjOZiOkmVdeOC8s2PrA_1789494790
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 78E361800870;
-	Tue, 15 Sep 2026 17:53:09 +0000 (UTC)
-Received: from [100.91.18.181] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6A9D119560AB;
-	Tue, 15 Sep 2026 17:53:06 +0000 (UTC)
-Message-ID: <89a400fa-f23d-41d4-9a82-df8697eed0b3@redhat.com>
-Date: Tue, 15 Sep 2026 13:53:05 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WofBKwCw"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so1644473f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:53:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789494833; x=1790099633; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BybWH8gs7AYx6NYtOuIpbkPfpLYOJ4rtoku/c8ai57E=;
+        b=WofBKwCwNSdMlTXmpRv1DikVuHubhNqSLE6T0xj93cizQ+zmGuG9iUqCLsokXd2IWK
+         PAB1UNcb1WZ9rVyeYcyooz+GE1Ywpt//RmUi7lVEeZK+U6K09jT1abEkbMA114o2EB1Y
+         7m02fkEaR4ZFPJqB/vQCCbNsv6jvMnw1+mLxUGPN4scVtVE26QMtGBTztzQKJSuhRgW0
+         S0IXMdz8gTI5nucnRSPPXjUpGLZRbkRiLF4A+xQEES29IEOIo4YQUH9E9bLBKOFnyEFE
+         j28pw23qzneooFneoO1J+A5h+wr2yHX0nWWJDPHvIEAC+Wa2x/0O52IjJBIM2AIsPDcm
+         JtVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789494833; x=1790099633;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BybWH8gs7AYx6NYtOuIpbkPfpLYOJ4rtoku/c8ai57E=;
+        b=O1VwrkzWvwW5dEtavrayinGvnZsjvY6ZTNpfkKoCiDhtPnV73WC9aTAGDnO8kw8cv+
+         YEFOWj1zVPv2xCQoRTpSMuvnE+tU3yRvaR7VTBzQchi6b1LCYummx2dxk40aLsBlk+Bd
+         LiPvx1zIVA9R4qNhzqiTMB9/yi26xn66iOSJqK+dDE6pQaxP9+oLrMYO8553bjdKYNyy
+         p5UZhwTTQFIhUrA9HxOBqOkAq4rPm4s42c5hkLMNtrLiWbUTj1Udfg9Ao7J577ewMIba
+         Mauunurx5xqE5WI0S7c8S8V5VPBXTxPhVahboUOu9yT8moomiBQr6oxBqY20pks44YT8
+         zKpA==
+X-Forwarded-Encrypted: i=1; AKwUvBxAy6ZeDkRjtvQfCVPfDqyz0ysFZpcYlNU7ifjfD9lLT7+/EL8D3TJFFQxPQ/1IAfdgkVVCK1mInDnWr0M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kq/pshA6zsU9kG47fbc3oFZ2wBle70zmozu4xT9+b4RMAVsD66
+	UKyL7enTOGn+UCoxMlsTsgomUs0uaMtECupBYrmLcWey5PeS0odL7+HB
+X-Gm-Gg: AYBFou22k4DI0EJr5Ejqta9JKlkKsRSqqoqs6GVv8+MRO2v1BSdrT913JfrEZRN173X
+	G8Kadid7Khv+nnskoGV6xga3FGzCgr3Ff3YQDtIQ5xJBeYijs6JVLPgtq4g53crpkbJj/j5mJFn
+	baZbq0FgeyzOAFSA/FBNZbknBQK8CDyasqMKzElryYsSI38Tta2eUQ+MigsdKicp2U38YGH8uNi
+	RI+Fz72I/XumeVIczPnh8P4ZESfhvzgYpYo/Nt1z6Hb4zi6TTXOlfVh+QQULfnHOJrjKZfzjAYD
+	rOuu6alfbwWa8/DKI4BGRxd4+GXCOI5aowySvgbFw6a0v2rNNrAQsOUf0+Aqp/OeljAL46Oh4Df
+	u+ac+0+yfw6sNYNS+5GOk9NWm+MKIeE7/6bP//2MwNddi4smfTYqGSwL3pZsswlRguDqLa7jmwk
+	ABsdYu3z4C2cGad6zsxXqDpU0wKNoIWwmQbYLFmrFBNeQ4EZSNpVAABoeihlviOQ+rhh0=
+X-Received: by 2002:a5d:5f46:0:b0:486:faa5:2165 with SMTP id ffacd0b85a97d-48702b379c8mr9832537f8f.54.1789494833029;
+        Tue, 15 Sep 2026 10:53:53 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf34440sm672288f8f.25.2026.09.15.10.53.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 10:53:52 -0700 (PDT)
+Date: Tue, 15 Sep 2026 20:53:48 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] clk: Document of_clk_get_by_name() return values
+Message-ID: <aqmGLBRaLwQ5GpXS@stanley.mountain>
+References: <cover.1789451862.git.error27@gmail.com>
+ <b3de48fdbaaade69cce126b59bd6dfb8f437b495.1789451862.git.error27@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] locking/osq_lock: Ensure proper locking semantics for
- osq_lock/osq_unlock()
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
- Boqun Feng <boqun@kernel.org>, linux-kernel@vger.kernel.org,
- Davidlohr Bueso <dave@stgolabs.net>, Haakon Bugge <haakon.bugge@oracle.com>,
- David Laight <david.laight.linux@gmail.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Yafang Shao <laoar.shao@gmail.com>, Steven Rostedt <rostedt@goodmis.org>
-References: <20260914202102.551333-1-longman@redhat.com>
- <20260915082655.GX4121339@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20260915082655.GX4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b3de48fdbaaade69cce126b59bd6dfb8f437b495.1789451862.git.error27@gmail.com>
 
-On 9/15/26 4:26 AM, Peter Zijlstra wrote:
-> On Mon, Sep 14, 2026 at 04:21:02PM -0400, Waiman Long wrote:
->> The osq_lock is special in the sense that lock transfer from one CPU to
->> the next can happen either over the common optimistic_spin_queue.tail
->> value with uncontended lock or over a lock waiter's own percpu
->> optimistic_spin_node.locked flag when the lock is contended.
->>
->> To ensure proper lock synchronization, we need to provide
->> the acquire/release semantics for the osq_lock/osq_unlock()
->> functions in both cases. This is currently the case for the
->> common optimistic_spin_queue.tail value, but not for the percpu
->> optimistic_spin_node.locked flag as the proper barriers can be missing.
->>
->> The "node->locked" read in osq_lock() was relaxed by commit 036cc30c6b6a
->> ("locking/osq: No need for load/acquire when acquire-polling") a while
->> ago as the smp_load_acquire() loop was causing a performance hit due to
->> the repeated acquire barriers in the loop and it argued that an earlier
->> atomic_xchg() call could provide the needed barrier and reordering
->> wasn't a problem in the way osq_lock is being used by mutex and rwsem
->> for queuing purpose only. That atomic_xchg() barrier does not work
->> as a proper acquire barrier for osq_lock() if the lock hasn't been
->> acquired or isn't ready to be acquired when the barrier ends. So an
->> acquire barrier is still needed in order to have proper locking semantics.
->>
->> The performance impact stated in that patch is due to repeated issuance
->> of acquire barrier which can be expensive depending on the architectures
->> and the actual processor used. It was not clear what machine and what
->> benchmark was being used to produce the performance data. Anyway, with
->> the new smp_cond_load_acquire() helper, only one acquire barrier is
->> issued at the end of the loop. So even if there is a performance impact,
->> it should be less than a repeating one.
->>
->> As for the two percpu optimistic_spin_node.locked setting in osq_unlock(),
->> they are currently preceded by a full barrier xchg() call which can
->> provide the needed release barrier. Add comments saying that a release
->> barrier is needed for the proper functioning of the unlock operation
->> to alert people from accidentally remove the barrier when the code is
->> updated.
->>
->> Fixes: 036cc30c6b6a ("locking/osq: No need for load/acquire when acquire-polling")
->> Tested-by: Håkon Bugge <haakon.bugge@oracle.com>
->> Signed-off-by: Waiman Long <longman@redhat.com>
->> ---
->>   kernel/locking/osq_lock.c | 12 +++++++++---
->>   1 file changed, 9 insertions(+), 3 deletions(-)
->>
->> [v2] Reword the commit log and keep the WRITE_ONCE() in osq_unlock()
->>       with comments.
->> [v3] Fix the comment above smp_cond_load_acquire().
-> I still see no reason why this should be applied. Or even have this
-> Fixes tag.
+On Tue, Sep 15, 2026 at 07:38:23PM +0300, Dan Carpenter wrote:
+> Callers should test the return from of_clk_get_by_name() with IS_ERR().
+> The function returns a valid clock on success and an error pointer on
+> failure; NULL is not a valid return value.
+> 
+> Document this explicitly to prevent callers from treating NULL as a
+> separate failure case.
+> 
+> Assisted-by: ChatGPT:gpt-5
+> Signed-off-by: Dan Carpenter <error27@gmail.com>
+> ---
+> There are a few other functions which look like they return NULL but
+> never actually do.  This is one which has caused some confusion in
+> the past.
 
-The main reason for this patch is for addressing the locking test 
-failure reported by Håkon due to missing barrier. I do know that with 
-the current osq_lock() use case, it is not a real problem. I just don't 
-like inconsistency that an acquire barrier is just missing in just one 
-place. I don't mind removing the Fixes tag though.
+Sashiko says that it looks like it can return NULL.
+https://lore.kernel.org/all/20260915164913.597D51F000FF@smtp.kernel.org/
+It does *look* that way, which is why I'm adding the documentation
+to say that looks are confusing.
 
-In your comment to David's "locking/osq_lock: Set prev_cpu=0 instead of 
-locked=1" patch, you suggested adding smp_acquire__after_ctrl_dep() 
-after finding that the lock had been granted which is exactly what the 
-change from smp_cond_load_relaxed() to smp_cond_load_acquire() is doing. 
-Right?
+It's pretty normal for these types of functions to return an error pointer
+for errors and NULL for not found, but the of_clk_get_by_name() returns
+-ENOENT on error.  https://lkml.iu.edu/1810.1/06936.html
 
-Cheers,
-Longman
+Also in commit 6a636d203cc8 ("clk: renesas: Use IS_ERR() for pointers
+that cannot be NULL") there was a static checker warning because the
+NULL return wasn't handled and we "fixed" it by saying that NULL was
+impossible.
+
+regards,
+dan carpenter
 
