@@ -1,121 +1,156 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9BB43F8DE
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050253BE644;
+	Tue, 15 Sep 2026 12:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476589; cv=none; b=Ob0AuAgKP67gEMTCWT5lgsZjHFrxYNLhd6LJjMsZW02BLXGV5gLKnWgpiNBb5xbrLf7sO6tT7VJaFHJws8vTVxp079ewX1X7QX5N6Mgyja/fKGrz26X9OwjOFl9hykEsB3tTEBNml0e/GGEXOgD4DZl1bIv+RH8O+Dpw05j6K6c=
+	t=1789476599; cv=none; b=PKPhDH5yiP5/8WjB951lyFUJkQzf/YW+EF1D6Qdcf41H5VyRi0505tsmdEgSTSxkmJf5uJhl8RDwjvWGo7xGL8MLcV04dKCbrLdfbOEA9KZCnGPjfE8WWo2Wrkpg+J6tPthX41l9HXyKz5tDZIXiIxccHv0wndwWNUPkm4jNmCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476589; c=relaxed/simple;
-	bh=ui4ICGb/kqsSx5sis20c9sxB7gn9IT8brWRsdIH3KRA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eBY+VJzFnyyu43psQUSLME8R8fZGjlmoNdSwsVNLOzzI7hffYdeJiaKOrnh1727iiVyB/2bo1GZaqJrQVSlKRLzfGw0YX0yAecBA2mkWSQFHg0+97DSFrUMPtzQIwuTetuaHq/Oapr/Bosvwm/Q2PUdjP0YorSn1ugQ2OmTevLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qi9v+Eej; arc=none smtp.client-ip=74.125.227.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789476599; c=relaxed/simple;
+	bh=ZReFf5tcTRop/Bh/NCgpio5QaeTuBdN6Hgi/v39o1Rk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QC3YrY9VkQBXLTqJByM7N7dIKH/RzAQZxOjgVKRuRAbJQkEgclbbL3drPPeRqYnJRY6iqOqy5wbGG+MDPAmaJuGi+ZCeUeadh8b+B9Fg7Muh3MfZPcUMNttiKTV3pIDIbDea2R5ZzF1mOzrLPmdzjFpp+y7ErN+jxs91JBrEFQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=mNRRtvNS; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qi9v+Eej"
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d942de6574so28230475ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 05:49:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789476587; x=1790081387; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mP8qopDle1Sc4k8F6w5GND/XUp1RUEWcrZG95tdjUPs=;
-        b=Qi9v+EejoaESJfqg0DxCAhJ+vzmv2U5tRMMcu5gUEzephwpDPIbHfDdqG7Vr2UADsy
-         o+whucndZgFuG+nbe7gYKarCTPxZVsbYkj1Z0xcbpeqrBH8dzVWBuD53/JyVzLo7TTU5
-         12Doywp/58/OFqaCDuBKwISw4mDFbiz/acitsXgVO2UidiuxTZTnmF0+rp/iJF6FogWz
-         ZMOX7G5qkfi5fFQGsoCm2yU9wfYekV0yfMJ6fxtRkfCyb6+NdQXiYGOwCIlYZxkWSwH9
-         jQd2iSaSOzzYjtdX8GVbsfUF/i36KXtnuCx61hR5SApsS2sYhbhPWPTeP34hC6zT3e4w
-         KIYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789476587; x=1790081387;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mP8qopDle1Sc4k8F6w5GND/XUp1RUEWcrZG95tdjUPs=;
-        b=XJrFVFC+MhKyG4P/K5YVHie2lMI8aE4RG8q0Qe5yRQ1KY2rXLPkAnp+m1MVBHum9Rt
-         gscLhs3kNbn/HpfBKK57BfMO2y3zlin5YXK1kBLEJNZ7/S2zcph2lFpntFYIAqzMyV4C
-         5nLgkfjZ6IssG7vXGc+yQexP+pZBC+Vhnb89FSnSxuExm56BOreSdANKc/dZqqgfcb9V
-         cmN3yKIrCCHKSB+p3Gkd4IEyCPiUsri/frzQyPTRzqSuGxq5d+B0G06qLg2j8mBB2qAQ
-         bZvwz4y8BzkFG0LjiQ5ocQNOBsWcdreugoQBK0DwWYA7RHRqOW4cnEKqBj+5i/WlPOpy
-         Moyw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1EL2ZhfjGCWTNaccI4mzVaM6X6WWEyLx7OP5J5yVZNhtcMtn/s09y8NHdMAcAM1mXWIW95gwShslKo9E=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2Nz1sA3I1tBYP7oGFN+QOG6moEF7IhKK+j1ojGEZAX0ye1DFO
-	1GiJ0s5g2Fty4thsOa7t0QBMCuo/c52zf6DeBxxO5DiJdxAgHGMP+PpK
-X-Gm-Gg: AYBFou25fayousMWDns9C9WbyDq2jW8H6odjfEUX8F/UayaJph74p7Ua5Ckm95dBBT8
-	oEh35gyx+OdywZnF8lzlZw3QVjV1DjBPaFnv0ob+lir5jb1Y8A6tW/J+2rrKwJV/A8wMRUa8Boc
-	W4vEPrqSk4X86fD+lzJ37dZq12JghYEJeBdvbggDgtgWwC42ID/W9gNWIMEjzIf/FCIRsqgjLcn
-	0UV+pV8ibXZnW8Jd+7MFOhqFvJ3vFjL/EvOorWahqATxfu0u4tf23nkiJg9QX7Q+UPP6hee8fnQ
-	OXY3s8ery7DqdmHIWnjfGcgqi5tUdRgnFt8DDwbQSGsfVi+ES89kQoKmBhM49mJugchegJGbsVy
-	w7O71LKBoZ7wCzb+Ojwnh63SiGFoc9aeNNE/DNjCkv8qdMUq0Lcj/kx5MBwjsJ62keRcW9itWY6
-	bWPPhEpjw1WiE9Oeey7r+J851AAACJEYSFJaRBt8TTMmRBkMyS+XswTC2SNRus5PO8ZkhTBdOcy
-	EKLPBI=
-X-Received: by 2002:a17:903:1a0b:b0:2d8:d4cc:be64 with SMTP id d9443c01a7336-2dd6c7134b4mr167097285ad.17.1789476587316;
-        Tue, 15 Sep 2026 05:49:47 -0700 (PDT)
-Received: from [10.125.112.20] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd6f8ebbdfsm26424855ad.38.2026.09.15.05.49.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 05:49:46 -0700 (PDT)
-Message-ID: <86a09d26-2de8-4590-b135-31564e2c7049@gmail.com>
-Date: Tue, 15 Sep 2026 20:49:32 +0800
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="mNRRtvNS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=1P329wzk3kFFolmkxokCspdX5bpH9Yz4CV4vaCg/5V4=; b=mNRRtvNSG9ad4IQizBPYu8fzbn
+	r+4NoFTJIuLdvIrU3XrJZXXc1H/KJE8GAsoKiI1Xa9a0CnQTNSQGPyirGEQV41BVXHGyt9NnqLAam
+	OxRrSKPo+EjeW4b2Wv3DHBZdWHB53f9xSMzBpCK/yVHFLNejqVNB/UoZeqrfHBAt+Hs7pW4c9vEC1
+	N3WmtUwQdgYVkCZlZ6eY1SJbwBMglFDKygsTEQzCmgw2xK1prHxTk6WW12IpfQwiSiKM3VhB3qWaq
+	s3U1JllWz42+9hY/LCI3E06ZaQ0VZPdrz3KKLsEB15JrK+d6jNPAzY8apKW4Hy7gaT2S8FyTVpsQD
+	TU5Yap3w==;
+Received: from [151.115.150.205] (port=50576 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1x6Sbi-0000000GwKm-3Lo5;
+	Tue, 15 Sep 2026 14:49:54 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH net v2] net: gue: reject invalid REMCSUM offsets
+Date: Tue, 15 Sep 2026 12:48:07 +0000
+Message-ID: <20260915124806.2852293-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/10] mm: memblock: add missing HugeTLB flag name
-To: Mike Rapoport <rppt@kernel.org>
-Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org,
- baoquan.he@linux.dev, pasha.tatashin@soleen.com, pratyush@kernel.org,
- m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
- alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev, robin.murphy@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
- iommu@lists.linux.dev
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-2-chenwandun1@gmail.com>
- <178936321614.3691424.10386784926753862087.b4-review@b4>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <178936321614.3691424.10386784926753862087.b4-review@b4>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+
+Hello,
+
+On Eric's suggestion (2026-08-24 13:38 UTC), I rewrote the v1 of the patch
+to move the check into validate_gue_flags(). There is now a single check.
+
+In case of backports, note that this fix depends on commit
+d335dcc6f521 ("gue: validate REMCSUM private option length").
+
+Actual patch below.
+
+Cheers,
+Jérémy
+
+---
 
 
+The REMCSUM option carries an absolute checksum start and checksum field
+offset. gue_remcsum() passes them to skb_remcsum_process(), whose
+partial path stores offset - start in the u16 skb->csum_offset variable.
+If offset is less than start, this underflows.
 
-On 9/14/26 13:20, Mike Rapoport wrote:
-> Hi,
-> 
->> Commit 7d163a75f821 ("memblock: make HugeTLB bootmem allocation work
->> with KHO") added MEMBLOCK_RSRV_HUGETLB but did not add the corresponding
->> entry to flagname[]. As a result, memblock debugfs cannot report the
->> flag by name.
->>
->> Add the missing RSV_HUGETLB entry.
->>
->> Fixes: 7d163a75f821 ("memblock: make HugeTLB bootmem allocation work with KHO")
->> Signed-off-by: Meijing Zhao <zhaomeijing@lixiang.com>
->> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
->> Link: https://lore.kernel.org/lkml/20260821020910.3428585-2-zhaomeijing100@gmail.com/
-> 
-> Can you please send this as a separate patch, I'll pick it to the
-> memblock tree.
+A forwarded packet can retain CHECKSUM_PARTIAL and reach a NETIF_F_HW_CSUM
+driver which trusts the metadata, leading skb_copy_and_csum_dev() to write
+two bytes about 64 KiB beyond the destination buffer.
 
-A separate patch has been sent.
-https://lore.kernel.org/lkml/20260915124641.2498280-1-chenwandun1@gmail.com/
+Reject reversed tuples in validate_gue_flags(), after the existing length
+validation, so all GUE parsers enforce the ordering in one place.
 
-Best regards,
-Wandun
-> 
+Fixes: fe881ef11cf0 ("gue: Use checksum partial with remote checksum offload")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 
+---
+
+v1: https://lore.kernel.org/all/20260820220210.3122690-2-Jeremy.Jean@oss.cyber.gouv.fr/
+
+Changes in v2:
+- on a suggestion from Eric Dumazet, move the REMCSUM ordering check into
+  validate_gue_flags().
+
+ include/net/gue.h | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/include/net/gue.h b/include/net/gue.h
+index caefd6da8693..f37361aab28d 100644
+--- a/include/net/gue.h
++++ b/include/net/gue.h
+@@ -84,8 +84,9 @@ static inline size_t guehdr_priv_flags_len(__be32 flags)
+ }
+ 
+ /* Validate standard and private flags. Returns non-zero (meaning invalid)
+- * if there is an unknown standard or private flags, or the options length for
+- * the flags exceeds the options length specific in hlen of the GUE header.
++ * if there is an unknown standard or private flags, if the options length for
++ * the flags exceeds the options length specified in hlen of the GUE header, or
++ * if a private option contains invalid data.
+  */
+ static inline int validate_gue_flags(struct guehdr *guehdr, size_t optlen)
+ {
+@@ -103,8 +104,8 @@ static inline int validate_gue_flags(struct guehdr *guehdr, size_t optlen)
+ 		/* Private flags are last four bytes accounted in
+ 		 * guehdr_flags_len
+ 		 */
+-		__be32 pflags = *(__be32 *)((void *)&guehdr[1] +
+-					    len - GUE_LEN_PRIV);
++		void *data = (void *)&guehdr[1] + len;
++		__be32 pflags = *(__be32 *)(data - GUE_LEN_PRIV);
+ 
+ 		if (pflags & ~GUE_PFLAGS_ALL)
+ 			return 1;
+@@ -112,6 +113,16 @@ static inline int validate_gue_flags(struct guehdr *guehdr, size_t optlen)
+ 		len += guehdr_priv_flags_len(pflags);
+ 		if (len > optlen)
+ 			return 1;
++
++		if (pflags & GUE_PFLAG_REMCSUM) {
++			__be16 *pd = data;
++
++			/* The field offset pd[1] must not be less
++			 * than the start pd[0].
++			 */
++			if (ntohs(pd[1]) < ntohs(pd[0]))
++				return 1;
++		}
+ 	}
+ 
+ 	return 0;
+-- 
+2.47.3
