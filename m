@@ -1,226 +1,285 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE1AC331EA5;
-	Tue, 15 Sep 2026 11:30:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4571B35F184;
+	Tue, 15 Sep 2026 11:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471847; cv=none; b=P6PF2WWPUWbdu5uLghbD/PhRMsbcOOcg4GJ03mmeFnD+G+/XERRZ4WXkbzGloULWKCsagCKHeJUdeW8eLhQzcCpu/7tzgEd611gOluNJQUgtbbgn8laorIdoZTzJWZTGYxdB9uNPvamLHfJdKu1jCxGv25icljFVOk8sP4k80RU=
+	t=1789471883; cv=none; b=jkkmT1kK0bZ9VkUU9NHZq9Cr4mn50otSIUxSBK1ui3aZOgS7NPP8keKqGGcmfzGYzIIXVW5xrVF9+F4P6UsFo54pwF6Nqk4pTQSLicLGvZf5Q2jrroPeShqStjzqb/zptRUZjK+Gj6lvePNGjZferLxMhZ7r+0zfowyfvCGzUDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471847; c=relaxed/simple;
-	bh=LaeqCqGbXyLAVSGg9+hAs4qBbx6T4Ps6dR9yi1jgQa8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=a643X+EaZd4UItZZVwdhEMC3xRgg5OFAyt+xUy3MmBWX3RrMBCMP3d0vvExEigsy7VtOvjYxjqQVr64+QZDV+6EouFJgC0A5N9zJ0ZsbUMCHWTpPQcTRdDBZU7tFFeEb4DEbjdwvCXy7JCCsIbepmRV/HmcodrpWWPH7W5109uY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=MnE98x4/; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1789471883; c=relaxed/simple;
+	bh=tghJXnBoCORuUllyVM5kOenrKYvUcLA4//tYvMQ3Gwc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bOCSb8ofUd3k6uEtOrCSJhzEP8RrqTSpXVIa3wyDVjOksrrqFXhmSTANLEdE+Uv3RunO1wxlIUyPOy+DX/7xuPIWhDqnPelR5aVRxUu61tWnUCSu3r59smbSUMJrKy4N7F2eqxKOn+zB2JH2xP52HxTpLhUIwiUJsQ4DRwOi/NE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7tiikKz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="MnE98x4/"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68FBUJTw81480673, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789471819; bh=LaeqCqGbXyLAVSGg9+hAs4qBbx6T4Ps6dR9yi1jgQa8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=MnE98x4/9A8OCDZR70QFzc/7SMpkguP7upqPJFRmhe3krKUEXCdVskcZ+LbfWw7Si
-	 RXF68mo1KfYDwwtVd0AnXnu1EZ+5a7eF5Mkl+Ht/arTwZpkFvwOnEYsA5967s6rP7p
-	 LCUs2txtpuUtPJBDwC3JmJZfSclua23PWIkE3zwbWrtTjHSkB04G1UAvCGeMVmPQ/F
-	 Vty/feUraavQ2On1ftGrTu87BDPJRrI7Pg4pAURHw+zmtfiDcl7FBAitosNXTQFAW/
-	 GBR+wQa9swsFsMjR7f8upgOjiHidEEi9yZnd1xFpOUi+UFB3M4GMrWB5kh/6d1yOzH
-	 BSgXEc9EzxbWw==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68FBUJTw81480673
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 15 Sep 2026 19:30:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 15 Sep 2026 19:30:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 15 Sep 2026 19:30:19 +0800
-From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
-CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	nic_swsd <nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
-	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
-Subject: RE: [PATCH net-next v3 4/8] r8152: refactor r8157_hw_phy_cfg
-Thread-Topic: [PATCH net-next v3 4/8] r8152: refactor r8157_hw_phy_cfg
-Thread-Index: AQHdP2eUosLa3p3j4kSYOOX9SSZk9rbK4zWAgASneoA=
-Date: Tue, 15 Sep 2026 11:30:19 +0000
-Message-ID: <15b4156c6eb848eabb13732bd4677bf8@realtek.com>
-References: <20260908075634.23740-5-nic_swsd@realtek.com>
- <178924439160.3125.7530266584332142922@kernel.org>
-In-Reply-To: <178924439160.3125.7530266584332142922@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7tiikKz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7091F000FF;
+	Tue, 15 Sep 2026 11:31:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789471881;
+	bh=CAJtKPFKPGeuK6/4FcUJJhXpcyxiLyxrGeWoP03hjX8=;
+	h=From:Subject:Date:To:Cc;
+	b=E7tiikKzEgWbcjup28lG7XRiPSUJnQOmsnywq0ncyYHyQqJnTKt0FKdhc261bi9OH
+	 0SlILqTj5qE3J8OEyDI9zqLYPy8psNZLLrF7QOW4W4UQnh0hGPOhQASSGdWdu6CXlB
+	 AinpX1RK+sPUhsT5EBGslz/xjWU79vTK2oG+qEZWWfaWT7bIGAFoh926ly17QWcoIQ
+	 QJCJXpfCSDC9mQet/UenNMcEEu3ND/zogF3V4a6m5lxpAeKrS/RkcQCtt28J4Htm15
+	 ioCbMP38XAAhzbjEh1DggCyILiXq6YLqnQmybNy4sunfucifPnv8TR98hWLnUmAKl0
+	 e5z5SrdGFsCyg==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH RFC POC 00/50] file: handle files on syscall exit
+Date: Tue, 15 Sep 2026 13:30:46 +0200
+Message-Id: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2Nyw6CMBBFf4XM2ml4iBG3JG41bo0LykylalrTC
+ moI/24LLu/MveeM4Nlp9rBLRnA8aK+tCSFbJdB2jbkyagoZ8jTfpFVW4tu6OypCx2E5MPZGqy8
+ q+yAmlNuKiqxcy4JSCIinY6U/M/4Mp32dHA81XJaH7+WN21eEx6psPKN0jWm7eIoaoUj8NWLWi
+ EUjYhem6QdT5RjovQAAAA==
+X-Change-ID: 20260915-work-fd-reserve-unify-folded-b89d3154b3d0
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, 
+ Jan Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ Oleg Nesterov <oleg@redhat.com>, linux-alpha@vger.kernel.org, 
+ linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
+ linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-um@lists.infradead.org, Jens Axboe <axboe@kernel.dk>, 
+ io-uring@vger.kernel.org, netdev@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ bpf@vger.kernel.org, David Airlie <airlied@redhat.com>, 
+ virtualization@lists.linux.dev, kvm@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-hyperv@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11212; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=tghJXnBoCORuUllyVM5kOenrKYvUcLA4//tYvMQ3Gwc=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt1KmZfVvdXbIn41vJt/oHZ9cvPhHnHXlduWLl4TSB5
+ BsG1wzUO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACYSP4+R4aD04rbPT/bfPqP8
+ 9uSeOZ+ErR6x+W14vnzltXsvZhzbPcWOkeGY1wMZvuPZ2+W5eQ7v+q00SZHnk3fSzCfWYt9Z60S
+ 6GPkA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
-ZCAyIHBvdGVudGlhbA0KPiBpc3N1ZShzKSB0byBjb25zaWRlcjoNCj4gDQo+IENyaXRpY2FsOiAw
-IMK3IEhpZ2g6IDAgwrcgTWVkaXVtOiAxIMK3IExvdzogMQ0KPiANCj4gLSBbTWVkaXVtXSByODE1
-OV9od19waHlfY2ZnKCkgKGRyaXZlcnMvbmV0L3VzYi9yODE1Mi5jOjgzMzIpLCBuZXdseSBib3Vu
-ZA0KPiAgIGFzIHRoZSBod19waHlfY2ZnIGhhbmRsZXIgZm9yIFJUTF9WRVJfMTdfUUZONjgvUlRM
-X1ZFUl8xN19RRk4xMDANCj4gaW7igKYNCj4gLSBbTG93XSBUaGUgY29tbWl0IGlzIHByZXNlbnRl
-ZCBhcyAncmVmYWN0b3IgcjgxNTdfaHdfcGh5X2NmZycgd2l0aA0KPiAgICd1cGRhdGUgUEhZIHBh
-cmFtZXRlcnMgZm9yIFJUTDgxNTZCLzU3LzU5JywgYnV0IGl0IHNpbGVudGx5IGNoYW5nZXPigKYN
-Cj4gDQo+IC0tDQo+IA0KPiByODE1MjogcmVmYWN0b3IgcjgxNTdfaHdfcGh5X2NmZw0KPiANCj4g
-VGhpcyBzcGxpdHMgdGhlIHNoYXJlZCByODE1N19od19waHlfY2ZnKCkgaW50byByODE1N19od19w
-aHlfY2ZnKCkgZm9yDQo+IFJUTF9WRVJfMTYgYW5kIGEgbmV3IHI4MTU5X2h3X3BoeV9jZmcoKSBm
-b3IgUlRMX1ZFUl8xN19RRk42OC9RRk4xMDAsDQo+IHJlYmluZHMgdGhlIFZFUl8xNyBvcHMgZW50
-cnkgdG8gdGhlIG5ldyBmdW5jdGlvbiwgYWRkcyBzcmFtMl9zZXRfYml0cygpIGFuZA0KPiBzcmFt
-Ml9jbHJfYml0cygpIGhlbHBlcnMsIGFuZCBhZGp1c3RzIFBIWSBwYXJhbWV0ZXJzIGZvciBSVEw4
-MTU2Qi81Ny81OS4NCj4gDQo+IFR3byBxdWVzdGlvbnMgYmVsb3cuDQo+IA0KPiA+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL25ldC91c2IvcjgxNTIuYyBiL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jIGlu
-ZGV4DQo+ID4gNmMxODk3OTBiMGJhYi4uNjc5YWVhZDczMWY3MyAxMDA2NDQNCj4gPiAtLS0gYS9k
-cml2ZXJzL25ldC91c2IvcjgxNTIuYw0KPiA+ICsrKyBiL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5j
-DQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+IEBAIC04MDc1LDYgKzgwODYsOSBAQCBzdGF0aWMgdm9p
-ZCByODE1NmJfaHdfcGh5X2NmZyhzdHJ1Y3QgcjgxNTIgKnRwKQ0KPiA+ICAgICAgICAgICAgICAg
-c3JhbV93cml0ZSh0cCwgMHg4MDc0LCAweDI0MTcpOw0KPiA+ICAgICAgICAgICAgICAgc3JhbV93
-cml0ZSh0cCwgMHg4MDdhLCAweDI0MTcpOw0KPiA+DQo+ID4gKyAgICAgICAgICAgICAvKiBOd2F5
-IERBQ09OQiBwYXJhbWV0ZXJzICovDQo+ID4gKyAgICAgICAgICAgICBvY3BfcmVnX3cwdzEodHAs
-IDB4YTRjYSwgMHg2MDAwLCAweDAwNDApOw0KPiA+ICsNCj4gPiAgICAgICAgICAgICAgIC8qIFhH
-IFBMTCAqLw0KPiA+ICAgICAgICAgICAgICAgb2NwX3JlZ193MHcxKHRwLCAweGJmODQsIDB4ZTAw
-MCwgMHhhMDAwKTsNCj4gPiAgICAgICAgICAgICAgIGJyZWFrOw0KPiA+IEBAIC04MTUxLDExICs4
-MTY1LDE0IEBAIHN0YXRpYyB2b2lkIHI4MTU3X2h3X3BoeV9jZmcoc3RydWN0IHI4MTUyICp0cCkN
-Cj4gPiAgICAgICBvY3Bfd29yZF9jbHJfYml0cyh0cCwgTUNVX1RZUEVfUExBLCBQTEFfUEhZX1BX
-UiwNCj4gPiBQRk1fUFdNX1NXSVRDSCk7DQo+ID4NCj4gPiAgICAgICAvKiBBZHZhbmNlZCBQb3dl
-ciBTYXZpbmcgcGFyYW1ldGVyICovDQo+ID4gLSAgICAgb2NwX3JlZ19zZXRfYml0cyh0cCwgMHhh
-NDMwLCBCSVQoMCkgfCBCSVQoMSkpOw0KPiA+ICsgICAgIG9jcF9yZWdfc2V0X2JpdHModHAsIE9D
-UF9QT1dFUl9DRkcsIEVOXzEwTV9QTExPRkYgfA0KPiA+ICsgRU5fQUxEUFNfUExMT0ZGKTsNCj4g
-Pg0KPiA+ICAgICAgIC8qIERpc2FibGUgQUxEUFMgZm9yY2UgbW9kZSAqLw0KPiA+ICAgICAgIG9j
-cF9yZWdfY2xyX2JpdHModHAsIDB4YTQ0YSwgQklUKDIpKTsNCj4gPg0KPiA+ICsgICAgIC8qIERp
-c2FibGUgYnlwYXNzX3R1cm5fb2ZmX2Nsa19pbl9hbGRwcyAqLw0KPiA+ICsgICAgIG9jcF9ieXRl
-X2Nscl9iaXRzKHRwLCBNQ1VfVFlQRV9QTEEsIDB4ZDNjOCwgQklUKDApKTsNCj4gPiArDQo+IA0K
-PiBbU2V2ZXJpdHk6IExvd10NCj4gVGhpcyBpc24ndCBhIGJ1ZywgYnV0IHRoZSBjb21taXQgbWVz
-c2FnZSBkZXNjcmliZXMgdGhpcyBhcyBhIHJlZmFjdG9yIHBsdXMgYW4NCj4gInVwZGF0ZSBQSFkg
-cGFyYW1ldGVycyBmb3IgUlRMODE1NkIvNTcvNTkiLCBhbmQgc29tZSBvZiB0aGUgcmVnaXN0ZXIN
-Cj4gcHJvZ3JhbW1pbmcgY2hhbmdlcyBhcmUgaGFyZCB0byBjbGFzc2lmeSBmcm9tIHRoZSBtZXNz
-YWdlIGFsb25lLg0KPiANCj4gSW4gcjgxNTdfaHdfcGh5X2NmZygpIHRoaXMgMHhkM2M4IEJJVCgw
-KSBjbGVhciB3YXMgcHJldmlvdXNseSBpbnNpZGUgdGhlICJjYXNlDQo+IFJUTF9WRVJfMTdfUUZO
-NjgvUlRMX1ZFUl8xN19RRk4xMDA6IiBhcm0gb25seSwgYW5kIGl0IGlzIG5vdyBhYm92ZSB0aGUN
-Cj4gdmVyc2lvbiBzd2l0Y2gsIHNvIFJUTDgxNTcgKFJUTF9WRVJfMTYpIGV4ZWN1dGVzIGl0IGZv
-ciB0aGUgZmlyc3QgdGltZS4NCj4gDQo+IEluIHI4MTU2Yl9od19waHlfY2ZnKCkgdGhlIG5ldyAi
-TndheSBEQUNPTkIgcGFyYW1ldGVycyIgd3JpdGU6DQo+IA0KPiAgICAgICAgIG9jcF9yZWdfdzB3
-MSh0cCwgMHhhNGNhLCAweDYwMDAsIDB4MDA0MCk7DQo+IA0KPiByZXR1bmVzIFJUTDgxNTZCIChS
-VExfVkVSXzEzL1JUTF9WRVJfMTUpIGluIGEgcGF0Y2ggd2hvc2Ugc3ViamVjdCBpcyBhbg0KPiBy
-ODE1NyByZWZhY3Rvci4NCj4gDQo+IENhbiB0aGUgY2hhbmdlbG9nIHNheSB3aGljaCBvZiB0aGVz
-ZSByZWdpc3RlciBjaGFuZ2VzIGZpeCBhbiBvYnNlcnZlZA0KPiBzeW1wdG9tIChhbmQgdGhlcmVm
-b3JlIHdhbnQgYSBGaXhlczogdGFnIGFuZCBzdGFibGUgYmFja3BvcnRpbmcpIHZlcnN1cyB3aGlj
-aA0KPiBhcmUgdmVuZG9yIHR1bmluZz8gIFdvdWxkIHRoZSBSVEw4MTU2QiBjaGFuZ2UgYmUgYmV0
-dGVyIGFzIGl0cyBvd24gcGF0Y2g/DQoNCkkgc2hvdWxkIHJlbW92ZSB0aGlzIGNoYW5nZSBmcm9t
-IHRoaXMgcGF0Y2guIFRoZSBjaGFuZ2UgaXMgaXJyZWxldmFudCB0byBSVEw4MTU3IGFuZCBSVEw4
-MTU5Lg0KDQo+IA0KPiA+ICAgICAgIHN3aXRjaCAodHAtPnZlcnNpb24pIHsNCj4gPiAgICAgICBj
-YXNlIFJUTF9WRVJfMTY6DQo+ID4gICAgICAgICAgICAgICAvKiBYR19JTlJYIHBhcmFtZXRlciAq
-Lw0KPiANCj4gWyAuLi4gXQ0KPiANCj4gPiBAQCAtODI3NywxMiArODI5NCw4NSBAQCBzdGF0aWMg
-dm9pZCByODE1N19od19waHlfY2ZnKHN0cnVjdCByODE1MiAqdHApDQo+ID4gICAgICAgICAgICAg
-ICBzcmFtMl93cml0ZV93MHcxKHRwLCAweDgwN2MsIDB4ZmYwMCwgMHg1MDAwKTsNCj4gPiAgICAg
-ICAgICAgICAgIHNyYW0yX3dyaXRlX3cwdzEodHAsIDB4ODA5ZCwgMHhmZjAwLCAweDUwMDApOw0K
-PiA+ICAgICAgICAgICAgICAgYnJlYWs7DQo+ID4gKyAgICAgZGVmYXVsdDoNCj4gPiArICAgICAg
-ICAgICAgIGJyZWFrOw0KPiA+ICsgICAgIH0NCj4gPiArDQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+
-ICsgICAgIHNldF9iaXQoUEhZX1JFU0VULCAmdHAtPmZsYWdzKTsNCj4gPiArfQ0KPiA+ICsNCj4g
-PiArc3RhdGljIHZvaWQgcjgxNTlfaHdfcGh5X2NmZyhzdHJ1Y3QgcjgxNTIgKnRwKSB7DQo+ID4g
-KyAgICAgdTE2IGRhdGE7DQo+ID4gKw0KPiA+ICsgICAgIHI4MTU2Yl93YWl0X2xvYWRpbmdfZmxh
-c2godHApOw0KPiA+ICsNCj4gPiArICAgICBvY3Bfd29yZF90ZXN0X2FuZF9jbHJfYml0cyh0cCwg
-TUNVX1RZUEVfVVNCLCBVU0JfTUlTQ18wLA0KPiA+ICsgUENVVF9TVEFUVVMpOw0KPiA+ICsNCj4g
-PiArICAgICBkYXRhID0gcjgxNTNfcGh5X3N0YXR1cyh0cCwgMCk7DQo+ID4gKyAgICAgc3dpdGNo
-IChkYXRhKSB7DQo+ID4gKyAgICAgY2FzZSBQSFlfU1RBVF9FWFRfSU5JVDoNCj4gPiArICAgICAg
-ICAgICAgIHJ0bDgxNTJfYXBwbHlfZmlybXdhcmUodHAsIHRydWUpOw0KPiA+ICsgICAgICAgICAg
-ICAgb2NwX3JlZ19jbHJfYml0cyh0cCwgMHhhNDY2LCBCSVQoMCkpOw0KPiA+ICsgICAgICAgICAg
-ICAgb2NwX3JlZ19jbHJfYml0cyh0cCwgMHhhNDY4LCBCSVQoMykgfCBCSVQoMSkpOw0KPiA+ICsg
-ICAgICAgICAgICAgYnJlYWs7DQo+ID4gKyAgICAgY2FzZSBQSFlfU1RBVF9MQU5fT046DQo+ID4g
-KyAgICAgY2FzZSBQSFlfU1RBVF9QV1JETjoNCj4gPiArICAgICBkZWZhdWx0Og0KPiA+ICsgICAg
-ICAgICAgICAgcnRsODE1Ml9hcHBseV9maXJtd2FyZSh0cCwgZmFsc2UpOw0KPiA+ICsgICAgICAg
-ICAgICAgYnJlYWs7DQo+ID4gKyAgICAgfQ0KPiA+DQo+ID4gKyAgICAgcjgxNTJfbWRpb190ZXN0
-X2FuZF9jbHJfYml0KHRwLCBNSUlfQk1DUiwgQk1DUl9QRE9XTik7DQo+ID4gKw0KPiA+ICsgICAg
-IHI4MTUzX2FsZHBzX2VuKHRwLCBmYWxzZSk7DQo+ID4gKw0KPiA+ICsgICAgIGRhdGEgPSByODE1
-M19waHlfc3RhdHVzKHRwLCBQSFlfU1RBVF9MQU5fT04pOw0KPiA+ICsgICAgIFdBUk5fT05fT05D
-RShkYXRhICE9IFBIWV9TVEFUX0xBTl9PTik7DQo+IA0KPiBbU2V2ZXJpdHk6IE1lZGl1bV0NCj4g
-V2FzIGRyb3BwaW5nIHRoZSBFRUUgZGlzYWJsZSBoZXJlIGludGVudGlvbmFsIGZvciBSVEw4MTU5
-Pw0KDQpZZXMuDQoNCj4gDQo+IEJlZm9yZSB0aGUgc3BsaXQsIFJUTF9WRVJfMTdfUUZONjgvUUZO
-MTAwIHdlbnQgdGhyb3VnaCB0aGUgc2hhcmVkDQo+IHI4MTU3X2h3X3BoeV9jZmcoKSwgd2hpY2gg
-cXVpZXNjZWQgYm90aCBBTERQUyBhbmQgRUVFIGJlZm9yZSB0b3VjaGluZw0KPiBQSFkgcGFyYW1l
-dGVycywgYW5kIHRoZSBSVExfVkVSXzE2IGhhbGYgc3RpbGwgZG9lczoNCj4gDQo+ICAgICAgICAg
-cjgxNTNfYWxkcHNfZW4odHAsIGZhbHNlKTsNCj4gICAgICAgICBydGxfZWVlX2VuYWJsZSh0cCwg
-ZmFsc2UpOw0KPiANCj4gcjgxNTlfaHdfcGh5X2NmZygpIG9ubHkgY2FsbHMgcjgxNTNfYWxkcHNf
-ZW4odHAsIGZhbHNlKSBhbmQgdGhlbiBzdGFydHMNCj4gcmVwcm9ncmFtbWluZyBQSFkvU1JBTS9P
-Q1AgcGFyYW1ldGVycywgaW5jbHVkaW5nIHRoZSBFRUUgcmVsYXRlZCBvbmVzDQo+IChQTEFfTUFD
-X1BXUl9DVFJMNCBFRUVfU1BEV05fRU4sIE9DUF9ET1dOX1NQRUVEIGFuZA0KPiBPQ1BfUE9XRVJf
-Q0ZHIEVFRV9DTEtESVZfRU4pLiAgVGhlIG90aGVyIGhhbmRsZXJzIGluIHRoaXMgZHJpdmVyDQo+
-IGNvbW1lbnQgb24gdGhhdCBvcmRlcmluZyBleHBsaWNpdGx5LCBmb3IgZXhhbXBsZSBpbiByODE1
-NmJfaHdfcGh5X2NmZygpOg0KPiANCj4gICAgICAgICAvKiBkaXNhYmxlIEVFRSBiZWZvcmUgdXBk
-YXRpbmcgdGhlIFBIWSBwYXJhbWV0ZXJzICovDQo+ICAgICAgICAgcnRsX2VlZV9lbmFibGUodHAs
-IGZhbHNlKTsNCj4gDQo+IFRoZSByZW1haW5pbmcgaGFsZiBvZiB0aGUgcGFpciBpcyBvbmx5IHRo
-ZSBjb25kaXRpb25hbCBlbmFibGUgYXQgdGhlIHRhaWwgb2YNCj4gcjgxNTlfaHdfcGh5X2NmZygp
-Og0KPiANCj4gICAgICAgICBpZiAodHAtPmVlZV9lbikNCj4gICAgICAgICAgICAgICAgIHJ0bF9l
-ZWVfZW5hYmxlKHRwLCB0cnVlKTsNCj4gDQo+IFdpdGggdHAtPmVlZV9lbiBzZXQgdG8gZmFsc2Ug
-dGhyb3VnaCByODE1Ml9zZXRfZWVlKCksIG5vdGhpbmcgdHVybnMgaGFyZHdhcmUNCj4gRUVFIG9m
-ZiBhbnkgbW9yZSwgc28gYWZ0ZXIgYSByZS1ydW4gb2YgaHdfcGh5X2NmZyAodGhlIFBDVVRfU1RB
-VFVTIHJlc3VtZQ0KPiBwYXRocywgb3IgcnRsX2h3X3BoeV9jaGFuZ2Vfd29ya19mdW5jKCkgY2Fs
-bGluZw0KPiB0cC0+cnRsX29wcy5od19waHlfY2ZnKHRwKSkgZG9lcyB0aGUgUEhZIGNvbWUgYmFj
-ayB3aXRoIGl0cyBkZWZhdWx0IEVFRQ0KPiBzdGF0ZSB3aGlsZSB1cHNfaW5mbyBzdGlsbCByZWNv
-cmRzIEVFRSBhcyBkaXNhYmxlZCwgc2lsZW50bHkgdW5kb2luZyBhbiBlYXJsaWVyDQo+ICJldGh0
-b29sIC0tc2V0LWVlZSBlZWUgb2ZmIj8NCj4gDQo+IFRoaXMgc3RpbGwgbG9va3MgdGhlIHNhbWUg
-YXQgdGhlIGVuZCBvZiB0aGUgc2VyaWVzLCBzbyBubyBsYXRlciBwYXRjaCBpbiB0aGUgc2V0DQo+
-IHJlc3RvcmVzIHRoZSBkaXNhYmxlLg0KPiANCj4gPiArDQo+ID4gKyAgICAgLyogUEZNIG1vZGUg
-Ki8NCj4gPiArICAgICBvY3Bfd29yZF9jbHJfYml0cyh0cCwgTUNVX1RZUEVfUExBLCBQTEFfUEhZ
-X1BXUiwNCj4gPiArIFBGTV9QV01fU1dJVENIKTsNCj4gPiArDQo+ID4gKyAgICAgLyogQWR2YW5j
-ZWQgUG93ZXIgU2F2aW5nIHBhcmFtZXRlciAqLw0KPiA+ICsgICAgIG9jcF9yZWdfc2V0X2JpdHMo
-dHAsIE9DUF9QT1dFUl9DRkcsIEVOXzEwTV9QTExPRkYgfA0KPiA+ICsgRU5fQUxEUFNfUExMT0ZG
-KTsNCj4gPiArDQo+ID4gKyAgICAgLyogRGlzYWJsZSBBTERQUyBmb3JjZSBtb2RlICovDQo+ID4g
-KyAgICAgb2NwX3JlZ19jbHJfYml0cyh0cCwgMHhhNDRhLCBCSVQoMikpOw0KPiA+ICsNCj4gPiAr
-ICAgICAvKiBEaXNhYmxlIGJ5cGFzc190dXJuX29mZl9jbGtfaW5fYWxkcHMgKi8NCj4gPiArICAg
-ICBvY3BfYnl0ZV9jbHJfYml0cyh0cCwgTUNVX1RZUEVfUExBLCAweGQzYzgsIEJJVCgwKSk7DQo+
-ID4gKw0KPiA+ICsgICAgIHN3aXRjaCAodHAtPnZlcnNpb24pIHsNCj4gPiAgICAgICBjYXNlIFJU
-TF9WRVJfMTdfUUZONjg6DQo+ID4gICAgICAgY2FzZSBSVExfVkVSXzE3X1FGTjEwMDoNCj4gPiAt
-ICAgICAgICAgICAgIC8qIERpc2FibGUgYnlwYXNzIHR1cm4gb2ZmIGNsayBpbiBBTERQUyAqLw0K
-PiA+IC0gICAgICAgICAgICAgb2NwX2J5dGVfY2xyX2JpdHModHAsIE1DVV9UWVBFX1BMQSwgMHhk
-M2M4LCBCSVQoMCkpOw0KPiA+IC0NCj4gPiAgICAgICAgICAgICAgIC8qIFBvd2VyIGxldmVsIHR1
-bmluZw0KPiA+ICAgICAgICAgICAgICAgICogdGVzdCBtb2RlIHBvd2VyIGxldmVsDQo+ID4gICAg
-ICAgICAgICAgICAgKi8NCj4gDQo+IFsgLi4uIF0NCj4gDQo+ID4gQEAgLTg0NzEsOSArODU4MSw5
-IEBAIHN0YXRpYyB2b2lkIHI4MTU3X2h3X3BoeV9jZmcoc3RydWN0IHI4MTUyICp0cCkNCj4gPg0K
-PiA+ICAgICAgIG9jcF93b3JkX3NldF9iaXRzKHRwLCBNQ1VfVFlQRV9QTEEsIFBMQV9NQUNfUFdS
-X0NUUkw0LA0KPiA+IEVFRV9TUERXTl9FTik7DQo+ID4NCj4gPiAtICAgICBvY3BfcmVnX3cwdzEo
-dHAsIE9DUF9ET1dOX1NQRUVELCBFTl9FRUVfMTAwIHwgRU5fRUVFXzEwMDAsDQo+IEVOXzEwTV9D
-TEtESVYpOw0KPiA+IC0NCj4gPiAtICAgICB0cC0+dXBzX2luZm8uXzEwbV9ja2RpdiA9IHRydWU7
-DQo+ID4gKyAgICAgb2NwX3JlZ19jbHJfYml0cyh0cCwgT0NQX0RPV05fU1BFRUQsDQo+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgICBFTl9FRUVfMTAwIHwgRU5fRUVFXzEwMDAgfCBFTl8xME1fQ0xL
-RElWKTsNCj4gPiArICAgICB0cC0+dXBzX2luZm8uXzEwbV9ja2RpdiA9IGZhbHNlOw0KPiA+ICAg
-ICAgIHRwLT51cHNfaW5mby5lZWVfcGxsb2ZmXzEwMCA9IGZhbHNlOw0KPiA+ICAgICAgIHRwLT51
-cHNfaW5mby5lZWVfcGxsb2ZmX2dpZ2EgPSBmYWxzZTsNCj4gPg0KPiA+IEBAIC04NDg1LDcgKzg1
-OTUsNyBAQCBzdGF0aWMgdm9pZCByODE1N19od19waHlfY2ZnKHN0cnVjdCByODE1MiAqdHApDQo+
-ID4gICAgICAgcnRsX2dyZWVuX2VuKHRwLCB0ZXN0X2JpdChHUkVFTl9FVEhFUk5FVCwgJnRwLT5m
-bGFncykpOw0KPiA+DQo+ID4gICAgICAgb2NwX3JlZ19jbHJfYml0cyh0cCwgMHhhNDI4LCBCSVQo
-OSkpOw0KPiA+IC0gICAgIG9jcF9yZWdfY2xyX2JpdHModHAsIDB4YTVlYSwgQklUKDApIHwgQklU
-KDEpKTsNCj4gPiArICAgICBvY3BfcmVnX2Nscl9iaXRzKHRwLCAweGE1ZWEsIEJJVCgwKSB8IEJJ
-VCgxKSB8IEJJVCgyKSk7DQo+ID4gICAgICAgdHAtPnVwc19pbmZvLmxpdGVfbW9kZSA9IDA7DQo+
-ID4NCj4gPiAgICAgICBpZiAodHAtPmVlZV9lbikNCj4gDQo+IFRoZXNlIHR3byBodW5rcyBsYW5k
-IGluIHRoZSBSVEw4MTU5IGVwaWxvZ3VlIGFuZCBhbHNvIGNoYW5nZSBiZWhhdmlvdXINCj4gcmF0
-aGVyIHRoYW4gbW92ZSBjb2RlOiBFTl8xME1fQ0xLRElWIGdvZXMgZnJvbSBzZXQgdG8gY2xlYXJl
-ZCB3aXRoDQo+IHVwc19pbmZvLl8xMG1fY2tkaXYgZmxpcHBpbmcgZnJvbSB0cnVlIHRvIGZhbHNl
-ICh0aGF0IGZpZWxkIGZlZWRzIHRoZQ0KPiBVUFMvc3VzcGVuZCBwcm9ncmFtbWluZyksIGFuZCAw
-eGE1ZWEgQklUKDIpIGlzIG5ld2x5IGNsZWFyZWQuICBDb3VsZCB0aGUNCj4gY2hhbmdlbG9nIG1l
-bnRpb24gd2hhdCB0aGVzZSB0d28gY2hhbmdlcyBkbyBmb3IgUlRMODE1OT8NCg0KU3VyZS4NCg0K
-PiANCj4gPiBAQCAtMTAyODQsNyArMTAzOTQsNyBAQCBzdGF0aWMgaW50IHJ0bF9vcHNfaW5pdChz
-dHJ1Y3QgcjgxNTIgKnRwKQ0KPiA+ICAgICAgICAgICAgICAgb3BzLT5lZWVfZ2V0ICAgICAgICAg
-ICAgPSByODE1M19nZXRfZWVlOw0KPiA+ICAgICAgICAgICAgICAgb3BzLT5lZWVfc2V0ICAgICAg
-ICAgICAgPSByODE1Ml9zZXRfZWVlOw0KPiA+ICAgICAgICAgICAgICAgb3BzLT5pbl9ud2F5ICAg
-ICAgICAgICAgPSBydGw4MTUzX2luX253YXk7DQo+ID4gLSAgICAgICAgICAgICBvcHMtPmh3X3Bo
-eV9jZmcgICAgICAgICA9IHI4MTU3X2h3X3BoeV9jZmc7DQo+ID4gKyAgICAgICAgICAgICBvcHMt
-Pmh3X3BoeV9jZmcgICAgICAgICA9IHI4MTU5X2h3X3BoeV9jZmc7DQo+ID4gICAgICAgICAgICAg
-ICBvcHMtPmF1dG9zdXNwZW5kX2VuICAgICA9IHJ0bDgxNTdfcnVudGltZV9lbmFibGU7DQo+ID4g
-ICAgICAgICAgICAgICBvcHMtPmNoYW5nZV9tdHUgICAgICAgICA9IHJ0bDgxNTZfY2hhbmdlX210
-dTsNCj4gPiAgICAgICAgICAgICAgIHRwLT5yeF9idWZfc3ogICAgICAgICAgID0gNDggKiAxMDI0
-Ow0KPiANCj4gLS0NCj4gU2FzaGlrbyBBSSByZXZpZXcgwrcNCj4gaHR0cHM6Ly9uZXRkZXYtYWku
-Ym90cy5saW51eC5kZXYvc2FzaGlrby8jL3BhdGNoc2V0LzIwMjYwOTA4MDc1NjM0LjIzNzQwLTEN
-Cj4gLW5pY19zd3NkJTQwcmVhbHRlay5jb20NCg0KQmVzdCwNCkNoaWgtS2FpDQo=
+Hey,
+
+The idea in this series is old-ish and really never let go of me and so
+I wanted to at least dump it onto the list once even if it's just for
+illustrative purposes.
+
+I still had parts of an implementation laying around that I started
+montsh ago alongside FD_PREPARE()/FD_ADD(). I sat down and finished it.
+
+We've spoken about this idea a few times over the years that we could
+reserve fds and files on a task and then install or a clean them up on
+syscall success or error and get rid of most of the complicated cleanup
+dance that we have in a lot of code. In particular drm. It last came up
+during the Rust file descriptor reservation discussion quite some time
+ago.
+
+TL;DR, this lets arch code handle fd install and cleanup. fd_prepare()
+allocates a descriptor like get_unused_fd_flags() does and records it in
+a slot on the task. fd_stage() attaches the file to that slot and
+returns the number.
+
+When the syscall returns success the exit path installs every staged
+file. When it returns an error it drops the descriptors and the files.
+
+So a caller reserves, hands the number to userspace whenever it wants,
+creates the file, stages it and returns errors without unwinding
+anything.
+
+fd_prepare() returns the slot itself, as a const pointer. The
+preexisting fd_prepare_fd() and fd_prepare_file() give access to the fd
+and file.
+
+get_unused_fd_flags() and fd_install() don't change. A descriptor is
+only reserved where a caller asks for it. And open(), dup() and all
+other syscalls that maximize speed simply use FD_ADD().
+
+The task keeps two slots inline. For SCM_RIGHTS and multi-descriptor
+ioctls a spill array is added. It stick with the task.
+
+Reservations belong to the thread and the syscall that made them. A
+child of fork() starts without any. A thread can't unshare its fdtagble
+with outstanding reservations. Kernel threads never return to userspace
+so nothing would commit. Anything left at exit is a bug and gets warned
+about and dropped.
+
+Christian
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (50):
+      file: install files on syscall exit
+      entry: commit fds on syscall exit
+      alpha: commit fds on syscall exit
+      ARC: commit fds on syscall exit
+      ARM: commit fds on syscall exit
+      arm64: commit fds on syscall exit
+      csky: commit fds on syscall exit
+      hexagon: commit fds on syscall exit
+      m68k: commit fds on syscall exit
+      microblaze: commit fds on syscall exit
+      MIPS: commit fds on syscall exit
+      nios2: commit fds on syscall exit
+      openrisc: commit fds on syscall exit
+      parisc: commit fds on syscall exit
+      sh: commit fds on syscall exit
+      sparc: commit fds on syscall exit
+      um: commit fds on syscall exit
+      xtensa: commit fds on syscall exit
+      file: require the syscall exit hook from every architecture
+      file: warn when the descriptor table is unshared with slots
+      io_uring: commit fds per request
+      net: install SCM_RIGHTS descriptors when recvmsg() returns
+      file: open-code receive_fd()'s immediate install
+      file: make FD_ADD() a standalone immediate install
+      file: reimplement FD_PREPARE() on the deferred fd_prepare() path
+      dma-buf: stop unwinding sync file descriptors by hand
+      drm/amdkfd: stop collecting CRIU dma-buf descriptors for a final install
+      drm/msm: install the out-fence descriptor when the ioctl returns
+      drm/virtio: install the out-fence descriptor when the ioctl returns
+      drm/vmwgfx: install the out-fence descriptor when the ioctl returns
+      vfio: install the migration data descriptor when the ioctl returns
+      liveupdate: install the session descriptors when the ioctl returns
+      io_uring/zcrx: install the exported descriptor when the request returns
+      sctp: install the peeloff descriptor when the syscall returns
+      ALSA: compress: install the task descriptors when the ioctl returns
+      nitro_enclaves: install the enclave descriptor when the ioctl returns
+      tpm: vtpm_proxy: install the server descriptor when the ioctl returns
+      perf: stop putting the event descriptor back on failure
+      seccomp: stop putting the listener descriptor back on failure
+      KVM: stop putting descriptors back on failure
+      KVM: guest_memfd: stop putting the descriptor back on failure
+      drm: stop unwinding descriptors by hand
+      drm/amdgpu: stop unwinding the fence descriptor by hand
+      drm/etnaviv: install the out-fence descriptor when the ioctl returns
+      accel/habanalabs: stop putting the dma-buf descriptor back on failure
+      xen/gntdev-dmabuf: stop putting the descriptor back on failure
+      iio: buffer: install the buffer descriptor when the ioctl returns
+      misc: fastrpc: install the dma-buf descriptor when the ioctl returns
+      iommufd: stop putting descriptors back on failure
+      Drivers: hv: mshv: stop putting descriptors back on failure
+
+ arch/alpha/include/asm/thread_info.h         |   2 +
+ arch/alpha/kernel/entry.S                    |  24 ++-
+ arch/alpha/kernel/ptrace.c                   |   3 +
+ arch/arc/include/asm/thread_info.h           |   2 +
+ arch/arc/kernel/entry.S                      |   5 +
+ arch/arc/kernel/ptrace.c                     |   4 +
+ arch/arm/include/asm/thread_info.h           |   2 +
+ arch/arm/kernel/entry-common.S               |   2 +
+ arch/arm/kernel/ptrace.c                     |   4 +
+ arch/arm64/include/asm/thread_info.h         |   4 +-
+ arch/arm64/kernel/ptrace.c                   |   4 +
+ arch/csky/include/asm/thread_info.h          |   2 +
+ arch/csky/kernel/entry.S                     |   9 +
+ arch/csky/kernel/ptrace.c                    |   4 +
+ arch/hexagon/include/asm/thread_info.h       |   2 +
+ arch/hexagon/kernel/traps.c                  |   4 +
+ arch/m68k/68000/entry.S                      |  10 ++
+ arch/m68k/coldfire/entry.S                   |  12 ++
+ arch/m68k/include/asm/thread_info.h          |   2 +
+ arch/m68k/kernel/entry.S                     |   2 +
+ arch/m68k/kernel/ptrace.c                    |   3 +
+ arch/microblaze/include/asm/thread_info.h    |   5 +-
+ arch/microblaze/kernel/ptrace.c              |   4 +
+ arch/mips/include/asm/thread_info.h          |   5 +-
+ arch/mips/kernel/ptrace.c                    |   4 +
+ arch/nios2/include/asm/thread_info.h         |   2 +
+ arch/nios2/kernel/entry.S                    |   5 +
+ arch/nios2/kernel/ptrace.c                   |   3 +
+ arch/openrisc/include/asm/thread_info.h      |   5 +-
+ arch/openrisc/kernel/entry.S                 |   5 +-
+ arch/openrisc/kernel/ptrace.c                |   4 +
+ arch/parisc/include/asm/thread_info.h        |   2 +
+ arch/parisc/kernel/entry.S                   |  12 ++
+ arch/parisc/kernel/ptrace.c                  |   4 +
+ arch/powerpc/platforms/cell/spufs/inode.c    |  12 +-
+ arch/sh/include/asm/thread_info.h            |  10 +-
+ arch/sh/kernel/entry-common.S                |   8 +-
+ arch/sh/kernel/ptrace_32.c                   |   4 +
+ arch/sparc/include/asm/thread_info_32.h      |   2 +
+ arch/sparc/include/asm/thread_info_64.h      |   9 +-
+ arch/sparc/kernel/entry.S                    |   2 +-
+ arch/sparc/kernel/ptrace_32.c                |   4 +
+ arch/sparc/kernel/ptrace_64.c                |   4 +
+ arch/sparc/kernel/syscalls.S                 |   4 +-
+ arch/um/include/asm/thread_info.h            |   2 +
+ arch/um/kernel/ptrace.c                      |   4 +
+ arch/xtensa/include/asm/thread_info.h        |   2 +
+ arch/xtensa/kernel/entry.S                   |   5 +
+ arch/xtensa/kernel/ptrace.c                  |   4 +
+ drivers/accel/habanalabs/common/memory.c     |  13 +-
+ drivers/char/tpm/tpm_vtpm_proxy.c            |  30 +---
+ drivers/dma-buf/dma-buf.c                    |  33 ++--
+ drivers/dma-buf/sw_sync.c                    |  40 ++---
+ drivers/dma-buf/sync_file.c                  |  52 ++----
+ drivers/gpio/gpiolib-cdev.c                  |  18 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c       |  16 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c     |  67 ++------
+ drivers/gpu/drm/drm_lease.c                  |  20 +--
+ drivers/gpu/drm/drm_prime.c                  |  13 +-
+ drivers/gpu/drm/drm_syncobj.c                |  44 ++---
+ drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c |  14 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c         |  22 +--
+ drivers/gpu/drm/msm/msm_gem_vma.c            |  22 +--
+ drivers/gpu/drm/msm/msm_perfcntr.c           |   6 +-
+ drivers/gpu/drm/virtio/virtgpu_submit.c      |  32 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c      |  29 ++--
+ drivers/hv/mshv_root_main.c                  |  27 +--
+ drivers/hv/mshv_vtl_main.c                   |  20 +--
+ drivers/iio/industrialio-buffer.c            |  26 +--
+ drivers/iommu/iommufd/eventq.c               |  39 ++---
+ drivers/media/mc/mc-request.c                |   6 +-
+ drivers/misc/fastrpc.c                       |  19 +--
+ drivers/misc/ntsync.c                        |   6 +-
+ drivers/vfio/vfio_main.c                     |  25 +--
+ drivers/virt/nitro_enclaves/ne_misc_dev.c    |  33 ++--
+ drivers/xen/gntdev-dmabuf.c                  |  14 +-
+ fs/eventfd.c                                 |   6 +-
+ fs/eventpoll.c                               |   6 +-
+ fs/exec.c                                    |   3 +
+ fs/file.c                                    | 245 +++++++++++++++++++++++++--
+ fs/namespace.c                               |  12 +-
+ fs/nsfs.c                                    |   6 +-
+ fs/xfs/xfs_handle.c                          |   6 +-
+ include/linux/entry-common.h                 |   8 +-
+ include/linux/file.h                         | 160 +++++------------
+ include/linux/sched.h                        |  21 +++
+ include/linux/thread_info.h                  |   2 +
+ io_uring/io_uring.c                          |  27 +++
+ io_uring/mock_file.c                         |   5 +-
+ io_uring/zcrx.c                              |  25 +--
+ kernel/bpf/bpf_iter.c                        |   6 +-
+ kernel/bpf/token.c                           |   6 +-
+ kernel/events/core.c                         |  31 ++--
+ kernel/exit.c                                |   1 +
+ kernel/fork.c                                |   3 +
+ kernel/liveupdate/luo_core.c                 |  48 ++----
+ kernel/liveupdate/luo_session.c              |  24 +--
+ kernel/seccomp.c                             |  13 +-
+ mm/userfaultfd.c                             |   6 +-
+ net/core/scm.c                               |  13 +-
+ net/handshake/netlink.c                      |  20 ++-
+ net/kcm/kcmsock.c                            |   5 +-
+ net/sctp/socket.c                            |  78 ++++-----
+ sound/core/compress_offload.c                |  24 ++-
+ virt/kvm/guest_memfd.c                       |  20 +--
+ virt/kvm/kvm_main.c                          |  65 +++----
+ 106 files changed, 962 insertions(+), 861 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260915-work-fd-reserve-unify-folded-b89d3154b3d0
+
