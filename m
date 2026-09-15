@@ -1,171 +1,225 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA7A37FF40;
-	Tue, 15 Sep 2026 07:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14531248881;
+	Tue, 15 Sep 2026 07:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457788; cv=none; b=XcnUo5RKzbxtvT7g5GKRPNg8s+enT4ioR7UbTEH3qumwsBoqUWJ+eRTdcTfkySEDJ6udLpGSRRf0VHGrR5ES/RQx3slcs5XgvEnU34yFUAS0aUEDeCU5xQmbMtxcC8Vf8l4wZM9o8VPjCgdNi7N9fksC2mWI7DnlL4WsXhTJ/Pw=
+	t=1789457965; cv=none; b=FC330hX53fXyWCZabuIUtJsXg4NNJbW20wHWY8rYGZ6j441kuSTkZaRngoufRfzikOLi27+JjGtRCJ7bo/525Qh54RTyDtIXoWvp5wsn7Uw7k2r2gQWwelhvdOhq48LRrREzR68lrA76PYdAop5oBI2nS5RsvzAHGgswJCfjtUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457788; c=relaxed/simple;
-	bh=NxPTD4W19Z9M+mY9GdYd2Kk9DxshxIPm9Hz4WdBTGy0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fIHYwie6F5h++yR7hCZVP+5ETQtaSvut8yISNSkao1hHeNBck474xSWaIAs8lGZ7rvYgTlgPnQpaQoIy8P0TmMXR3wsc6s3bBLyxfRAU/EX1y0F/c5eFQBzlb/2Z203CUuBGhDNfBiFlUcLpM/oVJVldpOmqCcK1jZRuaQpKaF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=SqhrE50w; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MOj9iq8y; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789457965; c=relaxed/simple;
+	bh=3za1xEBwxCASiKysG5KnCpfCygeiBcxKDPJYawuy0so=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ClwF3WKUYb9BbEHJUthEG92fL1nOCBIxrzPnV0ZV88Q9Lk5etn6lx9AuK7PAZT2DwHbLipe2S5I044+JXWzS10OADIQuBhgttTEMTLjAZREW1DJcoVw7WfvDmAvBHLERYFijaLBwQC+zq8lHA9KPnXYMAkecjVGcPQmAuFdAsks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=JSUjHzpt; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="SqhrE50w";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MOj9iq8y"
-Date: Tue, 15 Sep 2026 09:36:14 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789457776;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F0XPnkxyinHuP6LWNm97uEI7J3FDxX79bdkqFiNYciE=;
-	b=SqhrE50w1ocVlf7bpgeaWolWTp4TlALhfikJd77/9fAbpZv3jROrX6RuHe9ozTKinQTlVq
-	5TL3T2e73jZY6BqX+6zCJotxa//4hJoq5worZy947B/ZdP3qeGxu4eV71Gox5uBqhKt58n
-	U9LTKCkF8GdliiYdGg3N+fJZqP6lhkX0P2tEOoJfh15/E/oNw5XFsTX/mtOgScEEpz9BYZ
-	gydy3OCdv00ONKP0zc3wkRS+joc9Nwov2QqA9lbMGpxEaW4pQznJcVIKvKACQxcqUntEIA
-	JiHWGgwyOtbw834tsScsMXkZCFA0+M9mRg3i6E9LGYKJvhfBbw7SLs6mGciJAw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789457776;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F0XPnkxyinHuP6LWNm97uEI7J3FDxX79bdkqFiNYciE=;
-	b=MOj9iq8y1HteeIVav02abiLPFsuHVtarPN2TFD7jA7YzWZT9Dij7UoMpx12ZDRoQydWGhe
-	CrGKmIpDqkbjOuAg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Jordan Crouse <jordan@cosmicpenguin.net>,
-	Sravanthi Kollukuduru <skolluku@codeaurora.org>,
-	Archit Taneja <architt@codeaurora.org>,
-	Jeykumar Sankaran <jsanka@codeaurora.org>,
-	Chandan Uddaraju <chandanu@codeaurora.org>,
-	Rajesh Yadav <ryadav@codeaurora.org>, linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	venkata.valluru@oss.qualcomm.com,
-	Naman S Thaker <namathak@qti.qualcomm.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/msm: split DPU core IRQ handler under
- CONFIG_PREEMPT_RT
-Message-ID: <20260915073614.nvT9zW3S@linutronix.de>
-References: <20260909-drm-mis-next-split-irq-v1-1-89bc9c512c53@oss.qualcomm.com>
- <20260910064723.pbZP3vic@linutronix.de>
- <aqP3lDjzzsbFNly5@hu-vishsain-blr.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="JSUjHzpt"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:From:Reply-To; bh=zJlBVWV/3RAEteqVHBhzyAqeRpIeBaIJLBky+iz7yR4=; b=
+	JSUjHzpthOwRYKnLJCYqqjCbt3mVss72IovqW5qkMxX8hoB66eWMNswchM2l7PJfA6i82ozTTiEpD
+	42bCAQhWHi/vDMq/QwpkTBOpa07U6HT26lvMjNJiDuJNk3A057FGOURW87Sr00N+OruijuQPXnkgj
+	kf93HoeZIGHWuFvQq/E1o1PjfJ/OmkNqyH1Ri3LJ5BWIaaIw7VFtA6CpcVzGAnlLEz0xAeMzRak9I
+	Ik1mBeaR99k5pbVDOmOoy3rN8+OiDOGaVjwvAp/UXeLle4NwKfQE36JabzLPMdwhCjqnlqNJ3hGZF
+	EiW8W0cqtjZaPl1dFnahYk29OdYA66Hm0Q==;
+Received: from [49.36.127.23] (helo=uajain)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x6Nl1-002IOX-FN; Tue, 15 Sep 2026 09:39:11 +0200
+From: Umang Jain <uajain@igalia.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Lucas De Marchi <demarchi@kernel.org>,
+	Mathias Nyman <mathias.nyman@linux.intel.com>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-dev@igalia.com,
+	Umang Jain <uajain@igalia.com>
+Subject: [PATCH v2] early: usb: xhci-dbc: Handle out of bounds xhci-xdbc capability
+Date: Tue, 15 Sep 2026 13:10:49 +0530
+Message-ID: <20260915074049.613842-1-uajain@igalia.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqP3lDjzzsbFNly5@hu-vishsain-blr.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-11 18:14:04 [+0530], Vishnu Saini wrote:
-> On Thu, Sep 10, 2026 at 08:47:23AM +0200, Sebastian Andrzej Siewior wrote:
-> > On 2026-09-09 14:22:16 [+0530], vishnu.saini@oss.qualcomm.com wrote:
-> > > From: Naman S Thaker <namathak@qti.qualcomm.com>
-> > > 
-> > > On a PREEMPT_RT kernel, dpu_core_irq() runs as a true hardirq handler,
-> > 
-> > *why* is this the case. The code you replaces adds some ifdefs around
-> > request_irq() with 0 as flags. This does not make it run has hardirq.
-> You are right, the statement is incorrect, i will update the commit msg.
-> On RT kernel, the dpu_core_irq() runs in threaded context by default.
-> This behavior is changed in the commit by calling devm_request_threaded_irq with
-> IRQ_ONESHOT flag only for RT kernel using the ifdefs.
+Currently, the early xhci-dbc assumes that the entire PCIe memory IO
+can be entirely mapped  within the fixed boot time mappings
+dictated by NR_FIX_BTMAPS. This patch handles the case where the PCIe
+memory IO size can be larger than the fixed boot time mappings and
+query the xhci debug extended capability in xdbc_map_pci_mmio().
 
-The why would be interesting. Usually things stay threaded to avoid
-locking issues down the road.
+This commit ensures that the xHCI debug capability can still be queried
+when the PCIe memory IO space exceeds the fixmap size. In this scenario,
+the base address is mapped uptil fixmap size and debug capabilities are
+queried thereafter. Iterating over the entire PCIe BAR address size is
+left for future improvement as and when, such a case arises.
 
-> The irq is now split into two parts for RT,
-> 1: primary handler which does not use sleeping locks, and
-> 2: secondary threaded handler which can use sleepable locks.
-> For normal kernels, the request_irq() with 0 flag is still used as-is.
+Additionally, this brings the need to track the early_ioremap() mapped
+size separately hence, introduce additional struct member xhci_base_length
+in struct xdbc_state.
 
-If the split is properly done for RT, the non-RT variant should be able
-to use the same without any ifdefs.
+Signed-off-by: Umang Jain <uajain@igalia.com>
+---
+Changes in v2:
+- Commit message update
+- Changed and tested behaviour for mapping only first fixmap_size
+  of PCIe Base address size instead of iteration over entire BAR size
+- Updated comments
+- Updated XDBC MAPPING SIZE to 64
 
->  
-> > > but it dispatches per-encoder callbacks that take sleepable locks
-> > > (spinlock_t becomes an rt_mutex on RT, and some DRM-core locks reached
-> > > through vblank/CRC/writeback handling are sleepable as well). Sleeping
-> > > inside a hardirq handler is not allowed and eventually crashes the
-> > > display, which is what happens after running GLMark2 for a while.
-> > 
-> > That is correct. That is the irq handler are threaded by default and
-> > only non-threaded if explicitly requested.
-> > 
-> > I suggest to stick with non-threaded by default.
-> > There is only one request_threaded_irq() as far as I can tell and this
-> > msm_dp_display_request_irq():
-> > 
-> > |         rc = devm_request_threaded_irq(&pdev->dev, dp->irq,
-> > |                                        msm_dp_display_irq_handler,
-> > |                                        msm_dp_display_irq_thread,
-> > |                                        IRQ_TYPE_LEVEL_HIGH,
-> > |                                        "dp_display_isr", dp);
-> > 
-> > and its primary handler will be threaded on PREEMPT_RT, too. So you end
-> > up with two threads here.
-> You are correct about the primary handler in msm_dp_display_request_irq() being threaded.
-> But the request_threaded_irq function in msm_dp_display_request_irq() is not modified in this commit.
-> The issue fixed by the current commit relates to msm_mdss_irq crash stack below.
+v1:
+- https://lore.kernel.org/all/20260720191249.1272328-1-uajain@igalia.com/
+---
+ drivers/usb/early/xhci-dbc.c | 78 ++++++++++++++++++++++++++++++++----
+ drivers/usb/early/xhci-dbc.h |  1 +
+ 2 files changed, 71 insertions(+), 8 deletions(-)
 
-Why is it the way it is? What is the issue in the stack trace below?
-This is not described, is it? Your cleared the top of the report.
-Now, msm_dp_display_irq_handler() ors the return value which is wrong.
-You can't return IRQ_WAKE_THREAD | IRQ_HANDLED and expect the thread is
-woken up. It appears the handler is fires over and over which implies
-that something is wrong with your primary handler.
+diff --git a/drivers/usb/early/xhci-dbc.c b/drivers/usb/early/xhci-dbc.c
+index 41118bba9197..d2e6ae410b0d 100644
+--- a/drivers/usb/early/xhci-dbc.c
++++ b/drivers/usb/early/xhci-dbc.c
+@@ -35,10 +35,23 @@ static bool early_console_keep;
+ static inline void xdbc_trace(const char *fmt, ...) { }
+ #endif /* XDBC_TRACE */
+ 
++/* Size of xHCI debug capability structure as per section 7.6.8 of xHCI spec. */
++#define XDBC_MAPPING_SIZE	64
++
++enum xdbc_capability_flags {
++	XDBC_CAP_FLAG_NONE		= 0,
++	XDBC_CAP_FLAG_LEGACY		= 1 << 0,
++	XDBC_CAP_FLAG_PROTOCOL		= 1 << 1,
++	XDBC_CAP_FLAG_DEBUG		= 1 << 2,
++};
++
+ static void __iomem * __init xdbc_map_pci_mmio(u32 bus, u32 dev, u32 func)
+ {
+-	u64 val64, sz64, mask64;
++	u64 val64, sz64, mask64, fixmap_size, mapped_size;
++	enum xdbc_capability_flags cap_flags = XDBC_CAP_FLAG_NONE;
++	bool found_all_caps = false;
+ 	void __iomem *base;
++	int offset;
+ 	u32 val, sz;
+ 	u8 byte;
+ 
+@@ -85,7 +98,56 @@ static void __iomem * __init xdbc_map_pci_mmio(u32 bus, u32 dev, u32 func)
+ 
+ 	xdbc.xhci_start = val64;
+ 	xdbc.xhci_length = sz64;
+-	base = early_ioremap(val64, sz64);
++
++	fixmap_size = NR_FIX_BTMAPS << PAGE_SHIFT;
++	if (sz64 < fixmap_size) {
++		xdbc.xhci_base_length = sz64;
++		return early_ioremap(val64, sz64);
++	}
++
++	/*
++	 * Base address size is greater than fixed size boot time mappings
++	 * hence, map maximum allowed fixmap size from base address and
++	 * determine if the required extended capabilities lies within the
++	 * fixmap.
++	 */
++	base = early_ioremap(val64, fixmap_size);
++	offset = xhci_find_next_ext_cap(base, 0, 0);
++	mapped_size = fixmap_size;
++
++	while (offset < fixmap_size) {
++		val = readl(base + offset);
++		switch (XHCI_EXT_CAPS_ID(val)) {
++		case XHCI_EXT_CAPS_DEBUG:
++			if (offset + XDBC_MAPPING_SIZE < fixmap_size)
++				cap_flags |= XDBC_CAP_FLAG_DEBUG;
++			break;
++		case XHCI_EXT_CAPS_PROTOCOL:
++			cap_flags |= XDBC_CAP_FLAG_PROTOCOL;
++			break;
++		case XHCI_EXT_CAPS_LEGACY:
++			cap_flags |= XDBC_CAP_FLAG_LEGACY;
++			break;
++		}
++
++		if ((cap_flags & XDBC_CAP_FLAG_DEBUG) &&
++		    (cap_flags & XDBC_CAP_FLAG_PROTOCOL) &&
++		    (cap_flags & XDBC_CAP_FLAG_LEGACY)) {
++			found_all_caps = true;
++			break;
++		}
++
++		offset = xhci_find_next_ext_cap(base, offset, 0);
++		if (!offset)
++			break;
++	}
++
++	if (found_all_caps) {
++		xdbc.xhci_base_length = fixmap_size;
++	} else {
++		xdbc.xhci_base_length = 0;
++		base = NULL;
++	}
+ 
+ 	return base;
+ }
+@@ -643,9 +705,9 @@ int __init early_xdbc_parse_parameter(char *s, int keep_early)
+ 	offset = xhci_find_next_ext_cap(xdbc.xhci_base, 0, XHCI_EXT_CAPS_DEBUG);
+ 	if (!offset) {
+ 		pr_notice("xhci host doesn't support debug capability\n");
+-		early_iounmap(xdbc.xhci_base, xdbc.xhci_length);
++		early_iounmap(xdbc.xhci_base, xdbc.xhci_base_length);
+ 		xdbc.xhci_base = NULL;
+-		xdbc.xhci_length = 0;
++		xdbc.xhci_base_length = 0;
+ 
+ 		return -ENODEV;
+ 	}
+@@ -682,9 +744,9 @@ int __init early_xdbc_setup_hardware(void)
+ 		xdbc.table_base = NULL;
+ 		xdbc.out_buf = NULL;
+ 
+-		early_iounmap(xdbc.xhci_base, xdbc.xhci_length);
++		early_iounmap(xdbc.xhci_base, xdbc.xhci_base_length);
+ 		xdbc.xhci_base = NULL;
+-		xdbc.xhci_length = 0;
++		xdbc.xhci_base_length = 0;
+ 	}
+ 
+ 	return ret;
+@@ -987,7 +1049,7 @@ static int __init xdbc_init(void)
+ 	}
+ 
+ 	raw_spin_lock_irqsave(&xdbc.lock, flags);
+-	early_iounmap(xdbc.xhci_base, xdbc.xhci_length);
++	early_iounmap(xdbc.xhci_base, xdbc.xhci_base_length);
+ 	xdbc.xhci_base = base;
+ 	offset = xhci_find_next_ext_cap(xdbc.xhci_base, 0, XHCI_EXT_CAPS_DEBUG);
+ 	xdbc.xdbc_reg = (struct xdbc_regs __iomem *)(xdbc.xhci_base + offset);
+@@ -1004,7 +1066,7 @@ static int __init xdbc_init(void)
+ 	memblock_phys_free(xdbc.table_dma, PAGE_SIZE);
+ 	memblock_phys_free(xdbc.out_dma, PAGE_SIZE);
+ 	writel(0, &xdbc.xdbc_reg->control);
+-	early_iounmap(xdbc.xhci_base, xdbc.xhci_length);
++	early_iounmap(xdbc.xhci_base, xdbc.xhci_base_length);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/usb/early/xhci-dbc.h b/drivers/usb/early/xhci-dbc.h
+index 8b4d71de45fc..e2aefb796084 100644
+--- a/drivers/usb/early/xhci-dbc.h
++++ b/drivers/usb/early/xhci-dbc.h
+@@ -144,6 +144,7 @@ struct xdbc_state {
+ 	u32			dev;
+ 	u32			func;
+ 	void __iomem		*xhci_base;
++	size_t			xhci_base_length;
+ 	u64			xhci_start;
+ 	size_t			xhci_length;
+ 	int			port_number;
+-- 
+2.55.0
 
-The way this is requested you supposed to have threaded handler and a
-secondary-threaded handler. While msm_dp_display_irq_handler() is
-invoked as threaded the IRQ chip masks the interrupt source. If it
-returns IRQ_WAKE_THREAD it supposed to mask the interrupt source because
-the IRQ-chip unmasks the interrupt while the secondary-threaded handler
-is run. It seems this does not work as intended.
-
-> [  152.108462] Call trace:
-> [  152.108465]  show_stack+0x18/0x30 (C)
-> [  152.108477]  dump_stack_lvl+0x60/0x80
-> [  152.108484]  dump_stack+0x18/0x24
-> [  152.108489]  __report_bad_irq+0x4c/0xec
-> [  152.108496]  note_interrupt+0x340/0x394
-> [  152.108502]  handle_irq_event+0x94/0xa0
-> [  152.108508]  handle_level_irq+0xd8/0x16c
-> [  152.108513]  handle_irq_desc+0x34/0x5c
-> [  152.108518]  generic_handle_domain_irq+0x1c/0x28
-> [  152.108522]  msm_mdss_irq+0x68/0x144 [msm]
-> [  152.108654]  handle_irq_desc+0x34/0x5c
-> [  152.108660]  generic_handle_domain_irq+0x1c/0x28
-> [  152.108664]  gic_handle_irq+0x4c/0x140
-> [  152.108669]  call_on_irq_stack+0x30/0x48
-> [  152.108673]  do_interrupt_handler+0x80/0x84
-> [  152.108678]  el1_interrupt+0x38/0x58
-> [  152.108685]  el1h_64_irq_handler+0x18/0x24
-> [  152.108690]  el1h_64_irq+0x70/0x74
-> [  152.108694]  __schedule+0x6c/0xc9c (P)
-> [  152.108701]  schedule_idle+0x20/0x40
-> [  152.108705]  do_idle+0x17c/0x2c0
-> [  152.108710]  cpu_startup_entry+0x38/0x40
-> [  152.108714]  rest_init+0xd8/0xe0
-> [  152.108719]  console_on_rootfs+0x0/0x6c
-> [  152.108726]  __primary_switched+0x88/0x90
-> [  152.108732] handlers:
-> [  152.108734] [<000000000cabe59c>] irq_default_primary_handler threaded [<00000000779fd542>] msm_irq [msm]
-> [  152.108859] Disabling IRQ #246
-
-Sebastian
