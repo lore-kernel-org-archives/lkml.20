@@ -1,107 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3769C395DBF;
-	Tue, 15 Sep 2026 20:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from achilles.noc.ntua.gr (achilles.noc.ntua.gr [147.102.222.210])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82D1231ED7C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=147.102.222.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789503750; cv=none; b=LjwdjKACLQBg646HNtpLBqfCMnx1tM+mHjIqe1wZkPKerz3IkIYI/U3G0t7nNtLs1AagfyboRRAbuv4hqiCkUUcOiFNWSfzVk4L4o7vfwX/fUxsR/LIEl5ERf6MpMnm9Hqq8o7Dk1li1d7Uge5ZO9cKM8JVydTMzYkEYLFkFsMk=
+	t=1789503801; cv=none; b=FAZLHkAa1mZ6D/8rl+O0IsPV/vGIHr8pQ43lattAsPAFey4xCfa/IIobkNZlmk0tFK4qf7nyVo807uxDoU24a71bR0yrbZRvkbbINMufgu70lEOXcR2oR/f+m8oDmHI81RHoKmnYBi5vC9nBV6sB1hRoXlIug+MuSORB02PJ0jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789503750; c=relaxed/simple;
-	bh=IhCshPMisyA5RzAfuQ48WvutxKE/BImzgd0SyyM243M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RrDoVn4HE6k6DeFkti+7DT9TXgk1ATxSq5x53/J5xamvsjjCb8niP4O4aiQKk8n6TM9j2eq1wroBVyEXwOKRMlSFTxBKPqJMeTVgenZLSig3OKEe1B/dOAx7yi3aphYJJR48iGc6zIPVbdLa/LM+0Jd/5YGtxZruscqoHom1Hz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dm2znzhd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789503801; c=relaxed/simple;
+	bh=p4DJxDGX45CwjWp9sjKGzlhS/O821CmkQBl1CQw054M=;
+	h=MIME-Version:Content-Type:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID; b=YbURUOMVWX7ZlK7h42DXo5kdOJopP13y6YCDj1JNcGWEG05O0ndJm3C8CpG6nYJad/edJOHxwpA+WIi8rNi8VC1k3gPlpVQcnihulS4AUTbwxgk4hNZMdofzSL0RwcDk4Ivzwh0rmvRFhWhhoQZ6Nuzyu2rvi4ZcKrjoWZq8fP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr; spf=pass smtp.mailfrom=cslab.ece.ntua.gr; dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b=HeyPr/np; arc=none smtp.client-ip=147.102.222.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cslab.ece.ntua.gr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dm2znzhd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D1C1F000FF;
-	Tue, 15 Sep 2026 20:22:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789503748;
-	bh=H4ovA+O8RxR19M4awAjvuIdTnz1e6wDUOJYDRLyHkqM=;
-	h=From:To:Cc:Subject:Date;
-	b=dm2znzhdE6OvSJSwDwwzTrEylPdpNaqFuuYJhKsn9ylpVNzw2Oa+QBtZW7xG05GKO
-	 3JhlW6Dct4n9TXGtw1Ei0zQAcYSiSd/VcwGNDDg26hbdPAa/lpSL+4ocwARxNdPogm
-	 UT4Gpodn4kypD7yaHFvt7Wxn9SPWhc9t99jL7kgHcwrP52nCjBQ3F8kM36l0p+c9zY
-	 aOPjb5P6qZO5DC778Z931noqYi2eK4XsPU3HOvNlOUmYyVHHxJlzpsIdvgnSh/eBds
-	 NjZ5MPVcDq5pCFDc/NjAlSJkAObGXRDjkeNyHZcndK/6KUjk7sGVezDmY3PGPaxbB9
-	 N0bqyaNWXiZRw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Amery Hung <ameryhung@gmail.com>,
-	Kees Cook <kees+treewide@kernel.org>,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] bpf: add printf attributes
-Date: Tue, 15 Sep 2026 22:21:55 +0200
-Message-ID: <20260915202220.3535321-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b="HeyPr/np"
+Received: from webmail.mail.ntua.gr (webmail.mail.ntua.gr [147.102.222.247])
+	by achilles.noc.ntua.gr (8.15.2/8.15.2) with ESMTP id 68FIFmiV017180;
+	Tue, 15 Sep 2026 21:15:49 +0300 (EEST)
+	(envelope-from dchar@cslab.ece.ntua.gr)
+Received: from webmail.ntua.gr ([IPv6:2001:648:2000:de:0:0:0:247])
+	by webmail.mail.ntua.gr (8.15.2/8.15.2) with ESMTP id 68FIFiE2012309;
+	Tue, 15 Sep 2026 21:15:45 +0300 (EEST)
+	(envelope-from dchar@cslab.ece.ntua.gr)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cslab.ece.ntua.gr;
+	s=ntuawebmail; t=1789496148;
+	bh=NIw3TqKdf6r1lTBpjlNLZFk1uLtc0Ed3f1SchXTgv0o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HeyPr/npOSvdsVDUib5gkZ9sbZRPRn38Pk84aEkWYXtArv9KQ2bNzholvNvWF6/n7
+	 7rWqD5OG4M1AmOrub3JdnpYMPBj+knA/OuJ4wl6S+FQeuLSwLKBwajqjQ2FouEGdk+
+	 CYz39R6W3IvirqX0fEnHYflOaHSum6of5anveH2s=
+X-Authentication-Warning: webmail.mail.ntua.gr: Host [IPv6:2001:648:2000:de:0:0:0:247] claimed to be webmail.ntua.gr
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+Date: Tue, 15 Sep 2026 21:15:44 +0300
+From: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
+To: "Liam R. Howlett" <liam@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+        Alice Ryhl
+ <aliceryhl@google.com>,
+        Andrew Ballance <andrewjballance@gmail.com>,
+        Suren
+ Baghdasaryan <surenb@google.com>,
+        "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>,
+        maple-tree@lists.infradead.org, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] maple_tree: fix maple_range_64 crashes in RCU mode
+In-Reply-To: <npw6xqsjzsdmtezkca4osoncnle62wvde7ycaladk3xzlmzguf@d7smzgbzsmpj>
+References: <20260913-fix-maple-tree-range64-rcu-v1-0-31a130bb8cbf@cslab.ece.ntua.gr>
+ <3aqxp6zcomm3wzfc6jt4nhltutnvoatqqsjxlxpxlo3j72eeva@nkqwz43zxsug>
+ <npw6xqsjzsdmtezkca4osoncnle62wvde7ycaladk3xzlmzguf@d7smzgbzsmpj>
+Message-ID: <b2bfcd9b99d52bdc9d210250216bf1c0@cslab.ece.ntua.gr>
+X-Sender: dchar@cslab.ece.ntua.gr
+User-Agent: Roundcube Webmail/1.3.10
+X-Greylist: Sender passed SPF test, not delayed by milter-greylist-4.6.2 (achilles.noc.ntua.gr [147.102.222.210]); Tue, 15 Sep 2026 21:15:50 +0300 (EEST)
 
-From: Arnd Bergmann <arnd@arndb.de>
+Στις 15/09/2026 20:13, Liam R. Howlett έγραψε:
+> 
+> Please respin with a few changes:
+> 1. The message in this email will be preserved by Andrew including it 
+> as
+> part of the first patch change log so "I was running a patched 
+> kernel.."
+> should probably be removed and made more into a change log statement.
+> 
+> 2. Add the testing to the userspace testing patch to enhance the test
+> suite please.
+> 
+> Thanks,
+> Liam
 
-Building with extra warnings enabled shows some missing printf attributes:
-
-kernel/bpf/diagnostics.c: In function 'bpf_diag_source':
-kernel/bpf/diagnostics.c:828:9: error: function 'bpf_diag_source' might be a candidate for 'gnu_printf' format attribute [-Werror=suggest-attribute=format]
-  828 |         msg = bpf_diag_vfmt(env, fmt, args);
-
-Add these to shut up the warning and allow the compiler to check the
-format strings.
-
-Fixes: a8f427835394 ("bpf: Report Program Structure CFG errors")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- kernel/bpf/diagnostics.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/bpf/diagnostics.c b/kernel/bpf/diagnostics.c
-index a2cac59c6639..b069fe73d3dc 100644
---- a/kernel/bpf/diagnostics.c
-+++ b/kernel/bpf/diagnostics.c
-@@ -291,7 +291,7 @@ char *bpf_diag_fmt_buf(struct bpf_verifier_env *env, size_t size)
- 	return buf;
- }
- 
--const char *bpf_diag_vfmt(struct bpf_verifier_env *env, const char *fmt, va_list args)
-+__printf(2, 0) const char *bpf_diag_vfmt(struct bpf_verifier_env *env, const char *fmt, va_list args)
- {
- 	va_list copy;
- 	char *buf;
-@@ -309,7 +309,7 @@ const char *bpf_diag_vfmt(struct bpf_verifier_env *env, const char *fmt, va_list
- 	return buf ?: "";
- }
- 
--const char *bpf_diag_fmt(struct bpf_verifier_env *env, const char *fmt, ...)
-+__printf(2, 3) const char *bpf_diag_fmt(struct bpf_verifier_env *env, const char *fmt, ...)
- {
- 	const char *buf;
- 	va_list args;
-@@ -794,7 +794,7 @@ static void diag_print_insn_context(struct bpf_verifier_env *env, u32 insn_idx,
- 	}
- }
- 
--static void bpf_diag_source(struct bpf_verifier_env *env, u32 insn_idx, const char *label,
-+__printf(4, 5) static void bpf_diag_source(struct bpf_verifier_env *env, u32 insn_idx, const char *label,
- 			    const char *fmt, ...)
- {
- 	struct bpf_diag_scratch *scratch;
--- 
-2.53.0
-
+Thanks! I will, as soon as I work out the way to properly add the tests
+to the suite.
