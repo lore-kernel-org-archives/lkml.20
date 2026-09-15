@@ -1,195 +1,131 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 645063B83FC;
-	Tue, 15 Sep 2026 13:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140B43C8C7D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789478641; cv=none; b=XVbn8y26xO1n8mTPG1Ll5JLp66+B8e4qeDN7l5onK51wr7c3s7/uR1jN2JHy1FPLimEy2XHV2tnqJ9EGZ/KimXsIB3zqfW/mcq7Ut4LuHh3v/gyRrQefvQCF9mIXbBTcczJAGxE/t4nezXu9W1FixazzJ5ssc66D1bmraesLpRU=
+	t=1789478659; cv=none; b=kpbfC+hia/rDoP09KQsXEKK9sSGEAaj10Ud/nKl9j8N9Aq+VFxnfkmOiT6zSieL2TOQfaF1DectX3BwTbQP3Go6hsEutL7dm3q7bnQztpHJUJRJgZADE1bFELVPDzwOQ7sDjtRzr2tZVZU3zbzL3OkCHycbVFbQR+bDFGV/zw30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789478641; c=relaxed/simple;
-	bh=YXWKLqImduwKpMGXTwidUQidNpPXzdetpHtcY+QDIZo=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TorqR4H7sfzrHcpDB3UnavvIm4QXS1Lv5l64bnbE1itX53ee7o0qAJvNH3cbZNJbgOc1/KNXYcMjolC+yrAIjFTxW9fHpD1IWzIK0khKOOavbptvWqNKYNBK/HYLHFnGt82XCgA2Ayqn1IWugvaH5tZDmuJhzyEtNK00OiZaGwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=wZcPJeZb; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789478659; c=relaxed/simple;
+	bh=aA8HIE4OkVPxxf973WYk9EE9na++A+vaxUiINuobCAE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=On/VICANMEq5xMiQoDxuOmGWCCU60C1OMBzEz/41HCuehEwwlYQLxC3nsndbO01N9gTb9oxpNGAuzaplVkOebOOzX86CEc8e7eEHib6d4wb8rw3cqhxbULOhgyeejEI98vj/TbzJ6GPwOC0Nrp1lmC93UGVIlNhZF2+AtVa1vd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Aslmc8Rn; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="wZcPJeZb"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=l3MscyIOO64+OUmxSNmyMpGFfFy+ihbEJELH1ZrwKsM=;
-	b=wZcPJeZbVXktOTRoKs3y1qU0zGEg+yTIeng6wdJBPxlKfjLU40OLQnzDyA1kTvkx+1QRX3hq8
-	TCspJgywf9MSvaS/u9/32Qha9o5kz16XCdnJGZfseXYXplkAy43yp6Tb0QPeuJSmu9KqcVYbPIW
-	kjuhu3b7nXUkchtBOAJrVc0=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hkj9x4CW5zLlSh;
-	Tue, 15 Sep 2026 21:12:53 +0800 (CST)
-Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
-	by mail.maildlp.com (Postfix) with ESMTPS id B4AA940565;
-	Tue, 15 Sep 2026 21:23:51 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 15 Sep 2026 21:23:51 +0800
-From: Jijie Shao <shaojijie@huawei.com>
-To: <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <andrew+netdev@lunn.ch>, <horms@kernel.org>
-CC: <shenjian15@huawei.com>, <liuyonglong@huawei.com>,
-	<chenhao418@huawei.com>, <yangshuaisong@h-partners.com>,
-	<ningwei15@huawei.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <shaojijie@huawei.com>
-Subject: [PATCH net-next] net: hibmcge: fix spelling mistakes in comments and identifiers
-Date: Tue, 15 Sep 2026 21:23:41 +0800
-Message-ID: <20260915132341.1138610-1-shaojijie@huawei.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Aslmc8Rn"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso10462105e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:24:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789478655; x=1790083455; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aA8HIE4OkVPxxf973WYk9EE9na++A+vaxUiINuobCAE=;
+        b=Aslmc8Rn/i3zL4050Gs9agJD/Ihuck4VeFDlothMwDp1OL0/qYzeJSlliPShwfr+Zh
+         mp1AQ+DuscMlANx4YKG3ku5o9BDtZH//dKcRscK9HLIaMxiY4Tzpw1yPaR6LfAizqM87
+         oEN+/jSt1ksWlHkq56T4iRBW5Frxj0p6DEk30p0n8m1IToqj/CwMNZatKScfE9B4K5wx
+         H6E9IdhZdMaTi5ZpUBhbkUPn6LAbl6ktmdIdL3qyWJatIlWw4yC7k7sAI3s/2yRvOYCM
+         WBrWcHCeBkjAWc025dBrjsTF/hpIM/6DoEb4K5IohjNIYmuP6qB4VqlJi8WXdJS4O1TY
+         PSng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789478655; x=1790083455;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aA8HIE4OkVPxxf973WYk9EE9na++A+vaxUiINuobCAE=;
+        b=kVSC9tqAhmX/7bDXe8nsfBu4HphDMEZr51NbpgrjY1I8OA4aPvWcynA+mzbvUN6xKF
+         qOhui7mZbcIo6PnBEbK4Xglsa+KPkrBukla0GszcifGXJfXhws9662HdvtNpWfoVRw9X
+         snno8od4i8i6Y7l7ydXtomeReRXH4bxD3B/OpzfkmPq8eEOr/ryOxy/jmWiJs9931SMf
+         Fj86HfJU+nK0x0imb34jw7EyyQWRbuarxHZ639QkwoIXEyRGFARL1b0hbjbM85BGeA26
+         j26SNSF616oqdZrvjpBzujIG9+8qftDx4j5mp4Kc8ueEl/4aRVBsgZvGinFtaanXesXW
+         J0VQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw5DOYpNc1L07drYyQBvaQyKwh0b5LXT946jDv5eVEWJYZLB0dn7EL9ifDkE10sgmDleIOuB2npdNmOuYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kudc2EWM/O6OztwbfOO4vji5emAiTZ0hDutQE/IMRSkACDNP1F
+	qSdYLCUPqgW3FVQZw42BZR5Pi5PN/m71+M3kNNGSz9908AV3MAnVqJE2JAdUJ5ABblA=
+X-Gm-Gg: AYBFou1cTOmGgTxjG3tug+qbNIH7bjdTaqfUfs14dIVmadslq9Y6WkneCpxIDll/Loj
+	YERXCPgnz4MmzdeJL63mWvEfgRF41zhL7OTXXfqAewhGSnCKAU0OcpMwFZtEXDCPYBro8hjBQ/4
+	MlhIGHOqjcnrkxJqJNu3bptFCf3J3ZXQc0MRQLguY+N6AKSBzh9J9DfLTCDkZGBUyMZ7dreXKC+
+	vd294yzZ2yi1P5CKvR2pVAu8Qvp0cpCOSuPZPbsE4yAP+KelEXDfdID2HADouHyjQSX418TeeaA
+	dcgqbGz7ZJyHUScD/xXdSUKvvjG4FFdJE13A4F0ZtiAePHs/rf1MhysCp46d9V2vy4UYFMRBOwH
+	QvRBmrav/VGi6P2+MOAQQQ76lMXhRuCpQVRDkr1LLJmYvQckhDgase6UyONJTKeJ0vvCC24GQGn
+	ibca8bqY/6qki/ILcRrjtshbOc7AfEti8bR302RFm+RCRth5Id+HB8Fn/sXSxFcHl3i4SQQMDV5
+	dST5nKdxbwsslmfq2F3jj7fqUPmGJbOwJ3nae8CDLFFc7S5M4DMCvMp5uwojlfvtNMjyLUa
+X-Received: by 2002:a05:600c:c059:20b0:49e:817a:ca7 with SMTP id 5b1f17b1804b1-49e817a0dccmr16959515e9.8.1789478655048;
+        Tue, 15 Sep 2026 06:24:15 -0700 (PDT)
+Received: from localhost (p200300f65f19a904c2a77868dcbef2f0.dip0.t-ipconnect.de. [2003:f6:5f19:a904:c2a7:7868:dcbe:f2f0])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49e7ef8b519sm59911725e9.14.2026.09.15.06.24.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 06:24:13 -0700 (PDT)
+Date: Tue, 15 Sep 2026 15:24:12 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Long Zhao <longzhao@ambarella.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 07/15] clk: ambarella: add CV75 RCT clock controller
+Message-ID: <aqlGg09RrztSwoOz@monoceros>
+References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+ <20260915-cv75-v5-v7-7-3297d3fbc9c0@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemo500018.china.huawei.com (7.202.195.199)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xnlmyx6x4vbf5kjt"
+Content-Disposition: inline
+In-Reply-To: <20260915-cv75-v5-v7-7-3297d3fbc9c0@ambarella.com>
 
-Fix several typos found in the driver:
 
-  - hbg_irq.c:    macro parameter "ndde_reset" -> "need_reset"
-  - hbg_txrx.c:   macro "hbg_queue_next_prt" -> "hbg_queue_next_ptr"
-                  (and its call sites)
-  - hbg_txrx.c:   function "hbg_ring_page_pool_destory" ->
-                  "hbg_ring_page_pool_destroy"
-  - hbg_common.h: comment "after rest" -> "after reset"
-  - hbg_reg.h:    register macro "HBG_REG_BRUST_LENGTH_*" ->
-                  "HBG_REG_BURST_LENGTH_*" (and references in hbg_hw.c)
+--xnlmyx6x4vbf5kjt
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v7 07/15] clk: ambarella: add CV75 RCT clock controller
+MIME-Version: 1.0
 
-No functional changes.
+On Tue, Sep 15, 2026 at 07:15:37PM +0800, Long Zhao wrote:
+> +#include <linux/mod_devicetable.h>
 
-Signed-off-by: Jijie Shao <shaojijie@huawei.com>
----
- drivers/net/ethernet/hisilicon/hibmcge/hbg_common.h |  2 +-
- drivers/net/ethernet/hisilicon/hibmcge/hbg_hw.c     |  4 ++--
- drivers/net/ethernet/hisilicon/hibmcge/hbg_irq.c    |  4 ++--
- drivers/net/ethernet/hisilicon/hibmcge/hbg_reg.h    |  4 ++--
- drivers/net/ethernet/hisilicon/hibmcge/hbg_txrx.c   | 12 ++++++------
- 5 files changed, 13 insertions(+), 13 deletions(-)
+Please don't include <linux/mod_devicetable.h>. That's a hog for
+unneeded dependencies and I'm working on getting rid of it.
 
-diff --git a/drivers/net/ethernet/hisilicon/hibmcge/hbg_common.h b/drivers/net/ethernet/hisilicon/hibmcge/hbg_common.h
-index 8e134da3e217..9ca04909774d 100644
---- a/drivers/net/ethernet/hisilicon/hibmcge/hbg_common.h
-+++ b/drivers/net/ethernet/hisilicon/hibmcge/hbg_common.h
-@@ -152,7 +152,7 @@ struct hbg_mac_filter {
- 	bool enabled;
- };
- 
--/* saved for restore after rest */
-+/* saved for restore after reset */
- struct hbg_user_def {
- 	struct ethtool_pauseparam pause_param;
- };
-diff --git a/drivers/net/ethernet/hisilicon/hibmcge/hbg_hw.c b/drivers/net/ethernet/hisilicon/hibmcge/hbg_hw.c
-index d6e8ce8e351a..54ed1c17bc2d 100644
---- a/drivers/net/ethernet/hisilicon/hibmcge/hbg_hw.c
-+++ b/drivers/net/ethernet/hisilicon/hibmcge/hbg_hw.c
-@@ -190,8 +190,8 @@ void hbg_hw_set_mtu(struct hbg_priv *priv, u16 mtu)
- 	hbg_hw_set_pcu_max_frame_len(priv, frame_len);
- 	hbg_hw_set_mac_max_frame_len(priv, frame_len);
- 
--	hbg_reg_write_field(priv, HBG_REG_BRUST_LENGTH_ADDR,
--			    HBG_REG_BRUST_LENGTH_B, burst_len_bit);
-+	hbg_reg_write_field(priv, HBG_REG_BURST_LENGTH_ADDR,
-+			    HBG_REG_BURST_LENGTH_B, burst_len_bit);
- }
- 
- void hbg_hw_mac_enable(struct hbg_priv *priv, u32 enable)
-diff --git a/drivers/net/ethernet/hisilicon/hibmcge/hbg_irq.c b/drivers/net/ethernet/hisilicon/hibmcge/hbg_irq.c
-index ae4cb35186d8..2d67c7557b72 100644
---- a/drivers/net/ethernet/hisilicon/hibmcge/hbg_irq.c
-+++ b/drivers/net/ethernet/hisilicon/hibmcge/hbg_irq.c
-@@ -37,9 +37,9 @@ static void hbg_irq_handle_rx_buf_val(struct hbg_priv *priv,
- 
- #define HBG_IRQ_I(name, handle) \
- 	{#name, HBG_INT_MSK_##name##_B, false, false, false, handle}
--#define HBG_ERR_IRQ_I(name, need_print, ndde_reset) \
-+#define HBG_ERR_IRQ_I(name, need_print, need_reset) \
- 	{#name, HBG_INT_MSK_##name##_B, true, need_print, \
--	ndde_reset, hbg_irq_handle_err}
-+	need_reset, hbg_irq_handle_err}
- 
- static const struct hbg_irq_info hbg_irqs[] = {
- 	HBG_IRQ_I(RX, hbg_irq_handle_rx),
-diff --git a/drivers/net/ethernet/hisilicon/hibmcge/hbg_reg.h b/drivers/net/ethernet/hisilicon/hibmcge/hbg_reg.h
-index 30b3903c8f2d..0d2554ca3b5f 100644
---- a/drivers/net/ethernet/hisilicon/hibmcge/hbg_reg.h
-+++ b/drivers/net/ethernet/hisilicon/hibmcge/hbg_reg.h
-@@ -191,8 +191,8 @@
- #define HBG_REG_TX_CFF_ADDR_2_ADDR		(HBG_REG_SGMII_BASE + 0x0490)
- #define HBG_REG_TX_CFF_ADDR_3_ADDR		(HBG_REG_SGMII_BASE + 0x0494)
- #define HBG_REG_RX_CFF_ADDR_ADDR		(HBG_REG_SGMII_BASE + 0x04A0)
--#define HBG_REG_BRUST_LENGTH_ADDR		(HBG_REG_SGMII_BASE + 0x04C4)
--#define HBG_REG_BRUST_LENGTH_B			BIT(29)
-+#define HBG_REG_BURST_LENGTH_ADDR		(HBG_REG_SGMII_BASE + 0x04C4)
-+#define HBG_REG_BURST_LENGTH_B			BIT(29)
- #define HBG_REG_RX_BUF_SIZE_ADDR		(HBG_REG_SGMII_BASE + 0x04E4)
- #define HBG_REG_RX_BUF_SIZE_M			GENMASK(15, 0)
- #define HBG_REG_BUS_CTRL_ADDR			(HBG_REG_SGMII_BASE + 0x04E8)
-diff --git a/drivers/net/ethernet/hisilicon/hibmcge/hbg_txrx.c b/drivers/net/ethernet/hisilicon/hibmcge/hbg_txrx.c
-index 207ada721dd9..2ea025fd964f 100644
---- a/drivers/net/ethernet/hisilicon/hibmcge/hbg_txrx.c
-+++ b/drivers/net/ethernet/hisilicon/hibmcge/hbg_txrx.c
-@@ -26,10 +26,10 @@
- 	(hbg_queue_used_num((head), (tail), (ring)) == 0)
- #define hbg_queue_is_full(head, tail, ring) \
- 	(hbg_queue_left_num((head), (tail), (ring)) == 0)
--#define hbg_queue_next_prt(p, ring) (((p) + 1) % (ring)->len)
-+#define hbg_queue_next_ptr(p, ring) (((p) + 1) % (ring)->len)
- #define hbg_queue_move_next(p, ring) ({ \
- 	typeof(ring) _ring = (ring); \
--	_ring->p = hbg_queue_next_prt(_ring->p, _ring); })
-+	_ring->p = hbg_queue_next_ptr(_ring->p, _ring); })
- 
- #define hbg_get_page_order(ring) ({ \
- 	typeof(ring) _ring = (ring); \
-@@ -167,7 +167,7 @@ netdev_tx_t hbg_net_start_xmit(struct sk_buff *skb, struct net_device *netdev)
- 	/* This smp_store_release() pairs with smp_load_acquire() in
- 	 * hbg_napi_tx_recycle() called in tx interrupt handle process.
- 	 */
--	smp_store_release(&ring->ntu, hbg_queue_next_prt(ntu, ring));
-+	smp_store_release(&ring->ntu, hbg_queue_next_ptr(ntu, ring));
- 	dev_sw_netstats_tx_add(netdev, 1, skb->len);
- 	return NETDEV_TX_OK;
- }
-@@ -220,7 +220,7 @@ static int hbg_napi_tx_recycle(struct napi_struct *napi, int budget)
- 			break;
- 
- 		hbg_buffer_free(buffer);
--		ntc = hbg_queue_next_prt(ntc, ring);
-+		ntc = hbg_queue_next_ptr(ntc, ring);
- 		packet_done++;
- 	}
- 
-@@ -535,7 +535,7 @@ static int hbg_napi_rx_poll(struct napi_struct *napi, int budget)
- 	return packet_done;
- }
- 
--static void hbg_ring_page_pool_destory(struct hbg_ring *ring)
-+static void hbg_ring_page_pool_destroy(struct hbg_ring *ring)
- {
- 	if (!ring->page_pool)
- 		return;
-@@ -589,7 +589,7 @@ static void hbg_ring_uninit(struct hbg_ring *ring)
- 		buffer->priv = NULL;
- 	}
- 
--	hbg_ring_page_pool_destory(ring);
-+	hbg_ring_page_pool_destroy(ring);
- 	dma_free_coherent(&ring->priv->pdev->dev,
- 			  ring->len * sizeof(*ring->queue),
- 			  ring->queue, ring->queue_dma);
+> [...]
+> +#include <linux/platform_device.h>
 
-base-commit: 348ea4642f56ab3dc93621c8e3ab0ccd0e5f1782
--- 
-2.43.0
+You can rely on <linux/platform_device.h> to pull in the definition of
+of_device_id. (If you want to go full iwyu, include
+<linux/device-id/of.h> instead.)
 
+Best regards
+Uwe
+
+--xnlmyx6x4vbf5kjt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqpRvkACgkQj4D7WH0S
+/k5CVAgAlhnKI89Q33xfBbRky4EOs4jdP9vW1frAnR1bLzOUf6Brat/wp0lHDYiH
+dfHIXOR7HFn85CjFb+Nt4HZmCZvg9IWa3FZUojS/qPfNofim2sdbViVVUyrwBouC
+RlC5OARb4l9uiJrgaJO2AMv7yNoI78GUthqDgXrDRgQoxTQgWISpDddD1O6XPI7J
+ZTQ08V7I4M3DOPziACXuOd0xr5qUrLO/25fcNlQA8pjPzY4u2tAGBeF9yDFtfQT5
+U1/YP9Y7TjOF/IfD3GOzrFJ0uAE6tHNXV7Xvi8Qz3CJXQkiW6noaXsS77gf9XaiE
+ZaeuPEwNDSCEJvnkBG9Em1YObYs18w==
+=V85c
+-----END PGP SIGNATURE-----
+
+--xnlmyx6x4vbf5kjt--
