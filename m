@@ -1,78 +1,76 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-vs2-f21.google.com (mail-vs2-f21.google.com [74.125.227.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1230B37DEBB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:15:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED084388E7E
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481753; cv=none; b=tH8wjeltLDMTaCYV87owoU+r/VrzOgcpHB3/87p4f34+imz/j6MrrXnpd3S3oylRNeu6RFFhG2EUtUOcHbw03IRkS27/zl3vZdiDDZxpAdG5Zf5azhzzuiL6/Mn7nAgfnWNni3Sf2VOPzhbd88yndY2dFWELZYldirdxRVR+ObQ=
+	t=1789481767; cv=none; b=WUfMJSyPUp4lH2uuR5Ab5L9GacMSg9Z42pnJnJQio9Zrr9CnxFTlkJPZV6R1qIf3S0bCKbSyKbb18y9TXIknsGqwqblyazvkFc0DgAOvsB4V9vbuAM1aoqkhD/akAQXWaUh+TMXzNnEEX3bPBht31jFIONAFbkSz0S7Uoeyiy2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481753; c=relaxed/simple;
-	bh=rp9xGLJoVTbX/Bo3f7RiBLcFONxwv536yPbHGAGENOI=;
+	s=arc-20240116; t=1789481767; c=relaxed/simple;
+	bh=fZFg/j3pb6twOqqBfqfH5ANDxZSW/qTsavhnzB5RzzA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LTaCdvd/4VPmQe5NGq/IyRKoTONpo/DxllP891B+3qsbDEnGrKSR15TVkrIY+CAtTalCds0u1i0HeXLDQbyeKJXB7+wSGR2uPL94I0CL3uYUjtYw6dnsNJJOCbptAgae2WEZMRZ7HS20LGfHT5Ai52f0NYxbAuGWUEfBqyqzh14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N7kaYotR; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version; b=bRUc0Zz0jhOGUFblX3hoc43fTR/TF7LZjZ/B2A2ZkjrUfZiAZa51Gc+xft1YamNbA9RVJEPl/vl9lkZHe7S1wi5qYBvx08qzUam+XTznWGPI/tJTLQ1PnNjXSmXVrRU0JaMHO1fiJkYdSl8TAq6Pyd9YhUhDoE7tdJnUSdO7onA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U24A1ncC; arc=none smtp.client-ip=74.125.227.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N7kaYotR"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so2533810a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:15:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U24A1ncC"
+Received: by mail-vs2-f21.google.com with SMTP id 71dfb90a1353d-5c83397eeeeso2085607e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:16:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789481749; x=1790086549; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789481765; x=1790086565; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kOMN7WbXNoD/8k1zWl/hwVthFpjXE395mG1LMqSNTGo=;
-        b=N7kaYotRYGnRDbdR6fWmxkU4dvmahICBUEbO9jlgUiC4ldTqiVMZ6CvyANuiVx2rSS
-         cxvXTyqMwoGWdo+aYDzOJSUatYDFvK5oRPR4IcgyX47mHUsq+XvoTVw6t/uTn7JzdbvU
-         G5m4V6KqkRn0pxO4hGqYxKWeqjYUDB4v38HG4mCivJJOgZemWhbC1c1Qm61tLtW0t2ry
-         DI02iG6y8skHAikoOVsligRUpx/5Pywpip2EBqXTlxazOsZvAK/2secmjL49XxsY8qyS
-         Bd2u+pZ45hlbLVeQiCQ+JZTcgtuG0O3HrmlaSKuBDkiyQNLGoiqBDEoW938qPisE+d/A
-         OsgQ==
+        bh=8fJS//1ZgrWfO+Hpg+mD2bvTEqYipgvOVKK1VwTdF1g=;
+        b=U24A1ncCjpfO8XOmtRMh28g2L+lTBAGTlv+QcNj9KFJk68ZIU0Y/Fq0ndUKjPkqNnm
+         1UL0n7benzscYi2KCnQUNbKOptZVb8LXamMrh7fRL1XSUj2ACM0XOaMSe9BXhcx/G3ZE
+         EaXjDGm0Z1wn1xQXtRdFBfy7xVcL8VzqCeS88vKhwoEhIHy2mL1Btxn0GttZrpsWZopF
+         pj17+4hzLKQWnktNdO7gKm3USS/+ALSjOKOjGFqKZ84XKJQfJfXSKvQAQlWAReZ/XZ0w
+         GhFx7GYSA+quru3czgBrLrxMsPEeeMHiWFTncYDa8m3j25X0sogZ1PPrjEc5M9Gh+0dB
+         2AnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789481749; x=1790086549;
+        d=1e100.net; s=20260707; t=1789481765; x=1790086565;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kOMN7WbXNoD/8k1zWl/hwVthFpjXE395mG1LMqSNTGo=;
-        b=WUqgzpEU50jEaTkjOlzTGTvZZGwOHYAaso8N95Q/OBmXAurfBbsz0ChfYPmLmk9Rld
-         Djvp97BfUbeOKLVn1xTDUdBFuILm1psOs5GFkWPNmx3htNR8syfCdfON0aFc4kwMr4s/
-         8L3CQv7TzgVg1CIWL6w0K1JYmAJ9/B5+pVhXQPInhO+MD0CodAS6aEQNSquXt6ab7H9N
-         2iXgjqFOaLJw0RtAW7PIxeP+1+AAU09W4+hos2LKcGcBKA08F1TLwn905WTPfqdNWFR6
-         EhQ8i9h2W+HPYzKLpeDalooR5IdTLXAlCeiaHqI1SHBttGmA3mtVsAkuO7XWZW5yskN/
-         glrg==
-X-Forwarded-Encrypted: i=1; AKwUvBw43AK6nuYrxbKOt4SVGNCzKvlKBWVrw5bwLBSa506+lzis+pX0Q0HJShML8mxx3Sq/UpF64k1lY2YNbDA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzlMlYYc1N1O1mltX5/fpxFlTWqI1B1y+bB7+kcJUviZUYPGt0
-	WK1BWQT+DumXZqK7gk06mla/QUzzr8k4/7/Q08YvIgD9VpvvZyvc7sjzkIXtsw==
-X-Gm-Gg: AYBFou0t74Zx675r2dhjvEkBQxt0NqidvTwmpFV2naV6RtBSbfh/D8epW1j/VmCU7H5
-	OmPbDVQMmyU+oyhJZGj+2+mdsVU+X5KfCifGiL7F9qKAppynBFRS+11q4z0TTU9ehZ1tMBjTFRu
-	RLm0SIBasYp+BZfVh8htt+04tbOpbndjasIUnWVSgQP6K/NGpejyeRwzm7uXMPtPUpICCu31Dnf
-	zaTqXHFpxir+OW4NAHvcboSmWf3AIweQm8AORXL+0snneCQvA085yBjHMk9VKNgg2vG7eFpe2Zw
-	VtwC42EV9pjFRHII1eef1A/ckQZlaKClTnfY5AGZzlxsEiIblRctHClYQuFyNr6pVot5DPSAyTK
-	nAwiUC/cOaFSMHMgyNCId7F/BEjUHVNFBg/kx230nkGfSIvXtsLqy7EwPe30R6hDAE3/lhftLL5
-	iSEf7KI4t0PSeCxfirDdni/j9bP+MKrzcTLfNY6/EdRtpCaDfP+ol+ydM+AFlCBpsYmZRPEbLHT
-	MRIdjiLUIoXiZPPWbh0jk2K3aKs
-X-Received: by 2002:a17:90a:1182:b0:39d:ec76:585 with SMTP id 98e67ed59e1d1-39dec76710emr10758844a91.24.1789481749129;
-        Tue, 15 Sep 2026 07:15:49 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:2bac:b2b4:e60b:1459])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdb3045bsm6603220a91.17.2026.09.15.07.15.46
+        bh=8fJS//1ZgrWfO+Hpg+mD2bvTEqYipgvOVKK1VwTdF1g=;
+        b=1TgHeQsw1fgDNzsuzFQa+78dE6IXRiw8CILrdYYwEHZhEWAh/FQeHLf1AUY6PLDoab
+         Q8kuRv3GTu5oRinVqvOjxHBcCWy/v33EYWurGWpQ3qkcvqPd2Mf0ZS4oNG7e065hLTx+
+         03Kb0SosU6ALALbTMC78qetQ4svcy7xOKOWFuqFrqtkgMvZU4U/ntdd9kbR7BMsHBwdo
+         ZphbFpxhxUCz1+dY2H+eO1KC6Pzq05n4TnKl3xP/u6BhPT+t2d/Bf073znQYlj2wZ6BR
+         mmHw93kEgjrtWQOhGPkkpTUTJAgP6vnjLGLWagYfUJmhRR+L4R4jyrDjpG5Je3yHneWj
+         p9ng==
+X-Forwarded-Encrypted: i=1; AKwUvBwHQG12F4TAQsmf2XnrBg/Jef7F7sOtIYEmYNYD9upxskRSe0Lw1S/Rwda9qVrih7rsUAFz0zsUXOo/Sn4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mG6XvWt6vDBGivUul8zSlWGiTv/hV5GiEcvQ44s0aKPlRp7hTo
+	2fZ/jyjZFuGIhf4/on/TOlx19GaaoclMlZROnNCqgjUgzwrDdZfpmBRs
+X-Gm-Gg: AYBFou0M2ZQRzYJe2KDzILaSWTEkpwT2ObDDQIjhL5CMJciSmte2rd6wNwEGl1Pf4lM
+	RLb9NEI60bbHPTN1n/nrUrhBKCGLyS/3A8zNXEYnRzaOTffR98XaDDTAJ8RrwHgE/X7rxvxcKKp
+	0pST7RaKNqKqYLm448+uONGQO1Hh8LiRHi0sRqW0KOCoEJqNTINB88kSMv0LMEQGt1AKiqN74go
+	grTXCAXdm+HSHRxWS/NrKvIEqYX2AM9CHk0euK0Ig2VaMmpBTXkIyX19qvrt8qiYOqETER/BtqC
+	6rQXdeSZg9tbhPcO5lNF5QPgwkHqN0/N8/0BMI2dc5S9Q3pqoVJdfA0IWY5hr17GOjv8gJcVBdE
+	Ibj4zifL9xEWThZ/9oY0mz3qioDYkvt3fbOemtL+HB1E6xPeeB3IRh3lpiyJdmJ4/NltcUccjFs
+	ZraiVlZbh9TqP1WocRWEORL38zvZPsvRDi7vvMzeR3m9s0Cd8bMcfMu3raJ/bLK1yN
+X-Received: by 2002:a05:6122:2056:b0:5c9:82a1:a6a3 with SMTP id 71dfb90a1353d-5c982a1ad55mr8136390e0c.6.1789481764710;
+        Tue, 15 Sep 2026 07:16:04 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c84716a167sm16029131e0c.18.2026.09.15.07.16.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:15:48 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>,
-	linux-fsdevel@vger.kernel.org,
+        Tue, 15 Sep 2026 07:16:04 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: Re: [PATCH v4 2/2] hfsplus: validate b-tree fork extents at mount time
-Date: Tue, 15 Sep 2026 21:15:43 +0700
-Message-ID: <20260915141543.24335-1-ngocthang2710.1999@gmail.com>
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v2] vsock: ignore empty child namespace mode writes
+Date: Tue, 15 Sep 2026 11:15:47 -0300
+Message-ID: <20260915141547.3010692-1-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cbc98010b9f6657e162cfcc6ac5ba6032e7b729d.camel@dubeyko.com>
-References: <cbc98010b9f6657e162cfcc6ac5ba6032e7b729d.camel@dubeyko.com>
+In-Reply-To: <20260915111417.2726515-1-qwe.aldo@gmail.com>
+References: <20260915111417.2726515-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,251 +79,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Slava,
+__vsock_net_mode_string() returns success without updating new_mode when
+the transfer length is zero. Its caller then reads the uninitialized enum
+and may permanently store a stack-derived value in the write-once child
+mode.
 
-Thanks again for the review, replies inline, v5 diff (applies on top
-of the v5 1/2 I just sent) at the bottom.
+Return before inspecting or storing new_mode when no bytes were
+transferred. This also prevents an empty write from locking the current
+mode.
 
-> If we return error code for corrupted fork (that makes more sense),
-> then we don't need in switch here.
->
-> > +     case -EIO:
-> > +             pr_err("%s (cnid 0x%x) fork's first extent is
-> > corrupt\n",
-> > +                     hfs_btree_name(id), id);
-> > +             goto free_inode;
-> > +     case 1:
->
-> I don't see the point returning 1 from the function. It should be error
-> code.
-
-Agreed, done. hfsplus_check_fork() now returns 0 (consistent),
--EUCLEAN (corrupt past the first extent, tree still locatable, mount
-read-only), or -EIO (first extent corrupt, or no used extent at all --
-see below). hfs_btree_open() now just checks the return value with
-if/else instead of switching on it.
-
-> Why not struct hfsplus_fork_raw here for check?
-
-I looked into this, but the b-tree's inode only keeps the decoded
-first_extents/first_blocks fields (see hfsplus_iget()), not the raw
-hfsplus_fork_raw (total_size/clump_size/total_blocks as a struct) --
-that only exists transiently while reading the volume header. Passing
-the raw fork through would mean plumbing it from hfsplus_fill_super()
-into hfs_btree_open() as an extra argument, which felt like a bigger
-restructuring than this patch should take on. I'd rather scope that as
-a follow-up than guess at it here -- let me know if you disagree and
-I'll take a pass at it.
-
-> Ditto. Related to hardcoded value.
->
-> > +     for (i = 0; i < 8; i++, ext++) {
-
-Uses HFSPLUS_EXTENT_COUNT now too (same constant added in patch 1/2).
-
-> I think that current logic of check looks complicated. [...] For
-> example, fork cannot be completely empty. Could we rework the logic
-> to be more clear? Maybe, we need to introduce the function for extent
-> check, function for checking the extents are logically contiguous?
-
-Fixed the empty-fork case: hfsplus_check_fork() now tracks seen_used
-and returns -EIO if no extent was ever in use. Note hs_btree_open()
-already guarded against this indirectly via its existing
-`!first_blocks` check right before calling hfsplus_check_fork(), so
-this makes the function correct on its own instead of relying on that
-caller-side check.
-
-I held off on splitting per-extent-check and contiguity-check into
-separate functions -- the loop is short and the two conditions
-(garbage in an unused slot vs. a used extent overflowing/following a
-hole) share the same start/count/seen_hole state per iteration, so
-splitting it looked like it'd add indirection without really
-clarifying anything. Happy to revisit if you still think it's worth
-it.
-
-> Ditto. Related to 1. I prefer to have error code instead.
-
-Same fix as above (-EUCLEAN).
-
-> I don't want to say that this direction is wrong. However, we have
-> flags: [...] Potentially, we can introduce the HFSPLUS_I_CORRUPT_TREE.
-
-Done -- dropped struct hfs_btree.corrupt, added HFSPLUS_I_CORRUPT_TREE
-next to the existing HFSPLUS_I_*_DIRTY flags, tested via a new
-HFSPLUS_TREE_IS_CORRUPT(tree) helper macro on the tree's own inode.
-
-> Currently, only hfsplus_fill_super() can detect the b-tree
-> corruption. Why do we have the check here? Do you mean that xattr
-> b-tree can be created and to be corrupted?
-
-No -- corruption is only ever detected once, in hfs_btree_open() at
-initial mount. The hfsplus_reconfigure() check isn't detecting
-anything new; it's re-reading the flag hfs_btree_open() already set,
-so that a remount to rw can't silently clear SB_RDONLY on a volume
-that was already known to be corrupt at mount time. Added a short
-comment there to make that explicit.
-
-> If we fail to check any b-tree, then logic should stop. Why haven't
-> we checked the error code of hfs_btree_open()?
-
-I checked -- hfsplus_fill_super() already does check every
-hfs_btree_open() call (out_close_ext_tree / out_close_cat_tree /
-out_close_attr_tree gotos) before it ever looks at
-HFSPLUS_TREE_IS_CORRUPT(), so no change was needed there.
-
-One more from the previous mail I noticed while redoing this: there
-was also a checkpatch --strict alignment nit on the pr_err()
-continuation line in hfs_btree_open() itself (not one you'd flagged,
-but same category), fixed that too while I was in there.
-
-Thanks again for the thorough review -- v5 below.
-
+Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
-Changes since v4:
- - hfsplus_check_fork() returns real error codes (0/-EUCLEAN/-EIO)
-   instead of 0/1/-EIO; hfs_btree_open() uses if/else instead of a
-   switch.
- - A fork with no used extent at all is now treated as corrupt.
- - Use HFSPLUS_EXTENT_COUNT instead of hardcoding 8.
- - Track per-tree corruption as an HFSPLUS_I_CORRUPT_TREE inode flag
-   instead of a bool on struct hfs_btree.
- - Comment explaining the corrupt-tree check in hfsplus_reconfigure().
- - Fixed a checkpatch --strict alignment nit in hfs_btree_open().
-(all per Slava's review)
+ net/vmw_vsock/af_vsock.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
-index 2ea8cd5658e1..2dbbb8096575 100644
---- a/fs/hfsplus/btree.c
-+++ b/fs/hfsplus/btree.c
-@@ -274,6 +274,7 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
- 	struct inode *inode;
- 	struct page *page;
- 	unsigned int size;
-+	int res;
+diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+index 622dbd0467..816d25b314 100644
+--- a/net/vmw_vsock/af_vsock.c
++++ b/net/vmw_vsock/af_vsock.c
+@@ -2883,6 +2883,8 @@ static int vsock_net_child_mode_string(const struct ctl_table *table, int write,
+ 				      vsock_net_child_mode(net), &new_mode);
+ 	if (ret)
+ 		return ret;
++	if (!*lenp)
++		return 0;
+ 
+ 	if (write) {
+ 		/* Prevent a "local" namespace from escalating to "global",
+-- 
+2.43.0
 
- 	tree = kzalloc_obj(*tree);
- 	if (!tree)
-@@ -293,6 +294,17 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
- 		goto free_inode;
- 	}
-
-+	res = hfsplus_check_fork(sb, HFSPLUS_I(tree->inode)->first_extents);
-+	if (res == -EIO) {
-+		pr_err("%s (cnid 0x%x) fork's first extent is corrupt\n",
-+		       hfs_btree_name(id), id);
-+		goto free_inode;
-+	} else if (res) {
-+		pr_warn("%s (cnid 0x%x) fork has corrupt extents, forcing read-only.\n",
-+			hfs_btree_name(id), id);
-+		set_bit(HFSPLUS_I_CORRUPT_TREE, &HFSPLUS_I(tree->inode)->flags);
-+	}
-+
- 	mapping = tree->inode->i_mapping;
- 	page = read_mapping_page(mapping, 0, NULL);
- 	if (IS_ERR(page))
-diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-index f3a4b8fd567f..d98261c01b13 100644
---- a/fs/hfsplus/extents.c
-+++ b/fs/hfsplus/extents.c
-@@ -101,6 +101,39 @@ static bool hfsplus_ext_fork_full(struct hfsplus_extent *ext)
- 	return true;
- }
-
-+/*
-+ * Validate a fork's extents. Returns 0 if consistent, -EUCLEAN if only
-+ * extents past the first are corrupt (safe to mount read-only), or
-+ * -EIO if the first extent is corrupt or the fork has no used extent.
-+ */
-+int hfsplus_check_fork(struct super_block *sb, struct hfsplus_extent *ext)
-+{
-+	struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
-+	bool seen_hole = false;
-+	bool seen_used = false;
-+	int i;
-+
-+	for (i = 0; i < HFSPLUS_EXTENT_COUNT; i++, ext++) {
-+		u32 start = be32_to_cpu(ext->start_block);
-+		u32 count = be32_to_cpu(ext->block_count);
-+		bool bad;
-+
-+		if (!count) {
-+			bad = start != 0;
-+			seen_hole = true;
-+		} else {
-+			bad = seen_hole || start + count < start ||
-+			      start + count > sbi->total_blocks;
-+			seen_used = true;
-+		}
-+
-+		if (bad)
-+			return i ? -EUCLEAN : -EIO;
-+	}
-+
-+	return seen_used ? 0 : -EIO;
-+}
-+
- static int __hfsplus_ext_write_extent(struct inode *inode,
- 		struct hfs_find_data *fd)
- {
-diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
-index 7c53832f2784..3290812c0fea 100644
---- a/fs/hfsplus/hfsplus_fs.h
-+++ b/fs/hfsplus/hfsplus_fs.h
-@@ -230,10 +230,15 @@ struct hfsplus_inode_info {
- #define HFSPLUS_I_EXT_DIRTY	2	/* has changes in the extent tree */
- #define HFSPLUS_I_ALLOC_DIRTY	3	/* has changes in the allocation file */
- #define HFSPLUS_I_ATTR_DIRTY	4	/* has changes in the attributes tree */
-+#define HFSPLUS_I_CORRUPT_TREE	5	/* tree's fork had corrupt extents at open time */
-
- #define HFSPLUS_IS_RSRC(inode) \
- 	test_bit(HFSPLUS_I_RSRC, &HFSPLUS_I(inode)->flags)
-
-+/* Test HFSPLUS_I_CORRUPT_TREE on the tree's own inode */
-+#define HFSPLUS_TREE_IS_CORRUPT(tree) \
-+	test_bit(HFSPLUS_I_CORRUPT_TREE, &HFSPLUS_I((tree)->inode)->flags)
-+
- static inline struct hfsplus_inode_info *HFSPLUS_I(struct inode *inode)
- {
- 	return container_of(inode, struct hfsplus_inode_info, vfs_inode);
-@@ -443,6 +448,7 @@ int hfsplus_free_fork(struct super_block *sb, u32 cnid,
- 		      struct hfsplus_fork_raw *fork, int type);
- int hfsplus_file_extend(struct inode *inode, bool zeroout);
- void hfsplus_file_truncate(struct inode *inode);
-+int hfsplus_check_fork(struct super_block *sb, struct hfsplus_extent *ext);
-
- /* inode.c */
- extern const struct address_space_operations hfsplus_aops;
-diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
-index ff7d6b3336a6..a1669bd45701 100644
---- a/fs/hfsplus/super.c
-+++ b/fs/hfsplus/super.c
-@@ -400,6 +400,14 @@ static int hfsplus_reconfigure(struct fs_context *fc)
- 			pr_warn("filesystem is marked journaled, leaving read-only.\n");
- 			sb->s_flags |= SB_RDONLY;
- 			fc->sb_flags |= SB_RDONLY;
-+		} else if (HFSPLUS_TREE_IS_CORRUPT(sbi->ext_tree) ||
-+				HFSPLUS_TREE_IS_CORRUPT(sbi->cat_tree) ||
-+				(sbi->attr_tree &&
-+				 HFSPLUS_TREE_IS_CORRUPT(sbi->attr_tree))) {
-+			/* Re-checks the flag hfs_btree_open() set at mount */
-+			pr_warn("a b-tree fork was corrupt at mount time, leaving read-only.\n");
-+			sb->s_flags |= SB_RDONLY;
-+			fc->sb_flags |= SB_RDONLY;
- 		}
- 	}
- 	return 0;
-@@ -564,6 +572,11 @@ static int hfsplus_fill_super(struct super_block *sb, struct fs_context *fc)
- 	}
- 	sb->s_xattr = hfsplus_xattr_handlers;
-
-+	if (HFSPLUS_TREE_IS_CORRUPT(sbi->ext_tree) ||
-+	    HFSPLUS_TREE_IS_CORRUPT(sbi->cat_tree) ||
-+	    (sbi->attr_tree && HFSPLUS_TREE_IS_CORRUPT(sbi->attr_tree)))
-+		sb->s_flags |= SB_RDONLY;
-+
- 	inode = hfsplus_iget(sb, HFSPLUS_ALLOC_CNID);
- 	if (IS_ERR(inode)) {
- 		pr_err("failed to load allocation file\n");
---
-Thanks,
-Nguyen Ngoc Thang
