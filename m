@@ -1,72 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC4D37F8AF;
-	Tue, 15 Sep 2026 06:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034F6352022
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789454952; cv=none; b=PX1AoNJOBTs+U9Y/WAC0jkrezbDzUXZQScZJn/pd6x5OGFzUEbIqRzwXy0bsVLwRCOMR18vJ0yuJoGwCCL6akaG9aSPeyyzglW1k9ew4bXqrVQzspeEN3ZdJCs6re116ien2OtOdSvFOtVkUOEY4ARUbp8j4yxyyOlli1xC27Ko=
+	t=1789454953; cv=none; b=IXnUj1SjkVUQ4JCSiuAxtiGLepyrm/86IijctkkcwAq/U9un/BuwIz92bs4g99unLoao/vmBl7QCwzNyUaN4kRLuMf4CZ6YKnLs9IVB24ZQH64pzlbJ8mlbqqzkUardNjNXDqPx0Sp17mwk3JBpL2KbOMnsA6ztJOtTqSIPsbYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789454952; c=relaxed/simple;
-	bh=WlMYEhTIcXH9OgmJnXApQUW1aZrFo9CVDN16osMVXVE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=AqU9r0IOOz5Lk5DvTIPJDpPD1ifJAgOxYTQPsMiOk2LMTDIfJ+1DqSMfpYP1NBkQIe5ZTTenWePQ+7FH0YWKM6Lxj//BX+BpKiRsM5sfglb61rgEEcm75OVtgUcNDHkqZNBFyKhjz6vRo/6ynseGpvbHcsD+I8AHQ2TjJOQO0N4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L+/UvwwA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789454953; c=relaxed/simple;
+	bh=Ub1Z+fC8ATvBz9aNkiPwbnYMyJIDvxEuYy7hYJjpVvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sdIfolNjzLekmXuwq29kvW1bGegza+pWcIgUyK4XAcv3NUae8YwzHo1kOJM5EJZTJylEbnq8jxVXpVXHVYVZj3xIfUM2+k9BXDcLgxIn9pImHgEGBj6cxTwdkvnN0oyOWn1Wq1V1c/I6pMQj4vA6VXrJPCYDARcBMI8gNig4Lf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zKqn5pJd; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L+/UvwwA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 409181F000FF;
-	Tue, 15 Sep 2026 06:49:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789454950;
-	bh=Sbu+/WbQu3pdOwQDlDnrwv9zUnsRT7Rl41y7tZPm4ng=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=L+/UvwwA1MOrGfGwMGB4/UwKWGWQyQjLkbIdbX01TmWlMMszKpPSOFowMOEG1Sq3b
-	 veynuymebifVhvaGEO77Oms/6JJJsiSQu6L+ZSlG+YLsWzt//h8gLajdfzE/pN6REp
-	 uWGxOpHGv0DoP0PlBVl3bvvd9fVrLlxTY3JghTCwZyi/OuoPxjH3hlQVZ6Yrq8VPg5
-	 JNQ3/NohKDfIBqqILYwwa127ZhTOZQJYdT/rYye7Hy5Dr5y+VjjtYAmD6GIUr+tL9b
-	 tF+wiwNUpwXvh1HoQWMrvD3I9e5jz39FPFHJbVLqE1vhq89LL9TJugRNRGh4g6GJtR
-	 uOTj7/uxRKjSw==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: semen.protsenko@linaro.org, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, peter.griffin@linaro.org, 
- Thomas Turner <tturner@lineageos.org>
-Cc: alim.akhtar@samsung.com, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, thomas_turner@talktalk.net
-In-Reply-To: <20260909194450.183693-1-tturner@lineageos.org>
-References: <20260909194450.183693-1-tturner@lineageos.org>
-Subject: Re: [PATCH v4 0/2] Exynos850 GPU support
-Message-Id: <178945494682.36945.3330317622213793582.b4-ty@b4>
-Date: Tue, 15 Sep 2026 08:49:06 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zKqn5pJd"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id DC1EB4E40615;
+	Tue, 15 Sep 2026 06:49:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A486560498;
+	Tue, 15 Sep 2026 06:49:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C090511C7AFC3;
+	Tue, 15 Sep 2026 08:49:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789454947; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=VLW0tQXbJ6VXlwE1uH7g9161GhszLpuSt0iZmAj4OOE=;
+	b=zKqn5pJdXQotx+YOBLGMEThjQ4r44d0cafD+N3WJ3uLuvz2GndWl+Vc5ZcTlylyRGNehE7
+	CKr4h2bxljbKT48WLgANKVLrLOuI2HPirCggeLpsvORoEJYpBogJp4ewMQwlYXRxz3d1EC
+	IvoRd5XmuB39YTsD0YE/CHCg2lXBMgy+K8+e8PcjHVnQgFPQ2eCXXFGF8mTHW0DsbQmjBN
+	FMWsv6xirCGv3oKwO4B2YMaSmkXqxGoGnDkM+A71TB64PL/GQ0Us7B3MCqCzRn+ekET2OI
+	4AGH3ocn+yEAdZu4Rybow5FeckxlzpqLPmw6lnHj9XCJ9GRLTWCLoIJLT6ZNyw==
+Date: Tue, 15 Sep 2026 08:48:59 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+ patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Kalle Niemi <kaleposti@gmail.com>
+Subject: Re: [PATCH 6.12 0000/1202] 6.12.97-rc2 review
+Message-ID: <20260915084859.44acb12f@bootlin.com>
+In-Reply-To: <d601964b-e437-4990-bbdd-0337bba49102@gmail.com>
+References: <20260722142834.868902312@linuxfoundation.org>
+	<d601964b-e437-4990-bbdd-0337bba49102@gmail.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi Matti,
 
-On Wed, 09 Sep 2026 20:44:48 +0100, Thomas Turner wrote:
-> This patch series documents and provides basic GPU support for the
-> Exynos850 SoC, making use of the Mali G52 GPU through the panfrost
-> driver. Only basic support is provided here and as such lots of features
-> are missing. This series only adds the GPU node for the Exynos850 SoC
-> dtsi, but keeps it disabled, so it stays disabled currently on E850-96
-> board (The only user of the Exynos850 SoC dtsi upstream).
+On Mon, 14 Sep 2026 11:13:54 +0300
+Matti Vaittinen <mazziesaccount@gmail.com> wrote:
+
+> On 22/07/2026 17:31, Greg Kroah-Hartman wrote:
+> > This is the start of the stable review cycle for the 6.12.97 release.
+> > There are 1202 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+> > 
+> > Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
+> > Anything received after that time might be too late.  
 > 
-> [...]
+> Oh, time flies. :) Well, statement understood...
+> 
+> ... Still, even though I know I am late - I am seeing our tests failing 
+> for stable 6.12.x. Other stables as well as mainline releases and 
+> linux-next are passing.
+> 
+> The actual failure seems identical to one discussed here:
+> https://lore.kernel.org/all/072dde7c-a53c-4525-83ac-57ea38edc0b5@gmail.com/
+> 
+> I believe above was fixed by Herve.
+> 
+> Bisecting stable points the:
+> 
+> > Saravana Kannan <saravanak@google.com>
+> >      Revert "treewide: Fix probing of devices in DT overlays"  
+> which matches the issue in discussion.
+> 
+> Maybe the 6.12 stable is missing Herve's latest fix(es)?
+> 
+> As explained in original report, the issue is seen with our out-of-tree 
+> device-tree overlay stuff. I have no idea if there is any in-tree stuff 
+> impacted but I guess the overlay stuff Geert has in Renesas tree might 
+> also be impacted - if it was based on 6.12.
+> 
+> I believe there is an "existing easy fix", in a form of a patch which is 
+> already applied to other stables. Unfortunately I lost track of the 
+> relevant fixes during the discussion so I can't point the relevant one.
+> 
+> Herve, do you happen to know what might be missing?
 
-Applied, thanks!
+I haven't check 6.12 stable but needed commits available mainline are:
+  - 81e7c6befa36c ("of: dynamic: Fix overlayed devices not probing because of
+    fw_devlink")
 
-[1/2] dt-bindings: gpu: arm,mali-bifrost: add exynos850-mali compatible
-      https://git.kernel.org/krzk/linux/c/5a881e2dfce03d6426d81beb35e68089a02aad89
-[2/2] arm64: dts: exynos: Add GPU/Mali Bifrost node to Exynos850
-      https://git.kernel.org/krzk/linux/c/3d7bf30480f3a34fe530213da9e5bd0aa406929d
+  - aaf08c52df9a1 ("Revert "treewide: Fix probing of devices in DT overlays")
+
+The related series:
+  https://lore.kernel.org/all/20260511155755.34428-1-herve.codina@bootlin.com/
 
 Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
-
+Hervé
