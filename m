@@ -1,152 +1,209 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B0147F780
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2428003D;
+	Tue, 15 Sep 2026 10:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789468005; cv=none; b=rjqV6S0JvmC1Ox+CiDpBkWBXbBiAk3bhxve1jXhDV89GfGQRewWVZcuaodP7Wk7pxB5DW673gGyoi/spvS8/e/XxLNIxFLEW2WhaasNdunz9FtbEE6HgDqhkTQo8uXO0dyJyjHeZHUu2z7vMscusIrHBJEvP1iEbKKE54fNxS08=
+	t=1789468027; cv=none; b=LwivbnkyMGQKLRttD3OaM4vFlFdGXQwMa4STh3Q8CVymBxdYODuCDgO+06CI3XG1uKIQJ+JsV5CQ522F+8RBKc2Z2rF4IdBXf35B7IZCAAGjNzuwBeQOU4vde/mUVUPkyLbLDj2P/dbZg+4JLUSktYtay6QiABxSriry50yxd6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789468005; c=relaxed/simple;
-	bh=zaYufR9QlUv7eYaLQ+at5yvHX5e6ve5UNDk2t2c25Zo=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YPX4gN2jQQSNJMC9Rozp94vkv+fMfcLxRH3X4ahwvXIQdyCV92rDl91V1jutNMRY0IYXNIh8O3CZ0SstuizSMMIm4TBnoHpebwoQbAG4qhFUXPg+Oe0AXCpZYsGlcph5B2IRjgiyy7zaDLYwRgj/hgN4xKygn9RbE8rpqHtuaZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=S+4W/IJ+; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789468027; c=relaxed/simple;
+	bh=85nfFsSBljG0oh86uMjrB9I0taE1bu77ao7lLepRyFk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dg/4Tu9UtEPSReMpJJ+Fo6phH2pGH2yzE3fTKsLOnnAod0jPkQXEETyuwqa6oCfntYYvmgfNrdm2XptBpEdC2nz8Hj7HSYoUV2yMoCUWvAuUVuFwx3Oq8ste6UBR8Q1bzc8GNebQVuHZppKTphFKtw7LdtUidOydAWEOI+iTU5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M1QaWPgj; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="S+4W/IJ+"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so1708582f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:26:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789468001; x=1790072801; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f86HyW2q5YFv3zSNeYSruMbybkqwMyCIyR1SdKDqPuk=;
-        b=S+4W/IJ+ueLWsifWIhuuIsVDGcdb5ruvp69ypR4FJSvUe3tnHyKuvpsOSFfn7lPGrm
-         5XZJEyxCLIPt6aSM7vTVXvnhk4MEC35C0YE01cUT1U94FyLJY+ho/TUVsdQnHtzK2IZ2
-         xDnCFpNrqMq3y0AvRTuc61wVMS+5e04rhYDWmccJYO5ydqBI7bgHkOavKSBOi+Kmy4vw
-         FjC10JKSm40W+AQ7NlL2+aASKQUSAwVl0puGc1/0Kck4AoXOT1i/ZvIPwHSrVhRl55ke
-         eKIXY2WETyjO4ZrZonNPzRGs+finlRWPPRNaU+TtW87ZpWOrapOAmK6CazwwbW7n+frg
-         9b6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789468001; x=1790072801;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f86HyW2q5YFv3zSNeYSruMbybkqwMyCIyR1SdKDqPuk=;
-        b=Pa+i60LxcCvSuJ8lW2aoRArwxaGIwIuuAFBfXRGkLESV/jA/Tm9hdoNm9AoEre7BqS
-         1sHAJD5cCBkHO5dAx0oTJu0aveQY5kH36FOZj999iWfTlSCkS0m1hCb0I5AysLlU3ANW
-         3dE0zWcMKGwvYbgIj4JZILIBmHsHaa/SLyCg1R0z51tlBEPcdjp0ino09WE3p1Rg6EqM
-         N7NjAdkyXkKTMpjWraoDDR7G+dBMYITHCyg42SJ8bL5FzcBmfQRex6+0/a96T/nr12Jf
-         uA98UnI3RWoh9HTS6yQpZy3ordwD8v742s9JW87ToBKYimyP2uoK1FwkDmZsuCIsFop2
-         pgWw==
-X-Forwarded-Encrypted: i=1; AKwUvBylRJKLE6ijT7Z6x5xbB6m5odflddAJFbcFEUhD8hzsSSWyhDW6/GNw1BTC4n1C+RspkAR2khfXYMAXceA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mh1eWghyVqKaQfsmhLgpezLkk1xJ5fd122rG3fV4JkB5YqViU9
-	f56y4kAKs0URYRC4EF5KS+35Q2FWA5C5qky9lElnA6xDRxCrN563sqE1CO1zQdD6CRz6TwnrjLL
-	YeXRKCQo=
-X-Gm-Gg: AYBFou0z/8PwXs+yoS2x2qM0OM0jZ+y0oDUBKJcKGXwJTf0bRHCibGMni14cbUnHikU
-	PfS4D0CPQUYhh8iiIgK7kmE+hpe6rG56NX4W8sMEUfQsS2W9/SfJXEKZUFSrJyA0mDyTBbvpRKb
-	zp4G58zqEcBmwb2/eOKhJohkq4ZA7xDdfedx6Q5+ZeArK/D85kcOvQrkVBDKnG7j/JcGlIBt46d
-	YnAHDn7uaU5KJ1RnHaY8D/3Ai0w9oELSWj7hRGssnuRgDfEvjXkZ2OIO4FUgkupSS3OrZQCv3rz
-	Cx21+pPoFB3TPsziyJYq/EyJ66sH13OBXmoy8btfDz6u43pF0cJ07XRrEh+Ka6Yz9g8nK6wyD3T
-	4k5veb84v27Y55T7mmefqlux7P+qxnzvwSSnksasWT8ceWqqclygsNe9TI+Y1rsSKkmKHOIFWpa
-	sIa9TcjSHWr6Z6zksNbwTLm6lmbAVy41575f4RFiCv/ExbzI65q+VSKaJk7TIfxuIuAmk=
-X-Received: by 2002:a05:6000:41c3:b0:484:3310:710c with SMTP id ffacd0b85a97d-48702b30ad7mr16669938f8f.24.1789468001189;
-        Tue, 15 Sep 2026 03:26:41 -0700 (PDT)
-Received: from localhost ([82.145.119.8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e4b5sm33243901f8f.22.2026.09.15.03.26.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:26:40 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Tue, 15 Sep 2026 12:30:17 +0200
-To: Angel J <iamanaws@httpd.dev>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
-	"helgaas@kernel.org" <helgaas@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
-Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid
- bridge configuration
-Message-ID: <aqkeOfsmjJlfTGmn@apocalypse>
-References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
- <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev>
- <aqfgUUkZYZg6ZABF@apocalypse>
- <B6jXhRRiVu4TfgjwfVOLgxbh1xIciImKFVMmjkMRoDt5SO7WpM2M3gBqsjtnh3VhYobWdcNfqFrmlCdhqZBqUakSNkTeVNZYJnXLTx55kRI=@httpd.dev>
- <VaPKN3QbW3sGj8wePAvI_xD3twp_MQE4-4xeSbvgoQPVUnKDWKz0EWT_JiLehpmc6WOsCAoFOPs412Xhtthes_ZtvrgsKB4QB6QPz-XvRb4=@httpd.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M1QaWPgj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789468025; x=1821004025;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=85nfFsSBljG0oh86uMjrB9I0taE1bu77ao7lLepRyFk=;
+  b=M1QaWPgjOmGfGg9poM77cLVF0ZkLRcY+kF8Eikulm8KZ0H/F6poQcGPY
+   O3eDv9wEJX5oWCrge9GuYIYypqV1XoaHdolMcZjN+fOlfmtw3qILKFrsC
+   RFfFIzifwG4Gkk4+BdZ3MHGngwCOkPmP9+f0vaNysRGDQEFZkmpPjxkzH
+   +XtfO/LvXfHJ7PUT1qlxzgiuK0Izmep7Unl3WB29/0oyl/7DNn67z7uCJ
+   GInqy0lYUIlREIQvJECdlxGnxMxqyBb59bWsyiYjx1rsYYgRZCHxOYyIu
+   OLwZF5y1/75uhecOClJWbvXy08QjkyECVFmixFjs24NeFRybKrF3Mu9YK
+   A==;
+X-CSE-ConnectionGUID: fWnNAOCGSiC4l8m+mP3BMQ==
+X-CSE-MsgGUID: +g/YfRyVSTS8/d7CwEBtXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115362189"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="115362189"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:27:04 -0700
+X-CSE-ConnectionGUID: yD+GlRH2QDur2hwc39s+Ww==
+X-CSE-MsgGUID: 9ZmAiwIRSuyeY5MkoTF+pw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="277083735"
+Received: from yilunxu-optiplex-7050.sh.intel.com ([10.239.47.46])
+  by orviesa005.jf.intel.com with ESMTP; 15 Sep 2026 03:26:59 -0700
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	yilun.xu@intel.com,
+	yilun.xu@linux.intel.com,
+	xiaoyao.li@intel.com,
+	sohil.mehta@intel.com,
+	adrian.hunter@intel.com,
+	kishen.maloor@intel.com,
+	tony.lindgren@linux.intel.com,
+	peter.fang@intel.com,
+	baolu.lu@linux.intel.com,
+	zhenzhong.duan@intel.com,
+	chao.gao@intel.com,
+	artem.bityutskiy@linux.intel.com,
+	kvm@vger.kernel.org,
+	nik.borisov@suse.com
+Subject: [PATCH v2 0/5] Enable TDX module extensions
+Date: Tue, 15 Sep 2026 18:26:53 +0800
+Message-Id: <20260915102658.713079-1-yilun.xu@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <VaPKN3QbW3sGj8wePAvI_xD3twp_MQE4-4xeSbvgoQPVUnKDWKz0EWT_JiLehpmc6WOsCAoFOPs412Xhtthes_ZtvrgsKB4QB6QPz-XvRb4=@httpd.dev>
+Content-Transfer-Encoding: 8bit
 
-Hi Angel,
+Hi,
 
-On 23:28 Mon 14 Sep     , Angel J wrote:
-> Ok, here it is...
-> 
-> I tested this quirk on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=y,
-> and it boots without either OF fix. The diff below omits the test logging.
-> 
-> PCI_FIXUP_HEADER runs after the resources have been parsed using the
-> original header type, and changing hdr_type also affects configuration
-> restore. I don't know enough about this part of PCI to judge whether
-> that's safe, so I'll wait for your advice before submitting it as a patch.
+This is the first respin of the TDX module extensions series. Thank you
+all for the design discussion and architectural review. Hope the design
+could be settled and some more RBs got in this version.
 
-Thanks you for your submission!
+Dave please feel free to ignore. Kiryl, Rick and TDX developers, please
+help take a look.
 
-LGTM. Maybe you can play, if you don't already, with pci=realloc,assign-busses
-kernel cmdline options and writing in remove/rescan under /sys/bus/pci/*
-(watch out: this could kill your system). But better to ask for opinions
-from PCI experts.
+== Changes ==
 
-Thanks,
-Andrea
+A major change is that the add-on feature re-configuration and
+extensions re-initialization operations during runtime update have been
+dropped. IOW, the update flow is left untouched. This stems from the
+architectural discussion that the basic update flow should start with a
+simple functional requirement - just restore everything (for example,
+the add-on features re-enabling, TDH.EXT.INIT) that was configured
+during boot, no extra input from the host is needed. Do improvement
+later if any new requirement arise.
 
-> 
-> Thanks,
-> Angel J
-> 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index de9bbccda..57df88a38 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -291,6 +291,22 @@ static int __init pci_apply_final_quirks(void)
->  }
->  fs_initcall_sync(pci_apply_final_quirks);
->  
-> 
-> +/*
-> + * On the Dell XPS 8940, 8086:4c43 reports a PCI-to-PCI bridge but has no
-> + * downstream bus. Use host-bridge class and a normal header so that
-> + * pci_is_bridge() does not send it through bridge scanning.
-> + */
-> +static void quirk_intel_4c43_host_bridge(struct pci_dev *dev)
-> +{
-> +	if ((dev->class >> 8) != PCI_CLASS_BRIDGE_PCI ||
-> +	    dev->hdr_type != PCI_HEADER_TYPE_BRIDGE)
-> +		return;
-> +
-> +	dev->class = (PCI_CLASS_BRIDGE_HOST << 8) | (dev->class & 0xff);
-> +	dev->hdr_type = PCI_HEADER_TYPE_NORMAL;
-> +}
-> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4c43, quirk_intel_4c43_host_bridge);
-> +
->  /*
->   * Decoding should be disabled for a PCI device during BAR sizing to avoid
->   * conflict. But doing so may cause problems on host bridge and perhaps other
+The extensions consume tens of megabytes memory that will never be
+returned to the host. How to consume this amount of memory forever is an
+open question though v1 uses alloc_contig_pages() for memory
+de-fragmentation. Kiryl implied fragmentation is an important concern.
+He answered that de-fragmentation is to prevent 2M pageblocks from being
+partially occupied. alloc_contig_pages() can be more than needed but
+should be good enough when we do it once during the boot time. In
+patch 4, keep the alloc_contig_pages() but add a code comment for
+clarification.
+
+Dave asked why pass the addon_features0 around as a function parameter,
+it can always be return from the global, static
+get_tdx_addon_features0() helper. Yilun admitted this is redundant. In
+patch 2, change to call the helper a second time where the value is
+needed.
+
+Rick pointed out that in patch 1, the changelog said we introduced a
+kernel data type for TDMR info PA array argument but the code is still
+setting TDX ABI data type (u64) for PAs. He suggested justifying that
+this is to avoid duplicating allocations and copies in SEAMCALL
+wrappers. Yilun noted this is a general in-memory ABI pattern which
+exists in several places in TDX. Add the statement of in-memory ABI
+handling in the changelog.
+
+Other changes:
+  - Patch 2: Drop the changelog section explaining why add-on feature
+    enabling is needed in this series, as it is a generally understood
+    pattern (Rick)
+
+  - Patch 2: Add a note in the changelog that Dynamic PAMT is not
+    enabled via the new bitmap argument of TDH.SYS.CONFIG (Rick)
+
+  - Patch 4: Add code comments for hpa_list container page allocation
+    (Kiryl)
+
+  - Patch 4: s/PFN array/HPA array in changelog (Kiryl)
+
+  - Patch 4: State the alternative memory adding solution and why we
+    don't use it in changelog (Rick)
+
+v1: https://lore.kernel.org/all/20260821032920.256225-1-yilun.xu@linux.intel.com/
+
+Quoting v2: https://lore.kernel.org/lkml/20260618081355.3253581-1-yilun.xu@linux.intel.com/
+
+Quoting v1: https://lore.kernel.org/all/20260522034128.3144354-1-yilun.xu@linux.intel.com/
+
+== Overview ==
+
+To date, SEAMCALL execution must either complete quickly to avoid
+stalling the host, or yield quickly at pre-defined interrupt
+checkpoints. This is acceptable for the existing SEAMCALL leafs,
+which perform simple, bounded operations.
+
+However, some new features such as attestation and TD migration require
+higher level security protocols inside the TDX module, which cannot fit
+within that constraint. TDX solves this by making those operations
+inherently preemptible and resumable like OS tasks. TDX provides a
+separate SEAMCALL execution environment - the TDX module extensions -
+for those operations.
+
+This capability allows for higher-level SEAMCALL ABI design - like
+"create a DICE-based attestation quote". Several new features, such as
+DICE-based attestation, TDISP and TD migration, use SEAMCALL leafs
+backed by the TDX module extensions.
+
+The TDX module extensions need memory for their execution environment
+to serve these SEAMCALL leafs, so they need extra setup steps during TDX
+module initialization. The bulk of this series implements these setup
+steps.
+
+At runtime, the host invokes these SEAMCALL leafs just as normal ones -
+if interrupted, simply re-invoke the leaf to resume.
+
+For more information on TDX module extensions, please refer to [1].
+
+[1] https://lore.kernel.org/lkml/20260618081355.3253581-1-yilun.xu@linux.intel.com/
+
+== Branch stack ==
+
+This is based on v7.3-rc1. You can find the full branch stack at [2].
+The DICE part is in the full branch as an example for extensions. But it
+does not include the other DICE feedbacks.
+
+The full branch contains:
+
+  Dependency:  Patch 1:   SEAMCALL version patch [3] which is WIP on
+			  community review.
+  This series: Patch 2~7: This series, including this cover-letter.
+  Use case:    Patch 8~N: The old DICE part as an example.
+
+[2] https://github.com/intel-staging/tdx/tree/tdx-module-ext
+[3] https://lore.kernel.org/all/20260910104347.625378-1-yilun.xu@linux.intel.com/
 
 
+Xu Yilun (5):
+  x86/virt/tdx: Move TDH.SYS.CONFIG operations into a wrapper
+  x86/virt/tdx: Configure add-on features on TDX module init
+  x86/virt/tdx: Detect if the extensions initialization is required
+  x86/virt/tdx: Add extra memory to TDX module for the extensions
+  x86/virt/tdx: Make TDX module initialize the extensions
+
+ arch/x86/include/asm/tdx.h                  |   1 +
+ arch/x86/include/asm/tdx_global_metadata.h  |   6 +
+ arch/x86/virt/vmx/tdx/tdx.h                 |   2 +
+ arch/x86/virt/vmx/tdx/tdx.c                 | 230 +++++++++++++++++++-
+ arch/x86/virt/vmx/tdx/tdx_global_metadata.c |  20 ++
+ 5 files changed, 252 insertions(+), 7 deletions(-)
+
+
+base-commit: 3bfade11ab7be0a90eecc8a549b181863960b14e
+-- 
+2.25.1
 
