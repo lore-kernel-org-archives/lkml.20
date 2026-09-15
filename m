@@ -1,157 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6794052A5;
-	Tue, 15 Sep 2026 17:04:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233DE402422
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:04:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789491845; cv=none; b=CwQ8pMvOykCNFZWo+dPaz/BFOHNlccjJrNmEosa4Anc83dLbm2J6qt83RS1QYm486voIiXsq3bb8T51Z4qKerlUyIbSP4MR3Xt/rj/LmxI/y74BjbsZqn4xFqeXD85l7PZHy86wrA1ADKywHCfAgsAJ8bE5+/YRYHzV0fYTxt58=
+	t=1789491844; cv=none; b=PF1snJCWBqNB8nt/+U9uhWFrSuuJeMspPf5VNdnqQ6hlvBj3HPB13PYeuhOU3nP19dGroRcROOSKFo0lmbCVR343QALQTuZJBpiXcmO2eXl1R/KFG4mfeohWjGXFVSuEdaWg/nuAUvqPnEJq5hM4ZFRByprhB4/mdUV6LvyAfhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789491845; c=relaxed/simple;
-	bh=UyZy4b1CE42/1ejl3vNXBVTya1Q6k+zMpGkKomKrCPM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=r482BYvTvVym4+v8sMKH3ORs0VQuBVtZZcYo+wvkA72yEBJe/QwJST6JgUyatZRU3Hu3OwViHyutjExfTGuWrXf37lNESR0zQS8u4RWagfme7GP8FbyUV+F6hCasBmZjXlU+agKMQOsVX9OcAR/PYmfV+Dhe8o8XesjtdUsMY/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVmOSQSR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789491844; c=relaxed/simple;
+	bh=w3zTKteM9+dXP6ekYmOuIUo7NZB4TZ5SyaeehZjbXRc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mt0s1H3oY/ZZGX5NhDrioi/69L/Tp1+DIxSDhoSeslvfr+bb77EeLx4K+TjQ57Dfb3fIREA94Sf+YF91RgQ6oaxMb5MWyMdrlAD5DBRqTeMrAw3P590E9QxcWDfw9gKUpBYi0zwYDCtl8FoFzsAFJvD6RWrGqgMcIYuVxzLcvNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hY4VMplV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f5MGWl0/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVmOSQSR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550811F00898;
-	Tue, 15 Sep 2026 17:04:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789491843;
-	bh=5MbreCHXimUJkSLoDYYJizdFSm4FvFvhiicr4qn3UBA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jVmOSQSRRQTZuOSKAH7K1M1t7oLHywuANQaoJn81vc/lZDG0oZ0cOm6W1avzIxEiK
-	 2AYKoI7HdywPmpQx7IOlqj7lSFfMGZV+MSvj/I6y9avMkkyh7o6El2TlBL3NahaJSR
-	 7VQi3z6gB7AIzUZq3HTaiqhLMQ5X5sKpwQ1M4ytfoha6P3ae1r2UdA9d/ZkXAsghZq
-	 v8zGEE9ZPLafSY9biGEOAPCmgX3zyEKUei5099Ddin3equcy9ojBNYxBcA2FmJ4GMX
-	 eUQQlqVwTO8cpdDnqzzPE1JjlKrPJTJF4Ng5I6nEUpgNwajYM8z0uUj8hsIYhlJXXG
-	 sNeg9eivL2RoA==
-Message-ID: <194104884e59817d5fb479aa6254046b7034735a.camel@kernel.org>
-Subject: Re: [PATCH] nfsd: zero NFSv4 COMPOUND tag padding
-From: Jeff Layton <jlayton@kernel.org>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Chuck Lever
-	 <chuck.lever@oracle.com>
-Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Tue, 15 Sep 2026 13:04:01 -0400
-In-Reply-To: <20260915160049.3105481-1-qwe.aldo@gmail.com>
-References: <20260915160049.3105481-1-qwe.aldo@gmail.com>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hY4VMplV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f5MGWl0/"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFAX3F291063
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:04:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nUHktJGTHh8bAwUtVbzFPaSsYpwxlbXpnYldJaXVb2g=; b=hY4VMplVo0qbPKHH
+	O6jCP9DDDJp+Wn36K6xBsaX6R7eSrekgd8s38bMdd2gCv06RU6pqNnuyXyEODxEu
+	nRzl2smvVEcNRUfcmQvobZXBTjxV7w/JkDs16I9m0wA8FVCsr/0uTjQno4L1RiGV
+	yWwEt69zxJFP86s5n8FcHJVtJlzjhuXobfn6Ue/VTSGWMcwSZoMdE9dYc8UIBtl6
+	yda9gAajV115d6V0x7fcWSbVctty9DdrriVyk0yPHrvEy2062j5aqrY0gyLZccBu
+	tAPoNCRsBuMOcWr+dB8s1HNNmulwy4xFIEpyvGudptVVwR7sjvawZbFkc3e1FlIL
+	64b3dQ==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpyux33f9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:04:01 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c82c2e9761so1316792e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:04:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789491841; x=1790096641; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nUHktJGTHh8bAwUtVbzFPaSsYpwxlbXpnYldJaXVb2g=;
+        b=f5MGWl0/gFhwaJIzcX+EsNMF/iVG4vG8zyzaAkhAjBRCm2zPUg/9NVNGm463ubhCXJ
+         XM49CZog/HfxgyuPP2zxltWugDChnTVAX4XhvBdvDO0M6SQVnYv2xscstdUVDP1r3GTl
+         gya6mpzKgRTlKYxrBlcPziCA6Ek8h04ux7pAa9fQOESB8wwZ0rcz7hrRGecZ/KPtKGVl
+         O/96MGIt2r+b9a1V+/yBLtU2rHJmgyGYSNL5Rn3PuzAPTuU3BGcNuPfVoAga7b+wX1fF
+         cC2qIi9IpbihTZ2U8VYwKQVDw1GVET+FnevyPw4eZ+AiPnoHzDUu3d0D1USKzbQ5kxfx
+         GUOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789491841; x=1790096641;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nUHktJGTHh8bAwUtVbzFPaSsYpwxlbXpnYldJaXVb2g=;
+        b=VN67rxOaxsesfIXLIYVZooJHaKhJYyZkTGQIcmnewAhm3HuT+9PdFf+GDFoorY/nyW
+         EgZZ5GSZlLrlAU3czyQ3un3pWXLxFOu3iutCQIGHv1owYhue8SYvcnrHqspicBHgYueo
+         XWGNft1kwTnU/eiXeHJ1A8+StLNU+8IJaGNLm5zYBn5SOxVIGvb7hHwO5s+7njkqvmh8
+         tdzwlXvVWZCSYwO8QQrowdurUYcdVmSdJgg3GOVxRmYLDUQAo1J8hbpd/4+S80NUtNIU
+         NjAG6OBzigyfQSs8OYlnhS96EYcGtp+8FNCltVlZQ+IX7qnE4YaCC1x2F05Xruw68v/L
+         WEGw==
+X-Forwarded-Encrypted: i=1; AKwUvBys8RzUmjTBzvV4xJNs4C6HnKnLKY0S/EAGwGms6W+fIGXmXZHU1mUSCamGYgNa9UaiC4asYEna1Q6OKno=@vger.kernel.org
+X-Gm-Message-State: AFuF++ln5MTukKfS9voTpmKW1jSZn0LBLLqsf2H8fdg4gyrchw3bLBNf
+	A/bVS6rLyJAPophpV+0zIOe/Ift+wx48aiPfAuKwpp73zedV8ZrxU3ByCXaGdU5biAM6bMMesLm
+	L4nH7Wp7kumeb8cYoMRId3ZMg426dnZocUjOUW831E13s4Cxrvco/OoLLFqndkXk+6wQ=
+X-Gm-Gg: AYBFou2TiKa2jcW+G/5Hf6Ee+a47kUK8lyaPMdchHuL0chX+OXDHMz6YMClZyv+MGbs
+	nYJxK0oaYHxbg7UWhWtICViB5OdHeAMwJlf2a/6u4Bat60HkqjWmqydjZfGI9C9x3BE2GZvsWqp
+	hG5EHBQv05Sr8eKBqR/rMxZ8biyal+mu1kRnK5Q+htfiadxOXOStMaZFSOJ5XXeve45spgAP2/M
+	SDy9Lmc13/Z1RLxmlWaxnxcm1+DMBAN0779wQhOr64DuUI40IDKqYjptS0PJm9W1owR2vZBWJsO
+	UfPj9D8fbmVMVzAlcvDpY+9q1tR7ku9/VGx4ZCwgq8F0BsvFDKvOSYt1djd3VTtnYBJBxXMvaJM
+	8r5iVDEcStMaKHWHETPaBR8o=
+X-Received: by 2002:a05:6122:d21:b0:5c8:2dc9:f8d2 with SMTP id 71dfb90a1353d-5c981898b18mr12591368e0c.0.1789491840875;
+        Tue, 15 Sep 2026 10:04:00 -0700 (PDT)
+X-Received: by 2002:a05:6122:d21:b0:5c8:2dc9:f8d2 with SMTP id 71dfb90a1353d-5c981898b18mr12591260e0c.0.1789491840453;
+        Tue, 15 Sep 2026 10:04:00 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27df9sm391286f8f.19.2026.09.15.10.03.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 10:03:59 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 19:03:45 +0200
+Subject: [PATCH v4 1/7] dtc: dt-check-style: Handle continued lines in
+ check_hex_case()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-b4-dts-style-checker-continued-lines-v4-1-5b8e09b11ef2@oss.qualcomm.com>
+References: <20260915-b4-dts-style-checker-continued-lines-v4-0-5b8e09b11ef2@oss.qualcomm.com>
+In-Reply-To: <20260915-b4-dts-style-checker-continued-lines-v4-0-5b8e09b11ef2@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3317;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=w3zTKteM9+dXP6ekYmOuIUo7NZB4TZ5SyaeehZjbXRc=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqqXp2c+qFIDZzEzr6deLeF+TnkVbedSeoB77Ag
+ FeLpozrm6uJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaql6dgAKCRDBN2bmhouD
+ 1/JPD/4uJKpDQhsUfOFzY4TwpDLEWMi5UtiohBi3nqgaDFo6WtMuA8CDpqW+dLQA2w4dnIoHqCu
+ 74YtcbQTu2DwTy+9gNquIhnbcfVqIjAC/MnprReZ2Uih8PbszD0qrrepXXu1yD9N6IMqGNa9URd
+ Tq64kPlekBYcTIXjtDDGRDg+x0qAN0Hc4JrAM/ZB68jB7OM7L4ne+++FXy5U3uFdKwvYm4IYJlT
+ CpgXAM1wduDXxnImdZDRwzWpjauSk1h8ZeUevylbi9lSpIIM/XR6Z6sPlL2yyEOJZ7dpcfLTvLA
+ SsCxDy0dObu4gkDFDuEule4aVLMc1v/nNrVIo7soUjUIcqiF9I3N+i626OwmfUPCZBO/fveFARd
+ zjSnxsreMfbRJolPH+s603p/Zy+SPcBiHM51WoQUkipCEjDaDqyxvgWJ1QlBYTyN1r1NFAYslSW
+ F14zNNr+ESlUjjwu3mvxylNID49Ji+v8WNSE2YhNdF7tP1kQbVD5C2Uo4ZNUjgb/JXcotwOXgMr
+ y+/7ASrCvsf3nUuRlDXi9C09DtdF6NWeN9ACp/ec/N8iqGRAzYmYp48THd2DHPfLaakZXwgmI5U
+ 1fqCwXKO/Lk6pF+pL7YLdnW+KkNvVx5ROuJvHmOcCYyJrddomL9BSovh9gvuD675MByLwZZWqSw
+ xbLcXcCYGATVP3Q==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDI0OSBTYWx0ZWRfX1YLLHUuuI9Bh
+ 1e7wHnckXuiWB91yv0UNvQ9q/b4FWfMtDtSFAnCuT+RmOf5zPJg2zJOzVT2YCy08H4KLUZc6EVn
+ y3sscJ5+Z4hEPakCL5zxcfA1qviHVY2E96p7NE2xAOW+SfEW7RolNysRJP1fCYdlBk8y37Jb168
+ JzYCbUMIbnqxiTV1yeKWGD1eiVl9KbTqAA54SFTBfqnEOs9uahYsHLbhzuh2LvsC3RAA1PyEs3e
+ yccq2kmGpZ65b0RmLW+nsMnSaoMw6/7SK5Pvq1FWdc4l4yeJ2rmzha9eltwghrOkDTBf/Gp/uMf
+ mW650jziQ6XDacJxOQ3ELu8LPoMftEfCZx64MYbjjIWqf2CAln/LtHVJOxIXHvvYtaoVLLJv6t7
+ g5BlBtpxfDrVmw46/n24wY+ZdFWw4EpGzcmy2ekECNl9+TX4eWBdQE4nyMLnLebKTmdBLov+/2L
+ 3L3hthGTnP5PH0JLwig==
+X-Proofpoint-ORIG-GUID: MbqdKoOWdL92zvyae1l0QuHRk__C4GRQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDI0OSBTYWx0ZWRfX+cGhuQKhaTQf
+ ODvv/4Fr1cWtQMO0Ue+wx1x89WyqYvu3eyPxMKqlk5XBnPXN79TxbI2UTw1ALBRhvgoJtaUMc6V
+ X5p26I0iK5LAGiFTiGrbXk5ma0JoN88=
+X-Proofpoint-GUID: MbqdKoOWdL92zvyae1l0QuHRk__C4GRQ
+X-Authority-Analysis: v=2.4 cv=QYLzLcbv c=1 sm=1 tr=0 ts=6aa97a81 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=SU40fdrgiSb2mxkwluUA:9 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
+ lowpriorityscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150249
 
-On Tue, 2026-09-15 at 13:00 -0300, Aldo Ariel Panzardo wrote:
-> nfs4svc_encode_compoundres() copies the tag bytes into reserved XDR space
-> and skips directly to the aligned end of the field. xdr_reserve_space()
-> rounds the reservation up but does not initialize the padding bytes.
->=20
-> A remote client can choose a tag length that is not a multiple of four,
-> causing one to three stale bytes from the response page to be returned in
-> the COMPOUND reply.
->=20
-> Use xdr_encode_opaque_fixed() to copy the tag and clear its XDR padding.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
->  fs/nfsd/nfs4xdr.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->=20
-> diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
-> index e17488a911..9377f42dfd 100644
-> --- a/fs/nfsd/nfs4xdr.c
-> +++ b/fs/nfsd/nfs4xdr.c
-> @@ -6480,8 +6480,7 @@ nfs4svc_encode_compoundres(struct svc_rqst *rqstp, =
-struct xdr_stream *xdr)
-> =20
->  	*p++ =3D resp->cstate.status;
->  	*p++ =3D htonl(resp->taglen);
-> -	memcpy(p, resp->tag, resp->taglen);
-> -	p +=3D XDR_QUADLEN(resp->taglen);
-> +	p =3D xdr_encode_opaque_fixed(p, resp->tag, resp->taglen);
->  	*p++ =3D htonl(resp->opcnt);
-> =20
->  	nfsd4_sequence_done(resp);
+Continued lines are not separate DtsLine items in ctx.lines, so they
+need own iteration.  Rule for hex case is applicable to continued values
+as well.
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ scripts/dtc/dt-check-style                         | 24 ++++++++++++++--------
+ .../dtc/dt-style-selftest/bad/yaml-hex-case.yaml   |  5 ++++-
+ .../expected/yaml-hex-case.yaml.txt                |  2 ++
+ 3 files changed, 21 insertions(+), 10 deletions(-)
+
+diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+index 0ebbe658b893..2d0463c626e5 100755
+--- a/scripts/dtc/dt-check-style
++++ b/scripts/dtc/dt-check-style
+@@ -547,18 +547,24 @@ def check_continuation_alignment(ctx):
+             dl_value_complete = cont.stripped.endswith('",') or cont.stripped.endswith('>,')
+ 
+ 
++def _check_hex_case(dl):
++    if dl.linetype in (LineType.BLANK, LineType.COMMENT,
++                        LineType.COMMENT_START, LineType.COMMENT_BODY,
++                        LineType.COMMENT_END, LineType.PREPROCESSOR):
++        return
++    for m in re.finditer(r'\b0[xX][0-9a-fA-F]+\b', dl.code):
++        lit = m.group(0)
++        if any(c.isupper() for c in lit[2:]) or lit[1] == 'X':
++            yield (dl.lineno,
++                    'hex literal %r must be lowercase' % lit)
++
++
+ def check_hex_case(ctx):
+     """Hex literals (0xN) must use lowercase digits and prefix."""
+     for dl in ctx.lines:
+-        if dl.linetype in (LineType.BLANK, LineType.COMMENT,
+-                           LineType.COMMENT_START, LineType.COMMENT_BODY,
+-                           LineType.COMMENT_END, LineType.PREPROCESSOR):
+-            continue
+-        for m in re.finditer(r'\b0[xX][0-9a-fA-F]+\b', dl.code):
+-            lit = m.group(0)
+-            if any(c.isupper() for c in lit[2:]) or lit[1] == 'X':
+-                yield (dl.lineno,
+-                       'hex literal %r must be lowercase' % lit)
++        yield from _check_hex_case(dl)
++        for cont in dl.continuations:
++            yield from _check_hex_case(cont)
+ 
+ 
+ def check_indent_consistent(ctx):
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
+index c55359a4ca68..b0b8683b883a 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
+@@ -25,5 +25,8 @@ examples:
+   - |
+     foo@1000 {
+         compatible = "example,test-hex-case";
+-        reg = <0xABCD 0x100>;
++        reg = <0xABCD 0x100>,
++              <0x2BCD 0x100>,
++              <0x3BCD
++               0x100>;
+     };
+diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt
+index 6600f7cd1ba5..f42490256939 100644
+--- a/scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt
++++ b/scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt
+@@ -1,2 +1,4 @@
+ # mode=strict
+ bad/yaml-hex-case.yaml:28: example 0 [hex-case] hex literal '0xABCD' must be lowercase
++bad/yaml-hex-case.yaml:29: example 0 [hex-case] hex literal '0x2BCD' must be lowercase
++bad/yaml-hex-case.yaml:30: example 0 [hex-case] hex literal '0x3BCD' must be lowercase
+
+-- 
+2.53.0
+
