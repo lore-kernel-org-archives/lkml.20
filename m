@@ -1,29 +1,30 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CF32EA754
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A035207A20
 	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:19:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789445998; cv=none; b=poYrpceniZp3c1V5F34H7AVVvKaHi2ow+IoPEYqxrZ7yPJjjpRQC9lm3XaEyiBgE1tagTQKnvxt2y2+MWwEYMK55yHhzNW84Rs7tOIFMvlUMec933ARAzysJjbPXoyTPELD1OxHhlSOzBlyzqj6FAOb9fLJvR5z/FjuI2FlCUNI=
+	t=1789445997; cv=none; b=QxVyadk3vMoFteHukl/8fDffusIfcHqM5yAwG74U8TZH5gZ4bCz8dtAtEYnRncl21FX7myYlHsBQHLqpufXrGVskitFdO1SsNOzlEBrKgInYPTZlK6QYgxHd/58pVGdYZaCxHX0zJsdqTZnCQbdivUGJc9pZg2Zk4p0AYox21bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789445998; c=relaxed/simple;
-	bh=Z51unG1foffy+2OGWETkgo2PyqIAFItR0wWDwgdn2PU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SsKTWhXdvR2xloY3JspwoZBaIu35x2pXI1myIw6WDL6fP7qSDdbBMMbDsC38WF2wDOcSmdh+Hq7n41fuS56TZU2J2GF4h1Hs1OOjs1iCnIQD353QOp9VbR6MOmN5qaGEqN0gW8sAarnxIhgupts4gKH28iWHVTskqR3xgnjQiRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=AesrpVbK; arc=none smtp.client-ip=220.197.31.9
+	s=arc-20240116; t=1789445997; c=relaxed/simple;
+	bh=drA0gLUrUhgaz3/M7DhSYa0nPzXjcYsb/v12x18kVVg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dGtXsHpLDldy1nHyjoD162vFToYUnEJ5Pa4+0DVQj6tLlWa8/+gGmgjrdULzzlrnozeb5dwJ9kBKa7bDp+UnBYO7nWVThEEgTd9G6Ws5cxFgcWlXtBFehHMnDbilpTOaq0ZDQXnwDd7rmswm71j2Oox2Q/0tust+vqzX/7LU39Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=JOjYtbEt; arc=none smtp.client-ip=117.135.210.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="AesrpVbK"
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="JOjYtbEt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=YX
-	+HIknL8n6VZjreq5xGVkE9hGJLekLhtxm24ds5FmA=; b=AesrpVbKW0Q7/KU31Z
-	uQEkuU+S+OPxt19HBB4hruCxNjjChl4a1fPe+tVJ/RVGw0wLWc+veJSvwWyqeiIG
-	j07T/SLxNDYQ4X+kjCen6n4UszSLhDJYOwXn+75lI0lbzt6/XeVONGzkfZbNgjq8
-	vyjnDxfXSgTPqEVkTC+uRwUgs=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=La
+	K4nxrqbm6CTvTeDY9OaJp/SPb9ZvkcC8YMYFupLbI=; b=JOjYtbEtlusC7aG23t
+	UCW6BlsKDENxEByxirdlCAc0BFRzYt8xf5mcEFb9LtIEpO2UJ01LZrgo8DYWEp9R
+	Uak6gxAVWeyv1w6umYzz4sCXaiyCpKj4Oh+n+TZ/7GJ5ZQ2PQyqNCiHVBG8ASsph
+	vQAtEr9LzNPjWjLITxy3PgIU4=
 Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PikvCgDXreo9x6hq3jBvHw--.36918S2;
-	Tue, 15 Sep 2026 12:19:10 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PikvCgDXreo9x6hq3jBvHw--.36918S8;
+	Tue, 15 Sep 2026 12:19:16 +0800 (CST)
 From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 To: linux-f2fs-devel@lists.sourceforge.net,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
@@ -37,11 +38,14 @@ Cc: Barry Song <baohua@kernel.org>,
 	Kalesh Singh <kaleshsingh@google.com>,
 	Nanzhe Zhao <nzzhao@126.com>,
 	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: [PATCH v2 00/14] f2fs: support & optimize large folios for writable files
-Date: Tue, 15 Sep 2026 12:18:55 +0800
-Message-ID: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
+	Ryan Roberts <Ryan.Roberts@arm.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Subject: [PATCH v2 06/14] f2fs: prepare mmap write faults for large folios
+Date: Tue, 15 Sep 2026 12:19:01 +0800
+Message-ID: <20260915041909.2903887-7-zhaonanzhe@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
+References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,65 +53,215 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PikvCgDXreo9x6hq3jBvHw--.36918S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFyxur15WrW5JF13WrWDCFg_yoW8ZF43pF
-	Z0krZ5GryfCr47ZrZxAF4Fqrn5t395W34UZ3WxXry2qF98WF1ruF1kt3W8WF4xJryfJw4r
-	Aa1UAry8WF4rAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UCoGdUUUUU=
+X-CM-TRANSID:PikvCgDXreo9x6hq3jBvHw--.36918S8
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Wr4kZF4kJr1rtw4fArW3GFg_yoWxWFy5pF
+	W5G3s3JrZ3XFyUWrn7KF1qvw1rK34xurWUuFZ3G3WxZ3Wjqwn5KF10y340vF18trZ5Aan7
+	XF4jkFyUua4UGF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jUManUUUUU=
 Sender: nzzhao@126.com
-X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsB-FlWqoxz8XsgAA3g
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsQTHl2qox0QWcQAA3D
 
-This series supports large folios for most readable/writable files
-in buffered I/O paths, including normal files, block-layer encrypted
-files, and atomic files except for inline-data files, compressed files,
-and quota files.
+Now write protect `mmap` also need to support large folio,
+Change `f2fs_vm_page_mkwrite` to acheive that.
 
-It also extends f2fs_folio_state to coexist with f2fs page-private
-flags and to handle large folio write path and partial truncate of
-large folios correctly.
+Note it currently marks the whole large folio dirty
+to avoid data loss which causes write amplification.
+Further optimization is welcome.
 
-Benchmark details can be found in the RFC v2 cover letter [1].
+PG_mappedtodisk is useless in f2fs, so drop the
+folio_test_mappedtodisk() check and its goto out_sem
+shortcut in f2fs_vm_page_mkwrite().  We extend the
+folio_zero_segment() in mkwrite to zero the post-EOF part
+of the faulted folio for both order-0 and large folios, so
+the f2fs_zero_post_eof_page() call added to cover that
+shortcut is no longer needed.
 
-[1] https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
+Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+---
+ fs/f2fs/f2fs.h |   4 ++
+ fs/f2fs/file.c | 107 ++++++++++++++++++++++++++++++-------------------
+ 2 files changed, 70 insertions(+), 41 deletions(-)
 
-Changes in v2:
-- Addressed most of Chao's and Daeho's review comments.
-- Updated docs for compress policy with large folios.
-- Link to v1: https://lore.kernel.org/r/20260826082641.2007658-1-zhaonanzhe@xiaomi.com
-
-Many thanks to Chao and Daeho for your extensive reviews and valuable
-suggestions!
-
-Nanzhe Zhao (14):
-  f2fs: extend folio state for large folio write path
-  f2fs: carry subpage offset and count in write IO
-  f2fs: support regular file buffered writes on large folios
-  f2fs: support atomic file large folios buffered write
-  f2fs: support large folio writeback
-  f2fs: prepare mmap write faults for large folios
-  f2fs: make GC migration large-folio aware
-  f2fs: optimize small block size large folio read
-  f2fs: support partial uptodate large folio read
-  f2fs: handle partial truncate of large folio dirty subpages
-  f2fs: fix zeroing paths for large folios
-  f2fs: handle block cloning within the same large folio
-  f2fs: allow large folio support to writeable files
-  f2fs: make compressed files compatible with large folio
-
- Documentation/filesystems/f2fs.rst |   10 +
- fs/f2fs/checkpoint.c               |    2 +
- fs/f2fs/compress.c                 |    3 +
- fs/f2fs/data.c                     | 1221 +++++++++++++++++++++++++---
- fs/f2fs/f2fs.h                     |  105 ++-
- fs/f2fs/file.c                     |  229 ++++--
- fs/f2fs/gc.c                       |   32 +-
- fs/f2fs/inline.c                   |    7 +
- fs/f2fs/inode.c                    |    4 +-
- fs/f2fs/namei.c                    |    1 +
- fs/f2fs/node.c                     |    2 +
- fs/f2fs/segment.c                  |    6 +-
- 12 files changed, 1404 insertions(+), 218 deletions(-)
-
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 8eccca6e5d27..f48e2627d90a 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -4393,6 +4393,10 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
+ 				enum iostat_type io_type,
+ 				int compr_blocks, bool allow_balance);
+ bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index);
++struct f2fs_folio_state *f2fs_ffs_find_or_alloc(struct folio *folio);
++void f2fs_ffs_mark_subrange_dirty(struct folio *folio, size_t offset, size_t len);
++bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
++					    size_t len);
+ void f2fs_write_failed(struct inode *inode, loff_t to);
+ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
+ bool f2fs_release_folio(struct folio *folio, gfp_t wait);
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 9071bd23e57b..738a751c3903 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -118,13 +118,47 @@ static vm_fault_t f2fs_filemap_fault(struct vm_fault *vmf)
+ 	return ret;
+ }
+ 
++static int f2fs_get_block_mkwrite(struct inode *inode, struct folio *folio,
++				  pgoff_t index, bool need_alloc)
++{
++	struct dnode_of_data dn;
++	int err;
++
++	set_new_dnode(&dn, inode, NULL, NULL, 0);
++	if (need_alloc) {
++		err = f2fs_get_block_locked(&dn, index);
++	} else {
++		err = f2fs_get_dnode_of_data(&dn, index, LOOKUP_NODE);
++		f2fs_put_dnode(&dn);
++		if (f2fs_is_pinned_file(inode) &&
++		    !__is_valid_data_blkaddr(dn.data_blkaddr))
++			err = -EIO;
++	}
++
++	if (err)
++		return err;
++
++	f2fs_folio_wait_writeback(folio, DATA, false, true);
++
++	/* wait for GCed page writeback via META_MAPPING */
++	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
++
++	return 0;
++}
++
+ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ {
+ 	struct folio *folio = page_folio(vmf->page);
+ 	struct inode *inode = file_inode(vmf->vma->vm_file);
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+-	struct dnode_of_data dn;
+ 	bool need_alloc = !f2fs_is_pinned_file(inode);
++	pgoff_t pidx = folio->index + folio_page_idx(folio, vmf->page);
++	loff_t pos = (loff_t)pidx << PAGE_SHIFT;
++	loff_t isize;
++	loff_t folio_start;
++	loff_t valid_end;
++	size_t dirty_len;
++	size_t subpage_off;
+ 	int err = 0;
+ 	vm_fault_t ret;
+ 
+@@ -161,7 +195,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 
+ #ifdef CONFIG_F2FS_FS_COMPRESSION
+ 	if (f2fs_compressed_file(inode)) {
+-		int ret = f2fs_is_compressed_cluster(inode, folio->index);
++		int ret = f2fs_is_compressed_cluster(inode, pidx);
+ 
+ 		if (ret < 0) {
+ 			err = ret;
+@@ -179,72 +213,63 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 
+ 	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
+ 
+-	err = f2fs_zero_post_eof_page(inode,
+-		(folio->index + 1) << PAGE_SHIFT, true, false);
+-	if (err)
+-		goto out_pagefault;
+-
+ 	file_update_time(vmf->vma->vm_file);
+ 	filemap_invalidate_lock_shared(inode->i_mapping);
+ 
+ 	folio_lock(folio);
++	isize = i_size_read(inode);
++	folio_start = folio_pos(folio);
++	subpage_off = offset_in_folio(folio, pos);
++	valid_end = min_t(loff_t, folio_start + folio_size(folio), isize);
++	dirty_len = valid_end > folio_start ? valid_end - folio_start : 0;
++
+ 	if (unlikely(folio->mapping != inode->i_mapping ||
+-			folio_pos(folio) > i_size_read(inode) ||
+-			!folio_test_uptodate(folio))) {
++			pos >= isize ||
++			!f2fs_ffs_test_blk_uptodate(folio,
++			folio->index + (subpage_off >> PAGE_SHIFT)))) {
+ 		folio_unlock(folio);
+ 		err = -EFAULT;
+ 		goto out_sem;
+ 	}
+ 
+-	set_new_dnode(&dn, inode, NULL, NULL, 0);
+-	if (need_alloc) {
+-		/* block allocation */
+-		err = f2fs_get_block_locked(&dn, folio->index);
+-	} else {
+-		err = f2fs_get_dnode_of_data(&dn, folio->index, LOOKUP_NODE);
+-		f2fs_put_dnode(&dn);
+-		if (f2fs_is_pinned_file(inode) &&
+-		    !__is_valid_data_blkaddr(dn.data_blkaddr))
+-			err = -EIO;
+-	}
++	pgoff_t i, nr = DIV_ROUND_UP(dirty_len, PAGE_SIZE);
+ 
+-	if (err) {
+-		folio_unlock(folio);
+-		goto out_sem;
++	for (i = 0; i < nr; i++) {
++		err = f2fs_get_block_mkwrite(inode, folio, folio->index + i,
++					     need_alloc);
++		if (err) {
++			folio_unlock(folio);
++			goto out_sem;
++		}
+ 	}
+ 
+-	f2fs_folio_wait_writeback(folio, DATA, false, true);
+-
+-	/* wait for GCed page writeback via META_MAPPING */
+-	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+-
+-	/*
+-	 * check to see if the page is mapped already (no holes)
+-	 */
+-	if (folio_test_mappedtodisk(folio))
+-		goto out_sem;
+-
+ 	/* page is wholly or partially inside EOF */
+-	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
+-						i_size_read(inode)) {
+-		loff_t offset;
++	if (folio_start + folio_size(folio) > isize) {
++		size_t offset = offset_in_folio(folio, isize);
+ 
+-		offset = i_size_read(inode) & ~PAGE_MASK;
+ 		folio_zero_segment(folio, offset, folio_size(folio));
+ 	}
++
++	if (folio_test_large(folio)) {
++		if (!f2fs_ffs_find_or_alloc(folio)) {
++			folio_unlock(folio);
++			err = -ENOMEM;
++			goto out_sem;
++		}
++		f2fs_ffs_mark_subrange_dirty(folio, 0, dirty_len);
++	}
+ 	folio_mark_dirty(folio);
+ 
+-	f2fs_update_iostat(sbi, inode, APP_MAPPED_IO, F2FS_BLKSIZE(sbi));
++	f2fs_update_iostat(sbi, inode, APP_MAPPED_IO, dirty_len);
+ 	f2fs_update_time(sbi, REQ_TIME);
+ 
+ out_sem:
+ 	filemap_invalidate_unlock_shared(inode->i_mapping);
+-out_pagefault:
+ 	sb_end_pagefault(inode->i_sb);
+ out:
+ 	ret = vmf_fs_error(err);
+ 
+-	trace_f2fs_vm_page_mkwrite(inode, folio->index, vmf->vma->vm_flags, ret);
++	trace_f2fs_vm_page_mkwrite(inode, pidx, vmf->vma->vm_flags, ret);
+ 	return ret;
+ }
+ 
 -- 
 2.43.0
 
