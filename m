@@ -1,477 +1,456 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAE447A887;
-	Tue, 15 Sep 2026 08:55:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462506; cv=none; b=ZwV/yqRombo92lKr1OrtsjbMYTHyPn/sZHDGUF30i+Z7NtB8/T9LN+kJUWm82u7tA9JQbzwa5j5RGoAZuVKxohlOonD5gJ9sTCBSLMvh/b9jffQ+Sbm43QRg9ZnQ3vtT9Z8PokLk4YBVi8cq3UjNzTGeB3vHsKl3NlUjVRNYv+E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789462506; c=relaxed/simple;
-	bh=epsmx6qwHfpi44gOhX0YCu0wOXwbbE4sTVVfcVBI8IU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=smkXZcNXke1ADhD/9hCp2XIdcfYSWeB/AVGLLSH43Hf2i90DSeH0rg+nNmom44TODvGFEv/yDZ9PyUEOEU4dgYM7WvwPoDLvmN0V59SAI5IG3CzAiE2Ipa0eh6wseL2aQZSfI0KUCo9jPevW2tmAqPDgyMBXcBHM0ZskCAafoVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYcRdCbh; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D36C5391845
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789462720; cv=pass; b=W8+JRzjfVWiKb0NdilEIv8PSayItawmgCV3VLqTi1YF6hE7vfRZIUfpvk8IGU4pIyuCok720ZPStlaO+XdidqBAthSDwik5iBlbZr1XEOyvHMVYinR3LPNpItTRYYkuXXTbZXyNZBGAWSLGsyHFmyZwXQ7imOqIdW3MrvIDk3WQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789462720; c=relaxed/simple;
+	bh=vIashNltpPDTAZYAgYklngE1UEokGyob1GePJ63Rjj8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KwDU/mhVnG+5nwskO9TWkk8I8x13nYrnYLKQe5CxQiEXw+t0VkFpRDnRi3MawYWO+AkI56zZAJCVHT8yJ71r5y2Q3A8IG6/G18CCwLCa9LrVrL9NdCk5ySCuaLZvhexYXdA1tyah9UeOwJJYR4POUf2AFl5MBXrHGNS7AOcLGr0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WnomGYWo; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYcRdCbh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B2C1F000FF;
-	Tue, 15 Sep 2026 08:54:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789462503;
-	bh=2dtuvNwPDoWlsIVwbvGywgg9QXbT/VOma0wdyEg+j4U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JYcRdCbh263a53qXjMcYIncExp2Mb4QjtADo6EyN96UfR2X2/BzJvPaq75ZiNZwd/
-	 RNV4KYPqtDbQSZW7CrUQ4e+ELaJoYd+eofNGsmwe746RrGCOAJmnVb0ZJVpkKvLsp0
-	 0hNwM9b7/Db+nuAM1og+jCWjuw0pWfKQmW+f7WVMNQ3xengZu6jkEm1F553MJ6pZb1
-	 CQJdxnHrpIP81yp5jyVG0WOoKEoBEmN8iB+HjSCbW1veSjs88K6xBfBgHttO2BqdkF
-	 AyycU9/F1PoLdPAmH7IjG/nV24b/l8vVzpwt8AO+WkgJqyOQj4wG6/1RrwOF41wjsU
-	 9gUre4UEazWjg==
-Date: Tue, 15 Sep 2026 09:54:55 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Leon Romanovsky <leon@kernel.org>, Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: Re: [PATCH v3 1/3] kselftest: mm: rename read_pmd_pagesize() to
- pmd_psize()
-Message-ID: <aqkH1XB54woAMxlp@gremlin>
-References: <20260914-fix_hpage_macro-v3-0-c9a305a01d39@arm.com>
- <20260914-fix_hpage_macro-v3-1-c9a305a01d39@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WnomGYWo"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6af07e08so1572845e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:58:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789462717; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EQxuKjq66ny+Oa4Wt3+Xr2J549KkNAubmmLgojaiAqZTrmPxSNFRYeD6pmH7Ryg0lM
+         q27qz9U2xhO44mGVOknqvg4q/31OCJRQZDvd0B/hrZ0kIWWTzNh3dBkBI2eJQUiKfWvK
+         ABqMSZGiKOVIqLbuwDSbzsQ7dxyBjCGkP2C25bFze7KSKa65Bz1bRt+QVHN4xUqDsfjE
+         oCNYn/eRA0QyNA5FyxymJ5q7VsisSbrVS+2tHXyd+cuGT8NTYlsbfFL/II2qz0xIzKZV
+         R/BSBduI6x1r/PZz9ceVQAWiDwQMzNELznlgyzVRuOmul0oDKZkTLfAWeamM8XpaQcE0
+         86cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dCMKgIoutgRI2Ypp0WtQxBZAYSPA4UG0J9gt8Q/sqKs=;
+        fh=GN9wEX8Kgai4zqR88KusSnHVcRfHO3xwElpc2UQSztI=;
+        b=G23Hw45eFcWBZ4pQFVcK/z9V6K8S6Gu0LiLbVTD+4LELAn7Fch9NJwbfofZA5JRLQi
+         ItOpCV4AtRkAywE2CO1SsBJ1+kIm6GFs31tZ+0tRvMQKTzScXVn62pmxsc6hrfnfu/6Z
+         THxbLFkNhpagSFPGGfznA/iheCD31HjWVSvWWS04N6UZNgYEd+kRNGnG30MKJR+4dUg5
+         +s9b1WtVENMaPiBF/i7e1ILrTLw3S+Mba7PV+Rrwcb2etcbwufm79NQ9P7O654c3ivBi
+         7ifTuzPoiR7tI8Igh2K6MCygeQTry4SD3lYtWExD9zhW+mZL8NGjn3Hn+3XvR51QGo6v
+         tm+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789462717; x=1790067517; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dCMKgIoutgRI2Ypp0WtQxBZAYSPA4UG0J9gt8Q/sqKs=;
+        b=WnomGYWoOZMifXD3xqubJ8zt/gOdswH8dUVIo4wOZgMdtMLAznLgOuVEqj1fsCvh85
+         t4IjArPBmjigdWLk2v769V+1IFLurjU8UgaIexaeNhKA2KfOThbMslN6iplLbYWZM10B
+         cq+t1VW3Pp3qBYscvIeqKqdCO1NmrmsBxVgBCbn6YUDAeLdgoinqxd0oJSKqq177ejQ4
+         3+T6kySGHIKZrhoEdo1cXliXeUARlU0vYRhbvvNtAvMc2zj05NFxl8h/89ELVlys+LT0
+         gSd0vLXRYv1FhUg8EMYut9lRysWWuFzY6ZYXsuTrQIAbD90vFygD6QHVJroVNt55kO5/
+         IuWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789462717; x=1790067517;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dCMKgIoutgRI2Ypp0WtQxBZAYSPA4UG0J9gt8Q/sqKs=;
+        b=wafII/uwt1FmY0Iw7WM5r9u5pJXtr3XenR8LtD2rYHBR5EgEZnMexjNqvZcUVKFS0T
+         Xblzt/1QYpRNUSwk32rMmJttWgnb+fJxxcJmgWRX8p5WOsxJg1MPm4+uVSWJ+KaenGFi
+         jE5O+bgYJ2FETfyQg0sem3txEbbGBN3py3pEYQ1codxWFfsWLFBs38FYHP0ucJtMDM2Z
+         4Q2RWYcAZLA2Oo1yKLuBp5RHBgAjIXJkv0niKMpGEzuD5V68sAX/bM/+6TPsCQTZBwvq
+         +Nmb7cRHg7IaGSdYnAkNvuT68AYtExhq9AAUVfqpbTITM1xBlcuauP9ryKNlV3zq/QVh
+         Kjpw==
+X-Forwarded-Encrypted: i=1; AKwUvByFRhzlLL0ciZgbA6rVReLeANgHCMUusGItnLmdVvUHZTE67LKczpxyHqj0zM7VXI5+h/BsdI7LJqfNEi4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOSP4by58UXdaZbeZpzMITFd4/U918H13ymM+Cq/lOWOUUY00y
+	7UO3lVfZtS/hG5CPk4iMV2g7LkPwJGysgVa8L9yWDP7hGlnQZdOP2tckr+nIHJu+a7YJ2M/QF6o
+	xJMVNm5gk+HisYCJo1/OjgNJsPPRxg7A=
+X-Gm-Gg: AYBFou3CLDtU9ijDEgwGliceWfER9c7C4/o4TaRrX0Dl6PWA4e8yXLCZUR2u2C58Xjs
+	Cnjabge/LeH1XDlm8ydD+DLExV6/kE5cSuYlee9L8iddGeFx+dWNVY7HcaHUuGxbD9fKqPHTeSp
+	J+J26guYTrevyar7FHmCEQFdX7NjSmifY2GnKasoatLgLGCauX/vIDdb2SiuFi1NCTqhyuTkXzI
+	dO4r9Jrd/bgic2YGDXENkfzvUeJuPaSvJUL9SAPhYxj35wWgMR0U7wSPXH84FgfDULZ62zby19z
+	ZlDDHJGR0+kuFTf5Pt0aCXFMa8gy3fQnjVh8r/XNTUof0XrhlsknwwU+5L1W/TUMRGo=
+X-Received: by 2002:a05:600c:19cf:b0:49d:1da4:511b with SMTP id
+ 5b1f17b1804b1-49e7a6859e1mr68986715e9.1.1789462716687; Tue, 15 Sep 2026
+ 01:58:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914-fix_hpage_macro-v3-1-c9a305a01d39@arm.com>
+References: <20260911232405.1815804-1-chao@kernel.org> <20260911232405.1815804-5-chao@kernel.org>
+ <CAHJ8P3++-+J4EpkFrsHAX4=tSVvJS24R2BRvTpKe4_vT84fgpA@mail.gmail.com> <420b564b-c40b-4618-b072-7c169eca2f87@kernel.org>
+In-Reply-To: <420b564b-c40b-4618-b072-7c169eca2f87@kernel.org>
+From: Zhiguo Niu <niuzhiguo84@gmail.com>
+Date: Tue, 15 Sep 2026 16:57:58 +0800
+X-Gm-Features: AcwNN1UEJDY6yb6lIlMAU5mFHVktg2lkqBJX0QQOSLiCg5JBG377MjkgdZXdC0g
+Message-ID: <CAHJ8P3+qZv_U7HTmFBBytywiCUWYpPLQ2vKfw5Vy6UqsxJP9zA@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH v7 04/12] f2fs: cache: introduce writeback thread
+To: Chao Yu <chao@kernel.org>
+Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 08:30:46AM +0100, Yeoreum Yun wrote:
-> For consistency with psize(), rename read_pmd_pagesize() to
-> pmd_psize(). There is no functional change.
+Chao Yu <chao@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8815=E6=97=A5=E5=91=
+=A8=E4=BA=8C 10:18=E5=86=99=E9=81=93=EF=BC=9A
 >
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-
-LGTM so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  tools/testing/selftests/mm/cow.c                   |  2 +-
->  tools/testing/selftests/mm/folio_split_race_test.c |  2 +-
->  tools/testing/selftests/mm/hmm-tests.c             | 22 +++++++++++-----------
->  tools/testing/selftests/mm/khugepaged.c            |  2 +-
->  tools/testing/selftests/mm/migration.c             |  4 ++--
->  tools/testing/selftests/mm/mkdirty.c               |  2 +-
->  tools/testing/selftests/mm/pagemap_ioctl.c         |  2 +-
->  tools/testing/selftests/mm/prctl_thp_disable.c     |  4 ++--
->  tools/testing/selftests/mm/process_madv.c          |  2 +-
->  tools/testing/selftests/mm/soft-dirty.c            |  2 +-
->  tools/testing/selftests/mm/split_huge_page_test.c  |  2 +-
->  tools/testing/selftests/mm/uffd-common.c           |  6 +++---
->  tools/testing/selftests/mm/uffd-unit-tests.c       |  8 ++++----
->  tools/testing/selftests/mm/uffd-wp-mremap.c        |  2 +-
->  tools/testing/selftests/mm/vm_util.c               |  8 ++++----
->  tools/testing/selftests/mm/vm_util.h               |  2 +-
->  16 files changed, 36 insertions(+), 36 deletions(-)
+> Zhiguo,
 >
-> diff --git a/tools/testing/selftests/mm/cow.c b/tools/testing/selftests/mm/cow.c
-> index 8aa5249d9bef..e42edeccfd7a 100644
-> --- a/tools/testing/selftests/mm/cow.c
-> +++ b/tools/testing/selftests/mm/cow.c
-> @@ -1889,7 +1889,7 @@ int main(int argc, char **argv)
->  	thp_save_settings();
+> Thanks for the review, let fix them all.
 >
->  	pagesize = getpagesize();
-> -	pmdsize = read_pmd_pagesize();
-> +	pmdsize = pmd_psize();
->  	if (pmdsize) {
->  		/* Only if THP is supported. */
->  		thp_read_settings(&default_settings);
-> diff --git a/tools/testing/selftests/mm/folio_split_race_test.c b/tools/testing/selftests/mm/folio_split_race_test.c
-> index 1960635a953e..a956e5c74c65 100644
-> --- a/tools/testing/selftests/mm/folio_split_race_test.c
-> +++ b/tools/testing/selftests/mm/folio_split_race_test.c
-> @@ -235,7 +235,7 @@ int main(void)
->  	ksft_print_header();
+> Thanks,
 >
->  	page_size = getpagesize();
-> -	pmd_pagesize = read_pmd_pagesize();
-> +	pmd_pagesize = pmd_psize();
+> On 9/14/26 17:08, Zhiguo Niu wrote:
+> > Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
+> > =E4=BA=8E2026=E5=B9=B49=E6=9C=8812=E6=97=A5=E5=91=A8=E5=85=AD 07:28=E5=
+=86=99=E9=81=93=EF=BC=9A
+> >>
+> >> From: Chao Yu <chao@kernel.org>
+> >>
+> >> This patch introduces a background writeback kthread (f2fs_writeback-x=
+:y)
+> >> to periodically flush dirty metadata cache entries with a default
+> >> interval of 5 seconds.
+> >>
+> >> It manages thread lifecycle across mount, unmount, and remount (rw/ro)
+> >> transitions.
+> >>
+> >> It introduces a sysfs entry /sys/fs/f2fs/<disk>/cache_wb_interval to c=
+ontrol
+> >> writeback interval.
+> >>
+> >> Signed-off-by: Chao Yu <chao@kernel.org>
+> >> ---
+> >>   Documentation/ABI/testing/sysfs-fs-f2fs |  6 +++
+> >>   fs/f2fs/cache.c                         | 56 +++++++++++++++++++++++=
+++
+> >>   fs/f2fs/cache.h                         | 12 ++++++
+> >>   fs/f2fs/f2fs.h                          |  3 ++
+> >>   fs/f2fs/super.c                         | 33 ++++++++++++++-
+> >>   fs/f2fs/sysfs.c                         | 13 +++++-
+> >>   6 files changed, 120 insertions(+), 3 deletions(-)
+> >>
+> >> diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/A=
+BI/testing/sysfs-fs-f2fs
+> >> index 0cebc89799dd..d2665b7f1f14 100644
+> >> --- a/Documentation/ABI/testing/sysfs-fs-f2fs
+> >> +++ b/Documentation/ABI/testing/sysfs-fs-f2fs
+> >> @@ -1020,3 +1020,9 @@ Contact:  "Daeho Jeong" <daehojeong@google.com>
+> >>   Description:   This is a read-only entry to show the upper bound sec=
+tion number
+> >>                  for pinned files. Pinned files will only be allocated=
+ within
+> >>                  sections 0 to pinned_area_max_secno - 1.
+> >> +
+> >> +What:          /sys/fs/f2fs/<disk>/cache_wb_interval
+> >> +Date:          August 2026
+> >> +Contact:       "Chao Yu" <chao@kernel.org>
+> >> +Description:   This is a writable entry to control writeback interval=
+ of
+> >> +               f2fs_writeback-x:y, by default the value is 5000, unit=
+ is ms.
+> >> diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
+> >> index 563615761d11..404ceac9e6bf 100644
+> >> --- a/fs/f2fs/cache.c
+> >> +++ b/fs/f2fs/cache.c
+> >> @@ -626,3 +626,59 @@ unsigned long f2fs_shrink_cache(struct f2fs_sb_in=
+fo *sbi,
+> >>   {
+> >>          return f2fs_do_shrink_cache(META_CACHE(sbi), nr_to_scan);
+> >>   }
+> >> +
+> > Hi Chao
+> >> +static int f2fs_cache_writeback_kthread(void *data)
+> >> +{
+> >> +       struct f2fs_sb_info *sbi =3D data;
+> >> +       struct f2fs_cache_kthread *cache_thread =3D &sbi->cache_thread=
+;
+> >> +       wait_queue_head_t *wq =3D &cache_thread->cache_wb_wq;
+> >> +       unsigned int interval =3D cache_thread->cache_wb_interval;
+> >> +
+> >> +       set_freezable();
+> >> +
+> >> +       while (!kthread_should_stop()) {
+> >> +               wait_event_freezable_timeout(*wq,
+> >> +                               kthread_should_stop(),
+> >> +                               msecs_to_jiffies(interval));
+> > if wb thread is running and user set cache_wb_interval at the same
+> > time=EF=BC=8C the wb thread can not get the new wb interval value for n=
+ext
+> > round? because local varible is used here
+> >> +
+> >> +               if (kthread_should_stop())
+> >> +                       break;
+> >> +               if (f2fs_cp_error(sbi))
+> >> +                       continue;
+> >> +       }
+> >> +       return 0;
+> >> +}
+> >> +
+> >> +int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+> >> +{
+> >> +       struct f2fs_cache_kthread *cache_thread =3D &sbi->cache_thread=
+;
+> >> +       struct task_struct *task;
+> >> +       dev_t dev =3D sbi->sb->s_dev;
+> >> +       char name[36];
+> >> +
+> >> +       if (cache_thread->cache_wb_task)
+> >> +               return 0;
+> >> +
+> >> +       init_waitqueue_head(&cache_thread->cache_wb_wq);
+> >> +       cache_thread->cache_wb_interval =3D DEF_DIRTY_CACHE_TIMEOUT;
+> >> +       snprintf(name, sizeof(name), "f2fs_writeback-%u:%u",
+> >> +                       MAJOR(dev), MINOR(dev));
+> >> +
+> >> +       task =3D kthread_run(f2fs_cache_writeback_kthread, sbi, "%s", =
+name);
+> >> +       if (IS_ERR(task))
+> >> +               return PTR_ERR(task);
+> >> +
+> >> +       cache_thread->cache_wb_task =3D task;
+> >> +       return 0;
+> >> +}
+> >> +
+> >> +void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi)
+> >> +{
+> >> +       struct f2fs_cache_kthread *cache_thread =3D &sbi->cache_thread=
+;
+> >> +
+> >> +       if (!cache_thread->cache_wb_task)
+> >> +               return;
+> >> +
+> >> +       kthread_stop(cache_thread->cache_wb_task);
+> >> +       cache_thread->cache_wb_task =3D NULL;
+> >> +}
+> >> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
+> >> index 5728e2225465..ea0cf9adf194 100644
+> >> --- a/fs/f2fs/cache.h
+> >> +++ b/fs/f2fs/cache.h
+> >> @@ -209,4 +209,16 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_inf=
+o *sbi);
+> >>   unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
+> >>                                  unsigned long nr_to_scan);
+> >>
+> >> +#define DEF_DIRTY_CACHE_TIMEOUT 5000
+> >> +
+> >> +struct f2fs_cache_kthread {
+> >> +       struct task_struct *cache_wb_task;
+> >> +       wait_queue_head_t cache_wb_wq;
+> >> +       atomic_t cache_wb_trigger;
+> > not used?
+> > thanks!
+> >> +       unsigned int cache_wb_interval;
+> >> +};
+> >> +
+> >> +int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi);
+> >> +void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
+hi Chao,
+Another minor issue: seems these 2 function has been declared twice.
+thanks!
+> >> +
+> >>   #endif /* _LINUX_F2FS_CACHE_H */
+> >> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> >> index 85c4bf40b4aa..c0f82b63d732 100644
+> >> --- a/fs/f2fs/f2fs.h
+> >> +++ b/fs/f2fs/f2fs.h
+> >> @@ -2110,6 +2110,9 @@ struct f2fs_sb_info {
+> >>
+> >>          /* f2fs internal cache */
+> >>          struct f2fs_cached_block_list meta_blocks;
+> >> +
+> >> +       /* internal cache flush thread */
+> >> +       struct f2fs_cache_kthread cache_thread;
+> >>   };
+> >>
+> >>   /* Definitions to access f2fs_sb_info */
+> >> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+> >> index b731b9bb7b54..516b4ee12564 100644
+> >> --- a/fs/f2fs/super.c
+> >> +++ b/fs/f2fs/super.c
+> >> @@ -2039,6 +2039,7 @@ static void f2fs_put_super(struct super_block *s=
+b)
+> >>           * flush all issued checkpoints and stop checkpoint issue thr=
+ead.
+> >>           * after then, all checkpoints should be done by each process=
+ context.
+> >>           */
+> >> +       f2fs_stop_cache_wb_thread(sbi);
+> >>          f2fs_stop_ckpt_thread(sbi);
+> >>
+> >>          /*
+> >> @@ -2845,6 +2846,7 @@ static int __f2fs_remount(struct fs_context *fc,=
+ struct super_block *sb)
+> >>          unsigned int flags =3D fc->sb_flags;
+> >>          int err;
+> >>          bool need_restart_gc =3D false, need_stop_gc =3D false;
+> >> +       bool need_restart_wb =3D false, need_stop_wb =3D false;
+> >>          bool need_restart_flush =3D false, need_stop_flush =3D false;
+> >>          bool need_restart_discard =3D false, need_stop_discard =3D fa=
+lse;
+> >>          bool need_enable_checkpoint =3D false, need_disable_checkpoin=
+t =3D false;
+> >> @@ -3004,6 +3006,18 @@ static int __f2fs_remount(struct fs_context *fc=
+, struct super_block *sb)
+> >>                  need_stop_gc =3D true;
+> >>          }
+> >>
+> >> +       if (flags & SB_RDONLY) {
+> >> +               if (sbi->cache_thread.cache_wb_task) {
+> >> +                       f2fs_stop_cache_wb_thread(sbi);
+> >> +                       need_restart_wb =3D true;
+> >> +               }
+> >> +       } else if (!sbi->cache_thread.cache_wb_task) {
+> >> +               err =3D f2fs_start_cache_wb_thread(sbi);
+> >> +               if (err)
+> >> +                       goto restore_gc;
+> >> +               need_stop_wb =3D true;
+> >> +       }
+> >> +
+> >>          if (flags & SB_RDONLY) {
+> >>                  sync_inodes_sb(sb);
+> >>
+> >> @@ -3011,7 +3025,7 @@ static int __f2fs_remount(struct fs_context *fc,=
+ struct super_block *sb)
+> >>                  set_sbi_flag(sbi, SBI_IS_CLOSE);
+> >>                  err =3D f2fs_sync_fs(sb, 1);
+> >>                  if (err)
+> >> -                       goto restore_gc;
+> >> +                       goto restore_wb;
+> >>                  clear_sbi_flag(sbi, SBI_IS_CLOSE);
+> >>          }
+> >>
+> >> @@ -3026,7 +3040,7 @@ static int __f2fs_remount(struct fs_context *fc,=
+ struct super_block *sb)
+> >>          } else {
+> >>                  err =3D f2fs_create_flush_cmd_control(sbi);
+> >>                  if (err)
+> >> -                       goto restore_gc;
+> >> +                       goto restore_wb;
+> >>                  need_stop_flush =3D true;
+> >>          }
+> >>
+> >> @@ -3123,6 +3137,13 @@ static int __f2fs_remount(struct fs_context *fc=
+, struct super_block *sb)
+> >>                  clear_opt(sbi, FLUSH_MERGE);
+> >>                  f2fs_destroy_flush_cmd_control(sbi, false);
+> >>          }
+> >> +restore_wb:
+> >> +       if (need_restart_wb) {
+> >> +               if (f2fs_start_cache_wb_thread(sbi))
+> >> +                       f2fs_warn(sbi, "background cache writeback thr=
+ead has stopped");
+> >> +       } else if (need_stop_wb) {
+> >> +               f2fs_stop_cache_wb_thread(sbi);
+> >> +       }
+> >>   restore_gc:
+> >>          if (need_restart_gc) {
+> >>                  if (f2fs_start_gc_thread(sbi))
+> >> @@ -5529,6 +5550,12 @@ static int f2fs_fill_super(struct super_block *=
+sb, struct fs_context *fc)
+> >>                          goto sync_free_meta;
+> >>          }
+> >>
+> >> +       if (!f2fs_readonly(sb)) {
+> >> +               err =3D f2fs_start_cache_wb_thread(sbi);
+> >> +               if (err)
+> >> +                       goto stop_gc_thread;
+> >> +       }
+> >> +
+> >>          /* recover broken superblock */
+> >>          if (recovery) {
+> >>                  err =3D f2fs_commit_super(sbi, true);
+> >> @@ -5551,6 +5578,8 @@ static int f2fs_fill_super(struct super_block *s=
+b, struct fs_context *fc)
+> >>          sbi->umount_lock_holder =3D NULL;
+> >>          return 0;
+> >>
+> >> +stop_gc_thread:
+> >> +       f2fs_stop_gc_thread(sbi);
+> >>   sync_free_meta:
+> >>          /* safe to flush all the data */
+> >>          sync_filesystem(sbi->sb);
+> >> diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+> >> index aaca9ed9b169..ad25733e32c0 100644
+> >> --- a/fs/f2fs/sysfs.c
+> >> +++ b/fs/f2fs/sysfs.c
+> >> @@ -40,6 +40,7 @@ enum {
+> >>          RESERVED_BLOCKS,        /* struct f2fs_sb_info */
+> >>          CPRC_INFO,      /* struct ckpt_req_control */
+> >>          ATGC_INFO,      /* struct atgc_management */
+> >> +       WB_THREAD,      /* struct f2fs_cache_kthread */
+> >>   };
+> >>
+> >>   static const char *gc_mode_names[MAX_GC_MODE] =3D {
+> >> @@ -98,6 +99,8 @@ static unsigned char *__struct_ptr(struct f2fs_sb_in=
+fo *sbi, int struct_type)
+> >>                  return (unsigned char *)&sbi->cprc_info;
+> >>          else if (struct_type =3D=3D ATGC_INFO)
+> >>                  return (unsigned char *)&sbi->am;
+> >> +       else if (struct_type =3D=3D WB_THREAD)
+> >> +               return (unsigned char *)&sbi->cache_thread;
+> >>          return NULL;
+> >>   }
+> >>
+> >> @@ -1008,7 +1011,8 @@ static ssize_t f2fs_sbi_store(struct f2fs_attr *=
+a,
+> >>          bool gc_entry =3D (!strcmp(a->attr.name, "gc_urgent") ||
+> >>                                          a->struct_type =3D=3D GC_THRE=
+AD);
+> >>          bool thread_entry =3D !strcmp(a->attr.name, "ckpt_thread_iopr=
+io") ||
+> >> -                       !strcmp(a->attr.name, "critical_task_priority"=
+);
+> >> +                       !strcmp(a->attr.name, "critical_task_priority"=
+) ||
+> >> +                       !strcmp(a->attr.name, "cache_wb_interval");
+> >>
+> >>          if (gc_entry || thread_entry) {
+> >>                  if (!down_read_trylock(&sbi->sb->s_umount))
+> >> @@ -1218,6 +1222,9 @@ static struct f2fs_attr f2fs_attr_##name =3D __A=
+TTR(name, 0444, name##_show, NULL)
+> >>   #define ATGC_INFO_RW_ATTR(name, elname)                             =
+   \
+> >>          F2FS_RW_ATTR(ATGC_INFO, atgc_management, name, elname)
+> >>
+> >> +#define WB_THREAD_RW_ATTR(name, elname)                              =
+  \
+> >> +       F2FS_RW_ATTR(WB_THREAD, f2fs_cache_kthread, name, elname)
+> >> +
+> >>   /* GC_THREAD ATTR */
+> >>   GC_THREAD_RW_ATTR(gc_urgent_sleep_time, urgent_sleep_time);
+> >>   GC_THREAD_RW_ATTR(gc_min_sleep_time, min_sleep_time);
+> >> @@ -1347,6 +1354,9 @@ ATGC_INFO_RW_ATTR(atgc_candidate_count, max_cand=
+idate_count);
+> >>   ATGC_INFO_RW_ATTR(atgc_age_weight, age_weight);
+> >>   ATGC_INFO_RW_ATTR(atgc_age_threshold, age_threshold);
+> >>
+> >> +/* WB_THREAD ATTR */
+> >> +WB_THREAD_RW_ATTR(cache_wb_interval, cache_wb_interval);
+> >> +
+> >>   F2FS_GENERAL_RO_ATTR(dirty_segments);
+> >>   F2FS_GENERAL_RO_ATTR(free_segments);
+> >>   F2FS_GENERAL_RO_ATTR(ovp_segments);
+> >> @@ -1533,6 +1543,7 @@ static struct attribute *f2fs_attrs[] =3D {
+> >>          ATTR_LIST(lock_duration_priority),
+> >>          ATTR_LIST(adjust_lock_priority),
+> >>          ATTR_LIST(critical_task_priority),
+> >> +       ATTR_LIST(cache_wb_interval),
+> >>          NULL,
+> >>   };
+> >>   ATTRIBUTE_GROUPS(f2fs);
+> >> --
+> >> 2.49.0
+> >>
+> >>
+> >>
+> >> _______________________________________________
+> >> Linux-f2fs-devel mailing list
+> >> Linux-f2fs-devel@lists.sourceforge.net
+> >> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
 >
->  	if (!thp_available() || !pmd_pagesize)
->  		ksft_exit_skip("Transparent Hugepages not available\n");
-> diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
-> index e2642eca0d02..ad14372b75d9 100644
-> --- a/tools/testing/selftests/mm/hmm-tests.c
-> +++ b/tools/testing/selftests/mm/hmm-tests.c
-> @@ -569,7 +569,7 @@ TEST_F(hmm, anon_write_child)
->
->  	for (migrate = 0; migrate < 2; ++migrate) {
->  		for (use_thp = 0; use_thp < 2; ++use_thp) {
-> -			npages = ALIGN(use_thp ? read_pmd_pagesize() : HMM_BUFFER_SIZE,
-> +			npages = ALIGN(use_thp ? pmd_psize() : HMM_BUFFER_SIZE,
->  				       self->page_size) >> self->page_shift;
->  			ASSERT_NE(npages, 0);
->  			size = npages << self->page_shift;
-> @@ -730,7 +730,7 @@ TEST_F(hmm, anon_write_huge)
->  	int *ptr;
->  	int ret;
->
-> -	size = 2 * read_pmd_pagesize();
-> +	size = 2 * pmd_psize();
->
->  	buffer = hmm_buffer_alloc(size, size,
->  				  PROT_READ | PROT_WRITE,
-> @@ -1941,7 +1941,7 @@ TEST_F(hmm, migrate_anon_huge_empty)
->  	int *ptr;
->  	int ret;
->
-> -	size = read_pmd_pagesize();
-> +	size = pmd_psize();
->
->  	buffer = hmm_buffer_alloc(2 * size, size,
->  				  PROT_READ,
-> @@ -1984,7 +1984,7 @@ TEST_F(hmm, migrate_anon_huge_zero)
->  	int ret;
->  	int val;
->
-> -	size = read_pmd_pagesize();
-> +	size = pmd_psize();
->
->  	buffer = hmm_buffer_alloc(2 * size, size,
->  				  PROT_READ,
-> @@ -2038,7 +2038,7 @@ TEST_F(hmm, migrate_anon_huge_free)
->  	int *ptr;
->  	int ret;
->
-> -	size = read_pmd_pagesize();
-> +	size = pmd_psize();
->
->  	buffer = hmm_buffer_alloc(2 * size, size,
->  				  PROT_READ | PROT_WRITE,
-> @@ -2091,7 +2091,7 @@ TEST_F(hmm, migrate_anon_huge_fault)
->  	int *ptr;
->  	int ret;
->
-> -	size = read_pmd_pagesize();
-> +	size = pmd_psize();
->
->  	buffer = hmm_buffer_alloc(2 * size, size,
->  				  PROT_READ | PROT_WRITE,
-> @@ -2161,7 +2161,7 @@ TEST_F(hmm, migrate_partial_unmap_fault)
->  {
->  	struct hmm_buffer *buffer;
->  	unsigned long npages;
-> -	unsigned long size = read_pmd_pagesize();
-> +	unsigned long size = pmd_psize();
->  	unsigned long unmap_size;
->  	unsigned long offsets[3];
->  	unsigned long i;
-> @@ -2226,7 +2226,7 @@ TEST_F(hmm, migrate_remap_fault)
->  {
->  	struct hmm_buffer *buffer;
->  	unsigned long npages;
-> -	unsigned long size = read_pmd_pagesize();
-> +	unsigned long size = pmd_psize();
->  	unsigned long offsets[3];
->  	unsigned long i;
->  	void *old_ptr, *new_ptr = NULL;
-> @@ -2323,7 +2323,7 @@ TEST_F(hmm, migrate_anon_huge_err)
->  	int *ptr;
->  	int ret;
->
-> -	size = read_pmd_pagesize();
-> +	size = pmd_psize();
->
->  	buffer = hmm_buffer_alloc(2 * size, 2 * size,
->  				  PROT_READ | PROT_WRITE,
-> @@ -2413,7 +2413,7 @@ TEST_F(hmm, migrate_anon_huge_zero_err)
->  	int *ptr;
->  	int ret;
->
-> -	size = read_pmd_pagesize();
-> +	size = pmd_psize();
->
->  	buffer = hmm_buffer_alloc(2 * size, 2 * size,
->  				  PROT_READ,
-> @@ -2609,7 +2609,7 @@ static inline int run_migration_benchmark(int fd, int use_thp, size_t buffer_siz
->  TEST_F_TIMEOUT(hmm, benchmark_thp_migration, 120)
->  {
->  	struct benchmark_results thp_results, regular_results;
-> -	size_t thp_size = read_pmd_pagesize();
-> +	size_t thp_size = pmd_psize();
->  	int iterations = 5;
->
->  	if (!thp_size)
-> diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-> index f82673f5f6b4..76c1fbcc5260 100644
-> --- a/tools/testing/selftests/mm/khugepaged.c
-> +++ b/tools/testing/selftests/mm/khugepaged.c
-> @@ -1330,7 +1330,7 @@ int main(int argc, char **argv)
->  		ksft_exit_skip("Transparent Hugepages not available\n");
->
->  	page_size = getpagesize();
-> -	hpage_pmd_size = read_pmd_pagesize();
-> +	hpage_pmd_size = pmd_psize();
->  	if (!hpage_pmd_size)
->  		ksft_exit_fail_msg("Reading PMD pagesize failed\n");
->  	hpage_pmd_nr = hpage_pmd_size / page_size;
-> diff --git a/tools/testing/selftests/mm/migration.c b/tools/testing/selftests/mm/migration.c
-> index f19d53c69576..4280d2c87b22 100644
-> --- a/tools/testing/selftests/mm/migration.c
-> +++ b/tools/testing/selftests/mm/migration.c
-> @@ -229,7 +229,7 @@ TEST_F_TIMEOUT(migration, private_anon_thp, 2*RUNTIME)
->  	if (!thp_is_enabled())
->  		SKIP(return, "Transparent Hugepages not available");
->
-> -	pmdsize = read_pmd_pagesize();
-> +	pmdsize = pmd_psize();
->  	if (!pmdsize)
->  		SKIP(return, "Reading PMD pagesize failed");
->
-> @@ -263,7 +263,7 @@ TEST_F_TIMEOUT(migration, shared_anon_thp, 2*RUNTIME)
->  	if (!thp_is_enabled())
->  		SKIP(return, "Transparent Hugepages not available");
->
-> -	pmdsize = read_pmd_pagesize();
-> +	pmdsize = pmd_psize();
->  	if (!pmdsize)
->  		SKIP(return, "Reading PMD pagesize failed");
->
-> diff --git a/tools/testing/selftests/mm/mkdirty.c b/tools/testing/selftests/mm/mkdirty.c
-> index 68dd447a5454..49ef643a6e63 100644
-> --- a/tools/testing/selftests/mm/mkdirty.c
-> +++ b/tools/testing/selftests/mm/mkdirty.c
-> @@ -330,7 +330,7 @@ int main(void)
->  	int err, tests = 2;
->
->  	pagesize = getpagesize();
-> -	thpsize = read_pmd_pagesize();
-> +	thpsize = pmd_psize();
->  	if (thpsize) {
->  		ksft_print_msg("[INFO] detected THP size: %zu KiB\n",
->  			       thpsize / 1024);
-> diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
-> index d9a4fb782ecf..d0e34dd5850b 100644
-> --- a/tools/testing/selftests/mm/pagemap_ioctl.c
-> +++ b/tools/testing/selftests/mm/pagemap_ioctl.c
-> @@ -1654,7 +1654,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
->  	ksft_print_header();
->
->  	page_size = getpagesize();
-> -	hpage_size = read_pmd_pagesize();
-> +	hpage_size = pmd_psize();
->
->  	if (init_uffd())
->  		ksft_exit_skip("Failed to initialize userfaultfd\n");
-> diff --git a/tools/testing/selftests/mm/prctl_thp_disable.c b/tools/testing/selftests/mm/prctl_thp_disable.c
-> index 82c6e96ea6eb..d0290c4567bd 100644
-> --- a/tools/testing/selftests/mm/prctl_thp_disable.c
-> +++ b/tools/testing/selftests/mm/prctl_thp_disable.c
-> @@ -133,7 +133,7 @@ FIXTURE_SETUP(prctl_thp_disable_completely)
->  	if (!thp_available())
->  		SKIP(return, "Transparent Hugepages not available\n");
->
-> -	self->pmdsize = read_pmd_pagesize();
-> +	self->pmdsize = pmd_psize();
->  	if (!self->pmdsize)
->  		SKIP(return, "Unable to read PMD size\n");
->
-> @@ -241,7 +241,7 @@ FIXTURE_SETUP(prctl_thp_disable_except_madvise)
->  	if (!thp_available())
->  		SKIP(return, "Transparent Hugepages not available\n");
->
-> -	self->pmdsize = read_pmd_pagesize();
-> +	self->pmdsize = pmd_psize();
->  	if (!self->pmdsize)
->  		SKIP(return, "Unable to read PMD size\n");
->
-> diff --git a/tools/testing/selftests/mm/process_madv.c b/tools/testing/selftests/mm/process_madv.c
-> index 3fffd5f7e6fb..7e32bad8ab2a 100644
-> --- a/tools/testing/selftests/mm/process_madv.c
-> +++ b/tools/testing/selftests/mm/process_madv.c
-> @@ -141,7 +141,7 @@ TEST_F(process_madvise, remote_collapse)
->  		void *map_addr;
->  	} info;
->
-> -	huge_page_size = read_pmd_pagesize();
-> +	huge_page_size = pmd_psize();
->  	if (huge_page_size <= 0)
->  		SKIP(return, "Could not determine a valid huge page size.\n");
->
-> diff --git a/tools/testing/selftests/mm/soft-dirty.c b/tools/testing/selftests/mm/soft-dirty.c
-> index 5f278913c4d7..670fcad083b5 100644
-> --- a/tools/testing/selftests/mm/soft-dirty.c
-> +++ b/tools/testing/selftests/mm/soft-dirty.c
-> @@ -88,7 +88,7 @@ static void test_hugepage(int pagemap_fd, int pagesize)
->  		return;
->  	}
->
-> -	size_t hpage_len = read_pmd_pagesize();
-> +	size_t hpage_len = pmd_psize();
->  	if (!hpage_len)
->  		ksft_exit_fail_msg("Reading PMD pagesize failed");
->
-> diff --git a/tools/testing/selftests/mm/split_huge_page_test.c b/tools/testing/selftests/mm/split_huge_page_test.c
-> index c01d227d7fd6..295a6769d670 100644
-> --- a/tools/testing/selftests/mm/split_huge_page_test.c
-> +++ b/tools/testing/selftests/mm/split_huge_page_test.c
-> @@ -658,7 +658,7 @@ int main(int argc, char **argv)
->
->  	pagesize = getpagesize();
->  	pageshift = ffs(pagesize) - 1;
-> -	pmd_pagesize = read_pmd_pagesize();
-> +	pmd_pagesize = pmd_psize();
->  	if (!pmd_pagesize)
->  		ksft_exit_fail_msg("Reading PMD pagesize failed\n");
->
-> diff --git a/tools/testing/selftests/mm/uffd-common.c b/tools/testing/selftests/mm/uffd-common.c
-> index 1fb967ef4985..0b8bbb55c335 100644
-> --- a/tools/testing/selftests/mm/uffd-common.c
-> +++ b/tools/testing/selftests/mm/uffd-common.c
-> @@ -137,7 +137,7 @@ static void shmem_release_pages(uffd_global_test_opts_t *gopts, char *rel_area)
->  static int shmem_allocate_area(uffd_global_test_opts_t *gopts, void **alloc_area, bool is_src)
->  {
->  	void *area_alias = NULL;
-> -	size_t bytes = gopts->nr_pages * gopts->page_size, hpage_size = read_pmd_pagesize();
-> +	size_t bytes = gopts->nr_pages * gopts->page_size, hpage_size = pmd_psize();
->  	unsigned long offset = is_src ? 0 : bytes;
->  	char *p = NULL, *p_alias = NULL;
->  	int mem_fd = uffd_mem_fd_create(bytes * 2, false);
-> @@ -194,10 +194,10 @@ static void shmem_alias_mapping(uffd_global_test_opts_t *gopts, __u64 *start,
->
->  static void shmem_check_pmd_mapping(uffd_global_test_opts_t *gopts, void *p, int expect_nr_hpages)
->  {
-> -	size_t len = expect_nr_hpages * read_pmd_pagesize();
-> +	size_t len = expect_nr_hpages * pmd_psize();
->
->  	if (!check_huge_shmem(gopts->area_dst_alias, len, expect_nr_hpages,
-> -			      read_pmd_pagesize()))
-> +			      pmd_psize()))
->  		err("Did not find expected %d number of hugepages",
->  		    expect_nr_hpages);
->  }
-> diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/selftests/mm/uffd-unit-tests.c
-> index 6f2360f9b75d..dcb1755c35fb 100644
-> --- a/tools/testing/selftests/mm/uffd-unit-tests.c
-> +++ b/tools/testing/selftests/mm/uffd-unit-tests.c
-> @@ -646,7 +646,7 @@ static void uffd_minor_test_common(uffd_global_test_opts_t *gopts, bool test_col
->  		uffd_test_ops->check_pmd_mapping(gopts,
->  						 gopts->area_dst,
->  						 gopts->nr_pages * gopts->page_size /
-> -						 read_pmd_pagesize());
-> +						 pmd_psize());
->  		/*
->  		 * This won't cause uffd-fault - it purely just makes sure there
->  		 * was no corruption.
-> @@ -1975,7 +1975,7 @@ static void uffd_move_handle_fault(uffd_global_test_opts_t *gopts, struct uffd_m
->  static void uffd_move_pmd_handle_fault(uffd_global_test_opts_t *gopts, struct uffd_msg *msg,
->  				       struct uffd_args *args)
->  {
-> -	uffd_move_handle_fault_common(gopts, msg, args, read_pmd_pagesize());
-> +	uffd_move_handle_fault_common(gopts, msg, args, pmd_psize());
->  }
->
->  static void
-> @@ -2086,7 +2086,7 @@ static void uffd_move_pmd_test(uffd_global_test_opts_t *gopts, uffd_test_args_t
->  {
->  	if (madvise(gopts->area_dst, gopts->nr_pages * gopts->page_size, MADV_HUGEPAGE))
->  		err("madvise(MADV_HUGEPAGE) failure");
-> -	uffd_move_test_common(gopts, targs, read_pmd_pagesize(),
-> +	uffd_move_test_common(gopts, targs, pmd_psize(),
->  			      uffd_move_pmd_handle_fault);
->  }
->
-> @@ -2094,7 +2094,7 @@ static void uffd_move_pmd_split_test(uffd_global_test_opts_t *gopts, uffd_test_a
->  {
->  	if (madvise(gopts->area_dst, gopts->nr_pages * gopts->page_size, MADV_NOHUGEPAGE))
->  		err("madvise(MADV_NOHUGEPAGE) failure");
-> -	uffd_move_test_common(gopts, targs, read_pmd_pagesize(),
-> +	uffd_move_test_common(gopts, targs, pmd_psize(),
->  			      uffd_move_pmd_handle_fault);
->  }
->
-> diff --git a/tools/testing/selftests/mm/uffd-wp-mremap.c b/tools/testing/selftests/mm/uffd-wp-mremap.c
-> index 572c2516e874..f46edd3ee6d8 100644
-> --- a/tools/testing/selftests/mm/uffd-wp-mremap.c
-> +++ b/tools/testing/selftests/mm/uffd-wp-mremap.c
-> @@ -38,7 +38,7 @@ static int detect_thp_sizes(size_t sizes[], int max)
->  	int i;
->
->  	/* thp not supported at all. */
-> -	if (!read_pmd_pagesize())
-> +	if (!pmd_psize())
->  		return 0;
->
->  	orders = thp_supported_orders();
-> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> index 4821a3563036..e712a980851c 100644
-> --- a/tools/testing/selftests/mm/vm_util.c
-> +++ b/tools/testing/selftests/mm/vm_util.c
-> @@ -155,7 +155,7 @@ bool check_for_pattern(FILE *fp, const char *pattern, char *buf, size_t len)
->  	return false;
->  }
->
-> -uint64_t read_pmd_pagesize(void)
-> +uint64_t pmd_psize(void)
->  {
->  	int fd;
->  	char buf[20];
-> @@ -412,7 +412,7 @@ static bool check_large_folios(void *addr, size_t len, int nr_hpages,
->
->  bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
->  {
-> -	uint64_t pmd_pagesize = read_pmd_pagesize();
-> +	uint64_t pmd_pagesize = pmd_psize();
->
->  	if (!pmd_pagesize)
->  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
-> @@ -425,7 +425,7 @@ bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
->
->  bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
->  {
-> -	uint64_t pmd_pagesize = read_pmd_pagesize();
-> +	uint64_t pmd_pagesize = pmd_psize();
->
->  	if (!pmd_pagesize)
->  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
-> @@ -438,7 +438,7 @@ bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
->
->  bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
->  {
-> -	uint64_t pmd_pagesize = read_pmd_pagesize();
-> +	uint64_t pmd_pagesize = pmd_psize();
->
->  	if (!pmd_pagesize)
->  		ksft_exit_fail_msg("reading PMD pagesize failed\n");
-> diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-> index 9a49af88702e..a40e40c820ef 100644
-> --- a/tools/testing/selftests/mm/vm_util.h
-> +++ b/tools/testing/selftests/mm/vm_util.h
-> @@ -88,7 +88,7 @@ bool pagemap_is_populated(int fd, char *start);
->  unsigned long pagemap_get_pfn(int fd, char *start);
->  void clear_softdirty(void);
->  bool check_for_pattern(FILE *fp, const char *pattern, char *buf, size_t len);
-> -uint64_t read_pmd_pagesize(void);
-> +uint64_t pmd_psize(void);
->  unsigned long rss_anon(void);
->  bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
->  bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
->
-> --
-> 2.43.0
->
-
---
-Cheers, Lorenzo
