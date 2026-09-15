@@ -1,164 +1,132 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D20C429CEE
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802FC429000
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789511560; cv=none; b=GVa7//E4k92czgLAZ+rQNuB8IuGtp0wGAUDUy29h1x7rV6vHsfI1m1LPpoUXWHFA52i7Hfy3GE/YsdwoB2I/og+A7D2OCCPrtMPPySBBO2B6XEfa4JBdBlIH5AmARN85wCuIVBhK4K8ta0Ru25i16BvxdFm+hcoXYnolZQatxj8=
+	t=1789511675; cv=none; b=sLG02ws7AALg+uWu69CJXe6xjvayma9LAwfUn+wrFfIqT5I0WQ3M7On+UspmhyXWDahh6VFZ36YQ5I1LDD7/S+a3YbDMf7LOsVYXk2f1lsqbiqfWaMo2FrQ+xPDlNlsBHDCDs8Wd/9VWYqrfVuXPJHeUvMbg6vQ3segEnu8BCQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789511560; c=relaxed/simple;
-	bh=GzTLop++KI4rIrrgZnzAuT0dfgzVAoCkRLISOpHLns4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LxhvYSfnIgKMxW37lmvKE9wmQOsmbYbHsBUcJ0VFZwPKPmwP0jQWYdkj7WX6RR0FmOOW3Pkoixvy28piirhkiG7brhpXnHwPuR0U4W+m1Zw2j1GtEEvqPG5O9JtfjhdL6em6q2P5pGVPEgsDKc8oc6jL0Lm6Kqp5itCaBxSN8XU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iFYifaDW; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iFYifaDW"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115c1so3314165ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:32:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789511558; x=1790116358; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oAaufJPLhvNq8yuCsSv2xM1qq27Ru9xLaw02eoo87UA=;
-        b=iFYifaDW9E9swlgMsLswBzibolQ2SmndVeltmZO+lqYTeM9vWXIWTE7bHvlPA+uDZX
-         FY+WaB5CA0txY+Ip2qH7951N3mPVw0aiuXOPc/6EmCVaY2vk3Ohcf8He8po9L2KHLcvw
-         sqUaQP8qdLcmyXeQ8OizDh3cEMT32nxE5b2Ro76Ep0qAQX6jNmZSJi7g5D6AD13BWnaI
-         3gKqPubrswh01gZHxFhZrn+5P3yYimVprqd+lEYXqYhBZh/fHsRO9+tsy19d1vyXC0qp
-         iH8MpnAEEkGABxaLrOTbzbLjL35Kwz3033koXIfCkhAEgnS169Ne8GoqGQkJ6aIpxO63
-         DORA==
+	s=arc-20240116; t=1789511675; c=relaxed/simple;
+	bh=SKDIl6gUKjcd7PZ7p59sq7JLrAihNvMJGUpWGd0ydmA=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=R415Y/Tbd4iWT+OyJ6wmqFR7Z1xOpZpsxpxETNwWQBPJhyYdJ/MSV3veIxq2mmYpifTyyWz00fv/OBEyPvF+6Is55kKNR4bLZLi98F59Zv6cGGea4ecjTMQNocgtoVgq3yAtsJ14ei2lHE1CGifufWUDRyeB+fiulAeyF/8caeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f0.google.com with SMTP id 006d021491bc7-6a3900cb2b5so2141939eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:34:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789511558; x=1790116358;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1789511672; x=1790116472;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oAaufJPLhvNq8yuCsSv2xM1qq27Ru9xLaw02eoo87UA=;
-        b=o246i/5svZdPyCVCulRWYp0ZEbwI/8Xxc1M5vuNLjpY7LGBcsVlo6Dkz1yRzTzahu3
-         ARV7Zayr3L++Sy0GH4C8vkhYjT+tzkGZZebCX5o7UcgtwKOPOGAgFx9lQnh+L+ZBaOmS
-         djnFH/G++hE6DBw0ilCrippzmz4lA27wXfIS0jMGr1FrzdVPhU7yHVz8aJ+ajn71Wdrw
-         U4QGFyWom5tWjo2hxMhF2MTxwLyoklheJwWH+OQRtoKEEWQbVlrzIohM8PKIJpdVbhPG
-         JJkXEa19nJ9Av5Hlg665L3cvKhl01n4i5MZr/FyMXwHTgJvt79i+Q/d9Ik+r5zjSTo0r
-         IGHw==
-X-Forwarded-Encrypted: i=1; AKwUvBy9o3885i5+hs7R+4KHB4LdS0OG64V2wYSJIILocrjElMkNgmJbMUQ/6wHw/7hb8KbT714zr/9yjw7d8Hc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mySoclZI8f0ZuFmuH5RMgT++cJjTl97DGmBO95KHg4BmJ0pvPU
-	KIDEQYcLY3e7bngADU8MsmJAgQ674YFBYpIvptCdQM4hjP0ZF7H3pEo=
-X-Gm-Gg: AYBFou3tMKjeXXpQ1IQeFXr2+3ufP6I/D+fraz7IwMmpwBHiawTBrM3/PPS3FTjBZaj
-	dyiD3V/nKXlq5B0Xg30uDBP1Zo2mOcD5cIlLjTg9x1RF9zss5n3o1bHwNhuFLh/bzFK7KaIeR/n
-	4sPIz4LiuiSUUdhlQjcRmVvr+reH1I9HAr1bqm+GOwNlJClxgWCM7Yo757378aiVa0i2GjL5F6r
-	7NNvi13Wa1pr8OCDSzPYTcL7lMpJq0qcgUqicna9Lu8zqrcROrgcbOWV5ys5mgahTI2itrMlBsx
-	avPFk5w1Vp6yIb/OisskQpoykEUZIj7LA9+EfV4VsCKZE+qjUHLlh2Vt+X6b4L6tXMX7CifVVj9
-	7VrtyxKrnZGVKCQKneE/k++WDV3qqeuIVB/jTGNmEakLiy76MFqBn6odEuO70vr9dlYWDO3O3dR
-	FNYyxSwUDpz2vopN1QSE1gO3edoa7howX/SV5W8HTwx/GHNzmPUpKiVwA5BHjceTu8hi4+22LGD
-	YDA9P3BKaJnXUiI8b6FD1dPVA==
-X-Received: by 2002:a17:902:d552:b0:2d6:df31:5bd0 with SMTP id d9443c01a7336-2dd8e40117dmr5012515ad.10.1789511558421;
-        Tue, 15 Sep 2026 15:32:38 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:556:537c:f7cd:8a1b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89e9345dsm1900175ad.24.2026.09.15.15.32.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 15:32:37 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Rosen Penev <rosenp@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: Re: [PATCH net v2] net: phy: qca808x: handle the active-high LED polarity mode
-Date: Wed, 16 Sep 2026 07:32:30 +0900
-Message-ID: <20260915223230.321441-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CA+_ehUwT_RYztjGJ0P_czx++wxNShT3Zv3JhjQ_eBbaoGQoNRA@mail.gmail.com>
-References: <20260914214720.2467586-1-donggeunyoo.kernel@gmail.com> <CA+_ehUwT_RYztjGJ0P_czx++wxNShT3Zv3JhjQ_eBbaoGQoNRA@mail.gmail.com>
+        bh=TBWFnaWw5jXr3ddwzQPC0GqRWckCJTkWzckXqZAhHFI=;
+        b=nX8jZmGK22kVm+HHq5qJkNSmKpPIAWDZPVUmkRuyqbRvxQm3QPEQOEjM4ghK0a+ZQ9
+         n8hpMsLjmXUe9KRi57gIY7gJBQq870CUEtCU0XKkNLq1oWBjd3EnNbTNWcUUBUtGwwYl
+         TX5YFFSuP/k9AWSS8fzDarenpDFzuyWPYNcNOCEq6PwyLXv4SwOXi7dxQhLfUYsXDgVd
+         pmCJiJ6gWlv8lKEq4x0yWKJrb3nTxtLdbRxsKo/lp/0Nsra1DPga7OC1crpA7D1kH57T
+         Dm0nzfGkEV+6p1hqeCJDUSGpU2JHa8RwHNxQ58N38yq/bQnlowmbpLzouc9/5lI8C606
+         ZY9g==
+X-Forwarded-Encrypted: i=1; AKwUvBxoFXNiHKo13XA69eNVp6+NG7qkGQb6oSB7h2siXIpCUdatez72ATjzzddYju7txGgIHFELOMaR/6oMq80=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnGnzGIILJgWkV2T70KVWlDnObCZjFdEQyjakqE5xYMzrtUvap
+	r7oTkji8OgB0UFkaFpre1LMeRiee/6D3l0nLQOlBQdqNgkBQmLXkWHF9y8HsvLhNLifTXAIIigK
+	YgjG5CByMlltVBAlmWHOAm4tQu/1iRYZX+2Ndp6H6ZrJ6pROTTfVCtpEQKnQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:f003:b0:6b7:8415:d790 with SMTP id
+ 006d021491bc7-6c7d3802648mr545705eaf.59.1789511672466; Tue, 15 Sep 2026
+ 15:34:32 -0700 (PDT)
+Date: Tue, 15 Sep 2026 15:34:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa9c7f8.a211d2ce.1a5198.02b5.GAE@google.com>
+Subject: [syzbot] [netfilter?] WARNING in nf_flow_table_extend_ct_timeout
+From: syzbot <syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com>
+To: coreteam@netfilter.org, davem@davemloft.net, edumazet@google.com, 
+	fw@strlen.de, horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, pabeni@redhat.com, 
+	pablo@netfilter.org, phil@nwl.cc, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 15, 2026 at 12:25:54PM +0200, Christian Marangi (Ansuel) wrote:
-> The commit description looks a bit "dense" and took me well 2-3 minutes to
-> parse the english and understand the change. Was also the commit description
-> assisted by LLM?
+Hello,
 
-Yes, drafted with AI help - that is what the Assisted-by: trailer records -
-and reviewed carefully before sending. Which part cost you the most to get
-through? I would rather fix that than guess at it.
+syzbot found the following issue on:
 
-> > -       /* Default to LED Active High if active-low not in DT */
-> > +       /* Set LED Active High unless active-low was requested in DT */
->
-> Why the comment was changed if it does say exactly the same thing?
+HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14ac428e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=521f7e7e2b974abde99a
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: i386
 
-Because after this patch it no longer does. Until now that branch ran only
-when DT said nothing about polarity, so "Default to" was exact. It now also
-runs when DT asks for active-high explicitly, and there the driver is
-following an instruction rather than applying a default.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-> This change is O.K but I would ask you to better clarify this. -1, 0 and 1
-> is very confusing here.
->
-> I would introduce a simple define like
-> #define QCA808X_PHY_LED_UNSET -1
->
-> And set this in probe and change the condition here to directly check
-> for the macro PHY_LED_ACTIVE_LOW.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/daf497619736/disk-50d05c7c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/748fbd82f647/vmlinux-50d05c7c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/e61c59099d07/bzImage-50d05c7c.xz
 
-Done in v3. The >= 0 test in qca808x_led_polarity_set() took the define
-too.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com
 
-> The only problem is that I feel it would be better to split this patch in 2
-> different commits.
->
-> This really addresses 2 different problems and splitting also makes the commit
-> description easier to understand.
->
-> One doesn't account the case where phy is reset, the other doesn't account
-> the mode in led_polarity set.
+------------[ cut here ]------------
+1
+WARNING: net/netfilter/nf_flow_table_core.c:546 at nf_flow_table_extend_ct_timeout+0x1ee/0x2f0 net/netfilter/nf_flow_table_core.c:546, CPU#0: kworker/0:2/3335
+Modules linked in:
+CPU: 0 UID: 0 PID: 3335 Comm: kworker/0:2 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/08/2026
+Workqueue: events_power_efficient nf_flow_offload_work_gc
+RIP: 0010:nf_flow_table_extend_ct_timeout+0x1ee/0x2f0 net/netfilter/nf_flow_table_core.c:546
+Code: 00 00 00 41 83 ff 06 0f 84 9a 00 00 00 41 83 ff 05 0f 85 b0 00 00 00 e8 70 d1 ab f7 41 bf 30 75 00 00 eb 0f e8 63 d1 ab f7 90 <0f> 0b 90 41 bf 01 00 00 00 48 c7 c0 80 f2 a0 8e 48 c1 e8 03 42 80
+RSP: 0000:ffffc900040ff938 EFLAGS: 00010293
+RAX: ffffffff8a1bf92d RBX: ffff88807da5be00 RCX: ffff88803247ddc0
+RDX: 0000000000000000 RSI: ffffffff902f6960 RDI: 000000000000002f
+RBP: 0000000000039e60 R08: ffff88803247ddc0 R09: 0000000000000002
+R10: 0000000000000011 R11: 0000000000000000 R12: dffffc0000000000
+R13: 1ffff1100fb4b7d8 R14: ffff88807da5be48 R15: 000000000000002f
+FS:  0000000000000000(0000) GS:ffff888124cd2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000f7238c10 CR3: 000000007a894000 CR4: 00000000003526f0
+DR0: ffffffffffffffff DR1: 00000000000001f7 DR2: 00000000ffffffff
+DR3: ffffffffefffff15 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ nf_flow_offload_gc_step+0x545/0x7b0 net/netfilter/nf_flow_table_core.c:581
+ nf_flow_table_iterate+0x13c/0x1f0 net/netfilter/nf_flow_table_core.c:452
+ nf_flow_table_gc_run net/netfilter/nf_flow_table_core.c:604 [inline]
+ nf_flow_offload_work_gc+0x22/0x70 net/netfilter/nf_flow_table_core.c:612
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-Agreed, and v3 is split that way:
 
-  1/2 qca808x_led_polarity_set(): accept PHY_LED_ACTIVE_HIGH, so the PHY
-      binds at all.
-  2/2 qca808x_config_init(): re-assert the bit for an explicit
-      active-high, carrying QCA808X_PHY_LED_UNSET and the comment.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Both Fixes: a274465cc3be and Cc: stable, so they backport together. After
-1/2 alone an 'active-high' node binds and the LED comes up active-low,
-which is still ahead of today, where led_polarity_set() returns -EINVAL,
-phy_probe() fails and the PHY falls back to genphy.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-It is no longer compile-tested only. I put a synthetic MDIO bus behind
-phylib that answers as a QCA8081 and emulates MMD7 0x901a, with the reset
-clearing BIT(6) as your f203c8c77c76 describes, and ran the same harness
-over all three arms:
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-  DT node            base      1/2 only   1/2 + 2/2
-  active-high        -EINVAL   inverted   correct
-  active-low         correct   correct    correct
-  no polarity node   correct   correct    correct
-  high-impedance     -EINVAL   -EINVAL    -EINVAL
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-The middle column is the reason the second patch exists. A confirmation on
-a real QCA8081 would still be worth more than an emulated register, if you
-have one to hand.
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-v3: https://lore.kernel.org/netdev/20260915223138.321307-1-donggeunyoo.kernel@gmail.com/
-
-Thanks for the review.
+If you want to undo deduplication, reply with:
+#syz undup
