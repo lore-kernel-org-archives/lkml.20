@@ -1,112 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F2B356771;
-	Tue, 15 Sep 2026 14:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481999; cv=none; b=aekfohT6A5uvtTortzVAbPLG9V46+YtdzlphbFJie/ruuKl1QH0p8bOsrCcv+R1FIZXUfjXJUBs5aazus5Zf4vWbHxl9RgdtF/HAsCVacJndjM59rAIyAOBZh1SAKQxZ0X5Ixq9ukBQRrNxdT/d/8Nxb46fSE7eLSsE6yHTs5KU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481999; c=relaxed/simple;
-	bh=+6tvygM2RIk9WU1p/bgGC8tb1HBXX8t7UzpSPaVrj9E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cUVNw84CG/8hzZNI72YzqreTPt35/EDiQ8ut9mo1QBRvIDru+k19oJ7EQpYcRNdZxfU099YDk84Q/n2ZFYM7pGFDxnfTA15w/fJOafqlR+YPgWfCSrxxjcQIOOHhRE9XnQz/C1TB2KW6OBdTt6IaaAVDN/X7kEc8c9NmZBksrCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XH97yrql; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDD93750BC
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:20:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789482003; cv=pass; b=qo1Ak0697H0x3aLIPgDHMyKhss8GNQzPvYv2eUIp9AdZapzwt5U2zCVPuezzQ1zf0vYxi2/mPcxAySANKfXSVc5UxL0qIzLbKu5b5lDHuAPONbr9FuEyw9vQzV2EpKDg1EbR0F2VXyPV2ipD+F6qY3ibD/JQdvNWOUHjouhNdJ8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789482003; c=relaxed/simple;
+	bh=jzjn0k4srI5F1aSZR0pfM3WdUHfq7jYHQR3HlQNiVc8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Tz3TdY02US7jm7lAxzj5UT13rau9PJgGo2utTjnYv+lsxn4THkncvaddQDMO1veFBhBPbGCz/4UfrYZspNSpOxvwnksSf315xDOuSIcjbFSW3rlQFEZI1Rd+mU05lWK9Fsd4fUGJPhazrGc6PEMrdRto0foMmgitmFO/t9UmAoA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=U40biuFF; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XH97yrql"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7CC01F000FF;
-	Tue, 15 Sep 2026 14:19:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789481998;
-	bh=QcgTXTTUvI8ONqxc9jbvCeetYEK34ysR8JYdT7Si4YA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XH97yrqlqW9680GKgc4K9WvLNVabunnNtw6rQYsqPH91xIeL7Z7d4PxLbPvUbyv0E
-	 ksl92UZaozw0dst3Pt3Poq7XeAd3UcbsuPfVuomLzJS16NQydbeLwM/ahGUgrAICTj
-	 +YaWlu0kKSq+05dJlFctlKjThXhPvglEOOAUW9U0eY/MJqIapFOVitZeZXyPcJQfXE
-	 sRG9oh6ZKMajnuDxEpI4HWMWQ3VoOYeLrkbCzIJY/lx8OB5FzebLTb4KPY3Pl72Tyv
-	 36ef6arjoqZ4RaPZGU7bLlGGms3Ni73RabSv4TAXq/dlJo1CxvK3U1kjniQiTS1zLv
-	 L7jSoV84wcUbg==
-Date: Tue, 15 Sep 2026 15:19:56 +0100
-From: Harry Yoo <harry@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, 
-	Nhat Pham <nphamcs@gmail.com>, Usama Arif <usamaarif642@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Tejun Heo <tj@kernel.org>, 
-	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org, cgroups@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/cgroup: ignore memory.reclaim -EAGAIN for
- zswap writeback test
-Message-ID: <aqlTZR90H-7OuSfD@thinkstation>
-References: <aqkavo7OfQdMOpLf@thinkstation>
- <20260915141049.70696-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="U40biuFF"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc93e00so1776546d6.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:20:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789482000; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OruQAFmwTdYDFLXwB5NiyVCjLGiKwgFSy/YbCQ+ps9LM3VeQFwTIxSOBeExet7H8ys
+         IVonO/pSfMZLpCUK6o5Z+cJld6x+rm2242azss8+6BiAJJMHbcjZkeNTb8LmoEvy6MdC
+         NdOKckgh8xW+Fdc9F84TUsXzVklAwXLBKAHnpB9FSyzBG9hI+LaGwM+6msMVYZ38dp+G
+         9jOfMt33MSzAXabXTiTeFcFRqoLou4UCbSFVvHpJZKhE8U4HMUrI6LAb0MuHLy3KaWKC
+         KGAmyQ1sL8r4gYKlNYUIn299q1dWRGqzwrbrdZgjWo7Aj52rPMNT0JgAT7j68b7GeJi0
+         qDEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Mbk5oDhmq9C3ryUTeB+AgXe55pLwJERRdnBXATeh3YA=;
+        fh=w1gPg5VoQWPXmC+HHmoQBhAh/FSjXDKoFrBut3ZIpvM=;
+        b=oosMJ7UdgQpAyJ/N2EVj4Xvxt0XMpDY8DWra1KDIUUj3HyWoKw6rV6PrEqMTz2O9z0
+         r2bSudD2uNNX2CSViIFo/XeQ+yNuIgfAXyi/t3lOrAdMlYjwcvDCvmkZ9OmX/225dCj0
+         3HAhyTpNTEJGHGCmA8qIP6PlsnIPAHeKVqx8GPpV4azvTQvhnawM77BXxOYEle0h437q
+         F1Ps3EKQngmF0LcXZlgUawpoRqwkSi8hQR/vEwDjAdirHm8uTSqF91wy1NlXzqBtvRKi
+         Mw0I2k67gohbD/+XafgxGNtHYn2iAVFLk4Mc3RMZZRSVkCuIlVNjQ2ViBfT46t8VqU39
+         8R2A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1789482000; x=1790086800; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mbk5oDhmq9C3ryUTeB+AgXe55pLwJERRdnBXATeh3YA=;
+        b=U40biuFFuo+KVsYIxA+95DRtIaiRqO0bIjbWaWnvvCuT+7XePnxg0Vqwl08jQWKj/c
+         s/JtTPcBnrDHUmNBaU0GpfjmPPEedWjQietmGDaeiJdiD2eNZpQn76iQMb6pQkDkSMb0
+         aBlwu2WlFbKwwkBbNbJE1f/aogHoqZ/aPPQiGHVrwqxFdvF4JQVvOYtbOtk0ydc7vRC/
+         CyEumVnBvfEJQGF/DN390XJ7gsxPXRRjDHr8/G/TtBrU7JLIlcG+VCFOFzpR0BG4zSs6
+         itR9AjiFmDW9p+ZVQDul4cdd8IvJRNwiHzIlJlwddXi2xgzmzK8TUKAXcHIjCjz9undx
+         jQGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789482000; x=1790086800;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Mbk5oDhmq9C3ryUTeB+AgXe55pLwJERRdnBXATeh3YA=;
+        b=iQqkOYdf6D23m0Rz/GYnsa2Z0PKuOMO58RfPdhb0vGI/jiSzTKDNCZXCDw2hCxmxgT
+         owQRYLuRlqGkK8BvKKhqmnWjfsqTt2rTFo+70c4lVsFtfA/bRUMosfBU6QKLy5IyNCtp
+         KhkXc2Dt/jt9+YHTqsp9Qn6hbFxXthAbX55BgdV3Tod0Ni0wnlX4ztRbYx7BuZxiMjSa
+         DFigXbfZg6gnJl0KbbGSr9JYRJf2g0E6GbUzd+DoiKIYLGzGw2c08U8jq+ibVVCnpYHX
+         W9Xnm5Smcq3ojTMMxedrI39Cp3kzds3HDJwqjULVjyUQ7wS2ym34AcygcmOZQJqsCrNp
+         21aA==
+X-Forwarded-Encrypted: i=1; AKwUvBws9r45L+jzkUEozpfxGPjdplhF5v2HTu5ZsvLZZPmrmUvwlKh/HmdE7+/mmkR0pUHJIYCSesURyqWuY1k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUDZyztMkrursDUVM5fMlVf5ng/tl/xL6rH+h2qvLdsAQOz+pf
+	DRPLVvnpV/Glh68aruc03080Sjjc80+uNF7QL5bRAe5MiWTq7RDN2WPozPZTl/qAmkETotbkb5u
+	L1WzWoRplMoz3HNB/DUwh4Zh8U8jDNCVrkx6JPBbRVg==
+X-Gm-Gg: AYBFou2oifv3JSGl8AK7i3jSgGaeuBS2bUxh7CJeFnYQpwMa1bwTktIlABMd0O7GRK/
+	p9QTcUkFRr3uad/x/r4VZPu8VoA4mG9izRVdE+2NDX1nYK3VV1IXOD/Z4pQCTYCgrnS3vGMFF4x
+	B0giLtWuNXnUPtTTQl9Gr9zocmAbMy7HWXQwbEwZkVt5rzN+P+on47S4jAzaAANzFMNPslPdom9
+	/9gwXJ6uYYxOQ+mqTQ208nTks9ydAQWKEXOHm3RcHfEeJXkwTodltpMkJ3Jtp5uo/odOBFq2d6l
+	MwGUkifnSZUh1fhRgxYppAfC3Cjot2Ao9aGWY7OjmBU9INNVYfw9GSyd1CZq/UeSJuA8lZqTqI9
+	bikH6rBPgTLckvSsAfgGuNR8PJ9QitikUCHju2pZVEnpufIpKnGXFv2r3xxhGHWRSd5kEWsMkwg
+	==
+X-Received: by 2002:a05:6214:8503:10b0:912:3b8b:3275 with SMTP id
+ 6a1803df08f44-9123b8b32bfmr3657116d6.19.1789481999618; Tue, 15 Sep 2026
+ 07:19:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915141049.70696-1-sj@kernel.org>
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-1-f520af59df1b@linux.dev>
+In-Reply-To: <20260914-ov9282-fixes-v1-1-f520af59df1b@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 15 Sep 2026 15:19:42 +0100
+X-Gm-Features: AcwNN1X1t13-sNIByzRZhObLlskVbwDF7voVmSdDqd5Oiho8QeQtdpxx9t-nma0
+Message-ID: <CAPY8ntCJLtHbBK6a9R1EMN6BWEnftW8GJPaKrA03rdMUwkKZRw@mail.gmail.com>
+Subject: Re: [PATCH 01/10] media: i2c: ov9282: handle error from exposure
+ range update
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 15, 2026 at 07:10:48AM -0700, SJ Park wrote:
-> On Tue, 15 Sep 2026 11:21:53 +0100 Harry Yoo <harry@kernel.org> wrote:
-> 
-> > On Mon, Sep 14, 2026 at 05:18:17PM -0700, SJ Park wrote:
-> > > On Mon, 14 Sep 2026 21:36:39 +0100 "Harry Yoo (Meta)" <harry@kernel.org> wrote:
-> > > > --- a/tools/testing/selftests/cgroup/test_zswap.c
-> > > > +++ b/tools/testing/selftests/cgroup/test_zswap.c
-> > > > @@ -346,7 +346,16 @@ static int attempt_writeback(const char *cgroup, void *arg)
-> > > >  	 * it can't writeback to swap.
-> > > >  	 */
-> > > >  	ret = cg_write_numeric(cgroup, "memory.reclaim", memsize);
-> > > > -	if (!wb_enabled)
-> > > > +
-> > > > +	/*
-> > > > +	 * When writeback is enabled, memory.reclaim may still fail to reclaim
-> > > > +	 * the requested amount of memory due to a slow swap device.
-> > > > +	 * Ignore -EAGAIN here. The caller determines pass/fail based on the
-> > > > +	 * zswap writeback counter.
-> > > > +	 */
-> > > > +	if (wb_enabled && ret == -EAGAIN)
-> > > > +		ret = 0;
-> > > > +	else if (!wb_enabled)
-> > > >  		ret = (ret == -EAGAIN) ? 0 : -1;
-> > > 
-> > > My humble eyes were unable to easily understand the change.  Is the change
-> > > effectively same to below, and if so, would this be easier to read?
-> > > 
-> > > '''
-> > > @@ -344,10 +344,11 @@ static int attempt_writeback(const char *cgroup, void *arg)
-> > >          * writeback as zswap.max is 1/4 of what was needed when reclaim ran the first time.
-> > >          * If writeback is disabled, memory reclaim will fail as zswap is limited and
-> > >          * it can't writeback to swap.
-> > > +        * Even if writeback is enabled, it could return -EAGAIN due to a slow
-> > > +        * swap device.
-> > >          */
-> > >         ret = cg_write_numeric(cgroup, "memory.reclaim", memsize);
-> > > -       if (!wb_enabled)
-> > > -               ret = (ret == -EAGAIN) ? 0 : -1;
-> > > +       ret = (ret == -EAGAIN) ? 0 : -1;
-> > 
-> > Hmm, no. This will mark the test as failed when a write to
-> > memory.reclaim returns zero even when wb_enabled is true.
-> > 
-> > It's not the same because when wb_enabled == true we consider
-> > ret == 0 or ret == -EAGAIN as success, while with wb_enabled == false
-> > we consider ret == -EAGAIN as success.
-> 
-> Ah, got it.  You are right.  Sorry for making noise and thank you for kindly
-> correcting me.
+On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+<richard.leitner@linux.dev> wrote:
+>
+> When setting V4L2_CID_VBLANK the V4L2 range for the exposure control is
+> updated v4l2_ctrl_modify_range(). This range update missed a return value
+> check, which resulted in ov9282_set_ctrl() not returning on an error from
+> that function call.
+>
+> Fix this by checking the return value and returning it on error.
+>
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 
-No worries ;-)
- 
-> Reviewed-by: SJ Park <sj@kernel.org>
+AFAICT A failure there would imply a driver bug rather than userspace,
+but better to handle it rather than just ignoring it.
 
-Thanks a lot for reviewing, SJ!
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
--- 
-Cheers,
-Harry / Hyeonggon
+> ---
+>  drivers/media/i2c/ov9282.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index 5d301660a87d8..c10b2e205834e 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -608,6 +608,8 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+>                                                ov9282->cur_mode->height -
+>                                                OV9282_EXPOSURE_OFFSET,
+>                                                1, OV9282_EXPOSURE_DEFAULT);
+> +               if (ret)
+> +                       return ret;
+>                 break;
+>         }
+>
+>
+> --
+> 2.53.0
+>
+>
