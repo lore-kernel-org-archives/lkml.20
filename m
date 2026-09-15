@@ -1,117 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054C2434E47;
-	Tue, 15 Sep 2026 18:08:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FC04A1E08;
+	Tue, 15 Sep 2026 18:08:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495714; cv=none; b=dZx6L7GWhyMnXK/plKXwpOrjdLBEz86TM3Yi5kbHfOwc72A4RsYkj0Jm02Y9Whvr1yQev+d5ARTQh0zHJkMIJqecKhaEDStBZ8YN1jMc5YgC/zZBuAw4TQJbzKNOpRzZICx8oqa+a/V/ogSGpAxL+wHAi2VCv9HxOY8kLUenetU=
+	t=1789495721; cv=none; b=AQfV2waJzccR/VCg/wrLevA+sirZegWtFu7ZqASt9OFopAt+zeaaM/xhZ9o6jc/kPyPq0SYEoeJwFGVx3uOKdPUPGkJ2nrq1RSyGCWuDfEloYVrFiEzlA9SgdqgAhy/4FIPpTQ5UsPyAWbe6Vbtwj4ase1/yw2DZWUwII591WbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495714; c=relaxed/simple;
-	bh=TIIhdHZfImno8IHnpU61Rik0esQpnaspY0ZDNX2lqls=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=aPoM1choqq7LwQctAVhuy9uzttJGp0wxv6t40Qf6xR5cTW/vJ0AxihEfbmoshdFPY/f/wpBiRRxf2s3SEw840ZthfDS7LVJsgb1n+E9b8o9Z2orRXfs/0RcXR+LJqK5St2FLcAJ7Wgs9JZ6AxLlzjS72oa++YLGKv795pkbvf58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vi+w+dk6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789495721; c=relaxed/simple;
+	bh=Ll1myl92c8a2MWo/XPZM9bX9GPKLeQFu6v9T9lRltvA=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=RVekpJ2bxxcHLTFUxhThhN1V8FaTAQ+kNOmqzuttb7ethkfxfeehxU9wlZxhLCDRuVylHmnxcFTOFdZjIvV3endfxiQ5zifY1R1GlinlTfcSXzeEQFFSRJs8ZENOY44ttEcYYoYsNIaKvBMwxuinJvN3S1LgzhmqQBN+HjD7wpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=Afh8Shre; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vi+w+dk6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12691F000FF;
-	Tue, 15 Sep 2026 18:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789495712;
-	bh=lW0j21suN5eUTRByogg2pNvghzdTs7ZY5AtLSulagVE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Vi+w+dk6FhsXb1qhgp6kkW7LTuQRoM5GGRxAoRBHeV1XBWq7+4y4gzywvDHp0i/rw
-	 7xn07dl9twQtv8MwQZZFLT64ztn1IhBKr+AUtIv88q68IU/1K/DosGX9ZTHetUcq3n
-	 Gl9AfjPNnsUN1ZIThlLn4Zk0H8Kr/h/1GXXPeGlV6Txpd5v0kAd5IcZcvrtlBq3cx3
-	 Au7DNqkucKI0sy2jqoTu+v++996fEClRU54Yxq+uIY3P/LOMVTKhqlkQVfVsCaGcRk
-	 lesywgRYZ5z+XCVpD6uxlt8sDZ1LqH7/6GZPPaObgJYulxPzVDp+cTqPKxiurQn+a9
-	 iywe2+TTuRZUw==
-From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz, 
- tiwai@suse.com, yung-chuan.liao@linux.intel.com, 
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com, 
- venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com, 
- Mario.Limonciello@amd.com, Richard.Gong@amd.com, 
- ckeepax@opensource.cirrus.com, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260910161728.1452808-1-Vijendar.Mukunda@amd.com>
-References: <20260910161728.1452808-1-Vijendar.Mukunda@amd.com>
-Subject: Re: [PATCH 0/4] ASoC: amd: acp: SoundWire machine driver fixes
-Message-Id: <178949173671.151760.14042833988826539787.b4-ty@b4>
-Date: Tue, 15 Sep 2026 18:02:16 +0100
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="Afh8Shre"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=Y3QqdiKwzzwnOLVu0cz4e5ckPEkkS+wXR/bk2dD+t0Q=; b=Afh8Shre5B0WOOEsmVnV09tl/V
+	pyAC5sTZp4+Q/AbXIzwMkL0VmYZ8m9GXnkiptsv700wMoBFfLN3Fh7s1/YYhLTNTC6qpUgvFOhBqh
+	ui4uAKAp/JQGnMZ9qDW2GsY+NxpsT0FLgAA3axWeOYMli7t1MJBB8WdSvVlM58kTN8kaUsZBsEVTN
+	nHB+LOBxtvc+O5znqfn4WbmQvzsymeTs2pbxkyCyLjAyUtqZRUNys8lxFXpDFOO1gx2CorQyCUOe+
+	seFxldpsQ14SMBtLxw/cy3Of0qLN9mY0MLgkY2mqoGifIPjgGVKu4iol8iIrBw67wuKXgC6kPIB4W
+	lvhWHi0w==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1x6Xa9-0000000AYR6-0ZA9;
+	Tue, 15 Sep 2026 12:08:37 -0600
+Message-ID: <e8da7017-7065-4be3-bcc7-88bd6348d2e0@deltatee.com>
+Date: Tue, 15 Sep 2026 12:08:34 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
+ Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>, fuyuanli <fuyuanli0722@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicholas Bellinger <nab@linux-iscsi.org>,
+ Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-3-den@valinux.co.jp>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260910040836.3792333-3-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2490; i=broonie@kernel.org;
- h=from:subject:message-id; bh=TIIhdHZfImno8IHnpU61Rik0esQpnaspY0ZDNX2lqls=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqqYmbDZjNG5WhckGdMRHAgSIFk8Q3jv+atf2q3
- 5zi5G4bxVyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqmJmwAKCRAk1otyXVSH
- 0KguB/0Z4NquPK5hN7CChcyCOkGWNr6807j9P0ybILaUow+GNMhAyMipp8tWEHny8+ASsnMfaSX
- ou5Tjr4sDxNbkhO3sfF8ajogpSUvDChz8dtFbGqxq/KrXiBDg+8OFRTHWbXr0CxNpPG6Jy5XlMS
- Z26zdB5hdpKKDW0oSlhiSY81f89/aPgXtt8Wnp3DgwiVu1OQ5fuduDeLInOyV1BAXLVHccqroqX
- exhzBTJgf3e6UPRxkYPEABSBH94WINKrDAxZ2Iz8J57pd9y9W9h52/X72hllaUVRuiUwwZILgZe
- JrO78H8h6hKIQlTzj1qH/ffK4893FlMBJhhkH0Iagqz46TFa
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: den@valinux.co.jp, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, Frank.Li@kernel.org, fuyuanli0722@gmail.com, gregkh@linuxfoundation.org, nab@linux-iscsi.org, joey.zhang@microchip.com, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v2 02/14] NTB: ntb_transport: Start TX offload thread
+ after queue setup
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-On Thu, 10 Sep 2026 21:46:45 +0530, Vijendar Mukunda wrote:
-> ASoC: amd: acp: SoundWire machine driver fixes
+
+
+On 2026-09-09 22:08, Koichiro Den wrote:
+> ntb_transport_create_queue() starts the per-QP TX offload thread before
+> DMA mappings and queue entries are allocated. If later setup fails, the
+> error path returns the QP to the free bitmap without stopping the
+> thread. A retry can then reinitialize its waitqueue while the old thread
+> is still waiting on it.
 > 
-> This series fixes four defects in the AMD ACP SoundWire machine drivers
-> (acp-sdw-legacy-mach.c and acp-sdw-sof-mach.c).
+> Start the thread after queue setup.
 > 
-> A bounds check is added to validate the SoundWire link ID before it is
-> used as an array index in create_sdw_dailink(), preventing out-of-bounds
-> access when an unexpected link_mask value is encountered. The codec
-> config count in the SOF machine driver is refactored to use a dedicated
-> variable rather than reusing the endpoint-count variable for two
-> purposes, making the intent clearer and avoiding a stale value being
-> passed to the codec config array. An operator-precedence bug in the
-> ffs(link_mask - 1) expression is corrected to ffs(link_mask) - 1,
-> ensuring the link ID is derived from the correct bit position. Finally,
-> the SOF machine driver card name is shortened to fit within the 16-byte
-> snd_card driver[] field and eliminate a compile-time warning.
-> 
-> [...]
+> Fixes: 322617a06c97 ("NTB: ntb_transport: Add 'tx_memcpy_offload' module option")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
-
-Thanks!
-
-[1/4] ASoC: amd: acp: bounds-check SoundWire link ID in machine drivers
-      https://git.kernel.org/broonie/sound/c/2faa0ae56fa5
-[2/4] ASoC: amd: acp: refactor codec config count in SOF SoundWire machine driver
-      https://git.kernel.org/broonie/sound/c/efd76c8d6153
-[3/4] ASoC: amd: acp: fix ffs() operator precedence for SoundWire link ID
-      https://git.kernel.org/broonie/sound/c/5b28d773ed3a
-[4/4] ASoC: amd: acp: fix card name length warning in SOF SoundWire machine driver
-      https://git.kernel.org/broonie/sound/c/2444f73fe476
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
