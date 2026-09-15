@@ -1,200 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2E33AE1BC;
-	Tue, 15 Sep 2026 13:07:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F0C3B27E9;
+	Tue, 15 Sep 2026 13:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789477656; cv=none; b=lmLoPBjodaiSTb/ovB5/iYvUYkq37JsWcCOAUcAfnRq8Aa90A2PnGG7lRyzzDO1ZFveklxACa/K+yHwOwCnryvxgn3WWrm9nR9ZKp2G/xN/3xmsdN6Mo8iertS3/r38kO3/v6JsA4D8oq2ITjjNqQ1K7NYec+hJKKFr66cIlJf4=
+	t=1789477702; cv=none; b=RoI3c4GhJVhopVmZUwl8kt+PTpRooplE4RMjnRLXjGx5p60jt/KqYDlu47/UZnabNWLCj+GP0r5v9kuT0yzttNMm97X8Zp6phPCV71Qcm2ZI1VdS3skvg7lRGcDuGEWF+in8YDSBzG+KOFAu1r+vzEU/3eTWfzlUXtrqSNpMArk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789477656; c=relaxed/simple;
-	bh=NUX5rL0Kk7rQ2StlbbS8mCYi/8u2Wde5l1AFE+Qy0SQ=;
+	s=arc-20240116; t=1789477702; c=relaxed/simple;
+	bh=z+MR1Dc1wbC8ST4U9pB9+tP4zmF0NEONUFEFBKMN+ag=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OkZiBAG054o2x1+A2CCtFTWBCXKuePi5uUz07kkCe8JmUrCrLSd/mqykZ7x32FY1kzZ+neXoUftj7WrlL8FH5ccLeD9Vb9f0NRvjGMGb+kAR2xLI7T/rioWXiTudwau/J6TmdP4T4spD1yTdFrRPR4UKDhstj+ybjMyreFzPyJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iho675fT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=GoZ0kvv5gSDAWk+nIQUuN58YCn/RHMTP3ZEjvR0zPrpM1aqx1vcxvKpTsSJdDx/u51adCqqc0R+sqFHrMDg+zY+RyXI1GHP4dYo4YlFVamOY3R+45QmYiCqFWfLqpQeROFj1N5myZe3QjGmDA4OCcIOl7sknwhUjSsbkmsZOIh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=peUqkbed; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iho675fT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1182B1F000FF;
-	Tue, 15 Sep 2026 13:07:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789477655;
-	bh=S+aBpk36SIDdz/rg97zJi4lYM8gD6xGt4E4q60x12rE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iho675fT0lSEN/KB1MaQ8J8no4HYY6YjYRkXtIgt34jCmTfHhgBauIrE3Ebo/5/fl
-	 HqpSY5yijqreDfIvUYUWeT/FHEQjy9g3EfmVVxiS3l2cMRCzHZiMdpyWPL/vAp8WCA
-	 +sFsQmiTqySe1cy9Jv+J0YPzH4WjIrSz4+cFU9yO/8yAd3R70TV4f8w47lqAF8Dg30
-	 Hj/ak47//B6WYp/qmBf44VJ/uN3BcPlFCf/gkqkRZyU9kg9AgmbxFYYboFkh2BEujZ
-	 4DZho0YBW/R7BngulPxqVIFoCuKqEcQd1CrpK07O25fL8uR4QJC6cFo7k8EtSaq2LR
-	 UMHHRPSlsH5nQ==
-Message-ID: <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
-Date: Tue, 15 Sep 2026 15:07:32 +0200
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="peUqkbed"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C2A80480672;
+	Tue, 15 Sep 2026 15:08:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1789477697; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Ftg5Iunzg/0fG8qzH+8qTz1m6Yvsiy2wpFJvavKMGGo=;
+	b=peUqkbed6JCyna0busplirVAk8kgpK4Ijawx7nppeiM9gedTg+L4hM7vbCRUGXTrlJzNH6
+	hM/uQh9OilvGq+sjeC0uLPZVex+sYC50pskmXE9W6WHcAI55DpEiWJXhxXPzWfPwhSlkYI
+	cbtyuUiL5ybRNkszHhvtv5BBz/PtpuMjtKCxgHpWPd47VkenTPW1P6QIIJbRrAknEZVHLV
+	LaC/nClJlxJPruaH+KbCWybmhlb0oX6ZJzvuWqqyvs6tZwccRACpV7AnRXm4ZxmdI7dRN5
+	+uYxR7uTa4qAcgoHbu5E6dUuXaxuFy2Y+QAFQMDq12e0hWSQHb9FCw5VJWEzEg==
+Message-ID: <162e2a0f-b494-4149-a829-7813569975c2@cjdns.fr>
+Date: Tue, 15 Sep 2026 15:08:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/20] media: rc: Replace open coded krealloc() for
- keymap
-To: Sean Young <sean@mess.org>, linux-media@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
-References: <cover.1789460680.git.sean@mess.org>
- <3b7094b8f0035d970fd61caca05abcdd3374146b.1789460680.git.sean@mess.org>
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH] clocksource/drivers/timer-econet-en751221: Fix clock
+ reference leak
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: daniel.lezcano@kernel.org, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org, tglx@kernel.org
+References: <20260915054552.1729612-1-vulab@iscas.ac.cn>
 Content-Language: en-US
-In-Reply-To: <3b7094b8f0035d970fd61caca05abcdd3374146b.1789460680.git.sean@mess.org>
-Content-Type: text/plain; charset=UTF-8
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260915054552.1729612-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/15/26 10:32, Sean Young wrote:
-> Replace some ugly code with open coded krealloc() and remove
-> superfluous member of struct rc_map.
-> 
-> Signed-off-by: Sean Young <sean@mess.org>
+
+On 15/09/2026 07:45, Wentao Liang wrote:
+> timer_init() obtains the timer clock with of_clk_get() and only reads
+> its frequency with clk_get_rate(); the clock is never prepared nor
+> enabled. All four return paths after the acquisition (of_iomap()
+> failure, clocksource_mmio_init() failure, cevt_init() failure and
+> success) return without clk_put(), leaking the consumer reference.
+>
+> Drop the reference with clk_put() right after the frequency has been
+> read. The clock enable state is untouched.
+>
+> Fixes: 3b4c33ac87d0 ("clocksource/drivers: Add EcoNet Timer HPT driver")
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+
+
+Tested-by: Caleb James DeLisle <cjd@cjdns.fr>
+
+
 > ---
->  drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
->  include/media/rc-map.h     |  2 --
->  2 files changed, 22 insertions(+), 25 deletions(-)
-> 
-> diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-> index d4baaae3a834..53e39b7a489a 100644
-> --- a/drivers/media/rc/rc-main.c
-> +++ b/drivers/media/rc/rc-main.c
-> @@ -17,9 +17,8 @@
->  #include <linux/module.h>
->  #include "rc-core-priv.h"
->  
-> -/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
-> -#define IR_TAB_MIN_SIZE	256
-> -#define IR_TAB_MAX_SIZE	8192
-> +#define IR_TAB_MIN_ENTRIES	32
-> +#define IR_TAB_MAX_ENTRIES	1024
-
-This is better...
-
->  
->  static const struct {
->  	const char *name;
-> @@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
->  static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
->  			   const char *name, u64 rc_proto, size_t size)
->  {
-> +	unsigned int alloc;
->  	rc_map->name = kstrdup(name, GFP_KERNEL);
->  	if (!rc_map->name)
->  		return -ENOMEM;
-> +	alloc = roundup_pow_of_two(size);
->  	rc_map->rc_proto = rc_proto;
-> -	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
-> -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
-> -	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
-> +	rc_map->len = 0;
-> +	rc_map->size = alloc;
-
-...but this still says 'size'...
-
-> +	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
->  	if (!rc_map->scan) {
->  		kfree(rc_map->name);
->  		rc_map->name = NULL;
->  		return -ENOMEM;
->  	}
->  
-> -	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
-> -		rc_map->size, rc_map->alloc);
-> +	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
-> +		alloc, alloc * sizeof(struct rc_map_table));
->  	return 0;
->  }
->  
-> @@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
->  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
->  			   gfp_t gfp_flags)
->  {
-> -	unsigned int oldalloc = rc_map->alloc;
-> -	unsigned int newalloc = oldalloc;
-> -	struct rc_map_table *oldscan = rc_map->scan;
-> +	unsigned int newsize = rc_map->size;
->  	struct rc_map_table *newscan;
->  
->  	if (rc_map->size == rc_map->len) {
->  		/* All entries in use -> grow keytable */
-> -		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
-> +		if (newsize >= IR_TAB_MAX_ENTRIES)
->  			return -ENOMEM;
->  
-> -		newalloc *= 2;
-> -		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
-> +		newsize *= 2;
-> +
-> +		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
->  	}
->  
-> -	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
-> +	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
-
-...which is especially confusing here where rc_map->size and IR_TAB_MIN_ENTRIES
-are mixed.
-
-This is not important for this series, so you can go ahead with it.
-
-But personally I would prefer to rename rc_map->size to rc_map->entries and
-ditto for newsize to newentries. That way it is clear that these variables
-deal with the number of entries and not the size in bytes.
-
-I mention it only because when I reviewed v4 it confused me.
-
-Regards,
-
-	Hans
-
->  		/* Less than 1/3 of entries in use -> shrink keytable */
-> -		newalloc /= 2;
-> -		dev_dbg(&dev->dev, "Shrinking table to %u bytes\n", newalloc);
-> +		newsize /= 2;
-> +		dev_dbg(&dev->dev, "Shrinking table to %u entries\n", newsize);
->  	}
->  
-> -	if (newalloc == oldalloc)
-> +	if (newsize == rc_map->size)
->  		return 0;
->  
-> -	newscan = kmalloc(newalloc, gfp_flags);
-> +	newscan = krealloc_array(rc_map->scan, newsize,
-> +				 sizeof(struct rc_map_table), gfp_flags);
->  	if (!newscan)
->  		return -ENOMEM;
->  
-> -	memcpy(newscan, rc_map->scan, rc_map->len * sizeof(struct rc_map_table));
->  	rc_map->scan = newscan;
-> -	rc_map->alloc = newalloc;
-> -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
-> -	kfree(oldscan);
-> +	rc_map->size = newsize;
-> +
->  	return 0;
->  }
->  
-> diff --git a/include/media/rc-map.h b/include/media/rc-map.h
-> index d95ed3e96de2..f167c37179c8 100644
-> --- a/include/media/rc-map.h
-> +++ b/include/media/rc-map.h
-> @@ -148,7 +148,6 @@ struct rc_map_table {
->   * @scan: pointer to struct &rc_map_table
->   * @size: Max number of entries
->   * @len: Number of entries that are in use
-> - * @alloc: size of \*scan, in bytes
->   * @rc_proto: type of the remote controller protocol, as defined at
->   *	     enum &rc_proto
->   * @name: name of the key map table
-> @@ -158,7 +157,6 @@ struct rc_map {
->  	struct rc_map_table	*scan;
->  	unsigned int		size;
->  	unsigned int		len;
-> -	unsigned int		alloc;
->  	enum rc_proto		rc_proto;
->  	const char		*name;
->  	spinlock_t		lock;
-
+>   drivers/clocksource/timer-econet-en751221.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
+> index 4008076b1a21..1859335345b5 100644
+> --- a/drivers/clocksource/timer-econet-en751221.c
+> +++ b/drivers/clocksource/timer-econet-en751221.c
+> @@ -181,6 +181,7 @@ static int __init timer_init(struct device_node *np)
+>   	}
+>   
+>   	econet_timer.freq_hz = clk_get_rate(clk);
+> +	clk_put(clk);
+>   
+>   	for (int i = 0; i < num_blocks; i++) {
+>   		econet_timer.membase[i] = of_iomap(np, i);
