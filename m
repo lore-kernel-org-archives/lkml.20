@@ -1,58 +1,61 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF4C3AA4ED;
-	Tue, 15 Sep 2026 08:33:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9D23B5847;
+	Tue, 15 Sep 2026 08:33:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461185; cv=none; b=AcAuxelSrL4h8GkjLjfZXcPDG2opp1FcXXac/e6DdvTpIyIdPPvmXws98gQhsErqaX3qyVFj9n6guZCdSnKwsDM1EobIaYPhuU3HAm/Mq1PSy5NYoOIRbV9ahoAqUm0uBEzSBrp57pzboVWTWkpoktWWUC0ss0Zv/v+W/JVM0c0=
+	t=1789461185; cv=none; b=lyN3rwxP1A5I1z92IY8BBgspxf/GlwN5OSqWQy32MvCsFA6o9+gu0q7cMl6WmZTBjoYQCyzhfWr5i+SVeZXA8656L/3C/Z27pDTNZEAKn+HRRg/ZZar/t7OJTguuYNouTt79LJEsLpxOgEchUtCU/vLBeN5xGAzJQ/nZ3L0vFDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789461185; c=relaxed/simple;
-	bh=36DMiOqS5yE6Nt08eJ6RRW+5p7kY+C4sD50h5kWrnI0=;
+	bh=IV0F/ZsBMLGaivPyKxE7H+GRnEb/wEfIq68wwpyW9iE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gv1z9oy5Fuem6Z5pkXzoGWF6m9xw5ejse7mUdU8vIZFu22b2NkLyYqhAXeaOckeaxppqgmuF2rzHLt/vRFZa+kPm8S1mP+aagKhiEpP5q225FXilrb7C5HgVSoE4fJs7KOB9A0OnBbAopNh+jNmRuGzhCOGEdG2Xx/wlxZVzJ+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=NI+VXzuj; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=OwQVSiLn; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=QUB2j0bue7XR8oW8os8dyPFpLeungzaM/mF5h1izn2+kT5aeIv/YgTT0DvmdE/q2XBWibADkoiHULgd9tTAwYUjKCB+OjxCvrWmA4IDPgmw+t63Y6UCUQdnGMm09mF8xXCbbVvrUT0kmrqmSIYKwedgmaQHg3NWN35PgoyF4nMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=exaVWxMU; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=LndwBNVH; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="NI+VXzuj";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="OwQVSiLn"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="exaVWxMU";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="LndwBNVH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461181; bh=36DMiOqS5yE6Nt08eJ6RRW+5p7kY+C4sD50h5kWrnI0=;
+	t=1789461177; bh=IV0F/ZsBMLGaivPyKxE7H+GRnEb/wEfIq68wwpyW9iE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=NI+VXzuj52fwHBcvYb43jJHYVIoNhNddVI/sjigwSwihU+uk+GlGkpJevmQfNeShK
-	 0FvRX8TbUNCWak0pvfk9a67x/+AFcGNd5IyUi83tL9PdEYq9Iz+XBbAEuKfMIjfqt4
-	 vwRfeTAHhkWYBkZqCMyQRLHNk6nSZqEn0J3RM00+jfdngUZJYpNo7v4lR3HTDwF3Fd
-	 AhPfXU1QKxn2xNsOm27WaM2E3yjWqA1DwZFe1rHKsJagQUaXZTZMTM7H0t/fUPx5OV
-	 cHRahR5oTBSNEobdXnAgC3xtKIGNFxbwl7f4GhWRInd325j+qR7SXfZ1wypjz3Ymw1
-	 GJp9unjidWknw==
+	b=exaVWxMUyzNhekp+iovdQCfR7P3ZKoJ5j5DW6KW3yTV6qMa5coKg1KWcq+vP+dt1N
+	 3KVlA21nFqRbeD8b8SC0bDaYVG63x3kxancLYdkJeFzjcp847NiIudL/QkoR0vs2cR
+	 PUIlkcKRCFfGYVOZTvqwFnqaaKWEIbuSHhg79t/AuY4GKBStfjedNwCTQAAy6BtYdp
+	 a26lG5YR9mE4OpsvdAlE6ybqJjYg278tgQyV/0aHsWPBeqaJuHVohAjwbD3UUOooJv
+	 7qjK0q3QzKspt6P75Dbczmo9AWzTa9wlpECUy52svLtx8o9duZsMRnTIb6ePG7qeKU
+	 WPb3sareczzVw==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 8187A40B71; Tue, 15 Sep 2026 09:33:01 +0100 (BST)
+	id 2525E40BA7; Tue, 15 Sep 2026 09:32:57 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461180; bh=36DMiOqS5yE6Nt08eJ6RRW+5p7kY+C4sD50h5kWrnI0=;
+	t=1789461176; bh=IV0F/ZsBMLGaivPyKxE7H+GRnEb/wEfIq68wwpyW9iE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OwQVSiLnWRJW+2KNd9/k1vVo+28PMYECZlW1861lqEocRAyq0pKoMRxv6O1pIjfxN
-	 ApoyyLvf9SbfHA23ALO6cbSf6MjdgesFOeKk8erpHr+sPZXo0ILoUzZYtDYJjM2RYB
-	 0nNQ7L0fLNozxx5L9V+IWI/YxT1DM5WMwz8Zfo5BKGFkRWzHM2V/TbVgUHotlwTFEN
-	 OXxShsmwlmR5x37Zef6PwSBfhZQkA+L+rpgANZZe53G3Nog3Vxd+P2+lBTmJ7jn7RQ
-	 lqLMnb2NdmV+g+tP/4PqdVF8Cd7pOebznGQF4q8oAwLnL73FW9TC9izHC7CwgRJUWx
-	 FXxVBfZ05sb2w==
+	b=LndwBNVHWyXjEf/c98o1Pbs7LKpYbEDkSQbsxINLhHPnWtL46x0h6W19eH3j2GhPF
+	 j1cINVK74Cqk8H5URSaDAxZzprhWK9ardVHUJgm9cZh+3T2hCAgj/Y9guZIYV5LuMt
+	 8otVs65MZbMvWL+HPuJIBl0eesZyAReinEtqML1mkGVybF9//hFZPpDgg73crpVpv3
+	 J/ScGJpp54JhIttapFhEhAjaOOoyp4BxOKoIbx+sSOYFiIYlI599mgvCCHlx7IIVo4
+	 urQQZx2T8negccrVsyDg+/tSp6asaot7P9xp1AySnUuZaZBj12sh8bbklxodB9b6/Q
+	 xsODUFX4NQH8A==
 Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 0402D40155;
-	Tue, 15 Sep 2026 09:33:00 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id B4B0E40155;
+	Tue, 15 Sep 2026 09:32:56 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>
 Cc: Rik van Riel <riel@surriel.com>,
+	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 04/20] media: rc: Replace open coded krealloc() for keymap
-Date: Tue, 15 Sep 2026 09:32:14 +0100
-Message-ID: <3b7094b8f0035d970fd61caca05abcdd3374146b.1789460680.git.sean@mess.org>
+Subject: [PATCH v5 02/20] media: rc: Ensure that rc_unregister_device() does not free input device
+Date: Tue, 15 Sep 2026 09:32:12 +0100
+Message-ID: <21f237a3987b33ff532a23b14b6aa6ac60d0d0f3.1789460680.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1789460680.git.sean@mess.org>
 References: <cover.1789460680.git.sean@mess.org>
@@ -64,132 +67,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace some ugly code with open coded krealloc() and remove
-superfluous member of struct rc_map.
+During or after rc_unregister_device(), IR may still be reported which
+results in a input event being reported. This could result in a null
+pointer deref in rc_keydown() or a use-after-free of the input device if
+the pointer was read before it is set to NULL.
 
+Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
 Signed-off-by: Sean Young <sean@mess.org>
+Cc: stable@vger.kernel.org
 ---
- drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
- include/media/rc-map.h     |  2 --
- 2 files changed, 22 insertions(+), 25 deletions(-)
+ drivers/media/rc/rc-main.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index d4baaae3a834..53e39b7a489a 100644
+index 930d45517229..d4baaae3a834 100644
 --- a/drivers/media/rc/rc-main.c
 +++ b/drivers/media/rc/rc-main.c
-@@ -17,9 +17,8 @@
- #include <linux/module.h>
- #include "rc-core-priv.h"
+@@ -1753,7 +1753,7 @@ void rc_free_device(struct rc_dev *dev)
+ 	if (!dev)
+ 		return;
  
--/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
--#define IR_TAB_MIN_SIZE	256
--#define IR_TAB_MAX_SIZE	8192
-+#define IR_TAB_MIN_ENTRIES	32
-+#define IR_TAB_MAX_ENTRIES	1024
+-	input_free_device(dev->input_dev);
++	input_put_device(dev->input_dev);
  
- static const struct {
- 	const char *name;
-@@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
- static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
- 			   const char *name, u64 rc_proto, size_t size)
- {
-+	unsigned int alloc;
- 	rc_map->name = kstrdup(name, GFP_KERNEL);
- 	if (!rc_map->name)
- 		return -ENOMEM;
-+	alloc = roundup_pow_of_two(size);
- 	rc_map->rc_proto = rc_proto;
--	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
--	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
--	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
-+	rc_map->len = 0;
-+	rc_map->size = alloc;
-+	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
- 	if (!rc_map->scan) {
- 		kfree(rc_map->name);
- 		rc_map->name = NULL;
- 		return -ENOMEM;
- 	}
+ 	put_device(&dev->dev);
  
--	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
--		rc_map->size, rc_map->alloc);
-+	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
-+		alloc, alloc * sizeof(struct rc_map_table));
- 	return 0;
- }
+@@ -1865,6 +1865,8 @@ static int rc_setup_rx_device(struct rc_dev *dev)
+ 	if (rc)
+ 		return rc;
  
-@@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
- static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
- 			   gfp_t gfp_flags)
- {
--	unsigned int oldalloc = rc_map->alloc;
--	unsigned int newalloc = oldalloc;
--	struct rc_map_table *oldscan = rc_map->scan;
-+	unsigned int newsize = rc_map->size;
- 	struct rc_map_table *newscan;
- 
- 	if (rc_map->size == rc_map->len) {
- 		/* All entries in use -> grow keytable */
--		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
-+		if (newsize >= IR_TAB_MAX_ENTRIES)
- 			return -ENOMEM;
- 
--		newalloc *= 2;
--		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
-+		newsize *= 2;
++	input_get_device(dev->input_dev);
 +
-+		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
- 	}
+ 	/*
+ 	 * Default delay of 250ms is too short for some protocols, especially
+ 	 * since the timeout is currently set to 250ms. Increase it to 500ms,
+@@ -1891,10 +1893,8 @@ static void rc_free_rx_device(struct rc_dev *dev)
+ 	if (!dev)
+ 		return;
  
--	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
-+	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
- 		/* Less than 1/3 of entries in use -> shrink keytable */
--		newalloc /= 2;
--		dev_dbg(&dev->dev, "Shrinking table to %u bytes\n", newalloc);
-+		newsize /= 2;
-+		dev_dbg(&dev->dev, "Shrinking table to %u entries\n", newsize);
- 	}
+-	if (dev->input_dev) {
++	if (dev->input_dev)
+ 		input_unregister_device(dev->input_dev);
+-		dev->input_dev = NULL;
+-	}
  
--	if (newalloc == oldalloc)
-+	if (newsize == rc_map->size)
- 		return 0;
- 
--	newscan = kmalloc(newalloc, gfp_flags);
-+	newscan = krealloc_array(rc_map->scan, newsize,
-+				 sizeof(struct rc_map_table), gfp_flags);
- 	if (!newscan)
- 		return -ENOMEM;
- 
--	memcpy(newscan, rc_map->scan, rc_map->len * sizeof(struct rc_map_table));
- 	rc_map->scan = newscan;
--	rc_map->alloc = newalloc;
--	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
--	kfree(oldscan);
-+	rc_map->size = newsize;
-+
- 	return 0;
+ 	ir_free_table(&dev->rc_map);
  }
- 
-diff --git a/include/media/rc-map.h b/include/media/rc-map.h
-index d95ed3e96de2..f167c37179c8 100644
---- a/include/media/rc-map.h
-+++ b/include/media/rc-map.h
-@@ -148,7 +148,6 @@ struct rc_map_table {
-  * @scan: pointer to struct &rc_map_table
-  * @size: Max number of entries
-  * @len: Number of entries that are in use
-- * @alloc: size of \*scan, in bytes
-  * @rc_proto: type of the remote controller protocol, as defined at
-  *	     enum &rc_proto
-  * @name: name of the key map table
-@@ -158,7 +157,6 @@ struct rc_map {
- 	struct rc_map_table	*scan;
- 	unsigned int		size;
- 	unsigned int		len;
--	unsigned int		alloc;
- 	enum rc_proto		rc_proto;
- 	const char		*name;
- 	spinlock_t		lock;
 -- 
 2.55.0
 
