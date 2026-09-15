@@ -1,81 +1,107 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5FC04A1E08;
-	Tue, 15 Sep 2026 18:08:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD0D4B1272;
+	Tue, 15 Sep 2026 18:08:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495721; cv=none; b=AQfV2waJzccR/VCg/wrLevA+sirZegWtFu7ZqASt9OFopAt+zeaaM/xhZ9o6jc/kPyPq0SYEoeJwFGVx3uOKdPUPGkJ2nrq1RSyGCWuDfEloYVrFiEzlA9SgdqgAhy/4FIPpTQ5UsPyAWbe6Vbtwj4ase1/yw2DZWUwII591WbA=
+	t=1789495726; cv=none; b=CH3yBLltmcCMim6qZrCs7H2GcRRKnQOuy+s06D84hnpDHsLMX790oFGnelmp974+fP3Wxr0DShGinr/9OR3bIKufnQ1huoPiVVeAUZC6At4N97EDPL3h+OheGVRxhwEeSuWe036ENqCIUu94+zF8FS+WBGMwnWCbri5avsrwQME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495721; c=relaxed/simple;
-	bh=Ll1myl92c8a2MWo/XPZM9bX9GPKLeQFu6v9T9lRltvA=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=RVekpJ2bxxcHLTFUxhThhN1V8FaTAQ+kNOmqzuttb7ethkfxfeehxU9wlZxhLCDRuVylHmnxcFTOFdZjIvV3endfxiQ5zifY1R1GlinlTfcSXzeEQFFSRJs8ZENOY44ttEcYYoYsNIaKvBMwxuinJvN3S1LgzhmqQBN+HjD7wpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=Afh8Shre; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1789495726; c=relaxed/simple;
+	bh=T4kFFumux9Xaba/3RIzj1k0b3xh6wq4hjzDQYidDAH0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=WuSwm1NdqLFhgyc5NHVumhKM45X/0PnSL8gsvasbAdfRGcXgKrTTQkPRnid21vl/gBCZN4G38N8jGxtGNIBMgok05gU1tZ0fu1V4RI7t03gm2H4ELWPX4I/5AQZGEj8d/9iz7xijntaO/P4ceMc8ycsleBh5hs8Xh2AK3R6xBcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KD9qnuXD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="Afh8Shre"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=Y3QqdiKwzzwnOLVu0cz4e5ckPEkkS+wXR/bk2dD+t0Q=; b=Afh8Shre5B0WOOEsmVnV09tl/V
-	pyAC5sTZp4+Q/AbXIzwMkL0VmYZ8m9GXnkiptsv700wMoBFfLN3Fh7s1/YYhLTNTC6qpUgvFOhBqh
-	ui4uAKAp/JQGnMZ9qDW2GsY+NxpsT0FLgAA3axWeOYMli7t1MJBB8WdSvVlM58kTN8kaUsZBsEVTN
-	nHB+LOBxtvc+O5znqfn4WbmQvzsymeTs2pbxkyCyLjAyUtqZRUNys8lxFXpDFOO1gx2CorQyCUOe+
-	seFxldpsQ14SMBtLxw/cy3Of0qLN9mY0MLgkY2mqoGifIPjgGVKu4iol8iIrBw67wuKXgC6kPIB4W
-	lvhWHi0w==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1x6Xa9-0000000AYR6-0ZA9;
-	Tue, 15 Sep 2026 12:08:37 -0600
-Message-ID: <e8da7017-7065-4be3-bcc7-88bd6348d2e0@deltatee.com>
-Date: Tue, 15 Sep 2026 12:08:34 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KD9qnuXD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC63A1F000FF;
+	Tue, 15 Sep 2026 18:08:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789495725;
+	bh=CnyYD2ktYXJC2QD/i9qf97SGs9XLKDPIG0Vh1+UhMZA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=KD9qnuXDcnq13E24gPKB1HSVbgC61GZiytF5fUiJh8yBn7RD+HgEBzVaup0X26C45
+	 VGBp9cVPdd6XZv/wpFTIoO1uEgx4EgJUe3FxzFjzgZIk9ee+4nL10UtGGbT2Dv0BDZ
+	 eTuoL5JIKJdfCJI4hb46SYGG/ljYMXcOM5VTpF7xucwmVTAmSMtOw+ju6ca1VShBEL
+	 JaNsxCnvQMjpdjs9QGEC+ayG5X87c1asMgmMCj0+p2wjyGQ4zYL5UN6dDr4hZ8kVZq
+	 ngcdwKYjckczpOQCzM3p1cX8ro5GMUU7Ic0zOxFU7QVQQBbshPQ4abC9Ik44D7FOcS
+	 XkuyTgFLhy/Tw==
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Chancel Liu <chancel.liu@oss.nxp.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260913102502.2805912-1-chancel.liu@oss.nxp.com>
+References: <20260913102502.2805912-1-chancel.liu@oss.nxp.com>
+Subject: Re: [PATCH 0/4] ASoC: generic: Free jack GPIOs on card remove
+Message-Id: <178949020844.151760.2511095576041942941.b4-ty@b4>
+Date: Tue, 15 Sep 2026 17:36:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Koichiro Den <den@valinux.co.jp>, Jon Mason <jdmason@kudzu.us>,
- Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>, fuyuanli <fuyuanli0722@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicholas Bellinger <nab@linux-iscsi.org>,
- Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-3-den@valinux.co.jp>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260910040836.3792333-3-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: den@valinux.co.jp, jdmason@kudzu.us, dave.jiang@intel.com, allenbh@gmail.com, Frank.Li@kernel.org, fuyuanli0722@gmail.com, gregkh@linuxfoundation.org, nab@linux-iscsi.org, joey.zhang@microchip.com, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v2 02/14] NTB: ntb_transport: Start TX offload thread
- after queue setup
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1905; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=T4kFFumux9Xaba/3RIzj1k0b3xh6wq4hjzDQYidDAH0=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqqYmpUqgctjdV8Q/ZX13y8y23eGJVyb3H7OKWc
+ tfVgDZdsN2JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqmJqQAKCRAk1otyXVSH
+ 0HMAB/9moejDF3X2/BP0cUU2oRnKY6fCUAlWUdkKiZQQARpaT1gYSXPgnrIpBTTN/YappAFO/5W
+ tuN16Hn+g4FI1jI/oLQrMmGdviGwgNPrTojSBw/u1FLIMkFsKmZpRJZN2tNYMIDmy5sTaxfN2OK
+ ObP4CRK+Mxv45+bk55KDnx+jcyaFvqHQQr/ruhpZ78wVYWS2avENgyMupLoBq2yeG76cprwT8m6
+ d8Ivl96ki77GMBLabM/vOcRrZD51son9tjf4Ew80SunqilztN64mS8KDZl7DlraCdO7sZ84c8ln
+ ZYCM7HSzFjPPTVv7ctSwm5NDfSbLxRSxrZQ7rAMLgIpZYQsp
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-
-
-On 2026-09-09 22:08, Koichiro Den wrote:
-> ntb_transport_create_queue() starts the per-QP TX offload thread before
-> DMA mappings and queue entries are allocated. If later setup fails, the
-> error path returns the QP to the free bitmap without stopping the
-> thread. A retry can then reinitialize its waitqueue while the old thread
-> is still waiting on it.
+On Sun, 13 Sep 2026 19:24:58 +0900, Chancel Liu wrote:
+> ASoC: generic: Free jack GPIOs on card remove
 > 
-> Start the thread after queue setup.
+> From: Chancel Liu <chancel.liu@nxp.com>
 > 
-> Fixes: 322617a06c97 ("NTB: ntb_transport: Add 'tx_memcpy_offload' module option")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> simple_util_init_jack() acquires a jack detection GPIO with
+> gpiod_get_optional() and passes it to snd_soc_jack_add_gpios(), which
+> also installs an IRQ handler, a PM notifier, a delayed work and a sysfs
+> export for it. None of simple-card, audio-graph-card or
+> audio-graph-card2 implements a card->remove() callback, so none of this
+> is ever released.
+> 
+> [...]
 
-Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[1/4] ASoC: simple-card-utils: Add simple_util_remove_jack()
+      https://git.kernel.org/broonie/sound/c/c7420dd9213d
+[2/4] ASoC: simple-card: Free jack GPIOs on card remove
+      https://git.kernel.org/broonie/sound/c/b59a20808727
+[3/4] ASoC: audio-graph-card: Free jack GPIOs on card remove
+      https://git.kernel.org/broonie/sound/c/698fdd31522c
+[4/4] ASoC: audio-graph-card2: Free jack GPIOs on card remove
+      https://git.kernel.org/broonie/sound/c/df0afa439044
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
