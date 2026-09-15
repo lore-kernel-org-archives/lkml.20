@@ -1,92 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-132.mta0.migadu.com [91.218.175.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F513446AD
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:13:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9504AF17A
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789499592; cv=none; b=neUw/7CMEQ7DnByP6pPCZaIHar8ZVaZPB6X3tZ/lzFvtpkO2eXhmHiiL9ZbvzTeQp+zUPjaBQXAVVvdd7I5sVzJq5C7CEVt7Y/U5LZn6DQwSsJGPS+4NN+Kjwz/d/rgwN6uyOE0F2lEtoF3Oo9LEyZtmB0Oe6vUHld55XyQhtaQ=
+	t=1789499605; cv=none; b=ABNUiuDd3vUAMASlCz4Vn5bTW2iyZkBeFWdOZTaPHfoDsj4ACiequHWy/hQsLyfcb9UN2wnLTBF8U/qNSRgbE3k5MTq6uaPj4ekY33AH8KbBXLXoG3+hc20iq5HBGcN/spqLownBhx7SSbkaFfE1/8OelaGAfxa+22y+YnytmQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789499592; c=relaxed/simple;
-	bh=UlKFmriCqhBUVfF3XegD38NJe/Kiyz0XHZuAH4D1adU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=j6x1Oh6LKQTL9QUimGMnKEvc2SUT6EfMBc6sO9yFRPMLFQu3xH9oTAJclzlU6lS0ziXFgYB0XSztophL6GLQDDsEmakFDgPUZCYMqaY/gXQohR60mYUqRMRW62nVSMI4dcDqcn/mgDpvNfBDZ06w28zvuIFX23/77Li5MNKAocE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aD/2VADH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789499605; c=relaxed/simple;
+	bh=anFEelSsGeeEC3XPXvpXfQ+smHU+cXmR/GUPT+ANFwA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=e03dBmNYYYJ4vYFuqnq5o77LP/rfN3dfYq2HTFjyQCE0z7k5My1Ty1a85tYKic+B4E4CD2mHzvLtthVFEKYvnNJwB+p6HaOQbfW1pGLzdswzdY8G1+SsJMSCyVkcg7fRt8x7WQmz+7mzBEZJ3RMegfKC5QP6+gqn55FLHWrhbko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=A0tLMRxx; arc=none smtp.client-ip=91.218.175.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aD/2VADH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF3A21F000FF;
-	Tue, 15 Sep 2026 19:13:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789499590;
-	bh=BucQk8jnC42ySucV0Or73xIsHrWN44jAPpHb73iJ7pM=;
-	h=From:Date:Subject:To:Cc;
-	b=aD/2VADHyiXENg0qiI/QTE4mJWl8eyS32mKoo5WZs6QLj/pBkb4LK8sMHdKamBBxI
-	 OaYJHhCdqYMnw3JHXqXCMAaCd4j+VBWOWFvLTWR2A6m7XT7Wn7LSmIZJTPdCUE3nB6
-	 koh2wfIYDzbuL7YOIcZyxmMmBSlbzdCeom4fqN0geWt07c3Hw9FO/JXhxhFSiAPlkx
-	 VvYRSWCK3L0xlbSh2XWzwdr+SqOrAqE2iiPDxSCXYMnmhjUFYScIMHcANfjwpmzwFw
-	 s12aqP/Jfm2jiy4p3z9pmd3GJRssAVgVfAGuEnOy2etb72Uvpc0rv1OSjU3RbFKh4q
-	 JpLQFDw+EfCBw==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Tue, 15 Sep 2026 21:13:03 +0200
-Subject: [PATCH] irqchip/qcom-pdc: Fix kernel config dependency
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="A0tLMRxx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=anFEelSsGeeEC3XPXvpXfQ+smHU+cXmR/GUPT+ANFwA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789499601; v=1; x=1790104401;
+ b=A0tLMRxxJshWN7TvdffDIy4ylflWhW9jiuLnkFtXeA6zQikHF9zlYibBAguHwQ0hv6gclBO5
+ UH9JfRrAxnQNW76Hab6QmsyYErdRqNdBjJtHlmvy1X6NMoQBQz4VU8U/W+pcaEy/1DZbKgU/dBX
+ vcdjs1Mb9KiB+UkLNZleCGiM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7210ecafb0eec5e7;
+	Tue, 15 Sep 2026 19:13:20 +0000
+X-Mizu-Trace-ID: 7210ecafb0eec5e7
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-topic-pdc_fixup-v1-1-0f7f7de924de@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM3QpAQBCG4VvRHNua9VfciiTGYByw7VopuXeLw
- 6ev773AsRV2UEUXWD7EybYG6DgCmrt1YiVDMCSYFFjqXO2bEVJmoHaU0xtFGouMsccRUwgvYzk
- MX7FufjvfL0z7m4H7fgBzMkSfcwAAAA==
-X-Change-ID: 20260915-topic-pdc_fixup-c1064e0b0f03
-To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Sneh Mankad <sneh.mankad@oss.qualcomm.com>, 
- Maulik Shah <maulik.shah@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- kernel test robot <lkp@intel.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789499587; l=1049;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=JA+RW3E0m9Y7x53k9ouDRc/88oXdQtObKqTW0nwSoyo=;
- b=8gopUtYIFSUc3kYBEM8l1SJDDWO955nQY1omAADDmw28BYigDqadx/7Nv+dxGTwgZeE3M+GiY
- TQ6g/98Yc8KD28PO9LUu5BgH/OhI4Fl5QsqHEbdLMA1EocgKN53o9wl
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 15 Sep 2026 19:13:15 +0000
+Message-Id: <DLG4NX9R5VTO.3QXM13LGWVURY@linux.dev>
+To: <bot+bpf-ci@kernel.org>, <bpf@vger.kernel.org>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <andrii@kernel.org>
+Cc: <martin.lau@linux.dev>, <eddyz87@gmail.com>, <memxor@gmail.com>,
+ <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+ <kpsingh@kernel.org>, <john.fastabend@gmail.com>, <leon.hwang@linux.dev>,
+ <zirajs7@gmail.com>, <rhkrqnwk98@gmail.com>, <puranjay@kernel.org>,
+ <xukuohai@huaweicloud.com>, <iii@linux.ibm.com>, <hbathini@linux.ibm.com>,
+ <chleroy@kernel.org>, <naveen@kernel.org>, <bjorn@kernel.org>,
+ <pulehui@huawei.com>, <yangtiezhu@loongson.cn>, <hengqi.chen@gmail.com>,
+ <linux-kernel@vger.kernel.org>, <martin.lau@kernel.org>,
+ <eddyz87@gmail.com>, <yonghong.song@linux.dev>, <mason@kernel.org>,
+ <ihor.solodrai@linux.dev>
+Subject: Re: [PATCH bpf v2 1/2] bpf: Skip detached progs in trampoline
+ images that are still in use
+From: "Florent Revest" <florent.revest@linux.dev>
+X-Mailer: aerc 0.17.0
+References: <20260912095924.866254-2-florent.revest@linux.dev>
+ <701db29c4de4f408d9c82041d51586a88ccbd9c19f4dc739253733c4cc5edd7a@mail.kernel.org>
+In-Reply-To: <701db29c4de4f408d9c82041d51586a88ccbd9c19f4dc739253733c4cc5edd7a@mail.kernel.org>
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Sat Sep 12, 2026 at 11:11 AM UTC,  wrote:
+> > diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.=
+c
+> > index 4da278900938..0e6f1ad36c2d 100644
+> > --- a/arch/loongarch/net/bpf_jit.c
+> > +++ b/arch/loongarch/net/bpf_jit.c
+>
+> [ ... ]
+>
+> > @@ -2178,7 +2189,7 @@ int arch_bpf_trampoline_size(const struct btf_fun=
+c_model *m, u32 flags,
+> >  {
+> >  	int ret;
+> >  	struct jit_ctx ctx;
+> > -	struct bpf_tramp_image im;
+> > +	struct bpf_tramp_image im =3D {};
+> >
+> >  	ctx.image =3D NULL;
+> >  	ctx.idx =3D 0;
+>
+> Does arch_bpf_trampoline_size() need to initialize ctx.ro_image?
+> invoke_bpf_prog() now reads ctx->ro_image unconditionally:
+>
+> arch/loongarch/net/bpf_jit.c:invoke_bpf_prog()
+>     void *skip =3D ctx->ro_image + ctx->idx;
+>
+> but arch_bpf_trampoline_size() only assigns ctx.image and ctx.idx. Before
+> this patch the sizing path read ctx->ro_image only under
+> BPF_TRAMP_F_CALL_ORIG, so fentry-only trampolines never touched it. The
+> result is discarded (bpf_tramp_image_add_skip() returns immediately
+> because im.skips =3D=3D NULL), so there is no functional misbehaviour, bu=
+t it
+> is a read of an uninitialized automatic variable.
+>
+> The arm64 side of the same patch already uses a designated initializer:
+>
+> arch/arm64/net/bpf_jit_comp.c:arch_bpf_trampoline_size()
+>     struct jit_ctx ctx =3D { .image =3D NULL, .idx =3D 0, };
+>
+> Making the loongarch declaration 'struct jit_ctx ctx =3D {};' would avoid
+> the issue.
 
-The commit mentioned below added qcom_scm_io_writel()/is_available()
-calls without updating the Kconfig. Fix that.
+Fair, will address in v3.
 
-Fixes: ad01c2b2f291 ("irqchip/qcom-pdc: Configure PDC to pass through mode")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: http://patch.msgid.link/202609160249.tiuDbEzF-lkp@intel.com
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- drivers/irqchip/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+> > diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_c=
+omp64.c
+> > index 151031e97a24..21f8ce2ec89a 100644
+> > --- a/arch/riscv/net/bpf_jit_comp64.c
+> > +++ b/arch/riscv/net/bpf_jit_comp64.c
+> > @@ -904,12 +904,18 @@ static void emit_store_stack_imm64(u8 reg, int st=
+ack_off, u64 imm64,
+> >  	emit_sd(RV_REG_FP, stack_off, reg, ctx);
+> >  }
+> >
+> > -static int invoke_bpf_prog(struct bpf_tramp_node *node, int args_off, =
+int retval_off,
+> > -			   int run_ctx_off, bool save_ret, struct rv_jit_context *ctx)
+> > +static int invoke_bpf_prog(struct bpf_tramp_image *im, struct bpf_tram=
+p_node *node,
+> > +			   int args_off, int retval_off, int run_ctx_off, bool save_ret,
+> > +			   struct rv_jit_context *ctx)
+> >  {
+> >  	int ret, branch_off;
+> >  	struct bpf_prog *p =3D node->link->prog;
+> >  	int cookie_off =3D offsetof(struct bpf_tramp_run_ctx, bpf_cookie);
+> > +	void *skip =3D ctx->ro_insns + ctx->ninsns;
+> > +
+> > +	/* 2 nops for auipc+jalr, patched to skip this prog when it is detach=
+ed */
+> > +	emit(rv_nop(), ctx);
+> > +	emit(rv_nop(), ctx);
+>
+> This isn't a bug, but should BPF_MAX_TRAMP_LINKS be lowered for riscv64?
+>
+> The commit message states "With the extra nops, BPF_MAX_TRAMP_LINKS progs
+> no longer fit in a page on arm64 and loongarch ... so lower the limit
+> there like s390 does." The limits in include/linux/bpf.h were changed:
+>
+>   arch       added per prog   BPF_MAX_TRAMP_LINKS change
+>   arm64      4 bytes            38 -> 37
+>   loongarch  20 bytes           38 -> 33
+>   powerpc64  4 bytes            38 -> 27
+>   s390x      6 bytes            27 (already lowered)
+>   riscv64    8 bytes            38 (unchanged)
+>   x86_64     5 bytes            38 (unchanged)
+>
+> riscv64 gains 8 bytes per prog (two rv_nop()s) but its limit is
+> unchanged. For 38 progs that is 304 extra bytes, which could push
+> trampolines close to the PAGE_SIZE limit over the boundary.
+> bpf_trampoline_update() rejects the update with -E2BIG if size exceeds
+> PAGE_SIZE, so this is a graceful reduction in the maximum attachable
+> progs on riscv64 rather than memory corruption.
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index a8f8c423b795..5213cefc1077 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -524,6 +524,7 @@ config QCOM_PDC
- 	tristate "Qualcomm PDC"
- 	depends on ARCH_QCOM || COMPILE_TEST
- 	select IRQ_DOMAIN_HIERARCHY
-+	select QCOM_SCM
- 	default ARCH_QCOM
- 	help
- 	  Power Domain Controller driver to manage and configure wakeup
+38 progs still fit on riscv64 with the extra nops so that's ok.
 
----
-base-commit: 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3
-change-id: 20260915-topic-pdc_fixup-c1064e0b0f03
+> > diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
+> > index 90b70ea0d370..b82d8592319a 100644
+> > --- a/kernel/bpf/trampoline.c
+> > +++ b/kernel/bpf/trampoline.c
+>
+> [ ... ]
+>
+> > @@ -565,14 +566,21 @@ static void bpf_tramp_image_free(struct bpf_tramp=
+_image *im)
+> >  	arch_free_bpf_trampoline(im->image, im->size);
+> >  	bpf_jit_uncharge_modmem(im->size);
+> >  	percpu_ref_exit(&im->pcref);
+> > +	kfree(im->skips);
+> >  	kfree_rcu(im, rcu);
+> >  }
+> >
+> >  static void __bpf_tramp_image_put_deferred(struct work_struct *work)
+> >  {
+> > +	struct bpf_trampoline *tr;
+> >  	struct bpf_tramp_image *im;
+> >
+> >  	im =3D container_of(work, struct bpf_tramp_image, work);
+> > +	tr =3D im->tr;
+> > +	trampoline_lock(tr);
+> > +	list_del(&im->list);
+> > +	trampoline_unlock(tr);
+> > +	bpf_trampoline_put(tr);
+> >  	bpf_tramp_image_free(im);
+> >  }
+>
+> [ ... ]
+>
+> This isn't a bug, but the comment at the call site of
+> __bpf_tramp_image_put_deferred() appears stale. bpf_trampoline_update()
+> now does:
+>
+> kernel/bpf/trampoline.c:bpf_trampoline_update()
+>     /* track the image until it is freed, for bpf_trampoline_skip_prog() =
+*/
+>     refcount_inc(&tr->refcnt);
+>     im->tr =3D tr;
+>     list_add(&im->list, &tr->images);
+>
+> so every live bpf_tramp_image holds a reference on the trampoline and
+> tr->refcnt cannot reach 0 while any image is alive. The comment in
+> bpf_trampoline_put() says:
+>
+> kernel/bpf/trampoline.c:bpf_trampoline_put()
+>     /* This code will be executed even when the last bpf_tramp_image
+>      * is alive. All progs are detached from the trampoline and the
+>      * trampoline image is patched with jmp into epilogue to skip
+>      * fexit progs. The fentry-only trampoline will be freed via
+>      * multiple rcu callbacks.
+>      */
+>     hlist_del(&tr->hlist_key);
+>
+> but the guarded block is now reached only after the last image has been
+> unlinked, typically from __bpf_tramp_image_put_deferred() rather than
+> from the detach syscall.
 
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
+Ok, will update in v3 if we keep the list.
