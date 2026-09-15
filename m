@@ -1,57 +1,57 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA50139DBCF
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:19:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C523D8104
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460408; cv=none; b=WBx7AfHhFzdMT4BZa/pj+F3mAJqozP9jlEgkLKLAK1XCniILTIBC9aMWgyOOpr0meDtgXfnmh6UGMt+iDdcil/OoK1y+Jzd/462109euLxhVqLwHLEOO4oB65cRgEGzaUhLShCXESgUzYNf9iP4qOdccMv+GdxQIbxpa6dvuWYM=
+	t=1789460408; cv=none; b=RWHPgRxzAIdJAF8aT8UmEtVzCFoBTuGM4GDhsxYCc0VaYirH3LRcgxc08NlMXS/GClvDXYzDx/+VmU2zjFm+V5vAzohZZysEIqH6qqHAsbpy57zp1T5BmCbVYnxkJk/pIejyjq/GDuQ6ZwY59r4OpPjtp0A0Cl2vimog84OXYSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789460408; c=relaxed/simple;
-	bh=IWKQ4COf9lXb2aWQAfm5Y+7WKwIMngPQWy99kbv9mag=;
+	bh=aFG0xUCnVhRmh5AZ+6xtqf07JXQFbTflRFt4CKN6Is8=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=bnnSBtGNWgZQ5v7N+6kmKQTt9F3ZYTgrX1wykP756R8zpmWVU5qZaZzrrdLC2vn27274/rOSJDdpj3cLwiFZeAyeVZNUeHE0DrDBphjW2l2O3yBWMvVTCwviaKgMdBuFZlk+dZpX2rL4Jd/hi3YIIuElq6rRsdlRy9Cuysafpl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NLwjmdHq; arc=none smtp.client-ip=209.85.214.200
+	 To:Cc:Content-Type; b=nBS9BNryKL9CRwn/IuTIXEM4DaA6RV7WvOr7zWwPaGrn2vim16Z4VPBIfF/GF4w8PzCRgItrSEXEGVW4dHG/ijiJhRbWgN/x1ibmBmN4O4W1+nRWKxXS6Z6Oz9k2JTaDNnfnf/GdA0/WF7mG4h8NpPlpz34swTsq2T5lB128fBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LjMJS6E4; arc=none smtp.client-ip=209.85.214.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NLwjmdHq"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d54187d8b0so89993205ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:19:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LjMJS6E4"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d6fb956002so52098615ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:19:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789460396; x=1790065196; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789460392; x=1790065192; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=su2v7itwh4re1nYnX3JAIlBIidMghtZfDu1F4zgeEKU=;
-        b=NLwjmdHqXhHTwQZmVKgCrm0egfEdFt4+kqHUbEwGSwa7+jCHrtxRqCU44FOPWPAw6j
-         Lu79gJPVjqMJlIYOJ/wc0kJOGdayaE/KR0Z9gxoOi3VugE7Ipx0O9iLfLkyAWlCYq7Ip
-         LkeA8eyt49nvLNOa8UOlG4Lbs97dmAap7rYlJqxP9gi2UeZNV2NohyphAr1487ngCVTC
-         PlZGh8QwyTQYe6hHZ24kzQuJQzvL3GOWl+ioAxwsCLovzu+vRJGwKx9/2FVvpe5ZUYvy
-         fFnqJDwyzJhdXOOGSTTKhDv8UVsgclHT8RulI0mE4BvFZ2c5mUT6cbkiDvHtmt43btcZ
-         KGGg==
+        bh=e1xTXUdJBJy44H7rwXmvsQjBVl/r1YS8CWHRr4HN54c=;
+        b=LjMJS6E47N0MZyuMYHfNfyIaxDcUwZDWgBKHnRFRdd9GfRbihImJwYpvaaFR2FeoO5
+         Jc9Yr50cKixjulQ05Md3u0ZMCSBRG4a87A2NcziWVkFwnsariIO6txmat3sAgMcGyRvT
+         i38yMtnPWXpG6cxx2LzMSCiCvaQzBoX0o4uQZumZjTaDXktlJ7wsW6N+yvwvRNef7Rz5
+         zIJzi8/Tv6LNjgko6yZbp3u9mM26U8+ovuxNj3zTKM7MfR67EcU1VzD2aVoAHHsmS5/r
+         3uxP+5dUk1Bw4RGOutMyKALYaqjB1pnVlNndyhLJ4KgAyTRIwmgZcONltt+X+GPHCzcp
+         p64w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460396; x=1790065196;
+        d=1e100.net; s=20260707; t=1789460392; x=1790065192;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=su2v7itwh4re1nYnX3JAIlBIidMghtZfDu1F4zgeEKU=;
-        b=uY5dYAHMr145rqHJlQ9u5Kp4otSU3Ch8JsP8sdYrMkYI7eL2/AZmO1Nyq+UkLb7WPP
-         vGDinLj/yF3LMiED1WGRoMw0jXwMNYW3hEEr8k/ed6gf9CLSLysz/QCoeUjY23Ma6+iX
-         da1FA3vsuNWcb1VSvejBDptR1q0qHFH0ZmtPUNt+K6h6j+V/gNPqAe5xuNXaMnSS/57u
-         WB3jmI/Re2Vi2MMXnqnpSfsqYWysPwOFsAg8UrnHUCE3jh3etOeO3W6Ecu7UIqR33vXU
-         1clNHLlDNB1vV7g6BcGQTAb9W4B+DK73lVkDy45nLyT8JdQ17EWPoXYRx6VoO9j/JXMQ
-         3PFw==
-X-Gm-Message-State: AFuF++moxZeQLI6kU03GPaQtk7mxCdLqFe8D7Y/BZpJgxYFJ+ZbAklWA
-	jcJNClso5njL1+P6NtoA2M4CofvxZlfvofnOJreKHBZTk/u5HTr/hx7v4Ws+UHPByvUVTn2rEag
-	1yRwspKlhZGqpd+XYSqDalAg0qfpwR4LbBRYBtGjd0dyd/mla8b7StALpdTRkZ+ncHQKadWEK+5
-	UyDruwWCHL8d8W0OtFQZD9jdbJP3hH+FLU/E4gRg==
-X-Received: from plpo14.prod.google.com ([2002:a17:903:3e0e:b0:2cc:e407:8fef])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3508:b0:2dd:8b2:6e64
- with SMTP id d9443c01a7336-2dd83851cd5mr695675ad.12.1789460395589; Tue, 15
- Sep 2026 01:19:55 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:25 +0000
+        bh=e1xTXUdJBJy44H7rwXmvsQjBVl/r1YS8CWHRr4HN54c=;
+        b=O+PPqO8q4Jjvb9jhsImDEtB90twi1N6ATQ5An9FREfkkgBk4fqDkmpW1Nba/L5WvNO
+         oWIfOBlx0R6galdyKUQekgPoCua4SEuVa6yRFqSB3Y0Ymb8BZ64rXO5QrhHj3El11EVq
+         P7xnpUQd7WioMT/3PS1wTmTbEFNlwEK3vZ3JEUTAfkI7SFJKd0WmRLqACqPoYOuVl//A
+         S1r0JUjVHHwXOVi/RcmtKbirNu2akVtukfb+YRbMsrADeamANR5iShRnJuw8qvHKNE6q
+         skBBA5gPfSAdUwhXrMu9yuzb3pX6D5amdNzSN/T6v6FGJHb0aElFUaG+DHsf7m3W/XIC
+         4hNw==
+X-Gm-Message-State: AFuF++mcbrt8Q+xgoS6lflBX5JebpPTbPp5AE6Qb5QpWLk4v1WUs04A7
+	qYtkNgBKrUviG+0Z4VQ2ScEIyyd1SnK1Qgp9btSelh0JcJXaf11B5vBoKOU6Qm5prUoHmJNAoSh
+	noVxsk/p67s2NFIykD1WV5ATLjnQfMRsTG+LIX4WHtDhmnveyJbdIBsm2kbw2iEIBElh3cn5kMA
+	5liC2aDD3rHsPBa1Jz+EnUFhyvkgdYyqZyHm9zOA==
+X-Received: from plty2.prod.google.com ([2002:a17:902:8642:b0:2d8:da84:22a9])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:b8e:b0:2d8:d4d3:3fbb
+ with SMTP id d9443c01a7336-2dd6c73445amr126364165ad.15.1789460391377; Tue, 15
+ Sep 2026 01:19:51 -0700 (PDT)
+Date: Tue, 15 Sep 2026 08:18:20 +0000
 In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,8 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260915081910.4142719-1-morbo@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-9-morbo@google.com>
-Subject: [PATCH 08/28] devlink: Refactor strlcat() to seq_buf in __devlink_compat_running_version()
+Message-ID: <20260915081910.4142719-4-morbo@google.com>
+Subject: [PATCH 03/28] ARM: atags: Replace strlcat() with snprintf() for
+ cmdline extend
 From: Bill Wendling <morbo@google.com>
 To: linux-kernel@vger.kernel.org
 Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
@@ -123,17 +124,17 @@ Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-__devlink_compat_running_version() appends running firmware version
-strings and spaces to "buf" inside nested netlink attribute loops using
-strlcat(), rescanning "buf" on every iteration.
+When CONFIG_CMDLINE_EXTEND is enabled, parse_tag_cmdline() uses two
+strlcat() calls to append a space and the bootloader tag command line to
+default_command_line.
 
-In preparation for removing the deprecated strlcat() API[1], use struct
-seq_buf anchored at the current length of "buf" and append each version
-entry with seq_buf_printf().
+In preparation for removing the deprecated strlcat() API[1], compute the
+length of default_command_line once and append the space and tag command
+line in a single snprintf() call.
 
 Link: https://github.com/KSPP/linux/issues/370 [1]
 Cc: codemender-patching+linux@google.com
-Assisted-by: CoPilot:v1 [editor_update_file, shell_command_run]
+Assisted-by: developer:gpt-4o [editor_update_file, shell_command_run]
 Signed-off-by: Bill Wendling <morbo@google.com>
 ---
 Cc: Russell King <linux@armlinux.org.uk>
@@ -247,52 +248,28 @@ Cc: devel@lists.orangefs.org
 Cc: linux-hardening@vger.kernel.org
 Cc: linux-sound@vger.kernel.org
 ---
- net/devlink/dev.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ arch/arm/kernel/atags_parse.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/net/devlink/dev.c b/net/devlink/dev.c
-index 55959b0ff5ab..987b071345c4 100644
---- a/net/devlink/dev.c
-+++ b/net/devlink/dev.c
-@@ -5,6 +5,7 @@
-  */
-=20
- #include <linux/device.h>
-+#include <linux/seq_buf.h>
- #include <net/genetlink.h>
- #include <net/sock.h>
- #include "devl_internal.h"
-@@ -1190,6 +1191,7 @@ static void __devlink_compat_running_version(struct d=
-evlink *devlink,
+diff --git a/arch/arm/kernel/atags_parse.c b/arch/arm/kernel/atags_parse.c
+index 4ec591bde3df..21140b44d96e 100644
+--- a/arch/arm/kernel/atags_parse.c
++++ b/arch/arm/kernel/atags_parse.c
+@@ -121,9 +121,10 @@ __tagtable(ATAG_REVISION, parse_tag_revision);
+ static int __init parse_tag_cmdline(const struct tag *tag)
  {
- 	struct devlink_info_req req =3D {};
- 	const struct nlattr *nlattr;
-+	struct seq_buf s;
- 	struct sk_buff *msg;
- 	int rem, err;
-=20
-@@ -1202,6 +1204,9 @@ static void __devlink_compat_running_version(struct d=
-evlink *devlink,
- 	if (err)
- 		goto free_msg;
-=20
-+	seq_buf_init(&s, buf, len);
-+	s.len =3D strnlen(buf, len);
+ #if defined(CONFIG_CMDLINE_EXTEND)
+-	strlcat(default_command_line, " ", COMMAND_LINE_SIZE);
+-	strlcat(default_command_line, tag->u.cmdline.cmdline,
+-		COMMAND_LINE_SIZE);
++	size_t len =3D strlen(default_command_line);
 +
- 	nla_for_each_attr_type(nlattr, DEVLINK_ATTR_INFO_VERSION_RUNNING,
- 			       (void *)msg->data, msg->len, rem) {
- 		const struct nlattr *kv;
-@@ -1209,8 +1214,7 @@ static void __devlink_compat_running_version(struct d=
-evlink *devlink,
-=20
- 		nla_for_each_nested_type(kv, DEVLINK_ATTR_INFO_VERSION_VALUE,
- 					 nlattr, rem_kv) {
--			strlcat(buf, nla_data(kv), len);
--			strlcat(buf, " ", len);
-+			seq_buf_printf(&s, "%s ", (const char *)nla_data(kv));
- 		}
- 	}
- free_msg:
++	snprintf(default_command_line + len, COMMAND_LINE_SIZE - len,
++		 " %s", tag->u.cmdline.cmdline);
+ #elif defined(CONFIG_CMDLINE_FORCE)
+ 	pr_warn("Ignoring tag cmdline (using the default kernel command line)\n")=
+;
+ #else
 --=20
 2.55.0.1032.g73a4cd73de-goog
 
