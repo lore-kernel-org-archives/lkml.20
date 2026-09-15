@@ -1,95 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-195.mta0.migadu.com [91.218.175.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89C41FCF41;
-	Tue, 15 Sep 2026 02:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D8123645D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:26:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789439204; cv=none; b=J/4iTvQShDLBOg/U+cZYcAgu/8Lc+ZDScMYbOowH8Oda5B4eqE/AGk0KHsnoKf6iXKmPluT3CQa2Q2wus0Ulj2JQEVv/reIzecampaONxLcK1UbeuS4ynxLxORa8BoNIFMmGdBRcYo59AOVipLbCyj+mjm7WxccJpVP6Y4pHw9o=
+	t=1789439217; cv=none; b=taw1pgHmCqITTo9LHTb6GxB+CB4KW3Q0k6xumiPLLibdr+5/LvhlsmdR22dgMhJf8Ul/Zbz8WZaWrYz4mcYsWMuLA950xn7+HQeo5/ICldwov2tCczLp7w3Hk8HVnYj0LHaDs1VpKaEPQQpvminbZoU3tMSKWnhS5lNse1O++8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789439204; c=relaxed/simple;
-	bh=Uoy/2lm94lDcRPww1wKFu6Ac8t3BeOpOj7v6Z2BflHU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mT6zsxiH13ICMhInhZCxhTsiG9KUt98D+j9yL3PPCSdv7tZ7aJ1bMhO5Jtw5b8R2mdUzk4hGkrfft2n5s6239EgDjw16GUs49WCHqanMypl/2jZPJfOh3G+j9rNO6qM/wzYUic1o18LmJKVBIZMULpXX/SuP9PAX5aXwnprNzTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XPLksAgY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789439217; c=relaxed/simple;
+	bh=WFAadgQLRx9VGPG7beZ1PrymSk2taGND2sdEQsl8PYY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lSW24+RLgatNH1BqWbnMthNK6t3i5Lsi3J1mWh7EoeOz0H+il6ya6Aowvq6CMnGss6sAIW/DU2H3Ohv/QFV0Sjb92iwVCmMjRP//zrESeHCF900t8fqm4axqN2+k64K4veRmu2om9XtuSbil18lv+oGVne7qxO0pQJx5rbDndTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IDOPJAkx; arc=none smtp.client-ip=91.218.175.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XPLksAgY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49D561F000FF;
-	Tue, 15 Sep 2026 02:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789439202;
-	bh=FF/hMzJEEBjVHj8tu5+0x29Q3pa1mk5zwrpdsL2Gbqg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XPLksAgYffr0yle6lKJ6XByLq/4bc3FRUCodqnf4SrClABYzHbAlOrsZjitB0eoFM
-	 rFkVa/PJlHlAg2Ran+D/zwQBrPw9NSVmsdQ+90da47gwcAt9fnNMHf/lqveBv1ydk7
-	 W2Coiaw+m17khA9iK1rsB6UZp7xpk8hrVgSUreA6NQnsSf0woOVy5FhFt8NYn0X4AZ
-	 xiQyesN0WbmdeGF5iOnybS/2YvZux6O/LOm9qDKkCtrGxH6kh5mSnYXOxfm8A9Q4Tr
-	 wayNzZCNfrYd0BvA6va5cTa+uUq7QT7ObBguny0eiGOnr7f5zEKCGuBHN/XIi9Hk+8
-	 A9QDivFwMiVnA==
-From: SJ Park <sj@kernel.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	lianux.mm@gmail.com
-Subject: Re: [RFC PATCH 4/9] mm/damon/core: use damos_quota_is_set() in damos_adjust_quota()
-Date: Mon, 14 Sep 2026 19:26:33 -0700
-Message-ID: <20260915022635.103818-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CAN_Opa8qSHcDNU8k=EWMywUADizJEhHPpuia3jMcZ13i5iYXgg@mail.gmail.com>
-References: 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IDOPJAkx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WFAadgQLRx9VGPG7beZ1PrymSk2taGND2sdEQsl8PYY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789439213; v=1; x=1790044013;
+ b=IDOPJAkxV1E7AzaSc2U+1EHFnJVe9bFouwDr5qxPJEIvlUEhnz9UTbdjQXiBFhshNck9po96
+ KZPR8ThwEs83KO1OgLZAN7lXnTvbROWgTBT/WHePb93AmuV0iOCvi5TpyiahBN36DQpzl/srgVw
+ H98PFKLzQYBrGMToLsIP5D7M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 28292594e66ea37f;
+	Tue, 15 Sep 2026 02:26:53 +0000
+X-Mizu-Trace-ID: 28292594e66ea37f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7dccfc33-0ab8-4dc5-8886-8ad2b6dc290b@linux.dev>
+Date: Tue, 15 Sep 2026 10:26:42 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] mm/vmalloc: extract show_busy_info from
+ vmalloc_info_show
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Ye Liu <liuye@kylinos.cn>
+References: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
+ <20260914-vmalloc_study-v1-3-526f68559706@linux.dev> <aqgqjRJ8qpYmx04v@milan>
+Content-Language: en-US
+From: Ye Liu <ye.liu@linux.dev>
+In-Reply-To: <aqgqjRJ8qpYmx04v@milan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Tue, 15 Sep 2026 10:19:43 +0800 KunWu Chan <kunwu.chan@gmail.com> wrote:
-
-> On Mon, Sep 14, 2026 at 11:16 PM SJ Park <sj@kernel.org> wrote:
-> >
-> > On Mon, 14 Sep 2026 23:01:48 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrote:
-> >
-> > > On Sat, 12 Sep 2026 13:08:05 -0700 SJ Park <sj@kernel.org> wrote:
-[...]
-> > So, if user sets only time quota, and then commits the quota to zero while the
-> > esz is non-zero, esz is never reset to zero.  As a result, DAMOS keeps applying
-> > the action with the esz forever.  Correct?
-> 
-> Yes, the stale esz path is confirmed.
-> 
-> One clarification, though: it does not keep applying the action
-> forever. While charged_sz < stale_esz, damos_adjust_quota() still
-> returns early, but damos_apply_target() continues to apply the
-> scheme and damos_charge_quota() keeps increasing charged_sz.
-> 
-> Once charged_sz >= stale_esz, damos_quota_is_full() returns true,
-> so damon_do_apply_schemes() skips the scheme. Since the early return
-> also prevents the charge-window handling from running,
-> charged_sz is never reset, and the scheme remains permanently
-> inactive.
-> 
-> So clearing the quota can result in the scheme applying up to the
-> stale esz, and then stopping permanently.
-
-Thank you for detailed clarification, Kunwu!
-
-> 
-> >
-> > If so, this may deserve Cc-ing stable@.  Kunwu, what do you think?
-> 
-> I think this is a functional bug in the existing code, and Cc'ing
-> stable makes sense.
-
-Agreed.  I will post this as a hotfix soon.
 
 
+在 2026/9/15 01:10, Uladzislau Rezki 写道:
+> On Mon, Sep 14, 2026 at 11:34:02AM +0800, Ye Liu wrote:
+>> From: Ye Liu <liuye@kylinos.cn>
+>>
+>> Extract the busy vmap area iteration into show_busy_info, mirroring
+>> the existing show_purge_info pattern.
+>>
+>> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+>> ---
+>>  mm/vmalloc.c | 14 ++++++++++----
+>>  1 file changed, 10 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>> index 797933ba9451..7638845377f5 100644
+>> --- a/mm/vmalloc.c
+>> +++ b/mm/vmalloc.c
+>> @@ -5345,12 +5345,12 @@ static void show_purge_info(struct seq_file *m)
+>>  	}
+>>  }
+>>  
+>> -static int vmalloc_info_show(struct seq_file *m, void *p)
+>> +static void show_busy_info(struct seq_file *m)
+>>  {
+>>  	struct vmap_node *vn;
+>>  	struct vmap_area *va;
+>>  	struct vm_struct *v;
+>> -	unsigned int *counters;
+>> +	unsigned int *counters = NULL;
+>>
+> Is setting counters setting to NULL odd here?
+> 
+I would remove '= NULL'.
+> Other than that, LGTM:
+> 
+> Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+> 
+> --
+> Uladzislau Rezki
+
+-- 
 Thanks,
-SJ
+Ye Liu
 
-[...]
