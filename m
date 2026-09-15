@@ -1,122 +1,199 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CAD3B8BA4
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2F55E21A453;
+	Tue, 15 Sep 2026 15:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487293; cv=none; b=D8QcKi0srwWVVOJ7113f0R9p0FVj/GYDOL7vWLnzrjzRWyp49FbJexNBb5hUOBVnZaPHceRl1H2UcfAsSL/E6w1IrMAUk6l83ks0YjjRHlJCpf8pVhC5LoeXX4Fz9lg/E9WUOf2tjx1UBtVPj+xgLo3xd/gNzMhPDBFAehWbR5U=
+	t=1789487345; cv=none; b=hlxCfze2DuglBMpa9WEFdlIztCUz1ZKiviK4TMheIfTKc7ih344aPMJqrmzhPjroRWWUX6U83Dx1hdnZN2I7ie+KUPm03HuKBgJgI0HKrSKfqNdy2wua0yyBogcVDnw3Pq7OOAwRANHwf8Xr5vfwpKhNpQ2tx4Nhf6MrpozSANY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487293; c=relaxed/simple;
-	bh=cUEypg63L5f/VUOrvJqiiMmrxyqPv34pJ6DVfN2Adfs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QgA0gaM4Iioo5sH/nPq72DUGxXgbtrpwNxt12D2Ws6+QjU8dCOxnWqvO5Th11rRPk+o22BFA3nbX0FSyYddHtOae0eaUruylNshP4WhqvE3Djbo9q0v5ceR5HoAK4Rp1REdZikw/wsJ1VZi03GhsNyoDoBMdPgtZdj+9ru/IlAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e2EmRSGw; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789487345; c=relaxed/simple;
+	bh=3fePGUpcFKcyg8Wmo61Zos3owlK/geK2GV8guwQ9n+k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CxHVALOBCyqBViiq3TyXqaFo5WDg2Vw1RX/vLqoGGBbNl3j+QJhfGZ3RwNgV3iue0jDD5DNGot+0ELcKnc0TpPjYaldfDjM6aFKoRrMLWKYZIS2121WOnIO2LojhUTWlxbb8iB5pEy1FQEzFb0IWN8gZ70dy0OwDAa/Qmhn7yhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sdb0u63E; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e2EmRSGw"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-531034aa31bso25253161cf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:48:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789487290; x=1790092090; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kylk6jQtKAQ+o3Y2HdR0DJ4+oM1lekmhtx/9tJwi1dg=;
-        b=e2EmRSGwjiUqQGouSNFtGYI9a6yxxlGxn2dBuUObaQHJNoaE/lRJcCwCuI3MJQjfyM
-         NDLKGKCiA2n8LE2BUrRTH/Z9MY0SkLqXcbR7lL81wjnYt33uNTp0cuCbp0wzpPo++qhq
-         7I9R+4FwE5bGzkbwRSm4v+FkKaogjR2ly/SbwDI5/UX6lj2OcWzqXiprTl1daUk7Rw3E
-         5uAavWw8o2OiWA50Xqr9Cr6ImRV+Rx9GwVatwgVbRM3lICj3gJ3dj93O+xKWU6+WsrJo
-         5gwvvC0c6AuYiNoiggHk+MlCBVNx3yOZds6ioS2R64+2uUkS2/wvCJ/fjJwq4BGW27dZ
-         y5VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789487290; x=1790092090;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Kylk6jQtKAQ+o3Y2HdR0DJ4+oM1lekmhtx/9tJwi1dg=;
-        b=CPN+gNDd3xMC9KTS/YN0cRfmzEAQCUOxqpOTYSrlp3p4pBQf17khhOAX4zeJFdc+fx
-         6YN+F+Eqd5aVFIPmbwnKVcktbWT0C7qR+AnfrWb+Ydbtu8hxhIMrguEfKr7R9Kavy6oI
-         lsSEwvX1PB5L7p/HCDq+FTR0HsVrIQBbt+TDE2uiQqeTuHuTwRuQ8xli6sRLQQL9h68+
-         6KeGjyAS6rrnOUW47s9tKePO2yP0fhvcQthLSyiuZMC0aG/t+cn00nlIfBzJ5TLUN069
-         8YWAouRyMOmCYpvKfsGKeJbb9ZrgvE16ITd7SnjiSwFUL66k3MIdoEaQmeHZSorJPU/t
-         O/2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzdqqB91gzOG34SOdFYelj/AwHL7VZ+8elqPcYhfe9xT803xcAngQ1vFC7+U5Hiw3/iQ9ADQqJnI/DREZk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOWM18iWbdgjBPgkibaqx/dRjjX8II97qY63UdmfWEzPij3NeS
-	GrsIIgT7MvraCcoV8Hfy7z34VfCfd2J3XXhHrmEdMnCALRiEpTNZME4T
-X-Gm-Gg: AYBFou0DVm9gcxnlALmLIWE3Ww2GhEEh3Bmk2ak0YtOxrBX1ATjhaNYapcCJZyQzWJi
-	BEAB+vBtrMNX32K6yF8UcPbUHgSMQQvI59xEcw+wqzwiri2C/E9GLkU/FedWZjkUGiart9/wOKH
-	VE0KBn/q2plnzJsI/szh0zLCDW03a2wuG/FWNHfjQUTAJg1k7OeE4tUE595KijetZRYs84E9ITL
-	KHlA58Y53r1ZpHiRUEWIGyzaFIl0arVuY6MiDvsKcrh72b37Hjm1xEzTgwHdYo7UR1cMimHiOMQ
-	2q+hE2sW97M+dsveXTNNd/L/YJBHd4OKWEZKncePTfaqXyHxV0FCzgilCvfwZ/ZijX/tLxqFd97
-	+m82jQSB4xHQXyOL3vUmh/9G5f8+RAVXCgkIJ8EuMG+oy1KwfW8esT9SL9lIIQDcyw16JZoBu8x
-	NlfTmrQ551NksoGZkhrl6AmcFhhw07drshDqs5fL2auIXeSQFHplZAv9a1JEHazbzytHtpqBmxn
-	TMxage6b1orcL48
-X-Received: by 2002:a05:622a:190f:b0:530:e4fb:60fc with SMTP id d75a77b69052e-5310cf3a3c1mr119647581cf.15.1789487289736;
-        Tue, 15 Sep 2026 08:48:09 -0700 (PDT)
-Received: from laptop.amd.com (munvpn.amd.com. [165.204.72.6])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530f6823ba5sm82610361cf.28.2026.09.15.08.48.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 08:48:09 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-To: christian.koenig@amd.com,
-	ray.huang@amd.com,
-	nat@pixelcluster.dev,
-	arunpravin.paneerselvam@amd.com,
-	matthew.auld@intel.com,
-	matthew.brost@intel.com,
-	thomas.hellstrom@linux.intel.com
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] MAINTAINERS: change TTM maintainers to Natalie and Arun
-Date: Tue, 15 Sep 2026 17:48:04 +0200
-Message-ID: <20260915154804.605772-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sdb0u63E"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 044491570;
+	Tue, 15 Sep 2026 08:49:00 -0700 (PDT)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 39FEF3F882;
+	Tue, 15 Sep 2026 08:49:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789487343; bh=3fePGUpcFKcyg8Wmo61Zos3owlK/geK2GV8guwQ9n+k=;
+	h=From:Subject:Date:To:Cc:From;
+	b=sdb0u63EAITu5AIbhYgw8fQlKTjNqyAS1DJhxJi1Y9UeOhZaIa3LmsG5GNzD82k4g
+	 nkR4SGWkINzJ/M0VSxM64psGlDurfep/ECzQwnlZYdnQ8WKfvAw84uA0qbVc3YVpz5
+	 ND+X3byucoD4FQXlpGjEDYqgpvV7aTG07dAJkbVs=
+From: Leo Yan <leo.yan@arm.com>
+Subject: [PATCH 00/25] CoreSight / perf: Support AUX sampling
+Date: Tue, 15 Sep 2026 16:48:46 +0100
+Message-Id: <20260915-arm_cs_support_aux_sample-v1-0-35cf6f297d20@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAN5oqWoC/x3MSwqAMAwA0atI1ha02Fq8ikgpGjXgpyQqgnh3i
+ 8u3mHlAkAkFmuwBxouE9i2hzDPo57BNqGhIBl1oWzhtVeDV9+LljHHnw4fz9hLWuKDStbG2MpU
+ xzkHqI+NI9/9uu/f9AApfwmBrAAAA
+X-Change-ID: 20260826-arm_cs_support_aux_sample-275664545588
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ James Clark <james.clark@linaro.org>, Mike Leach <mike.leach@arm.com>, 
+ Anshuman Khandual <anshuman.khandual@arm.com>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, coresight@lists.linaro.org, 
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+ Leo Yan <leo.yan@arm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789487340; l=6419;
+ i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
+ bh=3fePGUpcFKcyg8Wmo61Zos3owlK/geK2GV8guwQ9n+k=;
+ b=5Ldui6l9hwo13O0cxQcRs2k0r7j9TBAfT7JQ4cWIE7ds+u+5rm0MDfZjOG0drt26+lm7Htc8F
+ avasupR7zFWChnez0rEmbcdX0xqgFbcGtVdNp6R9HXG9SSq6oa3Rtht
+X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
+ pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-The blunt reality is that I don't have time to look into patches or bugs
-any more as it would be necessary. The same counts for Ray.
+This series adds AUX sampling support to Arm CoreSight. A PMU sample can
+carry a window of recent AUX trace, which perf generates callchain and
+branch stack for the sampled thread. This provides execution history for
+context-based profiling.
 
-Natalie has been working on the dmem cgroup patches for TTM and agreed
-to take over looking more into TTM.
+The series can be divided into four parts:
 
-Arun is working in my team and already maintaining AMDs VRAM backend for
-TTM and the underlying buddy allocator.
+1. Patches 01 ~ 03 for event core:
 
-Add Thomas as reviewer as well, better to have more eyes on that
-component.
+   The perf event core changes warn on non-positive AUX snapshot
+   returns before checking alignment padding. Space for a non-zero AUX
+   payload has already been reserved, so a zero return leaves that
+   payload unwritten. CoreSight fills unavailable trace with zeros and
+   returns the requested size.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
+   It also prevents AUX sampling and pause/resume from nesting through
+   an NMI. A driver guard alone can leave perf's pause state
+   (aux_paused) inconsistent with the hardware state. The event core
+   ensures only one AUX callback is exclusively invoked.
+
+   Export the output copy helpers so CoreSight can fill sample payloads
+   when the driver is built as a module.
+
+2. Patches 04 ~ 09 for ETM perf:
+
+   The ETM perf changes separate the lifetime of the published CoreSight
+   context from that of the AUX output handle.
+
+   Centralize buffer updates, and end AUX output when throttling stops
+   an event without PERF_EF_UPDATE so a later restart can acquire a
+   fresh handle.
+
+   Make hardware-state transitions reflect completed operations.
+
+3. Patches 10 ~ 13 for TRBE driver:
+
+   TRBE snapshot buffers need padding to meet the CPU's alignment and
+   wrap constraints. Use circular buffer mode for overwrite snapshots,
+   retaining Fill mode on CPUs that require the write out-of-range
+   workaround.
+
+   TRBE faults can still raise interrupts in circular mode. Track when
+   the sink is handling an interrupt so an AUX sampling NMI can skip a
+   snapshot while the interrupted handler is updating the buffer. Make
+   repeated sink disable safe for deferred cleanup after a snapshot
+   failure.
+
+4. Patches 14 ~ 25 for AUX sampling and decoding:
+
+   Shared atomic STOP and AUX action bits prevent an NMI stop from
+   tearing down the context while pause, resume or snapshot accesses it.
+   The AUX operation finishes and then completes the deferred stop,
+   publishing the stopped state only after hardware teardown.
+
+   Add snapshot_aux() to the CoreSight driver to pause the source, update
+   the sink buffer, disable the path, copy the recent trace into the PMU
+   sample, and then re-enable the path and resume the source.
+
+   Patch 17 fixes history collection for zero-IP PMU samples. Perf clears
+   the IP when a user-only sampling interrupt skids into the kernel, but
+   the timestamp and TID remain valid for matching the trace history.
+
+   In perf, decode each embedded payload as an independent trace window,
+   selecting the decoder with the sampled CPU and using the sample's
+   PID/TID and traced context IDs to attribute history to the sampled
+   thread. Refactor common timeless decoding and history collection, and
+   drain pending OpenCSD output so buffered history is not lost.
+
+   Attach reconstructed callchains and branch stacks to the original PMU
+   samples, preserving histories already present in the samples. Add a
+   test, and document the recording and decoding workflow and its
+   limitations.
+
+The initial support targets unformatted trace from per-CPU sinks such as
+TRBE. Shared formatted sinks such as ETR can mix trace from multiple CPUs,
+consuming the limited sample window with execution unrelated to the
+sampled thread.
+
+This series is based on Amir's series "perf: Add CoreSight branch
+history to existing samples" [1] for perf tool's branch / callchain
+generating.
+
+[1] https://lore.kernel.org/linux-perf-users/cover.1787005265.git.aaupov@fb.com/
+
+Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- MAINTAINERS | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Leo Yan (25):
+      perf/core: Reject non-positive AUX snapshot sizes
+      perf/core: Prevent AUX sampling from racing with pause/resume
+      perf/core: Export output copy helpers for CoreSight
+      coresight: perf: End AUX output when an event is throttled
+      coresight: perf: Extract AUX buffer update helper
+      coresight: perf: Simplify flow for CPUs without a path
+      coresight: perf: Validate the live context through its path
+      coresight: perf: Validate context before resuming trace
+      coresight: perf: Improve hardware state transitions
+      coresight: trbe: Pad snapshot buffers
+      coresight: trbe: Use circular buffer mode for snapshots
+      coresight: trbe: Track per-CPU sink interrupt handling
+      coresight: trbe: Handle an already disabled sink
+      coresight: perf: Look up the trace path in etm_event_pause()
+      coresight: perf: Serialize AUX pause and resume with event stops
+      coresight: perf: Support AUX sampling with per-CPU sinks
+      perf cs-etm: Allow history collection for samples with zero IP
+      perf cs-etm: Unify timeless buffer decoding
+      perf cs-etm: Propagate errors from trace queue flushing
+      perf cs-etm: Drain pending packets before finishing trace blocks
+      perf cs-etm: Complete packet draining with end of trace
+      perf cs-etm: Centralize sample history collection
+      perf cs-etm: Decode AUX samples into callchains and branch stacks
+      perf test: Add CoreSight AUX sample decoding test
+      Documentation: coresight: Document AUX sample decoding
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5b5a4e4b35cf..b6e58a138501 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9140,10 +9140,11 @@ F:	drivers/gpu/drm/drm_privacy_screen*
- F:	include/drm/drm_privacy_screen*
- 
- DRM TTM SUBSYSTEM
--M:	Christian Koenig <christian.koenig@amd.com>
--M:	Huang Rui <ray.huang@amd.com>
-+M:	Natalie Vock <nat@pixelcluster.dev>
-+M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
- R:	Matthew Auld <matthew.auld@intel.com>
- R:	Matthew Brost <matthew.brost@intel.com>
-+R:	Thomas Hellström <thomas.hellstrom@linux.intel.com>
- L:	dri-devel@lists.freedesktop.org
- S:	Maintained
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ Documentation/trace/coresight/coresight-perf.rst |  39 ++
+ drivers/hwtracing/coresight/coresight-etm-perf.c | 396 +++++++++++++-----
+ drivers/hwtracing/coresight/coresight-etm-perf.h |   2 +
+ drivers/hwtracing/coresight/coresight-trbe.c     | 122 ++++--
+ include/linux/coresight.h                        |   2 +
+ kernel/events/core.c                             |  26 +-
+ kernel/events/ring_buffer.c                      |   2 +
+ tools/perf/arch/arm/util/cs-etm.c                |   6 +
+ tools/perf/tests/shell/coresight/aux_sample.sh   | 189 +++++++++
+ tools/perf/util/cs-etm-decoder/cs-etm-decoder.c  |  39 ++
+ tools/perf/util/cs-etm-decoder/cs-etm-decoder.h  |   7 +
+ tools/perf/util/cs-etm.c                         | 491 ++++++++++++++++-------
+ 12 files changed, 1040 insertions(+), 281 deletions(-)
+---
+base-commit: 134e1295eedfc9a3c6e4e63d8ef45dc63749449b
+change-id: 20260826-arm_cs_support_aux_sample-275664545588
+
+Best regards,
 -- 
-2.43.0
+Leo Yan <leo.yan@arm.com>
 
