@@ -1,178 +1,95 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30628408612
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64E0A41D208;
+	Tue, 15 Sep 2026 03:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789443239; cv=none; b=jZqQO+emvMCO5P2bkejokZ/kSBGfinpG6GOv2YKmHbRhWs7XPm9ufauMNC5oiv6zRW0zPjQRu+IsIyu+ohALArTGJIAaPCZR6ePdgynZYOvOtT2yB+zqZvzyFw5QFMBOqCDe3BR5qaP6/W4jYdnh1U9ric8KE31E1y9R1Rkg1dY=
+	t=1789443250; cv=none; b=uHjxpQ0V2iyoVDQLGxYA3IYgOzFdR4kHyM/hVzFsacB/xpBQ6TT4xi2sZoojsBvkR8LBxibtOVt32hcycFSIkXKVRmsFbUxPBnaMMKslDgjWl9JfxHmk+k7hXMTY56w+kg+8kWYCZp7jDhJ3hQfqvjyM4agoq318LeDaIHMqsXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789443239; c=relaxed/simple;
-	bh=aX+gHik0/HF4QyGg5XxxddTBSHHt/SiD3jXKyO2buzg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=E70uXmpL8ygXgVOS6g2zCiUkp+IDdIYEeEC+qbZgn86d5DPB5lp3NrPP1NfWgDAesqIe2xzSBrkciRjfi6psRqbfDM0p9rDw8oKDWLq/dIaVZHhjYkFXZhpTh/okC8kJrjFsoA7gWaOBI6YzduZ7zke8eVkaIyT0Q/zxDh6DZpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=bVY1bHGz; arc=none smtp.client-ip=115.124.30.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="bVY1bHGz"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789443231; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
-	bh=KEnYjPH9sIY7wU+k5WAIIK2/axmvXp5XB0Al/sd5JkQ=;
-	b=bVY1bHGz/NMHA8TBUaFnv0xcj/VuVHw8YDMGNureNiUG9fS3pvHN7obcmYC6Jpnyj66vz3JYNJkIDUMzBTOeBR2vdSTnQ8MIHrDTkgEQlHDW5MpD+mO033w690PVt7vGY3BMJBEpdxLh20gXQQUvCxewgZSn2xvBrJuvARxTeh8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=26;SR=0;TI=SMTPD_---0XB.uvMv_1789442910;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XB.uvMv_1789442910 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 15 Sep 2026 11:28:32 +0800
-From: fangyu.yu@linux.alibaba.com
-To: tomasz.jeznach@linux.dev,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	baolu.lu@linux.intel.com,
-	jroedel@suse.de,
-	zong.li@sifive.com,
-	andrew.jones@oss.qualcomm.com,
-	anup@brainfault.org,
-	jgg@nvidia.com,
-	jgg@ziepe.ca,
-	kevin.tian@intel.com,
-	atish.patra@linux.dev,
-	skhawaja@google.com,
-	vasant.hegde@amd.com,
-	joerg.roedel@amd.com
-Cc: fangyu.yu@linux.alibaba.com,
-	guoren@kernel.org,
-	iommu@lists.linux.dev,
+	s=arc-20240116; t=1789443250; c=relaxed/simple;
+	bh=d/PzSr+pBWwRCmGUUPhTcFzuPPuRKZn8WKjlMX5ulvQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=JWi9kgI5vww039xEJNa0ikvu6GtQWdL/f73Rf9DdfAIoHjlD25N/Siw+el9v/EwEWtCuZXi8J//8B5CW7ATYuUrsKeqLEw/jNBbj5NsnF+wFFh2c3LpecwQbA+LOKDzDR5BHNiQhz9ze5Va7ap4jT7fCnWgrtkp3CL2tbK6w0/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.2.5.213])
+	by gateway (Coremail) with SMTP id _____8DxTtOnvKhquREMAA--.34799S3;
+	Tue, 15 Sep 2026 11:33:59 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.2.5.213])
+	by front1 (Coremail) with SMTP id qMiowJDxDc+mvKhqk90gAA--.37043S2;
+	Tue, 15 Sep 2026 11:33:58 +0800 (CST)
+From: Bibo Mao <maobibo@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>
+Cc: Len Brown <lenb@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	kvm-riscv@lists.infradead.org
-Subject: [RFC PATCH v4 00/10] iommu/riscv: Add hardware dirty tracking for second-stage domains
-Date: Tue, 15 Sep 2026 11:28:19 +0800
-Message-Id: <20260915032828.11250-1-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+	loongarch@lists.linux.dev,
+	linux-acpi@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
+	lixianglai@loongson.cn
+Subject: [PATCH v3 4/4] MAINTAINERS: Add entry for drivers/acpi/loongarch
+Date: Tue, 15 Sep 2026 11:26:27 +0800
+Message-Id: <20260915032627.2796747-5-maobibo@loongson.cn>
+X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20260915032627.2796747-1-maobibo@loongson.cn>
+References: <20260915032627.2796747-1-maobibo@loongson.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxDc+mvKhqk90gAA--.37043S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
+	ZEXasCq-sGcSsGvfJ3UbIjqfuFe4nvWSU5nxnvy29KBjDU0xBIdaVrnUUvcSsGvfC2Kfnx
+	nUUI43ZEXa7xR_UUUUUUUUU==
 
-From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+ACPI defines few LoongArch specific tables which need parsing code
+added in drivers/acpi/loongarch. Add maintainer entries for this newly
+created folder.
 
-The RISC-V IOMMU architecture defines an AMO_HWAD capability (Hardware
-Access/Dirty update) that allows the IOMMU to atomically set the A/D bits
-in second-stage PTEs on DMA access.  When DC.tc.GADE is asserted, the IOMMU
-autonomously sets D on the first write to a page mapped by an iohgatp
-domain.  This series wires that capability up to the iommufd dirty-tracking
-interface (IOMMU_HWPT_SET_DIRTY_TRACKING / IOMMU_HWPT_GET_DIRTY_BITMAP) and
-reports IOMMU_CAP_DIRTY_TRACKING.
-
-Design notes
-------------
-
-* The feature is scoped to second-stage (iohgatp) domains only; these are
-  the domains created for KVM / VFIO device pass-through when userspace
-  allocates an HWPT with IOMMU_HWPT_ALLOC_NEST_PARENT or
-  IOMMU_HWPT_ALLOC_DIRTY_TRACKING.  First-stage (iosatp) domains are not
-  touched by this series.
-
-* The page-table side plugs into the existing generic_pt dirty hook
-  framework (amdv1 / vtdss style).  RISC-V adds the three required PTE
-  ops – is_write_dirty / make_write_clean / make_write_dirty.
-
-Testing
--------
-
-* Test on QEMU RISC-V, a nvme and an e1000e device was passed through
-  to an L2 guest via vfio-pci + iommufd.
-
-* generic_pt KUnit: the existing test_dirty case now runs and passes for
-  the RISC-V 64-bit format.
-
-Follow-up work
---------------
-* Build a dedicated end-to-end test case that drives the full flow
-  (HWPT_ALLOC with DIRTY_TRACKING -> attach -> IOAS_MAP -> generate real
-  DMA -> SET_DIRTY_TRACKING -> GET_DIRTY_BITMAP -> verify bitmap against
-  expected IOVA footprint) so that the behaviour can be regression-tested
-  beyond the KUnit PTE-level coverage.
-
-* If possible, rebase and retest on top of the updated "iommu irqbypass"
-  patchset.
-
+Signed-off-by: Bibo Mao <maobibo@loongson.cn>
 ---
-Changes in v4 (Jason's suggestions):
-    - Rebased the series on top of [1] and [2].
-    - Drop the RISC-V-specific pt_num_items_lg2() top-level special case.
-    - Validate page-table address widths by translation stage: accept only
-      Sv39/Sv48/Sv57 widths for first-stage tables and only Sv39x4/Sv48x4/
-      Sv57x4 widths for second-stage tables.
-    - Replace the aliased first-stage/second-stage MODE union with
-      independent FSC/IOSATP and IOHGATP MODE fields.
-    - Add pt_dirty_supported() to restrict RISC-V generic_pt dirty tracking
-      to second-stage tables.
-    - Link to v3:
-      https://lore.kernel.org/linux-riscv/20260821132749.82070-1-fangyu.yu@linux.alibaba.com/
-Changes in v3 (Andrew Jones's suggestions):
-    - Rebased the series on top of Andrew Jones' generic_pt RISC-V supported
-      feature mask fix, which adds PT_FEAT_RISCV_SVPBMT to the supported feature
-      set.
-    - Added PT_FEAT_RISCV_S2 to the RISC-V generic_pt supported feature mask and
-      KUnit feature matrix.
-    - Kept PT_FEAT_SIGN_EXTEND only for first-stage RISC-V KUnit configs; second
-      stage configs now use PT_FEAT_RISCV_S2 without sign-extension semantics.
-    - Split RISC-V IOMMU capability checks into first-stage FSC and second-stage
-      IOHGATP helpers.
-    - Updated second-stage paging domain setup to use GPA widths 41/50/59 and to
-      avoid PT_FEAT_SIGN_EXTEND.
-    - Link to v2:
-      https://lore.kernel.org/linux-riscv/20260507113706.11400-1-fangyu.yu@linux.alibaba.com/
-Changes in v2 (Jason's suggestions):
-    - Introduced a single PT_FEAT_RISCV_S2: second-stage selection is driven
-      purely by this feature bit.
-    - Switched from dynamic DC.tc.GADE toggling to static pre-enable.
-    - domain_alloc_paging_flags: follow the switch/case design from other
-      drivers.
-    - Drop IOMMU_CAP_DEFERRED_FLUSH in riscv_iommu_capable.
-    - Remove the .hw_info-related patch.
-    - Link to v1:
-      https://lore.kernel.org/linux-riscv/20260428131359.34872-1-fangyu.yu@linux.alibaba.com/
+ MAINTAINERS            | 9 +++++++++
+ arch/loongarch/Kconfig | 1 +
+ 2 files changed, 10 insertions(+)
 
-[1] https://lore.kernel.org/linux-iommu/1-v2-563ee63886f0+1209-iommupt_armv8_jgg@nvidia.com/
-[2] https://lore.kernel.org/linux-iommu/20260818092444.42755-1-andrew.jones@oss.qualcomm.com/
-
-Fangyu Yu (6):
-  iommupt: Add RISC-V Second-stage (iohgatp) page table support
-  iommupt: Add RISC-V dirty tracking PTE ops
-  iommu/riscv: Add domain_alloc_paging_flags for second-stage domain
-  iommu/riscv: Pre-enable GADE for second-stage domains
-  iommu/riscv: Add dirty tracking support for second-stage domains
-  iommu/riscv: Add IOTINVAL.GVMA after updating DDT/PDT entries
-
-Tomasz Jeznach (2):
-  iommu/riscv: report iommu capabilities
-  RISC-V: KVM: Enable KVM_VFIO interfaces on RISC-V arch
-
-Zong Li (2):
-  iommu/riscv: use data structure instead of individual values
-  iommu/riscv: support GSCID and GVMA invalidation command
-
- arch/riscv/kvm/Kconfig                       |   2 +
- drivers/iommu/generic_pt/fmt/iommu_riscv64.c |   2 +-
- drivers/iommu/generic_pt/fmt/riscv.h         | 158 +++++++++++--
- drivers/iommu/riscv/iommu-bits.h             |   7 +
- drivers/iommu/riscv/iommu.c                  | 224 +++++++++++++++----
- include/linux/generic_pt/common.h            |   4 +
- include/linux/generic_pt/iommu.h             |  11 +
- 7 files changed, 336 insertions(+), 72 deletions(-)
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c2414447892c..e19be0c1654e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -347,6 +347,15 @@ S:	Maintained
+ F:	drivers/acpi/riscv/
+ F:	include/linux/acpi_rimt.h
+ 
++ACPI FOR LoongArch (ACPI/LoongArch)
++M:	Bibo Mao <maobibo@loongson.cn>
++R:	Huacai Chen <chenhuacai@kernel.org>
++L:	linux-acpi@vger.kernel.org
++L:	loongarch@lists.linux.dev
++S:	Maintained
++F:	drivers/acpi/loongarch/
++F:	include/linux/acpi_iovt.h
++
+ ACPI PCC(Platform Communication Channel) MAILBOX DRIVER
+ M:	Sudeep Holla <sudeep.holla@kernel.org>
+ L:	linux-acpi@vger.kernel.org
+diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+index 2067d1f2ad7a..d7f8e4fec952 100644
+--- a/arch/loongarch/Kconfig
++++ b/arch/loongarch/Kconfig
+@@ -6,6 +6,7 @@ config LOONGARCH
+ 	select ACPI_GENERIC_GSI if ACPI
+ 	select ACPI_MCFG if ACPI
+ 	select ACPI_HOTPLUG_CPU if ACPI_PROCESSOR && HOTPLUG_CPU
++	select ACPI_IOVT if ACPI
+ 	select ACPI_PPTT if ACPI
+ 	select ACPI_SYSTEM_POWER_STATES_SUPPORT	if ACPI
+ 	select ARCH_BINFMT_ELF_STATE
 -- 
-2.50.1
+2.39.3
 
