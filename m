@@ -1,155 +1,132 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08AE53CAE93;
-	Tue, 15 Sep 2026 14:46:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483610; cv=none; b=m0hoXYc9v6v+vzWS8bXa9V5Q1223+ng03KRC7td9pCy+TatkpygzgoVtPjSWqvz1rtd/cRinWogsXAoWao+sY4Q4A/BZWCZSrOAsSk+50vOuPiC1Uvg61466s7VLbxrdcKE4tEGVasUXI/T7mWJhPMTI3gktnLMizw1ns+7eoBU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483610; c=relaxed/simple;
-	bh=Ma8wukv4nXecZ4lhDNqATmDTX3tfyfXtbjb/k3cF+Sw=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mWoPJOeYO/a4qr7AmDi5vhqWcdYdXS7MyHiBfTSkkui9mKjLFb2gIfQEF7/A624dyB5MKi1EwJyR5uec+RhcM5PMO0tSeph0mZ6e0QfjlC9nrBzSaKW2LMIPy3KNILmNoca3qDK7jLf2HXflWCfy/PTqO+9JebJIolgJV1uLM2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=Dwz/Q1Nj; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3464A3F36
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:48:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789483685; cv=pass; b=dlpco/HtdmJpED9JYdGZBAzr4Aimu9s9/ffUiNqyw0OhZWndsg0VJhdX9IKuEUUbJU4xY3RM2/WMpd9yO8ES5M1Gi9tEnGv9+GuCjYX3egBPoF3TBY/m+ZY4MELQOj0JHUHq+gCy6epKbfOzUdrwiXufjofYw6fQssJs1VOhLcA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789483685; c=relaxed/simple;
+	bh=JB4dzeW0yCT23fi0FjS+30+ACBaQQqxXbdSdVPolKf0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hCfT8AL4ngYwTnMmuaxbJdBZ8XMM+3DWBx/BqrJ5O1sp2gSk2RLVZwg4pYXgXHmpWV04lHY7q1FbYC3GnUtSLHpOx+TJohMnv3gYrFQhfm5lh0NZbFX8/6pAOCcWJQBBK0FiOCshoZ8AIguyVRdG1Mmhe6fiSJYHgJ9wf3WmRbs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NZKXz3cT; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="Dwz/Q1Nj"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FCxWVF4162318;
-	Tue, 15 Sep 2026 10:46:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=HMiI82AyKBQaEuzTkLK+h/DM8KH
-	KJxY1XnqxxVd8OVY=; b=Dwz/Q1Nja8Y2YTEqEm8hXQwCmpQKTPUh+FInQgWHmBp
-	8O17hprVkd+jvjoiRhKE4oa8GMFsX6YYWqGXvwRY9UgN0e6KwG5wQjhv8o6jwDej
-	ajTEJ2uGRep9KgGSCgcYSVpsJcgYRuwiPKsm9UXVbvuvUS7rxvb11hF/EWKHa0Gm
-	qHi4AZHGwzzEvcUcXAtoXG5JaGqpbD+GlL9brZ2rSt6mc8tmrNzGATwxwj/FEKhx
-	UbAHiCweHFRun9twRA6ZaAa5TGZFG8MfJ3F86ml9Y7Kc5IdOmgwnSV/yey+iXQxm
-	jUoOBpHQHvTiQ7sU4+3hIbGRfjLufpbm1eXoM4CMO3A==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gq4v9h6yj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 10:46:39 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68FEkcuR028826
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 15 Sep 2026 10:46:38 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 15 Sep 2026 10:46:38 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 15 Sep 2026 10:46:38 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Tue, 15 Sep 2026 10:46:37 -0400
-Received: from HYB-li3PrmDPxTz.ad.analog.com (HYB-li3PrmDPxTz.ad.analog.com [10.48.65.197])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68FEkRad019074;
-	Tue, 15 Sep 2026 10:46:29 -0400
-From: Andrei Stancovici <andrei.stancovici@analog.com>
-To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        "David
- Lechner" <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>, "Rob
- Herring" <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        "Conor
- Dooley" <conor+dt@kernel.org>,
-        Liam Beguin <liambeguin@gmail.com>, <linux@analog.com>,
-        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: Andrei Stancovici <andrei.stancovici@analog.com>
-Subject: [PATCH v5] dt-bindings: iio: adc: lltc,ltc2497: generalise the title
-Date: Tue, 15 Sep 2026 17:46:24 +0300
-Message-ID: <20260915144624.44841-1-andrei.stancovici@analog.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NZKXz3cT"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso6583424a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:48:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789483681; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GUyXKP+0UR9HQyIDq8PcQ/o6QqbLelaHRqb6xjd2Ow5IiM1qWepGlvWjAeZuUEDKPW
+         KD94aZIFJADPzMpsYYlGD2i8GE6gXjDIO5qy926h64RLYbjfPtwoqCX/IJrFWuHUnCma
+         HsP8Ke8an3Omo39ir3WIHYS9oOeJXrIe7fBFaKmOeZ0dRKMYnf03o0e8nIEKbEKvj+xP
+         EwOMaCYmReeBIVP5ML2ftOW8ym8n5NrcnuyzbEtuDmdojQ8/RntOMmYQBNnxSEdwSKoG
+         p1WVpEZi1kyTqnlBlwry/y0rLmNenXx6Mc2DqtQn81zVgv2Z/7vfxJSiiRPhi6aYD4QT
+         5IjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=N31h1AzvLTVLE4JkZfUHMakRC7JrcK8cme37Ix1dV/I=;
+        fh=Upo3D9LRXK9mJ61LOIk+Ko70QESYAk0YpkIly6lJOl4=;
+        b=L/kIln95/3coBM256kNMkb5DPZ28QlFlNY49f+nw+Xcuz/ekVD7mJg/SdgA3eUnsA/
+         FIud5PzqvX/skOxbC25tSdYYaMCiuYnp9IL44+iXOUm9VQ+O1IY9kpUVoYH6g6KBdv1Y
+         49PPt0/R848v8wODXvGC7IDHNb/6TYTsy0c87SU4Md06qYQGLZ45x1zQR8IIm4Lje7H0
+         7MvfKOcY9l1XpKut2pYvMGqcMMWv7jeORMJ/QEtgM1dhPS3VOM7HNJHG4pVXgs7OGLUk
+         ZFcXgW1slz68qqwxT9EZ0lsJtMXYvuUtUsrf6XEVcRfnUNXsEMuTTZVah/aMtzH39BNi
+         z+YA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789483681; x=1790088481; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N31h1AzvLTVLE4JkZfUHMakRC7JrcK8cme37Ix1dV/I=;
+        b=NZKXz3cTotnfq00AS34AmyHOBfyDkhsvaDZXsw6X96vIV68mn5K0vhHL5CQYc4/LDW
+         YviLpKo0WS5QZiEc0LS/6oC7AR98DYTor5endBqbkObnRvwl0x0NIIzCmWXgMrBf4kBu
+         Y/59uPVwYi6o7jl1C2EQUBpbXij/A0YxnukfY6iFPM8BVFFCgL80tfxCmYjZWYe/vb6w
+         jOGII2D93BB0EneiKrx5l5jf02NIbjugqvCDlMV8u7V3iKBLmfntYYauJWtAhY9QvBtM
+         oPAIA2xOTiRnLR0F7nOrDx6fzqV/yLFPjGW63iVoz8VfQ7hF1jVa8Pswogr/7JPj9b9k
+         2ytw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789483681; x=1790088481;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=N31h1AzvLTVLE4JkZfUHMakRC7JrcK8cme37Ix1dV/I=;
+        b=DDpMEcU7a5H2ranGouUi+gJbeiIcI2/wmLF4ix65cKWhcSSRWZiaFiwvidM1jk0Mo6
+         +w88jg2F4JT4SiDnlAG0H1h4tGTK3ynE37N0aXERFQE/LCi3r5fd/45rdy1dfXC3CrLz
+         6rLjdaKgdafMFA16/qpLy/7/9jmefhz8AOfFL/xg+0Kw6FudGM79Zgguz0huEdrxgWwq
+         KOjpnUlnk6pwwgKwiAjw0FwVaYhl8I2WAdD5SRHLnO84aWbzjY9kdY0Rk/k1XKz0w+j/
+         nAe2LDQFVgaPQPA/xSQF5K0qb1YaSIWLPn5DbDnIyCiy2sQSAWyHtny61SXAzGaLg6Cf
+         Gd7w==
+X-Forwarded-Encrypted: i=1; AKwUvBxrIzzWWmktwYfS9Jbbfj1Tq756K84u1AzuXTjg7gIwR1nm9ypIZYtRQJieejFfpeQqiTVWLkKs4Z5uFCI=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8drWbLVGpUPTTg8cS+CslGjV95Sf5K1yESc7LWe9k4wq3ObbH
+	QvERA5pOclkSf3BAMaGJFo9Q/ZcFtrT/a1aErWWE1VUsBPJp5SClvh2edBIG/4bslYKtcT7LieX
+	RWAmzdMk8SI6gpO+OQc6FYvshgo7FvA3QehQLPzMtug==
+X-Gm-Gg: AYBFou0RkyjzfiyS0CEmjRRzZBzoPl8ukNL91V4fH1EEOowI8lfyIwgCT1EXxNnaJL3
+	fRsfWKh8h9uitMrY6SjHGd5P7elNqIPZcuoxF4LbUVoFAqVhKC9ypMw0rErgtpV/P/WcDjTvMyQ
+	1RPgGL4nctpYTqfw7XZzLZfE1OL1fmPWduZzfmU1sWrv/kQAKIB5DLDe3wqkynFztnXUofSy8dV
+	GE8cvSPOxO3yNYxOOCa4/4dfIlaoeQVzPhYwjpoYKa/9iS+/GrCKBaJ7mvz/rwsEC9YzYDmUEQA
+	dM00iD0msMLMqLjCltGwGnHBRXem4uGluiPzV9i8b+nUVz6sJVEJcPWH8pCQNmDmUiXJ3PWleC+
+	h5qc0AvAAJQCQCtLGFVAj4I8f
+X-Received: by 2002:a05:6402:4404:b0:6a9:98b1:6c36 with SMTP id
+ 4fb4d7f45d1cf-6a9f63e0d39mr5145656a12.31.1789483680985; Tue, 15 Sep 2026
+ 07:48:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=JekpPkKV c=1 sm=1 tr=0 ts=6aa95a4f cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=N--XFCr6TIEc_64PeIT2:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=gEfo2CItAAAA:8
- a=69L4K10tceRheaywoE8A:9 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIxNCBTYWx0ZWRfX1saEVMofCZ6d
- fTwDg7Du//NvSNp5jOaDckCbhISe+fwQe1JwGQdIY1J+l1MNAx4WG8PAPiTy/sL3gfbyrYYmMV2
- ERqGr9zVFP3v1e2GXmUwrCGTK7sybghAfj6m12YgHOrh1/g8b3RVlapIIOydLHlZa+zfIdK66ib
- hVuwAt609lrf81xuTneybfqIbe3NVlvB4qOjEnVTquEtHwsBNJugG/1nMJ1J6u05HJPtWPqSjyr
- /8nknqFBM9psbMXbGRKERz7JFArgvgpkkO5lrIdTHBBY3LDEJJJLgUWnPdRFP7ppI3ZGf4b4Mfj
- /Kd4Ry4myJN7PgthMdqyMaExgltMjG7zWxJ+I4/Fsa/VbCwFfgA4bWUtBSa9TX/X5sD+/YkgB7F
- 9LdQ2w7pwPHBLU8bEs5WANdnQo7HTvZNvZlFLk+75acOeq+UsMzech3wj2Qjul37XEiNXPyKEPd
- e2X6Yf4e0JPSZm/U5XQ==
-X-Proofpoint-GUID: hsH4ClW3ye6ieD06SkCmYdAYsBFtYzX5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIxNCBTYWx0ZWRfX3MhofiueBRzn
- ESyiGcEZl8V+Vym2lgdmvTarlKq6RztIyf325z6x/rfjwFY5ndO3SAWyd0MBowBaK2NhMMYwX9G
- Vcd1lm1JwPhWkSypl7nfO/7HVY4rph/Cmqnrb3OGre7/A9WTHhsi
-X-Proofpoint-ORIG-GUID: hsH4ClW3ye6ieD06SkCmYdAYsBFtYzX5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_04,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 impostorscore=0 phishscore=0
- clxscore=1015 priorityscore=1501 malwarescore=0 suspectscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150214
+References: <20260914-exynos850_sram-v4-0-253871de0f61@linaro.org> <20260914-exynos850_sram-v4-2-253871de0f61@linaro.org>
+In-Reply-To: <20260914-exynos850_sram-v4-2-253871de0f61@linaro.org>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Tue, 15 Sep 2026 15:47:49 +0100
+X-Gm-Features: AcwNN1WgvUO9gVcyHHtQQpCHP6veTmxEFNeRoziGdiQtPJVZo1SV7WyKK3oIExw
+Message-ID: <CADrjBPr8EROpwaXsuqNBgyiJV5b041poTKzFRfrx-rCvH1CyRQ@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] arm64: dts: exynos850: Add acpm SRAM node
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Sam Protsenko <semen.protsenko@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The title names two of the four parts the schema documents: the LTC2305
-and the LTC2499 are in the compatible enum and in the description, but
-not in the title. Rather than extend the list each time a part is added,
-say "LTC2497 and similar ADCs", as bindings covering a large number of
-parts tend to end up doing. The full list stays in the description.
+On Mon, 14 Sept 2026 at 17:58, Alexey Klimov <alexey.klimov@linaro.org> wrote:
+>
+> SRAM is used by the ACPM protocol to retrieve the ACPM channels
+> information and configuration data. Add the SRAM node.
+>
+> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> ---
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
----
-Changes in v5:
-- Only this patch is resent. Patches 2 and 3 of the v4 series ("add
-  LTC2499 internal temperature channel" and "add 2x conversion speed
-  mode") are already on the testing branch of iio.git, so v5 is a
-  single-patch round.
-- The title is now generalised instead of enumerating one more part.
-  v4 added the LTC2499 to it; Sashiko then pointed out that the LTC2305
-  is also supported and also missing, and Jonathan suggested stopping
-  the enumeration and using "LTC2497 and similar" as bindings with many
-  supported parts tend to do. The full list is already in the
-  description and is left alone.
-- Documentation only; no driver change, so no hardware run for this
-  patch. The DC1012A-A validation previously reported covers the applied
-  patches 2 and 3.
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
-v4: https://lore.kernel.org/r/20260909082755.366269-1-andrei.stancovici@analog.com
-
- Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-index c884b6e03767..67445ad2bb3b 100644
---- a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/iio/adc/lltc,ltc2497.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Linear Technology / Analog Devices LTC2497 and LTC2309 ADC
-+title: Linear Technology / Analog Devices LTC2497 and similar ADCs
- 
- maintainers:
-   - Michael Hennerich <michael.hennerich@analog.com>
-
-base-commit: 36c12dbda81c284d72f3c64689461647497b643b
--- 
-2.43.0
-
+>  arch/arm64/boot/dts/exynos/exynos850.dtsi | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+> index 911643008b9f..2128749d7647 100644
+> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
+> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+> @@ -176,6 +176,11 @@ soc: soc@0 {
+>                 #size-cells = <1>;
+>                 ranges = <0x0 0x0 0x0 0x20000000>;
+>
+> +               apm_sram: sram@2039000 {
+> +                       compatible = "samsung,exynos850-acpm-sram";
+> +                       reg = <0x2039000 0x30000>;
+> +               };
+> +
+>                 chipid@10000000 {
+>                         compatible = "samsung,exynos850-chipid";
+>                         reg = <0x10000000 0x100>;
+>
+> --
+> 2.51.0
+>
