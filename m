@@ -1,141 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3CA4B1B42;
-	Tue, 15 Sep 2026 11:49:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A794B1B42;
+	Tue, 15 Sep 2026 11:50:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473000; cv=none; b=Dx6JKMnuGrqCJJyxX9uhtCX8wH7pN5PVDO5ZKDJvVs3PGNeMyL0rq9/kkkZzaqacuQg4Kn70Q4Ii1vxs+QNbSA7eHWvNx8xqfQk7+YHhgktb5wSgVWMBHYywIqVujWv2GnwxkXpEC5yGJnqO3P+ev/PQOXfx51t0buIjNxpKDp8=
+	t=1789473009; cv=none; b=AjtCLBR8l4n0MCZJBzb2mUQSvwg10TLa24NMpoFqEwIiNBHJ0DQJRBtAwh+mQzAIYstLGZBLpRAt3fwWTtfAUqwYLzPATF2g1EjoxM9emwJ9ap8MjTTwGeykAutu+89t564MSlHogj922maEGwv8Y5Ts0w7X/d1PVCPsv3aOVW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473000; c=relaxed/simple;
-	bh=K91+LUJz2nG3uN9tVTjvjGPaYR5m9J9RX3tOoDSLcYQ=;
+	s=arc-20240116; t=1789473009; c=relaxed/simple;
+	bh=0AqS3flkVTKIPJ2xTjcUKZeFykacsXD9uqwa7hl1oQY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XCJab6/6hB5ACvKFsRAOEk8u7scUngzYHsUffuTAgv0wEqRrTVPYkOhUsazPaGh6w7kRPly8oPD1BzlWuTchIaVMsEnAF1ueH0ufQQjIJS5S5cipjdXCYStKZhDSQCpQy9WNbiuVIZ5atr2mtULIg50t5iTYsnbc0sXP3hYoUOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GvNO+8P6; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=F5lUL3K4oPkrYxtEhU9eWqw+J4OuRmpY+r4Jr0AK69/ya3PRNSr1G3VfOpRXcuBRMJFRS2ge/YU/DgiboJsXDfgD8qQJ7KL5OK5s/QVUUqR2si9mO/ZDBI7WXXHM9xBQAXu5rYucOwaQADUBK3mxU57RaEQtygehXueLnowbLL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FZyLQujg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GvNO+8P6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A22A1F00893;
-	Tue, 15 Sep 2026 11:49:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FZyLQujg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA52D1F00898;
+	Tue, 15 Sep 2026 11:50:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789472999;
-	bh=Y70Xls/F2gfnQ3EZUXKppKqZ6FS9lNnhMyXoi236EUk=;
+	s=k20260515; t=1789473007;
+	bh=Wvy04NbJid/rHT9Oo2y6und5H0C/2sS7C4rNvZsUJ+M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GvNO+8P6mk6INK1JmLiLeI3BqIqlKoZiT4+3ZA2SKRWwxuzil2eCbysk/u+gIAHI6
-	 GxKFG8PMiFKd3JSw6LnkRaRlIwA+SMajcJ4AgrvXlZJXFn21f+tz2qrUkXPo5M25M3
-	 rvZ9ORzuioWemRlwV0RWGbCI7YqooivFmXHawr1joYtnLBsxNlYjlCQK/YzFdszCCT
-	 ODxjyjWtW5wy7eg7LnceLWY0UDBQCjA845/sfd2E0G6FZ9iCjya0LmluhtxOj7dLOA
-	 V9sU8+NEK879N1vM9o/6HlG+lz3uKfS+nnmt65G2U8qeSBlKhJfu7PjzAVcBSj1YJM
-	 bLjxqUSeknvJQ==
+	b=FZyLQujgrSLTLItt0atdLygYtPLJy07BtTpqJEj8tK4rCFepTR6WTdgjVU1CUaviY
+	 /2kxpiaHyjwEq8od5PpCP63amvdhTsJyZVoAXJVFzklNTY1gegcdWYDDoR+/XePScz
+	 MHrJT4NoUt8HIfXHRaVC5PMjCIQJVPlEkfbh8gaQY1dgXLLaPf3I5PVcxiOdPbdNhp
+	 egKHXLxlo+8hU8IJMPwEDm1igMoQNQ50LWjgaSmTwzy6Kkr1xxWZeZvflO3a23mVwB
+	 kOkyNkCaEN1wr6HpAzVJp/5fzNLTwrIjdFvuyd/aBdf6hTcIxBdJ3Y3aTJX6C30ppL
+	 nzwCXruPvLzow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 7/9] coresight: etm4x: exclude ss_status from
- drvdata->config
+Subject: Re: [PATCH RFC POC 09/50] m68k: commit fds on syscall exit
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260915-separate_etm_cfg_v2-v11-7-d2b258d51747@arm.com>
-References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
- <20260915-separate_etm_cfg_v2-v11-7-d2b258d51747@arm.com>
+To: "Linus Torvalds" <torvalds@linux-foundation.org>, "Christian Brauner" <brauner@kernel.org>
+Cc: kexec@lists.infradead.org, linux-openrisc@vger.kernel.org, io-uring@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-mips@vger.kernel.org, "Eugenio
+ Perez" <eperezma@redhat.com>, linux-mm@kvack.org, linux-sh@vger.kernel.org, "Jann
+ Horn" <jannh@google.com>, virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, "David
+ Airlie" <airlied@redhat.com>, bpf@vger.kernel.org, linux-hyperv@vger.kernel.org, kvm@vger.kernel.org, sparclinux@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, linux-hexagon@vger.kernel.org, linux-gpio@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-alpha@vger.kernel.org, "Ingo
+ Molnar" <mingo@redhat.com>, linux-um@lists.infradead.org, "Michael S.
+ Tsirkin" <mst@redhat.com>, linux-parisc@vger.kernel.org, "Peter Zijlstra" <peterz@infradead.org>, "Jan
+ Kara" <jack@suse.cz>, dri-devel@lists.freedesktop.org, =?utf-8?b?Q2hy?=
+ =?utf-8?b?aXN0aWFuIEJyYXVuZXIgKEFtdXRhYmxlKQ==?= <brauner@kernel.org>, linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org, "Jens
+ Axboe" <axboe@kernel.dk>, "Oleg Nesterov" <oleg@redhat.com>, linux-fsdevel@vger.kernel.org, "Alexander
+ Viro" <viro@zeniv.linux.org.uk>
+In-Reply-To: <20260915-work-fd-reserve-unify-folded-v1-9-4d5217d6b246@kernel.org>
+References: <20260915-work-fd-reserve-unify-folded-v1-0-4d5217d6b246@kernel.org>
+ <20260915-work-fd-reserve-unify-folded-v1-9-4d5217d6b246@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 11:49:58 +0000
-Message-Id: <20260915114959.1A22A1F00893@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 11:50:04 +0000
+Message-Id: <20260915115004.CA52D1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] coresight: data race and state leak in shared ss_status array
-- [Medium] coresight: contradictory bitmask change introduces unhandled beh=
-avior
+- [High] m68k: single-step SIGTRAP lost on fd-allocating syscalls
 --
 
-commit 1a408a1bbc8676e137115f3c8798cfbd8a499e15
-Author: Yeoreum Yun <yeoreum.yun@arm.com>
+commit 731b1387fc76d92d165ee1f28de694e3d228627b
+Author: Christian Brauner <brauner@kernel.org>
 
-coresight: etm4x: exclude ss_status from drvdata->config
-   =20
-This patch moves the ss_status array out of the session-specific configurat=
-ion=20
-structures and into the shared etmv4_drvdata structure. It aims to preserve=
-=20
-existing behavior regarding single-shot comparator events while cleaning up=
-=20
-the configuration data.
+m68k: commit fds on syscall exit
 
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers=
-/hwtracing/coresight/coresight-etm4x-core.c
-> index 70a5c0b4fad1c..9de0c268ff954 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-[ ... ]
-> @@ -573,11 +573,11 @@ static int etm4_enable_hw(struct etmv4_drvdata *drv=
-data)
->  		etm4x_relaxed_write32(csa, config->res_ctrl[i], TRCRSCTLRn(i));
-> =20
->  	for (i =3D 0; i < caps->nr_ss_cmp; i++) {
-> -		/* always clear status bit on restart if using single-shot */
-> +		/* always clear status and pending bits on restart if using single-sho=
-t */
->  		if (config->ss_ctrl[i] || config->ss_pe_cmp[i])
-> -			config->ss_status[i] &=3D ~TRCSSCSRn_STATUS;
-> +			drvdata->ss_status[i] &=3D ~(TRCSSCSRn_STATUS | TRCSSCSRn_PENDING);
-
-[Severity: Medium]
-The commit message states that this patch intentionally preserves the exist=
-ing
-behavior regarding the clearing of PENDING and STATUS bits. However, the
-pre-patch code only cleared TRCSSCSRn_STATUS. By explicitly adding
-TRCSSCSRn_PENDING to the bitmask here, does this code actively introduce the
-behavioral change it claims to defer?
+Add TIF_FD_SLOTS and test it on the untraced return from a system
+call in all three entry paths. A task that reserved descriptors calls
+syscall_trace_leave(), which commits them before the ptrace exit stop.
 
 [ ... ]
-> @@ -1081,7 +1081,7 @@ static void etm4_disable_hw(struct etmv4_drvdata *d=
-rvdata)
-> =20
->  	/* read the status of the single shot comparators */
->  	for (i =3D 0; i < caps->nr_ss_cmp; i++) {
-> -		config->ss_status[i] =3D
-> +		drvdata->ss_status[i] =3D
->  			etm4x_relaxed_read32(csa, TRCSSCSRn(i));
->  	}
+
+> diff --git a/arch/m68k/kernel/entry.S b/arch/m68k/kernel/entry.S
+> index 338b474910f74..9e4471f681652 100644
+> --- a/arch/m68k/kernel/entry.S
+> +++ b/arch/m68k/kernel/entry.S
+> @@ -229,6 +229,8 @@ ret_from_syscall:
+>  syscall_exit_work:
+>  	btst	#5,%sp@(PT_OFF_SR)	| check if returning to kernel
+>  	bnes	1b			| if so, skip resched, signals
+> +	btst	#4,%a1@(TINFO_FLAGS+2)	| TIF_FD_SLOTS: commit descriptors
+> +	jne	do_trace_exit
 
 [Severity: High]
-When a perf session stops, etm4_disable_hw() writes the hardware state
-directly into the shared drvdata->ss_status array without holding
-drvdata->spinlock.
+Does this new branch cause delayed trace (single-step) SIGTRAPs to be lost?=
+=20
 
-Since a concurrent sysfs session could be writing to this same array in
-sshot_ctrl_store() under the spinlock, can this lockless write cause a data
-race?
+If a process is being single-stepped (TIF_DELAYED_TRACE is set) and execute=
+s a=20
+syscall that allocates file descriptors (TIF_FD_SLOTS is set), this=20
+unconditionally branches to do_trace_exit.=20
 
-Additionally, does this overwrite leak the perf session's single-shot state
-into the shared array, allowing a subsequent sysfs session to inadvertently
-observe or re-inject the leftover perf state?
+Looking at do_trace_exit, it executes syscall_trace_leave() and then direct=
+ly
+jumps to the exception return path, bypassing the jmi do_delayed_trace logi=
+c=20
+completely.=20
 
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/driver=
-s/hwtracing/coresight/coresight-etm4x-sysfs.c
-> index f6d053f73264c..50ef2e957300f 100644
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-[ ... ]
-> @@ -1833,8 +1833,8 @@ static ssize_t sshot_ctrl_store(struct device *dev,
->  	raw_spin_lock(&drvdata->spinlock);
->  	idx =3D config->ss_idx;
->  	config->ss_ctrl[idx] =3D FIELD_PREP(TRCSSCCRn_SAC_ARC_RST_MASK, val);
-> -	/* must clear bit 31 in related status register on programming */
-> -	config->ss_status[idx] &=3D ~TRCSSCSRn_STATUS;
-> +	/* must clear bit 31 and 30 in related status register on programming */
-> +	drvdata->ss_status[idx] &=3D ~(TRCSSCSRn_STATUS | TRCSSCSRn_PENDING);
->  	raw_spin_unlock(&drvdata->spinlock);
+This means single-stepping over a system call like open() could fail to=20
+deliver the expected SIGTRAP, which might break debugger functionality.
 
-[Severity: High]
-As seen here, sysfs modifies the same shared array under the spinlock.
-Is it safe to move ss_status to the shared drvdata struct without
-synchronizing the hardware stop paths or segregating the session state?
+>  	lslw	#1,%d0
+>  	jcs	do_trace_exit
+>  	jmi	do_delayed_trace
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-separate_e=
-tm_cfg_v2-v11-0-d2b258d51747@arm.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-work-fd-re=
+serve-unify-folded-v1-0-4d5217d6b246@kernel.org?part=3D9
