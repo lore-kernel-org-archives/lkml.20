@@ -1,163 +1,224 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA56352022
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BB93B8D5C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459497; cv=none; b=Lebf8OIbXqTHbhAPIfl6MM6EKk7MrLuxKdrbaMQr/wNkgzZEaFHPFfTbxk/j1HVpgv4nlwwX/G7TUmNm1+Y7S8qn0DmqfzH36KkLayWI2/74rpS9AOI1JV6rEEm3i21SMKQQ0vnNgRgg9DXPuZXIFXq7I+3Kgn2plx8NR9zzrEI=
+	t=1789459510; cv=none; b=C6p1aRr7vuQ7mpenQCZTpkon9slQ5Pc5dsKvsvxnG3nsg8Nayb2gnW6a+kzX9i3S3ipSAEbQlqN2FW3NtEOQEvjcDTlwM75TWR2+ogCWTKgxgkAK6UWZEOfWMCYgNVr34jagBn/wSfcEdg3jgu/Fil1mr9ElMyoNhaApe74EmV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459497; c=relaxed/simple;
-	bh=0oTshtxPlnqGnJFpFlsNGtOZIMoAHkXNWQJYJcuMq1I=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=F29BeJO31YCYB0tlONKPdrhtuizuQcATP9HWk+WbyTl8n7J/GL7EYmza219InjB28ilExI1k7HkCdwEBPh7SHnC5J+WO6X/6l6/fChNV5ll7IUh3aqh0AvN4fpi24kAFEz9b5wMNXPOwnlxl+TdChbzH37H+9S5K0cmkCf6d9bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IORpcRNg; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789459510; c=relaxed/simple;
+	bh=LpqCIFagyU87XsIJrBPx+IM0qUEw6lg443KaQK4nqG0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n5/cBVgwkJVSoJx0bhq+Nnb0kD5PIWFaRCCPOJjmuRGTbdld0kTBZFqoGpOpfHQa1yXWnaTa/L2quaJmLuimyohboesMPQq81z1nYCZMI/j8a8sz6Zip27+fPSBMbyWggOYgeX9IErojvK4TtDjNNMaEWPORjt9h2h+DFM6twhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B8qDCzjk; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IORpcRNg"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so4178110f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:04:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B8qDCzjk"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7d2bb404so2830235e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:05:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789459494; x=1790064294; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2kATBR0QOSU9fXXjvSA3WJqKNnMFONEMjfJxwyv31kI=;
-        b=IORpcRNgxtnx8AN+BUFfnJwue9pcSmrL/tb4w7ozvyJU5fFPp7MwzK8s+gUHOv7P4V
-         s0UhyJqLDu3Yq+1LObcxq3ZgTE62DDHVqN5K59pFmlfNPh1hEgSRM2snCiDyCdLOBr2o
-         81G040B1ZIXtuRizAm4Tb7sl50982ghI9Q7L9nYbe38gPVUlUY2IHwxZvFeKV1/GeiIl
-         43AkJlgzjMlg/4Xo/RhDCPEbiDMlE5PbeaxBeQHafu8mmx/7LwBLgSFnglHVgn9HRt5L
-         nEndo7rMMz4J8jeIejlDQrZi+8vBHljzZcRNm3PWEDOYP5t8EctR/CIncZSkPHF9QcSF
-         oWwA==
+        d=gmail.com; s=20251104; t=1789459504; x=1790064304; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jKg7zPw7lKK/zV2TerSGH2lZsZENXJkv8MUeOswc3dg=;
+        b=B8qDCzjkB/e+kllmlARhxxgukezRR1lch75bWbTaQV6yOVM9+sOjvHi2aL8sJENAsn
+         Li0328E0s1MBAkkt2c1RRxxaZExkKLnW/7/g6WiVTbtYVFj129MraQXKFpeAg4jxWEiL
+         TC/dzz4feKmyPYIwVxKDNVtmsASyT7+mjF/9rgp1L0Rl2JMhSAJz7IMksbpxZXcP4SOT
+         j9zsqM8UzmlMT+pLMSerfz5y7Xk884lghQeI3RT+uU0v+iMhrwOebnVhHBI89O7zrziR
+         X6WWTL56CRifNwSG72z8esmn+VSOXxTcEWqKgxywmQu6FzshacigFaQ1CDe4xf2v/Bbc
+         tClA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789459494; x=1790064294;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2kATBR0QOSU9fXXjvSA3WJqKNnMFONEMjfJxwyv31kI=;
-        b=nXOGMsu1cuSHapI303/BBgynyV54xP3J+gZ5dTyWdbSe6NgCIWst+Bm7ArO5qU7mcQ
-         wZWw2KYFYdR6uk1NBL11M8nEtTVny/tVyuQnjCJn8ihUV4kXS+4svJWfYb+QR89aQpsR
-         rOGs0slSrhqSS1HI2tZpZ4F2YrN8l18mi+YrdmyaWc1G8WBpELQy+IOUKxMqGQM8+oqH
-         nAGD9NH/yhHiMTInopkw2QjzYimNCV6+LopLpJogFlNb5foxBQUmLZ+aNwXo0uzd+JFX
-         a1edzUlUqy+zYYKwQG322gWp37THyjaV2zjCwDdT7ol83Wd4itbJe78DSzuuQmqp7KG4
-         xKPw==
-X-Forwarded-Encrypted: i=1; AKwUvByrw477+dm0L0PDrsxu2uDhViUS1WJOGTX54r7n6S4erAGI+z8VFbsNFDKkwrxFrVA03zoMkTYpfsVuQEw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKh0r+5Z0MEPEu8yVeDNYUo1HfDg4bVKUlm9npmykevCs57a1v
-	2Y2uciP5y0tUX/khj2o6XfrHWJrVNa20icOeINaRJtex2GdUPvFkZpenOMkbTQMOYaI=
-X-Gm-Gg: AYBFou1ogWKzGEIZiiP51a/ZiqIGcTZnDy8J5PcMnnz7coEBCDD8VyaZdkH46uXWxUk
-	HX1d3HsTiMCUTutbe0yWArQVxeRsNeQ3yD1CZ/8VXQWHY/QfPRlpHoQVQ/vexb2TYB3qwnIZsTQ
-	fsWFOuv+I6pzRQyWiRHW8dUr0FJwdpm3iBgj0jrgJg/CZPC1f5IuPC4dUMHxapzew/rLPx0tRdG
-	zMGs1EG6q3I/bu4LqpCswR+hafDV95Hpijhlof2m7iOiqPF/9W62M5beeKp3Gvou3jtBQCODU01
-	j6F6m3yLWtlaENLrJ7UgKWLuqebiOsdLMx4z1Ygqm1PZBB8GV9kTW1/Rz2bZFa2k4pic3ntvY4c
-	H9cYz+lbeaSZyOCMKsEBulxO3I72aoarCeg3Ro/tv+t4VRm9jSa4WQ9w0aFfSpxhv1RcZW+5dbG
-	hb0HjjhAdOtnPpNJxZHLyGOLePSB3IysOPtqIMKAZrjAwwnbfwyP5S0RW4vFys8Hl1K+tPeLE7I
-	6ssup5zIvoIKWb37m4gPZs9x/hCi1mACeiUfTz5D2oAAr7XCIc=
-X-Received: by 2002:a05:6000:2c0b:b0:486:e77c:ba4 with SMTP id ffacd0b85a97d-48702b00eddmr6889231f8f.22.1789459493717;
-        Tue, 15 Sep 2026 01:04:53 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ff86:16e:fede:9407? ([2a01:e0a:106d:1080:ff86:16e:fede:9407])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ee5csm32961569f8f.20.2026.09.15.01.04.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 01:04:53 -0700 (PDT)
-Message-ID: <ad089a64-5708-4ad9-ae82-924cecb23f85@linaro.org>
-Date: Tue, 15 Sep 2026 10:04:52 +0200
+        d=1e100.net; s=20260707; t=1789459504; x=1790064304;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jKg7zPw7lKK/zV2TerSGH2lZsZENXJkv8MUeOswc3dg=;
+        b=uwvwUoNm2rFJbfUSvGwI5gT8XJRwnaNVxo3kq5uU5pgUsf/98vk4KvStXyid3yrY3+
+         Mbcrn39zDKq5ggXCjPLBD31qbaFBONvbxgK/md0MaeKEEaOiVJSCLT9Y9w8GU1aHx97N
+         I36prZpckwgt2Lf7unHWtv7io1KxPR5pUmm5KqWWZ7ZYna/oyr8RI12SAZ03RXMJPCsH
+         yAN+leqr9U8yuMyJB30a7+Fszo9bfRBu44R90wAQ6xH235NJ4bNP/phQJChJLoi6pudg
+         4uovQ/BRWKf2OmYitZX4DpwYsXfhRNcysxLKIs68bv4dYAFLO6ZqU7y21zFFA5XWQQwX
+         Iuvg==
+X-Forwarded-Encrypted: i=1; AKwUvBxANEF8NrMEa64qpoccURPiamt2J9EKpHg/iKHtmhhxD5YmOb57Txe7jejNUh9bSxpR+XPTIqRALa6g+Lg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncqrwombZtnX7N0ya9BW3YZqlzX5azeGiFJl+A2yNt9Dqm7rh9
+	sYWyWI/theGXVgB5fXkbL7FHMv64IJPU1cHjqvutoSFva00dT9HIXRKv
+X-Gm-Gg: AYBFou0DhktI78dLWme1oIPuguZ9EneszA103vP7KcVtrObS6uwFF/QkUrgQxuordRc
+	23DpJgGWFfj2TAxj0+Ms4xf8Z2EsxIftLUxYQt6dMyC1l/w/tN1k03fLV5DXsEcju7q8zH23KPA
+	E1rdO2w+WPNTja0hIlxTr2LEah77KC1fZpKFSyJqNXch8WoQNH5oultvVUiNRKTne0Ef3lQhxPp
+	QaTbhzyEKE+7puwCoPzffmuWEoEADNxMFTkp5W34asGj/WL3SVeYqwM39mPr/gVHc/YbqHcvnSY
+	41/lzIs6R9ZqfiZbW0yg4gJIn1rJkDIm1MCHpJlEowN49nYnIy7umlSgXvoAeTEsOI7xO46vIyd
+	rFLMA2agbZGPOK2HaGp3UsAoGydGxbfg9BABkUAfOx/3fdr45jiD/B0j3PRm+7P26OZsoSW1klU
+	Rkt2BX6Y71At49h4Z0/qeCsUk6+YH+XV7xScCyRxRfyqSuhnTIrdhU9X+DrgnT0G/O9+nqvTW8k
+	ivMRw==
+X-Received: by 2002:a05:600c:138e:b0:49e:7c8c:bc77 with SMTP id 5b1f17b1804b1-49e7d73329amr36502225e9.7.1789459503413;
+        Tue, 15 Sep 2026 01:05:03 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d27315csm48588365e9.2.2026.09.15.01.05.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:05:02 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Haibo Chen <haibo.chen@nxp.com>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Jacky Bai <ping.bai@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	imx@lists.linux.dev,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>
+Subject: [PATCH v6 0/4] gpio: mmio: report the line direction on chips without direction registers
+Date: Tue, 15 Sep 2026 10:04:57 +0200
+Message-ID: <20260915080501.329424-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 0/2] drm/msm/a6xx: use correct timestamp counter on
- A750 GPU
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Rob, Akhil,
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-On 9/9/26 15:07, Neil Armstrong wrote:
-> The A750 uses a different counter register as used on the downstream
-> driver:
-> 
-> static u64 gen7_9_0_read_alwayson(struct adreno_device *adreno_dev)
-> {
-> ...
-> 	/* Always use the GMU AO counter when doing a AHB read */
-> 	gmu_core_regread(device, GEN7_GMU_CX_AO_COUNTER_HI, &hi);
-> 	gmu_core_regread(device, GEN7_GMU_CX_AO_COUNTER_LO, &lo);
-> ...
-> }
-> 
-> gen7_reg.h:#define GEN7_GMU_CX_AO_COUNTER_LO		0x1f880
-> gen7_reg.h:#define GEN7_GMU_CX_AO_COUNTER_HI		0x1f881
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
-> Changes in v2:
-> - Fix swapped H/L registers in XML
-> - Link to v1: https://patch.msgid.link/20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org
+Hi Bartosz, Linus,
 
-Gentle ping for review
+this replaces the gpiolib guard patch [1], along the lines Bartosz
+suggested there: instead of teaching gpiod_get_direction() to stay quiet
+when a chip has no get_direction(), give gpio-mmio one and let the pin
+controller tell it what the pad does.
 
-Thanks,
-Neil
+The user is the Vybrid GPIO block (gpio-vf610, a generic mmio chip with
+GPIO_GENERIC_PINCTRL_BACKEND and no direction registers, the direction
+lives in the iomuxc pad as the OBE bit). Today a gpiod_get_direction()
+there trips the WARN in gpiolib; on gpio/for-next the i2c core does it
+on every boot of a Colibri VF61/VF50, asking for the SDA line's
+direction before bus recovery.
 
-> 
-> ---
-> Neil Armstrong (2):
->        drm/msm/a6xx: Add CX AO Counter registers used for a750 GPUs
->        drm/msm/a6xx: Use CX AO Counter register for timestamp on a750 GPUs
-> 
->   drivers/gpu/drm/msm/adreno/a6xx_gpu.c             | 12 +++++++++---
->   drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml |  2 ++
->   2 files changed, 11 insertions(+), 3 deletions(-)
-> ---
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> change-id: 20260908-topic-sm8650-gmu-a750-timestamp-reg-2e7575e6279d
-> 
-> Best regards,
-> --
-> Neil Armstrong <neil.armstrong@linaro.org>
-> 
+Patch 1 is new in v6, after Haibo's review: the CONFIG_PINCTRL=n stubs
+of pinctrl_gpio_get_config() and pinctrl_gpio_set_config() return 0
+today, success for a configuration nobody read or applied. They now
+return -ENOTSUPP, which is what a chip without pin ranges already gets
+from gpiochip_generic_config() with pinctrl enabled.
+
+Patch 2 is the pinctrl-imx side. Bartosz asked whether the raw register
+coming back from pin_config_get() is a bug in pinctrl-imx: it is, the
+callback never looked at which parameter was requested. It now answers
+PIN_CONFIG_OUTPUT_ENABLE and PIN_CONFIG_INPUT_ENABLE on SoCs that say
+where those bits live (Vybrid: OBE bit 1, IBE bit 0) and -ENOTSUPP for
+everything else, the SCU based SoCs included; the debugfs dump, the only
+raw-register user, reads the register through its own helper. The set
+callback stays raw, as the fsl,pins binding requires. Converting the
+driver fully to generic pinconf is a bigger job than this fix needs.
+
+Patch 3 is what Linus asked for on v3: an optional get_config() in
+struct gpio_chip and gpiochip_generic_get_config() as its pin control
+backed implementation, the mirror of gpiochip_generic_config(). The
+packed parameter goes in, its bare argument comes out, as with
+pinctrl_gpio_get_config(). No consumer API.
+
+Patch 4 keeps the direction in gpio-mmio's existing shadow and installs
+the shadow-reading get_direction() for the "pinctrl backend, no
+direction registers" combination. The pad is asked once, from request(),
+in process context, through gc->get_config(), so it is safe for the
+gpiochip_lock_as_irq() path that calls get_direction() under the irq
+descriptor lock.
+
+Tested on a Colibri VF61 (Iris carrier) on top of gpio/for-next, with
+DEBUG_ATOMIC_SLEEP and PROVE_LOCKING enabled: no backtraces, and
+/sys/kernel/debug/gpio shows the same direction for every requested line
+as 6.18 does (the hogs, the SD card detect input, the USB VBUS regulator
+output). On a test-only pad handed to userspace, a line driven as an
+output and released reports "out" to the next as-is request, an edge
+request on it is still accepted and turns it back into an input, and
+both match the OBE bit in the pinconf debugfs dump. Lines the pin
+controller cannot answer for keep the input default gpiolib assumed
+before, so nothing that worked before is affected. The initial direction
+scan in gpiochip_add_data_with_key() runs before the pin ranges exist
+and still guesses; only requested lines get the real answer. The
+pinconf-pins and pinconf-groups debugfs dumps are the same as on 6.18.
+Patch 2, unchanged since v5, was also booted on a Verdin iMX8MP
+(6.12.107) with the same debugfs comparison. The CONFIG_PINCTRL=n side
+was compile tested (GPIOLIB, gpio-mmio, gpio-by-pinctrl, gpio-aspeed),
+and the Vybrid configuration built with W=1.
+
+On trees: Linus offered to take patch 2 through pinctrl, and patch 1 is
+pinctrl as well. Patch 4 gives wrong answers without patch 2 (an
+undecoded pad register would seed every requested line as an output), so
+I would rather the two pinctrl patches land first or in the same cycle
+as the two gpio patches, whichever way you two prefer to split it.
+
+Linus's Reviewed-by on patch 3 was given on v5; the only change since is
+the dropped #else branch Haibo asked for, so I kept the tag. Please say
+if it should not carry over.
+
+[1] https://lore.kernel.org/linux-gpio/20260813193715.2346477-1-mehmet.fide@gmail.com/
+
+Changes in v6:
+- new patch 1: the CONFIG_PINCTRL=n stubs return -ENOTSUPP instead of
+  claiming success (Haibo Chen)
+- patch 3: gpiochip_generic_get_config() loses its own #else branch and
+  mirrors gpiochip_generic_config() exactly (Haibo Chen)
+- patch 4: commit message notes that dir_unreadable is now also set for
+  a pinctrl-backed chip without direction registers (Haibo Chen), and
+  states the dependency on patch 2
+- patches 2 and 4: collected Haibo Chen's Reviewed-by
+- patches 2 and 3: collected Linus Walleij's Reviewed-by
+- patch 4: the backtrace count in the commit message is what today's
+  gpio/for-next produces (one, from the i2c core), not the 21 of the
+  earlier base
+- rebased on gpio/for-next
+
+Changes in v5 (patch numbers as in v6):
+- patch 3: the get_config() documentation said the answer comes back
+  packed; it is the bare argument, like pinctrl_gpio_get_config() returns
+  (Sashiko review). Text only, no code change.
+
+Changes in v4:
+- new patch 3: get_config() in struct gpio_chip and
+  gpiochip_generic_get_config() (Linus)
+- patch 4: seed the shadow through gc->get_config(), no pinctrl call
+  and no CONFIG_PINCTRL check in gpio-mmio (Linus)
+- patch 2: drop the npins check, pin_request() already rejects a pin
+  the controller does not have
+
+Changes in v3:
+- patch 2: return -ENOTSUPP for the SCU based SoCs instead of letting
+  the firmware call hand back the raw pad value (Sashiko review)
+- patch 2: -EINVAL for a pin the device tree never configured, -ENOTSUPP
+  only for unsupported parameters and SoCs
+- patch 2, 4: drop two comments that only restated the code
+
+Changes in v2:
+- patch 2: decode the requested parameter instead of returning the raw
+  register; debugfs group dump reads the register through its own helper
+- patch 4: keep the direction in the gpio-mmio shadow, ask pinctrl once
+  from request() instead of from get_direction()
+
+Mehmet Fide (4):
+  pinctrl: make the CONFIG_PINCTRL=n gpio config stubs return -ENOTSUPP
+  pinctrl: imx: answer OUTPUT_ENABLE/INPUT_ENABLE queries from the pad
+    register
+  gpiolib: add get_config() and gpiochip_generic_get_config()
+  gpio: mmio: track the direction of chips without direction registers
+
+ Documentation/driver-api/gpio/driver.rst  |  7 +++
+ drivers/gpio/gpio-mmio.c                  | 60 +++++++++++++++++++++--
+ drivers/gpio/gpiolib.c                    | 21 ++++++++
+ drivers/pinctrl/freescale/pinctrl-imx.c   | 54 ++++++++++++++++++--
+ drivers/pinctrl/freescale/pinctrl-imx.h   |  4 ++
+ drivers/pinctrl/freescale/pinctrl-vf610.c |  2 +
+ include/linux/gpio/driver.h               |  9 ++++
+ include/linux/pinctrl/consumer.h          |  4 +-
+ 8 files changed, 151 insertions(+), 10 deletions(-)
+
+
+base-commit: 7257c35db0fdb4fb02d857a8197a16afa84d92c0
+-- 
+2.55.0
 
