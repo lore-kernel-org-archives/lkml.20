@@ -1,231 +1,131 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE9E392C2C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:11:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96DE29B79B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789438310; cv=none; b=ueqsOtdYHHreG/Kr3T3b7J53jZt/ly9hXMazS6upqeY8juSlyKEmLGqZ5dOhfSzRyt1B9539HhDIGWBx8dKj0ZCo43V9lcSHq3okfNSkMUL7OP0I5xSV65+pace+jk4LV1kyYoNlLsJc8xtl94t9XIJ+0JUmqaHiP2xgw70M7AQ=
+	t=1789438335; cv=none; b=n5AjgcKbYhUwwREBWGwluxM7yatDE+cPDiGDvDw6mL7n1xlkE5nKmTeHm62e7c+cKGvFl90Cu4F1C88CB5XTmtGmlELZ1BTWsneHF8ef2ihZAD2s8YCRZbAXxbNh0Ym8OrVempeVd77s69klerHwbMoYMouzR3agxuGO2MWHug0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789438310; c=relaxed/simple;
-	bh=J6gXL9OWqIRNkG/24diPjt+VhU9zpgZR6oysBIkYEog=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dts+oA/qUojzaicEdD/Q1hfCwbYXMSkoQtJybQvmlHb9qNl8KXgVcy0+7+JjkYyFXvHjIVvPhM2+d5xpyZpQooV20+ej8ODNAkL3Qfekka6bNGgma2toX83AcSkvjfZBViUgp25CsJg7s5BqP8XODE0Y4xrhl4g/tjDVWRS4RpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=A9ye8nFb; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789438335; c=relaxed/simple;
+	bh=iUbksB/ZvUQkmomybs67pyiUrrD20nBPxhzbitYBgbc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=P+fIu+AL946ZuzRe1/v8SagYDgyC9/AIgMbtlnbn+Fl9PVPr2svsIhq0BuHl/Z0zwN1zFRK6jElyaNrFFGc9kNkKol3V8GicsJXp14emuV6bKB/Y61PGB2jcjc0E1UviRXvjwlxT8IZEgqewB0+3LF/6chdHicRwUo8h4hWGID0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=em6CNldj; arc=none smtp.client-ip=74.125.227.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="A9ye8nFb"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43da99ddso24821697b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:11:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="em6CNldj"
+Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5c67e2ff27bso1649948e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 19:12:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789438308; x=1790043108; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uTIQQjABQDHUENfcTBLfCjdS86IJNh9pkbH6nAS/n2s=;
-        b=A9ye8nFb1bFdwRrk68rEIiLOmo8FoU8P0rI1ARtAV3j7DnC8WieVYpDGnpDm7pQ6KD
-         QIlFw/88j1SeM38UL8p9Iq43ZHaxCLIDDaVS0J2wXz3aXp4s7FbTB5VoAin7m+iPCdZP
-         moywid/NBznJzjWffofB7P/6opxZz+TBwfhlc=
+        d=gmail.com; s=20251104; t=1789438332; x=1790043132; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m3cpSBmQm8alFaHwHDuj2nhX1nF1XTIa1cBVUNSO02I=;
+        b=em6CNldj5QKytWAIlJN8sWW2620+fDNlZH9bsd+c0a9LoBH0I9iB3PG44SBKqwB1vT
+         kIZHf4KQLj6lHpu4Sl87noO/W9zDKn8qImrIa67HUo62Y1cUPHABKO2W7x51dXl9N89X
+         V0xttQNvKGNSJSHWRyKQj69MtQknnaPs0cQh/hs+btw/iVr/ggHuVeHtiI6CnLKolTPd
+         PeXZ8opDqPdIIJfzryE5QSsPaDkl1LdXgGId+TgmfQ4qC3m0HKrTPoV4AKKr0GLQ8a2R
+         Xesk8AILQrGZT19YZscKoe5bhI1beMpGpowKBher3KA4hhQemY8FE05JbZ+9slVtlfZE
+         nbNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789438308; x=1790043108;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=uTIQQjABQDHUENfcTBLfCjdS86IJNh9pkbH6nAS/n2s=;
-        b=yI3gOQObo8i05DgreTqHIscb8+m71nWkUerPutUstYrHPHkp/qIsxjYEwHCBnOZga+
-         mphUIhh/YHiW/eOp34pTFKgrSMAOr44AcsIXZ0rsMbuTjMmOAoCodCztFbE0OhX5Z3ZP
-         nXPUu5QHxEYelvya+cv3jLXaGb8bCpIwo/Qj3ws04WtyQfFJTr2tQAjJN3ZplewODGTl
-         H6KE8whf/EYIppl3NazamqGo1Rsby5cXf/x+DArVqNgMR8C3GEaHYRGnfD3N0SZ7M7x0
-         FyjHuzn7gmfoCAteETIYHPsZAG7ViXkEn5bohDQyOO4dV9OevKF1RNkcMt6sDb5W+DU9
-         O7pw==
-X-Forwarded-Encrypted: i=1; AKwUvBx9oqeVPTdb8lFH/JeKMuAoY//T9wYK5ILf9+WJZ07RCQ8GvtPaU7qe9XH7EVWl3thZQYNa2oKKaasnPDk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWZK6nxl2MRKgJ9S9lcWw+n+xEMBcux1xhBvax/PT0krKqD5b9
-	g17KNW99eKaJ6SYps5bpQEP8GpKXkFHWyn282uL3+ntsM6/jEf4x5UbmnoGDTaOsJ+XRZyiyFtL
-	t24Ccig==
-X-Gm-Gg: AYBFou3RYOhgP6VZZWt9TS+FLCZ86xi5+lNZtDLEknxXIAeMqeIIw5ABIxcDspeOYiC
-	W/ZSmNvOWk7/BVBKIXi94XFi+Ym0cs++y+3pwhPZy0j81/avLYh1l8QbtPszAnjjrXAB3Omo3bH
-	z8Xhs+KxCKnbtI5zUMg5XAJBFW71QUefDZuB8+GEWJZ1NXiruK3r0/HpaoEOUE7LALtpxyFt+4/
-	Gxf8eA0Y/yEJxM0MfuH/vstbpY61k6mry7zmwrWeCCB/cAukg8xJu972tvXjbpnr02Iso//g3gF
-	W3pruCjSpAx7hkerJNb1kMt+aeHLdLJc6AiL70T7WdCRkc294h/Yy9au9v/jpoqMaOrQq6vhDAG
-	3k55ajIqQAbzxumZp74OI04V7iFyXbn+jrJ6apMnhbBtwyxDRkgAr6eIOnKZkIL/Fy7XKgBUB9V
-	mC02Svh8TwXzR3hobMx8M76gtIeRyra9bfgNOAsI1OMcakbMzRjK0BtGBquBgzNyUiH4OvQvyZ/
-	qlK5e+pXklDB9jur3BGb+tYUcoBoo63rqLdUNiUAzDwdD38TFHzRDS87kUF
-X-Received: by 2002:a05:690c:dc2:b0:873:5bd1:98bf with SMTP id 00721157ae682-88d23993093mr16879117b3.49.1789438307806;
-        Mon, 14 Sep 2026 19:11:47 -0700 (PDT)
-Received: from ripwilburliny.c.googlers.com (160.117.86.34.bc.googleusercontent.com. [34.86.117.160])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-88ccbcdf4e3sm14139787b3.42.2026.09.14.19.11.47
+        d=1e100.net; s=20260707; t=1789438332; x=1790043132;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m3cpSBmQm8alFaHwHDuj2nhX1nF1XTIa1cBVUNSO02I=;
+        b=zHbuGnwydQkn3Nrhfu02a3XnSGcXKylymEbdE2FNpWyZsEv5ZBRqyO0wWcBJcMk65q
+         jPPUQzYMndEnVtG6z/0cyamDsyXC5cMbwZL3ISYEBTmaS4uFuOZMrrsU1KekUEdi1NQu
+         eVPIS/jZvqyJeFAwctaz2CtGFqCMxVdixVeAo1UyJ4NdlW2z8CSd7d46rjdxlZR7MJi5
+         Rcz944T02ny5PJ6FHuULaFPzp6EWKJkd6bqoYJ70EiedMgM2DLkezfK8qoCUQB4ThaqQ
+         Bb8ghW5+CCr14IWrK5FEqUPLUmtmhk0Y+vOACN/b+tEfK/HcXtLwzCx4bcP9DfDPaG4n
+         Kw4w==
+X-Forwarded-Encrypted: i=1; AKwUvBy0/UPMFbaRfUXFxyqStvVzFd2ptfcVUIBBmsS9sIWFBpWBYCTMkkIff+ydnQUsJzZDn5uZs5ns8X7VUx4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kk0i6Hqk8+yyI2q2A0P4t57tXJzV6En2OVxbwtDsumbsaxa8oj
+	Y8l9tcaNc+zgcpluMO8CngwsjWBL0uLXm9510Le+9Rqh2zbCaRzMR8cl
+X-Gm-Gg: AYBFou0Tfa/02+jba3C+Vj7InlJL1u+5iH6zyCTaBXrFl5fpgK1FAdvm16NsaSeyL5I
+	0FyO/q9vpBZgJOF9mLimbB6NuVVZKhL8waL0rTzK44bG5INFqMnD++SUU6NqjbyZ3a4BnJDuwB8
+	jEEpBkFIa/KEFLeKxKQ+KFOwx9XQDjt8m1vIe4yZjkEFTqxNuPz2uCbLMPjXj+Gegtj+f4NQhYX
+	Ik+aINPJY9/mfmJCdVWPyA7fFdJfZJ9a/U6kDOyHJQezR3H4+C3QxQiYqseqECamgLAboJVZa4h
+	VouOJjLKYGvwvRU0gjsMzNgMNJCMDmVOBXjXXRIOsSV/ac/zIhO30t8sVOC8pZCHm5lkUS8+ZCR
+	5e0v1DQ7cFf9+AKMznCHIAgynVc4R6Jtn4IcfJ2zmHQpeTiVCkpisPheKqcc/+RbcNG9C1kyLEb
+	WYcbKAUIg/BR/N21clMdr8w2fS1Xk+/8xicCd9u2lVaqf/FPEqiju3DEaSihBE0tGECYfDrTWja
+	Gv60LEvFvQR7jcX+dM8foRUtBeDvQXG+PDjK1pfanH9
+X-Received: by 2002:a05:6122:547:b0:5c7:fbb5:6ea0 with SMTP id 71dfb90a1353d-5c981d5aaf4mr5604934e0c.4.1789438332528;
+        Mon, 14 Sep 2026 19:12:12 -0700 (PDT)
+Received: from dani-ThinkPad-L440.. (host179.190-30-68.telecom.net.ar. [190.30.68.179])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8471137bdsm14283811e0c.12.2026.09.14.19.12.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 19:11:47 -0700 (PDT)
-From: Steven 'Steve' Kendall <skend@chromium.org>
-Date: Tue, 15 Sep 2026 02:11:38 +0000
-Subject: [PATCH v3] ALSA: hda/cs8409: Fix for Dell Cirrus audio jack detect
+        Mon, 14 Sep 2026 19:12:11 -0700 (PDT)
+From: Daniel Salmun <salmundani@gmail.com>
+To: Henrique de Moraes Holschuh <hmh@hmh.eng.br>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: ibm-acpi-devel@lists.sourceforge.net,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Salmun <salmundani@gmail.com>
+Subject: [PATCH v2] platform/x86: thinkpad_acpi: Fix fan speed reporting on ThinkPad L440
+Date: Mon, 14 Sep 2026 23:11:54 -0300
+Message-Id: <20260915021154.23252-1-salmundani@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-fix-headphone-plug-cirrus-dell-v3-1-6dc555b00f61@chromium.org>
-X-B4-Tracking: v=1; b=H4sIAFmpqGoC/4XNQQqDMBCF4auUrDvFJEZtV71H6cImoxlQI0kNL
- eLdG4VC6cblPzDfm1lATxjY5TAzj5ECuSGFPB6YtvXQIpBJzUQmiqzkGTT0Aou1Ga0bEMZuakG
- T91MAg10HCuUjP5taNUqwhIwe08c2cLunthSezr+3vcjX65eWe3TkwEFqxVWpTa60uWrrXU9Tf
- 3K+Zasexa9Y7YoiiU1VcZHMzBTiT1yW5QMf68ZWIQEAAA==
-X-Change-ID: 20260710-fix-headphone-plug-cirrus-dell-5e3b49da5f52
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Steven 'Steve' Kendall <skend@chromium.org>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-On some models like the Dell Inspiron 15 3520, jack
-detection does not work. This patch switches to
-delayed work to fix jack plug on Chrome OS.
+The L440 (BIOS J4ET93WW) reports its fan as stopped: /proc/acpi/ibm/fan
+shows "status: disabled" and "speed: 0", and hwmon fan1_input is 0 under
+any load. EC registers 0x2F and 0x84/0x85 always read 0 on this model.
 
-Assisted-by: LLM
-Signed-off-by: Steven 'Steve' Kendall <skend@chromium.org>
+The EC uses the 0x93/0x95 layout handled by TPACPI_FAN_NS. 0x93 reads 4
+(FAN_NS_CTRL_STATUS) and 0x95 goes from 255 at idle to about 111 at full
+speed. The DSDT has no fan methods.
+
+Add the J4 BIOS family to fan_quirk_table. The fan then reads about
+1900 RPM at idle and 2900 RPM under load. The L540 shares the J4 BIOS
+and the same EC firmware, so it is covered by the same entry.
+
+Tested on a ThinkPad L440 20ASS20200 with BIOS J4ET93WW and EC J4HT30WW.
+
+Link: https://github.com/lm-sensors/lm-sensors/issues/510
+Signed-off-by: Daniel Salmun <salmundani@gmail.com>
 ---
-Changes in v3:
-- Unified sleep time for both cases.
-- Removed some superfluous logic after some additional testing.
-- Link to v2: https://patch.msgid.link/20260718-fix-headphone-plug-cirrus-dell-v2-1-f88121570d62@chromium.org
-
 Changes in v2:
-- Changes from v1 have been removed.
-- New approach uses delayed work and also solves the issue on this machine.
-- I'm now using the latest release of b4. Hopefully this addresses the formatting issues I was having!
-- Link to v1: https://lore.kernel.org/r/20260713-fix-headphone-plug-cirrus-dell-v1-1-3c5157cd45cd@chromium.org
----
- sound/hda/codecs/cirrus/cs8409.c | 43 +++++++++++++++++++++++++++++++++++++---
- sound/hda/codecs/cirrus/cs8409.h |  2 ++
- 2 files changed, 42 insertions(+), 3 deletions(-)
+- Note in the table comment and commit message that the L540 uses the
+  same J4 BIOS family and is covered by this entry.
 
-diff --git a/sound/hda/codecs/cirrus/cs8409.c b/sound/hda/codecs/cirrus/cs8409.c
-index c43ff3ef75b6e..1300571e4b6ae 100644
---- a/sound/hda/codecs/cirrus/cs8409.c
-+++ b/sound/hda/codecs/cirrus/cs8409.c
-@@ -56,6 +56,10 @@ static int cs8409_parse_auto_config(struct hda_codec *codec)
- }
- 
- static void cs8409_disable_i2c_clock_worker(struct work_struct *work);
-+static void cs8409_jack_detect_worker(struct work_struct *work);
-+static void cs42l42_run_jack_detect(struct sub_codec *cs42l42);
-+static int cs8409_i2c_read(struct sub_codec *scodec, unsigned int addr);
-+static int cs8409_i2c_write(struct sub_codec *scodec, unsigned int addr, unsigned int value);
- 
- static struct cs8409_spec *cs8409_alloc_spec(struct hda_codec *codec)
- {
-@@ -69,6 +73,7 @@ static struct cs8409_spec *cs8409_alloc_spec(struct hda_codec *codec)
- 	codec->power_save_node = 1;
- 	mutex_init(&spec->i2c_mux);
- 	INIT_DELAYED_WORK(&spec->i2c_clk_work, cs8409_disable_i2c_clock_worker);
-+	INIT_DELAYED_WORK(&spec->jack_detect_work, cs8409_jack_detect_worker);
- 	snd_hda_gen_spec_init(&spec->gen);
- 
- 	return spec;
-@@ -115,6 +120,28 @@ static void cs8409_disable_i2c_clock_worker(struct work_struct *work)
- 	cs8409_disable_i2c_clock(spec->codec);
- }
- 
-+/*
-+ * cs8409_jack_detect_worker - Perform initial jack detection once hardware is settled
-+ *
-+ * Defer initial jack detection. On ChromeOS and possibly other platforms this
-+ * delay is required for jack detection to work as expected.
-+ */
-+static void cs8409_jack_detect_worker(struct work_struct *work)
-+{
-+	struct cs8409_spec *spec = container_of(work, struct cs8409_spec, jack_detect_work.work);
-+	struct sub_codec *cs42l42 = spec->scodecs[CS8409_CODEC0];
-+
-+	if (spec->init_done && spec->build_ctrl_done && !cs42l42->hp_jack_in) {
-+		int reg_ts_status = cs8409_i2c_read(cs42l42, CS42L42_TSRS_PLUG_STATUS);
-+
-+		/* error case */
-+		if (reg_ts_status < 0)
-+			return;
-+
-+		cs42l42_run_jack_detect(cs42l42);
-+	}
-+}
-+
- /*
-  * cs8409_enable_i2c_clock - Enable I2C clocks
-  * @codec: the codec instance
-@@ -954,6 +981,8 @@ static void cs8409_remove(struct hda_codec *codec)
- 	/* Cancel i2c clock disable timer, and disable clock if left enabled */
- 	cancel_delayed_work_sync(&spec->i2c_clk_work);
- 	cs8409_disable_i2c_clock(codec);
-+	/* Also cancel jack detect work */
-+	cancel_delayed_work_sync(&spec->jack_detect_work);
- 
- 	snd_hda_gen_remove(codec);
- }
-@@ -1026,6 +1055,8 @@ static int cs8409_cs42l42_suspend(struct hda_codec *codec)
- 	/* Cancel i2c clock disable timer, and disable clock if left enabled */
- 	cancel_delayed_work_sync(&spec->i2c_clk_work);
- 	cs8409_disable_i2c_clock(codec);
-+	/* Also cancel jack detect work */
-+	cancel_delayed_work_sync(&spec->jack_detect_work);
- 
- 	snd_hda_shutup_pins(codec);
- 
-@@ -1196,20 +1227,26 @@ void cs8409_cs42l42_fixups(struct hda_codec *codec, const struct hda_fixup *fix,
- 	case HDA_FIXUP_ACT_INIT:
- 		cs8409_cs42l42_hw_init(codec);
- 		spec->init_done = 1;
-+		/*
-+		 * On resume, schedule delayed jack detect to allow the CS42L42
-+		 * to settle after reset before running detection.
-+		 */
- 		if (spec->init_done && spec->build_ctrl_done
- 			&& !spec->scodecs[CS8409_CODEC0]->hp_jack_in)
--			cs42l42_run_jack_detect(spec->scodecs[CS8409_CODEC0]);
-+			schedule_delayed_work(&spec->jack_detect_work,
-+					      msecs_to_jiffies(CS8409_JACK_DETECT_DELAY_MS));
- 		break;
- 	case HDA_FIXUP_ACT_BUILD:
- 		spec->build_ctrl_done = 1;
--		/* Run jack auto detect first time on boot
-+		/* Schedule jack auto detect first time on boot
- 		 * after controls have been added, to check if jack has
- 		 * been already plugged in.
- 		 * Run immediately after init.
- 		 */
- 		if (spec->init_done && spec->build_ctrl_done
- 			&& !spec->scodecs[CS8409_CODEC0]->hp_jack_in)
--			cs42l42_run_jack_detect(spec->scodecs[CS8409_CODEC0]);
-+			schedule_delayed_work(&spec->jack_detect_work,
-+					      msecs_to_jiffies(CS8409_JACK_DETECT_DELAY_MS));
- 		break;
- 	default:
- 		break;
-diff --git a/sound/hda/codecs/cirrus/cs8409.h b/sound/hda/codecs/cirrus/cs8409.h
-index be1714a84fff4..dca9b31aeebfc 100644
---- a/sound/hda/codecs/cirrus/cs8409.h
-+++ b/sound/hda/codecs/cirrus/cs8409.h
-@@ -247,6 +247,7 @@ enum cs8409_coefficient_index_registers {
- #define CS8409_CS42L42_AMIC_PIN_NID		CS8409_PIN_ASP1_RECEIVER_A
- #define CS8409_CS42L42_DMIC_PIN_NID		CS8409_PIN_DMIC1_IN
- #define CS8409_CS42L42_DMIC_ADC_PIN_NID		CS8409_PIN_DMIC1
-+#define CS8409_JACK_DETECT_DELAY_MS		100
- 
- /* Dolphin */
- 
-@@ -339,6 +340,7 @@ struct cs8409_spec {
- 	unsigned int i2c_clck_enabled;
- 	unsigned int dev_addr;
- 	struct delayed_work i2c_clk_work;
-+	struct delayed_work jack_detect_work;
- 
- 	unsigned int playback_started:1;
- 	unsigned int capture_started:1;
+Manual fan control works on this EC (0x93 = 0x14, target written to
+0x94) but is not part of this patch.
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260710-fix-headphone-plug-cirrus-dell-5e3b49da5f52
+I have not checked FAN_RPM_CAL_CONST against a real tachometer. With it
+the range is 1927-4428 RPM, which fits the 5 V blower in this machine.
 
-Best regards,
---  
-Steven 'Steve' Kendall <skend@chromium.org>
+I don't have an L540 to test, but it uses the same J4ET BIOS package
+and J4HT EC firmware as the L440.
+
+ drivers/platform/x86/lenovo/thinkpad_acpi.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+index 1661f070c..c7c905e65 100644
+--- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
++++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+@@ -8846,6 +8846,7 @@ static const struct tpacpi_quirk fan_quirk_table[] __initconst = {
+ 	TPACPI_Q_LNV3('R', '1', 'D', TPACPI_FAN_NS),	/* 11e Gen5 GL-R */
+ 	TPACPI_Q_LNV3('R', '0', 'V', TPACPI_FAN_NS),	/* 11e Gen5 KL-Y */
+ 	TPACPI_Q_LNV('H', '3', TPACPI_FAN_NS),		/* Edge E330 */
++	TPACPI_Q_LNV('J', '4', TPACPI_FAN_NS),		/* L440 / L540 */
+ 	TPACPI_Q_LNV3('N', '1', 'O', TPACPI_FAN_NOFAN),	/* X1 Tablet (2nd gen) */
+ 	TPACPI_Q_LNV3('R', '0', 'Q', TPACPI_FAN_DECRPM),/* L480 */
+ 	TPACPI_Q_LNV('8', 'F', TPACPI_FAN_TPR),		/* ThinkPad x120e */
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.34.1
 
