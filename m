@@ -1,172 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp153-141.sina.com.cn (smtp153-141.sina.com.cn [61.135.153.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093A54AA41D;
-	Tue, 15 Sep 2026 12:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D108349E15A
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:20:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=61.135.153.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474800; cv=none; b=jDoSWggbbGOWhiMjXEq9Zcr7Om1ghdciFjMEwPtbink+Clr5X86173UjfgPIw3XtSXud9CsEd1kzY6A90GKMXSecvlsbbj1n//88prFlBBuOyqm7JdPqRBHSdCkc+Es+rUnqvnIgF1yFmNMryiGfYS0d1PnYC5mAbQ/z1GXXeGM=
+	t=1789474840; cv=none; b=rBN1GfiZnHSheL0J+e1ztkiPqhquqwsvKYhJMUXH2+sd6OjK7UnsGqttJ9kwEkwbgVZvTR7bvNXzId9eCscE1VOeWPZsVwDM4Fw9JVSQ9hpRHPr39bG2ubazMqzQfvy0Y96no8SqKpNjeH78qCA7EPiU0jpejJCUYOQB2GvidOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474800; c=relaxed/simple;
-	bh=ghiprE2YXma8S3nktjyL8fwG3J/XUPLemnD4oo5P+kE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WNAPtXNQUXG+FxAbTDadVNDEWX5vBZRlDbdqmIDsdBnljxT/AOch3u40OE2Xe4pahBnZAUShtQft1gZsUna8+hiWLAk1p04YtrIdKYCknHu/3hYNBl0U7jg6GaEsQQV+VFgBB+xgU5hc4v2tP7GjPfIkcluaJYh2SVh3xvfQGaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJkjiwac; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789474840; c=relaxed/simple;
+	bh=kF2EfUR9+tHGwzSc3aEB0STsS4CDvChlh7Kr0RK7aXw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LfedFb1YjQBr2WX7ZscRd5hLCXYAgCdPpGiWoDvyIWo1kosDW75BgQX4A8N8KbAu+9DqeAE+GMiUr9EjvMwjiIsBIlf5gVpoXDofV0mBDSiwwau94qiStvwlPvldPxser0ROUmOsDrq/6NQQd6RGPgzWYscB10lMuY2HGfXXiK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=c9JAABIZ; arc=none smtp.client-ip=61.135.153.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJkjiwac"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97FB21F00898;
-	Tue, 15 Sep 2026 12:19:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789474798;
-	bh=irsOopNYGA95wlUnsSfuDWFIZCHRgYLO94HlrHa0Li4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aJkjiwacf+E3+/VX3Ka0dJYUKcDcH/WmCT2qlONGQk7th6drv0kb35aefPiv70I4r
-	 j5cnblmWg1FLPE25yvXTuNiBzpXaORmzEC00G/PiZdjagcizt5UJp/wddBuoarohnF
-	 0wqSuq1R4tT5ve05rzDzt7Kf2M0fA4X8wRpWYrkRf+ggUA2fQhajxQ5O+MHIMmPAmf
-	 PRuDgCNO2h823BwR7J1Dj+xleC5rdQxAN27QkF5/NI1pCJXdSI6Hk2HYlelyx+6kpc
-	 0Ln3Ink87xvrVta5mpAcqlIPk3cST0i9+D8zpl+tcyBuss5WdoiZCBIv1/oEhGZet8
-	 ABWELFo9uzCrQ==
-Date: Tue, 15 Sep 2026 13:19:47 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 15/21] objtool: cache relocations, do less work
-Message-ID: <aqk2bTOw_Scb8spw@gremlin>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-15-39817ec5db23@kernel.org>
- <aqhLhVMkNzf_4oJw@jpoimboe>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="c9JAABIZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789474834;
+	bh=2huP4BHOtI3LZuHML8rqO1cAi2lXFTTpM4gi9fRaXUM=;
+	h=From:Subject:Date:Message-ID;
+	b=c9JAABIZWGKmJUGWN024eOo380TKykspHIGZSYMU+D0Vvf1DOLBd20VjiDDRxIIcO
+	 fzokczZ3PnB9bJFfB31I3ClLK+M3zL6SUfl3ce1PPfImd6FND/jonq1OvCLLOS+LOj
+	 Zk0A9ya8J2J+M43fkR1fso+wlXqaJTJ0K3yyjKGo=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6AA9380200001DAA; Tue, 15 Sep 2026 20:20:20 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 9019526816028
+X-SMAIL-UIID: 6CDB34C7268A4AF4BBBCC362CB1B782B-20260915-202020-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
+Cc: dakr@kernel.org,
+	driver-core@lists.linux.dev,
+	gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	rafael@kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: [PATCH] sysfs: prevent writing excessively large files
+Date: Tue, 15 Sep 2026 20:20:17 +0800
+Message-ID: <20260915122018.924041-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6aa82301.a211d2ce.1a5198.0296.GAE@google.com>
+References: <6aa82301.a211d2ce.1a5198.0296.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqhLhVMkNzf_4oJw@jpoimboe>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 12:44:13PM -0700, Josh Poimboeuf wrote:
-> On Mon, Sep 14, 2026 at 10:22:14AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > +static struct reloc *find_reloc_sorted(struct section *rsec,
-> >  				       unsigned long offset, unsigned int len)
-> >  {
-> > -	struct reloc *reloc, *r = NULL;
-> > -	struct section *rsec;
-> > -	unsigned long o;
-> > +	struct reloc *relocs = rsec->relocs;
-> > +	const unsigned int nr_relocs = sec_num_entries(rsec);
-> > +	const unsigned long cache_idx = reloc_cache_index(offset);
-> > +	unsigned int reloc_idx, i;
-> >
-> > -	rsec = sec->rsec;
-> > -	if (!rsec)
-> > +	if (cache_idx >= reloc_cache_nr_windows(rsec))
-> > +		return NULL;
-> > +
-> > +	reloc_idx = rsec->reloc_cache[cache_idx];
-> > +
-> > +	/*
-> > +	 * Scan through all relocations covered by cache entry to find the
-> > +	 * first at or after offset. Relocations are sorted by offset.
-> > +	 */
-> > +	for (i = reloc_idx; i < nr_relocs; i++) {
-> > +		struct reloc *reloc = &relocs[i];
-> > +		const unsigned long curr_offset = reloc_offset(reloc);
-> > +
-> > +		if (curr_offset >= offset)
-> > +			break;
-> > +
-> > +		reloc_idx++;
-> > +	}
-> > +
-> > +	/* Nothing found, or the first candidate lies beyond the range. */
-> > +	if (reloc_idx >= nr_relocs ||
-> > +	    reloc_offset(&relocs[reloc_idx]) >= offset + len)
-> >  		return NULL;
-> >
-> > +	/* If there are duplicate entries, return the last. */
->
-> Hm, for consistency with the others, shouldn't this be returning the
-> *first* match?
+Since atomic_write_len is not configured for sysfs_file_kfops_rw, a large
+file write via sysfs_kf_write() may result in an out-of-bounds read when
+checking for the null terminator of a string element in the kobject_actions
+array within kobject_action_type(), potentially hitting:
 
-Ack you're right.
+BUG: KASAN: global-out-of-bounds in kobject_action_type lib/kobject_uevent.c:86 [inline]
+BUG: KASAN: global-out-of-bounds in kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
+Read of size 1 at addr ffffffff8d72559f by task syz.0.17/5917
+Call Trace:
+ kobject_action_type lib/kobject_uevent.c:86 [inline]
+ kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
+ bus_uevent_store+0x3d/0x90 drivers/base/bus.c:917
+ bus_attr_store+0x74/0xb0 drivers/base/bus.c:172
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
 
-It was pedantically trying to recreate what the hash did exactly but no section
-has two relocations at one offset anyway, so have updated to return the first
-and removed the special casing.
+Add atomic_write_len for sysfs_file_kfops_rw and sysfs_file_kfops_wo
+properly.
 
->
-> > +/* If there are multiple matches, return the first one in the range. */
-> > +struct reloc *find_reloc_by_dest_range(const struct elf *elf, struct section *sec,
-> > +				       unsigned long offset, unsigned int len)
-> >  {
-> > -	return !strncmp(sec->name, ".debug_", 7);
-> > +	struct section *rsec = sec->rsec;
-> > +
-> > +	if (!rsec)
-> > +		return NULL;
-> > +
-> > +	if (rsec->sorted)
-> > +		return find_reloc_sorted(rsec, offset, len);
-> > +
-> > +	if (rsec->hashed)
-> > +		return find_reloc_hash(elf, rsec, offset, len);
-> > +
-> > +	return find_reloc_linear(rsec, offset, len);
->
-> I'm not sure there's much benefit in having two fallbacks (hashed +
-> linear) instead of one.  If the vast majority of reloc sections are
-> sorted, then hopefully a single (linear) fallback would be fine,
-> assuming no major performance regressions.  That would help contain the
-> complexity.
+Fixes: f6acf8bb6a40 ("sysfs, kernfs: introduce kernfs_ops")
+Reported-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9a321aea9d851b299486
+Tested-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+ fs/sysfs/file.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Ack, and it turns out we don't even need to fallback for growth either after all
-- relocations objtool appends actually arrive in offset order anyway.
+diff --git a/fs/sysfs/file.c b/fs/sysfs/file.c
+index cd5bb0f9fee6..a63130d18680 100644
+--- a/fs/sysfs/file.c
++++ b/fs/sysfs/file.c
+@@ -228,10 +228,12 @@ static const struct kernfs_ops sysfs_file_kfops_ro = {
+ };
+ 
+ static const struct kernfs_ops sysfs_file_kfops_wo = {
++	.atomic_write_len	= PAGE_SIZE,
+ 	.write		= sysfs_kf_write,
+ };
+ 
+ static const struct kernfs_ops sysfs_file_kfops_rw = {
++	.atomic_write_len	= PAGE_SIZE,
+ 	.seq_show	= sysfs_kf_seq_show,
+ 	.write		= sysfs_kf_write,
+ };
+-- 
+2.43.0
 
-So we can indeed just get rid of the hash entirely :)
-
-So now v3 fallbacks to linear if there's anything out of order (belts + braces
-I'm not sure anything will do that now actually but good to have to be safe),
-annnd no hash :)
-
-Have tested locally and confirmed output is byte-identical for vmlinux.o for
-gcc/clang allmodconfig and defconfig, also tested klp-build and that's all
-working too for livepatch stuff.
-
->
-> BTW, I found another initialization bug: klp-post-link.c uses
-> elf_create_section() to create a reloc section, so it missing the
-> initialization of rsec->hashed in elf_create_rela_section().  But that's
-> moot if we just get rid of the hashing.
-
-Thanks, with the hash gone that's now moot as you say :)
-
->
-> --
-> Josh
-
---
-Cheers, Lorenzo
