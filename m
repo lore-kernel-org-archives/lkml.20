@@ -1,173 +1,107 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC96647D462;
-	Tue, 15 Sep 2026 13:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480212; cv=none; b=HrEiI+soAFkzcGnL7fhkMEOfCXnlWh/t6EJyG60DY3i1c79lxcJuEyX/Lv1AGYWGFxFZjsELEV5QI/R1HDXvLPfJjxzxe5qpB+wEmIHLjbhUJWo8RsD0IZ5VuifdVAUIKxBaL1zHEeXNpSKoN+y1KYuPu9ApRK1uQ0pYGysywd0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480212; c=relaxed/simple;
-	bh=Er006dVNCN0LpRq6BA3LJv12AT3lwxcOksbg6+oxy6Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eDWnLlVctLRO45rzAk4Up9lKnYYvXULgS7uRbQNAwb8DvE+qK88y3KX4bRorzwnUcwxy55ywmz1lEJpby3VeCnEHVlAlCIvgQiLXolf9byiRFsYywMsFTiQOwcJm0WUJxWo5DDeSKqnSUHTKor8MdvU5aD+lBsVh9kUkZWI78js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=H/6ZCMwa; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37653C1D49
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789480263; cv=pass; b=fXgYxzV/3/MkUnHaju5H9w/Wjn3r6dFXhBbbLcuTKOQ+lNNlNlUXXdkEOL0mrkhYOY7sSoBvbJgn3ecmo/XGmMKCCKtsxZN/DeSX2YmUnECR1t/MTtPbJ48zzQpKNMi2mIbxiRIJrI1D+HsmktYZEfSwHUUoOy3evTUdYcMnyic=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789480263; c=relaxed/simple;
+	bh=4wPcRrMFAq+5dln8/Xz92CdQ5x3DJk3HiLHlwR+yBQg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VQwmE7GC/+dctMXeXmO3LwQBdJSv9LWLpMOgjRPKc51zmrDJ5rdvks7F+G5s7rpx9vqziIpofdxXJacQatez4dmIEbVORAilKN3+UE4+YcpkriGrHqlqRTLT9vatcYHMvZJoAtNeoek+HR22dTTl3CB4SF3utOqmzVUl6pHPpLM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dfkf/blk; arc=pass smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="H/6ZCMwa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789480199;
-	bh=Er006dVNCN0LpRq6BA3LJv12AT3lwxcOksbg6+oxy6Y=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=H/6ZCMwa5TGZXo5AVY5zHnWSjGZOfU2wfUmtf8VSdW4Npg2fK6iAujnH/dCYzKh0P
-	 /KXCjVgjC/ishcT0Q0ALPGb0lrhI0sWhDgnouBE/cufoY+bRWkl1AtK2SYM+uF4BiD
-	 pOY+uhQFIcDylECQljoTjuQGgRit40iUXm/Yes/XrIOOZykEXbOswWihsdF2wrYJe4
-	 2WKAN+Tw3yF3Ldiz/oTl9GB35VVBlWCf3hcw3XogbDI28B9OJ2hPEE+J3ZTgARFL3t
-	 vfTS9xEtMlcNAbFacuLXjj0VMbmDCmDmb6+yxHDQ3Q7+NwPogsAVwQaInKfpFF/ePn
-	 YGxT5uefg8c1Q==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2F2C417E0EF0;
-	Tue, 15 Sep 2026 15:49:59 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 42E29480062; Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 15 Sep 2026 15:50:03 +0200
-Subject: [PATCH v15 16/16] phy: rockchip: usbdp: Register DP aux bridge
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dfkf/blk"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-46dae65dc5cso185621fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:51:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789480261; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HYome1O4KvDzbRGvbwqDEHYQDOIV5ZWdo/rGMX6NAQgLc1VnsHYORWMuCgEdG+GHKI
+         sJqRie49snKUHIg+JBDDNGCmmD9VPt3H1LIREPazmMbAK/bvwRcDRXjeVpYkiKnHCbAv
+         /wsjm5r1qGZCPkvZOjvTRxDjKZNyJ6PBcoaxzN/b782m/2LXM3Sm4owgSJzUrTnrL8hf
+         QKl4t2YNRdOd7Yku8SMnZaP+sXlGhkbg4fHKBIHghZ7cscadXsu7BazBaGBCxyIkQxG1
+         CBqI921mlS0oMDGrZvLD3P3D9teCH/hhu0Qd06YdkQGdRnwJOpoVwwQwhse5sISXhgQe
+         Zwww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4wPcRrMFAq+5dln8/Xz92CdQ5x3DJk3HiLHlwR+yBQg=;
+        fh=c6S/f4u096424RO9Ux+7UE311tTVsTfcvCISbQwCl7g=;
+        b=TCI9Itj42OZuvYLH2dMaeVPfQ201m+zQzFwRDUb/XfrGLqsY34bJlnfDs0ycEJKXbG
+         FooFBLbSe/oaDqK1FpSgV9FKgY6xZtCa6HTOFnWZrbKxlA+Sh24LVONoWs7Q35itARbj
+         61Ex29sghIBi7QcT8qEPhpH84E+G2sygsMMn8g/9zlaTXsGcic/cYq170Y8qxEtrTy3k
+         EXKgi7jJDP/5EqV+Ch5sw0inceRqw3FLFxBTzlQVTju+AiQC8w89oZJrOMc+gBCDC3o0
+         INSohuTqurXUFtBDLfWP961096YLupqUqtxlqDolo7zcYylRgBXc+Jx7XZu5zkoQ9NMs
+         aowA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789480261; x=1790085061; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4wPcRrMFAq+5dln8/Xz92CdQ5x3DJk3HiLHlwR+yBQg=;
+        b=dfkf/blk0+Fc9K3qVVUAsmWWUjgtVwmLForFXyjdLJXK43NTnZ3+fTTNbPwBZ/BhZF
+         5XD1Bv2PRXOlOhnQjev0sV+To1neP5DYyBE4Zz/VmlBrIUihBP5yWv1uTytj7t2J1asu
+         FP6XY7Pm0Q8c/V4RaWkMssxVpcJqxvweZi3bpmHmvRxgU/u7Gpe4Jg4gRN9hmR63/6xf
+         cTW8ZlBufOGcCWrRlODSoNJSGlFO5rc4AZK1KG0/hCY70nF4m7mxMK81nb5t2lwfHZ/B
+         fUj2D0RFcrGhWBgFupi/cF+/n2Jdq6ty45TE4gje/CJdg42Gc2O1H+ZyPM/R3jEpsV2a
+         8DyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789480261; x=1790085061;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4wPcRrMFAq+5dln8/Xz92CdQ5x3DJk3HiLHlwR+yBQg=;
+        b=zvWVIbTpNfSk+l1CIugNbE836fIVadaf31SAZLdbebhg7xhRhPy1bgmpsl+eonpkzj
+         OhklSjyIXLz/JWR+IivTg9OFX5OWaFQzKj9j7sWx+s+jO7EByjJF3W3/8m3MOfa2fPI7
+         4R8elbp6wTrnqF+D2hzgNBTLh9pwLrkMhwRHVQEAICDmpWglkThhOJXN607WG4f0lrJf
+         VJn8nwfoApsGAfrBQ69TBjeem/Mvwb31FnFgoIYxdpAU3wL0NPC76sv+KRKy2vCd1tqj
+         QdSdM5E3DS0jkun04lT/wGkW3Jt4XJU1+oXzq5GkEtWi2yHzRPJ8ltUCc3NgFeE8pYxe
+         kvfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxxc8g4HIUyARhzN3bnp37jdjPWgxxL0EYzByVLSwMT729tBvmL5dnM7WaSWxVpFyiBXrYmWMcQGjPigdQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKXA6y+50qXyvRp9ED6K01iDZhixgCD8igr8k68uzAY7nY9ak+
+	5c5fXIBhr5PL4Uqxh75zlgWBM3ACZoIxQ5L5lCRixn7YKUefaL8IsPVDg4WcK07bkcPGgUJv4l1
+	0HhvnVtZtfHyMbh18C0fQ5KFSK3UsKVM=
+X-Gm-Gg: AYBFou3c9TcuoqSiNEoEhwdKpJhEH78h22dZEjQKoVuqGXbsl6ruSYgakU7QlwWlyYB
+	QRB7SL3YVtREkRzsW+5e6+tzbIaJzWKOcGhSqxWAHe/HrH8sDfDOu6Bl91puutfOUYKKtPjsF9J
+	6dcagz/lYM7V7SHlGVmzvaSOIxWhx3VIUvNbujwrgh4RG+Mm8udvFc5egQXP6bbLiuhOLXIf7FH
+	queEhgW+Ss//SUJfMCJAzP5uANjlxHpy1MblWut7XzfUHAIn8su4a3Jp8LbMnZ8qMNT+fe8r1Dp
+	krCdBFz+/TpkV61K6aLFOhmbTPwAg4TSVbZfK7KDeLphMbdTCi2qvT8=
+X-Received: by 2002:a05:6820:4df2:b0:6be:dc4:13ea with SMTP id
+ 006d021491bc7-6c739c74aa0mr737467eaf.50.1789480260532; Tue, 15 Sep 2026
+ 06:51:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-rockchip-usbdp-cleanup-v15-16-80e2c11d1ce8@collabora.com>
-References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
-In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
-To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Yubing Zhang <yubing.zhang@rock-chips.com>, 
- Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
- linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel@collabora.com, devicetree@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3258;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=Er006dVNCN0LpRq6BA3LJv12AT3lwxcOksbg6+oxy6Y=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpTQb9J2jpv5abw+bajDNMJE/vG4t4bhXKV
- 94xqY4clMc8tYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqU0GAAoJENju1/PI
- O/qadeEP+waqIvOpgvQmD4ds2gHNUsiKUSXilQruRbjPn3rG1t+eeScOG32XevUeoii/384lHXR
- tprurPFkaSElZnfA93PcZtsQOEl331N/h2zEfKT2uo9DmP+YCqoQw0tggwgfDOUtciPpvzp+aE/
- Z7UspmIiE7EEo22i5EytpXoGvnBWl1seH8BKpM+g/w2zv/Mhj7R5aubvTHqJtpCUPwduWjLsF1G
- mgAuMA9rphT3ldEqzi/0I+sZ56S9h/GFarpBqyybx7GTj52VPe0TnogwsQwtM5sa9ahvjTAOLV8
- XD42OWbpEelgWarLbUzroCsZrFV3w9ULl3kAOx4KuNEOogiLc+mXRxCO603727MR0ofiwquNqPI
- NpMp6rl+s3CXIu7mqQnq9IYkJvGuT+uIbD+2vqiCQo31/RFVI+iKkCRJzJjlmy6mzV/kWMjx7ZY
- x2wAMs8tAyHC/RGe8hpFPPRVptIHJfSTK7Zk/X0bkYX8Ct3AHnMl4Hr58lTtEY+17pP7E8RLtqA
- Un/rEojYYKPi9wzCmxtc2XUGQ30s50dcQvXvz/LLy9stD3dtkFYxdGotTjdqGIdiiBxP+gQgyi5
- eT8SSdTAWZxZ/twME1xY2w2Ebcy3IQiwVAsOEfJycG9mitnRq87h1Kk5qQOxvOP5kqU84B9NiGl
- rnt31+WjYYHNaJiN2kIothQ==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+References: <20260915075939.18180-1-abdelnasserhussein11@gmail.com>
+ <20260915075939.18180-3-abdelnasserhussein11@gmail.com> <20260915151634.0000787e@gmail.com>
+In-Reply-To: <20260915151634.0000787e@gmail.com>
+From: nasser <abdelnasserhussein11@gmail.com>
+Date: Tue, 15 Sep 2026 16:50:46 +0300
+X-Gm-Features: AcwNN1VOemZ51WsQAP6jqp3alJcLgnYJqt7-z-lPu_slORPzqQPRWDZ6MAZ2e5Y
+Message-ID: <CANpqX3ZkzU=+qmd4RRwwBbX2UvJOzeLhRi-hfXRR=FyeH6yD5A@mail.gmail.com>
+Subject: Re: [PATCH v7 2/3] staging: iio: adc: ad7816: Serialize SPI operations
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com, 
+	Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org, 
+	linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add support to use USB-C connectors with the DP altmode helper code on
-devicetree based platforms. To get this working there must be a DRM
-bridge chain from the DisplayPort controller to the USB-C connector.
-E.g. on Rockchip RK3576:
+hi Joshua,
 
-root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-bridge[0]: dw_dp_bridge_funcs
-        refcount: 7
-        type: [10] DP
-        OF: /soc/dp@27e40000:rockchip,rk3576-dp
-        ops: [0x47] detect edid hpd
-bridge[1]: drm_aux_bridge_funcs
-        refcount: 4
-        type: [0] Unknown
-        OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
-        ops: [0x0]
-bridge[2]: drm_aux_hpd_bridge_funcs
-        refcount: 5
-        type: [10] DP
-        OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
-        ops: [0x4] hpd
+Thanks for the review and the great catch!
+I completely agree that securing the sysfs store functions against
+concurrent access is a logical next step.
+ I will prepare a separate follow-up patch
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/phy/rockchip/Kconfig              |  2 ++
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 17 +++++++++++++++++
- 2 files changed, 19 insertions(+)
-
-diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
-index 14698571b607..39759bb2fa1d 100644
---- a/drivers/phy/rockchip/Kconfig
-+++ b/drivers/phy/rockchip/Kconfig
-@@ -136,8 +136,10 @@ config PHY_ROCKCHIP_USBDP
- 	tristate "Rockchip USBDP COMBO PHY Driver"
- 	depends on ARCH_ROCKCHIP && OF
- 	depends on TYPEC
-+	depends on DRM || DRM=n
- 	select GENERIC_PHY
- 	select USB_COMMON
-+	select DRM_AUX_BRIDGE if DRM_BRIDGE
- 	help
- 	  Enable this to support the Rockchip USB3.0/DP combo PHY with
- 	  Samsung IP block. This is required for USB3 support on RK3588.
-diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 8874f8429a67..fa8324879a97 100644
---- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-+++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -6,6 +6,7 @@
-  * Copyright (C) 2024 Collabora Ltd
-  */
- 
-+#include <drm/bridge/aux-bridge.h>
- #include <dt-bindings/phy/phy.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-@@ -1413,6 +1414,7 @@ static int rk_udphy_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct phy_provider *phy_provider;
-+	struct fwnode_handle *dp_aux_ep;
- 	struct resource *res;
- 	struct rk_udphy *udphy;
- 	void __iomem *base;
-@@ -1467,6 +1469,21 @@ static int rk_udphy_probe(struct platform_device *pdev)
- 			return ret;
- 	}
- 
-+	/*
-+	 * Only register the DRM bridge, if the DP aux channel is connected.
-+	 * Some boards use the USBDP PHY only for its USB3 capabilities. The
-+	 * aux bridge itself will be registered using port 0, endpoint 0, which
-+	 * is fine as that is the actual superspeed data connection shared by
-+	 * USB3 and DP based on the mux config.
-+	 */
-+	dp_aux_ep = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 3, 0, 0);
-+	if (dp_aux_ep) {
-+		ret = drm_aux_bridge_register(dev);
-+		fwnode_handle_put(dp_aux_ep);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	udphy->phy_u3 = devm_phy_create(dev, dev->of_node, &rk_udphy_usb3_phy_ops);
- 	if (IS_ERR(udphy->phy_u3)) {
- 		ret = PTR_ERR(udphy->phy_u3);
-
--- 
-2.53.0
-
+Best regards,
+Abdelnasser
