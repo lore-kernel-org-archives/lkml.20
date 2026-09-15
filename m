@@ -1,126 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B21370AFB;
-	Tue, 15 Sep 2026 14:14:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481643; cv=none; b=r4313QIo6GxdwYOm3F/PLhwJlL8BGA3LBkCyHCOAtW5rbCu2OsBHMfnj1XrBj5uiPCX9XAYbKJ3KmOmdUBghHJ061BC52g93MfAKltsG3oWOzR4/McmxNDyydguTo/vbl8Dxyx1A76Cyonhd+bIe6DrryVCS1UlKCzZX3OkRqAc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481643; c=relaxed/simple;
-	bh=WxKz1XjXKeWWmUOze983N5crkiXjAn33b8I1zUvC4bU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jRzzziT0uFI8NkYCW+mxVj+1FncgfliUxg0eVTSgPRC4T7cZ+dVFZ4rMvcoDQ3oeaxbaEsZbS+P0i0QZj0QKFdnIpeTGuhR2goGPP0H8Ymp5iakMLbWWFntReXCzcrnSW0PFu6cFJM2qusy3EO+6U6NokBTzX4qLjh4ZCnlId5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aH6JAlZ9; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6FB377EAC
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789481658; cv=pass; b=IFdA77dwJ0nIXuNXOgadB8mIJ/PIEZsmsv5h5ibWOdFEOy/brOz7LPVx/6MBNYd27j/IckAgwgwvzkz8T7MjyZI2YMGU65hpAs4PE8WInDtEl6FknIK1dyq1UJrDozvCcCPoUD0ujKY/hEUD6kfsLDqBGuQfD0/Ltc2oTZeWRJk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789481658; c=relaxed/simple;
+	bh=tFqEk2khVPQVjDBFUGJCwZMC/Lwy8rG2t4A2q9rwZMg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MUNU4fJUEbxvztWWG0jippCuTB6AgXglTpxWCxONUrIIA0GfiUcRPPQxuGwy9MLTRR6x7G+RCUJR4Z3UPiXT9UuvkoTh6WXDaZRk4A6DGsi0OI1YHUyox0ZpYqvyTlReaCD/3GBB2MyJDbxnDvWIwsE2LLQnedijquqZE0ZloPY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rL4WGZRg; arc=pass smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aH6JAlZ9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC0E1F000FF;
-	Tue, 15 Sep 2026 14:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789481640;
-	bh=9tuBLot3qHflaL2nXy1mV27KmiWuyFNCp0yLJQbg5Gk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aH6JAlZ9Y6b7+dWNKrOhciPHDdZkQ6Xe34yt2ZkCifhwZjIMi4jrA/P9g9ZADO3KD
-	 qHVI0DrRRoUuhT1YnWg8wl1iWbun2IAUDOptzDhtZH6IsqsuxjF/G9s1EoT9cFdhNy
-	 WQExJBKVF6tT7IHTZ2CtpPwWg+232fVIfTIfwG3AhhIAMbcb4VXPHxy5tz3gsWc3x2
-	 R0UQ7lI3jO0//+GcPx4PLCs8Zj5sN/DseiyW6uBlk3hn0105uQ7+yl1h2nhpjtuTew
-	 LjuVEIOSrdLH40wI90y4TWtmonZnMZwtO24VLHSmNNMpLN5ZIMvhdjXiDm5b33e2M0
-	 gAMkTZqMRLw2w==
-Date: Tue, 15 Sep 2026 16:13:57 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Aniruddha Rao <anrao@nvidia.com>
-Cc: jonathanh@nvidia.com, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 5/5] firmware: tegra: bpmp: Add MBWT sysfs interface
-Message-ID: <aqlSR8I7hJEiKAwI@orome>
-References: <20260910085919.2522241-1-anrao@nvidia.com>
- <20260910085919.2522241-6-anrao@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rL4WGZRg"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97cb5c91d5dso79277241.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:14:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789481654; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TTvvaD3Jvi1wCmUXoU+FppH0FGLuCkRNUMyzNeCEYV+kUh/tJIMYcu3yrjlsqOdWq+
+         4hu0fz7cn7y0cV7OoQB/+jTm8S5CUiHWGQe8OdcW5XzU48WbW1GyAQDyds95UiH5IgeC
+         GSna3/GTGDAbFHcsrsDeHiXfiqpFxfgpZkaq6oKv/Adz+7W4YRR+z+fOnfFQgO9XIbiU
+         erowoqgz4F7/XzPnLTXpcL0tcQyX2eJPUbSUzMPpQT/hqGAKSKX7rM6e1gLy+YnuN7vT
+         5Hs3OyCGtDY4tnwr4CAyIdApA/JhAF91X3mGysBiPTPqguk6tfxJOt868pOeIdq3Ufkb
+         mjsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RWQQ16n/Y9tSUunBn+e/2NyOzrUzmECVOOglAlx98Qs=;
+        fh=nJx/fDFyQbyU1pdztysZ5QC/5Y33Lo3m2shAM0ZI16A=;
+        b=RtzGOAJ/bCOdFCnT+DuTUcd7oD82TIxqpztHN5EPzesrY6+WWzeHFaTeZJCKRd5cRA
+         ++m8lOkt/z7oRDJD/hRQhMNCd2fCakNetfa2SNgD3Pz9snSKyHM+sj5CrUj1Ho9YMbE/
+         BCVW1bIhNA+62TYCmK5hGs2pZTdUv1oc1qb1wYdNhRfgwGq+EKOLxgLj5mw28/RbT7xM
+         BMbeucuifLYKCDtg8t6OsXCkNjFIcCyi9VL3lveCEmlAVyXSaJyhiG0X2I7v+0KR7c5p
+         +E7EsCIUa6+nysqKirnf7VXhd7e42+s08MH1TeZHWO8AG5sQ3stwA7kb9tUxUJIarDtl
+         IQCA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789481654; x=1790086454; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RWQQ16n/Y9tSUunBn+e/2NyOzrUzmECVOOglAlx98Qs=;
+        b=rL4WGZRgKIPbbZwh+wxIizTCyn7ipa8Z4wDuYDJkDBJOJGMgwhUPpQzVmfQdeYdSfy
+         Dmd/q9uwKzvsUawiV8D5et6mO9V9asZ0tEzKt5Pe9OLR8PwuKkDqFNDZCYMsi30y3dUN
+         guwnvA9ZaX13KoyUaWH7Hg2JgF3UGULOgfsj17w1N8o0w/YAPkBcuvEzE/55pT3wBYlY
+         F6DQGx6aUo/rpl1hGzaUVgUkXNFh5sUrPY7jojSjufgsUpjh0CwCjubpz3mOPsChhoYe
+         X/+33n1QnqmiJthCNDisAgMbLYQdweWqsLxXznC4mMJJ09MQT2slCR7eJglUU93WX9We
+         JmkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789481654; x=1790086454;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RWQQ16n/Y9tSUunBn+e/2NyOzrUzmECVOOglAlx98Qs=;
+        b=HWyZpCvrI1Fzj+8DHFMcZ1SUpuuD+KNERCIusqfKRBZ6GPnKJJAOvv9daDPAMLOE4c
+         NlIqjwMX9LLvwwfs/1b95J0GNO/oaOAtVAA2ES5ZENIy7mYYmpl7QWuCw9cNcCuEKElV
+         7V7Z/GQit8LyhD/3K0yJAe85SH+Otr8OXzpw0fxQLoXzZ8XkCFPwGMj3c1OcLOHyrrLx
+         PxPSg0pjxvM2P5dciq+Eq7Y56U1+HRN1Vk3+VLJ8RHbSpapV8ynZPfv4sFuA0U4LECqi
+         RlwziY6z286k1I1xrVJu912EPrWgtooiuIMHBmRCbeet9bfklN/w3ocBUOqaZQg19QzB
+         PvEA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjVlLCBwA09+cK82nMVUjjVk2nVPSF5ZonmvUSl3CUOv4Kmj0VDzE5KBAq5oWoyBm97aOEEqIAKCHQdNE=@vger.kernel.org
+X-Gm-Message-State: AFuF++ng9vF2Pafs9/VOaJIMbvogauuqr4sBILxDU8dyLqJzs+RRSTOa
+	oJJV1i6v4owPtLP/DHU1kBE5Eg95WJ1mNedRwwpsCb1VWd43VAzWIwAdoQbSF0OSWZaXCcoxm3b
+	1zy0v/xA1VwwUO+v7efYtM4Vy1bJAEFc=
+X-Gm-Gg: AYBFou0tvgxZjiiCUADM3gQPzBW+EyMqV75UpydJJrn6ix7NoYhG25rgezQFiOUl6cy
+	33A+uI1v0JHAHBItQtClhRV023Vv9pPsa5nQ8a/ziglatm6nOBe4M1lppqVuhgmKnzJo/CjYwhM
+	70ab9Blf54TXZhEiN7ei7/1HwSTgLivJuD/o4TZ4v/PPo/SMzuqrdyiYw/vwWGbvGPoK2gP3JiL
+	5y0+j1xUh97vKPN9JtsxHQ2SZSECPXScojNBSc695kuNFYj4oT4XZgrZMa/2HeQgU7FhH/XCRbo
+	qoxK5zu35gJkS+3NMwR4CBd7HRwuaFjqwIGlk0/MktOShdnUBIJmYhsYb7C5FpMavHjlf3xV94Q
+	MUlASihiYk8F+ECBDYdIzRD5FMaGRJY/bjqM15UX7Bw==
+X-Received: by 2002:a05:6102:54aa:b0:795:41a8:ff58 with SMTP id
+ ada2fe7eead31-79b53156063mr2222470137.0.1789481654462; Tue, 15 Sep 2026
+ 07:14:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ywkpvxjezfcsqofj"
-Content-Disposition: inline
-In-Reply-To: <20260910085919.2522241-6-anrao@nvidia.com>
+References: <20260915005421.20570-1-emmaonana18@gmail.com>
+In-Reply-To: <20260915005421.20570-1-emmaonana18@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 15 Sep 2026 10:14:01 -0400
+X-Gm-Features: AcwNN1XCYqnubKV6DPknJ8VP8xcUX59hQZqAGMsqaqTYwSEti10uZRVGJHGdrc8
+Message-ID: <CADnq5_Orei9+6ZjCC2jTt8jrPM+w6jx5i1WoLxZWj9treOdzXQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix kernel-doc warnings for amdgpu_display_manager
+To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, harry.wentland@amd.com, sunpeng.li@amd.com, 
+	siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, 
+	airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, 
+	bhawanpreet.lakha@amd.com, Wayne.Lin@amd.com, ivan.lipski@amd.com, 
+	matthew.schwartz@linux.dev, Jerry.Zuo@amd.com, chiahsuan.chung@amd.com, 
+	chen-yu.chen@amd.com, skhan@linuxfoundation.org, me@brighamcampbell.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Applied.  Thanks!
 
---ywkpvxjezfcsqofj
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v4 5/5] firmware: tegra: bpmp: Add MBWT sysfs interface
-MIME-Version: 1.0
+Alex
 
-On Thu, Sep 10, 2026 at 08:59:19AM +0000, Aniruddha Rao wrote:
-[...]
-> diff --git a/drivers/firmware/tegra/bpmp-sysfs.c b/drivers/firmware/tegra/bpmp-sysfs.c
-> new file mode 100644
-> index 000000000000..f56836fa3314
-> --- /dev/null
-> +++ b/drivers/firmware/tegra/bpmp-sysfs.c
-> @@ -0,0 +1,205 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2026, NVIDIA CORPORATION.
-> + */
-> +
-> +#include <linux/device.h>
-> +#include <linux/kobject.h>
-> +#include <linux/kstrtox.h>
-> +#include <linux/mutex.h>
-> +#include <linux/slab.h>
-> +#include <linux/sysfs.h>
-> +
-> +#include <soc/tegra/bpmp.h>
-> +#include <soc/tegra/bpmp-abi.h>
-> +
-> +#include "bpmp-private.h"
-> +
-> +#define TEGRA_BPMP_MBWT_NUM_GROUPS	6
-> +#define TEGRA_BPMP_MBWT_NUM_VCS		3
-> +
-> +struct tegra_bpmp_mbwt_attr {
-> +	struct kobj_attribute attr;
-> +	struct tegra_bpmp_mbwt_sysfs *mbwt;
-> +	unsigned int instance;
-> +	unsigned int vc_type;
-> +};
-> +
-> +struct tegra_bpmp_mbwt_sysfs {
-> +	struct tegra_bpmp *bpmp;
-> +	struct kobject *root;
-> +	struct kobject *group[TEGRA_BPMP_MBWT_NUM_GROUPS];
-> +	struct kobject *vc[TEGRA_BPMP_MBWT_NUM_GROUPS]
-> +			  [TEGRA_BPMP_MBWT_NUM_VCS];
-> +	struct tegra_bpmp_mbwt_attr attrs[TEGRA_BPMP_MBWT_NUM_GROUPS]
-> +				       [TEGRA_BPMP_MBWT_NUM_VCS];
-
-Should these be dynamically allocated? If there's a remote chance that
-we'll see other sets of groups and VCs, this should probably be
-parameterized by some SoC-specific data.
-
-Thierry
-
---ywkpvxjezfcsqofj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqpUqUACgkQ3SOs138+
-s6F4rw/+Lx/nzIbwSs4ZLYrBDFbFHhxgRBD3neKXQ4oVTVvQOnZk2RYDvJ8+TYtJ
-cqOlYgZIsbQXdMtanZq5b8iV3KCV+oDBisTx4j2WgG7aY/dUqYk/sS3xzqw81z7D
-SG+gywJXJQBuMXXhlufDc70F/BU9uYa7I8g4JKZ5BCMBg3V0fhwzOrHWXZ+WfzZx
-HpV3eY51gVsidtztE5XjGqFovymul6xB6tHqiMKtzTicKNBZhEJ6uUTMETZ/3GCf
-GhD3d+EXy8RpA2vxXfsNBHIGzdCG+mK4Xlqm8EzJuokAT2lxzwriXBaZnnDATIEV
-tf1r9ZGEbElYZrPdhGrVDEpACocYbUVmzDgs9Lr/svDBp425W6Z3TEKRjmvxXVV3
-SQdJhhQanP25JDe/dWlPN1Q2g4AddeTCy+adDsVuSk8mF0qeVB91TwtecUzQZZ86
-UvBlwCpjp9wvb0/8FiYDcx1luAX8ZgbJ+uxiCgWyFTY6NV7iNmh8RemI2Cd7t6nY
-ULaJtwO8hGK1LFiCf2n9y+PhNxTTmS7P0zyjlWUaOql/miJyi12IBOfNCCpsBHwa
-nCKTHYk69Vr/ao28Lab9Gen8JvYVvNOZgmHcp6UNDHADADBTAxB5CSW2ux0eg6ZC
-lcOLNeEYpnw6dRBz9jOB5dxJlZtaFSbH7+cmMujTJB8uBYHzjiE=
-=02Qs
------END PGP SIGNATURE-----
-
---ywkpvxjezfcsqofj--
+On Tue, Sep 15, 2026 at 3:41=E2=80=AFAM Omokefe Emmanuel Onanaroghene
+<emmaonana18@gmail.com> wrote:
+>
+> scripts/kernel-doc reports missing and excess member descriptions
+> for struct amdgpu_display_manager:
+>
+>   struct member 'power_module' not described
+>   struct member 'hdmi_frl_status_polling_wq' not described
+>   struct member 'hdmi_frl_status_polling_delay_ms' not described
+>   struct member 'boot_time_crc_info' not described
+>   Excess struct member 'dm_boot_time_crc_info' description
+>
+> Add @power_module to the main struct doc, document
+> hdmi_frl_status_polling_wq/work/delay_ms with separate inline
+> comments, and rename @dm_boot_time_crc_info to @boot_time_crc_info
+> to match the actual member name.
+>
+> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index 3524931451c8..61756c089fcc 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -330,6 +330,7 @@ struct hpd_rx_irq_offload_work {
+>   * @backlight_link: Link on which to control backlight
+>   * @backlight_caps: Capabilities of the backlight device
+>   * @freesync_module: Module handling freesync calculations
+> + * @power_module: Module handling power calculations
+>   * @hdcp_workqueue: AMDGPU content protection queue
+>   * @fw_dmcu: Reference to DMCU firmware
+>   * @dmcu_fw_version: Version of the DMCU firmware
+> @@ -716,16 +717,26 @@ struct amdgpu_display_manager {
+>                 char reply_data[0x40];  // Cannot include dmub_cmd here
+>         } fused_io[8];
+>         /**
+> -        * @hdmi_frl_status_polling_work:
+> +        * @hdmi_frl_status_polling_wq:
+>          *
+>          * workqueue for 200ms frl status polling
+>          */
+>         struct workqueue_struct *hdmi_frl_status_polling_wq;
+> +       /**
+> +        * @hdmi_frl_status_polling_work:
+> +        *
+> +        * Delayed work for 200ms HDMI FRL status polling.
+> +        */
+>         struct delayed_work hdmi_frl_status_polling_work;
+> +       /**
+> +        * @hdmi_frl_status_polling_delay_ms:
+> +        *
+> +        * Delay, in milliseconds, between HDMI FRL status polls.
+> +        */
+>         unsigned int hdmi_frl_status_polling_delay_ms;
+>
+>         /**
+> -        * @dm_boot_time_crc_info:
+> +        * @boot_time_crc_info:
+>          *
+>          * Buffer info for the boot time crc.
+>          */
+> --
+> 2.43.0
+>
