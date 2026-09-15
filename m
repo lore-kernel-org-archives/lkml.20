@@ -1,131 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161894078CE
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402A1411FB8
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501715; cv=none; b=tINtBOyLizxRX7lXuAT9tX9iterMg60ovW3mqiwNbXENmHpSZV6WvTr5ODNoIPQFgULk4U8jhoKE+exzqZpXJjFZ/Bc+LqJTPtICztmdsfQ5sGAB3/Np0wIXHTQft/FJjo92Tm3Ni2det1XrML3idtn6rbK1zxzw6ZGaitYUIgU=
+	t=1789501813; cv=none; b=KMjhiq3Xd+UBimeDNBTpRZZVOQFkSIxMneFAzeyYjPA/vN8d8W4+wxK79KmO1EdWheBsBPBP6Yk3R8/LO+dhzz+cA2tsHMqF4j+zoZ/VWYbDnA1d5PLK5s0FPdjpE8g03wDLPe/s0VuaI1MEoQ33HQoxIZZCDgRZqdAPZ1+ylmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501715; c=relaxed/simple;
-	bh=Kz59GHhkcamBTvO5OZA+8aUrnfhaG4JmoWSr9Dzi4Xw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cHg8CpFiJVp6WLKkFFtt1CYHM2203E4d4BrBnC4SjFR3FDqGzgmqTI+H+NjvlC40sb2kVmoq+9psyGdKjcimCMyvAAcXTej8dfB9Wu4OYRuGnaUqkmWKPPNMhT6cUtQO133ra4YXeYcww4NAVJIvc9ywplbP3sbkkNIzGktbmzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bA84eQ8k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789501813; c=relaxed/simple;
+	bh=WeH/8wp2sWi7Z70NYaw47QFPsfIoz3LH20gbDuOOXlc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UP9+ba2MK0lGTnV4Zdx/WbQHtFLK7gCPVbbZ863yRJ8iHarRxamd97ZcAcJqmgHNf/stlAWd7NxGYtLrGKH210N9nqxr+jnqSzaBIDOs5HlRot1+cjrptHcGxh3CQYKtDLPY6SM4R60QUUfHFViV73EI8tXXWj3r7wx3AtPbnWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Drr+97KB; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bA84eQ8k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245E51F000FF;
-	Tue, 15 Sep 2026 19:48:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789501713;
-	bh=TZZHSnTPH2xbRY+C/0wr5szLzimCe4mAHjjDiV7zCkU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bA84eQ8kNm2xFEDJHaAu4/0FsNfa2dIGw688NVxMv5ztnZWcMONlCDyXVd5iS0GQ3
-	 YPU3JQfOebHH47I9SKmiJYpbxRe0e/+MT3rUKvTb79N1+JXX4/0kR5lSXxcNOeXPoa
-	 mFZcx9vpcSnzoQ4m/ZkR96b1BYdf2P4eLvJe8W6A9yweadHnRQEyfI6jv82NXEaVXh
-	 jR7u68ZVgELGIIt2dSp/Jfd3oppLD4kQWCQERpWYS+xt/kknGaS/HK/O4ceiKoIwr7
-	 66mxhSF4j+qp5p/kEtuCjvX1sYIaZhwkoq6CmUfiTbwzjyNnz2LmLiKkIWquz9SsQv
-	 wtobLZFeiH+wA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] mtd: spi-nor: reduce stack usage in
- spi_nor_parse_sfdp()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Michael Walle" <mwalle@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>, "Vignesh
- Raghavendra" <vigneshr@ti.com>, "Richard Weinberger" <richard@nod.at>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Miquel Raynal" <miquel.raynal@bootlin.com>
-Cc: "HyeongJun An" <sammiee5311@gmail.com>, "Arnd Bergmann" <arnd@arndb.de>, "Tudor
- Ambarus" <tudor.ambarus@linaro.org>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>
-In-Reply-To: <20260915194203.3511147-1-arnd@kernel.org>
-References: <20260915194203.3511147-1-arnd@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 19:48:32 +0000
-Message-Id: <20260915194833.245E51F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Drr+97KB"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e9af41731so51943241.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:50:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789501811; x=1790106611; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zRgmaq8sDZ8Ohc7llQ4Y6mN+rj16NiGtGOpwmUKB9S4=;
+        b=Drr+97KBsCrVCr58L7y8T5ALuzLSah3fWHWJU5V0hFMhLxXl9ouTGRLcLDgDFeJrJ5
+         WlvvMTYX5OGZ2ooH+ML6xg6h7dQPUcqdRhlR3Cgo2UmB1ULUYr5Vqtw9QD77TJp/q8BF
+         IvV5sgLRR+XYp5O7yE24OyMbHW9ihrsB5CyszM56I8UcLH4L5gxW56h7v52fQFPWRh5g
+         JL/vAMTAuZn9GQ8TxyZLaDH2YKgMIL2B8uG2CrQr9WFE+MiSATQo+S5ebnOXjgOczF96
+         dM2UVnuZrXYuhuH5hzodfZ1wNjltYVODjTj7/ZUfR2h6d4+DDNGHjJ7jZs6BxQi48llk
+         10Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789501811; x=1790106611;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zRgmaq8sDZ8Ohc7llQ4Y6mN+rj16NiGtGOpwmUKB9S4=;
+        b=x2tckbBP5F92H2WT2PbhQaU8jv3Ui25Cp3riCWNgQnnvSXk8aS2XD3vgTc230D0/ff
+         a+JTmtURnkdQN0YRVmWRNilE88T+PYrs9mgUy3odoefxAzJaMddpMn44PNkneS5ARFLj
+         dKt2HePAIpcBm+24uLz8P/Jq3tVgm4PwawlFDXBeKVRVfL4+vYfmiyakNo9FmL/J/4wW
+         NNCArGcfZDeVpisTdloJBOIPR3beVgZZvOFkb9xxIAhYWOrEGaiERfpc7roZC9hDG09S
+         1DVsFVgRQiPMl2okj0fHBInbgD+iamglv3YeBO94tdbO+UgfYa8YhCHiCbllZWNBQSBM
+         3FBg==
+X-Forwarded-Encrypted: i=1; AKwUvBxnZerhLMMMYtNCoWW9/xKzVOTIwB1cSmQYMH0e/esr29BzUg/WRE0FqcqdIfazJYBeU479+/fkgWVg4MU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8vtqHjeNVVhwAWqm5l5WF/tRC280hRtbdzaOmddlfbkbyZwWJ
+	VUv4AVebQrCXy1J3qSy2+MF67H4bPqh87VO66LW54L1jYYt/OQk4kF+S
+X-Gm-Gg: AYBFou3TPURk/MdsS4K8qtZf963c/TF0Is+Sn5jsSZLYnRmSN4UiEGtk4O+bKzWgfwy
+	bgcpCdLJf4/z2LrNn7yreECnVPm6/8bBbSlKJBiqgjiH01Bq/G8w1qz2wO7R7UjeVkA3rCHvxLd
+	EceVn4Mj6vuHlh8DiJK6Eti3NvLPTWD9tEcM94WglHxQDOgty1/BOFyS7T36SkDFHEPkwHXSF79
+	wXKmr26RSxkcJ9Om5D5n12ri3fKC3fDB7a9VP8aqiV8HxLo08fZ5GoWf/cXjjrncnAymosSto6k
+	Cix5t5hq+6aDWYV1m7hVDGeU/3hmg5R/t9305qRBlIY5ud1wGedvEzqx6aGpXFEYbZRA3O1QnJl
+	lUv1wMMGJ/xkN6PUruvU5f9bAs0zHpO8ppd3WSKJz3V0ewIaCrxS8LD5aHdM3aUpT1d2HWlWLYT
+	lgUdr2CHBWNZzAHj9kGPVvZ4BpGKuLSUOZ9Ucyef5O8AegRgt0DL1lmkMsx/ztbiNK
+X-Received: by 2002:a05:6102:2924:b0:79f:7e2e:c637 with SMTP id ada2fe7eead31-79f7e2ed733mr887831137.12.1789501810214;
+        Tue, 15 Sep 2026 12:50:10 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-983151dddc3sm515151241.3.2026.09.15.12.50.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 12:50:09 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
+	linux-nilfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v2] nilfs2: fix checkpoint root lifetime on sysfs errors
+Date: Tue, 15 Sep 2026 16:49:58 -0300
+Message-ID: <20260915194958.3329611-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915041206.2430937-1-qwe.aldo@gmail.com>
+References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] mtd: spi-nor: mixing goto and scope-based cleanup in spi_nor_par=
-se_sfdp()
-- [Low] mtd: spi-nor: split definition and initialization of __free() varia=
-ble
---
+nilfs_find_or_create_root() publishes a new root in the checkpoint
+tree before creating its sysfs object.  If sysfs registration fails,
+the root is freed while it is still reachable from the tree.  A
+concurrent nilfs_lookup_root() can then dereference freed memory.
 
-commit 1f040dc109ef8aa4b9fc1c81bcaa8f6e6a5a27c0
-Author: Arnd Bergmann <arnd@arndb.de>
+The fix needs the lock to be held across the sysfs call, but
+nilfs_sysfs_create_snapshot_group() can sleep, so the existing
+spinlock is not suitable.
 
-mtd: spi-nor: reduce stack usage in spi_nor_parse_sfdp()
+Convert ns_cptree_lock from a spinlock to a mutex.  All existing
+callers are in process context (mount, lookup, segctor, recovery),
+and nilfs_put_root() can use refcount_dec_and_mutex_lock() as the
+atomic decrement-and-acquire primitive.
 
-This commit reduces stack usage in spi_nor_parse_sfdp() by replacing an
-on-stack struct spi_nor_flash_parameter variable with a dynamically allocat=
-ed
-one. It utilizes the __free(kfree) scope-based cleanup helper to manage the
-allocated memory.
+With the mutex, nilfs_find_or_create_root() can hold it across the
+sysfs registration and only insert the root into the rbtree after
+sysfs succeeds.  On failure, the root was never visible and can be
+freed after waiting for the kobject release callback to complete.
 
-> diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
-> index 641f17ad51a09..466558ea528d8 100644
-> --- a/drivers/mtd/spi-nor/sfdp.c
-> +++ b/drivers/mtd/spi-nor/sfdp.c
-> @@ -1521,7 +1521,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
->  {
->  	const struct sfdp_parameter_header *param_header, *bfpt_header;
->  	struct sfdp_parameter_header *param_headers =3D NULL;
-> -	struct spi_nor_flash_parameter params, params2;
-> +	struct spi_nor_flash_parameter __free(kfree) *params =3D NULL;
+Both the creation error path and the normal removal path must wait
+for the embedded kobject release via wait_for_completion() before
+freeing the container, because kobject_put() does not guarantee
+synchronous release (CONFIG_DEBUG_KOBJECT_RELEASE defers it).
 
-[Severity: Low]
-Does this split definition and initialization of the params pointer violate
-the cleanup subsystem guidelines?
+Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
 
-The guidelines recommend defining and initializing scope-based cleanup
-variables in a single statement (such as at the kmemdup call below) rather
-than initializing to NULL at the top with assignment later. While this
-specific case might not trigger a LIFO ordering bug since there are no
-guard() locks present, it does bypass the subsystem recommendation designed
-to prevent those ordering mistakes.
+Changes in v2:
+  - Convert ns_cptree_lock from spinlock to mutex instead of adding
+    a second lock, as suggested by Viacheslav Dubeyko.  Use
+    refcount_dec_and_mutex_lock() in nilfs_put_root().
 
->  	struct sfdp_header header;
->  	struct device *dev =3D nor->dev;
->  	struct sfdp *sfdp;
-> @@ -1533,7 +1533,9 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
->  	 * Get a backup of all the parameter to roll back to in case of an
->  	 * error.
->  	 */
-> -	memcpy(&params, nor->params, sizeof(params));
-> +	params =3D kmemdup(nor->params, sizeof(*params), GFP_KERNEL);
-> +	if (!params)
-> +		return -ENOMEM;
-> =20
->  	/* Get the SFDP header. */
+ fs/nilfs2/the_nilfs.c | 35 +++++++++++++++++++----------------
+ fs/nilfs2/the_nilfs.h |  2 +-
+ 2 files changed, 20 insertions(+), 17 deletions(-)
 
-[ ... ]
+diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
+index 7b23e373a1..5bfa853471 100644
+--- a/fs/nilfs2/the_nilfs.c
++++ b/fs/nilfs2/the_nilfs.c
+@@ -70,7 +70,7 @@ struct the_nilfs *alloc_nilfs(struct super_block *sb)
+ 	spin_lock_init(&nilfs->ns_inode_lock);
+ 	spin_lock_init(&nilfs->ns_last_segment_lock);
+ 	nilfs->ns_cptree = RB_ROOT;
+-	spin_lock_init(&nilfs->ns_cptree_lock);
++	mutex_init(&nilfs->ns_cptree_lock);
+ 	init_rwsem(&nilfs->ns_segctor_sem);
+ 	nilfs->ns_sb_update_freq = NILFS_SB_FREQ;
+ 
+@@ -846,7 +846,7 @@ struct nilfs_root *nilfs_lookup_root(struct the_nilfs *nilfs, __u64 cno)
+ 	struct rb_node *n;
+ 	struct nilfs_root *root;
+ 
+-	spin_lock(&nilfs->ns_cptree_lock);
++	mutex_lock(&nilfs->ns_cptree_lock);
+ 	n = nilfs->ns_cptree.rb_node;
+ 	while (n) {
+ 		root = rb_entry(n, struct nilfs_root, rb_node);
+@@ -857,11 +857,11 @@ struct nilfs_root *nilfs_lookup_root(struct the_nilfs *nilfs, __u64 cno)
+ 			n = n->rb_right;
+ 		} else {
+ 			refcount_inc(&root->count);
+-			spin_unlock(&nilfs->ns_cptree_lock);
++			mutex_unlock(&nilfs->ns_cptree_lock);
+ 			return root;
+ 		}
+ 	}
+-	spin_unlock(&nilfs->ns_cptree_lock);
++	mutex_unlock(&nilfs->ns_cptree_lock);
+ 
+ 	return NULL;
+ }
+@@ -881,7 +881,7 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
+ 	if (!new)
+ 		return NULL;
+ 
+-	spin_lock(&nilfs->ns_cptree_lock);
++	mutex_lock(&nilfs->ns_cptree_lock);
+ 
+ 	p = &nilfs->ns_cptree.rb_node;
+ 	parent = NULL;
+@@ -896,7 +896,7 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
+ 			p = &(*p)->rb_right;
+ 		} else {
+ 			refcount_inc(&root->count);
+-			spin_unlock(&nilfs->ns_cptree_lock);
++			mutex_unlock(&nilfs->ns_cptree_lock);
+ 			kfree(new);
+ 			return root;
+ 		}
+@@ -909,17 +909,19 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
+ 	atomic64_set(&new->inodes_count, 0);
+ 	atomic64_set(&new->blocks_count, 0);
+ 
+-	rb_link_node(&new->rb_node, parent, p);
+-	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
+-
+-	spin_unlock(&nilfs->ns_cptree_lock);
+-
+ 	err = nilfs_sysfs_create_snapshot_group(new);
+ 	if (err) {
++		mutex_unlock(&nilfs->ns_cptree_lock);
++		wait_for_completion(&new->snapshot_kobj_unregister);
+ 		kfree(new);
+-		new = NULL;
++		return NULL;
+ 	}
+ 
++	rb_link_node(&new->rb_node, parent, p);
++	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
++
++	mutex_unlock(&nilfs->ns_cptree_lock);
++
+ 	return new;
+ }
+ 
+@@ -927,13 +929,14 @@ void nilfs_put_root(struct nilfs_root *root)
+ {
+ 	struct the_nilfs *nilfs = root->nilfs;
+ 
+-	if (refcount_dec_and_lock(&root->count, &nilfs->ns_cptree_lock)) {
++	if (refcount_dec_and_mutex_lock(&root->count,
++					&nilfs->ns_cptree_lock)) {
+ 		rb_erase(&root->rb_node, &nilfs->ns_cptree);
+-		spin_unlock(&nilfs->ns_cptree_lock);
+-
+ 		nilfs_sysfs_delete_snapshot_group(root);
+-		iput(root->ifile);
++		wait_for_completion(&root->snapshot_kobj_unregister);
++		mutex_unlock(&nilfs->ns_cptree_lock);
+ 
++		iput(root->ifile);
+ 		kfree(root);
+ 	}
+ }
+diff --git a/fs/nilfs2/the_nilfs.h b/fs/nilfs2/the_nilfs.h
+index 4776a70f01..074644c64a 100644
+--- a/fs/nilfs2/the_nilfs.h
++++ b/fs/nilfs2/the_nilfs.h
+@@ -150,7 +150,7 @@ struct the_nilfs {
+ 
+ 	/* Checkpoint tree */
+ 	struct rb_root		ns_cptree;
+-	spinlock_t		ns_cptree_lock;
++	struct mutex		ns_cptree_lock; /* Protects ns_cptree */
+ 
+ 	/* Dirty inode list */
+ 	struct list_head	ns_dirty_files;
+-- 
+2.43.0
 
-> @@ -1712,7 +1716,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
->  free_param_headers:
->  	kfree(param_headers);
->  	if (err)
-> -		memcpy(nor->params, &params, sizeof(*nor->params));
-> +		memcpy(nor->params, params, sizeof(*nor->params));
-> =20
->  	return err;
->  }
-
-[Severity: Medium]
-Is it safe to mix goto-based error handling with scope-based cleanup in
-this function?
-
-The kernel cleanup subsystem guidelines dictate that goto-based error
-handling and scope-based cleanups should never be mixed in the same
-function. Retaining the free_param_headers goto label and other manual
-cleanups in spi_nor_parse_sfdp() while introducing __free(kfree) for params
-violates the 'all-or-nothing' conversion rule and can create confusing
-ownership semantics.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915194203.3511=
-147-1-arnd@kernel.org?part=3D1
