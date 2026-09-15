@@ -1,326 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394F6476CF5;
-	Tue, 15 Sep 2026 08:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3FF46D2CF;
+	Tue, 15 Sep 2026 08:41:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461698; cv=none; b=FXDwFgXYWSc9DGhWZgCerjGjxRmNVBZTLs5TTwCd3QrE2q8vFDzoR/6v2HXh3o0oXVnt0ZihLZoV1e3c7bh9AORPVn2Pjetak2tom8WDM9EQu4trYrYEmMk0mTEFRSGFD2MdwkEc2pYbKlS8GJmCBC6oSHeIzjR33/BqTcLaLOY=
+	t=1789461721; cv=none; b=VAJZaKNqTurJexu4NIYIDGXQexRbrjQVg6TtseQSVunBe3KykcDpfaZkUNdtcH4fy6//nKKClOT/xVEzE6VuPtasxSDWtGmRVSodjjuwxaH1CKdMxokJ7kGG2fmDX09HDRZlmvqUWh14lTBcONThvPr15vu4/94HaCDpZTcJ8G0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461698; c=relaxed/simple;
-	bh=6qmo9Qcr3CRQJ3+WT9lp+gZPrfCe1hQKL8lCc0T2dig=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mHAeUNov0bnQKrhi3NtXL3NPPyyTt1KWD/nVUtLiNc+FOjLqPwRSeV0JPceDs1/2F3ETlvfydDP9tkKf23Z7jJC1SONFbr2/NhLVHRo3SMPGB0jzzq+np7bXiSVXywJkS9Ktw0JdvoZVnrvyqZq3t/S890ARRHnlMvfjM80lwa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0ExvamT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789461721; c=relaxed/simple;
+	bh=qYq+w9vPF4t3jgF9my76/AeUHbNE9NQ8AWI6RmmxSHI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XbyWx5ytPE3W6qUP6A62Os8S60Bxur1nGEm79NHRM4vrGh8z396Wuxg7fDSdyOwwvF+zmFASb8BP+a5IMqpYRnjN9RyU9kkKh5Mx7OJVOsPemuGsvW4CeOLoz4iPBmchTcFSNO51eBYG6Nm6ihHA+QvOINIDBoWZKZMAHGYsYXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=JiCuzmcu; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0ExvamT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0F51F000FF;
-	Tue, 15 Sep 2026 08:41:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789461696;
-	bh=D6sT82EGLDkjRXlB7oWqUdhk8Omtt31fyp17BHvjdVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c0ExvamT81iXHMpCnT5VfAGkxhaGcom/7NqPMwC6CeukAMaAGcm9vDD4f4HFc1zfB
-	 paT1Zy1Dqi39jmChmNoIwpIS+XbYcbPkQl08x3Oa368ieSSLIIvTDG6KzdrevvS5rB
-	 gTf8korrd9FQ1kVcqtIrVqtu6uzFvyPjhl8iUlCszW3lx5oRz5yYTEg9dghGO8hTWh
-	 Y1cecNNCq1q8xjaEovAMMrxm/NkZpliugLfFV4E+3La24r5UjPyijoGKCRuxd5hkx7
-	 R/qW0dUkQUAUafCjMrJeOjPlghG+hZA5RgmaylK8qNoTMVet4iyWMBceFyKj/5FhUQ
-	 Mst4gc4VcgP/Q==
-Date: Tue, 15 Sep 2026 10:41:32 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: djwong@kernel.org, linux-xfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] xfs: fix typos and repeated words in comments
-Message-ID: <aqkEtustR7T-fPyk@nidhogg.toxiclabs.cc>
-References: <20260911073007.22530-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="JiCuzmcu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789461717;
+	bh=qYq+w9vPF4t3jgF9my76/AeUHbNE9NQ8AWI6RmmxSHI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=JiCuzmcuqTF7a6pBhIDLPBv0oanK9Gi0jN2dsZcfpndKlSjivattKbKAQF5cEBXJu
+	 vp1kYj09phnCJSq+UNQ40AGxWcZ2n+nvT60OCqX+aeRX15hgyRzfHCQ8altm7Hma/8
+	 OomRyCSxJdSBGCtCGQTgLp+c0Gzf8A1upMAeovxi40XBiMRdV5TgwMd5FTaMURO385
+	 gYmp4inY1P8QhTx63sPD97K6urQJqzGc/mEtFme8rsEY6QLxLPdA7ciDNd9MUZDIy0
+	 bSX6G8wyhlPyQHdXfZtNgT1B+8jWOU+8kJJqn/lZHanePnymnxR2OeyAjFFz3VD2dr
+	 +AnPsdM1DlnmA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C8F4617E090C;
+	Tue, 15 Sep 2026 10:41:55 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunkuang.hu@kernel.org
+Cc: p.zabel@pengutronix.de,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	jitao.shi@mediatek.com,
+	dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	kernel@collabora.com,
+	justin.yeh@mediatek.com,
+	jason-jh.lin@mediatek.com
+Subject: [PATCH v8 00/13] drm/mediatek: Add DSC, WDMA, MT8189/96 DSI support
+Date: Tue, 15 Sep 2026 10:41:35 +0200
+Message-ID: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911073007.22530-1-hemanth.selam@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 01:00:07PM +0530, Hemanth Selam wrote:
-> Correct ten misspellings and eight accidentally doubled words in
-> comments.  No code changes.
-> 
-> The doubled word in xfs_zone_alloc.c was not a duplicate: "so that is is
-> reused" is "it is" misspelt, so that one reads "so that it is reused"
-> rather than dropping a word.
-> 
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-> ---
+Changes in v8:
+ - Fixed offset for LCCON and LD0CON registers in MT8196 register map
 
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+Changes in v7:
+ - Added full drm_dsc header inclusion in mtk_disp_drv.h (CK)
+ - Moved CMDMODE_WAIT_DATA_EVERY_LINE_EN to commit [9/12] (CK)
+ - Removed constification cleanup from mtk_dsi (CK)
+ - Performed cleanups on commit [4/12] (CK)
+ - Split maximum link rate parameter moving from MT8189 support (CK)
+ - Split SRAM/QoS support from MT8196 support commit (CK)
 
-> v3: dropped the Assisted-by trailer, as Carlos asked.  No change to the
->     patch itself; the diff is byte for byte the v2 one.
-> 
-> v2:
->  - fold the two patches into one, as Carlos and Darrick asked
->  - xfs_zone_alloc.c: "so that it is reused"; v1 dropped the second "is",
->    which left the sentence with no subject
->  - Darrick's Reviewed-by was given on v1; the xfs_zone_alloc.c hunk
->    changed after that review, so please re-check that one line
-> 
-> v2: https://lore.kernel.org/all/20260910045550.54432-1-hemanth.selam@gmail.com/
-> v1: https://lore.kernel.org/all/20260904112909.8197-1-hemanth.selam@gmail.com/
-> 
->  fs/xfs/libxfs/xfs_ag.h         | 2 +-
->  fs/xfs/libxfs/xfs_alloc.c      | 4 ++--
->  fs/xfs/libxfs/xfs_attr_leaf.c  | 2 +-
->  fs/xfs/libxfs/xfs_errortag.h   | 2 +-
->  fs/xfs/libxfs/xfs_exchmaps.c   | 2 +-
->  fs/xfs/libxfs/xfs_format.h     | 2 +-
->  fs/xfs/libxfs/xfs_inode_buf.c  | 2 +-
->  fs/xfs/scrub/agheader_repair.c | 2 +-
->  fs/xfs/scrub/alloc_repair.c    | 2 +-
->  fs/xfs/scrub/dirtree.c         | 2 +-
->  fs/xfs/scrub/reap.c            | 2 +-
->  fs/xfs/xfs_bmap_item.c         | 2 +-
->  fs/xfs/xfs_inode.c             | 2 +-
->  fs/xfs/xfs_log_cil.c           | 2 +-
->  fs/xfs/xfs_platform.h          | 2 +-
->  fs/xfs/xfs_zone_alloc.c        | 2 +-
->  fs/xfs/xfs_zone_gc.c           | 2 +-
->  17 files changed, 18 insertions(+), 18 deletions(-)
-> 
-> diff --git a/fs/xfs/libxfs/xfs_ag.h b/fs/xfs/libxfs/xfs_ag.h
-> index fd22fe598931..ee636b66a72f 100644
-> --- a/fs/xfs/libxfs/xfs_ag.h
-> +++ b/fs/xfs/libxfs/xfs_ag.h
-> @@ -207,7 +207,7 @@ xfs_perag_next(
->  }
->  
->  /*
-> - * Per-ag geometry infomation and validation
-> + * Per-ag geometry information and validation
->   */
->  xfs_agblock_t xfs_ag_block_count(struct xfs_mount *mp, xfs_agnumber_t agno);
->  void xfs_agino_range(struct xfs_mount *mp, xfs_agnumber_t agno,
-> diff --git a/fs/xfs/libxfs/xfs_alloc.c b/fs/xfs/libxfs/xfs_alloc.c
-> index d99602bcc16f..f762dcce8d13 100644
-> --- a/fs/xfs/libxfs/xfs_alloc.c
-> +++ b/fs/xfs/libxfs/xfs_alloc.c
-> @@ -3487,7 +3487,7 @@ xfs_alloc_read_agf(
->  }
->  
->  /*
-> - * Pre-proces allocation arguments to set initial state that we don't require
-> + * Pre-process allocation arguments to set initial state that we don't require
->   * callers to set up correctly, as well as bounds check the allocation args
->   * that are set up.
->   */
-> @@ -3608,7 +3608,7 @@ xfs_alloc_vextent_finish(
->  	 * ABBA AGF deadlocks because a future allocation attempt in this
->  	 * transaction may attempt to lock a lower number AGF.
->  	 *
-> -	 * We can't release the AGF until the transaction is commited, so at
-> +	 * We can't release the AGF until the transaction is committed, so at
->  	 * this point we must update the "first allocation" tracker to point at
->  	 * this AG if the tracker is empty or points to a lower AG. This allows
->  	 * the next allocation attempt to be modified appropriately to avoid
-> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
-> index b6288395f853..2c80f4fd0b78 100644
-> --- a/fs/xfs/libxfs/xfs_attr_leaf.c
-> +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
-> @@ -1715,7 +1715,7 @@ xfs_attr3_leaf_add_work(
->  			/*
->  			 * This freemap entry starts at the old end of the
->  			 * leaf entry array, so we need to adjust its base
-> -			 * upward to accomodate the larger array.
-> +			 * upward to accommodate the larger array.
->  			 */
->  			diff = sizeof(struct xfs_attr_leaf_entry);
->  		} else if (ichdr->freemap[i].size > 0 &&
-> diff --git a/fs/xfs/libxfs/xfs_errortag.h b/fs/xfs/libxfs/xfs_errortag.h
-> index 6de207fed2d8..f0c83f1f0b3b 100644
-> --- a/fs/xfs/libxfs/xfs_errortag.h
-> +++ b/fs/xfs/libxfs/xfs_errortag.h
-> @@ -83,7 +83,7 @@
->  #define XFS_RANDOM_DEFAULT				100
->  
->  /*
-> - * Table of errror injection knobs.  The parameters to the XFS_ERRTAG macro are:
-> + * Table of error injection knobs.  The parameters to the XFS_ERRTAG macro are:
->   *   1. The XFS_ERRTAG_ flag but without the prefix;
->   *   2. The name of the sysfs knob; and
->   *   3. The default value for the knob.
-> diff --git a/fs/xfs/libxfs/xfs_exchmaps.c b/fs/xfs/libxfs/xfs_exchmaps.c
-> index 3efed37cb98a..6a66b6075e0a 100644
-> --- a/fs/xfs/libxfs/xfs_exchmaps.c
-> +++ b/fs/xfs/libxfs/xfs_exchmaps.c
-> @@ -395,7 +395,7 @@ xfs_exchmaps_one_step(
->  	/*
->  	 * Re-add both mappings.  We exchange the file offsets between the two
->  	 * maps and add the opposite map, which has the effect of filling the
-> -	 * logical offsets we just unmapped, but with with the physical mapping
-> +	 * logical offsets we just unmapped, but with the physical mapping
->  	 * information exchanged.
->  	 */
->  	swap(irec1->br_startoff, irec2->br_startoff);
-> diff --git a/fs/xfs/libxfs/xfs_format.h b/fs/xfs/libxfs/xfs_format.h
-> index dd0ed046fbe9..1a7a7e60a170 100644
-> --- a/fs/xfs/libxfs/xfs_format.h
-> +++ b/fs/xfs/libxfs/xfs_format.h
-> @@ -1051,7 +1051,7 @@ enum xfs_dinode_fmt {
->   * block is 1KB in size.
->   *
->   * With XFS_MAX_EXTCNT_DATA_FORK_SMALL representing maximum extent count and
-> - * with 1KB sized blocks, a file can reach upto,
-> + * with 1KB sized blocks, a file can reach up to,
->   * 1KB * (2^31) = 2TB
->   *
->   * This is much larger than the theoretical maximum size of a directory
-> diff --git a/fs/xfs/libxfs/xfs_inode_buf.c b/fs/xfs/libxfs/xfs_inode_buf.c
-> index e4c3f7b24e95..0340e2189921 100644
-> --- a/fs/xfs/libxfs/xfs_inode_buf.c
-> +++ b/fs/xfs/libxfs/xfs_inode_buf.c
-> @@ -626,7 +626,7 @@ xfs_dinode_verify(
->  	 * have di_nlink track the link count, even if the actual filesystem
->  	 * only supported V1 inodes (i.e. di_onlink).  When writing out the
->  	 * ondisk inode, it would set both the ondisk di_nlink and di_onlink to
-> -	 * the the incore di_nlink value, which is why we cannot check for
-> +	 * the incore di_nlink value, which is why we cannot check for
->  	 * di_nlink==0 on a V1 inode.  V2/3 inodes would get written out with
->  	 * di_onlink==0, so we can check that.
->  	 */
-> diff --git a/fs/xfs/scrub/agheader_repair.c b/fs/xfs/scrub/agheader_repair.c
-> index 2104512f1ee1..493efa2b2f0d 100644
-> --- a/fs/xfs/scrub/agheader_repair.c
-> +++ b/fs/xfs/scrub/agheader_repair.c
-> @@ -1352,7 +1352,7 @@ xrep_iunlink_mark_ondisk(
->  
->  /*
->   * Walk an iunlink bucket's inode list.  For each inode that should be on this
-> - * chain, clear its entry in in iunlink_bmp because it's ok and we don't need
-> + * chain, clear its entry in iunlink_bmp because it's ok and we don't need
->   * to touch it further.
->   */
->  STATIC int
-> diff --git a/fs/xfs/scrub/alloc_repair.c b/fs/xfs/scrub/alloc_repair.c
-> index dce6ab0429dc..84ae88ca027a 100644
-> --- a/fs/xfs/scrub/alloc_repair.c
-> +++ b/fs/xfs/scrub/alloc_repair.c
-> @@ -338,7 +338,7 @@ xrep_cntbt_extent_cmp(
->  }
->  
->  /*
-> - * Sort the free extents by length so so that we can put the records into the
-> + * Sort the free extents by length so that we can put the records into the
->   * cntbt in the correct order.  Don't let userspace kill us if we're resorting
->   * after allocating btree blocks.
->   */
-> diff --git a/fs/xfs/scrub/dirtree.c b/fs/xfs/scrub/dirtree.c
-> index b2cf6e5439d9..469ba30670f0 100644
-> --- a/fs/xfs/scrub/dirtree.c
-> +++ b/fs/xfs/scrub/dirtree.c
-> @@ -994,7 +994,7 @@ xchk_dirtree(
->  	return error;
->  }
->  
-> -/* Does the directory targetted by this scrub have no parents? */
-> +/* Does the directory targeted by this scrub have no parents? */
->  bool
->  xchk_dirtree_parentless(const struct xchk_dirtree *dl)
->  {
-> diff --git a/fs/xfs/scrub/reap.c b/fs/xfs/scrub/reap.c
-> index fcd14c1703ea..d1f4b7159af2 100644
-> --- a/fs/xfs/scrub/reap.c
-> +++ b/fs/xfs/scrub/reap.c
-> @@ -172,7 +172,7 @@ static inline bool xreap_is_dirty(const struct xreap_state *rs)
->  }
->  
->  /*
-> - * Decide if we need to roll the transaction to clear out the the log
-> + * Decide if we need to roll the transaction to clear out the log
->   * reservation that we allocated to buffer invalidations.
->   */
->  static inline bool xreap_want_binval_roll(const struct xreap_state *rs)
-> diff --git a/fs/xfs/xfs_bmap_item.c b/fs/xfs/xfs_bmap_item.c
-> index 89f6e79a955f..aa5b41629747 100644
-> --- a/fs/xfs/xfs_bmap_item.c
-> +++ b/fs/xfs/xfs_bmap_item.c
-> @@ -339,7 +339,7 @@ xfs_bmap_update_get_group(
->  
->  	/*
->  	 * Bump the intent count on behalf of the deferred rmap and refcount
-> -	 * intent items that that we can queue when we finish this bmap work.
-> +	 * intent items that we can queue when we finish this bmap work.
->  	 * This new intent item will bump the intent count before the bmap
->  	 * intent drops the intent count, ensuring that the intent count
->  	 * remains nonzero across the transaction roll.
-> diff --git a/fs/xfs/xfs_inode.c b/fs/xfs/xfs_inode.c
-> index 030a7c8f2c12..621513d7215e 100644
-> --- a/fs/xfs/xfs_inode.c
-> +++ b/fs/xfs/xfs_inode.c
-> @@ -2669,7 +2669,7 @@ xfs_irele(
->  }
->  
->  /*
-> - * Ensure all commited transactions touching the inode are written to the log.
-> + * Ensure all committed transactions touching the inode are written to the log.
->   */
->  int
->  xfs_log_force_inode(
-> diff --git a/fs/xfs/xfs_log_cil.c b/fs/xfs/xfs_log_cil.c
-> index 639f875a8fb2..defd121690f5 100644
-> --- a/fs/xfs/xfs_log_cil.c
-> +++ b/fs/xfs/xfs_log_cil.c
-> @@ -1369,7 +1369,7 @@ xlog_cil_cleanup_whiteouts(
->   * allocation context. However, we do not want to block on memory reclaim
->   * recursing back into the filesystem because this push may have been triggered
->   * by memory reclaim itself. Hence we really need to run under full GFP_NOFS
-> - * contraints here.
-> + * constraints here.
->   */
->  static void
->  xlog_cil_push_work(
-> diff --git a/fs/xfs/xfs_platform.h b/fs/xfs/xfs_platform.h
-> index 5d542e95fe44..745d715b4c64 100644
-> --- a/fs/xfs/xfs_platform.h
-> +++ b/fs/xfs/xfs_platform.h
-> @@ -153,7 +153,7 @@ static inline void delay(long ticks)
->  /*
->   * XFS wrapper structure for sysfs support. It depends on external data
->   * structures and is embedded in various internal data structures to implement
-> - * the XFS sysfs object heirarchy. Define it here for broad access throughout
-> + * the XFS sysfs object hierarchy. Define it here for broad access throughout
->   * the codebase.
->   */
->  struct xfs_kobj {
-> diff --git a/fs/xfs/xfs_zone_alloc.c b/fs/xfs/xfs_zone_alloc.c
-> index bdbb60cc5d5b..b8230b5bf4e3 100644
-> --- a/fs/xfs/xfs_zone_alloc.c
-> +++ b/fs/xfs/xfs_zone_alloc.c
-> @@ -826,7 +826,7 @@ xfs_get_cached_zone(
->  }
->  
->  /*
-> - * Stash our zone in the inode so that is is reused for future allocations.
-> + * Stash our zone in the inode so that it is reused for future allocations.
->   *
->   * The open_zone structure will be pinned until either the inode is freed or
->   * until the cached open zone is replaced with a different one because the
-> diff --git a/fs/xfs/xfs_zone_gc.c b/fs/xfs/xfs_zone_gc.c
-> index 5fdcf98a2133..54b70ed2922f 100644
-> --- a/fs/xfs/xfs_zone_gc.c
-> +++ b/fs/xfs/xfs_zone_gc.c
-> @@ -46,7 +46,7 @@
->   * before remapping.
->   *
->   * Once a zone does not contain any valid data, be that through GC or user
-> - * block removal, it is queued for for a zone reset.  The reset operation
-> + * block removal, it is queued for a zone reset.  The reset operation
->   * carefully ensures that the RT device cache is flushed and all transactions
->   * referencing the rmap have been committed to disk.
->   */
-> -- 
-> 2.48.1
-> 
-> 
+Changes in v6:
+ - Fixed .remove function name in wdma (ugh...)
+
+Changes in v5:
+ - Clarified commit description for WDMA binding compatibles addition
+   explaining why Dimensity 1200 is not compatible with MT8173
+ - Added missing mediatek,mt8189-dsi compatible in mtk_drm_drv.c
+ - Added fix in mtk_dsi for failing device_reset_optional() producing
+   a possible use-after-free issue
+
+Changes in v4:
+ - WDMA: Delete the .remove() callback from WDMA as not needed anymore
+ - WDMA: Add comments explaining no bus errors will happen if writing
+   to INT_ENABLE, INT_STATUS registers while unpowered or unclocked
+ - Return error in mtk_wdma_wb_atomic_check() error conditions, oops!
+ - DSC: Fix dsc_pad_num calculation (missing parenthesis...)
+ - DSI: Change dsc slice check error to dev_dbg instead to avoid spam
+ - DSI: Correctly cleanup dsi->dsc upon component_add failure
+ - DSI: Make sure the CKTX_CKL_WC register is correctly programmed in
+   DSI w/DSC case
+
+Changes in v3:
+ - Changed mtk_dsi DSC implementation to use a different DSI_PS
+   setting function for compressed or uncompressed, as the dsc one
+   is way simpler than the regular one and becomes way shorter
+ - DSC: Fixed missing PPS 19 register write
+ - DSI: Anticipated call to devm_pm_runtime_enable() to before
+   registering the DSI Host interface
+ - DSI: Anticipated installing IRQ handler before registering the
+   dsi host interface, which wasn't a problem before, but now it
+   would be one because the interrupt is being enabled when binding!
+ - DSI: Fixed some possible calculation overflows that may happen in
+   MT8189 and MT8196 because of the higher supported resolutions
+ - WDMA: Use devm variant of pm_runtime_enable()
+ - Change WDMA interrupt handler to allow signaling WB complete even
+   if there is no specific vblank callback installed to avoid very
+   long timeouts (in any case, WB is complete for real even if there
+   is no vblank_cb, just a bit useless without, but still complete)
+ - Fixed WDMA register writes as register id was in function signature
+   for mtk_wdma_ddp_write_dst_addr() but the function itself never
+   used it in DISP_REG_WDMA_DST_ADDRX() macro
+
+Changes in v2:
+ - Rebased on next-20260706
+
+This series adds support for:
+ - Display Stream Compression (DSC) for DSI and DisplayPort for both
+   legacy (8188/92/95 and others) and for Kompanio Ultra MT8196 SoCs
+ - Write DMA (WDMA) Engine (for legacy only at this time) as a step
+   to enable Writeback support (coming later with a restructuring of
+   the entire mediatek-drm driver)
+ - Newer MIPI DSI IP revisions, found in MT8189 and MT8196 SoCs
+
+AngeloGioacchino Del Regno (13):
+  dt-bindings: display: mediatek: dsc: Add MT8196 compatible
+  drm/mediatek: Implement Display Stream Compression support
+  dt-bindings: display: mediatek: dsi: Document MT8189 and MT8196
+  drm/mediatek: mtk_dsi: Cleanup encoder if reset fails during bind
+  drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+  drm/mediatek: mtk_dsi: Transfer register offsets to per-SoC const
+  drm/mediatek: mtk_dsi: Move max link rate parameter to platform data
+  drm/mediatek: mtk_dsi: Add support for MT8189
+  drm/mediatek: mtk_dsi: Add support for SRAM QoS setting
+  drm/mediatek: mtk_dsi: Add support for MT8196
+  drm/mediatek: mtk_dsi: Enable PM Runtime on probe
+  dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
+  drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
+
+ .../display/mediatek/mediatek,dsc.yaml        |   4 +-
+ .../display/mediatek/mediatek,dsi.yaml        |   2 +
+ .../display/mediatek/mediatek,wdma.yaml       |   5 +
+ drivers/gpu/drm/mediatek/Makefile             |   2 +
+ drivers/gpu/drm/mediatek/mtk_crtc.c           |  21 +
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.c       |  64 +-
+ drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |   9 +
+ drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  28 +
+ drivers/gpu/drm/mediatek/mtk_disp_dsc.c       | 446 ++++++++++
+ drivers/gpu/drm/mediatek/mtk_disp_wdma.c      | 628 ++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  10 +
+ drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   2 +
+ drivers/gpu/drm/mediatek/mtk_dsi.c            | 795 ++++++++++++++----
+ 13 files changed, 1827 insertions(+), 189 deletions(-)
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_dsc.c
+ create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
+
+-- 
+2.55.0
+
