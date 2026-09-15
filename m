@@ -1,195 +1,144 @@
-Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020073.outbound.protection.outlook.com [52.101.225.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79ED13A9D9C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:07:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789463271; cv=none; b=ePweJBT5YfPBnS9bNKqX2xDPmuBo50ppX1HqPdxaTTnxX8nleC2PgFWyALoNRa8CjQkE6IH6jCRXDjqRqisb4mLoiReGKsxGb6DOZjso3czqtgz9NpHjKq/8yOmuQozXXY6aKSQ2CW6XvEtdHrxWJV0p5uSjm3cdm3A3aW+UDLM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789463271; c=relaxed/simple;
-	bh=U/6rJz5e8jrWaT67x/ehLFMOwYNrOQr1A9hZYmSNVEU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D0FZSFbe+3jQ3Cm8CMCSQnT7MC4QV74/KTlKOQ9fVPE4bLHQtz7yiWEDs0WDnhho9nwh7T440WMv60ALAvdoOZc4tvI8pyVyA7EkLaIRttbcj74H3uiKlYtNA5RUlYiqpS4QQs9v/lG5bbyah8Jk6jvatHKj+NpO2/jYoeimRSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UIst+dei; arc=none smtp.client-ip=74.125.228.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UIst+dei"
-Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6aa053900f5so1187454a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 02:07:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789463267; x=1790068067; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TwWP/MlWLXdLm6RBuOTRTjXHdybTzxOxvT40BpicUW4=;
-        b=UIst+deiFh+E8nZBfKs8vZK2yPFrxY/rTydOVpXPgUv73LcjP3ZUTHNp+hQLpZmNr3
-         Y1h6Hsde5Rfxh2/VLMBYiJuMxJFwRcMXG3tBK90u+4DXUh3cU4fEcFKPKu1b6pKp6Db/
-         eEKhDo8R/i6508BMzS4ydzlMwSAt4GwSRQBdSnDpuzvZ9rVzGEJQtwSalr1ZU1cpAT1w
-         jwUACGQBAAaEd0NSfv4wbravoQ4UUfSIwaXgrozzmir1BFDAby8e7GVFpd4Sm1EqoXk3
-         iRKi56ZYf/ItuyGLJcSLj0bs1JDGlE5ED3xO2vkOKhiRtNIMnVU38iXXjsEw95Gy6Lwi
-         JR6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789463267; x=1790068067;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TwWP/MlWLXdLm6RBuOTRTjXHdybTzxOxvT40BpicUW4=;
-        b=Mc6E3RKgRDb8qR85smaOuIghQsjxJgh+1tEB0EpwFMhMQK16NKZe2REUgovbeY2viQ
-         kkSJVcLkp58/truQj/r38x0hPz+pCNFNfQNhjntbiju6i47KTFEFjyvaPz3JjAWBY+0j
-         6JE8TrUmh9zBQYIrylHOVnJBfMMHwDFviHdIup/hZZPsQPzsgqx+LXou4ug8xCKFsp1T
-         ir/j96Q4QYVBCeedNo+IocvCwNCAYw4SpAdMzwymTDnS0+/KIcN12j/F5iYvXoeuCmmm
-         +hGIs2VCUXT/mYc8/5pdB0Lq0uNW3RtrPn+ruVWjakLn5sA+zmHw//bQUykKFHm8q21m
-         FpYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzq2PmBy0jG/8S8gA8vjDdg6oGEolAMtlTDlSEp6QPs41uR9C9SGcVr2AEwF5FDEYFxjzx3QBcbt2gcJ3A=@vger.kernel.org
-X-Gm-Message-State: AFuF++nldiOQL28grfHhobwUY7RWoEOlDOuX5DpjhMGWsShE9n4us56U
-	MBJilEi29XgEELwE94xrqoKW7oeQlEQutv36Y2AVd50qaD1sl3PQTEtIgpRAAkulKos=
-X-Gm-Gg: AYBFou3jHZO+WWxYyL0ZFeZ7q7Fqkf2SoF8xJw2vndzFxPnCu+t30Gv1h2mtFS5NaBX
-	FL1/rnv3SWeqt8eo5lzifhGQnI/p7CGZYpq/AxPYhAGC0IY9mN9noJ34dTqDKU6aNpVNzY+H/sE
-	8whZhBFNNEzbWpBl3mjX14atYxRXdgQmLbomDi9dnps/DFlD+qN8/k+ZGkviU9dZtlVnnp7gn2g
-	yvMvXnCnZy97FSs9eiZx4e61zGbq0zTiTb3YltUKkHeBekclLcXIAg6Jlv5uALX0ZHEa/ipnnrd
-	U/9l/9zBeCXYoZ3UOhbjr5NnAd+f6g1tgRQgDlbGrPKhXStodv1MQVKWbIIm4RuqONkU1h6LRh/
-	dYhtXwhfEQLMVCMREBBweIkC2sWgdNMPn/arJhUwUevqRegXEPWBsBLjOSSgsiy6tYJjDUJdFwO
-	xX4BYLW1FTQ0opv2lJLLym/Y+f75Jxjpp2sePuDiovDK2vj/odxqQL0sFvijCR
-X-Received: by 2002:a05:6402:914:b0:6a9:bf3e:595b with SMTP id 4fb4d7f45d1cf-6a9f624e89dmr4274759a12.17.1789463267551;
-        Tue, 15 Sep 2026 02:07:47 -0700 (PDT)
-Received: from localhost ([2a02:aa7:4656:2314:c23c:9eda:81d:3])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b58f8528sm5417319a12.5.2026.09.15.02.07.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 02:07:47 -0700 (PDT)
-Date: Tue, 15 Sep 2026 11:07:46 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	Jiayuan Chen <jiayuan.chen@shopee.com>,
-	Zhou Yingfu <yingfu.zhou@shopee.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	David Rientjes <rientjes@google.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/oom_kill: fix hung tasks queued on mmap_lock behind a
- long reap
-Message-ID: <aqkK4kR2_tYxTnty@tiehlicka>
-References: <20260914113239.367200-1-jiayuan.chen@linux.dev>
- <aqg-oG2HDIUeK5Us@tiehlicka>
- <20260914203533.3544ae8dd0903c7603b385c6@linux-foundation.org>
- <aqjsPW92SgcHONKO@tiehlicka>
- <3c8d1d8e-0e67-4d1a-b73d-4eadd6266aa6@linux.dev>
- <aqkAbBpYheX2DEHg@tiehlicka>
- <e018e3a0-349a-4f36-90e0-8fafb001da43@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C166345EB4;
+	Tue, 15 Sep 2026 09:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.73
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789463386; cv=fail; b=SWLuvoAEcLnixIRso+O5C6pmYNprOzsYPC46uKLj1aL6poU9VOAXJYS9UveMbuMS/zbvkZjpghVJmTWiqIY4y5newvExlONTEiBPFW+H0A3LvAkEMwtGreQ+eitMjxERPIf/iz3DJuSmD4ulOpFOI8dVIEZStHwU0ZNaTwqkwt8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789463386; c=relaxed/simple;
+	bh=nOLeRLBB0qQi/maCeFMCC1E828SykBpix2j9nI9WkJE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=opUspxw4wscTpic20sDS9FdOqZRzxCk5aaAFMpDWPIPUAC+MsbBKHdWBEBp9hF0MzjkGDS6OtVQC75/W1yoaDGSBuhdfecEGju2sMwzbTnO4ygUmT3NSecqnz+7zwymRki8dmkNk5F2WTOJGn4gvB+7lUQPc7RynpgxvogWdPcQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mSgNUefY45LHqALxLWxTGJIHRkC6dIT6qT2ksTOIvF4EOu496EkGpjmCq/bCEug0G3hWgv8Y+5x/tuxSPUVjEehqf9rzyd/F4VZRZhkP1Vy3H4G6gzpp/UVFsltBJgPwZ2dt2FMVDBEouLSAlM/W/7SuT9296ltDMnE0STaBnxnJpW3+lVsykwC9f10wlZ7hHkHzqHVyiExasYf+FPVV+aUGlp7RGo2hz3FNXXDAHI+x2MZ5rh1ZwI7VoZRYr3RbcnGVF1g+ad56MFlPSkhta3znUg3OufykwfNX4xP3DPSr/9rn5QW6qILS+gDK13YxnpqNZHM0K3v23n+G5/rWaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nOLeRLBB0qQi/maCeFMCC1E828SykBpix2j9nI9WkJE=;
+ b=sl0sHZ7PYXuU7Svln9/q9Al2c7HTg2yltCUZhMZ2pWlHhEoONKebGk6NEqOSdatN/lK4bDrPBF8g/6VQALOfcX8QJLlFbGi4EeFkjp07Ho+/EoUzSv/Uqk2ld/5MBkcygDE2T7u1iJnOom+BKK87gVeEC5KDMhe3J8W8pqXWM3UMoH3GMX8qo9PcuVBPH4j6vmDpHMBcjvtvdsOzvroh416hTlMlLMSogmkItK4vsjeQ3ujnpNU5XhOFPZZ2sgBerQFrW4KCy4D5K6US4cgJaCICrOEP0c6V8vDgpDCrxugbUOClLxTvhELVZBB40j9/MmMW+C4BrdcWMRQbbQ4eng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
+ header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ebytelogic.com;
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
+ by MAUP287MB5156.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:1c2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Tue, 15 Sep
+ 2026 09:09:40 +0000
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0406.012; Tue, 15 Sep 2026
+ 09:09:39 +0000
+From: Hitesh Patel <hitesh@ebytelogic.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Hitesh Patel <hitesh@ebytelogic.com>,
+	linux-media@vger.kernel.org,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ravi@ebytelogic.com
+Subject: Re: [PATCH 1/8] media: qcom: camss: take the link frequency from the CSI-2 transmitter
+Date: Tue, 15 Sep 2026 14:38:37 +0530
+Message-ID: <20260915090929.1284112-1-hitesh@ebytelogic.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <bd3fa7ab-9c60-4697-a0bc-92877e8a2885@linaro.org>
+References: <20260914133416.1030231-1-hitesh@ebytelogic.com> <20260914133416.1030231-2-hitesh@ebytelogic.com> <bd3fa7ab-9c60-4697-a0bc-92877e8a2885@linaro.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PNYP287CA0086.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:2b6::9) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c04:1::97)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e018e3a0-349a-4f36-90e0-8fafb001da43@linux.dev>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MAUP287MB5156:EE_
+X-MS-Office365-Filtering-Correlation-Id: 549cc6a1-2945-4081-006b-08df13091257
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|366016|52116014|23010399003|1800799024|376014|10067099003|4143699003|18002099003|22082099003|56012099006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	57zZ+5fF2omvMbW5z2tTwiANQIDjB9mzLi6Ci4ZOg0OipJmocDVTsXm+TWRRGmAgFn+lmgNA7snpksx7y9f9v2B0cSOVPGCcbDQMLq6OSx46rmAUj4UwCz6QYUCpE73jlxRLLyvFNSr8qGjG0TIaezLNOlCnsixGI4Qmb2X1d9MTXObtNxEkgSnhcH9uUWlnc0et8NcCY/4PoqPHP2Ga528fxA4APk7d84NZTgJtE7uIz33n5yQKx0kCsdpDjmgkVmGVQLxKjTq1/DKQg01LnRcImkinpm77N3gxMjdWB2BSw6QtqymEqB7itiuY5GdzMxS3LlNcqQio4QKyhmTIswVIDRE5ZbahxSquu/sjcdbYRExCGQTpjYKWTz5St+9alxAHP6uU88tm4z0UwvXSdm/qM7bjwXNoTfeXFCFWF3VY6p6EDFy+yZoPuG40fE6VAns1AfpmAzVIokGFYbJi8KMnG7l/pZj0zq7MJms4opGUcuvTAEMiX97aX19yTxW9Y4L7ApRAYo3qc6YAYs1RanCgHCff/ssaKzHtv3/gARcz3hsWG7a9fq/hNdNtsgr6ZZ9X4HbV32vKMKMycThxaBKr2VJbhwguciVHNxKOPGuwXJp1FXx1mJk+hgvU1z1qYQFW9LSm94/Cx5u1/Y0HCYCYpoqPzJ+Un7kymel/GhY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(52116014)(23010399003)(1800799024)(376014)(10067099003)(4143699003)(18002099003)(22082099003)(56012099006)(5023799004);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qIBNfGC9KO9C5E4MXlCEi7VmWuE6IMjIfw0xaKtY2focdw2GdGYMpblvQKUB?=
+ =?us-ascii?Q?du0yYRZfXlU9QhCrMeGCxNIaRW3V2B4g3jk6F+FHIaEgPGrnuX7N0Ffmy4RD?=
+ =?us-ascii?Q?Bd+JGagTbBcxjq1XKTQAnW52olKcy8t2izbymiR8RFiNVGaVJDI+LXW0tXBL?=
+ =?us-ascii?Q?gvyT4YWmFQMHeuwZ2GEvEc5at36x+J15fCA7b77HVC61aGFuWFWa/8xhanGW?=
+ =?us-ascii?Q?FTNaJruD4qhW1nyi9gKjFIhqu7Be1Ilr3MtssovNx86+Fv2mSZ3uaTweDb/M?=
+ =?us-ascii?Q?sQxYwp7EUF4P2Eu1pNHdvVxIPHZotvdkFTpNksCN0gAClWnBj0tNOzExFbmK?=
+ =?us-ascii?Q?v5tUM2EhShV7FefSgVOlwUiZmlFV/QlQ2i8TRBMgKqzfjReOLmMhx1Az9YCr?=
+ =?us-ascii?Q?DppA2HzNedd+aULgm2TYcXU077eiVBlXWmmyiMDJo1RkyMcswzKlCgVezTt/?=
+ =?us-ascii?Q?vMNM/5CVY6IyizKqkcITGsgl1h89xiMoUaDlSpbue51Wk4pXXKxeI2uaosIo?=
+ =?us-ascii?Q?71M3RnK4iEsRb5MMwseL9jSchaWIMG/FlcrPUTPqCCwMSs0eP3n3JhD5kLbL?=
+ =?us-ascii?Q?pi3Do0mZTF95hLHJ2H8mbjUGY0e4B7YqrhQPHNxipzayk4mt2BKq4gFttkOh?=
+ =?us-ascii?Q?1zgENbt0zwAz19I2laf2F6n5u7cotSqMmqNygJMet/w7ALLh+Fnu7/EE7Y15?=
+ =?us-ascii?Q?CziDM5/2rjRVWkvNFmiaatyQw3+5NzAmMbqIriw0qjooh9+ptFjTXdmmhM45?=
+ =?us-ascii?Q?a2X5P0t3yaTEvFmsBeQeXFy6N5FQJcdibEDTXH+qMgJqt5VmixBaso9Cn55o?=
+ =?us-ascii?Q?p1T3C+Xl5QP/gIETkdm8vHRh/ylPOsD5FpHCx/dhq17+XvrsXxW8LX/Amixz?=
+ =?us-ascii?Q?s43AXzAT3zajOdfNLuLSwXEkTrlvjidJML2nmTQB52xOFHGOlUu3rEN7vpWu?=
+ =?us-ascii?Q?XwV2nJycfwkDsJbO0Lo/px5A8Co1UjxmPhvRADzW/5gJBxZyLTXNseyoJ++P?=
+ =?us-ascii?Q?mUSXLN2wgpAQIC0FAygy0oMEIHz3i8tztylocGEbjVxAT8R5nW9Q7NWomNcx?=
+ =?us-ascii?Q?tpgj/siPH0yCnI1fRUOTqcfHnTls+zw8qU5m3V99PMCh/j86mUhaXCBCohDr?=
+ =?us-ascii?Q?pUkrmPuOZH4fXveoHTTs0J4xkurxiOnusLeP9cisvmX2KVBbpXTViwnK3tgy?=
+ =?us-ascii?Q?8lLVqBAvT3SnR7MoguucFZtpGVupeJIugBQdGay5J3SS52+hfxsbwldgyTZQ?=
+ =?us-ascii?Q?puHokWasFXxIYrSdXv95HrE2iImXnayLh6OITGZSJHKeud2dOGz4zIFKaCeG?=
+ =?us-ascii?Q?l38PZTRNGXwpcu9WlPUKi4ke1nSgDnhvQyLffQrJa+aSarSZ6v8z5vhRP4FC?=
+ =?us-ascii?Q?Wrdk3ewisqtn+OWoHE7rDX7q7HL3iGvWgGHuICdyJGc3d1iDQIc3e/rQ9p6s?=
+ =?us-ascii?Q?qnERWkD3fDjqmGLJcfHpFEmvJWur4CbDooOsX08EgG7uUPByn/Sk2kbLvcqT?=
+ =?us-ascii?Q?B90UOXI4A0fsP0KMPbQVTV1OST6rubMhbuMgqjjELIMO/sFxL5FUUwVrqE9Z?=
+ =?us-ascii?Q?kRSW4CBrvLeDdRA9JJGrmJM3ekMwTr2JU4IhkewKv9mTNYxoNL97zi77xWoG?=
+ =?us-ascii?Q?kKmV6YccXcDzmLt9ae0MmQBrs0i8Zp38d94Sp5JBrE/E35BMvrLqcdk2HIsA?=
+ =?us-ascii?Q?P61lN/Vefa4g3HWl3LTzOb4uoSzz918v63csDw95o0v6SdZV4ekteWM9N/pb?=
+ =?us-ascii?Q?PWlSNIEK7DYZN/t5IaPzVRmjkW2VxdyI21JsTpEfbKnXRXFKYTPI3F5I/6Bw?=
+X-MS-Exchange-AntiSpam-MessageData-1: weIwXDlldk9JVw==
+X-OriginatorOrg: ebytelogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 549cc6a1-2945-4081-006b-08df13091257
+X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 09:09:39.4997
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b7iMpTlQwMHNk5Jto57HaoPCdgAWbLKKZ+NycWBe8gtqXEt4JpHSMlMdfRjqCUxJahTkNcYswRbFdK67SucuFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAUP287MB5156
 
-On Tue 15-09-26 16:44:40, Jiayuan Chen wrote:
-> 
-> On 9/15/26 4:23 PM, Michal Hocko wrote:
-> > On Tue 15-09-26 16:13:11, Jiayuan Chen wrote:
-> > > On 9/15/26 2:57 PM, Michal Hocko wrote:
-> > > > On Mon 14-09-26 20:35:33, Andrew Morton wrote:
-> > > > > On Mon, 14 Sep 2026 20:36:16 +0200 Michal Hocko <mhocko@suse.com> wrote:
-> > > > > 
-> > > > > > > Call Trace:
-> > > > > > >    <TASK>
-> > > > > > >    __schedule+0x487/0x1870
-> > > > > > >    schedule+0x28/0xb0
-> > > > > > >    schedule_preempt_disabled+0x16/0x30
-> > > > > > >    rwsem_down_write_slowpath+0x1d4/0x750
-> > > > > > >    down_write+0x60/0x70
-> > > > > > >    __ksm_exit+0xb4/0x230
-> > > > > > >    __mmput+0x12c/0x150
-> > > > > > >    mmput+0x1e/0x30
-> > > > > > >    do_exit+0x283/0xa30
-> > > > > > >    do_group_exit+0x34/0x90
-> > > > > > >    get_signal+0x952/0x960
-> > > > > > >    arch_do_signal_or_restart+0x41/0x250
-> > > > > > >    exit_to_user_mode_loop+0xd3/0x560
-> > > > > > >    do_syscall_64+0x385/0x470
-> > > > > > >    </TASK>
-> > > > > > > 
-> > > > > > > KSM is just the one LTP happened to hit: __khugepaged_exit() has the
-> > > > > > > same write lock cycle ahead of exit_mmap().
-> > > > > > Why is this a practical problem we need to care about? It is kind of
-> > > > > > natural that the oom victim exit path might race with the oom reaper. They
-> > > > > > share the same lock that is mutualy exclusive. The whole point of the
-> > > > > > reaper is to ensure there is a forward progress achieved. So before we
-> > > > > > start modifying this let's talk about any practical/real life problems.
-> > > Hi Michal, Andrew
-> > > 
-> > > Agreed, the hung task warning itself is harmless, especially for a dying
-> > > task. The real problems are what sits behind it.
-> > > 
-> > > With a 500G swapped-out victim the reap takes ~600s, and for all of it:
-> > > 
-> > > 1. The victim cannot exit. __ksm_exit() needs mmap_lock for write and
-> > >   queues behind the reaper, so the process stays alive in D state for
-> > >   10 minutes and whoever waits for it (parent, container runtime)
-> > >   waits too.
-> > > 
-> > > 2. ksmd and khugepaged stall. Once that writer is queued, their
-> > >   mmap_read_lock() on this mm queues as well, so both daemons stop
-> > >   for the whole system for the same ~600s.
-> > Right. But why is that a problem we need to fix? OOM reaper is taking a
-> > prortion of the exit time by doing the leg work of tearing down the
-> > address space. Exiting task would need to do the same so it is unlikely
-> > to terminate much faster.
-> 
-> Hi Michal
-> 
-> Sorry, the subject is misleading.
-> 
-> The total work is the same. But with the patch the reaper and exit_mmap()
-> free the memory at the same time, so it takes about half as long: 264s
-> instead of ~600s here.
+> Its redundant to pass csiphy->camss and &csiphy->subdev.entity
+> Just pass struct camss_csiphy *csiphy once and then extract the pointers
+> you need in the routine.
 
-OK, I see your point, now. But rather than making the reapeing more tricky
-and less predictable with I would rather try to find a way to remove
-those bararriers.
+The same helper is called from the CSID as well, so a csiphy argument
+would not fit both callers. The camss pointer is reachable from the
+entity itself though: container_of(entity->graph_obj.mdev, struct camss,
+media_dev). I will use that in v2 and drop the extra parameter, which
+also leaves the callers untouched. Does that work for you?
 
-> The hung task warning is not the point either. If that were all, masking
-> it as Andrew suggested would be enough.
-> 
-> The warning showed that ksmd and khugepaged stop for the whole reap, and
-> that only happens with the reaper. A plain exit takes the write lock in
-> __ksm_exit() / __khugepaged_exit() first, which also removes the mm from
-> their lists, and only then holds the read lock in unmap_vmas(), so nobody
-> waits on it. With the reaper holding the read lock, the exit's write lock
-> waits behind it, and every mmap_read_lock() on this mm waits too, ksmd's
-> included.
-> 
-> So the patch is really about the reaper not holding mmap_lock for the whole
-> reap.
+> This seems fine. I wonder how it works with the TPG, probably fine,
+> needs testing.
 
-The reason why the reaper was implemented this way is that it allows an
-easier and better predictable behavior. You get your lock and nothing
-stops you to finish. 
+With the CSID TPG there is no link on the CSID sink pad, so the walk
+returns NULL and camss_get_link_freq() returns -ENODEV, exactly as
+camss_find_sensor_pad() did before. I will run the TPG on RB3 Gen2
+before sending v2 and mention the result in the cover letter.
 
-Write lock holders should be really rare for a dying task (unless it is
-stuck somewhere in the kernel call path) and as already said
-ksm/khugpaged is known barrier that might be held back without any known
-downside so far. Tearing could be faster when running parallel but keep
-in mind that the purpose of the reaper is not to make exit path faster
-but instead it guarantees to finish unmapping.
+> Please fix up that clause a bit so its not spralling multi-line
 
-So please make sure you exaplain why blocking ksm/khugepaged barriers is
-problematic from the correctness POV and also whether it is feasible to
-drop those (that would be great IMHO). Also, and this will be important,
-how do you guarantee that the reaper will keep its current guarantees
-when the lock is dropped along the way.
+Will do.
 
--- 
-Michal Hocko
-SUSE Labs
+Thanks for the review,
+Hitesh
