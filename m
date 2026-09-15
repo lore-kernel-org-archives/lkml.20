@@ -1,268 +1,292 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64700351C0B
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED2D35AC13;
+	Tue, 15 Sep 2026 14:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481190; cv=none; b=WeArrU/20xbEPtMtY0+ax8snHVdw6hRT/tdzPxlLGvccHJ9mw1qs3Dh58f93WHpFvHD79Fe5MtI98zbV1D5l+wA1rhML7b8B8SDmMXrtJyoO8qVP6Iv8jlDAS7PLYRoDcE7TU2VIXEilODT08Xt66+lhMqDKh4JRXl1E9NQEzN0=
+	t=1789481194; cv=none; b=KZmelO7r9d60bqDdAhqpMOvT1nWby5L4FY8qy3y3O4NzG3G+fykgcPMX7mnszP6YaYImIf/L1vLj+sLHxkfvEhQOcBVeVKdWF6n2AcxLxP1x/sYnMAs602q+n4yIAtJ1KyXciQBuuyOMs9289e5MXFKjZXp0VckUBcP1ikDpDLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481190; c=relaxed/simple;
-	bh=J9OGQHwLd5RQh6VgnwYcZJ1/tJctHZfW70ij/Hm6Nr4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fp6Ju4WMjOxngGym6BOAV/uR0PQp4kaVR5EzW+lg0d3O5k7blUwM4OxxucTaC5RhLoYjZiZZfL8g12h0cJiV4TTAmT2ZtTdafonwQQ4r05LLPDenuOtEPY52n/B5bfXgdWwntmi9jqcdqQRwm/jRaaOiXI09magNdkHUbGTHilg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sSs/X13u; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789481194; c=relaxed/simple;
+	bh=Ydvqmi7oGtXorKICVb6rxVCDdI63+NfGhRObRmmQEn8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OXESX9wKLSiqQM3AQUcWFJmsWjmDj7Lql/WtNKcMYUgXTtlWueoL6SHW2bQPjp2TmP3BBL+XRCGtno3HDthQhN/p218CtKsQ8x1PFvJyhLM8sOmn9finj1PFjaA8goh95ebll584CwSV6+PAFrGApy6/ZxX2pGjTrEk8v+5ubyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afNAdbEZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sSs/X13u"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16c72so382155e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:06:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789481186; x=1790085986; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7z0suvtQdygMfp5C2F1T6+DtNCb79uQkob7ja2atco0=;
-        b=sSs/X13uEm7AXOqlsBPzp73MKg5sfTpnR094M67/q/BmWRLZig06hEGB5vN7CoqlnC
-         NCy9dtCAmzPzN5gHKdSnQftEFtTSVNqvIDJX9bDUBhCYv0fFUa6sWruythZ+OPQXdcHu
-         lTPi4WsQgusR6USpsrM+PcVgvNS9OFNiqJoXGpOacaHF4Gzdajtpdm418AOcfD4zMgOh
-         TuJuv3YqhDZsnETAhcnejGTFcd7gJ4ZAybB6RpFJR0HQUScEFGfj+fFTwfpIB+bCJ61w
-         sikym1YB6WpZeaxdeuf6q/6Vx4PxNshjOdRf9Thzgtjrc++QekfePLiEHqcUv7lLlc01
-         nEug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789481186; x=1790085986;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7z0suvtQdygMfp5C2F1T6+DtNCb79uQkob7ja2atco0=;
-        b=M4nPncN5Per6Pc7yuOOpbyTPsdvpGfdltFdZcAA2kjzAhAPenYBfmWmQTvF9fZ8l+I
-         EthjLXg3ns0jB+4GRdCJBz+jI4X2DSfqZ/v4LfB0NueSQD9sC1KBaBmwQR4mkqR/ztpD
-         fO1V9fV0EfpbLtqbpJ2mfcuf4kbe1JSfdn8Odzr5EKOlRKyl7aM+C3vvO8JVy9GBlIEx
-         2KFfibI7OKJueXSpNAiUJUG+E2DoxZhkRW3+0gC1ND/N/Pysa3YAptk9OfzW3q3fPpk+
-         sr4aaPqHEDhg60rYlY95kvfhuVbmZu/Z7hps7aqy5oR/fWh04+0aZtvGoiSl0z8N5Cc3
-         kgvg==
-X-Gm-Message-State: AFuF++nDLhtAm0jFfoJo4KwoD62Zy5487FhGk/w/bBuXQ/kOBI6W9PWS
-	ExWSXJKXb3fwUcWKLq1vLNUWOBn7TnZDS3SBFQ4atVDQreKPqUIGe9SrMulsBhe3uVrfcg==
-X-Gm-Gg: AYBFou2v6FVTbu5AVRLoGJEpi3THWNxNb/lk3JjDj7Oba19p4DesSLKVAMGFF58fkMm
-	h/3mAixIpxrve97FmHHVADoJJTY3Z5lyHPtKqP6xwCQiEZQb6sSrbZQLpJ4p3EWr6RKLVfVi21l
-	eOEATgbLBFnRgdYCmTJwVjxDs88D4oZR1y2YhG5PRfRW95QiPD7I38SfG5GDWGSiVLcSAFK5mqz
-	tS9fY8jg/XLAiGzSIYiPagPfVlrzzgj/5t39aZayYq0TdCXA4gMU3d7urhbrrPSU3DC6nCk+xIS
-	YDQzM7I12tZdBw/rjNN/peyTvu0kp9YueJD1p67PgZBwDwEs7h4EdiKvsqfkCGjXtCR1JsaeFSF
-	cs+udaSlWQTWnetrovLBY64TjoNtAcctCHNdEirvUXg6nal4b4Lv2rkCsWCp839cKDUNr5ULFQo
-	VYYNU7xQSHuh4so2VSDm4ooWdU6bQSh5Xl1KL4ZTI53woxj5p9oVK1w7p6T9Nc6Eh+zU76jsDkD
-	w1Wv/dqqRDcNZFGz/6ABV2cS8M=
-X-Received: by 2002:a17:907:3ea7:b0:c28:e01d:1d08 with SMTP id a640c23a62f3a-c29d7a166d7mr87629266b.49.1789480709299;
-        Tue, 15 Sep 2026 06:58:29 -0700 (PDT)
-Received: from [10.43.61.105] ([185.94.190.187])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e3d8sm608169766b.9.2026.09.15.06.58.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 06:58:28 -0700 (PDT)
-Message-ID: <e697d892-fbd2-432a-b71c-8547ead22ea0@gmail.com>
-Date: Tue, 15 Sep 2026 15:58:26 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afNAdbEZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 754EC1F000FF;
+	Tue, 15 Sep 2026 14:06:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789481192;
+	bh=vDrgeCfksilqmV+oRZGdr+ouCSw9J7x6MWCnT6kEu4Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=afNAdbEZyXIqyX2NcvX9f52Rb1Iq1odZMGLzNamM1ZB/EtWjzfFSnaXhjvDs0q5io
+	 bUZduPHz1gtZkxEblhNXBo9YXOqbz8DgzWt0b2XM4oLM65sadWnSzN1GUxqqeTuBAw
+	 XQQy6JjY5kl/Qgs/fGfo7eQZ0iolI5ySmWv7xAbPlOskIwZz275EjG0Qz/9f3MOb1M
+	 NuwMv952Q8g6tzst2Ncu/okeUcrsy0oej4XQOfRDDV0V1FZGJ898aYjufMf/NJ8UoQ
+	 DxcjJlK7cdTEHgcDpvkHc1mX5L49KvpIPrhhHTixrbMti6UbnFQIZjFs/hy/0dyzkJ
+	 M8ae1igGwJLUg==
+Date: Tue, 15 Sep 2026 15:06:27 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@analog.com, jic23@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
+Subject: Re: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI
+ connection mode
+Message-ID: <20260915-barbell-divided-6dcb0c59af9a@spud>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+ <d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
+ <20260903-liquefy-prologue-9ec914cccf04@spud>
+ <apsufKf-EOvTfpwf@debian-BULLSEYE-live-builder-AMD64>
+ <aptA9HP82-ss45JF@debian-BULLSEYE-live-builder-AMD64>
+ <20260907-spectator-venomous-7528abe370d8@spud>
+ <aqMs2CbWbhzCoDOB@debian-BULLSEYE-live-builder-AMD64>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
-To: Jerome Brunet <jbrunet@baylibre.com>,
- Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
- <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
- <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
-Content-Language: en-US
-From: Vyacheslav Yurkov <uvv.mail@gmail.com>
-In-Reply-To: <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="02j8IEISV4+meAWL"
+Content-Disposition: inline
+In-Reply-To: <aqMs2CbWbhzCoDOB@debian-BULLSEYE-live-builder-AMD64>
 
-On 15.09.2026 12:09, Jerome Brunet wrote:
-> On mar. 15 sept. 2026 at 09:27, Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org> wrote:
-> 
->> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
->>
->> A gpio-locked clock exposes a clock, which status is determined by a
->> GPIO signal. The common use-case is a FPGA-assisted clocking design
->> where peripheral clocks are generated by FPGA PLLs that are outside
->> CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
->> Consumers can use the output clock to wait until the input clock is locked
->> and only then initialize dependent peripherals.
->>
-> 
-> We already have gpio gate driver in drivers/clk/clk-gpio.c
-> 
-> It would be much better if you could just extend that one that take
-> optionally take a clock input like you do here.
+--02j8IEISV4+meAWL
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-It is a bit more than that. The gated clock requires "enable-gpios" 
-property, while gpio-locked clock needs "locked-gpios". Technically I 
-could re-use the "enable-gpios", but that might lead to a confusion, 
-because semantically they are used for different purpose. Do you think 
-the extension of clk-gpio.c would be still better in this case?
+On Thu, Sep 10, 2026 at 07:19:04PM -0300, Marcelo Schmitt wrote:
+> Hello Conor, sorry for delayed reply.
+>=20
+> On 09/07, Conor Dooley wrote:
+> > On Fri, Sep 04, 2026 at 07:06:44PM -0300, Marcelo Schmitt wrote:
+> > > On 09/04, Marcelo Schmitt wrote:
+> > > > On 09/03, Conor Dooley wrote:
+> > > > > On Wed, Sep 02, 2026 at 02:24:02PM -0300, Marcelo Schmitt wrote:
+> > > > > > Document how AD4134 chips are connected to the host SPI control=
+ler
+> > > > > > according to different wiring configurations.
+> > > > > >=20
+> > > > > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > > > > > ---
+> > > > > >  .../bindings/iio/adc/adi,ad4134.yaml          | 22 +++++++++++=
+++++++++
+> > > > > >  1 file changed, 22 insertions(+)
+> > > > > >=20
+> > > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad41=
+34.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > > > index ea6d7e026419..d843c02a394a 100644
+> > > > > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > > > > @@ -131,6 +131,28 @@ properties:
+> > > > > >      enum: [ free-running, gated ]
+> > > > > >      default: gated
+> > > > > > =20
+> > > > > > +  adi,spi-mode:
+> > > > > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > > > > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chai=
+n ]
+> > > > > > +    description: |
+> > > > > > +      This property indicates the SPI wiring configuration.
+> > > > > > +
+> > > > > > +      When this property is omitted, it is assumed that the de=
+vice is using
+> > > > > > +      'no-cs' wiring. When this property is present, it indica=
+tes that the
+> > > > > > +      device is using one of the following wiring configuratio=
+ns:
+> > > > >=20
+> > > > ...
+> > > > > I'd also really appreciate a dts example for a system
+> > > > > with one-channel-chain or two-channel-chain looks, given the seco=
+nd
+> > > > > device may require different supplies etc. I have no impression i=
+n my
+> > > > > head of how the dt would be constructed, so I'd like to see wht y=
+ou have
+> > > > > in mind.
+> > > >=20
+> > > ...
+> > >=20
+> > > Realized what I said doesn't make much sense. The peripherals can all=
+ have
+> > > the same configuration and thus share CS, SCLK, and controller SDO. T=
+he wiring
+> > > would be like the following
+> > >=20
+> > > ::
+> > >=20
+> > >   +-----------------------+                               +----------=
+-------+
+> > >   |         AD4134        |                               | SPI Contr=
+oller  |
+> > >   |                       |                               |          =
+       |
+> > >   |                       |                               |          =
+       |
+> > >   | SPI interface    SCLK |<--------------------+---------| SCLK     =
+       |
+> > >   | for register       CS |<--------------------|-+-------| CS       =
+       |
+> > >   | access            SDI |<--------------------|-|-+-----| SDO      =
+       |
+> > >   |                   SDO |------->|=AF=AF=AF=AF\       | | |     |  =
+               |
+> > >   |                       |        |MUX  >------|-|-|---->| SDI0     =
+       |
+> > >   | Data interface  DOUT0 |------->|____/<------|-|-|---- | GPIO     =
+       |
+> > >   | for ADC sample  DOUT1 |---------------------|-|-|---->| SDI1     =
+       |
+> > >   | data read        DCLK |<-------------+------|-|-|-----| DCLK     =
+       |
+> > >   |                 DOUT2 |<-+           |      | | |     |          =
+       |
+> > >   |                 DOUT3 |<-|-+         |      | | |     |          =
+       |
+> > >   |                   ODR |<-|-|---------|--+   | | |  +->| Offload T=
+rigger |
+> > >   +-----------------------+  | |         |  |   | | |  |  +----------=
+-------+
+> > >                              | |         |  |   | | |  +--| PWM1     =
+       |
+> > >                              | |         |  +---| | | ----| PWM0     =
+       |
+> > >                              | |         |  |   | | |    +-----------=
+------+
+> > >                              | |         |  |   | | |
+> > >   +-----------------------+  | |         |  |   | | |
+> > >   |         AD4134        |  | |         |  |   | | |
+> > >   |                       |  | |         |  |   | | |
+> > >   | SPI interface         |  | |         |  |   | | |
+> > >   | for register     SCLK |<-|-|---------|--|---+ | |
+> > >   | access             CS |<-|-|---------|--|---|-+ |
+> > >   |                   SDI |<-|-|---------|--|---|-|-+
+> > >   |                   SDO |  | |         |  |   | | |
+> > >   | Data interface        |  | |         |  |   | | |
+> > >   | for ADC sample  DOUT0 |--+ |         |  |   | | |
+> > >   | data read       DOUT1 |----+         |  |   | | |
+> > >   |                 DOUT2 |<-+           |  |   | | |
+> > >   |                 DOUT3 |<-|-+         |  |   | | |
+> > >   |                  DCLK |<-|-|---------+  |   | | |
+> > >   |                   ODR |<-|-|---------|--+   | | |
+> > >   +-----------------------+  | |         |  |   | | |
+> > >                              | |         |  |   | | |
+> > >                              | |         |  |   | | |
+> > >                              | |         |  |   | | |
+> > >   +-----------------------+  | |         |  |   | | |
+> > >   |         AD4134        |  | |         |  |   | | |
+> > >   |                       |  | |         |  |   | | |
+> > >   |                       |  | |         |  |   | | |
+> > >   | SPI interface    SCLK |<-|-|---------|--|---+ | |
+> > >   | for register       CS |<-|-|---------|--|-----+ |
+> > >   | access            SDI |<-|-|---------|--|-------+
+> > >   |                       |  | |         |  |
+> > >   | Data interface        |  | |         |  |
+> > >   | for ADC sample  DOUT0 |--+ |         |  |
+> > >   | data read       DOUT1 |----+         |  |
+> > >   |                 DOUT2 |              |  |
+> > >   |                 DOUT3 |              |  |
+> > >   |                  DCLK |<-------------+  |
+> > >   |                   ODR |<----------------+
+> > >   +-----------------------+
+> > >=20
+> > >=20
+> > > So we would set them as only one daisy-chained device.
+> > >=20
+> > >     spi {
+> > >         ...
+> > >         adc@0 {
+> > >             compatible =3D "adi,ad4134";
+> > >             reg =3D <0>;
+> > >             spi-rx-bus-width =3D <1>, <1>; /* 2 lanes of 1 bit each */
+> > >=20
+> > >             <supplies, clock, and other properties ...>=20
+> > >=20
+> > >             #daisy-chained-devices =3D <2>;
+> >=20
+> > Does this property actually provide value here? I assume it does because
+> > otherwise you don't know how many devices there are.
+>=20
+> Yes, the number of daisy-chained-devices is needed to determine how much =
+data
+> to transfer on ADC sample read. We already have some documentation in
+> Documentation/devicetree/bindings/common-properties.txt
+>=20
+> >=20
+> > >             adi,spi-mode =3D "two-channel-chain";
+> >=20
+> > How does this interact with spi-rx-bus-width? Is the value of this
+> > consistent with adi,spi-mode? IOW, for adi,spi-mode =3D "one.." will th=
+ere
+> > only ever be Dout0 connected to the host and for adi,spi-mode =3D "two.=
+=2E"
+> > will Dout1 and Dout0 both be connected?
+>=20
+> For this particular ADC design, yes.
+> adi,spi-mode =3D "one-channel-chain" always expects spi-rx-bus-width =3D =
+<1> (only DOUT0) and
+> adi,spi-mode =3D "two-channel-chain" always expects spi-rx-bus-width =3D =
+<1>, <1> (DOUT0, DOOUT1).
+> Though, it is possible to have spi-rx-bus-width =3D <1> and
+> spi-rx-bus-width =3D <1>, <1> in non-chained setups.
+>=20
+> Will make the constraints explicit on v2.
 
->> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
->> ---
->>   drivers/clk/Makefile          |   1 +
->>   drivers/clk/clk-gpio-locked.c | 169 ++++++++++++++++++++++++++++++++++++++++++
->>   2 files changed, 170 insertions(+)
->>
->> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
->> index b18af485d7f0..b904f292d683 100644
->> --- a/drivers/clk/Makefile
->> +++ b/drivers/clk/Makefile
->> @@ -46,6 +46,7 @@ obj-$(CONFIG_CLK_FD_KUNIT_TEST) += clk-fractional-divider_test.o
->>   obj-$(CONFIG_COMMON_CLK)	+= clk-gpio.o
->>   ifeq ($(CONFIG_OF), y)
->>   obj-$(CONFIG_COMMON_CLK)	+= clk-conf.o
->> +obj-$(CONFIG_COMMON_CLK)	+= clk-gpio-locked.o
->>   endif
->>   
->>   # KUnit specific helpers
->> diff --git a/drivers/clk/clk-gpio-locked.c b/drivers/clk/clk-gpio-locked.c
->> new file mode 100644
->> index 000000000000..b648f8763922
->> --- /dev/null
->> +++ b/drivers/clk/clk-gpio-locked.c
->> @@ -0,0 +1,169 @@
->> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +/*
->> + * Clock Controller Guard Driver
->> + *
->> + * Copyright 2026 Bruker Corporation
->> + */
->> +
->> +#include <linux/clk.h>
->> +#include <linux/clk-provider.h>
->> +#include <linux/device.h>
->> +#include <linux/gpio/consumer.h>
->> +#include <linux/module.h>
->> +#include <linux/of.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/slab.h>
->> +
->> +/**
->> + * struct gpio_locked_clk_priv - private state for the whole driver
->> + * @dev:		platform device
->> + *
->> + * @input_clk	input clock
->> + * @gpios:		input GPIO descriptor
->> + *
->> + * @output_hw_clk:      output clock HW descriptor
->> + * @output_clock_name:  output clock name
->> + */
->> +struct gpio_locked_clk_priv {
->> +	struct device *dev;
->> +
->> +	struct clk *input_clk;
->> +	struct gpio_desc *gpios;
->> +
->> +	struct clk_hw output_hw_clk;
->> +	const char *output_clock_name;
->> +};
->> +
->> +#define to_gpio_locked_clk_priv(_hw) \
->> +	container_of(_hw, struct gpio_locked_clk_priv, output_hw_clk)
->> +
->> +static int gpio_locked_clk_is_enabled(struct clk_hw *hw)
->> +{
->> +	struct gpio_locked_clk_priv *priv = to_gpio_locked_clk_priv(hw);
->> +
->> +	int data = gpiod_get_value(priv->gpios);
->> +
->> +	if (data < 0) {
->> +		dev_err(priv->dev, "Failed to get data gpio val: %d\n",
->> +				data);
->> +		return data;
->> +	} else if (!data) {
->> +		dev_warn(priv->dev, "GPIO is not ready");
->> +		return -EBUSY;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +/* We can't enable the clock, but the Common Clock Framework calls only
->> + * enable() not is_enabled()
->> + */
->> +static int gpio_locked_clk_enable(struct clk_hw *hw)
->> +{
->> +	return gpio_locked_clk_is_enabled(hw);
->> +}
->> +
->> +/* We have to implement it, but we are not going to control
->> + * parent clock selection
->> + */
->> +static u8 gpio_locked_clk_get_parent(struct clk_hw *hw)
->> +{
->> +	return 0;
->> +}
->> +
->> +static const struct clk_ops gpio_locked_clk_ops = {
->> +	.enable =	gpio_locked_clk_enable,
->> +	.is_enabled =	gpio_locked_clk_is_enabled,
->> +	.get_parent =	gpio_locked_clk_get_parent,
->> +};
->> +
->> +static int gpio_locked_clk_parse_outputs(struct gpio_locked_clk_priv *priv)
->> +{
->> +	struct device *dev = priv->dev;
->> +	struct device_node *np = dev->of_node;
->> +	int ret;
->> +
->> +	of_property_read_string_index(np, "clock-output-names", 0,
->> +		&priv->output_clock_name);
->> +
->> +	if (!priv->output_clock_name)
->> +		priv->output_clock_name = dev_name(priv->dev);
->> +
->> +	priv->output_hw_clk.init =
->> +		CLK_HW_INIT_FW_NAME(priv->output_clock_name,
->> +				    __clk_get_name(priv->input_clk),
->> +				    &gpio_locked_clk_ops, 0);
->> +
->> +	ret = devm_clk_hw_register(dev, &priv->output_hw_clk);
->> +	if (ret) {
->> +		dev_err(dev, "failed to register output clk'%s': %d\n",
->> +			priv->output_clock_name, ret);
->> +		return ret;
->> +	}
->> +
->> +	dev_info(priv->dev, "Output clock '%s' registered\n", priv->output_clock_name);
->> +
->> +	return 0;
->> +}
->> +
->> +static int gpio_locked_clk_probe(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	struct gpio_locked_clk_priv *priv;
->> +	int ret;
->> +
->> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->> +	if (!priv)
->> +		return -ENOMEM;
->> +
->> +	priv->dev = dev;
->> +	platform_set_drvdata(pdev, priv);
->> +
->> +	priv->input_clk = devm_clk_get_enabled(priv->dev, NULL);
->> +	if (IS_ERR(priv->input_clk))
->> +		return dev_err_probe(priv->dev, PTR_ERR(priv->input_clk),
->> +				"Failed to get locked fixed clock, not yet ready\n");
-> 
-> In your use case it might be fixed, but nothing says it is in general
-> 
-Good point, thanks.
+If you think that helps, sure. I was mostly asking this for my own
+education, because this kind of device is new to me, so that I know what
+to expect from future bindings of the same kind (and to have a record on
+lore when I inevitably forget).
+
+> allOf:
+>   ...
+>   - oneOf:
+>       - required: [adi,spi-mode, '#daisy-chained-devices']
+>         properties:
+>           adi,spi-mode:
+>             const: one-channel-chain
+>           spi-rx-bus-width:
+>             maxItems: 1
+
+Is this enough of a constraint? Someone could still put in
+spi-rx-bus-width =3D <2>...
+
+>       - required: [adi,spi-mode, '#daisy-chained-devices']
+>         properties:
+>           adi,spi-mode:
+>             const: two-channel-chain
+>           spi-rx-bus-width:
+>             minItems: 2
+>             maxItems: 2
+
+=2E..or spi-rx-bus-width =3D <2>, <3> here which conflicts with your
+comment above, right?
+
+Prob worth limiting the actual item to 1, if you're gonna add
+constraints like this.
+
+>       - properties:
+>           '#daisy-chained-devices': false
+>=20
+>=20
+> Best regards,
+> Marcelo
+
+--02j8IEISV4+meAWL
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqlQ4wAKCRB4tDGHoIJi
+0jK8AP4kewj6h6y9P7+FEpGzYtadpIaHbtheWP44Wr85QSVzFQEAhPRUAYfd97Zq
+5S1/yVIYUtFRR6FZCaS9c+pO00E7kQ8=
+=5ej0
+-----END PGP SIGNATURE-----
+
+--02j8IEISV4+meAWL--
