@@ -1,77 +1,228 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27A9282F1C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52A18396588;
+	Tue, 15 Sep 2026 07:59:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459120; cv=none; b=HBDuh9rXm4x+VOUl+QivrDSzD2/uKO26t3uMvZFJHKRsNSereAzW/aZS1pPAgRNSWHlEqAL4pDyuRNl4ntLalbTbvzwLnmPRmmRmFpaVgnDphiSYCM/EThkslKBcrK+WADKzKwAnW+RQoqbDYHKG1neFvCEdZEBzbiunOTZVntA=
+	t=1789459168; cv=none; b=Pqmsd6tVynF7Vc5q6GLWjIqjpoXI3K19G06H64jrvg1mD9lWNcc+fCWN0Ok3M54KJJITNoFb2v7ty+2BmN4ZUopGQ0Ed2j/jNtMiR5Ez5zzSrYx3smVk0pqK79Chd3GKrbHN/ImQBl6VG+Bs0XRv0MSENToiBUdi1qtieJ5zaes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459120; c=relaxed/simple;
-	bh=tJghgEc3KAe2gcLPPW8cLa5RJgerTTihsmxjaivjCSw=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=rs9soFIXK61+fH7dWzSQqrpx2efjfyqF9HgpxbqHmo9EJsNXjqQSzf1kztA1qxiPzbYXOiL7a49YaP2B0+m81JlJ2JjLy5F+TlE21y/tBm/xyaa3Zs770fgM5496qdEvn1xxh5oOBhptFa2cAv74J/klqihcSOZcCNsvaFJhZp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qUMjMbwN; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789459168; c=relaxed/simple;
+	bh=NFm/Bmw3lQZ0sZ9bbnHxw99/b8GrSXW/d3Xz1RSCeO4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RdQa54QP+JW9BhwalTzQnbaHD/pjZK7irX7MzVitR50PREJ596OPQR1G2lKMWSxf16oTo56uZk/QocygKAgPgEntzRQw2r0WPuM0hEO5J9R35+QYt3t+4W1Y8PhaWf9qB/nhX8DiElftenUryrGxl9W0AyhZRABcl7WEwoHGx8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Dl75BtWV; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qUMjMbwN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=tJghgEc3KAe2gcLPPW8cLa5RJgerTTihsmxjaivjCSw=; b=q
-	UMjMbwN4NjxUrWTe+CHs0dJmpL+yjVtL078u/5yRydTZF3F1qoJ0i1iCBj65DFdf
-	TIzPYBYiUc86Xoe99isAe8m3GX4IQctfK4F365fFlTFUO80pE3nGcIBL2S9mCpFm
-	Sw8H9FySVGaD7p9HDZWX/g4ABk2aH4Ps2aghh8UQDI=
-Date: Tue, 15 Sep 2026 15:58:06 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: shaggy@kernel.org, yun.zhou@windriver.com, kees@kernel.org
-Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: [BUG] jfs: kernel BUG in dbFindLeaf at fs/jfs/jfs_dmap.c
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/ietkgj4CibZOkdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/ZEDRrfuWPqpnCz5BAMCdXg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Dl75BtWV"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BC03B169C;
+	Tue, 15 Sep 2026 00:59:20 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 348883F86F;
+	Tue, 15 Sep 2026 00:59:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789459164; bh=NFm/Bmw3lQZ0sZ9bbnHxw99/b8GrSXW/d3Xz1RSCeO4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Dl75BtWVkvlLYgY6l9WA7uPXRoT36D3Nt7r8pBsnRpQzSfsxZ8hAg/k19yyxEGfHA
+	 v/ge4Im8TagH1qzW4ufriEcxpI2b0Hd6EAEbehfcnqoax2CIBigQYzbRxndv0M6905
+	 EFTt/crJfNSMvMY0W42CbEU4dMdrirLdoXlddr3s=
+Message-ID: <e8a33eea-c54d-471c-9936-41762453feb7@arm.com>
+Date: Tue, 15 Sep 2026 09:59:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1c495b9a.7088.1a0a412bdf7.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgD3_7yO+qhqbxAQAA--.21713W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3Q6mWGqo+o70pQAA3K
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 04/10] cacheinfo: Expose the code to generate a
+ cache-id from a device_node
+To: Yin Li <yin.li@oss.qualcomm.com>, James Morse <james.morse@arm.com>,
+ Rob Herring <robh@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Ben Horgan <ben.horgan@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Catalin Marinas
+ <catalin.marinas@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu
+ <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
+Cc: Drew Fustini <fustini@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>, trilok.soni@oss.qualcomm.com,
+ aiqun.yu@oss.qualcomm.com, ganapatrao.kulkarni@oss.qualcomm.com,
+ Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+ Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ devicetree@vger.kernel.org
+References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
+ <20260914-mpam-resctrl-dt-knp-support-v2-4-bf6645bb2f65@oss.qualcomm.com>
+ <317682e8-63e7-4047-9106-deea7bf96388@arm.com>
+ <a340505d-9495-4f68-8ed1-c7e8772c28e4@oss.qualcomm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <a340505d-9495-4f68-8ed1-c7e8772c28e4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEga2VybmVsIEJVRyBpbiB0aGUgSkZTIGRtYXAgbGVhZiBz
-ZWFyY2gsIHRyaWdnZXJlZCBieSBhCnN5emthbGxlciByZXByb2R1Y2VyIHRoYXQgbW91bnRzIGEg
-Y3JhZnRlZCBKRlMgaW1hZ2UuICBUaGUgaXNzdWUgaXMgcmVwcm9kdWNpYmxlCndpdGggSEVBRCBj
-b21taXQgY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkzNSAodjcuMy1yYzEs
-IExpbnV4CjcuMy4wLXJjMSkuCgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIGEgY3JhZnRlZCBKRlMg
-ZmlsZXN5c3RlbSBpbWFnZSBvbiBhIGxvb3AgZGV2aWNlIGFuZCBhc2tzCmZvciBmcmVlIGJsb2Nr
-cywgd2hpY2ggbWFrZXMgdGhlIGFsbG9jYXRvciBzZWFyY2ggdGhlIGRtYXAgdHJlZSBmb3IgYSBs
-ZWFmLgoKClRoZSBjb25zb2xlIHNob3dzICJrZXJuZWwgQlVHIGF0IGZzL2pmcy9qZnNfZG1hcC5j
-OjMwNzAhIiB3aXRoIGFuCmludmFsaWQtb3Bjb2RlIE9vcHMgYW5kIFJJUCBpbiBkYkZpbmRMZWFm
-LiAgVGhlIGFzc2VydGlvbiBhdCB0aGF0IHNpdGUgaXMKYXNzZXJ0KG4gPCA0KSwgc28gdGhlIHNl
-YXJjaCBpcyBleHBlY3RlZCB0byBzdGF5IHdpdGhpbiB0aGUgZm91ciBsZXZlbHMgdGhlIGRtYXAK
-dHJlZSBjYW4gaGF2ZS4gIFRoZSBjYWxsIHBhdGggaXMgZGJGaW5kTGVhZiAtPiBkYkFsbG9jRG1h
-cExldiAtPiBkYkFsbG9jQ3RsIC0+CmRiQWxsb2NBRy4KCgpPbmUgcG9zc2libGUgY2F1c2UgaXMg
-dGhhdCB0aGUgdHJlZS1kZXB0aCBvciBsZXZlbCB2YWx1ZSB0YWtlbiBmcm9tIHRoZSBjcmFmdGVk
-CmltYWdlJ3MgZG1hcCBjb250cm9sIHBhZ2UgaXMgdXNlZCB3aXRob3V0IGNoZWNraW5nIGl0IGFn
-YWluc3QgdGhlIGZvdXItbGV2ZWwKbGltaXQsIHNvIHRoZSBzZWFyY2ggZGVzY2VuZHMgcGFzdCB0
-aGUgZW5kIG9mIHRoZSB0cmVlIHN0cnVjdHVyZS4gIFRoaXMgbG9va3MKbGlrZSBhIG1pc3Npbmcg
-cmFuZ2UgY2hlY2sgb24gZGlzay1kZXJpdmVkIHRyZWUgbWV0YWRhdGEuICBJIGFtIHJlcG9ydGlu
-ZyB0aGUKYXNzZXJ0aW9uIGFuZCB0aGUgcGF0aCBhcyBvYnNlcnZlZC4KCgpUaGlzIGFwcGVhcnMg
-dG8gYmUgYSByZWN1cnJlbmNlIG9mIHRoZSBzeXpib3QgaXNzdWUgd2hvc2UgZXh0ZXJuYWwgaWQg
-aXMKZjBiOWM4ZjAzNDY3ZWU0ZTU4NTIuICBJdCByZW1haW5zIHJlcHJvZHVjaWJsZSBvbiB2Ny4z
-LXJjMS4KCgpSZXByb2R1Y2VyOgoKCnN5eiByZXByb2R1Y2VyOiBodHRwczovL3Bhc3RlYmluLmNv
-bS9yYXcvN1JmelN0Rm0KCmNvbnNvbGUgb3V0cHV0OiBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcv
-M0tBdzYzM0MKCmtlcm5lbCBjb25maWc6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy9BdlhncGRo
-egoKCktlcm5lbDoKCgpIRUFEIGNvbW1pdDogY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4
-NjYyM2YyYjkzNQpnaXQgdHJlZTogdXBzdHJlYW0gKGxpbnV4LmdpdCksIHRlc3RlZCB0aHJvdWdo
-IHRoZSB2Ny4zLXJjMSBhbm5vdGF0ZWQgdGFnIG9iamVjdArCoCDCoCDCoCDCoCDCoCDCoGU1ZTA0
-NzI2Y2RkMDQzZTMwOTY3NzA3MWFiMWI2NWE0YjE4ZjQyMmIKa2VybmVsIHZlcnNpb246IDcuMy4w
-LXJjMSAjMSBQUkVFTVBUKGZ1bGwpCnRlc3RlZCB0YWc6IHY3LjMtcmMxIChMaW51eCA3LjMtcmMx
-LCAyMDI2LTA4LTMwKQoKCkxldCBtZSBrbm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0YWlscyBvciB0
-ZXN0aW5nLgoKCkJlc3QgcmVnYXJkcywKQ2hhbmdqaWFuCgo=
+Hi Yin,
+
+thanks for the reply!
+
+On 9/15/26 08:49, Yin Li wrote:
+> 
+> 
+> On 9/14/2026 8:26 PM, Andre Przywara wrote:
+>> Hi,
+>>
+>> On 9/14/26 11:37, Yin Li wrote:
+>>> From: James Morse <james.morse@arm.com>
+>>>
+>>> The MPAM driver identifies caches by id for use with resctrl. It
+>>> needs to know the cache-id when probe-ing, but the value isn't set
+>>> in cacheinfo until device_initcall(). Even after device_initcall(),
+>>> the cache-id is only available if at least one CPU associated with
+>>> the cache is online.
+>>>
+>>> Instead of making the driver wait, expose the code that generates the
+>>> cache-id. The parts of the MPAM driver that run early can use this to
+>>> set up the resctrl structures before cacheinfo is ready in
+>>> device_initcall().
+>>>
+>>> Signed-off-by: James Morse <james.morse@arm.com>
+>>> [ Yin Li: fix context conflicts in cacheinfo.c and cacheinfo.h; guard 
+>>> the
+>>>    cache_of_calculate_id() declaration with CONFIG_OF to prevent build
+>>>    errors when CONFIG_OF is not set ]
+>>
+>> You can shorten that part in square brackets: doing adjustments due to 
+>> rebasing is surely implied, and you can shorten the rest, like:
+>> [ Yin Li: guard cache_of_calculate_id() prototype ]
+>>
+>> Speaking of which ...
+>>
+>>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+>>> ---
+>>>   drivers/base/cacheinfo.c  | 17 ++++++++++++-----
+>>>   include/linux/cacheinfo.h |  3 +++
+>>>   2 files changed, 15 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/drivers/base/cacheinfo.c b/drivers/base/cacheinfo.c
+>>> index 9f9c72727a05..f75e7f64038b 100644
+>>> --- a/drivers/base/cacheinfo.c
+>>> +++ b/drivers/base/cacheinfo.c
+>>> @@ -226,8 +226,7 @@ static bool match_cache_node(struct device_node 
+>>> *cpu,
+>>>   #define arch_compact_of_hwid(_x)    (_x)
+>>>   #endif
+>>> -static void cache_of_set_id(struct cacheinfo *this_leaf,
+>>> -                struct device_node *cache_node)
+>>> +u32 cache_of_calculate_id(struct device_node *cache_node)
+>>>   {
+>>>       struct device_node *cpu;
+>>>       u32 min_id = ~0;
+>>> @@ -238,15 +237,23 @@ static void cache_of_set_id(struct cacheinfo 
+>>> *this_leaf,
+>>>           id = arch_compact_of_hwid(id);
+>>>           if (FIELD_GET(GENMASK_ULL(63, 32), id)) {
+>>>               of_node_put(cpu);
+>>> -            return;
+>>> +            return ~0;
+>>>           }
+>>>           if (match_cache_node(cpu, cache_node))
+>>>               min_id = min(min_id, id);
+>>>       }
+>>> -    if (min_id != ~0) {
+>>> -        this_leaf->id = min_id;
+>>> +    return min_id;
+>>> +}
+>>> +
+>>> +static void cache_of_set_id(struct cacheinfo *this_leaf,
+>>> +                struct device_node *cache_node)
+>>> +{
+>>> +    u32 id = cache_of_calculate_id(cache_node);
+>>> +
+>>> +    if (id != ~0) {
+>>> +        this_leaf->id = id;
+>>>           this_leaf->attributes |= CACHE_ID;
+>>>       }
+>>>   }
+>>> diff --git a/include/linux/cacheinfo.h b/include/linux/cacheinfo.h
+>>> index fc879ac4cc4f..c33bb3c8bd63 100644
+>>> --- a/include/linux/cacheinfo.h
+>>> +++ b/include/linux/cacheinfo.h
+>>> @@ -113,6 +113,9 @@ int acpi_get_cache_info(unsigned int cpu,
+>>>   #endif
+>>>   const struct attribute_group *cache_get_priv_group(struct cacheinfo 
+>>> *this_leaf);
+>>> +#ifdef CONFIG_OF
+>>
+>> Why is that, exactly? First IIUC it's quite uncommon to use #ifdef 
+>> guards around prototypes (unless they are stubbed without the symbol 
+>> defined). Using types protected by those symbols if certainly another 
+>> reason, and it looks like this would be the case here, but I had no 
+>> trouble building the kernel for x86, where CONFIG_OF is not defined.
+>> So can you share a .config example (or give a hint) as to where this 
+>> fails building?
+>> And if it does, wouldn't it be better to always include <linux/of.h> 
+>> in that file instead? I think I see a similar pattern elsewhere 
+>> (rfkill- gpio.c, sound/ac97/bus.c).
+>>
+> 
+> Hi Andre,
+> 
+> On the #ifdef CONFIG_OF: I also verified that removing the guard doesn't
+> break the build. However, since the implementation in cacheinfo.c is
+> itself guarded by #ifdef CONFIG_OF, exposing the prototype
+> unconditionally could cause a link error on CONFIG_OF=n builds if called
+
+How so? Just exposing a prototype wouldn't be a problem, as long as you 
+don't try to call that function. And that would be caught by the linker, 
+and then you have a different problem anyway (the caller).
+
+The only reason to protect the prototype would be if a type used in the 
+parameters is not defined. And on the face of it "struct device_node" is 
+an OF specific type, declared in include/linux/of.h, but as mentioned, I 
+can't produce a compiler error, and even if so, would prefer to include 
+of.h instead.
+
+> from outside the ARM64/MPAM path. A more idiomatic approach might be to
+> use a stub to keep the header consistent with the implementation:
+> 
+>    #ifdef CONFIG_OF
+>    u32 cache_of_calculate_id(struct device_node *np);
+>    #else
+>    static inline u32 cache_of_calculate_id(struct device_node *np)
+>    {
+>        return ~0U;
+>    }
+>    #endif
+> 
+> Would that work for you?
+
+That's not necessary and doesn't solve the problem: the struct 
+device_node would be present in both branches, so that doesn't help. And 
+given there are no preprocessor protections for OF or ACPI in the whole 
+of mpam_devices.c, that's a non-issue, I'd say.
+
+> Otherwise I'm happy to just drop the guard in
+> the next version.
+
+So can you say whether you have a .config that does not build? Or was 
+that issue just pointed out by some picky AI review tool?
+Otherwise I would drop the guards, and wait for the kernel test robot or 
+Arnd's infamous randconfig builds to show up the exact problem.
+
+Cheers,
+Andre
+
+>>
+>>> +u32 cache_of_calculate_id(struct device_node *np);
+>>> +#endif
+>>>   /*
+>>>    * Get the cacheinfo structure for the cache associated with @cpu at
+>>>
+>>
+> 
+
