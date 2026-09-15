@@ -1,72 +1,83 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037FB4AD7F5
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:09:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1EE42BC43
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495763; cv=none; b=XYyB5Aw3QvkGWskGy7hZwwdbOGPrwT+9IFnb8kxcxtYQKejYA6SC/ZM84kcJYFzJjKw6S+cVewt8gotwPaitkXF18Nk1iW/ecf+gIjLjDVMf7Yhb+4fciqsFP2A39YQxnDcxqjMpAQsuxa1Z3PsMc8VPjgWrenbR2lGtqAY+aG0=
+	t=1789495811; cv=none; b=PdNr/KmaH4tsRbQtOwqqTuX95qvVLtyU3FKPlxg6iiOUa1eEKjbyW169dSZnhgUCeqwHjhhfFRHfszGd1rzp1lV1FwwkM4c5uJQfaW27OkkALyBigrBzC3CrjBM4HuOMyZX0eXCLty513o0NBMpI8EGNIOtPS7yh52+OheHwsKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495763; c=relaxed/simple;
-	bh=KgXXVwU9pR92XVpQim/fuOgXHA/rlbi8m3fd+vyq9Ds=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dyp/S2c3GnL/e2TBcXJUg0Z7AgRStec58GT6+xaEe8HeZAf14sLMBCvn/kzRlb1A92V3VkH1f1Zh/sZeuNcTdC1amI9WSAqRWzdbkJuJpvQmWeMFtVdpWYHZrld9+8JqrSsAkELRQfnumeprCXHL3CGBn5wFucH9nGH7XFWJpyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=scM3Z2O2; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789495811; c=relaxed/simple;
+	bh=z8HNl0xymtC9OMb9m4yWES1OaOT9HUEDb8ymvvRc7Uc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ufHGtVIlks1UHhlQqWioT9rQlRlzyx30l01mcy2flznNCaXSX5jHyJewaCpnGjxBxCMreAm+Rf8DelFfRoBT67hHZHFE1osqXFSkJvRqQ8jsfGutWZjf2Gwdh4Y7T5QB3OkHvNqCr4IALDcI9GIVdBfr4rAGKkni8Q4oxD0QVAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=m2auIjw3; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="scM3Z2O2"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398beb616f5so12739a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:09:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="m2auIjw3"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939922847efso8444185a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:10:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789495761; x=1790100561; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789495807; x=1790100607; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+Hj51GteF59goBzDtNkS3zM+9dfJzPzFWxN8DNMebXM=;
-        b=scM3Z2O2+I5t6lppHsQECHEl9RjKgrH9z7HlCquozE88oI0yh34jK/afCU82jCjCEJ
-         a7SXMwHQiJ0r0XgbEO19LziKW60FKhZ8hh1UHnoFWjG2AgmBRPCX0aeyCF57S1gWckXD
-         Jl+AwpqYhv3kLPdcCuZUDpmZ0BA+dY7asJFYm4bZJkxbJT28wfjy6f13IUvA4dayoavZ
-         YQgKhSyYlJFMu6H8VqC2bn1B1Xq09THPCYVBuVNEtY/4VIH4ZHxrwy2v4qKWD78hmjHH
-         TtSPHux4XMK+ZrcgI4hZMn1Aqk22PUFN8AN9ZrUZOmeK/pfkroMLZXKGaK4MhD/JLoY0
-         HRuA==
+        bh=22xfVV5hCviOiMQtMKw9vaS9SNxAHQv+tM1KVgQ9uIM=;
+        b=m2auIjw3TcShu/UqyJ3L2NXS8NpZ7yP38tElYMXVD6HfZkbhDk1QEnXbohh8Deb9aA
+         UbgVWpLt+4xtVsIm10NrVRsTdMkN1mSF//bbNZMJpjUVy1gHIY3IgesGdxfBqUeY1y7H
+         rST5m6SdzfjfjOo8P4xQXgxfJOFOR9P8FBpCDuc3tzqp7JbK1CnvkcWbNcwGNSrTVynb
+         n7Fn+9GCu+LYuH9LryTA29Cr+qzvCWOPngIIIb8Zhk8NB7he3ZqysHfcXQKV8lfkuRby
+         iNDfZmnqC4byybO73CvYDiabafvih+MOxCK/XFTB4FkTZQcxmdrcEjLuPQmr32f2A7Y3
+         H7tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789495761; x=1790100561;
+        d=1e100.net; s=20260707; t=1789495807; x=1790100607;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+Hj51GteF59goBzDtNkS3zM+9dfJzPzFWxN8DNMebXM=;
-        b=J5E8roIHsgh32Wb8jo5MPm6D8rBsZVy2EAWyxz1mkAQVttTfkhLC1q3CQbjKwda83y
-         GxxIdg+GzF/cu1kac4bAMrPXdbP1e2P9UeOpAu/MM+2eu73gD9So0auuolMf85yJRAc5
-         CUaUViBNTaU7cvVlQo25y3XuxwGUE6EwfKHowy9X1bg57v+Jk1nkFw8HSulMGuZ/MbWM
-         uVX5RHNU7noKUw3aVZfgMhl9aMvHLeRg1zFlstdfK4NI163A62wvYI9nJOlKprXNtD3X
-         LJYI39zhTVRKWUhX2Xz7GQh7Fqzeh+df8W6XiuEYbqfTInAADoo0bMOZOhlHpzj1fGrB
-         TTzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwPFFqFO2S28FM1r6tUdFl+47u4jNgO1hIKLixH23gTKCqykMaWbW08mh2rYBnWe9y1B62HUPaIcvHRcHg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnKH0gLSYISt8FQRyobhy7TpfQwNtOlF1cO7ocjjY/FpKJpi8B
-	XMooH8osLwSRW0af4LUCArIvxT/gvroEKp0YMR6AA1SkbGLyTlXIdEFU
-X-Gm-Gg: AYBFou2/FU8QHpjxQ8+cy0kKdC27wM+DDHTTK5H0eL2oB+/ztaN7o14Xmnrnne2nQh+
-	QmyQ4B8O32PEg6hi7512f9Ws/uYe87AcG2EN62bfEaP+UUHNk5mjWLHAFcnTi0BvFzXPkOU3KA9
-	3tIUBmGMY8kX9Th04Zx9/VjIj4E1QuxXTDQwl67KTdNnITOYUvFYQ4ReefvYU+NgZUiFj1kL7m2
-	6O4TTCM0EVEVO/gTjmAON0pZmH2RaGSBWAJi1q8Z+NZ37UlQ1rkHOfKlfo+03/0EtCYAnHd81Uw
-	maIPYDePm2lDj9NSz64eQly7lhzV7hqS2qxEmNKp53CayjggZ7gM58ymf4G8EQDSqh4OQggCvAO
-	efnCwvGZYkWi1HF3IatmZWQ1HT+ihre5x4u+RVO56yM8eLDaPItkrvLGi/961DOhaUmRxWW/Gn9
-	nZw6Uz0TjNNBTwjRTrkybAjrBg2oHAby3pYzcB5lx5gz1+Qx/37ChcsZU6LhcIEQRQnwJPH7m75
-	0SyvAjFDofAFSQpwdUlgNrFEmyfBm3JhKVsOCJ3TRbR8KuptEWVKrmLF7G665e5L7IV+P/AkQYb
-	G/ftGIxHCVJfO8oJXz6DepVrFozbYkYSP+YcAhy9l60whcEt
-X-Received: by 2002:a17:90b:4c4a:b0:398:ba46:1d9f with SMTP id 98e67ed59e1d1-39dfe14719cmr5225790a91.13.1789495761133;
-        Tue, 15 Sep 2026 11:09:21 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bba0696sm6688a91.7.2026.09.15.11.09.20
+        bh=22xfVV5hCviOiMQtMKw9vaS9SNxAHQv+tM1KVgQ9uIM=;
+        b=vZkqTkP5dm4VgdWhcgjkeSZCYiCqFb/uCq7CnAUtrUtIU9txAKGTxLftq/wzos69NN
+         n3uCXEU/ocYUPEd5mNDktg8urm8JmD96M7P1ChABD0sondgiuZYHqC9rtlDuAbp5TW7r
+         /41XwEB/JOQ8nYqlDuXB1+T/ezE3xI2rZfwIczKTS5AiXFHzZWQWR6qmgUZxnPAJ5UAA
+         OoaqiQypunXVOh45WQrMQSEbymtHF1pUPPM+WVvLOQj3B110J0DopS/LslnaueBiBUet
+         OebOG3nTRPO3QATFHlVSDy1lGtZetF4DBqhz8DgmKBMjfWaML6lvhkts6FYfGpA9hEh5
+         /l4w==
+X-Forwarded-Encrypted: i=1; AKwUvBzE6owvAMa2kwIivmi0yo/fxQUGEKcerbbNDjZZRP5E5hnuOCOSWzVM17kiJWTumLbzb/swP1H5/Ayf7yE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSErLcDHiONA/3VyK0JSgbt/Pc0DCDRIxVBTe5Q2+31S8+z81i
+	Micpqi1+0KDuxHmqTTLt385OJQlNoAQGDPDiDi59JR3khgNREeh7931UhPjOt3scLUg=
+X-Gm-Gg: AYBFou2dW2ywMM3MS5L6AQR++BkYGYtMS8Pf9Taq3RzbUnOyorSP5TwFhQ9nq3MEtjf
+	PqdYOqM+fJmdGZowEMsMgdYkBPdJkc7F2dt3whZb9/6Skf8vpni0eNX5pnzrF9qiKF0kGKWmcx3
+	nQJINl1GtbPrP3P/GB35s3l+1/y2BCYeCOP/ntCYATEn9g0/5VsMd/oHzrBeL0xF1FriL0AO3eT
+	qE5HQI/Akj2BrVtV0LPw3P9AfkH6e6zy16sBV3UZUlHWornnqOdBScwh5L6Dx+A1QIWVQKRZTCF
+	/TIjXNiqnrxav81oNKf/nTQkmZo4XIVjOQdlEIoQkeUadPHuW9CTbPEtLdymQGy9IWLQAAPxdpT
+	HzEYmZvHk0SNiS6qCim7N1HDXWZopTF4A7CKZlFhdanrOGdulRuMcdJGViG69pJ/TPrzY0cZI3e
+	n9rCyFAJ8AtYAbTafkKm6skvNti+Zye+U/KQG3E9p6bzVfvSukQlUb1LVWlBgyN7DGHvyw80gCi
+	3w=
+X-Received: by 2002:a05:620a:2809:b0:939:5ab4:e6ab with SMTP id af79cd13be357-93a40752e39mr312131285a.5.1789495807276;
+        Tue, 15 Sep 2026 11:10:07 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b7824f72fsm14648485a.28.2026.09.15.11.10.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 11:09:20 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] dmaengine: bestcomm: drop unneeded sram exports
-Date: Tue, 15 Sep 2026 11:09:19 -0700
-Message-ID: <20260915180919.8899-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Tue, 15 Sep 2026 11:10:06 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org,
+	bhelgaas@google.com,
+	andersson@kernel.org,
+	konradybcio@kernel.org,
+	abelvesa@kernel.org
+Cc: daniel@riscstar.com,
+	mohdayaa@qti.qualcomm.com,
+	lbiancon@qti.qualcomm.com,
+	devicetree@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] PCI: introduce TC9564 misc driver
+Date: Tue, 15 Sep 2026 13:09:59 -0500
+Message-ID: <20260915181003.1633543-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,52 +86,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bcom_sram_init(), bcom_sram_cleanup(), bcom_sram_alloc() and
-bcom_sram_free() are only called from bestcomm.c, which is part of
-the same bestcomm-core module as sram.c.  Remove the now-pointless
-EXPORT_SYMBOL_GPL() statements; the functions stay non-static because
-they cross compilation units within the module.  bcom_sram itself
-remains exported for the inline helpers in sram.h.
+The Toshiba TC9564 is specialized SoC that implements a PCIe switch as
+well as an Ethernet AVB/TSN bridge.  It also implements other functions,
+including a reset and clock controller, an address translation unit, and
+a few other devices.  PCIe BARs provide access to registers that manage
+these IP blocks, and the SoC is modeled using a PCI endpoint bus in
+devicetree.  This allows the IP blocks to be bound to platform drivers
+using MMIO through the PCI BARs.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/dma/bestcomm/sram.c | 4 ----
- 1 file changed, 4 deletions(-)
+This series introduces the simple PCI driver necessary to implement the
+PCI endpoint bus.  It enables the device, enables master access, and
+then scans the devicetree subnodes to discover any devices defined
+within the endpoint buses.
 
-diff --git a/drivers/dma/bestcomm/sram.c b/drivers/dma/bestcomm/sram.c
-index 09ef5142c26c..d33e0f931682 100644
---- a/drivers/dma/bestcomm/sram.c
-+++ b/drivers/dma/bestcomm/sram.c
-@@ -119,7 +119,6 @@ int bcom_sram_init(struct device_node *sram_node, char *owner)
- 
- 	return rv;
- }
--EXPORT_SYMBOL_GPL(bcom_sram_init);
- 
- void bcom_sram_cleanup(void)
- {
-@@ -132,7 +131,6 @@ void bcom_sram_cleanup(void)
- 		bcom_sram = NULL;
- 	}
- }
--EXPORT_SYMBOL_GPL(bcom_sram_cleanup);
- 
- void* bcom_sram_alloc(int size, int align, phys_addr_t *phys)
- {
-@@ -148,7 +146,6 @@ void* bcom_sram_alloc(int size, int align, phys_addr_t *phys)
- 	*phys = bcom_sram->base_phys + offset;
- 	return bcom_sram->base_virt + offset;
- }
--EXPORT_SYMBOL_GPL(bcom_sram_alloc);
- 
- void bcom_sram_free(void *ptr)
- {
-@@ -163,4 +160,3 @@ void bcom_sram_free(void *ptr)
- 	rh_free(bcom_sram->rh, offset);
- 	spin_unlock(&bcom_sram->lock);
- }
--EXPORT_SYMBOL_GPL(bcom_sram_free);
+The driver is placed in the "misc" directory, following the practice
+of other PCI endpoint bus drivers.
+
+This version of the series was sent quickly after version 2, to just
+address some very simple Sashiko-reported observations before others
+had a chance to comment.
+
+					-Alex
+
+Note: to work correctly, this series depends on this:
+  https://lore.kernel.org/lkml/20260910021919.3421449-1-elder@riscstar.com/
+
+Between version 2 and version 3:
+  - Call of_platform_depopulate() if case of_platform_populate() returns
+    an error in tc9564_function_probe()
+  - Eliminated an unnecessary dependency in the Kconfig file
+  - Updated "parent addresses" in the DTS file
+  - Fixed a dumb typo in the binding
+  - Note:
+      - Ignoring the Sashiko report about the place holder ranges
+        possibly not being updated at runtime.  (The above-mentioned
+        prerequisite series will cause them to be updated.)
+      - Ignoring the Sashiko report that the pci-ep-bus nodes should
+        include a reg property that matches the node's unit number.
+
+Version 2 is available here:
+  https://lore.kernel.org/lkml/20260915031038.1087264-1-elder@riscstar.com/
+
+Between version 1 and version 2:
+  - Updated the block diagram in the binding to include BAR2 and SRAM
+  - Use KBUILD_MODNAME for the driver name
+  - Removed bogus initialization of pci_driver->driver field
+  - Added the third patch, which defines pci-ep-bus DTS information.
+  - Now based on the Qualcomm for-next branch
+
+Version 1 is available here:
+  https://lore.kernel.org/lkml/20260813222943.1655453-1-elder@riscstar.com/
+
+
+Alex Elder (3):
+  dt-bindings: misc: introduce pci1179,0220.yaml
+  misc: tc9564: introduce base PCI driver
+  arm64: dts: qcom: qcs6490-rb3gen2: add endpoint buses
+
+ .../bindings/misc/pci1179,0220.yaml           | 154 ++++++++++++++++++
+ MAINTAINERS                                   |   7 +
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts  |  30 ++++
+ drivers/misc/Kconfig                          |   9 +
+ drivers/misc/Makefile                         |   1 +
+ drivers/misc/tc9564-pci.c                     |  84 ++++++++++
+ drivers/pci/quirks.c                          |   1 +
+ 7 files changed, 286 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+ create mode 100644 drivers/misc/tc9564-pci.c
+
+
+base-commit: 27b3028b7d65cbc44fc5b60d2e977ce55cf186f1
 -- 
-2.55.0
+2.53.0
 
