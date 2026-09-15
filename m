@@ -1,85 +1,204 @@
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5BB443E38;
-	Tue, 15 Sep 2026 07:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6322731E84F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456301; cv=none; b=KLvhzKd6m33VRglK4pkyZFk7B1ZZOvGOxeW8nvJAKepGnQw2keTHC46pXiH7n8qZQEsSCmgTEua1nLnXkRsP6Qcbfni9pIkdrCqtAEBvmXFqWLmJXGCvey1+zOKqYSGjuiuirRujr9dn5W4tnycDktLIwvOoJgJpNONvCIWUsdE=
+	t=1789456397; cv=none; b=adQmCDWh/H8FnQRQHGzvbyfVA3Zy37HOUdMHYyrmWfhXp4qcXlFJ6AHdJeehMMKO8fg8KFgJfg7qE15voJkrhSF8+YhResHKphS4KB24AhrBf0IlLD+sxzkC4lN63LDqUJK+2j/bEBidx4NPwREA98qywtZBi+8G2kCMsWx/qZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456301; c=relaxed/simple;
-	bh=2ehmnUofZbTdLc1u5yR/J6v+urGofaLLn0RAmXhFd9Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uDE3/rPjrkYqLOdZ2OJDwu3g8o5GwWwvxw2egoUjc1L8ce2UpQZMkVdyng6o9Xn2V9QPIo4cNqtZRUhKE7CyKoqAkIWwGfhXmagea7AbXaoxLk1SB2FsRWRSENkxMe7X0lp9QAlF5ghNpnrmwr7uzvZfgONZNXllh372jmmk054=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=Ice7pvFc; arc=none smtp.client-ip=217.70.183.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1789456397; c=relaxed/simple;
+	bh=yKvdK3j8xOuUGSgKYDb2u+uvfmNE/Kj+TpTf0ZtDgLU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lsew7oYW/pEy7ishb5H39Oi6QLzh/LXnaCO6qYOQ0mJb/Ty3/gy9uG6lOueWC8PfQQESAIfna53yNqt56mQt/wcMZI9pEgQ6FFAT+Ir7/4O6Uw3ksn+nQKPKgBUKf9+Cz4k2+Hxj62Be4a4X2KSsyLs1LTuUtF9SyX4OLESQRfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pgIbtUv8; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="Ice7pvFc"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 3C2A71F47F;
-	Tue, 15 Sep 2026 07:11:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1789456296; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=/k+y3LoBfQZyu4Fn8UExwUdQIbMcggqcKxO9y+XqHO0=;
-	b=Ice7pvFcBVgU+jIYOKrOoCHCoGn8cZe1IovgDa3pZN6T0Tg2l4ujy8yUg3wJp3bDNH97Ms
-	orM8nKgxTmqnnmHTYTECrvTp78lX2KbS4pjy4zmUdniUkCf/D9VWuW6WFhoGoQYlGr47pT
-	VCTcH94RwppT5Puvepm8gtOD8T4YfCQ5Fkn5BQuniv+NLGtancWXAOILM08rYJDK4icBqy
-	/Z1ZeGt+OmRiDD1WS3Xx6lzOfbJtEplccp48s88bTu5V6t3hcx72jl+jTdb43HQXBBlJ2G
-	q7rE2ENfs0pUXI8q9tevsgqtpTDRCJtxL8v0lo50RClXcgKvdAtAwnqvUBiRjA==
-Date: Tue, 15 Sep 2026 09:11:31 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
-	Mihai Moldovan <ionic@ionic.de>, Denis Kenzior <denkenz@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Andy Gross <agross@kernel.org>, linux-kernel@vger.kernel.org,
-	mhi@lists.linux.dev, linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org, ath12k@lists.infradead.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH v7 12/15] net: qrtr: mhi: Report endpoint id in sysfs
-Message-ID: <20260915071131.GA30612@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260915054207.2513877-1-juha-matti.tilli@iki.fi>
- <20260915054207.2513877-13-juha-matti.tilli@iki.fi>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pgIbtUv8"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso27021835e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:13:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789456394; x=1790061194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9zrX61GeCI+3H5TcNjr1lM5UeIxHraXxb4N6RDSCO5k=;
+        b=pgIbtUv8UY4Vd2/dw5MHAXYSzAmmvKd3Jdg+PcvEqkvxDWtr75o3XzNhU+easPp7cq
+         QsJFm5GluW8Cq/K4334E7AIrtJ4CAEh+TZtpS3J/ihtWfsO53IHWNCqNEmUAPJgrF1ZO
+         pJAV4corDZpuoui9ci51rJKPR+IgdTWVXagKXttd2NDNCqjQTC8MAsCe40g85rgnchXt
+         0q0CQySq3KEg+uR6+xhfIIMq5yHJ1wOsqyPDOzlm1Xfj1m8OUbRKuKWmUCNCv1rIEQ+v
+         W8Nx+waTe2ljdDvxNeGZkr4rpLaHMCazt52KGQjxkQOgX75627fBHRj/2R+y6lA2f+AW
+         9WpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789456394; x=1790061194;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9zrX61GeCI+3H5TcNjr1lM5UeIxHraXxb4N6RDSCO5k=;
+        b=LhCI6X9S24GgV9VZ8QdMNt2K5EWNqUfJinmGdMSJKAn3itRriWgHLx5yO0TsVnjAEN
+         oGwy9usBpFWkfsciRi/xllGP3UniqNSOX/BMyejFB0/0nMlU6O024Ey9CSK6Knqu/QuH
+         q6HNY9rE4tG9x5YfX00Fkn9gcvgZqKLdTro6QP76qF6+DMvyVl3IG2uDLKxYTo0uG4Nw
+         nkulxKzMcSqJTXElB6likrIj2yt3T8a6LH/LoPdYROtliDvzVpzf6UjdG13gl9R4C5bM
+         RjxYkp3OKk1dCELM12h7Td7eueSZg2Jbo8I9BgNuHU/sth114dnPsr4L1OgZPY7d2cVw
+         9v/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzzixZE3uXF5xdBArk8JKyj/nB5+C0zUugpc4jZSPc/cK03iVro75foiu8HyAM2IhKuX9IG1ihlgxGzZVY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDa6OpURvxrNeBCWDMCq7MnuqmsdGGTQjfrJTTe/L6RptiFdgW
+	Zpyv83HeKe0A9EIKXcN0RacPkKQ9/VA+OGZFGCpFlpQ6zSjco90HRz/6
+X-Gm-Gg: AYBFou1PGi201uKqFekHBVO01A36WRHe2S+eGqUsr4JrmIRaCLpuCqBdFxG9br8PKIr
+	NSrVbS8pSql3X7VpwPf8YG7yOxEUi4eWY/K9S5JSZWcoE9dimDuvAEChqijT3RApWMBa4FfCjHK
+	laQtnJP4n6EuOMXnd2kmOSl2UrirjdpDJUGxmgWwR2Zn+agwUJTX9VP46tDkUJ+IN8TYPOZvN0z
+	bEEl/MeqyGV3Yk38B19nWgprzVRUqKTkzXjrvt4WOQBxxhQd28u+enh1HBpk5Lj4sPI893WxJhA
+	Ex+J3uh89XSmFPZ9Fuca9M5/iuHahaar6p2T6DiAKT5MvD0y2N+8SQM3kowFPNnCfo5anAvjYsg
+	2CMGTZdf+vhqE1wMjjvubo9/pQu/puh21OrRDY8ps54pxPaDSRWlL8g5RuxcgcEoj8KibjZV0IY
+	w0YyhIKecu7zuHIQQFvysMoekDq2s00PqEbhroSq6Fpo6I+DMtpzW+aLGkBKceveXmK38r8ywkE
+	LxdCUJzV+rs90YiJvkSMCnbtVfIAC/8BiWEXi2SM724ammwKLuFjpPZGsfpRtkP/b9KfauqHE7J
+	9hezU4pz+wxOYDyehoRuXLnzH3Y=
+X-Received: by 2002:a05:600c:3e0a:b0:49c:e1cd:536 with SMTP id 5b1f17b1804b1-49e7a669298mr70764985e9.12.1789456392912;
+        Tue, 15 Sep 2026 00:13:12 -0700 (PDT)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d284a7bsm117889265e9.3.2026.09.15.00.13.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 00:13:12 -0700 (PDT)
+From: Orgad Shaneh <orgads@gmail.com>
+To: tsbogend@alpha.franken.de
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/5] MIPS: OCTEON: cvmx-l2c: use the OCTEON II register model on all CN6XXX
+Date: Tue, 15 Sep 2026 07:12:44 +0000
+Message-ID: <20260915071306.15006-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260915054207.2513877-13-juha-matti.tilli@iki.fi>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Score: -100
-X-GND-Cause: dmFkZTGFzgp8DpaceHJXsLAY9igazZeLQ/Fb6nk/Zr+ipgXP7EdxuXSxa9lVDbKYEYekx2BahP04hh/UrfivTn9rNoAad/Ihbj1N8SKUiFDGm4QJMUcWFIP1SD5NWpovXOlLm3nzzJ+obYoPfs1i9jCQCcL/YPO7L6JxSZ4RjmvNJIDylGwDBDMWyfMqT6ULwSpNIY5g4ZxkdNQC4ndb70firUg16CnCPEFui1j9O1Rxt4fvlhU9XsUsW9gIIEqgGlikLVBc/V6kTPao3l+ipIJ+Abn+I5aGYA33UnXdhq2uBu9KiYninSq5SUbgvE97pS0cJaovjY7CKRYzbvX1MZDbi9NHfC3qQxjGZHlKJRaFi20WDHCYpFFYSzwQEtAkZEkF2NLmpv3OOpj3vEa4hJLgCC1g249wkPnivMuZXKCBaoLzUGUsZ9jRwAtdyaE+Gi9Wo5j2Iog+76+ejo4Q7A+TKckc5iTxz9VEuKMrVPV6Sf8xBjuq/Dwz4dVAU8gpx8RhKxxmyYVYI4yC4XYJnmFNqhjm4P2FTG50un8qTWskfdnAeX/VFhYiDPp6chbdqGiqQ7qsvggyEg0aIviPpu3J7pTId1vNiRB9fv8jrWg7fjqMLhub0jBHpSDha0ZtUIlUjQbGJ0oVKHxrnfD3sCR8Ae6jxh3B6AVgUXj5DJXESVePvg
-X-GND-State: clean
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 08:42:04AM +0300, Juha-Matti Tilli wrote:
->+static ssize_t endpoint_show(struct device *dev,
->+			     struct device_attribute *attr, char *buf)
->+{
->+	struct qrtr_mhi_dev *qdev = dev_get_drvdata(dev);
->+
->+	return sprintf(buf, "%u\n", qdev->ep.id);
->+}
->+
->+static DEVICE_ATTR_RO(endpoint);
+The L2 helpers pick between the OCTEON II and the CN3XXX/CN5XXX
+register model with OCTEON_IS_MODEL(OCTEON_CN63XX), which matches the
+CN63XX only. Every other OCTEON II part - CN66XX, CN68XX, CN61XX -
+takes the CN3XXX/CN5XXX branch and touches registers that do not exist
+on it: L2C_DBG, L2C_LCKBASE, L2C_LCKOFF and L2C_SPAR4 instead of the
+LCKL2 cache operation, the L2C_WPAR_{PPX,IOBX} way-partitioning
+registers and L2C_TADX_TAG.
 
-I think you could use sysfs_emit instead of sprintf.
+On a CN6635 board cvmx_l2c_lock_line(), called from prom_init() under
+CONFIG_CAVIUM_OCTEON_LOCK_L2 to lock the TLB refill and exception
+vectors, therefore went through L2C_DBG/L2C_LCKBASE. Whatever those
+writes hit inside the L2 controller left it silently dropping stores to
+DRAM above 512 MB: a probe that wrote 0x20400000, 0x40000000,
+0x80000000 and 0xe0000000 in prom_init read its values back before the
+lock block and the old contents right after it, on CCA 0, 2 and 3
+alike, while writes below 256 MB and every u-boot "mw" stuck. Since the
+cvmx bootmem free list keeps its nodes inside the free blocks
+themselves, the kernel's first split above 0x20000000 was lost, the
+walk of the free list stopped there, and the board came up with 248 MB
+of its 8 GB.
 
-https://docs.kernel.org/filesystems/sysfs.html#reading-writing-attribute-data
+Match the whole CN6XXX family, which is what these register accesses
+are keyed to. The CN63XX keeps exactly the same path.
 
-Arthur
+The geometry helpers in this file need the same treatment but not the
+same condition; they are handled in the next patch.
+
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+---
+diff --git a/arch/mips/cavium-octeon/executive/cvmx-l2c.c b/arch/mips/cavium-octeon/executive/cvmx-l2c.c
+--- a/arch/mips/cavium-octeon/executive/cvmx-l2c.c
++++ b/arch/mips/cavium-octeon/executive/cvmx-l2c.c
+@@ -54,7 +54,7 @@ int cvmx_l2c_get_core_way_partition(uint32_t core)
+ 	if (core >= cvmx_octeon_num_cores())
+ 		return -1;
+ 
+-	if (OCTEON_IS_MODEL(OCTEON_CN63XX))
++	if (OCTEON_IS_MODEL(OCTEON_CN6XXX))
+ 		return cvmx_read_csr(CVMX_L2C_WPAR_PPX(core)) & 0xffff;
+ 
+ 	/*
+@@ -91,14 +91,14 @@ int cvmx_l2c_set_core_way_partition(uint32_t core, uint32_t mask)
+ 	mask &= valid_mask;
+ 
+ 	/* A UMSK setting which blocks all L2C Ways is an error on some chips */
+-	if (mask == valid_mask && !OCTEON_IS_MODEL(OCTEON_CN63XX))
++	if (mask == valid_mask && !OCTEON_IS_MODEL(OCTEON_CN6XXX))
+ 		return -1;
+ 
+ 	/* Validate the core number */
+ 	if (core >= cvmx_octeon_num_cores())
+ 		return -1;
+ 
+-	if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
++	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+ 		cvmx_write_csr(CVMX_L2C_WPAR_PPX(core), mask);
+ 		return 0;
+ 	}
+@@ -147,10 +147,10 @@ int cvmx_l2c_set_hw_way_partition(uint32_t mask)
+ 	mask &= valid_mask;
+ 
+ 	/* A UMSK setting which blocks all L2C Ways is an error on some chips */
+-	if (mask == valid_mask	&& !OCTEON_IS_MODEL(OCTEON_CN63XX))
++	if (mask == valid_mask	&& !OCTEON_IS_MODEL(OCTEON_CN6XXX))
+ 		return -1;
+ 
+-	if (OCTEON_IS_MODEL(OCTEON_CN63XX))
++	if (OCTEON_IS_MODEL(OCTEON_CN6XXX))
+ 		cvmx_write_csr(CVMX_L2C_WPAR_IOBX(0), mask);
+ 	else
+ 		cvmx_write_csr(CVMX_L2C_SPAR4,
+@@ -160,7 +160,7 @@ int cvmx_l2c_set_hw_way_partition(uint32_t mask)
+ 
+ int cvmx_l2c_get_hw_way_partition(void)
+ {
+-	if (OCTEON_IS_MODEL(OCTEON_CN63XX))
++	if (OCTEON_IS_MODEL(OCTEON_CN6XXX))
+ 		return cvmx_read_csr(CVMX_L2C_WPAR_IOBX(0)) & 0xffff;
+ 	else
+ 		return cvmx_read_csr(CVMX_L2C_SPAR4) & (0xFF);
+@@ -313,7 +313,7 @@ static void fault_in(uint64_t addr, int len)
+ 
+ int cvmx_l2c_lock_line(uint64_t addr)
+ {
+-	if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
++	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+ 		int shift = CVMX_L2C_TAG_ADDR_ALIAS_SHIFT;
+ 		uint64_t assoc = cvmx_l2c_get_num_assoc();
+ 		uint64_t tag = addr >> shift;
+@@ -460,7 +460,7 @@ void cvmx_l2c_flush(void)
+ int cvmx_l2c_unlock_line(uint64_t address)
+ {
+ 
+-	if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
++	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+ 		int assoc;
+ 		union cvmx_l2c_tag tag;
+ 		uint32_t tag_addr;
+@@ -661,7 +661,7 @@ union cvmx_l2c_tag cvmx_l2c_get_tag(uint32_t association, uint32_t index)
+ 			     (int)index, cvmx_l2c_get_num_sets());
+ 		return tag;
+ 	}
+-	if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
++	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+ 		union cvmx_l2c_tadx_tag l2c_tadx_tag;
+ 		uint64_t address = CVMX_ADD_SEG(CVMX_MIPS_SPACE_XKPHYS,
+ 						(association << CVMX_L2C_TAG_ADDR_ALIAS_SHIFT) |
+@@ -745,7 +745,7 @@ uint32_t cvmx_l2c_address_to_index(uint64_t addr)
+ 	}
+ 
+ 	if (indxalias) {
+-		if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
++		if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+ 			uint32_t a_14_12 = (idx / (CVMX_L2C_MEMBANK_SELECT_SIZE/(1<<CVMX_L2C_IDX_ADDR_SHIFT))) & 0x7;
+ 
+ 			idx ^= idx / cvmx_l2c_get_num_sets();
+@@ -878,7 +878,7 @@ void cvmx_l2c_flush_line(uint32_t assoc, uint32_t index)
+ 		return;
+ 	}
+ 
+-	if (OCTEON_IS_MODEL(OCTEON_CN63XX)) {
++	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
+ 		uint64_t address;
+ 		/* Create the address based on index and association.
+ 		 * Bits<20:17> select the way of the cache block involved in
+-- 
+2.47.0
