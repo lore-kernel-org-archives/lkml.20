@@ -1,111 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6563B8405
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5B23D3324;
+	Tue, 15 Sep 2026 08:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460178; cv=none; b=VA5phor/QyLvAAuUZQdf1cXYpC48GStrz70cIZnOIT1s20E/TGF5wg0AoWByGS8XpZh6kwCXRXZQk8dw9Elut57/mI+OoovOKju+k1n+4tMhREFXgTvgGPvjeWxo+61OQRNV0WEhjFF+NEZ14Il0yT/RV45XcEzMIdvHuxzrozg=
+	t=1789460182; cv=none; b=pXBB00b07MT4Aqnrt6h7DOydzSBo9B9bgcH7qwLeStjFMyJImsUgUx9XfVZenFCeEuoPTPwNYzUBfAJSSF4TPuKvf+R5dLZsfqJbMCFLN1SbMea1KqFEkw/AkvISdbRx8chUbLzitbtgS4wVioNgk6QWcnRDqnUUblQn2E5bJIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460178; c=relaxed/simple;
-	bh=QjfKCloivmSOZFcGW1K8mgdOTYz7B4lmOP3pqpGXp54=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YSY5bJE9qDuVojhspDM4FgboPwU12pELO5mcEGilJxIYLe3HDddkQ42FTiy3l0BYaDAZvnDyWLxkUpp72zOay353b40K9LPwwO2X/0Yh9+VTd9dbCeBGh24Fm3J53Q9Ii28oP3Fb3eXMSOn4QrAdU/U7h5Lwj5WVDxiWeDbJnok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U58+4EAz; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789460182; c=relaxed/simple;
+	bh=XagtcxOa8xvSZDgu/L/xg7xq53FaRi0iTygmi79Ar+E=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=PPI3G9wqW+vTDiAhsHaIa9mvNMZx7l1/nelaQ329y7nPy/V0MwetTL2KnGhc5EA4psn2DuSZc3mi8BKODHJ121X5u/7OtPXvR+YkCiizNf68JeNPw8vgoBqt3HtAwPNi/uEJFmne/pf+8q/PTLAQho7mtxitrwFRCDt+rYM5+vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e29SXYqT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U58+4EAz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789460177; x=1820996177;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QjfKCloivmSOZFcGW1K8mgdOTYz7B4lmOP3pqpGXp54=;
-  b=U58+4EAznC4kbcNHZS/uIS50ykeDHP3mk0IAgVxzE5nxDKwxH3KQhqPD
-   SBXiGRy6kIgtOv2BKHxnlm0mHvz++F1/6QkIeJtdhUAu2qwQ1pVaeR8ye
-   u+MDITBm3/nckJkk16kMr2OC21NgLJTmijLqMs9OUDsEwu/xrq/2nF1lK
-   T49BxIJNq2uSCzAXeecha8a9OoRop2EblURQNVqH4olbQQmTN6ZkszyeL
-   SIYIeLLt9df5e+9ohw9gLbGeJM3xxD5oqe+dnFluy8CJzWWwnJUSD7rX5
-   Y8zBMcO2COzQwDbdFXHk1jLMY2iO28PAnNmrqrEejnHhosIcHtrXCdfbR
-   g==;
-X-CSE-ConnectionGUID: QcyvOtHGRd+YoCSNQz+jRQ==
-X-CSE-MsgGUID: w4mldrH4SNSOPA56layuWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93640096"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93640096"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 01:16:16 -0700
-X-CSE-ConnectionGUID: CJh6SlllT1O5pa22VkT8DA==
-X-CSE-MsgGUID: EmWw3GV+QWmCRIiBCh3Yfw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="266666702"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.203])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 01:16:14 -0700
-Date: Tue, 15 Sep 2026 11:16:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>,
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH v2] mfd: intel_soc_pmic_crc: Balance IRQ wake enable
-Message-ID: <aqj-zOf7VhWlGqg3@ashevche-desk.local>
-References: <CAGEsz8F1hk5UpR0tJ6LjnbTKTyfKAxu6E9=7TLM_ABgodF9TdQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e29SXYqT"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A1CDF1F000FF;
+	Tue, 15 Sep 2026 08:16:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789460180;
+	bh=mkRsG37yKsoQNolMKPENxObXk4yYEmyNG/LIkUxCBRk=;
+	h=Date:From:To:Cc:Subject:Reply-To;
+	b=e29SXYqTNexTQGXWrwrbMOMuszqj2fBjfIOrQdjUS3ZKXRNw4GMnyW7Yl43BIszjz
+	 W9+pqxgrWUT1JGOAbfEWXFNpOluvHBg05ynG/OiVNcAod+3cGDSFY/AJ5DbsXlxyZh
+	 LFq0716JYv6qSWTJ8XJMpcK1IhARmZaxpGF6J9NCyRG6SfCfEehdpwMdt1j1L5rd1D
+	 YztjE9rzFSCsWt0XHOQY7yi3Secc0nqXY8N5cLlXibdoML5ZA4n4r3Is5MfoWJFxCY
+	 u5FbhJRRwK2VaBrlCzifJC0PltUwlZexxuvlLl/sYnNHmdT26D2fbigNG655HkBGJm
+	 vgn5m+XHVeTug==
+Date: Tue, 15 Sep 2026 10:16:10 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: users@linux.kernel.org
+Cc: linux-kernel@vger.kernel.org, 
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>, lpcosse-keysigning@baylibre.com
+Subject: PGP keysigning at LPC/OSSE 2026 (Reminder for registration)
+Message-ID: <aqj-ylAvjuHZeOan@monoceros>
+Reply-To: lpcosse-keysigning@baylibre.com
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="upyugubhpcr4clyg"
 Content-Disposition: inline
-In-Reply-To: <CAGEsz8F1hk5UpR0tJ6LjnbTKTyfKAxu6E9=7TLM_ABgodF9TdQ@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Mon, Sep 14, 2026 at 03:18:51PM -0700, Myeonghun Pak wrote:
-> The INT33FD Crystal Cove driver enables the parent IRQ as a wake source
-> after registering its regmap IRQ chip.  When that succeeds, a later
-> mfd_add_devices() failure or driver removal leaves the wake enable
-> unbalanced.  Shutdown only disables IRQ handling, leaving IRQ wake enabled.
-> 
-> Register a managed action only after enable_irq_wake() succeeds.  Since
-> the action is registered after the managed regmap IRQ chip, reverse devres
-> order disables IRQ wake before tearing down the IRQ chip.  Keep warning and
-> continuing when enable_irq_wake() itself fails.
-
-> Shutdown does not release managed resources, so explicitly release the
-> wake-disable action there if it was registered.  This also removes the
-> action, preventing a second disable during subsequent managed cleanup.
-
-Why? If it goes to shutdown, cleaning resources makes a little sense, no?
-
-> This is limited to the Bay Trail and Cherry Trail Crystal Cove PMIC
-> variants using the INT33FD ACPI ID.
-> 
-> This issue was identified during our ongoing static-analysis research while
-> reviewing kernel code.
-
-...
-
-> static void crystal_cove_shutdown(struct i2c_client *i2c)
->  {
->  	struct intel_soc_pmic *pmic = i2c_get_clientdata(i2c);
-> 
-> +	if (devm_is_action_added(&i2c->dev, crystal_cove_disable_irq_wake, pmic))
-> +		devm_release_action(&i2c->dev, crystal_cove_disable_irq_wake, pmic);
-
-Is it legit to call devm at this point? When is .shutdown() called and what are
-the assumptions before and after for a certain device?
-
->  	disable_irq(pmic->irq);
-
-This looks a bit ugly. Can we start with no-devm? This will solve the above
-question as well.
-
--- 
-With Best Regards,
-Andy Shevchenko
 
 
+--upyugubhpcr4clyg
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: PGP keysigning at LPC/OSSE 2026 (Reminder for registration)
+MIME-Version: 1.0
+
+Hello,
+
+this is a reminder for the PGP keysigning event held during Linux
+Plumbers and Open Source Summit Europe in Prague this October.
+
+While it's not mandatory, it will speed up and simplify the processes if
+you register with your certificate for the event. Please do so by
+sending your public key to lpcosse-keysigning@baylibre.com until
+2026-09-27 08:00 UTC. If you saw the initial announcement[1] and thought
+it was still to early and I'm on vacation, please hit reply now and
+attach (or include inline) your certificate which can probably be
+generated using:
+
+	gpg --export --armor your-email-address@example.com
+
+.
+
+I will create a list of all registrants and their certificates such that
+you will end up with less small paper strips to handle. It will also
+help me to estimate the size of the group such that an appropriate place
+for the meeting can be selected.
+
+Note the list of participants will be public. It contains essentially
+the info from your certificate. If you have concerns about that, please
+don't register. (But note that if you're using your key in the
+community, the same information is out there anyhow.)
+
+As long as my time permits, I will also look at the certificates I
+receive and point out things that might be worth doing before the event.
+So in your own interest don't wait until a few seconds before the
+registration deadline. Also if I don't reply that's a strong hint that
+Google didn't accept your mail. Sending your mail early allows to catch
+that.
+
+If things are unclear, don't hesitate to ask. I created
+#lpcosse2026-keysigning on the libera irc network for that, or send me
+an email to the above email alias.
+
+Looking forward to meet you in Prague,
+Uwe
+
+[1] https://lore.kernel.org/lkml/lpcosse2026-keysigning@baylibre.com
+
+--upyugubhpcr4clyg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqo/sgACgkQj4D7WH0S
+/k7zMAf+NH5aIY3+jw3kCIXDlbBywk9X11kadXNUEc5AjXcpmIHrgyCyP0uxi0fy
+QFXpqIcxzwoBFwxeb+/F53+kwoYeLiU31VhnGr9z6NghI2UwO4T+lIEN+I3X0y2J
+Xj5P5v5JLN7mqK/02jPRXEhabEejldTknPKV0AZliBTFnsNC9AwrVOT17xMreskt
+14WB7GiRSkrltBHfPiL2TumFbhNLOc0uUlE6q7jdbNSEQ11uomqZCmag+kla9glg
+M3D58GAcIqWGPn+qJv6Tl0mm040U/73w4yJLmo1IifWD0FOWFXlZ8IKQv438dXCk
+/y8FTZcXQRDeLHO538Qs/wZ8/yvW5w==
+=lwhB
+-----END PGP SIGNATURE-----
+
+--upyugubhpcr4clyg--
