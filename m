@@ -1,87 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8878A3B14B2;
-	Tue, 15 Sep 2026 13:05:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48363B71B0
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:05:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789477543; cv=none; b=Fth+0EDn79KU1Vw5nHOt3cu/RygMQvg838t1aTq98uEFcUbH0TTfbh8dUJAApxA70jsEkM/C5xxEQH7oqM5hm3LzWlrHia481xowBgmh/rDJQVV6fvAd6Dm1LSbqFGGzmT9faet/ltKgNFKbOdH4pusp99GEIA7iJp/24CYj1MI=
+	t=1789477561; cv=none; b=tKNEmWbrsmskSEnMKRvqaIJD8hoBShSkqvwwf2OCGX5EjqXSLdIKp0PM7CslKrg8r4FBZmvRiJPJtLJ5qsgIOcEeyKk8EgxpT7EGSwMKTffNsVKQoUM13zR4zw752nBvrEEOpMMM1V2DIq/GXjfMZaaU++od80m3j9e75knwFnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789477543; c=relaxed/simple;
-	bh=ordUloR4tkzjSO9c8EIpA4VajsXZhXheq1XH0wJbAg8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SCAkvMWaAbIW7BGCBnOQzYHYhGxTXCKZ3iO0UncVertDeSTwA3sqhW5Q7kduKKErsTsmORNxAC3iX1UO0cWy13hAwjzgBDD1xs3rllwU3Vv2rEC8THjgy6f8npU6GDlc026BlmmejXarQT6IG9ut47KuX5KRUOt1KrtanGtFToc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AaWwXhlq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789477561; c=relaxed/simple;
+	bh=gO2kWIP4b0dPnTPjD2V6JMmtB59Qf8QCafdjPrzdkLg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rFx8W/2YH1DVuHfzLA42MTiMGSuXNlcgD+z/p3p6yTt0ZrBE37z2wDrXptuVlL1+IUOahbz11v/Mmlz8Q8930EywkBW1mv2cKQVaI6WJYyXoKrRsHcKdImklD21Jl17NoPv61CelE45q2pFuVbIJIgqApjyubPtjPBwJun8y0QA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KyV6urIS; arc=none smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AaWwXhlq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C919E1F000FF;
-	Tue, 15 Sep 2026 13:05:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789477542;
-	bh=ordUloR4tkzjSO9c8EIpA4VajsXZhXheq1XH0wJbAg8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AaWwXhlqxLtAa5qlsWLkRg/bwK7yuKnIL0MYjZ90S+6rgQdy2v7lDv6HG6lkhZtYY
-	 23zmI+aO1DaJfwR21QNJYZjFaow5wDJ2UDYtmR+AB7oWsO+95ZAfx5htQPznuHY1Br
-	 +8gWOaVLSq3ydNSGBSGAM4yCUoQynNoap33dmuxf97RTtGGFTRGMHtsBgX9xLyDC+n
-	 1w02AyhfbIKLqA5b3fN0dTiDi6z7pCjNmRiX8xTSK86Al8POq9LjCHnnF98mSL0jLr
-	 8q8VIkJ0yl7nt3TuB7KsNJMkaLxaV94rNmYWVvFE+QcKKO5ZDiZ7hvmzNgS2eBKrGi
-	 RvLz2STvXrYeA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/9] mm/memory-failure: efi: add the
- LINUX_EFI_POISONED_MEMORY configuration table
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Danilo Krummrich" <dakr@kernel.org>, "David Hildenbrand" <david@kernel.org>, "Naoya
- Horiguchi" <nao.horiguchi@gmail.com>, "Borislav Petkov" <bp@alien8.de>, "Rafael
- J. Wysocki" <rafael@kernel.org>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Mike
- Rapoport" <rppt@kernel.org>, "Michal Hocko" <mhocko@suse.com>, "Ard
- Biesheuvel" <ardb@kernel.org>, "Oscar Salvador" <osalvador@suse.de>, "Thomas
- Gleixner" <tglx@kernel.org>, "Ilias Apalodimas" <ilias.apalodimas@linaro.org>, "Brendan
- Jackman" <brendan.jackman@linux.dev>, "Johannes Weiner" <hannes@cmpxchg.org>, "Breno
- Leitao" <leitao@debian.org>, kas@kernel.org, "Liam R. Howlett" <liam@infradead.org>, "Ingo
- Molnar" <mingo@redhat.com>, "Vlastimil Babka" <vbabka@kernel.org>, "Lorenzo
- Stoakes" <ljs@kernel.org>, x86@kernel.org, "Zi Yan" <ziy@nvidia.com>, "Suren
- Baghdasaryan" <surenb@google.com>, "H. Peter Anvin" <hpa@zytor.com>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "Andrew Morton" <akpm@linux-foundation.org>, hannes@cmpxchg.or, shakeel.butt@linux.dev, "Miaohe
- Lin" <linmiaohe@huawei.com>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, kernel-team@meta.com, riel@surriel.com, linux-cxl@vger.kernel.org, linux-mm@kvack.org, rmikey@meta.com, harry@kernel.org, kexec@lists.infradead.org, linux-efi@vger.kernel.org
-In-Reply-To: <20260915-hwpoison-kho-v5-2-3bc7a57bd503@debian.org>
-References: <20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org>
- <20260915-hwpoison-kho-v5-2-3bc7a57bd503@debian.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 13:05:40 +0000
-Message-Id: <20260915130540.C919E1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KyV6urIS"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466cc88a9baso178144fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:05:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789477558; x=1790082358; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GLVpuIWDh64oOKbkDCist7rvO7Pgf4HJPnHhedxrwCU=;
+        b=KyV6urISlhLmy8UMXDQYqE5DRdKEueHdhPF+z1QtBdIQpd2bcw/A0NBvrCQ7VV968W
+         bb63+zSC6Fvf5OIqNdB72JVBpkCzRzzxODXSAaLAu5xQSDBstf1zCXMvcv/PxkK2WyCz
+         iY4+LAtuJDTbITsxCk93+1J0wLmsf6UT+e3Xq5XExGXF9Xjqgf2BkJb2B8eGLbaEoQCO
+         QnwwyHX8ogUIJnAQoclkn+sIIGCJBWXbj8wTlqik2P8ACvITY2pYDeg7fsrgo1gB/eDn
+         /JBvVyjVpItee44xG7COelywsdXYOvmk0tQniZl3SQrwrsZ5cY076ewgFbGjQgUaWiuM
+         KAig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789477558; x=1790082358;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GLVpuIWDh64oOKbkDCist7rvO7Pgf4HJPnHhedxrwCU=;
+        b=MGgZWwmY9RGq5tI99cl4bzy2T5tujL8zjXzQ02zvbkzaxOvhTEXy5xmEc+QpkT0SCx
+         9Z/HKfnjYxQcbwgx8G4bYP+zq4MLoXVmbpIfzebBiGEOL0b4EklaJqeWFf8uAi0Ic1p5
+         d0om8xK8PKT2Oxc6kVodmOmDvnIip7lXCamXPDM7F9m8idRIk+EPYRKQ89i/SgrLaBdy
+         Dn/0siIHhslW4jK8PWQ/OIFtAl5PyC5vi895fvNO2EfrC8ihvVnI2N1/yq1YBikZZMP/
+         LddNEBWPMyW4gmZ23c0k9EhM3w/too9tHCFZKCzY1xf3WEb9TuJ5MCMWqoghFyGzPCV4
+         51Bw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGgyrtZUrSvfrr+nP6vISPCXJjZMPfx4WPOaZUtJE/9E3Fn18YyjYJszeUzUzDoSJhErIUsibHlGsIx88=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVQn0RzAqc+tZ/Ft8Cjyx7h6qM4HZcbWqzlDDBil7KTe5ihMuN
+	BPCw4ELO260P111nMjFVMDWGEfXhhF4GAj3cXKdPI2ZAlTI6kHvDRt8Q
+X-Gm-Gg: AYBFou1qMnAVWPIxu/qtKyW0dW4C8ilv//RUmszyITNhqZ1q8k672P9UHBguKjeefBa
+	w21uXxsxYT/dvmiOClTkCfOQ5Er4oAKKq6Z30XvfEOJGNXtZypjgBZHk9XRm4TYhRgbTjKd/6X5
+	uzgc0f75Rr7HLGQzuq576CNurgChgcK+yIuLb9MOAaKPNxH2hgkmQUqSeR2ErvBE2YiTuma60eM
+	n3UbIo7zm63pGBQagGFSH797t1ds1H1xCnjCRdmFYYsgbRF9vX/i0XVSmIOob8Tx/HL62bmK/SV
+	JEDchMhH3absVgaGv6+frvm8RDUDRYDweKVCUU2HAEViDI+0YMfJ+AftCO9ffEFVWuok9B7n6jT
+	z96efaypkXcrzeW2Pzph6OAn8dhKH6ZkYZHm6hiblzCO9N7YbAhM2fqIELBQ2AjP7kMvrKrOW63
+	WshLcvZn3XvHD9xM53Mh0Ubq1mv0UBzcPVm4oDu8ANRzzbg+kVXeOZ+CEJZvmqaP9z1fIZd4zXS
+	12FJt0xmtCFSAb7
+X-Received: by 2002:a05:6820:4b89:b0:6c1:7804:55ec with SMTP id 006d021491bc7-6c738db76c7mr560877eaf.44.1789477558330;
+        Tue, 15 Sep 2026 06:05:58 -0700 (PDT)
+Received: from ai-agent-sv-01.. ([43.135.169.42])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf11e6af6sm1299889eec.3.2026.09.15.06.05.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 06:05:56 -0700 (PDT)
+From: NoNine <chenmin83@gmail.com>
+X-Google-Original-From: NoNine <min.chen@siengine.com>
+To: suzuki.poulose@arm.com
+Cc: mike.leach@linaro.org,
+	james.clark@linaro.org,
+	alexander.shishkin@linux.intel.com,
+	coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Min Chen <min.chen@siengine.com>
+Subject: [PATCH 1/1] coresight: tmc-etr: Sync the trace buffer for the device
+Date: Tue, 15 Sep 2026 21:05:03 +0800
+Message-ID: <20260915130503.645953-2-min.chen@siengine.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915130503.645953-1-min.chen@siengine.com>
+References: <20260915130503.645953-1-min.chen@siengine.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-> Hardware-poisoned page frames are tracked only in the running kernel's
-> data structures, so a kexec loses them and the next kernel doesn't have
-> this information, thus, tripping into them again.
->=20
-> Add an EFI configuration table to carry that information across kexec.
->=20
-> It is a bitmap with one bit per EFI_POISON_UNIT_SIZE (2MiB) of physical
-> memory starting at phys_base, modeled on the LINUX_EFI_UNACCEPTED_MEMORY
-> table, and it rides the EFI system table to every kernel in the chain.
-> Basing the bitmap keeps a machine whose RAM starts high from paying for
-> the hole below it.
->=20
-> List the table in the x86 efi_tables[] too, so an SME host maps it
-> unencrypted like every other EFI table.
->=20
-> [ ... ]
->=20
-> This is a similar approach as used as unaccepted memory.
->=20
-> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
-> Signed-off-by: Breno Leitao <leitao@debian.org>
+From: Min Chen <min.chen@siengine.com>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+The flat ETR buffer comes from dma_alloc_noncoherent(), which zeroes it
+with CPU stores.  The DMA API requires the caller to sync the buffer for
+the device before the device writes into it, but the TMC driver only
+ever syncs for the CPU afterwards.  On a non-coherent sink the zero fill
+is therefore still dirty in cache when the ETR starts writing, and its
+write-back lands on top of the trace data.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-hwpoison-k=
-ho-v5-0-3bc7a57bd503@debian.org?part=3D2
+Add a sync_for_device() buffer operation and call it from
+__tmc_etr_enable_hw() just before the TMC is enabled.  Only the flat
+buffer implements it.  The ETR_SG and CATU data pages are synced by
+dma_map_page() when they are allocated; their remaining corner case, a
+barrier packet followed by a live-drain re-arm, is left for a separate
+change.
 
+Tested on an AD1000 EVB: five first windows on freshly allocated
+buffers, including the first capture of a boot, all without the
+previous all-zero-formatter-frame runs.
+
+Signed-off-by: Min Chen <min.chen@siengine.com>
+---
+ .../hwtracing/coresight/coresight-tmc-etr.c   | 29 +++++++++++++++++++
+ drivers/hwtracing/coresight/coresight-tmc.h   |  1 +
+ 2 files changed, 30 insertions(+)
+
+diff --git a/drivers/hwtracing/coresight/coresight-tmc-etr.c b/drivers/hwtracing/coresight/coresight-tmc-etr.c
+index 76a8cb2..bf1d6c6 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc-etr.c
++++ b/drivers/hwtracing/coresight/coresight-tmc-etr.c
+@@ -689,10 +689,29 @@ static ssize_t tmc_etr_get_data_flat_buf(struct etr_buf *etr_buf,
+ 	return len;
+ }
+ 
++/*
++ * tmc_etr_sync_flat_buf_for_device: Drop any CPU cache lines over the trace
++ * buffer before the ETR is allowed to write into it.  The buffer is allocated
++ * with dma_alloc_noncoherent(), which zeroes it with CPU stores, and the DMA
++ * API requires a sync for the device before the device writes into the
++ * memory.  Without it a non-coherent sink writes into memory while the zero
++ * fill is still dirty in cache, and the write-back lands on top of the trace
++ * data.
++ */
++static void tmc_etr_sync_flat_buf_for_device(struct etr_buf *etr_buf)
++{
++	struct etr_flat_buf *flat_buf = etr_buf->private;
++	struct device *real_dev = flat_buf->dev->parent;
++
++	dma_sync_single_for_device(real_dev, flat_buf->daddr, etr_buf->size,
++				   DMA_FROM_DEVICE);
++}
++
+ static const struct etr_buf_operations etr_flat_buf_ops = {
+ 	.alloc = tmc_etr_alloc_flat_buf,
+ 	.free = tmc_etr_free_flat_buf,
+ 	.sync = tmc_etr_sync_flat_buf,
++	.sync_for_device = tmc_etr_sync_flat_buf_for_device,
+ 	.get_data = tmc_etr_get_data_flat_buf,
+ };
+ 
+@@ -1113,6 +1132,16 @@ static int __tmc_etr_enable_hw(struct tmc_drvdata *drvdata)
+ 	writel_relaxed(ffcr, drvdata->base + TMC_FFCR);
+ 
+ 	writel_relaxed(drvdata->trigger_cntr, drvdata->base + TMC_TRG);
++
++	/*
++	 * Hand the buffer over in a state the device can write into: drop
++	 * any dirty CPU cache lines first, or they get written back over
++	 * the trace data the ETR produces.  Only the flat buffer needs
++	 * this; the ETR_SG and CATU data pages are synced by
++	 * dma_map_page() when they are allocated.
++	 */
++	if (etr_buf->ops->sync_for_device)
++		etr_buf->ops->sync_for_device(etr_buf);
+ 	tmc_enable_hw(drvdata);
+ 
+ 	CS_LOCK(drvdata->base);
+diff --git a/drivers/hwtracing/coresight/coresight-tmc.h b/drivers/hwtracing/coresight/coresight-tmc.h
+index 6541a27..3dd17da 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc.h
++++ b/drivers/hwtracing/coresight/coresight-tmc.h
+@@ -277,6 +277,7 @@ struct etr_buf_operations {
+ 	int (*alloc)(struct tmc_drvdata *drvdata, struct etr_buf *etr_buf,
+ 		     int node, void **pages);
+ 	void (*sync)(struct etr_buf *etr_buf, u64 rrp, u64 rwp);
++	void (*sync_for_device)(struct etr_buf *etr_buf);
+ 	ssize_t (*get_data)(struct etr_buf *etr_buf, u64 offset, size_t len,
+ 			    char **bufpp);
+ 	void (*free)(struct etr_buf *etr_buf);
+-- 
+2.34.1
