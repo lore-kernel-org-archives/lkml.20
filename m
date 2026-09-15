@@ -1,111 +1,151 @@
-Received: from mta0.migadu.com (out-226.mta0.migadu.com [91.218.175.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BF943636A
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045464C8C60;
+	Tue, 15 Sep 2026 18:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789498319; cv=none; b=B4YI7N001jnICmWEf8/gGxvSlY7x64EIemldBGDQv/SziIY8O/C4oEPa3BW0vFAmQQnBazEOi1cVEmGpLXZJq8dDEJ30DAe3+WQXRGNV0c8pjZ5MgM7z/CnichiI3hx+bU2NfRNwJkR1szcjm1VUtmcUV7ggFwPPCQSfo3Wids0=
+	t=1789498351; cv=none; b=alcDSUINcR6GrxpLQFSP6Uaj/3gp1BpXx133odrAtc5dn49un4Lrmr9h4xByNYw43xnHPpMM6SzoL56HIK7DUBS+zTXwDXL7qsa20eO/yM4USvvLcdXK04lchJRLxGhr+R26aaI5jhlDa+i5ayzgvXLm+FTK9zF86S4k2dKiXzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789498319; c=relaxed/simple;
-	bh=wDUSmz48AJ/AWECTgc5Y2mr8+N5AQyAKi5Db/DMYbBU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LiM8nlrAkySbygzOICLGKGMi9SLiwE5boiWplcRqYli2PkyDvFge2vIkkH8Kq9l0wN1tKRFoxDSEK1P9m2LNLbppUzBnpbyXHk0iGw4JLnYkMy0nGgIiuw/wH5xLB81nFZ/av5+4GajOoJWlvdVKkzc06BVt9UdAi/cC18hIV0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=j8IA9ni6; arc=none smtp.client-ip=91.218.175.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789498351; c=relaxed/simple;
+	bh=Prs0G2qMbzM31E2yP359tw1C4Ebd+MCYjUJPZTIyZus=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jg/dibIZRwVrsyCfTynz3YocUmAmsWk3l9tHn2ehBGvCN2zY+YTKR7AFGGvM9ABdqlAqKfC0kWBnHeED7jqoeMSw90Un2c2KaKgJkR3b5QQRKb5OJSofdRNevrqduFPatoPnMbII33nUDxsb6atVhzW6A6FNDand+se+mRXN8Wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dj46Dqgm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="j8IA9ni6"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wDUSmz48AJ/AWECTgc5Y2mr8+N5AQyAKi5Db/DMYbBU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789498314; v=1; x=1790103114;
- b=j8IA9ni6i3zv2tGGl30RbPqkl5EqvdJbWX86XjZFHna6RLh87Bb27x6zzVduI9zvtBjBkbxW
- 7yd7lZpWVKbo4Gxza8IKYn3kkKhZEmVfYWbQtAh7p/Yi3heMUlLLOZwE9frlJwCXEYT+icfmle6
- T0JlPG23JN77kX6d6aH+Stc4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 167714a1fca6d150;
-	Tue, 15 Sep 2026 18:51:54 +0000
-X-Mizu-Trace-ID: 167714a1fca6d150
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384b7so1453e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:51:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByvTDa/q19BvUYHzU/D/Azj2dGifrimKHqsAaaTzDttmmSXPib9jBYQTIazPJVPk5HlLtk9JrWCOAbDMsM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQfNJE4WNYkSZWXNNvmsBhJzqRuqu4YyKjKH+ZwNSM/pBxRR9k
-	+pysF7OHj/fNI6KtYetVA/Opj4OeAeY7YLJQANcasoXC0s6Zk62p8rVlvnt7HLJd6OSi9yF3/6n
-	leBGFLbamAS8owxSzFqm984Jqph4BFr5SbDZyvtjX
-X-Received: by 2002:a05:6512:460f:b0:5ae:b9c5:f29f with SMTP id
- 2adb3069b0e04-5b8b5c60361mr12106e87.2.1789498308370; Tue, 15 Sep 2026
- 11:51:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dj46Dqgm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65A61F00898;
+	Tue, 15 Sep 2026 18:52:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789498349;
+	bh=72tlQhpdmngB3szUrALiHxqSz5LmQFAfQZTFPwAJsm8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dj46DqgmsACSwFq9HJ3ISBz0v7KQClcuynuO9qvwXog58wO/ScSuYdaGZKHgXWvfQ
+	 MNIiLR6/CWGcs2B0MhbCRK2aMTRY6dtK71/bGZdxyT8HaMz+gX3i3TsfrQcfD9O/2g
+	 F9R5HI4ZwuLIC/dDLbKGewTrvAWtmj2/uWtbnlwRjy3UiF9zVvG3Q4LlI0NpvD8aAJ
+	 DJrMkybpP4frmHg9A0BF8idW56jNNHHMO4Q37zU7dBONYMBSpnYs1SU5pr9ZdsZbOO
+	 Z8bm6ke0y1pxqCSk41Eg0cXZYLGeU6SHZOeCpu7UYnxm14Kt0coiGxiIX/45p1elM6
+	 JGYqDbDSmP+rQ==
+Date: Tue, 15 Sep 2026 11:52:29 -0700
+From: Kees Cook <kees@kernel.org>
+To: Bill Wendling <morbo@google.com>, nikitash.mariiaw@gmail.com
+Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>,
+	Tony Luck <tony.luck@intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Matthias Schwarzott <zzam@gentoo.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
+	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Mike Marshall <hubcap@omnibond.com>,
+	Martin Brandenburg <martin@omnibond.com>,
+	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
+	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Kanglong Wang <wangkanglong@loongson.cn>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Qiang Ma <maqianga@uniontech.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
+	Thorsten Blum <blum@kernel.org>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Ashutosh Desai <ashutoshdesai993@gmail.com>,
+	Imre Deak <imre.deak@intel.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Johan Hovold <johan@kernel.org>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Cryolitia PukNgae <cryolitia@uniontech.com>,
+	Jiaming Zhang <r772577952@gmail.com>,
+	Will Porter <mrwillporter@gmail.com>,
+	Cen Zhang <zzzccc427@gmail.com>,
+	=?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
+	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
+	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
+	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
+Subject: Re: [PATCH 21/28] NFS: nfsroot: Refactor root_nfs_cat() to use
+ snprintf()
+Message-ID: <202609151147.C5B45CB@keescook>
+References: <20260915081910.4142719-1-morbo@google.com>
+ <20260915081910.4142719-22-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911104715.307500-1-fuad.tabba@linux.dev> <868q5579ol.wl-maz@kernel.org>
-In-Reply-To: <868q5579ol.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 15 Sep 2026 19:51:00 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTw0U0d91Cv4NYEJvUuT=JabwZeeYwpZ2P1xyVeOVX46Ew@mail.gmail.com>
-X-Gm-Features: AcwNN1Wb_8an225Gnc8YhJ9UZVooFr4-IDtabofiCqvpuVnTcerWsfiGT6Va1mE
-Message-ID: <CA+EHjTw0U0d91Cv4NYEJvUuT=JabwZeeYwpZ2P1xyVeOVX46Ew@mail.gmail.com>
-Subject: Re: [PATCH v3] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
-To: Marc Zyngier <maz@kernel.org>
-Cc: Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>, 
-	Xi Ruoyao <xry111@xry111.site>, Mark Rutland <mark.rutland@arm.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Gavin Shan <gshan@redhat.com>, Yuan Yao <yaoyuan@linux.alibaba.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915081910.4142719-22-morbo@google.com>
 
-Hi Marc,
+On Tue, Sep 15, 2026 at 08:18:38AM +0000, Bill Wendling wrote:
+>  fs/nfs/nfsroot.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
 
-On Sun, 13 Sept 2026 at 11:00, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> > diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-[...]
-> >  static void cpu_hyp_init_context(void)
-> >  {
-> > + u64 pfr0 = __read_sysreg_by_encoding(SYS_ID_AA64PFR0_EL1);
-> > + u64 pfr1 = __read_sysreg_by_encoding(SYS_ID_AA64PFR1_EL1);
-> > +
->
-> Why not directly read_sysreg(id_aa64pfr0_el1) and co?
-> __read_sysreg_by_encoding() is useful when the encoding comes from a
-> variable, but it looks odd in the case of a literal sysreg.
+This collides with:
+https://lore.kernel.org/all/27956255dde39f58d73a7b51cb53cbe3d7804f54.1786411026.git.mariianikitash@google.com/
 
-It applies the arm64.nompam override, which is what
-finalise_el2_state() tests. With the override set, EL2 setup leaves
-the MPAM traps alone, and a raw read_sysreg() would still see MPAM in
-the ID registers, so KVM would write MPAM2_EL2 on exactly the firmware
-the option exists for. I'll add a comment.
+> +	ret = snprintf(dest + len, destlen - len, "%s%s",
+> +		       (len && dest[len - 1] != ',') ? "," : "", src);
 
-[...]
-> > diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
-[...]
-> > @@ -298,14 +298,17 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
-[...]
-> >   /* trap guest access to MPAMIDR_EL1 */
-> > - if (system_supports_mpam_hcr()) {
-> > + if (read_sysreg_s(SYS_MPAMIDR_EL1) & MPAMIDR_EL1_HAS_HCR) {
->
-> This is going to suck under NV. The host hypervisor is of course going
-> to set MPAMHCR_EL2.TRAP_MPAMIDR_EL1, and we're in for a recursive trap
-> on the hottest possible path in KVM. Which is silly as the actual
-> write to MPAMHCR_EL2 is free (it lands in NVMem[]).
->
-> This really should be replaced by a flag called HAS_MPAM_HCR, just
-> like you have HAS_MPAM.
+I prefer Mariia's version because this inline ternary is difficult
+to read.
 
-I'll probe MPAMIDR_EL1.HAS_HCR once in cpu_hyp_init_context(), next to
-HAS_MPAM, and test the flag in both trap functions instead.
+I was expecting to land hers soon if the NFS folks don't pipe up. It is
+one of the rare cases of still being open-coded, but the strlen() usage
+was pre-existing to check for the trailing comma, so it's not a clean
+seq_buf() conversion candidate...
 
-I'll hold off on v4 until Will has had a chance to comment as well.
-
-Cheers,
-/fuad
+-- 
+Kees Cook
