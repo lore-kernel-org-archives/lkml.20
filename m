@@ -1,68 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899DC430CCA;
-	Tue, 15 Sep 2026 17:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F61C4AB1BC
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493197; cv=none; b=PTy4ZbSpR3rJd+R6/2Nkr7fH4bWvEofpDFx2wE2NDMp62+ZtQBkB3wyPhTctNSUYH+eRSctUziC0cNqiP98B9O+17JBJlB0WVp8TyZ3GPbkyv2o5g0aCqBwe1bP4ESTeCzABrLnBYwyUHjhTeqh8VikzsCRWhFQPT4SwdmMWrbE=
+	t=1789493198; cv=none; b=LCy1GIFTtikZiRFYOE8HyxIADCKBnAw/w9CyOER+K/3/6AdeG5on3SyL0OPqvjBME3W6sIYwYJkKxApajTKNuGe7KQR/6W/sDjaZ5FxWzad+7mbKmrZyKDW75lYY1FNaMI0NUgkXy4TkTBCjznba+SY6B9lpjCgfNZt205QXLMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493197; c=relaxed/simple;
-	bh=8sG2IH30UnaHnti26ZbSq1ISOhiS9P171n9TsuqN4QY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=C8jQTD+KI349qG3smTZp0Tf3j4dAD+nLrUT3pLsevdPh6JA2FD+p2cZuVDnWZiJ/Q7ff3TMUcmvvjTocwjRbP5Sh6qjBCjIcrT7QXA7XrXQnAZX2Y8yMPVg2im9ZzypWdZEMNX9DRj3H+PWC1/rc+4ZDyItgXYOQiaIdkHPQ17o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbAQjhBA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789493198; c=relaxed/simple;
+	bh=z3VROCEjHUXLMEwm7jbMKvcs86CUi8SjcyFIWtgFK6k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L/YgExo4UIxtJmfh2PZz73nb3xwdEN1FhDuPMA+3xRrvgEuJb6Au6JsqOKjllu3mO8INW+ofcD14EbfpY3HhnUXttjYfV35/t+nVBkMjL4OQJ7J3KhaOqSx6iRXrD4XWThnX3hQAb8iNQphO47fKNu2b5hR5GWvh1OfmZDdKNSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JW0QND0X; arc=none smtp.client-ip=91.218.175.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbAQjhBA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1533D1F000FF;
-	Tue, 15 Sep 2026 17:26:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789493196;
-	bh=r83DxMbDAEAKhqhbmZSFk82WIQMOPTBJgIG0U6gX9Vg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WbAQjhBAJeeAWV6UJesDnUIjjtMSV4izl+KG7RPOn+Uyw3te6quUyqbH4GIKmp2ll
-	 h/cA74emvDlSZhWnJUl+EqHQsa/nEkVcTDYz5iW9+gBlrJKrbAsSQlKZdqx3H8vrXB
-	 aFN3mIVIM/PcgR2PwyXOCM4cX2CtgAeVPPB2zdzXdGeNDBe8RAx8OoAyy40DaC8b0b
-	 fZD2UjeNToh2QJeBb9bcnORYd3qgEDrpZk4JLTm032hoI8uJN5+N0JdZXLmgmiJjI2
-	 moAsX0H9waeloU8u4a870kjyw7I1ytNdiL2UELE2XlgliHJqBLp1o1uwZTG6QFN02B
-	 G6FYr1KKlAU2A==
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Cristian Marussi <cristian.marussi@arm.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] firmware: arm_scmi: Merge scmi_reset_proto_ops.name_get() and .latency_get()
-Date: Tue, 15 Sep 2026 18:26:31 +0100
-Message-ID: <178949312736.3922933.11444388869328950630.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <77c9651a11715013c0eaa8a56dbbc7dc3d9ddeec.1788429130.git.geert+renesas@glider.be>
-References: <77c9651a11715013c0eaa8a56dbbc7dc3d9ddeec.1788429130.git.geert+renesas@glider.be>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JW0QND0X"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=z3VROCEjHUXLMEwm7jbMKvcs86CUi8SjcyFIWtgFK6k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789493194; v=1; x=1790097994;
+ b=JW0QND0XDZORdiqlrs8XDHgqK3SNSsfQgDc9QrcVkSbMVtzB/a39wX4Cyl/3tiXmYvH0L0DL
+ 3nsKmvYMQ3k1pbNW7RxXJI8l2PoOZ7fTkSLqnSbDdjQxX2Vhc0CysTT0qchn5H+6KoNn6ACFX6p
+ zR54Gt90d9miP64b6wOdxWSo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ad139adac85be7d6;
+	Tue, 15 Sep 2026 17:26:33 +0000
+X-Mizu-Trace-ID: ad139adac85be7d6
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 15 Sep 2026 10:26:28 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>, 
+	JP Kobryn <inwardvessel@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, Barry Song <baohua@kernel.org>, 
+	Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+Subject: Re: [PATCH bpf-next v11 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+Message-ID: <aql_rkQMtlLmMstC@linux.dev>
+References: <cover.1789475073.git.zhuhui@kylinos.cn>
+ <ee6bcf945910babab2200f05040975492aed21b3.1789475073.git.zhuhui@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ee6bcf945910babab2200f05040975492aed21b3.1789475073.git.zhuhui@kylinos.cn>
 
-On Thu, 03 Sep 2026 11:54:25 +0200, Geert Uytterhoeven wrote:
-> The SCMI reset domain protocol operations structure does not provide a
-> .info_get() method, unlike most other protocols.  Instead, it provides
-> two separate methods to get a domain's name and reset latency.
+On Tue, Sep 15, 2026 at 08:29:35PM +0800, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
 > 
-> Merge the .name_get() and .latency_get() methods into a single
-> .info_get() method, to increase uniformity.
+> BPF programs can observe memory pressure on a cgroup, e.g. refault
+> stats via bpf_mem_cgroup_page_state(), but cannot act on it:
+> triggering reclaim requires writing to memory.reclaim, which BPF
+> cannot do.
 > 
-> [...]
+> Add bpf_proactive_reclaim(), a sleepable kfunc performing one
+> proactive reclaim pass on a memcg, like a write to memory.reclaim
+> but without retrying until the target is reached, so that when and
+> how hard to reclaim is BPF policy rather than hard-coded thresholds.
+> The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
+> as high_work_func() does for memory.high; reclaiming more is left to
+> the program, which can call the kfunc once per bpf_wq callback and
+> stop at any point. It is limited to BPF_PROG_TYPE_SYSCALL, because
+> other sleepable programs may run with filesystem locks held, on
+> which the reclaim path could deadlock via filesystem shrinkers.
+> 
+> Convert MIN_SWAPPINESS, MAX_SWAPPINESS and SWAPPINESS_ANON_ONLY from
+> macros to an enum so that they are emitted into BTF and usable from
+> BPF programs via vmlinux.h.
+> 
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 
-Applied to sudeep.holla/linux (for-next/scmi/updates), thanks!
-
-[1/1] firmware: arm_scmi: Merge scmi_reset_proto_ops.name_get() and .latency_get()
-      https://git.kernel.org/sudeep.holla/c/2911930bfbdf
--- 
-Regards,
-Sudeep
-
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
