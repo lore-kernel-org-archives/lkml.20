@@ -1,48 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A3C3CCFAF;
-	Tue, 15 Sep 2026 02:03:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA83B3B47F9;
+	Tue, 15 Sep 2026 02:03:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437821; cv=none; b=fZJyjNdImnufBSQOlFsJd99+Dq2YLeWyqSuASbazD3ROJ33tGEJJTwhKr6HMl9XFEJHK4fwOFgjhFhZi3S9rDru1Y9+QzWD0XAAqX/hrO6lbfh1zmroOiy/HFlZf3e5KtZgMMcfGhYLniGtNai4uP9PvXc/fEQK79PSKCd+EsMQ=
+	t=1789437826; cv=none; b=RokoyfS7qPNCxSSURlm4GoLR1Vr54s3pvybMlpDTZegTVGgI4hdbIoKlGB6tDQq/BwbePyJSghiKHhVTKi0MEYWBggDZNHQpfCu5x5wFTk53wsFGYrsiwdjrii+TLTRyzdDF+7U99FKMnlBYVG4qOrUqLsGjnX+E5POukjPMPjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789437821; c=relaxed/simple;
-	bh=Vqp0zBHD2NMJ9c1GV25gWCLyZ8eA3MTFUIiwKFgM4ko=;
+	s=arc-20240116; t=1789437826; c=relaxed/simple;
+	bh=ARPdD6jzXyD68nnDCytZZ4lQuExUHU2X5Mv8/74aIKU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bzttt2xrDOlDMYmnbnwnUrMBL3dGZJjs9uc1R5sExrSW5gLgKbeeE3JUcI+0pUPeEiS2mDZkQZFAT76G3q+FL2XijbBPky8fu6eO+EEirJTcL51X+xE1XHzojF9dn4pR8KChOlHng1kgTh3DMzMcOodsk3tsVcZ2whz/av63c4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TF+Ete7p; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cmygpEk+vO7If0tCS+8Wvb4ehYw5bi738UIXuCLZ+LilBm1hdgXW4032SmjkugrCcAU3k1yoZIhvUHL5g71UXRHQZ9w7lIYZyNUGAxzjwSamKuP6P4MSVbTJ5AxTdDQRm6s06ePLyJyCYb8ZYEPIi4Qo6SAqpmoM8/wBFMDtHOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLKDX8F4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TF+Ete7p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BAEB1F000FF;
-	Tue, 15 Sep 2026 02:03:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLKDX8F4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D10DE1F00899;
+	Tue, 15 Sep 2026 02:03:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789437820;
-	bh=mrHWytu78dJbZb5mW3FsyVkJxRa6zDGIfcHBrfWiJZA=;
+	s=k20260515; t=1789437825;
+	bh=UNOHjiPcNsc80Nsl2qAOyLD5hrfkaVWOAAQI1V04SOo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TF+Ete7pwnQc3OH9X8zvjivV/AzHkcP0F3l10mL66641bUL1GUmHTPLr73UeQbOcU
-	 89wzHqOANqZZ5Nu/NPRS0BLT/jT2scYC4+zD3MiY+96OeNNTGzUnzgtaggw5F2BafO
-	 fMFPk2FoVqJF1utSEfXOjfkGiXX9x+UyF5nb7riKKfcKz8DNn3AEyC9w25YwnH8Z97
-	 AV4oDcpC6uaRoankzxKpHh9qvuJyoWiCxXjsTTMurajNHogbRHyyw5ABH7TD2eCjmK
-	 sSDN0LYoYLOCgUK6Yg3X22TOxKQ2qGEzeQkR0xYu4NDxV/SYj7o4Fpb/9DIU4BFDq1
-	 DuzzImZVQJWOQ==
+	b=BLKDX8F4FaRUtxZxbxPptOUqOE3yw2MM8JrHFCS1j4cKV1dcoabPOLazyk4kqNPdT
+	 A1riH2O0989lwY4IgiAIfTxRDUPncvka4SHw3Qn7N8uZ+GYPUEYh8haUsWWXR8vHES
+	 k1hfvHM9MEPz/cImXlvgOkDv6ggfOEXYHbdtlfp/PeWHODPCEKHm0irUVajIonpoPV
+	 1QX20QQpkQ5agtmZYQc71PqKEZzmt6UUh87y/jVFOT6VqN36gSjpNlJvXMEFW1XoNO
+	 ZX64SN9JOgfECls9bPrwy0/4LHGUTqC/O3SwDYE4L5VDd/EQEgYxCH2zZb0LjIJEuA
+	 WwLpdJeydM6ng==
 From: Sasha Levin <sashal@kernel.org>
-To: Wentao Guan <guanwentao@uniontech.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	jgg@nvidia.com,
-	will@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	skolothumtho@nvidia.com,
-	Nicolin Chen <nicolinc@nvidia.com>
-Subject: Re: [PATCH 7.2.y] iommu/arm-smmu-v3: Disable implementations during devm teardown
-Date: Mon, 14 Sep 2026 22:03:17 -0400
-Message-ID: <daily-reply-0001-re-arm-smmu-v3-devm-teardown-6-18@kernel.org>
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Peter Xu <peterx@redhat.com>,
+	David Matlack <dmatlack@google.com>,
+	Kenta Akagi <k@mgml.me>
+Subject: Re: [PATCH 5.15.y v3 3/7] KVM: x86/mmu: Derive shadow MMU page role from parent
+Date: Mon, 14 Sep 2026 22:03:22 -0400
+Message-ID: <daily-reply-0006-re-kvm-mmu-derive-child-role-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aqR/n+VtlgpjJrAV@nvidia.com>
-References: <aqR/n+VtlgpjJrAV@nvidia.com>
+In-Reply-To: <20260913155523.7423-4-k@mgml.me>
+References: <20260913155523.7423-4-k@mgml.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,19 +49,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Patch itself looks good to me for v7.2 stable and v6.8 longterm.
+> -	role.direct = direct;
+> -	if (role.direct)
+> -		role.gpte_is_8_bytes = true;
+> [...]
+> +	if (!role.gpte_is_8_bytes) {
+> +		struct kvm_mmu_page *parent_sp = sptep_to_sp(sptep);
+> +		role.quadrant = (sptep - parent_sp->spt) % 2;
 
-Queued for 6.18, thanks.
+The "if (role.direct) role.gpte_is_8_bytes = true;" that kvm_mmu_get_page()
+used to do is removed here, and kvm_mmu_child_role() does not put it back.
 
-> But v6.12 longterm might need some extra fix, Sasha?
+That works upstream because the field there is has_4_byte_gpte, which
+defaults to 0. On 5.15 the field is gpte_is_8_bytes, the inverse, so the
+translation flips: for a non-paging guest
+kvm_calc_shadow_root_page_role_common() leaves gpte_is_8_bytes at 0 while
+kvm_calc_shadow_mmu_root_page_role() sets direct to 1, and a direct shadow
+page ends up with a quadrant stamped onto it.
 
-It does, but a different one. 6.12 has the devm teardown conversion and never
-got 9ff145a25c5c ("iommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free on
-teardown") at all, so what it is missing is that commit rather than this
-ordering fixup. It does not apply to 6.12 as-is either, because the
-tegra241_cmdqv_destroy_vintf_user() hunk has no counterpart there.
-
-Could one of you send an adapted 6.12.y version with that hunk dropped?
+Keeping "if (role.direct) role.gpte_is_8_bytes = true;" in
+kvm_mmu_child_role() preserves the upstream behaviour. The alternative is to
+backport the upstream role-computation change first so the field carries the
+mainline sense.
 
 -- 
 Thanks,
