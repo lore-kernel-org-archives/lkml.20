@@ -1,127 +1,151 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B73E43713C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12CF943BDCB;
+	Tue, 15 Sep 2026 17:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789494444; cv=none; b=sU5smdWhZ0f320tPAOmTdh0+01gdEu2eDXmOw+/1v3EPiDydc1axSwFe3XreYmHL6WqIeAOxq8wTSf8S55XVnrKhTnQzU/BhXqOARIkOE2Yjfi9Nmf5xJ13fuiugUM4wPGP1gTFtaw82FyUUYPcAIi7vVjIjbS+RaaGgedkudHc=
+	t=1789494445; cv=none; b=gPCW5pvyg7EETLvmOW8ahrvJHggOxoDReb0ab2y37+NByx5v8FcVcCN/IgtBHw/xbxSM0MYa4QR6eGjORxhzgSds7UWFeRvFSe0nG4ORciRoJhKllqe2KChRhJPn9QD3Tb2YiSd2IpnvTTIiDBZvXgCSdp26KHxr5ONa2dZvuMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789494444; c=relaxed/simple;
-	bh=rrgzg3Z4H6zmzdxcdmQICirRI63HfC0lPR5DEEV8sIw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PkcbUKP3sbaU9K1QfpKOANuLXBjtP3sGCb7MSdKHtKyAj6paFnJ1Ae01rq7yWXVG/MFHYtLS7+xxKPQquMA1FaPWYOL0/wNfro7k7Owd/hz3SP4PtNOrkcVe05d3aGTGWCp6Aa63FemULSGCXf95fk3c4wX31ZRRN4HwAmlneig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cc0H2ADL; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789494445; c=relaxed/simple;
+	bh=3xg1Gx4jh/PkxxndNHqZa3eS1s+bCmUMu9ni0hwYEXg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=B4B/FIbmw1zMbh3XYlKPmeS98SoGaMC00hEUami3Ec6thbPmG7lHCJW9cm1pqKiorkOfE6jfIori2uc1IIWjaOxsdRgyioAuyInkmRLAZRmFVexVpywct2q90kMJ4eoXyhttZogZeujOalkxsK62hecTwUehJPLNlWoox4EVCx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=T7BpDmpw; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cc0H2ADL"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b91369d18so773315e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:47:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789494441; x=1790099241; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MApJS5fwXMI23Y0SGQfeGFFSSuOjp+Cb0YRS092Lc8g=;
-        b=Cc0H2ADLf0rflEk48g0vLLhVyDJyWAqDZh9OIRV8pL3pfJ6WpqRd1RN1aDCh+pBqyn
-         TFpRNYJRzFo8iju9DVol7TSlc1Kb72xcszYuahtZK+Jp5H/JXo5TYyYKZYiGh5Ti0qt2
-         oZXb4jRSugMNxkSCdlautCDVnwGYqxavYGK4sntR1egJYsaUBIYPv9UzUNhS/2eU0D3W
-         hTj8LxVEtHNuHAlryoIZXSgJLzDlt6SXR3GcM4ZqKwzlOnFv/YslXDVqm51D7vtdpEam
-         iRPsNpgqWZX+xVAuwTxt8T+v3XL47Dz77P113UNK/POw7lc7oevpKnuPhB0QdGGfX341
-         Pn/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789494441; x=1790099241;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MApJS5fwXMI23Y0SGQfeGFFSSuOjp+Cb0YRS092Lc8g=;
-        b=ssfBWS4RlFsoitTW+jH83H0ZuCOvqhZuF3hPJhbaLZdYyphXOHFhqpbdk0ZNr8sVGc
-         1IAyx+p0xPWstWJ+SSVkpaB8Pu94tGxQUZGOlNeDOv8HX9MbIxyLH8dAeYRiEWxqw5Yh
-         3FUaiF1wM2wbag//jCN66z/C0hjLbMETD1a6d6kiZXn1fPn1g4lJyjktzmn5nc95nuzB
-         ScHzjqlApBCTck/Mc+k8RwAmdVZL//MBs+TBLPYpR6YkXxhxcENBZrLVE/ADJfKTBZS3
-         EZsqBv91brNcEZ4lct2NqtQhT/8t4aAw8PBIg/bq7EmVAgwR7b1ootJqvVxwSDh8RuK5
-         eVog==
-X-Forwarded-Encrypted: i=1; AKwUvBy3o2Hyg6kXi9U2DZjpK9NrpM4/zSzTQIYBfrrwalz06qE6pTKks6BrMIa7VRbsneowWXg6gB0X5pHuuPQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNJfbIakv1BDL7+efQGk6ZDVEHpqDrmBNaYxHB4QrdBNd6HKkd
-	kuKlvPmllxZUJThX8BAvEJq2i3IQ226yErfT9x2oc8jiT019CJxA275Y
-X-Gm-Gg: AYBFou2byzgzKx0EAvUsX0xZlsGR9hcoaMVDwaEU9tqVyLNkMGZJO+7HYv7CD176mpq
-	70I01240aR6i5t+q5pMWzOV1+H4KrZHqjYyMMm82MuCkHfcNEO2YrHxWAHBQC148EoWLJ1/vPhD
-	FCapWeP+X3YY/aART4MHWygSPgh8CASdCskjyrSvhmK9gnpeaar8e3ZTE81t64kEloWo5Fx5+EL
-	Ji5yqr3IE/j6v3fih1S27Z3HtQexJKF2HZRlb8HNXU4fsxGF0uF3chIlCdy+Thpy6rmu6KftaK7
-	ub19slNSQuGPV4pyTc8izLhBNk3JHWtYHJxdqSs8v/Zmp9e89XToCywwxIhgOZ89BGYnn0x57Vp
-	WIaxUupfynpILG2+g39+gSjR2zwxPyo2uWu/iX87qZtJtafQY322ssXyOZRWv3pvDbDVLefsvEW
-	mWEE9djA/Kkw2gpw4M5IMwniC/3uRV4tT/3GvmRgr9NiIM3IDER5Lr67DKGY58Ammbg9T6HZQTc
-	nf+kQmAWKg2/n65VsXLkxGWdtw29DhznAVF
-X-Received: by 2002:a05:600c:3115:b0:49c:fc6e:a3d6 with SMTP id 5b1f17b1804b1-49e8228f7c5mr29727755e9.21.1789494438295;
-        Tue, 15 Sep 2026 10:47:18 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83b11691sm11682145e9.12.2026.09.15.10.47.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:47:18 -0700 (PDT)
-Date: Tue, 15 Sep 2026 18:47:17 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>, Will
- Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- linux-kernel@vger.kernel.org, Linus Torvalds
- <torvalds@linux-foundation.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
- Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
- locked=1
-Message-ID: <20260915184717.4735afbb@pumpkin>
-In-Reply-To: <20260915140152.GC4121339@noisy.programming.kicks-ass.net>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
-	<20260907084133.3696-4-david.laight.linux@gmail.com>
-	<20260915131314.GB2009045@noisy.programming.kicks-ass.net>
-	<20260915131510.GD4121620@noisy.programming.kicks-ass.net>
-	<20260915145513.111c4a23@pumpkin>
-	<20260915140152.GC4121339@noisy.programming.kicks-ass.net>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="T7BpDmpw"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 06C5448F929;
+	Tue, 15 Sep 2026 19:47:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1789494440; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=qvPGDHjj/h5quxN39A7MZhJ00DBT2v1OT7d6avspqus=;
+	b=T7BpDmpwLEP+Bkyld9jY/iUx5Ty4pF5OEIRoEAtgr6xYR1Yxfj7k1bmweQSxHb54TwTr2C
+	VERsSNv7fqQfm4MKmkUC2/A275/GLVbCG5kQ4qWzOKqueRCxX86x2SsrkfzgH04IEJoeZA
+	NTyHGVQz39Msmj70NOgZqxutto/enidYXVn3lAa9aZgZZNyeXv6sRTjttU5voOTWpZvEdt
+	xasLhx65zmx88u1spcrKsEaVcKCx6ZPqBxO9jFwoJtSg9L5mS4Tslxw29JIMmRra4TWi89
+	rl+CIKpDSRWKEiGiLJGl1b4BEl4Csuz0IKjBNaFHM7p7AY28y2sFPb6M+176rw==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	chester.a.unal@arinc9.com,
+	daniel@makrotopia.org,
+	linux@armlinux.org.uk,
+	arinc.unal@arinc9.com,
+	Landen.Chao@mediatek.com,
+	dqfext@gmail.com,
+	sean.wang@mediatek.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	naseefkm@gmail.com,
+	b.larsson@gmx.com,
+	Caleb James DeLisle <cjd@cjdns.fr>
+Subject: [PATCH v2 net-next 4/7] net: dsa: mediatek: support PLL setup on MMIO MT7530
+Date: Tue, 15 Sep 2026 17:46:40 +0000
+Message-Id: <20260915174643.253660-5-cjd@cjdns.fr>
+In-Reply-To: <20260915174643.253660-1-cjd@cjdns.fr>
+References: <20260915174643.253660-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 15 Sep 2026 16:01:52 +0200
-Peter Zijlstra <peterz@infradead.org> wrote:
+On MT7530 and MT7531, PHYs are an integral part of the switch. However,
+on MT7530, certain configuration such as PLL setup is done via special
+registers on one of the PHYs.
 
-> On Tue, Sep 15, 2026 at 02:55:13PM +0100, David Laight wrote:
-> 
-> > > That comment *should* obviously have been here. Also, I would *much*
-> > > rather have this store at the top, next to node->next = NULL; That is
-> > > much saner.  
-> > 
-> > 
-> > Part of the original reason I started these patches was to remove
-> > the writes to the current cpu's 'node' in the fast path acquire.
-> > That completely saves reading the cache line.
-> > It also means the initial xchg need only have acquire semantics.  
-> 
-> That makes no sense... you *have* to write node->prev_cpu, and since you
-> get to have the line dirty for that, a few more stores to the same line
-> are 'free', no?
+In an MMIO implementation, the MDIO bus is part of the switch itself.
+This bus is already setup for PHY calibration so begin using it for
+core switch PLL setup.
 
-But you don't always have to do that write.
-If the lock isn't held then you only have to update osq_lock->tail
-to contain the current cpu number.
-The per-cpu data remains zero - the same as when unlocked (and initialised).
+Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+---
+ drivers/net/dsa/mt7530.c | 15 +++++++++++++++
+ drivers/net/dsa/mt7530.h |  4 ++++
+ 2 files changed, 19 insertions(+)
 
-David
-
-> 
-> Trying to make the code keep invariants like that also makes it
-> needlessly convoluted.
-> 
-> If you need a store -- and you do, then you might as well write the
-> whole thing.
-> 
-> And if you think it makes a difference, your changelogs completely lack
-> any factual data to that effect. That is, there are no numbers. And
-> without numbers, we're just not doing this.
+diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+index b2344808457c..b152b73315d5 100644
+--- a/drivers/net/dsa/mt7530.c
++++ b/drivers/net/dsa/mt7530.c
+@@ -77,6 +77,12 @@ core_write(struct mt7530_priv *priv, u32 reg, u32 val)
+ 	struct mii_bus *bus = priv->bus;
+ 	int ret;
+ 
++	if (!bus)
++		bus = priv->child_bus;
++
++	if (WARN_ON_ONCE(!bus))
++		return;
++
+ 	mt7530_mutex_lock(priv);
+ 
+ 	/* Write the desired MMD Devad */
+@@ -112,6 +118,12 @@ core_rmw(struct mt7530_priv *priv, u32 reg, u32 mask, u32 set)
+ 	u32 val;
+ 	int ret;
+ 
++	if (!bus)
++		bus = priv->child_bus;
++
++	if (WARN_ON_ONCE(!bus))
++		return;
++
+ 	mt7530_mutex_lock(priv);
+ 
+ 	/* Write the desired MMD Devad */
+@@ -2429,8 +2441,11 @@ mt7530_setup_mdio(struct mt7530_priv *priv)
+ 	if (priv->irq_domain && !mnp)
+ 		mt7530_setup_mdio_irq(priv);
+ 
++	priv->child_bus = bus;
++
+ 	ret = devm_of_mdiobus_register(dev, bus, mnp);
+ 	if (ret) {
++		priv->child_bus = NULL;
+ 		dev_err(dev, "failed to register MDIO bus: %d\n", ret);
+ 		if (priv->irq_domain && !mnp)
+ 			mt7530_free_mdio_irq(priv);
+diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
+index 108c831dd012..5b7394f6383c 100644
+--- a/drivers/net/dsa/mt7530.h
++++ b/drivers/net/dsa/mt7530.h
+@@ -886,6 +886,9 @@ struct mt753x_info {
+  * @dev:		The device pointer
+  * @ds:			The pointer to the dsa core structure
+  * @bus:		The bus used for the device and built-in PHY
++ * @child_bus:		The bus created by the device, on MDIO implementations
++ *			this is bus indirectly accesses `bus`, on MMIO
++ *			implementations this bus is part of the switch.
+  * @regmap:		The regmap instance representing all switch registers
+  * @rstc:		The pointer to reset control used by MCM
+  * @core_pwr:		The power supplied into the core
+@@ -914,6 +917,7 @@ struct mt7530_priv {
+ 	struct device		*dev;
+ 	struct dsa_switch	*ds;
+ 	struct mii_bus		*bus;
++	struct mii_bus		*child_bus;
+ 	struct regmap		*regmap;
+ 	struct reset_control	*rstc;
+ 	struct regulator	*core_pwr;
+-- 
+2.39.5
 
