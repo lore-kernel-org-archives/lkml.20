@@ -1,118 +1,251 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654F543B3C9;
-	Tue, 15 Sep 2026 07:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458135; cv=none; b=VHXGGCZRKWqlA0f4tH/ZPpciz9XgorvHy6uY51ZwNcGzCygZWNKNl17VbCu3pkogChy3KtCqftNnUehycKv+y1qTaZY7zkZacUDw94J6kmAdLGUCeeb6Lznp/gqEkv2ug6s8LDb2iGJXPz15Lide6jNjTMey71dj+HRY2QCdkdo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458135; c=relaxed/simple;
-	bh=O89gakJys6wPQGXYejH/dKowwbeP7xrfUSMJnFD+AGk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d5vSPYfVW4W4Q1WQFmK80KgYR2BBySyiI1ZbdZlm2QAMUI/KRD18zWcJ+Alq3KBGwj/s/60ZMhzXtHBLjp01DShItn76eTEs7fYzegWuvrwANQnrEl+g1fF2eNyPhsn0ClddOrrO9E923aBjILJeGNoWgG9eLYofT0lVlkw1AVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f28fd274b0d811f19a56ed5b684f684d-20260915
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:b152c5bd-7a2f-4ada-813a-7530dbb6c21a,IP:0,U
-	RL:5,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:c92542d2913318dabd5ee757778a38e8,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
-	EDM:-3,IP:nil,URL:99|11|95|82|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f28fd274b0d811f19a56ed5b684f684d-20260915
-X-User: liuqiqi@kylinos.cn
-Received: from kylin-pc [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liuqiqi@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 281404417; Tue, 15 Sep 2026 15:42:05 +0800
-Date: Tue, 15 Sep 2026 15:42:02 +0800
-From: Qiqi Liu <liuqiqi@kylinos.cn>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
-	hannes@cmpxchg.org, ziy@nvidia.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/page_alloc: apply per-task GFP context in bulk
- allocator
-Message-ID: <20260915074202.GA246486@kylin-pc>
-References: <20260914080451.294896-1-liuqiqi@kylinos.cn>
- <b932c690-7ab0-4521-a7d2-5ed5130379b8@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6968E38F651;
+	Tue, 15 Sep 2026 07:42:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789458140; cv=pass; b=mONdqzHHO34XeiSOAa1LwM+5uSQLXbN5XpbMV6mjxlrcw8zkqeNA37QFx/tBkV4j3xQl3Cl4u/c/kOJnjt+/Fi2JXdnP96fHJeoIuPDdyRoA/V0R/SdshK7KfltxYU22eispcBPDNCP+DaBidfGX5Pvrcoi2wYtNw0ULDI9+230=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789458140; c=relaxed/simple;
+	bh=2DqcLFZjMCwvz4P2NATYwLxdAxbP1BJo+S/HUmZkm3s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=eY+/xxRhdhXjADMGVEMLlgiX3dAl9glAi12iCh2Mb3GcZrjQ/grPyhIoD0UBSSlmxoXa57767UDfaus61Rv3+laxr10tMv+wqYIAQ5A9yWI7akTHwyljgVtJw2PbiKfgUjCyT8z7mrAE4Sm86Eh2BctJwkRXGdcQvXfx8y5GA9U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=hQ3sLSty; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="hQ3sLSty"
+Received: from mandelbrot.. (xdsl-83-150-90-33.nebulazone.fi [83.150.90.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: jmtilli)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hkYrM3MVdz49Q6x;
+	Tue, 15 Sep 2026 10:42:11 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1789458131;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OnSIfRHoHMbuoGc49ZmGo5twqqhr6EXzw54yp5CgxrQ=;
+	b=hQ3sLStyGskXfdK19cDQavOa4VJlyQtDSRKDOk9CAhITDiscVOMVnp+laekRBZXZ8ytn+v
+	xJpfZJOUatK98uLYAKb23IJ2eGRzqRA35O80miwCMtTbSodbWrClqeGZqDXGpL3Rg2i3wb
+	QhyJrKZRlJ34EEA74y78pN9eX3LbIcqQ3iEM/XJXXm/DtpMcvaHHPWJ8I1H5p7LsfA6pKT
+	a8wA70SAU8OaB+W1tPNw27oo6UKRQOTuFU8sOoJj0QQCLMDNjuqVtc/yoYkPBZfoRF06kV
+	apCpLNVrog0aNHoE3agZrAQz2UePqokQcqqmeG9c/me1pLrbHa922tIXUIa8CA==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1789458131;
+	b=C/pGxqJYK2JYz+STw8K0inNrDk38CVhpuk9d/0y3V1hV7io0DlgdS0JgNhueIvcl3thrz4
+	t2tFD7zt7YxTu1R4d2Qv8X0Pr02qLMDFE8xNJhsDgpCjQORni82zoJBVTX21kR4nN152ks
+	pmjR9tapfLN4bcZFfmDzaXiLtV1B9kMcjESh5zpQBkGM8+Hrf9yrmIy/5+dCTAMMflS32+
+	ja/UfEE/GQBsAQ1ts/pL6eSGNTLBsORg+rrcP64nrdRpHyLUdgk3J/bx1JZDS355n0vwuP
+	KUsTBGc8Mrm4+XiU9lyPwPiJkzY0u8HcpHsHTpMp8Ur8VKb53aH192MXZweZxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1789458131;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OnSIfRHoHMbuoGc49ZmGo5twqqhr6EXzw54yp5CgxrQ=;
+	b=NvnlXjzXw4+cc211btM8rAfzKKrsjm3nL7IC1oUmMxJSAdrfyF9RUY9OoGausJOiTFo3rp
+	tD60t8dtaRgxrDnuVADBgkB82GuHRkq8GJcmKa/FbOqPCGL9CEZPTTQiBRst0/luuZlFHT
+	RdpxwzVFwKaOLLUWXscVeGYGFU/RqnVS5aclKtAoz5fszwYUYNyl77K8J8DHIiKaTaOmFw
+	x20ig+IIOUo0ZqjQD5iurrAISKkTILGFyRRRzkmfsBY/79iwK0Q8FUwmC7Y6HQCraY/lfp
+	fXN6M6rdzLRhw9uOaB0mhYPbb/e/CGKkHfDkoHKgzML1r0dHzw5aSi9LdDaXHw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
+From: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+To: ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	mhi@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Jeff Johnson <jjohnson@kernel.org>
+Cc: Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
+	Mihai Moldovan <ionic@ionic.de>,
+	Denis Kenzior <denkenz@gmail.com>
+Subject: [PATCH v4 01/12] net: qrtr: support getting new endpoint ids externally
+Date: Tue, 15 Sep 2026 10:41:24 +0300
+Message-Id: <20260915074135.2567411-2-juha-matti.tilli@iki.fi>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260915074135.2567411-1-juha-matti.tilli@iki.fi>
+References: <20260915074135.2567411-1-juha-matti.tilli@iki.fi>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b932c690-7ab0-4521-a7d2-5ed5130379b8@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-Thanks for the suggestion. I'll fold this into the commit message and send v3.
+This is originally based on a patch by Mihai Moldovan, that allowed
+registering endpoint-specific data and getting endpoint ids by the
+endpoint-specific data. Unfortunately, the old API did not support
+freeing the ids, creating a memory leak if someone repeatedly unloads
+and reloads kernel modules. Also, the old API had O(N) complexity where
+N was the amount of leaked memory. Because the patch has been
+extensively changed, I reset authorship.
 
-Best regards,
-Qiqi
+So, the new patch version only supports getting ids externally, with the
+idea being that MHI controller would know about its endpoint id.
 
-On Mon, Sep 14, 2026 at 03:01:14PM +0200, Vlastimil Babka (SUSE) wrote:
-> On 9/14/26 10:04, Qiqi Liu wrote:
-> > alloc_pages_bulk_noprof() does not call current_gfp_context(), so
-> > per-task scoped allocation constraints (PF_MEMALLOC_NOIO,
-> > PF_MEMALLOC_NOFS, PF_MEMALLOC_PIN) are not applied on the bulk fast
-> > path.
-> > 
-> > The most direct consequence is PF_MEMALLOC_PIN: without clearing
-> 
-> I'd say ignoring PF_MEMALLOC_NOFS/PF_MEMALLOC_NOIO also can have a direct
-> consequence?
-> 
-> Let's replace the line above with:
-> 
-> By ignoring PF_MEMALLOC_NOIO and PF_MEMALLOC_NOFS, the allocation can
-> theoretically result in a deadlock.
-> 
-> Ignoring PF_MEMALLOC_PIN also has consequences: without clearing ...
-> 
-> > __GFP_MOVABLE, prepare_alloc_pages() selects MIGRATE_MOVABLE for
-> > the PCP list, and a task with PF_MEMALLOC_PIN set receives movable
-> > pages from the bulk allocator.  Once pinned, these pages can no
-> > longer be migrated but remain in MOVABLE pageblocks, violating the
-> > mobility contract.  This can increase fragmentation and interfere
-> > with compaction or contiguous-memory allocations, eventually
-> > surfacing as higher allocation latency or allocation failures under
-> > memory pressure.
-> > 
-> > Found via review of the bulk allocation tracepoint hooks [1].
-> > 
-> > [1] https://lore.kernel.org/all/20260907120949.418450-1-liuqiqi@kylinos.cn/
-> > Link: https://sashiko.dev/#/patchset/20260907120949.418450-1-liuqiqi%40kylinos.cn
-> > Fixes: 387ba26fb1cb ("mm/page_alloc: add a bulk page allocator")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Qiqi Liu <liuqiqi@kylinos.cn>
-> 
-> LGTM.
-> 
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> 
-> > ---
-> >  mm/page_alloc.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> > index 12fac9084c48..3be7288a1aa7 100644
-> > --- a/mm/page_alloc.c
-> > +++ b/mm/page_alloc.c
-> > @@ -5207,6 +5207,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
-> >  
-> >  	/* May set ALLOC_NOFRAGMENT, fragmentation will return 1 page. */
-> >  	gfp &= gfp_allowed_mask;
-> > +	gfp = current_gfp_context(gfp);
-> >  	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &alloc_flags))
-> >  		goto out;
-> >
+I made sure getting new data ids is permissible while holding a
+spinlock, since multiple threads may race to get the same id.
+
+Originally-by: Mihai Moldovan <ionic@ionic.de>
+Signed-off-by: Mihai Moldovan <ionic@ionic.de>
+Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+---
+ MAINTAINERS        |  1 +
+ include/net/qrtr.h | 10 ++++++++++
+ net/qrtr/af_qrtr.c | 42 ++++++++++++++++++++++++++++++++++++------
+ net/qrtr/qrtr.h    |  2 ++
+ 4 files changed, 49 insertions(+), 6 deletions(-)
+ create mode 100644 include/net/qrtr.h
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0b42e898f4d8e..491f09cb7939c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -22506,6 +22506,7 @@ QUALCOMM IPC ROUTER (QRTR) DRIVER
+ M:	Manivannan Sadhasivam <mani@kernel.org>
+ L:	linux-arm-msm@vger.kernel.org
+ S:	Maintained
++F:	include/net/qrtr.h
+ F:	include/trace/events/qrtr.h
+ F:	include/uapi/linux/qrtr.h
+ F:	net/qrtr/
+diff --git a/include/net/qrtr.h b/include/net/qrtr.h
+new file mode 100644
+index 0000000000000..762d60b03012e
+--- /dev/null
++++ b/include/net/qrtr.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++#ifndef __NET_QRTR_H
++#define __NET_QRTR_H
++
++#include <linux/types.h>
++
++int qrtr_endpoint_get_data_id(u32 *endpoint_id);
++void qrtr_endpoint_free_data_id(u32 endpoint_id);
++
++#endif	/* __NET_QRTR_H */
+diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+index 7c50d32b11015..86a92e95e270f 100644
+--- a/net/qrtr/af_qrtr.c
++++ b/net/qrtr/af_qrtr.c
+@@ -11,6 +11,7 @@
+ #include <linux/wait.h>
+ 
+ #include <net/sock.h>
++#include <net/qrtr.h>
+ 
+ #include "qrtr.h"
+ 
+@@ -753,8 +754,8 @@ static struct sk_buff *qrtr_alloc_ctrl_packet(struct qrtr_ctrl_pkt **pkt,
+ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid)
+ {
+ 	struct qrtr_node *node;
+-	u32 endpoint_id;
+-	int rc;
++	u32 endpoint_id = 0;
++	int rc = 0;
+ 
+ 	if (!ep || !ep->xmit)
+ 		return -EINVAL;
+@@ -763,9 +764,18 @@ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid)
+ 	if (!node)
+ 		return -ENOMEM;
+ 
+-	rc = xa_alloc_cyclic(&qrtr_endpoints, &endpoint_id, NULL,
+-			     QRTR_ENDPOINT_RANGE, &next_endpoint_id,
+-			     GFP_KERNEL);
++	if (ep->endpoint_data_id)
++		endpoint_id = ep->endpoint_data_id;
++
++	/*
++	 * If we're registering an endpoint into smd or tun based qrtr,
++	 * we don't have endpoint_data_id. Thus, allocate a new one.
++	 */
++	if (!endpoint_id) {
++		rc = xa_alloc_cyclic(&qrtr_endpoints, &endpoint_id, NULL,
++				     QRTR_ENDPOINT_RANGE, &next_endpoint_id,
++				     GFP_KERNEL);
++	}
+ 
+ 	if (rc < 0)
+ 		goto free_node;
+@@ -857,13 +867,33 @@ void qrtr_endpoint_unregister(struct qrtr_endpoint *ep)
+ 
+ 	qrtr_node_release(node);
+ 
+-	xa_erase(&qrtr_endpoints, endpoint_id);
++	if (ep->endpoint_data_id != endpoint_id)
++		xa_erase(&qrtr_endpoints, endpoint_id); // did allocate
+ 
+ 	ep->id = 0;
+ 	ep->node = NULL;
+ }
+ EXPORT_SYMBOL_GPL(qrtr_endpoint_unregister);
+ 
++int qrtr_endpoint_get_data_id(u32 *endpoint_id)
++{
++	int rc;
++
++	*endpoint_id = 0;
++	// GFP_ATOMIC to allow while holding spinlock
++	rc = xa_alloc_cyclic(&qrtr_endpoints, endpoint_id, NULL,
++			     QRTR_ENDPOINT_RANGE, &next_endpoint_id,
++			     GFP_ATOMIC);
++	return rc;
++}
++EXPORT_SYMBOL_GPL(qrtr_endpoint_get_data_id);
++
++void qrtr_endpoint_free_data_id(u32 endpoint_id)
++{
++	xa_erase(&qrtr_endpoints, endpoint_id);
++}
++EXPORT_SYMBOL_GPL(qrtr_endpoint_free_data_id);
++
+ /* Lookup socket by port.
+  *
+  * Callers must release with qrtr_port_put()
+diff --git a/net/qrtr/qrtr.h b/net/qrtr/qrtr.h
+index affc24f426c64..45e38be0b2cb6 100644
+--- a/net/qrtr/qrtr.h
++++ b/net/qrtr/qrtr.h
+@@ -21,6 +21,7 @@ struct qrtr_node_lookup_helper {
+ /**
+  * struct qrtr_endpoint - endpoint handle
+  * @xmit: Callback for outgoing packets
++ * @endpoint_data_id: an already allocated id to be used instead of new alloc
+  *
+  * The socket buffer passed to the xmit function becomes owned by the endpoint
+  * driver.  As such, when the driver is done with the buffer, it should
+@@ -32,6 +33,7 @@ struct qrtr_endpoint {
+ 	struct qrtr_node *node;
+ 	struct qrtr_node_lookup_helper helper;
+ 	u32 id;
++	u32 endpoint_data_id;
+ };
+ 
+ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid);
+-- 
+2.34.1
+
