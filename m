@@ -1,261 +1,141 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8623B774D
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC6B3BA241
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:04:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789477442; cv=none; b=rMZ5YO4ZB5D5x/qr/shK4laOWblnzldFXilPwtAUn3skVOkN4Ojf14390LhpvWyn+kwjNuyw5USCyuGboKGybNw8K1h+JOAOqNAA/q1hxL3Sjb8esKVt4VbtI9E/uCi3dQKzBNjni2Vqg5D6B6Sa6+M07BehzzQsDYL5qhxGaQY=
+	t=1789477456; cv=none; b=Sa7T6j4Bxoqr/KzBAqCYJxtO/NZljhh9TeWXcYZoZLap+sTO9oyT8YzqoAXgyqB55KhOoS7NwjERO1BtWdzvSFt0tzaskzNt/LFg7iXwkE9288C3Lo8h7Ek2oxwiPvp0abQjUKs2731dQEOH2EPuiHZ4UxmM0FnPUqFblVMdvlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789477442; c=relaxed/simple;
-	bh=cgpfVgPma25Tux9SYWMKSlfrFFzngTxC6/pmAchE5+Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PPS9Ct7w4ge+n6sbRJfiU2X+E8rdbkIImCxyrg/s4u3u+32R8UxLh0mhVkKcurB+s+F/CsWLxSGjQE7NsnfXi3qzhIC4sdmvhh8+f/k4nSUH69tdd8nU8XD/Tw83Cs2VlQR9SIpfrT9Zh/kbvnpCQA7JRyddDPgPl57prgpQyfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e5a88970b10511f19a56ed5b684f684d-20260915
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:cf0a323b-01ac-44d8-8e93-8b00402cd12b,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:639db492312fde2be8e53654d0775788,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
-	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e5a88970b10511f19a56ed5b684f684d-20260915
-X-User: fangqiurong@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <fangqiurong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 902388786; Tue, 15 Sep 2026 21:03:51 +0800
-From: Qiurong Fang <fangqiurong@kylinos.cn>
-To: tj@kernel.org
-Cc: arighi@nvidia.com,
-	void@manifault.com,
-	changwoo@igalia.com,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] selftests/sched_ext: Test that ops.dequeue() can iterate the consumed DSQ
-Date: Tue, 15 Sep 2026 21:03:34 +0800
-Message-Id: <20260915130334.714388-3-fangqiurong@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260915130334.714388-1-fangqiurong@kylinos.cn>
-References: <aqkQ1MtqtqnS0wUs@gpd4>
- <20260915130334.714388-1-fangqiurong@kylinos.cn>
+	s=arc-20240116; t=1789477456; c=relaxed/simple;
+	bh=hcX2k1tNLvIuI6ZZcd5CjkwRNPNcH/BHzmJVCotpY7c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=BuO/VXKSxJh6m/S3ePGiKI3ddgi+w2X/UU3Tmo4/RbMYZPaK6fdWOcI2dfOKZCbNYYTxJ17+2aJh8xfDvVRDN6bsPR4lv+afGiB+ppJTSTamU35PhVr+lA8ixuuzDACEycpVyZPTrkQGFJvHFDNerO7ixxqFfMyEZJwSUI8zxl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=2L0jvUuV; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="2L0jvUuV"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=NDiXh8oxBb6uFOpEtruWNrSWsdouLS9fxXDMWhczUfI=;
+	b=2L0jvUuVjRs5du+YZSCTFaVIJ9zyoohOkG1qL+ZsDSeeVhrJDVnvXSdgp68S7F07JT1tARF8l
+	AvgP613TKVS9mUkfuF5le1xLhunjh6eJtRQUblg47P2gPj321pUiKo+NMnpUl3ekOA3XlDbGcmx
+	uh4Cpdud+BNq6FjRbYJiFqk=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hkhl04cm2zKm5t;
+	Tue, 15 Sep 2026 20:53:00 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 6F5204048B;
+	Tue, 15 Sep 2026 21:04:02 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 15 Sep 2026 21:03:59 +0800
+Message-ID: <5cdfdfb6-c46e-4260-a89b-ac02528d46d7@huawei.com>
+Date: Tue, 15 Sep 2026 21:03:58 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 00/14] arm64: entry: Convert to Generic Entry
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<oleg@redhat.com>, <kees@kernel.org>, <luto@amacapital.net>,
+	<wad@chromium.org>, <peterz@infradead.org>, <ada.coupriediaz@arm.com>,
+	<linusw@kernel.org>, <kevin.brodsky@arm.com>, <yeoreum.yun@arm.com>,
+	<thuth@redhat.com>, <james.morse@arm.com>, <vladimir.murzin@arm.com>,
+	<broonie@kernel.org>, <pengcan@kylinos.cn>, <liqiang01@kylinos.cn>,
+	<ryan.roberts@arm.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260902095537.602517-1-ruanjinjie@huawei.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260902095537.602517-1-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-From: fangqiurong <fangqiurong@kylinos.cn>
 
-Add a scheduler whose ops.dequeue() iterates the user DSQ tasks are
-dispatched from with bpf_iter_scx_dsq. The iteration takes the DSQ's raw
-spinlock; on a kernel that runs ops.dequeue() while the consume path
-still holds that lock, the first task consumed self-deadlocks the CPU
-until the scheduler watchdog fires and the test fails with a UEI. On a
-fixed kernel the scheduler runs clean and the test passes.
 
-Signed-off-by: fangqiurong <fangqiurong@kylinos.cn>
----
- tools/testing/selftests/sched_ext/Makefile    |  1 +
- .../selftests/sched_ext/dequeue_iter.bpf.c    | 65 +++++++++++++
- .../selftests/sched_ext/dequeue_iter.c        | 94 +++++++++++++++++++
- 3 files changed, 160 insertions(+)
- create mode 100644 tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
- create mode 100644 tools/testing/selftests/sched_ext/dequeue_iter.c
+在 2026/9/2 17:55, Jinjie Ruan 写道:
+> This series converts arm64 to the generic entry infrastructure.
+> 
+> Currently, architectures such as x86, RISC-V, LoongArch, Powerprc
+> and S390 use generic entry, which significantly reduces maintenance
+> burden and improves code elegance. arm64 already adopted generic IRQ
+> entry in commit b3cf07851b6c ("arm64: entry: Switch to generic IRQ entry"),
+> making it the right time to complete the conversion.
+> 
+> This work brings arm64 in line with other major architectures,
+> reducing duplicated code and enabling future improvements like
+> Syscall User Dispatch and rseq time slice extension optimizations.
+> 
+> The series is rebased on v7.3-rc1 and has been tested on Kunpeng HIP09
+> with stress-ng, hackbench, kselftests (ptrace, breakpoints, arm64/abi,
+> arm64/fp, vDSO), ptrace stress test, and Pseudo-NMI load test.
+> 
+> Changes in v18:
+> - Rebased on v7.3-rc1.
+> - Drop the SUD patch as Mark suggeted.
+> - Update the commit message.
+> - Add Reviewed-by.
+> - Link to v17: https://lore.kernel.org/all/20260721081858.1169276-1-ruanjinjie@huawei.com/
 
-diff --git a/tools/testing/selftests/sched_ext/Makefile b/tools/testing/selftests/sched_ext/Makefile
-index 5f5dd9ab903a..08c2646cdd1a 100644
---- a/tools/testing/selftests/sched_ext/Makefile
-+++ b/tools/testing/selftests/sched_ext/Makefile
-@@ -164,6 +164,7 @@ all_test_bpfprogs := $(foreach prog,$(wildcard *.bpf.c),$(INCLUDE_DIR)/$(patsubs
- auto-test-targets :=			\
- 	create_dsq			\
- 	dequeue				\
-+	dequeue_iter			\
- 	enq_last_no_enq_fails		\
- 	ddsp_bogus_dsq_fail		\
- 	ddsp_vtimelocal_fail		\
-diff --git a/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c b/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
-new file mode 100644
-index 000000000000..406a767c31b2
---- /dev/null
-+++ b/tools/testing/selftests/sched_ext/dequeue_iter.bpf.c
-@@ -0,0 +1,65 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * ops.dequeue() of this scheduler iterates the user DSQ tasks are
-+ * consumed from with bpf_iter_scx_dsq, which takes the DSQ lock.
-+ * On a kernel that still runs ops.dequeue() with that lock held, the
-+ * iteration self-deadlocks the CPU - this test wedges the system on
-+ * unfixed kernels instead of failing cleanly.
-+ *
-+ * Copyright (c) 2026 fangqiurong <fangqiurong@kylinos.cn>
-+ */
-+
-+#include <scx/common.bpf.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+UEI_DEFINE(uei);
-+
-+#define TEST_DSQ_ID 1000
-+
-+u64 dq_count;
-+
-+s32 BPF_STRUCT_OPS_SLEEPABLE(dequeue_iter_init)
-+{
-+	return scx_bpf_create_dsq(TEST_DSQ_ID, -1);
-+}
-+
-+void BPF_STRUCT_OPS(dequeue_iter_enqueue, struct task_struct *p, u64 enq_flags)
-+{
-+	scx_bpf_dsq_insert(p, TEST_DSQ_ID, SCX_SLICE_DFL, enq_flags);
-+}
-+
-+void BPF_STRUCT_OPS(dequeue_iter_dispatch, s32 cpu, struct task_struct *task)
-+{
-+	scx_bpf_dsq_move_to_local(TEST_DSQ_ID, 0);
-+}
-+
-+void BPF_STRUCT_OPS(dequeue_iter_dequeue, struct task_struct *p, u64 deq_flags)
-+{
-+	struct bpf_iter_scx_dsq it;
-+	struct task_struct *t;
-+
-+	if (!bpf_iter_scx_dsq_new(&it, TEST_DSQ_ID, 0)) {
-+		while ((t = bpf_iter_scx_dsq_next(&it)))
-+			;
-+	}
-+	bpf_iter_scx_dsq_destroy(&it);
-+
-+	__sync_fetch_and_add(&dq_count, 1);
-+}
-+
-+void BPF_STRUCT_OPS(dequeue_iter_exit, struct scx_exit_info *ei)
-+{
-+	scx_bpf_destroy_dsq(TEST_DSQ_ID);
-+}
-+
-+SEC(".struct_ops.link")
-+struct sched_ext_ops dequeue_iter_ops = {
-+	.init			= (void *)dequeue_iter_init,
-+	.enqueue		= (void *)dequeue_iter_enqueue,
-+	.dispatch		= (void *)dequeue_iter_dispatch,
-+	.dequeue		= (void *)dequeue_iter_dequeue,
-+	.exit			= (void *)dequeue_iter_exit,
-+	.timeout_ms		= 5000,
-+	.name			= "dequeue_iter",
-+};
-diff --git a/tools/testing/selftests/sched_ext/dequeue_iter.c b/tools/testing/selftests/sched_ext/dequeue_iter.c
-new file mode 100644
-index 000000000000..35bc52cfc474
---- /dev/null
-+++ b/tools/testing/selftests/sched_ext/dequeue_iter.c
-@@ -0,0 +1,94 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2026 fangqiurong <fangqiurong@kylinos.cn>
-+ */
-+#include <bpf/bpf.h>
-+#include <pthread.h>
-+#include <sched.h>
-+#include <scx/common.h>
-+#include <time.h>
-+#include <unistd.h>
-+#include "dequeue_iter.bpf.skel.h"
-+#include "scx_test.h"
-+
-+#define DQ_TARGET	10
-+#define DQ_DEADLINE_MS	3000
-+
-+static unsigned long long now_ms(void)
-+{
-+	struct timespec ts;
-+
-+	clock_gettime(CLOCK_MONOTONIC, &ts);
-+
-+	return ts.tv_sec * 1000ULL + ts.tv_nsec / 1000000;
-+}
-+
-+static void *run_workload(void *arg)
-+{
-+	struct dequeue_iter *skel = arg;
-+	unsigned long long end = now_ms() + DQ_DEADLINE_MS;
-+
-+	while (skel->bss->dq_count < DQ_TARGET && now_ms() < end)
-+		usleep(100);
-+
-+	return NULL;
-+}
-+
-+static enum scx_test_status setup(void **ctx)
-+{
-+	struct dequeue_iter *skel;
-+
-+	skel = dequeue_iter__open();
-+	SCX_FAIL_IF(!skel, "Failed to open");
-+	SCX_ENUM_INIT(skel);
-+	SCX_FAIL_IF(dequeue_iter__load(skel), "Failed to load skel");
-+
-+	*ctx = skel;
-+
-+	return SCX_TEST_PASS;
-+}
-+
-+static enum scx_test_status run(void *ctx)
-+{
-+	struct dequeue_iter *skel = ctx;
-+	struct bpf_link *link;
-+	pthread_t tid;
-+
-+	link = bpf_map__attach_struct_ops(skel->maps.dequeue_iter_ops);
-+	SCX_FAIL_IF(!link, "Failed to attach scheduler");
-+
-+	SCX_FAIL_IF(pthread_create(&tid, NULL, run_workload, skel),
-+		    "Failed to create workload thread");
-+	pthread_join(tid, NULL);
-+	bpf_link__destroy(link);
-+
-+	if (UEI_EXITED(skel, uei)) {
-+		UEI_REPORT(skel, uei);
-+		SCX_ERR("Scheduler exited unexpectedly\n");
-+		return SCX_TEST_FAIL;
-+	}
-+
-+	if (skel->bss->dq_count < DQ_TARGET) {
-+		SCX_ERR("ops.dequeue() fired only %llu times\n",
-+			(unsigned long long)skel->bss->dq_count);
-+		return SCX_TEST_FAIL;
-+	}
-+
-+	return SCX_TEST_PASS;
-+}
-+
-+static void cleanup(void *ctx)
-+{
-+	struct dequeue_iter *skel = ctx;
-+
-+	dequeue_iter__destroy(skel);
-+}
-+
-+struct scx_test dequeue_iter = {
-+	.name = "dequeue_iter",
-+	.description = "Verify ops.dequeue() can iterate its source user DSQ",
-+	.setup = setup,
-+	.run = run,
-+	.cleanup = cleanup,
-+};
-+REGISTER_SCX_TEST(&dequeue_iter)
--- 
-2.43.0
+Hi Mark,
+
+Thanks for your continuous and detailed guidance through the previous
+iterations of this series.
+
+Please let me know if there are any further review comments or code
+modifications required from my side, or if this looks good to be queued
+for the upcoming 7.4 cycle?
+
+Thanks,
+Jinjie
+
+> 
+> For changes in v7 to v16, please refer to the individual patch threads:
+> - v16: https://lore.kernel.org/all/20260629130616.642022-1-ruanjinjie@huawei.com/
+> - v15: https://lore.kernel.org/all/20260511092103.1974980-1-ruanjinjie@huawei.com/
+> - v14: https://lore.kernel.org/all/20260320102620.1336796-1-ruanjinjie@huawei.com/
+> - v13: https://lore.kernel.org/all/20260317082020.737779-1-ruanjinjie@huawei.com/
+> - v12: https://lore.kernel.org/all/20260203133728.848283-1-ruanjinjie@huawei.com/
+> - v11: https://lore.kernel.org/all/20260128031934.3906955-1-ruanjinjie@huawei.com/
+> - v10: https://lore.kernel.org/all/20251222114737.1334364-1-ruanjinjie@huawei.com/
+> - v9: https://lore.kernel.org/all/20251204082123.2792067-1-ruanjinjie@huawei.com/
+> - v8: https://lore.kernel.org/all/20251126071446.3234218-1-ruanjinjie@huawei.com/
+> - v7: https://lore.kernel.org/all/20251117133048.53182-1-ruanjinjie@huawei.com/
+> 
+> Jinjie Ruan (14):
+>   arm64: ptrace: Fix redundant syscall exit stop for
+>     PTRACE_SYSEMU_SINGLESTEP
+>   arm64: ptrace: Rework audit_syscall_entry()
+>   arm64: ptrace: Open-code seccomp check in syscall_trace_enter()
+>   arm64: ptrace: Rename and clean up syscall_trace_enter()
+>   arm64: ptrace: Protect rseq_syscall() from tracer PC modifications
+>   arm64: syscall: Rework the syscall exit path in el0_svc_common()
+>   arm64: ptrace: Pass thread flags to trace enter/exit
+>   arm64: ptrace: Extract arm64_syscall_exit_to_user_mode_work() helper
+>   arm64: ptrace: Align syscall exit work semantics with generic entry
+>   arm64: syscall: Use exit-specific flags check in el0_svc_common()
+>   arm64: syscall: Simplify el0_svc_common() syscall exit path
+>   arm64: ptrace: Make return type of arm64_syscall_trace_enter() bool
+>   arm64: entry: Convert to generic entry
+>   arm64: Inline el0_svc_common()
+> 
+>  arch/arm64/Kconfig                    |   2 +-
+>  arch/arm64/include/asm/entry-common.h |  77 +++++++++++++++++
+>  arch/arm64/include/asm/syscall.h      |   5 +-
+>  arch/arm64/include/asm/thread_info.h  |  16 +---
+>  arch/arm64/kernel/debug-monitors.c    |   8 ++
+>  arch/arm64/kernel/entry-common.c      |   2 +-
+>  arch/arm64/kernel/ptrace.c            | 115 --------------------------
+>  arch/arm64/kernel/signal.c            |   2 +-
+>  arch/arm64/kernel/syscall.c           |  34 +++-----
+>  9 files changed, 102 insertions(+), 159 deletions(-)
+> 
 
