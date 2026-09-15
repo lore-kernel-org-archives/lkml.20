@@ -1,40 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A0C3126AD;
-	Tue, 15 Sep 2026 07:08:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9C3379EE0
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:08:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456127; cv=none; b=vF8Z+IllrNp0XGCm4m32OpSA+ZF6MA8DyRZdwEKf9ACI6jWqpdWb3tPRk3cem3ljvOAkrndS+untiLz0VJec5iFFCNg3LO8lxofujG6zo/thB2VJ3g770Q7MgoDc7CDjyB1iY4UpK7D8in6mz4F39S04VRwjwKPsGfQowu5Q+To=
+	t=1789456131; cv=none; b=rYAS+gihyjgySB3IEMJQ644XpxIHDRK/HsWZnJkMeay/OzlXVtiJz4rRijYI0LuLrGf8hwVt0bXelJuBbSw+fASowZFP2qr5TgoOXBqO7+ainLwqlZt6nfQyzTsEVZTb2hTV4jcImb5HhqWmnLAmb2of0y2w1KsKslf5a8kVlRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456127; c=relaxed/simple;
-	bh=iUxUSUt+SdyG7T8SxpfhJLcZS48K6HH1JYNBgBo0uII=;
+	s=arc-20240116; t=1789456131; c=relaxed/simple;
+	bh=AK2s88F7nEv4dz2wyh5b0V/BQf8lJLUyZNZtandR/is=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ojRKy9oHQ5MaIFEC2lVK91RADddfVTSx/ezY97PwGHuZGS0Tm3ekDk/oL4jHiys+iVl5WaoD6CJnoe/+U8CxaIStQhtzRluhIFBFDAsVuNfsB5BI0q7As54J6REfZsUJAX5R9hIUQr/1RrSr/bifWTOpeLtf8wwMGvO36vM2zRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e9rbETPo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Fo0hM1NrEWk54M3VUaYRIy5o2lByg6p+6vunipaC3kIrJGj9KCo4wB4AfZVCbON8PtdoP9WVL+q/KIiiLMdlrVkTHnj+aDQrQEdH3fbbDEN5g0a5SpqxmODm1h3UJDP3n3pLZH2xs+Or1euG3NC6M8UOPu98taVkC6aYw5wO4CA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H8ngipPf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e9rbETPo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482271F00893;
-	Tue, 15 Sep 2026 07:08:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H8ngipPf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0A61F000FF;
+	Tue, 15 Sep 2026 07:08:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789456121;
-	bh=FZ4sOFzqh5v1KYNfvbErrDbhS9mXlIlU3yLYc4mNmzg=;
+	s=k20260515; t=1789456127;
+	bh=8TgXehxFGyZR3DBBNZ4sTpV3Ifkyf2QyqSuVLOJXsKQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=e9rbETPo5oF+GJamUSAO1PMQlaV19jPJ98hzcGlSngUyxCSZ+/jAYmeYiVzGbi+Nk
-	 V+UaDOsYDXk6cKmZZ+j3K2QEifswV+3txtPPukBBSFouCyyiOeQMlzrDMmSYQN9IG3
-	 tJrXg+/Kq73+bsO4gG9T5idRiDkMJeCAa7mhDjjsVsDaVl5ne6fsDRIYG3QauLqOIi
-	 2KLwKvnTLufDC+1C955AMMw5wravYu6nSuNEnrwBhLuwQ7zXimvxY7dKMO7rI9u5ET
-	 9VUB7hc3eJk3895zfIm5Rr3Y4CdAo0uDdC9TUjv0RFOOqBCFHtuFyvCBzic0m8tCQf
-	 iT+8zZmStXp3w==
+	b=H8ngipPf8xFUONeOvHH46Xh4ujQILlFSkMHQQwZ/zVoc/aeZswy9kSHotzBwG3ddx
+	 Fr+RUoXYl7LsUj6xeFCtWYEG/yu9QdKuAWm3N/0CJMEWrZE5NUNQ7RGT5XwfWCE/ws
+	 zeH6lTTsNEJoTtcVoRdOjO7Wy2sU+bvh7kgBrfaTtSMRUpheePoFlypsNCX1ZaJpRa
+	 BsGUoPlOhRSt5i+54K0X1HRM1egok6upltRi4O9G8h1IJ2OOkRAtrRjrIhrnp7LDou
+	 KilRs6jaoX7vsW2yfhONzD/xBlblQ6TPGETSXZlhQfaltUPEI1I2LH5qW2oGnDn/Za
+	 5SQKHSEI3x22A==
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: thierry.reding@kernel.org, jonathanh@nvidia.com, 
- Ketan Patil <ketanp@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-In-Reply-To: <20260903182520.950555-1-ketanp@nvidia.com>
-References: <20260903182520.950555-1-ketanp@nvidia.com>
-Subject: Re: [PATCH 0/3] memory: tegra: Refactor Tegra264 mc-err code
-Message-Id: <178945611901.44219.2006628780238670109.b4-ty@b4>
-Date: Tue, 15 Sep 2026 09:08:39 +0200
+To: Santosh Shilimkar <ssantosh@kernel.org>, 
+ Benoit Cousson <b-cousson@ti.com>, Aneesh V <aneesh@ti.com>, 
+ Grant Likely <grant.likely@secretlab.ca>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Miles Krause <mileskrause5200@gmail.com>
+Cc: Santosh Shilimkar <santosh.shilimkar@ti.com>, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260909-master-v1-1-8800f5647ab2@gmail.com>
+References: <20260909-master-v1-1-8800f5647ab2@gmail.com>
+Subject: Re: [PATCH] memory: emif: fix device_node reference leak on np_ddr
+Message-Id: <178945612468.44296.16954992443488071978.b4-ty@b4>
+Date: Tue, 15 Sep 2026 09:08:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,28 +50,20 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Thu, 03 Sep 2026 18:25:17 +0000, Ketan Patil wrote:
-> The MC and HUB error-logging paths on Tegra264 used large switch
-> statements that interleaved register offsets, bit positions and
-> decoding parameters for each error type, which made them hard to read
-> and review. This patchset refactors these paths without intending any
-> functional change to error decoding behavior.
-> 
-> Ketan Patil (3):
->   memory: tegra: Use named defines for Tegra264 MC apertures
->   memory: tegra: Parameterise Tegra264 MCF slice bound
->   memory: tegra: Refactor Tegra264 mc-err code
+On Wed, 09 Sep 2026 19:26:26 -0400, Miles Krause wrote:
+> of_get_memory_device_details() takes a reference on the DDR device
+> node via of_parse_phandle() and stores it in emif->np_ddr for later
+> use, but drops that reference without calling of_node_put() on two
+> error paths: the devm_kzalloc() allocation-failure check and the
+> is_dev_data_valid() check. Both return NULL immediately, leaking the
+> node reference each time either failure triggers.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] memory: tegra: Use named defines for Tegra264 MC apertures
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/edda28d5317521c2f5172f869d3a433a2d37f7a2
-[2/3] memory: tegra: Parameterise Tegra264 MCF slice bound
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/fb8af372f899690646444cd0b38a88ec52568cbc
-[3/3] memory: tegra: Refactor Tegra264 mc-err code
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/f4e16143420f4021431cc652ebd71e176267ecbc
+[1/1] memory: emif: fix device_node reference leak on np_ddr
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/314ef67d673284d4c070455bd62d332f6d0f8634
 
 Best regards,
 -- 
