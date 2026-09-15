@@ -1,122 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3F74A484C;
-	Tue, 15 Sep 2026 14:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD5A4A5C33;
+	Tue, 15 Sep 2026 14:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483864; cv=none; b=IT3Laf2RCzUJP6oZFiOZVd6/GWscnpmyN33ncdFNfOL9crsRLAQ0BKD41lpkjn7JNbticdCuZa7T1ydN0V9sGft5kZ5ZTKW8fsi329yTqbljpOc6lVPIOrEsBffkhD26FOEuh/tF+DAWeAw6bp4mI+1Jo7OwEWF+jAPdGIyGBBk=
+	t=1789483869; cv=none; b=DpgqEIPpKzqZ7cDovdlO2wx4y0taRnZPORaMUbUbietddv+OPEp4egJnOonrpstv0Exr1f6HR15zdyNL9xfBMzpb0LWYZiW7jtjBNIndwofDZqzs6L4rkpRfguiRZy59BHNXj0r+sO4vVMovbxyWArGVOMhv4Fr4m3buGDdXtNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483864; c=relaxed/simple;
-	bh=GbbSyHr2WPdiNTlzMyjhdorNjYuq0aryqVOrAU+oFk0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P6MvmCcWb9kIItCUFgqBDnkTP37viZtj2RF1fuE+uEvwiOm6EzRgHyqiBMV7feNBdlWR6AHQjG0HEFAYtSBCkOykg3als6wMfszhijyfKyjaPWMQ7gqK8iYOr0EaXY4tKWtTviPDfXgTTpp5GEirQ+hDE/I/qs/ZKGnBV8AtZNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wdc+2Vi/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789483869; c=relaxed/simple;
+	bh=P5iYy/QSYWpIBpgNKRP7nBK+8mbBN5jaovZEL295pX4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tcDTKq5C+SElw+y117NQAMCCxOkhlmBkBZ6vHXC+uabRJ94ttiXLNgZ8jpWV/27xtqMlboT3HB7Bpb8hRmcUxlKsQB5K9GSgtJua/gIZes7eO1WMkzXElMbCyPf+zmbxMg5+l03CKElgNwCvhvWYG9iFTSL09x3EpoVJTwwMLqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NKG4ADbx; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wdc+2Vi/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D37571F000FF;
-	Tue, 15 Sep 2026 14:51:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789483862;
-	bh=ttqsgjewLy0H5CGwDqwjIgtkd7bY0dbIELIdhgGk55w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wdc+2Vi/1ypQiG51/JO+tXV3pbsxO/NkGqUD3tomIqmzQmzze/n+eKqveNmAxgCau
-	 NqMPFkksYyxt6HPqFVdb/EPHgprhxg0kM/JgjAOVv77Z608felCme8bXd6wj63gTLY
-	 MHYHTZ645nB5OseiQk8KF1BvVL1UTO+0c2B9XERzr59c4KenAifLD/fHEpWhqUL9Ix
-	 ACFCu4ok6KqS88NKR0jJnoc2EG7B3H647q7XN/d56TIzHmcFzCWBP4ukICBUJXw1QJ
-	 UhsjEix0AGf91Ce3xRC4pEq3grND5Pi3EjlHxGM+ciQfyGge3J/POPwOwSyXEYGvzb
-	 QGCmWjvlxVT/w==
-From: SJ Park <sj@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lian Wang <lianux.mm@gmail.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] mm/damon/core: score an unmeasured PSI goal as not achieved for the temporal tuner
-Date: Tue, 15 Sep 2026 07:50:54 -0700
-Message-ID: <20260915145054.92001-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260915060937.3423-2-kmehltretter@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NKG4ADbx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789483867; x=1821019867;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=P5iYy/QSYWpIBpgNKRP7nBK+8mbBN5jaovZEL295pX4=;
+  b=NKG4ADbxya7fF+3RfHk4VPEfYgWX/pUpuTei1Hy7txdRNgw2/iPFsYav
+   9EYSA0vCB/8OWxKWp8d1BrbaUCWyHOFS5EgVXAJo9SguigIpdXRfizein
+   PintOYQILj4MkzkfFJtoAspoY1P0VJN1jhMfRVrYvsOUn/A9qk05haUTO
+   xS3ns3rwJQWqdB2fvRPch9FWcYpU9jf7qIdAE9rjwkgXs6+1vTO5lMv1W
+   o63z5cZsrfBDFYk1Nx2EfyZNt6EZ7oOymeev3WH3qg7v6i7NDbS9F/oki
+   q+C5bb1TlYe9pdCHIf2KFc+9ZUghm6hO3pY6TenCMfITRCKOY4nOcif8A
+   Q==;
+X-CSE-ConnectionGUID: RZPmtIYbQJeJT5VDdVQQ7g==
+X-CSE-MsgGUID: wmGuwELvRPS4bdQQxLnCOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="88983364"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="88983364"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:51:06 -0700
+X-CSE-ConnectionGUID: Ol/cDn8bTau4gdkva6ZjQQ==
+X-CSE-MsgGUID: Vlsrmi9NRxeS/5OiZL/mRw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269352551"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.57])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:51:02 -0700
+Date: Tue, 15 Sep 2026 17:51:00 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: manivannan.sadhasivam@oss.qualcomm.com
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Amitkumar Karwar <amitkumar.karwar@nxp.com>,
+	Neeraj Kale <neeraj.sanjaykale@nxp.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Rahul Samana <rahul.samana@oss.qualcomm.com>,
+	Wei Deng <wei.deng@oss.qualcomm.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: Re: [PATCH 2/5] Bluetooth: btnxpuart: Add auxiliary driver for PCIe
+ M.2 modules
+Message-ID: <aqlbVNjTUHXlObgy@ashevche-desk.local>
+References: <20260915-pci-m2-bt-rework-v1-0-3c7d9cf9c010@oss.qualcomm.com>
+ <20260915-pci-m2-bt-rework-v1-2-3c7d9cf9c010@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-pci-m2-bt-rework-v1-2-3c7d9cf9c010@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hello Karl,
+On Tue, Sep 15, 2026 at 04:24:03PM +0200, Manivannan Sadhasivam via B4 Relay wrote:
 
-On Tue, 15 Sep 2026 08:09:36 +0200 Karl Mehltretter <kmehltretter@gmail.com> wrote:
-
-> A newly created or committed PSI quota goal has no previous sample.
-> Commit a68878f83ae6 ("mm/damon/core: handle uninitialized
-> damos_quota_goal->last_psi_total") scores the first tuning round as
-> achieved to preserve the consist tuner's quota, since the feedback
-> loop returns its input unchanged at that score.
+> The 88W8987 combo module exposes Bluetooth over UART. Since this module is
+> attached over PCIe, it is not described in firmware like devicetree. So it
+> is discovered at runtime over PCIe by the power sequencing driver, which
+> allocates the UART serdev and creates an auxiliary device carrying that
+> transport and the power sequencing target to power up the Bluetooth
+> function.
 > 
-> The temporal tuner sets the quota to zero for an achieved goal. This
-> skips the first charge window and the window after each goal commit.
-> Committing the PSI goal before every tuning round keeps the scheme
-> idle indefinitely.
+> Add an auxiliary driver that binds to this device. It reuses the serdev
+> provided by the producer, brings up the controller through the existing
+> UART transport with nxp_register_dev() and drives power through the
+> sequencer obtained with pwrseq_get().
 > 
-> Score an unmeasured PSI goal as not achieved for the temporal tuner,
-> so a new scheme can run in its first window. Keep the consist tuner's
-> behaviour unchanged.
+> Factor the HCI device setup and teardown shared with the serdev probe into
+> helpers so both paths register the same controller.
 
-Good catch, thank you.
+...
 
-> 
-> Fixes: a68878f83ae6 ("mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total")
-> Cc: <stable@vger.kernel.org> # 7.1.x
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  mm/damon/core.c | 14 ++++++++++----
->  1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index 06cf2ab7e97d..e6d87fd3992e 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -3161,12 +3161,18 @@ static void damos_set_quota_goal_current_value(struct damon_ctx *c,
->  		break;
->  	case DAMOS_QUOTA_SOME_MEM_PSI_US:
->  		now_psi_total = damos_get_some_mem_psi_total();
-> -		/* uninitialized last_psi_total; make no effect this round */
-> -		if (goal->last_psi_total == U64_MAX)
-> -			goal->current_value = goal->target_value;
-> -		else
-> +		if (goal->last_psi_total == U64_MAX) {
-> +			/* uninitialized last_psi_total; make no effect this round */
-> +			if (s->quota.goal_tuner ==
-> +					DAMOS_QUOTA_GOAL_TUNER_TEMPORAL)
-> +				/* an achieved score would zero the temporal quota */
-> +				goal->current_value = 0;
-> +			else
-> +				goal->current_value = goal->target_value;
-> +		} else {
+> -static int nxp_serdev_probe(struct serdev_device *serdev)
+> +static int nxp_register_dev(struct btnxpuart_dev *nxpdev)
+>  {
+> +	struct serdev_device *serdev = nxpdev->serdev;
 
-The intention is to make no effect this round.  Setting current_value to zero
-to temporal tuner means it will now have highest quota it could have.  If the
-effective quota before this was zero, it gets an effect.
+Why not also
 
-Ideally, we should somehow remember what was the last esz and keep it.  I have
-no good idea for doing that with minimum change.  This is a corner case in my
-opinion (correct me if I'm wrong) so I want to keep the change as simple as
-possible.
+	struct device *dev = &serdev->dev;
 
-If there is not easy way to do that, I think just keeping the behavior but
-making it explicitly explained might be better.
+and use it to make lines even shorter?
 
-What do you think, Karl?
+...
+
+> -	device_property_read_u32(&nxpdev->serdev->dev, "max-speed",
+> +	device_property_read_u32(&serdev->dev, "max-speed",
+>  				 &nxpdev->secondary_baudrate);
+
+	device_property_read_u32(dev, "max-speed", &nxpdev->secondary_baudrate);
+
+Now exactly a single line (out of 80 characters).
+
+...
+
+> -	device_property_read_u8_array(&nxpdev->serdev->dev,
+> +	device_property_read_u8_array(&serdev->dev,
+>  				      "local-bd-address",
+>  				      (u8 *)&ba, sizeof(ba));
+
+	device_property_read_u8_array(dev, "local-bd-address",
+				      (u8 *)&ba, sizeof(ba));
+
+Now two lines instead of three. But ideally this casting should gone and
+instead something like ether_addr_copy() to be used. (The latter is out
+of scope here, of course.)
+
+...
+
+> +static int nxp_serdev_probe(struct serdev_device *serdev)
+> +{
+> +	struct btnxpuart_dev *nxpdev;
+> +	int err;
+> +
+> +	nxpdev = devm_kzalloc(&serdev->dev, sizeof(*nxpdev), GFP_KERNEL);
+> +	if (!nxpdev)
+> +		return -ENOMEM;
+
+> +	nxpdev->nxp_data = (struct btnxpuart_data *)device_get_match_data(&serdev->dev);
+
+This is bad. The const qualifier is for a reason. Make sure it's kept.
+On top the same suggestion as per above, use local 'dev' pointer.
+
+Also Sashiko found a nice issue with the driver data, id est driver_override
+mechanism that in some cases may lead to NULL dereferencing. Please, double
+check if it's not the case, otherwise check for NULL and return -ENODATA.
+
+> +	nxpdev->serdev = serdev;
+> +
+> +	nxpdev->pdn = devm_reset_control_get_optional_shared(&serdev->dev, NULL);
+> +	if (IS_ERR(nxpdev->pdn))
+> +		return PTR_ERR(nxpdev->pdn);
+> +
+> +	err = devm_regulator_get_enable(&serdev->dev, "vcc");
+> +	if (err) {
+> +		dev_err(&serdev->dev, "Failed to enable vcc regulator\n");
+> +		return err;
+> +	}
+> +
+> +	if (nxp_m2_connector_is_available(&serdev->ctrl->dev)) {
+> +		struct pwrseq_desc *pwrseq;
+> +
+> +		pwrseq = pwrseq_get(&serdev->ctrl->dev, "uart");
+> +		if (IS_ERR(pwrseq))
+> +			return dev_err_probe(&serdev->dev, PTR_ERR(pwrseq),
+> +					     "failed to get pwrseq\n");
+> +
+> +		nxpdev->pwrseq = pwrseq;
+> +		err = pwrseq_enable(pwrseq);
+> +		if (err)
+> +			goto err_pwrseq_put;
+> +	}
+> +
+> +	err = nxp_register_dev(nxpdev);
+> +	if (err)
+> +		goto err_pwrseq_put;
+> +
+> +	return 0;
+> +
+>  err_pwrseq_put:
+>  	if (nxpdev->pwrseq)
+>  		pwrseq_put(nxpdev->pwrseq);
+>  	return err;
+>  }
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-Thanks,
-SJ
-
-[...]
