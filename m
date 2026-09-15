@@ -1,338 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36DB3B71AA;
-	Tue, 15 Sep 2026 13:33:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F312ED154;
+	Tue, 15 Sep 2026 13:34:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479202; cv=none; b=ZogHsNsH6+8uZB/WLCgRCULdKgX2KQOI7N62hBWxlBSSUKwZmJkG4oE8snVSq/kldO0Qd6+QCuCLpmJ8WxkLwJyFTn0dsIqanfCV/bRpJ06xS8lBDAlPZ6GIJ+7NWNijJ3QTf0JsQIj36Cb6hMS9GprSerG64gAPYbofOk6itXA=
+	t=1789479245; cv=none; b=bgx1S5Rwm9KN7b9qrBiTzsXbY8fwy8OEDF+L0NRVg3iQvXiAHkzX5I9J06DPDJkw/B9S7AoX/JSTb01MjPLYHC7YoYZejjE6e1t40dGvBRhjkGwFcNB98HwgNMPbQyGBZdy5z2Si0O0j+Upj6MGZkKC5ql0lKSr6hvEnamLEckY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479202; c=relaxed/simple;
-	bh=b0peGYdWEEsh9OK0MX3VmPtU+5Bvci5RSC+YS7jV+f4=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=s47pPYVtb0Twtx6LXcCbumZzSVhmy67ygXVweq2FvM5N/8Km7U10DRRYgF0ulfWlr0ICusH6pEmLy45qe1934bZui3Pcp5Qfg5/FpWxhPFp07eoqa2SLLyykspgHB1/rcDgokywV+THvTfKLTZTdcwqbfwVYarDpcCUBYKFeR14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HANA76hn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789479245; c=relaxed/simple;
+	bh=FiIDgXaqx3jAMIjn3xSI576pISr5hczr3v7cNPHTADU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=l2MJGmmxICrAqNWdyrgE9optiXPKMbp12nWpbqUGReChmcl93Q6Er0Jpi6I3PGqU3OVd9u1piG4SRbazTsvbOzUolv3OYgO/9b+FvLYC48Ti80EbnqME0Xh/5yFl4+H9o56v2jSILl3XF8KwFAyDYz2TX3cSVE2CHfwJXANOXcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GMOi6FD4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HANA76hn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D391F000FF;
-	Tue, 15 Sep 2026 13:33:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GMOi6FD4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40F4E1F000FF;
+	Tue, 15 Sep 2026 13:34:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789479200;
-	bh=Da33iyX8RrUrhHPC36ssZZP7j4KMf25stiTxEiTRjDU=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=HANA76hn+RCjD4WFujdVFLp+r7nx14r2j+1Nwvbt+QhrcjXcd0R6HRif0YgSlAb0e
-	 FpDWKe0S3k8QV5X6Ycl51OskSSp93MiXwn4jRtFI3wwqmSuyQDTzOp7TDDh5gMq6r0
-	 vDnAMqq7rK1qd9sKu54VGjSOOIJmxrfyNiV0GAV4hMHZLcFVCZA4wXothga+8gupSp
-	 4VUJheuA3sj0cPQJBL+9ZxeSFYNr4M7E5VSIlG3vx4L91yHCkKR/T0qS/LyLRYLMOs
-	 45xhbManJxeliLDDEfVEaRQ1AsO9NeYiAXxC6Ey44kCfaN1X6Y0WrRzS4udvCq8FyD
-	 Mzhf2wHc8m1ZA==
-Content-Type: multipart/mixed; boundary="===============7419760775756817736=="
+	s=k20260515; t=1789479244;
+	bh=/bZLs9Obw9+7tisMeAod6WG74mMqLX3eBVFLF8PVBNI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GMOi6FD4fqWND66a5kWwP9fxGatr1xu4QmoR35Yj5zHdzd/LeyAzf7CRNxWoZEaTp
+	 /B90M8yVA2Upp03/B5B90WaEbKL96wWWRJXR1dzODkUh5QViIzE6sDgT3lOZVRTLsx
+	 UArmYP3QFS0mlNqlhTobSw+OKmzyUocMofoYPLFjyXf7U3eykHqXwHgAgUcH9QyH5u
+	 /Hn/gUTsTIiImXWX2tOEivBzgnP2etqq5UHkzyAHRnOYexfECc+YNdK3lVCJj4WXPC
+	 U+NHgviUvf9uFVzKA3TbYGgM9LLyK9KOmTbRVALnWBBZILONmyyadBgfy33BhluOuF
+	 8u/MGR2sg7Jpw==
+Message-ID: <689ced449b2da7c7f9f67a251f8964c519caf374.camel@kernel.org>
+Subject: Re: [PATCH] nfsd: propagate SETXATTR value decode errors
+From: Jeff Layton <jlayton@kernel.org>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Chuck Lever
+	 <chuck.lever@oracle.com>
+Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Tue, 15 Sep 2026 09:34:02 -0400
+In-Reply-To: <20260915125636.2849626-1-qwe.aldo@gmail.com>
+References: <20260915125636.2849626-1-qwe.aldo@gmail.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <89f9e7223c18671a3a7025c9b3492c7e92539d00a289c2d83610918f8c53fe0f@mail.kernel.org>
-In-Reply-To: <93289af4317b57caa4e393d73fe6c786b24a4c2a.1789475073.git.zhuhui@kylinos.cn>
-References: <93289af4317b57caa4e393d73fe6c786b24a4c2a.1789475073.git.zhuhui@kylinos.cn>
-Subject: Re: [PATCH bpf-next v11 2/2] selftests/bpf: Add memcg async reclaim test
-From: bot+bpf-ci@kernel.org
-To: hui.zhu@linux.dev,roman.gushchin@linux.dev,inwardvessel@gmail.com,shakeel.butt@linux.dev,akpm@linux-foundation.org,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,shuah@kernel.org,baohua@kernel.org,geliang@kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-mm@kvack.org,linux-kselftest@vger.kernel.org
-Cc: zhuhui@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 15 Sep 2026 13:33:19 +0000 (UTC)
 
---===============7419760775756817736==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, 2026-09-15 at 09:56 -0300, Aldo Ariel Panzardo wrote:
+> nfsd4_decode_setxattr() stores the status returned while assembling a
+> non-empty attribute value, but then unconditionally returns nfs_ok. An
+> allocation failure can therefore leave a NULL value buffer paired with a
+> non-zero length and allow compound processing to continue.
+>=20
+> Return the decoder status so that the operation stops on the original
+> error.
+>=20
+> Fixes: 403366a7e8e2 ("NFSD: Replace READ* macros in nfsd4_decode_setxattr=
+()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+>  fs/nfsd/nfs4xdr.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
+> index e17488a911..27c1b42384 100644
+> --- a/fs/nfsd/nfs4xdr.c
+> +++ b/fs/nfsd/nfs4xdr.c
+> @@ -2435,7 +2435,7 @@ nfsd4_decode_setxattr(struct nfsd4_compoundargs *ar=
+gp,
+>  						&setxattr->setxa_buf, size);
+>  	}
+> =20
+> -	return nfs_ok;
+> +	return status;
+>  }
+> =20
+>  static __be32
 
-> diff --git a/tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c b/tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c
-> new file mode 100644
-> index 000000000000..7c7d299b3b28
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c
-> @@ -0,0 +1,779 @@
+Nice catch.
 
-[ ... ]
-
-> +static int real_test_child_work(const char *cgroup_path, char *data_filename,
-> +				char *time_filename, int read_times)
-> +{
-> +	struct timespec start, end;
-> +	double elapsed;
-> +	FILE *fp;
-> +
-> +	if (join_parent_cgroup(cgroup_path))
-> +		return CHILD_EXIT_JOIN_CGROUP;
-> +
-> +	clock_gettime(CLOCK_MONOTONIC, &start);
-> +
-> +	if (write_file(data_filename))
-> +		return CHILD_EXIT_WRITE_FILE;
-> +
-> +	if (read_file(data_filename, read_times))
-> +		return CHILD_EXIT_READ_FILE;
-> +
-> +	clock_gettime(CLOCK_MONOTONIC, &end);
-> +
-> +	if (!time_filename)
-> +		return CHILD_EXIT_OK;
-> +
-> +	elapsed = (end.tv_sec - start.tv_sec) +
-> +		  (end.tv_nsec - start.tv_nsec) / 1000000000.0;
-> +
-> +	fp = fopen(time_filename, "w");
-> +	if (!fp)
-> +		return CHILD_EXIT_TIME_FILE;
-> +	fprintf(fp, "%.6f", elapsed);
-> +	fclose(fp);
-> +
-> +	return CHILD_EXIT_OK;
-> +}
-> +
-> +static int get_time(char *time_filename, double *time)
-> +{
-> +	int ret = -1;
-> +	FILE *fp;
-> +	char buf[64];
-> +
-> +	fp = fopen(time_filename, "r");
-> +	if (!ASSERT_OK_PTR(fp, "fopen"))
-> +		goto out;
-> +
-> +	if (!ASSERT_OK_PTR(fgets(buf, sizeof(buf), fp), "fgets"))
-> +		goto cleanup;
-
-Is ASSERT_OK_PTR valid for checking fgets() return values? fgets()
-returns NULL at end-of-file without setting errno, so ASSERT_OK_PTR (which
-expands to libbpf_get_error()) would read from the ambient errno rather
-than detecting the EOF. If the timing file is empty, fgets() returns NULL
-with errno still zero from the previous successful fopen(), causing
-ASSERT_OK_PTR to pass silently and execution to fall through to
-sscanf(buf, "%lf", time) with buf uninitialized.
-
-The empty-file case is reachable: real_test_child_work() does not check
-the result of fprintf()/fclose() on the timing file, so a child whose
-write failed (ENOSPC on /tmp after writing two 32 MB workload files) still
-exits CHILD_EXIT_OK, and run_high_low_workload() then calls get_time() on
-a zero-length file.
-
-> +
-> +	if (sscanf(buf, "%lf", time) != 1) {
-> +		PRINT_FAIL("sscanf %s", buf);
-> +		goto cleanup;
-> +	}
-
-[ ... ]
-
-> +/*
-> + * test_progs hijacks stdout and only prints the captured log when the
-> + * test fails, so benchmark numbers go straight to the real stdout to
-> + * keep them from drowning in ASSERT output.
-> + */
-> +static void bench_printf(const char *fmt, ...)
-> +{
-> +	va_list ap;
-> +
-> +	va_start(ap, fmt);
-> +	vfprintf(env.stdout_saved ?: stdout, fmt, ap);
-> +	va_end(ap);
-> +}
-
-A subsystem pattern flags this as potentially concerning: bench_printf()
-writes benchmark text straight to env.stdout_saved, bypassing the test
-framework's stdout hijacking. Outside test_progs.c itself this is the only
-writer of env.stdout_saved in the whole selftests/bpf tree - every other
-test writes through the hijacked stdout so the framework owns when and
-whether the text appears.
-
-The effect is free-form lines interleaved directly into the stream from
-which runners and CI parse the per-test pass/fail records, on a path
-enabled only by an environment variable, so the same binary produces two
-different output shapes. The benchmark timings emitted are informational
-(not pass/fail verdicts), the path is gated behind
-TEST_MEMCG_ASYNC_RECLAIM_BENCH=1, and prog_tests/ files run under
-test_progs rather than kselftest.h. Would dumping benchmark numbers via
-the framework's normal stdout keep the output under framework control?
-
-[ ... ]
-
-> +void test_memcg_async_reclaim(void)
-> +{
-> +	u64 high_cgroup_id, low_cgroup_id;
-> +	double high_time = 0.0, low_time = 0.0;
-> +	double base_high_time = 0.0, base_low_time = 0.0;
-> +	struct memcg_async_reclaim *skel = NULL;
-> +	int err, bench;
-> +
-> +	bench = !!getenv("TEST_MEMCG_ASYNC_RECLAIM_BENCH");
-> +
-> +	err = setup_high_low_cgroups(&high_cgroup_id, &low_cgroup_id);
-> +	if (!ASSERT_OK(err, "setup_high_low_cgroups reclaim"))
-> +		return;
-> +
-> +	/*
-> +	 * Optional baseline for the benchmark numbers below: run the
-> +	 * same workload once without the BPF program, so the log can
-> +	 * report how much async reclaim improved the pressured cgroup.
-> +	 */
-> +	if (bench) {
-> +		err = run_high_low_workload(&base_high_time, &base_low_time,
-> +					    READ_TIMES);
-> +		if (!ASSERT_OK(err, "run_high_low_workload baseline"))
-> +			goto out;
-> +	}
-> +
-> +	err = setup_bpf(high_cgroup_id, low_cgroup_id, &skel);
-> +	if (!ASSERT_OK(err, "setup_bpf"))
-> +		goto out;
-> +
-> +	err = run_high_low_workload(&high_time, &low_time, READ_TIMES);
-> +	if (!ASSERT_OK(err, "run_high_low_workload reclaim"))
-> +		goto out;
-> +
-> +	/*
-> +	 * The timing comparison below alone cannot distinguish a working
-> +	 * reclaim from a no-op one, so require that the BPF program
-> +	 * actually reclaimed memory from the low cgroup.
-> +	 */
-> +	if (!ASSERT_GT(skel->bss->reclaim_calls, 0, "reclaim_calls"))
-> +		goto out;
-> +	if (!ASSERT_GT(skel->bss->reclaimed_bytes, 0, "reclaimed_bytes"))
-> +		goto out;
-> +
-> +	/*
-> +	 * The timing comparison is a benchmark and too flaky to fail CI
-> +	 * runs, so it only logs the numbers; the counters above already
-> +	 * proved that the BPF program reclaimed memory.
-> +	 */
-> +	if (bench && base_high_time > 0.0) {
-> +		double speedup = base_high_time / high_time;
-> +
-> +		bench_printf("memcg_async_reclaim: baseline high=%f low=%f, "
-> +			     "reclaim high=%f low=%f, speedup=%.2fx\n",
-> +			     base_high_time, base_low_time,
-> +			     high_time, low_time, speedup);
-> +	}
-> +	else if (high_time >= low_time)
-> +		printf("memcg_async_reclaim: high cgroup not improved: high=%f low=%f\n",
-> +		       high_time, low_time);
-
-Can this printf() output ever be read? test_progs redirects stdout and
-stderr to an in-process memstream, and dump_test_log() only prints that
-buffer when the test fails. Both printf() calls added by the patch are
-emitted on paths where the test then passes, so their output is discarded.
-
-The same file documents this behaviour and works around it for the
-benchmark numbers through bench_printf() and env.stdout_saved. Should
-these two informational printf() calls go through bench_printf() as well,
-or be dropped?
-
-[ ... ]
-
-> +void test_memcg_async_reclaim_dying(void)
-> +{
-> +	u64 trigger_cgroup_id, target_cgroup_id;
-> +	u64 calls_before, bytes_before;
-> +	char data_file[PATH_MAX] = "";
-> +	struct reclaim_events_seen seen = {};
-> +	struct memcg_async_reclaim *skel = NULL;
-> +	struct ring_buffer *rb = NULL;
-> +	pid_t reader_pid = -1;
-> +	int err, fd, i;
-> +
-> +	err = setup_dying_cgroups(&trigger_cgroup_id, &target_cgroup_id);
-> +	if (!ASSERT_OK(err, "setup_dying_cgroups"))
-> +		return;
-> +
-> +	err = setup_bpf(trigger_cgroup_id, target_cgroup_id, &skel);
-> +	if (!ASSERT_OK(err, "setup_bpf"))
-> +		goto out;
-> +
-> +	rb = ring_buffer__new(bpf_map__fd(skel->maps.reclaim_events),
-> +			      on_reclaim_event, &seen, NULL);
-> +	if (!ASSERT_OK_PTR(rb, "ring_buffer__new"))
-> +		goto out;
-> +
-> +	snprintf(data_file, sizeof(data_file),
-> +		 "%s/memcg_async_dying_XXXXXX", workload_files_dir());
-> +	fd = mkstemp(data_file);
-> +	if (!ASSERT_GE(fd, 0, "mkstemp"))
-> +		goto out;
-> +	close(fd);
-> +
-> +	reader_pid = spawn_keepalive_reader(data_file);
-> +	if (!ASSERT_GT(reader_pid, 0, "fork keepalive reader"))
-> +		goto out;
-
-Could the keepalive reader child's failure modes be diagnosed?
-spawn_keepalive_reader() reports its failures through distinct exit codes
-(CHILD_EXIT_JOIN_CGROUP, CHILD_EXIT_WRITE_FILE, CHILD_EXIT_READ_FILE),
-but the caller only checks that fork() succeeded. At cleanup the status is
-discarded:
-
-	kill(reader_pid, SIGKILL);
-	(void)waitpid(reader_pid, NULL, 0);
-
-If the child dies immediately - for example join_parent_cgroup() fails, or
-write_file() cannot create the 32 MB file - the parent still spends 50 *
-100ms in the first poll loop and then fails with ASSERT_GT(seen.called, 0,
-"reclaim events"), pointing at the kernel rather than at the child.
-
-The child's own diagnostics do not survive either: test_progs sets stdout
-and stderr to a per-process memstream, so log_err() output from
-join_parent_cgroup() and the fprintf() in read_file() land in the forked
-child's private copy of that buffer and are lost at _exit().
-
-The file already has the machinery to handle this - child_exit_str() and
-the WIFEXITED/WEXITSTATUS handling in run_high_low_workload(). Would a
-waitpid(reader_pid, &status, WNOHANG) probe before or after the poll loop,
-reported through child_exit_str(), make this diagnosable?
-
-> +
-> +	/* Wait for reclaim rounds to reach the live target cgroup. */
-> +	for (i = 0; i < EVENT_POLL_ROUNDS && !seen.called; i++) {
-> +		err = ring_buffer__poll(rb, EVENT_POLL_TIMEOUT_MS);
-> +		if (!ASSERT_GE(err, 0, "ring_buffer__poll"))
-> +			goto out;
-> +	}
-> +	if (!ASSERT_GT(seen.called, 0, "reclaim events"))
-> +		goto out;
-> +
-> +	remove_cgroup(CG_DYING_TARGET_DIR);
-> +
-> +	usleep(DYING_SETTLE_US);
-> +	seen = (struct reclaim_events_seen){};
-> +
-> +	calls_before = skel->bss->reclaim_calls;
-> +	bytes_before = skel->bss->reclaimed_bytes;
-> +
-> +	/* Wait for a reclaim round to report the removed target. */
-> +	for (i = 0; i < EVENT_POLL_ROUNDS &&
-> +		    !seen.skipped_dying && !seen.target_gone; i++) {
-> +		err = ring_buffer__poll(rb, EVENT_POLL_TIMEOUT_MS);
-> +		if (!ASSERT_GE(err, 0, "ring_buffer__poll"))
-> +			goto out;
-> +	}
-> +
-> +	if (!seen.skipped_dying && !seen.target_gone) {
-> +		PRINT_FAIL("no reclaim round hit the removed cgroup within "
-> +			   "the poll window");
-> +		goto out;
-> +	}
-> +
-> +	if (!ASSERT_EQ(skel->bss->reclaim_calls, calls_before, "reclaim_calls"))
-> +		goto out;
-> +	if (!ASSERT_EQ(skel->bss->reclaimed_bytes, bytes_before, "reclaimed_bytes"))
-> +		goto out;
-
-[ ... ]
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34970614671
---===============7419760775756817736==--
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
