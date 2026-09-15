@@ -1,243 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010009.outbound.protection.outlook.com [52.101.85.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E263AA9F4;
-	Tue, 15 Sep 2026 09:01:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462906; cv=none; b=GbNr1B8hfB0ZEG71HEdzvsCzOmwHisoDjmvfIXxqA6/Dxuh7Nf3/JhXH7tlj0KxAojLQ7OKKZ7wErnFk1xtN54bLtBMqCtYWyaFCmuJe+Bkh9Wy3Nsv/MbfhItjT5qlKPMNHFDR0gdqlU/6ikyP7Sr1giXJgOiK0dvC9GYBRE2k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8DF33065D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 09:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789462906; cv=fail; b=b2bsWq4/QKB9+umPuYim3Kwo+kpNb4ulyHdisb31A8+80oBHxkQ5QX4tVcPFMo6dnacYWOAzY97u6IVc3FrZr0YpQvBeOKgYY1QqzZ8nXItlg1vKIfSpSpPq7jYOj9Y530PjE0TIimpAD4yzooFt8pZnyoKkM21HnOS+VE0L7Pc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789462906; c=relaxed/simple;
-	bh=BdB/7ghHFrGbaVFHN+Hqhcby9TJE3K7duQr/idBMo6g=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=GCdRYQ/KekdATfCtsuvQbJU59xVkwLKGGjuk57N3NDmhJafKa0sFwQdXIzIhsW8aHAAafU6IZS/ZCUFAy5aCW8TNYJ4t0fSaUwcY+rKRFKaqDhHtWj6j8JmqSXzHAlVWTqX+oI3h4C71GWS13RnceibWTFltfOERFWe7hRAlYTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NHD62V57; arc=none smtp.client-ip=100.103.45.18
+	bh=soiyP5j2OCi8EXSpvMDhBVrvnXXCDoC7kLxgrGXR2fw=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=N9x0cN1wnT9eIrWNoKMuzuLcQESNHHlGfkFhwV5IH0lbseuD9xDcS/jwE9ZrJDAQ84tt4nquBsK8gB/Pz7rktQKVniKyqp5ekF3OOvRumLfbMZ6HM6RlR0fI5ejYAlwJtrqn0PHdvuanJmFLXPIQW7uaG65R2aELZz2pe1wB86I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cr/b5Eci; arc=fail smtp.client-ip=52.101.85.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NHD62V57"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D5B1F000FF;
-	Tue, 15 Sep 2026 09:01:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789462905;
-	bh=xJ8CbAqVK2aEgiqfWN4NFXkmv4VYk8DZM71F2uwFagc=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=NHD62V572xPJ/b/UFoosJzqQZDLqRIj7lYKIwbmiidi3PShI4GU5dw1eZ/fPw/E1w
-	 dxOluJN3f5MdHNtsU9guU18PH3jkdDOAUK6im4SFyEoBal3FyClbCXMEDCUMK1w+js
-	 kkrE2rlEqZpuaf1hxP7uMo5IcfleTm3+9BDk/pbsnxBbDvEQ0cBdhoRRVcG6j0ATDB
-	 I0QcViQB0xgY/DEkvc35yPFUILp1223U6DXOhcrK4NojzL82ZZE1UA79sqGsD5EuRx
-	 X3r2YohU6WP7Kz9DSBzyQlTcG5xAxr2DIesZhaHtu3kdkptRpThd5/0qWIkEuQpftK
-	 QgNHCGSmBD14g==
-Content-Type: multipart/mixed; boundary="===============3452030992566982035=="
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cr/b5Eci"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ds9k6CrOzjfPlCnr7BI3fevs0vzYw9PUbZDz7EAdYmMcHAnm8KUQDihG38JU4Is7kum9bEVHnA6WGlK7Xxp45Hbp8Py/nCq4oyiPdQE7iY8PzDVkLsRi+4vg3RH4b9Hj3MZsRUZLkbrqtR/tcU+BKaBeNKJ6xvbVjmGDlo9CqG6++N9z8861F79ByxMZGeQHhKTSleKev/8B7hZc4zFfPkpS7/vojUmxe6E8PhQT3Egnx/Xa/pUriR3EMkCmih0C3HfeYPsjBHqbvFghc66civF0v2oT4nC0eoW4hmHv1r+qnHC3OmlJ6ySDJm91sMsxxj0sbpdz55cBi60YGDHLCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=397CMVTRJ9yZJf52uL56I/XLyiZQ2dtqVsbO49Qaqnw=;
+ b=AlnYX/FIvTKU+Hkdl5iM6+CfIqHWfxdLw/KyP08C7sGD9DyZ4Pif9+YhNfGrVTS8X73u/x6vwU582QOxmg5zeEZ1HrKTVgjc31Ew69UiPLZdEFCLAoqdronGe9OEJ76QGeWuHPcv5BkAYDsw4oGhAg/ahjK8dzlQvCL9+mtc4/KqYNqlAkSwtJZ/MJ9ILrCgF1wyWm0HyTXv9vnru3kbac2jmb35ANAuzdHnykIFLIAKx42AlT9I3XxiOrFtjVIpCOI7uR7Hy2xAVVVoztMiJGxHLxLFEu9Iz5CI4VfkrGvrqMlLnSgErumR2kCbldroJyKF3Ox7q6YOX5inJz+J3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=397CMVTRJ9yZJf52uL56I/XLyiZQ2dtqVsbO49Qaqnw=;
+ b=cr/b5EcibO0oQUJzKxFHZWUARoElBProJYxJHl16VJAk2RTIj64gJUI8Dx4Mek7nsC+v1MURw68QfJmc76izcMzcFo2lX/bnqIaMJrO/xdKIQEX5GLf20GgYQjtJg8MEKxIMoG0spdTAfxwrGaMEj4PjTDJJLKQUnWgmC8s2dEJFfNj4eEedHB2Edjnl2mC15yJyeViaVj+QVmIOOGEjr6JqPs06XCpbyr7Y9K8furWjOszMN8yUSzLDCoZoICNekBCSwJjSkJve1mZxZDsTMBycyXR+iLTj5OSEQpmdHCAQe29zicNbOxlmWHzq4TaqE7n6QC4SkVg2muOGgpylPg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by CY3PR12MB9632.namprd12.prod.outlook.com (2603:10b6:930:100::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
+ 2026 09:01:41 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 09:01:41 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: Emil Tsalapatis <etsal@meta.com>,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCHSET v4 sched_ext/for-7.4] sched_ext: Add lazy preemption support
+Date: Tue, 15 Sep 2026 11:00:11 +0200
+Message-ID: <20260915090127.2321020-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZR0P278CA0016.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:16::26) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <18aa34104b455963bb39e0b34a5c5285543cec411c701b59d803dce126d8c40e@mail.kernel.org>
-In-Reply-To: <20260915080255.48929-2-tasos.papagiannnis@gmail.com>
-References: <20260915080255.48929-2-tasos.papagiannnis@gmail.com>
-Subject: Re: [PATCH bpf-next v7 1/5] mm: Add copy_remote_mm_str()
-From: bot+bpf-ci@kernel.org
-To: tasos.papagiannnis@gmail.com,bpf@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org,linux-kernel@vger.kernel.org,linux-mm@kvack.org,david@kernel.org,akpm@linux-foundation.org,andrii@kernel.org,ast@kernel.org,brauner@kernel.org,daniel@iogearbox.net,eddyz87@gmail.com,kpsingh@kernel.org,ljs@kernel.org,matt@bobrowski.net,memxor@gmail.com,song@kernel.org,sun.jian.kdev@gmail.com,utilityemal77@gmail.com,viro@zeniv.linux.org.uk,tasos.papagiannnis@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 15 Sep 2026 09:01:43 +0000 (UTC)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|CY3PR12MB9632:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ac22736-cf53-4927-794a-08df1307f53a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|6133799003|18002099003|3023799007|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	I2KQr9QZQjiyT2RO2pqUa34lFPmwqLeOaNHpG1Mtieue5htrmeDY1IXdnb6S3R4hFX6ZIMc4Us4eOiigin+nrv+ynjrNR2AmRpW0bVBYSo4QP98am608AM5OMbBHaSYb8lSYuS62YDjlQir0lFFZ7vq8A26tdCHhpow3iSZ/jDFHQsS4Irbs6Or6VW6SG75taX9w3r5mZFPBPj2lwGbuhYcxs8Kkws5XjYY69WqvD7OEJP+NeyJvMSYfbpyEeA8SO1AYEW87Nvpgv5WgNaXBNTVk7ia9DxVodmB6MkPwi31Z8nyD2X9558kx+PayBm5sJKt4F7ui7wZtbNCQFL5oIqg2oiTcjwJOUs1S+YeSM/yeGvURu90HxTdd7P5vZDOEw6wQSJ4aXQxEw6KR/8lfgRCn36L31dRfBMKheqh7hHo8gUEtbVsOTZJIBV+HAh1CC52pWfarFk4QxJ25R7HvgUhYi+LbSEXTMj17rlVkc3CDDsf4It8spU4iDNMMGTXmI43hstd2YMT+jJPc5F5t7U77rYCpjqLrefCpAYcnmSMVElhsbYt7GLtuQC+0bNNwIK4ylRU+OFD9lJXvHMfveKaizrdYtcTwq//E90LdUrz5cYryLZBJ7o6zptJc2lENWORdCF91WlP5SdTVwxCOBGKX9Xq+8S1mY3Zy1BlwSTE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(6133799003)(18002099003)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?e9ta1srk8e6YdLQ/K1Ep9opuDNp0mKBXTJ36RXqDFJnNmTKG7inqq7eC6Ks2?=
+ =?us-ascii?Q?qi6qzuLiTrj70H1DuMWi1K+9nyb9S7rMiZXLWeGsHW3EeC4SzraEEP7YfTyU?=
+ =?us-ascii?Q?G54QgmTdWsUqgL/UVmLQMskPOe1/N6Trbpf+4qsuT3oFiRe0XDqW7CSqRRXH?=
+ =?us-ascii?Q?7z5QtmGKXuJltos7sEK3RkK2L1F2e1STxqf+IhkS2HToykvhEECXP1ENSyaK?=
+ =?us-ascii?Q?DEUK8yXjnf90HlPOfdoBdoHqJg8B5C3+4Om1zEfhVPBYBwo+oxfN5VOE0c3t?=
+ =?us-ascii?Q?q1EGkYW6umZ2+VttkR2S92byWbHQslbYuoCOEl5F8da4vIoVgWa2cRvxR5Ng?=
+ =?us-ascii?Q?9GkV9N3FNOoFztJarRM/zsZGELuz3wo/sVKr1YjPiqhbZS85mNUz5+EBkRCK?=
+ =?us-ascii?Q?lBFGAisuNxIzeMvnm3gm3DYICvx40QO26WC+PaWi1/ScfWRZ3Ci0coewQfpx?=
+ =?us-ascii?Q?35WGk3DzgwY7U/mbLCw/2NiSFspQ3RusIGOPKsZEei0INBxlw50H4ZHv03Dj?=
+ =?us-ascii?Q?9QRsBG/fMfGvuigZ3TDK3OZAXwJ0z0QWmJuGQy83SCEYnzHD/oD87+IMoiLU?=
+ =?us-ascii?Q?UJSg5xSK7gfC3ssXBaN2xS4AtFM57DuRXyhlvyCawCDm588dIgCa3bMUcEu9?=
+ =?us-ascii?Q?YLCC4xO2iVJgdlGQA/zIQ7dwnf73yViq3dqVfNBoZZg9eXmANwag4EJqia1x?=
+ =?us-ascii?Q?9TQPKDHu1PCmCUKT6PXHjuo/wwbyJf6Efr2RC7pNtqmZp3Kymj1u+PwGGvw7?=
+ =?us-ascii?Q?mtIncErRMTT7ZrB6t7gWWcNqenQLfDmwmiOiSIvA/Z4o/FZspbGVxJj121mA?=
+ =?us-ascii?Q?BeICbuXljsMvmIcmjD9aCQ8BOxmo3HaVP/T5Z3Ovg44q38hyz2Z+VgUuDkcB?=
+ =?us-ascii?Q?T4GWixzU8sXHmeCpiglYRNz6Rf93xvTV69D3DaAIoWrgP/j5cBz7DD1A+aBB?=
+ =?us-ascii?Q?Zf5EC6nZnr9ZHVGDV8Cg2ZYDOWJDneYeGH/AsHLehlHZPyqNjZPsew7tq5qG?=
+ =?us-ascii?Q?QFTB6MM1zbxWYUWxsi4bJVWERQn/l5YWraybAfU/KcaaBabs7w7h467MQnpe?=
+ =?us-ascii?Q?qcP8TVMtV6NOodZsw6LBPykRcOwxy/uI8sBopydgL1j1nWjfHXNDSBwA5CJP?=
+ =?us-ascii?Q?ODeJF4rQdxWiXBNbWpypHyZMANcSJGwMdipCJd/4a0/BOZ4604lfc9+GNG2O?=
+ =?us-ascii?Q?/kx4sSTeYr7SsdkokP/ZvYRMEAiWO7yz71intyBl8wz2uceZs5ND1lkMMsx4?=
+ =?us-ascii?Q?fZ3ZedYRUSbuhuCHcTrzjZvJXDxiHu/Lr9LYHHbpzZGxhnYwAcCfeIGkrDzz?=
+ =?us-ascii?Q?w2U//5DgjfT1yDXyug5WilWi4JQpovELCA5dNGlyyXrDiFSnkj9hfjviYoDp?=
+ =?us-ascii?Q?OXEEsqFg7KM2MbmyShPc++DQI8TcM3q1AIrLYY14TxYvqrkhWHfC9698CU3F?=
+ =?us-ascii?Q?9eL6natd9TSRWj/P+P0ru6S0uzIAxm/uYDHetrkPV0G50HFUhxFoUBm8/9Y8?=
+ =?us-ascii?Q?1wk+ArrEy9WWgEzs6vf+3b8NPiBgMU3aAswBybEfpKWVnKMhs9BQHUnI1KUX?=
+ =?us-ascii?Q?yvKZq3tNIxk5UHiu1uYifIa2vi4BOMqN4/5bTtfdnz3ZDq/qYIzhbGBaoeYW?=
+ =?us-ascii?Q?MMij/j05NxkIVa5gixUplaOrvNkGQFcYnnES+7aCv5LJwrIoP+PHs8YMzwHF?=
+ =?us-ascii?Q?qlEXl0Dcu1MjHafDEs+j3SXcyeHGUZldeECLtwxp7PSHnTFXOVitpQCZWkfs?=
+ =?us-ascii?Q?HlJcHlROUw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ac22736-cf53-4927-794a-08df1307f53a
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 09:01:41.2777
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sXiJSOGXfUbsh1MVxgcQzKuH3rl084wYdAwK+BAd9isMcLIlRh9RjZu7QoM6irjjdTrwdO25CKwC2qiSvyQ8ig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9632
 
---===============3452030992566982035==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+The fair scheduling class can defer a scheduling boundary through lazy
+rescheduling, but sched_ext currently exposes only immediate preemption to BPF
+schedulers.
 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index dd09c438fa23e..63f40e615754d 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -3325,10 +3325,10 @@ extern int access_process_vm(struct task_struct *tsk, unsigned long addr,
->  extern int access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  		void *buf, int len, unsigned int gup_flags);
->
-> -#ifdef CONFIG_BPF_SYSCALL
-> -extern int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
-> -			      void *buf, int len, unsigned int gup_flags);
-> -#endif
-> +int copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-> +		void *buf, int len, unsigned int gup_flags);
-> +int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
-> +		void *buf, int len, unsigned int gup_flags);
->
->  long get_user_pages_remote(struct mm_struct *mm,
->  			   unsigned long start, unsigned long nr_pages,
+This series adds lazy variants of the enqueue and kick preemption flags. They
+expire the running sched_ext task's slice while allowing the scheduling boundary
+to be deferred until a return to user space or the next scheduler tick.
 
-[ ... ]
+SCX_OPS_LAZY_SLICE_EXPIRY selects lazy slice expiry by default. Schedulers can
+override that default in either direction for individual tasks through
+scx_bpf_task_set_slice_expiry(). The helper preserves sub-scheduler task
+ownership boundaries. Bypass continues to force immediate rescheduling.
 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 8b0c2c735d3de..fe2f5e988fb90 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -7331,8 +7331,8 @@ EXPORT_SYMBOL_GPL(access_process_vm);
->   * Copy a string from another process's address space as given in mm.
->   * If there is any error return -EFAULT.
->   */
-> -static int __copy_remote_vm_str(struct mm_struct *mm, unsigned long addr,
-> -				void *buf, int len, unsigned int gup_flags)
-> +int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-> +			 void *buf, int len, unsigned int gup_flags)
->  {
->  	void *old_buf = buf;
->  	int err = 0;
+Lazy enqueue and kick requests also restore the scheduler tick when targeting an
+infinite-slice task on a NO_HZ_FULL CPU, ensuring forward progress even when the
+target's tick has stopped.
 
-[ ... ]
+The selftests cover immediate and lazy preemption, coalescing and precedence
+between kick modes, enqueue preemption, per-task slice-expiry overrides, invalid
+flags and lazy preemption of infinite-slice tasks on NO_HZ_FULL CPUs.
 
-> @@ -7407,43 +7407,6 @@ static int __copy_remote_vm_str(struct mm_struct *mm, unsigned long addr,
->  		return err;
->  	return buf - old_buf;
->  }
-> -
-> -/**
-> - * copy_remote_vm_str - copy a string from another process's address space.
-> - * @tsk:	the task of the target address space
-> - * @addr:	start address to read from
-> - * @buf:	destination buffer
-> - * @len:	number of bytes to copy
-> - * @gup_flags:	flags modifying lookup behaviour
-> - *
-> - * The caller must hold a reference on @mm.
-> - *
-> - * Return: number of bytes copied from @addr (source) to @buf (destination);
-> - * not including the trailing NUL. Always guaranteed to leave NUL-terminated
-> - * buffer. On any error, return -EFAULT.
-> - */
-> -int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
-> -		       void *buf, int len, unsigned int gup_flags)
-> -{
-> -	struct mm_struct *mm;
-> -	int ret;
-> -
-> -	if (unlikely(len == 0))
-> -		return 0;
-> -
-> -	mm = get_task_mm(tsk);
-> -	if (!mm) {
-> -		*(char *)buf = '\0';
-> -		return -EFAULT;
-> -	}
-> -
-> -	ret = __copy_remote_vm_str(mm, addr, buf, len, gup_flags);
-> -
-> -	mmput(mm);
-> -
-> -	return ret;
-> -}
-> -EXPORT_SYMBOL_GPL(copy_remote_vm_str);
->  #endif /* CONFIG_BPF_SYSCALL */
+Tested in separate virtme-ng runs, covering preempt=lazy and nohz_full:
 
-[ ... ]
+ $ vng -a "preempt=lazy" -- tools/testing/selftests/sched_ext/runner -t kick
 
-> diff --git a/mm/util.c b/mm/util.c
-> index bf0513d1d3d08..47c2e3ae84961 100644
-> --- a/mm/util.c
-> +++ b/mm/util.c
-> @@ -1061,6 +1061,68 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen)
->  	return res;
->  }
->
-> +#ifdef CONFIG_BPF_SYSCALL
-> +/**
-> + * copy_remote_mm_str - copy a string from a remote address space.
-> + * @mm:         the remote address space
-> + * @addr:       start address to read from
-> + * @buf:        destination buffer
-> + * @len:        number of bytes to copy
-> + * @gup_flags:  flags modifying lookup behaviour
-> + *
-> + * The caller must hold a reference on @mm.
-> + *
-> + * Return: number of bytes copied from @addr (source) to @buf (destination),
-> + * not including the trailing NUL. If @len is zero, return 0 without accessing
-> + * @buf. Otherwise, @buf is always NUL-terminated. On any error, return
-> + * -EFAULT.
-> + */
-> +int copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
-> +		void *buf, int len, unsigned int gup_flags)
-> +{
-> +	if (unlikely(len == 0))
-> +		return 0;
-> +
-> +	return __copy_remote_mm_str(mm, addr, buf, len, gup_flags);
-> +}
-> +
-> +/**
-> + * copy_remote_vm_str - copy a string from another process's address space.
-> + * @tsk:	the task of the target address space
-> + * @addr:	start address to read from
-> + * @buf:	destination buffer
-> + * @len:	number of bytes to copy
-> + * @gup_flags:	flags modifying lookup behaviour
-> + *
-> + * Return: number of bytes copied from @addr (source) to @buf (destination),
-> + * not including the trailing NUL. If @len is zero, return 0 without accessing
-> + * @buf. Otherwise, @buf is always NUL-terminated. On any error, return
-> + * -EFAULT.
-> + */
-> +int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
-> +		void *buf, int len, unsigned int gup_flags)
-> +{
-> +	struct mm_struct *mm;
-> +	int ret;
-> +
-> +	if (unlikely(len == 0))
-> +		return 0;
-> +
-> +	mm = get_task_mm(tsk);
-> +	if (!mm) {
-> +		*(char *)buf = '\0';
-> +		return -EFAULT;
-> +	}
-> +
-> +	ret = __copy_remote_mm_str(mm, addr, buf, len, gup_flags);
-> +
-> +	mmput(mm);
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(copy_remote_vm_str);
-> +#endif /* CONFIG_BPF_SYSCALL */
+  kick:
+    PASSED:  6
+    SKIPPED: 0
+    FAILED:  0
 
-Does this silently drop the kernel-doc from the generated documentation?
+ $ vng -a "preempt=lazy nohz_full=8-15" -- tools/testing/selftests/sched_ext/runner -t nohz_tick
 
-Before this patch, copy_remote_vm_str() had both its kernel-doc block
-and EXPORT_SYMBOL_GPL() in mm/memory.c. Documentation/core-api/mm-api.rst
-pulls mm/memory.c wholesale for exported symbols:
+  nohz_tick:
+    CPU 8 received 7 finite-slice ticks
+    PASSED:  1
+    SKIPPED: 0
+    FAILED:  0
 
-    .. kernel-doc:: mm/memory.c
-       :export:
+Changes in v4:
 
-so its documentation was rendered by that directive.
+ - Preserve SCX_KICK_WAIT synchronization when it is combined with
+   SCX_KICK_PREEMPT_LAZY (Sashiko).
+ - Restore the scheduler tick dependency when ops.tick() lazily expires an
+   infinite slice, ensuring the request is promoted by a later tick (Sashiko).
+ - kselftest: verify that the deferred SCX_KICK_WAIT callback runs (Sashiko).
+ - kselftest: keep the kick test controller off the victim CPU and skip cleanly
+   when a second allowed CPU is unavailable (Sashiko).
+ - kselftest: select the nohz_tick controller from allowed housekeeping CPUs
+   outside the NOHZ_FULL mask and skip when the required topology is
+   unavailable.
+ - Link to v3: https://lore.kernel.org/r/20260914144620.2032614-1-arighi@nvidia.com
 
-After this patch both copy_remote_vm_str() and the new
-copy_remote_mm_str() live in mm/util.c. But mm/util.c is never pulled in
-with ':export:'. Every kernel-doc directive for it uses an explicit
-':functions:' allowlist:
+Changes in v3:
+ - Avoid redundant rq clock updates when restoring the tick dependency and use
+   the pinned rq lock helpers for lazy kick delivery (Sashiko).
+ - Set PR_SET_PDEATHSIG for the indefinitely spinning kick test workers so they
+   don't survive unexpected test-runner exit (Sashiko).
+ - Wait for a delta in nr_lazy_victim_running instead of an absolute count that
+   may include reschedules from the previous phase (Sashiko).
+ - Increase the nohz_tick scheduler watchdog and phase timeouts to tolerate
+   scheduling delays in oversubscribed test VMs.
+ - Link to v2: https://lore.kernel.org/r/20260914084955.1798562-1-arighi@nvidia.com
 
-    Documentation/core-api/mm-api.rst:46   :functions: kfree_const kvmalloc_node kvfree
-    Documentation/core-api/mm-api.rst:111  :functions: folio_mapping
-    Documentation/core-api/kernel-api.rst:42 :functions: kstrdup kstrdup_const ...
+Changes in v2:
+ - Make lazy slice expiry a per-task property (Tejun Heo).
+ - Add scx_bpf_task_set_slice_expiry() for per-task overrides from any sched_ext
+   callback (preserving sub-scheduler task ownership).
+ - Restore the scheduler tick dependency for lazy enqueue and kick preemption of
+   infinite-slice tasks on NO_HZ_FULL CPUs (Tejun Heo).
+ - Accumulate immediate and lazy kick requests independently and resolve their
+   precedence in kick_one_cpu() (Tejun Heo).
+ - Allow PREEMPT|PREEMPT_LAZY and WAIT|PREEMPT_LAZY, immediate preemption, WAIT
+   and plain kicks take precedence over lazy preemption (Tejun Heo).
+ - Clear both preemption masks together when processing or skipping a preemption
+   request (Tejun Heo).
+ - Extend the kselftests with combined and ordered kick requests, per-task
+   expiry overrides and NO_HZ_FULL coverage.
+ - Link to v1: https://lore.kernel.org/r/20260911195800.974364-1-arighi@nvidia.com
 
-So after the move, the kernel-doc blocks at mm/util.c:1089-1101
-(copy_remote_vm_str) and mm/util.c:1065-1079 (copy_remote_mm_str) are no
-longer rendered anywhere.
+Andrea Righi (2):
+      sched_ext: Add lazy preemption support
+      selftests/sched_ext: Add lazy preemption tests
 
-As a side effect, neither block is checked by the kernel-doc build, so
-future mistakes in them will go unnoticed.
-
-None of the follow-up commits in the series touch Documentation/, so this
-is not restored later. Adding the two names to one of the existing
-mm/util.c ':functions:' lists would preserve the previous documentation
-coverage.
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34946192265
---===============3452030992566982035==--
+ include/linux/sched/ext.h                         |   8 +
+ kernel/sched/ext/ext.c                            | 153 +++++-
+ kernel/sched/ext/internal.h                       |  39 +-
+ kernel/sched/ext/sub.c                            |  15 +-
+ tools/sched_ext/include/scx/compat.bpf.h          |  13 +
+ tools/sched_ext/include/scx/enum_defs.autogen.h   |   3 +
+ tools/sched_ext/include/scx/enums.autogen.bpf.h   |   6 +
+ tools/sched_ext/include/scx/enums.autogen.h       |   2 +
+ tools/sched_ext/include/scx/enums_abi.autogen.h   |   5 +-
+ tools/testing/selftests/sched_ext/Makefile        |   1 +
+ tools/testing/selftests/sched_ext/kick.bpf.c      | 182 +++++++
+ tools/testing/selftests/sched_ext/kick.c          | 608 ++++++++++++++++++++++
+ tools/testing/selftests/sched_ext/nohz_tick.bpf.c |  56 +-
+ tools/testing/selftests/sched_ext/nohz_tick.c     | 249 ++++++++-
+ 14 files changed, 1273 insertions(+), 67 deletions(-)
+ create mode 100644 tools/testing/selftests/sched_ext/kick.bpf.c
+ create mode 100644 tools/testing/selftests/sched_ext/kick.c
