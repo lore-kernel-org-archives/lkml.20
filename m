@@ -1,113 +1,203 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B73207A20
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F68207A20
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456815; cv=none; b=qIweSgq2vxhW19MaXDJDURsqB30n0UowbxqQvEHHMS4ip6IDtKZ2zfqrL7XcIe4gozWdvvAivH9XVotmtlbL8x7B2M7lng4HjxBKF3ORHTSf7gaq8SSr0y/A4VbIR8sUXyJGNBxiYUOgIJf10p1ED/9TX7yAyGbECI4EI529kbo=
+	t=1789456832; cv=none; b=NmtjqSTLmk0h6zcdTtaDxrt3KIojhVP67wmskWghuEQzQ2ajjkZWGZJVLRmNoksWMFizf8/io7KRLL09v6gV9ggcnOZplOJG4eFKhKbzHGEO90g1dJj8icJafuUOT2B1dMFkGjOBcy+U+tk536MQan/JFIhv8IJWSU6qUVzE0Q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456815; c=relaxed/simple;
-	bh=B+wLRmdGG7/Y4tpo0/xjd90c1sLD7GxGhMrSYb6BXtE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Td98NqlfiqDXRoRRawDbIW4deHAuWrWLSyJHXacVdQb35eN46FTog16CSGhaZ12aR7JZonNcqEWDhXM5edJHxhRoli2wHDBiuedFAHyMjxbI2kZSjwZCJGKm9d98mRXz22NCQdi+/jGyFpWvo+fL24jjiaFBLPYOaUdzQaN1jIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=HLbHv5e4; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789456832; c=relaxed/simple;
+	bh=F6QeRzEDWK5t1xhcyR513pNWKh1fKRnRhF3y+a++YlU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TWtSAXcumUShVw4h/E17o+/CWIWlPYWDFMVmUjYrMn1q8fROwpsTD7a8miwczu7LY9Lvhl1m2/NEqqfoK5JftvGC0/xj2vPcGwGPYfq77cy0pSVzl9cBUmU+KpobmreKs1A4TU6kb2yBtthyWraKe7vMKa9339KW/fuPBvo+ESc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iw8aaud1; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="HLbHv5e4"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hkYLx5DpNzMlCF;
-	Tue, 15 Sep 2026 09:20:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789456809; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=B+wLRmdGG7/Y4tpo0/xjd90c1sLD7GxGhMrSYb6BXtE=;
-	b=HLbHv5e4/6Vz3z8UvudokdtnyWaTHKoEw4NzwIW8rky2bJiSaqreUSigia9MeWugDi0mQ2
-	IYVLrSuPBgCL0lwIHweuOf4HPwgeeSPECDs2PJiEGM2253joBT26u0ilfkGe+xOz4jrINE
-	cV1WL90PTT+uOj5GWZjKGbps0+N0SqTE9jfvRHF/DwPQqpkOVK7CSpxMZJUXw7ZmLZFyQJ
-	O6TtVts4nFDk7NRC+MKv9DKlXcqwY/Rryv4VVba+ftgGGQWze4X6lW7YnNKbMArL7Ew52q
-	cCNEFSK/OlNPic3Op8yO66qg9kV3yk61EvJKstovXmWB3eJAjmBzTKrGWFpirw==
-Message-ID: <1fa1da9650fdd7cecb11195134d6fd0e1c3978df.camel@mailbox.org>
-Subject: Re: [PATCH 2/2] drm/sched: document the RCU dependency
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: christian.koenig@amd.com, phasta@kernel.org, malhyuk97@gmail.com, 
-	tursulin@ursulin.net, matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
-Date: Tue, 15 Sep 2026 09:20:03 +0200
-In-Reply-To: <20260914182740.1587-2-christian.koenig@amd.com>
-References: <20260914182740.1587-1-christian.koenig@amd.com>
-	 <20260914182740.1587-2-christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iw8aaud1"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910cc46c8so210102285a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:20:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789456829; x=1790061629; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NMRsbHWbqWxYa7/sB3UvfZ4V+AdJ5sViuPlZizxgnu4=;
+        b=iw8aaud1s8C16xdDTCRF49TY1ifSNf/SrQQz3QR5zJM56w/SPGexi3tsRxGuX8Kpso
+         j9GTr4iCJx6zcJpueDmApQ1wpSU4vpJ4cvoVNgpIh3odHdCcN/ijqOxfAkfP4RLXI0zg
+         wsXs9/F+WBn1GS44Mwt1R6Bl8TlqvBW8fYoUcM0GJQmzmcBgLc19btHMX3pw5glW1NzY
+         CV7tgZdNvgrUE9QKoldsQpiymU8BQUS4fC/4XnWlJ4PlVuWM748OanjKvd2uTJKHpSCw
+         pUWMHyIgliSm/rrPjroHw7gceihCRyWZWBZ5XNs4rEqF01L+23DhoTArVDGpJuJRX/YS
+         GnUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789456829; x=1790061629;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NMRsbHWbqWxYa7/sB3UvfZ4V+AdJ5sViuPlZizxgnu4=;
+        b=g72GDRfkyjCPC0sE1nindjb0S+qFYod4hAw2p68RckkfB6tN7M7Gg8FEVFoXTvL9fr
+         gpe5TUYyHEcPNdsYpS3aFja3coUbtCLzueItokkxpuutUTTVdB+ud1H031prbfsTW3W5
+         Df254g99o20cgP18GrplbMVyWkZrGiCNTpYLtBON6Ub1ZeLzr3VFS49p+Bvd74K7uLZ6
+         hv/QzstzLJrH1IouDj/kE7yJ432MCJEXKwdgZkVgzjCff6KZsr2t1lXe9OluRzEnk/I2
+         xp+DN2u11N1itjqaye/mmCOVWGCDsc2wEiGnVWpfKZQmMNCEAqpOjSPlvre2uyPASsUZ
+         AN6A==
+X-Forwarded-Encrypted: i=1; AKwUvBzOTRLUmpcD02gU7f4Z6ZYYSgSEq1xNscxE0GPxDKKYeR0ucq6ySsjcRq6JP2Chlgxd9EeD0KhCYSBlan8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mj8tscLbMpOGLQMgz2zBtgUe4RphTZGZkIcZ7xkE3xyue+wOFO
+	xKQR70WiLRhciz4TmXPYCQLFNFe2BKemfyJvbr1TPGdOZD7DS9O8A21D
+X-Gm-Gg: AYBFou1mhUypC8p3U9V7ZOrJB0HkYMO93rDP5RmJYpAismT8ITC3esutbjUQ/MoSYh7
+	XBRzHxMhh4Oy1FOWk0ZE6OZIr8oaX2AsrAsjOV/2vTx6cAe9bTbJ7P1iQUqeVwTQhKnQA0GJ6bD
+	5yKXtXBtlSjrUmGSR3y6w6lcfr4KiaE2/9cGrFUYlSEUYCsnhV7inOqrxYk9MNV6hyyhMA/H6aL
+	gX92erJx8BEndNKFmSrBdh8Fyr1jvJhpfGhgGRRxQ6E42RPBCVVPEQV9XOFUigs7UxqKDNUMKtV
+	XlrBTKNkTxcd9yzY2ouAOkGd11lkLNadYvuybH+EoNuJzUYy0+pOVIfl1D2AwRfCuCoNaJH7YWG
+	px7NubScKYonrPDw6yjVHnPT0ZbJkRL8dQL2dVMpqqZTp4LLSrwSiT/j6XTpy8zHiMJ8riQQ9YT
+	LKs9tWL+PF3ooyBTxBmz8s+4kh4hTi0V/mr3ZAi/pvnyiIoflW4NNHg2SS7Phs11utsw37zuzfN
+	0viNiA2D5wN6sAETRjrysv3mPEH5JHssWmmptDNQBQtlqOrxKhr7/+XNJ/5C68XzPKGHwZevR7W
+	/pZ1K8hbDQ+kjYKwW4Cex+dpLo1ddzD3FCiJNzgbqnAz+iSQfw==
+X-Received: by 2002:a05:620a:4455:b0:939:6dea:374a with SMTP id af79cd13be357-93a29be35a4mr904680985a.46.1789456829104;
+        Tue, 15 Sep 2026 00:20:29 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ec337d23sm1126447185a.2.2026.09.15.00.20.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 00:20:28 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv4] dmaengine: ppc4xx: convert irq_of_parse_and_map to platform_get_irq
+Date: Tue, 15 Sep 2026 00:20:26 -0700
+Message-ID: <20260915072026.54904-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: a68fa6ec319ad5b96f2
-X-MBO-RS-META: t5btidzie5mr3t5yspjddnxjkid8o4pm
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-09-14 at 20:27 +0200, Christian K=C3=B6nig wrote:
-> Tvrkos patches added RCU protection to the returned strings from
+Replace irq_of_parse_and_map() with platform_get_irq(), which is the
+preferred way to obtain IRQ resources from platform devices.  This
+eliminates the corresponding irq_dispose_mapping() calls since the
+framework manages the mapping. Also allows dealing with -EPROBE_DEFER.
 
-*Tvrtko ;)
+While here, fix a latent bug in the err_req2 error path: the error IRQ
+was not freed when a subsequent step (I2O setup) failed.
 
-Anyways, which patches? Better add a commit ID?
+The struct device_node *np declaration is moved to the scope where
+it is still needed (I2O register lookup).
 
-> get_timeline_name()/get_driver_name() callbacks of the dma_fence
-> backends.
->=20
-> This fixed use after free problems for a couple of drivers, but we never
-> documented the consequences for the drm_sched_fence.
->=20
-> Add a few words on the function documentation to note that we need an
-> RCU grace period between signaling the last scheduler fence and
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v4: handle -EPROBE_DEFER
+ v3: use _optional
+ v2: fix missing free_irq in remove and fix description
+ drivers/dma/ppc4xx/adma.c | 39 ++++++++++++++++++---------------------
+ 1 file changed, 18 insertions(+), 21 deletions(-)
 
-s/scheduler fence/hardware-fence
+diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
+index 279a431ccae3..0b4ba9a2fe88 100644
+--- a/drivers/dma/ppc4xx/adma.c
++++ b/drivers/dma/ppc4xx/adma.c
+@@ -3865,28 +3865,28 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 				     int *initcode)
+ {
+ 	struct platform_device *ofdev;
+-	struct device_node *np;
+ 	int ret;
+ 
+ 	ofdev = container_of(adev->dev, struct platform_device, dev);
+-	np = ofdev->dev.of_node;
+ 	if (adev->id != PPC440SPE_XOR_ID) {
+-		adev->err_irq = irq_of_parse_and_map(np, 1);
+-		if (!adev->err_irq) {
++		adev->err_irq = platform_get_irq_optional(ofdev, 1);
++		if (adev->err_irq == -EPROBE_DEFER) {
++			ret = adev->err_irq;
++			goto err_irq_map;
++		}
++		if (adev->err_irq <= 0) {
+ 			dev_warn(adev->dev, "no err irq resource?\n");
+ 			*initcode = PPC_ADMA_INIT_IRQ2;
+-			adev->err_irq = -ENXIO;
+ 		} else
+ 			atomic_inc(&ppc440spe_adma_err_irq_ref);
+ 	} else {
+ 		adev->err_irq = -ENXIO;
+ 	}
+ 
+-	adev->irq = irq_of_parse_and_map(np, 0);
+-	if (!adev->irq) {
+-		dev_err(adev->dev, "no irq resource\n");
++	adev->irq = platform_get_irq(ofdev, 0);
++	if (adev->irq < 0) {
+ 		*initcode = PPC_ADMA_INIT_IRQ1;
+-		ret = -ENXIO;
++		ret = adev->irq;
+ 		goto err_irq_map;
+ 	}
+ 	dev_dbg(adev->dev, "irq %d, err irq %d\n",
+@@ -3899,7 +3899,7 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 			adev->irq);
+ 		*initcode = PPC_ADMA_INIT_IRQ1;
+ 		ret = -EIO;
+-		goto err_req1;
++		goto err_irq_map;
+ 	}
+ 
+ 	/* only DMA engines have a separate error IRQ
+@@ -3917,7 +3917,7 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 				adev->err_irq);
+ 			*initcode = PPC_ADMA_INIT_IRQ2;
+ 			ret = -EIO;
+-			goto err_req2;
++			goto err_req1;
+ 		}
+ 	}
+ 
+@@ -3927,6 +3927,7 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 			    XOR_IE_ICIE_BIT | XOR_IE_RPTIE_BIT,
+ 			    &adev->xor_reg->ier);
+ 	} else {
++		struct device_node *np;
+ 		u32 mask, enable;
+ 
+ 		np = of_find_compatible_node(NULL, NULL, "ibm,i2o-440spe");
+@@ -3956,14 +3957,13 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 	return 0;
+ 
+ err_req2:
+-	free_irq(adev->irq, chan);
++	if (adev->err_irq > 0)
++		free_irq(adev->err_irq, chan);
+ err_req1:
+-	irq_dispose_mapping(adev->irq);
++	free_irq(adev->irq, chan);
+ err_irq_map:
+-	if (adev->err_irq > 0) {
+-		if (atomic_dec_and_test(&ppc440spe_adma_err_irq_ref))
+-			irq_dispose_mapping(adev->err_irq);
+-	}
++	if (adev->err_irq > 0)
++		atomic_dec(&ppc440spe_adma_err_irq_ref);
+ 	return ret;
+ }
+ 
+@@ -3987,13 +3987,10 @@ static void ppc440spe_adma_release_irqs(struct ppc440spe_adma_device *adev,
+ 		iowrite32(mask, &adev->i2o_reg->iopim);
+ 	}
+ 	free_irq(adev->irq, chan);
+-	irq_dispose_mapping(adev->irq);
+ 	if (adev->err_irq > 0) {
+ 		free_irq(adev->err_irq, chan);
+-		if (atomic_dec_and_test(&ppc440spe_adma_err_irq_ref)) {
+-			irq_dispose_mapping(adev->err_irq);
++		if (atomic_dec_and_test(&ppc440spe_adma_err_irq_ref))
+ 			iounmap(adev->i2o_reg);
+-		}
+ 	}
+ }
+ 
+-- 
+2.55.0
 
-:D
-
-> scheduler teardown.
->=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-
-with the above:
-
-Acked-by: Philipp Stanner <phasta@kernel.org>
-
-> ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 5 +++++
-> =C2=A01 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
-eduler/sched_main.c
-> index 6cb6f95464938..f73c5141b4e5c 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -1203,6 +1203,11 @@ static void drm_sched_cancel_remaining_jobs(struct=
- drm_gpu_scheduler *sched)
-> =C2=A0 * is implemented, all jobs will be canceled through it and afterwa=
-rds cleaned
-> =C2=A0 * up through &struct drm_sched_backend_ops.free_job. If cancel_job=
- is not
-> =C2=A0 * implemented, memory could leak.
-> + *
-> + * The user must wait one RCU grace period between signaling the last ha=
-rdware-
-> + * fence and calling this function because the timeline name returned by
-> + * scheduler fences must stay valid until all readers have exited their =
-RCU read
-> + * side critical section.
-> =C2=A0 */
-> =C2=A0void drm_sched_fini(struct drm_gpu_scheduler *sched)
-> =C2=A0{
