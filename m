@@ -1,52 +1,52 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2665C392C2C
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6542438D404
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436330; cv=none; b=lakrTA882E2RRt1/3XpJ9Wk8Gj4pt/SlqlLnXSzS7l53+Znb0F9afods4FxvCFV2c10CvgVpSAj09SFsa/xBEYPE6Xa0VX5DN8pvFKoAQc8/dv8TTg2PuqhslRYwtVBsFXorVCx77Un9MkhJ4c2WsZsebq/TNllUew5Qh2gh1kk=
+	t=1789436333; cv=none; b=M3rT5siVOPVWl5j7unbkPWKKtr/jD/6cMtmazDMAY8XtHU3m0gOsFRMYmtVkCEG1kDpoUho4Fv1FhqTq392nomVBYUmEJXj4ok8o1/P4D9w6FlURUOvgQh9R7ylQ3MWPrg4LYK5uOa9C5nbGmp2YmJBbZNv8MJpqF8oT8WrACk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436330; c=relaxed/simple;
-	bh=MPkdKKU/7GUG2aXSqsI6wgbkgwkvax2NhB9XOBGUO7Y=;
+	s=arc-20240116; t=1789436333; c=relaxed/simple;
+	bh=QuBRdgWMM0aRwlb3Ji6Q1T7j0mF58GEjh1MmoCSJv0w=;
 	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=GvipgoUanhdalZv9yvIbkSF0AXXM2Y/XDkDtICe1PRLQQJLqVbGdbdgh6t5zutKs8lCZEFIUMpzyZHCj8CfP52Q3cCgQQWUef7jlnfByg6EvCbJJSYGOJW9cYmjKqHDhdrBf4KLdVT3/Iqpg4zHJUZCZBMd3q3VNhgYE0on7ywg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+	 Content-Type; b=cO7uIbRZ1Fu58YYpMO21PNQz9fDpkl1z4q1Egy6N1KyXmIZ9fe//kd6Guit/8phLJCTNLHspWi9U2TiAO1vOsH/s2QF0IOdEkaxqEC5jH5CBU0xdgPV8umO6QtfbBCgVsm8H+b+rwC+AsxJjR2DPfV1wFzNhcVzSVjhFEsAUkxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-48e5de5a23cso5578197b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:48 -0700 (PDT)
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-44899f99756so6187276fac.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:38:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789436328; x=1790041128;
+        d=1e100.net; s=20260707; t=1789436331; x=1790041131;
         h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=SK8Up1k6e9dMSamna4ssit4ZSwewHiMfuuR+D6fsW7o=;
-        b=OiL+dV5KX1A4fb8ATxTMKYE+IRFoRGEgCuvFuiCUG+OSVt56dgJ3zVIIt3TrOHxHXJ
-         /Emxz1LLdANduECtVwCNi84o5uO4Ari+0VT9/BW/ZVywj4DMKwVSCrJlWGzq9O/8QYcw
-         ddQSTXAoKhpM/+ZH8cJaRYZudGibfCxqAMhO4PjhNZyp3+dX7XMDlFAlAEW0O+FM3mPu
-         hfZjNQuepYXxy/u6zZck8P7b/es06GGQ1ElzZA7E8hNoND1tE4FhesAwCRpi6+rXZ1NA
-         CZAa0ugG/lHL2nejnp37M6y7I55t4wCdmgFN1MEZ5PSVn+x4d541SK5qHGI0OZeA/9L1
-         l88w==
-X-Gm-Message-State: AFuF++nrk/+3KbHkhLy9+QS0bg8S2NaZsIotusXMvpubY07MLGIpwTZJ
-	rBDSk0lwLLoC9TMbcMSiH8wou5x3TfUZ6gSnrhzoqcP5zeHWBqBlFgZIuAdqKmgCU8125rPaVO6
-	sq4XKwqMVHW0xNKXHGn8SRisDzv9Vi1QP5cb/xg+YLE3nEZ7Gqj53Z0pakvQ=
+        bh=+nMfenqqGmhzpT+KaQWMfl41wrXss7PdoL71bedTrOM=;
+        b=qOT7vej/2f0ptvJYkkkJ0T8Cdus4i1RRFPjijeVqKgfxOGTowsP1hhdRht7rKylJvF
+         WEvMdhSEWgP3mbt/bBtwChovFAUcQBAepNs8w0gw2G/aSoo7Nu/Ua0JyTa3dvWKi5nZ7
+         R1RGukecZoPCwDweeOQYg5fOkPWPBX4TYvTUcLZh8BZBBz7f+3GwpqFeHfo/vuqYOihK
+         BL68WWKppd/W4DQaZbqkGTCbsEoGtK2z7OhywRlbhiU//6eU5NABEpd8qfmx8DrrxqHf
+         7kE7jW+IKk9AQIVdMIrVcfaZYwqLZ1X+8/OyVAqDDmxZZFpLA1qAbXH/XXvKsDt7MB5G
+         JJIw==
+X-Gm-Message-State: AFuF++m5yPFy5W+8o7Nfug9wb47u7SVaeda8+DErk11pUEvF8267cppJ
+	pSQIBiiKcGGWKUpBK+DI4n1bBwI6kUlMo3OdnZHae2g+YYxv8/hHK18GOp6TS7oEmD4OSepsuXn
+	Hqhzp9aQkDoljqQBR0440eET6VVSZ8nDzt9/RQkg1+0LbNgFePIgN4Q4Xvuo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:ec49:0:b0:6c1:f832:9b45 with SMTP id
- 006d021491bc7-6c54214a0e7mr4977457eaf.25.1789436327830; Mon, 14 Sep 2026
- 18:38:47 -0700 (PDT)
-Date: Mon, 14 Sep 2026 18:38:47 -0700
-In-Reply-To: <6aa60ec9.f81106d8.2ab401.0032.GAE@google.com>
+X-Received: by 2002:a05:6820:4de7:b0:6b7:8415:d78e with SMTP id
+ 006d021491bc7-6c542734fb0mr2723271eaf.57.1789436331436; Mon, 14 Sep 2026
+ 18:38:51 -0700 (PDT)
+Date: Mon, 14 Sep 2026 18:38:51 -0700
+In-Reply-To: <6aa4291e.f81106d8.2ab401.001e.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa8a1a7.4c28b7d0.c1bba.002a.GAE@google.com>
-Subject: Forwarded: [PATCH] WARNING in batadv_iv_ogm_process_per_outif
-From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
+Message-ID: <6aa8a1ab.f670cee1.72fc4.0022.GAE@google.com>
+Subject: Forwarded: [PATCH] KASAN: slab-use-after-free Read in v4l2_release (3)
+From: syzbot <syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com>
 To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
@@ -55,30 +55,109 @@ linux-kernel@vger.kernel.org.
 
 ***
 
-Subject: [PATCH] WARNING in batadv_iv_ogm_process_per_outif
+Subject: [PATCH] KASAN: slab-use-after-free Read in v4l2_release (3)
 Author: jchuang26@m.fudan.edu.cn
 
 #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
+Reported-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
 
-diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-index 53fbdbbe8..24ea350cd 100644
---- a/net/batman-adv/bat_iv_ogm.c
-+++ b/net/batman-adv/bat_iv_ogm.c
-@@ -1410,9 +1410,13 @@ batadv_iv_ogm_update_seqnos(const struct ethhdr *ethhdr,
- 		return BATADV_NO_DUP;
+diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
+index 09d8c5f8d..4da6ad1c3 100644
+--- a/drivers/input/touchscreen/sur40.c
++++ b/drivers/input/touchscreen/sur40.c
+@@ -647,6 +647,24 @@ static int sur40_input_setup_events(struct input_dev *input_dev)
+ 	return 0;
+ }
  
- 	orig_ifinfo = batadv_orig_ifinfo_new(orig_node, if_outgoing);
--	if (WARN_ON(!orig_ifinfo)) {
-+	if (!orig_ifinfo) {
-+		/* The GFP_ATOMIC allocation inside batadv_orig_ifinfo_new()
-+		 * may fail under memory pressure. That is not a kernel bug,
-+		 * so don't WARN; just skip duplicate detection.
-+		 */
- 		batadv_orig_node_put(orig_node);
--		return 0;
-+		return BATADV_NO_DUP;
++/*
++ * Final cleanup of the driver state.  This runs through v4l2_device_put()
++ * once the last reference to the v4l2_device is gone, i.e. after
++ * video_unregister_device() and after every open file descriptor of the
++ * video node has been closed.  Freeing sur40 earlier (for instance
++ * directly in sur40_disconnect()) would let v4l2_release() access the
++ * already freed video_device.
++ */
++static void sur40_v4l2_release(struct v4l2_device *v4l2_dev)
++{
++	struct sur40_state *sur40 = container_of(v4l2_dev, struct sur40_state, v4l2);
++
++	v4l2_device_unregister(&sur40->v4l2);
++	v4l2_ctrl_handler_free(&sur40->hdl);
++	kfree(sur40->bulk_in_buffer);
++	kfree(sur40);
++}
++
+ /* Check candidate USB interface. */
+ static int sur40_probe(struct usb_interface *interface,
+ 		       const struct usb_device_id *id)
+@@ -727,6 +745,7 @@ static int sur40_probe(struct usb_interface *interface,
+ 
+ 	/* register the video master device */
+ 	snprintf(sur40->v4l2.name, sizeof(sur40->v4l2.name), "%s", DRIVER_LONG);
++	sur40->v4l2.release = sur40_v4l2_release;
+ 	error = v4l2_device_register(sur40->dev, &sur40->v4l2);
+ 	if (error) {
+ 		dev_err(&interface->dev,
+@@ -778,7 +797,6 @@ static int sur40_probe(struct usb_interface *interface,
+ 	if (sur40->hdl.error) {
+ 		dev_err(&interface->dev,
+ 			"Unable to register video controls.");
+-		v4l2_ctrl_handler_free(&sur40->hdl);
+ 		error = sur40->hdl.error;
+ 		goto err_unreg_v4l2;
+ 	}
+@@ -787,7 +805,7 @@ static int sur40_probe(struct usb_interface *interface,
+ 	if (error) {
+ 		dev_err(&interface->dev,
+ 			"Unable to register video subdevice.");
+-		goto err_free_ctrl;
++		goto err_unreg_v4l2;
  	}
  
- 	spin_lock_bh(&orig_node->bat_iv.ogm_cnt_lock);
+ 	/* register the polled input device */
+@@ -806,10 +824,17 @@ static int sur40_probe(struct usb_interface *interface,
+ 
+ err_unreg_video:
+ 	video_unregister_device(&sur40->vdev);
+-err_free_ctrl:
+-	v4l2_ctrl_handler_free(&sur40->hdl);
+ err_unreg_v4l2:
+-	v4l2_device_unregister(&sur40->v4l2);
++	/*
++	 * Drop the reference taken above by v4l2_device_register().  The
++	 * last reference releases sur40 via sur40_v4l2_release(), which
++	 * also frees the control handler and the bulk buffer.
++	 */
++	input_free_device(input);
++	v4l2_device_put(&sur40->v4l2);
++
++	return error;
++
+ err_free_buffer:
+ 	kfree(sur40->bulk_in_buffer);
+ err_free_input:
+@@ -827,15 +852,19 @@ static void sur40_disconnect(struct usb_interface *interface)
+ 
+ 	input_unregister_device(sur40->input);
+ 
+-	v4l2_ctrl_handler_free(&sur40->hdl);
+ 	video_unregister_device(&sur40->vdev);
+ 	v4l2_device_unregister(&sur40->v4l2);
+ 
+-	kfree(sur40->bulk_in_buffer);
+-	kfree(sur40);
+-
+ 	usb_set_intfdata(interface, NULL);
+ 	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
++
++	/*
++	 * Release the reference taken by v4l2_device_register().  If the
++	 * video node is still open, sur40_v4l2_release() is deferred until
++	 * the last file descriptor is closed, so sur40 stays valid for
++	 * v4l2_release().
++	 */
++	v4l2_device_put(&sur40->v4l2);
+ }
+ 
+ /*
