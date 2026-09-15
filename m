@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6412247A0D1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF40647D462;
 	Tue, 15 Sep 2026 13:50:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480203; cv=none; b=Li6a551Oh1qT4dVOvKDKxgUOGDN2Yh6xVUnlZdzGZCNhdE7B3pS8O9g3wHS2PA3kcd+SRP1JFz4pB7YiIeSFmeHZiohrLK0dbFHYFSGcmQ6YGaLPGUV4Ul/StINL+6wXokX7N2oZ/EBqsoK1KvB7SWy34WRml93E4rj6I53P1+4=
+	t=1789480204; cv=none; b=qelUQWeH7cRmNz38P5ulRDwU+xnM4hJoIWmtTnuZCzkMWtQeuUpuFC99ihdd4QEUmT9OP8i1SADkA5Y79pVX0962rs73CvLicho/w+eau8h/DJdRzqjy77bQ0/Uj1S4CDONrPU8oeAaMGdlEj0NCjgI2r2Fx0z3w8cKc745pFzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480203; c=relaxed/simple;
-	bh=UnafG6WVYfNQdZQ6MnttjKf4JKywJdob+S2exj7Gm4w=;
+	s=arc-20240116; t=1789480204; c=relaxed/simple;
+	bh=NKKg6AEEXoM6tQyFXezz7j5lNyGVhRK42SMauPjhDyY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=juhsWNlP/RsZ2b8n2Nj60zWthK/yzFmPijmUXMZwloLz5NuUhNOWt4QcaL2eO38kZAA80LxQS3SLl/Tl1lU03B3f3lgaM0Pk/UkbUU8lIMgcbUB4o4r98b7rJyrAqCBY6Lv+PHIxi+jf4Ej+Uuy52QccTkIca7FshdMWnmpKwYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YnWnp6kR; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=V6UVD06eUEoItzYhkVNis3ACvBb8Yy9BKyO3QnU2ke5IBjBbDDaTx4LCBHXa1ikFaSkWNBrYfjN2JvjxXMuaGnlX/9UEpc/5NnoVRJsNzgSuHhX5B93yrBecqe/zfHWjh/2WRlwj5eUDL38BdKfGshOAIXReBPlleD5Cv7Bau44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=a2p7s/iS; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YnWnp6kR"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="a2p7s/iS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1789480198;
-	bh=UnafG6WVYfNQdZQ6MnttjKf4JKywJdob+S2exj7Gm4w=;
+	bh=NKKg6AEEXoM6tQyFXezz7j5lNyGVhRK42SMauPjhDyY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=YnWnp6kRXwgoN1xsnCBZQnxPpTkI2j1KOR40duYfzfoIL0umPqeoDXSwznt/ilsEB
-	 qK6vtjXS2u3yGtAxoUOXcHD5zaTEO9k+IdmycByMebLKM+DIalkItCWSy/OMzenpKu
-	 fbvn3XveFpHTzTrJgUBK6FLz1dtYiKAWJSp7T7Hc6ddzrDOYspza965/iKAAGrmtrt
-	 FoQJOBIHmZWx0G5QX+kh2FRPgO7/rUZg2FhmUReZG8yfdD8LgEQUb48qagxyJn0mXX
-	 b7v7h7i152XR24+p8BCE810/SsiF2vGZRAEI96p2muQPxzDeuCLqyVVfjwxlL/Rc1N
-	 IW+UOW0yyvG4g==
+	b=a2p7s/iS9AU11sMMJ4nivDlPw8LPHOBDW+zs2BbohKEuiIuUEZaReKCEJgS21Usvm
+	 t+gxMki2EpRFVW/xsW6st7jqJXlGZiW6eDPrCpLw0WgugcGqUpqjcWu3+kbetLP1gD
+	 hhDDp/caFySjcPuBC6W7BAQHlAYUyjmqOfsRgyiU1H+Fu7wONoLyS7QFyn78q+Fuie
+	 rdJwa7CvidaUCaATMzGp8NpbkKCcVBF5VCywejkxxXpZD45DPM1ofa6fQKW0vV8Zni
+	 rAJ6IxSOrB/Oe3M8EqLmwFXmejQrUFZdK98WVaK3MCdieixf4khPHPfK5Zilc7Bjho
+	 3LWYNvxAcP4Hg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8040D17E0A32;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7DCE217E091A;
 	Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 2EA7C480031; Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
+	id 2B7A948002C; Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 15 Sep 2026 15:49:51 +0200
-Subject: [PATCH v15 04/16] phy: rockchip: usbdp: Fix devm_clk_bulk_get_all
- check
+Date: Tue, 15 Sep 2026 15:49:49 +0200
+Subject: [PATCH v15 02/16] phy: rockchip: usbdp: Update mode_change after
+ error handling
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-rockchip-usbdp-cleanup-v15-4-80e2c11d1ce8@collabora.com>
+Message-Id: <20260915-rockchip-usbdp-cleanup-v15-2-80e2c11d1ce8@collabora.com>
 References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
 In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
@@ -64,40 +64,36 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
  Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1722;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1856;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=UnafG6WVYfNQdZQ6MnttjKf4JKywJdob+S2exj7Gm4w=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpTQUqeqG6Mf1w9I3YCMtzPDXfcQtRFM1xW
- +j6XaWsHLxd5YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqU0FAAoJENju1/PI
- O/qa5igQAJ+eNDZzR1H3qV7s7rudtb1vag4zvdXkoiFthFjDLjU9lgTk1xga2L0N5WKiElkAC8v
- i+jGVp9BQprY11oyM9aoEluS6FIt3HTrgxvwsp6FjgkJGpjk+7EQfahjSfsGnt4S97f77PE4AS+
- yM6VUF/SuyATviLe+SKpoJwwG7F/+/QIZHQ2fzCGbuh39SsUBR0DdPOY8OhQPYtPm9qFn4sJvpe
- PcsQemgNR8HS12MF10i07UoqfvM/nv50u5JBFW7c3UJbrMhD3amppoBrkTIMK9A2bzdeNZ66mGB
- 1+ekuntcxmspPvE/yMLKkmJECkZCgPEPXqOSFl7FeS489AExm4ssleo1Fob2OyvQ/wGEwlOtQYs
- LRaUUXTnNRWBddX3I8Yep0bIgH/r4CPRpXk04cV9ZgXRIio5gGFKMTHqAhDJWoB9TdW4xO78jCJ
- OQdalD3w5CwRIJHzyYCDUOYWrPltTzyyhAdUs/wOcQrcE2qB9fnwzd1qqBtdPokPf5PXDXX4qrB
- X/ge2axd0Kch/6UzLdYZoMfWZLj7QtWRzyldbjgY0u0it16xRMU0ALx1yKpjupx1kA7JmMuj5Xq
- FMgXhA1vmpS+2qclU2GXHqiqjWQY8BYlMcy23YNCtAj5Ib12N7rlZKKmslxbCmaIDq5a1t+T1kM
- RpWnU0N5ItIcMl0CkwsArGA==
+ bh=NKKg6AEEXoM6tQyFXezz7j5lNyGVhRK42SMauPjhDyY=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpTQWVvWBfi+HlbBO4onPCersITl/nVV5df
+ EvkbFkM7wDTnokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqU0FAAoJENju1/PI
+ O/qajMgP/13aHIc8MUKY/ambWT080dg1IDxSZSXaw9v86VelIfPm0rQ+/LwOlbxfhH2KMm2qJlv
+ NzR6LJxNVGVjhAYbDXAJfq5EnsZh+FG5ebevI0Y7JsXvz04KK2Jza1wBMbXUaWnAanYvcLySrhH
+ QjvkkAUIpZ58k0QwJHpYPjG5FEoftxC0FSHg2/g9GJ5m8tXa7VCVnR79rfNMxli2XTwjVXOMYob
+ +xBipON5+1IMrhSD7074zS0VphRMLTl5wYr8r7E5qTW8gHQg1fzIMQhXZlU1htJVBEfOsDbnVha
+ 3b4CpNbE3OfQclKH0108Td7HWVv4jWYNTFl2gAe2mqGj+2w6YSkWCezjpr2O8ebn/51xsrIvyn6
+ PY6LMxEP9bXGSYV8fLZOAt77k/Yh4qNCGcRCBxYcCnpuQCxyQ/e1ayggi7SRaQAhQaGhRRAm4U8
+ R8uISMGd/I5A4eq4ZQ1yCgfkQChl6PiDq4kQ973R7WcYvR/SIVYy3u1P83ftbx4arLuAiILQyI0
+ Ksleutp+NydSqED4BrIgQWwB6LcAuOVR7ip5vf7PcL25/RyjLrhq38UpYdAi1PBoi1BYZ62x86i
+ cydkRap606vVZZapQokzXKxIt+pMAkF3OlBD28Dl4NQf6IMjXgw5aWXfsUlaTClVlHxBuqDNhFu
+ z0/ugt9fZogXcI/yQ2cM3Kw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-If devm_clk_bulk_get_all() returns -EPROBE_DEFER, it is replaced with
--ENODEV, permanently failing the driver probe instead of allowing it to
-defer. Avoid masking the error code to fix the issue.
+If rk_udphy_init() or rk_udphy_setup() fails, the reinit will not be
+tried again. Fix this by only updating the variable after all potential
+errors have been handled.
 
-This effectively drops returning -ENODEV in case no clocks are being
-described in DT. This special case will now be handled by the follow-up
-check searching for "refclk" and exit with -EINVAL.
-
-None of this will be hit in practice, since the driver is only used by
-RK3588 and RK3576 - on these platforms the DT is validated to contain
-the clocks and the clock driver is force probed early. Thus there is
-no need to backport this.
+Note, that no errors have been seen on real hardware and failures would
+most likely be fatal and require at least a full reboot as the function
+already asserts the PHY reset lines. So this is more of a theoretical
+issue.
 
 Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.kernel.org/
+Closes: https://lore.kernel.org/linux-phy/20260612163835.8D5471F000E9@smtp.kernel.org/
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
@@ -105,20 +101,34 @@ Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index da0fa75fc9f0..c6cda0b80bfa 100644
+index 07a839e41db7..13649b52e99b 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -426,8 +426,8 @@ static int rk_udphy_clk_init(struct rk_udphy *udphy, struct device *dev)
- 	int i;
+@@ -999,15 +999,14 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 	}
  
- 	udphy->num_clks = devm_clk_bulk_get_all(dev, &udphy->clks);
--	if (udphy->num_clks < 1)
--		return -ENODEV;
-+	if (udphy->num_clks < 0)
-+		return udphy->num_clks;
+ 	if (udphy->status == UDPHY_MODE_NONE) {
+-		udphy->mode_change = false;
+ 		ret = rk_udphy_setup(udphy);
+ 		if (ret)
+ 			return ret;
  
- 	/* used for configure phy reference clock frequency */
- 	for (i = 0; i < udphy->num_clks; i++) {
+ 		if (udphy->mode & UDPHY_MODE_USB)
+ 			rk_udphy_u3_port_disable(udphy, false);
+-	} else if (udphy->mode_change) {
+ 		udphy->mode_change = false;
++	} else if (udphy->mode_change) {
+ 		udphy->status = UDPHY_MODE_NONE;
+ 		if (udphy->mode == UDPHY_MODE_DP)
+ 			rk_udphy_u3_port_disable(udphy, true);
+@@ -1016,6 +1015,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 		ret = rk_udphy_setup(udphy);
+ 		if (ret)
+ 			return ret;
++		udphy->mode_change = false;
+ 	}
+ 
+ 	udphy->status |= mode;
 
 -- 
 2.53.0
