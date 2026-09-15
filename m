@@ -1,78 +1,111 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736391EFF93;
-	Tue, 15 Sep 2026 01:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB6531353C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789434368; cv=none; b=EKz6uOSTGqx1unOes1+H3c8MJvREMjmoamu2QJXeJiSeRumJigAVmJxeU2L+DwLs4h07Fts7KRFv1h+OO8f9HYHLqwiBvL+UXaJ0jKknndsQwcPU+iLDvoXMI9AAJ/B5f1Nzxdujvm0eId+DHD5S0Ki5C7q1NQKKIrM60q1cgzY=
+	t=1789434419; cv=none; b=SAGPKqW/gAndJ1MQrmxN+Lb2rIPe2VMQwRHMBvptivhOuFVAOeUvTRb4fMAZSR2X7gPBxVWTnnH+cWZ/rPluM/Vn+mwEsJUx7XyXO0iw/yWbUEG6Hv44IKpKnFspMltakmNfRoNHx/qtQkaTr6VOgFLXdvio0AIxCTT7JqKHo7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789434368; c=relaxed/simple;
-	bh=3Tt86Q/NpMlOsDp9916VWkURqNPqTTY/kDBFF4LcTNU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=jDOaFzt+r4F2qFh855uusJub0+MI5bsE948/AQEn/HMBLdo1TQJLua0L4+fleJVQHf/9ZSDjhLYUqG7VwQ1yQehdSzdNrEdFrNJi34uKMc92wXeZeK/boK2blx5A3lN6URF2FMIAJP8XBews0p9Gb8Xb7zq34A4PSSB/Sy74WpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=baegioPv; arc=none smtp.client-ip=220.197.31.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789434419; c=relaxed/simple;
+	bh=ar5w2bICKs61a2oJgBZNjiCTwG1evAr0pHP0ww9A13o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bEnYl6BleHEUss9jddvDHsMAKRI8lcOUgcaf+TXI9SgsbCDb3cQ4kIIoQtBxG2JPecNq5xCMVV4ri27753r8cgBaan+KxH4N+nK9HopYmEr1+G808uEhWrilk3MlYQudPa26M5L4e9gtg7eSrJvwC6Ie4L1SS5ToLEbsJpRJqx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KlYwXN5h; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="baegioPv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=3Tt86Q/NpMlOsDp9916VWkURqNPqTTY/kDBFF4LcTNU=; b=b
-	aegioPvrCuh4QYCmrJjFuS4y55Nv565CR0BDDQbY+nqLt1GposUKlGATAu3U+DMy
-	5q/Bst2GJz1UI9hv9jjtPH+N+/+FYpQJcrhrpkdsR0QDPSntQ1d/c+gn1QU7ynNO
-	BMwPLObRXYDXkfDAHc83QcH27B1DkrCcUiUJA0ED4M=
-Date: Tue, 15 Sep 2026 09:05:41 +0800 (CST)
-From: dd  <zhongling0719@126.com>
-To: "Namjae Jeon" <linkinjeon@kernel.org>
-Cc: "Hongling Zeng" <zenghongling@kylinos.cn>, hyc.lee@gmail.com,
-	ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KlYwXN5h"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76bcb09so32876651cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:06:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789434415; x=1790039215; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z0NSuQEoXQJcg9ajYYVwURRCgxkdaWdgI2zUIGcducQ=;
+        b=KlYwXN5h/ueuJCe0W/L1xI4Mg1RVzDLxQc9Au3r0JszeA04SZ9QAGTUX++V0Etqz//
+         jmjW7kKou9dZD/ERsaWnFtCZhQ+YPVOtAPqlpTu7hK1FoDPYDFKUPMUNOTTvKCfFTYk4
+         NOI2/8NAX59gxy96JlYq8QkPh01fkuCrJKTQYCbbUbqZbpSsff+tJPunfXq7CqGm3Wkz
+         d5h/BEvq1ogOnBeqXUQ5hoN8vmQhh7W7Xu/yo5L+uusQVES7OFeCa8vi1aLfGzxaCcJs
+         j1Bdx4thdTD2oBo/ubHiCqvzuFQOkJ32qhONLY8yxSCbyB8nFI9NLUnQJYQdOZzUtRxz
+         uMjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789434415; x=1790039215;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z0NSuQEoXQJcg9ajYYVwURRCgxkdaWdgI2zUIGcducQ=;
+        b=HxWZXbeb/YF2dftyNpDSIt/WQShv5vK296LrR+6KlSTuLh3hIf+sEuH6PlbH28WX8w
+         xOWScUrLJKpBSM3Hp2W0qivi0tvKH6gPeWTREWYJ/Av6lXkLINQQmoeBzfqD5k9ZfCxg
+         XH9SeQIhD7kGyNWZgJ4bn7qdpOIeL0PAHleZbmnis8uXw774hy41eHPRn6eknCeOQ68b
+         FJJ9P9LOTXvNB1IlhdOQkFHll8tiDWl7EuG+ByhfWx7TvkCMBxwWBWbjJAKdpt943i1Q
+         qG+tfJWleerZMaWB8sKDQm9QsVeYnbODwQnPczzCVZxhi12BtCXhv7ytXHGN8RxD3KpW
+         BXvA==
+X-Forwarded-Encrypted: i=1; AKwUvByAfZsv/YH0Wmjl36ajrCzxGgA1bZ0LIy4v6oA611iWKsw+R7lw5vxIOKPatSc8Ugo7kEY0F/XodCwXS9U=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2Fu5xp85kmP9V/sLc2qH5EMnxVlNAYVIUHklpGMWy7rWc0MGG
+	ByrSo3lTLB7DNoCYWPGM3TD7s/VIUpYBq/LOq70gtyWMxXMI4fBc4Gg=
+X-Gm-Gg: AYBFou0iChJkRFPo73qUad2LioI22FbuXGvQJkw/AaNeTIkqSa+Xuaz4DVlIr5guEoZ
+	3QZqk+u2KFoZ2tp8LjObxFmTIlAVFLKWKfmW05qnrd+1vZ51spUe/YgoZpYwa7rkusTuZhJZ7zk
+	cA4L2u5jghiimTWUgmyTHHeVGurUoPMaOkfZ5zn8l+wYMJBCLt2VGyvbPDX2IOTvRBMJ6EJLbWy
+	hqROCpEcw8nvqpELM2/dGl7zq1aUn1eQRT5+XtFFBcvjcoEf7CYTXRVZUAkLBxmECc6EWBvicZo
+	LSj7ja2MMpC2wVykegVnI/KKr/Ivr/y/AIoc5dD3zIzd9hhZ6TR0V9gsqyz/1uchQGmdAwGgbt9
+	4sOanvfB4ZNEJdxYt59LDe1K4psoTXAXxW06u53KzFgHvcWDVgTI3VRM39MjR8lTXxvhFxpEGff
+	158RWvh3UV+DYVUNnWdTmpghSasR21RHsmL1R0P0dPni9D0CzAMuLVWT0thfhgA6CvsdH2LtuFB
+	ZlvjPAYz133vHhIcLIl2oUQFF+4lSOrxzxUx1rRzfgaKR+t4XH6BwJajhazFmx+5HZstIA5qBnL
+	+CS3rwrUVCUroOo0HRY4APMc5dmVfl/nwXjMxYIDudtOYjIbe4aXEhbnKNcLDeJEunFoB/4exjK
+	atdW0
+X-Received: by 2002:a05:622a:4c8:b0:530:8853:1be5 with SMTP id d75a77b69052e-5310cf0d3fbmr79307801cf.10.1789434415206;
+        Mon, 14 Sep 2026 18:06:55 -0700 (PDT)
+Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47a5e5sm108327076d6.19.2026.09.14.18.06.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 14 Sep 2026 18:06:54 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re:Re: [PATCH] ntfs: mount hibernated volumes read-only regardless
- of errors=
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
-In-Reply-To: <CAKYAXd9EFNkofkj1tEg1vs5+1ohs1exYx6mys78X8852x8w6Yg@mail.gmail.com>
-References: <20260914034202.52011-1-zenghongling@kylinos.cn>
- <CAKYAXd9EFNkofkj1tEg1vs5+1ohs1exYx6mys78X8852x8w6Yg@mail.gmail.com>
-X-NTES-SC: AL_Qu2TC/iYu0sv5yKfbOkWk00RgOk9WsG1vfQi24NQP500ly728SsKQVxoP37pze6IFy6zkCWzdid8y9xQVLVEVZqwQ+uP74z4sdUYKtVXqNu0
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH] mtd: maps: pci: balance PCI enable on cleanup
+Date: Mon, 14 Sep 2026 21:06:47 -0400
+Message-ID: <20260915010647.54099-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <5d8908a0.a55.1a0a29927aa.Coremail.zhongling0719@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:dikvCgD3H5rlmahq_zpAAA--.55880W
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrgVkNWqomeVBpwAA3i
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CgrlnKggMjAyNi0wOS0xNCAyMTo1OToxMO+8jCJOYW1qYWUgSmVvbiIgPGxpbmtpbmplb25Aa2Vy
-bmVsLm9yZz4g5YaZ6YGT77yaCj5PbiBNb24sIFNlcCAxNCwgMjAyNiBhdCAxMjo0MuKAr1BNIEhv
-bmdsaW5nIFplbmcgPHplbmdob25nbGluZ0BreWxpbm9zLmNuPiB3cm90ZToKPj4KPj4gVGhlIGhp
-YmVybmF0aW9uIGNoZWNrIGluIGxvYWRfc3lzdGVtX2ZpbGVzKCkgb25seSBjb252ZXJ0cyB0aGUK
-Pj4gc3VwZXJibG9jayB0byByZWFkLW9ubHkgdW5kZXIgZXJyb3JzPXJlbW91bnQtcm8uICBXaXRo
-IHRoZSBkZWZhdWx0Cj4+IGVycm9ycz1jb250aW51ZSAoYW5kIHdpdGggZXJyb3JzPXBhbmljKSwg
-YSBoaWJlcm5hdGVkIHZvbHVtZSBpcwo+PiBtb3VudGVkIHJlYWQtd3JpdGUgYW5kIHRoZSBtb3Vu
-dC10aW1lICRMb2dGaWxlIGVtcHR5aW5nIHdyaXRlcyB0byBpdCwKPj4gYWx0aG91Z2ggYSBoaWJl
-cm5hdGVkIHZvbHVtZSBtdXN0IG5vdCBiZSB3cml0dGVuIHRvIGF0IGFsbC4KPj4KPj4gRHJvcCB0
-aGUgb25fZXJyb3JzIHRlcm0gc28gdGhhdCBhIGhpYmVybmF0ZWQgdm9sdW1lLCBvciBhIHZvbHVt
-ZSB3aG9zZQo+PiBoaWJlcm5hdGlvbiBzdGF0ZSBjYW5ub3QgYmUgZGV0ZXJtaW5lZCwgYWx3YXlz
-IG1vdW50cyByZWFkLW9ubHkuCj4+IE5Wb2xFcnJvcnMoKSBpcyBzdGlsbCByZWNvcmRlZCwgc28g
-bnRmc19yZWNvbmZpZ3VyZSgpIGtlZXBzIHJlZnVzaW5nCj4+IHJlbW91bnRzIHRvIHJlYWQtd3Jp
-dGUsIGFuZCB0aGUgJExvZ0ZpbGUgZW1wdHlpbmcgaXMgc2tpcHBlZCBieSBpdHMKPj4gIXNiX3Jk
-b25seSgpIGNoZWNrLgo+Y2hlY2tfd2luZG93c19oaWJlcm5hdGlvbl9zdGF0dXMoKSBjYWxscyBu
-dGZzX2Vycm9yKCkgYmVmb3JlIFNCX1JET05MWQo+aXMgc2V0LiBXaXRoIGVycm9ycz1wYW5pYywg
-dGhpcyBwYW5pY3MgYmVmb3JlIHJlYWNoaW5nIHRoZSBuZXcKPnJlYWQtb25seSBmYWxsYmFjay4u
-LgogIFRoYW5rcyBmb3IgY2F0Y2hpbmcgdGhpcy4gUmlnaHQgLS0gdGhvc2UgZXJyb3IgcGF0aHMg
-Y2FsbCBudGZzX2Vycm9yKCkKICBiZWZvcmUgU0JfUkRPTkxZIGlzIHNldCwgc28gZXJyb3JzPXBh
-bmljIGNhbiBmaXJlIGluc2lkZQogIGNoZWNrX3dpbmRvd3NfaGliZXJuYXRpb25fc3RhdHVzKCku
-CgogIEkgd2lsbCByZW1vdmUgdGhlIGludGVybmFsIG50ZnNfZXJyb3IoKSBjYWxscyBpbiB2Mjsg
-dGhlIGNhbGxlciBhbHJlYWR5CiAgcmVwb3J0cyAiRmFpbGVkIHRvIGRldGVybWluZSBpZiBXaW5k
-b3dzIGlzIGhpYmVybmF0ZWQuIiBmb3IgZXZlcnkKICBlcnIgPCAwIGNhc2UuIE5Wb2xFcnJvcnMo
-KSBpcyBzdGlsbCByZWNvcmRlZCwgc28gbnRmc19yZWNvbmZpZ3VyZSgpCiAga2VlcHMgcmVqZWN0
-aW5nIHJlbW91bnRzIHRvIHJlYWQtd3JpdGUuCgogIFRoYW5rcywKICBIb25nbGluZwoK
+mtd_pci_probe() leaves the PCI device enabled on later probe failure and
+mtd_pci_remove() does not disable it either. Use pcim_enable_device() to
+release the enable reference after the existing map and region cleanup.
+
+The imbalance is already present in the initial Git import.
+
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/mtd/maps/pci.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mtd/maps/pci.c b/drivers/mtd/maps/pci.c
+--- a/drivers/mtd/maps/pci.c
++++ b/drivers/mtd/maps/pci.c
+@@ -250,7 +250,7 @@
+ 	struct mtd_info *mtd = NULL;
+ 	int err;
+ 
+-	err = pci_enable_device(dev);
++	err = pcim_enable_device(dev);
+ 	if (err)
+ 		goto out;
+ 
