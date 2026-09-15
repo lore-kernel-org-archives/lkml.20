@@ -1,195 +1,159 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3416338B7D7
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:55:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB58549E15A;
+	Tue, 15 Sep 2026 14:56:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484156; cv=none; b=mJOCyC9S9Bgw6g7HnUtdtnHIH1gMm/CrmyAta+mv770xwcdKhHXrdkTjJ2eDs3O+g7QRXU1MU26HRsiqLDhxK7hB61BnDEpCMiO2kXa56k1NJz/x22ynUONv+2DIl4+sFT0w7ab6IwRLWzLNDU7Pb3Czqex5b3bSvNDDp3c2iVM=
+	t=1789484184; cv=none; b=Dne19lc7jAaE+BwR8IJdecB9POLYxmV6mbepmv7tUWmaNl1+M7UA93BaCpfRqRjmjGbimT7OhFWFJh/Th+tIsHjXVvv3xWxowh7oLqBr1P1CZmIHQqd/om8C6B8Bt65FJbp0hoTGaBFew2YZ6Bl6VCULh+Mt+GH7DFZm24Il48w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484156; c=relaxed/simple;
-	bh=OAIWvnwmICuBxHXGlAIYQnLGb3R6ioDPKRlYrZ3h8Fo=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=oamDwRm8+O8Nj9EjgNY1rvLkVLH2LVbL8b7AuJtFE1bVr9DbGhzb5AAqB0f30if3/JJZO0ADlXh/nn8yLGUKNoyOx9wchz/KNNEr9/F5RFokyxBNuH7QG3+kxFXhNaveHnUA6YnRMkJVLaDAh6iN6hkUA4TKdPHHacFwu9PhUNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CL50tm3D; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789484184; c=relaxed/simple;
+	bh=kg9GekJuBJ8SYQL6TTBh61wvP3AifQMScyKfkRmP62A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EmvkRTqRC710Imw6xvrC5H3QQmGVJjrbqXMBTHJ6ih/sOBcn1OdxyvTDodeFgfiqrZw6lWetDpXO2+IsueH2iGGQ9cGNXVWJrecOnofTMbU2Pt7TBDgslaCB5hn2iy3RQX1v4m7oPi9A5NSz6BDa/oEDB1x2DSQ7TisCf8/QXT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=grG5Mx/o; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CL50tm3D"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789484149; x=1821020149;
-  h=date:from:to:cc:subject:message-id;
-  bh=OAIWvnwmICuBxHXGlAIYQnLGb3R6ioDPKRlYrZ3h8Fo=;
-  b=CL50tm3DwrJwC6jeU+AMx/JW/WrQO5SDkv01aKZ5wJjFfC/uTH8dsCB8
-   zyOn2iYuYu3d35PTakT181DV8y8Eq+eUDRhf4aLiCNHkC/z9/koSu8jDQ
-   nY3UpQWIPK/PRixLgyF8q8bE9LN0AsKMUiM7iYry2/yklhXNyor5rR1Tr
-   bmi1HGzSgjlYUBi7RLbynNEZyUEEK0FsNJFm54TUdFftqFDcA8xzxRzKR
-   DqzSN2Dv3SkPEMmRklbXhEr0zYjuVgOntKYFlxCEaAlErEVbkfw6PcyHB
-   oCbmc6bDpuq0YruhodlhgG84N1tAhOkrPdIhQePVeEShdWInPfB0jU7Cw
-   g==;
-X-CSE-ConnectionGUID: JuwmRovIQzC3rTcXH8d5qQ==
-X-CSE-MsgGUID: Awzj/ZhOSvKOSfpwnvO+QA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101002083"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="101002083"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:55:46 -0700
-X-CSE-ConnectionGUID: fwCPZFJ7Try2uKlYo0vFhQ==
-X-CSE-MsgGUID: 3fHAvh4ERzuqX7qeDa8O/A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="270413373"
-Received: from igk-lkp-server01.igk.intel.com (HELO 71151d66d536) ([10.211.93.152])
-  by fmviesa008.fm.intel.com with ESMTP; 15 Sep 2026 07:55:43 -0700
-Received: from kbuild by 71151d66d536 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x6UZR-000000000db-02E0;
-	Tue, 15 Sep 2026 14:55:41 +0000
-Date: Tue, 15 Sep 2026 16:54:53 +0200
-From: kernel test robot <lkp@intel.com>
-To: Lohita Mudimela <lohita.mudimela@amd.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Robin Chen <robin.chen@amd.com>, Ivan Lipski <ivan.lipski@amd.com>
-Subject: 
- drivers/gpu/drm/amd/display/modules/power/power_replay.c:693:80-85: WARNING:
- conversion to bool not needed here
-Message-ID: <202609151622.vbDLWOBV-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="grG5Mx/o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789484175; bh=kg9GekJuBJ8SYQL6TTBh61wvP3AifQMScyKfkRmP62A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=grG5Mx/oU7ozBT1BnMN1wIeFxU6HPj2uLSo/wrh3X0u6j6gNtYcUQpsfcFz+s1TXX
+	 LRoy9hiI0SdavFB7kxOypX/uaRoXONyqV9vFPm8NY5VodJDaJDy2QFYcyZJ9gySvUm
+	 a1wisXtLn6uPoqDML2wmBFEjYETk/oGzfSzR/vU5j+1eCtfMgEItU7bmUlxLixgHrF
+	 6jRUYn20dE52Esaw+MgCgIzpq8u2duH9kBkfuCJQ1aAOog1ET3+Tim50r3J0a1Hdja
+	 1GgzO/JnI0BP6DExYFlVqBuQYgrO1USPD3z0Qt8LgylUgi9WzhCxlM8uEvKagDKay0
+	 Rm2eph1MLDo0A==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 14E0C40B71; Tue, 15 Sep 2026 15:56:15 +0100 (BST)
+Date: Tue, 15 Sep 2026 15:56:15 +0100
+From: Sean Young <sean@mess.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 04/20] media: rc: Replace open coded krealloc() for
+ keymap
+Message-ID: <aqlcj9xXNRURA5iJ@extorris.mess.org>
+References: <cover.1789460680.git.sean@mess.org>
+ <3b7094b8f0035d970fd61caca05abcdd3374146b.1789460680.git.sean@mess.org>
+ <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   587858367581b9c55c3690f4e63382ad622719d4
-commit: d7e41c6f513ef59e890d9fb34a2631fdf6d87789 drm/amd/display: Refactor Replay functionality into dedicated power_replay module
-date:   4 months ago
-config: x86_64-randconfig-103-20260911 (https://download.01.org/0day-ci/archive/20260915/202609151622.vbDLWOBV-lkp@intel.com/config)
-compiler: gcc-13 (Debian 13.3.0-16) 13.3.0
+On Tue, Sep 15, 2026 at 03:07:32PM +0200, Hans Verkuil wrote:
+> On 9/15/26 10:32, Sean Young wrote:
+> > Replace some ugly code with open coded krealloc() and remove
+> > superfluous member of struct rc_map.
+> > 
+> > Signed-off-by: Sean Young <sean@mess.org>
+> > ---
+> >  drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
+> >  include/media/rc-map.h     |  2 --
+> >  2 files changed, 22 insertions(+), 25 deletions(-)
+> > 
+> > diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+> > index d4baaae3a834..53e39b7a489a 100644
+> > --- a/drivers/media/rc/rc-main.c
+> > +++ b/drivers/media/rc/rc-main.c
+> > @@ -17,9 +17,8 @@
+> >  #include <linux/module.h>
+> >  #include "rc-core-priv.h"
+> >  
+> > -/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
+> > -#define IR_TAB_MIN_SIZE	256
+> > -#define IR_TAB_MAX_SIZE	8192
+> > +#define IR_TAB_MIN_ENTRIES	32
+> > +#define IR_TAB_MAX_ENTRIES	1024
+> 
+> This is better...
+> 
+> >  
+> >  static const struct {
+> >  	const char *name;
+> > @@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
+> >  static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
+> >  			   const char *name, u64 rc_proto, size_t size)
+> >  {
+> > +	unsigned int alloc;
+> >  	rc_map->name = kstrdup(name, GFP_KERNEL);
+> >  	if (!rc_map->name)
+> >  		return -ENOMEM;
+> > +	alloc = roundup_pow_of_two(size);
+> >  	rc_map->rc_proto = rc_proto;
+> > -	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
+> > -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
+> > -	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
+> > +	rc_map->len = 0;
+> > +	rc_map->size = alloc;
+> 
+> ...but this still says 'size'...
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: d7e41c6f513e ("drm/amd/display: Refactor Replay functionality into dedicated power_replay module")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609151622.vbDLWOBV-lkp@intel.com/
+struct rc_map_table has a len and size member. I agree that size is not
+a good name. How about capacity or cap]? I am not sure that entries is much
+clearer that entries tbh, because what's the difference between len and
+entries?
 
-cocci warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/amd/display/modules/power/power_replay.c:693:80-85: WARNING: conversion to bool not needed here
+> > +	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
+> >  	if (!rc_map->scan) {
+> >  		kfree(rc_map->name);
+> >  		rc_map->name = NULL;
+> >  		return -ENOMEM;
+> >  	}
+> >  
+> > -	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
+> > -		rc_map->size, rc_map->alloc);
+> > +	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
+> > +		alloc, alloc * sizeof(struct rc_map_table));
+> >  	return 0;
+> >  }
+> >  
+> > @@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
+> >  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
+> >  			   gfp_t gfp_flags)
+> >  {
+> > -	unsigned int oldalloc = rc_map->alloc;
+> > -	unsigned int newalloc = oldalloc;
+> > -	struct rc_map_table *oldscan = rc_map->scan;
+> > +	unsigned int newsize = rc_map->size;
+> >  	struct rc_map_table *newscan;
+> >  
+> >  	if (rc_map->size == rc_map->len) {
+> >  		/* All entries in use -> grow keytable */
+> > -		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
+> > +		if (newsize >= IR_TAB_MAX_ENTRIES)
+> >  			return -ENOMEM;
+> >  
+> > -		newalloc *= 2;
+> > -		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
+> > +		newsize *= 2;
+> > +
+> > +		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
+> >  	}
+> >  
+> > -	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
+> > +	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
+> 
+> ...which is especially confusing here where rc_map->size and IR_TAB_MIN_ENTRIES
+> are mixed.
+> 
+> This is not important for this series, so you can go ahead with it.
+> 
+> But personally I would prefer to rename rc_map->size to rc_map->entries and
+> ditto for newsize to newentries. That way it is clear that these variables
+> deal with the number of entries and not the size in bytes.
 
-vim +693 drivers/gpu/drm/amd/display/modules/power/power_replay.c
+How about newcapicity or newcap? 
 
-   622	
-   623	bool mod_power_set_replay_event(struct mod_power *mod_power,
-   624		struct dc_stream_state *stream, bool set_event,
-   625		enum replay_event event, bool wait_for_disable)
-   626	{
-   627		struct core_power *core_power = NULL;
-   628		struct dc_link *link = NULL;
-   629		unsigned int stream_index = 0;
-   630		unsigned int active_replay_events = 0;
-   631		bool replay_active_request = false;
-   632		bool force_static = false;
-   633		uint32_t coasting_vtotal = 0;
-   634		bool current_timing_sync_status = false;
-   635		bool is_full_screen_video = false;
-   636		bool is_ultra_sleep_mode = false;
-   637		unsigned int sink_duration_us = 0;
-   638		bool low_rr_active = false;
-   639		uint16_t frame_skip_number = 0;
-   640		bool is_video_playback = false;
-   641	
-   642		if (!stream)
-   643			return false;
-   644	
-   645		if (mod_power == NULL)
-   646			return false;
-   647	
-   648		core_power = MOD_POWER_TO_CORE(mod_power);
-   649	
-   650		if (core_power->num_entities == 0)
-   651			return false;
-   652	
-   653		stream_index = map_index_from_stream(core_power, stream);
-   654	
-   655		if (set_event)
-   656			core_power->map[stream_index].replay_events |= event;
-   657		else
-   658			core_power->map[stream_index].replay_events &= ~event;
-   659	
-   660		link = dc_stream_get_link(stream);
-   661		if (!link || !link->replay_settings.replay_feature_enabled)
-   662			return false;
-   663	
-   664		if ((core_power->map[stream_index].replay_events & replay_event_disable_replay_while_switching_mux) != 0)
-   665			return false;
-   666	
-   667		if ((core_power->map[stream_index].replay_events & replay_event_os_override_hold) != 0)
-   668			return false;
-   669	
-   670		active_replay_events = core_power->map[stream_index].replay_events;
-   671	
-   672		current_timing_sync_status =
-   673			link->replay_settings.config.replay_timing_sync_supported;
-   674	
-   675		replay_active_request = mod_power_update_replay_active_status(active_replay_events,
-   676			link, &coasting_vtotal, &is_full_screen_video, &is_ultra_sleep_mode, &frame_skip_number, &is_video_playback);
-   677	
-   678		if (is_full_screen_video)
-   679			mod_power_replay_set_pseudo_vtotal(mod_power, stream,
-   680				link->replay_settings.low_rr_full_screen_video_pseudo_vtotal);
-   681		else
-   682			mod_power_replay_set_pseudo_vtotal(mod_power, stream, 0);
-   683	
-   684		//If timing_sync_status change, then re-enabled set timing_sync_supported value and re-enabled replay
-   685		if (current_timing_sync_status != link->replay_settings.config.replay_timing_sync_supported)
-   686			mod_power_replay_set_timing_sync_supported(mod_power, stream);
-   687	
-   688		if (link->replay_settings.config.low_rr_supported) {
-   689			sink_duration_us =
-   690				(unsigned int)(div_u64(((unsigned long long)(coasting_vtotal)
-   691					* 10000) * stream->timing.h_total,
-   692						stream->timing.pix_clk_100hz));
- > 693			low_rr_active = sink_duration_us < LOW_REFRESH_RATE_DURATION_US_UPPER_BOUND ? false : true;
-   694			if (low_rr_active != link->replay_settings.config.low_rr_activated) {
-   695				mod_power_set_low_rr_activate(mod_power, stream, low_rr_active);
-   696				link->replay_settings.config.low_rr_activated = low_rr_active;
-   697			}
-   698		}
-   699	
-   700		// The function return fail when
-   701		// 1. DMUB function is not support (for backward compatible).
-   702		// 2. active_replay_events or coasting_vtotal is not updated in the same time
-   703		if (!mod_power_replay_set_power_opt_and_coasting_vtotal(mod_power,
-   704			stream, active_replay_events, coasting_vtotal, is_ultra_sleep_mode, frame_skip_number)) {
-   705			if (!mod_power_replay_set_power_opt(mod_power, stream, active_replay_events, is_ultra_sleep_mode))
-   706				return false;
-   707	
-   708			if (!mod_power_replay_set_coasting_vtotal(mod_power, stream, coasting_vtotal, frame_skip_number))
-   709				return false;
-   710		}
-   711	
-   712		mod_power_set_live_capture_with_cvt_activate(mod_power, stream, is_video_playback);
-   713	
-   714		mod_power_update_error_status(mod_power, stream);
-   715	
-   716		// If Replay is going to be enable (No matter is disable -> enable or enable -> enable), we don't need to wait.
-   717		// If Replay is going to be disable
-   718		//     if disable -> disable
-   719		//         -> Replay DMUB state should be state 0.
-   720		//            So no matter wait_for_disable is true or not, it should makes no difference.
-   721		//     if enable -> disable -> We should wait if wait_for_disable is true.
-   722		if (replay_active_request)
-   723			wait_for_disable = false;
-   724	
-   725		if (!mod_power_set_replay_active(stream, replay_active_request, wait_for_disable, force_static))
-   726			return false;
-   727	
-   728		return true;
-   729	}
-   730	
+> I mention it only because when I reviewed v4 it confused me.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+
+Sean
