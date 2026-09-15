@@ -1,168 +1,139 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCA83009CB
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:07:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CDA23909C;
+	Tue, 15 Sep 2026 01:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789434434; cv=none; b=mO5KSVr60+STQZzG4bCR+u2akzCwKp+h5Wcymd1fZyXCy+tjWV/qCxK2dfX/Vszijz2c+srA+g+GvkgSMUqU6C+LNVH+/l0G6QwZuIVjx0cuqPcFbLkWoUq5ArsQrsHijXIG0JB/vu3hT6qh68+qSqQwznu8Urq5ioSDlM4X1rs=
+	t=1789434498; cv=none; b=eAeXtVci/shNTXsJXqUOSi2SH8Re4gVFXeQd7Rmm3Gc7A1/m/QMbzE46bcO28hcVA2Ye/BZZpv/Wz7zVqjU63MMHs7ArCobcKQ4YgjEsl1dvDTHbZ9bkY3pa498g7+UvAc3tRB2xET9UNh0/VGlyDPgVc/0mmOsvtJy4npGKorA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789434434; c=relaxed/simple;
-	bh=8aiq2U0cMdT8aeMJm9exBgQ8xmbn4lraHLl5T2NHQYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JF7He+qV2YlpTuc3nsuZzEoGbiLl6BHxQtXQ6eGx26SLzyGfpJVUeKJWFJUbettC2TbB+82YSaPkB3MuI+08q+TkP371VC1uS2FkLZfNmzxQm5c32l6nOGutixsBefWG1DkXD6eOJP9cMjAkED7oh9sgsUbOmgIshvixDHQS0J8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oOleToaO; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789434498; c=relaxed/simple;
+	bh=mUsymsCuQS3SvFkPbdMe4P0yrNvNhFRlUiTaViL3wpk=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=B+Hb5mZVOoyryXHDedn9vFejF6KS/VIgSsh5bFueoD3v3vHA0BWkO0DfTUdusxYSterbKN4JMClimR8dVXE8vM1fVZIvKomCfGyUaTFYscoYGQkDKraZCm3BNSwFN+55joc3xBQI8Upi0lX/SCDYjw+zKb2HU7qIFjgaO6DQVpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=JlZVB02S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oOleToaO"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed6d6eso19435915ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:07:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="JlZVB02S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648761F000FF;
+	Tue, 15 Sep 2026 01:08:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789434432; x=1790039232; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ev4IqTnyFvWbIWoUOJNvt7lvIGchN18OiKzums0HmPc=;
-        b=oOleToaO8JKPTpxRvmdYazUwmJXfYlSlIcO9aVuLvoW8AudFrWA8YL5Vi6ojaH9xRU
-         iYiGkqNyZ75ztwJ3AxAQEoAruwGuk8DUd3PAlo+J/UIe3ewqkFSESofmls3wk1AmUxxv
-         wFSreZ/JqcJ/3OLFu8LbZSBUoy6fvGBnez2LxthQmAdHphbI6/NByz8O2xijsirnc1NL
-         amEFNwlWt+7g4Z8HPF1kD0JQG0D0RxJKYSe/by5CDq5kB00CYsr4eG5t3RNO4ztO3lFV
-         r/7HC5OBySe5kqCTmG+Z5eiE18BoYiH1mgN3P1GrRCOWoG8pGXxxT4/0XwPaVV292fGz
-         7UWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789434432; x=1790039232;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ev4IqTnyFvWbIWoUOJNvt7lvIGchN18OiKzums0HmPc=;
-        b=M4MWHkZjb3SqA22zd2+8wbucf4robDvUsZu4aWQTAKtzLnL9k82SzlozsWcOgn7jIq
-         dt1ou/B3gj6M4dY4NQONljRUJyKxkzC5V390OYJ6pPh20XSeRr1C3Iff/lQefGtUD/fF
-         moi9Pm8jf7bQVBnHdW+w+nSwKHC/l6nZiv6vK/iYOCaP9B9MqcWQv04NPDpPtS2EyZ/D
-         c3AgEuz4ARnS45UydcxqoyHUkjCghkB6XagxrJb4FCsdI5lc7F49+sPTLND2Md1UBMmu
-         gcxmXmsobZkzcuFJil5yG9KsTirbKLj0sXKuCxWbX2+0pJdUQVRK64niV1oMDJkzn35F
-         Mj7w==
-X-Forwarded-Encrypted: i=1; AKwUvByPyu5bXR8dMKGQaR3jtdVqOrf9ohxmF1URLa3PN7eDq5GD9tAy9ec40ht3IyGjJN2jIpcOJUD4ZoJVhwo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJFI43RPZbDjwMgahNfVvQJYliOncies50inMy9P7kLfAmvXRd
-	8WlyHBHm860Ohu3eIIIGpR4fEXpNtTKMHTpHwjVLIMb7AKf74SLAdAST
-X-Gm-Gg: AYBFou3rqtg9gPjnTDAkG+rEaYTKCTp3r73Vvp1lolBYw8IAZuew56zIF1ixVt1j7nL
-	/QL6lUBc5PYajY0cBW4hzsXZDmB76gCTmSWc83kAKHm7JAO0OViHEBsfuFiI7hNi+o0E1dh6Vpu
-	SZv4aHdB4fq25yUAreLsxWmAU8dYrbu0Z3jnkDsh1MWc20KgVhHEp69NbGXWrvYarTrvYB7QEsJ
-	nW8OxNzPAsT8meLzkdzNRvdC9j2dXzL7sg8QUnj5FFItvE0NpqBC2xJk7brmKfcIjft74/a/MWN
-	B8kkj+R+qFztcjKqnuWGKaK/vCS9nMU214URvwcgT/XzSQikQMbb8PFfGq9Hyay4RzluCWc3oGu
-	s/wrwoco1ABbEbnIxsi2fScubxndMeFCBm3CHnhGYHnoyyZvB5lYWvBRq6tQ8t95kpNAKU/tk6X
-	SedfYvUL3bPyx6zCjUdDvwRTzlBNnLEA2/pSE14jp/KWzmJC08zZKp9LQLUYdtX1HEBPb8eUyJv
-	aX3TDIGiQzgikv3W/858IJv9DxuKGHvLmX81aa2eKUUUZoEWHJ8uk2GeTl8H67+d+9BMKD/fOhE
-	uIRn6KQQvukPWhgAM1hzVRamo47gprvXFZ99SbkrUN0ny2K2uMwmBwee8RpiORZN
-X-Received: by 2002:a17:90b:2f0d:b0:39d:f024:c7ee with SMTP id 98e67ed59e1d1-39df024cbbfmr8751711a91.25.1789434432358;
-        Mon, 14 Sep 2026 18:07:12 -0700 (PDT)
-Received: from rithvik-nitroan51557.tailece47.ts.net (23-93-86-111.dedicated.static.sonic.net. [23.93.86.111])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33be20c67b7sm3077346eec.15.2026.09.14.18.07.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 18:07:12 -0700 (PDT)
-From: Rithvik Vibhu <rithvikvibhu@gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rithvik Vibhu <rithvikvibhu@gmail.com>
-Subject: [PATCH v2 2/2] ALSA: hda/realtek: Fix Acer Nitro 5 AN515-57 mic switching
-Date: Mon, 14 Sep 2026 18:06:57 -0700
-Message-ID: <20260915010657.36140-3-rithvikvibhu@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260915010657.36140-1-rithvikvibhu@gmail.com>
-References: <871pavol7n.wl-tiwai@suse.de>
- <20260915010657.36140-1-rithvikvibhu@gmail.com>
+	d=linux-foundation.org; s=korg; t=1789434496;
+	bh=1++7fS8iWKOMzhlKxfG6KZTpRByEnFekp/pb13YE7fg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=JlZVB02SRB8SlrjnhgKRH7erLp6/lF0bjE2LaEmvv4g/ygzNEN9Df4GzyzKOq1GRm
+	 MXZBeGQXDG+eEGW474o2elhJDXFweuH5LsbgShtKZ8tWHgw7BwYQ9PSDiWCSrWxS8a
+	 XDSL8c0/AB3jDnSpmNCqPc3psNggeGWzB7Ii5XXU=
+Date: Mon, 14 Sep 2026 18:08:11 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato
+ <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+ <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Dennis Dalessandro
+ <dennis.dalessandro@cornelisnetworks.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko
+ <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya
+ Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, Ryan
+ Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
+ <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+ <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert
+ <dgilbert@interlog.com>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen"
+ <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, Simona Vetter
+ <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, Sebastian Reichel
+ <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, Peter Xu
+ <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov
+ <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner
+ <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+ <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+ <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Rik van Riel
+ <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli
+ <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Will Deacon <will@kernel.org>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann
+ <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
+ <osalvador@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
+ Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, Oliver Upton
+ <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Madhavan
+ Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, Claudio Imbrenda
+ <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens
+ <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller"
+ <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, Alexander
+ Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
+ <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park
+ <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, Chris
+ Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng Shi
+ <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
+ <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, Johannes
+ Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Chengming
+ Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, Miklos
+ Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org,
+ selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org,
+ fuse-devel@lists.linux.dev, Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH v2 00/40] mm: make VMA flag semantics explicit,
+ eliminate VM_SPECIAL
+Message-Id: <20260914180811.057cba8fcc48d6e0b53a2683@linux-foundation.org>
+In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On the Acer Nitro 5 AN515-57 (1025:1539), headset-mic pin 0x19 can
-report presence with nothing plugged in after suspend-to-RAM (S3).
-It can also report absence after a headset is reinserted. This causes
-microphone autoswitching to select the wrong input. Headphone pin
-0x21 continues to report plug presence reliably.
+On Mon, 14 Sep 2026 15:57:20 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-Use 0x21 as the presence source for 0x19. Retain the existing mic pin
-configuration and coefficient initialization, and enable the existing
-Realtek headset-mode fixup to restore the combo jack's input mode
-during initialization, resume and jack events.
+> The VM_SPECIAL / VMA_SPECIAL_FLAGS mask conflates several unrelated
+> properties:
+> 
+> ...
+> 
+> It's all rather a mess.
+> 
+> This series brings some order to things by both limiting what drivers can
+> do with VMA flags and switching to using predicates that describe
+> behaviour, not arbitrary flags.
 
-Headphone presence cannot distinguish three-pole headphones from
-four-pole headsets. A three-pole plug is therefore also reported as a
-headset microphone and selected by microphone autoswitching.
+That's a lot of patches.
 
-Tested with the internal microphone and a four-pole headset, including
-unplug, reinsertion and S3 suspend/resume.
+Review is thin and I expect this won't improve a lot.  Lots of "no
+functional changes" changes.
 
-Fixes: 51db05283f7c ("ALSA: hda/realtek: Enable headset mic for Acer Nitro 5")
+Perhaps it would be helpful if you were to identify those patches which
+you'd like to see reviewers focus on?
 
-Assisted-by: LLM
-Signed-off-by: Rithvik Vibhu <rithvikvibhu@gmail.com>
----
- sound/hda/codecs/realtek/alc269.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+>  1153 insertions(+), 582 deletions(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 5127a111c..40b9d1221 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -3740,6 +3740,23 @@ static void alc2xx_fixup_headset_mic(struct hda_codec *codec,
- 	}
- }
- 
-+static void alc295_fixup_acer_nitro_headset_mode(struct hda_codec *codec,
-+						 const struct hda_fixup *fix,
-+						 int action)
-+{
-+	int err;
-+
-+	alc2xx_fixup_headset_mic(codec, fix, action);
-+	if (action == HDA_FIXUP_ACT_PROBE) {
-+		/* Mic pin 0x19 can report either state incorrectly after S3. */
-+		err = snd_hda_jack_set_presence_source(codec, 0x19, 0x21);
-+		if (err < 0)
-+			codec_warn(codec, "failed to set headset presence source: %d\n",
-+				   err);
-+	}
-+	alc_fixup_headset_mode_no_hp_mic(codec, fix, action);
-+}
-+
- static void alc245_fixup_hp_spectre_x360_eu0xxx(struct hda_codec *codec,
- 					  const struct hda_fixup *fix, int action)
- {
-@@ -4336,6 +4353,7 @@ enum {
- 	ALC287_FIXUP_THINKPAD_I2S_SPK,
- 	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD,
- 	ALC2XX_FIXUP_HEADSET_MIC,
-+	ALC295_FIXUP_ACER_NITRO_HEADSET_MODE,
- 	ALC289_FIXUP_DELL_CS35L41_SPI_2,
- 	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
- 	ALC256_FIXUP_HEADPHONE_AMP_VOL,
-@@ -6861,6 +6879,10 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc2xx_fixup_headset_mic,
- 	},
-+	[ALC295_FIXUP_ACER_NITRO_HEADSET_MODE] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc295_fixup_acer_nitro_headset_mode,
-+	},
- 	[ALC289_FIXUP_DELL_CS35L41_SPI_2] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = cs35l41_fixup_spi_two,
-@@ -7184,7 +7206,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1025, 0x1430, "Acer TravelMate B311R-31", ALC256_FIXUP_ACER_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1025, 0x1466, "Acer Aspire A515-56", ALC255_FIXUP_ACER_HEADPHONE_AND_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x1534, "Acer Predator PH315-54", ALC255_FIXUP_ACER_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1025, 0x1539, "Acer Nitro 5 AN515-57", ALC2XX_FIXUP_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1025, 0x1539, "Acer Nitro 5 AN515-57",
-+		      ALC295_FIXUP_ACER_NITRO_HEADSET_MODE),
- 	SND_PCI_QUIRK(0x1025, 0x159c, "Acer Nitro 5 AN515-58", ALC287_FIXUP_ACER_MICMUTE_LED),
- 	SND_PCI_QUIRK(0x1025, 0x1597, "Acer Nitro 5 AN517-55", ALC2XX_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1025, 0x159e, "Acer Nitro 5 AN515-46", ALC2XX_FIXUP_HEADSET_MIC),
--- 
-2.55.0
+It's funny how often cleanup patches do this.
+
+All queued up, thanks.
