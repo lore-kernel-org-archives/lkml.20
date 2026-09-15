@@ -1,150 +1,308 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8419734EF07
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A42C39792B
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789466957; cv=none; b=eCIuabnV67vcf+pGVZL9nQ3r7PmtaFSIQMVyPvzXSlzGWrvVJa/GWvpT0O1Q1OasAYz1Y5AP9wcLQFcO9TVqTvdwPyOdIosPBjP+D3Scn9nxAgGMm/TQdzEizJ7PRX4aYHVTvjlIYEZzkXBoRJjQTpTOUhZram4Q/lEwE+kR5Hk=
+	t=1789466971; cv=none; b=izJsQlpRAUwu+fGUIfJh/9FpzXuEYbLW+33lad0/tEx1r6K600UNexOD2AzhU7eLv2TIA7nEWqmgluLWq5WVq+jh28C5Kp/O3HHZt8LNbramTQuFKQKeDtmix1DgUezWEKMYPDt2U5kG9Pf6zKfqZ1gATgF326tlhxjWVR2WPFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789466957; c=relaxed/simple;
-	bh=tGjDR+zQ31FCowO41vWdnhNF+/J+6BC2DcHVzDdm5hg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X3VQTFBFRNi+M4PeaZNf5BCozeYSdkuE1EdP2n3s+QyiPA/fhV1qYim2lG1xFegNfVMuTwA5Iu/AHyY7yN8vEdClIv3pGAidvtHOb5PL5ui2F1gDXouRgG4QZNnEoKKHDerq64s3jIyf4OVxNNCrsJ5WSXZ1/1iL4mxM0pRain8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WnfUtOHm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NDsuvQBq; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789466971; c=relaxed/simple;
+	bh=1mBrGMk3HUwiIsljAmzu72Mm2rJ6jyYvNcsRP6+3Pqk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=QZmX9/ylIj682ElHo+cq9Lnn3qv7zro6yCxodwDPgI/sL/jYdVyycVh94d4OVOEhN8gcXQ/ZjvA/cSaKVBR+13t3F4lt1saXLkvMg6Y5Lm3hj/hEQnsl86YucTt5pw1PiSkBBUek6j1NAlvoEir3yhIKZ4bq2AwwF2Fgw8Qj2ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gwDBZCDH; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WnfUtOHm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NDsuvQBq"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9h18f3415605
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:09:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=XP1SokuVGoe4TY0wnvrhUdss
-	t0yinEpiUMhs1jxHPZU=; b=WnfUtOHmqAy8wvNelI2I+7RRETqhJ4IEwDHerEK9
-	jQry2pjkPo51DNxf7UEeYhZW7QmQTJv03Ucc0Qdw1svq8nQMJWKxNmHFDJqYF3Lb
-	p0FsyiCCC/w8c45OCafw2Er4b6tAUnakoSqhGlsPQKgrkx43u7QM2fCQtDKVp+ER
-	SPZkNsZPoUvBSbiEGA6kQHiBFhAsdp/H774l00UtFmN9fgYfdMZt2FSTSXS2TeIi
-	94D5iNcWMTM1vkWjlaVW1w+MlyDxdz3pQ0mlZ9KAgS8jSCuUeKnIR/qoxGThBfxr
-	xi1eJbq+hI0T1ONJ5PlvJOPjzx+/Gxe7Tx5N6KIxTiT82g==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq3hc05m8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:09:14 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-939f3426a7cso762978585a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:09:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gwDBZCDH"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c2790ccso1781132f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:09:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789466953; x=1790071753; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XP1SokuVGoe4TY0wnvrhUdsst0yinEpiUMhs1jxHPZU=;
-        b=NDsuvQBqViczinTTrX0DheNFD6HX1nJfNCTgn8KITC3CAmmGdZs28H3Qh5tPZjkjql
-         aNiul9EKFaR4wtMi2NP3Y+c2oxGOJlMv/OmaZ6GxcQ93ke8KtqIlsIjTAkz8rc55waGZ
-         jXXrme03Tx+XkHlW3TVH9xoCRWFHmIivDDs6XqEMVHXSYUZIbQQ3MEZN9pRfuwk3yORx
-         Eu3azV7hoL7g+zvoH3bAxzb+EcfIk4ojflHUane4wQgC7TVR5DNOW+l91bicMfCPI1H3
-         hPhL5del+sQmK89bI6ngD/YQOf9iUjLRJO7aMdI1GdYvLVgLY67nmvRTSu1BD96h3Nca
-         I3rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789466953; x=1790071753;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1789466966; x=1790071766; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XP1SokuVGoe4TY0wnvrhUdsst0yinEpiUMhs1jxHPZU=;
-        b=S/HXl6poQWvpq5q2tsYQX0eU+KGAR0vuTU76DrK45UUKYMMeepF9fbQ0BmK8jLt5Ij
-         4ygZ76Dc0uX6QbPg1kqtWp6Ogw3cNDcuzM4+j5mobp5yYamJL10bhNAMnRdsfZ2qm+cX
-         ACo2vGjPpNRIXRYwyLqfzq9HqbN8pFIusf+1p/VqjjTRf8jkdtMxXb6psz+0CH8qCMKG
-         jlXMAN8BNHhkjZHCTVBzI586Ft/L+KJTrca7diJni7KCn2PZXD9JFn/HLmvbhcIRf5pC
-         K0rfRxL07NQeko9/FDcELSAckb8+JNlIXs3sMK5zbNKkJMXH20hn/A+hvuijrmA3hjYJ
-         v/NA==
-X-Forwarded-Encrypted: i=1; AKwUvBylMAoZY0Gov3e/ynRuXo25k6EtQlRyVF2/ECe4VFGnIXXOm5/uekROqIWSkbXUxZmAO3mHEClPmviyBUI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWT3DXrL9clwSipm3QfmrUH+42Ss3vxTP4K/WJuEKOPFLOcqQo
-	1uH+RePurDwYDXp23V2qijQBinz1x8lAKKKM+45FOe+1jKTGr0L+j6VVIBawzlh5cEpbjLfKKzQ
-	qhNWsyw7nkrSIfcdKtvl1xHuBZLjOIz9DhO3hEqRcOT5ChqfA3Jc8RJ8wrOgVfIfzqLk=
-X-Gm-Gg: AYBFou0vT9JuIn6MiZBUnbj8Ngkv1lFFrKMJRYi6JCAeF5MU/qht/g9UkX+IL0/SmcU
-	fanyE/ZPAX1tW+2gFEqHV1bDcrv3RPcUTGwPtAxsTBN9WLf3qFkC8uALaLAyLwPk8M3JidYTD27
-	J3YPdTF9fGPqKGoAvXF4vZ9pdYyO8Rn/G8VMwkxq4heDz83fCoeR/Ms8zecDqe8NkQOhUHTCdKG
-	LcdmjCP7b04NRV0heQLftq/k8lxl2IEL0q55X1hU8UZedvcXw+vRIuX0kVT/eox46JfzaihJ0i3
-	Ct7w8UMwwEtnnNwbLTXimWBaqXSb9yDPxD7fgNaXjCTaHN5VZeuo/OczLjAmaxxxhz+nBQUcbxj
-	5d7kU6ZWonDWbWQ==
-X-Received: by 2002:a05:620a:468c:b0:939:a199:45b4 with SMTP id af79cd13be357-93a29a77442mr901516085a.39.1789466953410;
-        Tue, 15 Sep 2026 03:09:13 -0700 (PDT)
-X-Received: by 2002:a05:620a:468c:b0:939:a199:45b4 with SMTP id af79cd13be357-93a29a77442mr901506585a.39.1789466952493;
-        Tue, 15 Sep 2026 03:09:12 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef7ecfesm54019035e9.9.2026.09.15.03.09.09
+        bh=iZGHM22Ck2JSJxxurSXjHFPsuFXdIFhR8GNZX+3HR2Q=;
+        b=gwDBZCDHUCnuzR3AlAfdeie6Q4G5UuP/02rLyl9H336BPmICbMB9UPAr+7sffy9Hcf
+         DHXdz3fmaoKAxzetVa55PWtwILTvvwA63MdfrcUy1cFyQHrnNdG25YhmrfTFwMORcfM7
+         PPuTEmktoLv/qCLeFpnldZtXTLlbkzeeHpexgvlw87pRVDKl6CyEq6Xjf892HSyav90A
+         leucKgL9kU615rNgUzSAfyaovIGL7p5HmJPOjWLq4Cch35gaD/iDD0zqOB4MGZB2McGb
+         u2f4qvUCwX+J/n/xHsWITLTtehy9nsqPFPb7lXsJ+19fFLYgpikQb30pjngnrFyc11Re
+         rHlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789466966; x=1790071766;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iZGHM22Ck2JSJxxurSXjHFPsuFXdIFhR8GNZX+3HR2Q=;
+        b=FxH8wy1qa0Xtw1uOk/s3NsvB7j3SuUNb9Wrc6lfHWcLZgFVDebuRReG/FK2ubYfFyj
+         bkOk71Msu7JZc/2GlALfkLj8zcSJOHKTbDUIzsJm/B1ESL7dmnNYp672vA3oSl7cSY2H
+         ADwbQFpI5rwNaxdruAI1h5jExHOUCSZINPEHWB10tbSOMOPsUM/mjZEw4XRpxZpmJjsG
+         ksK0WWKpQH8oMXAg5Rl//dMR2Aekg4bsd2xJWlJEYGaGIwY6JKQCOfe8DUgfpKvZZme7
+         Qtgari/tnc8yLHyRB7O9zXWITARg3PRFFDpa5JBSwYaMuFHk7ZvEIEqKSsSZEbcln9ea
+         uUwQ==
+X-Gm-Message-State: AFuF++lB8MFT0Gu5WD3e/vgWgtD4vaxEwx6I/xliqrRzxHSPP2oZyTJY
+	QF1M1uEw6cQz4UC/3eeaBZJcs1kN9Ia8Rq7m9+iDpOlxSxBQmSsYdDDfNKT24DuH3Lo=
+X-Gm-Gg: AYBFou16vXi1kmxBypCdywn6Tv5mGnEYiQCMRZ/yjK/Bwe+Qn6Dc6Wbc92PWXn58TJK
+	Mu7jVQ4jk7rg7rsH3B5Hpqr2cF/l0ZEzGKWZ7/OdGzXTLpYblg335wya09IuaJTQMG7/0oVujRL
+	mxaZPuZqo5Xr8xBJDhicY3/i5Ie52cAbsgnIzdymcHIxcxkNxhahHBHQaFxdjs+ggXX6+W0R6Dh
+	hsYuOBeHlVGIAELyZoHt90sI2esIUTVIg3tNNifFfPIXha7g/zoWa4PWvDR42LLwGTsHi7xoecX
+	1NaN6+2D0fd9lyQGyjmdRn5Wqa5oCZM05iOeMfITNwNPElvBoi6vFeExNVjijPmYPqvmOHS0fo4
+	g3LAyrtCa2SZ7fzXHTMKnla51ecFe8asX/l5JCq/VOp12ehTEHUOLA8pMkluAV8IDzJkCev+7bt
+	6YKqcpBMfw7uvf9FgFhNQ8/LTMhULOp6LXLBSOBI7v6X0o+oJMzepuclsPtjrU3DGof7/LpaAOK
+	ZUYkMgQYW6OVV1QDm98nv9Ydqdk
+X-Received: by 2002:a05:600c:8716:b0:49e:6692:27fd with SMTP id 5b1f17b1804b1-49e7a657f9dmr180400155e9.2.1789466966542;
+        Tue, 15 Sep 2026 03:09:26 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef735cesm53989815e9.6.2026.09.15.03.09.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:09:11 -0700 (PDT)
-Date: Tue, 15 Sep 2026 13:09:09 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: avalon.vargas.centeno@est.una.ac.cr
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Val Packett <val@packett.cool>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Laurentiu Tudor <laurentiu.tudor1@dell.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3] arm64: dts: qcom: Fix touchscreen address on Dell
- Inspiron 7441
-Message-ID: <ymoielzmm2bdw7wxwpjncdlnuuuxvyv6z4t47dhfsmmn2xi6qu@55hzft2ep6c6>
-References: <20260914-dell7441-touchscreen-v2-1-7f7224c0cce5@est.una.ac.cr>
- <20260914-dell7441-touchscreen-v3-1-062d6b93d1ea@est.una.ac.cr>
+        Tue, 15 Sep 2026 03:09:26 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Vyacheslav Yurkov via B4 Relay
+ <devnull+V.Yurkov.EXT.bruker.com@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, Brian Masney
+ <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri
+ Sarha <jsarha@ti.com>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>,
+ Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Subject: Re: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
+In-Reply-To: <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
+References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
+ <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
+Date: Tue, 15 Sep 2026 12:09:24 +0200
+Message-ID: <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914-dell7441-touchscreen-v3-1-062d6b93d1ea@est.una.ac.cr>
-X-Proofpoint-ORIG-GUID: w6uCt482zCenf982kVdSbhp55NWKiLa0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE0NiBTYWx0ZWRfX0pFMRwCWDmMt
- BsSFNbscjQIELuvKbF4136t6SymGGlvurAhoPTMuHWXAsWJy9nbF/ufh2RdrouQFrhirp+vi9zw
- M22Q0FKBZNw56Tot2rW7ewjpnbK7UAs=
-X-Authority-Analysis: v=2.4 cv=dcUVTnXe c=1 sm=1 tr=0 ts=6aa9194a cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=MW_FOeIp24l2TjhtH0UA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE0NiBTYWx0ZWRfX7XhxCwvmtbox
- 40doFE8/nLYT8inorm1orLzjRph2PASIi/zlTKc6P8lv0tM3CrvRJzhRB8jgM/5JV8h2JD7700C
- TPk9kBLc6p6tofbkayLiLDoJSf4wMY9cGgrQADxcsMIVfIQXHBK1tq4I+miCh7zKfgI8XE9cQ3I
- 21Dqq5+B5pLc9lEgUrF6RF1VlxI2Eq4bqkRVq/ddn2osNRaGlY832BIbxy5M6zyS+C7NRImePPi
- k4RJ6Epk2Hab9YWVn/0ih3UN10RRGcHBCS2N8RSDIAN9CpHVebzFKxxggvouYsiGCunbvKIMvh7
- 3BXsk19Nouuyikn01UDV1HnF/+MPEY04406A6cCy1C8S98TswbM2VE34vpc6mfw2MBWxooznflF
- lBj6LhFmg85poHSDyGcimpTsda74WfgqDX9po60pa26o6kIipzq86DQOeRDVTmZ34GBKWolg4UF
- FOcCjOCeGAZkgzlv9+A==
-X-Proofpoint-GUID: w6uCt482zCenf982kVdSbhp55NWKiLa0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0
- suspectscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150146
+Content-Type: text/plain
 
-On 26-09-14 16:04:23, Avalon Vargas via B4 Relay wrote:
-> From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-> 
-> The LXST2021 touchscreen on the tested Dell Inspiron 14 Plus 7441
-> responds at I2C address 0x09, while the device tree specifies 0x10.
-> Probing the latter fails with -ENXIO and no touchscreen input device
-> is registered.
-> 
-> Use address 0x09, matching the LXST2021 configuration on the related
-> Dell Latitude 7455. With this address, the controller identifies as
-> 29BD:1103 and binds to hid-multitouch.
-> 
-> Fixes: e7733b42111c ("arm64: dts: qcom: Add support for Dell Inspiron 7441 / Latitude 7455")
-> Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+On mar. 15 sept. 2026 at 09:27, Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org> wrote:
 
-Please stop sending new versions as replies to the older ones.
-It becomes hard to follow when looking at the thread.
+> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+>
+> A gpio-locked clock exposes a clock, which status is determined by a
+> GPIO signal. The common use-case is a FPGA-assisted clocking design
+> where peripheral clocks are generated by FPGA PLLs that are outside
+> CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
+> Consumers can use the output clock to wait until the input clock is locked
+> and only then initialize dependent peripherals.
+>
+
+We already have gpio gate driver in drivers/clk/clk-gpio.c
+
+It would be much better if you could just extend that one that take
+optionally take a clock input like you do here.
+
+> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> ---
+>  drivers/clk/Makefile          |   1 +
+>  drivers/clk/clk-gpio-locked.c | 169 ++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 170 insertions(+)
+>
+> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+> index b18af485d7f0..b904f292d683 100644
+> --- a/drivers/clk/Makefile
+> +++ b/drivers/clk/Makefile
+> @@ -46,6 +46,7 @@ obj-$(CONFIG_CLK_FD_KUNIT_TEST) += clk-fractional-divider_test.o
+>  obj-$(CONFIG_COMMON_CLK)	+= clk-gpio.o
+>  ifeq ($(CONFIG_OF), y)
+>  obj-$(CONFIG_COMMON_CLK)	+= clk-conf.o
+> +obj-$(CONFIG_COMMON_CLK)	+= clk-gpio-locked.o
+>  endif
+>  
+>  # KUnit specific helpers
+> diff --git a/drivers/clk/clk-gpio-locked.c b/drivers/clk/clk-gpio-locked.c
+> new file mode 100644
+> index 000000000000..b648f8763922
+> --- /dev/null
+> +++ b/drivers/clk/clk-gpio-locked.c
+> @@ -0,0 +1,169 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +/*
+> + * Clock Controller Guard Driver
+> + *
+> + * Copyright 2026 Bruker Corporation
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/device.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/slab.h>
+> +
+> +/**
+> + * struct gpio_locked_clk_priv - private state for the whole driver
+> + * @dev:		platform device
+> + *
+> + * @input_clk	input clock
+> + * @gpios:		input GPIO descriptor
+> + *
+> + * @output_hw_clk:      output clock HW descriptor
+> + * @output_clock_name:  output clock name
+> + */
+> +struct gpio_locked_clk_priv {
+> +	struct device *dev;
+> +
+> +	struct clk *input_clk;
+> +	struct gpio_desc *gpios;
+> +
+> +	struct clk_hw output_hw_clk;
+> +	const char *output_clock_name;
+> +};
+> +
+> +#define to_gpio_locked_clk_priv(_hw) \
+> +	container_of(_hw, struct gpio_locked_clk_priv, output_hw_clk)
+> +
+> +static int gpio_locked_clk_is_enabled(struct clk_hw *hw)
+> +{
+> +	struct gpio_locked_clk_priv *priv = to_gpio_locked_clk_priv(hw);
+> +
+> +	int data = gpiod_get_value(priv->gpios);
+> +
+> +	if (data < 0) {
+> +		dev_err(priv->dev, "Failed to get data gpio val: %d\n",
+> +				data);
+> +		return data;
+> +	} else if (!data) {
+> +		dev_warn(priv->dev, "GPIO is not ready");
+> +		return -EBUSY;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/* We can't enable the clock, but the Common Clock Framework calls only
+> + * enable() not is_enabled()
+> + */
+> +static int gpio_locked_clk_enable(struct clk_hw *hw)
+> +{
+> +	return gpio_locked_clk_is_enabled(hw);
+> +}
+> +
+> +/* We have to implement it, but we are not going to control
+> + * parent clock selection
+> + */
+> +static u8 gpio_locked_clk_get_parent(struct clk_hw *hw)
+> +{
+> +	return 0;
+> +}
+> +
+> +static const struct clk_ops gpio_locked_clk_ops = {
+> +	.enable =	gpio_locked_clk_enable,
+> +	.is_enabled =	gpio_locked_clk_is_enabled,
+> +	.get_parent =	gpio_locked_clk_get_parent,
+> +};
+> +
+> +static int gpio_locked_clk_parse_outputs(struct gpio_locked_clk_priv *priv)
+> +{
+> +	struct device *dev = priv->dev;
+> +	struct device_node *np = dev->of_node;
+> +	int ret;
+> +
+> +	of_property_read_string_index(np, "clock-output-names", 0,
+> +		&priv->output_clock_name);
+> +
+> +	if (!priv->output_clock_name)
+> +		priv->output_clock_name = dev_name(priv->dev);
+> +
+> +	priv->output_hw_clk.init =
+> +		CLK_HW_INIT_FW_NAME(priv->output_clock_name,
+> +				    __clk_get_name(priv->input_clk),
+> +				    &gpio_locked_clk_ops, 0);
+> +
+> +	ret = devm_clk_hw_register(dev, &priv->output_hw_clk);
+> +	if (ret) {
+> +		dev_err(dev, "failed to register output clk'%s': %d\n",
+> +			priv->output_clock_name, ret);
+> +		return ret;
+> +	}
+> +
+> +	dev_info(priv->dev, "Output clock '%s' registered\n", priv->output_clock_name);
+> +
+> +	return 0;
+> +}
+> +
+> +static int gpio_locked_clk_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct gpio_locked_clk_priv *priv;
+> +	int ret;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->dev = dev;
+> +	platform_set_drvdata(pdev, priv);
+> +
+> +	priv->input_clk = devm_clk_get_enabled(priv->dev, NULL);
+> +	if (IS_ERR(priv->input_clk))
+> +		return dev_err_probe(priv->dev, PTR_ERR(priv->input_clk),
+> +				"Failed to get locked fixed clock, not yet ready\n");
+
+In your use case it might be fixed, but nothing says it is in general
+
+> +
+> +	priv->gpios = devm_gpiod_get(priv->dev, "locked", GPIOD_ASIS);
+> +	if (IS_ERR(priv->gpios)) {
+> +		dev_err(dev, "failed to get locked gpios: %ld\n",
+> +				PTR_ERR(priv->gpios));
+> +		return PTR_ERR(priv->gpios);
+> +	}
+> +
+> +	ret = gpio_locked_clk_parse_outputs(priv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_of_clk_add_hw_provider(priv->dev, of_clk_hw_simple_get,
+> +		&priv->output_hw_clk);
+> +	if (ret) {
+> +		dev_err(priv->dev, "failed to register clock provider '%s': %d\n",
+> +			priv->output_clock_name, ret);
+> +		return ret;
+> +	}
+> +
+> +	dev_info(dev, "registered %s gpio locked clock\n",
+> +		 clk_hw_get_name(&priv->output_hw_clk));
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id gpio_locked_clk_of_match[] = {
+> +	{ .compatible = "gpio-locked-fixed-clock" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, gpio_locked_clk_of_match);
+> +
+> +static struct platform_driver gpio_locked_clk_driver = {
+> +	.probe  = gpio_locked_clk_probe,
+> +	.driver = {
+> +		.name           = "gpio-locked-fixed-clock",
+> +		.of_match_table = gpio_locked_clk_of_match,
+> +	},
+> +};
+> +module_platform_driver(gpio_locked_clk_driver);
+> +
+> +MODULE_AUTHOR("Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>");
+> +MODULE_DESCRIPTION("GPIO-locked clock driver");
+> +MODULE_LICENSE("Dual BSD/GPL");
+>
+> -- 
+> 2.34.1
+>
+>
+
+pw-bot: changes-requested
+
+-- 
+Jerome
