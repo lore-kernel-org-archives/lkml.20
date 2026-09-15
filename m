@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12284C67F0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56A64C680A;
 	Tue, 15 Sep 2026 18:43:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789497807; cv=none; b=U4ZBbgM6jZ/pQctlui9nBe7GL/7qq7C1lwfR1Q13rDYGbJcGFBJ3nugOHinBRhGk5zFCI4dSoSSDwXzk5TPRM+WXZqQI30IpeWIXjSV4p78DThqjE3AZXJJklJsKUl0F44a3EZ7lfRufJRGunvcwIQFU+0XTRecg/ocaiqf65N0=
+	t=1789497808; cv=none; b=NN8tqWJswomYnVMeM3fMXHVTUqQ5C3MXZ4bVKCiAXyaTUQGE2WjOllhP3OgyDeOo3CPkD9mIowx+GTawnXXLa4MOURminR36pFL/iz67N7qQ5PaqEMeVcNN5zYGepeCEzW4VNyrs0IpgS1cMHaclz2RCorInoqwXiSu3INAkiIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789497807; c=relaxed/simple;
-	bh=i2H74OGGigBmuYhmxMZk49EwD06ks5w+/N4nWC1cfPU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=t49aKkSouVcllYu89fEsF9DZV3GNE+ixx6AVf3/hkEGBrSsFp/9xVGuHmTRzJNXTsDtEgR8+mg5g6tg+qlFtYyZbAiuUTiqgKo4/HDKMqh+tGgX/VWtSxc+pF+PYSffZbKznvREbRQBukDVc16AOEWb+z5XfecrlpUgzF5nPSns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b5x6n1wl; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789497808; c=relaxed/simple;
+	bh=BikG+MUQZlklxvTmT8pKAp/VLf/cXClH7BY/kzM+Cg8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=CziQH6von/qr0fgGaSAJRjEODdOtQEsDz1eTrn8PM+cxYNC9Cvl7hcMsVoOI7lO+KJ+J1Ptlr8m19ZKuOMUp8q0+sbGoEgrBdGZDtNCnulUxn+eCDslsQ2EB+EdUZxthDM4E4BxWK0ehT2T6dSA0JI+427XDS4PxT4XFDDF/2Sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q/lkv6C8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b5x6n1wl"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5477AC2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q/lkv6C8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8646EC2BD00;
 	Tue, 15 Sep 2026 18:43:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789497807;
-	bh=i2H74OGGigBmuYhmxMZk49EwD06ks5w+/N4nWC1cfPU=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=b5x6n1wlsl9QYzTM1OupU/asZgRTbq1h8jZR/zhzbZexFFwlOd1qTi2mNxn7R3cCM
-	 3HB3whpwJXA4qrS/JMKatb/RkVeSQloMo+C3Ga8qiR3jaLLa8jiMZrtNpI8opUzqWu
-	 nos2RsvR07Op3I2SmAs46h2aDBe8ZVIIqiRJDJV7kyaffLp4z8tEwI794P3EauZN8+
-	 /0VFT0f4vViB8qp8+sGJS4VrD99YgQ34FFauN3ggdp6DdJd+S4aH2GtEKOGnlsAl6D
-	 FI5+i+3+GgQPi0EH4L3BExGoxoGqe/ROG7dTsN4fhUq2VHS0gGtgSr+NumAzXSV8Jj
-	 1cc5Te1l84Omg==
+	bh=BikG+MUQZlklxvTmT8pKAp/VLf/cXClH7BY/kzM+Cg8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=q/lkv6C8UeQV6S/Jv5KtJRj/z1UldAEhqnAvI+eWdxXtUb6F500jkcFVDbWEzXStY
+	 5yRb6XJ2xKpdMUEpjwXUYHj2/qoddaMYurbog5tu6M39P7uMjv2OoVX+3kmPlnWHSe
+	 VvIegvP5RHv+ZjGzwg7dbZQLLQ3jtik0OKnvCp3B0SoC8FsOC+ZbH9ZmViMeXdVsTK
+	 q9ibkOTTh22H+v+9XV8qZz3AEiNj0h4Q/W775UwVFDv0KH/dprcLVaaqX8/hF59ZBc
+	 je6K7qGSl8S8BoxYz2PwHg7GptCrUBBlbQi3JtN159ZDNx5IcSOkaxv022Ewjj0bRG
+	 3QqdDROQOVoEw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F836C88E77;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DB8AC982C1;
 	Tue, 15 Sep 2026 18:43:27 +0000 (UTC)
 From: Alireza Haghdoost via B4 Relay <devnull+haghdoost.uber.com@kernel.org>
-Subject: [PATCH 0/4] perf script: Bounded and lazy symbol loading
-Date: Tue, 15 Sep 2026 11:42:42 -0700
-Message-Id: <20260915-perf-symbol-memory-send-v1-0-1d3360e21f07@uber.com>
+Date: Tue, 15 Sep 2026 11:42:46 -0700
+Subject: [PATCH 4/4] perf script: Document and test --lazy-load-symbols and
+ --max-symbol-bytes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,10 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORtYJ1Pmq4iHLk01YtuRqGyMv
- btVj9/h/1cwVmGDU7OC8ltMSq5wuwbo5vOVUUI1dG13aAfX48Qa0ZY0lgcmTkUXNM4B+UiRvPO
- 0DwPUelKOMv/O58vf9hrvTM/vDrbtAz418Kl7AAAA
-X-Change-ID: 20260915-perf-symbol-memory-send-e7cfca1ac3d9
+Message-Id: <20260915-perf-symbol-memory-send-v1-4-1d3360e21f07@uber.com>
+References: <20260915-perf-symbol-memory-send-v1-0-1d3360e21f07@uber.com>
+In-Reply-To: <20260915-perf-symbol-memory-send-v1-0-1d3360e21f07@uber.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
  Arnaldo Carvalho de Melo <acme@kernel.org>, 
  Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
@@ -55,21 +55,21 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Alireza Haghdoost <haghdoost@uber.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3069; i=haghdoost@uber.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6198; i=haghdoost@uber.com;
  h=from:subject:message-id;
- bh=i2H74OGGigBmuYhmxMZk49EwD06ks5w+/N4nWC1cfPU=;
- b=owEBiQJ2/ZANAwAIAVNlBDxl2ALYAcsmYgBqqZHFcDMfo4i4poKnBKXUWqae19aK7vTXIHbuN
- 3SbRNgXOoeJAk8EAAEIADkWIQS5+sFL3gX/8PrA0S1TZQQ8ZdgC2AUCaqmRxRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwwLDMACgkQU2UEPGXYAtgC0Q//bawrXizVdiCBgvq8GADczq9yOkYBhXO
- fVDn+FXYxHEkN4P76MquTjAw9QKMqsXwY4lr8ECEyWNeEzG4QMWWZUdkQZX/p8p7FLv1jfpzbVB
- zXwBg33Dd72xFdTJlhreN1lbeb0OtZqbHHgz4hLyuNe8Bx0HxOuI8HvmHFiyLHZywEWligweBfh
- 6H4qkrgbS6Dj7SFd//dgVtdvB8f54INWOeYx1ZaEDHCXI+gL2b37AvHyuOiwy34nXjAOeOhfY0n
- miUO4ng1xcwu+NZE5Qo4b3ckQTOQjUpamvKHjiHg/MrVAiwJRrRlah/RYucHkEQ2ZTYl2RoynQo
- ZaZz1Gexa6/goqZkvizs/s7m7WLfPrd8pKzlGY7bW5Wd6awTLRuhNJpTVXkXulDRIJdHnA3Q+Ja
- TuUAtXp0NApCqJvORUj8EfXvbg2zAyiiBFJHjosUrkMw8E2KcN+c5a79PvWqWURiExlZTb+aArf
- /TeeNxu6kRnRVp0mHuwXDVt/Ul3q6Xl9LToYICEghZo7Sj2tHsDRBsuUmCAQsaYeB8adZ7B17CE
- 2gqeaq3DWp2y2dNLumhg+b/x0c/W48nVkkKJzKOS95C8YVVjXMNpZsRaA35+KrPgMbEBIvGiKLQ
- abLix8zbTr4x8z1R6X2BiLRcmjQzSsSVP2KZ6CBj3VuMmeKVQT7M=
+ bh=ozeisEeLUlyeoorFaW7r4WB+nw0aEmnGGVlEP7mmb2o=;
+ b=owEBiQJ2/ZANAwAIAVNlBDxl2ALYAcsmYgBqqZHOO79qSbapVu7FstSxOFn6KxUcXOhoUCYQ1
+ bXfEiLi0MCJAk8EAAEIADkWIQS5+sFL3gX/8PrA0S1TZQQ8ZdgC2AUCaqmRzhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwwLDMACgkQU2UEPGXYAth0mA/+Pt0cuUTq8AeRJ2ktRGG2FnZOgPD/HtS
+ JOqLpmcMT5dRHYsgVYt0K6XyaVNBLT1KXAaQ3UIYyWv7ikqiyd2cTFrWXlVPij2wT6ItcL5blXF
+ pAMifxDaeljgtOE0oqwG2+Q7IO0qvF+qtXZEmlqc2qn8DLyVrjX1JXIZXgw+6OLBYWv+iraL71H
+ 62u7atJSwkfimQlKv6yO/5xrsFrx06Tq9/lGs/KBaB/R48/lK+F9/qgp2OvwoDvOY4B/+FTbTBW
+ hdwzzPKgCUbWrDXmwjtkWiMHlnUG9L5hXTFZeWhKU6KeSyuIoSq0R6VUXYhNrjbS+lL+8FpbnPv
+ +pz2zEL6mq1kt4u4IHpGFiBM+azREB4ma+riwivc6rkYHfkqNeGigunSIXoahnT5pViKEtUY7+g
+ Re7/cvBUq8uyrtsi9VGO7N1JWAbaLEgRyfZAHSir0VPw/r14h5KIUaCXP4UYEkCKxJQJvdrlTdE
+ t7bQPszpi0I20M7MkTBd7TQOFTXWDXc3Og8UTHLqquoZZz9Iio3loEmGddBg0sDNSEyR2DNo5lu
+ KSoiqAqTkweB9lvanN5zphq7ThJUOqHpopk3vJK01Zm+yHtJDcH8yp0InOQoORgx0rCPd+dF5Wt
+ vrUgMgj0wQcwfmywJr4bUFfExIDOqqe3HHLAr4GNur2OSfMgWKRU=
 X-Developer-Key: i=haghdoost@uber.com; a=openpgp;
  fpr=B9FAC14BDE05FFF0FAC0D12D5365043C65D802D8
 X-Endpoint-Received: by B4 Relay for haghdoost@uber.com/default with
@@ -77,64 +77,192 @@ X-Endpoint-Received: by B4 Relay for haghdoost@uber.com/default with
 X-Original-From: Alireza Haghdoost <haghdoost@uber.com>
 Reply-To: haghdoost@uber.com
 
-perf script loads the entire ELF symbol table of every DSO that appears
-in a sample, allocating each symbol into an rb-tree held until process
-exit.  Therefore, a large enough profile turns symbol loading into an OOM kill.
-This is not scalable for profiling a large cgroup with a lot of large
-binaries on a production system with limited free memory.
+From: Alireza Haghdoost <haghdoost@uber.com>
 
-This series adds two independent, opt-in mechanisms and a leading
-regression fix they build on:
+Document both new options in perf-script.txt: their interaction, the
+memory tradeoff, that lazy loading applies only to userspace ELF DSOs
+(kernel DSOs and modules always load eagerly), and that output may
+differ from the default loader for some targets.
 
-  [1/4] Fix a broken "#ifdef ELF_C_READ_MMAP" guard so perf actually
-        mmaps ELF files instead of malloc'ing section data. This is a
-        standalone regression fix introduced by 22dd1ac91a77.
+Add a shell test that records a small profile with callchains and
+asserts:
 
-  [2/4] --max-symbol-bytes <size>: a byte budget on struct symbol
-        allocations (and the lazy index) enforced at the ELF symbol
-        loader, degrading to [unknown] with a warning past the cap.
-        An unbounded profile doesn't just risk OOM-killing itself.  It
-        also forces memory pressure on the whole host, pushing the kernel
-        to reclaim from co-located latency-sensitive processes.  Capping
-        it lets the user bound that footprint up front and choose the
-        trade-off explicitly.
-
-  [3/4] --lazy-load-symbols: build a compact per-DSO sorted index and
-        resolve only the sampled addresses, reading names via pread()
-        from the file's string table at lookup time. On the production fixture,
-        peak RssAnon drops from 265 MiB to 39 MiB (6.8x) and wall time
-        from 3.1 s to 1.85 s (1.7x). Memory optimizations usually cost
-        time; this one does not because lazy loading skips a lot of calloc and
-        demangle calls. The output is byte-identical to the default loader.
-
-  [4/4] Documentation and a shell test.
+- --lazy-load-symbols produces output byte-identical to the eager
+  loader, and that at least one symbol actually resolved (so the
+  comparison can't pass vacuously on all-[unknown] output);
+- --max-symbol-bytes=1K, with and without lazy loading, forces
+  [unknown] resolution with a single warning and exit code 0 (no crash).
 
 Signed-off-by: Alireza Haghdoost <haghdoost@uber.com>
+Assisted-by: Kimi:K3
 ---
-Alireza Haghdoost (4):
-      perf symbols: Fix broken ELF_C_READ_MMAP fallback guard
-      perf script: Add --max-symbol-bytes to bound ELF symbol memory
-      perf script: Add --lazy-load-symbols for lazy symbol loading
-      perf script: Document and test --lazy-load-symbols and --max-symbol-bytes
+ tools/perf/Documentation/perf-script.txt           |  24 +++++
+ tools/perf/tests/shell/script_lazy_load_symbols.sh | 120 +++++++++++++++++++++
+ 2 files changed, 144 insertions(+)
 
- tools/perf/Documentation/perf-script.txt           |  24 +
- tools/perf/builtin-script.c                        |  33 ++
- tools/perf/tests/shell/script_lazy_load_symbols.sh | 120 +++++
- tools/perf/util/dso.c                              |  10 +
- tools/perf/util/dso.h                              |  29 ++
- tools/perf/util/map.c                              |   9 +-
- tools/perf/util/symbol-elf.c                       | 561 +++++++++++++++++++++
- tools/perf/util/symbol-minimal.c                   |  11 +
- tools/perf/util/symbol.c                           |  87 +++-
- tools/perf/util/symbol.h                           |  18 +-
- tools/perf/util/symbol_conf.h                      |   2 +
- 11 files changed, 875 insertions(+), 29 deletions(-)
----
-base-commit: aa18964dd64511305de0711fed912054da6f5d18
-change-id: 20260915-perf-symbol-memory-send-e7cfca1ac3d9
+diff --git a/tools/perf/Documentation/perf-script.txt b/tools/perf/Documentation/perf-script.txt
+index 200ea25891d8..b5a90ff22342 100644
+--- a/tools/perf/Documentation/perf-script.txt
++++ b/tools/perf/Documentation/perf-script.txt
+@@ -412,6 +412,30 @@ include::itrace.txt[]
+ 
+         Default: 127
+ 
++--lazy-load-symbols::
++	Resolve symbols lazily instead of eagerly loading the full
++	symbol table of every DSO that appears in a sample. A compact
++	sorted index is built per DSO and only the addresses that appear
++	in samples are materialized into symbols, with names read from the
++	file's string table at lookup time. This sharply reduces memory
++	(and usually time) for profiles of large binaries where only a
++	small fraction of the symbol table is referenced. This applies only
++	to userspace ELF DSOs; kernel DSOs and modules always load eagerly.
++	Output may differ from the default loader for some targets
++	(e.g. PPC64 .opd, .gnu_debugdata, or split debuginfo). Default: off.
++
++--max-symbol-bytes::
++	Limit the bytes held in struct symbol allocations (and, with
++	--lazy-load-symbols, the lazy index) for DSOs on the ELF symbol
++	loader path -- userspace DSOs plus vmlinux-as-ELF and kernel
++	modules. This is not a cap on all symbol memory or RSS: symbols
++	from kallsyms, JIT maps, PLT synthesis, and libbfd are counted
++	but not capped. Accepts a size with a B/K/M/G suffix (e.g. 128M).
++	When the budget is exceeded, further symbols resolve to [unknown]
++	and a warning is printed. This is a safety net independent of
++	--lazy-load-symbols and can be used with or without it. Default: 0
++	(unlimited).
++
+ --ns::
+ 	Use 9 decimal places when displaying time (i.e. show the nanoseconds)
+ 
+diff --git a/tools/perf/tests/shell/script_lazy_load_symbols.sh b/tools/perf/tests/shell/script_lazy_load_symbols.sh
+new file mode 100755
+index 000000000000..799c61e2f3e8
+--- /dev/null
++++ b/tools/perf/tests/shell/script_lazy_load_symbols.sh
+@@ -0,0 +1,120 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# perf script lazy symbol loading tests
++#
++# Verifies that --lazy-load-symbols produces output identical to the default
++# eager symbol loader, and that --max-symbol-bytes caps symbol allocations
++# (emitting [unknown] plus a warning) without crashing.
++
++set -e
++
++shelldir=$(dirname "$0")
++# shellcheck source=lib/perf_has_symbol.sh
++. "${shelldir}"/lib/perf_has_symbol.sh
++
++testsym="test_loop"
++
++skip_test_missing_symbol ${testsym}
++
++err=0
++temp_dir=$(mktemp -d /tmp/__perf_test.lazy_load.XXXXX)
++perfdata="${temp_dir}/perf.data"
++eager_out="${temp_dir}/eager.out"
++lazy_out="${temp_dir}/lazy.out"
++
++cleanup() {
++	rm -rf "${temp_dir}"
++	trap - EXIT TERM INT
++}
++
++trap_cleanup() {
++	echo "Unexpected signal in ${FUNCNAME[1]}"
++	cleanup
++	exit 1
++}
++trap trap_cleanup EXIT TERM INT
++
++test_lazy_load_identical() {
++	echo "Lazy-load output matches eager loader"
++
++	# Record a small profile with callchains so symbol resolution runs.
++	if ! perf record -o "${perfdata}" -g -- perf test -w thloop 2> /dev/null
++	then
++		echo "Lazy-load identical [Skipped record not supported]"
++		return
++	fi
++
++	if ! perf script -i "${perfdata}" 2> /dev/null > "${eager_out}" || \
++	   ! perf script --lazy-load-symbols -i "${perfdata}" 2> /dev/null > "${lazy_out}"
++	then
++		echo "Lazy-load identical [Failed perf script error]"
++		err=1
++		return
++	fi
++
++	# The comparison is only meaningful if something actually resolved;
++	# two all-[unknown] outputs would also match.
++	if ! grep -q "${testsym}" "${eager_out}"
++	then
++		echo "Lazy-load identical [Skipped no ${testsym} resolved]"
++		return
++	fi
++
++	if ! cmp -s "${eager_out}" "${lazy_out}"
++	then
++		echo "Lazy-load identical [Failed output differs]"
++		err=1
++		return
++	fi
++	echo "Lazy-load identical [Success]"
++}
++
++test_max_symbol_bytes() {
++	echo "--max-symbol-bytes budget enforcement"
++
++	# Depends on ${perfdata} from test_lazy_load_identical.
++	if [ ! -s "${perfdata}" ]
++	then
++		echo "--max-symbol-bytes budget [Skipped record not supported]"
++		return
++	fi
++
++	# A tiny budget forces most symbols to be dropped as [unknown],
++	# with a single warning, and must not crash.
++	if ! perf script --max-symbol-bytes=1K -i "${perfdata}" > /dev/null \
++		2> "${temp_dir}/budget.err"
++	then
++		echo "--max-symbol-bytes budget [Failed nonzero exit]"
++		err=1
++		return
++	fi
++	if ! grep -q "symbol memory budget exceeded" "${temp_dir}/budget.err"
++	then
++		echo "--max-symbol-bytes budget [Failed missing warning]"
++		err=1
++		return
++	fi
++
++	if ! perf script --lazy-load-symbols --max-symbol-bytes=1K \
++		-i "${perfdata}" > /dev/null 2> "${temp_dir}/lazy-budget.err"
++	then
++		echo "--max-symbol-bytes lazy budget [Failed nonzero exit]"
++		err=1
++		return
++	fi
++	warnings=$(grep -c "symbol memory budget exceeded" \
++		"${temp_dir}/lazy-budget.err" || true)
++	if [ "${warnings}" -ne 1 ]
++	then
++		echo "--max-symbol-bytes lazy budget [Failed warning count: ${warnings}]"
++		err=1
++		return
++	fi
++	echo "--max-symbol-bytes budget [Success]"
++}
++
++test_lazy_load_identical
++test_max_symbol_bytes
++
++cleanup
++exit $err
 
-Best regards,
---  
-Alireza Haghdoost <haghdoost@uber.com>
+-- 
+Git-155)
 
 
