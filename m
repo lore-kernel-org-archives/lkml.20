@@ -1,37 +1,58 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69735364052;
-	Tue, 15 Sep 2026 03:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830173D525F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:06:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789444606; cv=none; b=qD4+DzR7GpFQ23FDZGB0/A2KpUWDPaOQv1rGlzy45IW+2TqUfHxLRTE17sGmm3cfa7l1aFzxPMeTofNdHONQFM4J/XXYlIlultzkzkseyKohV/k4+7sKhTdV2ECDU+ATy+A20NYKU37GhSCVhNdfkE+Xc541jwmDOLiK7JeSo7c=
+	t=1789445210; cv=none; b=oT04KLlY8GZvnmNsYa2qZOJdwwEsypz9KvXyKBztxyXNp+mhemfFy1g/cW6OT/u3auZeJt5KRMstwIbTfmRJ3SYNZ/7fw4RaOqxc30+qX3hTaNJZobo6xWwmSv/RDxPpEOTNCVWV2euINxF9knyn6RO6ZG68PwHrnMfDSU2eYIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789444606; c=relaxed/simple;
-	bh=sQ/7p6mlglIOpYjoj97REr9pNyp85G66JLD/T43bnGo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V7UJi//qCXcKjKvb7GUQATY8GFXSPbGDWWS8xGZL6SKUqNnv4vvhtpXn70HoqgD/t5fqbZCIyPPOfqHi8+XpRpNG17RCftnESqZ6i90Ae1djG7xW1ogjMqE/kVd3XYY0XsT0VdkwSYjtZIeSA4eejW1s3bl2IICYIi56VJ9OWuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowADXrPDvwahqtt4HCA--.49278S2;
-	Tue, 15 Sep 2026 11:56:31 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Frank.Li@kernel.org
-Cc: dmaengine@vger.kernel.org,
-	geert+renesas@glider.be,
-	laurent.pinchart+renesas@ideasonboard.com,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	magnus.damm@gmail.com,
-	vkoul@kernel.org,
-	lkml@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 4/4] dmaengine: rcar-dmac: Fix runtime PM leak in error path of channel alloc
-Date: Tue, 15 Sep 2026 03:56:02 +0000
-Message-Id: <20260915035602.1724403-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789445210; c=relaxed/simple;
+	bh=DPtwqi63UScmhwwFYSCiyPsCCYsVN7zTQzg743QeiuU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 References; b=rOlpf0FXWZKKCooiB4qSpWHCSz3L7XZiKPzsKPCeRwsckKXkuEE9Pls1sQC6Q8mrDRbMQ1b2W4pWZKUK4SrbxXEQDt1OWTuQtzK4P5xhr6uDLoMM3lH8gd/CI7krUVhhek5lGXUNRsznHlBZusInN8FlHQFC2yKeWKmKMbXJkQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=QWLul0Sw; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="QWLul0Sw"
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260915040643epoutp037dfced5742f06c08727993c63199d581~VYu6VzcXO1067710677epoutp03E
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:06:43 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260915040643epoutp037dfced5742f06c08727993c63199d581~VYu6VzcXO1067710677epoutp03E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789445203;
+	bh=4e4fp+ABg7CpgFECkOr6P1TEYwIlfxgaqexNJWMeVGA=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=QWLul0SwDd0rP9iM99tygcF/s03oGwQWBLkCpS/MmbgtgdMrMSwocuNWLNxgU881U
+	 KgwrZFv7WYtLRSpVo2ctEOLJXE5O0jbjdmAY9ypM4UTKBmliwqzQDuFgGoVracppF1
+	 heVy2EGCEd2+KYHUcOMPrRdX6+6R2GCTTwm8B/KU=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20260915040643epcas5p12db0b5491f5788115fa1dc0a56f752fe~VYu5rfNmI0033400334epcas5p18;
+	Tue, 15 Sep 2026 04:06:43 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4hkT3l0SCdz3hhTD; Tue, 15 Sep
+	2026 04:06:43 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260915040642epcas5p16bb7640ba867beca189668e2565cdeb4~VYu5LIy6Z0494004940epcas5p1X;
+	Tue, 15 Sep 2026 04:06:42 +0000 (GMT)
+Received: from localhost.localdomain (unknown [107.97.243.203]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260915040640epsmtip2c612ce5fc9e568179a8936ea06caa389~VYu3R6adx2835328353epsmtip2u;
+	Tue, 15 Sep 2026 04:06:40 +0000 (GMT)
+From: Maninder Singh <maninder1.s@samsung.com>
+To: linux@armlinux.org.uk, linusw@kernel.org, mark.rutland@arm.com,
+	kmehltretter@gmail.com, vbabka@suse.cz, elver@google.com,
+	akpm@linux-foundation.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	r.thapliyal@samsung.com, Maninder Singh <maninder1.s@samsung.com>, Hariom
+	Panthi <hariom1.p@samsung.com>
+Subject: [PATCH 1/1] ARM: entry: add __irq_svc to irqentry section
+Date: Tue, 15 Sep 2026 09:36:22 +0530
+Message-Id: <20260915040622.1346592-1-maninder1.s@samsung.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,58 +60,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADXrPDvwahqtt4HCA--.49278S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cr18XFyfGr1xZw4ruFWfKrg_yoW8Gw4fpF
-	4fJ3y7Aryjqr45GFs8tr4UZFy5u39rJ3y7Kayftas8ua1xGa42y34rX34jqa18CryDA3Wj
-	y3yDJr1rCF1kAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7VU1go2UUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMLA2qowd0AVQAAsZ
+X-CMS-MailID: 20260915040642epcas5p16bb7640ba867beca189668e2565cdeb4
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+X-CMS-RootMailID: 20260915040642epcas5p16bb7640ba867beca189668e2565cdeb4
+References: <CGME20260915040642epcas5p16bb7640ba867beca189668e2565cdeb4@epcas5p1.samsung.com>
 
-rcar_dmac_alloc_chan_resources() ends with
-"return pm_runtime_get_sync(chan->device->dev);".  Even when
-pm_runtime_get_sync() fails, it leaves the device's runtime PM
-usage count incremented, and the negative return value propagates
-straight to the dmaengine core, which aborts the channel
-allocation without ever calling device_free_chan_resources().  The
-balanced pm_runtime_put() only happens later in
-rcar_dmac_free_chan_resources(), so the reference is leaked
-whenever resuming the device fails.
+Stackdepot usage is growing exponentially because current irq filter
+is not removing trace after __irq_svc frame, so adding __irq_svc in
+irqentry text section.
 
-Use pm_runtime_resume_and_get() instead, which drops the reference
-again on failure and returns 0 on success.
+     stacktrace 1                        stacktrace 2
 
-Fixes: 87244fe5abdf ("dmaengine: rcar-dmac: Add Renesas R-Car Gen2 DMA Controller (DMAC) driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+  kmem_cache_free+0x148/0x398        kmem_cache_free+0x148/0x398
+  mt_free_rcu+0x20/0x24              mt_free_rcu+0x20/0x24
+  rcu_core+0x338/0x9fc               rcu_core+0x338/0x9fc
+  rcu_core_si+0x18/0x1c              rcu_core_si+0x18/0x1c
+  handle_softirqs+0x194/0x47c        handle_softirqs+0x194/0x47c
+  irq_exit+0xb0/0xdc                 irq_exit+0xb0/0xdc
+  generic_handle_arch_irq+0x48/0x4c  generic_handle_arch_irq+0x48/0x4c
+  call_with_stack+0x1c/0x20          call_with_stack+0x1c/0x20
+  __irq_svc+0x128/0x154              __irq_svc+0x128/0x154
+  _raw_spin_unlock_irq+0x30/0x64     stack_trace_consume_entry+0x58/0x74
+  __vma_link_file+0x4c/0x70          arch_stack_walk+0x88/0x120
+  vma_link_file+0x40/0x4c            stack_trace_save+0x48/0x54
+  __mmap_region+0x660/0x99c          save_stack+0x5c/0x14c
+  mmap_region+0x6c/0x108             __set_page_owner+0x38/0x254
+  do_mmap+0x3c4/0x4d8                get_page_from_freelist+0x1714/0x1938
+  vm_mmap_pgoff+0xd0/0x16c           __alloc_pages_noprof+0x120/0x1204
+
+Co-developed-by: Hariom Panthi <hariom1.p@samsung.com> 
+Signed-off-by: Hariom Panthi <hariom1.p@samsung.com>
+Signed-off-by: Maninder Singh <maninder1.s@samsung.com>
 ---
- drivers/dma/sh/rcar-dmac.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/kernel/entry-armv.S | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/dma/sh/rcar-dmac.c b/drivers/dma/sh/rcar-dmac.c
-index 44eab2d21d54..2d2baa36feea 100644
---- a/drivers/dma/sh/rcar-dmac.c
-+++ b/drivers/dma/sh/rcar-dmac.c
-@@ -1068,7 +1068,7 @@ static int rcar_dmac_alloc_chan_resources(struct dma_chan *chan)
- 	if (ret < 0)
- 		return -ENOMEM;
+diff --git a/arch/arm/kernel/entry-armv.S b/arch/arm/kernel/entry-armv.S
+index 2d2ea3ca880c..38696256d997 100644
+--- a/arch/arm/kernel/entry-armv.S
++++ b/arch/arm/kernel/entry-armv.S
+@@ -223,6 +223,7 @@ __dabt_svc:
+ ENDPROC(__dabt_svc)
  
--	return pm_runtime_get_sync(chan->device->dev);
-+	return pm_runtime_resume_and_get(chan->device->dev);
- }
+ 	.align	5
++.pushsection   .irqentry.text, "ax"
+ __irq_svc:
+ 	svc_entry
+ 	irq_handler from_user=0
+@@ -239,6 +240,7 @@ __irq_svc:
+ 	svc_exit r5, irq = 1			@ return from exception
+  UNWIND(.fnend		)
+ ENDPROC(__irq_svc)
++.popsection
  
- static void rcar_dmac_free_chan_resources(struct dma_chan *chan)
+ 	.ltorg
+ 
 -- 
 2.34.1
 
