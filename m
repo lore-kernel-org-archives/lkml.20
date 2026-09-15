@@ -1,154 +1,133 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6838364EB1
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 04:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5A63C1F54;
+	Tue, 15 Sep 2026 05:00:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789448315; cv=none; b=GFGk951YFKyzu5w7n8VDC/O2QSWPZQNRcnu1Jco8Hr2C/+c4/lV1kAtk/5zIhvQ1rOVffc7s0jEM2N8FHpEflyttiGq4BykkMmKZtn/Qvcb+6C4jalRgOdiDqoOScSputvkKhR6AG5vZUsMhSu3+DPm4nyxWD1smnChGMwR+1Ko=
+	t=1789448443; cv=none; b=pkaTiT2uxT27nJN7wuYCI/w/DJJGEXvN4vA6S2JNLvcG3CnhP9k6Xwi3AW7DXv1MlM8Roh+gD0dMbfGpyBresycrKARReZT1M4DZAy54zmlgM0570XiOw92SEw3jMUa19vSz8SzuiVWmxNCI3FCBvP7uxLvs3fZuX07twOcS31E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789448315; c=relaxed/simple;
-	bh=C1fXXNHo8UXoCAzodDxhxcKZtEoK+gCFLSDL6HtXi+o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pudn30P6qU5yACT5PwGUMXVQxDfEfCIrUCSK73CIu2GjIEoJBOY6uCYIwFi9LAb6UNWlnY2ltuXR1rM6IhYA52vp1MW5+RP1fBgLiz5dPfY9jcnI9ovcoCyjWWp+W2WcIrkRpGQru+Oa92eedDCpkhymuLeDrvDIOLyQ5IcoWzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=eIN8lMVM; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="eIN8lMVM"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8631d0023daso1612001b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:58:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1789448313; x=1790053113; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DYkfKrdykGTTKNXpCcbgVoHk584EaRb8tbI837afgGA=;
-        b=eIN8lMVMRpGDi+0NxBXPGaI2D/sLJJvZYZaY451385xm8coxhQilRcVtZD/XTnM0U6
-         oHanIMKrEPIFaNjelDbompDAKw/i7ui+lb56xB5ge7u41t7oMHIOoxwU7m3uOOoYbNdZ
-         HogwphvEEUYxfY4g45/nBl8yzb2aT+4Nl/xw2j8seV2KWOjVY5mK++pq6lihpv+1pNm0
-         mLiwIYYxl1GET7BkWRBKSsvM3dmzdovb0dTIbbt5wnIPEUtO4SHiPkfGcXxbw37VgzFI
-         HOKBMucJH7kWd9BThAsPtKuG1RHpFpHWHQ/cNhYez3bpEYjUSDoD4gOVfEIJO633YSts
-         Gcwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789448313; x=1790053113;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DYkfKrdykGTTKNXpCcbgVoHk584EaRb8tbI837afgGA=;
-        b=bUQS+H4TTPZdaMA6/lzjmliJYskkYY1p54/PQGt2ZGTwwtP5WP981KrW35ZhWvWJJ/
-         ipSnsczpwifHWc6T/zHEdPTaXbfEmm0WeuYtTN+EL5Zxiri320OZ4uvtR8M0AYTxV8pB
-         0tzFv+hhhMfhoe0t7L8wj8a5ibIoWQtNROjwE9LFWmngU1vkxlGLxLurzL+zlj+rdgX0
-         K+WV2sViw2lO6Wz56kz08qocz+Bcso8eGlUcgiXtippnLSOGeOxni0hrmFnOVNO03yNJ
-         oc3AhbiCKgv/jsYZ7Z/+mZGBPLXi3aZyJ9m+IIHzfoo6z6iXSs7v7cje+9v9L+VM90NJ
-         rd8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxlwIsx7yaDeZBEeZJK70JNoeiaN3Mg2sBsSwco8YMSgEZRXXXjwLXN1AzXi16+tstKVrIAxmqrSSjau1o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyOMcbH4lH7SdAt848bme0uBaMZOf09Vp8/h7qIeget6mS3FG3
-	yVYZP97tTB+s1xxLAIF+7CEhoi62t5suZo/CAUQ/LoF/xOqJnczl6SLXDNJq3fVqfg==
-X-Gm-Gg: AYBFou2SUr5V3YcfFTFKY35KRowODwiJ5rZ5lbCm4cEp07pfB2/jqy+cArhp3VEoS3C
-	mneQJeK+iVIg3JAazg7etqQNb5Mw/hTGLoDDyidW03vrlJTGerZAE+1sspuYh2KoP2FaQXOX5kp
-	5UARVuXkQdvsC6bvc8MMa0iOeufIpYN2DOyNctpieLodmbz+IusMWE5mbXPzUmkOVGXvkML7cYx
-	/ELkXy1Yc+0AvtykH/VzAZW6az3bXDre32msFwa1fjEJVIWAcoq6wnjRjvbRl1ptuXPH1wgkh5Z
-	mK5gbnKEHH67BKAqJ7CShzcO3LNMH5mBFXmLf1tnHJ6igglqrIIwt6Q+7jn6liRBMFryKlDX/PP
-	pEuMpensZum1I7vHYuJMC8jLET/6RBiVRJ0U2cXZVxM2ZuA5nDlb44Mrmdc02YWjsZWKcLdQIrB
-	BG9yztbom/TlSRKpVMlCKSS0/EfJx4JPCZ58Dnidwj3yzvcBoxQy6Nv+XiP+14QhwVL1h64CUXv
-	IQJEhrT
-X-Received: by 2002:a05:6a00:9087:b0:847:8449:2bb6 with SMTP id d2e1a72fcca58-86f82a5e981mr10610059b3a.4.1789448312906;
-        Mon, 14 Sep 2026 21:58:32 -0700 (PDT)
-Received: from mimolette.lan ([58.136.228.96])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c65b5f96sm5917398a12.32.2026.09.14.21.58.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 21:58:32 -0700 (PDT)
-From: James Clark <jjc@jclark.com>
-To: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	netdev@vger.kernel.org
-Cc: Richard Cochran <richardcochran@gmail.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+	s=arc-20240116; t=1789448443; c=relaxed/simple;
+	bh=SVUszxCcUQhe5DJLRvnZoeKO4YFQkOlERiAqe2apPVI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XDiCeLZt81SqIzMVtbNSGKKgYsY1BYze7430SeuXL0zTGGABybpTJvab5d3loVMvKtBKoR9dhcG+1QOpVDEcRIyiuaXUS8FoV4WvExb1N2JLzK5DXOPjy7H2ymLzda/CQO+n59DoXBHV2eO5mqNE+FqrIq/c8+s5YZzVlOh3/OI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowADXqOzy0Khqp0cJCA--.668S2;
+	Tue, 15 Sep 2026 13:00:34 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexandre.belloni@bootlin.com
+Cc: claudiu.beznea@tuxon.dev,
+	daniel.lezcano@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Nicolai Buchwitz <nb@tipi-net.de>
-Subject: [PATCH net v3] net: macb: fix ordering around PTP timestamp read
-Date: Tue, 15 Sep 2026 11:58:17 +0700
-Message-ID: <20260915045823.76100-1-jjc@jclark.com>
-X-Mailer: git-send-email 2.50.1
+	nicolas.ferre@microchip.com,
+	tglx@kernel.org,
+	lkml@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] clocksource/drivers/timer-atmel-pit: Fix mck reference leak in error paths
+Date: Tue, 15 Sep 2026 05:00:05 +0000
+Message-Id: <20260915050005.1727060-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowADXqOzy0Khqp0cJCA--.668S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJFyDtw4kXw1xJF1DuFWDXFb_yoW5JFWkpr
+	Wjqw45tr1kWay29rs2yFWDZr1kt3yIkFy7urW5C34fZwsxuryrXFW8Aa4UZFWDCF4kuanI
+	q3Z7tFy8uFyDAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUJWrAUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwULA2qowpAzMQAAsY
 
-PTP_SYS_OFFSET_EXTENDED returns system timestamps that do not correctly
-bracket the PHC register read on MACB/GEM. On a Raspberry Pi 5, the
-returned interval can be as short as 37 ns, while an ordered register
-read takes approximately 1 us. This biases the midpoint used by phc2sys,
-causing CLOCK_REALTIME to run approximately 0.5 us ahead when synchronized
-to the PHC.
+at91sam926x_pit_dt_init() obtains the mck clock with of_clk_get() but the
+exit label only frees the pit_data, leaking the clock reference on every
+error path that reaches it. Once the clock has been prepared and enabled,
+later failures leave it enabled as well, and the clk_prepare_enable()
+failure path leaks the reference even though the clock was never enabled.
 
-gem_tsu_get_time() reads the nanoseconds register using the driver's
-relaxed MMIO accessor. On weakly ordered systems, the subsequent system
-timestamp can be taken before the register read completes. The internal
-smp_rmb() in the pre-timestamp path also does not guarantee ordering
-against the subsequent MMIO read.
+Add disable_clk and put_clk labels so the mck reference is always
+released on error: clk_put() when prepare+enable fails, and
+clk_disable_unprepare() followed by clk_put() when aborting after the
+clock has been enabled. Error paths before the clock is obtained keep
+jumping to exit, and the success path keeps the clock enabled for the
+lifetime of the timer.
 
-Add rmb() before and after the bracketed nanoseconds read in both the
-normal and seconds rollover paths so the system timestamps bracket the
-PHC read. Adding the post-read barrier increases the minimum interval on
-the same Raspberry Pi 5 to approximately 1 us.
-
-Fixes: e51bb5c2784c ("net: macb: ptp: Switch to gettimex64() interface")
-Tested-by: Nicolai Buchwitz <nb@tipi-net.de> # Raspberry Pi CM5, min bracket 37 ns -> 981 ns
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Assisted-by: LLM
-Signed-off-by: James Clark <jjc@jclark.com>
+Fixes: a17686c46244 ("clocksource/drivers/timer-atmel-pit: Drop at91sam926x_pit_common_init")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-Changes in v3:
-- Guard the barriers with if (sts), following Jakub's feedback.
-- Reduce the comments following Théo's feedback, and focus on relevant
-  point following Jakub's feedback.
-- Add Théo Lebrun's Reviewed-by from v2.
-- Add Assisted-by: LLM.
+ drivers/clocksource/timer-atmel-pit.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-v2: https://lore.kernel.org/netdev/20260910040658.18359-1-jjc@jclark.com/
-v1: https://lore.kernel.org/netdev/20260908053150.28694-1-jjc@jclark.com/
-
-Nicolai's testing and review covered v1; Théo's review covered v2.
-
- drivers/net/ethernet/cadence/macb_ptp.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index e5195d7da..a9ac09900 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -50,7 +50,12 @@ static int gem_tsu_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts,
+diff --git a/drivers/clocksource/timer-atmel-pit.c b/drivers/clocksource/timer-atmel-pit.c
+index 888b06731e54..794b4ce4d700 100644
+--- a/drivers/clocksource/timer-atmel-pit.c
++++ b/drivers/clocksource/timer-atmel-pit.c
+@@ -191,7 +191,7 @@ static int __init at91sam926x_pit_dt_init(struct device_node *node)
+ 	ret = clk_prepare_enable(data->mck);
+ 	if (ret) {
+ 		pr_err("Unable to enable mck\n");
+-		goto exit;
++		goto put_clk;
+ 	}
  
- 	spin_lock_irqsave(&bp->tsu_clk_lock, flags);
- 	ptp_read_system_prets(sts);
-+	/* explicit barriers are needed because gem_readl() is relaxed */
-+	if (sts)
-+		rmb();
- 	first = gem_readl(bp, TN);
-+	if (sts)
-+		rmb();
- 	ptp_read_system_postts(sts);
- 	secl = gem_readl(bp, TSL);
- 	sech = gem_readl(bp, TSH);
-@@ -62,7 +67,11 @@ static int gem_tsu_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts,
- 		 * (assume all done within 1s)
- 		 */
- 		ptp_read_system_prets(sts);
-+		if (sts)
-+			rmb();
- 		ts->tv_nsec = gem_readl(bp, TN);
-+		if (sts)
-+			rmb();
- 		ptp_read_system_postts(sts);
- 		secl = gem_readl(bp, TSL);
- 		sech = gem_readl(bp, TSH);
+ 	/* Get the interrupts property */
+@@ -199,7 +199,7 @@ static int __init at91sam926x_pit_dt_init(struct device_node *node)
+ 	if (!data->irq) {
+ 		pr_err("Unable to get IRQ from DT\n");
+ 		ret = -EINVAL;
+-		goto exit;
++		goto disable_clk;
+ 	}
+ 
+ 	/*
+@@ -227,7 +227,7 @@ static int __init at91sam926x_pit_dt_init(struct device_node *node)
+ 	ret = clocksource_register_hz(&data->clksrc, pit_rate);
+ 	if (ret) {
+ 		pr_err("Failed to register clocksource\n");
+-		goto exit;
++		goto disable_clk;
+ 	}
+ 
+ 	/* Set up irq handler */
+@@ -237,7 +237,7 @@ static int __init at91sam926x_pit_dt_init(struct device_node *node)
+ 	if (ret) {
+ 		pr_err("Unable to setup IRQ\n");
+ 		clocksource_unregister(&data->clksrc);
+-		goto exit;
++		goto disable_clk;
+ 	}
+ 
+ 	/* Set up and register clockevents */
+@@ -256,6 +256,10 @@ static int __init at91sam926x_pit_dt_init(struct device_node *node)
+ 
+ 	return 0;
+ 
++disable_clk:
++	clk_disable_unprepare(data->mck);
++put_clk:
++	clk_put(data->mck);
+ exit:
+ 	kfree(data);
+ 	return ret;
+-- 
+2.34.1
+
