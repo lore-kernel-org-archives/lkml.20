@@ -1,128 +1,135 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F8E3C13E5;
-	Tue, 15 Sep 2026 05:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+Received: from outbound.baidu.com (mx24.baidu.com [111.206.215.185])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 2FB763D1CB0;
+	Tue, 15 Sep 2026 05:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.206.215.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789448612; cv=none; b=BlBw4lStgAgf3FBVP9TE6boE1JstFIIl40WhfZUS9D1MxVvf6A7nVhc1YJMku72D8kVZa9URwWKvZoEHzfxgfO/25iiaHjvstUwYp/VMcW4Ua5SGiSb1iuORefM2wJKkpM6F9Fm4SjxsmhiwzJvuCc/k9OAW24R9NIN5MG2BrQs=
+	t=1789448683; cv=none; b=lJbIlkktY5AEbRCXgKvGzgASOwe1qPtlwRvzd0TG6T+gnta/FE0cM7Vb+YeSO6N49mv72oQabZkZpZfQeZPblcLKNynMJnEr+2dBpo3OJR4fSlBrpZso7NEYZpOumSk6T/s76MdAYF0SDo2fN9Dwodz9+9HHKj6M4kYlJHsSkBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789448612; c=relaxed/simple;
-	bh=KPSAoiFMaDBr4il6tnjSVlW6fQ31q9gr8sV29+pyb8c=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Bxdrq4XLbb0SFfRodYFU1NPT0USMU7gd68wdA82K3YF5w8TyXl9LfULm6Tl6L8oQqlPg6rxQ5MGBTGaC+WrNdBnEB8/KQFiJdDvlBXhkfgsLgvneH4JcTfQ++QXHwAMWYjSIH+Bxi/q8CD2apigGxaW4T0UPBGlk0T2czfycMoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowACnfPCf0ahqS1QJCA--.60131S2;
-	Tue, 15 Sep 2026 13:03:27 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Li.Xiubo@freescale.com
-Cc: daniel.lezcano@kernel.org,
-	linux-kernel@vger.kernel.org,
-	tglx@kernel.org,
-	lkml@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] clocksource/drivers/timer-fsl-ftm: Fix clk reference leak in error paths
-Date: Tue, 15 Sep 2026 05:02:58 +0000
-Message-Id: <20260915050258.1727196-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789448683; c=relaxed/simple;
+	bh=WjC/OcwgNdegoOvhtLEk4e6gTJcQvtD0jQBy80tDsgg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=iuhiTMWJVdgo0X5dxh6+RthC2AraySp03K9dv86vKSh5gtXt8xp5LdS9DihVpr1/KU5VCpsB9h5RZDUZGViWBqsnWapipUIlJk1vEgH3czsRT5r2DcSd3/z53jVMIXUVfgxzBTnYW4oaoyY+IMA2H5pcq8nz1OFRMFUXE/fdJVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=M4oVRmsu; arc=none smtp.client-ip=111.206.215.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="M4oVRmsu"
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.3.12
+From: "Li,Rongqing" <lirongqing@baidu.com>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+CC: Viresh Kumar <viresh.kumar@linaro.org>, "linux-pm@vger.kernel.org"
+	<linux-pm@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "zhongqiu.han@oss.qualcomm.com"
+	<zhongqiu.han@oss.qualcomm.com>
+Subject: =?utf-8?B?562U5aSNOiBb5aSW6YOo6YKu5Lu2XSBSZTogW1BBVENIIHY0IDIvMl0gY3B1?=
+ =?utf-8?B?ZnJlcTogYWNwaS1jcHVmcmVxOiBmaXggUC1zdGF0ZSBpbmRleCBtaXNtYXRj?=
+ =?utf-8?B?aCBpbiBnZXRfY3VyX2ZyZXFfb25fY3B1KCk=?=
+Thread-Topic: =?utf-8?B?W+WklumDqOmCruS7tl0gUmU6IFtQQVRDSCB2NCAyLzJdIGNwdWZyZXE6IGFj?=
+ =?utf-8?B?cGktY3B1ZnJlcTogZml4IFAtc3RhdGUgaW5kZXggbWlzbWF0Y2ggaW4gZ2V0?=
+ =?utf-8?B?X2N1cl9mcmVxX29uX2NwdSgp?=
+Thread-Index: AQHdQRVveImKcLWuQUqOe6Z5+ITTU7bN5BGAgAE4ovA=
+Date: Tue, 15 Sep 2026 05:04:25 +0000
+Message-ID: <d39fba05f2a945008a6a83b7a3ee83c5@baidu.com>
+References: <20260910111329.2220-1-lirongqing@baidu.com>
+ <20260910111329.2220-3-lirongqing@baidu.com>
+ <CAJZ5v0iPPmrTtLRG23UYJ_ibn7VUceuN2qFXpjCsBYnBzDMzYA@mail.gmail.com>
+In-Reply-To: <CAJZ5v0iPPmrTtLRG23UYJ_ibn7VUceuN2qFXpjCsBYnBzDMzYA@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACnfPCf0ahqS1QJCA--.60131S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXr4xJF4ktw4rGw4kKFy3urg_yoW5GrWrpr
-	4fGw45tFW8G3ykKFn3tFWDAF9akrWIkFy7G3yfGas7Cws3ZFy3JF48Jry8uF4Yyr97X3yS
-	qFWUAFyDuF1UurJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
-	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUOM
-	KuUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAILA2qowzM1XgAAsf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1789448668;
+	bh=WjC/OcwgNdegoOvhtLEk4e6gTJcQvtD0jQBy80tDsgg=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=M4oVRmsusyHgbjQ9cGR/zjyWR3FMm1vVVEt9xEbTh0KiO4E0lh0q+rtOodLc8ZBMH
+	 RVgu9308eL/MzToTxnV0YhVdGp6QLbmmSHIyW6VqgqIr44A/fOqkDiz+juooi9RFgW
+	 wk5yhJuXYkma4aPBinH1UnysRYqSa8Er7acyvax4KlpZfpk2KDRzvl1z0pysozqpJV
+	 pDcGL9NA3miE6qR+ghYwa7rh2Kj+xDZFHSFnqsFfitxDtg/P6VFypBkE3dor2Dv0sY
+	 CAupQ+r4Clepsvan3W7N+qxANPYnrl20SP7viL+NZeOvkKLrYxUdLXzM7dty7dHdll
+	 kdLaZlsQztWlg==
 
-__ftm_clk_init() obtains clock references with of_clk_get_by_name() but
-never releases them on the error paths. If clk_prepare_enable() fails on
-the counter clock, the reference is leaked. The second of_clk_get_by_name()
-also overwrites the first clk pointer, so a failure to get or prepare the
-ftm clock loses the counter clock reference as well; on the get failure
-path the counter clock is left enabled and unreferenced.
-
-Release the references on the error paths: clk_put() when prepare+enable
-fails, and clk_disable_unprepare() followed by clk_put() when aborting
-after the counter clock has been enabled. The clocks intentionally stay
-enabled on the success path, so those are left untouched.
-
-Fixes: 2529c3a33079 ("clocksource: Add Freescale FlexTimer Module (FTM) timer support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/clocksource/timer-fsl-ftm.c | 25 +++++++++++++++++--------
- 1 file changed, 17 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/clocksource/timer-fsl-ftm.c b/drivers/clocksource/timer-fsl-ftm.c
-index 4eed6cb46132..8ada0c3e088a 100644
---- a/drivers/clocksource/timer-fsl-ftm.c
-+++ b/drivers/clocksource/timer-fsl-ftm.c
-@@ -230,7 +230,8 @@ static int __init ftm_clocksource_init(unsigned long freq)
- static int __init __ftm_clk_init(struct device_node *np, char *cnt_name,
- 				 char *ftm_name)
- {
--	struct clk *clk;
-+	struct clk *clk, *ftm_clk;
-+	unsigned long rate;
- 	int err;
- 
- 	clk = of_clk_get_by_name(np, cnt_name);
-@@ -242,20 +243,28 @@ static int __init __ftm_clk_init(struct device_node *np, char *cnt_name,
- 	if (err) {
- 		pr_err("ftm: clock failed to prepare+enable \"%s\": %d\n",
- 			cnt_name, err);
-+		clk_put(clk);
- 		return err;
- 	}
- 
--	clk = of_clk_get_by_name(np, ftm_name);
--	if (IS_ERR(clk)) {
--		pr_err("ftm: Cannot get \"%s\": %ld\n", ftm_name, PTR_ERR(clk));
--		return PTR_ERR(clk);
-+	ftm_clk = of_clk_get_by_name(np, ftm_name);
-+	if (IS_ERR(ftm_clk)) {
-+		pr_err("ftm: Cannot get \"%s\": %ld\n", ftm_name,
-+			PTR_ERR(ftm_clk));
-+		clk_disable_unprepare(clk);
-+		clk_put(clk);
-+		return PTR_ERR(ftm_clk);
- 	}
--	err = clk_prepare_enable(clk);
--	if (err)
-+	err = clk_prepare_enable(ftm_clk);
-+	if (err) {
- 		pr_err("ftm: clock failed to prepare+enable \"%s\": %d\n",
- 			ftm_name, err);
-+		rate = clk_get_rate(ftm_clk);
-+		clk_put(ftm_clk);
-+		return rate;
-+	}
- 
--	return clk_get_rate(clk);
-+	return clk_get_rate(ftm_clk);
- }
- 
- static unsigned long __init ftm_clk_init(struct device_node *np)
--- 
-2.34.1
-
+DQoNCmVxOiBhY3BpLWNwdWZyZXE6IGZpeCBQLXN0YXRlIGluZGV4DQo+IG1pc21hdGNoIGluIGdl
+dF9jdXJfZnJlcV9vbl9jcHUoKQ0KPiANCj4gT24gVGh1LCBTZXAgMTAsIDIwMjYgYXQgMToxM+KA
+r1BNIGxpcm9uZ3FpbmcgPGxpcm9uZ3FpbmdAYmFpZHUuY29tPiB3cm90ZToNCj4gPg0KPiA+IEZy
+b206IExpIFJvbmdRaW5nIDxsaXJvbmdxaW5nQGJhaWR1LmNvbT4NCj4gPg0KPiA+IGdldF9jdXJf
+ZnJlcV9vbl9jcHUoKSB1c2VzIHBlcmYtPnN0YXRlLCB3aGljaCBpcyBhbiBpbmRleCBpbnRvDQo+
+ID4gcGVyZi0+c3RhdGVzW10sIHRvIGluZGV4IHBvbGljeS0+ZnJlcV90YWJsZVtdLiBIb3dldmVy
+LCBmcmVxX3RhYmxlW10NCj4gPiBpcyBidWlsdCBieSBmaWx0ZXJpbmcgX1BTUyBlbnRyaWVzIHRo
+YXQgYXJlIG5vdCBsb3dlciBpbiBmcmVxdWVuY3kNCj4gPiB0aGFuIHRoZSBwcmV2aW91cyBvbmUs
+IHNvIGl0cyBpbmRleCBzcGFjZSBubyBsb25nZXIgbWF0Y2hlcw0KPiA+IHBlcmYtPnN0YXRlc1td
+LiBUaGUgb3JpZ2luYWwgUC1zdGF0ZSBpbmRleCBmb3IgZWFjaCByZW1haW5pbmcNCj4gPiBmcmVx
+X3RhYmxlIGVudHJ5IGlzIHN0b3JlZCBpbiBkcml2ZXJfZGF0YS4NCj4gPg0KPiA+IE9uY2UgYW4g
+ZW50cnkgaGFzIGJlZW4gc2tpcHBlZCwgdXNpbmcgcGVyZi0+c3RhdGUgYXMgYW4gaW5kZXggaW50
+bw0KPiA+IGZyZXFfdGFibGVbXSBjYW4gdGhlcmVmb3JlIHNlbGVjdCB0aGUgZnJlcXVlbmN5IG9m
+IGEgZGlmZmVyZW50DQo+ID4gUC1zdGF0ZS4NCj4gPg0KPiA+IFRoZSByZXBvcnRlZCBjdXJyZW50
+IGZyZXF1ZW5jeSBpdHNlbGYgcmVtYWlucyBjb3JyZWN0IGJlY2F1c2UgaXQgaXMNCj4gPiBvYnRh
+aW5lZCBmcm9tIGV4dHJhY3RfZnJlcSgpLiBUaGUgbWlzbWF0Y2ggb25seSBhZmZlY3RzIHRoZSBj
+YWNoZWQNCj4gPiBmcmVxdWVuY3kgdXNlZCBieSBnZXRfY3VyX2ZyZXFfb25fY3B1KCkgdG8gZGV0
+ZWN0IGEgZmlybXdhcmUgZnJlcXVlbmN5DQo+ID4gY2hhbmdlIGJlaGluZCBvdXIgYmFjay4NCj4g
+Pg0KPiA+IElmIHRoZSB3cm9uZyB0YWJsZSBlbnRyeSBjb250YWlucyBhIGZyZXF1ZW5jeSBkaWZm
+ZXJlbnQgZnJvbSB0aGUgb25lDQo+ID4gdGhlIENQVSBpcyBhY3R1YWxseSBydW5uaW5nIGF0LCB0
+aGUgY2hlY2sgZmFsc2VseSBkZXRlY3RzIGEgZnJlcXVlbmN5DQo+ID4gY2hhbmdlIGFuZCBzZXRz
+IGRhdGEtPnJlc3VtZS4gVGhlIG5leHQgLT50YXJnZXQoKSBjYWxsIHRoZW4gcGVyZm9ybXMgYQ0K
+PiA+IHJlZHVuZGFudCBjb250cm9sLXJlZ2lzdGVyIHdyaXRlIGV2ZW4gaWYgdGhlIHJlcXVlc3Rl
+ZCBQLXN0YXRlIGlzDQo+ID4gYWxyZWFkeSB0aGUgY3VycmVudCBQLXN0YXRlLg0KPiA+DQo+ID4g
+Q29udmVyc2VseSwgaWYgdGhlIHdyb25nIHRhYmxlIGVudHJ5IGhhcHBlbnMgdG8gY29udGFpbiB0
+aGUgZnJlcXVlbmN5DQo+ID4gdG8gd2hpY2ggZmlybXdhcmUgaGFzIGNoYW5nZWQgdGhlIENQVSwg
+dGhlIGZyZXF1ZW5jeSBjaGFuZ2UgaXMgbWlzc2VkDQo+ID4gYW5kIGRhdGEtPnJlc3VtZSByZW1h
+aW5zIGNsZWFyLiBBIHN1YnNlcXVlbnQgLT50YXJnZXQoKSBjYWxsIGZvciB0aGUNCj4gPiBQLXN0
+YXRlIHRoYXQgdGhlIGNwdWZyZXEgY29yZSBiZWxpZXZlcyB0byBiZSBjdXJyZW50IGNhbiB0aGVu
+DQo+ID4gc2hvcnQtY2lyY3VpdCB3aXRob3V0IHJld3JpdGluZyB0aGUgY29udHJvbCByZWdpc3Rl
+ciwgbGVhdmluZyB0aGUgQ1BVDQo+ID4gYXQgdGhlIGZpcm13YXJlLXNlbGVjdGVkIGZyZXF1ZW5j
+eSB1bnRpbCBhIGRpZmZlcmVudCBQLXN0YXRlIGlzDQo+ID4gcmVxdWVzdGVkLg0KPiA+DQo+ID4g
+Rml4IHRoaXMgYnkgdGFraW5nIHRoZSBjYWNoZWQgZnJlcXVlbmN5IGRpcmVjdGx5IGZyb20NCj4g
+PiBwZXJmLT5zdGF0ZXNbcGVyZi0+c3RhdGVdLmNvcmVfZnJlcXVlbmN5LiBwZXJmLT5zdGF0ZSBh
+bmQgc3RhdGVzW10gdXNlDQo+ID4gcGVyZi0+dGhlIHNhbWUgUC1zdGF0ZSBpbmRleCBzcGFjZSwg
+YW5kIGNvbnZlcnRpbmcNCj4gPiBjb3JlX2ZyZXF1ZW5jeSB0byBrSHogeWllbGRzIHRoZSBzYW1l
+IHZhbHVlIHN0b3JlZCBpbiB0aGUNCj4gPiBjb3JyZXNwb25kaW5nIGZyZXFfdGFibGUgZW50cnkg
+ZHVyaW5nIGluaXRpYWxpemF0aW9uLg0KPiANCj4gU2FzaGlrbyBoYXMgY29tbWVudHMgb24gdGhp
+cyBwYXRjaCBhbmQgaXQgaGFzIGEgcG9pbnQgSU1WOg0KPiANCj4gaHR0cHM6Ly9zYXNoaWtvLmRl
+di8jL3BhdGNoc2V0LzIwMjYwOTEwMTExMzI5LjIyMjAtMS1saXJvbmdxaW5nJTQwYmFpZA0KPiB1
+LmNvbQ0KPiANCg0KVGhlIGV4dHJhY3RfbXNyKCkgZmFsbGJhY2sgaXNzdWUgc2hvdWxkIGJlIHZh
+bGlkICwgYnV0IGl0IGlzIGEgcHJlLWV4aXN0aW5nIHByb2JsZW0gdGhhdCBpcw0Kb3J0aG9nb25h
+bCB0byB0aGUgaW5kZXggbWlzbWF0Y2ggZml4ZWQgYnkgdGhpcyBzZXJpZXMuIEkgd291bGQgdGhl
+cmVmb3JlIHByZWZlciB0byBrZWVwIHRoaXMgc2VyaWVzIHNjb3BlZCB0byB0aGF0IG1pc21hdGNo
+Lg0KDQpJZiB0aGVyZSBpcyBubyBpbnRlcmVzdCBpbiBhZGRyZXNzaW5nIGl0IGhlcmUsIEkgd2ls
+bCBzZW5kIGEgc2VwYXJhdGUgcGF0Y2ggdG8gZml4IGl0Lg0KDQpUaGFua3MNCg0KW0xpLFJvbmdx
+aW5nXSANCg0KDQo+IENhbiB5b3UgcGxlYXNlIHRlbGwgbWUgd2hhdCB5b3UgdGhpbms/DQo+IA0K
+PiA+IEZpeGVzOiBlNTZhNzI3YjAyM2QgKCJbQ1BVRlJFUV0gTWFrZSBhY3BpLWNwdWZyZXEgbW9y
+ZSByb2J1c3QgYWdhaW5zdA0KPiA+IEJJT1MgZnJlcSBjaGFuZ2VzIGJlaGluZCBvdXIgYmFjay4i
+KQ0KPiA+IFJlcG9ydGVkLWJ5OiBaaG9uZ3FpdSBIYW4gPHpob25ncWl1LmhhbkBvc3MucXVhbGNv
+bW0uY29tPg0KPiA+IFN1Z2dlc3RlZC1ieTogWmhvbmdxaXUgSGFuIDx6aG9uZ3FpdS5oYW5Ab3Nz
+LnF1YWxjb21tLmNvbT4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBMaSBSb25nUWluZyA8bGlyb25ncWlu
+Z0BiYWlkdS5jb20+DQo+ID4gUmV2aWV3ZWQtYnk6IFpob25ncWl1IEhhbiA8emhvbmdxaXUuaGFu
+QG9zcy5xdWFsY29tbS5jb20+DQo+ID4gLS0tDQo+ID4gIGRyaXZlcnMvY3B1ZnJlcS9hY3BpLWNw
+dWZyZXEuYyB8IDUgKysrKy0NCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwg
+MSBkZWxldGlvbigtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvY3B1ZnJlcS9hY3Bp
+LWNwdWZyZXEuYw0KPiA+IGIvZHJpdmVycy9jcHVmcmVxL2FjcGktY3B1ZnJlcS5jIGluZGV4IGE3
+OTdiYjIuLjMzMTNjNzQgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9jcHVmcmVxL2FjcGktY3B1
+ZnJlcS5jDQo+ID4gKysrIGIvZHJpdmVycy9jcHVmcmVxL2FjcGktY3B1ZnJlcS5jDQo+ID4gQEAg
+LTM1Myw2ICszNTMsNyBAQCBzdGF0aWMgdTMyIGdldF9jdXJfdmFsKGNvbnN0IHN0cnVjdCBjcHVt
+YXNrICptYXNrLA0KPiA+IHN0cnVjdCBhY3BpX2NwdWZyZXFfZGF0YSAqZGF0DQo+ID4NCj4gPiAg
+c3RhdGljIHVuc2lnbmVkIGludCBnZXRfY3VyX2ZyZXFfb25fY3B1KHVuc2lnbmVkIGludCBjcHUp
+ICB7DQo+ID4gKyAgICAgICBzdHJ1Y3QgYWNwaV9wcm9jZXNzb3JfcGVyZm9ybWFuY2UgKnBlcmY7
+DQo+ID4gICAgICAgICBzdHJ1Y3QgYWNwaV9jcHVmcmVxX2RhdGEgKmRhdGE7DQo+ID4gICAgICAg
+ICBzdHJ1Y3QgY3B1ZnJlcV9wb2xpY3kgKnBvbGljeTsNCj4gPiAgICAgICAgIHVuc2lnbmVkIGlu
+dCBmcmVxOw0KPiA+IEBAIC0zNjgsNyArMzY5LDkgQEAgc3RhdGljIHVuc2lnbmVkIGludCBnZXRf
+Y3VyX2ZyZXFfb25fY3B1KHVuc2lnbmVkDQo+IGludCBjcHUpDQo+ID4gICAgICAgICBpZiAodW5s
+aWtlbHkoIWRhdGEgfHwgIXBvbGljeS0+ZnJlcV90YWJsZSkpDQo+ID4gICAgICAgICAgICAgICAg
+IHJldHVybiAwOw0KPiA+DQo+ID4gLSAgICAgICBjYWNoZWRfZnJlcSA9DQo+IHBvbGljeS0+ZnJl
+cV90YWJsZVt0b19wZXJmX2RhdGEoZGF0YSktPnN0YXRlXS5mcmVxdWVuY3k7DQo+ID4gKyAgICAg
+ICBwZXJmID0gdG9fcGVyZl9kYXRhKGRhdGEpOw0KPiA+ICsgICAgICAgY2FjaGVkX2ZyZXEgPSBw
+ZXJmLT5zdGF0ZXNbcGVyZi0+c3RhdGVdLmNvcmVfZnJlcXVlbmN5ICogMTAwMDsNCj4gPiArDQo+
+ID4gICAgICAgICBmcmVxID0gZXh0cmFjdF9mcmVxKHBvbGljeSwgZ2V0X2N1cl92YWwoY3B1bWFz
+a19vZihjcHUpLCBkYXRhKSk7DQo+ID4gICAgICAgICBpZiAoZnJlcSAhPSBjYWNoZWRfZnJlcSkg
+ew0KPiA+ICAgICAgICAgICAgICAgICAvKg0KPiA+IC0tDQo+ID4gMi45LjQNCj4gPg0K
