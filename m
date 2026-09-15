@@ -1,140 +1,118 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114B947CC64;
-	Tue, 15 Sep 2026 10:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9D6265621
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 10:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467827; cv=none; b=jeWC7bGEiQanidIKd4Tkyuj2ZaihCZRA+jXu4+OyFmc/EyDFl6ufbvKLsJlizh2QBGl8L+IW/g55LwItAJMMKEmoo5uRMw9AGjMZkrqRlMUwcSKuNtMlc1++pNAONls8yYGGmBTxHcGmqmJIhW+7bGMnBXUp2e/PgsBRw+6tovU=
+	t=1789467853; cv=none; b=DHjuDgbp/hx5jvCFnyWNT8mI91qyj+LmIZ6K1mxjYKlVzZPLHYFEKzVvJ/H+UTKEj3o7UBK8RdIJiyO0+tvAV0/9frkCks1WsvxKoz9lQgkXP1jra7qSUVZyG5i4LSfji3DLz/BwF7qAypNjsKAZykvmr71zHNpdHXHk/84L/KQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467827; c=relaxed/simple;
-	bh=3pLi3V1qd1YAxSnUO0lLmMEMsdFDpIWHiyAyNy85cDQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=InktyDj15O8AmQu/e2hSMsn2fVeEWWICQgi9R9ugtbvVEiUTwZgiUg8IgfYmGPc13qbag8GXxllVjZ++/CdW4YU0SKr6CTJezN3f+0rkqxTD7dfWqYS0I29Kr+NGWARTEdNcGSe4pRT6UlZL/4ZlKqKn4K/KMlsHlKK05DQd/fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=3hJaPInM; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=m9x1Jvbp; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789467853; c=relaxed/simple;
+	bh=aUd/36u9Kwweuoo+yiuuPIsVEFuXttHoFaao8krgvyA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gjWg9s/nV+AoFoejJc6GHBaCcaQ/WraqIXk0sGsXlNV6hqk92XBTtEVy656Ex/xR2pjvpnpNz6EGd4sHE79SJDM12afDk6zg/WL5CyHli9Gbja9A1lAVU7KuIxNnpBP1x7FGz7SXSpNisv452j0oZOpOpDDVMsBd8O/5+XUe4Rg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ON8QmcBl; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="3hJaPInM";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="m9x1Jvbp"
-Message-ID: <3c16a2c3a05761b06d51cd0375ba9f87eef277ea.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789467823;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3pLi3V1qd1YAxSnUO0lLmMEMsdFDpIWHiyAyNy85cDQ=;
-	b=3hJaPInMnJRj6e7OlPAOBdmBOrINAnM4rVPGdAaUdJ8uZJXsa0jz5jtzWdkd43lwt0OL6u
-	cHtKROAxUpkobXX7G2OSbBP3cdZ17OqquV8W8jkjc9caQzgxcmG2XgaTd/R8i3JqxRWdFL
-	jQPUr4KLlfvPw0chJktvGybukw0r24f80SgPnczhzR6ebJ8Y4pJHJ1xX/5NQWaNQ448d1P
-	VNe1VDSxSIvzBlQkSDOnEwJso0t5a1O33R0KqGBkcfHlx1/C3H+6unzR9UDJG11+tDmA+P
-	X0PpDuSLdWDUiU0DiahWg2x+xmWnoXrDVmxpkwE92Ode6AFIYCJomTmmWrSygA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789467823;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3pLi3V1qd1YAxSnUO0lLmMEMsdFDpIWHiyAyNy85cDQ=;
-	b=m9x1JvbpriS+z1IKekZ02Pz1MmoHzaWQInMe2kNXY8SlGxbR2q3+05P6Xvb0+/rJw5Hx4w
-	o1pJ5OEDh+h2swBQ==
-Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Tue, 15 Sep 2026 12:23:42 +0200
-In-Reply-To: <ee045b16-978e-4208-b447-bb422a45dbf5@lunn.ch>
-References: 
-	<20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
-	 <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
-	 <28f8ec21-162a-4c2c-8e01-6586f39f06f8@lunn.ch>
-	 <041e2884bc1aa1725a86efd413e2e3301b54d91d.camel@linutronix.de>
-	 <df6dc527-8b4a-4775-828a-2633369277cd@lunn.ch>
-	 <20612d5a45783ed49927fb1075c7ea1f3293f514.camel@linutronix.de>
-	 <ee045b16-978e-4208-b447-bb422a45dbf5@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ON8QmcBl"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db18fe433fso20954925ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:24:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789467852; x=1790072652; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KHU2z1i2cZYO9dBeMlbgbmxMWFY6UEr2eGRAYUrBz5g=;
+        b=ON8QmcBlpEHd0vDamaI+Am2/83dvPR5rQo4864t8LA0PSbFehKFA5mEiS7q1u/xOzP
+         KVhRRtDEuyplshrgU6O8RI6i1mmz9YKSAi2eV/tEpH0WsA3q9a1Oxfqkl2/So15xA25Q
+         dtx0SNJTI2LSV8u73XNUSsOmjzGUH5KthJhUagGAvWKG4kAHCIdkjmL4UnpAWas1DLuN
+         8UlfZM7kfBBwZRlmPTfGZ7jRwHvoqQbx1YCdp2UyLHRajudWptHoK+xMJNxxxjf2KMYv
+         UlRa9u4MkFSRnx0fNsU66XahGxBNZ2IITvTdDc06yb1rue9CoDWuHWJZpCtcIuOSiTpt
+         G9sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789467852; x=1790072652;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KHU2z1i2cZYO9dBeMlbgbmxMWFY6UEr2eGRAYUrBz5g=;
+        b=OgsCyVXjFo5DdTll1UpgvUSO2XD7fGBpcs9wDyQZ+BmVqL6mWa7bZctQna4reRZWCA
+         0/hi0xqUXiemAvdxgt9S1NWwKNSB6GVU23DCADoKvhDJakiQUGBeDXZIqZbHUdxpYnIK
+         JzL3iaJg6ws4XploPM7bMne8ziOW2VGDU9F+oobl7m7icSlOyRnpNfHwVYxmXbfJFLGt
+         kax4e2Hti7jNgQmUpX/gz+Ot68u4YZc1Qvb5/7f+feAW6gVtrchPDUOWIfRLiZsZJIqb
+         a5Xfi2fNEoOYx/zsMNpTsf6Usp9BYpsnbgUQWTh4ZIrFoavCuRK231ox2m63XbN+bew3
+         +xWw==
+X-Forwarded-Encrypted: i=1; AKwUvBzAWsiodpwZQHUY7bgRL1dRQqEB/AiZQUd42zm65Vk11i8RaL9mk8aNSjhpFIbdJ3JhYiMRF2mACb24yi0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLb0mNq0RVICBywTU3S/Y9BhuKu3/EHCWZe/ADHeI1C3teSe24
+	/T31Giv6puPafYPO4kRpymnCy2RKTTcrZ3xsa5uFL4yz9tdr1PSwVpLF
+X-Gm-Gg: AYBFou18ZztX6uth0gDhT3w+2bpYajRLAMQ+0al42Guz6ZOkqq6u87GdymDlsf9+G1M
+	FmYXXVJZGsY6I7d5i5OXNJxqBX6s71gaW2N8a+ajndLRpvhuuA2G1Amzg4B2dJ8yiOLdAnuQ/Mq
+	TMsk/cNHwuFbMUfRwV1d2JHpz/guV51FHT7uxciY62NE/6RG9bYVL3vfa4sucM4BxX8r4IMEnrI
+	ZzHBEh+8DQ8UuBamGZMbkYIyV1z1fkQBP3L3xb9/DiQzAk+yz/PZ5OyFb0vMp1u82Nku9uO87KJ
+	Fb/Expvc+c3WHBOLjwqsxf0S8RX9jg8NSt3Kmlxajt5dtdkjPksYaexD3JO5cYDmI374lioXNOe
+	NFu1UddVBheC+P51SRC/dSaihIBHB7Ub6H4907MkqzGC57tyHK8YP+DJwcEltnOTtCO/2w8uPEG
+	KgxhnFBK2d4JgI9WuHen1I/fkK2sCl3rSIbUmNuT4b3xsodMQiKqmSag==
+X-Received: by 2002:a17:903:1a0c:b0:2d9:464f:d45f with SMTP id d9443c01a7336-2dd6c5ba2f0mr137031705ad.5.1789467851583;
+        Tue, 15 Sep 2026 03:24:11 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd76fc2c54sm10370225ad.72.2026.09.15.03.24.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 03:24:11 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: vgxy61: free control handler on remove
+Date: Tue, 15 Sep 2026 18:24:02 +0800
+Message-ID: <20260915102402.2357813-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-09-10 at 14:12 +0200, Andrew Lunn wrote:
-> > > Since this is an FPGA, i assume there are no internal PHYs. Mixed mod=
-e
-> > > is not something FPGAs do. There are sometime "interesting"
-> > > relationships between port number and address on the MDIO bus. But
-> > > without internal PHYs you don't need to worry about this.
-> > >=20
-> >=20
-> > Correct, the FPGA IP has no internal PHYs. Each port is associated with
-> > a dedicated external MDIO bus.
->=20
-> How is a port and the MDIO bus associated?
+vgxy61_init_controls() initializes a V4L2 control handler and assigns
+it to the subdevice. The probe failure paths release the handler with
+v4l2_ctrl_handler_free(), but the remove path does not perform the
+corresponding cleanup.
 
-I had to clarify a few details.
-In the particular bitstream and board design I am using, MDIO is enabled
-for every external switch port. Each external port therefore has its own
-MDIO interface. This is what I meant by "associated". However, it's a
-property of this FPGA configuration, not a general Linux requirement or
-an inherent mapping for every instance of the IP core.
+As a result, removing the driver after a successful probe leaks the
+resources allocated for the V4L2 controls.
 
->=20
-> Linux, in general, does not care. You have a collection of MDIO
-> busses, and on those busses you have a collection of PHYs. The MACs
-> use a phandle, or some other means to point to the PHY it should use.
->=20
-> Given this is a 31 port switch, why would you dedicate 62 pins to
-> MDIO, two per port, when you can put 32 PHYs on one MDIO bus?
->=20
-> So i doubt there is a strong association between port and MDIO bus.
->=20
-> What i could image is the one real MDIO bus controller is in global
-> scope within the RTL design. And then the logic to provide a port with
-> its multiplexor on that shared bus is in the per port RTL design
-> scope. I've not done much FPGA design, but i assume if you don't
-> connect the per port MDIO lines to anything, while place and route is
-> performed, they get optimised out?
+Free the control handler during remove. Do so before destroying the
+sensor mutex, which is also used as the control handler lock, matching
+the cleanup order used by the probe failure path.
 
+This issue was found by manual code inspection.
 
-Yes, MDIO can be enabled per port when generating the bitstream. If it
-is disabled for a port, the corresponding physical interface is not
-generated, so your assumption about unused interfaces being omitted is
-correct.
-Linux will still model the topology in the usual way: the generated
-interfaces are exposed as MDIO buses, and each switch port refers to its
-PHY through a phy-handle. The bus selector identifies a generated MDIO
-interface and should not generally be interpreted as a switch port
-number.
+Fixes: 153e4ad44d605 ("media: i2c: Add driver for ST VGXY61 camera sensor")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/i2c/vgxy61.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
->=20
-> > > So in theory, a 0 port switch is possible!
-> >=20
-> > In theory, yes, but I prefer to treat it as invalid until it can be
-> > tested.
->=20
-> Yes, i would treat 0, 1 and probably 2 as invalid. 2 ports would
-> technically work in the DSA setup, but is pretty much pointless. It
-> only gets interesting with 3 ports or more.
-
-I will add an additional check and reject configurations with fewer than
-3 ports.
-
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Andrew
-
-Thanks,
-Vasilij
+diff --git a/drivers/media/i2c/vgxy61.c b/drivers/media/i2c/vgxy61.c
+index 3fb2166c81ef..553ab5a2e265 100644
+--- a/drivers/media/i2c/vgxy61.c
++++ b/drivers/media/i2c/vgxy61.c
+@@ -1876,8 +1876,9 @@ static void vgxy61_remove(struct i2c_client *client)
+ 	struct vgxy61_dev *sensor = to_vgxy61_dev(sd);
+ 
+ 	v4l2_async_unregister_subdev(&sensor->sd);
+-	mutex_destroy(&sensor->lock);
+ 	media_entity_cleanup(&sensor->sd.entity);
++	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
++	mutex_destroy(&sensor->lock);
+ 
+ 	pm_runtime_disable(&client->dev);
+ 	if (!pm_runtime_status_suspended(&client->dev))
+-- 
+2.43.0
 
