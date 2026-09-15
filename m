@@ -1,35 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD023EC837;
-	Tue, 15 Sep 2026 08:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFC645FFDE
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460509; cv=none; b=TgBqN6b/xwG04oj2U0lPO0g91gfEbDtik9bkWJq3qlixiY2Ao2iJKYE/R4EycDXpGIWDwyGjy5663BFuBsRSxdjS+rpuJU28S+jKY2AAn8AOLFYevG2/ucJU9yM9J4x2Qhvg9GgrTFiW+Ab1V9Kmj4i/kV3ZldQuanLb/a1v/24=
+	t=1789460509; cv=none; b=G5FhOCqBU7dGaP4lxV5wvy7LyuNRIs2RKf/4M7DFBvp/0KIA9YFgyI4Jz+HxVwHFPIy4bqSGjaOuztV7/8FWdJ8/K1LugCvCDGBXKlIEVd8PhgioF3h18DASY1efiXz2n4CvzgiwWe4H8Ks/lWb1vk/7h4arTuatRzxZsCBOqPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789460509; c=relaxed/simple;
-	bh=6OXLOMN1tT+2LCdpc4U+qP8GJa0HjXvylGogrLIrRXU=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=CliIb7g/V6ysnXoegQja1rpNms/nY9RlKBOToL+PgeGfBw+LL+cZsAURdZ0XrYuiKNDpuIx4T0rF6pBvmmlU2wa+Xx2a7ODIbXSsZlD6hvBNTiNbHeQIEXIg+Ydl6nWczRZnO8VPUErmAneeOy7paT37SQrxC3f4L99M7ZYSObc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cg5XvQyJ; arc=none smtp.client-ip=100.103.45.18
+	bh=cND+RiZNkjQ+dwlMeG9oNBvkOgJOikAyD5PNuNPDeDA=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=ZNfpEBx28cTOhZfrQh50HDLT9r4LC/Ckpztjc1z7iMgO0Bo3PaBcmYFV3Wx5BgYBAk3fzrmhvdMFVuTnyzbtp1IILilZH1tupKrN/ULws7VX9xuB93gtaZfIkvFpvrkXG5SEATIKyIV/KJ5vzVGGEYHXhMH/UXaTcajE6BLabxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=none smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=B67SJOyv; arc=none smtp.client-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cg5XvQyJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BCCB1F000FF;
-	Tue, 15 Sep 2026 08:21:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789460479;
-	bh=PmiReS6uxC4r5hg+N62nj1I2PQSmsT8XxX9Bgx2Kavk=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Cg5XvQyJYRuQQRpLYuyeoImBss8CHRlKAMjKOOqMUmR9Kjn5edEQtKGHsFhuPKGcJ
-	 S+DgXpuRyvz5ARXSFDIjoqHzVU8qzAynO6JbuzqoFhmTV0n9HgGFatuEHL7Za6WMJw
-	 DPb9mWHFtr2kAEHaCq2IVB1D0KqKLjzOo+aiXk5gNogrNArMB3odisE89j/bIJybWO
-	 4vZxn3A0DAtsRH4vz/zAJw+pvXfm2LyFJvPTReJNRXQ8AcD5yUy+Iqkf9apy84VEhk
-	 4UpJeTqLIRpLPRYkF5dx5XI1tg0Q47g0teLIgpra/o7wLEztHuup4/B2/ngC7rEy0B
-	 42+wBY9OxZgYw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198BA39253E9;
-	Tue, 15 Sep 2026 08:20:15 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="B67SJOyv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789460460; bh=kghpB7ZhQGmJpX7jlJk8goCj8FvBODEx2R402a5MjFA=;
+	h=From:To:Cc:Subject:Date;
+	b=B67SJOyvNBIlhbB9duf6n++ztK1spw44a8+/cuOUUJHb/J6+9m7ew8TCqWBsHFCZr
+	 Hsz+0z9CaDMt/FzMDp1mu3l4DdsO/QiW8Rt9+Ysc0YWE4JUu8Q9Jzi2tuF0XYJaF4+
+	 rk/9GwMBiKQzfK87jL//z0UXdyiiKLIqGg+QGSpo=
+Received: from XJSH01426.meizu.com ([210.13.72.171])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 53A1DE2E; Tue, 15 Sep 2026 16:20:58 +0800
+X-QQ-mid: xmsmtpt1789460458t5126i1fs
+Message-ID: <tencent_034C6FC23D4817C40657E5F17F64E260A009@qq.com>
+X-QQ-XMAILINFO: OIkr59++0f4Qwdb1R8aaTM4CMnXSO09OXLLfl94a8ORKkoX/XuVweVBECR2FHc
+	 wh5UawVPgSnceDR1fyBoJR6ZsgjM0VKZXyNluXAa9ak+/hP+nJl7fN9FPppGgRKhJfwwuANuTK7/
+	 n/hkMEDcdWP1O6qi5uiLNWOesjiphyBUzxdC6iDmzszt3hKeQQppiaz5Z7HsZe1jg2tYig/JBB8x
+	 Iq7DINVJOaXtcLzAglZfPD8RjyXK3gxY/TBb8j1EqpeLq1iNDTjMUuy10+DeE7h1h86dJjyfsDJj
+	 HcKWhPXMnfRrju1iA87It6/nekkah0jdMWk60065ZYM2/YNCahjXtpDTBV6QgIxawsuEzTnGx85p
+	 cdwHx5emRHOT5xwa4PTgW0u/pL47B2O2wQfHTOmFyiNn+kqD3EiHBqpx3DAt3stOvdRCZGby63Vg
+	 g2/+XYLhnlbf7JOFq9fegDbIfdDKVumxsetFfmmZwfTB/ROENp4ty3gHFXr/MTyfeTyDZ7AA97PK
+	 dZIgyBFyxhwr4sjws3nKLvCLIlY7aMEEsZDbV+WVPUOqRwpik5xOxbV0WcPO8HKNOTHFre4CsCje
+	 DfKuGFmDBoWeAAnfGElfz5s3BK9G7fpVlpJCHna7dRUfnrdRwnIqffb+PhFQFSmqh4VCDNeZsvVV
+	 4v6U8wi56AlcwbKRYJnZYiq5YsivHHFgqY4a6RA5/Yl1pjRS1hsLJL3DdrU/VRTfxHwMTE5aCmY5
+	 zdGQm8qDKX1EJ9O3ATLKN8MEXEJYs4pwGIYzZP+MXf9d9ZM7xqADqI4zcAztJN5eIpkzvIUTT7s9
+	 wAdAr7M2fhzPYBtEJSSD1TnpLqPuMTJRlQ7sKXVdNPEQcSqJUW4dzXjhBlEvAweg+OfkPr1s3PrR
+	 3OqO2GyTZfL/z+fXjpE9Hoav5kn8olPXvHccmkWmkCqU+YM1B/dtq5paJENONkDSXic9Df20kAKq
+	 yjdZGoke0d5dlSNCjhDpmRzaery/QrdOvjMNkPsmYTX8AMfCrl6WPwembe45GRlxVlOP04EyZCIe
+	 fY6wQN+hjpL7qkGQYP1csXFPusle63in61Q7FpX8i8Yf/K9ShNbJF0JZag13qheDNM2FyOSGe6Nz
+	 Po33Iy7SwzUaYZv9dQS7Amk+j10X7Nkas94vCDm/APhTlV8ke4vGtDgJysT51CH5jzj1o3Ag+bLt
+	 U/dLo=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Zhenghui Hao <zhenghui.hao@qq.com>
+To: linux-mm@kvack.org
+Cc: Zhenghui Hao <zhenghui.hao@qq.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mm/hugetlb: fix misspelled parameter names in comment
+Date: Tue, 15 Sep 2026 16:20:29 +0800
+X-OQ-MSGID: <20260915082029.65309-1-zhenghui.hao@qq.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,47 +63,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v6 1/2] net: fec: Propagate PTP initialization
- errors
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178946041395.1433766.9518357257056038239.git-patchwork-notify@kernel.org>
-Date: Tue, 15 Sep 2026 08:20:13 +0000
-References: <20260911040021.12289-1-phucduc.bui@gmail.com>
-In-Reply-To: <20260911040021.12289-1-phucduc.bui@gmail.com>
-To: Bui Duc Phuc <phucduc.bui@gmail.com>
-Cc: wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
- imx@lists.linux.dev, linux-kernel@vger.kernel.org, netdev@vger.kernel.org
 
-Hello:
+The comment above hugepages_setup() refers to "hugepagsz" and
+"default_hugepagsz", but the parameters parsed by this code are
+"hugepagesz" and "default_hugepagesz".  Fix the spelling and also drop
+the redundant spaces so the comment reads normally.
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+No functional change.
 
-On Fri, 11 Sep 2026 11:00:20 +0700 you wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> Change fec_ptp_init() to return an error code instead of silently
-> ignoring failures during PTP initialization.
-> 
-> The PPS IRQ is not required for the FEC/PTP functionality, so its
-> absence should not make the probe fail. However, an unavailable
-> optional IRQ should be distinguished from an actual error returned
-> during the IRQ lookup.
-> 
-> [...]
+Signed-off-by: Zhenghui Hao <zhenghui.hao@qq.com>
+---
+ mm/hugetlb.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Here is the summary with links:
-  - [net-next,v6,1/2] net: fec: Propagate PTP initialization errors
-    https://git.kernel.org/netdev/net-next/c/2343cff0b382
-  - [net-next,v6,2/2] net: fec: Handle optional IRQ lookup errors correctly
-    https://git.kernel.org/netdev/net-next/c/20d1b74a32d0
-
-You are awesome, thank you!
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 4f6f58bf3db6..68b97893a376 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -4268,9 +4268,9 @@ static __init void hugetlb_parse_params(void)
+ 
+ /*
+  * hugepages command line processing
+- * hugepages normally follows a valid hugepagsz or default_hugepagsz
+- * specification.  If not, ignore the hugepages value.  hugepages can also
+- * be the first huge page command line  option in which case it implicitly
++ * hugepages normally follows a valid hugepagesz or default_hugepagesz
++ * specification. If not, ignore the hugepages value. hugepages can also
++ * be the first huge page command line option in which case it implicitly
+  * specifies the number of huge pages for the default size.
+  */
+ static int __init hugepages_setup(char *s)
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
