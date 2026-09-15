@@ -1,33 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE22456DFD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C1E471CE0;
 	Tue, 15 Sep 2026 20:20:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789503655; cv=none; b=JS+pOxvqpRp+dQtdawpQxMyxFcry6SnShYZKRj+Vu2pVoN/3MEnv1CmJVjyv4/J4GhjrrbFPv4+jqUBENsk0fgm5GP5iNHzeY8ZCsHQBj39jA9oH8AcJY/MJhDRoUmqf4LXMftmkbWgW07SAQ8czhlfwBt93LBiJhxa1QIKAPRs=
+	t=1789503655; cv=none; b=mntQB9TiY5+9+DFJY3noR9J0DlQ1tF+QldcR9uN1hafYZPlDBQdhw1nBiAMssAIPp2eaZDJYdj6JOrtztSgpv2ghAPAVE2dWa3Cu9BxdRoIuR4UJfqDH9+up0Ks5vX4xJqr23isWTMFYMH26t307jG4l1Cfkqm16SHqyDfDhnCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789503655; c=relaxed/simple;
-	bh=ZEQ3J4FqxnkpYsTzOtwn2mqHYYGvQR0TAxGTCP4Bj0Q=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TSoaJod9k8gflDBuo7/wyaFgICu7KypmLar4XMOiFqhUSGz3yk8JBHXWb/8GCi4KEi73cqwvRI0LdbYqDqwcO6jXCVPxYt9bpPo5cmoW+3ftVZokDMB2ZrMQi8F5jBK0lUr0MBCArcy/XUCBsskiYDDQfjMEv7gVBGSZWuIq5qM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WhTjTlJd; arc=none smtp.client-ip=10.30.226.201
+	bh=BmeNT3JxJk3G1PHKY40iO1F+eYfxoquv8SOJIXEiZcM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WJbhoeivD1+XZZarNe6LeWWGvyK5wESpAqcCAZOZCQ7Ao3nqkS0CyTzuj46iC0JdRio/unQe9ceXQmWQvEL9LgSQMvqcxJgNflB0qV+9jy7Bek18+3sz6sf07ly/3KCPA/DbJ8IUw2dp3JctsXyiTUOK0jCCltRF73tZk092oA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h/PVNReN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WhTjTlJd"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0AABAC2BCF5;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h/PVNReN"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3665FC2BCFD;
 	Tue, 15 Sep 2026 20:20:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
-	t=1789503655; bh=ZEQ3J4FqxnkpYsTzOtwn2mqHYYGvQR0TAxGTCP4Bj0Q=;
-	h=From:Subject:Date:To:Cc:From;
-	b=WhTjTlJdGTAj0o1QWL96DAzrLaOubO9K2CRAtPR0VD9P5Puk7Vh3Ruh8c70XRYJy9
-	 ZyyXB/gzV3Np0HOJh99tYC8OMSw+g97s2RWsVAfx0WOp5nUllRMXFyS9PuHnTcs9Kf
-	 K8LaKc+O/J5W+euO7uIk0UISpMJF8Ho5P1Fzrs9A=
+	t=1789503655; bh=BmeNT3JxJk3G1PHKY40iO1F+eYfxoquv8SOJIXEiZcM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=h/PVNReN+u4SkAce+qze9yJUROyDQhZ376dSOxIIS4SrDqMBO0cQfeaJk2rYsTnAj
+	 wdAwwztegXiqhXa54hUxKd8ytVKePYJY6HCZEoiQKmnIGraUYmnQVy+coK1U7qEf95
+	 clUyBEKNtauYN7wVTXZPlbW3ZCPFyX0BuCQzARKg=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E56DBC88E75;
-	Tue, 15 Sep 2026 20:20:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B14AC88E7D;
+	Tue, 15 Sep 2026 20:20:55 +0000 (UTC)
 From: Richard Leitner <richard.leitner@linux.dev>
-Subject: [PATCH 0/3] Add Vision Components MIPI Camera Module support
-Date: Tue, 15 Sep 2026 22:20:22 +0200
-Message-Id: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+Date: Tue, 15 Sep 2026 22:20:25 +0200
+Subject: [PATCH 3/3] media: i2c: vc-mipi: add Vision Components MIPI Module
+ Controller
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,10 +37,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrE1S1Ui4ilgwBiP+0pZIxN0Vy
- 2/x3gWOrbCDIrrA8iFO1iUgiSOgoV56RmmDQSudqVyleBDOsgmStxNmrTGauCMyCkKyWe7k/HZ
- l9dvtzcjk3wfc9wP7JxdScAAAAA==
-X-Change-ID: 20260903-vc-mipi-ctrl-6d442cefcc40
+Message-Id: <20260915-vc-mipi-ctrl-v1-3-8a42b693d889@linux.dev>
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+In-Reply-To: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -48,62 +48,643 @@ Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-media@vger.kernel.org, Richard Leitner <richard.leitner@linux.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789503653; l=2059;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789503653; l=18334;
  i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=ZEQ3J4FqxnkpYsTzOtwn2mqHYYGvQR0TAxGTCP4Bj0Q=;
- b=xuekxFxW6sSoMFjNUpYSX4OEcsRNM1xs3u3YsE37zqH+GLe4pa9+Ym99UgNx+/HSXGn/OWjdq
- LHFDTiXYaERD6qmelw838XYCWw0ZwK2GJk3e7ZovoROtS+xjshaAyOn
+ bh=BmeNT3JxJk3G1PHKY40iO1F+eYfxoquv8SOJIXEiZcM=;
+ b=VJPben/XCjgSeBBnWKKFJgskLt9Bb4Vxldhzn8CIzmFRURje9hunpQf/tL7Qeba41YXJ7KsMY
+ Uk9vYyTAIiEDj3fW+5hkksA6MVEaWiZbufwE60IG5e5u4pn672MGVLG
 X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
  pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
 X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
  with auth_id=350
 
-This series adds support for Vision Components MIPI camera modules by
-adding a device driver for the controller chip found on those modules.
+Add support for the Vision Components MIPI camera module controller.
+This is basically an FPGA sitting on most of the Vision Components MIPI
+camera modules. It provides three main functions for the attached image
+sensor:
 
-The controller is an I2C-accessible FPGA that provides three main
-functions for the attached image sensor:
+  - power sequencing and control of the module supply
+  - a fixed clock output used as the sensor input clock
+  - tunneling of I2C traffic between the host and the sensor
 
- - power sequencing and control of the module supply
- - a fixed clock output used as the sensor input clock
- - routing of I2C traffic between the host and the sensor
+The driver registers a regulator for the sensor supply, exposes the
+module clock as a clock provider, and creates a I2C adapter so that the
+downstream sensor can be accessed as a normal I2C device. This is
+modeled after the hardware design, where the FPGA is connected to two
+separate I2C busses. One towards the host, one towards the sensor.
 
-The initial version of this driver was written by Laurent Pinchart and
-is available at: gitlab.com/ideasonboard/nxp/linux.git in the
-v7.0/sensors/vcmipi branch. Therefore I've added Laurent and me as a
-maintainer for this driver and left Laurent as MODULE_AUTHOR. If that's
-incorrect or not desired, please feel free to reach out! Thanks
+There are known firmware quirks affecting I2C ROM reading with
+auto-increment, as well as multi-byte reads from the sensor. Both are
+handled in this driver.
 
-This series was tested using ov9282 camera modules from Vision
-Components. Those were flashed with different FPGA firmware versions and
-connected to an i.MX8MP SoC.
+The initial version of this driver was written by Laurent Pinchart
+<laurent.pinchart@ideasonboard.com>.
 
-Any feedback is warmly welcome.
-
-Thanks!
-
-Link: https://lore.kernel.org/all/20260728092856.GB1494774@killaraus.ideasonboard.com/
-Link: https://gitlab.com/ideasonboard/nxp/linux/-/commits/v7.0/sensors/vcmipi
 Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 ---
-Richard Leitner (3):
-      dt-bindings: vendor-prefixes: add Vision Components GmbH
-      dt-bindings: media: i2c: Add vision-components,mipi-module-controller
-      media: i2c: vc-mipi: add Vision Components MIPI Module Controller
+ MAINTAINERS                 |   1 +
+ drivers/media/i2c/Kconfig   |  13 ++
+ drivers/media/i2c/Makefile  |   1 +
+ drivers/media/i2c/vc-mipi.c | 541 ++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 556 insertions(+)
 
- .../vision-components,mipi-module-controller.yaml  |  92 ++++
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- MAINTAINERS                                        |   8 +
- drivers/media/i2c/Kconfig                          |  13 +
- drivers/media/i2c/Makefile                         |   1 +
- drivers/media/i2c/vc-mipi.c                        | 541 +++++++++++++++++++++
- 6 files changed, 657 insertions(+)
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260903-vc-mipi-ctrl-6d442cefcc40
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3ee3fec098831..916cebee2f8b6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -29112,6 +29112,7 @@ M:	Richard Leitner <richard.leitner@linux.dev>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
++F:	drivers/media/i2c/vc-mipi.c
+ 
+ VISL VIRTUAL STATELESS DECODER DRIVER
+ M:	Daniel Almeida <daniel.almeida@collabora.com>
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 5c52007f9cbeb..6ec43f06c24d0 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -868,6 +868,19 @@ config VIDEO_VGXY61
+ 	  This is a Video4Linux2 sensor driver for the ST VGXY61
+ 	  camera sensor.
+ 
++config VIDEO_VC_MIPI
++	tristate "Vision Components MIPI Module support"
++	depends on I2C
++	help
++	  This is a driver for the camera module controller found in the Vision
++	  Components MIPI modules.
++
++	  The controller manages the power supply, reset signal and I2C
++	  communication to the actual camera sensor.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called vc-mipi.
++
+ source "drivers/media/i2c/ccs/Kconfig"
+ source "drivers/media/i2c/et8ek8/Kconfig"
+ 
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index d04bd5724552e..c768e63cd2cf1 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -166,6 +166,7 @@ obj-$(CONFIG_VIDEO_TW9910) += tw9910.o
+ obj-$(CONFIG_VIDEO_UDA1342) += uda1342.o
+ obj-$(CONFIG_VIDEO_UPD64031A) += upd64031a.o
+ obj-$(CONFIG_VIDEO_UPD64083) += upd64083.o
++obj-$(CONFIG_VIDEO_VC_MIPI) += vc-mipi.o
+ obj-$(CONFIG_VIDEO_VD55G1) += vd55g1.o
+ obj-$(CONFIG_VIDEO_VD56G3) += vd56g3.o
+ obj-$(CONFIG_VIDEO_VGXY61) += vgxy61.o
+diff --git a/drivers/media/i2c/vc-mipi.c b/drivers/media/i2c/vc-mipi.c
+new file mode 100644
+index 0000000000000..1ca7f94c17d3c
+--- /dev/null
++++ b/drivers/media/i2c/vc-mipi.c
+@@ -0,0 +1,541 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Vision Components MIPI Module Controller
++ *
++ * Copyright 2021 Laurent Pinchart <laurent.pinchart@ideasonboard.com>
++ */
++
++#include <linux/clk-provider.h>
++#include <linux/delay.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/pm.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/regulator/driver.h>
++#include <linux/regulator/machine.h>
++
++#define VC_MIPI_REG_RESET			0x0100
++#define VC_MIPI_REG_RESET_POWER_DOWN		BIT(1)
++#define VC_MIPI_REG_RESET_RESET			BIT(0)
++
++#define VC_MIPI_REG_STATUS			0x0101
++#define VC_MIPI_REG_STATUS_OFF			0x00
++#define VC_MIPI_REG_STATUS_ERROR		0x01
++#define VC_MIPI_REG_STATUS_ON			0x80
++
++#define VC_MIPI_REG_MODE			0x0102
++#define VC_MIPI_REG_MODE_STREAM_10BIT		0x00
++#define VC_MIPI_REG_MODE_STREAM_8BIT		0x01
++#define VC_MIPI_REG_MODE_EXTTRIG_10BIT		0x02
++#define VC_MIPI_REG_MODE_EXTTRIG_8BIT		0x03
++#define VC_MIPI_REG_MODE_TESTIMG_10BIT		0xF0
++#define VC_MIPI_REG_MODE_TESTIMG_8BIT		0xF1
++
++#define VC_MIPI_REG_IO				0x0103
++#define VC_MIPI_REG_IO_XTRIG_ACTIVE_LOW		BIT(6)
++#define VC_MIPI_REG_IO_FS_ACTIVE_LOW		BIT(5)
++#define VC_MIPI_REG_IO_FLASH_ACTIVE_LOW		BIT(4)
++#define VC_MIPI_REG_IO_XTRIG_ENABLE		BIT(3)
++#define VC_MIPI_REG_IO_EXCHANGE_FLASH_TRIGGER	BIT(2)
++#define VC_MIPI_REG_IO_FS_ON_TRIGGER_ENABLE	BIT(1)
++#define VC_MIPI_REG_IO_FLASH_ENABLE		BIT(0)
++#define VC_MIPI_REG_IO_DEFAULT			VC_MIPI_REG_IO_XTRIG_ENABLE
++
++#define VC_MIPI_REG_MODULE_ADDR			0x0104
++#define VC_MIPI_REG_MODULE_ADDR_DEFAULT		0x10
++
++#define VC_MIPI_REG_SENSOR_ADDR			0x0105
++#define VC_MIPI_REG_SENSOR_ADDR_DEFAULT		0x60
++
++#define VC_MIPI_REG_OUTPUT_OVERRIDE		0x0106
++#define VC_MIPI_REG_OUTPUT_OVERRIDE_TRIGGER_OVR	BIT(5)
++#define VC_MIPI_REG_OUTPUT_OVERRIDE_FLASH_OVR	BIT(4)
++#define VC_MIPI_REG_OUTPUT_OVERRIDE_TRIGGER_VAL	BIT(1)
++#define VC_MIPI_REG_OUTPUT_OVERRIDE_FLASH_VAL	BIT(0)
++
++#define VC_MIPI_REG_INPUT			0x0107
++#define VC_MIPI_REG_INPUT_TRIGGER		BIT(1)
++#define VC_MIPI_REG_INPUT_FLASH			BIT(0)
++
++#define VC_MIPI_REG_EXTTRIG			0x0108
++#define VC_MIPI_REG_EXTTRIG_DISABLE		0x00
++#define VC_MIPI_REG_EXTTRIG_ENABLE		BIT(0)
++
++#define VC_MIPI_REG_ROM				0x1000
++
++struct vc_mipi_ctrl {
++	struct device *dev;
++	struct regmap *regmap;
++	struct regulator *supply;
++	struct clk_hw *clk_hw;
++	struct i2c_adapter i2c_tunnel;
++	bool enabled;
++};
++
++/* -----------------------------------------------------------------------------
++ * Regulator
++ */
++
++static int vc_mipi_regulator_enable(struct regulator_dev *rdev)
++{
++	struct vc_mipi_ctrl *ctrl = rdev_get_drvdata(rdev);
++	unsigned int val;
++	int ret;
++
++	ret = pm_runtime_resume_and_get(ctrl->dev);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(rdev->regmap, VC_MIPI_REG_RESET, 0);
++	if (ret < 0)
++		goto error;
++
++	msleep(500);
++
++	ret = regmap_read(rdev->regmap, VC_MIPI_REG_STATUS, &val);
++	if (ret < 0)
++		goto error;
++
++	if (val != VC_MIPI_REG_STATUS_ON) {
++		dev_err(&rdev->dev, "Sensor failed to initialize (0x%02x)\n",
++			val);
++		ret = -EIO;
++		goto error;
++	}
++
++	ret = regmap_write(rdev->regmap, VC_MIPI_REG_IO,
++			   (VC_MIPI_REG_IO_DEFAULT | VC_MIPI_REG_IO_FLASH_ENABLE));
++	if (ret < 0) {
++		dev_err(&rdev->dev, "Failed to enable flash: %d\n", ret);
++		goto error;
++	}
++
++	ret = regmap_write(ctrl->regmap, VC_MIPI_REG_EXTTRIG,
++			   VC_MIPI_REG_EXTTRIG_DISABLE);
++	if (ret < 0) {
++		dev_err(&rdev->dev,
++			"Failed to set up external flash trigger: %d\n", ret);
++		goto error;
++	}
++
++	ctrl->enabled = true;
++
++	return 0;
++
++error:
++	pm_runtime_mark_last_busy(ctrl->dev);
++	pm_runtime_put_autosuspend(ctrl->dev);
++	return ret;
++}
++
++static int vc_mipi_regulator_disable(struct regulator_dev *rdev)
++{
++	struct vc_mipi_ctrl *ctrl = rdev_get_drvdata(rdev);
++	int ret;
++
++	ret = regmap_write(ctrl->regmap, VC_MIPI_REG_EXTTRIG,
++			   VC_MIPI_REG_EXTTRIG_DISABLE);
++	if (ret < 0) {
++		dev_err(&rdev->dev,
++			"Failed to set up external flash trigger: %d\n", ret);
++		goto autosuspend;
++	}
++
++	ret = regmap_write(rdev->regmap, VC_MIPI_REG_IO,
++			   (VC_MIPI_REG_IO_DEFAULT | VC_MIPI_REG_IO_FLASH_ENABLE));
++	if (ret < 0) {
++		dev_err(&rdev->dev, "Failed to disable flash: %d\n", ret);
++		goto autosuspend;
++	}
++
++	ret = regmap_write(rdev->regmap, VC_MIPI_REG_RESET,
++			   VC_MIPI_REG_RESET_POWER_DOWN |
++			   VC_MIPI_REG_RESET_RESET);
++
++autosuspend:
++	pm_runtime_mark_last_busy(ctrl->dev);
++	pm_runtime_put_autosuspend(ctrl->dev);
++
++	ctrl->enabled = false;
++
++	return ret;
++}
++
++static int vc_mipi_regulator_is_enabled(struct regulator_dev *rdev)
++{
++	struct vc_mipi_ctrl *ctrl = rdev_get_drvdata(rdev);
++
++	return ctrl->enabled;
++}
++
++static const struct regulator_ops vc_mipi_regulator_ops = {
++	.enable = vc_mipi_regulator_enable,
++	.disable = vc_mipi_regulator_disable,
++	.is_enabled = vc_mipi_regulator_is_enabled,
++};
++
++static const struct regulator_desc vc_mipi_regulator = {
++	.name = "vc-mipi",
++	.ops = &vc_mipi_regulator_ops,
++	.type = REGULATOR_VOLTAGE,
++	.owner = THIS_MODULE,
++};
++
++static const struct regulator_init_data vc_mipi_regulator_init_data = {
++	.constraints = {
++		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
++	},
++};
++
++static int vc_mipi_regulator_init(struct vc_mipi_ctrl *ctrl)
++{
++	struct regulator_config config = { };
++	struct regulator_dev *rdev;
++
++	config.dev = ctrl->dev;
++	config.init_data = &vc_mipi_regulator_init_data;
++	config.driver_data = ctrl;
++	config.of_node = ctrl->dev->of_node;
++	config.regmap = ctrl->regmap;
++
++	rdev = devm_regulator_register(ctrl->dev, &vc_mipi_regulator, &config);
++	if (IS_ERR(rdev))
++		return PTR_ERR(rdev);
++
++	return 0;
++}
++
++/* -----------------------------------------------------------------------------
++ * Clock
++ */
++
++static int vc_mipi_clk_init(struct vc_mipi_ctrl *ctrl)
++{
++	char name[20];
++	u32 freq;
++	int ret;
++
++	ret = of_property_read_u32(ctrl->dev->of_node, "clock-frequency",
++				   &freq);
++	if (ret < 0) {
++		dev_err(ctrl->dev, "Failed to retrieve clock frequency: %d\n",
++			ret);
++		return ret;
++	}
++
++	/*
++	 * As this is an I2C device, the device name will be in the form
++	 * 'bus-addr', where bus is an integer and addr a 4 characters hex
++	 * value. 20 bytes should be enough as there shouldn't be more than 100
++	 * I2C buses.
++	 */
++	snprintf(name, sizeof(name), "vc-mipi-%s-clk", dev_name(ctrl->dev));
++	ctrl->clk_hw = clk_hw_register_fixed_rate(ctrl->dev, name, NULL, 0,
++						  freq);
++	if (IS_ERR(ctrl->clk_hw))
++		return PTR_ERR(ctrl->clk_hw);
++
++	ret = devm_of_clk_add_hw_provider(ctrl->dev, of_clk_hw_simple_get,
++					  ctrl->clk_hw);
++	if (ret < 0) {
++		clk_hw_unregister_fixed_rate(ctrl->clk_hw);
++		return ret;
++	}
++
++	return 0;
++}
++
++static void vc_mipi_clk_cleanup(struct vc_mipi_ctrl *ctrl)
++{
++	clk_hw_unregister_fixed_rate(ctrl->clk_hw);
++}
++
++/* -----------------------------------------------------------------------------
++ * Power management
++ */
++
++static int vc_mipi_power_on(struct device *dev)
++{
++	struct vc_mipi_ctrl *ctrl = dev_get_drvdata(dev);
++	int ret;
++
++	ret = regulator_enable(ctrl->supply);
++	if (ret < 0) {
++		dev_err(ctrl->dev, "Failed to enable vcc supply: %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static int vc_mipi_power_off(struct device *dev)
++{
++	struct vc_mipi_ctrl *ctrl = dev_get_drvdata(dev);
++
++	regulator_disable(ctrl->supply);
++
++	return 0;
++}
++
++static const struct dev_pm_ops vc_mipi_pm_ops = {
++	SET_RUNTIME_PM_OPS(vc_mipi_power_off, vc_mipi_power_on, NULL)
++};
++
++/* -----------------------------------------------------------------------------
++ * I2C Proxy
++ */
++
++static int vc_mipi_i2c_tunnel_xfer(struct i2c_adapter *i2c_adapter, struct i2c_msg *msgs, int num)
++{
++	struct i2c_client *i2c = i2c_get_adapdata(i2c_adapter);
++	struct i2c_adapter *parent = i2c->adapter;
++	int ret;
++
++	i2c_lock_bus(parent, I2C_LOCK_SEGMENT);
++	ret = __i2c_transfer(i2c->adapter, msgs, num);
++	i2c_unlock_bus(parent, I2C_LOCK_SEGMENT);
++
++	if (ret < 0)
++		return ret;
++	if (ret != num)
++		return -EIO;
++	return ret;
++}
++
++static u32 vc_mipi_i2c_tunnel_functionality(struct i2c_adapter *i2c_adapter)
++{
++	return I2C_FUNC_I2C;
++}
++
++static const struct i2c_algorithm vc_mipi_i2c_tunnel_algorithm = {
++	.master_xfer   = vc_mipi_i2c_tunnel_xfer,
++	.functionality = vc_mipi_i2c_tunnel_functionality,
++};
++
++/* Controller firmware had a bug which prevented reading more than one byte
++ * via I2C from the sensor. This was (according to the vendor) fixed somewhere
++ * in 2026. Nonetheless we must support also modules running old Firmware.
++ * Therefore set up the i2c quirks accordingly.
++ *
++ * NOTE: This is different from the "I2C reads with address increment return
++ *       the first byte twice" bug, which affects the controller, not the
++ *       sensor.
++ */
++static const struct i2c_adapter_quirks vc_mipi_i2c_tunnel_quirks = {
++	.max_read_len = 1,
++};
++
++static struct device_node *vc_mipi_i2c_find_tunnel_bus(struct device *dev)
++{
++	struct device_node *child;
++
++	for_each_child_of_node(dev->of_node, child) {
++		u32 addr_cells, size_cells;
++
++		if (of_property_read_u32(child, "#address-cells", &addr_cells))
++			continue;
++		if (of_property_read_u32(child, "#size-cells", &size_cells))
++			continue;
++		if (addr_cells != 1 || size_cells != 0)
++			continue;
++
++		return of_node_get(child);
++	}
++
++	return NULL;
++}
++
++static int vc_mipi_i2c_tunnel_add(struct i2c_client *i2c)
++{
++	struct vc_mipi_ctrl *ctrl = i2c_get_clientdata(i2c);
++	struct i2c_adapter *i2c_adapter = &ctrl->i2c_tunnel;
++	struct device_node *bus_node;
++
++	bus_node = vc_mipi_i2c_find_tunnel_bus(ctrl->dev);
++	if (!bus_node)
++		return -EINVAL;
++
++	strscpy(i2c_adapter->name, "vc-mipi-i2c", sizeof(i2c_adapter->name));
++	i2c_adapter->owner       = THIS_MODULE;
++	i2c_adapter->algo        = &vc_mipi_i2c_tunnel_algorithm;
++	i2c_adapter->quirks      = &vc_mipi_i2c_tunnel_quirks;
++	i2c_adapter->dev.parent  = ctrl->dev;
++	i2c_adapter->dev.of_node = bus_node;
++
++	i2c_set_adapdata(i2c_adapter, i2c);
++	return i2c_add_adapter(&ctrl->i2c_tunnel);
++}
++
++static void vc_mipi_i2c_tunnel_del(struct i2c_client *i2c)
++{
++	struct vc_mipi_ctrl *ctrl = i2c_get_clientdata(i2c);
++
++	i2c_del_adapter(&ctrl->i2c_tunnel);
++}
++
++/* -----------------------------------------------------------------------------
++ * Probe & Remove
++ */
++
++/*
++ * Due to a bug in the firmware, I2C reads with address increment return the
++ * first byte twice. The dummy byte at the beginning of the ROM descriptor
++ * works around the issue, at the cost of requiring unaligned accesses.
++ */
++struct vc_mipi_descriptor_rom {
++	u8 dummy;
++	u8 magic[12];
++	u8 manufacturer[32];
++	__le16 mipi_mid;
++	u8 sensor_manufacturer[8];
++	u8 sensor_model[16];
++	__le16 module_id;
++	__le16 module_rev;
++} __packed;
++
++static int vc_mipi_identify(struct vc_mipi_ctrl *ctrl)
++{
++	struct vc_mipi_descriptor_rom rom;
++	unsigned int addr;
++	int ret;
++
++	ret = regmap_raw_read(ctrl->regmap, VC_MIPI_REG_ROM, &rom, sizeof(rom));
++	if (ret < 0) {
++		dev_err(ctrl->dev, "Failed to read ROM: %d\n", ret);
++		return ret;
++	}
++
++	if (memcmp(&rom.magic, "mipi-module", sizeof(rom.magic))) {
++		dev_err(ctrl->dev, "Invalid ROM magic value\n");
++		print_hex_dump(KERN_INFO, "rom: ", DUMP_PREFIX_OFFSET, 16, 1,
++			       &rom, sizeof(rom), true);
++		return -EINVAL;
++	}
++
++	ret = regmap_read(ctrl->regmap, VC_MIPI_REG_SENSOR_ADDR, &addr);
++	if (ret < 0) {
++		dev_err(ctrl->dev, "Failed to read sensor address: %d\n", ret);
++		return ret;
++	}
++
++	dev_info(ctrl->dev, "%.8s %.16s (%04x:%04x @0x%02x)\n",
++		 rom.sensor_manufacturer, rom.sensor_model,
++		 le16_to_cpu(rom.module_id), le16_to_cpu(rom.module_rev), addr);
++
++	return 0;
++}
++
++static const struct regmap_config vc_mipi_regmap_config = {
++	.reg_bits = 16,
++	.val_bits = 8,
++	.cache_type = REGCACHE_NONE,
++};
++
++static int vc_mipi_i2c_probe(struct i2c_client *i2c)
++{
++	struct vc_mipi_ctrl *ctrl;
++	int ret;
++
++	ctrl = devm_kzalloc(&i2c->dev, sizeof(*ctrl), GFP_KERNEL);
++	if (!ctrl)
++		return -ENOMEM;
++
++	ctrl->dev = &i2c->dev;
++
++	i2c_set_clientdata(i2c, ctrl);
++
++	ctrl->supply = devm_regulator_get(ctrl->dev, "vcc");
++	if (IS_ERR(ctrl->supply)) {
++		ret = PTR_ERR(ctrl->supply);
++		dev_err(ctrl->dev, "Failed to get vcc supply: %d\n", ret);
++		return ret;
++	}
++
++	ctrl->regmap = devm_regmap_init_i2c(i2c, &vc_mipi_regmap_config);
++	if (IS_ERR(ctrl->regmap)) {
++		ret = PTR_ERR(ctrl->regmap);
++		dev_err(ctrl->dev, "Failed to init regmap: %d\n", ret);
++		return ret;
++	}
++
++	ret = vc_mipi_power_on(ctrl->dev);
++	if (ret < 0)
++		return ret;
++
++	ret = vc_mipi_identify(ctrl);
++	if (ret < 0)
++		goto err_power;
++
++	ret = vc_mipi_regulator_init(ctrl);
++	if (ret < 0) {
++		dev_err(ctrl->dev, "Failed to register regulator\n");
++		goto err_power;
++	}
++
++	ret = vc_mipi_clk_init(ctrl);
++	if (ret < 0) {
++		dev_err(ctrl->dev, "Failed to register clock\n");
++		goto err_power;
++	}
++
++	/* Enable runtime PM and turn off the device. */
++	pm_runtime_set_active(ctrl->dev);
++	pm_runtime_get_noresume(ctrl->dev);
++	pm_runtime_enable(ctrl->dev);
++	pm_runtime_set_autosuspend_delay(ctrl->dev, 1000);
++	pm_runtime_use_autosuspend(ctrl->dev);
++	pm_runtime_mark_last_busy(ctrl->dev);
++	pm_runtime_put_autosuspend(ctrl->dev);
++
++	/* As a last step create the proxied downstream I2C adapter */
++	ret = vc_mipi_i2c_tunnel_add(i2c);
++	if (ret < 0) {
++		dev_err(ctrl->dev, "Failed to register i2c tunnel adapter: %d\n", ret);
++		goto err_power;
++	}
++
++	return 0;
++
++err_power:
++	vc_mipi_power_off(ctrl->dev);
++	return ret;
++}
++
++static void vc_mipi_i2c_remove(struct i2c_client *i2c)
++{
++	struct vc_mipi_ctrl *ctrl = i2c_get_clientdata(i2c);
++
++	vc_mipi_i2c_tunnel_del(i2c);
++
++	vc_mipi_clk_cleanup(ctrl);
++
++	pm_runtime_disable(ctrl->dev);
++	if (!pm_runtime_status_suspended(ctrl->dev))
++		vc_mipi_power_off(ctrl->dev);
++	pm_runtime_set_suspended(ctrl->dev);
++}
++
++static const struct of_device_id vc_mipi_dt_ids[] = {
++	{ .compatible = "vision-components,mipi-module-controller" },
++	{},
++};
++MODULE_DEVICE_TABLE(of, vc_mipi_dt_ids);
++
++static struct i2c_driver vc_mipi_driver = {
++	.driver = {
++		.name = "vc-mipi",
++		.of_match_table = vc_mipi_dt_ids,
++		.pm = &vc_mipi_pm_ops,
++	},
++	.probe = vc_mipi_i2c_probe,
++	.remove = vc_mipi_i2c_remove,
++};
++
++module_i2c_driver(vc_mipi_driver);
++
++MODULE_AUTHOR("Laurent Pinchart <laurent.pinchart@ideasonboard.com>");
++MODULE_DESCRIPTION("Driver for the Vision Components MIPI Module Controller");
++MODULE_LICENSE("GPL");
 
-Best regards,
---  
-Richard Leitner <richard.leitner@linux.dev>
+-- 
+2.53.0
 
 
