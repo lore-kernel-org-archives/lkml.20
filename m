@@ -1,42 +1,103 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 110073C8C48
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:42:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6FD3D669C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479747; cv=none; b=DhPHHL0egusR7/gWxYqDulxXzVldG/2sH1rfEDjoE+stn2RZi7j7bFLLQg4WlOvSuFo8V7H07s8CL6rhDdg7CMDE2SRubsoaM5lbJ2K1z7xOgqJGCGtaQ+3yFatRGC1U3grF3D22SDttlD1KGrlfnVVCEAb61ISlZfyUSyV1u6s=
+	t=1789479803; cv=none; b=q1zQ8sOTw2iUSzqtmzobHwhUcUPdWujZyub5fdEBD+ObUQXXzSJsw9F7aOj8CSoHfCNqPQZDuAUt+OHdjc7BE7aFv/IrspXqfL2sYxqaoJDtYnI7Tr/EGWpBWfNwYDxHcULX1st8aDF5fJPvvfk8tPAoQ/f/sMyzmtpSlKx2Exk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479747; c=relaxed/simple;
-	bh=9YTsmmxojBKn5k9+traIkr0BS02IGwTO6X2F0Kl1kAs=;
+	s=arc-20240116; t=1789479803; c=relaxed/simple;
+	bh=fW074i0HkgvCy5bvA0+X/e729P0Fz+Gm4Rjq7TMc70g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SFozEzOGoqMNH/gbiOasvMSlli34ybLkCGZBhPcyNrGyEkRppBUOc2+TvrhcKpzMFYJeya4GubxB09BgaQ+C8h/qBAoAkeiolgVagEUj4/3CWxdz6qY6sArLXIGTiVVJqWL9XlL78zYpS0MtD6Fqdn651xsBMf1Uo8qGU/PbD7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=norFOxFS; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=e0rm0UR6DHORBAMSKM+U5QfS9DNfuz1F8Gj1hOtnj8XF62wfq8gyW9pE8Pg1mmDTDCiDH6PnLxNhGrcTJxx3hTYGeqwsoahtggBpbzcfIvfFHQL40ha0jZc2oPrzQR+QFhzFdVCvDxZtimNv8x3llHWC+yshVJ7L9O5yzXjTqhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=Gp+WF7w3; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="norFOxFS"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B8FCD15A1;
-	Tue, 15 Sep 2026 06:42:20 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE6B33F7B4;
-	Tue, 15 Sep 2026 06:42:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789479744; bh=9YTsmmxojBKn5k9+traIkr0BS02IGwTO6X2F0Kl1kAs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=norFOxFSxTj6e9E4p/c/6D6b/qiIaMxqniJKmVM/jqdK4wLqhq+W9nk6dKDuaQX5p
-	 LwBTDy2GIU2eV1szl7pKwdh12n8CXex3wqhc67fJTPl72E71/OGcJXqJP3jBN5v0Ku
-	 n6yh9uWHnwMHKh8oQBestUkOR7ovyMUOwiQy9BPQ=
-Date: Tue, 15 Sep 2026 14:42:21 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v11 4/9] coresight: etm3x: fix inconsistencies with sysfs
- configuration
-Message-ID: <aqlLPUsSqpbSNf9A@e129823.arm.com>
-References: <20260915-separate_etm_cfg_v2-v11-0-d2b258d51747@arm.com>
- <20260915-separate_etm_cfg_v2-v11-4-d2b258d51747@arm.com>
- <20260915114757.8743B1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="Gp+WF7w3"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfe60d5fso44495696d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:43:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789479800; x=1790084600; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bSXuxco/xIMIgeK0msm6noQ0z/sdWL5ZlVJapMHGK5U=;
+        b=Gp+WF7w3jpQ7t5DHkdrSOHyYxIyTM1aBT2Y/t1sqP3Wagy4DRSkpj0vYe6NAfHwmRI
+         yfM5BeLKo0jHUFadVvbxrR5eYGTs/YGhi9n46c5cug3h00Pnl69KRO08UBq9/eHTjKwC
+         EWomZr83RpVGIIyD4IHR4AqXA5NLTjWJGvPM65KhxpUOLgUixarP6T21t/XMYCJMJmtW
+         mX0LaKj2NsGePtJrWodeF82iAkdEizGGB74HwNOAtR0D9xBCDytumKkaBga5GwlSXMjv
+         rBqrjnBpn6AdloUqyUyaDYJQXmPlkHzFnR8dDlDsn/V1yais8Xhy8qYb42NQ0cAessKI
+         IAfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789479800; x=1790084600;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bSXuxco/xIMIgeK0msm6noQ0z/sdWL5ZlVJapMHGK5U=;
+        b=0VO2xbftxRmYKrLkBeRCLNOVuMG9lpAg7/lUZabTfgT6e23CM4rNOTR1bsokQaF7+E
+         RSHYI5X2r83XYHXEhx+RRQiieag6s/Lh/oc3E7iFmvwez9tw6LxDoEV4qMOhKZuB+Fqz
+         khHBtPEed+9x86F6036tnjYz+AjnnZAafqpzUwC0lBZs3GxU/RvhGlgmL+Nn0DB4WkvL
+         l/5/CgHWjATqEnavMqECZQHAQHnsQ25QWUuTEBTV8TkDT3qQ1nmOX+Ap3ofShi/ph2PF
+         i+ZGaHXWtaoSWCRymB0AackzO3f/pzzO+SyzIv2oRKfVWtlzJbzerBs8rRiVimJlQUKL
+         ZZ+g==
+X-Forwarded-Encrypted: i=1; AKwUvByYVtMG9GXnwgabbQkuo+eJxLU/hba2+Y2tBxCgx8iPShXe3S2OGaiUhr6UKff+sGlV1SYGR0r82lJUZqo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdjmE+krvp3DbDSGQwR+u9+7NXWp05S30SjkBM8/33fF93m8c4
+	1i2eOkki3TWfrUdgsjNgNH/TdUGP+kyz/sfZi+BIVOkKsvbK+gcynLpb5dbE/IYYJ5E=
+X-Gm-Gg: AYBFou28GNtUztngb2DyqMbF07dJeIWvDcIQxgriC9a9+2z25W8eBmRMOude1Bq+WA3
+	09ZjrbapaWSA/ePnk8RUqEv9fdKpfnuK5UAXtazJhVgWwNWrWjhsNF13JUOTEkMKhX5ump7M0jD
+	YBMjVhJCT/GiCC+lby6obb1/u4TRW7+w+q5irKed+H0juN/FGdjo+BuHqRTgC8HWwGD2BXn1GqM
+	CJSmKuGyYOLovXfRMFTRq75MF69x4OiR1YdsUoqw6TIrEoWkfaSBfJCuTviVBEJ3u8pdpf4nXJX
+	f5r+yxzFLPDO0alPIY/vEpboCojG3uQNN/Z3Fe97GBvZdaZWEm9r8FKl/eHsrbUYWcmS83n6Ctg
+	Ju+CV1NNLU3v5rg9piThaRbfO4zhnSbTZ/haRO9n6LazIcROraIFRXBK66sa+6Jku+i+UtiKmt+
+	bVin7IwvWYrTPBFyHsumoI2C/+BFdgzKva8d7VKDN4lLpuMBq1DE+V0lTuB5tyFnNmaAHh33of/
+	Gb44Az7DEZDDtMwUKEVYOOlLoQ2RdbM8ZyWin8QppXtvw8qsnaOZTbc
+X-Received: by 2002:a05:6214:4986:b0:90c:d6fc:e284 with SMTP id 6a1803df08f44-9122e54a861mr120216456d6.17.1789479799946;
+        Tue, 15 Sep 2026 06:43:19 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d51ffsm124036106d6.45.2026.09.15.06.43.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 06:43:19 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x6TRO-00000004bnd-23bE;
+	Tue, 15 Sep 2026 10:43:18 -0300
+Date: Tue, 15 Sep 2026 10:43:18 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"kvmarm@lists.linux.dev" <kvmarm@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+Message-ID: <20260915134318.GB3196566@ziepe.ca>
+References: <20260902235609.GG2890729@ziepe.ca>
+ <yq5a8q5izxz4.fsf@kernel.org>
+ <20260903171704.GK2890729@ziepe.ca>
+ <yq5acxupjsy2.fsf@kernel.org>
+ <20260907125228.GB667892@ziepe.ca>
+ <yq5atsnyag84.fsf@kernel.org>
+ <20260909124628.GH2543240@ziepe.ca>
+ <CO1PR11MB4835512E374074A5F4AD0A6C8CBF2@CO1PR11MB4835.namprd11.prod.outlook.com>
+ <20260910124632.GB4083318@ziepe.ca>
+ <CO1PR11MB4835FF972283C09D7D683DAE8CBA2@CO1PR11MB4835.namprd11.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,134 +106,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915114757.8743B1F00893@smtp.kernel.org>
+In-Reply-To: <CO1PR11MB4835FF972283C09D7D683DAE8CBA2@CO1PR11MB4835.namprd11.prod.outlook.com>
 
-On Tue, Sep 15, 2026 at 11:47:57AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] coresight: TOCTOU race in sysfs read paths exposes powered-down hardware
-> - [Low] coresight: benign data race on config->cntr_idx in cntr_val_show
-> --
+On Tue, Sep 15, 2026 at 07:13:48AM +0000, Tian, Kevin wrote:
+> > Yes, this already has to be true or our lifecylce model is
+> > nonsense. Once the iommufd creates the vdevice the guest is running
+> > and we cannot disconnect it without unplugging it from the guest. Thus
+> > the locking can rely on that. Within an iommufd ioctl context the vdev
+> > and underlying connection must be stable.
 > 
-> commit 7fbfa36b293dee9eea85d0d29da9faaa208abb46
-> Author: Yeoreum Yun <yeoreum.yun@arm.com>
+> btw looks a related suggestion is having the tsm driver (arm-cca-host
+> here) implement the viommu ops while leaving the original smmu driver
+> largely intact, and "obtain the viommu through tsm_ops not through
+> iommu_ops".
 > 
-> coresight: etm3x: fix inconsistencies with sysfs configuration
+> It's not super clear to me about the implication behind after reading
+> related discussions and what the "obtain" part means. 
 > 
-> This commit splits the sysfs configuration into active and mode
-> configurations to fix inconsistencies during active perf sessions. It also
-> avoids locking around some sysfs paths and uses IPIs to read registers
-> directly on the appropriate CPUs to reduce lock scopes.
+> Could you help elaborate this part?
 > 
-> > diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> > index 862ad0786699c..fd76a57e5f861 100644
-> > --- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> > +++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-> [ ... ]
-> > @@ -630,8 +632,9 @@ static void etm_disable_perf(struct coresight_device *csdev)
-> >  static void etm_disable_sysfs(struct coresight_device *csdev)
-> >  {
-> >  	struct etm_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
-> > -
-> > -	spin_lock(&drvdata->spinlock);
-> > +	struct etm_config *config = &drvdata->config;
-> > +	const struct etm_config *active_config = &drvdata->active_config;
-> > +	int i;
-> >  
-> >  	/*
-> >  	 * Executing etm_disable_hw on the cpu whose ETM is being disabled
-> > @@ -640,7 +643,14 @@ static void etm_disable_sysfs(struct coresight_device *csdev)
-> >  	smp_call_function_single(drvdata->cpu, etm_disable_sysfs_smp_call,
-> >  				 drvdata, 1);
-> >  
+> The old way is kind of:
 > 
-> [Severity: Medium]
-> When thread A disables tracing via etm_disable_sysfs(), it sends an IPI to
-> power down the hardware here. Could a concurrent reader (like Thread B in
-> cntr_val_show()) see the mode still set to CS_MODE_SYSFS, and issue its own
-> IPI to read the hardware? Since the hardware is already powered down by
-> Thread A's IPI, Thread B might read a stale or garbage value instead of the
-> correctly saved trace state, breaking post-trace analysis.
+> vdevice_tsm_ops -> tsm_ops -> tsm driver -> iommu driver
+> 
+> then it will become:
+> 
+> viommu_ops (tsm related) -> tsm_driver
+> 
+> where tsm driver will fully handle tsm related viommu_ops?
 
-In that case, no IPI is shown, and the last Thread B see the
-Thread A's saving value of cntr_vals where is saved in the config.
+At least for ARM there is effectively no entanglement with the actual
+host iommu driver. The viommu is entirely provided by software in the
+RMM world, so it can have its own dedicated driver. In ARM T=1
+transactions are alwayus routed to the RMM's iommu and there is no
+relation to the host.
 
-It doesn't break anything.
+I am interested how Intel works here, but I thought it was similar.
 
-> 
-> > -	spin_unlock(&drvdata->spinlock);
-> > +	/*
-> > +	 * Userspace may read seq_curr_state and cntr_val through sysfs
-> > +	 * after the sysfs-session has been disabled.
-> > +	 */
-> > +	for (i = 0; i < drvdata->nr_cntr; i++)
-> > +		config->cntr_val[i] = active_config->cntr_val[i];
-> > +
-> > +	config->seq_curr_state = active_config->seq_curr_state;
-> >  
-> >  	/*
-> >  	 * we only release trace IDs when resetting sysfs.
-> > @@ -649,6 +659,8 @@ static void etm_disable_sysfs(struct coresight_device *csdev)
-> >  	 * prior trace id allocation method
-> >  	 */
-> >  
-> > +	coresight_set_mode(drvdata->csdev, CS_MODE_DISABLED);
-> 
-> [Severity: Medium]
-> The software state is updated here, creating a race window between the
-> hardware disable above and the mode update here where the hardware is off but
-> the mode is still CS_MODE_SYSFS. A similar window exists during
-> etm_enable_sysfs().
+AMD is different and I suspect AMD will have to continue to use the
+viommu from the AMD iommu driver, but I am not sure.
 
-Non-sence.
+> btw I held the impression of blocked operations from past discussion [1].
+> Initial attempt tried to proactively unbind the TDI upon any operations 
+> which may transit the TDI to the ERROR state. Then the suggestion at
+> the moment was:
 
-> 
-> > +
-> >  	dev_dbg(&csdev->dev, "ETM tracing disabled\n");
-> >  }
-> > diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > index d4846d6364945..2c8c129228589 100644
-> > --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> [ ... ]
-> > @@ -719,7 +752,9 @@ static DEVICE_ATTR_RW(cntr_rld_event);
-> >  static ssize_t cntr_val_show(struct device *dev,
-> >  			     struct device_attribute *attr, char *buf)
-> >  {
-> > +	int ret;
-> >  	u32 val;
-> > +	unsigned long val2;
-> >  	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
-> >  	struct etm_config *config = &drvdata->config;
-> >  
-> > @@ -728,7 +763,10 @@ static ssize_t cntr_val_show(struct device *dev,
-> >  		val = config->cntr_val[config->cntr_idx];
-> >  		spin_unlock(&drvdata->spinlock);
-> >  	} else {
-> > -		val = etm_readl(drvdata, ETMCNTVRn(config->cntr_idx));
-> > +		ret = etm_readl_cslocked(drvdata, ETMCNTVRn(config->cntr_idx), &val2);
-> 
-> [Severity: Low]
-> Does reading config->cntr_idx without locking here create a data race? It
-> appears it can race with concurrent updates in cntr_idx_store(). While this
-> is likely benign since it is an 8-bit integer and bounded by
-> cntr_idx_store(), preventing out-of-bounds access, could it still trigger
-> sanitizer warnings when accessed by authorized users?
-> 
-> [Severity: Medium]
-> This reader accesses the hardware assuming it is active, based on a lockless
-> mode check in the if condition. If this races with etm_disable_sysfs()
-> powering down the hardware before the mode is updated to CS_MODE_DISABLED,
-> could this read return garbage values?
-> 
-> > +		if (ret)
-> > +			return ret;
-> > +		val = val2;
-> >  	}
-> >  
-> >  	return sysfs_emit(buf, "%#x\n", val);
+With this construction the iommufd vdev is created and permanently
+exist as long as the VM and viommu exist.
 
-Ignorable.
+How/when the tsm driver links this to a arch specific "bind/unbind"
+operation is more up to that driver, but I would expect what is
+thought of as "bind" should be the affiliation of the device's T=1
+stream with the viommu and the target VM. It should not be sensitive
+to the TDISP state.
 
--- 
-Sincerely,
-Yeoreum Yun
+That is not prohibited, the TSM driver could do some auto
+"bind/unbind" whatever that means triggered by ops or tdisp state
+changing under the covers. But this cannot leak out as some kind of
+asynchronous vdev destruction.
+
+> " But now the suggestion is never let VFIO do unbind, instead VFIO
+> should block these operations when device is bound. "
+> 
+> [1] https://lore.kernel.org/all/aEFmPaYorqaYCKBY@yilunxu-OptiPlex-7050/
+
+IDK, if the host wants to put a device into error I don't see why the
+kernel should block it? There are many reasons a device can reach
+error, that needs to be handled.
+
+Jason
