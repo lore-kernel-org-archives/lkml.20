@@ -1,30 +1,30 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757CC406818
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:28:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1685E40315F
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 03:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789442925; cv=none; b=CbPRH7Y3C8IpstKnzvp/+zP6zT2LR8TEsoetlQYRIrlZYZcumfEfSYxLF5OCdDQAdjuYf9xKGoWIBzLJPkx42ayiMLEmXiub2P/QlpC6e3h1dlxHFI16y8cLNt2+PW2XCP+xauPI9LAidhgnMYm6ruSyeunBstPD9YxXGR2bNRM=
+	t=1789442926; cv=none; b=otSD4VNyNitcDA64GD+XnPdkKdL3zv59XQM5SSzjSdoVg3K9VI0lpWAgouHYegEC+xj/cMkjFMQGtyC8Jp5nL0mNukUmXSA8muFBf5TiAAELw8Y5ctKfrQBQM6mk8/UTOE7t4Jnlx+ZtB/xFjn11zHjNEgn5Lz4G+NzC5tNsUb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789442925; c=relaxed/simple;
-	bh=ajeixIyIZn7e1SVn+fOU3DQOEcuI1JMx4t+xxh48PYk=;
+	s=arc-20240116; t=1789442926; c=relaxed/simple;
+	bh=4hXPQELO5qitzA3apTLerr45guYer49u0OK1Y1Bv5C0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tEKBD9F5h5aQIGMTxHxkHm2RqiTMdbGINjovAdHhhm2kUJN5i8RusCtnl6EspH6smZAsqimoYiyDShtc060mbrbkbgZFGHr4WqmXiWqzMjftMEtPVGkXDzB7RH2AP6kdQkaQpB0VBmBFv16+4YT+/ohriHHBN58G6it2Jx75Ego=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=o/FRFbM5; arc=none smtp.client-ip=115.124.30.133
+	 MIME-Version; b=M3wvEG5brA/0TyQ4iBBp54RVAe4XPO94Fj6Jum4P94yfJyVml1osP4HPWDwYnnkZ0qM4i40hEY5cSI/DAQHjWq4UHCn+lsGpTBXFeTdMfa/kzy3fSNRMa/oliJwAQPoZoCSfBs6mfZ9on1m1HTCy12D23iJbQkWAyPcD2gzFrEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Dc21BSsZ; arc=none smtp.client-ip=115.124.30.118
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="o/FRFbM5"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Dc21BSsZ"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1789442921; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=WPil3eixt8ucg6uFY2jx9kjdOYj5Ua6FKNTjPbzjrB8=;
-	b=o/FRFbM5xVBtkVrj285hquG0TSpIkDs7rrx6C4io49OF90y1/fcpaDAiZp/wSZMELx1naINEx0krttqW9tImngjHe5k7RPG05wa3BNRK8gnFDFRpD8sj5Idj77x7AhggLirRcVrdPwPmgWYLQKTLJAoEAhhxsEgcjBF3U2Cr8L0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XB.uvOm_1789442917;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XB.uvOm_1789442917 cluster:ay36)
+	t=1789442922; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=g5oPgxu2ndRm+j5xlzJz/oZjwxExHiD5E49g/zXenDU=;
+	b=Dc21BSsZz0O2YYaxAhJ9EpARCgARZhmbl0nc5mEBvQs+4ImguI2u3q3jPGT1O/XOnYMD7SJzeJ/KnCUdgvztfhfnvSChtS1EdizP4WawSKPYo56Ba5mm8JxV5tZDv3+2jf7QvL3mtloymb5neBWUu/5lwE2UXOwHCPcIk6nE84M=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=26;SR=0;TI=SMTPD_---0XB.uvPW_1789442919;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XB.uvPW_1789442919 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Tue, 15 Sep 2026 11:28:38 +0800
+          Tue, 15 Sep 2026 11:28:40 +0800
 From: fangyu.yu@linux.alibaba.com
 To: tomasz.jeznach@linux.dev,
 	joro@8bytes.org,
@@ -51,11 +51,10 @@ Cc: fangyu.yu@linux.alibaba.com,
 	iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-riscv@lists.infradead.org,
-	kvm-riscv@lists.infradead.org,
-	Tomasz Jeznach <tjeznach@rivosinc.com>
-Subject: [RFC PATCH v4 03/10] iommu/riscv: report iommu capabilities
-Date: Tue, 15 Sep 2026 11:28:22 +0800
-Message-Id: <20260915032828.11250-4-fangyu.yu@linux.alibaba.com>
+	kvm-riscv@lists.infradead.org
+Subject: [RFC PATCH v4 04/10] iommu/riscv: use data structure instead of individual values
+Date: Tue, 15 Sep 2026 11:28:23 +0800
+Message-Id: <20260915032828.11250-5-fangyu.yu@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20260915032828.11250-1-fangyu.yu@linux.alibaba.com>
 References: <20260915032828.11250-1-fangyu.yu@linux.alibaba.com>
@@ -67,46 +66,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tomasz Jeznach <tjeznach@rivosinc.com>
+From: Zong Li <zong.li@sifive.com>
 
-Report RISC-V IOMMU capabilities required by VFIO subsystem
-to enable PCIe device assignment.
+The parameter will be increased when we need to set up more
+bit fields in the device context. Use a data structure to
+wrap them up.
 
-Signed-off-by: Tomasz Jeznach <tjeznach@rivosinc.com>
+Signed-off-by: Zong Li <zong.li@sifive.com>
 Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 ---
- drivers/iommu/riscv/iommu.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/iommu/riscv/iommu.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
-index cec3ddd7ab10..a6c8307e82ea 100644
+index a6c8307e82ea..c5b6214ee672 100644
 --- a/drivers/iommu/riscv/iommu.c
 +++ b/drivers/iommu/riscv/iommu.c
-@@ -1422,6 +1422,16 @@ static struct iommu_group *riscv_iommu_device_group(struct device *dev)
- 	return generic_device_group(dev);
- }
- 
-+static bool riscv_iommu_capable(struct device *dev, enum iommu_cap cap)
-+{
-+	switch (cap) {
-+	case IOMMU_CAP_CACHE_COHERENCY:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- static int riscv_iommu_of_xlate(struct device *dev, const struct of_phandle_args *args)
+@@ -1165,7 +1165,7 @@ static void riscv_iommu_iodir_iotinval(struct riscv_iommu_device *iommu,
+  * interim translation faults.
+  */
+ static void riscv_iommu_iodir_update(struct riscv_iommu_device *iommu,
+-				     struct device *dev, u64 fsc, u64 ta)
++				     struct device *dev, struct riscv_iommu_dc *new_dc)
  {
- 	return iommu_fwspec_add_ids(dev, args->args, 1);
-@@ -1483,6 +1493,7 @@ static void riscv_iommu_release_device(struct device *dev)
+ 	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
+ 	struct riscv_iommu_dc *dc;
+@@ -1204,10 +1204,10 @@ static void riscv_iommu_iodir_update(struct riscv_iommu_device *iommu,
+ 	for (i = 0; i < fwspec->num_ids; i++) {
+ 		dc = riscv_iommu_get_dc(iommu, fwspec->ids[i]);
+ 		tc = READ_ONCE(dc->tc);
+-		tc |= ta & RISCV_IOMMU_DC_TC_V;
++		tc |= new_dc->ta & RISCV_IOMMU_DC_TC_V;
  
- static const struct iommu_ops riscv_iommu_ops = {
- 	.of_xlate = riscv_iommu_of_xlate,
-+	.capable = riscv_iommu_capable,
- 	.identity_domain = &riscv_iommu_identity_domain,
- 	.blocked_domain = &riscv_iommu_blocking_domain,
- 	.release_domain = &riscv_iommu_blocking_domain,
+-		WRITE_ONCE(dc->fsc, fsc);
+-		WRITE_ONCE(dc->ta, ta & RISCV_IOMMU_PC_TA_PSCID);
++		WRITE_ONCE(dc->fsc, new_dc->fsc);
++		WRITE_ONCE(dc->ta, new_dc->ta & RISCV_IOMMU_PC_TA_PSCID);
+ 		/* Update device context, write TC.V as the last step. */
+ 		dma_wmb();
+ 		WRITE_ONCE(dc->tc, tc);
+@@ -1288,22 +1288,22 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
+ 	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
+ 	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
+ 	struct pt_iommu_riscv_64_hw_info pt_info;
+-	u64 fsc, ta;
++	struct riscv_iommu_dc dc = {0};
+ 
+ 	pt_iommu_riscv_64_hw_info(&domain->riscvpt, &pt_info);
+ 
+ 	if (!riscv_iommu_pt_supported(iommu, pt_info.fsc_iosatp_mode))
+ 		return -ENODEV;
+ 
+-	fsc = FIELD_PREP(RISCV_IOMMU_PC_FSC_MODE, pt_info.fsc_iosatp_mode) |
++	dc.fsc = FIELD_PREP(RISCV_IOMMU_PC_FSC_MODE, pt_info.fsc_iosatp_mode) |
+ 	      FIELD_PREP(RISCV_IOMMU_PC_FSC_PPN, pt_info.ppn);
+-	ta = FIELD_PREP(RISCV_IOMMU_PC_TA_PSCID, domain->pscid) |
++	dc.ta = FIELD_PREP(RISCV_IOMMU_PC_TA_PSCID, domain->pscid) |
+ 	     RISCV_IOMMU_PC_TA_V;
+ 
+ 	if (riscv_iommu_bond_link(domain, dev))
+ 		return -ENOMEM;
+ 
+-	riscv_iommu_iodir_update(iommu, dev, fsc, ta);
++	riscv_iommu_iodir_update(iommu, dev, &dc);
+ 	riscv_iommu_bond_unlink(info->domain, dev);
+ 	info->domain = domain;
+ 
+@@ -1378,9 +1378,12 @@ static int riscv_iommu_attach_blocking_domain(struct iommu_domain *iommu_domain,
+ {
+ 	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
+ 	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
++	struct riscv_iommu_dc dc = {0};
++
++	dc.fsc = RISCV_IOMMU_FSC_BARE;
+ 
+ 	/* Make device context invalid, translation requests will fault w/ #258 */
+-	riscv_iommu_iodir_update(iommu, dev, RISCV_IOMMU_FSC_BARE, 0);
++	riscv_iommu_iodir_update(iommu, dev, &dc);
+ 	riscv_iommu_bond_unlink(info->domain, dev);
+ 	info->domain = NULL;
+ 
+@@ -1400,8 +1403,12 @@ static int riscv_iommu_attach_identity_domain(struct iommu_domain *iommu_domain,
+ {
+ 	struct riscv_iommu_device *iommu = dev_to_iommu(dev);
+ 	struct riscv_iommu_info *info = dev_iommu_priv_get(dev);
++	struct riscv_iommu_dc dc = {0};
++
++	dc.fsc = RISCV_IOMMU_FSC_BARE;
++	dc.ta = RISCV_IOMMU_PC_TA_V;
+ 
+-	riscv_iommu_iodir_update(iommu, dev, RISCV_IOMMU_FSC_BARE, RISCV_IOMMU_PC_TA_V);
++	riscv_iommu_iodir_update(iommu, dev, &dc);
+ 	riscv_iommu_bond_unlink(info->domain, dev);
+ 	info->domain = NULL;
+ 
 -- 
 2.50.1
 
