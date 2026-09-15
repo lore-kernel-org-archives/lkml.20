@@ -1,72 +1,72 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F171B44E053
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:13:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC25344E66D
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456402; cv=none; b=WGOHGZ9Jn8RmRWEdUvoKJno08ZgOBkHWsyzea0i8ucxYB/3Toj/ymxi9fvQSe9D12K2cQTCssOxUUQgDNxYfuKRnUZBOrPf8JUcb0Sm+1BU/8juc9ddLkEEbF32Fm0erxnRTryMe7MK/d06iKGEfLWDZOSSOQATlHRKOuLkHhtw=
+	t=1789456403; cv=none; b=vEm/qhB7yVFb2/ueN/8nCbxucoUddxsj3kepfjx6BPd4b7lYxbKazhZXSkJgpTMtzUDiQvZMjYGwJKrDEEGebz2rx0PVzr2h32bC/D1Qef1kla2qMOVlJ3pCfa0AB+yj47sMscl4tXk0xPhlcC+NrCf5dOBAHhHGtS/Fu0PFBr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456402; c=relaxed/simple;
-	bh=ltvNuw2JQKtGRg06+7zxL/END/E4taRrfKgA2BRzu4I=;
+	s=arc-20240116; t=1789456403; c=relaxed/simple;
+	bh=Rugh3Tqv3tAbXo0175lL1h8aaSYrMSeIxAdF0IyJcNE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dt73IbUWN/AnTE7Zgs1jEX+GefP6RXxaC7Y/qLLeKEfzsZ2kOLYTqT0Az1rbKWgBDgeeaMHFpTlnN+f04UWwtoQ428U6cETcvalfXMe0QLg6Smv5fcjrS+HHHpsSRAaWfTsKH4GBGXaevipXzjvPjSrErW1hGZ4YhBwPTX0/U98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CoCtYDgb; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=gvNyCCYXZ/SUTjRGil8rYJhxvvNyBpSYg8T/dG8HnnRtf+eKbn/+5T9AJSDmQ6sccqd32LHNXnwsXH1cw2qMct5MMc41xifoSAFOipvrCI/gCdvMvNEafICp6Jf254/3FgX+W6ojrofzH0Ukl1AIbcE0mn7+0skI/19+zn4Mbzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G8mjcLok; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CoCtYDgb"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so11832135e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:13:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G8mjcLok"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482ea739de2so2824830f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:13:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789456399; x=1790061199; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789456400; x=1790061200; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Bq0DehDR+MvFIXUfrqdIEcTleNIxRdiq9kjPObxbiVM=;
-        b=CoCtYDgbr5oSeorDraKGpaaW3EOPzcOqTKF2ou6Rk42V7mhjbiE+T5eDTCraQt05PA
-         //gLiOczVcHCa65fst8bGRLZu3lDG9Fc8WDJFcDpcnxLoTONrt/MrrI0mB+IifFT0RUv
-         FZVuxsqvc+/ldWnSTWRPvjxLPdQnuzQSO4/3JAXm5leiMaR/Bn9Mm74uEapjIs6CEA9c
-         2N8mGkQ8TeZ/DnrVh3NJY1fTS0jlIx13cg706Zn4TcDJlvqUSwgpjvXUaPXMetS/d06e
-         BG1obFtVY6FyPPh/CbDxyI7a0kmOZisjxK3dTJGNhDymQdzKvRLvgU92PvD00BCmmVGb
-         WkFg==
+        bh=WSXpwhAn+c1I8VkohlJoHPXAChpgqqDqDqVS2XIHdSE=;
+        b=G8mjcLokm9Xe0G/1YQCK60BVrdOtMRfRAYfrm3rGbnoxEgkW3/EfAS0rbTA7YVDrFA
+         SvPMFbc9RumxoNEm6vKo0+/LF0PuTQs9t3OUKC7Y4KOHyFZckTULnQagz69uzM8i31p5
+         CbMToSCVgDHs6jO4HPoAQoyjkjCAwzUuFIeibzkCSmAnHSTW4sT+iebXsIWMZgnFySdN
+         fBLiATKtVYl3v4woSeC5sQWOpuHAn2Di4vh3pui/e7BernBvbu+wL6qOC12TCWKa9QYV
+         j+tkmq9OGNmuzz5RBWAH4SPE8aqWcyrQH9BpEv840cxR2b8raThUX+9P+d35rzSMXg+S
+         sIzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789456399; x=1790061199;
+        d=1e100.net; s=20260707; t=1789456400; x=1790061200;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bq0DehDR+MvFIXUfrqdIEcTleNIxRdiq9kjPObxbiVM=;
-        b=pKBpP4rwd02AL+WlhPDMH840awcSx99BtG2Wq1WdErMDIRgeS72LuWI/w339sjpuCq
-         dQNU6C5vWXrqO22vsiEQKK1jD3kZPMaJhRdDjUw5WjEeraiorZxqfa7wtMPY5eWuy/d0
-         JsblrLP2C1RdqSDSwTg+IW5XOlCGyFnb+cOYCmBHYG+pzKoCJsbjrPKLbD8U3d51Jumw
-         ba3dbvEtXO34CBWUVDbN7jXF8mRZ9wa4/s+f1IsmfcHemiM3NGfpUcDaLNouf1VzXmof
-         8g51LUkyoNAMHqYtAeIvPgS9NlFRUCMTVcy2ZRE/yW82moXw/9DVJ7wWuRb+1zZsj8J0
-         +rZw==
-X-Forwarded-Encrypted: i=1; AKwUvBzsoaxcBomOUVfu+ENrtQoMz56fXQEg138Cvewtu16pXsYP1zktYgfoa1t4UkcNVOSwJ5iGxsH7vVyvIKY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIkS2z/7NL1jG4W1GIrYqGQNQv7v9DmDVxE41U+AmRvpppXm/O
-	mzj2YNXEwqPglm0agQq6MEEodidOFzhrRP+6R7hCJ2muqX39RHN0he1uqj/kg+aP
-X-Gm-Gg: AYBFou3GpkmySsgO3fhX8zWkh8jNd/f/uxzD+GSV03leJjHnIzYq3fUlGrqViybcFGp
-	jnBifJ4MPS6qVgpklrtiJR8MtAkmZXkByUPmM6UjRVW0zOxs+H+I5z921yKi4SCPnSzMxzw16QG
-	8OGjeoTl7+NttEUWNBbPInR0+NIOvQ1shMMBpXckgZm9yQyamCdyrcBPJYTjOrlXqcOFMlTec/R
-	edTNv3rSY0/C8PBVdKMYIYR7L2YKoFApztHzAbBtkC+0drENco3W3A1Y13289JBCG0ws6j3KuHI
-	b9QhwA9VA3My5Md1KvFkLUvgfVQ4H5G4tgTo5eqOrs71m/BZDWO9W53M2VwUTxsgXs4fVcJMh+l
-	UYT5FfAqIVQKBTw0g+u3y1kQRJRJWNNTgv3UjKHZ1A7xmfvifjA9fN2Ahj/0JqfYIZnMQJXFjrD
-	PV28y9ggkOC1ay72YrWQFFU3jbrKdZEWFBQoS2xMSDod0ckGagazdsjyRyZQW2yXHgj36GWR5MJ
-	IDV8olp9jvDQqMw4Wt6Al9ooL3ODbBjH8j/sftjn8IsGBhuzv7njbwnlsIQrbO41GnHkX8c04pL
-	LjRtSG7FHO/skgIh
-X-Received: by 2002:a05:600c:37cd:b0:49c:fa20:cc08 with SMTP id 5b1f17b1804b1-49e7a67cdcfmr84025785e9.31.1789456398913;
+        bh=WSXpwhAn+c1I8VkohlJoHPXAChpgqqDqDqVS2XIHdSE=;
+        b=IyeNQPrTOFBcfBXG3xebN/14hL1ufXVkZa/6+Y4zjfxc9X/JDEn6/niTskOj7AIixw
+         YqPIaEdhL+KAlv2vVx7q6B/+ySLl3Ejvx1ewcg0WaP6CdXZck5VufG+H+K3axgfGjWMj
+         OLwupMWl9E23t89COmXoFuY5c+hwcJNP8K6S9l/eilqU3mR2qTtqw5+C75RaAhYxn7x5
+         9pE0N4v1zSmS1PvwNX+GBmgTvR1UmgKLhZH0EHcHC6BajIAvnD/OyfF5gykkPbWNWU3B
+         6wecVrDM2tIUSTpq1LlMKddU2CuR45FlfJ2BH3LAlDHocOwLmJOShqb42cM5JGlBLTbu
+         HFGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx2mEe5qojXPozxyVM82E5c2MRkwzujYzq3iQnmglbe2Nt7Y6MDn0qnWTWZAywPk287ztmxmuzNjEkGASY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mauDcMvYZsrIs+K7MeEDrDhWOZgv6s2bGmlPD9cD1zhs1FAgFX
+	sL/aQOs7R9nkb82sS4mOsEGhH+Q/Fia0270ue006ke9LmodElocLjyMYl+g/vNnu
+X-Gm-Gg: AYBFou3o5lnWKMsSYkGiYyx09YEZWYfSgbfGELfDX5UXAunQOBTrhCKSAnsJRwxrufQ
+	d9lCaIYrKDjMQU2cEA91nYPOg/x5zpLpkTG0QcKeb74Raz2Dg4AizPo8xRJjIf+PlzTqlvXSJFJ
+	rAgmE7+jYALLZFEGQoMTVbZLDrOzMSF6oSiYqSS5iFVcSnK96Yx0MCkNl1D0c9Bd0Uk1R/F88Ct
+	wY5THLRX7Y3k+L//d17EBWjHOw7HRLSTpuhFPXxS0S37knqrYnWa92nwjLFwmipYVAz2BItp+IB
+	FwwevJmxfS5sURvYuJbbXQcl+bTU5uepkTWyGZjePPasVCgyoXoFezay08yUZf25Rh79VH4E9JH
+	V0vzAdmuGofqUyQKQR2gYAewSnA7N+9zu0buMcRuAEMKrr4VWesUm3RSk89mPIBZTkeOsFebxFN
+	jjeiV+PXpIMnh6piMzrT1hoismVNj5KYJgz07SgJmidxCecR0nAFolznTHb9QIiT6of8M+rROwe
+	3EuDRrbn54U9+WSWiWY0vraLFbnzCv5z1sN9DcYBBWMUhYd57z7Fz0MdAM7ZC7iIZ8AId0wPmZa
+	3OItoWgapUnWBz9s
+X-Received: by 2002:a05:600c:6288:b0:49e:6bce:b0f9 with SMTP id 5b1f17b1804b1-49e7a66c9b1mr64903965e9.16.1789456398333;
         Tue, 15 Sep 2026 00:13:18 -0700 (PDT)
 Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d284a7bsm117889265e9.3.2026.09.15.00.13.18
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d284a7bsm117889265e9.3.2026.09.15.00.13.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:13:18 -0700 (PDT)
+        Tue, 15 Sep 2026 00:13:17 -0700 (PDT)
 From: Orgad Shaneh <orgads@gmail.com>
 To: tsbogend@alpha.franken.de
 Cc: linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/5] MIPS: OCTEON: require the Core-14449 workaround only on CN63XX pass 1
-Date: Tue, 15 Sep 2026 07:12:48 +0000
-Message-ID: <20260915071306.15006-5-orgads@gmail.com>
+Subject: [PATCH 4/5] MIPS: OCTEON: program L2C_CTL, not L2C_CFG, on OCTEON II
+Date: Tue, 15 Sep 2026 07:12:47 +0000
+Message-ID: <20260915071306.15006-4-orgads@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260915071306.15006-1-orgads@gmail.com>
 References: <20260915071306.15006-1-orgads@gmail.com>
@@ -78,48 +78,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-prom_free_prom_memory() probes the hint field of a compiler-emitted
-PREF and panics when it is not 28, which is what -Wa,-mfix-cn63xxp1
-(CONFIG_CAVIUM_CN63XXP1) rewrites every prefetch in the kernel to. The
-test is gated on OCTEON_IS_MODEL(OCTEON_CN6XXX), so it fires on every
-OCTEON II part, including the pass 2 chips that do not need the
-workaround:
+cvmx_helper_initialize_packet_io_global() sets the L2 arbitration modes
+by rewriting L2C_CFG. That register (0x1180080000000) does not exist on
+OCTEON II; there the L2 controller is configured through L2C_CTL
+(0x1180080800000), whose corresponding fields are rsp_arb_mode and
+xmc_arb_mode.
 
-  Kernel panic - not syncing: OCTEON II DCache prefetch workaround not
-  in place (cfa00004).
-  Please build kernel with proper options (CONFIG_CAVIUM_CN63XXP1).
+On a CN6335 the stray write hung the board hard when this function ran -
+no exception, no watchdog, just a dead console.
 
-on a CN6335-AAP pass 2.2.
-
-Core-14449 is a CN63XX pass 1.x erratum, and the vendor's own runtime
-check says so: it errors out only for OCTEON_CN63XX_PASS1_X without the
-fix, and otherwise merely warns about lost performance when fixed code
-runs on a part that is not a CN63XX. Narrow the check to CN63XX pass
-1.x to match.
-
-The alternative - enabling CONFIG_CAVIUM_CN63XXP1 to satisfy the check -
-is not free: the assembler flag rewrites every prefetch in the kernel
-(77 of them in this build) to pref 0x1c, which is worth avoiding on an
-in-order core whose receive path is dominated by memcpy.
-
-uasm_i_pref() keeps its OCTEON_CN6XXX condition: it only touches the
-handful of runtime-generated TLB handlers, where the cost does not
-matter.
+Keep the L2C_CFG write for CN3XXX/CN5XXX and program L2C_CTL on CN6XXX
+with the values the vendor SDK uses there (rsp_arb_mode 1,
+xmc_arb_mode 0), which is the same trade the existing code makes for
+the older parts: keep IO blocks from being starved under high L2 load.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Orgad Shaneh <orgads@gmail.com>
 ---
-diff --git a/arch/mips/cavium-octeon/setup.c b/arch/mips/cavium-octeon/setup.c
---- a/arch/mips/cavium-octeon/setup.c
-+++ b/arch/mips/cavium-octeon/setup.c
-@@ -1127,7 +1127,7 @@ EXPORT_SYMBOL(prom_putchar);
- 
- void __init prom_free_prom_memory(void)
+diff --git a/arch/mips/cavium-octeon/executive/cvmx-helper.c b/arch/mips/cavium-octeon/executive/cvmx-helper.c
+--- a/arch/mips/cavium-octeon/executive/cvmx-helper.c
++++ b/arch/mips/cavium-octeon/executive/cvmx-helper.c
+@@ -1014,7 +1014,6 @@ int cvmx_helper_initialize_packet_io_global(void)
  {
--	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
-+	if (OCTEON_IS_MODEL(OCTEON_CN63XX_PASS1_X)) {
- 		/* Check for presence of Core-14449 fix.  */
- 		u32 insn;
- 		u32 *foo;
+ 	int result = 0;
+ 	int interface;
+-	union cvmx_l2c_cfg l2c_cfg;
+ 	const int num_interfaces = cvmx_helper_get_number_of_interfaces();
+ 
+ 	/*
+@@ -1029,10 +1028,21 @@ int cvmx_helper_initialize_packet_io_global(void)
+ 	 * to the cores. This avoids conditions where IO blocks might
+ 	 * be starved under very high L2 loads.
+ 	 */
+-	l2c_cfg.u64 = cvmx_read_csr(CVMX_L2C_CFG);
+-	l2c_cfg.s.lrf_arb_mode = 0;
+-	l2c_cfg.s.rfb_arb_mode = 0;
+-	cvmx_write_csr(CVMX_L2C_CFG, l2c_cfg.u64);
++	if (OCTEON_IS_MODEL(OCTEON_CN6XXX)) {
++		union cvmx_l2c_ctl l2c_ctl;
++
++		l2c_ctl.u64 = cvmx_read_csr(CVMX_L2C_CTL);
++		l2c_ctl.s.rsp_arb_mode = 1;
++		l2c_ctl.s.xmc_arb_mode = 0;
++		cvmx_write_csr(CVMX_L2C_CTL, l2c_ctl.u64);
++	} else {
++		union cvmx_l2c_cfg l2c_cfg;
++
++		l2c_cfg.u64 = cvmx_read_csr(CVMX_L2C_CFG);
++		l2c_cfg.s.lrf_arb_mode = 0;
++		l2c_cfg.s.rfb_arb_mode = 0;
++		cvmx_write_csr(CVMX_L2C_CFG, l2c_cfg.u64);
++	}
+ 
+ 	cvmx_pko_initialize_global();
+ 	for (interface = 0; interface < num_interfaces; interface++) {
 -- 
 2.47.0
