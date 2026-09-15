@@ -1,458 +1,216 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013022.outbound.protection.outlook.com [40.107.201.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4ED3C8C48;
-	Tue, 15 Sep 2026 15:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789486070; cv=none; b=NNK9WGF3kNLjNWBrlyaZ4TRvpJ4HogL9F2CqGwVwarNv7t4MnqHLwC++G1HHZyN+UAXuMROnKJFrCaFcZZTctFZAeeGjM5u/pOZjLR6f6sXYdgXzXFhDB2abg5yzh53m/XeE+ExbvNMp58I2XF8+OZayB0bbCZyAXbjjAoXLpqA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789486070; c=relaxed/simple;
-	bh=hWad+I440Ai4RT/R7JQbbC/EbtLWUriZWLZWxmmmJhY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JwMsqXL1u0CSQpXVHSTaXrihVu4Qeou0g0/6qMX0N21j1mHhHJXbykV+1yddDub28iZQEXD0fcRaEQ0TwDPmwKhf47baajKtUkoaVt8WNRknvZyE8B6tK/z9Qr3JTSt6NWr42KeVb6pVU3XRqrpXM1Gyt0VIB/kPP+qLCMAaH7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=AceE9NS3; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4034A92EC;
+	Tue, 15 Sep 2026 15:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789486075; cv=fail; b=oq3uYJaMfb5xWEzvD11Pjq4cgIkYfK7UdadbLvricB1GS/ZMcpiHVToMlDBbDTa511IkJQJJdOGZKhB7JBcPC4yD1wnUJNYFM9LKJipkRgmc3q9X3hrlKPiBpbBJLSrEe8he9/DIQMpk7qC8PGhDYIna3ZhmK+atI9v7vZqdXkM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789486075; c=relaxed/simple;
+	bh=+b/yvPdMhFggPaZ/8AMKAIwqgbvBFVP1h9I6YR68sNs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=KxGzlO3t5d5zfp3MZZx/vraMfC/VXD5U9FKmIoWl6KjUp8mKR/3OSVKMjD/hB1Ovy+JTwyPHiiLyX7xeYF7/uMxtzVkm8MLX+3yHVbSpL5j4zq6BEsRShIX9JMQYbA2TZwlSh3yxawD5IQMSSYA/o9ZYf/dL00Uu1fOMrDBOlDw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RD9jCTCT; arc=fail smtp.client-ip=40.107.201.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="AceE9NS3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1789486046;
-	bh=lpn/oc3kh4jyZ8eUZM0bAh50zD1/couVZ7TCQcYplJk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AceE9NS3A6LoTqRwEjHC3hgzSJmn5N2jOo67XmabcPp4sybc9QyfO8r11d0eY5CIe
-	 Q/GmOh11ALm4vX0TXofELRzUXGpccdL6c5SOwU0cTQM8lRKE/rmambbhsL1WZONwOy
-	 EsMyGa15t8L6UTDepzlbqWh+tk7qIQHd/l+zVd19reYUACrCbBX63vMCq+/8Z7UdRp
-	 n8ql7rOdRwhUSvIj+Gp8DZEz/if5T9BPSDplvwkEXpEuo3aouB45lFEu3nWULLFAlY
-	 kDREkHtru1e3l1n6McDiQ7IflaJpUPU6WqIH7wh98HRj48mG9WatYIlbV+cx8cGyOo
-	 xne035DY0mw6Q==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hkm9B74DHz4wFN; Wed, 16 Sep 2026 01:27:26 +1000 (AEST)
-Date: Tue, 15 Sep 2026 21:52:24 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 08/15] flattree: Handle unknown tags
-Message-ID: <aqkxacdQHZuhhyxw@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-9-herve.codina@bootlin.com>
- <aqevEJ_VlBxYUp81@gractus.seuss>
- <20260915121635.39f13d34@bootlin.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RD9jCTCT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nfcrlWVdUsdzGeZwcITegE0UYuZJTHs+w5H9f0fLljY4SuogAiOQUN2orP87wLf6AA6mSqinMfcOLfYsd7uf/qGtZ/PjAEKszv+EYsF81nTyN7hq5aWFRCeVuWoBbNA+CuS9AHZ/RdawSfNxxvLc0uTUj9iJl3TwKITFqR+o0J1/1CM2fuFl89czjofh2T1KSbBf9B5zK/KVcQOrKRaI0n9JBbJ1RMXN92gx8n4TyYEkSSj4hXbQqhngVC7qm13ZAVpiLfT/Hq6lF8ouGkyeEWUB1qyTP16Oz+Sg3PKCXTYsQaVxbnmQpNBWKkEQB94xCkSdSZyqnX+iyUr6XS2K1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ye7dI89rlXkXd8fAnD0nu1yAqAuKOBEhNOzPzlqil/0=;
+ b=Q1n/0sQGZv6zKksYO5NNe+rCz8XkFyDmq/MHNRDqChoizWWVApQ4E7uXCeGbTczF+o7RHrd5G3V/uhrL2LyiJI5pDvm5y4Z37HkaBXhDYN5ydpk3NBfSrCvKstoVgkz0RHaMbaN4wIFQLNM9Gn+FBJ1iJzOHW4HG41LY3tRSZM8Yg9rk5R/w6wG31H202Mh1j3oD2pvG0ROXFmnwAGTgt1WzIwtX964zK8+g5gc2HvPvdID+kFNY+bv5Fbehx7Id46PJ7HIuCw4fFALcOqnGaE8nV/55Cydf4V4SMvBMvgOBvzl03wxzmb8rh8AaLke765abIgIYNtOBg5yCir/EyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ye7dI89rlXkXd8fAnD0nu1yAqAuKOBEhNOzPzlqil/0=;
+ b=RD9jCTCTOBC1Bhk52C7Utx/kCfphv1jn+vIc2xsiUT+OPtkuXpIEa7jD2FJQCOEGqHJjW8N2WUlkJNOtICzKxf4GSQZ3rlSEmwKstsldGnTJ1IiuhFGQQL+uq7L50jaJwp0qKnJ9E3Og4nYPIDcjtP6NgHhi9+qxxRln0iycLiuZRAWJqheaUS4b7iOs3urPHzbtRZrGEhraOOnPyAcnCB44pBxOJcwLhucJ6znmF4SI0pS3/qeDyfIQfYC+HiHfL3dpD7MZVjUZUbPRgG8Sjlfve28jE1f9B6ar9BF0MuSWvmxspwW/jyhYCRLxRju7JAL7wb5zFC6TP4KvZw5Z/A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by SJ0PR12MB6992.namprd12.prod.outlook.com (2603:10b6:a03:483::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
+ 2026 15:27:45 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 15:27:45 +0000
+Date: Tue, 15 Sep 2026 18:27:34 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: markdamirkan@gmail.com
+Cc: David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexander Aring <alex.aring@gmail.com>,
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH net 2/2] selftests: net: add RPL SRH loop test
+Message-ID: <20260915152734.GB723831@shredder>
+References: <20260911-sympwn-rpl-send-v1-0-1753993bb584@gmail.com>
+ <20260911-sympwn-rpl-send-v1-2-1753993bb584@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911-sympwn-rpl-send-v1-2-1753993bb584@gmail.com>
+X-ClientProxiedBy: FR4P281CA0170.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b7::11) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Qz5AaaQc8onZepjH"
-Content-Disposition: inline
-In-Reply-To: <20260915121635.39f13d34@bootlin.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|SJ0PR12MB6992:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9110d0a-ae88-4ea6-7d84-08df133de3e5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	+TGH9/wJj/gPD84OvFva5P0YHSR+DMLQZ41gxHeFJZft0LeGfrMuzgbW4ZTfYlU1zb1yf05u+jl/s+9xKFgXQ8Ir/hVgJ5n3ADJ6ryPJkJZMVdufnPP918cnuVAIFfY5woA4+W86YdSaCturtH4T6v8hGvkK+BhZYxExGKKfVdvua9AAif3OdDZBrZbp2HooBgraNnL9xxENOHtx+SYq1Zcqx6YNpL3U7RsaTjf2BcyYQx0N8bEcIBgCYaJG/nQLrmpz96rZ18818wPogK344vj+HBylxhVpvmqpimelxm3ZSKA/TCMqxUYay+/IvOV0iJ8iw6+MVBK+M6RjTnHNwaXtUHxAqm/sAJsU94qLvbsfnzr9kHVQSxFVTE4sLZSyQFCNlYIcaYlSy1B24+BzaVKtVo5VfWdCFEcgroskfDqUEX/lVwe9GzdAGRUFwTqhz40bCAOWSt9GlHI4MoEHWbf3tKZGa02+Q69n7i+F+GIUtHqRZo7RlU/jtJykW8xIB7vyOgxQEM4fAufAbxaG4yCinerp1RnSxt5ALQ13ANGZUs4V5J3NzQLObPqIYxVgIgW/bHa2xdouxDsTIX8Z+2/PJCluqOcKHMLuOK/Yy50ksBwEC4cwYWrU2re3WMUJgcu4WE7tFhZh1BGZkj/h1eqmwXhLHj6tuSTzCiWdBC8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?gzUum93BHuMquybHGPTkMsoZL+XzlX8FpOVVyeNfMRQt2EP4bvZrsSZk9Pak?=
+ =?us-ascii?Q?TMiYNJtKO7eUwNY6sSWTue80IE4WqJg6cw8E+I4+r6PVI9uuJMI2/i/MHW3B?=
+ =?us-ascii?Q?qAFhBq3FP7iv3sXP7EFT0PXD59HRNpHkLdwiyKP8wW8mlpio/rMyYHlflXa4?=
+ =?us-ascii?Q?Ku9l/wk6p3I6Nme9ryQ9LaOUsWDhOYYV4sQKzH0oX8eE9uejYjhcrzHIFZ6L?=
+ =?us-ascii?Q?VkzTOa2hCkwvLgihOCHsSqeMF9QNg9mO/x0gMx9Ofa/4A6MQkq4d72PkzzQw?=
+ =?us-ascii?Q?CJswU5BO4Rv9En916yQWz9wqVJtMRAUM0xSyW70McYdEV320Qh0j0dJCUuVI?=
+ =?us-ascii?Q?LfDwMm3BBCArsmI0eiB8LsSm4J0Ll+q2gXWf9/gs3dVGEqrEIyQWQCPHBW/1?=
+ =?us-ascii?Q?Fu4X1Nx516QWzGXUEx1lsr5IxMQ/uN4cXLLPlecb0CKlygm5cFPP9f5a9Eqa?=
+ =?us-ascii?Q?AIgF45thsj6VVKUVWFE5ILX+DBul2q3hQ11y5fwHQrtEhP1rvpdYTi5ibF2K?=
+ =?us-ascii?Q?RXRID4tLeKex872ny818Jty69DPfPt0d0dSW2PVczlQRiJCbz3uqwqnSwSVv?=
+ =?us-ascii?Q?37L0jzUqbY50klSilzaPPCl66T2s6Fq9oxpuqrPJOZvkw0xpc2z1dCTlKkxO?=
+ =?us-ascii?Q?dMStpRRC03N2aP49yNNEAfWI2ji93oNn2K23onf3EIqg4Uc5S9A9EJMafOCs?=
+ =?us-ascii?Q?W67jAWWZLjLMxBU2xoC8hTti9NZ9hXZ0YdmodIr6EX2QCWubz7QIg1DLReWu?=
+ =?us-ascii?Q?RTCvOyBViLZzf5fYPVO4WnbuChtHgPEVQMnhN8o1Bx5sCmm0g+Zmv9NuaKgH?=
+ =?us-ascii?Q?gprZ4OZ3onozQQaEXCfEGJJ2m2g677ZIo/wSLqglrKxsEx3Pefj1EZSjsoB1?=
+ =?us-ascii?Q?kjuN6SQE8O9OHK1n2yOjRukHHb2YvaQZABdYaTKx0YpyNaLjPLtD0DhcMBj9?=
+ =?us-ascii?Q?ysI54hXyOS/dha/Z8IJjPvRe+GS0K+wcE8ELFzBSptcT9+voaETcT3JPEuF7?=
+ =?us-ascii?Q?dGlVAlpvc0GS1pihCx09r9ZLFbo74lxP1GLPuS1nGoQhdXHYXlCKOyETtY0z?=
+ =?us-ascii?Q?1CarvGFAc46DjVqfdjJcWT2Bobo3vPtV/iuWRcaYO1+WUuF5YSHJAANcat5O?=
+ =?us-ascii?Q?fUNu8DRPZQfoVeUi8biLTdgbpH6/YIQxj/NyUOum4DLgZ1FwCFtY1c0QlD1E?=
+ =?us-ascii?Q?RgtDf0ocCn3NbZaV4ILsSlZlVNEB7H6Ww+spHZtHf0lXm/gco8WFnXnFe35s?=
+ =?us-ascii?Q?UH22OfZ4g3CeQ+u4iNczNqeKO7AlV9mxgQdJ+02fkb5yDEREHjo1EScKeFq8?=
+ =?us-ascii?Q?DQHpAMOw4PXjdLlNWXA4D442KwEdn0kQrkvIaSBSt5n8YLSw/yQQ/SPq7Nap?=
+ =?us-ascii?Q?YCA+aJ2uMhgj7K+zhDiCNQGx1TZEC9ElzeTZESMIgjK2Pl7poyj9FBqEqgVb?=
+ =?us-ascii?Q?lKGFY6RYU7pRlv+QrfAiyj5u2xIDoQKojy6bgpGFP/XlN9Zq5vtAHlmmul2v?=
+ =?us-ascii?Q?ONfLdqL+8lwbUzBkoawIAgoUktj68IP5eykBTufI5axTv46LWD+o9brWro2m?=
+ =?us-ascii?Q?yvaAB1lVKgAOEtHJqTeJMvB5WiXiEkQBAELtqg23yDsC5EFy29y7ZAcqE185?=
+ =?us-ascii?Q?4RY3acymugZA9ON/wvtJUGFzGYfI5ZVhspM84TwtNDDLNocVw03RGhnQhxL+?=
+ =?us-ascii?Q?ZhdSbETGBBKjMUklyz44ra0WpJvNLSqDTh7w6EohBobKOMoaMqGGvDFRdBh0?=
+ =?us-ascii?Q?vNd5UAY4RQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9110d0a-ae88-4ea6-7d84-08df133de3e5
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 15:27:44.9720
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0lrqewaPguZIgSdQB+iBL5Ffyc8RI6InZk/WvRE5RcEVjALCeXUonnYk1vG6eiAuoYK0mW63U3QBLs+hHOKxPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6992
 
---Qz5AaaQc8onZepjH
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, Sep 11, 2026 at 04:11:22PM -0700, Mark Amirkan via B4 Relay wrote:
+> From: Mark Amirkan <markdamirkan@gmail.com>
+> 
+> Add two local addresses to a network namespace and exercise RPL route
+> validation. Verify that adjacent local addresses remain valid, while a
+> non-local address between them causes the route to be rejected.
+> 
+> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
+> Assisted-by: Symbolic
 
-On Tue, Sep 15, 2026 at 12:16:35PM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Mon, 14 Sep 2026 18:23:49 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Wed, Aug 26, 2026 at 10:31:39AM +0200, Herve Codina wrote:
-> > > The structured tag value definition introduced recently gives the
-> > > ability to ignore unknown tags without any error when they are read.
-> > >=20
-> > > Handle those structured tag.
-> > >=20
-> > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> > > Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> > > ---
-> > >  flattree.c                                 | 65 ++++++++++++++++++++=
---
-> > >  tests/run_tests.sh                         |  5 ++
-> > >  tests/unknown_tags_can_skip.dtb.dts.expect | 19 +++++++
-> > >  3 files changed, 84 insertions(+), 5 deletions(-)
-> > >  create mode 100644 tests/unknown_tags_can_skip.dtb.dts.expect
-> > >=20
-> > > diff --git a/flattree.c b/flattree.c
-> > > index f3b698c1..88dbfa7e 100644
-> > > --- a/flattree.c
-> > > +++ b/flattree.c
-> > > @@ -579,7 +579,8 @@ static void flat_read_chunk(struct inbuf *inb, vo=
-id *p, int len)
-> > >  	if ((inb->ptr + len) > inb->limit)
-> > >  		die("Premature end of data parsing flat device tree\n");
-> > > =20
-> > > -	memcpy(p, inb->ptr, len);
-> > > +	if (p)
-> > > +		memcpy(p, inb->ptr, len);
-> > > =20
-> > >  	inb->ptr +=3D len;
-> > >  }
-> > > @@ -604,6 +605,61 @@ static void flat_realign(struct inbuf *inb, int =
-align)
-> > >  		die("Premature end of data parsing flat device tree\n");
-> > >  }
-> > > =20
-> > > +static bool flat_skip_unknown_tag(struct inbuf *inb, uint32_t tag)
-> > > +{
-> > > +	uint32_t lng;
-> > > +
-> > > +	if (!(tag & FDT_TAG_STRUCTURED) || !(tag & FDT_TAG_SKIP_SAFE))
-> > > +		return false;
-> > > +
-> > > +	switch (tag & FDT_TAG_DATA_MASK) {
-> > > +	case FDT_TAG_DATA_NONE:
-> > > +		break;
-> > > +
-> > > +	case FDT_TAG_DATA_1CELL:
-> > > +		flat_read_word(inb);
-> > > +		break;
-> > > +
-> > > +	case FDT_TAG_DATA_2CELLS:
-> > > +		flat_read_word(inb);
-> > > +		flat_read_word(inb);
-> > > +		break;
-> > > +
-> > > +	case FDT_TAG_DATA_VARLEN:
-> > > +		/* Get the length */
-> > > +		lng =3D flat_read_word(inb); =20
-> >=20
-> > I think it would be more natural to get the length as a single value,
-> > then have a common flat_read_chunk() and flat_realign() to consume it.
-> > That's for two reasons:
-> >  * Assuming we keep this length encoding, getting the final tag size
-> >    seems like it would make a useful helper function anyway.
-> >  * Using flat_read_word() is misleading - it implies it's integer data
-> >    where endianness matters.  In this case it's not - it's just some
-> >    bytes we're skipping over, we don't know the internal structure.
->=20
-> Well, without the length for all tags (I mean keeping some size encoding
-> in the tag value), we can avoid the flat_read_word().
-> --- 8< ---
-> 	switch (tag & FDT_TAG_DATA_MASK) {
-> 	case FDT_TAG_DATA_NONE:
-> 		lng =3D 0;
-> 		break;
->=20
-> 	case FDT_TAG_DATA_1CELL:
-> 		lng =3D sizeof(uint32_t);
-> 		break;
->=20
-> 	case FDT_TAG_DATA_2CELLS:
-> 		lng =3D 2 * sizeof(uint32_t);
-> 		break;
->=20
-> 	case FDT_TAG_DATA_VARLEN:
-> 		/* Get the length */
-> 		lng =3D flat_read_word(inb)
-> 		break;
->         }
->=20
->         if (lng) {
-> 		flat_read_chunk(inb, NULL, lng);
-> 		flat_realign(inb, sizeof(uint32_t));
->         }
-> ---- 8< ----
+Thanks for the test. Same comment as before regarding the tag.
 
-Right, that's exactly what I'm suggesting.
+> ---
+>  tools/testing/selftests/net/Makefile        |  1 +
+>  tools/testing/selftests/net/rpl_srh_loop.sh | 38 +++++++++++++++++++++++++++++
+>  2 files changed, 39 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
+> index 3ee3378f8b26..7fe7e38b9c6c 100644
+> --- a/tools/testing/selftests/net/Makefile
+> +++ b/tools/testing/selftests/net/Makefile
+> @@ -80,6 +80,7 @@ TEST_PROGS := \
+>  	reuseport_addr_any.sh \
+>  	route_hint.sh \
+>  	route_localnet.sh \
+> +	rpl_srh_loop.sh \
+>  	rps_default_mask.sh \
+>  	rtnetlink.py \
+>  	rtnetlink.sh \
+> diff --git a/tools/testing/selftests/net/rpl_srh_loop.sh b/tools/testing/selftests/net/rpl_srh_loop.sh
+> new file mode 100755
+> index 000000000000..a2e9991d789d
+> --- /dev/null
+> +++ b/tools/testing/selftests/net/rpl_srh_loop.sh
+> @@ -0,0 +1,38 @@
+> +#!/bin/bash
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +source lib.sh
+> +
+> +cleanup()
+> +{
+> +	cleanup_ns "$NS"
+> +}
+> +
+> +trap cleanup EXIT
 
-> Related to a helper, I have introduced one in the addon series where new =
-tags
-> are present and these new tags are no more "unknown" tags and flat_read_s=
-ubbuf()
-> has been introduced to parse them. You can see that in the patch 11/74 [0=
-] or
-> directly in the final code [1]
->=20
-> [0] https://lore.kernel.org/devicetree-compiler/20260826094950.1088288-12=
--herve.codina@bootlin.com/
-> [1] https://github.com/bootlin/dtc/blob/c68038e0ff4cde5de37a21419df8a0820=
-32ef994/flattree.c#L1169
->=20
-> I can see to avoid some more code duplication between functions skipping =
-"unknown" tags
-> and function parsing new "known" tags.
+This can be:
 
-Uh.. I don't quite see the relevance of that here.  I'm just
-suggesting the length calculation alone be a helper function.
+trap 'cleanup_ns $NS' EXIT
 
+> +
+> +require_command ip
+> +setup_ns NS || exit $?
+> +
+> +ip -n "$NS" -6 address add 2001:db8:1::1/128 dev lo nodad
+> +ip -n "$NS" -6 address add 2001:db8:3::1/128 dev lo nodad
+> +
+> +if ! ip -n "$NS" -6 route add 2001:db8:10::/64 \
+> +	encap rpl segs 2001:db8:4::1 dev lo 2>/dev/null; then
+> +	echo "SKIP: RPL lightweight tunnel support not available"
+> +	exit $ksft_skip
+> +fi
 
-> > > +
-> > > +		/* Skip the following length bytes */
-> > > +		flat_read_chunk(inb, NULL, lng);
-> > > +
-> > > +		flat_realign(inb, sizeof(uint32_t));
-> > > +		break;
-> > > +	}
-> > > +
-> > > +	return true;
-> > > +}
-> > > +
-> > > +static uint32_t flat_read_tag(struct inbuf *inb)
-> > > +{
-> > > +	uint32_t tag;
-> > > +
-> > > +	do {
-> > > +		tag =3D flat_read_word(inb);
-> > > +		switch (tag) {
-> > > +		case FDT_BEGIN_NODE:
-> > > +		case FDT_END_NODE:
-> > > +		case FDT_PROP:
-> > > +		case FDT_NOP:
-> > > +		case FDT_END:
-> > > +			return tag;
-> > > +		default:
-> > > +			break;
-> > > +		}
-> > > +	} while (flat_skip_unknown_tag(inb, tag)); =20
-> >=20
-> > Having this as a separate function seems odd to me...
->=20
-> Well, this clearly decouples "known" tags from "unknown" tags and keeps t=
-he
-> function small.
->=20
-> >=20
-> > > +	die("Cannot skip unknown tag 0x%08x\n", tag);
-> > > +}
-> > > +
-> > >  static const char *flat_read_string(struct inbuf *inb)
-> > >  {
-> > >  	int len =3D 0;
-> > > @@ -750,7 +806,7 @@ static struct node *unflatten_tree(struct inbuf *=
-dtbuf,
-> > >  		struct property *prop;
-> > >  		struct node *child;
-> > > =20
-> > > -		val =3D flat_read_word(dtbuf);
-> > > +		val =3D flat_read_tag(dtbuf);
-> > >  		switch (val) { =20
-> >=20
-> >=20
-> > .. rather than having handling unknown tags as part of the default:
-> > case here.
->=20
-> Here and probably on some other part if we go in that direction.
->=20
-> Here you have already parsed a FDT_BEGIN_NODE to call unflatten_tree().
->=20
-> Unknown tags should be handle and skipped if possible at lower level to h=
-andle
-> them everywhere and without code duplication.
->=20
-> flat_read_tag() is this lower level.
->=20
-> >=20
-> > >  		case FDT_PROP:
-> > >  			if (node->children)
-> > > @@ -905,14 +961,13 @@ struct dt_info *dt_from_blob(const char *fname)
-> > > =20
-> > >  	reservelist =3D flat_read_mem_reserve(&memresvbuf);
-> > > =20
-> > > -	val =3D flat_read_word(&dtbuf);
-> > > -
-> > > +	val =3D flat_read_tag(&dtbuf);
-> > >  	if (val !=3D FDT_BEGIN_NODE)
-> > >  		die("Device tree blob doesn't begin with FDT_BEGIN_NODE (begins wi=
-th 0x%08x)\n", val); =20
-> >=20
-> > Hmm.. doesn't this already need to be fixed to handle NOP tags before
-> > the root node?  Logically that change would go before this one.
->=20
-> Oh yes, good catch. I missed that one.
->=20
-> Will be update in next iteration (in offset 0 vs real root node offset pa=
-rt)
-> with 2 points:
->   - handle the case here with something like
->     --- 8< ---
->        /* Skip possible FDT_NOP available before the root node */
->        do {
-> 	  val =3D flat_read_tag(&dtbuf);
->        } while (tag =3D=3D FDT_NOP);
->=20
->        if (val !=3D FDT_BEGIN_NODE)
-> 	  die("Device tree blob doesn't begin with FDT_BEGIN_NODE (begins with 0=
-x%08x)\n", val);
->        ...
->     --- 8< ---
->=20
->   - Add a test calling dtc with a "nopulated" dtb
->     This test is really missing. Only functions from libfdt are tested wi=
-th
->     a nopulated dtb. DTC has to be tested too.
+This can be removed. rpl is present in iproute2 since 2020 and
+CONFIG_IPV6_RPL_LWTUNNEL=y is present in tools/testing/selftests/net/config
 
-Sounds good.
+> +
+> +RET=0
+> +ip -n "$NS" -6 route add 2001:db8:11::/64 \
+> +	encap rpl segs 2001:db8:1::1,2001:db8:3::1 dev lo
+> +check_err $? "Adjacent local addresses were rejected"
+> +log_test "RPL accepts adjacent local addresses"
+> +
+> +RET=0
+> +ip -n "$NS" -6 route add 2001:db8:12::/64 \
+> +	encap rpl segs 2001:db8:1::1,2001:db8:2::1,2001:db8:3::1 dev lo \
+> +	2>/dev/null
+> +check_fail $? "Separated local addresses were accepted"
+> +log_test "RPL rejects separated local addresses"
+> +
+> +exit $EXIT_STATUS
 
-> >=20
-> > > =20
-> > >  	tree =3D unflatten_tree(&dtbuf, &strbuf, "", flags);
-> > > =20
-> > > -	val =3D flat_read_word(&dtbuf);
-> > > +	val =3D flat_read_tag(&dtbuf);
-> > >  	if (val !=3D FDT_END)
-> > >  		die("Device tree blob doesn't end with FDT_END\n"); =20
-> >=20
-> > Likewise here for that matter, a NOP should be valid between the last
-> > FDT_END_NODE and the FDT_END.
->=20
-> Yes, exactly and this will be taken into account in the next iteration.
+Should be:
 
-Great.
+exit "$EXIT_STATUS"
 
-> > > diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-> > > index f3647e63..8fc23cb7 100755
-> > > --- a/tests/run_tests.sh
-> > > +++ b/tests/run_tests.sh
-> > > @@ -882,6 +882,11 @@ dtc_tests () {
-> > > =20
-> > >      # Tests for overlay/plugin generation
-> > >      dtc_overlay_tests
-> > > +
-> > > +    # Tests with "unknown tags"
-> > > +    run_dtc_test -I dtb -O dts -o unknown_tags_can_skip.dtb.dts unkn=
-own_tags_can_skip.dtb
-> > > +    base_run_test check_diff unknown_tags_can_skip.dtb.dts "$SRCDIR/=
-unknown_tags_can_skip.dtb.dts.expect" =20
-> >=20
-> > It's best to avoid tests based on -O dts output unless we're
-> > explicitly checking -O dts behaviour: because there are multiple ways
-> > to format property values, the exact output isn't really guaranteed.
->=20
-> But at a give version dtc and a given dtb file, there is only one way
-> to generate a dts.
+Please run shellcheck. Preferably via ingest_mdir.py:
 
-Yes, but if we tweak our -Odts formatting decisions, we don't want to
-have to churn tests that aren't specifically related to -Odts.
-
-> If it change because of some modification in dtc, having some changes in
-> tests expected value should not be a big deal.
-
-It's not a huge deal, but it's still preferable to avoid.
-
-> > What I'd suggest instead is to adjust treegen to generate two dtbs
-> > that are identical _except_ for the skippable tag.  Then you can use
-> > dtc -I dtb -O dtb, and compare the dtc output (which should strip the
-> > tag) against the dtb which was constructed without it in the first
-> > place.
-> >=20
-> > Or, rather than explicitly creating two new trees, you could make your
-> > skippable tag example identical to test_tree1, except for the
-> > additional tag, and re-use one of the other instances of test_tree1 as
-> > the "tagless" version.
->=20
-> Why not just one dtb generated to treegen with unknown tags (already avai=
-lable
-> unknown_tags_can_skip.dtb)
->=20
-> dtc -I dtb -O dtb -o unknown_tags_can_skip.dtb.dtb unknown_tags_can_skip.=
-dtb
->=20
-> And then
-> 	base_run_test wrap_fdtdump unknown_tags_can_skip.dtb.dtb unknown_tags_ca=
-n_skip.dtb.dtb.out
->     	# Remove unneeded comments
-> 	sed -i '/^\/\/ [^U]/d' unknown_tags_can_skip.dtb.out
->     	base_run_test check_diff unknown_tags_can_skip.dtb.dtb.out "$SRCDIR/=
-unknown_tags_can_skip.dtb.expect"
-
-I don't like it - the output formatting of fdtdump is even less
-guaranteed than -Odts.
-
-> This avoid the need for 2 dtbs generated by treegen and also avoid to com=
-pare
-> binary files which are difficult to analyze when the comparison detects a=
- problem
-> due to something broken by some modifications.
-
-We _want_ to understand and test things at the binary byte level.
-Debugging differences is a little trickier, but it's really not that
-bad - -Odts or fdtdump or dtdiff can be used if/when there's a test
-failure.  I really think doing the comparison in binary is preferable
-- that's the level at which the behaviour is specified and should be
-tested.
-
-> > > +    run_wrap_error_test $DTC -I dtb -O dts -o unknown_tags_no_skip.d=
-tb.dts unknown_tags_no_skip.dtb
-> > >  }
-> > > =20
-> > >  cmp_tests () {
-> > > diff --git a/tests/unknown_tags_can_skip.dtb.dts.expect b/tests/unkno=
-wn_tags_can_skip.dtb.dts.expect
-> > > new file mode 100644
-> > > index 00000000..2194025b
-> > > --- /dev/null
-> > > +++ b/tests/unknown_tags_can_skip.dtb.dts.expect
-> > > @@ -0,0 +1,19 @@
-> > > +/dts-v1/;
-> > > +
-> > > +/ {
-> > > +	prop-int =3D <0x3201>;
-> > > +	prop-str =3D "abcd";
-> > > +
-> > > +	subnode1 {
-> > > +		prop-int =3D <0x6401 0x6402>;
-> > > +	};
-> > > +
-> > > +	subnode2 {
-> > > +		prop-int1 =3D <0x64020 0x64021>;
-> > > +		prop-int2 =3D <0x32022>;
-> > > +
-> > > +		subsubnode {
-> > > +			prop-bool;
-> > > +		};
-> > > +	};
-> > > +};
-> > > --=20
-> > > 2.55.0
-> > >=20
-> > >  =20
-> >=20
->=20
-> Best regards,
-> Herv=E9
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---Qz5AaaQc8onZepjH
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqpMWkACgkQzQJF27ox
-2GfSog//QGhntDiHe7NMaQAgPjbHTkkY5U8gvCK2EOTt7zWJKAdrD1vWdBJsmLaK
-F7H2Ar1mcv0tdJLh+AVBhxVZLKf8lC2L3XNHq8L/94acYTNJbRBQUCgRcxY+ke00
-dccaOMhGx6+ziYLxBfjyIHjP36BSwHRl45nn6YTOEv427GILoPAeZJKO80ipSluo
-ePhcTuJSNBLiVCrHc2zooJWOZMMSGY8E7ER7f81JpxKhmptcBhJJ3rL9nLxK/i6J
-uyF4HM0yldhqrJI6fg5RXLPIxqkfQAO+32yv38ME2O1CqJpWniDGExFmT52k4ex0
-5cXF45bE/0pNpNoxhWGp8RgUYiYoqL12KVOf0KvAhs/C88wLk8odvWLZaL2HfVmD
-MtTolKTN37dTF2IBM+3LuB4rP/EgNVAyOa4bCu7eBkC0ybc+NUtKS+bxFBI4gYeW
-GKrmirmVSXrxouGMUaXa8TQRzVPT2+glGoM2E4XBjlHlP0qyh6BiIK96P/1tI0bm
-T5WzLu53IgN3udrFy+39aTuRVhvwjNo+CgL53eB5Y5NDlUc5uViEUtr3gOVX2eUN
-WJO2vLlTffGeSgs8MoAFJ31F+M4ERlbjju15JYwwaro2M7NBSXB+a/uiSgOUviMN
-Ng4WzFd7gh+yseNbGRWmYIj9Vylc6Ey0E/w3LBHMxaFB6HXg9+M=
-=+v1h
------END PGP SIGNATURE-----
-
---Qz5AaaQc8onZepjH--
+https://github.com/linux-netdev/nipa#running-locally
