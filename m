@@ -1,170 +1,162 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B5045D91C;
-	Tue, 15 Sep 2026 08:23:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460604; cv=none; b=gM2CuRcLL+lZnAQwXG0X3v8HFsgQoBXDzRL2crerV9MfoMQFeJ9AvwpKXGab5JvsL1eILL1IrkatgKrRi4t/QIfINqaKBfzG9/GI5AZOI2k/lSEuA5ZYSeTV/RSQZfL3nXVIlJYNxwMNr5BaKUwz7feqIKLdLbvPWR52AYRtsZA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460604; c=relaxed/simple;
-	bh=Q6hjAE+9q8egGVVb02CPWb1wLjOusvGxKkXCzWLChHg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kCzpDxx8cXiQnx8vYFQFzW5b4fcdNVscnHBsUfKYs5EjS4p15M0rVszAu9qHnXhJ/t494tehcec0rcZfuVbLOzurCXdljD6a3gwMO9zV2O31MN4S6vvYNRNFHm3j2nzSuxtELkWOoYg6d9GZTjn2Hjs6JdZ04q+xC5ZY3jBXqDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ipzJcm8I; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2691345D91C
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 08:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789460608; cv=pass; b=nx8EhohZguDkf5XxfOxmOLRm56vaFUuswiEdXSnDxpkTyb0DI4AZ9rGpeqtNn+8QX9ymnetreeoRwXf+B+D8PDBOATDegtN7tLjL2Lkrnp8Y4xKZz2ryLb/ntEUqxaJxRWB6m3O0rpGH43nCntBxs5LJshXJBeDk3/33uupeXig=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789460608; c=relaxed/simple;
+	bh=zrSbisXnRqG6tuaqy924oPWL1X1bSlGGV0YFTsGVVTY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mx0BcqSTSmoloCI3fFswACZivOql0CUwvDd1kVr+Gw5MYBw8ZOeVdklzhykdbAoN3pJogLQ0XmryGXR2Ugvt5cqjBlDpeAahmyWxWk8n7RlHRTIjnmgdcpvGn6O8xtYtNikvy/9o3AErx2jd90Erem/AvtP+liipn6u4O/7oty4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XNiOCsP6; arc=pass smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ipzJcm8I"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=GLQ264WxN6wDQzABD1f2vOcHnnY8r7L3wdbiMWb63xA=; b=ipzJcm8I1ST/GUt421dYmJnfyI
-	vMJ7fwLPm50oqJU0jqpXgWe24q407KlTdH7SXHQr7TDXrJ0cM1tEYBnW9xuMF681fSZbRWEhC0xLD
-	6pneXq40+9I4oviAF01pBkAh9+iexFHZvr8Q0AJ9eQUZ1IpxpzGhf4HDVrlwFQYzTx+rlpPRZqXIS
-	bi5aWaDAYx9YdPtSyaz9+cEy9G45/haDccskEkn/nT4u1JIUGIvbu/z3wOp8oYMS5UFYrgQZ3LkKc
-	D4oDDw5Avnj0AUqbEB+wgK/erFclXrfrCAUd2232oXhxiftApCzjDlcWbdLgQanaRy0SwbWde3WVp
-	73UWs78A==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x6ORS-00000006QWi-1bHr;
-	Tue, 15 Sep 2026 08:23:04 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id F1FDF3012C6; Tue, 15 Sep 2026 10:23:00 +0200 (CEST)
-Date: Tue, 15 Sep 2026 10:23:00 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Yury Norov <ynorov@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>,
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Kees Cook <kees@kernel.org>,
-	Joel Granados <joel.granados@kernel.org>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
-	rcu@vger.kernel.org, virtualization@lists.linux.dev,
-	linux-rt-devel@lists.linux.dev, llvm@lists.linux.dev,
-	Yury Norov <yury.norov@gmail.com>
-Subject: Re: [PATCH 01/17] locking/mutex: assert static storage for
- DEFINE_MUTEX()
-Message-ID: <20260915082300.GV4121339@noisy.programming.kicks-ass.net>
-References: <20260915030336.1192299-1-ynorov@nvidia.com>
- <20260915030336.1192299-2-ynorov@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XNiOCsP6"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8686f46e4adso2715551b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 01:23:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789460606; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JZ2P1zodUoC9CrCubcMrESANXdSrXOa2wtYhdgOHXTu9Q6zjCjHwE2eSyNnEccAfy+
+         geL5vK3bYvbqORF9Uh9nepmhq6zejmL4c8X0QndgGM3k8u1H6xbTT4iYHfNqaAdbaF9+
+         EbmxcKS7JM87ZWe+rr+LuJoAnvkTb/u6ZAcTZOfuoXjl4sM+4xq6AeugQt5tdUv5Zsyj
+         ud/MdAbcPegq08yi9a0LmYmv3m8dM6VLRZIaiFaG815BnFdWOj9kQ4bSXlZ8IUFVuJKf
+         F8uhAG95W507+GmPX/WnUOmCuHNStnOs8DpikZTxdXUCE432iQ9YX3Rj9NgZ9RD5T6/+
+         j8qA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=h/xcej/j7S2rGPSD8Gyx86eUYHBjb6muKeX/bEp2HCY=;
+        fh=S+u70cKr5iJaphZTOdGoYPM9ygJx4ZzcqAWIW211WrM=;
+        b=C4Jhlka1GnDk9pMW2ZbKnf+oSe5eMLqg2lujT7Ps8P9wcSoKlQKi9sxe4if++7DI8v
+         VTqsZqEVFad/YbV8nvLrW2MEYxzhRyM5B0hE4w0RqEzvTI30yf0v38k1WaP601C9BoLD
+         2dgAJDLb4e4nO76tfAK+brk6ijxzgggQF5uXk6nPa7lqUm6ZsU6cv5ok9lWdKhvbKyRX
+         rbIGlWrN+gEOFTGPHmBaVSefKgAZwHEsZgJT8aGO5aM6yfUKoYV2TcBohMBBFI1KQlZm
+         ta9ScwwbnzWqVCHdO1uovE3d5alCAk1EhdTpsXplMjUbRvJHXxJAc//Z1hD9/NdGDRG2
+         DMPA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789460606; x=1790065406; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h/xcej/j7S2rGPSD8Gyx86eUYHBjb6muKeX/bEp2HCY=;
+        b=XNiOCsP6Gdi1amzLUOjgViWvXP7BpRIlXCrMbjh2QXLP3axR+M5LSLNJjbVoI1WzN2
+         mGf5TInJeaSHuEzKMhRfEyXcSnKbHa2HzhkhS97eWUGhqgZD2aI9eh/hpr6x1utG3vzH
+         xWY6G9R2Ti2l544wvospp5ZHLPIEJevNz+/0gWWcDcEBNUyZgiDW+9EGMmPcpLR1AoH8
+         nMhB0EhjvS3mF/on8GoxI0gyJNRBzEu+1wNvfeWbYaQNZG5gyFzLzvE22NBtT3J6lFhp
+         Eyauatg0oSnt4dEtmt42IQAbJfUINmPvAaQ7bQpu8TlKWLV1rfIMQob5pG2SEWNrSN46
+         j0gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789460606; x=1790065406;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=h/xcej/j7S2rGPSD8Gyx86eUYHBjb6muKeX/bEp2HCY=;
+        b=bF1NSl6BxSPmrYf9VJKib4KXf/bUU2cblYfgSiOismRoPqGUUVAhP/yJe2zrmOJ8Gn
+         Ir+zVTgVKDS24pLOLicY8YgRG8eYhn8h2edBkgIGLlsghxJYBkl0+hnL1ZuWC1sUNKMS
+         4vnjLf+MYf8Yl56yMbsRUiZM8upcAC34RUPvGVEkCWjUPcSRNtqqnjRLRe/3ePVERAoJ
+         zo0T6aFnZ7CwLWy2it+ameWoJ5fJaDaOycN2/Bl2yMrslaz6FelHRJ23xw7/P7P+ERrh
+         7LPA5ZsiJvArkae8WhKbpfptnRD7DJ8hLpqz9L88Wx9RDX8QuNC9KPJs9SYTE4o5DdXG
+         /hgw==
+X-Forwarded-Encrypted: i=1; AKwUvBwmsUDf8HLmfwl04WFLZPqTd5xlzwXrw3T2lix1iD29hBdDnOawBmpCCvihyn5oUGaKGKiHwQC9DvexGgE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmTYD1XkUNmvxjacG/DYD+5Qt4O0GOUFNkhtuQbLpaPzpLzDmV
+	jD6MzbjcPIWPhbG8ER4A78if9ktt3yxWnwT3AALGNzuHbaSQS8geezIwXG9T9pvs0udE9o3uZrr
+	KtKGe41x3OGQtAnVzXc1pLbCbty2+K6w=
+X-Gm-Gg: AYBFou3iJvfNT7Zru43e1v9qZGi/qlm5SI2GlX25GV5vtIUgkaklBz9Gf6e53stKwDJ
+	dFVrDGhabn8Ajq9/cJPkq1BuGc26YUwFtmVDeaB+qQEtj7MYvJJaRQGQ60J9A9+qlNe6Kw7Dza1
+	6+GZDe+pYm/+WQcFzrgD4CT3H3kQQI+JTFX6YnAuraCIgipcvGIl71EhbhDQ6fNCkPNZH35iz3K
+	LgrtJG8EQWV7PwnIYXQu9Y2cDY7lmXkMfwdFvFMqVV0ji2c1ay8cOik14OzG7AmVW6WiN64rhv7
+	6Pt87MuTpSYMXJtI4KBZv6lUfFB4kn4vkbzPpVvF5vG99eMDp3H2T4PF1lQelBzitLczKxT8ynx
+	5tEvhHwSHdcIFiCAWFINODUr4PFKEHhdI2MepFIET+O0GxkgCPNo8RwUPA01WSapam64=
+X-Received: by 2002:a05:6a00:3995:b0:84f:a82e:d32f with SMTP id
+ d2e1a72fcca58-86f82e5bc49mr11440122b3a.3.1789460606294; Tue, 15 Sep 2026
+ 01:23:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915030336.1192299-2-ynorov@nvidia.com>
+References: <20260914072842.24420-1-phucduc.bui@gmail.com> <20260914072842.24420-8-phucduc.bui@gmail.com>
+ <693fea96-1905-49c9-b1c5-3fa1ceb4874a@collabora.com> <CAABR9nH5e=kKRsHQYx7u3HtWgA3C897d9dH4h+wQTpZNGaTRHQ@mail.gmail.com>
+In-Reply-To: <CAABR9nH5e=kKRsHQYx7u3HtWgA3C897d9dH4h+wQTpZNGaTRHQ@mail.gmail.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Tue, 15 Sep 2026 15:23:14 +0700
+X-Gm-Features: AcwNN1VJxWS0kfmgYMTWj5HmLKEavOhSqOjDUWyYXdNn-q4rjwexIxFPMbacpHc
+Message-ID: <CAABR9nGVYghGE-kshpeJQJrvuUFJmDATW_mBCoJfVwDNVnSErw@mail.gmail.com>
+Subject: Re: [PATCH v2 07/13] ASoC: mediatek: mt8189: Propagate runtime resume errors
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Cezary Rojewski <cezary.rojewski@intel.com>, Cyril Chao <Cyril.Chao@mediatek.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Dan Carpenter <error27@gmail.com>, 
+	cassiogabrielcontato@gmail.com, linux-sound@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 14, 2026 at 11:03:19PM -0400, Yury Norov wrote:
-> DEFINE_MUTEX() uses a static lock initializer whose lockdep class key
-> requires a persistent object address. Reject automatic local declarations
-> with ASSERT_STATIC_STORAGE(), in both the regular and PREEMPT_RT variants.
-> Align the VMA and memblock tools stubs with the kernel declaration.
-> 
-> The two automatic mutexes in the WireGuard allowedips selftests already
-> call mutex_init(). Replace their redundant static initializers with plain
-> struct mutex declarations.
-> 
-> Assisted-by: OpenAI Codex
-> Signed-off-by: Yury Norov <ynorov@nvidia.com>
-> ---
->  drivers/net/wireguard/selftest/allowedips.c | 4 ++--
->  include/linux/mutex.h                       | 7 +++++--
->  tools/testing/memblock/linux/mutex.h        | 8 ++++++--
->  tools/testing/vma/include/dup.h             | 5 ++++-
->  4 files changed, 17 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/net/wireguard/selftest/allowedips.c b/drivers/net/wireguard/selftest/allowedips.c
-> index 3e857e6fb627..ecb2908228e7 100644
-> --- a/drivers/net/wireguard/selftest/allowedips.c
-> +++ b/drivers/net/wireguard/selftest/allowedips.c
-> @@ -257,7 +257,7 @@ static __init bool randomized_test(void)
->  	u8 ip[16], mutate_mask[16], mutated[16];
->  	struct wg_peer **peers, *peer;
->  	struct horrible_allowedips h;
-> -	DEFINE_MUTEX(mutex);
-> +	struct mutex mutex;
->  	struct allowedips t;
->  	bool ret = false;
->  
-> @@ -499,7 +499,7 @@ bool __init wg_allowedips_selftest(void)
->  	struct allowedips_node *iter_node;
->  	bool success = false;
->  	struct allowedips t;
-> -	DEFINE_MUTEX(mutex);
-> +	struct mutex mutex;
->  	struct in6_addr ip;
->  	size_t i = 0, count = 0;
->  	__be64 part;
+Hi Angelo,
 
-This should probably be a separate patch.
 
-> diff --git a/include/linux/mutex.h b/include/linux/mutex.h
-> index 734048c02f4f..2f2d95f3097c 100644
-> --- a/include/linux/mutex.h
-> +++ b/include/linux/mutex.h
-> @@ -11,6 +11,7 @@
->  #ifndef __LINUX_MUTEX_H
->  #define __LINUX_MUTEX_H
->  
-> +#include <linux/compiler.h>
->  #include <asm/current.h>
->  #include <linux/list.h>
->  #include <linux/spinlock_types.h>
-> @@ -84,7 +85,8 @@ do {									\
->  		__DEP_MAP_MUTEX_INITIALIZER(lockname) }
->  
->  #define DEFINE_MUTEX(mutexname) \
-> -	struct mutex mutexname = __MUTEX_INITIALIZER(mutexname)
-> +	struct mutex mutexname = __MUTEX_INITIALIZER(mutexname);	\
-> +	ASSERT_STATIC_STORAGE(mutexname)
+> >
+> > In the probe function, there's a call to devm_regmap_init_mmio(), and that's being
+> > correctly checked for error as in, if any, probe will fail.
+> >
+> > So... during suspend or resume or anywhere else in this driver really, the regmap
+> > pointer can't be NULL.
+> > The right thing to do here would be to just remove the useless check.
+> >
+> > Mind you, this comment applies to some other commits in this series as well.
+> >
 
-My tree no has ASSERT_STATIC_STORAGE. Please repost when that lands?
+I found something interesting:
+
+in mt8189_afe_pcm_dev_probe()
+
+-------------------------------------
+afe->runtime_resume = mt8189_afe_runtime_resume;
+afe->runtime_suspend = mt8189_afe_runtime_suspend;
+
+ret = devm_pm_runtime_enable(dev);
+if (ret)
+return ret;
+
+/*
+* Audio device is part of genpd. Registering it as a syscore device
+* ensure the proper power-on sequence of the AFE device.
+*/
+dev_pm_syscore_device(dev, true);
+
+/* enable clock for regcache get default value from hw */
+ret = pm_runtime_resume_and_get(dev);
+if (ret)
+return dev_err_probe(dev, ret, "failed to resume device\n");
+
+afe->regmap = devm_regmap_init_mmio(dev, afe->base_addr,
+   &mt8189_afe_regmap_config);
+if (IS_ERR(afe->regmap)) {
+ret = PTR_ERR(afe->regmap);
+goto err_pm_put;
+}
+-----------------------------------------------
+
+Here, it looks like mt8189_afe_runtime_resume() gets called
+before devm_regmap_init_mmio().
+
+So if we remove this part:
+---------------------
+if (!afe->regmap) {
+        dev_warn(afe->dev, "skip regmap\n");
+        return 0;
+    }
+-----------------------
+from mt8189_afe_runtime_resume(), that could actually trigger the bug
+we were just discussing.
+
+Best regards,
+Phuc
