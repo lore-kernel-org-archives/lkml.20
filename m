@@ -1,133 +1,190 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F2B47F781;
-	Tue, 15 Sep 2026 13:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480114; cv=none; b=YWcCPtK6nTAkKomES9nMxo41l7Vjt1rW2pNpypHd0hOs0p6l2HSQnGkEUtWDMPws8ub6BUyvrtFQNr7GleHPwjpGZdmu75i5Yx9PnvSSvusWC9PEPZosBy08VYzT7bgUhdE6o8Kzmrdejupi1wsU+mm5XKyseocx8Ojh/iKN224=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480114; c=relaxed/simple;
-	bh=eIzBQCQUY0UEONgpR6GEDl+8l9qQpm1A7xQydUe9Zts=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DABtCXoG5k8c25qVgs6ez82GPtruHXUQkjW27IIaWRqRRqDkJBTEbFi4YVBAFhpY9BmqZjmJnDwFBTViuEHUUxBP8Qcs09hAOG2PJ97FZUBj99geqa1cLg9K64q81MxjaWv4rDBxWHMTWcEKFVI1vEWTRHn2gH7nJwwx+VoBycA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=zEb39bTZ; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5F33D7D82
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 13:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789480154; cv=pass; b=NnnwH0+/vHy/6UjolGRadegIZgTX50o5KVUAXTN17YCD8Oih0i4ia7d3YaoQKaqh/qaGp27CsYik1615PdhRoAKv+VOcw0koGgMVxyY3E4UKxPAPHGX+KRMfB4IMCYlVeOIe1nHtka60hNVefnfq/eX7qtBMExmPSdiEsD48BRM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789480154; c=relaxed/simple;
+	bh=p/bm6QL+GjFW9OLC8hTQZX5y3ubnpWDY/+48cQOWXNY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WxKmcou3u6LrAbIwSljsljKj847MkVU6m/DEuUSa/iWhB1BBRYlZ6EYvTYsRbSa0rwdJ5VLora5ijBB8ox5u2rCMMtcLKyVZ3CIhtFQLyXmLDHvgth+Su4x0FeYxAMQbmVX2yyWEWC6uqfjJtEXBQupr7RP/vUfQDkbQpzr4hK4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=P8gab8/L; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="zEb39bTZ"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 42B57534022F;
-	Tue, 15 Sep 2026 15:48:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1789480108;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RJn8QGVr5qpe8l1FMRM/2xjsfgAMHHBeCMO7efrHp3Q=;
-	b=zEb39bTZpeiKJlu/WS35Ufn8G6mjBC7MHaJoM/r3Fy7bmG4UNBE5RTiwp704mB65ao6A6b
-	2nGkC3ewWZZXBUpaIMlUWHpYK6LWsv8/kd+4CMYqCb0Z1SB5N+YyYMf9oXpx901DEPjqRD
-	kD5aMWU5gghq8FIPeNcsw2MA4eosudA=
-Message-ID: <d8b4aaf6-3085-4319-a5d1-c099e6af16df@ixit.cz>
-Date: Tue, 15 Sep 2026 15:48:27 +0200
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="P8gab8/L"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed6d6eso25032435ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 06:49:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789480152; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nL6eY2OTn/mrkhCv1+/qKOhUYSeTfuwhaf5zoWYsQYy0E7EvBx09xFq/2ag9cMVZj2
+         FKpGp7DPRCd74gCXMPAQEhNjTIZL7X6E4yw9F913zszbRweSPWcHrYkQePOFxcgPBhz7
+         6jod70U/48JKbOB8lzcckY+UuVAyjLIV6cS+1U5oOgURfDjyQcdOXJVzisUvEcwgn17F
+         +KwF641oLmrRRexls5Ey1oP9xwiecyVtQA9SQ1hYls43ESmwSMbjhAikkTQ53YKrAGus
+         zA8/eiuPaKTaHD5tbVbM60CAGW3pyrCLVo9BFql2xkhyZxRDARWceIrgP3OMYkix6bVb
+         CNAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hfjv+aIw8i3wro2/p0OoyFtuhvMOB8Aw+vPjdiNRKoA=;
+        fh=4MDmrNyJOZ4S58I5/sjDoeoerd4T9kijYI98c80K+1M=;
+        b=eOKtkfkrd800RqTihjlUWlZl+AMFOg2IMZy6d1Va98+orGfiUA3G358yFM2wqnd+9E
+         7CPPXtREh5Ip+RamQFpJwbMEaKpyTAW1f2/Jy5i3O9Nng4CUbyffJcqToKZdOpBPOMr/
+         ZBHrvFHyf2U3nEjqzqte0Ne6a9rXvHs9UAMfksQbS3AQ0vNt/evT5OsSoDctfB2OcsHw
+         9cLUDm9GoGl1iU0H34f0xsJCtbAYftemLwH/pw/lbTAU/cRND9sm1GLRtaB2F9fIPGam
+         4xkOt7E+RPYGpBDcgL0WC+CsUO4ry3fp6LlryEOeLX9yeWT8QAAjoKd53ECfY1BykDSN
+         gF1Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1789480152; x=1790084952; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hfjv+aIw8i3wro2/p0OoyFtuhvMOB8Aw+vPjdiNRKoA=;
+        b=P8gab8/LIxgoWv5WSYZ5XmiPc+9KnG9ftFS75Y8XgxPwNC1XkS/5FRAWlui0rnoBUc
+         e63ZkwUri4zh2ENbShABXQWBgMWgO2fNwa0TMU1ZgqfveC//mhcE2DQCLcw69Aop0Imf
+         jkqPwNvyLWUVxNWhyj6x9Urzx5we+ovLN4i5AyZQQnuNrS4u9Ol+DWjPpBnPMTlObK2M
+         TQ2Rq6SgS2AvjfZlo1TMhca++nRCaYSlbWyjrQRA/LLcCbfZEW50VrfMp8AH2LBD1kZE
+         sHUSAgEjVrVimXorAwYZjd5EWGrLZgg6M8y0Ji0OxPOPIh9KwoaOL5PR1AfKau+QyS/k
+         sE3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789480152; x=1790084952;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hfjv+aIw8i3wro2/p0OoyFtuhvMOB8Aw+vPjdiNRKoA=;
+        b=hw8JAAh+ObxcRsWTHuefCTjzTSZvyTRkaCVuiQcbxZ6Oy+vlE+fES1WtdxENdL8Eej
+         xd3e9nzkDiCwTZk1UGy6fyN4WO0VcI8RKKWJVyKk5EhxPDj5XdDrhfFufU5EtRNRgQHO
+         BqTSnK8n019hy6/YsX8xM98yMmzwkg0a3z61CEKJxgKTVHCvS2CRIlO02hhXMD40YNfj
+         9SEH4Oi5Nb6qdGSW3RNwk8L29Wt1GY92cAX3xZeWBoAPasvAh3z0t/LDsf1v8f1fiirj
+         8FEw1lip/XoPPSzZ44D+mxnig+X317JlunQ3QDMa4yD57e2UrhPD9uts9dwhG7xEatsw
+         pYqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPgble8D9159qSywPj158DkUJaevJgKv1rfL4o33FRomHS/ycZNJUKEldAYEcKaWrDthqWSQrewYiPo/A=@vger.kernel.org
+X-Gm-Message-State: AFuF++luKxXGkanZGskkT8gMAZvEBjB+AIFIFcT7SPBQO/dl6c0Aiqqo
+	Hx+Qi1k7D1ZRnVehsEKuYmekF/o4Rx3vMKfee8jm6VFi6GL/cQcycKefeATMDJ4sKcDQmwrzKtG
+	hwQ3ekAHvprcDyR1ETuzVnWnLyXGS8IewDS/NSeRK
+X-Gm-Gg: AYBFou1GBArTaw/z1PDabXdhYgXPa+Izl4CjDkSuBov3K/yAbMPkv/YFKRadFw3y/yH
+	snck0p5ZTM89M3Me9ff7pWe8/Q6ca5FBnLdlo93zQEo72g4Im7v9hlE4hdY6zDL/4kIwGcZvdUV
+	ZBk0e6qIURs0cmUmxFb26Czp0W9Uc1Ae84KGMXGWDl6ZlteIRoN7AsubYq0eGv/MuskDXoL+FwH
+	vsmW38v7MaQpyAOcStqWmj11BYj5Cw7o+vD+V+mj9M7oZIdm1v609WZLFW0WkDuulvgtMZMqPTV
+	J97D6O1+b1FzkAJrWg2tkV22jJyqUbITvYKbXYNL5bsxpG5I1vCQXc4xtJI63WFYFXByqmFGI3C
+	tDqGx1YcJdhw=
+X-Received: by 2002:a17:902:e544:b0:2db:63cb:1b17 with SMTP id
+ d9443c01a7336-2dd6c7a7986mr146446375ad.18.1789480151741; Tue, 15 Sep 2026
+ 06:49:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260809-dipper-v1-0-eb4d501e85df@ixit.cz>
- <20260809-dipper-v1-2-eb4d501e85df@ixit.cz>
- <8f05bf47-183f-4586-8ed2-eb2277f15c98@oss.qualcomm.com>
- <b8cb7327-1e1b-4a44-ac97-dec9b6c32e9e@ixit.cz>
- <5b1f237a-8675-47ae-9546-64b68c5d59f6@oss.qualcomm.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <5b1f237a-8675-47ae-9546-64b68c5d59f6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
+ <aqHUw6k0Mf83CGFT@zenbox> <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
+ <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com> <aqTZdCz6JaoK16Fp@zenbox>
+ <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com> <CAHC9VhS0JckwfomqLTUJkZZkDSgeRXYOjMmPQYErgYynQYqMKQ@mail.gmail.com>
+ <CAADnVQJCJjy9Eiwn6-88c0iOk4LfgPU6KBv+w0JZdBzmXBMUCw@mail.gmail.com>
+ <CAHC9VhTh446SkpPF-hUiLYOHipuurzkgju_nH9LsRGdERSAL1w@mail.gmail.com>
+ <CAADnVQLZscKkCxvK5puuOE1aN8nW6PnaS+_dx_zBQjjP2T-DFg@mail.gmail.com> <20260915-laken-ferngeblieben-verflachen-bafe1f296b02@brauner>
+In-Reply-To: <20260915-laken-ferngeblieben-verflachen-bafe1f296b02@brauner>
+From: Paul Moore <paul@paul-moore.com>
+Date: Tue, 15 Sep 2026 09:48:59 -0400
+X-Gm-Features: AcwNN1X1VBqKl5wb2opR2SZklPVGLAG3iamTS5-uRRzujO-KJnfUrMjsThqzpGQ
+Message-ID: <CAHC9VhTC5YvALs5K76qDBP9bDRpZPc_V-U8DPZ8qhNsCsXyLnQ@mail.gmail.com>
+Subject: Re: LSM boundaries. Was: [PATCH bpf-next v3 04/15] lsm: Add the
+ bpf_lsm_policy_release kfunc and policy object destructor
+To: Christian Brauner <brauner@kernel.org>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Justin Suess <utilityemal77@gmail.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, KP Singh <kpsingh@kernel.org>, 
+	Matt Bobrowski <matt@bobrowski.net>, =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Kees Cook <kees@kernel.org>, 
+	Casey Schaufler <casey@schaufler-ca.com>, =?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
+	Jan Kara <jack@suse.cz>, Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Eduard <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Tingmao Wang <m@maowtm.org>, bpf <bpf@vger.kernel.org>, 
+	LSM List <linux-security-module@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 18/08/2026 11:47, Konrad Dybcio wrote:
-> On 8/18/26 11:38 AM, David Heidelberg wrote:
->> On 18/08/2026 11:27, Konrad Dybcio wrote:
->>> On 8/9/26 6:48 PM, David Heidelberg via B4 Relay wrote:
->>>> From: David Heidelberg <david@ixit.cz>
->>>>
->>>> Initial submission for one member of the prime Xiaomi Mi 8 family.
->>>> Mi 8 Pro (equuleus) and Mi 8 Explorer (ursa) are nearly identical.
->>>> Known differences are battery capacity and fingerprint sensor placement.
->>>> This submission includes basic abstraction for other developers to be
->>>> able easily extend it to support other variants.
-> 
-> [...]
-> 
->>> No SS?
->>
->> Haven't thought about it, for now my goal is upstream basic telnet/ssh + FB. Then display and touch - e.g. minimal u-boot and kernel development features and then bring the rest.
-> 
-> If you have an actually-superspeed cable, the link speed in fastboot
-> should tell you the truth, or alternatively you can try plugging it
-> into a DP dock on downstream
+On Tue, Sep 15, 2026 at 9:00=E2=80=AFAM Christian Brauner <brauner@kernel.o=
+rg> wrote:
+> On Sun, Sep 13, 2026 at 07:24:14PM -0700, Alexei Starovoitov wrote:
+> > On Sun, Sep 13, 2026 at 5:10=E2=80=AFPM Paul Moore <paul@paul-moore.com=
+> wrote:
+> > >
+> > > On Sun, Sep 13, 2026 at 7:25=E2=80=AFPM Alexei Starovoitov
+> > > <alexei.starovoitov@gmail.com> wrote:
+> > > > On Sun, Sep 13, 2026 at 12:41=E2=80=AFPM Paul Moore <paul@paul-moor=
+e.com> wrote:
+> > > > > On Sat, Sep 12, 2026 at 3:33=E2=80=AFPM Alexei Starovoitov
+> > > > > <alexei.starovoitov@gmail.com> wrote:
+> > > > > > On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
+> > > > > > >
+> > > > > > > If fs/, mm/, drivers/, net/, are permitted to have kfuncs, th=
+en why not
+> > > > > > > security/? kfuncs.rst doesn't seem to forbid this.
+> > > > > >
+> > > > > > because fs, mm, net see the value in bpf. bpf helps these subsy=
+tems
+> > > > > > to focus on their core technologies and moves policy decisions =
+out of
+> > > > > > kernel and into bpf.
+> > > > > > while lsm people treat bpf as arch-enemy.
+> > > > >
+> > > > > It's amusing to read this when just this week we merged a patchse=
+t
+> > > > > into the LSM tree for the benefit of those writing BPF LSMs.  If =
+you
+> > > > > look at the discussion around patch 2/2 you will even see a reaso=
+nable
+> > > > > exchange between Matt Bobrowski, a BPF LSM maintainer, and me abo=
+ut
+> > > > > the patch.  Alexei is obviously welcome to his own opinion, but I
+> > > > > would encourage those reading this thread to look beyond his comm=
+ents.
+> > > > >
+> > > > > https://lore.kernel.org/linux-security-module/20260904-lsm-mount-=
+idmaps-v3-0-920a1963675d@amutable.com/
+> > > >
+> > > > And that's an example of unacceptable land grab by LSM folks
+> > > > that I'm concerned about.
+> > >
+> > > I made sure that patchset was ACK'd or Reviewed-by'd a VFS maintainer=
+,
+> > > a BPF LSM maintainer, and the Smack maintainer before merging (I
+> > > covered the LSM and SELinux parts).  You might want to double check
+> > > your definition of "land grab".
+> >
+> > You're still missing the point.
+> > Christian could have landed it via vfs tree with your ack for security/=
+*.
+> > You have no power over lsm hook changes within vfs.
+>
+> Which tbf is generally how I like to handle thing especially since we
+> usually have a lot of changes. But I'm open to shared branches as well.
+>
+> So I think we naturally have to modify existing LSM hooks. But it's
+> shared pain. Since we use BPF LSM heavily in systemd we generally have
+> to absorb such growing pains as well.
 
-Ok verified, it has only USB 2.0 (spec, downstream DT)
+I have no problem with topic branches that various trees can pull, but
+I do have an issue with the VFS tree merging patchsets that haven't
+been properly ACK'd as well as the VFS tree creating topic branches
+for patchsets that aren't primarily VFS changes.  See below:
 
-> 
-> Konrad
+https://lore.kernel.org/linux-security-module/CAHC9VhTE82bRRSXSUuMOdrfoMh=
+=3DxOb5hDvqiKWzBKD1urab3hA@mail.gmail.com/
 
+Christian, if you want us to move forward with topic branches in the
+LSM tree for LSM changes that touch fs/ code I'm happy to do that, but
+I need an acknowledgement from you that the behaviors mentioned above
+will be cleaned up in the future.
+
+--=20
+paul-moore.com
