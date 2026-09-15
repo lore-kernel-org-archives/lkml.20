@@ -1,81 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D40B4DB547;
-	Tue, 15 Sep 2026 23:39:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EEE14A4EFE;
+	Tue, 15 Sep 2026 23:40:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789515571; cv=none; b=hO99QNDyyi0VDIsmYQa8+JWT+CTe/MW9V6akP9lh4KZ+Ai4QulmMJeHzJ0gYl8I86l4gr/nKsEk9OsqkcZH40z+mWtbojevHU58a0OTN+GPHCySosgxnvIZhCjVqW4cB22k+zmQB+WYrDgJ6Czy+jn/q0AzxKxR1rPlh/AKJWHY=
+	t=1789515610; cv=none; b=AVkSeJwxY++jxu91NyES2UlDJ9nxhtNjw+Lh5W4IfcX2q0wWr8fSWD8eNrGkucLToGVfKRWs42zXfHEkKMW4vbzaty5pZQzr67V7FdvG2/IIjSaYZ4LQd9gZm8OWbqe7ObmpOvv3JfSgYuVDr1d5itEB+oeP7+xL7mFHIrRIltw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789515571; c=relaxed/simple;
-	bh=cBmzsGH8/A1iaHTmWPrlLf2myh+niSK2c22kmFiWMjM=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=mQ2+xcw/6W4vt6/6JXOjKEybs6aPg8iTiRDqgh7Kq2yoVrgaJOZdXi7YF4FWc2LsW6Qb84MfjWzkB9GdhivtOLkvaH5W/+fG1fp665Bxo86czbQybdL0TSxYCenvsgrkm4un5WSmauXoE2r6J/1rVXiJbuna8HasX03I3oybk7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=oOejxibo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789515610; c=relaxed/simple;
+	bh=v5ftwrpbsDLFOCz7/Lj0IJU4Jq4TbiN615j/aMPTfMQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OsZsN00dIYy1LQIJzcQuHwtELIwzM3Zfo0WmFlqzsmFU9/Zg5TJN+qpyLZqeJJosl+OpfOmxALNVMAQQRUXhEGrXvoNKq9NJhBQlYGCURg0j2sh4g6mmms+gabq5d1XJLgBvh4jebKzROdscqzKt0GG+8UpBjBJdIBikkftG2H4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O18Fnit9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="oOejxibo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392231F000FF;
-	Tue, 15 Sep 2026 23:39:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789515569;
-	bh=4m6z6CRskb4Hb1ZLGj5f4sRG4VITlSDdQKTs+jezx5E=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O18Fnit9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9A271F000FF;
+	Tue, 15 Sep 2026 23:40:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789515609;
+	bh=svathgr2/JukVqx6BizuTYGJ1tslyMnbQ+afvAa97f4=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oOejxiboHlvkVxPn0NeFBbBeevJUCag7z37xbXN/w5CIeoOvk835Wv/hOl+kA09z5
-	 i/mlUtuf4DlVmbIU5a4h5a2m9HWWRGSffdZdgKDJNYzH+ub5cE8X3+zCtjGERAyTau
-	 RgyOda1PsB32Ob5dwbCdraALkMRWVwi14wMuRh78=
-Date: Tue, 15 Sep 2026 16:39:28 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: SJ Park <sj@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, David Hildenbrand
- <david@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Lorenzo Stoakes
- <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, Mike Rapoport
- <rppt@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
- <skhan@linuxfoundation.org>, Suren Baghdasaryan <surenb@google.com>,
- Vlastimil Babka <vbabka@kernel.org>, damon@lists.linux.dev,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 0/8] mm/damon: introduce hugepage_size probe filter
-Message-Id: <20260915163928.9d6260f445d895429d115fd8@linux-foundation.org>
-In-Reply-To: <20260915143359.91472-1-sj@kernel.org>
-References: <20260915143359.91472-1-sj@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	b=O18Fnit9C92yUJAzcd5e2Pti2uAOMIpdFNmEdJ5PSN/N/RfjOI5Ss1XMAmAs4jRXp
+	 gm3OTgr69BM2/BVAVXmzTAoHUFUr5yVE1XQvqc0r560HqSpMPMVQ6HNvlbdy8dhOzk
+	 4u71zrOr0WCo7WPRS2NikpIzOfrCyWLpC7yuUf8UBpqQB8uE/PkvKrN63rcgP4eQNO
+	 7yrOUgrQlvLRsz6J3gcZZxCUSblIQX1rX6yvFdpeVOVDenMSrY0SnXzd2ae3DnvBu5
+	 C8DK+QGb+rRY4mMJZXB2aHMIhObUaemABSIFUQhmvcxSYqYyQ3UV7Xp8xVCvBmjisJ
+	 dsj+Z9ANjIxCA==
+Date: Tue, 15 Sep 2026 16:40:08 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Kris Pan <kris.pan@intel.com>
+Cc: edumazet@google.com, davem@davemloft.net, pabeni@redhat.com,
+ horms@kernel.org, atomasov@redhat.com, oliver.sang@intel.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] net: iterate online nodes in skb_defer_free_flush()
+Message-ID: <20260915164008.4f65ddc4@kernel.org>
+In-Reply-To: <20260911023804.3503989-1-kris.pan@intel.com>
+References: <20260911020438.3502801-1-kris.pan@intel.com>
+	<20260911023804.3503989-1-kris.pan@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Tue, 15 Sep 2026 07:33:49 -0700 SJ Park <sj@kernel.org> wrote:
-
-> Knowing whether a given memory is backed by a hugepage of specific size
-> is useful for efficient utilization of hugepages.  For easy monitoring
-> of the information, introduce a new data attribute probe filter type,
-> hugepage_size.  It works similar to the DAMOS filter of the same name.
-> It works for memory that is backed by a hugepage of a given size range.
+On Fri, 11 Sep 2026 10:38:04 +0800 Kris Pan wrote:
+> skb_attempt_defer_free() only queues skbs on the current CPU's node
+> (numa_node_id() of a running CPU), which is always online, so the
+> flush loop never needs to visit nodes that are merely possible.
 > 
-> Patch 1 introduces the new probe filter type to DAMON API and extends
-> related data structures.  Patch 2 updates probe filter commit logic to
-> handle the size range.  Patch 3 Updates the filtering logic to support
-> the new type.  Patch 4 adds new DAMON sysfs files for the size range.
-> Patch 5 updates DAMON sysfs interface to fully support the new filter
-> type.  Patches 6-8 updates design, usage and ABI documents for the new
-> feature.
+> for_each_node() walks node_possible_map.  On machines where the
+> possible map is much larger than the online map -- e.g. a POWER10
+> LPAR with 32 possible but 1 online node -- the flush loop touches 31
+> cold, always-empty per-node lists on every softirq pass, showing up
+> as skb_defer_free_flush() and _find_next_bit() overhead.
+> 
+> Use for_each_online_node() to iterate only node_online_map.
+> 
+> Loopback UDP throughput in a QEMU guest with 32 possible / 1 online
+> nodes (bench_udp, 8 senders, 6 interleaved runs) improves by ~5%.
 
-All queued up, thanks.  With a -fix for [7/8].
+Clashiko confirms this is racy:
 
-> Test
-
-fyi, I'm always reluctant to include testing info in the permanent
-record.  Because it's development-time info which becomes obsolete very
-quickly.
-
-It isn't useful to someone who is reading the changelog in mainline in
-2028 (or even Nov 2026) because the patchset will have had far more testing
-since these words were written.
-
-It is of course very useful info but I suggest it be maintained below
-the "---", where all short-term development-time info is best
-maintained.
-
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260911023804.3503989-1-kris.pan@intel.com
+-- 
+pw-bot: cr
