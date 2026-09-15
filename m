@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698BE34250E;
-	Tue, 15 Sep 2026 14:20:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DAD3B0ADB;
+	Tue, 15 Sep 2026 14:20:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482057; cv=none; b=s0mZYxczutSB4lQ2CJXte+ES4MzFbMvQHKQl8uQ/gsP7ukfza/EbLPt52sVb4aAEJ0IGGMgzHusSFfB4nq7AfVRVqRoIGKY6pWWpIff/X4hm55zFPwYczzmCnG1nbsLW6SLsy3yoIxGocnaixbdxaopQyveRyNrbRLXhtIFecXI=
+	t=1789482060; cv=none; b=ez6MhQjODBatsdRO0YSBZPW2Llcpn1caCYPKSL5T2UL2Qc95cYce0WRdzVqVz50dKQ8lBy9IHe3Vo7R1l+Y0HExGxybthiJQW86n+/2vXCjgFgAP23ClrGlqUO90K83iWkKdaUjkpbZdXHYnDJuCNEg+WI93FG6r01TC3k+OfnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482057; c=relaxed/simple;
-	bh=Awy5+gwh0rQDeMWDu61RRk6Jl4HDmD2yiFuj1eEImRg=;
+	s=arc-20240116; t=1789482060; c=relaxed/simple;
+	bh=MVWfLseSKoY8UWv3qOWXRywa9v8PwRgqf50RtAy70fY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UFQYVj2CCat831Lwhflv0zC8Hovvv/4UyM/D/yEj7eFjO2HX6weRHjMZcoB6oe7zWFdM8tKLW9GvzJQoJ53UeX3HCzSj6sPwao9/8b4TzGuHAej1wbNyFCqV1m/qkmNyFwM9DLMDuT8WP9i0N5Z/zzNIqdVdViTXA5ciLUAamxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JToynxhs; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=F8gc07PaTjchX7/LT03gAucNed/KLtDqEiLQLOkwReX9fay1BH2pVjdLzrgr2VvBWwPJzGxFTxwIibVbnAaTNmr5CRbYvqRWiK0RlvUa1ds72PnFCAUvhr04Gopwf/pR/bHOpxQza3qY2CCDQPNZq2azphOcDCvxfCgps0KRfVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JVLaOBuE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JToynxhs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85FC41F00893;
-	Tue, 15 Sep 2026 14:20:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JVLaOBuE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B791F00899;
+	Tue, 15 Sep 2026 14:20:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789482056;
-	bh=dpB20xJYi1VEUnx78YqG5jvGGAspVyU+zm/IYjxVoDM=;
+	s=k20260515; t=1789482057;
+	bh=uOoXR9XwKEVJv+80SOBDs9JGjW6p0beKPPbXNt3sOPw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=JToynxhsk0wiy6MNWt06/gALfuescFnCBodQJUxPWaeiH8W1k1JvI+L9RvRSsHHyO
-	 jziWReuLKh2QdmHzF1RUK2UKzuRW6BOlcsBPSBDr2o/mGR5ZoWU/wlEMCtqsrunYkn
-	 9N3HXVIw+Zj6mCdrsvwbwGuB+da5e1Nx9X0gwEmdHZ9FcKXwoxh8rqsX1jdD77yXt0
-	 wxz62q9B7w4eYBG2vjutWBtXd1yDeuWwQZPS19AmiKHz0Zgjoc/0DXIyuWFzPJCKqD
-	 fr5KmeVrMzAZ0qCIQ9GkoKLSJe7G4eH/BUfw7hig+qtABi/+J3F4KArjzOSP5I9hog
-	 bvN7vRuY4o2hw==
+	b=JVLaOBuE4NG6yO/4lO3N0SIt4l+6VPByZD09YeJmDGeITHSNG56gmY82Q+BOUF0Lx
+	 ioDcHcqedzzUz24Dge9TX9wP/NnGPIP6bqTQXZ6e7Cl+bZu8H8Ry7IjtNU88Od0hHY
+	 DFnTdCBOGTIfK9DvmhjzSNwNNGit+q3N/by3p3/XvVlHJ8gy8iAf+Df6oCgtLX4hsn
+	 nv8gDv6tue23MnFWSLyHWFyWyqQEdu9A8PiSbdxy1y+GYTyDyLqr+EOE00exOXlDPM
+	 chWzl87Uw4F4CYlTyrKsSg9ryZ6/EXXh3g6NY0vnNuf/tZ2b081/BGt+drd7Jm5TXF
+	 NahaGPvqLrEFw==
 From: Chuck Lever <cel@kernel.org>
-Date: Tue, 15 Sep 2026 10:20:41 -0400
-Subject: [PATCH v3 1/4] SUNRPC: Use atomic_t for XID allocation
+Date: Tue, 15 Sep 2026 10:20:43 -0400
+Subject: [PATCH v3 3/4] SUNRPC: Set WQ_SYSFS on rpciod and xprtiod
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-performance-v3-1-ae26d460bfd3@kernel.org>
+Message-Id: <20260915-performance-v3-3-ae26d460bfd3@kernel.org>
 References: <20260915-performance-v3-0-ae26d460bfd3@kernel.org>
 In-Reply-To: <20260915-performance-v3-0-ae26d460bfd3@kernel.org>
 To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
@@ -45,77 +45,60 @@ Cc: Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
  Tim Menninger <tmenninger@purestorage.com>, linux-nfs@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Chuck Lever <cel@kernel.org>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1882; i=cel@kernel.org;
- h=from:subject:message-id; bh=Awy5+gwh0rQDeMWDu61RRk6Jl4HDmD2yiFuj1eEImRg=;
- b=owEBbQKS/ZANAwAKATNqszNvZn+XAcsmYgBqqVRGRSHTJe2CEwQscWK7NazXXz08S5bbw5HYa
- j+Bw83t+X2JAjMEAAEKAB0WIQQosuWwEobfJDzyPv4zarMzb2Z/lwUCaqlURgAKCRAzarMzb2Z/
- l0VXD/9o7u7JdDxubha8wG867idoHbBqfv7fuHBmX5hTtPxBBE/T0jmCtfa1cAO/WuKGmK2VgEJ
- 8XwENmryqcOz4T63ld8fEvRyt5Ayn0xlacQD0vZqrrds7MJ9BbKHKfpokGUupbu/CXAM9maYczW
- fWNQjyMKCUQD3DCQK7rfpK/VRpHBZKwtDndhRID96F3VAI+5lAEOOJls0yp8Pr7L2sFLcdve+nq
- Jx/mvGFrqhpl4hPhyvLgWpHxpnYpkcQODuuGtxwrw0LtLFtCUWvQwCSBGybUMsM1IP8L90C+kJ0
- wTPTt+hg6pi9iNN0RE8mZdyDJYDXgwzvxEB9sDQQZxvw2hydbwqoqJAx9u05VMT3a834ZK2EgJx
- O3HOcof/oiL8nl8mhPPRBInKr+ZJfleGAAoX6AJLYcU1rOGgJENrF4wiRWAREleT7URxe9lcREh
- nfl86bWRGLzQ7WSukeDFqH5l6w2DNFcXw1OxIpEDuSMEM7Dy7+Jb+s18CWiZYz4FcNP04bUE16I
- n7ZYxU0H8t1VlXByv9cjOtqIJRE3aYKPHbptm0TqX57Ajh4dAO9kfds2+gWv905yqtwwqoKSeXb
- OXpYmuDOZ4tg60eMj0Am+lsz9u00BVZYnpQ9YKwUYcdUMayoVCofmAkcLKGzivVj4kMC9qx+39Q
- IM+VkOTQZvEWsBw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1248; i=cel@kernel.org;
+ h=from:subject:message-id; bh=MVWfLseSKoY8UWv3qOWXRywa9v8PwRgqf50RtAy70fY=;
+ b=owEBbQKS/ZANAwAKATNqszNvZn+XAcsmYgBqqVRGyoM/WxhBmaluE0lgn0JDVdi/22fNoI1Fv
+ gQy+82xgoOJAjMEAAEKAB0WIQQosuWwEobfJDzyPv4zarMzb2Z/lwUCaqlURgAKCRAzarMzb2Z/
+ lwy0D/wJOjFQvrvrrZ3zgcALTegBuuHkGLJ36p3E35kf1L8QuzfLSqnQGBfXI05PccRpoYK5cTJ
+ xAJ4k1wIZ+xVrEtuTN6aOw2B7UjWbSIcQz1YBjFZG0YLdaAafDDCEooekm+2ir7zfr/d6SGaOA3
+ vv+oQU5ADLc9KjrDhEZ/ilc4qseKEGi3zEqvSGi+glJlSecd6XI921/5bRJT1goyeVQ3AxYB6zg
+ Faip7M56MPi6WXvxBrguDC/YiJo652iEBuhvbKmqTcsxh2h2w3rAnU3GcUSE6pXcmHooMgcbB1Z
+ QKG9cW5xqLU28Bio5LOHvo0gq8ffo60KjD/1LULQ0TWB9MhfNFnOlYt30p87nDkGbURtiOzKzcU
+ xfJfg82n66fkQX84wUAio1+EBHHfdi3+htXTNTgMAhsNZqQKLCs7h0ABjRBfT9pkQdG3S62JSRo
+ jdUbsOq4eQI1W2mT+weyyHosfFYQERdr3S/0bLUEYwLe3+a8Sb87rsXnFJRzAG/sGMhi3X9pP4v
+ AwxWeYQBDmhiR2I8iuTfW9nK4NtZxXgBSK4ML0Th8dhN41MH4v2fGQ7WgVh2Ae9C2hvpqO1MPPV
+ XcgT9+/0MHQhzXh7j7tSv5Z+y2QjiNiJ+a3c38UNxmqevCUBlP3j4L5aBGM2SQLutE+zDKRGqyX
+ Tf/wCSN5eHchGcg==
 X-Developer-Key: i=cel@kernel.org; a=openpgp;
  fpr=28B2E5B01286DF243CF23EFE336AB3336F667F97
 
-xprt_alloc_xid() acquires reserve_lock to increment a simple
-counter. Under a high-IOPS NFSv3 workload on 100GbE RDMA,
-profiling shows 1.06% of system-wide CPU cycles contending on
-this lock in xprt_request_init, as ~150 RPC worker threads
-serialize on the counter.
+An unbound workqueue's attributes can be changed at run time only
+through /sys/devices/virtual/workqueue/, and a workqueue appears
+there only when it is created with WQ_SYSFS. rpciod and xprtiod are
+created without it, so their affinity scope cannot be tuned without
+reloading the sunrpc module.
 
-reserve_lock protects the slot table and backlog queue, but
-XID allocation is an independent operation that does not require
-synchronization with either.
+Create both with WQ_SYSFS.
 
 Signed-off-by: Chuck Lever <cel@kernel.org>
 ---
- include/linux/sunrpc/xprt.h | 2 +-
- net/sunrpc/xprt.c           | 9 ++-------
- 2 files changed, 3 insertions(+), 8 deletions(-)
+ net/sunrpc/sched.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/sunrpc/xprt.h b/include/linux/sunrpc/xprt.h
-index a82045804d34..0d6c3f6bf97e 100644
---- a/include/linux/sunrpc/xprt.h
-+++ b/include/linux/sunrpc/xprt.h
-@@ -273,7 +273,7 @@ struct rpc_xprt {
- 	spinlock_t		transport_lock;	/* lock transport info */
- 	spinlock_t		reserve_lock;	/* lock slot table */
- 	spinlock_t		queue_lock;	/* send/receive queue lock */
--	u32			xid;		/* Next XID value to use */
-+	atomic_t		xid;		/* Most recently issued XID */
- 	struct rpc_task *	snd_task;	/* Task blocked in send */
- 
- 	struct list_head	xmit_queue;	/* Send queue */
-diff --git a/net/sunrpc/xprt.c b/net/sunrpc/xprt.c
-index 48a3618cbb29..186c14f0f928 100644
---- a/net/sunrpc/xprt.c
-+++ b/net/sunrpc/xprt.c
-@@ -1882,18 +1882,13 @@ xprt_init_connect_cookie(struct rpc_rqst *req, struct rpc_xprt *xprt)
- static __be32
- xprt_alloc_xid(struct rpc_xprt *xprt)
+diff --git a/net/sunrpc/sched.c b/net/sunrpc/sched.c
+index 016f16ca5779..e81419aa553c 100644
+--- a/net/sunrpc/sched.c
++++ b/net/sunrpc/sched.c
+@@ -1273,16 +1273,17 @@ void rpciod_down(void)
+  */
+ static int rpciod_start(void)
  {
--	__be32 xid;
--
--	spin_lock(&xprt->reserve_lock);
--	xid = (__force __be32)xprt->xid++;
--	spin_unlock(&xprt->reserve_lock);
--	return xid;
-+	return (__force __be32)atomic_inc_return(&xprt->xid);
- }
++	const unsigned int wq_flags = WQ_MEM_RECLAIM | WQ_UNBOUND | WQ_SYSFS;
+ 	struct workqueue_struct *wq;
  
- static void
- xprt_init_xid(struct rpc_xprt *xprt)
- {
--	xprt->xid = get_random_u32();
-+	atomic_set(&xprt->xid, get_random_u32());
- }
- 
- static void
+ 	/*
+ 	 * Create the rpciod thread and wait for it to start.
+ 	 */
+-	wq = alloc_workqueue("rpciod", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
++	wq = alloc_workqueue("rpciod", wq_flags, 0);
+ 	if (!wq)
+ 		goto out_failed;
+ 	rpciod_workqueue = wq;
+-	wq = alloc_workqueue("xprtiod", WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
++	wq = alloc_workqueue("xprtiod", wq_flags, 0);
+ 	if (!wq)
+ 		goto free_rpciod;
+ 	xprtiod_workqueue = wq;
 
 -- 
 2.54.0
