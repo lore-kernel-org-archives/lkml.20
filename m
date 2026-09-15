@@ -1,211 +1,128 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012011.outbound.protection.outlook.com [52.101.43.11])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7671F3F9A1E
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789505686; cv=fail; b=rXrvmz+U/cd1gVQqcjSU7swuaNRwyBhrvn9TdG0vwvjtoWZAaEpSXPuyW4ukMncB2ehoBbEFPMIzaAFgT6jxk3Retzfh35ImVfC0lajBY3CqIohvWp81DiDgwW+lhXKM0siTyeGHTRxfA3YBHdZ9LbWf4LlgrxCoplUcREjanu8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789505686; c=relaxed/simple;
-	bh=nLyir9GSEkBwFZqkd5sMfEfODcGF71silRX5YXSAlNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=n9FV98W6pDrPEyTrXuzLTGVfjCkPXZ2Gragt6bPj0hDJqFnvA1kcjbuIS2Wh0s67ZAlcvzYXCes0Mb3NG3pzgD/RUPZQ8PHX/z7lWHsUpMjK2uDDsY2lRNDwzZcgq76c8JaElXUeI/XAs+FVPelUA6L/2AosS4DBWhLRACQtTLM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=j7U+W9Gt; arc=fail smtp.client-ip=52.101.43.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5943F3A4508
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789505710; cv=none; b=pE3vXni6qiJG2fIQoRiQ6lYKK0S0Axq7phisflhEN47BmpgFJTy1HYv09Ccb4QH9PJRtmWu+o3hhcPknF8lMVG4ft+OiMkJHTefHdhHUQPZZS1x212rATRJ5S+1lzZqhbeGA7ijEVqJhUluvkKX4VuMLgTU4r4gF9LSe4m5UilI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789505710; c=relaxed/simple;
+	bh=27sO6KtlemkQnmjYUtrvmThL/hqWpjX6SXt72t2Ga4c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qt9h/1qBrMyJbxv5XMAldiDW90juZ2D/aJYvlW3L7MWwQ8mVZ5e42Ml9nHXhWjurckoa32nTBq8y2ndFKTiCxSRTEsW3qFtwC0zBh/wjWzQkeOoYOvVGMH3qj4Ua4nQjX8FQgpSAmIC1bQ9/nMf0j4AxnsnDav6yIFo6sAk29Tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=JNn8bEIE; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="j7U+W9Gt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZGga8k3kVm3qglwsWg7d/SVJxGKTvdG/f3GGtzxtImVLmMfC4WKK3vHG6m7RD1OFry0e56Iw675hXXXVJLzlCdSWH9GhDF5ptRSJYFqYpNW/JPVtL4uOtAVjLSoCH4K3PP7eZUEuNSyMqUWuCdPdQ91P0y9TiebPJmaL818vK7Rapn5KQmaL7ee2Fa23uFhsD5IRfJrzee1vrVAiqDdXMf5Y9yFMPR90kk0tTTKdSWblRCmOzxwdnEPcgnUvSIDGuYr4sCyu6xDq0v33xki/AkNyvOcCxbmGRqtsOqPuU3BpKS1z9n3AGX4JDMbU4ESkNn7Pt0cANO3Vi3U+uxTbkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E/MiVVoBFLxoJPwuF6F6qC2wn3zKkDYf6G5Ls8e0Lec=;
- b=rWi/PPwaOA89k98v5NUvqO6m8IsTpKgI58IBlBphdFbaK9gZcmL4Ewinam4c34PNKOuzUw/lpDNhtKefBXuMwXGP5jHH+NfpczU1OpWo9/CS5e/SsqzNN1AJt4SlMbV6ocR2BmbACxXJp40y4loJU2P6enkdQCBkMqiK0NIU8ASxd9CeemXVvk77STIpHnNz2A/SbpovNHmvp2qy3rAcy+u69sKmepCMjfIiYj6pK3yAHVpmBYJvfCAafwO20yHGu9nDHsfItGgr2j5lay2ABoesDwhRfsY1VnyrjXlPdxr/Hj5gclCq4YwO8Y4bj6plTCoyykEBONRKjGxyp12ZHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E/MiVVoBFLxoJPwuF6F6qC2wn3zKkDYf6G5Ls8e0Lec=;
- b=j7U+W9GtELh9VSFlNHs5H54Qyfwjt6KVCP2XRxO46apjYoWofzTX/sS3J//cWzqYRrAo/yyTsl70b309UpuLxTT7RrsiZqsEJnqqdHoICxvfVWxgF1vW12cpUlxcmctfrEznbTRlQb4//6HlMJw8vjzjEmen4TSJFz125sidmWKvMVesKC8fLO6et2K4zevFN2JVfTrTXu2mUU1pNaLuG0j/SuMx66jG4I9iGZtok7Bl9x1huHBYL25Jobrg2v83BypHkuzyrSRCBcNA/kU5L9UrsVrf4zzuMtMTSDZvsqjSpXMaUQU/EODf/iyseWh9J4d3LYIVpulbU0N1fb6fkw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by LV0PR12MB507217.namprd12.prod.outlook.com (2603:10b6:408:3b7::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 20:54:41 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 20:54:41 +0000
-Date: Tue, 15 Sep 2026 22:54:32 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Qiurong Fang <fangqiurong@kylinos.cn>, sched-ext@lists.linux.dev,
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="JNn8bEIE"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0B3CF40E01F9;
+	Tue, 15 Sep 2026 20:55:05 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id LWRL8O1QhQwJ; Tue, 15 Sep 2026 20:54:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789505695; bh=3YoT3TGOmA6iM0NH3q51imNccFaFqLla52KoQDWe5CI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JNn8bEIE+r+uOc5nlCF8XR9t1THtpb3pS3+DC5TMoTS38dVRoXTnudYR12RmOvPzE
+	 wZjU6ReXfJ4rjfBfWNyggA0gjhWGE8HzuC44lmvCOjv8TTZnh33qaqoit4A7d4gMpT
+	 d3SHK4p3H9kg4oqA5VqEU5Y45xhSFoJhTj3Aq/NfrBGBym7PD/h4ZkJi8Xj9qj/NsR
+	 WyUE57jvnAPtpcQxjWDXu7pdzRk+DHCl9iwry9iMmH5xOzR8/LKMpzeKlRqny0/Gub
+	 3zPPbdDhDX0Mp7leoyuiKyHff1jamxdaMKBQMa3jzn+CJQqSO2udMhxhZneK4P07nU
+	 XZ/fjFSVfKy79P+XbItjE1QKBNBixXstHUy3oX84SevoqMFDgTa4VnUuED2+aVpnjU
+	 wQ9WY3HkFgAgBuNg2iPbipPhemEb2Q509MPEvHDcMCt25IjLLCRrC32YahulohhCKr
+	 JMu54pcaWKlHsbF6zSLZX/Mf32BhYPF7gKfDzH68QQCaTPKIH3+z/pNrknyrMHstR7
+	 fR+BWBxXOaKQNYQfIs3KQNRbIgeHVMyuLUMsGbxKA0IyzudpEugqC8EAUcZRpU23d6
+	 2ba3rRDKKgSEtoWkh21PbJHcRPQPwAbxMz7cqKtehr98DHWbeQt5qqBVnYOSuINug1
+	 0P8H92Qb9p6dXVEDwR2mH6PM=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 911D740E00B9;
+	Tue, 15 Sep 2026 20:54:49 +0000 (UTC)
+Date: Tue, 15 Sep 2026 13:54:46 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: yolezz <yolezz.secret@gmail.com>
+Cc: mario.limonciello@amd.com, yazen.ghannam@amd.com, x86@kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.3-fixes] sched_ext: Wait for
- SCX_OPSS_DISPATCHING before reenqueueing a task
-Message-ID: <aqmwiJ1StVe1EH4L@gpd4>
-References: <a4304b3f0c89fba23f1e5e92997a8f56@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a4304b3f0c89fba23f1e5e92997a8f56@kernel.org>
-X-ClientProxiedBy: MI1PEPF000008CA.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::435) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+Subject: Re: [PATCH v4] x86/amd/node: Release reserved config regions on init
+ error
+Message-ID: <20260915205446.GBaqmwlpu4BqWluyKm@fat_crate.local>
+References: <6bd2cad5-65ef-4f3d-a146-d91f120c86ad@amd.com>
+ <20260915180543.112708-1-yolezz.secret@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|LV0PR12MB507217:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa6f17e4-efb7-4d18-b0cf-08df136b901e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|56012099006|11063799006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	XMlDRtodswVH4gSHNOxUkajImS7iIOYNR4vTZeRonFAeGQj8h6CJ/TC5zSvp9CoSAENhx1lbomwJ6CS6zJGLUFlbNICpC4u7Py1NdPKnBNPcH+ocdaiHOmaMwpiN1KhPAn0yjwJ5lIAvtmiEgJT2WLu5s+Oy1ATtuyRnNaZV8FgZxENlEaA6DqqbsO21cl7IOXnRSNGOaizdB5uKec59hPT+XKU7U+X74gdZ3Kg1Yd6Oyu7YVfOoiCKaJ5LHTQSM8/oSwc62g80wLcb+us7Ep/kve0n/WCbjiPgoYyBq1iNILL5Q+pwKRESW0aCvUG5NBLEbZD0fg5GMlLgOblEDUuTY1D0vLo+GLNZKfw3QMQ6U8cZgeGiGlh3VjbjpK4aUunWoh5U69eJkMQqb/ud6mH+v91Cn3hjJiDrll4e///T/LYOQBkTijVJsDH3agx+O51pIWPmM2kq6G9YIm9/4+XPYnVFrkWspBz4mOAboUzQajViQPC03m6Sg8o1AGvONiRYdQ86MRNDdvHyi7hasK1v+wRz1YtDz7K8W5zEGimWWERnZvB+Ai5fgjaJUooVvEOX5tHy6fTxbGILRXbgUx63Cj/7HCT9/O2+Mf2TeMF0OfB1usRfM5CQkrxVu3vAEaDewYfE6/08J58jN6Xr7L59U8IIeod4isJmcGcd7xkc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(56012099006)(11063799006)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?N1fe5JvZ7pqNLob6jJaj71G3ilDFB0wb0/lEbypX00KQMkf34Pai6N34s0eN?=
- =?us-ascii?Q?kcAbOGuXaT3sIHx0f1GKFEzMmyo9TXPYUABEqqqYA3k3EIZWg7HuSUx0Y8v3?=
- =?us-ascii?Q?KOtmfXtEG76CWV3gMPQjn2aHRVOSoYVcH/fbmOwxdy3p3Fk3NVN5pq6mAYNU?=
- =?us-ascii?Q?s5KeW6ZpVMVQwsGilwMij8PBROGmmaC2VgxygyxbxgWX6kroDuybbLqeD48f?=
- =?us-ascii?Q?7tY1otImFvxlnJ6FfMytrPOulnsQl6ZA0zDsmChrAHn2eyn7/hSYfFqdE6IW?=
- =?us-ascii?Q?1NF57vtbqf8C8Mo+DN8SRx/Nqji9qN2eueabv4NJxvp0h7olTD6Bjb1u+wdj?=
- =?us-ascii?Q?myb897BmNI71yVSX0z5R8her5raOinWh/YZZ+5bv1FVzRw8zrKqbsX0b+X6c?=
- =?us-ascii?Q?noSWjyKVssyf2XHbDAt8fIWWjbHQUC1r6MXOI8QTpMvu+32rQVq2IusQCA/j?=
- =?us-ascii?Q?g2GwpjcCghbHcaWzr0KVo97CPSbIgV/EaUPKFGx0MsKjZGeVZr0kLnRr3rrt?=
- =?us-ascii?Q?vSCr0g/Avl3Tj9BY3LdrUeG6XcxPGBJRZEDZuBrVral+bpt60dG1Tgcff9zd?=
- =?us-ascii?Q?cHAFJdP5GMMcGYrSNIl0IPlhZlmILqFHze/W2SJjO410fj3n3epJYljiqTsA?=
- =?us-ascii?Q?PCaNCkJTATalA068XxDRj8KcWNrX2LcPyyTl3izwkWmfxxBZ/tahJljdyko8?=
- =?us-ascii?Q?vlFf0Q/jN3zbCO7Za9Q/Fisy0lsqkMWzQsf52rnsZtHVfOxaBEbZCb4WiXhs?=
- =?us-ascii?Q?K+Lz0pv9U4Q6IgjjFnuh5e1hsFdoK8SXzm+fUlrb+niLLoGjhAPPiBDIR84E?=
- =?us-ascii?Q?DfoBq3+TgwU49+0VeDB2hW7rfKfJ/5ArWgsP1ovtjAM5NbyR05Ajbf+Ked7J?=
- =?us-ascii?Q?nE4jeDb9fWIWYhKTzOdocO6d/oIufEZExpeaE6fftkLZ/EjrOjJMzBv+0yOU?=
- =?us-ascii?Q?BPDaGpVBFrFrcwtEaaucmeniB5XQQLclHM1dPuvH1YAktNd8bHEZioYS3ncL?=
- =?us-ascii?Q?fAzk2NZNEV7m6oEQ9X+No3LX+Z79bYl8LHRztxD+nEWutBXPTy6jV2iQ6lX8?=
- =?us-ascii?Q?N3rVviDJZ5R1jpRer0azmU3n0prN0i1ox2dvZ3U3ODjZvEbNA7UeRbTyYYEv?=
- =?us-ascii?Q?ppWP4zl09C8u4U1sO1xxITqlmKHZ6s1RHRI9pXSYwUhleITVRh9bk1Z5lFKc?=
- =?us-ascii?Q?J7jBNS72wdamHN+InENg4a0vkRCLNYYB1kueXcu+cvUeFsNRPjuJ8HkXf+zs?=
- =?us-ascii?Q?c4x3OxowDH8eLXXWJxCqOIraejAZKNKMgWPZW8ldfe2uBYC+6qVIqYA/NwTu?=
- =?us-ascii?Q?oS2rIAUUinFJF9luDVVibqppyB0y4gyp3kBYDm/9FFwT2RjSkq4BZ4IDshEr?=
- =?us-ascii?Q?9RvxjMggc57ie0yZLCBimpmIA5end2Sbg4zYy9bRi1xBoIu67ULr9QtkWZVW?=
- =?us-ascii?Q?zNefmwh6FxTom5uoUfovDkbLOt59WQnhKzS5vrrA1BhQMQAQ+Sggv/oQPNP2?=
- =?us-ascii?Q?KV4KIWmVBoFEJX8h+l71YvAr0wOHsklfcO8LJ2DbNNMKqzbnYNIxhogIXbEb?=
- =?us-ascii?Q?9IfS+KEOLLtWZedZXZGS5bP6Mr/efWHAoZnuKCjGBFoLU9OaJ/p5EaakMRxY?=
- =?us-ascii?Q?bsP/WvKEWgs0gbT9noyDyadE6vCdqA7HKRga5YjQb1vA+YVh3Cq25ke9E86F?=
- =?us-ascii?Q?bCg9L44XdJH8xpkUJADFjBtxTqSSQ5NLzZCgVkQACjpADXLrk/EdNmfUYH7o?=
- =?us-ascii?Q?W2bBMJScmQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa6f17e4-efb7-4d18-b0cf-08df136b901e
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 20:54:41.2184
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uupx5dDtn3OU6f8lE/Q73+FXEZUOXNpdjpGS/AnqHWDE7BxwJ1fP6EI8sbpD3kqqInEbWBpM6atvmlUiGeEOHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB507217
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915180543.112708-1-yolezz.secret@gmail.com>
 
-Hi Tejun,
+I do have concerns:
 
-On Tue, Sep 15, 2026 at 10:03:37AM -1000, Tejun Heo wrote:
-> ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics") moved the final
-> ops_state store in scx_dispatch_enqueue() after the DSQ unlock so that the
-> custody update and ops.dequeue() precede it. A task can thus be found on a
-> DSQ while still SCX_OPSS_DISPATCHING.
+On Tue, Sep 15, 2026 at 08:05:43PM +0200, yolezz wrote:
+> In amd_smn_init(), if pci_request_config_region_exclusive() fails or
+> if kzalloc_objs() fails to allocate memory for amd_roots, the already
+> reserved PCI config regions are left allocated.
 > 
-> The dequeue and core-sched pick paths wait for the state to clear in
-> ops_dequeue() but the reenqueue paths don't. A reenqueue in that window runs
-> ops.enqueue() and sets SCX_OPSS_QUEUED before the dispatch has completed.
-> The dispatcher's final store then overwrites it with SCX_OPSS_NONE and
-> finish_dispatch() drops every later dispatch of the task.
+> Use a __free() cleanup helper to automatically release all reserved PCI
+> config space regions on error exit paths.
 > 
-> Wait for SCX_OPSS_DISPATCHING to clear before dequeueing a task for
-> reenqueue, the same way ops_dequeue() does.
+> Fixes: 83518453074d ("x86/amd_node: Add SMN offsets to exclusive region access")
+> Signed-off-by: yolezz <yolezz.secret@gmail.com>
+
+You need to use your legal name when you sign off on and author patches.
+
+>  arch/x86/kernel/amd_node.c | 24 ++++++++++++++++++++++--
+>  1 file changed, 22 insertions(+), 2 deletions(-)
 > 
-> Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
-> Cc: stable@vger.kernel.org # v7.1+
-> Signed-off-by: Tejun Heo <tj@kernel.org>
-
-Thanks for fixing this, it makes sense to me.
-
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-
--Andrea
-
-> ---
->  kernel/sched/ext/ext.c      |   13 +++++++++++++
->  kernel/sched/ext/internal.h |    1 +
->  kernel/sched/ext/sub.c      |    1 +
->  3 files changed, 15 insertions(+)
-> 
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
-> @@ -4404,6 +4404,17 @@ static bool local_task_should_reenq(stru
->  	return *reenq_flags & SCX_REENQ_ANY;
+> diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+> index b7926ba3610a..a1db03d3777b 100644
+> --- a/arch/x86/kernel/amd_node.c
+> +++ b/arch/x86/kernel/amd_node.c
+> @@ -239,6 +239,22 @@ static struct pci_dev *get_next_root(struct pci_dev *root)
+>  	return root;
 >  }
 >  
-> +/*
-> + * The dispatcher stores the final ops_state after dropping the DSQ lock, so @p
-> + * can be found on a DSQ while still %SCX_OPSS_DISPATCHING. Reenqueueing @p
-> + * before that store lands would have it clobber the new %SCX_OPSS_QUEUED.
-> + */
-> +void scx_reenq_wait_dispatching(struct task_struct *p)
+> +static void amd_smn_release_config_regions(u16 *num_roots)
 > +{
-> +	if (unlikely(atomic_long_read_acquire(&p->scx.ops_state) == SCX_OPSS_DISPATCHING))
-> +		wait_ops_state(p, SCX_OPSS_DISPATCHING);
+> +	struct pci_dev *root __free(pci_dev_put) = NULL;
+> +
+> +	if (!num_roots)
+> +		return;
+> +
+> +	while (*num_roots && (root = get_next_root(root))) {
+> +		pci_release_config_region(root, 0, PCI_CFG_SPACE_SIZE);
+> +		(*num_roots)--;
+> +	}
 > +}
 > +
->  static u32 reenq_local(struct scx_sched *sch, struct rq *rq, u64 reenq_flags)
->  {
->  	LIST_HEAD(tasks);
-> @@ -4447,6 +4458,7 @@ static u32 reenq_local(struct scx_sched
->  		if (!local_task_should_reenq(rq, p, &reenq_flags, &reason))
->  			continue;
->  
-> +		scx_reenq_wait_dispatching(p);
->  		scx_dispatch_dequeue(rq, p);
->  
->  		if (WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK))
-> @@ -4570,6 +4582,7 @@ static void reenq_user(struct rq *rq, st
->  		}
->  
->  		/* @p is on @dsq, its rq and @dsq are locked */
-> +		scx_reenq_wait_dispatching(p);
->  		dispatch_dequeue_locked(p, dsq);
->  		raw_spin_unlock(&dsq->lock);
->  
-> --- a/kernel/sched/ext/internal.h
-> +++ b/kernel/sched/ext/internal.h
-> @@ -2078,6 +2078,7 @@ void scx_kick_cpu(struct scx_sched *sch,
->  u64 __scx_bpf_now(struct rq *rq);
->  void schedule_dsq_reenq(struct scx_sched *sch, struct scx_dispatch_q *dsq,
->  			u64 reenq_flags, struct rq *locked_rq);
-> +void scx_reenq_wait_dispatching(struct task_struct *p);
->  int __scx_init_task(struct scx_sched *sch, struct task_struct *p,
->  		    struct cgroup *cgrp, bool fork);
->  void scx_enable_task(struct scx_sched *sch, struct task_struct *p);
-> --- a/kernel/sched/ext/sub.c
-> +++ b/kernel/sched/ext/sub.c
-> @@ -801,6 +801,7 @@ void scx_reenq_reject(struct rq *rq)
->  		if (WARN_ON_ONCE(p->migration_pending))
->  			continue;
->  
-> +		scx_reenq_wait_dispatching(p);
->  		scx_dispatch_dequeue(rq, p);
->  
->  		if (WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK))
+> +DEFINE_FREE(amd_smn_release_config_regions, u16 *,
+> +	    amd_smn_release_config_regions(_T));
+> +
+
+The fact that you have to wrangle a solution like this just so that you can
+use those fancy __free() gunk should both y'all perhaps give you a hint that
+not everything is a nail.
+
+The proper fix is to unwind any setup the function has done in reverse order
+by jumping to error labels each time it encounters an error. The good old
+design pattern that has been used in the kernel for decades.
+
+This way you don't need a separate release function along with a dummy
+config_regions crap which is just ugly.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
