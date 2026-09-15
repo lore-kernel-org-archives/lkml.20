@@ -1,179 +1,221 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A179E3C9EF3
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483396; cv=pass; b=kTikogFRp/bODzXsPsa2sVahRm1YmAOK5apo/WhApYTczW2JcW4q1P8Hu42iBryP+u251AtNnYeJkHeAKBdyG7OiHSJ2KDa/Tp2FuafiNwMesgGHF4//pJC7TCCEiqfJ2mZZBh8hoVS5gMeWOVpBjh2+ytuyTIyZrMhagBcyk7w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483396; c=relaxed/simple;
-	bh=15/+SywPQsJQghdy0lHJz8wGdQwZPe4GOXiZDdhxSII=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WFpLbKXDtm6cEfwTVKXXnVnXzELZIS0G7sWHjtD3ZunkaSUa0rD+MQfSgMwOOPUBafiUeq7o0qLJdUCTs2j/O8IwlJaP+YrZtHKNTMt9ANhl9TDxatjX46ZLNIUtaBwgNo951UNdcVxY48L++4uc/cpOV+3nY9js5Xjx+ZsLOVM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=dcLYwy0D; arc=pass smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0A5472F82;
+	Tue, 15 Sep 2026 14:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789483402; cv=none; b=HPu45a8L3PPJxp156nlJO9UG4riHVkgEO7bpjXVz6SD7gTNN671uCtNRvjkhcM3vIW5qzzMwx/NvgaChifjB81c65ianxen0Vpb4Nz2IXa3g4tkFOlLzNEwExY1FH/0fB7WuvKoADSKyT4t4Z7/TV6HA1kC7jncGWtqh4YIJ+A0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789483402; c=relaxed/simple;
+	bh=01i9NyRL0wxg4jwjON7/nB9/x9bB+BcJKvkuubev2FE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NlXuFrg2ojO+HSL8kCCfnQ30YC4POEG10lb19ARt8VjpCJFBYUE2xSqfzoluglKl9L+6wd7kePdc9wvSlrUV7oGE7RclQDuhZVepq69mHpa4YMVToxoP8Cl6TEbR0DFSkyLSs5g4x1PvckQM2hFFdF3R2ARwZlr4V+MGizap2qI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=olgcRH4p; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="dcLYwy0D"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6ebso34882496d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:43:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789483393; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IXJVDrnXEiZY9C4IrQA9AuhNCCNG/+QqcC/9siAtKKI45aewj5j4Qt40az0bHy2ITG
-         3NlhqzZOnuxdTn8lqcZk4Qfqn+dZ1WJUfo1nfKH8yW4fIHyzGSoUmbvGq8MFfrAxPiyM
-         4vc//zFvtRdqlOq7T+5m8DlKRn5N0ol2PPNUyP4OdjDKDidkqIW1dmfh0vrOwai+Vj+l
-         w1iKNoKI+qllqIILTX5+H6BX8ySvO5cIV244bsDoQUXwgB4wPb8LPKEBJAY0D0oCN82b
-         STeH09QEs18vONHHc6SnPmDuNnwW3xM9oz4lNh81k67u+/SvDRY46Gk4p3y3dHog1NRv
-         DVVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=rID0m9JFEu6NHI6Fa/R4Mit9IJeM2Yeqh/iWfm9iBds=;
-        fh=s+QFDRZvgp20DkTPHjsCDvI3jdtIkKH9/pvXHCOYI+M=;
-        b=gEnsdMmIzYswsaUb3oxfo6N3vIgQHT7q5ntO2b34uYqkh8EAvBx0q5eyq++75Fh30s
-         H1p7BGW5ngdjwmrgEHYI/Do6oA44EnaihA3C5E5+s3jEJpwQWSPONNnrtPcNuu2Dx89S
-         ywbLHhisF6MmcVeJ0v9PRJFc16im8wak6u8CCJ2dduNB65tK8YBKpV92mBN6utphOJyW
-         P7hrAUKIeqsMa916LAyPtnbp1eVS4Vja82F7DCi52HjeiMhtMUcX1pms4YSGYjDvgwoN
-         k48YEelG5NaHHIj7iWWwvd+2f8Gdg4u0qw6wXAqcODcsDEkWRw+YCbA6QHdm4JY5R2Bl
-         Jk5g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1789483393; x=1790088193; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rID0m9JFEu6NHI6Fa/R4Mit9IJeM2Yeqh/iWfm9iBds=;
-        b=dcLYwy0Dj6xYUFzGAacOg5WoiZ4eBVMxfgWLiPhp4x/xGzIuN/aCL3LClzw9VgImjJ
-         qEN0nskYTZ2kkdLcUeHbFIwZsqQ/JoczfTQaDz+y8Ki2IEOJQDogv/RZuuJRM0nUDVnY
-         X7Ho16jgb6Xzw6cr229UxDJTG7qYYz7+cx5MxY79A4klE0Iiz0buqG/rLCnWGLAcquA6
-         XNcNGX1w/ahJBz9Xh8qa2MpWTp2YYkp7xpIBznTkJ36LdEND7Z3ET+oURVYr7vsQPdVX
-         fxp0bUU0rEAE9FYtUaK38GVDDrjMEmCcjDvuu0AbOdUbVoonxVjoluDA7WQsdwBi6nU+
-         vX7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789483393; x=1790088193;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rID0m9JFEu6NHI6Fa/R4Mit9IJeM2Yeqh/iWfm9iBds=;
-        b=qHEui2WhkO/q3tEHbanRt+xft6AZnJtVzTweJ1Jqg/A+pCFIDIacXai8SpC/QEBmst
-         uLT2G15I+DMk4rrijP9Fut2gHAWAwTnH+fx8YAQGPAtYBTkpYdm/BUf9xR3dnpYzHFGa
-         Ih5bWbw3ju9nyLcOf2gmZrbjPQ+J00ao53K2N5jtdyEEHsp465s3jxKJyKOgPzQ4M7rD
-         7pD+nWoKjgc5xoUhzvmfSmkDMZR2T9+/dC9t9I14fRI847A8LjGkb8Jc/m7zUiR1Re/R
-         HANkuBu+6B4g+tOlxi2jaz1bOj6H6xOCDWaHhTilJyZ3XoRN9TaI5hUNzVkzd0HpYgjS
-         Vk0A==
-X-Forwarded-Encrypted: i=1; AKwUvBwjh+qQfm1nBXXyU2nbmvVRR/5wAXPMB8IjIbMWj6S3kwEJJFUmW/EcNJ0WF7RdgHTYOiUbWnBbpYrC9tY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhaUoyL+b3jIb4ewTV7t+wcxBCixUStWpG6kttkHWYrwMuznB2
-	XCbXsui7vdcjivHxDCZ4DuAx64j5bmPdxz7mSLnwbvMfDUAOr/DXtv9cDs78hV3Yandv2ApkHAx
-	TrAHALtuVhkwDdIV+BXwC3/8ZgA4FTpoVofIybLi5hQ==
-X-Gm-Gg: AYBFou2xDiE332HfpQlpaWO0M1JW39qNP5O5z+C9K9dugdxRldm0t51xslICPDmrI1t
-	PV0Pu9o5AbboXKft9JKJzRRbCmcAVLWzc/v4Wo6ELlEkjcHOsLpk9YCaZ+KHi+zFJ94QfpLbEgt
-	LDN5hL4hXSgLArDBmpBWbhAnz6+w+xRbF9VAVtQivLULPh/dUhj+3eV63T1f7MT1vd4VZ3ybJ04
-	aXdj3s5+dklHjpzeeNUnx3awf7lx598FUSNyM7lZwKNzznqKfnS4Ug4AC32JLBDoGOUUugoCSXn
-	RVrslWX4vlKh5lW5s7D564eniFX/3/m+zYq/DnjO76alHRS1AIDzkO/rtBccs1rWtuDrDq7+C4Z
-	W2Qw/VxOUzzGmpuuVEudqVzccoiP7DcFWZ1Y3sLfU8K6MIQyRwOsg16DLSco+No2ZTS3mZR2m
-X-Received: by 2002:a05:6214:b63:b0:90e:8cd4:30da with SMTP id
- 6a1803df08f44-9122e55ceacmr123209306d6.18.1789483393372; Tue, 15 Sep 2026
- 07:43:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="olgcRH4p"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FD1g4q3198540;
+	Tue, 15 Sep 2026 14:43:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=XGH/dfOu/zOl1pdx05euQPY4B/vZSuwXfxRzTZhkV
+	y4=; b=olgcRH4pjuX/eb6fkxYQQOOZ2giNCmpxNR+3BJHHihYWX3ZuPb1L0abG7
+	f8M5kqG6s82El2UAXveXlhK6jj76uafTvG3jghInhlHFGC+Mmbzl84dvpqmkw85q
+	ZeMpXGerq5m2qMGJpHoqM2Tms944JgXtNxLYsMp/JRzQmAM6vLiSp5O6QtSvfk/+
+	w/o/BIq/gvD8fMQhibp9Rf6NC9Av1EgZsBoFcIgN/hnpT1ezpwzx9vs4hGj2TC5c
+	XBb6cnWDleAzBekYcIKIy47ch6VLJ1H6iQbAP87g0NmoFLAXGudUa8f6sTijDiaB
+	FkFCG5/bf8xs33aSrNnpqRa0Te66w==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxdq7kpv-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 14:43:13 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68FD56AS3994895;
+	Tue, 15 Sep 2026 14:43:12 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gq03bsswm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 14:43:12 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68FEh8M547251816
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 15 Sep 2026 14:43:08 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 36CBE2004D;
+	Tue, 15 Sep 2026 14:43:08 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0AAFF20043;
+	Tue, 15 Sep 2026 14:43:08 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 15 Sep 2026 14:43:07 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>
+Cc: Vasily Gorbik <gor@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>, kvm@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] s390/uv: Rework page allocation for guest variable storage area
+Date: Tue, 15 Sep 2026 16:43:07 +0200
+Message-ID: <20260915144307.2367089-1-hca@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-7-f520af59df1b@linux.dev>
-In-Reply-To: <20260914-ov9282-fixes-v1-7-f520af59df1b@linux.dev>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 15 Sep 2026 15:42:54 +0100
-X-Gm-Features: AcwNN1W1SjWSkd5yJqtH0RgT6TBJ1Go9MLnuWlo9YYy7VousLlRm-tuvUaXNS28
-Message-ID: <CAPY8ntABqjqzt9jJLiOpgH7yjpk5GZzhx9rKicd+-Dh-ewZ54A@mail.gmail.com>
-Subject: Re: [PATCH 07/10] media: i2c: ov9282: drop redundant vblank field
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIxMiBTYWx0ZWRfXzWs64YC4UIW9
+ 22fRDHYZINLzhlrB4u6sIdUGB0UKSYycRj39mkRdjFA7lDSVzz+er1GlfvRg1W3yHyXSAkes95s
+ VWwEQrTqjnPbnmbqIt1qyYx7AB8WojuiI+Z4+SqI8J+o2yvRxTob+WNza3ctXz+FgncEd3HfQkf
+ L3YPfLJCO2aY4yE9WtRzacRyhH7W7ptSXLx0QC5mwWzT8XrOKmkDTIWSktmaYPQq1BJHbDbBPgQ
+ m/4W7a6alUccnTGBMqO0Su+G0gqPwrANZRGpdDseotIcJhIp+MqY+ofDw4q54p6Dfrur4X7Bo94
+ pSDdPAT7YqN5fHCdrbF7uRB03223tmLBFeXvYBSTHAJaZLHVZuMVe3zAVpf/bP8WK+xVlOgn3md
+ PpmeXQxyZexOLjeH2JwE38aLkLtEoVgFjW2LDDU2RtZfb59vT5DEPUu7S8JCzLjviVBD/ZlFKIu
+ yMLOdpCQINyO4dPgu2Q==
+X-Proofpoint-GUID: LDqERbknEr98WpgudRfzRgxDf3EuklJQ
+X-Authority-Analysis: v=2.4 cv=DobDa2/+ c=1 sm=1 tr=0 ts=6aa95981 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=a2nUC81R4oW2uoHz82gA:9
+X-Proofpoint-ORIG-GUID: LDqERbknEr98WpgudRfzRgxDf3EuklJQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIxMiBTYWx0ZWRfX5PRnlRAm3ug0
+ JBEd2iY3SJIv2EBot1PYYmgXJ3EI+oBnQiPFk5yafH1Hl9f3ANY9hL+mcQUWhdKv0K5CDMt/i/m
+ 3wjuVMy/HF7baiveNRd2cbLpYjHtg/0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 impostorscore=0
+ spamscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150212
 
-On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-<richard.leitner@linux.dev> wrote:
->
-> The ov9282 main struct has a dedicated vblank field which was only used
-> to duplicate the value of the vblank v4l2 control.
->
-> Therefore drop this struct field.
->
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+Alexander Gordeev reported that the allocation of pages of the
+guest variable storage area via the uv_alloc_range_cb() callback
+of apply_to_page_range() will cause problems as soon as s390 fully
+supports lazy mmu mode.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Problem is that uv_alloc_range_cb() allocates pages with GFP_KERNEL while
+preemption would be disabled. This would result in reports like this:
 
-> ---
->  drivers/media/i2c/ov9282.c | 15 ++++-----------
->  1 file changed, 4 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index 632184e76b9bd..28f8b05b4c09e 100644
-> --- a/drivers/media/i2c/ov9282.c
-> +++ b/drivers/media/i2c/ov9282.c
-> @@ -193,7 +193,6 @@ struct ov9282_mode {
->   * @again_ctrl: Pointer to analog gain control
->   * @pixel_rate: Pointer to pixel rate control
->   * @flash_duration: Pointer to flash duration control
-> - * @vblank: Vertical blanking in lines
->   * @noncontinuous_clock: Selection of CSI2 noncontinuous clock mode
->   * @cur_mode: Pointer to current selected sensor mode
->   * @code: Mbus code currently selected
-> @@ -216,7 +215,6 @@ struct ov9282 {
->         };
->         struct v4l2_ctrl *pixel_rate;
->         struct v4l2_ctrl *flash_duration;
-> -       u32 vblank;
->         bool noncontinuous_clock;
->         const struct ov9282_mode *cur_mode;
->         u32 code;
-> @@ -646,17 +644,13 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
->
->         switch (ctrl->id) {
->         case V4L2_CID_VBLANK:
-> -               ov9282->vblank = ov9282->vblank_ctrl->val;
-> -
-> +               lpfr = ctrl->val + ov9282->cur_mode->height;
->                 dev_dbg(ov9282->dev, "Received vblank %u, new lpfr %u",
-> -                       ov9282->vblank,
-> -                       ov9282->vblank + ov9282->cur_mode->height);
-> +                       ctrl->val, lpfr);
->
->                 ret = __v4l2_ctrl_modify_range(ov9282->exp_ctrl,
->                                                OV9282_EXPOSURE_MIN,
-> -                                              ov9282->vblank +
-> -                                              ov9282->cur_mode->height -
-> -                                              OV9282_EXPOSURE_OFFSET,
-> +                                              lpfr - OV9282_EXPOSURE_OFFSET,
->                                                1, OV9282_EXPOSURE_DEFAULT);
->                 if (ret)
->                         return ret;
-> @@ -704,7 +698,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
->                 ret = ov9282_update_exp_gain(ov9282, exposure, analog_gain);
->                 break;
->         case V4L2_CID_VBLANK:
-> -               lpfr = ov9282->vblank + ov9282->cur_mode->height;
-> +               lpfr = ctrl->val + ov9282->cur_mode->height;
->                 ret = cci_write(ov9282->regmap, OV9282_REG_LPFR, lpfr, NULL);
->                 break;
->         case V4L2_CID_HFLIP:
-> @@ -1412,7 +1406,6 @@ static int ov9282_probe(struct i2c_client *client)
->         /* Set default mode to first mode */
->         ov9282->cur_mode = &supported_modes[DEFAULT_MODE];
->         ov9282->code = MEDIA_BUS_FMT_Y10_1X10;
-> -       ov9282->vblank = ov9282->cur_mode->vblank;
->
->         ret = ov9282_init_controls(ov9282);
->         if (ret) {
->
-> --
-> 2.53.0
->
->
+ BUG: sleeping function called from invalid context at ./include/linux/sched/mm.h:322
+ in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 6092, name: qemu-kvm
+ preempt_count: 1, expected: 0
+...
+ Call Trace:
+  dump_stack_lvl+0xae/0x108
+  __might_resched+0x1de/0x2f0
+  prepare_alloc_pages+0x1ba/0x220
+  __alloc_frozen_pages_noprof+0xc6/0x390
+  alloc_pages_mpol+0xe6/0x220
+  alloc_frozen_pages_noprof+0x5c/0x80
+  alloc_pages_noprof+0x22/0x80
+  uv_alloc_range_cb+0x30/0x300
+  apply_to_pte_range+0x11a/0x3b0
+  apply_to_pmd_range+0x13a/0x250
+  __apply_to_page_range+0x232/0x4d0
+  apply_to_page_range+0x28/0x40
+  uv_alloc_stor_var+0x5e/0x90
+  kvm_s390_pv_alloc_vm+0x118/0x1e0 [kvm]
+  kvm_s390_pv_init_vm+0x84/0x2e0 [kvm]
+  kvm_s390_handle_pv+0x502/0xf70 [kvm]
+  kvm_arch_vm_ioctl+0x234/0xdd0 [kvm]
+  kvm_vm_ioctl+0x33a/0x890 [kvm]
+  __s390x_sys_ioctl+0xfa/0x130
+  __do_syscall+0x1fc/0x700
+  system_call+0x72/0x90
+
+Preallocate the pages and make use of vm_area_map_pages() to address this
+potential future bug.
+
+Reported-by: Alexander Gordeev <agordeev@linux.ibm.com>
+Closes: https://lore.kernel.org/all/e9449c63-b8d2-4ed9-a184-7dcab3e8dfce-agordeev@linux.ibm.com
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+---
+
+Notes:
+    This is untested, and only based on the report from Alexander.
+
+ arch/s390/kernel/uv.c | 41 +++++++++++++++++++++++------------------
+ 1 file changed, 23 insertions(+), 18 deletions(-)
+
+diff --git a/arch/s390/kernel/uv.c b/arch/s390/kernel/uv.c
+index dc14ebc0105b..3a01fc69cc3a 100644
+--- a/arch/s390/kernel/uv.c
++++ b/arch/s390/kernel/uv.c
+@@ -16,6 +16,7 @@
+ #include <linux/swap.h>
+ #include <linux/pagewalk.h>
+ #include <linux/backing-dev.h>
++#include <linux/slab.h>
+ #include <linux/vmalloc.h>
+ #include <asm/facility.h>
+ #include <asm/sections.h>
+@@ -242,34 +243,38 @@ void uv_free_stor_var(void *stor_var)
+ }
+ EXPORT_SYMBOL_FOR_MODULES(uv_free_stor_var, "kvm");
+ 
+-static int uv_alloc_range_cb(pte_t *ptep, unsigned long addr, void *data)
+-{
+-	struct page *page;
+-	pte_t pte;
+-
+-	page = alloc_page(GFP_KERNEL_ACCOUNT | __GFP_ZERO);
+-	if (!page)
+-		return -ENOMEM;
+-	pte = __pte(page_to_phys(page) | pgprot_val(PAGE_KERNEL));
+-	set_pte(ptep, pte);
+-	return 0;
+-}
+-
+ void *uv_alloc_stor_var(unsigned long size)
+ {
++	unsigned long i, nr_pages, addr;
+ 	struct vm_struct *area;
+-	unsigned long addr;
++	struct page **pages;
+ 
+ 	size = PAGE_ALIGN(size);
++	nr_pages = size >> PAGE_SHIFT;
+ 	area = get_vm_area(size, VM_SPARSE);
+ 	if (!area)
+ 		return NULL;
++	pages = kvcalloc(nr_pages, sizeof(struct page *), GFP_KERNEL_ACCOUNT);
++	if (!pages)
++		goto free_area;
++	for (i = 0; i < nr_pages; i++) {
++		pages[i] = alloc_page(GFP_KERNEL_ACCOUNT | __GFP_ZERO);
++		if (!pages[i])
++			goto free_pages;
++	}
+ 	addr = (unsigned long)area->addr;
+-	if (apply_to_page_range(&init_mm, addr, size, uv_alloc_range_cb, NULL))
+-		goto out;
++	if (vm_area_map_pages(area, addr, addr + size, pages))
++		goto free_pages;
++	kvfree(pages);
+ 	return area->addr;
+-out:
+-	uv_free_stor_var(area->addr);
++free_pages:
++	for (i = 0; i < nr_pages; i++) {
++		if (pages[i])
++			__free_page(pages[i]);
++	}
++	kvfree(pages);
++free_area:
++	free_vm_area(area);
+ 	return NULL;
+ }
+ EXPORT_SYMBOL_FOR_MODULES(uv_alloc_stor_var, "kvm");
+-- 
+2.53.0
+
