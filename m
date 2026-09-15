@@ -1,161 +1,209 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011026.outbound.protection.outlook.com [40.107.130.26])
+Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022104.outbound.protection.outlook.com [40.107.193.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827C21C5799;
-	Tue, 15 Sep 2026 16:11:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34306414A16
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 16:11:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.193.104
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488669; cv=fail; b=XyzLwN9VrZeDNaGU7PkkqnFjaY9mmbhnBc0HqvvF1XmMOmRkQoHGyEvnNwS5Gjynxkai1pnquDh+LWUsRjpBOvXuydVyZBxrEE6lQA8ROMzEAa3zfZybrvwzJGZuDhUUzQ+F33j7Bn1llQLwypbJA8PMaJzRfuMCuPCgU+/Zk1M=
+	t=1789488673; cv=fail; b=lVEixCxXgTVHudxMMfENx1lIeZZsC7x/WF4j3RmpPayVllSvtXDXYn2FrLD4QXUxQiv9RGAwaZumCI3ac46uNpnQ4Bnx/7npG8FPVwM26OBQqZ8p7g1h3AHAFj1Z5ggNQbS/7iOrRc+9/5xx7rRzo26Zlassc7rxhboKKxi5XKU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789488669; c=relaxed/simple;
-	bh=ruuFznaOzop1h6oaE/qXE8d4G7DxaMMrQFeVlRIGSsE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=afzOmSleym6SCGerK3DwASBXP/7FFDgTN7WoR/m/XCf/atwF8XmKj7670zCNB3l0elvyIymUuEqv70EyvCjtRMZKeuwsaYQi8fkIAxKmn+4C6xl1x77mwuS258plccpsRFhrsAECYeTAIPiPFDcGv3CDylgSfvUTWQLVD9W3hMw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=oi3dHOJj; arc=fail smtp.client-ip=40.107.130.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1789488673; c=relaxed/simple;
+	bh=Xgag0xjPeAverxZK3nR5ZG0VxOSjeT9D/DzdugsqqeE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=lcMBW20vsLbR9Y4/hrVZgUrOY5Zy4HwdTfMWW6UK6qfsWtT8qAoFoUaCy5EuOsP2A+Rhw374d5D5auupl7SXYcD2mJxRI7psNJE0iobzyRQ0/f+FWB0qbKf7AqmHWFhQH4q9qV4CPWz9FNW7QCe9+OTXe/LSAUZSEsPSUnZKtqk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=bghnIIMi; arc=fail smtp.client-ip=40.107.193.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="oi3dHOJj"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="bghnIIMi"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XHz8PXKdjelDnjPN8MVNIf0w9HRvKSnNLV7HD6eO/JbMvQkGVEkLP29KM+zT5L9If6qmtE+E6Rvcd/I6FKBrODdRxfqow5Q/RhLv4yE5ltW+oRWIZ/aTRIhElM3PVv9aryFOBJL/phK88AWpILOOfPH4MZku1ycN3wY8Ano72W6PeNVp1Qpa3DvW7Z/93YddUo/HS/4zH4YXpKYmOJmPrtNPdcl/xGtvhUwFQ0jnlmQu/wkO2EeMdfjMFvUKAuyXLOywRSNhAgqUrGB3EBhnYiwJ80PE+S/kRMuwWcCBIR108sGUMoecbR1ypHCBqT5Qhw65OzzWTCsV+HYYY4vbLg==
+ b=x5qlAFMzh62mOQ3dqvSKpZVLFHiJpGxjv8zBlTeLW6kq6y+j7OmgRqgDoS1uOE2z6TvRzXj7jMZ8g3nqMTbSh/RXLN4QLnOzSMJ84JymuYFHR1rtYWlFvEkZK+En05IWaYdgwDojJFs3FMgFApv8bm6a3ytPws1FwKBtwxl1YG2ED3dImlrqgZnODeMjjwtXmiVedG3xikxfxyiIl6Wimrtq6uTgs4kYJqoV0FhbG46Iwjg6W8yfuWZH/OCwjzxDVAIBXHTN0s2NeN+eQbWhjVLherGqLKQySaGS9YLCS6aLBpO66Nt/0HsqRfYmD3z4ZJ7aEt35F8j65v3+zrWrew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zkZapNMOkbsGJyBzWVyHesbTpXEkN8djukdijZwoVOY=;
- b=rHVCWxmnkTGDKgFymFVJCFgT+YFPDuwChOIOPAGX3SnSISlzG1iElmnClP+bZY6gv/9Ng+p6poDyis1KYLAmL0pKN4mae9Fneu22OjFGk7vhMijCvAPAnGYQmVRqrB03NLUeZma82sNi7eBsaMeqRtFFVmgKYB/gcyluLtavt7+Dd4RZ/ML2uzPlVt8wRxEq1a3UoqyMuoMGqUx6BAWVDNtsX+DPwON/P4FimAbTnZn/AaErySzemP64HQHTFgYECBLXUAdgO77JLVMboFvQR1kKhyIbhLqiQrnyJ5VMbxfJ/Q6McT1TywCqf/ZtCvCUuSeDaQ+9+GbTm3/DJXQ/mw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=6cLRSZghr+9HrcqOrsAn0XTnikeDZkn6vw86rdZLa0Y=;
+ b=Gr+HfG9lZh2cRSLDXoFwNLBAhZpo6I5HgTv+ByUD5PmcHmzoRTd88ZDtLOAwIa2Kc8wlmSYsfh2+SJw0dYoSMyEb13SR9pt7QaUDrq++phD6gTju+YXUfSCPY1VmUTjw/CxD8lbAfyb1Os2gEpBnbCf40JxG3RQZkyiunoBxfvD2rzEHtNn8p4JvJMUU22a7xscAZdGIUWjJ3gzAYsWMxkecVx3lMc2OUab6OYmkNnAVHQhQ1nnKqSIQb6+oqUo/ELM0eJM06L8Wu05UVhaRq5XWtq8KW2YHfXsdNMUFBRXDgSg1EUxdHl6CFviezqllROqzUj2h3i82hiG6QDYQjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zkZapNMOkbsGJyBzWVyHesbTpXEkN8djukdijZwoVOY=;
- b=oi3dHOJj17Ae71dgtf/opBkb0mUAjcW1BQRJojCNge3Kh9s4hVFYDbnwlFyvppas3N0rcb/qR+PoFB5rD2JIpVscTa26920aaQ50XaQu3CDytp9jm7ipWMgb2SpCxzQZcB2q8cIqjnxD9EPIVvSD64tBYdlW2NANbqVJaYZqssI8BmG9pGe9TQ2fkcHm0/04waVnEdEE8IytSCfsr0nQxzKksH+JFH/WcsvjjJXX/wNslUWAojfidK6LkvuNTOnexsBVXZdTw03jDGYHGCqWJklz+SC651qw/QHOj+rnQB1e9ZOQh77BidFdZ5lYp/D7ZR3DNyEpY4Iw75J/eseJcQ==
-Received: from AS4P192CA0013.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:5da::18)
- by DB8PR10MB3690.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:136::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 15 Sep
- 2026 16:11:02 +0000
-Received: from AMS0EPF0000056C.eurprd02.prod.outlook.com
- (2603:10a6:20b:5da:cafe::1a) by AS4P192CA0013.outlook.office365.com
- (2603:10a6:20b:5da::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
- Sep 2026 16:11:01 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AMS0EPF0000056C.mail.protection.outlook.com (10.167.242.122) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 16:11:01 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 15 Sep
- 2026 18:16:18 +0200
-Received: from localhost (10.48.86.251) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 15 Sep
- 2026 18:10:47 +0200
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Tue, 15 Sep 2026 18:10:40 +0200
-Subject: [PATCH] iio: adc: stm32-adc: fix possible division by zero in
- processed channel
+ bh=6cLRSZghr+9HrcqOrsAn0XTnikeDZkn6vw86rdZLa0Y=;
+ b=bghnIIMihU0EysIzeYp2AK37g6EwcueaxmhI8gSMdoZZ3HJ3R8PpHURnmEfRztrT9SbQOfsboXfUQvnqyUbyooO2Yrj1129y+dglZzOCKDvv6f36ElIjqIiPsAqhf0kV96kBs/S3VhcQ2jKIdZn6+7tlkPsO3o9Es896xLPWxYbetGXcFuszQzvHR9RAQFNAeJv4e44LgSV/DHgNvQbTcLO3WpwV6rEhMkT/eGfq70iPsxgWgIs+0aygFb22U4uNv2gVIIyafUeLIQPXVlg3WxaGxxGcbOij9Xii7sDtKrspobfGIn6Dx4I20By1YXJRq0zQcSif5COtRrAfZanpjQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YQXPR01MB5397.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:40::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
+ 2026 16:11:00 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
+ 16:10:59 +0000
+Message-ID: <10d3d3bc-ef34-4b48-8dff-f544266181a9@efficios.com>
+Date: Tue, 15 Sep 2026 12:10:58 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] sched/mmcid: Fix affinity-triggered switch back to
+ per-task mode
+To: Hui Su <sh_def@163.com>, tglx@kernel.org
+Cc: linux-kernel@vger.kernel.org, dietmar.eggemann@arm.com,
+ rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+ vschneid@redhat.com, kprateek.nayak@amd.com, vincent.guittot@linaro.org,
+ juri.lelli@redhat.com, peterz@infradead.org, mingo@redhat.com,
+ Michael Jeanson <mjeanson@efficios.com>
+References: <20260915155953.2856524-1-sh_def@163.com>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <20260915155953.2856524-1-sh_def@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0137.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:e::10) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260915-adc-fix-div0-v1-1-7daed9e52f2f@foss.st.com>
-X-B4-Tracking: v=1; b=H4sIAP9tqWoC/yXMyw5AMBCF4VeRWZukSAWvIha9DMYCaWkkjXdXL
- L+cnD+CJ8fkocsiOArseVsTijwDM6t1ImSbDKUoa9EWEpU1OPKFloNARVVT1VLpkTSky+4obV+
- uH377Uy9kjrcB9/0A4j/aR3AAAAA=
-X-Change-ID: 20260915-adc-fix-div0-ae38365abfeb
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Olivier Moysan
-	<olivier.moysan@foss.st.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-CC: <linux-iio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, Sashiko <sashiko-bot@kernel.org>,
-	<stable@vger.kernel.org>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF0000056C:EE_|DB8PR10MB3690:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9742d94a-a284-4fcf-7f92-08df1343efd7
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQXPR01MB5397:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c0d7257-b1b1-4ea7-34e4-08df1343ee6b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|7416014|10067099003|56012099006|11063799006|13003099007|18002099003;
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|6133799003|18002099003|22082099003|10067099003|5023799004|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	xMRlDzxKnN7NLBmc2zVifCPsX1PV7vDwmoSDvmnlDAWe5y5Sglo9o6u5K1Ql5CNrdqqaInB9UCBIh4Fx3yoMgrkENIBoM5PVatXN3pjdLmS1c4RWwDaAkxyencK8l6/t91hPOrNQ6DOIPuQhVu3sg/uX89So47tmULV648WMt99liOHHpDUXvVvrbgKg3yvtzk9jlvdUz0St7DcIuEkR5UO3hDnb4k5n6ClKMxvEynnhxZO53Ioj4AvLqq0TJQviFfVdzo5li4ZhJXQCxQ7tYnufgXTlo2JhuD4Ozcf00DinDRpnftGUqomL0EGAI5ITt9GzhguF4kczR3JZu5d1eziAsol46Ln02zqYgnlZx9T18l7/xN7C0TJiW4/uaZhekYdwWYzDxyxigK9bJSqfCt+6O5A3XfzBoIiTE8dDLnpZA8IvpNRZzeHkOEU0q29r3Lgcxu17TnQiANWIg1j49fbGXkMOlgUFwUWJgnvfK46U/eT02f8yCnrDlkEDVQN74QtuZWKaOjFTfePkueT/fe4MvP3zDoheGoDzM0GyDKUa2kamEAyyVsDKb9gBgRbGwiUbE3KyzbwOZ/q2ErVueVStkK3HyN0AJaFtVLKo8z6086gvYWuN0IniOJqpfkbj3ZD3HXVv676y2xvOlgDPOtRPLAJTRYlajeFW2Gbw44/qi6vm3W2psqA9VrjluPe+1dUPfjA24YiRAOn34ag6KQ==
+	cTg+/4TbG2JI90Wg91NZWjKePhsIDawKdlG7i8OHGLShHi3KwqjMkzeIeNoKZIQk9FIpSQbQmblOrDI2JG2EjuoINnPaPiHPZBbxn+9AcSYPP61r/prkAy9guU1YqDudHPUqR1WtYJoy1OGz2b3nSl+d7Z9iZ5M82BeL9k5iB79B7SXPYTsjleGrnUberTzGNbRrxwWwkQWhqO5vtU8I9myC9ljp6buRbzscc49rSB16lirB6ReCclPrX96J2du5z32ggby2b2vGOJDtTMXaRa/4MGMwB5PScA1Fd06OyJTIlcKwFz7k2oeI156ABflCca7uJgacUDZapIhegKyXnZpTfV41XpssZOI4pxTByjmJk6ltsYPmKtEBICWxCHeL5b/OAam8bmHKjZ9oGKontY11g3t/aqwyXZOQACB7hUuIjLLNwnIPgJCRGODOcCXu4qRKG4gmH8eImyQCxSCoA6vdIuJ9DEv1pImnwx56aafGQQUVTTIUchP8CQ9YXjHCFYV1OosQH+bEa6bdxMrvP0YyONQ92QPAlRvUxFjKTYumekxdt0ygVg9ip0+xgWcghXja6zMgka0hOyLHSkKVIWwLWi4PIJYU9JvX+Ya6Rzc=
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(7416014)(10067099003)(56012099006)(11063799006)(13003099007)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(6133799003)(18002099003)(22082099003)(10067099003)(5023799004)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	OQtgWArp9C1cON3dheh2DwdibCd3o/sSVdx4hZymRGUpXFMgdtombyHe226mSZ65D/pXZ9aY8MiUvGX+eBDoCE7p9dw82eA8M1T9IRa1+MAiYcz+WN0/kLLSBcBFQNFZfa567MVHTc/D2oz/MFFUXOUiQnvSbsdha2M0pxi53hdobNcggc6/nBqYjR8jxKCFq4iFhvH8+d2FQWjJQnZXPqe25WGyYpP2PkVytKDG4mfys3ohbC5UOL6oyPs3oYSVyISQIukC7XzBpEVz/sHesihBFqieOQW7cW2yzeIMM2wNfnIJP+ACSuriK6a8zUOko5oAKQ5dIiHIWvj+MrlRtfunvXLG1619O0vD7tD+8e8mEKCa7FsVG8jJxei2pRv5rBjOQ81JWeFCKUtpx3vGI/u02QSzKkJ56sgD1ZJmnC2sEKJibJrB/1b25FNcuLYK
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 16:11:01.6553
+	=?utf-8?B?T213OVM1NnpaTTlZZzlQVS9OaWZsWi8vejFSVm8zVmZXSXRJRU1LZU5ORkxG?=
+ =?utf-8?B?VUptQ1d3eTk0UG5ydm9DL2JvOTdHdFdaamhMWGhjWndPaWlKNk1SdzZTN21y?=
+ =?utf-8?B?aTRNektLVUY2T1dzVzFIbFNmanZCNGo3ZUdxVXZDcmhmZWJyb2JjUnhYSEtq?=
+ =?utf-8?B?RnlhdUNFWjFmTFQyQWpkN2VzcGE5MEt4VC9ocHg3amtWQURabS9pU3ZqWFBK?=
+ =?utf-8?B?R0UrUUJMNCtndmxxMEhwZml5MUhyTi9WVDBmSnQyMk9FaHo4aGlpUkRDcFpR?=
+ =?utf-8?B?UW9vRFBhWSswTGdYRVl4WE5jbGVreWxkZWx3UkVscnFaVlV2Y1l3YVU2YjAw?=
+ =?utf-8?B?ZVAyZ1ByS21DWU9xaTFSUjB5MkxwUnVlc3VHWDdrOU8xZDRaUVIrSHNxRmx5?=
+ =?utf-8?B?cVdvQkVYL0xBNER0QTA3RlpsN00rbTdGbS9BYkRXVHZsNFhEQjNrVmFMdHVk?=
+ =?utf-8?B?N1J1emhwT1hQWGRWampMY3RIQlg5cElNWVluY1NTdHhYQy9qanBqMUZLcjI5?=
+ =?utf-8?B?UStQYVp5d2hEaFF0LzBubExFcG1uWm04SjQrYXJ5ZyttcFJscUN5cm9id2do?=
+ =?utf-8?B?cHE3Zk1MVG4zeUZOOVpTSEJxM1AyUVkvTktKYXp2YXFTc2h6cnZTakF6Y04y?=
+ =?utf-8?B?VFRIVU4rekxLREpHL3dNcjJxU3JxakxmckNLQjlUK3BDMTZkKyt2U0gwbXZj?=
+ =?utf-8?B?SXNKWHNxYUxHSmZJVHNHdTZBVy9BTGJhelhxemNsSTlKcm91c0g4VGpveDBa?=
+ =?utf-8?B?NVZyMjVuMVdhZXlQVExPeHVrU21QRWlBdmxmVVM1ekRoY0oxQkUrekk1UDF1?=
+ =?utf-8?B?R0h2MDh1amhGazRtdHFvTmkzRklYMFRsZm1BS0ZyTTFaV1I0aGxNWlBLVTk4?=
+ =?utf-8?B?UmhJNUpCcWkvcGdRZDArWGtDcnI1amgzVXY3WUNsNUVXOXVJbDEyQ1RkM2tk?=
+ =?utf-8?B?ZWxQUytDOGtzZy9tSFVzL2FuTkpPcnZWTUtJM2hUdTExU1Z0cGFCWTVheVlt?=
+ =?utf-8?B?VlU5aXRvNVF2dWRoV25QU2hZTjZ6djhkOGdCZjdkQkYrdklBOGdHZXAyMUMr?=
+ =?utf-8?B?d3VXL1JGRkE4eGdPbDRpaHV6aEdRYllHMkZoQzQzKzFLUDhlckhwWWI2M3ox?=
+ =?utf-8?B?djl4WEhnSXd2Z1Vwc1hBWWNrbEVWTXV3R3loejJhWWFreDBmUFEydUlFbzls?=
+ =?utf-8?B?ZGFZczA0WHh2U3djc1dnVXoraU1uTnNwcmlIMm9vSndlTE4rRlBNa0xFTGQ3?=
+ =?utf-8?B?ZUMydWxxTnhCNzFYNldxYjh3V3NhaFlOT3F2YWwzdVVvSHpGV0d6aXJrMkph?=
+ =?utf-8?B?czZnY0hpWlFNR1ZXYktDVGhobHVraXE1OVNMY28vRTZ2NUpnV09DUlZIL3N4?=
+ =?utf-8?B?M0xDTmNQQVV0RjEvL0tZR3UwQ0NLRXRtQk1mY2JCRjRNa1A0b1A2VlF5VUw3?=
+ =?utf-8?B?UFh4dGRzOWhwRjViVzRUaFFiUUpBWEJYMC9GMjNXdDc3OWJoRkRxdXcwUEZB?=
+ =?utf-8?B?V0IvblJUZWl4QUlZRUNVMWt0Y1ljc3dhKy9UTEtDS2dBUHZNZXhLU3NnOU5L?=
+ =?utf-8?B?aHBnbDZnS1o3bHpKMzJoYXFVUUczNkNicDI3TmxNdG5mTlloMTUwNE4vbjJ3?=
+ =?utf-8?B?dHplSmd4UjFwUXhZQjNqSXUyN0xRaTdHanRCdFBRVVdHWmQyT1I5ZnZWNWhQ?=
+ =?utf-8?B?T3U0NjYzTGhLRkIvL0hJNDA0WE1KVU1DTmNDUUhWcWZITVROMzVtck9ZYkNM?=
+ =?utf-8?B?bTRHQVdKZzlaU1NNb2x3Vnp0K0tDQTBRNEdpci94VGFQdWRobU1iU1pMSzVu?=
+ =?utf-8?B?aDhiekN4RHdCRjVxWGhvaFpYVld5cU9PcjRJL014NXpZVU5WZGR5cHNUVDJx?=
+ =?utf-8?B?bGJSVFEwdVJkT3N0U2VIdk9KeVNDT3dwSEJCSkp6Q3ZEdDNyRFJzWXZuK2JD?=
+ =?utf-8?B?MHdaQTZqdUdmWVpxYm10OWZ2bm5ySkl5Z0QyQ2tHWlpLeWhJdkdPODdid0RY?=
+ =?utf-8?B?V3AwZUJKbGZ0RFEvSEhxQVhlZjQxeUFteFJ6OGdhRmRieHZ1dWhVdVFaclpv?=
+ =?utf-8?B?eTQyVUsxQ3VCV2hRN1lzaTBqdktiODJDcDFlcTc0dkt3eC9jNlJ5alorODdo?=
+ =?utf-8?B?MThwdk12YmViMTBmNHhVRGRNTVlkUFVNNzAyWlRYQ1dnRnBvTUxNYytGdUlV?=
+ =?utf-8?B?ZTRCeXVtekk5dmpUT1JPS09EY2U4TW9MeXFYM3V5ZEg1SHBRbk50NFJIeTFV?=
+ =?utf-8?B?NTU4c2FzUDVwaXJlbk1oNkltanFvNTg2UDBsTHlVbjRMUWRDUFRHb2dtemNI?=
+ =?utf-8?B?dWdOZStrdGFWdzVHMS9tLzFzdk13dVFEYmJPVlJTcThqdE5NdE9CN1Qyc0RR?=
+ =?utf-8?Q?f3V6mwqEDnngNqu4=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c0d7257-b1b1-4ea7-34e4-08df1343ee6b
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 16:10:59.4497
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9742d94a-a284-4fcf-7f92-08df1343efd7
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF0000056C.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3690
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X17reOZvupQ+/cwZVr/ZNtHFV2TVlXq+ziEMyr7OlByMdu4tR671jV9i/Tb0iGzU0JTIXif5o0W/h9EnIOYg0JOKo5i9B8Wp78IQPcNh5nI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQXPR01MB5397
 
-In case the conversion has failed or returned zero, processing *val
-can lead to a division by zero.
-Need to check for errors, or converted value is zero, before processing
-the data.
-In case converted value is zero, e.g. the Vrefint channel, this should
-be considered as invalid in all case.
+On 2026-09-15 11:59, Hui Su wrote:
+> MM CID switches to per-CPU ownership when the number of users of an
+> mm exceeds the maximum number of CIDs. When the affinity union grows,
+> the per-CPU threshold is recalculated and the MM can switch back to
+> per-task ownership through deferred work.
+> 
+> mm_cid_calc_pcpu_thrs() incorrectly uses
+> min(nr_cpus_allowed, users) to calculate that switch-back threshold.
+> This makes pcpu_thrs no larger than users, so the
+> users < pcpu_thrs check in mm_update_cpus_allowed() can never succeed.
+> 
+> For example, with three users restricted to two CPUs, the MM enters
+> per-CPU mode. On an eight-CPU system, widening the affinity union to
+> all eight CPUs should produce a threshold of four, but the old
+> calculation produces three and returns early. The MM therefore remains
+> in per-CPU mode even though the widened CPU set makes per-task
+> ownership preferable.
+> 
+> Calculate pcpu_thrs from nr_cpus_allowed directly. The users bound in
+> __mm_update_max_cids() still controls when per-CPU mode is entered, so
+> this does not change the threshold calculated when switching from
+> per-task to per-CPU ownership.
+> 
+> Tested with an x86_64 QEMU reproducer using three users, an initial
+> two-CPU affinity, and an eight-CPU affinity expansion. The baseline
+> did not invoke mm_cid_work_fn() after the affinity expansion. The
+> fixed kernel invoked the deferred work once and completed the switch
+> back to per-task mode.
 
-Fixes: 0e346b2cfa85 ("iio: adc: stm32-adc: add vrefint calibration support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260911161555.244F31F000FF@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- drivers/iio/adc/stm32-adc.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+I think you're onto something.
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 5c6c06b269be..d290c5a8f86d 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -1609,8 +1609,12 @@ static int stm32_adc_read_raw(struct iio_dev *indio_dev,
- 		else
- 			ret = -EINVAL;
- 
--		if (mask == IIO_CHAN_INFO_PROCESSED)
--			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-+		if (mask == IIO_CHAN_INFO_PROCESSED) {
-+			if (ret >= 0 && *val)
-+				*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-+			else
-+				ret = ret < 0 ? ret : -EINVAL;
-+		}
- 
- 		iio_device_release_direct(indio_dev);
- 		return ret;
+We should cover those scenarios with selftests in
+tools/testing/selftests/rseq/.
 
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260915-adc-fix-div0-ae38365abfeb
+Thomas, I recall you had tests for those state transitions when
+rewriting rseq mm_cid. Were those local or did they make it upstream ?
 
-Best regards,
---  
-Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Thanks,
 
+Mathieu
+
+> 
+> Fixes: fbd0e71dc370 ("sched/mmcid: Provide CID ownership mode fixup functions")
+> Signed-off-by: Hui Su <sh_def@163.com>
+> ---
+>   kernel/sched/core.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 7885ff76e69f..0280ed132d0a 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -10845,11 +10845,10 @@ static void __mm_update_max_cids(struct mm_mm_cid *mc)
+>   
+>   static inline unsigned int mm_cid_calc_pcpu_thrs(struct mm_mm_cid *mc)
+>   {
+> -	unsigned int opt_cids;
+> +	unsigned int nr_cpus = mc->nr_cpus_allowed;
+>   
+> -	opt_cids = min(mc->nr_cpus_allowed, mc->users);
+>   	/* Has to be at least 1 because 0 indicates PCPU mode off */
+> -	return max(min(opt_cids - opt_cids / 4, num_possible_cpus() / 2), 1);
+> +	return max(min(nr_cpus - nr_cpus / 4, num_possible_cpus() / 2), 1);
+>   }
+>   
+>   static bool mm_update_max_cids(struct mm_struct *mm)
+> 
+> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
