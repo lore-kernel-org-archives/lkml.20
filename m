@@ -1,132 +1,58 @@
-Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802FC429000
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF91386453
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789511675; cv=none; b=sLG02ws7AALg+uWu69CJXe6xjvayma9LAwfUn+wrFfIqT5I0WQ3M7On+UspmhyXWDahh6VFZ36YQ5I1LDD7/S+a3YbDMf7LOsVYXk2f1lsqbiqfWaMo2FrQ+xPDlNlsBHDCDs8Wd/9VWYqrfVuXPJHeUvMbg6vQ3segEnu8BCQ8=
+	t=1789511744; cv=none; b=DIm8yWRdyRa0CFTCkAFG0MmD+kThlOrLf55uL9yFS/GMQyXHAur5zSDfZV5sloAjNbTMhzbkw1OrWRSFP/ojRq28/Rs2fXIcxFp39Rdf7XR2UWes6RwCtYr3s8r9vkgIf/Pw4ITDsaeJGYkPTS+eHfVYDNAd17mfTcwv1kk4B5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789511675; c=relaxed/simple;
-	bh=SKDIl6gUKjcd7PZ7p59sq7JLrAihNvMJGUpWGd0ydmA=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=R415Y/Tbd4iWT+OyJ6wmqFR7Z1xOpZpsxpxETNwWQBPJhyYdJ/MSV3veIxq2mmYpifTyyWz00fv/OBEyPvF+6Is55kKNR4bLZLi98F59Zv6cGGea4ecjTMQNocgtoVgq3yAtsJ14ei2lHE1CGifufWUDRyeB+fiulAeyF/8caeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f0.google.com with SMTP id 006d021491bc7-6a3900cb2b5so2141939eaf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:34:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789511672; x=1790116472;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TBWFnaWw5jXr3ddwzQPC0GqRWckCJTkWzckXqZAhHFI=;
-        b=nX8jZmGK22kVm+HHq5qJkNSmKpPIAWDZPVUmkRuyqbRvxQm3QPEQOEjM4ghK0a+ZQ9
-         n8hpMsLjmXUe9KRi57gIY7gJBQq870CUEtCU0XKkNLq1oWBjd3EnNbTNWcUUBUtGwwYl
-         TX5YFFSuP/k9AWSS8fzDarenpDFzuyWPYNcNOCEq6PwyLXv4SwOXi7dxQhLfUYsXDgVd
-         pmCJiJ6gWlv8lKEq4x0yWKJrb3nTxtLdbRxsKo/lp/0Nsra1DPga7OC1crpA7D1kH57T
-         Dm0nzfGkEV+6p1hqeCJDUSGpU2JHa8RwHNxQ58N38yq/bQnlowmbpLzouc9/5lI8C606
-         ZY9g==
-X-Forwarded-Encrypted: i=1; AKwUvBxoFXNiHKo13XA69eNVp6+NG7qkGQb6oSB7h2siXIpCUdatez72ATjzzddYju7txGgIHFELOMaR/6oMq80=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnGnzGIILJgWkV2T70KVWlDnObCZjFdEQyjakqE5xYMzrtUvap
-	r7oTkji8OgB0UFkaFpre1LMeRiee/6D3l0nLQOlBQdqNgkBQmLXkWHF9y8HsvLhNLifTXAIIigK
-	YgjG5CByMlltVBAlmWHOAm4tQu/1iRYZX+2Ndp6H6ZrJ6pROTTfVCtpEQKnQ=
+	s=arc-20240116; t=1789511744; c=relaxed/simple;
+	bh=RhTnPDaCLd+U+z7ApKM0YP7sn1aaMXZYDn+8iLwc6eQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=Awa+1j4j3ODmY/o2hDbgRk31VeDlDI0CM9Ys9RfUjS42m7rR6AOR6ZLuNBLxKHE7mIrjcIvG1oSWgfK0Zi15ImvxCkdUVtaJcYKH+Rg5IFp930C57oWGOnvnyzveKSr1cHlGGNpBQCldP79/p3c5SYnEQGoemaVpfWKJZ+zjJ/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=r7LHLzbd; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="r7LHLzbd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080761F000FF;
+	Tue, 15 Sep 2026 22:35:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789511743;
+	bh=RhTnPDaCLd+U+z7ApKM0YP7sn1aaMXZYDn+8iLwc6eQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=r7LHLzbd0Mx3R5rOXvWP+PpUysVwGELhq01tND4SbqiwRuh/Mcy1MSIKsa7U7icZS
+	 UUFaeKBMV0dkcXN8kqoIr3ZGSP8zIrdffHc0AXlo67wZ3OYRQm30Cpvlh5iUHBMuzz
+	 hrr4PrWEKFpePZ2nISNQaVbut+HzuB+G2w1VIGOM=
+Date: Tue, 15 Sep 2026 15:35:42 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Dima Koziuk <dmytrokoziuk68@gmail.com>
+Cc: Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, kasan-dev@googlegroups.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm: kmsan: fix iounmap metadata teardown
+Message-Id: <20260915153542.3b9afbd00f7e6cea87a3350b@linux-foundation.org>
+In-Reply-To: <20260915160207.2952-1-dmytrokoziuk68@gmail.com>
+References: <20260915160207.2952-1-dmytrokoziuk68@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f003:b0:6b7:8415:d790 with SMTP id
- 006d021491bc7-6c7d3802648mr545705eaf.59.1789511672466; Tue, 15 Sep 2026
- 15:34:32 -0700 (PDT)
-Date: Tue, 15 Sep 2026 15:34:32 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa9c7f8.a211d2ce.1a5198.02b5.GAE@google.com>
-Subject: [syzbot] [netfilter?] WARNING in nf_flow_table_extend_ct_timeout
-From: syzbot <syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com>
-To: coreteam@netfilter.org, davem@davemloft.net, edumazet@google.com, 
-	fw@strlen.de, horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, pabeni@redhat.com, 
-	pablo@netfilter.org, phil@nwl.cc, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On Tue, 15 Sep 2026 19:02:06 +0300 Dima Koziuk <dmytrokoziuk68@gmail.com> wrote:
 
-syzbot found the following issue on:
+> While studying the code, I noticed that kmsan_iounmap_page_range() calls
+> __vunmap_range_noflush(v_shadow, vmalloc_shadow(end)) inside its per-page
+> loop, and does the same for origin. The first iteration therefore unmaps
+> the entire metadata range, removing the PTEs for later pages before the
+> loop can recover their backing pages.
 
-HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14ac428e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=521f7e7e2b974abde99a
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: i386
+Thanks.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+AI review might have a found a couple of issues - please check?
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/daf497619736/disk-50d05c7c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/748fbd82f647/vmlinux-50d05c7c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e61c59099d07/bzImage-50d05c7c.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-1
-WARNING: net/netfilter/nf_flow_table_core.c:546 at nf_flow_table_extend_ct_timeout+0x1ee/0x2f0 net/netfilter/nf_flow_table_core.c:546, CPU#0: kworker/0:2/3335
-Modules linked in:
-CPU: 0 UID: 0 PID: 3335 Comm: kworker/0:2 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/08/2026
-Workqueue: events_power_efficient nf_flow_offload_work_gc
-RIP: 0010:nf_flow_table_extend_ct_timeout+0x1ee/0x2f0 net/netfilter/nf_flow_table_core.c:546
-Code: 00 00 00 41 83 ff 06 0f 84 9a 00 00 00 41 83 ff 05 0f 85 b0 00 00 00 e8 70 d1 ab f7 41 bf 30 75 00 00 eb 0f e8 63 d1 ab f7 90 <0f> 0b 90 41 bf 01 00 00 00 48 c7 c0 80 f2 a0 8e 48 c1 e8 03 42 80
-RSP: 0000:ffffc900040ff938 EFLAGS: 00010293
-RAX: ffffffff8a1bf92d RBX: ffff88807da5be00 RCX: ffff88803247ddc0
-RDX: 0000000000000000 RSI: ffffffff902f6960 RDI: 000000000000002f
-RBP: 0000000000039e60 R08: ffff88803247ddc0 R09: 0000000000000002
-R10: 0000000000000011 R11: 0000000000000000 R12: dffffc0000000000
-R13: 1ffff1100fb4b7d8 R14: ffff88807da5be48 R15: 000000000000002f
-FS:  0000000000000000(0000) GS:ffff888124cd2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000f7238c10 CR3: 000000007a894000 CR4: 00000000003526f0
-DR0: ffffffffffffffff DR1: 00000000000001f7 DR2: 00000000ffffffff
-DR3: ffffffffefffff15 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-Call Trace:
- <TASK>
- nf_flow_offload_gc_step+0x545/0x7b0 net/netfilter/nf_flow_table_core.c:581
- nf_flow_table_iterate+0x13c/0x1f0 net/netfilter/nf_flow_table_core.c:452
- nf_flow_table_gc_run net/netfilter/nf_flow_table_core.c:604 [inline]
- nf_flow_offload_work_gc+0x22/0x70 net/netfilter/nf_flow_table_core.c:612
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+https://sashiko.dev/#/patchset/20260915160207.2952-1-dmytrokoziuk68@gmail.com
