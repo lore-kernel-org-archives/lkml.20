@@ -1,100 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8703655C3
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 14:10:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B86367B6F;
+	Tue, 15 Sep 2026 14:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481458; cv=none; b=NGbmVayyD5a2gy5rGkbwmTjowzfNOkQyx/p16Sru13ZKxNfeygc9gcER/EgUglnfZhBOgDEPplRQAMRBTjuduI0YB0qZm67NZREEz0X38dAtKI1bqiTWXmqMy9f+bJ1gsyK58Ykjl2DzBtQ8TuGeTnL+JPCHqoW0cjqGw5j4Rec=
+	t=1789481458; cv=none; b=Dt2m3xPwWrs43/V+a0Kbf1gAY2spKZR43UyUnAAgpHZ15wZ7TNzXHAAcKUSLeic3fG/JKRYUiK66AJ384mHGcV91nuoeSQPZ8KDoHkPxqshauajsSnjR6oYYLWoqIUhJJdjOFY74Wy3o06WeIbxPRfM3PI/mFpHlNL49T9neD+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789481458; c=relaxed/simple;
-	bh=Oxxao6blWXExFijm5Fok3ZVkCi9b1qDzUnzbmJN9OrY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=FS0U0FOgF8WEmNQ0/t7V0LqfGpa7M6xqjgL3Noi0/1dT49AW2POHgagaXIcoZnMmi6gigvVNaL7geKnukdWcFS5LyP1CS8whSAbRKviFD9Bl0rfThRav2qYT0JM0kePNKkNSa6/LsdK3KusnMm1CD8SFMKfIRbYVsinf0ag8oZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Pyzat2xq; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	bh=WgbaSjwYxvFVTQ4/3kyH9BX4CGx7OxX5Tfp0LUYeq+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Lmhb3Uc1jGk6+Hvr9RLRBuJSinnkR6wCR4ls7DOc+ZSaCPS2mTLGHzXm63d4eMAe/1oy/bCwbB45S0WUYXNSV2M5m+fJbdNXUTemp5Omqv1ZN1mlzGBrYx073x91VOU+B/cksLV5ify9csgFUut8IiXNJl4UsQMHGT2jiG66xxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EtH4RCPA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Pyzat2xq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789481456; x=1821017456;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=Oxxao6blWXExFijm5Fok3ZVkCi9b1qDzUnzbmJN9OrY=;
-  b=Pyzat2xqxenEOPdcBxn4kz5P6X98/50e9LjjxDhW2u6VpzTa9vahhg93
-   hfniIvGnrO2dS2dPUo4lE0LiQ9hWOqXSSnuLG8gvyIW4lj6Q8dQINItA6
-   MSmOed1qb0mfmvGdgQRlE4QNqVXTF30ikVm+gjuCFuckxgD4BHz8dn3su
-   th+UR7CmXc6mCfNz/7jXG/SoGxOaekIuolKV3a6AeDM/b7L59YRtre55C
-   xvX8VYeXliAkLo6an6vehevGp0Y/SpEX3+/g8rBN1b69pSm+wdo1xp4qI
-   6NIkbDaScS20XGpCmy3XXncO0DXWVY3AGmNDw523S6xtdwxHk9DET1nwv
-   Q==;
-X-CSE-ConnectionGUID: 0Jn1YuUHSkqyMwsel4gt4g==
-X-CSE-MsgGUID: t5BczzGmQvCweQVyt2r21Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77404367"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="77404367"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:10:55 -0700
-X-CSE-ConnectionGUID: YLPfbuBUTtOAfdrt260klg==
-X-CSE-MsgGUID: QkvsK42dSOCYYZM+mWL9+g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271206121"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.243])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 07:10:52 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "open
- list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
- I915 DRIVERS" <intel-xe@lists.freedesktop.org>, "open list:DRM DRIVERS"
- <dri-devel@lists.freedesktop.org>, open list
- <linux-kernel@vger.kernel.org>
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: Re: [PATCH] drm/i915/fb: replace kmalloc_array with kmalloc_objs
-In-Reply-To: <20260910155846.79513-1-lalitshankarch@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260910155846.79513-1-lalitshankarch@gmail.com>
-Date: Tue, 15 Sep 2026 17:10:50 +0300
-Message-ID: <c45b9b5e99c763e37aafdf0c8d794e2499543ceb@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EtH4RCPA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33D071F000FF;
+	Tue, 15 Sep 2026 14:10:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789481456;
+	bh=aHSbmDD3j9xRZ2iJWMGKJ3aguz1fvqB4sLYlzipxP8I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EtH4RCPAGt8eG3YAeogfbeH4uqJlSWBkDjNf+0ldGQu2sW+ZDSssoW4DVtN8vXsci
+	 0TuCYsbHtG0qtsbUZ5LwHtsJ18k/2dBxrJ9MdBXSZHMMZkYpQ5GJJdxc02a+OPMnse
+	 e/X2awvw8y6cF12of+7uXMUcE5LsKFhd93XayEtx7fbHboYqBBffGlhkiHf046JwaR
+	 n4hz1yqShHSRqdhqsYMKRjR3m2e2SNsNwdsoZumtQu5sXdEWz1ctbIzkqMbfI5iGRf
+	 N/FPnYieXVGG58iZ66mMQ3krFQbnFHevuJZ3ZNdGXQ+2eG4X4PU472jaMx8leAFmjl
+	 I9mblwyJgh4SA==
+From: SJ Park <sj@kernel.org>
+To: Harry Yoo <harry@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Usama Arif <usamaarif642@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/cgroup: ignore memory.reclaim -EAGAIN for zswap writeback test
+Date: Tue, 15 Sep 2026 07:10:48 -0700
+Message-ID: <20260915141049.70696-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <aqkavo7OfQdMOpLf@thinkstation>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026, Lalit Shankar Chowdhury <lalitshankarch@gmail.com> wrote:
-> Replace the remaining kmalloc_array instance with kmalloc_objs.
->
-> Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
+On Tue, 15 Sep 2026 11:21:53 +0100 Harry Yoo <harry@kernel.org> wrote:
 
-Thanks, pushed to drm-intel-next.
+> On Mon, Sep 14, 2026 at 05:18:17PM -0700, SJ Park wrote:
+> > Hi Harry,
+> 
+> Hi SJ, thanks for looking into it!
+> 
+> > On Mon, 14 Sep 2026 21:36:39 +0100 "Harry Yoo (Meta)" <harry@kernel.org> wrote:
+> > Makes sense to me.
+> 
+> Thanks!
+> 
+> > [...]
+> > > --- a/tools/testing/selftests/cgroup/test_zswap.c
+> > > +++ b/tools/testing/selftests/cgroup/test_zswap.c
+> > > @@ -346,7 +346,16 @@ static int attempt_writeback(const char *cgroup, void *arg)
+> > >  	 * it can't writeback to swap.
+> > >  	 */
+> > >  	ret = cg_write_numeric(cgroup, "memory.reclaim", memsize);
+> > > -	if (!wb_enabled)
+> > > +
+> > > +	/*
+> > > +	 * When writeback is enabled, memory.reclaim may still fail to reclaim
+> > > +	 * the requested amount of memory due to a slow swap device.
+> > > +	 * Ignore -EAGAIN here. The caller determines pass/fail based on the
+> > > +	 * zswap writeback counter.
+> > > +	 */
+> > > +	if (wb_enabled && ret == -EAGAIN)
+> > > +		ret = 0;
+> > > +	else if (!wb_enabled)
+> > >  		ret = (ret == -EAGAIN) ? 0 : -1;
+> > 
+> > My humble eyes were unable to easily understand the change.  Is the change
+> > effectively same to below, and if so, would this be easier to read?
+> > 
+> > '''
+> > @@ -344,10 +344,11 @@ static int attempt_writeback(const char *cgroup, void *arg)
+> >          * writeback as zswap.max is 1/4 of what was needed when reclaim ran the first time.
+> >          * If writeback is disabled, memory reclaim will fail as zswap is limited and
+> >          * it can't writeback to swap.
+> > +        * Even if writeback is enabled, it could return -EAGAIN due to a slow
+> > +        * swap device.
+> >          */
+> >         ret = cg_write_numeric(cgroup, "memory.reclaim", memsize);
+> > -       if (!wb_enabled)
+> > -               ret = (ret == -EAGAIN) ? 0 : -1;
+> > +       ret = (ret == -EAGAIN) ? 0 : -1;
+> 
+> Hmm, no. This will mark the test as failed when a write to
+> memory.reclaim returns zero even when wb_enabled is true.
+> 
+> It's not the same because when wb_enabled == true we consider
+> ret == 0 or ret == -EAGAIN as success, while with wb_enabled == false
+> we consider ret == -EAGAIN as success.
 
-BR,
-Jani.
+Ah, got it.  You are right.  Sorry for making noise and thank you for kindly
+correcting me.
 
-> ---
->  drivers/gpu/drm/i915/display/intel_fb.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
-> index 1c0859d5f829..c3e4c3f6d8cf 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fb.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fb.c
-> @@ -596,7 +596,7 @@ u64 *intel_fb_plane_get_modifiers(struct intel_display *display,
->  			count++;
->  	}
->  
-> -	list = kmalloc_array(count, sizeof(*list), GFP_KERNEL);
-> +	list = kmalloc_objs(*list, count);
->  	if (drm_WARN_ON(display->drm, !list))
->  		return NULL;
+Reviewed-by: SJ Park <sj@kernel.org>
 
--- 
-Jani Nikula, Intel
+
+Thanks,
+SJ
+
+[...]
