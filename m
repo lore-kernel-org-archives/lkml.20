@@ -1,123 +1,189 @@
-Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6409343CEDD
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20704503FA
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501415; cv=none; b=sngFMTytaz/j7Tlp7iCnIbidjELLTVTUWaY4a/zCKoXA3JPQmvbJBHatET6I7AE0zol/VcgK0+PX5oqa+Rg/M6urbUqDhzp0BLN3OTB/aJ1encFb7PlmKbKjvjfL/GOGWJHjaOwnyXw326tOzBYFrCdG/xzm0Lhq6EwsuapPnWA=
+	t=1789501419; cv=none; b=MJyTHnLUFogOl9BnSSsNMQZDyceSsOpVRXCReni7c7jEajzlNNCmNMEsQKpKbjIlULjFXV+gEOVcnrSe48COR13PsrOYCECWnyJQWloWANmFdLKb/V09e3oyfcguNtOfO0pzXuXsMDnjlu2RkCv9/PKlfD3IqkOr57f2Ssjg1zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501415; c=relaxed/simple;
-	bh=kqtv/2VwyzcGajyJF4+6+waY4Kr0pfKWR/tdU0S+w7o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qYcH44EsLlMay7TdkLC+I2HE84M8AN2sy/rcmAv1pk5OnkGMknex4SQVF3gXowxiRKuQWVwzBNbfT+9uIJ4M9dYEZ0W9ZB/WyuEUgWNsoHu7d3YiVyvYY5E706Ny4KXNMHePNJlm6R38TbmzLNEjEQj/o5aUdnX0XH1sz3uGnoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HMeAoDdh; arc=none smtp.client-ip=91.218.175.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789501419; c=relaxed/simple;
+	bh=cQDi/khXp22kaDJp+dEsEBqmjhvlz1g67boyZ/PQrd0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JsSk22h0Gz4MtozECVFQSzt/6PqWfOFXM0PDQWUUTbmx/Xi6Oi815ZyfuW1021wuYJooRMkqeP87e6lPDUjltZVNBZeWXkpF/ZFp9VHLh/41JL3r25UdyhaSw2GmgdqkzFXh7Gp507pRk9FeXa9q/w11jy+437MBJmyT+47m9n0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=Wc8TZqp2; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HMeAoDdh"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kqtv/2VwyzcGajyJF4+6+waY4Kr0pfKWR/tdU0S+w7o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789501410; v=1; x=1790106210;
- b=HMeAoDdh7OKRIW8IL6MV3DsAi9DZuQpfHITqkcnrVTJmmMie+Jxn7ye3jSmE7ucQOZPFHV8U
- fpdYjtQBB2/kBUpfG7fjk4JFeCqe4auAeexWuvy/bpChE/dXtpf4Q0n94NCHQjZqBJVzlLUFidH
- 9wfeG+ZBwAMJb7x/pMaKauVg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 18a50799a8a562de;
-	Tue, 15 Sep 2026 19:43:30 +0000
-X-Mizu-Trace-ID: 18a50799a8a562de
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 15 Sep 2026 21:43:24 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 10/10] media: i2c: ov9282: clamp flash_duration default
- to its maximum
-Message-ID: <aqmfvIyVMxLdAaQw@bombadil>
-References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
- <20260914-ov9282-fixes-v1-10-f520af59df1b@linux.dev>
- <CAPY8ntDWF53Zv1yspiYH29TWEUODW1PPU4dcBig-ssa-e15jPw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="Wc8TZqp2"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d4ddd1d91so1156207b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 12:43:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789501416; x=1790106216; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i2LOI0WXXV1VVEC/9ThlMXobGg1l5GAIdV/ERsV+q64=;
+        b=Wc8TZqp2fPQJ979amKHsD0hu7IeYyfoeXwMFVxXsXH7khIe6lWfHHuf1u1wcTvcw3f
+         ZkFhAfT5M5YPY2afFUKGQ/B7MzILkvkTqIpAo1BHYGdejVJFtNezhvj0GjflPjIl7Frk
+         nP2Vi+AHh+ISr3OlgTqbPAaMeV2ghY/6d3KPcQykLK/SZu04G2UlqQPZ/UaS3Gl8JMzo
+         QeFSL9JUl6q2f168LHzzQdn0aqtL8xQ8LfjQ0Z1qrD26AASbD/qNWoLmIvkwvaxQxv58
+         Kk6GYragnd+eb/W9PcRwoMW4bNXFmXKe5S3yW4iXx9ATzRCNjAlq2Z9HlnrgzZdLoMgJ
+         pjNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789501416; x=1790106216;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=i2LOI0WXXV1VVEC/9ThlMXobGg1l5GAIdV/ERsV+q64=;
+        b=OQ98Ma2wQ06jNf7DoLoHxgPQ/CbVP7nsG7HVQoL/btmfP01BE9YhR1lH78j8WmO2G5
+         y5H7ubRabHppwKvqB+4iMesfl2/TQjKgTH5wvdCOUIrIKc1hXe+SGwmhezCHlaKUk/nd
+         uyaOuTUAWNytnsVIZ9BfX3Dz8LcS+NYvLuxoEr3HCsmxrIvQT1nO/XHtXC7jAuH2GGZs
+         oH613cCRKYwr4t0Cmz7mef53XZWW72rqSiFEdAOgftXhK5ySWoV0JKJrx5AiYuB6I1hD
+         saOBLJYEPR176xnYVBRF6eXkQC1YSsnqrG0FmfQIOpemFOLEBBr9LZzrXbs9RV/xuMNe
+         E1cg==
+X-Forwarded-Encrypted: i=1; AKwUvBwECV+z+wsFFHT6gEeJEdgsO9RPpI3cJONrt16IP9siwVFDEe3sL72iDjZkVZeWdZokyaPcYr5bsUrawqY=@vger.kernel.org
+X-Gm-Message-State: AFuF++muI6iJbEsTVrUFd+6UgiqTGEQhziEWMQ7KKi5TXxHUZ0ZNFMIg
+	g3LY1Re53EQIQd053JGk9FtdbShgLkW37m0dgWmtTIQ302sn+nx5aJYTClawAf4FvT4=
+X-Gm-Gg: AYBFou1H6zFMZbHQRdKRTN9HorcmJwat3itlWrOn0fZ3O90upromyrkF1xTprl0k84X
+	aOZwVwhP0KEzLVBCWIki5vI8YulNSSfRrop0RnXXn5dzMmk4Vc+RJ//wtsOBmDqGTFV86tG0EKP
+	cqYMctTS8lrpJ/9Wlw7Ig5VSKQalMqutVzsv1png4Vt89m03VbZlAl1AT5vtpqbWJ5IoOYtG5hH
+	xoMiuzfLGLfRCNSfH7UNMik54lvh+y6mhBamsKvRd8suYWafiAs9ApLslOShXXOSqd3U461/X5J
+	cLWIjN+JEVakJCxNbP+q/K5gjyJISCrqZ/ukrniWvwPdmaXYLf+btPbpFH3S7MhO5msrGJvV1xV
+	VXXHQMJ9ln1o/hfP8cn8U9CNKHFlccwxzKDQR2Wga3q8uDAi38TSRObau+n2OFssinLtesdzi1D
+	z5GeTOzy0qjB5OjGArptgZGsqnFsAji1V8hk8fia8g0B4xu2JTd/+5iz+GneDu+62Vv8x38VKgj
+	6S5NSNG/iyMG2/lPW4IYqRPQmKLL9J/tavC5CZofb3eim/5/9AbQTl7LV/lC0IdZ27hqObg6GBc
+	NLrPICJG/iWsQ1yhZXlgJlMMEk8dBwlya/QCB9oc8cxhzac4jKVTwjR8FP0Xlx8wRmHmE4Rhk1U
+	=
+X-Received: by 2002:a05:690c:c511:b0:841:e9e4:8ab9 with SMTP id 00721157ae682-88d234ae9aemr34479907b3.25.1789501416583;
+        Tue, 15 Sep 2026 12:43:36 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:e9c6:4a77:70a9:9f1d? ([2600:1700:6476:1430:e9c6:4a77:70a9:9f1d])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-891ee4a536asm922997b3.10.2026.09.15.12.43.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 12:43:35 -0700 (PDT)
+Message-ID: <6423c0290e4a92dd0ad4757b896dfebc570a7aae.camel@dubeyko.com>
+Subject: Re: [PATCH] nilfs2: validate segment number in
+ nilfs_sufile_get_suinfo()
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
+	 <konishi.ryusuke@gmail.com>
+Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Tue, 15 Sep 2026 12:43:34 -0700
+In-Reply-To: <20260915111304.2725651-1-qwe.aldo@gmail.com>
+References: <20260915111304.2725651-1-qwe.aldo@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntDWF53Zv1yspiYH29TWEUODW1PPU4dcBig-ssa-e15jPw@mail.gmail.com>
 
-Hi Dave,
+On Tue, 2026-09-15 at 08:13 -0300, Aldo Ariel Panzardo wrote:
+> nilfs_sufile_get_suinfo() subtracts the caller-provided segment
+> number
+> from the total number of segments without first checking its range.
+> If
+> the requested number is greater than the total, the unsigned
+> subtraction
+> wraps and the function may process segment numbers outside the
+> filesystem.
+>=20
+> Cache the total while holding the metadata semaphore and return no
+> entries
+> when the starting segment number is at or beyond the end.
+>=20
+> Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+> =C2=A0fs/nilfs2/sufile.c | 10 ++++++++--
+> =C2=A01 file changed, 8 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
+> index eceedca026..e3733d2be1 100644
+> --- a/fs/nilfs2/sufile.c
+> +++ b/fs/nilfs2/sufile.c
+> @@ -864,15 +864,21 @@ ssize_t nilfs_sufile_get_suinfo(struct inode
+> *sufile, __u64 segnum, void *buf,
+> =C2=A0	struct the_nilfs *nilfs =3D sufile->i_sb->s_fs_info;
+> =C2=A0	size_t offset;
+> =C2=A0	void *kaddr;
+> -	unsigned long nsegs, segusages_per_block;
+> +	unsigned long nsegments, nsegs, segusages_per_block;
 
-thanks for your feedback!
+The nsegments has the same meaning as nsegs. Why not reuse it? I think
+we can do this. I think that introducing another local variable doesn't
+make sense.
 
-On Tue, Sep 15, 2026 at 04:09:13PM +0100, Dave Stevenson wrote:
-> "media: i2c: ov9282: clamp flash_duration default to its maximum"
-> took me a moment to parse as to be the control maximum, not the default maximum.
-> "clamp flash_duration default to valid range"?
+Thanks,
+Slava.=20
 
-Sure. That makes sense. I will adapt the patch title accordingly in v2.
-
-regards;rl
-
-> 
-> On Mon, 14 Sept 2026 at 20:21, Richard Leitner
-> <richard.leitner@linux.dev> wrote:
-> >
-> > Currently the OV9282_STROBE_FRAME_SPAN_DEFAULT is always passed as default
-> > to the flash_duration v4l2 control, where the maximum is dynamically
-> > changed. This may lead to situations where the default is above the
-> > maximum.
-> >
-> > Fix this by setting the maximum value as default when
-> > OV9282_STROBE_FRAME_SPAN_DEFAULT is above the maximum value.
-> >
-> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> 
-> With or without that changed:
-> Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> 
-> > ---
-> >  drivers/media/i2c/ov9282.c | 6 +++++-
-> >  1 file changed, 5 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> > index be38ecfad8c82..1c5bed85781ce 100644
-> > --- a/drivers/media/i2c/ov9282.c
-> > +++ b/drivers/media/i2c/ov9282.c
-> > @@ -11,6 +11,7 @@
-> >  #include <linux/i2c.h>
-> >  #include <linux/math.h>
-> >  #include <linux/math64.h>
-> > +#include <linux/minmax.h>
-> >  #include <linux/module.h>
-> >  #include <linux/pm_runtime.h>
-> >  #include <linux/regmap.h>
-> > @@ -556,12 +557,15 @@ static int ov9282_update_ctrl_range_flash_duration(struct ov9282 *ov9282)
-> >         u32 exposure_us = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
-> >         u32 fd_max = ov9282_us_to_flash_duration(ov9282, exposure_us);
-> >         u32 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max);
-> > +       u32 fd_default;
-> >
-> >         if (fd_max_us < exposure_us)
-> >                 fd_max_us = ov9282_flash_duration_to_us(ov9282, fd_max + 1);
-> >
-> > +       fd_default = min_t(u32, OV9282_STROBE_FRAME_SPAN_DEFAULT, fd_max_us);
-> > +
-> >         return __v4l2_ctrl_modify_range(ov9282->flash_duration, 0, fd_max_us,
-> > -                                       1, OV9282_STROBE_FRAME_SPAN_DEFAULT);
-> > +                                       1, fd_default);
-> >  }
-> >
-> >  /**
-> >
-> > --
-> > 2.53.0
-> >
-> >
+> =C2=A0	ssize_t n;
+> =C2=A0	int ret, i, j;
+> =C2=A0
+> =C2=A0	down_read(&NILFS_MDT(sufile)->mi_sem);
+> =C2=A0
+> +	nsegments =3D nilfs_sufile_get_nsegments(sufile);
+> +	if (segnum >=3D nsegments) {
+> +		ret =3D 0;
+> +		goto out;
+> +	}
+> +
+> =C2=A0	segusages_per_block =3D
+> nilfs_sufile_segment_usages_per_block(sufile);
+> =C2=A0	nsegs =3D min_t(unsigned long,
+> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_sufile_get_nsegments(sufile) - se=
+gnum,
+> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsegments - segnum,
+> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsi);
+> =C2=A0	for (i =3D 0; i < nsegs; i +=3D n, segnum +=3D n) {
+> =C2=A0		n =3D min_t(unsigned long,
