@@ -1,184 +1,127 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-56.ptr.blmpb.com (va-2-56.ptr.blmpb.com [209.127.231.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7924AEBDF;
-	Tue, 15 Sep 2026 15:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276644AD7D7
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 15:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487031; cv=none; b=RayBT2R5uM7LcFLOZnxBauj3VN9Yb5+eVwQP6Lxs2/3iHA+6nz90mPw1WPIE+pwD6lo+espIaFLFBD6bXaJtoKsKhA4tvRqm3Pn+T/7xhH5f6FcP3WN7MjSYSby1ulbCyWFM+6pFM42h7uVicjPmsAgaKqXQAiVYU3HKELbZXPI=
+	t=1789487040; cv=none; b=FREE0kBdzbkfbZZUeXCR93EridZtyWLL/UGXDStR2p1Lh2V2+X7aKe6y8SEkF/4FlvrGPu0+ACXcWY8UXqSJe9I3sWFwsFSUHusTeGYBF5Yg45YuP8IGd6HnunOCyeJHxtJ9Cb/UdNslwrOjmmaPFZGztcugfGPcsN81aydZC8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487031; c=relaxed/simple;
-	bh=du2XYEijBqSXIMmKSaSxD0l4/kRS+Jv8A+3wvT3Xsxg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lwIhPJMMICYV/kanc+dIIpARg/BqRqBXKOAEv1AQpVWx6F4VtYBxnTjfdZSQT3h8a7xsXqPdgCOs1KzkF6rqtdyIngyFvDGI3B1cWLc2Bo+tjYfkM6UtEkE0Dfs6r5obFz+Q+fAinH8KdIbgLMpXFb0i0AfqfCwjEks8LyglOLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=tssPH1kX; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1789487040; c=relaxed/simple;
+	bh=X0OA0zd3t2u7iXfF0yPqLYpX2BIJuMIZZ+1R/TrabeE=;
+	h=Date:In-Reply-To:Mime-Version:References:Content-Type:Cc:From:
+	 Subject:Message-Id:To; b=TPdmlcehNPariG5A5br9HiHhnDHpLoEnYGKi1DEucwRxbiqIVDZ4U+LUioF9LSJL7ehS+LtxiaJuDCppph7o8uhAB2pC1U13oCKwwQhQQSyH0N0/KhIXF4HXSaxYJe3gAkOUYatz5vUNdtekBpMDVROxOwDDCFXvr/NrUAQzWts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=Yxfwj8cU; arc=none smtp.client-ip=209.127.231.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="tssPH1kX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789487026; bh=du2XYEijBqSXIMmKSaSxD0l4/kRS+Jv8A+3wvT3Xsxg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tssPH1kX18xCIJFOZ6rEuQcjRa8qLd3v9uGM8jZj94gmfGQO2LaxBIhKHjyq0T5Ww
-	 iWKJN/bt290+r18cDkmlHKI128KUaOw5d8lidlTKq9w459ZZttWNYO4B3M0guGGM52
-	 mHLwzutBF6DgTJ2Gx3bEk/JStQLJZGl1Zgra1GW9X4eWuylF2xnpY3POCJ7VZqAiH7
-	 kbyTBVLMIp33qiSd9nLXMUIOW6hECe2WEVhPrh4Z12KIiQxTcU2uotgf/df1ihH6Ot
-	 5tmK4zOVblM+lIeSqCZZazxeX8yS5i2ovL4SviptlQ3txEUpLim4tFbOYnoH1EOyQA
-	 3/KvFWEALMs9A==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id 6950940B71; Tue, 15 Sep 2026 16:43:46 +0100 (BST)
-Date: Tue, 15 Sep 2026 16:43:46 +0100
-From: Sean Young <sean@mess.org>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 04/20] media: rc: Replace open coded krealloc() for
- keymap
-Message-ID: <aqlnsiUas27yhKHi@extorris.mess.org>
-References: <cover.1789460680.git.sean@mess.org>
- <3b7094b8f0035d970fd61caca05abcdd3374146b.1789460680.git.sean@mess.org>
- <61897bc7-e210-4b81-b2fe-f133c962b152@kernel.org>
- <aqlcj9xXNRURA5iJ@extorris.mess.org>
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="Yxfwj8cU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789487022;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=d0n1MM6xxPsL/QERF+JcaetyUJsQd2U/h4AXxBLwz/w=;
+ b=Yxfwj8cUnFaenowRxaFu7ujBz88KmMiwrPqOyEtY6KZc4/KQz4cV/ZtjypgMIhf0dG2Uad
+ 6g6MGTRY3tKrIxSxXvqAu5qt3BMoccdgG3hBtOlsZsePr6nKRM5o7U1EdtYm6DEbWtVQBI
+ WM92Ay6NSYf0X2LK2355OATd/dEsYA0u/CMQBtXoHf4B21rN+d/C7OtAPByvu/uEEG++16
+ pp4Rn4USo8LFuLM6R4KRW0n1ICP901jwzGYtcrg68abH3D+RbEZOATqpUFQANlaz7XtIEB
+ w0JSFBa6avJtYocfqxxBYQXyT6MyxrO7G73aMh85L3A+71SaK3HzCkh+IVHoSA==
+Date: Tue, 15 Sep 2026 23:43:32 +0800
+In-Reply-To: <20260915064950.GA13417@lst.de>
+User-Agent: Mozilla Thunderbird
+X-Lms-Return-Path: <lba+26aa967ad+4153f6+vger.kernel.org+yukuai@fygo.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqlcj9xXNRURA5iJ@extorris.mess.org>
+Mime-Version: 1.0
+X-Original-From: yu kuai <yukuai@fygo.io>
+Content-Transfer-Encoding: quoted-printable
+References: <cover.1789237876.git.yukuai@fygo.io> <ef547fdb7a6c8e39a25a1b9473c444f24a0f03be.1789237876.git.yukuai@fygo.io> <20260915064950.GA13417@lst.de>
+Content-Type: text/plain; charset=UTF-8
+Reply-To: yukuai@fygo.io
+Cc: "Jens Axboe" <axboe@kernel.dk>, "Josef Bacik" <josef@toxicpanda.com>, 
+	"Tejun Heo" <tj@kernel.org>, "Johannes Weiner" <hannes@cmpxchg.org>, 
+	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	"Jonathan Corbet" <corbet@lwn.net>, 
+	"Shuah Khan" <skhan@linuxfoundation.org>, 
+	"Randy Dunlap" <rdunlap@infradead.org>, "Coly Li" <colyli@fygo.io>, 
+	"Kent Overstreet" <kent.overstreet@linux.dev>, 
+	"Alasdair Kergon" <agk@redhat.com>, "Mike Snitzer" <snitzer@kernel.org>, 
+	"Mikulas Patocka" <mpatocka@redhat.com>, 
+	"Benjamin Marzinski" <bmarzins@redhat.com>, "Song Liu" <song@kernel.org>, 
+	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	"Andreas Gruenbacher" <agruenba@redhat.com>, 
+	"Matthew Wilcox" <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, 
+	"Andrew Morton" <akpm@linux-foundation.org>, 
+	"Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, 
+	"Kemeng Shi" <shikemeng@huaweicloud.com>, 
+	"Nhat Pham" <nphamcs@gmail.com>, "Baoquan He" <baoquan.he@linux.dev>, 
+	"Barry Song" <baohua@kernel.org>, 
+	"Youngjun Park" <youngjun.park@lge.com>, 
+	"Nathan Chancellor" <nathan@kernel.org>, 
+	"Nick Desaulniers" <ndesaulniers@google.com>, 
+	"Bill Wendling" <morbo@google.com>, 
+	"Justin Stitt" <justinstitt@google.com>, 
+	"Nilay Shroff" <nilay@linux.ibm.com>, "Tao Cui" <cuitao@kylinos.cn>, 
+	<linux-block@vger.kernel.org>, <cgroups@vger.kernel.org>, 
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-bcache@vger.kernel.org>, <dm-devel@lists.linux.dev>, 
+	<linux-raid@vger.kernel.org>, <gfs2@lists.linux.dev>, 
+	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>, 
+	<llvm@lists.linux.dev>
+From: "yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH v2 2/3] blk-cgroup: store blkcg in bio instead of blkg
+Message-Id: <06e3c977-461c-4469-80ec-b9f54aa51eea@fygo.io>
+To: "Christoph Hellwig" <hch@lst.de>, "Yu Kuai" <yukuai@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+Received: from [192.168.1.104] ([39.182.0.142]) by smtp.larksuite.com with ESMTPS; Tue, 15 Sep 2026 15:43:40 +0000
 
-On Tue, Sep 15, 2026 at 03:56:15PM +0100, Sean Young wrote:
-> On Tue, Sep 15, 2026 at 03:07:32PM +0200, Hans Verkuil wrote:
-> > On 9/15/26 10:32, Sean Young wrote:
-> > > Replace some ugly code with open coded krealloc() and remove
-> > > superfluous member of struct rc_map.
-> > > 
-> > > Signed-off-by: Sean Young <sean@mess.org>
-> > > ---
-> > >  drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
-> > >  include/media/rc-map.h     |  2 --
-> > >  2 files changed, 22 insertions(+), 25 deletions(-)
-> > > 
-> > > diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-> > > index d4baaae3a834..53e39b7a489a 100644
-> > > --- a/drivers/media/rc/rc-main.c
-> > > +++ b/drivers/media/rc/rc-main.c
-> > > @@ -17,9 +17,8 @@
-> > >  #include <linux/module.h>
-> > >  #include "rc-core-priv.h"
-> > >  
-> > > -/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
-> > > -#define IR_TAB_MIN_SIZE	256
-> > > -#define IR_TAB_MAX_SIZE	8192
-> > > +#define IR_TAB_MIN_ENTRIES	32
-> > > +#define IR_TAB_MAX_ENTRIES	1024
-> > 
-> > This is better...
-> > 
-> > >  
-> > >  static const struct {
-> > >  	const char *name;
-> > > @@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
-> > >  static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
-> > >  			   const char *name, u64 rc_proto, size_t size)
-> > >  {
-> > > +	unsigned int alloc;
-> > >  	rc_map->name = kstrdup(name, GFP_KERNEL);
-> > >  	if (!rc_map->name)
-> > >  		return -ENOMEM;
-> > > +	alloc = roundup_pow_of_two(size);
-> > >  	rc_map->rc_proto = rc_proto;
-> > > -	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
-> > > -	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
-> > > -	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
-> > > +	rc_map->len = 0;
-> > > +	rc_map->size = alloc;
-> > 
-> > ...but this still says 'size'...
-> 
-> struct rc_map_table has a len and size member. I agree that size is not
-> a good name. How about capacity or cap]? I am not sure that entries is much
-> clearer that entries tbh, because what's the difference between len and
-> entries?
+Hi,
 
-Turns out this is a bit of a mess. All the keymaps in
-drivers/media/rc/keymaps/ set the size member for the number of entries they
-have - which really should be len. So, renaming this member of struct
-rc_map_table will mean patching all the keymap entries. Nothing too complex
-but maybe this is something for the next patch series.
+=E5=9C=A8 2026/9/15 14:49, Christoph Hellwig =E5=86=99=E9=81=93:
+> On Sun, Sep 13, 2026 at 02:54:39PM +0800, Yu Kuai wrote:
+>> @@ -6243,10 +6245,17 @@ static void bfq_insert_request(struct blk_mq_hw_=
+ctx *hctx, struct request *rq,
+>>   	bool idle_timer_disabled =3D false;
+>>   	blk_opf_t cmd_flags;
+>>   	LIST_HEAD(free);
+>>  =20
+>>   #ifdef CONFIG_BFQ_GROUP_IOSCHED
+>> +	/*
+>> +	 * Pin the blkg used to look up bfqg.  If this is the first IO for
+>> +	 * the blkcg on this queue, create the bfqg before holding bfqd->lock.
+>> +	 */
+>> +	if (rq->bio && !bio_flagged(rq->bio, BIO_BLKG_REF))
+>> +		bio_blkg(rq->bio);
+> Can rq->bio be NULL here?  flush or empty passthrough request should
+> never enter the scheuler.
+Yes, rq->bio should never be NULL.
+>
+>>   	if (!cgroup_subsys_on_dfl(io_cgrp_subsys) && rq->bio)
+>>   		bfqg_stats_update_legacy_io(q, rq);
+> But I guess given that the code below checks it, we should at least
+> be consistent, so I guess it is better to keep it for now.
+>
+>>  =20
+>>   static inline void dm_bio_record(struct dm_bio_details *bd, struct bio=
+ *bio)
+>>   {
+>>   	bd->bi_bdev =3D bio->bi_bdev;
+>> -	bd->bi_flags =3D bio->bi_flags;
+>> +	/* Restoring an ownership bit cannot recreate the associated reference=
+. */
+>> +	bd->bi_flags =3D bio->bi_flags & ~(1U << BIO_BLKG_REF);
+> I have a bit of a hard time parsing this, the line also is overly
+> long.
 
-It would be useful to hear what you think of I'm proposing though:
+This is an issue found by AI, if the new flag is recorded to bi_flags, and =
+the flag can be
+restored to new bio by dm_bio_restore() without actually acquire a blkg ref=
+erence. And I
+checked this is the only place to read/write bi_flags directly in driver.
 
-1. Rename size to cap in struct rc_map_table (so it will have a len and cap)
-2. Rename newsize to newcap in ir_resize_table() and related functions
-3. In every keymap, replace:
-	.size     = ARRAY_SIZE(empty),
-   With
-	.len      = ARRAY_SIZE(empty),
-
-This will be part of next series for rc-core, probably for the next release
- cycle.
-
-
+--=20
 Thanks,
-Sean
-
-> 
-> > > +	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
-> > >  	if (!rc_map->scan) {
-> > >  		kfree(rc_map->name);
-> > >  		rc_map->name = NULL;
-> > >  		return -ENOMEM;
-> > >  	}
-> > >  
-> > > -	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
-> > > -		rc_map->size, rc_map->alloc);
-> > > +	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
-> > > +		alloc, alloc * sizeof(struct rc_map_table));
-> > >  	return 0;
-> > >  }
-> > >  
-> > > @@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
-> > >  static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
-> > >  			   gfp_t gfp_flags)
-> > >  {
-> > > -	unsigned int oldalloc = rc_map->alloc;
-> > > -	unsigned int newalloc = oldalloc;
-> > > -	struct rc_map_table *oldscan = rc_map->scan;
-> > > +	unsigned int newsize = rc_map->size;
-> > >  	struct rc_map_table *newscan;
-> > >  
-> > >  	if (rc_map->size == rc_map->len) {
-> > >  		/* All entries in use -> grow keytable */
-> > > -		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
-> > > +		if (newsize >= IR_TAB_MAX_ENTRIES)
-> > >  			return -ENOMEM;
-> > >  
-> > > -		newalloc *= 2;
-> > > -		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
-> > > +		newsize *= 2;
-> > > +
-> > > +		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
-> > >  	}
-> > >  
-> > > -	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
-> > > +	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
-> > 
-> > ...which is especially confusing here where rc_map->size and IR_TAB_MIN_ENTRIES
-> > are mixed.
-> > 
-> > This is not important for this series, so you can go ahead with it.
-> > 
-> > But personally I would prefer to rename rc_map->size to rc_map->entries and
-> > ditto for newsize to newentries. That way it is clear that these variables
-> > deal with the number of entries and not the size in bytes.
-> 
-> How about newcapicity or newcap? 
-> 
-> > I mention it only because when I reviewed v4 it confused me.
-> 
-> Thanks,
-> 
-> Sean
+Kuai
