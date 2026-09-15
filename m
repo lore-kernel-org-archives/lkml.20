@@ -1,108 +1,130 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC3E37E5ED
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458933; cv=none; b=nNdFx9U7z3/A99TwPgi+/Xh/EY5TmP3WFhzKfI3lvA5fT3FfBADnhc0Gcy6bnEYVB2cExcvDzd77fPUCTMaW/Jc/ANkEdMD3RyiTqliN0INv8i1DjfK9b1dUzicaUdO/4ZypdvwN0Tw9f7hA0ttbudtByQLDiwFipUsK1MAG19o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458933; c=relaxed/simple;
-	bh=tCmrY8bbWX/n5rVI3Gf1grWS2sFWfnCZLxtu4re3KDU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JVyxeZKx04v8vm5Aj0cKQ4XTToOWrg6WjpRwCaPWee2NMFdV0UpZKfcIQbBUYEG7wA/O6kSuGKe5xJNdssj+MdGdimceJUeJN24CZp0wPIngxdRrjhPnMuTW4OEbOFWzIaOH6Cjxv7V4IGurcROlXfpkE0SGigX7Fbm7P3PBJ68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bE4uWn6F; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CC7394EB7
+	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 07:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789458938; cv=pass; b=WX8GA/Y9U4TBFnz6oEckNkNUcGYC56X0WjVqVEE/B47Cv9OrxTXdFegiYQN40IuQzhmeGdH5cdAlB37lSP+CLuSgzMDQBtIU309WVtD6aXgNrFUR/IeoEvk8jv0vTskd5xXTn9jRRhxBxpmmpbSp9rToxaPqgMKfyEVgyANmrVg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789458938; c=relaxed/simple;
+	bh=MCmnREfTZM3eEhy1qIdIvvOYJ/hTWjGqL24nR5iVWes=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WefrrjVz576xAlSystRvPlAxOioeWCU4zP90WsMoOP53LhZlZnCg544aiIBEtGf+/KEuSiAmEJenp3DHNvPt34DGADtH53cphaQ9je9NV9uwQjHYfH/IKkhYPCjq4gl0s6f2sWiRBURJoWHYHZEWfBSmbnYQ0Hci0hU1y+RpELg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KiXFELF3; arc=pass smtp.client-ip=209.85.218.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bE4uWn6F"
-Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86e6d007703so1866899b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:55:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KiXFELF3"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2946aa0d5aso68872866b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 00:55:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789458935; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dfY2RPtMHvO/xw9leMpLOcOBzFugUwBhuRyrfFulOWCiH8jdOP/vZdtKB3u6ngSo/b
+         wKqepSVeHrLcMlNrnWi7L6FRXrvkfKjqsZfV57fNiYdHTAMCKoWG8cLw1T8cL+l36VoK
+         wvC4mX5yUGv0bUe426MyhpPDxybI3TnuHesADA9w2vQAVajg5TYGyURzr6L4zvb8zWlT
+         xX5RyJ1pWkYsueGAtL/h42Pam/qONg13KPehRa5Rmw06UoJ1wj+Dfx30QhwiLGEvxgOx
+         KNIEDKAEsWQlx84tfBQqxvvpnqOECERm4Lnr1BNfzV5qQt1IYiDLXFZz3XwWpPhMeEZ1
+         2Sqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=goS4E7honEFOUt4mgD9dkwBiL9FCUu+3QHZSOMHuZ5E=;
+        fh=tO4XnPo4uo92NiyAOrQpBi5v9R9/rmAy8HHgR8UFaNw=;
+        b=MfGVkxvEQlP9wuWXivI6tRnfWLoW5JPvcU8mlmJW2XQ22RCZeaAItYWQ4ntyrTp6UE
+         H8/l9eeJD8HJRX7rTpPc4yJ6+3T19yXn7s6zIa8BQcp7qbyG+AmaqNmcVerlvGcwvAM0
+         LqvdOD8RfpjkABfukkBxr3qP9pnRF2IJIgCXb8Rr7vjy4SGN1hZ2VDGzjOmh4Q6Xwju6
+         aC+PIfn/BJKSlWTz7E+Wg7RaKbg3JxzC/CjoIYU/x9xQIDlclxNni63o+awvvm7k/Lk3
+         dmt/uUq4j/7v4+YfsBbQ6dxGXMvZbtetlNiDMKF8qYIocsKtr4RRtKYxNojynnBnRnDb
+         hAZg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789458931; x=1790063731; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VKOice3d+d9oEFyie9yQ2tllBkQHbuzBZLWo6vl/Ptg=;
-        b=bE4uWn6FQXPPHeSYqFLTJMcg9+Mt7PlBT1NSIR7QJfn2w2Y5PVjKrnKviaj5pRu5PT
-         VCykXEEmWcRGeRO0TeokyK49x+LkYVNMNBvQKBYGqCC2puGGsgtw1IghDfNMXdLzMPho
-         4dPNgKZEpNILE9CfdQXl+GdjcTWDbhLy2G5vjFiixsNaT9ks2ueL+iCM5mfOOPD385Ia
-         GJfBtssZdZC8SFRowQ7X9i+DHo0v875wA4B3EQ9O1ZoqPzsWE0lFXzmqdQhnSL032Sxv
-         ueHFWhD7ILT6GziQZW/NB4mHdsRElQXQ3vHEUl0bvLONWplk3Y4Hv1VmOD85R0OLrmAX
-         dOVg==
+        d=gmail.com; s=20251104; t=1789458935; x=1790063735; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=goS4E7honEFOUt4mgD9dkwBiL9FCUu+3QHZSOMHuZ5E=;
+        b=KiXFELF3EeVlIOaxeLxbMAHBZPRirg4qdOzBTXxtQ8yj8zU8hf+/oilZZOSv++OXW6
+         dnRNgOkFwZOW8CbpkDPsj8bgfXk8OJeuZD20Mo9ZaHWYYvGUCKEz9mCOWLoNsNv23aIg
+         rBlZPsmcedlb8SzOJ8MsA8ncwWn+DGoCzRjH+F/AveBu/lRUbKAcVcIODBtKK2UFHEfL
+         McO+24I/C7yVW1KfkJlhZK7NAgokUaczqJlo7MsIJkq59tFoXQ22uQw4uqUKHf2VccmG
+         m0VyRGhunnm2ioVNcumWQIwnTuEBDcV1mFdFuGOlY8/ApNI2bfY1wTyAgOTn+OPVlAC9
+         Qmlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789458931; x=1790063731;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VKOice3d+d9oEFyie9yQ2tllBkQHbuzBZLWo6vl/Ptg=;
-        b=fj8xwrIXqedg17q+pF+zLflCZpXH++SlwL/a7WgJfTKUi7MhsvNz79KfLrL1fHQqIC
-         /kedj9p9ww7Wy++4nRtbZ/9pOLCVVw4LhXgUgxBEKmH+yfrGH/IHsN/XxICln7A3p8VG
-         adz9V6NjCnV8Qh0rH6lDobAqDKtZmAU0VwsfyeJjMNUfJe5TRtQdxy7WcxbPrdhHRtr5
-         up2PWu/5wf0jI6qKpmac/qoLAA7bCqy0slDbXn1kw36g81ujO4y497IZQWiGBD3+VjFP
-         kwx9YJMc7yklGfLmfNnE7gnKzE5C6rVUSKkh/TeZm6Nv7ssKpoyAWWF3fwvn+tdA1Lef
-         S3rA==
-X-Forwarded-Encrypted: i=1; AKwUvByotshfbTMD0+0iIC/b2zWomRdFq/YFiUU5oJaxGcMTGySe038A9iscQD+rjORoOu8Hp4TPwYXoTc35sFA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqdBmE1F4TFNG6porG+2bNg38xmBd8RWuPU8e1MSUSQ/UuI98u
-	6+uaJrANNmQvJumdadE66t17ahH0geKivC7YmEB8LUnkbQ0LW0OOzew7
-X-Gm-Gg: AYBFou1M11IdX5vFJgNHj8b7R+Vc8BvbtOTmH5Y00leJSOGE4TE29b1xgJcXC2FMpgh
-	zVeChmmuax6kHi3I8l7X/lB/PavqdHF99ynFGCNv3fxtmYGwaLVmAtuS0lu7cz0M1rCfIgI7ipS
-	7ZLjgz0KZzYiiGYvk4hpyonh774wgUKHC//CBCIP7yLFWbBrCVqP9ThZxmTyZ3dQuEn+0LKXtFF
-	9nf7MhEVG0dlrwhOtWntcaeVRNDk6LZJmwZIBZEFsBMsP8JVwVdA+PGCDql27017ZAFQj1P6674
-	4Ue8BhewakKiPkRAjttw/SfAP9gnPoXBoI6sxQrO/Gv0tcVIPz8mY3thuV8XVkQj7Jey0QBqpex
-	XiQPF8dxatM8jC7Ci44IduiD6aY/Ft0gZlCY/iivk2azRK/lxHmFiJTyA8E6A+JsfGX4THcozGY
-	PbNZCwzB4wCAN96B4iEcQzHXKbMdeeesqIKfOCGdh5PzkbcQMvmpVkOQ==
-X-Received: by 2002:a05:6a00:2d88:b0:845:cf73:c1d8 with SMTP id d2e1a72fcca58-86f85106b87mr11748969b3a.14.1789458931018;
-        Tue, 15 Sep 2026 00:55:31 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c659b9a3sm6172351a12.29.2026.09.15.00.55.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:55:30 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	=?UTF-8?q?Krzysztof=20Ha=C5=82asa?= <khalasa@piap.pl>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] media: i2c: ar0521: remove duplicate media entity cleanup
-Date: Tue, 15 Sep 2026 15:55:20 +0800
-Message-ID: <20260915075520.2122757-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1789458935; x=1790063735;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=goS4E7honEFOUt4mgD9dkwBiL9FCUu+3QHZSOMHuZ5E=;
+        b=z1fWA0XhprRsRqoqDuoyjhOgBiYQChNoDEWTmEiYY7REpw9oBkGBg3VsACCEcDGHqT
+         U/OAaL/GRsXV1Tj0m0lGzW1+6QXrBOqExdLZmVbQReq+PT6UuOO+VDect2MRNXFDGm1J
+         vfM9o3GvOTcrMHBwsfmNs6CJxk4K/SF7EKIhgr+7f1B4oFyGg5ZddeA76KFb4bvBUPWA
+         J7Wpb0/Hac0gS6RuPusBKX9EcoMub8pPfOdlLndW7JL8G8ydkVpriOWk+TEp5/hmsZAf
+         mZSIudENeONWSMizBTEWxMJPVUkUymgsvH1OTPBo/TPohSRjbtbXIRN5aNTayL6MBat+
+         hhhg==
+X-Forwarded-Encrypted: i=1; AKwUvBzSU0KeAggOy9IVxN3cUNzua6d9P97xNRcT3EA7drMLVnuOqoviEjw+MDQ9ybpn1EUx8jhZPWkH7ZcW92U=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2YFtMaDFJqm7ASETvpT+cBKKTL2UiPga0k3hvFM8gyComvQEN
+	KmOI3IllTVz/4NnlsHpBJ0BqUrL1WZDcpA+O3pTbBLzbALwiWjDhKYFWJtbdgTrRutnLqyD8sMi
+	fbjWHwlsSmMxQSgjaLR7OYxXMfBndBxY=
+X-Gm-Gg: AYBFou17Nkzl5htquJ+sBa1X3IjAu5ynvzHxfHQqTvLBUvodo6LAYb4oeg7d168io9a
+	SGV8419VTdP1/Qbo9L96+TmdAJ4kisRtoXFYiox47gpUdImkiZogKF/pDQX7oLuHNeuIj877+Fg
+	sb8WggaBLflY95f/OoE045FaYIyJEIx93PSWLDzMQEb3PMkcDlKx+5Fd4x/fHDYdK4q4tye0H/E
+	RtpHxtqyLN5oDeyjZy83Bmx1sT9IbJOGw57opt193/9TlReh92QFrvhagtUrf7f+eBhtKdHamn6
+	hX09wvlVlj2hr8gr7Hby6dZRtpzmbYzcoJUc1YC1wBRhVy82YzEG0t/bhQQVNzf6Ihg+XMfeUKt
+	QY3zej9VQrfP+cEf/++3Lj4ctRmdEZiSddNNIaE8OVexKQ4j/t2Jnk7TN9w1DorSWHvI=
+X-Received: by 2002:a17:906:6a06:b0:c26:1f8f:ed53 with SMTP id
+ a640c23a62f3a-c29c896c418mr191111266b.12.1789458935020; Tue, 15 Sep 2026
+ 00:55:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260914072842.24420-1-phucduc.bui@gmail.com> <20260914072842.24420-8-phucduc.bui@gmail.com>
+ <693fea96-1905-49c9-b1c5-3fa1ceb4874a@collabora.com>
+In-Reply-To: <693fea96-1905-49c9-b1c5-3fa1ceb4874a@collabora.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Tue, 15 Sep 2026 14:55:20 +0700
+X-Gm-Features: AcwNN1XHHQHyucAHdm0EW7r7ZxJRYduxWbuLcSKyAsTdoDPrrcNWVh8BQ68F-UQ
+Message-ID: <CAABR9nH5e=kKRsHQYx7u3HtWgA3C897d9dH4h+wQTpZNGaTRHQ@mail.gmail.com>
+Subject: Re: [PATCH v2 07/13] ASoC: mediatek: mt8189: Propagate runtime resume errors
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Cezary Rojewski <cezary.rojewski@intel.com>, Cyril Chao <Cyril.Chao@mediatek.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Dan Carpenter <error27@gmail.com>, 
+	cassiogabrielcontato@gmail.com, linux-sound@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The error path taken when ar0521_power_on() fails calls
-media_entity_cleanup() at the disable label and then falls through to
-the entity_cleanup label, where media_entity_cleanup() is called again.
+Hi Angelo,
 
-There is no need to clean up the media entity twice. Remove the first
-call and let all error paths converge on the common entity_cleanup
-label.
+Thank you for your reviews.
 
-This issue was found by manual code inspection.
 
-Fixes: 852b50aeed15 ("media: On Semi AR0521 sensor driver")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/i2c/ar0521.c | 1 -
- 1 file changed, 1 deletion(-)
+> >       if (!afe->regmap) {
+> >               dev_warn(afe->dev, "skip regmap\n");
+>
+> In the probe function, there's a call to devm_regmap_init_mmio(), and that's being
+> correctly checked for error as in, if any, probe will fail.
+>
+> So... during suspend or resume or anywhere else in this driver really, the regmap
+> pointer can't be NULL.
+> The right thing to do here would be to just remove the useless check.
+>
+> Mind you, this comment applies to some other commits in this series as well.
+>
 
-diff --git a/drivers/media/i2c/ar0521.c b/drivers/media/i2c/ar0521.c
-index ed324c2d87aa..be68789eb8f5 100644
---- a/drivers/media/i2c/ar0521.c
-+++ b/drivers/media/i2c/ar0521.c
-@@ -1142,7 +1142,6 @@ static int ar0521_probe(struct i2c_client *client)
- 
- disable:
- 	v4l2_async_unregister_subdev(&sensor->sd);
--	media_entity_cleanup(&sensor->sd.entity);
- free_ctrls:
- 	v4l2_ctrl_handler_free(&sensor->ctrls.handler);
- entity_cleanup:
--- 
-2.43.0
+You are right. devm_regmap_init_mmio() returns an ERR_PTR() on error
+or a valid pointer to a struct regmap on success,
+so checking for NULL here is not correct.
 
+Also, if devm_regmap_init_mmio() fails, the probe will already fail.
+Therefore, I will remove the if (!afe->regmap) check here.
+
+
+Best regards,
+Phuc
