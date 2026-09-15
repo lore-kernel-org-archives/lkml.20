@@ -1,123 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13840485501;
-	Tue, 15 Sep 2026 11:07:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA8C392836;
+	Tue, 15 Sep 2026 11:08:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470472; cv=none; b=J0V3u53O2GrENpO86D3qBUhVIdSeWaehWBQR5T1e1mp3Y0xeMlpIFUBIjdHGssg4ormzM+HUGIAs1i/oSEtb3J6eLJi2PXlkZjx5QGL/0aiNUpu47ebiwZCOLb6yGSNGcbeBxLqFXm6A3kOYj+vCFNaAUk3VBeEA+zPBS5QYhOc=
+	t=1789470513; cv=none; b=UGPu8ufFeVW2+9+NouyjDb4F2jR2R+62/5L/B0wlU9hKj8vnDtEPWV4UAG9XuOfVzRdR8N57oqXsoKeXIXhiYHf/holkgwOC0thCbBidAeknJ5IXmFpfUUQoXhnbUPxu6pndwo8XsVPBu1M7mr/PiTCq6EiMAhsDNMuM6JdAgUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470472; c=relaxed/simple;
-	bh=YwXeElKMZZApZRAobMebATWnz2mvTnOf01pv+WonKrk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L6aV2dnHT1QRoiQ5VmqjIX/Yk1fXCdJJfe7jnQFjwLOkASrkV6nIe3eXDHSH33UPnLUfOXiqZYUOUs2u4CljumffBlgbPvBak0ZGCBv6f8J0TBl2P9jlT3MNTJ8Z7zVd976bnVT3zHMv7HTJJLME3dUvHarz6jE4c2GUd4/9k9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i7gX97sx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789470513; c=relaxed/simple;
+	bh=8QyQ5+bP6owd7vPzlJFIprmAxPRGeZYkO3IKs6ibc0Q=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SHwzFrEM93D6RLniPT9fURCnSJqEouEyacuaI88Zc4TwydWz2q1XRr5Z7YBl1nbg09u/IoidLLjPKCspPPxKmVGyf8Q5X0/6fRQlV3ddBpWwz2lKTgF+uOkoi8UYWf2YQN/uVpdN6V73O/UBHSVp//KI/bKcog224hQWv6BANrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=OLW85onP; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IUQl1CI+; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uwek3Vjh; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=83Qwtxun; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i7gX97sx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B75F1F000FF;
-	Tue, 15 Sep 2026 11:07:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789470470;
-	bh=N8aUdlQdF/RsB8XDx2/sEkF1W5Y0p30LeoaSGgy4yCY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=i7gX97sxv6OOaXTl2+IyAG8mjhGIuzFFTSQRiC9GSHfa/L3sooB7RFdZc3i30MMk5
-	 nzvIiIO0oSsmjRGEJk17oEKfg1xFv3j/MXZbOJFirbYJXP6t9MUivQfLlw5ynzIaZC
-	 DlRxdt9hOsu4GFyK/7W1qh3meItMkIqSrThfqGverAU7uQ8PFX1N/0bNyDIu9n3UOX
-	 FmA3QERQoZnbrQFbhtejk3RgJ+fdvnHpJuR4wl/t8iQx996jpp/TPq2f7obAHZqg9G
-	 dN/Zn66ouGDvWBVcrJ3XbcNC+3hdOvU1Rti5AkyJWZxL5VXmP8+2OEPjq/XNmCwY34
-	 1EmL8dRUT8J5w==
-Message-ID: <bd1dc289-6285-496a-be08-e00d3dbae0e2@kernel.org>
-Date: Tue, 15 Sep 2026 13:07:46 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OLW85onP";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IUQl1CI+";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uwek3Vjh";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="83Qwtxun"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BF5DE219CC;
+	Tue, 15 Sep 2026 11:08:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789470505; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M+FN+qlaCMWuGM6tCzcvJE+t7ej3vRjXYqU+o3xsk5I=;
+	b=OLW85onPeZdUssHXYgvbDUs0bwhcMUq7vYZIZT4A7YCdn0H/FWC+375A2O864rXOFxTd+K
+	dNY6ockOtBd0et0NR9byWZkVUMsglPYkWXFLBN11+0nozAPKAUSNn7tuqpgn8uND5WJUKy
+	Uukj32BV3NxYpcwsa939RZdGQ6HbCD8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789470505;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M+FN+qlaCMWuGM6tCzcvJE+t7ej3vRjXYqU+o3xsk5I=;
+	b=IUQl1CI+D9XxAibXHyxt3XOMiyYBWQg/+0sdbGZpE0ofHjR8gNmDg8fFyO/5tLur9Wyuv8
+	sebMvgY230kp8XBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789470501; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M+FN+qlaCMWuGM6tCzcvJE+t7ej3vRjXYqU+o3xsk5I=;
+	b=uwek3VjhyHCus9OXqBc9Ht1UqkvzIQfwZ56fegeR0/2wHYtc33zk39NUq40Fvh8HMmLhav
+	wUOKTmRG/a67tzapZF7xqKG4WkXlxAR5M/kGTX7PRYCPmSstTq3xzItXs6jzFp861ev+c5
+	2VnlFzF9Xf0rreHFQNCJbU1IYcjdt8M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789470501;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M+FN+qlaCMWuGM6tCzcvJE+t7ej3vRjXYqU+o3xsk5I=;
+	b=83Qwtxunp/PO9zsGxcwGWptZ7jEitFZepLCzRHqok+p3NaE2VW+aoeVsRrc8jxWjQci5Tj
+	QNxkUCg4osTUeDCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6DEAB136A5;
+	Tue, 15 Sep 2026 11:08:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Uc67ESUnqWphVwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 15 Sep 2026 11:08:21 +0000
+Date: Tue, 15 Sep 2026 13:08:20 +0200
+Message-ID: <87bj9yn55n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Zipdox <zipdox@zipdox.net>
+Cc: linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	linux-kernel@vger.kernel.org,
+	tiwai@suse.com
+Subject: Re: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR and RANGE
+In-Reply-To: <d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net>
+References: <d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: adc: at91-sama5d2: disable autosuspend on remove
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Eugen Hristev <ehristev@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, linux-iio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260914113422.1689331-1-lgs201920130244@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260914113422.1689331-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Spam-Score: -3.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.996];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,zipdox.net:email,suse.de:mid]
 
-On 14/09/2026 13:34, Guangshuo Li wrote:
-> at91_adc_probe() enables runtime PM autosuspend with
-> pm_runtime_use_autosuspend(). The probe error path correctly undoes
-> this setting with pm_runtime_dont_use_autosuspend(), but the normal
-> remove path only disables runtime PM.
+On Tue, 15 Sep 2026 10:54:00 +0200,
+Zipdox wrote:
 > 
-> The runtime PM API requires pm_runtime_use_autosuspend() to be undone
-> with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
-> was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
-> set therefore leaves the runtime PM state incompletely cleaned up after
-> the driver is unbound.
+> Hello,
 > 
-> Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-> path.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 75d7556ac0e4 ("iio: adc: at91-sama5d2_adc: add runtime pm support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> The USB Audio Mixer Unit driver (sound/usb/mixer.c) sends audio class
+> 1.0 format control messages to devices, regardless of the actual audio
+> class version. This means audio class 2.0 devices will receive incorrect
+> messages, stall, and cause the driver to error (e.g. alsamixer exits
+> with a broken pipe error).
 
-Nothing improved, you again spammed with multiple independent patches so
-maintainers would need to respond TO EACH one instead of to the thread.
+Hmm, for UAC2, UAC_GET_CUR & co isn't passed as is at all, but the
+call is translated to UAC2_CS_CUR and UAC2_CS_RANGE accordingly in
+get_ctl_value_v2() (that is called from get_ctl_value()
+conditionally).  So this translation path was skipped somehow with
+your device...?
 
-Best regards,
-Krzysztof
+
+> This patch implements the GET_CUR, SET_CUR,
+> and RANGE control requests for mixer units according to the Audio Class
+> 2.0 specification.
+> 
+> I have one question though, which has to do with the get_cur_mix_raw
+> function. It states "channel = 0: master, 1 = first channel", but as far
+> as I know the spec doesn't specify a master control for mixer units. I
+> implemented it so that channel 0 results the channel 1 value, but maybe
+> some other solution is desirable.
+> 
+> From: Zipdox <zipdox@zipdox.net>
+> Date: Tue, 15 Sep 2026 10:12:01 +0200
+> Subject: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR and
+>  RANGE
+> 
+> Signed-off-by: Zipdox <zipdox@zipdox.net>
+
+Could you try to reformat in a proper patch format?
+Also, it looks containing many unnecessary / unrelated changes that
+make review more difficult.  Please try to concentrate only on the
+change you really need.
+
+
+thanks,
+
+Takashi
