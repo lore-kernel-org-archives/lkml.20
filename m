@@ -1,198 +1,140 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DC80448B96;
-	Tue, 15 Sep 2026 07:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E3344AB9B;
+	Tue, 15 Sep 2026 07:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789455807; cv=none; b=i1RGKuZQs3hi+9Dd87CSshhagsHSfXF15mrIqTsxWceK2U/jkaqvMfw0Gm9APA0JrRBNeNiGYzzYIznuRnXb9uPN4f3YXM1PsGJ9lhl1o2/IJbrXLfTNWz7DnZoh948cl+f6Puh755r+l6+VPE75dLE6/T6JMkWg7GWZ964OkCE=
+	t=1789455815; cv=none; b=QmYhsfp/yrO0behgsQ2x/MJns8UCY8Ih39R3UyAONoqJvRCXjVYF3aG4iUwjskuGaWH5GssUvYeNaFEAS+AIMR0PuFEUG8O/gRqOnXnCz9J5ci8e5vZDcmsjIPNGj/oLSDAaTP403xJ8DCq6xJq4JJHRHSm8uEX6x8K3OwMfwmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789455807; c=relaxed/simple;
-	bh=F/2LWRZ+8JwZK8jwN6/Q6olYJoMUVmkHIy78bcstgKo=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=coDEHJ/GBwCdtMRe0285BwhLWrYmF6/bk/3wsuXNjh0x43LHowGHm+kOe/6NLnrrgn7v8w1y1t/fmHpPOZ2wagd3taLCvSg4B6/QsO4+s88Sn3pdq1PnMwUC4mCam2L5g5Yui4H73ON41UOrEzKgweWrOCzS2Hn9cJDtgoJnbT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hkXz45fpFz1mw6v;
-	Tue, 15 Sep 2026 15:02:56 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hkXz44Kl9z1mw6v;
-	Tue, 15 Sep 2026 15:02:56 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id C15E93027FCF;
-	Tue, 15 Sep 2026 14:58:39 +0800 (CST)
-Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 15 Sep
- 2026 15:02:54 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, <kprateek.nayak@amd.com>,
-	<vincent.guittot@linaro.org>
-CC: <linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<ray.huang@amd.com>, <mario.limonciello@amd.com>, <perry.yuan@amd.com>,
-	<zhanjie9@hisilicon.com>, <zhenglifeng1@huawei.com>,
-	<pierre.gondois@arm.com>, <sumitg@nvidia.com>,
-	<srinivas.pandruvada@linux.intel.com>, <lenb@kernel.org>,
-	<hongyan.xia@transsion.com>, <zhongqiu.han@oss.qualcomm.com>,
-	<wujianyong@hygon.cn>, <jianyong.wu@outlook.com>, <wangfengyu@hygon.cn>,
-	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>
-Subject: [PATCH] cpufreq: Use a non-boost reference frequency for pressure calculation
-Date: Tue, 15 Sep 2026 14:57:47 +0800
-Message-ID: <20260915065747.1671965-1-wujianyong@hygon.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1789455815; c=relaxed/simple;
+	bh=PASnGHuTNr9ooO+/UyWkBH7ChjK/TTZc6mbxL06hQlI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HBk1rRheAoCBFFnGzkqEZx1T4hYWQ2/dEi4qYnA2ayJbk6y9K2JyzvG4BMIv+OlC1cdUxLF3QhzrUYLVdYqD1HLAcGazENkgP9a4a9WFN8yH/qtVE8j3IguGjeReEaxtTthOOPdse9jLiG/m7aQ6yxsJIvo9Tbe9VAV9EgMsvOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DY8pZtu4; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DY8pZtu4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229E91F000FF;
+	Tue, 15 Sep 2026 07:03:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789455808;
+	bh=0jqazLvI6PHhKlLUw5ES9AlYBTQV/CW02EbTg8KOkAc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DY8pZtu4LuzXGihC1YElZInpGFpLzAlctTZ5qIJHgqTbGCYvRb74jSsImxBX/Of7e
+	 P0rUoS8jmWyqFsv1InIewtvA0IXOHOyhuf4iViVzEhejf/jXhPrH3TqtIs2s1DhQTi
+	 KY1Qq3wU1lwpqPuYbRLl+n9f7qvELuG4c6/zO3fGPtgIBMA1li/lP8ueuCBu2P8uzP
+	 vpR9ZNieeTiSO2dYr7NtjIQeGAK2C6hkvIg/+exeXoSw5ilvOgXNejrys3ydrq+lte
+	 X32vaAM+P4DQW2VRBFoiGaerQ2zbPPtO8yQdygT6+VaK2aUU+SUz8YOkEIO9WZySWq
+	 ih0c7yOtrqI6w==
+Date: Tue, 15 Sep 2026 00:03:26 -0700
+From: Peter Chen <peter.chen@kernel.org>
+To: Subasri S <subasris1210@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Duncan Sands <duncan.sands@free.fr>,
+	Chas Williams <3chas3@gmail.com>,
+	Minas Harutyunyan <hminas@synopsys.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Badhri Jagan Sridharan <badhri@google.com>,
+	linux-usb@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net, netdev@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] usb: chipidea: Use %pe to print error pointers
+Message-ID: <aqjtvglG5NhsDLZe@hu-petche-lv.qualcomm.com>
+References: <20260801-usb-ptr_err_patchset-v2-0-1698e298c1e3@gmail.com>
+ <20260801-usb-ptr_err_patchset-v2-1-1698e298c1e3@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
- (172.23.18.114)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801-usb-ptr_err_patchset-v2-1-1698e298c1e3@gmail.com>
 
-Commit d2d5c129d07e ("cpufreq: Make cpufreq_update_pressure() fall
-back to cpuinfo.max_freq") introduced cpuinfo.max_freq as the reference
-frequency for cpufreq pressure when arch_scale_freq_ref() returns zero.
+On 26-08-01 17:59:50, Subasri S wrote:
+> Use the %pe format specifier instead of %ld with PTR_ERR() for printing
+> error pointers in imx_get_clks(), ci_hdrc_imx_probe(), and
+> ci_get_platdata(). This prints symbolic error names (e.g. -ENOMEM)
+> instead of errno numbers (e.g. -12), making error logs more readable.
+> 
+> Fix coccinelle reported warning:
+> WARNING: Consider using %pe to print PTR_ERR()
+> 
+> Compile-tested only.
+> 
+> Signed-off-by: Subasri S <subasris1210@gmail.com>
 
-However, cpuinfo.max_freq may include boost frequencies and therefore
-does not necessarily represent the maximum sustainable frequency. On
-some systems using acpi-cpufreq, cpuinfo.max_freq includes boost while
-the frequency table only contains non-boost frequencies. Consequently,
-cpufreq pressure remains nonzero even without an additional frequency
-limit.
+Acked-by: Peter Chen <peter.chen@kernel.org>
 
-Furthermore, drivers may update cpuinfo.max_freq when boost is enabled
-or disabled. With a fixed policy limit below the maximum non-boost
-frequency, this changes the pressure reference and hence the reported
-pressure, although the non-boost frequency limit remains unchanged.
+Peter
+> ---
+>  drivers/usb/chipidea/ci_hdrc_imx.c | 12 ++++++------
+>  drivers/usb/chipidea/core.c        |  4 ++--
+>  2 files changed, 8 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/usb/chipidea/ci_hdrc_imx.c b/drivers/usb/chipidea/ci_hdrc_imx.c
+> index 56d2ba824a0b..7bfe37ed68ae 100644
+> --- a/drivers/usb/chipidea/ci_hdrc_imx.c
+> +++ b/drivers/usb/chipidea/ci_hdrc_imx.c
+> @@ -218,8 +218,8 @@ static int imx_get_clks(struct device *dev)
+>  		if (IS_ERR(data->clk)) {
+>  			ret = PTR_ERR(data->clk);
+>  			dev_err(dev,
+> -				"Failed to get clks, err=%ld,%ld\n",
+> -				PTR_ERR(data->clk), PTR_ERR(data->clk_ipg));
+> +				"Failed to get clks, err=%pe,%pe\n",
+> +				data->clk, data->clk_ipg);
+>  			return ret;
+>  		}
+>  		/* Get wakeup clock. Not all of the platforms need to
+> @@ -448,8 +448,8 @@ static int ci_hdrc_imx_probe(struct platform_device *pdev)
+>  		pinctrl_hsic_idle = pinctrl_lookup_state(data->pinctrl, "idle");
+>  		if (IS_ERR(pinctrl_hsic_idle)) {
+>  			dev_err(dev,
+> -				"pinctrl_hsic_idle lookup failed, err=%ld\n",
+> -					PTR_ERR(pinctrl_hsic_idle));
+> +				"pinctrl_hsic_idle lookup failed, err=%pe\n",
+> +					pinctrl_hsic_idle);
+>  			ret = PTR_ERR(pinctrl_hsic_idle);
+>  			goto err_put;
+>  		}
+> @@ -464,8 +464,8 @@ static int ci_hdrc_imx_probe(struct platform_device *pdev)
+>  								"active");
+>  		if (IS_ERR(data->pinctrl_hsic_active)) {
+>  			dev_err(dev,
+> -				"pinctrl_hsic_active lookup failed, err=%ld\n",
+> -					PTR_ERR(data->pinctrl_hsic_active));
+> +				"pinctrl_hsic_active lookup failed, err=%pe\n",
+> +					data->pinctrl_hsic_active);
+>  			ret = PTR_ERR(data->pinctrl_hsic_active);
+>  			goto err_put;
+>  		}
+> diff --git a/drivers/usb/chipidea/core.c b/drivers/usb/chipidea/core.c
+> index 07563be0013f..09db8a4eace2 100644
+> --- a/drivers/usb/chipidea/core.c
+> +++ b/drivers/usb/chipidea/core.c
+> @@ -680,8 +680,8 @@ static int ci_get_platdata(struct device *dev,
+>  			/* no vbus regulator is needed */
+>  			platdata->reg_vbus = NULL;
+>  		} else if (IS_ERR(platdata->reg_vbus)) {
+> -			dev_err(dev, "Getting regulator error: %ld\n",
+> -				PTR_ERR(platdata->reg_vbus));
+> +			dev_err(dev, "Getting regulator error: %pe\n",
+> +				platdata->reg_vbus);
+>  			return PTR_ERR(platdata->reg_vbus);
+>  		}
+>  		/* Get TPL support */
+> 
+> -- 
+> 2.43.0
+> 
 
-Add max_sustainable_freq to struct cpufreq_cpuinfo to provide a reference
-frequency excluding boost. Populate it from the nominal frequency in
-amd-pstate and cppc_cpufreq, the maximum non-turbo frequency in
-intel_pstate, and the highest frequency-table entry in acpi-cpufreq.
-
-Use this value when arch_scale_freq_ref() returns zero. Preserve the
-existing cpuinfo.max_freq fallback for drivers that leave the new field
-at zero.
-
-Tested with acpi-cpufreq, intel_pstate, and amd-pstate in active and
-passive modes. With no additional frequency limit, pressure is zero.
-With a fixed limit below the non-boost reference frequency, pressure
-remains unchanged across boost transitions.
-
-Fixes: d2d5c129d07e ("cpufreq: Make cpufreq_update_pressure() fall back to cpuinfo.max_freq")
-Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
----
-The earlier fix was incorrect and has been abandoned. This patch takes
-a different approach.
-
-Previous discussion: https://lore.kernel.org/all/SI2PR04MB4931A8BA0EF213B0238BD9E4E3BD2@SI2PR04MB4931.apcprd04.prod.outlook.com/
-
- drivers/cpufreq/acpi-cpufreq.c | 3 +++
- drivers/cpufreq/amd-pstate.c   | 2 ++
- drivers/cpufreq/cppc_cpufreq.c | 3 ++-
- drivers/cpufreq/cpufreq.c      | 4 +++-
- drivers/cpufreq/intel_pstate.c | 2 ++
- include/linux/cpufreq.h        | 2 ++
- 6 files changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufreq.c
-index 21639d9ac753..e7b22456ebb8 100644
---- a/drivers/cpufreq/acpi-cpufreq.c
-+++ b/drivers/cpufreq/acpi-cpufreq.c
-@@ -856,6 +856,9 @@ static int acpi_cpufreq_cpu_init(struct cpufreq_policy *policy)
- 	}
- 	freq_table[valid_states].frequency = CPUFREQ_TABLE_END;
- 
-+	/* Init max sustainable cpu frequency */
-+	policy->cpuinfo.max_sustainable_freq = freq_table[0].frequency;
-+
- 	max_boost_ratio = get_max_boost_ratio(cpu, &nominal_freq);
- 	if (max_boost_ratio) {
- 		unsigned int freq = nominal_freq;
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 3a6b4b224a66..6fc28bb1499b 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -1085,6 +1085,7 @@ static int amd_pstate_cpu_init(struct cpufreq_policy *policy)
- 						perf.lowest_perf);
- 	policy->cpuinfo.max_freq = cpudata->max_freq;
- 
-+	policy->cpuinfo.max_sustainable_freq = cpudata->nominal_freq;
- 	policy->driver_data = cpudata;
- 	ret = amd_pstate_cppc_enable(policy);
- 	if (ret)
-@@ -1912,6 +1913,7 @@ static int amd_pstate_epp_cpu_init(struct cpufreq_policy *policy)
- 	policy->cpuinfo.min_freq = perf_to_freq(perf, cpudata->nominal_freq,
- 						perf.lowest_perf);
- 	policy->cpuinfo.max_freq = cpudata->max_freq;
-+	policy->cpuinfo.max_sustainable_freq = cpudata->nominal_freq;
- 	policy->driver_data = cpudata;
- 
- 	ret = amd_pstate_cppc_enable(policy);
-diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index 6fe0e972952a..f803fcdca483 100644
---- a/drivers/cpufreq/cppc_cpufreq.c
-+++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -682,7 +682,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
- 	policy->cpuinfo.min_freq = cppc_perf_to_khz(caps, caps->lowest_perf);
- 	policy->cpuinfo.max_freq = cppc_perf_to_khz(caps, policy->boost_enabled ?
- 						    caps->highest_perf : caps->nominal_perf);
--
-+	policy->cpuinfo.max_sustainable_freq =
-+		cppc_perf_to_khz(caps, caps->nominal_perf);
- 	policy->transition_delay_us = cppc_cpufreq_get_transition_delay_us(cpu);
- 	policy->shared_type = cpu_data->shared_type;
- 
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index b898b6544069..c1d54a22265d 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -2587,7 +2587,9 @@ static void cpufreq_update_pressure(struct cpufreq_policy *policy)
- 	cpu = cpumask_first(policy->related_cpus);
- 	max_freq = arch_scale_freq_ref(cpu);
- 	if (!max_freq)
--		max_freq = policy->cpuinfo.max_freq;
-+		max_freq = policy->cpuinfo.max_sustainable_freq ?
-+				 policy->cpuinfo.max_sustainable_freq :
-+				 policy->cpuinfo.max_freq;
- 
- 	capped_freq = policy->max;
- 
-diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
-index 6e984c114d96..daef7e99fead 100644
---- a/drivers/cpufreq/intel_pstate.c
-+++ b/drivers/cpufreq/intel_pstate.c
-@@ -1474,6 +1474,7 @@ static void __intel_pstate_update_max_freq(struct cpufreq_policy *policy,
- 
- 	policy->cpuinfo.max_freq = READ_ONCE(global.no_turbo) ?
- 			cpudata->pstate.max_freq : cpudata->pstate.turbo_freq;
-+	policy->cpuinfo.max_sustainable_freq = cpudata->pstate.max_freq;
- 
- 	refresh_frequency_limits(policy);
- }
-@@ -3052,6 +3053,7 @@ static int __intel_pstate_cpu_init(struct cpufreq_policy *policy)
- 	policy->cpuinfo.min_freq = cpu->pstate.min_freq;
- 	policy->cpuinfo.max_freq = READ_ONCE(global.no_turbo) ?
- 			cpu->pstate.max_freq : cpu->pstate.turbo_freq;
-+	policy->cpuinfo.max_sustainable_freq = cpu->pstate.max_freq;
- 
- 	intel_pstate_init_acpi_perf_limits(policy);
- 
-diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index ae9d1ce4f49c..aa3f60a167be 100644
---- a/include/linux/cpufreq.h
-+++ b/include/linux/cpufreq.h
-@@ -45,6 +45,8 @@ enum cpufreq_table_sorting {
- struct cpufreq_cpuinfo {
- 	unsigned int		max_freq;
- 	unsigned int		min_freq;
-+	/* Maximum sustainable frequency excluding boost, or 0 if unknown. */
-+	unsigned int		max_sustainable_freq;
- 
- 	/* in 10^(-9) s = nanoseconds */
- 	unsigned int		transition_latency;
 -- 
-2.34.1
 
-
+Thanks,
+Peter Chen
