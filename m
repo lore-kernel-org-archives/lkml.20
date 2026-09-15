@@ -1,72 +1,87 @@
-Received: from mail3-163.sinamail.sina.com.cn (mail3-163.sinamail.sina.com.cn [202.108.3.163])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F672D97B7
-	for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 11:01:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C79233D6E6;
+	Tue, 15 Sep 2026 11:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470085; cv=none; b=pPwmA8fssMrlvyBXXLmJA1/TOLOMOR3oxkEBlKEMp7GCUa7MWRMb3cyLBw2zIgsH4StXM37Ek/gLM/8AOMhO33Q/731JSBw476ZK6Rso7LY2DQWaII7H9n5uX1MIvyT8fuKnegj83z61o8VMy3Y9RdBqR+qLGQdSqOepOAKcxGg=
+	t=1789470088; cv=none; b=ULweyweWg3/c4GFFOj2P3JiN39YIGgFZIATMGDohFmuESluep6uujch7kjYSWhVMnOjeZWZC58fg2/St1Qr6HCPwK5wi7M5SvObB8iKv3AC2QXr/jZFwNg1RVixhfSCPoNQzzjUY2u5/ZkgzlkVRk3RDvldu0vSfdXPp1pfujhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470085; c=relaxed/simple;
-	bh=ieYe7JC72f42ZWLIWqEAqgpjx9lPTaJPGfR6FyyCEg8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MN4KCdZkXHUNg0F9PTSFPKLKeqf0l/fFT3jWvW9c9ecpAHK5sk/3nK3PipsH3jJVoSvlE3phUl7/xSOdlTBcZ1cmt7tniGBlhshYVrLyldCd+wv0I6C9oAeIgZwBGpZqJvDe+zyMSKd/BFfA3y74jWmW1jc+kMSP2Xnyv7lOkO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=gQwxvmqH; arc=none smtp.client-ip=202.108.3.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1789470088; c=relaxed/simple;
+	bh=gY9EJkbCr3NCyt+2eN4TRNFmygy7qNzFbmztkbUoUhc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OtZdCBELYxTw8LW3+2f6AYt+FpNZ5Yy5KuBk8InqbggODr2Ev5w2VduMLaANz9sgjo8FmaLxzh4S6c/Y5+bOApXjtcXMCbqe/Mw770GYV4ZXKEzU9bieZZOToSbFUi5T96BdUCQLGd0M1pd5KvAxGRn0rQ57+TOmG9kMm4l9eqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mc3PV4Wg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="gQwxvmqH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789470080;
-	bh=cylYDqlDo3A8xc1m2/wPaBF795GHyVZGENEpWPIOmY0=;
-	h=From:Subject:Date:Message-ID;
-	b=gQwxvmqHFRmVm3PD+yUUDgYpfbPWSAH8vLnKGLeeUhtiZjkbnIhmqBreB6hxzbA6y
-	 k+LK9W6buaGQbH9Q/iDn93eVsbEGzVVbva2YYcX3f4wb92u+0gqFwPcjT6MNo3qusU
-	 atqMxzNi0V22s7MyDXbATrBhc2Hx+9GQ6oCRHWsI=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AA9254F00002B9B; Tue, 15 Sep 2026 19:00:34 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 3323126292448
-X-SMAIL-UIID: 43B3C56A23244D8192E3197E3579FA09-20260915-190034-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [kernel?] KASAN: global-out-of-bounds Read in bus_uevent_store
-Date: Tue, 15 Sep 2026 19:00:30 +0800
-Message-ID: <20260915110030.918688-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6aa82301.a211d2ce.1a5198.0296.GAE@google.com>
-References: <6aa82301.a211d2ce.1a5198.0296.GAE@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mc3PV4Wg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4BAE1F000FF;
+	Tue, 15 Sep 2026 11:01:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789470086;
+	bh=ZvqUeKCU1dKmmVba4tQNzefSMi1mI5HcwktsDzzTxQ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Mc3PV4Wgo5o9iOphUm7YhSoqarFhqhHoKUhlZ8EfxphzdYUX454A2pjapcNhWbLfC
+	 jI9ZlWkHTbW6unDY4x3Htp1aLjzANzXAkEyQv2+a83T/zVKQijKbl0NaPmgOm3p9Cz
+	 e6bz1QL8Rvp4PFJskRZamOsOiAQPtXHL791oxWBdRbgfJ/iE/Z0bnImCLgQpsuBaZ1
+	 k/3jYP8SPUJsDpVcMEnPIfcXUChX78R722NbXsQ1Eg6lKV2JvRQ2PwIz64gPui/icT
+	 w3j3bzzU0Cl8Qk3uebX+ZkTO0gD/HTEksDpW5VlS/jRzbwd+l/RwqJaNwxeZprh+f/
+	 gE488uPZpb30Q==
+Date: Tue, 15 Sep 2026 12:01:12 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: John Stoffel <john@stoffel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 11/21] kbuild: avoid re-running compiler and linker
+ probes
+Message-ID: <aqklJxyNPal2ou-e@gremlin>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-11-39817ec5db23@kernel.org>
+ <27304.3198.867048.379684@quad.stoffel.home>
+ <aqgRXk6DXyAah488@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqgRXk6DXyAah488@gremlin>
 
-From: Edward Aadm Davis <eadavis@sina.com>
+> On Mon, Sep 14, 2026 at 11:02:22AM -0400, John Stoffel wrote:
+> > > This change avoids a sublte issue with ppc32 (big endian) - clang doesn't
+> >                        ^^^^^^
+> >
+> > subtle
+>
+> Oops!
+>
+> I love that I ran this through AI review several times and it missed
+> something as simple as this :)
 
-#syz test: upstream 50d05c7c76c9
+(Fixed for v3 along with a few other typos :)
 
-diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
-index ddbc4d7482d2..25c89a36fb39 100644
---- a/lib/kobject_uevent.c
-+++ b/lib/kobject_uevent.c
-@@ -83,7 +83,8 @@ static int kobject_action_type(const char *buf, size_t count,
- 	for (action = 0; action < ARRAY_SIZE(kobject_actions); action++) {
- 		if (strncmp(kobject_actions[action], buf, count_first) != 0)
- 			continue;
--		if (kobject_actions[action][count_first] != '\0')
-+		if (count_first <= strlen(kobject_actions[action]) &&
-+		    kobject_actions[action][count_first] != '\0')
- 			continue;
- 		if (args)
- 			*args = args_start;
+--
+Cheers, Lorenzo
