@@ -1,135 +1,101 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77692354AE3
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D830E3446CB
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:47:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562825; cv=none; b=UQW8LMfEn8X9EcLQF17FUw990YySMTJdvAj7fiu3Jua65wwVRnt3oiupVlOI7oTsPWa9FZUMS0tH8XH8dyW6tRgUP8Kz3rsZNx2V/5aJNs9VSmIAtdntyhJ1vc1Lv+Ov9MkGGsiTS3+0oAErQ03tYN7Bi/NP836MNMcOMUS/06E=
+	t=1789562849; cv=none; b=f3I6tD/gUYwEongu/z4APiSsEZ733LoLVqDUEMMY8WUQm+p+MMt6oJLgzxBP2Ao6j18SVEt0rxFhSWzHHhivuaRO7RAeCtZwXJKZj7rW4DA5gwL3EIq49oinw9REVec6060LFnAuxJZAFFmfq836aAwysR18NhKqB8ssLgmACzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562825; c=relaxed/simple;
-	bh=mvh0j17bP4ZxH1uTxYP6X2KgmeRwOrDRPqClmWpV2m8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WsofCWXQ7QFym7tQjVzL9k31aXLYYO2IeXdVuzvQMdlGORHltMd2gnAsLBogOdMmJBRcIKb86JY210beeFphJkAEgiUO8j24ouS6lf7ooEk4aQszqKucxknPi3933owYP2I/Qebqam/lQdc69LBj0HIofgnk7IHAZPC6c1mrIU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dwVpWY5Y; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789562849; c=relaxed/simple;
+	bh=2H1OdElD4RQ4dUDiQHkKrw1VjD4zYa3IPGAdrvABJxE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Br5oy3t2Mip63EZ07XKegBMAstH3yfiq1FKQA2A5GrrjYPU3iiThAdaXSHLHg72Nspb8esgFzI6AkSFmR62Kes4Gnrh3uIz1ZAcqaoWC+hlnLYvis02VUysHFLKVJk0QOo7JIcbx6mKcZTxSCup77Kq+p1oxQa2iCUdB5mmMwX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cfs297ts; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dwVpWY5Y"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48449f62b93so268013f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:47:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789562821; x=1790167621; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OvBYQo4TN3EsmIXlY2JV4QPHccIJn3dUvY6VvRLAt+8=;
-        b=dwVpWY5YdxuH6Tzhg4fl4Mj/rAU6q5/E12tfhP6+rrk0zSalshveTNYk9YaweKegK4
-         EVF9IlcrJnpD/LNlxy/GlifMYlRBG1LTDb32xaAYYUQaJ26wVvfcuUPLh5qWVuy9bjOf
-         0WVExC3Y8wVFGEWXd881jYgod4NingMLXAc6Hdo1W6KLwwP7SdY67sk6tQMx/G4eHcpJ
-         936BPvA2l45aJBt3DHhpH1YrbzMjMB1javN6iY6PqoqouduQX0S4vdBwD1wvD5MJE3Hq
-         DbeAslsPuIDFWPitZyWTSkGoe66JQpyUV/aWYMcWv/ouic8g9tsh2vH92+H3S+MjPOGY
-         qoOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789562821; x=1790167621;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OvBYQo4TN3EsmIXlY2JV4QPHccIJn3dUvY6VvRLAt+8=;
-        b=psxH3EB8PVCZdPSRSKIpxHvpooMJ88Pf1bI5oGQZTWmd6vHktmKXnNHqKnVHZ3vpFh
-         Y9NnzO3vjd79H3QuRG6DOIoXGJmtLhuYfa8/Jpj5CLrybVBRy3bTpbuEYS03bF8kRXb6
-         ZGt7iHJa/DFn4x7Zvv34sbH/LoJhXHOQhT6HGsqXhS+d1sefVLUlBW/FFcpLvDd2b3Q/
-         genx5XQJMV2y3xEn6o9Xzzl2I4SdG7YvVepUHD5lXkT5g/ek/e2eC2+uP4egaqm/mE1y
-         zl7APo39qYvcMVz+K7n8LK3svKHrEH4IYerIKW25C03nTHp5q0fdsisL1mU8pK5gI5PK
-         bBdw==
-X-Forwarded-Encrypted: i=1; AKwUvBzAxWtAizPzhoJy5U21mk4e3ED1M6X1PwHp9pxoZYszWdRxNCoUoK197eTwNysZJkjoaxV15AIV+g7Omck=@vger.kernel.org
-X-Gm-Message-State: AFuF++myd6YByRWeJnHjlZJJNYRFZbPem8f5I7EaH1F2WTE9xwM3ukt/
-	wI/7MzxIBqCWa/RVw+4lqe3GtkWeOMrtrhS0Fet7S+7SQSELPj2eEiT1
-X-Gm-Gg: AYBFou2btJX50qRFp2omghwtNkQryXgJcsx6fk7KFfmwU25HWx09LtglY/FPXoDXap4
-	OngI/FH8yK3EIptHQpOLBfhPuGsSdU83M/9slwjMG/oabdjMMOOfwgV9VV3MxI9KXN95Odt37zF
-	gdqofZgcNjZ8f5XBdpyy4xuMwuFh3N40Dn+47uELuwUUO+0a0J/xEDIHMeYAcqJhE5TfcsXu462
-	B4D8zyvPo1/R80EWqCx6yFXQvP1eokurNSVDW5qfy+EiJErF/LRflrYtym3JiKZQf/75LdYJIdK
-	h37TnLOOQQX46O2o/OBlPM3VkvKtbgxE6xFC1/td671p+4UMvVWZsIYcnLgvEOpKp2HW1wz/ebP
-	9PDxKeZY4jqbwE7U3c8aBAJcFAjdkZS6HAyJSa8rj4YOXNJyTe8KPTbEI7y0lOK2yAJsE0BwKKn
-	54ndIvZI9SOivY+bnFoYUasDQ/E3Rd3enhOksRNuqdzlE7RTzd5LDkfnaheJF9VWvYjL/1qD/Mb
-	eKXYbJmLdN46hApohGtuMu3IliUxdVeI4zN
-X-Received: by 2002:a05:6000:388:b0:484:3147:49c9 with SMTP id ffacd0b85a97d-4870d69a561mr3529251f8f.2.1789562821393;
-        Wed, 16 Sep 2026 05:47:01 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf418dcsm6894786f8f.35.2026.09.16.05.47.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 05:47:01 -0700 (PDT)
-Date: Wed, 16 Sep 2026 13:47:00 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Bradley Morgan <include@grrlz.net>, Kees Cook <kees@kernel.org>,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] sysctl: drop the pointer dance in proc_put_char()
-Message-ID: <20260916134700.3e0d17cd@pumpkin>
-In-Reply-To: <adblkub2acrgjlgmjs2uu5644zm5fjghjzr5zkyga7uatrfeif@jsumbzlthyfb>
-References: <20260822184244.13569-1-include@grrlz.net>
-	<adblkub2acrgjlgmjs2uu5644zm5fjghjzr5zkyga7uatrfeif@jsumbzlthyfb>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cfs297ts"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ACAA0152B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:47:23 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 11B0E3F7B4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:47:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789562847; bh=2H1OdElD4RQ4dUDiQHkKrw1VjD4zYa3IPGAdrvABJxE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cfs297tsXwMduIwu79reqF+nohBSHMs3hWYPw+LXwGp3SiXXKQIYak76htRltyF7w
+	 ShuPUP5higE9vS/GzfT8IIdGbF+/NpfLbbQkEwkwxzkR/tK5eKqHBb55VtxIqxLTYJ
+	 2jlWCjeaisq2HRbJ2CTOz+ZxNNE8do4M6O9WHfGE=
+Date: Wed, 16 Sep 2026 13:47:22 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, simona@ffwll.ch, tzimmermann@suse.de,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] drm/mali-dp: Fix runtime PM leak in
+ malidp_crtc_atomic_enable()
+Message-ID: <aqqP2ruyA6jSsIIy@e142607>
+References: <20260916102112.2018372-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260916102112.2018372-1-vulab@iscas.ac.cn>
 
-On Wed, 16 Sep 2026 13:46:40 +0200
-Joel Granados <joel.granados@kernel.org> wrote:
-
-> On Sat, Aug 22, 2026 at 06:42:44PM +0000, Bradley Morgan wrote:
-> > proc_put_char() still drags around a char **buffer alias, writing
-> > the char through it, advancing it, then copying it back into the
-> > slot it was loaded from. That only made sense when the buffer was
-> > __user and the char went through put_user() (which could fail).
-> > 
-> > Since commit 32927393dc1c ("sysctl: pass kernel pointers to  
-> > ->proc_handler") the buffer is just a kernel pointer, so the alias  
-> > is dead weight. proc_put_long() and the skip helpers already advance
-> > *buf directly, so do the same here. No functional change.
-> > 
-> > Signed-off-by: Bradley Morgan <include@grrlz.net>
-> > ---
-> >  kernel/sysctl.c | 7 ++-----
-> >  1 file changed, 2 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-> > index f7b7598..2b92b30 100644
-> > --- a/kernel/sysctl.c
-> > +++ b/kernel/sysctl.c
-> > @@ -350,12 +350,9 @@ static void proc_put_long(void **buf, size_t *size, unsigned long val, bool neg)
-> >  static void proc_put_char(void **buf, size_t *size, char c)
-> >  {
-> >  	if (*size) {
-> > -		char **buffer = (char **)buf;
-> > -		**buffer = c;
-> > -
-> > +		*(char *)*buf = c;
-> >  		(*size)--;
-> > -		(*buffer)++;
-> > -		*buf = *buffer;
-> > +		(*buf)++;
-> >  	}
-> >  }
-> >  
-> > -- 
-> > 2.47.3
-> >   
+On Wed, Sep 16, 2026 at 10:21:12AM +0000, Wentao Liang wrote:
+> malidp_crtc_atomic_enable() resumes the device with
+> pm_runtime_get_sync() and returns early when the resume fails.  The
+> runtime PM usage count is incremented by pm_runtime_get_sync() even
+> when the resume fails, so returning without dropping the reference
+> leaks it and, once the error has been hit, prevents the device from
+> ever suspending again.
 > 
-> I was thinking more along these lines https://lore.kernel.org/all/20260916-lklm-sysctl-void-vs-char-v1-1-c3f8b2eb8b1e@kernel.org/
-
-I think I'd decrement *size before writing to buf.
-Should ensure the compiler never reloads *size.
-Could also be worth an __always_inline - likely to make the code smaller.
-
-David
-
+> Drop the runtime PM reference with pm_runtime_put_noidle() on the
+> resume failure path before returning.
 > 
-> Best
+> Fixes: 85f6421889ec ("drm: mali-dp: Enable power management for the device.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
+Acked-by: Liviu Dudau <liviu.dudau@arm.com>
+
+I will push the patch to drm-misc-fixes.
+
+Best regards,
+Liviu
+
+> ---
+>  drivers/gpu/drm/arm/malidp_crtc.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/arm/malidp_crtc.c b/drivers/gpu/drm/arm/malidp_crtc.c
+> index 18e6157b1047..a2c6e536c55d 100644
+> --- a/drivers/gpu/drm/arm/malidp_crtc.c
+> +++ b/drivers/gpu/drm/arm/malidp_crtc.c
+> @@ -56,6 +56,7 @@ static void malidp_crtc_atomic_enable(struct drm_crtc *crtc,
+>  
+>  	if (err < 0) {
+>  		DRM_DEBUG_DRIVER("Failed to enable runtime power management: %d\n", err);
+> +		pm_runtime_put_noidle(crtc->dev->dev);
+>  		return;
+>  	}
+>  
+> -- 
+> 2.34.1
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
