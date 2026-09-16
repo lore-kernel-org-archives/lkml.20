@@ -1,94 +1,125 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE35450413;
-	Wed, 16 Sep 2026 07:38:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D4B369D45
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544343; cv=none; b=J7NP2PVWrMgX+n/2p4KNuWatiIsNNei+Ma9jrNf/zaEB+I9wl+8qFI4WDp5koLXNwIsRJwHjOWUHPm8k0/4tIpTDQAI3MFrbdT8tULXDKVGUgf95RaUMpkNkrMFMl8nWN6aSTFhnuJgDgGRg2AEj6g3YZzY/kSxs++66MJS3fH0=
+	t=1789544346; cv=none; b=L+wQWgGOV3bPiNPwCra8IlNIBYJeVeAdYVeXW103PBfIcjeoTYLJntZY38yDbIjGuXMeAK3ec5cHxTZ4bvQ4iIBh/lvqkOIzRQf96Yvcm3XtYH2EjemEsds7biK1helzhKNt3v3F7zWYg/a9WuMuV/0aWiM3jqIzIzqV1D7jZNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544343; c=relaxed/simple;
-	bh=j9ktKFtpbgo4VcDmddQSyAsXK/V4CRdYlVuga/agvto=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ke353KD5XZilFPXJhjY4nDiSc3ZcArPxYe0eKNtE4XPDcErZUd/Ie3hEdbPpnjamcshaJtIvcanbSWIdzkjx51D7jZY/qEgbYYjqUvGUSK5UAC/tVABVTySAgoblrUXNVAnX5bDb1tJHjXA/cPXES1hRCeTVf+DKYo8Gq4LLPDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACXnz2DR6pqrznfBw--.40767S2;
-	Wed, 16 Sep 2026 15:38:43 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexander.deucher@amd.com
-Cc: dri-devel@lists.freedesktop.org,
-	javierm@redhat.com,
-	linux-kernel@vger.kernel.org,
-	tzimmermann@suse.de,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] firmware/sysfb: Fix device reference count leak in sysfb_disable()
-Date: Wed, 16 Sep 2026 07:38:15 +0000
-Message-Id: <20260916073815.1972045-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789544346; c=relaxed/simple;
+	bh=hNqVrXfEvLOK+x6ECohdEsHvAi8OpRMWT4YfU9U8wHs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SBXnhSdACXglVZjWwiUx3JT/gUUunuI2vyUdEZp8Uoh85QugP5GL9ePh0AnPHbwPSBNa7QwVYIMVSe52BDzRDwllhuhco9Sl6AuXRylZWtoG0I+K+bMThhn4iPhNbJAOofCXUwcc/GrGxc0OdzdXBqwvkaoxB8lpfMUUQFyBUMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=csHwGaEB; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="csHwGaEB"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469f20513so498151b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:38:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789544331; x=1790149131; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UtsFDmMToqDmeLwW8Klcnn0Np/6m/Y9EyWUe22xbd1g=;
+        b=csHwGaEBKnKlOGqdXSokA9/WdGIYw42N2ee4SE5wgRYyAqaL0iCmYYWtizcuxCR6Q+
+         JsToKtYhuQQRVP41GXe0ILfCSbmxs4agoBWDebNTBlexntp4jB1GQtZb7NXX0TgacTpH
+         hi/3g5FdQhNmLwBsdrroKBQezALaQZbBAIqHRQg+warneOfx4hzy3aK0dGfbED2HATp6
+         QcjcAAuSnm/LJgedKTcBl5EWIzkEkozwz6OPvzNxREL5G8SEcFdOeKYSm+HJlKPQ7msi
+         x7gzjsWtCrfi/tZcpkpv2iPRggYEPF04+hBhnBjTrlbsVgc2RoQTygn4lRfFJkveNJvO
+         QfBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789544331; x=1790149131;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UtsFDmMToqDmeLwW8Klcnn0Np/6m/Y9EyWUe22xbd1g=;
+        b=tcpKMlQpSmjKr5LujPRoTpzLP8jlV4d3u0Z4uw6M8+Iz7YuI/phSeBbFv6AbmlSpfO
+         6Ui9yJzRs4tv3bOEh7oV51frk/RyE/0m6u5lOw+ZU7Ud/j43pd+VIOg6bJrj5FMlnZAr
+         x7Z8ShhUfJ+5z15gh0Pw0hixC1feXa5sELbl5p7Z6S5i38XABN/fDuw2KMXq7NUqEfMN
+         LP0GVXNOh3Bzxog8s51AVMnujitaLDcnPxeqsxM20fPcpwyU3Ntk5uSFhlMO1LBibQTn
+         NU8/qA2aR7nf0AKYChKJjP/v72oazCNGrT+uH14W0XBmYfAuJ+HOuo4aZCSamIVeaATQ
+         G+gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJHB1tZ2cOVqwqdCIxOSlN4ucBjGh8RhVPzLxX2F8jzIn5n3FY+0VQrnkz5nBnIjzZTnQtxSurNSkntW0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfQLMG6UfJrxv6cNJyAkfMoMeR0D5So+FGJBtgEy1roJ5anFW2
+	utJAR1czt/vVQhGYoO3bkd35qYp+mprbE/fEDvSpgLUl7QxmcC7R4Dql
+X-Gm-Gg: AYBFou3a7eQ91206ZaPwyI1dkmcpEmEs8Ve43OsuU9upIFRxxutVTS5LlfvCGU+U4yP
+	kdn7RG2lDrSHD94aeNonuxCLmFf+TScyYgnOhOgWU58AKBlxHCiBEA58+0vajFei+lsHbGc+YsE
+	BFBp5V+1gmpwyiNCZGj5xYUcX+4AjwLSBfCR8gVHbxBzlWFhM4iARxjTHEWzp71koI+3Tdggj5p
+	ng0CBSHMRqGBmBnobtkeaC89iSOxe6WAllDx4ezKGhQDLZ3rOPro1Bt8XI655QDdJtRzjAZValF
+	XJ4ZoEDj6emV217tFfriaNUgmhFa9SC+LY1ZOgbJkcINEKTHJnzNw4fw+3eyS/z47PsIwCw4lPD
+	AJUUuKjoAef34LNyns6ka1RZV+BpGkDnXFVndqg6tT5c4cB5isPNbtoKgF8RL1O0cpLss8D8bxL
+	VBOP9a7o4hZZrF8/T9E8HVnvxHc4pABe7PNv7nj/MIoETRgHRLbAT+HKzn8aU+rA==
+X-Received: by 2002:a05:6a00:bd93:b0:86a:9be:6bf9 with SMTP id d2e1a72fcca58-87238f95d83mr2981891b3a.12.1789544330818;
+        Wed, 16 Sep 2026 00:38:50 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201f07a19sm764818b3a.53.2026.09.16.00.38.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 00:38:50 -0700 (PDT)
+Date: Wed, 16 Sep 2026 16:38:47 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Baolin Liu <liubaolin12138@163.com>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
+Subject: Re: [PATCH v2 2/5] ntfs: report attribute errors to fsnotify
+Message-ID: <aqpHhxKx_xiSoZZQ@hyunchul-PC02>
+References: <20260916022345.1151836-1-liubaolin12138@163.com>
+ <20260916022345.1151836-3-liubaolin12138@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXnz2DR6pqrznfBw--.40767S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrKryxJF13WFy3Kw4rCw47twb_yoW8JrWDpr
-	s3GFWFyrW5XF409ayUJF1jqF1Fqa98tayxG3s3Cas5u3Z8AF109ry8J3W8WF1UArWkGa4S
-	qF43tr18uF4UCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
-	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUrF
-	ApUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcMA2qqQJUe-gAAs6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260916022345.1151836-3-liubaolin12138@163.com>
 
-In sysfb_disable(), parent is obtained via sysfb_parent_dev(si), which
-calls screen_info_pci_dev(si) and returns a pointer to &pdev->dev with
-an acquired reference count. However, sysfb_disable() does not release
-this reference before returning, leading to a device reference leak.
+Hi Baolin, 
 
-Fix this by checking if parent is not an ERR_PTR and calling
-put_device(parent) before releasing the mutex.
+>  folio_err_out:
+> @@ -3720,7 +3737,8 @@ static int ntfs_attr_update_meta(struct attr_record *a, struct ntfs_inode *ni,
+>  static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
+>  					    s64 from_vcn,
+>  					    struct ntfs_inode *locked_ni,
+> -					    bool defer_attrlist)
+> +					    bool defer_attrlist,
+> +					    bool *error_reported)
+>  {
+>  	struct ntfs_attr_search_ctx *ctx;
+>  	struct ntfs_inode *base_ni;
+> @@ -4086,8 +4104,11 @@ static int __ntfs_attr_update_mapping_pairs(struct ntfs_inode *ni,
+>  	return 0;
+>  
+>  put_err_out:
+> -	if (ctx)
+> +	if (ctx) {
+> +		if (error_reported && ctx->error_reported)
+> +			*error_reported = true;
+>  		ntfs_attr_put_search_ctx(ctx);
+> +	}
+>  	return err;
+>  }
 
-Fixes: b49420d6a1ae ("video/aperture: optionally match the device in sysfb_disable()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/firmware/sysfb.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+__ntfs_attr_update_mapping_pairs() does:
 
-diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
-index 8833582c1883..11c5ce128a6c 100644
---- a/drivers/firmware/sysfb.c
-+++ b/drivers/firmware/sysfb.c
-@@ -71,9 +71,12 @@ void sysfb_disable(struct device *dev)
- 
- 	mutex_lock(&disable_lock);
- 	parent = sysfb_parent_dev(si);
--	if (!dev || !parent || dev == parent) {
--		sysfb_unregister();
--		disabled = true;
-+	if (!IS_ERR(parent)) {
-+		if (!dev || !parent || dev == parent) {
-+			sysfb_unregister();
-+			disabled = true;
-+		}
-+		put_device(parent);
- 	}
- 	mutex_unlock(&disable_lock);
- }
+  ntfs_attr_put_search_ctx(ctx);
+  ctx = NULL
+
+Therefore any later mapping or other errors can therefore lose report
+state and duplicate reports. And The error_reported boolean only tell
+us that some lower-level path has already emitted an error. Consequently
+a report can incorrectly suppress a separate report for a later rollback
+or resotre failure, even though that failure represents an independant
+filesystem integrity problem.
+
+Instead of carrying error_reported, would it be simpler to report each
+error at its detection point and let fanofify merge repeated error
+events? or would there be any alternatives?
+
 -- 
-2.34.1
-
+Thanks,
+Hyunchul
