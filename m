@@ -1,290 +1,284 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E367124886E;
-	Wed, 16 Sep 2026 16:00:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387EF4AB3D8
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:00:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574438; cv=none; b=tFat+06vRCQ53TXa8ys3BonE7PHBBMxN4MDj8BZVyO0La/sGyW0bcwfwpbwMMmG4kyJZcfAR1k46V59WeH89nOy+eeEglFzzQyjbUQJMaEdqFC7ydKXjJ7DuQ178WmXNo28EXoCS3EgJHSTyD+J/ZxCSnliWARHrK2nS2kLAyxQ=
+	t=1789574450; cv=none; b=ukFhCD4wxr1IiHJjrWtdCvAtYSaStPJZWCtNdfN+vDykI4JbnMAVKChPXaqbqKEriPr0BTsrb6OfGzYYC/11qhbQ3ITfdZDoEcc3b0zJ3kUzNrjFYToG/xk8TzzgIdPcnCCcCteIxwLZPZFQLE8gnTKEioSdsUKwZgn8hErbIBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574438; c=relaxed/simple;
-	bh=GHdhcu2Fzga0ZT4BsriYfEoIiEckq9fEim3YXDjIyyM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lg8yBcztc5L0bsT+mI4pZLd0mLsNGCDD2748RoZbRqifhOY+GqDIGgBbCynPeuHdXqABUvSazIadevc1ZmExFxVX8XIvjrXts/hlXNocLtF0NIYLcjlcu8b3WmHdbvgKH+YV+FKijpJz7xv0f2CGDa6lOWWHqqgRR7Ku6ecFItE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=fMKQE9kv; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789574450; c=relaxed/simple;
+	bh=UX/efH+lBc6+UCLzeIm/9pqwUCwaZ+zcP4iJF2iifN0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=uCEA6ydcdTHQCL2qHKsBfEgDIbY0QxTVziSY+gvKcgKUZNuLeji32gZ7r+x+j+MSPcwrbAvS3bQiGyUy8cUwpkfjrBEDlWovDm1QrMdqVY+ZneVmtrvZR7Lrd8GnbFpYMV1RpnJ23Jpp/bAnYdl1glGw1rS8UmrDX8V6Py+51zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=H8fU9iIq; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="fMKQE9kv"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A27B540E022C;
-	Wed, 16 Sep 2026 16:00:25 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id FMO6eo6vP5J4; Wed, 16 Sep 2026 16:00:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789574415; bh=VhBXz8iUfZiZKp7U7NIYUPZWL1BpaHmabXO0Jw0Rm/E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fMKQE9kvpqtYfy18piC+NRwzDIuE6812sWel8qizaefesZZORBwMe2n5lvYE0Z5r6
-	 mtgfdMvDT8nKFQcUkSV/79iv6Cx4HlC7lPoS10iB8oT595ixyDnGIoAQYfffZLGoIb
-	 7PPO8wvLvfEbt50WU0iwd8XhoE5noP2VBTuxoKCojc540TjPoUiAxU5jdSUxTlV4s8
-	 oyAQuMH+O53RfboI2GAAd3iBgO2+ZMSgT9YTHW1zXI+iFgtG4Llv/Aqkr+4I8/3ZFE
-	 4X1+8LoBwV5CxeMr4Trwl0QDC0RdtjZa5Rp0Ekm9QcvOG3op8og19c/lc3ANp2RDAz
-	 2k+m2+L0FT1CcLi8gngnuQBJijr6CgRWOgoha6cQEGIEUItljR9jG8QTh6r4hx0LFv
-	 UqJKz1MomghTRAUqWbPkTEmF3M586CZJhEaCKauMqZY3GbJtPgJ287OfIxr7NqQ1Ps
-	 G4dlTvaXdTbWZtKTj0TXv3+ogXXjpHDSF1k6bgHC8DZQzWliVi0nAJdXhPbq3XNmN7
-	 gfMSyuDUTKRLE3sXvh/vX5vHby21dSHoAHym0Dhnoe28MMWrx1HsFutDvE3nKuw9SF
-	 ZxlWDRFMYN6Z7nw3ceJQgWQY7uSD1nKVGmtw8sxn9Cm9dmTncAyDib/e3QPoDsswFa
-	 1q1TiNEylgXUmGnVDRqOUU+4=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id DB16E40E015B;
-	Wed, 16 Sep 2026 15:59:59 +0000 (UTC)
-Date: Wed, 16 Sep 2026 08:59:56 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Lin Wang <wanglin@open-hieco.net>
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Pu Wen <puwen@hygon.cn>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Tony Luck <tony.luck@intel.com>,
-	Clemens Ladisch <clemens@ladisch.de>,
-	Guenter Roeck <linux@roeck-us.net>, x86@kernel.org,
-	linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/8] x86/hygon: Add Family 0x18 DF node enumeration
-Message-ID: <20260916155956.GBaqq8_BsuLkBKp-Ia@fat_crate.local>
-References: <20260910082734.3771675-1-wanglin@open-hieco.net>
- <20260910082734.3771675-2-wanglin@open-hieco.net>
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="H8fU9iIq"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 531A2240101
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:00:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1789574437;
+	bh=iTqVZfIUB83xPkoxQGkPTV6znmjbfKj5BRXJjzpcKtk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
+	b=H8fU9iIq/DXkVLOfxbyg/eVZrzMTPwF7SBgylE2SkdJRqsnNIvdMFxMas+Nc/ZEcz
+	 pCYs58Ms7H4g9hORpy/nT+WqtnrcfxniCLh2S0SIHFcd5M8C2md5YPEt/v5Z2t518h
+	 bkG9OcFTPe1NsAkgUMrLfddh3WacaTbuaO7pJLvGacrHQJ9eHheGUWbDCCqJ3C75v9
+	 33p6yA3x/nL4JOS5nI2r2az6Y/QxU4LO3G09j/KQG86MK4Y7Zuo8aKEOXWRrUNiizU
+	 Lft/Do5Qmy5KJaYmaVEw9lPF1SMHT+O7/XcLo6DsAiVkGOVTPpttzgd1aeSzBWucMS
+	 9WfWFmUjxw0/Q==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hlNrz0cBCz9rxL;
+	Wed, 16 Sep 2026 18:00:35 +0200 (CEST)
+From: Markus Probst <markus.probst@posteo.de>
+Date: Wed, 16 Sep 2026 16:00:36 +0000
+Subject: [PATCH v9 1/6] dt-bindings: rtc: Add pinctrl for S35390A
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260910082734.3771675-2-wanglin@open-hieco.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-rtc_s35390a_int1-v9-1-b2567a3e4959@posteo.de>
+References: <20260916-rtc_s35390a_int1-v9-0-b2567a3e4959@posteo.de>
+In-Reply-To: <20260916-rtc_s35390a_int1-v9-0-b2567a3e4959@posteo.de>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>, 
+ Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ Michael Langer <michael.brainbug.langer@googlemail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4357;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=UX/efH+lBc6+UCLzeIm/9pqwUCwaZ+zcP4iJF2iifN0=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqqr0fuFvfpLb4DfXDaBAL2HDx1kqm2fmP0pH/u
+ MS0/fkxGBSJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaqq9HxsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9LTDA/8D4ICBD4qb4WHEJoZzzNLkYXzXCVFhuA
+ SeE89K3/R8H0gMt/78WIqw9I+oFPcvzByYSxbj05vkDtgGkVTVrCleX7ejE3sEUrheNll6WSIGo
+ 2V1Ha4Q5Gn6LBSAZNvTO2byNlvGLd8mHTMJc1q7kVu26O+kXF+d3djGZDB6okXbcy4+8gpx3Bkd
+ RGEhit3qmdAc6ZgH9yuFn+wrfuXgWzBLzJembLfqqUC2epiGPo+G+8jr63qtyuAJCvgdyQYfrY8
+ 3qP+/PDHtOOvOGKW1DGEiEeStdBvUckyjiQJni+HOUFmz1vUYaF6N2qiydp5hwzDhQv5Y4BIDOH
+ RrYjobFCewNiqNfTgeYVjskdq+nlbK78AzultxG9ljx+HMQcVHx+vsUSolrtWOQfRM85cJ2R19W
+ b7J3FkmGmdWHM+hI3jFIoknhx96CaRQyA4KSpQsSWpLHkNMWvqJf9It5xAufvxcLo6a1vx3TjC5
+ AHv+t7DiUpT/7f2vXc1RI89mD+v3pBD26py3/4i0SzrMXW5qJP8Oi+rHQ1Nh0A7KT6F7pCUNalh
+ 5kMXPd17ktvzFWOZ3OLxkjfbhW6Gom8N41mLxK1nKvzbrDdtxRjom4OaPWmc3ab21hnXJe+mcBt
+ gkaDG9xAn/outG2on8vISNSOD5ybCCpbJRWPuwv2rGS+sncbwxW0=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+  keydata=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
+  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-On Thu, Sep 10, 2026 at 04:27:27PM +0800, Lin Wang wrote:
-> +/*
-> + * Cached identity for one DF instance.  After sorting, CDDs occupy
-> + * nodes[0..num_cdd-1].
-> + *
-> + * The PCI BDF is the access point for a DF node, not its identity.
-> + * socket_id and dfid, read from DF registers, together identify the
-> + * node in hardware.
-> + */
-> +struct hygon_node {
-> +	struct pci_dev	*misc;		/* DF function 3 */
-> +	struct pci_dev	*link;		/* DF function 4 */
-> +	u8		socket_id;	/* F1x200[30:28] */
-> +	u8		dfid;		/* model-dependent DFID */
-> +	bool		is_cdd;		/* DFID >= 4 */
-> +};
-> +
-> +struct hygon_node_cache {
-> +	struct hygon_node	*nodes;		/* sorted: CDD first, then IOD */
-> +	u16			num_nodes;	/* CDD + IOD = total */
-> +	u16			num_cdd;	/* CDD only */
-> +	u16			num_sockets;
-> +
-> +	/* Set after DF node collection, sorting and validation complete. */
-> +	bool			ready;
-> +};
+Synology NAS devices use the output pin for interrupt signal 1 to wake up
+the system.
 
-verify_comment_style: WARNING: No tail comments please:
- arch/x86/kernel/hygon_node.c:76 [+	struct pci_dev	*misc;		/* DF function 3 */]
+Move devicetree bindings for sii,s35390a into its own file.
+Add necessary properties to configure the individual pins via pinctrl,
+which allows the interrupt signal 1 to be used for wakeup alarm.
 
-verify_comment_style: WARNING: No tail comments please:
- arch/x86/kernel/hygon_node.c:77 [+	struct pci_dev	*link;		/* DF function 4 */]
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+ .../devicetree/bindings/rtc/sii,s35390a.yaml       | 121 +++++++++++++++++++++
+ .../devicetree/bindings/rtc/trivial-rtc.yaml       |   3 -
+ 2 files changed, 121 insertions(+), 3 deletions(-)
 
-verify_comment_style: WARNING: No tail comments please:
- arch/x86/kernel/hygon_node.c:78 [+	u8		socket_id;	/* F1x200[30:28] */]
-
-verify_comment_style: WARNING: No tail comments please:
- arch/x86/kernel/hygon_node.c:79 [+	u8		dfid;		/* model-dependent DFID */]
-
-verify_comment_style: WARNING: No tail comments please:
- arch/x86/kernel/hygon_node.c:80 [+	bool		is_cdd;		/* DFID >= 4 */]
-
-verify_comment_style: WARNING: No tail comments please:
- arch/x86/kernel/hygon_node.c:84 [+	struct hygon_node	*nodes;		/* sorted: CDD first, then IOD */]
-
-verify_comment_style: WARNING: No tail comments please:
- arch/x86/kernel/hygon_node.c:85 [+	u16			num_nodes;	/* CDD + IOD = total */]
-
-verify_comment_style: WARNING: No tail comments please:
- arch/x86/kernel/hygon_node.c:86 [+	u16			num_cdd;	/* CDD only */]
-
-verify_comment_style: WARNING: No tail comments please:
- arch/x86/kernel/hygon_node.c:101 [+	u16	f5_id;			/* 0 = not available */]
-
-From: Documentation/process/maintainer-tip.rst
-
-Please peruse that doc.
-
-No tail comments (see below):
-       
-  Please refrain from using tail comments. Tail comments disturb the
-  reading flow in almost all contexts, but especially in code::
-
-        if (somecondition_is_true) /* Don't put a comment here */
-                dostuff(); /* Neither here */
-       
-        seed = MAGIC_CONSTANT; /* Nor here */
-
-  Use freestanding comments instead::
-       
-        /* This condition is not obvious without a comment */
-        if (somecondition_is_true) {
-                /* This really needs to be documented */
-                dostuff();
-        }
-
-        /* This magic initialization needs a comment. Maybe not? */
-        seed = MAGIC_CONSTANT;
-
-  Use C++ style, tail comments when documenting structs in headers to
-  achieve a more compact layout and better readability::
-
-        // eax
-        u32     x2apic_shift    :  5, // Number of bits to shift APIC ID right
-                                      // for the topology ID at the next level
-                                : 27; // Reserved
-        // ebx
-        u32     num_processors  : 16, // Number of processors at current level
-                                : 16; // Reserved
-
-  versus::
-
-        /* eax */
-                /*
-                 * Number of bits to shift APIC ID right for the topology ID
-                 * at the next level
-                 */
-         u32     x2apic_shift    :  5,
-                 /* Reserved */
-                                 : 27;
-
-        /* ebx */
-                /* Number of processors at current level */
-        u32     num_processors  : 16,
-                /* Reserved */
-                                : 16;
-
-...
-
-> +static int __init hygon_collect_nodes(struct hygon_node_cache *cache)
-> +{
-> +	struct hygon_node *nodes;
-> +	struct pci_dev *misc = NULL;
-> +	struct pci_dev *link = NULL;
-> +	u16 capacity = 0, count = 0;
-> +	u8 observed_socket_mask = 0;
-> +	u8 socket_present_mask = 0;
-> +	int ret;
-
-The tip-tree preferred ordering of variable declarations at the
-beginning of a function is reverse fir tree order::
-
-	struct long_struct_name *descriptive_name;
-	unsigned long foo, bar;
-	unsigned int tmp;
-	int ret;
-
-The above is faster to parse than the reverse ordering::
-
-	int ret;
-	unsigned int tmp;
-	unsigned long foo, bar;
-	struct long_struct_name *descriptive_name;
-
-And even more so than random ordering::
-
-	unsigned long foo, bar;
-	int ret;
-	struct long_struct_name *descriptive_name;
-	unsigned int tmp;
-
-Please audit all your functions in all patches.
-
-> +
-> +	while ((misc = next_hygon_dev(misc, hygon_nb_misc_ids)))
-> +		capacity++;
-> +
-> +	if (!capacity)
-> +		return -ENODEV;
-> +
-
-...
-
-> +int hygon_pci_dev_to_df_node(struct pci_dev *pdev)
-> +{
-> +	u16 i;
-> +
-> +	if (!pdev)
-> +		return -EINVAL;
-> +
-> +	if (!hygon_cache.ready)
-> +		return -ENODEV;
-> +
-> +	for (i = 0; i < hygon_cache.num_nodes; i++) {
-> +		struct pci_dev *misc = hygon_cache.nodes[i].misc;
-> +
-> +		if (pci_domain_nr(misc->bus) == pci_domain_nr(pdev->bus) &&
-> +		    misc->bus->number       == pdev->bus->number      &&
-> +		    PCI_SLOT(misc->devfn)   == PCI_SLOT(pdev->devfn))
-> +			return i;
-
-Something happened here to that whitespace.
-
-:)
-
-> +	}
-> +
-> +	return -ENODEV;
-> +}
-> +EXPORT_SYMBOL_GPL(hygon_pci_dev_to_df_node);
-> +
-> +/*
-> + * Build the Hygon DF node cache at fs_initcall.
-> + */
-> +static int __init hygon_node_init(void)
-> +{
-> +	int ret;
-> +
-> +	if (!hygon_get_df_cfg())
-> +		return 0;
-> +
-> +	ret = hygon_build_cache();
-> +	if (ret) {
-> +		pr_warn("DF node cache build failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	pr_info("%u DF nodes (%u CDDs, %u IODs) across %u sockets\n",
-> +		hygon_cache.num_nodes, hygon_cache.num_cdd,
-> +		hygon_cache.num_nodes - hygon_cache.num_cdd,
-> +		hygon_cache.num_sockets);
-> +
-> +	return 0;
-> +}
-> +fs_initcall(hygon_node_init);
-> -- 
-
-Sure looks complex... I hope you know what you're doing...
-
-:-)
+diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
+new file mode 100644
+index 000000000000..f3bf5900fb3c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
+@@ -0,0 +1,121 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: S-35390A 2-WIRE REAL-TIME CLOCK
++
++maintainers:
++  - Markus Probst <markus.probst@posteo.de>
++
++description:
++  The S-35390A is a CMOS 2-wire real-time clock IC which operates with the
++  very low current consumption in the wide range of operation voltage.
++
++allOf:
++  - $ref: rtc.yaml#
++
++properties:
++  compatible:
++    const: sii,s35390a
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    minItems: 1
++    maxItems: 2
++    description: Supports up to 2 interrupt lines via the INT1 and INT2 pins.
++
++  interrupt-names:
++    minItems: 1
++    maxItems: 2
++    items:
++      enum:
++        - int1
++        - int2
++
++  wakeup-parent: true
++
++  wakeup-source: true
++
++  "#clock-cells":
++    const: 1
++
++patternProperties:
++  "^pins":
++    type: object
++    additionalProperties: false
++
++    patternProperties:
++      "-pins$":
++        type: object
++        additionalProperties: false
++
++        allOf:
++          - $ref: /schemas/pinctrl/pinmux-node.yaml#
++
++        properties:
++          pins:
++            minItems: 1
++            items:
++              enum:
++                - int1
++                - int2
++
++          function:
++            description: |
++              Pin function:
++              - ignore:  Preserve the previous state.
++              - disable: Disable pin output.
++              - wakeup:  Output wakes up the system.
++              - clock:   Output clock pulse.
++              - pmin1:   Minute periodical output with 50% duty.
++              - pmin2:   Minute periodical output L for 7.81 ms.
++                         Can only be used with pin int1.
++            enum:
++              - ignore
++              - disable
++              - wakeup
++              - clock
++              - pmin1
++              - pmin2
++
++        required:
++          - pins
++          - function
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        rtc@30 {
++            compatible = "sii,s35390a";
++            reg = <0x30>;
++            pinctrl-0 = <&rtc_pins_default>;
++            pinctrl-names = "default";
++
++            interrupt-names = "int1";
++            interrupts = <23>;
++
++            rtc_pins_default: pins {
++              int1-pins {
++                pins = "int1";
++                function = "wakeup";
++              };
++              int2-pins {
++                pins = "int2";
++                function = "disable";
++              };
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
+index f4d0eed98a08..7b3f682ef4d5 100644
+--- a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
++++ b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
+@@ -81,8 +81,6 @@ properties:
+       - ricoh,rv5c386
+       # I2C bus SERIAL INTERFACE REAL-TIME CLOCK IC
+       - ricoh,rv5c387a
+-      # 2-wire CMOS real-time clock
+-      - sii,s35390a
+       # ST SPEAr Real-time Clock
+       - st,spear600-rtc
+       # VIA/Wondermedia VT8500 Real-time Clock
+@@ -105,5 +103,4 @@ required:
+   - reg
+ 
+ additionalProperties: false
+-
+ ...
 
 -- 
-Regards/Gruss,
-    Boris.
+2.55.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
