@@ -1,33 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604BF3B7B7B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796362D8385;
+	Wed, 16 Sep 2026 13:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565812; cv=none; b=WII6mlN/4Dk7e9n4mMy0rHzEk0tZGNKIxwTEpdQFFqbFKdGGoh8lAaziP4kNkZfV4EXOrHb3gRM1Q4bKimS017tlFhbqiklnQ9IQ9HAL+5hrPwoBlcwtmd07KWoZ8fbzIYHSmMZW1kB1FnRHC98tj+iNeabSeASzwaOJQvAStSQ=
+	t=1789565842; cv=none; b=uYJrmW8z62brWlk/KvhcvfqdM6Wc4FvAtg+4gCU4u/d2ts/km/JMoFfRiEDNrWDVR039kRSdJUNjMv9LXAgXDrktL+1Rx/unZ/UA0k2MU5XzG7vy/FJCcoQscqJnMzZD8iL81WBh4Vohqboe3aI85kT2hN/LYwJ0yJX6+FMdsf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565812; c=relaxed/simple;
-	bh=tYDQK00GoupFYjRMZ8Y0p0mwbuw9Pujz/GVh25drHKs=;
+	s=arc-20240116; t=1789565842; c=relaxed/simple;
+	bh=T4yi1zdtH5wQhou0VkyVCZDmH8fNbML25GwWlwpzo9I=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PqH6EtwXBDpCYSrXCzWR2hz7m91V5n5fOzOssQdVxSuJXtEOcqc3l+MYa2VA6Plqg5ij8pUCoXsyhQRw5v4fqg3ILnIBlwQaaIAM9COfbXjUeUszzgb2bOpdZT4nMy7bpPy3+WE2Idkv6rhGlC5+Qus4OJ+f55Cl3ErE1WgvcQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VMrwujIi; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=czL+RhOsgkZAhADuwBqYKbLA7dp7415T1NxT4S2BXPWz251Im6ddhXqMxzZC0QETG60Y6v9Pv69OshNE9aR2jR52T5Dv0K4c590QKR5ps8h6EusNzlRPF/vRWVDhpgBB9eYW03Vn5lbFDIActkxWwevi1YUP315OvHUVzI3jFJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=1uylmH4t; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VMrwujIi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C46AF1F000FF;
-	Wed, 16 Sep 2026 13:36:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789565810;
-	bh=aIOwNGA0MU/NVfhrdRk/6kNhj0M02kW7XmE+rQcbLdU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VMrwujIiBik3+7HDLtAyBMSxqEQWSXE0OgnntRCHHaB5GYadUH37/KcxMw42L3T8L
-	 nJdH3tcLXAVs4Zikcm+jbbIYjZSLbXaHWS/xq8G4GZ5h2jvs15Ic9dCeORiZksuSSr
-	 hoOYQBXv/yIHBQClwmbsoOMdFkGzkb9askn2F3LTRlvt61DFyEAtnT9S2tGXL1rzjW
-	 GcjRh09Shyk8i6mjZ95MvwynQOq9UOtr7zTqtph2Vg45+QF/R5CEdI5vkX0THYygg+
-	 GokAyhksjgm6lKVLOXdfIevQ2BzHUnLqpFdYIcYQLFdU3NaoLkru65InaACrorxf0K
-	 vYtXjGRLlD7ZQ==
-Message-ID: <2cb3bb6b-df38-4568-987d-8e71b3244279@kernel.org>
-Date: Wed, 16 Sep 2026 15:36:46 +0200
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="1uylmH4t"
+Received: from [10.250.4.187] (unknown [185.153.195.203])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 772025340619;
+	Wed, 16 Sep 2026 15:37:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789565836;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=S6ReNIvSA0S/P1pGDYqpvJ1IETrElri+UcvFiWhfx/c=;
+	b=1uylmH4txcofBEd+SAbSnGotxvD7SmHidgL6H0l9auejD82za5BwsF1WDhOUtls1MM7lQc
+	HvOm+THZjyD15GvFp33aSneD/Csbjh1rwuFGPvAwO+Ig+A9TyMDj484UqOf7vmXomJhvsh
+	MDRc/fCVWKTSldZ4/CtwoygmPY2UMV8=
+Message-ID: <92883780-b753-427c-96ff-91c33a874607@ixit.cz>
+Date: Wed, 16 Sep 2026 15:37:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,87 +41,206 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 03/14] arm64/mm: Route all pgtable writes via
- ptval_set()
-To: Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260907035030.2839978-1-anshuman.khandual@arm.com>
- <20260907035030.2839978-4-anshuman.khandual@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260907035030.2839978-4-anshuman.khandual@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v4 0/2] power: supply: qcom_smbx: add SMB5 support
+To: robin@snyders.xyz, Casey Connolly <casey.connolly@linaro.org>,
+ Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Joel Selvaraj <foss@joelselvaraj.com>
+References: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/7/26 05:50, Anshuman Khandual wrote:
-> Currently ptval_set() is defined as WRITE_ONCE() but this will change for
-> D128 pgtable builds, for which WRITE_ONCE() is not sufficient for single
-> copy atomicity.
+On 20/08/2026 12:03, Robin Snyders via B4 Relay wrote:
+> Add support for the SMB5 charger generation found in PM7250B and
+> PM8150B to the existing qcom_smbx driver.
 > 
-> In future this infrastructure can be used for D128 to maintain single copy
-> atomicity semantics with inline asm blocks.
+> The series extends the binding and selects register layouts, charger
+> status encodings and electrical limits from per-PMIC match data. Encode
+> PM7250B as PM8150B-compatible in the binding and let the compatible
+> fallback select the shared charge-parameter block, including the +0x08
+> effective input-current status register. Convert the SMB5 0.2 V/A USB
+> current-sense voltage measurement to microamps while leaving the SMB2
+> current reading unchanged.
 > 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+> SMB5 setup suspends USB input and disables charging before configuration.
+> The power-supply registration init callback programs battery limits and
+> completes final input and charging setup before device_add publishes the
+> properties, so public callbacks cannot observe partially initialized
+> hardware. Managed rollback restores the charging state before the USB input
+> state; if charging cannot be restored, USB input remains suspended. Managed
+> teardown cancels status work before unregistering the power supply.
+> 
+> Enable periodic hardware AICL with the downstream twelve-second rerun
+> interval while leaving ADC-based AICL disabled by default. Clear the
+> unsupported HVDCP modes so firmware state cannot raise VBUS, and do not
+> override the firmware recharge policy without a binding input. The
+> dedicated TCPM and VBUS regulator drivers retain ownership of Type-C
+> power-role and VBUS control.
+> 
+> On PM8150B, the SMB5 charger and VBUS regulator use the same DCDC
+> peripheral but do not write the same registers. qcom_smbx only reads
+> 0x1108 and 0x110b there; qcom_usb_vbus-regulator writes 0x1140, 0x1152
+> and 0x1153. The qcom_smbx write to 0x1153 belongs only to the SMB2
+> initialization sequence and is not executed for SMB5. The TCPM port and PD
+> PHY use the separate 0x15xx and 0x17xx peripherals. Patch 2 names the
+> USBIN BC1.2 integration register and SMB2-only OTG definitions explicitly
+> to document this boundary.
+> 
+> Apply the five-patch qcom_smbx Fixes series before this one. This series is
+> based on power-supply for-next (99b38cda3f4c). The b4 dependency metadata
+> records all five prerequisite patch IDs. This ordering preserves the SMB2
+> watchdog, health, overvoltage and float-voltage fixes across the SMB5
+> driver refactoring. The prerequisite series is public at:
+> https://lore.kernel.org/r/20260812-qcom-smbx-fixes-v1-0-eb48246be599@snyders.xyz/
+> 
+> The v3 implementation was tested on a OnePlus 7T Pro (HD1913) with
+> PM8150B. Register reads confirmed 4.40 V, 1.50 A and 500 mA limits. A
+> 180-second guarded charging trace and a subsequent 600-second runtime
+> trace completed with health Good and the input current below its 500 mA
+> limit. After a physical USB-C disconnect and reconnect, USB networking and
+> the charger recovered automatically; a further 60-second trace remained
+> Good and below the input-current limit. The final kernel log had no SMB5
+> warning, error, oops or lockdep report.
+> 
+> The v4 driver was rebuilt and retested on the same device. A 180-second
+> trace and a 600-second, 121-sample guarded trace completed with the charger
+> online, health Good and no guard failure. With a powered USB-C dock, the
+> phone remained the data host and PD power sink; with the dock unpowered, it
+> remained the data host and enabled the VBUS regulator as the power source.
+> The USB 2 and USB 3 hubs, storage and RTL8153 interface enumerated in both
+> connector orientations, and 64 MiB read-only storage reads produced the
+> same hash in all four dock configurations. Reconnecting the phone directly
+> to the PC restored the power-sink/device roles, charging, NCM and SSH
+> without a reboot. Ethernet traffic and visual DisplayPort output were not
+> tested in this run because no Ethernet carrier or display was available.
+> The final kernel log had no SMB5, Type-C or VBUS warning, error, oops or
+> lockdep report.
+> 
+> The driver builds with LLVM W=1 and passes Sparse. The binding passes
+> dt_binding_check, and both patches pass checkpatch --strict. A full LLVM
+> Image, modules and DTBs integration build completed and booted on the test
+> device.
+> 
+> Signed-off-by: Robin Snyders <robin@snyders.xyz>
 > ---
+> Changes in v4:
+> - Make the PM8150B charger, VBUS regulator and TCPM register ownership
+>    explicit, including the shared DCDC peripheral's disjoint accesses.
+> - Rename the USBIN BC1.2 integration register and SMB2-only OTG definitions
+>    to prevent them from being mistaken for SMB5 TCPM/VBUS controls.
+> - Test powered sink/host and unpowered source/host USB-C dock operation in
+>    both connector orientations, including storage I/O and gadget recovery.
+> - Link to v3: https://lore.kernel.org/r/20260813-submit-qcom-smbx-send-v1-v3-0-27be0091d7c7@snyders.xyz
+> 
+> Changes in v3:
+> - Complete SMB5 input and charging setup in the pre-device_add power-supply
+>    registration init callback instead of gating setters on a driver-specific
+>    probe flag.
+> - Register the power supply and initialize managed status work before
+>    requesting IRQs so handlers cannot observe an unassigned power supply.
+> - Let PM7250B match the required PM8150B compatible fallback and remove its
+>    duplicate match-data entry.
+> - Collect the binding Reviewed-by tag.
+> - Link to v2: https://lore.kernel.org/r/20260812-submit-qcom-smbx-send-v1-v2-0-f504b8f9bfad@snyders.xyz
+> 
+> Changes in v2:
+> - Rebase onto power-supply for-next 99b38cda3f4c.
+> - Encode PM7250B with the required PM8150B compatible fallback.
+> - Leave SMB5 Type-C power-role and VBUS control to the TCPM and regulator
+>    drivers.
+> - Preserve the SMB2 3-second AICL interval and use the SMB5 downstream
+>    12-second interval; leave ADC-based AICL disabled by default.
+> - Disable unsupported HVDCP negotiation deterministically.
+> - Do not override the firmware recharge policy without a binding input.
+> - Model PM7250B with PM8150B electrical limits and the +0x08 AICL ICL
+>    status register.
+> - Convert the SMB5 0.2 V/A USB current-sense reading to microamps while
+>    leaving the SMB2 current reading unscaled.
+> - Program battery limits in the pre-device_add registration init callback
+>    and gate setters until probe completes.
+> - Order managed teardown so status work is cancelled before the power
+>    supply is unregistered.
+> - Restore charging before USB input on probe failure, and leave input
+>    suspended if charging restoration fails.
+> - Correct the SMB5 overvoltage register and charger-state decoding.
+> - Avoid repeated error logs when polling a persistent overvoltage state.
+> - Use battery-info property presence when selecting charge targets.
+> - Remove duplicate scaling from the already-prescaled USB voltage reading
+>    and clarify the binding IIO channel descriptions.
+> - Update the binding title, Kconfig prompt and module description for both
+>    charger generations.
+> - Move the five pre-existing SMB2 fixes to a prerequisite Fixes series.
+> - Link to v1: https://lore.kernel.org/r/20260811-submit-qcom-smbx-send-v1-v1-0-feec6cfa123a@snyders.xyz
+> 
+> ---
+> Casey Connolly (2):
+>        dt-bindings: power: supply: qcom,pmi8998-charger: add SMB5 PMICs
+>        power: supply: qcom_smbx: add SMB5 support
+> 
+>   .../power/supply/qcom,pmi8998-charger.yaml         |  17 +-
+>   drivers/power/supply/Kconfig                       |   8 +-
+>   drivers/power/supply/qcom_smbx.c                   | 757 ++++++++++++++++-----
+>   3 files changed, 609 insertions(+), 173 deletions(-)
+> ---
+> base-commit: 99b38cda3f4c486cfbc40f3c8ede1703594e9f13
+> change-id: 20260811-submit-qcom-smbx-send-v1-69acefa61977
+> prerequisite-patch-id: 3d8a9cf43b5e5eac64a60aeec5e9c90880bcf792
+> prerequisite-patch-id: de3e3b494f9644596cfa4cafc362ca0b48288c45
+> prerequisite-patch-id: d5e22a0fe7cd55374f60d7c2cb14ed3df8f94e0b
+> prerequisite-patch-id: 9eafa41402e97d6a3e5369bec46df4e9db3d2af6
+> prerequisite-patch-id: 5638b901cd10773fa9485605f84b25a1dd826a84
+> 
+> Best regards,
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-
--- 
-Cheers,
-
-David
+Tested-by: David Heidelberg <david@ixit.cz>  # SMB2 (Pixel 3, Mi 8, OP 6 / 6T)
