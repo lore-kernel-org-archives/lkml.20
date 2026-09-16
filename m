@@ -1,269 +1,194 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DE249AA55
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789594688; cv=pass; b=ZyQ4NZX70OzUYWaQUuaqrAGJRdHCIPGR2hRfOFfdezwTFgJ7/iUg0b3WZoNS14fKvCwKkxrg3DM/s7BisuM+AAA2L22wtxij/Gb59iEg+m//k20NdkfyocnPBo3dMuWbMIrXy5AYlG4cVK1ViEOk4+4X0Dg18RDJwQKHkFAThtw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789594688; c=relaxed/simple;
-	bh=/yoayJNWHYIrjv0q4LQ1nltisZwWSxYj+42fLHl+PiA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gxM9ILwwA+37wkl/djQX8we1hdDAzwEg0xwWxn14rQgOkUbdiPeGSyjOiwZia+tVt2G5njHB1JbwrhcUApOW5UMuZXbhVTTOEGaNsdF/X3dvMife8IbohQ6GaIobGYIXOqkoLdIY2zVSYAwc19C0so/gGuFVGIqh6Qe+cfYVpSg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in; spf=pass smtp.mailfrom=thechris.in; dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b=q83rPIWU; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thechris.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thechris.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740344A384A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789594706; cv=none; b=nrelUprV22pb6fQKuAeBP6qksq4bwCBYT+v9rYs0XowrgpXhitbz7ShoEbszjclJO9aykOYCZr9x9Yv/I09ZJPIMB8qhJvHQ9R9TkmZcSaPhraX+ZopBSMccKbyewKxbB6jyjBGFt2efpNEwWlQenvG7T8xfI8D+/Ln5QTav+PA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789594706; c=relaxed/simple;
+	bh=1V7NAVhDtdqfQFve7uz10cEy94SG92SANc77UF7mCsE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=e6/yGDiVi6hSIDsXV6Bki+wx7+ibUFXqB8gcPPY3Evp3fS1LvBVtpTZRt6kds/w9vLKj/9uF+GnJPE8QK52/kWphnZMmkiLXue4kAcaUlJpUoD9hGN9dqzcbRpfg/HsM7tuzpWuNMuB8rVh3sj2VwQSCPu0yXtA1z5Urg/Ow6S8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EhwYfTIs; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thechris.in header.i=@thechris.in header.b="q83rPIWU"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43db0c1cso1097377b3.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:37:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789594675; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Dp80TpAgnjlg+Gnl+iSlj5PP1BkGtF/HleKXK6QIa71xB5U3jqzror9I+/FYedW+/S
-         B/KgL37VFVIHaCwpMUYuGnlTY4AMCZwrmbBsr7o18FRs2mggM+sQXJ2G58tyjSdAvqKN
-         A06lO6JE9HrOIFM6D2JbqtK3XAfzadYNzyMlvKdZImFIbW0WZ6bgV1g7SoX7QA6FV/Mw
-         FejXTcFNCSq26ce5b+khnCNdqybIG84T235pzXbs4aDzwzsAkwkkibvZ1gs7OYu1ORzq
-         gbF9tl1Ds4Qlw/Tzt+gTbpvLbJmt4UMFnGr7TNRAVWALpJR8PJ6Pv+cDnNrjsv0dJigw
-         BnYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=sA5xGrr7Ke9vPI+EDSrVqhlx5pMIJsn3eZ9roOIuI3M=;
-        fh=+mgIVbf7Rsj2rDzPE8ch9uUIQloFWgpmEwnefzPBnCE=;
-        b=ESWOI8PB4Hj1Bhy/reJMmglU0ojNsQSYFyx1GPTyeoaCt+l3n6sWloyb9pYmMZptuN
-         9EnOGzSBlgGeItgY1ENcOyuXyJYz7HQGhH0XNAPJU5lWGm2nNCkevAT8PAqBElcO3Dp3
-         2XF5SxDikNw7oWi90+QJ7lNp/53jD70sve8JG6XxozuXpGsD9/X30IN21cL4JFV1kElB
-         YD8fDjJkA+w+p/byBiSOwCmt+ENM6OpQ3p9Kvx5pAgh1bIylVvmax3HG8d3eDxXW2oeA
-         lBBih7esXDVFAfifVLz6frrOMUXO9swFdOw91Bmu8Od/HBWAj4vnAZHjpoPu91aok6jm
-         jlEA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EhwYfTIs"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398a147688bso142998a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:38:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thechris.in; s=google; t=1789594675; x=1790199475; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sA5xGrr7Ke9vPI+EDSrVqhlx5pMIJsn3eZ9roOIuI3M=;
-        b=q83rPIWUQO2m5w6Yk3dFLArGs7MfhcCTn+66hsx9uK8E1R3abCn5tuiy1ZKDszF07k
-         PFTZ/1XRu04Pvvy4FEPS3M1M9C9fuhOAS5xFc0l2XrD4OJOOGoU64ckDaheBth6UZycg
-         /5ajaxamlBezxfkhTm3zP2e8hMNXMH+N91npsYN0lPdytrKlbVTp75v3rY+aDiJc4NG2
-         s/1PpzLloOy9FJbfW1EwCc5DbmqtU+5h/e0YLZSbnEo1WPFCG+rjSizX0RD+qTdCVYdJ
-         +6ozYHlqfJudLpUcjRmVwcmLlQgIMR75PyOHuri28yPcIG1Y3LEKhD9Ov6Gy/1ThMpB3
-         AYwQ==
+        d=gmail.com; s=20251104; t=1789594697; x=1790199497; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8b7NmZ7yoxdeKfo/UCXE/FVCiKRGZaH7RDhem89BcjA=;
+        b=EhwYfTIsUsrUmQo3YUCeBuAc1ztxy72XlbzWnMfoTQ7V6YILnFkBKjnX8n2M8lY0Rc
+         NOI61kKKjjcjS2XKqzmrbiuT+6X/smSukQspcjrYiqXsdJgRNDWB49oz1UyZU++y8Dbg
+         gEPkxj5WTb1Dc7DODjwZKCyWbbUQ1n71nlj4J/cTSDKpLE3yFqs2OXZ9E2HHUE2u1Vrg
+         NgS/BIoj07ONGhZQE+07xO8MrSn7QCNQlaMo5NvWeMABzMouGX+8QnlFlaYgUYICtIot
+         8m9McIDEaHiFuLCXZGBqLcR05UJKPJSOv+Q0oziGBI4r/ZeV3i8K3VEhMZ1ua7MbBwNi
+         dHUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789594675; x=1790199475;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20260707; t=1789594697; x=1790199497;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=sA5xGrr7Ke9vPI+EDSrVqhlx5pMIJsn3eZ9roOIuI3M=;
-        b=NkOTJ1CBudFUmYTwhRMS4Ky4zh1uORPbwgaQSzzkiJGMkJQqRUqdbyfIuWlEDSwaPi
-         qfV+I290x3aCZtjepea+ZzuN29wYmjwP/CmHi1LnO8nwG/XwGvypvBAwyuFpUnRQrbw7
-         cu3xI+PltXHxG6gksJdagpAyQt31k6kFHMdbu9ozDe06iOFCm3F2X0Qf2I23sH8vQ22C
-         VO532Y7Zz3vV2Wu+TJLZf3312UQ2aYSZoJwaHtaiOwLA6kzs1aiIrKz5oRkGO0o52GWf
-         Noa2NjYgBN+rhlPjS3TEQv1smzT/QU3SVvFGbDVlhZHFE4gkpu7ShXJfEE1UxJTKfEeI
-         tjvw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1WkJWzNzxkg4FFen7QYFmF4KhmCTFiMANLQw/HGWfHM/jcGUO6SNVbISYA6cHn2TMkEsU0/It5ioo7pw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOlDOE5Ax7l9zqxwiujh+gNz7I7x00kjaZvia15/zXqDiDFEcy
-	UCdCSXUhsljgcm+20E5ms3P+swHlrCxthjBwBsGZowFYP+B/Swoo7V9wgypbPbQhoI9j+ny/F8h
-	UdYWQPDBwpnNUsSFs1dAdM2xLTP6jHr38UGnOzdPAVLNIPMt8rzBgfb5UILk=
-X-Gm-Gg: AYBFou0r+zhBxKpchdo/fAbY4/RTph+2eilNLR2sK5RFunB9VJtoFgdynTe1OPvQ8vy
-	FM5okBrUBnnz1zTuRUwhSjNep6qCL/S3faVkPUuOI4py8VB094TR8U5Sh41kFZ4+grOd+cLmygs
-	FvI6hlmCun9R9dPGQoGImKsIOuw7GzDmihTZVBKHHxEoy5aWykJQg2JvtHd00qJbqrHnS6OT3rY
-	F5q1YJcKS/vxlmq3Pg+zUX5dpXOLymspXRLPbVFNUULqiGJQXLMU0dduA6ObxvuD1U9xbK7M9sq
-	CoXwEtEs0Tz8BaReEC/ZwB4yLRW63KojOAz4+pXwy8BMv5osra++pydSwNiDXYoDtG7Uek1bHgz
-	o+VWTn3rvt3c84e62q2yVeOqHin5tLEUv7uUkg3ksaR9B7QDGOifCTMW2hn3i+0mdpCOTsQyC7L
-	UQx7mCB8N2AlLzKOc=
-X-Received: by 2002:a05:690c:a713:b0:85b:f1ba:4cdc with SMTP id
- 00721157ae682-892239084dbmr13385057b3.12.1789594674751; Wed, 16 Sep 2026
- 14:37:54 -0700 (PDT)
+        bh=8b7NmZ7yoxdeKfo/UCXE/FVCiKRGZaH7RDhem89BcjA=;
+        b=lAoM+89jHJ+bLZ+VVNeBXcof/oxMqk/ThhZbJuM7yxnsLrrwlGYyjWyevjO/KGGCxh
+         qM/FQpw68h6aUdSg9LKjpmgUdjzJveNtcMsviYW/Z6vmIVQ7c3S+OyRk6eY9g4PAGDC1
+         gHwE28LEJGV5BZ3BNHXUKHSAI6i84IYwcjJ2wT2hLondcmqusAU3q+sm/ELENKX+dp1p
+         sc3yIIlpK+PK6cM4w0rLq1O9QtbV0uPnohLRR0GL+zDmWtZC9dxkWcvNgFi7EN2In34+
+         uTSPTJGdtWFQLL45wfnMFVy2jnD7XG7KjchvSPWWmQ53lnj/VR7GQxAkAQ9MyLFz6OvP
+         c+1A==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ2QfqNhIbA/ChaPc67OwOX4PWLdsAU32SLzsep/jZUOwE0ApkWvxFK/oHD1Pj7cGKr7desxQXhO8u+vk=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4zCLsOfs4WSDf3e62F6Ko5DY12WD+AXitWb3PtBmfUPSfBCXL
+	WuOaKI5gTdI6Kg0J/Tx2F5inndGtgXRS2d8hj7DhcO/MU95EtUlsvat03x6Gkqfz
+X-Gm-Gg: AYBFou2xQg2XedDfu5DZ5dwy2UJj6fZEStI1J3UKX/acagxkMMHKqatipVmTXliBKmx
+	fOdx96f5mvLzm9+1IA70oetSx8uEJx5yLkMXsxTyLCeqV/0dUI6708t9ZzgMgflw54pvptbFFNK
+	yLQGch+z6n49TXiI+LO/Na9mQ2oaZTtWeinbu81PK3su33dk41/r1IqOIhp6I44OOR/001cfTuW
+	RIGvA4TYs8A7p5NnsfKV74Z2tI0dOqHakhmG1bN0N41jjWuw7TEwVB//0dZGWTgKAgms90cj0/x
+	U/MrJUu5tPipBp9xTkFKZN4wTAKQRWik4VZyjzMpcFu2B3eQXcxicO1ic2Pp2tADA5t5VgbUnGA
+	MmUJj1hnjUaestwn0NC72SfC7pxH9bmB+HuYpp+Up6sjsWYTmeglkoeJvZDKgDCHFx4m8XxQYga
+	JwRpfcIz6esELP/J2AY/UjEIVCfy5iGGSYwTvSJGTieRuvf9+E9+ZTvbzz92hRHGKI7uE6iR8LJ
+	VFn3YC9dQ==
+X-Received: by 2002:a17:90b:33c9:b0:39e:1bff:b383 with SMTP id 98e67ed59e1d1-39e1e51bdf8mr9529767a91.24.1789594697296;
+        Wed, 16 Sep 2026 14:38:17 -0700 (PDT)
+Received: from [163.43.103.131] ([163.43.103.131])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35d9f81asm1379913a91.3.2026.09.16.14.38.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 14:38:16 -0700 (PDT)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Subject: [PATCH RFC net-next v3 0/2] seg6: add support for the SRv6 End.MAP
+ behavior
+Date: Thu, 17 Sep 2026 06:38:11 +0900
+Message-Id: <20260917-seg6-mobile-end-map-v3-0-9890a60ac6a7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6aa178fc.f2639fcc.29487d.0008.GAE@google.com> <CAE2Bdm1nss=2F4rAFo8_AjZJ6XwBiVnCmfvaZmjBd7=ZYvouKQ@mail.gmail.com>
-In-Reply-To: <CAE2Bdm1nss=2F4rAFo8_AjZJ6XwBiVnCmfvaZmjBd7=ZYvouKQ@mail.gmail.com>
-From: Chris Roy <iam@thechris.in>
-Date: Thu, 17 Sep 2026 03:07:43 +0530
-X-Gm-Features: AcwNN1Xj30vxoYQjY2kqZ399kjYntXWVBFuL78FVIXAxOwR1_HpftSqML7BMPGM
-Message-ID: <CAE2Bdm3NuEHshrG6K2boKAnCQUvT5SX79cP9nPgS2s1afzY1hg@mail.gmail.com>
-Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
-To: syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>
-Cc: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	rafael@kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: multipart/mixed; boundary="000000000000e1b675065ba07abd"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEMMq2oC/22OMQ7CMAxFr4IyYxSnJSVMSEgcgBUxNKkpQTRFT
+ YmKqt6dNAwwMH7b/z2PzFNnybPtYmQdBett62LIlgtmrqWrCWwVMxNcSL4WGXiqJTSttncCchU
+ 05QOUISNyVLjBgsXmo6OLHRL1xI6H/Txz1IOjoWfnz4F/6huZfmbP66v1fdu90h8BUzEpC+R/l
+ QGBg1KauKjkBvNsVzelva9M2yRDEF+G4vifISIDpVD6YlBK0r+MaZrep6G7Hh0BAAA=
+X-Change-ID: 20260523-seg6-mobile-end-map-9cec24191817
+To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
+ Andrea Mayer <andrea@common-net.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>, 
+ Ido Schimmel <idosch@nvidia.com>, Shuah Khan <shuah@kernel.org>
+Cc: Justin Iurman <justin.iurman@gmail.com>, 
+ Florian Westphal <fw@strlen.de>, 
+ Fernando Fernandez Mancera <fmancera@suse.de>, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Yuya Kusakabe <yuya.kusakabe@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4019;
+ i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
+ bh=1V7NAVhDtdqfQFve7uz10cEy94SG92SANc77UF7mCsE=;
+ b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBqqwxELTmJz2ms0DOECTQHhPqlyRBZDfdvxB1ic
+ F4bv24nMvmJAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCaqsMRAAKCRAq19F1Kl0b
+ TcUsD/9wXFp+TUEYjZXodCo3uWdvpU1kf6wfPSZIYESbrnL/oxsgwh1rp0hMeIX9z5o4/TDut3m
+ wG9Kgog3LBoKj5Lmz/fFFsVsVM/ExSu2Y43sFqD5InkgTYmQ5TJzO05yGCbq9S0krV6ElAt8wBA
+ D/8Ps8kfMDyfWDxYmKr8f+Swk6uYXJWRZYL1A8FAKly9vZao0H4j9T0QIABDjqnqsJ7QCuy7oQ5
+ VTcDxDZwFELPeQlh+rnsYZyHZJHJy9QSEByjwOdhgydTzsmYtMeFInoo1RMAgYpAm8yeeFDYhHJ
+ cPF1KMlGMdIGtXwkDFjbZT4ec2JytFqkNsMnYas7mEfCOq0+zNG6CXNm6aW2tkWZP0LwH5tn4jx
+ lyBQeHzzbr2MwElJwBq7537pFuImZLg3YXwwekFSSoosGEsFP2iIrG57sq4E74j6mxpQs8ZuVqC
+ Om9IPY2WJP1SvYdQkYJxCK8w1uLF+hWgokywudmyo930QRt1KCK50ZDKF4FXU6bhMkMWL3fAJdd
+ zguXS3+jP4tpIEFwLq+qauVa3rYe8r3MFBQSSDys30tk8MHh+xskbAeaMVxUEHGW+f5Zi2AQOWG
+ 9oEkoVKwEHLXE/3kOINM7KznxxZPuMBd6D6wyGopXEWHSjboy6NahOGZFnq5+SEpeKej70ib1Xs
+ sG5HD0cgijmR0Kg==
+X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
+ fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
 
---000000000000e1b675065ba07abd
-Content-Type: text/plain; charset="UTF-8"
+End.MAP is the simplest of the SRv6 Mobile User Plane (RFC 9433)
+behaviors: it replaces the IPv6 destination address with the
+configured mapped SID and forwards via the IPv6 FIB without consuming
+the SRH.  This series is the first per-behavior rebuild of the SRv6
+Mobile User Plane v2 submission [1], split one series per behavior
+following upstream review.
 
-On Wed, 9 Sep 2026 08:19:24 -0700, syzbot wrote:
-> syzbot found the following issue on:
-> ...
-> possible deadlock in ovl_create_object
+Because End.MAP is the first behavior to land, this series also
+introduces the SRv6 Mobile User Plane lwtunnel framework that the
+subsequent per-behavior series plug into:
 
-Follow-up to my earlier note: I reproduced this with the C reproducer.
+  * a new LWTUNNEL_ENCAP_SEG6_MOBILE encap type with a
+    CONFIG_IPV6_SEG6_MOBILE build option,
+  * net/ipv6/seg6_mobile.c, which hosts the action dispatch table,
+  * include/uapi/linux/seg6_mobile.h, a dedicated SEG6_MOBILE_*
+    attribute namespace, so that attributes whose semantics differ
+    between the mobility behaviors and the RFC 8986 behaviors do
+    not overload the SEG6_LOCAL_* table.
 
-The cycle is not an overlayfs bug by itself. block2mtd_setup() opens the
-named block device (VFS path walk) while still under param_lock and the
-kernfs write path. When that write arrives via splice, a pipe mutex is
-held as well. That nests under already (the other way) ordered locks with
-overlay sb_writers / ovl_i_mutex.
+This layout follows the discussion on the v2 thread; feedback on it
+from the lwtunnel maintainers is particularly welcome.  Per the same
+discussion, netfilter hook integration, VRF support and SRv6-specific
+drop reasons are left out of this initial series and will be
+revisited separately.
 
-The attached patch drops param_lock and defers the open to a workqueue
-(still synchronous via wait_for_completion), so the VFS walk does not
-run under that stack. Local testing with the syzbot C repro: lockdep
-warning before the patch, clean after.
+The LLM review of v2 flagged that seg6_hmac_validate_skb() reads the
+SRH from skb_transport_header(), which on this path still points at
+the first extension header.  seg6_local.c reaches the helper the same
+way, so End.MAP inherits the behavior rather than introducing it; a
+fix, if wanted, belongs outside this series.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-master
+A matching iproute2 series adding the "seg6mobile" encap keyword
+follows shortly after this posting, since the selftest needs it to
+run.
 
-Please consider the patch for linux-mtd.
+[1] https://lore.kernel.org/netdev/20260505-seg6-mobile-v2-0-9e8022bdfdb6@gmail.com/
 
-On Thu, 17 Sept 2026 at 01:18, Chris Roy <iam@thechris.in> wrote:
->
-> On Thu, 17 Sept 2026 at 01:10, syzbot
-> <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com> wrote:
-> >
-> > Hello,
-> >
-> > syzbot found the following issue on:
-> >
-> > HEAD commit:    654ae5d73c05 Merge tag 'drm-fixes-2026-09-05' of https://g..
-> > git tree:       upstream
-> > console output: https://syzkaller.appspot.com/x/log.txt?x=11860cf9580000
-> > kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-> > dashboard link: https://syzkaller.appspot.com/bug?extid=7cab6a19619f1b8efc00
-> > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> >
-> > Unfortunately, I don't have any reproducer for this issue yet.
->
-> I am investigating this report and working on reproducing the lockdep
-> cycle and identifying the root cause. I will follow up with findings
-> and a proposed fix shortly.
->
-> Regards,
-> - Chris
->
-> "But how could you live and have no story to tell?"
+Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+---
+Changes in v3:
+- Silence the shellcheck SC2154 reports for the namespace variables
+  setup_ns assigns
+- Fix the checkpatch alignment and __func__ reports in the selftest
+  helper
+- Link to v2: https://lore.kernel.org/r/20260901-seg6-mobile-end-map-v2-0-1629bfc166eb@gmail.com
 
---000000000000e1b675065ba07abd
-Content-Type: text/x-diff; charset="US-ASCII"; 
-	name="0001-mtd-block2mtd-defer-device-open-out-of-param-sysfs-w.patch"
-Content-Disposition: attachment; 
-	filename="0001-mtd-block2mtd-defer-device-open-out-of-param-sysfs-w.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mu4mcdaa0>
-X-Attachment-Id: f_mu4mcdaa0
+Changes in v2:
+- End.MAP: patch the L4 checksum also for an SRH with no segments
+  left and for first fragments; selftest cases added for both.
+- Use nla_parse_nested() for the nested attributes.
+- Rework the selftest helper and cases; wait for counters instead of
+  sampling them; add CONFIG_IPV6_SEG6_MOBILE to the selftests config.
+- Rename the SEG6_MOBILE_NH6 attribute and the nh6 keyword to
+  SEG6_MOBILE_MAPPED_SID/mapped_sid to match the RFC 9433 "mapped
+  SID" wording and avoid clashing with the SEG6_LOCAL_NH6 nexthop
+  semantics.
+- Trim the Kconfig help; add Assisted-by tags.
+- Link to v1: https://lore.kernel.org/r/20260710-seg6-mobile-end-map-v1-0-99be02d68143@gmail.com
 
-RnJvbSBjMzk1MzUwNjZmNTNkOTk4YzcxNjQ4ODI3M2U4Njc2MWJiOGUyYWRlIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBDaHJpcyBSb3kgPGlhbUB0aGVjaHJpcy5pbj4KRGF0ZTogV2Vk
-LCAxNiBTZXAgMjAyNiAyMTowOTo0OSArMDAwMApTdWJqZWN0OiBbUEFUQ0hdIG10ZDogYmxvY2sy
-bXRkOiBkZWZlciBkZXZpY2Ugb3BlbiBvdXQgb2YgcGFyYW0vc3lzZnMgd3JpdGUKCmJsb2NrMm10
-ZF9zZXR1cCgpIGlzIGNhbGxlZCBmcm9tIHRoZSBtb2R1bGUtcGFyYW1ldGVyIHdyaXRlIHBhdGgK
-d2hpbGUgcGFyYW1fbG9jayBpcyBoZWxkLCBhbmQgZnJvbSBpbnNpZGUga2VybmZzX2ZvcF93cml0
-ZV9pdGVyCih3aGljaCBob2xkcyB0aGUga2VybmZzIGlub2RlIG11dGV4KS4gV2hlbiB0aGF0IHdy
-aXRlIGFycml2ZXMgdmlhCnNwbGljZSwgYSBwaXBlIG11dGV4IGlzIGhlbGQgYXMgd2VsbC4KClRo
-ZSBzZXR1cCBwYXRoIHRoZW4gb3BlbnMgdGhlIG5hbWVkIGJsb2NrIGRldmljZSB3aXRoCmJkZXZf
-ZmlsZV9vcGVuX2J5X3BhdGgoKSwgd2hpY2ggd2Fsa3MgdGhlIFZGUy4gVGhhdCBuZXN0cyBpbm9k
-ZSAvCm92ZXJsYXkgZGlyZWN0b3J5IGxvY2tzIGFuZCBzYl93cml0ZXJzIHVuZGVyIHRoZSBsb2Nr
-cyBhYm92ZSBhbmQKY3JlYXRlcyBhIGxvY2tkZXAgY3ljbGUsIGZvciBleGFtcGxlOgoKICBzYl93
-cml0ZXJzIC0+IHBpcGUgLT4ga2VybmZzL3BhcmFtIC0+IG92bF9pX211dGV4IC0+IHNiX3dyaXRl
-cnMKCnN5emJvdCByZXByb2R1Y2VzIGl0IGJ5IHNwbGljaW5nIGludG8gYW4gb3ZlcmxheSBmaWxl
-LCBzcGxpY2luZyBhbgpvdmVybGF5IHBhdGggaW50byAvc3lzL21vZHVsZS9ibG9jazJtdGQvcGFy
-YW1ldGVycy9ibG9jazJtdGQsIHRoZW4KY3JlYXRpbmcgYSBmaWxlIG9uIHRoZSBvdmVybGF5LgoK
-RHJvcCBwYXJhbV9sb2NrIGFuZCBydW4gdGhlIG9wZW4gb24gYSB3b3JrcXVldWUgc28gVkZTIGxv
-Y2tpbmcgaXMKbm90IG5lc3RlZCB1bmRlciB0aGUgcGFyYW1ldGVyL3N5c2ZzL3BpcGUgc3RhY2su
-IEtlZXAgdGhlIGNhbGwKc3luY2hyb25vdXMgd2l0aCB3YWl0X2Zvcl9jb21wbGV0aW9uKCkuIFBy
-b3RlY3QgdGhlIGRldmljZSBsaXN0IGFuZAp0aGUgZWFybHktYm9vdCBwYXJhbWxpbmUgYnVmZmVy
-IHdpdGggYSBsb2NhbCBtdXRleCB0aGF0IGlzIG5ldmVyCmhlbGQgYWNyb3NzIGEgcGF0aCBsb29r
-dXAuCgpSZXBvcnRlZC1ieTogc3l6Ym90KzdjYWI2YTE5NjE5ZjFiOGVmYzAwQHN5emthbGxlci5h
-cHBzcG90bWFpbC5jb20KQ2xvc2VzOiBodHRwczovL3N5emthbGxlci5hcHBzcG90LmNvbS9idWc/
-ZXh0aWQ9N2NhYjZhMTk2MTlmMWI4ZWZjMDAKU2lnbmVkLW9mZi1ieTogQ2hyaXMgUm95IDxpYW1A
-dGhlY2hyaXMuaW4+Ci0tLQogZHJpdmVycy9tdGQvZGV2aWNlcy9ibG9jazJtdGQuYyB8IDEwMyAr
-KysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDgzIGluc2Vy
-dGlvbnMoKyksIDIwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbXRkL2Rldmlj
-ZXMvYmxvY2sybXRkLmMgYi9kcml2ZXJzL210ZC9kZXZpY2VzL2Jsb2NrMm10ZC5jCmluZGV4IDAz
-ZTgwYjJjNC4uNGFiNGMzMWEyIDEwMDY0NAotLS0gYS9kcml2ZXJzL210ZC9kZXZpY2VzL2Jsb2Nr
-Mm10ZC5jCisrKyBiL2RyaXZlcnMvbXRkL2RldmljZXMvYmxvY2sybXRkLmMKQEAgLTI3LDYgKzI3
-LDggQEAKICNpbmNsdWRlIDxsaW51eC9pbml0Lmg+CiAjaW5jbHVkZSA8bGludXgvbXRkL210ZC5o
-PgogI2luY2x1ZGUgPGxpbnV4L211dGV4Lmg+CisjaW5jbHVkZSA8bGludXgvd29ya3F1ZXVlLmg+
-CisjaW5jbHVkZSA8bGludXgvY29tcGxldGlvbi5oPgogI2luY2x1ZGUgPGxpbnV4L21vdW50Lmg+
-CiAjaW5jbHVkZSA8bGludXgvc2xhYi5oPgogI2luY2x1ZGUgPGxpbnV4L21ham9yLmg+CkBAIC00
-NSw2ICs0Nyw3IEBAIHN0cnVjdCBibG9jazJtdGRfZGV2IHsKIAogLyogU3RhdGljIGluZm8gYWJv
-dXQgdGhlIE1URCwgdXNlZCBpbiBjbGVhbnVwX21vZHVsZSAqLwogc3RhdGljIExJU1RfSEVBRChi
-bGttdGRfZGV2aWNlX2xpc3QpOworc3RhdGljIERFRklORV9NVVRFWChibG9jazJtdGRfbXV0ZXgp
-OwogCiAKIHN0YXRpYyBzdHJ1Y3QgcGFnZSAqcGFnZV9yZWFkKHN0cnVjdCBhZGRyZXNzX3NwYWNl
-ICptYXBwaW5nLCBwZ29mZl90IGluZGV4KQpAQCAtMzI5LDcgKzMzMiw5IEBAIHN0YXRpYyBzdHJ1
-Y3QgYmxvY2sybXRkX2RldiAqYWRkX2RldmljZShjaGFyICpkZXZuYW1lLCBpbnQgZXJhc2Vfc2l6
-ZSwKIAkJZ290byBlcnJfZGVzdHJveV9tdXRleDsKIAl9CiAKKwltdXRleF9sb2NrKCZibG9jazJt
-dGRfbXV0ZXgpOwogCWxpc3RfYWRkKCZkZXYtPmxpc3QsICZibGttdGRfZGV2aWNlX2xpc3QpOwor
-CW11dGV4X3VubG9jaygmYmxvY2sybXRkX211dGV4KTsKIAlwcl9pbmZvKCJtdGQlZDogWyVzXSBl
-cmFzZV9zaXplID0gJWRLaUIgWyVkXVxuIiwKIAkJZGV2LT5tdGQuaW5kZXgsCiAJCWxhYmVsID8g
-bGFiZWwgOiBkZXYtPm10ZC5uYW1lICsgc3RybGVuKCJibG9jazJtdGQ6ICIpLApAQCAtNDYyLDMw
-ICs0NjcsNzcgQEAgc3RhdGljIGludCBibG9jazJtdGRfc2V0dXAyKGNvbnN0IGNoYXIgKnZhbCkK
-IH0KIAogCi1zdGF0aWMgaW50IGJsb2NrMm10ZF9zZXR1cChjb25zdCBjaGFyICp2YWwsIGNvbnN0
-IHN0cnVjdCBrZXJuZWxfcGFyYW0gKmtwKQorCitzdHJ1Y3QgYmxvY2sybXRkX3NldHVwX3dvcmsg
-eworCXN0cnVjdCB3b3JrX3N0cnVjdCB3b3JrOworCWNoYXIgKnZhbDsKKwlzdHJ1Y3QgY29tcGxl
-dGlvbiBkb25lOworCWludCByZXQ7Cit9OworCitzdGF0aWMgdm9pZCBibG9jazJtdGRfc2V0dXBf
-d29ya2ZuKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKIHsKLSNpZmRlZiBNT0RVTEUKLQlyZXR1
-cm4gYmxvY2sybXRkX3NldHVwMih2YWwpOwotI2Vsc2UKLQkvKiBJZiBtb3JlIHBhcmFtZXRlcnMg
-YXJlIGxhdGVyIHBhc3NlZCBpbiB2aWEKLQkgICAvc3lzL21vZHVsZS9ibG9jazJtdGQvcGFyYW1l
-dGVycy9ibG9jazJtdGQKLQkgICBhbmQgYmxvY2sybXRkX2luaXQoKSBoYXMgYWxyZWFkeSBiZWVu
-IGNhbGxlZCwKLQkgICB3ZSBjYW4gcGFyc2UgdGhlIGFyZ3VtZW50IG5vdy4gKi8KKwlzdHJ1Y3Qg
-YmxvY2sybXRkX3NldHVwX3dvcmsgKncgPQorCQljb250YWluZXJfb2Yod29yaywgc3RydWN0IGJs
-b2NrMm10ZF9zZXR1cF93b3JrLCB3b3JrKTsKKworCXctPnJldCA9IGJsb2NrMm10ZF9zZXR1cDIo
-dy0+dmFsKTsKKwljb21wbGV0ZSgmdy0+ZG9uZSk7Cit9CisKKy8qCisgKiBSdW4gZGV2aWNlIHNl
-dHVwIG91dHNpZGUgdGhlIG1vZHVsZS1wYXJhbWV0ZXIgLyBrZXJuZnMgd3JpdGUgcGF0aC4KKyAq
-IFRob3NlIHBhdGhzIGhvbGQgcGFyYW1fbG9jayBhbmQgdGhlIGtlcm5mcyBpbm9kZSBtdXRleCAo
-YW5kLCB3aGVuIHRoZQorICogd3JpdGUgYXJyaXZlcyB2aWEgc3BsaWNlLCBhIHBpcGUgbXV0ZXgp
-LiBPcGVuaW5nIGEgYmxvY2sgZGV2aWNlIGRvZXMKKyAqIFZGUyBsb29rdXBzIGFuZCBtdXN0IG5v
-dCBuZXN0IHVuZGVyIHRoYXQgc3RhY2suCisgKi8KK3N0YXRpYyBpbnQgYmxvY2sybXRkX3NldHVw
-X2RlZmVyKGNvbnN0IGNoYXIgKnZhbCkKK3sKKwlzdHJ1Y3QgYmxvY2sybXRkX3NldHVwX3dvcmsg
-dyA9IHsKKwkJLnJldCA9IDAsCisJfTsKKworCXcudmFsID0ga3N0cmR1cCh2YWwsIEdGUF9LRVJO
-RUwpOworCWlmICghdy52YWwpCisJCXJldHVybiAtRU5PTUVNOworCisJaW5pdF9jb21wbGV0aW9u
-KCZ3LmRvbmUpOworCUlOSVRfV09SSygmdy53b3JrLCBibG9jazJtdGRfc2V0dXBfd29ya2ZuKTsK
-KwlzY2hlZHVsZV93b3JrKCZ3LndvcmspOworCXdhaXRfZm9yX2NvbXBsZXRpb24oJncuZG9uZSk7
-CisJa2ZyZWUody52YWwpOworCXJldHVybiB3LnJldDsKK30KIAotCWlmIChibG9jazJtdGRfaW5p
-dF9jYWxsZWQpCi0JCXJldHVybiBibG9jazJtdGRfc2V0dXAyKHZhbCk7CitzdGF0aWMgaW50IGJs
-b2NrMm10ZF9zZXR1cChjb25zdCBjaGFyICp2YWwsIGNvbnN0IHN0cnVjdCBrZXJuZWxfcGFyYW0g
-KmtwKQoreworCWludCByZXQgPSAwOwogCi0JLyogRHVyaW5nIGVhcmx5IGJvb3Qgc3RhZ2UsIHdl
-IG9ubHkgc2F2ZSB0aGUgcGFyYW1ldGVycwotCSAgIGhlcmUuIFdlIG11c3QgcGFyc2UgdGhlbSBs
-YXRlcjogaWYgdGhlIHBhcmFtIHBhc3NlZAotCSAgIGZyb20ga2VybmVsIGJvb3QgY29tbWFuZCBs
-aW5lLCBibG9jazJtdGRfc2V0dXAoKSBpcwotCSAgIGNhbGxlZCBzbyBlYXJseSB0aGF0IGl0IGlz
-IG5vdCBwb3NzaWJsZSB0byByZXNvbHZlCi0JICAgdGhlIGRldmljZSAoZXZlbiBrbWFsbG9jKCkg
-ZmFpbHMpLiBEZXRlciB0aGF0IHdvcmsgdG8KLQkgICBibG9jazJtdGRfc2V0dXAyKCkuICovCisJ
-aWYgKCF0cnlfbW9kdWxlX2dldChrcC0+bW9kKSkKKwkJcmV0dXJuIC1FTk9ERVY7CiAKLQlzdHJz
-Y3B5KGJsb2NrMm10ZF9wYXJhbWxpbmUsIHZhbCwgc2l6ZW9mKGJsb2NrMm10ZF9wYXJhbWxpbmUp
-KTsKKwkvKgorCSAqIERyb3AgcGFyYW1fbG9jayBiZWZvcmUgc2NoZWR1bGluZy4gVGhlIGFjdHVh
-bCBvcGVuIHJ1bnMgb24gYQorCSAqIHdvcmtxdWV1ZSBzbyBpdCBpcyBhbHNvIG91dHNpZGUga2Vy
-bmZzX2ZvcF93cml0ZV9pdGVyJ3MgaW5vZGUKKwkgKiBtdXRleCAoYW5kIGFueSBwaXBlIGxvY2sg
-ZnJvbSBzcGxpY2UpLgorCSAqLworCWtlcm5lbF9wYXJhbV91bmxvY2soa3AtPm1vZCk7CiAKLQly
-ZXR1cm4gMDsKKyNpZmRlZiBNT0RVTEUKKwlyZXQgPSBibG9jazJtdGRfc2V0dXBfZGVmZXIodmFs
-KTsKKyNlbHNlCisJaWYgKGJsb2NrMm10ZF9pbml0X2NhbGxlZCkgeworCQlyZXQgPSBibG9jazJt
-dGRfc2V0dXBfZGVmZXIodmFsKTsKKwl9IGVsc2UgeworCQltdXRleF9sb2NrKCZibG9jazJtdGRf
-bXV0ZXgpOworCQlzdHJzY3B5KGJsb2NrMm10ZF9wYXJhbWxpbmUsIHZhbCwgc2l6ZW9mKGJsb2Nr
-Mm10ZF9wYXJhbWxpbmUpKTsKKwkJbXV0ZXhfdW5sb2NrKCZibG9jazJtdGRfbXV0ZXgpOworCX0K
-ICNlbmRpZgorCisJa2VybmVsX3BhcmFtX2xvY2soa3AtPm1vZCk7CisJbW9kdWxlX3B1dChrcC0+
-bW9kKTsKKworCXJldHVybiByZXQ7CiB9CiAKIApAQCAtNDk3LDkgKzU0OSwxOCBAQCBzdGF0aWMg
-aW50IF9faW5pdCBibG9jazJtdGRfaW5pdCh2b2lkKQogCWludCByZXQgPSAwOwogCiAjaWZuZGVm
-IE1PRFVMRQotCWlmIChzdHJsZW4oYmxvY2sybXRkX3BhcmFtbGluZSkpCi0JCXJldCA9IGJsb2Nr
-Mm10ZF9zZXR1cDIoYmxvY2sybXRkX3BhcmFtbGluZSk7CisJbXV0ZXhfbG9jaygmYmxvY2sybXRk
-X211dGV4KTsKKwlpZiAoc3RybGVuKGJsb2NrMm10ZF9wYXJhbWxpbmUpKSB7CisJCWNoYXIgYnVm
-W3NpemVvZihibG9jazJtdGRfcGFyYW1saW5lKV07CisKKwkJc3Ryc2NweShidWYsIGJsb2NrMm10
-ZF9wYXJhbWxpbmUsIHNpemVvZihidWYpKTsKKwkJbXV0ZXhfdW5sb2NrKCZibG9jazJtdGRfbXV0
-ZXgpOworCQkvKiBpbml0IGNvbnRleHQ6IG5vIGtlcm5mcy9wYXJhbSBsb2NrcyBoZWxkICovCisJ
-CXJldCA9IGJsb2NrMm10ZF9zZXR1cDIoYnVmKTsKKwkJbXV0ZXhfbG9jaygmYmxvY2sybXRkX211
-dGV4KTsKKwl9CiAJYmxvY2sybXRkX2luaXRfY2FsbGVkID0gMTsKKwltdXRleF91bmxvY2soJmJs
-b2NrMm10ZF9tdXRleCk7CiAjZW5kaWYKIAogCXJldHVybiByZXQ7CkBAIC01MTAsNiArNTcxLDcg
-QEAgc3RhdGljIHZvaWQgYmxvY2sybXRkX2V4aXQodm9pZCkKIHsKIAlzdHJ1Y3QgbGlzdF9oZWFk
-ICpwb3MsICpuZXh0OwogCisJbXV0ZXhfbG9jaygmYmxvY2sybXRkX211dGV4KTsKIAkvKiBSZW1v
-dmUgdGhlIE1URCBkZXZpY2VzICovCiAJbGlzdF9mb3JfZWFjaF9zYWZlKHBvcywgbmV4dCwgJmJs
-a210ZF9kZXZpY2VfbGlzdCkgewogCQlzdHJ1Y3QgYmxvY2sybXRkX2RldiAqZGV2ID0gbGlzdF9l
-bnRyeShwb3MsIHR5cGVvZigqZGV2KSwgbGlzdCk7CkBAIC01MjIsNiArNTg0LDcgQEAgc3RhdGlj
-IHZvaWQgYmxvY2sybXRkX2V4aXQodm9pZCkKIAkJbGlzdF9kZWwoJmRldi0+bGlzdCk7CiAJCWJs
-b2NrMm10ZF9mcmVlX2RldmljZShkZXYpOwogCX0KKwltdXRleF91bmxvY2soJmJsb2NrMm10ZF9t
-dXRleCk7CiB9CiAKIGxhdGVfaW5pdGNhbGwoYmxvY2sybXRkX2luaXQpOwotLSAKMi40My4wCgo=
---000000000000e1b675065ba07abd--
+---
+Yuya Kusakabe (2):
+      seg6: add support for the SRv6 End.MAP behavior
+      selftests: seg6: add selftest for End.MAP behavior
+
+ include/net/seg6.h                               |   8 +
+ include/uapi/linux/lwtunnel.h                    |   1 +
+ include/uapi/linux/seg6_mobile.h                 |  61 ++
+ net/core/lwtunnel.c                              |   2 +
+ net/ipv6/Kconfig                                 |  10 +
+ net/ipv6/Makefile                                |   1 +
+ net/ipv6/seg6.c                                  |   7 +
+ net/ipv6/seg6_mobile.c                           | 701 +++++++++++++++++++++++
+ tools/testing/selftests/net/.gitignore           |   1 +
+ tools/testing/selftests/net/Makefile             |   2 +
+ tools/testing/selftests/net/config               |   1 +
+ tools/testing/selftests/net/srv6_end_map_test.sh | 400 +++++++++++++
+ tools/testing/selftests/net/srv6_mobile_send.c   | 262 +++++++++
+ 13 files changed, 1457 insertions(+)
+---
+base-commit: 87b80c2f6b05cad9f0ff9136709c62a0f59923e3
+change-id: 20260523-seg6-mobile-end-map-9cec24191817
+
+Best regards,
+--  
+Yuya Kusakabe <yuya.kusakabe@gmail.com>
+
