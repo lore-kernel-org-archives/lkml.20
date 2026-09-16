@@ -1,69 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA8A37F8C1;
-	Wed, 16 Sep 2026 12:53:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1462737DAD7;
+	Wed, 16 Sep 2026 12:53:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563182; cv=none; b=A10UX64BU0KTVBwA++J70PZtM+aKiOrM4cUYkFlQwztfDsWNZnbA9Z2oLbQm8THUXj1qM5TysCVOn1q/ZyWBiO1w0NNQqQTltOhYBC6AoRKPKuNI90Kh1vU4QRRuizsTjexIUBPdVYenjzEfVtpF04J7izES1C3PrBXDnXFNQVQ=
+	t=1789563197; cv=none; b=R2r5N3FDD/sUs4civ1fykmwLI2r/dsVqdku1dPVahcVFiKWnB1ovijN0e7zk3k6lNeRO8AL05qVF6uE2U5gxeP+avPxJ0n7QoIlg++Ujul4fE8WZSOFhK10NE5gantGGsC1PpWEiRiLk2IndsrPRKvGgXpRM1fetFmr/k5AFN/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563182; c=relaxed/simple;
-	bh=1jPHqqKWVgzdASRumvweTZPlu0WRjucZswerhj1CvjY=;
+	s=arc-20240116; t=1789563197; c=relaxed/simple;
+	bh=SDEuKJWFUu4rxwRXql92imyjaRjmcdWpg/QNpjRH5WU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NFUM3gaYAKe53NF0eRRpUaCDENt1NilMPrqe1juGzyltpja/KJdcEB0o/P8Vp0W42B49OZj56qfbNTPGT+A+BVBgXmp+Gcgm4fwMgDfC1hgPQQfeKmRLeT4ImEmt9ckKdQy7JYY33NJ0POJjtbD7akf7h5eF2KBCkuPu5HYHO/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FlsZMWhx; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=bunt0sgB5XZnERjYkRfaU26u+iWrLCLm6xpXGFyxYt2hLQDKVbpm8Z3pJhrIC6Hr91pJ+NivVWRNim/L1QS3ktXeA9uphJdmySNADjwU02EKTKQtNNh06av0W+plgNg0rRPjH95c0OcQVwDIA1+tIYN82nAkWtF8V4Jc9WMEyxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=AbsZtPNP; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FlsZMWhx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7318B1F000FF;
-	Wed, 16 Sep 2026 12:52:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789563180;
-	bh=ECGhs/jw631DcK951Pu4QrAhITSXxLczEZxG3qzOMuk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FlsZMWhxqTrZxfa975FyF9k7IqZJ672OKh2vyiyW8ergfy0tX5lr6UrHMgJOdlDkV
-	 EaFwAS8u5CjqS7HECHElbah/+oHVAC4pOt/E2hSjbl5hcoxtkhn647Quk3GdNOgK79
-	 PfCznRL9lDCL0VojUDxdArew56r1LLH61A9t//qhAQJxcWLCIv4A/MmzYNqVn0i4vX
-	 nekz1XfNtV6r1HCygaFJ5nPG7346dnMQY3xr1LSqDtnZaV/o4hCu1PJ3/JOyDsEE3A
-	 ybnCfFcxH8A+e4jYBo5ZHYVTmfafMs7BG8HZ4riSWUQTNYEtkzgSdf/2kkqJs1f9lW
-	 yuxyVxlaN5awQ==
-Date: Wed, 16 Sep 2026 13:52:56 +0100
-From: Simon Horman <horms@kernel.org>
-To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-Cc: Alexander Duyck <alexanderduyck@fb.com>,
-	Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="AbsZtPNP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=frmbW3ytDefx8E7jzaxczuNaM+HvVXs4OMdHP3+s2zw=; 
+	b=AbsZtPNPn7sQ5LMeXpHv4RX+w9iQGCC0JgzGNGk2a7M77zwhAC3Qevl8Rv9CPXGhug3F9amN4M9
+	GwdnNbaKG5pkMs75Fxve7qpBAjV9CFkiyzkdnQ0kZCfQmPQbl4HLvAinEWdMGSfK3JO90lcj0ivZS
+	N4j5K/kZvvyi5+/EQ9ql9AhQNlbDUZtoYsUVL6qJ8iZBUpP7p9whGnsNG6Cg2/bDlwl4LI8ycWYgb
+	EPyMDhtzfL8onagp563ZvNm1kZVq3F2Z3FsW5gqxtca55UydQpfkQtVO7f7C4xBjPTES9qe6R+/mf
+	jfv/vRg5ltZTxWkpWhQBrvD3Gqn1h7RGnGrw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x6p8Q-0000000EcXc-29Fr;
+	Wed, 16 Sep 2026 20:53:11 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 16 Sep 2026 22:53:10 +1000
+Date: Wed, 16 Sep 2026 22:53:10 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: "Pawel Zalewski (The Capable Hub)" <pzalewski@thegoodpenguin.co.uk>
+Cc: Tom Lendacky <thomas.lendacky@amd.com>, John Allen <john.allen@amd.com>,
 	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Mina Almasry <almasrymina@google.com>,
-	linux-kernel@vger.kernel.org,
-	Sashiko <netdev-bot+sashiko@kernel.org>
-Subject: Re: [PATCH net] eth: fbnic: Fix payload page pool error cleanup
-Message-ID: <20260916125256.GH51261@horms.kernel.org>
-References: <20260915104917.3978113-1-bjorn@kernel.org>
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] crypto: ccp: use named initializers for
+ acpi_device_id
+Message-ID: <aqqRNnSNAcM-kocL@gondor.apana.org.au>
+References: <20260903-acpi-crypto-v1-0-253cc6fd9836@thegoodpenguin.co.uk>
+ <20260903-acpi-crypto-v1-1-253cc6fd9836@thegoodpenguin.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915104917.3978113-1-bjorn@kernel.org>
+In-Reply-To: <20260903-acpi-crypto-v1-1-253cc6fd9836@thegoodpenguin.co.uk>
 
-On Tue, Sep 15, 2026 at 12:49:15PM +0200, Björn Töpel wrote:
-> The payload page pool pointer contains an error pointer when its
-> allocation fails. The cleanup path passes that error pointer to
-> page_pool_destroy() instead of destroying the header page pool. This
-> can dereference the error pointer and leave the header page pool
-> allocated.
+On Thu, Sep 03, 2026 at 04:42:16PM +0100, Pawel Zalewski (The Capable Hub) wrote:
+> Use a named initializer for the acpi_device_id fields which
+> makes the code more readable and consistent with how lists
+> are initialized in the rest of the kernel code base.
 > 
-> Destroy the header page pool instead.
+> While we are at it - unify the list terminator to have
+> a single space between the brackets and no trailing
+> comma.
 > 
-> Fixes: 8a11010fdd96 ("eth: fbnic: allocate unreadable page pool for the payloads")
-> Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> Link: https://lore.kernel.org/netdev/178915061000.219967.7726187707862333281@kernel.org/
-> Signed-off-by: Björn Töpel <bjorn@kernel.org>
+> Signed-off-by: Pawel Zalewski (The Capable Hub) <pzalewski@thegoodpenguin.co.uk>
+> ---
+>  drivers/crypto/ccp/sp-platform.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Reviewed-by: Simon Horman <horms@kernel.org>
-
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
