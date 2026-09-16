@@ -1,130 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621C54D7950
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:58:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E083C8C74;
+	Wed, 16 Sep 2026 15:58:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574315; cv=none; b=TYfYr23BgVx3J0G6VFDHpMwx2AJDetPNArqIL+9m+Xq7/9ia8l/Y8Q5yype+sVqlVH6yhvs302FdObwiKna9EMcKg/gnwVZsnS+4CX5+BdOiRryMiW9+Uet7FnlsHNUcAjS4rYRfvOQdkwG1aDHR5XBV1V4mCZ/w2gGY84vfP7Q=
+	t=1789574319; cv=none; b=G+E3irYAFxxLyhJEbiZUdHt53DjFJ2zlAY3G/BK4aw9hTbqqHhBAu8NDV1W1TEzwBacRKyUX1joyFjxYAbQmRc9Kbp32ESRX6XEL3B5k7jqgyGUWCj1YegRfexvvq9vkKfelK9118/eatKXZZrhA2h/zcsTRn7AZwNAYzKjbUx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574315; c=relaxed/simple;
-	bh=sdJEAeBzaRfEfWUUAtrryRTnn1gnVg/ZDP/K3wQYXMY=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VXpZ1oUsRcoHrJZ6SKBKdK+mboWz+0WUYc1SfXWu3YMpt83PRCbhz9g/1Wrj0GLEzKQw/OaYXZvJkIPIT+U2uTPkkaNz5LWtTP4503lJm69XcawUq1JcjAN84WNxrZtrVBP0hzdr83r8z3BeHHg9oOJXU7ZIhynEg4hcDPYCwK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c/1zjWZe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789574319; c=relaxed/simple;
+	bh=jlqv1idyCZWRCkk0KGTcKAJHzrxEWwBlIqufKXr+Keg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BmOO/450uw8JwWbsI4uuGdLsGrOHBB7FW72x4wxuB9akm7dpdbuAQZVJPrTdl8mc3FUXhV0N/WYrdK+Ufbo3bhLtDfb3fpp3zw8BGqHkc8oXzGuP/l48AyIeKmgLguzAvlHrwTbb20FwnJ8GO4oenzCPIlCjCxBlQobkiv+TwJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PS4zUENw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c/1zjWZe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC2C11F0089B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:58:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PS4zUENw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEC0B1F00893;
+	Wed, 16 Sep 2026 15:58:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789574302;
-	bh=trH5w8lLNIt7kLoZaTQ24CsToSZw3THdJT/eANCqA7g=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=c/1zjWZeC9reFnd3ZUtDpQDj2fFC/33HNNuZsIDPTb/GeO3DJf380WAwJeaO8wWfM
-	 AI8uI7GS7WbdTwgC+x8hHtXFF/aZXgsgFtfX8QWFBVUgrMGPH1jLFHp64RRPc19J9O
-	 snHbOU1SVrKclX6ACVD0gcxwioYsmh6isra8oNpXmMPFdBGcacNKM20eRuPTEDL2mQ
-	 hMT4KfYXOpxIMZTeiG0IpVMXoEVOned3dnqxB1MC8PUv1E+b5Yf9Fle3EI83aIq3Vv
-	 d1gtGCos6vICzVIG89QOAjS0GbqaZhnIJ2hPb0RT/DkxKDzwJ6CfpORfZSIzHFjXvm
-	 6f3leKYkm/CGQ==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d5bso10834151fa.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:58:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy9LvE9o9C2kCxLAQ59pszFlbqeVDA6V6/ZqJxKObK/QVEKkCtYbAOQfNmg6my1ddN2S4n7BKLtMWuc2lY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDOp4H00rsAgDZ+Y/4B2zBYtT20/RU81nioJItaEwHcEKnyiQ3
-	03Mgu38W/axfbHN90rUjC2/gQwM1IT1j2N3JloZq8SAHXgpWlPRrYfmg6yjyAUTMU/oI8UwyBu3
-	G6dlwzvqY9IHULrfzFNqKf2sP/MoDZm2nn5SZs/7weg==
-X-Received: by 2002:a05:651c:198a:b0:3a5:df43:7628 with SMTP id
- 38308e7fff4ca-3a5df43797amr11316801fa.0.1789574301154; Wed, 16 Sep 2026
- 08:58:21 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 11:58:18 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 11:58:18 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <00a0910e-0c15-4f5a-add0-3cbc3457972f@gmail.com>
+	s=k20260515; t=1789574311;
+	bh=fDchc0GVCFnahaTOS2IPX7LJ0QuaPrWIgI/USy0uI3c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PS4zUENwm9pwv3IwJMdCLVZz55I0sy+e19rr/0lMunYfxwlqrvhYPclDcI2cGXn8c
+	 0Ueavg+eCFJUyqLpcrSwBjVrO8YLnsnjb9rkBYNVJtRH/8Qa0zFTONwO97YLkb8ZVi
+	 HHLus4QvwEjlj4HXV9Q2L15vKCAxGQPm0ARbhiXSAZi8vJb83ToRN6YCRkXzdx2b6B
+	 POeSsbok1JPj5fMtMVvSk6bZsKOhYWHgXd40QE8yrSm7+xbFwNZ/ceaW+qAsasn51Y
+	 6q+EmhzF9ghsHdTwPfohr/yktH/2zOKJgfYgCNLtrPTzPgQUpev1xGHCWPRolGfsly
+	 NISKCZJSCwWng==
+Date: Wed, 16 Sep 2026 16:58:25 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Arnd Bergmann <arnd@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Shuming Fan <shumingf@realtek.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Niranjan H Y <niranjan.hy@ti.com>,
+	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+	Alexey Klimov <alexey.klimov@linaro.org>,
+	Julian Braha <julianbraha@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: rt766: fix HID dependency for SND_SOC_SDCA_HID
+Message-ID: <9610061b-aaed-48a8-8df5-7f29f4db69e1@sirena.org.uk>
+References: <20260915211658.1671821-1-arnd@kernel.org>
+ <f9c9aef3-6e0b-4f7e-914e-35a82b5f962a@sirena.org.uk>
+ <d09d7709-e537-472c-82d6-e532e955f137@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
- <20260910-qce-fix-self-tests-v7-9-cdbd2718af14@oss.qualcomm.com>
- <20260910143140.GA5719@quark> <CAMRc=McDHXWRfYTwRasdBCXMnoVkXK9T7RB+gBNgCsGof-euyg@mail.gmail.com>
- <c08519bb-b912-4d34-a164-5a9d65162716@gmail.com> <CAMRc=Mf6A98R_NxFaBiMp+N8JuzwZsSdfowwe0XvkMsUCZCL5A@mail.gmail.com>
- <00a0910e-0c15-4f5a-add0-3cbc3457972f@gmail.com>
-Date: Wed, 16 Sep 2026 11:58:18 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MfpvK8ppLLdEMJtTok06xCgjN5oiEJEdo4v+7D9BqpuVg@mail.gmail.com>
-X-Gm-Features: AcwNN1XWj9MSlgewr7vj_JaUm-twNGCNpuDVSpmlu-ZMB92Mq8VbxmRPbXGQFjg
-Message-ID: <CAMRc=MfpvK8ppLLdEMJtTok06xCgjN5oiEJEdo4v+7D9BqpuVg@mail.gmail.com>
-Subject: Re: [PATCH v7 09/12] crypto: qce - remove the BROKEN label
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, 
-	Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Eric Biggers <ebiggers@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="B+AwEemnu3s6U8t9"
+Content-Disposition: inline
+In-Reply-To: <d09d7709-e537-472c-82d6-e532e955f137@app.fastmail.com>
+X-Cookie: Double!
 
-On Tue, 15 Sep 2026 17:49:33 +0200, Demi Marie Obenour
-<demiobenour@gmail.com> said:
-> On 9/15/26 05:46, Bartosz Golaszewski wrote:
->> On Fri, 11 Sep 2026 20:35:58 +0200, Demi Marie Obenour
->> <demiobenour@gmail.com> said:
->>> On 9/11/26 07:14, Bartosz Golaszewski wrote:
->>>> On Thu, 10 Sep 2026 16:31:40 +0200, Eric Biggers <ebiggers@kernel.org> said:
->>>>> On Thu, Sep 10, 2026 at 03:00:50PM +0200, Bartosz Golaszewski wrote:
->>>>>> All self-tests now pass.
->>>>>
->>>>> Have the other bugs that were reported been fixed?  For example:
->>>>> https://lore.kernel.org/linux-crypto/20260723202704.GB110634@quark/
->>>>> https://lore.kernel.org/linux-crypto/20260723183438.GB93534@quark/
->>>>> https://lore.kernel.org/linux-crypto/20260723205342.GC110634@quark/
->>>>>
->>>>
->>>> I will get to these too. For now, the series allows the self-tests to pass,
->>>> I assume it it's enough to not keep the BROKEN label.
->>>
->>> Personally, I think the driver should stay BROKEN until all the
->>> known bugs have been fixed.  The self-tests aren't enough for HW
->>> crypto drivers.
->>>
->>>>>>  	help
->>>>>>  	  This driver supports Qualcomm crypto engine accelerator
->>>>>
->>>>> As this patch would make the kconfig option visible again and would
->>>>> result in everyone running "make oldconfig" being asked about it, it
->>>>
->>>> I don't mind changing the symbol if you prefer it to avoid any accidental
->>>> `make oldconfig` carry-overs.
->>>>
->>>>> needs to be fixed to accurately document why anyone would want to enable
->>>>> this option.  As you've stated, it's actually just for "testing".  The
->>>>> false claim that it's an "accelerator" also needs to go.
->>>>>
->>>>
->>>> "Offloader" for lack of a better word?
->>> Could it be called a "decelerator"?  That would give users an idea
->>> of what to expect from the driver.  Maybe explicitly mention that
->>> you will take at least a 50x performance hit?
->>> --
->>
->> Yeah, very funny. Jokes aside: "Offloader" says what it both *aims* to do and
->> really *does* without claiming it *accelerates* anything.
->
-> This wasn't meant as a joke, but I could see how it could be seen as
-> one.  Sorry about that.  No offense intended.  "Offloader" also works.
->
 
-No worries, no offense taken. Good thing about drivers is that they don't have
-feelings, so you can't hurt them. :) It actually is quite funny, I'll just
-allow myself to not use it.
+--B+AwEemnu3s6U8t9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> As an aside, I trust that you are doing the best you can.  Maintaining
-> an unpopular driver is not an enviable task.
+On Wed, Sep 16, 2026 at 05:36:02PM +0200, Arnd Bergmann wrote:
+> On Wed, Sep 16, 2026, at 17:10, Mark Brown wrote:
+> > On Tue, Sep 15, 2026 at 11:16:34PM +0200, Arnd Bergmann wrote:
 
-I'm sure we'll find a compromise that makes nobody happy. ;)
+> >>  	depends on SOUNDWIRE
+> >>  	depends on SND_SOC_SDCA
+> >> +	depends on HID
 
-Bart
+> > Should that be HID=y || HID=SND_SOC_SDCA like for SND_SOC_SDCA_HID and
+> > SND_SOC_SDCA_CLASS?  The dependencies on _CLASS should stop the
+> > problematic cases from actually occurring but I'm not sure if it stops
+> > the warning.
+
+> Yes. Just as I was trying to write up my presentation slides for next
+> week trying to explain how nobody ever gets this right, you have reminded
+> me that I can't do it either ;-)
+
+> How about this version?
+
+...
+
+> I think this is much clearer than the original version or my
+> first patch, as it avoids the fragile 'select'. If you like this
+> one, I'll send a v2 after this passes some more randconfig testing,
+> or you can apply that directly.
+
+Looks good to me but I'm not entirely confident in my Kconfig special
+case knowledge, I'll wait for your new version after testing.
+
+--B+AwEemnu3s6U8t9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqqvKAACgkQJNaLcl1U
+h9DHHAf+NHZbPZ9aQ19cc6IS43MiTvvZ8mxnC7zTPmBTWrZDPL9NDQ8YFXaiiVGh
+XJagVQllB9KcM74RnFQyClfCP+dAHEP4R/rfBNeJ+kjhXYTSFB85L/V+tmyDKXGj
+xLSW2KftjihmwBs6vM3PwaXbcrPcVaYQ2BUwuW+M5I4XDCy8ERLp/isdUtrZgBhd
+xQadaK9XrvmazmOeF/KrPBOagmNBo9SGdoiPTDq1QtMLP2S/wWFOSACknWBi1Suu
+5bvf4VeVeK2B7aBD6hafJkE1mmHczsY5FTGfe5SEmp0ymIgtIlFNZYv8M8ki7smt
+gLgFRB/JmRksUxiYvfp3pRb2RDGAsw==
+=CXZX
+-----END PGP SIGNATURE-----
+
+--B+AwEemnu3s6U8t9--
