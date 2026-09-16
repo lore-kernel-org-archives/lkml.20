@@ -1,56 +1,56 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3033E51E8
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:36:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9C93EB0E4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:36:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789540574; cv=none; b=OPec7cncPdqlOrvBXsS/clg+FqVUWFiquu+s0I7xnB2Q3y80iYIHl+lbO/ojE4X0mJTcLAO1dn+M7tns73vSdFpf7zkz/sfYZJKTr7aWthbtf74eEWHqVzqkwYqyTTH6l1x5diwrNmXiT5HqL+9wP5nEBb+tg+vV80ybdTaRwho=
+	t=1789540571; cv=none; b=Cx425dHAUTD6EjYBmyclRuEpRtlr6DeEVNSkwF11Ekcq+zycJRT1Ki5WyqDSB7savmMKrx8r1r12bIS1CZMtinq+MLJ60LTbruoqkiUk4PQSfa/QTa/F+OoV0ztiUctjedEG5j/zVs1YiyLazwSfbTpCl+URjVALxlKk9pxIQLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789540574; c=relaxed/simple;
-	bh=kIws7nvp6vwZgmrVaEEGKrpn0ppUWwBDe2sYczlVIBQ=;
+	s=arc-20240116; t=1789540571; c=relaxed/simple;
+	bh=q/50Fu5deyVGr0l6GVVosijwAC+cmgsGfE3BdVsWHT4=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=cZ6Qjf5i/dn2uWjPfwwmgXcaZ8z+dT4RDHJ8y4RQkZsx1GFAFWeqJ+TkYuU+kOkayOAD3GPZSJCWEpK7qP0An0rkwFOJowlUjkcgafgrvCJSapjWzqLPkLVPjC9TYbjN4vk2tqvfexdnRTC/8w0CKv98LGUSDhBey6w40f9dHL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LBXBs1+P; arc=none smtp.client-ip=209.85.216.71
+	 To:Cc:Content-Type; b=gPxJqjfdVN2Q568jFix32CB23MwUlIscsTx28iDyyVXoWo6Ak7KdDRjEWYeR6i9wuvkZjMAZ0oqBcsxCgt2xphFDcHLbeg7K37hRtwOyAeRxqCqfFz6Ra9D5qitBwWArTYdhM472flsXkQxpX7Ea12T83O/hoTdmpj29jkPl43w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rbcb035f; arc=none smtp.client-ip=209.85.214.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LBXBs1+P"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e7ff7b375so6412698a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:36:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rbcb035f"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db87f759c5so90821505ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:36:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789540572; x=1790145372; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789540569; x=1790145369; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qEsjti7+K6BKEhVBYF1JE/GDiM/SdGujRqb1wVWsRf0=;
-        b=LBXBs1+PNsFin+uEbpzd/wgPeSVYOkxMqH5Wb3pByxJAdpcCpWllUKHx1n2xBrkRQ5
-         Wzjt3OVCO04ETqxd6tdDKZodCQEKmPsYDe0OtWCGiCKaOVK94Gu2HVjxtps7H1954DDi
-         9kPKO5NCksW9Ee9ZdtXoSMlVTeT7dn/VQOBEkBgoiC07ZNVKm/kUV/OitQ4Sc6fusJAh
-         jcUxnv6lMiROwTDZXsdjC+iFPLp7Yly34Z/x9Isp+4HhcTgou64yS4HD7dVxINPFjv1r
-         bf4c4W0O/khoxFHrMQHnYn4LG9xbWfPcfp0dWBfgSm0v85js3cCsxyhnLrzdYZX9rA1s
-         pW9g==
+        bh=UVz5AK/7pAVub25bbhhVXydiKcgPTzFnlaiJsz7XoiU=;
+        b=rbcb035fTB31PdxKpuLByW8S09+aaDAbMU6ZG94joTTs88tQaxu05gnf0OGgqbbocS
+         72AfpcBa/x4xtr31vM3GDycvsLIDXQ18V6qraipAXNNMAT5TTNHLHzWHMkNJR86kB4H4
+         UQ2OzjCr7BYCbxAbaLXoHE6ymhil/dEc222+p0siA+7pje1vzMMccVUc6BJEHzUbkTmw
+         1HeBdbPWCHdpqJyIIPLsM3zPdZma4IfLV/mYq/Mw2mtT0IoTu5Gok/yrfZmbxddgmGrN
+         t99t709P3lLKpXICzic4ifPNZWVWKKkoEvfXl25MEclrUPzC2kydYsX+zDyY8+vLID4Z
+         3ljw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789540572; x=1790145372;
+        d=1e100.net; s=20260707; t=1789540569; x=1790145369;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qEsjti7+K6BKEhVBYF1JE/GDiM/SdGujRqb1wVWsRf0=;
-        b=Yd3zfmoi+sfgZoMEszhCAXifn3EF4i94YbeoAakHk4rnnEiSuCHkph6JZTEdFtRGrp
-         TY6yTz23LULv7d4LrhIsgoAYxjK9y51z0X+Z2fBX/LGLhMLBq+QS2q4kK8SRSpHLdjMw
-         gKmunVhEVI3OxErRl6fYnFsWU7T5DOJTtWseT6INsuEorCrPdOZzRNFPepaD/GAwjdvl
-         77iX2pxmhP3FnJOvWJN5okc2hEDD/YMJsaNS//MD7HH0sDNrL9sGnFbF+R3VALVDLfbK
-         d3CFiXEi3rkaXBWi5yEk2Nn5IGM2W3kdOw7ohmi0qCVcFVUcAK8HoMFrxiroo4qh1kq/
-         xxQg==
-X-Forwarded-Encrypted: i=1; AKwUvByoR3NYJU34Ip+l34RPLPkzGRWkPDzJYG4RwkE+zNM1EKenfCNHCl0LExFbwX5RL0EpcTBWLbyXdix8XvU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCwqhS679HlbpQHx9zlJWlR+jum8I4wAg4zYRSXk6XUO3O8RyY
-	QhV6//eGfTzAX8pcNTvX1YfjuW74e25xh+gFZptkc4oVlSzoJCjv6WPR/MaGEmS7cHXfo+PegM5
-	xSwFi6K5eCg==
-X-Received: from dldyr21-n1.prod.google.com ([2002:a05:701b:4515:10b0:143:8c20:9c79])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:d444:b0:39e:b0b:4d1a
- with SMTP id 98e67ed59e1d1-39e1e2e50eamr3922319a91.6.1789540572178; Tue, 15
- Sep 2026 23:36:12 -0700 (PDT)
-Date: Tue, 15 Sep 2026 23:35:45 -0700
+        bh=UVz5AK/7pAVub25bbhhVXydiKcgPTzFnlaiJsz7XoiU=;
+        b=1emn4riCHG94cuEXMe1NsG8agjChjsDcAHtbBEmYg7/5LtukE1wXWJnbq9+AmpVxK5
+         N3Ea5PiLonrAPWgHlx92/EBpYVg3XwbiQYG3XFvF2Pe8W+Qze4yB7JEMuqdIoHG3hydQ
+         W7IZoybx5eyTGbyZbj3+5g7QvEkTJAwzQnWtl2AMoaQy7+ST7KEGQnJnDjGt3iMmiETc
+         BeU8HsTfxxGBNMXPN349XrzvbAiuv/NeYEbVxA8xwHdZtTqc573E8G4dxyXTzG4KHki/
+         w6LeMHFRXWE/Gi+R4j2QbpADNzhliZzEgAVlXVmZp52PgljxxJkkwOXFsKXGZvnkZxje
+         gxxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTm5+nwh7zYbkWiVcvS5gXxfxBNbEAk6o/tR+1OvDh0WVh1V5MXtn1JZ4FvI1tRQmMdvWUFtWSWUaW0Mw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxyo5ZuKNOJTWszFMyUUtqaoQWlCbgrOwdO7KezfYNKVPkguXf
+	EQrpKH781m6ve8kseCbAC3eL2wOj8rkGUBuD1aSjHyizWpEe09PZzv6aE0LhdEmLcO5cyw92lFp
+	mBuh6gMz26Q==
+X-Received: from dyckg5.prod.google.com ([2002:a05:7301:d185:b0:32e:7cc0:f56b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d582:b0:2d8:d4d0:7932
+ with SMTP id d9443c01a7336-2dd8e7aa6eemr29960085ad.22.1789540568956; Tue, 15
+ Sep 2026 23:36:08 -0700 (PDT)
+Date: Tue, 15 Sep 2026 23:35:43 -0700
 In-Reply-To: <20260916063545.3103314-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260914170759.1992947-1-irogers@google.com> <20260916063545.3103314-1-irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260916063545.3103314-4-irogers@google.com>
-Subject: [PATCH v2 3/3] perf libbfd: Report success when an address is found
+Message-ID: <20260916063545.3103314-2-irogers@google.com>
+Subject: [PATCH v2 1/3] perf libdw: Fix Dwfl discovery with split files
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com
 Cc: acme@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org, 
@@ -70,91 +70,615 @@ Cc: acme@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org,
 	peterz@infradead.org, tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-libbfd__addr2line() only reports success when the caller asked for a file
-name. addr2inlines() passes a NULL file as it just wants the inline_node
-populating, so libbfd__addr2line() returns 0 for it unless
-bfd_find_inliner_info() happened to find an inline frame. addr2line() in
-srcline.c treats 0 as a failure and tries the next addr2line
-implementation, which appends its own frames to the inline_node libbfd
-already appended to. Every frame that isn't inlined is then reported
-twice, which happens by default when perf is built with libbfd but
-without libdw as the fallback order is then libbfd followed by the
-addr2line command:
+dso__libdw_dwfl() opens the Dwfl with dso__long_name(), the file the
+samples came from. When the debug information lives in a separate file,
+symbol loading finds it and records it as the dso's symsrc filename, but
+the Dwfl still refers to the original file, so libdw has no DWARF to
+resolve addresses against.
 
-  $ perf record --call-graph dwarf -- perf test -w inlineloop 1
-  $ perf script --fields +srcline
-  ...
-	    56051a994f8e parent+0x2e (perf)
-    inlineloop.c:32
-	    56051a99503a inlineloop+0x8a (perf)
-    inlineloop.c:47
-	    56051a99503a inlineloop+0x8a (perf)
-    inlineloop.c:47
-	    56051a95841a cmd_test+0xb7a (perf)
-    ??:0
-	    56051a95841a cmd_test+0xb7a (perf)
-    ??:0
-  ...
+Open the Dwfl with the symsrc filename when one is known and fall back
+to the long name when it isn't.
 
-Report success whenever the address is found, like libdw__addr2line()
-does, and clear the frames appended so far when appending fails so that a
-following implementation starts from an empty node.
+The symsrc file is found while symbols are loaded, which can happen
+after the Dwfl has been created and cached, so drop the cached Dwfl and
+the addr2line cache built from it when the symsrc filename is set.
+That teardown can run while another thread is using the cache, so take
+the dso lock across both the teardown and the Dwfl accessors.
 
-Fixes: 257046a36750 ("perf srcline: Fallback between addr2line implementations")
+Fixes: b7a2b011e962 ("perf powerpc: Unify the skip-callchain-idx libdw with that for addr2line")
 Signed-off-by: Ian Rogers <irogers@google.com>
 Assisted-by: Antigravity:gemini-3.1-pro
 ---
- tools/perf/util/libbfd.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ .../arch/powerpc/util/skip-callchain-idx.c    |  4 +-
+ tools/perf/util/addr2line.c                   | 35 ++++++++---
+ tools/perf/util/dso.c                         |  9 +++
+ tools/perf/util/dso.h                         |  5 +-
+ tools/perf/util/libbfd.c                      | 28 ++++++---
+ tools/perf/util/libdw.c                       | 39 ++++++++----
+ tools/perf/util/srcline.c                     | 61 ++++++++++++------
+ tools/perf/util/unwind-libdw.c                |  2 +
+ tools/perf/util/unwind-libunwind.c            | 62 ++++++++++++++-----
+ 9 files changed, 178 insertions(+), 67 deletions(-)
 
+diff --git a/tools/perf/arch/powerpc/util/skip-callchain-idx.c b/tools/perf/arch/powerpc/util/skip-callchain-idx.c
+index e57f10798fa6..472714cfad38 100644
+--- a/tools/perf/arch/powerpc/util/skip-callchain-idx.c
++++ b/tools/perf/arch/powerpc/util/skip-callchain-idx.c
+@@ -152,9 +152,10 @@ static int check_return_addr(struct dso *dso, Dwarf_Addr mapped_pc)
+ 	Dwarf_Addr	end = mapped_pc;
+ 	bool		signalp;
+ 
++	mutex_lock(dso__lock(dso));
+ 	dwfl = dso__libdw_dwfl(dso);
+ 	if (!dwfl)
+-		return -1;
++		goto out;
+ 
+ 	mod = dwfl_addrmodule(dwfl, mapped_pc);
+ 	if (!mod) {
+@@ -183,6 +184,7 @@ static int check_return_addr(struct dso *dso, Dwarf_Addr mapped_pc)
+ 	rc = check_return_reg(ra_regno, frame);
+ 
+ out:
++	mutex_unlock(dso__lock(dso));
+ 	return rc;
+ }
+ 
+diff --git a/tools/perf/util/addr2line.c b/tools/perf/util/addr2line.c
+index 4b0d349ed334..7c7eea3cc8dd 100644
+--- a/tools/perf/util/addr2line.c
++++ b/tools/perf/util/addr2line.c
+@@ -284,7 +284,7 @@ int cmd__addr2line(const char *dso_name, u64 addr,
+ 		   struct inline_node *node,
+ 		   struct symbol *sym __maybe_unused)
+ {
+-	struct child_process *a2l = dso__a2l(dso);
++	struct child_process *a2l;
+ 	char *record_function = NULL;
+ 	char *record_filename = NULL;
+ 	unsigned int record_line_nr = 0;
+@@ -296,10 +296,14 @@ int cmd__addr2line(const char *dso_name, u64 addr,
+ 	ssize_t written;
+ 	struct io io = { .eof = false };
+ 	enum cmd_a2l_style cmd_a2l_style;
++	const char *current_dso_name;
++
++	mutex_lock(dso__lock(dso));
++	a2l = dso__a2l(dso);
+ 
+ 	if (!a2l) {
+ 		if (!filename__has_section(dso_name, ".debug_line"))
+-			goto out;
++			goto out_unlock;
+ 
+ 		dso__set_a2l(dso,
+ 			     addr2line_subprocess_init(symbol_conf.addr2line_path, dso_name));
+@@ -309,11 +313,19 @@ int cmd__addr2line(const char *dso_name, u64 addr,
+ 	if (a2l == NULL) {
+ 		if (!symbol_conf.addr2line_disable_warn)
+ 			pr_warning("%s %s: addr2line_subprocess_init failed\n", __func__, dso_name);
+-		goto out;
++		goto out_unlock;
+ 	}
+ 	cmd_a2l_style = cmd_addr2line_configure(a2l, dso_name);
+ 	if (cmd_a2l_style == BROKEN)
+-		goto out;
++		goto out_unlock;
++
++	/*
++	 * Take ownership of the a2l subprocess so we can safely perform
++	 * blocking IPC without holding the dso lock. If another thread
++	 * resolves a symbol concurrently, it will spawn a new a2l process.
++	 */
++	dso__set_a2l(dso, NULL);
++	mutex_unlock(dso__lock(dso));
+ 
+ 	/*
+ 	 * Send our request and then *deliberately* send something that can't be
+@@ -414,12 +426,21 @@ int cmd__addr2line(const char *dso_name, u64 addr,
+ 	}
+ 
+ out:
++	mutex_lock(dso__lock(dso));
+ 	free(record_function);
+ 	free(record_filename);
+-	if (io.eof) {
+-		dso__set_a2l(dso, NULL);
++
++	current_dso_name = dso__symsrc_filename(dso) ?: dso__long_name(dso);
++	if (!io.eof && dso__a2l(dso) == NULL && current_dso_name &&
++	    !strcmp(current_dso_name, dso_name))
++		dso__set_a2l(dso, a2l);
++	else
+ 		addr2line_subprocess_cleanup(a2l);
+-	}
++	mutex_unlock(dso__lock(dso));
++	return ret;
++
++out_unlock:
++	mutex_unlock(dso__lock(dso));
+ 	return ret;
+ }
+ 
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index 42bfe30a3b51..df39e6ca88e6 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -2075,3 +2075,12 @@ struct debuginfo *dso__debuginfo(struct dso *dso)
+ 	free(name);
+ 	return dinfo;
+ }
++
++void dso__set_symsrc_filename(struct dso *dso, char *val)
++{
++	RC_CHK_ACCESS(dso)->symsrc_filename = val;
++	dso__free_libdw(dso);
++	dso__free_a2l(dso);
++	dso__set_has_srcline(dso, true);
++	dso__set_a2l_fails(dso, 0);
++}
+diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
+index 55c4aaa53c38..7966c7048c85 100644
+--- a/tools/perf/util/dso.h
++++ b/tools/perf/util/dso.h
+@@ -735,10 +735,7 @@ static inline const char *dso__symsrc_filename(const struct dso *dso)
+ 	return RC_CHK_ACCESS(dso)->symsrc_filename;
+ }
+ 
+-static inline void dso__set_symsrc_filename(struct dso *dso, char *val)
+-{
+-	RC_CHK_ACCESS(dso)->symsrc_filename = val;
+-}
++void dso__set_symsrc_filename(struct dso *dso, char *val);
+ 
+ static inline void dso__free_symsrc_filename(struct dso *dso)
+ {
 diff --git a/tools/perf/util/libbfd.c b/tools/perf/util/libbfd.c
-index 7a462c9d11b6..edee6752ef47 100644
+index 1b23a261a9ce..efc78d788ce7 100644
 --- a/tools/perf/util/libbfd.c
 +++ b/tools/perf/util/libbfd.c
-@@ -286,6 +286,7 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
+@@ -255,7 +255,10 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
+ 		      struct symbol *sym)
+ {
+ 	int ret = 0;
+-	struct a2l_data *a2l = dso__a2l(dso);
++	struct a2l_data *a2l;
++
++	mutex_lock(dso__lock(dso));
++	a2l = dso__a2l(dso);
+ 
+ 	if (!a2l) {
+ 		a2l = addr2line_init(dso_name);
+@@ -265,7 +268,8 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
+ 	if (a2l == NULL) {
+ 		if (!symbol_conf.addr2line_disable_warn)
+ 			pr_warning("addr2line_init failed for %s\n", dso_name);
+-		return 0;
++		ret = -1;
++		goto out;
+ 	}
+ 
+ 	a2l->addr = addr;
+@@ -273,14 +277,18 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
+ 
+ 	bfd_map_over_sections(a2l->abfd, find_address_in_section, a2l);
+ 
+-	if (!a2l->found)
+-		return 0;
++	if (!a2l->found) {
++		ret = 0;
++		goto out;
++	}
+ 
+ 	if (unwind_inlines) {
  		int cnt = 0;
  
- 		if (node && inline_list__append_dso_a2l(dso, node, sym)) {
-+			inline_node__clear_frames(node);
- 			ret = 0;
- 			goto out;
- 		}
-@@ -299,23 +300,32 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
- 
- 			if (node != NULL) {
- 				if (inline_list__append_dso_a2l(dso, node, sym)) {
-+					inline_node__clear_frames(node);
- 					ret = 0;
- 					goto out;
- 				}
--				// found at least one inline frame
--				ret = 1;
- 			}
- 		}
- 	}
- 
- 	if (file) {
- 		*file = a2l->filename ? strdup(a2l->filename) : NULL;
--		ret = *file ? 1 : 0;
-+		if (!*file) {
-+			/* Leave ret as 0 so that another addr2line is tried. */
+-		if (node && inline_list__append_dso_a2l(dso, node, sym))
+-			return 0;
++		if (node && inline_list__append_dso_a2l(dso, node, sym)) {
++			ret = 0;
 +			goto out;
 +		}
- 	}
  
+ 		while (bfd_find_inliner_info(a2l->abfd, &a2l->filename,
+ 					     &a2l->funcname, &a2l->line) &&
+@@ -290,8 +298,10 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
+ 				a2l->filename = NULL;
+ 
+ 			if (node != NULL) {
+-				if (inline_list__append_dso_a2l(dso, node, sym))
+-					return 0;
++				if (inline_list__append_dso_a2l(dso, node, sym)) {
++					ret = 0;
++					goto out;
++				}
+ 				// found at least one inline frame
+ 				ret = 1;
+ 			}
+@@ -306,6 +316,8 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
  	if (line)
  		*line = a2l->line;
  
-+	/*
-+	 * The address was found, report success so that the caller doesn't try
-+	 * another addr2line implementation that would append the inline frames
-+	 * above a second time.
-+	 */
++out:
++	mutex_unlock(dso__lock(dso));
+ 	return ret;
+ }
+ 
+diff --git a/tools/perf/util/libdw.c b/tools/perf/util/libdw.c
+index 4ca7e7e4fbe9..c4504cceb313 100644
+--- a/tools/perf/util/libdw.c
++++ b/tools/perf/util/libdw.c
+@@ -35,7 +35,7 @@ struct Dwfl *dso__libdw_dwfl(struct dso *dso)
+ 	if (dwfl)
+ 		return dwfl;
+ 
+-	dso_name = dso__long_name(dso);
++	dso_name = dso__symsrc_filename(dso) ?: dso__long_name(dso);
+ 	/*
+ 	 * Initialize Dwfl session.
+ 	 * We need to open the DSO file to report it to libdw.
+@@ -167,32 +167,41 @@ int libdw__addr2line(u64 addr, char **file, unsigned int *line_nr,
+ 		     struct dso *dso, bool unwind_inlines,
+ 		     struct inline_node *node, struct symbol *sym)
+ {
+-	Dwfl *dwfl = dso__libdw_dwfl(dso);
++	Dwfl *dwfl;
+ 	Dwfl_Module *mod;
+ 	Dwfl_Line *dwline;
+ 	Dwarf_Addr bias;
+ 	const char *src;
+ 	int lineno = 0;
++	int ret = 0;
+ 
++	mutex_lock(dso__lock(dso));
++	dwfl = dso__libdw_dwfl(dso);
+ 	if (!dwfl)
+-		return 0;
++		goto out;
+ 
+ 	mod = dwfl_addrmodule(dwfl, addr);
+-	if (!mod)
+-		return 0;
++	if (!mod) {
++		ret = 0;
++		goto out;
++	}
+ 
+ 	/*
+ 	 * Get/ignore the dwarf information. Determine the bias, difference
+ 	 * between the regular ELF addr2line addresses and those to use with
+ 	 * libdw.
+ 	 */
+-	if (!dwfl_module_getdwarf(mod, &bias))
+-		return 0;
++	if (!dwfl_module_getdwarf(mod, &bias)) {
++		ret = -1;
++		goto out;
++	}
+ 
+ 	/* Find source line information for the address. */
+ 	dwline = dwfl_module_getsrc(mod, addr + bias);
+-	if (!dwline)
+-		return 0;
++	if (!dwline) {
++		ret = -1;
++		goto out;
++	}
+ 
+ 	/* Get line information. */
+ 	src = dwfl_lineinfo(dwline, /*addr=*/NULL, &lineno, /*col=*/NULL, /*mtime=*/NULL,
+@@ -219,7 +228,8 @@ int libdw__addr2line(u64 addr, char **file, unsigned int *line_nr,
+ 				free(*file);
+ 				*file = NULL;
+ 			}
+-			return 0;
++			ret = 0;
++			goto out;
+ 		}
+ 
+ 		/* Walk from the parent down to the leaf. */
+@@ -235,8 +245,13 @@ int libdw__addr2line(u64 addr, char **file, unsigned int *line_nr,
+ 				*file = NULL;
+ 			}
+ 			inline_node__clear_frames(node);
+-			return 0;
++			ret = 0;
++			goto out;
+ 		}
+ 	}
+-	return 1;
 +	ret = 1;
 +
++out:
++	mutex_unlock(dso__lock(dso));
++	return ret;
+ }
+diff --git a/tools/perf/util/srcline.c b/tools/perf/util/srcline.c
+index b082178c279b..e60dea472507 100644
+--- a/tools/perf/util/srcline.c
++++ b/tools/perf/util/srcline.c
+@@ -1,40 +1,48 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include "srcline.h"
++
++#include <inttypes.h>
++#include <stdlib.h>
++#include <string.h>
++
++#include <linux/string.h>
++#include <linux/zalloc.h>
++
+ #include "addr2line.h"
+-#include "dso.h"
+ #include "callchain.h"
++#include "debug.h"
++#include "dso.h"
+ #include "libbfd.h"
++#include "libdw.h"
+ #include "llvm.h"
+ #include "symbol.h"
+-#include "libdw.h"
+-#include "debug.h"
+ #include "util.h"
+ 
+-#include <inttypes.h>
+-#include <string.h>
+-#include <linux/string.h>
+-#include <linux/zalloc.h>
+-
+ bool srcline_full_filename;
+ 
+ char *srcline__unknown = (char *)"??:0";
+ 
+-static const char *srcline_dso_name(struct dso *dso)
++static char *srcline_dso_name(struct dso *dso)
+ {
+ 	const char *dso_name;
++	char *ret = NULL;
+ 
++	mutex_lock(dso__lock(dso));
+ 	if (dso__symsrc_filename(dso))
+ 		dso_name = dso__symsrc_filename(dso);
+ 	else
+ 		dso_name = dso__long_name(dso);
+ 
+ 	if (dso_name[0] == '[')
+-		return NULL;
++		goto out;
+ 
+ 	if (is_perf_pid_map_name(dso_name))
+-		return NULL;
++		goto out;
+ 
+-	return dso_name;
++	ret = strdup(dso_name);
++out:
++	mutex_unlock(dso__lock(dso));
++	return ret;
+ }
+ 
+ int inline_list__append(struct symbol *symbol, char *srcline, struct inline_node *node)
+@@ -258,7 +266,7 @@ char *__get_srcline(struct dso *dso, u64 addr, struct symbol *sym,
+ 	char *file = NULL;
+ 	unsigned line = 0;
+ 	char *srcline;
+-	const char *dso_name;
++	char *dso_name;
+ 
+ 	if (!dso__has_srcline(dso))
+ 		goto out;
+@@ -268,8 +276,11 @@ char *__get_srcline(struct dso *dso, u64 addr, struct symbol *sym,
+ 		goto out_err;
+ 
+ 	if (!addr2line(dso_name, addr, &file, &line, dso,
+-		       unwind_inlines, /*node=*/NULL, sym))
++		       unwind_inlines, /*node=*/NULL, sym)) {
++		free(dso_name);
+ 		goto out_err;
++	}
++	free(dso_name);
+ 
+ 	srcline = srcline_from_fileline(file, line);
+ 	free(file);
+@@ -277,16 +288,20 @@ char *__get_srcline(struct dso *dso, u64 addr, struct symbol *sym,
+ 	if (!srcline)
+ 		goto out_err;
+ 
++	mutex_lock(dso__lock(dso));
+ 	dso__set_a2l_fails(dso, 0);
++	mutex_unlock(dso__lock(dso));
+ 
+ 	return srcline;
+ 
+ out_err:
++	mutex_lock(dso__lock(dso));
+ 	dso__set_a2l_fails(dso, dso__a2l_fails(dso) + 1);
+ 	if (dso__a2l_fails(dso) > A2L_FAIL_LIMIT) {
+ 		dso__set_has_srcline(dso, false);
+ 		dso__free_a2l(dso);
+ 	}
++	mutex_unlock(dso__lock(dso));
  out:
- 	mutex_unlock(dso__lock(dso));
- 	return ret;
+ 	if (!show_addr)
+ 		return (show_sym && sym) ?
+@@ -305,7 +320,7 @@ char *__get_srcline(struct dso *dso, u64 addr, struct symbol *sym,
+ char *get_srcline_split(struct dso *dso, u64 addr, unsigned *line)
+ {
+ 	char *file = NULL;
+-	const char *dso_name;
++	char *dso_name;
+ 
+ 	if (!dso__has_srcline(dso))
+ 		return NULL;
+@@ -315,18 +330,25 @@ char *get_srcline_split(struct dso *dso, u64 addr, unsigned *line)
+ 		goto out_err;
+ 
+ 	if (!addr2line(dso_name, addr, &file, line, dso, /*unwind_inlines=*/true,
+-			/*node=*/NULL, /*sym=*/NULL))
++			/*node=*/NULL, /*sym=*/NULL)) {
++		free(dso_name);
+ 		goto out_err;
++	}
++	free(dso_name);
+ 
++	mutex_lock(dso__lock(dso));
+ 	dso__set_a2l_fails(dso, 0);
++	mutex_unlock(dso__lock(dso));
+ 	return file;
+ 
+ out_err:
++	mutex_lock(dso__lock(dso));
+ 	dso__set_a2l_fails(dso, dso__a2l_fails(dso) + 1);
+ 	if (dso__a2l_fails(dso) > A2L_FAIL_LIMIT) {
+ 		dso__set_has_srcline(dso, false);
+ 		dso__free_a2l(dso);
+ 	}
++	mutex_unlock(dso__lock(dso));
+ 
+ 	return NULL;
+ }
+@@ -420,13 +442,16 @@ void srcline__tree_delete(struct rb_root_cached *tree)
+ struct inline_node *dso__parse_addr_inlines(struct dso *dso, u64 addr,
+ 					    struct symbol *sym)
+ {
+-	const char *dso_name;
++	char *dso_name;
++	struct inline_node *node;
+ 
+ 	dso_name = srcline_dso_name(dso);
+ 	if (dso_name == NULL)
+ 		return NULL;
+ 
+-	return addr2inlines(dso_name, addr, dso, sym);
++	node = addr2inlines(dso_name, addr, dso, sym);
++	free(dso_name);
++	return node;
+ }
+ 
+ void inline_node__clear_frames(struct inline_node *node)
+diff --git a/tools/perf/util/unwind-libdw.c b/tools/perf/util/unwind-libdw.c
+index ebea101e1001..4ccfcc7c2dfc 100644
+--- a/tools/perf/util/unwind-libdw.c
++++ b/tools/perf/util/unwind-libdw.c
+@@ -42,8 +42,10 @@ static int __find_debuginfo(Dwfl_Module *mod __maybe_unused, void **userdata,
+ 	const struct dso *dso = *userdata;
+ 
+ 	assert(dso);
++	mutex_lock(dso__lock((struct dso *)dso));
+ 	if (dso__symsrc_filename(dso) && strcmp(file_name, dso__symsrc_filename(dso)))
+ 		*debuginfo_file_name = strdup(dso__symsrc_filename(dso));
++	mutex_unlock(dso__lock((struct dso *)dso));
+ 	return -1;
+ }
+ 
+diff --git a/tools/perf/util/unwind-libunwind.c b/tools/perf/util/unwind-libunwind.c
+index 73d191ce51a5..3bccab303282 100644
+--- a/tools/perf/util/unwind-libunwind.c
++++ b/tools/perf/util/unwind-libunwind.c
+@@ -1,20 +1,26 @@
+ // SPDX-License-Identifier: GPL-2.0
++#include "unwind.h"
++
++#include <inttypes.h>
++#include <stdlib.h>
++#include <string.h>
++
++#include <elf.h>
++#include <fcntl.h>
++#include <gelf.h>
++
++#include <dwarf-regs.h>
++
+ #include "callchain.h"
+ #include "debug.h"
+ #include "dso.h"
+ #include "env.h"
++#include "libunwind-arch/libunwind-arch.h"
+ #include "map.h"
+ #include "perf_regs.h"
+ #include "session.h"
+ #include "symbol.h"
+ #include "thread.h"
+-#include "unwind.h"
+-#include "libunwind-arch/libunwind-arch.h"
+-#include <dwarf-regs.h>
+-#include <elf.h>
+-#include <fcntl.h>
+-#include <gelf.h>
+-#include <inttypes.h>
+ 
+ #define DW_EH_PE_FORMAT_MASK	0x0f	/* format of the encoded value */
+ #define DW_EH_PE_APPL_MASK	0x70	/* how the value is to be applied */
+@@ -293,10 +299,19 @@ static int read_unwind_spec_debug_frame(struct dso *dso,
+ 		}
+ 
+ 		if (ofs <= 0) {
+-			fd = open(dso__symsrc_filename(dso), O_RDONLY);
+-			if (fd >= 0) {
+-				ofs = elf_section_offset(fd, ".debug_frame");
+-				close(fd);
++			char *alloc_name;
++
++			mutex_lock(dso__lock(dso));
++			alloc_name = dso__symsrc_filename(dso) ?
++					strdup(dso__symsrc_filename(dso)) : NULL;
++			mutex_unlock(dso__lock(dso));
++			if (alloc_name) {
++				fd = open(alloc_name, O_RDONLY);
++				if (fd >= 0) {
++					ofs = elf_section_offset(fd, ".debug_frame");
++					close(fd);
++				}
++				free(alloc_name);
+ 			}
+ 		}
+ 
+@@ -321,6 +336,7 @@ static int read_unwind_spec_debug_frame(struct dso *dso,
+ 				}
+ 			}
+ 			if (ofs > 0) {
++				mutex_lock(dso__lock(dso));
+ 				if (dso__symsrc_filename(dso) != NULL) {
+ 					pr_warning(
+ 						"%s: overwrite symsrc(%s,%s)\n",
+@@ -330,6 +346,7 @@ static int read_unwind_spec_debug_frame(struct dso *dso,
+ 					dso__free_symsrc_filename(dso);
+ 				}
+ 				dso__set_symsrc_filename(dso, debuglink);
++				mutex_unlock(dso__lock(dso));
+ 			} else {
+ 				free(debuglink);
+ 			}
+@@ -429,12 +446,23 @@ int __libunwind__find_proc_info(void *as, uint64_t ip, void *pi, int need_unwind
+ 			dso__data_put_fd(dso);
+ 		}
+ 
+-		symfile = dso__symsrc_filename(dso) ?: dso__name(dso);
+-
+-		if (libunwind_arch__dwarf_find_debug_frame(ui->e_machine, /*found=*/0, &di, ip,
+-							   base, symfile, start, map__end(map))) {
+-			ret = libunwind_arch__dwarf_search_unwind_table(ui->e_machine, as, ip, &di, pi,
+-									need_unwind_info, arg);
++		mutex_lock(dso__lock(dso));
++		symfile = dso__symsrc_filename(dso) ?
++				strdup(dso__symsrc_filename(dso)) :
++				strdup(dso__name(dso));
++		mutex_unlock(dso__lock(dso));
++
++		if (symfile) {
++			if (libunwind_arch__dwarf_find_debug_frame(ui->e_machine,
++								   /*found=*/0, &di, ip,
++								   base, symfile, start,
++								   map__end(map))) {
++				ret = libunwind_arch__dwarf_search_unwind_table(ui->e_machine, as,
++										ip, &di, pi,
++										need_unwind_info,
++										arg);
++			}
++			free((char *)symfile);
+ 		}
+ 	}
+ 	map__put(map);
 -- 
 2.55.0.1032.g73a4cd73de-goog
 
