@@ -1,136 +1,346 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD49B4EBAD6;
-	Wed, 16 Sep 2026 11:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789559844; cv=none; b=Nacdnwb38c5sdmwVT6H36fVVPneEZWLc0T4DtjcfIjGx5U+CJ0006kwGXWlGrAKb30GQEsm3Zw527w+T8EdgU5INX/MzLjDIwtNJDuC82IidnbMRVRemLCoiDuibqjnyeo6eHk1yzcxGYR337MMMukqS+lIxjjdkgiF24U3oU6s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789559844; c=relaxed/simple;
-	bh=+LtRmbxwd85RdYqmHNnNzjoHFPg6PgK4hUBdyvizWwA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nJdgJ8X3K3rNtA4TapGl1qx9iQKTWC6YtEuZ4WWOG24jg6VSnUOj7az/zTS+0Tnl5gQjcr3ZXv9KFFpLRs+FPk9hEPUYFDEPJM6NqT75o8IAcDti/Fd3bXm0jBs0gk940Z2ucM2FZ1sCc6cy2WfCq0RxQLBtt1oz0Zb1tIIUaT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CzeCY7Vq; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA204E3EF7;
+	Wed, 16 Sep 2026 11:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789559870; cv=fail; b=SWMRYl2IkdVGR3ch1QT4vG5gqdKhZWiXmSMLvD5S2KOY177OU5kXaLVeEm/wuXc5BEiEbQt/Q2yTj1X5weGPDQMEkN8+qwue7CI23gwssh9yu+W7akn6gdYZGTnUukoQPlnQ+PPYL2IPyML76M6TZ5VwMW5ZseJfBFC9TUJPFtk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789559870; c=relaxed/simple;
+	bh=woqbs4X1y1xY7vnSm59CXkT9eRCp7XBnc7O+RtawlVs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JY0Y1/N6sbQIlPiySq1owryFYgCnp+oMsV9xus7rThEO3vzZyrLDAlKEHHNanpfdYe/WqeNZb+zcpP1te9GuiqPkUnDTa0mcLRID1c3vKzuPVRenYgXb/UTR3JA9He3YP+8KcFAp7uDh+68SlYOs8LN9F0A3WVaYA65c188EAM8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QV15anIu; arc=fail smtp.client-ip=52.101.57.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CzeCY7Vq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 469821F000FF;
-	Wed, 16 Sep 2026 11:57:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789559838;
-	bh=jQzahxlR3x5lfRUGFf42Mhc85kasPW7Fz63+sfAlGVg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CzeCY7Vquq8rG8pevEn4vuQ3aKfYpKYwRBBA3CBuWRgrOD86Bfgk52M/9M4lHidsr
-	 uM2cIk+MB5/BbTEEe3gd0cvfPiQP0wjIetkiM+VjsP2lfuidtgPoJrCk3v15PBrUfp
-	 PBIoQos5KZ+1md8DGnXN5bMEKAAHsYTNlCYTm0nixARBx78ALGq0VMRSTZuLagred7
-	 QV3YtETijFpKLZiE4sXnfJmbm5TrQD6YN/GMY6Cz6O3JzXSRLOZYzyfUq2r4zsQUrE
-	 6HgZYNWOF8jlTsTVTFaGA2768cBjQu8kajwbdQ9GzCBszn/8esOZLO16UuhXyi5HbV
-	 mdwW8JBre3gPQ==
-Date: Wed, 16 Sep 2026 12:57:12 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Cc: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, robh@kernel.org,
-	Saikiran <bjsaikiran@gmail.com>, monish.chunara@oss.qualcomm.com,
-	nitin.rawat@oss.qualcomm.com,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	lgirdwood@gmail.com, andersson@kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	krzk+dt@kernel.org, devicetree@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>
-Subject: Re: [PATCH v3 0/2] regulator: qcom-rpmh: Add off-on-delay support
-Message-ID: <0d17ef87-0b95-43cf-809d-7d28d3e29afe@sirena.org.uk>
-References: <20260127190211.14312-1-bjsaikiran@gmail.com>
- <20260515111647.qg75thdvcbvvjpoi@hu-kamalw-hyd.qualcomm.com>
- <06a264d0-6a14-4b71-b783-82b771f04411@oss.qualcomm.com>
- <oa3okt7mdhoqmrebwim5yswarbcacbmhpwfvqbhtv6ib3cwrwi@ddox6mw3uhmy>
- <0d4fa333-df22-42b9-b9c2-ccb43ac4fac3@oss.qualcomm.com>
- <3pybhkqdvve2ct6burnhav3utis6nljz7ncheqcrs7v55ullz4@nek57empeoca>
- <086f8e7c-0afa-45d5-bdb2-54ac5f79eefa@sirena.org.uk>
- <xmjovrqonged7m77zlx4gbz6xvfksygbw7g4vgv2stlucvqoy6@uie3qdhdtkoe>
- <aqg-JSTrbg-xR69l@sirena.org.uk>
- <5ff87d08-c263-4b9d-a18d-c8da8fc0de1a@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QV15anIu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e0hZQz2ly2aua2Z6ZGSh2w8G4Zwdd2zHDTyQNsPDeFJzZlb2avbBchHKRIOXzb49t7PxXqjLsMnzaMkk7mtwLM/MSNG/eUN2YuY2ZjLWnUIN6CNpo7+P9bHMduW9QiimGvNdsENfL4rP7XU8SjESAlIS89+aNYuw3/pWQ6YPX4O/Le0v01N/nKbEqP5EvHAXEXNM9Bl+TIqlTdwyCvWqusFJc8zKV9cFp0cUeeDx4gcQG4kMUHZCmrAH4HFysNBh7NJxP6vQnz15BJLDXqb5dasTR6R7xkNDD2KaeaPd0tU3D84yPwr+wql95dkgOJ8jwja4q4z8aClhEF0etnpgzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0HUBrkcanKP7HSIPLpfduG1GgH85AS/UaJthCpuaLQk=;
+ b=PrcPtrvkgZBxuroIXC3TwasdGTxB/zfCXaknrPstK9/nn4DlIj4O3R46UmNjnE867EfRv87KVb+2+Ek6ExiZpz7H8KRK4Hp/rd6houOy+BH3W6EGiNGWI0Htqi3pTKjCvEv+ORDwONTxWGFFruqHaPMmV/LYCrjxKk+9zuDq81ZZ1Yg8DUkF5yuN4WTtg/Q007QLbOotsJvTU/OrPBQ4CF4HhO8SrRPlwIVcO+LU6NomEqyucPb9dSQTcbXuFyJPgpOb2k/vCCyUfPFO/6nV7egXG099zN1XXTFcnsgDQHgRbdDQdp8IKy3F1aG7F0mGze8isCWRW55dZbgpRO1N2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0HUBrkcanKP7HSIPLpfduG1GgH85AS/UaJthCpuaLQk=;
+ b=QV15anIuuHWTYLolbBMi91et8XL9OGeDIsQrAoRT8BFl+I1U6jsdYMCz49LJNt/7euLhofzeBxsUagwjxE1osQAWRXh/yDwOPP8f0+3eJxyytEMzYqrift3pJO6sgoiae6d2gbRDI9fDDd2DheM97h8Gm6RT6vrDPpzLS43byX0=
+Received: from BN9PR03CA0273.namprd03.prod.outlook.com (2603:10b6:408:f5::8)
+ by DS0PR12MB999311.namprd12.prod.outlook.com (2603:10b6:8:42c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 11:57:34 +0000
+Received: from BN1PEPF0001854A.namprd05.prod.outlook.com
+ (2603:10b6:408:f5:cafe::a5) by BN9PR03CA0273.outlook.office365.com
+ (2603:10b6:408:f5::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 16
+ Sep 2026 11:57:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF0001854A.mail.protection.outlook.com (10.167.248.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 11:57:33 +0000
+Received: from aiemdee.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
+ 2026 06:57:10 -0500
+From: Alexey Kardashevskiy <aik@amd.com>
+To: <x86@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+	<linux-crypto@vger.kernel.org>, <linux-pci@vger.kernel.org>, Thomas Gleixner
+	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin"
+	<hpa@zytor.com>, Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+	<pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
+	<peterz@infradead.org>, Ashish Kalra <ashish.kalra@amd.com>, Tom Lendacky
+	<thomas.lendacky@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>, "David
+ S. Miller" <davem@davemloft.net>, Bjorn Helgaas <bhelgaas@google.com>,
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, "Andrew
+ Morton" <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, "Suren
+ Baghdasaryan" <surenb@google.com>, Michal Hocko <mhocko@suse.com>, "Catalin
+ Marinas" <catalin.marinas@arm.com>, Jini Susan George
+	<jinisusan.george@amd.com>, Kees Cook <kees@kernel.org>, Michael Ellerman
+	<mpe@ellerman.id.au>, Nikunj A Dadhania <nikunj@amd.com>, Ard Biesheuvel
+	<ardb@kernel.org>, Eric Biggers <ebiggers@kernel.org>, Kim Phillips
+	<kim.phillips@amd.com>, Joerg Roedel <jroedel@suse.de>, Ethan Nelson-Moore
+	<enelsonmoore@gmail.com>, "Tycho Andersen (AMD)" <tycho@kernel.org>, "Liam
+ Merwick" <liam.merwick@oracle.com>, Michael Kerrisk <mtk.manpages@gmail.com>,
+	Suresh Siddha <suresh.b.siddha@intel.com>, Xiaotian Feng <dfeng@redhat.com>,
+	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>, Andi Kleen
+	<ak@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>, Tony Luck
+	<tony.luck@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Lu Baolu
+	<baolu.lu@linux.intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>, Jonathan Cameron
+	<jic23@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>, Ian Campbell
+	<ian.campbell@citrix.com>, Jeremy Fitzhardinge
+	<jeremy.fitzhardinge@citrix.com>, Petr Tesarik <ptesarik@suse.com>, "David
+ Howells" <dhowells@redhat.com>, Haavard Skinnemoen <hskinnemoen@atmel.com>,
+	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, "Christian
+ Marangi" <ansuelsmth@gmail.com>, Dave Jiang <dave.jiang@intel.com>, "Michael
+ Kelley" <mhklinux@outlook.com>, Ilias Stamatis <ilstam@amazon.com>, "Sumanth
+ Korikkar" <sumanthk@linux.ibm.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+	Toshi Kani <toshi.kani@hp.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Vinod Koul <vkoul@kernel.org>, Jiang Liu
+	<jiang.liu@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>, Anshuman Khandual
+	<anshuman.khandual@arm.com>, Kefeng Wang <wangkefeng.wang@huawei.com>,
+	"Palmer Dabbelt" <palmerdabbelt@google.com>, <linux-coco@lists.linux.dev>,
+	<xen-devel@lists.xenproject.org>, <iommu@lists.linux.dev>,
+	<linux-mm@kvack.org>, Alexey Kardashevskiy <aik@amd.com>, <aik@ozlabs.ru>,
+	Santosh Shukla <santosh.shukla@amd.com>, "Pratik R . Sampat"
+	<prsampat@amd.com>, Scott Soule Cheloha <scott.cheloha@amd.com>, Ackerley Tng
+	<ackerleytng@google.com>, Fuad Tabba <tabba@google.com>
+Subject: [RFC PATCH kernel 08/17] x86/dma: Add ARCH_HAS_PHYS_TO_DMA
+Date: Wed, 16 Sep 2026 21:51:48 +1000
+Message-ID: <20260916115159.1938195-9-aik@amd.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916115159.1938195-1-aik@amd.com>
+References: <20260916115159.1938195-1-aik@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LeMdaFtY1wIgmB0+"
-Content-Disposition: inline
-In-Reply-To: <5ff87d08-c263-4b9d-a18d-c8da8fc0de1a@oss.qualcomm.com>
-X-Cookie: Double!
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0001854A:EE_|DS0PR12MB999311:EE_
+X-MS-Office365-Filtering-Correlation-Id: 812fd5a2-86d9-4479-97f7-08df13e9b1af
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|32650700020|82310400026|23010399003|7416014|10067099003|18002099003|22082099003|5023799004|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	er94ITmWcnhrxhyFDFF8CA+wo3OcaYsqyrxyg8FsjvHuU9hbYcOn8yKJ8P9I9a6kAmssaycN1S60pGL/85Hz40P2Y07GKdnLBbE5aVSU7yKOJVYRTTzYDXONwHdAkp4KT9WaO9miG8qHfYuT8tRDj9n/p3qkJ75f0No+LFoexZJT0FCSK4OkfEYmH+fAvHNKjTnPnRHf0yQkY9i/YusrSpYYzODNqRZr9mSzV0nji0rDuy+fePlMkEe84ddhFFrHerpO/T9UwzZzahF42KDd8jGb89oWkRgq4U3qITSWdUMaHAvuY0MiukKz5gIr7Fa6tE2IXZjjtFFppFObdpCvVX5cZaK8u7l0CTjr9W1wQSxnnW0QeATbOVHQ5x4Jh3cGweFoRUKk95W2kDUXQUYF+EAiXIKtRxuquILQfmN6CiR0qsZFtwaGlJbR0uxNpf2jwx/v1J4eBfVBXKJ0r/QgOdEeimbiCSdIN8ORGcl6HEHuuiZGCLNsR8f73a7pkW6ZLDDfMRpc7B+ErLCTbDprdxhqK0aojQFf0Rc77jk3pAO4gZEHm89HDWrJGQHGfnFhwpcs96sYMG7HdFlD8COwEtJahgr9ul2CHc3td1kr4/4ek+EHfVg2qGB6XMCprqcVrjFXZw0tpKqFIjfEFFDaI7erOOMW8RRzdbL4T0DsJE18W7TTmtoOq2zYwB7ISP025qzd68WvKg7mhqXECJaxIw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(32650700020)(82310400026)(23010399003)(7416014)(10067099003)(18002099003)(22082099003)(5023799004)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Xt8sxNe21lwjTxCXMGse61wsz1HS5p7ZKAo4SfcdIkscuki7ds9IMSFXyuuHN+Rg+VAhJUDrULObfgnn2VVL75R3iStKXUY9kz1rH7C1OsEqT8PoH4W1aZrtox1ncrsG0LrgtMBr26FsKZgIni2keOEhhePVCe6WdFNrvJiLvQc9+VjtariGQ7y3M4iWyhQ29Zv5Vb8wUVIxiTEbZG7DVUzklH6KkbaFTdKBN4vSElKdJpOCIRl5LXgc03N5ZU58szdchfEgu1UsZJHbepmej50F+lrCm9Qb6F/HCmbkeSnaZWyEi6py/kqp8aRxZG8HdFi9quOamRi9EJ/lnCCmYXeEUwVx1FPKJrvDcXbArM+19SO/QbwysihNi7dbyYmLtw6MhD9o3UVYuFrCeP14A+jA1e6swbl/L5+yd+QuSCtmJRdIIsSwR3q/GNxmLRgq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 11:57:33.8747
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 812fd5a2-86d9-4479-97f7-08df13e9b1af
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0001854A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999311
 
+Confidential VMs work with both trusted and legacy (untrusted devices).
+The trusted devices allow DMA to/from encrypted guest memory while legacy
+devices have to use SWIOTLB or share pages for DMA.
 
---LeMdaFtY1wIgmB0+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In case of P2P between trusted and legacy devices, the trusted device has
+to perform DMA with T=1 (a PCIe IDE TLP bit saying "encrypt") but the target
+may be shared.
 
-On Wed, Sep 16, 2026 at 01:35:09PM +0530, Jishnu Prakash wrote:
-> On 9/15/2026 12:04 AM, Mark Brown wrote:
-> > On Wed, Sep 09, 2026 at 02:34:21AM +0530, Kamal Wadhwa wrote:
+One way of allowing the above on AMD SEV is using IOMMU sDTE vTOM feature
+which is a bus address:
+- below that address all accesses target private guest memory;
+- above - shared memory.
 
-> >> 3. If we can avoid turning the regulator off itself, so we may not nee=
-d this delay
-> >=20
-> >> point 3 - We evaluated this for UFS - but the problem is that the issu=
-e happens in
-> >> the defer probe path, so if we avoid turning off the regulator, it lea=
-ds to long
-> >> error prints appearing for the regulator being left ON. So we couldn't=
- take that
-> >> path.
+Effectively this adds some high bit in a DMA handle to mark "shared" (on
+AMD).
 
-> > I think Rob might be thinking here of something like the runtime PM
-> > autosuspend delay where once the final reference is dropped we wait some
-> > time before we actually implement the power off in hardware, thus a
-> > quick power cycle would never actually get implemented.  That does sound
-> > like a good idea if we've got issues with quick cycling, obviously the
-> > actual delay would still be needed but if you've got quick bounces
-> > happening routinely then a delay like that would allow you to avoid both
-> > power off and ramp delays.
+Copy the generic phys_to_dma / dma_to_phys helpers from
+include/linux/dma-direct.h into arch/x86/include/asm/dma-direct.h and
+select ARCH_HAS_PHYS_TO_DMA for x86.
 
-> I'm working with Kamal for upstreaming this series.
+The x86 implementation is the same as the generic code for
+__phys_to_dma, dma_range_map handling, and SME encryption, with two
+additions for confidential devices:
+ - cc_shared_dma_offset and cc_private_dma_offset in dev_archdata
+ - when TDI is accepted is true, phys_to_dma() adds the shared or
+   private offset (selected by DMA_ATTR_CC_SHARED), and dma_to_phys()
+   subtracts it on the way back
 
-> If I understand you correctly, instead of the approach in this driver
-> change (only setting the existing variable "off_on_delay"), you prefer
-> having a sequence somewhat like this:
+phys_to_dma() also gains an attrs argument so dma_capable() and swiotlb can
+pass mapping attributes through. Update the call sites accordingly.
 
-> 1. Regulator (if configured in DT for this new behaviour) gets disable
->    vote from its last enabled consumer
-> 2. Delay timer is started
-> 3. If regulator gets enable vote before timer expires (quick bounce),
->    clear timer and return without touching regulator HW
-> 4. Else, disable regulator when timer expires
+Signed-off-by: Alexey Kardashevskiy <aik@amd.com>
+---
 
-> Is this what you meant?
+DMA_ATTR_CC_SHARED or __DMA_ATTR_ALLOC_CC_SHARED?
+---
+ arch/x86/Kconfig                  |  1 +
+ arch/x86/include/asm/device.h     |  2 +
+ arch/x86/include/asm/dma-direct.h | 77 ++++++++++++++++++++
+ include/linux/dma-direct.h        |  2 +-
+ drivers/xen/swiotlb-xen.c         |  2 +-
+ kernel/dma/swiotlb.c              |  2 +-
+ 6 files changed, 83 insertions(+), 3 deletions(-)
 
-That's what I understand Rob's suggestion to be.  Like I say that would
-still need any minimum off time enforcement.
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 15fd9ec5ecac..c4df431e74b2 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -112,6 +112,7 @@ config X86
+ 	select ARCH_HAS_UBSAN
+ 	select ARCH_HAS_DEBUG_WX
+ 	select ARCH_HAS_ZONE_DMA_SET if EXPERT
++	select ARCH_HAS_PHYS_TO_DMA
+ 	select ARCH_HAVE_NMI_SAFE_CMPXCHG
+ 	select ARCH_HAVE_EXTRA_ELF_NOTES
+ 	select ARCH_MEMORY_ORDER_TSO
+diff --git a/arch/x86/include/asm/device.h b/arch/x86/include/asm/device.h
+index 7c0a52ca2f4d..0dbc2c125522 100644
+--- a/arch/x86/include/asm/device.h
++++ b/arch/x86/include/asm/device.h
+@@ -3,6 +3,8 @@
+ #define _ASM_X86_DEVICE_H
+ 
+ struct dev_archdata {
++	dma_addr_t cc_shared_dma_offset;
++	dma_addr_t cc_private_dma_offset;
+ };
+ 
+ struct pdev_archdata {
+diff --git a/arch/x86/include/asm/dma-direct.h b/arch/x86/include/asm/dma-direct.h
+new file mode 100644
+index 000000000000..37074c87bbec
+--- /dev/null
++++ b/arch/x86/include/asm/dma-direct.h
+@@ -0,0 +1,77 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef ASM_X86_DMA_DIRECT_H
++#define ASM_X86_DMA_DIRECT_H 1
++
++#include <linux/pci-tsm.h>
++
++static inline dma_addr_t __phys_to_dma(struct device *dev, phys_addr_t paddr)
++{
++	if (dev->dma_range_map)
++		return translate_phys_to_dma(dev, paddr);
++
++	return paddr;
++}
++
++static inline bool __device_cc_accepted(struct device *dev)
++{
++	if (!dev || !dev_is_pci(dev) || !to_pci_dev(dev)->tsm)
++		return false;
++
++	return test_bit(PCI_TSM_F_ACCEPT, &to_pci_dev(dev)->tsm->flags);
++}
++
++static inline dma_addr_t phys_to_dma(struct device *dev, phys_addr_t paddr, unsigned long attrs)
++{
++	if (__device_cc_accepted(dev)) {
++		if (attrs & DMA_ATTR_CC_SHARED)
++			return __phys_to_dma(dev, paddr) + dev->archdata.cc_shared_dma_offset;
++
++		return __phys_to_dma(dev, paddr) + dev->archdata.cc_private_dma_offset;
++	}
++
++	return dma_addr_encrypted(__phys_to_dma(dev, paddr));
++}
++
++static inline phys_addr_t dma_to_phys(struct device *dev, dma_addr_t daddr)
++{
++	phys_addr_t paddr;
++
++	if (__device_cc_accepted(dev)) {
++		if (dev->archdata.cc_shared_dma_offset &&
++		    daddr >= dev->archdata.cc_shared_dma_offset)
++			return daddr - dev->archdata.cc_shared_dma_offset;
++
++		if (dev->archdata.cc_private_dma_offset &&
++		    daddr >= dev->archdata.cc_private_dma_offset)
++			return daddr - dev->archdata.cc_private_dma_offset;
++	}
++
++	daddr = dma_addr_canonical(daddr);
++	if (dev->dma_range_map)
++		paddr = translate_dma_to_phys(dev, daddr);
++	else
++		paddr = daddr;
++
++	return paddr;
++}
++
++static inline dma_addr_t phys_to_dma_unencrypted(struct device *dev, phys_addr_t paddr)
++{
++	if (__device_cc_accepted(dev))
++		return __phys_to_dma(dev, paddr) + dev->archdata.cc_shared_dma_offset;
++
++	return dma_addr_unencrypted(__phys_to_dma(dev, paddr));
++}
++
++static inline dma_addr_t phys_to_dma_encrypted(struct device *dev, phys_addr_t paddr)
++{
++	if (__device_cc_accepted(dev))
++		return __phys_to_dma(dev, paddr) + dev->archdata.cc_private_dma_offset;
++
++	return dma_addr_encrypted(__phys_to_dma(dev, paddr));
++}
++
++#define phys_to_dma_unencrypted phys_to_dma_unencrypted
++#define phys_to_dma_encrypted phys_to_dma_encrypted
++
++#endif /* ASM_X86_DMA_DIRECT_H */
+diff --git a/include/linux/dma-direct.h b/include/linux/dma-direct.h
+index daa31a1adf7b..616b66ccf322 100644
+--- a/include/linux/dma-direct.h
++++ b/include/linux/dma-direct.h
+@@ -150,7 +150,7 @@ static inline bool dma_capable(struct device *dev, dma_addr_t addr, size_t size,
+ 		return false;
+ 
+ 	if (is_ram && !IS_ENABLED(CONFIG_ARCH_DMA_ADDR_T_64BIT) &&
+-	    min(addr, end) < phys_to_dma(dev, PFN_PHYS(min_low_pfn)))
++	    min(addr, end) < phys_to_dma(dev, PFN_PHYS(min_low_pfn), attrs))
+ 		return false;
+ 
+ 	return end <= min_not_zero(*dev->dma_mask, dev->bus_dma_limit);
+diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+index e2538824ef52..915c174f8b56 100644
+--- a/drivers/xen/swiotlb-xen.c
++++ b/drivers/xen/swiotlb-xen.c
+@@ -55,7 +55,7 @@ static inline phys_addr_t xen_phys_to_bus(struct device *dev, phys_addr_t paddr)
+ 
+ static inline dma_addr_t xen_phys_to_dma(struct device *dev, phys_addr_t paddr)
+ {
+-	return phys_to_dma(dev, xen_phys_to_bus(dev, paddr));
++	return phys_to_dma(dev, xen_phys_to_bus(dev, paddr), 0);
+ }
+ 
+ static inline phys_addr_t xen_bus_to_phys(struct device *dev,
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index ded7016a46a7..d7c7d15740ae 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -1764,7 +1764,7 @@ dma_addr_t swiotlb_map(struct device *dev, phys_addr_t paddr, size_t size,
+ 	phys_addr_t swiotlb_addr;
+ 	dma_addr_t dma_addr;
+ 
+-	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr), size);
++	trace_swiotlb_bounced(dev, phys_to_dma(dev, paddr, attrs), size);
+ 
+ 	swiotlb_addr = swiotlb_tbl_map_single(dev, paddr, size, 0, dir, &attrs);
+ 	if (swiotlb_addr == (phys_addr_t)DMA_MAPPING_ERROR)
+-- 
+2.55.0
 
->=20
-> If the above sequence is right, where would you prefer it to be
-> implemented, in the regulator core file or our regulator driver file?
->=20
-> Thanks,
-> Jishnu
->=20
-
---LeMdaFtY1wIgmB0+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqqhBcACgkQJNaLcl1U
-h9Dg7Qf+Nu0Ohhyx39SLlpNPUCtloq/bocXVOAPu0oHRlGJcdbIIvKOT3suv9m7s
-jDmVLB04vLD34rkO5oBZi+ZNWGYNuEnnMwONuAq1Hw7AmyZP1xch/mFk7cHvdNcD
-qs3r+fvbLHq83wSCaGrd39ViSRiEv9jHjOiM4cP4GM6nlryJUv/aDUKWVwC24Wjv
-Ug/EaGtvYAPD5TVptB1Az8ZyX13PDZluns6hGtPNZbGk8g9mUVrp5kvGzYfayzxY
-P4llxftv/jA5XgbAPxAYRWBK2yvNhWEsadg0zwddAIzg/DNYkNb85a0ARxFgs4tN
-m0xv4QhnrBf7ISm4Q17HPBGbdKzEmg==
-=Klo0
------END PGP SIGNATURE-----
-
---LeMdaFtY1wIgmB0+--
