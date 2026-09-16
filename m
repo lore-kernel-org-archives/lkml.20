@@ -1,150 +1,271 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806B834BA42;
-	Wed, 16 Sep 2026 14:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE0334F27F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570053; cv=none; b=WvpQ87wFZ+cLptofIqngGVuPSEF7EWLJwydi337VLpZFnNx21wAWHXLAxSSk4OmdvIGXSEjHtt1GFb+yhMabIKf0bUNeTrSc3mU55peKLb0vX+oKXlgcV7K8Io334YvA5uFscWbiJSrPJ0JDgmFOwj5AZgknobQkxe0PFvo86z8=
+	t=1789570054; cv=none; b=o4cgSiCzLbRjpEUPVUfIl39oihWS0l+LPB8pAPOrBxKPW1Mqjd6K9Bs5RrHXgGb1oehGbdMalnaiuuSX+Nr1xKJ/TqBXORMBsda3TAnTMoLC6E+XvqhdScDdLx/tHCSWISJ8TQ6lnC/DJlK70GGVNXxtJYKKLwkayeNfIJSaVkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570053; c=relaxed/simple;
-	bh=7yWzwBFvf5ZnG2jt1gGj+ESSg2SyZdkgKqtfTpjBQ5M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GQ9p5LsJQfuYDfPsS0RGKyApOfmi880zfzne7tfO6h5SH99n+UUUQuJ9rK+i7/DyIrGDJj/VXdRgbAc69UbFcRfwfmaonGq4o4WWwqqRNc28md7Z7X2iSDVzQgSlVw+cwJyYJfmxxqNNHaXmnJTdE+LHAw4Bj5Wqg91GJYUJ4fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESfNYJff; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789570054; c=relaxed/simple;
+	bh=lV61vs9JQIXl38QxVWcMXNAs0mu8Nv86ErgGTYp+mDc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=b352MiBKoauYSaI3PxQ8vbBEIvJHl3ac2jSB+v7+bW9gC0W0yQDZ2W6S+KkGX910sQpUlO4mMAvxqmIZ4rxN1XV77EdSi3MTWRdzXHzgylKvEfdvwuPdtB756zGwpgeMT+bddAvVcJM30LuWSlJW/qXHUwZa1mINygaEAbCOJow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MPrS5gAR; arc=none smtp.client-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESfNYJff"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E8D21F00898;
-	Wed, 16 Sep 2026 14:47:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789570052;
-	bh=nEwQ5laeGMbsqBGqeW1j1B+pVXcHOGrBCoV3rMszFqI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ESfNYJff1sk7IiuwwG3HvTPMmCGAx8UgjOjjnCy2TviZOIYSqWqg0sdwtZLMQ4SFB
-	 GyQc6zB66KFJ3Hi63acec2mkm3/wskIaQUWVvFemdJFFUL1G7AfAM8FQYe7cuyIbHB
-	 miyVE3hyVQL8kdra34J+OCKDwWqkJmxHNhFMtUeYQ1viY/hUvEL0XJvzopfNZi1HSQ
-	 A4bpEm24o23fCoTayuANP3RG7p91ZWCy73UOFpsXrGlDJhyXXuUUk57L8Td1dVTqGE
-	 QqMx7zWctlVHg2zHVM5GFk/JJcNw4M0KV7vjs9yEPLrAQdLvmK0jdT5zjbjd0ikjFM
-	 Zz70PSLp81qDA==
-Date: Wed, 16 Sep 2026 16:47:29 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
-	Xu Kuohai <xukuohai@huaweicloud.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
- for reader-marked trampolines
-Message-ID: <aqqsAUVV8a1yrQzX@localhost.localdomain>
-References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
- <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com>
- <aqlgxKGk_AEKls_1@localhost.localdomain>
- <edc7cca2-a5c5-455c-8969-ea05dbdb08f7@paulmck-laptop>
- <aqqONH8flTIpOUqT@localhost.localdomain>
- <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
- <aqqpRoTfywUuTgoC@localhost.localdomain>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MPrS5gAR"
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6a6735afb87so5853341a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789570051; x=1790174851; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GBPfJ5mOgmXCGpvBT7L71rofeWFO21wBMVUvFZChAjM=;
+        b=MPrS5gARbs9tigTMJ8B1plfxWjSvusBNi+4EtWfufNnlbqP7Fa/PaeuP7c8gqC/VAT
+         2dYCysljRrS0wmaLYrn86RVZJGiJiSNJkvANz5W+EbazOdUINTHBfGtEPi8VWdKiLlT9
+         N9qAiU0iHuwLfohhz3y4GYm7asIi6BH46GtJ3QjErBEy/hPQwdcFKDk/o28jgW92QxZ7
+         WZgxj7CTtwmx03F0CK5mO5Fvu+Jxk7+MlJYUIHnM84uPd+XjfrSz6mjcpG4+oOhEh/y/
+         aQLiX77N52880HhRlOsfPc1n8bUzjil2lKpF1rr6sNcESeihGWby0EIgkuUawg4zBD0z
+         goGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789570051; x=1790174851;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GBPfJ5mOgmXCGpvBT7L71rofeWFO21wBMVUvFZChAjM=;
+        b=2y9+UOvJ4iJ33Kz/kNGFAhv1JM3l4Tp6l2x404OTpJkA/PG0eYV8nCoPW8wEWYvtVe
+         BM5vEV9L24F8h7LHfojIpNVbzkIq3STpiuX7WUKilr8c3D9sJZX14Bwr2lsQQYRKUbVJ
+         DjTCXBfvb4O872LKSR/Y1y3urLYxSm47McVQwarTnM2krHQ+qwsRsnHedJCS0QIsGn1B
+         Yy2JSp2WM19CxNEyfCx43fIpe9sf+kZ2YPSupe5lRHzJ+ExHEiWaWN3lAdjmuotIbTv0
+         P8/xgkJ+9fjgvITGOwJtxNBlrKGXK8PkLEAEym0YI02Ui8O3S0OSOuvNkLyl0DaKaDer
+         r8yg==
+X-Gm-Message-State: AFuF++nPLhONZHGFVXeTHTRoh2O7SGQsxujdeSTJg1ELwFpOaMcKayre
+	o1quyg2uKwbQqk20+06nzjiHDOe+OrqRmeCXZTELlF/cTIrwZC5O9zBJRbstDh+PkZLjjm1q0A=
+	=
+X-Received: from edej18.prod.google.com ([2002:a05:6402:5692:b0:6a7:ee17:5c2b])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:400c:b0:6aa:f0e:a150
+ with SMTP id 4fb4d7f45d1cf-6aa2247ca1emr2169373a12.42.1789570050651; Wed, 16
+ Sep 2026 07:47:30 -0700 (PDT)
+Date: Wed, 16 Sep 2026 16:46:52 +0200
+In-Reply-To: <20260916144647.2651379-11-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqqpRoTfywUuTgoC@localhost.localdomain>
+Mime-Version: 1.0
+References: <20260916144647.2651379-11-ardb+git@google.com>
+X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6555; i=ardb@kernel.org;
+ h=from:subject; bh=COS4mnBB6kmKQSlmrKytUWBFvUccXJP8C3EuJ+M7AW4=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6ru3ri1/k/HqYXoUHyNb19yfay9f6v570m/h2heWR
+ 7kr5XusO0pZGMS4GGTFFFkEZv99t/P0RKla51myMHNYmUCGMHBxCsBE1rIy/Pep3vfp5jR76+1a
+ WwpP2XOvybq2tTD68Mmk8IACztypr/4z/PfqXakXPWG24fv9bzSsvx+9tFfxwtETr7+wGF4PWvV vdRk7AA==
+X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
+Message-ID: <20260916144647.2651379-15-ardb+git@google.com>
+Subject: [PATCH v3 4/9] efi/libstub: Use ucs2_string library for UTF-16 to
+ UTF-8 conversion
+From: Ard Biesheuvel <ardb+git@google.com>
+To: linux-efi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
+	Vincent Mailhol <mailhol@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Le Wed, Sep 16, 2026 at 04:35:50PM +0200, Frederic Weisbecker a écrit :
-> Le Wed, Sep 16, 2026 at 07:26:35AM -0700, Paul E. McKenney a écrit :
-> > On Wed, Sep 16, 2026 at 02:40:20PM +0200, Frederic Weisbecker wrote:
-> > > Le Tue, Sep 15, 2026 at 04:56:41PM -0700, Paul E. McKenney a écrit :
-> > > > > Alternatively the approach could be generalized to vanilla RCU, it could be
-> > > > > possible to define a .text.rcu_no_qs section within which code running is
-> > > > > considered as an RCU reader (with a pause while on the explicit RCU tasks
-> > > > > section). It would be forbidden to voluntary sleep inside
-> > > > > and to put explicit preemption points (CONFIG_PROVE_RCU could report misuses).
-> > > > > 
-> > > > > Based on IP, RCU could consider those interrupted section as readers. This would
-> > > > > require PREEMPT_RCU though.
-> > > > > 
-> > > > > And then synchronize_rcu() would do the 1, 2, 4 jobs.
-> > > > 
-> > > > If I am following correctly (ha!), sleepable BPF programs rule out use
-> > > > of RCU in this manner.
-> > > > 
-> > > > But your point is nevertheless valid, in that SRCU could be used.
-> > > > And because rcu_read_lock_trace() is a thin wrapper around SRCU-fast, we
-> > > > *might* be able to instead use rcu_read_lock_tasks_trace(), which would
-> > > > skip the task-struct increment and decrement, saving a few instructions.
-> > > > Then, instead of waiting for each task's counter to go to zero, instead
-> > > > just invoke synchronize_rcu_tasks_trace().
-> > > > 
-> > > > Which is pretty close to what Josef is proposing, just with the new RCU
-> > > > Tasks Trace read-side primitives.  I think.  ;-)
-> > > > 
-> > > > This assumes that we do not need to flatten partially overlapping RCU
-> > > > Tasks Trace readers into one big reader.
-> > > > 
-> > > > Or am I missing something here?
-> > > 
-> > > Yes I think that's what Josef does in this patchset. The problem is about
-> > > handling the few instructions:
-> > > 
-> > > 1) between the begining of the trampoline and the call to rcu_read_lock_trace()
-> > > 
-> > > 2) between the call to rcu_read_unlock_trace() and the end of the trampoline
-> > > 
-> > > So what I'm proposing is to make those two parts implicit RCU read lock sections.
-> > > 
-> > > So the whole trampoline would be .text.rcu_no_qs:
-> > > 
-> > > .text.rcu_no_qs trampoline:
-> > >   __________________________________________________________________________________________
-> > >  |Few instructions 1 | rcu_read_lock_trace() .... rcu_read_unlock_trace | Few instructions 2|
-> > >  ___________________________________________________________________________________________
-> > > 
-> > > Then when a tick fires, rcu_flavor_sched_clock_irq() discards the interrupted
-> > > code as QS if the IP was within .text.rcu_no_qs _unless_ it is in the
-> > > rcu_read_lock_trace. Both are easy and quick to verify.
-> > > 
-> > > Also preempt_schedule_irq() would make sure to verify the same condition and
-> > > enqueue the task as a GP blocker if preempting inside "Few instructions 1"
-> > > or "Few instructions 2".
-> > 
-> > Ah, OK, I might be following now.  ;-)
-> > 
-> > We also need both versions of rcu_exp_handler() to check the IP as well,
-> > given that sooner or later someone is going to want trampoline removal
-> > to go faster.  Or am I still missing a turn in here somewhere?
-> 
-> Yes indeed, missed the exp part!
+From: Ard Biesheuvel <ardb@kernel.org>
 
-What remains to handle also is non-preemptible RCU because if the task is
-preempted by an IRQ while in the .text.rcu_no_qs, we may still need to keep
-track of that somewhere.
+Don't rely on sprintf() with a wide string conversion modifier to
+convert the command line from UTF-16 to UTF-8. Instead, use the
+existing ucs2 string library routine that does the same. Note that while
+UEFI claims support for UTF-16, in practice it ignores surrogate pairs
+entirely, and so the simplified UCS-2 character set (where each
+character takes up exactly 2 bytes) is sufficient here.
 
+This removes the only user of sprintf() in the EFI stub, so drop that
+function as well.
+
+Since boot memory is plentiful on UEFI systems, just establish a worst
+case upper bound for the size of the buffer (which can never exceed
+COMMAND_LINE_SIZE), and allocate that first. Then, perform the
+conversion, and only fall back to processing the command line character
+by character if that resulted in truncation. This makes the common
+execution path much simpler.
+
+Note that this no longer truncates the command line at the first
+newline, but there is no evidence that this has ever been needed.
+
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+---
+ drivers/firmware/efi/libstub/Makefile          |  3 +-
+ drivers/firmware/efi/libstub/efi-stub-helper.c | 98 ++++++++------------
+ drivers/firmware/efi/libstub/vsprintf.c        | 11 ---
+ 3 files changed, 39 insertions(+), 73 deletions(-)
+
+diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
+index 77a2b2d74f3f..12c0c7deb5cb 100644
+--- a/drivers/firmware/efi/libstub/Makefile
++++ b/drivers/firmware/efi/libstub/Makefile
+@@ -66,7 +66,8 @@ KBUILD_AFLAGS			:= $(KBUILD_CFLAGS) -D__ASSEMBLY__
+ lib-y				:= efi-stub-helper.o gop.o secureboot.o tpm.o \
+ 				   file.o mem.o random.o randomalloc.o pci.o \
+ 				   skip_spaces.o lib-cmdline.o lib-ctype.o \
+-				   alignedmem.o printk.o vsprintf.o
++				   alignedmem.o printk.o vsprintf.o \
++				   lib-ucs2_string.o
+ 
+ # include the stub's libfdt dependencies from lib/ when needed
+ libfdt-deps			:= fdt_rw.c fdt_ro.c fdt_wip.c fdt.c \
+diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c b/drivers/firmware/efi/libstub/efi-stub-helper.c
+index f27f2e1f0019..3dc365492301 100644
+--- a/drivers/firmware/efi/libstub/efi-stub-helper.c
++++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
+@@ -12,6 +12,7 @@
+ #include <linux/efi.h>
+ #include <linux/kernel.h>
+ #include <linux/overflow.h>
++#include <linux/ucs2_string.h>
+ #include <asm/efi.h>
+ #include <asm/setup.h>
+ 
+@@ -334,81 +335,56 @@ char *efi_convert_cmdline(efi_loaded_image_t *image)
+ {
+ 	const efi_char16_t *options = efi_table_attr(image, load_options);
+ 	u32 options_size = efi_table_attr(image, load_options_size);
+-	int options_bytes = 0, safe_options_bytes = 0;  /* UTF-8 bytes */
+-	unsigned long cmdline_addr = 0;
+-	const efi_char16_t *s2;
+-	bool in_quote = false;
++	unsigned long options_chars = 0;
++	unsigned long cmdline_bytes;
+ 	efi_status_t status;
+-	u32 options_chars;
++	char *cmdline_addr;
+ 
+ 	if (options_size > 0)
+ 		efi_measure_tagged_event((unsigned long)options, options_size,
+ 					 EFISTUB_EVT_LOAD_OPTIONS);
+ 
+ 	efi_apply_loadoptions_quirk((const void **)&options, &options_size);
+-	options_chars = options_size / sizeof(efi_char16_t);
+-
+-	if (options) {
+-		s2 = options;
+-		while (options_bytes < COMMAND_LINE_SIZE && options_chars--) {
+-			efi_char16_t c = *s2++;
+-
+-			if (c < 0x80) {
+-				if (c == L'\0' || c == L'\n')
+-					break;
+-				if (c == L'"')
+-					in_quote = !in_quote;
+-				else if (!in_quote && isspace((char)c))
+-					safe_options_bytes = options_bytes;
+-
+-				options_bytes++;
+-				continue;
+-			}
+-
+-			/*
+-			 * Get the number of UTF-8 bytes corresponding to a
+-			 * UTF-16 character.
+-			 * The first part handles everything in the BMP.
+-			 */
+-			options_bytes += 2 + (c >= 0x800);
+-			/*
+-			 * Add one more byte for valid surrogate pairs. Invalid
+-			 * surrogates will be replaced with 0xfffd and take up
+-			 * only 3 bytes.
+-			 */
+-			if ((c & 0xfc00) == 0xd800) {
+-				/*
+-				 * If the very last word is a high surrogate,
+-				 * we must ignore it since we can't access the
+-				 * low surrogate.
+-				 */
+-				if (!options_chars) {
+-					options_bytes -= 3;
+-				} else if ((*s2 & 0xfc00) == 0xdc00) {
+-					options_bytes++;
+-					options_chars--;
+-					s2++;
+-				}
+-			}
+-		}
+-		if (options_bytes >= COMMAND_LINE_SIZE) {
+-			options_bytes = safe_options_bytes;
+-			efi_err("Command line is too long: truncated to %d bytes\n",
+-				options_bytes);
+-		}
+-	}
++	if (options)
++		options_chars = ucs2_strnlen(options,
++					     options_size / sizeof(efi_char16_t));
+ 
+-	options_bytes++;	/* NUL termination */
++	/* Each UCS-2 char takes up at most 3 UTF-8 bytes */
++	cmdline_bytes = min(3 * options_chars, COMMAND_LINE_SIZE - 1) + 3;
+ 
+-	status = efi_bs_call(allocate_pool, EFI_LOADER_DATA, options_bytes,
++	status = efi_bs_call(allocate_pool, EFI_LOADER_DATA, cmdline_bytes,
+ 			     (void **)&cmdline_addr);
+ 	if (status != EFI_SUCCESS)
+ 		return NULL;
+ 
+-	snprintf((char *)cmdline_addr, options_bytes, "%.*ls",
+-		 options_bytes - 1, options);
++	if (ucs2_as_utf8_l(cmdline_addr, options, options_chars,
++			   cmdline_bytes) >= COMMAND_LINE_SIZE) {
++		/*
++		 * The output fills up the entire buffer, and may have been
++		 * truncated. Work backwards through the buffer to find a safe
++		 * truncation point (i.e., a blank character not inside a
++		 * quoted string).
++		 */
++		int safe_pos[2] = {};
++		int in_quote = 0;
++
++		for (int i = COMMAND_LINE_SIZE - 1; i >= 0; i--) {
++			char c = cmdline_addr[i];
++
++			if (!c)
++				return cmdline_addr;
++			else if (c == '"')
++				in_quote ^= 1;
++			else if (!safe_pos[in_quote] && isspace(c))
++				safe_pos[in_quote] = i;
++		}
++
++		efi_err("Command line is too long: truncated to %d bytes\n",
++			safe_pos[in_quote]);
++		cmdline_addr[safe_pos[in_quote]] = '\0';
++	}
+ 
+-	return (char *)cmdline_addr;
++	return cmdline_addr;
+ }
+ 
+ /**
+diff --git a/drivers/firmware/efi/libstub/vsprintf.c b/drivers/firmware/efi/libstub/vsprintf.c
+index 71c71c222346..dba136679172 100644
+--- a/drivers/firmware/efi/libstub/vsprintf.c
++++ b/drivers/firmware/efi/libstub/vsprintf.c
+@@ -551,14 +551,3 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap)
+ 
+ 	return pos;
+ }
+-
+-int snprintf(char *buf, size_t size, const char *fmt, ...)
+-{
+-	va_list args;
+-	int i;
+-
+-	va_start(args, fmt);
+-	i = vsnprintf(buf, size, fmt, args);
+-	va_end(args);
+-	return i;
+-}
 -- 
-Frederic Weisbecker
-SUSE Labs
+2.55.0.1032.g73a4cd73de-goog
+
