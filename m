@@ -1,58 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686BC4AB1A0
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DD53AEF3A;
+	Wed, 16 Sep 2026 09:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552430; cv=none; b=HVP84Do+0Xbu7pKgsLS/mgnPbYzeSsLacndVVIOX6Yo7h5I1yG3u+yuO5fwH8yBrs1OWyqnX6TSXpM9R9KuyAA+jVypY1F551ZVoTVyxETUq/BikUQDb64WscmYXG4B/iup6i8AcTEUgc+LA6HFM/6LSSVuZQ6aTzKFpBC4p+gc=
+	t=1789552446; cv=none; b=jNVsJKQW4dAk6cR/VE7HYlzRZWKEODXMp8qecswRDE8Rua9/rkbqVxl5xcuHZdrsycrdM3HQOvJ6rWOd0KsDNA/RzgCpXkSYDTEaTmi1hQCB28wBuW+qTiyAOaYt/fQUlUj7Y8gQZpiaaQan86DPPS6xPvtDXkpOrdccuz7goQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552430; c=relaxed/simple;
-	bh=lxocw8UJdi0kfwxQHtMgH/1lbyEtj6cBRi40qJLiw20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZtnKA2npVNCQVsXxWAQ8DQ8Ikogb6gH/ELWjBlUpep0b0UuOZrY1gqK9/wL7GXI+3rktwU+wlmUoMCLgKO2J5UlUHQ6gPqPYGEeav5Xr+mB8vbh+0kW4ZS/evVHjq2Gpfz4AIhFey0Wh+Q4JzMgTrPt5ey12nihqgueI9KyKzYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=iLHwqWnU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789552446; c=relaxed/simple;
+	bh=gU28K/TBmhCpoW3RpgGeEwSRVwR0d59zct58qf7aOmM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=hNklmmON2tBZEtQK86R/o+qu2u1heAgGy4uaDGGE0QFcXeVFSMNkNSNY+Yw402Pc/dlxaDMUZzN0CInHij7krziaxxAtOHr/7jRadokoQibvzlewG8+WorRo5YxM2qlg0D52arc2FLKQFGG+Ir/sy5sZIaG7zAuzAveCKW7wrSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fINTCHd2; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=XTBEJa4S; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="iLHwqWnU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 986371F00893;
-	Wed, 16 Sep 2026 09:53:27 +0000 (UTC)
-Authentication-Results: smtp.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=iLHwqWnU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
-	t=1789552406;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fINTCHd2";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XTBEJa4S"
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789552436;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xu4ZxYAW3LZUG/XBl95d2MgIx5kxVzqiTxW9XauCHMc=;
-	b=iLHwqWnUXjQt/7bu3EgSlyBJbOwzMPxm+HQ9EyLsq4E5lDQvSR7fYcstiKjN6LagUVvZA/
-	L/hpNV0PyU7IuXZxLBs0YMH+fuOmtv4EADDjklnV3a0cADAFVwwOVh0bp4EDZv1oczttUy
-	+WRNBKJ2amZn81xjq/Qw2YYBYrlMYI8=
-Received: 
-	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 3f16d0d5 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Wed, 16 Sep 2026 09:53:26 +0000 (UTC)
-Date: Wed, 16 Sep 2026 11:53:24 +0200
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] random: Fix vgetrandom_opaque_params kernel-doc
-Message-ID: <aqpnFMgAKn7RyZmz@zx2c4.com>
-References: <20260909063744.89918-1-kmehltretter@gmail.com>
+	bh=gU28K/TBmhCpoW3RpgGeEwSRVwR0d59zct58qf7aOmM=;
+	b=fINTCHd2rV5qr8hjmNiqsQ4kOatkIK9D9rw4UdLHoz2bQS/o6CllgkB3r7yfaRgZ8h8A/N
+	9ZWUJUXswF3y/wEMSvF97Bcyi5ijZpITTAFGs1xKXXZUn6JgFMLlQ4HY6hrY8Ak4c4wJ1R
+	HdOMPTC+Fm9QLPckwARGA0qcR6vSsJYONMDfHSOc9mAKt/0ceLsusKTE2zkREdEMfFRZax
+	VMAvNojX/ixR/MKY2wJiCqMZPv/zodO4iz8BgAN/6Q4H0UdFxOgNCoeYOGhE8CyFNDoyja
+	MGAcIOtkkok0yiGfD4arKl5sEkWhUsHG9KFJwKsp8HRhSCLSOq9a3W1lZ/ht6g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789552436;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gU28K/TBmhCpoW3RpgGeEwSRVwR0d59zct58qf7aOmM=;
+	b=XTBEJa4S1t4j/hKUlrlaaDS2takijVXH7QjcDoSKns0Jg3CN6SgDUy41SQB8W5H5heoKF3
+	zNiHzB2t8we1GiAg==
+To: Omer PALA <palaomer100@gmail.com>, andy@kernel.org,
+ gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: fbtft: fb_upd161704: replace udelay with
+ usleep_range
+In-Reply-To: <20260916093928.52057-1-palaomer100@gmail.com>
+References: <20260916093928.52057-1-palaomer100@gmail.com>
+Date: Wed, 16 Sep 2026 11:53:55 +0200
+Message-ID: <87ecet5xos.fsf@yellow.woof>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260909063744.89918-1-kmehltretter@gmail.com>
+Content-Type: text/plain
 
-On Wed, Sep 09, 2026 at 08:37:44AM +0200, Karl Mehltretter wrote:
-> struct vgetrandom_opaque_params contains size_of_opaque_state, but its
-> kernel-doc describes size_per_opaque_state. This leaves the real member
-> undescribed and adds a nonexistent member to the generated
-> documentation.
-> 
-> Use the member's actual name.
+Omer PALA <palaomer100@gmail.com> writes:
+> Replace udelay() calls with usleep_range()
+> to avoid busy-waiting and allow the
+> scheduler to sleep during delays.
+>
+> Signed-off-by: Omer PALA <palaomer100@gmail.com>
 
-Applied. Thank you.
+This change cannot be accepted unless it has been validated with
+hardware.
+
+Btw, I am curious why we have these udelay(). Can we remove them?
+
+Nam
