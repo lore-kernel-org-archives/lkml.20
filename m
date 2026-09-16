@@ -1,100 +1,46 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73BC64CA294
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:28:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CD7446074;
+	Wed, 16 Sep 2026 13:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565336; cv=none; b=E7rWLwe3e9ux5jDlTH+uO2WNlkew5MVmXJyGcOJGJMTQ4ZatIBkVD1XgyoA0i81/6nE9v8RX7owss31RlGfnuNOOdChwuLLrKWZrK1uGE3M80x2ap/+dydeAf6cclNNFqOIMSyJKayyM1N5WEdkoiaablCE+DNINykzLZ3QWmqY=
+	t=1789565337; cv=none; b=ToJO2p5inaLEUEm2MZC0tlkIkga5tSkcrzHsMun0EoTyRCW+mEtutGi2EFEogtnMtgDlDcM9EFYK91EVvK7XCjYW3yJVsS0fQaFKj6kTM9iSCvA1cCnuWjYfwG30F1VaE8bKEDZ5m4UfZYr0uWi3SNnmz/D+SBVr8mR6mN/GEGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565336; c=relaxed/simple;
-	bh=TqbeODdYQEEftgsPxXsYkF97yhYGAJosPirzjv//pFQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Oot4QvJbTs/n7vv2RBQwGMxxNg9BejyMjwCG5egZAlIGIcTc0CPs83Ox/ZCyMHE84SEVAD4rhQc5fSyHFJ73PpTsJUOwq3Unt8e/sxhHedMV70zHOzgF/qPsBsBdyzB4zFohKQUcYWosx0OyLYGiIiHZhZhiMAySVbicKVSD5L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SriF5u9c; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789565337; c=relaxed/simple;
+	bh=9MrfUzBbRxO3K/j5gxi6S7iy4qoB+aIJE60TUfbvLEQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ckfAD5Fz/tL4qpVhKximi9HQbw8Ph/75a4GBvCkHKpkZaLmQcGc/l7WXK1IWLyuq9wLFSHtOBxB+CPHEwOOg7Gsz6PdWDc+vyLKMfJcfhpktzDvrCaEDgTA2RIj1mk/yVUUbEs49qOjS6OHITQQfcbiERSnUkSOv0yKK1jnuqG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=FckN4SA3; arc=none smtp.client-ip=117.135.210.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SriF5u9c"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fbc3db5fbso139665e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:28:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789565333; x=1790170133; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TqbeODdYQEEftgsPxXsYkF97yhYGAJosPirzjv//pFQ=;
-        b=SriF5u9c3M1yb4t2l0x9yA3RoFsu3Vst90q9fR5CzgrcSm+f6B4+JUdAqc7x96bTgL
-         CyO8ie0Zzaizi1UAoyc7uo20C8BjH7pQS/5JkPsZdFmmtT77upCXbaWFeNGDWR3/B1jQ
-         rMT6g9DXhRShNlVFmSOK6+TgqeMYJF+7dvaGDX57R/xL2Z009KCxCGyTtn57/0XKDN3g
-         qbD3dulK479ejAT1VxqfFvLpmzb4EI8jnkFCKAmI207Zke2+/3NR1vR1I6+a9senxIHG
-         jAotvyloepLXY2BOs+4qAW0EDVxRkGfYX9sL/GfcidJ1YcMN+sFw3p3JBj0apE3M+B2p
-         ykZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789565333; x=1790170133;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TqbeODdYQEEftgsPxXsYkF97yhYGAJosPirzjv//pFQ=;
-        b=p2TkSgOAkBO5HzSH5rOnPPFfwPvjED+V2yFHJrBgoz6q5UI04XiEnGOfUybpmUHtRe
-         ikAX5VKRm9VNKE/NnKkafiOJtVcmsDihihkcK8J7ZD58JLV5njr+fxT1JeRBYVwAcU/P
-         cT/0nJ08KQ3/BPg7qBydy6PEjCdw2waBkxOwFFkpE3cCQSshG/IpWiksJcdDNXTrus+F
-         mRXQJq+uJNBvIyWF08XSyhqiRcGaFoEHGCZ9PaEKQK6V8GdPGiDl7cUtPe38TB948wOH
-         HaegPcYmo8BJ4dyUI9zY+evzNyWqhIMCe4/4bXvrVrFzoAeQV0RQZRN1ojWbrjOnLUmg
-         ifjA==
-X-Forwarded-Encrypted: i=1; AKwUvBx83qTqd1R2YzaofvTE8RVnzBH/s9dbUzcz44oT5KcmMTOntng1mDLr20Bv6x2Ug+MfTKL3b7jpoHE6uDs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkZPpO3LSGfaelQmj0Oh73N0BZEb0Nzxgx5XflFrnkIyt8GJhL
-	taPMlLHg8KnLvghny3MWZm8LiTsiG75P+q4M+rEYLDHnjiF2o31TexK4
-X-Gm-Gg: AYBFou3Tq/eaTFkDH1RvN+LklTiaLj7uEuERBKeNXlcEaAHT3FjbAIynniLSaISlysz
-	9FU3kp1gGx9idhMg7OtSrCnyQ04u275OHh6RXNM3hWzK2j3TAb1Yww8l4JzU6e6dTHQ9U4eziFq
-	paRjzT+njKlr4TURAKYdbkDRPbNqOiJRysf6TtdeRGu+4Xq7h7DIV4FnhLJ0Tbz/pI0uZ1pLsEr
-	owGNjtnHz6cNOZSXdnvpR+LszkjyglY/+oDGO/61DJYb539KV8dIy6PTr4MvzQOPVD4HeM+kVWS
-	qnexSoSnNYz0ViifUtlJT6oxb/s9oKQtv173sNvMuTYbK2qfpZRajzfLqkvqBYeKL8qqVW3ACb3
-	05ji1EvjXm5HQwhopgSkUdWNyeNdAnXkSNNAXcyn+alMr6dkdP7KiF6Gj3/dEp4OI1cHv9DVWGG
-	x6t7TSmKQSqPvFcaQSs8pfC6hPJy0NhvEK+ITZnb8ctM+cYKrUfD8ca/91PiMhGTFL0RrnW65VQ
-	zgDolEbRys0l+iwh4Sb9ni9ncXXQvu1T643YYfos4nu3LDoewKPo/oMg4QPmgeR1KaOG4DzNUIL
-	zH0=
-X-Received: by 2002:a05:600c:4e89:b0:49e:745d:5768 with SMTP id 5b1f17b1804b1-49eac4112e9mr27160505e9.0.1789565332521;
-        Wed, 16 Sep 2026 06:28:52 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8E02001A623C292D45A2B3.dsl.pool.telekom.hu. [2001:4c4e:1b8e:200:1a62:3c29:2d45:a2b3])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e847da0cdsm594135e9.2.2026.09.16.06.28.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:28:52 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Elaine Zhang <zhangqing@rock-chips.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Sidong Yang <sidong.yang@furiosa.ai>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Alexey Charkov <alchark@flipper.net>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="FckN4SA3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=mU
+	eWvQyELQ91Zo7gd0quF0DPhsMTPLIThzQR0sZzvog=; b=FckN4SA30XOP6w1T8p
+	4TiZwK09qFPed466ZHcJoH/Ha4DkptRPANfpFDGVbaPNK2iTvxQ2yFu3Yt0jhuOi
+	KwJpH+Oqqn0QMpbuvJkWV4NUlDokgKxHx+UYSRiM3QJsSUp3uOqH1+gjvwax8rqF
+	mlU5vRsnWVvSTkauwH2Nr/qSk=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PikvCgDnvepPmapqaFzjHw--.21948S2;
+	Wed, 16 Sep 2026 21:27:43 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: Re: [PATCH v13 03/14] accel/rocket: wait for a running IRQ handler before resetting a core
-Date: Wed, 16 Sep 2026 15:28:24 +0200
-Message-ID: <20260916132824.13527-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915104328.45901-4-gahing@gahingwoo.com>
-References: <20260915104328.45901-1-gahing@gahingwoo.com> <20260915104328.45901-4-gahing@gahingwoo.com>
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [Intel-wired-lan] [PATCH net] igb: unregister the i2c adapter when register_netdev() fails
+Date: Wed, 16 Sep 2026 21:27:40 +0800
+Message-Id: <20260916132740.1001797-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,35 +48,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PikvCgDnvepPmapqaFzjHw--.21948S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr17Wr45XF17Ar4DAw4Utwb_yoW5GF4xpF
+	4DAa4fCr4jqrnFga1DJ3W0yFyYkaySk3yYka17Zw4fWFn8tryDXryYyFyYyFyrKrZ5u3Zx
+	tr4qvw15Cr1UAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UA9N3UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqQ++lWqqmU+yYgAA3L
 
-Hi Jiaxing,
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-Thanks for flagging the job_lock change in the cover. I re-ran the
-same protocol today on v13 as posted, 2+3 and 2+3+4, three runs each,
-same board, base and config as on 12 September (JOB_TIMEOUT_MS=2,
-PROVE_LOCKING, DEBUG_ATOMIC_SLEEP): 73 induced resets with nothing
-from the driver beyond the timeout message itself, no MMU faults, no
-lockdep report or warning, and lockdep still armed at the end on both
-kernels. Of the 126 inferences scored, 118 matched the CPU reference
-within 1 on all 48 channels, and 8 missed on all 48 with the channels
-the scorer prints reading 0x80; in the two runs traced with the
-kprobe, those 5 results sit exactly where the 5 -ECANCELED completions
-do.
+igb_probe() sets up the bit-banging i2c adapter with igb_init_i2c()
+before it registers the netdev, but the err_register path only zeroes
+adapter->i2c_adap instead of unregistering the adapter. On i350 parts,
+where igb_init_i2c() really registers the bus, the adapter is therefore
+still registered when free_netdev() releases the memory that embeds it.
+The i2c core keeps pointing at the freed adapter, so any later access to
+that bus dereferences freed memory, and the adapter number is leaked.
 
-The limits are those of my 12 September mail (all resets on core 0,
-one client), plus one more: the model is a single 1x1 convolution,
-which Mesa submits as a one-task job (one completion interrupt per
-good inference), so hw_submit() never ran from the IRQ thread, which
-the race you describe needs. So this shows the lock adds no lockdep
-report or hang on this path, not that it closes the race. On that
-basis the tag stands for the v13 form of 3/14, with the same comment:
+Call igb_remove_i2c() instead, the same way igb_remove() tears the bus
+down. Move the helper next to igb_init_i2c() so that it is in scope for
+igb_probe(). i2c_del_adapter() returns early for an adapter that was
+never registered, so the parts without i2c support are unaffected.
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
+Fixes: 441fc6fdb47a ("igb: Add i2c interface to igb.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+ drivers/net/ethernet/intel/igb/igb_main.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-If 4/14 changes shape in v14, I will re-run that arm. The scripts and
-the tallies were prepared with an LLM assistant; every number above
-was counted from the raw files of each run (scorer output, kernel and
-serial logs, kprobe trace), not from the scripts' summaries.
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+index d4a897a8c82c..f965ca144f42 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -3190,6 +3190,16 @@ static s32 igb_init_i2c(struct igb_adapter *adapter)
+ 	return status;
+ }
+ 
++/**
++ *  igb_remove_i2c - Cleanup  I2C interface
++ *  @adapter: pointer to adapter structure
++ **/
++static void igb_remove_i2c(struct igb_adapter *adapter)
++{
++	/* free the adapter bus structure */
++	i2c_del_adapter(&adapter->i2c_adap);
++}
++
+ /**
+  *  igb_probe - Device Initialization Routine
+  *  @pdev: PCI device information struct
+@@ -3657,7 +3667,7 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 
+ err_register:
+ 	igb_release_hw_control(adapter);
+-	memset(&adapter->i2c_adap, 0, sizeof(adapter->i2c_adap));
++	igb_remove_i2c(adapter);
+ err_eeprom:
+ 	if (!igb_check_reset_block(hw))
+ 		igb_reset_phy(hw);
+@@ -3849,16 +3859,6 @@ static int igb_enable_sriov(struct pci_dev *pdev, int num_vfs, bool reinit)
+ }
+ 
+ #endif
+-/**
+- *  igb_remove_i2c - Cleanup  I2C interface
+- *  @adapter: pointer to adapter structure
+- **/
+-static void igb_remove_i2c(struct igb_adapter *adapter)
+-{
+-	/* free the adapter bus structure */
+-	i2c_del_adapter(&adapter->i2c_adap);
+-}
+-
+ /**
+  *  igb_remove - Device Removal Routine
+  *  @pdev: PCI device information struct
+-- 
+2.25.1
 
-Regards,
-Igor
