@@ -1,147 +1,224 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A0F399011
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789539849; cv=pass; b=acCtRGbbmNCAQeGXcUYbsE2t3SRVWYQlSAtCthAefInN+Gsq/KhSxqkYJpyYg9K+Qv/pXBOBWk4Lz6TcSPyNiTyNW6hcEPPuCLR6wm9mxGiB7EKIDdJqyvdM3jzq2uBsbvQTolHWAztmCoFsIyUL0T1IYcLrphjPcumSHh7cnCA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789539849; c=relaxed/simple;
-	bh=mAIrKBvRrMomGH0iYWEN1Ps+5CGaEFImVIbj9hUuyyk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=alyzC4HfKm/JVyvzH66BswRT8GJqMDXnQw7ybGnkvrkSZe4UQZ88NI81kMVyWWjexvjUfSJ41Osesm9cDQrrBn/SorS9WPkjJf3i3Zf4LcsTmkADtsiNuG3LCfHrQLmbpF/i8EaOeTso0MfwB7MPDSd+3YETjpLBlY14+g+YNL4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OSx2qtBc; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C88F3DD847
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789539859; cv=none; b=kZJcRcx+Jx1scVb1VGIw6AZjhsyRyzQliukaFjnSvechSMMGLiCZABzbzcLW2zEYrMwF6BwMFdRL1sd6xl+IjwNuiJsxlRbKwXhHQPx5oTiiFIwP4zP83ofvCGV2UYBMgV9jSA24h7Bmh+d76xlaFWqZwMfLAyBjtWWpiM11KSc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789539859; c=relaxed/simple;
+	bh=ssfCFsWm4R4zLnvtS9z2RFVPjbllu3VMKDKrNnNaGQE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IJpSED2sruy01630RDHSCtlfpC1okRwHWzTbsB1uLg3pNRBflTRV3No3trMsWVhEL4TAvjZNyVMMrOpM7TtnT8caNy2W907Uxrv7oF2Qu5UiUEXO3isCwUw17lnoqMXxSpgloKp9YGtfW0cRQBOuu7h5xX4mZeoMDR4Jt5yeYJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FIez1ear; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RjL6l8c7; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=HV1v3uyF; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7fiYrcF9; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OSx2qtBc"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so2645295e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:24:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789539846; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k1ruDqkqEOjAxlOnmQ0da++CS0GsUdmojQV7LR1RI9u3zOYcuQxFzqCW6YWJHtjFKR
-         Wb2CrmVFcP5P+tQue30sueqw6/Ea0FDJV/g5oBpYuRij+x++IXJNrk1RnqXubddu7IVR
-         IoTWtc6pYZmJ4NTlj4mwk+BpuzsFwn3AUzTIToxIlcI9N+fefkcwGXLgJ8IomugB+68o
-         NVD4FgC0TnDiqhpN9onPy3Y+i4XeNP214rID1ecK5I6ypxFOD8Kyb7sAApp9te2Y53CW
-         1CfVUJ3ZNH6CbpcEsG87t8tfGbKLbLIx/m79zxClOLzVw/xzc3PW1M/9RPttjVfNv4ai
-         eppw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mAIrKBvRrMomGH0iYWEN1Ps+5CGaEFImVIbj9hUuyyk=;
-        fh=dfFO4lWGEzbcM/XPiGHJPM/DR7EBvQ3g9kiZ54j+aWE=;
-        b=qxD0a8e+zKbaUVwDxsYxGXsMNFKIZg3R/MtGNIo0NUe6hfDQ4G/7rZCeJx9QBAW+u/
-         EfEPoUh/ficwfJA2ej4PRG5u2qsqRuY16ezJTs4HRCmjH3NNvNXUjT41UZIEvY193ABY
-         INSeeLgX0b6vRJB4lTlovitMfxUVMrWs2NJgW6hO/BJKgCo8KQvhgBbfxGVzCS8vCkMg
-         OY4V3AnegMt1byI1kZhAbFSmIVkHW44Y9zmegF0TzY8PKYsjf/OMCNOrTOUlzxQM2yf9
-         bUTRQPUlwex4YxmRzMC0Vac3/7mMW3kUh/DlDuq2mnKawc5MrhvqvZjc2pXutXEbDV1K
-         nc/g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789539846; x=1790144646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mAIrKBvRrMomGH0iYWEN1Ps+5CGaEFImVIbj9hUuyyk=;
-        b=OSx2qtBc/r+rHIFwZ8pNBLz9gbhv8ovncxqro4LoO2+CywqM5P+sHaSnSPArsmph5v
-         Y7SV8y5Fb5FVe1atPoJ51khAuqQknd++N2RwmUE4Ex00XWej+hMwgoMBEGg9DPTS+OCp
-         g/Thw9AVDhEcqv0cR3dBkir49sAtuXkDPCLa2lM7futROTtprJ94/XkDn1lpwfK5NQok
-         GCwU1C3Nu8M2NwyrV2e7Tb9dUnPchCFuJkafpyNJTzZ0WtPglS9mFZNYIBv3/PrQVFh4
-         OVkO4Uetw5N5pyGAXFcONnCZhI74EF/fOhUqYN34WKeoyWsjFl30af8yYMvaOeZq/6w4
-         ywIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789539846; x=1790144646;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mAIrKBvRrMomGH0iYWEN1Ps+5CGaEFImVIbj9hUuyyk=;
-        b=wOxR/rwsYDd5nFi4lWvvb6yF8ebVeaDrV0nbOYFbLZz7sYTyym+j2FAtEiD9xlTHtP
-         L1yU/dBaetQFsw+HkZiMRIykqCSuIdfsSS2LbpEvylC8mAdaIVW4JGMLTdBE3TKwVjMK
-         480L0JQ+i3Od6ZnolU26FFE5iEB8NuUKuSvNbhB1PcG99In7bfj4dVGq/fFlY3DKAhem
-         3+W8ltMTZTVMXsGRQFzF9bFOwimthi7zyq86OqkZzjSNazHo6qBMKtuzbUvKb++/nu69
-         jTipfL3pWsc06nyH07Wm5pfCxY20HDNtapEtDtVLiAgMZohPbDCMhTbxZD9Lq5kU1mZU
-         vZQg==
-X-Forwarded-Encrypted: i=1; AKwUvBy+UKb+rszGz8myYOXZHZvZyRQu9mJI8zgSG53WbWOsFyr+YW0vkYAFU26/yvlZv8Cq0fj3avFJ1cvbuYY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJFg/49O3B+JJmnfPUnNXQk3Xzbgjl/3adQcQWYGaU3hSnquIY
-	CHOzn2foWjU3gtQuFzxwb/3TNGBwm24tlAZxb6yRwGYSsbbLvH+wUi+unNnwZTy4AtPvyQxflv2
-	JN8kPvLLG+7ZrGjbwUmZfbYZg7RVgWRlXnIMdbcg=
-X-Gm-Gg: AYBFou0HDlrr84xg7Gk9D6FIuQWjh+Uw5LzMj09HpHyhPZUEa8CB1GeLdw9L0JxzlI4
-	3IqrIwT/jQP9LEo6BJw0wMHe/jZwkz8McYein2lEdmGplGRklruX91XaiqOI/sfatAkIMSzB2z/
-	/LJiXKoXa70yfVKeL9OUhIFnBcnSvlt49Y14RAVRubk8EvCiMjZtU/3RytAz/hhrCRYnc7Q1Tzw
-	ndKaTYkvSnjHGjp/QJSc2y4QSgeBJvlgJI6MTeKPF06hKYpZ64dCe6+PN0A10cq34O7L70VXY9b
-	e7WXs7w1RkbHkO58e+m9+I7XzK6TfRXjujT0jj99U8qTRDsH4bNuS+6NjOyITnmT+/Z2tPKGaR7
-	Lv8gIw/dGPh1bAdaOGZ4v22ZDpYRn+mFJxXJcbwOejXguUbE9ITWdhYzG0K8+bA3J7eVeTmM/a3
-	2Au5v0yd9Bog22RhqxeA==
-X-Received: by 2002:a05:600c:34c3:b0:49e:65ac:eb5f with SMTP id
- 5b1f17b1804b1-49eb7328a3fmr26373395e9.10.1789539845298; Tue, 15 Sep 2026
- 23:24:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FIez1ear";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RjL6l8c7";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HV1v3uyF";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7fiYrcF9"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9A7501FE21;
+	Wed, 16 Sep 2026 06:24:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789539850; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=+wG3urIqyzvutvhz3o+cV/d3V7dF1C3I+4csedxlzqA=;
+	b=FIez1earGLDGi7AqR01AuARvOdlajBp+fRMJJGGeMnoTq9dvnv8hE+2+gQMjWWcpKgyOLE
+	Rku1ObTlPRpO9d3QhfYq3w5xFrQ9UJdihQAgaVmQguhkUR0wsXjPhFE/I81McJ8toPFvxd
+	LloqQsKoLaB0OKmvT0WyzdFoTqBbWds=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789539850;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=+wG3urIqyzvutvhz3o+cV/d3V7dF1C3I+4csedxlzqA=;
+	b=RjL6l8c7EsdgERq9co40eQ+Wc02hB5lJOzclY2Lh8ZiNcUBip/Y5z1vXt3Nx/OeT79fF/y
+	O2vIt8n7NWHc+ZDQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HV1v3uyF;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=7fiYrcF9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789539846; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=+wG3urIqyzvutvhz3o+cV/d3V7dF1C3I+4csedxlzqA=;
+	b=HV1v3uyFjN5zL4NWzhwKMUjp7TwlFd4m1QaG4vFm2grNfzrds33nWaEFJlTtQTTAl4D4GA
+	+/JjHPWs1MSVm5S4zSpKQSInBbt/Urj+jlb/fyMVXUDCkKku6Eqp/5k7pUSYXFx+YtZ/Yv
+	rpL8xVbpMnduyVg/dTUJUMNUFECyXN8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789539846;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=+wG3urIqyzvutvhz3o+cV/d3V7dF1C3I+4csedxlzqA=;
+	b=7fiYrcF9r6CsxpTC7KA1gcliQjuqfJKzfk9I74tLP5t4YESS86eerA8R6qzTH0zULKC6v3
+	HchgkWW6EGZZFyBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CC8D9136D1;
+	Wed, 16 Sep 2026 06:24:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id nLZ5HgU2qmrNRQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 16 Sep 2026 06:24:05 +0000
+Message-ID: <bbf8fd0e-8e1c-4899-98f4-b8231800de8c@suse.de>
+Date: Wed, 16 Sep 2026 08:24:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826062901.2137-1-kprateek.nayak@amd.com> <CANDhNCpEYgckCPYhjL8oQGYv9r8joP_1tBps4bGQFD3vWDCetA@mail.gmail.com>
- <a367d70f-a095-419f-83e8-5d7458204f3d@amd.com>
-In-Reply-To: <a367d70f-a095-419f-83e8-5d7458204f3d@amd.com>
-From: John Stultz <jstultz@google.com>
-Date: Tue, 15 Sep 2026 23:23:51 -0700
-X-Gm-Features: AcwNN1XqzRtFKZVAE5Q7sPJSncMNWqmLUccb5egv6CwKSNa89CMp9K55SIsYzoU
-Message-ID: <CANDhNCo4EHNXY9zWhE3ngzHN_7eHpjP9v2MrBkrS8vHpTD7jWw@mail.gmail.com>
-Subject: Re: [RFC PATCH 00/16][PoC] sched/core: Alternate approach to
- sleeping-owner handling in PROXY_EXEC
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Suleiman Souhlal <suleiman@google.com>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Will Deacon <will@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Andrea Righi <arighi@nvidia.com>, linux-kernel@vger.kernel.org, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, Waiman Long <longman@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] drm/imx/lcdc: avoid duplicate clk_per enable
+To: Ze Huang <ze.huang@oss.qualcomm.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Marian Cichy <m.cichy@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev, xen-devel@lists.xenproject.org
+References: <20260727-drm-simple-kms-removal-v3-0-de36e534f7a1@oss.qualcomm.com>
+ <20260727-drm-simple-kms-removal-v3-1-de36e534f7a1@oss.qualcomm.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260727-drm-simple-kms-removal-v3-1-de36e534f7a1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 9A7501FE21
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[25];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,qualcomm.com:email]
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
 
-On Tue, Sep 15, 2026 at 11:10=E2=80=AFPM K Prateek Nayak <kprateek.nayak@am=
-d.com> wrote:
-> On 9/16/2026 10:52 AM, John Stultz wrote:
-> > On Tue, Aug 25, 2026 at 11:29=E2=80=AFPM K Prateek Nayak <kprateek.naya=
-k@amd.com> wrote:
-> > Again, it definitely is interesting and appears to be more integrated
-> > into the scheduler logic, so I'd expect that will give us better
-> > results then my maybe more isolated and tacked on activation logic.
-> >
-> > Have you gotten a sense of what Peter thinks of it?
+Hi
+
+Am 26.07.26 um 21:42 schrieb Ze Huang:
+> The simple-KMS helper calls the pipe update after enabling the CRTC.
+> On an enable commit, imx_lcdc_pipe_enable() already programs the
+> mode and enables clk_per. The following pipe update sees the plane move
+> from no CRTC to the active CRTC, treats it as a mode update, and calls
+> imx_lcdc_update_hw_registers() again.
 >
-> I think Peter is slowly getting through the more stable stuff first
-> and may arrive at this at some point but I'll try to get a word in
-> at LPC if he is planning on attending.
+> That second call has no old CRTC state to disable clk_per first, but it
+> enables clk_per again at the end. The disable path only drops one
+> reference, leaving clk_per enabled after each on/off cycle.
 >
-> That said, knowing Peter, I have a hunch he might like your approach
-> better since it handles delayed tasks too (tasks may be eligible at the
-> time of chain-wakeup), does not add stuff into ttwu_runnable(), and does
-> not have the insane (DEQUEUE_SLEEP | DEQUEUE_MIGRATING) behavior which
-> has larger implications for PELT tracking and SCHED_DEADLINE.
+> Skip the register update from the pipe update path when the CRTC already
+> needs a modeset. The enable path has already programmed the hardware for
+> that commit; keep the event handling in pipe update unchanged.
+
+That seems reasonable. Once the driver uses regular DRM helpers instead 
+of simple_kms, it can all be untangled and this test won't be necessary 
+any longer.
+
 >
-> I sent out the RFC since it makes for an interesting discussion but I
-> have a feeling lot more things need ironing out if w go this way but
-> I can always do it later after the stuff from you and Suleiman lands
-> once I can prove some benefit.
+> Fixes: c87e859cdeb5 ("drm/imx/lcdc: Implement DRM driver for imx25")
+> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
+
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+>   drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> index f52832b43aca..81024f7d9e96 100644
+> --- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> +++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> @@ -311,7 +311,8 @@ static void imx_lcdc_pipe_update(struct drm_simple_display_pipe *pipe,
+>   	else if (old_crtc != crtc)
+>   		mode_changed = true;
+>   
+> -	imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
+> +	if (!drm_atomic_crtc_needs_modeset(crtc->state))
+> +		imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
+>   
+>   	if (event) {
+>   		crtc->state->event = NULL;
 >
 
-Ok. I'd like to try to make more progress moving the sleeping owner
-enqueuing upstream as soon as possible, so deciding to push forward
-with my big patch or migrate to focusing on your set would be a good
-call to make quickly here.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
-Your lock nesting optimization at the end seems like it might still be
-applicable with my patch, no? Maybe we can pull that in at least?
 
-I'm also wondering if trying to refactor the is_linked bits in after
-my change might make sense, though I suspect that will require the
-_MIGRATING flag dependencies?
-
-thanks
--john
