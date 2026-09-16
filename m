@@ -1,106 +1,226 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4943C53B616;
-	Wed, 16 Sep 2026 16:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575886; cv=none; b=M7aI9OMIh54olX5cLySNfBVoErBO3402G7zr0Uygr8XtFglHVQO4wNaF4dCsOIogSTYmutbe6J3G7258ev1DJ+UVo4jIoj4mDtAQC7G8XDbWgbeHDk/p5niVHeomxcvSqp8PBCp9QGBjKOrZlL0Lyg+6y3X5WPSmRkL5cPNHNOA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575886; c=relaxed/simple;
-	bh=QZHNuqxIvhsUnyu9LbQYA0gPFKo1+OvrlGiLvaKpVMo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oE2BLwbJfA7598IQlHe6YE1UrpGdQKH/Phet+E2nIfSLfBN1KPnnniIksqeZDphUMH1V4+PiebYFQXurGHnZgGFbwVOa2SfszKCSbGGR7FAstZt2k6jZkCeEPaIyGwmw3FjxJo4Z5MSmFCipgjF4EydZSWDT4WX0kRPK0eNqN7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i8u+go8e; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EF652B1DE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789575909; cv=pass; b=HnjS8IpXnT3JckzeeJ4n9lysXxJqY8L8gbfQm0QLz5JnqVeLNbyHDrcRZB0HcYnAgV2gs35LcxJ/++mV906ZiMRLlmsXDEMfTOVk0s6HWd8j1NqGryYmiKTUW+YTl8RKeXimqH7GMVu9XajKBONszmnzWmTyQ2l0lRsEqV/gdbY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789575909; c=relaxed/simple;
+	bh=Tfy5DSiHTM2ZgjvWMzhVCdG5j/zkio3GvqabXlNj/F8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XrRXTuEZAGK+jr57GkakrzPnnXQM6UsxkdNX/k+Ixaki9lQP+e6RZMl9CCz/kkCPUOdU9dvmoR7QWd63CiZgKHeIHMOTo4DNFvE5XeIz3vWX3u/fJl+6qy7jFwSjuWEIU6cKQdElIpNEzM8th41eDK4E2tlxw6dPBMcxr3I+Z28=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bZekhNhp; arc=pass smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i8u+go8e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3CE71F00893;
-	Wed, 16 Sep 2026 16:24:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789575879;
-	bh=4SqfaW2RsFhUF5ui6S2RqYVP16Ly/WudXK02+qJqhYs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i8u+go8eWK0y7yEetWbu7j+4MgbynCDSOZf1O/SWb5i4KMa0jYZXLlXnZ7sUqSedl
-	 VFMDioy0d1kE3lXQHqQPdVA4gb4OUP3JcDXfKsHUAnygltqFZN6YqKyi/G1YnWlkXb
-	 E/w7icaJFOhJkmsQcqD7+K9D+/3ikWnOt/k//ASfOSGRNBLwh/fKqkdynJoLCP4WWy
-	 S8Y/hhzJUknVpsuDemlSH7ftRUgOheITfsESYkFtBfQNz4AidqlUdggnf9ITaUCdm6
-	 u73W9bIlfarrMtG9FmN9Xb+Np/I4APIuzhBJxkHOvx+FX2lMbcFLlfos8wcl3CHbik
-	 ug2XWLfvMYdYA==
-Date: Wed, 16 Sep 2026 18:24:34 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: Re: [PATCH] PCI: qcom: Ignore -ENODEV after Root Port reset
-Message-ID: <aqrCwl--CqjPANA2@ryzen>
-References: <20260916-topic-pcie_portrec_enodev-v1-1-5dc7bde39552@oss.qualcomm.com>
- <aqq7j9L76coy65lC@ryzen>
- <a4436f33-db21-489b-80b2-bf4793925cb5@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bZekhNhp"
+Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc50b9e8a45so823845a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:25:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789575899; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TqFSLNBntVvK53UzhKfsnqvgIMcy03V/LLx1khyai9m5HgQIbcK9Bu+/cToDzlkARa
+         HgtqPCJoDWVYs2yTE+URnvRT4uoCnn8J2FCfc8CCWatr2ZeBVXfZPARFHVJyEiKwZ6dL
+         UurFQwxRLOSVhwhwOrNHv4wSvKVY0wpDQAjD0CLMyIyDFtATaeQ5/cPCtG7QAVCdrjVt
+         chegksr7inHCETlP9BsNR1S6+xa4BASWG357JPM2ONvPFquSmPMSquYbA8b7/u5uP0EV
+         9iemC2EXB3MChrrF0J7kXpOoZPclWx1Uxunw7WxZO5eazoHv3MkaUQpvEkRqAk7In/ZZ
+         ZuOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=T8vXUt64r835ESBTJB/dxhUkslLOOIq8gAbMXJNheR4=;
+        fh=zINeD0FsscetjzcicTwPaCqv4aN/+LemnCXytx9z3m8=;
+        b=SaDs8BjtLXTSA5OgphksX0trzAnyhE1Y5Qy37+fK+zipNFaG2odl4PCMTMRWxhCPc3
+         SDOyweePVjB/XwGSF3YlQVw6E0lNgQzod22icY7ZFZFIAkvgDz6vmWKqzMlhEgu032hn
+         3KJVkpRfNFkk2G12K+kSOSyVmV7gGdP2GY9DFuw/icZxB1SLyCKq2Od8rbTf7p4vfzqf
+         TIzLrXx2o0R7GcvIRzcrc40UqT/gCNw0/DC85hvz6pYnsyyzQUs36ruuE24/bjJ9RHgo
+         moueZBfrGSk4IqgapRwD1CaM5EPRIuA70L+pbWHYnCFCs37CqtXbLD8Ex3C0Ru0rJFxu
+         WT8g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789575899; x=1790180699; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T8vXUt64r835ESBTJB/dxhUkslLOOIq8gAbMXJNheR4=;
+        b=bZekhNhpcg/1WhRHKG+Te+9vs6pKpnPaeYDWYjxmHME2wRqUKJwf+jbgpyIQk0f+6V
+         O13fJ64qVUx0EbIwbu58oC0t+S3pdV9MTIHi1uM7QDpLJvzHlet/u3tlnO9/FgAuHkFh
+         WQBPJoP8/NXvDcjpTh7jSeinHytvfkuVsSilIQSGdhzC2KUbYqJliGCs21YfYXqSqETO
+         rk4Z7qavbTXqB03s39SBI4JfjdMg19KoHEWsWzptpKFTAEnE0Gt5Uy1Na+pOvclqT9gz
+         q66MNxfH6dcaNjRIEoaniNrjEW7bksizf8f9c6V1JGBGPZLtsddsnaFpbNi/nmwiAOf1
+         wJFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789575899; x=1790180699;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T8vXUt64r835ESBTJB/dxhUkslLOOIq8gAbMXJNheR4=;
+        b=goUeQovm8uQSGVnRsKBnGou497RKGk5DFsnaX+kQxLBoSfs3g4/0cTOHsPAJ4dYiDw
+         bm3SER6OXpzESXnVi0pbU0NzQxRVHKLmhKbQNMeKythjzPamkipXiVz5efipzrWR5yXr
+         G2PfL0MK9ih4TmB4hOk+ZaVQern/4OdYw21jRNZQguNaPJFoZSnE90yY3VhhxqVovFgj
+         E+0gyZ6nyTeHdcSLY8YhtxXqMeRQa3LmsOK5feF/OXeVUr4JFsFtkNkCTAfHOKTo4gJR
+         AvEGetI+5hwqVaOrLTAH8EIkSIDcblwRYHPPIAJAShiSljhJRrp+j4PS6B0Hsi2r+r9g
+         E/NQ==
+X-Forwarded-Encrypted: i=1; AKwUvByEbnSTAV5VN3mGqa7lyKExEGbkoevxNRGeLDNg3buO2s8P30jGmU4K3FONkl16sbtVybBcdGZ88dz7sXI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMq0VeuYruid2gXJ4r4NJhyyMo/y9rP7KBqZiA0IQ5iiLVaWS4
+	oSa9k7EuHCdAGpD3+h7cXgdlK6b0x39Ks7xPxAh44yzhkjn3FDYJxylScKqMi86d3IDjBUTWMIq
+	zej4Vd/uREAd8btcxAh5IYAaq+K/k3pI=
+X-Gm-Gg: AYBFou3WGTGKjQpnBG0CpL0rQh9mBcTWXpuJigUXbLIniHU8fMHAO2W0x7qIXp0KXnl
+	vYvxxVqaZgaI5Zdm1mKViP4uHEJPofm0p0344z74XqWP40Sxn/Jb5k78yB1KgObHsNOxYS+hcTd
+	myXhNkUYl/gIJEffQQgWQwlmicouCO5QivRwoC3KkdTOK0VlRh5jtOWRkIC5veBBPq+sa+zKwg6
+	dn/8OZ6nwRBjOwil/ByYZ2G6uvck0crLT1hwm8uxRXx0whCtxBuguH9O5R/7wLoFh+n7DEoq0jC
+	ChfZQPgLzMQGbwlgfUPVuMOxRbygezMYSweH1OvFeHXEV9doDJpeC8c+J/FO4As5bj3+WeYbrC9
+	aINM/UrLt1mUaxQbc+qacpkfAVcRgURbd+iR38ie8LpUwRdYRRJ5bP5a74lkuqtPW1N39h1RBke
+	3ccghYXEoeHllC+hAqA3JXcSRlqRvwdpc=
+X-Received: by 2002:a05:6a20:9c9b:b0:3d3:adbf:7781 with SMTP id
+ adf61e73a8af0-3dd5f73f2fdmr9852912637.22.1789575898997; Wed, 16 Sep 2026
+ 09:24:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a4436f33-db21-489b-80b2-bf4793925cb5@oss.qualcomm.com>
+References: <20260916112554.413933-1-madhav.khoslaa@gmail.com> <fe92569462dc4decf36f4dcb3b45372fc0d42fb6842eda0d3396fa18ee32aa55@mail.kernel.org>
+In-Reply-To: <fe92569462dc4decf36f4dcb3b45372fc0d42fb6842eda0d3396fa18ee32aa55@mail.kernel.org>
+From: Madhav Khosla <madhav.khoslaa@gmail.com>
+Date: Wed, 16 Sep 2026 16:24:46 +0000
+X-Gm-Features: AcwNN1U8QHUiHDV5g4tLvSfFw01ei7S3h8NzFnBoBxITmcE6o6f_L5XxCkZd1mI
+Message-ID: <CAHFb0oABUaKNWVcNZwrxPv0MJU=3Jt1X+iv3fJX9RgO97uu4iQ@mail.gmail.com>
+Subject: Re: [PATCH v2 bpf] selftests/bpf: Fix csum_partial() dropping
+ trailing byte on odd length
+To: bot+bpf-ci@kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
+	alexis.lothore@bootlin.com, eddyz87@gmail.com, ihor.solodrai@linux.dev, 
+	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
+	shuah@kernel.org, davem@davemloft.net, kuba@kernel.org, hawk@kernel.org, 
+	john.fastabend@gmail.com, sdf@fomichev.me, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, martin.lau@kernel.org, mason@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 06:13:29PM +0200, Konrad Dybcio wrote:
-> On 9/16/26 5:53 PM, Niklas Cassel wrote:
-> > Hello Konrad,
-> > 
-> > On Wed, Sep 16, 2026 at 02:37:49PM +0200, Konrad Dybcio wrote:
-> >> Root Port recovery may race with a device hot-unplug. In that case,
-> >> dw_pcie_wait_for_link() returns -ENODEV because no device is detected
-> >> after the controller has been successfully reset.
-> >>
-> >> This is a valid outcome and should not cause Root Port recovery to
-> >> fail. Ignore -ENODEV while continuing to propagate other link-training
-> >> errors.
-> >>
-> >> Assisted-by: LLM
-> >> Fixes: 4d88cb82a6d9 ("PCI: qcom: Implement .reset_root_port() and use for link down")
-> >> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >> ---
-> >>  drivers/pci/controller/dwc/pcie-qcom.c | 3 +++
-> >>  1 file changed, 3 insertions(+)
-> >>
-> >> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
-> >> index ee63a6ec99de4d07c16b8d6cb68df0d92f822cd8..3d3be9bf798b7c247d69969d6570385b8648123f 100644
-> >> --- a/drivers/pci/controller/dwc/pcie-qcom.c
-> >> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
-> >> @@ -1880,6 +1880,9 @@ static int qcom_pcie_reset_root_port(struct pci_host_bridge *bridge,
-> >>  	qcom_pcie_start_link(pci);
-> >>  
-> >>  	ret = dw_pcie_wait_for_link(pci);
-> >> +	/* This linkdown might have been a hot-unplug */
-> >> +	if (ret == -ENODEV)
-> >> +		ret = 0;
-> >>  	if (ret)
-> >>  		return ret;
-> > 
-> > 
-> > I did not know that pcie-qcom supported hotplug.
-> > 
-> > Last when I was discussing this with Mani, I'm quite sure that he said that
-> > it doesn't, see:
-> > https://lore.kernel.org/all/20251222064207.3246632-8-cassel@kernel.org/
-> 
-> I don't know if native ports still don't, but the ones used for USB4
-> tunneling certainly do
-> 
-> see e.g.:
-> 65ccb2203ef8 ("PCI: qcom: Clear Attention Button Present in Slot Capabilities")
+> This isn't a bug, but would it be clearer to paste the full failure
+> output or mark the elision? The summary line says six subtests failed
+> (1/6 FAILED) while only the ipv6 one is shown, and test_progs.c runs
+> three ASSERT_EQ calls per subtest ('test first port', 'test second port',
+> 'test third port'), so 'test first port' would have failed too. And
+> '1/0 PASSED' reports one passing test, which cannot come from a run whose
+> only named test failed.
 
-Ok, nice to see :)
+Not a bug. That log is the test failing on the TEST_PACKET_LEN=3D99 case
+against the old (pre-fix) csum_partial(), not my patch. My change is
+what makes the test catch it; it passes with the fix applied.
 
+Madhav
 
-Kind regards,
-Niklas
+On Wed, Sep 16, 2026 at 12:13=E2=80=AFPM <bot+bpf-ci@kernel.org> wrote:
+>
+> > diff --git a/tools/testing/selftests/bpf/network_helpers.h b/tools/test=
+ing/selftests/bpf/network_helpers.h
+> > index 75133119c04a3..878c9fc5c37ca 100644
+> > --- a/tools/testing/selftests/bpf/network_helpers.h
+> > +++ b/tools/testing/selftests/bpf/network_helpers.h
+> > @@ -129,12 +129,23 @@ static __u16 csum_fold(__u32 csum)
+> >
+> >  static __wsum csum_partial(const void *buf, int len, __wsum sum)
+> >  {
+> > -     __u16 *p =3D (__u16 *)buf;
+> > +     const __u8 *p =3D buf;
+> >       int num_u16 =3D len >> 1;
+> >       int i;
+> >
+> >       for (i =3D 0; i < num_u16; i++)
+> > -             sum +=3D p[i];
+> > +             sum +=3D ((const __u16 *)p)[i];
+> > +
+> > +     /*
+> > +      * RFC 1071: an odd-length buffer's trailing byte is paired with
+> > +      * a zero pad byte to form the final 16-bit word.
+> > +      */
+> > +     if (len & 1) {
+> > +             __u16 tail =3D 0;
+> > +
+> > +             __builtin_memcpy(&tail, p + len - 1, 1);
+> > +             sum +=3D tail;
+> > +     }
+> >
+> >       return sum;
+> >  }
+> > diff --git a/tools/testing/selftests/bpf/prog_tests/flow_dissector_clas=
+sification.c b/tools/testing/selftests/bpf/prog_tests/flow_dissector_classi=
+fication.c
+> > index 80b153d3ddecf..421dfa6c4ea36 100644
+> > --- a/tools/testing/selftests/bpf/prog_tests/flow_dissector_classificat=
+ion.c
+> > +++ b/tools/testing/selftests/bpf/prog_tests/flow_dissector_classificat=
+ion.c
+> > @@ -27,7 +27,7 @@
+> >  #define TEST_NAME_MAX_LEN (32 + SUBTEST_NAME_MAX_LEN)
+> >  #define MAX_SOURCE_PORTS 3
+> >  #define TEST_PACKETS_COUNT 10
+> > -#define TEST_PACKET_LEN 100
+> > +#define TEST_PACKET_LEN 99
+> >  #define TEST_PACKET_PATTERN 'a'
+> >  #define TEST_IPV4 "192.168.0.1/32"
+> >  #define TEST_IPV6 "100::a/128"
+>
+> The commit message body includes:
+>
+> >     v1 -> v2:
+> >     - comment style: opening /* on its own line, per BPF selftests styl=
+e
+> >     - Retarget the Fixes tag to bcc00987bc56. commit f4504af68575
+> >       ("selftests/bpf: move ip checksum helper to network helpers") mov=
+ed
+> >       the helper, but sizeof(iphdr) is always a multiple of 32 bit word=
+s /
+> >       4 Bytes (iph->ihl counts in 4-byte words), so the odd-length path
+> >       was never reachable through build_ip_csum(). csum_partial() first
+> >       gets called with a length that isn't guaranteed even in
+> >       bcc00987bc56, via build_udp_v4_csum()/build_udp_v6_csum().
+> >     - TEST_PACKET_LEN 100 -> 99 so an existing test catches this instea=
+d
+> >       of the bug staying unexercised
+>
+> This isn't a bug, but could the 'v1 -> v2:' block move below the '---'
+> line so it stays out of the committed changelog? Documentation/process/
+> submitting-patches.rst asks for inter-version changelogs to go below the
+> '---' separator so they are dropped when the patch is applied. The
+> content itself is useful review material, especially the reasoning for
+> retargeting the Fixes tag.
+>
+> The commit message also includes this test failure excerpt:
+>
+> >     Without the fix and with TEST_PACKET_LEN=3D99, flow_dissector_class=
+ification
+> >     fails under vmtest.sh:
+> >
+> >         test_flow_dissector_classification:FAIL:test third port unexpec=
+ted
+> >         test third port: actual 0 !=3D expected 10
+> >         #137/6   flow_dissector_classification/ipv6:FAIL
+> >         #137     flow_dissector_classification:FAIL
+> >         Summary: 1/0 PASSED, 0 SKIPPED, 1/6 FAILED
+>
+> This isn't a bug, but would it be clearer to paste the full failure
+> output or mark the elision? The summary line says six subtests failed
+> (1/6 FAILED) while only the ipv6 one is shown, and test_progs.c runs
+> three ASSERT_EQ calls per subtest ('test first port', 'test second port',
+> 'test third port'), so 'test first port' would have failed too. And
+> '1/0 PASSED' reports one passing test, which cannot come from a run whose
+> only named test failed.
+>
+>
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a =
+bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/READM=
+E.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/350910=
+50280
