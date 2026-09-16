@@ -1,78 +1,65 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDA23DD86C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:02:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E79A4E56FD;
+	Wed, 16 Sep 2026 14:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567370; cv=none; b=prbiMKrQDTzaa0SGfPLSzQnYUhqLNBWs5zKxIjiNvUjkKp1J6mA8j9SyS4dRQw2YDdGwaa+/H2+cyU5QPFozYOEfsolqeZuvr8uMgVGiC2zLHcXfGziYK6tC+M3nlpY+avPo3NYRSoFo2DfGhPMxTljmqiEsFsVDnzz3vwz+xXg=
+	t=1789567418; cv=none; b=k0g4RCErPqElinwcQsvouEu+R2vFkolmkRGwZLnexHdkxV+8s6WKnu9Kty+0YevUBZJ7p5CezEW4WUlaaXSCTMaWaAP+KLBhgWDkv8CW9/FWRUiEjA6WuSwo/aBywdlEF49d+ZAWMryv+XQ+pHbLcgtU62Ew96wkrBzhSzaxx80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567370; c=relaxed/simple;
-	bh=lk414wfpQrq5vp8DsPm/BTXmLqK0llvlOvGO27hPcTM=;
+	s=arc-20240116; t=1789567418; c=relaxed/simple;
+	bh=TkXVw7bC4g65duQjFd6vedB6h/ilVBg8U3NCSCJYqFI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QzRwWu6aY8E7Eo0zv6QVzDY/ycW7aRIkOTy5vRr/RQNj3RgvvTsGuRWrb4ljAkd8jN7BXEGTjVDZ6Rveyn14Yf5H+4hYrjCfGNhCrBKNjyEDNcDDfIuqzY/vMXTyQgrsf9PHq9pJLHrbOMVtjo3XLkj3l01qJm//grPU31oWVWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=D20xEvqI; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=sq1Rz2k8OaHP57cx7lmqSDtPp/9i98WX7fxJwIeuUsxLKq/0KQUqhlAtrHER083n1bMnC4TqsIpZ2uzgL/hH9b5g1M0WeC6iuWlOvpHp2K8xP0DYdEJi/GQvsbZblFcXHynS4wP8MZc7UN/Hq8tTBVtBF4pLBG6Xzu9smyBtZPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f7RWrddx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="D20xEvqI"
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93a0299c787so75294385a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:02:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789567368; x=1790172168; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QK04b22kulIc7bZXmZ0HJttAO0Z2ragkIvYz0XNFgzE=;
-        b=D20xEvqIVoJEZfOuPpxfpBrh7OTkvZge2Xf+D6xaIhbZlibxC0E5elhiqMmvLhE0qE
-         XgIJqyeMiL+BqQd5xnr26QgzFf00zc2dopCPXw7F+52dzRCohYDgGDrDKs3hv81LMBNb
-         e2FJQYP+RAVxXWq8cqzD+mb8drq1isPAKltxToGYrIj5xmqF7+DZ8wUDElozbx4+qWMB
-         FWMUMBR9Q2g1pK+09cUyiNtOe8anyw1nAva4Tgem4ThyrXpzmAkq9r0rnm6a1Kj6a/Qj
-         +wOkvhKA/qPvaIE+6x3GktGmXQ9bCSJLuf4KBF0eGs0m46hEA2shaMoUe7Pdyc/39+e+
-         6X8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789567368; x=1790172168;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QK04b22kulIc7bZXmZ0HJttAO0Z2ragkIvYz0XNFgzE=;
-        b=C7ImXmLss2v/+6cCOzch4pBTCkZPi/zF5Dw4+eC2uV3pWSU6KMQsfW35QDdvbn/e4S
-         g6GxQH/EBxX4875EVzFjQg1Ujl5m7c93kIdPcIkQAbv6Uinv8lXDrM1Mb3t89LE971sf
-         LG01esua86sXonZf6rONQ0F+wkGToesAVyDkNLqRz4bKErtozlKz4zwcqP14l/cEOiei
-         Oy1w8YAEQp2xvb7CTpVuRru4rOJ3JuDw02XxLeiiQxfrsNjiv4LwMZUK5jI+V+zTo0KR
-         VuUrMjPXFjF1GFUQbqEkkSDBHHg6Nd0UFmv3IkhNeznkJg7mB+vYLIWsR3O9CGbKRnK2
-         b9nQ==
-X-Forwarded-Encrypted: i=1; AKwUvByZDkRDrw19ZEDxsfyo6zkhqHKKkI46M9kuFrPvp+4RkbuA58U6EBKXT64/+jXvu1h+GRANnD0OyTinBUs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lntQabxNVrpEvmJ8Ove+tRnW5Bw4KyyvoU5YHaEdmjSBcICOeM
-	zqNuflmgLphtF/BhGQrcf1QgQqOiKxJ9N6i2xXNLSRvoTfVlEvprhWYf/s5rEzrWANk=
-X-Gm-Gg: AYBFou00nqs0xZ5NABu0OB0uul4PPTey+NrkmE/dSHeYmwNVxJ9VDyfHu55YyDmDXbf
-	pyGYWAv00pNTGmpPxRlf7NDydUDB+PdPsddRSAiiU7euxhKfAqgZv0ZoTAJZ4uGf3KSaV7/WErw
-	chsTpc8e3N2noP1Vdyvz2NzLtq8LNmau86wGvAbvSkHBvW6ihPsjFxuvy4USZRWozrBOM5FcT66
-	sh6V6Eda0QcW8L7nTJax253OrAwwOSDeYdWB7FrTT9irb4mpWzaNSfhbVCuPEBPhmFPtxqjLUIK
-	7/ErPKEt2ghSXvMMUZV+ivx3aFflg3cI6HSFAIf5gCCvMImr8N8OWRTNuuJjt7DwH4XdvNFQDE3
-	asFxOXJqtui+ARNSFlVO90QdQctFsIBLIrRwvPBu7PtFUhuf1LoQacYXGCGfUhKdLTbYDaS32tj
-	zlrcFg0BviMuB5rJwnMa/ucIZ+ZyODrjXTCb2/j9ATDtp65D35rHrOJm1SL9gZTFIFGtHKX58R0
-	0Qi+b3m3Mkr9SFxs/JfVEVe6hTGTQTMHnoP7kFILR1R5VMX09G403g=
-X-Received: by 2002:a05:620a:2704:b0:937:19d3:3fda with SMTP id af79cd13be357-93bb785c5b6mr477815485a.28.1789567368038;
-        Wed, 16 Sep 2026 07:02:48 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b780cfa78sm218545285a.2.2026.09.16.07.02.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:02:47 -0700 (PDT)
-Date: Wed, 16 Sep 2026 10:02:45 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
-	jannh@google.com, wangjiexun@tinylab.org, sashiko-bot <sashiko-bot@kernel.org>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
-Message-ID: <aqqgeOtYBcRdVqmI@gourry-fedora-PF4VCD3F>
-References: <20260912110832.3203902-1-gourry@gourry.net>
- <aqloB0zm3RjJ47m1@gremlin>
- <aqlzzwLOVT79Ti_7@gourry-fedora-PF4VCD3F>
- <aqqTtW3vjfzH8bcY@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f7RWrddx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7105E1F000FF;
+	Wed, 16 Sep 2026 14:03:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789567417;
+	bh=hO1YRILVaBOqm+dWq6qCTgxEbPpdVWHsaZacHfjUT/A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f7RWrddxO53t7XqQWGQqpP3lfBJi6WfPwofmEdM57qil6qIChEXUlmwKor5h6kBoa
+	 9GtiaQGHN39ej2oq8F37LOrKCVhmvTOQjKW6hJb7MLQQEBdL7Wp00+3QWKwZvAomyS
+	 NoKwMiPOeftTdpj8xAtWPVc7gLXBtJhue+mreMUdP9rjPp5itv0EZmpo1EcFGFuaOg
+	 6wBCD6BMMJuwTQfzHiqvbcCmwd3OrUYtvR6xVydAwVB94b6TjTf4NHDOAN6iJkQ1H5
+	 JA+OYVYfyUjxkHRwB6C+LIyIx3AxkqaUGC2gvED56T6jLRNYsj01r7C5w9ImRppKs6
+	 qi9QEBSo801MQ==
+Date: Wed, 16 Sep 2026 15:03:21 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Gary Guo <gary@garyguo.net>
+Cc: Kees Cook <kees@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nicolas Schier <nsc@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 20/21] kbuild: build rust crates in parallel with the
+ rest of the build
+Message-ID: <aqqhKFuclruH3lXn@gremlin>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-20-39817ec5db23@kernel.org>
+ <202609141133.7CA979C89@keescook>
+ <aqkv9SqIdh0qKPFc@gremlin>
+ <DLGKLQ9LJPBG.3QU14CCO1Y6Q@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,58 +68,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqqTtW3vjfzH8bcY@gremlin>
+In-Reply-To: <DLGKLQ9LJPBG.3QU14CCO1Y6Q@garyguo.net>
 
-On Wed, Sep 16, 2026 at 02:18:36PM +0100, Lorenzo Stoakes (ARM) wrote:
+On Wed, Sep 16, 2026 at 08:42:41AM +0100, Gary Guo wrote:
+> On Tue Sep 15, 2026 at 12:58 PM BST, Lorenzo Stoakes (ARM) wrote:
+> > On Mon, Sep 14, 2026 at 11:37:54AM -0700, Kees Cook wrote:
+> >> On Mon, Sep 14, 2026 at 10:22:19AM +0100, Lorenzo Stoakes (ARM) wrote:
+> >> > +# Rust code elsewhere in the tree depends upon rust/.
+> >> > +ifdef CONFIG_RUST
+> >> > +$(KBUILD_RUST_DIRS): | rust
+> >> > +endif
+> >> > [...]
+> >> > +export KBUILD_RUST_DIRS := drivers lib mm samples
+> >>
+> >> Doesn't this make all of drivers/, lib/, mm/ and samples/ wait for rust/?
+> >> That's a lot of stall: drivers/ is most of the tree. I think then a
+> >> CONFIG_RUST build has most of its C work waiting on the rust chain;
+> >> only the other top-level directories start early? This didn't create new
+> >> build delays for those configurations?
 > >
-> > relevant meme: https://i.imgur.com/W0N40BK.png
-> 
-> Content not viewable in my region :'( seems I do not have a loicense for
-> that!
-> 
-
-google "reading other people's code meme" and find the comic with 
-
-// this is bridge
-
-:]
-
+> > Yeah good point.
 > >
-> > No argument here. This function in particular is really horrendous.
+> > For a defconfig+rust clean build on 128 threads the other top-level directories
+> > were done at ~14s while rust ran to ~18.6s, so there was 4-5 of idle.
 > >
-> > I think i'm now 4 or 5 stacks deep on the "Thanks for fixing a bug, but
-> > while reviewing your fix sashiko found yet another CVE-worthy bug".
-> 
-> Yeah, I WISH it wouldn't do that.
-> 
-> I mean it's helpful to some degree and it finds real stuff.
-> 
-> But it's _where_ it does that and the workload++ aspect of it.
+> > However the patch improves things by net -3.9s regardless.
+> >
+> > This is really only a big box issue though. With fewer threads the rest of the
+> > tree takes longer so it has no impact on the build.
+> >
+> > (An aside - this kind of trade-off is what the series is all about really - the
+> >  'serial tail' - i.e. the single threaded stuff that _overlaps_ the end of the
+> >  build is what slows you down.)
+> >
+> > Since this _still_ gives you a significant speed up on bigger boxes, I think
+> > it's fine as-is.
+> >
+> > The LLM says a fix for this would need significant work - a cross-instance lock
+> > and an on-demand rust/ build. So I think best as a follow-up?
+>
+> If we do it we're basically reinventing a new build system. Not saying that
+> Kbuild isn't one already :)
+
+:)
+
+I mean arguably make is a seriously limiting factor in improvements (the other
+might be... C headers... but that's a whole other kettle of fish ;)
+
+>
+> Best,
+> Gary
 >
 
-In some senses - yes it's annoying.
-
-In other senses, it's saved me a lot of pain debugging my new work, and
-I'm willing to do some cleanup on the way to new functionality.
-
-Someone's gotta be the janitor I guess.
-
-> > I suppose reasonable to say the goto is worse.
-> 
-> Yeah I know it's all a bit much of a muchness, and obviously my suggestion
-> _duplicates code_ which is also not wonderful.
-> 
-> But the control flow in the function I think is a bigger issue.
->
-...
-> > I'll spin a v2.
-> 
-> Thanks!
->
-
-Given i already started rewriting and validating the entire garbage
-pile (see other response), mind if i just leave this as-is?  This gets
-completely replaced anyway and i'd rather not have to go backward at
-this point.
-
-~Gregory
+--
+Cheers, Lorenzo
