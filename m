@@ -1,82 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C6F4D37DD
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579604; cv=none; b=tdST0RU35xTdCqQZt8oLWn24TB1EdRHnNPXnc/n4pLic1qwJLloeBrYdKw/cf54CHPFuWI3LNgo6gyKRZiiP+H66uk3w87cZT+vDkG2jKMikfAA4HIsfNGHspXkAs4KKgl5zWC347aA3vz2dqFur29UXtUYCgy5kuLwwyM25sjI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579604; c=relaxed/simple;
-	bh=6XWgQo3r6q5mm595MwDXk4dRnHqpzTq5zKiU3HZ2zzA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ICQIOcGhWPtjRMYtjZJRV0rTF+vfmLfYBHSjDYmftInAvXMZ0WBHsNZQ7wWhCoPIfyd4Eh2/U2t/WEvcG0386uTEeOU0KP4ld7OF9zOzevYoYZAZI2OdoHd75UIXOyqk8STAwecYZGlAge59Fy/e+5wnGi4nEGqWDPe0kfKZMEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3cW0mA3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A68736D503;
+	Wed, 16 Sep 2026 17:27:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789579648; cv=pass; b=DhaFEPVEvx07MhHGk1Zo9lpPbn8gHCDLmAxzH9Syfv+fIT7DYcDnUPo3e8hjCI0RTsMKgv6XYHrv8/4Ncx0W36kmxh9bGffwxpPCLIV5F6oNatUPHs302SySHq9zSI5Ds7Cmt0O4ieYctPeUGuuJSrulprkOfhoZnFxxdhi788g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789579648; c=relaxed/simple;
+	bh=92tg37CmSF1ufzebv0RSmYfnRdV6jfMV9hOZCai3IOw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jwbkByFPwgeHYxvZv2RyskzRu+O39DQqjzbSVQSaopNbehD7xyvc4X4qFz1ocvNcmlM6STt+N3v7KjbQN28FkPwcOdVmcjDOHko/SVyleeC/Js60ydbzvp9IKhTl2a9iruW8bUo+5Zf3Ufcj5BgYH7xxl7mNcoXLtfdLnFub51g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=JCN6Jf3V; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3cW0mA3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B2C1F0089A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789579602;
-	bh=6XWgQo3r6q5mm595MwDXk4dRnHqpzTq5zKiU3HZ2zzA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=d3cW0mA330ZaN1AcECBvJyQ5TtoS8uiRbSEtUkgGJ4ofuPnBYNvxEMb6wsNdVR6a4
-	 voAhZ0Kh3kk9RSIvQIPol92m5u1eO0S7tXEfHZSpkKseO//x8jZjwcGql0M2pfm+fV
-	 WjI2m5RlIRic8BcWn1ikycDIXMLhFyJddnHBsL7OIqvqAa5XE6usKac3QH32gf7oij
-	 DSygOzy+aADZh1+KYxiOWRcqqe3eHqP8stWUbCmRXXs4Evv7ENbqzv3CatdBIlzwU8
-	 /Na9YFldE5wy18N55dijVTWClhct8402x+XJKhO1lm9fjcFQPlHuqza8cHmST37oOz
-	 1vU1UmLpDqRzg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1744fso1844249e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:26:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzlY6LZ75rzBjEJXKtuTvWxsgqMghGa6tGI39PSy9d/B4CEbCl3nD0Jpwd5EH7EMt1zMD+2jnpvuo1Jvls=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4OarCM+KJdWPzyV0Xe4EzFaj55Oy2S/7AoLdvtk/Ez95C40Ja
-	O4y5HGTnN+rLAa2V/vDqEuHZlDrOkcyLnze9LM464aYoE1rYHC+GNPcGAfwUNPQSDY0Y26kUDHw
-	LQECMLfn7RNfYp5VslKymEpCelxU/xqs=
-X-Received: by 2002:a05:6512:3e1d:b0:5b0:23cb:91ea with SMTP id
- 2adb3069b0e04-5b8b6615f97mr1165660e87.22.1789579601267; Wed, 16 Sep 2026
- 10:26:41 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="JCN6Jf3V"
+ARC-Seal: i=1; a=rsa-sha256; t=1789579634; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=OcWGWbCtQyAF4qkrN7p4azhGGDdw+5U5j8VyYOYLb1gBsSy3qgD5MLDMhBmn9+QjxkOqvYGfCX1flfr+kKYJxLwzsFX1cRUoA0iZWajNauXTL5DcfCF6+8H/CZOCKHJH9rZ8Z0yGzLIHMXFqU38Th52vBvswiwzlz/YcrTqiqrM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789579634; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=yu4I8aA/dSCWiNzd0EiMaIb1hEBPZBMS5B0bclDwg3U=; 
+	b=j1EjAJDPWLzUqrtf/AWps9jhj7K6lk233J0lmD2EGKZD6Xs1NfIr5FzpvHJvh4jpa3HwPTEXTskgBmeApmAwq8PIskOPdChg2bnHC/+cNVLIvBRe5ar9uK6zK/DSVa3694wXupmzLoyL1VBtW45k49r78EvTopgQqZ+yBA0WQrI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
+	dmarc=pass header.from=<detlev.casanova@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789579634;
+	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+	bh=yu4I8aA/dSCWiNzd0EiMaIb1hEBPZBMS5B0bclDwg3U=;
+	b=JCN6Jf3VoU2FPQcE7Cla4Ac5E0bw+bPSvMGe+NiYJCMTz422U1TYnCsuRJOreAtD
+	2ca+SRFf5xxKjMxM/+jr4coKAkqbDzVU5gThzZjCCf30AOZ+/Ypuvxar3/2759XUcmy
+	W5TjQELzpkBQvDKB8T7xNYVjeI5pzIdNItz7RHY0=
+Received: by mx.zohomail.com with SMTPS id 1789579634133586.5912753636819;
+	Wed, 16 Sep 2026 10:27:14 -0700 (PDT)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Guangshuo Li <lgs201920130244@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] media: rkvdec: do not destroy borrowed SRAM pool
+Date: Wed, 16 Sep 2026 13:27:12 -0400
+Message-ID: <h_fJ5CZXS3anfaQzbf4v3w@collabora.com>
+In-Reply-To: <20260915140511.2429792-1-lgs201920130244@gmail.com>
+References: <20260915140511.2429792-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915045426.1726805-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260915045426.1726805-1-vulab@iscas.ac.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 19:26:29 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnYvEqy0tEHwcs3dZEKgonk-8nGH4LcdRJVBBW6Xvz1mw@mail.gmail.com>
-X-Gm-Features: AcwNN1UWtQYdjPvddgdnmwnhlcW_2l5q8vGOsGA9udfpJBpnNSS8bx_leeHyW9Y
-Message-ID: <CAD++jLnYvEqy0tEHwcs3dZEKgonk-8nGH4LcdRJVBBW6Xvz1mw@mail.gmail.com>
-Subject: Re: [PATCH] clocksource/drivers/fttmr010: Fix clk reference leak in
- error paths
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: daniel.lezcano@kernel.org, linux-kernel@vger.kernel.org, tglx@kernel.org, 
-	lkml@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+X-ZohoMailClient: External
 
-On Tue, Sep 15, 2026 at 6:55=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
+Hi Guangshuo,
 
-> fttmr010_common_init() obtains the PCLK reference with
-> of_clk_get_by_name() but never calls clk_put(). If clk_prepare_enable()
-> fails the reference is leaked directly, and every error path that jumps
-> to out_disable_clock only calls clk_disable_unprepare(), which releases
-> the prepare/enable state but not the reference obtained from
-> of_clk_get_by_name().
->
-> Add clk_put() to the clk_prepare_enable() failure path and to the
-> out_disable_clock label so the clock reference is no longer leaked. The
-> success path keeps PCLK enabled for the lifetime of the timer and is
-> left untouched.
->
-> Fixes: dd98442e17a6 ("clocksource/drivers/fttmr010: Drop Gemini specifics=
-")
+On Tuesday, 15 September 2026 10:05:11 EDT Guangshuo Li wrote:
+> rkvdec_probe() obtains a provider-owned SRAM pool with
+> of_gen_pool_get(), but its error path incorrectly destroys the borrowed
+> pool with gen_pool_destroy().
+> 
+> of_gen_pool_get() returns a pool managed by the SRAM provider. The pool
+> is not created or owned by the rkvdec driver and is destroyed by the
+> provider when its own managed resources are released.
+> 
+> Destroying it when rkvdec_v4l2_init() fails can invalidate the pool
+> while the provider and other consumers still reference it, and can also
+> result in the provider attempting to destroy it again later.
+> 
+> Remove the incorrect gen_pool_destroy() call from the probe failure
+> path.
+
+This is indeed invalid, as the gen_pool is already created when this driver is 
+being probe()'d.
+The sram module can only be built-in, not a module, so we know that the 
+gen_pool will never be destroyed while rkvdec uses it. That allows rkvdec to 
+just get the pool pointer and not have to call a matching put() function as 
+there is no need for ref counting.
+
+Reviewed-by: Detlev Casanova <detlev.casanova@collabora.com>
+
+> This issue was found by manual code inspection.
+> 
+> Fixes: e5640dbb991c ("media: rkvdec: Add RCB and SRAM support")
 > Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/media/platform/rockchip/rkvdec/rkvdec.c | 3 ---
+>  1 file changed, 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> b/drivers/media/platform/rockchip/rkvdec/rkvdec.c index
+> 061281f903f3..4541ef9ee3b9 100644
+> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+> @@ -1857,9 +1857,6 @@ static int rkvdec_probe(struct platform_device *pdev)
+>  	pm_runtime_dont_use_autosuspend(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+> 
+> -	if (rkvdec->sram_pool)
+> -		gen_pool_destroy(rkvdec->sram_pool);
+> -
+>  	return ret;
+>  }
 
-Also here. Why stable? It's not like this get exercised so much that
-it makes anything on the planet unstable.
+Regards,
+Detlev.
 
-Yours,
-Linus Walleij
+
+
