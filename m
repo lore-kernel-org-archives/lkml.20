@@ -1,228 +1,274 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010017.outbound.protection.outlook.com [52.101.201.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E6A4D09E0;
-	Wed, 16 Sep 2026 11:52:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789559564; cv=none; b=IfdD5+bYuj8Gu+/hsjzKOrUPxC5cKF4f2SvPRndFPX7XihknOZpLUVySAiZR/LHOSfafmkdbS6c3j7xpRxwfoWMnre9UlgltRRi7IElr6D9vDD4YJehLOK8LSjdR6cEazWSqbeMSmRvbeJCLInlUClXql82Km2YPa5pKHZeLC4k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789559564; c=relaxed/simple;
-	bh=xAwNp8PjbXoLFaCa2Mn2IYQOxtVDUm0M9shdOQ6Hn9w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YZEy4i05Fh+2j1wQNn5foFXUrvrNx3ljrSj31l8FwGdQ5Owp1o8tbN0CjnBcSj4nAoFV/AdeNnupkgLEshRr6cxQOK8NSahW/dkGkP6EONV83jI9Vkqf+jA2yw/G4MAt0Us7t3cmvQtnNqo9fkeVypAxIGrwIlOyChwCZt8LoAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtV4UnVa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726DA4E56FD;
+	Wed, 16 Sep 2026 11:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789559576; cv=fail; b=I4T08/Cg1/TwNQ0AFJKa953y1hORy6RHZJ3nSnRPB6amD8L1e9kPA3j6L/I+3A5QjFn33Q7NLcExE+skuKsC/wCppkx9JtLumSd9f2aJeTxITF7xvkVNRm9cedKmvc5Cif3ekDTbHQnZbjV4Cq04iEvmq42rw0xA/OO/+r9976c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789559576; c=relaxed/simple;
+	bh=DHuKzZrVCY/cPgXKUqBlCpppGQ2Ga+e0srYArs8fJdo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FlijSGtrw7qHha6VwlVolgZsBi82NP+DBE0EtLnBjZY382CVd/TX6q8CtlmqI11Z7XLONUPd6osXCq5Dwq2oGilU1b7GpixkM7UCMBcUdmy+1yqzCkCiDX7qaSws6u4YEwg0Y1uLlUU4vTPWs77nwQ+vqWLrScT5ylg894IZaxE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=TYb0b5xW; arc=fail smtp.client-ip=52.101.201.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtV4UnVa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955911F000FF;
-	Wed, 16 Sep 2026 11:52:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789559550;
-	bh=Vzrt3qIu8htngP8L6pa7ISBaAmwNdL2PIvmwNtw4WRI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gtV4UnVaObhYP1DzPxoQ41GvxTAdyYfj108NOlJ/uVsrOH42758RCke3VRxaTgIA/
-	 tTCRCKy4tnMhnhVJj1RaR9MMqhRzVCjEZge1YuxB3Swe4VAkbOXlkxmy5UAqcelPg5
-	 QIRzrJUwpXtn3Kp0u21UTCfNOhed/aZH0zXx5bhDMfBVEcI6z7CjlLb4KjBrE51Rr0
-	 Xitt15hlNP5QP4GSFvIF2AkRCsirqD0QtNLT2rBZ7xHtGpVQDshzfJElkckjrF1akv
-	 4nl8ZYSVyx+iYP5SeRCdah38HYSjhLhj9Ty8/N++kdYQmFN6+AlFoI7GIlDuWYXSib
-	 RMAbusE2lTsNg==
-Date: Wed, 16 Sep 2026 13:52:25 +0200
-From: Joel Granados <joel.granados@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Bradley Morgan <include@grrlz.net>, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] sysctl: Use replace **void with **char in proc_put_*
-Message-ID: <fxrwmefwe6fciz5szyn5hr2ucxq2vspahrgcdzuv3nt6v4ifxz@pmqrjxnvagow>
-References: <20260916-lklm-sysctl-void-vs-char-v1-1-c3f8b2eb8b1e@kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="TYb0b5xW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aG0oKHb8KcEdre+rK3In8EAAqhdVUmF9VvRw6NPuPrlGrqPlvJPLzycguBO2noWHblZKBztH6x0PTeRAIrNfo/FpZQhkGtE6TprWRpR+ankhY0Sb5NVTSp8OB0TsfwRe1wR34gNExtL8rMQVZtY0WVlYqAev9TLoyn8+fjF+tErqAlqXMQ6QaChgVBOe+FHNUOdFQtBVCZnDV7xdAVyT5RA8NUbNzytuhsjQ2QVS4uT/x4y0xn/YQEwASNyZ3/qCOIOJoXazBFPW4b9h4kcue6fkaKWdAiUhfg0gCYUPi89mn6ssnZCOXYzl2h2M3N6O6c0ARXSiUxHJeyn6Ynu7BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mZx62VDeT0ufB+RoQyhNsYub6vn+IMt5N7ocikkQ9sU=;
+ b=FUyNkmAgjoL3/Qs+3F8bOdJWZRxxAQSwJW4szhpjx76WlA2EdbNX7jtMV4pbjd6iC91k08D4iBb9j8AgeMohTuau1FzNyZt2pgMNrR3k7wEhCceWhRur0It9nkugCoDQfECZ/QHNEXl5jVGK9zQfspiclLtQPItvb1RkcyDOMSOeazpPRKoZiKffRGMnXBwgNMPwDdqq7GrZVoEa2hiF6nXWgC58+c0tDXJtUVpRjwHqUBSf7xfoY9HeBUajjbck/1j+ocf+2OW94VtyszgXGAhvPMbR2a17/AFehv7xqsqmqP2D78ATc4RhwLcSfrFMBON46FvV0aHG6+MLdveVFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mZx62VDeT0ufB+RoQyhNsYub6vn+IMt5N7ocikkQ9sU=;
+ b=TYb0b5xWa3CwbsbXaROqwWacW3UnsWZAsLXCBsuO2VZj3iXs8h7XkGDWJzHS+Rr4NOgL3HVseZVrYfoYjT+MEH/NbZvmfhn1kvBEhxyM6OmIB0EJdTl5EhLqRsxHyVePmgg7X/cEjYvCt0uElsJXsLaUetdh0Zp7OnwDJk7C+7o=
+Received: from CH2PR17CA0024.namprd17.prod.outlook.com (2603:10b6:610:53::34)
+ by LV3PR12MB9119.namprd12.prod.outlook.com (2603:10b6:408:1a2::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 11:52:37 +0000
+Received: from CH2PEPF00000141.namprd02.prod.outlook.com
+ (2603:10b6:610:53:cafe::4e) by CH2PR17CA0024.outlook.office365.com
+ (2603:10b6:610:53::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 16
+ Sep 2026 11:52:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00000141.mail.protection.outlook.com (10.167.244.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 11:52:36 +0000
+Received: from aiemdee.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
+ 2026 06:52:13 -0500
+From: Alexey Kardashevskiy <aik@amd.com>
+To: <x86@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+	<linux-crypto@vger.kernel.org>, <linux-pci@vger.kernel.org>, Thomas Gleixner
+	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin"
+	<hpa@zytor.com>, Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+	<pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
+	<peterz@infradead.org>, Ashish Kalra <ashish.kalra@amd.com>, Tom Lendacky
+	<thomas.lendacky@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>, "David
+ S. Miller" <davem@davemloft.net>, Bjorn Helgaas <bhelgaas@google.com>,
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, "Andrew
+ Morton" <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, "Suren
+ Baghdasaryan" <surenb@google.com>, Michal Hocko <mhocko@suse.com>, "Catalin
+ Marinas" <catalin.marinas@arm.com>, Jini Susan George
+	<jinisusan.george@amd.com>, Kees Cook <kees@kernel.org>, Michael Ellerman
+	<mpe@ellerman.id.au>, Nikunj A Dadhania <nikunj@amd.com>, Ard Biesheuvel
+	<ardb@kernel.org>, Eric Biggers <ebiggers@kernel.org>, Kim Phillips
+	<kim.phillips@amd.com>, Joerg Roedel <jroedel@suse.de>, Ethan Nelson-Moore
+	<enelsonmoore@gmail.com>, "Tycho Andersen (AMD)" <tycho@kernel.org>, "Liam
+ Merwick" <liam.merwick@oracle.com>, Michael Kerrisk <mtk.manpages@gmail.com>,
+	Suresh Siddha <suresh.b.siddha@intel.com>, Xiaotian Feng <dfeng@redhat.com>,
+	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>, Andi Kleen
+	<ak@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>, Tony Luck
+	<tony.luck@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Lu Baolu
+	<baolu.lu@linux.intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>, Jonathan Cameron
+	<jic23@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>, Ian Campbell
+	<ian.campbell@citrix.com>, Jeremy Fitzhardinge
+	<jeremy.fitzhardinge@citrix.com>, Petr Tesarik <ptesarik@suse.com>, "David
+ Howells" <dhowells@redhat.com>, Haavard Skinnemoen <hskinnemoen@atmel.com>,
+	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, "Christian
+ Marangi" <ansuelsmth@gmail.com>, Dave Jiang <dave.jiang@intel.com>, "Michael
+ Kelley" <mhklinux@outlook.com>, Ilias Stamatis <ilstam@amazon.com>, "Sumanth
+ Korikkar" <sumanthk@linux.ibm.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+	Toshi Kani <toshi.kani@hp.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Vinod Koul <vkoul@kernel.org>, Jiang Liu
+	<jiang.liu@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>, Anshuman Khandual
+	<anshuman.khandual@arm.com>, Kefeng Wang <wangkefeng.wang@huawei.com>,
+	"Palmer Dabbelt" <palmerdabbelt@google.com>, <linux-coco@lists.linux.dev>,
+	<xen-devel@lists.xenproject.org>, <iommu@lists.linux.dev>,
+	<linux-mm@kvack.org>, Alexey Kardashevskiy <aik@amd.com>, <aik@ozlabs.ru>,
+	Santosh Shukla <santosh.shukla@amd.com>, "Pratik R . Sampat"
+	<prsampat@amd.com>, Scott Soule Cheloha <scott.cheloha@amd.com>, Ackerley Tng
+	<ackerleytng@google.com>, Fuad Tabba <tabba@google.com>
+Subject: [RFC PATCH kernel 00/17] PCI/TSM: coco/sev-guest: Implement SEV-TIO PCIe TDISP (phase2)
+Date: Wed, 16 Sep 2026 21:51:40 +1000
+Message-ID: <20260916115159.1938195-1-aik@amd.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="psh5yc6hlbgix2jo"
-Content-Disposition: inline
-In-Reply-To: <20260916-lklm-sysctl-void-vs-char-v1-1-c3f8b2eb8b1e@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000141:EE_|LV3PR12MB9119:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7391569d-ac2a-4616-69f3-08df13e9008e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|7416014|23010399003|36860700016|32650700020|18002099003|13003099007|3023799007|5023799004|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	T/gKaq7XFEnBi/yuOuXBHIHCD7TNUzO6/LsGHGpb0VdFnhOacL7FQW1YWREUJE4JArQUEVm1ccK17oYVI1nlQOwVcl/+SkFGawQkgJDJaZ4qH1D/uIlFGDhiW1/d74DByXinxZnIkDQYj9FGXk4OOKJ+kYv/d+CAgG/PTWX0UzZ/Lp0jxAQbHs0Dyh/2BKLQqGx6/d87Tw12FdpCH48IcuKsPZwqk5G9T+klwO3fX8+XnXeVDGfJzW1m5NX1LnPISZhnXsO1uvc3KjxwqC2Ws3B92AV1byfml134mscouKf/eQr8L/BZGaOFkoksnlwWnjD9lH0mPC+uYD4fmIH/V9QWuw+a9tH/N1wA7D6WVBzjww7atU8VJyL+8XzaMFb2qtdJHbhuqCMaB+z8zwC49JfgoEPtAu0mlkYGGFxSu1TzrPnUKfMf62FtDWqwnsNj+u/4ijrmb4SDCnyuz/6Z5BsgMBwCnB0FOHo2HxPuIIO/mnWIVAz+NpBP5CW+k+EC5+76SALy+Sdr9vQ3wwwT8Jfd5sNrI69QlA0aSM0wKMl/u8/LnCLD16kj9JQrN6WPJvPTYouVAb0XPd8oICcFGbiT83qjuJrhursHTFxWhZkq9RUKjqw8PtitrmDBrh8LUAuK8iS9K561fV/OmR7VSuUhBxxDeAcJFprd3/YTi2LlHtvo9PNlxcIYxGV3Ppv25ZrBkRpchcUBXVADUWXLhA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(7416014)(23010399003)(36860700016)(32650700020)(18002099003)(13003099007)(3023799007)(5023799004)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+PlvSj+WWJdnQa9fqspJ0fGqU+h8yDsfBtjgrmCFlifW3rsbziq4yuNPQQyR/FXWEZSSp00sFYlutVZKzH62lMegd/JbzlYn/hpN78cr2SasoVm5fd/J4xz3ACrrUADNDus1kHqqqKweQl1XkKAuyyjZFggKvacCQoEX2+evG1kj/d82Fq/frgLm/kuBcCvch7vryn1qSGP2AV5fgGB6MD44u054gmUCHYZ5J56mDlJHDsaimg0mgKICWykgf5Qrzl+6gXxuOP4oouH0O8q6rxFwhevrd3K2x79h5jdXml1nC+XkfEUmXRGj3ewK399oB19ERF3hI9KhQsBGCljTGcXTZww+3pXfxyI/qyphgkPNRR1m+v+1Meh6DZkmrq0nPl4K1ltrTht/7eWVnESEApX3Cd54btZQ1VkXv4eebynsR510gjyu4rP54UQmEU7W
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 11:52:36.6991
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7391569d-ac2a-4616-69f3-08df13e9008e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000141.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9119
 
 
---psh5yc6hlbgix2jo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Here are some patches to continue enabling SEV-TIO on AMD.
 
-On Wed, Sep 16, 2026 at 01:44:28PM +0200, Joel Granados wrote:
-> Replace **void argument with **char in the proc_put_* functions. These
-> are leftovers from before commit 32927393dc1c ("sysctl: pass kernel
-> pointers to ->proc_handler") where a cast to char __user** from void
-> _user** was needed before the put_user call.
->=20
-> Suggested-by: Bradley Morgan <include@grrlz.net>
-> Signed-off-by: Joel Granados <joel.granados@kernel.org>
-> ---
->  kernel/sysctl.c | 34 +++++++++++++++-------------------
->  1 file changed, 15 insertions(+), 19 deletions(-)
->=20
-> diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-> index 25577ffc2801267cc69df60a1064ada9efd4b97d..1fefe18bf84e790433a1abf71=
-a4b158f3c1f729f 100644
-> --- a/kernel/sysctl.c
-> +++ b/kernel/sysctl.c
-> @@ -332,7 +332,7 @@ static int proc_get_long(char **buf, size_t *size,
->   * In case of success @buf and @size are updated with the amount of bytes
->   * written.
->   */
-> -static void proc_put_long(void **buf, size_t *size, unsigned long val, b=
-ool neg)
-> +static void proc_put_long(char **buf, size_t *size, unsigned long val, b=
-ool neg)
->  {
->  	int len;
->  	char tmp[TMPBUFLEN], *p =3D tmp;
-> @@ -347,15 +347,12 @@ static void proc_put_long(void **buf, size_t *size,=
- unsigned long val, bool neg)
->  }
->  #undef TMPBUFLEN
-> =20
-> -static void proc_put_char(void **buf, size_t *size, char c)
-> +static void proc_put_char(char **buf, size_t *size, char c)
->  {
->  	if (*size) {
-> -		char **buffer =3D (char **)buf;
-> -		**buffer =3D c;
-> -
-> +		**buf =3D c;
->  		(*size)--;
-> -		(*buffer)++;
-> -		*buf =3D *buffer;
-> +		(*buf)++;
->  	}
->  }
-> =20
-> @@ -680,12 +677,12 @@ static int apply_conv_on_vec(const union proc_vec_c=
-onv conv,
->  			     const struct ctl_table *table,
->  			     const enum proc_vec_type data_type,
->  			     const size_t data_size, const int conv_dir,
-> -			     const size_t buf_nbyte, void *buf,
-> +			     const size_t buf_nbyte, char *buf,
->  			     size_t *buf_left_final)
->  {
->  	int vec_left, err =3D 0;
->  	size_t buf_left, nr_conv =3D 0;
-> -	char *data, *data_stage =3D NULL, *p;
-> +	char *data, *data_stage =3D NULL;
->  	bool is_unsigned =3D data_type =3D=3D PROC_VEC_UINT || data_type =3D=3D=
- PROC_VEC_ULONG;
-> =20
->  	buf_left =3D buf_nbyte;
-> @@ -694,7 +691,6 @@ static int apply_conv_on_vec(const union proc_vec_con=
-v conv,
->  	if (SYSCTL_USER_TO_KERN(conv_dir)) {
->  		if (buf_left > PAGE_SIZE - 1)
->  			buf_left =3D PAGE_SIZE - 1;
-> -		p =3D buf;
-> =20
->  		if (table->maxlen > data_size) {
->  			data_stage =3D kmemdup(table->data, table->maxlen, GFP_KERNEL);
-> @@ -712,11 +708,11 @@ static int apply_conv_on_vec(const union proc_vec_c=
-onv conv,
->  		bool neg =3D false;
-> =20
->  		if (SYSCTL_USER_TO_KERN(conv_dir)) {
-> -			proc_skip_spaces(&p, &buf_left);
-> +			proc_skip_spaces(&buf, &buf_left);
-> =20
->  			if (!buf_left)
->  				break;
-> -			err =3D proc_get_long(&p, &buf_left, &lval, &neg,
-> +			err =3D proc_get_long(&buf, &buf_left, &lval, &neg,
->  					    proc_wspace_sep,
->  					    sizeof(proc_wspace_sep), NULL);
->  			if (!err && neg && is_unsigned)
-> @@ -740,7 +736,7 @@ static int apply_conv_on_vec(const union proc_vec_con=
-v conv,
-> =20
->  	if (SYSCTL_USER_TO_KERN(conv_dir)) {
->  		if (!err && buf_left)
-> -			proc_skip_spaces(&p, &buf_left);
-> +			proc_skip_spaces(&buf, &buf_left);
->  		if (!nr_conv) {
->  			err =3D err ? : -EINVAL;
->  			goto out;
-> @@ -1221,6 +1217,7 @@ int proc_do_large_bitmap(const struct ctl_table *ta=
-ble, int dir,
->  	unsigned long *bitmap =3D *(unsigned long **) table->data;
->  	unsigned long *tmp_bitmap =3D NULL;
->  	char tr_a[] =3D { '-', ',', '\n' }, tr_b[] =3D { ',', '\n', 0 }, c =3D =
-0;
-> +	char *p =3D buffer;
-> =20
->  	if (!bitmap || !bitmap_len || !left || (*ppos && SYSCTL_KERN_TO_USER(di=
-r))) {
->  		*lenp =3D 0;
-> @@ -1228,7 +1225,6 @@ int proc_do_large_bitmap(const struct ctl_table *ta=
-ble, int dir,
->  	}
-> =20
->  	if (SYSCTL_USER_TO_KERN(dir)) {
-> -		char *p =3D buffer;
->  		size_t skipped =3D 0;
-> =20
->  		if (left > PAGE_SIZE - 1) {
-> @@ -1315,16 +1311,16 @@ int proc_do_large_bitmap(const struct ctl_table *=
-table, int dir,
->  						   bit_a + 1) - 1;
-> =20
->  			if (!first)
-> -				proc_put_char(&buffer, &left, ',');
-> -			proc_put_long(&buffer, &left, bit_a, false);
-> +				proc_put_char(&p, &left, ',');
-> +			proc_put_long(&p, &left, bit_a, false);
->  			if (bit_a !=3D bit_b) {
-> -				proc_put_char(&buffer, &left, '-');
-> -				proc_put_long(&buffer, &left, bit_b, false);
-> +				proc_put_char(&p, &left, '-');
-> +				proc_put_long(&p, &left, bit_b, false);
->  			}
-> =20
->  			first =3D 0; bit_b++;
->  		}
-> -		proc_put_char(&buffer, &left, '\n');
-> +		proc_put_char(&p, &left, '\n');
->  	}
-> =20
->  	if (!err) {
->=20
-> ---
-> base-commit: 99156fbf3562bed74aa57d93b0b3eeec7c7f1ca6
-Forgot to mention that this sits on top of the partial_ctlvec changes
-which are included in next-20260915.
+SEV-TIO allows guests to establish trust in a device that supports TEE
+Device Interface Security Protocol (TDISP, defined in PCIe r6.0+) and
+then interact with the device via private memory.
 
-> change-id: 20260916-lklm-sysctl-void-vs-char-40a0aab31c3e
->=20
-> Best regards,
-> --=20
-> Joel Granados <joel.granados@kernel.org>
->=20
->=20
+In order to streamline upstreaming process, a common TSM infrastructure
+is being developed in collaboration with Intel+ARM+RiscV. There is
+Documentation/driver-api/pci/tsm.rst with proposed phases:
+1. IDE: encrypt PCI, host only
+2. TDISP in guest: lock + accept flow, interface report <= WE ARE HERE
+3. Enable on host: secure MMIO + DMA, KVM changes
+4. Device attestation: certificates, measurements
 
---psh5yc6hlbgix2jo
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+Acronyms:
+TEE - Trusted Execution Environments, a concept of managing trust between the host and devices
+TSM - TEE Security Manager (TSM), an entity which ensures security on the host
+PSP - AMD platform secure processor (also "ASP", "AMD-SP"), acts as TSM on AMD.
+SEV TIO - the TIO protocol implemented by the PSP and used by the host, extension to SEV-SNP
+GHCB - guest/host communication block - a protocol for guest-to-host communication via a shared page
+TDISP - TEE Device Interface Security Protocol (PCIe).
 
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmqqgvAACgkQupfNUreW
-QU+mVgv/T/ABIDC/HvfIYc1feG/R1nrevUewjIUzy58CcXK8vczJYx+5+H0Bv4Q1
-F1mEq69x2IWLYt7gbB1fn+lyY2LMtAVcExlmK/W1JoFkWsfgKZJxDQci+Kt9ffv6
-XyM+tQvu65fqQi0qLvhCvZsomGsXLILLHu9y2TD3gPgpFjeBfkfKqXhEoZU4I2pH
-zgFlEF3S4f33ObAtitfizYN5aIx3Rmfxwi4uOyZiRw86m6ho07N0QfecFm/yTVMc
-gFr8gHrDA1oH775iT4pJajmjZ8kMZivMFz4Vk0gGoab+3gl9KL3N0sHu6c3OGjNx
-Iw8wSFZjbuJFk5cSRulwWKcKPIN8WqMK8RARl+TiD6SksZ25JlNpnPR2n3gSeYLj
-xQaLFO5JZr+g6sw3xyOjmCfdJKtX06EkUDqtVAsm8nLzkmBJ/jrqb5wFal729zkq
-zytAQrGOP6PGWGuKOiki/i45BbroatOxaDIYPkfHW92hm/FRa34Cf2pZE/3lNyRD
-5HlTdLwX
-=Ay2R
------END PGP SIGNATURE-----
 
---psh5yc6hlbgix2jo--
+
+Flow:
+- Boot guest OS, load sev-guest.ko which registers itself as a TSM
+- PCI TSM creates sysfs nodes under "tsm" subdirectory in for all
+  TDISP-capable devices
+- lock the device via:
+	echo tsm0 > "/sys/bus/pci/devices/0000:01:00.0/tsm/lock"
+- accept the device via:
+	echo 1 > "/sys/bus/pci/devices/0000:01:00.0/tsm/accept"
+- load the device driver:
+	- DMA to encrypted memory should work right away
+	- Reported TEE MMIO regions will be mapped as encrypted
+
+
+Patches 01/17..05/17 are fixes and can go in sooner.
+Patches 06/17..17/17 are the minimum required by the VM to get encrypted MMIO and DMA.
+
+Doing "io_tlb_default_mem.for_alloc = true" in swiotlb_init_remap() enabled T=1 DMA
+to shared guest memory.
+
+
+The previous conversation is here:
+https://lore.kernel.org/r/20260225053806.3311234-1-aik@amd.com
+
+This is based on the last Dan's patch series rebased on top of
+v7.3-rc2 with the DMA SWIOTLB fixes from Aneesh.
+
+The whole tree is here: https://github.com/AMDESE/linux-kvm/commits/tsm-next/
+The host support is here: https://github.com/AMDESE/linux-kvm/commits/tsm
+Some raw QEMU sketch is here: https://github.com/AMDESE/qemu/commits/tsm-next
+
+Please comment. Thanks.
+
+
+The SEV TIO spec:
+https://www.amd.com/content/dam/amd/en/documents/epyc-technical-docs/specifications/58271.pdf
+
+
+
+Alexey Kardashevskiy (16):
+  pci/dma/tsm: Call disable DMA bus hook on cleanup
+  pci/tsm: Fix stale comment about TDI report range start
+  tsm/core: Store range_id in pci_tsm_mmio_entry
+  crypto/ccp/tsm: Use TSM API for DOE
+  tsm-core: Register nevertheless
+  x86/io/tsm: Allow mixed ioremap for shared+private BARs
+  x86/dma: Revert "x86: Remove unnecessary architecture-specific
+    <asm/device.h>"
+  x86/dma: Add ARCH_HAS_PHYS_TO_DMA
+  dma/swiotlb: Force shared DMA for allocatios from SWIOTLB
+  tsm/core: Add TDI status
+  coco/sev-guest: Allow multiple source files in the driver
+  x86/sev: Pass HV features to sev-guest device via platform data
+  x86/sev: Add GHCB calls for SEV-TIO
+  x86/sev: Implement guest TSM driver for SEV-TIO (phase2, DMA)
+  x86/sev: Enable secure MMIO (phase2)
+  x86/sev: Flush IOMMU TLB for trusted devices
+
+Dan Williams (1):
+  x86, dma: Allow accepted devices to map private memory
+
+ arch/x86/Kconfig                                    |   1 +
+ drivers/virt/coco/sev-guest/Kconfig                 |   1 +
+ drivers/virt/coco/sev-guest/Makefile                |   5 +-
+ arch/x86/include/asm/device.h                       |  13 +
+ arch/x86/include/asm/dma-direct.h                   |  77 +++
+ arch/x86/include/asm/sev-common.h                   |   3 +
+ arch/x86/include/asm/sev.h                          |  13 +
+ arch/x86/include/uapi/asm/svm.h                     |  43 ++
+ drivers/virt/coco/sev-guest/sev-guest.h             |  20 +
+ include/linux/dma-direct.h                          |   2 +-
+ include/linux/io.h                                  |   8 +
+ include/linux/ioport.h                              |   3 +
+ include/linux/pci-tsm.h                             |  71 ++
+ include/uapi/linux/sev-guest.h                      |  12 +
+ arch/x86/coco/sev/core.c                            | 148 +++-
+ arch/x86/mm/ioremap.c                               |   2 +-
+ arch/x86/mm/mem_encrypt.c                           |   5 +-
+ drivers/crypto/ccp/sev-dev-tsm.c                    |   5 +-
+ drivers/pci/pci-driver.c                            |   3 +
+ drivers/pci/tsm/core.c                              |   3 +-
+ drivers/virt/coco/sev-guest/{sev-guest.c => core.c} |  25 +-
+ drivers/virt/coco/sev-guest/tio.c                   | 725 ++++++++++++++++++++
+ drivers/virt/coco/tsm-core.c                        |  16 +-
+ drivers/xen/swiotlb-xen.c                           |   2 +-
+ kernel/dma/direct.c                                 |   3 +-
+ kernel/dma/swiotlb.c                                |   2 +-
+ kernel/resource.c                                   |  63 ++
+ mm/ioremap.c                                        |   2 +-
+ 28 files changed, 1249 insertions(+), 27 deletions(-)
+ create mode 100644 arch/x86/include/asm/device.h
+ create mode 100644 arch/x86/include/asm/dma-direct.h
+ create mode 100644 drivers/virt/coco/sev-guest/sev-guest.h
+ rename drivers/virt/coco/sev-guest/{sev-guest.c => core.c} (97%)
+ create mode 100644 drivers/virt/coco/sev-guest/tio.c
+
+-- 
+2.55.0
+
+
