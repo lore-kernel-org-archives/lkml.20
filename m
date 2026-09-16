@@ -1,255 +1,233 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020127.outbound.protection.outlook.com [52.101.84.127])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742823ACF10;
-	Wed, 16 Sep 2026 04:42:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789533728; cv=none; b=h8SfVq/6p9lFTU/wDxFOG/jXctPaY03B2cQFN0RfP66YGU4LOBqADIV70ZpS0fvhOfBQMNUWIJ+oOI8vLjY4HiTlDp0CpraKbUaLORdX8BKMSeCCOdNe2MIKvuOpcEW2wZ+72NXcj1JFus32MlfC5cylSIVfGMqDWm8XCjy235Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789533728; c=relaxed/simple;
-	bh=XB2VFwMX8lLgGoB9hByOvLGI1Lo6AfMSPcEBL9X0adY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RdxbhHiR/ZGv+s9X2+1UCnnlVIjzvjIZWIJEwSED/14Aja589pxYBdDlpybLk0akmjQTErm0RBgqmAXHTlIjn0J1nQ8eshHEeQUFblvp8Ox993WFp8Hr02QDDarzZW/r1eR1TCtS4mbOv8UkPL1R+wcMjCtXgibQFAGz3aJJNXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=k8nOuG05; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89B528B7D3;
+	Wed, 16 Sep 2026 04:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.127
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789533992; cv=fail; b=pWOQMzvDYFzn3EUw9jB+ldDIG8TH8PS5kGwpBdy2a2hFxk4YBygI7Ujq3ZWY87QZ75kP6ZYg9gnoy886lWM0ID98YYvQP/MA2tevUZog0PtxbKTeV4SH2Q/F/VCR0/zwqt/s7j5ZViLRcU64ZCvngbJ1aVQcPsE91vJeoxw742o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789533992; c=relaxed/simple;
+	bh=SG9Mn6QxFVSpBmGM0FcIjzPqdKwzCPmfsBng6XWx6qQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=C9ZtnSKlLCqvJfvx4Rr5dYE15I64mbUxSikGv8eSGpJhkVDmvt7sckuRwYAziQe26x0emDrzKj6kDgUF9Q41WJYF9Gg/XGRCM7fZV72twd4N+E65TTvAijBwo7QWxoPqib2iv7hIgBGkMYuJyis3Ul8oekNegcaEZV1cSxY2SgA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com; spf=pass smtp.mailfrom=vaisala.com; dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b=ZCeR80E6; arc=fail smtp.client-ip=52.101.84.127
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="k8nOuG05"
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 6A10443BD0;
-	Wed, 16 Sep 2026 14:41:55 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1789533715;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YF/1pjayfOlwmv8drW2kZBXUotBXt7gAJUwr6YSztco=;
-	b=k8nOuG05Z+CeUrqH2ZSIqdlJmph3gWW3orj/DZdoNJlTJMAYQjT5UEPAK/1+Ij7LxVqni/
-	SkfcGj58RTHYg4SMGaaRf5Xl1nd6OFiWu3qr9Ttnf0w06sZ1ZZLLpDA87RFfvYHAw4TzPX
-	ehIpEtU1cYyZ6LzqEBxn+JmEXKNQs+5B+16TSyGTN4sgHRxDXdc4/X2XGzhIaQAUNJBMI4
-	qSip0kFU7tXOPPPBZoa+N5dOAyK9bXGZmhKoEH9jUwTvWj9gl4IGuA77duHIo88tslJEdV
-	oDXjmNmW6TDuNZzOg+QpwQWDOMrlK4smcMpxmjbejxZHs/txuQgWqCQC/2bcZQ==
-X-GPT-Reason: legitimate_transactional_technical_patch_submission_The
-	email is a technical kernel patch submission for the Linux kernel
-	(net-next), which perfectly aligns with the personal/professional
-	context of the alastair@d-silva.org mailbox. The From domain matches
-	the signature and content, and the body consists of a standard
-	git diff and technical notes regarding the Allwinner H616 EMAC
-	clock index. There are no phishing indicators, no external links,
-	and no urgency/scare tactics.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH net-next 4/4] net: stmmac: dwmac-sun8i: Add Allwinner H616 EMAC clock index and internal PHY support
-Date: Wed, 16 Sep 2026 14:41:19 +1000
-Message-ID: <20260916044119.475666-5-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916044119.475666-1-alastair@d-silva.org>
-References: <20260916044119.475666-1-alastair@d-silva.org>
+	dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b="ZCeR80E6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CA9YkxtkWrrrB+6RSWzFtm1KmtrdMnf1UjgmBsKEqOTyhGHxH2XQjMpXa/fb9OG7xuYRDN7t5HaFVH8XVdIyCh7EF5g0t84sY8KYd+4KH0pzNjPx2YVbo8vwRa3gDRlFAUAlc48nQvFVugoo6Tjr/qoylDuUM58xfr37YEidXLNZS+MeqcRq1tp2bwlY8IlqYi+El+ggMapC5xcEv2UwtSh5E6nuoy+dKgMjnjpeItOS8XMGZBAsici29+UtUiPEdHbaIfJr6Tju8H6TLrZlMln+K9luFF2RSUumseY/6T1O/Gl2Lk/2fJBFP5SQwi6vDAvQiMzhg+1v4U2KXBb/rA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zrw92iVffcEnjbByNUAtUvH6hoJSdLo2ls38oqgtNeg=;
+ b=IGuGRB5MaBZa0rGmLNDLPI7vR9Lb7dc7X4P124z0WwT7oLsC3HEDeeSkdDzac1sOTx7EfYO1z6LcmJkBpmW1Y5gQjR+NW1kYnFDlcbPdu2ckwAPBQk5619D5P66TWx1EPhSLujQDKPLaXBv2o3uD8KQMf/L/MlXmnk42RX4TlCpck0ukkqK0eqFx+KcwelT/5U4oDZKhjykmZfXAKk9O1OOTG9QdHZwSW0QVY4g1BTxWFRItHQ7NZ9sHgt6UcLSfeyPz24AVML2UOp/HoTe1IC9o3holl7Mz+SWdSqxYSLmDVsPDAGE7nREpuC5eU9tm3jn1J+Ps2rw8ZP95Hk5NmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zrw92iVffcEnjbByNUAtUvH6hoJSdLo2ls38oqgtNeg=;
+ b=ZCeR80E68On6Uin79frBypjwZzaSexyBcaR3meIgciUBRpcpVFFM+TfWyULpu+tnLzIeKUhrNLiA3p4+s88dm40diJtkj/4McA9aCf5Wx/mOXZk6FTEhTUwb7ShcBtSrciiTCDsCGGqsJXhK3sDFvoUSnTrAkxGgPhrpC9IhtFhf7sZylN3V/Yp9BbKlLN0xLdXFl9mW5I7x1t5p0oXZfaWP5RBIqUYOfuEjzw0BOUkmSvcUkXnTfE1P8lmYihy0wix0+4YwRf9HufUm+yTYsOW5aPVaeAFJaGQVCSBEKIdln6j3m4FVZleDQAV/Ugy6ZNCsBKGB+T/ZHwJF/vXHnw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from AM9PR06MB7907.eurprd06.prod.outlook.com (2603:10a6:20b:3a6::23)
+ by GVXPR06MB10570.eurprd06.prod.outlook.com (2603:10a6:150:2bf::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 04:46:20 +0000
+Received: from AM9PR06MB7907.eurprd06.prod.outlook.com
+ ([fe80::a597:33a7:d4e2:1b17]) by AM9PR06MB7907.eurprd06.prod.outlook.com
+ ([fe80::a597:33a7:d4e2:1b17%3]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
+ 04:46:20 +0000
+Message-ID: <c15330e4-25e0-4c50-9f48-dbb8d51f5823@vaisala.com>
+Date: Wed, 16 Sep 2026 07:46:18 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] serial: max310x: drive RTS in software when hardware
+ delays are too short
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ Hugo Villeneuve <hvilleneuve@dimonoff.com>
+References: <20260915-max310x-rs485-sw-delay-v3-1-7d20a4a4ab52@vaisala.com>
+Content-Language: en-US
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+In-Reply-To: <20260915-max310x-rs485-sw-delay-v3-1-7d20a4a4ab52@vaisala.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: GV3PEPF0001DBFB.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::30d) To AM9PR06MB7907.eurprd06.prod.outlook.com
+ (2603:10a6:20b:3a6::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR06MB7907:EE_|GVXPR06MB10570:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa5d8674-6899-47fb-6865-08df13ad7383
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	sElxh2QDe3/0kXOM2vk9QXh9fQ104natSPBJatlv+WNYxHnR3fKpTk3qQF0XGKNF4HRx4fwLuqyY1j1uj6FFv6y0ox44svm8g1LBUWL2nxrQ7IJHvLPiw0FA9bacIvmk1Wihj50WZsJ8X8r0ZPaNyS4nRUYSIHIGwZTgeUqemt28hhixY0azz4n0qhVgYzJU1QnBz2MKssnOUngKF2ktvCIR8QpniYc/Wiqdm5qGfsOQ0q74B02BTV5reCMEaY2hzTg2ndE9ic7Tb88ykbJOTBy70inuKPEF2gyzFOLgX7tROtTJRTMJBy8dqm7AZTcQh6ivIAkmf4ocrZ/bKEqC/UfagUhd7Kfxy98PSjh5/B1pOLAq2mBvJfgh5xD2FBTIZi3sS2Lcn8vDwsqijIilphVlLNMUISMC9H66HTwFHKKuvF6rryP8U53Brz2+5jKkS3kLa/fFeHkR7ImP+0fGaLpmWyn8a23jEYgbtCZSKAhwMgN99TbtbkI1e8T0MA6zNR7dGDFK+h7gkfhauYxrF3clFLJogBsZBMDX8Bxr8aGuaNXKsI7YzX9VlVs6kdLhT/aXSuIsPrE/la7k7+LPmPJsZnnSy9gNZLpPFEpkVjp39AdXxTCfKfoNEzU6TVbMv0mycjmXcE05V8/0Ux8cFdQujWiK3q9Og5nD0NCdEac=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR06MB7907.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Tml5RTh2LzljbTJ1ejhJT2FyTGVRRU1YV3RSM3dRUmtMZUFuR21lakNPb2hV?=
+ =?utf-8?B?engxYmRMRzlZRmFSUmp0WkJCZlE5Zkc4dDB4NUFZZ2ZMSjlkTXBmZlVMdytq?=
+ =?utf-8?B?NlRGRGo4WFNRU0lYU2VyN1Z3ZmI1ZlZXRXd3UVcwV0NQVnRJemxCakVlVTI0?=
+ =?utf-8?B?a2dHd3BwVDI1Qm45NUJURUg1ai81RStBOFVwanVvQTYyVVIxUHlEYngrM0Jn?=
+ =?utf-8?B?eTVpQkMwOXZnMkN0c0tnaVk3RnduMHllTzI5VHk2WnRSQlRHazlPQ2hzOVZi?=
+ =?utf-8?B?WFBqT0JjQ3UvZk5wU3Z6WmpZeDBpUXZCOUpNRWthQjhKaXFFNGtmNWRaM2Ns?=
+ =?utf-8?B?Y2EzSDlSNXZucUZtNmc3b2sraUh3RTQrQlU2ejhES1ozWXNqSThndi9xTk0r?=
+ =?utf-8?B?TlMyUkg3a0VqMWlNbmROWm5VcTlaSUxvdjNMTnJLcE1RSWxjcWMvOStwM0ZH?=
+ =?utf-8?B?cHJNV3N3WTFPK2RqQU0rMmhPcWNnZEhEeTdDZDN3UHlnTHRzMmxZd3BvWFJZ?=
+ =?utf-8?B?dmtnZTVLM1lPM1pKZ1pUM2w5Rm9ubXpvUnVKYnYrbFkzT0gyaVdvNDg0SkVW?=
+ =?utf-8?B?aWpvY1RXY045RmNZWFhSaW5JUDRaNWpxcXBNd3B0RDZGbGZxaERoRWszZjd5?=
+ =?utf-8?B?c0JsR2NDRnZlMmRBNitHVUNCd3pCY2dzb25jU1c4ekdSTytmSWJQUTVMZ1Fy?=
+ =?utf-8?B?Sm8zY1RhdkovdUpUVG91cCtuVVM3TDJteGhtMlk5akIrZ0Vnck9JcHZyWU9H?=
+ =?utf-8?B?aldLUTI2V2dEeUhwQ0M3bWlRb0FUQmZ5WFQ3d2Z6NGpYRWVBVU9ZM0lyTDFq?=
+ =?utf-8?B?Mlc4bXZob0lOWDhwT28rcDdLZW9yQVZHQzVIOFFvM0VQbUdySzg3alJKV0h6?=
+ =?utf-8?B?ZVp2alVmdkJlaDJUZzFIcStzdk9EM3doNlpzR2JHdVhWd2h1TGpENml0bHR4?=
+ =?utf-8?B?ZHpFY25FNW9oZ2MxVVVmbFZoazhjTVJMOG00ZmpSR0R2NDNvUG5kWUFrUnE5?=
+ =?utf-8?B?S2hsZmE1bm41dlkySWdjcldnbGJLM01qcDB6TTZ3djBZREkwMVhOaHZjWmZT?=
+ =?utf-8?B?K0VBTGVSYUhTMGlOY1lBNEJnR0RWeDJOSzJ4MzF2c0pSeG5yRU1LV09IL1h1?=
+ =?utf-8?B?TkRBMngyU0toNEhXdlFGbnltMktSR3dlT3d2ME1kcVJFaTVWOEg0c0tUNXBF?=
+ =?utf-8?B?Y0VQNDV3czRrVENFbC9lZm1YQVJKWlJrb3YxWkpOOEUyazZuK1RwSDBKL3dl?=
+ =?utf-8?B?bnZPejRLQ2VrVGxoVnRtNkJqTlUyTnEvVlM4VmZpcWhTZTJ3QStKY1dBTHFa?=
+ =?utf-8?B?MFlBTVRPb3hXKy8wVUVuTERJaU0wWDFlWkFkajJoL21TbHFTeGVReHZaZW9q?=
+ =?utf-8?B?MkhuT0swNnNNb2JPWFEraFpIeFRmdVJtc09GaWFndlBoY05TT0dnblRSd3BN?=
+ =?utf-8?B?aXFSTHhReDVzaGkvV3pVL1FLMGY1SEpNUnI2aUc5QkRkdUF6S3hJbjJnNmpK?=
+ =?utf-8?B?TTJ1TXk2MjBSSkhzcnRnVzBUb1Q1NWpmS3lzbTE0cHFCSWxXQTZlb1ZCQ2Rv?=
+ =?utf-8?B?d21wOFlCbHA0TXkvOE5mSEMzNENKUzd5NnJJMnVrUCt3Z0pMMWJjL21XUGls?=
+ =?utf-8?B?dUIrM2ZuclMxZ04yMnpmR2tBcmNQRFZLM21nZVMwS0h4UjI4MHdYM3VzcWtX?=
+ =?utf-8?B?RE9PdUtZYUJJeU9Kbk95NUE3ampsUkRscnY3S045WGo2bm9PWlhYc0FqcnVB?=
+ =?utf-8?B?Rk1hT2NaNUdoSUV2R2pDbjN4S1E3aDNBSTRycjhuVy8vOWdqa09jeEllQlM4?=
+ =?utf-8?B?TkhoTmlibTVncnB3Rjhwb3RJMzQyaUVCTnVLNUtFRjFoUWt3c2tQL01RWGNM?=
+ =?utf-8?B?YVdNWFErbXhGM1dhekU3ejJmUlczVytyS2U2L0xrOE92bHVSaUVvOExZTXN0?=
+ =?utf-8?B?QW9nVnQwcVMzUUVGVzI1Rm1ST1B4c2wrNXJEcEg2ckZMU1VmSmY3TThzSkt2?=
+ =?utf-8?B?Q0MyWDBBaURSanltV240N0N6QzFjc0d6SlQydDZaSnJZSmIyNFhqTlQvVjVw?=
+ =?utf-8?B?ekxMWVhCeGxIeDFFbXpRa0F3SHpYdU1PQ0hGdGVFVU1uT3VTQ1ZMZWFxRXR2?=
+ =?utf-8?B?Q3V1b3JMYm91dEMxdWp2U0ZSTjFBS09HMGlBOEhGaCtJL3l3VXc3Z09iZ2pj?=
+ =?utf-8?B?blVPSlpya2ZWNUZPUGpsTXJNaFl3UzBOSHVIRk1TTlBWWEVVZk05SXZpeUVZ?=
+ =?utf-8?B?MDZGWCtLNENBS2dhTUs1SDhodjlZbFhuRW1XV0NONTlNK01iRkJtUWhDWEJu?=
+ =?utf-8?B?WDdTUDdGSmw5b21wTDJaS1h3STNOU211TGllemNGWEpQc0IwT3UrSFNYN0Jz?=
+ =?utf-8?Q?iI9wYVExdI3TB7zg=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa5d8674-6899-47fb-6865-08df13ad7383
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR06MB7907.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 04:46:19.9523
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1K9gBnhea1fpvgUfIHRBEp6vbFLzvwp/LHE/u+0P8Qcp0L5UZWDKuK8xGdfKRKvEcXVbWMWiQJEb+crqZBFGSCI/VQsItcPecJUEcOcxW5E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR06MB10570
 
-Support EMAC1 and the internal Fast Ethernet PHY (AC300) on Allwinner
-H616 and H618 SoCs:
-- Allow reading a register index from the syscon property to offset the
-  regmap field for EMAC1's dedicated clock control register.
-- Add emac_variant_h616_internal with support for internal PHY, MII,
-  RMII, and RGMII modes.
-- Delay the MAC software reset until sun8i_dwmac_init() when using the
-  internal PHY, ensuring the PHY has powered on and begun generating
-  the receive clock before the MAC attempts to reset.
-- Skip setting H3_EPHY_SELECT for H616 internal EMAC, which does not
-  use the H3-style EPHY select bit.
-- Handle -EPROBE_DEFER cleanly during clock and reset control acquisition
-  in get_ephy_nodes().
+> Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] serial: max310x: port lock dropped in serial core callbacks
+>   breaks atomicity
+> - [High] serial: max310x: lockless 64-bit ktime and state updates
+>   cause torn reads
+> - [High] serial: max310x: TOCTOU race in delayed_stop_tx resurrects
+>   cancelled timer
+> - [High] serial: max310x: race in rts_work_proc transmits data with
+>   RTS disabled
+> - [High] serial: max310x: shutdown bypasses timer cancellation if
+>   sw_rts toggles
 
-Assisted-by: LLM
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
+Three of these lead to changes in v4; two do not. Please do not apply
+this version.
 
-Notes:
-    Tested on Mellow Fly-C5 (Allwinner H618) under Armbian, verifying stable
-    EMAC1 probe, deferred soft reset with the internal AC300 EPHY, and 100M full
-    duplex operation under load.
+On "shutdown bypasses timer cancellation if sw_rts toggles":
 
- .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 65 ++++++++++++++++---
- 1 file changed, 55 insertions(+), 10 deletions(-)
+Correct, and it is the one that does not even need a race. The hardware
+path is selected per port from the current baud and delays, so a
+TIOCSRS485 that moves a port from the software path to the hardware path
+sets sw_rts_during_tx to false for good. If a software timed envelope
+was in flight at that moment its timer stays armed, and
+max310x_shutdown() then takes the branch that never calls
+hrtimer_cancel() or cancel_work_sync(). The port is powered down with
+the timer still pending, and rts_work runs an SPI write against it
+afterwards. A write, a TIOCSRS485 and a close inside the before-send
+delay reach this with no unusual scheduling at all.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 48c52eb96233..1728893589a6 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -130,6 +130,16 @@ static const struct emac_variant emac_variant_a64 = {
- 	.tx_delay_max = 7,
- };
- 
-+static const struct emac_variant emac_variant_h616_internal = {
-+	.syscon_field = &sun8i_syscon_reg_field,
-+	.soc_has_internal_phy = true,
-+	.support_mii = true,
-+	.support_rmii = true,
-+	.support_rgmii = true,
-+	.rx_delay_max = 31,
-+	.tx_delay_max = 7,
-+};
-+
- static const struct emac_variant emac_variant_h6 = {
- 	.syscon_field = &sun8i_syscon_reg_field,
- 	/* The "Internal PHY" of H6 is not on the die. It's on the
-@@ -570,6 +580,7 @@ static const struct stmmac_dma_ops sun8i_dwmac_dma_ops = {
- };
- 
- static int sun8i_dwmac_power_internal_phy(struct stmmac_priv *priv);
-+static int sun8i_dwmac_reset(struct stmmac_priv *priv);
- 
- static int sun8i_dwmac_init(struct device *dev, void *priv)
- {
-@@ -589,6 +600,10 @@ static int sun8i_dwmac_init(struct device *dev, void *priv)
- 		ret = sun8i_dwmac_power_internal_phy(netdev_priv(ndev));
- 		if (ret)
- 			goto err_disable_regulator;
-+
-+		ret = sun8i_dwmac_reset(netdev_priv(ndev));
-+		if (ret)
-+			goto err_disable_regulator;
- 	}
- 
- 	return 0;
-@@ -784,16 +799,23 @@ static int get_ephy_nodes(struct stmmac_priv *priv)
- 	/* Seek for internal PHY */
- 	for_each_child_of_node_scoped(mdio_internal, iphynode) {
- 		gmac->ephy_clk = of_clk_get(iphynode, 0);
--		if (IS_ERR(gmac->ephy_clk))
--			continue;
-+		if (IS_ERR(gmac->ephy_clk)) {
-+			ret = PTR_ERR(gmac->ephy_clk);
-+			if (ret == -EPROBE_DEFER) {
-+				of_node_put(mdio_internal);
-+				return ret;
-+			}
-+			gmac->ephy_clk = NULL;
-+		}
- 		gmac->rst_ephy = of_reset_control_get_exclusive(iphynode, NULL);
- 		if (IS_ERR(gmac->rst_ephy)) {
- 			ret = PTR_ERR(gmac->rst_ephy);
- 			if (ret == -EPROBE_DEFER) {
-+				clk_put(gmac->ephy_clk);
- 				of_node_put(mdio_internal);
- 				return ret;
- 			}
--			continue;
-+			gmac->rst_ephy = NULL;
- 		}
- 		dev_info(priv->device, "Found internal PHY node\n");
- 		of_node_put(mdio_internal);
-@@ -871,7 +893,9 @@ static int mdio_mux_syscon_switch_fn(int current_child, int desired_child,
- 		switch (desired_child) {
- 		case DWMAC_SUN8I_MDIO_MUX_INTERNAL_ID:
- 			dev_info(priv->device, "Switch mux to internal PHY");
--			val = (reg & ~H3_EPHY_MUX_MASK) | H3_EPHY_SELECT;
-+			val = (reg & ~H3_EPHY_MUX_MASK);
-+			if (gmac->variant != &emac_variant_h616_internal)
-+				val |= H3_EPHY_SELECT;
- 			gmac->use_internal_phy = true;
- 			break;
- 		case DWMAC_SUN8I_MDIO_MUX_EXTERNAL_ID:
-@@ -892,10 +916,13 @@ static int mdio_mux_syscon_switch_fn(int current_child, int desired_child,
- 		} else {
- 			sun8i_dwmac_unpower_internal_phy(gmac);
- 		}
--		/* After changing syscon value, the MAC need reset or it will
-+		/* After changing syscon value, the MAC needs reset or it will
- 		 * use the last value (and so the last PHY set).
-+		 * For internal PHY, the MAC reset will timeout because the PHY
-+		 * is not yet enabled/clocked. Delay the reset to dwmac_init.
- 		 */
--		ret = sun8i_dwmac_reset(priv);
-+		if (!gmac->use_internal_phy)
-+			ret = sun8i_dwmac_reset(priv);
- 	}
- 	return ret;
- }
-@@ -1000,9 +1027,13 @@ static int sun8i_dwmac_set_syscon(struct device *dev,
- 
- static void sun8i_dwmac_unset_syscon(struct sunxi_priv_data *gmac)
- {
--	if (gmac->variant->soc_has_internal_phy)
--		regmap_field_write(gmac->regmap_field,
--				   (H3_EPHY_SHUTDOWN | H3_EPHY_SELECT));
-+	if (gmac->variant->soc_has_internal_phy) {
-+		u32 val = H3_EPHY_SHUTDOWN;
-+
-+		if (gmac->variant != &emac_variant_h616_internal)
-+			val |= H3_EPHY_SELECT;
-+		regmap_field_write(gmac->regmap_field, val);
-+	}
- }
- 
- static void sun8i_dwmac_exit(struct device *dev, void *priv)
-@@ -1111,6 +1142,7 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
- 	struct stmmac_priv *priv;
- 	struct net_device *ndev;
- 	struct regmap *regmap;
-+	u32 syscon_idx = 0;
- 	int ret;
- 
- 	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-@@ -1163,8 +1195,15 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	ret = of_property_read_u32_index(pdev->dev.of_node, "syscon", 1,
-+					 &syscon_idx);
- 	gmac->regmap_field = devm_regmap_field_alloc(dev, regmap,
--						     *gmac->variant->syscon_field);
-+						     (const struct reg_field) {
-+							.reg = gmac->variant->syscon_field->reg +
-+							       syscon_idx * sizeof(u32),
-+							.lsb = gmac->variant->syscon_field->lsb,
-+							.msb = gmac->variant->syscon_field->msb,
-+						     });
- 	if (IS_ERR(gmac->regmap_field)) {
- 		ret = PTR_ERR(gmac->regmap_field);
- 		dev_err(dev, "Unable to map syscon register: %d\n", ret);
-@@ -1278,6 +1317,12 @@ static const struct of_device_id sun8i_dwmac_match[] = {
- 		.data = &emac_variant_a64 },
- 	{ .compatible = "allwinner,sun50i-h6-emac",
- 		.data = &emac_variant_h6 },
-+	{ .compatible = "allwinner,sun50i-h616-emac",
-+		.data = &emac_variant_h6 },
-+	{ .compatible = "allwinner,sun50i-h616-emac1",
-+		.data = &emac_variant_h6 },
-+	{ .compatible = "allwinner,sun50i-h616-internal-emac",
-+		.data = &emac_variant_h616_internal },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, sun8i_dwmac_match);
--- 
-2.53.0
+v4 keeps the two drain loops in the conditional, since they legitimately
+differ, and moves the cancellation out of it so it runs unconditionally.
+On the hardware path that is a cancel of a timer that was never armed
+and of work that was never queued.
 
+On "TOCTOU race in delayed_stop_tx resurrects cancelled timer":
+
+Correct. max310x_delayed_stop_tx() reads tx_state, then does an SPI read
+of TXFIFOLVL, then takes the lock. Across that window
+max310x_shutdown() can cancel the timer, set tx_state to
+MAX310X_TX_OFF and power the port down. What resurrects the envelope is
+that the code then clears cancel_tx_delay_tmr unconditionally and arms
+on tx_state != MAX310X_TX_WAIT_BEFORE_SEND, which is also true for
+MAX310X_TX_OFF.
+
+v4 drops the clear, since that flag belongs to whoever set it and
+max310x_delayed_start_tx() already clears it at the one point where a
+new envelope legitimately begins, and re-checks under the lock with a
+positive test: arm only while tx_state is MAX310X_TX_SEND. That is the
+only state the after-send hold may be armed from, and it covers OFF,
+WAIT_BEFORE_SEND and WAIT_AFTER_SEND in one condition.
+
+On "lockless 64-bit ktime and state updates cause torn reads":
+
+Half of this is real. max310x_set_rts_ctl_params() assigns
+sw_rts_during_tx false and only then recomputes it, so every concurrent
+reader can observe a spurious false, and the permanent case above comes
+through the same field. v4 computes the decision into a local and
+publishes it once.
+
+The torn read of one_character_duration I do not think is reachable. It
+holds one frame at the current baud, and the lowest baud selectable here
+is uartclk / 16 / 0xffff, which is 42 on this part (uartclk 44.2 MHz).
+One 12-bit frame at 42 baud is 286 ms. The upper word only becomes
+non-zero past 4.3 s, which would need a baud below 3, so every value the
+driver can hold has a zero upper word and a tear cannot change it.
+
+On "port lock dropped in serial core callbacks breaks atomicity":
+
+This one is deliberate and I do not plan to change it.
+max310x_tmr_tx() takes port->lock, so calling hrtimer_cancel() while
+holding it would deadlock against a callback already running on another
+CPU. hrtimer_try_to_cancel() is tried first and the unlock only happens
+on -1, which is exactly the case where that callback is spinning on the
+lock being dropped; cancel_tx_delay_tmr is what makes the re-entry safe.
+Several other serial drivers drop and retake the lock the same way. The
+review's own dismissed-concerns section reaches the same conclusion,
+and separately notes that uart_rs485_config() wraps the rs485_config()
+call in scoped_guard(uart_port_lock_irqsave, port), so the lock state
+on entry is what the code assumes.
+
+On "race in rts_work_proc transmits data with RTS disabled":
+
+I could not construct a reachable ordering for this one. If the worker
+reads MAX310X_TX_OFF and max310x_start_tx() then sets
+MAX310X_TX_WAIT_BEFORE_SEND, start_tx also schedules rts_work again, and
+that run reads the new state and asserts RTS. The before-send delay the
+first run arms is longer than 15 bit-times by construction, since that
+is what selects the software path in the first place, so the second run
+lands well inside it. The timer only schedules tx_work, which queues
+behind the pending rts_work. If there is a concrete ordering where data
+is shifted with RTS deasserted, I would like to see it.
+
+On the three concerns in the web report that are not in the mail: I
+agree with all three and with the preexisting flag on each. The
+cancel-before-uart_remove_one_port() ordering in max310x_remove() and
+the out_uart path are both unchanged from the base commit, which already
+cancels the three original work items in that order, and the unlocked
+xmit_fifo and icount access from tx_work is how this driver has always
+transmitted. They are worth fixing; they are not this patch's to fix.
+
+Tapio
