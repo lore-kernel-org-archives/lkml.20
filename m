@@ -1,102 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D52F443E43;
-	Wed, 16 Sep 2026 08:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4165844C64B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546145; cv=none; b=tGq75RgK437ZWCWfWvaRk6+wH5n9Xo/P7K+OVM7NHbGAIfxsMTCSs2vREWbILHfJzse+tLnV1huw6Ia4OyDvLWf9EM5OtFTZUMrUHDWXsersAInurysHIIyRu4wPPmGJ5YNmO5CIiF9QPSenY0Xdu2iioAkLBRdpn41atUngA1U=
+	t=1789546187; cv=none; b=NhvYYTUHJDNQ1x0Q7qsJIsmXJCcNzC4oVxLqO3mYiPfvyeXJehceVOPqBrk3ZddnbjCnKwhEkVdMF0c3j/ad/43FXtXUrDl+czRi13LXB2tsE6pG92Zo1T8M4Pmoeio8GZMbq2tDj1akL44LYpr++xKgQPGzJzAH4PF8+rR9soE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546145; c=relaxed/simple;
-	bh=Etx9Y8OTOZ/8F4MzHeEG4MIQDoSG9ljGZS+1aM01keg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uOZjyXdsfBDiwdxQxVIFUkXj7RCiCCX6s8l2DUrN+mNZ9ADD8m4EPgowU6YK7bfjszHwhTbc2LFACm+GWaxY1sbCnbKV6uAOiMCU+xlFpaSuWhLRl4VF0NMWSjuCgRoHUMBm02B0Dd0a5O/zJHPRaJSLvbPIvkJGi/qhJDOxZxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ca4k+47D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789546187; c=relaxed/simple;
+	bh=uPZchZjn6UkglmRiByWIsLTuCMTQTNFVKTPStIfIxjQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Fmi9Ktjq817rW5BTPs/cSPf30G9aZawcmfmq3O7ffYkVV1BsU8TNB3EXFygs99F2fSjcE5M3gtk4vLiTEng2jbbs4k9kAWYjuXqn04FBHZsndzuELcOjU+xVknWNw18WyVmyPL/i4RgD0Eg88vl6acRETBQ5qwK6V+V1IUnovaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=ELoWZVkI; arc=none smtp.client-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ca4k+47D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A701F000FF;
-	Wed, 16 Sep 2026 08:08:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789546135;
-	bh=NGsPUd4c4/jiwAM0z4uKJZVSAM5wKncJVyzSk3d45QY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ca4k+47D8o+zL7G76OczRVJ7a2qkrBHqI1/Od4RNEPo8JwVuyHFH1drWChaxTzMVx
-	 rzivByJWrrPNPjNcwUROqglLsqdxSI0Pwmt1OseLUucgoLpZ6SRxGJAcuiyqTiQHgH
-	 YhCxZ8D0YfcysSM37Do7LNFweJjSI3JpPOJxaljmY9aJVkzqysWBGY7KK4f3zefMZG
-	 snx5LEIMjOywY6TRK+DA37/AmXX6lVZ3X1YMjyTYXQsOX5FB995aGl+U0goeoEuPbF
-	 9Rxdbw2kP1zJ5MLILiUJoPaSOnDceCxHNZQWqEYkj12JmbNv67cRA7nTXw0pl6pDsD
-	 UOROGyIchJRQw==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1x6khI-00000005w7O-3XCS;
-	Wed, 16 Sep 2026 10:08:52 +0200
-Date: Wed, 16 Sep 2026 10:08:52 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mathias Nyman <mathias.nyman@intel.com>,
-	Chunfeng Yun <chunfeng.yun@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/6] usb: core: add missing
- pm_runtime_dont_use_autosuspend() call
-Message-ID: <aqpOlKtxeROh-G_s@hovoldconsulting.com>
-References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
- <20260915090223.1346-2-joshua.crofts1@gmail.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="ELoWZVkI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1789546171; x=1789805371;
+	bh=CkyR3JWxdNK53MZOpOdoX4HeDh3SJwW8Fzkq3YTz0p0=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ELoWZVkIzpuoTd2ofHXS+rfCNoK+saUH+2Cg0XN3xpCQvu2T8vUz4t4p/oTdLVfdv
+	 C8OMXWNny2enT/PX+0XjGMyb2z7p9xdrbOVYqnDaoaMd0S6+sR7PmAl7O3TublRxDL
+	 zssYDQXhCyaxRNPKaX8jsMQ5PlHIoWNgtVbxIULABObKFr4pe3K5SAtjvFn0FJl9iK
+	 1/pAO6qaPdxX76+sxWS+xKdPJd8NyyWEatK21cOIzBq6v/iTaPC/6WBias1iu8NI5b
+	 JxYP2PqKDcBN1sIwEluDKOb9lUJoac8Md+ICavTYY1g/RBu9AiWmhHB1m+ZbZAgzLP
+	 eRVFcS4ZoAgpw==
+X-Pm-Submission-Id: 4hlBPP2JGkz2ScXW
+From: Esben Haabendal <esben@geanix.com>
+Date: Wed, 16 Sep 2026 10:08:01 +0200
+Subject: [PATCH v9 05/10] iio: accel: mma8452: Only apply trigger type when
+ not set by firmware
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915090223.1346-2-joshua.crofts1@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-mma8452-open-drain-v9-5-0dd24fa2f3d7@geanix.com>
+References: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
+In-Reply-To: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
+ Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, 
+ Christoph Muellner <christoph.muellner@theobroma-systems.com>
+Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789546157; l=1389;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=uPZchZjn6UkglmRiByWIsLTuCMTQTNFVKTPStIfIxjQ=;
+ b=4tlXrY8S4zzMqasjflbJgwYenTe78Qa4kR8UrFELcISGe5eS4BTxm44kq3sAfYPYFuOTXd749
+ coSoK/+R8XSCjsiZ1Fa47YwD+9DXchaq6M0mkPMo1xm1LpBwsmOa0t4
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-On Tue, Sep 15, 2026 at 09:02:18AM +0000, Joshua Crofts wrote:
-> The fail label in usb_new_device() disables pm_runtime on failure, but
-> doesn't call pm_runtime_dont_use_autosuspend(), causing resource leaks.
+Instead of unconditionally overriding the trigger type, it is better to
+only apply a default when no trigger type is set by firmware. This should
+be reasonably backward compatible, and should only potentially cause
+problems if systems exist where firmware specifies an incorrect trigger
+type. With a bit of luck, there are no such systems.
 
-No it does not, as the device itself is about to be freed. Sure we could
-disable autosuspend again here, but it does not really matter.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+ drivers/iio/accel/mma8452.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-You could consider balancing the runtime pm count as well, as I guess
-both of these could trip up static checkers (cf. [1]).
+diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+index 8d70fe89110c..72b4ab32775a 100644
+--- a/drivers/iio/accel/mma8452.c
++++ b/drivers/iio/accel/mma8452.c
+@@ -1669,9 +1669,16 @@ static int mma8452_probe(struct i2c_client *client)
+ 		goto trigger_cleanup;
+ 
+ 	if (client->irq) {
++		unsigned long irq_flags;
++
++		irq_flags = irq_get_trigger_type(client->irq);
++		if (irq_flags == IRQ_TYPE_NONE) {
++			dev_info(dev, "invalid irq type, setting default active low\n");
++			irq_flags = IRQF_TRIGGER_LOW;
++		}
++		irq_flags |= IRQF_ONESHOT;
+ 		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
+-					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+-					   client->name, indio_dev);
++					   irq_flags, client->name, indio_dev);
+ 		if (ret)
+ 			goto buffer_cleanup;
+ 	}
 
-> Add the missing pm_runtime_dont_use_autosuspend() call.
-> 
-> Found using Coccinelle.
-> 
-> Fixes: fcc4a01eb866 ("USB: use the runtime-PM autosuspend implementation")
-> Cc: <stable@vger.kernel.org>
+-- 
+2.55.0
 
-But this one should not have a Fixes tag and does not need to be
-backported.
-
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
->  drivers/usb/core/hub.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-> index 3345b3298daf..dec6d5c49759 100644
-> --- a/drivers/usb/core/hub.c
-> +++ b/drivers/usb/core/hub.c
-> @@ -2745,6 +2745,7 @@ int usb_new_device(struct usb_device *udev)
->  fail:
->  	usb_set_device_state(udev, USB_STATE_NOTATTACHED);
->  	pm_runtime_disable(&udev->dev);
-> +	pm_runtime_dont_use_autosuspend(&udev->dev);
->  	pm_runtime_set_suspended(&udev->dev);
->  	return err;
->  }
-
-Johan
-
-[1] https://lore.kernel.org/all/aivMnTkZ-jTRH2Jy@hovoldconsulting.com/
