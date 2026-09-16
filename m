@@ -1,89 +1,59 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491133ACF10
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE752D7BF;
+	Wed, 16 Sep 2026 04:29:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789532907; cv=none; b=B+GECCnjEoQntbng62jeCYVJUZlFGr3PY3FEp8DCiazaZwege/9rGmUKh/SFDpHKpRMWs7Vorsz+T+8voeIS7fWfOnnbIc6NStJ5kWV6T8Tm5nL71VZRufFA+xIjIFLG8dfBYgiHgQ84W8gGVYuWokP/QjhPvkkYX4tEeeh3Wy8=
+	t=1789532960; cv=none; b=haycBB2vOYhkdkDTCroErjvzpy00+HsPFiaViT8VGLKN7phJwRKmJJ9NRm7pjWCKKdu3GzwwTeWnk0qrBzg9YOW689I6d4/Z8aWDFxhGJVEIsCizGNADNWZ4NoNBlAcvM5XdDMb6Pzy2/L5QIpZE8Sj+Ra+CIiU3mVo1Jp+xE7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789532907; c=relaxed/simple;
-	bh=b44yWDJIlMnSJSDZNa3DSc0Dk2gY4xhqvuHMJA5XfEQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OvD01KrBIxeTJtTaiggUlc1Otv6scPm8SxPZKTcPxbToluxfgOgJfRG6Z6K8TjdIZq4s6A145C1mY155iU0eQGJnMvrFuC1eOiK7eXx4ArFHnBXip0jwc89YVyBkk2+Fkb77WnlK3ePGwTNNCz9ro9G5gxH8hk+M2R9gzy5mxhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Cn/82xWJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Acd1x8mc; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789532960; c=relaxed/simple;
+	bh=6xjbFweYz6SXmWig9Y09VkBNKCHtAos0bnMQpqOlR2k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NPubFdnfS1Y/EhhuhAEZVRcwwq5iUcRGWBCW5y4hM7W24oVinfPkAmRhttbLQ5Ao7wqOkenZsI7ZXV++BY1ou2Ec7eCY8WOTriyACBTBNTiSxXDkUVOQhUGZ//L/3TSqLrYVUm3vsXeH11Kd9ZLx1PmOFQ/FxStd+NYK7SzkKSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=y8al5Vmp; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Cn/82xWJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Acd1x8mc"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLYYpa840343
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:28:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=w13e55CcmdNW+giKZHMFFVQwwPPrIweJDmR
-	EGBgqOIA=; b=Cn/82xWJC9ZY5SPWHp73+m4uFgZclVvkfAceo6MNWOy7Hkz1nKW
-	VJH4g4NPJ74qqS/h3jWacH74Kk6aheGeu5yX+Ud1OqYffPGSpbmGqfXsEGSjry/h
-	P5mdg0fKTh/erlCIaBwkaseW8DwrzeVapV378HVnIqtF0pLHtmKu14GcUlzc0S1O
-	eh1MqngK2I51x/luYIvsIPMiFqLp8ncA6nYjwG0ymCDkz3aeUvHnv/STvX+Bvckf
-	sUXfFV+blTQwEIOhW6jN7c1s7PhYuq1cAhMLIGMWTdK4PzHgQ6NZxdwPON3sRzSp
-	29QX76PLrZ478lLMTyvac0OWl8ImzYwWCnA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqdyw99rw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:28:25 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc132709c76so6583124a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:28:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789532905; x=1790137705; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w13e55CcmdNW+giKZHMFFVQwwPPrIweJDmREGBgqOIA=;
-        b=Acd1x8mcPj4TDPbD0J0+70/duJilOAq6/afkFKUfdCTWPJed7Xa/UhJlsejtZXdIhZ
-         YUZ+C6dfM4wmM0liDff1AUvFW07G5NMZC3WsXmf5/0nUrz5sZpmxQbr6k/6jw+wUkrn0
-         MMDzXFbLL3cAodq8zmX3zXtNBfj5ZxdfeQ7EOO8zn6QjraHSzJumYWo1Yp6DrfT0Icx7
-         Dl/coYSzzEAMkyxBW1x36JIZ0RtG6Uzr7O/xeRe81IXCqJEJRLcM3X8LNW0B2aGuoGTq
-         D24y1q3tSF5oKQ8eObeZM/phQsez+kQ8xCCLh+LLearSAtiMUFvpHPf8BIUKRot0SPAz
-         hJsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789532905; x=1790137705;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w13e55CcmdNW+giKZHMFFVQwwPPrIweJDmREGBgqOIA=;
-        b=e1SuzfmTp7veUwpcBLYCbxPhxrhQJHGGjO8+xKhiSxSUGiecunlkeOOwie/VCifHiV
-         PiPFK7Qdhb1WwrBRQ5hVtAVGw1xZclkndpY4SPYdRlbPNCCDrfjtV0qLPMIZGYDYGicN
-         AJdFnFSG0dK5FcJ8O63h+x9MHkmbuXR2hLYim0XOtzKV8AD6cbtk/MJd2qSqEtt4f2jb
-         ZXseCab5UrSy04AMz/8JTeGzSHMuBBMK6ar7/g2P9L/YtmVpr8Sm1i+/LAvX9yDzNYmi
-         HGoKihit+ycxSxrYkHfF+dPDemuTRON4akaKF+AxLkSx5//RtCsvE7z5n97v8YakebVN
-         ie0A==
-X-Forwarded-Encrypted: i=1; AKwUvBwI3r0hrST7JNcyL6EMV9DxHtAFiHYGdBt1l/uvyu6/gOFCxrbb0gLkZ4SOx1QWe/RhuUhgBp0HPklAqpM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmeuYSLRHxvnkToRlZK7PD8B92WcHRnq+kNxc2TH8siQcdEs7m
-	kBZCrQzzi/E6591SKy3IR3KfaPx8jsUPrJf4+oMB+OOJw+tbsZKczBcQXYo8VxMMPT0QS0qHaor
-	fRaGPBO8K8YaiWlkNHwn3gG+nvX3rPS1P5pfWwTYcB7mTIaah23CKfejZ7Xg3Fv8/AbE=
-X-Gm-Gg: AYBFou3EmBWT49P3HsgwuT45gDq6mMzkVAmLVVS+aJko07VzB7jWe+k+PQhEwiJ8NuR
-	jpcb22o9ure27gt6rzFU89cHwN5aQsTlbuKAhU2diFoDOVgCgShWGbE5/Mu8D5H7GV6XmJoVp+u
-	8mYCJLJOw6ClyeOy5t/04ofAY0DfG7Av/4OftXhIx7KtVR7cYDOKiPI3j5HNWZX/OqkAjOuXdFF
-	HHelarFdT8HppVcLMU3muhC7JKtcruHxnfUgnyCGn66/FkG/hrcLngZ27tKxzC27h1D3YzvdVtP
-	rnVit+WSLSy5cax/PsO1ORB5OpEuFJNFJ8CfY423R+J6TMxo6Hi5Ebpf+lLGLmfF2SB4SHijYhN
-	VHOWRTpTN79LKl1HTGEll3S35ytsR
-X-Received: by 2002:a05:6a20:d10f:b0:3d3:aec2:4dc9 with SMTP id adf61e73a8af0-3dd5f72b353mr2962501637.21.1789532904734;
-        Tue, 15 Sep 2026 21:28:24 -0700 (PDT)
-X-Received: by 2002:a05:6a20:d10f:b0:3d3:aec2:4dc9 with SMTP id adf61e73a8af0-3dd5f72b353mr2962457637.21.1789532904296;
-        Tue, 15 Sep 2026 21:28:24 -0700 (PDT)
-Received: from hu-prashk-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5ad6b9dsm3643105eec.21.2026.09.15.21.28.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 21:28:23 -0700 (PDT)
-From: Prashanth K <prashanth.k@oss.qualcomm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prashanth K <prashanth.k@oss.qualcomm.com>, stable@vger.kernel.org
-Subject: [PATCH] usb: typec: ucsi: Get the connector fwnode based on reg value
-Date: Wed, 16 Sep 2026 09:58:08 +0530
-Message-Id: <20260916042808.2879079-1-prashanth.k@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="y8al5Vmp"
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id 9233140B5A;
+	Wed, 16 Sep 2026 14:29:10 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1789532950;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=B7ZQplUXCXPwONkaQVfHCh08s+vTaBNTqiRwAN4FcQQ=;
+	b=y8al5VmpWJe4/uIU+idvj4y1aBoH+2hm38evlDgPZzw+pIH0qwSBonzq0ihCBoGyEwsVOY
+	pGQWOhwzy5H5RAwj6P0wi1iyo3+HZvxd1TsHsKQ2Xloaw6zI9v2R4sKm7oAD3UEFzUQWdj
+	5/A2Tp+HNPcCMNj+A9TR9a8t4W+eF8kCTY2UpG0uL53TRYP5rHzE4n5bhcd+nU3het+jje
+	LzuuM/Wno9w6IF3Xos+BXEx9/9H0IbR61A9DRA3JXG8aTRI55rAaAdAA+mbZO4AyKMxZk5
+	eLJCshEyZkSdL0lLvjX3ObkOiURjjzErBTZd/otLzv3QN7wo45TPwr5lpcypBg==
+X-GPT-Reason: legitimate; the email is a technical software patch
+	submission (Linux kernel style) that perfectly aligns with the
+	recipient's identity (alastair@d-silva.org), shows consistent sender
+	identity (alastair@d-silva.org), and contains highly specific technical
+	code diffs with no phishing indicators, urgency, or external links.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: linux-clk@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH v2] clk: sunxi-ng: ccu_common: Use readl_relaxed_poll_timeout_atomic for PLL lock
+Date: Wed, 16 Sep 2026 14:29:10 +1000
+Message-ID: <20260916042910.382744-1-alastair@d-silva.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916041104.239999-1-alastair@d-silva.org>
+References: <20260916041104.239999-1-alastair@d-silva.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,85 +61,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: _dbDt8K4mYuKCe_p1bCZ39KmMCbsbDwF
-X-Authority-Analysis: v=2.4 cv=aJ1lOr9m c=1 sm=1 tr=0 ts=6aaa1ae9 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=KtO3Uq3HwnMQzyJ4:21 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=B9IpDpKWNnwCR4r9QlsA:9
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDA1NCBTYWx0ZWRfX1xAAFFfdIucc
- AaPCv6767OlwbiKr01tYscJCWIYJBW0P+94dwdMkc8RLjxL86NyQaEPkDi8u7Xpx0QQslrBaeu8
- d8Xwgauo/DNhCqeIyj7itQWCSdrjTHpjlrXnWxsl5xbHn1Px73vQJgwTV4NxcZdNSJ/tWmyd0dG
- FztZX5thAJPuJdxHpJmv2H1jRvOKD0UHTouipXTCg8ZBI7esft1CEdLiWVNLPgAQ8eyDTSYnL/M
- EIPnWYCgS9w+7CJnq903B0nhpdYUBkhoKduyvFPCoGnhpWEdJCqXfZNaGaoQWSSmJx4rfPONpZz
- P4aKqcJeayu7IRaop0orqdjpjCJMTKSKEbYD04I7Z2ofhPtyOgFu6TbxhjfI8+NpnNVjivPknmR
- rbQXY4LJ6oMcrBydhJkQ2OOZZjqqBi+KtJmNvVw2fGla/f6LKX8qja/BpwAytLCvnG0dM/HUUSQ
- 2JHs+b/9GhfKXQvWT6Q==
-X-Proofpoint-ORIG-GUID: _dbDt8K4mYuKCe_p1bCZ39KmMCbsbDwF
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDA1NCBTYWx0ZWRfXwGspMz+Z80qo
- uAci/W8LYm/E9/4XIxHAqZWakdaoOd5Jlpyge6f0aPZsyD3i9s8ZF72hSCG4pGD1pGnGDadnU0v
- Rjd5vh2GelAiyjG/3e8/3gOyTvEo1fo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 suspectscore=0 bulkscore=0
- malwarescore=0 clxscore=1011 priorityscore=1501 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160054
 
-ucsi_find_fwnode() currently maps UCSI connectors to Device tree
-connector nodes based on the order in which connector child nodes
-are described in DT.
+The Allwinner sunxi-ng CCU driver currently uses
+readl_relaxed_poll_timeout() in ccu_helper_wait_for_lock() to wait for
+PLLs to lock.
 
-This can fail because the ordering of child nodes isn't guaranteed
-in Device-tree. For example, DTB may contain connector@1 before
-connector@0, causing connector numbers to be associated with the wrong
-fwnode. As a result, role switch and Type-C notifications can be
-delivered to the wrong remote endpoints.
+This non-atomic poll macro relies on ktime_get() and the kernel
+timekeeping infrastructure. During early boot or sensitive clock
+transitions (such as CPUfreq DVFS scaling) where timer interrupts or
+timekeeping may be suspended or unstable, ktime_get() fails to advance.
+This turns the timeout calculation into an infinite busy-wait loop,
+causing RCU stalls and system freezes if the PLL lock bit does not
+assert immediately.
 
-Fix this by using the "reg" property of each connector to match
-its corresponding fwnode. While at it, if the reg property isn't
-present, then fall back to the old method.
+Switch to readl_relaxed_poll_timeout_atomic(). This atomic variant relies
+on udelay() rather than timekeeping, making it safe to execute even when
+timekeeping is suspended or uninitialized.
 
-Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Prashanth K <prashanth.k@oss.qualcomm.com>
+Assisted-by: LLM
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index bef3f9b71d71..c1450639c795 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1801,10 +1801,21 @@ static struct fwnode_handle *ucsi_find_fwnode(struct ucsi_connector *con)
- {
- 	struct fwnode_handle *fwnode;
- 	int i = 1;
-+	int ret;
-+	u32 port;
+Notes:
+    v2:
+    - Replace custom udelay loop with readl_relaxed_poll_timeout_atomic()
+      as suggested by review.
+    
+    Tested on Allwinner H618 (Mellow Fly-C5) and H616 boards in Armbian, resolving intermittent boot freezes and CPUfreq DVFS scaling lockups when timekeeping interrupts were suspended.
+
+ drivers/clk/sunxi-ng/ccu_common.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/clk/sunxi-ng/ccu_common.c b/drivers/clk/sunxi-ng/ccu_common.c
+index 43d8eca6abee..248e58c9562d 100644
+--- a/drivers/clk/sunxi-ng/ccu_common.c
++++ b/drivers/clk/sunxi-ng/ccu_common.c
+@@ -35,7 +35,7 @@ void ccu_helper_wait_for_lock(struct ccu_common *common, u32 lock)
+ 	else
+ 		addr = common->base + common->reg;
  
--	device_for_each_child_node(con->ucsi->dev, fwnode)
--		if (i++ == con->num)
--			return fwnode;
-+	device_for_each_child_node(con->ucsi->dev, fwnode) {
-+		ret = fwnode_property_read_u32(fwnode, "reg", &port);
-+		if (ret < 0) {
-+			if (i == con->num)
-+				return fwnode;
-+		} else {
-+			if (port == con->num - 1)
-+				return fwnode;
-+		}
-+
-+		i++;
-+	}
- 	return NULL;
+-	WARN_ON(readl_relaxed_poll_timeout(addr, reg, reg & lock, 100, 70000));
++	WARN_ON(readl_relaxed_poll_timeout_atomic(addr, reg, reg & lock, 100, 70000));
  }
+ EXPORT_SYMBOL_NS_GPL(ccu_helper_wait_for_lock, "SUNXI_CCU");
  
 -- 
-2.34.1
+2.53.0
 
