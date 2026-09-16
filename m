@@ -1,80 +1,66 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835EC51E436
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2586E521227;
+	Wed, 16 Sep 2026 14:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569042; cv=none; b=lLC3zBrJ10fRXLQIvsfx/ZHTjauZYDLB+uhEuHcNHt1PNj3ejNv5/ZFARLaM5HLvqaz+xY2OXtDI6x3QIXtu1cOtMqO1er113gB3kkZPGv3iCtoUnO73g9rbWSLBg9e4j89zUnDveYn+6g1PmDlrey5eBMhfQoG6BxFvQnuzRiw=
+	t=1789569049; cv=none; b=nMjtfvJCpuAXSIr2evgWLli/7+SCL0VxY+4Mfq+9JdqPOwlCl5oTnJkx1Z0p86cQvYy3rqAEJ8i1Ggd6tJtKaSZMHs4JQB6+rR3I7Me8JCOc/5RhP/ptArvMzIK3Eok1PIdQQZs1MSZWH8wHh0ta3wjvumgeSt5fM6svPFgzHfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569042; c=relaxed/simple;
-	bh=n50EDLBpp0PcLVpFQaOjQv7TAzbBAn/fBTN5CuZ51Vs=;
+	s=arc-20240116; t=1789569049; c=relaxed/simple;
+	bh=eidKeq4ulUavy98T6SGA6sf/tDZUFQd5Vg6vRS+1Nbw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ph5aI0Ivojj6guIpgSxK6gO8m5gFxUb6HIF42LPNy3Plc0F/3hYQWDWJMpEn4bEna5VujYpNz0HPhrJOwi4fO2DYkjhGVpUsqWz4pQOEBmF1HZ3VteOWDlh73MV+zYDPjVoArMqnjsSMNVNcEIPnYFXhmc3cIwatPSrXogf+9dY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=egE/5NQz; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=W4P5znVxjMmNVEYKbkgWpEL9DJJlhQCYULayjDGTfgctShJqRi688fZ+PtkYxKiZPPblIZPPthRDPadyW7+pk98sAaLjXCTabIjR85f0RtbWXBVY24fOKRcYXe0WkhNVzF/JXQMpPs22hyfX5yGcBNLttDddVj8vHEptcwo85iY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LNOVW3P8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="egE/5NQz"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39b31b4281eso890119a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:30:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789569040; x=1790173840; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vAIxdcn+2euFFjhYmCcfT0OwZlA6a1v07ZRE8SeJ058=;
-        b=egE/5NQz07o8f6MlS/eWFB13irJak2X01K20lnHxBmmobkH2i3Doz6rTLAsAHwNre0
-         12VNT8cs2NCcv9rGWNhxnU9QuJFVfJc6mCtEwKzwRf69CWZvvzIQodSHv9I7OWlwcW2E
-         PJ5OFvmHVcCtC/jpZDB3jRvtfS1CG63Ms6VdqWx/2ABi/+aPcOkxd9T2S4Z+RFr1gwrQ
-         kGVpx+hAhTnmxXSN7Nls0p41n0MGFA6N4vhKaQJH2Spprl4zIjc0f9CPsiYg67AfAGfD
-         LsZ7NJkHVMepyOVVjen2fTaa4//m9H27PVOjwDUIgAA3q/blKVskdc1JPM23ztBfaVfl
-         YDqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789569040; x=1790173840;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vAIxdcn+2euFFjhYmCcfT0OwZlA6a1v07ZRE8SeJ058=;
-        b=YH8ERuNZv8EeNEaR5XiHgW8tyvDLLuj/Y/5tpzBJNYW7LpSr/mm+opMIchfNNtNHJE
-         oCeEij1q6Qdl4hTwBoGTThaxp09v7m8LeqqzC5UNDbCpuNfs9tWlSW2qEzQEhIAT1dLY
-         1IB/d/gidmSWQ+E8lolHdEz6VGPAuDDuS76tmJZ4liQrKnTsuaa9bxfLgooQWztLx0vT
-         pmb2kh5PhmLeA/rY5KYRXJgAN7SxsWDFxJEKZhjmsmJGlNwc7TNLaIHnb+H4IqLkx29I
-         t+A+M06lptgBuUB5qmM9KmaPGrfWvlJ0Q8IzFKzJgvPF7PVq7lXN6AWE9IGXvJA8l2sE
-         8v2w==
-X-Forwarded-Encrypted: i=1; AKwUvBz614b5g4yWAQpKjktkMwAUkL/tpN2IUMVLuX/r3jJrtrWswQ48I0EBv6BLKTcixWcVxuAIZ7PGcFWChU4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfudJL3Kq5Qd4w9uFxJ8egruxuoIgmbtlXK+bs2RgtZTQBtbs4
-	wHBeA+vH/NRuY9OLgn/VYVzU25eDFhnKEVDxRlJBIzSXEtvfX37ZNtn6
-X-Gm-Gg: AYBFou2qDSvQob8WN4iIQ+f63/vTABPoUh94r6EWjWzc94L7+tXkxYOVBMQwPLXK/6d
-	VlDfPsO2IychyXg/yKrvEnTrIKS9hPoItGvB6Pp1ouosbwl/h1J38+ET5YNfGYH9oPcIYhCMLCC
-	5VuLGKLgqjZO6OEdeezvdhk/Fz/1JZ4ID6jpFua328RBR/dQ3YhcRETjxJNoyr/BDIHD9AM8MPl
-	c6prLfF4zfVnMj9420S+DrIm/ID7bWsavwikmWUsCd9Zj7HwEhwCy6vCBBYbjntHy4JqqbZoWns
-	a/VfLzktQUcfHAWglaj8reLChmKg7CUiMM9jMXOSGmocKiFa99lkYN3kZi5sHIPFg4Jjx/5rrus
-	jfUT9hl6lxjGi61jNwGKmhFKfQNjXCoQTQj+YJC11GIldV58j9aLF9S/2LKHrBx6rDrENjpkj+K
-	nG9S6iCCFrT+hyfwKwpx6dBLgcQYm2MSFwKn9fxq+81hdDnalX+PRuVt+4rSjStz8MihxD2vmIF
-	Q==
-X-Received: by 2002:a17:90a:1c97:b0:39e:1fb6:9659 with SMTP id 98e67ed59e1d1-39e1fb6994cmr4255054a91.22.1789569039499;
-        Wed, 16 Sep 2026 07:30:39 -0700 (PDT)
-Received: from localhost ([118.34.230.2])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50ab51c2csm1747149a12.7.2026.09.16.07.30.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:30:38 -0700 (PDT)
-Date: Wed, 16 Sep 2026 20:00:36 +0530
-From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-To: Anisa Su <anisa.su887@gmail.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>, benjamin.cheatham@amd.com,
-	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] cxl/events: Return IRQ_NONE when no event is pending
-Message-ID: <aqqoDPmG9lfDNAwc@acer-nitro-anv15-41>
-References: <20260912093815.14455-1-shaikhkamal2012@gmail.com>
- <aqnlDSdofHDUNdiT@cxlqual>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LNOVW3P8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31EF21F00893;
+	Wed, 16 Sep 2026 14:30:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789569046;
+	bh=Sf2nPqPSoF8deq5OYrsGYaM5lP9Vq8plK7Qs1+50D6w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LNOVW3P81mUBhRO0/pMJp0Fue9fjWU1wrtHSjWyAgH85HRAoZwM4kbPCQYpxU7+le
+	 Pe8FJmVgN3hXMijiNFNO2rRTXlno2shHa9jXQ2hzkn+BCFm3WG5AOkg6/YXeTPuSrM
+	 WvrIm64q2uPVC/8u1Pcrn9nUz5TG1foCGquzjdG0nCoyXrCzvC4zFdCQOjOyCOyNa8
+	 /5pYj780rd7HwMC54yH0Hinwfk382BKUkcENW+jOObtYMdheFRmP/EszJ/jz7x5Opi
+	 4ofgkbLAD4t4kUUCmGNoohdh3rRHHbNkvI3kCNSSmLZOp2jwQB/3fpRTGKh+NtIfy/
+	 wrkiSsNDvPAig==
+Date: Wed, 16 Sep 2026 15:30:31 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Kees Cook <kees@kernel.org>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nicolas Schier <nsc@kernel.org>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 14/21] kbuild: batch module finalisation
+Message-ID: <aqqn4eWZrywvSm2u@gremlin>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-14-39817ec5db23@kernel.org>
+ <202609141056.6AE2C82E@keescook>
+ <aqkZvtAKWYf9-1ZW@gremlin>
+ <202609150943.000EC9277@keescook>
+ <CAKwvOdms6QWc7RMW6hJb3qzgmpK+aw40C7b_h7eG161ie_Y8ZA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,87 +69,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aqnlDSdofHDUNdiT@cxlqual>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKwvOdms6QWc7RMW6hJb3qzgmpK+aw40C7b_h7eG161ie_Y8ZA@mail.gmail.com>
 
-On Wed, Sep 16, 2026 at 09:38:37AM +0900, Anisa Su wrote:
-> On Sat, Sep 12, 2026 at 03:08:15PM +0530, Shaikh Kamaluddin wrote:
-> > CXL event interrupts may share an MSI/MSI-X vector with other event
-> > logs or device features. Consequently, cxl_event_thread() is registered
-> > with IRQF_SHARED and must determine whether the event-log facility
-> > claimed the interrupt.
-> > 
-> > The handler masks the Device Event Status register to the event logs
-> > supported by the driver. However, when no supported status bit is set,
-> > it exits the processing loop and still returns IRQ_HANDLED. This
-> > incorrectly reports that the interrupt was claimed and prevents the
-> > generic spurious-interrupt detector from accounting it as unhandled.
-> > 
-> > Track whether the CXL event handler claimed the interrupt and return
-> > IRQ_NONE when no supported event is detected. If no handler sharing the
-> > vector claims a sustained interrupt storm, the generic spurious-
-> > interrupt detector can eventually identify and disable the affected
-> > IRQ.
-> > 
-> > Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-> Reviewed-by: Anisa Su <anisa.su@samsung.com>
-> > ---
-> > Changes in V2:
-> > - Emphasize that returning IRQ_NONE enables generic spurious-interrupt
-> >   detection and drop the Fixes tag. (Jonathan Cameron)
-> > - Check whether the event interrupt is already disabled by Anisa Su's
-> >   patch; no code changes were needed. (Ben Cheatham)
-> 
-> One thing I want to correct: The change requested was to say a
-> spurious IRQ will eventually be disabled in the commit message, not
-> check whether the event interrupts is already disabled...
-> See https://lore.kernel.org/linux-cxl/aqLZP3ORYzCLfSgR@acer-nitro-anv15-41/T/#m32c74ebf05eee9a3ee49c57dd24848db29919031
-> I do see that it's been added to the commit message though, so no need
-> to do anything.
+On Tue, Sep 15, 2026 at 10:56:01AM -0700, Nick Desaulniers wrote:
+> On Tue, Sep 15, 2026 at 9:49 AM Kees Cook <kees@kernel.org> wrote:
+> >
+> > On Tue, Sep 15, 2026 at 11:44:01AM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > On Mon, Sep 14, 2026 at 11:00:27AM -0700, Kees Cook wrote:
+> > > > On Mon, Sep 14, 2026 at 10:22:13AM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > > > Module finalisation on allmodconfig builds consists of a large number of
+> > > > > very short-lived jobs, and the make job dispatcher cannot possibly dispatch
+> > > > > jobs fast enough.
+> > > >
+> > > > This "cannot possibly" sounds like a weird LLM language intensifier. I'd
+> > >
+> > > Again that's my writing actually, probably best to stop assuming LLM now ;)
+> >
+> > Apologies; whatever the opposite of the Turing Test is, I have failed.
+> > :P The AIs are winning: humans are suspicious of each other now. :)
 >
+> Is there a term for this yet?  Cylon paranoia?
 
-Hi Anisa,
+Haha, now you'll get me watching that series again... and it'll all
+probably feel very prescient! ;)
 
-I got your point, yes commit message already covered this.
-
-Thanks,
-Shaikh 
-
+>
+> --
 > Thanks,
-> Anisa
-> > - Rebase onto v7.3-rc2; no code changes.
-> > 
-> >  drivers/cxl/pci.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
-> > index c7c91e8dc51d..8b560cae91f2 100644
-> > --- a/drivers/cxl/pci.c
-> > +++ b/drivers/cxl/pci.c
-> > @@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
-> >  	struct cxl_dev_id *dev_id = id;
-> >  	struct cxl_dev_state *cxlds = dev_id->cxlds;
-> >  	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
-> > +	bool handled = false;
-> >  	u32 status;
-> >  
-> >  	do {
-> > @@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
-> >  		status &= CXLDEV_EVENT_STATUS_ALL;
-> >  		if (!status)
-> >  			break;
-> > +
-> > +		handled = true;
-> >  		cxl_mem_get_event_records(mds, status);
-> >  		cond_resched();
-> >  	} while (status);
-> >  
-> > -	return IRQ_HANDLED;
-> > +	return handled ? IRQ_HANDLED : IRQ_NONE;
-> >  }
-> >  
-> >  static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
-> > 
-> > base-commit: df2908090cda368b01ff43709f51890076c56157
-> > -- 
-> > 2.43.0
-> > 
+> ~Nick Desaulniers
+
+--
+Cheers, Lorenzo
