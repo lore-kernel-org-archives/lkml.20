@@ -1,233 +1,325 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E346477E31
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548430; cv=pass; b=ibP07x5Mp0LOnA+E0kSQ14IdzEkRGZ7Cq79Xe1okgkT9q1y9j0GEBz61tp3rZaiQenn4CD9IBmiM2/mVTqlYzGs8QZzrYN/SBZyG+X+gbxDFjhnSQdXOIhhmv7b6jdd2eQ3IDPWZTsY3x1NU2Qhexlz+UBqOJ+1XH3CsRgpdUSA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548430; c=relaxed/simple;
-	bh=+0vbZQ4hrH8TAuny0aCf2eyVVsR0g/zscE6oN+O+NqM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=umlJ8PgsXicqCzrjjbLMYGX2eGHrPWN04v2bf8Kts6B2J/4EHmLMkA3igFVsJ7196ozSlOA7FmSULMrhmegj+j+uaqTtJz71eaPjcGxf+SdvQc8CmaNCZ+kgVS1PHCHo2cAQ3eNpTt+MRUqec8sEoF9RSjLcvQ9IAbUEpMnSLWA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W5BG3hHx; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A54043F081;
+	Wed, 16 Sep 2026 08:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789548424; cv=none; b=G9Y/e7BmRGB/G+8Rmeqx92cHEe/1OWQtReBFWaxaVqvTE4zEgb+dAiMujnLtDd+0LuKA/gjPCdmGBALrwmd5y6T88bzPWSJLWAHLP9GL5z0E4JiHP0m7nT8F3NZCQdfsY0bie5MP/m73GbtZhhQESqgBv23YdvurZrhnw39Td10=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789548424; c=relaxed/simple;
+	bh=ef8r6iNKtiuyWv9pF/ARFCKTa67ITV2QiZm4JghR5tk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RRkmDtlqwcO/PVU0Q0pcfSd10k00Uj6mv3pNX3T0iXXKRD7ohtH0SDdux8A509zsqayGnKdqjye72dmKbiZa1H0GZYG1CObqEkq8cbf0BmJ1bIcTXPWNTdyVRx8ky5yjsBSedTCYevocfaIxvS6t/R5YlAOXuH0+GFZqTu7MKS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=gyj8zxzC; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W5BG3hHx"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b7654efe67so82878e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:47:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789548426; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pSSJLYjB6B5vnCL9fdilxUgzn6ocLcX2hPWc9uewVmfX7f0Od/6plLgrBdbcbrRLNd
-         L836E++0UNGQ7Xq0ng6kDJd9u0h3RvrRR9dTjZmskNCpVFLD0FgSeRgvb2vgtAn5ZP5+
-         gopj5zSc68ZDFhueUJLjaGHPl2BXyquNJV1JUvGmO3FTdnQ3MTQegEjD+rJm0U5DkN+8
-         NbTL4qvq1uGBYxXohEi3NPnP8plLeirR4evWm5C2cT+HK4AeV64tdCayje99m84cFBk2
-         j1lWOtiwGQFwqY1h40O/c6YivQrqtyJhNuVJQ8ZIES7taqXbcvc4fHaCe15TIlA/zmUN
-         N4TQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QR5oPNk/jNiLxqkh/Mwul2PMMrQIX1+RCusUg4zvBbg=;
-        fh=6iH7Ap4Fr0TkhUcPzWAHaVQr0Od/J9fdZ9ZXtLRSoMY=;
-        b=ou+TFpTNHUcgCuYZUoxr8+O1pNe7JFo4ITuI2pNgoi9l8ICuILgbHwje5P8k+M+b6r
-         gAxqD3dZPH9pnLhlxFGmdv063XbeKeyJQAOfEVrL3FTzuPF2bqehhBgTsEqL1i8++4fe
-         hIkf6ehAlQp13dyj2vE0JjUbzxEkdSdDONFwT4OcDMK+GSXywWOA7yrxdEHHBsfESwR8
-         zxq+nNFQjk6nBiO0yJGX2tlg5UKFOBT0EKrc+zUkTfh7nYWvfJgZsC7VIn86sE/rDc6o
-         KnhtrBeX3ojxdcp3uiHVwbWteVVtJO0Bm/OJscMo0gdOVLsEW2W8ebWJ4TSZbBigYLMS
-         SIYw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789548426; x=1790153226; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QR5oPNk/jNiLxqkh/Mwul2PMMrQIX1+RCusUg4zvBbg=;
-        b=W5BG3hHxW+DwOc1BHCvLbe/VV2HHtOWgZQi1o6rqSh6+sC9g6Cdt4JmmHcjwDJUwi2
-         NWkqKJWTughH9adiCEQgKtLn+1p8G9JrYua8oz4ED5XQG7bxUrYPILfOQ7sPBBR2eheg
-         xjN+qi95HJzBSPJNiQ02K2hU2a3uEad9T/s7ErFTBmWv/UXY19/8GSNhx8OhUkpUR+Qm
-         VhO4RNoPgvO/aCAseXwkfk3i7Q2GgWK+CGb2O9f7N+BpmeVsccs5tsv/9u1+Osp73evK
-         U8xtuFBmPK8SPTg0ZScUoNUepqcMlXJCruULXq3vUy7hslNKmjmfihdHSVTseu1G8Ch3
-         9duw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789548426; x=1790153226;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QR5oPNk/jNiLxqkh/Mwul2PMMrQIX1+RCusUg4zvBbg=;
-        b=xIV7iyB2/5PEGDSTMGFL4AhEyMEzOLnKFQZAom4sjzdQPfPOAh0CxpX4LYAQHJ1mgA
-         y3jj9ZVmfr8Pc6dDN1HWnsGOfqHD6LR6GTz+Iziq6rdsas3mMxgn2gLuSUG3Y5vsb6LJ
-         KgGgdpKjAmC0Gx3OBAbkxawYfW9SSlkbIb500blheL0jU2b2NOzSoL0mS+o3xl4joWQ3
-         DyT8F7zlij0gg7r1OPPlrWldLSEIKBWHE3r/GHdC7tNtWC5qMz13s/H3ed9X2tNaOeHb
-         VhhsQc7CjEJcYjLWOvUEnf8z5ayq0WPrtlYcFx4KYiRsVwErBUBM0NApV9N6JBMvD0Pz
-         tf/g==
-X-Forwarded-Encrypted: i=1; AKwUvBxPtff7xTVjJw/oG979W7a6j4FGfYgKAaou188CnEU8ZVkmt35DUPzBj6OWI8xNkCxQ7IkFotOZwhvlAcM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsUIL3xQx3OpXqtyfjAlEHiCpQQrqkLuzt0EYCTtoykWbj9gaR
-	4Vj8Jp0+EVG7Nz78APrvcYPTgcnrUiWdsB9zdPbi/oaaGeigtyMzDWzDpHpPUeHSnXSR03Ld1uI
-	OZbv5S0cIdHgURy65ame2w068m5D/ppSwysPI
-X-Gm-Gg: AYBFou3dCR+HgphA00QMlyM63VIbFKSzJv/QmSL6uOEQpVUB5+YIKb2rPIyHbl0Znu+
-	+57DeAVUJo5vAeRXMYQbUMpjz1+uWktDfWbXS5AVlatF+aRhoVqpDqkh86BIAt1IIrH1pcdeOTG
-	Y4cRTfqZcjqh2bI4UOi+ODRiPcfqyK/wKJ54NE7Xl5FAYF1qUCQxQ3m7Vo7biZxW/t0wca2q9LU
-	umhIatYL2xbW1oqSOL0yATCBB6MtSXIoFzBPabTyJmZ9gJD0pL1uk5WbvaTIT0lh6RPbfe26C6v
-	OQHTofDmq0cYu6zSlhXVbCxzVaEBRhBU2ShxM4N4CCzMuTMW52eK2mHO
-X-Received: by 2002:a05:6512:2246:b0:5b7:5281:b8a1 with SMTP id
- 2adb3069b0e04-5b8b666ee86mr414510e87.5.1789548426043; Wed, 16 Sep 2026
- 01:47:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="gyj8zxzC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=sDCNX+YHSUydGAM1LFcKIBAhx2ROKqYXaCwJyhIsMj4=; 
+	b=gyj8zxzC9zn3rkb6cV3v0k4Z9ga+6HujbaYMNS1UrTsUnd3X2HOGd+//CmpoewR3tFo63gJHKJD
+	hfwR+WU3yw8zVWyw2i8fC+HR8yoaogm2ZSDZiN97rT/HIlJ2VFcQxNLovij9wUUC1epyyEwxogNLh
+	gUZC96iDbtPO+XZeFAYnyZwG/Qxv5t+zK2CuzWMzpcwg1z2+w0JmN9CEzjIAPiENKdIT3sW8djG2V
+	6ArDMd1u/QZm4zSXO5PRa6fIVlgP9lXWadzmVUca2aiHu+zejGADn8u+26US0nkgpoPbsMhfhxgdT
+	2NZV/yHzY/SHTtOklOtBHk/5ns9p3fv5+9Tg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x6lHs-0000000EXi8-3WFL;
+	Wed, 16 Sep 2026 16:46:41 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 16 Sep 2026 18:46:40 +1000
+Date: Wed, 16 Sep 2026 18:46:40 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Eric Dumazet <edumazet@google.com>
+Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+	syzbot <syzbot+4d0e4d2db6dfde01b52f@syzkaller.appspotmail.com>,
+	davem@davemloft.net, horms@kernel.org, idosch@nvidia.com,
+	kuba@kernel.org, linux-kernel@vger.kernel.org, pabeni@redhat.com,
+	razor@blackwall.org, steffen.klassert@secunet.com,
+	syzkaller-bugs@googlegroups.com, Thomas Graf <tgraf@suug.ch>,
+	linux-crypto@vger.kernel.org, NeilBrown <neilb@ownmail.net>,
+	quanyeyang <quanyemostima@gmail.com>
+Subject: [v3 PATCH] rhashtable: Use separate lockdep keys for each lock
+Message-ID: <aqpXcMuAChVSxoaz@gondor.apana.org.au>
+References: <6aa5fcf6.f2639fcc.29487d.0048.GAE@google.com>
+ <aqi7fpazv2KDDdvn@shinmob>
+ <CANn89iJd0QnoDo0tjrFED2myec38U8joyqR05d6BVnJ-sX=NVg@mail.gmail.com>
+ <aqjf7LNmE6InABpw@gondor.apana.org.au>
+ <aqpMjQn0g6XxXtyq@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916015440.2232938-1-chao@kernel.org> <20260916015440.2232938-7-chao@kernel.org>
-In-Reply-To: <20260916015440.2232938-7-chao@kernel.org>
-From: Zhiguo Niu <niuzhiguo84@gmail.com>
-Date: Wed, 16 Sep 2026 16:46:28 +0800
-X-Gm-Features: AcwNN1VJfhZN3FSG6Q7vrlO-QyNk2XRyZ-lLT3oNdOzm6O_7iRkWt_zUZXaIQeQ
-Message-ID: <CAHJ8P3LYuT747ZVd2-ihOuPQwryxUhSTOgHm7Ygq6u3n3twh_w@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v8 06/12] f2fs: cache: initialize node cache
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqpMjQn0g6XxXtyq@gondor.apana.org.au>
 
-Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
-=E4=BA=8E2026=E5=B9=B49=E6=9C=8816=E6=97=A5=E5=91=A8=E4=B8=89 09:57=E5=86=
-=99=E9=81=93=EF=BC=9A
->
-> From: Chao Yu <chao@kernel.org>
->
-> This patch introduces node_blocks in f2fs_sb_info structure, initializes
-> and destroys the node cache during filesystem mount and unmount.
->
-> It also introduces helper wrappers for node cache operation, and register=
-s
-> node cache into the memory shrinker and writeback kthread.
->
-> Signed-off-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-thanks!
-> ---
->  fs/f2fs/cache.c |  9 ++++++++-
->  fs/f2fs/cache.h | 11 +++++++++++
->  fs/f2fs/f2fs.h  |  1 +
->  fs/f2fs/super.c |  7 +++++--
->  4 files changed, 25 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-> index 4d82697060d0..8ab5e0e46b4e 100644
-> --- a/fs/f2fs/cache.c
-> +++ b/fs/f2fs/cache.c
-> @@ -624,7 +624,14 @@ static unsigned long f2fs_do_shrink_cache(struct f2f=
-s_cached_block_list *cache,
->  unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
->                                         unsigned long nr_to_scan)
->  {
-> -       return f2fs_do_shrink_cache(META_CACHE(sbi), nr_to_scan);
-> +       unsigned long freed;
-> +
-> +       freed =3D f2fs_do_shrink_cache(META_CACHE(sbi), nr_to_scan);
-> +       if (freed >=3D nr_to_scan)
-> +               return freed;
-> +
-> +       freed +=3D f2fs_do_shrink_cache(NODE_CACHE(sbi), nr_to_scan - fre=
-ed);
-> +       return freed;
->  }
->
->  static int f2fs_cache_writeback_kthread(void *data)
-> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-> index 1e84e66eca79..1eabd787b4b7 100644
-> --- a/fs/f2fs/cache.h
-> +++ b/fs/f2fs/cache.h
-> @@ -194,6 +194,7 @@ void f2fs_drop_cache_range(struct f2fs_cached_block_l=
-ist *cache,
->                 unsigned long start, unsigned long len, bool drop_dirty);
->
->  #define META_CACHE(sbi)                (&(sbi)->meta_blocks)
-> +#define NODE_CACHE(sbi)                (&(sbi)->node_blocks)
->
->  #define f2fs_find_meta_cache(sbi, blkaddr)             \
->         f2fs_find_cache(META_CACHE(sbi), blkaddr, 0)
-> @@ -202,6 +203,16 @@ void f2fs_drop_cache_range(struct f2fs_cached_block_=
-list *cache,
->  #define f2fs_truncate_meta_caches(sbi, start, len)     \
->         f2fs_drop_cache_range(META_CACHE(sbi), start, len, true)
->
-> +#define f2fs_grab_node_cache(sbi, blkaddr)             \
-> +       f2fs_grab_cache(NODE_CACHE(sbi), blkaddr,       \
-> +       F2FS_CACHE_LOCK_CREATE)
-> +#define f2fs_find_node_cache(sbi, blkaddr)             \
-> +       f2fs_find_cache(NODE_CACHE(sbi), blkaddr)
-> +#define f2fs_invalidate_node_cache(sbi, blkaddr)       \
-> +       f2fs_drop_cache_range(NODE_CACHE(sbi), blkaddr, 1, false)
-> +#define f2fs_truncate_node_caches(sbi, start, len)     \
-> +       f2fs_drop_cache_range(NODE_CACHE(sbi), start, len, true)
-> +
->  unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
->                                 unsigned long nr_to_scan);
->
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index e2b29067eb0a..51c191c514bc 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -2108,6 +2108,7 @@ struct f2fs_sb_info {
->
->         /* f2fs internal cache */
->         struct f2fs_cached_block_list meta_blocks;
-> +       struct f2fs_cached_block_list node_blocks;
->
->         /* internal cache flush thread */
->         struct f2fs_cache_kthread cache_thread;
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index 1e6b9374df97..fa19152cd4da 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -2092,6 +2092,7 @@ static void f2fs_put_super(struct super_block *sb)
->         sbi->node_inode =3D NULL;
->
->         f2fs_destroy_cache(META_CACHE(sbi));
-> +       f2fs_destroy_cache(NODE_CACHE(sbi));
->
->         /* Should check the page counts after dropping all node/meta page=
-s */
->         for (i =3D 0; i < NR_COUNT_TYPE; i++) {
-> @@ -5282,11 +5283,12 @@ static int f2fs_fill_super(struct super_block *sb=
-, struct fs_context *fc)
->                 goto free_percpu;
->
->         f2fs_init_cache(sbi, META_CACHE(sbi), F2FS_META_CACHE);
-> +       f2fs_init_cache(sbi, NODE_CACHE(sbi), F2FS_NODE_CACHE);
->
->         err =3D f2fs_get_valid_checkpoint(sbi);
->         if (err) {
->                 f2fs_err(sbi, "Failed to get valid F2FS checkpoint");
-> -               goto free_meta_cache;
-> +               goto free_node_cache;
->         }
->
->         if (__is_set_ckpt_flags(F2FS_CKPT(sbi), CP_QUOTA_NEED_FSCK_FLAG))
-> @@ -5612,7 +5614,8 @@ static int f2fs_fill_super(struct super_block *sb, =
-struct fs_context *fc)
->  free_devices:
->         destroy_device_list(sbi);
->         kvfree(sbi->ckpt);
-> -free_meta_cache:
-> +free_node_cache:
-> +       f2fs_destroy_cache(NODE_CACHE(sbi));
->         f2fs_destroy_cache(META_CACHE(sbi));
->         f2fs_destroy_page_array_cache(sbi);
->  free_percpu:
-> --
-> 2.49.0
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+v3 removes an obsolete comment regarding the use of nesting level 2 or more.
+
+---8<---
+Use separate lockdep keys for the different types of locks in
+rhashtable (mutex, spin lock, and bucket locks).  They are
+separate and not normally nested with respect to each other.
+
+Also move the rhashtable_init/rhltable_init kdoc to the header
+file as that's where the macros are defined.
+
+Fixes: 4333ab90aaae ("rhashtable: use private lockdep class for all locks.")
+Reported-by: syzbot+4d0e4d2db6dfde01b52f@syzkaller.appspotmail.com
+Assisted-by: Gemini:gemini-3.6-flash
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Reviewed-by: NeilBrown <neil@brown.name>
+
+diff --git a/include/linux/rhashtable-types.h b/include/linux/rhashtable-types.h
+index 0e1b172a4f6c..3576b8f08aff 100644
+--- a/include/linux/rhashtable-types.h
++++ b/include/linux/rhashtable-types.h
+@@ -70,6 +70,12 @@ struct rhashtable_params {
+ 	rht_obj_cmpfn_t		obj_cmpfn;
+ };
+ 
++struct rhashtable_lockdep_keys {
++	struct lock_class_key lock_key;
++	struct lock_class_key mutex_key;
++	struct lock_class_key bucket_key;
++};
++
+ /**
+  * struct rhashtable - Hash table handle
+  * @tbl: Bucket table
+@@ -141,24 +147,77 @@ struct rhashtable_iter {
+ 
+ int __rhashtable_init_noprof(struct rhashtable *ht,
+ 		    const struct rhashtable_params *params,
+-		    struct lock_class_key *key);
++		    struct rhashtable_lockdep_keys *keys);
+ #define rhashtable_init_noprof(ht, params)				\
+ ({									\
+-	static struct lock_class_key __key;				\
++	static struct rhashtable_lockdep_keys __keys;			\
+ 									\
+-	__rhashtable_init_noprof(ht, params, &__key);			\
++	__rhashtable_init_noprof(ht, params, &__keys);			\
+ })
++
++/**
++ * rhashtable_init - initialize a new hash table
++ * @ht:		hash table to be initialized
++ * @params:	configuration parameters
++ *
++ * Initializes a new hash table based on the provided configuration
++ * parameters. A table can be configured either with a variable or
++ * fixed length key:
++ *
++ * Configuration Example 1: Fixed length keys
++ * struct test_obj {
++ *	int			key;
++ *	void *			my_member;
++ *	struct rhash_head	node;
++ * };
++ *
++ * struct rhashtable_params params = {
++ *	.head_offset = offsetof(struct test_obj, node),
++ *	.key_offset = offsetof(struct test_obj, key),
++ *	.key_len = sizeof(int),
++ *	.hashfn = jhash,
++ * };
++ *
++ * Configuration Example 2: Variable length keys
++ * struct test_obj {
++ *	[...]
++ *	struct rhash_head	node;
++ * };
++ *
++ * u32 my_hash_fn(const void *data, u32 len, u32 seed)
++ * {
++ *	struct test_obj *obj = data;
++ *
++ *	return [... hash ...];
++ * }
++ *
++ * struct rhashtable_params params = {
++ *	.head_offset = offsetof(struct test_obj, node),
++ *	.hashfn = jhash,
++ *	.obj_hashfn = my_hash_fn,
++ * };
++ */
+ #define rhashtable_init(...)	alloc_hooks(rhashtable_init_noprof(__VA_ARGS__))
+ 
+ int __rhltable_init_noprof(struct rhltable *hlt,
+ 		  const struct rhashtable_params *params,
+-		  struct lock_class_key *key);
++		  struct rhashtable_lockdep_keys *keys);
+ #define rhltable_init_noprof(hlt, params)				\
+ ({									\
+-	static struct lock_class_key __key;				\
++	static struct rhashtable_lockdep_keys __keys;			\
+ 									\
+-	__rhltable_init_noprof(hlt, params, &__key);			\
++	__rhltable_init_noprof(hlt, params, &__keys);			\
+ })
++
++/**
++ * rhltable_init - initialize a new hash list table
++ * @hlt:	hash list table to be initialized
++ * @params:	configuration parameters
++ *
++ * Initializes a new hash list table.
++ *
++ * See documentation for rhashtable_init.
++ */
+ #define rhltable_init(...)	alloc_hooks(rhltable_init_noprof(__VA_ARGS__))
+ 
+ #endif /* _LINUX_RHASHTABLE_TYPES_H */
+diff --git a/include/linux/rhashtable.h b/include/linux/rhashtable.h
+index 6c5e6d9accba..ec853c1b9af3 100644
+--- a/include/linux/rhashtable.h
++++ b/include/linux/rhashtable.h
+@@ -328,8 +328,7 @@ static inline unsigned long rht_lock_nested(struct bucket_table *tbl,
+ 
+ 	local_irq_save(flags);
+ 	bit_spin_lock(0, (unsigned long *)bucket);
+-	/* subclass 0 is used for ->lock and 1 for ->mutex. 2+ for bitlocks */
+-	lock_acquire_exclusive(&tbl->dep_map, subclass+2, 0, NULL, _THIS_IP_);
++	lock_acquire_exclusive(&tbl->dep_map, subclass, 0, NULL, _THIS_IP_);
+ 	return flags;
+ }
+ 
+diff --git a/lib/rhashtable.c b/lib/rhashtable.c
+index 5da0e53a8d42..a3a4a1f7751e 100644
+--- a/lib/rhashtable.c
++++ b/lib/rhashtable.c
+@@ -207,7 +207,6 @@ static struct bucket_table *bucket_table_alloc(struct rhashtable *ht,
+ 		return NULL;
+ 
+ #ifdef CONFIG_LOCKDEP
+-	/* bitlocks must use nesting level 2 or more */
+ 	lockdep_init_map(&tbl->dep_map, "rhashtable_bucket", ht->lockdep_key, 0);
+ #endif
+ 
+@@ -432,7 +431,7 @@ static void rht_deferred_worker(struct work_struct *work)
+ 	int err = 0;
+ 
+ 	ht = container_of(work, struct rhashtable, run_work);
+-	mutex_lock_nested(&ht->mutex, 1);
++	mutex_lock(&ht->mutex);
+ 
+ 	tbl = rht_dereference(ht->tbl, ht);
+ 	tbl = rhashtable_last_table(ht, tbl);
+@@ -1122,51 +1121,9 @@ static u32 rhashtable_jhash2(const void *key, u32 length, u32 seed)
+ 	return jhash2(key, length, seed);
+ }
+ 
+-/**
+- * rhashtable_init - initialize a new hash table
+- * @ht:		hash table to be initialized
+- * @params:	configuration parameters
+- *
+- * Initializes a new hash table based on the provided configuration
+- * parameters. A table can be configured either with a variable or
+- * fixed length key:
+- *
+- * Configuration Example 1: Fixed length keys
+- * struct test_obj {
+- *	int			key;
+- *	void *			my_member;
+- *	struct rhash_head	node;
+- * };
+- *
+- * struct rhashtable_params params = {
+- *	.head_offset = offsetof(struct test_obj, node),
+- *	.key_offset = offsetof(struct test_obj, key),
+- *	.key_len = sizeof(int),
+- *	.hashfn = jhash,
+- * };
+- *
+- * Configuration Example 2: Variable length keys
+- * struct test_obj {
+- *	[...]
+- *	struct rhash_head	node;
+- * };
+- *
+- * u32 my_hash_fn(const void *data, u32 len, u32 seed)
+- * {
+- *	struct test_obj *obj = data;
+- *
+- *	return [... hash ...];
+- * }
+- *
+- * struct rhashtable_params params = {
+- *	.head_offset = offsetof(struct test_obj, node),
+- *	.hashfn = jhash,
+- *	.obj_hashfn = my_hash_fn,
+- * };
+- */
+ int __rhashtable_init_noprof(struct rhashtable *ht,
+-		    const struct rhashtable_params *params,
+-		    struct lock_class_key *key)
++			     const struct rhashtable_params *params,
++			     struct rhashtable_lockdep_keys *keys)
+ {
+ 	struct bucket_table *tbl;
+ 	size_t size;
+@@ -1176,13 +1133,11 @@ int __rhashtable_init_noprof(struct rhashtable *ht,
+ 		return -EINVAL;
+ 
+ 	memset(ht, 0, sizeof(*ht));
+-	/* mutex_lock must use nesting level 1 */
+-	mutex_init_with_key(&ht->mutex, key);
++	mutex_init_with_key(&ht->mutex, &keys->mutex_key);
+ 	spin_lock_init(&ht->lock);
+-	/* spin_lock can use nesting level 0 */
+-	lockdep_set_class(&ht->lock, key);
++	lockdep_set_class(&ht->lock, &keys->lock_key);
+ #ifdef CONFIG_LOCKDEP
+-	ht->lockdep_key = key;
++	ht->lockdep_key = &keys->bucket_key;
+ #endif
+ 	memcpy(&ht->p, params, sizeof(*params));
+ 
+@@ -1236,22 +1191,13 @@ int __rhashtable_init_noprof(struct rhashtable *ht,
+ }
+ EXPORT_SYMBOL_GPL(__rhashtable_init_noprof);
+ 
+-/**
+- * rhltable_init - initialize a new hash list table
+- * @hlt:	hash list table to be initialized
+- * @params:	configuration parameters
+- *
+- * Initializes a new hash list table.
+- *
+- * See documentation for rhashtable_init.
+- */
+ int __rhltable_init_noprof(struct rhltable *hlt,
+ 			   const struct rhashtable_params *params,
+-			   struct lock_class_key *key)
++			   struct rhashtable_lockdep_keys *keys)
+ {
+ 	int err;
+ 
+-	err = __rhashtable_init_noprof(&hlt->ht, params, key);
++	err = __rhashtable_init_noprof(&hlt->ht, params, keys);
+ 	hlt->ht.rhlist = true;
+ 	return err;
+ }
+diff --git a/lib/test_rhashtable.c b/lib/test_rhashtable.c
+index 85a615e74591..b767a38a74f9 100644
+--- a/lib/test_rhashtable.c
++++ b/lib/test_rhashtable.c
+@@ -477,7 +477,7 @@ static unsigned int __init print_ht(struct rhltable *rhlt)
+ 
+ 	ht = &rhlt->ht;
+ 	/* Take the mutex to avoid RCU warning */
+-	mutex_lock_nested(&ht->mutex, 1);
++	mutex_lock(&ht->mutex);
+ 	tbl = rht_dereference(ht->tbl, ht);
+ 	for (i = 0; i < tbl->size; i++) {
+ 		struct rhash_head *pos, *next;
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
