@@ -1,109 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-91.mta0.migadu.com [91.218.175.91])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296DB45563F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E744E56CA
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.91
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789601799; cv=none; b=iAfwlN2P0Hya8YODLKnEU84idmFHz0eQqDuDMd+eMqR5TrZvKcCKTmWHVFVDW4Vb0N0VeRX1rKlxDAjxjKDj4rE9pjj0DYpQZISZtv3GNqMZ2fdpfT9aWY85oTxdOt4Ve0g8R7I7svIyVqr1xvN1VtxSdHfNLikwN+KuYrVDOdI=
+	t=1789601808; cv=none; b=PqliXbWvzjmsM4og0EhU0qT3T264Jf4s2pxrhr3dGUymvlX9W2lVEnMe1ydi8v20FxthxUX0qOgNXKZCUUS/akqsqvPM41UyDFr4SIq5fl3Fu2y1grzksrHgNfcnIbvOAhl6UQjGUK+CXbxWn3T4HVRcmnbuk2f7h0ju2RghOGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789601799; c=relaxed/simple;
-	bh=eVj8ORwmxtekHIAh2ALM+g9yz7Rm8/MSXdXu1SFVIp4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J91hkFhRYVp0ZZkNrxf2BO+3grSpzVBFpzrfXoyspfjojddbTorYL+PhyuONYFLwY3ulbwe6fiPi1YqCsGJZAod6dVCYkfVv7nDNyEfufm3lkmkqJOJod4CFZDeuuN6NCV31r/icRm8bZvms4+1yQfn1vqsZaB/myfY3HeaR0no=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P6AXpQ8P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789601808; c=relaxed/simple;
+	bh=aIdtu2I76j/DiWgc8Qm/F+IYAetiKvaeuxEq+WvqmeQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WLt7McJbDDzs/IrFM5GPrwdbs36TMwpayNG3ZddefMrozGrcmaTH828yFoo03XAKQfCzVzM8tnm2K5LQRPxpRwPA5iTCfyjVeUAr+u9GKikjrdPLyA+dF52ogX2iZQVN6Lg7PJEpSQ7JMB8pLe+2xsH9pBL0U8vHHnTtsFGsy6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CSYKYSSs; arc=none smtp.client-ip=91.218.175.91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P6AXpQ8P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D830A1F00893
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789601797;
-	bh=pDMXW8NyXxtXIW1Y8PXVMMAciTDM5NZC4vTRP6frH2Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=P6AXpQ8P2hgwsDtpbtBnfQj5rvnhuiVSAZceKQGpxcdMfgOYWoN2q5HgM5vN/4hO0
-	 CO6ItjVF/edERs4WaIpGkgV/n5foZbKZFn+hnMX2Oqu2UxvUrlNVLCn2jNlnYZev+2
-	 Fo+TJ4SzQ63A4578nx2PDhOzsZDM7WZrkLQk+hl2CXPe2JqYhSFrQdudJtOBXKBknB
-	 ugRksKuQDG4qFSoYFqO+Fx3vx0sMLF1QVpYILggg9mHTkWc9d6BV5xlh53dkyFWFaW
-	 G7GSMzl8lro1PmRw6AI2lFehz6qdZ48wrlAAlan35Dg2F15KYn8MwvITuwkbLS1ZSM
-	 5393Y/35w/uiQ==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99391ffb2so508620a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:36:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxP2tSDLHGdw8yaX7X3/KngMZzNp6OQ+EKHYaialFFI461+kL2+DNprTWfolWfpjiy37c6H6WnOrfACBb8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNL11pKfI/JQmmKDYHTZltkzLx4xF8Dh/7WFf1USI+ufTPyZLW
-	iSMa7Zq507MJ0bJFVuRHl8mI+ZU8dl4tUs23JqIYTNhXaix0iH1Ukr7v8uR10MCYhOZ7RcimPaJ
-	m0BMosz4zFOZ8XWJnVYistPcdgbIb1I8=
-X-Received: by 2002:a05:6402:5005:b0:6a9:9522:f87f with SMTP id
- 4fb4d7f45d1cf-6aa22453cdemr3386473a12.41.1789601796458; Wed, 16 Sep 2026
- 16:36:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CSYKYSSs"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aIdtu2I76j/DiWgc8Qm/F+IYAetiKvaeuxEq+WvqmeQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789601802; v=1; x=1790206602;
+ b=CSYKYSSsHDrr/1LEPdYZWXPkx2B4IGIC3rTUCrNaLWzQkZaEPaVLoInHtvBnH4WsFYIiSUiM
+ prnewEIAExPf10/owxuXNg/NELT8M59C4CLsbV7E75+wLIGddNmtXxnjQu+L7Jnd65Wf7xPrQIN
+ DO/fmpr5rPWxnsC3u4wRT3RU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4af75b0470ea2add;
+	Wed, 16 Sep 2026 23:36:42 +0000
+X-Mizu-Trace-ID: 4af75b0470ea2add
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 16 Sep 2026 16:36:41 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, jack@suse.cz, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	willy@infradead.org, david@kernel.org, hannes@cmpxchg.org, mhocko@kernel.org, 
+	roman.gushchin@linux.dev, muchun.song@linux.dev, riel@surriel.com, kernel-team@meta.com
+Subject: Re: [PATCH] mm: filemap: move lruvec accounting outside the xarray
+ lock
+Message-ID: <aqsn7pG3UTECs3N9@linux.dev>
+References: <20260916125122.2696271-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915083252.812126-1-zenghongling@kylinos.cn>
-In-Reply-To: <20260915083252.812126-1-zenghongling@kylinos.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 17 Sep 2026 08:36:23 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9Lg2LK_p0qm6LMuYnv=21ZkxQjqho74JtCGx70+8cB1w@mail.gmail.com>
-X-Gm-Features: AcwNN1X60fAR3sgYSMQnKdZlC-8mxDIY9BcYWQgUxFowyCCgF28oRxSWjGY5sOU
-Message-ID: <CAKYAXd9Lg2LK_p0qm6LMuYnv=21ZkxQjqho74JtCGx70+8cB1w@mail.gmail.com>
-Subject: Re: [PATCH v13 0/7] ntfs: fix volume flag races and persist the
- recorded error state
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916125122.2696271-1-usama.arif@linux.dev>
 
-On Tue, Sep 15, 2026 at 5:33=E2=80=AFPM Hongling Zeng <zenghongling@kylinos=
-.cn> wrote:
->
-> Hi all,
->
-> The fs/ntfs runtime metadata-corruption paths only record the in-memory
-> NVolErrors() flag, and the dirty-bit persistence used to race with
-> ntfs_sync_fs(): a volume could end up with a clean on-disk dirty flag
-> despite modification or recorded corruption, so chkdsk would not run on
-> the next mount.  This series fixes that.
->
->    1/6 makes the volume flag read-modify-write atomic under the
->       $Volume mrec_lock;
->    2/6 marks the volume dirty unconditionally on metadata changes,
->       dropping the racy caller-side checks in file.c and namei.c;
->    3/6 derives the on-disk dirty bit from the recorded error state at
->       the persistence points (sync_fs, remount-ro, put_super) and never
->       writes a hibernated volume;
->    4/6 persists the dirty state after the final put_super() commits so
->       late errors cannot unmount clean;
->    5/6 stops ntfs_sync_fs() from clearing VOLUME_IS_DIRTY: the clearing
->       moves to the quiescent transitions, a recorded error state is
->       still persisted at sync time, and sync now reports writeback and
->       flush errors instead of discarding them;
->    6/6 checks the dirty-state commit on remount and unmount.
->    7/7 ntfs: fail remount on sync errors and keep the dirty bit on
->       SB_FORCE
->
-> Changes in this revision, from the review:
->
->   - 5/6: with the clearing gone from the sync path, a recorded error
->     state is persisted without ever clearing the bit, and
->     sync_blockdev() and blkdev_issue_flush() are both called with the
->     first error returned.
->
->   - The IOCB_NOWAIT behavior and the per-operation $Volume mrec_lock
->     acquisition are outside the scope of this series.  The series keeps
->     the unconditional ntfs_set_volume_flags() call to preserve the
->     ordering that marks the volume dirty before the metadata
->     modification; a RWF_NOWAIT write still blocks in the marking when
->     the volume looks clean, as it already did on the base.  The
->     non-blocking and contended-lock handling (mutex_trylock, GFP_NOWAIT)
->     will be addressed in a separate follow-up patch.
->
-> Hongling Zeng (4):
->   ntfs: fix volume flag update races
->   ntfs: set the volume dirty bit unconditionally on metadata changes
->   ntfs: sync the volume dirty bit with the recorded error state
->   ntfs: persist the dirty state after the final put_super() commits
-Applied them to #ntfs-next.
-Thanks!
+On Wed, Sep 16, 2026 at 05:51:22AM -0700, Usama Arif wrote:
+> __filemap_add_folio() inserts a folio and updates mapping->nrpages
+> while holding mapping->i_pages.xa_lock with interrupts disabled. The
+> XArray insertion and nrpages update require the lock, but the lruvec
+> statistic updates do not. With CONFIG_MEMCG, those calls also update
+> per-CPU memcg and lruvec counters and notify cgroup rstat, extending the
+> critical section.
+> 
+> Move the lruvec accounting after a successful XArray insertion and
+> after xas_unlock_irq(). The page-cache references pin the folio, while
+> the folio lock keeps folio->mapping stable and prevents removal until
+> accounting is complete. This moves one lruvec update for ordinary folios
+> and a second for PMD-mappable folios out of the serialized section.
+> 
+> In a 30-second system-wide perf lock contention -ab capture on a
+> production host, the hottest caller-stack record attributed to
+> __filemap_add_folio() had 20,867 contentions and 557.930 ms total wait.
+> That was 14% of the 3.998 seconds of aggregate lock wait in the
+> capture. Moving lruvec accuting outside of critical section should
+> help optimize it.
+> 
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+
+Reviewed-by: Shakeel Butt <shakeel.butt@linux.dev>
