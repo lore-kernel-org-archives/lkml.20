@@ -1,103 +1,137 @@
-Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050943D969E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2855B38E5C4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789538111; cv=none; b=AEESLtOdfIcYb3k7HbtafJYsHVD7oYnCfMMTxY47WFG50I/hUNyLYhM2YaP1mbdhiSlDVZo2ODCQQkYZPmEcEAvKKEuyLUyjgsf4YmAzDIqPYsO4zLSa/K8/HwuMrxJjqWF4nuL8M57pTKKNCuzo6V//iPSpAqCmqJrPSoigk3M=
+	t=1789538175; cv=none; b=sksvLHJ9+P6Kf/LVdFXVNXFMG350ch4XlXhUhTj7h7FhsLcJajTBH0UXOAV2TiHdLFVThFeBvvT+LGEf6r9Mbh6D1MKkyhPRQRSGxeOr1MnYRWyaDkzclssTXxnmhJ9Q+K5PF2oYgMD56I0tCqfno7vHacEw2p3smc9rrXYaFk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789538111; c=relaxed/simple;
-	bh=JWWAPKswe9q6Q9rRu4uHaMyOLQMOHOHGC34gBz7wUMk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Wz+mrFefrWOm/C5IC40JQh8C0cevxtp9FFuZifNVYje/G1D5+3w0Up/aIkFQYeePqMR2bs6oB/tzomxZLf/+hD35WD8cGiRfeYm3EKxvWhgTC5S+cHYc0a2hQkhOMSbbebhZLRNup6jXaGAKGU4xNCkIC3V+SFF9MJsUVD6cyZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WT5s+uWQ; arc=none smtp.client-ip=74.125.231.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789538175; c=relaxed/simple;
+	bh=YDrlUDvMNBzeedt1bGsJpvHp9s59040KbEWQ3eLNusE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X2pYKfSeS+/1qXqyQ+krU/uK0yg0yUuwsUx+aKQuTTRAn79vYnrUq1KXuaOSm6FWwmHVFm1Zs5urmy60cwXIHIYUpNrivyscpJCrO5sXPOcNeE9hGba2Ksf7z+KrkR1VZr7WgM7VMAvArEza6vEeU7vWFafzLQFeaVLqB1mpqZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=OCSH1hfJ; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WT5s+uWQ"
-Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-7f748fe2947so2254714a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:55:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="OCSH1hfJ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso195664f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:56:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789538109; x=1790142909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MqFU5BpLPG1Ad79y0zq7m4k9RGfhTKwi6mVEHKHgkMk=;
-        b=WT5s+uWQ8yhFW4GKyGzc1gE+2OW6sK12rALqMj9Iohnm/qdXfxUNGmV1+34zi9sf9N
-         kK8c9dmxNwGpZbZ1rH7UoHLjz8rkzs/UwABII3XT5xc8/ylxqrN82kmAooKKYjVYyo/U
-         8fhP5WuGK72jbLLG21o8dirPzUfaqAN/pmA3mCaNL1+ZUgr9Ho41gtrFIQMpIhmsJw68
-         DchcETbQNl+w+KZ2kmYmJEnWSOl26DJLDJaehHcqtPjh+9/QKvuIAKQzLm/mLlEHipQy
-         6w7Nd3DmWvAu5pcqScm7IHm7ZNMo+ZecALQVZHM+ntOuD+/iXLBN8NPRIHEAeCh9c9to
-         mBqA==
+        d=baylibre.com; s=google; t=1789538170; x=1790142970; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YDrlUDvMNBzeedt1bGsJpvHp9s59040KbEWQ3eLNusE=;
+        b=OCSH1hfJGFyvYEKTsBVcb1zuwPFUfMUlm0Qeb293vFfhrPt9xrLcmy3ta0VxUhr8lD
+         gh1iAMBQbz41oQ0XOxyZwe+/rc6QbmRpe4Qp+AjXOr6sECjEledfvKq+B/NECWkYcab2
+         KyAR0ZJafplj7ftl+noIbr52MhpNTeI3Yd7gD70fxjR+IrbajEu5/e2301wKAGJoX9V2
+         OFD4lGY8scfWFzAMqOEioQdFNI9yD1eQaNcrQhkicIxEX+d2yFbKDgNAYo3Y9uVSgUkL
+         sGl9XIKeMW1di6jvqCJ16EMDOL6Le33ksd8g1IkJkIOmX5l3zjgpblqQGz3jyzlo1Gl3
+         vEmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789538109; x=1790142909;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MqFU5BpLPG1Ad79y0zq7m4k9RGfhTKwi6mVEHKHgkMk=;
-        b=nZT5nRgk0YjmClBp2N8trAFdGg4WPp+iiHgWRIbZdGR/IMZCrw2aTSiO3B+6LFf5YO
-         gajf+LOE6N4Z8voOWULG3YABk+Hk78rL2/I5KH8RW/o1GQsyHFloo0pd51YaJIFZYA9N
-         AkFGy/7bkfyXpXe6P0rMqyLaFiNIY/TKDJIuKDDVlAXhsvWLyrj9nvI55E9uSu8vMUim
-         HFBwtCkyYZI7qLGwHHz17l3Xib3JzeShCstwN86zLv+LXV2CFKX5kdy52tD8dRY+2HqB
-         GocC54XuE/ugyppaotZLoM1xQns7HMThgileirJxchwxqZXiODWYh+22wdoW0289g1z1
-         SHmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBylXlVRW808ukWD2b4MOrHCEi3fOz+JL4nrBey3fd8F4x5FbwCBsItiCX7tc/7XOBDiUjM4Ox6Bji30itI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kN+plodiEBEK6QQ1C68GqbPJUcqLJqFKfgFdH8q5l5ez27hoo2
-	nR4slE9yed/Vmai7TLIe7pNHZNNKPkboCu3hJPXAVUoOZ5Iu27qH6X81
-X-Gm-Gg: AYBFou33W+bGK161jhkrtXoa0ZWYq345MkojaYgKRNHdNyGOFfs3uiDdvrXgOny6kJN
-	xM8tBzFID12TFQ9TF5SXlfHkjiHKenTfLtxctAavYDPxgYOsQezx+PQaiog/USg29RTVLEbFXR6
-	rKiZBfw8O9Zd+SJvwbO4LhToKlNgKBfLQ0+XhhPboYkxCvnmTN+7jVxBHIxiKdV40QefW6W94uH
-	uKQ70fyer9kNqeH3LURq+Iu9StifCsa1klYp5mbB6+FQAcyy73Jrv0n4JJ7htOJ3XbPjRN9HDDQ
-	EcQbpOBb2eTIGwUmxcq2sfHyuI13UvNK2DVzvqsDg1d+ju0BJjOoBIVOOYIskH61o+u0oakmZ+O
-	Yve+0+KmuAmN5cCHsn6mF4E0KuezkL/eG9ESIL+EOI5/lfI+iGLd4+F2a9GxKVEOjgrdnABCLdz
-	57F1FcB2W5l/DrUI+AyYVC+9VfLyPYWEe4keXQR+9+Rwbbb0BqBBgKEd27Hvx5toypQ5wuMBszv
-	2YcI/93ojqrkcw3
-X-Received: by 2002:a05:6820:188e:b0:6b3:f4b8:bb86 with SMTP id 006d021491bc7-6c7d1bc852cmr1410414eaf.22.1789538108821;
-        Tue, 15 Sep 2026 22:55:08 -0700 (PDT)
-Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c7a78ac1c6sm1949699eaf.13.2026.09.15.22.55.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 22:55:07 -0700 (PDT)
-Message-ID: <b9a58aac-4a49-43ed-93f9-32c295609312@gmail.com>
-Date: Wed, 16 Sep 2026 00:55:05 -0500
+        d=1e100.net; s=20260707; t=1789538170; x=1790142970;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YDrlUDvMNBzeedt1bGsJpvHp9s59040KbEWQ3eLNusE=;
+        b=Lg8ReHmRTKQiMYB9ZWrVWIHOCEquzzXcwvhijQgsYnpEzaOcGBZMMK0meA6quYVVt8
+         +8dRx8OwgpGpO35uDZGKoFwXqvDKbCLR/yChPklKxyvi0GZD1v92mcKLY4pvm7x505qt
+         uOP50e4wZ43Rgv1MyTkFTtOYeFi/KTRCvbQ/CVKl9HnGpYeA59L5nwMnM7l6wQIMWR3F
+         HqxvyBcvOPep+8oSzKmAVSKsaptf1rR4jEsR4SedPyX6Vx8SVWp8BF2BhMTXpJAwhF5v
+         lH2eojhdO4v1NE8kIsEI6qXz/3EYC3p6Yi9qxi3qEiuIpK2krmFLkk0YNXQWk7v5i3Yl
+         5MjA==
+X-Forwarded-Encrypted: i=1; AKwUvBzraVWn2PHrX5Hv3oerfpvrACg9gypMETslzCx7gnWmYvNeGyenlneF/3psabu03lX8DlBUBGbtq8Dv6DY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsVpCBQ0n4vsyToz52HQQNHGS11k2YeGFC0Q3zfyi/XWIiRc4r
+	vP1c1GngX+nzvMic3i5VzJIhsZjc3JDKSTQJrfqoZLlKvkQo98USAg2JtAIV7eMWPdA=
+X-Gm-Gg: AYBFou12Ro/AUZuEs6NxfCNfPnkSmu/95z8orqknbhx8p2KbgvteQiRdLUCFbtrA1Dm
+	hEaq8ITLKH5SYp5KbefpYg4ZQE1U7D0haxrieOC9CaTR5WA26/wKZE15eeAx5y2p3Pqhgb8JXma
+	m2IgxAwSSTaT8nHFPPUMeE9UeclODJgZ3oXRBpKU7Px7+CZIrEccyWCdmKAN8oLf775zFhJ5VAu
+	HeSxlpIIXwSfFk2e6R9pDjotDDETw36yXeqM6HmtADLBOVxDGvS52haFrUOGEdo+Vyo9dwozGkk
+	8EuoW9xvmOpm0LrjRjak4zbZh9N9tKaYx7H9kGKclb4AeTqr16tp/BQreRaapCxie37SCkK56lq
+	3LSjN8zRDUbLxC9eIhXHM5soQbQ8/NmwREOZs7pIK2Xi4tALej5haT4vZLJKp+JQlN9+q6WJM/s
+	MuuGwazAVCMFqaqCSGMzpqRd0BnrW+TwE+nWrAV2BQVfJtOIvdN1rq16RObzKpXue4I1xmt2UiY
+	eVo
+X-Received: by 2002:a05:600c:630e:b0:49d:2536:402e with SMTP id 5b1f17b1804b1-49eb733b329mr10380455e9.30.1789538170112;
+        Tue, 15 Sep 2026 22:56:10 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49e83a8d6e2sm53229655e9.1.2026.09.15.22.56.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 22:56:09 -0700 (PDT)
+Date: Wed, 16 Sep 2026 07:56:08 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Dave Jiang <dave.jiang@intel.com>, 
+	Martin Roukala =?utf-8?B?KG7DqSBQZXJlcyk=?= <martin.roukala@mupuf.org>, Lukas Wunner <lukas@wunner.de>, 
+	Magne Bruno <magne.bruno@addi-data.com>, Crescent Hsieh <crescentcy.hsieh@moxa.com>, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH] serial: 8250_pci: Catch up on new pci_device_id entry
+ without named initializer
+Message-ID: <aqovRVuGLvfSLLPr@monoceros>
+References: <20260814095931.1871387-2-u.kleine-koenig@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
-To: Nickolay Goppen <setotau@mainlining.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
- <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="je5whjz4kcfst2xv"
+Content-Disposition: inline
+In-Reply-To: <20260814095931.1871387-2-u.kleine-koenig@baylibre.com>
 
-Not sure if I was supposed to reply with the trailer again, but to the 
-individual patch, or if I should leave it since I already messed it up 
-in the thread, so I hope I'm not doing this wrong:
 
-Tested-by: Ryan Brue <ryanbrue.dev@gmail.com> # Amazon Fire HD 10 
-(2017), boe,tv101wum-nm0
+--je5whjz4kcfst2xv
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] serial: 8250_pci: Catch up on new pci_device_id entry
+ without named initializer
+MIME-Version: 1.0
 
-Best regards,
-Ryan
+Helo Greg,
+
+On Fri, Aug 14, 2026 at 11:59:31AM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> When the patch that became 0481a041e956 ("serial: 8250: split Moxa PCIe
+> serial board support out of 8250_pci") was created, commit 44e55f1f3088
+> ("serial: 8250_pci: Consistently define pci_device_ids using named
+> initializers") wasn't applied yet and thus added an assignment to
+> .driver_data without using a named initializer. Adapt the assignment to
+> make the array consistent again and re-prepare the driver for the planned
+> change to struct pci_device_id.
+>=20
+> Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@bayl=
+ibre.com>
+> ---
+> Hello,
+>=20
+> if you prefer it, feel free to squash this change into 0481a041e956.
+> Otherwise I don't think this change justifies a Fixes: trailer, but
+> still it would be nice to get this in during the upcoming merge window.
+
+Is this patch still on your radar?
+
+Best regards
+Uwe
+
+--je5whjz4kcfst2xv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqqL3YACgkQj4D7WH0S
+/k71ywf/YbVPFH60lpZrTvuIli8KNRD6F+vVu4BYnWGkmnfvdZvvIaQrC+5+Wwjp
+85RlVti4PJMPF+a8ulsoCzatwyy6WtklAsousWKOy8ZgttjwSNrrSC5QeH//zYWk
+DDP8lySTnxx2BESkGQ7maK9IQimUm7XCAX/XX4N6g5+/5+1YPyNEpZad+bD1MNPU
+CGZoqdW8bWOwmIA79H5LVBtBEgwaIl7qkN2Kxq/NkLHPq+M2XUlcQ+l6lVeEvcRG
+PkZjk1rD42CSwJflKvJCSpR2shs2bjFrQoiPAqoqB03A8wRAorsR49IZjQcQNMjv
+exbz/IBzk9ZITpT5Fvv7pbo4JJfQ8g==
+=m5L+
+-----END PGP SIGNATURE-----
+
+--je5whjz4kcfst2xv--
