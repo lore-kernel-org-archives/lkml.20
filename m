@@ -1,114 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528474E3EEE;
-	Wed, 16 Sep 2026 10:24:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CE84DF4D7;
+	Wed, 16 Sep 2026 10:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554285; cv=none; b=DN1ewTRsKbWXZDmMSkJh8qVn/D9GaoMELttwMQHKTxT6RGIVCQOEgGMWEU+pe0rRYLor8jt4bUDx9WBBzn8Xn1b2abQa44ciZUTOgoUh3oRJxom+x1vhAGqaO1R4KYzN5PA7KbbRFFg6Vt3zxHgzvfD2YeR6qgxBOIpCChQ+eIk=
+	t=1789554389; cv=none; b=YSiq5Mf9VL8QLG1kDuY3WOf2RrKwnf6NvscMoJ7niIFfyemM06vWGs27DLgMJdSaaK7fyRHKcbYpsvZuDqZp29kU1NYWDEkXKjvTty/bl6fOAAV/FtUdLn50yKe6H4ytB1ChAXFwFhqcfZZ9FNlPCm6m1tfaxuP20oQfK4620yI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554285; c=relaxed/simple;
-	bh=CAFwzG14G8lE38ZHp/ZNgWiY9OzUz61TY9T4d8a2jXk=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Ra3gM+/ESYESJ6miK6WI3/tTA92+Mezt3zUq/3MiwCeYdxrRCEUDxAEtxFwcN7d9I1EH5GkrpAtqFGcLAn+abfA4BNsg+u5QLEWCS+vUd0IXpbEaWjOtShzVf52ximcrwaSacCbkq3ApTbBR4ZS72TFw0FIWZYrp7hbxgWf/nt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZNr7b8+T; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZNr7b8+T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7EA1F00893;
-	Wed, 16 Sep 2026 10:24:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789554268;
-	bh=/8KFOagu2ENcQCp8QY4nI5XKHph2UK8Vkc307vgiZoE=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=ZNr7b8+T2n5UB/xLF1JyrGAxqHINHmTyET0UHrtU1mZR1qSoiOAXljDx02S0v6/A5
-	 tV3ohsaYgR5bD3wWjJqFqmBJHb33QIEjDiG89PWaTmhiaW7/pZsC5fffi8D9FOB1UE
-	 XdIi3ZYxmqHiWbD1uJJJRCP1A/f596VcWuJ9jMIASN69kcakdRRy22i8VXe2qsLkMb
-	 gKmBvggI3Q8JPpa6yTwWVSiWCKSGUKbtpafGT4B3LqdVhlWgY7QTJidbvre0CN9iF/
-	 TbPP9Xl1jJXJCcQou/I/ZcshdwMhll2nE17RLYEfG3RRD3nqWF+UfYpB5DSJ6ZAB8l
-	 q1iTMGWuVgnhg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 5C7FE198003A;
-	Wed, 16 Sep 2026 06:24:25 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 06:24:25 -0400
-X-ME-Sender: <xms:Vm6qatHUCx2TAkNxviyEAJJzADOXy4L1Vyv29BLxYrB0KFd837xPnA>
-    <xme:Vm6qatI2eElCEMu6O3vufPHuinfdQ0HFfn5W5rTM_3dsiy_FACtTL7OIt1P9xt4qV
-    cxOuX_9olbv6xBS6TXF_Z9SK5tEF_PPEOSRsJQST42vcpfrwDCMO3Y>
-X-ME-Proxy-Cause: dmFkZTGK+vKUpRZP/PjGOSOsca6vga2HCB0cn/adgVCawoeih5dxrjPEYysN7hknm/kTqW
-    yO/dNMgXdPdaxuAai+nGFaE3nS1Vya9aYKmvwLEKoKcXFwfI9uA/mpFOm5hpTr05kdN5ZX
-    fkFNIawIWHslpzH19voOYNEyDMBG0SWkjz2807wRtp1FZraQ3apZ608LRk6tmDo0gIj7Y8
-    YiwgT7xncQJx11QZck3yIWFBafUDdHtRClWVTjlI/f0hZwM0hpdrZV6PPWu6nD2ZO9kmRt
-    d5GdO1uXNlBexM/pOz57zNEGcmBH1CPKsV0U2H37Wdyumc8Mo13nfMtV5KFbNI7wQe+UCh
-    zWCQsyrY2wUsThV20iJLhKjd5d95p/6w09A7NbRxtTcjxYcB+UT7v3giuuoRUD6yEB/6sK
-    xs/zIumIIX54lv7ohu2Ml6MduWdWXDpW+wErQsJl/ql0ZIcR+YQeHtWch33EAYM0CmNV59
-    WyAYqWLS4w49LyF/U10CUTVfjja5H1ejxE2nmzXC1GJ+fRPhHPNgY9QiffQfwdIsE+i5iB
-    uAPL0JdIpRNVTQQl4L7HKqns1qbVZUI/F5dlhPtJPvpzEJ9dN4XEVpXXRTJFV7EIUj4hpe
-    zb1+CTyO9O0yWgSnCtjXjjng+KF/YW20p3lpfskcXHdPq2DbmVQsnrCWWDwQ
-X-ME-Proxy: <xmx:WW6qag-gDPKnzFFkzKpJdTQSnqbG0fkTJA-UXHAGmo3--EePbplQgQ>
-    <xmx:WW6qaoTfH5UOXHXmmQrnH2cTjaVDmcmj5NAX3f0NXSBEn_fTNwmVag>
-    <xmx:WW6qaqVWjolNQmuRvR6baq0bkURVj4-D4527VS6UHr0TbOaxhWpopg>
-    <xmx:WW6qai-ib6qztNBcrCsGojuJujNDxzbJypp_6uAGQrzTOtcd5zalLw>
-    <xmx:WW6qai3ZTWXYu_cBBLB9fYg7BsUQM9sNNGLJTzmP1FwVeQ6jScDegsdC>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 7B5EAF8007E; Wed, 16 Sep 2026 06:24:22 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1789554389; c=relaxed/simple;
+	bh=LmLa9GYYojBO6JjdUuWQyCWYT9dH4opPHgxeBmT7i9A=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=G9hAdqpFEPdkdUs4yrx5BJR3XO26/sQVe5C8OYpWL1t5ub0x/7B2rJCo+cbxSvqA5+Mu0hP7k/rRMGr2ZiRE2Uip83NtC3gLW4JN6+mHsWcCC3csvmAxsJLtMzCVTZydyZesrUMOdnow/7waTaNDA8CSEFI69Bmsm4ekAdIvZ/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAD3+Te1bqpq6A3hBw--.1939S2;
+	Wed, 16 Sep 2026 18:25:58 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: brgl@kernel.org
+Cc: heiko@sntech.de,
+	jay.xu@rock-chips.com,
+	linusw@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] gpio: rockchip: Fix debounce clock leak in rockchip_get_bank_data()
+Date: Wed, 16 Sep 2026 10:25:29 +0000
+Message-Id: <20260916102529.2019277-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 16 Sep 2026 12:24:02 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Thomas Huth" <thuth@redhat.com>, "Borislav Petkov" <bp@alien8.de>
-Cc: "Eric Biggers" <ebiggers@kernel.org>,
- "Jason A . Donenfeld" <Jason@zx2c4.com>, "Thomas Gleixner" <tglx@kernel.org>,
- "Ingo Molnar" <mingo@redhat.com>,
- "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
- "Herbert Xu" <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org, "H . Peter Anvin" <hpa@zytor.com>
-Message-Id: <9c9e3958-865c-4be3-8f52-be91e090f2ae@app.fastmail.com>
-In-Reply-To: <7d373eca-c23c-4f79-9391-29d75bd5a53f@redhat.com>
-References: <20260813134953.979481-1-thuth@redhat.com>
- <20260813134953.979481-11-thuth@redhat.com>
- <20260814152457.GBan8zSeYlWd_1oWkz@fat_crate.local>
- <7d373eca-c23c-4f79-9391-29d75bd5a53f@redhat.com>
-Subject: Re: [PATCH 10/11] x86/purgatory: Compile purgatory.c with -D__NO_FORTIFY
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAD3+Te1bqpq6A3hBw--.1939S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFy8KrW7tw4UZF13WFW3KFg_yoW8WF13pa
+	n8WrW5Kwn7GFn2gF1DAF15AFWFv3ZFyay3Wrn7G3WxCw13tFy7tFWUWFWvqF45Aryvkay5
+	Ar43Ga4UGr43Zr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9S14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
+	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6r
+	xdYxBIdaVFxhVjvjDU0xZFpf9x0JUJWrAUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqP7m20QAAsj
 
+rockchip_get_bank_data() obtains the debounce clock with of_clk_get()
+for GPIO v2 banks and stores it in bank->db_clk for later use by the
+debounce handling, but the reference is never released anywhere in the
+driver.  When rockchip_gpiolib_register() fails in rockchip_gpio_probe()
+or when the device unbinds, the debounce clock reference leaks.
 
+Release the references returned by of_clk_get() with clk_put() when
+probe fails after the gpiochip registration and when the device is
+removed.  The bank clock reference is dropped as well since it suffers
+from the same problem.
 
-On Tue, 18 Aug 2026, at 10:53, Thomas Huth wrote:
-...
+Fixes: 3bcbd1a85b68 ("gpio/rockchip: support next version gpio controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpio/gpio-rockchip.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> Maybe I should rather change the patch to add -D__NO_FORTIFY unconditionally 
-> to generic PURGATORY_CFLAGS there? Something like:
->
-> diff --git a/arch/x86/purgatory/Makefile b/arch/x86/purgatory/Makefile
-> --- a/arch/x86/purgatory/Makefile
-> +++ b/arch/x86/purgatory/Makefile
-> @@ -11,7 +11,7 @@ $(obj)/string.o: 
-> $(srctree)/arch/x86/boot/compressed/string.c FORCE
->   $(obj)/sha256.o: $(srctree)/lib/crypto/sha256.c FORCE
->          $(call if_changed_rule,cc_o_c)
->
-> -CFLAGS_sha256.o := -D__DISABLE_EXPORTS -D__NO_FORTIFY
-> +CFLAGS_sha256.o := -D__DISABLE_EXPORTS
->
->   # When profile-guided optimization is enabled, llvm emits two different
->   # overlapping text sections, which is not supported by kexec. Remove profile
-> @@ -37,6 +37,7 @@ PURGATORY_CFLAGS := -mcmodel=small -ffreestanding 
-> -fno-zero-initialized-in-bss -
->   PURGATORY_CFLAGS += -fpic -fvisibility=hidden
->   PURGATORY_CFLAGS += $(DISABLE_KSTACK_ERASE) -DDISABLE_BRANCH_PROFILING
->   PURGATORY_CFLAGS += -fno-stack-protector
-> +PURGATORY_CFLAGS +=  -D__NO_FORTIFY
->
->   # Default KBUILD_CFLAGS can have -pg option set when FTRACE is enabled. That
->   # in turn leaves some undefined symbols like __fentry__ in purgatory and not
->
+diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
+index 69a7cd8c9a1a..cab1ac78c48f 100644
+--- a/drivers/gpio/gpio-rockchip.c
++++ b/drivers/gpio/gpio-rockchip.c
+@@ -755,6 +755,8 @@ static int rockchip_gpio_probe(struct platform_device *pdev)
+ 	ret = rockchip_gpiolib_register(bank);
+ 	if (ret) {
+ 		clk_disable_unprepare(bank->clk);
++		clk_put(bank->clk);
++		clk_put(bank->db_clk);
+ 		mutex_unlock(&bank->deferred_lock);
+ 		return ret;
+ 	}
+@@ -797,6 +799,8 @@ static void rockchip_gpio_remove(struct platform_device *pdev)
+ 
+ 	clk_disable_unprepare(bank->clk);
+ 	gpiochip_remove(&bank->gpio_chip);
++	clk_put(bank->clk);
++	clk_put(bank->db_clk);
+ }
+ 
+ static const struct of_device_id rockchip_gpio_match[] = {
+-- 
+2.34.1
 
-This seems like the right solution to me.
