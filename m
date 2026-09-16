@@ -1,129 +1,96 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8AE24B1475;
-	Wed, 16 Sep 2026 09:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07724AF17D;
+	Wed, 16 Sep 2026 09:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552719; cv=none; b=fbS3AGPmhVXpNapUB78RcNgJQ+kUEPbhw1xqbi3iU3PYZ4+eOBoJj/PP/pgBptq+8Dh1jHdyJReeMA44NSEERsbt7zB9UuFCeTDaaGaPgn6kUdkSarUmhS08qAi9FoB4guo6I2oab1KeIxxDPj+o494JE5bVEapOsBhxZjnRVmk=
+	t=1789552738; cv=none; b=tRqPXQgVX7lMNanS6NmKzDO4FFvR5FZ2vHAKdFuQFPapP03foszRvTbqNFZuOkF9rmPEq1BcvG3o/65woHJhttA16Spzs0TaGqgfUQXU7cfeAiIxXg1CTsD5z4lSLJ1e2ze/lRsvrBczlLVLnhVTHlaAxcQjgyG0be14CGWdMV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552719; c=relaxed/simple;
-	bh=09QxOegCltAhsTdvDQLtRpFg6Vj5dGrtW8BSN13HBWs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TsNrE6UksyqSNnPuG0sNNP3reBLA0hROu9b1K3Ur24e8b5qWOFgiIowAQG2DjKzzU6RHs+fGbuksWf5Ym3sB8MVssGS/+XCeH/9gb3spukcUBTJ48TbsN50oDqw+xryPrIMKTgAelKq30SNFxe30yJqfFdMKzcL2dgGJ/p7fVcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=SLL7wAbf; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="SLL7wAbf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=fJERUKem0y70lXHoy9ClpYXrks5/nKOFERkXxUtyEbI=; 
-	b=SLL7wAbf2ZVO0RuQcq1w35MOVvyzm0vHyC158jmxQ+/NxgdQhAY4krNbPPPtgceeU0iY0/HENdq
-	OH32bG0+5LyZrXP2k4LSlYykgpeKYyRqu/d6qMYPRj0ARQv8Dg0xLQDWUGicP2WsStioTXf3UYgri
-	gEvQiVpZ+YLIG7SAxKtqki80RmGcE6tiHO3aAunkYAZ+i8HPjANZFOKtv2O2tMbE2ZOIL7+mXSJJ4
-	h7hBRLFXJ6icmLcF8JMXMTC3KYPzQ8ilONEFFz3RF8H2u2ALT7hPcfHI2WWQIF/lbUqg6oBMNfEiU
-	F0i+ZxiAWR0AFkptFUG7NwzoxDGN6Bv+KviA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x6mPK-0000000EZCQ-1kXX;
-	Wed, 16 Sep 2026 17:58:27 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 16 Sep 2026 19:58:26 +1000
-Date: Wed, 16 Sep 2026 19:58:26 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, Tom Lendacky <thomas.lendacky@amd.com>,
-	John Allen <john.allen@amd.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org
-Subject: Re: [PATCH] crypto: ccp.h - repair all kernel-doc comments
-Message-ID: <aqpoQvtD4pl-bnBZ@gondor.apana.org.au>
-References: <20260901185438.31038-1-rdunlap@infradead.org>
+	s=arc-20240116; t=1789552738; c=relaxed/simple;
+	bh=q1Ggv5xO6t3FDyZggZHheXutMsgqWu8zdxmPa0BfnhY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q0I7jxFQgfhj2h443LwXJmynmtRQs2koYBSRt5Ztucrfs4vZs9IAWccARfo2zd0mcMZubeJuaWMJ44FFP+34td8m/ER+59J3zE7UiJGkE7/QmbdpzBfLKOu3BG4YO5sZQv4+Pi2nDkZ4BtSpa+uG+bfwZjNP9aIzhD198d7V74o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABXXDpJaKpqJMXgBw--.37267S2;
+	Wed, 16 Sep 2026 17:58:33 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Dennis.Li@amd.com
+Cc: airlied@gmail.com,
+	alexander.deucher@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	christian.koenig@amd.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	monk.liu@amd.com,
+	simona@ffwll.ch,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix runtime PM leak in amdgpu_debugfs_test_ib_show()
+Date: Wed, 16 Sep 2026 09:58:05 +0000
+Message-Id: <20260916095805.2011304-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901185438.31038-1-rdunlap@infradead.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABXXDpJaKpqJMXgBw--.37267S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFW5JFWDtFW5uFW5Gry8Zrb_yoW8GFy7p3
+	9Yg3WYvr1DZF17t34DAa18XFyru3yaqryxGrykuw1Uu3Z8JF1rJF15JrWjgry8GrZ7CwsI
+	vrZ7KrW3ZF1qyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
+	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
+	UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggMA2qqPpSseAAAs-
 
-On Tue, Sep 01, 2026 at 11:54:38AM -0700, Randy Dunlap wrote:
-> Eliminate all kernel-doc warnings in <linux/ccp.h>:
-> - add Returns: for function return values
-> - use the enum keyword when describing an enum in kernel-doc
-> - add missing enum value descriptions
-> - add or repair missing struct member descriptions
-> - use nested struct notation as needed
-> 
-> Warning: include/linux/ccp.h:30 No description found for return value
->  of 'ccp_present'
-> Warning: include/linux/ccp.h:42 No description found for return value
->  of 'ccp_version'
-> Warning: include/linux/ccp.h:67 No description found for return value
->  of 'ccp_enqueue_cmd'
-> Warning: include/linux/ccp.h:97 cannot understand function prototype:
->  'enum ccp_aes_type'
-> Warning: include/linux/ccp.h:114 cannot understand function prototype:
->  'enum ccp_aes_mode'
-> Warning: include/linux/ccp.h:128 Enum value 'CCP_AES_MODE_GHASH' not
->  described in enum 'ccp_aes_mode'
-> Warning: include/linux/ccp.h:128 Enum value 'CCP_AES_MODE_GCTR' not
->  described in enum 'ccp_aes_mode'
-> Warning: include/linux/ccp.h:128 Enum value 'CCP_AES_MODE_GCM' not
->  described in enum 'ccp_aes_mode'
-> Warning: include/linux/ccp.h:128 Enum value 'CCP_AES_MODE_GMAC' not
->  described in enum 'ccp_aes_mode'
-> Warning: include/linux/ccp.h:134 cannot understand function prototype:
->  'enum ccp_aes_action'
-> Warning: include/linux/ccp.h:190 struct member 'authsize' not described
->  in 'ccp_aes_engine'
-> Warning: include/linux/ccp.h:190 struct member 'aad_len' not described
->  in 'ccp_aes_engine'
-> Warning: include/linux/ccp.h:202 cannot understand function prototype:
->  'enum ccp_xts_aes_unit_size'
-> Warning: include/linux/ccp.h:245 struct member 'type' not described in
->  'ccp_xts_aes_engine'
-> Warning: include/linux/ccp.h:255 cannot understand function prototype:
->  'enum ccp_sha_type'
-> Warning: include/linux/ccp.h:394 cannot understand function prototype:
->  'enum ccp_passthru_bitwise'
-> Warning: include/linux/ccp.h:410 cannot understand function prototype:
->  'enum ccp_passthru_byteswap'
-> Warning: include/linux/ccp.h:472 struct member 'src_dma' not described
->  in 'ccp_passthru_nomap_engine'
-> Warning: include/linux/ccp.h:472 struct member 'dst_dma' not described
->  in 'ccp_passthru_nomap_engine'
-> Warning: include/linux/ccp.h:472 Excess struct member 'src' description in
->  'ccp_passthru_nomap_engine' (did you mean one of: 'src_len', 'src_dma')
-> Warning: include/linux/ccp.h:472 Excess struct member 'dst' description in
->  'ccp_passthru_nomap_engine' (did you mean one of: 'dst_dma')
-> Warning: include/linux/ccp.h:489 cannot understand function prototype:
->  'enum ccp_ecc_function'
-> Warning: include/linux/ccp.h:587 struct member 'u' not described in
->  'ccp_ecc_engine'
-> Warning: include/linux/ccp.h:587 Excess struct member 'mm' description in
->  'ccp_ecc_engine' (did you mean one of: 'u.mm')
-> Warning: include/linux/ccp.h:587 Excess struct member 'pm' description in
->  'ccp_ecc_engine' (did you mean one of: 'u.pm')
-> Warning: include/linux/ccp.h:602 cannot understand function prototype:
->  'enum ccp_engine'
-> 
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
-> Cc: Tom Lendacky <thomas.lendacky@amd.com>
-> Cc: John Allen <john.allen@amd.com>
-> Cc: Herbert Xu <herbert@gondor.apana.org.au>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: linux-crypto@vger.kernel.org
-> 
->  include/linux/ccp.h |   58 +++++++++++++++++++++++++++---------------
->  1 file changed, 38 insertions(+), 20 deletions(-)
+amdgpu_debugfs_test_ib_show() resumes the device with
+pm_runtime_get_sync() before taking the reset domain semaphore with
+down_write_killable().  If the write lock acquisition is interrupted,
+the function returns without calling pm_runtime_put_autosuspend(),
+leaking the runtime PM reference acquired for the device and keeping
+the GPU awake.
 
-Patch applied.  Thanks.
+Drop the runtime PM reference on the interrupted down_write_killable()
+error path before returning.
+
+Fixes: 6049db43d6dd ("drm/amdgpu: change reset lock from mutex to rw_semaphore")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 092fd3309099..adc0252f6400 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1764,8 +1764,10 @@ static int amdgpu_debugfs_test_ib_show(struct seq_file *m, void *unused)
+ 
+ 	/* Avoid accidently unparking the sched thread during GPU reset */
+ 	r = down_write_killable(&adev->reset_domain->sem);
+-	if (r)
++	if (r) {
++		pm_runtime_put_autosuspend(dev->dev);
+ 		return r;
++	}
+ 
+ 	/* hold on the scheduler */
+ 	for (i = 0; i < AMDGPU_MAX_RINGS; i++) {
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.34.1
+
