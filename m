@@ -1,55 +1,55 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21283331EB0
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F09736E473
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570059; cv=none; b=LbTmIZom2ySEbusa183kPw4zTcsMEjFrI5WMR3k/rkzvP1ikHmLE1z06jHm2MyV+OlzGHPZZuOTA9F2ec8jdT+7rEefbZe/kNz47J5S9y9omkMHZMh5h7tQG22jARihQEqBrBKXXyn5M8HOmbBUX0xfNfPSE0vy7UKMN23gPPCc=
+	t=1789570057; cv=none; b=Yu138rwXUn+LxT4Kku4SxthK26EL5vdHYAAOnUcK54lDfUyeTZv1TMeo1/J0SHoVQZV9MT5ySOmHclgPc8VsfIXsBmm0r2239sIOpH6vtV2GDiILaKiHEATUhHZEj5h4JHQR70alktk4kb/a3BnnHHBhCf7mQn4cZ/VPArlVKt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570059; c=relaxed/simple;
-	bh=bIJT8uMDZTPbPgXrXoz9RnHI2oQQ5zLTI3zimM37reo=;
+	s=arc-20240116; t=1789570057; c=relaxed/simple;
+	bh=RC7T2Rmxs3lTW7BX95UVBrLsNYd7YzAOK15o4EuF3gk=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=YD8c+vCgv1mSd0f8OWClwPSe5pSVaAHSTvoJM5GBahdjCdr8w4OO1dLlLqp1/eiOaxViDsFpmfbWpfRWycDoSbUgQytScXYYQsd0Fs+xEz0Lfc045aqXUpUniNBY08b/VRuq5UJIhc0N7dHDWp4I4ZV6demCQCnP0LIXmibLGL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NsKcyqb4; arc=none smtp.client-ip=209.85.128.69
+	 To:Cc:Content-Type; b=dTd56gZfPSXLrfrRS1tmi6yUomGDCssWgCr6/IDTBUB79DSlBoiWXUBH5fbelsm26sJ6CZrL5X5f5M3pZ1VCPOh7CLGtY2vXiC14/2O2vcq9oiuqVVKb0C+Q4IlozJ3PbJItx2vh8aGLGCEIBrmKyK41rNyMfNjMXBBzslg2puo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V6GbdHiW; arc=none smtp.client-ip=209.85.221.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NsKcyqb4"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so47448345e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V6GbdHiW"
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-486f768517dso3102136f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789570055; x=1790174855; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789570053; x=1790174853; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3jhe110S+2cKvT84ngsYWk0WnYvffWOvM3X507E5BdI=;
-        b=NsKcyqb45ucdRr+VxafTi5RmAMutKZHZHAkD1d4Pi9aIX0IzgXnQAem162CSiLmzw9
-         /c1HL+RC8cn9hNomTFuleFwR8YsPVFZyR1MRbFOYqzcAr2YYY1KiQaZUf18XX1QkyuYG
-         +vcZDuUcBmTurrMbFTeawTVsT15OyCWks/bQdYaYlDiXSw0+BcyNP9V8J7S3BD4LakJR
-         //VH6tyW0g3i+NSa9IhNzYiZSxQLAeiA2gIvY4eWe/X9GdgnTnduuCyeX43pXNhimHs/
-         X4cgvYUJOSSnPK9V69hzUYIBZTfLyW9vpuxREbkhnmVmgINXLXNvpFXPTfasLwBEPffn
-         fAXA==
+        bh=xYoVbSFON1AAEit9fkW19VQs/jjZSOyS/18YO9M94EE=;
+        b=V6GbdHiWA3roOvYYGqTxfGcLgHsSX8dyDgc6kv1Z/yM2+6QDYUBYH7YybJ509aXdTA
+         LvpauNX6qcdfaRPMemtrY9QPQVZuGLZlFWjrmBcfBOMgCMjH4+s/C1xECyN3AUpS04as
+         qlRRmYo35sEnZUgcgKNRYQkq/Wl3tFWSMfKRBA1G/n9AWYWzp8fqQowl61WZd1izU4DN
+         GHmd7/sFDQQEzW6oKDgk24aZ9CEUpP87p9/OgfYWs3HsvAoFRv8RK/mMNkPAg9kHpr0I
+         n7bB58PVfGEE75R0sEsvu1za9HUpOd14BPqkzaQ4vO7Ycvqs11fw0fE+5VJH5cohv5XG
+         RxlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570055; x=1790174855;
+        d=1e100.net; s=20260707; t=1789570053; x=1790174853;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3jhe110S+2cKvT84ngsYWk0WnYvffWOvM3X507E5BdI=;
-        b=McW7aOljxSCR5C6y3D6M4WxWv6Ku8wsyxqhx01zH8gIw+yXORK4UaKBvb5TN4Tn1QY
-         4S09sJZvF2oBCX8VB/jTjVAysRTQ4fe5a8H4q4yONCWIe6RN5pM2bkuyy1pfK9hsA215
-         +E1dtRVHTk4atfvxmljWDqgpq8mkfx6b4N77+k112h1sD2UAJZF1rtbbibCZfDVdH9wr
-         97oMXuYuLrddfS/8vMQxrbWenyf8OsnOjYlILLW5Z4Ljb7cxIsx6y4WzMppu+8hDj2Zo
-         nSo1duiAzCfY9EUh2f57TnD578konYuOL+uUhBpzJqGksGQfco0h4u8qxNdlh5f9SkKT
-         q1pw==
-X-Gm-Message-State: AFuF++mi15s7nAP4skX2Bt/zqIITmN+Jc+BHRCCP6B34VWHlSqKh5GI6
-	XPQq++uEXNaN/6FPvI8okXOugeceEC0nDKw+VHriONNK4kOzMwVnJ8BqtW/tnJ3xzsj4eNH9Bw=
+        bh=xYoVbSFON1AAEit9fkW19VQs/jjZSOyS/18YO9M94EE=;
+        b=APcKETVeEGh13t2sTH6E+LMFT4CKdloTsWk3AtAKgkfSJMCy89yBljS5Bb8hBuBptV
+         30r67+bOoEnj6ipH3UL12lGGi9hhyygIkTeWR5MlY5ShoUfguKBJr2Whuqwx2DWQ8bOW
+         VfdQnp5cT/9it/KbmzfiYlaFDe4n3NMJfXsv1XekTA+vttPJFpnHkMnef8dqIsHiVzMe
+         Bp29D5Bea0fH0feJeaUGTusBNBcH26FUETdE0khl2sEx/Jw/Jrx2L1hMyyhe482t/Gxu
+         qVJkJC5TgjR3u4DA7lP56iQ3lls7GtY9NSet9o1WdOzIV/u8uDHZEyWOI4WjIstO2kuw
+         MggQ==
+X-Gm-Message-State: AFuF++m7xNjXCIlkcL/3+Comsuff9KPaXA/MNjBMv5iAQ9HSwtXkGFIY
+	BPBfD9FPB6ZQT0mcUxzu0zP+X9WUfxSk8IZAdOv8Q0FKNN4Z84N4GudD1YEe1Rig3VqzUbz9BQ=
 	=
-X-Received: from wmsm42.prod.google.com ([2002:a05:600c:3b2a:b0:49e:6640:5820])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:3547:b0:49c:f4e1:4c2d
- with SMTP id 5b1f17b1804b1-49eb732633bmr33661035e9.16.1789570055212; Wed, 16
- Sep 2026 07:47:35 -0700 (PDT)
-Date: Wed, 16 Sep 2026 16:46:56 +0200
+X-Received: from wrwk16.prod.google.com ([2002:a5d:66d0:0:b0:483:3694:8d57])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:adf:e00a:0:20b0:487:bef:31cb
+ with SMTP id ffacd0b85a97d-4870d05afb7mr6086738f8f.22.1789570053201; Wed, 16
+ Sep 2026 07:47:33 -0700 (PDT)
+Date: Wed, 16 Sep 2026 16:46:54 +0200
 In-Reply-To: <20260916144647.2651379-11-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,14 +59,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260916144647.2651379-11-ardb+git@google.com>
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1793; i=ardb@kernel.org;
- h=from:subject; bh=otson7pfhqSkY1QgbBEJDWS7yLkDvmJ6XHiMyvjC6Nk=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6keqHpt3XLg5//fp7Ed31t//tbBlenkyj6uSFs+2W
- 45HAt84d5SyMIhxMciKKbIIzP77bufpiVK1zrNkYeawMoEMYeDiFICJnFdlZNh35L792WdGd9d+
- qfz97KbQd7X2nedWxJhJnc7h0ytjuF/F8D81Kvrj8yNbDYy3zTqwXjvGdJugWUftgey7F/yYvKe 5L+MFAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9530; i=ardb@kernel.org;
+ h=from:subject; bh=njHq+zVwhE6fZuDTSWDdHK03zgqP3QQxK8MBgkBFM+g=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6gc18htdHb4v4en22mD+su/O7g7OSq3znYorJt+Zz
+ P/TYN7JjlIWBjEuBlkxRRaB2X/f7Tw9UarWeZYszBxWJpAhDFycAjAR5psM//0LdhXkBf6ef4jN
+ aepEs4QVv62VHASTNCc+lVL3yt1/y4Lhf8Fj6YqtSRE8234xSv6uelnWdvKvwMmwmqBts4t17Uq O8QAA
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260916144647.2651379-19-ardb+git@google.com>
-Subject: [PATCH v3 8/9] efi/libstub: Add efi_snprintf() to construct wide strings
+Message-ID: <20260916144647.2651379-17-ardb+git@google.com>
+Subject: [PATCH v3 6/9] efi/libstub: Output UTF-16 directly from vsnprintf()
 From: Ard Biesheuvel <ardb+git@google.com>
 To: linux-efi@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
@@ -75,49 +75,323 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Ard Biesheuvel <ardb@kernel.org>
 
-The native EFI character set is UTF-16 (or in practice, UCS-2).
-Implement efi_snprintf() to construct UTF-16 strings using printf style
-templates. This will be used in a subsequent patch to set the
-LoaderDevicePartUUID EFI variable.
+The only remaining users of vsnprintf() in the EFI stub are the
+diagnostic printk()'s, which are emitted to the console and not recorded
+for posterity.
 
-Link: https://lore.kernel.org/all/20260903-efi_stub_bli-v2-1-dbf7ba915117@kernel.org/
+The EFI console uses UTF-16 (or actually, UCS-2) natively, and so all
+non-UTF16 strings that are emitted need to be converted. Given the
+stub's vsnprintf() support for wide strings (using the %ls conversion
+modifier), which uses UTF-16 to UTF-8 conversion internally, the final
+conversion to UTF-16 needs to support not just plain ASCII but UTF-8 as
+well.
+
+This is all pointless, of course, and it makes more sense to use UTF-16
+internally. This removes the need for UTF-16 to UTF-8 conversion in
+vsnprintf(), and given that all non-wide string inputs to vsnprintf()
+that exist in the stub today are compile time constant ASCII strings,
+the need to convert UTF-8 to UTF-16 disappears as well.
+
+So implement efi_vsnprintf() taking a const char *fmt as before, but
+outputting a efi_char16_t[] that can be passed to the EFI console
+directly, rather than via efi_puts(), leaving the latter unused and
+therefore removed.
+
+Note that efi_puts() performs LF to CR-LF conversion internally, so add
+this capability to efi_vsnprintf() as well.
+
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- drivers/firmware/efi/libstub/efistub.h  |  1 +
- drivers/firmware/efi/libstub/vsprintf.c | 11 +++++++++++
- 2 files changed, 12 insertions(+)
+ drivers/firmware/efi/libstub/efistub.h  |  5 +-
+ drivers/firmware/efi/libstub/printk.c   | 91 ++-----------------
+ drivers/firmware/efi/libstub/vsprintf.c | 96 +++-----------------
+ 3 files changed, 22 insertions(+), 170 deletions(-)
 
 diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/libstub/efistub.h
-index 36056c624782..880c1d0c464b 100644
+index fd91fc15ec81..36056c624782 100644
 --- a/drivers/firmware/efi/libstub/efistub.h
 +++ b/drivers/firmware/efi/libstub/efistub.h
-@@ -1084,6 +1084,7 @@ int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
- 		  bool crlf);
+@@ -1078,9 +1078,10 @@ efi_status_t check_platform_features(void);
+ 
+ void *get_efi_config_table(efi_guid_t guid);
+ 
+-/* NOTE: These functions do not print a trailing newline after the string */
+ void efi_char16_puts(efi_char16_t *);
+-void efi_puts(const char *str);
++
++int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
++		  bool crlf);
  
  __printf(1, 2) int efi_printk(char const *fmt, ...);
-+__printf(3, 4) int efi_snprintf(efi_char16_t *buf, size_t size, const char *fmt, ...);
  
- void efi_free(unsigned long size, unsigned long addr);
- DEFINE_FREE(efi_pool, void *, if (_T) efi_bs_call(free_pool, _T));
+diff --git a/drivers/firmware/efi/libstub/printk.c b/drivers/firmware/efi/libstub/printk.c
+index f36639886d00..0a18cfe32528 100644
+--- a/drivers/firmware/efi/libstub/printk.c
++++ b/drivers/firmware/efi/libstub/printk.c
+@@ -23,98 +23,20 @@ void efi_char16_puts(efi_char16_t *str)
+ 		       output_string, str);
+ }
+ 
+-static
+-u32 utf8_to_utf32(const u8 **s8)
+-{
+-	u32 c32;
+-	u8 c0, cx;
+-	size_t clen, i;
+-
+-	c0 = cx = *(*s8)++;
+-	/*
+-	 * The position of the most-significant 0 bit gives us the length of
+-	 * a multi-octet encoding.
+-	 */
+-	for (clen = 0; cx & 0x80; ++clen)
+-		cx <<= 1;
+-	/*
+-	 * If the 0 bit is in position 8, this is a valid single-octet
+-	 * encoding. If the 0 bit is in position 7 or positions 1-3, the
+-	 * encoding is invalid.
+-	 * In either case, we just return the first octet.
+-	 */
+-	if (clen < 2 || clen > 4)
+-		return c0;
+-	/* Get the bits from the first octet. */
+-	c32 = cx >> clen--;
+-	for (i = 0; i < clen; ++i) {
+-		/* Trailing octets must have 10 in most significant bits. */
+-		cx = (*s8)[i] ^ 0x80;
+-		if (cx & 0xc0)
+-			return c0;
+-		c32 = (c32 << 6) | cx;
+-	}
+-	/*
+-	 * Check for validity:
+-	 * - The character must be in the Unicode range.
+-	 * - It must not be a surrogate.
+-	 * - It must be encoded using the correct number of octets.
+-	 */
+-	if (c32 > 0x10ffff ||
+-	    (c32 & 0xf800) == 0xd800 ||
+-	    clen != (c32 >= 0x80) + (c32 >= 0x800) + (c32 >= 0x10000))
+-		return c0;
+-	*s8 += clen;
+-	return c32;
+-}
+-
+-/**
+- * efi_puts() - Write a UTF-8 encoded string to the console
+- * @str:	UTF-8 encoded string
+- */
+-void efi_puts(const char *str)
+-{
+-	efi_char16_t buf[128];
+-	size_t pos = 0, lim = ARRAY_SIZE(buf);
+-	const u8 *s8 = (const u8 *)str;
+-	u32 c32;
+-
+-	while (*s8) {
+-		if (*s8 == '\n')
+-			buf[pos++] = L'\r';
+-		c32 = utf8_to_utf32(&s8);
+-		if (c32 < 0x10000) {
+-			/* Characters in plane 0 use a single word. */
+-			buf[pos++] = c32;
+-		} else {
+-			/*
+-			 * Characters in other planes encode into a surrogate
+-			 * pair.
+-			 */
+-			buf[pos++] = (0xd800 - (0x10000 >> 10)) + (c32 >> 10);
+-			buf[pos++] = 0xdc00 + (c32 & 0x3ff);
+-		}
+-		if (*s8 == '\0' || pos >= lim - 2) {
+-			buf[pos] = L'\0';
+-			efi_char16_puts(buf);
+-			pos = 0;
+-		}
+-	}
+-}
+-
+ /**
+  * efi_printk() - Print a kernel message
+  * @fmt:	format string
+  *
+  * The first letter of the format string is used to determine the logging level
+  * of the message. If the level is less then the current EFI logging level, the
+- * message is suppressed. The message will be truncated to 255 bytes.
++ * message is suppressed. The message will be truncated to 255 characters
++ * (ignoring surrogates).
+  *
+  * Return:	number of printed characters
+  */
+ int efi_printk(const char *fmt, ...)
+ {
+-	char printf_buf[256];
++	efi_char16_t printf_buf[256];
+ 	va_list args;
+ 	int printed;
+ 	int loglevel = printk_get_level(fmt);
+@@ -141,11 +63,12 @@ int efi_printk(const char *fmt, ...)
+ 	fmt = printk_skip_level(fmt);
+ 
+ 	va_start(args, fmt);
+-	printed = vsnprintf(printf_buf, sizeof(printf_buf), fmt, args);
++	printed = efi_vsnprintf(printf_buf, ARRAY_SIZE(printf_buf), fmt, args,
++				true);
+ 	va_end(args);
+ 
+-	efi_puts(printf_buf);
+-	if (printed >= sizeof(printf_buf)) {
++	efi_char16_puts(printf_buf);
++	if (printed >= ARRAY_SIZE(printf_buf)) {
+ 		efi_char16_puts(L"[Message truncated]\r\n");
+ 		return -1;
+ 	}
 diff --git a/drivers/firmware/efi/libstub/vsprintf.c b/drivers/firmware/efi/libstub/vsprintf.c
-index 54b82ba798a2..071c8b245b68 100644
+index dba136679172..bd32af6b4f4d 100644
 --- a/drivers/firmware/efi/libstub/vsprintf.c
 +++ b/drivers/firmware/efi/libstub/vsprintf.c
-@@ -508,3 +508,14 @@ int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
+@@ -14,10 +14,14 @@
  
- 	return pos;
+ #include <linux/compiler.h>
+ #include <linux/ctype.h>
++#include <linux/efi.h>
+ #include <linux/kernel.h>
+ #include <linux/limits.h>
+ #include <linux/string.h>
+ #include <linux/types.h>
++#include <linux/ucs2_string.h>
++
++#include "efistub.h"
+ 
+ static
+ int skip_atoi(const char **s)
+@@ -239,58 +243,6 @@ char get_sign(long long *num, int flags)
+ 	return 0;
  }
-+
-+int efi_snprintf(efi_char16_t *buf, size_t size, const char *fmt, ...)
-+{
-+       va_list args;
-+       int i;
-+
-+       va_start(args, fmt);
-+       i = efi_vsnprintf(buf, size, fmt, args, false);
-+       va_end(args);
-+       return i;
-+}
+ 
+-static
+-size_t utf16s_utf8nlen(const u16 *s16, size_t maxlen)
+-{
+-	size_t len, clen;
+-
+-	for (len = 0; len < maxlen && *s16; len += clen) {
+-		u16 c0 = *s16++;
+-
+-		/* First, get the length for a BMP character */
+-		clen = 1 + (c0 >= 0x80) + (c0 >= 0x800);
+-		if (len + clen > maxlen)
+-			break;
+-		/*
+-		 * If this is a high surrogate, and we're already at maxlen, we
+-		 * can't include the character if it's a valid surrogate pair.
+-		 * Avoid accessing one extra word just to check if it's valid
+-		 * or not.
+-		 */
+-		if ((c0 & 0xfc00) == 0xd800) {
+-			if (len + clen == maxlen)
+-				break;
+-			if ((*s16 & 0xfc00) == 0xdc00) {
+-				++s16;
+-				++clen;
+-			}
+-		}
+-	}
+-
+-	return len;
+-}
+-
+-static
+-u32 utf16_to_utf32(const u16 **s16)
+-{
+-	u16 c0, c1;
+-
+-	c0 = *(*s16)++;
+-	/* not a surrogate */
+-	if ((c0 & 0xf800) != 0xd800)
+-		return c0;
+-	/* invalid: low surrogate instead of high */
+-	if (c0 & 0x0400)
+-		return 0xfffd;
+-	c1 = **s16;
+-	/* invalid: missing low surrogate */
+-	if ((c1 & 0xfc00) != 0xdc00)
+-		return 0xfffd;
+-	/* valid surrogate pair */
+-	++(*s16);
+-	return (0x10000 - (0xd800 << 10) - 0xdc00) + (c0 << 10) + c1;
+-}
+-
+ #define PUTC(c) \
+ do {				\
+ 	if (pos < size)		\
+@@ -298,7 +250,8 @@ do {				\
+ 	++pos;			\
+ } while (0);
+ 
+-int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap)
++int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
++		  bool crlf)
+ {
+ 	/* The maximum space required is to print a 64-bit number in octal */
+ 	char tmp[(sizeof(unsigned long long) * 8 + 2) / 3];
+@@ -336,6 +289,8 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap)
+ 
+ 	for (pos = 0; *fmt; ++fmt) {
+ 		if (*fmt != '%' || *++fmt == '%') {
++			if (crlf && *fmt == '\n')
++				PUTC('\r');
+ 			PUTC(*fmt);
+ 			continue;
+ 		}
+@@ -400,7 +355,7 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap)
+ 			else if (qualifier == 'l') {
+ 		wstring:
+ 				flags |= WIDE;
+-				precision = len = utf16s_utf8nlen((const u16 *)s, precision);
++				precision = len = ucs2_strnlen((const u16 *)s, precision);
+ 				goto output;
+ 			}
+ 			precision = len = strnlen(s, precision);
+@@ -505,36 +460,9 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap)
+ 		if (flags & WIDE) {
+ 			const u16 *ws = (const u16 *)s;
+ 
+-			while (len-- > 0) {
+-				u32 c32 = utf16_to_utf32(&ws);
+-				u8 *s8;
+-				size_t clen;
+-
+-				if (c32 < 0x80) {
+-					PUTC(c32);
+-					continue;
+-				}
+-
+-				/* Number of trailing octets */
+-				clen = 1 + (c32 >= 0x800) + (c32 >= 0x10000);
+-
+-				len -= clen;
+-				s8 = (u8 *)&buf[pos];
+-
+-				/* Avoid writing partial character */
+-				PUTC('\0');
+-				pos += clen;
+-				if (pos >= size)
+-					continue;
+-
+-				/* Set high bits of leading octet */
+-				*s8 = (0xf00 >> 1) >> clen;
+-				/* Write trailing octets in reverse order */
+-				for (s8 += clen; clen; --clen, c32 >>= 6)
+-					*s8-- = 0x80 | (c32 & 0x3f);
+-				/* Set low bits of leading octet */
+-				*s8 |= c32;
+-			}
++			if (pos < size)
++				memcpy(&buf[pos], ws, min(len, size - pos) * sizeof(*ws));
++			pos += len;
+ 		} else {
+ 			while (len-- > 0)
+ 				PUTC(*s++);
 -- 
 2.55.0.1032.g73a4cd73de-goog
 
