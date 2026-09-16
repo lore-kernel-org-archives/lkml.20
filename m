@@ -1,117 +1,152 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE303A4F35
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:00:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8AD34E74D;
+	Wed, 16 Sep 2026 03:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789527628; cv=none; b=mbr9/th1jRR4y+S3qr60r3qNPiI1DLLpi/GkYbgH2mruYz8U7Pl4osUQQ+8r/3YS1HL/WF1ZoNaOhmY7GJ6Vna7xmPA3FJAT0YOQGZvZDpP7C/EUY5WWIK6W7zaixNDpQN3xdQmNowpWZA2E5In+GhHy/YmTQkLvl6ny7s8EjNY=
+	t=1789527629; cv=none; b=dyiRzHVvnohq/ltN5q0izUGIVDeE9fdtVUyDBwVBf3jSTqPHFagiu3ZwlNFlNSYaHIiWLpbofI4V69Cz/jNwgnNpxkbvYoL9wmYpPHStigdgYUanBBSj/Rz/U4+SLo+xw5kctvO914Zjw432lnUr3d1qlLc3VGouvz2HgFE83Oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789527628; c=relaxed/simple;
-	bh=RmS+xdgWocibZMZYCA84W4qaV1yXYkVlLzdVkYyMD5g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kvPyO9GxNAetwHfChRNmKnFMArLWHI2z6Bugaye6tSNXKNwYMZHt74Tg+roG/jX0xWjWS5fyquv0nyJW2iuznfMbpTyx2jrcUjgRc5rp9xmO7NDOG3CgMO6+MObnVcTJ+QJ43cY0G8/jsUz8ayz/+MLMNAuQ94HHX8S4efeN7fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FRO2IsBn; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789527629; c=relaxed/simple;
+	bh=vt89jht2m3Ep0liti7ZE9hLLPYbn/0dky2+jXcoj8zg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=notg+P/1/0pQycLglIbCIY7DxPTJjrdQVYkJIiEywVeqlRdNfiMGZPoZUTG9pKaCnH0WYfBXlzIje/qY5mx38OvI0c4YxKont+jODvtbvCy7hJnRCjxvwaGC8m+vZnCES/8H/26hK2CXfUafvFDrVk6hgOVqgGfGVoI2Zw8Yzbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F05s4Wrx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FRO2IsBn"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso441954a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 20:00:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789527626; x=1790132426; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jVvxgQIw7AeCLmLEQiDzAuJvlTjekJJ3lxgJZwxjO7I=;
-        b=FRO2IsBn7A5sw6+At3iy+Hv7iM5Q4dItUOzD5FevIWXH8KmHuHGdQYHMV7GQqvw3DO
-         ox2z1ZWb7RptCWNdtp8A5pwufxwYaXiRuJgTRXL92CXSgzwne4nJQsFZDPhhYtGhXIRo
-         gde1t+ip/ntDSFyB6zfqyoO2lAX52ee0X/2TsKywty9vDPYjbke7tUk6J5od2AMQwCs1
-         grTjra0u+oqLEYU4tCyVeGZP8L1axqBWuuoft1h+4o553wUfkmIcnIp0QjWGaTOE6GRU
-         WSWDlbypD/k7O/eozwyePZ401UmR3ek5TPhQEuZjWVaAmrjeRFOoia4FLyxpXZbEXlkw
-         IZ+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789527626; x=1790132426;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jVvxgQIw7AeCLmLEQiDzAuJvlTjekJJ3lxgJZwxjO7I=;
-        b=GD+6dZaTAjW/DuI2vrz4DENr10sSFjJ0xpE7ROyTuY1y5sn2P/TSOsgctIcbOBGSE3
-         7HHwYwbHl2F9tB0FKM3IX8ZFb4QzP6OxrumKFaymyGINZ9smnYitF6FDnWZOpy5kLB3y
-         AEHKZK+5OlXcLpsM2uvoJMHnYZdQdjBbq9snTBZCPS7xdE1eSKP81c7IMhEzonZQABqG
-         OAowFzJwMoDgGFshlOG5uK7m+F2ZbxWVR14eM+zUDKH+6UPPaPMxkR8gbHIxpRHptS5O
-         OEPZkUE1uewudOfNdD/udEX0mnWf+DKVYSiEfRBYKVV+hMqG1mf3pZCs0FaX+VSzaRL1
-         TSfA==
-X-Forwarded-Encrypted: i=1; AKwUvByPrQMv5C+MV9QFtRdhzNotPLMuWpR76LSTRtceESU7b1TZbpNR+ahostjgcgnuu0IfgWLACmLVB8y25JY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kII/BDn4vFQn5PrXc7Ekbidf2Z3FGJytkdS5KLf047rhBhWTsj
-	P2ctEG0vCZmMa5Dz7LC1drUOPsMbCEpzDcU7Kwp7wx8YELHWOWgNwvTK
-X-Gm-Gg: AYBFou0mpEomGcXOefZM0bxXtv+osbpKFQEkUh70EV2jIB+Sz6ggYraFUV0CQwFKwUZ
-	/zGz7pqUa0ymT8+5ot+U9wLjP6QBG7mUGNoE57JuoSGVHeKC9iVqOCpKlIDn/5PdNaiZgjrsZma
-	ausb/g72AUf8HjBQQLN+TZNrGAxt320gjy9XbmdsGXeVModJiQ5yrx0che4ECRkdNRPfo04X2Bq
-	yKa5HiqorLboydmGLdvSB0qprazOYvPWq1TykaFL+xPtBlealsKbPhJur9SUxpa3YYZ6P6HQ3Bg
-	U9C7sfc63rN4wmuYtnkRcfzlmq28pMZGFoP0C+INXhzUGT0mGlJlnrmPyBdcrMj8DmHVUW18wQp
-	6mmV4husErZTYd5jpR+1LWMLx+zpuH+nz8JsPwGfs7uyREjht9ZakvIgOaCYGzTvt/qETnrYoAF
-	OQLLhNcNT9KsHgSSXYyufnfbO62nP8XxA5APl2H2YtuAEAeChYXbe/tQ==
-X-Received: by 2002:a17:90b:4fcf:b0:398:b1eb:136c with SMTP id 98e67ed59e1d1-39e1e2f3dedmr2184461a91.9.1789527625769;
-        Tue, 15 Sep 2026 20:00:25 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395caccf1sm2428257c88.2.2026.09.15.20.00.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 20:00:25 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Yangbo Lu <yangbo.lu@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: dpaa2: ptp: fix device node reference leak on remove
-Date: Wed, 16 Sep 2026 11:00:15 +0800
-Message-ID: <20260916030015.2818545-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F05s4Wrx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58DB71F00899;
+	Wed, 16 Sep 2026 03:00:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789527627;
+	bh=hkmhqw9n6hp7sJoT22gikIyabRyx9UwfObiWsFoBFds=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=F05s4WrxIFaTZF6s5CnqIn5uxmeC8BlLL8wQyUHgHlWYj68s8SBh/Ql5LM9+VYqAL
+	 3AhfwIQqZyTKBpRNTS2y4WcyXA+ESk2/ZZ6OneydD2zc2PLNt2YagO5ZSNplLXbaUt
+	 7dXj/XXpT4TcY4ocKJwlXYV5GmStnettK1AOA1+ugW5Kp1Sh0h4K+HtxLJ5DtjZNkk
+	 7Yiq7KX9pbqdTDHG90wqwTWoAyoN8LQs1a6VONdqU/mJ2PE6UCk1lThLj3EWAUsdze
+	 xCHrFFoeuIOG2A/eSZNKykMr6E3HOqtD6n/CDlxfi+WTxPXQi+6vr20hQL2zS+oA6m
+	 7EKTxf8ttFBIg==
+From: Yixun Lan <dlan@kernel.org>
+Date: Wed, 16 Sep 2026 02:59:55 +0000
+Subject: [PATCH v5 3/3] riscv: dts: spacemit: k3: Add UFS support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-08-k3-ufs-support-v5-3-1f5d71f1027d@kernel.org>
+References: <20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org>
+In-Reply-To: <20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org>
+To: Alim Akhtar <alim.akhtar@samsung.com>, 
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, "Martin K. Petersen" <mkp@kernel.org>
+Cc: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ Aurelien Jarno <aurelien@aurel32.net>, 
+ Jennifer Berringer <jberring@redhat.com>, linux-scsi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2352; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=vt89jht2m3Ep0liti7ZE9hLLPYbn/0dky2+jXcoj8zg=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqqgY1xxCzoIyq7a+5nPPaArvuDeChhiDxQf3l/
+ hIP4UbAu5+JAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCaqoGNRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+29dg//ZYip3V26PLUcmI1IEYPO1shkw/wDL21rJ7EIp4ofs8bmQ01IXl5DQ
+ VjaSJ30tsnUH3Yafip/L/fbkE3CKdJtcU5lPzgqL7qgULQMVrNVCL8VENbU+BW9nQ7hHVUFiaXA
+ vpq78DsdqP19rZalScaTXW00S19bIe6YNA4U+v/QWIsB5W4e+diaXKKyjyaGnrqkFv9n/EZG+Hr
+ luGHsQ8pvNppeglXVt9yAudNW//BxqxB93XodtiNHeC5fwIThCRnquoptjc0JyNA+ZrnRCV9wUT
+ fRIb8qS4voFvkyb2xCMTmAZpyCMQzeKHV9dFkR8VTEeu/jpwBjT5KsNjJLxlozrMc4cdkknnd1L
+ MHuVFHRqOnaq3ZVFdRNGGQ3ZqYA+ND1ujcgT73xkES6V1g/dEZ5hzoApvGsIJbCZx54vEFfqhCo
+ xQgU0+zDM0Dbn9hRSFg4RDDCeNGWi8CzqQmtMVNaBRBIwQcYdTQkWLli68m9IR5YStanRDHAx2A
+ JPB9tZM7QwkLxb2oKKHQB+5aNHEnDLCTlW/hUFt1UYVsewXhmzOASyWEEUB5oVRuA16uKRl1Op2
+ T4wJ6xnEaV+/RObqHE0h1EcLS4m5yE9Fj1fQLgzFwJoZGNfrPrPJOKAadK9wmSGhuUKRfzLG3gU
+ D7wzpAQsNkiaEOXkqCCisSuQKwPOxg=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-dpaa2_ptp_probe() gets a referenced device node with
-of_find_compatible_node() and stores it in dev->of_node.
+Add UFS Host Controller support for SpacemiT K3 SoC, and enable
+it both on Pico-ITX and CoM260-IFX boards.
 
-The probe failure paths release this reference with of_node_put().
-However, after a successful probe, dpaa2_ptp_remove() tears down the
-PTP and MC resources without dropping the device node reference.
-
-Release dev->of_node during driver removal and clear the pointer after
-dropping the reference.
-
-This issue was found by manual code inspection.
-
-Fixes: d346c9e86d86 ("dpaa2-ptp: reuse ptp_qoriq driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Signed-off-by: Yixun Lan <dlan@kernel.org>
 ---
- drivers/net/ethernet/freescale/dpaa2/dpaa2-ptp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi  |  4 ++++
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  4 ++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi         | 22 ++++++++++++++++++++++
+ 3 files changed, 30 insertions(+)
 
-diff --git a/drivers/net/ethernet/freescale/dpaa2/dpaa2-ptp.c b/drivers/net/ethernet/freescale/dpaa2/dpaa2-ptp.c
-index 4497e3c0456d..440319a1e775 100644
---- a/drivers/net/ethernet/freescale/dpaa2/dpaa2-ptp.c
-+++ b/drivers/net/ethernet/freescale/dpaa2/dpaa2-ptp.c
-@@ -232,6 +232,8 @@ static void dpaa2_ptp_remove(struct fsl_mc_device *mc_dev)
- 	fsl_mc_free_irqs(mc_dev);
- 	dprtc_close(mc_dev->mc_io, 0, mc_dev->mc_handle);
- 	fsl_mc_portal_free(mc_dev->mc_io);
-+	of_node_put(dev->of_node);
-+	dev->of_node = NULL;
- }
+diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+index 37627963a649..3251ee8405de 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+@@ -220,3 +220,7 @@ &uart0 {
+ 	pinctrl-0 = <&uart0_0_cfg>;
+ 	status = "okay";
+ };
++
++&ufshc {
++	status = "okay";
++};
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index b084a35aa00e..6369602e81da 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -307,6 +307,10 @@ &uart0 {
+ 	status = "okay";
+ };
  
- static const struct fsl_mc_device_id dpaa2_ptp_match_id_table[] = {
++&ufshc {
++	status = "okay";
++};
++
+ &usb2_host {
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index c3f2dce0969c..436e98f1a17b 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -513,6 +513,28 @@ usb2_phy: phy@c0a20000 {
+ 			status = "disabled";
+ 		};
+ 
++		ufshc: ufshc@c0e00000 {
++			compatible = "spacemit,k3-ufshc";
++			reg = <0x0 0xc0e00000 0x0 0x40000>;
++			clocks = <&syscon_apmu CLK_APMU_UFS_ACLK>,
++				 <&syscon_apmu CLK_APMU_UFS_REFCLK>;
++			clock-names = "axi", "ref";
++			resets = <&syscon_apmu RESET_APMU_UFS_ACLK>;
++			interrupts = <135 IRQ_TYPE_LEVEL_HIGH>;
++			lanes-per-direction = <2>;
++			operating-points-v2 = <&ufs_opp_table>;
++			status = "disabled";
++
++			ufs_opp_table: opp-table {
++				compatible = "operating-points-v2";
++
++				opp-1 {
++					opp-hz = /bits/ 64 <491520000>,
++						 /bits/ 64 <19200000>;
++				};
++			};
++		};
++
+ 		eth0: ethernet@cac80000 {
+ 			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
+ 			reg = <0x0 0xcac80000 0x0 0x2000>;
+
 -- 
-2.43.0
+2.55.0
 
