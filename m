@@ -1,283 +1,167 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8494EBAC5;
-	Wed, 16 Sep 2026 10:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B78A4FECD7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555037; cv=none; b=TpQvlXEKreO5gpqG0cnM1CGl1coLdBgjYxuPSKDobDo4Qh1q3iiT1kyUfougtnvEOn8bSlAHmAATM12U3LuhLnQ3HO6xnQgx2vIETziEZ2xlpWkhddPYLNExxJLrfkLt99HBUdsPRnAhaSSAC1toL6oNij5Mk9un9VoOk+VGyZ0=
+	t=1789555078; cv=none; b=XmeKZIlTYDCg/tTJsO5d80XcGrLpJWGDLnPuRupfRSzfroy90o15y7t552upgYqm0hHtpmHm2bCzIZY/VA2M7o1z3onukQKjnb798Vb2tJU7/yfw50SpfDUbanFMvSdWqi2AEhfzviudjhURKItJUL7scVlNsUqj5HW7fI5vw8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555037; c=relaxed/simple;
-	bh=htZb+zvuG3SjVYb/M7mKBiWgLdB9QbIDhqQ2LfAalJ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jM5zne9hqFDqTH7PgYZTb/oIR3HMBqV03h6DfurpfMsEyu4Y4Hf1vYChc93B4YSajXDFSw6k9vj3vxo1ZVaHlIwNXkIA/FkK6pugJg3LEzRCMYJ0bU06iRs4RpnvEYpRgQKhiElDY1w6j+MfBd8OxbZJd+2LIUVZ5CyCkbFJw7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=5PhbG/h9; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	s=arc-20240116; t=1789555078; c=relaxed/simple;
+	bh=D9FLIJZO8QSfHmJQ7HJ1vUHDWHscdlD8COtFiTPpb5o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GmY4H3drpvrz1p2zg9ImDz7mVhsTA42fGDLFKgtk7/s+DrYZn5Sj5m2B74wx7z1M/6RoQuhp8bX0JmEXnjl/tUIlJ85gbf6UuogmUCq8k/QJtzRj47th+sal91avI2h5knfqYqVBMyDM4e3yMLoKf5+jgzcMDraVqYhxhEdZ0Mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=CKukPzsq; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="5PhbG/h9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1789554886;
-	bh=iGkrWYHcQ7YXpnapjSfUIb99gIQOCYTG6EaseNLzoLY=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=5PhbG/h9m8yNhOGhziTJqdlKSi6AT+TRm00d4s+owSc2H4r1KtxlIKkL+lKuRU5Da
-	 Hxp9NMRPxXwkIvq/Pt27jGan1n5xi3GpOafSkF/hn3yatQ3dqniJ3xZSoXruj2zPZe
-	 WCntdOfSqfCevSIYuYp0KNOryhV6aGMi8ehaqV6E=
-X-QQ-mid: esmtpsz10t1789554879t9489ae65
-X-QQ-Originating-IP: 8xkushD0enGkZitgOZg4YxLoUcCT5tnnAzqrZTZXvKQ=
-Received: from hepeiyang-vm.wu.lxd ( [36.152.24.145])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 16 Sep 2026 18:34:37 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 407733813548067960
-EX-QQ-RecipientCnt: 11
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: lyude@redhat.com,
-	dakr@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	bskeggs@redhat.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	Peiyang He <peiyang_he@smail.nju.edu.cn>
-Subject: [PATCH] drm/nouveau: fix double-free in nvif_vmm_dtor
-Date: Wed, 16 Sep 2026 18:31:38 +0800
-Message-ID: <03BA723D9E5FF725+20260916103138.2651605-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="CKukPzsq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789555059;
+	bh=D9FLIJZO8QSfHmJQ7HJ1vUHDWHscdlD8COtFiTPpb5o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CKukPzsqZFLhoiLDPwPA9YYkGO1+KUamch3lJpo6XwsbdDjPNBdj5kzrkzxa4vlZa
+	 JbySdpvggr3o1DJLKa5wAcBZnDXAbWLhPYiEk9EsLQoZvJaXF6rA18VpXWn8+xWTKf
+	 s/dkw24GqK/8lTLscTVSVlvIuZMl0qzqBiiyWZKsAQ8FHuAYbF0VjATEJKkOO38WN2
+	 ETRK5CP1WFZ2RuGHVv4tEsiqzP42n32iIXfYeMJL7p4SvRPIytUR0Iy5ICgXPH2wMP
+	 YIuHjUuRSvJdqYWvx1y5REgIdDfb1eYFirByg67LR+mQZzwaNHCwQYPlmAHQjPaVeD
+	 VoDLj5YPWp0UA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id EC3D317E0420;
+	Wed, 16 Sep 2026 12:37:38 +0200 (CEST)
+Message-ID: <e7d5b410-8a0c-4add-b4c5-9e9573fa9c68@collabora.com>
+Date: Wed, 16 Sep 2026 12:37:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MLbAtvpy5B1PS9nBgmub673JDrktkjr9RGqU+CGazrHbwf2U6qUzyb/T
-	kppCYbGioqeJbLsXFUkRx9bEAkELzjlhE1G+OHwEnhK24SpseQ6IkIi/n9DWcvsuEfZGzG9
-	x1+D8KcLdI1refxJ85a0C3J8WtKvaBwyBWfA+ynCkXK/FLTYcfXX542pgOIQAK62B+WpiKp
-	GjrQZYkfbJMgAuel9qocOrjqfC7EJplRbm8sNAGK9aBuMKHAG55uRQaKIvNvhtXFCU+P6wo
-	vFmtoZvmdZ5Q+vo5mASizn415vHcdiemMWmx2YnVW5R//yjvoDuLTdkRZOhkycNEWUiZCDQ
-	Gq7PoF8g7bzyldAADeWphGabTcKR9XPMFkYQMUJmvp3lHlsKgBVkMk8lUHsf0DDyRYSr5Ay
-	FLgYmuhd7Oer7rc+GKGhh31EhacV1rL2ehwN6+8qYOxo/J/co1UgH3yZe4NXvhzkrjaCPzl
-	m3vrKrDKoBfuuwmbPtxIFANtPs9902fED5hjJ6n/5gam4AjaLh7ZVDf2YhDZkCNcjDSABEY
-	xfz+QgNoM22CftwGIkke9LkyPJkjgcDLT0ty0Nac5q91JhHJYXg7kUEYZKBR2uZdYTwZUnW
-	mu2aC5L+MOiBUjkzypI43Jub+de/1vOKV5Xx6FT4Pr4wqKHxvc9lP8v6GUotug2K77/fw4U
-	lfSF4hTeGCgKvautwJkcEZD/xBIQUNbYyFBbKW+gjr12f73Oy/8NcLStdimMqgArUOdjvAZ
-	awEbOkBke0e11unwNNybLWQIU4dsEeBhvYPFzhLKXz0he/N84PTMqn/5Uto3bqdIw2EIwRa
-	VQ7d9zPhX7c7pUM9Xl+RY8Mnzk75/jOG4oFu++zLc274ewo/N5TWkMWW72nJypJcpI3LZVz
-	Stt0A8qxJJBeteP9obXPxskuTBvTF+RrKVY06aYbzRc33E+CcDk55VbrIbvT9/kwF7SIkFa
-	OcGkYbP3AJWYBwkvpeCvSunc4ZTtSXRtBwYGGGr2cxZRx16dHvm7+OuP7YZ3mpceno/om0D
-	Bnb87c9fsFK4x1JeepH3IstILtisOGiqw+u5cIriSIxtV9b83DmdWebHI0/s4=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] spmi: mtk-pmif: Add workaround for FSM lockup/error in
+ read operation
+To: sboyd@kernel.org
+Cc: matthias.bgg@gmail.com, justin.yeh@mediatek.com,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ kernel@collabora.com
+References: <20260701121908.19327-1-angelogioacchino.delregno@collabora.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260701121908.19327-1-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On failure, nouveau_cli_init() calls nouveau_cli_fini() to tear
-the client down. Then, nouveau_drm_open() also enters into its
-cleanup path and calls nouveau_cli_fini() AGAIN. nouveau_cli_fini()
-calls nouveau_vmm_fini():
+On 7/1/26 14:19, AngeloGioacchino Del Regno wrote:
+> The SPMI PMIF in some SoCs like MT8196 is affected by a hardware
+> issue that makes the first read operation on each SID to fail as
+> the FSM locks up after sending the read command, and this happens
+> at least in the following conditions:
+>   - At boot, after bootloader handoff; and
+>   - At every suspend->resume cycle.
+> 
+> This critical bug may produce unwanted issues in regulator drivers
+> which may fail to set voltages, making the platform to end up in a
+> undervoltage or, a bit more critically, an overvoltage condition,
+> producing instability or ... worse.
+> 
+> In order to work around this issue, add a retry mechanism into the
+> pmif_spmi_read_cmd() callback which will resend the read command
+> up to 3 times in the following conditions:
+>   - Software Interface returns an error; or
+>   - Software Interface never gets in WFVLDCLR state.
+> 
+> As to avoid uselessly blocking for too much time, only during the
+> read-retry loop, the maximum SWINF polling time for each trial is
+> reduced to PMIF_TIMEOUT_US / 2: this was tested on multiple SoCs
+> and seems to always be enough, as when any read succeeds it will
+> always take less than 40ms.
+> In any case, this is still allowing 1.5 times the previous maximum
+> polling time, reaching a total maximum (for 3 retries) of 150ms.
+> 
+> Worst case testing that I performed saw a third retry only 3 times
+> out of ~100 reboots.
+> 
+> Fixes: 1f5be2d7f743 ("spmi: mtk-pmif: Add support for MT8196 SPMI Controller")
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-	void
-	nouveau_vmm_fini(struct nouveau_vmm *vmm)
-	{
-		nouveau_svmm_fini(&vmm->svmm);
-		nvif_vmm_dtor(&vmm->vmm);
-		vmm->cli = NULL;
-	}
+This is a *fix*, and has been waiting for 2.5 months.
 
-Inside nvif_vmm_dtor(), vmm->page is freed unconditionally:
+Can anyone please apply it?
 
-	void
-	nvif_vmm_dtor(struct nvif_vmm *vmm)
-	{
-		kfree(vmm->page);
-		nvif_object_dtor(&vmm->object);
-	}
+Thanks,
+Angelo
 
-vmm->page is never cleared after being freed, so the second call of
-nvif_vmm_dtor() will cause a double-free.
-
-Found by fuzzing the nouveau driver with a modified Syzkaller:
-
-	BUG: KASAN: double-free in nvif_vmm_dtor+0x31/0x50 drivers/gpu/drm/nouveau/nvif/vmm.c:194
-	Free of addr ffff888010fcdc30 by task syz.0.173/2567
-
-	CPU: 1 UID: 0 PID: 2567 Comm: syz.0.173 Not tainted 7.2.0 #24 PREEMPT(lazy) 
-	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-	Call Trace:
-	<TASK>
-	__dump_stack lib/dump_stack.c:94 [inline]
-	dump_stack_lvl+0x95/0xe0 lib/dump_stack.c:120
-	print_address_description mm/kasan/report.c:378 [inline]
-	print_report+0xcb/0x5a0 mm/kasan/report.c:482
-	kasan_report_invalid_free+0xaa/0xd0 mm/kasan/report.c:557
-	check_slab_allocation+0xe4/0x110 mm/kasan/common.c:235
-	kasan_slab_pre_free include/linux/kasan.h:199 [inline]
-	slab_free_hook mm/slub.c:2622 [inline]
-	slab_free mm/slub.c:6377 [inline]
-	kfree+0x192/0x590 mm/slub.c:6692
-	nvif_vmm_dtor+0x31/0x50 drivers/gpu/drm/nouveau/nvif/vmm.c:194
-	nouveau_vmm_fini+0x16/0x50 drivers/gpu/drm/nouveau/nouveau_vmm.c:127
-	nouveau_cli_fini+0x10e/0x210 drivers/gpu/drm/nouveau/nouveau_drm.c:225
-	nouveau_drm_open+0x24e/0x740 drivers/gpu/drm/nouveau/nouveau_drm.c:1255
-	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
-	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
-	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
-	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
-	chrdev_open+0x21c/0x660 fs/char_dev.c:411
-	do_dentry_open+0x59d/0x12b0 fs/open.c:947
-	vfs_open+0x82/0x390 fs/open.c:1052
-	do_open fs/namei.c:4700 [inline]
-	path_openat+0x2345/0x3420 fs/namei.c:4863
-	do_file_open+0x207/0x460 fs/namei.c:4892
-	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
-	do_sys_open fs/open.c:1374 [inline]
-	__do_sys_openat fs/open.c:1390 [inline]
-	__se_sys_openat fs/open.c:1385 [inline]
-	__x64_sys_openat+0x144/0x200 fs/open.c:1385
-	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
-	entry_SYSCALL_64_after_hwframe+0x77/0x7f
-	RIP: 0033:0x7fc6d687594d
-	Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
-	RSP: 002b:00007fc6d5295008 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
-	RAX: ffffffffffffffda RBX: 00007fc6d6b06180 RCX: 00007fc6d687594d
-	RDX: 0000000000022501 RSI: 0000200000000000 RDI: ffffffffffffff9c
-	RBP: 00007fc6d691c303 R08: 0000000000000000 R09: 0000000000000000
-	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-	R13: 00007fc6d6b06218 R14: 00007fc6d6b06180 R15: 00007ffd9451d760
-	</TASK>
-
-	Allocated by task 2567 on cpu 1 at 163.593900s:
-	kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
-	kasan_save_track+0x17/0x60 mm/kasan/common.c:78
-	poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
-	__kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
-	kasan_kmalloc include/linux/kasan.h:263 [inline]
-	__do_kmalloc_node mm/slub.c:5334 [inline]
-	__kmalloc_noprof+0x304/0x7c0 mm/slub.c:5359
-	_kmalloc_noprof include/linux/slab.h:992 [inline]
-	nvif_vmm_ctor+0x3c0/0x7e0 drivers/gpu/drm/nouveau/nvif/vmm.c:237
-	nouveau_vmm_init+0x40/0x90 drivers/gpu/drm/nouveau/nouveau_vmm.c:134
-	nouveau_cli_init+0x7b9/0xe10 drivers/gpu/drm/nouveau/nouveau_drm.c:293
-	nouveau_drm_open+0x236/0x740 drivers/gpu/drm/nouveau/nouveau_drm.c:1243
-	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
-	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
-	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
-	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
-	chrdev_open+0x21c/0x660 fs/char_dev.c:411
-	do_dentry_open+0x59d/0x12b0 fs/open.c:947
-	vfs_open+0x82/0x390 fs/open.c:1052
-	do_open fs/namei.c:4700 [inline]
-	path_openat+0x2345/0x3420 fs/namei.c:4863
-	do_file_open+0x207/0x460 fs/namei.c:4892
-	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
-	do_sys_open fs/open.c:1374 [inline]
-	__do_sys_openat fs/open.c:1390 [inline]
-	__se_sys_openat fs/open.c:1385 [inline]
-	__x64_sys_openat+0x144/0x200 fs/open.c:1385
-	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
-	entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-	Freed by task 2567 on cpu 1 at 163.601355s:
-	kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
-	kasan_save_track+0x17/0x60 mm/kasan/common.c:78
-	kasan_save_free_info+0x3b/0x60 mm/kasan/generic.c:584
-	poison_slab_object mm/kasan/common.c:253 [inline]
-	__kasan_slab_free+0x61/0x80 mm/kasan/common.c:285
-	kasan_slab_free include/linux/kasan.h:235 [inline]
-	slab_free_hook mm/slub.c:2677 [inline]
-	slab_free mm/slub.c:6377 [inline]
-	kfree+0x383/0x590 mm/slub.c:6692
-	nvif_vmm_dtor+0x31/0x50 drivers/gpu/drm/nouveau/nvif/vmm.c:194
-	nouveau_vmm_fini+0x16/0x50 drivers/gpu/drm/nouveau/nouveau_vmm.c:127
-	nouveau_cli_fini+0x10e/0x210 drivers/gpu/drm/nouveau/nouveau_drm.c:225
-	nouveau_cli_init+0x593/0xe10 drivers/gpu/drm/nouveau/nouveau_drm.c:324
-	nouveau_drm_open+0x236/0x740 drivers/gpu/drm/nouveau/nouveau_drm.c:1243
-	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
-	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
-	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
-	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
-	chrdev_open+0x21c/0x660 fs/char_dev.c:411
-	do_dentry_open+0x59d/0x12b0 fs/open.c:947
-	vfs_open+0x82/0x390 fs/open.c:1052
-	do_open fs/namei.c:4700 [inline]
-	path_openat+0x2345/0x3420 fs/namei.c:4863
-	do_file_open+0x207/0x460 fs/namei.c:4892
-	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
-	do_sys_open fs/open.c:1374 [inline]
-	__do_sys_openat fs/open.c:1390 [inline]
-	__se_sys_openat fs/open.c:1385 [inline]
-	__x64_sys_openat+0x144/0x200 fs/open.c:1385
-	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
-	entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-	The buggy address belongs to the object at ffff888010fcdc30
-	which belongs to the cache kmalloc-16 of size 16
-	The buggy address is located 0 bytes inside of
-	16-byte region [ffff888010fcdc30, ffff888010fcdc40)
-
-	The buggy address belongs to the physical page:
-	page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x10fcd
-	flags: 0x100000000000000(node=0|zone=1)
-	page_type: f5(slab)
-	raw: 0100000000000000 ffff88800d441640 dead000000000100 dead000000000122
-	raw: 0000000000000000 0000000000550055 00000000f5000000 0000000000000000
-	page dumped because: kasan: bad access detected
-
-	Memory state around the buggy address:
-	ffff888010fcdb00: fc fc 00 04 fc fc fc fc fa fb fc fc fc fc fa fb
-	ffff888010fcdb80: fc fc fc fc fa fb fc fc fc fc 00 07 fc fc fc fc
-	>ffff888010fcdc00: fa fb fc fc fc fc fa fb fc fc fc fc fa fb fc fc
-										^
-	ffff888010fcdc80: fc fc fa fb fc fc fc fc 00 04 fc fc fc fc fa fb
-	ffff888010fcdd00: fc fc fc fc 00 00 fc fc fc fc fa fb fc fc fc fc
-
-Fix by removing the redundant teardown in nouveau_drm_open(),
-since nouveau_cli_init() already does the cleanup work.
-Also clear vmm->page after its freeing.
-
-Cc: stable@vger.kernel.org
-Fixes: 20d8a88e557a ("drm/nouveau: tidy up the client init/fini interfaces")
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Assisted-by: LLM
----
- drivers/gpu/drm/nouveau/nouveau_drm.c | 4 +---
- drivers/gpu/drm/nouveau/nvif/vmm.c    | 1 +
- 2 files changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index e16f59b00f6f..c465d59ef0a6 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -1251,10 +1251,8 @@ nouveau_drm_open(struct drm_device *dev, struct drm_file *fpriv)
- 	mutex_unlock(&drm->clients_lock);
- 
- done:
--	if (ret && cli) {
--		nouveau_cli_fini(cli);
-+	if (ret && cli)
- 		kfree(cli);
--	}
- 
- 	pm_runtime_mark_last_busy(dev->dev);
- 	pm_runtime_put_autosuspend(dev->dev);
-diff --git a/drivers/gpu/drm/nouveau/nvif/vmm.c b/drivers/gpu/drm/nouveau/nvif/vmm.c
-index 65c3e883b119..579af70766f2 100644
---- a/drivers/gpu/drm/nouveau/nvif/vmm.c
-+++ b/drivers/gpu/drm/nouveau/nvif/vmm.c
-@@ -192,6 +192,7 @@ void
- nvif_vmm_dtor(struct nvif_vmm *vmm)
- {
- 	kfree(vmm->page);
-+	vmm->page = NULL;
- 	nvif_object_dtor(&vmm->object);
- }
- 
--- 
-2.43.0
+> ---
+>   drivers/spmi/spmi-mtk-pmif.c | 38 +++++++++++++++++++++++++++---------
+>   1 file changed, 29 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/spmi/spmi-mtk-pmif.c b/drivers/spmi/spmi-mtk-pmif.c
+> index 1048420b5afb..61c916edaec4 100644
+> --- a/drivers/spmi/spmi-mtk-pmif.c
+> +++ b/drivers/spmi/spmi-mtk-pmif.c
+> @@ -21,6 +21,7 @@
+>   #define SWINF_WFVLDCLR	0x06
+>   
+>   #define GET_SWINF(x)	(((x) >> 1) & 0x7)
+> +#define GET_SWINFERR(x) (((x) >> 18) & 0x1)
+>   
+>   #define PMIF_CMD_REG_0		0
+>   #define PMIF_CMD_REG		1
+> @@ -349,6 +350,7 @@ static int pmif_spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>   	struct pmif *arb = to_mtk_pmif(ctrl);
+>   	struct ch_reg *inf_reg;
+>   	int ret;
+> +	u8 retry = 0;
+>   	u32 data, cmd;
+>   	unsigned long flags;
+>   
+> @@ -385,17 +387,35 @@ static int pmif_spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>   		return ret;
+>   	}
+>   
+> -	/* Send the command. */
+>   	cmd = (opc << 30) | (sid << 24) | ((len - 1) << 16) | addr;
+> -	pmif_writel(arb, pbus, cmd, inf_reg->ch_send);
+> +	do {
+> +		/* Send the command. */
+> +		pmif_writel(arb, pbus, cmd, inf_reg->ch_send);
+> +
+> +		/*
+> +		 * Wait for Software Interface FSM state to be WFVLDCLR or to
+> +		 * return an error.
+> +		 *
+> +		 * If this is WFVLDCLR, read the data and clear the valid flag;
+> +		 * If error or timeout, retry for a maximum of 3 times as a
+> +		 * workaround for an hardware issue.
+> +		 */
+> +		ret = readl_poll_timeout_atomic(pbus->base + arb->data->regs[inf_reg->ch_sta],
+> +						data,
+> +						GET_SWINF(data) == SWINF_WFVLDCLR ||
+> +						GET_SWINFERR(data),
+> +						PMIF_DELAY_US, PMIF_TIMEOUT_US / 2);
+> +		if (ret < 0)
+> +			continue;
+> +
+> +		if (GET_SWINFERR(data)) {
+> +			ret = -EIO;
+> +			continue;
+> +		}
+> +
+> +		break;
+> +	} while (++retry < 3);
+>   
+> -	/*
+> -	 * Wait for Software Interface FSM state to be WFVLDCLR,
+> -	 * read the data and clear the valid flag.
+> -	 */
+> -	ret = readl_poll_timeout_atomic(pbus->base + arb->data->regs[inf_reg->ch_sta],
+> -					data, GET_SWINF(data) == SWINF_WFVLDCLR,
+> -					PMIF_DELAY_US, PMIF_TIMEOUT_US);
+>   	if (ret < 0) {
+>   		raw_spin_unlock_irqrestore(&pbus->lock, flags);
+>   		dev_err(&ctrl->dev, "failed to wait for SWINF_WFVLDCLR\n");
