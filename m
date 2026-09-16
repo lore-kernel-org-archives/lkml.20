@@ -1,88 +1,35 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14CC4252B7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0490D4A2A5E;
+	Wed, 16 Sep 2026 09:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550204; cv=none; b=gZUhGp149E2LyIy5rn+7avaRhuOMRevilXJYprdZFIQRegS+MvWS+Oy5DQVMLXIe0tYDHAi2MqsyLqKZKTvqVWw0YYsbhS4h+H7FJlIOOmcjjNu1CXWJLlxHG1o5UWqO8kk8lgc/7fJWWuU9WB/WCDK50Lj0NZXiVpIvqLS1nG0=
+	t=1789550208; cv=none; b=UOIalBnQuVsveYNms4zt2iR9sJ/oD8ec1rEkjfbFSzHQyc9IMakoqDQTvfakCDdBHprpG61M5PE7ei9uPg9JxZrrjQSt39tJUBmLf+98dB0zTsYV5RGqVoKCD5/1xaaS2kBSPRTFpFfb/hbGMTLp0r0I2rdRCxqT09qembGFn+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550204; c=relaxed/simple;
-	bh=Cv3GiW+cUXijnfwKcWCdwib/ps1bMkQSsnmAAjeLFWU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kdgecsYV7WkBaG7VR3/+aVvGvCyokRxj39+8q1aKAKXuyf7aJk0aOD3BpJ6OBlaR4Vk27nl7sGuYQa7hgUeGjtzioxjKKFyBHWFLIsanrqOLC8Hur0hyhqRTPhZbDUf3zyHnIAwdChCIktxLe1ramAFhhGjZ4sVZl3yAWWr72hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EiUnKXYo; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EiUnKXYo"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccb65437so484804a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:16:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789550187; x=1790154987; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VzRkWt2VZCbdlSo+rjm4taEDOl7SYR+tdxu2b2xJF3M=;
-        b=EiUnKXYo0rdaIa80f2HpK6o0H48HCzzvBQ1eIZACtQybu9ybiEj6WQRgv3ncJnT3SR
-         ppUXRtCCZYoVVhVXWZd1efkoin/yMZuMG9lsShc/Pz2JVkFIoFsL85nS/+1VnJZAwvGd
-         xd19boCLPxKrZrjJzvPsgS5Jw6+JzH89IvCX12n6qD5Vlkke0qapkNca/H8Lt6gvUh7B
-         1panIRkCnlybLoe716JegaFEgWERu79g0mxu9qrQLKUO234/9L+av+dsy1hmSAfYGaAQ
-         FxOEgxvoasqCIIMi9psSusaLn5iQTOFQ7J7ScznSymV+yxD+t9ZgCjwOqaAjCPy/PvnU
-         M1OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789550187; x=1790154987;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VzRkWt2VZCbdlSo+rjm4taEDOl7SYR+tdxu2b2xJF3M=;
-        b=xy6UrhmNHbGDcQZKkrmwyKkRJoqp6A0Zkjv//PMQd2iU2Q08QyIgWP6TMDQKsA+d5l
-         8YeYpi9yAeCQnooXRvCM8iA91PUpHa70h2R6uVEKm5lxdndSRL8Zs5rmKtnvsilRt+ei
-         W17smi9WIz1LqbTH60t+W23mx1D0v7XmY8/5Jz9Ce9pYG0okfyz+DrZ2LkxcNtMMTufR
-         6kqGeM9SU7URdlg6M08SbBpbvZ24WP637zBgvTz7+0ZNK97CnT9hQNgVPE34HGtRL02y
-         qe24S0KU/qAPFgQklz/TbxO1w4HiZaVxwy/z0/LYDCxOlSZxBFcnKMn99Yqe7tzpooCM
-         vZLg==
-X-Forwarded-Encrypted: i=1; AKwUvBwgUCkj6ZuO9H9MYQ8LgT6rt2H1CA0tcuE8s0mqxFHRzhdN+zoOQOlOQIE/sCSEP4mhVsTvvQOKiCKGMFQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nG7iEoAVgo4VEeuhDoia35Zv2SzvkOvGRYyQwGHmpU/djveEj8
-	BM92cyvqEY7z5CaXheYAVWyTsGizmlr1aOP58l68rDSajfmh9MvS8Hlb
-X-Gm-Gg: AYBFou3kahq98889CkID6qsCaPJ8YlxKGybfilX7Y2mBUFWY7K8IzSRqe6Ox0AFwaYw
-	d4m8j1pP2UiInCikK3J+ITIFZeMoyd/EzTZ9/6FBnpymi45Xw3W/BUsNmoevjtLogQTwndOApv8
-	n9ga0et35f+uud3G2mXT659Gn0KKz9pz6LrlYT17GpTp8+XqoWus5ru/qwUSy+OMJt3r0mbI5VM
-	E6apO188/QFqg8490Cg4uA47XAcRvuI/GuSNU/EizWKAmLKkjLH4Ox4/yckQrjKU/pG9SK2xfQE
-	tRBiEcRrHoimdVYgKvRY3yP34qPVaSIt0zeOvL3DeNyrRzbLWmevvBLRxArqc2Gq4GhKG2G/Rus
-	BBmFIE8vAir4KUx6rF0bNeTJlhYuT4LgA2Hw4A9B4C5osTPkVdHoMVsmtZQgtrr8sKZw1D9TGb/
-	vQgjTxVkX33W7cyj59YmCtCfESUpzyoPNGrEpNbduFfLB+LZAfp9NjUKJWvwKLV26fmFXHiCGoU
-	WNDjeY0tSATM6/taw==
-X-Received: by 2002:a17:90b:4ecf:b0:398:e96a:8999 with SMTP id 98e67ed59e1d1-39e1e49a802mr4752714a91.16.1789550186814;
-        Wed, 16 Sep 2026 02:16:26 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e19a2c2dcsm1414916a91.0.2026.09.16.02.16.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 02:16:26 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	corbet@lwn.net,
-	akiyks@gmail.com,
-	luc.maranget@inria.fr,
-	j.alglave@ucl.ac.uk,
-	dhowells@redhat.com,
-	npiggin@gmail.com,
-	boqun@kernel.org,
-	peterz@infradead.org,
-	will@kernel.org,
-	parri.andrea@gmail.com,
-	stern@rowland.harvard.edu
-Cc: linux-doc@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-arch@vger.kernel.org,
+	s=arc-20240116; t=1789550208; c=relaxed/simple;
+	bh=d0WWrY2JFvGVRywjigkEhTNyV/Mh9NTYbglso1vrsyo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CsTdA5637QgMeFKbI1G8BgjDcEpV2DHGKQaC11exT264qYSCywW8SULMmfCYSAt6L8P2JjdLAXLT0EziSQTeP3u0E2TkoOG7/xEWmElJertgng00YWdPivbEIsRg1mcPo+5mTK6GzjcEonoifrouZ6Qg4vT/4Vgqc7UGyonp9b4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADHk0FmXqpqBjPgBw--.41336S2;
+	Wed, 16 Sep 2026 17:16:22 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: akpm@linux-foundation.org
+Cc: bp@alien8.de,
+	dougthompson@xmission.com,
+	juhlenko@akamai.com,
+	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	rdunlap@infradead.org,
-	skhan@linuxfoundation.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH v4 0/2] Documentation/litmus-tests: Add SRCU fastpath litmus tests
-Date: Wed, 16 Sep 2026 17:16:11 +0800
-Message-ID: <20260916091613.78352-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	tony.luck@intel.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] EDAC/i3200: Fix mci_pdev reference leak in i3200_init_one()
+Date: Wed, 16 Sep 2026 09:15:54 +0000
+Message-Id: <20260916091554.1998750-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,53 +37,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADHk0FmXqpqBjPgBw--.41336S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtF43GrW5JF4rWw1ktFy7KFg_yoWkGrbEg3
+	WFvFy7Xr4kGF4qkw1xCr1fZr9FgFs2qr4fWr4xK343Cr4fW3WDZan8CFyDAr47W393AFWU
+	Kw1DKFyfJF42yjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbx8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JULo7
+	NUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqP4eEvgAAsX
 
-This series moves the SRCU fastpath litmus tests from
-tools/memory-model/litmus-tests/ to Documentation/litmus-tests/srcu/,
-as suggested by Paul McKenney.
+In i3200_init_one(), a reference to the PCI device is taken with
+pci_dev_get() and stored in the global mci_pdev even when
+i3200_probe1() fails.  On that path i3200_registered keeps its initial
+value of 1, so i3200_exit() skips the pci_dev_put() and the reference
+is leaked.
 
-This series splits the two litmus-test patches from the earlier
-[PATCH 00/13] srcu: Round out atomic SRCU support series:
-https://lore.kernel.org/rcu/20260907075829.2073224-1-kunwu.chan@linux.dev/
+Only take the reference after i3200_probe1() succeeds.
 
-The two tests verify the memory ordering required by the reader-free
-synchronize_srcu_atomic() fastpath: the grace-period anchor must be
-ordered before the per-CPU lock-counter scan.
+Fixes: dd8ef1db87a4 ("edac: i3200 memory controller driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/edac/i3200_edac.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Patch 1 verifies that the anchor-before-scan ordering forbids a reader
-from being missed by the scan, while patch 2 shows that reversing the
-ordering permits the problematic outcome.
-
-Changes in v4:
-- Remove the smp_mb() and critical-section write from P1, 
-  keep litmus tests minimal, as pointed out by Akira Yokosawa.
-- v3: https://lore.kernel.org/all/20260912024225.2872265-1-kunwu.chan@gmail.com/
-
-Changes in v3:
-- Add a critical-section write after the smp_mb() in P1 of both
-  litmus tests, so the barrier properly models the lock-increment
-  to critical-section ordering in __srcu_read_lock().  The smp_mb()
-  was previously vacuous because P1 had no subsequent memory access.
-  Suggested by Akira Yokosawa.
-- Adjust indentation of the SRCU entries in litmus-tests/README.
--v2: https://lore.kernel.org/all/20260912024225.2872265-1-kunwu.chan@gmail.com/
-
-Changes in v2:
-- Use a filter for the P0 scan result, as suggested by Paul McKenney.
-
-Tested with herd7 7.58 using linux-kernel.cfg.
-
-Kunwu Chan (2):
-  Documentation/litmus-tests: Add SRCU fastpath anchor-before-scan test
-  Documentation/litmus-tests: Add SRCU fastpath scan-before-anchor test
-
- Documentation/litmus-tests/README             | 19 +++++++
- .../SRCU-fastpath-anchor-before-scan.litmus   | 55 +++++++++++++++++++
- .../SRCU-fastpath-scan-before-anchor.litmus   | 52 ++++++++++++++++++
- 3 files changed, 126 insertions(+)
- create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus
- create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
-
+diff --git a/drivers/edac/i3200_edac.c b/drivers/edac/i3200_edac.c
+index 6cade6d7ceff..c80c77230369 100644
+--- a/drivers/edac/i3200_edac.c
++++ b/drivers/edac/i3200_edac.c
+@@ -439,10 +439,13 @@ static int i3200_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		return -EIO;
+ 
+ 	rc = i3200_probe1(pdev, ent->driver_data);
++	if (rc)
++		return rc;
++
+ 	if (!mci_pdev)
+ 		mci_pdev = pci_dev_get(pdev);
+ 
+-	return rc;
++	return 0;
+ }
+ 
+ static void i3200_remove_one(struct pci_dev *pdev)
 -- 
-2.43.0
+2.34.1
 
