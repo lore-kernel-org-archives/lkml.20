@@ -1,127 +1,240 @@
-Received: from mail-ed2-f0.google.com (mail-ed2-f0.google.com [74.125.228.64])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212714B53F2
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:11:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553488; cv=none; b=e0iGeCTEncAQzdiyqy9Al28678QitS5gjghQ8OkfnVA8tz/1x6GCH/qLok34q4tvNefEFFNLHkgGTsc2Me+jZkUSgZraN50AIEfD6RvaGL8WczFciHl/nncZQJvu0LpCO6toYTlmlyAM+u1qqN3od1rcBjV6styjVFU7lmUTBUc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553488; c=relaxed/simple;
-	bh=qcK8mVSLEgWHYfVxcypZ4shTT751evsoUA85cs2h7s0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rg2L8NZPgDrZKdxGRfNrYs2w1ToJPogJZq8t9c+BGw1tioLun6EMBRedFjBjiaQTuCqr6PXfG44ARZ0tGrMnRJB9kovaY+oizIvI5s3tsAzSjnRNa6+cvwhN9eaIikBtl55fglsqop0spemCI0rRCIdc3ehCjQ/dZ5j9y/0qFDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=OMMg/HBC; arc=none smtp.client-ip=74.125.228.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B1B4C151A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:12:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789553569; cv=pass; b=PLYWWqmNGnkJXxxjsY0yYrI7CSVfCMx3eL1a7pCwOrsRFSRcjiAYNlkBz9ehkTH9XPm00aAC82QflYwP6Xi3qgyPcbWIofHSkkEusa4Z4eloztmwl0iFj6EsNFkgLzWGf5dMrOx90m3Cj1oXpmI8SQ3WMkSHVCeG+wCvl1dGwZw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789553569; c=relaxed/simple;
+	bh=FcMZAWu6Pl4djj9zhAk6RGVFzPCsFGY0WGARMV3Tby8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dv1Zl7CdLwRP3LsVk9ATL4aXOKqLFdaAdMQ936A3C2Vvx4zlkIUpZjeuQCB6MxLUs2Q2EbDOPlSMoke4c5ntVJnRDdxck3ok289HfrWr4jJ+psWKqgUT6Brt8opAUKrHl6chOJHNR5M5fyK1adof1qYAYMNgLeKApkVizIgq9FE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=oT2Dsa4y; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="OMMg/HBC"
-Received: by mail-ed2-f0.google.com with SMTP id 4fb4d7f45d1cf-6a8a84cf27eso3373413a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:11:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="oT2Dsa4y"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d822dso5608725e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:12:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789553550; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PPPmhucGDLAodsaDqPcJPexvoX0FevrYelPdcX5Q32hKYZJeaq7htVDFIKjJwGUESy
+         guiqecorbtOcevcLaFML/i/arSTScRRgX/a09BBzfaQDiD5K0I5iOB5SJelKexb8PBue
+         g/jvyAA7c3o32xEy+VG40XUIlhbt8Ee3UI58PC6M+ijl0RBkKs5a8zgi8O2B02gR4N2Y
+         d5SweRK+AOmUvJo+oCehAfFYrGe0XvoKdrFAig10FY2my79NEQUhJQ19zWR5rdHWKVWK
+         jkXKTYaebVCNdju+Gxi9PLqVqWA22Dkn0M/wvnrHrYoBatBA47SPFN94wlUvV9YLBSqR
+         t/dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VMvnu6Q+bhTIDoi1lbqTiSXnAgA138OR2uRiPsRsuJs=;
+        fh=OBcU5jGxgTYUDT6pDTp7h3apkv6klg6IJB+6RdMoCRA=;
+        b=dtsLYRw0l803E5c6yS1iTVZ9MYca2fuWMMTdo+CIEyupJyEULzyme84+xIM5a7W7aS
+         UHLkfx18wsHOBolQpPVqpYjQ3FhZk2ejiSJdtYFdiLZ5F2gCJ9cweOUYLSxPum47rphf
+         bzq5N7q6/GPvkk9a6xYoTwBMqYzf7IMK6ZgGdn6AAS8asaoNcBatf1m/EtN1RR9X4aGm
+         /s2GXFHkugbL00Qg8S2Gwx+aJABxOvIlmzb92vCLBRhFshMGecab/B292e/Ly0sDR7Gg
+         QEVIsdhqlkn6U/0zbjIfXFw+LPSPdzTasKOwNbD8PKx4i4zlxT+qlN+ipvadwJSqHhCL
+         /ubQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789553473; x=1790158273; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e622UGf8ZvPqnsgwsEF1KHHm7KMF1mCNxmUVRgHGZJI=;
-        b=OMMg/HBCDVn4KsbXs69eTm2TCIR+jwgeKK7VR+V91orgJhwJHYbMr34fl5TTmRYStg
-         GQOUPlnXM6v511/2RaQYK+Vsjb19lGW3hDZHG0tPhF/eSSr266NYKbPGQn6jd2j9zG91
-         XEnNEUWj1G0P9xkebfqmfdkrZ3tKgOE1G8glM=
+        d=brainfault.org; s=google; t=1789553550; x=1790158350; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VMvnu6Q+bhTIDoi1lbqTiSXnAgA138OR2uRiPsRsuJs=;
+        b=oT2Dsa4yx3+dHLscDy3ZY+lSwK7V6pmb0dHhdUF8HM+3ZVgBjSm5S+jBPGPziqCFvh
+         nefhVwCCwfX/abaqccUI2fEOs62vVSyIU6nn1+ms3l+bt5g1ibRnxAgSeK718Ck8Fe7A
+         5OGxkQkrTHvP3DNmZ5Z1xXI63GelHMN+F7SD9DMmRqHEecivXvoHF9FqoYfGquN6YSQ+
+         ji9SE1sUqEF+s29lfcSPXjYKJFxngsIEyWEs6xvc/RsO4+7MisNtv2/6/k+2d05fAGzQ
+         fbGs4NaaYgXRtpxSV3JrrrWq4gVs/T0OOCDTUbgyBq4y+1OLUhZEOq8taGzt0eC7nWt1
+         WAIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789553473; x=1790158273;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=e622UGf8ZvPqnsgwsEF1KHHm7KMF1mCNxmUVRgHGZJI=;
-        b=087IOiAntwjunocwV5mFJgA02G5hyfsC7Ni6wot2flGsokxuiqFLU5i/6Bk616uIJR
-         vCS4JOMwtkwxHarWPAc6w+GOI2PrB04GnHsOd8RyyMJHJC2ddyGgr5eQJU/ciLBBbaqI
-         JhYbAZ4IrXO8G7YsK1K0oHaqrH2rCknTAecFaXg20wqE0Tc0FgAIRHTZiNFkHkVz/sHV
-         HSfUV6aKx4u/EK1S/apHwet14uK7rEGDWUyZl2wiiSpjmt+2C8W46mLdgCrlVKxn6FLl
-         NveHCNl1cZ+xnoCSLIMyCOqfj+PpYOLEngPAUMSRKrCFpX8zvjRUFHjq2X84KwhopP0E
-         MrBg==
-X-Forwarded-Encrypted: i=1; AKwUvByRVBoA1Aq/HKnylJpDAzOrSdpfjOkp1CUFT5Aojn8wJgZ+zt3Y1uJYHOtocopzVlUhITqFxp+e7qhRXTU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNkXaSCBb+60R/7qE9g3eEuyrcNDI43KBP2rqfwAalXiwnJIGS
-	whlUR8SSjmKdtsxtwBubuqA+RgpwgHWCK6StKFT4D5rdL/rHO6IYyirMUnGAaKOGYEBW8qmgmf4
-	GHKOMrY1t
-X-Gm-Gg: AYBFou3YG8qgBs46vftSFPOIEd7j9t+GGbg12Wym06RSjVnUBbYajoCT0GEC/xyG5gu
-	SY1ffVG1K/zRb/aQBSlczC8cDVaACe3yhj3XMhZ8TD3DED6nBt5Jpk3OsUz9g1kjDUQSIdcx09+
-	FcRfb+8R8UskDwVW3pYU9SemSChQ+3Yjngbks2lORZj0tnfS85NlgccGzYkSfOov+tJhDZUwFc3
-	kKmjZYjSuDaoMRT02ujcJIr53+A/yPPYXJi8gyUemSzVOLcqW+IhbM/qHLWIP2ikRdVkX5MtwsI
-	gTGiVQFT3621zL0YVGOF2qqDmvRzT4RxMYEw84AQxABJOanrq4QTfpduNr9qVaSIncvGsEI08py
-	s4Fyah4YCLNpNdOJEfa7x1VHsnrvG7XmaW5J+1ps+LSsceULX5R+7M9peV8njfMLhj5YAVBnzVR
-	ZhRDfr7k6vUXC5cYR/mUbCbRcUulUAQsxzYaatGNjmr98ebdGD10dHZJxLJSrgNruhbzm4Kiee/
-	T293Y/Qm/x1ZUvp
-X-Received: by 2002:a17:906:c14f:b0:c26:1648:a066 with SMTP id a640c23a62f3a-c29e5308366mr126288266b.33.1789553473036;
-        Wed, 16 Sep 2026 03:11:13 -0700 (PDT)
-Received: from google.com ([37.228.200.171])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de6933e3sm106497566b.61.2026.09.16.03.11.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 03:11:12 -0700 (PDT)
-Date: Wed, 16 Sep 2026 11:11:10 +0100
-From: Fabio Baltieri <fabiobaltieri@chromium.org>
-To: Benjamin =?iso-8859-1?Q?Cab=E9?= <kartben@gmail.com>,
-	linux-i2c@vger.kernel.org
-Cc: Till Harbaum <till@harbaum.org>, Andi Shyti <andi.shyti@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i2c: tiny-usb: add Zephyr Project VID/PID pair
-Message-ID: <aqprPlSgpqkMmWJf@google.com>
-References: <20260820213958.41276-1-kartben@gmail.com>
+        d=1e100.net; s=20260707; t=1789553550; x=1790158350;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VMvnu6Q+bhTIDoi1lbqTiSXnAgA138OR2uRiPsRsuJs=;
+        b=ti3P/6/cEMXAkr4fS3oZr+vk9uky7RXpb1rBfGUbzzX42a+xfPjUnos2RTSuQ8zZ1h
+         MO2E3dpeXuymYfPLVuchCU65BjpMtqxakRzzqCruuD94mPKK0MVy3prljyS3LNlS9p84
+         eflz+lw6QeNeuyUP0U1C3Qq7gXSEGBgTvgMztcGLBhca1PAqK/8h13UJywx342oaQ+ER
+         cNhZCFJpnk3WY7d+O0rwfDRBNx0ckVcPqQVKOuaq3TcmnTM5lamwsU3rjrlX3sbHm8Bw
+         qdM7b/bSYJMu9vCNqATFid72Rx5E/oKyi346sFmo41eXK5bMElxHGOadWu2jeSoMlQsL
+         1RZA==
+X-Forwarded-Encrypted: i=1; AKwUvBxDW9AOsnXLGuiOYwXX8z7eRHSCiRbqZa8MtMis1O1dafkEhkDV88T2Vc4fQ1PavJBcsHqbmpmNRCPmtIM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkK5Ngm3RUJswUJD8EcuBzZKTJlGqxNBazYE91UA5zt1Hxct7d
+	Vd3H/xL2gGhcpYKNSvgrJzmbLIc1Sgw45dGlakP7WO/uuKfYlZtg4+6hxfTj9MI7YdEl01GFDlV
+	5dXPgVSSTfcp2v3vcOnfxc8crwgvtq/WZi0Vg89EpZg==
+X-Gm-Gg: AYBFou3nAUJPR0pgzdoVk9gKbGBKrLyDP4kStZRgwQk5QP6AiQhhUXlANaGks0MT5zE
+	rmJdNmyDiy6AYDX1B7wFRVxusBVZwILK1wUUO+D2RkUrdfhBoirTTav9tH51RNqksML6jRZi6uP
+	o7jEYKlVCDEdXnrLtXqhVD4hSuOnNlz+dIELrVHKF/7aoNHy3XXvTAsEnjIbxg2ABwbPrCBLV4d
+	nXcnf71ccpKSLv5mx/oRjkQXwrAXb4Uf0rb9uTm2l420Ip5JHsITnRAikojXLQbgNuhpIgdE/IS
+	OTi6BCOK9vykJPGMqZOU42KVgsuFOLau9TNqrONGqsOUyQKNGus4GqaQbBkSoRwctrsEzkG0Kc0
+	Z2dkGsXehonqq/bkBlkFnL9T3NYJsWccE0sk29cXnEhO9DaZmEEclXWRdep587Avbn8ysSJ1f0t
+	8=
+X-Received: by 2002:a05:600c:1986:b0:49c:d019:70c5 with SMTP id
+ 5b1f17b1804b1-49ea528e2f5mr24120835e9.0.1789553548884; Wed, 16 Sep 2026
+ 03:12:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260820213958.41276-1-kartben@gmail.com>
+References: <20260912-rpmi-tee-service-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com>
+ <20260912-rpmi-tee-service-grp-dev-v1-5-1d1d35c2a859@oss.qualcomm.com>
+In-Reply-To: <20260912-rpmi-tee-service-grp-dev-v1-5-1d1d35c2a859@oss.qualcomm.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Wed, 16 Sep 2026 15:42:16 +0530
+X-Gm-Features: AcwNN1XhJcdypVFFKePBGQrRcccPnauqo1pQsJ8HQwZetdLhE4E6-eyGGrD9-yI
+Message-ID: <CAAhSdy3Or_uDWuQniUGguc9AwL8smF6XHhJ0kizFOJKJ0N+9OA@mail.gmail.com>
+Subject: Re: [PATCH RFC 5/5] dt-bindings: tee: add RISC-V RPMI TEE transport
+To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Rahul Pathak <rahul@summations.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Heya,
-
-On Thu, Aug 20, 2026 at 11:39:46PM +0200, Benjamin Cabé wrote:
-> The Zephyr Project ships an i2c-tiny-usb sample with its USB device
-> stack, which turns any supported board into a USB-to-I2C bridge. The
-> sample implements the same vendor request protocol as the original
-> i2c-tiny-usb firmware, exposing a single vendor-specific interface
-> with no endpoints, so it can be driven by this driver as-is.
-> 
-> Zephyr in-tree samples must use the project's own USB vendor ID
-> (0x2fe3) rather than a donated or third-party one, and product ID
-> 0x0013 is reserved for this sample in the project's VID/PID list.
-> Without an entry here, users have to bind the device by hand through
-> the driver's dynamic ID sysfs attribute.
-> 
-> Link: https://github.com/zephyrproject-rtos/zephyr/commit/281b5743d183
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Benjamin Cabé <kartben@gmail.com>
+On Sat, Sep 12, 2026 at 3:45=E2=80=AFPM Amirreza Zarrabi
+<amirreza.zarrabi@oss.qualcomm.com> wrote:
+>
+> Add a device-tree binding for the OP-TEE RISC-V transport using the RPMI
+> TEE service group over SBI MPXY.
+>
+> Describe one mailbox channel per hart and an optional interrupt used as
+> the availability doorbell for asynchronous notifications.
+>
+> Add the binding to the existing OP-TEE MAINTAINERS entry.
+>
+> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 > ---
->  drivers/i2c/busses/i2c-tiny-usb.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-tiny-usb.c b/drivers/i2c/busses/i2c-tiny-usb.c
-> index 73355a56aabf..113af96728dd 100644
-> --- a/drivers/i2c/busses/i2c-tiny-usb.c
-> +++ b/drivers/i2c/busses/i2c-tiny-usb.c
-> @@ -157,11 +157,13 @@ static const struct i2c_algorithm usb_algorithm = {
->  /*
->   * Initially the usb i2c interface uses a vid/pid pair donated by
->   * Future Technology Devices International Ltd., later a pair was
-> - * bought from EZPrototypes
-> + * bought from EZPrototypes. The Zephyr Project reserved a pid from
-> + * its own vid for the i2c-tiny-usb sample of its USB device stack.
->   */
->  static const struct usb_device_id i2c_tiny_usb_table[] = {
->  	{ USB_DEVICE(0x0403, 0xc631) },   /* FTDI */
->  	{ USB_DEVICE(0x1c40, 0x0534) },   /* EZPrototypes */
-> +	{ USB_DEVICE(0x2fe3, 0x0013) },   /* Zephyr Project */
->  	{ }                               /* Terminating entry */
->  };
+>  .../bindings/tee/riscv,rpmi-mpxy-tee.yaml          | 65 ++++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 66 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.ya=
+ml b/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
+> new file mode 100644
+> index 000000000000..8f6ff313fd42
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
+> @@ -0,0 +1,65 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/tee/riscv,rpmi-mpxy-tee.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: RISC-V RPMI TEE service group based message proxy
+> +
+> +maintainers:
+> +  - Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+> +
+> +description: |
+> +  The RISC-V Platform Management Interface (RPMI) [1] defines a messagin=
+g
+> +  protocol which is modular and extensible. The supervisor software can
+> +  send/receive RPMI messages via the SBI MPXY extension [2] or some dedi=
+cated
+> +  supervisor-mode RPMI transport.
+> +
+> +  The RPMI specification [1] defines a TEE service group which is the RI=
+SC-V
+> +  analog of Arm FF-A: OP-TEE and the rich execution environment (REE, i.=
+e.
+> +  Linux) are peer endpoints and the RPMI framework (machine mode firmwar=
+e)
+> +  mediates every message. Entering OP-TEE on a hart runs it on that hart=
+ until
+> +  it responds, so the SBI implementation provides one SBI MPXY channel p=
+er
+> +  hart; all of them are listed, in hart order, on a single node.
+> +
+> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +  References
+> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
+> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
+> +
+> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
+> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
+> +
+> +properties:
+> +  compatible:
+> +    const: riscv,rpmi-mpxy-tee
+> +
+> +  mboxes:
+> +    minItems: 1
+> +    description:
+> +      One SBI MPXY channel implementing the RPMI TEE service group per h=
+art,
+> +      listed in the same order as the CPU nodes.
 
-Thanks this makes the Zephyr side sample way easier to use.
+I am not sure why you need separate MPXY channel per hart. The MPXY shared
+memory is already per-hart whereas the MPXY channel will be doman specific
+for TEE.
 
-Reviewed-by: Fabio Baltieri <fabiobaltieri@chromium.org>
+Also, for this binding refererring to only mailbox channel is
+sufficient. The underlying
+mechanism to send RPMI messages is abstracted away by the mailbox controlle=
+r
+driver.
 
-Cheers,
-Fabio
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description:
+> +      Availability doorbell raised by OP-TEE to signal asynchronous
+> +      notifications over the RPMI TEE signal bus. Optional; when absent
+> +      asynchronous notification is disabled.
+> +
+> +required:
+> +  - compatible
+> +  - mboxes
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    tee {
+> +        compatible =3D "riscv,rpmi-mpxy-tee";
+
+This must be "riscv,rpmi-tee" based on above comments.
+
+> +        mboxes =3D <&mpxy_mbox 0x10 0x0>, <&mpxy_mbox 0x11 0x0>;
+
+Like mentioned above, only one mailbox channel is sufficient.
+
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 207a6e2db70c..7d0e550085b2 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20577,6 +20577,7 @@ M:      Jens Wiklander <jenswi@kernel.org>
+>  L:     op-tee@lists.trustedfirmware.org (moderated for non-subscribers)
+>  S:     Maintained
+>  F:     Documentation/ABI/testing/sysfs-bus-optee-devices
+> +F:     Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
+>  F:     drivers/tee/optee/
+>
+>  OP-TEE RANDOM NUMBER GENERATOR (RNG) DRIVER
+>
+> --
+> 2.34.1
+>
+
+Regards,
+Anup
