@@ -1,102 +1,78 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BCCD35675E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:57:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94503438A8;
+	Wed, 16 Sep 2026 14:58:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570682; cv=none; b=Ym95j/LzFNazTqZhSOlVWKD9d4pWUhulB9LChrLexO/XIu4Xm9fohvoJyiHlAAOhZZo8MkooiBiyHcqsJVrWfLNG+HSHaPkPwQYCpM+VODD4pQMOsihbKiEJNmNDyKwzEoObH5h4F9bKTjlW+iGTLfJJwPrEpWmFi/fSqJ2Eet0=
+	t=1789570692; cv=none; b=bMz+Pc04aF4nNmDt4aAtDUH2uuS+ZENIsB7nELQZlIRmZnRosPMYuWrYupWnuBwSF2kTALq48N8KOj+g6ZHGC6nZA3h+qx5WIqT10PZIBSVuUNuwVtEDAJLtxF1st1x7tXLhfUrvXA9TVP780O34mdoo1oEyJVp2kEriQcM9w9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570682; c=relaxed/simple;
-	bh=CpUAebJC1PrDhh1drx0A8Kt+YRnUWsUNY74Vdvutk7s=;
+	s=arc-20240116; t=1789570692; c=relaxed/simple;
+	bh=kBbz/1QiuJGNcnEAr/B924HNmHCIr8y68uIu/h47y3I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eZYxYrpWYc8yGakw1MGpCeRex2nOOaN++nPQJraGNteFd2N7XvcYSfgy2IlQGobL2ogYkijU7C7Zrr2bbM6+plxqTBPpmmBd8tT0OtZiR7gK4FuQYrvLS0KQS7pAZOlPwx+O8sD8bdMwd3MpNsZIp+tPVCAYEL3FZcIDTv5ap7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kaaMOHDP; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=pF5TgbgkujyPPv8BzXnuO1UqK7ClrRKCEi4/+5fy5P4IRMSgoA4fHNuLUUz9Yro/1aTx771ja7k7wR95Ih9lTKh/dTCezGa8ykD4G3e1Br0puXUHnuLvneY4Xqueru2409vAQ8QFa5AJTLzBUT+P8y2XGBWqq2B5HuZTDAJY+xY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=jkUM4wwF; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kaaMOHDP"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398a1676000so775540a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:57:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789570679; x=1790175479; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TDixk/GSJOV5BpgRul+d6xvI1z7V0gQyg9KKI9YySso=;
-        b=kaaMOHDP5rLcnaLL4AIPDb21bt0YbuZKDMUPF9Aa/w2agQsxv/vB2fFtbvsi1ZWKfV
-         n1edh82X/Ejcs5n2CdQZG05c0IKRBNTxUUEW1xNuT1ryaqTCTuEHTP+NGsWmMsWqX41r
-         5+F/JduHk5NdqnfzjQ+kB0SnSfu7gGbiq8X3cPDibdcpQLdGGI1dNP9Xm94LTjVjZ8qB
-         Av27R6nORR6fUvDallFWH+7X9Rd+Y6NVjizjw2ULZ3bVjfv9BE86U8iMzwA4lGXcomO1
-         yxw4E+mIGy8RD7CBk7qq8jNf7HdWO0vVTMEA2tfkudXGua4oSmlPO/pKdSJJW9k5HlK4
-         qI5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570679; x=1790175479;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TDixk/GSJOV5BpgRul+d6xvI1z7V0gQyg9KKI9YySso=;
-        b=Mixw1R6yBLb0pBUUryfmABmtWw60xvVuClYzfDz0izc2pI0RcjdBm73t+6Vv4fHLJm
-         /W7/lP3izejUHRizTGvsV7W7Cncv0Dg40DfPVS2AXJeEmN6LgsSheqeVMW31pynncBV7
-         gVUx8x699KDBg9wVs7U8RSLHBIbYtD6vYpBQ3qO2O2a7mGCL809x3hhmkm9Z+zIdV822
-         FPpuVEikuaZxA/tZL05AcqpQRf82mgeW3rutUMm2z40hadnVMws4SwrCHJNAqEwsKgjp
-         Q8jNxrQhItStQ6ze8W4cTp28mIOx4kQUZtIeL+ZlKZ0XppVW9vhlpqe0nhgrDJLVD7Ou
-         jZkA==
-X-Forwarded-Encrypted: i=1; AKwUvBzSjoiH32oG+IBr3ft3yYEkEY6dt4ldyS64epc0XF3ozxpwFd2zXXEFkJ9CpTphw27GuqVR/+ZkLDH86QE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLljn3+AilO12WPs1EthOZdwLkWaoZHyFjwY3rAUMoZXUSbej8
-	AZmF/cvXK7ys2eziMLjqD6mJaOu97gWdhSkvWfYsi97eMnP0EOgcWRZ7
-X-Gm-Gg: AYBFou3X8qnKZw0iMyg9gbn0H9lf1/NmNNG9tql6dilA8LmP1p584tqjmC6KABcfh4o
-	/GuTN43HXkbvdjqkLhFoQcepEXE0tITZBoUXWWFWhnA4C9MQDNo+0BVkKOpsxyqJcNZyatnwl+P
-	aHFNbua4Mi5vrhgzQf7L/q4a3y3VBJSdycZm0gjElRqJ/o/yCmcR930Zqtc3AUrrPTnp6PMav/h
-	iM437mpHa9Pim0bbRUnYkC9kKByjZ5p1DkI3S24u2F/B3ATtTWBQQy9SzD8ABLY/slqTGJRegqS
-	JTWdmqZoaTDj27wCDXyZeBaO+YRgmchjlEeAqBTWB8z2XyXZJusiLyU5YSzvm23Zc32+LNfdP+1
-	eCvxL0zkPOzQb9tGLwWq78sgCAi1XPzCfUxB5qjD6vpMse40lDor22UbZskVe3blGLriKXvgvZl
-	F0DHoG/NSQedGH+qCO9/UpMH3r2MXlt/K9tfad4thDGL6MYLSsD1pmQ64lpScMJigQdAkPUScke
-	m8pAhtLyQux
-X-Received: by 2002:a17:90b:1c87:b0:39e:261:4e12 with SMTP id 98e67ed59e1d1-39e1e51d7dfmr6871687a91.23.1789570679120;
-        Wed, 16 Sep 2026 07:57:59 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1d0be48csm1593063a91.3.2026.09.16.07.57.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:57:58 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 07:57:57 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Sanman Pradhan <psanman@juniper.net>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v2 2/3] dt-bindings: trivial-devices: Add TI TPS536C7
-Message-ID: <8a7d2481-16af-4fad-8eb8-00718117d354@roeck-us.net>
-References: <20260915164823.160977-1-sanman.pradhan@hpe.com>
- <20260915164823.160977-3-sanman.pradhan@hpe.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="jkUM4wwF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Reply-To:Content-ID:Content-Description;
+	bh=COLNcUPhaHuPoajOa2w4xGx9z5aHzLkyXlfhaui+CKs=; b=jkUM4wwF4qX9VYbmbmn9giecw6
+	zdWLghQUxeH9Qvy4NpoMdKWVeMNd51R6TH4iqTPESpQy//eqxP9r5jWLO4ZEpmMLX7PJlzAR93hcd
+	3vprsdzTd/QkBycGhsxSi8V9j/4nH3OfiXtxVPEmvTR6Aq1aZL8cqC950fJXDh2TNvVt8ZrmevHZH
+	arqQHmhkNvrNmnW7CKE8NZmGOoDh0SzJ2eMoo5qx6EfpdqbVIkS9x/hJy+jZ74nZO0KX50kind+Hw
+	T7/1TwoCgQTLcDz9IPmfUBvv8gqHsoNOiJ6U0UvGisNBn69VEJMmhmua6zs3dANQaDwI3Tn7AuVGY
+	qFPeetmQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x6r59-005FPv-1N;
+	Wed, 16 Sep 2026 14:57:55 +0000
+Date: Wed, 16 Sep 2026 07:57:49 -0700
+From: Breno Leitao <leitao@debian.org>
+To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+Cc: Alexander Duyck <alexanderduyck@fb.com>, 
+	Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Daniel Borkmann <daniel@iogearbox.net>, "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, 
+	Mohsin Bashir <mohsin.bashr@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, Dimitri Daskalakis <daskald@meta.com>, 
+	Weiming Shi <bestswngs@gmail.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Jacob Keller <jacob.e.keller@intel.com>, Tao Cui <cuitao@kylinos.cn>, 
+	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>
+Subject: Re: [PATCH net-next v3 2/5] fbnic: Track BDQ device-page geometry
+ per ring
+Message-ID: <aqqr78J1hvl39stV@gmail.com>
+References: <20260915182105.4162425-1-bjorn@kernel.org>
+ <20260915182105.4162425-3-bjorn@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260915164823.160977-3-sanman.pradhan@hpe.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260915182105.4162425-3-bjorn@kernel.org>
+X-Debian-User: leitao
 
-On Tue, Sep 15, 2026 at 04:48:41PM +0000, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
+On Tue, Sep 15, 2026 at 08:21:00PM +0200, Björn Töpel wrote:
+> fbnic derives the BDQ buffer layout from PAGE_SIZE. That decides at
+> build time how a posted page is split into 4 KiB device pages, and
+> uses the same completion decoding for HPQ and PPQ. That is wrong once
+> the queues use different posted-page sizes; completions must be
+> decoded with the geometry of the queue that produced them.
 > 
-> TPS536C7 is a PMBus-compliant dual-channel D-CAP+ multiphase step-down
-> controller. Add its compatible string.
+> Keep PAGE_SIZE as the posted-page size for both queues in this change,
+> so the descriptor format and runtime behavior stay unchanged.
 > 
-> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Björn Töpel <bjorn@kernel.org>
 
-Applied.
-
-Thanks,
-Guenter
+Reviewed-by: Breno Leitao <leitao@debian.org>
