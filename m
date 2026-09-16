@@ -1,34 +1,33 @@
-Received: from mail.zipdox.net (195-240-81-79.fixed.kpn.net [195.240.81.79])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D5045C714;
-	Wed, 16 Sep 2026 07:43:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.240.81.79
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D6E645FFAA
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544615; cv=none; b=stnoignM5ZmI/QCva11R8mxsWCXNDfnSxpDPj2utjfdt9PLF0EE6cohY8nJ6y5LjBbZ4IgqXz+nwT7mv/s6O0gjjeOeUn6QO916iVrgFKTub0NroOlEJWHGm+y+p68gfth99Xq3rftzlzTXM+mzotcdhSApHMbVTieBGM4Mk/48=
+	t=1789544710; cv=none; b=ppTUwOabJ4aIXJvQnq9YpOyi8B4g+GV+WFq0aXRS8dDkAPAmxOYZFGwa6IrhoWXpuw/Ad/i4QrW5VFqseACfsVkbn/CITT9dTt17S6uQK8hhgxO3VKpTFACqD8sZrzuhkiPe0RjyGCU3QdyXaNJY0d6zPUbxuiyr1U9D/oKrpcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544615; c=relaxed/simple;
-	bh=rzRL3OyhTcnufJt3pvWkEq0P77Hr+fA7mcPihIjDB0E=;
+	s=arc-20240116; t=1789544710; c=relaxed/simple;
+	bh=89gMFKDdMJsSnsocST4/zLkZzm5OuLeOCuMYn+ENPfI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m09MSU7PnK1L32C08piIjUDDij7w8fjd4xmjkwLvW/Ir4nNfPGTIkfofOnfIeY7PShNmBgoK1DQ/4ckr+1P8vkYeLyN/g7Hejm4GOUzSn/j1Ft7VvR8u+bluHqrRV/7ksAAbqPJcVXp4KchnJZxAycR91/CdIy3GbrSNcgjx5LI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net; spf=pass smtp.mailfrom=zipdox.net; dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b=L/r8qrzf; arc=none smtp.client-ip=195.240.81.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zipdox.net
+	 In-Reply-To:Content-Type; b=use1cOkl0IwScxxqaCaFQw+KN6L9du20vwbKx8Pjj44o65/Ou0Hk7k2nTTTYkyRDjhAaXxAjcIspC2GtFcDZpGBXigom7yS1E9rsdCmsQOifjogJMigN3XowWh0kSTSh6DvNbRozTXydr9+tqf4Ar711JWFKJ/Ds5cPK5fhtMNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Pw10yfhX; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b="L/r8qrzf"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AE16792A5F4;
-	Wed, 16 Sep 2026 09:43:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zipdox.net; s=dkim;
-	t=1789544600; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=ttF87G2qEt6DPtDm3W8hI21JToURDEmqGv1ROgC/o+k=;
-	b=L/r8qrzf19qRHtxzL5rM4zRoIso1CgjcRP4weZvDInZ9Om6HT5u8QHSS6HwE55Jh3GJftK
-	INMiYNNMqHKtwZxNmKK5oFFnX7fhDOf8GjQaAdcDFNvoF+sGwy7l8nmvhH0hXyXygsEfb7
-	q59M7OX/ejIiCJrl7g5nmVaExkBXIwowWJ62xe5mdE1u6lU1CQa9Ih6fdrVIK5QS0lv3+A
-	q/1b4/XqVjy6xtEbKoZjVPWrHjn6U+JRS7B6OPqMEy5816YKp1CyXGtVzC/tnTX5zdNgOF
-	3JgbHPZeo9qciDnSncivQ9OsH50VGMjaUvdnzUBz2/sR1XASvygko0eykGDoDw==
-Message-ID: <da56664f-901e-497b-a74c-ae41cbc5cac4@zipdox.net>
-Date: Wed, 16 Sep 2026 09:43:14 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Pw10yfhX"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F17AF152B;
+	Wed, 16 Sep 2026 00:44:52 -0700 (PDT)
+Received: from [10.57.83.63] (unknown [10.57.83.63])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2E7B53F86F;
+	Wed, 16 Sep 2026 00:44:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789544696; bh=89gMFKDdMJsSnsocST4/zLkZzm5OuLeOCuMYn+ENPfI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Pw10yfhX/h/fuZaZCG9WhrKcJwG50gwTurnVkgdzeJ2QvngFGsJvSCMP1zRvJXHbq
+	 LcutBy/nm0LnUX2+m9+g1wto/E0tSk4c54YpkbgJDe0TyADzQcar7a6Pknp2EpGDHJ
+	 5fxcSsgqjnQSFGtv6MCBGihodG137X31EEk1nv1Q=
+Message-ID: <4814f484-4daa-407a-be60-748c392f9578@arm.com>
+Date: Wed, 16 Sep 2026 08:44:53 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,36 +35,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR
- and RANGE
-To: Takashi Iwai <tiwai@suse.de>
-Cc: linux-sound@vger.kernel.org, perex@perex.cz,
- linux-kernel@vger.kernel.org, tiwai@suse.com
-References: <d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net>
- <87bj9yn55n.wl-tiwai@suse.de>
- <59b3dc9b-f324-42e7-ab03-a01c04e8b915@zipdox.net>
- <8733vamwaz.wl-tiwai@suse.de>
-Content-Language: en-US
-From: Zipdox <zipdox@zipdox.net>
-In-Reply-To: <8733vamwaz.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
+To: Bradley Morgan <brads@mainlining.org>
+Cc: akpm@linux-foundation.org, john.ogness@linutronix.de,
+ linux-kernel@vger.kernel.org, pmladek@suse.com, rioo.tsukatsukii@gmail.com,
+ rostedt@goodmis.org, senozhatsky@chromium.org
+References: <490C65F0-0ABA-4139-A1C4-086BD2CD1D8A@mainlining.org>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <490C65F0-0ABA-4139-A1C4-086BD2CD1D8A@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/15/26 4:19 PM, Takashi Iwai wrote:
-> But your code also blindly assumes the MU_MIXER_CONTROL that doesn't
-> fit with other units like feature unit?  I guess we have to set the
-> proper Control Selector value depending on the unit type.
+On 15/09/2026 19:49, Bradley Morgan wrote:
+> Hey, I think thisll conflict with the arch_do_panic() patch (b45d6e4b3580)
+
+Ahh I see it here:
+https://lore.kernel.org/all/20260831-arch_do_panic-v6-0-a1e170a9e7fd@linux.ibm.com/
+
+And looks like it's in Andrew's mm-nonmm-unstable branch. I guess I should
+repost based on that branch?
+
 > 
-> After all, this is about the correct setup of wValue.  Let's try to be
-> minimalistic at first -- just tweak wValue in get_ctl_value_v2() and
-> snd_usb_mixer_set_ctl_value() at first.  If this becomes too ugly, we
-> can think of redesigning.
-I assumed that mixer.c was just for the mixer unit, and I seem to have 
-completely overlooked the fact that that it also controls feature units. 
-I'm not sure how to proceed from here. Do you have any suggestions for 
-how we can store the control selector in the usb_mixer_elem_info struct? 
-The control field is presently used as the input channel number, so 
-maybe we should add a separate field for the input channel? I think 
-maybe it's better that someone else fixes this, I'm kind of out of my 
-element here.
+> Once you rebase. I'd reckon the
+> change shrinks to just moving the panic_timeout != 0 block below
+> nbcon_atomic_flush_unsafe().
+
+I think I'll also want to make the call to arch_do_panic() conditional on
+(panic_timeout == 0) so it's equivalent to the patch I sent?
+
+> 
+> On your RFC question, whether the current behavior is deliberate: I
+> don't think it is. nbcon_atomic_flush_unsafe() was placed at the end of
+> vpanic() by 5dde3b735413 as a final attempt to flush pending messages, and
+> at
+> that point no console was actually CON_NBCON_ATOMIC_UNSAFE, netconsole
+> was still legacy. There was nothing to lose by putting it last. The
+> ordering only became a bug once the first unsafe console showed up.
+> John and Petr can confirm, but I found no sign anyone chose this.
+
+OK great; I'll wait a few days for others to chime in, otherwise I'll plan to
+repost based on mm-nonmm-unstable, dropping the RFC tag.
+
+Thanks,
+Ryan
+
+
+> 
+>  
+> --- Thanks!
+> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+
