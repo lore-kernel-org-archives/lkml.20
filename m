@@ -1,203 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19817550DA0;
-	Wed, 16 Sep 2026 16:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0CC5581F2;
+	Wed, 16 Sep 2026 16:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576220; cv=none; b=KeL4NJp4Ax76zj50Bw7UfiNHBOBFpLOX4vwfu1w/jWeUIOctJ0tD4dpEJ4+WoVEGlni3slVjd2uSkwStQ/1RJV7xIouiWE6Zl5K+A9NBuLfcEAaArdJUSSMz6mY4tXXneLHhckW8La8rck9qOvULeWq7Hkl9AEX1kXmehcGYi/c=
+	t=1789576227; cv=none; b=rQJ4n1H2RC8Da+spGhTyybctZ84I9IsZ04lrfGui2YZ8QvQ2vZctQ31veLcmHny4BqA5YZuIS7i1PrSZhpRd1L2AiRNdV8hQ2R7FZrqVqiT5c6uqxGHHX7BfJdkVIm+10oEXPlTk43dXBORx86amdTv3fbg9kwvcpqzcXmIO2F0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576220; c=relaxed/simple;
-	bh=AcY9JKkkaHSCkDkYBPaxWpwqeP+wKot6FOTHzcBq7Sw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uux6X3mNSs1HRrhijSkjstwybqTWTusNvUV4lWXQbAxZXoxTTagJxAbNaX5Iy+qhA9LtRdrQmgo1dIrDqkLit7ai29GfMm0jRkiJ74xR9ajLjx1JWfeazJFsbfX15TM08EExPVBfhZxVM/Z0YHHInc5D3coexDKuVKnRHI5hBCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WIQ0psbP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WIQ0psbP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75F9D1F00899;
-	Wed, 16 Sep 2026 16:30:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789576216;
-	bh=os0/Wgyf6MdE0fy7UCdlOUZG6s2Q2iH7irUfC9Ryd/A=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WIQ0psbP2AN7NiY37TUolMtu/qJ8dp3M1YJ+uZrz4Nfx8Ydn17+h898RAYW2pGggF
-	 +i/cEVBu8/aEbwdrKik8u2/GZFEGJ0JsRTRRhl7rFolLcRZ6pq1RRP9qtMVL4IiQvK
-	 pun9TxmAJi18EN/fgRT3azNGV1LqWjlO8d/kpZf9CKT77xLh0tZS7s65tS74UlkZrM
-	 vndJIrNXAMyO2z0P/dqI3f1NQXE03W7mpbnu3MFM6UVa0DTUbzlu33WIUipZCKxfwU
-	 H0Cb/7gh4Y+ZTtQuY3zRUM7xZsEF7cYWiPaDTAYUhpkgk9FZyvjDrjoyNbzJWN1AUG
-	 KkYwx9xcZU/bw==
-Subject: Re: [PATCH net-next v7 5/6] net: dsa: tag_yt922x: add support for
- Motorcomm YT922x tags
-From: netdev-bot+sashiko@kernel.org
-To: kyle.switch@motor-comm.com
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, mmyangfl@gmail.com,
- horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
- xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com,
- sijia.huang@gl-inet.com
-Date: Wed, 16 Sep 2026 16:30:15 +0000
-Message-ID: <178957621503.22033.11339961228800379392@kernel.org>
-In-Reply-To: <20260914103009.3007019-6-kyle.switch@motor-comm.com>
-References: <20260914103009.3007019-6-kyle.switch@motor-comm.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1789576227; c=relaxed/simple;
+	bh=dDk6+kVp7i2/7e3H9+Qgr9nD4/ygnU27ul2HOZpHVCc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rNiRTC/ZyNUDOe0a1QUtj1M1X7Qn6e2vVKf0lN3r499xYzlRJAb3EbGU26n0b4VpCfZbZwxDFPTiG06qplraE7azEJ3YIU/zxWakCaadLCjVUNgqxKm4VO6+teZBmBqUssr5Gpp8MdlLQ8Kn3sHODAgqiVwbKRyFLdMMUQeO0BE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABXh0EYxKpqB65tCA--.22179S2;
+	Thu, 17 Sep 2026 00:30:16 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andy@kernel.org
+Cc: dlechner@baylibre.com,
+	jic23@kernel.org,
+	linusw@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: gyro: mpu3050: Fix runtime PM leak in mpu3050_drdy_trigger_set_state()
+Date: Wed, 16 Sep 2026 16:29:49 +0000
+Message-Id: <20260916162949.2083791-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABXh0EYxKpqB65tCA--.22179S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WF1UGFy5KF48JryDJFW5KFg_yoW8KF4xpr
+	4IgF9IkFykXr4ftr4vyF1qqFy5Cr4fJrZ5WrWxK3sava13CF4jkF1jvFWaqF1fZrWkWF1U
+	Jr47GFZxuF47taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
+	o5l5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQMA2qqozVQtwACsh
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider:
+The enable path of the trigger state callback called
+pm_runtime_get_sync() and returned early on every following register
+access failure without releasing the runtime PM reference, leaving
+the device powered permanently. Use pm_runtime_resume_and_get() to
+propagate resume errors without bumping the usage count, and release
+the reference on all error paths before returning.
 
-Critical: 0 · High: 0 · Medium: 0 · Low: 4
+Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/iio/gyro/mpu3050-core.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-- [Low] Claim: the new DSA tag protocol DSA_TAG_PROTO_YT922X /
-  CONFIG_NET_DSA_TAG_YT922X has no consumer in the tree (dead code).
-- [Low] The YT922x tag layout is effectively undocumented:
-  net/dsa/tag_yt922x.c:15-17 contains only the placeholder comment "/*…
-- [Low] The RX priority field declared by the new tag format is never
-  decoded.
-- [Low] The new tagger emits and validates the uAPI constant ETH_P_YT921X
-  for a YT922x tag: net/dsa/tag_yt922x.c:40 (`tag[0] =…
-
---
-
-net: dsa: tag_yt922x: add support for Motorcomm YT922x tags
-
-This adds a new DSA tagging driver for Motorcomm YT922x switches with an
-8-byte tag preceded by an EtherType of 0x9988, plus the new
-DSA_TAG_PROTO_YT922X protocol value, Kconfig symbol and Makefile entry.
-
-A few questions below.
-
-> diff --git a/net/dsa/tag_yt922x.c b/net/dsa/tag_yt922x.c
-> new file mode 100644
-> index 0000000000000..1ee9d17735988
-> --- /dev/null
-> +++ b/net/dsa/tag_yt922x.c
-> @@ -0,0 +1,111 @@
-
-[ ... ]
-
-> +#define YT922X_TAG_LEN	8
-> +
-> +/*
-> + * To define the from cpu tag format 8 bytes:
-> + */
-
-[Severity: Low]
-This isn't a bug, but could the tag layout be documented here?  The
-comment above currently describes none of the fields, while the sibling
-tagger for the same vendor, net/dsa/tag_yt921x.c, carries a full frame
-diagram and a per-bit description of every 16-bit tag word:
-
-net/dsa/tag_yt921x.c:
- * +----+----+-------+-----+----+---------
- * | DA | SA | TagET | Tag | ET | Payload ...
- * +----+----+-------+-----+----+---------
- *   6    6      2      6    2       N
- ...
- *   2:
- *     15b: Tx Port(s) Valid
- *     10b-0b: Tx Port(s) Mask
-
-Without that, the reuse of tag[2] in opposite directions (transmit writes
-YT922X_TAG_PORTMASK_0 = BIT(15), receive reads YT922X_TAG_RX_PORT_M =
-GENMASK(5, 2)) and the split of the destination port mask across tag[1]
-bits 8:0 and tag[2] bit 15 cannot be checked against the hardware by a
-reviewer.
-
-> +#define YT922X_TAG_NAME		"yt922x"
-> +#define YT922X_TAG_PORTMASK_0	BIT(15)
-> +#define YT922X_TAG_PORTMASK_M	GENMASK(8, 0)
-> +#define  YT922X_TAG_PORTS(x)		FIELD_PREP(YT922X_TAG_PORTMASK_M, (x))
-> +#define YT922X_TAG_FORCE_DST	BIT(9)
-> +#define YT922X_TAG_PRIO_M	GENMASK(12, 10)
-> +#define YT922X_TAG_PRIO_EN	BIT(13)
-> +#define  YT922X_TAG_PRIO(x)		(FIELD_PREP(YT922X_TAG_PRIO_M, (x)) | YT922X_TAG_PRIO_EN)
-> +#define YT922X_TAG_RX_PORT_M	GENMASK(5, 2)
-> +#define YT922X_TAG_RX_PRIO_M	GENMASK(15, 13)
-                                         ^^^^
-
-[Severity: Low]
-Is YT922X_TAG_RX_PRIO_M meant to be used?  It is defined here but never
-referenced anywhere in the file, and yt922x_tag_rcv() only extracts the
-source port from tag[2] and never assigns skb->priority, so the ingress
-priority reported by the switch is dropped.
-
-The transmit path does encode skb->priority into the tag:
-
-	ctrl = YT922X_TAG_PRIO(skb->priority) | YT922X_TAG_FORCE_DST |
-	       YT922X_TAG_PORTS(ports >> 1);
-
-and comparable taggers decode it on receive, for example
-net/dsa/tag_yt921x.c:yt921x_tag_rcv():
-
-	skb->priority = FIELD_GET(YT921X_TAG_PRIO_M, rx);
-
-Should yt922x_tag_rcv() do the same with YT922X_TAG_RX_PRIO_M?
-
-> +
-> +static struct sk_buff *
-> +yt922x_tag_xmit(struct sk_buff *skb, struct net_device *netdev)
-> +{
-
-[ ... ]
-
-> +	tag[0] = htons(ETH_P_YT921X);
-
-[Severity: Low]
-This isn't a bug, but the YT922x tagger emits and validates a uAPI
-constant named for YT921x, both here and in yt922x_tag_rcv():
-
-	if (unlikely(tag[0] != htons(ETH_P_YT921X))) {
-
-include/uapi/linux/if_ether.h currently scopes that value to one family:
-
-#define ETH_P_YT921X	0x9988		/* Motorcomm YT921x DSA [ NOT AN OFFICIALLY REGISTERED ID ] */
-
-Should the header comment be broadened (something like "Motorcomm YT92xx
-DSA") or a YT922x alias added, so the uAPI still describes all in-tree
-users of 0x9988?  It would also help if the commit message stated that the
-two chip families intentionally share the tag EtherType while using
-different tag bodies.
-
-> +	ports = dsa_xmit_port_mask(skb, netdev);
-> +	/*To fill in the case where the port index is not 0 */
-
-[ ... ]
-
-> +static const struct dsa_device_ops yt922x_netdev_ops = {
-> +	.name = YT922X_TAG_NAME,
-> +	.proto = DSA_TAG_PROTO_YT922X,
-
-[Severity: Low]
-This isn't a bug, but could the commit message mention the companion
-patch that consumes this protocol?
-
-At this commit nothing requests DSA_TAG_PROTO_YT922X, and the consumer
-only appears in the last patch of the series, "net: dsa: motorcomm: Add
-support for Motorcomm YT922x", which adds
-yt922x_dsa_get_tag_protocol() returning DSA_TAG_PROTO_YT922X and adds
-select NET_DSA_TAG_YT922X to drivers/net/dsa/motorcomm/Kconfig.
-
-So there is no dead code in the merged series, and the ordering is the
-usual DSA practice; a note in the commit message pointing at the driver
-patch would make that clear on its own.
-
-> +	.xmit = yt922x_tag_xmit,
-> +	.rcv = yt922x_tag_rcv,
-> +	.needed_headroom = YT922X_TAG_LEN,
-> +};
-
-Also, in the commit message, "Add support for Motorcomm YT922x tags with
-8bytes. which includes ethertype field (default to 0x9988)." reads a bit
-oddly: "8bytes" is missing a space, and the sentence break before "which"
-should probably be a comma.
-
+diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
+index d84e04e4b431..aab2984a0c09 100644
+--- a/drivers/iio/gyro/mpu3050-core.c
++++ b/drivers/iio/gyro/mpu3050-core.c
+@@ -988,20 +988,23 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+ 		return 0;
+ 	} else {
+ 		/* Else we're enabling the trigger from this point */
+-		pm_runtime_get_sync(mpu3050->dev);
++		ret = pm_runtime_resume_and_get(mpu3050->dev);
++		if (ret)
++			return ret;
++
+ 		mpu3050->hw_irq_trigger = true;
+ 
+ 		/* Disable all things in the FIFO */
+ 		ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 
+ 		/* Reset and enable the FIFO */
+ 		ret = regmap_set_bits(mpu3050->map, MPU3050_USR_CTRL,
+ 				      MPU3050_USR_CTRL_FIFO_EN |
+ 				      MPU3050_USR_CTRL_FIFO_RST);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 
+ 		mpu3050->pending_fifo_footer = false;
+ 
+@@ -1013,12 +1016,12 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+ 				   MPU3050_FIFO_EN_GYRO_ZOUT |
+ 				   MPU3050_FIFO_EN_FOOTER);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 
+ 		/* Configure the sample engine */
+ 		ret = mpu3050_start_sampling(mpu3050);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 
+ 		/* Clear IRQ flag */
+ 		ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
+@@ -1037,10 +1040,14 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+ 
+ 		ret = regmap_write(mpu3050->map, MPU3050_INT_CFG, val);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 	}
+ 
+ 	return 0;
++
++err_pm_put:
++	pm_runtime_put_autosuspend(mpu3050->dev);
++	return ret;
+ }
+ 
+ static const struct iio_trigger_ops mpu3050_trigger_ops = {
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914103009.3007019-1-kyle.switch%40motor-comm.com
+2.34.1
+
