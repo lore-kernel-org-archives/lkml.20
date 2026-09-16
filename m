@@ -1,41 +1,61 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CA4418361;
-	Wed, 16 Sep 2026 07:15:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3584141E6CD;
+	Wed, 16 Sep 2026 07:15:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542912; cv=none; b=PCXiu1yUDphlPXpMzr3rJff89eV1le7NmhVr/lbsILP4X/RtKtyjd1bH1jwLW0xxOYGlntrxJV4Zd6yL6q/XciyV41noPDsd0UrRIcNFRh5st5n7V8r2ke5r7o0zdkyjl9NHdsan0mWN5DDbJvoaX56gn+ngM94HcmiiAJ27pJw=
+	t=1789542944; cv=none; b=tyjvi5+LVxS/SLkANinKm7/TdaI1zg+MZKOw6Ubi7IdVjfzeZh/n2ptvPJw++CD/v2Eo435D346doiz/LfumhnvzyyXwztpFPu7sDGLp7S8oNq7x/I4pxqNqQljOXV1AgjGqHS2FOkirOlRKO8OMbAwKA55b6IR3Lfr5rEl/99E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542912; c=relaxed/simple;
-	bh=qhuzwXAH6Q8cakD7aUs3SGJaPAkXJYDMYEW2hqEGcBw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZXSYDQ+tZM1HjvLjvo251mjwM6n1eaqBzZi/dhG3KoUEdnFbYWzL2ZLNJDjcYLYKAM8b3iSjogrJ63k70xmDiDmhvymAEbGfgCLGrBDZTNxjUiTtOZQZu0aVOgSKrY0NicYSGPMHHLdKN656lTt2bn/326v3xG++TS38k6Ma1mI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACnrTvvQapqkP7eBw--.40755S2;
-	Wed, 16 Sep 2026 15:14:55 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: cezary.rojewski@intel.com,
-	kai.vehmanen@linux.intel.com,
-	liam.r.girdwood@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	peter.ujfalusi@linux.intel.com,
-	pierre-louis.bossart@linux.dev,
-	sbinding@opensource.cirrus.com,
-	tiwai@suse.com,
-	vitalyr@opensource.cirrus.com,
-	yung-chuan.liao@linux.intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 07/20] ASoC: Intel: sof_cirrus_common: Fix device reference leak in cs35l41_compute_codec_conf()
-Date: Wed, 16 Sep 2026 07:14:27 +0000
-Message-Id: <20260916071427.1966427-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789542944; c=relaxed/simple;
+	bh=qbaiVgf+FPhg9ry/RsD0C9yh5wWMVw6jOEGioOdbWqE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u+r+/PYjJ2xH5bc6o3eXL5v2+KoZB2Y8l+0wp2/KTboli4aZzbXAMmxHdIvAB6oQoVW/OQEtnu7Tn/BSIl6aQdsMq0oR9zQAiFI7KbDtZp+Vyb1HZwzbl2ex6K8LUwJZ8zcX0Jx0OXXa9zx8Efk3qcAB+bxv3TAzbnD4gFBqgUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=sddbpjbj; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=sddbpjbj; arc=none smtp.client-ip=45.249.212.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="sddbpjbj";
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="sddbpjbj"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=qbaiVgf+FPhg9ry/RsD0C9yh5wWMVw6jOEGioOdbWqE=;
+	b=sddbpjbjTNkjPD/h8yl9ZQPRMx1qGtmVtYzjSTlbG9GUdtNlf7wSR04H/9HDlfabW49JpmWWL
+	SxWWAlxZGpOoWXj/LRqnoH38KB9Rx4FVm4iFd4q0OvCRSDzDx54x618c//99vBUeUAHU3YZFm+W
+	l7DQ1gZUNSjXZ5iisFguYfA=
+Received: from canpmsgout12.his.huawei.com (unknown [172.19.92.144])
+	by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4hl99y3lPZz1BG4P;
+	Wed, 16 Sep 2026 15:14:30 +0800 (CST)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=qbaiVgf+FPhg9ry/RsD0C9yh5wWMVw6jOEGioOdbWqE=;
+	b=sddbpjbjTNkjPD/h8yl9ZQPRMx1qGtmVtYzjSTlbG9GUdtNlf7wSR04H/9HDlfabW49JpmWWL
+	SxWWAlxZGpOoWXj/LRqnoH38KB9Rx4FVm4iFd4q0OvCRSDzDx54x618c//99vBUeUAHU3YZFm+W
+	l7DQ1gZUNSjXZ5iisFguYfA=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hl8yB3yvjznTZk;
+	Wed, 16 Sep 2026 15:04:18 +0800 (CST)
+Received: from dggpemr200001.china.huawei.com (unknown [7.185.36.96])
+	by mail.maildlp.com (Postfix) with ESMTPS id A532040586;
+	Wed, 16 Sep 2026 15:15:23 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by dggpemr200001.china.huawei.com
+ (7.185.36.96) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 16 Sep
+ 2026 15:15:22 +0800
+From: Ran Hongyun <ranhongyun1@huawei.com>
+To: <jlayton@kernel.org>
+CC: <anna@kernel.org>, <bcodding@redhat.com>, <cel@kernel.org>,
+	<chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
+	<linux-nfs@vger.kernel.org>, <ranhongyun1@huawei.com>, <trondmy@kernel.org>,
+	<viro@zeniv.linux.org.uk>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: Re: [PATCH 0/2] lockd: fix two bugs on nlmclnt_find_lockowner() failure path
+Date: Wed, 16 Sep 2026 15:07:41 +0800
+Message-ID: <20260916070741.350612-1-ranhongyun1@huawei.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <b17182c347ab5cc092a50cb16c9c11dc9fe449bc.camel@kernel.org>
+References: <b17182c347ab5cc092a50cb16c9c11dc9fe449bc.camel@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,53 +63,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACnrTvvQapqkP7eBw--.40755S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF18Gr1fCF4rAw1rWw47CFg_yoW8Gr45pF
-	40gFZxKr90grWrury8uryS9F1Y934aya1rGas8Gw15Krn3WryruFW2q340vr4YkrWkGr1q
-	yr9IyFykG3Z0v3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
-	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUCNtxUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgMA2qqQJUGAAAAsT
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ dggpemr200001.china.huawei.com (7.185.36.96)
 
-In cs35l41_compute_codec_conf(), get_device() is called on the physical
-node returned by acpi_get_first_physical_node() to populate the device
-name strings. However, this extra reference is never dropped, leaking
-a reference count for each matched ACPI device.
-
-acpi_get_first_physical_node() returns a borrowed reference that is
-valid while the device exists. Remove the unnecessary get_device() call.
-
-Fixes: 1ca726424a12 ("ASoC: Intel: cirrus-common: Use UID to map correct amp to prefix")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- sound/soc/intel/boards/sof_cirrus_common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/intel/boards/sof_cirrus_common.c b/sound/soc/intel/boards/sof_cirrus_common.c
-index 88fc6cb2bfd4..2d23e16bd206 100644
---- a/sound/soc/intel/boards/sof_cirrus_common.c
-+++ b/sound/soc/intel/boards/sof_cirrus_common.c
-@@ -168,7 +168,7 @@ static int cs35l41_compute_codec_conf(void)
- 				 cs35l41_name_prefixes[uid]);
- 			continue;
- 		}
--		physdev = get_device(acpi_get_first_physical_node(adev));
-+		physdev = acpi_get_first_physical_node(adev);
- 		acpi_dev_put(adev);
- 		if (!physdev) {
- 			pr_devel("Cannot find physical node for HID %s UID %u (%s)\n", CS35L41_HID,
--- 
-2.34.1
-
+Friendly ping.
