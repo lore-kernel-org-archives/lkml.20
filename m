@@ -1,247 +1,184 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88C9378D8C;
-	Wed, 16 Sep 2026 00:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA67377A8E;
+	Wed, 16 Sep 2026 00:42:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789519379; cv=none; b=c6k/rZ0zWgW6cr57KGDmpYCC1WHPJ26eU3xbTiPhCNi1GFU5blyxVDxP4T0otAMIQL+2jd1puH4acEVnSR+vOZoJxOaluB2EguY+/IEAiAtQbYCSXHGhB9dp9kfuM69NrpcYKUH7qCyt8f4AQv/+95QeuyduPAPNAExTM48IqkU=
+	t=1789519379; cv=none; b=hZS1Xa7/wUxCaB6LzlDtz8x+MVW86wukCXmxv4EpFSuTiqC1A7qG76DhZaqDDzshz6PPjBNGl/lG28fnWBDcNVrTBO+gq8F/MmN0tNOXEvQTFou5fhHTUj1FhC0ttphuGAbV0D/vQmY9/wLN4DG+hnFLgPmbQa9QgcCvIplpOEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789519379; c=relaxed/simple;
-	bh=M79rNXIuCXBavZscdTkcVfTLyKvWAUxuMw6XfalyHPA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ogjLCBSSdQqaISP7HP0igXujMqDD4Fl7D0jDGUYi8QHOlBRyUTHTePEK9xR6IMG0TyNbbzMUv+uPY5yzJAz6oxCPirD6SJEoMnsUnZin8MUcW3SX4Gh1U+v7dEeNY4Pyv5R6vN3Gbt88oW5aaknS5d/vBW3d0qL1mI+GEHhsU0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iwoU/MyH; arc=none smtp.client-ip=100.103.45.18
+	bh=UXvRvtYs5SM7qqmMPXpR8IdB9uprW9cKhJW9oYN9nI8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lqWLqSMei4I/g8Rl5KoD7V9eRv117aRo8jgEZYWtcap656so0t+fU8ljKIpDlql93yn+KNlaDf3BHDGI2dfI2T0uP/1BjKC1Qb+ohGIjTt/aE+5+ckmPH1jqL4MATdtK0Y+0tt4v+NZ8QCSzgGFTNGYhWzFdUQCOVJO3veUXIm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OKPwrzEt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iwoU/MyH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63ED11F000FF;
-	Wed, 16 Sep 2026 00:42:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OKPwrzEt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC2CA1F00898;
+	Wed, 16 Sep 2026 00:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789519358;
-	bh=lSFqgIB/QkG8NNxRnnvdrACKkHikqffoikxUFlVJO+0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iwoU/MyHU5H3ffHp5R6u8BJl2K2nKRPi4E6PniVHazaizPYr0Aqt3zBS8+NI2rCRv
-	 7X65gQjc+rdA63Vu9rhQiTWwVKJC/2y5wzUdcurQ5CZIsXikvkhE4hu0kWufoWww15
-	 1XUqlm1jBYClQqcaGA9+g4sVOOBwsdkmxmEoHwpwOc+25kylVsfulDQR51cOw0xlue
-	 xODeWztXJi4Mi5s9J/g4W42nzhg19DCGaA++Rf4rJTlNcQuWH6ztDUfTbWGOrKbNmM
-	 8eoeHDXRSbJB19rBoKj9xJjXtoEtnS8XFGoPGid8mGlAwFcQnZGsIela4PIGHQiAoF
-	 NN8jt0mOG4VOg==
-From: SJ Park <sj@kernel.org>
-To: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	akinobu.mita@gmail.com,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	akpm@linux-foundation.org,
-	corbet@lwn.net,
-	bijan311@gmail.com,
-	ajayjoshi@micron.com,
-	honggyu.kim@sk.com,
-	yunjeong.mun@sk.com,
-	rientjes@google.com,
-	weixugc@google.com,
-	jic23@kernel.org,
-	gourry@gourry.net
-Subject: Re: [RFC PATCH v2 0/9] mm/damon: hardware-sampled access reports
-Date: Tue, 15 Sep 2026 17:42:28 -0700
-Message-ID: <20260916004230.101408-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CALa+Y17GK7TQHA5FyoMdnOFM1Y38g7P9qc-nMgP-dO4zfRj8Ug@mail.gmail.com>
-References: 
+	s=k20260515; t=1789519371;
+	bh=5z6g9Duf+OkHU2UE3UiCryMND85Dnf4QyKBC0RtUTC8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OKPwrzEtUvR3xys/mlgF9vgmLTLvnJ8KOPseqZR4bRHYrWveGJBARKCTEhJbJiqNS
+	 LZs2nwFPnHZuqf7lEJbUJfAuC3Dm3Ov5ezqh04mj7Fn5ea5wCVCMpWbakDs5kCKhSG
+	 QPpq7RyPFu1KiyuG+QHYIFZtGFmbhUpvbhS5LEJV65wfoM3+Dafiieqp0BLNo8jN7q
+	 9LYlWmO6vVKWV+fneEr1ZS7EMbYYLllzjs5OyyQ+qp/Di7HhbHBKKSTJOKGDJv7jI5
+	 xc0TNU1xrYC/x2/1wxXw0aoHJGMC5X6beyHbfFpwfFFyVdDKS00VIIXrJD1xZ7A9uD
+	 REml73gGnjRDg==
+Date: Wed, 16 Sep 2026 01:42:47 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Gaobin Huang <huanggaobin23@semi.ac.cn>
+Cc: linux-cxl@vger.kernel.org, Davidlohr Bueso <dave@stgolabs.net>, Jonathan
+ Cameron <jonathan.cameron@huawei.com>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] cxl/mbox: bound the Get Supported Logs entry count
+ by the payload
+Message-ID: <20260916014247.247c4333@jic23-hlaptop>
+In-Reply-To: <20260914125701.1160136-3-huanggaobin23@semi.ac.cn>
+References: <20260914125701.1160136-1-huanggaobin23@semi.ac.cn>
+	<20260914125701.1160136-3-huanggaobin23@semi.ac.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, 15 Sep 2026 14:23:02 -0700 Ravi Jonnalagadda <ravis.opensrc@gmail.com> wrote:
+On Mon, 14 Sep 2026 20:57:01 +0800
+Gaobin Huang <huanggaobin23@semi.ac.cn> wrote:
 
-> On Fri, Sep 11, 2026 at 6:38 PM SJ Park <sj@kernel.org> wrote:
-> >
-> > Hello Ravi,
-> >
-> > On Thu, 10 Sep 2026 10:16:14 -0700 Ravi Jonnalagadda <ravis.opensrc@gmail.com> wrote:
-> >
-> > > This series lets DAMON take its access information from a hardware sampler
-> > > instead of from a page-table scan, and lets a scheme's score be weighted by what
-> > > that sampler reported.
-[...]
-> > First of all, thank you very much for sharing this great series.
-> >
+> cxl_enumerate_cmds() iterates gsl->entries entries of gsl->entry[] using
+> the count the device put in the Get Supported Logs response.  The response
+> is only checked with .min_out = 2, so a device may report more entries
+> than it delivered and the driver reads past the end of the buffer.  This
+> is probe time, so it happens on every boot of a machine with such a
+> device, without any host action.
 > 
-> Thanks SJ for the detailed review and the milestone 2 / phase 3 clarifications.
-
-Glad to hear that!
-
-[...]
-> > > What running it
-> > > across vendors needed on top of that direction is:
-> > >
-> > >   - per-CPU lockless rings between the NMI sample handler and the kdamond drain,
-> >
-> > I understand we need to make it lockless.  I wonder if we have to make it
-> > per-CPU.  I understand it will be better in terms of performance, especially on
-> > machines having many CPUs.  That said, this feels like somewhat we can discuss
-> > in phase 3.  And it would deserve to have sufficient discussions and
-> > performance evaluations.
+> cxl_get_gsl() can already tell the caller how much arrived, because
+> __cxl_pci_mbox_send_cmd() records the copied byte count in
+> mbox_cmd.size_out.  Derive the number of entries that fit from it and stop
+> the loop there.
+> Guard the subtraction too: min_out is smaller than the response header, so
+> a two byte response would otherwise wrap the size_t arithmetic and leave
+> the bound with nothing to do.
 > 
-> The per-CPU structure is not a performance optimization we can defer -- it
-> is required by the calling context.  A perf-event overflow handler runs in
-> NMI context, which cannot take a mutex or any sleeping lock.
-> damon_report_access() takes a mutex, so it cannot be called from there.
-
-Thank you for clarifying, Ravi.  But, what I wanted to say is, we could update
-damon_report_access() to not use mutex but atomic operations.  Does that make
-sense?  FYI, damon_report_access() will also be renamed, say,
-damon_report_attr().
-
-[...]
-> Understood.  I included the page-fault source in v2 because the December
-> 2025 RFC [1] that introduced damon_report_access() had it as the primary
-> consumer, and I wanted to carry forward that ability.  Since it is out of
-> scope for milestone 2, I will drop it from v3.
+> Seen with a QEMU Type-3 device that reports 0xffff entries while writing
+> one, in a 2048 byte buffer:
 > 
-> Patches 1, 2, and 3 will be dropped from the v3 submission since they are
-> all tied to the page fault path.
-
-Makes sense, thank you!
-
+> 	BUG: KASAN: slab-out-of-bounds in cxl_enumerate_cmds+0x1e3/0x980
+> 	Read of size 4 at addr ffff888003707810 by task kworker/u8:2/38
+> 	cxl_enumerate_cmds+0x1e3/0x980
+> 	cxl_pci_probe+0x84a/0x11e0
+> 	 which belongs to the cache kmalloc-2k of size 2048
+> 	The buggy address is located 16 bytes to the right of the
+> 	 allocated region
 > 
-> >
-> > >   - per-CPU events that follow CPU hotplug, armed when the kdamond starts and
-> > >     disarmed and drained when it stops,
-> > >   - a per-PMU owner, so two contexts cannot claim the same PMU type,
-> > >   - whichever address a PMU does report carried on the report and matched
-> > >     against the context's own address space, so one source serves a paddr or a
-> > >     vaddr context without a backend per address space.
-> >
-> > These all soudns making sense to me.  Nonetheless, I think we can scope
-> > milestone 2 to support only physical address and defer these things to the
-> > phase 3.
-> >
+> The Read of size 4 is gsl->entry[i].size.  The buffer can hold 102
+> entries, so claiming 102 is still inside it and 103 is not, which is what
+> the sweep shows.  With the bound in place the same device logs
 > 
-> Got it. Will scope v3 to PA only. so included results for v3 would be based on
-> AMD IBS testing.
-
-Sounds good!
-
+> 	GSL: device claimed 65535 entries but the payload holds 1
 > 
-> > >
-> > > This is tested with PEBS on Intel and IBS on AMD, both configured as `perf_event`
-> > > attributes on a probe and using the perf core's event plumbing rather than
-> > > per-vendor MSR code.  A third source has already been written against the same
-> > > ring: Kunwu Chan's ARM SPE backend [5], which reaches it through an AUX buffer
-> > > drained in process context instead of an overflow callback, and which the
-> > > roadmap [2] places in its third milestone.
-> >
-> > Awesome, appreciate your huge effort on this!
-> >
-> > >
-> > > The partitioning is what lets promotion and demotion run in one context.  A
-> > > sampler says which regions are hot; it says nothing about which are cold, because
-> > > a sampler that reports nothing about a page cannot distinguish untouched from
-> > > unsampled.
-> >
-> > I'm not really sure.  I think absence of samples for an address range can also
-> > mean the address range is cold?  Actually the page table accessed bit based
-> > monitoring also use a sort of sampling, so I don't show real distinction.
-> >
-> > Maybe you're right, but I think this deserves sufficient discussions and
-> > testing that we could defer to the phase 3.
-> >
-> > > Region age is what a demotion scheme matches on, and age comes from
-> > > the page-fault primitive.
-> >
-> > We would have age in perf event based mode, too.  Isn't it?
-> >
+> and enumeration continues with the entries that are present.
 > 
-> You are right.  Region age accumulates whenever nr_accesses stays at zero
-> across aggregation boundaries, and that holds whether the zero comes from a
-> PTE scan or from an empty perf-event drain.
+> This is the cross-check get_supported_features() already performs in
+> drivers/cxl/core/features.c, where a device supplied count is compared
+> against the retrieved length before the entries are used.
 > 
-> I was initially concerned that a sparse sampling PMU might not cover every
-> cold region in every aggregation window, leaving silence that could be
-> mistaken for cold,
-> whereas page faults provide higher spatial coverage for confirming
-> first-access.  Having both together was intended as a defence against that gap.
+> Fixes: 472b1ce6e9d6 ("cxl/mem: Enable commands via CEL")
+
+Similar to previous.  So far we aren't treating buggy devices as
+something we must harden against.  Where it is simple though we can
+do so.
+
+> Signed-off-by: Gaobin Huang <huanggaobin23@semi.ac.cn>
+> ---
+>  drivers/cxl/core/mbox.c | 32 +++++++++++++++++++++++++++-----
+>  1 file changed, 27 insertions(+), 5 deletions(-)
 > 
-> Based on your observation I retested this on hardware.  On AMD Turin
-> the cold demotion scheme found and demoted the idle working set
-> correctly using only the hardware-sampled IBS signal -- nr_accesses aged to zero
-> for regions that genuinely had no traffic, and the scheme acted on age as
-> expected.  The combined design may still be worth exploring later when
-> page fault
-> is considered to be reintroduced in phase 3.
+> diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+> index a8f51bf0f..c94439554 100644
+> --- a/drivers/cxl/core/mbox.c
+> +++ b/drivers/cxl/core/mbox.c
+> @@ -794,7 +794,8 @@ static void cxl_walk_cel(struct cxl_memdev_state *mds, size_t size, u8 *cel)
+>  	set_features_cap(cxl_mbox, ro_cmds, wr_cmds);
+>  }
+>  
+> -static struct cxl_mbox_get_supported_logs *cxl_get_gsl(struct cxl_memdev_state *mds)
+> +static struct cxl_mbox_get_supported_logs *cxl_get_gsl(struct cxl_memdev_state *mds,
+> +						       size_t *len)
+>  {
+>  	struct cxl_mailbox *cxl_mbox = &mds->cxlds.cxl_mbox;
+>  	struct cxl_mbox_get_supported_logs *ret;
+> @@ -818,7 +819,7 @@ static struct cxl_mbox_get_supported_logs *cxl_get_gsl(struct cxl_memdev_state *
+>  		return ERR_PTR(rc);
+>  	}
+>  
+> -
+> +	*len = mbox_cmd.size_out;	/* bytes actually received */
 
-Sounds good, thank you for the testing Ravi!
+blank line here.
 
-> 
-> > > With the ring partitioned by class both are live at
-> > > once: the probe supplies hotness, the primitive supplies age, and two schemes
-> > > over the same regions can move memory in both directions under one kdamond.
-> >
-> > Unless the needs are clearly confirmed, I'd prefer having single class for
-> > simplicity.
-> >
-> 
-> With the page fault primitive out of scope there is no case for two ring
-> classes.  I will prepare v3 with a single class.
+>  	return ret;
+>  }
+>  
+> @@ -849,18 +850,39 @@ int cxl_enumerate_cmds(struct cxl_memdev_state *mds)
+>  	struct cxl_mbox_get_supported_logs *gsl;
+>  	struct device *dev = mds->cxlds.dev;
+>  	struct cxl_mem_command *cmd;
+> +	size_t gsl_len, gsl_hdr, max_entries;
+>  	int i, rc;
+>  
+> -	gsl = cxl_get_gsl(mds);
+> +	gsl = cxl_get_gsl(mds, &gsl_len);
+>  	if (IS_ERR(gsl))
+>  		return PTR_ERR(gsl);
+>  
+> +	/*
+> +	 * The device chooses the reported payload length and may return a
+> +	 * response as short as the entry count field on its own (min_out is
+> +	 * 2), so derive the entry count without underflowing.
+> +	 */
+> +	gsl_hdr = offsetof(struct cxl_mbox_get_supported_logs, entry);
 
-Sounds good!
+	gsl_hdr_size = struct_offset(gsl, entry);
 
-[...]
-> > >   4. `mm/damon: add damos_node_eligible_mem_bp tracepoint` -- a per-tick
-> > >      tracepoint over the node-eligible-memory quota goal evaluation, exposing
-> > >      the goal's target and current values, so the loop a bandwidth-driven
-> > >      controller steers is visible to a tracer.
-> >
-> > This seems doesn't need to wait anything.  If this turned out to be helpful,
-> > please feel free to separately send patches for this.
-> >
-> 
-> Yes. It is quite useful to track goal convergence. Will send a single patch
-> targeting mm-new.
+Note the size is to make it clear this isnt a pointer to the gsl header.
 
-Looking forward to the patch!
+> +	max_entries = gsl_len > gsl_hdr ?
+> +		      (gsl_len - gsl_hdr) / sizeof(gsl->entry[0]) : 0;
 
-[...]
-> Summary of what v3 will contain (5 patches, former patches 5-9 of v2):
->   - paddr-only, single ring class, no page fault primitive
->   - per-CPU rings retained (required by NMI calling context, not an
->     optimization)
->   - perf-event overflow handler (paddr path, vaddr parts deferred to phase 3)
->   - sysfs/lifecycle surface
->   - probe-weighted score
->   - kunit tests updated for the simplified scope
+I'd error out first on it not being big enough for the header.
+Nothing else useful is going to happen and we know it will return
+an error anyway.
 
-Makes sense.  And regardless of my global ring idea, feel free to keep the
-per-CPU rings.  As long as it is an RFC, please feel free to implement it in an
-easy-to-implement way.
+> +
+>  	rc = -ENOENT;
+>  	for (i = 0; i < le16_to_cpu(gsl->entries); i++) {
+> -		u32 size = le32_to_cpu(gsl->entry[i].size);
+> -		uuid_t uuid = gsl->entry[i].uuid;
+> +		u32 size;
+> +		uuid_t uuid;
+>  		u8 *log;
+>  
+> +		if (i >= max_entries) {
+> +			dev_warn_ratelimited(dev,
+> +					     "GSL: device claimed %u entries but the payload holds %zu\n",
+> +					     le16_to_cpu(gsl->entries),
+> +					     max_entries);
+> +			break;
+> +		}
+> +
+> +		size = le32_to_cpu(gsl->entry[i].size);
+> +		uuid = gsl->entry[i].uuid;
+> +
+>  		dev_dbg(dev, "Found LOG type %pU of size %d", &uuid, size);
+>  
+>  		if (!uuid_equal(&uuid, &log_uuid[CEL_UUID]))
 
-Please also note that I'm still working on shaping the milestone 2
-deliverables.  I'm not yet in a stage that I can share how it will really look
-like.  So the final version of your work might need a significant amount of
-change to rebase on it.  I will also try to make it not unnecessarily delayed
-more than our planned timeline.  But please bear in mind with me.
-
-> 
-> Separate send targeting mm-new:
->   - tracepoint (former patch 4)
-
-Looking forward to it.
-
-[...]
-> [1] RFC PATCH v3 00/37: mm/damon: introduce
-> per-CPUs/threads/write/read monitoring
->     https://lore.kernel.org/damon/20251208062943.68824-1-sj@kernel.org/
-
-
-Thanks,
-SJ
-
-[...]
