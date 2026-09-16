@@ -1,103 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C791E5B9F;
-	Wed, 16 Sep 2026 11:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D294349EC43;
+	Wed, 16 Sep 2026 11:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789558979; cv=none; b=alA0DRwnWSuL4BFFFVWeiL2epsspaFkuic01vNEKT5HZMXcp4u4CbNt3xzUdEnZpv8R+6IJCIOoVv7sn8p4W0UO1py0de1+sG/kX1pxwsHYFpNr63k4lRuH3OLwIipYASqceZeLY5EUyKqzii2u4B5y50gFCnLl6s3nS+HdVU3o=
+	t=1789559012; cv=none; b=PjtX8zcma0gkYA/zqkc/7MpmInhg3R1aQhIns3PNXqJe2VM3QFPExwwGXunw7WL/xMm4E1Gpf394kF5ox3J/UXTLjNdXtfqOJRrDAaS6+D8IoujEOYxCSXvuIDQftNirDVNqNF8sFhvYV86lgp2NNJhFhRpgkh+YUS/A7bGUYNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789558979; c=relaxed/simple;
-	bh=2Mw0UYhkPwOelAjKAtaWqRpuJeZGpm+KZh1S53AlCb8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=drJ3Dy8xRXnbgJ7VM1VzIdn5A241EkNQRrX2ICOloC139RuiHfjatiV5Ou5pX2ODvcNLrfz82m618i/72iziHvRUcmavu7C4IX9Kl9H2+U2c+UHfvXplnsVHsx2AmOaNyk0oelipjpWa5yPGy2EgXMT1U5XqxmJxSTszL0c2RRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kNrE6Yav; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789559012; c=relaxed/simple;
+	bh=do7oQl2hIsQYK5/ikqMgimDgmurZYLG06zV7edz9NB8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G/JDeeZ++BPG7EATIpZpYC2G5ojfrX+3V+1ONi+s/sOYLXlcrWrsvqili2172yMTnuoj70C/qjqFoiHK+WMUCfhdLbLJkKZESuEyWK10p26Tm1cPJwLfzdGmoSt5MeV7s5C7aE0b+qV/0o9KtXQ7WiSB42xoDEaBNOqhnUNianQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J8GJixEb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kNrE6Yav"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BF9DFC2BCB9;
-	Wed, 16 Sep 2026 11:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789558978;
-	bh=2Mw0UYhkPwOelAjKAtaWqRpuJeZGpm+KZh1S53AlCb8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=kNrE6Yav6mYlwEQYXSU9AUQaWn9TGkSwHRPX4vobJoPMw/tmU9Vgkt8BBwsrlDekM
-	 HAgiudLMv+8tslEFlSftOzJLvJ5S0bLCKo4v3pKXspheiznp4tult+7O4ed9456rFR
-	 839zQNR9PvS1Y5Vw7xE2xwuUpGqlkUrEbO6e1XlNrK3j8aEnr8uioH4PuUI+DCgwVr
-	 HLwhPnVedMzWD4J2RTE78oGoUWKlZlsde04kIMJ1giv/nBUEUPxCwufVQQMTYjNgF1
-	 APw1Rc4dv1U1LepuBuU4sG03ZyJEfGCEo/7yJC08CdxIDMqynikpG770sta39u4Voq
-	 Sh4NIfuUI7HFA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DF81C88E7D;
-	Wed, 16 Sep 2026 11:42:58 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Wed, 16 Sep 2026 14:42:35 +0300
-Subject: [PATCH] dt-bindings: iio: adc: mediatek,mt2701-auxadc: add mt6572
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J8GJixEb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D961F1F00893;
+	Wed, 16 Sep 2026 11:43:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789558995;
+	bh=Hzx7GDBRPSHk9/GuSJnHmwpMGBpCMYrRJlHwFtWsqpw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=J8GJixEbISPEAbdvOC0pPRuFfc2T45fWW9l3tESewGiFEb4URAFD6SS01Oq/vbk6j
+	 Z4IMlI62ubpXdvvNtKvP9ATo819VbCQJ60OOy/AbpduOTGuOFnXXen8vJE9TstyXFJ
+	 XL/yeksUfVDoEKV+YtqyQhpm74yM5G+ARkqPS1h+AGtEGVejpUACFVWb7xx3H72jvU
+	 RyaazJgJ9H1tckCb0D0AD+hKEfu6dDImnKXavnns9NVhH3H/O7M+uU1K+n79zCNG4E
+	 42xCH+DpgG3j4oe35RmHx2AEtcpPmgGRcp8F7tgm7L5plJ6gI/lEv5Ft4u7S1L48yM
+	 uaZUJd/+49QdQ==
+Subject: Re: [PATCH v4 2/2] net: pcs: rzn1-miic: Verify port number from dtb
+From: netdev-bot+sashiko@kernel.org
+To: khendry@reliablecontrols.com
+Cc: clement.leger@bootlin.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 16 Sep 2026 11:43:14 +0000
+Message-ID: <178955899447.22033.5754427139793967412@kernel.org>
+In-Reply-To:
+ <20260914-rzn1-miic-fix-array-v4-2-069112feec86@reliablecontrols.com>
+References:
+ <20260914-rzn1-miic-fix-array-v4-2-069112feec86@reliablecontrols.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-6572-dt-auxadc-v1-1-e8190d614c33@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz1gKJk0RV0EMIXFadwCUAEJC3
- J1Axzf8f0DiKJygLQ6IvEmSacyoygLc144fRvHZQIqMaiqN5vUm9AvadbfeIRsfSNmhJt1Ajub
- IQfZn2PV/p3X4sVvuC5znBTiodohyAAAA
-X-Change-ID: 20260814-6572-dt-auxadc-e6df20ab3248
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Zhiyong Tao <zhiyong.tao@mediatek.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789558977; l=1058;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=RZDlKUe7DkcNemzM8RoN8vGwJ99E8wZHTiCH/d1P1qc=;
- b=sAqCN+D1D/bp0wpWn6DIoDT5q9AaznJfEIUcDQ7I9fdG5FPPYC5pfDjIC9wSL6V3bOBTnmb/7
- hqK+o78k6yxDozFO2zoTZfpaH3rmXvvXlR9HVzsEf2JetXl9yHjHDHS
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
 
-From: Roman Vivchar <rva333@protonmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-Add a compatible string for the mt6572 AUXADC, that is compatible with
-mt8173 IP.
+Critical: 0 · High: 1 (1) · Medium: 1 (1) · Low: 0
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml | 1 +
- 1 file changed, 1 insertion(+)
+- [High] Incomplete fix — the new bounds check in miic_parse_dt()
+  (drivers/net/pcs/pcs-rzn1-miic.c:696-702) uses `port >…
+- [Medium] The commit message ("Add check to make sure port number is in
+  range before writing to dt_val array") never states the pre-patch…
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml b/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml
-index d9e825e5054f..750e1e837fb8 100644
---- a/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml
-@@ -38,6 +38,7 @@ properties:
-           - const: mediatek,mt7986-auxadc
-       - items:
-           - enum:
-+              - mediatek,mt6572-auxadc
-               - mediatek,mt6893-auxadc
-               - mediatek,mt8183-auxadc
-               - mediatek,mt8186-auxadc
+Pre-existing issues:
+- [High] `renesas,miic-input` (`conf`) is stored into `dt_val[]` at
+  drivers/net/pcs/pcs-rzn1-miic.c:708 (and `renesas,miic-switch-portin`…
+- [Medium] `miic_port_max` is documented as "Maximum MIIC supported"
+  (drivers/net/pcs/pcs-rzn1-miic.c:225) but is consumed with two…
 
----
-base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
-change-id: 20260814-6572-dt-auxadc-e6df20ab3248
+--
 
-Best regards,
---  
-Roman Vivchar <rva333@protonmail.com>
+net: pcs: rzn1-miic: Verify port number from dtb
 
+This adds a range check on the converter child node "reg" value in
+miic_parse_dt() before it is used as an index into the dt_val array, and
+returns -EINVAL after releasing the node reference and freeing dt_val.
 
+> net: pcs: rzn1-miic: Verify port number from dtb
+>
+>     Add check to make sure port number is in range before writing
+>     to dt_val array
+
+[Severity: Medium]
+Could the changelog say what happens today without the check?  In the
+parent commit, miic_parse_dt() takes "reg" straight from the device tree
+and uses it as an index:
+
+drivers/net/pcs/pcs-rzn1-miic.c:miic_parse_dt() {
+	for_each_available_child_of_node(np, conv) {
+		if (of_property_read_u32(conv, "reg", &port))
+			continue;
+		...
+		dt_val[port + !miic->of_data->miic_port_start] = conf;
+}
+
+so an out-of-range reg is a slab out-of-bounds write during probe.  Should
+this carry a Fixes: tag pointing at the commit that introduced the
+unvalidated indexing (7dc54d3b8d9100, later widened by f39e968dc168a7 /
+61f1139a476569) so stable can pick it up?  The preceding patch in this
+series ("net: pcs: rzn1-miic: Fix config array initialization") does have
+one.
+
+It may also be worth mentioning the behaviour change: probe now fails and
+the whole MII converter becomes unavailable for device trees that
+previously probed with a bogus reg.
+
+> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-miic.c
+> index cb74861e823c8..1bd95ddf9400a 100644
+> --- a/drivers/net/pcs/pcs-rzn1-miic.c
+> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
+> @@ -693,6 +693,14 @@ static int miic_parse_dt(struct miic *miic, u32 *mode_cfg)
+>  		if (of_property_read_u32(conv, "reg", &port))
+>  			continue;
+>  
+> +		if (port < miic->of_data->miic_port_start ||
+> +		    port > miic->of_data->miic_port_max) {
+
+[Severity: High]
+Is the upper bound off by one for the RZ/T2H variant?  The comparison is
+inclusive, but miic_port_max is used as a converter count elsewhere:
+
+rzt2h_miic_of_data = {
+	.conf_conv_count = 5,
+	.miic_port_start = 0,
+	.miic_port_max = 4,
+};
+
+miic_init_hw() treats it as an exclusive count:
+
+	for (port = 0; port < miic->of_data->miic_port_max; port++)
+
+So for compatible "renesas,r9a09g077-miic" a child with reg = <4> passes
+the new test, and the store a few lines below becomes dt_val[5] on a
+5-byte buffer:
+
+	dt_val = kmalloc_objs(*dt_val, miic->of_data->conf_conv_count);
+	...
+	/* Adjust for 0 based index */
+	dt_val[port + !miic->of_data->miic_port_start] = conf;
+
+Does that still overflow dt_val[] by one byte with the DT-supplied
+renesas,miic-input value?  The binding's non-rzn1 branch restricts
+converter reg to "enum: [0, 1, 2, 3]", and
+include/dt-bindings/net/renesas,r9a09g077-pcs-miic.h documents only
+Port 0..Port 3, so reg = <4> looks like exactly the malformed input this
+patch is meant to reject.
+
+Would an index-derived predicate work better, e.g.
+
+	if (port < miic->of_data->miic_port_start ||
+	    port + !miic->of_data->miic_port_start >= miic->of_data->conf_conv_count)
+
+RZ/N1 (miic_port_start = 1, miic_port_max = 5, conf_conv_count = 6) is
+unaffected, which is probably why this is not visible on the common
+platform.
+
+There is a second effect of accepting port 4: miic_configure_phy_link()
+does
+
+	mask = BIT(port + shift);
+
+and with an ETHSW input (shift 0) port 4 sets BIT(4), which is in the
+ESC/EtherCAT nibble [7:4] of MIIC_PHY_LINK that miic_probe() later
+programs via miic_reg_rmw(miic, MIIC_PHY_LINK, ...).  Can that clobber
+EtherCAT port 0 link polarity?
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but miic_port_max now has three
+consumers with two conflicting meanings.  The kernel-doc for struct
+miic_of_data says "Maximum MIIC supported", miic_init_hw() uses it as an
+exclusive count (port < miic_port_max), miic_create() uses it as an
+inclusive maximum reg value:
+
+	if (port > of_data->miic_port_max || port < of_data->miic_port_start)
+
+and this patch adds a third site with the inclusive reading.  On
+r9a09g077 the inclusive reading lets miic_create() hand out a PCS for
+converter 4, which does not exist (rzt2h_index_to_string[] lists only
+SWITCH_PORTIN and CONV0..CONV3), after which miic_config() /
+miic_converter_enable() program MIIC_CONVCTRL(4) and MIIC_CONVRST bit 4.
+Could the field be documented and used consistently, so that fixing one
+site does not break the others?
+
+> +			dev_err(miic->dev, "Port number out of range: %d\n", port);
+> +			of_node_put(conv);
+> +			kfree(dt_val);
+> +			return -EINVAL;
+> +		}
+> +
+>  		if (of_property_read_u32(conv, "renesas,miic-input", &conf))
+>  			continue;
+>  
+
+[Severity: High]
+This is a pre-existing issue, but since this block is now the validation
+point for the child node, would it make sense to bound conf here too?
+renesas,miic-input is stored without any range check against
+conf_to_string_count, and with a silent u32 to s8 truncation:
+
+	if (of_property_read_u32(np, "renesas,miic-switch-portin", &conf) == 0)
+		dt_val[0] = conf;
+	...
+		dt_val[port + !miic->of_data->miic_port_start] = conf;
+
+On a match failure, miic_match_dt_conf() -> miic_dump_conf() uses the
+stored value as an index and then prints the result:
+
+	if (conf[i] != MIIC_MODCTRL_CONF_NONE)
+		conf_name = of_data->conf_to_string[conf[i]];
+	...
+	dev_err(miic->dev, "%s: %s\n", of_data->index_to_string[i], conf_name);
+
+With renesas,miic-input = <100> nothing in modctrl_match_table[] matches,
+so miic_dump_conf() reads past the 14-entry conf_to_string[] (9-entry
+rzt2h_conf_to_string[]) and hands the resulting word to %s.  Can that
+oops or leak kernel memory into dmesg?
+
+Also, conf = 255 truncates to -1, which equals MIIC_MODCTRL_CONF_NONE, so
+miic_modctrl_match() treats the entry as a wildcard instead of rejecting
+it.  Is that intended?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914-rzn1-miic-fix-array-v4-0-069112feec86%40reliablecontrols.com
