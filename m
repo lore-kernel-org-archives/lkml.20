@@ -1,187 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AF34AF9F5;
-	Wed, 16 Sep 2026 23:10:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8C44BFE70;
+	Wed, 16 Sep 2026 23:13:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600232; cv=none; b=brwmHg0n/HFrngHpKQOSDxvFjO1sZkXqbTlBg2kgU6jq+jUfMguOkfKqoQ1iU4438GIr57OoAxelsNjONi1YOuHEFlgWABIIqKoJVs5XrNieeVksRQp1wMfRUbltc6Aq6gPVYQ0sWbm/8wZDMGcjOiNxPC6tQYlUFcxjHPZ6O6w=
+	t=1789600397; cv=none; b=EnaLb65Ab6FNDhchz/9Zuu69AP3Qp5K+CU5bXPCT2kTfL/o9df6aIrt9gOmGg0TNSaeq9xZD8XnWhY6eiuahiHAOhR/LqujwlxIGnH5Zsw8yIoMpyqYes8oXCvMeUqWdPnQvxJmHjoRM9NKnhRnW4asbdzLyXoHvli6RzPvUifA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600232; c=relaxed/simple;
-	bh=xCguHQMCYrAhxUbvncvb/JwqRF+LXT699cO5jsTk2qE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=boJb7yRfZJXKeqQpxOJmr5ir959+siT8DQizABSyv2VOaPY1ivzH4vgjPdIgNqndz5V3/aHYdY9+rJOf8QgFmTcWPT7FKElMygHjhcLOz9t/IvOwnRAdJvwHBW+1pxso2tPmkD6gUWc9xxxdHlmqiF9wcWGTM7Ozs34CyO7KUH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kwdgEypZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789600397; c=relaxed/simple;
+	bh=hjkGM2zdmuCse4dU+00e59Su7KRbR8CtdDg/PSnVGNs=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EvLcDw0d4FWFNDWKFLwLMoxTwWfC1/Lnwi0IGVGJxCbf7dKxv4q5hKOIzRJ9bsAfyNy4Dp9JaeCflJGwG1AfC34bWyD/vkxhCtiVMCc0PaEI/J69xC/574dlkqX5Dpk+ZzM5u2/+lAksZSL3lanRxPkwVp5OLkGy8PEAs0NnzV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5eE6isa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwdgEypZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D482E1F000FF;
-	Wed, 16 Sep 2026 23:10:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5eE6isa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A0591F00893;
+	Wed, 16 Sep 2026 23:13:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789600231;
-	bh=y00T1vmj1UNGlqOvYl58ewkG2IXit9qkBHxOO+JErbk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=kwdgEypZlQDkuCoFOh0C/E21c0yGWzeULgahWnxF1Iu1g+8uMV4XcSCFfZsj9Sy8N
-	 MbtJcyqXbrQaeCQmE05ttgEz2xMI4OMelHLRnlW7kVCX6quKsZJ4wu18xUwMZzd03s
-	 rJwLQDd4CRfL6kdxM/9uqkO2MC+5hjL6noZQ7dPNnfcko+72dvFQEY9Q88lcBacnPu
-	 30D2JY73JbWiXUCZ9mYTAVR0oJP/52ozLf6+/g8XYXFSQcRMjV8aFm3zSiNM5h+cZC
-	 dO7j3GNju0sVIT/SmgOZX90zZEajsBFBLAAPDlYPg+xhlBtbCnEfMIJPlntWdMauRQ
-	 rbOl0fOIZ9u6Q==
-Date: Wed, 16 Sep 2026 18:10:29 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Sangwoo Han <sangwoo.han@nearthlab.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, jim2101024@gmail.com,
-	florian.fainelli@broadcom.com, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, mani@kernel.org, bhelgaas@google.com,
-	bcm-kernel-feedback-list@broadcom.com, robh@kernel.org,
-	linux-pci@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Inochi Amaoto <inochiama@gmail.com>
-Subject: Re: [PATCH] PCI: brcmstb: Reserve only the MSI vectors that are
- handed out
-Message-ID: <20260916231029.GA988000@bhelgaas>
+	s=k20260515; t=1789600395;
+	bh=zgwACDUmsEsIZFeLuEO6jSWesbf2TJU2npHT53JnMoM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=T5eE6isaGXNzlgz0pSAEEHsqpPajk7xpGyoibp2oC5I4G4yRQG3HMAf4XbSfbduSM
+	 l4SrVJ7sUDAzUvehhHneUES8//96YtBy5e5wOPuN5c9+av5maqJNreXMW/d5qRJBY6
+	 8WJqnTcn973qaumt9BTemYfvd8hEZiwOPr4UDlkeGf2bgyZLAITg8cgAW8uT8NtPHN
+	 WxAyR+05jtwTgI2mwz8z5wQLGF5oAMEIkMyvlqZBnQ1vFGdMkwRGv4ufb8Gp1IBsHp
+	 v0wRadUCuOpkbk+219FIAZL4M9yNr5+gCvjHuS4fqiQAsYsrBmXoffNqdmklxstDWD
+	 ul1AVDjskjmlA==
+Subject: Re: [PATCH net v2 1/2] net: psp: avoid conflicts with skb->decrypted
+ and sk_validate_xmit_skb()
+From: netdev-bot+sashiko@kernel.org
+To: daniel.zahka@gmail.com
+Cc: edumazet@google.com, ncardwell@google.com, kuniyu@google.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ willemdebruijn.kernel@gmail.com, andrew+netdev@lunn.ch, shuah@kernel.org,
+ willemb@google.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+Date: Wed, 16 Sep 2026 23:13:14 +0000
+Message-ID: <178960039456.22033.8739239860645875280@kernel.org>
+In-Reply-To: <20260915-psp-ktls-fix-v2-1-0eedc3b148ec@gmail.com>
+References: <20260915-psp-ktls-fix-v2-1-0eedc3b148ec@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87cxuo3fl9.ffs@fw13>
 
-On Mon, Sep 07, 2026 at 11:40:34PM +0200, Thomas Gleixner wrote:
-> On Mon, Sep 07 2026 at 11:34, Bjorn Helgaas wrote:
-> > [+cc Thomas, Inochi for MSI expertise]
-> >
-> > I want to revive this thread because I think there's a real problem
-> > here, and we should solve it for all the PCI controller drivers.
-> >
-> > There's nothing brcm-specific about the bitmap alloc/free except the
-> > size of the msi->used bitmap, so I don't want to copy/paste this sort
-> > of fix in all the affected drivers.
-> >
-> > I'd also like to avoid the extra align_mask and
-> > bitmap_find_next_zero_area() followed by manual bitmap_set().
-> > bitmap_find_free_region() already takes care of the alignment and
-> > setting the allocated bits.
-> >
-> > The MSI Multiple Message Enable situation of enabling more vectors in
-> > the device than the driver wants is generic to all devices that
-> > advertise Multiple Message Capable, and I don't think we should have
-> > to deal with this in every host controller driver.
-> 
-> Correct.
-> 
-> > If a driver requests 3 vectors, we have to enable 4 because MSI only
-> > supports power-of-two number of vectors.  This tells the device it is
-> > allowed to use all 4 vectors, and I think the PCI MSI core should
-> > assume they all *will* be used instead of relying on the driver's
-> > claim that it will only use 3.
-> 
-> That's not really a good idea because e.g. the irq affinity stuff relies
-> on the accurate number of interrupts the driver requested with the
-> minvec/maxvec range. We can't magically spread more interrupts than the
-> driver is able/willing to handle.
-> 
-> But we can fix that without changing the consumer side (device drivers)
-> visible behaviour and handle it solely in the core code.
-> 
->  1) MSI interrupts are special because they have msi_desc::nvec_used >
->     1, so the allocation and the free path can take care of the power of
->     two requirement. That just allocates more resources than the driver
->     wants but they are just memory.
-> 
->  2) All MSI parent domain implementations should be able to handle
->     domain_ops::free() with nr_irqs > 1. That's something which can be
->     trivialy audited.
-> 
->     I really have no memories why the bulk remove function iterates the
->     interrupts one by one instead of doing in one go, but this is also
->     used by non MSI domains, which might have issues with a bulk remove.
-> 
->     If we establish that all MSI parent domain implementations can
->     handle the free() callback with nr_irqs > 1, then
->     irq_domain_free_irqs_hierarchy can check whether
->     IRQ_DOMAIN_FLAG_MSI_PARENT is set in the domain_flags and avoid the
->     loop for that case.
->     
-> Something like the completely untested below.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Sangwoo, is there any chance you can test this and see whether it
-fixes the issue?
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-If it does, I guess we'll have to ask Thomas to post it with the
-appropriate Signed-off-by, etc.
+- [Low] The patch adds a new, user-visible restriction to two already-
+  shipped interfaces without updating Documentation/networking/psp.rst:…
 
-> ---
-> diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
-> index 4fdcb6df5306..b3f6cc6ae2ce 100644
-> --- a/kernel/irq/irqdomain.c
-> +++ b/kernel/irq/irqdomain.c
-> @@ -1611,6 +1611,13 @@ static void irq_domain_free_irqs_hierarchy(struct irq_domain *domain,
->  	if (!domain->ops->free)
->  		return;
+--
+
+net: psp: avoid conflicts with skb->decrypted and sk_validate_xmit_skb()
+
+This makes PSP and TCP ULPs mutually exclusive, since PSP and TLS both use
+skb->decrypted and sk->sk_validate_xmit_skb(). A new helper
+sk_has_decrypt_user() is added and checked from both __tcp_set_ulp() and
+psp_sock_assoc_set_rx().
+
+> diff --git a/net/core/sock.c b/net/core/sock.c
+> index fa60b7494c586..9489d9c479493 100644
+> --- a/net/core/sock.c
+> +++ b/net/core/sock.c
+
+[ ... ]
+
+> @@ -2670,6 +2671,12 @@ void sk_setup_caps(struct sock *sk, struct dst_entry *dst)
+>  }
+>  EXPORT_SYMBOL_GPL(sk_setup_caps);
 >  
-> +	/* CHECKME: Are all MSI parent domains capable ? */
-> +	if (domain->flags & IRQ_DOMAIN_FLAG_MSI_PARENT) {
-> +		if (irq_domain_get_irq_data(domain, irq_base))
-> +			domain->ops->free(domain, irq_base, nr_irqs);
-> +		return;
-> +	}
+> +bool sk_has_decrypt_user(const struct sock *sk)
+> +{
+> +	return psp_sk_assoc(sk) ||
+> +	       (sk_is_inet(sk) && inet_csk_has_ulp(sk)); /* for tls */
+> +}
 > +
->  	for (i = 0; i < nr_irqs; i++) {
->  		if (irq_domain_get_irq_data(domain, irq_base + i))
->  			domain->ops->free(domain, irq_base + i, 1);
-> diff --git a/kernel/irq/msi.c b/kernel/irq/msi.c
-> index fb5f372215bf..2835b09899ea 100644
-> --- a/kernel/irq/msi.c
-> +++ b/kernel/irq/msi.c
-> @@ -1333,20 +1333,28 @@ static int __msi_domain_alloc_irqs(struct device *dev, struct irq_domain *domain
+>  /*
+>   *	Simple resource managers for sockets.
+>   */
+> diff --git a/net/ipv4/tcp_ulp.c b/net/ipv4/tcp_ulp.c
+> index 2aa442128630e..b58045df101e5 100644
+> --- a/net/ipv4/tcp_ulp.c
+> +++ b/net/ipv4/tcp_ulp.c
+> @@ -136,6 +136,10 @@ static int __tcp_set_ulp(struct sock *sk, const struct tcp_ulp_ops *ulp_ops)
+>  	if (icsk->icsk_ulp_ops)
+>  		goto out_err;
 >  
->  		ops->set_desc(&arg, desc);
->  
-> -		virq = __irq_domain_alloc_irqs(domain, -1, desc->nvec_used,
-> +		/* Make sure a MULTI-MSI allocation is power of two */
-> +		unsigned int nvec_aligned = roundup_pow_of_two(desc->nvec_used);
+> +	err = -EINVAL;
+> +	if (sk_has_decrypt_user(sk))
+> +		goto out_err;
 > +
-> +		virq = __irq_domain_alloc_irqs(domain, -1, nvec_aligned,
->  					       dev_to_node(dev), &arg, false,
->  					       desc->affinity);
->  		if (virq < 0)
->  			return msi_handle_pci_fail(domain, desc, allocated);
+>  	if (sk->sk_socket)
+>  		clear_bit(SOCK_SUPPORT_ZC, &sk->sk_socket->flags);
 >  
-> -		for (i = 0; i < desc->nvec_used; i++) {
-> +		for (i = 0; i < nvec_aligned; i++) {
->  			irq_set_msi_desc_off(virq, i, desc);
->  			irq_debugfs_copy_devname(virq + i, dev);
->  			ret = msi_init_virq(domain, virq + i, vflags);
->  			if (ret)
->  				return ret;
->  		}
-> +
->  		if (info->flags & MSI_FLAG_DEV_SYSFS) {
-> +			/*
-> +			 * This only exposes desc->nvec_used and ignores the
-> +			 * overallocated MULTI-MSI ones.
-> +			 */
->  			ret = msi_sysfs_populate_desc(dev, desc);
->  			if (ret)
->  				return ret;
-> @@ -1610,13 +1618,15 @@ static void __msi_domain_free_irqs(struct device *dev, struct irq_domain *domain
->  			continue;
->  
->  		/* Make sure all interrupts are deactivated */
-> -		for (i = 0; i < desc->nvec_used; i++) {
-> +		unsigned int nvec_aligned = roundup_pow_of_two(desc->nvec_used);
-> +
-> +		for (i = 0; i < nvec_aligned; i++) {
->  			irqd = irq_domain_get_irq_data(domain, desc->irq + i);
->  			if (irqd && irqd_is_activated(irqd))
->  				irq_domain_deactivate_irq(irqd);
->  		}
->  
-> -		irq_domain_free_irqs(desc->irq, desc->nvec_used);
-> +		irq_domain_free_irqs(desc->irq, nvec_aligned);
->  		if (info->flags & MSI_FLAG_DEV_SYSFS)
->  			msi_sysfs_remove_desc(dev, desc);
->  		desc->irq = 0;
+> diff --git a/net/psp/psp_sock.c b/net/psp/psp_sock.c
+> index 1a2a6b7516b0f..e9b53eedf8dba 100644
+> --- a/net/psp/psp_sock.c
+> +++ b/net/psp/psp_sock.c
+> @@ -143,6 +143,10 @@ int psp_sock_assoc_set_rx(struct sock *sk, struct psp_assoc *pas,
+>  		NL_SET_ERR_MSG(extack, "Socket already has PSP state");
+>  		err = -EBUSY;
+>  		goto exit_unlock;
+> +	} else if (sk_has_decrypt_user(sk)) {
+> +		NL_SET_ERR_MSG(extack, "Socket has incompatible state");
+> +		err = -EINVAL;
+> +		goto exit_unlock;
+>  	}
+
+[Severity: Low]
+Should Documentation/networking/psp.rst be updated along with this?
+
+Two already-shipped interfaces grow a new failure mode here:
+psp_sock_assoc_set_rx() now returns -EINVAL for the rx-assoc netlink
+command, and __tcp_set_ulp() now returns -EINVAL for
+setsockopt(TCP_ULP).
+
+The "Securing a connection" section enumerates the restrictions of the
+rx-assoc/tx-assoc sequence:
+
+	PSP encryption is currently only supported for TCP connections.
+	Rx and Tx keys are allocated separately. First the ``rx-assoc``
+	Netlink command needs to be issued, specifying a target TCP socket.
+
+but does not mention that a socket with a ULP attached is now rejected.
+
+The "User facing API" section also suggests a TLS-then-PSP bootstrap:
+
+	The expectation is that higher layer protocols will take care of
+	protocol and key negotiation. For example one may use TLS key exchange,
+	announce the PSP capability, and switch to PSP if both endpoints
+	are PSP-capable.
+
+and "Kernel implementation notes" says PSP "follows the TLS offload more
+closely ... and the use of skb->decrypted", with nothing stating that kTLS
+and PSP can no longer share a socket.
+
+One more thing worth spelling out in the docs: the check is not restricted
+to TLS. inet_csk_has_ulp() only tests icsk_ulp_ops, so any registered TCP
+ULP blocks rx-assoc, which is broader than the subject line suggests. The
+commit message explains this is intentional, but nothing in-tree tells
+userspace about it.
+
+The follow-up patch in the series ("selftests: drv-net: psp: test PSP and
+TCP ULP mutual exclusion") adds tests for both directions but does not
+touch Documentation/, so the gap remains at the end of the series.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-psp-ktls-fix-v2-0-0eedc3b148ec%40gmail.com
