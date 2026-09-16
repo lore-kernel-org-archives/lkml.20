@@ -1,385 +1,221 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com [205.220.178.238])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2FE9377A8E;
-	Wed, 16 Sep 2026 00:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A0E366DA5;
+	Wed, 16 Sep 2026 00:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.178.238
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789519420; cv=none; b=ma5+kDIYvdZw6nuwxXgSMXURqy+ic2cH/xylJUCqZN2kz4aQWEDSyESnhnQhw1BCtnXazEjXEjl+vQa9f4Tcqj7B2zMCP3ZY2fF3lft2QUbcYmz+Ds6bf/AuKB81r23rVnM8rFiak9UoC/pblUt/ykPVs5dhmCvIoIOIOMV29M8=
+	t=1789519435; cv=none; b=NdvLikGKrBJQOkW851bV1CuhaVkgWkOUwS7/4mTu6hkUWEagD9YUe4MmWiv/zLyWrSnTq3RT2h2aRiX+kU7Ll+qUj9MwWk1gJeVqdxDI0vzSyDL3y0Zc3CPphMAqUYrMZV97WoTZOhTjOdTlmKNfmLq1U4GSCpm3boq/i7rjNpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789519420; c=relaxed/simple;
-	bh=oCJAxByK5/0L3PDNVLGEo5PitCkaMXRWfGb2v4ns6J4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=peDUY7xHfJFqUuAkzjSd6MA6qixiSgZabw+LpcC7T5uUEeICZIncQHUoRK8TPKTm8S5MK+8HsWfSlqo0qQaFxwmjQO6TYa3i9NbUDESAxDCLvJZ8CYzvTcV44yS0RSixgjHchnVAchtrp/7aWSkq8y9KvfJ7y2Q5wIoHgwURN/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 16 Sep
- 2026 08:38:02 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Wed, 16 Sep 2026 08:38:02 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Wed, 16 Sep 2026 08:38:02 +0800
-Subject: [PATCH v4 2/3] phy: aspeed: Add AST2700 USB3.2 PHY driver
+	s=arc-20240116; t=1789519435; c=relaxed/simple;
+	bh=PeRwC/7l24s34QCvX4GHYD0lAvQ0aAUs91senf8r18k=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=m44i+NroYrtwEI/R9PCSysyxzBN8Xcny1dA0FpW05fYEzIfVdMEoHA6doJrCzkuZKvTQAlsK2PJGdsWbQg1/XfHjCFZyChW7lEyu4GGKLvYfwjBSEBon9xACIwM4r7dw4fQ2lG2LZESSmV3eUZh2HVc4S406ufYVDB808lxN9GE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=nYVl0WDI; arc=none smtp.client-ip=205.220.178.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="nYVl0WDI"
+Received: from pps.filterd (m0250811.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FNsNxp602464;
+	Wed, 16 Sep 2026 00:43:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:message-id:mime-version:subject:to; s=PPS06212021; bh=G/2Re3ER3
+	bBWK6ZjUVxJveFiLHO++ZKLD9+kzlG95n0=; b=nYVl0WDIIUXQM3R97p9SpDUKL
+	NbuMlP9t0+nZUms/OGJRILjJB36tDe6NZqs5Ovw4KdL2dnEkigjMVaH9UgpYMv8d
+	c61FQqTmihFfOhBHdfx1BaLqoTkdMEFZGeh3azgV0J84Lyi9LBDwQMjDK6buBv4d
+	XFMN0G7TPq/DkwIfFZrL0cFAM3sJxVl660Qvc1dctWjBQPB7r8yIuJBeI5OmAla4
+	M/uRTPWCBdoqJS5XRsCMPYdpgYAbPwg+XzdWpvP9GXD1RQ6cLO5tZouE8lt/rKfJ
+	D4F5yzC0pdsDKfaL+cKr/mULlfQgEt97ykWtS1YuFTr2oaGIdj+MES3+6LYSA==
+Received: from ala-exchng02.corp.ad.wrs.com (ala-exchng02.wrs.com [128.224.246.37])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4gqc1nget8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Wed, 16 Sep 2026 00:43:39 +0000 (GMT)
+Received: from ala-p2exch01.corp.ad.wrs.com (10.11.226.101) by
+ ALA-EXCHNG02.corp.ad.wrs.com (10.11.224.122) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.61; Tue, 15 Sep 2026 17:43:38 -0700
+Received: from ala-exchng01.corp.ad.wrs.com (10.11.224.121) by
+ ala-p2exch01.corp.ad.wrs.com (10.11.226.101) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.46; Tue, 15 Sep 2026 17:43:37 -0700
+Received: from pek-yzhou-d3.wrs.com (10.11.232.110) by
+ ala-exchng01.corp.ad.wrs.com (10.11.224.121) with Microsoft SMTP Server id
+ 15.1.2507.61 via Frontend Transport; Tue, 15 Sep 2026 17:43:36 -0700
+From: Yun Zhou <yun.zhou@windriver.com>
+To: <cem@kernel.org>
+CC: <linux-xfs@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <yun.zhou@windriver.com>
+Subject: [PATCH] xfs: move xfs_sync_sb_buf() out of libxfs into xfs_ioctl.c
+Date: Wed, 16 Sep 2026 08:43:35 +0800
+Message-ID: <20260916004335.228753-1-yun.zhou@windriver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260916-upstream_usb3phy-v4-2-812e76037d01@aspeedtech.com>
-References: <20260916-upstream_usb3phy-v4-0-812e76037d01@aspeedtech.com>
-In-Reply-To: <20260916-upstream_usb3phy-v4-0-812e76037d01@aspeedtech.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Manivannan Sadhasivam <mani@kernel.org>, Billy Tsai
-	<billy_tsai@aspeedtech.com>
-CC: <linux-phy@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
-	<linux-kernel@vger.kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789519082; l=11212;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=oCJAxByK5/0L3PDNVLGEo5PitCkaMXRWfGb2v4ns6J4=;
- b=QWp3sMwpU92WXAttQP0ufCkTkCI2TeJC2gqur4jeMogAgBKzxuLhcTNuCvac5hIP0SyjI/9jD
- 3M7AyCiOoABB+LAJEGOt54sGXKzjCxFMkXEWnzEfe6g+6wdzdoXd/TR
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: 5XKYqVnM9lU-6ZBM1wzfQkFX_h9kghW8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDAwNyBTYWx0ZWRfX6LGFeP1pOnvh
+ cpUTJZVpQEhJPv10+14XaNkSxAmZBUPVzn+1xPoYyk454C8+lsZfLq/UhTI2YdZnQjuq+xrGmyZ
+ m4uvXtlXzaX1H4VSEiKc16DgEqF1kkVXdIu+vc+wAYty+epsVk4m
+X-Authority-Analysis: v=2.4 cv=L+GI0OT8 c=1 sm=1 tr=0 ts=6aa9e63b cx=c_pps
+ a=Lg6ja3A245NiLSnFpY5YKQ==:117 a=Lg6ja3A245NiLSnFpY5YKQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=bi6dqmuHe4P4UrxVR6um:22
+ a=klDOsUkWDRETUCZYPvoE:22 a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8 a=t7CeM3EgAAAA:8
+ a=Oqw7-2tlOnOurFbf-4kA:9 a=1CNFftbPRP8L7MoqJWF3:22 a=FdTzh2GWekK77mhwV6Dw:22
+X-Proofpoint-GUID: 5XKYqVnM9lU-6ZBM1wzfQkFX_h9kghW8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDAwNyBTYWx0ZWRfXyOscAwArgbRV
+ VAMJGcFTQyEPRgPfx5iIqjhGLu6ILydQ2R5xKqWo0qql67wZRBuXN0LzsTGzI1XgQd+xPscV8Zf
+ XXO6uoaKKg9E09xzsoYyfHRFdyCNtfe6SG/M5RGVPz4e57cr0gX3fqaReFi3WuUMO+YpIq49Gba
+ z9W+HlYcqMc5s5zlnjUm37FycLcKBeW/ggRh2t8ee/nsToy0ETSRpXf3eOo2i0o+XZG5VnWfZj+
+ WrOODoSSQvOg+FOR7XWxFKLHDBEOQoR0qH0PyPVATfRvYLa5v4lha3BcQGbv3TQsbxJjR8UeTCH
+ CIaIDq3e5BnLMXtaIZbaWrcPQz+92CTuNdvIye8cSMlbWFKzZaydPc7He2z82r6FtZ2rKZNADVL
+ nlyHVmrvdkD9XfAd1jxyxLX7HMIxwklC+5uuAjLzVhwukOFx8BWOSYJGKxosNrBAo8CZasfofEq
+ qH4KzBaVkRQOEktx88w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 spamscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160007
 
-Add a driver for the USB3.2 PHY on the Aspeed AST2700, which is paired
-with the DWC3 controller.
+xfs_sync_sb_buf() dereferences mp->m_sb_bp and mp->m_rtsb_bp, which
+only exist in the kernel's struct xfs_mount, not in xfsprogs' libxfs.
+Keeping it in libxfs is a porting hazard.
 
-The PHY draws its configuration from an internal SRAM in both of the
-available modes, so the driver must wait for PHY3S00_INIT_DONE before
-selecting one. PHY3S00_SRAM_BYPASS selects the default design
-configuration and PHY3S00_SRAM_EXT_LOAD the ROM code configuration; the
-driver uses the latter.
+Its only caller, xfs_ioc_setlabel(), is kernel-only, so move it there
+and make it static.
 
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
+Fixes: c1351fb48eee ("xfs: don't hold buffer locks across sync transaction commit in xfs_sync_sb_buf")
+Suggested-by: Darrick J. Wong <djwong@kernel.org>
+Suggested-by: Christoph Hellwig <hch@infradead.org>
+Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
 ---
-Changes in v4:
-- Indent the register bitfield definitions so they are distinguishable
-  from the register offsets, and use lowercase hex.
-- Set PHY3S00_SRAM_EXT_LOAD rather than PHY3S00_SRAM_BYPASS. Bypassing
-  the SRAM leaves the PHY on the default RTL design configuration,
-  whereas the external load path applies the ROM patch so the PHY runs
-  the ROM configuration.
-- Describe the SRAM handshake in the commit message, answering Andrew's
-  question on v2 about why the driver waits for the SRAM to initialise.
----
- drivers/phy/Kconfig                  |   1 +
- drivers/phy/Makefile                 |   1 +
- drivers/phy/aspeed/Kconfig           |  15 +++
- drivers/phy/aspeed/Makefile          |   2 +
- drivers/phy/aspeed/phy-aspeed-usb3.c | 236 +++++++++++++++++++++++++++++++++++
- 5 files changed, 255 insertions(+)
+ fs/xfs/libxfs/xfs_sb.c | 40 ----------------------------------------
+ fs/xfs/libxfs/xfs_sb.h |  1 -
+ fs/xfs/xfs_ioctl.c     | 40 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 40 insertions(+), 41 deletions(-)
 
-diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-index 19f3b7d12b7d..85fa381978f8 100644
---- a/drivers/phy/Kconfig
-+++ b/drivers/phy/Kconfig
-@@ -171,6 +171,7 @@ config PHY_XGENE
- source "drivers/phy/allwinner/Kconfig"
- source "drivers/phy/amlogic/Kconfig"
- source "drivers/phy/apple/Kconfig"
-+source "drivers/phy/aspeed/Kconfig"
- source "drivers/phy/axiado/Kconfig"
- source "drivers/phy/broadcom/Kconfig"
- source "drivers/phy/cadence/Kconfig"
-diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-index d7aa516bcc49..c6dd02003bbe 100644
---- a/drivers/phy/Makefile
-+++ b/drivers/phy/Makefile
-@@ -23,6 +23,7 @@ obj-$(CONFIG_PHY_XGENE)			+= phy-xgene.o
- obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
- 					   amlogic/	\
- 					   apple/	\
-+					   aspeed/	\
- 					   axiado/	\
- 					   broadcom/	\
- 					   cadence/	\
-diff --git a/drivers/phy/aspeed/Kconfig b/drivers/phy/aspeed/Kconfig
-new file mode 100644
-index 000000000000..7b5f48db2be8
---- /dev/null
-+++ b/drivers/phy/aspeed/Kconfig
-@@ -0,0 +1,15 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+#
-+# PHY drivers for ASPEED
-+#
-+
-+config PHY_ASPEED_USB3
-+	tristate "ASPEED USB3 PHY driver"
-+	select GENERIC_PHY
-+	depends on (ARCH_ASPEED || COMPILE_TEST)
-+	help
-+	  Enable this to support the USB 3.2 PHY on the Aspeed AST2700 SoC.
-+	  It supports SuperSpeedPlus Gen2x1 (10 Gbps), SuperSpeed (5 Gbps),
-+	  High Speed (480 Mbps), Full Speed (12 Mbps) and Low Speed
-+	  (1.5 Mbps), and is paired with the DWC3 USB controller.
-diff --git a/drivers/phy/aspeed/Makefile b/drivers/phy/aspeed/Makefile
-new file mode 100644
-index 000000000000..d96d9d73a009
---- /dev/null
-+++ b/drivers/phy/aspeed/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0
-+obj-$(CONFIG_PHY_ASPEED_USB3)		+= phy-aspeed-usb3.o
-diff --git a/drivers/phy/aspeed/phy-aspeed-usb3.c b/drivers/phy/aspeed/phy-aspeed-usb3.c
-new file mode 100644
-index 000000000000..6f371cae02f3
---- /dev/null
-+++ b/drivers/phy/aspeed/phy-aspeed-usb3.c
-@@ -0,0 +1,236 @@
-+// SPDX-License-Identifier: GPL-2.0+
+diff --git a/fs/xfs/libxfs/xfs_sb.c b/fs/xfs/libxfs/xfs_sb.c
+index 2664728f2d8f..2c976b9d343d 100644
+--- a/fs/xfs/libxfs/xfs_sb.c
++++ b/fs/xfs/libxfs/xfs_sb.c
+@@ -1460,46 +1460,6 @@ xfs_update_secondary_sbs(
+ 	return saved_error ? saved_error : error;
+ }
+ 
+-/*
+- * Same behavior as xfs_sync_sb, except that it is always synchronous and it
+- * also writes the superblock buffer to disk sector 0 immediately.
+- */
+-int
+-xfs_sync_sb_buf(
+-	struct xfs_mount	*mp,
+-	bool			update_rtsb)
+-{
+-	struct xfs_trans	*tp;
+-	int			error;
+-
+-	error = xfs_trans_alloc(mp, &M_RES(mp)->tr_sb, 0, 0, 0, &tp);
+-	if (error)
+-		return error;
+-
+-	xfs_log_sb(tp);
+-	if (update_rtsb)
+-		xfs_log_rtsb(tp, xfs_trans_getsb(tp));
+-	xfs_trans_set_sync(tp);
+-	error = xfs_trans_commit(tp);
+-	if (error)
+-		return error;
+-
+-	/* Re-acquire and write the sb and rtsb to disk. */
+-	xfs_buf_lock(mp->m_sb_bp);
+-	error = xfs_bwrite(mp->m_sb_bp);
+-	xfs_buf_unlock(mp->m_sb_bp);
+-	if (error)
+-		return error;
+-
+-	if (update_rtsb && mp->m_rtsb_bp) {
+-		xfs_buf_lock(mp->m_rtsb_bp);
+-		error = xfs_bwrite(mp->m_rtsb_bp);
+-		xfs_buf_unlock(mp->m_rtsb_bp);
+-	}
+-
+-	return error;
+-}
+-
+ void
+ xfs_fs_geometry(
+ 	struct xfs_mount	*mp,
+diff --git a/fs/xfs/libxfs/xfs_sb.h b/fs/xfs/libxfs/xfs_sb.h
+index 34d0dd374e9b..77de65922213 100644
+--- a/fs/xfs/libxfs/xfs_sb.h
++++ b/fs/xfs/libxfs/xfs_sb.h
+@@ -15,7 +15,6 @@ struct xfs_perag;
+ 
+ extern void	xfs_log_sb(struct xfs_trans *tp);
+ extern int	xfs_sync_sb(struct xfs_mount *mp, bool wait);
+-extern int	xfs_sync_sb_buf(struct xfs_mount *mp, bool update_rtsb);
+ extern void	xfs_sb_mount_common(struct xfs_mount *mp, struct xfs_sb *sbp);
+ void		xfs_sb_mount_rextsize(struct xfs_mount *mp, struct xfs_sb *sbp);
+ void		xfs_mount_sb_set_rextsize(struct xfs_mount *mp,
+diff --git a/fs/xfs/xfs_ioctl.c b/fs/xfs/xfs_ioctl.c
+index 1b53701bebea..fc8c59d2879c 100644
+--- a/fs/xfs/xfs_ioctl.c
++++ b/fs/xfs/xfs_ioctl.c
+@@ -1035,6 +1035,46 @@ xfs_ioc_getlabel(
+ 	return 0;
+ }
+ 
 +/*
-+ * Copyright 2026 Aspeed Technology Inc.
++ * Same behavior as xfs_sync_sb, except that it is always synchronous and it
++ * also writes the superblock buffer to disk sector 0 immediately.
 + */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
-+
-+#define PHY3S00				0x00
-+#define  PHY3S00_INIT_DONE		BIT(15)
-+#define  PHY3S00_SRAM_BYPASS		BIT(7)
-+#define  PHY3S00_SRAM_EXT_LOAD		BIT(6)
-+#define PHY3S04				0x04
-+#define PHY3C00				0x08
-+#define PHY3C04				0x0c
-+#define PHY3P00				0x10
-+#define  PHY3P00_RX_ADAPT_AFE_EN_G1	BIT(0)
-+#define  PHY3P00_RX_ADAPT_AFE_EN_G2	BIT(1)
-+#define  PHY3P00_RX_ADAPT_DFE_EN_G1	BIT(2)
-+#define  PHY3P00_RX_ADAPT_DFE_EN_G2	BIT(3)
-+#define  PHY3P00_RX_CDR_VCO_LOWFREQ_G1	BIT(4)
-+#define  PHY3P00_RX_CDR_VCO_LOWFREQ_G2	BIT(5)
-+#define  PHY3P00_RX_EQ_AFE_GAIN_G1	GENMASK(9, 6)
-+#define  PHY3P00_RX_EQ_AFE_GAIN_G2	GENMASK(13, 10)
-+#define  PHY3P00_RX_EQ_ATT_LVL_G1	GENMASK(16, 14)
-+#define  PHY3P00_RX_EQ_ATT_LVL_G2	GENMASK(19, 17)
-+#define  PHY3P00_RX_EQ_CTLE_BOOST_G1	GENMASK(24, 20)
-+#define  PHY3P00_RX_EQ_CTLE_BOOST_G2	GENMASK(29, 25)
-+#define  PHY3P00_RX_EQ_DELTA_IQ_G1_LO	GENMASK(31, 30)
-+
-+#define PHY3P04				0x14
-+#define  PHY3P04_RX_EQ_DELTA_IQ_G1_HI	GENMASK(1, 0)
-+#define  PHY3P04_RX_EQ_DELTA_IQ_G2	GENMASK(5, 2)
-+#define  PHY3P04_RX_EQ_DFE_TAP1_G1	GENMASK(13, 6)
-+#define  PHY3P04_RX_EQ_DFE_TAP1_G2	GENMASK(21, 14)
-+#define  PHY3P04_RX_LOS_LFPS_EN		BIT(22)
-+#define  PHY3P04_RX_LOS_THRESHOLD	GENMASK(25, 23)
-+#define  PHY3P04_RX_TERM_CTRL		GENMASK(28, 26)
-+#define  PHY3P04_TX_EQ_MAIN_G1_LO	GENMASK(31, 29)
-+
-+#define PHY3P08				0x18
-+#define  PHY3P08_TX_EQ_MAIN_G1_HI	GENMASK(1, 0)
-+#define  PHY3P08_TX_EQ_MAIN_G2		GENMASK(6, 2)
-+#define  PHY3P08_TX_EQ_OVRD		BIT(7)
-+#define  PHY3P08_TX_EQ_POST_G1		GENMASK(12, 9)
-+#define  PHY3P08_TX_EQ_POST_G2		GENMASK(16, 13)
-+#define  PHY3P08_TX_EQ_PRE_G1		GENMASK(20, 17)
-+#define  PHY3P08_TX_EQ_PRE_G2		GENMASK(24, 21)
-+#define  PHY3P08_TX_IBOOST_LVL		GENMASK(28, 25)
-+#define  PHY3P08_TX_TERM_CTRL		GENMASK(31, 29)
-+
-+#define PHY3P0C				0x1c
-+#define  PHY3P0C_TX_VBOOST_EN		BIT(0)
-+
-+#define PHY3CMD				0x40
-+
-+#define PHY3P_RX_EQ_CTLE_BOOST_G1_DEFAULT	0x7
-+#define PHY3P_RX_EQ_CTLE_BOOST_G2_DEFAULT	0x7
-+#define PHY3P_RX_EQ_DELTA_IQ_G1_DEFAULT		0x3
-+#define PHY3P_RX_EQ_DELTA_IQ_G2_DEFAULT		0x5
-+#define PHY3P_RX_LOS_THRESHOLD_DEFAULT		0x3
-+#define PHY3P_RX_TERM_CTRL_DEFAULT		0x2
-+#define PHY3P_TX_EQ_MAIN_G1_DEFAULT		0xa
-+#define PHY3P_TX_EQ_MAIN_G2_DEFAULT		0x9
-+#define PHY3P_TX_EQ_POST_G1_DEFAULT		0x4
-+#define PHY3P_TX_EQ_POST_G2_DEFAULT		0x3
-+#define PHY3P_TX_EQ_PRE_G2_DEFAULT		0x2
-+#define PHY3P_TX_IBOOST_LVL_DEFAULT		0xf
-+#define PHY3P_TX_TERM_CTRL_DEFAULT		0x2
-+
-+#define PHY3P00_DEFAULT ( \
-+	PHY3P00_RX_ADAPT_AFE_EN_G1 | \
-+	PHY3P00_RX_ADAPT_AFE_EN_G2 | \
-+	PHY3P00_RX_ADAPT_DFE_EN_G1 | \
-+	PHY3P00_RX_ADAPT_DFE_EN_G2 | \
-+	FIELD_PREP(PHY3P00_RX_EQ_CTLE_BOOST_G1, PHY3P_RX_EQ_CTLE_BOOST_G1_DEFAULT) | \
-+	FIELD_PREP(PHY3P00_RX_EQ_CTLE_BOOST_G2, PHY3P_RX_EQ_CTLE_BOOST_G2_DEFAULT) | \
-+	FIELD_PREP(PHY3P00_RX_EQ_DELTA_IQ_G1_LO, \
-+		   PHY3P_RX_EQ_DELTA_IQ_G1_DEFAULT & 0x3) \
-+)
-+
-+#define PHY3P04_DEFAULT ( \
-+	FIELD_PREP(PHY3P04_RX_EQ_DELTA_IQ_G1_HI, \
-+		   PHY3P_RX_EQ_DELTA_IQ_G1_DEFAULT >> 2) | \
-+	FIELD_PREP(PHY3P04_RX_EQ_DELTA_IQ_G2, PHY3P_RX_EQ_DELTA_IQ_G2_DEFAULT) | \
-+	PHY3P04_RX_LOS_LFPS_EN | \
-+	FIELD_PREP(PHY3P04_RX_LOS_THRESHOLD, PHY3P_RX_LOS_THRESHOLD_DEFAULT) | \
-+	FIELD_PREP(PHY3P04_RX_TERM_CTRL, PHY3P_RX_TERM_CTRL_DEFAULT) | \
-+	FIELD_PREP(PHY3P04_TX_EQ_MAIN_G1_LO, \
-+		   PHY3P_TX_EQ_MAIN_G1_DEFAULT & 0x7) \
-+)
-+
-+#define PHY3P08_DEFAULT ( \
-+	FIELD_PREP(PHY3P08_TX_EQ_MAIN_G1_HI, PHY3P_TX_EQ_MAIN_G1_DEFAULT >> 3) | \
-+	FIELD_PREP(PHY3P08_TX_EQ_MAIN_G2, PHY3P_TX_EQ_MAIN_G2_DEFAULT) | \
-+	FIELD_PREP(PHY3P08_TX_EQ_POST_G1, PHY3P_TX_EQ_POST_G1_DEFAULT) | \
-+	FIELD_PREP(PHY3P08_TX_EQ_POST_G2, PHY3P_TX_EQ_POST_G2_DEFAULT) | \
-+	FIELD_PREP(PHY3P08_TX_EQ_PRE_G2, PHY3P_TX_EQ_PRE_G2_DEFAULT) | \
-+	FIELD_PREP(PHY3P08_TX_IBOOST_LVL, PHY3P_TX_IBOOST_LVL_DEFAULT) | \
-+	FIELD_PREP(PHY3P08_TX_TERM_CTRL, PHY3P_TX_TERM_CTRL_DEFAULT) \
-+)
-+
-+#define PHY3P0C_DEFAULT \
-+	PHY3P0C_TX_VBOOST_EN
-+
-+struct aspeed_usb3_phy {
-+	void __iomem *regs;
-+	struct reset_control *rst;
-+	struct device *dev;
-+	struct clk *clk;
-+};
-+
-+static int aspeed_usb3_phy_init(struct phy *phy)
++static int
++xfs_sync_sb_buf(
++	struct xfs_mount	*mp,
++	bool			update_rtsb)
 +{
-+	struct aspeed_usb3_phy *aspeed_phy = phy_get_drvdata(phy);
-+	u32 val;
-+	int ret;
++	struct xfs_trans	*tp;
++	int			error;
 +
-+	ret = clk_prepare_enable(aspeed_phy->clk);
-+	if (ret) {
-+		dev_err(aspeed_phy->dev, "Failed to enable clock %d\n", ret);
-+		return ret;
++	error = xfs_trans_alloc(mp, &M_RES(mp)->tr_sb, 0, 0, 0, &tp);
++	if (error)
++		return error;
++
++	xfs_log_sb(tp);
++	if (update_rtsb)
++		xfs_log_rtsb(tp, xfs_trans_getsb(tp));
++	xfs_trans_set_sync(tp);
++	error = xfs_trans_commit(tp);
++	if (error)
++		return error;
++
++	/* Re-acquire and write the sb and rtsb to disk. */
++	xfs_buf_lock(mp->m_sb_bp);
++	error = xfs_bwrite(mp->m_sb_bp);
++	xfs_buf_unlock(mp->m_sb_bp);
++	if (error)
++		return error;
++
++	if (update_rtsb && mp->m_rtsb_bp) {
++		xfs_buf_lock(mp->m_rtsb_bp);
++		error = xfs_bwrite(mp->m_rtsb_bp);
++		xfs_buf_unlock(mp->m_rtsb_bp);
 +	}
 +
-+	ret = reset_control_deassert(aspeed_phy->rst);
-+	if (ret)
-+		goto err_disable_clk;
-+
-+	/* Wait for USB3 PHY internal SRAM initialization done */
-+	ret = readl_poll_timeout(aspeed_phy->regs + PHY3S00, val,
-+				 val & PHY3S00_INIT_DONE,
-+				 USEC_PER_MSEC, 10 * USEC_PER_MSEC);
-+	if (ret) {
-+		dev_err(aspeed_phy->dev, "SRAM init timeout\n");
-+		goto err_assert_reset;
-+	}
-+
-+	val = readl(aspeed_phy->regs + PHY3S00);
-+	val |= PHY3S00_SRAM_EXT_LOAD;
-+	writel(val, aspeed_phy->regs + PHY3S00);
-+
-+	/* Set protocol1_ext signals as default PHY3 settings based on SNPS documents.
-+	 * Including PCFGI[54]: protocol1_ext_rx_los_lfps_en for better compatibility
-+	 */
-+	writel(PHY3P00_DEFAULT, aspeed_phy->regs + PHY3P00);
-+	writel(PHY3P04_DEFAULT, aspeed_phy->regs + PHY3P04);
-+	writel(PHY3P08_DEFAULT, aspeed_phy->regs + PHY3P08);
-+	writel(PHY3P0C_DEFAULT, aspeed_phy->regs + PHY3P0C);
-+
-+	return 0;
-+
-+err_assert_reset:
-+	reset_control_assert(aspeed_phy->rst);
-+err_disable_clk:
-+	clk_disable_unprepare(aspeed_phy->clk);
-+	return ret;
++	return error;
 +}
 +
-+static int aspeed_usb3_phy_exit(struct phy *phy)
-+{
-+	struct aspeed_usb3_phy *aspeed_phy = phy_get_drvdata(phy);
-+
-+	reset_control_assert(aspeed_phy->rst);
-+	clk_disable_unprepare(aspeed_phy->clk);
-+
-+	return 0;
-+}
-+
-+static const struct phy_ops aspeed_usb3_phy_ops = {
-+	.init		= aspeed_usb3_phy_init,
-+	.exit		= aspeed_usb3_phy_exit,
-+	.owner		= THIS_MODULE,
-+};
-+
-+static int aspeed_usb3_phy_probe(struct platform_device *pdev)
-+{
-+	struct aspeed_usb3_phy *aspeed_phy;
-+	struct phy_provider *phy_provider;
-+	struct device *dev = &pdev->dev;
-+	struct phy *phy;
-+
-+	aspeed_phy = devm_kzalloc(dev, sizeof(*aspeed_phy), GFP_KERNEL);
-+	if (!aspeed_phy)
-+		return -ENOMEM;
-+
-+	aspeed_phy->dev = dev;
-+
-+	aspeed_phy->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(aspeed_phy->clk))
-+		return PTR_ERR(aspeed_phy->clk);
-+
-+	aspeed_phy->rst = devm_reset_control_get_exclusive(dev, NULL);
-+	if (IS_ERR(aspeed_phy->rst))
-+		return PTR_ERR(aspeed_phy->rst);
-+
-+	aspeed_phy->regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(aspeed_phy->regs))
-+		return PTR_ERR(aspeed_phy->regs);
-+
-+	phy = devm_phy_create(dev, NULL, &aspeed_usb3_phy_ops);
-+	if (IS_ERR(phy))
-+		return PTR_ERR(phy);
-+
-+	phy_set_drvdata(phy, aspeed_phy);
-+
-+	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+	return PTR_ERR_OR_ZERO(phy_provider);
-+}
-+
-+static const struct of_device_id aspeed_usb3_phy_match_table[] = {
-+	{
-+		.compatible = "aspeed,ast2700-usb3-phy",
-+	},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, aspeed_usb3_phy_match_table);
-+
-+static struct platform_driver aspeed_usb3_phy_driver = {
-+	.probe		= aspeed_usb3_phy_probe,
-+	.driver		= {
-+		.name	= KBUILD_MODNAME,
-+		.of_match_table	= aspeed_usb3_phy_match_table,
-+	},
-+};
-+module_platform_driver(aspeed_usb3_phy_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("ASPEED USB3.2 PHY Driver");
-+MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
-
+ static int
+ xfs_ioc_setlabel(
+ 	struct file		*filp,
 -- 
-2.34.1
+2.43.0
 
