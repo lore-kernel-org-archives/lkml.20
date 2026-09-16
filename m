@@ -1,349 +1,244 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010007.outbound.protection.outlook.com [40.93.198.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF6B4E2F06
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789592040; cv=none; b=EUyD/uy61s690YREWAMEoN6raqu5LEnQlvozdqlzzPT0khMZ0n156ADsBg62xiYUdTJUGqnXM4d5zwvlRnD4fJHQJDfdL3lr3oc7pdJYobjOOfj4ihaCEqkAjTfzUBxq3MWzoB5iYyi7N0jH/Dk+FSlXSz2WOFf+b1BQ2+lmyTM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789592040; c=relaxed/simple;
-	bh=gEm5kNIUAVODvt1ngQh4yFfp++uRUhaIQalJ2281BLU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kPbOWqn02pJynoxROLU8YffFBX1VForKYu97uuUs23bBRCfqlnFgUjertOJzj2qRFzcHku3twyzIysD/FV99VjpjkoOV6siZBdcW+isMQj6aRUpnWUxrqIVYYClfZJ3iE5pCWbzJ5AY1b8gK+dXObYiTxKeHkC6xi69UL+Qbl+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PvWKTXZ7; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A1A4E06DF;
+	Wed, 16 Sep 2026 20:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789592054; cv=fail; b=Bads12TjuebKKE7UOqlVlu+r/j5vq/Xx/AEYk/qYvXKFCy3UIgvCYWxrWRSynUj0wq5/ohS4F3Su2/OmDRoelmr2vT1jorrRMxnHObzjGgH2Uo+PRvY1DP+PKmVsYbGWLJnfb5CKC6UZNaVgy+IoGVcs19gX7Q8pNax3VDOYKf4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789592054; c=relaxed/simple;
+	bh=sTPbxk6UK8v6lEq88cEFtsx4RsyZyAoSSoF4MezZcI4=;
+	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=kEBsUqD8xk2xZf/lFLu3hhL3H/QvWSVpSokIuR0NUJU2Zuw4+ciD4Peq1RqhtPmxBgIAAdiYZq6lDYlA5Gaa/SG3pWSE/mXvRfmuv7vj61dKXnwi//kw3W8MlW+0kMClsfelidwVjN03W+svTmKB4gEaoJ4/NPnbVhKKj4XAHgY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=c9JPS0Tb; arc=fail smtp.client-ip=40.93.198.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PvWKTXZ7"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so143293f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:53:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789592018; x=1790196818; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HY9de3s2a2HQ6JLLTz8+XgwKcZHke3p8zXjlyHlDwyU=;
-        b=PvWKTXZ7lRGu1xylgyR8lbBl5TyhYfpyshc74jJ+jRoZB6EA5+RiiqmGVYrUk6wsjY
-         lHjD/DofXWa9EIYYlK2mn0+v//6Q0Mn/A0wBUZhsRDv/tCKJOxaIQQrqMxcTtON5p51N
-         QHeWsdWvT3MEeLqGWWcJLQVrqycimto0WHfQn+tmzQCQYOXYMhi+KHlDtQUwzu/X7O+c
-         Xgw0/Ti+hiHfwD7DwrweVAJeTIgP6KmZtffL8I0b32zuieecmNPS7U0ZE3ENrZo9yjld
-         UNSzXJlM0GKgZQIDhre9DrHBwkRJOd0Q0b+AzZAWsvJxBVn5bIS+ATJ8vwRbRCrzyW7V
-         bHsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789592018; x=1790196818;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HY9de3s2a2HQ6JLLTz8+XgwKcZHke3p8zXjlyHlDwyU=;
-        b=SL4Z2AmEP5t9V9WA809brbSxJUuogITNlwyvnfI4u4NHip7stqyKw4EKrjXaEKt2L6
-         4f6DbXrXvdbPPwFrvuUmlNWLtieuqNpBF9tewCy+3jZRNUxG5SZ50OOd/iFEPNYKOF/p
-         34yWG80D2ZC+hq949UOWdDFXutL+cTIgP46Fpn9s8JGlGIYxDAWu1fg9cPQd8sn4SHXf
-         PVayVAC3BUKO+DVd4jvV1nDMOlnx4q0V02wJEchSAmQtzUpCIeGEB4F/jfWfYJ3Etc8d
-         BkQ/3FpSHncrgctI25b2OnRMQuwQvhTPZw98Cct6o39/ATdoYHKdJikrosCbAo2MLeuc
-         nmLg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFTEj90uWxw064MO9d2nYTgGqIzxFAcgOuSYg341cCaRL2xX8Do4EhNQuwp/0/hZp1oEwApkFFF45NWIE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDjWHOFe2H4H1IgJgEYwME7qxbrEECFCseYE5+t5PCgU5HEi1L
-	BvHbhtPn1B0RcRKZpkajY++4DoNIfAJdjjXuNk8K7C/TD8SS+U4+QgDO
-X-Gm-Gg: AYBFou3ghxxTRc3W0h9PDwnqIIudmA0I4nckhTwFxCydtNuncVc52ZlNZmSd0yj/ETq
-	/GzAUHeEqzfWm5NDZTJ9M7x1yoxOLfIOAOP24y71YX1KfjdgpvpvGXCE1GSVHurYG84sXSVMnzu
-	XTx8Bih2nyD1/QqqaKWBq9WZRQoESP5lHZRLWINcSWeqn+kRquoYi8ULFXrxKqPkG/Yrvz+9/5K
-	fOsvwIhB9LhsBqFj17dZALWuiMWzmTKrMkyXJBvLGsDIzoxvumgNcG83+wqzYGoBxXblyTcjBUs
-	vZ2ontA7J67Ey6OHiLXECRvP2UdWSUirXrpGPlY9lR3+SdhUuUOQGk9HurCd42+UeGt2bIkUOhr
-	OACSF+h2Ho9x7qdP5I9go6rXYjwhv71kHrCn7CULfjOBhOFxjpUi0nI7XO9NXn7angfLgYnYY/H
-	KhSHHeIGGBKzPw2rFP4P/aOttTBw9JM9N8nii7NuPlXq9RHmv7Kr1TY2+kdtUBm//9Zt24HQ==
-X-Received: by 2002:a05:6000:410a:b0:485:ac96:7251 with SMTP id ffacd0b85a97d-4870d05876cmr10637772f8f.21.1789592017846;
-        Wed, 16 Sep 2026 13:53:37 -0700 (PDT)
-Received: from antoniarch ([78.210.41.3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bef7678sm11086166f8f.2.2026.09.16.13.53.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 13:53:37 -0700 (PDT)
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: alexandre.belloni@bootlin.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v7 7/9] rtc: abx80x: replace read-modify-write pattern with regmap helpers
-Date: Wed, 16 Sep 2026 22:51:36 +0200
-Message-ID: <20260916205138.16771-8-apokusinski01@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916205138.16771-1-apokusinski01@gmail.com>
-References: <20260916205138.16771-1-apokusinski01@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="c9JPS0Tb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Jf/QPy4u8okJc4KEcEFV32lrf2rRGdDShAi8W0jb28rhflhSZaeC4auTB4120FJZkTuClCws9tsvTkp3eLVqRc9STdIm9vVC/8XDm1fxMWfAn+uBMUx5C+INjpDv8DkimkokGszNp0ABRF3MLP02fo90A5DKy6449+KoT//g3x0Mo/BFVshYXaFTTLx1jsJsLZYv7sMGbNtIb5IMnuNsn62e1R56wLjZt7C4l4jvJowyXxlg+61d/Uti9Hg+CaOReWHiphlZJvcoqnA4Yi1SLlm8dudAmzV6mmLOvWIImEWeY4l09v7mW1QykxHfHswXpjPZ/AsNKO76BjyH0uyutQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4EWXheQWvvK91gl2riUfKWCra9d5E39I/bx05n6uyEI=;
+ b=PZKxBsaDUppznowvilMCAdf8UWUryYZcSRnywRk2Gq1HrKLWXLQOJHfLxkSn8ufKnh6eT0fwUSbAim7/OzuWejOT8ynTvpmW/GjjrLAszL2VsaiSctj9zT22rDkSzxyvfv76emI3RegfXo9Rz2ICePbixgMK4Zd0gvTaw0azswfcD2CH7sIdgf43870VeJduB7mZyP/K0ut/zgaLJgH9do6lmKOqMWKh97JV2YoAtOAMUbCBMcP+AdgSqPaRN9/3/OEIx5bXIPO3V/g9KkImTu0bCU905w6VHcrLrKBJDzD+JeB27iIYON74lshPOlSIECxJ93uosn1uEHkEHDH8wA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4EWXheQWvvK91gl2riUfKWCra9d5E39I/bx05n6uyEI=;
+ b=c9JPS0TblYeXG0IwBskNc8+RdtAALV0iagQmSq9gklZknZ5vG8iRYAdJNOyBS+Y+c5BL87Nldqvi/7vGq79qkZ54UScFdxvZ2o7L8XYfcDyTQBuyeHhZ2iixqswwxnlGXUMbTJ64LKYriFY9HaV147EbB8oON4XmRjK7j3WIOg0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by SJ2PR12MB8133.namprd12.prod.outlook.com (2603:10b6:a03:4af::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 20:53:54 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
+ 20:53:53 +0000
+Message-ID: <ea65c041-384c-4d16-810e-c3ab070db317@amd.com>
+Date: Wed, 16 Sep 2026 15:53:50 -0500
+User-Agent: Mozilla Thunderbird Beta
+From: Babu Moger <babu.moger@amd.com>
+Subject: Re: [PATCH v5 04/16] fs/resctrl: Introduce kernel mode policy enum
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de, ben.horgan@arm.com
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+ hpa@zytor.com, fenghuay@nvidia.com, akpm@linux-foundation.org,
+ rppt@kernel.org, dapeng1.mi@linux.intel.com, elver@google.com,
+ jlayton@kernel.org, enelsonmoore@gmail.com, kuba@kernel.org,
+ ebiggers@kernel.org, seanjc@google.com, peterz@infradead.org,
+ chao.gao@intel.com, jmattson@google.com, naveen@kernel.org,
+ ricardo.neri-calderon@linux.intel.com, tiala@microsoft.com,
+ chang.seok.bae@intel.com, prathyushi.nangia@amd.com, kim.phillips@amd.com,
+ elena.reshetova@intel.com, darwi@linutronix.de, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <cover.1787772750.git.babu.moger@amd.com>
+ <a4fc2a485b26b94b8ae604ac3e82dcf33e39684d.1787772750.git.babu.moger@amd.com>
+ <5a85e139-99de-4821-97ae-5a7b5b4b5027@intel.com>
+Content-Language: en-US
+In-Reply-To: <5a85e139-99de-4821-97ae-5a7b5b4b5027@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH2PR17CA0021.namprd17.prod.outlook.com
+ (2603:10b6:610:53::31) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|SJ2PR12MB8133:EE_
+X-MS-Office365-Filtering-Correlation-Id: a349c524-e90d-4ac9-eaa8-08df14349e4e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|6133799003|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ixKEozAkNfuT99T/Y3QxAldcTDRnOdFdCTq+TmE3UKSaCaKl7TJ8uojyn7Pe9Y+TKMjohIuZG1fM6iwDSDssvTI8c6Cn9m1lef9wNv4gfaA/4dRMfLYEXlpnuwVJXoU6wbcVvYHHzLkcJLQQ0BWRc5ZTMx5fZLKwySw6LxBOWmAy8aD4NvRH691B3BvTqYTrX65aFtR0twB+aKHvCj6Hqwbd2MxZbrsNKD18LJVZ9t1kLisQP+zIcTjtWAwa9oGuglfok6Fl4RjlVpcMurK6HL+78wd7hvci54Wgb8ln+Z943Nl4JwgF4GwHRu85e9Vll/DTG19hOiHf0bC+a58YA7L3zPcKdcKpjPC9MWk4hiGKTBSnYB9Prch6nsrefJSvBHP+LCGQxR/VQvRGyiCw60zq8Xm/FrsRFRUu72/TRCQi8R5St0nCzdxIrjhewX4v8nSRGpzKUOWAd9JoNb+2E0Xsm8DYpod8RzuXN8DoMYeL8B/owyU/ebJKl0m19zmLQdnT0nOTB/sKBWZ+9u5xfxaxuReJDjODEoIXYKwfM7vDqFWWQ3XL+AuxhA/GN17+jFTZwtTf9owIrpNEbBIB+sTVlF5oIz91860phxm35VtH7pEKhZwc0SJrIEab1zz+EKn44rWhulY6ebEGISLyj4bfiUQqT7Z7nM+ZXNQqlMs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(6133799003)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?THJ0YmxRSXNJZWpVbk4rR2VvUW5GemN5QVorOFhuejR4ekZPaTA3UjRORlhv?=
+ =?utf-8?B?YlYrMFlwb1Z0RG05Q08vZW1WMFRyWklRRDBDQ0dkOVc0VkVPS2xZWXR3VW9L?=
+ =?utf-8?B?bzdUL0UxdmplRUd6a3ZWKzFMR2dMTFozdWs4Mjg1cnFxbXMwRXRsRUo1MDdI?=
+ =?utf-8?B?SVBURkFPOTJkWlFwNU1jd2xHRC8zZkpONThZMG1Ja3VheHljcnc3VHVHUHhs?=
+ =?utf-8?B?L242RUQzbnRZVkYvT0xraFEyZVBQM0luSVVMc09EdkMwUkVFMTlRU3hrUG9C?=
+ =?utf-8?B?YTdXSjE1Vzdlc0xxa1AwRXd0UDVLQ1JNUWVEbG5iS0duVWJlNkE5K21EbmpY?=
+ =?utf-8?B?VUk2QmVITjBFVklhTnVTQ1lXOTV6emY5MHAvdnJncVRsQ1BsdGwveEZIWnV5?=
+ =?utf-8?B?c1pwcUt3WlR5VVdNalVtNkQzenJoM0YyTCs5Mm5jNWRUWVBqRUxMTld2bitH?=
+ =?utf-8?B?S25jNWxZWkU0QzR4eVBiYWcwbjI0MmlsNmNrZHg2S1FlVnZ0RThYUkdtMlRz?=
+ =?utf-8?B?ZlgxZXd6WTBON3RPUVNlMjZCc0RnS2lNUnpQTk0vaHdKTno1VWZoeStXbVF1?=
+ =?utf-8?B?M0pPWkJGK29QZWFQUnpFN3VHdVhDbGQwQUZjTUF0Vi9JbWw5RjZTekZSUTRS?=
+ =?utf-8?B?Z2RscTR4ZGlHVk1qQWN5emxQVVd2YmREOFIya3U0cWpUMzEyMXpyKzNuZ2dl?=
+ =?utf-8?B?eWtKMnZzUWp0bkU2VWxLK2JHWis0ekZJVDNTd3BaLzlMYldjYjJZUWJoa2VG?=
+ =?utf-8?B?cnZOak5vNGtmdGF5NUlvb3NXK21GWXhHZ3dzVkh1L013STd3OXJEMkIwczFK?=
+ =?utf-8?B?YkRpWmZ1SDBhT1ZDSExiWUFudjJ4S2FhKzYrMGRTaS9qY1IrMC8vMkZxeExo?=
+ =?utf-8?B?NGFDbW9SdTVTSzB4Ym5DTm9VcThFVzVXbE1mbnlyZllDQWRaY1haNW5uanZX?=
+ =?utf-8?B?WGxFY1FualhyQ3VPVnFZWnVXV0laRGpJSmpYR2VHTHg0MzdtWjdGM2U0aWVx?=
+ =?utf-8?B?L2xpWEYvSk5sdmZCd1U5SlpTWUlNb3JVb3FnLzVVWXJ1TXZKSG9MVXF1eERM?=
+ =?utf-8?B?eTh5ck5JUVRiVk4zVWY4MGZsN0pTWWNqOUxuYVB5enZZdDlKaU1qSElvL0hW?=
+ =?utf-8?B?bVcvNVl4bVlnOFN5cjN1WGcrbEVYcTEwbVlSdU9pdHZGZUc0eXppZy96d2ha?=
+ =?utf-8?B?d2UxczZBYnU1OGFBbldBK1JiOUpUN2xPMzF3Z08xRWUzck9raDFWa092K0RB?=
+ =?utf-8?B?QlFMVUk3bGNaOFNYSTNhODk1aDZST1Bzb3dlM3JRZUwrbmJBNmJuNkhjSkhF?=
+ =?utf-8?B?MHpGemxBQ1JXVjFsVmRmVVUxZC9YY2ZNZ2JMR3c0b2ZOWUtMQWxHR2JMSW9u?=
+ =?utf-8?B?RzE3R2kyQ3BDL092eFg0bUhYL21TZzEyblVZUW9sQVNlTnZEMGFyZXJ2U29z?=
+ =?utf-8?B?UU1aSnFnNGVjd0VxUS9YOG1rYWVVaXJVV0lac2laa3k0NTAyQ0ZiL3R5Lyt3?=
+ =?utf-8?B?L3BJT2pNdWdYWUJLVXFSS0krOU1BS1hKemk4WUpkUTdOb3JqK1JpVnJId3ht?=
+ =?utf-8?B?WXFDZ2JNR2RIckJaTVEyWEg2Rnh6Tjc1V2FheFFBdllCUHRYaVZmVjQyZTlR?=
+ =?utf-8?B?NkNTL0s3Sm1xUnc1c0JlMU5qVi9WZ2dwYkMrZWJXSFk3RE5La2lBY2JML0NI?=
+ =?utf-8?B?YWxsMUZSbXNpMmtOSHZsb2IzdU0yait6cW1yQng2ZUNlS1hQYUdqckhnL1dW?=
+ =?utf-8?B?b3QrYUMxTURycjFVWDYzcXlPY0YzTncrdllGMFY0T3hsVVB6UWJLU0FpY1ZB?=
+ =?utf-8?B?cGswQmlNSDhYcUd3akpuNnBnMnNVcnF2alJkenJUWnZKaGt2SzAvVXFUUE83?=
+ =?utf-8?B?Y29adGZJeG93Y1Z0akJxWnBXTmtKSVBqcU8wVDhjd3hqbXJ4OXp4ZnYyQ0tU?=
+ =?utf-8?B?NmV6bmg1VVFIQm9Fc0w4L2VLekY5QWVLSU1PY2lVMTdhRll4MmZmT1dVbGFv?=
+ =?utf-8?B?RzdPZHo3SnV5SWZ5bXBNNnNHdlZkQ2tzUzRyTVRCN1VqY09GbUthVHJPdU5u?=
+ =?utf-8?B?TEUxWGJidGRGdkM4NEc0UzhQbXpQMkdjV0w3Y0xPOUNLZU9BVG1lTjVoT1FF?=
+ =?utf-8?B?dDB2OVdmWXRsekoraVk1Qm5rcjZyY1ZkaThlUG5IZStxSmhIbHU0V3cxTUsy?=
+ =?utf-8?B?aTBrVWJsOGFDQzBQUzQxQk16bWhmRHFqa1FyeStjcE4zYThERUcvZHdITWY0?=
+ =?utf-8?B?WGFwbDBlMHhhYndhNks4am8vVG1xbGFSakl6VDY3MzEwb25rR3JvaHFlN25U?=
+ =?utf-8?Q?y1Xep90rxL7x++8K/6?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a349c524-e90d-4ac9-eaa8-08df14349e4e
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 20:53:53.7670
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qBhZ86AsSCI52fNOsx5xTne7sPGU8yijvp2jY/1PYP1FBewMgJngKvA0LSOUA2uO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8133
 
-Before introducing the regmap usage in the driver, updating specific
-bits of a register was performed using the read-modify-write pattern.
-Now, the functions regmap_update_bits() and regmap_write_bits() can
-be used to simplify the code.
+Hi Reinette,
 
-Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
----
- drivers/rtc/rtc-abx80x.c | 134 ++++++++++-----------------------------
- 1 file changed, 34 insertions(+), 100 deletions(-)
+On 9/16/26 00:14, Reinette Chatre wrote:
+> Hi Babu,
+> 
+> On 8/26/26 12:32 PM, Babu Moger wrote:
+>> Kernel mode traffic can use different allocation and monitoring
+> 
+> "traffic" -> "work" to not imply this is just about memory traffic but
+> also includes cache allocation?
 
-diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-index d41656a4d518..53fc788cbf96 100644
---- a/drivers/rtc/rtc-abx80x.c
-+++ b/drivers/rtc/rtc-abx80x.c
-@@ -232,7 +232,6 @@ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
- {
- 	struct abx80x_priv *priv = dev_get_drvdata(dev);
- 	unsigned char buf[8];
--	unsigned int flags;
- 	int err;
- 
- 	if (tm->tm_year < 100)
-@@ -257,18 +256,11 @@ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
- 	}
- 
- 	/* Clear the OF bit of Oscillator Status Register */
--	err = regmap_read(priv->regmap, ABX8XX_REG_OSS, &flags);
-+	err = regmap_update_bits(priv->regmap, ABX8XX_REG_OSS, ABX8XX_OSS_OF, 0);
- 	if (err < 0)
--		return err;
--
--	err = regmap_write(priv->regmap, ABX8XX_REG_OSS,
--			   flags & ~ABX8XX_OSS_OF);
--	if (err < 0) {
- 		dev_err(dev, "Unable to write oscillator status register\n");
--		return err;
--	}
- 
--	return 0;
-+	return err;
- }
- 
- static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
-@@ -378,7 +370,6 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
- {
- 	struct abx80x_priv *priv = dev_get_drvdata(dev);
- 	unsigned int flags = 0;
--	int retval;
- 
- 	if ((autocalibration != 0) && (autocalibration != 1024) &&
- 	    (autocalibration != 512)) {
-@@ -386,12 +377,6 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
- 		return -EINVAL;
- 	}
- 
--	guard(mutex)(&priv->lock);
--
--	retval = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
--	if (retval < 0)
--		return retval;
--
- 	if (autocalibration == 0) {
- 		flags &= ~(ABX8XX_OSC_ACAL_512 | ABX8XX_OSC_ACAL_1024);
- 	} else if (autocalibration == 1024) {
-@@ -403,13 +388,15 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
- 		flags |= (ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512);
- 	}
- 
-+	guard(mutex)(&priv->lock);
-+
- 	/* Unlock write access to Oscillator Control Register */
- 	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_OSC) < 0)
- 		return -EIO;
- 
--	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
--
--	return retval;
-+	return regmap_write_bits(priv->regmap, ABX8XX_REG_OSC,
-+				 ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512,
-+				 flags);
- }
- 
- static int abx80x_rtc_get_autocalibration(struct device *dev)
-@@ -473,7 +460,6 @@ static ssize_t oscillator_store(struct device *dev,
- {
- 	struct abx80x_priv *priv = dev_get_drvdata(dev->parent);
- 	int retval, rc_mode = 0;
--	unsigned int flags;
- 
- 	if (strncmp(buf, "rc", 2) == 0) {
- 		rc_mode = 1;
-@@ -486,24 +472,14 @@ static ssize_t oscillator_store(struct device *dev,
- 
- 	guard(mutex)(&priv->lock);
- 
--	retval = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
--	if (retval < 0)
--		return retval;
--
--	if (rc_mode == 0)
--		flags &= ~(ABX8XX_OSC_OSEL);
--	else
--		flags |= (ABX8XX_OSC_OSEL);
--
- 	/* Unlock write access on Oscillator Control register */
- 	if (abx80x_write_config_key(dev->parent, ABX8XX_CFG_KEY_OSC) < 0)
- 		return -EIO;
- 
--	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
--	if (retval < 0) {
-+	retval = regmap_write_bits(priv->regmap, ABX8XX_REG_OSC, ABX8XX_OSC_OSEL,
-+				   rc_mode == 0 ? 0 : (ABX8XX_OSC_OSEL));
-+	if (retval < 0)
- 		dev_err(dev, "Failed to write Oscillator Control register\n");
--		return retval;
--	}
- 
- 	return retval ? retval : count;
- }
-@@ -573,18 +549,11 @@ static int abx80x_ioctl(struct device *dev, unsigned int cmd, unsigned long arg)
- 
- 	case RTC_VL_CLR:
- 		scoped_guard(mutex, &priv->lock) {
--			err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
--			if (err < 0)
--				return err;
--
--			status &= ~ABX8XX_STATUS_BLF;
--
--			err = regmap_write(priv->regmap, ABX8XX_REG_STATUS, status);
--			if (err < 0)
--				return err;
-+			err = regmap_update_bits(priv->regmap, ABX8XX_REG_STATUS,
-+						 ABX8XX_STATUS_BLF, 0);
- 		}
- 
--		return 0;
-+		return err;
- 
- 	default:
- 		return -ENOIOCTLCMD;
-@@ -841,7 +810,6 @@ static int abx80x_probe(struct i2c_client *client)
- 	struct device_node *np = client->dev.of_node;
- 	struct abx80x_priv *priv;
- 	int i, err, trickle_cfg = -EINVAL;
--	unsigned int data;
- 	char buf[7];
- 	unsigned int part = (uintptr_t)i2c_get_match_data(client);
- 	unsigned int partnumber;
-@@ -891,14 +859,9 @@ static int abx80x_probe(struct i2c_client *client)
- 	dev_info(&client->dev, "model %04x, revision %u.%u, lot %x, wafer %x, uid %x\n",
- 		 partnumber, majrev, minrev, lot, wafer, uid);
- 
--	err = regmap_read(regmap, ABX8XX_REG_CTRL1, &data);
--	if (err < 0) {
--		dev_err(&client->dev, "Unable to read control register\n");
--		return -EIO;
--	}
--
--	err = regmap_write(regmap, ABX8XX_REG_CTRL1,
--			   (data & ~(ABX8XX_CTRL_12_24 | ABX8XX_CTRL_ARST)) | ABX8XX_CTRL_WRITE);
-+	err = regmap_update_bits(regmap, ABX8XX_REG_CTRL1,
-+				 ABX8XX_CTRL_12_24 | ABX8XX_CTRL_ARST | ABX8XX_CTRL_WRITE,
-+				 ABX8XX_CTRL_WRITE);
- 	if (err < 0) {
- 		dev_err(&client->dev, "Unable to write control register\n");
- 		return -EIO;
-@@ -912,30 +875,10 @@ static int abx80x_probe(struct i2c_client *client)
- 		 * register is set. RV-1805-C3 datasheet indicates that
- 		 * the bit should be cleared in section 11h - Control2.
- 		 */
--		err = regmap_read(regmap, ABX8XX_REG_CTRL2, &data);
--		if (err < 0) {
--			dev_err(&client->dev,
--				"Unable to read control2 register\n");
--			return -EIO;
--		}
--
--		err = regmap_write(regmap, ABX8XX_REG_CTRL2,
--				   data & ~ABX8XX_CTRL2_RSVD);
--		if (err < 0) {
--			dev_err(&client->dev,
--				"Unable to write control2 register\n");
--			return -EIO;
--		}
--
--		/*
--		 * Avoid extra power leakage. The RV1805 uses smaller
--		 * 10pin package and the EXTI input is not present.
--		 * Disable it to avoid leakage.
--		 */
--		err = regmap_read(regmap, ABX8XX_REG_OUT_CTRL, &data);
-+		err = regmap_update_bits(regmap, ABX8XX_REG_CTRL2,
-+					 ABX8XX_CTRL2_RSVD, 0);
- 		if (err < 0) {
--			dev_err(&client->dev,
--				"Unable to read output control register\n");
-+			dev_err(&client->dev, "Unable to write control2 register\n");
- 			return -EIO;
- 		}
- 
-@@ -946,8 +889,14 @@ static int abx80x_probe(struct i2c_client *client)
- 		if (abx80x_write_config_key(&client->dev, ABX8XX_CFG_KEY_MISC) < 0)
- 			return -EIO;
- 
--		err = regmap_write(regmap, ABX8XX_REG_OUT_CTRL,
--				   data | ABX8XX_OUT_CTRL_EXDS);
-+		/*
-+		 * Avoid extra power leakage. The RV1805 uses smaller
-+		 * 10pin package and the EXTI input is not present.
-+		 * Disable it to avoid leakage.
-+		 */
-+		err = regmap_write_bits(regmap, ABX8XX_REG_OUT_CTRL,
-+					ABX8XX_OUT_CTRL_EXDS,
-+					ABX8XX_OUT_CTRL_EXDS);
- 		if (err < 0) {
- 			dev_err(&client->dev,
- 				"Unable to write output control register\n");
-@@ -988,25 +937,11 @@ static int abx80x_probe(struct i2c_client *client)
- 		return err;
- 
- 	/* Disable unused interrupts */
--	err = regmap_read(regmap, ABX8XX_REG_IRQ, &data);
--	if (err < 0) {
--		dev_err(&client->dev, "Unable to read irq register\n");
--		return -EIO;
--	}
--
--	err = regmap_write(regmap, ABX8XX_REG_IRQ,
--			   data & ~(ABX8XX_IRQ_EX1E |
--				    ABX8XX_IRQ_EX2E |
--				    ABX8XX_IRQ_TIE |
--				    ABX8XX_IRQ_BLIE));
--	if (err < 0) {
--		dev_err(&client->dev, "Unable to write irq register\n");
--		return -EIO;
--	}
--
--	err = regmap_read(regmap, ABX8XX_REG_OSC, &data);
-+	err = regmap_update_bits(regmap, ABX8XX_REG_IRQ,
-+				 ABX8XX_IRQ_EX1E | ABX8XX_IRQ_EX2E |
-+				 ABX8XX_IRQ_TIE | ABX8XX_IRQ_BLIE, 0);
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to read Oscillator Control register\n");
-+		dev_err(&client->dev, "Unable to update irq register\n");
- 		return -EIO;
- 	}
- 
-@@ -1014,11 +949,10 @@ static int abx80x_probe(struct i2c_client *client)
- 	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
- 		return -EIO;
- 
--	err = regmap_write(regmap, ABX8XX_REG_OSC,
--			   data & ~(ABX8XX_OSC_ACIE |
--				    ABX8XX_OSC_OFIE));
-+	err = regmap_write_bits(regmap, ABX8XX_REG_OSC,
-+				ABX8XX_OSC_ACIE | ABX8XX_OSC_OFIE, 0);
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to write Oscillator Control register\n");
-+		dev_err(&client->dev, "Unable to update Oscillator Control register\n");
- 		return -EIO;
- 	}
- 
--- 
-2.55.0
+Sure.
 
+> 
+>> associations than the originating user task. On x86, Privilege Level Zero
+>> Association (PLZA) enables the kernel to switch to a different CLOSID/RMID
+>> when entering kernel mode.
+>>
+>> Architectures need a common way to name kernel modes before resctrl
+>> can report what is active or what the platform supports.
+>>
+>> Introduce enum resctrl_kernel_mode:
+>>    - RESCTRL_INHERIT_USER: Kernel mode inherits allocation and monitoring
+>>      from the user task.
+>>    - RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU: Kernel mode may use allocation
+>>      and/or monitoring associations that differ from the user task. On x86,
+>>      CLOSID and RMID can be configured independently for kernel mode.
+>>
+>> Signed-off-by: Babu Moger <babu.moger@amd.com>
+>> ---
+> 
+> ...
+> 
+>> ---
+>>   include/linux/resctrl.h | 25 +++++++++++++++++++++++++
+>>   1 file changed, 25 insertions(+)
+>>
+>> diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+>> index dd09c2ce9a0f..4245d1e65ccc 100644
+>> --- a/include/linux/resctrl.h
+>> +++ b/include/linux/resctrl.h
+>> @@ -704,6 +704,31 @@ int resctrl_arch_io_alloc_enable(struct rdt_resource *r, bool enable);
+>>    */
+>>   bool resctrl_arch_get_io_alloc_enabled(struct rdt_resource *r);
+>>   
+>> +/**
+>> + * enum resctrl_kernel_mode - Kernel mode control and monitoring association.
+>> + *
+>> + * @RESCTRL_INHERIT_USER:
+>> + *     Kernel mode inherits both allocation and monitoring associations
+>> + *     from the user space task. On x86, kernel uses the same CLOSID and
+>> + *     RMID as the user-space task.
+>> + *
+>> + * @RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU:
+>> + *     Kernel mode may use allocation and monitoring associations that
+> 
+> Why is this "may use"? Could this be made more accurate? Consider, for
+> example:
+> 	All kernel mode work uses the same allocation and/or monitoring
+> 	association via an assigned CTRL_MON or MON group. The mode can
+> 	be enabled/disabled per-CPU. When the mode is disabled on a CPU
+> 	then the kernel work on that CPU inherits the allocation and
+> 	monitoring association from the user space task, effectively the
+> 	kernel mode becomes RESCTRL_INHERIT_USER on that CPU.
+> 
+
+Sure. Thanks.
+
+> 
+>> + *     differ from the user task. On x86, CLOSID and RMID are configured
+>> + *     independently; either or both may differ from user mode.
+> 
+> Please first provide all details that support what resctrl fs exposes to
+> user space before, if at all, adding any x86 specific details.
+> 
+Sure.
+
+>> + *
+>> + *     All online CPUs are included by default. A subset may be selected
+>> + *     through the resctrl group interface, and a CTRL_MON or MON group
+>> + *     may be associated with this mode.
+> 
+> Please note that the word "associated" appears in multiple contexts here.
+
+"assigned" might work better here.
+
+> 
+>> + */
+>> +enum resctrl_kernel_mode {
+>> +	RESCTRL_INHERIT_USER,
+>> +	RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU,
+> 
+> Something that stands out in this series is the multiple occurrences of
+> "assigned" in the new interface. What do you think of just dropping
+> "assign" from the kernel mode name?
+
+Actually, I was thinking about shortening the name here.
+
+Let's remove "assign" from here.
+
+Thanks
+Babu
+.
