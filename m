@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989DE53FD5F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4195427F5;
 	Wed, 16 Sep 2026 15:33:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572785; cv=none; b=r6/23aT/3WWesJJw7uBjemXwlxbqjwnIJQTnFr4hiioYNk8X953S0Qn9G6a3pJFuMic4thXW1R/hjpokKAnfTkSHhh9PGc40PEyyT4B/aTVpERYehpJZBF71gVMQndE14MZ/L/cEMBsiPShO7dvkRu00GnrXkIQpt+uCd66LyEc=
+	t=1789572785; cv=none; b=dBieX16L2kqOU5sNIym7Uhgd7DDx7USdnhiWTyLFLqiUGdczz7KJAmJ2ICGOPgIhsUjItuevIGGPzrVgUf4M65wth/a5PMV5jkspyZq3HzFpS4IgMeg3EaE9k7DfW/F5+eM8KgApMTZmjVG++MMnOpwhaopiuty50QaMmI0u/4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789572785; c=relaxed/simple;
-	bh=ufuFG0iiH0uwGCxs91FJfxbzCjh6T7uJduBJ12vONwI=;
+	bh=cK/Sahy3bNvWbjqvdDSyRK3pOigTpWzlzP6m3eBJhZI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pvWT+KQFnqS76wv2oPQFs4OxEkASbx4LxRzICb+YUB705F9PxgkiFiB9UYdUQGF+HRJwLEnOdJKmSqUGhpQyz3OOvOwE/IhEPvHFTpgrQiAOjjG0GfqR5oPNu6mHgpiZtXQ4IXi79dcW1gk3T2Vf7hvrNJNtWelbqnDwChyR1WU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GYNVUZxH; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=O8DmtBXE/2GKpxFjaALyOLJzq88nrDIgvvX+dSV0h1mtPIkKt83AeuDctN5n9uso9t1mjFEFPdX5tKV5q3aHBLSamtn9AStpSfFUQSvO9VcLhfsSncvtFVZdlmm9s8a5/w6REQ6tytrD5fOgy/b/dSzayWGAA3YhhXbLYGXAIzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AQ1Tyr5V; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GYNVUZxH"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 365F8C4AF09;
-	Wed, 16 Sep 2026 15:33:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AQ1Tyr5V"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 24FB5C4AF16;
+	Wed, 16 Sep 2026 15:33:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789572781;
-	bh=ufuFG0iiH0uwGCxs91FJfxbzCjh6T7uJduBJ12vONwI=;
+	s=k20201202; t=1789572783;
+	bh=cK/Sahy3bNvWbjqvdDSyRK3pOigTpWzlzP6m3eBJhZI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=GYNVUZxHOVlL67Go5xQzuKi6qhn9aDhp0Tson+xkkl3oDITPu/+f6Z/vtNSvSzjod
-	 ujCxtvkv2gdJW1t/h9FW4A5xPfCAL//qWlXPGOj0lG2ICCC0fMy8eNMJREdktimF/y
-	 FxdXhHOpntQKFsmN6TQEpYj4/OccNniA2VcIsuaBcIN/Vrr17BDa3IwAPFJsSbXFRb
-	 kYQRd8GJqIMGV9WSQFJDngeTY99BVi69PF0+HOfeyiU7eZ51paFjbJU5dysDkAdCmF
-	 HXKHKBXeIiz53KuDb8A3mXpv+YpFMHBIPnb+RI4TZ1b3LRc/YuHODTxRc8xmMlTIpW
-	 XsBkh+EC9tBlQ==
+	b=AQ1Tyr5VUgTVPndE2BG+sT4XMJnnyfQkX77pwn2kKRZKPFe3tMO8j3THoIlhxJhTr
+	 +qVZqdvabFnaWRvtZPp8/d+5RPq0A70IDxGHtQ/LeWbiGMvhP0jhyKeHt3gMJtfS3L
+	 K76EAfwR63sZL9fWsQu9SAYMG2yViHFyZuIVMG2TADgXpyhhzPZfLmA0lS/tm+ST68
+	 GJ6jTp9WuTQKuBg+uzKWsh3080AH/ijjeXJneQlwrHqKeLlE5j1aTGDTO4/PYJmrej
+	 OXazcdLuKFdYnpcqc0m7Kj4tkls4Dty6xf63v29Gu7UVcCi0BAVmqdAevcNJKYP51W
+	 CAxwp6U1YccHg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E0A8C982C9;
-	Wed, 16 Sep 2026 15:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10DBBC982C9;
+	Wed, 16 Sep 2026 15:33:03 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Wed, 16 Sep 2026 09:33:09 -0600
-Subject: [PATCH v10 17/38] dyndbg: replace classmap list with an
- array-slice
+Date: Wed, 16 Sep 2026 09:33:25 -0600
+Subject: [PATCH v10 33/38] dyndbg: harden classmap and descriptor
+ validation
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-dd-cmap-part2-clean-v10-17-af4cf4767707@gmail.com>
+Message-Id: <20260916-dd-cmap-part2-clean-v10-33-af4cf4767707@gmail.com>
 References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
 In-Reply-To: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -63,14 +63,13 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
+ Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=6080;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=9553;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=ebOnxqx5VuWa0/VzpF9spz3mGGSlrx2PW3HTN1h9Z9w=;
- b=L8/tSDJjcAeP8cqebes6zXTMHbLaoitoYimMV42+gXwsdZVmlwNTGjGzwKpLlaRuAbjXm3W9R
- vcse85vmRoECrjpNLC02b9SfK7UKpDboTU86znVzPptp6Yz9OaA4WHJ
+ bh=nVFWnFKk0QgFo8thqqeslt7rKlx+zalXosrMpbqoT/M=;
+ b=HjX+eUvHojWORc3aN6sS1EcixM4R5BxkavlY5DAiN/HRS2V5h377CNjRsgFDeciopyiA/XGdn
+ 7YYA3T+SZWxCGh5hAVPTLpIegxifalHI9iGY11AjOpH9bXXs0ADMZzC
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -80,181 +79,234 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Classmaps are stored in an elf section/array, but currently are
-individually list-linked onto dyndbg's per-module ddebug_table for
-operation. This is unnecessary.
+Dynamic debug classmaps allow modules to _DEFINE and/or _USE multiple
+classmaps, but this requires coordination amongst the classmaps.
 
-Just like dyndbg's descriptors, classmaps are packed in compile order;
-so even with many builtin modules employing multiple classmaps, each
-modules' maps are packed contiguously, and can be treated as a
-array-start-address & array-length.
+Previously, class validation done by DYNAMIC_DEBUG_CLASSMAP_DEFINE at
+compile-time, and ddebug_class_range_overlap() at modprobe-time, was
+incomplete, and DYNAMIC_DEBUG_CLASSMAP_USE_ had no validation. This
+could allow broken classmaps, making them harder to use well.
 
-So this drops the whole list building operation done in
-ddebug_attach_module_classes(), and removes the list-head members of
-the classmap structs.  The "select-by-modname" condition is reused to
-find the start,end of the subrange of classmaps belonging to the module.
+This commit improves classmap and descriptor validation:
+
+- Add run-time overlap checks for _USEd classmaps in ddebug_add_module()
+  to prevent collisions between private maps and imported APIs.
+
+- Scan module descriptors at load time to print a single warning per
+  missing class_id, rather than waiting for a user query to trip over it.
+
+- Downgrade the global WARN_ONCE in ddebug_match_desc() to a
+  pr_warn_ratelimited, since orphaned class IDs are now tracked and
+  warned about early at module load.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v2: RvB after SoB
+v10:
+. fix pr_warn_ratelimited() line wrap in ddebug_match_desc().
 ---
- include/linux/dynamic_debug.h |  1 -
- lib/dynamic_debug.c           | 65 +++++++++++++++++++++++--------------------
- 2 files changed, 35 insertions(+), 31 deletions(-)
+ lib/dynamic_debug.c                                | 68 ++++++++++++++++++++--
+ lib/test_dynamic_debug.c                           | 16 +++--
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     | 22 +++----
+ 3 files changed, 84 insertions(+), 22 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 85863e24ad13..02a1abdc5b3f 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -84,7 +84,6 @@ enum ddebug_class_map_type {
- };
- 
- struct ddebug_class_map {
--	struct list_head link;
- 	struct module *mod;
- 	const char *mod_name;	/* needed for builtins */
- 	const char **class_names;
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 9d3e3cad8056..d2d3213061d2 100644
+index ac54a0499369..eb28831a6cb2 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -45,10 +45,11 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
- extern struct ddebug_class_map __stop___dyndbg_classes[];
- 
- struct ddebug_table {
--	struct list_head link, maps;
-+	struct list_head link;
- 	const char *mod_name;
--	unsigned int num_ddebugs;
- 	struct _ddebug *ddebugs;
-+	struct ddebug_class_map *classes;
-+	unsigned int num_ddebugs, num_classes;
- };
- 
- struct ddebug_query {
-@@ -149,12 +150,13 @@ static void v3pr_info_dq(const struct ddebug_query *query, const char *msg)
- }
- 
- static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
--							  const char *class_string, int *class_id)
-+							const char *class_string,
-+							int *class_id)
- {
- 	struct ddebug_class_map *map;
--	int idx;
-+	int i, idx;
- 
--	list_for_each_entry(map, &dt->maps, link) {
-+	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -165,7 +167,6 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	return NULL;
- }
- 
--#define __outvar /* filled by callee */
- /*
-  * Search the tables for _ddebug's which match the given `query' and
-  * apply the `flags' and `mask' to them.  Returns number of matching
-@@ -235,7 +236,7 @@ static int ddebug_change(const struct ddebug_query *query,
- 	unsigned int nfound = 0;
- 	struct flagsbuf fbuf, nbuf;
- 	struct ddebug_class_map *map = NULL;
--	int __outvar valid_class;
-+	int valid_class;
- 
- 	/* search for matching ddebugs */
- 	mutex_lock(&ddebug_lock);
-@@ -1067,9 +1068,10 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- 
- static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
- {
--	struct ddebug_class_map *map;
-+	struct ddebug_class_map *map = iter->table->classes;
-+	int i, nc = iter->table->num_classes;
- 
--	list_for_each_entry(map, &iter->table->maps, link)
-+	for (i = 0; i < nc; i++, map++)
- 		if (class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
- 
-@@ -1153,30 +1155,34 @@ static const struct proc_ops proc_fops = {
- 	.proc_write = ddebug_proc_write
- };
- 
--static void ddebug_attach_module_classes(struct ddebug_table *dt,
--					 struct ddebug_class_map *classes,
--					 int num_classes)
-+static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
- {
- 	struct ddebug_class_map *cm;
--	int i, j, ct = 0;
-+	int i, nc = 0;
- 
--	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
-+	/*
-+	 * Find this module's classmaps in a subrange/wholerange of
-+	 * the builtin/modular classmap vector/section.  Save the start
-+	 * and length of the subrange at its edges.
-+	 */
-+	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
- 
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
--
--			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
--				  cm->mod_name, cm->base, cm->length, cm->map_type);
--
--			for (j = 0; j < cm->length; j++)
--				v3pr_info(" %d: %d %s\n", j + cm->base, j,
--					  cm->class_names[j]);
--
--			list_add(&cm->link, &dt->maps);
--			ct++;
-+			if (!nc) {
-+				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
-+					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
-+				dt->classes = cm;
-+			}
-+			nc++;
-+		} else if (nc) {
-+			/* end of matching classmaps */
-+			break;
- 		}
+@@ -317,7 +317,8 @@ static bool ddebug_match_desc(const struct ddebug_query *query,
+ 	/* site is class'd */
+ 	site_map = ddebug_find_map_by_class_id(di, dp->class_id);
+ 	if (!site_map) {
+-		WARN_ONCE(1, "unknown class_id %d, check %s's CLASSMAP definitions", dp->class_id, di->mod_name);
++		pr_warn_ratelimited("unknown class_id %d, check %s's CLASSMAP definitions\n",
++				    dp->class_id, di->mod_name);
+ 		return false;
  	}
--	if (ct)
--		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
-+	if (nc) {
-+		dt->num_classes = nc;
-+		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
-+	}
+ 	/* module(-param) decides protection */
+@@ -1490,6 +1491,23 @@ static int ddebug_class_range_overlap(struct ddebug_class_map *cm, u64 *reserved
+ 	return 0;
  }
  
++static int ddebug_class_user_overlap(struct ddebug_class_user *cli,
++				     u64 *reserved_ids)
++{
++	struct ddebug_class_map *cm = cli->map;
++	int base = cm->base + cli->offset;
++	u64 range = (((1ULL << cm->length) - 1) << base);
++
++	if (range & *reserved_ids) {
++		pr_err("module %s: [%d..%d] (from %s) conflicts with %llx\n",
++		       cli->mod_name, base, base + cm->length - 1,
++		       cm->class_names[0], *reserved_ids);
++		return -EINVAL;
++	}
++	*reserved_ids |= range;
++	return 0;
++}
++
  /*
-@@ -1208,10 +1214,9 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	dt->num_ddebugs = di->num_descs;
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -1500,7 +1518,8 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 	struct ddebug_class_map *cm;
+ 	struct ddebug_class_user *cli;
+ 	u64 reserved_ids = 0;
+-	int i;
++	u64 bad_ids = 0;
++	int i, err = 0;
  
- 	INIT_LIST_HEAD(&dt->link);
--	INIT_LIST_HEAD(&dt->maps);
+ 	if (!di->descs.len)
+ 		return 0;
+@@ -1531,10 +1550,47 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 	dd_set_module_subrange(i, cm, &dt->info, maps);
+ 	dd_set_module_subrange(i, cli, &dt->info, users);
  
- 	if (di->classes && di->num_classes)
--		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
-+		ddebug_attach_module_classes(dt, di);
+-	/* insure 2+ classmaps share the per-module 0..62 class_id space */
++	/* validate the per-module shared 0..62 class_id space */
+ 	for_subvec(i, cm, &dt->info, maps)
+ 		if (ddebug_class_range_overlap(cm, &reserved_ids))
+-			goto cleanup;
++			err = -EINVAL;
++
++	for_subvec(i, cli, &dt->info, users) {
++		cm = cli->map;
++		if (!cm) {
++			pr_err("module %s: classmap not found for user\n", di->mod_name);
++			err = -EINVAL;
++			continue;
++		}
++
++		if (cm->base + cm->length + cli->offset > _DPRINTK_CLASS_DFLT) {
++			pr_err("module %s: base:%d + classes.len:%d + cli.offset:%d must be <= %d\n",
++			       di->mod_name, cm->base, cm->length,
++			       cli->offset, _DPRINTK_CLASS_DFLT);
++			err = -EINVAL;
++			continue;
++		}
++
++		if (ddebug_class_user_overlap(cli, &reserved_ids))
++			err = -EINVAL;
++	}
++	if (err)
++		goto cleanup;
++
++	/* validate all class_ids against module's classmaps/users */
++	for (i = 0; i < dt->info.descs.len; i++) {
++		struct _ddebug *dp = &dt->info.descs.start[i];
++
++		if (dp->class_id == _DPRINTK_CLASS_DFLT)
++			continue;
++		if (bad_ids & (1ULL << dp->class_id))
++			continue;
++		if (!ddebug_find_map_by_class_id(&dt->info, dp->class_id)) {
++			pr_warn("module %s uses unknown class_id %d\n",
++				dt->info.mod_name, dp->class_id);
++			bad_ids |= (1ULL << dp->class_id);
++		}
++	}
  
  	mutex_lock(&ddebug_lock);
  	list_add_tail(&dt->link, &ddebug_tables);
-@@ -1324,8 +1329,8 @@ static void ddebug_remove_all_tables(void)
- 	mutex_lock(&ddebug_lock);
- 	while (!list_empty(&ddebug_tables)) {
- 		struct ddebug_table *dt = list_entry(ddebug_tables.next,
--						      struct ddebug_table,
--						      link);
-+						     struct ddebug_table,
-+						     link);
- 		ddebug_table_free(dt);
- 	}
- 	mutex_unlock(&ddebug_lock);
+@@ -1546,7 +1602,7 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 		 dt->info.descs.len, dt->info.mod_name);
+ 	return 0;
+ cleanup:
+-	WARN_ONCE(1, "dyndbg multi-classmap conflict in %s\n", di->mod_name);
++	pr_err("dyndbg multi-classmap conflict in %s\n", di->mod_name);
+ 	kfree(dt);
+ 	return -EINVAL;
+ }
+@@ -1633,7 +1689,7 @@ static int ddebug_module_notify(struct notifier_block *self, unsigned long val,
+ 		mod->dyndbg_info.mod_name = mod->name;
+ 		ret = ddebug_add_module(&mod->dyndbg_info);
+ 		if (ret)
+-			WARN(1, "Failed to allocate memory: dyndbg may not work properly.\n");
++			pr_err("dyndbg: failed to add module %s: %d\n", mod->name, ret);
+ 		break;
+ 	case MODULE_STATE_GOING:
+ 		ddebug_remove_module(mod->name);
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 7c10a1ddc630..fe5b885398f3 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -161,14 +161,20 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_len, 0, 60,
+ #endif
+ 
+ #else /* TEST_DYNAMIC_DEBUG_SUBMOD */
+-
+ /*
+- * in submod/drm-drivers, use the classmaps defined in top/parent
+- * module above.
++ * In submod (drm-drivers/helpers) use the classmaps defined in
++ * top/parent module above.  We _USE_() with offset, to test the
++ * non-zero case.
+  */
+-
+ DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
+-DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 7);
++/*
++ * maybe force failure of runtime sanity test of classmap.length + offset < 63
++ */
++#if !defined(DD_RUNTIME_CLASS_CHECK)
++DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 8);
++#else
++DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 55);
++#endif
+ 
+ #if defined(DD_MACRO_ARGCHECK)
+ DYNAMIC_DEBUG_CLASSMAP_USE_(fail_offset_big, 100);
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index a91a0ffa92d4..ef5f41ca7f7d 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -583,12 +583,12 @@ function GOLDEN_RECORDS {
+ #K= c518a50ba30ba8099d0dc874a27ecf16 FT_multi_query.4
+ #K= 8f18ea82c09460434b6e9e4cd12543e8 FT_test_classes.1
+ #K= a15ec4843acd721fbdfddc0b512c8032 FT_test_classes.2
+-#K= 20d4545f9753e677e72e3adf52527fd3 FT_test_classes.3
+-#K= 934d8677872fe26bd636a6c3d6416aa2 FT_classmap_inheritance.1
+-#K= cd1389958807063baa1ea4b06c61fa02 FT_classmap_inheritance.2
++#K= bc074e657d8d7f0bbc960e4dfa8de25d FT_test_classes.3
++#K= a60284143b51b5d13c4562f7f4a2e807 FT_classmap_inheritance.1
++#K= 1d43471dca765597d88a1be25d776c92 FT_classmap_inheritance.2
+ #K= 0708a283f0f1959135c797e36119e4af FT_classmap_inheritance.3
+-#K= 05f6efb80299d24cde65174f64d97308 FT_classmap_inheritance.4
+-#K= 7e92245008439ee79fe2460aeaa16a9b FT_classmap_inheritance.5
++#K= a0b9a8a9530706b85c4f8bf911607db0 FT_classmap_inheritance.4
++#K= f43e0aff8a4b38435b73d90ed8100d1b FT_classmap_inheritance.5
+ #K= 53d1b6875b65c79cfd759e209ae50b11 FT_modprobe_w_param.1
+ #K= 53d1b6875b65c79cfd759e209ae50b11 FT_modprobe_w_param.2
+ #K= 79d912e2aeb04dea70f9c7e701333f0a FT_modprobe_w_param.3
+@@ -599,11 +599,11 @@ function GOLDEN_RECORDS {
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.8
+ #K= f9cee4512e5604603e0262fba4bea223 FT_modprobe_w_param.9
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.10
+-#K= b6a62433165f6423b81417f782551ab9 FT_modprobe_w_param.11
++#K= 7c645692e3e3796d4d3b8604c49583f7 FT_modprobe_w_param.11
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.12
+-#K= de89753b843449d11da14240c4da4cad FT_modprobe_w_param.13
++#K= e995f70c0509334a33aec40ada9e6e6c FT_modprobe_w_param.13
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.14
+-#K= 1d966d0cae735457791c93a86e9e1650 FT_modprobe_w_param.15
++#K= 72f97ca3e8f4c3e7f34fbe91de62e223 FT_modprobe_w_param.15
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.16
+ #K= 1aacb7c196a8354c46c60c73d78c6bf2 FT_modprobe_w_param.17
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.18
+@@ -617,11 +617,11 @@ function GOLDEN_RECORDS {
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.26
+ #K= 7fa4c84490c42c750986614c3539d56a FT_modprobe_w_param.27
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.28
+-#K= 1eb866a813551061cd73178ba7833543 FT_modprobe_w_param.29
++#K= fc098897aa3e1472a536e7ae8069c84f FT_modprobe_w_param.29
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.30
+-#K= a9e7424ed7b02696b5e12108971792dd FT_modprobe_w_param.31
++#K= 38ea63fed62a0308241325e57020b28e FT_modprobe_w_param.31
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.32
+-#K= 5323d7746d983cdcfda4866255cd5123 FT_modprobe_w_param.33
++#K= 4b896adb5e7cfcc79f9ffa879d791f37 FT_modprobe_w_param.33
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.34
+ #K= 7f961a7d3facd89bdd4b9d8e7b5541e9 FT_modprobe_w_param.35
+ #K= 6a320774e2b535ceb89d6cdde6f5d0fb FT_modprobe_w_param.36
 
 -- 
 2.55.0
