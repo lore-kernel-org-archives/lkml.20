@@ -1,131 +1,193 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E054B0E5C;
-	Wed, 16 Sep 2026 16:31:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1EF57F753;
+	Wed, 16 Sep 2026 16:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576308; cv=none; b=FxpQskEFBgZ2qB4JjIC1bG8jeZQjzySkKvbBpUA/mey7nRibeq3LudyDHrKYT3N/p8vRZah7xCaUCczjeFxQk9WfOavF6eh1Hjy/gapE/4fUH4ljVC+/jt1awfH1hFBaMXmHOZ9jmLjSUxchuxahEfCUQq+gU4oTBMGdqijOKcg=
+	t=1789576318; cv=none; b=LWhsf+aQTpD2P5X6MRyK4taZr99DO8ny76DbV3U6H9frD1yqVvQMh/HjzN+A4bHV5mRRXnFJFVa+lCldsDmFgTw5pXXLCMjATgJDwHuvIvR0V0E52w3a3GT0+c3pR1TLIuA1/eU8abILHtTFoJ6XWuJI83l13PIAfDZQQ8lmyRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576308; c=relaxed/simple;
-	bh=CTbEL7ibtIjohujGx4TcudNt1JPX5O+OKTGx5KXh9Hs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZXCfGWlN3C2o7WU4LTd3iZwbTsxoUPgDt5TzWoJwcJJH0jC4+BbJxb6H7fRV5/eRiTFKFGmQFC9Z5BezLVrF99zjc9Rbh9Qecj8JdEL8kolKqa0IUJH+6kdw9rDifcwYmU1ci0TEA3ECK3qDwcR28DjDS6hyFS8YHs54gQBTrMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Ps9FzI1r; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=g11KRm2F; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789576318; c=relaxed/simple;
+	bh=1M+Ox8VtHkAh42Jp52bV+LcKMtnkwVmnl/79hc4sTUw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BgqPwuVzcxnLL9GQT+MTwXAwDvdVXzmdHLnN3CcWHSCDHcgIWUmPwcmxVZH2Q+wSzGC08jJIPTP42WFHhD3FGyVdWSgFhORIE6TPh/0t9pBpVfeO5Q+tEfppQjJYrjynC+bG9thd9SAp/4zZ5umHKQXLkWm4qGbiPulUmMuz+/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e2QLSTs0; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Ps9FzI1r";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="g11KRm2F"
-Message-ID: <ffec9201db3d12944dbd350010560f6234262bbe.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789576292;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hPa06aPl29CoMqM4aUjsPzJu/eemi4sk0IvMnx3stDg=;
-	b=Ps9FzI1rPqjIhTYi7YqBdiN2/XBqSM3AkgV2cKvMidd60hyp+kulkB+GMfOLLwzp0QcBmg
-	QIxyhNbY7TK0m8T0JLHRmFmP9s3o5G5lOTJdpoIkA6O5tDCTQYj+EJG2k4KyrewZQC8qMK
-	nITpaWQ5TDN/xBXWnoxIWMcWxGAMocL8StJoj+JgRejI5+HzEpBzuc5yRovoBRFW3PdSue
-	5It3tKJF/pWs8o/YgEhmrICFfMw6kHPdGRuVyO6KQwEMJOtSxk0IDPMo2+/YofdVx1VPZZ
-	BqwV3MlXRekdj6eY/dWvCH3KtElhSJA3zlKQl/iPL5OCNyt95vUQS36t/VvzbA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789576292;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hPa06aPl29CoMqM4aUjsPzJu/eemi4sk0IvMnx3stDg=;
-	b=g11KRm2FnNNF9CtE1gnHOxYt0Jlk0DHY97Ufon9OLzU7hzT6+bkO3CoGuvn775rFf/hK+j
-	WRCasrTd+88aGwAQ==
-Subject: Re: [PATCH net-next v2 4/4] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Wed, 16 Sep 2026 18:31:31 +0200
-In-Reply-To: <2346e6ee-4075-4d64-8e3e-8fbd1ce81cd6@lunn.ch>
-References: 
-	<20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
-	 <20260903-devel-vstrassheim-soce-dsa-ml-v2-4-fb0587cb466b@linutronix.de>
-	 <3c2c5b39-6a7d-4cb2-af1c-b5015b6bf1e8@lunn.ch>
-	 <db26d5c9262069a11e5cbe00e176b81e40baebeb.camel@linutronix.de>
-	 <5c955c96-7883-4e59-97ef-9fc3b63abf58@lunn.ch>
-	 <ab7e4eeed1b8296188355413cce1aa2b2aa5c670.camel@linutronix.de>
-	 <b7fdbd43-d069-40e1-aff4-30197371739d@lunn.ch>
-	 <3007fddf91fb4260538073482f5148ce8ac6a6ba.camel@linutronix.de>
-	 <2346e6ee-4075-4d64-8e3e-8fbd1ce81cd6@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e2QLSTs0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789576311; x=1821112311;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=1M+Ox8VtHkAh42Jp52bV+LcKMtnkwVmnl/79hc4sTUw=;
+  b=e2QLSTs0crqD4bkJ6gDR05sv2glAbCpG5IhxxLKQ0vLC2JIMOtJn2nQt
+   JhhW/LuPiSjR8s5NlpvyN6pzModlvWb0XyNV8LKfvO+IfecJuOAByag9A
+   rId4NzkuAfJNavLGZtDD5RwflUM98JgFKqwiVv0eTWw6rdY4RlI/XQEsk
+   zDDiIcozAiaVEbp/whDsKZvJC1vOTxaAV0JSCzGZJlYM2uEXiOYmoPKsV
+   LZaANbfPtwKWLnpIEUQRbZ7RWhc8Nxc4YN/qkcc5srCyiOftw5qeIIb/k
+   k4/HASOQ1ENcEi+e12JLHtm8Bkw5Txuh/dyilGFuSkteZNXu/GjMQuEnh
+   g==;
+X-CSE-ConnectionGUID: OvC52FMkQHSatYMqyyJGjA==
+X-CSE-MsgGUID: 3eVqJX/6SUiNrrWGkWKZWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90093389"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90093389"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 09:31:46 -0700
+X-CSE-ConnectionGUID: Ukc1oRnPQq2aDyloVd3cJg==
+X-CSE-MsgGUID: ar7V5XC+Sy2HvJOtnXLujA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="273363815"
+Received: from iherna2-mobl4.amr.corp.intel.com (HELO tfalcon-desk.attlocal.net) ([10.124.223.212])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 09:31:43 -0700
+From: Thomas Falcon <thomas.falcon@intel.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>
+Subject: [PATCH v10 0/6] perf: Add support for memory region/range reporting
+Date: Wed, 16 Sep 2026 11:31:21 -0500
+Message-ID: <20260916163127.318885-1-thomas.falcon@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-09-15 at 14:52 +0200, Andrew Lunn wrote:
-> > Although mdio-mux-mmioreg might work, I have realized that it is not
-> > suitable here.
-> >=20
-> > According to the switch documentation, the bus selector occupies bits
-> > 26:16 of the MDIO control register, while bit 0 is the transaction
-> > start/busy bit. A partial write might trigger an operation before the
-> > other fields have been updated.
->=20
-> Maybe. I can see at minimum it is a bit messy.  The mux would need to
-> write the upper bits, but set the lower start/busy to 0. The MDIO
-> driver would then need to read back the register, OR in the bits it
-> wants to set, and set the start bit.
->=20
-> This start bit is pretty common, and generally, writes without it set
-> are safe. But you need to test it on this particular hardware.
->=20
+Add support for two memory-related reporting features in the perf tool:
 
-Yes, it works.
+1. Memory region reporting in perf-c2c and perf-script subcommands.
+2. Memory range data in perf.data file header and perf-c2c subcommand.
 
-> > Also accessing this register without checking the controller state
-> > could interfere with an active or failed transaction and introduce
-> > races (as noted by Netdev-Sashiko).
->=20
-> The mdio mux framework should take care of all the locking for you.
-> Take a look a mdio_mux_read(). It takes the lock of the real MDIO bus
-> controller, sets the mux, performs the read, and then releases the
-> lock.
->=20
-> The only thing you need to be careful of is write must wait around for
-> the write to complete before returning. Some MDIO bus implementations
-> don't wait, they leave it running, and do a check the bus is idle
-> before doing the next operation.
->=20
+Memory region reporting was introduced as part of support for the
+Off-module Response facility (OMR) [1], which provides a new data
+source encoding supporting "up to 8 fine-grained memory regions in
+addition to the cache region, offering more detailed insights into
+memory access regions."
 
-I would like to do both. Check at the beginning and wait for the
-operation to complete. However, this final wait should not last forever.
-If a timeout occurs, something is completely broken and an error is
-reported accordingly.
+Memory Range support was introduced with the addition of the ACPI Memory
+Range and Region Mapping (MRRM) [2] table. It provides a base address plus
+a length value for each memory range, as well as NUMA node and local and
+remote "region ID's" so that "platform firmware can indicate the type of
+memory for each range."[3]
 
-I still had concerns about the following call to set the mux with
-mdio_mux_mmioreg_switch_fn() if the previous operation ended in such an
-error and released the lock. However, in that case, we are already in a
-faulty state and it can not get any worse. The following operation
-checks the state and aborts anyway. An alternative switch_fn() with the
-overhead of an extra driver is not worth it just to preserve a bitfield
-in undefined error state.
+Include a change allowing PERF_MEM_LVLNUM_L0 to be printed in
+perf-mem output as well.
 
-So I will implement this as suggested at the beginning using
-mdio-mux-mmioreg.
+[1]: https://lore.kernel.org/all/20260114011750.350569-1-dapeng1.mi@linux.intel.com/
+[2]: https://lore.kernel.org/lkml/20250505173819.419271-1-tony.luck@intel.com/
+[3]: MRRM definition allow for future expansion for the OS to assign
+these region IDs.
 
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Andrew
+v10:
+-- perf-c2c: only update a cacheline's mem_region for real cache/memory
+   regions, so region-less samples (N/A) no longer overwrite a valid
+   region recorded by an earlier sample on the same cacheline (Sashiko)
+-- perf-script: replace #include "session.h" in mem-events.h with a
+   forward declaration of struct perf_session, and add direct session.h
+   includes to the .c files that use it (Sashiko)
+-- perf header: add missing #include <fcntl.h> for open()/openat()/
+   O_DIRECTORY to avoid build failures under strict libc such as musl
+   (Sashiko)
+-- perf-c2c: add missing #include <stdio.h> for asprintf() (Sashiko)
+-- Fix some whitespace and comment formatting issues
 
-Thanks,
-Vasilij
+v9:
+-- Fixed incorrect developer tags and updated perf-c2c to include cache
+   region reporting (Dapeng Mi)
+
+v8:
+-- Updated developer tags and commit messages with real example output
+   from perf script and perf c2c (Dapeng Mi)
+
+v7:
+-- perf-c2c: fix output_str allocation error handling that introduces a
+   memory leak (Sashiko)
+
+v6: 
+-- Rebase on 7.3-rc1
+
+v5:
+-- perf-c2c: make the cacheline header span and ui_quirks() width
+   fixup depend on memory-region availability (Namhyung Kim)
+
+v4:
+-- perf-script: gate the Region field on the HEADER_MEMORY_RANGES feature
+   bit via perf_session instead of a global flag, with a pipe-mode fallback
+-- perf-c2c: fix output_str allocation error handling
+-- perf header: Fix typo in region id bounds checking which made region 255
+   invalid
+
+v3:
+-- included missing ff-size check in process_memory_ranges
+-- make memory region reporting in perf c2c-and perf-script conditional
+   on feature bit, requiring some patch reordering (Namhyung Kim)
+-- used open/openat to read memory range sysfs files in memory_range__read()
+   (Namhyung Kim)
+-- Removed path name and file name buffers in memory_range__read(),
+   instead pass path name from as a parameter from memory_range__parse()
+   (Namhyung Kim)
+-- use calloc instead of zalloc in memory_range__parse() and
+   process_memory_ranges() (Namhyung Kim)
+-- Removed redundant check for existence of memory range directory in
+   memory_range__read() (Namhyung Kim)
+-- Included output examples of memory ranges in perf header and perf-c2c
+   in commit message (Namhyung Kim)
+
+v2:
+-- Added missing newline in WARN_ONCE message in c2c_he__set_mem_region()
+-- increased buffers passed to perf_script__meminfo_scnprintf() from 150
+   to 200 bytes to avoid silent truncation
+-- Added check for NULL return of sysfs__mountpoint() when parsing
+   memory ranges in sysfs
+-- increased MAX_MEMORY_RANGES sanity check from 64 to 256 based on
+   ACPI MRRM table implementation in Linux kernel
+-- added comment for MAX_MEMORY_RANGES to clarify that it is a sanity check
+   for malformed perf.data files
+-- cleaned up some removed code that was added back by this patch series
+   due to a bad rebase
+
+Dapeng Mi (3):
+  perf mem: Add support for printing PERF_MEM_LVLNUM_L0
+  perf tools: Show memory region in perf-c2c subcommand
+  perf tools: Show memory region in perf-script subcommand
+
+Thomas Falcon (3):
+  perf mem: Fix size tracking for mem_lvl's in
+    perf_script__meminfo_scnprintf()
+  perf header: Support memory ranges
+  perf c2c: print memory region data with stdio output
+
+ tools/perf/Documentation/perf-record.txt      |   2 +-
+ .../Documentation/perf.data-file-format.txt   |  13 ++
+ tools/perf/builtin-c2c.c                      | 158 +++++++++++++-
+ tools/perf/builtin-inject.c                   |   1 +
+ tools/perf/builtin-script.c                   |  13 +-
+ tools/perf/util/bpf-filter.l                  |   1 +
+ tools/perf/util/c2c.h                         |   1 +
+ tools/perf/util/env.c                         |   1 +
+ tools/perf/util/env.h                         |  10 +
+ tools/perf/util/header.c                      | 205 ++++++++++++++++++
+ tools/perf/util/header.h                      |   1 +
+ tools/perf/util/mem-events.c                  |  94 +++++++-
+ tools/perf/util/mem-events.h                  |   5 +-
+ .../scripting-engines/trace-event-python.c    |   6 +-
+ 14 files changed, 488 insertions(+), 23 deletions(-)
+
+-- 
+2.43.0
 
