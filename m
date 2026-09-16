@@ -1,95 +1,90 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F85A519900;
-	Wed, 16 Sep 2026 16:54:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F123952BE55
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:55:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577710; cv=none; b=tWOrMu/6/nn1fURsk2vYNkyf43SEjduwAUGcrw3kucpSab7bnkRbctpRFewna0W1fwr3BhoGZAgEtg4+1bHJqjlCUr39PTIOFyQb0SxtX44/mLPOEI/xaaerOHTicNRc+bu6+IHjvNuy6wqyi9MFpqF1DOYp62Ggo2+g7uDBUpg=
+	t=1789577752; cv=none; b=knxqQDayDuZ744pFCuXqOx2kzFOV0z4Up8+vGtYmMaPqvCh+BF3bL/2njALToxv9lBi8YKnngm4hs08PBKSH1vzt9mLO6ov0ekFITWp6jbydRbadUXoglfn4DVL/lIpOh8TQRKNFsDlNWcp+NSUoaE1sOzSTXYRfmUFDNKSh/xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577710; c=relaxed/simple;
-	bh=ilqcGlbdKBIHL/vrmkB1/CafWnbor2h6Ggk0Ys2ks2Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bZY9b+PtTVhU1jJb42WBe+OVXINd6AD8pTlFJqFqFORx3tAhk3hvFly0zhVK6hZbvok2uvAMk3ggW2XgT7mtivkN2ca8lI6+Zr0xAHkhG4SrNb2XTCh9YUL0fsvg88zH2feqHvHOcQU2HhnnjE1AFeaLTTyD1UUHdO00A1tt3LY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=NhoFKOkR; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789577752; c=relaxed/simple;
+	bh=3Rl9kH69FoIDw7gGLNXjdv5fuBqhGXd9XmucXEFUoPA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sZU+ZsZl3aSSNsi297nW9kI91JfldoSiDwRmcj6UoBim0hr4guruV5N8YTMMRWrh/xvbpuAHGPoxeLNnecthFXQPCCE6rt4Lw3RH2zYLH/GRCLSu1CgikSzSOpSqtGw1UWSQXqJe6CYgsl2+00xmvys2b/mKEjKJcS8+A7uaYEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQNgOhDe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="NhoFKOkR"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 1A3A7C5CD6B;
-	Wed, 16 Sep 2026 16:55:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0E32F60337;
-	Wed, 16 Sep 2026 16:54:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0397311C7B00D;
-	Wed, 16 Sep 2026 18:54:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789577693; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=2lcHsx/y5VbgHLRKTv0Ayc/1aoUYFwjE7vqzYZmM7YU=;
-	b=NhoFKOkRv6qX9CIZ3xSNEGB+N0r0sG1vZlTQVMowAdgjJYQE/QOYS0MuuPc/phRNcuutAY
-	7nQnLAatGxHb8ZOTOQrnIPcQl1TcXkVPH5aAHg6NA5EnKwQuhRtsTEbRqXfmO8uWshW99M
-	v3tVI/hHdsXOGkXh/Qx5+asfYNmWFzxgrm+yleTK4nYUCIpmXF3CAkdRqYYlL3GXSZdg2H
-	ymLxc6ADD3sPElUsD6xlx5P4VXLW438Bp8Fd+XyEUE1AstPcOBMWUSTww4ShzLTkIiP729
-	v8S9WxYlP4PSVMAQeer2DqUdUtY+zCDrhpbl2kEbn1fEJEzrZybPQvfqY0tcWg==
-Message-ID: <90a666a8-9f6a-4640-a219-731f3d551c66@bootlin.com>
-Date: Wed, 16 Sep 2026 18:54:49 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQNgOhDe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE181F0089E
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:55:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789577737;
+	bh=3Rl9kH69FoIDw7gGLNXjdv5fuBqhGXd9XmucXEFUoPA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hQNgOhDeYs1NQ6GmUOz0PqknKmSSCRJExdQxK4eKhpTd9nP0IM2kBWXiZm9kvDRXb
+	 L/PYUsw6xxXwJ/qtkIykRBvErbfoAaTV1M/hxXLwv6rGmZM2GOuJg3nP60oKYk97+t
+	 nRxefwpX+SzqwBwPGwjyGeKqcS4GtwuPbWuZjOtSlJvkzqAHsLEWEY9jtXDMpeD5SN
+	 dZAoCXjRfbm48EIjLx9ETaeW5yuQu7biEtc5L+mJHKcsK2CF+Uupjw0ziAMCYqLqJT
+	 ao2FuIIsC5N9PHOj97lpgYY5jXsaur/bcHh6vrTMt6tqdA/rRkyYW2XSendQYz4o2j
+	 p22s8iOsMw+Ug==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d5bso11450471fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:55:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzOPeXVrtBvnT3e1MN75PJF8xzaeCKyX0/Ir1iXmqtl/i7h0RtD5MTDfvfraErhMSo+levc4V2ZAI7lVII=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRqBgqneckjOehyjtI6JNzePQwTjCIW7AvSP/RFgPrVGXbC4Vz
+	DpOItWL8R/YXUkZ+VZ+KNtanPMKMZ75HnezMfcOjpvarHEjn+DBClLJh8m8L04ltAScKeVna7yx
+	6WRcMJxnAG5HuL/OZnNg04BqzOk1yavM=
+X-Received: by 2002:a05:6512:2c97:b0:5b4:ac27:6bb0 with SMTP id
+ 2adb3069b0e04-5b8b666abe2mr2187526e87.25.1789577736627; Wed, 16 Sep 2026
+ 09:55:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v1] net: stmmac: Default DWMAC_MOTORCOMM to m on
- MACH_LOONGSON64
-To: Tiezhu Yang <yangtiezhu@loongson.cn>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Yao Zi <me@ziyao.cc>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260915073206.6665-1-yangtiezhu@loongson.cn>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260915073206.6665-1-yangtiezhu@loongson.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260909132153.1596191-1-arnd@kernel.org> <20260909132153.1596191-7-arnd@kernel.org>
+In-Reply-To: <20260909132153.1596191-7-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 18:55:24 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=7tuZWkXqn0gj14JDbsxkT=cU_1aFOXMRc=PmE-3X-eg@mail.gmail.com>
+X-Gm-Features: AcwNN1XvcQ2YIjfo5CFBtXX11PIudi6lRGCv7LMnZ1tHaTMlEuKLFH_DVwfW2u8
+Message-ID: <CAD++jL=7tuZWkXqn0gj14JDbsxkT=cU_1aFOXMRc=PmE-3X-eg@mail.gmail.com>
+Subject: Re: [PATCH 06/14] mfd: remove unused da903x driver
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Arnd Bergmann <arnd@arndb.de>, 
+	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
+	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
+	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi
+On Wed, Sep 9, 2026 at 3:23=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
+e:
 
-On 9/15/26 09:32, Tiezhu Yang wrote:
-> Currently, there is no network connectivity when upgrading to the
-> latest upstream mainline kernel on certain Loongson machines such
-> as Loongson-3C6000 server, because the driver for the onboard NIC
-> is not enabled.
-> 
-> Enable the Motorcomm PCI DWMAC driver as a module by default when
-> building for the Loongson-64 platform.
-> 
-> This ensures out-of-the-box support for Motorcomm YT6801 Ethernet
-> controllers on Loongson machines, enabling demand-loading without
-> increasing the core kernel image size.
-> 
-> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index ab3c4cf96423..c86d6c08977c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -408,6 +408,7 @@ config DWMAC_LOONGSON
->  
->  config DWMAC_MOTORCOMM
->  	tristate "Motorcomm PCI DWMAC support"
-> +	default m if MACH_LOONGSON64
->  	depends on PCI
->  	select MOTORCOMM_PHY
->  	select STMMAC_LIBPCI
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> This driver was used on a handful of ARM/PXA boards until those
+> got removed a few years ago. Without devicetree support, there is
+> no way to use them upstream.
+>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-I agree with Yao Zi, this belongs in your .config, maybe your
-defconfig, but not in the stmmac Kconfig.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Maxime
-
+Yours,
+Linus Walleij
