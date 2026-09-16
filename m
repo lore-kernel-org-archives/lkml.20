@@ -1,109 +1,77 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDCD3BD643;
-	Wed, 16 Sep 2026 09:24:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE753C7DEB;
+	Wed, 16 Sep 2026 09:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550682; cv=none; b=nYSYKbjbtx7s8umUJv/9GtJzjJUbxGEBKNX6CR3PkHbpnEPvqhngzxU+qRAdV5hNnTtSkQMA0JJeFs5ZV2tRNAhP0wy4q3LpfBuvTOiR3jprUl+jweLhRx3Xh98DaEOpgAigHeVzad0PmS/akj1V4UtPPAF7CSFutM6SXZR6o8Q=
+	t=1789550685; cv=none; b=ge4t/JbtmNIcNsVheijAlC8SjDHkZ/FqEPscjAylAFPHqxjyM7XOQqHaV1PI6xAKVp+evBn21aCsjUAB8074MrlTK2PooPXLK3YcHFDePdFprccKD/0S1DQD1y2LtPkqcC51b0O0YOZPoAZbGNhZ1Bo9WjClaggUbjZH+3+UHf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550682; c=relaxed/simple;
-	bh=gmaeNHOa3Ufzwu9kVF1ULpfDmFBmcFRQa4tda3rqkJA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JuvsBrC3iWcv2BMgW97Jc2qAnLB+yClccUuVhFxJ58Xu/P6goNjhsMYUGsy6N+tfPaYD4K+t+0fDvS/9HTZHc7XSNu94nbG9CbfLkeej6/vMGpK9S7bZ+2vfxsW0kaOh/MbeHnqYiJ2mX+iu5wLjC6zisUGVOnOFhTYmOiKP33U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACXoT9LYKpqOUngBw--.16269S2;
-	Wed, 16 Sep 2026 17:24:27 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: ayush.sawal@chelsio.com
-Cc: davem@davemloft.net,
-	harsh@chelsio.com,
-	herbert@gondor.apana.org.au,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] crypto: chelsio - Fix wrcount leak in chcr_aes_decrypt()
-Date: Wed, 16 Sep 2026 09:23:59 +0000
-Message-Id: <20260916092359.2001753-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789550685; c=relaxed/simple;
+	bh=A9JwTwuDQ5QttnP02TNC41x4pm8yecah2SUjsrG1TB8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bjcfStxuj9UPhFWQapIS2uaPNvXcIk2B43FsCVdZ7SG+jwGBJ7S2Hv+musEPomIJbqfnKFfljYhnC9+kPPXdagNcIAIF7iB5z8bFImPvwqPElj/QN34381BVSo4fJIiXxWF8wd0zxadxTmLgSt3woOw9q2PG6JU2rNACZsqO9Xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mO1oHkpg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mO1oHkpg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F981F00899;
+	Wed, 16 Sep 2026 09:24:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789550674;
+	bh=A9JwTwuDQ5QttnP02TNC41x4pm8yecah2SUjsrG1TB8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mO1oHkpgZNSPMaMd3iRubcijUIt+EKBvyhrVcrlEFX2GHAsQknMLnpNeoBygQtoM+
+	 +hceLGVPCG4t01fSh3wmCMgu63si2FLo6u8+ViMajioC2+4HnZvqzHe78TVj0Uz1ar
+	 e8xtCaS+PyhcZJWNjrSGxgYprYeYNv7x4qy4LlAvgpTsX4xJtY0WEqFGUZXrwatDyQ
+	 JzFI9XP/bHa4ZlyihYDKaSnHZTT2Osss67Lc7P2iE/JDj6JsDdudW6DbHUYGbvWOgU
+	 HiYKvZI8ngWxeIbEbYSzRriwxjCJN9ICpyPntZb3N46nx/Gny3vOFj9houTefC3PCO
+	 G7NbrQAu0pT+Q==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1x6lsW-00000005xdg-1DYO;
+	Wed, 16 Sep 2026 11:24:32 +0200
+Date: Wed, 16 Sep 2026 11:24:32 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] clk: imx: add missing
+ pm_runtime_dont_use_autosuspend() calls
+Message-ID: <aqpgUPWUGZp5Cjzt@hovoldconsulting.com>
+References: <20260915103345.1334-1-joshua.crofts1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXoT9LYKpqOUngBw--.16269S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr1rCFyrJFWUuw18JFW3Awb_yoW8CFy5pF
-	s8CFZayr95Jr1xGF95tw4kWa43C39rCFWSkr4rtw1UZrs8trWfJ3y2vFyYvF1rJF4kJ34U
-	WrWqka45u3WDXFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	khL5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgAMA2qqPpSSvwAAsO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915103345.1334-1-joshua.crofts1@gmail.com>
 
-chcr_aes_decrypt() increments the device inflight count with
-chcr_inc_wrcount() before building the work request, but it returns
-early without dropping the count when the tx queue is full or when
-process_cipher() fails and returns no skb. The count is only dropped
-by the completion handlers, so every failed request permanently skews
-the count and eventually blocks the device from being detached, with
-the detach worker warning "CHCR:request Still Pending".
+On Tue, Sep 15, 2026 at 10:33:43AM +0000, Joshua Crofts wrote:
+> Several drivers in the clk subsystem forget to call dont_use_autosuspend()
+> on teardown or error, causing potential resource leaks. This series adds
+> the missing calls.
 
-Add an error label that calls chcr_dec_wrcount(), mirroring
-chcr_aes_encrypt(), and jump to it on the failure paths.
+No, as I've explained repeatedly elsewhere, it does not cause any
+resource leaks. [1][2]
 
-Fixes: fef4912b66d6 ("crypto: chelsio - Handle PCI shutdown event")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/crypto/chelsio/chcr_algo.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+The autosuspend setting leaks if you will, but that only matters in the
+theoretical corner case of someone rebinding a different driver (which
+will soon also taint the kernel).
 
-diff --git a/drivers/crypto/chelsio/chcr_algo.c b/drivers/crypto/chelsio/chcr_algo.c
-index eece1ac1085a..6fd25c54aa1e 100644
---- a/drivers/crypto/chelsio/chcr_algo.c
-+++ b/drivers/crypto/chelsio/chcr_algo.c
-@@ -1396,17 +1396,22 @@ static int chcr_aes_decrypt(struct skcipher_request *req)
- 		return -ENXIO;
- 
- 	if (unlikely(cxgb4_is_crypto_q_full(u_ctx->lldi.ports[0],
--						reqctx->txqidx) &&
--		(!(req->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG))))
--			return -ENOSPC;
-+					    reqctx->txqidx) &&
-+	    (!(req->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG)))) {
-+		err = -ENOSPC;
-+		goto error;
-+	}
- 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
- 			     &skb, CHCR_DECRYPT_OP);
- 	if (err || !skb)
--		return err;
-+		goto error;
- 	skb->dev = u_ctx->lldi.ports[0];
- 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
- 	chcr_send_wr(skb);
- 	return -EINPROGRESS;
-+error:
-+	chcr_dec_wrcount(dev);
-+	return err;
- }
- static int chcr_device_init(struct chcr_context *ctx)
- {
--- 
-2.34.1
+So don't exaggerate the impact, this is essentially just a cleanup,
+which is fine in itself.
 
+Johan
+
+[1] https://lore.kernel.org/all/aqpd3viN1UoZBkgL@hovoldconsulting.com/
+[2] https://lore.kernel.org/linux-iio/aow51Nk-cet9qaUQ@hovoldconsulting.com/
