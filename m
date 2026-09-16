@@ -1,40 +1,25 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.auroraos.dev (unknown [95.181.193.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE4351FCC3;
-	Wed, 16 Sep 2026 16:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAD65221C0;
+	Wed, 16 Sep 2026 16:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575635; cv=none; b=SvwKqG8iYPKKVmBHKjOL5OTSYozT+oiuCjZLcErQ8fctCKAB3A/rwhkVz/ttUam1pKi4CHBfc8OwS458ZB8T3HUCB4l1iwZvYwy1OqTGn7MXm0cjL8UM0V3H4bvafWsMtx+CUTc+w/gFZtYFKaNnfd04BxAzGTSH0u7IzQstY+c=
+	t=1789575682; cv=none; b=kM3KPndkYg/aLn4dx6zQY/F32IzKA5TNqZWU1D1OFG56fl388SgGrhqUkYN8JGH31ZbVqUSqX1Ujxt1eXAaPWWtNGj4LHjjPHC4pKnMHSzSLZ+EasXSnslXcQQB/lkko8NFS4zyMDeUMUn1C33YWO8Ad3+izxsI2SFFZfpa+ED0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575635; c=relaxed/simple;
-	bh=HpbnWJEGL9NjihNHGwgBoO1lxp2f2aVoZ/arzsurXIo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=SnSiOBOC7F48GtsSy+ebwAlHsiXmeh2vE7C7OyEI4puYSQYZnuNukFAuXeFS6JrLNtWsF9Z3LUsygjddmngCUD4iRh91uUbtwP3JpR7UUrMssvHa5c/sFUDgz/smN9sBq4idiNvM2mLrYYblyiLYDnc415EvvOZZVj365x4lMNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=U4LHQ7LS; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="U4LHQ7LS"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 6B8BD1A0909;
-	Wed, 16 Sep 2026 16:20:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3936760337;
-	Wed, 16 Sep 2026 16:20:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E5F0D11C7B05C;
-	Wed, 16 Sep 2026 18:20:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789575624; h=from:subject:date:message-id:to:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=HpbnWJEGL9NjihNHGwgBoO1lxp2f2aVoZ/arzsurXIo=;
-	b=U4LHQ7LSkICNCO7ToQ5xHrfiLdcHnz2/ttaah0BkmBXIG3MqosnQEOR5X/7NxellbJcRGW
-	xAG4jSZy8VuMGs7IKTOtPPE4SyaZQJvbp8ju4uZj6C1Mid42WZB71TsfaYB9eReILV5xt9
-	dEjapsyZsOTgw6i3141Ykl6ja0onsTjXrNdltqKrdpZBCPJT065I174ymwoX/oDyH0vpk9
-	MnsZ1VaSWZuuCxP4TbPJu8s+enkrl0MToPUlPS0+ZOIDuz1v7j+i9itsMm1iuGXBTz1f/r
-	oY8nmD0cUWLykxhWvfRaeCudRkhWYXUAt2RuEXeMhPVXNZ8MGIuhYXAPo7ILIg==
-Message-ID: <9609a821-c971-491c-9436-9346c48d2ee5@bootlin.com>
-Date: Wed, 16 Sep 2026 18:20:18 +0200
+	s=arc-20240116; t=1789575682; c=relaxed/simple;
+	bh=0lMncFdJAIyse8zps8m6szqNvRqud/6DYdLeuviKeP0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=PayKnBgjkQ/5q41rdRRXAGbKEgxGQcyG+1GfPwdo2mXLvhUPQLHDpGYV34yfCfXaMSYsa93cPw/uLYQAQJSZXThe//eNGM2dhdhCSU+7EsMy3W+cuBOThZSEXXp5BF3WvgE1l6kIhHdjsYh5xZ52pXzX7CLao6l/K2y7r292iNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
+Received: from [192.168.2.104] (91.78.42.68) by exch16.corp.auroraos.dev
+ (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Wed, 16 Sep
+ 2026 19:21:05 +0300
+Message-ID: <b43350d5-09d7-4fc4-9791-16bb4322d794@auroraos.dev>
+Date: Wed, 16 Sep 2026 19:21:04 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,42 +27,84 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v15 00/12] net: pcs: Introduce support for fwnode
- PCS
-To: Christian Marangi <ansuelsmth@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev
-References: <20260901083001.8044-1-ansuelsmth@gmail.com>
+Subject: Re: [PATCH net-next v2] ch9200: do return USB errors from
+ control_write()
+To: <netdev-bot+sashiko@kernel.org>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <linux-usb@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260915185805.38712-1-s.shtylyov@auroraos.dev>
+ <178954341078.22033.8722936070498955076@kernel.org>
 Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260901083001.8044-1-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+In-Reply-To: <178954341078.22033.8722936070498955076@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
+ exch16.corp.auroraos.dev (10.189.209.38)
 
-Hi Christian,
+On 9/16/26 10:23 AM, netdev-bot+sashiko@kernel.org wrote:
 
-On 9/1/26 10:29, Christian Marangi wrote:
-> This series introduce a most awaited feature that is correctly
-> provide PCS with fwnode without having to use specific export symbol
-> and additional handling of PCS in phylink.
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 1 · Medium: 0 · Low: 0
+> 
+> - [High] Incomplete fix: after removing `return 0;` from control_write()
+>   (drivers/net/usb/ch9200.c:137-171), the helper now returns the…
+> 
+> --
+> 
+> ch9200: do return USB errors from control_write()
+> 
+> This removes the unconditional "return 0;" at the end of control_write()
+> in drivers/net/usb/ch9200.c so that the function falls through to
+> "return err;" instead. The stated intent is to propagate usb_control_msg()
+> errors to the callers.
+> 
+>> diff --git a/drivers/net/usb/ch9200.c b/drivers/net/usb/ch9200.c
+>> index a206ffa76f1b9..3a81e9e96fd33 100644
+>> --- a/drivers/net/usb/ch9200.c
+>> +++ b/drivers/net/usb/ch9200.c
+>> @@ -168,8 +168,6 @@ static int control_write(struct usbnet *dev, unsigned char request,
+>>               err = -EINVAL;
+>>       kfree(buf);
+>>
+>> -     return 0;
+>> -
+>>  err_out:
+>>       return err;
+>>  }
+> 
+> [Severity: High]
 
-I tried to re-rerun the mvpp2 prototype conversion, but it looks like the
-series doesn't apply cleanly on net-next anymore :(
+   But why? 8-)
 
-Maxime
+> The commit message says this will "propagate USB errors to the callers",
+> but do any of the callers actually consume the value?
+
+   Most will -- after another patch:
+
+https://lore.kernel.org/all/20260914202503.52920-1-s.shtylyov@auroraos.dev/
+
+[...]
+
+> There is a second point about the resulting contract.  On success
+> usb_control_msg() returns the transferred length, so control_write() now
+> returns a positive value (2 for these register writes) rather than 0:
+> 
+>         err = usb_control_msg(dev->udev, ...);
+>         if (err >= 0 && err < size)
+>                 err = -EINVAL;
+> 
+> Would the obvious caller-side follow-up "if (retval) return retval;" then
+> treat every successful 2-byte register write as a failure?  Would it be
+> better to normalize success to 0 in control_write(), or to check
+> "retval < 0" in each caller and update the callers in the same patch so
+> the errors being returned are actually acted upon?
+   That's what the patch I linked to does...
+
+[...]
+
+MBR, Sergey
 
