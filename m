@@ -1,154 +1,234 @@
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1F934F46F;
-	Wed, 16 Sep 2026 06:56:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8064A3ED3CC
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:57:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541808; cv=none; b=cciJz2laRVzuQmy73Tg4XHk3rQAZ09/eG/JqQbd8nbFsrdQvd9znl3A4BPJrpLmnHVkfPC7NiouJQX8/te8BALQbkAkGcXkcB/sN/u3vCZBAmU5nrPhjsmJucwQKQR3U3o3qCnN+VRK+5feMYfTwjibhrJz61+OO8KQagdpyg4Y=
+	t=1789541860; cv=none; b=M9uP1joWmxeb8AT1WTiOX7qP4K1GClsAqMYYeikg4+keivZpEMKGpytNMXpfZj+aQ1/46Oa+SsyFa9DQcHRKBAa98IwOxwlVKl+qdsdc0n1wL+xv22pF+4oN+LoH9QK46tfV7B6lu2QShS4bIejawARmPsxFJu7VDXmsVJ/dSwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541808; c=relaxed/simple;
-	bh=wHhuB6awHceWBN/yAYkFZYu89qnzgnm7Ng3vzMpjqkc=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=I0hqQIlUmLNyzV/MIpIXlRv0uIkalhB4OP3VdfzQCMtroI8BAmP2mAbHpr/QvM1fXpQeSaz+XYK0KE+JS9CfCP31GN8BnCEzrtbOX45PizDM4k7g/B4yoYzzCjOweZOMMSAffLGDTmgmuvpk0Qkmlisl+Qx1agxPg8CbXYuUEgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=WJ5LGnmu; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ElCBSZe8; arc=none smtp.client-ip=103.168.172.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789541860; c=relaxed/simple;
+	bh=9sBlD5izEEfo2pLgZKTdvRxdTeoNasGiiJQXKUcd5j4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Il6RHxnX+6YJNjw2NofIwIONB54FgL7fqi0jxAyKQJjOZQnRunIl2fiM/4inoJOX63f7gw//7kInhPG0ZbTgvSH58nBXhqWQV7OnA/SSwH4AGBwr4l3ndZ1tgdpotTU1SvPVgDL2X34DLzNGRfO5je+4eEohACssasE5iGiXQIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h85t53TX; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="WJ5LGnmu";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ElCBSZe8"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id E7E94EC0E95;
-	Wed, 16 Sep 2026 02:56:45 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 02:56:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789541805;
-	 x=1789628205; bh=M79NB03lCBDyuKbFMw+wzNI/AjNtbOzIZ5eYbZXjn8c=; b=
-	WJ5LGnmuEHCO96B4tiFDbDhlSXR+n/dc3QvQG2UOI3Opekg2OZ0DX0bfiGysncdE
-	MgNN3dGco/ZCJhlo7pCIZEr/GbItFk+813mL0YcWF7CiAYFBgz72Xm4UdoWa5/1l
-	TMdhsAnCZAVfBGhAfhZSltGgPpDr2bhgg2Bxt/t0isAXG1dHPqWsiAj0SgLsNKEB
-	t2zSOXcBRpjAiymCXGBzc6LiZaezNaR+SaM4bL2CcfkNoDGYOZtB1xbn5ODSi2mG
-	uwH9qZ0AR493QIm+nmdPaYeSsn8BvPS9XkU6+hWHp7aoVIepNQAZP8KI4GfZwBBX
-	3ynwrdrRoXsMvS9y7m0KyQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789541805; x=
-	1789628205; bh=M79NB03lCBDyuKbFMw+wzNI/AjNtbOzIZ5eYbZXjn8c=; b=E
-	lCBSZe8FrLDeKUFNMOuaMrDDgk3AL/vIWXFAb69pcQhNs4FbgiBbnaoE4TwBfo+3
-	Sc0z3cyr+jmw6o1MR31/kFjZrnVJijaNP+bHYcN+dJglaruKRYmIJsbS+mhwueRJ
-	vxACQ1Qac1d70wlW8UHPUQBXlonAIMVkv+oqGQfRQa5+i7A64Bar40sbqQxMNfs+
-	yULTTR/gUUMzz2d03gjRg3HrYKkatQChJ455bljzw7H7QgW8WbIWPYxK+VwHFwx6
-	axlcy22UWtFYJiNY1Y/wdSvtLvFRHL1VsE5XgwcBSrMdhT1jp5ifD8sGrPDQNpNf
-	Ls7nmyDBE54/6aVFbLcqg==
-X-ME-Sender: <xms:qz2qan2y-98uRn4numprGhlP8ao2tyqu3y92FNxrNaJGwrszuBslCw>
-    <xme:qz2qag4hUk2hWTh0C__-Is6Q01zyJPdj4ship7k7iduUHeFE4CO942yTWVrXyp8z2
-    wvPfm0qfCBeBMo-yve_E3TSI7EY20az7VqeMWsk921hc7b1eUMKZA>
-X-ME-Proxy-Cause: dmFkZTGlTRixtFUqWRbDPcFeCYs4Rp+D05ekXbAePbvN1C3h3mmf+LVUTQrUNW4kFHUKKL
-    HS49Ddxv6rHY5gTfoKBoR2IEie18wSginaEyEffpnhRXCh4ZgwoFELocO/Npxlr+Yh5Pod
-    R8TbPsJ62tLt30X5PjsgKKF4sV6dHrBD69r7keXQzMa1RwOMmW5L329PLWMazbmNsLa2lU
-    TqqgGd7KEhVAzA91RoaSMBwHxbTHrlUtsd8c6QvRjKhXog56s0yP8k82J0G68/XbfEkq4+
-    eH1bhc5+FKxgyKnyRna5W6zdD+kHHsOn4f5ZOmygFB3jqi0PBd2yROoPrspq/QndL64rN7
-    RtVu4C9Zn/wvn77OYoZpEBRQ+hjQX2FU7kVrKtwkxHD3waX8mhhZyZQqvO8oZUoECbIfGk
-    AgIzy/7ntylRnKnn5zp/LCYpokI5+LZz1IoY8FnhvAE620kv83zAvfASGZ13QQ993VhFav
-    Ke/nsP45dMfJ2kaIezjIZ/mUwk7ZtTiJoYqjL4AiIOqbz3bO7mUbAFaMmQsQVGtmF3eRxF
-    yAR052ZdqwuPwnnMoI2oKpnsOOPZTHoN8xEEgHMqXnlh/ecGtzeoE2YkL9+09yTlTV6fvu
-    6muPE1i4mYvshG8SboCntcOSoc8aMwaR6DfaPL7NvYeaHb/etG7spewKcYdg
-X-ME-Proxy: <xmx:rD2qag_uPVXx-hWp9IizX1r-j3z7l2yPnyaExqCmr-LaNsoVc5M8yw>
-    <xmx:rD2qakIkqrXNo4VSsQ4o8nDdbUE8VU7oOKW5ukayVNFx3pBTGiSNeA>
-    <xmx:rD2qapjPx2ZVUZXu5LEzxYZlUsdGdslg7btCW8WW-D0jgE4DoryApw>
-    <xmx:rD2qak7a4pKwayH7V8nDSGqFt88on2mRnhf2vJArbHieVOxqv8SgxA>
-    <xmx:rT2qalrpmJOFgsaJfkGksq8BE0b7dCNgpwo3BJM7kiPA7zhFlQb1n8iG>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 9824632A0084; Wed, 16 Sep 2026 02:56:42 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h85t53TX"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso556640a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:57:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789541859; x=1790146659; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NKzNesC0LhJFIDuZhUW/K+h4UvLvdFAJBHAUljGQgV0=;
+        b=h85t53TXJ27egsOFIwLHzlee2qOUF7B9vkogE4k3/7WXdZ81f8pF/i8xEv/o02Invf
+         mlgjoxX6gMjpQVNG1EeEhfm/787Oj1SkBnfLy05ZkVp88e+lZwuaap987bubaSh5Pi+G
+         fwHMa2LRZlOJRzH+7NUJZt85mjRGX0d8Uf/28z5VW4z4ainZ8kSWlOJTxxSdfdxOyYlK
+         aH4KJfng48/vbO6q+JU2VKQI9AvQVsC5l6J1VH6CQkUjKPNk0NDcOJH6H4PtC7Py5vR4
+         8IIV8ekNCEL7DKQ533czVGmC+rDieaAbYBsMqSsE3SiyqcHZM4y1x5CycFlfj5X3S+vQ
+         ZbCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789541859; x=1790146659;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NKzNesC0LhJFIDuZhUW/K+h4UvLvdFAJBHAUljGQgV0=;
+        b=mcnCtiT08VhUMJiMzpppsRzkY0XGJnxUPzEHpG2C4/oDJuqCnH8mGryyQxOWmI782h
+         GaOXPCfL2GCJXS0uHcbVU04lSuz86JXtd1BmaFHChXbHQTw09n8o3b0UffCJ84xy/VR3
+         diF4ij2KmRW2JSO6mhwbcuA5Y2ftBG2fmgadOiJTy/y3mWxn3V1ZuuSSOoQ4xjuUWzwm
+         LOjFH2KTOKKDBFay5tPJV+XS1FIK2TxFpij7aZPVhFQq2OGM0LXr1Xxeb12HLqOH59bo
+         ngq1mVFEl6Q1GL0uGOiIOEgDOXXw7NR9RSbUkLoKghI7BtIZ+u0658Iu45N1uE1X5N5R
+         C/gg==
+X-Forwarded-Encrypted: i=1; AKwUvBwiIDXXN5ud1gp8J/NQJRRhfvNtFpcngtcHIV7MQkHz3YI3Bz62UMzVBvMXitFj4BNyETNEDqh79Rn06tk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEYFRRQc1bYD1dOFe5zdRf1uTDNDLTxpc7bP5WaIjYRzhGRM0B
+	IRv9M/pDs/bsD4QYZsmS0WNgxPphXwXq2YejuVnERlgGbDvKup3KG6ZL
+X-Gm-Gg: AYBFou3scolOYit+Fqpk66QIlzpEV1h+A3VzTUiK529PmKR/iR4EFFYtbHLwhib1Jq2
+	IyqjrjkZ/8cqm6j3bGUruWED1ctg/6J+y5gKNYESTa3v718MiI3w0fx8eXlnHmvS+V2mw9aY047
+	lu9gIM1uOXQ2qQEEQODqlkh7RyjKIvDnmZjJIgy1BW+6yfU33SBtdosyXCUvwjBGOr0V9FMzSVz
+	j/CmdAJ9zNy68zWtgMGH1fSwCDlANAhPiR2CfayuGnf1HV9FNpf1XFYbfSxC27YpgOlabbv7nBD
+	4HJfY6hH44DSOHO5YC0YQx+ljKndY/yY5DM2dJPh8CeYp+QbCwpzyI9IMy70/PnSCF5Aq0Qwmyv
+	faaUbE3iDM0ryPqydwR39YnZOMMAsvyylGuosgZZeyi3ENoi/Ihay6tZGTI6K38af9849jev1Jm
+	q5AtStUyQxqIBijKqo881kbQogLYHQpBYXioBwc6t88oNphRh5faQkRjxheaSKs9O+KbotV9Ww0
+	yJWvV+hGbpeEM+F5gBDgbVzOzTNfa9r8EyC0THpkw1IzCB4OWPTwD/v
+X-Received: by 2002:a17:90a:d407:b0:39d:fcbe:fe00 with SMTP id 98e67ed59e1d1-39e1e52242amr4313163a91.22.1789541858729;
+        Tue, 15 Sep 2026 23:57:38 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d771e5sm4209554c88.15.2026.09.15.23.57.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 23:57:38 -0700 (PDT)
+Date: Wed, 16 Sep 2026 12:27:31 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: paulmck@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, 
+	josh@joshtriplett.org, boqun@kernel.org, urezki@gmail.com, rostedt@goodmis.org, 
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, qiang.zhang@linux.dev, 
+	rcu@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rcu: Guard deferred QS on kernel exit behind
+ need_deferred_qs() check
+Message-ID: <aqo9k7ajQr6LRZHl@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20260915102241.1344738-1-mkchauras@gmail.com>
+ <aqkzzeXsVd91X4mZ@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ApDcdGHCsDIN
-Date: Wed, 16 Sep 2026 08:56:02 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>
-Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <59ba6707-c5d5-4fd8-9200-f910e61d9232@app.fastmail.com>
-In-Reply-To: <aqnHDxRIBncNH6qr@gmail.com>
-References: <20260914212537.1452-1-kmehltretter@gmail.com>
- <7c020979-cf03-4ece-a7d4-b1475d1400c3@app.fastmail.com>
- <aqnHDxRIBncNH6qr@gmail.com>
-Subject: Re: [PATCH] rtc: class: Make the time32 hctosys limit configurable
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqkzzeXsVd91X4mZ@localhost.localdomain>
 
-On Wed, Sep 16, 2026, at 00:37, Karl Mehltretter wrote:
-> On Tue, Sep 15, 2026 at 07:48:12AM +0100, Arnd Bergmann wrote:
->> On Mon, Sep 14, 2026, at 23:25, Karl Mehltretter wrote:
->> > On 32-bit systems with RTC_HCTOSYS enabled, rtc_hctosys() rejects
->> > RTC dates whose seconds value exceeds INT_MAX, even when userspace
->> > uses a 64-bit time_t. This leaves system time uninitialized by the RTC.
->> >
->> > Commit b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow
->> > time_t") introduced this limit to protect time32 userspace from future
->> > RTC dates that can break boot. The same limit prevents systems with
->> > time64 userspace from initializing the clock from valid post-2038 dates.
->> 
->> What about the reverse: if COMPAT_32BIT_TIME is disabled, I don't
->> see why we'd want to allow turning this on, so maybe
->
-> I tried this and found a case where the limit may still be useful
-> with COMPAT_32BIT_TIME=n. Glibc can use time64 kernel interfaces
-> for applications with a 32-bit time_t. Conversion to time32 fails
-> with EOVERFLOW when the date is out of range.
->
-> I tested a small clock_gettime() program using Debian glibc 2.41
-> on 32-bit ARM in QEMU, with identical kernel configurations and
-> initramfs. With RTC_HCTOSYS=y, COMPAT_32BIT_TIME=n and RTC in 2040:
->
->   Kernel                 System year  time32 clock_gettime()
->   ---------------------  -----------  ---------------------
->   Baseline               1970         success
->   Patch with dependency  2040         -1, errno=EOVERFLOW
+On Tue, Sep 15, 2026 at 02:02:21PM +0200, Frederic Weisbecker wrote:
+> Le Tue, Sep 15, 2026 at 03:52:41PM +0530, Mukesh Kumar Chaurasiya (IBM) a écrit :
+> > ct_kernel_exit() unconditionally calls rcu_preempt_deferred_qs(current)
+> > on every return to userspace.
+> 
+> When nohz_full is active, right?
+> 
+Yes, correct. I should have been more precise — this is only reached
+on nohz_full CPUs under CONFIG_CONTEXT_TRACKING_IDLE.
+> > On the common fast path nothing is
+> > actually deferred, so this is a needless write to
+> > current->rcu_read_unlock_special
+> 
+> When nothing is to be deferred, rcu_preempt_deferred_qs() does nothing, right?
+> 
+> And if some nohz_full workloads involve rare syscalls, they usually run a single
+> task, so no preemption that would trigger a deferred qs.
+> 
+> 
+You are right, I missed that. rcu_preempt_deferred_qs() already
+bails out at line 619 of tree_plugin.h via the same
+!rcu_preempt_need_deferred_qs() check, so the outer guard in
+rcu_ct_kernel_exit_qs() is entirely redundant.
 
-I think this is technically a bug in glibc: a task that calls the
-time32 clock_gettime() is supposed to fail with
-COMPAT_32BIT_TIME=n regardless of the date, according to the
-original design. I understand that this is hard to do in
-glibc based on how it deals with the three kernel variants
-(time32 only v5.0 and older, time64-only with COMPAT_32BIT_TIME=n,
-both present), but I still hope that we can one day do this
-e.g. by having allowing glibc to be built without the time32
-library interfaces to force a link failure.
+The overhead I was seeing on ppc64le with SELinux-heavy workloads is
+real, but I clearly haven't identified the right call site yet. I'll
+drop this patch and profile more carefully before sending a v2.
 
-> The legacy clock_gettime syscall returned ENOSYS in both cases.
-> The same program built with a 64-bit time_t succeeded on both
-> kernels. Both builds also succeeded with the RTC in 2026. Both
-> kernels booted with time64 init.
->
-> Disabling legacy syscalls therefore does not establish that all
-> applications use a 64-bit time_t. The dependency would remove the
-> existing safeguard automatically and prevent restoring it without
-> re-enabling the legacy ABI.
+Thanks for catching this.
 
-I'm not following your logic here, what is the safeguard?
-
-With a fixed C library, COMPAT_32BIT_TIME=n should act as a safeguard
-to ensure that no interfaces can be used that limit time to y2038
-and break unexpectedly in the future. The RTC_HCTOSYS interface
-has so far always thrown a wrench into that because it still truncates
-an important interface inside of the kernel. Your patch makes it
-possible to do the right thing here, but one still has to know
-that the Kconfig option exists and turn it off in order to
-actually make it work. Since we have COMPAT_32BIT_TIME as a global
-option already, it makes a lot of sense to actually use it here
-as well.
-
-       Arnd
+Regards
+Mukesh
+> > -- a word that lives on the task_struct
+> > and is therefore subject to cross-CPU cache-line traffic.
+> > 
+> > On weakly-ordered architectures such as ppc64le, rcu_read_lock() and
+> > rcu_read_unlock() already issue lwsync/isync barriers and touch that
+> > same cache line in the syscall body.  Bouncing it again at syscall exit
+> > adds measurable overhead, particularly on workloads with a high syscall
+> > rate (e.g. SELinux-heavy workloads where every AVC check issues a
+> > system call).
+> > 
+> > Introduce rcu_ct_kernel_exit_qs() which wraps the deferred-QS call with
+> > a rcu_preempt_need_deferred_qs() guard, matching the pattern already
+> > used in rcu_flavor_sched_clock_irq():
+> > 
+> >   notrace void rcu_ct_kernel_exit_qs(void)
+> >   {
+> >           if (rcu_preempt_need_deferred_qs(current))
+> >                   rcu_preempt_deferred_qs(current);
+> >   }
+> > 
+> > The declaration is added to <linux/rcutree.h> and a stub no-op is added
+> > to <linux/rcutiny.h> so that TINY_RCU builds are unaffected.
+> > 
+> > ct_kernel_exit() is updated to call rcu_ct_kernel_exit_qs() in place of
+> > the direct rcu_preempt_deferred_qs() call.  Semantics are identical when
+> > a deferred QS is actually pending; only the unnecessary write on the
+> > fast path is eliminated.
+> > 
+> > Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> > ---
+> >  include/linux/rcutiny.h   |  1 +
+> >  include/linux/rcutree.h   |  1 +
+> >  kernel/context_tracking.c |  2 +-
+> >  kernel/rcu/tree.c         | 19 +++++++++++++++++++
+> >  4 files changed, 22 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/include/linux/rcutiny.h b/include/linux/rcutiny.h
+> > index e56ded733b1b..dcad641eb2c2 100644
+> > --- a/include/linux/rcutiny.h
+> > +++ b/include/linux/rcutiny.h
+> > @@ -120,6 +120,7 @@ static inline bool rcu_preempt_need_deferred_qs(struct task_struct *t)
+> >  	return false;
+> >  }
+> >  static inline void rcu_preempt_deferred_qs(struct task_struct *t) { }
+> > +static inline void rcu_ct_kernel_exit_qs(void) { }
+> >  void rcu_scheduler_starting(void);
+> >  static inline void rcu_end_inkernel_boot(void) { }
+> >  static inline bool rcu_inkernel_boot_has_ended(void) { return true; }
+> > diff --git a/include/linux/rcutree.h b/include/linux/rcutree.h
+> > index 16a04202888b..d623f2a7d3fc 100644
+> > --- a/include/linux/rcutree.h
+> > +++ b/include/linux/rcutree.h
+> > @@ -87,6 +87,7 @@ static inline void rcu_irq_exit_check_preempt(void) { }
+> >  
+> >  struct task_struct;
+> >  void rcu_preempt_deferred_qs(struct task_struct *t);
+> > +void rcu_ct_kernel_exit_qs(void);
+> >  
+> >  void exit_rcu(void);
+> >  
+> > diff --git a/kernel/context_tracking.c b/kernel/context_tracking.c
+> > index a743e7ffa6c0..011018214c6d 100644
+> > --- a/kernel/context_tracking.c
+> > +++ b/kernel/context_tracking.c
+> > @@ -118,7 +118,7 @@ static void noinstr ct_kernel_exit(bool user, int offset)
+> >  	lockdep_assert_irqs_disabled();
+> >  	trace_rcu_watching(TPS("End"), ct_nesting(), 0, ct_rcu_watching());
+> >  	WARN_ON_ONCE(IS_ENABLED(CONFIG_RCU_EQS_DEBUG) && !user && !is_idle_task(current));
+> > -	rcu_preempt_deferred_qs(current);
+> > +	rcu_ct_kernel_exit_qs();
+> >  
+> >  	// instrumentation for the noinstr ct_kernel_exit_state()
+> >  	instrument_atomic_write(&ct->state, sizeof(ct->state));
+> > diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
+> > index 96848fc1f02b..c23478f70c17 100644
+> > --- a/kernel/rcu/tree.c
+> > +++ b/kernel/rcu/tree.c
+> > @@ -368,6 +368,25 @@ notrace void rcu_momentary_eqs(void)
+> >  }
+> >  EXPORT_SYMBOL_GPL(rcu_momentary_eqs);
+> >  
+> > +/**
+> > + * rcu_ct_kernel_exit_qs - report deferred QS on syscall/exception exit if needed
+> > + *
+> > + * Called from ct_kernel_exit() on every return to userspace.  Guards the
+> > + * rcu_preempt_deferred_qs() call with rcu_preempt_need_deferred_qs() so that
+> > + * on the common fast path -- where nothing is deferred -- we avoid the
+> > + * cache-line traffic on current->rcu_read_unlock_special that the unconditional
+> > + * call causes.  This is particularly significant on weakly-ordered architectures
+> > + * (e.g. ppc64le) where rcu_read_lock/unlock issue lwsync/isync barriers and
+> > + * already touch that cache line in the syscall body.
+> > + *
+> > + * Follows the same pattern used by rcu_flavor_sched_clock_irq().
+> > + */
+> > +notrace void rcu_ct_kernel_exit_qs(void)
+> > +{
+> > +	if (rcu_preempt_need_deferred_qs(current))
+> > +		rcu_preempt_deferred_qs(current);
+> > +}
+> > +
+> 
+> rcu_preempt_deferred_qs() already has a rcu_preempt_need_deferred_qs() fast
+> path. Am I missing something?
+> 
+> Thanks.
+> 
+> 
+> >  /**
+> >   * rcu_is_cpu_rrupt_from_idle - see if 'interrupted' from idle
+> >   *
+> > -- 
+> > 2.55.0
+> > 
+> 
+> -- 
+> Frederic Weisbecker
+> SUSE Labs
