@@ -1,119 +1,113 @@
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149B1C2C8;
-	Wed, 16 Sep 2026 00:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1751C01;
+	Wed, 16 Sep 2026 00:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789517543; cv=none; b=ojwuq4ndlvQAjUSUbkMJUyuqAqRKbq652ei+YssslrliRs/T/K+MOfarx3YMCHgf5l+cyMePD5stsXJnsDcABiSl5IvUPEdbEpO8jOu9HrlCPOfE3UYj9qq+4OyzGASdyRj9S2OSFwt6m9pYtX2oEuKA8KnICDsP2eA8vDCxcaM=
+	t=1789517570; cv=none; b=heBK9qqioiNTXekOnPwGPccryDjKy1aOqwuwPz3O9vUCnrNcGEKPW6b1ilQ1TSLM7f9T/4F40wmCnlZMc0Iy1DrLaJ+L3WGRrtfABMfyXY7mOK3oo15AqdrHjTVhyfw3EKpjyaHwCV8qMPsq5AWtbj3wj+8A6S+gLcHnid3Bs48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789517543; c=relaxed/simple;
-	bh=r2XKFChzgP9CS6sr2s7CiPvPEhe/5GEvTsSFCtxYPtY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p+LTsl4VC0Zdjl/RfeNEcDxZZVAtc08P7FstpGCSt5/4XpiqW5Onn5nDYmDEpCXRqon5hRTApcvfmI/Vbb/W3koYacRy2xhyiODFQxQ7SFaWqclhYIeXn4W0D0PLdBNnsCvLZ6Pa+NBvXr8JaK+ix8MtoWu9cK6WBpVhojZXRk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=vXZ6W6j6; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=vXZ6W6j6; arc=none smtp.client-ip=23.88.97.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	s=arc-20240116; t=1789517570; c=relaxed/simple;
+	bh=7PwFjTGGND1ePQAK8SZBqsnF0MrkIJIDgE4awiIrsWA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SkbI1FUR5Mh5w7RnMsKimcQo179em3pqtV/76SBJEZ93yY1CCvI5GmxMJ4sTTIemQsI3rSaoq7Iu2TVGEWzqeER67QMAthxcenW/sKmnqAeSLycGqhSBPtBULJUZSpr3ZWlZ0jT+Uamz99kt2dob7+0nF1FVDtPWdhaDyAXM7Zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3Uw8QJS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="vXZ6W6j6";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="vXZ6W6j6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1789517539;
-	bh=r2XKFChzgP9CS6sr2s7CiPvPEhe/5GEvTsSFCtxYPtY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=vXZ6W6j6FgHZ67pzhwIL8mtJ6P4i5QFZwcUdaWLO9CHIEtk6ZuRFQpRuWD++OWWPZ
-	 eaA5f/qR0165vQyVGqZY/0jaSWTxzqWGdNIGK9bOG/nAOLIaVnldSd0nnyk7LFdYlx
-	 wuV3SOe0iC7ma0wPV3DkSjq/LipTJMOuTmYO0qyZRukeybE2T/4vlGwgCO4XDnLUdP
-	 Su/PiPdpoMwjRdVz5BOEAz+GDI5FfwBsn68C6BUrs7c3cZOg87ZeBbP+hgqtfa3+28
-	 Sd5DuTXJ5mX16Qqjt0iOZb9ZIDlS8d4Y6OGGbDnl+U/Hx2kq/LchgHjuF+Fpwxnt0z
-	 IPspsJDTVXQ+w==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id E6C383FA7C; Wed, 16 Sep 2026 00:12:19 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1789517539;
-	bh=r2XKFChzgP9CS6sr2s7CiPvPEhe/5GEvTsSFCtxYPtY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=vXZ6W6j6FgHZ67pzhwIL8mtJ6P4i5QFZwcUdaWLO9CHIEtk6ZuRFQpRuWD++OWWPZ
-	 eaA5f/qR0165vQyVGqZY/0jaSWTxzqWGdNIGK9bOG/nAOLIaVnldSd0nnyk7LFdYlx
-	 wuV3SOe0iC7ma0wPV3DkSjq/LipTJMOuTmYO0qyZRukeybE2T/4vlGwgCO4XDnLUdP
-	 Su/PiPdpoMwjRdVz5BOEAz+GDI5FfwBsn68C6BUrs7c3cZOg87ZeBbP+hgqtfa3+28
-	 Sd5DuTXJ5mX16Qqjt0iOZb9ZIDlS8d4Y6OGGbDnl+U/Hx2kq/LchgHjuF+Fpwxnt0z
-	 IPspsJDTVXQ+w==
-Received: from [IPV6:2409:8a62:2532:dca0:14f4:3e22:1e7c:23c2] (unknown [IPv6:2409:8a62:2532:dca0:14f4:3e22:1e7c:23c2])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id C1C923EAED;
-	Wed, 16 Sep 2026 00:12:14 +0000 (UTC)
-Message-ID: <06c5becb-f500-4527-9bc3-b448ef5b1633@birger-koblitz.de>
-Date: Wed, 16 Sep 2026 02:12:04 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3Uw8QJS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3481C1F000FF;
+	Wed, 16 Sep 2026 00:12:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789517569;
+	bh=tZdii42B9G3uXfODq26MzP1EJMnbFchcxUaVAb/qszU=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=W3Uw8QJSscTeeBGes9J/kqtVF0rysQQsQJSRzhQ88uW3sOYZFIrRc+CCd8s7nuTDS
+	 ZcHvhIPoIhYcsfEhhe83Gz+p4d9UAV9xMxf/izwVM5BHIKar7PA4KuXQmBBOP3c+5Y
+	 1oI9iZcDeXjGtN0jqzqUWKqveZV2qMcXUBIzUC8YlQuFKW++55n97gOtYssiuy27j8
+	 ECki/65H2E58ki2ukNHO/bej1/hlU6LqgiODdf8Y/CQg5D4+N09gKyMgN4tJI2FwYM
+	 ae2O3YI5G6P9L0sBIa1sUttX02d1FGvrLBqxm+uQbojgOgWVObJ7tUa9r9cafkvLER
+	 46Gts94lKVHsw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id AECAFCE0996; Tue, 15 Sep 2026 17:12:48 -0700 (PDT)
+Date: Tue, 15 Sep 2026 17:12:48 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Zhouyi Zhou <zhouzhouyi@gmail.com>
+Cc: rcu@vger.kernel.org, linux-kernel@vger.kernel.org, lance@osuosl.org
+Subject: Re: [PATCH v2] rcutorture: kvm-again.sh: Fix re-run failure on ppc64
+Message-ID: <e2f5f0c1-526f-4410-a085-f030208d1731@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260915085949.3708122-1-zhouzhouyi@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v11 06/15] ax88179_178a: Add HW support for
- AX179A-based chips
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Nicolai Buchwitz <nb@tipi-net.de>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Russell King <linux@armlinux.org.uk>, Heiner Kallweit
- <hkallweit1@gmail.com>, linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jianhui Xu <neuromoments@gmail.com>
-References: <20260914-ax88179a-v11-0-5ea7a925ba6d@birger-koblitz.de>
- <20260914-ax88179a-v11-6-5ea7a925ba6d@birger-koblitz.de>
- <18c931ca985a82a044c9269743fb4fb7@tipi-net.de>
- <3103b046-fa19-4b59-af4a-f326783eda4f@lunn.ch>
- <9a4ad1ba-0d98-4a5d-b18d-742f82337641@birger-koblitz.de>
- <8a9ddbff-01e6-4a0d-98a3-ddc06ec30055@lunn.ch>
-Content-Language: en-US
-From: Birger Koblitz <mail@birger-koblitz.de>
-In-Reply-To: <8a9ddbff-01e6-4a0d-98a3-ddc06ec30055@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915085949.3708122-1-zhouzhouyi@gmail.com>
 
-On 9/15/26 14:07, Andrew Lunn wrote:
-> On Tue, Sep 15, 2026 at 02:01:48AM +0200, Birger Koblitz wrote:
->> On 9/14/26 18:53, Andrew Lunn wrote:
->>>>> +static const struct net_device_ops ax88179a_netdev_ops = {
->>>>> +	.ndo_open		= usbnet_open,
->>>>> +	.ndo_stop		= usbnet_stop,
->>>>> +	.ndo_start_xmit		= usbnet_start_xmit,
->>>>> +	.ndo_tx_timeout		= usbnet_tx_timeout,
->>>>> +	.ndo_get_stats64	= dev_get_tstats64,
->>>>> +	.ndo_change_mtu		= ax88179_change_mtu,
->>>>> +	.ndo_set_mac_address	= ax88179_set_mac_addr,
->>>>> +	.ndo_validate_addr	= eth_validate_addr,
->>>>> +	.ndo_eth_ioctl		= usbnet_mii_ioctl,
->>>>
->>>> dev->mii.mdio_read is never initialized for ax88179a, so
->>>> dev->mii.mdio_read()
->>>> through usbnet_mii_ioctl() is a NULL function pointer.
->>>>
->>>> Something like:
->>>>
->>>>     static int ax88179a_mii_ioctl(...)
->>>>     {
->>>>     	struct ax88179_data *data = netdev2data(net);
->>>>     	return phylink_mii_ioctl(data->phylink, ifr, cmd);
->>>>     }
->>>
->>> Is this transitory? Does a later patch fix this up?
->>> The aim is to remove all dev->mii accesses.
->>>
->>
->> No, unfortunately, this is an mii-leftover. I thought that
->> usbnet was emulating the mii ioctl somehow, not that it was expecting
->> to be able to use a mii_mdio_read. I will remove the
->>>>> +	.ndo_eth_ioctl		= usbnet_mii_ioctl,
->> line, entirely.
+On Tue, Sep 15, 2026 at 08:59:49AM +0000, Zhouyi Zhou wrote:
+> Discovered in the Open Source Lab of Oregon State University when running
+> torture.sh on a ppc64le VM.  Two bugs were exposed:
 > 
-> It would be nice to use what is proposed, so the ioctl keeps working.
+> 1. The kvm-transform.sh call hard-coded "bzImage" as the kernel image
+>    name.  On ppc64, the boot image is vmlinux, not bzImage, so the
+>    re-run failed to find the image.  Fix this by extracting the QEMU
+>    binary from the qemu-cmd file and passing it to identify_boot_image()
+>    to obtain the correct architecture-specific image name, the same way
+>    kvm.sh already does.
 > 
-> You can test it with mii-tool.
+> 2. The rm -f invocation on re-run listed vmlinux among the files to
+>    delete.  On ppc64 vmlinux is the boot image, so deleting it broke
+>    the re-run on that architecture.  Drop vmlinux from the list.
+> 
+> Tested on a local x86_64 machine and on a PPC VM of the Open Source Lab
+> of Oregon State University.
+> 
+> Signed-off-by: Zhouyi Zhou <zhouzhouyi@gmail.com>
 
-Thanks for the help, Andrew. I now implemented it as proposed by Nicolai 
-and will send it shortly, after a bit more testing.
+Good catch!!!
 
-Birger
+One additional request below.
+
+> ---
+> Changes in v2:
+>  - Remove blank line between qemu_binary and boot_image assignments
+>    for cleaner style.
+> 
+>  tools/testing/selftests/rcutorture/bin/kvm-again.sh | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/rcutorture/bin/kvm-again.sh b/tools/testing/selftests/rcutorture/bin/kvm-again.sh
+> index b5239b52cb5d..cacc9f2b230d 100755
+> --- a/tools/testing/selftests/rcutorture/bin/kvm-again.sh
+> +++ b/tools/testing/selftests/rcutorture/bin/kvm-again.sh
+> @@ -189,7 +189,7 @@ then
+>  		echo "Cannot copy from $oldrun to $rundir."
+>  		usage
+>  	fi
+> -	rm -f "$rundir"/*/{console.log,console.log.diags,qemu_pid,qemu-pid,qemu-retval,Warnings,kvm-test-1-run.sh.out,kvm-test-1-run-qemu.sh.out,vmlinux} "$rundir"/log
+> +	rm -f "$rundir"/*/{console.log,console.log.diags,qemu_pid,qemu-pid,qemu-retval,Warnings,kvm-test-1-run.sh.out,kvm-test-1-run-qemu.sh.out} "$rundir"/log
+>  	touch "$rundir/log"
+>  	echo $scriptname $args | tee -a "$rundir/log"
+>  	echo $oldrun > "$rundir/re-run"
+> @@ -217,7 +217,10 @@ do
+>  	qemu_cmd_dir="`dirname "$i"`"
+>  	kernel_dir="`echo $qemu_cmd_dir | sed -e 's/\.[0-9]\+$//'`"
+>  	jitter_dir="`dirname "$kernel_dir"`"
+> -	kvm-transform.sh "$kernel_dir/bzImage" "$qemu_cmd_dir/console.log" "$jitter_dir" "$dur" "$bootargs" < $T/qemu-cmd > $i
+> +	qemu_binary="`grep -v '^#' $T/qemu-cmd | awk 'NF { print $1; exit }'`"
+
+Would it be possible to identify qemu_binary earlier so that if the
+binary is not vmlinux, vmlinux can be removed?  This saves quite a bit
+of storage for non-PowerPC systems.
+
+							Thanx, Paul
+
+> +	boot_image="`identify_boot_image "$qemu_binary"`"
+> +	kvm-transform.sh "$kernel_dir/`basename $boot_image`" "$qemu_cmd_dir/console.log" "$jitter_dir" "$dur" "$bootargs" < $T/qemu-cmd > $i
+>  	if test -n "$arg_remote"
+>  	then
+>  		echo "# TORTURE_KCONFIG_GDB_ARG=''" >> $i
+> --
+> 2.43.0
