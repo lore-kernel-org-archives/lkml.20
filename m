@@ -1,102 +1,78 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51A74D0A07
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:36:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9443D9DAC
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598202; cv=none; b=VcLTMi0PawyjHoqAXx8i68p/uFltnAHVs62vTI/P4sWK/xHaaXpSQh7leqo3Gh8EFu91HSAO0n9hVLU68yG2pKsuVL+ndgGGdl00ANg7ttRrapAxIIwVp8U6XwirYLD0SGHZp4klK2iFReKodVPcUOaAzmD/rv8OzN8EBqrkFxo=
+	t=1789598409; cv=none; b=NwJSv7yK33qHhqUoxh34nRbY29M/xIcHHFZrBtPzevVR5V5MRPb6YijwYozKt+5bz04I6/hGWOFRKekqFiANHgo/tA9IK3yNVqZ2i04KwCyQHUx8Tc5Wxi9MmZAKD1sx+8rb6AFPZP5DmEkIwYrljmW48CXdw++x4HZqVAt+uzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598202; c=relaxed/simple;
-	bh=Gc9/8n4I6oVnRZVgaagF/Jw6A2gilsDucKnZBxjl6Ro=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tD6j8/cmeazUjcK2/OUSlUbXQLeFvxLGvI7BjqNASRz4xMtehi/CgsOUc6aQ/iQM0G5NSPYbF5eWZx5IxGui0Bvm+v7EHWeusx7Y7SzLTuY1KkymySgHUkXCvDRDmgoYoVC86oMW9Gg8soKx1dHmpz/61rkZKi7drytW3lC8GhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IZJmNK8v; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IZJmNK8v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789598170;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aqewkI9XW8kkFhwe5axz2bN5ZZvRPhhV5qUm5s3SaP8=;
-	b=IZJmNK8vJodf9SjPvCSn8wx9TLm8/xcW8TZlEjXOuTY5W7Y7lcSaTxduyfOz27Kk7ZxAja
-	/ko59eKmg7CbTgze+WOy0n9LULpTuJi13mBnCpO1WlKG6IhG/ICBZPyLAD/c+S5QvVUrth
-	oPtnUDP3QYwzHY0mIV92tbqLt8ft2Yg=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-650-jOJSavJEM4KDUusR4F8PpQ-1; Wed,
- 16 Sep 2026 18:36:06 -0400
-X-MC-Unique: jOJSavJEM4KDUusR4F8PpQ-1
-X-Mimecast-MFC-AGG-ID: jOJSavJEM4KDUusR4F8PpQ_1789598164
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4404418000A3;
-	Wed, 16 Sep 2026 22:36:04 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.64.52])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4D0F31800581;
-	Wed, 16 Sep 2026 22:36:01 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: "Dave Airlie" <airlied@redhat.com>,
-	"Timur Tabi" <ttabi@nvidia.com>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
-	"Kees Cook" <kees@kernel.org>,
-	"Simona Vetter" <simona@ffwll.ch>,
-	"David Airlie" <airlied@gmail.com>,
-	"Thomas Zimmermann" <tzimmermann@suse.de>,
-	"Maxime Ripard" <mripard@kernel.org>,
-	"Mel Henning" <mhenning@darkrefraction.com>,
-	"Hongling Zeng" <zenghongling@kylinos.cn>,
-	"Danilo Krummrich" <dakr@kernel.org>,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v4 5/5] drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
-Date: Wed, 16 Sep 2026 18:25:09 -0400
-Message-ID: <20260916223358.507351-6-lyude@redhat.com>
-In-Reply-To: <20260916223358.507351-1-lyude@redhat.com>
-References: <20260916223358.507351-1-lyude@redhat.com>
+	s=arc-20240116; t=1789598409; c=relaxed/simple;
+	bh=aY0C3UZNWISVo+SEYdMA+dpLR2TC50hIsVNTH/1tMWI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=QIEW3jgM/fY3Q119uX9I7ECqRzllqS2F2T6w69eyCkfkHSk/ITlsMAsVNsSf+uYFopTgcrXGUrOHvvT70evE5NgBvWc5vEPSTP7FH2cqJc60Cujxdvsze7XUzoIo1OW0HwjEj85qgwzz5Y3UVXKYWwMOh1/RVqsS1GCma0ybuhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c9ade8cfe1so226330b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:40:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789598402; x=1790203202;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=eWbhpWk71ccWdwuOVmq402NHgmE8BaqjoYuvIsrzF3g=;
+        b=QMupuwtg53uP+HeRY3A3KLD3ayyjlM69mQjPI/SuJwcFrRFtOLmMfXrEVqeemSunEI
+         ikkzOHgT+WCyWpWTr2FNa6Qx6VZK2DCwAto+W8hxxm6so8c5IR3pMMGjnIzabQk9J6bR
+         QvBTno0SD3vGJIjlm3zEBlHYjrZhQuXUgKiacAYilqxE5lgfU1tqVXjIu878C+5xowUt
+         GD0av2qqIbmtL5j/gvvreRaGQEKnb33TIJcaNfmWnOevecvCx1WraAxU7NduoIlnX6PK
+         AaTeRwUDdKkvrYaLcODx6Zc8gsoOhaQkJ29QLJGNVKmq1z9CXx0H7pyeu4Jqhdwl7E92
+         nRpA==
+X-Forwarded-Encrypted: i=1; AKwUvByB7PrsPsBtdUy5O4jtqP7obKF7SY9nA4M06Ub2MU+BMmmtoQbGW6zBbCBnIiqk+5Z800lWUWaz08c4hEE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0U/lELyrK+p3sm+XTeliaZysq7Di/QSZw0LIDsGqNahB9qFEJ
+	EnIMn468R+hACUgCHNyXAlz9vpaCVDS/teh184gXj2/3idOAwt5zL18zXvKMvplClYvbKaKmzWL
+	hAwdphHeKRz3KkxBxsXqzUK2l94KmsYGG2+WdcsXv86s8G/eyyvdgbXAYKDI=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Received: by 2002:a05:6808:5087:b0:4b8:4703:db8b with SMTP id
+ 5614622812f47-4cb69b976f2mr1049869b6e.20.1789598402258; Wed, 16 Sep 2026
+ 15:40:02 -0700 (PDT)
+Date: Wed, 16 Sep 2026 15:40:02 -0700
+In-Reply-To: <6a1b9770.fd5edf16.2e7427.0008.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aab1ac2.71f81b7d.278072.0000.GAE@google.com>
+Subject: Re: [syzbot] [ntfs3?] possible deadlock in page_cache_ra_order
+From: syzbot <syzbot+8bd419f88e25ab12cb75@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, almaz.alexandrovich@paragon-software.com, 
+	gality369@gmail.com, jack@suse.cz, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ntfs3@lists.linux.dev, 
+	syzkaller-bugs@googlegroups.com, willy@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Now that we're properly saving the compbit backing stores on fbsr init, we
-can start setting bEnteringGcOff = 1 again without things breaking, which
-brings us closer to following the exact same code-paths OpenRM does for
-fbsr.
+syzbot has bisected this issue to:
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit d62cf685d12e95cc0a4122c43cd9f0eb8bba0b4c
+Author: ZhengYuan Huang <gality369@gmail.com>
+Date:   Mon Apr 27 07:26:50 2026 +0000
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-index d3684bc4cf187..f27f19612a80d 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-@@ -135,7 +135,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size)
- 	ctrl->hClient = gsp->internal.client.object.handle;
- 	ctrl->hSysMem = memlist.handle;
- 	ctrl->sysmemAddrOfSuspendResumeData = gsp->sr.meta.addr;
--	ctrl->bEnteringGcoffState = 0;
-+	ctrl->bEnteringGcoffState = 1;
- 
- 	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
- 	if (ret)
--- 
-2.55.0
+    fs/ntfs3: hold ni_lock across readdir metadata walk
 
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1540dbf9580000
+start commit:   704340f1cd0d Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       upstream
+final oops:     https://syzkaller.appspot.com/x/report.txt?x=1740dbf9580000
+console output: https://syzkaller.appspot.com/x/log.txt?x=1340dbf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=8bd419f88e25ab12cb75
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=154788c9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=134788c9580000
+
+Reported-by: syzbot+8bd419f88e25ab12cb75@syzkaller.appspotmail.com
+Fixes: d62cf685d12e ("fs/ntfs3: hold ni_lock across readdir metadata walk")
+
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
