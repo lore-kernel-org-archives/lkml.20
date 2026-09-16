@@ -1,305 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2263A873A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7FF3EB0E6;
+	Wed, 16 Sep 2026 08:01:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545681; cv=none; b=qM4asUZEVAN+S9rqZtAWNCeCLD2XYdW3F3MKUIzZIPHDVfnFKRBt4PwaIMW7Z9C/JLu+rGcvXqNaTpKYCigfCrVtWkBbd+eG/pIzD6Rtq7DisGch5iutfooYrQVkSuqySfZY7o9IfleeL0rYAg7Y15zWZMPGIDB/FLLHJjlVa7o=
+	t=1789545708; cv=none; b=S22MWj9qNU6Ud0DQWeqs72a7+pubcP2S8vAoMgJ+/5pICsKvKCY2n45TLsxA1ZdaxGpc4QPyNrv41j0JSrhT7KiXaR+Vg2lRQsGA6S6dHt50JeNMwx9MqqpTrScZDPMXCOOmkkY8RwYHnBmnoVdMllfZd47+iD+PCujUiHBXZjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545681; c=relaxed/simple;
-	bh=mGDNwyhzydFgteB71jas/m2hzVBYziCoZ+lPob9LhkY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bHjNi15q94C3a8PaTFe/XUHM5ywDtaY+D1zKDI135ySukDKwmIR1iXuS1udQQ25O+ccF6sMbi3h+QSY3uDYHiBtlSd2v7ItIs7a+DsBgHFNK5N8whjCl0UyzzGeQ1Xltq6QiQbCszyttZTjTJGCxkl4dtGEuqF/083JBwh68XuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nx0v1KU+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789545708; c=relaxed/simple;
+	bh=6rI8hUsnpNorKsclnhB4MfAndqPFSeeM4F5XwN/G1zQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=epjfU8WI3JAIp+TIyEJw58OsAiwrn456FOFr+55snBY9TDkmt+85j6eq96m6WegxKxx1O+KF8+EMegW56hu3vvM09oiyyB0umDruopOPRNdqhebLZmTxyo2ZJWtSuFX6BBncuDEDG56w9FQ+R303xrLvoYoLbSKIU7YNrI/HvGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=iQpnd388; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nx0v1KU+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1B81F000FF;
-	Wed, 16 Sep 2026 08:01:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789545664;
-	bh=TxBLvbgwX1WMceS3sE7hWk0cNik1JB9FFZdDW/oYcZE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Nx0v1KU+WkfUQhG5xwBQ+CxdkPmeEO48q3BGh8i7iVNJTvq+k1d5dgB0ybE+IcyeD
-	 iwhhKI8qIfaIf8ZrpAw13YYQWqsCwCWeTlsO8x4oxoBIXP9qfcj7A4K751EcgT6o0n
-	 x+MQxrPuYBT9Ra0l6+gIP+ItlCiYoj3UPBB7QiiuzlxlV+ArMLw6Bkv+IB7P8Lj5gg
-	 NRGEZv8XzPuxySP+01Y9cuVeisAADoUqEW5BuiYe15RF4BN8TOYGXLKxT4Oqe/XmOI
-	 i3dz2rAGyFbwcvQ8vzE9AIArSo5wCGRfxqPN7xtxI5JC+K5upO5Sj7hTLvKKtZt0Zw
-	 jjxcXFXy5e1ZQ==
-Message-ID: <23b15032-01c3-43fa-866f-296138228b5a@kernel.org>
-Date: Wed, 16 Sep 2026 10:01:00 +0200
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="iQpnd388"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68G815nP42182700, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789545666; bh=6rI8hUsnpNorKsclnhB4MfAndqPFSeeM4F5XwN/G1zQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=iQpnd388x6HqN5lM8l6LR7EDo+zFb/0neHCkPZQ9Rv5fS/LMgx3+D5nrf+S6Yomjk
+	 c6GV43aBqZ109kvPFTiB3AouirztcJl5n9bD9tyTMMZOUbHOP3dMUrf+5LUqMc3x6B
+	 ++rHHGwnplurPM/pJkO2j0TaqWpX7c3EekoSxFhSWvSn4ZJl9N+gmZN4Gdspw0/l7Z
+	 4ErfRQMKqO+mHi9eYquidT1C1gOHxWOXKNlbKc4fvYlcyqs8sXG49kSDwtFe6+JcMg
+	 wJ5AAtm5X/nkxlMfGzHtv3Kz3XelqqKpxlbMx8u+KgwrwLULSI6uD7XIUhYoXrX7aR
+	 OARf4WxNDsQDg==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68G815nP42182700
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 16 Sep 2026 16:01:06 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 16 Sep 2026 16:01:04 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Wed, 16 Sep 2026 16:01:04 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Peter Robinson <pbrobinson@gmail.com>
+CC: "luka.gejak@linux.dev" <luka.gejak@linux.dev>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Bitterblue Smith
+	<rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH v11 1/7] wifi: rtw88: add the RTL8723B chip type and SDIO
+ helper
+Thread-Topic: [PATCH v11 1/7] wifi: rtw88: add the RTL8723B chip type and SDIO
+ helper
+Thread-Index: AQHdQC9Pa9h99Hy9KkK3Vh9b1IpI3rbQGdwAgABAwICAAIfM0A==
+Date: Wed, 16 Sep 2026 08:01:04 +0000
+Message-ID: <595af2640e4f4d34af9d3db6791bd468@realtek.com>
+References: <20260909074556.55709-1-luka.gejak@linux.dev>
+ <20260909074556.55709-2-luka.gejak@linux.dev>
+ <15af360d-5098-440d-a0a9-3d20ec43dc7f@RTKEXHMBS04.realtek.com.tw>
+ <CALeDE9MeWQGagFPy3TMA5WNRtw6-tRT5VS_uK8Kq5ZtKNd0xeQ@mail.gmail.com>
+In-Reply-To: <CALeDE9MeWQGagFPy3TMA5WNRtw6-tRT5VS_uK8Kq5ZtKNd0xeQ@mail.gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/2] mm/slub: introduce slab parking to reduce
- list_lock contention
-To: Hao Li <hao.li@linux.dev>, Pedro Falcato <pfalcato@suse.de>
-Cc: harry@kernel.org, akpm@linux-foundation.org, cl@gentwo.org,
- rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260824122004.3652-1-hao.li@linux.dev>
- <20260824122513.3829-1-hao.li@linux.dev>
- <20260824122513.3829-2-hao.li@linux.dev>
- <8d73f087-42e2-454c-8e5f-93c1b64cb969@kernel.org> <aqPlMzUIw-4g2iOX@fedora>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <aqPlMzUIw-4g2iOX@fedora>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 9/11/26 15:06, Hao Li wrote:
-> --- >8 ---
-> mm/slub: refill prefilled sheaves from the barn
-> 
-> For evaluation.
-> 
-> ---
->  mm/slub.c | 118 +++++++++++++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 112 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/slub.c b/mm/slub.c
-> index 27a78d63f537..7d337dbe26a5 100644
-> --- a/mm/slub.c
-> +++ b/mm/slub.c
-> @@ -427,6 +427,8 @@ struct node_barn {
->  	spinlock_t lock;
->  	struct list_head sheaves_full;
->  	struct list_head sheaves_empty;
-> +	/* leftovers of prefill or refill, protected by barn->lock */
-
-All the fields are protected by the lock so I don't think it's worth
-pointing out specifically.
-"prefill or refill" sounds like it may include also internal sheaf refill,
-which is not the case (but maybe something worth exploring later)
-
-> +	struct slab_sheaf *sheaf_partial;
->  	unsigned int nr_full;
->  	unsigned int nr_empty;
->  };
-> @@ -3183,6 +3185,69 @@ static struct slab_sheaf *barn_get_empty_sheaf(struct node_barn *barn,
->  	return empty;
->  }
->  
-> +/*
-> + * Exchange @sheaf, which holds fewer objects than requested, for a full sheaf
-> + * from the barn. The objects of @sheaf stay in the barn: it becomes the barn's
-> + * partial sheaf, or its objects are merged into the existing one, which becomes
-> + * a full sheaf when it reaches capacity. That way the leftovers neither occupy
-> + * a full-sheaf count nor have to be flushed.
-> + *
-> + * Returns NULL if the barn has no full sheaf.
-> + */
-> +static struct slab_sheaf *barn_replace_partial_sheaf(struct kmem_cache *s,
-> +						     struct node_barn *barn,
-> +						     struct slab_sheaf *sheaf)
-> +{
-> +	struct slab_sheaf *full, *partial;
-> +	unsigned int to_move;
-> +	unsigned long flags;
-> +
-> +	if (!data_race(barn->nr_full))
-> +		return NULL;
-> +
-> +	spin_lock_irqsave(&barn->lock, flags);
-> +
-> +	if (unlikely(!barn->nr_full)) {
-> +		spin_unlock_irqrestore(&barn->lock, flags);
-> +		return NULL;
-
-Hmm what if there's no full, but there's sheaf_partial with enough objects
-to make a full sheaf together with @sheaf?
-
-> +	}
-> +
-> +	full = list_first_entry(&barn->sheaves_full, struct slab_sheaf,
-> +				barn_list);
-> +	list_del(&full->barn_list);
-> +	barn->nr_full--;
-> +
-> +	partial = barn->sheaf_partial;
-> +	if (partial) {
-> +		to_move = min(sheaf->size, s->sheaf_capacity - partial->size);
-> +		sheaf->size -= to_move;
-> +		memcpy(&partial->objects[partial->size],
-> +		       &sheaf->objects[sheaf->size], to_move * sizeof(void *));
-> +		partial->size += to_move;
-> +
-> +		if (partial->size == s->sheaf_capacity) {
-> +			list_add(&partial->barn_list, &barn->sheaves_full);
-> +			barn->nr_full++;
-> +			barn->sheaf_partial = NULL;
-> +		}
-> +	}
-> +
-> +	if (sheaf->size) {
-> +		/* no partial sheaf, or it just became full */
-> +		barn->sheaf_partial = sheaf;
-> +	} else {
-> +		list_add(&sheaf->barn_list, &barn->sheaves_empty);
-> +		barn->nr_empty++;
-> +	}
-> +
-> +	spin_unlock_irqrestore(&barn->lock, flags);
-> +
-> +	full->capacity = s->sheaf_capacity;
-> +	full->pfmemalloc = false;
-
-I think this belongs more to the caller which deals with the prefilled
-sheaves specifically, and this helper is more low level.
-
-Otherwise LGTM!
-
-> +
-> +	return full;
-> +}
-> +
->  /*
->   * The following two functions are used mainly in cases where we have to undo an
->   * intended action due to a race or cpu migration. Thus they do not check the
-> @@ -3317,6 +3382,7 @@ static void barn_init(struct node_barn *barn)
->  	spin_lock_init(&barn->lock);
->  	INIT_LIST_HEAD(&barn->sheaves_full);
->  	INIT_LIST_HEAD(&barn->sheaves_empty);
-> +	barn->sheaf_partial = NULL;
->  	barn->nr_full = 0;
->  	barn->nr_empty = 0;
->  }
-> @@ -3334,6 +3400,10 @@ static void barn_shrink(struct kmem_cache *s, struct node_barn *barn)
->  	barn->nr_full = 0;
->  	list_splice_init(&barn->sheaves_empty, &empty_list);
->  	barn->nr_empty = 0;
-> +	if (barn->sheaf_partial) {
-> +		list_add(&barn->sheaf_partial->barn_list, &full_list);
-> +		barn->sheaf_partial = NULL;
-> +	}
->  
->  	spin_unlock_irqrestore(&barn->lock, flags);
->  
-> @@ -5233,12 +5303,49 @@ void *kmem_cache_alloc_node_noprof(struct kmem_cache *s, gfp_t gfpflags, int nod
->  }
->  EXPORT_SYMBOL(kmem_cache_alloc_node_noprof);
->  
-> +/*
-> + * Refill by swapping *@sheafp for a full sheaf from the barn. The old sheaf and
-> + * its objects stay in the barn. Returns true when the new sheaf is full.
-> + */
-> +static bool refill_sheaf_from_barn(struct kmem_cache *s,
-> +				   struct slab_sheaf **sheafp)
-> +{
-> +	struct node_barn *barn = get_barn(s);
-> +	struct slab_sheaf *sheaf = *sheafp;
-> +	struct slab_sheaf *full;
-> +
-> +	/* objects from pfmemalloc slabs must not enter the barn */
-> +	if (!barn || sheaf->pfmemalloc)
-> +		return false;
-> +
-> +	full = barn_replace_partial_sheaf(s, barn, sheaf);
-> +	if (!full)
-> +		return false;
-> +
-> +	stat(s, BARN_GET);
-> +	*sheafp = full;
-> +
-> +	/*
-> +	 * The sheaf may hold fewer than capacity objects: rcu_free_sheaf()
-> +	 * puts it in the barn as full even when slab_free_hook() has taken
-> +	 * some out (KFENCE, KASAN). __prefill_sheaf_pfmemalloc() then
-> +	 * continues to refill it.
-> +	 */
-> +	return full->size == s->sheaf_capacity;
-> +}
-> +
->  static int __prefill_sheaf_pfmemalloc(struct kmem_cache *s,
-> -				      struct slab_sheaf *sheaf, gfp_t gfp)
-> +				      struct slab_sheaf **sheafp, gfp_t gfp)
->  {
-> +	struct slab_sheaf *sheaf;
->  	gfp_t gfp_nomemalloc;
->  	int ret;
->  
-> +	if (refill_sheaf_from_barn(s, sheafp))
-> +		return 0;
-> +
-> +	sheaf = *sheafp;
-> +
->  	gfp_nomemalloc = gfp | __GFP_NOMEMALLOC;
->  	if (gfp_pfmemalloc_allowed(gfp))
->  		gfp_nomemalloc |= __GFP_NOWARN;
-> @@ -5331,7 +5438,7 @@ kmem_cache_prefill_sheaf(struct kmem_cache *s, gfp_t gfp, unsigned int size)
->  		sheaf->pfmemalloc = false;
->  
->  		if (sheaf->size < size &&
-> -		    __prefill_sheaf_pfmemalloc(s, sheaf, gfp)) {
-> +		    __prefill_sheaf_pfmemalloc(s, &sheaf, gfp)) {
->  			sheaf_flush_unused(s, sheaf);
->  			free_empty_sheaf(s, sheaf);
->  			sheaf = NULL;
-> @@ -5401,11 +5508,10 @@ void kmem_cache_return_sheaf(struct kmem_cache *s, gfp_t gfp,
->   * the given size.
->   *
->   * Return: 0 on success. The sheaf will contain at least @size objects.
-> - * The sheaf might have been replaced with a new one if more than
-> - * sheaf->capacity objects are requested.
-> + * The sheaf might have been replaced with a new one.
->   *
->   * Return: -ENOMEM on failure. Some objects might have been added to the sheaf
-> - * but the sheaf will not be replaced.
-> + * and the sheaf might have been replaced.
->   *
->   * In practice we always refill to full sheaf's capacity.
->   */
-> @@ -5427,7 +5533,7 @@ int kmem_cache_refill_sheaf(struct kmem_cache *s, gfp_t gfp,
->  
->  	if (likely(sheaf->capacity >= size)) {
->  		if (likely(sheaf->capacity == s->sheaf_capacity))
-> -			return __prefill_sheaf_pfmemalloc(s, sheaf, gfp);
-> +			return __prefill_sheaf_pfmemalloc(s, sheafp, gfp);
->  
->  		if (!__kmem_cache_alloc_bulk(s, gfp, sheaf->capacity - sheaf->size,
->  					     &sheaf->objects[sheaf->size]))
-> 
-
+UGV0ZXIgUm9iaW5zb24gPHBicm9iaW5zb25AZ21haWwuY29tPiB3cm90ZToNCj4gT24gV2VkLCAx
+NiBTZXB0IDIwMjYgYXQgMDU6MDIsIFBpbmctS2UgU2hpaCA8cGtzaGloQHJlYWx0ZWsuY29tPiB3
+cm90ZToNCj4gPg0KPiA+IGx1a2EuZ2VqYWtAbGludXguZGV2IHdyb3RlOg0KPiA+DQo+ID4gPiBG
+cm9tOiBMdWthIEdlamFrIDxsdWthLmdlamFrQGxpbnV4LmRldj4NCj4gPiA+DQo+ID4gPiBUaGUg
+UlRMODcyM0IgaXMgYSA4MDIuMTFuIGNvbWJvIGNoaXAgd2hvc2UgU0RJTyB2YXJpYW50LCBSVEw4
+NzIzQlMsIHJ1bnMNCj4gPiA+IGEgUmVhbHRlayB2ZW5kb3IgZmlybXdhcmUgdGhhdCBkaWZmZXJz
+IGZyb20gdGhlIGZpcm13YXJlIHVzZWQgYnkgdGhlDQo+ID4gPiBvdGhlciBydHc4OCA4NzIzIGZh
+bWlseSBkZXZpY2VzLiBTdXBwb3J0aW5nIGl0IG5lZWRzIGEgbnVtYmVyIG9mIHNtYWxsDQo+ID4g
+PiBhZGp1c3RtZW50cyBzcHJlYWQgYWNyb3NzIHRoZSBzaGFyZWQgY29yZSwgYWxsIG9mIHdoaWNo
+IGhhdmUgdG8gYmUNCj4gPiA+IHJlc3RyaWN0ZWQgdG8gdGhpcyBvbmUgY2hpcCBhbmQgYnVzIGNv
+bWJpbmF0aW9uLg0KPiA+ID4NCj4gPiA+IEFkZCB0aGUgY2hpcCB0eXBlIGFuZCBhIGhlbHBlciB0
+aGF0IHRlc3RzIGZvciBpdCwgc28gdGhlIGNoYW5nZXMgdGhhdA0KPiA+ID4gZm9sbG93IGNhbiBi
+ZSBnYXRlZCB3aXRob3V0IHJlcGVhdGluZyB0aGUgY2hpcCBhbmQgYnVzIGNvbXBhcmlzb24uDQo+
+ID4gPg0KPiA+ID4gU2lnbmVkLW9mZi1ieTogTHVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5k
+ZXY+DQo+ID4gPiBBY2tlZC1ieTogUGluZy1LZSBTaGloIDxwa3NoaWhAcmVhbHRlay5jb20+DQo+
+IA0KPiBBcG9sb2dpZXMgZm9yIHRoZSBsYXRlIHJlcGx5IGJ1dCBpZiBpdCdzIHVzZWZ1bDoNCj4g
+VGVzdGVkLWJ5OiBQZXRlciBSb2JpbnNvbiA8cGJyb2JpbnNvbkBnbWFpbC5jb20+ICMgUGluZTY0
+KyBhbmQgUGluZTY0LUxUUw0KDQpUaG91Z2ggSSBkb24ndCB3YW50IHRvIHRvdWNoIGdpdCByZXBv
+c2l0b3J5LCBpdCBpcyB3b3J0aCB0byBoYXZlIHRoaXMNCmZvciB0aGUgcmVjb3JkLiA6KQ0KDQoN
+Cg==
