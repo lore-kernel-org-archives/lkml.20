@@ -1,227 +1,416 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504B1449992;
-	Wed, 16 Sep 2026 20:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789592030; cv=fail; b=JzM731VcE02IBM0XRsl4aCuCMHay6DaUvw1nr2MQwre1vdmVYXMhIIWRCRyB2A7vwc45z7NpJhh11h1jGfgMhJV582CdsnK5v8wh///fbLgrw+gadqmwjzgyQN/MNhsrrZpQpbnjN+jXBRFEt0tchMXexZK6L73fUgBIZo2Ph/c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789592030; c=relaxed/simple;
-	bh=hchyQghqAjHbsDwNl5qAnEg/B5SSqwP1Pp2HOElOzws=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lkMMwmFdlN0cjMqG99LWZwVVpJrps1Lgtn/So8hZOuA6SuQCFqb30jNv+zQO//S1y55knmPx3PKOhchRzEU5VoHy8sKAEWBbigJzih4EQkTiKroCA/WEQn5QzIxUHKREoh3lXnbtpa3KIpUfNnU50MrJePOFZJuAO6sls9cpPrA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=GiK3HAWF; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=cqpwqapb; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EBA4E2F12
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789592039; cv=none; b=V1WZkGQ6xPHaaZg4xYwmHBSTOsn8WCv618iklMsch8+PZT0baGg97m54QFeU1DvFIkHDGVZK+71acxl1XHoDwsyxqSCe9T2UBwCJMbUmr/0LnA0yV3PNHTS3Cp5CzkMfgGAax1BggLH5Lh5jlJURSrvpLdK5DGo49ntz3y4dmhc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789592039; c=relaxed/simple;
+	bh=WUkEehPfF2jpZwug+w5ko9fR06pm4zUBXZPmUw/p31w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GaYrAeeL9z8D4uijErAKM/wr2OfgMxKFkrdw1+ZePaBp+KP/jnlC30pdrqXdYXVlIcC5uEAsRkNXg7RHCW74dEJ7Vyz/+lO0PQAjKl9lDjPbNUyuos2b40lehpySk7KYiksEvbuL8VWsxcchrKLwcwbxIZpHS0iQ+HLJqzmx+sE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qwJ2iJFs; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="GiK3HAWF";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="cqpwqapb"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GIjIBM3900570;
-	Wed, 16 Sep 2026 15:52:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=proofpoint-05-2026; bh=lHYvBiaXUUaCf5u
-	IlhDHTXAjfmYXqL3JSnpJ9dONupU=; b=GiK3HAWFH4PFUzddxeh8rNozap6Vi5n
-	X65OYdzftUjwk+Kpe6zyagj66t+OFY5pJQsIXFHFE+SmEYOBuNB2VeNU9Hq4GhEP
-	lI/DEf0GDJXpWXqEiZ5LfrF7Nmvet8a4P7fZtv/9mfqWnAbzRA/GW4HLaM/rblsG
-	dJpVlXpaBub2SAqd9abG3JWscHpHEfBoCvUBYwOr/Y43UeAInvsXSZ857F0CGWo1
-	sfmy8tW4YCuOjPLXA2RcCnNxV4pCRMuggnaxdLalZ3oixSx+byhWAbRKYz+X9THt
-	4Ztj++1pFM2XvyBxAfUwFAwhIF1HYo5hvmDCFRymZBMi6s9owaX/lgA==
-Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010056.outbound.protection.outlook.com [52.101.201.56])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gqqmdcx7w-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 15:52:52 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JxT2CDTCoC6oFuFaPJYstVa/xFTpbo7781/2gOWb1ruiT3+oJgCDQ2pNHG3RL+zGQPUc8HfM6IiBWpRPFPmIjnVh3216MfnhC9DDO4RinKOJEvEaRcZEx1WaYll64H5XC5tLwEQ0cZIMkbZpE1RH1lsk3uacojyIHmdSG9Y4OAaWOee5Wf+VzIAR0Znc8BzH2CPPgfrF+oRnkuywDMpa+8D8z1B+TBecb18A8E0fqvw129oRIhUa7wuAa0yaHCC6ox5nO50RbxCNLPRde26lb8ue/jSULAwyzVOIzv7sFUEeYBfqFSuEJ2qbcuOjIHXGAdGxQoX1RAZT326HwjJREg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lHYvBiaXUUaCf5uIlhDHTXAjfmYXqL3JSnpJ9dONupU=;
- b=p2ssUK3+8Nuq4nhyj5xXYLYqu4gBYXNVtyEJyHYLnzDSlACI3lRsXUrMGu9zVdChl0E/NovUtS8NLv3lghIKxM2FpYdqgs10Aqp1cORbEv2BMQ2HbsYi/3tJR+1InBj+HFUG2gRIAoPqVTvANhfDJJUmzPU8vzF9f7RBPI6iLg+kEZnau/EELOGdIiXilUNrv/EXLoqaSyB+ubpMklCZLbo2QD2+XNp4k66y06vqvJy+0cU/AATvmghjQrJRVqwTbN1UJ9WMVY2Z9PtYbPC2+KLh86OsVl5avyNAcZKTJK/RYeT7JcIz9bbI1a3ZxJ2QUidltVDdxPiIoni/3/hNug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lHYvBiaXUUaCf5uIlhDHTXAjfmYXqL3JSnpJ9dONupU=;
- b=cqpwqapbNCprOywods6TKatcQ8EoneztvwX0uiUV1xEyVNZhE4ogrgPmozEgAkdLF//6776H7dCG0QvbD25WT9iKZjnmC8IlwGJgtO10IC2M7kdNxh1HbJvPNrE60MHKNkP7VUs6Yp51ERyzSBJ2m+Jn18SY1/CG5jddyW6ua5k=
-Received: from SJ0PR13CA0074.namprd13.prod.outlook.com (2603:10b6:a03:2c4::19)
- by MN6PR10MB7520.namprd10.prod.outlook.com (2603:10b6:208:478::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.5; Wed, 16 Sep
- 2026 20:52:49 +0000
-Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
- (2603:10b6:a03:2c4:cafe::a0) by SJ0PR13CA0074.outlook.office365.com
- (2603:10b6:a03:2c4::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.7 via Frontend Transport; Wed, 16
- Sep 2026 20:52:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 20:52:46 +0000
-Received: from DLEE205.ent.ti.com (157.170.170.85) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
- 2026 15:52:36 -0500
-Received: from DLEE210.ent.ti.com (157.170.170.112) by DLEE205.ent.ti.com
- (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
- 2026 15:52:36 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE210.ent.ti.com
- (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 16 Sep 2026 15:52:36 -0500
-Received: from localhost (uda0506412.dhcp.ti.com [128.247.81.196])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68GKqa911706592;
-	Wed, 16 Sep 2026 15:52:36 -0500
-Date: Wed, 16 Sep 2026 15:52:36 -0500
-From: Kendall Willis <k-willis@ti.com>
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-CC: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-        "Tero
- Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Nathan
- Chancellor" <nathan@kernel.org>,
-        Nick Desaulniers
-	<nick.desaulniers+lkml@gmail.com>,
-        Bill Wendling <morbo@google.com>,
-        "Justin
- Stitt" <justinstitt@google.com>, Judith Mendez <jm@ti.com>,
-        Daniel Schultz
-	<d.schultz@phytec.de>, Andrew Davis <afd@ti.com>,
-        Siddharth Vadapalli
-	<s-vadapalli@ti.com>,
-        Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof
-	<bb@ti.com>,
-        Jai Luthra <jai.luthra@ideasonboard.com>,
-        Devarsh Thakkar
-	<devarsht@ti.com>, Beleswar Padhi <b-padhi@ti.com>,
-        Francesco Dolcini
-	<francesco.dolcini@toradex.com>,
-        Stefano Radaelli
-	<stefano.radaelli21@gmail.com>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Vishal Mahaveer <vishalm@ti.com>, Kevin Hilman <khilman@baylibre.com>,
-        "Sebin
- Francis" <sebin.francis@ti.com>,
-        Akashdeep Kaur <a-kaur@ti.com>, <linux-arm-kernel@lists.infradead.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <llvm@lists.linux.dev>, Hari Nagalla
-	<hnagalla@ti.com>
-Subject: Re: [PATCH v8 0/9] arm64: dts: ti: Split wkup R5F memory region for
- IO+DDR resume
-Message-ID: <20260916205236.hemdlwzjchmf6jm4@uda0506412>
-References: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qwJ2iJFs"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f88so111245f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:53:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789592019; x=1790196819; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aPjnpaPjtKc/aLzxIuaEfCFqOlX9GGn5Y8DyBKtmH/Y=;
+        b=qwJ2iJFsKGIHYGen29fMlKHgrKRg1cObBVoSzI4hhbBtDW9FeISnD02xb72xQU8qj4
+         k3wAfoEymeT8AdStSBbGCbMHPeCJgPIWcBL/MNVAVTtcbHiisRX+OnL6iWrPDma3fxES
+         VAYLQbD4kaqt0obSoPpoxw8Kp8+7OJPKgfNVMQMowA1kWtrc17LPEOL6tr9B+FmS44Id
+         UI6UuOsDu9RFJsPWOvoTIBgXhYzh87Q/08W3ZoP8PrVdTJAR4OzBUNjwkpURM+VJVg5Q
+         DDpxQ4E+2j3jHPeWbSvdRLnIC5M+/3hjOIy2IbKMQwdO6VFWCLjgrBqUPbtAGhNpoRyw
+         KRHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789592019; x=1790196819;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aPjnpaPjtKc/aLzxIuaEfCFqOlX9GGn5Y8DyBKtmH/Y=;
+        b=QdnWksodY28iZtiYG87TF/1/S9kTRWk/oVOuLLcO9KbpXC4RHmgKnJhYQCjIUyosEP
+         Pf+JRFG7yQG+jXYei+MU4QVXCMSmYjdub5OkRUqJOUbm2soooH2vyTlIxmSjblj1O8LK
+         m3RsR41v/jtdlkFUyL2I9uXrnXkjyBkXGo197bjwTYryi4KDsRQeL+Cwh/xf1KfCLSmJ
+         30vWHq6PIwAzQwJIb/8fc3h1KCGjp1DhwHwWNAXHRTNcG1pwhVeThIeasj4HAOt8IZOq
+         RoQ1PVaFNNO8ILRSJ8oYkP79GZCOdrAMz8TPtZfv25o67Lv7IOJ4eplXMAYlb7YniToT
+         UtlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxOZK7UECP5WBjyKWtngCdwrWBD9a+HOVfGC7Sw2d5yg4TI2StON6wqVqlTVVF+ctH23RFyRqiUvvBEjaI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpHYjuCQljFWfrRX7XVIUvgHiK+MBxMpcfXuSsQGnZL2R6lhiH
+	HQW2kVfaL9P65Z1j74StP7ZnoJRcjK6oEi1TaJJsfLtwkDETG+DGlnxt
+X-Gm-Gg: AYBFou3W4z3tewxJ2nPfAh7TtbSfexi34jJ3EsN8cIkalTdELIIzPp1hZ1lkQ85NA6K
+	eDppv7XLaU8yyN8M2TvAW4GRKOh7xV3ggUBpDZqeTPS8dZWOZbpiPWO+TRCzVOrd/dp1aoXU+A2
+	Dj0l98wo+Bn5BjMopxJNOx3al/iQVM6+aXVlRyJAaostfSa46C8o8A1FdIrPHcH6f2249EFKTMz
+	aLbooqtgYLwiTs65nbnqXUVpPUuHuBFuCaHHukahdddvjN8dZd9mYyeOdEF5pYLJIbggdTmsLpl
+	VqpClHAs8HwvnkPIjX4NgUWWFQeHtU2IUs/zB/QRvNqpGcD5pkxxv6OOOGkuqPPd5QFOmLaY2kq
+	rTnsmOIvfwmd1OSmBP1WwPBMiEpUoWb+T9iJ0Nujehxc3Fqg5uX4PMuyGApQBJRdm5QA9qp00cd
+	pSWBs9I6JmfROwovbxuJ4hhNnY4OengF0OI2JgKDgU2YM1tE4gxFCz5QhD4ERFcef1BOqkfes=
+X-Received: by 2002:a05:6000:4383:b0:487:8ec:1fc with SMTP id ffacd0b85a97d-4870cf09c40mr5052451f8f.12.1789592019334;
+        Wed, 16 Sep 2026 13:53:39 -0700 (PDT)
+Received: from antoniarch ([78.210.41.3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bef7678sm11086166f8f.2.2026.09.16.13.53.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 13:53:39 -0700 (PDT)
+From: Antoni Pokusinski <apokusinski01@gmail.com>
+To: alexandre.belloni@bootlin.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Antoni Pokusinski <apokusinski01@gmail.com>
+Subject: [PATCH v7 8/9] rtc: abx80x: create abx80x_i2c_probe()
+Date: Wed, 16 Sep 2026 22:51:37 +0200
+Message-ID: <20260916205138.16771-9-apokusinski01@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916205138.16771-1-apokusinski01@gmail.com>
+References: <20260916205138.16771-1-apokusinski01@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|MN6PR10MB7520:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6bc6e6d-9090-4c09-5e58-08df14347644
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|1800799024|23010399003|56012099006|5023799004|18002099003|10067099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	iQOS0K65FvcVXuQ9WVALXmol5wTzVBACrfk2uVFCGHxBLf6gQOMPmDYdiHgWK/JcHRgZBwhr/VqbNsGHipF8edM12Jcpgrg/B/Xtn7vFpb/lsUGncMys7UtaRYnTmClZ9lRCooWGiyB8zsB7miCXbkE7VyE+JtPruf/Zt161wYq7dNYpiv6D6QRcHiAHvQSylLBn+/M/3/nD0c3gQA52JeIzOshlWx0Xo5Rrft+sd1NS1h30agekSXuwcwsg/2gBv1ifKKIFPDYWDJjvGnNRr1kik23qcgY6FwY2OZ9Y56osK9h+XU85cSGinl3sbEvqWjnWUA12hCMKoivooK/o/fTLmDlASErYM2YMbI/HM9PBaPhJ6EKkeiNddcDXhnvn/XXQ64WVXXMcfMQOqgEG8mlpD0CSIgIdexglM+S5g8dTatpL1yG6Bac4gI2bjo6UknpwcdN+CjwbcpG0Q0M97Ckt8VMciZzLAEcn/4NOP13sh/vDXp9yFUFY58duQ6TM4x0XllFXYaln9iDwl2SkAvsyOKgKcrnOA6FhbZLHl9tYjSIRmms60bPOioKlm8Gsdhk3VGUghni43YKwaBHRjIndPbY/z7E5Wl+EpE36z+08dHyJDdXxc8c2DmrwaZrN+Q35lCYtbkdQs1PRy18ae5CVLhnv1Bt+JTMnCtt4cEJ10MAMTkG6PWubPKkVJJqrQjE3K3V9zI3Rtb1fgr+eKg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(56012099006)(5023799004)(18002099003)(10067099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	4lTpa9H2pZMw2wI2erS8Ynj2wwRJNXPuha41OINBQtPd6rcQ6ybYH54WFIN2amgIGrZqTBIEp299VI9XMw+BCNQLff2Gsw2dqLueA2OwZ04BxM0DJjx8RVMxKmm7/tcXWqPaUzUPE3EDWVDcT1AfxbfZ4gnMW7HPPIhCtiwN9h6PcjQGArRKpS7fIr4/6nXLQqO/xrfe7/KEbaqPajTv1IPUDOgCTD8XVctqcfSAJIzRvHrkgoi2OX5duo7HYj5BRclNz7XaYWOlyLFnrdQUTEcKJnvgmRkdz4HPCGpqf8+rWxxZh0xRCgx8VIyrTlQZdrp+pAI7R2wRkMSNSG3ouT7kZ6WC9kf36vXVp2ds+xNxIbB3oeSbC7Emm4bZn2nL/PancJi2I4D6Iq5nGQm9mjtXuoZ783KlY0dQGBneFyG+4sGyGEVobOAIEQZnvw2H
-X-Exchange-RoutingPolicyChecked:
-	0Z9WTldtRhMCyxaPwzPHiY2r6MB8yHtLxyk7HXzjxRfScBX89x7sdTJNsSZKsJIgsh3tqhhg7HH2im1p10v08RhS/cuAum08P9bETz/JR0Vbn1Z4YkWahZuONQ8ovYEn5NlTpbKsqSXASncMcQOhNK9NWCLZx2Hx4Bm7DF2Jb/+4SjywXxZ1CoClve+voPrd3dz6MytAMh+9TeLR/JoTs4ZW6iWe/wRNPTazex/R8Cp3k91CHyVXOVczP7QJhKmWrFnUPnpJ+DW237TCxiphQzbozNSrZYJmJl13+tph/Y/2EWghNVGggDJA+clBixmWvn1qyysmHTlCxVVp0kw5uQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 20:52:46.3533
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6bc6e6d-9090-4c09-5e58-08df14347644
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001D5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR10MB7520
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDI5MCBTYWx0ZWRfX/wue9ZoPBJ7a
- EsAWd25hTdejZAS3fgnWboTMsdO1z/f2FrGmJoHk8ij86hqtg0j6CJMlqtbx9ptFsQZIsHkvJnn
- Nzf7tXubTCBCoMVR8zP/BKx9qPUGe6f0ZVakKVeYzO/azv5kptES/misvLl9yoGi//rCRiZBkSP
- ImpPJypjD7j4ExsVxWSaf9k9N0ujNDaYF16T5diwUmr2JZJbULv3jStl1pguJndMzUxONn634yd
- RI3r3xCjwntQx12c5rcgrBVllP3iG1zI/rko3SwkFeVGFr6OAgSSX9BwSKZcXEq7fUTQnfftzQt
- tmlUQcuTq30mbzScdUktieTC2xdbd+dfaSYB+Se8/NJEMGnZ1R/wj6oftXdMy4bJqPl3L3o36kN
- VhqWdRCEtzYb67oIlYhUT7mV11C//hrUEECTC1vDSD6OTHn8cKoTVGy/VASZE6lVnKyU0jDE7P9
- 04DSFHVA6Esm+BinEIw==
-X-Authority-Analysis: v=2.4 cv=S6JMU4sP c=1 sm=1 tr=0 ts=6aab01a4 cx=c_pps
- a=wszTalFPv2ofqEyTcV7qHQ==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8
- a=sozttTNsAAAA:8 a=IpJZQVW2AAAA:8 a=_OlWVxyZ5w-zuUO0vw0A:9 a=CjuIK1q_8ugA:10
- a=IawgGOuG5U0WyFbmm1f5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDI5MCBTYWx0ZWRfX8tsCvbzJZgW8
- IJRPhyq6S4LCISzWNIuCGHcd+iGSjcVDR73d/Egqs6453ARrjqLZ3YZzE/Ryxav2ORIV+jbf7k9
- 0l1sDqVTgeKivNilXT+dtgfldTKALS0=
-X-Proofpoint-GUID: g17eH6XFoyVL_RKjXPdHdLtZCBS71Qqi
-X-Proofpoint-ORIG-GUID: g17eH6XFoyVL_RKjXPdHdLtZCBS71Qqi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 malwarescore=0 clxscore=1011 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160290
+Content-Transfer-Encoding: 8bit
 
-On 14:39-20260903, Markus Schneider-Pargmann (TI) wrote:
-> Hi,
-> 
-> Split the firmware memory region in more specific parts so it is better
-> described where which information is stored. Specifically the LPM metadata
-> region is important as bootloader software like U-Boot has to know where
-> that data is to be able to read that data and resume from RAM.
-> 
-> The bindings are already applied. The remaining patches use the new
-> layout for the platforms that are capable to support IO+DDR. For IO+DDR
-> the new layout is necessary as it defines the location of the LPM
-> metadata.
-> 
-> Additionally the two important devicetree nodes for resuming from IO+DDR
-> have the bootph-pre-ram flag added as this data needs to be read before
-> the RAM is in use.
-> 
-> The changes in this series were suggested as part of the IO+DDR u-boot series:
->   https://lore.kernel.org/r/814c211f-a9eb-4311-bb84-165b1a69755f@ti.com
-> 
-> Note that concerns about uboot fixup of memory region fixups were
-> discussed here:
->   https://lore.kernel.org/r/DJD1Y3G9S1SP.2GHOZ5X4RYJFA@baylibre.com
-> 
-> Best
-> Markus
-> 
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+Move the I2C-specific code from abx80x_probe() to the newly created
+function. This is a preparation for introducing the support for
+ABX81X RTCs which use SPI interface.
 
-For the series,
+Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
+---
+ drivers/rtc/rtc-abx80x.c | 173 ++++++++++++++++++++++++---------------
+ 1 file changed, 106 insertions(+), 67 deletions(-)
 
-Reviewed-by: Kendall Willis <k-willis@ti.com>
+diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+index 53fc788cbf96..3f0f8d7f8761 100644
+--- a/drivers/rtc/rtc-abx80x.c
++++ b/drivers/rtc/rtc-abx80x.c
+@@ -780,73 +780,38 @@ static const struct regmap_access_table abx80x_write_table = {
+ 	.n_no_ranges = ARRAY_SIZE(abx80x_no_write_ranges),
+ };
+ 
+-static const struct regmap_config abx80x_regmap_config_i2c = {
+-	.reg_bits = 8,
+-	.val_bits = 8,
+-	.max_register = ABX8XX_SRAM_BASE + ABX8XX_SRAM_WIN_SIZE - 1,
+-
+-	.rd_table = &abx80x_read_table,
+-	.wr_table = &abx80x_write_table,
+-};
+-
+-static const struct i2c_device_id abx80x_id[] = {
+-	{ .name = "abx80x", .driver_data = ABX80X },
+-	{ .name = "ab0801", .driver_data = AB0801 },
+-	{ .name = "ab0803", .driver_data = AB0803 },
+-	{ .name = "ab0804", .driver_data = AB0804 },
+-	{ .name = "ab0805", .driver_data = AB0805 },
+-	{ .name = "ab1801", .driver_data = AB1801 },
+-	{ .name = "ab1803", .driver_data = AB1803 },
+-	{ .name = "ab1804", .driver_data = AB1804 },
+-	{ .name = "ab1805", .driver_data = AB1805 },
+-	{ .name = "rv1805", .driver_data = RV1805 },
+-	{ }
+-};
+-MODULE_DEVICE_TABLE(i2c, abx80x_id);
+-
+-static int abx80x_probe(struct i2c_client *client)
++static int abx80x_probe(struct device *dev, struct regmap *regmap, int irq,
++			struct device_node *np, unsigned int part)
+ {
+-	struct regmap *regmap;
+-	struct device_node *np = client->dev.of_node;
+ 	struct abx80x_priv *priv;
+ 	int i, err, trickle_cfg = -EINVAL;
+ 	char buf[7];
+-	unsigned int part = (uintptr_t)i2c_get_match_data(client);
+ 	unsigned int partnumber;
+ 	unsigned int majrev, minrev;
+ 	unsigned int lot;
+ 	unsigned int wafer;
+ 	unsigned int uid;
+ 
+-	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+-		return -ENODEV;
+-
+-	regmap = devm_regmap_init_i2c(client, &abx80x_regmap_config_i2c);
+-	if (IS_ERR(regmap)) {
+-		dev_err(&client->dev, "Unable to allocate regmap\n");
+-		return PTR_ERR(regmap);
+-	}
+-
+-	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+ 	if (priv == NULL)
+ 		return -ENOMEM;
+ 
+-	priv->rtc = devm_rtc_allocate_device(&client->dev);
++	priv->rtc = devm_rtc_allocate_device(dev);
+ 	if (IS_ERR(priv->rtc))
+ 		return PTR_ERR(priv->rtc);
+ 
+ 	priv->rtc->ops = &abx80x_rtc_ops;
+-	priv->irq = client->irq;
++	priv->irq = irq;
+ 	priv->regmap = regmap;
+-	err = devm_mutex_init(&client->dev, &priv->lock);
++	err = devm_mutex_init(dev, &priv->lock);
+ 	if (err)
+ 		return err;
+ 
+-	dev_set_drvdata(&client->dev, priv);
++	dev_set_drvdata(dev, priv);
+ 
+ 	err = regmap_bulk_read(regmap, ABX8XX_REG_ID0, buf, sizeof(buf));
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to read partnumber\n");
++		dev_err(dev, "Unable to read partnumber\n");
+ 		return -EIO;
+ 	}
+ 
+@@ -856,14 +821,14 @@ static int abx80x_probe(struct i2c_client *client)
+ 	lot = ((buf[4] & 0x80) << 2) | ((buf[6] & 0x80) << 1) | buf[3];
+ 	uid = ((buf[4] & 0x7f) << 8) | buf[5];
+ 	wafer = (buf[6] & 0x7c) >> 2;
+-	dev_info(&client->dev, "model %04x, revision %u.%u, lot %x, wafer %x, uid %x\n",
++	dev_info(dev, "model %04x, revision %u.%u, lot %x, wafer %x, uid %x\n",
+ 		 partnumber, majrev, minrev, lot, wafer, uid);
+ 
+ 	err = regmap_update_bits(regmap, ABX8XX_REG_CTRL1,
+ 				 ABX8XX_CTRL_12_24 | ABX8XX_CTRL_ARST | ABX8XX_CTRL_WRITE,
+ 				 ABX8XX_CTRL_WRITE);
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to write control register\n");
++		dev_err(dev, "Unable to write control register\n");
+ 		return -EIO;
+ 	}
+ 
+@@ -878,7 +843,7 @@ static int abx80x_probe(struct i2c_client *client)
+ 		err = regmap_update_bits(regmap, ABX8XX_REG_CTRL2,
+ 					 ABX8XX_CTRL2_RSVD, 0);
+ 		if (err < 0) {
+-			dev_err(&client->dev, "Unable to write control2 register\n");
++			dev_err(dev, "Unable to write control2 register\n");
+ 			return -EIO;
+ 		}
+ 
+@@ -886,7 +851,7 @@ static int abx80x_probe(struct i2c_client *client)
+ 		 * Write the configuration key register to enable access to
+ 		 * the config2 register
+ 		 */
+-		if (abx80x_write_config_key(&client->dev, ABX8XX_CFG_KEY_MISC) < 0)
++		if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_MISC) < 0)
+ 			return -EIO;
+ 
+ 		/*
+@@ -898,7 +863,7 @@ static int abx80x_probe(struct i2c_client *client)
+ 					ABX8XX_OUT_CTRL_EXDS,
+ 					ABX8XX_OUT_CTRL_EXDS);
+ 		if (err < 0) {
+-			dev_err(&client->dev,
++			dev_err(dev,
+ 				"Unable to write output control register\n");
+ 			return -EIO;
+ 		}
+@@ -910,26 +875,24 @@ static int abx80x_probe(struct i2c_client *client)
+ 			if (partnumber == abx80x_caps[i].pn)
+ 				break;
+ 		if (abx80x_caps[i].pn == 0) {
+-			dev_err(&client->dev, "Unknown part: %04x\n",
+-				partnumber);
++			dev_err(dev, "Unknown part: %04x\n", partnumber);
+ 			return -EINVAL;
+ 		}
+ 		part = i;
+ 	}
+ 
+ 	if (partnumber != abx80x_caps[part].pn) {
+-		dev_err(&client->dev, "partnumber mismatch %04x != %04x\n",
++		dev_err(dev, "partnumber mismatch %04x != %04x\n",
+ 			partnumber, abx80x_caps[part].pn);
+ 		return -EINVAL;
+ 	}
+ 
+ 	if (np && abx80x_caps[part].has_tc)
+-		trickle_cfg = abx80x_dt_trickle_cfg(&client->dev);
++		trickle_cfg = abx80x_dt_trickle_cfg(dev);
+ 
+ 	if (trickle_cfg > 0) {
+-		dev_info(&client->dev, "Enabling trickle charger: %02x\n",
+-			 trickle_cfg);
+-		abx80x_enable_trickle_charger(&client->dev, trickle_cfg);
++		dev_info(dev, "Enabling trickle charger: %02x\n", trickle_cfg);
++		abx80x_enable_trickle_charger(dev, trickle_cfg);
+ 	}
+ 
+ 	err = regmap_write(regmap, ABX8XX_REG_CD_TIMER_CTL, BIT(2));
+@@ -941,23 +904,23 @@ static int abx80x_probe(struct i2c_client *client)
+ 				 ABX8XX_IRQ_EX1E | ABX8XX_IRQ_EX2E |
+ 				 ABX8XX_IRQ_TIE | ABX8XX_IRQ_BLIE, 0);
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to update irq register\n");
++		dev_err(dev, "Unable to update irq register\n");
+ 		return -EIO;
+ 	}
+ 
+ 	/* Unlock write access to Oscillator Control Register */
+-	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
++	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_OSC) < 0)
+ 		return -EIO;
+ 
+ 	err = regmap_write_bits(regmap, ABX8XX_REG_OSC,
+ 				ABX8XX_OSC_ACIE | ABX8XX_OSC_OFIE, 0);
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to update Oscillator Control register\n");
++		dev_err(dev, "Unable to update Oscillator Control register\n");
+ 		return -EIO;
+ 	}
+ 
+ 	if (abx80x_caps[part].has_wdog) {
+-		err = abx80x_setup_watchdog(&client->dev);
++		err = abx80x_setup_watchdog(dev);
+ 		if (err)
+ 			return err;
+ 	}
+@@ -967,14 +930,14 @@ static int abx80x_probe(struct i2c_client *client)
+ 		return err;
+ 
+ 	if (priv->irq > 0) {
+-		dev_info(&client->dev, "IRQ %d supplied\n", priv->irq);
+-		err = devm_request_threaded_irq(&client->dev, priv->irq, NULL,
++		dev_info(dev, "IRQ %d supplied\n", priv->irq);
++		err = devm_request_threaded_irq(dev, priv->irq, NULL,
+ 						abx80x_handle_irq,
+ 						IRQF_SHARED | IRQF_ONESHOT,
+ 						"abx8xx",
+-						&client->dev);
++						dev);
+ 		if (err) {
+-			dev_err(&client->dev, "unable to request IRQ, alarms disabled\n");
++			dev_err(dev, "unable to request IRQ, alarms disabled\n");
+ 			priv->irq = 0;
+ 		}
+ 	}
+@@ -983,14 +946,39 @@ static int abx80x_probe(struct i2c_client *client)
+ 
+ 	err = rtc_add_group(priv->rtc, &rtc_calib_attr_group);
+ 	if (err) {
+-		dev_err(&client->dev, "Failed to create sysfs group: %d\n",
+-			err);
++		dev_err(dev, "Failed to create sysfs group: %d\n", err);
+ 		return err;
+ 	}
+ 
+ 	return devm_rtc_register_device(priv->rtc);
+ }
+ 
++#if IS_ENABLED(CONFIG_I2C)
++
++static const struct regmap_config abx80x_regmap_config_i2c = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = ABX8XX_SRAM_BASE + ABX8XX_SRAM_WIN_SIZE - 1,
++
++	.rd_table = &abx80x_read_table,
++	.wr_table = &abx80x_write_table,
++};
++
++static const struct i2c_device_id abx80x_id[] = {
++	{ .name = "abx80x", .driver_data = ABX80X },
++	{ .name = "ab0801", .driver_data = AB0801 },
++	{ .name = "ab0803", .driver_data = AB0803 },
++	{ .name = "ab0804", .driver_data = AB0804 },
++	{ .name = "ab0805", .driver_data = AB0805 },
++	{ .name = "ab1801", .driver_data = AB1801 },
++	{ .name = "ab1803", .driver_data = AB1803 },
++	{ .name = "ab1804", .driver_data = AB1804 },
++	{ .name = "ab1805", .driver_data = AB1805 },
++	{ .name = "rv1805", .driver_data = RV1805 },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, abx80x_id);
++
+ #ifdef CONFIG_OF
+ static const struct of_device_id abx80x_of_match[] = {
+ 	{
+@@ -1038,16 +1026,67 @@ static const struct of_device_id abx80x_of_match[] = {
+ MODULE_DEVICE_TABLE(of, abx80x_of_match);
+ #endif
+ 
++static int abx80x_i2c_probe(struct i2c_client *client)
++{
++	unsigned int part = (uintptr_t)i2c_get_match_data(client);
++	struct regmap *regmap;
++
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
++		return -ENODEV;
++
++	regmap = devm_regmap_init_i2c(client, &abx80x_regmap_config_i2c);
++	if (IS_ERR(regmap)) {
++		dev_err(&client->dev, "Unable to allocate regmap\n");
++		return PTR_ERR(regmap);
++	}
++
++	return abx80x_probe(&client->dev, regmap, client->irq,
++			    client->dev.of_node, part);
++}
++
+ static struct i2c_driver abx80x_driver = {
+ 	.driver		= {
+ 		.name	= "rtc-abx80x",
+ 		.of_match_table = of_match_ptr(abx80x_of_match),
+ 	},
+-	.probe		= abx80x_probe,
++	.probe		= abx80x_i2c_probe,
+ 	.id_table	= abx80x_id,
+ };
+ 
+-module_i2c_driver(abx80x_driver);
++static int abx80x_register_driver(void)
++{
++	return i2c_add_driver(&abx80x_driver);
++}
++
++static void abx80x_unregister_driver(void)
++{
++	i2c_del_driver(&abx80x_driver);
++}
++
++#else
++
++static int abx80x_register_driver(void)
++{
++	return 0;
++}
++
++static void abx80x_unregister_driver(void)
++{
++}
++
++#endif /* IS_ENABLED(CONFIG_I2C) */
++
++static int __init abx80x_init(void)
++{
++	return abx80x_register_driver();
++}
++module_init(abx80x_init);
++
++static void __exit abx80x_exit(void)
++{
++	abx80x_unregister_driver();
++}
++module_exit(abx80x_exit);
+ 
+ MODULE_AUTHOR("Philippe De Muyter <phdm@macqel.be>");
+ MODULE_AUTHOR("Alexandre Belloni <alexandre.belloni@bootlin.com>");
+-- 
+2.55.0
 
-Best,
-Kendall
