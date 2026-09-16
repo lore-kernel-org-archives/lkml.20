@@ -1,207 +1,440 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A7E4AA3F0
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:18:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC9D4D2EEC
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:18:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561091; cv=none; b=ikLU1eBm2p+yD4SNm+Aiw+k37Fkz2VMFaMgSmaHcTbd4m6v/mvywABm4BdVF3b7Dzr4uDwpyZ4/LCpk5dmFcnz+UiCm0DvW3ZvxydHRsScDA/qJfTbnCyBgsS4Rido+SWZEE2bbG2UTjT3i9AhGzM0Madmmx5+6x531VsuuNqQM=
+	t=1789561096; cv=none; b=E5VNEPCfL6m5LiYB7iHtoDwCSgmxAfVDlFGg7UxlLi6PXYn4uyx22hPHtqqBoccBDIM2y5j4HbBPvQQI6Kqk/xoVJqi4etj67m9QgbG3aq6cnzK2nVeUgb18GUKDREmh27iy8yq71a8S8SiHmpl1js62aLqgq+9qz4DI2rfL4eE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561091; c=relaxed/simple;
-	bh=XUlmkcZ5RWVZdPh6nzmGjp1yFPSyzH5dobkGwv2oChw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o2nK01mBkmE9zvC+K+gPg9UgdGtrAoVHR4qhpcxXmBSywrvY4AiOD3czFsooVo/QR4IcDPaIlxVpuiC32ZxWmNZHBacSmywtLleRU1sXcLftalTCQIcQ8hYBP4jFeYuC1Qa6ww5M1Z/sY4gDphrBtGw+j8aP77J8J4d7CHabU0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kvGe5OLk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bgmpHDqV; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789561096; c=relaxed/simple;
+	bh=8UNdUpue5sKwxYXRGKWwuUUlLh8VybcphmQB5BfawQo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CyDwMM02HWW+GFkMDncnuJ0mEzFM/d2loG2MHTgITPYdnYZ5CVbIyba0buwBExKmzmtXOCu+pZ99gZkxq6Zx4DY1wE9P987L+4fHkoMAXEYaOgMBP4UuYvOyA0JuWPtp5cfp8a6e8LWNXNPmmM9zVM4FgO7MdTounK3fRM82gC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=u4iyJnKa; arc=none smtp.client-ip=91.218.175.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kvGe5OLk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bgmpHDqV"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GBsATJ1963750
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:18:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=btpq+GMkcN0fP8tlXTzfdclT
-	vfX1VTNaQI1C0weG74A=; b=kvGe5OLkoa/Xv2QpWYixqouDqZYE5/tvPF7Mgwxk
-	shYz1m2yyUODnAF5mEbiaUWk8vAl9w+g7WmEjP1chk8l2izKak0Hu1ly1pMFk1Jj
-	grNqUilAVgf+E5ZVz9BjwCmj7xd3gQQ3ivTQL9UwYzCubEP5nG+RFT5ZfD3m4RKf
-	P+K/4GmBxVSTeK6kQ8CMbQzlNGPcHAj7Bx30rfdV2mR73tfv/byCs3emZAhqn/L3
-	ru2ub21KN2K9HtJp8jO+pqvLqU6PDW7JGkwB8oFOnIbFTtFDtp7Ac93ip0nD2IU1
-	pZq2jCwICPxM7N6eHBeaoydwI8sup2sniV0VS4DMorR2HQ==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqtn502r3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:18:08 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc4afc810bfso1970981a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789561087; x=1790165887; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=btpq+GMkcN0fP8tlXTzfdclTvfX1VTNaQI1C0weG74A=;
-        b=bgmpHDqVIRPRazxMegizZ3D6++KMDVeKn7nTK+LnazoL1sSMzuCcoAsvKdfWwOjCzn
-         t5e3TvoRAo3sSxk5z0MTIod/cKSiSPXc7+j9QgKjkeCHCl8W/t2vslgsiIpXX/4bKrcs
-         yWKAHMu04Iwg6b7x5BG6YdaxTjJgMO3dUIQo5tlW0t+nF6xV9b86tHtMsxHzxlbQBOKf
-         RpE3rrmlEutuu13aFYt3RvKyQ7/HGtcl7kb+OGUXdWJJXU4MVTbO4YpewK+Fcj6lQc3G
-         rb1cYtKDiji0C2DF05JgYMwAt+/fmbeR3G39th0liYC2hRyG2Y2+HpT/Z8ODcW+qdxIH
-         NiJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789561087; x=1790165887;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=btpq+GMkcN0fP8tlXTzfdclTvfX1VTNaQI1C0weG74A=;
-        b=vA87MvPQOBmd9hLjFlhsUXnotP350AQVcu4ysHSR2eC3b7xM6jvs7UGF5TSLZo8gY5
-         dantbLb/UM0nXftHQYHiA0L26Wqf8pNLBYPM0sR0wTmVs2HPy3c6DP08LLE7Y5mCH+ou
-         7J98k63rr+STm9tXuQVO7d085thduaUL0q2mI1qWBIU4dUOGRblanpnbJLsQWSDYtJX1
-         jDg6SGS2GGJ7xsQ9KRNNmEEgRMeELHHEqzGvPnwcfu+UGXWc63yVTRfBlUxtnFn9RbNy
-         5qf5q4P/G3GMXYizwJFWfKJJi7/d7y6C+URTtREayGLfZE3LgQ8tFP3Xx5jHdo/SIm9E
-         7Szw==
-X-Forwarded-Encrypted: i=1; AKwUvBwR9M6+I8FEQr6mTYY8Eg2TCHiwQkxYLTMgqgCeDBtOVyYyXCk5vUALm1xmvVG3B9u8/ikXsTwAJxlccTA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGtJzOkJTpjRIEkby1InjSdwG3yj47wqNa/q+RB0J6B7hImoJa
-	LI6O65q5YuWKtgGzDSQ7o+c5ypQLNQiYHCA5Pn5czjb/+k0iYIok7TdHlmDdzYf37L2vUxVLjiJ
-	d6E1UID3jawbeEi0LeYmlkP0B7v+VExM7zzlcr3pYU6uiqpgI4v2/qrWCavi98wT49Kw=
-X-Gm-Gg: AYBFou2qCrMNL2E2QB0+9XDWvXWql1cHW5DQZtG2sc/IY84tVZA/m65G3TvenDqXOAZ
-	DHVJZDijl/EveE4Ccpaz5//n06u1Y7vsv53CILggAHEBxXGs6z2eiD+pQBBHD8TkzVGTULwKXmh
-	Y6xIsFuqSyWzDFF5g7ogDrPikDOIadJvL/bR5Y1caZoBf8qScioaWlVMEVvNXXCbiY2ujKJcpzU
-	xMUymINMhH6HomfWB3SkpvACvkCGRvSTh3xJuWz9qbHwzX2xTcgTa+5LFJnBXzGbveWiNXOJ0Ut
-	6ae4WCcYLle67+reATpKEFIfjaWOkYJ/rjQ966KBEX7yW4c11x2Vk+FNT43NAAF5+oPOXgdsng3
-	IWsmc/4odCFndaw==
-X-Received: by 2002:a17:90b:254b:b0:39b:5622:d645 with SMTP id 98e67ed59e1d1-39e1fb45010mr2698944a91.0.1789561087157;
-        Wed, 16 Sep 2026 05:18:07 -0700 (PDT)
-X-Received: by 2002:a17:90b:254b:b0:39b:5622:d645 with SMTP id 98e67ed59e1d1-39e1fb45010mr2698870a91.0.1789561086513;
-        Wed, 16 Sep 2026 05:18:06 -0700 (PDT)
-Received: from oss.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bc26a65sm4761643a91.13.2026.09.16.05.18.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 05:18:05 -0700 (PDT)
-Date: Wed, 16 Sep 2026 17:47:59 +0530
-From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-To: Thomas Karpiniec <tom.karpiniec@outlook.com>
-Cc: netdev@vger.kernel.org, Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S . Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        Choong Yong Liang <yong.liang.choong@linux.intel.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Russell King <rmk+kernel@armlinux.org.uk>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 2/2] net: stmmac: qcom-ethqos: advertise supported
- SerDes interfaces
-Message-ID: <aqqI9wOnradk9d7K@oss.qualcomm.com>
-References: <CH3PR11MB8413FCBA598F7FABC04ADCFEE4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
- <CH3PR11MB841353E5708DDD7C5E2EA1D5E4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="u4iyJnKa"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8UNdUpue5sKwxYXRGKWwuUUlLh8VybcphmQB5BfawQo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789561091; v=1; x=1790165891;
+ b=u4iyJnKaBvEALs2nqFLg8I8D7q+dcd1PgSQjI1ERkm5QIRVE9CnT93vmWT9p2NVYntmktvnK
+ EkQnTN5y0uT2Ofhgwcxuz8vgW/qdeY97Y0KjO0qOyqPBKhLTYVvQncNjD/nju1Ujon5qXljWGJ+
+ S2BirEPntM3gDqC+ro6dZWOk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f2cb4540f21b2bed;
+	Wed, 16 Sep 2026 12:18:11 +0000
+X-Mizu-Trace-ID: f2cb4540f21b2bed
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <39eaa5c2-c22e-4007-bfce-e31f6bfd6b17@linux.dev>
+Date: Wed, 16 Sep 2026 14:18:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CH3PR11MB841353E5708DDD7C5E2EA1D5E4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE2MiBTYWx0ZWRfX6BHFn6zKpNPz
- XLOATXhp44Hh4wjczoG5PrWPx3+JmuabLvoAszjePSdFDUsIsnmcpL/wuPWZYq3Cs8PzR01WjBe
- /YUOBwuPRFWjof7zPZYIBuaA/cf3WvtBtYojHJTJ2cf9btfHG4ZAHcwGes79Ks5d0+YMBkdG9b4
- 21f/8cqHnsBVU0p/K021umPbZ3rCUCQOiMxGCd/Pq4FO/0gEsugKGZg4sSjWvzoQFQpg8WEGWxg
- W3i6bowjGrFmracc7w+ZBSz4ZKKJ8s3Z0yfqq4WmypBGVPukWDo9wGvhYEJNQaPg8gsQ/sPHmwZ
- TlSkC/tzxg+fT/rw8wmJyMpxc+jEUPhEGxkccguj+0BCQLoAov4x7TY0FJjVDnIV+AGbX2uTnOp
- gDg63aWyL0yD/BONKNm1b3PFE+asUlLh+4tA8xXqkUmpxkO2+eSB392GZqt47PX67lAIXMt8+0q
- ym9ZonM+1q+gzTx+LOg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE2MiBTYWx0ZWRfX5zynJOb5QDrO
- qNiXzbBYYe2aU3EERWSVDkdMTedY7CiVWcCcOf3wHQchZCZ4QSOSNIimQGhRxdaRKzCeqJRnqj9
- ObpTD4fjcyNDh6qfLTp+zkHT8JTsvNw=
-X-Proofpoint-ORIG-GUID: T0JYDhAcDoeBmKX0fWkLYSguWxX3LhhA
-X-Authority-Analysis: v=2.4 cv=K7O3jCWI c=1 sm=1 tr=0 ts=6aaa8900 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=MoAyQRu-XjFdVeW2IIMA:9 a=CjuIK1q_8ugA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-GUID: T0JYDhAcDoeBmKX0fWkLYSguWxX3LhhA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 adultscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160162
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] HID: asus: add support for xgm led
+To: Antheas Kapenekakis <lkml@antheas.dev>,
+ Denis Benato <benato.denis96@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
+ Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
+ "Luke D . Jones" <luke@ljones.dev>, Mateusz Schyboll <dragonn@op.pl>
+References: <20260915181200.18086-1-denis.benato@linux.dev>
+ <20260915181200.18086-4-denis.benato@linux.dev>
+ <CAGwozwHe7dnSi1=NuqeQuXD0FtdPKLJvwyC53ff6LUmRU9Z7SQ@mail.gmail.com>
+ <9fd173d2-08c2-4455-b251-27af53db2028@gmail.com>
+ <CAGwozwHTZVrrC7zB4oGc3safznXKH3zkHv5EDVSyOYdNGZCpXw@mail.gmail.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <CAGwozwHTZVrrC7zB4oGc3safznXKH3zkHv5EDVSyOYdNGZCpXw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 08:39:50PM +1000, Thomas Karpiniec wrote:
-> From: Thomas Karpiniec <tom@wendy.sh>
-> 
-> With a QCA8081 PHY and phy-mode = "2500base-x", stmmac reports only
-> 2500BASE-X in phylink's supported_interfaces. Phylink consequently removes
-> 10/100/1000BASE-T modes from the PHY's advertisement, preventing a link
-> with a gigabit switch.
-> 
-> The QCA8081 uses SGMII for lower copper speeds and 2500BASE-X for 2.5Gbps.
-> ETHQOS already reconfigures the SerDes in ethqos_mac_finish_serdes() when
-> the PHY changes interface, but does not advertise this capability.
-> 
-> Provide a get_interfaces() callback for serial interfaces. Add SGMII and
-> 2500BASE-X when the SerDes validates them, allowing phylink to retain the
-> corresponding copper link modes. Leave the existing stmmac fallback to
-> the firmware interface in place when no interfaces are reported. RGMII
-> configurations are unchanged.
-> 
-> Fixes: 61e9be0efbe8 ("net: stmmac: qcom-ethqos: add support for 2.5G BASEX mode")
-> Cc: stable@vger.kernel.org # 7.1+
-> Assisted-by: LLM sparse
-> Signed-off-by: Thomas Karpiniec <tom@wendy.sh>
-> ---
->  .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 22 +++++++++++++++++++
->  1 file changed, 22 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index ac7d6d3e205a..3493e090f1a8 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -1,6 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0
->  // Copyright (c) 2018-19, Linaro Limited
->  
-> +#include <linux/bitops.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/of_net.h>
-> @@ -564,6 +565,26 @@ static void ethqos_pcs_set_inband(struct qcom_ethqos *ethqos, bool enable)
->  	stmmac_pcs_ctrl_ane(priv, enable, 0);
->  }
->  
-> +static void ethqos_get_interfaces_serdes(struct stmmac_priv *priv, void *bsp_priv,
-> +					 unsigned long *interfaces)
-> +{
-> +	struct qcom_ethqos *ethqos = bsp_priv;
-> +
-> +	if (!ethqos->serdes_phy)
-> +		return;
-> +
-> +	/* PHYs such as QCA8081 switch between SGMII and 2500BASE-X with
-> +	 * the negotiated copper speed. mac_finish reconfigures the SerDes
-> +	 * accordingly; let phylink validate all modes that path supports.
-> +	 */
-> +	if (!phy_validate(ethqos->serdes_phy, PHY_MODE_ETHERNET,
-> +			  PHY_INTERFACE_MODE_SGMII, NULL))
-> +		__set_bit(PHY_INTERFACE_MODE_SGMII, interfaces);
-> +	if (!phy_validate(ethqos->serdes_phy, PHY_MODE_ETHERNET,
-> +			  PHY_INTERFACE_MODE_2500BASEX, NULL))
-> +		__set_bit(PHY_INTERFACE_MODE_2500BASEX, interfaces);
-> +}
-> +
 
-So, I had proposed this exact change a while back:
-https://lore.kernel.org/netdev/aMgootkPQ%2FGcdiXX@oss.qualcomm.com/
+On 9/16/26 08:46, Antheas Kapenekakis wrote:
+> On Wed, 16 Sept 2026 at 02:54, Denis Benato <benato.denis96@gmail.com> wrote:
+>>
+>> On 9/15/26 23:52, Antheas Kapenekakis wrote:
+>>> On Tue, 15 Sept 2026 at 20:12, Denis Benato <denis.benato@linux.dev> wrote:
+>>>> XG mobile stations have very bright leds behind the fan that can be
+>>>> turned either ON or OFF: add a cled interface to allow controlling the
+>>>> brightness of those red leds.
+>>> Hi Denis,
+>>> as of last month, I am also the proud owner of a XG Mobile (2025 in my
+>>> case). Therefore, I can now comment on this series and give you
+>>> feedback.
+>>
+>> Perhaps. These two devices have nothing in common but the name.
+>>
+>>> First, I have some interim patches that are not ready yet to post. The
+>>> device still has some led behavior that I need to investigate, but I
+>>> attach them here for your reference. You may send them on my behalf if
+>>> you want to see them sooner though.
+>>>
+>>> https://github.com/anatase-org/patchwork/commit/af3e5e1755f720a2fffd1b67cb1253e11efbc5bb
+>>> https://github.com/anatase-org/patchwork/commit/7718c4b64b03ca9be043e8c56f1833e5c4880fff
+>>>
+>>> Note that these two patches are essentially a replacement for this
+>>> patch essentially, except for the binding, where your device is I2C
+>>> where mine is thunderbolt, so that still needs to be added. There are
+>>> still leftover issues with the LED I have to investigate before I
+>>> submit these patches.
+>>>
+>>> As you know, USB keyboards in Asus laptops are connected over WMI
+>>> through s2idle as well, which is what makes them turn off their
+>>> backlight during suspend. However, our devices are external and cannot
+>>> use the same path. I suspect that there is a different notifier for
+>>> these devices over armoury crate we need to investigate first.
+>> Your device is thunderbolt only, but 2022, 2023 and 2024
+>> xg mobiles that his patch targets are devices for which the
+>> ACPI of laptops supporting this weird connector is full of
+>> references to and handling and custom code all over the place.
+>>
+>> They are nothing alike. They share the name....
+>>
+>> If I connect mine to my rog ally armoury crate gains a
+>> slider that sends the exact same command my patch sends...
+>>
+>> I couldn't find anything else over USB with wireshark:
+>> everything else is ACPI-driven.
+>>
+>>>> Let the led core manage the power transitions: the classdev is flagged
+>>>> with LED_CORE_SUSPENDRESUME, so it is switched off at suspend and its
+>>>> last brightness is restored at resume. The EC drives its own blinking
+>>>> pattern during s2idle anyway, so the led state while the machine is
+>>>> asleep is not meaningful.
+>>>>
+>>>> Cc: Antheas Kapenekakis <lkml@antheas.dev>
+>>>> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+>>>> ---
+>>>>  drivers/hid/hid-asus.c | 84 ++++++++++++++++++++++++++++++++++++++++++
+>>>>  1 file changed, 84 insertions(+)
+>>>>
+>>>> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+>>>> index 03150d29eec5..a427e272563d 100644
+>>>> --- a/drivers/hid/hid-asus.c
+>>>> +++ b/drivers/hid/hid-asus.c
+>>>> @@ -51,6 +51,8 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
+>>>>  #define FEATURE_KBD_LED_REPORT_ID1 0x5d
+>>>>  #define FEATURE_KBD_LED_REPORT_ID2 0x5e
+>>>>
+>>>> +#define ROG_XGM_REPORT_SIZE 300
+>>> Here, you define an additional report size var. This is not necessary,
+>>> as ROG_ALLY_REPORT_SIZE is only used for reads currently in the driver
+>>> and we defer to hid core to set the write length. Therefore, you might
+>>> increase ROG_ALLY_REPORT_SIZE to 300 universally instead, as a
+>>> correctness fix. This way, when Aura devices attempt to write 300
+>>> bytes, they still work regardless of the quirk. This is what
+>>> af3e5e1755f720a2fffd1b67cb1253e11efbc5bb.
+>> I answer to this below, but I want to point out something here:
+>> you are right in wanting to join these, but wrong on what to join:
+>> the right thing to do is not to join the ALLY_REPORT_SIZE and the
+>> XGM report size, but instead to join the  KBD report size and the
+>> ally one as one NKEY_REPORT_SIZE since this is exactly what they
+>> are: N-KEY devices.
+> You are right, NKEY_REPORT_SIZE. This is what my patch did. It was
+> late yesterday.
 
-As Russell noted, this behaviour is due to the messed-up integrated
-PCS support in STMMAC/QCOM-ETHQOS.
+Splendid, now it makes sense. Yeah I'll do it, don't worry about it:
+it's on my TODO list and has been for a few months.
 
-I would defer to him for this if he's around.
+>>>> +
+>>>>  #define ROG_ALLY_REPORT_SIZE 64
+>>>>  #define ROG_ALLY_X_MIN_MCU 313
+>>>>  #define ROG_ALLY_MIN_MCU 319
+>>>> @@ -144,6 +146,11 @@ struct asus_worker {
+>>>>         bool removed;
+>>>>  };
+>>>>
+>>>> +struct asus_xgm_led {
+>>>> +       struct led_classdev cdev;
+>>>> +       struct hid_device *hdev;
+>>>> +};
+>>>> +
+>>>>  struct asus_touchpad_info {
+>>>>         int max_x;
+>>>>         int max_y;
+>>>> @@ -170,6 +177,7 @@ struct asus_drvdata {
+>>>>         unsigned long battery_next_query;
+>>>>         struct asus_hid_listener listener;
+>>>>         bool fn_lock;
+>>>> +       struct asus_xgm_led *xgm_led;
+>>>>  };
+>>>>
+>>>>  static int asus_report_battery(struct asus_drvdata *, u8 *, int);
+>>>> @@ -1161,6 +1169,26 @@ static int asus_battery_probe(struct hid_device *hdev)
+>>>>         return ret;
+>>>>  }
+>>>>
+>>>> +static int asus_xgm_led_set(struct led_classdev *led_cdev, enum led_brightness value)
+>>>> +{
+>>>> +       const u8 buf[ROG_XGM_REPORT_SIZE] = {
+>>>> +               FEATURE_KBD_LED_REPORT_ID2, 0xC5, (value) ? 0x50 : 0x00
+>>>> +       };
+>>>> +       struct asus_xgm_led *xgm = container_of(led_cdev, struct asus_xgm_led, cdev);
+>>>> +       int ret;
+>>>> +
+>>>> +       ret = asus_kbd_set_report(xgm->hdev, buf, ROG_XGM_REPORT_SIZE);
+>>>> +       if (ret < 0) {
+>>>> +               hid_err(xgm->hdev, "Unable to set XG mobile led state: %d\n", ret);
+>>>> +               return ret;
+>>>> +       } else if (ret != ROG_XGM_REPORT_SIZE) {
+>>>> +               hid_err(xgm->hdev, "Unexpected partial transfer to XG mobile: %d\n", ret);
+>>>> +               return -EIO;
+>>>> +       }
+>>>> +
+>>>> +       return 0;
+>>>> +}
+>>>> +
+>>> Moreover, as this is an Aura device, and by setting
+>>> ROG_XGM_REPORT_SIZE to 300, you can now reuse the initial inits and
+>>> brightness handler instead of adding new ones as you did here. This
+>>> way, for asus laptops with a wmi handler, the brightness keyboard
+>>> shortcut of the device will also control the eGPU, which is preferable
+>>> behavior. This is what 7718c4b64b03ca9be043e8c56f1833e5c4880fff does
+>>> in part.
+>>
+>> Absolutely bad idea, trust me: I have recently followed the fix
+>> of a regression I introduced sending a 64-bytes command to
+>> touchpads that accepts some other length as those stopped
+>> working. Doing that is asking for troubles. Listen to who
+>> caused the trouble already and make the most out of my
+>> mistakes.
+>>
+>> I also had to make asusctl send exactly 64-bytes commands
+>> because of random bugs to zephyrus and strix models.
+>> Sending 65 bytes to anime matrix is not a very good idea either.
+>>
+>> Also Armoury Crate never sends anything different to 64 bytes
+>> to N-key devices and I do not want to send anything different
+>> than windows does.
+>>
+>> Do you remember what happens to rainbow on ROG ally if you send
+>> commands the MCU doesn't like? I don't want having weird things
+>> difficult to debug and nearly impossible to recover from only because
+>> the code would look better/be shorter.
+>>
+>> These devices are fragile in handling, tied to the EC and low lever
+>> hardware and I absolutely don't want to diverge from what
+>> Armoury Crate does unless there is a very good reason to it.
+>>
+>> I agree that ASUS devices are somewhat forgiving in accepting
+>> different lengths, unlike MSI claws that will not answer to
+>> commands until you have sent a number of bytes multiple of
+>> the length they want, but this is no reason to toy around this.
+>>
+>>> I have not tested the common path yet. I have been travelling so I
+>>> have not flashed the new kernel on my z13. I have been using the eGPU
+>>> with a different device.
+>> If with "the new kernel" you mean 7.3 I can tell you it appears
+>> d3 is broken and some ASUS laptops stopped entering s2idle...
+>>
+>>> 7718c4b64b03ca9be043e8c56f1833e5c4880fff also fixes the "blinking
+>>> pattern" of the EC, as you note in your subject. With the init,
+>>> suspend and resume handlers sending the init of that patch, during
+>>> boot the light blinks, it becomes solid once hid-asus binds, then
+>>> during the transition to sleep, it starts to blink until it turns red,
+>>> and does the reverse during resume. It would be good for you to give
+>>> feedback for that. I have not verified the Windows behavior there, and
+>>> we should do that for correctness. The init is referenced from
+>>> g-helper in Windows, but maybe there is another command that signals
+>>> sleep better.
+>> 2022, 2023 and 2024 models don't blink outside of s2idle...
+>> Because ACPI is all over the place and the device gets informed
+>> constantly of what the host is doing.
+>>
+>> If 2025 models blink until you bind the driver it that means they
+>> rely on commands from the windows application... We will need
+>> to replicate those as closely as possible.
+>>
+>> I can ask ASUS if wireshark captures don't shed some lights to it.
+> If you can and forward me some info it should be great.
 
-	Ayaan
+I cannot because that would be covered by my NDA, and
+that would take quite a lot of time and depending on the
+questions surfacing here I might not even be allowed to
+answer so it's hugely better if wireshark is all that is needed.
+
+>>> I do not have an answer to the sleep leds unfortunately. My XG's RGB
+>>> stays on while there is a device plugged in, regardless of whether its
+>>> sleeping or shutdown. This makes me think that we are missing a
+>>> notifier command, and the brightness patch you propose here just
+>>> papers over the issue. So we should investigate that first.
+>> What I propose is correct for old models. Newer ones I know nothing
+>> about except that there is no custom ACPI handling them.
+>>
+>>
+>>> Let me know how you'd like to proceed.
+>> Honestly I think you should name those something like xgb_tb_.....
+>> and handle them separately since they have pretty much nothing
+>> in common... Except the price maybe. Lol.
+>>
+>> In general don't go crazy over refactors and trying to make the
+>> code looks better at the expense of proven things: the priority
+>> is for this driver to work reliably and to reuse as much things
+>> proven to work as possible.
+> Let me simplify. Please try to stay on topic.
+>
+> My XG Mobile is an Aura device using FEATURE_KBD_LED_REPORT_ID2 with a
+> feature report size of 300. Your XG Mobile is an Aura device that uses
+> the same. They both have the same sleep issue that you paper over by
+> setting the brightness to 0. The LED stays on during sleep. It also
+> stays on / off during boot and the power command works inconsistently
+> with it. Which points to the device not knowing boot state and missing
+> a command to inform it.
+
+I don't see any sleep issue: the resume sometime return to the
+old setting and sometimes it doesn't but it always blink s2idle.
+
+Setting the brightness to 0 is pretty much a no-op on these
+models and that's why I used the proper flag, but if new models
+requires something different you can restore the old code
+from me for those models.
+
+Resetting the setting by sending the command is exactly what
+Windows does so I'm okay with what I did here.
+
+Yours may very well need other things: just disable the device
+in windows driver manager, start wireshark, re-enable the
+device and the command will appear there.
+
+> The asusctl driver handles aura devices. However, instead of using the
+> current aura cdev handler and init handling you introduce a SECOND ONE
+> THAT DOES THE SAME THING and is not connected to the central keyboard
+> brightness handler.
+
+The current one is rooted in asus-wmi, has 0-3 brightness and
+is for keyboards.
+
+> Why do you do that? Can you justify the new cdev? What's wrong with
+> the normal one? Why do we need a new ABI just for the 2022-2024 eGPU
+> models?
+
+Yes: new xgm only needs hid-asus, has 0-1 brightness and is for
+xg mobile. Code written for kbd_backlight that assumes 0-3
+won't work on it.
+
+Also users may very well to be able to control the light of
+the xgm separately from kbd_backlight because xgm led
+is very bright and it's uncomfortable to look at unlike the
+keyboard backlight.
+
+Another reason is that even in windows the lighting of
+xgm is a totally separated option with just ON/OFF and
+it's what users expect (this patch has been written on
+input and capture from a 2022 xgm user on Discord).
+
+As for 2022-2024 eGPU models I don't really mean "do
+things in a totally separated manner from 2025": code
+can be reused but the code that can be reused might
+be a small portion in comparison with what those
+may need so I am skeptical in attempting to merge
+the two paths entirely without knowing what
+new models actually want to receive.
+
+I was suggesting not to try too hard to share the same
+code path until you have figured out all required details.
+
+Beside these devices even have a different USB vid:pid
+so it's not like what this patch does affects them in any
+way unless we want to by using the same quirk.
+
+>
+> I am not arguing on which command is correct to send. Keep the flow
+> the same if you want
+>
+> Antheas
+>
+>>> Best,
+>>> Antheas
+>>>
+>>>
+>>>>  static int asus_input_configured(struct hid_device *hdev, struct hid_input *hi)
+>>>>  {
+>>>>         struct input_dev *input = hi->input;
+>>>> @@ -1406,6 +1434,49 @@ static void asus_initialize_reports(struct hid_device *hdev)
+>>>>         }
+>>>>  }
+>>>>
+>>>> +static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
+>>>> +{
+>>>> +       const char *name;
+>>>> +       int ret;
+>>>> +
+>>>> +       drvdata->xgm_led = devm_kzalloc(&hdev->dev, sizeof(*drvdata->xgm_led), GFP_KERNEL);
+>>>> +       if (drvdata->xgm_led == NULL)
+>>>> +               return -ENOMEM;
+>>>> +
+>>>> +       name = devm_kasprintf(&hdev->dev, GFP_KERNEL, "asus:xgm-%s:led",
+>>>> +                             strlen(hdev->uniq) ? hdev->uniq : dev_name(&hdev->dev));
+>>>> +
+>>>> +       if (name == NULL) {
+>>>> +               ret = -ENOMEM;
+>>>> +               goto asus_xgm_init_err;
+>>>> +       }
+>>>> +
+>>>> +       drvdata->xgm_led->hdev = hdev;
+>>>> +       drvdata->xgm_led->cdev.name = name;
+>>>> +       drvdata->xgm_led->cdev.brightness = 1;
+>>>> +       drvdata->xgm_led->cdev.max_brightness = 1;
+>>>> +       drvdata->xgm_led->cdev.brightness_set_blocking = asus_xgm_led_set;
+>>>> +       drvdata->xgm_led->cdev.flags = LED_CORE_SUSPENDRESUME;
+>>>> +
+>>>> +       /* LED state is arbitrary on boot, set a default */
+>>>> +       ret = asus_xgm_led_set(&drvdata->xgm_led->cdev, drvdata->xgm_led->cdev.brightness);
+>>>> +       if (ret) {
+>>>> +               hid_err(hdev, "Asus failed to set xgm led: %d\n", ret);
+>>>> +               goto asus_xgm_init_err;
+>>>> +       }
+>>>> +
+>>>> +       ret = devm_led_classdev_register(&hdev->dev, &drvdata->xgm_led->cdev);
+>>>> +       if (ret) {
+>>>> +               hid_err(hdev, "Asus failed to register xgm led: %d\n", ret);
+>>>> +               goto asus_xgm_init_err;
+>>>> +       }
+>>>> +
+>>>> +       return 0;
+>>>> +asus_xgm_init_err:
+>>>> +       drvdata->xgm_led = NULL;
+>>>> +       return ret;
+>>>> +}
+>>>> +
+>>>>  static int __maybe_unused asus_resume(struct hid_device *hdev)
+>>>>  {
+>>>>         struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+>>>> @@ -1545,6 +1616,16 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+>>>>         if (!drvdata->tp)
+>>>>                 asus_initialize_reports(hdev);
+>>>>
+>>>> +       if (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID) &&
+>>>> +           ((hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2022) ||
+>>>> +            (hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2023))) {
+>>>> +               ret = asus_xgm_init(hdev, drvdata);
+>>>> +               if (ret) {
+>>>> +                       hid_err(hdev, "Failed to initialize xg mobile: %d\n", ret);
+>>>> +                       goto err_stop_hw;
+>>>> +               }
+>>>> +       }
+>>>> +
+>>>>         /* Laptops keyboard backlight is always at 0x5a */
+>>>>         if (is_vendor && (drvdata->quirks & QUIRK_USE_KBD_BACKLIGHT) &&
+>>>>             (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID)) &&
+>>>> @@ -1594,6 +1675,9 @@ static void asus_remove(struct hid_device *hdev)
+>>>>         if (drvdata->listener.brightness_set)
+>>>>                 asus_hid_unregister_listener(&drvdata->listener);
+>>>>
+>>>> +       if (drvdata->xgm_led)
+>>>> +               devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
+>>>> +
+>>>>         asus_worker_stop(drvdata->worker);
+>>>>         hid_hw_stop(hdev);
+>>>>  }
+>>>> --
+>>>> 2.47.3
+>>>>
+>>>>
