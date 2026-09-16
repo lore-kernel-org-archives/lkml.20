@@ -1,96 +1,165 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41D64A7C92;
-	Wed, 16 Sep 2026 16:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7506E4C9DF6
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:00:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577975; cv=none; b=gm/hlpriXPpSn85gibWPV7Cq+idCh9sfjgSjXmd46rApGMDakh89HuRyivbKi5zoaJyTlDuPHVFhMhtDvmvDhmyO4aqFgc/zt5PQLORp82uUrBI4/MDRE7kDk7rDynl8lN3iOr+P9a0K2iDQyR+3AoJnVRsrPb7EIlR8oZmpr5I=
+	t=1789578032; cv=none; b=jHyoiRFsxOYmVZijz9oIbnjumcYqBZ2NSuOyVBLam7pFOg1tKf+epSrKe7MrxvrcfSJ47hGCNn+Qjn+ZoHgkW0x7blSe+lkO2uVo6PPTxIEHnY6NMDGqzwUKVPIkWM8dFer5/7F6E7IjqdNBSR/B4wYDBiJb3YhPBF/ckpY85xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577975; c=relaxed/simple;
-	bh=D77SfbkO3bRqpC5zx9bLQd0YEqgn7ITaYDTvJiVXdRI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s5kio5ZO3zA8TeS6n7Ta8Kmon/0NNsE0F9XNg5J3AFqVVpVTE9vUaxceKb9JeOP4lQhb9+KptEchAcpWo0+B8lPainUTZNguE1MOBChr1yi0cttApkKZS9fSlPRAV9lmnjjdo4wsn3B3deO1zX/Mfe9t5pwwnVC0JGC++PPEbhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACX_znhyqpqNB1uCA--.22848S2;
-	Thu, 17 Sep 2026 00:59:14 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: johan@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	mjg@redhat.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] USB: usb_wwan: Fix urb leak in usb_wwan_submit_delayed_urbs()
-Date: Wed, 16 Sep 2026 16:58:46 +0000
-Message-Id: <20260916165846.2085791-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789578032; c=relaxed/simple;
+	bh=Ky6tqUlPctwf9kmSA68nL3wRxEYqHtONMZuz2rSl+Vg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qkdon1V+mpwd3yPQmp+Fgq1gMQzgeNU3OXZiI7WsJ+6cH4XY1nixJHwFhG2VO2vqJj0wwN7Mw58u+5t2dIAJ0tGTBbGbw2ZfHWFWzC1vhzl2tJtRDXSXXxafXfqqRFUxp2MOM7WgnFnBYNchOBXxDD7iOev9PtjE8c/WBB/XpSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CwleqU+q; arc=none smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CwleqU+q"
+Received: by mail-oo2-f39.google.com with SMTP id 46e09a7af769-804ef461aedso793527a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:00:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789578026; x=1790182826; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kV5xMCFq0mEVtZsKF5EmMvJNOJj0hLOiv+MHAekOLlU=;
+        b=CwleqU+qwDJqo0nfZyXSHaniEuvEjmfULs6m04T6ewFsw9SzfvGPJvlX9oI70uDtFn
+         iKChCRYV7Qdr0g5vnglAOA0bs8/kgb5MGs1MzJF/8vovGSYvEyoA5YF/AvlX/ETDbeZ6
+         R+Ua9WdMASXl1NPG3EGT5F8W6VSLE+hCNHSGsGxE1GDs+RIPYNOaRg/qYo1maPOqZkGO
+         S3jk9YUPE8eg2eGHwpOLLBt/hF6tveJZWcQ77RIkfmzqWpfHG3hFOTT30/czZqE1EkUC
+         LooNvuRExj1xly26BNGdCcM3Aoxlbunrlq8jhSaanWYR/HihhpypzvaAoooFm3L9STlw
+         RgRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789578026; x=1790182826;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kV5xMCFq0mEVtZsKF5EmMvJNOJj0hLOiv+MHAekOLlU=;
+        b=eh/yfMCr9TfrbREy0Lw3eVSMItT3KvnnyZFRGw5KhJc+rxS8kkfFlSmhAjSDKv0G2F
+         LoNai94IJB16iJr3nvFMcNUZrzTqpfVtXJG/WZxMDTa2jn7tP2EYbgwtJo9rd5imnrDZ
+         4/8cH9NmxEnZbvp9KILnyxCSY7CyCHX0xJc6WcoVTKXiETm7bhkPDaUfksUHRi8p5Xs/
+         +4DOCNm4BfKvQg7geGSniG6YmCANS/lXnrN617+rUYGhHFevkFAt9ZSzmwTP8hLGbZa/
+         zlRr7FLXPsLrm0WrwsBgaE2C5rhqgM4yUEHmTvWAMiMUGBm44882SXkYThM/nBmdcrhz
+         nAiA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2yEEkpCECgu/7RyxRN5J7BGafTF3cvK32WpmdkdGsg4/lpVXowLXj5pQ2m7KYSePVWkp3JUlgWTpnqTw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfHGGiOmBqTx4VsLbkURELfN6Mafuvj2qEEE6O9fisHLNf2ZF4
+	VFMI8slmtKka1rJM8v+38nkaglOFah70IcxGO9e7PRWJrjvtvIr/iNGB
+X-Gm-Gg: AYBFou1QvG4l8WEOvEUWP9889qri+C1e1oKSGnrAmwEvMisC+iJRrdg9BSkuQwaSXiN
+	HrG4X1Gu9zVK2cVHkq4sliDBZZOX56MWPZDAsEkpQU/vbMR3aLmmPx9FIKP3oQScI7ekSfmSsqX
+	QkrxFbObrGZgY8jyLtUiow+tpTyTyYnog7k/Hm3uZ4M3aTVcFNApcyt4F+3i/XBhNEBrqAGd3HR
+	xFwy8Vpi4G/EIz4vKOR/e6kFJx+kEk9MfqCfRLEUAf7LFlOGacwl72ClFYYwPf4asFyJk9kqUVD
+	WSqJGH7dO4dX8Z+T26Pz1OqLz9QEZQ/JrHVQ7yB0lb7wwqlm4zEhFePg15rbI7m3rNWUfRKu/qz
+	kvljsOoDvEGbRXNgW2zGMV6VX/jVqWeU388ZRyOI8DtfZjQUIJZqLza2SYvvyu2X3AHnxwe0UFa
+	W83loDlqslNVfvwYh8/fNH56eSu2+iUAmIHz5QqWnVw6QO/AW+2879Ad7tngzNz0ZIlEWpDFcl1
+	Tpi+7AphdoQ3Ghe5vuv
+X-Received: by 2002:a05:6830:67d5:b0:7f6:96ad:36a8 with SMTP id 46e09a7af769-80b2d416a86mr4148110a34.8.1789578025959;
+        Wed, 16 Sep 2026 10:00:25 -0700 (PDT)
+Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:54::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80c4619a868sm391941a34.8.2026.09.16.10.00.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 10:00:24 -0700 (PDT)
+Date: Wed, 16 Sep 2026 10:00:21 -0700
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+	virtualization@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	sargun@sargun.me, jlinbox@meta.com,
+	Bobby Eshleman <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next 0/6] vsock: assign the guest vsock device to a
+ network namespace
+Message-ID: <aqrLJWnHJ8DxK8cF@devvm29614.prn0.facebook.com>
+References: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
+ <apqGcFDFm9_Wtw4q@sgarzare-redhat>
+ <apsANK7ySuRzzK0V@devvm29614.prn0.facebook.com>
+ <aqkaTXHDf5nfPL9w@sgarzare-redhat>
+ <aqmDuxMuEN5lS/0J@devvm29614.prn0.facebook.com>
+ <aqqNEl6Hyk_h9C8r@sgarzare-redhat>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACX_znhyqpqNB1uCA--.22848S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr45tFyDAF45CFWUWr47XFb_yoW8XF4Up3
-	yqgrW8tryDJF4ftw47Aw43Za4rW3ZFkr9FkryIv3yxXrnxXa4fGa4SvwsYgrWUZ395t3y7
-	tr1jgan5WFWDK3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
-	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
-	UTnQUUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgUMA2qqok9gFgAAsX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqqNEl6Hyk_h9C8r@sgarzare-redhat>
 
-usb_wwan_submit_delayed_urbs() takes a reference to each delayed urb
-with usb_get_from_anchor() before submitting it. The reference is
-never dropped, neither when the submission succeeds nor when it fails,
-so the submit-delayed urbs keep one reference forever and the urb
-objects are not freed when usb_wwan_port_remove() later drops the
-port's own reference. The urbs are not anchored in this path, so the
-USB core cannot drop a reference on completion either.
+On Wed, Sep 16, 2026 at 02:36:07PM +0200, Stefano Garzarella wrote:
+> On Tue, Sep 15, 2026 at 10:43:23AM -0700, Bobby Eshleman wrote:
+> > On Tue, Sep 15, 2026 at 12:16:47PM +0200, Stefano Garzarella wrote:
+> > > On Fri, Sep 04, 2026 at 10:30:28AM -0700, Bobby Eshleman wrote:
+> > > > On Fri, Sep 04, 2026 at 10:55:17AM +0200, Stefano Garzarella wrote:
+> > > > > On Wed, Sep 02, 2026 at 04:00:46PM -0700, Bobby Eshleman wrote:
+> > > > > > vsock network namespaces let a host put each VM in a namespace of its
+> > > > > > own. A guest has no equivalent yet. It has a single G2H device that
+> > > > > > cannot be assigned to a network namespace.
+> > > > >
+> > > > > Thanks for this, I'll do a proper review next week, in the mean time some
+> > > > > comments below:
+> > > > >
+> > > > > >
+> > > > > > This series lets a guest move that device into a network namespace. A
+> > > > > > new ioctl on /dev/vsock, IOCTL_VM_SOCKETS_ASSIGN_G2H_NETNS, assigns the
+> > > > > > device to the namespace of the calling process. The namespace's existing
+> > > > >
+> > > > > Why an ioctl?
+> > > > >
+> > > > > I'm asking because I'd like to know if you've already considered any
+> > > > > alternatives (sysfs, netlink, etc.)
+> > > > >
+> > > > > How do you think the ioctl should be used? Should we provide an userspace
+> > > > > tool, or extending some existing tools?
+> > > > >
+> > > > > Thanks,
+> > > > > Stefano
+> > > >
+> > > > Really only because /dev/vsock exists and the prior series used it.
+> > > 
+> > > Yeah, I vaguely remember that we may have discussed switching to netlink in
+> > > that thread, but I can't find it.
+> > > 
+> > > >
+> > > > Considering netlink, it might be the better option because there is a
+> > > > lot of prior art solving problems we might have in the future. For
+> > > > example, I was thinking about when users suddenly lose access to vsock,
+> > > > with just the current assign ioctl there is no way for apps or users to
+> > > > figure out why this happened. We can have an ioctl() setter for user,
+> > > > but in netdev world users can actually get a notification via netlink as
+> > > > to which namespace the device went to and what its ifindex is there (see
+> > > > __dev_change_net_namespace() for the RTM_DELLINK and RTM_NEWLINK
+> > > > messages). There is probably more, but that's the case that comes to
+> > > > mind.
+> > > 
+> > > netlink seems like the right way to go, do you think it'll be a real pain to
+> > > implement?
+> > 
+> > It is really not bad... it'll include a yaml spec in
+> > Documentation/netlink/specs/ of call names and perms, a new target for
+> > generated code in the Makefile, a handler, and then
+> > tools/net/ynl/ynl-regen.sh generates the plumbing.
+> 
+> Ah, nice! So, do you want to try that direction?
+> 
+> Thanks,
+> Stefano
+> 
 
-Drop the reference with usb_put_urb() on both the submission failure
-and the success path. The urb stays valid afterwards because the
-port's preallocated out_urbs array keeps its own reference, which
-matches how usb_wwan_write() submits the same urbs outside of
-suspend.
+Let's give it a go. I have a draft of it for v2 and looks reasonable to
+me.
 
-Fixes: 0d4561947b8d ("usb serial: Add generic USB wwan support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/usb/serial/usb_wwan.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/usb/serial/usb_wwan.c b/drivers/usb/serial/usb_wwan.c
-index 2c46330f10da..e7566960a5c1 100644
---- a/drivers/usb/serial/usb_wwan.c
-+++ b/drivers/usb/serial/usb_wwan.c
-@@ -587,9 +587,11 @@ static int usb_wwan_submit_delayed_urbs(struct usb_serial_port *port)
- 			err_count++;
- 			unbusy_queued_urb(urb, portdata);
- 			usb_autopm_put_interface_async(serial->interface);
-+			usb_put_urb(urb);
- 			continue;
- 		}
- 		data->in_flight++;
-+		usb_put_urb(urb);
- 	}
- 
- 	if (err_count)
--- 
-2.34.1
-
+Best,
+Bobby
