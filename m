@@ -1,86 +1,146 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AE537E5E1;
-	Wed, 16 Sep 2026 13:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED3C4FC8FE;
+	Wed, 16 Sep 2026 13:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.128.198.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566178; cv=none; b=g/bjHx6S88fJ0uqFIKaGWPaC7SfLD+PAMwtK81K/yHFJOWIyJg9flyrp6pAwkbjXj1j6Nk+Kid7ja88SyLFl0Me27XMOhpDShNMDlqF6FlDHHOV4cYhD4CHxI465nLPDhsgiOhrOkYspiQ2tg8pvikDemDWTJk8BvukfLwoDG2E=
+	t=1789566238; cv=none; b=HjXz71ns68GilqS39bro7repOGQxIj0KDKtOQ0ysusBDmPfuWHqWoAu6ryGkn2H6+NzYOa+CLnDB5SiUnegGWAMATkskseo4m4muc7a/xSGRkgoeAueWE1nkp3j4zQXB0yUkc2jBVE5gBrtvYY9IKMvHg3p1MiPWw0+nukTZwBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566178; c=relaxed/simple;
-	bh=aXlkeDkxryObEamzgOaYgLsDag+D7VZe9uRAibImt5g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Bl5LnLHJ/C3EI2KSd/S/ZoI9I+7s5A9krZ3ZkWrg5J+u7oBqoJlMQ4ycJGAu/Y5sigJJKUHquRUNpw+yjhPqmu59PYEUtE46wXJV94JDLiOYEVetqqdVZwgv777hk+lPfoLGrzF61kt4g/xtM+OpGS1iad5n2m69rz8SiqsHTZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=fmZ8RSkp; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="fmZ8RSkp"
-Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 8812BA5D87;
-	Wed, 16 Sep 2026 13:42:45 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id 1539F1C;
-	Wed, 16 Sep 2026 13:42:42 +0000 (UTC)
-Date: Wed, 16 Sep 2026 09:42:40 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: David CARLIER <devnexen@gmail.com>, mhiramat@kernel.org,
- linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
- kernel-team@android.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] ring-buffer: Clean up resize_disabled checks
-Message-ID: <20260916094240.5c9f2518@robin>
-In-Reply-To: <aqjyi2RD4oSCAY7z@google.com>
-References: <20260914175907.1027349-1-vdonnefort@google.com>
-	<CA+XhMqxp2XOB9PnfHJwBvK0up8Oej4hGcnsM0a=fdoRDyVoEyQ@mail.gmail.com>
-	<aqjyi2RD4oSCAY7z@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=arc-20240116; t=1789566238; c=relaxed/simple;
+	bh=hwhIGeT1MDe1KLdko0k71UW6Tz+PVyJbY8+8TF5L2jk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZGB7+BGpxCSuuyo4LkLJDM8YlZOnE2SgEwWj9jo7DySnwZfqxUcdhArnPveK3MeMwu5xkCyBcVg12T+GvDo6zoC/SIQWCA2k4TmNxcPQFNrx4ZCydxrzXL62LGIszdemCXvGGB+EIihFbVusub65VtvRw+0d0XzixoS3MMU9/mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=220.128.198.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from mail.andestech.com (atcpcs53.andestech.com [10.0.1.153])
+	by Atcsqr.andestech.com with ESMTPS id 68GDh475010197
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 16 Sep 2026 21:43:04 +0800 (+08)
+	(envelope-from cl634@andestech.com)
+Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs53.andestech.com
+ (10.0.1.153) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.43; Wed, 16 Sep
+ 2026 21:43:04 +0800
+Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
+ (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 16 Sep
+ 2026 21:43:04 +0800
+From: CL Wang <cl634@andestech.com>
+To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+CC: Frank Li <Frank.Li@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A .
+ R . Silva" <gustavoars@kernel.org>,
+        <tim609@andestech.com>, <cl634@andestech.com>,
+        <dmaengine@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-hardening@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v7 0/2] dmaengine: atcdmac300: Add Andes ATCDMAC300 DMA driver
+Date: Wed, 16 Sep 2026 21:42:56 +0800
+Message-ID: <20260916134258.2178081-1-cl634@andestech.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 6tkuiqxf6egs3ch3xsfabr3usrfqnia4
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 1539F1C
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19Nvzp9Juws5EUm3Ae8/a6j2ku4sC8zXG8=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=69xM3xBqQtpH6d2iCA5XP8czX07fM9V+rq3rH/CL0pI=; b=fmZ8RSkpaBOkwGT30uckQZgWz2mA7m4ApxqQ5n4s5OHrno8DBWLZzXymlHVEVmufBBL77DgcIdVVd1+KsnDGNgOyRKM4aAvednO6F5U1k/RZjhruYkqaJH85MxFE6TJhGJAIO1An9FExjVxMkilUSUBHkS/5h5LHZg8qDdXeYeM=
-X-HE-Tag: 1789566162-520813
-X-HE-Meta: U2FsdGVkX1+K1qm7LJeTq+HUbTV7DeUs2/+N9sUwAwl6mKudjszSw7DgpwONc4xPa1uWiKUcWYmb1M0RVlSgA5LTOmYCu5Tg5RgBpkiUOPqkGhPzc+/s2EPzwdTpTxGS6LDK6kGc9RxnsIDnWfRNb8V7du/2EmFhUO4dYk4IYUX97M7Un0drlUnubpasNQ7D6XPs+UHj6HhzWzprM6CX5bxHcNynozdUDhtf/x09AAzZJuf9dv1a3dD1/MGvQToPeAfMLnPt8bOK9S78lk5EbPTvU9dLsihbPhzph476HzyvTgiqz6381owj0s2w8n2M6uuVXxTe2YjKtrzTWNB5bA/OR6jcnY4x
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs53.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 68GDh475010197
 
-On Tue, 15 Sep 2026 08:23:55 +0100
-Vincent Donnefort <vdonnefort@google.com> wrote:
+This patch series adds support for the Andes ATCDMAC300 DMA controller,
+a memory-to-memory and peripheral DMA controller that provides
+scatter-gather, cyclic, and slave transfer capabilities.
 
-> > For a single CPU, this now happens before the nr_pages == cpu_buffer->nr_pages
-> > early exit, so writing the same size to per_cpu/cpuN/buffer_size_kb on a
-> > mapped or persistent instance CPU fails with EBUSY instead of succeeding.
-> > Intended ?  
-> 
-> Actually no, I didn't see that it is also "fixing" this discrepancy between the
-> per_cpu buffer_size_kb and the global one.
-> 
-> It seems to me better to align the behaviour for both interface, but then it is
-> touching something that is user interface... 
-> 
-> Steven, WDYS?
+The ATCDMAC300 IP is embedded in AndesCore-based platforms or SoCs
+such as AE350 and Qilai.
 
-I don't think we should worry about it. If something is mapped, then we
-shouldn't be touching that file. Even writing the same value should
-error out. There's no need to do that.
+Changes in v7:
+  - Rebase onto the current dmaengine/next
+  - Fold in twelve correctness fixes found by review and confirmed on an
+    FPGA; no interface or binding change
+  - Interrupt path:
+      - Acknowledge only the status bits that were actually read
+      - Key the acknowledge on channel ownership instead of on in-flight
+        state the handler itself clears, which could leave a completion
+        unacknowledged until the core disabled the line
+      - Use raw spinlocks for the state shared with the hard IRQ handler
+  - Termination and descriptor lifetime:
+      - Do not run the callback twice, or recycle a descriptor, when a
+        transfer is terminated while its completion is in flight
+      - Initialise desc_node when a descriptor is allocated
+      - Wait for the channel to stop without holding the channel lock;
+        the poll could spin 100 ms with interrupts disabled
+  - Suspend and resume:
+      - Move the PM callbacks to the late phase so clients terminate their
+        transfers first, and name the channels that fail to idle
+      - Drain in-flight completions across suspend and resume
+      - Do not restart an idle cyclic channel on resume
+  - Probe:
+      - Register the DMA device only after the interrupt and cache
+        coherency setup, closing a window in which a client could obtain a
+        channel through dma_request_channel() on an unready controller
+      - Do not read-modify-write write-only registers
+      - Name the device in the probe-time reset error
 
-Hopefully it doesn't break anything because if it does, then yeah, we
-will need to do something different here.
+Changes in v6:
+  - Rebase onto dmaengine/next; no functional changes from v5
+  - Fold the MAINTAINERS entry into the driver patch instead of carrying
+    it as a separate patch (series is now 2 patches)
 
-Oh, and can you break this up into two patches. One that adds this and
-and one that does the:
+Changes in v5:
+  - Update copyright year to 2026
+  - Remove redundant headers (init.h, iopoll.h, mod_devicetable.h)
+  - Move atcdmac_init_iocp() before of_dma_controller_register() in probe
+  - Change builtin_platform_driver() to module_platform_driver()
+  - Implement .remove callback to support safe module unloading
+  - Update Kconfig entry from bool to tristate
+  - Add MODULE_AUTHOR, MODULE_DESCRIPTION, MODULE_LICENSE macros
 
-   Additionally, remove the unnecessary cpumask_test_cpu in
-   ring_buffer_subbuf_order_set(). for_each_buffer_cpu() already
-   iterates over buffer->cpumask.
+Changes in v4:
+  - Use items list format with descriptions for reg property in DT binding
+    as suggested by Conor Dooley
+  - Re-add Acked-by from Conor Dooley for DT binding patch
 
-Hey, breaking up patches improves your commit count ;-)
+Changes in v3:
+  - Rename DT binding file from andestech,qilai-dma.yaml to
+    andestech,ae350-dma.yaml
+  - Deprecate IP-core-based compatible usage and align with
+    SoC/platform-based strings
+  - Dropped Acked-by from Conor Dooley due to the above binding change
+  - Remove "andestech,atcdmac300" from of_device_id table
+  - Replace deprecated tasklet with threaded IRQ using
+    devm_request_threaded_irq() and IRQF_ONESHOT
+  - Update locking from spin_lock_bh() to spin_lock_irqsave()
+  - Use builtin_platform_driver() instead of module_platform_driver()
+  - Remove "select DMATEST" from Kconfig
+  - Add separate MAINTAINERS patch (patch 3/3)
 
--- Steve
+Please kindly review.
+
+CL Wang (2):
+  dt-bindings: dmaengine: Add support for ATCDMAC300 DMA engine
+  dmaengine: atcdmac300: Add driver for Andes ATCDMAC300 DMA controller
+
+ .../bindings/dma/andestech,ae350-dma.yaml     |   67 +
+ MAINTAINERS                                   |    6 +
+ drivers/dma/Kconfig                           |   11 +
+ drivers/dma/Makefile                          |    1 +
+ drivers/dma/atcdmac300.c                      | 1625 +++++++++++++++++
+ drivers/dma/atcdmac300.h                      |  298 +++
+ 6 files changed, 2008 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+ create mode 100644 drivers/dma/atcdmac300.c
+ create mode 100644 drivers/dma/atcdmac300.h
+
+-- 
+2.34.1
+
