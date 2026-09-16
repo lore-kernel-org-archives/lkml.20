@@ -1,205 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB2147604E;
-	Wed, 16 Sep 2026 11:44:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C99C4EBADB
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:45:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789559081; cv=none; b=VnJ+I6I1in6hWKK3NTLsnotsnUMRckvcl/Lg//qJ7Y/qk3x4sHyHLMCGMnNN1YC+fn8r0ZVlKMr/7jMIhryRR7ti1P8p6M+jHQs/ofDCiv1db4Dw4QMVKoz9X6YvlCp4q3PJuVAxWchFPgLRhKVWsMOVDbwSn2mv5e/Bb1AxUVE=
+	t=1789559146; cv=none; b=sz0WagulRYW7UYYie3W2QtM3/q0ozFeUNIqOt2vvN3rByAcig+dizdTUw2TJ1E5I5UK5KePJqpnZr4gG2bwbJ5zJLw6FiJVaQlH35EF6xQzMahGQ5XfO+vCFtu2FUFdO6bKwI84Daufwmy7167JlBPkwMMwZnIUxMBJ2CM3sigU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789559081; c=relaxed/simple;
-	bh=rHuOQJsSbNcWyIXumEYhyOj62sbaFMWxhmLQLcLgJ20=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QPk/9Hf5bFP9IAMlTCrDC57FuVWPq6n3/xbvrhs0ppvfQhmJc/YKuBpGopYNsdS7RTrwUc6czk0ALPYX1Gsblryzz10SsFrVxInXq5cLCA1CSxQRRrzKBMLysS8Xl5+UL0WVpSlYVPpLvwuR/N8o58+Dd1ycClmchqBNaDSxtiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fzK/Ucyy; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789559146; c=relaxed/simple;
+	bh=oXMKRxhXI+cY6aNKiNQwTosmmBQba86zRlfAtpgk6G4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RaynUKHu63ePggS07hYIg72Jyv/WN+Wyi6hWN5fYblZDI4YW1j/h1YZjgO6gHXqNNhFJFS4fcJKQ23/+Rqj+tyD483BZICkJblPKqfQ1xOR6TAk9a3jyRYdSusuEXN75FmB1S6W27TNE7tsHSuV/onYyFP7+jnC6DcHCoaH9Y+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PuGqz4cD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fzK/Ucyy"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E8B4EC2BCC7;
-	Wed, 16 Sep 2026 11:44:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789559079;
-	bh=rHuOQJsSbNcWyIXumEYhyOj62sbaFMWxhmLQLcLgJ20=;
-	h=From:Date:Subject:To:Cc:From;
-	b=fzK/Ucyyf5F4KxcLEk6lpPgPU61tiVe6qGRPuOMnA0MOminAmE27pC0ROwzb0UH0Z
-	 /HuU6JamrgZGxooEmr5OyQGh6tIX0xOoy8Pzlf3QjnBDQJ1Zhfj1viQkDdHmaGAWhb
-	 W5MqKBNkBdT1Cp9gndhZfBgUCZMUqkiDvQrphCAFJuxLLS66ZopmmrDwZ+wnhIh00f
-	 C9RlQcu0N+zE9uX/DY/NG/Lgs1xGhZVRsv4atwJ6XmxYfh2kIn7b24R+oyyFXOEVQ/
-	 dDg4QJ41j9JuVHBwXSG4B35HXxTZ7xb9maXNaVUL91YWori1s1YLQYggpFcr5Hd/6F
-	 xFNmBTIdrCsXQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C583EC88E5C;
-	Wed, 16 Sep 2026 11:44:38 +0000 (UTC)
-From: Joel Granados <joel.granados@kernel.org>
-Date: Wed, 16 Sep 2026 13:44:28 +0200
-Subject: [PATCH] sysctl: Use replace **void with **char in proc_put_*
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PuGqz4cD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B10B31F000FF;
+	Wed, 16 Sep 2026 11:45:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789559139;
+	bh=+JZv7j7QIkmFq/y0JVByroVutCG0XVcp8p5T3GkQKBA=;
+	h=From:To:Cc:Subject:Date;
+	b=PuGqz4cDUMMm34JxHLNB6hHMbDAnpMBG+2w6ZrJOKrQWL/u3PuXfU7YCvXbT0Z4oZ
+	 jgkAdKtP4clp0J4BSvknZP71M82sWNWvZtEVCkNE19B1RbXMPpsMeV5CAXZUgoYNzt
+	 /k0Ne7JxWq6U1UzQHEMnfupq5Bjtt+mStqogvzdKWjYiTTFQiI8t/Un+928HBNyBRM
+	 OJ4IO73X53TCfaX8SNAVUVLeS1YaR6AUOGXY/T/ididfE/FJinmseKmW7iRksA04mU
+	 Nq0UbaPLJgyvYgVhLGsd60Ppo2dIKRUBcizoCyHPWRli6o2Ua8UcsWGfEYlATqLAL3
+	 48eFwBDWw81zQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Maurizio Lombardi <mlombard@redhat.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Hannes Reinecke <hare@kernel.org>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	John Garry <john.g.garry@oracle.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] nvme: work around -Wformat-security warning
+Date: Wed, 16 Sep 2026 13:44:51 +0200
+Message-ID: <20260916114533.237863-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-lklm-sysctl-void-vs-char-v1-1-c3f8b2eb8b1e@kernel.org>
-X-B4-Tracking: v=1; b=H4sIABuBqmoC/x2MSQqAMAwAvyI5G2itCPoV8VBr1GBdaKQo4t8tH
- gdm5gGhwCTQZA8Eiiy8bwl0noGb7TYR8pAYClVUqtYV+sWvKLe402PcecAomMyApbLK2t5oZwh
- SfgQa+frXbfe+H2t23+tqAAAA
-X-Change-ID: 20260916-lklm-sysctl-void-vs-char-40a0aab31c3e
-To: Kees Cook <kees@kernel.org>
-Cc: Bradley Morgan <include@grrlz.net>, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, Joel Granados <joel.granados@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4582;
- i=joel.granados@kernel.org; h=from:subject:message-id;
- bh=rHuOQJsSbNcWyIXumEYhyOj62sbaFMWxhmLQLcLgJ20=;
- b=owJ4nAHtARL+kA0DAAoBupfNUreWQU8ByyZiAGqqgR8g/8ZTQciO4Ksj436rep7Nxaa7l0YiU
- 1n/p4mFw/QTa4kBswQAAQoAHRYhBK5HCVcl5jElzssnkLqXzVK3lkFPBQJqqoEfAAoJELqXzVK3
- lkFPFDwL/Agqb8SN3vgqPEF5y/qFihkRi5QCNDO3AODhGcXggD/EPTlIybJP6jTyatgRws6INuU
- eFK7oquU3aE7xdwrXWb0h2GUGcgEWlLiDvzpqRshAxLf00pFGeJedLNCTzpA1Z3T9RDAKS8qOs7
- s/U0RfkEvyGDOspeTKlHkhYP6TIx5nu4sIU5MlvS6b5frA/57CXae3IPeB3NKOu6k+6+TsgrTbB
- UASK7YB1UMG4L9hM8DWP/hNQYl44c7hOlZd4ZBfyqa0xeKljH+atLKD6JImsx7dQTBAEzumgoIG
- mr/f4zs+Nx5LDqj/+9Bgx0MP5oO4CfskUuuQY8pBepA+D0IQWBkgssvOm5ERtcWPhTBelIVMrZ6
- nIWlo5B2S2xmaxtCavqj7CAQfhF6zOtyngdDvLdbOR4tORWeDqeyXvZ1hi+gtRKJw/wo4DPWahn
- yVNS6Hc5cApKDOUqWEWTZMEzKingebISJsbSJ1J2zPpGWr+8U6nFvDrq4wuOzOP1Ib4+JtBfiB7
- fc=
-X-Developer-Key: i=joel.granados@kernel.org; a=openpgp;
- fpr=F1F8E46D30F0F6C4A45FF4465895FAAC338C6E77
-X-Endpoint-Received: by B4 Relay for joel.granados@kernel.org/default with
- auth_id=239
+Content-Transfer-Encoding: 8bit
 
-Replace **void argument with **char in the proc_put_* functions. These
-are leftovers from before commit 32927393dc1c ("sysctl: pass kernel
-pointers to ->proc_handler") where a cast to char __user** from void
-_user** was needed before the put_user call.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Suggested-by: Bradley Morgan <include@grrlz.net>
-Signed-off-by: Joel Granados <joel.granados@kernel.org>
+Passing a string variable into dev_set_name() causes a warning
+when building with -Wformat-security enabled:
+
+drivers/nvme/host/core.c: In function 'nvme_cdev_add':
+drivers/nvme/host/core.c:3911:9: error: format not a string literal and no format arguments [-Werror=format-security]
+ 3911 |         ret = dev_set_name(cdev_device, name);
+
+Remove the temporary strings and let dev_set_name() do the
+same thing internally.
+
+Fixes: 26acdaa357cd ("nvme: fix crash and memory leak during invalid cdev teardown")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- kernel/sysctl.c | 34 +++++++++++++++-------------------
- 1 file changed, 15 insertions(+), 19 deletions(-)
+ drivers/nvme/host/core.c      | 21 +++++++++------------
+ drivers/nvme/host/multipath.c | 12 +++++-------
+ drivers/nvme/host/nvme.h      |  6 +++---
+ 3 files changed, 17 insertions(+), 22 deletions(-)
 
-diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-index 25577ffc2801267cc69df60a1064ada9efd4b97d..1fefe18bf84e790433a1abf71a4b158f3c1f729f 100644
---- a/kernel/sysctl.c
-+++ b/kernel/sysctl.c
-@@ -332,7 +332,7 @@ static int proc_get_long(char **buf, size_t *size,
-  * In case of success @buf and @size are updated with the amount of bytes
-  * written.
-  */
--static void proc_put_long(void **buf, size_t *size, unsigned long val, bool neg)
-+static void proc_put_long(char **buf, size_t *size, unsigned long val, bool neg)
- {
- 	int len;
- 	char tmp[TMPBUFLEN], *p = tmp;
-@@ -347,15 +347,12 @@ static void proc_put_long(void **buf, size_t *size, unsigned long val, bool neg)
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index beea23d04a70..79f6a2c7923e 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -3931,9 +3931,9 @@ void nvme_cdev_del(struct cdev *cdev, struct device *cdev_device)
+ 	put_device(cdev_device);
  }
- #undef TMPBUFLEN
  
--static void proc_put_char(void **buf, size_t *size, char c)
-+static void proc_put_char(char **buf, size_t *size, char c)
+-int nvme_cdev_add(const char *name, struct cdev *cdev,
+-		struct device *cdev_device,
+-		const struct file_operations *fops, struct module *owner)
++int nvme_cdev_add(struct cdev *cdev, struct device *cdev_device,
++		const struct file_operations *fops, struct module *owner,
++		int ctrl, int head)
  {
- 	if (*size) {
--		char **buffer = (char **)buf;
--		**buffer = c;
+ 	int minor, ret;
+ 
+@@ -3941,7 +3941,7 @@ int nvme_cdev_add(const char *name, struct cdev *cdev,
+ 	if (minor < 0)
+ 		return minor;
+ 
+-	ret = dev_set_name(cdev_device, name);
++	ret = dev_set_name(cdev_device, "ng%dn%d", ctrl, head);
+ 	if (ret) {
+ 		ida_free(&nvme_ns_chr_minor_ida, minor);
+ 		return ret;
+@@ -3982,17 +3982,14 @@ static const struct file_operations nvme_ns_chr_fops = {
+ 
+ static void nvme_add_ns_cdev(struct nvme_ns *ns)
+ {
+-	char name[32];
 -
-+		**buf = c;
- 		(*size)--;
--		(*buffer)++;
--		*buf = *buffer;
-+		(*buf)++;
- 	}
- }
+ 	ns->cdev_device.parent = ns->ctrl->device;
+-	snprintf(name, sizeof(name), "ng%dn%d", ns->ctrl->instance,
+-		 ns->head->instance);
  
-@@ -680,12 +677,12 @@ static int apply_conv_on_vec(const union proc_vec_conv conv,
- 			     const struct ctl_table *table,
- 			     const enum proc_vec_type data_type,
- 			     const size_t data_size, const int conv_dir,
--			     const size_t buf_nbyte, void *buf,
-+			     const size_t buf_nbyte, char *buf,
- 			     size_t *buf_left_final)
+ 	nvme_get_ns(ns); /* Undone in nvme_cdev_rel() */
+-	if (nvme_cdev_add(name, &ns->cdev, &ns->cdev_device,
+-			&nvme_ns_chr_fops, ns->ctrl->ops->module)) {
+-		dev_err(ns->ctrl->device, "Unable to create the %s device\n",
+-			name);
++	if (nvme_cdev_add(&ns->cdev, &ns->cdev_device,
++			&nvme_ns_chr_fops, ns->ctrl->ops->module,
++			ns->ctrl->instance, ns->head->instance)) {
++		dev_err(ns->ctrl->device, "Unable to create the ng%dn%d device\n",
++			ns->ctrl->instance, ns->head->instance);
+ 		nvme_put_ns(ns);
+ 		return;
+ 	}
+diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
+index 75dbb58286a3..3d46c4f28a47 100644
+--- a/drivers/nvme/host/multipath.c
++++ b/drivers/nvme/host/multipath.c
+@@ -646,17 +646,15 @@ static const struct file_operations nvme_ns_head_chr_fops = {
+ 
+ static void nvme_add_ns_head_cdev(struct nvme_ns_head *head)
  {
- 	int vec_left, err = 0;
- 	size_t buf_left, nr_conv = 0;
--	char *data, *data_stage = NULL, *p;
-+	char *data, *data_stage = NULL;
- 	bool is_unsigned = data_type == PROC_VEC_UINT || data_type == PROC_VEC_ULONG;
+-	char name[32];
+-
+ 	head->cdev_device.parent = &head->subsys->dev;
+-	snprintf(name, sizeof(name), "ng%dn%d", head->subsys->instance,
+-		 head->instance);
  
- 	buf_left = buf_nbyte;
-@@ -694,7 +691,6 @@ static int apply_conv_on_vec(const union proc_vec_conv conv,
- 	if (SYSCTL_USER_TO_KERN(conv_dir)) {
- 		if (buf_left > PAGE_SIZE - 1)
- 			buf_left = PAGE_SIZE - 1;
--		p = buf;
- 
- 		if (table->maxlen > data_size) {
- 			data_stage = kmemdup(table->data, table->maxlen, GFP_KERNEL);
-@@ -712,11 +708,11 @@ static int apply_conv_on_vec(const union proc_vec_conv conv,
- 		bool neg = false;
- 
- 		if (SYSCTL_USER_TO_KERN(conv_dir)) {
--			proc_skip_spaces(&p, &buf_left);
-+			proc_skip_spaces(&buf, &buf_left);
- 
- 			if (!buf_left)
- 				break;
--			err = proc_get_long(&p, &buf_left, &lval, &neg,
-+			err = proc_get_long(&buf, &buf_left, &lval, &neg,
- 					    proc_wspace_sep,
- 					    sizeof(proc_wspace_sep), NULL);
- 			if (!err && neg && is_unsigned)
-@@ -740,7 +736,7 @@ static int apply_conv_on_vec(const union proc_vec_conv conv,
- 
- 	if (SYSCTL_USER_TO_KERN(conv_dir)) {
- 		if (!err && buf_left)
--			proc_skip_spaces(&p, &buf_left);
-+			proc_skip_spaces(&buf, &buf_left);
- 		if (!nr_conv) {
- 			err = err ? : -EINVAL;
- 			goto out;
-@@ -1221,6 +1217,7 @@ int proc_do_large_bitmap(const struct ctl_table *table, int dir,
- 	unsigned long *bitmap = *(unsigned long **) table->data;
- 	unsigned long *tmp_bitmap = NULL;
- 	char tr_a[] = { '-', ',', '\n' }, tr_b[] = { ',', '\n', 0 }, c = 0;
-+	char *p = buffer;
- 
- 	if (!bitmap || !bitmap_len || !left || (*ppos && SYSCTL_KERN_TO_USER(dir))) {
- 		*lenp = 0;
-@@ -1228,7 +1225,6 @@ int proc_do_large_bitmap(const struct ctl_table *table, int dir,
+ 	nvme_get_ns_head(head); /* Undone in nvme_cdev_rel() */
+-	if (nvme_cdev_add(name, &head->cdev, &head->cdev_device,
+-			&nvme_ns_head_chr_fops, THIS_MODULE)) {
++	if (nvme_cdev_add(&head->cdev, &head->cdev_device,
++			&nvme_ns_head_chr_fops, THIS_MODULE,
++			head->subsys->instance, head->instance)) {
+ 		dev_err(disk_to_dev(head->disk),
+-			"Unable to create the %s device\n", name);
++			"Unable to create the ng%dn%d device\n",
++			head->subsys->instance, head->instance);
+ 		nvme_put_ns_head(head);
+ 		return;
  	}
- 
- 	if (SYSCTL_USER_TO_KERN(dir)) {
--		char *p = buffer;
- 		size_t skipped = 0;
- 
- 		if (left > PAGE_SIZE - 1) {
-@@ -1315,16 +1311,16 @@ int proc_do_large_bitmap(const struct ctl_table *table, int dir,
- 						   bit_a + 1) - 1;
- 
- 			if (!first)
--				proc_put_char(&buffer, &left, ',');
--			proc_put_long(&buffer, &left, bit_a, false);
-+				proc_put_char(&p, &left, ',');
-+			proc_put_long(&p, &left, bit_a, false);
- 			if (bit_a != bit_b) {
--				proc_put_char(&buffer, &left, '-');
--				proc_put_long(&buffer, &left, bit_b, false);
-+				proc_put_char(&p, &left, '-');
-+				proc_put_long(&p, &left, bit_b, false);
- 			}
- 
- 			first = 0; bit_b++;
- 		}
--		proc_put_char(&buffer, &left, '\n');
-+		proc_put_char(&p, &left, '\n');
- 	}
- 
- 	if (!err) {
-
----
-base-commit: 99156fbf3562bed74aa57d93b0b3eeec7c7f1ca6
-change-id: 20260916-lklm-sysctl-void-vs-char-40a0aab31c3e
-
-Best regards,
+diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+index 2cff9fcbf740..e0260f4d24fd 100644
+--- a/drivers/nvme/host/nvme.h
++++ b/drivers/nvme/host/nvme.h
+@@ -1013,9 +1013,9 @@ int nvme_get_log(struct nvme_ctrl *ctrl, u32 nsid, u8 log_page, u8 lsp, u8 csi,
+ void nvme_get_ns_head(struct nvme_ns_head *head);
+ bool nvme_tryget_ns_head(struct nvme_ns_head *head);
+ void nvme_put_ns_head(struct nvme_ns_head *head);
+-int nvme_cdev_add(const char *name, struct cdev *cdev,
+-		struct device *cdev_device,
+-		const struct file_operations *fops, struct module *owner);
++int nvme_cdev_add(struct cdev *cdev, struct device *cdev_device,
++		const struct file_operations *fops, struct module *owner,
++		int ctrl, int head);
+ void nvme_cdev_del(struct cdev *cdev, struct device *cdev_device);
+ int nvme_ioctl(struct block_device *bdev, blk_mode_t mode,
+ 		unsigned int cmd, unsigned long arg);
 -- 
-Joel Granados <joel.granados@kernel.org>
-
+2.53.0
 
