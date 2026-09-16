@@ -1,110 +1,95 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4254AC155;
-	Wed, 16 Sep 2026 09:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95DD463B87;
+	Wed, 16 Sep 2026 09:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552126; cv=none; b=qDNLIqr6WMDyovYn+rYUsR499D3i64SZVJo5P6YkXw+pIiA8f3AmrWiNLiXgza1qkL+fjMH+JmRDn0wYyxQjGtlHzK7sha/sTPMG9JBogwFLrBiOvX37khmLrls7bILp7dsKdZwwfC/mYs096Maces11MthUQ3QWFg/hekg0JeE=
+	t=1789552156; cv=none; b=I/LdLlvGYEyMjhsvnv42Kgsj4vBKSkoPeYMdEfrqibZ18GlE1XDDxSow3e1ClGcFObF6iJPSI/Kri2TMmxn518o37lABGBhFZiL2bfpSIg3ydc2DD8+nhh16hdiiXvdx2Dlkqvs8QEx6l/HYqyGv0OLSq+b4U3xjrG2qNdFuwXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552126; c=relaxed/simple;
-	bh=DNHnn50GsIUIzWdFRjg15OCsLK/KeuBXWd77ZzcOKME=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eLTGCywr9JcSKqFw/AH3sGcEhJ6PTkqi8gJoRTgnzwyDceP/6FdK2GoFyjSZJuk7qzaMy5nqficLTwwVYr36E1Fr/4oOkYpMdI8wEM8bOM2PEWvgVwm9mOpFzc5xwgttCIlRXlLdtwpywFdBMvu2rRR9k7bYOKxCDpzIinD88w4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LXblpg6k; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LXblpg6k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789552106; x=1821088106;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DNHnn50GsIUIzWdFRjg15OCsLK/KeuBXWd77ZzcOKME=;
-  b=LXblpg6kNwUgQOFweKxvyuVB4zXIkHInKLRb5jKpiZf8GMtVkw2WjRPy
-   wde7Sc4iVYVaVkbYV+QfEPX6FrPla/MOar4zm2PFy0GkjN6XxJbkxcoZF
-   Rw+CJpprEd+kwy0068YiN+DbjS7RS6bTipyBwAgc/zUR2bAdPri3R0p0s
-   XBWXEalSw871V8FCRZaTTBfi1fYVoWjIMT5ATrkj+fAm/e+bEuJu9zErD
-   qWZQeXGG8CLvCT9kZwCMd+r0dtKtr7T3McBX7hcsOUn/nAdiimzxoFcMC
-   SnMqW/qIUryVTB/7lixiuYwN3SdSyeJ3mR65ArwMhPg0/vzlGu35Pa+HZ
-   g==;
-X-CSE-ConnectionGUID: m0y6BYLHRyG0tq4J3fsoMg==
-X-CSE-MsgGUID: 0BaAcJcaQme7CFrE1w/LjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90136455"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90136455"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 02:48:22 -0700
-X-CSE-ConnectionGUID: IlpqL7MrQl+Ox2jDvxO/ow==
-X-CSE-MsgGUID: 5FoteMpKSTy0yhwRnoZcZw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269013733"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 02:48:19 -0700
-Date: Wed, 16 Sep 2026 12:48:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Lucas Stach <dev@lynxeye.de>, Peter Korsgaard <peter@korsgaard.com>,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	linux-usb@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3] net: usb: asix: reject a truncated Data header in
- rx_fixup
-Message-ID: <aqpl4EPCIvXDLn8j@ashevche-desk.local>
-References: <AS8P251MB0001D5442318B9E58797D230C8BA2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
- <aqpKPXiVESngnVhp@ashevche-desk.local>
- <AS8P251MB000156CD4ABF9B3E03324492C8B92@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	s=arc-20240116; t=1789552156; c=relaxed/simple;
+	bh=nxEa1SHRcp4QPJ98V/dVdmArJyWqotnwbQb8eMyfAIA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=j0/H44+YG7U6RkYuzORAPKgnZcM0oDFd39qFLOvNBeNMjcDWSAoTzIj1Z/kZdBEkWzdOXdCsrCE9v0eMBSNvXUrgFPXHX9XnzxIfpyXg13umvtLID/9OLIainNAQoCGCuLN5pO4DN4FH1tP3SC5ic8QilcDtCOdsVOOV3qG8dIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADX2jj+ZapqO6XgBw--.42993S2;
+	Wed, 16 Sep 2026 17:48:46 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: airlied@redhat.com,
+	dri-devel@lists.freedesktop.org,
+	gregkh@linuxfoundation.org,
+	jeff.hugo@oss.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	mwen@igalia.com,
+	ogabbay@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm: Fix device leak in drm_dev_init()
+Date: Wed, 16 Sep 2026 09:48:18 +0000
+Message-Id: <20260916094818.2007896-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AS8P251MB000156CD4ABF9B3E03324492C8B92@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADX2jj+ZapqO6XgBw--.42993S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GrWkuw13Jr48Wr4DWw47twb_yoWkurc_CF
+	15Zr9rXr1vkrykJrnIy3W3ZrWayF4j9rZ3Jr17tayfKrWUXF12vrWj9r90qw1UWr43AFZ8
+	Jas7ur4Syr1xWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbakFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
+	IYCTnIWIevJa73UjIFyTuYvjfUogAwDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqP4efBgAAs0
 
-On Wed, Sep 16, 2026 at 09:19:13AM +0100, Aamir Ahmed wrote:
-> On Wed, Sep 16, 2026 at 09:50:21AM +0300, Andy Shevchenko wrote:
+drm_dev_init() takes a reference to the parent device with
+get_device() and releases it later through the drm_dev_init_release()
+drmm action, which is only registered later in the initialization.
+The check rejecting a driver that is both a compute acceleration and
+a graphics driver returns -EINVAL before that action is armed, leaking
+the device reference.
 
-...
+Drop the device reference on the feature check error path before
+returning.
 
-> > I don't know the rules about __func__ in the error messages in net, but above
-> > may be simplified as
-> >
-> >     netdev_err(dev->net, "%s(): Short Data header, offset %d, len %d\n",
-> >                __func__, offset, skb->len);
-> 
-> I've based the error messages on others I found in this function, here
-> are some examples:
-> 
->   netdev_err(dev->net, "asix_rx_fixup() Data Header synchronisation was lost, remaining %d\n", ...);
->   netdev_err(dev->net, "asix_rx_fixup() Bad Header Length 0x%x, offset %d\n", ...);
->   netdev_dbg(dev->net, "asix_rx_fixup() Bad RX Length %d\n", ...);
->   netdev_err(dev->net, "asix_rx_fixup() Bad SKB Length %d, %d\n", ...);
-> 
-> __func__ here expands to asix_rx_fixup_internal, the internal helper
-> rather than the asix_rx_fixup() the others name.
+Fixes: 7428ff70a18a ("drm: initialize accel framework")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/drm_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Yes, and current state of affairs is confusing. If this is _internal() helper,
-it should either take a name as a parameter, or use __func__, or ideally drop
-it altogether and make error messages to be unique enough that one may easily
-guess where the problem came from.
-
-But okay, since it's a common style this discussion and possible amendment is
-for another patch.
-
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index 675675480da4..b4c0a3b03b6f 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -729,6 +729,7 @@ static int drm_dev_init(struct drm_device *dev,
+ 				(drm_core_check_feature(dev, DRIVER_RENDER) ||
+ 				drm_core_check_feature(dev, DRIVER_MODESET))) {
+ 		DRM_ERROR("DRM driver can't be both a compute acceleration and graphics driver\n");
++		put_device(dev->dev);
+ 		return -EINVAL;
+ 	}
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
