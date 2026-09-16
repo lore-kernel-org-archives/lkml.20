@@ -1,147 +1,211 @@
-Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
+Received: from mta0.migadu.com (out-58.mta0.migadu.com [91.218.175.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF964457C1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5860448B93
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543427; cv=none; b=DC3ppYRNBXyJNGV/Kqn/YwfUiZEXQuWhDmgMs3ti4hdG84LA9CxPdnKI7/AaUormkQUvDWhoWo3sgsNanN+C+vahCcGsv69KOAiUadiE+OFSwVI7iwW0sc+PLpB5/1nyEFq3mGXReh8xvTEjnPhnrXyxhjd6nAFQVxixpjtzWl8=
+	t=1789543439; cv=none; b=V/I8NqmG+Y83ivuVv2XWCGUYf/OUCRvXCobf5ZhnGxrWteyTJuXheO81wqMlR5o28/nzVPi2SRHaN317DwptDsaFEyz0KWLfzObcEAUtEEANGQvcMVCDFgglVcsc10TSwn/48r6fhG9uvw5L6Rr3y7MAIZ3Rsr5RjQdZe04Rpew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543427; c=relaxed/simple;
-	bh=26ZyPfXDr0ydxB/B4Ow6i8CWMvrXaZY6rIcQsB2FM8M=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=oxGGK3gsrHxjFC8qLfOgQgJoyqR0qf0mQtpt6s9f7vDayNESuiQngwYbtha9MLHXyr8/CXgkdurzClM/IAqA5RB9D712V2lR9UbYFMHxS3UC3BNJjnb9Afjcw166hhqgWKNJEpmGGAUzd922pLk/ZpT70ITY4kyUHeN9Yfa55nY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mswin.me; spf=none smtp.mailfrom=mswin.me; dkim=pass (2048-bit key) header.d=mswin-me.20251104.gappssmtp.com header.i=@mswin-me.20251104.gappssmtp.com header.b=TUquNnAG; arc=none smtp.client-ip=74.125.230.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mswin.me
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mswin.me
+	s=arc-20240116; t=1789543439; c=relaxed/simple;
+	bh=aiFgk0UbBEjxU1IIYRxCV2UZME6MIuY5pKn3Rxf8kdk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rIbg/Ow9wBY+xxJkIpFnCHhC3u6KqwImrZLMg7MS5LdQoseznFDAJl9YhW4qUT65hPCGm36k41rRLCAA2G6TqxIhRV43cu+crGr3osS5FeHuWXjaafewW8sjO33QeawLmIf9iBXb7IyWZUR7sVsqq2/FS980vCPJmCj76RmyjMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EEvITN0o; arc=none smtp.client-ip=91.218.175.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mswin-me.20251104.gappssmtp.com header.i=@mswin-me.20251104.gappssmtp.com header.b="TUquNnAG"
-Received: by mail-lr2-f7.google.com with SMTP id 38308e7fff4ca-3a5acb204daso23297801fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:23:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mswin-me.20251104.gappssmtp.com; s=20251104; t=1789543412; x=1790148212; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hX02l29xxBPtjZbljOPENMYFyeAk17j1fAbszM+KifY=;
-        b=TUquNnAGugpC+DKatQgMiNQvBpB42oF6T7vmDUjYwBxeNMnFyiHraffkivZ/8/maJA
-         e51B0ypt5P7bCJ8s6jufVmnBNNwJ46yStJqCljcnr6NrqJ2IVuppgnfzSUqVpknGBXUY
-         0ZdbD2jdyw/uGlbMh52LbmV+WiEo7g7xTBYnwGvHqQpyyGsI1HOgr14JPLpPOHhhvcLV
-         rCTQmM7cuZo9xLJ33Q9RERdl8PtpW5jM3Qm3sUhEBxjBRdEFFb819pvfefdvR/n61EWk
-         Rv90XkfTLdKd7TTq9BAgNLCf01U0Z98PL3ogcolrmEuqvHxk7yQZ0Ad2MK4OQ/ojh3FU
-         3CXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789543412; x=1790148212;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hX02l29xxBPtjZbljOPENMYFyeAk17j1fAbszM+KifY=;
-        b=aVepoHbsqKiescToE5s3wYYGmFSfWtmMJhBubqk48tHK0Wk3kgo1D7whfir9jdysgH
-         +g9wVosPyTQDBD1r7RwLbhD5VKwXPdnQwB+pukztFldxl8WV4ZSLQhrwl1LEHlPk/EY7
-         ymvVavrIFNT/BsAT7frS7poUbY3576bLSjoTDiGUXJKYIFa7MQHSi3lGqTqKIIvcB5YM
-         +uwxVvmGYD7dIg6P9HklDT9KtsrR2u0KAE0cnw/Lf0jtab2gUm2IzDsUDCEVzRNWALWf
-         437LQ9/MC4HW2SkzSDGzSGD9KxWXWSShL8vzJS8h0yqaABqNppjxXupysYmGhnBO9E2C
-         SgiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz4cwXtcyH/rE+iLLMMGxByYszvJL1CUc1BS/aGQXOdhHDPQrDKTkZcRaToTeWZz6Py/No0bFjPILbrzuk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMuJRYQdNTJxuJm4RzI8CjKYZeE0fIyTT7JRGfJpaJsk5f/y9U
-	5QCyOeBep6RiWxNicjuHjJzjETFngpkDY0ewVlvgBDwdakgfCttf5LH+mKIY6LYv2+s=
-X-Gm-Gg: AYBFou25FcfaxCii9/TgHSOtC2i9OAbbCLs3ZxUnwOXVPxsO1RM9CYXl1W4t2mxVrJD
-	NHmxDoVFcATf3TJcTCyxqhRHwYt+g0xZG04USGfkdK80NR1NW6rvJhglNbLablFoEgKsfN8NWdL
-	iBenbVPqyvn4wjJOgNgV3HFw0//nPhl8+8doCDYefmS5fTNlcdpKfJFhjt08wQEK97USzwINmpP
-	xUHq/Kj5HcSE/ipg0Xn9XorEEJI0PAB08QI5835bcPb89omAG1lSIkmIl2FCHxy8AoMmy6pp75p
-	+brj3D5FRd5bQ/CUVln4OmLAr4Foi78OasqHWRNg2cbGa62cwBTrBKztmAkZ0Wkug/X4LrBKqNA
-	4N8DshbKnq3hi4k83/p7uo/rjAIULHFr50hwOoblW4dBeiaFD1WZ4nkm/IsM8i3Bo8iLbwAeUVD
-	gQipG1gPNERAPmvudWYKoIu5aZjjiOcegGiefjcXfB7QFK+4Rj9U2c4EmwxTf0rMqfX59jbg==
-X-Received: by 2002:a05:651c:19a5:b0:3a5:b187:c7a3 with SMTP id 38308e7fff4ca-3a5dc9b622emr3320141fa.2.1789543412297;
-        Wed, 16 Sep 2026 00:23:32 -0700 (PDT)
-Received: from [10.122.136.195] ([84.47.187.188])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5dafa9510sm3846611fa.24.2026.09.16.00.23.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 00:23:31 -0700 (PDT)
-Message-ID: <c34bdfb6-1aab-4af6-8e1c-e5855081d36b@mswin.me>
-Date: Wed, 16 Sep 2026 10:23:31 +0300
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EEvITN0o"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aiFgk0UbBEjxU1IIYRxCV2UZME6MIuY5pKn3Rxf8kdk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789543418; v=1; x=1790148218;
+ b=EEvITN0oBpezCXP941HPGShMocCVnbU53vsYZGb89ym5uOxG1m5QYXWJwo7WcgU63ab5f0vk
+ 5g9+ANYdfxIOHr7WO4o1vwynFvoSARuMjv3e7uoQFmBXoD+ziEwKQsRaZ5CLJKvvDkrhTvwv80R
+ +KUzmMBWY6Os+STPobufjuIM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d581e65a9509904b;
+	Wed, 16 Sep 2026 07:23:37 +0000
+X-Mizu-Trace-ID: d581e65a9509904b
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	josef@toxicopanda.com,
+	axboe@kernel.dk,
+	ameryhung@gmail.com
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	andrii@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	linux-kselftest@vger.kernel.org,
+	cui.tao@linux.dev,
+	cuitao@kylinos.cn
+Subject: [RFC PATCH v4 3/5] blk-iocost: add iocost_ioc_tick tracepoint for per-period device summary
+Date: Wed, 16 Sep 2026 15:23:00 +0800
+Message-ID: <20260916072302.1068871-4-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260916072302.1068871-1-cui.tao@linux.dev>
+References: <20260916072302.1068871-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] arm64: dts: qcom: sm6125: add TSENS die temperature
- sensing
-From: Roman Linev <admin@mswin.me>
-To: Amit Kucheria <amitk@kernel.org>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260821030325.1823829-1-admin@mswin.me>
- <a3f071d3-6082-47a1-bb00-9d8e72fa3cdd@mswin.me>
-Content-Language: en-US, ru-RU
-In-Reply-To: <a3f071d3-6082-47a1-bb00-9d8e72fa3cdd@mswin.me>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Apologies for the noise — three copies of this v2 went out by accident
-(only the last one, with the full patches inline, is operative; the two
-earlier posts are incomplete drafts). Please disregard those and reply to
-this thread.
+From: Tao Cui <cuitao@kylinos.cn>
 
-Konrad: v2 addresses your 2026-08-25 review asks (0x1000 TM/SROT regions,
-CPU cooling wired, comments moved to the commit message, no sm6115
-cross-check reliance).
+The existing iocost tracepoints are state-change driven: vrate_adj
+fires only when the adjustment logic runs, inuse_* only on surplus
+state transitions, activate/idle only on cgroup state changes.  In a
+steady state none of them fire.  The only other way to observe the
+controller (period length, vrate, busy level, active cgroup count,
+device utilization) is iocost_monitor.py, which reads kernel memory
+through drgn and is not usable in most production environments.
 
-On 16.09.2026 10:16, Roman Linev wrote:
-> Arm64 DT patches, against torvalds/master.
-> 
-> Changes in v2:
->  - wire CPU cooling: #cooling-cells on all eight CPUs and per-CPU
->    passive cooling maps for the cluster-1 CPUs, cpu4..cpu7 [Konrad]
->  - make the TM/SROT register regions 0x1000 long and drop the inline
->    comments [Konrad]
->  - drop the sensor-mapping comment from the DTS; the provenance now
->    lives in the commit message [Konrad]
-> 
-> Patch 1/2 is unchanged and carries Krzysztof's Acked-by. Abel's
-> Reviewed-by was given on the v1 content of 2/2; it is not carried onto
-> the reworked patch.
-> 
-> v1: https://lore.kernel.org/r/20260821030325.1823829-1-admin@mswin.me/
-> 
-> Patches inlined below (also against torvalds/master).
-> 
-> 
-> [PATCH v2 1/2] dt-bindings: thermal: qcom-tsens: add qcom,sm6125-tsens
-> 
-> SM6125 has a TSENS v2 block with 16 sensors. Its register and interrupt
-> layout is identical to SM6115's, and it needs no calibration cells
-> because v2 self-calibrates, so it is generic apart from the SoC-specific
-> compatible.
-> 
-> Document it in the v2 list, bound by the qcom,tsens-v2 fallback.
-> 
-> Signed-off-by: Roman Linev <admin@mswin.me>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-> index 5a8f767..0ac3fdf 100644
-> --- a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-> @@ -79,6 +79,7 @@ properties:
->                - qcom,sdm845-tsens
->                - qcom,shikra-tsens
->                - qcom,sm6115-tsens
-> +              - qcom,sm6125-tsens
->                - qcom,sm6350-tsens
->                - qcom,sm6375-tsens
->                - qcom,sm8150-tsens
+Add iocost_ioc_tick, emitted once per period from the tail of
+ioc_timer_fn() with the overall controller state: period_us, vrate,
+busy_level, active iocg count, usage percentage and running state.
+It fires every period the controller runs, including steady states,
+plus one final tick before the controller goes idle, which makes
+dormancy (e.g. a device saturated entirely by uncharged IO) directly
+visible.
+
+Depending on the autop profile this is 2-100 events per second per
+device; the added cost outside the tracepoint static key is one
+increment per active cgroup per period.
+
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+---
+ block/blk-iocost.c            | 32 +++++++++++++++++++++++++
+ include/trace/events/iocost.h | 45 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 77 insertions(+)
+
+diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+index 65d4371e4ac45..73c8dcfda65b2 100644
+--- a/block/blk-iocost.c
++++ b/block/blk-iocost.c
+@@ -2244,6 +2244,10 @@ static void ioc_timer_fn(struct timer_list *timer)
+ 	struct ioc_now now;
+ 	LIST_HEAD(surpluses);
+ 	int nr_debtors, nr_shortages = 0, nr_lagging = 0;
++	int nr_active = 0;
++	u32 tick_period_us;
++	u64 tick_vrate, tick_dur;
++	int tick_busy, tick_running;
+ 	u64 usage_us_sum = 0;
+ 	u32 ppm_rthr;
+ 	u32 ppm_wthr;
+@@ -2280,6 +2284,8 @@ static void ioc_timer_fn(struct timer_list *timer)
+ 		u64 vdone, vtime, usage_us;
+ 		u32 hw_active, hw_inuse;
+ 
++		nr_active++;
++
+ 		/*
+ 		 * Collect unused and wind vtime closer to vnow to prevent
+ 		 * iocgs from accumulating a large amount of budget.
+@@ -2441,6 +2447,14 @@ static void ioc_timer_fn(struct timer_list *timer)
+ 
+ 	ioc->busy_level = clamp(ioc->busy_level, -1000, 1000);
+ 
++	/*
++	 * vrate and period_us change right below; snapshot the values
++	 * this period ran in so the tick below reports the period's own
++	 * parameters instead of the next period's.
++	 */
++	tick_period_us = ioc->period_us;
++	tick_vrate = ioc->vtime_base_rate;
++
+ 	ioc_adjust_base_vrate(ioc, rq_wait_pct, nr_lagging, nr_shortages,
+ 			      prev_busy_level, missed_ppm);
+ 
+@@ -2448,6 +2462,24 @@ static void ioc_timer_fn(struct timer_list *timer)
+ 
+ 	ioc_forgive_debts(ioc, usage_us_sum, nr_debtors, &now);
+ 
++	/*
++	 * Snapshot the state this period ran in before the idle
++	 * transition below wipes it, so the final tick reports the period's
++	 * own busy level (e.g. the saturation that drove the controller
++	 * idle) instead of the cleared one.  usage is normalized by the
++	 * measured period length, captured before ioc_start_period()
++	 * overwrites period_at, the same way the donation loop does.
++	 * Emitted before cur_period is bumped, so the tick carries the
++	 * number of the period it describes.
++	 */
++	tick_busy = ioc->busy_level;
++	tick_running = ioc->running;
++	tick_dur = now.now - ioc->period_at;
++
++	trace_iocost_ioc_tick(ioc, nr_active, usage_us_sum,
++			      tick_period_us, tick_vrate,
++			      tick_busy, tick_running, tick_dur);
++
+ 	/*
+ 	 * This period is done.  Move onto the next one.  If nothing's
+ 	 * going on with the device, stop the timer.
+diff --git a/include/trace/events/iocost.h b/include/trace/events/iocost.h
+index e772b1bc60d60..32f19861a78fd 100644
+--- a/include/trace/events/iocost.h
++++ b/include/trace/events/iocost.h
+@@ -178,6 +178,51 @@ TRACE_EVENT(iocost_ioc_vrate_adj,
+ 	)
+ );
+ 
++/*
++ * Periodic per-device summary, emitted once per period from the tail of
++ * ioc_timer_fn().  Unlike the state-change events above, this fires every
++ * period the controller is running, including steady states, and carries
++ * the overall controller state so basic monitoring doesn't require drgn.
++ */
++TRACE_EVENT(iocost_ioc_tick,
++
++	TP_PROTO(struct ioc *ioc, int nr_active, u64 usage_us_sum,
++		 u32 tick_period_us, u64 tick_vrate,
++		 int tick_busy, int tick_running, u64 tick_dur),
++
++	TP_ARGS(ioc, nr_active, usage_us_sum, tick_period_us, tick_vrate,
++		tick_busy, tick_running, tick_dur),
++
++	TP_STRUCT__entry (
++		__string(devname, ioc_name(ioc))
++		__field(u64, cur_period)
++		__field(u32, period_us)
++		__field(u64, vrate)
++		__field(int, busy_level)
++		__field(int, nr_active)
++		__field(u32, usage_pct)
++		__field(int, running)
++	),
++
++	TP_fast_assign(
++		__assign_str(devname);
++		__entry->cur_period = atomic64_read(&ioc->cur_period);
++		__entry->period_us = tick_period_us;
++		__entry->vrate = tick_vrate;
++		__entry->busy_level = tick_busy;
++		__entry->nr_active = nr_active;
++		__entry->usage_pct = tick_dur ?
++			div64_u64(usage_us_sum * 100, tick_dur) : 0;
++		__entry->running = tick_running;
++	),
++
++	TP_printk("[%s] period=%llu:%uus vrate=%llu busy=%d active=%d usage=%u%% running=%d",
++		__get_str(devname), __entry->cur_period, __entry->period_us,
++		__entry->vrate, __entry->busy_level, __entry->nr_active,
++		__entry->usage_pct, __entry->running
++	)
++);
++
+ TRACE_EVENT(iocost_iocg_forgive_debt,
+ 
+ 	TP_PROTO(struct ioc_gq *iocg, const char *path, struct ioc_now *now,
+-- 
+2.43.0
 
