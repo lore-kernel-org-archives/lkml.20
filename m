@@ -1,73 +1,73 @@
 Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF481F09A5
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:31:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E00A4A8FD3
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:31:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551119; cv=none; b=YNTajeqU2czOY/k8kmrWVnuSZMw2qO7nhSoBOMamH0WITyiiHj1MUKMyAA6xSH5mxIuGIFlz3c3H1/6qk/jCfnHYbKvQBnhX6U42LZtvoPfu2T/aXsvKknfQLNvSH4ML6RaNXkRH4iCmAIE7rA4yDFfeVteyqLKoKdtB9atwVp4=
+	t=1789551132; cv=none; b=DDEM5dgRCCL/ZIBkCzZ2PP+B5+e+X1SA/qGjiK4Hx2M1tp/QpEOhtxJmSifGrOwA8DNc7n3OWOGahq1qk4F3+FwN3i4LzZpDFP+LpAF0zy7Twa9Xd5qgZvIDgVVkbNTcwc/UbVT32xxrtHr8gNNvV3I08S03/cEf/eyT5gRA/vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551119; c=relaxed/simple;
-	bh=RPRWO1cQwfat1Dp+ZIb02Kouxyvk7UB00r0B/YRnvf4=;
+	s=arc-20240116; t=1789551132; c=relaxed/simple;
+	bh=oZSNA87hap+8LZsY08iTLDC7668XQYqV9pSMcwVgaSA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hYMbXhaAjYzCtqJAnRzcjf6qYSM16MNVbHzz/94/KkQX20o14bR4YYDwqq2TlU6+a/E35tjkJaagxlGBil162o4CPDmklU8W5ZB5KptNkGxghd2sDZyAbOtkWVJCRq18UxfWlcFP8Z2Yv3BQiYrO5DOOAixXQWxivjx0NHO8XOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=Bhn8FHDC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kqxh5nkk; arc=none smtp.client-ip=202.12.124.155
+	 MIME-Version; b=c4MblTEeUXPpC4KDDsm2y+ifvxP2DH6XichfI27kflzIPg3U9jw4+ZBjU3zmW7s6atjLZ9YZYPRvef2XaD+etAdIE4Ka9Qq9iFX5n7tm2G0lMJaeSZ+0CeSP5kXi/hgF2xsNJYE/zPwc42RsEQ+FOSNqTF1KD4lNeSUmnQW0t9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=H9elMPvj; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=TunGcNhJ; arc=none smtp.client-ip=202.12.124.155
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="Bhn8FHDC";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kqxh5nkk"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 29E827A0089;
-	Wed, 16 Sep 2026 05:31:52 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Wed, 16 Sep 2026 05:31:52 -0400
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="H9elMPvj";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="TunGcNhJ"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 875557A008D;
+	Wed, 16 Sep 2026 05:31:54 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Wed, 16 Sep 2026 05:31:55 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789551112; x=
-	1789637512; bh=JI5Fa516GYJ3tjpfUWQYw4F0sEV0mYVe3RtQG+xuZIc=; b=B
-	hn8FHDCByQ+GdJc0lRviJJLX9D2otwZZQX97ey9dS2ATFtcTTPGO8CVcBlwI5zxm
-	UQXbIy0ul/lGFycowa4JG2GvA7JP4ex256VcW6wuPN9XCeyxkEwCHs4tbjkoxrRM
-	fDw8NxTrNf5q1dyyKsM/Kk3kCUvMpNlHcw5FLD+NvWpXYNDAQa7LFSwAdqSC8mCV
-	IbGSMNngJJRp3yk1ROTY+EmkwFzix7ofcC3Z6fsCLcvgSdPqsxgJnKaaFZDx0EMH
-	Z0JRRvWvYdPeteMp1aNI1Fqm/YU3ofF9+sHtvhwf7pG2MPWbyRj7beWo9xntouun
-	RGAjpUy6exbFm9c82N56g==
+	:reply-to:subject:subject:to:to; s=fm2; t=1789551114; x=
+	1789637514; bh=8kffjeZ0BbAQk8WNkrJMcG1UR27PMTOcUlnehRZ4hss=; b=H
+	9elMPvjJgiSJuYKab+0Y5yu987oSGjYEACb2aiWsREPZcMO/L24u339TXnzLy0sY
+	BrwD8LAymA8MsPdbmyyGF2d3C1gsfNk963ky5/znSRAEQhTQTYaNp9CNg3YinTXk
+	yu8XZPPYDeltgWfUTkXgpznVTVcGZxZiAUb7IPMCWTbs8/JBWuOSVed2TvyQjSXl
+	N+njdR33I24+71rdDzxL9GLJ2gDbczy7xW5uvhXYz5JW22EwbFWR0Q+9F0TgucX9
+	/Dfz6yUPGbyyGPn2yQq+qsKPcTa5416T5tdjS4z3PuDf+39UjjWPMi/UFHCpblMn
+	SQVqpxDaA/tcWp1erBM9Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1789551112; x=1789637512; bh=J
-	I5Fa516GYJ3tjpfUWQYw4F0sEV0mYVe3RtQG+xuZIc=; b=kqxh5nkkigRC8Y/hc
-	ATPt7hojrfK36ZFYv2+lrVEJlENTtWvWz3RfQiOWYIqiQu+pqGrnXd+cMLxd5TO0
-	jT7c5iXWDTEsQ+jw+P3sWBlMcu7jFzreeV+s4j4ADfIiVxK43Rq79THKSP9ZHwJp
-	+Ngp9oEvDlEbVfrXXG2XPUs4rwD9UfRsnp7DBI64AhfWlWOYZqeryf86FofHb2mR
-	+B2btaq3Wptcum88aqgK7v7go7IlOl0Ac+7xHCQW/PLfFjaZjWaPhtOYJ5Muq6gb
-	RFdbIb2CksdIvnSbGsdRyTlJgdCNrg4D/OPyXsFLvFiHZQEntI279eMQAH35R0qR
-	11itw==
-X-ME-Sender: <xms:B2Kqal_L99X54vjMYBUguULWq5-pmWzOM-aMDx8FeE3OG54ftP0dOA>
-    <xme:B2KqarONrlsY7L8cZVTElU0OosryntzpqGC9hG2tx6UC-fYoaZbPPvMwU0Hiw1K_8
-    m3XbypSNpghQNKt5ZRAuFuB-56JUu3XedHGhbVZbtjseDcLW1tjLtyf>
-X-ME-Received: <xmr:B2KqagoAS9qK05aePN5G8-xAZTlggCjjOi0GNuRBajOl5gDrEGe-Fo78euE>
+	:x-me-sender:x-sasl-enc; s=fm1; t=1789551114; x=1789637514; bh=8
+	kffjeZ0BbAQk8WNkrJMcG1UR27PMTOcUlnehRZ4hss=; b=TunGcNhJR4yEJp/xS
+	6RdkSwFK2RxkFqK0H3jeo0GIGoLEj6v/AmRXZJ0KKKfAW27OEsKMq/zz+SSqTog/
+	WUGhQbro6FWdR/IVZxmm+wnRhsOd8cCcA+PBgtHXwBHm01Gt6oGu6x/JGdUgYmdk
+	vykveAJ72Q5DxTnuj5wIr4PQeL+TE2/UJsGJ7OIig17YuA+TkBHtLfGp1xdqgu7z
+	CPyEtt3aWoM4RmPmXMq88lvAB5DzuB4E5c49FFMmD8KE5UeQO+NzD8qBCIYuiK+3
+	AOJ5LCW1j4UM59S8ZC3bXSyubN8fLKGarEyExOYe/eb+rjO5VPE4ijtCas3BcrqR
+	CdzNg==
+X-ME-Sender: <xms:CmKqakJ_T-9lGR53O7s53BmxPBZCn8euYug0fweUNKry0hLknti4uw>
+    <xme:CmKqagE6SyesxqJS12WKfxqSZnW6nJhDvVrTNcR64GUhjDhKP5qb9cQAWy4wUmNrJ
+    fPu-QNX8bHMEkITzyHLI5C2hbEXuzvKIRjvfyVaWNpNL2fLVjQaFcXP>
+X-ME-Received: <xmr:CmKqaq008mpXIwXUuNFU-BYkGbNfGUIlq0oBgAGqS89ky3NGKWW7wsoGy5A>
 X-ME-Proxy-Cause: dmFkZTEOpyDQEfQMjLyldXBPAs1OiAaYjuycA/zprc2XA0sZE/gLY53LzRl6wisjmJsNcj
     shXh7L3amtO3W7Dj4gJ1brhV8efHSvbbvvisq8qNCVrU/hVVqWW2fJ8EDoeL9EfJt8J4fa
     r63UA+S0A+UN3c16swmwWrTj5sK0gOy7RYH1CN+xe4D6TTQ1ncSXBFkweWqSBfk0S52Say
     Dntsl8DI3TlZwS0igZd1iO+ltDo9n3qHIbwcYcvcbVUlu6Rxag/XK6s48+7ZTTYlI2aJe4
-    hkL/jN/KxntOAh39VLdXeraBW39brB+PkStvfnz0wMlwqVlAhF3nsCCzTv21LQWeSF/iiS
-    UYsnT0sdXd1+mGrCuKiHZ1L2KKVC614nXF+Mf3lloTxsVreBc7gJjMAQmU8ZV618W/Izmn
-    eSMlfn+hj1WiCgpnCISvQOOarVik4o2xz6ldwlcS7aOzOx+YUz57jrl+PRIDPdYamW4gmU
-    mgMGM7p1wplBpaGjSG5Mup51bicu/FZPGAcyLig8Z1/UJV/8K36pYtigaLEXi6bfXTPZds
-    KqposBmGHUxcr29cTxie9RGUGdtUORuOoZ0EQgZcLjb/l75VAja7SdiS3pvt8WFYx5xvb7
-    WSnK6J3WaVsI/SCJBTz15wRxePYKVDs2/8S3xa3vW7U5R8VtrfGrbBpRiMYw
-X-ME-Proxy: <xmx:B2Kqag6z7xVmtTV6MTYZx06yUET4hpz6wCdAogboM3aq5Ks7gfFLxw>
-    <xmx:B2Kqaqps_oN5y_X9Qr9hCx_3App9I64Qdk78q-Yc79Qc2_g-771ZAA>
-    <xmx:B2KqauIfTKz0-9rrQujLBNlO-xQhaJTNlnnFatcNNYl-dwewGY07Vw>
-    <xmx:B2Kqang2gYP6CK8tErdtqrVDHVNSW3XH1xpZxZXmcfs9XBfMo0YbhQ>
-    <xmx:CGKqagiUn6GoLMf-Sumwj4BYHv5h1eAsyugk4vBNjvQTqRitn3MeMDT4>
+    hkL/jN/KxntOAh39VLdXeraBW39brB+PkStvfnz0wMlwqVlAhF3nsCCzTv21LQWeSF/ipH
+    aSMoXw7Yrzq75z55RCiNMGl8Zjz1OaWOivnaPIGs8vL43WJY+7nhtZqGYOHlPycNBy82DP
+    8yITUE0MSeu1TrcwigSUkhmilfFGG6a8h46LQ/DEOfydYCycrcQ6fVhus7GOg+CfLPs/gZ
+    SVT0jtv4TBzMKs8Vnlas4qXYQdYYkPaLGWkFHKpFPQ8hjyhbQZdQvMxvs76toKTR60zQFq
+    c9HC++mznhIBchm9YPND7TW+Gt5T2VRACZnh6SClCmaY7wc9WPa4Ycgp3A+M5swF6nr/0E
+    ouHUVqUa7HdcMJiCcGWJTSTBoeMKxCeXXw7GaXguOym/AcnT1kp2xzykiKUg
+X-ME-Proxy: <xmx:CmKqany0ldwpuWbIMrAOfuA6xMYhl_6ErGtGNW9lKdJHBZtBiJTYkQ>
+    <xmx:CmKqapjz9GJ1iUbZ6_MIWCV2f0IZNax-0bsMS4X_j4XxPoIvKd6otg>
+    <xmx:CmKqamzjbjLD4KSo0zghpBxhJ6EtrIwMpa6awB3K5r3nZYcax5SYaQ>
+    <xmx:CmKqanz8uLOV4G1zrptcEEmKkURETOwZ2499qkrFbCQw1rjBzWSgvQ>
+    <xmx:CmKqauJKRPOBurD-so1TYvWrx3RuTGnoE8Hf3Kfiv4oy4oYlgXdiebs6>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Sep 2026 05:31:51 -0400 (EDT)
+ 16 Sep 2026 05:31:53 -0400 (EDT)
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	David Hildenbrand <david@kernel.org>,
@@ -87,9 +87,9 @@ Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
 	Usama Arif <usama.arif@linux.dev>,
 	Vlastimil Babka <vbabka@kernel.org>,
 	Jann Horn <jannh@google.com>
-Subject: [PATCH v3 01/12] mm/khugepaged: drop redundant mm_struct pin in madvise_collapse()
-Date: Wed, 16 Sep 2026 10:31:28 +0100
-Message-ID: <20260916093145.4022188-2-kirill@shutemov.name>
+Subject: [PATCH v3 02/12] mm/khugepaged: count collapses where khugepaged makes them
+Date: Wed, 16 Sep 2026 10:31:29 +0100
+Message-ID: <20260916093145.4022188-3-kirill@shutemov.name>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916093145.4022188-1-kirill@shutemov.name>
 References: <20260916093145.4022188-1-kirill@shutemov.name>
@@ -103,46 +103,57 @@ Content-Transfer-Encoding: 8bit
 
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-madvise_collapse() holds an mmgrab() reference across its work. It is
-redundant. Every caller already holds mm_users:
+collapse_single_pmd() bumps khugepaged_pages_collapsed for its caller, and
+tests cc->is_khugepaged to know whether it should: the counter belongs to
+the daemon, and MADV_COLLAPSE must not touch it.
 
- - madvise(2) works on current->mm, which lives as long as the task is in
-   the syscall;
- - process_madvise(2) reaches a remote mm through mm_access(), which takes
-   an mm_users reference and holds it until the syscall returns;
- - io_uring passes current->mm;
- - DAMON takes one with get_task_mm() and drops it after the call.
-
-Drop the mmgrab()/mmdrop() pair.
+The daemon sees every result of every collapse it asks for, so it can keep
+its own counter without the shared path testing who called.
 
 Assisted-by: LLM
 Reviewed-by: Zi Yan <ziy@nvidia.com>
 Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- mm/khugepaged.c | 2 --
- 1 file changed, 2 deletions(-)
+ mm/khugepaged.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
 diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index e13d233b9967..75c876acf527 100644
+index 75c876acf527..4979a93e3648 100644
 --- a/mm/khugepaged.c
 +++ b/mm/khugepaged.c
-@@ -3229,7 +3229,6 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
- 	cc->is_khugepaged = false;
- 	cc->progress = 0;
+@@ -2815,10 +2815,8 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
  
--	mmgrab(mm);
- 	lru_add_drain_all();
- 
- 	for (addr = hstart; addr < hend; addr += HPAGE_PMD_SIZE) {
-@@ -3285,7 +3284,6 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
- 	}
- out_nolock:
  	mmap_assert_locked(mm);
--	mmdrop(mm);
- 	kfree(cc);
  
- 	return thps == ((hend - hstart) >> HPAGE_PMD_SHIFT) ? 0
+-	if (vma_is_anonymous(vma)) {
+-		result = collapse_scan_pmd(mm, vma, addr, lock_dropped, cc);
+-		goto end;
+-	}
++	if (vma_is_anonymous(vma))
++		return collapse_scan_pmd(mm, vma, addr, lock_dropped, cc);
+ 
+ 	file = get_file(vma->vm_file);
+ 	pgoff = linear_page_index(vma, addr);
+@@ -2854,9 +2852,6 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
+ 			result = SCAN_SUCCEED;
+ 		mmap_read_unlock(mm);
+ 	}
+-end:
+-	if (cc->is_khugepaged && result == SCAN_SUCCEED)
+-		++khugepaged_pages_collapsed;
+ 	return result;
+ }
+ 
+@@ -2933,6 +2928,8 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+ 
+ 			*result = collapse_single_pmd(khugepaged_scan.address,
+ 						      vma, &lock_dropped, cc);
++			if (*result == SCAN_SUCCEED)
++				khugepaged_pages_collapsed++;
+ 			/* move to next address */
+ 			khugepaged_scan.address += HPAGE_PMD_SIZE;
+ 			if (lock_dropped)
 -- 
 2.54.0
 
