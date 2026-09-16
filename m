@@ -1,88 +1,75 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50052F0673;
-	Wed, 16 Sep 2026 15:00:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BFB1383980
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570837; cv=none; b=f3eVWlOq3kz7Iesp7IvbUtQS+vsQ7n41QrYLxrVMryprJZ0Pn0tajVWp5Ghe7Wsv0KscI0U6OlmY2ZKAfTVk/+oN3scsykV31dyUgm8o7fhG5QhwJjGxxwC6me6Jn37OWLV87wzI8M7iutcPQq9Z6tgm7wlVTmOPJJDGiUJ9x/I=
+	t=1789570842; cv=none; b=SPAa8uyboBVAkCpu/h8N7NKk1qKtVmzfP7cBhiQ3imssyDH8rXlQLKpfIdkQ53rrAwh5tB3OSscxgFhfzw24Us7Jz3WAZEvW52w32AvelMO+lWGDQRKBy3sa4geNx4F8Yh8OkY7iOiSzztzUkJR0FHIZjMlXj1z3Fg8GBECC/OQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570837; c=relaxed/simple;
-	bh=4mYZuYY/4TWRRwSCtvsKG9o4ifIS9Tyl9n2rO1QSNAM=;
+	s=arc-20240116; t=1789570842; c=relaxed/simple;
+	bh=uU04HW0rlwbhgWn7yH5GWNie4AC/PYWKfZPU/6xM78M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uvMXxk6j2SzH38bjEok2MM5rUeD9p7T2JFBTb3q0SjDQT10dtfJOgZbyXMg3es4zkSdBhdwz2mSqv+yuoUNA3JMPX63kofR00iKyPcyh9ZW8Sd/XgDo7WPIreNd27oz2Sdw/7HsU0jli+Pbh6lV+zYX7Db2PXzD0vnWlll5fKok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DSW5uGXc; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=B+O8u+72j+bRMHPma1eFT5JrDCFmy4Kzt7MuaTPeEvPdlTdsNP09k42O1h86pAH4uBzayFD7Ebs+GwlWwRFScAQqy99+DDGW/flXaFAUmTlDQ6exw3F8jTyeZzNri7YDceYVBG08e+18ZEzn/wv3kRjbQNcPrvE2cGc3HJqUh18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ldLV0S2T; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DSW5uGXc"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEVxdJ3863290;
-	Wed, 16 Sep 2026 15:00:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=j9wYFqkMO68SYOCGbriFllUPMhixN2
-	gtllHySmb7w5g=; b=DSW5uGXcNBEav274LLwLVkQJJXunKRGXxm0hv6idwZZISp
-	jNx9tZ9aNgkx+oEM1BlRNdtXGx3Cc4ARJgmyUfNis7HfO07p6U0UKavc97fP4TvX
-	oUcKb36q2dUDMm8TJVws4WFM9cJ9al6mM7s9nLrvqdsO0eaFsWJLrcrt2t5Rxnmy
-	3t8fBs6c4Tiv/7v2y0dlBG0Fu4Dc2oqUQMAMGah5/jUTvPz8CLIwIe4myfy2ySV9
-	W/BBCPM2X/1Dd12JPrdXNmuwK4osTJfDO8sj2iYqVv41qJ9SUTMTBST9uZvh18Az
-	oRfEATaVPd6dFEd0FsIWB4YjaGjhMJuMTNVnbaCw==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmv5hw4vu-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 15:00:08 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEaDkJ1571790;
-	Wed, 16 Sep 2026 15:00:08 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gq03bxty3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 15:00:07 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68GF03fh49873402
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 16 Sep 2026 15:00:03 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3DA662004B;
-	Wed, 16 Sep 2026 15:00:03 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5059C20040;
-	Wed, 16 Sep 2026 15:00:02 +0000 (GMT)
-Received: from osiris (unknown [9.111.20.35])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed, 16 Sep 2026 15:00:02 +0000 (GMT)
-Date: Wed, 16 Sep 2026 17:00:01 +0200
-From: Steffen Eiden <seiden@linux.ibm.com>
-To: Janosch Frank <frankja@linux.ibm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
-        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
-        Gautam Gala <ggala@linux.ibm.com>,
-        Hariharan Mari <hari55@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Hendrik Brueckner <brueckner@linux.ibm.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
-        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
-        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
-        Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v7 21/23] KVM: s390: arm64: Implement vCPU IOCTLs
-Message-ID: <20260916150001.202565-D-seiden@linux.ibm.com>
-References: <20260831144802.834315-1-seiden@linux.ibm.com>
- <20260831144802.834315-22-seiden@linux.ibm.com>
- <d706435a-3984-4ef3-b319-1efc92517650@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ldLV0S2T"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-853e2610bb4so1418806b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:00:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789570841; x=1790175641; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UxeLBpawt5FLZ4rmHBRsuTB8sPX9iH6xiZFrfBJ+a50=;
+        b=ldLV0S2TDPBfm9mP7nDUmw2J+2ypLJo1/qe+fdBmPnhXWhk86x72csVvvfdxm0CPAW
+         64X+yKOPIUfv0jsRUYvlcgSvcqHVGPbAAqHH3UH9F90ql3HzBSu7KjzzXR/RRdhoujtX
+         rJTYS4GSltXm47eeny1tRdPsWccdgIpkCbNVUwva6gS+1+QlCvOXoNHfeM+YjrWin6Ku
+         V4sm0FtMRhly4syPid4ov9y0fSM/T5U/2vkRF4OouB3r6m+ARZ0rmNWO5m+WSGIUX44B
+         a/dv6ZVCfAz2RL0OfBdcUSo0o3t3SP/7+Dw3O3CP0zVRh17+xrFClwOL+0hVOXhH47w/
+         7r+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789570841; x=1790175641;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UxeLBpawt5FLZ4rmHBRsuTB8sPX9iH6xiZFrfBJ+a50=;
+        b=CHC9PiBjWBRFU0EFzwvQoOMIfNIksmehS5q6lzWkRWvpLnIXPlp086SovRKdaL7sxw
+         zWhX9lDWfw7BvmqJCa0M+GVbQHfN84LiiTo5H2Dl4EesoADuaGov9v5Wl/JvVjCQ7/rR
+         stKOFI6IAB8bZho5rOl8YmlT8MPt1uWe5i447Lyd5L06uCdi34CxhqxOUikTnxosS0Mr
+         fi9SvSBnD/SPGcgJ1JAgDzfar4tewmWzIVjtQA28qmik78FuiweByDWgOhpQYUf0IM7S
+         oIriUHD0xbVN2Qh7W/RlVbHeofUrLCW9RjSt+2TCER9gpU9yRuLieqLNGTfNJqaP+hc1
+         98WQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxX+7op1RGuAzKbC+3Zxp+4G6alpHIlcSadyKUoNmmJXhvUArjP7J3IZbACVdjxflin82TJOyZ7WJ2E8qw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/wMMAuB4NoInm6rCSFlLrbgvO0o0of9eWh7RnWREOTn8qypY6
+	E9DFYgTa0+YIf7Er2ckv5ZxNdEsnGdyVMScAxdtVN8ioB6Wnh7IecBXY
+X-Gm-Gg: AYBFou0Zdjem2hVMSbENdBIs6YO3taIsmLvUIzsqDWfrIdZcenooimrmZlr5FcVGlzF
+	Zn6Pwcr472dioN/XSAS0dIWU/RJeUnPniXHxeYZ5c7VeFe0mXE9fOg4/QRnf56PktWw/005AcL0
+	zZQcR6tPKG1LMrdSO9IYSmE7/1YbXhkFHx8IEVlgShBuBlBaU7Uk8fWKQnHSfpdSEbyRHBN40gf
+	g23d0zbyvbFgRGkIytruDR6dWd2dfMOgfbUQEsHwLKRk/FaE/Le4aEkCfOzOq6jNLF8NZHD5av9
+	C+L2HDU8cOctPqv37Ra9qPAZ/E13gFQTQ8vXQ1m6n0dcZ408U/2yBx8UuMn22ECKJnu4EmC0BjW
+	FCLRLTgmgkIkp+MdLiZ1yUCV3YMCKRi313/q2osQtIaZpjsuN+ZaXnzO0aKZ0unFvsMWKZhIzwo
+	ZvUMPw7RIdE/vF80XilNOjDdoqb+gR+Y/+V5LHLHALXWBs18ngIYJJ92P2cYBfZK68KJUvNIgTa
+	3SvkzQ/ZjEE
+X-Received: by 2002:a05:6a00:414f:b0:842:3c77:5996 with SMTP id d2e1a72fcca58-8708981c156mr10606570b3a.1.1789570840509;
+        Wed, 16 Sep 2026 08:00:40 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50abb30a3sm1719789a12.28.2026.09.16.08.00.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:00:40 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 16 Sep 2026 08:00:39 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Cc: Luca Tettamanti <kronos.it@gmail.com>,
+	Cosmo Chou <cosmo.chou@quantatw.com>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] hwmon: use named initializers for acpi_device_id
+Message-ID: <2b837c9b-791a-4465-ad7e-8d9c7329d41f@roeck-us.net>
+References: <20260915-acpi-hwmon-v2-1-39d17c748eb6@thegoodpenguin.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,99 +78,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d706435a-3984-4ef3-b319-1efc92517650@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE5NiBTYWx0ZWRfXxeAY1ElL61t/
- DSYaS/30ktfKLmCi1Je1B8oA5SSK0YMYFdINg32ZZXjlxEc9UVimA+x4ax64svDgzOof3EE+8Cq
- Vl8VAQsLH6OyJehRfezU1Slb3TVCSuZRAL9WWS3smLcYBp41FSMALFI1GRXyRzvYpwhzchIjlIb
- CkraEYnR4xehufNRYTAt45GmKn5YprnOrEXn+lXaPv8GrkVyfwHxDdUH/jkyYa+BwuOXTH5DASu
- kDegQycer+tXRRKiwObfFg6xsGp1+6tFw5IjK0QCpvpWHQ01ArLIpW1V7WjxcWuRkSv3LPrY4WX
- WTvUpoy2w1zB1MT+a+DaUVsEOXz87JpHkY8arJG1M5FfIGhZmq5O7Kpopd6aVb6eogrOYMABlIe
- vitrrgpi7QOp3DeMtsyo4XAdnUcOb3Oh/j+6VjF+J1g12DjFVEw5gMZ+jmN4OVH6vugtF3ro7tt
- US9PSysZIEbXkVY+LSw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE5NiBTYWx0ZWRfXxG44vfSHFzXS
- 7DdX+PaMTaaPE/YyCzXnSUPL9HrecC741FwX1UnjFTWpWFPm3oI14f3lIBWA7I+3UY306cDUbZK
- R4kIROXqO89uOkaiabda0mrXWcATLjE=
-X-Authority-Analysis: v=2.4 cv=Zsx4uN7G c=1 sm=1 tr=0 ts=6aaaaef9 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=2EDVkJ_xZdsl-fsxt_cA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: CcjZPhrNXuk_fD7ZBanhcQxmk7O2fTAK
-X-Proofpoint-GUID: pSdKo_eOc1M7lhhBdE68zGvs-QjHxbP6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160196
+In-Reply-To: <20260915-acpi-hwmon-v2-1-39d17c748eb6@thegoodpenguin.co.uk>
 
-On Thu, Sep 03, 2026 at 03:27:16PM +0200, Janosch Frank wrote:
-> On 8/31/26 4:47 PM, Steffen Eiden wrote:
-> > Implement all required vCPU (arch) IOCTLs.
-> > 
-> > Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
-> > Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
-> > Co-developed-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
-> > Signed-off-by: Nina Schoetterl-Glausch <nsg@linux.ibm.com>
-> > Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> > ---
+On Tue, Sep 15, 2026 at 02:48:20PM +0100, Pawel Zalewski wrote:
+> Use a designated initializer for the acpi_device_id fields which makes the
+> code more readable and consistent with how lists are initialized in the
+> rest of the kernel code base. Also drop explicitly setting fields to 0
+> where it is redundant.
 > 
-> [...]
+> Unify the list terminator to have a single space between the brackets and
+> no trailing comma.
 > 
-> > +static void arm_vcpu_run(struct kvm_vcpu *vcpu)
-> > +{
-> > +	struct kvm_sae_block *sae_block = &vcpu->arch.sae_block;
-> > +
-> > +	adjust_pc(vcpu);
-> > +
-> > +	local_irq_disable();
-> > +	guest_timing_enter_irqoff();
-> > +	guest_state_enter_irqoff();
-> > +	local_irq_enable();
-> > +
-> > +	sae_block->icptr = 0;
-> 
-> We already do that in the function below, no?
-> If possible I'd like to avoid setting ictpr here.
->
+> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 
-yes, removed it at this location. thanks.
+Applied.
 
-
-...
-
-> > +		kvm_vcpu_srcu_read_unlock(vcpu);
-> > +
-> > +		arm_vcpu_run(vcpu);
-> > +
-> > +		vcpu->mode = OUTSIDE_GUEST_MODE;
-> > +
-> > +		kvm_vcpu_srcu_read_lock(vcpu);
-> > +
-> > +		ret = handle_exit(vcpu);
-> 
-> ARM increases stat.exits here and since you copied the stat fields over we
-> could do that too.
-
-Good catch, thanks. Adding the stat.
-> 
-> General question to the ARM maintainers:
-> We'll be adding more stat fields in the very soon future.
-> Are you fine with us adding them under any name or should we prefix them so
-> it's clear they exist because of our architecture / implementation and will
-> likely never be added to ARM KVM?
-> 
-> In the past we've added a lot of stats and I'd expect us to at least add
-> stats for every intercept reason.
-
-That is the exact reason I copied the struct and not reuse the arm64
-defenition. I already added a gmap stat we have but native arm not.
-
-If the stat is meaningfull I am all for adding the stat to arm as well.
-
-	Steffen
+Thanks,
+Guenter
