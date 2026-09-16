@@ -1,124 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-101.mta0.migadu.com [91.218.175.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1B046C4BE;
-	Wed, 16 Sep 2026 08:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FABA46D085
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:30:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547446; cv=none; b=CfrXzH6jEYodi/EfxAzYV2HMuEmf3i13KTwbj7Kb13ag3ri1AzgAwBYN1Xs9J9XLyILNn9GZjNzjy9T/wyzCDEFXsPJFcLLjNisCj910XaIvn9MS40oxaRSdvZ/tmV45hC0dBfwT1NPBzEZDfOF2YyseglBn2dRy/Z7yRlrAWsE=
+	t=1789547461; cv=none; b=EKmwsdFfKhIS0SxwNdpvs/5QlZXPC0ERmv1xG2HV7Hf+QHzX/W6szdBI2k/wkYOZMgw73HMANrb1GmifQ3FaRErw6d0PZPDdL7JZqvfItQCIREIdoYL7C6yiII2J+iZQ7XUlbfB6kXCZyrNqAjV7colIkiWsaWI3jmbwpEmscck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547446; c=relaxed/simple;
-	bh=0RASedDWwlI2SgHiB5qjGhFXOk3xb3b6bJovfCgQmPM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hadZFBJRXcyG4v6J2yaooFl7uakB8p7RZ4o+a/VCjy4Y4LFJNkj/s/IEKSoYH3/L33JhACY7GI2ytOWYODeKZoaJGq1yll/qtpj98hHqUzGyvnLx49pGURHfG2kvSwE+PBzmGWo2b+xwUVvckd3rImE4xYdSZ9rDcnN8GUq/l4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lIRRsRp2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789547461; c=relaxed/simple;
+	bh=HVeQNU0VnGAT6KeaYPHUaFiS0r13E4evtRSG/JUmvsE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GLPSkqoCN1k9iJNNrkpGi/YFtYPT4wxXxkJLoiAWsJvHbXSSeLF4tYXZ8iDVlOfdCTfZNjVh+dHNxu3v3oUM3gt+095ChmL5r8H4T/L8Nw6YSCCkNfLeANUluacYj9UbOS9cEQNdNz2mztV0mbLUATLFqbvS50HKi+CeTh+6uyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dsZmTsf/; arc=none smtp.client-ip=91.218.175.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lIRRsRp2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30A61F00898;
-	Wed, 16 Sep 2026 08:30:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789547445;
-	bh=wn03PZHuEHQX1wNu1gA3FGObpFQjvyAUzJkSV3Kpeng=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lIRRsRp2LqPQJQ3qbRudANGHGglAVjwHAS1JLrr8yUmz/UzCg+hQxqsBVogq6uOYq
-	 GIKgEj5QLGciMgNzlKu/vJGmu547TgPxskGWiwlf3FT1xyV7C74ZzogxrDcWWhlubA
-	 x9RNcrD25E9RzbbkS5zA8CrhTFO/TrJFlmGkegatird6noeNhJs/AnpaVHtv0Ef9bS
-	 qK7nMra6d1X0f7wNdrNACuXVmFyPIj41cLcFa7Ozk9eN926CWA1tsPNuPUk7gBNqDy
-	 aXBoaQhPluxJ2Az+MTYLwvnkgriHmT++dgfzFK1umyES1ditHTL59wM4St42WiTFz1
-	 gd7YdlHEt94xQ==
-Message-ID: <9610bd5c-077a-4fa9-a157-5539ce9d8a42@kernel.org>
-Date: Wed, 16 Sep 2026 10:30:38 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dsZmTsf/"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HVeQNU0VnGAT6KeaYPHUaFiS0r13E4evtRSG/JUmvsE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789547456; v=1; x=1790152256;
+ b=dsZmTsf/C0DUaNE2kutjSWXtlWN2XDHzPCJKQgZ1EigqK16RGj/2H6Mn/rNNWVENm5VKOlI5
+ 7UF1OC1tY66Z61b9pD84eVinn2V7EBNg1kPU3i/tF6+KUTG4vebn/C5omAgWgD9MpZtdJnKPJu5
+ fQEQyaRXbOwa2YzPMxvR/uBE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c02ff89e00ec8e44;
+	Wed, 16 Sep 2026 08:30:56 +0000
+X-Mizu-Trace-ID: c02ff89e00ec8e44
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+Subject: [PATCH 0/2] mm/hugetlb_cgroup: move the per-node usage along with
+ the folio
+Date: Wed, 16 Sep 2026 16:30:26 +0800
+Message-Id: <20260916-for-hugetlb-charge-v1-0-70fb708b2e4a@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
- vision-components,mipi-module-controller
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Richard Leitner <richard.leitner@linux.dev>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org
-References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
- <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
- <20260916-daft-relaxed-mouse-9bfaf4@quoll> <aqpC8fxO4F3bFjF4@bombadil>
- <20260916074553.GB3871857@killaraus.ideasonboard.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260916074553.GB3871857@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQqDMBAFf0X23IAGLbW/Ij3E5EW3iMpGRRD/3
+ a09DszMQQnCSPTODhJsnHgaFYpHRr53YwfDQZlsbp95XVQmTmL6tcMytEYNUcP66IJ7IZQlSMN
+ ZEHm/p83nz2ltv/DL70TneQEmAiU1dgAAAA==
+X-Change-ID: 20260915-for-hugetlb-charge-2cfada8ed44e
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Kees Cook <kees@kernel.org>, 
+ Colin Ian King <colin.i.king@gmail.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Mina Almasry <almasrymina@google.com>
+Cc: Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Hongfu Li <lihongfu@kylinos.cn>, 
+ hongfu.li@linux.dev, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789547446; l=1403;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=HVeQNU0VnGAT6KeaYPHUaFiS0r13E4evtRSG/JUmvsE=;
+ b=rbcRgrAuiTtJsuFFmAg9A4uFfsk82YktFg6/zlGlYIDN6/g4W8mAy0IL0sbKqJBzZhScqrJVm
+ CXXJU0TvDpQCfI0GSRejxoItaHDibMUQkdmhhEQ4Im+XTzNM+6LaFdt
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-On 16/09/2026 09:45, Laurent Pinchart wrote:
->>>> +
->>>> +  reg:
->>>> +    maxItems: 1
->>>> +
->>>> +  '#clock-cells':
->>>> +    const: 0
->>>> +
->>>> +  clock-frequency:
->>>> +    description: Frequency of the sensor clock provided by the module
->>>
->>> Drop, implied by the compatible
->>
->> Do you mean dropping the whole property, or just the "description"?
-> 
-> Different modules have different clock frequencies, don't they ? The
-> property seems needed.
+The per-node usage reported by hugetlb.<size>.numa_stat is accounted
+against folio_nid() in __hugetlb_cgroup_commit_charge() and
+__hugetlb_cgroup_uncharge_folio(), so it is only correct while a folio
+stays charged on the same node and in the same hugetlb_cgroup.
 
-Yes, that would be fine with assumption there is no actual sensor
-described. If there is a sensor in DT, that one will have a proper
-driver binding and asking for frequency?
+Two paths move a folio which stays charged, and neither moves the usage
+with it. hugetlb_cgroup_migrate() only moves the hugetlb_cgroup pointers
+of a folio migrated to another node, and hugetlb_cgroup_move_parent()
+only moves the page_counter charges and the hugetlb_cgroup pointer of
+the folios of a dying cgroup. In both cases the node (or cgroup) which
+was charged keeps a usage which never goes away, while the node
+(or cgroup) which ends up uncharging the folio underflows as soon as
+the folio is freed.
+
+Patch 1/2 moves the usage along with the folio on cross node migration,
+patch 2/2 does the same for the folios a dying cgroup reparents.
+
+Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+---
+Hongfu Li (2):
+      mm/hugetlb_cgroup: move per-node usage on cross node migration
+      mm/hugetlb_cgroup: move per-node usage on cgroup reparenting
+
+ mm/hugetlb_cgroup.c | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+---
+base-commit: baa8de2f3448d1466a888a805c18d01c998fe052
+change-id: 20260915-for-hugetlb-charge-2cfada8ed44e
 
 Best regards,
-Krzysztof
+--  
+Hongfu Li <lihongfu@kylinos.cn>
+
