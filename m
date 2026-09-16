@@ -1,73 +1,108 @@
-Received: from 0001.3ffe.de (0001.3ffe.de [159.69.201.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A103C3F9F25
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.201.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18D946AA81;
+	Wed, 16 Sep 2026 08:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546558; cv=none; b=UB9MN5lEc33dLS43W2/XKE8uyQtOW3ihGI2hUyqHSDr0LBH+n0OC3pWo6HG/Wltan0VrSOHOVt254mS8Jk31+5e+d/Mt/um7CfdmgTbSJqmHTemdkmbrRjJ7jCv3Q87tf0xfIm1ZEZcT/bnfv834OVZdvzQdr/MeCf1HJRCEsEw=
+	t=1789546565; cv=none; b=KCBZffnJxgPZMuYy35OygyiHsGfmVPP6puRqQKSqbsO/M6tibHAZ9ES7f3rYLCy+WnGrssxvPOtlkyGG7hxBhO16RwbqJQ615I17ChR1M/lJqyA1zx/RMv1Ivju45Ky6kKw7sm/C9zZlh0YTWopPH8Msx0lsvbgrx/9rAvBcjuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546558; c=relaxed/simple;
-	bh=goqwARZaWYVNr3jnwM3rrVR1sB3uY+t1WtIJSaOPQKQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Subject:Cc:From:
-	 References:In-Reply-To; b=AbQOlEp2KY4qaDmwiYkAM4mq8newdV5BkmyzZTSAVCzpD/PFsqliA0ZlcndS+w6MvDJg2x/mVWEHa/E8fJmfXmgM2Ywt3IpdT2JC3RaZeZUZDKCTud8pGNxcrZdxT6Q+U55O+LYRIgO339+njfEwB4IJZNJFig9V7xKoASUSuTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=pass smtp.mailfrom=walle.cc; arc=none smtp.client-ip=159.69.201.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=walle.cc
-Received: from localhost (unknown [IPv6:2a02:810b:4320:1000:4685:ff:fe12:5967])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.3ffe.de (Postfix) with ESMTPSA id 3B74219F;
-	Wed, 16 Sep 2026 10:15:40 +0200 (CEST)
+	s=arc-20240116; t=1789546565; c=relaxed/simple;
+	bh=MF/2ddKAX3zZ4vbwMB+nwe+p3oImsQWjU2yXuBd3ST8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Yi6hRpoD7m4d1Iu1Nhi9LHL0OqAapMCYRv+J6WQr8Nj2Q1jj/TrkmVH4TZwdwJs/5XPxYSWOe02zDokVSlO7TNQ6zf20RgAGOz+UPvP6XL1iaUc0LT8ePbwjo+mgfoA633fUXzJ7aZEjulr/iCJDh46bWDB26A/OU3dHFvH6zEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=KObtsL/W; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="KObtsL/W"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68G8ElRT22223080, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
+	s=dkim; t=1789546488;
+	bh=kaLAI2WfPjlCATIfPataUac8Xi8UPddM62Yg/Qa9Lh0=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=KObtsL/W+M4QKhLdLWjLw+i+M+L0KBZiPorLqfFWxdYTpQBTerwVaFv/acYPU9yMl
+	 Ch11vsFeg0STiR0fCqPBDYsM+eVRE2mGQ8PbgBB5erYZzHnExVag8OQ7Z2So3D6lEL
+	 8y3cFuHCEYiPnOzWjzHECxsu0UTCua40Tbt0p5sWaALjKA039PzBqFfiYxnoe5eb53
+	 l7x31hNb07y+8Nlykd3tpdCxaQOOq6M1z+LNvmx/17TuggQduQrI604lNT7Fh4HzdH
+	 eAIzlI4BWO5YLzDrsw72nts90BotzltEm04jSz32Rqij985oDgEYwYui2zECvwBSMk
+	 TTfKCLI9pS3AQ==
+Received: from RS-EX-MBS4.realsil.com.cn ([172.29.17.104])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68G8ElRT22223080
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 16 Sep 2026 16:14:48 +0800
+Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
+ RS-EX-MBS4.realsil.com.cn (172.29.17.104) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 16 Sep 2026 16:14:46 +0800
+Received: from 172.29.37.154 (172.29.37.152) by RS-EX-MBS2.realsil.com.cn
+ (172.29.17.102) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 16 Sep 2026 16:14:46 +0800
+From: javen <javen_xu@realsil.com.cn>
+To: <andrew@lunn.ch>, <hkallweit1@gmail.com>, <linux@armlinux.org.uk>,
+	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <freddy_gu@realsil.com.cn>, <nb@tipi-net.de>,
+	<maxime.chevallier@bootlin.com>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<daniel@makrotopia.org>, <vladimir.oltean@nxp.com>, Javen Xu
+	<javen_xu@realsil.com.cn>
+Subject: [PATCH net-next v1 3/3] net: phy: realtek: add support for RTL8261D_VM
+Date: Wed, 16 Sep 2026 16:14:44 +0800
+Message-ID: <20260916081444.497-4-javen_xu@realsil.com.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20260916081444.497-1-javen_xu@realsil.com.cn>
+References: <20260916081444.497-1-javen_xu@realsil.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Sep 2026 10:15:39 +0200
-Message-Id: <DLGLAZ55FZH3.114WUI353COSS@kernel.org>
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>,
- <Takahiro.Kuwano@infineon.com>
-Subject: Re: [PATCH 2/2] mtd: spi-nor: spansion: Assign .fixups to
- s25fs256s1
-Cc: <pratyush@kernel.org>, <richard@nod.at>, <vigneshr@ti.com>,
- <tudor.ambarus@linaro.org>, <alex@sverdlin.org>,
- <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260914-s25fs256s-fixup-v1-0-e94019455c1e@infineon.com>
- <20260914-s25fs256s-fixup-v1-2-e94019455c1e@infineon.com>
- <DLETVUMUX3AN.3SSH7NN2CKAIU@kernel.org>
- <fb4398e88939472eaa86cdc098a3d265@infineon.com>
- <DLEXS5VCYB1P.1NJI7ZU6HYUHF@kernel.org>
- <e15daee278f346cd8dae030e2409445e@infineon.com>
- <874ifqoctq.fsf@bootlin.com>
-In-Reply-To: <874ifqoctq.fsf@bootlin.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Tue Sep 15, 2026 at 3:37 PM CEST, Miquel Raynal wrote:
-> Hello,
->
->> This didn't help as SFDP cache size is truncated to PAGE_SIZE in sfdp.c:
->>
->> 	/*
->> 	 * Limit the total size to a reasonable value to avoid allocating too
->> 	 * much memory just of because the flash returned some insane values.
->> 	 */
->> 	if (sfdp_size > PAGE_SIZE) {
->> 		dev_dbg(dev, "SFDP data (%zu) too big, truncating\n",
->> 			 sfdp_size);
->> 		sfdp_size =3D PAGE_SIZE;
->> 	}
->
-> That size just being a sanity check, if it no longer fits our needs it
-> must be increased.
+From: Javen Xu <javen_xu@realsil.com.cn>
 
-Yes. Takahiro, could you propose a patch to replace the limit by
-let's say SZ_16K. Hopefully, nobody will use an arbitrary offset >
-0x3fff. but who knows :)
+Add support for RTL8261D_VM, its phy id is 0x001cc89a.
 
--michael
+Signed-off-by: Javen Xu <javen_xu@realsil.com.cn>
+---
+ drivers/net/phy/realtek/realtek_main.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+index 27051e2c7b5f..67199ef56c1a 100644
+--- a/drivers/net/phy/realtek/realtek_main.c
++++ b/drivers/net/phy/realtek/realtek_main.c
+@@ -258,6 +258,7 @@
+ #define RTL_8261C				0x001cc890
+ #define RTL_8261C_CG				0x001cc898
+ #define RTL_8261CE_CG				0x001cc899
++#define RTL_8261D_VM				0x001cc89a
+ 
+ #define RTL8261C_CE_MODEL		0x00
+ #define RTL8261D_MODEL			0x81
+@@ -3386,6 +3387,19 @@ static struct phy_driver realtek_drvs[] = {
+ 		.soft_reset		= genphy_c45_pma_soft_reset,
+ 		.suspend		= genphy_c45_pma_suspend,
+ 		.resume			= genphy_c45_pma_resume,
++	}, {
++		PHY_ID_MATCH_EXACT(RTL_8261D_VM),
++		.name			= "Realtek RTL8261D_VM 10Gbps PHY",
++		.probe			= rtl8261x_probe,
++		.config_init		= rtl8261x_config_init,
++		.get_features		= rtl8261x_get_features,
++		.config_aneg		= rtl8261x_config_aneg,
++		.read_status		= rtl8261x_read_status,
++		.config_intr		= rtl8261x_config_intr,
++		.handle_interrupt	= rtl8261x_handle_interrupt,
++		.soft_reset		= genphy_c45_pma_soft_reset,
++		.suspend		= genphy_c45_pma_suspend,
++		.resume			= genphy_c45_pma_resume,
+ 	},
+ };
+ 
+-- 
+2.43.0
+
