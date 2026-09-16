@@ -1,62 +1,45 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25934E8DE6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:54:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B214C4E80DA;
+	Wed, 16 Sep 2026 10:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556058; cv=none; b=VKtZo6YwuOw0kFG0IZ+XUjQrN4imonMTmqR/UshOGQtaQV1jLqHG9QXQ05RhPvJG7c3ZnO4QlzTrPsggFURvfvWaUSfz6IBgBYIsfaLt0HMukmm3BFoLY/UrCc0HvSecZ8U4NlzVTiM/WwlGpRNaih34iylRZg2xfEYfZZtQ/Fg=
+	t=1789556060; cv=none; b=qO/WS70+zdFtCSg1Ybhgu9CM5MAltIppVZC0p+ilvPbFD8gyCAsSnO22ptV0dgBZgvcIjEX+0w6vRG/Sq/45HSuUrPnK/lkHdcYi/BVstrltOxVfgKZHf2tbWbZGa95Eqo0oJDhT1LIibXEn1v94p/G59OSjWrljAE8Oy8ccy/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556058; c=relaxed/simple;
-	bh=m4X7MRZWd3cNk0VKYyFRiUeErjk5zJGY72sxjbNNxKk=;
+	s=arc-20240116; t=1789556060; c=relaxed/simple;
+	bh=pWq26uk36Fa3vaxgg5PlpdHHNdiXgXw4Jez39b9S7yY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Se3D6vmKnJbu2ZtolMCSugTJtYpKFgpBNl2jVYhDhYeqVpgIwqxGfMiBJZlXuxOWBiJhYA9ONTM0AaPQP6efjJms86QCgM01PaGd5iZzmz7zO+OUzUi/nfaYt+m1bfvVb95zWUyOpsYSvU1FtPqpmsrI1e7III0JLJWUTIlfdnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ETII8s4i; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=I8yRnjhYCLEfiXK6HFlK9RoLvxXjCASNZfDfWcsaCRXmwm0Yf7TRHTR6chzcROb5trFoQtrBOFc81xAI+LKYbXIiZ7fUotwVjJd1r6PuLuz+q7nVB9PW0tgX6QVOm4z1Hbc4NOvQ2QNIGjatO5vXvZFhdcUMGvw3CohV8kKOcnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmVxjWAI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ETII8s4i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789556047; x=1821092047;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=m4X7MRZWd3cNk0VKYyFRiUeErjk5zJGY72sxjbNNxKk=;
-  b=ETII8s4iAi/buVGnMFYThsauIgUpejOlo/TTz9H/ihjzQpCVCBffTZuI
-   uJTfYiLgtvrJUvZQhMvZy5oVBVdeXr/QHCRoDq4jdlMH+n5gAz7Xfp8xZ
-   B997pfQoJWzru0SrSQ5s3PNATy0AeMsyyWTIkz6Tq8bYI9ya8Lc4wXz9A
-   E+5ru2FLixhfmirNNHfZKGaBH602J2HfPGLXe+BDD+L8MhpvlTCy7iWoQ
-   PGnt08v++U69b/GJwXVn6UhDu6uZ3OE1auU1mWbRFs2fSYDf/1j0Oy0YM
-   F6f7hJM+cLMaZw8DeQyRQJm0yznwMAZ4hn4wiD7egw9OO65bapxvOBUZk
-   A==;
-X-CSE-ConnectionGUID: 5GNyxhHpTDKe0eczv6glBQ==
-X-CSE-MsgGUID: R4LZ9wtrT5qfXHVYWOdoww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92435977"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92435977"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:54:01 -0700
-X-CSE-ConnectionGUID: 3tBVsHOyRI+fdT7YcSwq/w==
-X-CSE-MsgGUID: QSVgFW3ST+i+qE11Rxk29w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1528991"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:53:59 -0700
-Date: Wed, 16 Sep 2026 13:53:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Ziran Zhang <zhangcoder@yeah.net>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Jordan R Abrahams-Whitehead <ajordanr@google.com>,
-	Marco Elver <elver@google.com>, Nilay Shroff <nilay@linux.ibm.com>,
-	Edward Cree <ecree@solarflare.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] list: add missing empty list check to list_cut_before()
-Message-ID: <aqp1RMcCSBftjsyn@ashevche-desk.local>
-References: <20260916100001.10634-1-zhangcoder@yeah.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmVxjWAI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CB51F00898;
+	Wed, 16 Sep 2026 10:54:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789556046;
+	bh=Lk85xeNcSE092LkOlJCMQ/OGCYgiaRkt+beVhCe3upM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HmVxjWAI/6i5FoXl7rUite4rysWcEEQDdkTWX9veRxbkCPUBQRW4yRQPavj6GyaiC
+	 qnTvgs5NZhGjxQppVb8aqE4tAutWQoMp+9vYiQuCgqIpTp2SI0HQ1+Djv8ai3/QQih
+	 6HcOCKtn1YR3ZOtKQYjcpltUEWEEqi+8g2PmODGmZ89S2lpW4LEMtciuNosj1bm7c+
+	 oL7AYPKNo9yWbdDQ6mG40BdlSXVUg2VPj21bZ9O2X5GEFJYqAngksppgV2WhE3hEu3
+	 vXwFUmQGi3Qs/RIkbKCZD9YDnoGFrqUaSsuSqCYWWg2XiLRT0+qCb1moi4oHGMuOc/
+	 nkKuYhImINXxA==
+Date: Wed, 16 Sep 2026 11:53:58 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
+	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
+	apopple@nvidia.com, peterx@redhat.com, jgg@ziepe.ca, 
+	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm/mempolicy: use vm_normal_folio_pmd() in
+ queue_folios_pmd()
+Message-ID: <aqpyp7ouLyxGhJDK@gremlin>
+References: <20260912034833.2952750-1-gourry@gourry.net>
+ <20260912034833.2952750-2-gourry@gourry.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,29 +48,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916100001.10634-1-zhangcoder@yeah.net>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260912034833.2952750-2-gourry@gourry.net>
 
-On Wed, Sep 16, 2026 at 06:00:01PM +0800, Ziran Zhang wrote:
-> list_cut_before() lacks the list_empty() guard present
-> in list_cut_position().
-> 
-> With an empty head and an entry not on the list, it
-> corrupts the list.
+On Fri, Sep 11, 2026 at 11:48:32PM -0400, Gregory Price wrote:
+> mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
+> vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
+>
+> 	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
+>
+> With a stand-in module for the driver:
+>
+>   BUG: unable to handle page fault for address: fffff96dc0000008
+>   RIP: 0010:queue_folios_pte_range+0xaf/0x440
+>    walk_pgd_range+0x52b/0xaf0
+>    __walk_page_range+0x6a/0x1d0
+>    walk_page_range_mm_unsafe+0x193/0x230
+>    queue_pages_range+0x64/0xa0
+>    do_mbind+0x25e/0x640
+>
+> queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
 
-Is it IRL case or the code analysis? If the former, add necessary information
-like hardware description (if applicable) and the important ~3-5 lines from
-traceback (I assume you rung with CONFIG_LIST_DEBUG=y).
+This makes me wonder if pmd_folio() is just generally defunct in favour of
+vm_normal_folio_pmd()?
 
-> Add the missing check.  When head is empty, initialize
-> @list as empty, consistent with the existing
-> head->next == entry case.
+> is raw MMIO with no memmap entry, so the folio lands in unpopulated
+> vmemmap.  Neither guard stops the walk:
+>
+>   walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
+>                            supplies ->test_walk, so it never runs
+>   queue_pages_test_walk()  honours vma_migratable(), but only while
+>                            MPOL_MF_STRICT is clear
+>
+> A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
+> mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
+> into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
+> mapping.
+>
+> Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
+> queue_folios_pte_range() already does with vm_normal_folio().  On the NULL
+> path, retain ACTION_CONTINUE handling for the huge zero PMD.
+>
+> mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
+> rather than -EIO.  The PTE loop already returned 0 there.
+>
+> Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  mm/mempolicy.c | 16 +++++++++-------
+>  1 file changed, 9 insertions(+), 7 deletions(-)
+>
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index 2ad0a5f18280..8fc8a975657e 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -667,7 +667,8 @@ static inline bool queue_folio_required(struct folio *folio,
+>  	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
+>  }
+>
+> -static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
+> +static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
+> +			     struct mm_walk *walk)
+>  {
+>  	struct folio *folio;
+>  	struct queue_pages *qp = walk->private;
+> @@ -678,13 +679,14 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
+>  			qp->nr_failed++;
+>  		return;
+>  	}
+> -	folio = pmd_folio(pmdval);
+> -	if (folio_is_zone_device(folio))
+> -		return;
+> -	if (is_huge_zero_folio(folio)) {
+> -		walk->action = ACTION_CONTINUE;
+> +	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
+> +	if (!folio) {
+> +		if (is_huge_zero_pmd(pmdval))
+> +			walk->action = ACTION_CONTINUE;
 
-Nice! Where is the test case?
+Since you've already identified that this is a leaf PMD, is there really any
+difference between setting walk->action to ACTION_CONTINUE or not?
 
--- 
-With Best Regards,
-Andy Shevchenko
+There's nothing to descend to in the subtree here so either way you continue to
+the next PMD entry don't you?
 
+So there's a pmd_entry specified for both set of walk ops:
 
+static const struct mm_walk_ops queue_pages_walk_ops = {
+	.hugetlb_entry		= queue_folios_hugetlb,
+	.pmd_entry		= queue_folios_pte_range,
+	.test_walk		= queue_pages_test_walk,
+	.walk_lock		= PGWALK_RDLOCK,
+};
+
+static const struct mm_walk_ops queue_pages_lock_vma_walk_ops = {
+	.hugetlb_entry		= queue_folios_hugetlb,
+	.pmd_entry		= queue_folios_pte_range,
+	.test_walk		= queue_pages_test_walk,
+	.walk_lock		= PGWALK_WRLOCK,
+};
+
+But no pte_entry or install_pte handlers.
+
+Reading walk_pmd_range() in mm/pagewalk.c:
+
+static int walk_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
+			  struct mm_walk *walk)
+{
+	bool has_handler = ops->pte_entry;
+	...
+	bool has_install = ops->install_pte;
+	...
+
+	do {
+again:
+		walk->action = ACTION_SUBTREE;
+		...
+		if (ops->pmd_entry)
+			err = ops->pmd_entry(pmd, addr, next, walk);
+		if (err)
+			break;
+
+		if (walk->action == ACTION_AGAIN)
+			goto again;
+		if (walk->action == ACTION_CONTINUE)
+			continue;
+
+		if (!has_handler) { /* No handlers for lower page tables. */
+			if (!has_install)
+				continue; /* Nothing to do. */
+			...
+		}
+	...
+	} while (pmd++, addr = next, addr != end);
+	...
+}
+
+It seems that setting ACTION_CONTINUE or not makes no difference.
+
+This is really just a long way of saying maybe you could just do:
+
+	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
+	if (!folio)
+		return;
+
+? :)
+
+>  		return;
+>  	}
+> +	if (folio_is_zone_device(folio))
+> +		return;
+>  	if (!queue_folio_required(folio, qp))
+>  		return;
+>  	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
+> @@ -717,7 +719,7 @@ static int queue_folios_pte_range(pmd_t *pmd, unsigned long addr,
+>
+>  	ptl = pmd_trans_huge_lock(pmd, vma);
+>  	if (ptl) {
+> -		queue_folios_pmd(pmd, walk);
+> +		queue_folios_pmd(pmd, addr, walk);
+>  		spin_unlock(ptl);
+>  		goto out;
+>  	}
+> --
+> 2.55.0
+>
+
+--
+Cheers, Lorenzo
