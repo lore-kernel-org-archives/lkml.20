@@ -1,301 +1,136 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3737B4F7971
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EF33812DB
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567077; cv=none; b=sS20BIv+TxENgt6ORCEGM0+v0iDP7BLWOeaE7JHmalSDWfCVwLh9WBG9Fu3zyU1U9o5fVUmQI2Tv8pw07hmjvSDp+yX8eFPus+wsNVOjBIAFcdSNBHzZ7Qw0iSgDP+3V0FrA/9wgZ83Ij4ATl45RcQOu6VaUPM2/2YfXVCfkiuw=
+	t=1789567103; cv=none; b=C+QCC3HOrKB1cUxXMCV0q7PwJd4SAKCNfQBRM0CW42Jj7kZmLkjWO3Qpc/5dqE4ShlJyiGoKlCrCmQ4bZRCscDtWq8zL92i9fj6B0heRyR5xgCPAji/F7sn8e0G53yVUVRyyHSTHS3Z20pglyDJ+iGiXKuYyQrthaPzLx+zwS6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567077; c=relaxed/simple;
-	bh=RkjeHSdw7gboKv3TlXd5x7VQ4B/VUIfakNRO8/2kPEY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=UnJ1z6fVh0Mmzv4vMo65P5xkivCdxNlUr8qylxekB6jLnhno8OJpOoj5kAPLTd6cTGkg7GTJ00PuEUW16VDSj2+yUcVSDhTVQ93R+ium23zbf1VYI4pqB1i6cXE+jd2CO5rf+lJ5IXUeh+leLW0DiMoPmkaT2dypJS9CfWM85wQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=OIhDjWpU; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789567103; c=relaxed/simple;
+	bh=iiDYDHl9MKLKZ1/61/xpTK1CbKNRPXrS/wvReXuYRwQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=irBVc8ki5YaFj41GH7mA0tUq4PnqiDFymFjxdESn4m47ZO69D1YjtvuuaiwFhKMg0EqoVqJNDYqfVtRdMSUZS4hT0USBkk2FIPGo3ns05ymIyYAp7Sa3bvjguYzx2v9mfzaDp8/gb+uvzVT6Iug5/2XHXvlpsBytCOUgP/mJ3+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ba+bZUhJ; arc=none smtp.client-ip=91.218.175.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="OIhDjWpU"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso484904f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:57:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789567069; x=1790171869; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u6NIqxABqSzbjUObGDoPenZLidHkyNOOkWfBJVH3qX0=;
-        b=OIhDjWpUfggO2j59LNvH7ZYL448/O3nyWbtJem84h59UsMLO11KNGK5E4U3m+uL1SS
-         8ac0PeHf8UvWoPuhRKbhJbF62EMyXr8tOrDlRlv0XVMDkhD5PzMtX6rkp9Cvpm5leJ1e
-         uWYWPzDoZuPNwp2OtepztyJW33X/QfGmufkCSUOs/yFDYJViJ610K3NEyk4LvRs9PzDf
-         USnVSedhZP+yX5hkfHqRLU4hCi937750901gdzSJEbgdWk6kuZ4Y5qy8408KIl4Ip3L+
-         nrxWfimda3rWv5ayPa68chCrXurozU0jSRzcXn6WphFMy+5kX3pZfxyAC9UVKiRSmV4P
-         VfxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789567069; x=1790171869;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u6NIqxABqSzbjUObGDoPenZLidHkyNOOkWfBJVH3qX0=;
-        b=Cyr63REenuO91K2P3+miqjWVk5lnbxy7jt77/toeMpZK8y2dLpnJw4ab3uq784mJDA
-         /Px3rDx+mgd2Mkqd6j0Fw0xiInX1a4tJfSISESN1j0Gmqr1yof1C7WZ4iyYJt8k25tWq
-         JcEx/RO1F8MRZwVCOsIbwhbVNXUfOmELHa1kGhO2K1nTU7i+RlmrCu2YEHOOJNBCT58T
-         PAGQW+Ho5JMRViY+laeWin9hYoijZNaCVpFxmRchYhG1VWDAIkbq5ii8FJE+pV9dRLw1
-         k10ecBHkzxy19j1l9T3YQpb6lhcLMQiYNnMii5tQVscczBGpkkoEYniiFp+yMp4y7Jl+
-         e4Ig==
-X-Gm-Message-State: AFuF++kelQChaLOSuXwNTgDrq8NrhPCAcFRXHCwEvOIDRUpTE4tuqLXe
-	tM3d6T7cIdfyoSW4sd+r9BFGLyli9orqJN+VayP176Z12yyTosNJnSzmidnXk4FM9+8=
-X-Gm-Gg: AYBFou0JWrRI1Ho4ZHeHSxpMXgaOyz08aN7Pv6hTrFXdMbvIFvFCSiL5XpFYBjJ44U1
-	K1/CU9sT6DkS/vgU8gsjDqKNSfPUZt/NetwuE00Fk7YNlDsntHYled0z1GdTSP8+/noYbjfM49k
-	f/tFTtTAgsAZyd6y/OemQmFkVrQw9vHoDwG/7SAmoKRK3+DNDvUOdRJB3kWi+/DZJchbubh4wuQ
-	Xq6RxbntnLPBkgvjLvkfD0GH3jjhfoENxOHoUyS4BmMDPPSGXK75+zAE8K3Yyn3zaMBvySlKoKD
-	bJL6qawCqUNlSr1uRSicCuXc8yBPo9QwrlkRMvYlITgW5pPt0ONGKKtBJu33HMcNin5z+dC+FyB
-	rDvtHjd0CLQLYX7R4+ZcmC8nRRPChdur/1Hi8VYD9IOSlozhaZGZf/YyrYNpMiMDTJAwTnUwKYV
-	v6VLrTA2SOwN6sf5bj5n6qwB8U8FXFrFkb9JAAmyRTNARlYvUiWB0JDi8u80CX09lQLIbPX8oIv
-	GRR04srWESRI+4NGg==
-X-Received: by 2002:a05:600c:1da8:b0:49c:fc6c:be09 with SMTP id 5b1f17b1804b1-49eb7345517mr33097655e9.32.1789567068836;
-        Wed, 16 Sep 2026 06:57:48 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e847fcb7dsm27771135e9.4.2026.09.16.06.57.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:57:48 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Vyacheslav Yurkov <uvv.mail@gmail.com>, Vyacheslav Yurkov via B4 Relay
- <devnull+V.Yurkov.EXT.bruker.com@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, Brian Masney
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri
- Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Subject: Re: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
-In-Reply-To: <e697d892-fbd2-432a-b71c-8547ead22ea0@gmail.com>
-References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
- <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
- <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
- <e697d892-fbd2-432a-b71c-8547ead22ea0@gmail.com>
-Date: Wed, 16 Sep 2026 15:57:46 +0200
-Message-ID: <1jtsnpcn8l.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ba+bZUhJ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=iiDYDHl9MKLKZ1/61/xpTK1CbKNRPXrS/wvReXuYRwQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789567097; v=1; x=1790171897;
+ b=Ba+bZUhJVZRNGz4Vo1lf2EfxsimXws44RGyCkaigz7bSfQHDHD4gTXhf0A8olb3L870aSvnM
+ JIRNySaThwnfuATqHAlACmxfepHD5LkY5OBf3oBvP1XNKRqe9BG5d2cGX2hqGUtWzSga3VCArwr
+ 2AzR8hwg1QBUDZqOCWwNuTiY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id a6997d378aa2180c;
+	Wed, 16 Sep 2026 13:58:07 +0000
+X-Mizu-Trace-ID: a6997d378aa2180c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2c1aee3c-3ea5-44f7-915c-5a812a261032@linux.dev>
+Date: Wed, 16 Sep 2026 14:58:02 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: libsas: Fix SMP IO deadlock during HA resume
+To: yangxingui <yangxingui@huawei.com>, yanaijie@huawei.com,
+ jejb@linux.ibm.com, martin.petersen@oracle.com, mkp@kernel.org
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxarm@huawei.com, liuyonglong@huawei.com, kangfenglong@huawei.com
+References: <20260826032845.1632348-1-yangxingui@huawei.com>
+ <a97c6cfb-8476-1030-a07a-fea1c004ecbe@huawei.com>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <a97c6cfb-8476-1030-a07a-fea1c004ecbe@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On mar. 15 sept. 2026 at 15:58, Vyacheslav Yurkov <uvv.mail@gmail.com> wrote:
+On 9/11/26 02:00, yangxingui wrote:
+> Hi John & Jason,
+> 
+> Kindly ping for review...
 
-> On 15.09.2026 12:09, Jerome Brunet wrote:
->> On mar. 15 sept. 2026 at 09:27, Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org> wrote:
->> 
->>> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
->>>
->>> A gpio-locked clock exposes a clock, which status is determined by a
->>> GPIO signal. The common use-case is a FPGA-assisted clocking design
->>> where peripheral clocks are generated by FPGA PLLs that are outside
->>> CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
->>> Consumers can use the output clock to wait until the input clock is locked
->>> and only then initialize dependent peripherals.
->>>
->> 
->> We already have gpio gate driver in drivers/clk/clk-gpio.c
->> 
->> It would be much better if you could just extend that one that take
->> optionally take a clock input like you do here.
->
-> It is a bit more than that. The gated clock requires "enable-gpios" 
-> property, while gpio-locked clock needs "locked-gpios". Technically I 
-> could re-use the "enable-gpios", but that might lead to a confusion, 
-> because semantically they are used for different purpose. Do you think 
-> the extension of clk-gpio.c would be still better in this case?
+What about the sashiko comment:
 
-Apologies, I've mis-read you initial submission.
-Basically this is a read-only gate controlled by a gpio.
+- [High] Bypassing PM reference counting via a global state flag creates 
+a race condition where concurrent independent threads can submit SMP 
+I/Os without holding a PM reference, risking premature hardware suspend.
 
-I think it still belongs in clk-gpio with its own ops, along with the
-gate and mux that are already there.
+It looks correct.
 
-enabled-gpio for the pin maybe ?
+> 
+> On 2026/8/26 11:28, Xingui Yang wrote:
+>> During sas_resume_ha() -> sas_drain_work(), 
 
->
->>> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
->>> ---
->>>   drivers/clk/Makefile          |   1 +
->>>   drivers/clk/clk-gpio-locked.c | 169 ++++++++++++++++++++++++++++++++++++++++++
->>>   2 files changed, 170 insertions(+)
->>>
->>> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
->>> index b18af485d7f0..b904f292d683 100644
->>> --- a/drivers/clk/Makefile
->>> +++ b/drivers/clk/Makefile
->>> @@ -46,6 +46,7 @@ obj-$(CONFIG_CLK_FD_KUNIT_TEST) += clk-fractional-divider_test.o
->>>   obj-$(CONFIG_COMMON_CLK)	+= clk-gpio.o
->>>   ifeq ($(CONFIG_OF), y)
->>>   obj-$(CONFIG_COMMON_CLK)	+= clk-conf.o
->>> +obj-$(CONFIG_COMMON_CLK)	+= clk-gpio-locked.o
+This is poorly described - what does during sas_resume_ha() -> 
+sas_drain_work() even mean?
 
-Drop every reference to locked ... this is very PLL oriented and the
-driver you are proposing is more generic than that
+> ATA EH will trigger SMP 
+>> IOs via
+>> sas_phy_reset() -> sas_smp_phy_control() for expander-attached ATA 
+>> devices.
 
+What commands are these specifically?
 
->>>   endif
->>>   
->>>   # KUnit specific helpers
->>> diff --git a/drivers/clk/clk-gpio-locked.c b/drivers/clk/clk-gpio-locked.c
->>> new file mode 100644
->>> index 000000000000..b648f8763922
->>> --- /dev/null
->>> +++ b/drivers/clk/clk-gpio-locked.c
->>> @@ -0,0 +1,169 @@
->>> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +/*
->>> + * Clock Controller Guard Driver
->>> + *
->>> + * Copyright 2026 Bruker Corporation
->>> + */
->>> +
->>> +#include <linux/clk.h>
->>> +#include <linux/clk-provider.h>
->>> +#include <linux/device.h>
->>> +#include <linux/gpio/consumer.h>
->>> +#include <linux/module.h>
->>> +#include <linux/of.h>
->>> +#include <linux/platform_device.h>
->>> +#include <linux/slab.h>
->>> +
->>> +/**
->>> + * struct gpio_locked_clk_priv - private state for the whole driver
->>> + * @dev:		platform device
->>> + *
->>> + * @input_clk	input clock
->>> + * @gpios:		input GPIO descriptor
->>> + *
->>> + * @output_hw_clk:      output clock HW descriptor
->>> + * @output_clock_name:  output clock name
->>> + */
->>> +struct gpio_locked_clk_priv {
->>> +	struct device *dev;
->>> +
->>> +	struct clk *input_clk;
->>> +	struct gpio_desc *gpios;
->>> +
->>> +	struct clk_hw output_hw_clk;
->>> +	const char *output_clock_name;
->>> +};
->>> +
->>> +#define to_gpio_locked_clk_priv(_hw) \
->>> +	container_of(_hw, struct gpio_locked_clk_priv, output_hw_clk)
->>> +
->>> +static int gpio_locked_clk_is_enabled(struct clk_hw *hw)
->>> +{
->>> +	struct gpio_locked_clk_priv *priv = to_gpio_locked_clk_priv(hw);
->>> +
->>> +	int data = gpiod_get_value(priv->gpios);
->>> +
->>> +	if (data < 0) {
->>> +		dev_err(priv->dev, "Failed to get data gpio val: %d\n",
->>> +				data);
->>> +		return data;
->>> +	} else if (!data) {
->>> +		dev_warn(priv->dev, "GPIO is not ready");
->>> +		return -EBUSY;
->>> +	}
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +/* We can't enable the clock, but the Common Clock Framework calls only
->>> + * enable() not is_enabled()
->>> + */
->>> +static int gpio_locked_clk_enable(struct clk_hw *hw)
->>> +{
->>> +	return gpio_locked_clk_is_enabled(hw);
->>> +}
+>> Since ha->dev is RPM_RESUMING at that point, pm_runtime_get_sync() blocks
+>> waiting for the resume to finish, but the resume is blocked in
+>> sas_drain_work() waiting for the SMP IO — a deadlock.
+>>
+>> Skip the PM get/put when SAS_HA_RESUMING is set. The hardware is already
+>> initialized by the LLDD resume callback before sas_resume_ha() runs, 
+>> so no
+>> explicit resume is needed.
+>>
+>> Only hisi_sas enables runtime PM among libsas LLDDs, so other drivers
+>> (pm8001, isci, aic94xx, mvsas) are unaffected.
+>>
+>> Fixes: 0da7ca4c4fd9 ("scsi: libsas: Resume host while sending SMP I/Os")
+>> Signed-off-by: Xingui Yang <yangxingui@huawei.com>
+>> ---
+>>   drivers/scsi/libsas/sas_expander.c | 16 +++++++++++++---
+>>   1 file changed, 13 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/scsi/libsas/sas_expander.c b/drivers/scsi/libsas/ 
+>> sas_expander.c
+>> index 811c9eb4fef1..77ae2ae7b2c4 100644
+>> --- a/drivers/scsi/libsas/sas_expander.c
+>> +++ b/drivers/scsi/libsas/sas_expander.c
+>> @@ -61,8 +61,17 @@ static int smp_execute_task_sg(struct domain_device 
+>> *dev,
+>>       struct sas_internal *i =
+>>           to_sas_internal(dev->port->ha->shost->transportt);
+>>       struct sas_ha_struct *ha = dev->port->ha;
+>> -
+>> -    pm_runtime_get_sync(ha->dev);
+>> +    bool skip_pm = test_bit(SAS_HA_RESUMING, &ha->state);
+>> +
+>> +    /*
+>> +     * Skip PM get/put during HA resume to avoid deadlock: the host is
+>> +     * RPM_RESUMING and the drain waits for this SMP IO to finish, but
+>> +     * pm_runtime_get_sync() would block on RPM_RESUMING. Safe because
+>> +     * hardware is already initialized by the LLDD before call
+>> +     * sas_resume_ha().
+>> +     */
+>> +    if (!skip_pm)
+>> +        pm_runtime_get_sync(ha->dev);
+>>       mutex_lock(&dev->ex_dev.cmd_mutex);
+>>       for (retry = 0; retry < 3; retry++) {
+>>           if (test_bit(SAS_DEV_GONE, &dev->state)) {
+>> @@ -135,7 +144,8 @@ static int smp_execute_task_sg(struct 
+>> domain_device *dev,
+>>           }
+>>       }
+>>       mutex_unlock(&dev->ex_dev.cmd_mutex);
+>> -    pm_runtime_put_sync(ha->dev);
+>> +    if (!skip_pm)
+>> +        pm_runtime_put_sync(ha->dev);
+>>       BUG_ON(retry == 3 && task != NULL);
+>>       sas_free_task(task);
+>>
 
-You need to explain your problem a bit more because this is not OK. Your
-clock should really just provide .is_enabled() AFAICT
-
->>> +
->>> +/* We have to implement it, but we are not going to control
->>> + * parent clock selection
->>> + */
->>> +static u8 gpio_locked_clk_get_parent(struct clk_hw *hw)
->>> +{
->>> +	return 0;
->>> +}
-
-Same, I dont get why you need that. Not needed if there a single parent
-
->>> +
->>> +static const struct clk_ops gpio_locked_clk_ops = {
->>> +	.enable =	gpio_locked_clk_enable,
->>> +	.is_enabled =	gpio_locked_clk_is_enabled,
->>> +	.get_parent =	gpio_locked_clk_get_parent,
->>> +};
->>> +
->>> +static int gpio_locked_clk_parse_outputs(struct gpio_locked_clk_priv *priv)
->>> +{
->>> +	struct device *dev = priv->dev;
->>> +	struct device_node *np = dev->of_node;
->>> +	int ret;
->>> +
->>> +	of_property_read_string_index(np, "clock-output-names", 0,
->>> +		&priv->output_clock_name);
->>> +
->>> +	if (!priv->output_clock_name)
->>> +		priv->output_clock_name = dev_name(priv->dev);
->>> +
->>> +	priv->output_hw_clk.init =
->>> +		CLK_HW_INIT_FW_NAME(priv->output_clock_name,
->>> +				    __clk_get_name(priv->input_clk),
-
-No, just put the name as it is in DT (input?) or go for index 0 possibly
-?
-
-No call to devm_clk_get_enabled() from this driver to its input. A clock
-controller should not do that. The consuming device will get this clock,
-enable it and the enable will trickle down to the provider.
-
-
->>> +				    &gpio_locked_clk_ops, 0);
->>> +
->>> +	ret = devm_clk_hw_register(dev, &priv->output_hw_clk);
->>> +	if (ret) {
->>> +		dev_err(dev, "failed to register output clk'%s': %d\n",
->>> +			priv->output_clock_name, ret);
->>> +		return ret;
->>> +	}
->>> +
->>> +	dev_info(priv->dev, "Output clock '%s' registered\n", priv->output_clock_name);
->>> +
-
-Drop those prints
-
->>> +	return 0;
->>> +}
->>> +
->>> +static int gpio_locked_clk_probe(struct platform_device *pdev)
->>> +{
->>> +	struct device *dev = &pdev->dev;
->>> +	struct gpio_locked_clk_priv *priv;
->>> +	int ret;
->>> +
->>> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->>> +	if (!priv)
->>> +		return -ENOMEM;
->>> +
->>> +	priv->dev = dev;
->>> +	platform_set_drvdata(pdev, priv);
->>> +
->>> +	priv->input_clk = devm_clk_get_enabled(priv->dev, NULL);
->>> +	if (IS_ERR(priv->input_clk))
->>> +		return dev_err_probe(priv->dev, PTR_ERR(priv->input_clk),
->>> +				"Failed to get locked fixed clock, not yet ready\n");
->> 
->> In your use case it might be fixed, but nothing says it is in general
->> 
-> Good point, thanks.
-
--- 
-Jerome
