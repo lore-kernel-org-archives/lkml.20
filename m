@@ -1,198 +1,119 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D512E3EC687;
-	Wed, 16 Sep 2026 06:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC963EDE52
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541732; cv=none; b=h7BhwRMKh+cqb3JwHEeUwv8Sk3xvpIuvkxigxZ9X4zQaH1eSdJAOOasl/Qbmz7F3f94dfRkzHkz3h9Nw+STFQzuusThUhXF/WLPxIz6BpqtzfiOnnV54PInJ/OpRW/mzAl8dcPSXq11W4jGrMUknWM0jRUvP2uXK5ts2PedcW+U=
+	t=1789541740; cv=none; b=fwR75ZnKhUU2iJlFR/iTchXgFkVqmGBd4mYn42WJlmYxOsR2RhELs6ZsEhbTm8Wzz7r/c7QdWWOBg0LdDK1ogSTnHb63jpT7HBFczWBpQkKulUGdc+OEQy27Qu3dSmwM8Q8E59rbDTDBs8BFdr/1xOXIa3m0rtteKCDq9Y/mEAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541732; c=relaxed/simple;
-	bh=hOx6+HehGLpqTjaUsjvTe269B+sTWy2OqbWfsNAopY8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lTcqdFTA0yPAJbYtxkrrgnVvAn+Gd+UbOt9T6uHLtTvlaVwI8iqb18Q0ya4625dIBfyn0ln4p9M/yW3eAzXrvHHKxzZyAEj8erW2khHVYw/SQO32Xw1a9HAksuvI21CC7xCCPd1vD3C9iEN6pNxPkeEFCRgy8zDWExL8XhOQrA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [127.0.1.1] (unknown [223.166.93.127])
-	by APP-03 (Coremail) with SMTP id rQCowAAHET9VPapqgcreBw--.40492S2;
-	Wed, 16 Sep 2026 14:55:18 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-Date: Wed, 16 Sep 2026 14:55:00 +0800
-Subject: [PATCH] power: reset: th1520-aon: send RPCs from sleepable
- handlers
+	s=arc-20240116; t=1789541740; c=relaxed/simple;
+	bh=JTJ88IGbzVBPXF6knhuLYB1+SszOHaf+na+fa/yh0/Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=QPq0WbqkDI/zL3VAT9J/9h9RaiTrEMOttO+VgxiHAlpLuPAIVEN5zmKDauANaPnstrcxX10fXlcLAMGGMH2rOlk9CDJwB4gX7xAK0OMeoXB/ldEphCuWIJGyuhSASOlGAXMg9eggT+g/8o6Q9CfAtzTaAzbwjEwNpqHPEPNQLsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=sN29VXdR; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="sN29VXdR"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260916065534epoutp04a684a7f98250359d19a09bcb21d11afc~Vurn-BMTH0486004860epoutp04O
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:55:34 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260916065534epoutp04a684a7f98250359d19a09bcb21d11afc~Vurn-BMTH0486004860epoutp04O
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789541735;
+	bh=Dmq9AZ1vIHHYBfJ/kR1wgFXYb1HSX0N4D1w5gRdEoaA=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=sN29VXdR2j2bHvRXpPTbj65RGugMMyVibw4Cu63eA28RRhMrNqI0nPBPvmSnvDR5x
+	 gP6nnnf8gREha+A1Ic3cb+oXm+ZsDuAs4r29tPDWqiGZ/cwIwQd1+NbHqICNrggcYE
+	 wcMP9LcNSs4xbG6HRoWfXxv9I4rIQan2LaNPgUSs=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260916065534epcas5p3a129d4f73b4e4d18ce8fb3af12881fb3~VurnU534m1719117191epcas5p3p;
+	Wed, 16 Sep 2026 06:55:34 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.86]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4hl8m50R9Bz3hhT7; Wed, 16 Sep
+	2026 06:55:33 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260916065532epcas5p3bac23ebb76d7f13815042d4e89821649~Vurln5I_T1987819878epcas5p3u;
+	Wed, 16 Sep 2026 06:55:32 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260916065529epsmtip129833710e6fe28286b722fa81fb5efef~Vuri6XZjm1077810778epsmtip18;
+	Wed, 16 Sep 2026 06:55:29 +0000 (GMT)
+Message-ID: <0faf2d75-3b0c-4b89-ab89-d5f93eb26821@samsung.com>
+Date: Wed, 16 Sep 2026 12:25:21 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] usb: dwc3: Add Exynos8855 to the generic platform
+ driver
+To: Krzysztof Kozlowski <krzk@kernel.org>, peter.griffin@linaro.org,
+	alim.akhtar@samsung.com, gregkh@linuxfoundation.org, robh@kernel.org,
+	conor+dt@kernel.org, Thinh.Nguyen@synopsys.com,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
+	hongpooh.kim@samsung.com, eomji.oh@samsung.com, shijie.cai@samsung.com,
+	muhammed.ali@samsung.com, thiagu.r@samsung.com
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <9969f6d6-71ee-4c22-9b37-a0f6bac97169@kernel.org>
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-fix-xuantieaon-v1-1-c6dc530a4884@iscas.ac.cn>
-X-B4-Tracking: v=1; b=H4sIAEM9qmoC/x2MQQqAIBAAvyJ7TtCFhPpKdFhqq72soRVC+Pek4
- 8DMvJA5CWcYzQuJH8kStYHvDCwH6c5W1saADoMbfLCbFFtu0kuYolrP5HwgxB4DtOhM3Ix/OM2
- 1fqaSpRBgAAAA
-X-Change-ID: 20260916-fix-xuantieaon-1ea016a22526
-To: Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
- Fu Wei <wefu@redhat.com>, Sebastian Reichel <sre@kernel.org>, 
- Ulf Hansson <ulfh@kernel.org>, Icenowy Zheng <uwu@icenowy.me>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, 
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.14.2
-X-CM-TRANSID:rQCowAAHET9VPapqgcreBw--.40492S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw4DJr4fJw48ArWxtF45trb_yoW7JFyxpa
-	s7CF4FyFWkGF12gF4xZrWjgrWfZrn5Jr47WrWfG34UuFnxJr9YvFWUKFW2gFyftFW7u3W7
-	Zrn0vrWUurn8W3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBwMMDGqqB-XvawAAsy
+X-CMS-MailID: 20260916065532epcas5p3bac23ebb76d7f13815042d4e89821649
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260903071322epcas5p2a40e3299b0954dd880c9b3651555760c
+References: <20260903071250.3421499-1-selvarasu.g@samsung.com>
+	<CGME20260903071322epcas5p2a40e3299b0954dd880c9b3651555760c@epcas5p2.samsung.com>
+	<20260903071250.3421499-4-selvarasu.g@samsung.com>
+	<9969f6d6-71ee-4c22-9b37-a0f6bac97169@kernel.org>
 
-The AON RPC takes a mutex and waits for mailbox interrupts. The final
-sys-off handlers run on atomic notifier chains, where this can sleep
-with interrupts disabled.
 
-Send the requests from the preparation handlers before syscore shutdown.
-Retain a final power-off handler to advertise capability and report
-failure without issuing another RPC. Let other providers handle
-fallback.
+On 9/5/2026 12:49 PM, Krzysztof Kozlowski wrote:
+> On 03/09/2026 09:12, Selvarasu Ganesan wrote:
+>> Add the "samsung,snps-dwc3" compatible string to dwc3-generic-plat so
+>> the Exynos8855 USB3 DWC3 controller can probe through the generic DWC3
+>> platform glue.
+>>
+>> The "samsung,snps-dwc3" string is used as a generic fallback to support
+>> any Exynos SoC that utilizes a flattened model instantiation. This
+>> fallback allows multiple Exynos SoCs to be supported by the generic
+>> platform driver simply by adding the fallback compatible to their
+>> respective device tree nodes.
+>>
+>> Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
+>> Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
+>> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+>> ---
+>>   drivers/usb/dwc3/dwc3-generic-plat.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
+>> index ca69ac0eb07c..33a76c37d15d 100644
+>> --- a/drivers/usb/dwc3/dwc3-generic-plat.c
+>> +++ b/drivers/usb/dwc3/dwc3-generic-plat.c
+>> @@ -237,6 +237,7 @@ static const struct of_device_id dwc3_generic_of_match[] = {
+>>   	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+>>   	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
+>>   	{ .compatible = "starfive,jhb100-dwc3", },
+>> +	{ .compatible = "samsung,snps-dwc3", },
+> Why not in alphabetical order?
 
-Report RPC errors and allow one second after a successful return for the
-asynchronous operation to take effect. This is a software fallback
-timeout, not a hardware timing requirement.
+You're right, it's not in alphabetical order. I'll fix this in the next 
+version.
 
-Fixes: 2d81a24a74e5 ("driver: reset: th1520-aon: add driver for poweroff/reboot via AON FW")
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
- drivers/power/reset/th1520-aon-reboot.c | 49 +++++++++++++++++++++++----------
- 1 file changed, 34 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/power/reset/th1520-aon-reboot.c b/drivers/power/reset/th1520-aon-reboot.c
-index ec249667a0ffd74829357d57b9e63c3524ea3759..ace70491834dc9a63ed543427e40e4cbc0a9388f 100644
---- a/drivers/power/reset/th1520-aon-reboot.c
-+++ b/drivers/power/reset/th1520-aon-reboot.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/auxiliary_bus.h>
-+#include <linux/delay.h>
- #include <linux/firmware/thead/thead,th1520-aon.h>
- #include <linux/module.h>
- #include <linux/notifier.h>
-@@ -14,37 +15,46 @@
- #include <linux/slab.h>
- 
- #define TH1520_AON_REBOOT_PRIORITY 200
-+/* Allow an accepted asynchronous command to take effect before fallback. */
-+#define TH1520_AON_REBOOT_TIMEOUT_MS 1000
- 
- struct th1520_aon_msg_empty_body {
- 	struct th1520_aon_rpc_msg_hdr hdr;
- 	u16 reserved[12];
- } __packed __aligned(1);
- 
--static int th1520_aon_pwroff_handler(struct sys_off_data *data)
-+static int th1520_aon_reboot_request(struct sys_off_data *data, u8 func)
- {
- 	struct th1520_aon_chan *aon_chan = data->cb_data;
- 	struct th1520_aon_msg_empty_body msg = {};
-+	int ret;
- 
- 	msg.hdr.svc = TH1520_AON_RPC_SVC_WDG;
--	msg.hdr.func = TH1520_AON_WDG_FUNC_POWER_OFF;
-+	msg.hdr.func = func;
- 	msg.hdr.size = TH1520_AON_RPC_MSG_NUM;
- 
--	th1520_aon_call_rpc(aon_chan, &msg);
-+	ret = th1520_aon_call_rpc(aon_chan, &msg);
-+	if (ret)
-+		dev_err(data->dev, "AON WDG command %u failed: %d\n", func, ret);
-+	else
-+		msleep(TH1520_AON_REBOOT_TIMEOUT_MS);
- 
- 	return NOTIFY_DONE;
- }
- 
--static int th1520_aon_restart_handler(struct sys_off_data *data)
-+static int th1520_aon_pwroff_handler(struct sys_off_data *data)
- {
--	struct th1520_aon_chan *aon_chan = data->cb_data;
--	struct th1520_aon_msg_empty_body msg = {};
--
--	msg.hdr.svc = TH1520_AON_RPC_SVC_WDG;
--	msg.hdr.func = TH1520_AON_WDG_FUNC_RESTART;
--	msg.hdr.size = TH1520_AON_RPC_MSG_NUM;
-+	return th1520_aon_reboot_request(data, TH1520_AON_WDG_FUNC_POWER_OFF);
-+}
- 
--	th1520_aon_call_rpc(aon_chan, &msg);
-+static int th1520_aon_restart_handler(struct sys_off_data *data)
-+{
-+	return th1520_aon_reboot_request(data, TH1520_AON_WDG_FUNC_RESTART);
-+}
- 
-+static int th1520_aon_pwroff_failed(struct sys_off_data *data)
-+{
-+	dev_err(data->dev, "AON did not power off the system\n");
- 	return NOTIFY_DONE;
- }
- 
-@@ -54,8 +64,11 @@ static int th1520_aon_reboot_probe(struct auxiliary_device *adev,
- 	struct device *dev = &adev->dev;
- 	int ret;
- 
--	/* Expect struct th1520_aon_chan to be passed via platform_data */
--	ret = devm_register_sys_off_handler(dev, SYS_OFF_MODE_POWER_OFF,
-+	/*
-+	 * RPC takes a mutex and waits for mailbox interrupts. Send after device
-+	 * shutdown, but before syscore shutdown and the final atomic callbacks.
-+	 */
-+	ret = devm_register_sys_off_handler(dev, SYS_OFF_MODE_POWER_OFF_PREPARE,
- 					    TH1520_AON_REBOOT_PRIORITY,
- 					    th1520_aon_pwroff_handler,
- 					    adev->dev.platform_data);
-@@ -65,7 +78,7 @@ static int th1520_aon_reboot_probe(struct auxiliary_device *adev,
- 		return ret;
- 	}
- 
--	ret = devm_register_sys_off_handler(dev, SYS_OFF_MODE_RESTART,
-+	ret = devm_register_sys_off_handler(dev, SYS_OFF_MODE_RESTART_PREPARE,
- 					    TH1520_AON_REBOOT_PRIORITY,
- 					    th1520_aon_restart_handler,
- 					    adev->dev.platform_data);
-@@ -75,7 +88,13 @@ static int th1520_aon_reboot_probe(struct auxiliary_device *adev,
- 		return ret;
- 	}
- 
--	return 0;
-+	/*
-+	 * Advertise power-off capability to kernel_can_power_off(). This final
-+	 * callback must not send RPCs; let other providers try if AON failed.
-+	 */
-+	return devm_register_sys_off_handler(dev, SYS_OFF_MODE_POWER_OFF,
-+					     TH1520_AON_REBOOT_PRIORITY,
-+					     th1520_aon_pwroff_failed, dev_get_platdata(dev));
- }
- 
- static const struct auxiliary_device_id th1520_aon_reboot_id_table[] = {
-
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260916-fix-xuantieaon-1ea016a22526
-
-Best regards,
--- 
-Han Gao <gaohan@iscas.ac.cn>
-
+Thanks,
+Selva
+>
+> Best regards,
+> Krzysztof
