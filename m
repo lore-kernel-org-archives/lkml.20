@@ -1,63 +1,84 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603D93DAAC2;
-	Wed, 16 Sep 2026 12:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18852DCF61
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:33:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562008; cv=none; b=pEnuq72yjjQCv8cgCjODU7u93dgew9S9kDAt8Ss8oyb6lvsPraCHLLArnVpr3kRdQ2T8xDyvDAMl5IvUdWpQu6ARXshXYa5v5oiFKByot8QmodXsOTcM7F+mTAVCigEdW+kZb6PYbTpWgDv2kxO6NIQOXnX4e33sYQVas2OqX1A=
+	t=1789562022; cv=none; b=AZSmxmgAGLvNEFsHlSY55Xh1GdU5GjMdSFYk5Bsiw+vRkSGpYcjhK8ll3m8kT5lNJ6xJo8q1fHzU4UvmZDEOtpFryc+kG7/Ys1Ja5Whqiexcofc/Ms1Q5AuwM2gHPCelY+QPsjvuTUs/X21XUpJPtfGMBD05r5irwFW82LsK13g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562008; c=relaxed/simple;
-	bh=sP5rqHNvJgvFdZoxhnqZDbO9crun1Qy+FcnrYXyNKLM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jgdEPunix+nOdvx4iB5qtO9OF1e6CJbAV39ZH/CxHzHtMm8QVPTqvP75yjG1vNWRWk3dZSzXmUN7pavuu5Q6xPi0vVtbLSNqYKQLJXTT3sGKeTQ5CEEbKQ8LGIr6hEserjGwxTK5xnMa9FnrD1gffteJZ/ROFkVWI2hWvwroZwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=OsdACiBa; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="OsdACiBa"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=KC7cqL1N9efHNeYoXYd5krKXRGhul30TvrWbn8hygIo=; b=OsdACiBaI6MVSfYUvr0Ce8J2Gd
-	TjGj81Em3XhRffHy2Coyuyg0ZTTOkaHJbMJ5i+Qu78hDsChCTcoODBKssFZnJKm/2K2xV+wvlUnsc
-	y4gHoXbJXOtjfpc5Xv9o62CIyx0eEPdxxPEvaax32AQm64ICZTr/AjF/ZQjzY6vdTMQA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6opB-005Tbh-C0; Wed, 16 Sep 2026 14:33:17 +0200
-Date: Wed, 16 Sep 2026 14:33:17 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: javen <javen_xu@realsil.com.cn>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	freddy_gu@realsil.com.cn, nb@tipi-net.de,
-	maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, daniel@makrotopia.org,
-	vladimir.oltean@nxp.com
-Subject: Re: [PATCH net-next v1 3/3] net: phy: realtek: add support for
- RTL8261D_VM
-Message-ID: <d640b8b3-40de-464c-baf1-05b8dc1239a6@lunn.ch>
-References: <20260916081444.497-1-javen_xu@realsil.com.cn>
- <20260916081444.497-4-javen_xu@realsil.com.cn>
+	s=arc-20240116; t=1789562022; c=relaxed/simple;
+	bh=vt5vVwlYZKYXmCLoxVSUms95B7d5KKqH/3/azZp9pFg=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=YqJXUMjylkM3aYvXtDPfzS2oW/sVx9Ob0GCtQENDKzrnckyPUzXrS6W5nys5Vf8YOQvfgpAnc1UIRRi3N21iQ0XizLAD+dPA1lHzohkovdn4z3zu9tzLGxMEuxsYuLGb3q/bGkgyj0T+6KQ7Xnr3FP0vKLLcGNc6STnMW0yIml8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6c2c5c1f843so2676847eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:33:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789562020; x=1790166820;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sOjOcxNA+gPw9dlfSbIj8ZuvoCbFSGDZkK+tkDGykp8=;
+        b=TuKBXVSunBVJETKlX9aXdMhreydOlrnT4S59bdMawly4EnECoaR0B7lcTj4jbOIIW5
+         vZUeasKLPk+03y9QtczRBEQN1Nhn0qKVaQ0SzXitz+XnrPckkl5uayCizAQTuyTTc6ST
+         ZLbl12FjAotdHQrARIh1z2d9SDpJgGrKJ5wwhoCLJL10boPEaPsfDVnJg68BRDqin5jF
+         s4v0fvkEv4oy+65mRduCGBhA6Qj2Bnm6me8ZCn29cKBw0jDya2LO7fLlo+UMMt4SQsky
+         jLkrR/pgi72PEbnWBBkCBZ0Z+tdgc0Od9ySl4dQpjG0mvy4q0kT8iGhUal3VjmK28EPB
+         Kw2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzrl+bV4KDLQTrWdpiCHepTTft+YgWrPJOER+n106ae/IkH3RSZ2LLAFe6YEYf3QZyVNOplZPauYArG/EU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJds97xykt+ASPVgtScG3bm/r61ozQrFX8oDmx6JM8sx+BQ0+l
+	U5sL/ckS7iRVFbrERjDlJbuobxqoFz67tlwkik3FjULDmPuu1xOtyu8NXQlVZYrkzUUmqPjvN0F
+	Yt/cpByrzz4OhtV9s524I3pH9XaNmQWcdUyyqfzt/I4pR5CB0b7cDe6CcrR0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916081444.497-4-javen_xu@realsil.com.cn>
+X-Received: by 2002:a4a:e914:0:b0:6b7:f498:cec3 with SMTP id
+ 006d021491bc7-6c639e75e09mr4989259eaf.35.1789562019770; Wed, 16 Sep 2026
+ 05:33:39 -0700 (PDT)
+Date: Wed, 16 Sep 2026 05:33:39 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aaa8ca3.584492cf.25e5e3.0000.GAE@google.com>
+Subject: [syzbot] Monthly kvm report (Sep 2026)
+From: syzbot <syzbot+list7734d78c301e22500c4e@syzkaller.appspotmail.com>
+To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 16, 2026 at 04:14:44PM +0800, javen wrote:
-> From: Javen Xu <javen_xu@realsil.com.cn>
-> 
-> Add support for RTL8261D_VM, its phy id is 0x001cc89a.
-> 
-> Signed-off-by: Javen Xu <javen_xu@realsil.com.cn>
+Hello kvm maintainers/developers,
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+This is a 31-day syzbot report for the kvm subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/kvm
 
-    Andrew
+During the period, 1 new issues were detected and 0 were fixed.
+In total, 6 issues are still open and 69 have already been fixed.
+There are also 2 low-priority issues.
+
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 1856    Yes   WARNING in __kvm_gpc_refresh (3)
+                  https://syzkaller.appspot.com/bug?extid=cde12433b6c56f55d9ed
+<2> 855     Yes   WARNING: locking bug in kvm_xen_set_evtchn_fast
+                  https://syzkaller.appspot.com/bug?extid=919877893c9d28162dc2
+<3> 25      Yes   BUG: sleeping function called from invalid context in kvm_mmu_notifier_invalidate_range_start
+                  https://syzkaller.appspot.com/bug?extid=c3178b6b512446632bac
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
