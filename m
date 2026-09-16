@@ -1,195 +1,137 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522112F8E8E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11520361666;
+	Wed, 16 Sep 2026 14:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570120; cv=none; b=ApRwBLUti4qQRAjC0OuYD0NtL3RqZCCapHJEX3Wxpp7de6yazIQPa2RddXrWvDOSBWu6LRY32y2gR48rqWT6RQqKM4mDSS42lKSLbRiEahd3+p90rgBM7VepFaqONdnmAtmx6ceRnvNbSXgC9HJM4W62vsptB9nCmobdZHn7tzY=
+	t=1789570146; cv=none; b=HXH26c7RT+omA76gJo4G1avqYy3cJD1ERfR1Zvu9OoFsb9j9Abx8ApKmpgT9ar3+rnFeji5YhEaRtytSckCpOcMGblhMONAhppo4qHHHScgnQcGiNLEA36c+EHsLmTVmEUcig5rylNY7pbIzzsfzmAvKta2zL+wkSCsS383H3go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570120; c=relaxed/simple;
-	bh=LFLlCZ6eo0An+zqE3d/JX6cVTgZD9Bf/pdv6Mf8v7Jg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZBeqKVBq2cZGi1c+n3YpwknpkL3VHzNdYX1zdgq0gF/KeyVwnT+w3H2wmI+183Z7PPTdqSpocOi1T651e4daI9qfK7yekIL1edYr9XZ6fbSKUrrkgQsCTyBjYa1AgSGQHXm8Ffl5l/4gJ/xid/k25rzp7PQ33IYIBBS7ywzZmJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mt/+REEc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IVR+NeoV; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789570146; c=relaxed/simple;
+	bh=v00yz0tIo1ahwuZSRS/kb6QbJTP+Ru1ioddeQuj9bPs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dipxIQku8o3tJY67AzU06lashx4LDt2uRzKrzmmvxS8RmkFojb1M95ViJt+CkQyTGggdBM2X32JINMfswQEZXrMu9gML9k/bGT7RJRKPJGirQCGKRsIB3TEY/SPyjBlwaOKcZ40hBrmAi+5uv5mO/CqnAIrONVw177/2GCB0MxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=dWoOHh0s; arc=none smtp.client-ip=157.90.84.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mt/+REEc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IVR+NeoV"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEYfFW4108854
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:48:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MClUT4TtavLkI7XCoEvk0+UCbwWQqhP2+uEc+y3ikwQ=; b=mt/+REEc4uj4Arpu
-	s7vtuKUSHba5OAClDsfs6CGNm7/nRvrLP0LgtOa9LE4hRVDHvWtuulEZB6LY4sGS
-	VtQS7D2mFYeOIJ2JbJ8vUBuWnFVxmOHco4w/XwSpWOEDQHDJyewbAvY1FsvWC9bC
-	4houCnKE1u9gz2etICFZDjqsmCgU8jDvH2EROJtWI9R+AUYpZAdSxnNwna7yLoNK
-	1mOiNUGKpMaq2zP4xluLwWZLy59+zViuX9ww0ADgX5Gi7cEJmE10Dv8ibdEvuxRW
-	YdxBLiKNMtymqHT8hZ0g1NWP0O5gBIfe0mn9GE+bzND71F/iL9APNSfeyQuUlScg
-	kOmUzA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqefpbq1d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:48:37 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db87f759c5so97336735ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:48:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789570117; x=1790174917; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MClUT4TtavLkI7XCoEvk0+UCbwWQqhP2+uEc+y3ikwQ=;
-        b=IVR+NeoV76uh9pO9qHWyOnve7qF6jUovXnqvADIlPP51r2I5BIOCLfZQiR8va2s43+
-         9tflBWzrBTFlVX80VpfUCTxBO3RHGoh8Nbh5eNiJjNvHUGScuqEVyjUQVTbKU9X2WZ8c
-         NxFiPSRc3JrrGJr9FxoWPmprR8d1eoZF5oeqBR9T5lK4XjKIIcdYzQwoq9X1iEuzwAGs
-         w1s5YiI9wwa3XS0Qyb1Q/NfFQtIlgdeFL2sbCtz3hQgEGSKuS8YDeC8Oc3LAFRa0n2BI
-         qOKkOC/hiy6wnzX3DCERuZDYAqg1IQNZuIIfV1xbNJ85aiSRG0H7pAAcObvZNba/kGin
-         RRow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570117; x=1790174917;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MClUT4TtavLkI7XCoEvk0+UCbwWQqhP2+uEc+y3ikwQ=;
-        b=Wze/yNp1VprJFwBuTIkYNDYDbE4DOdIiw3+UfPCQVmRDzbo8YHkgQSnHyOQLqeSgoP
-         ZtkdEBsQiRF67CpUnCjOSsP+33X0yfJ1xjPy8RdP8j9M4jXARDlA1QQh39JlO8WTthMf
-         ss1yfPJ3CuyORYgHYQMuEMpPC6aGuKhM/h4eldvlWBi3g9J1Ngtx1riEGcpYNtXrfxNH
-         62jj8GNYHqvmkiSY/ti0edZuvum0DGFw/xphEAMwOtPj2Su7nIqsJ/kCr7pHuK2KrOrg
-         XfO27qdJCn1PZeTUHQD3PaTF5y19+BL2N5nYfXEbYzWPbtAh1w46n5VOJAPs6IOfWuOI
-         eiuw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+EB5z9j5dWtGA7fT06j3i+rVsYLrL5VhYRxJGRPlP4Y+eHQYlUy9El4S8AnhkACRbaJUW5O81htV6Jv8=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6I5VY5qlmfTz/hgA2Vs2zXf9tqeI69lH+U25mRdmS1iX8K+mP
-	rEQNiU15tuJj1G9EgintLnjdx00XFz5pg/ZbASu23cEmY6ICEwYlqmWWFEZBxoqP9N/K8vXhzrE
-	lQoG/rEVz8WfGW9Z6N2dXNGWxGasb8AYfUI8mfEZFZIN/DfQlLzkF68WzbK3kItxrbdSol/G5gP
-	Lu0Q==
-X-Gm-Gg: AYBFou1B9gz+HYdhx2q1uoiKVW9SdICH5gNf/sNh/IEDFI7Dy7C5YySkb47wxW8/pVN
-	G7SUVyuAh8XkKaIEQCoDiF4mhluGf9BeoibgVm3+KJTkSx0C5iSI7moTM664jpyjAHT3MmZsiXT
-	sOVFo6e0KBRfhvU2mX8jFxteEKOUlFd99CVzOld4vvsFZhhtuTuLa06EOzkL+nT1fM84GtWAe0X
-	NY9NvpxRneuA5B81jymOa7UjFptx6sciuz+f/4OnCPLHiIQoXLNqgHaM0nTNOZuHitWenFLTbj4
-	+MhWgJ8NEWmrPZ41lJrMm1YhlHNRsz9wVdK7f/W+U57mSj8NO8baxex9zr1M70LfMPkU9B1+GjA
-	MA8ogX18ccR2dsdfwrx5OqJ8KjYKAGw1dNp2fTbYT
-X-Received: by 2002:a17:902:d582:b0:2d8:d4d0:7932 with SMTP id d9443c01a7336-2dd8e7aa6eemr64251305ad.22.1789570116619;
-        Wed, 16 Sep 2026 07:48:36 -0700 (PDT)
-X-Received: by 2002:a17:902:d582:b0:2d8:d4d0:7932 with SMTP id d9443c01a7336-2dd8e7aa6eemr64250545ad.22.1789570116191;
-        Wed, 16 Sep 2026 07:48:36 -0700 (PDT)
-Received: from [10.216.41.130] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f02fc2sm13008905ad.59.2026.09.16.07.48.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 07:48:35 -0700 (PDT)
-Message-ID: <db1414fd-2202-4dd6-a420-7dc505b91f77@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 20:18:28 +0530
+	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="dWoOHh0s"
+Received: from aerhardt-tuxedo.fritz.box (p57b95085.dip0.t-ipconnect.de [87.185.80.133])
+	(Authenticated sender: a.erhardt@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id CCCC62FC0059;
+	Wed, 16 Sep 2026 16:48:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1789570135;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=80xqlOIAKRUDfKYggN59FlsXMfpmvws1iwR8iLGZfjY=;
+	b=dWoOHh0s4Ox+gxNySGxuLB8/ltMo2ejScRMni9eMORgo5HLfMWTM4XwsQhuGZXqSQXcBmY
+	EJShZtKrtzJxlPpUml2xlW4LnTnAcMCyacUXt8Lkw3pT5xoErZkuB4Ez95le1LtPHmS29i
+	2OP0v15F1cOLCCDBM56zdp/gXIq5Cpo=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
+From: Aaron Erhardt <aer@tuxedocomputers.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Aaron Erhardt <aer@tuxedocomputers.com>,
+	wse@tuxedocomputers.com,
+	Cristian Mazzotta <cmmazzo@icloud.com>,
+	Armin Wolf <W_Armin@gmx.de>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/3] HID: generic: add LampArray support via hid-lamparray helper
+Date: Wed, 16 Sep 2026 16:48:30 +0200
+Message-ID: <20260916144838.456239-1-aer@tuxedocomputers.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] arm64: dts: qcom: glymur: Add UFS nodes
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Avri Altman <avri.altman@sandisk.com>,
-        Bart Van Assche <bvanassche@acm.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        gopikrishna.garmidi@oss.qualcomm.com, jagadeesh.kona@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-scsi@vger.kernel.org, nitin.rawat@oss.qualcomm.com,
-        sibi.sankar@oss.qualcomm.com, Taniya Das <taniya.das@oss.qualcomm.com>
-References: <20260911-glymur_ufs_qcb_enablement-v1-0-b9fc5e2ee99a@oss.qualcomm.com>
- <20260911-glymur_ufs_qcb_enablement-v1-3-b9fc5e2ee99a@oss.qualcomm.com>
- <chmhun7dqj5flvbkzpsoz3pdbjrcbplel5rqfvj3fc6ztaw2sa@4o55fods7yaf>
-Content-Language: en-US
-From: Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>
-In-Reply-To: <chmhun7dqj5flvbkzpsoz3pdbjrcbplel5rqfvj3fc6ztaw2sa@4o55fods7yaf>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE5OSBTYWx0ZWRfX10NaQ4GPMdcp
- oY9zdEG6RbkJZi8EIW+pvU6TzNHBHDQJxXA1cQKgJlvy0Nv4NFeuT0xa7ZTVPE7koi/iw7BkJCd
- k69fTzpShVMukf3I+u/MdMF1SvG7/+8=
-X-Authority-Analysis: v=2.4 cv=HrTjiETS c=1 sm=1 tr=0 ts=6aaaac45 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=VTBryuNdlAkkI53dnxMA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: AdQKBc20vtWloy6huuC--k9SdUzuaaHm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE5OSBTYWx0ZWRfX9Mki/ao9hgbR
- Ui9SHnKZ7XTvG44x44O0F2hj7zRttfI3dTfeHL0kFXithAJCF9XgWfH34QRLZOFKL70i+PfAOzT
- gArU/bcHpGMJx4Pad4exqq4YKP8C2YmC+izO9UtcLCcOfu4EJpmpzq1mhUVI9kE43RRsw1axVTt
- cceA2hgLFo5JzmKUsTJiOR6Tjucl51tW20JcUPCKWcaj0ExLtYjAz84GZAG0gk7srIgtQZsohcY
- jhvmnBD+J/ZyTW1SxO+0ldCq740gToTldF9JgDAQtUcktPnQjV433+uP23Zpi7B/u58bqOPxzbU
- WiXHi38LuaX5fovcOelHRnjWrbsd3DQAkMhean6apCw22B6TMz7LtAlYsRRalfQsO4WlKwbJVzk
- 3RV+rdFgwZPPYX6hPbl445CmgTOh0CJDUbkUNOydBbVvkaQJy1i5TG/Rh4VJL2WeCwHOvdKKQP0
- CJmAwtxmLJM1TEQv+Eg==
-X-Proofpoint-GUID: AdQKBc20vtWloy6huuC--k9SdUzuaaHm
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160199
+Content-Transfer-Encoding: 8bit
 
+Add a new hid-lamparray helper module and integrate it with the hid-generic
+driver.
 
+While more complex lamparray handling should be done in userspace via hidraw,
+providing a small module to add basic lamparray support makes it possible for
+userspace software to interact with lamparrays by simply using well-known APIs
+of the LED subsystem. One use-case would be to enable desktop environments to
+support keyboard backlight control out of the box for HID lamparray devices
+without having to implement the whole HID protocol themselves.
 
-On 9/14/2026 7:36 PM, Abel Vesa wrote:
-> On 26-09-11 22:17:07, Pradeep P V K wrote:
->> Add UFS PHY and UFS host controller nodes for Glymur SoC.
->>
->> Signed-off-by: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
-> 
-> One nit below.
-> 
-> With Konrad's comments addressed, I think it looks good, so:
-> 
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> 
->> ---
->>   arch/arm64/boot/dts/qcom/glymur.dtsi | 114 ++++++++++++++++++++++++++++++++++-
->>   1 file changed, 111 insertions(+), 3 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
->> index 624a9edd602c..7bbc804ed340 100644
->> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
->> @@ -812,9 +812,9 @@ gcc: clock-controller@100000 {
->>   				 <0>,				/* QUSB4 1 PHY RX 1 */
->>   				 <0>,				/* QUSB4 2 PHY RX 0 */
->>   				 <0>,				/* QUSB4 2 PHY RX 1 */
->> -				 <0>,				/* UFS PHY RX Symbol 0 */
->> -				 <0>,				/* UFS PHY RX Symbol 1 */
->> -				 <0>,				/* UFS PHY TX Symbol 0 */
->> +				 <&ufs_mem_phy 0>,		/* UFS PHY RX Symbol 0 */
->> +				 <&ufs_mem_phy 1>,		/* UFS PHY RX Symbol 1 */
->> +				 <&ufs_mem_phy 2>,		/* UFS PHY TX Symbol 0 */
->>   				 <&usb_0_qmpphy QMP_USB43DP_USB3_PIPE_CLK>,
->>   				 <&usb_1_qmpphy QMP_USB43DP_USB3_PIPE_CLK>,
->>   				 <&usb_2_qmpphy QMP_USB43DP_USB3_PIPE_CLK>,
->> @@ -4103,6 +4103,114 @@ rng: rng@10c3000 {
->>   			reg = <0x0 0x010c3000 0x0 0x1000>;
->>   		};
->>   
->> +		ufs_mem_phy: phy@1d80000 {
->> +			compatible = "qcom,glymur-qmp-ufs-phy";
->> +			reg = <0x0 0x01d80000 0x0 0x2000>;
->> +
->> +			clocks = <&rpmhcc RPMH_CXO_CLK>,
->> +				 <&gcc GCC_UFS_PHY_PHY_AUX_CLK>,
->> +				 /* UFS and PCIE4 shares the same clkref on glymur */
-> 
-> On top of Konrad's comment, I'd drop the "on glymur" part entirely here.
-sure, i will remove it in my next patchset.
+This patch is based on previous discussions:
+https://lore.kernel.org/all/1fb08a74-62c7-4d0c-ba5d-648e23082dcb@tuxedocomputers.com/
+
+The helper provides basic support for devices exposing a Lighting/LampArray
+application collection (usage page 0x59) and registers a single-zone RGB LED
+representation via the LED subsystem.
+
+hid-generic now checks for LampArray support after hid_parse() and optionally
+registers a lamparray instance. Failures in the helper do not abort device probe
+to keep the driver logic otherwise unchanged.
+
+LampArray resources are released on driver remove.
+
+This commit was successfully tested on the Microsoft MacroPad reference
+implementation (https://github.com/microsoft/RP2040MacropadHidSample 1d6c3ad)
+and in combination with the tuxedo_nb04_wmi driver, albeit only fully functional
+with a recent fix posted to the LKML
+(https://lore.kernel.org/all/20260826081149.235487-2-aer@tuxedocomputers.com).
+
+Others reported the driver to work on the Acer Predator PT14-52T and the ASUS
+Prime B650-Plus, with the former requiring some patches on top of v5, which
+should now be included in v6.
+
+v6:
+- Read attribute reports synchronously (by Cristian Mazotta)
+- Raise log level of fatal probe errors (by Cristian Mazotta)
+- Transfer control when use_leds_uapi changes (by Cristian Mazotta)
+- Blank lamps across suspend and restore on resume (by Cristian Mazotta)
+- Add quirk for devices that ignore intensities (reported by Armin Wolf)
+- Better locking, fixing rare races in uapi registration
+- Use scope guards for locking and allocations where possible
+- Remove obsolete calls to led_mc_calc_color_components and
+  hid_device_io_start/stop
+- Updated and slightly improved documentation
+v5:
+- Proper hardware detection (no quirks necessary anymore)
+- Add documentation for new sysfs knob
+- Pass limits of the device to sysfs (intensities & brightness)
+- More flexible Kconfig (use tristate)
+- Improved locking
+- Several memory leak and (de-)initialization fixes
+- Don't read current color values from hardware (the HID spec does not
+  offer this option)
+- Remove redundant report dump functionality
+v4:
+- Restrict CONFIG_HID_LAMPARRAY to built-in configurations only to fix
+  additional randconfig build errors
+v3:
+- Squash V1 and V2 into one patch
+v2:
+- Fix Kconfig to avoid build errors when LEDS_CLASS_MULTICOLOR is
+  disabled
+
+Aaron Erhardt (2):
+  HID: lamparray: add new LampArray helper module
+  HID: generic: add LampArray support via hid-lamparray helper
+
+Cristian Mazzotta (1):
+  HID: lamparray: blank lamps across suspend and restore on resume
+
+ .../ABI/testing/sysfs-driver-hid-lamparray    |  15 +
+ drivers/hid/Kconfig                           |  18 +
+ drivers/hid/Makefile                          |   2 +
+ drivers/hid/hid-generic.c                     |  70 +-
+ drivers/hid/hid-lamparray.c                   | 907 ++++++++++++++++++
+ include/linux/hid-lamparray.h                 | 117 +++
+ 6 files changed, 1128 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-lamparray
+ create mode 100644 drivers/hid/hid-lamparray.c
+ create mode 100644 include/linux/hid-lamparray.h
+
+-- 
+2.43.0
+
