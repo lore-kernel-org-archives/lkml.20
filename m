@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E335175A7F;
-	Wed, 16 Sep 2026 12:03:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D3D385D69;
+	Wed, 16 Sep 2026 12:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789560213; cv=none; b=eBQXqDmHzCisX8cLS7lE+wuutIpLhg+7d6a6CvvNAI50KUhXnZ0tzwXJlbRQCnxAI0ErSv5EigZSYLqRiDPhgfif+UdqwTl4TDZ7o9mzrPUneGRnZTzoyu6qn8x40m41hYeHmy5ENeoFO45CApgYRWzhqhFd6CpprgIWxtujDhQ=
+	t=1789560226; cv=none; b=UbH+N1UIrYDZawl5251N/zN3tMMT1jkfT5LEkH9cHrEqvbpCC6sC0KjxnoC44/6umJU8T7RhSdD5yN1bkgvzIyvPN2QZODfyjMfVkEWnWhll6m1lADLVHBZYhJTskX2fGKYrzsz5a2XfplSgCiw3/IytzWIj07VH3ba0Q1QSXIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789560213; c=relaxed/simple;
-	bh=tnPqOGWy+G/exKowrqrFWAt1LzC422b7ugtuCq4Q7iQ=;
+	s=arc-20240116; t=1789560226; c=relaxed/simple;
+	bh=OPEjpdpHJ8HkCCzkXsbFMzy/C+tLBx1daKwtN+9ZOAo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SyctOpzZTHkDpxaRm+LiryWtjRH3b+MeM6BkhT4K+/1te0pprznpI72MzZjRGnT3th8Pr9MckiQvgucFilLOIbuYS4Il55at4/+NBvMd4JuuPexhSiyKNKxGLHfcUFJWf5Fv47brwT5Gzj32y2wXe2K9HzJ8r2QCV02smsfpRm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mn2bIJmY; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=tJrRcCF7ciQnuhDRg8XRMwGMcprsldk8/9dTfNpKkNLaLemaVT+mQpvlx65aKjXvzL3FBZrg5A1O73fuPOzFJN550fvOszWiZXltLVZDvjZNhk1QUwe3kyA2zvyC3ogKyFIBT82PtKU3wEvT0LUHXTDs8Io0+EdEraPW3/qobAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hurb/eAm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mn2bIJmY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A49C01F00898;
-	Wed, 16 Sep 2026 12:03:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hurb/eAm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C93F1F0089B;
+	Wed, 16 Sep 2026 12:03:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789560203;
-	bh=BvSsEcfuxj9lC5YTGUuAUBtK1T4naFDW4wq12j/K7Zg=;
+	s=k20260515; t=1789560213;
+	bh=NE/c7IMcBZdCzVyFsxXaIo3nYpN6KWCimcqlbKV3gw0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=mn2bIJmYb2iP6iTTQqcRf+V3ei9Y5yLFrakNHWf/D7voPbGhwR6ONRoyLaIQM2KAI
-	 JtNE9yoB1GAI2sszrO/4TdezQh5ZoOTscCnxAighHM7Ov7TdPCDrE3PV8GeL1vm5Uv
-	 G/HKnTHt5WvJyxt0Zy6h3+Blac/jnQj/8Rp3RapUnA0qUsYHeAp97D9Ac9qJKpH99L
-	 dfBENR4QV/Id02mK0tC4gOHtM0bYaso/fe9YO1xpV9QXHt/LOSQ32nIt9vGJwUwIOW
-	 j2AlQVN/MXbSQHT47PmZ8heCBfoaEVM6F1kmV1Sth8WyD1x7WCPboJvMTA8Imkrl0b
-	 wDOTPYFyPq/Tg==
+	b=Hurb/eAmlQUwytzx60cR7oXIXwPA9vQ9j3r7mE5ESHPcxyZwpxAIKXedhTuem/7+4
+	 k8VJcCj4MvctRgAIRQZzv9lPBK8r+oWCR9GlPv+9bM9PzG8AZKhenrd74PlzLwcoK/
+	 C9iwWhoecv5nUoGvli8YQnAB6j2mMBVNl91ZnMatnQnoD06LhHPKeU/9ud6HpuHYbh
+	 ZHlKMVe+PMyggGdXJmXkv8WAvH8eeUe+/6MqH1OyusTwnPoDeOy7d81H2i7l8HY2RU
+	 kGMHU5sjGvBOZq8kV3KUP87V/yB7P28VA7MZuqJIeApCocYKcM5t5WgSUR6dVC5gXW
+	 3G2leQwBMM50A==
 From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Wed, 16 Sep 2026 15:03:09 +0300
-Subject: [PATCH v3 02/13] s390/chsc: Use kzalloc() for the SEI work area
+Date: Wed, 16 Sep 2026 15:03:12 +0300
+Subject: [PATCH v3 05/13] s390/cio: Use kzalloc() for CHSC work areas
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-s390-cio-ready-v3-2-39e4894637d6@kernel.org>
+Message-Id: <20260916-s390-cio-ready-v3-5-39e4894637d6@kernel.org>
 References: <20260916-s390-cio-ready-v3-0-39e4894637d6@kernel.org>
 In-Reply-To: <20260916-s390-cio-ready-v3-0-39e4894637d6@kernel.org>
 To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
@@ -51,7 +51,8 @@ Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
  linux-kernel@vger.kernel.org, linux-mm@kvack.org
 X-Mailer: b4 0.17-dev
 
-chsc_init() allocates the work area for store event information data.
+chsc_init() allocates the work area for CHSC commands and
+qdio_allocate() allocates one for CHSC calls during qdio_establish().
 
 This memory can be allocated with kmalloc() as there's nothing special
 about it to go directly to the page allocator.
@@ -66,6 +67,8 @@ fast path allocations.
 For the slow path the performance is anyway determined by the amount of
 reclaim involved rather than by what allocator is used.
 
+While on it, change qdio_irq.chsc_page to void * to get rid of the casts.
+
 Replace use of get_zeroed_page() with kzalloc() and free_page() with
 kfree().
 
@@ -73,40 +76,114 @@ Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.co
 Assisted-by: copilot:claude-opus
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- drivers/s390/cio/chsc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/s390/cio/chsc.c         | 6 +++---
+ drivers/s390/cio/qdio.h         | 2 +-
+ drivers/s390/cio/qdio_main.c    | 6 +++---
+ drivers/s390/cio/qdio_setup.c   | 2 +-
+ drivers/s390/cio/qdio_thinint.c | 2 +-
+ 5 files changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/s390/cio/chsc.c b/drivers/s390/cio/chsc.c
-index 60a4a7e6086ce..c3186c0a372b4 100644
+index c3186c0a372b4..d98f629e89295 100644
 --- a/drivers/s390/cio/chsc.c
 +++ b/drivers/s390/cio/chsc.c
-@@ -1142,7 +1142,7 @@ int __init chsc_init(void)
- {
+@@ -1143,7 +1143,7 @@ int __init chsc_init(void)
  	int ret;
  
--	sei_page = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	sei_page = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	chsc_page = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
+ 	sei_page = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+-	chsc_page = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	chsc_page = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
  	if (!sei_page || !chsc_page) {
  		ret = -ENOMEM;
-@@ -1154,7 +1154,7 @@ int __init chsc_init(void)
+ 		goto out_err;
+@@ -1153,7 +1153,7 @@ int __init chsc_init(void)
+ 		goto out_err;
  	return ret;
  out_err:
- 	free_page((unsigned long)chsc_page);
--	free_page((unsigned long)sei_page);
-+	kfree(sei_page);
+-	free_page((unsigned long)chsc_page);
++	kfree(chsc_page);
+ 	kfree(sei_page);
  	return ret;
  }
- 
-@@ -1162,7 +1162,7 @@ void __init chsc_init_cleanup(void)
+@@ -1161,7 +1161,7 @@ int __init chsc_init(void)
+ void __init chsc_init_cleanup(void)
  {
  	crw_unregister_handler(CRW_RSC_CSS);
- 	free_page((unsigned long)chsc_page);
--	free_page((unsigned long)sei_page);
-+	kfree(sei_page);
+-	free_page((unsigned long)chsc_page);
++	kfree(chsc_page);
+ 	kfree(sei_page);
  }
  
- int __chsc_enable_facility(struct chsc_sda_area *sda_area, int operation_code)
+diff --git a/drivers/s390/cio/qdio.h b/drivers/s390/cio/qdio.h
+index 4bd4c00c9c0ca..dff5f53a8795d 100644
+--- a/drivers/s390/cio/qdio.h
++++ b/drivers/s390/cio/qdio.h
+@@ -244,7 +244,7 @@ struct qdio_irq {
+ 	int perf_stat_enabled;
+ 
+ 	struct qdr *qdr;
+-	unsigned long chsc_page;
++	void *chsc_page;
+ 
+ 	struct qdio_q *input_qs[QDIO_MAX_QUEUES_PER_IRQ];
+ 	struct qdio_q *output_qs[QDIO_MAX_QUEUES_PER_IRQ];
+diff --git a/drivers/s390/cio/qdio_main.c b/drivers/s390/cio/qdio_main.c
+index c1e09fa34e774..d137bf8c70664 100644
+--- a/drivers/s390/cio/qdio_main.c
++++ b/drivers/s390/cio/qdio_main.c
+@@ -934,7 +934,7 @@ int qdio_free(struct ccw_device *cdev)
+ 
+ 	qdio_free_queues(irq_ptr);
+ 	free_page((unsigned long) irq_ptr->qdr);
+-	free_page(irq_ptr->chsc_page);
++	kfree(irq_ptr->chsc_page);
+ 	kfree(irq_ptr->ccw);
+ 	free_page((unsigned long) irq_ptr);
+ 	return 0;
+@@ -986,7 +986,7 @@ int qdio_allocate(struct ccw_device *cdev, unsigned int no_input_qs,
+ 	 * qdio_establish. In case of low memory and swap on a zfcp disk
+ 	 * we may not be able to allocate memory otherwise.
+ 	 */
+-	irq_ptr->chsc_page = get_zeroed_page(GFP_KERNEL);
++	irq_ptr->chsc_page = kzalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!irq_ptr->chsc_page)
+ 		goto err_chsc;
+ 
+@@ -1006,7 +1006,7 @@ int qdio_allocate(struct ccw_device *cdev, unsigned int no_input_qs,
+ err_queues:
+ 	free_page((unsigned long) irq_ptr->qdr);
+ err_qdr:
+-	free_page(irq_ptr->chsc_page);
++	kfree(irq_ptr->chsc_page);
+ err_chsc:
+ err_dbf:
+ 	kfree(irq_ptr->ccw);
+diff --git a/drivers/s390/cio/qdio_setup.c b/drivers/s390/cio/qdio_setup.c
+index ea09aadaae4ec..bd80703c174c7 100644
+--- a/drivers/s390/cio/qdio_setup.c
++++ b/drivers/s390/cio/qdio_setup.c
+@@ -253,7 +253,7 @@ int qdio_setup_get_ssqd(struct qdio_irq *irq_ptr,
+ 		if (!ssqd)
+ 			return -ENOMEM;
+ 	} else {
+-		ssqd = (struct chsc_ssqd_area *)irq_ptr->chsc_page;
++		ssqd = irq_ptr->chsc_page;
+ 	}
+ 
+ 	rc = chsc_ssqd(*schid, ssqd);
+diff --git a/drivers/s390/cio/qdio_thinint.c b/drivers/s390/cio/qdio_thinint.c
+index e167aa75c3dff..a2ff51887537f 100644
+--- a/drivers/s390/cio/qdio_thinint.c
++++ b/drivers/s390/cio/qdio_thinint.c
+@@ -136,7 +136,7 @@ static struct airq_struct tiqdio_airq = {
+ 
+ static int set_subchannel_ind(struct qdio_irq *irq_ptr, int reset)
+ {
+-	struct chsc_scssc_area *scssc = (void *)irq_ptr->chsc_page;
++	struct chsc_scssc_area *scssc = irq_ptr->chsc_page;
+ 	dma64_t summary_indicator_addr, subchannel_indicator_addr;
+ 	int rc;
+ 
 
 -- 
 2.53.0
