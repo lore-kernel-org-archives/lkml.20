@@ -1,175 +1,92 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28F04AA564
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:50:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63F94B4890;
+	Wed, 16 Sep 2026 09:51:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552289; cv=none; b=sctAKd/Qcr5JXypDUtnFSDVXoCLKz+siVNfWNQCAd9suZdYAGZKvjArPFrlxV26VarZ2Qp0NYRpr00icwBwZ5xMngz0HCRLm8obZtCYoVIv2h5nqQMSEYaZbMsDl8K9RHPLenpnECultdDg8APAHDrfKfgPS77H9w6POKpBp3+E=
+	t=1789552291; cv=none; b=a30r20Stm2nMvFP1nT0/m2XjkqaO63ZaMM8mZMKz1Qj0UZnLA0A+WNrncc+4S4oa642D/f5s6IkmYSfUGbvb5T4vCpRsCpFBz9rXHkUWYtYW+VAaNdJlB3Xt41vAMcfZf84eUttAG4aNlv7PlP0C0LaOKDeEil5p9fnZfB+qZI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552289; c=relaxed/simple;
-	bh=Gauuyu1weASDOCUOi0niAJFHae1GpPUEFg2Emc3mczQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SUFeHWfHSnWgFcrWXeL8FB7BXZ4Y59jkc08YI6g2Na9/q4njzU8jmeKNtc3MCz7lB98ramEmg4HJhBud9yYqoefRORurLPube8m0ZfeNhWPiE7dh5r+XcYGmJk0FcV+l/XIDGy6kJWPxFw6HnHq1XzTkWiAIv0KD0ROdQ+7dllk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TBlalBZu; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789552291; c=relaxed/simple;
+	bh=UIwWPNKRQ8FW7Bu3jbEPy9yWyv1Y+CRFZBuPobR95d0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y7LbdMbZXlW0Wy8eWDDfaXGDnJ/XJbvA38UP9S7MlfrYacrI6GLo8lrmGOG47YrfgsDgSQWykjzcWgteAqK7HBRRCwwoolxWi+BzMu1zQJrOdML2jc3sFpTzYQOX7JCfIY9/FYFPG1y92KJoUKgjqD1QlfXYTrBZpMXkymHqdFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jdk0yPsi; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TBlalBZu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789552251;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/X0DqhKQVgSWZ6Kwg3nu2S/S85i2kZoDTzqHkKw8Nxs=;
-	b=TBlalBZuXRrqIu7UMz3oyEH6aQxHQbrpKErHY1dx1LigdxketTrZFLGU2V5fidi2rOoMtj
-	xsKkLPKy/8NlE8W6DrEvtznk7V9d3NRrpumbtqwJIRSxKZpxPtq8ElKC12eVh3BTKtEx3s
-	yAffSu1bOj0KwtvpnbSuZeJQNbzkljA=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-8PArVGHZNeu0vL4bVgQ0Ag-1; Wed,
- 16 Sep 2026 05:50:50 -0400
-X-MC-Unique: 8PArVGHZNeu0vL4bVgQ0Ag-1
-X-Mimecast-MFC-AGG-ID: 8PArVGHZNeu0vL4bVgQ0Ag_1789552248
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2B7FB1944B17;
-	Wed, 16 Sep 2026 09:50:47 +0000 (UTC)
-Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DA6131800446;
-	Wed, 16 Sep 2026 09:50:43 +0000 (UTC)
-From: Thomas Huth <thuth@redhat.com>
-To: Eric Biggers <ebiggers@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Borislav Petkov <bp@alien8.de>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: [PATCH v4 04/13] lib/crypto: aes-ccm: Provide functions for zeroizing aes_ccm* structures
-Date: Wed, 16 Sep 2026 11:50:06 +0200
-Message-ID: <20260916095022.604354-5-thuth@redhat.com>
-In-Reply-To: <20260916095022.604354-1-thuth@redhat.com>
-References: <20260916095022.604354-1-thuth@redhat.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jdk0yPsi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789552272; x=1821088272;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UIwWPNKRQ8FW7Bu3jbEPy9yWyv1Y+CRFZBuPobR95d0=;
+  b=jdk0yPsiUehhv06oNoymxFlAux/tGdJ3Ns1z4zbevzWt9o/aSJo/RcNb
+   N3POKAyuS8SxqIB2z2v61VDfuAHu3hXglq/gXnx/qRotIw+3iWMqfG5au
+   HmU580FOCNyV3DLyAUOkKuOohyh4UGN9DS3WRUL9+RKKjylILT7aBFCcB
+   A3pqz0RBp25np3UDOalyjJThqoP8jUwYHg3OVKGe7NMMKfQk/ALWtB/h1
+   ulosZyq3IUlVanQOnDlQAJZpUO9efkeKiSajQ3wEf92voBrl3Eg8WJj49
+   j5V3w1YfvwEoblx7LxAQBcPwb3ALBdfu0xS5lyQMq7v695BOg7Aw1ahxs
+   g==;
+X-CSE-ConnectionGUID: XC4inCXJTFevNHqHxERtYw==
+X-CSE-MsgGUID: GLWqJ4TvTkCRG5UaI6+6jQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101270147"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="101270147"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 02:51:06 -0700
+X-CSE-ConnectionGUID: KfvqFqviTauBpXirtJ5MXw==
+X-CSE-MsgGUID: RK56W2AkRI2hfojlaoS2QQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="267080866"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 02:51:01 -0700
+Date: Wed, 16 Sep 2026 12:50:58 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, mfd@lists.linux.dev,
+	Roman Vivchar <rva333@protonmail.com>,
+	Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Subject: Re: [PATCH 0/3] iio: adc: add mt6397 PMIC AUXADC support
+Message-ID: <aqpmgliQW7FW53o5@ashevche-desk.local>
+References: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-In certain cases crypto code needs to zeroize their local aes_ccm_key
-or aes_ccm_ctx structures after use to avoid leaking sensitive material.
-Provide aes_ccm_zeroize_key() and aes_ccm_zeroize_ctx() helper functions
-that e.g. can be used with __cleanup() to automatically zeroize the
-structures when they go out of scope.
+On Tue, Sep 15, 2026 at 11:15:25PM -0500, Ryan Brue wrote:
+> The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
+> reach. On boards built around it that ADC is the only path to the battery:
+> the SoC's AUXADC is wired to board thermistors, and the charger ICs these
+> boards use have no ADC at all, so without it there is no pack voltage and
+> no state of charge.
 
-While we're at it, replace the related memzero_explicit() calls in
-lib/crypto/aes.c with calls to the new helper functions.
+This doesn't explain why a brand new driver? Perhaps we have existing code that
+may be updated to support this device?
 
-Signed-off-by: Thomas Huth <thuth@redhat.com>
----
- include/crypto/aes-ccm.h | 22 ++++++++++++++++++++--
- lib/crypto/aes.c         |  8 +++-----
- 2 files changed, 23 insertions(+), 7 deletions(-)
-
-diff --git a/include/crypto/aes-ccm.h b/include/crypto/aes-ccm.h
-index 8b00859ac4d6b..c52982dd91d2c 100644
---- a/include/crypto/aes-ccm.h
-+++ b/include/crypto/aes-ccm.h
-@@ -18,6 +18,15 @@ struct aes_ccm_key {
- 	size_t authtag_len; /* Length of authentication tags in bytes */
- };
- 
-+/**
-+ * aes_ccm_zeroize_key() - Zeroize an aes_ccm_key structure
-+ * @key: The aes_ccm_key to zeroize
-+ */
-+static inline void aes_ccm_zeroize_key(struct aes_ccm_key *key)
-+{
-+	memzero_explicit(key, sizeof(*key));
-+}
-+
- /**
-  * struct aes_ccm_ctx - Context for incrementally en/decrypting a message
-  */
-@@ -50,6 +59,15 @@ struct aes_ccm_ctx {
- 	bool ad_padded;
- };
- 
-+/**
-+ * aes_ccm_zeroize_ctx() - Zeroize an aes_ccm_ctx structure
-+ * @ctx: The aes_ccm_ctx to zeroize
-+ */
-+static inline void aes_ccm_zeroize_ctx(struct aes_ccm_ctx *ctx)
-+{
-+	memzero_explicit(ctx, sizeof(*ctx));
-+}
-+
- /**
-  * aes_ccm_preparekey() - Prepare a key for AES-CCM encryption and decryption
-  * @key: (output) The key structure to initialize
-@@ -58,8 +76,8 @@ struct aes_ccm_ctx {
-  * @authtag_len: Length of the authentication tag in bytes:
-  *		 4, 6, 8, 10, 12, 14, or 16.  16 is recommended.
-  *
-- * Users should use memzero_explicit() to zeroize the key struct at the end of
-- * its lifetime.  (But if this function fails, zeroization is unnecessary.)
-+ * Users should use aes_ccm_zeroize_key() to zeroize the key struct at the end
-+ * of its lifetime.  (But if this function fails, zeroization is unnecessary.)
-  *
-  * Context: Any context.
-  * Return:
-diff --git a/lib/crypto/aes.c b/lib/crypto/aes.c
-index 0cb5d7355926e..2d29adca79532 100644
---- a/lib/crypto/aes.c
-+++ b/lib/crypto/aes.c
-@@ -2011,7 +2011,7 @@ void aes_ccm_encrypt_final(struct aes_ccm_ctx *ctx, u8 *authtag)
- 	if (ctx->partial_len)
- 		aes_encrypt(&ctx->key->aes, ctx->mac, ctx->mac);
- 	crypto_xor_cpy(authtag, ctx->mac, ctx->s0, ctx->key->authtag_len);
--	memzero_explicit(ctx, sizeof(*ctx));
-+	aes_ccm_zeroize_ctx(ctx);
- }
- EXPORT_SYMBOL_GPL(aes_ccm_encrypt_final);
- 
-@@ -2032,7 +2032,7 @@ int aes_ccm_decrypt_final(struct aes_ccm_ctx *ctx, const u8 *authtag)
- 		      -EBADMSG :
- 		      0;
- out:
--	memzero_explicit(ctx, sizeof(*ctx));
-+	aes_ccm_zeroize_ctx(ctx);
- 	return err;
- }
- EXPORT_SYMBOL_GPL(aes_ccm_decrypt_final);
-@@ -2084,7 +2084,7 @@ static void __init aes_ccm_fips_test(void)
- 	const size_t data_len = sizeof(fips_test_data);
- 	const size_t nonce_len = 13;
- 	u8 buf[sizeof(fips_test_data) + AES_BLOCK_SIZE];
--	struct aes_ccm_key key;
-+	struct aes_ccm_key key __cleanup(aes_ccm_zeroize_key);
- 	int err;
- 
- 	if (aes_ccm_preparekey(&key, fips_test_key, sizeof(fips_test_key),
-@@ -2106,8 +2106,6 @@ static void __init aes_ccm_fips_test(void)
- 		panic("aes: CCM FIPS self-test failed (decryption failed)\n");
- 	if (memcmp(fips_test_data, buf, data_len) != 0)
- 		panic("aes: CCM FIPS self-test failed (wrong plaintext)\n");
--
--	memzero_explicit(&key, sizeof(key));
- }
- #else /* CONFIG_CRYPTO_LIB_AES_CCM */
- static inline void aes_ccm_fips_test(void)
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
