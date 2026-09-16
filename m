@@ -1,45 +1,38 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FDBF44E04C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:34:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C28C44CAC6;
+	Wed, 16 Sep 2026 07:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544090; cv=none; b=S1tzgJax/1qUIYHqbBd/IOKQAzefZ8gTLPAUrlEcPIvmYoGk4BcWJSjX6CXcMNvPvwhhsxt9EaksOF1Imi8w90diSKhhmB89vc3aQ4GmERWhHYGypfjCyBoIEuP5JZ8PDHHHg/Vr/JxL19CFVvAlU8nXpQ0MYvdDhAkL5gFElwo=
+	t=1789544121; cv=none; b=ABgCTM+LgTjiWXWn9uS2TigzfXDaqEllTrdK2DQZtMBXda4MnB0eViHZAXeWbnunbgdYDSefYUO0DiQHCqEQqCxN6YWjyP7WF2zBlAFAQXbNVY3uCGssZPoTBNh6CnW7ujs2NsV7e60mzYUhEJilib8POm/GKMmX8K/cR56c6qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544090; c=relaxed/simple;
-	bh=NvHuL+Z4RoJEKa4mWIvA//zyFvrmcX7zcMazixrBaUI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BoU4gRoNVjoVyesZhHWSV0HQPLFrwKrIBg9WK3h7pZ7KadYpRrto1pkad2SKjPmK3mB7zwkvlDUzl8lBIFIeEbLwxwnG+5w500YFkQzLo92qP0vMQba08kerfR0jTKTCh1GMr6iWmScpURYOy2RQptoe9hLktBPO4d4wSI7vU1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G97uQ+ei; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G97uQ+ei"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=m2
-	47+aQLTATsuwGD//OJLjBzSzGU/ynEZTT5aZTBjbA=; b=G97uQ+eiYzgUzrcjCD
-	JXnSsDJh5mPo+ZqHIFJOHqCMnN7ZUel8NIWSX8ZdaTWjfjp4eP5UZO6GobArj06H
-	TnG2i3n0NS/x41XUL5rgUjOkOCyGR77duODbRhq2bFwkwSupb804xNH0IxOTz2Y4
-	JdeUVCHw+ZjlBGJx5AOJ+8cbU=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDXo3RlRqpq73QXBA--.1417S2;
-	Wed, 16 Sep 2026 15:33:58 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Waiman Long <longman@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
-	quchaosheng000406@163.com,
-	syzbot+917245f59371bf1d27f7@syzkaller.appspotmail.com
-Subject: [PATCH v3] locking/rtmutex: Handle empty waiters tree in try_to_take_rt_mutex()
-Date: Wed, 16 Sep 2026 15:33:56 +0800
-Message-ID: <20260916073356.40360-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915014222.13423-1-quchaosheng000406@163.com>
-References: <20260915014222.13423-1-quchaosheng000406@163.com>
+	s=arc-20240116; t=1789544121; c=relaxed/simple;
+	bh=1UVeQwscyNpnmYJo6LD9uYaqcx3DxYBMukW55ElL214=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qbQ5EAakh4h3nRJRbhGPAh08d2RzaJaMAsjMMR4YHS0B5ESwD6omDDgF3Jlwoq0OGshogFUSmwTxXPlKCiAXh5tpebiDkqeWukxbDztK2SZkIW2vItFwU4z9tfaXX8pvF9EnVnPtS+KkeQP+ShW6MzrQArbsX+YqFIrU7uu/qCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAAnLjycRqpq3DDfBw--.40397S2;
+	Wed, 16 Sep 2026 15:34:52 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: davem@davemloft.net
+Cc: david+nfc@ixit.cz,
+	edumazet@google.com,
+	horms@kernel.org,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	oe-linux-nfc@lists.linux.dev,
+	pabeni@redhat.com,
+	sameo@linux.intel.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] nfc: llcp: Fix socket reference leak in nfc_llcp_recv_ui()
+Date: Wed, 16 Sep 2026 07:34:24 +0000
+Message-Id: <20260916073424.1971784-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,83 +40,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXo3RlRqpq73QXBA--.1417S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw4xXFW8uw1xZF4rCF15Arb_yoW5AF4Dp3
-	y5KrW7Gw1vqr4xurWxZr4xWrW5Aw4rCFW7J3s7tFyUGan8XF4aqrn7Ka10gF40krWfZrZI
-	grs8Z39IqFyrXrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEQJ5UUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5AbvZWqqRmacsAAA3k
+X-CM-TRANSID:rQCowAAnLjycRqpq3DDfBw--.40397S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKryrArW5WF15Gw48Xry7Wrg_yoWktFc_AF
+	1xCr17Xrs8CF43Ja9rGr4jy397Wrn7Wr4fZr1IyFsrJa4FyayFyrnxWrn3CrnrCa1UuF47
+	ArykArySqw1IyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbaxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
+	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUCNtxUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIMA2qqP7kcHwABsF
 
-The waiter branch of try_to_take_rt_mutex() reads the top waiter from the
-lock waiters tree and passes it to rt_mutex_steal() without checking that
-the tree still has waiters.
+In nfc_llcp_recv_ui(), nfc_llcp_sock_get() is called to find the bound
+socket. If the socket type is not SOCK_DGRAM, the function returns
+directly without releasing the socket reference via nfc_llcp_sock_put(),
+resulting in a reference count leak.
 
-rt_mutex_slowlock_block() calls try_to_take_rt_mutex() in a loop with a
-waiter that was enqueued before the loop.  The loop drops wait_lock around
-rt_mutex_schedule(), so another task can acquire and release the lock and
-dequeue the waiter in the meantime.  The loop then calls
-try_to_take_rt_mutex() again with a waiter that is no longer part of the
-waiters tree.
+Add nfc_llcp_sock_put() when the socket type is not SOCK_DGRAM.
 
-With an empty waiters tree, rt_mutex_top_waiter() returns NULL, so
-rt_mutex_steal() dereferences a NULL rt_waiter_node and reads tree.prio at
-offset 0x18.  syzbot reports this as a general protection fault in
-try_to_take_rt_mutex on PREEMPT_RT:
-
-  general protection fault, probably for non-canonical address
-  0xdffffc0000000003
-  KASAN: null-ptr-deref in range [0x18-0x1f]
-  RIP: 0010:try_to_take_rt_mutex+0x177/0xac0 kernel/locking/rtmutex.c:1138
-  Call Trace:
-   __rt_mutex_slowlock_locked+0x1fe5/0x25b0
-   __rwbase_read_lock+0xc3/0x190
-   down_read+0x132/0x200
-   inode_lock_shared
-   lookup_slow+0x46/0x70
-   link_path_walk+0xd2a/0x1910
-   path_openat+0x1ce/0x1d60
-
-Take the lock and skip the steal attempt when the waiters tree is empty.
-rt_mutex_owner() was already checked above, so the lock is free and the
-waiter is the only candidate.  rt_mutex_dequeue() already returns early for
-a waiter that is not queued, so the skipped call is a no-op, and
-rt_mutex_set_owner() clears the transient RT_MUTEX_HAS_WAITERS state.  The
-waiter == NULL branch handles an empty tree the same way.
-
-Fixes: 48eb3f4fcfd3 ("locking/rtmutex: Implement equal priority lock stealing")
-Reported-by: syzbot+917245f59371bf1d27f7@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=917245f59371bf1d27f7
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+Fixes: 968272bf0087 ("NFC: Handle LLCP UI frames")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-v3: Add the Fixes: tag and use the wording suggested by Waiman Long.
-    No functional change.
+ net/nfc/llcp_core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-v2: Reword the comment.  No functional change.
-
- kernel/locking/rtmutex.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
-index 4728631ae..4a6b22027 100644
---- a/kernel/locking/rtmutex.c
-+++ b/kernel/locking/rtmutex.c
-@@ -1131,6 +1131,16 @@ try_to_take_rt_mutex(struct rt_mutex_base *lock, struct task_struct *task,
- 	if (waiter) {
- 		struct rt_mutex_waiter *top_waiter = rt_mutex_top_waiter(lock);
+diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+index db5bc6a878dd..5813c80ca593 100644
+--- a/net/nfc/llcp_core.c
++++ b/net/nfc/llcp_core.c
+@@ -888,8 +888,12 @@ static void nfc_llcp_recv_ui(struct nfc_llcp_local *local,
  
-+		/*
-+		 * The waiter could have been dequeued while the lock was
-+		 * dropped. In that case the waiters tree is empty and
-+		 * top_waiter is NULL, so there is nothing to steal from.
-+		 * Take the lock and leave the transient state to
-+		 * rt_mutex_set_owner() below.
-+		 */
-+		if (!top_waiter)
-+			goto takeit;
-+
- 		/*
- 		 * If waiter is the highest priority waiter of @lock,
- 		 * or allowed to steal it, take it over.
+ 	/* We're looking for a bound socket, not a client one */
+ 	llcp_sock = nfc_llcp_sock_get(local, dsap, LLCP_SAP_SDP);
+-	if (llcp_sock == NULL || llcp_sock->sk.sk_type != SOCK_DGRAM)
++	if (!llcp_sock)
+ 		return;
++	if (llcp_sock->sk.sk_type != SOCK_DGRAM) {
++		nfc_llcp_sock_put(llcp_sock);
++		return;
++	}
+ 
+ 	/* There is no sequence with UI frames */
+ 	skb_pull(skb, LLCP_HEADER_SIZE);
 -- 
-2.43.0
+2.34.1
 
