@@ -1,127 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5602356754;
-	Wed, 16 Sep 2026 05:17:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF143C9895
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789535866; cv=none; b=cmv1pjmLmqQFtpNBkXxhNwp907412M0wzF5N4Ax4S9oKNeLhD7Iv0gl2+SywuhWR8p1ZSPuVpeiawN1frNoHQAZl5yZpN6N46MTDgmdMAl6LOI2QuejQ74MKENiUePN8c8reZ3WXDapinKuthpXL7u0n+o52suZMQ99G6ew8pNM=
+	t=1789535870; cv=none; b=R+9HJSf2xVLc0q2PV6QED/y8V5hqCnkvRkUVhFkvC0f32F4810GR6E7LRs+a5RRWELEXck2slB3qp0Xq9DaOfpDb2tBE3tdEJe7Om2XzCOw6Q1G6OYjglygysZWuejmYA4lZhIscmkBPuqEu6xVdhtE5LVMYezIzjsBtytkaxLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789535866; c=relaxed/simple;
-	bh=QUu94teIx4TW3x6nbYKlORv1Ri6SBezqVAFqs1gpUZU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LugLLTKqBuBZmXJgGw7iRVxZ+/q502d5pYsV5VnBMz4qvLgaOdXtVVAKxW2XZbWml0D4yZmGS7C0fXNxr7VgyqBxDJtv3TuBfDznWCQPnfuKjEfZ+k6RPaFP4nt3EzzZxfVjGQSj7fFEzQ7v0mtNPIZC0O0EIcv0G5v3xJmSwfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ps8zn5Mt; arc=none smtp.client-ip=192.198.163.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789535870; c=relaxed/simple;
+	bh=csuFMHNoSfXJUiEKRnyDG776nZLFpC8JOlXrzTUfBh8=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=ugVRniHfl+i9P1MiUC35lk7ZT2/D6cx3sQiTykY+G5YvHL9f3bdoBaZ0q8q3Kc0gWa3dS/YqDbdxssuXc9tJRFmR7QY1tvHZD6LdmtK3fGj1JSUB593a7LOASBpP27Pz6dJizT1rswcW35gNM3dzYViAn7ipZFMeM8nCkhydsyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=jHblaReI; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ps8zn5Mt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789535864; x=1821071864;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=QUu94teIx4TW3x6nbYKlORv1Ri6SBezqVAFqs1gpUZU=;
-  b=Ps8zn5MtujQ+DWVKDJHHoIDZ9+iu+Vke9dEqd7kWHuzSWVGycsp1a7tC
-   qdf9ICSj6CNSbIAiWwKEx/uLdyaLGEihlXGuRXf3Z9rnJwXrUkKCAOCKo
-   /ygvjp9kC2qhlL0UdQzIo+LzqnvUKhJniFMUedsvqCECf62h1XMlplOFW
-   M4xnF/B3I/CNCLyWZKI/PaNo0bGJc+ju9RQNRDq7wmBPlPxXlRqmGhLNJ
-   1YgD0/oe69uAbH6OQbGH1HWkg3biJ4aq+ZljwQVt079iQAIjuzzSoA+ci
-   THdK049ykSv48MY+y92XAdBG7nl95XFUwQU2WVPzKVs+gt2jm0K+X0nUp
-   w==;
-X-CSE-ConnectionGUID: LiJBtV1cQpWaGL8rYf/1lw==
-X-CSE-MsgGUID: IGX3E98tS0q69p+jIBYedg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="411276"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="411276"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 22:17:41 -0700
-X-CSE-ConnectionGUID: frUvfdzMTPSc4HoPQQIhJA==
-X-CSE-MsgGUID: coPjhrOMSg+EJ9PvaN/ueA==
-X-ExtLoop1: 1
-Received: from unknown (HELO [10.238.2.139]) ([10.238.2.139])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 22:17:39 -0700
-Message-ID: <c6ccc8a9-8699-4355-8148-c9b3b60e7419@linux.intel.com>
-Date: Wed, 16 Sep 2026 13:17:37 +0800
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="jHblaReI"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260916051743epoutp02c60e915a6a9197eb26c410ffa2bc1abd~VtWMDv-fU0137501375epoutp02m
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:17:43 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260916051743epoutp02c60e915a6a9197eb26c410ffa2bc1abd~VtWMDv-fU0137501375epoutp02m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789535863;
+	bh=gKhZKzIlrc1a14bnjDxz+HDub4sbghbE452clME9/Og=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=jHblaReIb6KFmt2rUgPAuvo/nhlZaxyHzH7NvaRfdi2PvdIaJ1AkRwFwH/dAZJdJG
+	 Sx0d6Q/MJAL5S2PBvK84MS+jnhmlPIUSwO77Az5RpL2Cbht0nzCyzjkmwhG9QN5cF8
+	 A7AWIFFLvTAPyOuvo+4lNhh1x7lp0qSDO5afDkyE=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20260916051743epcas5p43ba39ba30628791762e72cdcbb3da84e~VtWLX9s860537105371epcas5p4i;
+	Wed, 16 Sep 2026 05:17:43 +0000 (GMT)
+Received: from epcas5p3.samsung.com (unknown [182.195.38.88]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4hl6bB2FhSz6B9mK; Wed, 16 Sep
+	2026 05:17:42 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20260916051741epcas5p4bfb1ebbc28556f987d535a280b2c8c83~VtWKO5PKF1868918689epcas5p4z;
+	Wed, 16 Sep 2026 05:17:41 +0000 (GMT)
+Received: from SRIB8EG28RUQ1R (unknown [107.108.208.92]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260916051738epsmtip295f8f4f370b9bbd7a2150a95daed677f~VtWHYrnh-0788707887epsmtip27;
+	Wed, 16 Sep 2026 05:17:38 +0000 (GMT)
+From: "SandeepI" <irlanki.s@samsung.com>
+To: "'Jakub Kicinski'" <kuba@kernel.org>
+Cc: <netdev@vger.kernel.org>, <bpf@vger.kernel.org>, <davem@davemloft.net>,
+	<edumazet@google.com>, <pabeni@redhat.com>, <ncardwell@google.com>,
+	<ast@kernel.org>, <daniel@iogearbox.net>, <andrii@kernel.org>,
+	<corbet@lwn.net>, <linux-kernel@vger.kernel.org>, <lorenzo@google.com>,
+	<maze@google.com>, <sporeba@google.com>, <motomuman@google.com>,
+	<srihari.k@samsung.com>, <g.pokhra@samsung.com>, <r.kumawat@samsung.com>,
+	<raj.kumars@samsung.com>, <ts413.lee@samsung.com>, "'Daeil	Hwang'"
+	<daeil2.hwang@samsung.com>, <ramyashree.s@samsung.com>
+In-Reply-To: <20260915165805.359302fe@kernel.org>
+Subject: RE: [PATCH net-next v3] tcp: add TCP_ECN and TCP_ECN_OPTION socket
+ options
+Date: Wed, 16 Sep 2026 10:47:37 +0530
+Message-ID: <09fd01dd459a$b2b5ec50$1821c4f0$@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by
- KVM
-To: Xiaoyao Li <xiaoyao.li@intel.com>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "seanjc@google.com" <seanjc@google.com>
-Cc: "Gao, Chao" <chao.gao@intel.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "kas@kernel.org" <kas@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "nik.borisov@suse.com" <nik.borisov@suse.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
- <20260827031837.2863609-2-binbin.wu@linux.intel.com>
- <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
- <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com>
- <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
- <84891108-55be-48c1-9993-c730a5334d5b@linux.intel.com>
- <cfe57e67-49ce-47d7-b20b-a29e23fe16d4@intel.com>
- <d8012e9acbe3c733b082c87fdbe9f229a8f7750c.camel@intel.com>
- <9abeed40-bcdc-48d9-8cbb-cb87154bb9f6@intel.com>
- <aqHdwkOFVR4XoS2M@google.com>
- <c967dc3eb6b128055e415bae45d1c14a52dc4acd.camel@intel.com>
- <94b3473c-7e44-4f6f-8721-b43ff4e2c423@intel.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <94b3473c-7e44-4f6f-8721-b43ff4e2c423@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQF4AsWRY+oGaIDuY7VKoCgi8Z06jgGdcOe2AS3TtgG3hNQBAA==
+Content-Language: en-in
+X-CMS-MailID: 20260916051741epcas5p4bfb1ebbc28556f987d535a280b2c8c83
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-065,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260911091026epcas5p35873551b66ec0a50e20ada6e26d2b056
+References: <CGME20260911091026epcas5p35873551b66ec0a50e20ada6e26d2b056@epcas5p3.samsung.com>
+	<20260911091148.456834-1-irlanki.s@samsung.com>
+	<20260915165805.359302fe@kernel.org>
 
-On 9/10/2026 10:53 AM, Xiaoyao Li wrote:
-> On 9/10/2026 7:18 AM, Edgecombe, Rick P wrote:
->> On Wed, 2026-09-09 at 15:29 -0700, Sean Christopherson wrote:
->>>   Yeah, *ideally* we'd magically enable everything everywhere all at once.  In
->>> reality, different VM types are going to support features at different times. 
->>> More importantly, as Xiaoyao points out below in #1, unless we enable
->>> everyting in a single patch, which is probably a terrible idea in most cases,
->>> we'll still end up with staged/progressive enabling, i.e. we still need to
->>> have patches that selectively enable and advertise a feature only for the VM
->>> types that actually support the feature.
->>>
->>> This is all quite similar to Intel and AMD feature enabling being done at
->>> different times.  The biggest difference is that Intel and AMD are mutually
->>> exclusive and so KVM_GET_SUPPORTED_CPUID always reports the correct
->>> information, but TDX already provides KVM_TDX_CAPABILITIES, so AFAICT we still
->>> get accurate reporting for TDX, just in a slightly different way.
->> I think this actually surfaces another problem with TD-first enabling.
->> KVM_TDX_CAPABILITIES only returns the directly configurable bits. Then recall,
->> KVM_TDX_GET_CPUID returns the actual TDX module's view of CPUID bits to
->> userspace. Then userspace calls KVM_SET_CPUID to actually put them on KVM's vcpu
->> so they can match between Qemu, KVM and TDX
->>
->> So if a bit is enabled for KVM_TDX_CAPABILITIES, but not yet in
->> KVM_GET_SUPPORTED_CPUID. How should userspace interpret KVM_GET_SUPPORTED_CPUID?
->> It can ignore it for TDX, but that is how it can find the PV bits today.>
->> If we have a TD first feature, it could be a documentation update on how to
->> interpret it. Or we could stuff the PV bits somewhere else for TDX and say to
->> ignore KVM_GET_SUPPORTED_CPUID for TDX. I think we don't need to solve it before
->> we begin filtering like this series has.
+> -----Original Message-----
+> From: Jakub Kicinski <kuba@kernel.org>
+> Sent: 16 September 2026 05:28
+> To: Irlanki Sandeep <irlanki.s@samsung.com>
+> Cc: netdev@vger.kernel.org; bpf@vger.kernel.org; davem@davemloft.net;
+> edumazet@google.com; pabeni@redhat.com; ncardwell@google.com;
+> ast@kernel.org; daniel@iogearbox.net; andrii@kernel.org; corbet@lwn.net;
+> linux-kernel@vger.kernel.org; lorenzo@google.com; maze@google.com;
+> sporeba@google.com; motomuman@google.com; srihari.k@samsung.com;
+> g.pokhra@samsung.com; r.kumawat@samsung.com;
+> raj.kumars@samsung.com; ts413.lee@samsung.com
+> Subject: Re: [PATCH net-next v3] tcp: add TCP_ECN and TCP_ECN_OPTION
+> socket options
 > 
-> The PV bits reported in KVM_GET_SUPPORTED_CPUID are the bits supported for
-> non-TDX VMs. Only some of them are actually supported for TDX. I would suggest
-> reporting TDX supported PV CPUIDs in KVM_TDX_CAPABILITIES as well.
+> On Fri, 11 Sep 2026 14:41:48 +0530 Irlanki Sandeep wrote:
+> > Currently, ECN and Accurate ECN (AccECN) configurations in the Linux
+> > kernel are controlled globally via the net.ipv4.tcp_ecn and
+> > net.ipv4.tcp_ecn_option sysctl variables. This global approach lacks
+> > the granularity required for modern multi-application runtimes.
+> 
+> CI (bpf-ci) reports a failure to build tools/testing/selftests/bpf on all
+tested
+> toolchains/architectures (x86-64 gcc-15, x86-64 llvm-21, s390x gcc-15,
+aarch64
+> gcc-15) after this series. The build breaks in
+> progs/setget_sockopt.c:
+> 
+>     progs/setget_sockopt.c:67:11: error: use of undeclared identifier
+> 'TCP_ECN'
+>             { .opt = TCP_ECN, .new = 3, .expected = 3, .restore = 255, },
+>     progs/setget_sockopt.c:68:11: error: use of undeclared identifier
+> 'TCP_ECN_OPTION'
+>             { .opt = TCP_ECN_OPTION, .new = 2, .expected = 2, .restore =
+255, },
 
-I would leave it as a separate task if we want to report the PV features more
-accurately.
+Thanks for the report.
 
-Currently, the CPUID bits reported by KVM_TDX_CAPABILITIES only serve the
-purpose for enumeration of directly configurable CPUID bits and the userspace
-VMM (e.g. QEMU) will follow the same structure and layout of the CPUIDs reported
-to construct the input for KVM_TDX_INIT_VM.  If we report PV CPUIDs in
-KVM_TDX_CAPABILITIES, these values in KVM_TDX_INIT_VM will be rejected by the
-TDX module.
+TCP_ECN and TCP_ECN_OPTION have been defined in
+tools/testing/selftests/bpf/progs/bpf_tracing_net.h to resolve the
+compilation failure in progs/setget_sockopt.c.
+
+This has been addressed in v4:
+https://lore.kernel.org/all/20260916050255.1379192-1-irlanki.s@samsung.com/
+
+Thanks,
+Sandeep.
 
