@@ -1,125 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1836D345EA9;
-	Wed, 16 Sep 2026 14:43:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A413093C1
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569804; cv=none; b=Jj9PcFVxvNdJ0uJKtitxhW0AxQacsWchp1H6g8bDc3Zb2WhuMHel7NtFnvVPKcwIRUUwmIRc/fjh7PZEuOgIkxHfabBXN396MRafDjIz8eQ+iAEHZbewo31ui+OY4j5fWFObvY2t3+MzEcKydxr9L93Fh6MRPoFMcD37v8FyvcQ=
+	t=1789570014; cv=none; b=s1xLOI0CLOjNps9/IRokLIji0ELVewp2SKJ/U+Ij2w1PET5q6ozP2sbZBdLXvAbMCOZmiXdBKbV4vui6cCsEJIdiYRJpAFtGT5ou6QaPc8qb9R6U4xr9HzEL3O5buydBMiTVZd0EoaXygEIFp6sOSWpOvS1+WnHx8UedmWN5xwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569804; c=relaxed/simple;
-	bh=2blyJVrLPGRj0l0yu7fJBugdjsKzvJN/b9+RvvBJZUk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R3LDOicFez07q/0Cegs3ZEUp0G0y/gz4hSKDcwqOh/OYdA0+HW1vweUNjw6UbhwOJ+xxsUq71BQZiTpR090pn74Tsi4zLdJWD/d0zJFGyWcruBpUMRJ6fHu1kTmHtxyISw/3TPlj5LWxhqgZSUHFMR2ngMDAdEd72KKyFVtyQSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=US4HjDlo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789570014; c=relaxed/simple;
+	bh=ry0gP9/nte5FvnTqKFpnVOsUj0CotpETxmQQImGcUyM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R+4M2FE2FB/HYTUvO4Cd5B9PyWPy7dUKiIiETa3JldDOt5otxSfRD0318gMHiMo7y9z6nZhiaZBB1Im4bHmeScGZzhufitqrtVnkudAGFOljWTAnbGJpdinSlWok8dK01JpG5gn9x6puEvErTUDXB52ZIzVU6Qfsgsgi/c7Iq/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fDMGGgzl; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="US4HjDlo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879721F000FF;
-	Wed, 16 Sep 2026 14:43:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789569802;
-	bh=xSDVG1lglUQwFFqlygYf5GfKu89gxUCIwl8QHxqxrNQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=US4HjDloLd3rTwRGv61tzk1+s2ehxUJaAKRwaEQW5YxLXGW7eDKunWQaQOXFSm76b
-	 tWV+Ste9NP/hiHh42Gr3UzI1zxBFLXStdNvV7vw1eOxb6tFBMrud8unwiYuUXrvVLx
-	 MHtQ9o1Gyql2G1UBrGgLoErR/sCe6j+DZBf+RYnWRE0M5k/AMxpJBWRhcbwotgQofB
-	 FNJ4N9pQ4qYImsGMsVxwfwrK8YXskAmdRtoUHEv2yX3ThKE/Is3mRJH5FRrETPd72j
-	 bfE/3/ker2vNMZ56/vj2k1CqLwQVDe/Dhh2VPruwWve/28XMRHkr/dTNwW1tjAldj3
-	 l6ePbVM1BezCA==
-Message-ID: <b9693892-d0d3-49aa-8fb8-21da12f6eadc@kernel.org>
-Date: Wed, 16 Sep 2026 15:43:18 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fDMGGgzl"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db1ca069c8so8729055ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:46:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789570012; x=1790174812; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Leygo7+6aTim/GwiqbwE1kTpWGv4lEshT5ezDgEePDE=;
+        b=fDMGGgzln9oDP3+ai1klZz/tz2Pj+bzvN5zQXFI7N7SWPfKsoJvbnneaeHTLhzgGFq
+         lPKDQDOzgvtnSsk93DueRbj4+Lm+eqL15VOgaKGkW1VALVjcCfDOht84Fz/wplPUUZ7z
+         i2hBDglIQWWI+EW9ocdjGz5U1SqVBXeI/+lxD9CsvQV/3vlZ12Smzehd4zOaaICCe9ou
+         sTBl5JTb0gKvL4lpt0XzfgtKtvMuSWov29rubux2jVTw6jlMQlIIjgH8V2bgwpeupwcT
+         ZF5qqIBruHdl1/uC96kql9FPCX3W28vYZw/a3vrwWGcCQri+RRpptG67qN8D014Ja3Ea
+         WXNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789570012; x=1790174812;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Leygo7+6aTim/GwiqbwE1kTpWGv4lEshT5ezDgEePDE=;
+        b=e4PuvA7/Qb0EWZOU5aPmLabSZNVdii8QUmntn9H89IsV4pt1u/uKd1VdUYAlMrlGf0
+         toIcR/wlvySRED2QdqG0Lq8gKQ/0MkbeJTYFrpL4KUswQy9mSZN9n5kZehjK3rPkMv00
+         Ndykf5hpojdkmXUqcAI3sOTay8BkqO/gYdoZ+ffGQRVjDlGWyS0iOBQxR7CnnAvB5Bng
+         kzr9qmkLuKnFTKmg/Y7l7Lw+KH4YATOhZWq/oxK8HKr1o1iriyjx/nN7IgR5h0FIxYsS
+         5CRVxJl5RomPkvsPxqEIBtm7hz4F2D925dQE7FYmQH+XmQ5NnuMIw0R+waMA6WYW7W0J
+         zysg==
+X-Forwarded-Encrypted: i=1; AKwUvBw0RG8sKCKRxwoYpH99SQpLcNsd96fLA332PdBVZQyKpn6/I+z4H+rWdPTFkcrEqZw1DkM9b/sZZE4eLsQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lS7Le/CRmVtJQjBgN+qtCAs/q9nC8TbMAdiOd7lrISuCGywzGb
+	QsizAAKid5/QJETIhQhiUhdlj0lm4Lo7XWp86xp1R+xsEnU8NJ3WjLFn
+X-Gm-Gg: AYBFou345fYmjrjFenVucku7Q3LHVk8lIG+JQx9ErL3Za6XEuLOkaeeFDBRdQADnMWG
+	4OFwEBHrrnaNLEYdwt9ltgVJF8XpefduLJP5aTzxfV3RXr6lXBeBZ287aqwB2NkNMl9jauhV6qk
+	hPT+q/2rOvqZukTdRwwNhqDspNcBzuRkWrZ/cOpNTY/bmxaaTE2gQaXNDuFpwtxOKRDfYOhz37o
+	HekM8slhN7/SDk51Wq6AWXeB8gQrWpRgO8U4pDll7DG3kH2jqwePL8aSs/hQ/7TX2+8FUMIdOB1
+	vwet32PwytQ1TtMEt37/3JgD61JvXh1WObBsI7rtEt+7sUdTT8JTxpaybWYwO3qwl1qRIwMca3i
+	tFkx4lJJNdifJL2X60pc35wyIbVSBvTmEOP9sSDmFMpdpvh1fjHSWtH7N8+v4raHTuSQxVk4zZj
+	HjvPgJ2VzpR1ZUoQXJMlQgi1l+Q4NnYwheNvxoAlejToJINr0Txiz8SH2Byknrj+r9H9nL7nrud
+	beFasQTPwhSSwfK+igXjnAC8h3BX790qVrc0ABVKZ5Lzg==
+X-Received: by 2002:a17:903:2f10:b0:2d8:d4d0:7930 with SMTP id d9443c01a7336-2dd8e7aa5afmr63174535ad.20.1789570012227;
+        Wed, 16 Sep 2026 07:46:52 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d8fe00sm13298065ad.12.2026.09.16.07.46.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 07:46:51 -0700 (PDT)
+Date: Wed, 16 Sep 2026 20:16:39 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: David Gow <david@davidgow.net>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	chleroy@kernel.org, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com, 
+	tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org, 
+	acourbot@nvidia.com, work@onurozkan.dev, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, nathan@kernel.org, ndesaulniers@google.com, 
+	morbo@google.com, justinstitt@google.com, ynorov@nvidia.com, joelagnelf@nvidia.com, 
+	fujita.tomonori@gmail.com, linkmauve@linkmauve.fr, linuxppc-dev@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	llvm@lists.linux.dev
+Subject: Re: [PATCH V5 2/2] rust: kernel: Add KUnit tests for powerpc
+ ARCH_WARN_ASM bug table emission
+Message-ID: <aqqqKyquDoisxvZL@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20260915090453.1227034-1-mkchauras@gmail.com>
+ <20260915090453.1227034-3-mkchauras@gmail.com>
+ <236f1c15-9532-405a-818d-9bf52349f25a@davidgow.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 3/5] media: qcom: camss: Add support for PHY API
- devices
-To: Oleg Keri <okerixx@gmail.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-3-ae811e2f0799@linaro.org>
- <BkBVG4wA3hW3czd3HkiTpcRrXAS9XQUXYIaW-daywIBstO3j8EYH1SjT-KLmM_3FIkcbIETf8t-eyx048tIIzA==@protonmail.internalid>
- <178956537382.2699.6279926603215472320@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <178956537382.2699.6279926603215472320@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <236f1c15-9532-405a-818d-9bf52349f25a@davidgow.net>
 
-On 16/09/2026 14:29, Oleg Keri wrote:
-> Hi Bryan,
+[...]
+> This works for me under QEMU, but I have a couple of small suggestions.
 > 
-> On Tue, Jul 28, 2026 at 10:35:34AM +0100, Bryan O'Donoghue wrote:
->> Add support for PHY API devices
-> One thing I ran into while bringing this up on a Lenovo Yoga Slim 7x
-> Gen 11 (Glymur, ov08x40 on CSIPHY4, two lanes), with Nihal's Glymur
-> CAMSS series on top: the two ends of the CAMSS <-> PHY link count lanes
-> differently, and the CAMSS side silently ends up on the wrong lanes.
+> 1. You should use the kernel CStr and kernel::ffi::c_* types, not the ones
+> from core. This properly matches the way the kernel uses -funsigned-char.
+> For any architectures where char is normally signed, this would fail to
+> build. Which brings me to…
 > 
-> The csi2-phy binding numbers data-lanes from 1, and the PHY driver
-> converts:
+Thanks for pointing it out, i missed this.
+> 2. Why is this specific to powerpc? Shouldn't it be possible to do this in a
+> way that works across more architectures? (Indeed, the current
+> implementation happens to pass on x86_64 with the above fix, though more
+> would be needed for other architectures, and there's probably a better
+> solution overall which doesn't hardcode a special bug address.)
 > 
-> 	/* Convert data-lanes = <1 2 3 4> to bit positions */
-> 	csi2phy->stream_cfg.lane_cfg.data[i].pos = data_lanes[i] - 1;
+> So this still seems like it's something worth having, but I'd much prefer it
+> to not be architecture-specific if we can avoid it.
 > 
-> The CAMSS endpoint still takes its data-lanes as 0-based positions;
+> Cheers,
+> -- David
+> 
+The dependency to support these on all archs as it is would be to probe
+the implementation and figure out which will again cause it to have some
+arch specific stuff. I couldn't find a clean way of having all that at
+the same place without a lot of #cfg's so i just made it powerpc
+specific.
 
-Resolved here:
+Tomonori sent out a patch with a single test that's arch agnostic, but
+for ppc I would still like to keep these if the maintainer agrees.
 
-https://lore.kernel.org/r/20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-5-e2197a3e2551@linaro.org
+[...]
+> 
+> It'd be really nice to use the warn_flags!() macro here (or even all of
+> warn_on!() instead of hardcoding a separate implementation here. But even if
+> we can't (due, e.g., to the need for global_asm! vs asm!), it'd be nice if
+> this were more similar to the warn_flags!() implementation. Not only would
+> that reduce the likelihood of these deviating needlessly, but it'd better
+> support more architectures, too.
+> 
+> For example, the commented "{size}" would help on architectures where size
+> isn't needed.
+> 
+Let me try this.
+[...]
+> > +    /// With `CONFIG_DEBUG_BUGVERBOSE` the entry must record a non-null file
+> > +    /// pointer pointing back into this source file.
+> > +    #[test]
+> > +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
+> > +    fn bug_entry_file() {
+> > +        use core::ffi::CStr;
+> 
+> Please don't use core::ffi::* in the kernel. The kernel provides its own
+> CStr and c_char implementations. Otherwise, this can lead to issues as the
+> kernel builds with -funsigned-char, but core::ffi will use the architecture
+> default.
+> 
+Sure.
 
----
-bod
+> > +
+> > +        assert!(trap_addr() != 0);
+> > +        let entry = unsafe { bindings::find_bug(trap_addr()) };
+> > +        assert!(!entry.is_null());
+> > +
+> > +        let mut file_ptr: *const core::ffi::c_char = core::ptr::null();
+> 
+> Again, core::ffi::c_char should be avoided in kernel code. Use
+> [kernel::]ffi:c_char
+> 
+Sure.
+[...]
+> > +    /// With `CONFIG_DEBUG_BUGVERBOSE` the recorded line number must be
+> > +    /// non-zero (a zero line would mean the asm operand was not substituted).
+> > +    #[test]
+> > +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
+> > +    fn bug_entry_line() {
+> > +        assert!(trap_addr() != 0);
+> > +        let entry = unsafe { bindings::find_bug(trap_addr()) };
+> > +        assert!(!entry.is_null());
+> > +
+> > +        let mut file_ptr: *const core::ffi::c_char = core::ptr::null();
+> 
+> And again.
+> 
+Sure 
+
+Regards,
+Mukesh
+[...]
