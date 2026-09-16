@@ -1,224 +1,627 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from lgeamrelo07.lge.com (lgeamrelo07.lge.com [156.147.51.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB9F4DAF85
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:34:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC1251FCDF
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:34:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.147.51.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583662; cv=none; b=KiuHaVlsBnzTCkxySm5P7u60Rl89cExPorQ679q9amr+A2fzrkvIVPnQm35quk0DTNMTX+Uv09Zy86a294XKa7gNHaAZ8ltk5LyeQZaX1TPHhsZagzkOZOeNp32FQXLOkGno5T/MYuFhq+j2e82MeD+LosTWZpBXKqaGRY1f5wk=
+	t=1789583694; cv=none; b=I/9hhS9o+gmIX/ARdBQJmafgQnGx2TuKlwftUqwxxAQzJ8dO1zcm2ERaz2+i/11Wk3AUle16jgsWrWJqwhr6QwPqBGl1wIZow5Xr6aQSyHc1AUX7rKXAT0LZ1zN93jX4LT7bO3RvB4UFtkBq/nGVG6fWw2fpmN1io6Lp8te87Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583662; c=relaxed/simple;
-	bh=Ykk92tDV9M7kvVoJsqecVU31W9ystDedudQnlhM9OB8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=QlyLkqd+R0TDgELAFygV0OA+uQPksX+iyzLU4+Kt/ejprYH7ga8B7UN8c48nCEid4Ib3MAzPpN6CvGnAAjplUXZHwivyn1LBmAi+1ThK4sr44ctf+voTyQQLtKTwVKSPgREomJZSlZdVJvEcug35r0m1EmmacFsTBR9E6NhE0MU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ClBD6ywo; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ClBD6ywo"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc4922b7c31so5897321a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:34:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789583639; x=1790188439; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1/boOQor9JLExDk92cynKiJhAwGiEff2rVhXxeRxqi4=;
-        b=ClBD6yworE6thdWh7eCBA3FhIDrUN4fB14lIbr6Txofs8xI3/Z8QgpSotcUZJQczgV
-         U5dt2rzsc/fBmI+Nbk4fEEwvTqgt6OE9pjJWdMx1szoylxvmGntWnIjrd2EAQwtO4c3H
-         6seUeQW8sR6IjVIy8qjQT4Q9caop8+Q6McB0PAPQfuIxiUWhuqHNUf8GO4REBWg/jQzy
-         xHksPON/HFZNUFAUDPpdLDmc5fnQQLiVlDctw3Cf+2zplA0XfxJfImlVNFA4jbVM2mqm
-         HnoNRHkGfdM9DGowcamU8eMu5dBXI4xcyS8AgoiVuFZRG0Eis+Qnpm1hkV2KteIK92wq
-         59fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789583639; x=1790188439;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1/boOQor9JLExDk92cynKiJhAwGiEff2rVhXxeRxqi4=;
-        b=ioP4fIKU40weUHwfemx2XIdw53GMbb8W0Us76X2V3D0IonbM7QciqfZYNVneYRiX6q
-         EQDZHjOtYgOIhm15J7UfU8Xg98w8Z6sH43ILJ8/jaUheo4xI+86PqxzhgSdLca3ZEHXW
-         K5NrzA93fGMHWn8rPUAAjg2U72tBva/0v2vaUY6E+L/K3R5Im73QHFR7J/G4mYxibxoO
-         5/F0YSMbom9ji2HKNVkiSU1/C1t4A8oDD6czf/smHmk9kumJNK80Y5l9cBimgZLSuK4C
-         guZ1HrcYXt7XrPbmN0yTROtKgy0M64c4KYhjH1HqVKoL0zlYbKjjV7IpiHB7JX7lxgdv
-         Zq/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzFv3QBSJfDBGlDGqLgQ7ytW7MRpt26tbR8ccTUXxhO/aTcC05q5sHgPOH7mqyheongsdGzbSuA2vOhxu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJgg9cGp6lT7u7huCxxMhvxdS33lgvoFoFZqoR05f3GytvkvJu
-	GrZ2dc9ht7eWgzqtmUOysDwWkk4T6PmnpDEiFnxnmDPIZQr+KUHBYWhCdYNtMkBdKhfwDfTvFaN
-	ENznn5g==
-X-Received: from pffj7-n2.prod.google.com ([2002:a05:6a00:c2c7:20b0:86b:491c:9006])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:f8b:b0:871:e76a:2a35
- with SMTP id d2e1a72fcca58-87238f95cf6mr8223777b3a.19.1789583638744; Wed, 16
- Sep 2026 11:33:58 -0700 (PDT)
-Date: Wed, 16 Sep 2026 11:33:58 -0700
-In-Reply-To: <CAJxe5ctcVxmhRSw3Gt0POQTzRKoxXo7+Y3CPDe7cUZvC0QPK+g@mail.gmail.com>
+	s=arc-20240116; t=1789583694; c=relaxed/simple;
+	bh=X61Dnjaw35FZr4d8vkWRgJwXha9DyIs+cJOK34/L4bo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=BfKrw8kGMoEErFllvqAar9M09DgnW0P6bEwCQipT8wf4/Btkl87kT+VOzhk9sjXFnXC/NfgEPJI20npHEvsa0F80n9422EYhO5NbSspxDwR8NEYFrXsV48hZSJj+VZ9wKlBkK8N70iPXJ5jnZMF6/W29d6/es45b+yS5LvKWv00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com; spf=pass smtp.mailfrom=lge.com; arc=none smtp.client-ip=156.147.51.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lge.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lge.com
+Received: from unknown (HELO yjaykim-PowerEdge-T330.lge.net) (10.177.112.156)
+	by 156.147.51.103 with ESMTP; 17 Sep 2026 03:34:37 +0900
+X-Original-SENDERIP: 10.177.112.156
+X-Original-MAILFROM: youngjun.park@lge.com
+From: Youngjun Park <youngjun.park@lge.com>
+To: akpm@linux-foundation.org
+Cc: chrisl@kernel.org,
+	youngjun.park@lge.com,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kasong@tencent.com,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	muchun.song@linux.dev,
+	shikemeng@huaweicloud.com,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	yosry@kernel.org,
+	joshua.hahnjy@gmail.com,
+	taejoon.song@lge.com,
+	her0gyugyu@gmail.com,
+	lianux.mm@gmail.com
+Subject: [RFC PATCH v11 3/4] mm: swap: add a debugfs interface for memcg tier selection
+Date: Thu, 17 Sep 2026 03:34:36 +0900
+Message-Id: <20260916183437.2946306-4-youngjun.park@lge.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260916183437.2946306-1-youngjun.park@lge.com>
+References: <20260916183437.2946306-1-youngjun.park@lge.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910-snp-invalid-input-v1-1-fb2e03da614b@google.com>
- <0b2d8858-b361-4a64-986a-4c179210fbec@amd.com> <aqlWt4jb4CSPnecN@google.com>
- <d6179d34-a4b0-4548-8298-b790b333d22f@amd.com> <CAJxe5ctcVxmhRSw3Gt0POQTzRKoxXo7+Y3CPDe7cUZvC0QPK+g@mail.gmail.com>
-Message-ID: <aqrhFvwFJsQTaEkz@google.com>
-Subject: Re: [PATCH] KVM: SEV: Return INVALID_INPUT on SNP req/resp buffer
- access failure
-From: Sean Christopherson <seanjc@google.com>
-To: Jacky Li <jackyli@google.com>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Michael Roth <michael.roth@amd.com>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Jacob Xu <jacobhxu@google.com>, 
-	Supraja Sridhara <suprajasri@google.com>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026, Jacky Li wrote:
-> On Tue, Sep 15, 2026 at 8:21=E2=80=AFAM Tom Lendacky <thomas.lendacky@amd=
-.com> wrote:
-> >
-> > On 9/15/26 09:31, Sean Christopherson wrote:
-> > > What if we keep this one as -EIO (or better, change it to -EFAULT in =
-a separate
-> > > patch?), but add a comment explaning why KVM needs to exit to userspa=
-ce in this
-> > > particular case?  That would be a good compromise; if the guest is at=
-tempting to
-> > > access non-existent memory, the initial READ will fail, i.e. we still=
- get most
-> > > of the behavior Jacky wants.  The only fatal case would be where eith=
-er userspace
-> > > really did screw up, or the guest managed to find read-only memory (t=
-hough I
-> > > would probably argue that's likely also a userspace bug?).
-> >
-> > That sounds good to me.
->=20
-> Thinking through the sequence number and VMM bug concerns, I'd still argu=
-e
-> that returning INVALID_INPUT on kvm_write_guest() failure is preferable t=
-o
-> exiting to userspace:
->=20
-> 1. req_gpa and resp_gpa are two independent guest inputs, so a guest can =
-pass
->    a valid req_gpa and a resp_gpa that isn't backed by any memslot to sai=
-l
->    through the initial read and fail only on the write.  Exiting to users=
-pace
->    on write failure therefore still lets a guest kill the VM at will.
+Swap tiers do nothing until something chooses between them. Let a memory
+cgroup do that.
 
-Drat, I missed that.
+Each cgroup carries a mask of the tiers it may swap to. Write a cgroup
+path and a hex mask to /sys/kernel/debug/swap/memcg_tiers to set it. Bit
+i is the tier at index i. /sys/kernel/debug/swap/tiers lists each tier's
+index and priority.
 
-> 2. Comparing the two outcomes after a kvm_write_guest() failure:
->=20
->    - Case 1 (exit to userspace with -EFAULT/-EIO): unrecoverable.  The PS=
-P's
->      response is lost, and userspace can't rewind the PSP's sequence numb=
-er,
->      so retrying KVM_RUN would just fail that check.  There is nothing
->      userspace can do other than kill the VM.
->=20
->    - Case 2 (return INVALID_INPUT to the guest): the guest disables the V=
-MPCK
->      and moves on to the next one, as Tom mentioned.  The worst case, onc=
-e all
->      four VMPCKs are exhausted, is that the guest can no longer issue gue=
-st
->      requests, but the VM keeps running.
->=20
->    Neither is ideal, but Case 2 seems to be better: a localized loss of
->    functionality instead of the entire VM dying over a single bad request=
-.
->    It also leaves the decision to the guest, which can carry on with what=
-ever
->    doesn't depend on attestation, wind down cleanly, and shut itself down=
- on
->    its own terms instead of being killed abruptly.
+  # echo "/batch 0x2" > /sys/kernel/debug/swap/memcg_tiers
 
-The problem is, I don't see how the guest can know when it needs to discard=
- the
-VMPCK (post-request failures) versus when the VMPCK is still "fine" (pre-re=
-quest
-errors).=20
+This lives in debugfs on purpose. A cgroup file is a permanent ABI, and
+what a swap tier should look like is not settled yet. It is built only
+with CONFIG_MEMCG and CONFIG_DEBUG_FS.
 
-> 3. More generally, when KVM can't tell a guest error apart from a VMM bug=
- at a
->    hypercall boundary, reporting the error to the guest seems to be the s=
-afer
->    default: failing the guest request degrades one service while keeping =
-the
->    VM alive and debuggable, whereas exiting to userspace turns a single f=
-ailed
->    request into a dead VM, and hands an untrusted guest a way to terminat=
-e it.
+The masks are kept in a list keyed by cgroup ID rather than in struct
+mem_cgroup, so memcg itself is not changed. A mask applies to the memory
+charged to its cgroup and is not inherited by child cgroups. The entry of
+a removed cgroup is dropped on the next write.
 
-Well, ideally KVM never has to make a choice.
+Each swap device is stamped with its tier's bit at swapon. A device's
+tier never changes, so the stamp is written once and read locklessly by
+the allocator.
 
->    And in the context of SNP the guest doesn't trust the VMM anyway, so a=
- VMM
->    that fails to deliver a response is indistinguishable from one that re=
-fuses
->    to, and the guest already deals with that by disabling the VMPCK on a
->    VMGEXIT error.  Letting a host problem bleed into the guest is arguabl=
-y
->    "fine" here, since the guest is designed to cope with it regardless.
+When the last device of a tier is swapped off, the tier frees its index
+for reuse. It waits until swapoff can no longer fail, so a device whose
+swapoff fails goes back to the same index. The freed bit is set back in
+every cgroup mask, so a cgroup that had disabled that tier must disable
+it again once a new tier reuses the index.
 
-FWIW, I'm not terribly concerned about bleeding host issues into the guest,=
- I'm
-more concerned about ending up with deferred fatalities and a mess of an "A=
-BI"
-between the guest and KVM with respect to handling failures.
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Youngjun Park <youngjun.park@lge.com>
+---
+ Documentation/mm/index.rst     |   1 +
+ Documentation/mm/swap-tier.rst |  55 ++++++
+ MAINTAINERS                    |   1 +
+ include/linux/swap.h           |   1 +
+ mm/swap_tier.c                 | 294 ++++++++++++++++++++++++++++++++-
+ mm/swap_tier.h                 |  31 ++++
+ mm/swapfile.c                  |   5 +
+ 7 files changed, 387 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/mm/swap-tier.rst
 
-What if we "tickle" the resp_gpa before doing the request?  Similar to how =
-CPUs
-probe bytes early in XSAVE/XRSTOR to avoid having to unwind later on.  In t=
-his
-case, the response is restricted to a single page, so we only need to tickl=
-e a
-single byte.  E.g.
-
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 2da61843a6f2..b2e74a407c2b 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -4207,6 +4207,7 @@ static int snp_handle_guest_req(struct vcpu_svm *svm,=
- gpa_t req_gpa, gpa_t resp_
- 	struct kvm *kvm =3D svm->vcpu.kvm;
- 	struct kvm_sev_info *sev =3D to_kvm_sev_info(kvm);
- 	sev_ret_code fw_err =3D 0;
-+	u8 tickle =3D 0;
- 	int ret;
-=20
- 	if (!is_sev_snp_guest(&svm->vcpu))
-@@ -4219,6 +4220,11 @@ static int snp_handle_guest_req(struct vcpu_svm *svm=
-, gpa_t req_gpa, gpa_t resp_
- 		return 1;
+diff --git a/Documentation/mm/index.rst b/Documentation/mm/index.rst
+index 13a79f5d092c..6afc45cd4b3d 100644
+--- a/Documentation/mm/index.rst
++++ b/Documentation/mm/index.rst
+@@ -34,6 +34,7 @@ see the :doc:`admin guide <../admin-guide/mm/index>`.
+    page_reclaim
+    swap
+    swap-table
++   swap-tier
+    page_cache
+    shmfs
+    oom
+diff --git a/Documentation/mm/swap-tier.rst b/Documentation/mm/swap-tier.rst
+new file mode 100644
+index 000000000000..4007c23f83a6
+--- /dev/null
++++ b/Documentation/mm/swap-tier.rst
+@@ -0,0 +1,55 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++:Author: Chris Li <chrisl@kernel.org>,
++         Youngjun Park <youngjun.park@lge.com>
++
++==========
++Swap Tier
++==========
++
++Swap tier is a group of swap devices that share a priority. It acts as a
++facilitation layer, allowing users to manage swap devices based on their
++speeds.
++
++Users are encouraged to assign swap device priorities according to device
++speed to fully utilize this feature.
++
++Tier Index
++----------
++
++A tier is created when the first swap device with its priority is swapped on,
++and removed when the last one is swapped off. Each tier is given an index when
++it is created and keeps it until it is removed, so a tier's index does not
++change when another priority is swapped on or off.
++
++Per-cgroup Tier Selection
++-------------------------
++
++A memory cgroup can be limited to some tiers through debugfs. This is for
++evaluation, not a stable ABI.
++
++``/sys/kernel/debug/swap/tiers`` lists the index and priority of each tier.
++``/sys/kernel/debug/swap/memcg_tiers`` takes a cgroup path and a mask in hex,
++where bit ``i`` allows the tier at index ``i``::
++
++    # cat /sys/kernel/debug/swap/tiers
++    Idx   Prio
++    0     100
++    1     50
++    # echo "/batch 0x2" > /sys/kernel/debug/swap/memcg_tiers
++
++There is no separate delete operation. Writing a mask that allows every tier
++clears the restriction, so the cgroup drops out of the file::
++
++    # echo "/batch 0xffffffff" > /sys/kernel/debug/swap/memcg_tiers
++
++A cgroup's mask is also dropped when the cgroup is removed.
++
++A mask applies to the memory charged to its own cgroup and is not inherited by
++child cgroups. A tier keeps its index for its lifetime, so the same mask keeps
++selecting the same tier across a swapon or swapoff.
++
++When a tier's last device is swapped off, its index is freed and can be reused
++by a later tier. The freed index is re-allowed in every cgroup mask, so a
++cgroup that had disabled it must disable it again once a new tier reuses the
++index.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 37f353015cae..af17b804f31b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17402,6 +17402,7 @@ L:	linux-mm@kvack.org
+ S:	Maintained
+ F:	Documentation/ABI/testing/sysfs-kernel-mm-swap
+ F:	Documentation/mm/swap-table.rst
++F:	Documentation/mm/swap-tier.rst
+ F:	include/linux/swap.h
+ F:	include/linux/swap_ops.h
+ F:	include/linux/swapfile.h
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index df69c2dd434a..30d3c37ca530 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -237,6 +237,7 @@ struct swap_info_struct {
+ 	struct percpu_ref users;	/* indicate and keep swap device valid. */
+ 	unsigned long	flags;		/* SWP_USED etc: see above */
+ 	signed short	prio;		/* swap priority of this type */
++	unsigned int	tier_mask;	/* swap tier mask */
+ 	struct plist_node list;		/* entry in its swap tier */
+ 	signed char	type;		/* strange name for an index */
+ 	unsigned int	max;		/* size of this swap device */
+diff --git a/mm/swap_tier.c b/mm/swap_tier.c
+index 286f319fb125..de183c2678e0 100644
+--- a/mm/swap_tier.c
++++ b/mm/swap_tier.c
+@@ -1,5 +1,10 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include <linux/swap.h>
++#if defined(CONFIG_MEMCG) && defined(CONFIG_DEBUG_FS)
++#include <linux/debugfs.h>
++#include <linux/memcontrol.h>
++#include <linux/seq_file.h>
++#endif
+ 
+ #include "swap.h"
+ #include "swap_tier.h"
+@@ -17,6 +22,10 @@ static LIST_HEAD(swap_tier_inactive_list);
+ 	for (idx = 0, tier = &swap_tiers[0]; idx < MAX_SWAPTIER; \
+ 		idx++, tier = &swap_tiers[idx])
+ 
++/* A tier's index is its slot in the array, stable for its lifetime. */
++#define TIER_IDX(tier)	((tier) - swap_tiers)
++#define TIER_MASK(tier)	(1U << TIER_IDX(tier))
++
+ /*
+  * Naming Convention:
+  *   swap_tiers_*() - Public/exported functions
+@@ -56,6 +65,12 @@ static void swap_tier_inactivate(struct swap_tier *tier)
+ 	list_move_tail(&tier->list, &swap_tier_inactive_list);
+ }
+ 
++#if defined(CONFIG_MEMCG) && defined(CONFIG_DEBUG_FS)
++static void swap_tiers_debugfs_init(void);
++#else
++static inline void swap_tiers_debugfs_init(void) {}
++#endif
++
+ void swap_tiers_init(void)
+ {
+ 	struct swap_tier *tier;
+@@ -69,6 +84,8 @@ void swap_tiers_init(void)
+ 		INIT_LIST_HEAD(&tier->list);
+ 		swap_tier_inactivate(tier);
  	}
-=20
-+	if (kvm_write_guest(kvm, resp_gpa, &tickle, sizeof(tickle))) {
-+		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
-+		return 1;
++
++	swap_tiers_debugfs_init();
+ }
+ 
+ static struct swap_tier *swap_tier_prepare(short prio)
+@@ -103,6 +120,17 @@ void swap_tiers_assign_dev(struct swap_info_struct *swp)
+ 	spin_unlock(&swap_avail_lock);
+ 
+ 	plist_add(&swp->list, &tier->active_head);
++
++	/* Put back by a failed swapoff, so already stamped and counted. */
++	if (swp->tier_mask)
++		return;
++
++	/*
++	 * A device's tier never changes, so stamp it once here. Paired with
++	 * the READ_ONCE() in the allocator, which reads this without swap_lock.
++	 */
++	tier->nr_devs++;
++	WRITE_ONCE(swp->tier_mask, TIER_MASK(tier));
+ }
+ 
+ void swap_tiers_remove_dev(struct swap_info_struct *swp)
+@@ -113,11 +141,31 @@ void swap_tiers_remove_dev(struct swap_info_struct *swp)
+ 
+ 	tier = swap_tier_lookup(swp->prio);
+ 	plist_del(&swp->list, &tier->active_head);
+-	if (plist_head_empty(&tier->active_head)) {
++}
++
++/*
++ * A failed swapoff puts the device back into its tier, so the tier is given
++ * up only here, once swapoff can no longer fail. Returns the tier's mask if
++ * @swp was its last device, 0 otherwise.
++ */
++unsigned int swap_tiers_release_dev(struct swap_info_struct *swp)
++{
++	struct swap_tier *tier;
++	unsigned int freed = 0;
++
++	lockdep_assert_held(&swap_lock);
++
++	tier = swap_tier_lookup(swp->prio);
++	if (!--tier->nr_devs) {
+ 		spin_lock(&swap_avail_lock);
+ 		swap_tier_inactivate(tier);
+ 		spin_unlock(&swap_avail_lock);
++		freed = TIER_MASK(tier);
+ 	}
++
++	WRITE_ONCE(swp->tier_mask, 0);
++
++	return freed;
+ }
+ 
+ /* The avail list of the tier @swp belongs to. */
+@@ -127,3 +175,247 @@ struct plist_head *swap_tiers_avail_head(struct swap_info_struct *swp)
+ 
+ 	return &swap_tier_lookup(swp->prio)->avail_head;
+ }
++
++#if defined(CONFIG_MEMCG) && defined(CONFIG_DEBUG_FS)
++static DEFINE_MUTEX(swap_tier_lock);
++
++/*
++ * struct swap_tier_cgroup - tier mask of a cgroup.
++ *
++ * @id: cgroup ID of the cgroup.
++ * @mask: tiers the cgroup may swap to.
++ * @list: linkage into swap_tier_cgroup_list.
++ * @rcu: frees the entry after a grace period.
++ */
++struct swap_tier_cgroup {
++	u64 id;
++	unsigned int mask;
++	struct list_head list;
++	struct rcu_head rcu;
++};
++
++/*
++ * Cgroups written to memcg_tiers. Changed under swap_tier_lock, walked by
++ * the allocator under RCU. A cgroup not on the list may use every tier.
++ */
++static LIST_HEAD(swap_tier_cgroup_list);
++
++static struct swap_tier_cgroup *swap_tier_cgroup_lookup(u64 id)
++{
++	struct swap_tier_cgroup *stc;
++
++	list_for_each_entry_rcu(stc, &swap_tier_cgroup_list, list,
++				lockdep_is_held(&swap_tier_lock)) {
++		if (stc->id == id)
++			return stc;
 +	}
 +
- 	data.gctx_paddr =3D __psp_pa(sev->snp_context);
- 	data.req_paddr =3D __psp_pa(sev->guest_req_buf);
- 	data.res_paddr =3D __psp_pa(sev->guest_resp_buf);
-@@ -4232,10 +4238,9 @@ static int snp_handle_guest_req(struct vcpu_svm *svm=
-, gpa_t req_gpa, gpa_t resp_
- 	if (ret && !fw_err)
- 		return ret;
-=20
--	if (kvm_write_guest(kvm, resp_gpa, sev->guest_resp_buf, PAGE_SIZE)) {
--		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
--		return 1;
--	}
-+	/* Comment goes here. */
-+	if (kvm_write_guest(kvm, resp_gpa, sev->guest_resp_buf, PAGE_SIZE))
-+		return -EIO;
-=20
- 	/* No action is requested *from KVM* if there was a firmware error. */
- 	svm_vmgexit_no_action(svm, SNP_GUEST_ERR(0, fw_err));
++	return NULL;
++}
++
++/* Drop the entries that allow every tier or whose cgroup is removed. */
++static void swap_tier_cgroup_prune(void)
++{
++	struct swap_tier_cgroup *stc, *tmp;
++	struct cgroup *cgrp;
++
++	lockdep_assert_held(&swap_tier_lock);
++
++	list_for_each_entry_safe(stc, tmp, &swap_tier_cgroup_list, list) {
++		if (stc->mask != TIER_ALL_MASK) {
++			cgrp = __cgroup_get_from_id(stc->id);
++			if (!IS_ERR(cgrp)) {
++				cgroup_put(cgrp);
++				continue;
++			}
++		}
++
++		list_del_rcu(&stc->list);
++		kfree_rcu(stc, rcu);
++	}
++}
++
++/* One line per cgroup that dropped a tier, in the syntax a write takes. */
++static int swap_tiers_memcg_show(struct seq_file *m, void *v)
++{
++	struct swap_tier_cgroup *stc;
++	struct cgroup *cgrp;
++	char *path;
++
++	path = kmalloc(PATH_MAX, GFP_KERNEL);
++	if (!path)
++		return -ENOMEM;
++
++	mutex_lock(&swap_tier_lock);
++	list_for_each_entry(stc, &swap_tier_cgroup_list, list) {
++		if (stc->mask == TIER_ALL_MASK)
++			continue;
++
++		/* A removed cgroup's entry stays until the next write. */
++		cgrp = __cgroup_get_from_id(stc->id);
++		if (IS_ERR(cgrp))
++			continue;
++
++		cgroup_path(cgrp, path, PATH_MAX);
++		cgroup_put(cgrp);
++		seq_printf(m, "%s 0x%x\n", path, stc->mask);
++	}
++	mutex_unlock(&swap_tier_lock);
++
++	kfree(path);
++	return 0;
++}
++
++/*
++ * Keep only the tiers set in @mask.  @cgpath must name a cgroup that has
++ * the memory controller enabled.
++ */
++static int swap_tiers_memcg_set(const char *cgpath, unsigned int mask)
++{
++	struct swap_tier_cgroup *stc;
++	struct cgroup *cgrp;
++	bool enabled;
++	int ret = 0;
++	u64 id;
++
++	cgrp = cgroup_get_from_path(cgpath);
++	if (IS_ERR(cgrp))
++		return PTR_ERR(cgrp);
++
++	/*
++	 * Not cgroup_get_e_css(), which falls back to an ancestor when the
++	 * memory controller is not enabled here.
++	 */
++	rcu_read_lock();
++	enabled = cgroup_css(cgrp, &memory_cgrp_subsys);
++	rcu_read_unlock();
++	id = cgroup_id(cgrp);
++	cgroup_put(cgrp);
++
++	if (!enabled)
++		return -ENOENT;
++
++	mutex_lock(&swap_tier_lock);
++
++	stc = swap_tier_cgroup_lookup(id);
++	if (stc) {
++		WRITE_ONCE(stc->mask, mask);
++	} else if (mask != TIER_ALL_MASK) {
++		stc = kmalloc_obj(*stc, GFP_KERNEL);
++		if (stc) {
++			stc->id = id;
++			stc->mask = mask;
++			list_add_rcu(&stc->list, &swap_tier_cgroup_list);
++		} else {
++			ret = -ENOMEM;
++		}
++	}
++	swap_tier_cgroup_prune();
++
++	mutex_unlock(&swap_tier_lock);
++	return ret;
++}
++
++/* The tiers that the cgroup @folio is charged to may swap to. */
++unsigned int folio_tier_mask(struct folio *folio)
++{
++	struct swap_tier_cgroup *stc;
++	struct mem_cgroup *memcg;
++	unsigned int mask = TIER_ALL_MASK;
++
++	rcu_read_lock();
++	memcg = folio_memcg(folio);
++	if (memcg) {
++		stc = swap_tier_cgroup_lookup(cgroup_id(memcg->css.cgroup));
++		if (stc)
++			mask = READ_ONCE(stc->mask);
++	}
++	rcu_read_unlock();
++
++	return mask;
++}
++
++/*
++ * When a tier is removed, its index (bit position in the mask) becomes
++ * free for reassignment to a future tier. If a cgroup had previously
++ * disabled this tier (cleared the bit in its memcg_tiers entry), its mask
++ * would keep that bit clear, meaning the new tier at the same index would
++ * be silently unavailable, an invisible cgroup constraint left behind by a
++ * tier that no longer exists.
++ *
++ * To prevent this, OR the removed tier's mask bit into every cgroup's
++ * mask. This resets the bit so the new tier is accessible by default.
++ * Users who want to restrict it must explicitly disable it after the tier
++ * is re-created.
++ */
++void swap_tiers_memcg_propagate(unsigned int mask)
++{
++	struct swap_tier_cgroup *stc;
++
++	mutex_lock(&swap_tier_lock);
++	list_for_each_entry(stc, &swap_tier_cgroup_list, list)
++		WRITE_ONCE(stc->mask, stc->mask | mask);
++	mutex_unlock(&swap_tier_lock);
++}
++
++static int swap_tiers_memcg_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, swap_tiers_memcg_show, NULL);
++}
++
++static ssize_t swap_tiers_memcg_write(struct file *file,
++				      const char __user *ubuf,
++				      size_t count, loff_t *ppos)
++{
++	char *pos, *tmp, *cgpath;
++	unsigned int mask;
++	int ret;
++
++	tmp = memdup_user_nul(ubuf, count);
++	if (IS_ERR(tmp))
++		return PTR_ERR(tmp);
++
++	pos = strstrip(tmp);
++	cgpath = strsep(&pos, " \t\n");
++	if (!cgpath || !*cgpath || !pos ||
++	    kstrtouint(skip_spaces(pos), 16, &mask))
++		ret = -EINVAL;
++	else
++		ret = swap_tiers_memcg_set(cgpath, mask);
++
++	kfree(tmp);
++	return ret ? ret : count;
++}
++
++static const struct file_operations swap_tiers_memcg_fops = {
++	.open		= swap_tiers_memcg_open,
++	.read		= seq_read,
++	.write		= swap_tiers_memcg_write,
++	.llseek		= seq_lseek,
++	.release	= single_release,
++};
++
++static int swap_tiers_show(struct seq_file *m, void *v)
++{
++	struct swap_tier *tier;
++
++	seq_printf(m, "%-5s %s\n", "Idx", "Prio");
++
++	spin_lock(&swap_lock);
++	for_each_active_tier(tier)
++		seq_printf(m, "%-5td %d\n", TIER_IDX(tier), tier->prio);
++	spin_unlock(&swap_lock);
++
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(swap_tiers);
++
++static void swap_tiers_debugfs_init(void)
++{
++	struct dentry *dir = debugfs_create_dir("swap", NULL);
++
++	debugfs_create_file("tiers", 0400, dir, NULL, &swap_tiers_fops);
++	debugfs_create_file("memcg_tiers", 0600, dir, NULL,
++			    &swap_tiers_memcg_fops);
++}
++#endif
+diff --git a/mm/swap_tier.h b/mm/swap_tier.h
+index c4347c28d8f1..9967cfbcc439 100644
+--- a/mm/swap_tier.h
++++ b/mm/swap_tier.h
+@@ -9,16 +9,20 @@
+ /* Forward declarations */
+ struct swap_info_struct;
+ 
++#define TIER_ALL_MASK		(~0U)
++
+ /*
+  * struct swap_tier - structure representing a swap tier.
+  *
+  * @prio: priority of the swap devices in the tier.
++ * @nr_devs: swap devices in the tier, including ones being swapped off.
+  * @active_head: swap devices in the tier.
+  * @avail_head: available swap devices in the tier.
+  * @list: linkage into swap_tier_active_list or swap_tier_inactive_list.
+  */
+ struct swap_tier {
+ 	short prio;
++	int nr_devs;
+ 	struct plist_head active_head;
+ 	struct plist_head avail_head;
+ 	struct list_head list;
+@@ -35,6 +39,33 @@ void swap_tiers_init(void);
+ /* Tier assignment */
+ void swap_tiers_assign_dev(struct swap_info_struct *swp);
+ void swap_tiers_remove_dev(struct swap_info_struct *swp);
++unsigned int swap_tiers_release_dev(struct swap_info_struct *swp);
+ struct plist_head *swap_tiers_avail_head(struct swap_info_struct *swp);
+ 
++/**
++ * swap_tiers_mask_test - test whether two tier masks overlap
++ * @tier_mask: mask to test, e.g. a swap device's tier bit
++ * @mask: mask to test against, e.g. a cgroup's mask
++ *
++ * Return: true if @tier_mask and @mask share at least one tier bit.
++ */
++static inline bool swap_tiers_mask_test(unsigned int tier_mask,
++					unsigned int mask)
++{
++	return tier_mask & mask;
++}
++
++#if defined(CONFIG_MEMCG) && defined(CONFIG_DEBUG_FS)
++/* Memcg related functions */
++void swap_tiers_memcg_propagate(unsigned int mask);
++unsigned int folio_tier_mask(struct folio *folio);
++#else
++static inline void swap_tiers_memcg_propagate(unsigned int mask) {}
++
++static inline unsigned int folio_tier_mask(struct folio *folio)
++{
++	return TIER_ALL_MASK;
++}
++#endif
++
+ #endif /* _SWAP_TIER_H */
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index e9d142c0655b..bb953dd33ca0 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -3191,6 +3191,7 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
+ 	struct address_space *mapping;
+ 	struct inode *inode;
+ 	unsigned int maxpages;
++	unsigned int freed_tier;
+ 	int err, found = 0;
+ 
+ 	if (!capable(CAP_SYS_ADMIN))
+@@ -3290,7 +3291,11 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
+ 	p->max = 0;
+ 	p->cluster_info = NULL;
+ 	spin_unlock(&p->lock);
++	freed_tier = swap_tiers_release_dev(p);
+ 	spin_unlock(&swap_lock);
++	/* Under swapon_mutex, so a swapon cannot reuse the index before this. */
++	if (freed_tier)
++		swap_tiers_memcg_propagate(freed_tier);
+ 	arch_swap_invalidate_area(p->type);
+ 	zswap_swapoff(p->type);
+ 	mutex_unlock(&swapon_mutex);
+-- 
+2.48.1
 
