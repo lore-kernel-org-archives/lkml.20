@@ -1,317 +1,218 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E729413D62
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789587226; cv=none; b=HsiQRGnBQ2YfkeC443f6vMFIeuIKHYovA5MDsyqWBJ0RfKLAmOEFkRWocIPXnQFkwIuZjDr2KeQ3JvOTtRNXbUTS4EfSW62Hh/XMHLv9JMsn7cxWmAfdV8M4dvY70O33vbO326V0CTk1lC2pt5+RY/7pv5I+kdTeoE/tlZL1X1c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789587226; c=relaxed/simple;
-	bh=Kpo0OyWi0CO746t44DDgn1hn3lqL6Qj9kQMB/VsQdtI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g+6PThFTdBTeM9nDUACEMBcXMCXYyypljXgbe7IUVFdMZ1CUSizoCX2fOqoaCsQcn2ARK0RWVEiLl8N20Gw8PeY5KzmdNdD7A4d+YH8dfY1juO0z3UYxUcRtgrEDSWtxQqB6bZeq6OsvS/sq1QP9Y5ensT7wuhoYtQJHkGxgQO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=aJckYLvM; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2695A415F25
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:34:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789587299; cv=pass; b=RiJN/bp5G37R082y/dHUpSH4+wLIjJ9BWj0u0Fh+sHjJ98ipYtvM0qD5gDPhe6aTv7GbFfSMaBCkP/F00QKX2xxA+0m0DLQK9Kg4JzExG9V0ULUBWvEwtK3mPfBaqp6vTr4mVn7E6b0WjF0zvObZWw6+zFEwuxBIHJeCuXLhvFc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789587299; c=relaxed/simple;
+	bh=lbkr1e+oVHmAXh9PMaJpKET/ZPWCaHqCdzTnFjKanZw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=k1nI2oMBREe6sAsDh+ZrAFMmxz/+VMTm3rFTQyDfm1AkHH+gFqW3O1LLQ+7zQhpPWlEPjvv6rtYU072P0RC8vLKqThr5hgYaPnRdv79ZyBDcTN2mOUcl5DcgWBc6l22JWHGXtlVWzILDiCm09RDeXkgja/9AaeK/L+7mwRt/NXc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UF3mDb/l; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="aJckYLvM"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfbd3208so33656d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:33:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UF3mDb/l"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7dbeso18576466b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:34:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789587283; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MTWLqg9LBeQXklQo5DzoghTedjKnTDpyb6wdAC/vWka5zPe3P90TuhRH96Hh03+mXh
+         IVbaR+cuRy1sXSt5SX673KE11LgMU7p5lekZDo8I9BDjDeJtpKlxFgvh+Z2rVdZ/pQNW
+         o9XYaP+Ozhy8GkgcC/l/ouT2pOzVLPsFTzFDvvuZIpsh8oqICPMj2a1PlBzkdNbXhuXh
+         B3KMVzlAlR3yibkDfn7LPCFApB2SR7MpEmP2+fZFcdv6tzADsKUMrpUA7oPU49DRMv6M
+         2vBqs+fhn4ruRki93zevjg2XS4rJD3z+UYy8hglL7+e4D8eRRdoYM08k3kaVEfs0tcKy
+         rjQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g1Y9KLbKJHfx489zL13A2Cg7pSCrSzAZXPuS+c+f7Y8=;
+        fh=d/4rmOTS+mqz+0PoVj8Hw9knRU8NfrekNW1UK9fvq1s=;
+        b=rSvGVlHcZG40mDs6ZE9gl9aXlLyhHo7LGhUNW9tkleQVgaPjliM+aB87ttIygqAmmf
+         DPk7gJHn6FZinGGL7WtudoAadk4Pu4S1wty+ReLg5Ex4XPvkT5RVfr2qPJYhmSofcKa3
+         vjqpc5cSU30svZc+wOdr7+O2SLcQtaDzaS7PpUzIXfyuCaQ1j1H0JPVLhUIjhoX5JUlD
+         LemSxF7jfWFui2SttwwhkUppMl7pHWoKZWlcuda9XzS+c+mHaGb4TVkOvsvNucIhDfvU
+         2Qd6BxqHDTn6hXxSizsnVPDp90AK/ab9ncpfHNCU4UQK0ADeiXJwj2XW+fsUlsXd6u08
+         YpAA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789587216; x=1790192016; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789587283; x=1790192083; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=eJtIecQvwkVEDPm/6dNtwM/FqSFHvdTn3Czip8ta20A=;
-        b=aJckYLvMu3GclaHzc462xklSqmNrvTNZ5kDPiIQFRf8omoN9uGWUX13I/KzQibzDHM
-         wPUQxvrb9yrWb5H0+PBpIs7ysCRQq276Zakv6mBcqwcDB2ldrTLfYqlUtDtpQOplM6S/
-         xGwcga0d40vHFF3CTowEporfKd7D0eo//PRPnm4TOS+U/eigWdcL0+2OBZZagV6KmN9e
-         dUjgkV+bI/ujpAkXqdpYWbGFv6Bn95S1ZoP2YStWcvAQZLyG/v6Rsc0Oil5v61cCcJy/
-         cI5vDKNul0Qvcc9uHvjMMKf9T2lYegX70LVdvIP8ODHojEG7Rvw37zgpwZHaFuKl/cML
-         MJOQ==
+        bh=g1Y9KLbKJHfx489zL13A2Cg7pSCrSzAZXPuS+c+f7Y8=;
+        b=UF3mDb/lSlH04u4IJ0MaVvp9Gm3tTVJ6/5EOD/Qq38QSyfxWpcL5PGtiaWDWyus0od
+         MJHN9ZHDJiVhmhi+WJX3JafnEqwhfOS9r8yrINqeRIdZUkynYgTrnNmCmW/R28To/In8
+         4/iUvBVisv2vqco1In+ZpStb9gT3J9MCTe+L/xJYO0XZIdF2PmSKNGYSR7m7zJkMFpKg
+         5AUiknApoQerFQ1qnqcSxy0iW/wSjdFwbE5DeOcfWqwyXyMooAw7u4sAcNF2ZL3+QrJ2
+         Xb6W8CTjeFDsLrjjVSgUGG9MK9tJr6vtvK6MHG6Z7I1XOH0gWisA1K2seKTdhTx4wW/Q
+         zqCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789587216; x=1790192016;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789587283; x=1790192083;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eJtIecQvwkVEDPm/6dNtwM/FqSFHvdTn3Czip8ta20A=;
-        b=BYArTbxy0sIsPLlIJz52uSnbWJYsKx05AsbCYX6xH7JCfg1fZtRCiZTSr+ybSfOAbB
-         K5YOV1mfkTrLtr0o2mTSImZxOZ2XUCoGswe77cP59WRwSbBouHzJ5Bxcjf4Xd+JbSmWh
-         Al6hEeUCYuMDSLFaQvzsw+2fTd7Sa77YMuvGnZCtU1+M56XpWTo2kWpVhstLehkwjuSG
-         GxkZ8BfTGja5AvnWRHjWQz5CyHF/akQVqtxh+kj91yLGuSzh1Be32Zz3IiTXoFlBxlgx
-         nRJdV59tor6euQyVzX8+xPf92vZ+Xr2X5IFZAD59GbHyV8mMRmkyTwnbd1APAMxHyTdn
-         ulaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzpTk7DlaSjgzyNd7A4+o1PtaUkFAPaVaK2GIMZecnE6VQWeaNJvJ2wzIvixbDAMnBnwHSuxM2i8apxK8I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLar6MjYbSQrtmlTFZXtEZZEETzcRvc6QSgTzqWHv3iCaTlxdb
-	IlsZfpdFY/BEtO0mkLHyqFpgESQIse0s39voEMigJkOavYj13B/vxcxXxD3S2+0PgQ0=
-X-Gm-Gg: AYBFou0JIQbuWuSHyL6TO+RaEU3sP1tRxY5Q2pB3FgrqxJbqu0RnIZbZGDTxnjSZRQ+
-	8faZufd/dX1uk8KlxrR9bJeLkHeer84J6UR/afDHWMOEDwNzFxqtUlzlFEjww2tWeOra5x78VpB
-	OsYmAjsAts7t+5VevZrAyEE1mtosfHUheU7MroiJAkCcPd6loMAqSEb2GMchv45qZxoaX9TY763
-	i7OPuUN6iSSVG48mtOaJJXuLNQFmc0bIqSHYRh0nCs3WdOX+UjqCHhw9SBXNOsfIoJmi+EfVthM
-	KSAj9RunqPD4dBtY5KcAJafAbp1D7sgYI7OIRkm6gZtc/NlfynkmgqpdIc3rj6fx6YGvrk3uBsA
-	f7h2sj3kne1/gb5et1QcnGkQHWUHZBV381oddmmokDHJldxdhKKpFZ/8VJ79/oT7ewX961IGXlh
-	OrGWzT6zaIGPDaTouFVeLucVc1qFfOPwxWwvkAeOrfV+pN8+IXmcW0b+qvGwTeGf69x5YEnPciu
-	3R+eEbDb7qmuVkvE2iVJjRnzDPcAsUZjesyiAmgDKWeSfD3nSQqqO4=
-X-Received: by 2002:a05:6214:448b:b0:910:31f7:3bd7 with SMTP id 6a1803df08f44-9123d7d57f2mr72582036d6.29.1789587210868;
-        Wed, 16 Sep 2026 12:33:30 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91246979f17sm6900666d6.34.2026.09.16.12.33.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 12:33:30 -0700 (PDT)
-Date: Wed, 16 Sep 2026 15:33:28 -0400
-From: Gregory Price <gourry@gourry.net>
-To: mhonap@nvidia.com
-Cc: alex@shazbot.org, jgg@ziepe.ca, ankita@nvidia.com, jic23@kernel.org, 
-	dave.jiang@intel.com, alejandro.lucero-palau@amd.com, smadhavan@nvidia.com, 
-	corbet@lwn.net, skhan@linuxfoundation.org, dave@stgolabs.net, 
-	alison.schofield@intel.com, vishal.l.verma@intel.com, iweiny@kernel.org, 
-	ming.li@zohomail.com, yishaih@nvidia.com, skolothumtho@nvidia.com, 
-	kevin.tian@intel.com, bhelgaas@google.com, dmatlack@google.com, kees@kernel.org, 
-	gustavoars@kernel.org, cjia@nvidia.com, kjaju@nvidia.com, vsethi@nvidia.com, 
-	zhiw@nvidia.com, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kvm@vger.kernel.org, linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v5 26/27] Documentation: vfio-pci: Document CXL Type-2
- device passthrough
-Message-ID: <aqrl_FyWEBOZundU@gourry-fedora-PF4VCD3F>
-References: <20260916183540.3813685-1-mhonap@nvidia.com>
- <20260916183540.3813685-27-mhonap@nvidia.com>
+        bh=g1Y9KLbKJHfx489zL13A2Cg7pSCrSzAZXPuS+c+f7Y8=;
+        b=HxW8afCKGbZXxdFopUc6UBXOhSqiOJ5cp75vjUbiEOows2GM50HVhQ16tR1NKkLvrU
+         ozjCJ8gxwhvA2nv/IIEwFW9ajo3Etr++YGJN37/K2aA4bZrdG9jzDA5offE/JAUDekI5
+         EKVC2Urctk60SpQtM6pTJnBaVlNyJZnYujMalT3mIKwGBEYccAWqAvjiKoWXXxSMiS3U
+         S9cKu4WR1Tv5mmze17p5/yGwtuT2g/iznkUuDeHaNCviW8m0OsKFZ7Fc16bv8Sh2nkz9
+         t6zF+kzd2ewd4/1Uvy5u7tzH214nyPpGn09M0b2vEj4wy73rN/tk+MfY6FiaNE++FXFU
+         bCkA==
+X-Forwarded-Encrypted: i=1; AKwUvBzFYa5AEdiTBB4d959uxKvEXlMkEEdeog2hFu3iOAd2ggE42CkxlzI8jmZ0gtAl0VAhbGD1m2Xmw+FCu0M=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4DGYWHzGh45gAAHXrFo+eT2Hqmv6XdqOsZYmt9zRoC9zStQdU
+	cbci61gljNsdY/yqjn4x1i+jQNXGtumyaof9PHcp8rxgx7htdxJ/dffVujaL/jdx591z5hHceyb
+	GXsGq6rUqiQbVHD6Dp7E+mnB0ClMRJnw=
+X-Gm-Gg: AYBFou38fKU5BsLsGSulHviWKmxTjtkbNHo5TK22nsTACbiULeunYp+7vU2MqYDB5TJ
+	CRo46W+7QHmB+eBZF6KMiuuSfbpJYa6yLgNJrWdgLfOxCbLqvaUo9rUmW9ovc3Cj2PynaYbYQv0
+	Fi99kc0g+MbfCNkZyNpeJ0GdyOD5Tidio/b6qqRg6FVKOrlUxu+EOAwepH5XFGydAYklCv26Q6e
+	1Gl9pN1COUPQh+nmc5Sk1lQwzcOi5Usg7hGtfG+ma8DzqN1QiBnql8UaVBOgdwUFP6dyTwqEdcF
+	6baQirSifWE07gpjEWu80JmmUPibvCHtmjn7R4Q88xQzHbul5ixQgFHbmNRLfXoJBAJBeUnHR+d
+	Mjt7jgRsBcmJgmN9XOZG2+jFRrTyeRRIft/2RYULNi2zBjZzacttIW8Aljq2gLX2qb0SLZCt3hN
+	YD+E556Lc/ka9D00nD9WfUEyYy2/Jq5bJh6MqwAFc3mJTMNXFfTwo4o5hoPBBn6wHFXg==
+X-Received: by 2002:a17:907:3fa8:b0:c15:f26a:3438 with SMTP id
+ a640c23a62f3a-c29e5392d27mr271360466b.24.1789587282657; Wed, 16 Sep 2026
+ 12:34:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916183540.3813685-27-mhonap@nvidia.com>
+References: <20260916182608.13523-1-rosenp@gmail.com> <aqrpAlpvHWTi9eGI@SMW015318>
+In-Reply-To: <aqrpAlpvHWTi9eGI@SMW015318>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Wed, 16 Sep 2026 12:34:31 -0700
+X-Gm-Features: AcwNN1Xbx_JJZ6j4oUjA6U9H3g3nle4kXaOU00QLrD790RcfaMDYk2LY_Cj838Y
+Message-ID: <CAKxU2N_bJJijZ7QLx=ubaVWA6Mn=q7tswKj=mE8NFJXz=Uf6RQ@mail.gmail.com>
+Subject: Re: [PATCH] dmaengine: mv_xor: protect MBUS window access with a spinlock
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>, 
+	Frank Li <Frank.Li@kernel.org>, Stefan Roese <sr@denx.de>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 12:05:39AM +0530, mhonap@nvidia.com wrote:
-> From: Manish Honap <mhonap@nvidia.com>
-> 
-
-1) Thank you so much for writing documentation, i truly appreciate this.
-
-2) I apologize in advance for my terseness, I know writing is hard,
-   please do not interpret this as disliking your writing or series.
-
-> +Address model
-> +=============
-> +
-> +The HDM memory is a coherent host physical range (HPA). The host kernel
-> +resolves that range before the guest sees the device, and owns it for the
-> +bind lifetime. The guest only chooses where the memory appears in its own
-> +physical address space (GPA), by programming a virtual endpoint HDM
-> +decoder. The guest never reprograms the physical decoder.
-> +
-> +The kernel holds the HPA and does not see the GPA. The guest programs a
-> +GPA and does not see the HPA. The VMM holds the device fd, reads the
-> +committed base from the decoder-register region described below, and maps
-> +the HPA-backed HDM region at the GPA the guest committed. The base the
-> +guest reads back is the GPA, not the HPA.
-> +
-
-I think this must be slightly inaccurate / imprecise wording.
-
-The host *must* provide some form of physical memory window to the guest
-at initialization time, otherwise the guest has no way to know - at boot
-time - that there's even a window of memory it can use.
-
-That's what the CFMWS is.  This is initialized by the hypervisor - which
-is controlled by the host.
-
-So the host (at least the VMM) must know, for the region the entire
-device *could* inhabit, what that GPA is - because it's the one that makes
-the CFMWS for the guest.
-
-If this is not the case, then something is missing from this
-documentation to explain why.
-
-
-If you're actually trying to say is that the GPA's programmed into the
-virtual decoders are largely symbolic - this at best feels a bit
-inaccurate and simply an implementation detail.
-
-The host's virtio device could enforce ....:
-
-Host Range:
-   CFMWS HPA - [0x10000, 0x20000]
-                   |         |
-Guest Range:       |         |
-   CFMWS GPA - [0x50000, 0x60000]
-
-In that case, you'd get the following translation...
-   vdecoder0.0 - [0x58000, 0x60000]
-   CFMWS GPA   - [0x58000, 0x60000]
-   CFMWS HPA   - [0x18000, 0x20000]
-
-Or the virtio device could not enforce that and let the host page-fault
-just hand it a random page from the actual CXL device.
-
-   vdecoder0.0 - [0x58000, 0x60000]
-   CFMWS GPA   - [0x58000, 0x60000]
-                         |
-              No discrete host mapping
-
-
-The former makes sense if the device (accelerator) requires exact
-physical placement to do its accelerator nonsense.
-
-The latter makes sense if the device (accelerator) doesn't care
-about placement (compressed memory).
-
-This is not saying we need support both out of the box, but we shouldn't
-lock ourselves into the former unless there's some reason why the latter
-is not reasonable.
-
-Can you please help document what the actual expected behavior is with
-examples in the Address model section so it's easier to understand the
-intent?  That will help quite a bit.
-
-> +Guest decoder and commit
-> +========================
-> +
-> +The guest programs its virtual endpoint decoder through the trapped
-> +region: it writes a base (a GPA), a size, and then the COMMIT bit. The
-> +host already resolved and committed the physical placement before the
-> +guest ran,
-
-So the host does know GPA, just not exact placement.
-
-> so a live read of the decoder always shows COMMITTED and the
-> +guest's commit poll completes. The physical decoder is never rewritten;
-> +the guest's writes are absorbed.
-> +
-
-Rather clunky, round-about way to say "The guest decoders are
-virtualized".   If possible, it would be nice to formalize this concept
-into "Virtual Decoders" - since that's what this is.
-
-With that concept i think you can probably generate some nice diagrams
-that show how the guest vdecoder's interact with the host drivers.
-
-> +The VMM observes the commit, reads the committed base, and maps the HDM
-> +region at that GPA.
-> +
-
-So the host does know the GPA.
-
-> +CXL Device DVSEC
-> +================
-> +
-> +The kernel virtualizes the CXL Device DVSEC body through the config-space
-> +permission hooks. Reads and writes inside the DVSEC body use a per-open
-> +shadow; a guest write stays in the shadow and does not reach hardware.
-> +Accesses outside the DVSEC body go to the device as usual.
-> +
-
-"The kernel" - what part? vfio-pci ? the vmm ?
-
-
-> +DMA and iommufd
-> +===============
-> +
-> +A Type-2 accelerator issues ATS-translated DMA to addresses inside its own
-> +HDM window, so that range must be present in the guest IOAS that backs the
-> +nested stage-2 translation.
-
-Type-2, ATS, DMA, HDM window, guest IOAS, stage-2 translation
-
-I think the only thing i don't know in this sentence is "guest IOAS" and
-it's still hurting my brain to read.
-
-Are all accelerators expect to have this particular interaction, or just
-yours?
-
-> The HDM range is struct-page-less coherent
-> +memory, which a userspace-VA ``IOMMU_IOAS_MAP`` cannot pin.
-> +
-
-The hardest part about writing about virtualization is keeping a
-consistent mental model from section to section.
-
-which userspace? guest? host?  (i presume guest here)
-
-`struct-page-less coherent memory`
-   e.g. the host never hotplugs this, it hands the entire region
-   directly to the VFIO device, right?
-
-   I think this would be nice to spell out somewhere.
-
-> +The HDM memory region is therefore exportable as a dma-buf:
-> +``VFIO_DEVICE_FEATURE_DMA_BUF`` on that region returns an fd that iommufd
-> +maps with ``IOMMU_IOAS_MAP_FILE``, mapping the physical range without a VA
-> +or a page pin. The dma-buf is revoked whenever the mapping is torn down
-> +(reset, power transition, teardown), so a stale stage-2 mapping cannot
-> +outlive the HDM window.
-> +
-
-For the sake of readers, I think either a little bit more information
-on this "stage-2 mapping" concept is needed to make sense of what's
-going on here and why it mustn't outlive the HDM window.
-
-> +Reset
-> +=====
-> +
-> +A CXL Type-2 function must not take a Function Level Reset: an FLR resets
-> +the coherent CXL.mem state and the HDM decoder. The PCI core reflects this
-> +by preferring the CXL reset over FLR, so a function reset of a CXL device
-> +runs the CXL DVSEC reset sequence, which resets the function and then
-> +restores the HDM decoder and the PCI config state.
-> +
-
-I think what you're trying to say is that FLRs are never passed to the
-device because it can cause physical device effects that defeat the
-purpose of the virtualization, yes?
-
-So we virtualize FLRs...
-
-> +A guest requests a reset by writing Initiate CXL Reset in the DVSEC. That
-> +write only stamps completion in the shadow. The real reset runs at the vfio
-> +reset points (the reset ioctl and a virtualized FLR through config space):
-
-As you describe here.
-
-So it's not that an accelerator "must not take an FLR" - it's that FLRs
-are virtualized to prevent deleterious effects on the host / hardware.
-
-Am I misunderstanding this?
-
-> +the kernel zaps the HDM mapping and revokes the dma-buf, then runs the CXL
-> +reset, which always clears the device memory, and restores and re-samples
-> +the decoder afterwards. A CXL port masks Secondary Bus Reset by default, so a
-> +``VFIO_DEVICE_PCI_HOT_RESET`` does not reach the endpoint and the HDM
-> +state is untouched. If the port has SBR unmasked the reset can decommit
-> +the decoder without restoring it, so the reset_done handler gates HDM
-> +access; a ``VFIO_DEVICE_RESET`` then runs the CXL reset sequence and
-> +restores it.
-> +
-> +The decoder register region is served by live reads of the hardware
-> +decoder with guest writes absorbed: the decoder is committed and locked by
-> +the host, so a guest can neither decommit nor reprogram it, and the kernel
-> +keeps no shadow of the decoder state.
-
-This is basically what I said at the beginning - it must either be that
-the host provides locked auto-decoders at boot, or it must provide
-proper virtualization so that the decoders settings are fully
-virtualized.
-
-Seems it's the former, and that makes sense.  Please correct me if i'm
-misunderstanding.
-
-> After a reset the kernel restores and
-> +re-samples the firmware-committed decoder, so the geometry the guest reads
-> +back is unchanged. A VMM that dropped its HDM mapping, for example across a
-> +reset or a D3hot->D0 transition, must rescan the decoder and rebuild its
-> +stage-2 mapping before it resumes HDM access.
-> +
-
-Yeah i think we need a bit more information about this stage-2 mapping
-rebuild to make sense of this.  Maybe I'm just not read-up enough on
-this particular setup - is there another part of the docs you can link
-to that talk about this, or are you able to share some details as to
-what this rebuild process looks like?
-
-~Gregory
+On Wed, Sep 16, 2026 at 12:07=E2=80=AFPM Frank Li <Frank.li@oss.nxp.com> wr=
+ote:
+>
+> On Wed, Sep 16, 2026 at 11:26:08AM -0700, Rosen Penev wrote:
+> > mv_xor_add_io_win() reads and writes shared MBUS window registers
+> > and updates the shared win_start/win_end arrays in mv_xor_device.
+> > Multiple DMA channels can call this function concurrently via
+> > mv_xor_prep_dma_xor(), leading to races where two threads can
+> > select the same free window slot, corrupt the registers, or produce
+> > inconsistent cached state.
+> >
+> > Add a spinlock to struct mv_xor_device and hold it across the
+> > register read-modify-write and cache update in mv_xor_add_io_win().
+> >
+> > Fixes: 77ff7a706f01 ("mv_xor: Add support for IO (PCIe) src/dst areas")
+> > Assisted-by: LLM
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > ---
+> >  drivers/dma/mv_xor.c | 15 +++++++++++++--
+> >  drivers/dma/mv_xor.h |  1 +
+> >  2 files changed, 14 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/dma/mv_xor.c b/drivers/dma/mv_xor.c
+> > index 0de2b1ad5c30..e7c6ec54ce25 100644
+> > --- a/drivers/dma/mv_xor.c
+> > +++ b/drivers/dma/mv_xor.c
+> > @@ -497,11 +497,14 @@ static int mv_xor_add_io_win(struct mv_xor_chan *=
+mv_chan, u32 addr)
+> >       u8 target, attr;
+> >       int ret;
+> >       int i;
+> > +     unsigned long flags;
+> >
+> >       /* Nothing needs to get done for the Armada 3700 */
+> >       if (xordev->xor_type =3D=3D XOR_ARMADA_37XX)
+> >               return 0;
+> >
+> > +     spin_lock_irqsave(&xordev->win_lock, flags);
+> > +
+>
+> use auto clean up guard()
+Could that be backported though?
+>
+> Frank
+> >       /*
+> >        * Loop over the cached windows to check, if the requested area
+> >        * is already mapped. If this the case, nothing needs to be done
+> > @@ -511,6 +514,7 @@ static int mv_xor_add_io_win(struct mv_xor_chan *mv=
+_chan, u32 addr)
+> >               if (addr >=3D xordev->win_start[i] &&
+> >                   addr <=3D xordev->win_end[i]) {
+> >                       /* Window is already mapped */
+> > +                     spin_unlock_irqrestore(&xordev->win_lock, flags);
+> >                       return 0;
+> >               }
+> >       }
+> > @@ -521,8 +525,10 @@ static int mv_xor_add_io_win(struct mv_xor_chan *m=
+v_chan, u32 addr)
+> >
+> >       /* If no IO window is found that addr has to be located in SDRAM =
+*/
+> >       ret =3D mvebu_mbus_get_io_win_info(addr, &size, &target, &attr);
+> > -     if (ret < 0)
+> > +     if (ret < 0) {
+> > +             spin_unlock_irqrestore(&xordev->win_lock, flags);
+> >               return 0;
+> > +     }
+> >
+> >       /*
+> >        * Mask the base addr 'addr' according to 'size' read back from t=
+he
+> > @@ -540,8 +546,10 @@ static int mv_xor_add_io_win(struct mv_xor_chan *m=
+v_chan, u32 addr)
+> >
+> >       /* Set 'i' to the first free window to write the new values to */
+> >       i =3D ffs(~win_enable) - 1;
+> > -     if (i >=3D WINDOW_COUNT)
+> > +     if (i >=3D WINDOW_COUNT) {
+> > +             spin_unlock_irqrestore(&xordev->win_lock, flags);
+> >               return -ENOMEM;
+> > +     }
+> >
+> >       writel((addr & 0xffff0000) | (attr << 8) | target,
+> >              base + WINDOW_BASE(i));
+> > @@ -556,6 +564,8 @@ static int mv_xor_add_io_win(struct mv_xor_chan *mv=
+_chan, u32 addr)
+> >       writel(win_enable, base + WINDOW_BAR_ENABLE(0));
+> >       writel(win_enable, base + WINDOW_BAR_ENABLE(1));
+> >
+> > +     spin_unlock_irqrestore(&xordev->win_lock, flags);
+> > +
+> >       return 0;
+> >  }
+> >
+> > @@ -1353,6 +1363,7 @@ static int mv_xor_probe(struct platform_device *p=
+dev)
+> >
+> >       platform_set_drvdata(pdev, xordev);
+> >
+> > +     spin_lock_init(&xordev->win_lock);
+> >
+> >       /*
+> >        * We need to know which type of XOR device we use before
+> > diff --git a/drivers/dma/mv_xor.h b/drivers/dma/mv_xor.h
+> > index c87cefd38a07..034db4d0bfb1 100644
+> > --- a/drivers/dma/mv_xor.h
+> > +++ b/drivers/dma/mv_xor.h
+> > @@ -80,6 +80,7 @@ struct mv_xor_device {
+> >       struct clk           *clk;
+> >       struct mv_xor_chan   *channels[MV_XOR_MAX_CHANNELS];
+> >       int                  xor_type;
+> > +     spinlock_t           win_lock;
+> >
+> >       u32                  win_start[WINDOW_COUNT];
+> >       u32                  win_end[WINDOW_COUNT];
+> > --
+> > 2.55.0
+> >
