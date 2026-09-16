@@ -1,194 +1,162 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010071.outbound.protection.outlook.com [52.101.193.71])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9DB54F0557;
-	Wed, 16 Sep 2026 14:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568921; cv=fail; b=evapq5+N1ounDEVGzrtH5qVynTZJb7ZyxI+0nfrUP/R9VF4s4s/qbCBk33qnCUnXoq4151g5Cu3cFsP+XZenU9pdjnZdBwb4DA1X4DP1OOCODlSxYWvfgiwTd6hX5SgCy1knAbyqFYx64P8ZxZpyGP8t3KqCM6i7imAbqKW2u1g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568921; c=relaxed/simple;
-	bh=OwBNtYrbqWIVKPlfOx6eywRlYbeL/dRWrcB8dC8jQvM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=YwGZSQ0EQzKLzlVcDRrQb1T3iFKTjD9kRYCBQQDwUnNl6K1UR25chEuXl95rwturj6Mo1fQVAJwVxzxgGmy/Nu/h2CXFwnuxOholninrOKWsjrELPL6hlF82R+iNmP20PFWUM5/LYFZbOuOXkd9wya4Kl/SQ1cU854fYXDxyZ6k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=p76PQuwL; arc=fail smtp.client-ip=52.101.193.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32A44E236C
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789568933; cv=none; b=ihQ04OPo2Q6cCtFU91BiKF5daLt4Fukyi1AIoFAO5ATG8QI5kWDSr7FdHcVm8Ms1OV6pbyxbf9lz9em40YVKMAmAYUlUA0zKS+DcUMUx1JvDZv4KALs6o2cQFNNyzB9BJYQbVCd+bxxv/mJZQr44aB1MpppLV7ZD9hWqA10r1Pg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789568933; c=relaxed/simple;
+	bh=9ghc6tZH/4fPr2oKxlI7fOcbF0TkM4CiGrTLxSiHHZ8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NGPwAFmzO0rmODp6RGmi55M/eakARSWMCOsCqLYkICRHkLVulFCONnguHUn2N32dZATJlYKZmJmcKPHdAj5/r32z2+IxG2Mc+q1Z3fYjHuNHa9ev1yTnvMLoey6TakVtTlB62bblOEzLuBlQVQ5159iGtvxR80qzmr+vY5RwAnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ErHzdGix; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LbjjUXPy; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="p76PQuwL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uDMUaJU8RGL2cBOAoDWpd8Djgw2aRNti98aQqvwIz5XVQsnxRmDVjvVaZVHTfG7QOTGF7n+M+H7Thn0fn3qacwu7nhWjzAIU547gbnEzU6MkV/ncuDdodFYnbd5rzjtja/KJ2o5FGdlXQ2X/u6zvC1KJ0fKKgCB6Tl0nv/SUy6PL82yHKUXsMfDtwEis/DMce4KAR0LxsMd5pa2tATX59xYYlIk/6fTpm3afuIZ1BoOVEpwZ0xAq+hcpiR8SRws0OnxRahloQyjMGC+KiBelEpGV1lKe3quUJPpFZ/WYdI4zlkgYvtU17kEoiPL2EMzhqTZ1XLV1Z1P3vwvvz007ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l3Wm0T9bNpYeRr8Y06EmJGk6mRLocXvC11zet2Dl4xg=;
- b=i0UNQAaYVqnpbWNic/SarvgieY3tUi//z49ZSqUMtNJd7kloENsTYGHYuebESjtIOb+BMie0sl23xGP/Pd8mOs0XTCUyx1tdjRoh0YbHRxD7ZndEDK4gQOdcVpSd1tE8fxwFssqEIoONut3XiYybbAJggBR7wqr/GXja8+Lp6//XVC+rx8WytxYeSv+cjnWLao0CETxW+19GDweyGvu8+zhQcHvSSjeu+K/T162V0SiZpbIqR9hFwzVOOYvsuPDbpZBKnOn8fo7WlfMv80xYggHZ3uubf4DCoQjUcCXWwHN1RDpyODXJULkbuRMR5vjn53nnTuqosl4jRgdtyGiNgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l3Wm0T9bNpYeRr8Y06EmJGk6mRLocXvC11zet2Dl4xg=;
- b=p76PQuwLf8AAe5cedACIadN5pS7GZERjoMnskvaIrXy7XcaN3z5sZjHS72siOZpDb6KEgPcfwbGA4vmsZZ4h3e5sp8pdsptofNoEo7FqfjR04EYFjvF3D+NmSzRNJ3JG6MRXOub/Lmpy9/bDxicCN0QDpy2bOcYVon42obeVedA=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by SA1PR12MB8118.namprd12.prod.outlook.com (2603:10b6:806:333::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 14:28:35 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%3]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
- 14:28:35 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, "Francis, David" <David.Francis@amd.com>
-CC: "airlied@gmail.com" <airlied@gmail.com>, "amd-gfx@lists.freedesktop.org"
-	<amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
-	<Christian.Koenig@amd.com>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] drm/amdgpu: Fix GEM object leak in amdgpu_gem_op_ioctl()
-Thread-Topic: [PATCH] drm/amdgpu: Fix GEM object leak in amdgpu_gem_op_ioctl()
-Thread-Index: AQHdRcEt/Dfsyy9EpkqRNIF3qHMLM7bRQ69w
-Date: Wed, 16 Sep 2026 14:28:35 +0000
-Message-ID:
- <BN9PR12MB51461760A35CFA6E56D55B5CF7B92@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20260916095233.2009025-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260916095233.2009025-1-vulab@iscas.ac.cn>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-09-16T14:28:15.0000000Z;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD
- Public
- v26;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|SA1PR12MB8118:EE_
-x-ms-office365-filtering-correlation-id: 6eb5a7ff-f511-48b7-aa0c-08df13feca9e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|38070700021|56012099006|18002099003|11063799006|22082099003|10067099003;
-x-microsoft-antispam-message-info:
- Nh5KkzhjmSV6itkQwFvegOUw2dGSipG7XbCDbRcf1zv52b9uYmRKuBTj4rrKn15NJA4B8HpXSX2wdKzyOJW4BZdt7sbUZt7C16TH3EiTwB21t17D6b4cfLDixnQsb5kaCZIJjzOBBLsXaq+tFDjyIEZtnEQSvWEIYTIwAx6FHRbIfXunjxkLVfkJ5kxhN8HfPI0ewIDDF/lksJpqIVW/bh2Jm1ex5aId2Mz+FZ8HN8rjA7JZtRqZosVMLujWkSKcQANAspM8Tm13sgxYU8CwSh4VAbcenBv4kx77AR4hR6MPIBErLTfv+i+KSzwyQT+uQHO7O+PEQ8Zz8FAS5Aizm1jNPztJkM+XeR/J8y+pbCIsP0y1B8WVFlWKf8RNw88UcgPzg2sKfYrBDtrltavGT8hVvQki9aUYiBcj0QXXeb2Iq/or+z3Z6fPUIfBNKtJyA4Wdaz+tfcc9CbQ0hdvKOSu4OCvS00ra+jU1Jyb7Ug1B6K4N88tgHm4h19gKH+52g/QZK+23X4mzVsJu3n8CksSrAOOGGKpObWbNdt5bGqMZo+e5onW5AzWtbC3uTLtvyetg5V9DnPw/rbSRLeukbyGr7ZUq0hJO8u3srBffM8Wrc2CDx0QnNjrf1jJUTF4pVLPMitMW84p2kWwDHla7iGljjDeQ+wagPiUJkf/6ScVUCGd76AJq4Zs6CwssEZ8L0ltJbtQxnQLvajR/ag5ojL2gl5/4EjxSWqiYtUJRimU=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5146.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(38070700021)(56012099006)(18002099003)(11063799006)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?7fQIRiiuH8WIxHsd0aHsJ6pprmBLOMaZc32qiW776CTbjStVlGWj/8Q1MRnH?=
- =?us-ascii?Q?CwRxWRcES0z/mITSg2WPFT/xHaMURP8xk5NGRei3gUB4fBPKcSdEXqw49ioF?=
- =?us-ascii?Q?wH7fQCxkZcU/Z7ha2S6ttVp1LNpBtAkvzW3plS8alqJSWJ16l7anYY0a5soE?=
- =?us-ascii?Q?30Q10YBk8vrZKL/t9SpTEHVwl9Us2p0/ioIYVxSo2lrHz1zAxxtAK5A8Wb32?=
- =?us-ascii?Q?9vwaaIrPJHqv4rBw8TpRtx43yndj5vMvpxI15OphYoYTya8AOLaxZBsNHn14?=
- =?us-ascii?Q?XQ7dHbrWG6rJ2i7ZLmMs46E5pA1xOxZVVcb/mOWuEbyN0SM8bJuBkYdxxxa0?=
- =?us-ascii?Q?AX2XjXlnTtMhNhD32cMTcbEz0XClnPMUK4uCZZfpz/xMqAb//h3AGEJ4z+8Z?=
- =?us-ascii?Q?Te4KC02euL5GHACghKQoYBV2EjAgIqqTcovZrmCN0x+Es5FvvlimBQjAiQ8c?=
- =?us-ascii?Q?6EkXE4VyRhhdBoAECm71wrc677CeN5ArxhjyJJXNJCBmkLYI0JLlHq7Oig2l?=
- =?us-ascii?Q?otNm+NPVLPEGTZwK0n3jVWomMO6xc4l1QWwzT9REiMH3eqJ+8lhU5ADEu5xF?=
- =?us-ascii?Q?4qfoBgXFeC4C3i5tnfi2tDx72M6JLc5mhJWERMsyfqRp06PgBVP4GkMuSaRa?=
- =?us-ascii?Q?vtnjR/uXXpM/R+P8np8hTaWsA/EmEz30AoH2kfK+Ct9rY2TrxGhCEuExUIKM?=
- =?us-ascii?Q?P8gEFve4y8JFbtxcqtU8bo7iyOaiExoKJozTRRRdZnj733Jd+Jqyu2zb6Rac?=
- =?us-ascii?Q?Z0pqXtYSO9PEb/TMz+H+vlXzB8Nn2+/prwYPvvAngx+ONG5YA/7fBzEDcEGk?=
- =?us-ascii?Q?Dc4L0zIt2EG1NHqtDz++r9ag0dxzgmCN/9Yd1DbG6rQvgM+otwmboWMhD/lO?=
- =?us-ascii?Q?eeuOSMOa0P+zvAbas+I2eUEdu3Fcrkg3DU8PBZC8AmCk6Hw0qTKde+oi4MfW?=
- =?us-ascii?Q?SbSzBSPMaK1ftBowN/T8ZzuF3SOZvrfTuGWxJy8oz054nQXYIEMfXvoliZ1k?=
- =?us-ascii?Q?EmwmACW+IT9aE78TtrrPL38F4VSDge8nL9qysgzrBhIq5SJ65DZbZ9fG2T6t?=
- =?us-ascii?Q?t6WSFdoiSnIw49PlOgSK1qe0ydLPvlsPd6JTZiSpWf4LLm/PXBsgLDy/7iH8?=
- =?us-ascii?Q?0ppLlL7N/CfPaENyw9jSexlkrr31mb02T3XlAVbfkG5S1ZIFur7KwmZCbyFk?=
- =?us-ascii?Q?lMm+Xj2JFxrrBoBrRw3MYBYNkwNnT2io1Te+KKJC+iAZoHuOdmMse5UsniGK?=
- =?us-ascii?Q?P8T0OS+bn13V6Kl7ifeahTjyc1uq807ZYOGpgQt52WGoZfwTRhzJMWbLwJHo?=
- =?us-ascii?Q?lLK4r7x6l7eygs16X8hWXb4/gJaxOq9KafYUpcEjJgOxIzN/r2El14WM22xs?=
- =?us-ascii?Q?2QzmWGHlcnp6UgPeWOUwqw/fOcLSl5KxmkelF5q6+VSh1/0ZL3xePCx8s7BU?=
- =?us-ascii?Q?hiY5MBXBnQskzPr/mT5HLtpwA/UaGhnca4O07BORudCbqXU+j5T/Q0LgMgot?=
- =?us-ascii?Q?ENFBgD+EmJ9EGXnXCQSTj11FYtDO/zfJlO0cvh42BOkW1AgelIlrmEom0myX?=
- =?us-ascii?Q?laEYLNLuhCdL2kW7M4L92jrALx2fQXdIwaMvzGOr1PaaVHi0dpTY2kcRhwbK?=
- =?us-ascii?Q?lt1s2G9qoXz6R4Wupm8ipKlHU6ApJ4ocUCUD1/Bkl7n3HdcDWK2+7mEinprI?=
- =?us-ascii?Q?A/6Cz3S2dINPym4tcvjCh7BHas3vZTso53vRc2hufk2uZvsM?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ErHzdGix";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LbjjUXPy"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GDJKJN2788964
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:28:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	JqTCsPGnfug5X3iCX0D0UGrR50kMZM9Gey36ErTsVO0=; b=ErHzdGixubGKzp6E
+	zDCaiJbQgYa51ICV2Ncv07CCsJkmp/T9lPQb6s54q5L9NAuLQH1S5aFRx6y/yoZ4
+	5Cf+yQrRf5MdddxEegJkVpu/1LLpVkaENycJwqV1LvTPzi4w9zyGM1cKqqdfTWYt
+	sxq5RHVhvHRA09PvgjfazIVLFpSCleFOAhofDidBKx3/oe1GFIsTwc0UqMrgv1ap
+	+XN5ftJTHgvnB+816gnBSkF20bvlH2R12FIi4xfwjldzXiPdd6DCv14QduK6HHot
+	TZpjsLPAUTI3u87Hh0X23m0lrw7Jc3Z3khJNrPGPvdpFZVsOKopZ3WDAz5dYABxJ
+	PdHlmg==
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gquw2r90w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:28:50 +0000 (GMT)
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-671321441d1so5735849d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:28:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789568930; x=1790173730; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JqTCsPGnfug5X3iCX0D0UGrR50kMZM9Gey36ErTsVO0=;
+        b=LbjjUXPyv/pureKxrFa9Ri2EzxeK0sG1d8b+SM5mOztOs+7gR+iyxWJs49zSaaoVHJ
+         MNGulz/PQmoJQ4VRYyRm9vK4uaYINpzvgZKmG92R37R7iDld64quw4iSplyVvVouH/6S
+         I5MlSYOq21CowOvhugeFMiM4K7AHjGgSWXUXfd+ThDIb+t+0/Jc/vLBpa5sFIGof286N
+         o7TAF2indl1PoCNB9kbJq4ZFixLASR9VxVApLvGnVyem88TxUymQ3CzlWEBwpOo0poXx
+         07uKCSzIYgIVtPjoXRqr+i6MNI2G8QtsPcB6ITQGVJ6b0I0GUsAc+zqRFgoe2wa0eKew
+         4xXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789568930; x=1790173730;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JqTCsPGnfug5X3iCX0D0UGrR50kMZM9Gey36ErTsVO0=;
+        b=nkbVttQHTJvBj8fHqDndtewamQWh7IQEx+xC+w9HH2EFbBSsrm0HAdcXaIlSUFj9mI
+         +S49mDCOAZPfTS/HKaaOe+Ni3rARIlOcA8d1DShL2kI/mAJw/wBqwbCrnU9s8b9fZrUe
+         OHCADLSj1LecKXBcB4BCwbRwuDNorjVCa7TRywrX7DglVXdmcL6h6JWYOIjW8hABeL1Y
+         1eOBXDpNT2OMShsxXzn/2hd/Swry5h35xBMVqY9sOTKir8wNI7QVeP9KE1INX9U5HoII
+         XSyiDgIWA86QFXtm28ZxC3f43kWfOcrnN3yKG+cQ1t+w5+S0YGh5AR+wYj6CdlVqzX0d
+         H56w==
+X-Forwarded-Encrypted: i=1; AKwUvByLOt85zzxznjORIk9DwT3Pyt8j9OgtgstBlKge3sBzUtefp+EVxTGJLz0Gez9IY8a+Sb0Iu1Y19luhDeE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kK5dpB2Xjifmliyb/gE/jkmVhxKla1Z/JebTleNbV5ibxl4UOR
+	dMmKotRu8Ci/Ef8xBsbQ9bF0eHIWKo4u9GGHf41B3PFioOFnbaM8PnsrVUu3g4/RIqN0Ja8ep48
+	5sZVcsJzOfKoSMFVs48srUSBE0f/F/Pq/o8qt3CS94z4C4oLYQkxcWinUnY9bkIgksPE=
+X-Gm-Gg: AYBFou3EA+ndHZuAugY2+JEGoevvBeg+FSdECTxS2GBfuXeMhssKy/YJnCSXF/iZdPL
+	fRVYSiJcoDIhYEQNsbomIP0NFLnhQaLExiHXIwrh+RArBrmveRUpeh2SWVnvERNyJkcVdsTjhbl
+	MZMQFTTyuZE22Hw4C4ldtLbzl0lmka7q1XAceY6LztDcOdOhIJZF+Wgmll5wOFfSIrDIdJcNbIk
+	yhpfx2G27/2VhaweWv79dtJqxMM0NOsnNTFVdeNCnP5XfMwERRNTgk0EtHYo8w4VmuQ0RQw5UEu
+	vyMHSC1MKhhNUdFDJ7E4cs8ZurBq1Wa0Rhy09+N0TMRGqhzbGUaMqjSikcnx0qUEZocaiGjKF+0
+	aGrALAGyhPKf4ZID7x17JgLJsxqx2g7tp2f1wzNRwXzM=
+X-Received: by 2002:a05:690e:144f:b0:66c:bb59:e065 with SMTP id 956f58d0204a3-671631ddb2dmr912623d50.2.1789568929991;
+        Wed, 16 Sep 2026 07:28:49 -0700 (PDT)
+X-Received: by 2002:a05:690e:144f:b0:66c:bb59:e065 with SMTP id 956f58d0204a3-671631ddb2dmr912602d50.2.1789568929510;
+        Wed, 16 Sep 2026 07:28:49 -0700 (PDT)
+Received: from [192.168.1.9] ([122.164.83.16])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-891f0b96dc4sm8668607b3.36.2026.09.16.07.28.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 07:28:49 -0700 (PDT)
+Message-ID: <e82fabea-ec09-49ce-891c-81e0445534a6@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 19:58:40 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6eb5a7ff-f511-48b7-aa0c-08df13feca9e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 14:28:35.1878
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9wgeh+aJIY6JMJGjYvAfGlD/63eJ3K1P+8ZQ1a8fhmBcrKXZXpYFF4Yr2hBCV5sKO35ydtuXgz3AVsy6V9sZtw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8118
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: qcom: gcc-ipq5424: Fix TME reset register offsets
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+        Varadarajan Narayanan <quic_varada@quicinc.com>,
+        Dmitry Baryshkov <lumag@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260916-clk-qcom-gcc-ipq5424-fix-tme-bcrs-offsets-v1-1-0fa10674908a@oss.qualcomm.com>
+Content-Language: en-US
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+In-Reply-To: <20260916-clk-qcom-gcc-ipq5424-fix-tme-bcrs-offsets-v1-1-0fa10674908a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE5NCBTYWx0ZWRfX6fwXvHBR4m1n
+ eIRCkcYReXsE9r2L9XBJ7T6zuP3EGRbaLioanaSA8RGSl+jB9PFTBb4H7jKJ9z3NoX5LOuTrb9O
+ 6Q/uMttpDeBM5+t/B4/H0rgav8MY9x0=
+X-Proofpoint-GUID: 7MrJEAfY7cEsU3Nbaj5YHCPwRbcUg0tb
+X-Authority-Analysis: v=2.4 cv=N4m8hG9B c=1 sm=1 tr=0 ts=6aaaa7a2 cx=c_pps
+ a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=OZlrBAJz/5WJp+wn98y/tA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=1YwTZjUziwFERy13GwQA:9 a=QEXdDO2ut3YA:10
+ a=nd2WpGr1bMy9NW-iytEl:22
+X-Proofpoint-ORIG-GUID: 7MrJEAfY7cEsU3Nbaj5YHCPwRbcUg0tb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE5NCBTYWx0ZWRfX87uLL11epNbR
+ GKds3SEgxJ0cAlbmDJH9XzDgVfYbQ/uA7X+9r3c5CQa1bnq8BdKqvpLk552ovSZjQXrxK2GvxmN
+ OLfdcjFEC+AlyK0RCgB/cqxv4UEtIXm8Ls2EZ5Ucv44NMv0pFRRUIkwy51e62y3LCBZhPhKYitW
+ l1Ce124wbzCYy2+3ABgAA5oP0kW7IUqx3ffqXA22dumgS1gXCFHXyLIek2jo3Z+Ar0U7wEMkVWK
+ JuEmAnrby6hkFQhg3ZjoXVFl1J3WcgOpP8cx6DdQ/6Eq0aNYIulw+5ytTn56wIdjVT2/8W+2byi
+ kRR0DBTNrZtkEAIbA9LyjxTzRsxC56rHFTUlFSNJx5YMezKoucBxoomEnNk6eVvGm24Fwqlz3W8
+ aGawihoZjEvqIxEfGSCGXGiDKj0x1+gordeKb0aaUHPzQxj5NE4pbr9SpLFoULWuTWCBr7Xnrwq
+ pABKgD6nt3eGpdhn91A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160194
 
-Public
 
-> -----Original Message-----
-> From: Wentao Liang <vulab@iscas.ac.cn>
-> Sent: Wednesday, September 16, 2026 5:53 AM
-> To: Francis, David <David.Francis@amd.com>
-> Cc: airlied@gmail.com; Deucher, Alexander <Alexander.Deucher@amd.com>;
-> amd-gfx@lists.freedesktop.org; Koenig, Christian
-> <Christian.Koenig@amd.com>; dri-devel@lists.freedesktop.org; linux-
-> kernel@vger.kernel.org; simona@ffwll.ch; Wentao Liang <vulab@iscas.ac.cn>=
-;
-> stable@vger.kernel.org
-> Subject: [PATCH] drm/amdgpu: Fix GEM object leak in
-> amdgpu_gem_op_ioctl()
+On 9/16/2026 4:59 PM, Abel Vesa wrote:
+> The GCC_TME_BCR and GCC_TME_SEC_BUS_BCR offsets exceed the regmap maximum
+> of 0x3f024. Regmap therefore rejects accesses to both registers, leaving
+> the resets ineffective while the reset operations report success.
 >
-> In the AMDGPU_GEM_OP_GET_MAPPING_INFO case,
-> amdgpu_gem_op_ioctl() takes a reference to the GEM object with
-> drm_gem_object_lookup() and holds the buffer object locked through
-> drm_exec.  When the allocation of the mapping array fails, the function
-> returns -ENOMEM directly, leaving the exec locks held and leaking the GEM
-> object reference returned by drm_gem_object_lookup().
+> The offsets appear to contain typographical errors. Use 0x10000 for
+> GCC_TME_BCR, matching the offset used on IPQ9574 and the surrounding
+> register layout. Use 0x1a030 for GCC_TME_SEC_BUS_BCR, placing it in the
+> same register block as GCC_SEC_CTRL_BCR at 0x1a000.
 >
-> Jump to the out_exec label instead so that drm_exec_fini() and
-> drm_gem_object_put() release the locks and the GEM object reference.
->
-> Fixes: 4d82724f7f2b ("drm/amdgpu: Add mapping info option for GEM_OP
-> ioctl")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-
-
-This was already fixed.
-
-Thanks,
-
-Alex
-
+> Fixes: 21b5d5a4a311 ("clk: qcom: add Global Clock controller (GCC) driver for IPQ5424 SoC")
+> Assisted-by: LLM
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+> The replacement offsets are inferred from the register layout and the
+> IPQ9574 driver;
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 123d4a09114d..06dd2e8a5b47 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1094,8 +1094,10 @@ int amdgpu_gem_op_ioctl(struct drm_device
-> *dev, void *data,
->                * be retried.
->                */
->               vm_entries =3D kvcalloc(args->num_entries,
-> sizeof(*vm_entries), GFP_KERNEL);
-> -             if (!vm_entries)
-> -                     return -ENOMEM;
-> +             if (!vm_entries) {
-> +                     r =3D -ENOMEM;
-> +                     goto out_exec;
-> +             }
->
->               amdgpu_vm_bo_va_for_each_valid_mapping(bo_va,
-> mapping) {
->                       if (num_mappings < args->num_entries) {
-> --
-> 2.34.1
+> Sricharan, could you please confirm both offsets, particularly 0x1a030
+> for GCC_TME_SEC_BUS_BCR?
+
+Abel, I confirm that both offsets are correct and matching with HW doc. So,
+
+Reviewed-by: Kathiravan Thirumoorthy 
+<kathiravan.thirumoorthy@oss.qualcomm.com>
 
