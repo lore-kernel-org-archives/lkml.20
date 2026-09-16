@@ -1,68 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328D84B405E;
-	Wed, 16 Sep 2026 16:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6E63A3E95
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574998; cv=none; b=DR2J4yYOCRMdrBI1jE2imCLD58ny0lkjqXxK3XGwwsSCIJqdPRsuDBrddHQwFxpkjikchg/eDd4Vd/cD1iNEjtzuHrLH7xnawHu61jCtD3e9Xo71bxuHtP+VlClzXfIZPzwJbN7YnW0y8/cH2VQr4YpkblDWunS05M0hKn5Rs3w=
+	t=1789575023; cv=none; b=MX2SesMf1txVk1dqTbC5GrRyxbUjf+RvI5ztzNSAXgLrmNT3pHEeaKXLV8lDr9pvG1LYpudB/aahQjVugW8yn5YWQABzyJyQ7PPz6y8VgenKzfgOfzSpoRbmTVMtHIKj02lal1kcOS1N2SL+9hYigZgqaZMXXF3Pw9R8dipJkiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574998; c=relaxed/simple;
-	bh=IVOk/NyLCOnmdtXDSh97VsiQQ4+7BEqgMAgqRzOr8D4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=LLGw4mqiUg3e0FTA+PANFds0vb+MdxRCIW8G0Xlozf0XyZOTP8N4Eni/AgyiOlYUr19jvTx+uLvu9YmrTHXskNmng7Z0QzaJuKY+0OYgrYXuo5KLIm+9G9c3p4nnN7cghBl15ehW+vEyfiAQWb2GoX83WPeP5c5KwJFQ0oqbJXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5v9uhgv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789575023; c=relaxed/simple;
+	bh=pcP+4eU1/beEFYbRmgIPFAGcmsIIEUp/fpCxORq8Ok0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NslgzpYUgU5lINi35Uwcb2W8Ad0Cn74v1fxouE/JiCp8aqYFH9Ev1FlI4y89FE7JVWUSmJcAqCcoIc30BHuQQ0dVm7EFjw4ZZL/0GNxf7xMz3z/+x5dlc7ZNkIKa4kCgEV9WOXvRnHv2tf4kDZX6zTG1Olg24neI8noQXpiTkLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=G+j43XsX; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5v9uhgv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5101F00899;
-	Wed, 16 Sep 2026 16:09:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789574986;
-	bh=24kDvTvumsTOqnnfHmJx3FdAyn43pZdYMl7EiRDbWow=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=a5v9uhgvaR80Br1I4LS5nbw9EHgr6bvcQs5zbzFPFoi8nRoWlCT91o96A5P2V/T9v
-	 5MuV/gHt+I2DttCshSUAoTLU4vY/o3YwaYawW+QABYJpegkmBKAVRu8ix/VgOVG1wF
-	 A/0ERZeo+p26HlxsEdIjZqEXeOcWDo1yrVFLMHyKeiBGOullxRGvT1FhC31nu6xrr6
-	 6LB9Akj+TyumNOKkLf4IFZ4HZoAvhB9Bz8BxvlDfEJmu0Q7szaiGqoGs6P+/71HHuU
-	 XPYyNysyTI5ktOFARzEw2Eti9QuBQKpFkRp5qF3C2qoMfh/m5YCZqH85kd5ksHgXdi
-	 udDVuh9t6RjOw==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org, Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20260904131243.755201-1-ckeepax@opensource.cirrus.com>
-References: <20260904131243.755201-1-ckeepax@opensource.cirrus.com>
-Subject: Re: (subset) [PATCH v2] mfd: cs42l43: Move cancel_work_sync() into
- remove
-Message-Id: <178957498501.1766829.10062828436736023046.b4-ty@b4>
-Date: Wed, 16 Sep 2026 17:09:45 +0100
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="G+j43XsX"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910a0cefaso90304785a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:10:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1789575020; x=1790179820; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pcP+4eU1/beEFYbRmgIPFAGcmsIIEUp/fpCxORq8Ok0=;
+        b=G+j43XsXSyeDqlqbbynVYBJXFecy3PUM0dOOaj148M+VgDw2oI8haZ1MoCuKSsPgAh
+         7xAPKUr1UCMpb6if+cwYHq6kmcX/L3uE+honXuXTEQBcmVEmg27s000o4F9/jO3DbYGj
+         Q1ZJ31SosweOwIvw+hBLCicXePeNo1IN0KuWsc5luPkvXVXzhdBi1G+kxIzfI+WtgvpR
+         +COzR0HzwVPAXCQKYYV/eABHMELbBwtGKEjsjg/ONAaTHMM84ObXvdV1HtQT8gRRU/VU
+         dgG8URFzOLmbO6XRLYC3tirPFiqJSTVGxmQ6V5UHjq9GFu43WCgq4aLVvQQ+f7b+5z9K
+         v6jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789575020; x=1790179820;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pcP+4eU1/beEFYbRmgIPFAGcmsIIEUp/fpCxORq8Ok0=;
+        b=jV0jnknOI7dB9x8U6ZxzOBYcNccsxYAu8/GZkqHceUubtE9SJYCtU3/tXOJb5QvgR7
+         j7px91aB3iQWOOlLen6uKYFyrMFjeRHrqfb0FhNKNUb/It0qA5eVPEuFHVEb9ewpm885
+         6mfNsYKiEqgnS63uAPG/m3kC/kfVPvChLhaCrtPipQZKkhfKYyB7TAVcYjEFfe3n9kgB
+         xAguOVVaImBXNRccluA8U/PDmnvV/R+L2LbeXZrn77IrNf5JktzKO2WaeDNGRZrmZf89
+         g0FbXYUG4csZ9Mx+x6oWFBUJDhXC+nXOe7KOg3FqmiH4mWJc7eCdr+9tWIDcRD+2mUJh
+         IJWw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLEVqFG+lARcTfQFXUC8KYYrQe9zz1MgfO1SQ4tZeWn/DGDsNZWnr3Z9LDGlaTccHvtw0IwycGqDqwEWs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSZvvzG0q04OEynIvLpy1i2DInSH5DXEMw7ZpAFfXmX/LVcrxQ
+	+nvnhMin+/jB8nl5lcoAq8xxdfD5mHUJxbDtZ1DlLnHwD40pYa30sX3vzajWr7ibwek=
+X-Gm-Gg: AYBFou37sSXA8i4pUAWVT+JyGn45HsnXBT1NI26odWSHOKbWN6pO7r7pGB/q9kljNzy
+	ifjvTO8C/FBj7k3u4RhaRef90rjFjxGjwVzwwrxyI1YRk/45gX1M9/OSr+G16zb/ytnOyr1t/ip
+	WgATXigcfxdpvHjsP04Zgb6fAmashLgegi3dUZyvMqJgP2PS+ziDinU8gdYEnMLbWhPE4yafrjX
+	myatwcAkIVMgKyMm08X9VKCptGEqMydm5OKtBdgDtBjvVfPjCVHQjbqt32mMUeTmTa9iunnMyQf
+	QjSbiOyZQpaC2PnrHhjKDPaBuRMgiWtV7N9QdJeVUUwxhDi228qFRmlqiETS1SWvToNe+IUdPHq
+	ioo67tDaA/cZ0G8mSYWvcAS0UYM/IJ0l8zcNVFPVl7vVZo+tYTAuHDsU+vU04bwJ0OnNHwAdFXp
+	krq/C5/D9djBfOU3VsEJB5YQXM7puUMUrwLqcStnkhlnPtweyhPzXlULWQpPXTOYKq60hNGe+Ta
+	lJifaYrwtuhyz8WJXaHkiJkMHxWYDqgpe+FfnZELUXcHNTqpG3745BtgA==
+X-Received: by 2002:a05:620a:640b:b0:93a:344e:3d3d with SMTP id af79cd13be357-93bb7952c30mr495951685a.42.1789575019764;
+        Wed, 16 Sep 2026 09:10:19 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b81d19df1sm251902985a.45.2026.09.16.09.10.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 09:10:19 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x6sDC-00000009bqL-1M2P;
+	Wed, 16 Sep 2026 13:10:18 -0300
+Date: Wed, 16 Sep 2026 13:10:18 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH RFC 0/4] iommu/arm-smmu-v3: Support shared Stream IDs
+Message-ID: <20260916161018.GE3196566@ziepe.ca>
+References: <20260916-smmu-shared-sid-v1-0-517384504aee@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-smmu-shared-sid-v1-0-517384504aee@nxp.com>
 
-On Fri, 04 Sep 2026 14:12:43 +0100, Charles Keepax wrote:
-> The cs42l43 driver kicks off a work item waiting for the device
-> to appear on the SoundWire bus, once the device appears the
-> MFD children are added and the clean up is then done through
-> devres. As the work is synchronised in from the devres clean
-> up this could lead to new devres items being added after the
-> clean up has started, if the driver is removed before the work
-> has fully completed. The work should be synchronised before any
-> devres clean up is started.
-> 
-> [...]
+On Wed, Sep 16, 2026 at 11:12:33PM +0800, Peng Fan (OSS) wrote:
+> Some SoCs have a limited number of IOMMU Stream IDs (SIDs) and
+> hardware that inherently shares them. For example, the NXP i.MX95
+> eDMA controller has 64 channels where each TX/RX pair is assigned
+> a single SID by the hardware - the two channel devices are distinct
+> from Linux's perspective but present the same SID to the SMMU.
 
-Applied, thanks!
+Is that a reflection of poor DT modelling though?
 
-[1/1] mfd: cs42l43: Move cancel_work_sync() into remove
-      commit: f0749e65fdb0026abe1294adc5648f58642754f8
+Why must a TX/RX *PAIR* have two platform_devices nodes?
 
---
-Lee Jones [李琼斯]
+Fix it there and you don't need any of this? Or is there more?
 
+Jason
