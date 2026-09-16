@@ -1,101 +1,197 @@
-Received: from danaos.cslab.ece.ntua.gr (danaos.cslab.ece.ntua.gr [147.102.3.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEAA3B71DC
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:39:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=147.102.3.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA82F4EBAE7;
+	Wed, 16 Sep 2026 11:39:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789558767; cv=none; b=HHfuAlp6dtxe1w5JtM3V3ELYG5bbAFbSOkdDgn3UA0irOnvSMCdLr5SZ4fn0oIKkRaoXqV0W1lldtbg+1TIiyKkpEak6jhPTB3T09LWD0LQ/joCN61lcTddMXJnYACacBu56J+vTycBdEDZEBkeeq3q5HQNkkFmIt4YbPxn5auM=
+	t=1789558783; cv=none; b=PyJCtjJNuU+gCI6uHOSvUqUpiwX2vsy5PqYENL0ueAmQXIr2Y7b6QGA6PIpLN+EAQ7sOLjfAdBDp80UhNlyn/afMxBi5w5z/kfvZhH6aanzSSJw6xsuGtFF6YK1qI/0QRibZFE/Sg3zDyNfAxnyZ9BagFqjdi5S+/35GU3GrjiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789558767; c=relaxed/simple;
-	bh=iTPbgi6TTWpSnIYUxKADxzx4y1Pw8y2qclg7BMPDqWA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WdVI0HL2bCsNcGMZEz37hiBNyjg+wucLxgat4pJLWDomVV0g5UmewMZQe8/OGiu7kjOTDAxWm62no86S5+2vgbHHSBzqb64GmK+0Ah1iHtB3ZEZexMJY7wIGsukE9svbrJ/MYbusCaWn4fDB618Vpng+7vQEUau8bRgV/6bmrUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr; spf=pass smtp.mailfrom=cslab.ece.ntua.gr; dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b=d47+8HVT; arc=none smtp.client-ip=147.102.3.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cslab.ece.ntua.gr
+	s=arc-20240116; t=1789558783; c=relaxed/simple;
+	bh=v5sttW6YkzqfhQkXivVTyjg8xZHwuXgutc5IID/fnfU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SNeXv6NHnbyhry0C6fSVfNes5XSUOe/3L4ZSBrBKITH6YI/LdqYDUjHKlcNccvpgCoL3oIuoOSEtJERs4gbYg3sMWgwDwptDZN6JkBSavmD9m1KMkFtNymi8vsUOPsz5J8t7owD3BiuDaF1cxdAFvmcuCmKlTEyyC9MdGuBCkMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KJyruiO5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b="d47+8HVT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cslab.ece.ntua.gr;
-	s=smtp-cslab; t=1789558744;
-	bh=iTPbgi6TTWpSnIYUxKADxzx4y1Pw8y2qclg7BMPDqWA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=d47+8HVTgyT/i/Hi2bUgm9y0um/FjGxgtsCzL2ArQFbb8d+v1ZL9I3nvIgQTAY8CN
-	 Wk+ZzIZ7AU8UkFUBUIIYN7y68xKkXeHQItTNLM1EHiV+zwLSjHMbw7Sz8q+XtuEOAJ
-	 2fFMAIeiLC2DlFvC+kDAkn7DzmxSaik5QQ0BRVgQ=
-Received: from [127.0.0.1] (armor.cslab.ece.ntua.gr [147.102.4.33])
-	by danaos.cslab.ece.ntua.gr (Postfix) with ESMTPSA id 141F9120BF6;
-	Wed, 16 Sep 2026 14:39:04 +0300 (EEST)
-From: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-Date: Wed, 16 Sep 2026 11:38:44 +0000
-Subject: [PATCH v2 3/4] maple_tree: fix invalid memory access in
- mt_free_walk()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KJyruiO5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A404A1F000FF;
+	Wed, 16 Sep 2026 11:39:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789558771;
+	bh=PwPvpxGrzEMSl2UNY8taOVvejOczhuAnj7LbVVW1ppU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KJyruiO5wrKXPzdDFVqClE0Ty9ULE/hZ5397ZAAciwaIzSVYco6qRvg6/MDxgtKC0
+	 5Orh+cdNNSyRg9VM6hQ/zX41j+heGbSMRTvdr4Bf6A683yZM+Uct4pWu7p8C/TZAod
+	 oecbogdsDV6kKQO+FXHf05kUU+o/mbKfsVJUibf5nEU/8bF6feZlVbDOPQhBrdkCNq
+	 4CJaECSLIEwat0TrrDvjO5jSd0KNNyHgMQm3amCX92l6XCO0ns5Hn/UVCMAoEtXizc
+	 1+68a2ZkufZRdTVOGMQFm/423/2+A9Yl8H7Yx+w2fcLCxww5d6OnBDIserveBUvhlz
+	 4/duiZamVsrQA==
+Message-ID: <6cfc9b2b-f27d-4f06-ac76-bba64b5c1668@kernel.org>
+Date: Wed, 16 Sep 2026 13:39:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/page_alloc: do not boost watermarks in kdump
+ capture kernels
+Content-Language: en-US
+To: Yuanhe Shu <xiangzao@linux.alibaba.com>, akpm@linux-foundation.org,
+ mgorman@techsingularity.net, linux-mm@kvack.org
+Cc: surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
+ hannes@cmpxchg.org, ziy@nvidia.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, henry.willard@oracle.com, david@kernel.org
+References: <20260916112545.3707893-1-xiangzao@linux.alibaba.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260916112545.3707893-1-xiangzao@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-fix-maple-tree-range64-rcu-v2-3-0b09de37eb69@cslab.ece.ntua.gr>
-References: <20260916-fix-maple-tree-range64-rcu-v2-0-0b09de37eb69@cslab.ece.ntua.gr>
-In-Reply-To: <20260916-fix-maple-tree-range64-rcu-v2-0-0b09de37eb69@cslab.ece.ntua.gr>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Alice Ryhl <aliceryhl@google.com>, 
- Andrew Ballance <andrewjballance@gmail.com>, 
- Suren Baghdasaryan <surenb@google.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: maple-tree@lists.infradead.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-X-Mailer: b4 0.14.2
 
-mt_free_walk() descends to the left-most unvisited "parent-of-a-leaf"
-node by checking the condition:
+On 9/16/26 13:25, Yuanhe Shu wrote:
+> A watermark boost is not confined to one watermark: wmark_pages() adds
+> it to min, low and high alike, so every watermark check sees it,
+> including should_reclaim_retry() and the last ditch ALLOC_WMARK_HIGH
+> attempt in __alloc_pages_may_oom().  Once the boost exceeds the memory
+> still free the allocator gives up and invokes the OOM killer, and a
+> capture kernel that is still booting has nothing to kill: the boot
+> panics and the vmcore is lost.
+> 
+> Seen on an arm64 machine with 64K pages, CONFIG_PAGE_BLOCK_MAX_ORDER=10
+> (pageblock = 64M) and crashkernel=512M, running a distribution kernel
+> based on 7.0.14.  A high order UNMOVABLE allocation fell back to a
+> MOVABLE pageblock while the capture kernel was still in do_initcalls():
+> 
+>   Node 0 DMA free:68096kB boost:65536kB min:68160kB
+>   low:68800kB high:69440kB managed:479168kB
+>   Out of memory and no killable processes...
+>   Kernel panic - not syncing: System is deadlocked on memory
+> 
+> The zone was not short of memory.  Subtracting the boost gives
+> min:2624kB low:3264kB high:3904kB, so the 68096kB still free sat 17
+> times above the high watermark and the allocator would not even have
+> entered its slow path.  The boost supplied 65536kB of the 68160kB min
+> and by itself put the zone 64kB under water.  It is that large because
+> boost_watermark() clamps it with max(pageblock_nr_pages, max_boost);
+> watermark_boost_factor alone would have allowed 5824kB.
+> 
+> Commit 14f69140ff9c ("mm: limit boost_watermark on small zones") already
+> tried to protect capture kernels, but it infers them from the zone size
+> and skips the boost only below four pageblocks.  arm64 64K pageblocks
+> were 512M then, so the guard reached zones up to 2G;
+> CONFIG_PAGE_BLOCK_MAX_ORDER can cap them at 64M, which shrinks the guard
+> to zones under 256M and lets this 468M zone through.
+> 
+> kdump is a property of the kernel, not of the zone, so test for it
+> directly.  A capture kernel exits within seconds and never uses the
+> fragmentation avoidance the boost buys.  Normal kernels are unaffected:
+> the size based check still covers their genuinely tiny zones.
+> 
+> Passing sysctl.vm.watermark_boost_factor=0 to the capture kernel does
+> not cover this window: sysctl.* parameters are written through procfs
+> by do_sysctl_args(), which runs after do_initcalls() where the panic
+> above happened, and watermark_boost_factor has no early_param of its
+> own.
+> 
+> Fixes: 1c30844d2dfe ("mm: reclaim small amounts of memory when an external fragmentation event occurs")
+> Cc: stable@vger.kernel.org # v5.0
+> Cc: Henry Willard <henry.willard@oracle.com>
+> Cc: David Hildenbrand <david@kernel.org>
+> Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
 
-        if ((offset < mt_slots[type]) &&
-            rcu_dereference_protected(slots[offset],
-                                      lock_is_held(&rcu_callback_map)))
-                slots = mte_dead_walk(&enode, offset);
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-A maple_range_64 node has MAPLE_RANGE64_SLOTS slots. When it's not full,
-the last slot carries a struct maple_metadata holding the offset of the
-last valid slot. So on a node with MAPLE_RANGE64_SLOTS-1 children *all*
-slots are non-NULL. The first MAPLE_RANGE64_SLOTS-1  hold valid pointers
-to child nodes, and the last slot contains metadata. The above check
-therefore passes for all offsets, and mte_dead_walk() dereferences the
-metadata as if it were a node.
-
-To trigger this, a node at least two levels above the leaves has to have
-exactly MAPLE_RANGE64_SLOTS-1 valid pointers to other nodes.
-maple_arange_64 nodes cannot hit this since they store the metadata in a
-separate field.
-
-Fix this by bounding the descent with slot_len which holds the number of
-children of a dead node.
-
-Fixes: 54a611b60590 ("Maple Tree: add new data structure")
-Signed-off-by: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
----
- lib/maple_tree.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/lib/maple_tree.c b/lib/maple_tree.c
-index e86eee43aa0ada6963995cd74495d9344f6ccd06..0b0036c9f848929a7c9a26650ccd935c44aa1376 100644
---- a/lib/maple_tree.c
-+++ b/lib/maple_tree.c
-@@ -4752,9 +4752,7 @@ static void mt_free_walk(struct rcu_head *head)
- 
- 		type = mte_node_type(enode);
- 		slots = ma_slots(mte_to_node(enode), type);
--		if ((offset < mt_slots[type]) &&
--		    rcu_dereference_protected(slots[offset],
--					      lock_is_held(&rcu_callback_map)))
-+		if (offset < mte_to_node(enode)->slot_len)
- 			slots = mte_dead_walk(&enode, offset);
- 		node = mte_to_node(enode);
- 	} while ((node != start) || (node->slot_len < offset));
-
--- 
-2.47.3
+> ---
+> Changes in v2:
+> - Drop the stale kdump capture kernel mention from the small-zone
+>   comment in boost_watermark(): capture kernels now return earlier.
+>   (Vlastimil Babka)
+> 
+> v1: https://lore.kernel.org/r/20260914131142.2984623-1-xiangzao@linux.alibaba.com
+> 
+> Build tested with CONFIG_CRASH_DUMP=y and =n.
+> 
+> Tested on the affected machine with the original crashkernel=512M and
+> capture kernel command line.  Without this patch both capture boots
+> panicked at 7.9s inside do_initcalls() with a 64M boost in place.  With
+> it, and with boost_watermark() instrumented, every call was suppressed -
+> including those inside do_initcalls(), where the panics happened - free
+> memory came down to within 64kB of the min watermark, where a single
+> boost would have put it 65472kB under, and the dump completed.
+> ---
+>  mm/page_alloc.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 12fac9084c48..f52ed7d2cd34 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -37,6 +37,7 @@
+>  #include <linux/vmstat.h>
+>  #include <linux/fault-inject.h>
+>  #include <linux/compaction.h>
+> +#include <linux/crash_dump.h>
+>  #include <trace/events/kmem.h>
+>  #include <trace/events/oom.h>
+>  #include <linux/prefetch.h>
+> @@ -2178,10 +2179,17 @@ static inline bool boost_watermark(struct zone *zone)
+>  
+>  	if (!watermark_boost_factor)
+>  		return false;
+> +
+> +	/*
+> +	 * A kdump capture kernel exits before a boost can pay off, while
+> +	 * the raised watermark can exceed the memory left for the dump.
+> +	 */
+> +	if (is_kdump_kernel())
+> +		return false;
+> +
+>  	/*
+>  	 * Don't bother in zones that are unlikely to produce results.
+> -	 * On small machines, including kdump capture kernels running
+> -	 * in a small area, boosting the watermark can cause an out of
+> +	 * On small machines, boosting the watermark can cause an out of
+>  	 * memory situation immediately.
+>  	 */
+>  	if ((pageblock_nr_pages * 4) > zone_managed_pages(zone))
 
