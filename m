@@ -1,167 +1,133 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2111D23BD1B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CC74C1505
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568536; cv=none; b=bYLLSnj4XRbB0xjnu+H1aYRt+tZfO33z6bVdVYrvrLv4OOySsJJJY5lGbc7aazMkbjvwEbya2lSvIVvSv2RlAZPCbA4telhbbXsk6/8giQqyWefOsE+XyYXfdph8dWUohkLSb0WomM6sx7usBkMXAhREtl/FnnVr+LoQj37BhuI=
+	t=1789568580; cv=none; b=m0jTxOBfT41DX1kYJmh1Oez9g1DPFfg+voM3W+qRIrWTekmrGC/kBUoudDVrtgEPwSwZrSexwUN6xmSWbYS2+M6b1SR4NV7VPpoXoHcbCIAlIUiQRi2y0x6kous729rgaylC+w57YUFZY5lTVatG30kM1RP86c4JDbV1Yps9fBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568536; c=relaxed/simple;
-	bh=tQm+SUjJhqlfSnnyRbTVMTyJzx51Yfv7VQK1ltt+dY8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=swPaz2bTWGTQHDr5a4zKO080XRMCZjZyfL5qBpY6KB61aF+l+N5nOA+eOVhwxXvNOWWSvJzK7Qh8F95aqCa7/SBm8aLz81hd5p9MEffpCCv6BC48+vZ1BvjLGy5+n9WJaq0ZJPoZLIfsR6RjTctv99lNvrqyzcm/qFAeHzcmmTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=V8miW70Q; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789568580; c=relaxed/simple;
+	bh=43UrhAuDyRCxIW7zNvxEWB9htMmCXLzuxgZNm08DRto=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=lrHiNM3IIJrQXbS/hDY3BeZj54l6jchUgd4nag0eYI7kIRraOBvE1UGxIfGqH8js3FnNf7dQysLoEzTERFOxCgkCo5utCoGsyUOXpbxp5vJiRxLMug7eBy1dLga5vqhdtQqD569wznBDnKuHdotz9v7xVm6bppvI5EgGSm0Urmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q1Z2m11H; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="V8miW70Q"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso5210945e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:22:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q1Z2m11H"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-868cfc5c244so631128b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:22:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789568531; x=1790173331; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P0uZ4BnvDof5wiqfMQXLES5jMiUYascBq/gJHlhVBLY=;
-        b=V8miW70QddG/j8ICrGFb0+NrK3xjiZ+j7BL+GQD9R5la3SzC10H/rmq5S/ng9fInt/
-         aiB+wlVhZGoUKvIXgLoTqRhRfLsCM8XKwRHgcFEGbaUgw+hiunI1oL4z33SoF6KrLs/B
-         2tfzyDdYhR0GdbOcC4b3WRWEJtgkjP/4RMyZGDTezeeDMkbQBL6IlGzv0fV+mD/rO2r4
-         rbKS/O1vs5+Bses/nTUHzgzMrIUvO3Z4QidIIhhvm3EmQh4EHIXPG5Wm978w/oZQhCs6
-         7FaWy89EK86exb5UCjeatZIy+usHsOl32gBnGCqmD5GUURPGwKKkCNP/ps+k357onnk2
-         txAw==
+        d=gmail.com; s=20251104; t=1789568578; x=1790173378; darn=vger.kernel.org;
+        h=message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BWvWZC1A4EEg5WDZjdEechEjI5LuFB/6BDLI2Ygdh/I=;
+        b=q1Z2m11HO9QkjOyRQtTtu5Cww1Sdy5WzCcfztdw20BU+iuVYXYwBSgEtZ1cVdXjRgY
+         WCtE9YvVI0sfqGsoa2nNRbvBeksGjbbTi2NnZEIXbhpMQ1j8A/S3zziQ/EdJv/h6bp9E
+         c70PrvJ6kxqZYuKCejNQaD6UxQ04ifiCJEJKlbMKTNevkwKNJr82rn5BwC/xQLqElvOc
+         8DsEkDfL3ZvChth+7MjRUpf7oMtoyvusIpTdCN+MnljNaipzQFiB2qijJX51Inx6rJMn
+         lPisIT9/I1Dr6DCfm9sBkvh6qPH/lIjBz8NUR2+4ULwNvjMobiZHiwcm8mY13HGWxXYD
+         +k9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789568531; x=1790173331;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=P0uZ4BnvDof5wiqfMQXLES5jMiUYascBq/gJHlhVBLY=;
-        b=KkRGbPUKQ4cn2UexSGOJdAEqdCMh/rP3XNVqRIoec5X3K3yROkYTxBwm7vh9rwDuI0
-         GT/78UQm/7B5iwGzj9Kz7yl+Xhx0GvELFMkTbwA8m2mXzYPt9VH/NKp3LlUVA9sBL7j+
-         BOFfZ8lgsMTYWHdGU332Zi8eSe05uee06825EofxjPauz7J+SuZpNqGldNm+C7QCJv9W
-         v0IS+tPKRVh7z+UlYp0BNNe8C7LsPL5FfieXAWFzBl7BdZiBEDpdR0YWIhEVvq8Z/UhN
-         Ph08x+Es0vl6qbIMNxMEHB9QL9CVl5htHCmkEP/Dat8zdpTffpBdRTCwRmLCGEvyphqo
-         Yn9g==
-X-Forwarded-Encrypted: i=1; AKwUvBwOnqcEl8jiPU4pSWK1LMCCggDV3fAZH1Q3BgcC2qaXzWMtnjTMUogThOfmJBJIYGA3imt2bCaRlYFe+5o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHSEaon/n9bC0laJNw/qpbi81vMDWIq36ik9vWDuSemkPWJ2oM
-	t1zq9BrbEqO+CLk2rPF/6/Qu8jbu6pnLWMRbzlAVNdLxU0JNPq8xcT0mE8f4I0itxC7MVvV3jDR
-	ZQG1k
-X-Gm-Gg: AYBFou1yPAB5qXkTb/YxGKdVu3icpTX527Rk6CHfzS3yl0IvMSmiwIzswk9R33KjzER
-	9qvG/3hacGRs/76ynJUN3x3tCJ2TY1zYkrBiYgaKRsz4asXhSd7zEK5CIY7QUiPE11qh9EYnE8P
-	pTsz6fMoTBgZtDS2ogNbYzw4128YlpueclzUhygHm0ijlwJ9DoXdfJzimJiXFie+r+P43+y2eKc
-	lZLGYP4eslh0Epap2bKiW5vwOuiFRFaLTiZY7WfFFvUb02KOnnHRW7UDT7j96t9fWYFn8R4T4eG
-	4lCSsbeEKaaPz82gmyI9XX2PNd0Lb4VOjHKwgTU/wQPwfAzPTm365aTBkCbjP+LBWqbfdJxg8Cb
-	D6FIQ4/qGNQ5frtRJeomYla92uPNJCg6C2iaQwZgUEA31BscszPimezNm/2R0cVEq0pl4ODxIx8
-	u9Dzhs5o4UWNP/Y04gvdA/vFquQpj0ikowwRtdQDgKVLGS5nD46p7Rr3vRB9Bd+PQNgTKPij10h
-	F5hIgtJ5dCUVbYm4w==
-X-Received: by 2002:a05:600c:1f96:b0:49d:243a:e4f9 with SMTP id 5b1f17b1804b1-49eb6e2c8e4mr31133135e9.10.1789568531214;
-        Wed, 16 Sep 2026 07:22:11 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83aead50sm92828195e9.7.2026.09.16.07.22.10
+        d=1e100.net; s=20260707; t=1789568578; x=1790173378;
+        h=message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BWvWZC1A4EEg5WDZjdEechEjI5LuFB/6BDLI2Ygdh/I=;
+        b=1fYllZRHpPTYRPWujq46rmQnOKazjIaLkf6Ij312lxxBpX+KBeCUMmVXLGRXmVzpvD
+         fC7gW1wn1Z2zAySTkj/IV1BE9heQd+joT/6sj9yV76CBHmRdqdJfzVCdZqFrOxJ2AHeQ
+         SsElllReXfWgojZBkKQxj7OX5fzmPYGH5sMdQHF018n58k+HKXfp/Q2az7y/LCl8m1bv
+         TMSMjsMYZMbny8NnH7CG0REe2uIuoxqMma8Tjm1QSU+S7tRI7qGYfEuU4qYcutCzDIVB
+         QYsH9WtvOk9cQkaGI79Z6VIiShollDZwvCxSgLTEqSp4ih2WIZidY6Jv2oMUTUXfeqwJ
+         aVAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzqTC4cVibVpArAtCzQ8caIliMUkCwn58XcnxfxOPCnSGr/dvGSzWLZQ9QZiXk2knFaKwjge/URKCGJROA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJo86VLsb7vuQ+q7Uz/8U5yKbSZu6EyZTLPzRnvRPP/Yu+G9/D
+	bMyM0dIqlXnls5duCAimTBJ2wnuRXdDpLM3DUvPwWES3gnsOq6/3xP3C
+X-Gm-Gg: AYBFou0h022ec7JYbXF1L5v1aJmXbuh4nTKR0LmSyvX2gxGQzT7tEINCax7g5AtLgGL
+	5ImuKaLIPQcu6xOQEyjMw9zolWe2zV1Glk1B4F+a7DgURFdjIy6iMyqTvgYbjxVYpsJ/B1oaaA6
+	JBsiuzGQGvUqdZ8mb+LqIik5VmG+ucBLfdT5+Vg4feQ1UbIp4fBrj6rlJ/74GLu3/YOAkpxaWw+
+	ExQ+BI60//nDRnFp2AjD0hzKhMoMuHPe7eu88wz+flbp7yPKNIDINLN4nABD/0GFchEqj7JXUA9
+	kg/dOd1FL7vOnfPu8Cw/3y7qb/WsV1ya06Ul78ho6rVnhaPpCBzED5NwSq6gwEjqFNzzuEDQEyY
+	4tHJDuLM+pQCCo393Xc3jQK/yW2hSUoBW7xZYdzojkKRYemksEF5xwLMq4Hyc1alF5+zrtRsI2R
+	Lb71RV3JO0vvGYpIG7TUCx2rpuNg6pXRVinXrIBSfMbCudk7xxM5YJSrwLonoCDxf2ILjuHw==
+X-Received: by 2002:a05:6a00:408a:b0:84e:2382:f4f0 with SMTP id d2e1a72fcca58-872363f656dmr6488422b3a.4.1789568578140;
+        Wed, 16 Sep 2026 07:22:58 -0700 (PDT)
+Received: from [127.0.1.1] ([240e:b8f:977f:f400:ec2a:b15e:fef8:70a])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d179aesm1390884b3a.50.2026.09.16.07.22.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:22:10 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Dan Carpenter <error27@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] clk: Document of_clk_get_by_name() return values
-In-Reply-To: <aqpJ_pupkr8HDIz2@stanley.mountain>
-References: <cover.1789451862.git.error27@gmail.com>
- <b3de48fdbaaade69cce126b59bd6dfb8f437b495.1789451862.git.error27@gmail.com>
- <1jzexhd58n.fsf@starbuckisacylon.baylibre.com>
- <aqpJ_pupkr8HDIz2@stanley.mountain>
-Date: Wed, 16 Sep 2026 16:22:09 +0200
-Message-ID: <1jqzitcm3y.fsf@starbuckisacylon.baylibre.com>
+        Wed, 16 Sep 2026 07:22:57 -0700 (PDT)
+From: Liang Haowen <nbg2974@gmail.com>
+To: linux-leds@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Martin K. Petersen <mkp@kernel.org>, linux-scsi@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Denis Benato <denis.benato@linux.dev>, Armin Wolf <W_Armin@gmx.de>,
+ Hans de Goede <hansg@kernel.org>,
+ Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH RFC v6 0/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver
+ for ROG NVMe enclosures
+Date: Wed, 16 Sep 2026 14:22:49 -0000
+Message-Id: <202609162200.RFCv6-0.lhw@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
 
-On mer. 16 sept. 2026 at 10:49, Dan Carpenter <error27@gmail.com> wrote:
+Hello,
 
-> On Wed, Sep 16, 2026 at 09:28:56AM +0200, Jerome Brunet wrote:
->> On mar. 15 sept. 2026 at 19:38, Dan Carpenter <error27@gmail.com> wrote:
->> 
->> > Callers should test the return from of_clk_get_by_name() with IS_ERR().
->> > The function returns a valid clock on success and an error pointer on
->> > failure; NULL is not a valid return value.
->> >
->> > Document this explicitly to prevent callers from treating NULL as a
->> > separate failure case.
->> >
->> > Assisted-by: ChatGPT:gpt-5
->> > Signed-off-by: Dan Carpenter <error27@gmail.com>
->> > ---
->> > There are a few other functions which look like they return NULL but
->> > never actually do.  This is one which has caused some confusion in
->> > the past.
->> >
->> >  drivers/clk/clk.c | 3 +++
->> >  1 file changed, 3 insertions(+)
->> >
->> > diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
->> > index f1756fe59372..a71bcf780de4 100644
->> > --- a/drivers/clk/clk.c
->> > +++ b/drivers/clk/clk.c
->> > @@ -5430,6 +5430,9 @@ EXPORT_SYMBOL(of_clk_get);
->> >   * This function parses the clocks and clock-names properties,
->> >   * and uses them to look up the struct clk from the registered list of clock
->> >   * providers.
->> > + *
->> > + * Returns: A clock pointer on success or an error pointer on failure.  This
->> > + * function never returns NULL.
->> 
->> Thanks Dan. I was about to apply the change but it feels a bit strange
->> to document what a function never does.
->> 
->> Is this a documentation that should be added everywhere the return value
->> is to be tested with IS_ERR() ?
->> 
->> What about being more direct then:
->> 
->> "Returns: A clock pointer on success or an error pointer on failure.
->>  Caller should test the return value with IS_ERR()"
->
-> First of all, I just want to confirm that actually it's true, right?
-> I've read the code but this isn't my background so I might have been
-> confused.
+v6, as its own thread, addressing the fifth sashiko round (one naming
+Low taken as a fix, the other two Low are the same false positives).
 
-I think you got it right. Instead of NULL, it should return
-ERR_PTR(-ENOENT).
+Changes since v5:
 
-Looking more closely, It is not entirely impossible to get NULL. If a
-provider returns NULL instead of ERR_PTR(-ENOENT), we will just pass it
-back.
+- LED names use the empty color section from the naming scheme now:
+  asus-arion-0-0-0-0::led-0 through led-3, instead of the single
+  separator v5 used. The color section is empty because these are
+  multicolor LEDs whose palette is enumerated via multi_intensity,
+  and the four identical zones take the function name with a "-N"
+  ordinal, matching the examples in Documentation/leds/leds-class.rst
+  ("phy3::wlan", ":kbd_backlight"). The sdev's H:C:T:L is still
+  flattened to dashes to keep the name unambiguous.
 
-clk_hw_create_clk() has this
+The two remaining Low items are the same false positives as in all
+previous rounds:
 
-	if (IS_ERR_OR_NULL(hw))
-		return ERR_CAST(hw);
+- kzalloc_obj() exists in include/linux/slab.h since v7.0 (Kees
+  Cook's overflow-refactor series); this driver builds against 7.2.
 
-I could turn it into
+- blk_rq_map_kern() takes four arguments on current kernels
+  (rq, buf, len, gfp); drivers/scsi/scsi_lib.c calls it exactly this
+  way from scsi_execute_cmd(). The five-argument form with the
+  request_queue first parameter is from older trees.
 
-	if (!hw)
-		return ERR_PTR(-ENOENT);
-        else if (IS_ERR(hw))
-		return ERR_CAST(hw);
+v6 was re-verified on hardware: the four LEDs appear under the new
+names, per-LED colours, sequential and concurrent updates, and
+unplug under load are clean.
 
->
-> If it only returns an error pointer then, it's obvious that it should
-> only be tested with IS_ERR().  I would be fine with just saying the
-> first part:
->
-> Returns: A clock pointer on success or an error pointer on failure
+Everything else is unchanged: the hardware description, the
+scsi_device_handler that does not claim the sdev, the multicolor LED
+interface, the protocol handling and the known caveats (manual attach
+until a notifier lands; SAVE on every update writes the enclosure
+flash, wear uncharacterized; NULL-parent LED registration to avoid
+the sdev reference cycle).
 
-Even better. 
+The open question from v3 through v5 stands: the driver is
+deliberately not wired into Kconfig/Makefile/MAINTAINERS yet, because
+the agreed direction with the SCSI side is a split into a SCSI
+transport helper and a shared ASUS Aura LED interface, and the wiring
+would follow that shape. Is deferring the wiring to that split
+acceptable for an RFC, or would you rather have the driver buildable
+in-tree from this series already?
 
->
-> regards,
-> dan carpenter
->
+One more question on the naming: "led" is not a LED_FUNCTION_*
+value. The four zones are identical decorative RGB segments with no
+distinct function each, so I did not find a fitting predefined
+function. The closest in-tree pattern is LED_FUNCTION_PLAYER1..5,
+separate defines for identical things that only differ in number.
+Would you prefer a new LED_FUNCTION_* entry for this, or is a plain
+ordinal function fine for an RFC?
 
--- 
-Jerome
+Comments on the interface shape and on folding this into the shared
+Aura work with Denis remain very welcome.
+
+Signed-off-by: Liang Haowen <nbg2974@gmail.com>
