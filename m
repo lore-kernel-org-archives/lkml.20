@@ -1,457 +1,287 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8E34FDE6B;
-	Wed, 16 Sep 2026 13:45:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810074A5C34
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:45:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566336; cv=none; b=oMGWJzZjPgNWth1g9pGKS6tMd3bDKRmRwNbfk5/MCLCHIhUcc6hYKHvGbzkkKlmpHySuBLMoGP/mp/rkdV1x0ebcXtIFMLcrVUuwcJskvoRG9DtIpfY9CJx9yhk3WvuUGQZGrm75lzeLRX89G3rX64Qq7IlYU59hAmANmvC+L1M=
+	t=1789566338; cv=none; b=RE42zYa0ztxnbFs6lzf2Hsew8zyo1teZv9YF1qBydmRhB+qN3c8z1I0IBWXfxpeKJdQOASMu8DQ9scmibONNlPJP8TQK5O4OOjtznsm8KEutYh6/wC41/LrDh7XzprpkYwYMUoW2USHNDURMK9314fSGZvsdLlZs9IDS9UrE8OU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566336; c=relaxed/simple;
-	bh=/LNr26teQFtm4DiMGFdRchReCVIeUUwiVJkiIz5uEIA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WqNmUTLCjBGNFenUKuVMvjQfITr3/qQ4kIznem05+wpqLKVka6kk9ORj6Ug/LBaumm7qQQBNHnajqs6MNtcob5GtnP527RXGJPzTV6G5Ohi54nDwdcFLq7BRbWtU+OJdzi6kgMhttLPzNGIN9VVStktuWCEvRXKZERyzKsE90Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com; spf=pass smtp.mailfrom=airoha.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=DlaEo+Lx; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
+	s=arc-20240116; t=1789566338; c=relaxed/simple;
+	bh=cSvOuwzUhUCCpZOp3LACYO6bCBjLAM6v63no8jsFevQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YeA32Qa3VdRigg0LkRw4rdRjVxjUbHMKO7SuvvwMwm2ncEPhuzsFbsAueSSLICJWI26Zx8WaLRtELu9XDjrwYYhasqdZ5KsK2np4Ix21xiIt2yctiZ9jCJc75BiE3H0eczHUuWj3r+4HQneahHCbh4bn/XOmcTREvXhdw/0vRE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rAmVI+mE; arc=none smtp.client-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="DlaEo+Lx"
-X-UUID: d7e5bad6b1d411f18dc8c9802ae25ab1-20260916
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:CC:To:From:Date; bh=Ur21vGZjFEaXGQGVl1ymEBShpak0h6eYuaOGDEy6bqw=;
-	b=DlaEo+LxkSG4pI352czj3D2m28avaKZ58wIprEDYkyEH1CGoyxFRH3be+/Pza1T4YwvCNJf7azAg4d4tGtTdNO5IQPwjnB3kSr8wAHIu7Y6AyixhfBv6RJ0Yh6DWOc932KgrfFjcRX7VmQ9kXTNVRuuQ0a5HbmifdqxRb3HiaLE=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:a6b7b445-d3dd-457d-a99a-f431774d5348,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:1c3fb217-e22c-471e-b84b-524d9ae72460,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
-	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:
-	-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d7e5bad6b1d411f18dc8c9802ae25ab1-20260916
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw02.mediatek.com
-	(envelope-from <zhengping.zhang@airoha.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 251038336; Wed, 16 Sep 2026 21:45:13 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 16 Sep 2026 21:45:12 +0800
-Received: from mediatek.com (172.18.153.129) by mtkmbs11n2.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Wed, 16 Sep 2026 21:45:12 +0800
-Date: Wed, 16 Sep 2026 21:45:12 +0800
-From: Zhengping Zhang <zhengping.zhang@airoha.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-CC: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Simon Horman
-	<horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
-	<skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Lorenzo
- Bianconi <lorenzo@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers
-	<ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, Justin Stitt
-	<justinstitt@google.com>, <netdev@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>, <llvm@lists.linux.dev>,
-	<yalei.zang@airoha.com>, <lei.dong@airoha.com>
-Subject: Re: [PATCH net-next v15 12/12] net: airoha: add phylink support
-Message-ID: <aqqdaMsN1NndJdSI@mediatek.com>
-References: <20260901083001.8044-1-ansuelsmth@gmail.com>
- <20260901083001.8044-13-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rAmVI+mE"
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5c985f055b9so2296130e0c.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:45:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789566325; x=1790171125; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ck3kqnGFwURHR7AM181gzyy+0qq9NWGY55jHx9dGdQI=;
+        b=rAmVI+mEdQfhuIkJ+Dkzi3WRps4AoT7VxaloJ5GHa8YivhrfyTO5zXK8v7aZ8reg5j
+         GO+tt/MdFPACkwpeqMhlM9AHs+fyaac+xrMoWi7PdubCBfc4Jzvm9XICCDrIsAm0Ebg1
+         tY97LcT2+0Cz9kejYAn+iwxUXuYsEtaKBxmW2EGVd+lOiHj7sMglfQbH/lo9C2RXKvdv
+         fozvpiKpBnZt8UI8Tu+hp15HE5YVTJ/bOB0JCegWPuOLEioLD21QuzOUMoAsN09x55Pb
+         JE/8HUCp+P/HjvGU7aQkVOjF718jd/KtdPUWqU3HYLT3O+sCRsFl062pEcvxwZxvYlSW
+         qdOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789566325; x=1790171125;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ck3kqnGFwURHR7AM181gzyy+0qq9NWGY55jHx9dGdQI=;
+        b=W2iK5YmAdj5oyb1IPM+QsGk1vuT/J6Ul/KPb/iystOCWPvdrGP9iKZGkjrG05dW6vD
+         bFX5godC0M7YU0zcFckOaMnShq4AHUilVXfZnOvNsQkpChEla65oIfSlxtbos0LVk4Kh
+         D5miYYpP8gGFyRzQsewMxwI7T0F1t83nO/xJkiDvGeuWG306W/5RwuPTkyrXKHaE7lwB
+         xvF4FeZP74XvsCUWpn06/U1Li/7nnyQIclb9WLs+VKjpWvlazKlZFEk7P5qxJBwXuf/h
+         1tpppt2shl/OC7cTazFt5/8vI++PVR4hvVOsKZzNwst4mIe5bFWiZia+zC68oHlF1M5F
+         QVcg==
+X-Forwarded-Encrypted: i=1; AKwUvBzQNk7mI0hfapTf/UDggyOa6j6fc45dKFW7W5N0bYazLdvnodWBtq5jteAfKowqgjPjhvgoPsjSOH9Fju8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+XUvX6dhYcpng7m62uNmdtroZ7LSUJm5r24A56Vr7Cr4mgRTO
+	eFrgKxw/xUBWrRbLlkCrA2PAak+jgyaRw94unQMfe4KG9XtfUkEbfwqF
+X-Gm-Gg: AYBFou3Cb4moWjueC9F5xi3pJpm+lIsmH/SWkSwlf3wnQXrVlnVKvgym6CzOPdixB0H
+	plkSmfiDd6T/h7JDfilpWWPgzIMj7O8zPLgefnWGJkh1mqgSt66tT2Sh0ndjsZSPnVXQCW1Bhkn
+	nP6eq0CnfvIje//i+9kcEQj23jBuSokf8gEHZWSFKzsIMrh3Hu1r/XCXhFCeRdUaAemvLGdKSRw
+	x5NtcE6PmX0JiFNQxE3uLlpydpx1TwjZN6n2WuSVbRzuX9nFcuUo+XmN70FaAGgZFTO/P+dO5O6
+	0mobgmbkHEeFeYsYMp8QuTtanP+dAWGI1eR+dUGJTLFIFXOLMH8Qb0IeyKXUk8Qq8FzDQw4E0Si
+	MuhPs/BZyCKXIXphs4D6K7134nAvJU338ltpnkiuwwgxqf9jnG+CSIj7uoYJk90jEYcptc1hhJW
+	wIwESabPO7VWp+3EbmLEbRZrd938EBtcFyh9PYpUwURVYSuNlv5kN3FAvj+cW5dA6kD+aC5deDq
+	17szc2yCLfMglSrqlKD/pwAD114Vg==
+X-Received: by 2002:a05:6122:6202:b0:5c8:38b8:44a0 with SMTP id 71dfb90a1353d-5c98a4ff79bmr4643563e0c.8.1789566325042;
+        Wed, 16 Sep 2026 06:45:25 -0700 (PDT)
+Received: from localhost ([148.227.86.192])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c998aa36cfsm2729594e0c.12.2026.09.16.06.45.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 06:45:24 -0700 (PDT)
+From: Davi Chaves Azevedo <davichazbh@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com
+Cc: Chen Yu <yu.c.chen@intel.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	chen.yu@linux.dev,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] sched/cache: Refresh LLC capacity across CPU hotplug
+Date: Wed, 16 Sep 2026 10:44:32 -0300
+Message-ID: <20260916134432.11767-1-davichazbh@gmail.com>
+In-Reply-To: <20260911134825.420748-1-davichazbh@gmail.com>
+References: <20260911134825.420748-1-davichazbh@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20260901083001.8044-13-ansuelsmth@gmail.com>
-X-MTK: N
+Content-Transfer-Encoding: 8bit
 
-Tested-by: Zhengping Zhang <zhengping.zhang@airoha.com>
+The scheduler scales LLC capacity by the fraction of cache-sharing CPUs
+covered by a domain:
 
-Tested on an AN7581 board with AN8831 USXGMII PHY at GDM2/4;
-the link came up at 10G.
+  llc_bytes = cache_size * span_weight / shared_weight
 
-On Tue, Sep 01, 2026 at 10:29:27AM +0200, Christian Marangi wrote:
-> Add phylink support for each GDM port. For GDM1 add the internal interface
-> mode as the only supported mode. For GDM2/3/4 add the required
-> configuration of the PCS to make the external PHY or attached SFP cage
-> work.
-> 
-> These needs to be defined in the GDM port node using the pcs-handle
-> property.
-> 
-> Update and provide a .get/set_link_ksettings function that use phylink
-> for ethtool OPs now that we fully support phylink.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  drivers/net/ethernet/airoha/Kconfig       |   2 +
->  drivers/net/ethernet/airoha/airoha_eth.c  | 199 +++++++++++++++++++++-
->  drivers/net/ethernet/airoha/airoha_eth.h  |   5 +
->  drivers/net/ethernet/airoha/airoha_regs.h |  12 ++
->  4 files changed, 215 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/airoha/Kconfig b/drivers/net/ethernet/airoha/Kconfig
-> index 1f6640a15fc9..5c54a07d2a76 100644
-> --- a/drivers/net/ethernet/airoha/Kconfig
-> +++ b/drivers/net/ethernet/airoha/Kconfig
-> @@ -20,6 +20,8 @@ config NET_AIROHA
->  	depends on NET_DSA || !NET_DSA
->  	select NET_AIROHA_NPU
->  	select PAGE_POOL
-> +	select PCS_AIROHA
-> +	select PHYLINK
->  	help
->  	  This driver supports the gigabit ethernet MACs in the
->  	  Airoha SoC family.
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
-> index 64619e9a704d..c3827bf9791b 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> @@ -6,6 +6,7 @@
->  #include <linux/of.h>
->  #include <linux/of_net.h>
->  #include <linux/of_reserved_mem.h>
-> +#include <linux/pcs/pcs.h>
->  #include <linux/platform_device.h>
->  #include <linux/tcp.h>
->  #include <linux/u64_stats_sync.h>
-> @@ -1915,10 +1916,18 @@ static int airoha_dev_open(struct net_device *netdev)
->  	struct airoha_qdma *qdma;
->  	int err;
->  
-> +	err = phylink_of_phy_connect(dev->phylink, netdev->dev.of_node, 0);
-> +	if (err) {
-> +		netdev_err(netdev, "could not attach PHY: %d\n", err);
-> +		return err;
-> +	}
-> +
-> +	phylink_start(dev->phylink);
-> +
->  	netif_tx_start_all_queues(netdev);
->  	err = airoha_set_vip_for_gdm_port(dev, true);
->  	if (err)
-> -		return err;
-> +		goto err_phy_stop;
->  
->  	qdma = airoha_qdma_deref(dev);
->  	if (netdev_uses_dsa(netdev))
-> @@ -1938,6 +1947,13 @@ static int airoha_dev_open(struct net_device *netdev)
->  				    pse_port);
->  
->  	return 0;
-> +
-> +err_phy_stop:
-> +	netif_tx_stop_all_queues(netdev);
-> +	phylink_stop(dev->phylink);
-> +	phylink_disconnect_phy(dev->phylink);
-> +
-> +	return err;
->  }
->  
->  static int airoha_dev_stop(struct net_device *netdev)
-> @@ -1945,6 +1961,8 @@ static int airoha_dev_stop(struct net_device *netdev)
->  	struct airoha_gdm_dev *dev = netdev_priv(netdev);
->  	struct airoha_gdm_port *port = dev->port;
->  
-> +	phylink_stop(dev->phylink);
-> +
->  	netif_tx_disable(netdev);
->  	airoha_set_vip_for_gdm_port(dev, false);
->  
-> @@ -1954,6 +1972,9 @@ static int airoha_dev_stop(struct net_device *netdev)
->  		airoha_set_gdm_port_fwd_cfg(dev->eth,
->  					    REG_GDM_FWD_CFG(port->id),
->  					    FE_PSE_PORT_DROP);
-> +
-> +	phylink_disconnect_phy(dev->phylink);
-> +
->  	return 0;
->  }
->  
-> @@ -2509,6 +2530,24 @@ airoha_ethtool_get_rmon_stats(struct net_device *netdev,
->  	} while (u64_stats_fetch_retry(&dev->stats.syncp, start));
->  }
->  
-> +static int
-> +airoha_ethtool_get_link_ksettings(struct net_device *netdev,
-> +				  struct ethtool_link_ksettings *cmd)
-> +{
-> +	struct airoha_gdm_dev *dev = netdev_priv(netdev);
-> +
-> +	return phylink_ethtool_ksettings_get(dev->phylink, cmd);
-> +}
-> +
-> +static int
-> +airoha_ethtool_set_link_ksettings(struct net_device *netdev,
-> +				  const struct ethtool_link_ksettings *cmd)
-> +{
-> +	struct airoha_gdm_dev *dev = netdev_priv(netdev);
-> +
-> +	return phylink_ethtool_ksettings_set(dev->phylink, cmd);
-> +}
-> +
->  static int airoha_qdma_set_chan_tx_sched(struct net_device *netdev,
->  					 int channel, enum tx_sched_mode mode,
->  					 const u16 *weights, u8 n_weights)
-> @@ -3353,7 +3392,8 @@ static const struct ethtool_ops airoha_ethtool_ops = {
->  	.get_drvinfo		= airoha_ethtool_get_drvinfo,
->  	.get_eth_mac_stats      = airoha_ethtool_get_mac_stats,
->  	.get_rmon_stats		= airoha_ethtool_get_rmon_stats,
-> -	.get_link_ksettings	= phy_ethtool_get_link_ksettings,
-> +	.get_link_ksettings	= airoha_ethtool_get_link_ksettings,
-> +	.set_link_ksettings	= airoha_ethtool_set_link_ksettings,
->  	.get_link		= ethtool_op_get_link,
->  };
->  
-> @@ -3409,6 +3449,155 @@ bool airoha_is_valid_gdm_dev(struct airoha_eth *eth,
->  	return false;
->  }
->  
-> +/* Nothing to do in MAC, everything is handled in PCS */
-> +static void airoha_mac_config(struct phylink_config *config, unsigned int mode,
-> +			      const struct phylink_link_state *state)
-> +{
-> +}
-> +
-> +static void airoha_mac_link_up(struct phylink_config *config, struct phy_device *phy,
-> +			       unsigned int mode, phy_interface_t interface,
-> +			       int speed, int duplex, bool tx_pause, bool rx_pause)
-> +{
-> +	struct airoha_gdm_dev *dev = container_of(config, struct airoha_gdm_dev,
-> +						  phylink_config);
-> +	struct airoha_gdm_port *port = dev->port;
-> +	struct airoha_eth *eth = dev->eth;
-> +	u32 frag_size_tx, frag_size_rx;
-> +
-> +	/* TX/RX frag is configured only for GDM4 */
-> +	if (port->id != AIROHA_GDM4_IDX)
-> +		return;
-> +
-> +	switch (speed) {
-> +	case SPEED_10000:
-> +	case SPEED_5000:
-> +		frag_size_tx = 8;
-> +		frag_size_rx = 8;
-> +		break;
-> +	case SPEED_2500:
-> +		frag_size_tx = 2;
-> +		frag_size_rx = 1;
-> +		break;
-> +	default:
-> +		frag_size_tx = 1;
-> +		frag_size_rx = 0;
-> +		break;
-> +	}
-> +
-> +	mutex_lock(&port->link_lock);
-> +
-> +	/* Configure TX/RX frag based on speed */
-> +	if (dev->nbq == 1) {
-> +		airoha_fe_rmw(eth, REG_FE_GDM4_TMBI_FRAG,
-> +			      GDM4_SGMII1_TX_FRAG_SIZE_MASK,
-> +			      FIELD_PREP(GDM4_SGMII1_TX_FRAG_SIZE_MASK,
-> +					 frag_size_tx));
-> +
-> +		airoha_fe_rmw(eth, REG_FE_GDM4_RMBI_FRAG,
-> +			      GDM4_SGMII1_RX_FRAG_SIZE_MASK,
-> +			      FIELD_PREP(GDM4_SGMII1_RX_FRAG_SIZE_MASK,
-> +					 frag_size_rx));
-> +	} else {
-> +		airoha_fe_rmw(eth, REG_FE_GDM4_TMBI_FRAG,
-> +			      GDM4_SGMII0_TX_FRAG_SIZE_MASK,
-> +			      FIELD_PREP(GDM4_SGMII0_TX_FRAG_SIZE_MASK,
-> +					 frag_size_tx));
-> +
-> +		airoha_fe_rmw(eth, REG_FE_GDM4_RMBI_FRAG,
-> +			      GDM4_SGMII0_RX_FRAG_SIZE_MASK,
-> +			      FIELD_PREP(GDM4_SGMII0_RX_FRAG_SIZE_MASK,
-> +					 frag_size_rx));
-> +	}
-> +
-> +	mutex_unlock(&port->link_lock);
-> +}
-> +
-> +/* Nothing to do in MAC, everything is handled in PCS */
-> +static void airoha_mac_link_down(struct phylink_config *config, unsigned int mode,
-> +				 phy_interface_t interface)
-> +{
-> +}
-> +
-> +static const struct phylink_mac_ops airoha_phylink_ops = {
-> +	.mac_config = airoha_mac_config,
-> +	.mac_link_up = airoha_mac_link_up,
-> +	.mac_link_down = airoha_mac_link_down,
-> +};
-> +
-> +static int airoha_fill_available_pcs(struct phylink_config *config,
-> +				     struct phylink_pcs **available_pcs,
-> +				     unsigned int num_possible_pcs)
-> +{
-> +	struct device *dev = config->dev;
-> +
-> +	return fwnode_phylink_pcs_parse(dev_fwnode(dev), available_pcs,
-> +					num_possible_pcs);
-> +}
-> +
-> +static int airoha_setup_phylink(struct net_device *netdev)
-> +{
-> +	struct airoha_gdm_dev *dev = netdev_priv(netdev);
-> +	struct device_node *np = netdev->dev.of_node;
-> +	struct airoha_gdm_port *port = dev->port;
-> +	struct phylink_config *config;
-> +	phy_interface_t phy_mode;
-> +	struct phylink *phylink;
-> +	int err;
-> +
-> +	err = of_get_phy_mode(np, &phy_mode);
-> +	if (err) {
-> +		dev_err(&netdev->dev, "incorrect phy-mode\n");
-> +		return err;
-> +	}
-> +
-> +	config = &dev->phylink_config;
-> +	config->dev = &netdev->dev;
-> +	config->type = PHYLINK_NETDEV;
-> +
-> +	/*
-> +	 * GDM1 only supports internal for Embedded Switch
-> +	 * and doesn't require a PCS.
-> +	 */
-> +	if (port->id == AIROHA_GDM1_IDX) {
-> +		config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
-> +					   MAC_10000FD;
-> +
-> +		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-> +			  config->supported_interfaces);
-> +	} else {
-> +		config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
-> +					   MAC_10 | MAC_100 | MAC_1000 |
-> +					   MAC_2500FD | MAC_5000FD | MAC_10000FD;
-> +
-> +		config->num_possible_pcs = fwnode_phylink_pcs_count(dev_fwnode(config->dev));
-> +		config->fill_available_pcs = airoha_fill_available_pcs;
-> +
-> +		__set_bit(PHY_INTERFACE_MODE_SGMII,
-> +			  config->supported_interfaces);
-> +		__set_bit(PHY_INTERFACE_MODE_1000BASEX,
-> +			  config->supported_interfaces);
-> +		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
-> +			  config->supported_interfaces);
-> +		__set_bit(PHY_INTERFACE_MODE_10GBASER,
-> +			  config->supported_interfaces);
-> +		__set_bit(PHY_INTERFACE_MODE_USXGMII,
-> +			  config->supported_interfaces);
-> +
-> +		phy_interface_copy(config->pcs_interfaces,
-> +				   config->supported_interfaces);
-> +	}
-> +
-> +	phylink = phylink_create(config, of_fwnode_handle(np),
-> +				 phy_mode, &airoha_phylink_ops);
-> +	if (IS_ERR(phylink))
-> +		return PTR_ERR(phylink);
-> +
-> +	dev->phylink = phylink;
-> +
-> +	return 0;
-> +}
-> +
->  static int airoha_alloc_gdm_device(struct airoha_eth *eth,
->  				   struct airoha_gdm_port *port,
->  				   int nbq, struct device_node *np)
-> @@ -3474,7 +3663,7 @@ static int airoha_alloc_gdm_device(struct airoha_eth *eth,
->  	dev->nbq = nbq;
->  	port->devs[index] = dev;
->  
-> -	return 0;
-> +	return airoha_setup_phylink(netdev);
->  }
->  
->  static int airoha_alloc_gdm_port(struct airoha_eth *eth,
-> @@ -3510,6 +3699,7 @@ static int airoha_alloc_gdm_port(struct airoha_eth *eth,
->  
->  	port->id = id;
->  	spin_lock_init(&port->stats_lock);
-> +	mutex_init(&port->link_lock);
->  	eth->ports[p] = port;
->  
->  	err = airoha_metadata_dst_alloc(port);
-> @@ -3706,6 +3896,8 @@ static int airoha_probe(struct platform_device *pdev)
->  			netdev = netdev_from_priv(dev);
->  			if (netdev->reg_state == NETREG_REGISTERED)
->  				unregister_netdev(netdev);
-> +			if (dev->phylink)
-> +				phylink_destroy(dev->phylink);
->  			of_node_put(netdev->dev.of_node);
->  		}
->  		airoha_metadata_dst_free(port);
-> @@ -3744,6 +3936,7 @@ static void airoha_remove(struct platform_device *pdev)
->  
->  			netdev = netdev_from_priv(dev);
->  			unregister_netdev(netdev);
-> +			phylink_destroy(dev->phylink);
->  			of_node_put(netdev->dev.of_node);
->  		}
->  		airoha_metadata_dst_free(port);
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ethernet/airoha/airoha_eth.h
-> index fa9a8edce22f..83daec003257 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.h
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.h
-> @@ -595,6 +595,9 @@ struct airoha_gdm_dev {
->  	 * QDMA migration.
->  	 */
->  	spinlock_t txq_lock[AIROHA_NUM_NETDEV_TX_RINGS];
-> +
-> +	struct phylink *phylink;
-> +	struct phylink_config phylink_config;
->  };
->  
->  struct airoha_gdm_port {
-> @@ -604,6 +607,8 @@ struct airoha_gdm_port {
->  
->  	/* protect concurrent hw_stats accesses */
->  	spinlock_t stats_lock;
-> +	/* protect concurrent GDM4 register access */
-> +	struct mutex link_lock;
->  
->  	struct metadata_dst *dsa_meta[AIROHA_MAX_DSA_PORTS];
->  };
-> diff --git a/drivers/net/ethernet/airoha/airoha_regs.h b/drivers/net/ethernet/airoha/airoha_regs.h
-> index 442b48c9b991..4ea89057b560 100644
-> --- a/drivers/net/ethernet/airoha/airoha_regs.h
-> +++ b/drivers/net/ethernet/airoha/airoha_regs.h
-> @@ -357,6 +357,18 @@
->  #define IP_FRAGMENT_PORT_MASK		GENMASK(8, 5)
->  #define IP_FRAGMENT_NBQ_MASK		GENMASK(4, 0)
->  
-> +#define REG_FE_GDM4_TMBI_FRAG		0x2028
-> +#define GDM4_SGMII1_TX_WEIGHT_MASK	GENMASK(31, 26)
-> +#define GDM4_SGMII1_TX_FRAG_SIZE_MASK	GENMASK(25, 16)
-> +#define GDM4_SGMII0_TX_WEIGHT_MASK	GENMASK(15, 10)
-> +#define GDM4_SGMII0_TX_FRAG_SIZE_MASK	GENMASK(9, 0)
-> +
-> +#define REG_FE_GDM4_RMBI_FRAG		0x202c
-> +#define GDM4_SGMII1_RX_WEIGHT_MASK	GENMASK(31, 26)
-> +#define GDM4_SGMII1_RX_FRAG_SIZE_MASK	GENMASK(25, 16)
-> +#define GDM4_SGMII0_RX_WEIGHT_MASK	GENMASK(15, 10)
-> +#define GDM4_SGMII0_RX_FRAG_SIZE_MASK	GENMASK(9, 0)
-> +
->  #define REG_MC_VLAN_EN			0x2100
->  #define MC_VLAN_EN_MASK			BIT(0)
->  
-> -- 
-> 2.53.0
-> 
+During CPU teardown, sched_cpu_deactivate() rebuilds scheduler domains
+before cacheinfo_cpu_pre_down() removes the CPU from shared_cpu_map. The
+new domains therefore use the old sharing weight. The later call to
+sched_update_llc_bytes() looks up the departing CPU's sd_llc, which has
+already been detached, and returns without correcting the surviving CPUs.
+
+On a Ryzen 5 7535U with twelve logical CPUs sharing a 16 MiB LLC,
+offlining one SMT sibling left the remaining CPUs with:
+
+  llc_bytes = floor(16777216 * 11 / 12) = 15379114 bytes
+
+The correct capacity is still 16777216 bytes. On systems with active
+cache-aware scheduling, an underestimated capacity can cause
+exceed_llc_capacity() to reject aggregation for a process whose footprint
+would fit. Unchanged cpuset partitions sharing the physical cache can
+also retain stale capacity when a CPU comes online in another partition.
+
+Pass the cache-sharing mask already retained by cacheinfo to the
+scheduler update. Refresh every surviving CPU using its own LLC domain
+so that each partition receives the correct share. This also preserves
+the correction needed as cache-sharing maps grow during boot.
+
+Keep the existing CPU-hotplug and scheduler-domain synchronization. The
+update remains on the hotplug path; no steady-state scheduling operation
+or persistent allocation is added.
+
+Fixes: 7030513a0877 ("sched/cache: Calculate the LLC size and store it in sched_domain")
+Signed-off-by: Davi Chaves Azevedo <davichazbh@gmail.com>
+Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+Tested-by: Chen Yu <yu.c.chen@intel.com>
+Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+---
+Changes in v3:
+  - Add K Prateek Nayak's Reviewed-by and Tested-by tags,
+    Tim Chen's Reviewed-by, and Chen Yu's Tested-by.
+    No functional changes from v2.
+
+Changes in v2:
+  - Restore the original boot-time shared_cpu_map explanation, as Chen Yu
+    suggested, alongside the CPU-offline and cpuset-partition rationale.
+    No functional changes from v1.
+  - Add Chen Yu's Reviewed-by tag and document his multi-LLC testing.
+
+v1:
+https://lore.kernel.org/r/20260911134825.420748-1-davichazbh@gmail.com
+v2:
+https://lore.kernel.org/r/20260911220229.1368887-1-davichazbh@gmail.com
+Review:
+https://lore.kernel.org/r/a3433e6a-0d1f-44a8-99bd-bc63d1a15913@intel.com
+
+The issue was identified by tracing the scheduler/cacheinfo teardown
+ordering, then checking live llc_bytes values using the running kernel's
+BTF layout and /proc/kcore.
+
+Local validation performed for v1 (no functional changes in v2 or v3):
+  - Reproduced the stale value on 7.2.3-arch1-3 on the Ryzen system above.
+    The patched kernel retained 16777216 bytes on every surviving CPU.
+  - Ten SMT-thread and ten whole-core hotplug cycles passed on the patched
+    kernel, including capacity checks after each removal and restoration.
+    The existing limited CPU-hotplug selftest also passed.
+  - Source-level state fixtures: five failures in eight scenarios before
+    the fix, eight passes after it. These cover partition changes, unequal
+    spans, sparse CPU IDs and boot-time map growth, but not concurrency.
+  - Full x86-64 baseline and patched bzImage/modules builds passed with
+    matched configs apart from LOCALVERSION. Focused ARM64, x86 without
+    CONFIG_SCHED_CACHE, and x86 UP builds also passed.
+
+Thanks to Chen Yu <yu.c.chen@intel.com> for the additional verification
+and review. He reproduced the issue and confirmed that v1 restored the
+expected sd->llc_bytes on:
+  - AMD Ryzen 8945HX: two LLCs, eight cores per LLC.
+  - Xeon: four LLCs per node.
+
+Thanks to K Prateek Nayak <kprateek.nayak@amd.com> for reviewing and
+testing, and to Tim Chen <tim.c.chen@linux.intel.com> for the review.
+
+The local tests used a single-LLC host; Chen Yu reported the multi-LLC
+results above. These checks validate LLC accounting.
+Builds and hotplug tests were not rerun for this tag-only revision.
+
+ drivers/base/cacheinfo.c       | 11 ++++++-----
+ include/linux/sched/topology.h |  4 ++--
+ kernel/sched/topology.c        | 22 +++++++++++++---------
+ 3 files changed, 21 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/base/cacheinfo.c b/drivers/base/cacheinfo.c
+index 9f9c72727a05..7a47a392568a 100644
+--- a/drivers/base/cacheinfo.c
++++ b/drivers/base/cacheinfo.c
+@@ -1040,9 +1040,10 @@ static int cacheinfo_cpu_online(unsigned int cpu)
+ 	rc = cache_add_dev(cpu);
+ 	if (rc)
+ 		goto err;
+-	if (cpu_map_shared_cache(true, cpu, &cpu_map))
++	if (cpu_map_shared_cache(true, cpu, &cpu_map)) {
+ 		update_per_cpu_data_slice_size(true, cpu, cpu_map);
+-	sched_update_llc_bytes(cpu);
++		sched_update_llc_bytes(cpu_map);
++	}
+ 	return 0;
+ err:
+ 	free_cache_attributes(cpu);
+@@ -1059,10 +1060,10 @@ static int cacheinfo_cpu_pre_down(unsigned int cpu)
+ 		cpu_cache_sysfs_exit(cpu);
+ 
+ 	free_cache_attributes(cpu);
+-	if (nr_shared > 1)
++	if (nr_shared > 1) {
+ 		update_per_cpu_data_slice_size(false, cpu, cpu_map);
+-
+-	sched_update_llc_bytes(cpu);
++		sched_update_llc_bytes(cpu_map);
++	}
+ 
+ 	return 0;
+ }
+diff --git a/include/linux/sched/topology.h b/include/linux/sched/topology.h
+index b5d9d7c2b8ad..f96812d71c51 100644
+--- a/include/linux/sched/topology.h
++++ b/include/linux/sched/topology.h
+@@ -281,9 +281,9 @@ static inline int task_node(const struct task_struct *p)
+ }
+ 
+ #ifdef CONFIG_SCHED_CACHE
+-extern void sched_update_llc_bytes(unsigned int cpu);
++extern void sched_update_llc_bytes(const struct cpumask *cpus);
+ #else
+-static inline void sched_update_llc_bytes(unsigned int cpu) { }
++static inline void sched_update_llc_bytes(const struct cpumask *cpus) { }
+ #endif
+ 
+ #endif /* _LINUX_SCHED_TOPOLOGY_H */
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 0248227d983a..3dab0253976f 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -985,8 +985,8 @@ void sched_cache_active_set(void)
+ }
+ 
+ /*
+- * Update the bottom sched_domain's llc_bytes for @cpu and all its
+- * LLC siblings. Called from cacheinfo_cpu_online() or
++ * Update the bottom sched_domain's llc_bytes for @cpus sharing a physical
++ * LLC. Called from cacheinfo_cpu_online() or
+  * cacheinfo_cpu_pre_down() with cpu hotplug lock held.
+  *
+  * Note: get_effective_llc_bytes() returns 0 on PowerPC.
+@@ -996,17 +996,13 @@ void sched_cache_active_set(void)
+  * and does not populates the per-CPU struct cpu_cacheinfo array
+  * that get_cpu_cacheinfo_llc() reads.
+  */
+-void sched_update_llc_bytes(unsigned int cpu)
++void sched_update_llc_bytes(const struct cpumask *cpus)
+ {
+ 	struct sched_domain *sd, *sdp;
+ 	unsigned int i;
+ 
+ 	sched_domains_mutex_lock();
+ 
+-	sdp = rcu_dereference_sched_domain(per_cpu(sd_llc, cpu));
+-	if (!sdp)
+-		goto unlock;
+-
+ 	/*
+ 	 * ci->shared_cpu_map is built incrementally as CPUs come
+ 	 * online, so the first CPU in an LLC initially sees
+@@ -1014,14 +1010,22 @@ void sched_update_llc_bytes(unsigned int cpu)
+ 	 * get_effective_llc_bytes().  Re-evaluating every LLC
+ 	 * sibling on each online event corrects this once the full
+ 	 * shared_cpu_map is known.
++	 *
++	 * The departing CPU's domains have already been detached when
++	 * cacheinfo removes it. Use the surviving cache siblings instead.
++	 * They may belong to different cpuset partitions, so use each CPU's
++	 * own LLC domain to scale its share of the physical cache.
+ 	 */
+-	for_each_cpu(i, sched_domain_span(sdp)) {
++	for_each_cpu(i, cpus) {
++		sdp = rcu_dereference_sched_domain(per_cpu(sd_llc, i));
++		if (!sdp)
++			continue;
++
+ 		sd = rcu_dereference_sched_domain(cpu_rq(i)->sd);
+ 		if (sd)
+ 			sd->llc_bytes = get_effective_llc_bytes(i, sdp);
+ 	}
+ 
+-unlock:
+ 	sched_domains_mutex_unlock();
+ }
+ 
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
