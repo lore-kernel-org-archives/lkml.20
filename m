@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D86F754A7F9;
-	Wed, 16 Sep 2026 16:29:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AEDA4B0E31;
+	Wed, 16 Sep 2026 16:29:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576189; cv=none; b=FO7NJG5frHFWZVmP7JPhyTQ3ccTGwPVH+JW9aDKyH2Q7VKjp18U6rIrDUkbOLsZhLZT1JzZRdd8lfZDOithOgxwUXazsApoZrhLE6XOOvbPZjrIYTQa0iF3m78Zx8zlCQeTQrs378VSvWucNdZC7D/WyGNNIK2J0jqDsv8PFum8=
+	t=1789576196; cv=none; b=VovMw8Jz+pL6h4ZnLuxUDYlilRtYd4Z6Qzx1F4FyS+TqXJpUG/Flg7gvOZb67jD14nWWtaHngfA/Tv2WFY0hoMBgMdkjC30jsAS92Qt8kmGjSdky3BWhjf41M0x1jYj55xTvD7in+9lBi9pBn6WJl3K+tXs8TFay+upB3hycnJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576189; c=relaxed/simple;
-	bh=MkbZgNMcaoe647MZ5lCfY694OCcBmtmc5GR7A6HFjsw=;
+	s=arc-20240116; t=1789576196; c=relaxed/simple;
+	bh=OZWfpTyT7uZEWROIRYQLwAcWJTQahP/VB7g7gAmdjO4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hSZgSmEdG5pRfTBgD+fkNfjT8AdJPHhAwtT0obJZXv8rAEKHP55lcHVJFg1r/sLOsvZqVah4f9PpNdAOPW/343Tkr1xNie7wG7RFSeUHTbD6LWE+65NhXi9IXfiATcg32uRAACv/Go+jK5ppMzfT0omgajVCH50sUhtrKaCOyak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BPpeoYed; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=VL/vCoAnijReE4I88VkPh+1dkX40mqusTctPINe9DC0lfrxRnb3tciP1+gEcmgQvOtsudUwf5ffDLh3YXAbcdcuHgOYZGbA/OnCw3ESQsLcFGVR+4FMitx6hD5X61U/RFoapBfJmj+thCcEXX7KiL30xCwT7McG0FWrFykEBIXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=p/jASRT2; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BPpeoYed"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="p/jASRT2"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BC7491E32;
-	Wed, 16 Sep 2026 09:29:41 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 847B81F02;
+	Wed, 16 Sep 2026 09:29:47 -0700 (PDT)
 Received: from e127648.carmbridge.arm.com (unknown [10.0.129.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 680493F7B4;
-	Wed, 16 Sep 2026 09:29:42 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 738823F7B4;
+	Wed, 16 Sep 2026 09:29:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789576185; bh=MkbZgNMcaoe647MZ5lCfY694OCcBmtmc5GR7A6HFjsw=;
+	t=1789576191; bh=OZWfpTyT7uZEWROIRYQLwAcWJTQahP/VB7g7gAmdjO4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BPpeoYedWEMSpKukZQf+S4QQ2kBZxRUOLdFCFaxFwuQL0Nd8TbYJzOnx7QnoiObJD
-	 msWIqnaOpxuhMB6TgFM7lyh8OiZ0d0dAwf9c6GnlB6/9B6Rfr4QYrDejUcYJ+5NVIg
-	 gfuKKmo86Lgkihh7ZvLhcoaoXzw/8JuuA0shlLNU=
+	b=p/jASRT2PbYFAZYxX+09BPsxSYYt2bE3KBXUk1PPQqpWbdn7T3Iy2jul0ie2vhWSQ
+	 UqCM1NKIR9rqXGX5IImzZJxc3i406ZyAbEJH40alJZgEZsgcgHBq9VuhjWSHxRWoh0
+	 ZRdrvPvo0Vy/pI8MQKQxWZ6Q4a/Gx+cnvDNMgjH0=
 From: Christian Loehle <christian.loehle@arm.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
 	Viresh Kumar <viresh.kumar@linaro.org>
@@ -42,9 +42,9 @@ Cc: linux-pm@vger.kernel.org,
 	zhongqiu.han@oss.qualcomm.com,
 	Christian Loehle <christian.loehle@arm.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v7 18/20] ACPI: CPPC: Accept requests to retain immutable autonomous selection
-Date: Wed, 16 Sep 2026 17:28:03 +0100
-Message-Id: <20260916162805.1039247-19-christian.loehle@arm.com>
+Subject: [PATCH v7 20/20] cpufreq: CPPC: Create the FIE worker before enabling PCC callbacks
+Date: Wed, 16 Sep 2026 17:28:05 +0100
+Message-Id: <20260916162805.1039247-21-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260916162805.1039247-1-christian.loehle@arm.com>
 References: <20260916162805.1039247-1-christian.loehle@arm.com>
@@ -56,222 +56,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ACPI permits Autonomous Selection Enable to be Integer 1 when the platform
-always selects performance autonomously. cppc_get_auto_sel() returns that
-value, but cppc_set_auto_sel() rejects the Integer even when asked to keep
-autonomous selection enabled. AMD shared-memory initialization consequently
-fails in active or guided mode after successfully reading the capability.
+cppc_freq_invariance_init() creates the PCC worker only if an online CPU
+currently has PCC counters. A shared policy can also initialize an offline
+PCC member. When that CPU comes online, its callback queues work through
+the missing kworker_fie and dereferences NULL. A later hot-added PCC policy
+can encounter the same missing worker.
 
-Accept a request to keep this immutable field enabled without issuing a
-register access. Expose the immutable encoding to callers, separately from
-the current value of a writable register.
+Create the worker when policy initialization encounters PCC counters,
+before initializing their work and publishing any callbacks. Serialize
+creation and reuse the worker until driver teardown. This covers offline
+policy members and later PCC policies without creating an unused deadline
+worker on direct-counter-only systems.
 
-Before an AMD shared-memory transition to passive mode, reject immutable
-autonomous selection on any present CPU. Otherwise a guided-to-passive
-transition ignores the failed disable and reports the wrong mode, while
-active-to-passive unregisters the working driver before passive policy
-initialization fails. Check under the driver mode lock before invoking
-either transition, including known offline CPUs.
+If worker allocation or scheduling setup fails, leave FIE unregistered for
+that policy. Keep the global FIE setting unchanged so direct-counter
+policies remain independent of worker setup and existing policies still
+drain their initialized work during teardown. Publish kworker_fie only
+after successful setup, allowing a later policy initialization to retry.
 
-Serialize this capability query with descriptor publication and removal.
-ACPI processor removal drops the descriptor before taking the CPU hotplug
-write lock, so the caller's cpus_read_lock() alone cannot protect the
-lookup. Unpublish under the same mutex before releasing a descriptor,
-including when adding its kobject fails.
-
-The cppc-cpufreq auto_select attribute can also request one while
-autonomous selection is already enabled. If the subsequent bounds update
-fails, its rollback requests zero and clears the cached mode regardless
-of the previous state. For an immutable field the disable request fails,
-leaving the cached mode wrong. Save and restore the previous mode instead.
-This also avoids disabling an already-enabled writable control on that
-error path.
-
-Fixes: c984f5d5d45b ("ACPI: CPPC: Add auto select register read/write support")
-Fixes: ea3db45ae476 ("cpufreq: cppc: Update MIN_PERF/MAX_PERF in target callbacks")
+Fixes: 997c021abc6e ("cpufreq: CPPC: Update FIE arch_freq_scale in ticks for non-PCC regs")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
- drivers/acpi/cppc_acpi.c       | 42 +++++++++++++++++++++++++++++++---
- drivers/cpufreq/amd-pstate.c   | 21 +++++++++++++----
- drivers/cpufreq/cppc_cpufreq.c |  5 ++--
- include/acpi/cppc_acpi.h       |  7 ++++++
- 4 files changed, 65 insertions(+), 10 deletions(-)
+ drivers/cpufreq/cppc_cpufreq.c | 39 ++++++++++++++++++++--------------
+ 1 file changed, 23 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 96a94df24231..80e2e6b32ce3 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -100,6 +100,15 @@ static DEFINE_PER_CPU(int, cpu_pcc_subspace_idx);
-  */
- static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
- 
-+/* Protect immutable capability queries against descriptor removal. */
-+static DEFINE_MUTEX(cpc_desc_lock);
-+
-+static void cpc_set_desc(unsigned int cpu, struct cpc_desc *desc)
-+{
-+	guard(mutex)(&cpc_desc_lock);
-+	per_cpu(cpc_desc_ptr, cpu) = desc;
-+}
-+
- struct cpc_sysmem_node {
- 	struct rb_node rb;
- 	u64 subtree_last;
-@@ -2314,12 +2323,12 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	}
- 
- 	/* Plug PSD data into this CPU's CPC descriptor. */
--	per_cpu(cpc_desc_ptr, pr->id) = cpc_ptr;
-+	cpc_set_desc(pr->id, cpc_ptr);
- 
- 	ret = kobject_init_and_add(&cpc_ptr->kobj, &cppc_ktype, &cpu_dev->kobj,
- 			"acpi_cppc");
- 	if (ret) {
--		per_cpu(cpc_desc_ptr, pr->id) = NULL;
-+		cpc_set_desc(pr->id, NULL);
- 		cpc_unregister_non_mmio_desc(cpc_ptr);
- 		cpc_unregister_sysmem_desc(cpc_ptr);
- 		kobject_put(&cpc_ptr->kobj);
-@@ -2363,7 +2372,7 @@ void acpi_cppc_processor_exit(struct acpi_processor *pr)
- 	}
- 
- 	pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
--	per_cpu(cpc_desc_ptr, pr->id) = NULL;
-+	cpc_set_desc(pr->id, NULL);
- 	kobject_del(&cpc_ptr->kobj);
- 	cpc_unregister_non_mmio_desc(cpc_ptr);
- 	cpc_unregister_sysmem_desc(cpc_ptr);
-@@ -2766,6 +2775,11 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
- 
- 	reg = &cpc_desc->cpc_regs[reg_idx];
- 
-+	/* Integer 1 describes autonomous selection that is always enabled. */
-+	if (reg_idx == AUTO_SEL_ENABLE && reg->type == ACPI_TYPE_INTEGER &&
-+	    reg->cpc_entry.int_value == 1)
-+		return val == 1 ? 0 : -EOPNOTSUPP;
-+
- 	/* if a register is writeable, it must be a buffer and not null */
- 	if (!cpc_is_writable(reg)) {
- 		pr_debug("CPC register is not supported\n");
-@@ -3310,6 +3324,28 @@ int cppc_get_auto_sel(int cpu, bool *enable)
- }
- EXPORT_SYMBOL_GPL(cppc_get_auto_sel);
- 
-+/**
-+ * cppc_auto_sel_is_immutable - Check for always-enabled autonomous selection.
-+ * @cpu: CPU whose _CPC descriptor to check.
-+ *
-+ * Context: Process context.
-+ * Return: true for Integer 1, false for a register or an absent descriptor.
-+ */
-+bool cppc_auto_sel_is_immutable(int cpu)
-+{
-+	struct cpc_desc *cpc_desc;
-+	struct cpc_register_resource *reg;
-+
-+	guard(mutex)(&cpc_desc_lock);
-+	cpc_desc = per_cpu(cpc_desc_ptr, cpu);
-+	if (!cpc_desc)
-+		return false;
-+
-+	reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
-+	return reg->type == ACPI_TYPE_INTEGER && reg->cpc_entry.int_value == 1;
-+}
-+EXPORT_SYMBOL_GPL(cppc_auto_sel_is_immutable);
-+
- /**
-  * cppc_set_auto_sel - Write autonomous selection register.
-  * @cpu    : CPU to which to write register.
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 6ee2d43b7b95..0a8b1aaa2660 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -1794,7 +1794,7 @@ EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_get_status);
- 
- int amd_pstate_update_status(const char *buf, size_t size)
- {
--	int mode_idx;
-+	int cpu, mode_idx;
- 
- 	if (size > strlen("passive") || size < strlen("active"))
- 		return -EINVAL;
-@@ -1803,12 +1803,23 @@ int amd_pstate_update_status(const char *buf, size_t size)
- 	if (mode_idx < 0)
- 		return mode_idx;
- 
--	if (mode_state_machine[cppc_state][mode_idx]) {
--		guard(mutex)(&amd_pstate_driver_lock);
--		return mode_state_machine[cppc_state][mode_idx](mode_idx);
-+	guard(mutex)(&amd_pstate_driver_lock);
-+
-+	if (!mode_state_machine[cppc_state][mode_idx])
-+		return 0;
-+
-+	if (mode_idx == AMD_PSTATE_PASSIVE &&
-+	    !cpu_feature_enabled(X86_FEATURE_CPPC)) {
-+		guard(cpus_read_lock)();
-+
-+		/* Check offline CPUs too, before changing or removing the driver. */
-+		for_each_present_cpu(cpu) {
-+			if (cppc_auto_sel_is_immutable(cpu))
-+				return -EOPNOTSUPP;
-+		}
- 	}
- 
--	return 0;
-+	return mode_state_machine[cppc_state][mode_idx](mode_idx);
- }
- EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_update_status);
- 
 diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index af46f913e907..9dde24d3e645 100644
+index c0fa9073e4d3..09e55bfdca88 100644
 --- a/drivers/cpufreq/cppc_cpufreq.c
 +++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -882,6 +882,7 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
- 				 const char *buf, size_t count)
+@@ -18,6 +18,7 @@
+ #include <linux/cpufreq.h>
+ #include <linux/irq_work.h>
+ #include <linux/kthread.h>
++#include <linux/mutex.h>
+ #include <linux/time.h>
+ #include <linux/vmalloc.h>
+ #include <uapi/linux/sched/types.h>
+@@ -50,10 +51,12 @@ struct cppc_freq_invariance {
+ 
+ static DEFINE_PER_CPU(struct cppc_freq_invariance, cppc_freq_inv);
+ static struct kthread_worker *kworker_fie;
++static DEFINE_MUTEX(cppc_fie_lock);
+ 
+ static int cppc_perf_from_fbctrs(u64 reference_perf,
+ 				 struct cppc_perf_fb_ctrs *fb_ctrs_t0,
+ 				 struct cppc_perf_fb_ctrs *fb_ctrs_t1);
++static int cppc_fie_kworker_init(void);
+ 
+ /**
+  * __cppc_scale_freq_tick - CPPC arch_freq_scale updater for frequency invariance
+@@ -162,6 +165,9 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ 		cppc_fi->cpu = cpu;
+ 		cppc_fi->cpu_data = policy->driver_data;
+ 		if (cppc_perf_ctrs_in_pcc_cpu(cpu)) {
++			if (cppc_fie_kworker_init())
++				return;
++
+ 			kthread_init_work(&cppc_fi->work, cppc_scale_freq_workfn);
+ 			init_irq_work(&cppc_fi->irq_work, cppc_irq_work);
+ 			cppc_fi->pcc_work_initialized = true;
+@@ -216,8 +222,9 @@ static void cppc_cpufreq_cpu_fie_exit(struct cpufreq_policy *policy)
+ 	}
+ }
+ 
+-static void cppc_fie_kworker_init(void)
++static int cppc_fie_kworker_init(void)
  {
- 	struct cppc_cpudata *cpu_data = policy->driver_data;
-+	bool old_auto_sel = cpu_data->perf_ctrls.auto_sel;
- 	bool val;
++	struct kthread_worker *worker;
+ 	struct sched_attr attr = {
+ 		.size		= sizeof(struct sched_attr),
+ 		.sched_policy	= SCHED_DEADLINE,
+@@ -233,23 +240,28 @@ static void cppc_fie_kworker_init(void)
+ 	};
  	int ret;
  
-@@ -910,8 +911,8 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
- 		if (ret) {
- 			cpu_data->perf_ctrls.min_perf = old_min_perf;
- 			cpu_data->perf_ctrls.max_perf = old_max_perf;
--			cppc_set_auto_sel(policy->cpu, false);
--			cpu_data->perf_ctrls.auto_sel = false;
-+			cppc_set_auto_sel(policy->cpu, old_auto_sel);
-+			cpu_data->perf_ctrls.auto_sel = old_auto_sel;
- 			return ret;
+-	kworker_fie = kthread_run_worker(0, "cppc_fie");
+-	if (IS_ERR(kworker_fie)) {
++	guard(mutex)(&cppc_fie_lock);
++
++	if (kworker_fie)
++		return 0;
++
++	worker = kthread_run_worker(0, "cppc_fie");
++	if (IS_ERR(worker)) {
+ 		pr_warn("%s: failed to create kworker_fie: %ld\n", __func__,
+-			PTR_ERR(kworker_fie));
+-		fie_disabled = FIE_DISABLED;
+-		kworker_fie = NULL;
+-		return;
++			PTR_ERR(worker));
++		return PTR_ERR(worker);
+ 	}
+ 
+-	ret = sched_setattr_nocheck(kworker_fie->task, &attr);
++	ret = sched_setattr_nocheck(worker->task, &attr);
+ 	if (ret) {
+ 		pr_warn("%s: failed to set SCHED_DEADLINE: %d\n", __func__,
+ 			ret);
+-		kthread_destroy_worker(kworker_fie);
+-		fie_disabled = FIE_DISABLED;
+-		kworker_fie = NULL;
++		kthread_destroy_worker(worker);
++		return ret;
+ 	}
++
++	kworker_fie = worker;
++	return 0;
+ }
+ 
+ static void __init cppc_freq_invariance_init(void)
+@@ -264,11 +276,6 @@ static void __init cppc_freq_invariance_init(void)
+ 			fie_disabled = FIE_ENABLED;
  		}
  	}
-diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
-index 4b5d94f853dc..3f0005abac64 100644
---- a/include/acpi/cppc_acpi.h
-+++ b/include/acpi/cppc_acpi.h
-@@ -197,6 +197,7 @@ extern int cppc_set_epp(int cpu, u64 epp_val);
- extern int cppc_get_auto_act_window(int cpu, u64 *auto_act_window);
- extern int cppc_set_auto_act_window(int cpu, u64 auto_act_window);
- extern int cppc_get_auto_sel(int cpu, bool *enable);
-+bool cppc_auto_sel_is_immutable(int cpu);
- extern int cppc_set_auto_sel(int cpu, bool enable);
- extern int cppc_get_perf_limited(int cpu, u64 *perf_limited);
- extern int cppc_set_perf_limited(int cpu, u64 bits_to_clear);
-@@ -298,6 +299,12 @@ static inline int cppc_get_auto_sel(int cpu, bool *enable)
- {
- 	return -EOPNOTSUPP;
+-
+-	if (fie_disabled || !perf_ctrs_in_pcc)
+-		return;
+-
+-	cppc_fie_kworker_init();
  }
-+
-+static inline bool cppc_auto_sel_is_immutable(int cpu)
-+{
-+	return false;
-+}
-+
- static inline int cppc_set_auto_sel(int cpu, bool enable)
- {
- 	return -EOPNOTSUPP;
+ 
+ static void cppc_freq_invariance_exit(void)
 -- 
 2.34.1
 
