@@ -1,100 +1,177 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378184BC00B;
-	Wed, 16 Sep 2026 12:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0B34EC66B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562280; cv=none; b=VQvKuFYzGoV7zySnsuIhOnymT/jrmwGgoo8tOZITXUOP3VRGN3S/4zq4zxpx7LHQ8Xth5uMKW/Cf/oFQvsndbWPmvO9EC9kbOtg87Xme0/xS1fY2qiE0oWjQzS1cMVG1wczBIT+deQBSEWrcnNT5Yio64we7pLcKo4rqAoiZ1ec=
+	t=1789562316; cv=none; b=DjZSplE0kC1C3oxrQlZWyZGVFoNW+YSVZmlUTrbSVck3xSufdNiTziJoGyyqu0ja/t9negoIYJ+BL4+KODiIwlw7o8gptBZ8Kw2c31n1OUiWMO+ely6Pt3xWsu2sEakfprKPJUCaLpR6SyVfaMMe8CfWx7tD0jEiJ5rCUgiMYT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562280; c=relaxed/simple;
-	bh=TP5AdabhgzYN5k4hVgXYmllLu6Wj2l5QzvFK0FJIQ3g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n1dOczXkvo6cXcSvBS/te3dA41GJwFTqvruoSzPVqUOMBNYFL4KTAtcK+RGQjxunXbsZ9DDkRlI6HwgauCd94/8tsOejfLyDlbk+XPe977kKqYpOKz5H0xyZyyr2RptEfPqIiaiEpmYeGfZk/w3wQiV3LfnqR7OJSiJ1FNKvxPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=tBLvs8er; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=vg6i7jQk; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789562316; c=relaxed/simple;
+	bh=ENSLaQYmLKSt2CR91JHHQSxjLlYkRtC5DM1E85fuaJY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DbdwfG0kOtZCYZE9mEuVilT78EoWJCeZYpVG9LMWDRDELdM4gK9/Uf/AeIyuVVisXPQPAA99TW5ozQH6ZaKNngW1gM+/B0IAqoCHUwL1H+vhCf3sNk5LpF9Cx8sy12r4l9gJaeEKqi2ULxGHQfihWC/zL332SECe74Bb32MwRnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oFopsi6s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OpSgxp8V; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="tBLvs8er";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="vg6i7jQk"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hlJM86SrKzMl2l;
-	Wed, 16 Sep 2026 14:37:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789562276;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AYceURoh7gtzk/BMV9k28UkTev5RmX3481dhU4tPlAI=;
-	b=tBLvs8erjcQd1ddLUPlwmoO4S9tfsvRAzYAkQzJcFNSaH3at7prXUQ6naJ+pnblDbwCzTd
-	TPg5++3+o/AlwTyTAos25IApIrnGbcsI8pan2E2jUIdKFCGz3fWdmxtou/WeEcdMsUreYz
-	KdbAjelIZ5+qJBTbf0Bv39j/XK7Go4pSrpPkwVPi9u2hrbe4m6O62cae+FfNsUpWNYXFmU
-	IlGoUfxry0K/9xmRV7CvEVLiOrqQB46ysozyCFL7A6L7oIQt+DyVFnUrnD0bojsxSIq4a7
-	DK1NwXGML03lf14YKcBeCNJN4x5cNWHf+aTZ9bDf2YYySLd6dNz8URQfk/x9UA==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789562275;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AYceURoh7gtzk/BMV9k28UkTev5RmX3481dhU4tPlAI=;
-	b=vg6i7jQkFFnzEy0UITAV06U2Y1Dgpb1XBuDSZnyhz8UgSrxYBi2v2/uNhY+X7N08wgcK7a
-	t6Fc3ud6uzQkns8PQ6OgUkoAOLOOIkgitD3EXIBYhC3PtPWsUOTN8uTbw6y68QiNTC6Pi8
-	5pAFkV3EUVccgmU0m0DRWFjI+P90pdLjgvhbqbQA/CRfzbaSNxHOHuluPuakgWANziQbzL
-	CvcadoSzwDKrAfPt8gzCDhGgjrouvaQkh6klXd6vkKQppCHr8fVNoozatUp9oUkgtJCZL2
-	zPm566xBv81k8G8nHXGp4Xh8yqnfz/e9PGJ58y0Ohbm1D1ebXXWKLzHcpypUyQ==
-To: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	netdev@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: networking: radiotap: Fix bracket
-Date: Wed, 16 Sep 2026 14:34:58 +0200
-Message-ID: <20260916123458.314458-8-manuelebnerli@mailbox.org>
-In-Reply-To: <20260916123458.314458-2-manuelebnerli@mailbox.org>
-References: <20260916123458.314458-2-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oFopsi6s";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OpSgxp8V"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCYoEU2692090
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:38:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Tig36/2iNLMxXARCJw580q
+	lc05W5id1IhnieCfc12wI=; b=oFopsi6smm7aJXG+TzlcemthzC+W3Dz84nFPc7
+	oHW99rQn5CHYRWHg8/V2ryyYT0R+kNKTiRh/3EqBR6Qj1pw1pye2TqC+EH/7ofcc
+	qpTUyhNc00jwtpBZkQutH9yCGu/xjxUC2ssrgmRzMDyo3JlBp65nFINMjjurHNYk
+	UtVgaVnlmGOYkcfBWdLHNuiNdDfhZzemR1RMW9riBnNDU+EcMWSOuAgvalF25azA
+	t+BLIg6hMULe0Ljr4a59F6dZWRXKPYr913GG7AQcaFa+xzWUXDsGd9itrgZkJ9w6
+	9sLYx+IEgyXWOqbLmGjBdPdVQZqo7vVY5NNNfjtxAlokKOPQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqah9vajr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:38:33 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93102454272so129284885a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:38:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789562313; x=1790167113; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Tig36/2iNLMxXARCJw580qlc05W5id1IhnieCfc12wI=;
+        b=OpSgxp8VQqLRQH0q+B87TjBRQzWNmGZuO8qdr8oYpSqIfOxHfP2v+QHwzqoF7lhR35
+         O06iNzwENsLLvD80nL/Mb7DFGvFMl31ZrFeNrvg01WHC2j1n2U+TrdDM8HZy+6AaHBUh
+         kXFJvnRVhreXUTkycSAOcDXyK4Yz3iBm9Hi9GfvCe4aaxNoMabBUNvURKLCxeztUXIgE
+         QzrywbT+50NI93Q3x0C7maYKAsApDJ60VpSU8bpJt3+gVt+1mMNymPAUI6PDvY8GozPK
+         vkTkC1ObGNERn7Z7G1IPjJPeze1Z6ze1k7dv+qesHc9WlFdOkxDhtBUckltFOYZqmbhO
+         wNKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789562313; x=1790167113;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Tig36/2iNLMxXARCJw580qlc05W5id1IhnieCfc12wI=;
+        b=yeZMOjpm7pCkyoT2vcLAxCqY0H5+h+NZaAl3FhnZGLR7NzKuj99fa2ciJYoFOa4KX3
+         5D878N0NqNgO1NxUnDFoDtN6xfXg96OZW7z0s4dVPPCTggHYBIZVBrVej4DzlmIV9dqR
+         huqQbIrgw0CYRFFLaFwcHGxmUWAGI0lCqxN5khbC3IJevCaCqp2psUP3o3Z6BaYcTuiy
+         SHjEiZrrNPJlGEQEw87uCmVDq6xzGQ/IiTxKp0XO2PixwGyXUz6XT0gT/CBBG6vPc1VB
+         ktMmh27WfFHPx5N4ag61mnMU5oByvTIt86b84tX89GQqjZRMHYXTkBmIinqU4KYXS7ft
+         UDSA==
+X-Forwarded-Encrypted: i=1; AKwUvBxgfODpr2x9DUWlgc/6ETl0YB69OoY3gmRhLKrMtu2jCBVPqGJfk3Qzfr93cWbvYM16/fY280caGuzUUt8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mA3Yg+ROyvEZCn1kBac8HY2FKjOClOBxqCkJEA3AJu0aUVhWDR
+	oVROf8S4bY3IfVPZ9+hATltlNVhdBd8s1jCq7SkInRguzyrPBveVShJEVqYGLB4Tt2vDytcHWLm
+	4y5677DtRhDtxF6AjyTh+CbXNv13hAcN/0ta/i7EogQnzrKPKaB5BqVXVn01h6lLEVys=
+X-Gm-Gg: AYBFou00yVFI81edC/oh9DcB9+9ddZIvNUCMwXtBXNc5zu/q0onaySv2e+cJCbVi1+n
+	QSyZP9L3Pw9HO+Hc+kg9yzBZaO0zryo7kAj/fnmmBfIMITbI4rwO1BuM1kSiY3HdlfwrEV6b/p1
+	iST2Pr/uvBlznyJxys7tH3modOCaHmKT7+TBuwb72oeSEyizaKZ9w66phgwFGcS30XsGu2KJhnu
+	phm7i7FiF4fG3x7Csd1hewTLFvyXjOEIuIu4ug1LVJ0ts2Zgbu5gTrlaJF5eJeMzYQmPy8XKDSh
+	KzSslFywnRd38pQawLeXq2978qH+dZO0z+3AJSlPEVbQT4O+s5o1EXsmsbpei7hUTQ7CE+Lmqsc
+	WHgzyPRESq1xFX/GifZlRGGR1K7+SCF8=
+X-Received: by 2002:a05:620a:3181:b0:93a:2bc8:61ba with SMTP id af79cd13be357-93bb76a0dcfmr309273685a.1.1789562312977;
+        Wed, 16 Sep 2026 05:38:32 -0700 (PDT)
+X-Received: by 2002:a05:620a:3181:b0:93a:2bc8:61ba with SMTP id af79cd13be357-93bb76a0dcfmr309266785a.1.1789562312365;
+        Wed, 16 Sep 2026 05:38:32 -0700 (PDT)
+Received: from KDYBCIO.eu.qualcomm.com ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1cf66150sm1721927a12.0.2026.09.16.05.38.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 05:38:31 -0700 (PDT)
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 14:37:49 +0200
+Subject: [PATCH] PCI: qcom: Ignore -ENODEV after Root Port reset
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 1c196a3bbf7e8f64fcd
-X-MBO-RS-META: ec73dwtoq7ksrs1nf9rbg69hai3j9q9d
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-topic-pcie_portrec_enodev-v1-1-5dc7bde39552@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAJyNqmoC/x3MQQqAIBBG4avErBNKyLCrRERMfzUblTEiiO6et
+ PwW7z2UoYJMQ/WQ4pIsMRS0dUV8LGGHkbWYbGNd41tnzpiETWLBnKKeCp4R4orLMHe9w+Jtv3k
+ qfVJscv/vcXrfD6kzVq5rAAAA
+X-Change-ID: 20260916-topic-pcie_portrec_enodev-cc576ea927f9
+To: Manivannan Sadhasivam <mani@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789562310; l=1358;
+ i=konrad.dybcio@oss.qualcomm.com; s=20260604; h=from:subject:message-id;
+ bh=ENSLaQYmLKSt2CR91JHHQSxjLlYkRtC5DM1E85fuaJY=;
+ b=6hGGHRk483be4L9I30WqoeL5rfwSDR++wPTM33RJN/wRcpaMBAyhNhzfqZjfkqG1792lAEydk
+ rtCEHw/KdycC0Ho2Tj0n6iprYZP3CVpqgJJrU+AQ0U2X5eueuN2numt
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=SGRRMmlLTuP/lGKdQ0f4KPvxn8VVsXtXaTpdGc8i82c=
+X-Authority-Analysis: v=2.4 cv=BtkIUoX5 c=1 sm=1 tr=0 ts=6aaa8dc9 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=ESyKS8onHQUTpFuCZioA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: MUQ6ld1fCSfKDDBwdqXQkk2nvTHHcii_
+X-Proofpoint-GUID: MUQ6ld1fCSfKDDBwdqXQkk2nvTHHcii_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE2NyBTYWx0ZWRfX6tE7H+OOg23d
+ IC6AO2FN9eE72n0yAMQs3JiQbXsMgaFFS37GE5EhZzxEMBln075xZXzlN7t9cN10nhg+qbk9SSZ
+ 4Zr1jmmnM8yPv/ySgKx4jOu+zQutbMerRyOkaONCgLEvoKIAcbGnvBXudBlrm8ItBPcMtTPaWdh
+ pij4zJJJQ99vl990gMovcGd+67tUMwYpThgzADawVb8clOHQW//6XfqOEmvKFks39vFORcNp9j1
+ +MU6w8/JECs0BEMLLbTuVHAKrYqmq8TnnPdmzrbv81p04XW6ubij3slr8qD/+iJWz5KV3UZGPcN
+ 9dE9xqiOUBF1JqdM0Xy+6EAIB41kH96v6wPx/Q9T5aizQIW8JUAi8o09Dp7GoMqCqZSzXw00wzE
+ y0c5UGm7AYs1iAJ8p7mx3xf4SOgfd0vBZudzJ1ex8I+hN2q6dwYhce2RxHErKSMZTpjSkhjEvSo
+ tUzVQhhfDs0oCtOhJ/A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE2NyBTYWx0ZWRfX6zyNMDQuKbnY
+ OD5f+DizKWIkKNmUZleTHyCoQBG2nYHgkl1N7aPdfYk/kFcBOKSBkH9hsBOu5gehcREQNTSlIT7
+ vqEV0WDLzoK8/WXo0azD+5TMUn6byJA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0
+ impostorscore=0 bulkscore=0 clxscore=1015 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160167
 
-Remove needless ')' from code.
+Root Port recovery may race with a device hot-unplug. In that case,
+dw_pcie_wait_for_link() returns -ENODEV because no device is detected
+after the controller has been successfully reset.
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+This is a valid outcome and should not cause Root Port recovery to
+fail. Ignore -ENODEV while continuing to propagate other link-training
+errors.
+
+Assisted-by: LLM
+Fixes: 4d88cb82a6d9 ("PCI: qcom: Implement .reset_root_port() and use for link down")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- Documentation/networking/radiotap-headers.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pci/controller/dwc/pcie-qcom.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/Documentation/networking/radiotap-headers.rst b/Documentation/networking/radiotap-headers.rst
-index 1a1bd1ec0..aadc7bc6b 100644
---- a/Documentation/networking/radiotap-headers.rst
-+++ b/Documentation/networking/radiotap-headers.rst
-@@ -133,7 +133,7 @@ its prototypes available in include/net/cfg80211.h.  You use it like this::
+diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
+index ee63a6ec99de4d07c16b8d6cb68df0d92f822cd8..3d3be9bf798b7c247d69969d6570385b8648123f 100644
+--- a/drivers/pci/controller/dwc/pcie-qcom.c
++++ b/drivers/pci/controller/dwc/pcie-qcom.c
+@@ -1880,6 +1880,9 @@ static int qcom_pcie_reset_root_port(struct pci_host_bridge *bridge,
+ 	qcom_pcie_start_link(pci);
  
- 		    case IEEE80211_RADIOTAP_ANTENNA:
- 			    /* radiotap uses 0 for 1st ant */
--			    antenna = *iterator.this_arg);
-+			    antenna = *iterator.this_arg;
- 			    break;
+ 	ret = dw_pcie_wait_for_link(pci);
++	/* This linkdown might have been a hot-unplug */
++	if (ret == -ENODEV)
++		ret = 0;
+ 	if (ret)
+ 		return ret;
  
- 		    case IEEE80211_RADIOTAP_DBM_TX_POWER:
+
+---
+base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
+change-id: 20260916-topic-pcie_portrec_enodev-cc576ea927f9
+
+Best regards,
 -- 
-2.55.0
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
