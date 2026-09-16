@@ -1,137 +1,156 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+Received: from mail-pf1-f228.google.com (mail-pf1-f228.google.com [209.85.210.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D884BA1F1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:16:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600585; cv=pass; b=D5065EO2vYvXMOh48QvWsnAtMUk6q4AQms/wXXczXf7hULDmFI+VApE2bv9751xQkhoodM1sv1Kh/Hc7pKMMahQXqd9XOkNPD+oeBu5PwiCceygmFM+RIEG1F8Ka9Q+jIIzsvn+ZCqyptMypeILF0Y0GNKsmb4kWVaQUwzkWM4w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600585; c=relaxed/simple;
-	bh=PGqCNKVZCKuQE7jwiEPuuSZ/IDgGiFbjWnBb1wGsCq8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b55ocFl9ouFjlXfEJyyU4qNd1HRuI1eZ24umkqiKOXLjvJsngEvJXRcxW8EvsVfxXKvTef/TCl6FaaB8qZvG3m1F54g5gx0rTFK3zWMIquFTo6UvwMndAtTaHj/X5UmZVgy77+G35Vj+J6WCzImopP5dv7oIdg741AXciQIf44Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net; spf=pass smtp.mailfrom=amacapital.net; dkim=pass (2048-bit key) header.d=amacapital-net.20251104.gappssmtp.com header.i=@amacapital-net.20251104.gappssmtp.com header.b=UNsMKJo2; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amacapital.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2AB3C4572
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.228
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789600681; cv=none; b=d641Tm+8dOR7aS1Vh+YLWTt4W4HDk6+dpoXIV0CTDvKnTAxC6xIkaN9b/GS+iyGb018Qnj1XJEVApkAPNdY9nvSyMYxkyHm5JJ/ONgQVyfQCSuYXj4fPfZ98cl3oQJ2xLPro8/I0gI+OZ9YpZ1HQsEP1poHjAQvfVkvEf3pu0YM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789600681; c=relaxed/simple;
+	bh=fij3eEOLxurYpPo1Gj1MtbRPxFtSDKvt+BZeN/vOW6k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=be1hr7t0xI1gT0Eyr/6nI41Hy65GdlChoOX+5Mq8eEJIxPNc8pStkxDv6cncDBWmgAKMhmeIRnnrVMHxLME3S65lzHSozceWSI3iFDi+HCMbYPXfj7Y7hIJWrJwR/dOOhLqvGj7fU6VpgLFXsjpXWp6z51C5GxrniyWMSKfAneM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=cZEUumzZ; arc=none smtp.client-ip=209.85.210.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amacapital-net.20251104.gappssmtp.com header.i=@amacapital-net.20251104.gappssmtp.com header.b="UNsMKJo2"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a306a4f797so2407191fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:16:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789600581; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LwXEykhjdrpjPLyp8uCIvZJp5Fws27b7rc9xAv7cAoJxwy93I5nW7FdKrD/5WNYZrY
-         8g9YbzM95CDBXsjiQBo/jofgShq/YtB0pz259X1eIB56yiENl+CDAdQxy/kbu21bDe5g
-         b7cLDwY+1s0qw+e7xoMoImJlyTvCTIttwOPmhFTvj7UU+Kjl+QoCEbDYmuKdXztvGGaY
-         wTjXT+HsI4sBR+Rufk9vBJaGvOuejjyGJDELjjY74EH1VMd4wuzLygsovqW3STwln22N
-         7YJ2B3GeybYuYAi9BFsViZ/g+7gp+ECWv6M0wc+GCVpDMISAehIBRsK+gXJLXn0igctQ
-         CCCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XuO1Ijt2sJ14x5nHlyhOYgW7+udniPE80quffc8DQvg=;
-        fh=876F4gtwMbGAB/Vo2nGJbBXmALxRrVQ8/HmEoZWV1/s=;
-        b=NIiB/Lxw4yVw68XU0Evaw2JSh5KpX6Bb2x80jpaVZF3RoP9CheRpv74BJjKTfQCFty
-         QMCIDetilbc01A7zvXBBU0mDa/RuCloHV/fZA680CWpyFAjNAqpLpvU/B2ilGKuGLKtJ
-         +BWRxAjf80+u7eEB3u7g7UQEKpvnlVy3t4gK2tIK/l7YVEKIi0vmYGSG2fevacf5jvzH
-         T18hc8GFmptnlLgAxb6X9MulgDlnF/5hLLIVznl8djgiFhq8ZiJGVP9x9j9/fckphWsM
-         omDRCnkc01kV2YY77zWWo/z7DRjhwsfUSDkBX2K9HTqfqQzj+F4TUMXCL0ocianufb8C
-         7Elg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amacapital-net.20251104.gappssmtp.com; s=20251104; t=1789600581; x=1790205381; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XuO1Ijt2sJ14x5nHlyhOYgW7+udniPE80quffc8DQvg=;
-        b=UNsMKJo2T6wCVhfzR26gvQPxMH2MFDhqPuI/hzcovTS5zs6CWJ+2olJEkH57SFtFCf
-         zWTufsKEyJSmXcNom+NICA6udCi/cb6EsKlWZe5IH8uEJkMIWsASwxE/u8dk1qB395Vp
-         O6r3li8izs13s3JHUW5DyGOwh1qssoK5icXYBlWJ86W3FyuOvi79ZxLw2qbw75a5hHTs
-         22bvvOfGSRs/aUIaMEuwfjYbO7vHKzOxF2dcy7k9baG8XFnC0ON6gi383zGpQ9WYaZxK
-         BLW3thCFFj3D8q0pRX68Rr5xvKK7/Ws6dIzEQyJVqtSFpvZ/ZcmS2CgJY6PYlmtlWZD3
-         ODsA==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="cZEUumzZ"
+Received: by mail-pf1-f228.google.com with SMTP id d2e1a72fcca58-86aecf49833so9103b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:17:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789600581; x=1790205381;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20260707; t=1789600679; x=1790205479;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=0sDEArYGlpoxYwz5GEnDLe44Yw0mS5y0ZSiL1JMItsY=;
+        b=cV9jvirbJekGPQOZzz25tRlK+jKlRNYrpHEnzu9F247sX0bbgy0XC4HZzPwFAX1mn6
+         4B/UuCNApJwQoAPJYW1VTH5t9g10xfOIKU0wEoi0A+MHqOw2Q4jEmm+fSo2ogvuQOyTw
+         k4tf7Ir3p07bBREoE/hYkNPgB6mxP7ShK4JnKzqSgnSov9gscW3Cq74/hNqfq7pqACU7
+         X7vRSsJrFIoRoBIsb8wWdkxCQzkrvZL3yQRRnsmeNad+DJON6we003UfY3azeDPjvnX0
+         V3ROoXMOws0UZz8Vv+swoNHAgChYZCLPYxIrx+F/sFTBp2kQbPk1rifNNXVuWpHyJvue
+         PEsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy4LAZalCcgeggjnfsQ9oMUQKI+KihrCIAliy6RRQaErSEY6GukWheunLLHN1cJTBgQ0r7wsnz1nV6JDBc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNlWoMdTILUfcXTRuZBqbRMfkqQKpLw25iZ90LF9wqahu6Xj5c
+	TIf9tRb9od4KTBYSgXL8Y/YbGVwsnbIjyNsCzQzTUe1Ac1UjFRmJ+1nsdJd7jxTx2PfPcpLAoT9
+	MfhIzsRj/pmBgAB4NC16BVRH/Fg/74DpPKQjK1oTag3SCLL2kYr/MoH7RzN3BRorDSX9Pvpg90N
+	43QaK4O0NfySCE1JHSdsbtL3gxKUB1ReyX089MftKXWIe6VZrt8OjFl4kAhzX8U0776PymDuYBd
+	4Vdcpv3BOtyTP0pf8MIYtMb
+X-Gm-Gg: AYBFou27E3wJW+CpuCza4l5b/eUWmxrZzWd12i+jbP2gglK/b08Fu5OgGeDsYr/Lfkb
+	33Y4cDd+D+ho0B2+rwARWv292D3T7F7S8y4JUUOA/jG9ZiWa8MWwVmKsd/SzaKHc7mnOozUroP6
+	fF52ULHW5b572qd9XnhEG35+DHJzzOHjWeBnrepKUx7K8rGnBHXTvyUwuJcYdcCvnvcGJYpE9G2
+	7CY7qKB7QfJOiatr0MRac9skx/XsBDZ8DdtLP2WRAoBt2iTjPBzaOwVjlQ9V4H2aPUJqla7HQCL
+	30Z1KS4s2qN70Z0UDvxLuM4jYBK/eW+aAluVGSFI4QlVT2+nT1s1XcgjTj4UwMi3pX4hY87VNo1
+	99ChEtLJ2Wi+hNhvIuKzZaP4hPu4oyD3+3Z6rhzecwnDH/eRO24cKMLbcV5yrAQTVgcfTQGhPmA
+	3KnUXLe8kw6xIZKQMc1BNyueABY7ZsdRMyolGRZmBB3lo=
+X-Received: by 2002:a05:6a00:13a1:b0:871:a6f5:693a with SMTP id d2e1a72fcca58-87341a86511mr1921532b3a.11.1789600679332;
+        Wed, 16 Sep 2026 16:17:59 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-8720104c4dcsm1256539b3a.6.2026.09.16.16.17.57
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 16 Sep 2026 16:17:59 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2db22383e8fso2507085ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:17:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1789600676; x=1790205476; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XuO1Ijt2sJ14x5nHlyhOYgW7+udniPE80quffc8DQvg=;
-        b=DPf4ARzPjl192X0IIMsnz0r7S/nZESBFYiAKShNFEvSTNZyFXO2ljAO5j2kwAqaUbv
-         CgSZRF/ya9jhoqTuwDpF2iOsTMs82SgLaux8SJVpsoBsVjHBafy2PmRiIomFUrebcb2n
-         mV0cMhREHLs3PorcP7vTfz07Ixygf7olA+erW1+vgK7WLVpVFBSYTOoEblNRQ73/Cskb
-         3LkfLYPWTyl46Nc8XeXDNbBUWiG4O/gu0pxiG8KyfUDQ53F4K+S804P1P4OT6debUR2f
-         584O3Xdr2tm1JkV/7FZiYtPRCiMxHoEnUTVR9vWGp+9JleysLDNfYGUind4QOi6Z3SF8
-         4DCw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2a0JxjzYnWkOwAixbbU/3Wv55cZlNk3PTHigigmRDm7GIMFWFSD5vy2tapIQteBaPEy5d5sJ63ox+Gic=@vger.kernel.org
-X-Gm-Message-State: AFuF++kw/AdTITt4eLF7rKy7B7JX5p9YVvwhPCwMqqb0MF3lsLNC+jZI
-	UsvHIJN5uNT+hLmnP+kuGjwreuuRce+3F8ABtGHQ1TMV9IvVhHBXduA9fltIsqfKYSeToE++d6s
-	iBA1N2DULCzJQXbfCUtVBbr7ScZrktXUw0DbDlvjoi9iws5S90b8=
-X-Gm-Gg: AYBFou1QinD3LZ7eKF/xSBSzg2Sy4vWU8iukNruQ4P7TGdr1kHNz8eLNHsTVzNuM6Aj
-	ej3/gPdKnc4Pv66wS48jzcXMe/cFf2SZvn4iPJ+OqXc8vXwWNDZZW6ZHJ9fq8TsWK0xj46BzhkT
-	0WAt+ktbIamJS2RRJXPUhZ0etNeWoVpWFwHkDhyEPsZlhuxYxTMsKveVV79csFlfOGGp0mB6mc+
-	TRgccWGoeUR8uG3NjW14Gv5py3BkE4yA9OMznKx+7WJBJxHaUfYI959MGbq0iOlA10o1oWyDIW+
-	Cgnv9hpFytPLJtcr0JuxvCmESR8jZDG0AB97mhxSqJCk9W7QhVCD
-X-Received: by 2002:a05:6512:1192:b0:5b6:1a7c:59cb with SMTP id
- 2adb3069b0e04-5b8b6643a3amr1205595e87.37.1789600581075; Wed, 16 Sep 2026
- 16:16:21 -0700 (PDT)
+        bh=0sDEArYGlpoxYwz5GEnDLe44Yw0mS5y0ZSiL1JMItsY=;
+        b=cZEUumzZSXonK+ex+nqtcJuFGrCendCNw32f0a5+HTdEA7UgliPRMHvXR/90aP5TDW
+         xXnPRSjR0thWBJKBOgk4FMJLNhc6q+hsR8B3iKEHF3IIF0PTGfQ9Prv2ou+y4LNNdRim
+         qEAspDOblApibD5CWPUxGQkAIAssmGcO4d15w=
+X-Forwarded-Encrypted: i=1; AKwUvBwvi5uRZU/aleNKlXW+LfkthF2sVkDF2NJIEeeXy67ktaGggyOnGCpGHNrpWYBhHxAU2sjZmashY+D0YYM=@vger.kernel.org
+X-Received: by 2002:a17:902:e543:b0:2dd:86a3:232d with SMTP id d9443c01a7336-2dd9c7c2b1cmr18256045ad.8.1789600676538;
+        Wed, 16 Sep 2026 16:17:56 -0700 (PDT)
+X-Received: by 2002:a17:902:e543:b0:2dd:86a3:232d with SMTP id d9443c01a7336-2dd9c7c2b1cmr18255765ad.8.1789600676083;
+        Wed, 16 Sep 2026 16:17:56 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5b2753csm20543472eec.31.2026.09.16.16.17.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 16:17:55 -0700 (PDT)
+Message-ID: <f2c11f68-c787-4897-b5a0-3d05b15f6bb8@broadcom.com>
+Date: Wed, 16 Sep 2026 16:17:53 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
- <aqcmz5uI7PgN5CT7@casper.infradead.org> <20260913235145.GY25906@brightrain.aerifal.cx>
- <eeb50cae-87af-4a40-b9c6-f4fa9981425e@peda.net>
-In-Reply-To: <eeb50cae-87af-4a40-b9c6-f4fa9981425e@peda.net>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Wed, 16 Sep 2026 16:16:09 -0700
-X-Gm-Features: AcwNN1XX9temToosIZFGFf0_oya4M6aRcGTN4rFbjsWI4-f9wQoGiIGursSmD04
-Message-ID: <CALCETrUgLj4Dz0s6PMofViJwausRWCvNvJphxWHUeWCCaRBtQg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
-To: Mikko Rantalainen <mikko.rantalainen@peda.net>
-Cc: Rich Felker <dalias@libc.org>, Matthew Wilcox <willy@infradead.org>, linux-fsdevel@vger.kernel.org, 
-	linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, brauner@kernel.org, 
-	viro@zeniv.linux.org.uk, jack@suse.cz, alx@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next] net: phy: broadcom: enable jumbo frames on
+ BCM54xx
+To: Nicolai Buchwitz <nb@tipi-net.de>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Justin Chen <justin.chen@broadcom.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260914094703.1093504-1-nb@tipi-net.de>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20260914094703.1093504-1-nb@tipi-net.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Mon, Sep 14, 2026 at 2:44=E2=80=AFAM Mikko Rantalainen
-<mikko.rantalainen@peda.net> wrote:
+On 9/14/26 02:47, Nicolai Buchwitz wrote:
+> Jumbo packets need two bits that default to off, extended packet length in
+> the auxiliary control register and PCS transmit FIFO elasticity in the
+> extended control register. The latter raises the transmit limit from 4.5
+> KB to 9 KB at the cost of 16 ns of 1000BASE-T transmit latency, and the
+> two together take copper mode to 10 KB.
+> 
+> Without them such frames are lost on a 100M link while the same frames
+> pass at 1G. On a Raspberry Pi CM5, which uses a BCM54210PE, 9142 byte
+> frames at 100M are lost 20 out of 20 with the MAC counting every one
+> as transmitted. The same frames over the same path at 1G arrive intact.
+> 
+> Set both, which bcm_phy_enable_jumbo() already does for bcm7xxx. The
+> frames then arrive and the payloads check out byte for byte.
+> 
+> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-> NFS and devices make the question more interesting, though. Some
-> implementations put meaningful state transitions into their close path.
-> Tape devices are an obvious historical example: depending on the
-> device/mode, close may write filemarks, flush tape buffers, rewind, etc.
-> Those operations are not necessarily replaceable by fsync() before
-> close().
-
-I realize this would be complex and maybe a can of worms, but maybe we
-should have a new improved syscall here.  close() is indeed deeply
-problematic.
-
-On the one hand, we have the actual task of closing an fd in the sense
-of removing it from the table.  This should really be doable without
-blocking or without side effects (except possibly for zapping
-old-style POSIX locks -- it doesn't really make sense to be able to
-close all fds to a file while still keeping it locked, especially
-since we report the pid of the lock-holding process).
-
-On the other hand, close has actual *meaningful* effects, many of
-which you've mentioned in your email.  IMO it would be really nice to
-be able to explicitly *do* those effects separately from closing the
-fd, maybe even asynchronously via io_uring.
-
-Would it be so bad to have a new operation to do (possibly with
-moderately fine control) the close work and another one to just
-release fd- and process-associated locks and drop the fd?
-
-(Hmm, for OFD locks, it really does make sense to unlock when the OFD
-goes away.  For old-style locks, maybe we want a way to release an fd
-without dropping the lock if it's not the last reference to the
-underlying file in the process.  But maybe specifying and implementing
-that would be a nightmare.)
-
---Andy
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
