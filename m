@@ -1,111 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40793254B0;
-	Wed, 16 Sep 2026 14:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569212; cv=none; b=QrQM17LBQIIbp2+jCF+INlFh0kpQcjK1Ie6R2fG0x6non9+4OaCWj8RKg8uXY3gFtLl/1oGD+PuR6KJawYtmCKbiHfUANvE03w8eDAvif6W7/T0vLDnVYJvB5c14o+RGm8MEznZ1tHuX+UKVQw1nt0SZ7N1tmz+LcdgCKelGO+w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569212; c=relaxed/simple;
-	bh=UhMCiLnG8Ugj9w6K6IXYARcIsxqAigoIYBvU7UTHP7w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rXia72202b5KXaRoPfA0vDtLH/hwSHVwI16fWIjDa8IypruNRRKkWwOQJZqj7yOcPnaOJQtPkHwBCqebYIlY4MtHZOR4h99sFzlqvKN9vlKzcfs8nz9JowpPOYZzMPQeD1n7d6qPrZI63eOwUnbqRIMBGsTvmvL9cn5QDX4wI0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KB+vtMog; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2ABF371897
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789569248; cv=pass; b=Q+bJaLxjh/gbqftgnF8kMyVjRQjR78mCDt94aVKjT423ZuY573prHsOn+VjHlCnisa53YOUfPDTDNzX5jwdDt162x0v/LBVtlIp5pA11aY8Bf2IdlaCm68X5htH2cp6wkACGIZQxwfmDEMOzlIbO2GFzMQnZxM8+Evd3Hq6fpng=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789569248; c=relaxed/simple;
+	bh=OwB/d5OxQu18uidgzkX2hP3f7HqNP/l7GdXuCXOPh30=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W9ut8+3ziOpDyNhyU8Q0AX1ETLFDwnJWGYhnZC6Wmq5hvwYfMz5H9J2JAbxJI2mVO42tR5tPuSw0iLDkTecdIo9xlOzPSG5fykWAASIWf42jP3IHP8uM8tmDagin7TueghOKRBv66ssTIN8GzVVRAoPdjWNOZyg0CL+xnMugbho=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=Oll1lZy4; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KB+vtMog"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AE971F000FF;
-	Wed, 16 Sep 2026 14:33:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789569210;
-	bh=PFRgUz13CKX8U9AELJWTu+7kgzvYnFqa7uF4pRvkbcU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KB+vtMogVxZRbbWdVaraL4Bow/O7cpdrceW8JwdKjOqho7N4jMsp6eQnMKyWxuKIQ
-	 2JMLKxvzFMQyAjfZF/Xg/6NK6cM98R35gw17eIR9bO8V5BlHaPdRR3vNTT5SiS+ow4
-	 Nq4TgKmxUNpvdqxstKoY2Bly2Co8I8TMAFB6kfseLHZjc3suLJDrq/tet28rC/79PU
-	 st+RcejV9HVggHtq1mGITBXWNI6YITiCKd4z8BHsNWl+5DBF3f8dW9T0sVHE93sHl3
-	 DZIj6/SPsL0paVgMnEfQTutiq72aKiWJR7RI9Xb0HUgqlzJFfoRmqnCzbGuAvt7Coi
-	 uSWXBjxNm37Zg==
-Date: Wed, 16 Sep 2026 15:33:15 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, 
-	Kees Cook <kees@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, Linux-Arch <linux-arch@vger.kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 21/21] kbuild: use pigz for gzip compression if
- available
-Message-ID: <aqqogpgRog7CEJbo@gremlin>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-21-39817ec5db23@kernel.org>
- <202609140844.FA7E848A@keescook>
- <aqk9gakQhxToLnDI@gremlin>
- <202609150955.A51C9F7A20@keescook>
- <CAKwvOdmgeyqivO4pVa=30XDWpXvdRzBR8f13rfuPzDx=LJ1Tsw@mail.gmail.com>
- <90006ad1-73df-4bd0-a434-61875edd5bb9@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="Oll1lZy4"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91071ba92a8so5538326d6.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:34:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789569245; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T7DXdfa9D02xGQmf09c0n7+J6GIpoubsLgRhTpHx2I1dV3uUoE3AFWPA7+oV04tnKF
+         vvuotlThmd2l/L93PujdD+QtMaBe6NiVbwQ7OcpsQYqzwBqVXUhj9YfNb9bhH3dAAqOE
+         acd97t27opf7LYzajMnoR+9EdZ/bokrZtqvXu/+Vl5XqRAO8x5fcZbW5i1Py0G0UfqpT
+         O8K639GlgLUaF/6keYGgCEuET82h0l2hiSMbqJ0pmy3lLX7dLTWoviJtIHBG5Qd9z4Hm
+         Tt+f4eaSUBlh3zGsasFBffFmNS3m5ESPUKund0GI53NzYx2qU/b1Ql8coQVPknPKcq+R
+         8BQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=OwB/d5OxQu18uidgzkX2hP3f7HqNP/l7GdXuCXOPh30=;
+        fh=4J7HItI9Tq5m4ZpibWElhpbZ83DIS9AJ2f5ScbhWMRg=;
+        b=q+QAHv+JvNOJ9sxJJmNFusqvfvpqOlhNOMG6qS7NYs8IW2ZjpObLSOkc4byDwl5//M
+         QLSS6fchcvC3CrdCysVtUw4yea4qekk4Wdg33DBwdJIF5lzz3/Fjzl4FQM9OogoiDbcm
+         XLB6c4imfirLeWF4jFlFSmdwUM+C3l6t+skFyfb9AqzUH3nYoy/tGWfSiO3yYNNAHOff
+         hEHdYq1K5fDqiGAWhfN9+Z0j3uw3KSfQ3fxa+I/U6DpM01s0YPMahE4jBF0N+rT45pp6
+         dRaYLqN2mLCgfNCA48iFeT9RRc3wkehQ/rXE+ln4346RRarXFMgWmiKw9SuBz4VGHjDc
+         cQTg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1789569245; x=1790174045; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OwB/d5OxQu18uidgzkX2hP3f7HqNP/l7GdXuCXOPh30=;
+        b=Oll1lZy4gw6gjhCnHbEPsz8oAxrITzPHBEO+pTrlwesZHv77BjN8RHNzXwB6febAod
+         0f/RTNZqryn5AhmR2Ea1DgkOit8YqEzJ1rT2gyYss708XuT6j33phXVMgXUKxMuXiqpl
+         1reUpKK/mzHXX7sGAi4Y7to89yQ/Dy72ig7k19sSWYSBv1mDh6MZInu6xVPCLUOn5On0
+         lrq2BwW2t2aLQJQEqPRNKUtn6r/8ostWb/EFTkXCBmvL0EA3+lRDIFnZ0fEtrSiV0Bjb
+         ujCpbkkdj8TX0Ip2qEjlUx8Syx2mVxVNH+2LuOaiCymCk0dIfprnVortIQGf0HiSQVLT
+         4kQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789569245; x=1790174045;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OwB/d5OxQu18uidgzkX2hP3f7HqNP/l7GdXuCXOPh30=;
+        b=roWOs8oTofWfrjg3LfQH43DNaZwomeNoD9S/9RTz0eh+hVWZIFcVv25X2lRTDZnzwe
+         h9weENH1HbWCr3+DzKmuPOy2hXHs5j0BR+qLCZKoG3ylhvZ42uhAsuCQNrjrz9fOcV2C
+         LjsjcWBBdDWq3BllrwX5xog0J3wGdnV4d/23qKucxvDJT7P+iLRw/6/luRfLaCOiX/6C
+         sV6YsTSNZmE6TxAB85Kd8nmSYXfpf4kZegg+2zELECZlitw68jFRgW/GicWBjFfhyj04
+         5JVxHc49GCu2dwH8UXsqwsVPXWX1p23b+lp2njqLftIakPrX2nneEDwZDUYmNvrftKwa
+         m3bQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzDf+tBAuAxJ62YPWDFXwShD28tgKhPjmVwWnbqtHDWNP77O2/lWT45wgNxf1QY/PqhlRS1UQPX9hpcawA=@vger.kernel.org
+X-Gm-Message-State: AFuF++khrcHQO8laIbY0xrgOv9MN3RdepSeproKKDIjnEI17MafHAxhj
+	ISil/RZ8l16WmM2Ggjy7v+vgRI8dDnCXI5XHwDKzO9ogYgiR4KMuBs2Bx+DQD8GKZjCmtayuExz
+	kv5u9vdXWWShUyWXcRW0HZlgaJ1cJGRWnjuyl5EWfGQ==
+X-Gm-Gg: AYBFou1i3nHdXgH/KWwC9dOthmjAauYC/6r9j4axFnJOHZ4Mquo0VjVgKySPg03vZxp
+	L/uqt6Z2oIrOMCtMcq3T5R3wVWsyGY/BHQVm3bW4aNGFoiSm/cFEWLdbopsrceK/taRx6wJ4UVd
+	rS2EYJeEuRP65pdtJqgBbVX9IV0bdAmVeGVBMNPar90NBF0j22ZR/MxQ+UxMUaFBYLJJLVDQ0Kg
+	eIGzR6c2RbroJDTycReOa8OdvPtux8tpGjlRiq506BVgw0RajbGc7QiCKGQRwaI9rCjrCn4F6lC
+	fqeFrco7IDXesQZ/t0zQ4oNyRuGdaRemlcDmN8NR2voo2clrSCrHj/5rVWFrXXgd+yOV3jL6+zn
+	DV8Eipvpg9zXf
+X-Received: by 2002:a05:6214:2307:b0:90e:9dea:82f0 with SMTP id
+ 6a1803df08f44-9123d72e492mr50551696d6.15.1789569245319; Wed, 16 Sep 2026
+ 07:34:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <90006ad1-73df-4bd0-a434-61875edd5bb9@app.fastmail.com>
+References: <20260915-acpi-hwmon-v2-1-39d17c748eb6@thegoodpenguin.co.uk> <70746c77-e113-4bc6-93b6-7ac6027c86a4@roeck-us.net>
+In-Reply-To: <70746c77-e113-4bc6-93b6-7ac6027c86a4@roeck-us.net>
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Wed, 16 Sep 2026 15:33:54 +0100
+X-Gm-Features: AcwNN1XL40ERZH8e0Yhs7auCFY005nLn5S0ImA1LSDoKwV3HLcPsYK0Xe6yniGo
+Message-ID: <CAA6zWZ+8KUSzah7y4TXrkvOnChDyEur=HCXgukcFke2dEjgQ2g@mail.gmail.com>
+Subject: Re: [PATCH v2] hwmon: use named initializers for acpi_device_id
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Luca Tettamanti <kronos.it@gmail.com>, Cosmo Chou <cosmo.chou@quantatw.com>, 
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 15, 2026 at 08:02:38PM +0200, Arnd Bergmann wrote:
-> On Tue, Sep 15, 2026, at 19:47, Nick Desaulniers wrote:
-> > On Tue, Sep 15, 2026 at 10:31 AM Kees Cook <kees@kernel.org> wrote:
-> >> On Tue, Sep 15, 2026 at 03:30:43PM +0100, Lorenzo Stoakes (ARM) wrote:
-> >> a)
-> >> My main concern is the lack of respecting the -j make argument. In my
-> >> mind, this is a blocker, because it means a build will now _always_ spin
-> >> up max CPUs (not what -j has limited it to), and for CIs, shared compute
-> >> systems, or whatever, this violates the requested parallelism level. For
-> >> example, if I'm doing a long-running Coccinelle replacement in one tree
-> >> (which uses half the CPUs), any builds I launch I'm asking for the other
-> >> half of my CPUs to be used so they don't thrash my cache.
-> >>
-> >> This is the kind of "why are all the CPUs spinning up?" question I
-> >> helped track down with commit 51e46c7a4007 ("docs, parallelism: Rearrange
-> >> how jobserver reservations are made") forever ago.
-> >
-> > Parse -j from MAKEFLAGS (https://stackoverflow.com/a/76517886),
-> > forward it to pigz?
->
-> That still has a potential O(n²) problem: if one builds N kernels
-> with a top-level jobserver on N CPUs, and they all take the same
-> amount of time, you end up with N pigz processes each trying to use
-> N cpus at the same time. Ideally we'd use the equivalent of
-> -flto=auto in the compiler, which respects jobserver settings,
-> but I don't think pigz supports this at the moment.
+> It also replaces pointers to empty strings with NULL pointers,
+> which is a functional change and still neither documented nor explained.
 
-Hmm this is a good point :) though I see Kees has made a suggestion that
-could solve all of these concerns!
-
->
->       Arnd
-
---
-Cheers, Lorenzo
+Please note that the 'id' here is an __u8[] array, not a const char *
+and that the generated .o objects are equal pre/post the patch as both
+methods just initialize the array to 0s. So I think the commit message
+explains what the patch is doing, perhaps it might be worth mentioning
+that the 'id' field is a byte array in the message.
