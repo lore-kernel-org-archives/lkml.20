@@ -1,51 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2947472F94;
-	Wed, 16 Sep 2026 08:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BF345C6F7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547759; cv=none; b=dfOLnlFauqkC71h6pO7L5WUZvAIYPPc+GlMDp8eouyyQ2upq6+H0kmZmGSjGFc9OPuRP6DYOO4t/UGQVWT1DSPV+crr5RV7/tQB8qUvGx1AW7ESRvJIDvsLbAau9jj0mOnMADmFsoVAkKfp7mntIzjH43636FrpB0IbeAi4yh30=
+	t=1789547801; cv=none; b=M6+rXDSEF9rV6B1R055332/3QJ9gnN0Sex7yV/jxOwx1tIDzBX+3J2IXnxd3Zmw0NpWsRc5wJTi+X8jdxLg/hT/S4ChMSWdnqprcxRZNFdBaTqv1H4WcmXc3a45RrPnMWcLyFXRgOc1ibCMWIJovVVKnv9n6G036jDdadyFuO5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547759; c=relaxed/simple;
-	bh=1jMUBEC0jB0yhHHKFee+CRQKEWKrjIWM4cQsZF9nnTw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Op2FIhJ7Y5qWKgch7BIfHoTLfAIHhf5E2yqxPBoxzsXAacLDJFcuIA8N3ijpU8zISfqm25BCjWcZ6Ww4tdwTBCEhRW0WxL6Q+bfVhvUqxCP8I6RpLLlUQmYzIVzdEqZxcq6kLWA/8hItxNKxXZ7MYRdNfywwHuvF8lrwOe6HU0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O8UmC/yT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789547801; c=relaxed/simple;
+	bh=N28+9dduTURGr7Z/jDM+HUHsACZdvaz8kci5VoQIsUc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rzcISFlGqOUkqYuqO3l52IPGVMGRl+qVbFPxNOCBeF1QpnMFakYPOKuo8eilDpEsmyfZ9liEgSMCGEH+h4KF9X//fmhDSHGSOfuiOACKmVgrespQNUB0mRJV1k+e4P8sGDVqMxuTV0RcpO6EwgnI+iD7AsD4pvnN+7Rj5jIalrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=cYb1HUNx; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O8UmC/yT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2354B1F00893;
-	Wed, 16 Sep 2026 08:35:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789547757;
-	bh=7y9hRu5WhkSsoWNaVlctVRrwMTgH5FYURhaWgNlscdw=;
-	h=From:To:Cc:Subject:Date;
-	b=O8UmC/yT4mAfCdbDOgVVQPiymOXkQ0YQB/qDb/Ia9nLhIV0yqTqBIGhWT9Zj2OU7v
-	 oZRDjRCzATIpveXF5UehmmWAavNZ6QouuISSFK0NdF8NeIoL80F7j+x7uM0QIGA3hj
-	 NOjpTJan5m174zEoTAiU20kxyTmixwREYwzCDKUS/eXNkg8jgM/NnN17iQMiY61XqW
-	 O6x2lWDg1sgiwF7pYNFYKINPfYcz9CLrvx3MG8J7spRdTAWHrWQ1qHto3lb8Qt4tg/
-	 0u6mWTYr5KlqbxbWFdMFXSGeCWpmC2NFUe/Lk0NIYY5v3cSneqyRIGem6IDCc18HEr
-	 gdXnVoGNdrHOQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hermes Wu <Hermes.wu@ite.com.tw>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Tarang Raval <tarang.raval@siliconsignals.io>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
-	Kate Hsuan <hpa@redhat.com>,
-	Xiaolei Wang <xiaolei.wang@windriver.com>,
-	Walter Werner Schneider <contact@schnwalter.eu>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: i2c: it6625: select CONFIG_HDMI
-Date: Wed, 16 Sep 2026 10:35:20 +0200
-Message-ID: <20260916083551.4178568-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="cYb1HUNx"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91c22d27dso4063625ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:36:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1789547798; x=1790152598; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/Ky/jym2qeoiedQ+4uP+uRv23sKBrOXkwKGv1IN5HSI=;
+        b=cYb1HUNxi6cZzzhy+4HDYDuwYumI/rJ1kdINv1qbwsXD5PPqC/9GETgAAI2nzZk5Pd
+         IYfG30JAqRle0XG0MvLiqTKyjTHe7v3nofsyik0X9sdldgkmKRlQvBfZG/6wjZgxoEab
+         nkD2+NiohfRaT3GIkKTqtOvvfFrFVP85WuAnbvUPWCCjSk/aix+Q0Yihiwk1zFXn9pEu
+         7Li2cAhwmcvVeqL/R0JD5kTqlBOvlYUp5uZZCO73xtdCdIFGmDzFZIyd0UoTWw1rijwc
+         sgzl7uxJFkfXQb9ggsBJxMQkXAV84heaLokbE+pVuqWIY4V0shLjBSp6CK4TQpWNXjD6
+         /hUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789547798; x=1790152598;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/Ky/jym2qeoiedQ+4uP+uRv23sKBrOXkwKGv1IN5HSI=;
+        b=erDBTGj1JNIzyLkm6LaUDMvQCpncwSHiW3BKVCTxKbgN+S/1kEnLj1mwAVVbRLIOFb
+         b4fAPhviXep8PKDsCTMFMToRJJ7kUBJtPGLcMWtnkom7cnILyluejrWw7O1DGosq05SX
+         Uq092yV3H5kDSUWDyYPngSHqeGmGPe96SIe3+Sb9uSzV6whNW6VHMo81WcBR0KW5/wee
+         2NbvUfh5KicipvzMMjx7dhNfBQtmU6sRLK4Wlm+TNy+OTPI+W2AS4tI91J5JRcNp4lxS
+         Hu4kbe68fqd8/42SQFETvgmQPfdKTFhvY5HzthvSW7aiQnK95tHWjlAyRx1/h5szTxWj
+         QOtA==
+X-Forwarded-Encrypted: i=1; AKwUvByDaT8Scnq176gszJCDu1PjoBv7TdM4YiCOf6j67WzbjMBTpL/Zy7UoxS/vX4jjLXh7q//Nafxpz5SD69s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCJcwu88z+nBQyAyv3CkvVBsIFiW00OkiXxkFMnKiK4IgIF+Tb
+	+FguafE00gSo7OLMyXwyj/c7wcfVbf1wRaHrc88y2mcOi9ks2Zj36TwAEEj78tBI6k0=
+X-Gm-Gg: AYBFou2oh2pHmta7lLxic7p4iguwMLUV69pAGJqx1UkvCF0SeF67jjX0JpgLRXcBzyT
+	JbnVcK4g5kyPXLob5pQt/5Bi/6NkzkD8DaxGRFyzTjZ5493tAUISHpkDGezrORxt0rtGPaUy5ot
+	g3gG1qOcgzJyvEJ9sWRmzhgG889NOdCETXnJdKgNvRY8IlZDpkmPLWM85pGGIVoTclpZgiEGjv7
+	URihB7HsKAbC3xyCooos1J2yvaK6Ms1OSHZtN6DuAieyyNiwVok+jNezpfMzb5xHmawfcfjKeJw
+	6FZ51j1ZGqPZs/Tpx5t1lEBjVWuopGKo9gB8WCqjOsE9Mvo5Alf4gYhu3GQmtDpERnTz6RbYuHX
+	Qq+RQyZHhEycIQQb1nxOdiAu10uILR3tA1s/3O7PEmWes7YGidaNfgvnQOWzobEPowbd6zP05tN
+	nyhEhdZBogi5IpP3CbcuSLc/LVy8mBTfE9wsKh5c6rYGyp4AjFglDu3oUQKetdVg9df5P8YCQUw
+	GVBkAVrBRRIwl2TTkBR
+X-Received: by 2002:a17:903:ac4:b0:2db:63cb:1b17 with SMTP id d9443c01a7336-2dd8e633554mr35455145ad.18.1789547797988;
+        Wed, 16 Sep 2026 01:36:37 -0700 (PDT)
+Received: from n232-176-004.byted.org ([36.110.163.100])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d9007csm7646915ad.5.2026.09.16.01.36.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 01:36:37 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-doc@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH] fixup! mm/sparse-vmemmap: introduce CONFIG_VMEMMAP_OPTIMIZATION
+Date: Wed, 16 Sep 2026 16:36:27 +0800
+Message-ID: <20260916083627.2145779-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260916064341.1825793-2-songmuchun@bytedance.com>
+References: <20260916064341.1825793-2-songmuchun@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,33 +92,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnd Bergmann <arnd@arndb.de>
+The section-based vmemmap optimization infrastructure is guarded by
+CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP, but it can also be used by
+ZONE_DEVICE users that set dev_pagemap::vmemmap_shift. Introduce
+CONFIG_VMEMMAP_OPTIMIZATION as a common config for the shared
+infrastructure.
 
-Without HDMI support, the driver fails to link:
+Select the new option from HUGETLB_PAGE_OPTIMIZE_VMEMMAP and from
+ZONE_DEVICE when the architecture opts in to DAX vmemmap optimization,
+and use it to guard the generic sparse-vmemmap state and helpers.
 
-arm-linux-gnueabi-ld: drivers/media/i2c/it6625.o: in function `it6625_show_avi_infoframe':
-it6625.c:(.text.it6625_show_avi_infoframe+0x94): undefined reference to `hdmi_infoframe_unpack'
-
-Select the option like the other similar drivers do.
-
-Fixes: 142e5f00bd57 ("media: i2c: add driver for ITE IT6625/IT6626")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- drivers/media/i2c/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Note: When folding this fix into
+"mm/sparse-vmemmap: introduce CONFIG_VMEMMAP_OPTIMIZATION",
+please use this commit message for the resulting patch.
 
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 3370b66ab4ee..4d9946479160 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -1327,6 +1327,7 @@ config VIDEO_IT6625
- 	depends on VIDEO_DEV && I2C
- 	depends on OF
- 	select CEC_CORE
-+	select HDMI
- 	select MEDIA_CONTROLLER
- 	select REGMAP_I2C
- 	select V4L2_FWNODE
+v5:
+- Select VMEMMAP_OPTIMIZATION from ZONE_DEVICE instead of DEV_DAX,
+  covering all users of dev_pagemap::vmemmap_shift, reported by
+  Sashiko.
+- Drop the DEV_DAX dependency on ZONE_DEVICE added in v2, as it is
+  no longer needed by this patch.
+
+v4:
+- Rename SPARSEMEM_VMEMMAP_OPTIMIZATION to VMEMMAP_OPTIMIZATION
+  (suggested by Mike Rapoport)
+- Collect Acked-by from Mike Rapoport
+
+v2:
+- Fix SPARSEMEM_VMEMMAP_OPTIMIZATION being selected without
+  SPARSEMEM_VMEMMAP, reported by Sashiko.
+- Add an explicit DEV_DAX dependency on ZONE_DEVICE
+- Collect Acked-by from Qi Zheng
+---
+ drivers/dax/Kconfig | 2 --
+ mm/Kconfig          | 1 +
+ 2 files changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/dax/Kconfig b/drivers/dax/Kconfig
+index f50c6b32d826..602f9a0839a9 100644
+--- a/drivers/dax/Kconfig
++++ b/drivers/dax/Kconfig
+@@ -8,8 +8,6 @@ if DAX
+ config DEV_DAX
+ 	tristate "Device DAX: direct access mapping device"
+ 	depends on TRANSPARENT_HUGEPAGE
+-	depends on ZONE_DEVICE
+-	select VMEMMAP_OPTIMIZATION if ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
+ 	help
+ 	  Support raw access to differentiated (persistence, bandwidth,
+ 	  latency...) memory via an mmap(2) capable character
+diff --git a/mm/Kconfig b/mm/Kconfig
+index 0fa2eb76e4f2..30170a936f1f 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -1224,6 +1224,7 @@ config ZONE_DMA32
+ config ZONE_DEVICE
+ 	bool "Device memory (pmem, HMM, etc...) hotplug support"
+ 	depends on MEMORY_HOTREMOVE
++	select VMEMMAP_OPTIMIZATION if ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
+ 	select XARRAY_MULTI
+ 
+ 	help
 -- 
-2.53.0
+2.54.0
 
