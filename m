@@ -1,255 +1,179 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013017.outbound.protection.outlook.com [40.107.201.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3B84F054A;
-	Wed, 16 Sep 2026 11:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789559982; cv=fail; b=ZWJ/L0+iqxNpfer1P2XH8Qbniw27rTh790w/wlUAwDAMKFVub4ojP+RTivkT1oDTRRxLryxcRKzQfOIBsdRQN4uWheb29PY1DEkXPx/ZvfJdEGG1oGmiYNkpIzZEiM6UWSNmlBREQcsc4nisYK06XDQ7OWc0unO3WiWcH1bQWEE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789559982; c=relaxed/simple;
-	bh=g4H1pNgGx6egUXkOADkTsOJXNS1+Ro10K3szeLspJBg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AcCy+4B2tdSfIRyf10CppOMqsLeLS9o8IYuKapanM4rI0lbRtie1QsVsMFCkP+SLpGR0z9kIwt2a/8OWaqN9Z44V5SmidJWe4UuEse44s/gTTDkm3cN7uMY3aHJyQUR9GtL9q16R+hBj3hxxJOhNHKEztBHnJM4y6k8W81lCp9M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=wzwC6nfw; arc=fail smtp.client-ip=40.107.201.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C365F372EE2
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789560023; cv=none; b=Q6kRCRkQ3cfiRWN2vGLxeubIXUkvGP4Oyid4y3yaXGtVxRpIFHnznEPKZ2PDogJFt+OSXnxFX0zu7EXhlmxf5pc16aWNa3TBMMswHRdXCqPQUb7q53IGp8y50/KzeCivArnoHyTDSAxvpoO8vlXPy8SF6xf+bda/zmjdGqvR3j8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789560023; c=relaxed/simple;
+	bh=4ONM5VS6QPfAIKUgm6ed48PmyuZMxx+zucJ9QdHw0zs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nDNUsgojWjih5HuOPD91R0CJ9VeW8EiEr96mRzINaq7xuOoiTG3zM+OekqdFBO7Ko2Hf5sloTiEwNas5ep6vJgEI7BL0Ue/XtSgjG3dBB6LHXxU8oIR08cnWvbdcLp3mjEJoakQA90ksC7XyxL0F7u9a3hmVrObulo50bi2ZD/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eiem9CaU; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="wzwC6nfw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ofOgEZt5/WvZL398DiMP4cnJu+bAOQ7ChdryDjdv6oc3B+1IqZ5xoCor8N7Ik69lXihL8DalFNN9z171VyKvjWP7qM0DDXR3yLwNOmXuBqCv86Gbl8ba8tHqsafdCNrPxltMrbLTHvsJAE5IbcIcl+RldZJlImHm7npnTIGIzJJ1QMcy8I+eqcBMS9ZZqprVDYX2C05fuBYoOpwyswLPdGLbxffVcsQm3S+lV4Mtf7YbMTeFB9fehnnY8S4cHnUSdXF5aINmNiKz7F17iSKPebMKZAIN0MpN0ypjqkW2E4BYk1eFRto289kn9r4R9JwcoGJZ4lcE9S2+Jgiy17XQSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qTsg1utTkplWuARlA0qswoeLICanNrYPE/18/PBEUNY=;
- b=rmoiGjoh+6GgaL646m2gMAgAeOVhpofkBX3f/ONIo6agDbJ3NudbMju58xl+C1BXMLqHJHo/SJLgCu6OfZ6ClRdQOK+hdd+xThXKfg0ZOf8ObPpFogMdFYwFsuEVQyDlOqpg6yNgukAg4WRCIldL4HVzAGdtQX2nPGDjHKo/+CXnz1CXQERwq5BbbujDJTMzsYKKk4HZj6Q0ZmvdBb7+OwZZswtvWAkI3jaCClT3FPSNqo8ZTMgGcp9Xw0Zxm0nnnymV0tycimCtTkLIwfYtp4uFWIZo/SDWyrbE3/S4DfvtntmL3XIUE/P/cTKwfr6stSp1zjl52cvPMVYQHPKRMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qTsg1utTkplWuARlA0qswoeLICanNrYPE/18/PBEUNY=;
- b=wzwC6nfwNmFtjgfk9sDcnKOMQ04jGfMzMCsC94PMwXHTyprnLafBJ/OMhSdIIZT7e1gKWt5OaYurLNADb4gi+KaWK8d7Qz3Dv4f9nx3JwyUsO5xKzntXU9YygO+pNZBzDvE9YfRcVfyBpz6mQnPpD2GxVC7juJ3ZzS7smUM8JKs=
-Received: from SJ2P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5da::11)
- by SJ0PR12MB6832.namprd12.prod.outlook.com (2603:10b6:a03:47e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
- 2026 11:59:24 +0000
-Received: from SJ5PEPF00000208.namprd05.prod.outlook.com
- (2603:10b6:a03:5da:cafe::ab) by SJ2P220CA0004.outlook.office365.com
- (2603:10b6:a03:5da::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 11:59:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF00000208.mail.protection.outlook.com (10.167.244.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 11:59:23 +0000
-Received: from aiemdee.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 06:58:59 -0500
-From: Alexey Kardashevskiy <aik@amd.com>
-To: <x86@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
-	<linux-crypto@vger.kernel.org>, <linux-pci@vger.kernel.org>, Thomas Gleixner
-	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin"
-	<hpa@zytor.com>, Sean Christopherson <seanjc@google.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, Andy Lutomirski <luto@kernel.org>, Peter Zijlstra
-	<peterz@infradead.org>, Ashish Kalra <ashish.kalra@amd.com>, Tom Lendacky
-	<thomas.lendacky@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>, "David
- S. Miller" <davem@davemloft.net>, Bjorn Helgaas <bhelgaas@google.com>,
-	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, "Andrew
- Morton" <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, "Suren
- Baghdasaryan" <surenb@google.com>, Michal Hocko <mhocko@suse.com>, "Catalin
- Marinas" <catalin.marinas@arm.com>, Jini Susan George
-	<jinisusan.george@amd.com>, Kees Cook <kees@kernel.org>, Michael Ellerman
-	<mpe@ellerman.id.au>, Nikunj A Dadhania <nikunj@amd.com>, Ard Biesheuvel
-	<ardb@kernel.org>, Eric Biggers <ebiggers@kernel.org>, Kim Phillips
-	<kim.phillips@amd.com>, Joerg Roedel <jroedel@suse.de>, Ethan Nelson-Moore
-	<enelsonmoore@gmail.com>, "Tycho Andersen (AMD)" <tycho@kernel.org>, "Liam
- Merwick" <liam.merwick@oracle.com>, Michael Kerrisk <mtk.manpages@gmail.com>,
-	Suresh Siddha <suresh.b.siddha@intel.com>, Xiaotian Feng <dfeng@redhat.com>,
-	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>, Andi Kleen
-	<ak@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>, Tony Luck
-	<tony.luck@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Lu Baolu
-	<baolu.lu@linux.intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
-	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>, Jonathan Cameron
-	<jic23@kernel.org>, Jori Koolstra <jkoolstra@xs4all.nl>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>, Ian Campbell
-	<ian.campbell@citrix.com>, Jeremy Fitzhardinge
-	<jeremy.fitzhardinge@citrix.com>, Petr Tesarik <ptesarik@suse.com>, "David
- Howells" <dhowells@redhat.com>, Haavard Skinnemoen <hskinnemoen@atmel.com>,
-	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, "Christian
- Marangi" <ansuelsmth@gmail.com>, Dave Jiang <dave.jiang@intel.com>, "Michael
- Kelley" <mhklinux@outlook.com>, Ilias Stamatis <ilstam@amazon.com>, "Sumanth
- Korikkar" <sumanthk@linux.ibm.com>, Simona Vetter <simona.vetter@ffwll.ch>,
-	Toshi Kani <toshi.kani@hp.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Vinod Koul <vkoul@kernel.org>, Jiang Liu
-	<jiang.liu@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>, Anshuman Khandual
-	<anshuman.khandual@arm.com>, Kefeng Wang <wangkefeng.wang@huawei.com>,
-	"Palmer Dabbelt" <palmerdabbelt@google.com>, <linux-coco@lists.linux.dev>,
-	<xen-devel@lists.xenproject.org>, <iommu@lists.linux.dev>,
-	<linux-mm@kvack.org>, Alexey Kardashevskiy <aik@amd.com>, <aik@ozlabs.ru>,
-	Santosh Shukla <santosh.shukla@amd.com>, "Pratik R . Sampat"
-	<prsampat@amd.com>, Scott Soule Cheloha <scott.cheloha@amd.com>, Ackerley Tng
-	<ackerleytng@google.com>, Fuad Tabba <tabba@google.com>
-Subject: [RFC PATCH kernel 11/17] tsm/core: Add TDI status
-Date: Wed, 16 Sep 2026 21:51:51 +1000
-Message-ID: <20260916115159.1938195-12-aik@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916115159.1938195-1-aik@amd.com>
-References: <20260916115159.1938195-1-aik@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eiem9CaU"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b965f447cso7472105e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:00:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789560014; x=1790164814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m7cL2Gp18NYRYCb91RHJeYep+3bFOMgxuk/o+xCqY6c=;
+        b=eiem9CaUwLYrAGCfxf+an7Z7oG0ShpB6vxV4/O8FU3Vz5lbY0/aff3CClKXrGMtLVo
+         azrQ1450WCxjY132p91oWV3bXf4PwJDhv/KKPW812CtVQCEGlSCheo/xLGm/s49mgrOH
+         XIeT3hkQH4QPHKlkrpCy7w/Vu/H+SkdejBSj10oL6VDYg+7Qq9a4QOobkjBwdbMObsve
+         J3C1K+jiVFfKyB5IrIcZ6o65uQQMwpnNxLk71u539iwOy5yR1l211Ko7mckoPP5O/1rd
+         dP/Y2LFGg38TI6d7CxT6Kx+amx3/ABUb6sIGtk02zspEORqvp9qc3RLC7MVQarqitJcK
+         ryLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789560014; x=1790164814;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m7cL2Gp18NYRYCb91RHJeYep+3bFOMgxuk/o+xCqY6c=;
+        b=ywXPGgUCPJm5QwMfecBtb+AcBqYGQvlfDd80aerqA3z2rG9lNNlfatQ1rYZBvsNMqs
+         CFSIYrbetUgIaJI3BQp/JRjpc9aya0aB9N6CW8/lDBHECVpT0+kfZbX4vK3tPln5BDoX
+         DeEdWvLcU45pLQBarCVhdLArHzkWnn9IpaeCax55sSxM4sP0+QHQzb4sJsVfnCR6Girm
+         Y+Snnd9P2zCbUyAgal/Q3EIGxfLR8k+f8gJrkl3/CJaJt/HUs5cOHxrkwCxO6qSRR5eu
+         HYtSvuiXvHSp+0My8kILrxbOZdrnAHHAO6eOsv9F7IHpRX/4ZK7fe99UH9UMgDq2q0ie
+         m8Zg==
+X-Forwarded-Encrypted: i=1; AKwUvBx3OLuLIu6WxEt9RjnwzAw/3pZYhv+I10VEfFOM0jRrRYBucU/I7xJtIgee6PDDO3SLX+5XI2u0Mp5k8yM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPeyoErvwx06RqxvhDwyr4nrFZTElY239nH6ziaW6vQ9fl4zzu
+	nq8ZbBlaVadpEE6ArOX4t7fzrU5tJTEjpIrHl1oSf2ak9nfTk7wlbdp6
+X-Gm-Gg: AYBFou3CDd8hHyZfcDtDAY0fORuNHhzHHHU3myTKOREg8IWugjBIlpxUUr/RsoPhVKm
+	JmmOh5K/b83zae35oHFns9C1UoPEyRqoZdNCMCipFPb0pxwRsN7+N5dp2EUh7Ks7S9PLZPBeHkw
+	spTHifz3k931EYEmwY80G/WOyD0uWB03rrX+ghzdx0n+F/49kxSlYY+RjdK5jtwO7GiHId0oJV2
+	VMdd+P1wwZ/Q5vASms5ZaM5qCrP/fAVW/WCfqdCZf3in1odgNJcySd2OFBK4T/b3jur4Xnf58BU
+	v7RKEugWUJG1VTuXGjKmnaJWdIBY+MbMG0we2hltvnqGDHRrRVEHOwW6n0SBj6JSnb1Nj3cpT1Y
+	a45XmLUrDjGEiKD7wHIPKjj1ZdyPCF3nHMCnYd1zzm3gv8QMB0zrg4bQLudtCMdJHft6Gqbdo8p
+	KC2Igql4L2psMg3C6KtTsCD+JlhTNgAnpkCxUGp//xfJ8kDXJVc+PtMIO2IS/VpaByDPJV4O5eR
+	/e/LJ/YsERvQ1qmvCrTmk18H63DQhmaoUGu6SZWeGb4nDbVa3iVGINTML3rPJnvyeakvEDI6gi5
+	s7A5CL/NM2c8pjuZIpX12rEGOK7kI4Q=
+X-Received: by 2002:a05:600c:474c:b0:49b:d03:8d3a with SMTP id 5b1f17b1804b1-49eb72f40cdmr26055415e9.11.1789560014265;
+        Wed, 16 Sep 2026 05:00:14 -0700 (PDT)
+Received: from PC-Ubuntu.taile4b802.ts.net (2a01cb0082e4ed0062a44cfffeccdd1d.ipv6.abo.wanadoo.fr. [2a01:cb00:82e4:ed00:62a4:4cff:fecc:dd1d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83a89258sm77063705e9.2.2026.09.16.05.00.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 05:00:13 -0700 (PDT)
+From: Ilan Bonneau-Zamon <yolezz.secret@gmail.com>
+X-Google-Original-From: Ilan Bonneau-Zamon <ilan.bonneauzamon@gmail.com>
+To: yazen.ghannam@amd.com
+Cc: bp@alien8.0.org,
+	mario.limonciello@amd.com,
+	linux-kernel@vger.kernel.org,
+	Ilan Bonneau-Zamon <ilan.bonneauzamon@gmail.com>
+Subject: [PATCH v5] x86/amd_node: Fix resource leak in amd_smn_init() error path
+Date: Wed, 16 Sep 2026 13:59:54 +0200
+Message-ID: <20260916115955.15965-1-ilan.bonneauzamon@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000208:EE_|SJ0PR12MB6832:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8ed4718-0d0d-4492-fba9-08df13e9f352
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|7416014|32650700020|376014|23010399003|36860700016|18002099003|22082099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	1gjrxiOzZs++uLN/08CsbVuU5pzivX1w5sGfokhVo62HhTqsZAyt2altg4jQKy61YsFa5Q4JpAePEy56dZ2EtjTCeKjExL81JRYHJiYMY2uEiMnekm+X4HfnK61KTogTrUDOSWqYPac0RXsqXDF4wcWCECweQL2O+qrasaKF9Ob2twna6aAPVekdisRqgLeJlZeWB+Pyy3Bj167PJL09ZDmneWPqJ/nWbZ0cNzIZ9Uqu+TxE79xdf2uWrFfFyctA02oysbQLQg7NUfSUI+121Lh84kpVXJKbsCp4RX8FM8vKws3J3lHABQArpnrkiLAf2KQseddH0TJq+Gv/qJeo3ppTVrTxG+l8MATdtE6Ao3U3P+6gT3P9M6R6/DAw+GSzx5a/5muRGjOlLBCzMMiMgoy/exC0T3bXU9lf4eS/7wyQMhaEBz721jzLwZwa2Dv1PivZYIiWNzz8ZjfwLrQbmMk5/p8DJ5F9/KW0TMkedGokdgxIMOBxpzKrj0WOPNZTSFL2PdgqRRvebRWS/tn5JkJTmIfnpT4wVrU/EEANzAHAwcREbazlGn77NGogt+eYeQ5dt8vAtItGg7Je1OTdf7apf9IzPoCJmzfouuIh9OdDINS2GF86XJJkhSUJfr/0LPVLQjFXnrujzmzz+zKMX+LG2m67WgXyvo8/Y0n5DPWZ4ATFg4mJDgroef2p5B6hrmxaAbtQhopAI4TWgp6URw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(32650700020)(376014)(23010399003)(36860700016)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Fw53La2fWg2oO27psEqX3jIivEE3n3gbx3/xjn+KQHm1lz4FNVBajz48hTuLTPBt6uG2tVEbRRVvKQr7qSZv/THDK5/fsPRLILmlZp0+sWXWEMlp25tRTvdUlkvhgDpQhBBk7Xpw2/WNTNcciwCV4ENZvJuvlLVUt1sTm2llbK9DDNN55pWfltlQswjlh2XFTQbM3dBdqqt+eTE/9bviiGOC+WUEncGgm0s5E9hPqxwtrOEHu++p+E6DTbn76h4jtwoev54pqgHFtv9qpZ3UnUOsoBgI/lRE0iX1qfId86tWTOyfo3im62f04xW5+LNlhm5i3d1Ohcu/n4ZPM6reeV5E+Yufduo2+SyugUAxp87dhY4NTuBXalrrqjLQ46tVhj9YCY3Hk8coI/nSAbVxEzdI6mbCYS8c/Eerz4Y0bR2xhA+W8KI8DfNb2knsosaa
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 11:59:23.9209
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8ed4718-0d0d-4492-fba9-08df13e9f352
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000208.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6832
 
-Define a structure with all info about a TDI such as TDISP status,
-bind state, used START_INTERFACE options and the report digest.
+In amd_smn_init(), if an error occurs after reserving PCI config regions,
+the already reserved regions are left allocated.
 
-Signed-off-by: Alexey Kardashevskiy <aik@amd.com>
+Unwind the setup properly in reverse order using traditional error labels
+and goto statements, ensuring proper cleanup on error exit paths.
+
+Fixes: 83518453074d ("x86/amd_node: Add SMN offsets to exclusive region access")
+Signed-off-by: Ilan Bonneau-Zamon <ilan.bonneauzamon@gmail.com>
 ---
- include/linux/pci-tsm.h | 69 ++++++++++++++++++++
- 1 file changed, 69 insertions(+)
+Changes in v5:
+- Drop __free() cleanup helpers and custom release logic, switching to
+  traditional goto cleanup pattern (as suggested by Borislav Petkov).
+- Fix changelog attribution regarding brace removal (noted by Mario Limonciello).
+- Update author sign-off to use legal name.
 
-diff --git a/include/linux/pci-tsm.h b/include/linux/pci-tsm.h
-index 9b34304d9a1f..2ca577e2a37e 100644
---- a/include/linux/pci-tsm.h
-+++ b/include/linux/pci-tsm.h
-@@ -11,6 +11,7 @@
- struct pci_tsm;
- struct tsm_dev;
- struct kvm;
-+struct tsm_tdi_status;
- enum pci_tsm_req_scope;
- 
- /*
-@@ -88,6 +89,7 @@ struct pci_tsm_ops {
- 
- 	int (*refresh_evidence)(struct pci_tsm *tsm, const void *nonce,
- 				size_t nonce_len);
-+	int (*tdi_status)(struct pci_dev *pdev, struct tsm_tdi_status *ts);
- };
- 
- /**
-@@ -331,4 +333,71 @@ static inline ssize_t pci_tsm_guest_req(struct pci_dev *pdev,
- 	return -ENXIO;
+Changes in v4:
+- Remove unnecessary braces around the kzalloc_objs() error check.
+---
+ arch/x86/kernel/amd_node.c | 28 ++++++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
+
+diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+index b7926ba3610a..32038bd8e243 100644
+--- a/arch/x86/kernel/amd_node.c
++++ b/arch/x86/kernel/amd_node.c
+@@ -248,10 +248,19 @@ static int __init amd_smn_enable_dfs(char *str)
  }
- #endif
+ __setup("amd_smn_debugfs_enable", amd_smn_enable_dfs);
+ 
++static void amd_smn_release_config_regions(struct pci_dev *root, u16 num_roots)
++{
++	while (num_roots && (root = get_next_root(root))) {
++		pci_release_config_region(root, 0, PCI_CFG_SPACE_SIZE);
++		num_roots--;
++	}
++}
 +
-+/* private: */
+ static int __init amd_smn_init(void)
+ {
+-	u16 count, num_roots, roots_per_node, node, num_nodes;
+-	struct pci_dev *root __free(pci_dev_put) = NULL;
++	u16 count, num_roots = 0, roots_per_node, node, num_nodes;
++	struct pci_dev *root = NULL;
++	int ret;
+ 
+ 	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
+ 		return 0;
+@@ -261,7 +270,6 @@ static int __init amd_smn_init(void)
+ 	if (amd_roots)
+ 		return 0;
+ 
+-	num_roots = 0;
+ 	while ((root = get_next_root(root))) {
+ 		pci_dbg(root, "Reserving PCI config space\n");
+ 
+@@ -273,7 +281,8 @@ static int __init amd_smn_init(void)
+ 		 */
+ 		if (!pci_request_config_region_exclusive(root, 0, PCI_CFG_SPACE_SIZE, NULL)) {
+ 			pci_err(root, "Failed to reserve config space\n");
+-			return -EEXIST;
++			ret = -EEXIST;
++			goto err_release_regions;
+ 		}
+ 
+ 		num_roots++;
+@@ -286,8 +295,10 @@ static int __init amd_smn_init(void)
+ 
+ 	num_nodes = amd_num_nodes();
+ 	amd_roots = kzalloc_objs(*amd_roots, num_nodes);
+-	if (!amd_roots)
+-		return -ENOMEM;
++	if (!amd_roots) {
++		ret = -ENOMEM;
++		goto err_release_regions;
++	}
+ 
+ 	roots_per_node = num_roots / num_nodes;
+ 	if (!roots_per_node) {
+@@ -298,6 +309,7 @@ static int __init amd_smn_init(void)
+ 
+ 	count = 0;
+ 	node = 0;
++	root = NULL;
+ 	while (node < num_nodes && (root = get_next_root(root))) {
+ 		/* Use one root for each node and skip the rest. */
+ 		if (count++ % roots_per_node)
+@@ -316,6 +328,10 @@ static int __init amd_smn_init(void)
+ 	}
+ 
+ 	return 0;
 +
-+enum tsm_tdisp_state {
-+	TDISP_STATE_CONFIG_UNLOCKED = 0,
-+	TDISP_STATE_CONFIG_LOCKED = 1,
-+	TDISP_STATE_RUN = 2,
-+	TDISP_STATE_ERROR = 3,
-+};
-+
-+enum tsm_tdisp_status {
-+	TDISP_STATE_BOUND = 0,
-+	TDISP_STATE_INVALID = 1,
-+	TDISP_STATE_UNBOUND = 2,
-+};
-+
-+/*
-+ * struct tdisp_interface_id - TDISP INTERFACE_ID Definition
-+ *
-+ * @function_id: Identifies the function of the device hosting the TDI
-+ *   15:0: @rid: Requester ID
-+ *   23:16: @rseg: Requester Segment (Reserved if Requester Segment Valid is Clear)
-+ *   24: @rseg_valid: Requester Segment Valid
-+ *   31:25 – Reserved
-+ * 8B - Reserved
-+ */
-+#define TSM_TDISP_IID_REQUESTER_ID      GENMASK(15, 0)
-+#define TSM_TDISP_IID_RSEG              GENMASK(23, 16)
-+#define TSM_TDISP_IID_RSEG_VALID        BIT(24)
-+
-+struct tdisp_interface_id {
-+	__u32 function_id; /* TSM_TDISP_IID_xxxx */
-+	__u8 reserved[8];
-+} __packed;
-+
-+struct tsm_tdi_status {
-+	__u8 status; /* enum tsm_tdisp_status */
-+	__u8 state; /* enum tsm_tdisp_state */
-+	__u8 meas_digest_fresh;
-+	__u8 meas_digest_valid;
-+	__u8 all_request_redirect;
-+	__u8 bind_p2p;
-+	__u8 lock_msix;
-+	__u8 no_fw_update;
-+	__u16 cache_line_size;
-+	__u64 spdm_algos; /* Bitmask of TSM_SPDM_ALGOS */
-+	__u8 certs_digest[48];
-+	__u8 meas_digest[48];
-+	__u8 interface_report_digest[48];
-+	__u64 intf_report_counter;
-+	struct tdisp_interface_id id;
-+	__u64 tdi_id;
-+} __packed;
-+
-+enum tsm_spdm_algos {
-+	TSM_SPDM_ALGOS_DHE_SECP256R1,
-+	TSM_SPDM_ALGOS_DHE_SECP384R1,
-+	TSM_SPDM_ALGOS_AEAD_AES_128_GCM,
-+	TSM_SPDM_ALGOS_AEAD_AES_256_GCM,
-+	TSM_SPDM_ALGOS_ASYM_TPM_ALG_RSASSA_3072,
-+	TSM_SPDM_ALGOS_ASYM_TPM_ALG_ECDSA_ECC_NIST_P256,
-+	TSM_SPDM_ALGOS_ASYM_TPM_ALG_ECDSA_ECC_NIST_P384,
-+	TSM_SPDM_ALGOS_HASH_TPM_ALG_SHA_256,
-+	TSM_SPDM_ALGOS_HASH_TPM_ALG_SHA_384,
-+	TSM_SPDM_ALGOS_KEY_SCHED_SPDM_KEY_SCHEDULE,
-+};
-+
- #endif /*__PCI_TSM_H */
++err_release_regions:
++	amd_smn_release_config_regions(NULL, num_roots);
++	return ret;
+ }
+ 
+ fs_initcall(amd_smn_init);
 -- 
-2.55.0
+2.53.0
 
