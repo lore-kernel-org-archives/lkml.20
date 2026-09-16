@@ -1,121 +1,84 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195544DD3C3;
-	Wed, 16 Sep 2026 22:56:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497124A2627;
+	Wed, 16 Sep 2026 22:57:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789599396; cv=none; b=EGDbZBJIvKLBK/N9EIVPJ2c1WSD2ZUaEJF2NoTqDA+EPlV9sCERcUZFrVeh1gsAZE6HoNz8YYbt8Xiw5tAq5x3+2w+yPM/PUku7kuDMcW+0xa9Ypxxhz/srLkCMTON4l5INUsPDrT/PpqhMkSwkrvjjtquPyUHHpOVzTyM3bjKI=
+	t=1789599433; cv=none; b=gA5/m+ORHjnggiGiO2ml1wDAnHWodguT5bxeZnOuLfHZ8/CR3LYBWB6FYFF6KJeRfh3ItGQkRAs0nMSuMg6zMe4wDdGodeDzRUj97NlP6TQGw/lz9rIx8g3cskL1xe1Y0wtooGsfiSDkNBE+D6vbiBNcBt1y7q5k2ukFINXka9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789599396; c=relaxed/simple;
-	bh=V0NQklz0omQ5jV3PYnbiIn6Ld5ins4DVKEUP/BM2g9w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LAWsUmFjFm7BCwxUlolrJAuPdthoKTXtIxhEC5qVL8YLBvWEuDLEFsvwkPcRnB68GrOB4Rf/HIsL7vulMJ1w+fmhzB8LPVvl5WHkOauON5WxzWSELHWxlH4pwoZ/RDAYyYAFY0K/r/EpCh+alD0RGT56bIRrz3M91Bw5jyZMHvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=FUyhPnMq; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789599433; c=relaxed/simple;
+	bh=py8ooCkYDKzECb646Je5yuc6IenL4VGdBpDSx+JTSVY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aehmvCD0omGkQVg/9YpDqg8UO6D/bHEn/PPFs+HkzNehXG4BwCqlhoHe3GBFZ6h7GmkAiM+/HtmhR5tjXyUimnrCsSvr5HVcYiQGRtmT1iMt1iy+cr02OQZM4Nzz0CqrFOiLY1Dva6hxcMGgTG/2foBojcXJmeXj5OoktKG4+qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lqU3VIbt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="FUyhPnMq"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hlZ4n2HC0zMlH7;
-	Thu, 17 Sep 2026 00:56:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789599385;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lb8kwLTKxKN8K2hUoS9WKnJYBE3Zo1Cn++dhZJIItfA=;
-	b=FUyhPnMqjHAZCuK2Lp6InntldDu3b7UWDt8u2iDLn+MZIfuhKbB3KLBBs2MXvSlAQwPA1v
-	NG5z7h3/960urC0iSla6IR9AvkdqJjDUV+1xtlAYMs+JOedNFH412FY9kAOEY8029Bj3nT
-	en9ac8bZrscfXjuWlCpSmBO76xUV9xzVTeEaPCAtYtbVGZc0zPe5/4ugSNlk8bV9eo6+HX
-	HUe4Bgsw3LrS1bcDSRuv7CrGb4Qdl+OcSSb6JxrlRcovvJ1plXA0tuPURU+0kCYqufPq4I
-	u6aneKg4q/IXClAZpYgGrZ2l0b5d4g9PxghKk/sVDRs8pdhBPYSSzx7H7oWKKw==
-Message-ID: <736ff398-98fa-43bc-9771-1b0d4c2a591c@mailbox.org>
-Date: Thu, 17 Sep 2026 00:56:20 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lqU3VIbt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9616B1F000FF;
+	Wed, 16 Sep 2026 22:57:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789599425;
+	bh=PG1Cc4kb4r1rV5EvtqYvbUVOtRkSG7c5OffR+4dVeCw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lqU3VIbt+cRsZC9jV7X5yvTiWVUbaHe5Q8zHEfEk2/gP6uZZ4UD38uXgZEaNF9MCg
+	 3QSYMnXau4Zyq1BDg6ZVshGgEohec1lHGZcIGi8vEUR4rzCR6WYly5IpFcy+VAs94+
+	 6J+8MJG1FpiFyUx7A+P6ehXZJpsI2lk5hAqDK4+R22uOEoGxWw5vQKGnFF1t9TbT/+
+	 r2ljaGBHO/serEedW2vzx7HhQDwZthrq0Np+jRJJEVJ4rcRSUBrP8tLluNvkkvHvBI
+	 uDyuYf0bfaqTrMDNqdmvpfQ4fyCXyu/JjfSUT2tKhw93uxuGrmfaq3WFIInKCX8Jpj
+	 jJ26h2dbV8J7w==
+Date: Wed, 16 Sep 2026 15:57:00 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Theodore Ts'o <tytso@mit.edu>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH] random: vDSO: Avoid call to memset() when zeroing
+ reserved in __cvdso_getrandom_data()
+Message-ID: <20260916225700.GA4107307@ax162>
+References: <20260916-vdso-getrandom-avoid-memset-llvm-24-v1-1-80a92f2e225a@kernel.org>
+ <CAKwvOdmnfkra0N34v5w8qh+8bb4X5AxLTtOULu46S8q9KCvzMQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH] PCI: keystone: deinitialize endpoint on remove
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Siddharth Vadapalli
- <s-vadapalli@ti.com>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Yuho Choi <dbgh9129@gmail.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, Koichiro Den <den@valinux.co.jp>
-Cc: stable@vger.kernel.org
-References: <20260916080030.2960608-1-lgs201920130244@gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260916080030.2960608-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: qpazee37gqahxxutcsoy1h6otot3w84h
-X-MBO-RS-ID: b0302441a57e2d295c3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKwvOdmnfkra0N34v5w8qh+8bb4X5AxLTtOULu46S8q9KCvzMQ@mail.gmail.com>
 
-On 9/16/26 10:00 AM, Guangshuo Li wrote:
-> ks_pcie_probe() initializes the DesignWare PCIe endpoint with
-> dw_pcie_ep_init(). The probe failure path calls dw_pcie_ep_deinit()
-> when endpoint register initialization fails, but the remove path does
-> not perform the corresponding endpoint teardown after a successful
-> probe.
-> 
-> The successful endpoint initialization also calls pci_epc_init_notify().
-> Without the matching teardown on removal, the EPC initialization state
-> and resources allocated by the DesignWare endpoint core are left
-> active after the driver is removed.
-> 
-> Notify the endpoint framework about deinitialization and call
-> dw_pcie_ep_deinit() before disabling runtime PM and the PHYs.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 23284ad677a9 ("PCI: keystone: Add support for PCIe EP in AM654x Platforms")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->   drivers/pci/controller/dwc/pci-keystone.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/pci/controller/dwc/pci-keystone.c b/drivers/pci/controller/dwc/pci-keystone.c
-> index 602516239a57..35787e727c5c 100644
-> --- a/drivers/pci/controller/dwc/pci-keystone.c
-> +++ b/drivers/pci/controller/dwc/pci-keystone.c
-> @@ -1349,9 +1349,17 @@ static void ks_pcie_remove(struct platform_device *pdev)
->   {
->   	struct keystone_pcie *ks_pcie = platform_get_drvdata(pdev);
->   	struct device_link **link = ks_pcie->link;
-> +	struct dw_pcie *pci = ks_pcie->pci;
-> +	const struct ks_pcie_of_data *data;
->   	int num_lanes = ks_pcie->num_lanes;
->   	struct device *dev = &pdev->dev;
->   
-> +	data = of_device_get_match_data(dev);
+On Wed, Sep 16, 2026 at 03:08:38PM -0700, Nick Desaulniers wrote:
+> Link: https://github.com/ClangBuiltLinux/linux/issues/2183
 
-Could you maybe cache the mode in struct keystone_pcie {} instead ?
+Whoops :/ thanks for including this
 
-> +	if (data->mode == DW_PCIE_EP_TYPE) {
-> +		pci_epc_deinit_notify(pci->ep.epc);
-> +		dw_pcie_ep_deinit(&pci->ep);
+> Do we need to tag stable (I imagine this might be visible for older
+> kernels with newer llvm)?
 
-Would it make sense to make dw_pcie_ep_deinit() call 
-pci_epc_deinit_notify() , to avoid duplication in controller drivers ?
+Yeah, we probably do, as I expect this error to happen with 6.16+ due to
+commit ee0d03053e70 ("RISC-V: vDSO: Wire up getrandom() vDSO
+implementation").
 
-> +	}
-> +
->   	pm_runtime_put(dev);
->   	pm_runtime_disable(dev);
->   	ks_pcie_disable_phy(ks_pcie);
+I will include those in v2 once the maintainers have had some time to
+chime in to make sure this approach is okay.
+
+> Any idea why we only see this for riscv?  Would think loop idiom
+> recognition would make this transform for any target.
+
+I have not confirmed this but based on looking at the aarch64
+disassembly when deciding how to tackle this, I suspect some backends
+can expand certain calls to memset() to a set of instructions, as I saw
+a set of stp calls with xzr as the source and offsets into params as the
+dest.
+
+> Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+
+Thanks for taking a look!
 
 -- 
-Best regards,
-Marek Vasut
+Cheers,
+Nathan
