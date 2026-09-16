@@ -1,140 +1,199 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3CF1F4DA535;
-	Wed, 16 Sep 2026 10:52:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A7E4DD6E6;
+	Wed, 16 Sep 2026 10:52:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555987; cv=none; b=EE4yAF5aQyn6IcTBKp2vKE5cwNg5AxcdYBTo0WKsBXWgZbNVUF/5G3ml3ca5GOrO/pS5dYZMkC5LIC5waNu6WrV8uxYF9EWtAc1xV1i8WRqkmYlJyea/qomav6xfwrx0ZlopOLum+wPpPPj2OvetYqR+OGuZVt70uAL3aP71NSI=
+	t=1789555986; cv=none; b=U8fFtHLKN5xtATnctef82kcL9LLybtHnos8UQo1Pa+H61ysHuF9FequqMh32YmaQIRRmfjeVEV1XiMfqG5X324VSQedy5uYmnU9/P10zNZ/KTsjimdUsc3Brr2yYINnoKJHBft6oUmr2V8MiiabzU9hexUew/ghrlfVfG62GVH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555987; c=relaxed/simple;
-	bh=RhduKqcItE584Gog2HHjq9v4nZ1t5cRd+2u1AHvp/Pk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rKozzlqqHXwjVwzrgvZG7bzLAT6Qg3178HVeMzFUzmPxznXgho6U9rkIHrFXxN+VqONwtrNn4RZQ+7ygyZNkbU4FIZsTvbCHNaYFStxWUxIcZ+EOESCJQzbGXpWprhm7nO8CECOCS1Svb15BTY3dymTlJGod7uB9vvNNFwtKf6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=k+QPQZ+7; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789555986; c=relaxed/simple;
+	bh=EN05muyPZl8y29HxwBtv8bidEfTX/3yJQ6HpTJ1E8DA=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=hALecJXlONrlCSZdwGeUj1dkXT4mVyu/AtH+4w5u40RnHJnFlRJRzW2eBS9Hgs1e710V3o+F3tF6mjiEoqTLYQ+OzuIlh34NRflgGzEmThHiL5WP2bgTGLKb+cLlxA3z5JT/uJmE35heJsSyrPuuH438eHtjdyOd8A0begtqxGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ElUYzeNC; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="k+QPQZ+7"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 21DB1152B;
-	Wed, 16 Sep 2026 03:52:34 -0700 (PDT)
-Received: from [192.168.178.100] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 862EB3F882;
-	Wed, 16 Sep 2026 03:52:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789555957; bh=RhduKqcItE584Gog2HHjq9v4nZ1t5cRd+2u1AHvp/Pk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=k+QPQZ+7lFhCUxzwB5qWc/aVin1L+Ty0HMKoeDTdKQNkahM0tK+cYSMFOw9EPXdAo
-	 tX5VERC5gj1tGwCTKOJI9xmdx7BHPsNI6W1G5AhCwLINtZMxU0+AaaM9dXBVOgrIGo
-	 o1IbXWjEdyKMbcLMH+LPLmm7NStwCDN4mFkR0t0o=
-Message-ID: <55538466-2203-42ec-a0bd-b743c04a3b38@arm.com>
-Date: Wed, 16 Sep 2026 12:52:33 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ElUYzeNC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789555968; x=1821091968;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=EN05muyPZl8y29HxwBtv8bidEfTX/3yJQ6HpTJ1E8DA=;
+  b=ElUYzeNClCD+wucrustsmAAq5uRrOQ07B0q1/Lpv//384V+DtLuwefHZ
+   +9ZUbGNoew94SrFWV/c2H3ys01bURoXuz2OIeRQdcKbmm+8RWNABrEWTx
+   KCZwg5Dy/PIzLlw0BjJe0ZcZMTz2LZUSu4hE/RV9jWas5+23zZid7hDk7
+   uh8pPVR5XmXz22knRaz/j477+SqK8hTfTF9yxGu4YiS+jC+BxhId148MB
+   fUHMWR1iTxlOjmzfwpZhm04Usou3aVn7vZGRETHr/212pXX6si2rSdpFp
+   onMW3StPv/EE0fyV8gnzJPDEp91jLeXpUfQ97eZagRHysqy1Xn0hcKGaq
+   Q==;
+X-CSE-ConnectionGUID: cxXpkaqLTcy4KmaTMNQaSw==
+X-CSE-MsgGUID: wJfpAQkHTySwBg1RmOQusA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112697298"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="112697298"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:52:43 -0700
+X-CSE-ConnectionGUID: E5PJOV+5Q6WHtApWQzFhXA==
+X-CSE-MsgGUID: QapwwthKR8WlVtveO89Vsg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="273274106"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.187])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:52:38 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 16 Sep 2026 13:52:34 +0300 (EEST)
+To: Moteen Shah <m-shah@ti.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, krzk+dt@kernel.org, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, Jiri Slaby <jirislaby@kernel.org>, 
+    devicetree@vger.kernel.org, u-kumar1@ti.com, gehariprasath@ti.com, 
+    vigneshr@ti.com, nm@ti.com, a-limaye@ti.com, y-abhilashchandra@ti.com
+Subject: Re: [PATCH v2 2/2] serial: 8250_dw: Add capability to skip empty
+ FIFO read
+In-Reply-To: <20260916085520.2259420-3-m-shah@ti.com>
+Message-ID: <5fe0efdf-6d61-dba4-9703-269dfd68ae13@linux.intel.com>
+References: <20260916085520.2259420-1-m-shah@ti.com> <20260916085520.2259420-3-m-shah@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] arm64: topology: fix arch_freq_get_on_cpu()
- overflow above 4.19 GHz
-To: Oleg Keri <okerixx@gmail.com>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Sumit Gupta <sumitg@nvidia.com>,
- Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- Beata Michalska <beata.michalska@arm.com>,
- Russell King <linux@armlinux.org.uk>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Sudeep Holla <sudeep.holla@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, driver-core@lists.linux.dev,
- linux-pm@vger.kernel.org, jonathan.cameron@oss.qualcomm.com,
- sibi.sankar@oss.qualcomm.com
-References: <20260910063440.4677-1-okerixx@gmail.com>
- <20260910063440.4677-2-okerixx@gmail.com>
-Content-Language: en-GB
-From: Dietmar Eggemann <dietmar.eggemann@arm.com>
-In-Reply-To: <20260910063440.4677-2-okerixx@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 10.09.26 08:34, Oleg Keri wrote:
+On Wed, 16 Sep 2026, Moteen Shah wrote:
 
-[...]
+> dw8250_handle_irq() does a bogus RX read on RX_TIMEOUT with no data
+> present, to avoid an interrupt storm. The UART core also performs
+> unconditional reads on the empty FIFO during startup and shutdown
+> of the port. On the IP version used in TDA54, that interrupt storm
+> no longer occurs, but reading an empty FIFO instead triggers a data
+> abort.
+> 
+> Add a new capability to guard against the empty FIFO reads, avoiding
+> the data aborts.
+> 
+> Signed-off-by: Moteen Shah <m-shah@ti.com>
+> ---
+>  drivers/tty/serial/8250/8250.h      |  1 +
+>  drivers/tty/serial/8250/8250_dw.c   | 16 +++++++++++++++-
+>  drivers/tty/serial/8250/8250_port.c | 12 +++++++++---
+>  3 files changed, 25 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
+> index 77fe0588fd6b..45e13c3a8c14 100644
+> --- a/drivers/tty/serial/8250/8250.h
+> +++ b/drivers/tty/serial/8250/8250.h
+> @@ -86,6 +86,7 @@ struct serial8250_config {
+>  					 * STOP PARITY EPAR SPAR WLEN5 WLEN6
+>  					 */
+>  #define UART_CAP_NOTEMT	BIT(18)	/* UART without interrupt on TEMT available */
+> +#define UART_CAP_RXFIFO_EMPTY_READ	BIT(19) /* UART needs LSR_DR check before RX read (TDA54) */
 
-> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-> index d28438f8b83f..0eca321ff113 100644
-> --- a/arch/arm64/kernel/topology.c
-> +++ b/arch/arm64/kernel/topology.c
-> @@ -245,8 +245,7 @@ int arch_freq_get_on_cpu(int cpu)
->  	 * (see amu_scale_freq_tick for details)
+IMO, this define naming contradicts with the comment because you 
+effectively say "capable of reading Rx while receive buffer is empty", not 
+that it needs DR check before issuing that read on buffer (~ named exactly 
+opposite of the actual meaning it is being used in the code).
+
+>  
+>  #define UART_BUG_QUOT	BIT(0)	/* UART has buggy quot LSB */
+>  #define UART_BUG_TXEN	BIT(1)	/* UART has buggy TX IIR status */
+> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+> index 5fba913f3301..325b620172a7 100644
+> --- a/drivers/tty/serial/8250/8250_dw.c
+> +++ b/drivers/tty/serial/8250/8250_dw.c
+> @@ -28,6 +28,7 @@
+>  
+>  #include <linux/serial_8250.h>
+>  #include <linux/serial_reg.h>
+> +#include <linux/of.h>
+>  
+>  #include "8250_dwlib.h"
+>  
+> @@ -436,7 +437,7 @@ static int dw8250_handle_irq(struct uart_port *p)
+>  	 * This problem has only been observed so far when not in DMA mode
+>  	 * so we limit the workaround only to non-DMA mode.
 >  	 */
->  	scale = arch_scale_freq_capacity(cpu);
-> -	freq = scale * arch_scale_freq_ref(cpu);
-> -	freq >>= SCHED_CAPACITY_SHIFT;
-> +	freq = (scale * arch_scale_freq_ref(cpu)) >> SCHED_CAPACITY_SHIFT;
->  	return freq;
+> -	if (!up->dma && rx_timeout) {
+> +	if (!(up->capabilities & UART_CAP_RXFIFO_EMPTY_READ) && !up->dma && rx_timeout) {
+>  		status = serial_lsr_in(up);
+>  
+>  		if (!(status & (UART_LSR_DR | UART_LSR_BI)))
+> @@ -758,6 +759,14 @@ static int dw8250_probe(struct platform_device *pdev)
+>  
+>  	if (!data->skip_autocfg)
+>  		dw8250_setup_port(p);
+> +	/*
+> +	 * On this IP, reading UART_RX while the FIFO is empty raises a data
+> +	 * abort. serial8250_clear_interrupts() and serial8250_do_shutdown()
+> +	 * in the 8250 core unconditionally read UART_RX, so guard those
+> +	 * reads with an LSR_DR check.
+> +	 */
+> +	if (of_device_is_compatible(pdev->dev.of_node, "ti,tda54-uart"))
+> +		up->capabilities |= UART_CAP_RXFIFO_EMPTY_READ;
+
+Wouldn't it be better that the extra caps would come from .data?
+
+>  	/* If we have a valid fifosize, try hooking up DMA */
+>  	if (p->fifosize) {
+> @@ -888,6 +897,10 @@ static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
+>  	.quirks = DW_UART_QUIRK_CPR_VALUE,
+>  };
+>  
+> +static const struct dw8250_platform_data dw8250_tda54_data = {
+> +	.usr_reg = DW_UART_USR,
+> +};
+> +
+>  static const struct of_device_id dw8250_of_match[] = {
+>  	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
+>  	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+> @@ -895,6 +908,7 @@ static const struct of_device_id dw8250_of_match[] = {
+>  	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
+>  	{ .compatible = "sophgo,sg2044-uart", .data = &dw8250_skip_set_rate_data },
+>  	{ .compatible = "starfive,jh7100-uart", .data = &dw8250_skip_set_rate_data },
+> +	{ .compatible = "ti,tda54-uart", .data = &dw8250_tda54_data },
+>  	{ .compatible = "ultrarisc,dp1000-uart", .data = &dw8250_ultrarisc_dp1000_data },
+>  	{ /* Sentinel */ }
+>  };
+> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+> index e94a0802cbdd..4435df88a1b1 100644
+> --- a/drivers/tty/serial/8250/8250_port.c
+> +++ b/drivers/tty/serial/8250/8250_port.c
+> @@ -704,8 +704,13 @@ static void serial8250_set_sleep(struct uart_8250_port *p, int sleep)
+>  /* Clear the interrupt registers. */
+>  static void serial8250_clear_interrupts(struct uart_port *port)
+>  {
+> -	serial_port_in(port, UART_LSR);
+> -	serial_port_in(port, UART_RX);
+> +	struct uart_8250_port *up = up_to_u8250p(port);
+> +	unsigned int lsr;
+> +
+> +	lsr = serial_port_in(port, UART_LSR);
+> +	if (!(up->capabilities & UART_CAP_RXFIFO_EMPTY_READ) || (lsr & UART_LSR_DR))
+
+Is the logic correct way around? Ah, it's actually naming issue with the 
+define (see above).
+
+> +		serial_port_in(port, UART_RX);
+> +
+>  	serial_port_in(port, UART_IIR);
+>  	serial_port_in(port, UART_MSR);
 >  }
+> @@ -2421,7 +2426,8 @@ void serial8250_do_shutdown(struct uart_port *port)
+>  	 * Read data port to reset things, and then unlink from
+>  	 * the IRQ chain.
+>  	 */
+> -	serial_port_in(port, UART_RX);
+> +	if (!(up->capabilities & UART_CAP_RXFIFO_EMPTY_READ) || (serial_lsr_in(up) & UART_LSR_DR))
+> +		serial_port_in(port, UART_RX);
+>  	/*
+>  	 * LCR writes on DW UART can trigger late (unmaskable) IRQs.
+>  	 * Handle them before releasing the handler.
+> 
 
-In task scheduler code we use cap_scale(v, s) for CPU capacity related
-scaling.
-
-We could move its definition from private task scheduler include file
-kernel/sched/sched.h to include/linux/topology.h to be able to use it
-also outside the task scheduler?
-
-Only compile tested on arm64 and x86.
-
--->8--
-
-diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-index 0eca321ff113..180a7aa97752 100644
---- a/arch/arm64/kernel/topology.c
-+++ b/arch/arm64/kernel/topology.c
-@@ -186,7 +186,6 @@ int arch_freq_get_on_cpu(int cpu)
-      struct amu_cntr_sample *amu_sample;
-      unsigned int start_cpu = cpu;
-      unsigned long last_update;
--     unsigned int freq = 0;
-      u64 scale;
-
-      if (!amu_fie_cpu_supported(cpu) || !arch_scale_freq_ref(cpu))
-@@ -245,8 +244,7 @@ int arch_freq_get_on_cpu(int cpu)
-      * (see amu_scale_freq_tick for details)
-      */
-      scale = arch_scale_freq_capacity(cpu);
--     freq = (scale * arch_scale_freq_ref(cpu)) >> SCHED_CAPACITY_SHIFT;
--     return freq;
-+     return cap_scale(arch_scale_freq_ref(cpu), scale);
- }
-
- static void amu_fie_setup(const struct cpumask *cpus)
-diff --git a/include/linux/topology.h b/include/linux/topology.h
-index 709a2dcf4c73..0a4ee12a98d5 100644
---- a/include/linux/topology.h
-+++ b/include/linux/topology.h
-@@ -351,4 +351,6 @@ static inline unsigned long
-topology_get_cpu_scale(int cpu)
-
- void topology_set_cpu_scale(unsigned int cpu, unsigned long capacity);
-
-+#define cap_scale(v, s)               ((v)*(s) >> SCHED_CAPACITY_SHIFT)
-+
- #endif /* _LINUX_TOPOLOGY_H */
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6c3ad70e58b8..45796fccdc84 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -236,8 +236,6 @@ static inline int task_has_dl_policy(struct
-task_struct *p)
-        return dl_policy(p->policy);
- }
-
--#define cap_scale(v, s)               ((v)*(s) >> SCHED_CAPACITY_SHIFT)
--
- static inline void update_avg(u64 *avg, u64 sample)
- {
-        s64 diff = sample - *avg;
+-- 
+ i.
 
