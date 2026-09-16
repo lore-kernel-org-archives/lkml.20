@@ -1,90 +1,83 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8304F3B14C0;
-	Wed, 16 Sep 2026 17:16:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE6A360745
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:17:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579006; cv=none; b=NRwndYjBf/hZ241agdX3wkNbILW/bRpB2QgvtK6uEv+WAaW08/8wwjajS3NbPLN5HuYtJ8RQwi1ez196y0sa9KIuXh1KONWOFKLMtvYAFkftbV7YigsHM42WJYNxjKJLeY6iJ2XoiEj9usOKfEz8zm5sue3E+Oxae2JVU1PyOEA=
+	t=1789579060; cv=none; b=A2Y6auNIfHTJNvzbq5hfY50eEMeVX3r5AL2wH+4N7Gm+OWd9JttlDnFLkuTdT/GaccjlqVnlEeXVPPt/g7HRgB7E4X0eTrPbH2vFlk7mqx7THT+drWj18WxERMW/TbHuFJYNzqMTqm04kp/KOHZFfC9Dn3eHGjOhqzKISSJAMkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579006; c=relaxed/simple;
-	bh=dZ2NlflOAKixetBziPerlIM/rAPQCPji6P3Tum8iW9g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lGZ3eE1WO1NBKzpx+ajRjaL85pwWs+ymRl14Yb30xsIXghwKf42bZrJ8s3RzvawuVlH+uLHLL9jPIDm67tNSSiJ9GDdDRwds/XgtRyxfj85gFiqCdoCvsLsroAHtiYL0argzqheSG4R5SwnUyPWrshm0fQcrEBTd+Vj0HR4D41M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABXwz32zqpqVnFuCA--.23275S2;
-	Thu, 17 Sep 2026 01:16:38 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: clm@fb.com
-Cc: dsterba@suse.com,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	list.btrfs@jan-o-sch.net,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] btrfs: Fix local_root reference leak in scrub_print_warning_inode()
-Date: Wed, 16 Sep 2026 17:16:10 +0000
-Message-Id: <20260916171610.2086918-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789579060; c=relaxed/simple;
+	bh=f+Lf6ZoxPvjRg281Rf6Ji6QGaQvezrbwHJsXrETsPp0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qP0LzaYYEKOADae8BciLOEdv/2HJLTi26eP+zpkgD0ty6jWnDcN/6WamsidYN3IL0cSAc+FaliGE5g7Zw5jXcb6KLwyEiC5u2OHRGfjpe+k3EcNj42PB12u+OA4Aordu4tRn9XqXJ+yuyCJ3z8FISZ7zX2CqFzSW2GMUQmswTU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCu3gRzK; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCu3gRzK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04ACA1F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:17:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789579059;
+	bh=/xHXJhnXAE5g7vU5PogSY0vNjsvxNtdc1LTOWODzVNs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PCu3gRzKlPDcTasRgWOZU9mKi2dhCGrd3CsZ8wt8B9R/NTtWPonLReVBPYL2Fnadr
+	 aZy9jPuFwG2rE42xiIuF7E0dHVi1tsw/cN7ede6PyYhagnKaDso6JOIQgiuosbRrzx
+	 uLhMLZCo4Lf23+JQx22/Q4xEVr/keqwbZDf+o3kdSpJcVKeII36v2bqhKt11xAZId0
+	 KyGCNcTCFHHmbUeKJAU2Ad6ObVDnx1+SpSNwXWOhj+inqhlo70uCvTluOwoUmmVGsl
+	 RKgnMTJ6bsmjkMVZ94HItdMM8inxrMQ6KnzUYHhp47bP+lQB23V86ng59pzp+SVSfX
+	 5SSw4j/hM99yw==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f13d7aso1652735e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:17:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwi6hHV8AbBjLu/P0EBkYKX0M5Z0RwRos8bVR9meIDkHWZRay0b3UKZ6MxA+nczi+RD0b7+MPDPVeStE9c=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4zAy6L7pTthO0GM3SBYb9cQq1Tj5/8ms+IzTmKtI4Y2DB2HA9
+	vdQb26HC1Pl+2lDycj6AKmrcag4cyEKDPWrwI4eLOzGdWC1EImSiTQy+oZYxYbaVM3cWROCPtXq
+	J6e+ObZ6NyCT9n9lUbPnIhSjeArVWwwE=
+X-Received: by 2002:a05:6512:33c6:b0:5b4:ac1b:89bc with SMTP id
+ 2adb3069b0e04-5b8b6619f44mr1034081e87.24.1789579057719; Wed, 16 Sep 2026
+ 10:17:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABXwz32zqpqVnFuCA--.23275S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrurWkGFy8Aw48XF43KFyUJrb_yoWDurgEkF
-	y8ArWqqw47Zwn29r42y3sxGrZaqa1q9FyIq3y8KF13KFWUtrn8AF97twsxJrn7W3yUXF9r
-	Gas7Xr43Aw17GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbxkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj
-	ZNVPUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozVkqQABsP
+References: <20260912221937.71403-1-rosenp@gmail.com>
+In-Reply-To: <20260912221937.71403-1-rosenp@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 19:17:24 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=n6jV-n+x1x_GUm3RohdbfmdfhTrWj9rz5HL41-vjz-g@mail.gmail.com>
+X-Gm-Features: AcwNN1WBxldUn8CW9skNsvXHFR1xVkVV9jESkCKvczcNPvemm0T94MYp4QiaaGo
+Message-ID: <CAD++jL=n6jV-n+x1x_GUm3RohdbfmdfhTrWj9rz5HL41-vjz-g@mail.gmail.com>
+Subject: Re: [PATCH] gpio: mvebu: keep resume masks within the irqchip cache
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When paths_from_inode() fails, scrub_print_warning_inode() jumps to
-err without dropping the reference taken by btrfs_get_fs_root(),
-leaking a reference to the root every time path resolution fails while
-printing scrub warnings.  Every other error and success path of the
-function drops the reference.
+On Sun, Sep 13, 2026 at 12:19=E2=80=AFAM Rosen Penev <rosenp@gmail.com> wro=
+te:
 
-Drop the reference on the paths_from_inode() failure path too.
+> mvebu_gpio_resume() writes the edge/level mask registers saved at
+> suspend time straight back to hardware, bypassing the irqchip's
+> mask_cache_priv.  genirq skips mask_irq() for a line it already
+> considers masked, so restoring a bit in hardware that genirq thinks
+> is still masked leaves that line unmasked behind genirq's back.  An
+> asserted level line then has nobody to ack it, and the moment
+> interrupts are re-enabled the chained handler storms, hanging resume.
+>
+> AND the restored mask values with the matching irqchip mask cache so
+> only lines genirq currently considers unmasked are unmasked again.
+> Read the caches under gc->lock to keep them consistent with the
+> mask/unmask handlers.
+>
+> Tested on Helios4 5 suspend cycles woken by magic packet, no hang;
+> mvebu_gpio_resume() returns in 6 usecs.
+>
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 
-Fixes: 558540c17771 ("btrfs scrub: print paths of corrupted files")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- fs/btrfs/scrub.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-diff --git a/fs/btrfs/scrub.c b/fs/btrfs/scrub.c
-index 1ac609239cbe..570828ec780b 100644
---- a/fs/btrfs/scrub.c
-+++ b/fs/btrfs/scrub.c
-@@ -549,8 +549,10 @@ static int scrub_print_warning_inode(u64 inum, u64 offset, u64 num_bytes,
- 	}
- 	ret = paths_from_inode(inum, ipath);
- 
--	if (ret < 0)
-+	if (ret < 0) {
-+		btrfs_put_root(local_root);
- 		goto err;
-+	}
- 
- 	/*
- 	 * we deliberately ignore the bit ipath might have been too small to
--- 
-2.34.1
-
+Yours,
+Linus Walleij
