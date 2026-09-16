@@ -1,72 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39ED8287E;
-	Wed, 16 Sep 2026 02:40:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BAA3A875A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:40:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789526444; cv=none; b=aVVXVwgUZjLS9WDqGrlwLinS/3qQBh6qHHdjCvGbiOLiANRiRBApvZ1bU7NL0ufTsKCK6DO7u62ONdZuvmbXQ6MnW0npYA/jeEOBhFD3Ng3p26hetLGfuVIn7Bn0h4vmweaCQ1K0IwuYIx6RDDCRgNPTxq9N50x6HDLSzOcgGdY=
+	t=1789526458; cv=none; b=a1hp18uifDTwbTaREjZmnjZSGopW7m1oFQs0JsxSLtXe/4lyzRmmMkDC4eqBxnUdQtkc5R9ftvXVa0QPUBREsR5cMK6UWF9gdEbDl/WpJb9vw6WAqvOwstoS3iNiTqkoGd+NJJRhAj4HLh+JYAHnuUssGlnvmwCCgRQ5CGZlf44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789526444; c=relaxed/simple;
-	bh=CzpJotlXGbUgYWGTDvWoZnOLDxvSFAjUQOBRP8RgLzM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kA/G1G2pJWpZBiDbVBT/oK+G/lJNhaVfyp0KftnRygtuRXBW6ptPZaByQBCdtlTAlm84YHw2zVOKwD14ouTkdJTbGNRLRkq149+1RQKn0gZSx9WApjLJlhQ94fyayS5knWJmZP+y/QB7gLsy6V7THjYz1ElBQlvBrwfh+CqQBIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nkNMqNHL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789526458; c=relaxed/simple;
+	bh=lR8+LHQ9mxcV1HVWv86R39nXKUiGS53kBau0NLUlA4U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=VgZtWyJXE2JIRnwDJ5tlZH1GfV6WW61bcnkrEClFDUNEwsAbh5bJWzJEySOeLaGdU79twvWZUIOWeB28w+r3v1YI9gvhOujU5z2OCRBcgRweQQCOK3RmqnuwiUwSzbIgM22lenElF0mtgGvshrshLr2OSvdSwp3uMx73uiuy5gA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=YzkwZQpG; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nkNMqNHL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA521F000FF;
-	Wed, 16 Sep 2026 02:40:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789526440;
-	bh=0rEKOzg+vSg0ZBlgxzOkjCWSeaE4jz6DX+ZJtW3dWTw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nkNMqNHLJpBmV22YNi8g56DLim4WkefnMlMoAkSTGgPXb9p/o0Amnnf/hnpiAQnLo
-	 kw2rLSt5RAGSQcSZsZT8DqSrePw8yqsGqz8fDYn8poI2b2fN46oFsBsDbD0iDQkopw
-	 abkXpF96UIffSPlMrxV+Kbx4ZqylonLCZHsxA+0T9Xu84ngcnJgSK7/xMkyW8FX9Tm
-	 njZ6ioaCjrXg4+hGBk7u/HFqHMcxfhAEtxmRJ5RWMcCQBP6WGwI07yf4oiixLahwj5
-	 FhAdgmGO8UUvDoRFWlmbas3/mYWaxFpPXoaWuZ1vagIC6ol4V4EHPtTc8HdA4BvL1X
-	 zSrIwLaSuzf0A==
-Date: Wed, 16 Sep 2026 03:40:38 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Richard Cheng <icheng@nvidia.com>
-Cc: dave@stgolabs.net, dave.jiang@intel.com, alison.schofield@intel.com,
- vishal.l.verma@intel.com, iweiny@kernel.org, ming.li@zohomail.com,
- gourry@gourry.net, rrichter@amd.com, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org, kees@kernel.org, newtonl@nvidia.com,
- kristinc@nvidia.com, kaihengf@nvidia.com, kobak@nvidia.com
-Subject: Re: [PATCH v7 5/7] cxl/memdev: Don't overwrite the error from an
- earlier partition poison query
-Message-ID: <20260916034038.3a7e65d1@jic23-hlaptop>
-In-Reply-To: <20260902053839.25595-6-icheng@nvidia.com>
-References: <20260902053839.25595-1-icheng@nvidia.com>
-	<20260902053839.25595-6-icheng@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="YzkwZQpG"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=c+G1FOCWXLkN8j6Q3OlM8pkV0Orx9iwVxUAFrdbXSd0=;
+	b=YzkwZQpG+WmuZg4XY5M+XCWgYMeFChbTmiZMkMJLHm7vRW4PV8dFYquLglRjfYk0I3YF0KOgB
+	D/acBo32iRNFdQwtJNckBgXn8PeHbMXwdb8tJ0WvZd4Zdbgbe5NnlbjWKJDOFqYkjaHlzCOZGFt
+	EcMsFjFb/e+lZy/hS9ENAa4=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hl2rf6BrNz1T4LX;
+	Wed, 16 Sep 2026 10:29:06 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id E4DE440537;
+	Wed, 16 Sep 2026 10:40:47 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 16 Sep 2026 10:40:47 +0800
+Message-ID: <8fffefd6-c109-49ad-8265-e3bd63b629ea@huawei.com>
+Date: Wed, 16 Sep 2026 10:40:46 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/19] arm64: smp: Defer RCU registration during secondary
+ CPU bringup
+To: Will Deacon <will@kernel.org>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, David Woodhouse <dwmw@amazon.co.uk>,
+	Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-10-will@kernel.org>
+ <45c37592-f05d-4b1c-812b-0cb38d1c3e24@huawei.com>
+ <ap_hR1mntzm-TZOP@willie-the-truck>
+ <f01fc59e-5254-484d-adf9-8dd1c2e58d91@huawei.com>
+ <aqFS58mJ4GJNrbZ2@willie-the-truck>
+ <19ba4bb9-e2c4-4956-bd8d-b8f50259a422@huawei.com>
+ <aqP5ofIC8rkmtBtK@willie-the-truck>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <aqP5ofIC8rkmtBtK@willie-the-truck>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Wed,  2 Sep 2026 13:38:37 +0800
-Richard Cheng <icheng@nvidia.com> wrote:
 
-> cxl_get_poison_by_memdev() queries Get Poison List per partition but
-> never checks the result inside the loop, so a later partition's success
-> overwrites an earlier partition's failure and the whole scan reports
-> success while that partition's poison went unlisted. Before the loop
-> conversion the PMEM query returned early on error. Stop the loop on any
-> error not already tolerated as a RAM -EFAULT.
+
+在 2026/9/11 20:52, Will Deacon 写道:
+> On Thu, Sep 10, 2026 at 10:47:58AM +0800, Jinjie Ruan wrote:
+>> 在 2026/9/9 20:36, Will Deacon 写道:
+>>> I was about to say "don't do this" but then I realised two things:
+>>>
+>>> 1. update_siblings_masks() can trigger lockdep splats outside of
+>>>    pr_debug() if RCU isn't up and running, e.g.:
+>>>
+>>>     [    0.524042]  show_stack+0x18/0x24 (C)
+>>>     [    0.524519]  __dump_stack+0x28/0x38
+>>>     [    0.524546]  dump_stack_lvl+0x64/0x84
+>>>     [    0.524562]  dump_stack+0x18/0x24
+>>>     [    0.524576]  lockdep_rcu_suspicious+0x134/0x1cc
+>>>     [    0.524591]  __lock_acquire+0xee8/0x2cb0
+>>>     [    0.524606]  lock_acquire+0x11c/0x2fc
+>>>     [    0.524621]  _raw_spin_lock_irqsave+0x64/0x84
+>>>     [    0.524641]  of_find_property+0x2c/0x8c
+>>>     [    0.524659]  detect_cache_attributes+0x1c0/0x6d0
+>>>     [    0.524676]  update_siblings_masks+0x38/0x288
+>>>     [    0.524692]  store_cpu_topology+0x4c/0x58
+>>>     [    0.524706]  secondary_start_kernel+0xdc/0x1c8
+>>>     [    0.524722]  __secondary_switched+0x120/0x124
+>>>
+>>> 2. This code is running _after_ cpuhp_ap_sync_alive().
+>>>
+>>> So for the next version, I'll reintroduce the call to
+>>> rcutree_report_cpu_starting(), but move it immediately after the call to
+>>> cpuhp_ap_sync_alive(). I think that will solve these issues, without
+>>
+>> pr_crit() and pr_warn() (such as vec_verify_vq_map()) in
+>> check_local_cpu_capabilities() can also trigger lockdep splats as below.
+>>
+>> But I think this is not common on the failure path, so it seems to have
+>> little impact..
 > 
-> Fixes: be5cbd084027 ("cxl: Kill enum cxl_decoder_mode")
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-> Closes: https://sashiko.dev/#/patchset/20260708074228.43654-1-icheng@nvidia.com?part=5
-> Signed-off-by: Richard Cheng <icheng@nvidia.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> I agree that we shouldn't bend the code out-of-shape to squash a debug
+> warning on an error path (ideally, printk would handle this internally),
+> especially as the original message does seem to get printed in the end.
+> 
+>> [    0.158619] smp: Bringing up secondary CPUs ...
+>> [    0.173958] CPU1: missing HWCAP.
+>> [    0.174071]
+>> [    0.174088] =============================
+>> [    0.174099] WARNING: suspicious RCU usage
+>> [    0.174197] 7.3.0-rc2-00020-gef0bd63bdd97-dirty #504 Tainted: G        W
+>> [    0.174217] -----------------------------
+>> [    0.174226] kernel/locking/lockdep.c:3845 RCU-list traversed in
+>> non-reader section!!
+> 
+> However, if this is caused by vec_verify_vq_map(), then how are you getting
+> that to run on the early boot path? check_local_cpu_capabilities() only
 
-Given Alison's comments, lets get this in. Can revist later in the
-world where we all have lots of spare time.
+Sorry, based on the fact that pr_crit() or pr_warn() is printed before
+rcutree_report_cpu_starting() is called, I modified the code to add
+print tests to simulate this situation.
 
-Jonathan
+> calls verify_local_cpu_capabilities() if system_capabilities_finalized().
+> 
+> Or is the backtrace for something else?
+> 
+> Will
+
