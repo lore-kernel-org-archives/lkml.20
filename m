@@ -1,132 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF603B5311;
-	Wed, 16 Sep 2026 21:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E1A484220;
+	Wed, 16 Sep 2026 21:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789593562; cv=none; b=JQIHn0qSyFtkHc5gV1UHj18cI9WGrDlLwO2e1AOGjYimAUVijfw8Tc9JJJzK6SWEEYU9p1fYVj8PPkhWfgAnm1qezdRXhqbVfzQN2rDu7XuOArLdyxMdhPNQ9PaspKBY70FgtE1VrYrYbpVlcEgT/bLhCLi3o3OHvZvOl70kXks=
+	t=1789593564; cv=none; b=Gjo4fqVKeC8DmrLqE2j6TjTwxzzCofgxOcMex8dnYw1y5bujk7g8mT385pqF55UpEOxg9v2qUAOebYFQ2t7/GbEAkUv0b8dDjuLfZjEV0d9yPssjuWtPXS151r3b4DXFgWBntV4SOocrEWJmm+tpWh0kPUlS2yJCL68hXqKfIDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789593562; c=relaxed/simple;
-	bh=ZJj6sOnAWihmjCAI1p9TzUptqhR6jfpsZ0hJnvzvjA4=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WJGTpFfK9ItoEOGQwykN4H+dzthW7doYdwBwLHNr3JFMjO/EatUfZB9xNZqU2fEts0/lpq89UZmRyElGppfUPeOxMTuWdq2555t7Y88bWXLBCBuv+CTnNNHZNeyfqCsHxbrvnBYJ6VJFsHBChTWAlkbVN8d8NGP3UwExbf/LF9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=auPAgx9P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789593564; c=relaxed/simple;
+	bh=zXDJuJB/O0iIaGyq0VHQ35mZi8v73zGNbYzjjTH9Igs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QAT8bccOx+h4DeKqCidtIW8we0N1G5gkHTViRavF72IEVsuoePPsot2XrqPqQJ841i4AK9U1nzwdqwlz8DdAca4RGUgQcifHwEFKEzeyox1hlKv7lGXpTxz7zArFTn0T4bg/iah6oaqS0f9UNZkfx4x8h+bDsmZoQIu3GAA387I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Fph1bYti; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="auPAgx9P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C7711F00893;
-	Wed, 16 Sep 2026 21:19:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789593542;
-	bh=GrE93os0smfRVept2SAd6k9NjBTA7zM10Cs3NirTs20=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=auPAgx9PgTFnpeSp/JBqkRFzaWH9lJJ2wDmVTstmDvlNA6hKESZr3jp+YcySerB8l
-	 rDeCRq8tPkt2FO7SR3EdFg5Tg3Rcypd1Fzg15oljQ2ooe2hLxBxDQc1QwEmK+/C9Z2
-	 r6zpeOTUj/kI6VCoUZAJejUNUp/Y0MDCzpsOT1L05BqSxYQC9j3K426mHJ1LNElSm2
-	 zVSySWfgWeQbl7drn54kNXTV5OrM559Bn0Xf13jMSLjipEpAtZ+kwmQieBhJJ/wUxD
-	 7wuVGO542ayrhEeLpSck/+e7zgRnIBtAJSJwIfNSXOxYAXm9oaejNaQ+dDtz4C4fQL
-	 0m93vLFgf9uyg==
-Message-ID: <3cd8e126a2f214673abfa78fc303b1b1@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
- Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <etsal@meta.com>,
- Cheng-Yang Chou <yphbchou0911@gmail.com>, sched-ext@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] selftests/sched_ext: Add lazy preemption tests
-Date: Wed, 16 Sep 2026 11:03:36 -1000
-In-Reply-To: <20260915194611.2674127-3-arighi@nvidia.com>
-References: <20260915194611.2674127-1-arighi@nvidia.com>
- <20260915194611.2674127-3-arighi@nvidia.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Fph1bYti"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=Mhm0Cqv9nr0dnfojm5BB9FQ3ji0Ip1DTJBZdypnLaCg=;
+	b=Fph1bYtijkjf714mS8uW+mKvT2gphlbuMbU1p/9jIF05bRCcEf1vrO9/qbupYV
+	OaNMBisLAuAaQvoUJWqvs4XWnub/ozXIGF7AEWecJwxfKWULJXDkALPvTCwY79TT
+	MpUDjO33yS1X7GzzzCGasDXO5yAIBxL7Sl+FrJv2UlvhA=
+Received: from [IPV6:2409:8900:21a7:a33a:b45d:31d1:c098:7d46] (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3f8KrB6tqSyo9BA--.43583S2;
+	Thu, 17 Sep 2026 05:18:36 +0800 (CST)
+Message-ID: <3e9cb05c-8790-4ccb-a435-2013c474b06a@163.com>
+Date: Thu, 17 Sep 2026 05:18:35 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 7/7] ntfs: fail remount on sync errors and keep the
+ dirty bit on SB_FORCE
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, stable@vger.kernel.org
+References: <20260915083252.812126-1-zenghongling@kylinos.cn>
+ <20260915083252.812126-8-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260915083252.812126-8-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f8KrB6tqSyo9BA--.43583S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF1UJr48Cw47Cry5GrW5Awb_yoW5GF1DpF
+	y7AFn8GayktF17Cwsa9FWftF4rur97Ca17K347Cw47XwnYyrnFyr18tryrWayxJr9Yyw4r
+	XF4vkrW5KF1DZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UaksgUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwgxyPWqrB6zHcAAA3c
 
-Hello, Andrea.
 
-This is an AI review. The tests pass here under vng in lazy, full and none
-modes. The timing below was measured with the target CPU on nohz_full.
 
-On Tue, Sep 15, 2026 at 09:45:13PM +0200, Andrea Righi wrote:
-> +void BPF_STRUCT_OPS(kick_stopping, struct task_struct *p, bool runnable)
-> +{
-> +	if (p->pid == victim_pid && state == KICK_STATE_RESCHED)
-> +		state = KICK_STATE_DONE;
-> +}
-
-In the kick and tick scenarios the victim is the only runnable task on the
-target CPU, so when its slice is cleared the kernel keeps running it with a
-refilled slice and ops.stopping() is never called. DONE only arrives when some
-other task pinned to that CPU wakes up. With the target CPU on nohz_full here,
-the first such wakeup was a kworker 2.86s after the victim started, against
-the 3s wait. Without nohz_full the scenarios still spend about half a second
-each waiting for one. SCX_OPS_ENQ_LAST with the SCX_ENQ_LAST kick as in
-nohz_tick.bpf.c would put the victim through ops.stopping() on its own.
-
-> +SEC("fexit/__resched_curr")
-> +int BPF_PROG(kick_need_resched, struct rq *rq, int tif)
-> +{
-> +	struct task_struct *task = BPF_CORE_READ(rq, curr);
-> +
-> +	if (!task || BPF_CORE_READ(task, pid) != victim_pid ||
-> +	    BPF_CORE_READ(rq, cpu) != target_cpu || state != KICK_STATE_QUEUED)
-> +		return 0;
-
-This latches the first resched of the victim whatever the cause. A higher
-class wakeup on the target CPU inside the window, which is the whole 20ms
-slice in TICK_EXPIRY, records a full slice and fails observation_valid().
-Skipping observations with a non-zero slice would be more robust.
-
-> +	SCX_EQ(lazy_wait.resched_tif, immediate.resched_tif);
-> +	SCX_GT(lazy_wait.nr_wait_callbacks, 0);
-
-DONE is set from ops.stopping() before the context switch and the balance
-callback runs after it, so this read can race the increment. Poll for it.
-
-> +	file = fopen("/sys/kernel/debug/sched/preempt", "r");
-> +	if (!file) {
-> +#if defined(CONFIG_PREEMPT_LAZY) && !defined(CONFIG_PREEMPT_DYNAMIC)
-> +		return 1;
-> +#else
-> +		return -1;
-> +#endif
-
-This reflects the build tree, not the running kernel. Also, none and voluntary
-return -1 and skip the comparison, but the TIFs must match in those modes too.
-
-> +	skel->rodata->scenario = scenario;
-> +	if (kick__load(skel))
-> +		goto out;
-
-If __resched_curr() isn't in BTF, this fails too and kick_invalid FAILs along
-with the other four although it doesn't use the tracer. Skipping when the
-target is missing would be better.
-
-> +	if (!start_gated_worker(&victim) ||
-> +	    !wait_for_counter(&skel->bss->nr_lazy_victim_running, 1,
-> +			      PHASE_TIMEOUT_MS)) {
-> +		SCX_ERR("Lazy-enqueue victim was not scheduled");
-> +		goto out;
+在 2026/9/15 16:32, Hongling Zeng 写道:
+> ntfs_reconfigure() currently ignores sync_filesystem() errors, allowing
+> a regular read-only remount to succeed even when dirty data was not
+> synced. Check the error and fail regular remounts, leaving the
+> superblock read-write so ntfs_put_super() can retry at unmount.
+> 
+> SB_FORCE does not wait for writers already in progress, so it must not
+> clear the on-disk dirty bit. Warn and continue on sync errors for
+> SB_FORCE. A forced remount updates the dirty state only when errors
+> have been recorded, and never clears the dirty bit. Skip the commit if
+> that state update fails, since the in-memory flags may be inconsistent.
+> 
+> Reported-by: Hyunchul Lee <hyc.lee@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>   fs/ntfs/super.c | 27 +++++++++++++++++++++------
+>   1 file changed, 21 insertions(+), 6 deletions(-)
+> 
+> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+> index 0228d7429596..82b5bf28b6ab 100644
+> --- a/fs/ntfs/super.c
+> +++ b/fs/ntfs/super.c
+> @@ -272,7 +272,13 @@ static int ntfs_reconfigure(struct fs_context *fc)
+>   
+>   	ntfs_debug("Entering with remount");
+>   
+> -	sync_filesystem(sb);
+> +	err = sync_filesystem(sb);
+> +	if (err) {
+> +		ntfs_warning(sb, "Failed to sync the filesystem.");
+> +		/* A forced remount must still turn the superblock read-only. */
+> +		if (!(fc->sb_flags & SB_FORCE))
+> +			return err;
 > +	}
-> +	usleep(100000);
+>   
+>   	/*
+>   	 * For the read-write compiled driver, if we are remounting read-write,
+> @@ -329,11 +335,20 @@ static int ntfs_reconfigure(struct fs_context *fc)
+>   		 * or flush fails the remount, leaving the superblock
+>   		 * read-write so ntfs_put_super() retries at unmount.
+>   		 */
+> -		err = ntfs_sync_volume_dirty_state(vol);
+> -		if (err) {
+> -			ntfs_warning(sb,
+> -				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
+> -			return err;
+> +		/*
+> +		 * A forced remount does not drain writers in progress,
+> +		 * so one may still be modifying metadata when the flags
+> +		 * are committed: never clear the dirty bit then; if
+> +		 * errors have been recorded, the update preserves or
+> +		 * sets it; otherwise, skip the update entirely.
+> +		 */
+> +		if (!(fc->sb_flags & SB_FORCE) || NVolErrors(vol)) {
+> +			err = ntfs_sync_volume_dirty_state(vol);
+> +			if (err) {
+> +				ntfs_warning(sb,
+> +					"Failed to update dirty bit in volume information flags.  Run chkdsk.");
+> +				return err;
+> +			}
+>   		}
+>   		if (NInoDirty(NTFS_I(vol->vol_ino))) {
+>   			/* ntfs_commit_inode() would discard the error. */
 
-Neither lazy phase checks that the tick actually stopped before the request,
-so they pass with the tick running the whole time.
+Looks good to me.
 
-> Extend the NO_HZ_FULL test with infinite-slice victims. Verify that lazy
-> enqueue and kick requests restart a stopped tick and make forward
-> progress. Keep invalid kick flag coverage and skip modes not exposed by
-> the running kernel.
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
-kick.c is new, nothing is kept. The controller mask and timeout changes to
-nohz_tick aren't mentioned either.
-
-Thanks.
-
---
-tejun
