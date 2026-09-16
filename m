@@ -1,112 +1,94 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD41143F081
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544321; cv=pass; b=mbXvJ8AwUzUKpS2L3OyYkNVArwmydcI4ql36ewXxheSbbgDulr5mvv9wt9kJvR5R/Eg046vswH2DNF2PzpHQmeSXBURtJftUTuyEUp8ydETRBeux/4/Utr8OmbxG+/NknFuDasf0V8lIzH/Uv0PvtOQK9k2TSNPPtMyfqJkASZE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544321; c=relaxed/simple;
-	bh=hQYBSbI5ZDykG/tHrbEEtWawqAnT4ZwcW8GfIYLRIEU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=naTGL6tCbAyC/tfAuGN/KjgWPXJ0v3O/USmy1chMVvEBE3cp4gagbaJo1pqR4LagZemzv+G3wGy+D5DWkGytUUQTWe03KpoJQ4m+BBBu+fOuZgvvE+WJnBiu/meArB/yMgKzHRmTKBCZ88Lk3ve7UgZruTbiYvXKimcNc3070uM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=b32oWsj1; arc=pass smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="b32oWsj1"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-910537b51a0so4501866d6.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:38:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789544310; cv=none;
-        d=google.com; s=arc-20260327;
-        b=A7fOQH5kxWbXkBFeZjq8My7tfG356VIuju019I4MDbWSJqK1hj8I8euRZD7hNGkH5D
-         ++P5ef6Fp++YUfsKNcMHdyJ3QFzzpXQjxPLCL1roE5MGdHKN0E1GfWFEQ9LP8JGvNmHy
-         +6Yf7lTk1d/HfJgsAep0pJOmorfAmlmb4ULd7J870/vt9yXpn8yasGFo4Fj5kOVjF46J
-         FonnKiacGteJq6a7rxyf3KM67LkNgCXgswISImgBSBwkDzKUNppVsE8VLEQL8KzHkPEi
-         8QelkmY8b4LRgk9txl/13+FBE8yejcRXO80wjl78eBgbydfwTddCplPA66t6xC3nD262
-         AwDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hQYBSbI5ZDykG/tHrbEEtWawqAnT4ZwcW8GfIYLRIEU=;
-        fh=5SUiop5gFn6oJ9C3ivkokm0nr3eMN2WWX3RJwbR5Aqk=;
-        b=aYkMPgSVgJ1Z6DkAt0OkP+UD0UH5p+mPT4Za9XUmWIQSUzx+bqPK0P/F5Vx1Eik5hK
-         GapNX/jAA0tfDgXzyp5RDbrGdYq0k/EXVc0bUkamxvyhHAj7oyKPWirKenaLTCQLn57L
-         yAm4woZsGOpO1NjRQB0825Kb2kcwNBn5NwMculB8nJ3EJGu/D5exEB44P9IY+Ks9gK+1
-         PPmucC2iEU+xCACR62A4TuQWOsDefMYV2GVb7wMtvDrRdKndOIJhPMwIIeGpaHKrfU4N
-         ZLg0baM/HRo8K4Sj9REHetE+y06ERLsg60GBdHQ7uLyR8iLRUBXWpeabbrQ33XbsbsJ+
-         k/uA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1789544310; x=1790149110; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hQYBSbI5ZDykG/tHrbEEtWawqAnT4ZwcW8GfIYLRIEU=;
-        b=b32oWsj16mxTGEh19RvHUbkJHkIwah2h4TxsF7HLpV77run0DEsVR+XTo1qDJ8oa4T
-         Euveeympooh5Xdh/tx8nLhieBUztvkwi59ZmqrtrstKXcuKX/8HePXbWUDJtk92OnJ0t
-         RYQo1azCxSMHljt+rD4MxrYz6cmXmi/Bjp3FCAwU9TDBzeVW6U0Mp83DglrETsfFfhIj
-         12oLXDWMbFw+aK5Bo76A4EtvXuW/tG46PvDMTssINITG81T4a6/Z3vmpa5g9Ymldbh5X
-         uYuSzKKtasN/Rd2D6iNOLKOddvvF8PRXU9zZFFzLa36hHU6vF767LIHV+9f3RHeqFu5X
-         An0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789544310; x=1790149110;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hQYBSbI5ZDykG/tHrbEEtWawqAnT4ZwcW8GfIYLRIEU=;
-        b=nb7NEMfO9574nVnwL3szOZsIsAtAHNR1Tl2It23WHy3EgX5hKn+6OnhT7ttbbhIYZj
-         SftrPcZFBKl+uj+GbdpUg1Be7MsyJJEEzBcVpo+kHAh8MS5RCWlH6AFNn70DvdTKvdRz
-         4587G29k6PQ9bpObYgv6PLUkrHRYDztKXdElV2v7ds4bbCIHO/byTdJKxl4uYcqmof+a
-         W34HYga3XXwtxbIYpjEkQWUHyKAvlXeaImZldndEyKrT3Fa3bMaSxrak7Ylsk8TBPTpj
-         p5vV9Hed2SDMIUjKnJ4QRcpI13HCxh8vtUc7BEvHzfr44CP4YuiQcJO3kwZD8rkiQK/f
-         ITQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBytIzhaiPWzxXNdmrJBqjGdz1egAZ0KJrYolPhF1egzIAFYvoQrsWk5W2VotIAs6gcD4FbedaF3r6B4xc0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mo8Q07BQnDBvpMpuZoiR3vbGqzbSRCdAkJ/hcn86lUhXF1aMib
-	ITGPknBgveZ+C5M44ooEAokeYB2PNOLORCn8e90oMd/pqZtzy89xRBw7lEkhmhLbkIdC/21PkA2
-	gFbFtRSUhlyL1AMkGTdB678DxP476lNd5WDRc9PDlZg==
-X-Gm-Gg: AYBFou393eXfpD2W9zJFUbuS9iLHpOvXWNAWS3OAWQn6Wjjj9oD5MgJpt7QaEE3TMPm
-	qZurKxWk3eq/iMCzuKnCIFzyAXxLFyOqPRPj1jI95Evav7w9+3ZKkTiruTHnEO2bSiinVm1hA8n
-	6l3avU60tTHUzSehkP0Inn0OS3/gAIbdUu3J9DRDmRvO2I+w9osIy2061wzUFkvQSYapWEpt3+q
-	AVJKe6dx33/Lmv4WgL0Wm/eFQHPC8SmlC8DursiEVVjclSNG69L9YbSokR2T/wP3JQTKoWlLCIT
-	SX3gRnMsAAFebAf4YNXfEdC60nxxQlPN7axnfuGXeulVcIl1IBEwAAJrZG1N0e2mxHTPEiGNL5z
-	3RREdA6iqIVow
-X-Received: by 2002:a05:6214:500c:b0:910:6ffd:a941 with SMTP id
- 6a1803df08f44-9123d721985mr29575576d6.5.1789544309746; Wed, 16 Sep 2026
- 00:38:29 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE35450413;
+	Wed, 16 Sep 2026 07:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789544343; cv=none; b=J7NP2PVWrMgX+n/2p4KNuWatiIsNNei+Ma9jrNf/zaEB+I9wl+8qFI4WDp5koLXNwIsRJwHjOWUHPm8k0/4tIpTDQAI3MFrbdT8tULXDKVGUgf95RaUMpkNkrMFMl8nWN6aSTFhnuJgDgGRg2AEj6g3YZzY/kSxs++66MJS3fH0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789544343; c=relaxed/simple;
+	bh=j9ktKFtpbgo4VcDmddQSyAsXK/V4CRdYlVuga/agvto=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ke353KD5XZilFPXJhjY4nDiSc3ZcArPxYe0eKNtE4XPDcErZUd/Ie3hEdbPpnjamcshaJtIvcanbSWIdzkjx51D7jZY/qEgbYYjqUvGUSK5UAC/tVABVTySAgoblrUXNVAnX5bDb1tJHjXA/cPXES1hRCeTVf+DKYo8Gq4LLPDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACXnz2DR6pqrznfBw--.40767S2;
+	Wed, 16 Sep 2026 15:38:43 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexander.deucher@amd.com
+Cc: dri-devel@lists.freedesktop.org,
+	javierm@redhat.com,
+	linux-kernel@vger.kernel.org,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] firmware/sysfb: Fix device reference count leak in sysfb_disable()
+Date: Wed, 16 Sep 2026 07:38:15 +0000
+Message-Id: <20260916073815.1972045-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-acpi-dma-v2-0-0ffe4a007992@thegoodpenguin.co.uk>
- <20260907-acpi-dma-v2-3-0ffe4a007992@thegoodpenguin.co.uk> <aqlzjZigicrtyh7o@lizhi-Precision-Tower-5810>
-In-Reply-To: <aqlzjZigicrtyh7o@lizhi-Precision-Tower-5810>
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Wed, 16 Sep 2026 08:38:17 +0100
-X-Gm-Features: AcwNN1Vn5ljoRLzFV2GiG-9S0jHlKDZRzXLPscawH2jK-lpFtONtbul3vK317do
-Message-ID: <CAA6zWZ+tBBWdsZFGySWFsRKFq-FYy36QAYVQtUOPZ4GVGDYudA@mail.gmail.com>
-Subject: Re: [PATCH v2 3/4] dma: qcom: use named initializers for acpi_device_id
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Viresh Kumar <vireshk@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Binbin Zhou <zhoubinbin@loongson.cn>, Sinan Kaya <okaya@kernel.org>, dmaengine@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACXnz2DR6pqrznfBw--.40767S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrKryxJF13WFy3Kw4rCw47twb_yoW8JrWDpr
+	s3GFWFyrW5XF409ayUJF1jqF1Fqa98tayxG3s3Cas5u3Z8AF109ry8J3W8WF1UArWkGa4S
+	qF43tr18uF4UCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUrF
+	ApUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcMA2qqQJUe-gAAs6
 
-> Please update subject, correct tag is dmaengine
->
-> dmaengine: qcom: ....
->
-> Frank
+In sysfb_disable(), parent is obtained via sysfb_parent_dev(si), which
+calls screen_info_pci_dev(si) and returns a pointer to &pdev->dev with
+an acquired reference count. However, sysfb_disable() does not release
+this reference before returning, leading to a device reference leak.
 
-I checked the history of all files touched in this series and all
-existing commits are tagged with the dmaengine tag=E2=80=94I'll have to
-correct all of them. Usually the tag/list name matches the in-tree
-directory name, which caused my confusion. Thanks.
+Fix this by checking if parent is not an ERR_PTR and calling
+put_device(parent) before releasing the mutex.
+
+Fixes: b49420d6a1ae ("video/aperture: optionally match the device in sysfb_disable()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/firmware/sysfb.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
+index 8833582c1883..11c5ce128a6c 100644
+--- a/drivers/firmware/sysfb.c
++++ b/drivers/firmware/sysfb.c
+@@ -71,9 +71,12 @@ void sysfb_disable(struct device *dev)
+ 
+ 	mutex_lock(&disable_lock);
+ 	parent = sysfb_parent_dev(si);
+-	if (!dev || !parent || dev == parent) {
+-		sysfb_unregister();
+-		disabled = true;
++	if (!IS_ERR(parent)) {
++		if (!dev || !parent || dev == parent) {
++			sysfb_unregister();
++			disabled = true;
++		}
++		put_device(parent);
+ 	}
+ 	mutex_unlock(&disable_lock);
+ }
+-- 
+2.34.1
+
