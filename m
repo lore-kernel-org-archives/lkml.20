@@ -1,96 +1,109 @@
-Received: from mta0.migadu.com (out-157.mta0.migadu.com [91.218.175.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C9F44E05B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:37:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE2C46F4AF;
+	Wed, 16 Sep 2026 08:37:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547872; cv=none; b=qRRTh81B82Hx77TqpoOcFunswqObzrjwo+iryj6n6av2heqfFg8pjjEt0/sBqiD7q0zB89eNxTHizlnK8W7UMiAyCDBfeVYdjdt9EIPG7CFrfTCa2XTTPgB9CoGWiKQr7lk91Kpo8Kndyal9unS5L8gQ0MbNU8UXLh614gkUd/0=
+	t=1789547881; cv=none; b=jTsHMfQX4iBJ7YertOKul6DzVK0AF5+Cpn2gQQhzY21Y5WEtkxSZ3Yp6P2RO9/IrlHmiVEHS2QQGvn2yesxSTEcbe29SxkOFasmecYj2Bxtzl+RGvAt03IugmjQPoAkUj3cfxGqUah3vDn9ObHnO1G7TszaMKJxqgroyXSjq6Sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547872; c=relaxed/simple;
-	bh=J157RENJaSOVnRBc0VpFasHVK4YEoAwYHyLHBJ8LIgQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FIGVO9FYmAhZPaNh0j5iR2jZz1ZFm/bCKjeH+MX5kGaaHAVp5HpzNmCY9asqIyn/4iZZdBvYVHmvdNlpL90O9xKwV/fyGiUudvITxLziDNQ4ms4CyQxsy9hgLvBgbFbzlNEUVqy49nB1B4t229Oks/tJLljk4I/0wJfO6qoyBCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P27qSDlD; arc=none smtp.client-ip=91.218.175.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789547881; c=relaxed/simple;
+	bh=J+6sio5yRa0FJQHFzUkjZvt161ouwYeO6rsk6NxVyPU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OYmLFqZCcZco8bjgACaAvKGAdHLxp/WKJl3591wHcoYds01fxkkBJHwpLl/+Ymn5PQ90IXgJy+YuYZKV8lwRFwBRNCnYOkcJbWvHFBLN9inIHUhxiswhkfJzgJT0YhHxV0LPaO3d71KWtF1jp+Cznr18INVK0CtviafZnF6lrXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OkW4r6Xn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P27qSDlD"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=J157RENJaSOVnRBc0VpFasHVK4YEoAwYHyLHBJ8LIgQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789547868; v=1; x=1790152668;
- b=P27qSDlDb23W1FaR9JKgOhrCQdXP/CoEYJMa3CRTcDljbe8C5LvfWyKmRof+adWsOEaGaFNC
- 0CnqIk8J5Sl7lqapCSz+wq3+/c5o1SUvJaKgDsaDhK6AHW5eyNusHyQh5MB3lMsEMyCll+6eOSc
- 583/jmlFNytDxLPdG8MQ6E/U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 10bbcbde662d06e7;
-	Wed, 16 Sep 2026 08:37:38 +0000
-X-Mizu-Trace-ID: 10bbcbde662d06e7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c45fe13e-0879-4848-b66d-b95c49a906a6@linux.dev>
-Date: Wed, 16 Sep 2026 16:37:29 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OkW4r6Xn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0B71F000FF;
+	Wed, 16 Sep 2026 08:37:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789547879;
+	bh=/ZVRl7Y1YIACUYiiu0izSYuEQsygi4uHz7Xju5KXuwQ=;
+	h=From:To:Cc:Subject:Date;
+	b=OkW4r6XnEuLZt8f+qeI1RNfMhekNjYfaGPS2go2IHp6Jcr8isnpn9NaVU9LLDPdrk
+	 dT5YGgBBobi/ivVZGZzflNUSvVjluFaE6wrn+Vqw2+XrcamktGC8TDNt6uZpNR/dFL
+	 Qjr//c12wbrEOBAw/2Qqp50mx3Lx7LVDnuaj86B41Pg1a6Z5lTnphItVJt9R4F94tX
+	 LeIh8E4tlCTWvMlsiSDMIpzaY5ktJnpzWdcncZWNKbIc63DFr+U9wrifJKtJQj4ItU
+	 BMMaIbcOx+jiwE+dGuk8w75FV6epimz9KCw8mgJWSc88Xin4v737WTNLqL4CM6FZbh
+	 tfnzZeHJgEpsA==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Nathan Chancellor <nathan@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Aleksandar Rikalo <arikalo@gmail.com>,
+	Djordje Todorovic <djordje.todorovic@htecgroup.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Nam Cao <namcao@linutronix.de>,
+	Jia Wang <wangjia@ultrarisc.com>,
+	Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>,
+	Drew Fustini <dfustini@oss.tenstorrent.com>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [PATCH] riscv: limit sifive errata to CONFIG_64BIT
+Date: Wed, 16 Sep 2026 10:37:21 +0200
+Message-ID: <20260916083752.47310-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nfc: llcp: Fix socket reference leak in
- nfc_llcp_recv_ui()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: david+nfc@ixit.cz, edumazet@google.com, horms@kernel.org,
- kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- oe-linux-nfc@lists.linux.dev, pabeni@redhat.com, sameo@linux.intel.com,
- stable@vger.kernel.org, davem@davemloft.net
-References: <20260916073424.1971784-1-vulab@iscas.ac.cn>
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-In-Reply-To: <20260916073424.1971784-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-在 2026/9/16 15:34, Wentao Liang 写道:
-> In nfc_llcp_recv_ui(), nfc_llcp_sock_get() is called to find the bound
-> socket. If the socket type is not SOCK_DGRAM, the function returns
-> directly without releasing the socket reference via nfc_llcp_sock_put(),
-> resulting in a reference count leak.
-> 
-> Add nfc_llcp_sock_put() when the socket type is not SOCK_DGRAM.
-> 
-> Fixes: 968272bf0087 ("NFC: Handle LLCP UI frames")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->   net/nfc/llcp_core.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-> index db5bc6a878dd..5813c80ca593 100644
-> --- a/net/nfc/llcp_core.c
-> +++ b/net/nfc/llcp_core.c
-> @@ -888,8 +888,12 @@ static void nfc_llcp_recv_ui(struct nfc_llcp_local *local,
->   
->   	/* We're looking for a bound socket, not a client one */
->   	llcp_sock = nfc_llcp_sock_get(local, dsap, LLCP_SAP_SDP);
-> -	if (llcp_sock == NULL || llcp_sock->sk.sk_type != SOCK_DGRAM)
-> +	if (!llcp_sock)
->   		return;
-> +	if (llcp_sock->sk.sk_type != SOCK_DGRAM) {
-> +		nfc_llcp_sock_put(llcp_sock);
-> +		return;
-> +	}
->   
->   	/* There is no sequence with UI frames */
->   	skb_pull(skb, LLCP_HEADER_SIZE);
+From: Arnd Bergmann <arnd@arndb.de>
 
-Reviewed-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+There are two errata for this vendor, and they both individually depend on
+CONFIG_64BIT already. However, an 32-bit allmodconfig produces this warning
+from clang for a condition that can never be true.
 
-Please use the [PATCH net] subject prefix for fixes targeting the net 
-tree. See the netdev submission guidelines:
+arch/riscv/errata/sifive/errata.c:29:14: error: result of comparison of constant 9223372036854775815 with expression of type 'unsigned long' is always true [-Werror,-Wtautological-constant-out-of-range-compare]
+   29 |         if (arch_id != 0x8000000000000007 ||
+      |             ~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~
+arch/riscv/errata/sifive/errata.c:42:14: error: result of comparison of constant 9223372036854775815 with expression of type 'unsigned long' is always true [-Werror,-Wtautological-constant-out-of-range-compare]
+   42 |         if (arch_id != 0x8000000000000007 && arch_id != 0x1)
+      |             ~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~
 
-https://docs.kernel.org/process/maintainer-netdev.html#networking-subsystem-netdev
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ arch/riscv/Kconfig.errata | 2 +-
+ arch/riscv/Kconfig.socs   | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-Thanks,
-Xuanqiang
+diff --git a/arch/riscv/Kconfig.errata b/arch/riscv/Kconfig.errata
+index 3c945d086c7d..38ade0ea4e9c 100644
+--- a/arch/riscv/Kconfig.errata
++++ b/arch/riscv/Kconfig.errata
+@@ -46,7 +46,7 @@ config ERRATA_MIPS_P8700_PAUSE_OPCODE
+ 
+ config ERRATA_SIFIVE
+ 	bool "SiFive errata"
+-	depends on RISCV_ALTERNATIVE
++	depends on RISCV_ALTERNATIVE && 64BIT
+ 	help
+ 	  All SiFive errata Kconfig depend on this Kconfig. Disabling
+ 	  this Kconfig will disable all SiFive errata. Please say "Y"
+diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
+index 429e07589306..cecbce0c4983 100644
+--- a/arch/riscv/Kconfig.socs
++++ b/arch/riscv/Kconfig.socs
+@@ -34,6 +34,7 @@ config ARCH_RENESAS
+ config ARCH_SIFIVE
+ 	bool "SiFive SoCs"
+ 	select ERRATA_SIFIVE
++	depends on 64BIT
+ 	help
+ 	  This enables support for SiFive SoC platform hardware.
+ 
+-- 
+2.53.0
+
