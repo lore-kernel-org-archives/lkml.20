@@ -1,130 +1,179 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDACB4CEE4E;
-	Wed, 16 Sep 2026 17:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BEC4BD362
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580531; cv=none; b=XgDV5+Le6cyaBJgRw9PuwKY+feT7xvxIRIU0VyNlYWSzRVI1e/nufB+rBAbDLbJ9FowhJHpv4Sy6JV5MR5sz46DXmCZS00jOzXaoblJoFaG2K4+8+nnbCogq522VcADIabHXWqdlVXkScg1A02tNg+9+0UR36aQbPrvVBx4lhUo=
+	t=1789580582; cv=none; b=L/ophe0aG2+ZqC+nMnLxqVR+0cUFqEYvC5r8F51kGvLsIx6Czh8HuFYVMOsIITSxHse2OkRKtehZrikLAD6WtiD/u6KvFZzCjibRnfvDznFGbl0XM/zybFaOKsHtdZka4rO+nFz3arXuqd5Ec34DMVCtYoSBQ7IgcA31Ay8Pt10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580531; c=relaxed/simple;
-	bh=wKM5TQ3JLdQyGEu8/WiqL8QHoYMeA09AsjC9JdNuS1A=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UWGG1NF94aZ4lf+R6fqkeVhKY8eKgpD1/r6mtfg2FVHdMuIvkFzxyZsRVEVVY+y1OTZx4C2crrloQUDLOqUX4ANQ8dE7aa17U18J2bA/C/2QXFinTDYNJpph1wpx06A1AmeOlTKSxSaC5AkIbw5ItIRqsrneWCWvOYuLB4hgM2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: linux-spi@vger.kernel.org
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-X-PTX-Original-Recipient: broonie@kernel.org
-X-PTX-Original-Recipient: jre@pengutronix.de
-X-PTX-Original-Recipient: mkl@pengutronix.de
-X-PTX-Original-Recipient: kernel@pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 84007200740;
-	Wed, 16 Sep 2026 19:41:29 +0200 (CEST)
-Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <jre@pengutronix.de>)
-	id 1x6tdR-001Gol-1P;
-	Wed, 16 Sep 2026 19:41:29 +0200
-From: Jonas Rebmann <jre@pengutronix.de>
-Subject: [PATCH v2 0/8] spi: spidev_test: new features
-Date: Wed, 16 Sep 2026 19:41:18 +0200
-Message-Id: <20260916-spi-sun4i-spidev_test-v2-0-e7d25bf96e4e@pengutronix.de>
+	s=arc-20240116; t=1789580582; c=relaxed/simple;
+	bh=HGNIvqMsniyjFCXq9xFvhYDTLciJsYL/vhVQM3VfuYg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c3zoJ1Wx03l5oYFi8zLvq/YS7pvUIgDcZeMJ2nt18Ci90mPF297hxKGfV/Ylu1ZL4rMtukE/iyuy5r4C4kuB61t6/f2KxUyeJklggIxq4ULF3bqr9L/PQ6dwj1JWl43NFJj4mQUkRtIYaIOHgfAnnL6tT9k/zjQ5pAF4BQRjf9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lChBWklq; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lChBWklq"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccafb752so1139657a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:42:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789580557; x=1790185357; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SwgEhBXTngR3El+sf5PzSxyA5w4YUY1fd7mrK0Hv9aA=;
+        b=lChBWklqhZnPDIkS75OXdgTL0BppdLUvkYjbFLlxGTn9qVv4Zy9AurKhEhblJDVI9O
+         ypPAtT7kEEMldnLt59tT2x6flloPkI1wA0kvt//u1cIhqpCV9XIICakY8UF0SuL3Cz1l
+         juYcQNGOTynGBC5NoRJVIDVGISAW9mqeKQhzyEgfy9Z55AKym8qvgm6Qx3RaXzMDPY+T
+         cKoP8dppyLHgWNmArfqaG/nrkXg43l+VSuI3BnYKe6Zj0DqXsKxdu/8gf5cJzD+xVl6T
+         M00skWPRBa/HKmo8Sd7XggiIpN5BuVQx73b8yVK4Ra16KT770Fxa4xZhThdPgsFnUUb6
+         k8Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789580557; x=1790185357;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SwgEhBXTngR3El+sf5PzSxyA5w4YUY1fd7mrK0Hv9aA=;
+        b=ByJh0FQzxLpYhNzzzdHsjI48JOhLHwYhELH+K3xB1aD7HYUxGrJbQlP/mcaBkumeuL
+         rpVCzYREWtkiHscnoCp611tGLkTG50DQ3yPiR7Vc/WyckgrOwE7tXBfa0ZgOW27O6XVs
+         oYPjVfiSKso0ZPLGTGyKVI9S+22pyRt8aGKrvl09np6TsXLxY7YjDJ8l5BNk64ci4DHw
+         vgZ4RHBHdrWzsha7JqF8ZjxpJeAvWco/az0OhweNI7917DHZa8XJ/KMSiHE8TAVeaxzg
+         7qHhn2+/wX6ml+iHwpcgHWTzZosXtz4xuhJUXdtOL/fD184EAkYHCEAK9GJkJCDV48zG
+         mLuw==
+X-Forwarded-Encrypted: i=1; AKwUvBzEGmOMSPXk8fCG3Pn8mjOS0XKWRISsAoPzacplxvyQxRmTjZnkQsSWjePPvG2llW1HCYJQ+M3XzL9GJQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNdxmra3sTJgkfehVHZuIV6sAmg1Blzpy7D59adLJFoJSQaG0y
+	2VsgTHdccbVlWj558x2MebsnBNCO9OY1zQz/qbtKns8iASwHURVkxsgC
+X-Gm-Gg: AYBFou2uTBrfrxEXZHVJN2w3ggh7W5EPes3YAv8SW2n8BCyPUY1FKUNIjJcjcov74u6
+	TWaE/N3dSLVr9CA3HQ9ImagoGa1QIdmkODwaRaf+eeKIW5wdgVYUAGHWqKM78lwePr+ceQwNJYG
+	rU27g1zBKImfHoMrvOL9Cvsj3zUsyduU3x3p85ILoEZN++SwyQ/Vk4aNasYVGhfj4XAY72WPULX
+	cjhdWE5+GQ/3ntzlXWF3CbLVIyk8OrCYNPX5sNuFgRmVwJXQRGpJrsai0VUA3BnqNu14UHDsz4n
+	Kcd212PBSYkgAQAB5aI5LRbCrrxNFndrLgUB0LPRCI3woDdFSuok1zhh2TQQdV2PxoUobivgUEf
+	i5dt0dbI+1tY4s/bsIpygf/W6ofxJgukQZyPgPVpXBYtksS0e6XQzSqo+g7gnx0oPFLQRctYbxm
+	5lJCJEQG6TaUtdmuAMVVYX5SNDSn819O+NxQ+qZHjB/1g+Jj/RpGfg9himidUvBEuAYpj+Xy8Tr
+	IMkWoLLnb4icfl3DQ==
+X-Received: by 2002:a17:90b:582c:b0:39d:f18c:1ad1 with SMTP id 98e67ed59e1d1-39e1e2501e6mr10461602a91.3.1789580557234;
+        Wed, 16 Sep 2026 10:42:37 -0700 (PDT)
+Received: from kernel ([45.251.35.123])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d4cbc9sm7286360c88.11.2026.09.16.10.42.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 10:42:36 -0700 (PDT)
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: herbert@gondor.apana.org.au,
+	clabbe@baylibre.com,
+	davem@davemloft.net
+Cc: linux-crypto@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	skhan@linuxfoundation.org,
+	jkoolstra@xs4all.nl,
+	lkp@intel.com,
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+Subject: [PATCH v4] crypto/amlogic: Use devm APIs for clock management
+Date: Wed, 16 Sep 2026 23:12:27 +0530
+Message-ID: <20260916174227.5581-1-raizudeen.kerneldev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAL7UqmoC/3WNzQqDMBCEX0X23JT8iLU99T2KFGNW3UuUbAwW8
- d0bhR57m29gvtmAMRAyPIoNAiZimnwGfSmgG1s/oCCXGbTUlbwrKXgmwYsv6UgO0zsiR1HXyhr
- Tu87YEvJ2DtjTenpfTeaROE7hc94kdbQ/Y/nHmJSQ4qZd1Rpr6g7xOaMflhgmT+vVITT7vn8BC
- GUsmL8AAAA=
-X-Change-ID: 20260910-spi-sun4i-spidev_test-881b33fdc3b4
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
- Jonas Rebmann <jre@pengutronix.de>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3087; i=jre@pengutronix.de;
- h=from:subject:message-id; bh=wKM5TQ3JLdQyGEu8/WiqL8QHoYMeA09AsjC9JdNuS1A=;
- b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYshadeXou+qzSurJLh5bVnnqT3/uVKsnbDjhsr6iqe6JV
- z0i72XyOkpZGMS4GGTFFFli1eQUhIz9r5tV2sXCzGFlAhnCwMUpABP5Ycvwz6AtP8djxeEdBqEb
- jbxLRD4231vFdPNTcpPeFfHmXEaX7YwMOysCQyrTz7CevfuH2cVHP0dUeMVN71OrbrzSClc1PHq
- YBQA=
-X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
- fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
+Content-Transfer-Encoding: 8bit
 
-A collection of new features for spidev_test which have collected during
-testing/development of spi drivers.
+The driver currently gets the core clock and manually enables it using
+clk_prepare_enable(). This requires matching calls to
+clk_disable_unprepare() in the error paths and remove function.
 
-Patch 2 is a small preparatory commit to share macro definitions with
-the rest of the tools tree instead of keeping local copies.
+Switch to devm_clk_get_enabled() instead. This lets the kernel handle
+enabling and disabling the clock automatically, which allow us to drop
+the manual cleanup code and keeps the probe function simple.
 
-Patches 3 to 7 add the following options:
-
-  -c, --compare        Compare RX against TX without enabling controller
-		       loopback mode; useful when TX is physically
-		       bridged to RX.
-  -t, --no-tx          Do not provide a TX buffer.
-  -r, --no-rx          Do not provide an RX buffer.
-  -z, --nonzero        Skip 0x00 and 0xff bytes in the generated
-                       random TX pattern so that a stuck line (pulled
-                       high or low) does not produce a false positive
-                       in compare mode.
-  -P, --predictable    Send a deterministic byte sequence instead of
-                       random data, so that runs can be compared e.g.
-                       on an oscilloscope.
-  -T, --transfers N    Split the message into N SPI transfers inside a
-                       single SPI_IOC_MESSAGE() ioctl, exercising the
-                       controller's multi-transfer handling.
-
-Patch 8 resolves out of bounds issues when parsing escape sequences in
-the -i (--input) parameter.
-
-Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202608310329.QgxCCMs1-lkp@intel.com/
+Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
 ---
-Changes in v2:
-- Keep options sorted alphabetically in usage help (Thanks, Mark)
-- Count mutually exclusive input choices during argparse to avoid
-  overwhelmingly cute construct during verification (Thanks, Mark)
-- 3/7: Error on conflicting --no-rx --output <file> early (Thanks, Mark)
-- 3/7: Make usage error message more clear
-- 4/7: Braces for legibility (Thanks, Mark)
-- 6/7: Heap-allocate transfer-array tr (Thanks, Mark)
-- 6/7: Ensure --bpw is greater than zero, prevents division by zero (Thanks, Mark)
-- 6/7: Use roundup instead of ALIGN so -T works when --bpw is no power of two (Thanks, Mark)
-- 7/7: Limit hexdump to 256 characters (Thanks, Mark)
-- 7/7: Preserve errno (Thanks, Mark)
-- Add patch 8 to deal with a preexisting issue (sashiko)
-- 2/7: Conflict -c with -2/-4/-8 (sashiko)
-- Link to v1: https://patch.msgid.link/20260914-spi-sun4i-spidev_test-v1-0-72d6a3b38cee@pengutronix.de
+Changes in v4:
+- Fix typo in meson_allocate_chanlist() function name.
+- Add error_chanlist label to properly free chanlist if IRQ requests
+  fail, preventing a memory leak.
 
----
-Jonas Rebmann (2):
-      spi: spidev_test: include tools/include
-      spi: spidev_test: rewrite unescape() to stay in bounds
+Link to v3: https://lore.kernel.org/all/20260916154941.7254-1-raizudeen.kerneldev@gmail.com/T/
+Link to v2: https://lore.kernel.org/all/20260901024302.5407-1-raizudeen.kerneldev@gmail.com/T/
+Link to separate IRQ fix patch [1]: https://lore.kernel.org/all/20260908160120.4805-1-raizudeen.kerneldev@gmail.com/T/
 
-Marc Kleine-Budde (6):
-      spi: spidev_test: add compare mode
-      spi: spidev_test: allow disabling rx or tx buffers
-      spi: spidev_test: don't send 0x0 or 0xff
-      spi: spidev_test: send predictable data
-      spi: spidev_test: add option to split message into multiple transfers
-      spi: spidev_test: print TX on error
+ drivers/crypto/amlogic/amlogic-gxl-core.c | 31 +++++++++--------------
+ 1 file changed, 12 insertions(+), 19 deletions(-)
 
- tools/spi/Makefile      |   2 +-
- tools/spi/spidev_test.c | 239 ++++++++++++++++++++++++++++++++++--------------
- 2 files changed, 171 insertions(+), 70 deletions(-)
----
-base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
-change-id: 20260910-spi-sun4i-spidev_test-881b33fdc3b4
-
-Best regards,
---  
-Jonas Rebmann <jre@pengutronix.de>
+diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/amlogic/amlogic-gxl-core.c
+index 169c6eeb51e5..f292bb25674f 100644
+--- a/drivers/crypto/amlogic/amlogic-gxl-core.c
++++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
+@@ -243,34 +243,30 @@ static int meson_crypto_probe(struct platform_device *pdev)
+ 	if (IS_ERR(mc->base))
+ 		return PTR_ERR(mc->base);
+ 
+-	mc->busclk = devm_clk_get(&pdev->dev, "blkmv");
++	mc->busclk = devm_clk_get_enabled(&pdev->dev, "blkmv");
+ 	if (IS_ERR(mc->busclk)) {
+ 		err = PTR_ERR(mc->busclk);
+-		dev_err(&pdev->dev, "Cannot get core clock err=%d\n", err);
++		dev_err(&pdev->dev, "Cannot get/enable core clock err=%d\n", err);
+ 		return err;
+ 	}
+ 
++	err = meson_allocate_chanlist(mc);
++	if (err)
++		return err;
++
+ 	for (i = 0; i < MAXFLOW; i++) {
+ 		mc->irqs[i] = platform_get_irq(pdev, i);
+-		if (mc->irqs[i] < 0)
+-			return mc->irqs[i];
++		if (mc->irqs[i] < 0) {
++			err = mc->irqs[i];
++			goto error_chanlist;
++		}
+ 
+ 		err = devm_request_irq(&pdev->dev, mc->irqs[i], meson_irq_handler, 0,
+ 				       "gxl-crypto", mc);
+ 		if (err < 0)
+-			return err;
+-	}
+-
+-	err = clk_prepare_enable(mc->busclk);
+-	if (err != 0) {
+-		dev_err(&pdev->dev, "Cannot prepare_enable busclk\n");
+-		return err;
++			goto error_chanlist;
+ 	}
+ 
+-	err = meson_allocate_chanlist(mc);
+-	if (err)
+-		goto error_flow;
+-
+ 	err = meson_register_algs(mc);
+ 	if (err)
+ 		goto error_alg;
+@@ -289,9 +285,8 @@ static int meson_crypto_probe(struct platform_device *pdev)
+ 	return 0;
+ error_alg:
+ 	meson_unregister_algs(mc);
++error_chanlist:
+ 	meson_free_chanlist(mc, MAXFLOW - 1);
+-error_flow:
+-	clk_disable_unprepare(mc->busclk);
+ 	return err;
+ }
+ 
+@@ -306,8 +301,6 @@ static void meson_crypto_remove(struct platform_device *pdev)
+ 	meson_unregister_algs(mc);
+ 
+ 	meson_free_chanlist(mc, MAXFLOW - 1);
+-
+-	clk_disable_unprepare(mc->busclk);
+ }
+ 
+ static const struct of_device_id meson_crypto_of_match_table[] = {
+-- 
+2.53.0
 
