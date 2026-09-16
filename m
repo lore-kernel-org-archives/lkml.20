@@ -1,103 +1,130 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27772BE7BE;
-	Wed, 16 Sep 2026 15:18:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384CE3876B8;
+	Wed, 16 Sep 2026 15:18:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571889; cv=none; b=RtSe1sv/5EE0DU1pnd8jPecsniMC8iG++LFDFIT+VWrbgFQwCOfE8hikNHueMSV/RBcK5nH1fYxbkyHq/+2XE6eJgy5YexSKpTSKtS7fhexjqM4RGfqZuryRtHsVSBBRcp/cOE2Sni294gJqfKZjzw+REbikmzXnK8IEj7OJAJk=
+	t=1789571891; cv=none; b=fG8gBF2lWCBvYqzKoq6jRz1vW0+dqsNPo5GthkgA9xlNTd7y4yTYzz3UCByl4quhhgcQk3KiYml9GpUjVPhH4CckoDJQ3Kddf2E/O9XV+DaWAY1Gb5z4PTqSTB0nf+pWWQBfx7XquRPRxJA6+IsAAX7OLaGvVBWhHsCCxRP6gPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571889; c=relaxed/simple;
-	bh=VNhfwe1YQNfXfL4xlEP5bFJpLb9Qtlo/4pyZP6bIrus=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JFvvbJ+4uY9kKHUsFjRa5gPS1BhvaOoKg7rr8r/6aiPYsMsU7VnGxdynKUZa6WsCZTijLvr2oyox0Cbf4PHYbaC9fDTc10qC3fpqqbKkUmLKFOTTsOrxN8C2NCgzZb/wBSQbvFkZS8++ZHnJCR5N7S9gzVG455bpBFs7+YGvVS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Sw3fZ1Il; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789571891; c=relaxed/simple;
+	bh=MNllaWs4NKlPsGCBsJvdYfAYKbs2Di5P3yh0L73BqDo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bTsX0VNdghsOTn5ift4uue//XbTZ5C6yUFLgDCpPVygEx9vThVCNcDyiw/ylALPToN1asxpwuQY/tEP+M5oQVmfSSiG/J7oXkFEumLlqbDpe2R/vNnQMCRefmEFdc1sDwm1xKAJQ9A7D1YzjNQ39dPQgmxuljYRzEhpD+zH5HRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=QZwcorNz; arc=none smtp.client-ip=115.124.28.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Sw3fZ1Il"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789571886; x=1821107886;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=VNhfwe1YQNfXfL4xlEP5bFJpLb9Qtlo/4pyZP6bIrus=;
-  b=Sw3fZ1Ilzruuy/TVt/tjUBz8rYUoLv2RpY2D7oKy0M1uMGL2zWAZ3cP7
-   nGA7ZwT7VDQ/rx5pYf9/oK09x9O5ABi1GFbvf7JNUrYK3QeBOgQH8oAg7
-   bjCxYYe+BmoIrdjreOeO+lY/U2pZZI5AwBL4k54EtODDentRSDCY9f8W8
-   +4sDSAqEPnRxFidvL2q8zxCCf0vvmVl1HK/FEs/UPeBPGKRqWEPKmV7d5
-   cmF0F1QvmZvwflb7wXoyBQ3owv096Emg+17yszk/EcXQiTsgbE3YgTODf
-   +9Epbe0NUasGqEPv1eFox7ihpqfWJI1yOIH9iGwUotc0a941US+sztFXn
-   A==;
-X-CSE-ConnectionGUID: +qLrWvKFTSqExsby88A5uQ==
-X-CSE-MsgGUID: TixoiuaiRFakNPUWO6QS/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112719140"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="112719140"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:17:48 -0700
-X-CSE-ConnectionGUID: UjFCmABbSWSbvLBWnu+Ucw==
-X-CSE-MsgGUID: xzBrnVp1SNiA+cWrRKRxIQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="270736684"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:17:46 -0700
-Date: Wed, 16 Sep 2026 18:17:43 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?iso-8859-1?Q?=D6mer?= PALA <palaomer100@gmail.com>
-Cc: Nam Cao <namcao@linutronix.de>, andy@kernel.org,
-	gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: fbtft: fb_upd161704: replace udelay with
- usleep_range
-Message-ID: <aqqzFxRfbxf14uld@ashevche-desk.local>
-References: <20260916093928.52057-1-palaomer100@gmail.com>
- <87ecet5xos.fsf@yellow.woof>
- <aqp4GA1q6cLKivZo@ashevche-desk.local>
- <CAKhZXnr0GdUrEu9vyMAWRCWyQzPM7cWQ6LRDa8fX0hnMkTN0RQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="QZwcorNz"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789571876; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=dh2KdX53HxMnPh9VZw4i391Trb+WLmCiZOva80G9K6s=;
+	b=QZwcorNzS5X1H0CaYWdSca/WCFJuc07MMWB8jr5IWXOqx2gfECz0fKrnLrvD/0k7L/mg6msuzqNEaB6b0Hgb4rBg27t1w4KbEXZ/pn1PbtO/aZfFc6Uc8b+oq6vtmXrk9KTOQpbs7KfqtnE/1A/DNxjDKc1YTbvYIXjYW0Glj3Y=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.05100505|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0011901-0.0002448-0.998565;FP=14314196981793757438|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jFCC89n_1789571874;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jFCC89n_1789571874 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 16 Sep 2026 23:17:55 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: jason.wessel@windriver.com,
+	danielt@kernel.org,
+	dianders@chromium.org
+Cc: kgdb-bugreport@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] kgdb: Fix buffer overflow in the qRcmd packet handler
+Date: Wed, 16 Sep 2026 23:17:53 +0800
+Message-ID: <20260916151753.6722-1-fangxy@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKhZXnr0GdUrEu9vyMAWRCWyQzPM7cWQ6LRDa8fX0hnMkTN0RQ@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Sep 16, 2026 at 03:08:06PM +0300, Ömer PALA wrote:
-> On Wed, Sep 16, 2026 at 12:39:28PM +0300, Andy Shevchenko wrote:
+gdb_cmd_query() decodes the hex payload of a qRcmd packet (the GDB
+"monitor" command passthrough to kdb) into remcom_out_buffer and hands
+it to kdb_parse(). It sizes the decode with strlen() of the payload:
 
-...
+	int len = strlen(remcom_in_buffer + 6);
+	...
+	kgdb_hex2mem(remcom_in_buffer + 6,
+		     remcom_out_buffer, len);
+	len = len / 2;
 
-> Second, do you understand the difference on what
-> code is doing before and after your change?
-> I understand that udelay() provides deterministic, busy-wait timing required for
-> hardware register initialization, whereas usleep_range() introduces scheduler
-> overhead and non-deterministic delays.
-> Out of technical curiosity regarding the driver IC: theoretically, if we knew
-> the exact window between the hardware lock/stabilization
-> time (min) and the internal state-machine timeout (max) from the datasheet,
-> would a range like usleep_range(min, max) be acceptable,
-> or does scheduler wake-up latency make it too risky for
-> timing-critical init sequences without hardware validation?
-> I will drop this patch series.
+kgdb_hex2mem() takes count as the number of bytes to produce and
+decodes them in place at buf, reading and writing 2 * count bytes
+there. len here is the hex character count, twice the decoded size,
+so the decode runs over 2 * len bytes at remcom_in_buffer + 6, off
+the end of the buffer. On x86 BUFMAX is 1024, so a 256-byte monitor
+command (512 hex characters) overruns remcom_in_buffer during the
+in-place decode:
 
-It's not only about timings, longer sleeps most likely are fine, the main
-problem is atomicity.
+  BUG: KASAN: global-out-of-bounds in kgdb_hex2mem+0x131/0x160
+  Read of size 1 at addr ffffffff8765ef05 by task sh/1
+  ...
+  kgdb_hex2mem+0x131/0x160
+  gdb_serial_stub+0x16d4/0x3170
+  kgdb_cpu_enter+0xb68/0x1520
+  ...
+  The buggy address belongs to the variable:
+   remcom_in_buffer+0x405/0x420
 
-...
+Halve len before the call so kgdb_hex2mem() gets the decoded byte count.
+It then reads the len hex characters already in remcom_in_buffer and
+writes len / 2 bytes, all inside the buffer, and remcom_out_buffer holds
+the same command as before.
 
-Note, your reply is malformed. Choose proper tools to communicate in
-the Linux kernel mailing lists.
+Fixes: a0de055cf613 ("kgdb: gdb "monitor" -> kdb passthrough")
+Cc: stable@vger.kernel.org
+Suggested-by: Douglas Anderson <dianders@chromium.org>
+Link: https://lore.kernel.org/all/CAD=FV=V1-gNZ8yTsC+D8inePWv=A+9H09hWJojQf5NRpcNvK+Q@mail.gmail.com/
+Assisted-by: Qoder:Qwen3.8-Max
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+---
 
+This is the third in a family of unvalidated-length decodes in the kgdb
+gdbstub; the 'm' memread and 'M'/'X' memwrite fixes were sent separately.
+Unlike those two, there is no attacker-claimed length field here. len is
+the real hex-character count bounded by get_packet(), so the only defect
+is passing the hex length instead of half of it to kgdb_hex2mem().
+Halving it is sufficient; no separate bounds check is needed.
+
+Reproducer: attach to a kgdboc console, break in, run kdb's "kgdb"
+command to switch to gdb mode, then send a qRcmd packet with an even
+hex payload of 510 or more characters, e.g. "qRcmd," + "41"*256 on x86.
+Before the fix, KASAN reports a global-out-of-bounds read in
+kgdb_hex2mem(): the decode runs to remcom_in_buffer+0x405, past
+BUFMAX=0x400, and the guest dies. After the fix the decode stays
+in-bounds, the command reaches kdb_parse() and the handler answers OK.
+The patched run does print kdb_parse()'s own "command buffer overflow,
+command ignored" for a 256-byte command; that is kdb's length limit on
+the decoded string, not this bug.
+
+Tested on mainline 704340f1cd0d (git describe v7.3-rc3-9-g704340f1cd0d):
+x86_64 defconfig plus CONFIG_KGDB_KDB and CONFIG_KASAN_GENERIC, gcc
+13.2.0, QEMU under TCG. Both kernels were built from byte-identical
+.config files and differ only by this patch.
+
+ kernel/debug/gdbstub.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
+index e271a43..41e344e 100644
+--- a/kernel/debug/gdbstub.c
++++ b/kernel/debug/gdbstub.c
+@@ -778,9 +778,9 @@ static void gdb_cmd_query(struct kgdb_state *ks)
+ 				strscpy(remcom_out_buffer, "E01");
+ 				break;
+ 			}
++			len = len / 2;
+ 			kgdb_hex2mem(remcom_in_buffer + 6,
+ 				     remcom_out_buffer, len);
+-			len = len / 2;
+ 			remcom_out_buffer[len++] = 0;
+ 
+ 			kdb_common_init_state(ks);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.50.1 (Apple Git-155)
 
