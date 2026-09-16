@@ -1,33 +1,76 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9464DD3B3;
-	Wed, 16 Sep 2026 17:03:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263064C9DEE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:03:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578201; cv=none; b=rgz0aJGpXwVvg0xF3wCxoKBgU2GvN+PQUmUi6DVjq9g9UmEBo+JK/FWjIlL8OZrZxHwTJrJftHHwKBz1FKeC0gCwxeNI5RlxUQlMduf6hfdabjdHnqa9BjcdcdY7uPurnqGLRVWFnK9plf2NKKgSzczKDZVZikIhjUxI0m8q2Ew=
+	t=1789578233; cv=none; b=ozzojRWVqXbn7tZqUrJoozI/UI6ERKwwznDxB1Rqxdk1kLfVY2rJphnNwuXSHuSzsz0+SLSnm94kfLFh4Cdm2rUn7f80lpLCDjUzK70AHdq2z/6io40c104MyxE4nudxMC0wDTZoZ6B/VdEODGZ106kxD5KKAlMpPaPbpRNT71s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578201; c=relaxed/simple;
-	bh=egpHKK3rUO8XGJfotucEXzJvOQqBkYRqxh/ihaUiBXE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KHeD08qgTR830Z8P0dMnB21sl7W36zlOrjaogVma77tWvjrEWrSOG+bvoS1BVj2KOOLZoUlUlzTJ+pMKkapxGt4ZwXojNPABlfjPkSWusPpsq5FbJBcaN8gZdAIgcFBcLrZR1U4siYm4HYqm+Bb+xOCm/BDEZf0KMheABHQdnLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABXiELMy6pqKS5uCA--.22650S2;
-	Thu, 17 Sep 2026 01:03:08 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: linux-kernel@vger.kernel.org
-Cc: linux-watchdog@vger.kernel.org,
-	linux@roeck-us.net,
-	mikew@google.com,
-	wim@linux-watchdog.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] watchdog: nv_tco: Fix pci_dev reference leak in nv_tco_getdevice()
-Date: Wed, 16 Sep 2026 17:02:40 +0000
-Message-Id: <20260916170240.2086046-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789578233; c=relaxed/simple;
+	bh=Ks4WXakjDHaULISnrpHV/j5kbM2MXAKKMjVWUBVW3xk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VQHLF20fQJzM4m2Va0YeEW7d83u102zylgModo9YpzDP7gsNwBxP9rpsyYYir/7qp9p8M8+YCmz9Q2IvAfAeqxiEXHVXkvWd57mJoQoS3/PzY2cJespGRhg0tMrZ6rMmyw2RlPwMV7sUCtMYtmD6NUyNjiDh8mPcjedhjnbdz/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LTlmxjDC; arc=none smtp.client-ip=74.125.231.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LTlmxjDC"
+Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-7ff1e4ffb3aso832072a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:03:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789578220; x=1790183020; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XPj8i2bxKQOSEoNifSANwZq2nYwCvvCNoM4rujFqkpk=;
+        b=LTlmxjDCgOTX+Iv6NIjiaRTEPmNIhR5QIOJrzuzqpJ/PmD8+T56CPau6AKI8ZSqpPR
+         9Hr0e+aF1z/vizB+FR14KiigEESe1c6oxW9OVJhP8II96/FCVOLJpWPd/HI2Fa5rBRt9
+         Gg2tRV0s4GKp3KyrGBD0PAHE6CvQz617q61mHp30b9oOVcDckzCuc2AF3lsxZlAo/VeT
+         U+QBurRoWMDiqsX3Pbb3/0o/Z1WedhTOQRfqH/VFrxoUAHvadn9jbVV/3sfFYoVzodqA
+         VcbydKCq3zzvESwlNwej+gAeeKQIud68AqCIJxzrSIUlr44vO3M0XHXXNrbfgObOiLqK
+         pTlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789578220; x=1790183020;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XPj8i2bxKQOSEoNifSANwZq2nYwCvvCNoM4rujFqkpk=;
+        b=g94tbtTxOgdzbJPZri7fOm3ksIg5FHEU8ma2NfTPHSh3aolDpgOz7nhy3jqke4/su2
+         J36C1cEkgOCjBN+rc6+vactAhN7tLkiFWq27cfo/dQ1Dsm8BjkFC57RkPfOwAi0y58IP
+         2ydVUXfUKcVwRYzUbu2R4fXVU3nJjJ+uFXxqg6nvblMy79R5VB7rbAxhgsqmMdiezOTz
+         om6eMmG1IwGbuHKTxnKnzsEsQac1NyDbX24TUocfIDoytIZSIsV8k8qdUJ5Q1rLLVaXZ
+         OlHrW89gMYtSP2g2m+YZr+HLHPgWF/seRB2ZR1Bi2cDpVKgACDyTrgShiEz52sDpNspR
+         51hQ==
+X-Forwarded-Encrypted: i=1; AKwUvBws3aU9yVLsFJSuQgJf2TliJR8YEuMwZ0DJcziScvwAw/IJD9MkRHkr3s0gTwzGJUwXfhrXFDevWYfmNio=@vger.kernel.org
+X-Gm-Message-State: AFuF++kg6cGg3GpNC5yMfyB9yUEVWyra4qZu8NCEOQHiP6QZM1Q/WmX9
+	JyGQT7s416Itid/W4gZc16+JuX2XUvcOzfCfF/5W2PqZc1+jvNwZik7R
+X-Gm-Gg: AYBFou09siMELNrZcrLDF9dHV/nXuVZx8Lz/zMlF1xnjS/7yVVgK+gsCH7zTGzUdYza
+	S29xoHEfjwuLAm1m6VF8jCPrBnJPv8xRMMoX31lAwFawVmoG9QipMnT+ECqpYHL9kLEXWJ+uOkc
+	Zwt1zbnCr574b5/9vK9mY6ysJlP6eHBnA0dlEHwfhqgSzRdyciQPd5oC5Vp90DMD7kqDOJ1yz8R
+	y3ZTvfOkwmw2dcXPPpKPOlcDmVO/FcYcxhZyxYcz8BorlewbwCV04waHAM25K1mToE+Q2z2f8i+
+	QLVQcYxQ1Y5A2oNaoR2rZHOohnfpVEGtBxE/gzS24Cd64xrOIKE7+m4r2DI6Z9aBgab/Hqs18j8
+	7dgGQZx9VLbi1YMsj48Qa2W5KihZr32+g6VZ3wHKI4ZD6vcatYv6rPDuZUWIbwn1oXtkjAKuGMt
+	jmLxISzOjUZi1dzEMnGk8zqwAjxhmMXKWx9Q4b7cdS
+X-Received: by 2002:a05:6820:1f04:b0:6c4:28bd:fdf3 with SMTP id 006d021491bc7-6c7d340555amr3126331eaf.34.1789578219819;
+        Wed, 16 Sep 2026 10:03:39 -0700 (PDT)
+Received: from gmail.com ([2804:1b3:c402:7a4c:6d25:8c4:21f3:ba2c])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c8f7bc41basm366840eaf.15.2026.09.16.10.03.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 10:03:38 -0700 (PDT)
+From: Murilo Duarte M de Almeida <muriloduartemouradealmeida@gmail.com>
+X-Google-Original-From: Murilo Duarte M de Almeida <murilo.almeida.dev@outlook.com>
+To: john.johansen@canonical.com,
+	georgia.garcia@canonical.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com
+Cc: apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Murilo Duarte M de Almeida <murilo.almeida.dev@outlook.com>
+Subject: [PATCH] apparmor: lift path_name lookup in umount
+Date: Wed, 16 Sep 2026 14:03:09 -0300
+Message-ID: <20260916170309.396648-1-murilo.almeida.dev@outlook.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,81 +78,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABXiELMy6pqKS5uCA--.22650S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr4DGr4kGr45Aw4ruFWxWFg_yoW8CF15pr
-	s0yFWYyF48Kr4vkF4UZrn7CFyFk3y2y34SkwsrK3s5ury5C347t395ua4FgF4UJrZ3K342
-	qr10yFyfZw45J3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
-	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
-	USLvNUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwYMA2qqpVhYDQAAsm
 
-nv_tco_getdevice() leaves the reference taken by for_each_pci_dev()
-stored in the global tco_pci, but nothing in the driver ever drops it:
-the error paths of nv_tco_getdevice() (bad BAR, request_region()
-failure, SMI/NO_REBOOT failures) return with the reference held, and
-nv_tco_cleanup() never puts tco_pci either.  Every failed probe and
-every module load/unload cycle therefore leaks one pci_dev reference.
+Before this change, pathname lookup for umount permission checks was
+performed inside profile_umount(). This mixed object-specific path
+information with profile-specific path configuration.
 
-Release the reference on the error paths of nv_tco_getdevice() and in
-nv_tco_cleanup() after the last use of tco_pci.
+PATH_IS_DIR describes the object being unmounted, while path_flags and
+disconnected belong to the current profile. Keeping these inputs
+together inside profile_umount() unnecessarily coupled pathname
+resolution with the permission check. An existing TODO in
+profile_umount() already called for lifting this lookup.
 
-Fixes: 456c730153fe ("watchdog: Add TCO support for nVidia chipsets")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Separate pathname resolution from the mount permission check.
+Calculate PATH_IS_DIR once in aa_umount(), since it is specific to the
+object. Then, for each profile, combine it with profile->path_flags
+when calling aa_path_name(), using profile->disconnected from the
+current profile.
+
+Move this per-profile pathname lookup into umount_path_perm() and pass
+the resolved pathname to profile_umount().
+
+Keep profile_umount() focused on checking the resolved pathname against
+the mount policy: DFA matching, permission lookup, profile mode
+handling, and the final AA_MAY_UMOUNT check.
+
+Signed-off-by: Murilo Duarte M de Almeida <murilo.almeida.dev@outlook.com>
 ---
- drivers/watchdog/nv_tco.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ security/apparmor/mount.c | 42 +++++++++++++++++++++++++--------------
+ 1 file changed, 27 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/watchdog/nv_tco.c b/drivers/watchdog/nv_tco.c
-index f16cee5173d5..9ce8325b4d3f 100644
---- a/drivers/watchdog/nv_tco.c
-+++ b/drivers/watchdog/nv_tco.c
-@@ -324,14 +324,14 @@ static unsigned char nv_tco_getdevice(void)
- 	if (val == 0x0001 || val == 0x0000) {
- 		/* Something is wrong here, bar isn't setup */
- 		pr_err("failed to get tcobase address\n");
--		return 0;
-+		goto err;
- 	}
- 	val &= 0xff00;
- 	tcobase = val + 0x40;
- 
- 	if (!request_region(tcobase, 0x10, "NV TCO")) {
- 		pr_err("I/O address 0x%04x already in use\n", tcobase);
--		return 0;
-+		goto err;
- 	}
- 
- 	/* Set a reasonable heartbeat before we stop the timer */
-@@ -373,6 +373,9 @@ static unsigned char nv_tco_getdevice(void)
- 	return 1;
- out:
- 	release_region(tcobase, 0x10);
-+err:
-+	pci_dev_put(tco_pci);
-+	tco_pci = NULL;
- 	return 0;
+diff --git a/security/apparmor/mount.c b/security/apparmor/mount.c
+index 4ed7b9136beb..c7dfdae95747 100644
+--- a/security/apparmor/mount.c
++++ b/security/apparmor/mount.c
+@@ -541,13 +541,32 @@ int aa_new_mount(const struct cred *subj_cred, struct aa_label *label,
+ 	return error;
  }
  
-@@ -443,6 +446,7 @@ static void nv_tco_cleanup(void)
- 	/* Deregister */
- 	misc_deregister(&nv_tco_miscdev);
- 	release_region(tcobase, 0x10);
-+	pci_dev_put(tco_pci);
+-static int profile_umount(struct aa_profile *profile, const struct path *path,
+-			  char *buffer, struct apparmor_audit_data *ad)
++static int profile_umount(struct aa_profile *profile, const char *name,
++			  struct apparmor_audit_data *ad)
+ {
++
++	AA_BUG(!profile);
++	AA_BUG(!name);
++
+ 	struct aa_ruleset *rules = profile->label.rules[0];
+ 	struct aa_perms perms = { };
+-	const char *name = NULL;
+ 	aa_state_t state;
++
++	state = aa_dfa_match(rules->policy->dfa,
++			     rules->policy->start[AA_CLASS_MOUNT],
++			     name);
++	perms = *aa_lookup_perms(rules->policy, state);
++
++	aa_apply_modes_to_perms(profile, &perms);
++	return aa_check_perms(profile, &perms, AA_MAY_UMOUNT, ad, audit_cb);
++}
++
++static int umount_path_perm(struct aa_profile *profile, const struct path *path,
++			    int flags, char *buffer,
++			    struct apparmor_audit_data *ad)
++{
++	struct aa_ruleset *rules = profile->label.rules[0];
++	const char *name = NULL;
+ 	int error;
+ 
+ 	AA_BUG(!profile);
+@@ -556,23 +575,14 @@ static int profile_umount(struct aa_profile *profile, const struct path *path,
+ 	if (!RULE_MEDIATES(rules, AA_CLASS_MOUNT))
+ 		return 0;
+ 
+-	/* TODO: lift path_name, need to separate profile path_flags from
+-	 * the lookup
+-	 */
+-	error = aa_path_name(path, path_flags(profile, path), buffer, &name,
++	error = aa_path_name(path, flags | profile->path_flags, buffer, &name,
+ 			     &ad->info, profile->disconnected);
+ 	if (error)
+ 		return aa_audit_perm_error(&profile->label, AA_MAY_UMOUNT,
+ 					   error, ad, audit_cb);
+ 
+ 	ad->name = name;
+-	state = aa_dfa_match(rules->policy->dfa,
+-			     rules->policy->start[AA_CLASS_MOUNT],
+-			     name);
+-	perms = *aa_lookup_perms(rules->policy, state);
+-
+-	aa_apply_modes_to_perms(profile, &perms);
+-	return aa_check_perms(profile, &perms, AA_MAY_UMOUNT, ad, audit_cb);
++	return profile_umount(profile, name, ad);
  }
  
- static void nv_tco_remove(struct platform_device *dev)
+ int aa_umount(const struct cred *subj_cred, struct aa_label *label,
+@@ -587,12 +597,14 @@ int aa_umount(const struct cred *subj_cred, struct aa_label *label,
+ 	AA_BUG(!label);
+ 	AA_BUG(!mnt);
+ 
++	flags = S_ISDIR(path.dentry->d_inode->i_mode) ? PATH_IS_DIR : 0;
++
+ 	buffer = aa_get_buffer(false);
+ 	if (!buffer)
+ 		return -ENOMEM;
+ 
+ 	error = fn_for_each(label, profile,
+-			profile_umount(profile, &path, buffer, &ad));
++			umount_path_perm(profile, &path, flags, buffer, &ad));
+ 	aa_put_buffer(buffer);
+ 
+ 	return error;
 -- 
-2.34.1
+2.43.0
 
