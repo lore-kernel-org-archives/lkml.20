@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-149.mta0.migadu.com [91.218.175.149])
+Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532B6443A98
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:52:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D374418D7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:52:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789588379; cv=none; b=Ay7WKidweCWmBLYHKlkwhH8zcwXrM7qQ4mwJ1S3Tx72J+1/ZfyjGiawpcIwJJBbJvnj8ZgPdnkxyCFCEFoJjzKD+9kePGUtDhQ6HkwKAMeTPN1je60ecMEudDwyPJnqPzEgs88FkWZE7tBs+Gs4F83oj5SbuFZ629tkI9bdp6Xw=
+	t=1789588382; cv=none; b=UUPEVi9mO5OluFzQwuFSVr9RFkhdu89xRFNnAUbSUC1rCohK/bzClSpqHNM2gzcPfcV0NtlkF//iHkcmxgt7i976CcaxGHb6+cE5yMY2sFxvYxgs/c6ESs6JdkYYccnr1N6gEpvYM2k0wXiPFbOi2oNyyC/G3meMjuIMIN+V5og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789588379; c=relaxed/simple;
-	bh=uezm5MFaGZMNvW+locU7R+duzoa5ZNNuKXadO7AJik4=;
+	s=arc-20240116; t=1789588382; c=relaxed/simple;
+	bh=NkwRWssGXzQfAtXSgywsv6pvQ9Jdw4rpWWvy40Z4lEU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hzAiFY1s0Z0RSUnHkAACwHY2DZUcN1AuQyFq3FC9UGijU1l7+JxUiFUHdqTzFs9pYBUPnAJPbrxpEZkDbvvvV/5uM96ru0UkqlBD9+l+t2qspECmdnthYHliKWm+W0yLjfuelKhHDXaF+lkKf3LXlFsaDgGBuF7nCZouJjY/Iyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PxPEBXuP; arc=none smtp.client-ip=91.218.175.149
+	 MIME-Version; b=OrT9NMJziDEVK51HO85+bdkcsfP/Z7aMtZIIw38nFQz/ND99N6dc/P8iIyGzabN15az4bBLD/FLZbGJxKWeT5HQv9tueUX+kr1vR16cOljVxSi/CeCKEWhTpWXHsic7s/zZH8ItvYD+9dtIRPg4GSktGZZmnPFFjDbXfHvXq4qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JFQef9Gt; arc=none smtp.client-ip=91.218.175.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PxPEBXuP"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JFQef9Gt"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uezm5MFaGZMNvW+locU7R+duzoa5ZNNuKXadO7AJik4=;
+DKIM-Signature: a=rsa-sha256; bh=NkwRWssGXzQfAtXSgywsv6pvQ9Jdw4rpWWvy40Z4lEU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789588354; v=1; x=1790193154;
- b=PxPEBXuP1a0yKQW86JkSiyLOtwOD5WqldVHkYt76++OiT/AprvVmI+8fZ4gXHz704tn2ipjr
- ZvQYjWiQoiXq8J4+ez3qZMy9gKyKl3YM67sNSqPTPXsZQAmdZMLAjcz+TnsYMer3iaB5pBg62rO
- S4Uwl0ZYK0n+ThOSse1/W0L4=
+ t=1789588367; v=1; x=1790193167;
+ b=JFQef9Gt3KpXMJmayecRqz418APz6tHDMrFI4RZZCL/FjpDUGXoGTfWhJqRr/j8kbdi5j9UA
+ 6c2OkuEUhnUeICRlmKpy2gUoGI6oyPo5/kxNlFz7H3U7zWy3iOAC0Zk+4tNTjaIka2FZ5pa3Ym8
+ PeRphGun1jYq2mcE2By96a9g=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id d4694686d251f010;
-	Wed, 16 Sep 2026 19:52:34 +0000
-X-Mizu-Trace-ID: d4694686d251f010
+Received: by mta11.migadu.com with ESMTPS id 4af099ac9b2f47f6;
+	Wed, 16 Sep 2026 19:52:46 +0000
+X-Mizu-Trace-ID: 4af099ac9b2f47f6
 X-Migadu-Flow: FLOW_OUT
 From: Ihor Solodrai <ihor.solodrai@linux.dev>
 To: Borislav Petkov <bp@alien8.de>,
@@ -46,9 +46,9 @@ Cc: Alexei Starovoitov <ast@kernel.org>,
 	kasan-dev@googlegroups.com,
 	linux-mm@kvack.org,
 	kernel-team@meta.com
-Subject: [PATCH v3 2/5] x86/cpu: Initialize boot CPU cpuinfo defaults early
-Date: Wed, 16 Sep 2026 12:52:00 -0700
-Message-ID: <20260916195203.1099646-3-ihor.solodrai@linux.dev>
+Subject: [PATCH v3 4/5] x86/cpu: Move 32-bit SEP setup into identify_cpu()
+Date: Wed, 16 Sep 2026 12:52:02 -0700
+Message-ID: <20260916195203.1099646-5-ihor.solodrai@linux.dev>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916195203.1099646-1-ihor.solodrai@linux.dev>
 References: <20260916195203.1099646-1-ihor.solodrai@linux.dev>
@@ -60,49 +60,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-early_identify_cpu() clears the capability array, the CPUID table and
-extended_cpuid_level, but the architectural defaults for the rest of
-struct cpuinfo_x86 are set only later, in identify_cpu().
+identify_boot_cpu() and identify_secondary_cpu() both call
+enable_sep_cpu() under CONFIG_X86_32 immediately after identify_cpu().
 
-Use the same defaults from the start, so that the boot CPU does not
-depend on a later reset to end up with the right ones.
+Do it once and drop the ifdefs while at it.
 
+No functional changes.
+
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
 Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-
 ---
-
-This change comes before the last patch because that one removes the
-reset: without the defaults established here the boot CPU would be
-left at 32 instead of 64 on an x86_64 CPU which does not enumerate
-CLFLUSH.
----
- arch/x86/kernel/cpu/common.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ arch/x86/kernel/cpu/common.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index c3dce89ba590..66695addbdf3 100644
+index 2b2a4c40ef76..83d613d07997 100644
 --- a/arch/x86/kernel/cpu/common.c
 +++ b/arch/x86/kernel/cpu/common.c
-@@ -1812,16 +1812,15 @@ static void init_cpu_info(struct cpuinfo_x86 *c)
-  * Do minimum CPU detection early.
-  * Fields really needed: vendor, cpuid_level, family, model, mask,
-  * cache alignment.
-- * The others are not touched to avoid unwanted side effects.
-+ * The others are reset to their defaults here and only filled in later,
-+ * by identify_cpu().
-  *
-  * WARNING: this function is only called on the boot CPU.  Don't add code
-  * here that is supposed to run on all CPUs.
-  */
- static void __init early_identify_cpu(struct cpuinfo_x86 *c)
- {
--	memset(&c->x86_capability, 0, sizeof(c->x86_capability));
--	memset(&c->cpuid, 0, sizeof(c->cpuid));
--	c->extended_cpuid_level = 0;
-+	init_cpu_info(c);
+@@ -2126,6 +2126,9 @@ static void identify_cpu(struct cpuinfo_x86 *c)
+ 	mcheck_cpu_init(c);
  
- 	if (!cpuid_feature())
- 		identify_cpu_without_cpuid(c);
+ 	numa_add_cpu(smp_processor_id());
++
++	if (IS_ENABLED(CONFIG_X86_32))
++		enable_sep_cpu();
+ }
+ 
+ /*
+@@ -2163,9 +2166,6 @@ static __init void identify_boot_cpu(void)
+ 	identify_cpu(&boot_cpu_data);
+ 	if (HAS_KERNEL_IBT && cpu_feature_enabled(X86_FEATURE_IBT))
+ 		pr_info("CET detected: Indirect Branch Tracking enabled\n");
+-#ifdef CONFIG_X86_32
+-	enable_sep_cpu();
+-#endif
+ 	cpu_detect_tlb(&boot_cpu_data);
+ 	setup_cr_pinning();
+ 
+@@ -2185,9 +2185,6 @@ void identify_secondary_cpu(unsigned int cpu)
+ 	c->cpu_index = cpu;
+ 
+ 	identify_cpu(c);
+-#ifdef CONFIG_X86_32
+-	enable_sep_cpu();
+-#endif
+ 	x86_spec_ctrl_setup_ap();
+ 	update_srbds_msr();
+ 	if (boot_cpu_has_bug(X86_BUG_GDS))
 -- 
 2.55.0
 
