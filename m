@@ -1,625 +1,156 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541743A9627
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789581594; cv=pass; b=ipqGAluWY7LNYSVJ1pINhh8h4xDNUw4Wmt5783EkyzoOBDsqbMmIBDWyp9OswPiMp0u35GsOMDL+29/F4GRnL2ZriWVJ6JtuL9bSX3U+pmW5TlLqs/AdQhvjYVNaIijjzFSngu40g/Ql91RgozWnB8xSaD12nPDcs3xu4rCOnbo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789581594; c=relaxed/simple;
-	bh=phHc/Hq7GhwLfrvuXhUlkMEFZpHArhpTjZxf2I/CxsQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cxGoj9TBixsxlTKIWwFMfQIZ/pL3CC4Xjf/w5LAMX7kCsdXVOhJ55PLnq6bXWW/WJMVuPXSPJy/WclWz3UiTzELHf3dHCFYhGen1+UUJV4N+zi62zIe8+wTTFd1ngRWI2S3oi2oQ3a4viD2hPzYX5+1C3bOS1ap2/4/S3J8WDoQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fAcYPyy1; arc=pass smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027EB3DEAFA
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789581602; cv=none; b=FQYEZX/Bl7VTxdF7FGDeUtvVISRxyzRv96MHcLb0e+7ptBoEaaVXmig2IbMcsyoO33ipbsZrjLB4SJn7rRE1U5IdOZ4t32gOYIc5jJkLAkpcTwRYtlB0bb+1ohIJ5DgGA36t5mP5OO3gaWlsSIGQBXhcbggQlQu9qsTxKUlHf1k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789581602; c=relaxed/simple;
+	bh=UhfkSWBEIWzdAe0+wWGogj/0ppyAnsI8r+XgL3qtEFM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QxsVDFI+awS0tvQvOVi0GmcVPAQ2gYKyKDavkIj4b+YhIeEprbs28+SE9r0PGGv3s7ffCrFhXn/sh9NOuLxg5KhMMLpl0gB3T/q4mC6XaY3cPev6Ij7XVMXdv8peA3tvbRdIqRe1yMbOcKXikjJxPj9mdmr6Kj1Su97Cczye3EA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NJxf/+gC; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fAcYPyy1"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530d5fc2cd8so325631cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:59:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789581585; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZlcNRH0FyCiINdKojEIMbcS+ZR/dGNYKFI5XG/Nt9R/PsVm1FFTBC01wW11X/W9rNo
-         XnXHKJuap0DIromncUzZj8SByz3GWlJF1dw/BSYCUGrffFQUDQLYAQ8p6ID/J+1hBq+a
-         SzNz2xZsBbESIdiYbwHq+cjR+Qw+4tDFi/8IRDPzGnFt1fj0Db/fPQ2ipDnUJ1cEWluA
-         QO7yZxrCrHuRJKwe6ozZgRuAapqqcF5PfbQrk84Y2A/2xd8p83YF0gQ5gSy3lGnIPNYC
-         cKTtYzNffzCRTisvycIHDxGYRZ0D/sYx/RLYh/zmPJndkbZ9RFjGGSN7edCRIrvobXVk
-         0x3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=eUm2nBDUGJ3be1Pu+106O/aK1tA7hL04j1FWoINl4o4=;
-        fh=zf+tV0rrz/pPRoEdFB6dBpOb4x3FhKf93Y1PjFMk8rk=;
-        b=XpeVv0C7AzNDVnN3Uow4PwE3rJe33wyeVdZTMs/RnmnRyQO2n99z02EPawCSaTK+ja
-         jm0eYWXGOG7kxuqaSsAAIEJsfOiA7nTQc3RungyNgCd9qPd6tgVZU7+K/HfULNPSdnVx
-         QQYZW1CphdjAZL3gHwMlML0UUNWCpPYqZ6PIM9x6A9X4FImibBpODL0XMIVEAzB/ZML2
-         vUVOJrJtGe9KFvDJCXJdVM5RfoD+/+1VXXjrJJuD0bW3UbGnywVdR/MXXBQsybWnIOoE
-         ZmRDpgsl3aOC4+mghjRsx7d4N0q083BXvN6fcNGOiWQi5Mu26XTzG8x8kMGKZkjpv64c
-         m1qg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NJxf/+gC"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d73b8so984841a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:59:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789581585; x=1790186385; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eUm2nBDUGJ3be1Pu+106O/aK1tA7hL04j1FWoINl4o4=;
-        b=fAcYPyy1p8KBi1NM5cTKpjSA9wUQ+CLdVJBblZmtz7pf1/QfhfVqTHKsYqPenSRBde
-         /by9zBj0QJLLMeumIeMK64r/GF5ZpCNqR92L2cqrl0t2llXYW0nN086nyoMON1A7oUJE
-         Re6uZ9dwBMCDc3KGIrqwCGA2frM5VDrJbi8+EMOXExu38p79Tu3qUOru8VY3zuMytf0v
-         /1i1J9fekndOXJ6i5uYK7OrzVGu1tk5beHvQfBujZI1ifVqiKmW74XFn39cFaRrfjgpQ
-         Ql+VCPpCGoLWMM0Z32HknhVIcO+pU1a0KNkF1bwWRp8YwRZWMczRWNgIgFgTf8kWnpAl
-         lk3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789581585; x=1790186385;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789581588; x=1790186388; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eUm2nBDUGJ3be1Pu+106O/aK1tA7hL04j1FWoINl4o4=;
-        b=DbGJ0Cn5clhTwrbn5+o1KXlKIbd8Rf+doW88+7YzoOh9ydjD7/jHXklqwOF/8xo+8O
-         qm26G2A36L+LYGFPkS/Sp8Zbtk8JwcigLzzTY864B9nATrkDCKFvWN0wi6n27l+4mMCk
-         9XegSaN7VT2yMRlMI9HPPfCUq7djwiuZcbMXBSLTV316YSpr66UkOdrf3rrR1TYdEyZw
-         f33mZ5mKusqcfgCS/XbUHqMSd1+qk7qAwG1az+KOGMvNZroomwwKC36D5C29bXj3lDbj
-         2YERX05IkGK0C8bf+lHLdNDfeblfM7o5OUQGmy7oodSzY0HN6ZAU2WgnBwdrn9xSxLXn
-         Vveg==
-X-Forwarded-Encrypted: i=1; AKwUvBxfIdYwZRJ0UtLQDi34s0LlE/cK5mMSz4gnp3W5qNf23qtcg7WSctKIQsS27fOLyKtChO3wmyo3MYI69as=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntPPhfDDJ5u8reXsFGBsa9cp67J1BcE4uRZhcusxj2mTdiPRW7
-	PFolDM8k2ZTR8mZCL5HlQLsHUMdaPUOjX8W3/SLDXhEiDMeGr5mZmiwHEvTAQlhMyRlX4zaR8J7
-	ZVOoCC0FcZZcr0/oNUZgzOMao5spsBTsfvjMPGpp4lJNyfBn7+9h0Vq87XkBGBg==
-X-Gm-Gg: AYBFou1X8focm0N/+ZqiWVurAGerjbjwdgtru9/AXk4kfp20FPp6e08myTlRJg/lLRH
-	Z35qaC+5LCXNxv++JPiHxeASY11lhxTDTbb29z0on9utO8fR8CCr9758OOyF4Vhj0WaXEEAHxmI
-	HbGwdbk8G0IXr3OsLl3NMKNI4xiCRpPajshIARsACLWURBdJbABoSB73/Wd7C53XOI/bsuygoix
-	/p8xEuL/XYYnbjCRjckkcoEtQ/oMmUD4SZN5LvmDbrOnTo7JMEU0yIZqwP21LrCpQHhwmAyYKrv
-	y8CexQccvlgqAbzje86bzFA/MgeSZjF1VjjcQ1NymSJJcz621Bd8zHnF1FyZ957qDWYng0IEf6v
-	lVVldXjrzwl/2/T5TIu8=
-X-Received: by 2002:a05:622a:4207:b0:531:282:6560 with SMTP id
- d75a77b69052e-5328df7e748mr857551cf.15.1789581583877; Wed, 16 Sep 2026
- 10:59:43 -0700 (PDT)
+        bh=TUanCZUnYDp7fC6sIRvl/mkL+Nam5P8R5i++JsfjtEI=;
+        b=NJxf/+gC9p36SJJ/hKwDKPFkdQLU2JVM2dJEhwQAvUnhuLc3NS4X1H1o3la5ZFhSnQ
+         +mkCxtnlsj8PTFX4c5zHUbETHBB1OnUO29jgWYTCzKphyXwGlbKTo/RTxeG5NXsuorBH
+         ieDjLanFgBqwt9GsLUojowAXQo0ArjoYjfds+zqUyNisJtvjXCVH4MkbZXinrpaGl/uV
+         SnRBlobGN9vP/MMXcHg8Py8LMCqTzlu2jUDS3y+CKzV7KPb0EeXIKndLJDXyVrv7hku+
+         tWtbWBNHG0J61fy8chJ+Cvwh4YN2QWfn5WFWfBu6zf2Kl3GD/RgIX69tsqvom1UYcJKi
+         TZAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789581588; x=1790186388;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TUanCZUnYDp7fC6sIRvl/mkL+Nam5P8R5i++JsfjtEI=;
+        b=2yo53hJjIlM+oR1Zi6X7APEjElaLv9LwvXCig4Jg0kow+0aPNmd7FUxaaBbFB0sXGE
+         u+cyILQWPB7N6qh66zSqSoclFfro/XWccRX9vd7dd2lsGgNmU99q6GqxEEnxPQ62Cr9i
+         v2rEF50AM89KcDYiXid1mzLTO2vwrHHKH08jS7BLzHO6wimCAxr5go68M/1jQk2zWN+C
+         utn/zFR0geLEPBs0YUbl8BqEj/SwZRjCWbyBotxp32H2qYsy5NZ/XFPrbFaytQg6HUHt
+         fYAp05MPw7B1ti5brmguzKdC+MgG9ahyY+FYdy/E9wEj3CFMYnG0TSVPCrAm0J/d8/gn
+         8Vdw==
+X-Forwarded-Encrypted: i=1; AKwUvBxsG0+DLy1aq8eF1JrvpquiUQWxBBoMPlzE6Awz03nFklHODRnc6HruCSsIvufdGMMbvbPsmxjAy2HhU+w=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYGejtbxPtfMvg1Jp40SrT2gnxyTPldUNLEY9yy3yxM+I8OI64
+	fs64PKYOVc0kRxoWWW7q4sxulkGwh8cUIxBeDEhmldCSdsBz9nzlhEPt
+X-Gm-Gg: AYBFou2y9YV9kQSPNGCgOL6+gkPWzzY+E1Js0+8yM8ITCeOm89W4fkxw4T1Ysdhtx6R
+	atXtWgLveXvfsobj2asot3VEhE5VaCiVVYnQOy/Cr75ToiEcfrhKNGckMmQGk3WbKbekfsFOyOs
+	xStBOiJImQkEmsyY73bXCx81CHDOqZTchWAXpMOwKzCgPAKjDq+9j5alnksnwSx6RnVPISlZyY2
+	jluDVy4u3ZPNCxJjApu2rg3iBvRP2nmdT0e+cJF2aYh/v6LsiX6I9/l0RH0OjmzPL6xtK4cf83r
+	gMOdPvQr7p4hiNn6iBHnotFI1gfjCZicP2MrPxUvS+cCAOwRrrvnJCqO72FlnzQLh2mcLJjriRm
+	A0WDJ7aC++Rx69iPVDwR8Grz2b69EDOnetjCjD9O4pNsI7KKp8fYqNWYJ76BGITqH06/BV1veGu
+	JnYmNBAmf8SehZQint5xQ89nb01rFMl9fMB69CRrvGz9Eq/sV4k3wpXfTfrFSazct/9zqLgAsSp
+	Gho3SuzbPuI8f0KWds3YI5otvPGQtWgWh9VO53kY/zkJ+Vot6TVdEr+Kfw=
+X-Received: by 2002:a05:6300:614a:b0:3d1:8876:fb1e with SMTP id adf61e73a8af0-3dd5f06f373mr8839492637.0.1789581587781;
+        Wed, 16 Sep 2026 10:59:47 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395cacce6sm7865911c88.1.2026.09.16.10.59.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 10:59:47 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <a335dcbc-6bfa-4ef2-9c7d-4cee985fc3d5@roeck-us.net>
+Date: Wed, 16 Sep 2026 10:59:45 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916114740.48230-1-acme@kernel.org> <20260916114740.48230-3-acme@kernel.org>
-In-Reply-To: <20260916114740.48230-3-acme@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Wed, 16 Sep 2026 10:59:31 -0700
-X-Gm-Features: AcwNN1VHRxZ8T6jFxHxe0fBWiJ7kIxDmT2H5H6nRSUv1vr_fFx2TOWa2x3wW00s
-Message-ID: <CAP-5=fWr46YKripkCvFHO23k+0SUHfGgYBTDc_qp=ev_Fucc1Q@mail.gmail.com>
-Subject: Re: [PATCH 02/12] perf debuginfo: Fetch debuginfo keyed by build ID
- using debuginfod
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, James Clark <james.clark@linaro.org>, 
-	Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page
+ decoding
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Sanman Pradhan <psanman@juniper.net>
+References: <c0a3c877-eeab-4cff-ab2a-bb567f0dc3d1@roeck-us.net>
+ <20260916174553.643587-1-sanman.pradhan@hpe.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260916174553.643587-1-sanman.pradhan@hpe.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 4:48=E2=80=AFAM Arnaldo Carvalho de Melo
-<acme@kernel.org> wrote:
->
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
->
-> perf already uses debuginfod to fetch source files when annotating
-> (via probe-finder.c) and 'perf probe' has open_from_debuginfod(),
-> which queries debuginfo keyed by build ID when a module's debuginfo
-> isn't found locally, largely the same thing this adds; eventually
-> that one could be moved over to the new helper.  For the analysis
-> tools there was no way to obtain the debuginfo for a DSO in a
-> profile when it isn't available locally under the name the DSO was
-> opened with, for instance the vmlinux for the kernel a profile was
-> recorded on when processing it on another machine, or after the
-> kernel and its debuginfo package got upgraded in between.
->
-> Add debuginfo__find_build_id(), that uses the debuginfod client to
-> locate a debuginfo file keyed by the build ID, checking its local
-> cache first and then querying the servers in DEBUGINFOD_URLS, and
-> debuginfo__new_build_id(), that opens the DWARF in the file it finds.
+On 9/16/26 10:46, Pradhan, Sanman wrote:
+> From: Sanman Pradhan <psanman@juniper.net>
+> 
+> Thank you for reviewing and applying the patches.
+> 
+> I think tps536c7_identify() has the same single-page PAGE
+> issue you pointed out for tps53676.
+> 
+> I already have a C7 patch that selects page 0 for single-page parts. I
+> can send it on top of your tps53676 fix so the two stay consistent, or
+> fold it into that fix if you prefer.
+> 
 
-When do we have a build ID but not a DSO? The current intent is that
-dso__debuginfo hide these complexities. We currently don't purge DSOs
-and the first call to dso__debuginfo should trigger loading with the
-DSO owning the debuginfo. With this change we now have a duplication
-of DSO's data, keyed by build ID and mapping directly to the
-debuginfo. I can't see a performance or efficiency gain and we could
-potentially implement some kind of LRU mechanism for DSOs, which would
-benefit memory usage for things like perf top.
-
-> The debuginfod client fails when DEBUGINFOD_URLS isn't set even when
-> what it wants is in its local cache, and the distro setup scripts that
-> populate it from /etc/debuginfod don't reach cron jobs, systemd services
-> and other environments that don't source the profile scripts, so also
-> set it from the .urls files in /etc/debuginfod when not set.
-
-I found the explanation above hard to follow. Are we setting an
-environment variable because debuginfod isn't respecting its /etc
-setup?
-
-> That has
-> to happen before any thread that can call getenv() is started, as
-> setenv() is not thread safe, and there are getenv()s outside the fetch
-> lock: libdebuginfod reads DEBUGINFOD_URLS in every debuginfod_begin(),
-> which perf also does in build-id.c, probe-event.c and probe-finder.c,
-> so do it from symbol__init(), on the single-threaded setup, and not
-> lazily from the fetch path.
->
-> Querying servers, possibly third party ones, sends off-box the build
-> IDs of the binaries being analysed and a fetch can take a while, so
-> this is opt-out: on by default, off with --no-debuginfod, with
-> core.debuginfod=3Dfalse, per tool with report.debuginfod and
-> top.debuginfod, and, since users that set buildid.dir to /dev/null
-> (e.g. Linus) or otherwise turn the local build-id cache off clearly
-> don't want fetched files stored on the box, off too in that case.
->
-> The opt-outs also cover libdwfl's own debuginfod client, that reads
-> DEBUGINFOD_URLS in every query: when debuginfod is off, be it with
-> --no-debuginfod, core.debuginfod=3Dfalse or by disabling the build-id
-> cache, the variable is set to the empty string, that the client treats
-> as an opt-out and fails the query without even looking at its cache,
-> instead of being exported from /etc/debuginfod.  Tools that manage
-> DEBUGINFOD_URLS themselves, such as 'perf record --debuginfod', keep
-> doing so.
-
-Libdwfl is part of elfutils and so is debuginfod. Is it possible to
-share clients?
-
-> The fetches are serialized, as the lookup state they use is process
-> global, so two concurrent fetches would race for it, and serializing
-> also means that a request for a build ID that is being fetched doesn't
-> start a second download of the same file: it waits for the fetch to
-> finish and is answered from the entry the fetch published, keyed by the
-> build ID, with the path of the file that came back, checked before
-> being handed out in case the debuginfod client cache is cleaned from
-> under us.
->
-> Make dso__debuginfo() use debuginfo__new_build_id() as a fallback,
-> keyed by the build ID recorded in the perf.data file, so that
-> consumers such as the data type profiler can resolve the types of
-> DSOs whose debuginfo can be fetched this way.  Do the fetch outside
-> dso__lock, a fetch from a remote debuginfod server can take a while
-> and would otherwise block anything else using this dso, and remember
-> the build IDs that were a miss, so that consumers revisiting a set of
-> DSOs repeatedly, such as the data type profiler on every hist entry
-> DSO switch, don't pay server round trips per attempt.
->
-> debuginfo__new_build_id() needs libdw to open the DWARF, so it lives
-> in debuginfo.o, built only with CONFIG_LIBDW, while the libdebuginfod
-> feature check is independent of NO_LIBDW; keep the new build ID
-> prototypes under HAVE_LIBDW_SUPPORT too, with stubs otherwise, so
-> that make NO_LIBDW=3D1 on a system that has the debuginfod client
-> keeps linking.
->
-> Assisted-by: LLM
-> Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-> ---
->  tools/perf/Documentation/perf-annotate.txt |   8 +
->  tools/perf/Documentation/perf-config.txt   |  19 ++
->  tools/perf/Documentation/perf-report.txt   |  12 +
->  tools/perf/Documentation/perf-top.txt      |  11 +
->  tools/perf/builtin-annotate.c              |   3 +
->  tools/perf/builtin-report.c                |   7 +
->  tools/perf/builtin-top.c                   |   7 +
->  tools/perf/util/config.c                   |   3 +
->  tools/perf/util/debuginfo.c                | 327 +++++++++++++++++++++
->  tools/perf/util/debuginfo.h                |  36 +++
->  tools/perf/util/dso.c                      |  19 ++
->  tools/perf/util/symbol.c                   |  12 +
->  tools/perf/util/symbol_conf.h              |   1 +
->  tools/perf/util/util.c                     | 103 +++++++
->  tools/perf/util/util.h                     |   8 +
->  15 files changed, 576 insertions(+)
->
-> diff --git a/tools/perf/Documentation/perf-annotate.txt b/tools/perf/Docu=
-mentation/perf-annotate.txt
-> index 1a90b09a12d5abb1..12edc3337b86f099 100644
-> --- a/tools/perf/Documentation/perf-annotate.txt
-> +++ b/tools/perf/Documentation/perf-annotate.txt
-> @@ -58,6 +58,14 @@ OPTIONS
->  --ignore-vmlinux::
->         Ignore vmlinux files.
->
-> +--debuginfod::
-> +--no-debuginfod::
-> +       Fetch debuginfo keyed by build ID from the debuginfod servers
-> +       configured in DEBUGINFOD_URLS, checking the local debuginfod
-> +       client cache first, when it is not available locally, on for
-> +       these commands by default.  See the --debuginfod option of
-> +       'perf report' for how to turn it off.
-> +
->  --itrace::
->         Options for decoding instruction tracing data. The options are:
->
-> diff --git a/tools/perf/Documentation/perf-config.txt b/tools/perf/Docume=
-ntation/perf-config.txt
-> index 9b223f8928299945..688306abe847a0df 100644
-> --- a/tools/perf/Documentation/perf-config.txt
-> +++ b/tools/perf/Documentation/perf-config.txt
-> @@ -216,6 +216,14 @@ core.*::
->         addr2line-timeout::
->                 Sets a timeout (in milliseconds) for parsing 'addr2line'
->                 output.  The default timeout is 5s.
-> +       debuginfod::
-> +               When set to 'false', disable fetching debuginfo keyed by
-> +               build ID from the debuginfod servers configured in
-> +               DEBUGINFOD_URLS.  It is on by default, can be overridden =
-per
-> +               tool with the 'report.debuginfod' and 'top.debuginfod'
-> +               options and per invocation with --no-debuginfod; it is of=
-f
-> +               too when the local build-id cache is disabled, e.g.
-> +               'buildid.dir' set to /dev/null.
->
->  tui.*, gtk.*::
->         Subcommands that can be configured here are 'top', 'report' and '=
-annotate'.
-> @@ -562,6 +570,14 @@ report.*::
->                 This option can change default stat behavior with empty r=
-esults.
->                 If it's set true, 'perf report --stat' will not show 0 st=
-ats.
->
-> +       report.debuginfod::
-> +               Fetch debuginfo keyed by build ID from the debuginfod
-> +               servers configured in DEBUGINFOD_URLS, checking the local
-> +               debuginfod client cache first, when it is not available
-> +               locally.  On by default, set to 'false' to disable it for
-> +               'perf report', globally with 'core.debuginfod=3Dfalse' or=
- per
-> +               invocation with --no-debuginfod.
-> +
->  top.*::
->         top.children::
->                 Same as 'report.children'. So if it is enabled, the outpu=
-t of 'top'
-> @@ -569,6 +585,9 @@ top.*::
->                 column by default.
->                 The default is 'true'.
->
-> +       top.debuginfod::
-> +               Same as 'report.debuginfod', for 'perf top'.
-> +
-
-It seems unfortunate to duplicate this option. I wonder if it should
-be a "core" option. There's likely similar clean up necessary for
-addr2line.
-
->         top.call-graph::
->                 This is identical to 'call-graph.record-mode', except it =
-is
->                 applicable only for 'top' subcommand. This option ONLY se=
-tup
-> diff --git a/tools/perf/Documentation/perf-report.txt b/tools/perf/Docume=
-ntation/perf-report.txt
-> index 1a4706329c6cef1d..2e11c0a97a016853 100644
-> --- a/tools/perf/Documentation/perf-report.txt
-> +++ b/tools/perf/Documentation/perf-report.txt
-> @@ -366,6 +366,18 @@ OPTIONS
->  --ignore-vmlinux::
->         Ignore vmlinux files.
->
-> +--debuginfod::
-> +--no-debuginfod::
-> +       Fetch debuginfo keyed by build ID from the debuginfod servers
-> +       configured in DEBUGINFOD_URLS, checking the local debuginfod
-> +       client cache first, when it is not available locally, on for
-> +       these commands by default.  It can be turned off per invocation
-> +       with --no-debuginfod, per tool with the "report.debuginfod"
-> +       config option or globally with "core.debuginfod" set to false.
-> +       It is disabled as well when the local build-id cache is turned
-> +       off, e.g. "buildid.dir" set to /dev/null, as that asks for
-> +       fetched files not to be kept on the box.
-> +
->  --kallsyms=3D<file>::
->          kallsyms pathname
->
-> diff --git a/tools/perf/Documentation/perf-top.txt b/tools/perf/Documenta=
-tion/perf-top.txt
-> index 2da2a16bbf260685..345dd9ee9b6bab88 100644
-> --- a/tools/perf/Documentation/perf-top.txt
-> +++ b/tools/perf/Documentation/perf-top.txt
-> @@ -83,6 +83,17 @@ Default is to monitor all CPUS.
->  --ignore-vmlinux::
->         Ignore vmlinux files.
->
-> +--debuginfod::
-> +--no-debuginfod::
-> +       Fetch debuginfo keyed by build ID from the debuginfod servers
-> +       configured in DEBUGINFOD_URLS, checking the local debuginfod
-> +       client cache first, when it is not available locally, on for
-> +       these commands by default.  Turn it off per invocation with
-> +       --no-debuginfod, with the "top.debuginfod" config option or
-> +       globally with "core.debuginfod" set to false.  Disabled as well
-> +       when the build-id cache is off, e.g. "buildid.dir" set to
-> +       /dev/null.
-> +
->  --kallsyms=3D<file>::
->         kallsyms pathname
->
-> diff --git a/tools/perf/builtin-annotate.c b/tools/perf/builtin-annotate.=
-c
-> index 850fc72fa75fe7df..d6a201c1866d363f 100644
-> --- a/tools/perf/builtin-annotate.c
-> +++ b/tools/perf/builtin-annotate.c
-> @@ -733,6 +733,9 @@ int cmd_annotate(int argc, const char **argv)
->         OPT_BOOLEAN(0, "stdio2", &annotate.use_stdio2, "Use the stdio int=
-erface"),
->         OPT_BOOLEAN(0, "ignore-vmlinux", &symbol_conf.ignore_vmlinux,
->                      "don't load vmlinux even if found"),
-> +       OPT_BOOLEAN(0, "debuginfod", &symbol_conf.debuginfod,
-> +                   "fetch debuginfo keyed by build ID from the debuginfo=
-d "
-> +                   "servers, on by default, use --no-debuginfod to turn =
-off"),
->         OPT_STRING('k', "vmlinux", &symbol_conf.vmlinux_name,
->                    "file", "vmlinux pathname"),
->         OPT_BOOLEAN('m', "modules", &symbol_conf.use_modules,
-> diff --git a/tools/perf/builtin-report.c b/tools/perf/builtin-report.c
-> index 279e61c2366cb294..442c0822e614197f 100644
-> --- a/tools/perf/builtin-report.c
-> +++ b/tools/perf/builtin-report.c
-> @@ -134,6 +134,10 @@ static int report__config(const char *var, const cha=
-r *value, void *cb)
->                 symbol_conf.event_group =3D perf_config_bool(var, value);
->                 return 0;
->         }
-> +       if (!strcmp(var, "report.debuginfod")) {
-> +               symbol_conf.debuginfod =3D perf_config_bool(var, value);
-> +               return 0;
-> +       }
->         if (!strcmp(var, "report.percent-limit")) {
->                 double pcnt =3D strtof(value, NULL);
->
-> @@ -1346,6 +1350,9 @@ int cmd_report(int argc, const char **argv)
->                    "file", "vmlinux pathname"),
->         OPT_BOOLEAN(0, "ignore-vmlinux", &symbol_conf.ignore_vmlinux,
->                      "don't load vmlinux even if found"),
-> +       OPT_BOOLEAN(0, "debuginfod", &symbol_conf.debuginfod,
-> +                   "fetch debuginfo keyed by build ID from the debuginfo=
-d "
-> +                   "servers, on by default, use --no-debuginfod to turn =
-off"),
->         OPT_STRING(0, "kallsyms", &symbol_conf.kallsyms_name,
->                    "file", "kallsyms pathname"),
->         OPT_BOOLEAN('f', "force", &symbol_conf.force, "don't complain, do=
- it"),
-> diff --git a/tools/perf/builtin-top.c b/tools/perf/builtin-top.c
-> index c2562d49be46a9a1..2be6859fd4aee141 100644
-> --- a/tools/perf/builtin-top.c
-> +++ b/tools/perf/builtin-top.c
-> @@ -1436,6 +1436,10 @@ static int perf_top_config(const char *var, const =
-char *value, void *cb __maybe_
->                 symbol_conf.cumulate_callchain =3D perf_config_bool(var, =
-value);
->                 return 0;
->         }
-> +       if (!strcmp(var, "top.debuginfod")) {
-> +               symbol_conf.debuginfod =3D perf_config_bool(var, value);
-> +               return 0;
-> +       }
->
->         return 0;
->  }
-> @@ -1508,6 +1512,9 @@ int cmd_top(int argc, const char **argv)
->                    "file", "vmlinux pathname"),
->         OPT_BOOLEAN(0, "ignore-vmlinux", &symbol_conf.ignore_vmlinux,
->                     "don't load vmlinux even if found"),
-> +       OPT_BOOLEAN(0, "debuginfod", &symbol_conf.debuginfod,
-> +                   "fetch debuginfo keyed by build ID from the debuginfo=
-d "
-> +                   "servers, on by default, use --no-debuginfod to turn =
-off"),
->         OPT_STRING(0, "kallsyms", &symbol_conf.kallsyms_name,
->                    "file", "kallsyms pathname"),
->         OPT_BOOLEAN('K', "hide_kernel_symbols", &top.hide_kernel_symbols,
-> diff --git a/tools/perf/util/config.c b/tools/perf/util/config.c
-> index b2972c35c1eca68c..31c6618d3b3daf22 100644
-> --- a/tools/perf/util/config.c
-> +++ b/tools/perf/util/config.c
-> @@ -470,6 +470,9 @@ static int perf_default_core_config(const char *var, =
-const char *value)
->         if (!strcmp(var, "core.addr2line-disable-warn"))
->                 symbol_conf.addr2line_disable_warn =3D perf_config_bool(v=
-ar, value);
->
-> +       if (!strcmp(var, "core.debuginfod"))
-> +               symbol_conf.debuginfod =3D perf_config_bool(var, value);
-> +
->         /* Add other config variables here. */
->         return 0;
->  }
-> diff --git a/tools/perf/util/debuginfo.c b/tools/perf/util/debuginfo.c
-> index 84a78b30ceac1066..be5882d9c2204797 100644
-> --- a/tools/perf/util/debuginfo.c
-> +++ b/tools/perf/util/debuginfo.c
-> @@ -7,16 +7,22 @@
->
->  #include <errno.h>
->  #include <fcntl.h>
-> +#include <limits.h>
-> +#include <pthread.h>
-> +#include <stdbool.h>
->  #include <stdio.h>
->  #include <stdlib.h>
->  #include <string.h>
->  #include <unistd.h>
-> +#include <linux/list.h>
->  #include <linux/zalloc.h>
-> +#include <api/fs/fs.h>
->
->  #include "build-id.h"
->  #include "dso.h"
->  #include "debug.h"
->  #include "debuginfo.h"
-> +#include "mutex.h"
->  #include "symbol.h"
->
->  #ifdef HAVE_DEBUGINFOD_SUPPORT
-> @@ -139,6 +145,327 @@ struct debuginfo *debuginfo__new(const char *path)
->         return __debuginfo__new(buf);
->  }
->
-> +#ifdef HAVE_DEBUGINFOD_SUPPORT
-> +/*
-> + * Users can disable the local build-id/.debug cache by setting
-> + * buildid.dir to /dev/null, meaning they don't want fetched
-> + * binaries/debuginfo stored on the box; the debuginfod client keeps
-> + * its own cache in ~/.cache/debuginfod_client, so honour that intent
-> + * and don't fetch at all in that case.
-> + */
-> +static bool debuginfod__cache_disabled(void)
-> +{
-> +       return !strcmp(buildid_dir, "/dev/null");
-> +}
-> +
-> +/*
-> + * Build IDs that shouldn't be searched for again in this session: the
-> + * ones already searched for on the debuginfod servers without success,
-> + * so that callers that see the same DSO over and over, such as the data
-> + * type profiler switching between DSOs on every hist entry, don't pay a
-> + * server round trip again for each miss.  The cache of successes is the
-> + * debuginfod client's own, in the local filesystem.
-> + *
-> + * Guarded by debuginfod__fetch_lock: it is only read by the lookups
-> + * below, that run with that lock held, and written by fetches, that run
-> + * with it held too.
-> + */
-> +struct debuginfod_miss {
-> +       struct list_head        node;
-> +       struct build_id         bid;
-> +};
-> +
-> +static LIST_HEAD(debuginfod__misses);
-> +
-> +/*
-> + * Was the search for this build ID already made and settled, i.e. the
-> + * servers had nothing for it?
-> + */
-> +static bool debuginfod__missed(const struct build_id *bid)
-> +{
-> +       struct debuginfod_miss *miss;
-> +
-> +       list_for_each_entry(miss, &debuginfod__misses, node) {
-> +               if (miss->bid.size =3D=3D bid->size &&
-> +                   !memcmp(miss->bid.data, bid->data, bid->size))
-> +                       return true;
-> +       }
-> +
-> +       return false;
-> +}
-> +
-> +static void debuginfod__miss_add(const struct build_id *bid)
-> +{
-> +       struct debuginfod_miss *miss =3D zalloc(sizeof(*miss));
-> +
-> +       if (miss =3D=3D NULL)
-> +               return;
-> +
-> +       miss->bid =3D *bid;
-> +
-> +       list_add(&miss->node, &debuginfod__misses);
-> +}
-> +
-> +/*
-> + * One fetch at a time.
-> + *
-> + * The lookup state below is process global, so two concurrent fetches,
-> + * which dso__debuginfo() makes possible by taking the fetch out of
-> + * dso__lock, would race for it: the second one could answer from a list
-> + * the first one is concurrently updating, and put the same build ID on
-> + * the misses list twice.
-> + *
-> + * Serializing also means a second request for a build ID that is being
-> + * fetched waits here for the fetch to finish, instead of starting a sec=
-ond
-> + * download of the same file, and is then answered from the entry the fe=
-tch
-> + * published, or from the misses list, with no client at all.  Should th=
-e
-> + * fetches ever run in parallel, that wait has to come back explicitly, =
-with
-> + * this lock split in two: one only for the lookup state, that the waite=
-rs
-> + * sleep on, and one held around each fetch, with the thread that finds =
-a
-> + * fetch in progress waiting on the former for the entry to be published=
-.
-> + *
-> + * What that costs is that a fetch for one build ID blocks a fetch for
-> + * another one, and it is what parallel downloads would fix.  Worth doin=
-g
-> + * only if the wait turns out to be long, because it mostly is not: the
-> + * lookups below answer the second and later requests for a build ID fro=
-m
-> + * memory, so after the first pass over the build IDs of a workload, whi=
-ch
-> + * is the only time anything is fetched at all, the serialization has
-> + * nothing left to serialize.  Start there if a profile with many DSOs t=
-o
-> + * fetch shows up in a profile of perf itself.
-> + */
-> +static struct mutex debuginfod__fetch_lock;
-> +
-> +static void debuginfod__fetch_lock_setup(void)
-> +{
-> +       mutex_init(&debuginfod__fetch_lock);
-> +}
-> +
-> +static void debuginfod__fetch_lock_init(void)
-> +{
-> +       static pthread_once_t once =3D PTHREAD_ONCE_INIT;
-> +
-> +       pthread_once(&once, debuginfod__fetch_lock_setup);
-> +}
-> +
-> +/*
-> + * The build IDs already fetched in this session, and the path of the fi=
-le
-> + * that came back for each, so that the repeated requests for the same b=
-uild
-> + * ID, dso__debuginfo() is called per symbol annotated, are answered wit=
-h a
-> + * strdup() instead of another client: the file is in the debuginfod cli=
-ent
-> + * cache already and its path checked before being handed out, in case t=
-hat
-> + * cache is cleaned from under us.
-> + *
-> + * Guarded by debuginfod__fetch_lock.  Only a fetch that brought a file =
-back
-> + * gets an entry: one that didn't is recorded in debuginfod__misses as a=
- miss,
-> + * and that is what keeps the rest of the session from asking for it aga=
-in.
-> + * Like debuginfod__misses this grows with the number of build IDs in th=
-e
-> + * workload, one small entry each, and is not trimmed.
-> + */
-> +struct debuginfo_lookup {
-> +       struct list_head         node;
-> +       struct build_id          bid;
-> +       char                    *path;
-> +};
-> +
-> +static LIST_HEAD(debuginfo_lookups);
-> +
-> +static bool build_id__equal(const struct build_id *a, const struct build=
-_id *b)
-> +{
-> +       return a->size =3D=3D b->size && memcmp(a->data, b->data, a->size=
-) =3D=3D 0;
-> +}
-
-This is probably worth moving to the build-id.[ch] file. I see similar
-logic in places like __dso_id__cmp,  dso__missing_buildid_cache in
-builitin-buildid-cache.c and sort__dcacheline_cmp. dso__build_id_equal
-has some special backward compatibility checks.
-
-[snip]
+Please send your patch. I didn't have time to write the patch for tps53676,
+so if you have some spare time please go ahead and submit a patch for that
+chip as well.
 
 Thanks,
-Ian
+Guenter
+
