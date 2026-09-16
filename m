@@ -1,256 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C7B4CEE4E;
-	Wed, 16 Sep 2026 17:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FDF14D6C23;
+	Wed, 16 Sep 2026 17:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580324; cv=none; b=ZsPkiq5aKpM/ZJ/BPfOrr0esQT9rdTOFZX0lGszyf+11wYpHP3+FS5s+FV/cRNMaQYrCgdHLlr2AULBAmME5OKEgvXtlt7KwsyrF5A/mOhvXv8n5tBwrh2tbcXpTqHf7LkFPKMISjh6HIOxtfZhWC05n8s3bv2uEHIoD+1Nj1TI=
+	t=1789580334; cv=none; b=bJDr7HOc+jZ9ngMzyVwd9Hz3nQ9nY5mxRIqIK4giSIyEYX9juNKTVeDlcQP9JOhF+ddjxyRT2n+r3mG7sXBil67GPiBiC8uJTrSLa4h5Y/oAhL2kpGV+2C10suMAf1QVBgOT07Zh/0EJJEAH7c/crNj1gDdP/a4U+1HK1oxq16c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580324; c=relaxed/simple;
-	bh=huuvDYYHx4dziZjSfHbT0AUGsvZFvUBJqk93qr3mpbA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=B//lHPHoXLVtwZ+ZFIyG4meGBacKwlpl6oWXVVzEOktM+0VRQWNBpd4XIGiqVq5FNpQ0FnokFQveWGKiplf9AXhzEM/zD33xJ5fnltrO9agu2YHO/bLZjjSDIMeu96Xl7IH/zpp6a1JtKidpu4gx3nhAPMb7PTKUraKBiyMyS6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vo+n4HIF; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vo+n4HIF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72E21F000FF;
-	Wed, 16 Sep 2026 17:38:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789580310;
-	bh=vruFXSNiZzTcRGVZVsS3u3NJkuqePVUQ0NhUeEs2RY0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Vo+n4HIFQCH/Qa2BWMIvwrWrS5r26RhT2ws+YF6RT7Wd+uj5Sv2n8POsTYRuQzvaT
-	 KRCh2NnHmu6S4DoOdWdms2m7LANEkliYt7DRzYoc+eFogKdI+x1Cx7BdQHFP5fNXAi
-	 2yoKffnnTLgCsg1tPaQJsYlIhKeEg0MjmQBZU3HXLEX+Qob0aSZX3l17CvW1tFSWFK
-	 T82bPU9qBWeWTrVljlSMgoMYN1dWFC87cvOesp0gfYoGzU+eRFosO0BxNvyiy+NUib
-	 WBx5zuCNAbtcJitN7jD0DeJJP2xPyctkJjk33P+ebSWsx21gH7tpwm27ovc3iyodf3
-	 LjN3gr4CJgNEA==
-Subject: Re: [PATCH ipsec v2] xfrm: fix races in device state cleanup
-From: netdev-bot+sashiko@kernel.org
-To: nicoyip.dev@gmail.com
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Wed, 16 Sep 2026 17:38:29 +0000
-Message-ID: <178958030946.22033.17018749865001469631@kernel.org>
-In-Reply-To: <20260914133540.3666907-1-nicoyip.dev@gmail.com>
-References: <20260914133540.3666907-1-nicoyip.dev@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1789580334; c=relaxed/simple;
+	bh=1xBOa/arXWhUJUP6g5m17JkL1URolc5p+IQdAXLKJ/M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=JgGSmamELerhU6BDrK7Is5YWg6mCS+zACDjk2s8PdTN6HUlvzfQdWPwxvdxn0cPNm3uB3EOVnd1baocy7Ir8xQNM2qpDFa8nKeny7qDtFikbbvTYzKS/50JALkqEHZgWSl3hADSK+h8Xj8kYcRzLdeykBq/FY/y2xFXTvPCsWdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+X-PTX-Original-Recipient: jre@pengutronix.de
+X-PTX-Original-Recipient: kernel@pengutronix.de
+X-PTX-Original-Recipient: akpm@linux-foundation.org
+X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
+X-PTX-Original-Recipient: linux-hardening@vger.kernel.org
+X-PTX-Original-Recipient: andy@kernel.org
+X-PTX-Original-Recipient: kees@kernel.org
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 53C512059ED;
+	Wed, 16 Sep 2026 19:38:15 +0200 (CEST)
+Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <jre@pengutronix.de>)
+	id 1x6taJ-001Go9-0m;
+	Wed, 16 Sep 2026 19:38:15 +0200
+From: Jonas Rebmann <jre@pengutronix.de>
+Date: Wed, 16 Sep 2026 19:38:10 +0200
+Subject: [PATCH 5/5] lib/string_helpers: fix counting of remaining bytes in
+ string_unescape()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-string_unescape-v1-5-7f8bd986fa33@pengutronix.de>
+References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
+In-Reply-To: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
+To: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de, Jonas Rebmann <jre@pengutronix.de>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2281; i=jre@pengutronix.de;
+ h=from:subject:message-id; bh=1xBOa/arXWhUJUP6g5m17JkL1URolc5p+IQdAXLKJ/M=;
+ b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYshadYVNz/jirVZhl00dzbwfT7Od9J7l/T9PqrTwCl/Fr
+ RSZBTN/d5SyMIhxMciKKbLEqskpCBn7XzertIuFmcPKBDKEgYtTACYSsJzhN3tu7aefdxZesDQ5
+ W/vO96/aQpP2Y47KR5Pdkqxsu143LWP4HxkmeYtZy1LffsJ9xbL9+c/KJi8sLjyR7fFGYoJQRfV
+ aFgA=
+X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
+ fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+All of the available sequences expand to exactly one byte, the size
+check in the loop condition is sufficient for the case of an escaped
+character too.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 1
+Otherwise, an escape sequence that should be unescaped to the last
+character before terminating with null in the destination buffer will be
+output as backslash instead of the escaped character.
 
-- [High] net/xfrm/xfrm_state.c, xfrm_dev_state_free(): the patch
-  publishes `WRITE_ONCE(xso->dev, NULL)` (line 788) under…
-- [Low] net/xfrm/xfrm_state.c, xfrm_dev_state_flush() line 1011: the new
-  `&& xfrm_state_hold_rcu(x)` gate makes the deferred device-GC pass…
+The only exception is when encountering a backslash that turns out to
+not start a valid escape sequence and both the backslash and the
+character following are handled in one iteration. Move the check there.
 
-Pre-existing issues:
-- [Medium] Split responsibility for validating xso->dev between core and
-  driver: include/net/xfrm.h, xfrm_dev_state_update_stats() snapshots…
+Add a kunit regression-test that unescapes a character to right in front
+of the null terminator of the destination buffer.
 
---
+Fixes: 16c7fa05829e ("lib/string_helpers: introduce generic string_unescape")
+Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
+---
+ lib/string_helpers.c             | 5 +++--
+ lib/tests/string_helpers_kunit.c | 2 ++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-xfrm: fix races in device state cleanup
-
-The patch makes the deferred device-GC pass in xfrm_dev_state_flush() take a
-temporary xfrm_state reference while it still holds xfrm_state_dev_gc_lock,
-and moves the xso->dev clearing and the dev_gclist unlink under that same
-lock so only one caller claims the device cleanup. hlist_del() is replaced
-by hlist_del_init() so the node is left unhashed.
-
-A few questions below.
-
-> diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-> index 36a4f6793edef..282d09d0c2475 100644
-> --- a/net/xfrm/xfrm_state.c
-> +++ b/net/xfrm/xfrm_state.c
-> @@ -780,17 +780,20 @@ EXPORT_SYMBOL_GPL(xfrm_dev_state_delete);
->  void xfrm_dev_state_free(struct xfrm_state *x)
->  {
->  	struct xfrm_dev_offload *xso = &x->xso;
-> -	struct net_device *dev = READ_ONCE(xso->dev);
-> +	struct net_device *dev;
->  
-> +	spin_lock_bh(&xfrm_state_dev_gc_lock);
-> +	dev = READ_ONCE(xso->dev);
->  	if (dev && dev->xfrmdev_ops) {
-> -		spin_lock_bh(&xfrm_state_dev_gc_lock);
-> +		WRITE_ONCE(xso->dev, NULL);
-
-[Severity: High]
-Can moving this clear ahead of the driver callback open a NULL dereference
-window on the output path?
-
-After this change xso->dev is published as NULL here, the lock is dropped,
-and xso->type is only set to XFRM_DEV_OFFLOAD_UNSPECIFIED after
-xdo_dev_state_free() returns.  For the whole duration of the callback a
-lockless reader sees xso.type == XFRM_DEV_OFFLOAD_PACKET together with
-xso.dev == NULL.
-
-xfrm_output() picks the offload branch purely on the type:
-
-net/xfrm/xfrm_output.c:xfrm_output() {
-	...
-	if (x->xso.type == XFRM_DEV_OFFLOAD_PACKET) {
-		if (!xfrm_dev_offload_ok(skb, x)) { ... }
-	...
-		if (x->props.mode == XFRM_MODE_TUNNEL && !skb->sk)
-			return xfrm_dev_direct_output(sk, x, skb);
-	...
-}
-
-and xfrm_dev_offload_ok() explicitly tolerates a NULL device:
-
-net/xfrm/xfrm_device.c:xfrm_dev_offload_ok() {
-	struct net_device *dev = x->xso.dev;
-	...
-	if ((!dev || dev == xfrm_dst_path(dst)->dev) && !xdst->child->xfrm) {
-	...
-ok:
-	if (!dev)
-		return true;
-}
-
-so a forwarded (skb->sk == NULL) tunnel-mode packet reaches:
-
-net/xfrm/xfrm_output.c:xfrm_dev_direct_output() {
-	skb->dev = x->xso.dev;
-	__skb_push(skb, skb->dev->hard_header_len);
-}
-
-Before this patch xso->dev was cleared after the callback, one store before
-xso->type, so the inconsistent state lasted a couple of instructions.  Now
-it spans the driver callback, which can block for a long time, for example:
-
-drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c:mlx5e_xfrm_free_state() {
-	if (sa_entry->work)
-		cancel_work_sync(&sa_entry->work->work);
-
-	if (sa_entry->dwork)
-		cancel_delayed_work_sync(&sa_entry->dwork->dwork);
-
-	mlx5e_accel_ipsec_fs_del_rule(sa_entry);
-	mlx5_ipsec_free_sa_ctx(sa_entry);
-}
-
-The state can still be referenced by an xfrm_dst bundle while
-xfrm_dev_state_flush() runs (ip link set <offload dev> down or device
-unregister), so a packet can be inside xfrm_output() at that moment.  Would
-it be safer to clear xso->type before, or together with, xso->dev under the
-lock?
-
->  		if (!hlist_unhashed(&x->dev_gclist))
-> -			hlist_del(&x->dev_gclist);
-> -		spin_unlock_bh(&xfrm_state_dev_gc_lock);
-> +			hlist_del_init(&x->dev_gclist);
-> +	}
-> +	spin_unlock_bh(&xfrm_state_dev_gc_lock);
->  
-> +	if (dev && dev->xfrmdev_ops) {
->  		if (dev->xfrmdev_ops->xdo_dev_state_free)
->  			dev->xfrmdev_ops->xdo_dev_state_free(dev, x);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the reordering above changes
-which contexts can race with an unchecked re-read of x->xso.dev in the mlx5
-stats callback.
-
-The core snapshots and validates the device, then passes only x:
-
-include/net/xfrm.h:xfrm_dev_state_update_stats() {
-	struct net_device *dev = READ_ONCE(xdo->dev);
-
-	if (dev && dev->xfrmdev_ops &&
-	    dev->xfrmdev_ops->xdo_dev_state_update_stats)
-		dev->xfrmdev_ops->xdo_dev_state_update_stats(x);
-}
-
-and the driver re-reads the field with no NULL check:
-
-drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c:mlx5e_xfrm_update_stats() {
-	struct net *net = dev_net(x->xso.dev);
-
-The clear in xfrm_dev_state_free() does not take x->lock and no stats reader
-takes xfrm_state_dev_gc_lock, so a clear landing between the core check and
-the driver re-read gives dev_net(NULL).
-
-With this patch the clear now happens before xdo_dev_state_free(), which is
-where mlx5e_xfrm_free_state() does cancel_delayed_work_sync() on the delayed
-work that runs mlx5e_ipsec_handle_sw_limits() -> xfrm_state_check_expire()
--> xfrm_dev_state_update_stats().  Previously the clear only happened after
-that work had been cancelled.
-
-Should the callback receive the dev the core already validated, the way
-xdo_dev_state_add/delete/free do, or should the driver NULL-check?
-
-> -		WRITE_ONCE(xso->dev, NULL);
->  		xso->type = XFRM_DEV_OFFLOAD_UNSPECIFIED;
->  		netdev_put(dev, &xso->dev_tracker);
->  	}
-> @@ -1005,9 +1008,10 @@ int xfrm_dev_state_flush(struct net *net, struct net_device *dev, bool task_vali
->  	hlist_for_each_entry_safe(x, tmp, &xfrm_state_dev_gc_list, dev_gclist) {
->  		xso = &x->xso;
->  
-> -		if (xso->dev == dev) {
-> +		if (xso->dev == dev && xfrm_state_hold_rcu(x)) {
-
-[Severity: Low]
-Does this turn the deferred pass into a best-effort one?
-
-When refcount_inc_not_zero() fails the entry is skipped with no cleanup, no
-restart and no error, so xfrm_dev_state_flush() can return to
-xfrm_dev_event() while the xso->dev_tracker netdev reference is still
-outstanding.  The trailing xfrm_flush_gc() does not close that window,
-because the state is only queued after the refcount already dropped to zero:
-
-net/xfrm/xfrm_state.c:__xfrm_state_destroy() {
-	spin_lock_bh(&xfrm_state_gc_lock);
-	hlist_add_head(&x->gclist, &xfrm_state_gc_list);
-	spin_unlock_bh(&xfrm_state_gc_lock);
-	schedule_work(&xfrm_state_gc_work);
-}
-
-net/xfrm/xfrm_state.c:xfrm_flush_gc() {
-	flush_work(&xfrm_state_gc_work);
-}
-
-so flush_work() can observe the work as idle just before it is queued.
-
-The same applies to a state claimed by another xfrm_dev_state_free() caller,
-since the claim unlinks it from dev_gclist under the lock while the netdev
-reference is only dropped after the callback returns.
-
-To be clear, this does not look like the unregister hang that 07b87f9eea0c
-addressed: a zero refcount means the destroy path is committed and
-unconditionally reaches xfrm_dev_state_free() -> netdev_put() through the GC
-worker, and netdev_wait_allrefs_any() polls with msleep() and rebroadcasts
-NETDEV_UNREGISTER once a second, which re-runs xfrm_dev_state_flush().  So
-the observable effect appears to be a bounded extra delay in device
-unregistration in a rare interleaving.
-
-Separately, since every successful claim does goto restart_gc from the list
-head while skipped entries stay on the list, the walk re-scans them each
-time.  Was an O(n^2) re-walk of the device GC list intended here?
-
->  			spin_unlock_bh(&xfrm_state_dev_gc_lock);
->  			xfrm_dev_state_free(x);
-> +			xfrm_state_put(x);
->  			spin_lock_bh(&xfrm_state_dev_gc_lock);
->  			goto restart_gc;
->  		}
+diff --git a/lib/string_helpers.c b/lib/string_helpers.c
+index cb41ef9d8c5b..4a621f884bde 100644
+--- a/lib/string_helpers.c
++++ b/lib/string_helpers.c
+@@ -329,7 +329,7 @@ int string_unescape(char *src, char *dst, size_t size, unsigned int flags)
+ 		size = SIZE_MAX;
+ 
+ 	while (*src && --size) {
+-		if (src[0] == '\\' && src[1] != '\0' && size > 1) {
++		if (src[0] == '\\' && src[1] != '\0') {
+ 			src++;
+ 
+ 			if (flags & UNESCAPE_SPACE &&
+@@ -349,7 +349,8 @@ int string_unescape(char *src, char *dst, size_t size, unsigned int flags)
+ 				continue;
+ 
+ 			*out++ = '\\';
+-			size--;
++			if (!--size)
++				break;
+ 		}
+ 		*out++ = *src++;
+ 	}
+diff --git a/lib/tests/string_helpers_kunit.c b/lib/tests/string_helpers_kunit.c
+index 2e02c680cbb2..10763a01be83 100644
+--- a/lib/tests/string_helpers_kunit.c
++++ b/lib/tests/string_helpers_kunit.c
+@@ -626,6 +626,8 @@ static void test_unescape(struct kunit *test)
+ 
+ 	test_string_unescape_one(test, "short buffer", UNESCAPE_HEX, "\\x41\\x41B", 4, "AAB", 3);
+ 	test_string_unescape_one(test, "unrecognized escape at end", UNESCAPE_HEX, "B\\qX", 4, "B\\q", 3);
++
++	test_string_unescape_one(test, "end of buffer", UNESCAPE_HEX, "B\\x41", 3, "BA", 2);
+ }
+ 
+ static void test_escape(struct kunit *test)
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914133540.3666907-1-nicoyip.dev%40gmail.com
+2.56.0.rc0.108.gf0ef1b96a0
+
