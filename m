@@ -1,271 +1,201 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011016.outbound.protection.outlook.com [52.101.57.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57A03EDAA8
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541086; cv=none; b=XHF2oAR1C/S+AIk9eO+MLlNFU2CGPwKV2LoQvxZfWRxTI+YuIdpZMN3fgRaOxEzGgdf9GwpHA5/li/0OwjdCif5/36Tf1AEtwLz4t0P0SHICFIhiPGCqLVPbj45ZzQfKEzb+b1Us0jp+7eJO4B3kOG6wZzDQCscOAe9u8AuyJ30=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541086; c=relaxed/simple;
-	bh=SzfK6CJnam9Dg4BVTpagUZL4n3gDBm63Y+qtGXTWOqU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T7ckDSUszB30VmyN/B7BF6rGCQHTPDcpenDIs5RHkH17hgdk5xwO30AymN9xupkHMiZYh8Csdwvn5wF64w0ZrsbOeupS0Q8CVXq3MOCliey3lB4B+nr05QErmNDAHg0/bkrlYoPxB+wAlxpdxyPZt07903u5PlytnSvioYB3fSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=COkqCTcV; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7EB3E49F8
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:45:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789541105; cv=fail; b=TsGp1UdYTGO0ZK1JG/onBcOr/+ZHLVXtJ3r52r7BOr8MBure3ewY42I/WLXInjXTy06G+B80D+FOs4CH6YCKSk1Ay70sjtCuGqTzYgn+0lOokfHHRlHniS7b1Gk6Q8egHL5EEUPS3UzBp4LnAVpKBCFBt62HhQQ0/kIphIYwUKQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789541105; c=relaxed/simple;
+	bh=6CbgaGfpZZT6fTpWJXnUbFHA5lhVVdwNzKF3vZe/IA0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=WRW70ag9uTYGWJdXdhmfKD+8ULztfR4Xm+CJM518az8lfRsyZAF2KtuY4q2Zp3j/zoWfqrp3GYaYtLqTJ7Z9ue5kvjJOaGV5/e1vzEtvBV8SgWB+bJ/J79G1LLcYIUX8mV6nJFDcTQwEvWiFZteG6O/G159ZnD1NOt7jUBwhaws=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uhDTX9dY; arc=fail smtp.client-ip=52.101.57.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="COkqCTcV"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd4b43b20bso3753905ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:44:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1789541084; x=1790145884; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zUhtpwjDYsFhZVHLtQ8dC1wt8tqWIMzZ7omgfR51vXw=;
-        b=COkqCTcVOE3gTa2CetFt3I6Y1J8mj8yCNrj942/DylYRwBEB1pMhn+tL9Ebs5/O+NB
-         XIgnZeM8u/TwFo5TMLqW+G4Tn9Mj2YQdn/rZ2HVaZPOZqSMKy1ZUCdCnZFqPDeRrskxH
-         G57muZ6E9WM0lQUvf2/oNwQKPWQKN7MlW9XINf8nTSN4tJo/3dOFNsOgdbxhTns8/spw
-         wgqwTc0iD85ETBkg3P4T2vfRWo2TYf9h/Kf/KRT+X7XqJsa+52K0ZfRDDX+qUcUb2IZD
-         wrX1cil1nWHajwEVLL5dvFml8OUwSN3P0vAluKqA4/+n+qfR+GhZn6W0QI7U+bqPf8Nv
-         vH1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789541084; x=1790145884;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zUhtpwjDYsFhZVHLtQ8dC1wt8tqWIMzZ7omgfR51vXw=;
-        b=eudZ9bwIIeMBGiL87MgY6X2emBgGZCd6mh8F5ym92pSQzyCPbofgNw9HVYQYSFOIWi
-         ni4sSNEPGpKJZmdX9ey8Z35taDL6RC0kYIPwQyLU2i9OzN7BY86Ux2vwkP+Bueg1qzs4
-         0r48BV0i9pUAHNgLrvN0RF2IkzOVpS61SNoiWL2T7v1z3G+lnSrh74p0le+tqSbY5gWV
-         Xw45Zlr4DQ2x5bOqHkqEkHVWq1jh08rkCqMiZmtOjdb8BUwCLOGQq/Dzp+AkdFG1tdWG
-         g5EX1FNpghnOONtOfAoAjGNr5psmr7QJidW2wkdnrpqd+/sNniyXi2ez6HEJBfvlNOjc
-         ooaA==
-X-Forwarded-Encrypted: i=1; AKwUvBz5XA6r/nwLB8ke1WtMh7tnBrjYmSoMyEaiD0MUfH9MBxMJAdqIlssmOUmKEjzFhtS472KSqRFdF2B4dFw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGyjPMEjndN+pfzkRBxqBoMWMGQjXWwwRrurkNWHh5czfxO5fO
-	3WV2NzSStPcTKUKwPUQBGpLpw1kp9+KVBLkQqmEg3OV6QztTH42Em8Sq8GbPo3KwI3s=
-X-Gm-Gg: AYBFou0+p5gVCO6QJRTnKDas2S4tASgUCcrigSvDbZCiVOhTIm3svVvXwbdtFfOxYzB
-	v3m6HdaXAjR3akTNKOn3Y6MrHKKi77DdTjzaXeS0uegbI+0CZsI7B6dVM7rd4NsyCxIDwzR/nMh
-	8xl4oLGq0Wz6DJ0tMQcpghrdPqJkrhmnJFUPUPDaaHDGNQFv50261r/sZ1fOn/LofanzKprTDTg
-	OT91QNpR9kqbROizWT2hTGalM3Y7IwMpMF6VeLsfmxqjJq9BZ3KWlxK3XtlfBMNICgOWuV8vOhJ
-	H9g77nJt8PdxlOX1GFcsNBsK9farhDW8Whq+UOYqjcBiU1HCmXha6r5Vyp3xfn7DUtKvFfLZevF
-	9L8Um0BVegMQRoyaNosIkgwhBfmskj0JkrSx0vNEQGe8V7sb/pMcxcQfznhquvVFwvaSX/IJ/dY
-	DunGz0yU0s0plnl5sgfW33F9vza417s2AY3WYzMFZhT0ErYMF/RBwNRE5UhG2KBxdhlXdIaXR5V
-	/L+6S75lA5KJHYsqPQ=
-X-Received: by 2002:a17:902:f547:b0:2d8:df44:a5c2 with SMTP id d9443c01a7336-2dd8e766fd2mr29327755ad.20.1789541084051;
-        Tue, 15 Sep 2026 23:44:44 -0700 (PDT)
-Received: from n232-176-004.byted.org ([36.110.163.98])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f0592asm6074755ad.62.2026.09.15.23.44.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 23:44:43 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-doc@vger.kernel.org,
-	Muchun Song <muchun.song@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v4 11/11] Documentation/mm: update DAX vmemmap deduplication docs
-Date: Wed, 16 Sep 2026 14:43:41 +0800
-Message-ID: <20260916064341.1825793-12-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260916064341.1825793-1-songmuchun@bytedance.com>
-References: <20260916064341.1825793-1-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uhDTX9dY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UgTtwPyul3/FLQRNxYp6BlNBdw7zFCiPCV7+ZKTcRobMgWNY6Mm7yahN0dZqhiPiC2eo6zjuY4LI6yFCGLleeeZNdV7mnwMjTLKmJJzIZYGeCKJGeEZ/P3bywmOSaP/jL3CdclYJhV7QI6zBfJngWfmaDH/FbYFbXlAOUsg0crXUX7oS7K7RGdVUlSTTWeEXqbYwmhi865nu5R7WM1dav07jPu/cZnxCWoO6eb1ObYScEtJAMI18nnHNAjKze0guWcaWagCZNto9Yt8bvrQEvd9YNBU+FAaWCUfd9PN+Le8qWc+YJIiNVYqe5/PxUfQC844enfuNJwMYThzYqX4UFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4O22ds7kSV6mxaHcZ78q0DyGglxKbnXNBSBUM1XF500=;
+ b=bBdCkAKfL6talvCMtciHkXLiCYVLHj0Y2XhogsPcmsHb1sa/uE4kzxJOyrjvuKrseZ9vHv6KUqSCGfXLZAhP/9kEvtQInuOO4GnA/HhRQE8Q2dhW4lQIP+61+Tv/6a8muxtldwKJj8ngiX5W3up0nU8XpWlOMQ8wPsDDyy2PItQJb92pqKnf62KFc8Lu3qXt8DfbxjxeIUXYNb/I4WPo54OvECytYSGaRf3lPoj3WQJuv0GmapUW1OoapYHxZw0O9fUz7Y9VXqR6cDSzwxUlNi0bB6uZOgHjqfXhY82mM4t42rN+jld6WzfSgVehefuBDG0QtYFTWDBqOrmNU/pGZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4O22ds7kSV6mxaHcZ78q0DyGglxKbnXNBSBUM1XF500=;
+ b=uhDTX9dYAExXjORLFlg7iMF6J4wHlL5pC01zKx0zVDA2FTRvwOzTPxFad4jVd63dutzG+vpR5lX6UO64KynUbs6Sw3UoOjlrywismKs83ILi34LQPmOFqeuSOazX2O9X5S3nQMfOsXriS4Zd16r+JtAiJiou2ktvqXLsZbBaC8P9cg46DzHnNVonizmKPYY7TzkXNbqXUiSWv2Xf1JrSSKljcmrofytPHPyKRvH39qraWM2VuTqzPOOgcCWJmpsvOdHXB30Ir9IWxerTjObZ3HTmDO1UDBwRUOsZeOR/hKEYtWWSoZncuYrmVZfHB9+222zgv3igEu5MCexsEyJpDg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB4824.namprd12.prod.outlook.com (2603:10b6:610:b::22)
+ by CYXPR12MB9278.namprd12.prod.outlook.com (2603:10b6:930:e5::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 06:44:57 +0000
+Received: from CH2PR12MB4824.namprd12.prod.outlook.com
+ ([fe80::34d6:fda7:9290:35a9]) by CH2PR12MB4824.namprd12.prod.outlook.com
+ ([fe80::34d6:fda7:9290:35a9%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 06:44:57 +0000
+Date: Wed, 16 Sep 2026 08:44:47 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 14/18] sched_ext: Split curr|donor references properly
+Message-ID: <aqo633Wj0nOoIn1i@gpd4>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-15-arighi@nvidia.com>
+ <20260910114726.GR776954@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910114726.GR776954@noisy.programming.kicks-ass.net>
+X-ClientProxiedBy: MI0P293CA0012.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:44::20) To CH2PR12MB4824.namprd12.prod.outlook.com
+ (2603:10b6:610:b::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4824:EE_|CYXPR12MB9278:EE_
+X-MS-Office365-Filtering-Correlation-Id: 40b59942-8edb-445f-e1da-08df13be0582
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|6133799003|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	NDxEI0YWe/DBrFWqLQuIuEGIrC7MaWXpyW/8QApcKkHUUZM5LBQ0NVST31fI/9LCx/y+WEonRB63sgFTw4o4lm6rztQeTBRwszFihfLPBYLexe6d7XNhwPTfgHmy3Jk1laxaOy3uLwvfKTs8Ns0SP9FDQ6f0OGdGd34wv1e5v+Zcdqe2RXC1pq2wvIvG6hZncfIu7t7MXi95C3/cMAibFbgH8yF8exnOv1Re7oD3NjGSYvzZ8nZidUT0gmGUCS6IA8nh3SgcPnT+IJ4tnWIu95wvRj5jUUzFaTDzaiTW7Lurw492kSIhTzKXf1xbrWR3PoYVD5k6SdW4sCTM2ZswbTaCWadjmmHqlLxAPQIiSV/u9TV8vwG+DNLnV3L1pTW+rR+LpJmeTPoJ+3CIPdkr6C28iXBCFkCdhZH1WeKw5NNJ+v9DJYb9DElKjBicQAK2aAg1rrHjE2NQ8eRHpUzm/1ComG6K7QoTqkOb2WHKsGm2m+fZANhgOydnmwp+nW98nrnAVNxNd+Vf+8NmNfMR2pXTkuhFCJyNsFJB99Csz7iSsr+Q7MhN/gK0+B8Z3PgbFgZvoSoXgbWSXNnO+5LcQiOAb+EagoZDDhS0vtnko3fkdvuhYqwVp5xpG2zxd+Pb4DwxjS27By8m0S3btUaoetYcOuuFVUbhwXkGqcuJy5Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH2PR12MB4824.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(6133799003)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fh0jgSwTrSTJgKI5GJ0JrXfWNP++qULd/lzuKyPiZ1kAHA6xxJSZTMS9BqNa?=
+ =?us-ascii?Q?m3HRXGImLhAHRkWEuW7G3GIFLccImLntniZ4hnI/GdswoVBUVV7/f2QWkBSK?=
+ =?us-ascii?Q?cdHn5BBWtaRBUe9f+rlUDhJ50YYjI5BV4bUmWC1X7yewLMA754SIqyiY74G8?=
+ =?us-ascii?Q?SF/JxLpbayKxpnVoxRNbdVpqj2huingHW+yjn39pS2zupkj9MC4GEMPMS4s4?=
+ =?us-ascii?Q?pApGCzYaMKtPZH+AvBvqnKPmtlNgwhi15pD6ZWFZEadM1bQsHSt58g5ebOh7?=
+ =?us-ascii?Q?o3nU0vOvLSTTJddM4mzcpsgRDL4H080SWWj9FsAAreYtlNGdVvILRo7XqXnJ?=
+ =?us-ascii?Q?VqSSZ8E29kO40xIcxJ6JqDdHihCAezKSZede5PDi+6Vhnu4+Pi2Nqcw4FmYp?=
+ =?us-ascii?Q?oTKsM0P0noo3BP+kK+8qIVdg8uGU6Tk/F9hrlCIgGZEXHOZ4pkGrI8kLl114?=
+ =?us-ascii?Q?G8oByqYUnv9maH2va4uYE9+ySQDpmI2wXonXO+Le9WTa8zTHYmBPTDP9x3WH?=
+ =?us-ascii?Q?eD5U5kTXrxGtpoRqIzsHB+dohEFuNplXE4zCv2o2GtbITkiJgG9vNLRauTiW?=
+ =?us-ascii?Q?EbJDqcqZpjw43QVJceRIm3DH1fSa30lybVCZCp2tqI2iAF/QJhm715cHrSHV?=
+ =?us-ascii?Q?pcaG5Bg/0jDULnh6MO/pUQm7Rd42+l+s0cLsNoyo2pOwP2lBIkk/CEmMjBOQ?=
+ =?us-ascii?Q?0LFq0SEppbDrs2qJNprRDZSYuKzExAsgULzN0DkWFEjZhkLgKItkjKqIMeiH?=
+ =?us-ascii?Q?l1kLqTmMWFKEacom4W8mwTG+X8SVKzCuuNkEmuzuwRk5vApHUX1Cnfn0BoYW?=
+ =?us-ascii?Q?O5J4XrAQgz+uKLp3yt5NdeAvCDlyCHWvV5Bnb1YZ76Ki/xeM9TjXXzTbyLx0?=
+ =?us-ascii?Q?iPGjwB7tsZ1RQJfxm6TEUL7WpKNXwGBcOUVNP/9CAsS1VftU+zJVgzwRx+8W?=
+ =?us-ascii?Q?VHFWPsWI4Ca4hJYAEac4lbC/wd4jwgHVC3ETmgwLZWZ+G+rWfLA/yO75pyq9?=
+ =?us-ascii?Q?9zRtddvlQuExu3Ytf+OntH4yBcvoTt2rGVOQozzzdkuIHA8uwj3m7jlvGAc3?=
+ =?us-ascii?Q?mhfCBFiHyipq3Dlc7QPKBaFnrGT6fYgXXCGDBs6V/cjSH7VKRiEJ4chbUlHd?=
+ =?us-ascii?Q?4osiqD3Sxc/jY7hheW3KF5OP93JW1NgQsvW+H5BrS0sAsLulmsnl7wXbw7ZD?=
+ =?us-ascii?Q?DxrOXORBWf1qNb2or2wVlbmF7a4kefnkYng3cZl/n/oc0gPccEA8nB7Ei7Me?=
+ =?us-ascii?Q?cNHe1hvprH851Y5F4Rb/92OCgUQcGdUDK+HdGcPt1OkQhzTcSfyemwthgxud?=
+ =?us-ascii?Q?LhcN5HevV9aGJ2TaBZ4NEoiP3MNN5FWh2A6ogt7MIhEnM/jBV7Gx2ryUr8bp?=
+ =?us-ascii?Q?Ut9KmI1h0LS4ZYJYB9gMXMfNeJJ2cnc2vN6EPyeymI+xBj+XpDTzgtK+e39M?=
+ =?us-ascii?Q?Oj4HXQUx/s8wXFBNrKCIForUyMtIifiCTczItKq6mAlSe1IAPPzrA1raeAqy?=
+ =?us-ascii?Q?q8KJgMDYWlHqjTjp2M1ntQZZq0VeDNo5hopKi+DKVFM5F7nrZBmYjmVdGDrV?=
+ =?us-ascii?Q?WMqs7e4KUKa+DblYOC4KNrPp/dLMezSZ1Mw8F1XMSRlDo44lgWQ9sr6E1L9Z?=
+ =?us-ascii?Q?tl61JWW/JdbI4FhjkDDygkzgFHxy4da5URwRYisANwSKqhoPHD3G6c3HjDby?=
+ =?us-ascii?Q?ttV0Dz5TjGBhT9YEepW0TMwwoml/4rjx7EsSKvD9TNAQ/ldJlPhw6ZfbEbHn?=
+ =?us-ascii?Q?PEje42C7EA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40b59942-8edb-445f-e1da-08df13be0582
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB4824.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 06:44:56.9035
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pdDnTpdLd/PnHZdVLTx1Vx42kARVkQtTTZWp/Ah2s273dwG/aeJMi59Wba5trgQm8XfifAwjc/ln/NO2Mba1Lg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9278
 
-Device DAX now uses the common per-zone shared tail page for vmemmap
-deduplication. The old documentation still described a DAX-specific
-layout with a separately populated tail vmemmap page and half the HugeTLB
-savings.
+On Thu, Sep 10, 2026 at 01:47:26PM +0200, Peter Zijlstra wrote:
+> On Mon, Aug 31, 2026 at 03:42:24PM +0200, Andrea Righi wrote:
+> 
+> > Consider FAIR and EXT tasks with sched_ext running in partial mode. FAIR
+> > can be replaced with a higher scheduling class such as RT or deadline
+> > without changing the class interaction described here. The possible
+> > combinations are:
+> > 
+> >   1. D is EXT, O is EXT, T is EXT
+> > 
+> >      D can interrupt T according to BPF scheduling policy. O executes
+> >      with D's EXT priority and runtime budget, while T waits in EXT.
+> > 
+> >   2. D is EXT, O is EXT, T is FAIR
+> > 
+> >      D is visible to the BPF scheduler, but cannot preempt T because
+> >      EXT is below FAIR. Once T stops, BPF can dispatch D and O executes
+> >      with D's EXT priority and runtime budget. If T becomes runnable
+> >      again, it preempts the D/O proxy execution.
+> > 
+> >   3. D is EXT, O is FAIR, T is EXT
+> > 
+> >      This cannot represent T preempting O because EXT is below FAIR.
+> > 
+> >   4. D is EXT, O is FAIR, T is FAIR
+> > 
+> >      D cannot boost O above T because EXT is below FAIR. O and T
+> >      continue competing under FAIR. Once O releases M, D wakes and
+> >      resumes normal EXT scheduling.
+> > 
+> >   5. D is FAIR, O is EXT, T is EXT
+> > 
+> >      D preempts T as the higher-class scheduling context. O executes
+> >      with D's FAIR priority and runtime budget, while T waits in EXT.
+> >      D is not visible to the BPF scheduler.
+> > 
+> >   6. D is FAIR, O is EXT, T is FAIR
+> > 
+> >      D competes with T according to its FAIR deadline. When D is
+> >      selected, O executes with D's FAIR priority and runtime budget.
+> >      D is not visible to the BPF scheduler.
+> > 
+> >   7. D is FAIR, O is FAIR, T is EXT
+> > 
+> >      This cannot represent T preempting O because EXT is below FAIR.
+> > 
+> >   8. D is FAIR, O is FAIR, T is FAIR
+> > 
+> >      O, T, and D all have FAIR scheduling contexts. D remains runnable
+> >      as a blocked proxy donor. When CFS selects D, O executes using D's
+> >      FAIR scheduling context. When CFS selects O, O executes using its
+> >      own FAIR context, and when CFS selects T, T executes normally. D
+> >      is not visible to the BPF scheduler.
+> 
+> I don't see how 3,4 can happen. If there is a runnable FAIR task, then
+> pick will pick that directly.
+> 
+> Per the pick priority, the donor class must always be higher than the
+> owner class.
+> 
 
-Update the generic and powerpc documentation to describe the shared layout.
-In the powerpc document, keep the radix and 64K-specific details, drop the
-duplicated 4K PUD arithmetic, and replace the repeated device-dax diagrams
-with a single parameterized PMD/PUD diagram.
+Right. I was trying to describe why those cases cannot result in the stated
+preemption, but listing them under "possible combinations" made that unclear.
+I'll remove those two cases and state this invariant explicitly.
 
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
----
-v3:
-- Collect Acked-by from Qi Zheng
-
-v2:
-- Clarify the commit message to state that the 4K PUD arithmetic is
-  intentionally dropped reported by Sashiko.
----
- Documentation/arch/powerpc/vmemmap_dedup.rst | 90 ++++----------------
- Documentation/mm/vmemmap_dedup.rst           | 32 +------
- 2 files changed, 21 insertions(+), 101 deletions(-)
-
-diff --git a/Documentation/arch/powerpc/vmemmap_dedup.rst b/Documentation/arch/powerpc/vmemmap_dedup.rst
-index dc4db59fdf87..8286acbca9bc 100644
---- a/Documentation/arch/powerpc/vmemmap_dedup.rst
-+++ b/Documentation/arch/powerpc/vmemmap_dedup.rst
-@@ -19,82 +19,28 @@ With 1G PUD level mapping, we require 16384 struct pages and a single 64K
- vmemmap page can contain 1024 struct pages (64K/sizeof(struct page)). Hence we
- require 16 64K pages in vmemmap to map the struct page for 1G PUD level mapping.
- 
--Here's how things look like on device-dax after the sections are populated::
-- +-----------+ ---virt_to_page---> +-----------+   mapping to   +-----------+
-- |           |                     |     0     | -------------> |     0     |
-- |           |                     +-----------+                +-----------+
-- |           |                     |     1     | -------------> |     1     |
-- |           |                     +-----------+                +-----------+
-- |           |                     |     2     | ----------------^ ^ ^ ^ ^ ^
-- |           |                     +-----------+                   | | | | |
-- |           |                     |     3     | ------------------+ | | | |
-- |           |                     +-----------+                     | | | |
-- |           |                     |     4     | --------------------+ | | |
-- |    PUD    |                     +-----------+                       | | |
-- |   level   |                     |     .     | ----------------------+ | |
-- |  mapping  |                     +-----------+                         | |
-- |           |                     |     .     | ------------------------+ |
-- |           |                     +-----------+                           |
-- |           |                     |     15    | --------------------------+
-- |           |                     +-----------+
-- |           |
-- |           |
-- |           |
-- +-----------+
--
--
- With 4K page size, 2M PMD level mapping requires 512 struct pages and a single
- 4K vmemmap page contains 64 struct pages(4K/sizeof(struct page)). Hence we
- require 8 4K pages in vmemmap to map the struct page for 2M pmd level mapping.
- 
--Here's how things look like on device-dax after the sections are populated::
--
-- +-----------+ ---virt_to_page---> +-----------+   mapping to   +-----------+
-- |           |                     |     0     | -------------> |     0     |
-- |           |                     +-----------+                +-----------+
-- |           |                     |     1     | -------------> |     1     |
-- |           |                     +-----------+                +-----------+
-- |           |                     |     2     | ----------------^ ^ ^ ^ ^ ^
-- |           |                     +-----------+                   | | | | |
-- |           |                     |     3     | ------------------+ | | | |
-- |           |                     +-----------+                     | | | |
-- |           |                     |     4     | --------------------+ | | |
-- |    PMD    |                     +-----------+                       | | |
-- |   level   |                     |     5     | ----------------------+ | |
-- |  mapping  |                     +-----------+                         | |
-- |           |                     |     6     | ------------------------+ |
-- |           |                     +-----------+                           |
-- |           |                     |     7     | --------------------------+
-- |           |                     +-----------+
-- |           |
-- |           |
-- |           |
-- +-----------+
--
--With 1G PUD level mapping, we require 262144 struct pages and a single 4K
--vmemmap page can contain 64 struct pages (4K/sizeof(struct page)). Hence we
--require 4096 4K pages in vmemmap to map the struct pages for 1G PUD level
--mapping.
--
--Here's how things look like on device-dax after the sections are populated::
--
-- +-----------+ ---virt_to_page---> +-----------+   mapping to   +-----------+
-- |           |                     |     0     | -------------> |     0     |
-- |           |                     +-----------+                +-----------+
-- |           |                     |     1     | -------------> |     1     |
-- |           |                     +-----------+                +-----------+
-- |           |                     |     2     | ----------------^ ^ ^ ^ ^ ^
-- |           |                     +-----------+                   | | | | |
-- |           |                     |     3     | ------------------+ | | | |
-- |           |                     +-----------+                     | | | |
-- |           |                     |     4     | --------------------+ | | |
-- |    PUD    |                     +-----------+                       | | |
-- |   level   |                     |     .     | ----------------------+ | |
-- |  mapping  |                     +-----------+                         | |
-- |           |                     |     .     | ------------------------+ |
-- |           |                     +-----------+                           |
-- |           |                     |   4095    | --------------------------+
-- |           |                     +-----------+
-+Here's how things look on device-dax after vmemmap-optimized sections are
-+populated. ``N`` is the number of vmemmap pages required by the DAX mapping
-+above::
-+
-+  Device DAX                  vmemmap pages (N pages)         backing page frames
-+ +-----------+ ---virt_to_page---> +-----------+   mapping to   +-------------+
-+ |           |                     |     0     | -------------> |      0      |
-+ |           |                     +-----------+                +-------------+
-+ |           |                     |     1     | ------+
-+ |           |                     +-----------+       |
-+ |           |                     |     2     | ------+
-+ |           |                     +-----------+       |
-+ |           |                     |     .     | ------+        +-------------+
-+ |  PMD/PUD  |                     +-----------+       |        | A single,   |
-+ |   level   |                     |     .     | ------+------> | per-zone    |
-+ |  mapping  |                     +-----------+       |        | shared tail |
-+ |           |                     |   N - 1   | ------+        | page        |
-+ |           |                     +-----------+                +-------------+
-  |           |
-  |           |
-  |           |
-diff --git a/Documentation/mm/vmemmap_dedup.rst b/Documentation/mm/vmemmap_dedup.rst
-index 9fa8642ded48..8c287ae3f86c 100644
---- a/Documentation/mm/vmemmap_dedup.rst
-+++ b/Documentation/mm/vmemmap_dedup.rst
-@@ -1,4 +1,3 @@
--
- .. SPDX-License-Identifier: GPL-2.0
- 
- =========================================
-@@ -192,32 +191,7 @@ to 4 on HugeTLB pages.
- 
- There's no remapping of vmemmap given that device-dax memory is not part of
- System RAM ranges initialized at boot. Thus the tail page deduplication
--happens at a later stage when we populate the sections. HugeTLB reuses the
--the head vmemmap page representing, whereas device-dax reuses the tail
--vmemmap page. This results in only half of the savings compared to HugeTLB.
--
--Deduplicated tail pages are not mapped read-only.
-+happens at a later stage when we populate the sections.
- 
--Here's how things look like on device-dax after the sections are populated::
--
-- +-----------+ ---virt_to_page---> +-----------+   mapping to   +-----------+
-- |           |                     |     0     | -------------> |     0     |
-- |           |                     +-----------+                +-----------+
-- |           |                     |     1     | -------------> |     1     |
-- |           |                     +-----------+                +-----------+
-- |           |                     |     2     | ----------------^ ^ ^ ^ ^ ^
-- |           |                     +-----------+                   | | | | |
-- |           |                     |     3     | ------------------+ | | | |
-- |           |                     +-----------+                     | | | |
-- |           |                     |     4     | --------------------+ | | |
-- |    PMD    |                     +-----------+                       | | |
-- |   level   |                     |     5     | ----------------------+ | |
-- |  mapping  |                     +-----------+                         | |
-- |           |                     |     6     | ------------------------+ |
-- |           |                     +-----------+                           |
-- |           |                     |     7     | --------------------------+
-- |           |                     +-----------+
-- |           |
-- |           |
-- |           |
-- +-----------+
-+Deduplicated tail pages are not mapped read-only. The mapping layout is the same
-+as HugeTLB.
--- 
-2.54.0
-
+Thanks,
+-Andrea
