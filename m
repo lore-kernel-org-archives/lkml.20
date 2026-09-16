@@ -1,43 +1,52 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6364850AC27;
-	Wed, 16 Sep 2026 14:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A984F221FC6;
+	Wed, 16 Sep 2026 14:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568292; cv=none; b=Fk2Q+CqCDZNmbg8oqfRTet9bNNWXbao6ikxTUo62NVX7ycwt9Xn5GL7YxY+7UVZa6bgUNbmfdb85bk9SSwmhaVeXzW3mugfibRLFaNiHWlGIV9C4E7s9T8NAVrSIoWonodEvDm8xN0CKpiag7/rO1qxCPUo4xfuTDQ3RCzrt+Vk=
+	t=1789568358; cv=none; b=H6q49rrWxMSeFUj8qZIFtYLzetx8VvDXkUpdXYRnpKa0ibNANZd31xsvXPNWNPwodKcgbLPCBEIgsJWG/w8pzSInqCo4sKMiSJG2SocM8T49XNGyrTWVDd6Hubhke/UFV6D/8c0YLAyaObxqBaP/wHhIJRqTV/G/cunWHM/lWvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568292; c=relaxed/simple;
-	bh=KeGfUAWdOrMgWBreZH84zCKv7fBl8UpUzmr6QqxGHNs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=tksw3+1dBtSc0c+XOwx9VIjAnFLz19b4BeqPgXb3yU6rAqvH1/CIY4GsFa3+hu8MlVXVGtlorR+gVrcLTSsJHhDqD6nUkRMSE7xFKfIUc0Xw0GEMcsercHEok51XoBIDNMSjKCKc5oEOpfxvXZ2I6nIH+l4zL725+OZ+0XhZ6zY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Km6OpLDy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789568358; c=relaxed/simple;
+	bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=PfeTfNx5WyYRX78CQLYuAnWFlZCjcuNJDWaWc+gUVp5wTe/VjhAYvLBAmYG3DrzsfNUVaP/yy8+qOuN8fYvlGhnEkbhmy7TFtC+0YCCX6JVc8eKIV0wonkwetNgl+SAc84Wowl9mVBuHF4Nia9dcFvJUnYlbPEfkwr4z0cWtrqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=wb6a/tuw; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Km6OpLDy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C931F00893;
-	Wed, 16 Sep 2026 14:18:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789568291;
-	bh=KjIdz9k1e7y93C/Vf/1rr2E35r/gsyXrnglDP+HaO4A=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Km6OpLDy4LRFGah5xZgmpPkTkOU30jBxNHO+zgQHEXUBeyNGN1+u3bUVTDGgT9+VH
-	 pftk8LVtSWm/5ptBAyxe/qmxJJRAeZba0xfbeEH+HqPXASR9wWtt8af8BJCsi8u+8c
-	 1LGzPqBppbu+O8HKxHq6epbuLL70YqJOP62P1F2wuqSBvwzTIu25uBE6WuHe8NhPAp
-	 Hl4sPCAkk5TPfMqUNed6io2gQhevw7jZtySRmjtNa5ejqpJ+7Vjv080Fu5HcI7Hs4J
-	 EDJdz0tgKoisccYR4MMg8uRW7+dPjWXflYGfVmwRGIMd5oi71nT32Eirs7krNrT0Hd
-	 MMKedvLlmU1bw==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Linus Walleij <linusw@kernel.org>, 
- Sasha Levin <sashal@kernel.org>
-Cc: kernel test robot <lkp@intel.com>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260913173132.1172003-1-sashal@kernel.org>
-References: <20260913173132.1172003-1-sashal@kernel.org>
-Subject: Re: [PATCH] ASoC: ux500: Parenthesize MSP_{RX,TX}_CLKPOL_BIT()
- arguments
-Message-Id: <178956826195.100121.4430462389196247996.b4-ty@b4>
-Date: Wed, 16 Sep 2026 15:17:41 +0100
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="wb6a/tuw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789568355; x=1821104355;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
+  b=wb6a/tuwuOYvd9pwSNzWf0cbo3A2Da42JswQxNV8t8q8O7PT5/hhw9h/
+   5Di3zoI5QMJnoBYlHmciVmSj625q95z4CzCWcAS5c4kHhBi8IaLUEqPtn
+   lXptWrjeFsZQ7lIttKD9E2FkCDky1BOpOTaFEXCusjJDTphXmsUPxDa8Y
+   ELCCV8Bau40QOssj6LaqLkfs59o0BjY/z3WCiGXDQhu1RqUnymowirB8x
+   vY+0oO7E518v5YCfB3Tu/21CXdAPAL8q82YfIoISYfZfXFh3yhDp/AoRL
+   Bp1/iiKeIGwfHTzrqjUJqXVLBZQVi7IyGUkA0vkKBrCrYmH9bheLpPxiY
+   g==;
+X-CSE-ConnectionGUID: ceDk0jBeQo+D85YcNJyfCA==
+X-CSE-MsgGUID: Ar8f7sAiQvWjv6k62LoUlw==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="73741287"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 07:19:05 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Wed, 16 Sep 2026 07:19:04 -0700
+Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Wed, 16 Sep 2026 07:19:01 -0700
+From: Ariana Lazar <ariana.lazar@microchip.com>
+Date: Wed, 16 Sep 2026 17:16:28 +0300
+Subject: [PATCH v6 02/11] iio: dac: mcp47feb02: Fix gain field
+ initialization for active channels
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,47 +55,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1137; i=broonie@kernel.org;
- h=from:subject:message-id; bh=KeGfUAWdOrMgWBreZH84zCKv7fBl8UpUzmr6QqxGHNs=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqqqUfHWI1akJyM1PjG5dCU8ArWs5dVvE4IQipg
- acMHHpzvROJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqqlHwAKCRAk1otyXVSH
- 0CYyB/4nuGfyFBt8j3PbztIPusllrXHe0S99R2RnxiDB5QjYyyvex+fbJOW96zFPdhl8NKBEMsg
- IAm+m8WCoF1Wc5qzZKVZ+FLjQwRsP1M8G56hEsMcf0ywDb6OOoy56nyOpyHAGIkKYptbiC+Er6F
- Pw5yUsZjhu7M61Qida18sQzOjC57iVQR17iC7eeecUZn0pmT7nz+6blOYFE+E+iOa5X62t7AiNI
- BmRvcXRf1dVfjqZRYnL+CMaQboI1cGLecQZajJWtwlU6flc3O6iWhRacH+7iPoVM+Xt7J7jCt75
- WHpURuBe72GV2BGT8MjGxe70z8LTUvJ92eGnPl3Bm+fAUji8
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-ID: <20260916-mcp47feb02_refactor-v6-2-285464651f89@microchip.com>
+References: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
+In-Reply-To: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>, <sashiko-bot@kernel.org>,
+	<stable@vger.kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568335; l=1952;
+ i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
+ bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
+ b=ENkUIWDHksVxKd4JSg6T2JwHOjkX8GVDpOpQLnPd1hmLf+OqlEU80IDP+Ox9jPX0F9KTdRMhi
+ e96wkDg29emCVEwjLOlMTy4mESq4vmrL7ikqQSgBdkDF7FV+ZaGq26T
+X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
+ pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
-On Sun, 13 Sep 2026 13:31:32 -0400, Sasha Levin wrote:
-> ASoC: ux500: Parenthesize MSP_{RX,TX}_CLKPOL_BIT() arguments
+As per MCP47FXBX48 Datasheet, in the format of the Gain Control and System
+Status Register each DAC channel has one bit to control its gain,
+starting at bit 8, while bits 0-7 contain status or unimplemented bits.
 
-Applied to
+The previous formula didn't initialize correctly all channels, being
+replaced by using field_get() with the already defined macro used in write
+operations where needed in the rest of the driver implementation.
+DAC_GAIN_MASK(i) extracts the gain control bit for each active channel
+correctly in one step.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+Fixes: bf394cc80369 ("iio: dac: adding support for Microchip MCP47FEB02")
+Reported-by: sashiko-bot@kernel.org
+Link: https://lore.kernel.org/all/20260804134616.1D8A21F00A3E@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+---
+ drivers/iio/dac/mcp47feb02.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Thanks!
+diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02.c
+index 6a3875e1d6a2c0cdd146410358130c44b1360f56..fa4bd1df954844da35a8496758489189aeceb60d 100644
+--- a/drivers/iio/dac/mcp47feb02.c
++++ b/drivers/iio/dac/mcp47feb02.c
+@@ -1016,7 +1016,6 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb02_data *data)
+ 	if (ret)
+ 		return ret;
+ 
+-	gain_ch = gain_ch & MCP47FEB02_GAIN_BITS_MASK;
+ 	for_each_set_bit(i, &data->active_channels_mask, data->phys_channels) {
+ 		struct device *dev = regmap_get_device(data->regmap);
+ 		unsigned int pd_tmp, dac_val;
+@@ -1027,7 +1026,7 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb02_data *data)
+ 		data->chdata[i].dac_data = dac_val;
+ 
+ 		data->chdata[i].ref_mode = (vref_ch >> (2 * i)) & MCP47FEB02_DAC_CTRL_MASK;
+-		data->chdata[i].use_2x_gain = (gain_ch >> i)  & MCP47FEB02_GAIN_BIT_MASK;
++		data->chdata[i].use_2x_gain = field_get(DAC_GAIN_MASK(i), gain_ch);
+ 
+ 		/*
+ 		 * Inform the user that the current voltage reference read from the volatile
 
-[1/1] ASoC: ux500: Parenthesize MSP_{RX,TX}_CLKPOL_BIT() arguments
-      https://git.kernel.org/broonie/sound/c/53cab9a3fc89
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.43.0
 
