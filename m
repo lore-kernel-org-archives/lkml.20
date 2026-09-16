@@ -1,92 +1,94 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87262198A17;
-	Wed, 16 Sep 2026 16:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B2153D0C9
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:49:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577359; cv=none; b=HmMsvS3/jrQ44NRLIpbi+cB0Hdpa1vi0X+yFGf9oT7Hnq/F16Six3UbQ20VOQo9+ye1gOXwTlPFSNaDbHzaYGNbdo7/o1t9X2sh8j5pqIhQL+nNFXzUi2HuXgqckMQSCk7QX6P3L8DUn6IibOIAk/eES1foCRwZAyaqixxk/Kew=
+	t=1789577401; cv=none; b=QE286YBDY7bGo95hpGlr58ht/4D4KWWkyWo6LQ0m+iEmqvEHOsHEg6eQwuT8COpX6oKfqAA+bZk7lSK033VTQH5Z4yWexVf4GNzLvSvmvM/wr3NWulXyRumpWjD6h59otJrA78M9mCOrrn62IZTTv5FwyLpdeDM8ClhMK4s9Ux8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577359; c=relaxed/simple;
-	bh=0lHBnqzdcm0BomzMP7yXd8d+InPJAW6K6XFMa8TNtMA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UghQ+Z+Jlv9+BGfe91UqouM0fJj28frXuFQyEN+eef4tJ5JI4aUe7Vb+SXpeffSJk+JT6BZLba0OSiIAnzf4ksuoR2OlKGo8euz9gIyKxlrGKcERVnZQxEYgTjkXeTMw1JMTHXwY9mx7mKQR/PyKTqwnWj9uB+412uaYSv90dC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oDqDyKpqnfJtCA--.22040S2;
-	Thu, 17 Sep 2026 00:49:07 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	mathias.nyman@intel.com,
-	sarah.a.sharp@linux.intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: host: Fix companion leak in usb_enable_intel_xhci_ports()
-Date: Wed, 16 Sep 2026 16:48:40 +0000
-Message-Id: <20260916164840.2085101-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789577401; c=relaxed/simple;
+	bh=Ggb+PcHRJDo/Cz5nvBOFJMC2dQF5gLYbmIeM6Iqn8Mw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CREmeJ9GjElIgC+Od+LMRrtRsRQsa+N5N5p2r/gfXVX3BcD6916O6lXBd0GoGZcTtvrof2yIZxF3NrdtnlMFyIyRh5pYF9gFr8sHAMMdNPT9FisZDzotkrfuA/alSOmD8f4schTMpgc5nImoif5xkYcKp06V/RFpGs8Ql5DxA28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cd4r1GHC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cd4r1GHC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 130A61F00899
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:49:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789577392;
+	bh=Ggb+PcHRJDo/Cz5nvBOFJMC2dQF5gLYbmIeM6Iqn8Mw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Cd4r1GHCl9wIrSqnqjtWDezktEP7YxzsTF995HOslNxGGx8emoYeghjU88ngoQ8la
+	 ODIi7iiXnwbLDy8NJzUKHUppA/yjwI8DTg4k6INkkeC/k5tkWXRtz8SF3iCERMkKnq
+	 NJRgf58SYKgDnJEvzG835+jYXRNfIaOA4gUAmk7WEAfG///8y94nPPLFEzOWOxFLJU
+	 P6VzaI7S9n7heLTKA5eMBQiy3AsnTOvEaiacnjt1UmASV9EM88p+9yquXHLKwLs4Po
+	 YqwY6p5IoBFOHSIzZDdhx+dmIDaP6H0oeP3LS1r0cUjRkq4oJLBsys+oQQPvYQSEMw
+	 tNNcU+93CV5UA==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5b6840edcso10380101fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:49:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw8QXZzH4DevV5AGK/1eko9Q/tsJppZn6PTH6FcbOxqb5d8V1b95BNP8OKs83zlh1jh5gq+o7GjPjLpnkU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIvfPTYCdNAUF92EVZp0C1FZ6rzc1OM5EvNuALhnLfpfkCS5T/
+	IgiomDYjdzyP32NWG4VZgOULPqNQMmBBwcvltR4pDjAk93sHAMmJqiw1Blyz0tAL6pKBBe8hYNy
+	HJKmI7NdNnRptIM5W4a4Ja4PFQZPyKNQ=
+X-Received: by 2002:a05:6512:1595:b0:5b6:422:a61c with SMTP id
+ 2adb3069b0e04-5b8b666eb43mr1907989e87.28.1789577390371; Wed, 16 Sep 2026
+ 09:49:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oDqDyKpqnfJtCA--.22040S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1fZryxJr4kKF4UJF17GFg_yoW8Gryrpr
-	sruF1qyryrWr4Ikw4UGw4fZFyFyr4xG34Ykay2k34ku390vay3Xr9FqF1Yvry7JFZ7u3yY
-	qa1DtF1xW34DGaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj
-	d-PUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQMA2qqpVhSRAAAsn
+References: <20260909132153.1596191-1-arnd@kernel.org> <20260909132153.1596191-3-arnd@kernel.org>
+In-Reply-To: <20260909132153.1596191-3-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 18:49:37 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnHa+1e0N8V0znwzeTZSX1Y5YDAa=cVKSYjeFpZM0o_OQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Whb6PQ06lQN_GxsWNtotsS8LqxjoSrqgaYpOWlLWlGsW2D5EFYiCtujyY
+Message-ID: <CAD++jLnHa+1e0N8V0znwzeTZSX1Y5YDAa=cVKSYjeFpZM0o_OQ@mail.gmail.com>
+Subject: Re: [PATCH 02/14] mfd: remove unused rdc321x southbridge support
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Arnd Bergmann <arnd@arndb.de>, 
+	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
+	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
+	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-usb_enable_intel_xhci_ports() iterates over the PCI devices with
-for_each_pci_dev() to check whether an Intel EHCI companion exists and
-breaks out of the loop as soon as one is found. for_each_pci_dev()
-takes a reference on the device returned by pci_get_device(), and
-breaking out of the loop leaves that reference held. The companion
-pointer is only used to set the ehci_found flag and the reference is
-never dropped, leaking a reference to the EHCI companion device on
-every port switch operation.
+On Wed, Sep 9, 2026 at 3:22=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
+e:
 
-Drop the reference with pci_dev_put() once the lookup is done. When no
-companion is found the loop leaves companion set to NULL, for which
-pci_dev_put() is a no-op.
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> The rdc321x was a 486-class SoC developed by RDC. While RDC's later
+> products closely resemble the DM&P Vortex86 product line and are still
+> sold under both names, I checked the datasheets for those and found that
+> the GPIO and WDT blocks on them are incompatible with the rtc321x.
+>
+> Remove this driver, as there is no way to run Linux any more on the
+> older chips after i486 support has been removed.
+>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Fixes: 26b76798e050 ("Intel xhci: refactor EHCI/xHCI port switching")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/usb/host/pci-quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-index 0404489c2f6a..bde5bc248d45 100644
---- a/drivers/usb/host/pci-quirks.c
-+++ b/drivers/usb/host/pci-quirks.c
-@@ -1076,6 +1076,8 @@ void usb_enable_intel_xhci_ports(struct pci_dev *xhci_pdev)
- 			break;
- 		}
- 	}
-+	/* for_each_pci_dev() takes a reference on the found companion */
-+	pci_dev_put(companion);
- 
- 	if (!ehci_found)
- 		return;
--- 
-2.34.1
-
+Yours,
+Linus Walleij
