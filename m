@@ -1,134 +1,316 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC7B477299
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:00:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231AC4657C2;
+	Wed, 16 Sep 2026 08:00:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545650; cv=none; b=ouJoVoaVqo0ZR76g48Tde7wCPQPMGGI7ezKActxlA3k4kwE87995fasYMa8WK9ZAvWN40PIXXJ417ACbRnhREIYWPrIo4ozx1cdPSV6o/d86QPszpFeth1N+Xcwi1U5WX5utr717KqeTnJwVsAfwYCoEeHFcSyscNRWAztTv2NY=
+	t=1789545667; cv=none; b=rLITZPpYSMG2jS4SJH8moW5qSBaboafQ+JAs0dUYLtFbxnWX+TsOSH6JM4MKDW9EqZi5yD4mic4mQmQz0QSCnH6meZoVnHyF9KIwGaQF4m0HWwO2oVilzPZV3tCQksFmNp08DtYpeaXvoAjKom0fPykgh1dNe2U4lvCPjCIt554=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545650; c=relaxed/simple;
-	bh=7WdeUDfNtz3w/kOVanMS/2G8C33ZGTEc6MZvYgIdotc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BCIm/mKlnr3ueWNWVpocSDhtCqtBw0D4bRi8k8T+oRQX8JVXL2QarmC8aUiRKuIw48bUmhyEicDCPR92ESoDtIKOSbVlVwscTLzGVS/rDbWTJgQat0X3Z9V95lsGHuurbcFLCFe7Z9z+aJfBOmf0Oyhn/vcrJVzO8w23lCPNFsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rc2IrysV; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789545667; c=relaxed/simple;
+	bh=X2HYGeuUKB12XxpK+2EoNkBbLVSv5vhtjIeQKkGddsY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CmkHiM+Ov+dk+BSv7725kxCUSjmDAYaJrI9eLUczed++YuR8AG61LwAqlETZ5dQdWacDPRqMB/GrAzSsjTDfSH/JZNnX7gkbLYS/gcT1ZwwbI3tFBDM8LLEJrQ9egjkbK1iIrf0YW6dJhS9eICFNEUraaiq9vcMf9Ruq4AxXzq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=IObwYS9m; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rc2IrysV"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so532202a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:00:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789545644; x=1790150444; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1EPm1x0mUz5Pn3Ms5F/txa8My4xRSy/NJkkZxCzQIKM=;
-        b=Rc2IrysVTWRJemrkQFAJ+8O3jN9JCMqD1N9yqqquQyj6TlRv9kewSW8gyY2qHtfAsi
-         3MoemnLsawnXPlNQiZdT9WQ/j2fgFuQs6GGjXr67ea7pup3AfnO+slXc0gL9CVTkAjjC
-         7JkrglkkWb5GahF7TW2iJWoJBXli/RlDOVCn62og3FwBMqa9G84h7RuY5WaODWrmvvcm
-         7zkPKeD98W1JnTy7ahY3MeNIHKiqQPi5bAdt0pgcqq+3PRGLR8PyRA4ZkOTHllPZ6bh7
-         U8G2vE0RJXj7fg10MWPUPX2tKsGrOaMhvNIGgiIjVUn2W9hSIXRlPehPRwmKoQnTWaaj
-         LztA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789545644; x=1790150444;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1EPm1x0mUz5Pn3Ms5F/txa8My4xRSy/NJkkZxCzQIKM=;
-        b=b6d2kv/8DcXZD4239Qo+BVLR2hVR39oYjBuzp5Z2biaFr4J2sEbSxzWDpVaujmr7Xj
-         /vFhot63gjOUeBKFq6Z7iR3fGtQAR6Oh9P8GhcVlHzsrCY/x/EKzKtiRItP1qbTpy260
-         kaGdYp89I64e4XcRj+ncxT9SyIwgiIuWyv4HVRB2OqGNU6RtxkvEPEDB2/ZoSxPPK0uz
-         cs1YfTJU0TFiurXAJid59zYVvT/i/tTV0rR8A8ts/RZx47TePApLSE76s/S37sKG9NxK
-         CqlX1iOG3JLoS92Wqi4Hwg0v8sPzG9oWflU+zWyG5XeMMO0/cUqjO2vwxb7jlaPvxboa
-         Vhsw==
-X-Forwarded-Encrypted: i=1; AKwUvBwSK1YiWUrx4W8NbJMW5pvdRfoS0zYh5P0Voui5JNWfXVJRGmSscvT1u4nB41wPxYYhB5pETAU9DOti9pU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m92kpKiG9OcVhwq5DHnNLHefcsJFcNZ1Ts4OjOOTtWJ/ffu+0o
-	DwTNksSw6DM8aNzXqPZ1Yd7wtRPonDnRAWE9bB1h05f6VsTmM2t4WsIG
-X-Gm-Gg: AYBFou15/KgKfAzZFmuYwI799/qYQc/oeMKuYOW6bb65rrl/NzBMlynji7E4y18rjIH
-	gP7Q9SvVqAAgQ99/TVFS3AMjO+TfLAERsRv70F0sd2IMFl4wHA0cRQsdSMocxwHv3gTaFAuuqv1
-	08C9Gl052pV5YNlTzXfLaPe0yytxTKzJuAwAv/5PMtK12e3AXSsq3evNw5UGZZ5wJEvhZQg74OK
-	iwuROf8zQz7iV95Li++x0Oys/AVMOlvObesRW8at5P9ZMUBQ7fz2oaoWJGmFzo/WG3+OlB4HALH
-	/GIVnyS8lOu20rrznWPtPB4WY/lNa0gLv4B9wlYsEsTHimWGdOyuzTBHsBrKHT6K77yTkoXCQcZ
-	YgQq/Rc0gDam0FUgQcv748tTAyCUtb3ElP8r0n/PWAmUEJ7QDGXf46bJOFhi4+YD10QYH60MwpJ
-	QdlUvcVanj2FI4cKmGltdOr9GtS1ogJALX8WLtcTG4ELKqUxWCNBdY8g==
-X-Received: by 2002:a17:90b:2681:b0:39e:1a00:bec4 with SMTP id 98e67ed59e1d1-39e1e2e1d8amr4275979a91.6.1789545644489;
-        Wed, 16 Sep 2026 01:00:44 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e19fd8ecasm995716a91.1.2026.09.16.01.00.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 01:00:43 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Niklas Cassel <cassel@kernel.org>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Yuho Choi <dbgh9129@gmail.com>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] PCI: keystone: deinitialize endpoint on remove
-Date: Wed, 16 Sep 2026 16:00:30 +0800
-Message-ID: <20260916080030.2960608-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="IObwYS9m"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=WLNAyvP+QD8ea/Tnf8D9sJnJMpR7dCNm6r63iCCX2VA=; 
+	b=IObwYS9mLC2CtR52O1UDJ5dnZ2ffx6t854U1P9bKjnNdRltBQkSdSnPlXdmm4lFEJRHZ3WQlUSZ
+	kZzkXmBdpEunqVpbEU1K2tiMDNzBFeVRk3dGlVBBprW71ndaskVDCN8y7ddJw49hr5UElssCv2aiO
+	5ZdSH7+++RJaFCTm1xgV4d7HpSGFE99k6pcjUP14gnxo+3rx8tiMSgaVEkIel91rnY9+kp3jjEHoV
+	XT1kiHcMg0MWig+tvOeLqnJwQGwfyBCS3AFm6NLOiJNv5FxQCOmyjmKaaaTQ8lPVzXJ8kSnxtfTGF
+	iLEA9e94QE1j8sVP+uXT4C2eVXB8gdwX5WHQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x6kYv-0000000EWV6-33XD;
+	Wed, 16 Sep 2026 16:00:14 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 16 Sep 2026 18:00:13 +1000
+Date: Wed, 16 Sep 2026 18:00:13 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Eric Dumazet <edumazet@google.com>
+Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+	syzbot <syzbot+4d0e4d2db6dfde01b52f@syzkaller.appspotmail.com>,
+	davem@davemloft.net, horms@kernel.org, idosch@nvidia.com,
+	kuba@kernel.org, linux-kernel@vger.kernel.org, pabeni@redhat.com,
+	razor@blackwall.org, steffen.klassert@secunet.com,
+	syzkaller-bugs@googlegroups.com, Thomas Graf <tgraf@suug.ch>,
+	linux-crypto@vger.kernel.org, NeilBrown <neilb@ownmail.net>,
+	quanyeyang <quanyemostima@gmail.com>
+Subject: [v2 PATCH] rhashtable: Use separate lockdep keys for each lock
+Message-ID: <aqpMjQn0g6XxXtyq@gondor.apana.org.au>
+References: <6aa5fcf6.f2639fcc.29487d.0048.GAE@google.com>
+ <aqi7fpazv2KDDdvn@shinmob>
+ <CANn89iJd0QnoDo0tjrFED2myec38U8joyqR05d6BVnJ-sX=NVg@mail.gmail.com>
+ <aqjf7LNmE6InABpw@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqjf7LNmE6InABpw@gondor.apana.org.au>
 
-ks_pcie_probe() initializes the DesignWare PCIe endpoint with
-dw_pcie_ep_init(). The probe failure path calls dw_pcie_ep_deinit()
-when endpoint register initialization fails, but the remove path does
-not perform the corresponding endpoint teardown after a successful
-probe.
-
-The successful endpoint initialization also calls pci_epc_init_notify().
-Without the matching teardown on removal, the EPC initialization state
-and resources allocated by the DesignWare endpoint core are left
-active after the driver is removed.
-
-Notify the endpoint framework about deinitialization and call
-dw_pcie_ep_deinit() before disabling runtime PM and the PHYs.
-
-This issue was found by manual code inspection.
-
-Fixes: 23284ad677a9 ("PCI: keystone: Add support for PCIe EP in AM654x Platforms")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/pci/controller/dwc/pci-keystone.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/pci/controller/dwc/pci-keystone.c b/drivers/pci/controller/dwc/pci-keystone.c
-index 602516239a57..35787e727c5c 100644
---- a/drivers/pci/controller/dwc/pci-keystone.c
-+++ b/drivers/pci/controller/dwc/pci-keystone.c
-@@ -1349,9 +1349,17 @@ static void ks_pcie_remove(struct platform_device *pdev)
- {
- 	struct keystone_pcie *ks_pcie = platform_get_drvdata(pdev);
- 	struct device_link **link = ks_pcie->link;
-+	struct dw_pcie *pci = ks_pcie->pci;
-+	const struct ks_pcie_of_data *data;
- 	int num_lanes = ks_pcie->num_lanes;
- 	struct device *dev = &pdev->dev;
+v2 fixes the build failure when LOCKDEP is disabled.
  
-+	data = of_device_get_match_data(dev);
-+	if (data->mode == DW_PCIE_EP_TYPE) {
-+		pci_epc_deinit_notify(pci->ep.epc);
-+		dw_pcie_ep_deinit(&pci->ep);
-+	}
-+
- 	pm_runtime_put(dev);
- 	pm_runtime_disable(dev);
- 	ks_pcie_disable_phy(ks_pcie);
--- 
-2.43.0
+---8<---
+Use separate lockdep keys for the different types of locks in
+rhashtable (mutex, spin lock, and bucket locks).  They are
+separate and not normally nested with respect to each other.
 
+Also move the rhashtable_init/rhltable_init kdoc to the header
+file as that's where the macros are defined.
+
+Fixes: 4333ab90aaae ("rhashtable: use private lockdep class for all locks.")
+Reported-by: syzbot+4d0e4d2db6dfde01b52f@syzkaller.appspotmail.com
+Assisted-by: Gemini:gemini-3.6-flash
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Reviewed-by: NeilBrown <neil@brown.name>
+
+diff --git a/include/linux/rhashtable-types.h b/include/linux/rhashtable-types.h
+index 0e1b172a4f6c..3576b8f08aff 100644
+--- a/include/linux/rhashtable-types.h
++++ b/include/linux/rhashtable-types.h
+@@ -70,6 +70,12 @@ struct rhashtable_params {
+ 	rht_obj_cmpfn_t		obj_cmpfn;
+ };
+ 
++struct rhashtable_lockdep_keys {
++	struct lock_class_key lock_key;
++	struct lock_class_key mutex_key;
++	struct lock_class_key bucket_key;
++};
++
+ /**
+  * struct rhashtable - Hash table handle
+  * @tbl: Bucket table
+@@ -141,24 +147,77 @@ struct rhashtable_iter {
+ 
+ int __rhashtable_init_noprof(struct rhashtable *ht,
+ 		    const struct rhashtable_params *params,
+-		    struct lock_class_key *key);
++		    struct rhashtable_lockdep_keys *keys);
+ #define rhashtable_init_noprof(ht, params)				\
+ ({									\
+-	static struct lock_class_key __key;				\
++	static struct rhashtable_lockdep_keys __keys;			\
+ 									\
+-	__rhashtable_init_noprof(ht, params, &__key);			\
++	__rhashtable_init_noprof(ht, params, &__keys);			\
+ })
++
++/**
++ * rhashtable_init - initialize a new hash table
++ * @ht:		hash table to be initialized
++ * @params:	configuration parameters
++ *
++ * Initializes a new hash table based on the provided configuration
++ * parameters. A table can be configured either with a variable or
++ * fixed length key:
++ *
++ * Configuration Example 1: Fixed length keys
++ * struct test_obj {
++ *	int			key;
++ *	void *			my_member;
++ *	struct rhash_head	node;
++ * };
++ *
++ * struct rhashtable_params params = {
++ *	.head_offset = offsetof(struct test_obj, node),
++ *	.key_offset = offsetof(struct test_obj, key),
++ *	.key_len = sizeof(int),
++ *	.hashfn = jhash,
++ * };
++ *
++ * Configuration Example 2: Variable length keys
++ * struct test_obj {
++ *	[...]
++ *	struct rhash_head	node;
++ * };
++ *
++ * u32 my_hash_fn(const void *data, u32 len, u32 seed)
++ * {
++ *	struct test_obj *obj = data;
++ *
++ *	return [... hash ...];
++ * }
++ *
++ * struct rhashtable_params params = {
++ *	.head_offset = offsetof(struct test_obj, node),
++ *	.hashfn = jhash,
++ *	.obj_hashfn = my_hash_fn,
++ * };
++ */
+ #define rhashtable_init(...)	alloc_hooks(rhashtable_init_noprof(__VA_ARGS__))
+ 
+ int __rhltable_init_noprof(struct rhltable *hlt,
+ 		  const struct rhashtable_params *params,
+-		  struct lock_class_key *key);
++		  struct rhashtable_lockdep_keys *keys);
+ #define rhltable_init_noprof(hlt, params)				\
+ ({									\
+-	static struct lock_class_key __key;				\
++	static struct rhashtable_lockdep_keys __keys;			\
+ 									\
+-	__rhltable_init_noprof(hlt, params, &__key);			\
++	__rhltable_init_noprof(hlt, params, &__keys);			\
+ })
++
++/**
++ * rhltable_init - initialize a new hash list table
++ * @hlt:	hash list table to be initialized
++ * @params:	configuration parameters
++ *
++ * Initializes a new hash list table.
++ *
++ * See documentation for rhashtable_init.
++ */
+ #define rhltable_init(...)	alloc_hooks(rhltable_init_noprof(__VA_ARGS__))
+ 
+ #endif /* _LINUX_RHASHTABLE_TYPES_H */
+diff --git a/include/linux/rhashtable.h b/include/linux/rhashtable.h
+index 6c5e6d9accba..ec853c1b9af3 100644
+--- a/include/linux/rhashtable.h
++++ b/include/linux/rhashtable.h
+@@ -328,8 +328,7 @@ static inline unsigned long rht_lock_nested(struct bucket_table *tbl,
+ 
+ 	local_irq_save(flags);
+ 	bit_spin_lock(0, (unsigned long *)bucket);
+-	/* subclass 0 is used for ->lock and 1 for ->mutex. 2+ for bitlocks */
+-	lock_acquire_exclusive(&tbl->dep_map, subclass+2, 0, NULL, _THIS_IP_);
++	lock_acquire_exclusive(&tbl->dep_map, subclass, 0, NULL, _THIS_IP_);
+ 	return flags;
+ }
+ 
+diff --git a/lib/rhashtable.c b/lib/rhashtable.c
+index 5da0e53a8d42..918f15a2ac69 100644
+--- a/lib/rhashtable.c
++++ b/lib/rhashtable.c
+@@ -432,7 +432,7 @@ static void rht_deferred_worker(struct work_struct *work)
+ 	int err = 0;
+ 
+ 	ht = container_of(work, struct rhashtable, run_work);
+-	mutex_lock_nested(&ht->mutex, 1);
++	mutex_lock(&ht->mutex);
+ 
+ 	tbl = rht_dereference(ht->tbl, ht);
+ 	tbl = rhashtable_last_table(ht, tbl);
+@@ -1122,51 +1122,9 @@ static u32 rhashtable_jhash2(const void *key, u32 length, u32 seed)
+ 	return jhash2(key, length, seed);
+ }
+ 
+-/**
+- * rhashtable_init - initialize a new hash table
+- * @ht:		hash table to be initialized
+- * @params:	configuration parameters
+- *
+- * Initializes a new hash table based on the provided configuration
+- * parameters. A table can be configured either with a variable or
+- * fixed length key:
+- *
+- * Configuration Example 1: Fixed length keys
+- * struct test_obj {
+- *	int			key;
+- *	void *			my_member;
+- *	struct rhash_head	node;
+- * };
+- *
+- * struct rhashtable_params params = {
+- *	.head_offset = offsetof(struct test_obj, node),
+- *	.key_offset = offsetof(struct test_obj, key),
+- *	.key_len = sizeof(int),
+- *	.hashfn = jhash,
+- * };
+- *
+- * Configuration Example 2: Variable length keys
+- * struct test_obj {
+- *	[...]
+- *	struct rhash_head	node;
+- * };
+- *
+- * u32 my_hash_fn(const void *data, u32 len, u32 seed)
+- * {
+- *	struct test_obj *obj = data;
+- *
+- *	return [... hash ...];
+- * }
+- *
+- * struct rhashtable_params params = {
+- *	.head_offset = offsetof(struct test_obj, node),
+- *	.hashfn = jhash,
+- *	.obj_hashfn = my_hash_fn,
+- * };
+- */
+ int __rhashtable_init_noprof(struct rhashtable *ht,
+-		    const struct rhashtable_params *params,
+-		    struct lock_class_key *key)
++			     const struct rhashtable_params *params,
++			     struct rhashtable_lockdep_keys *keys)
+ {
+ 	struct bucket_table *tbl;
+ 	size_t size;
+@@ -1176,13 +1134,11 @@ int __rhashtable_init_noprof(struct rhashtable *ht,
+ 		return -EINVAL;
+ 
+ 	memset(ht, 0, sizeof(*ht));
+-	/* mutex_lock must use nesting level 1 */
+-	mutex_init_with_key(&ht->mutex, key);
++	mutex_init_with_key(&ht->mutex, &keys->mutex_key);
+ 	spin_lock_init(&ht->lock);
+-	/* spin_lock can use nesting level 0 */
+-	lockdep_set_class(&ht->lock, key);
++	lockdep_set_class(&ht->lock, &keys->lock_key);
+ #ifdef CONFIG_LOCKDEP
+-	ht->lockdep_key = key;
++	ht->lockdep_key = &keys->bucket_key;
+ #endif
+ 	memcpy(&ht->p, params, sizeof(*params));
+ 
+@@ -1236,22 +1192,13 @@ int __rhashtable_init_noprof(struct rhashtable *ht,
+ }
+ EXPORT_SYMBOL_GPL(__rhashtable_init_noprof);
+ 
+-/**
+- * rhltable_init - initialize a new hash list table
+- * @hlt:	hash list table to be initialized
+- * @params:	configuration parameters
+- *
+- * Initializes a new hash list table.
+- *
+- * See documentation for rhashtable_init.
+- */
+ int __rhltable_init_noprof(struct rhltable *hlt,
+ 			   const struct rhashtable_params *params,
+-			   struct lock_class_key *key)
++			   struct rhashtable_lockdep_keys *keys)
+ {
+ 	int err;
+ 
+-	err = __rhashtable_init_noprof(&hlt->ht, params, key);
++	err = __rhashtable_init_noprof(&hlt->ht, params, keys);
+ 	hlt->ht.rhlist = true;
+ 	return err;
+ }
+diff --git a/lib/test_rhashtable.c b/lib/test_rhashtable.c
+index 85a615e74591..b767a38a74f9 100644
+--- a/lib/test_rhashtable.c
++++ b/lib/test_rhashtable.c
+@@ -477,7 +477,7 @@ static unsigned int __init print_ht(struct rhltable *rhlt)
+ 
+ 	ht = &rhlt->ht;
+ 	/* Take the mutex to avoid RCU warning */
+-	mutex_lock_nested(&ht->mutex, 1);
++	mutex_lock(&ht->mutex);
+ 	tbl = rht_dereference(ht->tbl, ht);
+ 	for (i = 0; i < tbl->size; i++) {
+ 		struct rhash_head *pos, *next;
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
