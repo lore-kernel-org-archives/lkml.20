@@ -1,90 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A22184FECCA
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EE94FC8CC
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:34:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565660; cv=none; b=G8yWYgMBxiWMdFHLnAdDsuApz/XOyl9mSbA4eTVQxtX8NGVBnEvI8vunuwp1FXcF89wuA7BkSQxDY6tCybq1sa0iVF+0mekwbLi3yqOdA/F7dFEA65NLMhj5OpXjuZN/PvG7k1FyA+hS+qX0VV5MkOfeqbgkBCeIXCeujDfvJIk=
+	t=1789565655; cv=none; b=QW8SLYWyEHK1Qp0CsMuICApPIcrZg3isg2vk4tzJcRd5ZvEUtHoy9aMId/1MkxsXhbu3o5xfWc2Sn/uT+lhPoUdaDFdp5K4TSxURm7szJ9qP4HcquINykA8zQOXfIni8dSWtf2GXDp/VdDgcqD7fFQm9MV291L3VBLU7VTAodyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565660; c=relaxed/simple;
-	bh=SL0N0err1nZrZl0HktBhkPwZ7Ptdym3maQuJxgqRR3Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PurUvigMfmyv99RSsfRQpdOpxAPkPRMz7MI7xlmMk6OXILTbOliuQ7EwXWOXpjV2GaQ2FfFLrgJcwx68Ve08PUEDgz/pI8fbwrZkhEISrBCnL9d+LMfIhdl3+8t/c72Q2rFEC5/BGtpULDdiWrojo8/o0garINl2CyL8/WU2pDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FDKwF6Zt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789565655; c=relaxed/simple;
+	bh=TWTYiq5qy4yczgvLZWe5852fv9kP7nXzwOzboAO4VhU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NKcT+iqsHxwsRKjhRZtTZiz489TCcAlRV35e2gZCawMw7Y7vwoi384eoeL4Jdppu96kkywvG/mk7Mw+ILAZBSeqsSWWEHU8r2iJy2treWaUl2GcNSwCoQYprVbBvmMHhIxym5dkthz7rw6oTrs2GKu50CZIM3945oEspl+6IAuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YORpnS6k; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FDKwF6Zt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66B0F1F0089B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:34:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789565646;
-	bh=SL0N0err1nZrZl0HktBhkPwZ7Ptdym3maQuJxgqRR3Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FDKwF6Zt3xrnR3aWoFDJkCUoc9ezuYstdOCdmN6nfFTim2tUb8Y/IGV+QJF02tLsk
-	 MQ1NhY4/57rbKFdPTCZqyM0S1b3mdez8IMD0hdcdIRT17TMIEHTlNx/N9gCQqAXW+L
-	 ed0MV5gFtaueFtcdzpAeG1f/SspnY88X59cx3ZdYYGRZSNgqfr+BE+ZAEAbuZC6zcw
-	 6URCygR/n3IG1HVsgk1WCVrWQ7cfa4ROJM+UyIP9NwmePXLiOZJbuKrSpl27k7+58k
-	 GWqhxoT3gqj8Bym8Lter+/gCrjeRW9v+TCD9237yUKNq/bJ0kI13C8w61BeFKpNhYM
-	 LIXH45rYSm9Ww==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b8997bc6e6so1663945e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:34:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByjTaOlLXCXhNqHhwiw3ZDE5onV7DyRwNgYqmHcv18DW+OOgjRkOjbEN02pNiyCYa5t7v/gnXUhjMCQDJw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTeIU2UhxgW085w9oVMm1BrEPLDAJwiseoDXnLacCNsk8aCUHG
-	y1suT9XJXvWZziAqD9DkSy063uWtpovkVUkiNjODOWe3D51GRiQprK2qLRiJROWHPZv74BUq6I5
-	WQMl4NJmzZ3HrsH9GlkJ/g/oYJUd/y2w=
-X-Received: by 2002:a05:6512:250f:b0:5b6:19c9:e53 with SMTP id
- 2adb3069b0e04-5b8b2a5e29bmr2267729e87.12.1789565645091; Wed, 16 Sep 2026
- 06:34:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YORpnS6k"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1ddd5d0aso671705e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:34:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789565645; x=1790170445; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KKxhsj7x2KGNTWtDWeg+zi9RZVEL4pyqe1TauKiMIHM=;
+        b=YORpnS6koHvO4MR9LQ7/GuDjQpiqBz9rxLRHUE9v4tcHIq2J3qmC2/yGE3Nw3nfI2N
+         YsHw5/jrLTFkPHHpBr/OXt7oCU8rUlHMqWaYwbFMMlWFgMRVJR8yQ5KPb0d1q3HwS30B
+         GF4GGeo1ALUzFaeGSuD5frMjS208Tlc9x1pnl581GA4VKEKbJarc1wq5hoSzeQWxtOTg
+         twYliD3nz3ZpXUgEKTML8K7uWPuc/aN3zWZqGQo9F+soRvBKEsTfkzPxcyOmVxGwiN0G
+         /QTV/3L2e4r5maVYjPVXskHgHk15IhTn29OA0jMxFC0MXXlHV9zr6N0NlfWKcv5FW3sM
+         9wxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789565645; x=1790170445;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KKxhsj7x2KGNTWtDWeg+zi9RZVEL4pyqe1TauKiMIHM=;
+        b=2eTzY7xDtT6E1JQ4u2zVvXUa4sDrfdNw3r/twbRqMY1R7BkBlcdpr1VTtdo8bK3IYd
+         YkuHgrZg90/oj4X5x7zK2QWg7CXNaq6Z4Z8BWudQv0NvUVT6vx1VCsS2Mj6dGYlYNB71
+         r0rndV8dfwbsmKAPjOxPHPz2UXqtbZVjQNvwpv/MHeirIA/hqrSG5mSp3bUO6LMcH499
+         WBDTk4ameU7NlY2nZpy5z5cQfsNd2lXnEBidw4BT0AmZjV8SM20/+g0JQ4S69EY+Uwyc
+         pAc80pr9nARemmOS0antHy48crZvlfEHwHfwRFwChXIVUPgjiCqc+tKG7ZHPqcRjiDRp
+         XGXw==
+X-Forwarded-Encrypted: i=1; AKwUvByUe7swSmrrvef7rt/M0cOaAJ0aKKo/0woF72RkN8DbQg0N81RM9htcFaGlOdgcmGiOs8KnAjOfb+vwj/I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lApKb2gYsoqWkMC5IpYCtTxR5jF3JwxZl2ILmig9kbUYQWRvMd
+	/hsV0FcgauTs93A8LVlKcck5lO3GydX9krmqOnbg3Dj78dQVhxYXzAlD
+X-Gm-Gg: AYBFou03pl+6vN8noMLgVHEyxq5yblZseOe0Lj7DAdndM8LKpNgv+nnv8pIfRenO3Tr
+	0MGRoxxm6WOw6u+t3zbfMHnTEUkxqdF/A/gIRJ4vvhtLjtaQ+/dR46Roumhvg7It8/Tw5uqHbNM
+	zlBXctzqa/wYQXlz5otU/XP9uJVreqnKWVvSHo8bcLeNpSYzFfcuRpD81EenaY3d3gqHIWrYbG/
+	gUUC0Dcb7rwuIt6BRA5WNZweewnQynYW3WeZx17Mogau4Xj9w8yRywD5pjkY7LyF8+59WZgybfc
+	XT5H2Df3G/KNYWGtl9ev20qZ+tlEt/QExCupmw9sac0/SSq/8IQqEqB+E0Y2yDP3JGUXG6acM0S
+	xqmHmgNSatUN3lrDzrTlJAT4s9advFlygejrXyYMd2kX6xtk1njEinqh3A3Z5gyBo+LWWQ/r5IO
+	j1PIXlNcvcLI3cDDMtUHiuYjNWkcGPDN0OoSgs74oDegkKqDhWFGdC9ez+n68mqcNkYXexwN1O2
+	uGh0SZNuk3vyTIxQcHBzCP9QKk7pQYZVw==
+X-Received: by 2002:a05:600c:1f84:b0:49e:6806:5712 with SMTP id 5b1f17b1804b1-49eb733596bmr27842625e9.2.1789565644472;
+        Wed, 16 Sep 2026 06:34:04 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1fa70sm6931392f8f.9.2026.09.16.06.34.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 06:34:04 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: peterz@infradead.org,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Chen Yu <yu.c.chen@intel.com>
+Cc: brauner@kernel.org,
+	bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	imv4bel@gmail.com,
+	jack@suse.cz,
+	juri.lelli@redhat.com,
+	kees@kernel.org,
+	kprateek.nayak@amd.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	qyousef@layalina.io,
+	ricardo.neri-calderon@linux.intel.com,
+	rostedt@goodmis.org,
+	srikar@linux.ibm.com,
+	sshegde@linux.ibm.com,
+	vincent.guittot@linaro.org,
+	vineethr@linux.ibm.com,
+	viro@zeniv.linux.org.uk,
+	vschneid@redhat.com,
+	wanglu.priv@gmail.com,
+	yi1.lai@intel.com,
+	zhanxusheng1024@gmail.com,
+	zhanxusheng@xiaomi.com,
+	ziqianlu@bytedance.com
+Subject: Re: [PATCH 1/4] sched/cache: Keep nr_pref_llc_running in the runnable domain
+Date: Wed, 16 Sep 2026 16:33:28 +0300
+Message-ID: <20260916133328.3422-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916123046.GE776954@noisy.programming.kicks-ass.net>
+References: <20260916123046.GE776954@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260710070704.60680-1-rosenp@gmail.com>
-In-Reply-To: <20260710070704.60680-1-rosenp@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 15:33:53 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkpAi3Vh=YYMckM7z8SmRFeHUUeXS4wPLfciOyMZpZ1Hg@mail.gmail.com>
-X-Gm-Features: AcwNN1X8gayhrt9XNUrdZms7Iwl96lHZC5Mt4H7hlL-SMLIPUbFfIIGz_mTVQm8
-Message-ID: <CAD++jLkpAi3Vh=YYMckM7z8SmRFeHUUeXS4wPLfciOyMZpZ1Hg@mail.gmail.com>
-Subject: Re: [PATCHv2] gpio: mvebu: convert to noirq suspend/resume to prevent
- interrupt storm on resume
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 10, 2026 at 9:07=E2=80=AFAM Rosen Penev <rosenp@gmail.com> wrot=
-e:
+> Needs a fixes tag.
 
-> The driver uses the legacy .suspend/.resume callbacks, but sets
-> IRQCHIP_MASK_ON_SUSPEND on the irq_chip. During resume, the PM core
-> runs dpm_resume_noirq() first, which calls irq_pm_resume() to unmask
-> interrupts, and only then runs dpm_resume() which invokes the driver's
-> .resume callback to restore GPIO registers (GPIO_IN_POL, GPIO_IO_CONF,
-> mask registers).
->
-> This ordering means interrupts are unmasked while the hardware is still
-> in its reset state, potentially with incorrect polarities, causing
-> spurious level-triggered interrupts before local IRQs are re-enabled.
->
-> Convert the driver from legacy .suspend/.resume callbacks to noirq
-> callbacks via dev_pm_ops. The noirq phase runs before resume_device_irqs(=
-)
-> on resume and after suspend_device_irqs() on suspend, ensuring GPIO
-> registers are restored before interrupts are unmasked.
->
-> Assisted-by: opencode:big-pickle
+Hi Peter and Tim,
 
-Should be
-Assisted-by: LLM
-these days (Bartosz can probs fix when applying)
+The Fixes tag should be something like: 
 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Fixes: 714059f79ff0 ("sched/cache: Handle moving single tasks to/from their preferred LLC")
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+This is the commit that adds this:
+env->src_rq->nr_pref_llc_running == env->src_rq->cfs.h_nr_runnable
+thing. It causes the issue so, you can use this, Tim.
 
-Yours,
-Linus Walleij
+Hope this wasn't a unnecessary message. I wanted to
+say this since I already found the commit and didn't want 
+you guys to search for it again.
+
+Thanks,
+Kayra :>
+
+
