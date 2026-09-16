@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2AE448CF7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:08:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823864AC148;
+	Wed, 16 Sep 2026 23:08:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600102; cv=none; b=myD0J234c+yYQfHwFZsQ4UOkM5Eicw//hRgTr4WP4sfApm8hOfkh7kYt0uUpiQmX4t7ld5DOcrWYNca1J2755eEC70DbQaswHMwLV6UZbs7u43BOZ5hRmiTNQ+AdRBSzGG2qWUaCaiE7V9G//y1JJft2HhCFxJvl2PFCOBKv4UM=
+	t=1789600137; cv=none; b=pdFGAqz6sV1eftW6wQEmf/pTAokAUxo4Osc97V3wx638XyIQ8WiQAqDp4lPHY3qaj90G5HQrJ50o0iHqhDASKVp71UkW3CRk2wsN2Bnn/1nNWOXQZaMSe9FzXgQitThUqGixJqEGdCu6Qlp/UU0Brr5102gCbqTrBsuXJRvKzKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600102; c=relaxed/simple;
-	bh=S707ZM00h8nHn46n2IWESOvC0qFAIosprI7r9Guj43s=;
+	s=arc-20240116; t=1789600137; c=relaxed/simple;
+	bh=GOFL7RaNXqoMY7224a/drIf5k+yrXZaqVSGLWVC2Dh0=;
 	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=uEgU9phAqvTbctSDYf+lUuvSkIlPO9IdtgDfr0mLXy3/pdUnTIiXrtU5xPvLDNezWWM6sF2mgGpYqSRn4Joj/7jNEF0nPUjpDEl9kxC+FnVMpbluj+JbzmrSyeQleRZGi8+Ugk3o314AIIV2mhu9K3B2MObVzP5uE5MuKZo73Qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=eGNs2RSL; arc=none smtp.client-ip=100.103.45.18
+	 Mime-Version:Content-Type; b=n38xDppDcEPa36M/6dFhJyFOjfF6A/XAEBPCWcgv2pEEI4xKmlMgQV2QHW3m1WljG+VOe4svHQbXTUuY8u+6ZOgepekAEbEVX8+91D2TBkgs8gn+1MMErnZ5mwKntIs0Mgx8R6otOHVrIG5r1CHTQqmFWzWYjKQOtHaRqFDYbiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tvi5MzsD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="eGNs2RSL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF1151F000FF;
-	Wed, 16 Sep 2026 23:08:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789600100;
-	bh=EsS3V4h85OIwyWRlwYSEAgLWwmpwQNGI7X/TGNZ7g8U=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tvi5MzsD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C95081F000FF;
+	Wed, 16 Sep 2026 23:08:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789600136;
+	bh=I5a23cQRfcihY9WZZSlPkSoJLWnDwHQNE5jTh0BrC2Q=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eGNs2RSLhL2M9yMOdSs2XidbN91Dw5xcUl+25yjc7oNiTyl1FxuKKCr0l0KnLFyL8
-	 eqvcJlGuLtAJ2RIqSbSJTk+f9VaY5nUZj6UVutP/hCQJceL4Z29aJIIoAqUoE3h7HC
-	 E3UfrBJbrA0MK4b9A81cH+8VPc5auKzDxJEXGJ+0=
-Date: Wed, 16 Sep 2026 16:08:19 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Arnd Bergmann <arnd@arndb.de>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Qi
- Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo
- Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, Barry Song
- <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie
- <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He
- <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, Ridong
- Chen <chenridong@xiaomi.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/vmscan: avoid false-positive -Wuninitialized
- warning, again
-Message-Id: <20260916160819.a93fba485ffafe5b0e63b5f0@linux-foundation.org>
-In-Reply-To: <20260916083456.4136132-1-arnd@kernel.org>
-References: <20260916083456.4136132-1-arnd@kernel.org>
+	b=Tvi5MzsDZyA23wpMGunHmcdfNuu+g2DISs8flBBgzZ128pbr1CNYmraftwCVELk1k
+	 lAZy+Gr8TnAqMIOdoalybj+OXw3z2701U3H/1tnq6NXb4qJOJj0nNU8D5v2fIOA3rx
+	 E2VcMwT01tcqykgbkfRAkhVkpdzM5MD64Zs2UAhjDHxE02id4FO2WrGBsPBy+NfvRO
+	 mihtxCkLTS9iLvCfRCNW9PgmJU4hOuuZalVWnlCgyigyV3fhNXaIbgkiVxS04P7s20
+	 opaPEEk1EUtpbhmzL21qa0c1F68yl8vpOivkXceiYYMQoYVP65irrdeQcO1sMYmTq/
+	 bd2fr9G7AhqJw==
+Date: Thu, 17 Sep 2026 08:08:51 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: David Carlier <devnexen@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Martin Kaiser <martin@kaiser.cx>,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] fprobe: Clear the unused part of the fgraph_data
+ reservation
+Message-Id: <20260917080851.1f803eeb8afb4c1a9a847c8a@kernel.org>
+In-Reply-To: <20260911195559.230709-1-devnexen@gmail.com>
+References: <20260911195559.230709-1-devnexen@gmail.com>
 X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -50,35 +48,86 @@ Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Wed, 16 Sep 2026 10:34:46 +0200 Arnd Bergmann <arnd@kernel.org> wrote:
+On Fri, 11 Sep 2026 20:55:59 +0100
+David Carlier <devnexen@gmail.com> wrote:
 
-> From: Arnd Bergmann <arnd@arndb.de>
+> fprobe_fgraph_entry() reserves shadow stack space for every fprobe with
+> an exit handler, but only fills it for those whose entry handler returns
+> 0. fprobe_return() walks the whole reservation, so the unused tail is
+> parsed as stale headers from an earlier call, and an exit handler can
+> run twice or despite its entry handler asking to skip it.
 > 
-> I previously worked around a false-postive gcc-16 warning in the
-> get_tier_idx() function, by adding a fake initializer. This happens with
-> the -fsanitize=bounds sanitizer when the compiler creates a specialized
-> variant of isolate_folios():
+> The original memset cleared only (reserved_words - used) bytes, and
+> commit e0a384434ae1 ("tracing: fprobe: do not zero out unused
+> fgraph_data") removed it. Clear the whole tail.
+
+Thanks for reporting! But this does not fix the problem correctly.
+See this;
+
+static inline void read_fprobe_header(unsigned long *stack,
+					struct fprobe **fp, unsigned int *size_words)
+{
+	*fp = arch_decode_fprobe_header_fp(*stack);
+	*size_words = arch_decode_fprobe_header_size(*stack);
+}
+
+#define FPROBE_HEADER_MSB_PATTERN \
+    GENMASK(BITS_PER_LONG - 1, FPROBE_HEADER_MSB_SIZE_SHIFT)
+#define arch_decode_fprobe_header_fp(val) \
+    ((struct fprobe *)(((unsigned long)(val) & FPROBE_HEADER_MSB_MASK) | \
+                       FPROBE_HEADER_MSB_PATTERN))
+
+So even if the *stack is zero, the *fp is not NULL.
+
+We need to add *stack check in read_fprobe_handler()s.
+
+Also, since the fprobe_return() exits the loop if fp == NULL,
+
+---
+	while (size_words > curr) {
+		read_fprobe_header(&fgraph_data[curr], &fp, &size);
+		if (!fp)
+			break;
+---
+
+What we need is writing 0 to stack[used] if used && used < reserved_words
+instead of memset.
+
 > 
-> In function 'get_tier_idx',
->     inlined from 'isolate_folios.constprop' at mm/vmscan.c:4982:9:
-> mm/vmscan.c:4934:9: error: 'sp.refaulted' is used uninitialized [-Werror=uninitialized]
->  4934 |         read_ctrl_pos(lruvec, type, LRU_TIER_MIN, LRU_TIER_MIN, 2, &sp);
->       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> mm/vmscan.c: In function 'isolate_folios.constprop':
-> mm/vmscan.c:4946:25: note: 'sp.refaulted' was declared here
->  4946 |         struct ctrl_pos sp, pv = {};
->       |                         ^~
+> Fixes: 4346ba160409 ("fprobe: Rewrite fprobe on function-graph tracer")
+
+And this should be introduced by below commit.
+
+Fixes: e0a384434ae1 ("tracing: fprobe: do not zero out unused fgraph_data")
+
+Thank you,
+
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>  kernel/trace/fprobe.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> Adding another "= {}" would solve the problem as well, but to prevent
-> this from happening again after the next code refactoring, try instead to
-> prevent this by forbidding interprocedural optimizations on this function.
->
-> Link: https://lore.kernel.org/all/20260213123902.3466040-1-arnd@kernel.org/
-> Fixes: 3de705a43a46 ("mm/vmscan: avoid false-positive -Wuninitialized warning")
+> diff --git a/kernel/trace/fprobe.c b/kernel/trace/fprobe.c
+> index 1e9b00997ff2..bd84a982961a 100644
+> --- a/kernel/trace/fprobe.c
+> +++ b/kernel/trace/fprobe.c
+> @@ -635,6 +635,10 @@ static int fprobe_fgraph_entry(struct ftrace_graph_ent *trace, struct fgraph_ops
+>  		}
+>  	}
+>  
+> +	/* Clear unused slots so fprobe_return() does not see stale headers. */
+> +	if (used < reserved_words)
+> +		memset(fgraph_data + used, 0, (reserved_words - used) * sizeof(long));
+> +
+>  	/* If any exit_handler is set, data must be used. */
+>  	return used != 0;
+>  }
+> -- 
+> 2.55.0
+> 
 
-I believe we want older kernel to compile properly with gcc-16, so I'm
-suggesting this be backported?
 
-Perhaps we should have done that with 3de705a43a46 also.
-
-
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
