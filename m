@@ -1,102 +1,93 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-220.mta0.migadu.com [91.218.175.220])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA2A372EFF;
-	Wed, 16 Sep 2026 02:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022EC2AF00
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789525660; cv=none; b=tIoOdSceoEcs/tYFl8CTQGdSu637sIA+LGRDg3ZKKclU8JuFpDxhAI/r/i9I4iXFd4UmNKWV4605OVs6ApQqC3SOYc2U3WfFrwF+e/Oc8GvC0gJnf+NVkjm7XIyRgUlbfdNG3F8jMxDIQntdROrO2MPvOlFr1GNAek2hWCaoC4M=
+	t=1789525690; cv=none; b=CUXbFrcGH6PplKmdsrxOVHG9FpsPVA0qiCxycHvmDR5Mt+1KXGabCdF9j33rw7WSzfNcSNM277WLW17zOGpnahqT+BYEiHHaef/RySEvQH29mPEvnsoPCDPuFPKNiZ1B0Gd54FfnvCb0ZPX1q9oFIeB/ITz+lrIctiyDMrBKA1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789525660; c=relaxed/simple;
-	bh=0W5FLi29scsaoLwnDGhVLzsdMQVQuNmaB+611/fVC60=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xrq8PYJtxNo5NN/nMtlB/bGUwSd7ADdBSYgqIb/Z87GV8OtHEi43CUoC3j2l4aYY2x5u+MPW/dwqIe56MTXmq7A79JHs6PFTkPzLvT7Yqvd4gwOihN4qDbKUIwHuWF1ZR1CVZXzDUcpMIvaDJ4mlnmU9b3MDiPbQCtxhOm4Mu5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=MbbdvObR; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789525690; c=relaxed/simple;
+	bh=ZyxvwXCuu3wDubtodIGxIsLb9DGpsFtLwTaxFFn+nac=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=daHtmREh7r+auU6oMf5gWXehEPhf04YrRT31GHWyFZyJLHzVs4W5ia21RHi2qdjrxFEB64Baxye5E5puwSUkWwer7CQjdObp+6dyXcyWFOMjcZ9fXcij2u41RANsjoTsu8BQIKJS9a5bzeVrvHelsICU5wGFccL2b2yK+GSz5cI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=icxZfwJW; arc=none smtp.client-ip=91.218.175.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="MbbdvObR"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D196C40E01F9;
-	Wed, 16 Sep 2026 02:27:32 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id JSF7SCEODx2u; Wed, 16 Sep 2026 02:27:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789525642; bh=zJSqL8q/9lBPV7jkyxkmIPw20NqqiL1Mzr4Pn0/p630=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MbbdvObRS69RjqDCGZQlHHS+Sv7HNp/XDC/4lHB5bFBwnLT2XuOMin6Rj9TwTonXg
-	 bF+qp9/hmGKxHLZpxZE8/HOskXBQRHWsroXehNgFdqkm91RsJGjNheT0OPq6wpLtRy
-	 A8e6hHZ1kkx7m9cTInSexbwXipTGPbuSlVWikHaMEB6fNaXsC0+JphPTT5VOpqK8YA
-	 gcR+NvhOirgvH0cSBLFymTDvibhdoP+sE5rXGOYgn77D6bZeYzDaTX0KHpKAodq/BH
-	 zu6zJvdlK7GAY/XT+0yIUbPK/UoDuRcTIHQCPAZW4sAma6hLSfVlqQF4hUBS7EjdYa
-	 XqPkjU3tUOhz3HF0xk9pI9+xMKqpij0tF4B2mvYBZsbPyH+s7+LLbDCxiHPhR5yKD7
-	 H3ixxf6DBjjs4hL9nZmwO+pdEI6Sz2q0KHwruESvD2QO5l4zADIGK/c8/Y1Prbwrbw
-	 dLSDUwI1L9mb52t8MPFgLnVBbd1PM+ZZ04FcQ0s8VcQEEoCNksRK7gorG0T5XTEWtm
-	 5arryRJT3Y+U5zcTG4mbOBW/P6SjAYdYxOKQFw0Qg+0wircrLwzQIgM3qw2n8GeBl/
-	 Xuory0H0rzsMypHZCFsixfuZeFT/AjxjrOu94Z3FmHogyVz61O7wu8KOlJXC6i9e/4
-	 PYYGlcfmONbND6zJiNEskqFs=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D96E540E015B;
-	Wed, 16 Sep 2026 02:27:08 +0000 (UTC)
-Date: Tue, 15 Sep 2026 19:27:05 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Thomas Huth <thuth@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH 10/11] x86/purgatory: Compile purgatory.c with
- -D__NO_FORTIFY
-Message-ID: <20260916022705.GKaqn-eQ9zuCk5tYgR@fat_crate.local>
-References: <20260813134953.979481-1-thuth@redhat.com>
- <20260813134953.979481-11-thuth@redhat.com>
- <20260814152457.GBan8zSeYlWd_1oWkz@fat_crate.local>
- <7d373eca-c23c-4f79-9391-29d75bd5a53f@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="icxZfwJW"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZyxvwXCuu3wDubtodIGxIsLb9DGpsFtLwTaxFFn+nac=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789525684; v=1; x=1790130484;
+ b=icxZfwJWf9IQMeeSSW2HGckpLv/cicx7r/t1n3GOKWT4uTHFT+Tzb0PjFo1E4waqCykBmRue
+ C7eDTylMdvEocKy+BNqjgV1NKoBD5QWzCUtMghpQDMa116QaawXSRGqYNO05I9sK6+t7b9G/5yj
+ yISOx8NczZymSfEYFS6PWUfo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 00efc25bd57ee33c;
+	Wed, 16 Sep 2026 02:28:03 +0000
+X-Mizu-Trace-ID: 00efc25bd57ee33c
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <7d373eca-c23c-4f79-9391-29d75bd5a53f@redhat.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH v3 01/11] mm: memcontrol: take a const folio in
+ folio_memcg() and friends
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260915-folio_memcg-const-v3-1-c239a6010b58@columbia.edu>
+Date: Wed, 16 Sep 2026 10:27:41 +0800
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chris Li <chrisl@kernel.org>,
+ Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>,
+ Youngjun Park <youngjun.park@lge.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <FE95C2D9-510C-4588-84AC-4AFCAA2D3921@linux.dev>
+References: <20260915-folio_memcg-const-v3-0-c239a6010b58@columbia.edu>
+ <20260915-folio_memcg-const-v3-1-c239a6010b58@columbia.edu>
+To: Tal Zussman <tz2294@columbia.edu>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-On Tue, Aug 18, 2026 at 10:53:53AM +0200, Thomas Huth wrote:
-> @@ -37,6 +37,7 @@ PURGATORY_CFLAGS := -mcmodel=small -ffreestanding
-> -fno-zero-initialized-in-bss -
->  PURGATORY_CFLAGS += -fpic -fvisibility=hidden
->  PURGATORY_CFLAGS += $(DISABLE_KSTACK_ERASE) -DDISABLE_BRANCH_PROFILING
->  PURGATORY_CFLAGS += -fno-stack-protector
-> +PURGATORY_CFLAGS +=  -D__NO_FORTIFY
+
+
+> On Sep 16, 2026, at 07:20, Tal Zussman <tz2294@columbia.edu> wrote:
 > 
->  # Default KBUILD_CFLAGS can have -pg option set when FTRACE is enabled. That
->  # in turn leaves some undefined symbols like __fentry__ in purgatory and not
+> The folio_memcg() family only reads from the folio, and everything it
+> calls already takes a const folio. Constify it, along with the page
+> wrappers built on top of it and get_obj_cgroup_from_folio(), which only
+> reads the folio's objcg.
 > 
-> WDYT?
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-I guess... I probably don't care too much about string checks in the
-purgatory thing...
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
 
-But please explain in more detail in the commit message what "compilation
-problems" are avoided by disabling those additional string checks.
+Thanks.
 
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
