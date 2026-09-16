@@ -1,181 +1,190 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9082C3AFCEE
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472303B841F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:33:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789522412; cv=pass; b=n69Y+0Uo6ZkiPtYJwglXWQC/f+xFQJ5n1CQEaT2pNvFymt2sNYzM+Z41hZ2rKWYaQLXjW7ZqzdZ1PDTIw1UmGdvUTfxSf5oPPX/iM6QVzf/3cxCGwzxQ0ulvnskhdILvhB1yZRTvfnwgLZnDsuV4GvCcR93D5KYPymT6GLPmDyw=
+	t=1789522456; cv=pass; b=RnvZ8+EvTMmxs39isXLmogUkbg8zb3ygtRwIpJB6EkoxzfN9AAE4All5QuWmEIqPNU58rv7SGahyCcKmqkAWxoEI0PVp90Q8EjmYHWH/MEMk3IFcVeJpGDSQXLkEdHAuhq9XzhYVEKb3kxSV2L9TaNba2/kzuSJuz+GTL23qJks=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789522412; c=relaxed/simple;
-	bh=5Ztf0qMjYRT3YmteIgUtTBDw9tTq4t89/7WSQzzqUiU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rNey++mut10Hp3JIabV0lCVpvUR1cBjQpJDwx4nOC8jV4GevmHds4TgU4HBTV+pzQ3NI3v6xx+z8NAOvHfXURYx1AnWYQPII+YF7KriW3c1/sNsVkP9D/HFOIGIuBh3thFx87bh8pjDIN5Y/xJvr8cYFkJtVWepVGp1MeNurqEg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y+DbufsI; arc=pass smtp.client-ip=74.125.231.170
+	s=arc-20240116; t=1789522456; c=relaxed/simple;
+	bh=bcGw17MDxQDxC5Y3/F3j7nu7GvtT2jwlY8xu3ufPlqg=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=Doks8pA5wj19M4bnGfB95PAwVtcaQfaQoviawidX/I9oBdfMF8ZX0dMVdaCzMecETe1C456qveFFN/TtA5UiyPUvXSEp5PwMFP/9VE1eAipldOrpBcfu9kTC9v0UjtEkB8Xa/XTNf5eQkN83R+gBSWhy5nskHRViXmTT3g0mBsk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KOFOxcKv; arc=pass smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y+DbufsI"
-Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-7f4f0d37f9dso168345a34.1
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:33:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789522396; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KOFOxcKv"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a985e8fcddso600230a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:33:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789522427; cv=none;
         d=google.com; s=arc-20260327;
-        b=L3SHtbe4kVxKrZ9dUJoM7lH7wbacvoNKoZC69EDCQNVdQqXBMcO+vrYeU0d2IwBewW
-         a09vk899UQv5MsMjolGa3ecnNBEDTWFQ3Px20NWG5jMWIXHv8JxM0DwICRQ/sy6jKdS9
-         BDiBULfKIuEymn7Oi5IIIfISgegpY/udxgJ66KgKcDfogW6WUAyXc9I3vXgabH+3GRtG
-         U3gUNIl++iq1aIG/1VWpBtyW03PYNdDrUgWcXSPj3PNVFZ/VpaC1j+l+nw1tQhjYJqnW
-         qDPoBCcJ8FjkErGrxodKuDc6Z5wOcbYgvwCv9r0WSTsN8D4+p3Rn8c6iLTNn6lgnmL8c
-         ov/A==
+        b=eav+Q02BrFZJfc7oLoupoDyV3Iw0+e6oMP/3kWQ9+c/KEfiZIXA40uqGW9tUoBiIf7
+         TpnoqPkpG0LTsZpRxCCj3fXPRKvNEKILvvdpt3jl3uStwySHAiBujnSaHZNa8Q/MHf9u
+         mjtXO5Jn9J+xTw3v4qIJbaJeIsUKV6B9fM/YrdvhBs6Afg11eu9hJcR5ePclQEjbMVaK
+         860VVbq0Z1xEVhSIVVS+EK5yTMPqZCKhE4i4eHhHbqK8qMypfDnBcfM4w2IhcOLL8bbR
+         dt3VtFxUq6hhdvo/kBSA4XzQEOiVTsgzYaYbSoqOgUNzYGyYgeXlbUEu4x01y5/qZ7VU
+         pT6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NzYXWSSJlKGV+Gc5Rdc9JQPvWSUHP7lfXEi/F4mrLtw=;
-        fh=uZ0Hc2VbTDxYDfVWwYteS1P9DJ4Y5Tsuf7feblYyK8U=;
-        b=WAng8jbJmEP9GJ4wpGBiIHXibIjb+zcbXeqyEaFo4oEphwJL+CTA8ZkcggFxG6XEFy
-         zucYpzkFnqfCMoYOsme7ezR0cCsRYL2IxhCy+qtfLhRx5lUCtIvMriZQw8fec5R4jbBh
-         fheOHBcz4IFSf/eGGr8hUgzTaCxw8Az8POc7S25k5EhghC4g7jtsBUSe45/6b9jk13Sn
-         KsTfRbQR269/N25snjClB+FbIXLIxpeqb7Oxp2z7Cga39zhmWDGLQJ8hKFqPguix9pTI
-         Lcyc1ZGHSZSLiHEBTVUsLNb/ZDMVa+qBzsY4WDxMvF71AycK7olux0PjQ8497eAVbI0Z
-         KtXQ==;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=X8ZJ80a/z4DWnRGcxZzAaCGtkR0kxX41wBpZTWuSpAw=;
+        fh=uKfh7iPQKVYTO1Yw0acR4hes4g4HBY38C03xeax8Ers=;
+        b=fYEWwMMS62PLdtO4KqZSRt/nWAFwx8i8dXhz7clqypunn1Tma8LrQEUyNAJQWe4EVd
+         sHRUsVLTJvzBFNfltIFsNvAAlbXIqSezJEYxtYC0BcRJcOqF+wSt7KU83YDse3kMFvj7
+         LGq5n7hQ0vfqrp5tSdyqp4vAPwwzFz5g44YdrXDKAMob8Ig1BNCm3yTrtUqqsAADlroR
+         VPNPiI79dA7rr7I9DQUswlp9mK8YHORndcRnzmwOwC0frEZQwQHpxwkoY2qdnZA+fBj3
+         EFp/0XN28zoWk62Jxohf2/EunOYV7ZFbZqw0laj5xNRSA8Hn3tYB8RJovZyLu9W3nQb6
+         BB2A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789522396; x=1790127196; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NzYXWSSJlKGV+Gc5Rdc9JQPvWSUHP7lfXEi/F4mrLtw=;
-        b=Y+DbufsI0ZZDqoM1aJiTrFXb65c2kNdiUwVT7icOKG4BwvmySAwLloArTnM6JPF6dc
-         HWS8vRDjgXQklkZ36KLtQmHFFivqSYx9oqOHI7XsqxYnM7nnrBSXC33N6pTLDHU5bZNq
-         fty/KR8BFHi7e+n2B5T54wwqjUK4Gz0YfKOGd92lAXAx8AmkiJcTsbKXQHCaK9LWXIDN
-         HudqiRP/LHPStx/74lWsp3Wkl/Z0x7XUGtg9uq5usyE+omNhEYEySBiNsGC7Y5fGRwVu
-         zv7OqrdvC9eQ33QyvN/yGDz4+Jez0QUnIctIGnp48iMykveUxp781mH4rGHepuloWsHU
-         tcGQ==
+        d=gmail.com; s=20251104; t=1789522427; x=1790127227; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=X8ZJ80a/z4DWnRGcxZzAaCGtkR0kxX41wBpZTWuSpAw=;
+        b=KOFOxcKvTbLEc7g0IbMgVrmdT7vheXxNIZOVuFFYFEqTrSoaNU1sITDElbSmBG056S
+         uQK/hu3N2uRpNOh1D+DT1e4KFcuQszjYtGkfyXLwf/aeWd/Qfox9Z2x3yhB9g63YpOkU
+         u9hifp/rYNgX+sH7O15up8eEXDsgN15dhgRzk63uF2pc403Gu0oANjHjDj7fWg63z+73
+         5xu00Kv9p34zpmHQ+NnYEvsQ+YhNmGjxGf9vrZ17auYYGSJgAlw9KVXWKMugZUf75Wjf
+         1hv/vV8yNYtJShn/rGbR4ZdIxv5ROidD6wJXsbGWq7bFJ+Vnn+n8tVH0LF/Ts7HcM+wq
+         M+1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789522396; x=1790127196;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789522427; x=1790127227;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NzYXWSSJlKGV+Gc5Rdc9JQPvWSUHP7lfXEi/F4mrLtw=;
-        b=jSnHU71tGdr8Nu7X7Tcp8KauFOg6uMC4yNeAKQCo/VWctxLddabVPH0sKg9kj2SzKU
-         L+G4cQ4QDWc8zGbw6y7DY7zB9EDgaX2mmA8K1/+ZZL+m4SOn2zH/kwX79BpmIpKq/2Sb
-         jmmD6zeIKGObKr/4gqhejp+Hyx5tH0m/lmZ42xWRb2ryxui7ZB3eGfpKwIJUBlgURGTI
-         jnKZSpYasyO2EDJLhK+npXaT/EKK+DZLLVz7D0+mK03OPN5ctwyzOvp9ln+r2KPumY7a
-         qtAkoKfv8QfmGbGZ6ulLIucjNVJX9s36sHcl/nquL9cESGL2S2E072Hrxx1dqoWktjrw
-         zgDQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLHErzJ/H2gOXgfY3vAh/uwW9Q0F5iSR4C6uKVS47WtOKE2Ib4hpfpNsi4NT2CLZEKXzaSEdv9Rpanwz0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMb5l7hUkDKCLDcnxlA8iws4zzWUeIi7MlQ++0T0JLdo+ICedO
-	bRs8UiYnR7nDCK0/3sBTSiYNLtW7GcgPfUpipf3JHr23iE5Z2x5A8LpDAjVK2vcaVWngGzrXfBz
-	upUlNMhWu4bfp9Whrd2uj22QEcKCGfPI=
-X-Gm-Gg: AYBFou1wPWeCGCqIr8G8NT3L9tWy3DVvqKizTYopBLqb5cqTOLWE0Luh6cLZT/QV3Fe
-	4mBZjq9qMwFvO8INOG6PPJ2ajvo++duAXbffzCEzHaOJtoEF5A9LJAm4FKAo8BIjNZA9iPY7NwP
-	+c3R/hYWPPxa/R5AoW1S3tHDy60cHnex71cc96D0kWS682IPhwa19DcT6tmKAoYfhldZ+VchZnq
-	HK8IMPwgf711w4BQb40Q9UySaqvI8aT9LaaF++EulyUHNEgCIKfeKGURd/snEFxT9xt4gRKMqFD
-	oGKFFSVjG1vSCV930ahW4ur61gtcRlPqMlNUQmQa6d28urPPn4r6GQs8fQ==
-X-Received: by 2002:a05:6820:81d8:b0:6aa:e573:9ce0 with SMTP id
- 006d021491bc7-6c7d16ce206mr1034905eaf.16.1789522395927; Tue, 15 Sep 2026
- 18:33:15 -0700 (PDT)
+        bh=X8ZJ80a/z4DWnRGcxZzAaCGtkR0kxX41wBpZTWuSpAw=;
+        b=jLmfJ2ui5xPR9PAXK2c5ao9isqO1Sqwtqi/G2Xij+4Gy8+KfZn1XLyjKekdWC8y1Sr
+         /NdKFhbLk1h12eu/lN5HJ96V1BJPAkZCITZBtBIHpw6dr3X8jgByB0uPpaPnFWTXaAHx
+         om9BMpAh5lZkqhB0gL+RNluv5kc9nH0JTQe0gfSIIxkDiDF0U0jZdAmcisCMLL6YIAIv
+         7YUTOio6i7cR3V7+Aa/lQw9HJe3+PayLBjhsq+j1L/ZuUyiy5oJrIlojCtuhZU239K8J
+         OX0oPql/JA8QtRsFAeXbCRSSkUkfD+lQ1/uDdreRX7NQM4Sc0NUZbVPwPA1KFdjPg1Mr
+         myjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxTA+6vp5ePd/5tg0f2l9YlEx351/xlpTNBJ103u+fZDmSP3YK6/KwgEVgagi+8WUHCvviV5aLBW8i+hSw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNoeCDHuBQLggaGwtP/GhBDg215Y3h0GvVMixo9HUKXjapEuTG
+	DZ2Eqw1THKFoEK/ZXI992qTXM59RkOy2eLkZbqBJj6K8xr1NCpgWVll6slRYlm8ur7wK7aH440H
+	PISft5dwmq6ZMkhzZ6xetX1/knlwdQ1jV2F/RE2w=
+X-Gm-Gg: AYBFou20uOPen5fofjbEPieFdexwZnedgAFozpeIJgWiJxuqQ0xE21/WP9yYG6BQTPF
+	xDEbPG1zTa76Ja2t72u/kuexPtRf0wYrWtIrQodo/1kYhkf2BfJ+eJa/gc9L/UgY+zTLchKoAHe
+	geOn34zB1a5GWjq7R6EXhfRaz1yATFQ8rcKxnFB1vgKctm4jEH8vs7JiRnHGnCX4UIXVOWc61Rc
+	xxH1bbXkY+AidCRXnFxAzIUJEH314wFwanXLFXSv3Nu1gNcgClAogJsEZWrfn5wXrYEr0Qm2Q4F
+	JXpn2HZvdKW6lwsTwEX9HrbsiX04PR14a+2zg8cLOI48ZkmB1rYHC4kIrvPZBAzD8S7ydx7Mv2r
+	KwdB+DVdp70m568FYdghITp2b34ONuF0=
+X-Received: by 2002:a05:6402:a0c9:b0:6a7:ee56:615d with SMTP id
+ 4fb4d7f45d1cf-6aa223fff67mr390484a12.31.1789522427160; Tue, 15 Sep 2026
+ 18:33:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914013033.3938-1-ki.chiang65@gmail.com> <20260914130907.749cd8e7.michal.pecio@gmail.com>
-In-Reply-To: <20260914130907.749cd8e7.michal.pecio@gmail.com>
-From: Kuangyi Chiang <ki.chiang65@gmail.com>
-Date: Wed, 16 Sep 2026 09:33:05 +0800
-X-Gm-Features: AcwNN1VLAxgU8jUn2SKIvvg4jEKPXKphx-A7W_IX-q6bjSUvDc3ySm2Ohv-nfKk
-Message-ID: <CAHN5xi0NSJO=V0=eVd4_MGp2Lg5NrwB3D+hsF87ehTSmaeeSbQ@mail.gmail.com>
-Subject: Re: [PATCH] xhci: Fix HIK camera control timeout on Etron hosts
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org, 
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+From: Herman Semenoff <germanaizek0@gmail.com>
+Date: Wed, 16 Sep 2026 04:33:44 +0300
+X-Gm-Features: AcwNN1WRjAmPrMxRjAxEMpPlykDTvmaP0osOKfdExBpslvJPszIxJRGvBbTeeb8
+Message-ID: <CAMnMt5aD83-6x8oRBo56kEwkrjPibZZ5SNR8MkwU9DSpM8HRqQ@mail.gmail.com>
+Subject: [RESEND FIX PATCH wireless-next] wifi: mt7601u: add vnd_reset
+ parameter to fix probe failure on Tenda U2
+To: kuba@kernel.org, kvalo@kernel.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On certain MT7601U adapters, such as Tenda U2 (USB ID 148f:7601) and
+other newer hardware revisions, driver initialization consistently fails
+during probe with vendor request timeouts (-110 / -ETIMEDOUT):
 
-Thanks for the review.
+    mt7601u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500
+    mt7601u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640
+    mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110
+    mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110
+    mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110
+    mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110
+    mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110
 
-Michal Pecio <michal.pecio@gmail.com> =E6=96=BC 2026=E5=B9=B49=E6=9C=8814=
-=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=887:09=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> On Mon, 14 Sep 2026 09:30:33 +0800, Kuangyi Chiang wrote:
-> > Control transfers to the HIK 1080P Camera (2bdf:0280) can time out when
-> > the device is connected through an Etron xHCI host:
-> >
-> > [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0=
-280)
-> > [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 2=
-6).
-> > [   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110=
- (exp. 26).
-> > [   58.592967] uvcvideo: Failed to initialize the device (-5).
-> >
-> > Testing shows that at least 125 us between control transfers is require=
-d
-> > to avoid the timeout. Limit the workaround to the affected Etron host a=
-nd
-> > USB device combination to avoid changing control-transfer timing for ot=
-her
-> > devices.
->
-> Any idea why it happens or why the delay helps?
+The failure occurs because mt7601u_load_firmware() unconditionally calls
+mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware
+chunks. On these devices, issuing this vendor reset leaves the internal
+MCU / FCE DMA engine in an unresponsive state after the first firmware
+URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX
+(0x09a8) immediately times out.
 
-We don't know the root cause yet, but we did some more testing.
+The USB device is already reset during mt7601u_probe() via
+usb_reset_device(), making this additional vendor-specific reset
+redundant. The vendor driver never used it, and devices that work with
+vendor reset also work properly without it.
 
-We tested delays of 50us, 125us, and 200us. The issue was still
-reproducible with 50us, while 125us and 200us passed our test.
+Drop mt7601u_vendor_reset() and its definition to allow firmware upload
+and probe to succeed on all MT7601U adapters.
 
-Our pass criterion is 30 successful plug/unplug cycles on each port.
-So 125us is the minimum delay we tested that consistently works.
+Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301
+Link: https://www.opena.tv/viewtopic.php?t=63919
+Link: https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2
+Link: https://bbs.archlinux.org/viewtopic.php?id=224859
+Link: https://reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/
+Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
+---
+ drivers/net/wireless/mediatek/mt7601u/mcu.c | 3 ---
+ drivers/net/wireless/mediatek/mt7601u/usb.c | 6 ------
+ drivers/net/wireless/mediatek/mt7601u/usb.h | 3 ---
+ 3 files changed, 12 deletions(-)
 
-We also tried USB_QUIRK_DELAY_CTRL_MSG, but its 200ms delay is too
-long and causes UVC initialization to fail.
+diff --git a/drivers/net/wireless/mediatek/mt7601u/mcu.c
+b/drivers/net/wireless/mediatek/mt7601u/mcu.c
+index bad6ca821400..979bc506d4ed 100644
+--- a/drivers/net/wireless/mediatek/mt7601u/mcu.c
++++ b/drivers/net/wireless/mediatek/mt7601u/mcu.c
+@@ -459,9 +459,6 @@ static int mt7601u_load_firmware(struct mt7601u_dev *dev)
+  mt7601u_wr(dev, 0x94c, 0);
+  mt7601u_wr(dev, MT_FCE_PSE_CTRL, 0);
 
-> How many other HCs did you test this camera with?
+- mt7601u_vendor_reset(dev);
+- msleep(5);
+-
+  mt7601u_wr(dev, 0xa44, 0);
+  mt7601u_wr(dev, 0x230, 0x84210);
+  mt7601u_wr(dev, 0x400, 0x80c00);
+diff --git a/drivers/net/wireless/mediatek/mt7601u/usb.c
+b/drivers/net/wireless/mediatek/mt7601u/usb.c
+index 9306870cbc91..0d38644c491e 100644
+--- a/drivers/net/wireless/mediatek/mt7601u/usb.c
++++ b/drivers/net/wireless/mediatek/mt7601u/usb.c
+@@ -116,12 +116,6 @@ int mt7601u_vendor_request(struct mt7601u_dev
+*dev, const u8 req,
+  return ret;
+ }
 
-The camera works with the EHCI host we tested without any delay.
-We can also reproduce a similar issue with an ASMedia ASM1142 xHCI
-host (1b21:1242). This patch, however, is limited to the Etron/HIK
-combination.
+-void mt7601u_vendor_reset(struct mt7601u_dev *dev)
+-{
+- mt7601u_vendor_request(dev, MT_VEND_DEV_MODE, USB_DIR_OUT,
+-       MT_VEND_DEV_MODE_RESET, 0, NULL, 0);
+-}
+-
+ /* should be called with vendor_req_mutex held */
+ static u32 __mt7601u_rr(struct mt7601u_dev *dev, u32 offset)
+ {
+diff --git a/drivers/net/wireless/mediatek/mt7601u/usb.h
+b/drivers/net/wireless/mediatek/mt7601u/usb.h
+index 723025f84483..49fede310c3b 100644
+--- a/drivers/net/wireless/mediatek/mt7601u/usb.h
++++ b/drivers/net/wireless/mediatek/mt7601u/usb.h
+@@ -14,8 +14,6 @@
+ #define MT_VEND_REQ_MAX_RETRY 10
+ #define MT_VEND_REQ_TOUT_MS 300
 
-> Does it help to reconnect and try again?
+-#define MT_VEND_DEV_MODE_RESET 1
+-
+ #define MT_VEND_BUF sizeof(__le32)
 
-No. The issue is still reproducible after reconnecting the camera.
+ enum mt_vendor_req {
+@@ -65,7 +63,6 @@ void mt7601u_complete_urb(struct urb *urb);
+ int mt7601u_vendor_request(struct mt7601u_dev *dev, const u8 req,
+    const u8 direction, const u16 val, const u16 offset,
+    void *buf, const size_t buflen);
+-void mt7601u_vendor_reset(struct mt7601u_dev *dev);
+ int mt7601u_vendor_single_wr(struct mt7601u_dev *dev, const u8 req,
+      const u16 offset, const u32 val);
 
->
-> FWIW, I tried a few USB 2.0 cameras with my Etron and they mostly work,
-> except one. It passes probe just fine, but fails on streaming attempt.
-> Adding 125us delay doesn't help, but 1000 works sometimes and 4000 even
-> more often.
->
-> Probably a HW bug. Honestly, I never use Etron for anything serious.
->
-> > Perform the delay before taking xhci->lock so the existing state
-> > validation and TD queueing remain in the same critical section. Use
-> > udelay() because urb_enqueue() may be called from atomic context and
-> > cannot use a sleeping delay.
->
-> Actually, you would need to do that under lock if you want to ensure
-> that multiple callers can't submit URBs closely together. But that's
-> dodgy and we don't even know what exactly triggers it or whether this
-> solution really is the best one.
+-- 
+2.55.0
 
-Agreed. For the UVC control transfers involved here, the next transfer
-is submitted only after the previous one completes, so they are
-serialized.
-
-The delay before xhci->lock does not prevent other callers from
-submitting control URBs close together. However, this workaround is
-limited to control transfers for the affected Etron/HIK combination.
-
-Regards,
-Kuangyi
-
->
-> Regards,
-> Michal
+base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
