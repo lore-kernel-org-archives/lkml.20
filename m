@@ -1,140 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370393EFFC9;
-	Wed, 16 Sep 2026 12:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18C7481238;
+	Wed, 16 Sep 2026 12:19:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561138; cv=none; b=kyMv/Jv8PXj+N4/L/Neof8HPNEEXAa460ZjChpv3e9fjD6qge2l4EJcIqhiqhrl5M9+6I7U3NjZIuNsvrg8+J0DoIGjZr802s4jh5OVUjSNOndWZ2LBLKzwpDBzRXDJFIdK2+RHRU3oVtO4WZGIqv6jkHtJb6sqc4mvx1nS2ImU=
+	t=1789561162; cv=none; b=T21pN2rGGAk965XIL1m1SiP+TXKety3kUZEngZY8UhZVpUoP7clfgJAHpQtd3pxAoWzEnCD4QFPEY0mPHD7vJSXQDjHBqHx8IZfPQ8G3FVMexQQilcqwe3kQDjcqMFe5Ixm+U8ZTnqOR4zZSeGiKGlGSF7nMiY74FsHkdReTalM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561138; c=relaxed/simple;
-	bh=6WWXK1YEgeNBV054WxjBb7B9Vj75OABXRc5yXZlGHSU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u+QPIXwjJG/vGBvWvNs5Ft5VQqt/OJ6N350J86VymNqdqe8Q1XzzQHPaeSZvzVaH7LKNucDCr96RtsgzA0cUZXzcxuRHy6CKW1raAE9jsy3Kbn7KM602SoXFQaZy8+wC2gGg4P8MNPWDEEH02S6KY8VLT9OilSQZl+EzNZT+tv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D4f3aphR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789561162; c=relaxed/simple;
+	bh=jmx7/yWhal1Ww0spXVCH3wKe4jQDQSBTK9V0nYDAg1Y=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AIANyrkl+gkbTsG1cxwa1hbiO24CYQsh3cVIhnwHQ68kz5CLKOC2Oe7kG0p62/cSLJKAmn2Wh0D43m73zRDnI+HDJBaoadd1ZuMhMdGjUw8Hyc3r1Fy4KUsghO03z3hWNO3/dzaQVBYJf/cLZ6luHOOakBImTuVkn1LThgDrN0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=hGWKbDUd; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D4f3aphR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55A61F00893;
-	Wed, 16 Sep 2026 12:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789561136;
-	bh=g3nJkuOIIREUaA/BODadsUt0oMvW89mcTSVk+TBxQTM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D4f3aphRbKTCYsr2/YdXXnNmP/c0zn+7f5CJPLOJU5Ag2ihsF9YAuf/mxPe5qbWft
-	 RuJi+8IW2fqsg2OF0+gmzWHc2BZ4j4PTjyLzOz6AXC/PLF6S9HdJruYCs9q1aBBa08
-	 8ZHvdqKz4yosb2VOnkK+Ge5a3oc1M8xppXnjlaquXG9GOt81jNxcjCCBLr3Ao5sI/6
-	 BahavSPx3iHj0YFmmT9k2mAHR+8Qz/8CGxdMyrpN7ANNhao26Bl05UJf0Ue5Rfo74u
-	 /bJEB1hlV/SynllZ7gk30FFmaNk7xpCzcneGOvAY4XI56CwUaA/YCw+pHaapShTTsS
-	 Z2H/oC/TGFtGw==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 9C3EF1980047;
-	Wed, 16 Sep 2026 08:18:49 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Wed, 16 Sep 2026 08:18:53 -0400
-X-ME-Sender: <xms:KYmqalRLUKQ46xVHQNAqn_SpMCWEJPEnVGHPtE9pzFa946VuffulsQ>
-    <xme:KYmqasdqqQzLLGbURN2ksP1011QzixMMfmpF8lNUTzKITQDDUxPPxIKCHfuAtHzHK
-    HePpXZVWutif9vuPFKO5v9KU79xJFks9D-SgyH4nfh2k-fblP6MxBcb-Q>
-X-ME-Received: <xmr:KYmqai4oFAoRIup95gPn3oxV9GZR0bmPcVh4y3t-o5HV8Kj-6Zg9KNTuehc>
-X-ME-Proxy-Cause: dmFkZTF/htPXCt3Vp5AMDzX4aViluNR37AwoAasTR8iHLjBZ9vB+37s09E5FAj3fIBktXf
-    wD7jyU9p9m8acEr6Ra3scjJrTilVkEufiTVp8kg6W1u05cirw+hDmrgiY3yqIDsNCGGy4Z
-    NhlL2XmoVVdXSi7pWEyIFPv29lkrmEA3vKS966LaOo5Roq203cNGaURFEmJuo4rr3dx3pl
-    zRvPBAEFOPc4BaV8VgR4olkNsATDKNUJ2aL3kSE+ZeDgohHMV8NuWlBUr1Y7gSpUtMk43S
-    pHxrvHb6UYaqOu5IrjHeg8msBZNq9Ws0Y9sYF6moF2neMeMXhIcDUsNMr5TA/1SnWdrbnv
-    krg8yzA58Iyw1wZU0OAObVQ8m4UiYc1907t7mzYhwQjpudg0+8QPH1YgpeY0d8JMVdr0rE
-    I5cdBJmZizSGHOliBIKAT49rDuCWkjlzVhcGpA/FSylhtI2vOZ35amP2Bpu/ffULhom6KK
-    mAFZrnyuq/2DovcPoXQKkstvBgE4kd6res0YrZ3TPJzPbjo01wcRbJyjyMarV3bBWIRJ2U
-    /nfjKeUYZx8uSLHmxv0YkpN2OTgeBBvRg8w5ox13JY97RAKWHu1XAFS+AJFTFFrgA3BMc9
-    4qUEfpEZPGPotDW9vPvWAQY4X3sf4al6PYefswJLQwFlMv/gcWohOVdYNR3w
-X-ME-Proxy: <xmx:KYmqalZSh5ALRNUk-yGxJZtajzA-EP-yYLtuDHVayGKZTkMcKh7jSg>
-    <xmx:KYmqalt_kssyM3YMu8dwBID1pt4VvyP-Mkj4cux8cj19ZAJNXpj0Vg>
-    <xmx:KYmqamtGLQwsCpo5AynCQsRx8Mzfx9LtL8HamC26SVKkpQEEcWC-6A>
-    <xmx:KYmqauptDI-qdtg3rUZiebczKcGTquH5dulg1Jd6BPm1F5o5OVxSfQ>
-    <xmx:KYmqat4kHc5k7IM1jrC0PaSyoI4CLHsuMRGImK3xFqk2X2jADcQ2D4xX>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Sep 2026 08:18:48 -0400 (EDT)
-Date: Wed, 16 Sep 2026 13:18:46 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Borislav Petkov <bp@alien8.de>, Ajay Kaher <ajay.kaher@broadcom.com>, 
-	Alexey Makhalov <alexey.makhalov@broadcom.com>, x86@kernel.org, Dennis Zhou <dennis@kernel.org>, 
-	Tejun Heo <tj@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev, 
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org, Christoph Lameter <cl@gentwo.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Tom Lendacky <thomas.lendacky@amd.com>, 
-	Bo Gan <bo.gan@broadcom.com>, linux-mm@kvack.org, linux-arch@vger.kernel.org, 
-	linux-coco@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] x86/vmware: Share steal-time storage in encrypted
- guests
-Message-ID: <aqqGUAX65s4LdJkr@thinkstation>
-References: <cover.1789488039.git.zack.rusin@broadcom.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="hGWKbDUd"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=WucdU+U+fDtH/dtaM74XSmEX2/Z1Bt+S4MDbGB5y5Vs=;
+	b=hGWKbDUd4/4znpJBctaK+2GsDhJTzEF2OF0TIlwfkftz8hk9m1u4qZtahBDqVnbf1nQQ/TJQB
+	OdQHI1b+PBMgXce4fVJMdMX6AYuAoIrcrfsza9D1wE0DvWtm0JbT8f7kjgod0fgXd0u6teRpgVW
+	8JqN2S8nsXxk7KC82IFm0xc=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hlHhm5bq6z1cyPY;
+	Wed, 16 Sep 2026 20:08:08 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id D1A65402AB;
+	Wed, 16 Sep 2026 20:19:06 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by whupemo200011.china.huawei.com
+ (7.152.185.179) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
+ 2026 20:19:05 +0800
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+To: <agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>,
+	<bmarzins@redhat.com>, <song@kernel.org>, <yukuai@fygo.io>,
+	<eadavis@sina.com>
+CC: <dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<linux-raid@vger.kernel.org>, <chengzhihao1@huawei.com>,
+	<yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: [PATCH] md: Fix the null-ptr-deref of 'mddev->private' while submitting IO
+Date: Wed, 16 Sep 2026 20:11:20 +0800
+Message-ID: <20260916121120.1242281-1-chengzhihao1@huawei.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1789488039.git.zack.rusin@broadcom.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-On Wed, Sep 16, 2026 at 01:05:38AM -0400, Zack Rusin wrote:
-> VMware registers each per-CPU steal-time GPA with the host. An encrypted
-> guest must first convert that storage to shared memory, but the existing
-> setup publishes the address without conversion.
-> 
-> Patch 1 makes the decrypted per-CPU section available with
-> CONFIG_X86_MEM_ENCRYPT, including TDX-only configurations. Patch 2 defers
-> encrypted-guest setup until allocator-backed page-table splitting is
-> available, converts every possible CPU's storage before publishing any
-> GPA, and attempts to roll back all conversions on failure.
+Concurrent processes md_stop and IO submitting could trigger a
+null-ptr-deref of 'mddev->private':
 
-I acked 1/2, but I don't like where 2/2 does the conversion.
+ BUG: kernel NULL pointer dereference, address: 0000000000000070
+ RIP: 0010:_wait_barrier+0x2f/0x250
+ Call Trace:
+  raid1_make_request+0x150/0xf50
+  md_handle_request+0x104/0x530
+  md_submit_bio+0x76/0x130
+  submit_bio+0xdd/0x250
+  submit_bio_wait+0x1f/0x40
+  __blkdev_direct_IO_simple+0x1f6/0x370
+  blkdev_write_iter+0x3b2/0x520
+  ksys_write+0x7d/0x190
 
-A variable declared with DEFINE_PER_CPU_DECRYPTED() ends up in a
-dedicated, page-aligned linker section. The point of the section is that
-one place converts it. Instead every user does it itself: KVM in
-sev_map_percpu_data(), and now VMware in vmware_decrypt_steal_time(),
-each with its own vendor checks and failure handling. The macro today
-only buys page isolation, not the shared mapping its name promises.
+              P1
+  fd = open(/dev/md0, O_RDWR)
+	                      P2 (forked from P1, fd' <= fd)
+  write(fd)
+   submit_bio
+    md_handle_request
+     raid1_make_request
+      raid1_write_request
+                                  ioctl(fd, STOP_ARRAY)
+		                   mddev_set_closing_and_sync_blockdev
+				   // check passed, mddev->openers = 1,
+				   // because md_open() is only called
+				   // once in P1->open
+				   do_md_stop
+				    __md_stop
+				     mddev->private = NULL
 
-The underlying problem is that the whole "decrypted section"
-infrastructure is built around SME/SEV and was never generalized.
-__bss_decrypted, early_set_memory_decrypted() and
-mem_encrypt_free_decrypted_mem() are all under CONFIG_AMD_MEM_ENCRYPT
-and implemented in mem_encrypt_amd.c. sme_postprocess_startup() converts
-.bss..decrypted only if sme_get_me_mask() is set, so a TDX guest never
-shares it. 1/2 moves the per-CPU linker section to X86_MEM_ENCRYPT, but
-nothing that would act on that section follows.
+       conf = mddev->private // NULL
+        wait_barrier(conf, sector) // null-ptr-deref !
 
-Rather than have every TDX user reinvent the conversion, I would rather
-see the infrastructure made vendor-neutral: boundary symbols for the
-per-CPU decrypted section like the ones .bss..decrypted has, an early
-conversion primitive that works on TDX as well as SEV, and a single
-conversion of both sections at boot. Then sev_map_percpu_data() and
-this driver's loop go away.
+It is a common problem for raid0/1/10/5, and __md_stop could be
+triggered by several paths(eg. ioctl, sysfs, ->dtr). Fix it by
+replacing mddev_lock() with mddev_suspend_and_lock() for all
+__md_stop() callers.
 
-> TDX's conversion callback uses __pa(), so patch 2 preflights every possible
-> CPU and leaves steal time disabled if a TDX guest uses vmalloc-backed
-> per-CPU storage. This covers percpu_alloc=page and automatic allocator
-> fallback. AMD encrypted guests support those mappings and are not rejected.
-> Supporting them in TDX would require a separate conversion-API change.
+Fetch a reproducer in https://bugzilla.kernel.org/show_bug.cgi?id=222020
 
-Refusing vmalloc-backed storage on TDX is the right call, and not because
-of the __pa() in the callback. Converting a vmalloc alias means either
-fracturing the direct map or leaving a private direct-map alias to a
-shared page, and the latter is a guest shutdown the moment
-load_unaligned_zeropad() steps into it. See the comment in
-tdx_early_init() and the earlier discussion of the same idea:
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+3fe892ea5fc292e1353f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3fe892ea5fc292e1353f
+Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+---
+ drivers/md/dm-raid.c |  7 +++++--
+ drivers/md/md.c      | 18 +++++++++++++++---
+ 2 files changed, 20 insertions(+), 5 deletions(-)
 
-https://lore.kernel.org/all/xqi2bkulnhen2vax5msbzczlaywx3dsc7ezpn7oo5qn7u7xzap@xmaseinov7tf/
-
-But that decision belongs in the same central place as the conversion.
-If the first per-CPU chunk is vmalloc-backed on TDX, the decrypted
-section is simply not shared, and users see that, instead of every
-driver re-deriving it.
-
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index 8f5a5e1342a9..3dda494fe172 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -3326,12 +3326,15 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 
+ static void raid_dtr(struct dm_target *ti)
+ {
++	unsigned int noio_flags = 0;
+ 	struct raid_set *rs = ti->private;
+ 
+-	mddev_lock_nointr(&rs->md);
++	mddev_suspend_and_lock_nointr(&rs->md);
++	noio_flags = memalloc_noio_save();
+ 	md_stop(&rs->md);
+ 	rs->md.dm_gendisk = NULL;
+-	mddev_unlock(&rs->md);
++	memalloc_noio_restore(noio_flags);
++	mddev_unlock_and_resume(&rs->md);
+ 
+ 	if (work_pending(&rs->md.event_work))
+ 		flush_work(&rs->md.event_work);
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..e292acd54bb0 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -4657,6 +4657,8 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ {
+ 	int err = 0;
+ 	enum array_state st = match_word(buf, array_states);
++	unsigned int noio_flags = 0;
++	bool suspend = false;
+ 
+ 	/* No lock dependent actions */
+ 	switch (st) {
+@@ -4666,9 +4668,11 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 	case broken:		/* cannot be set */
+ 	case bad_word:
+ 		return -EINVAL;
++	case inactive:
+ 	case clear:
++		suspend = true;
++		fallthrough;
+ 	case readonly:
+-	case inactive:
+ 	case read_auto:
+ 		if (!mddev->pers || !md_is_rdwr(mddev))
+ 			break;
+@@ -4702,9 +4706,11 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 		spin_unlock(&mddev->lock);
+ 		return err ?: len;
+ 	}
+-	err = mddev_lock(mddev);
++	err = suspend ? mddev_suspend_and_lock(mddev) : mddev_lock(mddev);
+ 	if (err)
+ 		return err;
++	if (suspend)
++		noio_flags = memalloc_noio_save();
+ 
+ 	switch (st) {
+ 	case inactive:
+@@ -4775,7 +4781,12 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
+ 			mddev->hold_active = 0;
+ 		sysfs_notify_dirent_safe(mddev->sysfs_state);
+ 	}
+-	mddev_unlock(mddev);
++	if (suspend) {
++		memalloc_noio_restore(noio_flags);
++		mddev_unlock_and_resume(mddev);
++	} else {
++		mddev_unlock(mddev);
++	}
+ 
+ 	if (st == readonly || st == read_auto || st == inactive ||
+ 	    (err && st == clear))
+@@ -8299,6 +8310,7 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
+ 	case HOT_REMOVE_DISK:
+ 	case SET_BITMAP_FILE:
+ 	case SET_ARRAY_INFO:
++	case STOP_ARRAY:
+ 		return true;
+ 	default:
+ 		return false;
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.52.0
+
