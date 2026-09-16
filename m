@@ -1,206 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5E72C031E;
-	Wed, 16 Sep 2026 13:54:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8D24FECE9
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:54:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566854; cv=none; b=KjOWUPD8XzC0mlzEPbk2jbIm2powUtewu3eHMIFCZCVNHYzb3yGJxPZTkzzC+MnwNuuYZqdupCuTzGPcp4hUELCTA0Ev2rTkDm68ECVarwLfp/1s/8PVdH/JEierG7x4hHCepH4mgCree3nn+Qvcq6wUnOqmiJ8AaXJ7LqClAcg=
+	t=1789566858; cv=none; b=rEnSFzX/RYh7bZUq/odyB7PH25qqND7Bq/xJ/ATZakoYrpw0hDt7OZ60ek20rRWKQtJH34FZa19na+ayILMHqblIKgRZzCx6f9PSrqVIV5y5iz9bQHvJ52zFghJe/gBAt+J9+NJIPVK3KpgLPN44HpRX/XHa6BC1t9sBho6E3oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566854; c=relaxed/simple;
-	bh=eXSjVuZlgQ9gugywiLVJWnVCZ71Ql9z8vcAwRnTPQDw=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=aA03rSJAb8zwSf6RlS88xonghY6P0alALAq30j0nrqPPyv6qU03XfjFnC2gnbItK/fuSaVc+fWY0ZJkLwxCYQXjShe4g1rdAd7Rq5wBXhLb7DaFi7DOPwxyfTai9Q2Qug8EDm1YsTo53v2n2qYJdUxL1K27G34GkIDE8RC2Sssw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xm2CR14X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789566858; c=relaxed/simple;
+	bh=gaP3oZ/AnBH8rs+Ktf9u2PAyvt0WSCNjXDKQ1OyNg/k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jjhKKrSSoIzkRohwBn49VILF6ePte9fA09bpCnHaCVgxp+wNcgLppxKmLIuf5xIVlLBt1jGvNG0ebSBZeCAc2IE1+IMJcxFPhn917Fy5jL30+w5TDr73knPrrPdY2MdBnOvb0d7osCuCK9zGhfr5N735S0KNZUlKmKm77Hyjges=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YOg1Udvd; arc=none smtp.client-ip=74.125.227.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xm2CR14X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBF321F00893;
-	Wed, 16 Sep 2026 13:54:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789566848;
-	bh=MM4Ho/XeNLJq7VZ5b/Z9Io2ZQ7TBT71DcUarT0QJgoo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Xm2CR14X9o5OMxnxQfYo/KEb2KgbZ+Ric0MvkdEXqD8W8QZTh5xWEJkVutNxrMMQ7
-	 thH18xDxMqP0NRjPY6BquBh34e6DDHGPY2KTnzTRb9Ii1bEkQHQFUoWoVPQZl5gdTJ
-	 8eO0vdA9Wak9TrcsUAYLaKGU1k9Oikpfcrm7VikV9Hv2ALkQv4Gedftv3rC6cyAJ87
-	 TpwxhTv/zKdSLL/Gbz5iIxwPO/EpJk+PGIH6bNJv1bcvKPhCe9GZk1ppTbvMKPd2yG
-	 YrmsbMb0TCKcfgqhCIxepazAIthAMDshanqVD+2cgmkDwDpGzG5ve4AIJkLWfEAdKX
-	 XKgGQI3ppAa5g==
-Date: Wed, 16 Sep 2026 22:54:02 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Ian Rogers
- <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>, Adrian Hunter
- <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, Peter
- Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, LKML
- <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org, Zecheng
- Li <zli94@ncsu.edu>, Yanbo Zhao <yzhao62@ncsu.edu>, Tengda Wu
- <wutengda@huaweicloud.com>, Shuai Xue <xueshuai@linux.alibaba.com>, Masami
- Hiramatsu <mhiramat@kernel.org>
-Subject: Re: [PATCH v3 1/3] perf dwarf-aux: Add die_has_flex_array() helper
-Message-Id: <20260916225402.2002e60d2c737ae34cc520d2@kernel.org>
-In-Reply-To: <20260915064035.1970175-2-namhyung@kernel.org>
-References: <20260915064035.1970175-1-namhyung@kernel.org>
-	<20260915064035.1970175-2-namhyung@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YOg1Udvd"
+Received: by mail-pj2-f7.google.com with SMTP id d9443c01a7336-2d561173f9fso39673815ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:54:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789566851; x=1790171651; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qc/rLQY/xgi48oS7JinasFyBURKLxLOAJ3bkaqo/Vho=;
+        b=YOg1UdvddSDhe9z6zxDSedHQZT1oyNdfcXHU5qxjrEj/NhwU9Az0pS3lcvgR/lpqX3
+         vLGndEKINmFmmFhi5e5QqxnobqeOEp7r7LgpH/xAbmyAwS/S8iTVCl2WDuHdTC3/zHNd
+         ehkl4HebKmn2KPV1KJEANGEoe4OQ+ytnyTERrDTdB4iF8z0RdRbBEy4f+UCuGuk9N3aY
+         nNhmetkZxci9nne6tuej87d2LIa1myqpL3gAkPmauG/AA/ais4NR5qZMpqTJ5NsW7w8m
+         7khSe0Uruz2G3zwpP6FTancqnsNOVixmTnlvtsad1uMsRgEz9yOneltdaTz4zfiEQTJ0
+         tAzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789566851; x=1790171651;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qc/rLQY/xgi48oS7JinasFyBURKLxLOAJ3bkaqo/Vho=;
+        b=vFfYMxS5LQTdtCEBepKD28JQJDylYzCndDCZfUcSJYPud0mjOlkLIDZRcC0QG61G1b
+         66qJdKyrTCFLetvdnSBfvDOuBY3loQ9ke708/EHy4TjCLmFdRrAJZmf3g1hoOOAzTqVM
+         rVU8h2xF2jthXkMB9LNKJUQm67bzdINqjBjE349svuza3RpH277kHav6ypJ5Km40rl4J
+         Zn/Uvyxs2xHAZIjZZ/BxxGV8K3x5cXi/GDIO+bz1rjCMHyHlKvVlSnMOYzFG8Fttx6vU
+         Q6T/R7h3OWxTAvg+m/ZYpqd2GXLXOE/mkODs1fvKP7Xk+y7Nf17G9F457xfdfkLZJP7+
+         iyeg==
+X-Forwarded-Encrypted: i=1; AKwUvByBrcStYlPXFY6dxbVITck18P3wEXfSZK90E1B17XR9CBjkH7j3o2NXBGDJicJGVVh9dkWhdQ0WqacaVto=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYzkCgbj0XEx1vWqmITYNgJANbIBu+Jz9/Fq5alsjiHdzQoGq5
+	qLhemcmAdRMh+u3zXcIdJV5McB2JhFssqVDy5xKHfiDF/x2lpIYOCDrp
+X-Gm-Gg: AYBFou39ZJQSED/JH6TDHkKwHvM+Dq2VcjJagy1vojhu19OS1TskJ0LB/Tm6/q6cb9I
+	H06XKqKZ8Uoimr1PHAOFuJG74ZPdgCJJ0k/PjxdTFJAw0SoUafiv4rdZCjj0n1kHsIPsw/gjS32
+	7vbSkyxOXp+iG38AQ1BvtgGEIEuxGlRWVG4W8aPiFu1L4eLLv+V7EKk+X8eO2qvO/0PyJENaa+P
+	zByC96nbnEHtwWTrWwpDjtErFMsg0UlGlOHHZMNoKD8D2NxQn61sNsPtzuYNw+b/0PaLmMp1oQ1
+	yfKJfLZ25Z6HY4MC/a2Eq9SCyC/dAQuBT5W0fKaf0k0R/ug/cVhSn/ADuXzB4KDrFQjgpy8D0jl
+	c3upL9QzSVorhCh+65A0Q06j+ILOt4D6MTzOst/5pCe7pCQZDhiJdc0G9cB6lvmb2shcSxblWLM
+	okaJVHz1QtTl0E1jcEtd9f3DUPwIuI/k9qQtNwqLTyIPb922aUf0IacQ9T5LW6jvlhi7FljzI20
+	BYc+adklelaRLqFl0nbVC5+D+9mmW/vXEQTHNzjmB4+quWH4bg=
+X-Received: by 2002:a17:902:e551:b0:2d6:fee6:65ae with SMTP id d9443c01a7336-2dd8dd0a955mr59563295ad.4.1789566851371;
+        Wed, 16 Sep 2026 06:54:11 -0700 (PDT)
+Received: from localhost.localdomain ([38.60.126.44])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f0592asm12070425ad.62.2026.09.16.06.54.06
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 16 Sep 2026 06:54:11 -0700 (PDT)
+From: Haobin Wu <853555@gmail.com>
+To: ericvh@kernel.org,
+	lucho@ionkov.net,
+	asmadeus@codewreck.org,
+	v9fs@lists.linux.dev
+Cc: linux_oss@crudebyte.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	aneesh.kumar@linux.vnet.ibm.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	jack@suse.cz,
+	willy@infradead.org,
+	dhowells@redhat.com,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org
+Subject: [PATCH v2 0/2] 9p: handle long directory entry names in readdir
+Date: Wed, 16 Sep 2026 21:54:01 +0800
+Message-ID: <20260916135403.15789-1-853555@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, 14 Sep 2026 23:40:33 -0700
-Namhyung Kim <namhyung@kernel.org> wrote:
+Hi Dominique,
 
-> The die_has_flex_array() returns true when the given type is a compound
-> type and contains an array at the end.  To prevent an infinite recursion
-> add a depth field to the internal function.
-> 
+Thanks for the review, and sorry for the delay. Here is v2 with the
+changes you and Jan asked for; details below.
 
-This looks good to me.
+A host directory entry whose name is longer than 255 bytes currently
+makes 9p's readdir fail with -EIO and hides every entry after it, which
+is how this was noticed on WSL (Plan 9 shares of Windows drives).
 
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Patch 1 drops the copy into the fixed 256-byte p9_dirent::d_name and
+uses the string p9pdu_vreadf() already allocated, so the listing no
+longer aborts.
 
-Thanks!
+Patch 2 then skips entries whose name is longer than NAME_MAX instead
+of returning them to userspace, as discussed with Dominique and Jan on
+v1: the VFS only enforces PATH_MAX in verify_dirent_name(), and nothing
+can operate on such a name afterwards anyway.
 
-> Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> ---
->  tools/perf/util/dwarf-aux.c | 97 +++++++++++++++++++++++++++++++++++++
->  tools/perf/util/dwarf-aux.h |  3 ++
->  2 files changed, 100 insertions(+)
-> 
-> diff --git a/tools/perf/util/dwarf-aux.c b/tools/perf/util/dwarf-aux.c
-> index d7160f87ac7d7ab3..a5aefe7d1d62d090 100644
-> --- a/tools/perf/util/dwarf-aux.c
-> +++ b/tools/perf/util/dwarf-aux.c
-> @@ -7,6 +7,7 @@
->  #include <inttypes.h>
->  #include <stdbool.h>
->  #include <stdlib.h>
-> +#include <string.h>
->  #include "debug.h"
->  #include "dwarf-aux.h"
->  #include "dwarf-regs.h"
-> @@ -2180,3 +2181,99 @@ Dwarf_Die *die_deref_ptr_type(Dwarf_Die *ptr_die, int offset,
->  
->  	return die_get_member_type(&type_die, offset, die_mem);
->  }
-> +
-> +static bool is_flex_array_member(Dwarf_Die *mb_die)
-> +{
-> +	Dwarf_Die type_die;
-> +	Dwarf_Word size;
-> +
-> +	/* get the type of the member */
-> +	if (die_get_real_type(mb_die, &type_die) == NULL)
-> +		return false;
-> +
-> +	if (dwarf_tag(&type_die) != DW_TAG_array_type)
-> +		return false;
-> +
-> +	return dwarf_aggregate_size(&type_die, &size) < 0 || size == 0;
-> +}
-> +
-> +#define MAX_FLEX_ARRAY_RECURSION  256  /* arbitrary */
-> +
-> +static bool die_has_flex_array_recurse(Dwarf_Die *parent_die, int depth)
-> +{
-> +	Dwarf_Die die_mem, last_mb;
-> +	int tag = dwarf_tag(parent_die);
-> +	bool found = false;
-> +	Dwarf_Word loc, last_loc = 0;
-> +
-> +	if (tag != DW_TAG_structure_type && tag != DW_TAG_union_type)
-> +		return false;
-> +
-> +	/* prevent infinite recursion */
-> +	if (depth > MAX_FLEX_ARRAY_RECURSION)
-> +		return false;
-> +
-> +	if (dwarf_child(parent_die, &die_mem))
-> +		return false;
-> +
-> +	do {
-> +		if (dwarf_tag(&die_mem) != DW_TAG_member)
-> +			continue;
-> +
-> +		if (tag == DW_TAG_union_type) {
-> +			if (is_flex_array_member(&die_mem))
-> +				return true;
-> +
-> +			if (die_get_real_type(&die_mem, &last_mb) &&
-> +			    die_has_flex_array_recurse(&last_mb, depth + 1))
-> +				return true;
-> +		}
-> +
-> +		if (tag == DW_TAG_structure_type) {
-> +			if (die_get_data_member_location(&die_mem, &loc) < 0)
-> +				loc = 0;
-> +
-> +			if (!found || last_loc < loc) {
-> +				memcpy(&last_mb, &die_mem, sizeof(last_mb));
-> +				last_loc = loc;
-> +			}
-> +		}
-> +
-> +		found = true;
-> +	} while (dwarf_siblingof(&die_mem, &die_mem) == 0);
-> +
-> +	if (tag == DW_TAG_structure_type && found) {
-> +		if (is_flex_array_member(&last_mb))
-> +			return true;
-> +
-> +		if (die_get_real_type(&last_mb, &die_mem))
-> +			return die_has_flex_array_recurse(&die_mem, depth + 1);
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +/**
-> + * die_has_flex_array - Check if the given type has a flex-array at the end
-> + * @type_die: a pointer to type DIE
-> + *
-> + * This function returns %true iff @type_die is a struct type and has an
-> + * array at the end.  Note that the flex-array has no element, it should have
-> + * no size and the parent size doesn't include the flex-array.  So it should
-> + * locate at the offset of the parent size.
-> + *
-> + * For simplicity, it assumes the parent size of aligned with the flex-array.
-> + */
-> +bool die_has_flex_array(Dwarf_Die *type_die)
-> +{
-> +	Dwarf_Die real_type;
-> +
-> +	if (dwarf_tag(type_die) == DW_TAG_typedef) {
-> +		if (die_get_real_type(type_die, &real_type) == NULL)
-> +			return false;
-> +
-> +		type_die = &real_type;
-> +	}
-> +
-> +	return die_has_flex_array_recurse(type_die, 0);
-> +}
-> diff --git a/tools/perf/util/dwarf-aux.h b/tools/perf/util/dwarf-aux.h
-> index 161f0bf980b6ee6a..9b662db710220522 100644
-> --- a/tools/perf/util/dwarf-aux.h
-> +++ b/tools/perf/util/dwarf-aux.h
-> @@ -189,4 +189,7 @@ void die_collect_global_vars(Dwarf_Die *cu_die, struct die_var_type **var_types)
->  /* Get the frame base information from CFA */
->  int die_get_cfa(Dwarf *dwarf, u64 pc, int *preg, int *poffset);
->  
-> +/* Check whether given type has a flex array */
-> +bool die_has_flex_array(Dwarf_Die *parent_die);
-> +
->  #endif /* _DWARF_AUX_H */
-> -- 
-> 2.55.0.1082.g2b9226bbc0-goog
-> 
+Changes since v1:
+- Use my real name in From/Signed-off-by (Dominique).
+- Split into two patches (Dominique).
+- Reworded the subject and commit message of patch 1 to describe the
+  existing readdir path and clarify that no allocation is added
+  (Dominique).
+- New patch 2 skipping entries longer than NAME_MAX (Dominique, Jan).
+- Dropped the bouncing sripathik@in.ibm.com address from Cc.
+
+v1: https://lore.kernel.org/all/20260826064819.52523-1-853555@gmail.com/
+
+Haobin Wu (2):
+  9p: skip intermediate directory entry name copy in p9dirent_read()
+  9p: skip directory entries with names longer than NAME_MAX
+
+ fs/9p/vfs_dir.c         | 17 +++++++++++++----
+ include/net/9p/client.h |  2 +-
+ net/9p/protocol.c       | 12 ++----------
+ 3 files changed, 16 insertions(+), 15 deletions(-)
 
 
+base-commit: 028ef9c96e96197026887c0f092424679298aae8
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.54.0 (Apple Git-157)
+
