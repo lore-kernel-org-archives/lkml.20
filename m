@@ -1,35 +1,50 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mta0.migadu.com (out-245.mta0.migadu.com [91.218.175.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90F84A2E0F;
-	Wed, 16 Sep 2026 09:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8827D4854FE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550110; cv=none; b=pQZpk2/edL/rPo8Cztc4loxMFlmr8Og1iSO+33rUVgs9Rc8ALBdHVQnSpwm0sEbVOt3AbVPDMox1IE7JVHFwU657m0bmtdJpMxiaMsHwF5ax4e/DyoliTrfxcTtmFhr6wrNSrFMrKkZ+SmUhJDzsQ3rGJaWThklhs/J+1mIk1OY=
+	t=1789550124; cv=none; b=p48XcEHXcCMEWwDExu3M8LIDqaZVK9PAiZA2Y1WSRofdqUNJZKi24MUwQsqZiThtJQvMCvRId1dGUnADGMdPJj+cl0kR1QNGIj1C3L8Alnf/KBXD5e2B5udJieSpjjw4eo+usXRryHfCLsTvtqqVf5UAbJPT0D6baThV7Ptl6Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550110; c=relaxed/simple;
-	bh=gUxLy90PlRktvF2nIp/cDo0L+xsCyzoxtGNnJLnk01s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uMS2wLQEnDpA4gB6iuQZo7L1fLOwn5qjK1Fc7014PM87cfSvf3kx3RV8nwpFxEMemalAja1ofWGhnSxpcyd5C60NRlJJt+7r33YZVaHxTSiz6VoNZypSoMP1sQTP244LWpbPKmgAFeVHcwm6xPDmlMSLNxm09tRRl5o9S2whWgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3vTsDXqpq3y3gBw--.46964S2;
-	Wed, 16 Sep 2026 17:14:43 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: akpm@linux-foundation.org
-Cc: bp@alien8.de,
-	dougthompson@xmission.com,
-	juhlenko@akamai.com,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tony.luck@intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] EDAC/i3000: Fix mci_pdev reference leak in i3000_init_one()
-Date: Wed, 16 Sep 2026 09:14:15 +0000
-Message-Id: <20260916091415.1997923-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789550124; c=relaxed/simple;
+	bh=pBeiJ4AlOcIIa9PKTUIXPyWGASwQB61+Y/D7zx29PbA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=izpsqIyGA3yzTEP8ikpTdJlF3+0Yz8AIjA6cmnJk4DvQ15guunaHzvg3MpJrfWIcUQ6gTfc3HIRZSl3mUHNtl9VXQLjPxjAFQIaIOqf7ttDLCeKWDB+RSlrNi9w8+Oik/gL/7JDPDDDr5JpdLcbvNsGvZ4uPIuZsrJbv3j5GtM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OrTo8nU6; arc=none smtp.client-ip=91.218.175.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OrTo8nU6"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pBeiJ4AlOcIIa9PKTUIXPyWGASwQB61+Y/D7zx29PbA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789550093; v=1; x=1790154893;
+ b=OrTo8nU6tftEmZbwJ2OKKBItGQVDagyY3ISMxrM5s6S1KCNjbf1TmJSU0OWu8gIkmzW+oTZe
+ mm5NkDKidLZJNQJYq5BZPbS/lDGQghAFhwz0S5uoofMfc/Tek8e+QdGb+gKvw35bQVkhAHaK42f
+ /i8fyKQmCA+kdgoXziI4mEQE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ea7a2d69a42c64a9;
+	Wed, 16 Sep 2026 09:14:53 +0000
+X-Mizu-Trace-ID: ea7a2d69a42c64a9
+X-Migadu-Flow: FLOW_OUT
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+To: netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Dong Chenchen <dongchenchen2@huawei.com>,
+	David Ahern <dsahern@kernel.org>,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+	Kees Cook <kees@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v1] net: gro_cells: add drop reasons to gro_cells_receive()
+Date: Wed, 16 Sep 2026 17:14:20 +0800
+Message-ID: <20260916091420.138170-1-xuanqiang.luo@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,59 +52,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3vTsDXqpq3y3gBw--.46964S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Wr1xJFWUJFW5XF43AFyrWFg_yoWkGrb_u3
-	WrZFy7Xr4kCF4qkwnrGr1fZry7KFsIgr4rWr4Ig3y3GryfWa1DZFZ8uF1DJr47Ww4rZFyD
-	Kr1q9FyrGF42vjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb4AFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbYZX7
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUMA2qqP4eB6gABsB
 
-In i3000_init_one(), a reference to the PCI device is taken with
-pci_dev_get() and stored in the global mci_pdev even when
-i3000_probe1() fails.  On that path i3000_registered keeps its initial
-value of 1, so i3000_exit() skips the pci_dev_put() and the reference
-is leaked.
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-Only take the reference after i3000_probe1() succeeds.
+gro_cells_receive() reports SKB_DROP_REASON_NOT_SPECIFIED when the device
+is down or the GRO cell queue length exceeds max_backlog.
 
-Fixes: 535c6a53035d ("drivers/edac: new inte 30x0 MC driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Pass SKB_DROP_REASON_DEV_READY and SKB_DROP_REASON_CPU_BACKLOG to
+kfree_skb_reason() for these two cases, respectively.
+
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 ---
- drivers/edac/i3000_edac.c | 5 ++++-
+This patch is based entirely on Eric Dumazet's suggestion in the
+discussion below:
+https://lore.kernel.org/all/CANn89i+d4ny7K0QV-v+ZY6Kj735tPVrrzd0AzwRqe4vvu5r=aw@mail.gmail.com/
+
+ net/core/gro_cells.c | 5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/edac/i3000_edac.c b/drivers/edac/i3000_edac.c
-index 9065bc4386ff..d4ee6e185c80 100644
---- a/drivers/edac/i3000_edac.c
-+++ b/drivers/edac/i3000_edac.c
-@@ -461,10 +461,13 @@ static int i3000_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
- 		return -EIO;
+diff --git a/net/core/gro_cells.c b/net/core/gro_cells.c
+index d8c0a28671201..1d64207bf960f 100644
+--- a/net/core/gro_cells.c
++++ b/net/core/gro_cells.c
+@@ -14,11 +14,13 @@ struct gro_cell {
+ int gro_cells_receive(struct gro_cells *gcells, struct sk_buff *skb)
+ {
+ 	struct net_device *dev = skb->dev;
++	enum skb_drop_reason reason;
+ 	bool have_bh_lock = false;
+ 	struct gro_cell *cell;
+ 	int res;
  
- 	rc = i3000_probe1(pdev, ent->driver_data);
-+	if (rc)
-+		return rc;
-+
- 	if (!mci_pdev)
- 		mci_pdev = pci_dev_get(pdev);
+ 	rcu_read_lock();
++	reason = SKB_DROP_REASON_DEV_READY;
+ 	if (unlikely(!(dev->flags & IFF_UP)))
+ 		goto drop;
  
--	return rc;
-+	return 0;
- }
+@@ -34,9 +36,10 @@ int gro_cells_receive(struct gro_cells *gcells, struct sk_buff *skb)
+ 	cell = this_cpu_ptr(gcells->cells);
  
- static void i3000_remove_one(struct pci_dev *pdev)
+ 	if (skb_queue_len(&cell->napi_skbs) > READ_ONCE(net_hotdata.max_backlog)) {
++		reason = SKB_DROP_REASON_CPU_BACKLOG;
+ drop:
+ 		dev_core_stats_rx_dropped_inc(dev);
+-		kfree_skb(skb);
++		kfree_skb_reason(skb, reason);
+ 		res = NET_RX_DROP;
+ 		goto unlock;
+ 	}
+
+base-commit: 87b80c2f6b05cad9f0ff9136709c62a0f59923e3
 -- 
-2.34.1
+2.43.0
 
