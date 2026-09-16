@@ -1,113 +1,78 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from smtp-42ab.mail.infomaniak.ch (smtp-42ab.mail.infomaniak.ch [84.16.66.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A8B4F0551
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327B14AA3F0
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561443; cv=none; b=hepFtIQEZxBXnCV8fA9RXvdmZfqdbtXcG5z6z6IDb5X5Gyqo75MYqN7HeUHk5Gi1jJP8QpsO3Vc47chZ7RMVH2AInXgkamOzAFEmq9JV8RSMDKABCn/soSg811B/DZTg5BKnfoiwSxpyvkx0fNqGWb7tC7aDFYGa0Eylknq5LaM=
+	t=1789561560; cv=none; b=WPWCw38R1GWWao1ZBeah2AomZjBXCKPmn1JHPOmDSibz5DThVag8lxvEB7HSyUBV/3Rj8GOqgNy24uktih0MzSVfTvA1wsTjcFpiAyX1FsmfEsfjdHIlAYCO4gd2CX7ZxgDhCLDp6Tdiff35RpkvRGGdiFfb1ET6tTrJAhYDTt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561443; c=relaxed/simple;
-	bh=gsiJC+8KYfKWnEm6drxojd2SA0aWwriaMc4BSfAPcEc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:Content-Type:
-	 References; b=BV86ogjmRdPO1HZELSEwqlLEQpsFsJ5uVeGugLNgN/fnrBTLaPUWu+KjXJFde6eD4/9dCTPErhESDOAdnBhtmFitI/abNT791OIGXmxX4nVYiIcRVLm8T2mf7bfBZoJTbh5Ck3Y1FFbICEWWzCf6E34WkJNGzhPkWUNGMlc7qE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=RUu6s6C1; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789561560; c=relaxed/simple;
+	bh=A/D0dr/kkWY2pC4T1uDWLqU7ZfZpRwQVu3BLlTOo/bY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gz9SZIzSqDsK/EgLstoaMONtihmpPKVmKSQok/l5x0s/JlMnQomyisUxeEJigTet6nAPn71rvRPTUZ7J6lbAIosDS7zHM9JZm7LhixQGTo6+ZlYSKlvKcKfqMzDw29rkENdBMNaQnzv+ZKSp87aZUX9J/Nxki5NrTmJRWzY/CyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=v7zXYsr6; arc=none smtp.client-ip=84.16.66.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="RUu6s6C1"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260916122359epoutp0471a654440170cbabee4a7d98e840e2c2~VzKXtXH_21965319653epoutp04X
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:23:59 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260916122359epoutp0471a654440170cbabee4a7d98e840e2c2~VzKXtXH_21965319653epoutp04X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789561440;
-	bh=fKL6HImdTiqBULRthcBWF6Nv0t3+2obCrlxnJAI24Vo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RUu6s6C1rO3r03Ron2UQrDWMzfW4zswX+fH56Yv6sXAlsj5s7250UDMScV2X0IZR6
-	 V9fCYpdjJE2bYEgs7bJvWS+lqgXw8iPQ8wTTF2iybXq1EWtdFql7WukjqMr4n3HNV7
-	 MsIOudhtDT7TsvWGaaOnCIIiW3InnsdVmv1wmBsk=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
-	20260916122359epcas5p4d7652fb157b69e8523d96d7139a526d4~VzKXLNoit2123921239epcas5p47;
-	Wed, 16 Sep 2026 12:23:59 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.95]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4hlJ322qQlz3hhT8; Wed, 16 Sep
-	2026 12:23:58 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20260916122357epcas5p3578059e36eafeb4602f4fb57cd72c883~VzKVr2h4q1679016790epcas5p32;
-	Wed, 16 Sep 2026 12:23:57 +0000 (GMT)
-Received: from vega.samsungds.net (unknown [107.108.73.84]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260916122354epsmtip23a7f3a74468b642496b307c223b4c8c2~VzKS51nxf2261622616epsmtip2_;
-	Wed, 16 Sep 2026 12:23:54 +0000 (GMT)
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-To: krzk@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com,
-	gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org,
-	Thinh.Nguyen@synopsys.com, mani@kernel.org, selvarasu.g@samsung.com,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
-	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
-	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
-Subject: [PATCH v2 3/3] usb: dwc3: Add Exynos8855 to the generic platform
- driver
-Date: Wed, 16 Sep 2026 17:52:29 +0530
-Message-Id: <20260916122229.2604003-4-selvarasu.g@samsung.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260916122229.2604003-1-selvarasu.g@samsung.com>
-X-CMS-MailID: 20260916122357epcas5p3578059e36eafeb4602f4fb57cd72c883
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260916122357epcas5p3578059e36eafeb4602f4fb57cd72c883
-References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
-	<CGME20260916122357epcas5p3578059e36eafeb4602f4fb57cd72c883@epcas5p3.samsung.com>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="v7zXYsr6"
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hlJ581xgvzkcv;
+	Wed, 16 Sep 2026 14:25:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1789561548;
+	bh=RUlFhdG/MfGo+W5labbbmzPlbDvx+B41ocy/spUYVus=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=v7zXYsr6r02fEDjeHoP/Hxz1riGcUb7Mg4so4Rorv7U8UWggPHbdJ6deQ4WFdtIZK
+	 a23WPpkUcxDsZsitQdbyaF9I223BQ4z0xUg51ntffhlnM/EOCkOVuEnJ9cXac/cSbD
+	 X08q6e6xvmqWv9Of7gO8COpEyD99GjKltq6o4gqc=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hlJ554JjnzN6W;
+	Wed, 16 Sep 2026 14:25:45 +0200 (CEST)
+Date: Wed, 16 Sep 2026 14:25:41 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Arnd Bergmann <arnd@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+	Tingmao Wang <m@maowtm.org>, Justin Suess <utilityemal77@gmail.com>, 
+	Arnd Bergmann <arnd@arndb.de>, =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] [v2] landlock: work around gcc-16 -Wuninitialized warning
+Message-ID: <20260916.shai0tha3IPa@digikod.net>
+References: <20260915201036.3527935-1-arnd@kernel.org>
+ <20260916084947.6QDy8KZQ@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260916084947.6QDy8KZQ@linutronix.de>
+X-Infomaniak-Routing: alpha
 
-Add the "samsung,snps-dwc3" compatible string to dwc3-generic-plat so
-the Exynos8855 USB3 DWC3 controller can probe through the generic DWC3
-platform glue. While at it, alphabetically reorder the existing entries.
+On Wed, Sep 16, 2026 at 10:49:47AM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-09-15 22:10:30 [+0200], Arnd Bergmann wrote:
+> > Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=110743
+> > Link: https://lore.kernel.org/all/20260619082133.3504146-1-arnd@kernel.org/
+> > Fixes: a260c0055665 ("landlock: Add a place for flags to layer rules")
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > ---
+> > v2: rebased to linux-next-20260914
+> > 
+> > I originally sent this in June, but got no reply and this still
+> > happens with gcc-16.2, which is the latest stable release.
 
-The "samsung,snps-dwc3" string is used as a generic fallback to support
-any Exynos SoC that utilizes a flattened model instantiation. This
-fallback allows multiple Exynos SoCs to be supported by the generic
-platform driver simply by adding the fallback compatible to their
-respective device tree nodes.
+Thanks Arnd, I missed it.  It's in my -next branch now.
 
-Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
-Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
-Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
----
- drivers/usb/dwc3/dwc3-generic-plat.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+> > 
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> 
+> This looks reasonable. I don't see this with gcc-16.2 and the referenced
+> gcc bug has it as fixed.
 
-diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
-index ca69ac0eb07c..10c1146564b7 100644
---- a/drivers/usb/dwc3/dwc3-generic-plat.c
-+++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-@@ -232,10 +232,11 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
- };
- 
- static const struct of_device_id dwc3_generic_of_match[] = {
-+	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
-+	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
-+	{ .compatible = "samsung,snps-dwc3", },
- 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
- 	{ .compatible = "spacemit,k3-dwc3", },
--	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
--	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
- 	{ .compatible = "starfive,jhb100-dwc3", },
- 	{ /* sentinel */ }
- };
--- 
-2.17.1
+If GCC is fixed now, should we keep this work around?
 
+> 
+> Sebastian
+> 
