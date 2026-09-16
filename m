@@ -1,240 +1,189 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010025.outbound.protection.outlook.com [52.101.84.25])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF5D46983C;
-	Wed, 16 Sep 2026 08:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C4046EC6B;
+	Wed, 16 Sep 2026 08:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548952; cv=fail; b=YXeSxVQKwHFMaN7JCQtiq0ksGz8YIo8iTlZoFnz8t4fQ87PV0yFhQYqPb7lfUn080w9qvQBRtqNozdwnR5QBARU2SFgkvRuC3Wxv4iPGMs0MbW0DrUO4QEmuslXvuFpNcuDjesQDA7unn65AUho/vwbwa5DNkxhkRCWf+uTuCM8=
+	t=1789548978; cv=fail; b=jqvV1Zd72eBblgt/cTglQFqJNwFWi+jZSpL1Gsgix9jFI9RBtxuA8uV7HB/hAYofHQxwxKa1Z8lbyhee2507mViiA5Jo+9TkCF+QpAWyKOaVDQci3YHF5QDoCGGqi1Cd2XU1r+U7W+VmnH5F/BxJdyrU8siWQLwvaK+MP17XM6Q=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548952; c=relaxed/simple;
-	bh=j4llVGyXInZeNzrm+N2p7/gg3XlNce1XcKF9MOAopPg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=t09swqam+uNundMK+9K/vxVerO9O6lPxmV6OoRz6KxoiwybTPE2LO8hVHf9oBZ+W72ZBtPz3UefHwRlNBZEGL8Bn30BcC1LmtKd6rsLcN5fl0i3VMcRXV28AblkGZcuLunI6LwW4XTFiXX3lSqkoB3jGEErTZEE+QEsEa8PIP8M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=eAVXADma; arc=fail smtp.client-ip=52.101.84.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1789548978; c=relaxed/simple;
+	bh=qisnskVBK1LriryLZO9Q09j0y2dz8rTyT4aQraIyWTM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=p8Mn845C+nE/gaRckW9THugbN9VFerVumQKddPxeVvCnTTxMH2nE4cTvO9qAz3j+oTd+Q7THczq9cFwzv+6K7xCmR2liAJOEXlnbIybX7ZmzX5JCm9RsdZ8cbKiccS5UO/gi56Sm/cpNlrgzmZCEvs+UbgK60rFw+hPrTROKKcw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=myf/12U4; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=aTkR0qTc; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="eAVXADma"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="myf/12U4";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="aTkR0qTc"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G8Rqik2707759;
+	Wed, 16 Sep 2026 03:55:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=km0IxINjTeJ23
+	a13j6bFHZwmb8Qvd5d0fmSM084dTB0=; b=myf/12U4tJwfLr8+2LCNoT93E60Jo
+	OCgaJYoIvJMhcIcMrW3jWZrpD9It+DwFVtRa75qJ194tIcjeXtNx8DcjX0M0fy+6
+	CDgxtX4/2BMjrOqWVXZZB9v3RRgWpGkUH5CR7hyECL7CrxKWj7L+tc5MOvsG3OOq
+	C7mggEE7ZuToGWgy+IVeyBSgHyzcxQ7gjto++YXa0SdTnuLmf3dRYEGaOXIz2rLr
+	ubE/HCykBTk/ECKAsEOmRkSg6XOEwzcDlmKYFidmTu+OK5ORCO7IeJyCkpPE2ngy
+	yy0yyAqHJlJx0TL9c22avBKMoxXNvBAI76HvHMZV3Trfoh+qgGk7aXo3A==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011065.outbound.protection.outlook.com [40.93.194.65])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gqqmd84r9-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 03:55:56 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fSNmyRrKkADBfm8FRBA/0bV0cOhbgJUXUQ/bN2cgwQKO3IOuKY2OR1tocqLFpmYLTg+1mkpK0R9WbuFd/zipsHzoWOrVGR1fF/2K8qzWLy59Mqd/med8PmjRMQX/L2puNuPrTjp7A+fB60Oou/fFfD6mnPZHeI27v/O8zPNbWeiHgdGxoUIKqIUETeWxkyFSlCVXquabUThsXLCTyRD4lsHotxFY33sjDJ12tuAV7tgo7+H0tiIbGZ5qYoREoBr9ikFbPRfcsOeQw4thpsq7IiELaiezLYiZ72pR2vpM81+AjQ62xQxhU0YdieeNjac4oIcfE3DaRmaaV3ks00qcgw==
+ b=xdE2sRG6v+s/r0MFEQC3Gg9iYRMeRIR2V4ZbSWnLkqL5cU7uyymEGvqZwiBcnYyPJVyKqQN9G1aPicVe84oRGBArpRfgLYHvdSLzzHgT0mXY2X0/YccUTQMzjxXZowSKbQAmiv4fM9pZHtR0pxiw4t3PtN6Q7CLmFvBm/uROIa8+mdQSGQdEbStZW85fxYZVie35ND/rPgJQ1hQCjwBbbVB92PxcLtT8tfvTDtlWTO9dJeuC5x8LVpuogPN9lKW8Ln3kaw1gHhjIDzRKsohXB7GCrL7NPV7X1SqZCv+ExhVtE4H/3rgKq9qI9vIKbQ5HB/11KKvAz7ek1v3KbrHtdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3yu5AmusNpNON3i8F109QftsFIXrJ1jZplS02DN1eAs=;
- b=c9NsKiZ7DehZi0DnumXzdqfLGJR3dwXHtC78JGiRL7V2BB8eL6bem+XCZx2ooUrPK0TPeCdRd19kjZbg66wUtXrmzHED+LIge++SJtHM78BmZdepOLduG1lTIQs0n3aEx3rXYn59Dt1d8OdNLy1fu0dJwbuHPR6RZxPHSAJlNVEnw+M5w4lEZVToYstl6A02b2jueJ0SDOFiNaiYWaUm75rFwokzNtsZWrMAYeQ9dF9HtgD6N/hWnSDS+vHKE0PtZmp1DWu/IH67BgGAa3xDrhnY3/JxoiG8K7i+3pai4ct4vEDmp6pwCYEA6CwZR+ilJIsR5zdFlFsSVblDS+E9FA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=pm.me smtp.mailfrom=foss.st.com; dmarc=fail
- (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=km0IxINjTeJ23a13j6bFHZwmb8Qvd5d0fmSM084dTB0=;
+ b=hWb1F4tJzMyOT/tHrNLi5oVeVFV8+sOlrsGBa0o/qFiWwVbXLXISbosJUNK6hIg2fvlngW6jHnwxrsO+Kpkmm/4J0W3pURjipxXiXppAbKxtavcHKpJzNH1q0NskKIdYC8Wiwl9y+s0sBN941S4LcSwTYJM31B9nUUEEpXBttqJMWCwvFzt4gYrV+nMLlouGrryS7xnnkTYZGIRAJot4eZiFNcyNoyOwy1aNFhwSRQ6PYvWDYlPFmUvRpAYXNE3mF5A0eQiA9i+bDQxnSG66OwQYYHrmT45s0lAd/zscG/1U87hKeLFokY7Wf7nacqxJQp2+vZ/BEUlzX0w1GWk1+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3yu5AmusNpNON3i8F109QftsFIXrJ1jZplS02DN1eAs=;
- b=eAVXADma4mYtdNZ20kKnpNNxpR0YCxZoIIrcUTcmDWuga4MbVSTqHb7pOpNZeosGGubV6EJAX24VEyD823CUjMhjxb/hFBL6sCJlXzyirTAOZvE7TsbR4nadydNOGkFf/Um7C33hsTZ7cpOXluIE/px+JzDUpmduEJcoo3WrBKkK7ek4cBL5ATKcn2roXiwBH5fNchbapKigWq3aoreLVL8prixbhoRtP0PTNlFnql4UXCLyrhNWaNOVE9Nuuh7CNsXBhH6Lan3V5FWLbDG51g7wwVNe4fCn2QbB7xKxi0heXdXa8eo35HjTuKWlLyWoYW9Yjcnkepqh5bX35qQi5w==
-Received: from DU7PR01CA0007.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:50f::7) by DU4PR10MB8612.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:10:55c::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Wed, 16 Sep
- 2026 08:55:27 +0000
-Received: from MAD0EPF000008B1.eurprd04.prod.outlook.com
- (2603:10a6:10:50f:cafe::a1) by DU7PR01CA0007.outlook.office365.com
- (2603:10a6:10:50f::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 08:55:27 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MAD0EPF000008B1.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ bh=km0IxINjTeJ23a13j6bFHZwmb8Qvd5d0fmSM084dTB0=;
+ b=aTkR0qTc+aOMu93A2voShHH3M0hhJk3fnrimHo2VjhJb0FVD/vbJ0Xtq5h/ArY9YNh8H9/jxebDp5Cr5R1s1A1BQ1op88t1fLoKElc5euf5+11EjVXIO6+lskS27NhCVEI7lQiFS5KJ7unOWxU7t3ckku8XRNTuhq/Frr0RcUoA=
+Received: from BN0PR02CA0022.namprd02.prod.outlook.com (2603:10b6:408:e4::27)
+ by CH3PR10MB7496.namprd10.prod.outlook.com (2603:10b6:610:164::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.5; Wed, 16 Sep
+ 2026 08:55:54 +0000
+Received: from BL6PEPF00022572.namprd02.prod.outlook.com
+ (2603:10b6:408:e4:cafe::19) by BN0PR02CA0022.outlook.office365.com
+ (2603:10b6:408:e4::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 16
+ Sep 2026 08:55:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BL6PEPF00022572.mail.protection.outlook.com (10.167.249.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 08:55:27 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
- 2026 11:00:54 +0200
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
- 2026 10:55:23 +0200
-Message-ID: <df4edb95-82e9-4989-be43-7d9cc408d268@foss.st.com>
-Date: Wed, 16 Sep 2026 10:55:29 +0200
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 08:55:52 +0000
+Received: from DFLE205.ent.ti.com (10.64.6.63) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
+ 2026 03:55:25 -0500
+Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE205.ent.ti.com
+ (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
+ 2026 03:55:25 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 16 Sep 2026 03:55:25 -0500
+Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68G8tKwE716870;
+	Wed, 16 Sep 2026 03:55:21 -0500
+From: Moteen Shah <m-shah@ti.com>
+To: <ilpo.jarvinen@linux.intel.com>, <gregkh@linuxfoundation.org>,
+        <krzk+dt@kernel.org>, <linux-serial@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <jirislaby@kernel.org>,
+        <devicetree@vger.kernel.org>
+CC: <u-kumar1@ti.com>, <gehariprasath@ti.com>, <m-shah@ti.com>,
+        <vigneshr@ti.com>, <nm@ti.com>, <a-limaye@ti.com>,
+        <y-abhilashchandra@ti.com>
+Subject: [PATCH v2 0/2] serial: 8250_dw: Add ti,tda54-uart support
+Date: Wed, 16 Sep 2026 14:25:18 +0530
+Message-ID: <20260916085520.2259420-1-m-shah@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add
- VD55G0 support
-To: Sergey Lebedev <lsa.uz@pm.me>, Peter Marshall <pm@petermarshall.ca>
-CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>, Daniel Scally
-	<dan.scally@ideasonboard.com>, <linux-media@vger.kernel.org>,
-	<platform-driver-x86@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260910213308.53429-1-lsa.uz@pm.me>
- <1070f707-8a23-419e-a0a2-a6f295ceb5a0@foss.st.com>
- <20260915100722.38504-1-lsa.uz@pm.me>
- <1e798c12-2272-471a-9e71-82188439de82@foss.st.com>
- <20260915173604.65023-1-lsa.uz@pm.me>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20260915173604.65023-1-lsa.uz@pm.me>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008B1:EE_|DU4PR10MB8612:EE_
-X-MS-Office365-Filtering-Correlation-Id: fdc3fbfd-d3bb-41c6-6b22-08df13d0410b
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022572:EE_|CH3PR10MB7496:EE_
+X-MS-Office365-Filtering-Correlation-Id: 33813b0d-e37c-42dc-d0bf-08df13d04fd5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|4143699003|56012099006|5023799004|11063799006|6133799003|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|13003099007|6133799003|10067099003|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	OTbLRlvjeXebzb9XMRmKh/qCylQQDdpB+WPSyIzIzB4q8to2/TBN6VkfzTzh3FHpo/tJHiUawnLFQ7sLCeiaisHFZz7rixPugLBFxcXpas2vLaPbcCqNS+icYZHxuur/keN3gjrsIJw8h7KqaEDEo/1ImtwE+sYzCgo05evhORvnk1s3u7uHz8/ZP3FBWuqowIcHlt4JiVmvIf1pjiKSThicbxqPe3zIsvPYfVZYvv9bpduuxdo8rvsBq4v2r1h+lucY+U3fznAO7XsgEm7RwS3ypZ0SAAclgk0sHb+PE8SqVRplshHdH1S1653A0wCNWp0Gwvg7MO/q09NikHcYR9hVnzSm0Wh0oc4zhFY+h4hyNtL2ku26gCP57ug3fJqPfmOKaC3AW/AtD5908Y7qybrxmq4VuEyfSkFST9Z39L9uPV6JaCKEk5HVyhpaBYfOuSJqgvvHy5o+RYeW+wLPi/lPzMNwhh/wUT+OyQ9Qg1ZaoJWbzXNUtCJsfEevrlxKcL/XZNT8O2M3nYUosS528u32TCd3uKaNjD+1Br4eItPLcg/+8Ju6FM7WQ7qT8H4/D2Qnc+OlkqgNsnQP1tv4F7otXwQBKMV5r3yQiue1If8twQwTejss/TOESi43vCLzuC9huiUC27z4GmbWRumV9SHVDK39hpq3zYjNEO4oYd61mIsNK+dXevBqI6t72cnGNg++MeI3PGeQZuVEc+GZUQ==
+	7+KIMOCaqUr1b/pY/rflWQhjjUd70RUBARrkOi6sGAu95XKNx/1rruMxJu6h9gEXOSK0ahtVPRJIzoBuypzbTqXgXNPcrrUzbeLXyspmApy+w82wThnChu5Gd2KMsQNOE1WjVvDAu++/YPJWuCG7GfWyKQySY5UJaUK9kgYm/Z2itzJFSy/Izg/BDRldL8wrxr0e58oG5uybDbUaUCO7YF3umr1DpX2lNvBnTwxJ+HbmmQqcCm9osmFmQAxDN6Yz9pzKi1UE3+zJqd/1qHPnHPzIvEdKpv+dkGoCighQgVU1271hw3r9sPRmdU/sxhtZ8F8MoHWbfYZdZSVAsudITlh3H0YH6sJnfNfTr6zlmVC+YjqjazsG990lXjyIGBRJNcH4ZnVHTyx96Qc6SSKtNeSD+Z9dXIyiY98MCcFG0kE5emsdauFzQcm6cwhMYOO8zAlJ37TTRF144KmerCZlKOX0rpoiuCAnKafMdW3Y59ciWiRDuW4l9X59xCjk1m8nXZRdhBP+/laPg5D2mIDzIVK8gKsrgSbRNwW9ekZ3xK74IzjBqYtFhUbtPvlLAwcahwyhRitsUNqQTvqzinZbgmYH+TBcixUtUH8GW4psfK7BtjeNABNmo8ddKgktqmofcyrG0eVq9zdBxDEvWrJ4JbpWwMBOGtQoiIqs98nIpf03ob5srt+sOTNel2ZjMpaAsMLfWafQcSflDPTLsHZv6A==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(4143699003)(56012099006)(5023799004)(11063799006)(6133799003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(13003099007)(6133799003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	qnLEih50NNZbAc7QSzE32R/+aNyAbfbZTfOXwMRAZG3L9JaQpWQA1vNsftr+vKQfgTp3bTv+iWudjWya0bvKhIVYgGa+imfdBSnI3YlIYu7E+KN0UcJjPpxqFTHtuP5flItaB4GDntv4gFug4Dmdf0bFyDeWMSuNNkkq+skIqGiSo/Emgewqagit0+KIHEatejMkHHXv0Uor4Gv37OMHReGLI9HgWCST2/TOV42XT0E/IZ7kAg8PYnvAzJ2akyumYUBfcu7VG8c1pfdUcJdFiB8L+arQSHMwgn5CQ3GJFhyzFxfLWujdfoCbLPKuFfRxZJw2nA3KM5tijL4F+gHqxWAy4jqQHRulEUGNqj5eEj36yuEPgZcrzMUXg0tpsEcxvUfBnzUW9fZYO561I3GFx0gS3oemQJ16lA5pN8DRnVaGcq6CHQdN2M4jDAdo5mhT
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 08:55:27.4042
+	8VQbocy30Dy/NRTAls8bAdg11b9E1o+ooWcZuDogd6Sryit+HqMS1tZwZqEQ91XyUgklpdKiuQli6i1jl4XNMtAYdVJs2sYVZ+VhClTOD4i/rjvcLVrldLNbHjIDogN/DyoHoBCi7UVFmnnv06lc75s0JQp67p3isN+kWqOAR4GdcLPRstmaTWnf8sD4KSD+UeXk81TZNdE7oXkTbL61JEDssE8RLFtQmxoKek66EGJSy5zsokvukw96lApBgxoAC7fR/XmnEscZsI/WwHeWMfE7TWvIr8Wp/Ex4/o5RzLQxJjtqPLrEnmwq+Q3Z7Rm3fjT3Kop4qcQUh0lCMEDuoHeZwJAkx9M5+mTOCraIfQ5cGf9+NYg9xEqDEYZ9OrdREG16ql6ce2ApItcza12w6ftXmy00qEBTwrmbI+mILdic3wzClSZ8AzpPT4Y2HqSD
+X-Exchange-RoutingPolicyChecked:
+	UyyKYnC1eMcklfT8yhyK8GyrObncDHZM1coTCf/HL2m/SuKO1BMCDNjJDtXUPva/3OsZUwdevr5Lj0CmIPQFcoHFvgKK6iJ+jVYYwnmB4IineNljVxo4OjLdTvuXCr7GIBSB7vgwVCF43EIIAL/OzqUg2FoMHwB4MCY2aUmikgiNMJiu+bhNqQffDTqWaW3d9on0B0jwhXMa4GFw94LBzS69XvP+7RU+PFveKHgaueS60m6KjCJBsUkd0D5+/sZ11YaO+VREfLF80P3g00dTTOruOuiJFSqgWB1zySGJraosKiM1NLDdaUokKZJbnwNjKGvBQ4e8MhpTBKyHcTnbBA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 08:55:52.2245
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdc3fbfd-d3bb-41c6-6b22-08df13d0410b
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33813b0d-e37c-42dc-d0bf-08df13d04fd5
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008B1.eurprd04.prod.outlook.com
+	BL6PEPF00022572.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB8612
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB7496
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDExNSBTYWx0ZWRfX5GZ2TybuHntY
+ mYhrb12XSi/2yYEU9iKHrZ/2aiAS8dARM+kciYkwOaAS9JTxuuj1pG2v8NE/yp/DAqFCALvDg22
+ JqiMc0zox8WGom6m+4K1ogEsHQmstkQd0XwViDoxUSt4AYSY01MF6Dq+HwQvvjaXA41WXVqo6CX
+ vYPtcaiVBF0D9+/vEx/Q/1l5wQ/ycNKoWYnUbhlzc6JIOKj/vSUXxyLjW7/EfCbqrLUAXbDpUip
+ Txv2PxblV8nrRgBxfL0plQkAwhwfHg8mgdbc/LsCEBXBg9awcd6ZXGsjHRVHY7c7hRQzwk6ey70
+ eTaRGGBc+mOwjCaSz/G5ZGVrUup7Wsh6X5AkOn6OzDe0hCErjxegZI0jaHsu4tuxuqDDW7j/Eqe
+ hwP+KX+bMHYvQgc95XBcVV/PSzQ/o60RIYTl3zTUpH/yXywn6V9puCzi7H8T+KGrS70lqQIfeY1
+ uVi6TkmrDbDKU2Pu59g==
+X-Authority-Analysis: v=2.4 cv=S6JMU4sP c=1 sm=1 tr=0 ts=6aaa599c cx=c_pps
+ a=JPuSXJPnATmcGobPKBfcew==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22
+ a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=kfyzvn_tYnN8tWGvylEA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDExNSBTYWx0ZWRfX9Di131qXzHlX
+ tuAnQb7fQHSINOG7OWBqmaJQLpisz3Z5oeyAZ16fjL9c8r3d74TI3zM3Mbh/S+mt07y1+JFQwht
+ ioINLV9G11Wk0JyGeMGmgOwpuD2JRng=
+X-Proofpoint-GUID: Cs4V0c4U6dkFNxTOrkl97pQ7cCz0oWNV
+X-Proofpoint-ORIG-GUID: Cs4V0c4U6dkFNxTOrkl97pQ7cCz0oWNV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160115
 
-Hi Sergey,
+Add the ti,tda54-uart compatible string to the DW APB UART binding,
+and add a capabililty to skip empty FIFO read on TDA54.
 
-Le 15/09/2026 à 19:36, Sergey Lebedev a écrit :
-> Benjamin,
-> 
-> Thank you - for the explanation, for the link, and for saying where you
-> stand. All three are worth more than an ack would have been.
-> 
-> Sorry for the slow reply. I spent the hours reading rather than writing: the
-> repository you pointed at, the two drivers side by side, and the in-tree
-> binding. The checking changed what I have to say, so it seemed better than
-> answering quickly. Three things below, separated so you can take whichever is
-> worth your time.
-> 
-> 1. The licence question, and my mistake
-> ---------------------------------------
-> 
-> Settled, by your link. vd55g0_patches.h carries
-> "SPDX-License-Identifier: GPL-2.0" and "Copyright (C) 2024 STMicroelectronics
-> SA", with cut1 and cut2 arrays. ST published the firmware itself, two years
-> ago, under a licence that answers the question I was asking.
-> 
-> There is nothing for anyone to grant, and the right source to take those
-> bytes from is yours rather than any third-party copy of them.
-> 
-> I should have found that before raising the point twice. Your standalone
-> driver was named to me in this thread and I did not open it. The blocker I
-> reported on 7 September is not a blocker and never was.
+Reading an empty FIFO on the IP version used in TDA54 triggers a
+data abort. The interrupt storm this dummy read was meant to avoid
+no longer occurs on this version of the IP, so skip the read via a
+new capability. Also, guard the empty FIFO reads during startup and
+shutdown of the port using the same capability.
 
-That's fine, I'm glad you're unblocked :)
+Changes since v1:
+Link: https://lore.kernel.org/all/20260911092529.306082-1-m-shah@ti.com/
 
-> 
-> 2. What the work would actually be
-> ----------------------------------
-> 
-> I measured it rather than guessed, so that we are talking about the same
-> thing:
-> 
->   - twenty-five LINUX_VERSION_CODE guards, all of the form
->     "#if KERNEL_VERSION(x,y,z) > LINUX_VERSION_CODE", about 180 lines to drop
->   - s_stream to enable_streams and disable_streams, with vd55g1 in-tree as a
->     line-by-line reference written by you
->   - st,vd55g0.yaml, adapted from the 3.3 KB st,vd55g1.yaml
->   - Kconfig, Makefile, MAINTAINERS
->   - checkpatch, sparse, builds across configurations, and testing here
-> 
-> That should not take as long as I expected.
-> 
-> 3. The question I cannot answer on your behalf
-> ----------------------------------------------
-> 
-> A 2100-line driver arriving beside a 2100-line sibling by the same author
-> invites "why is this not an extension of vd55g1". If I answer that badly,
-> the third version is a rewrite in the direction you have already rejected.
-> 
-> Reading the two files I can see arguments for your position. vd55g0 is
-> monochrome-first, Y8_1X8 and Y10_1X10, where vd55g1 carries the Bayer codes.
-> vd55g0 has real strobe and flash handling that vd55g1 barely touches. The
-> register namespaces are essentially disjoint.
-> 
-> But those are my inferences from one reading. What I would be repeating to a
-> maintainer is your engineering judgement, and I would rather have it from
-> you.
-> 
-> So: you offered to elaborate. Please do, if you have the time. Not to
-> convince me - I have no stake in either shape. It is so that when Sakari or
-> Hans asks why VD55G0 is not folded into vd55g1, the answer comes from the
-> person who wrote both parts.
+- Gate the empty FIFO read during startup and shutdown of the UART
+port using the new capability.
+- Make use of the new capability in the driver as to skip empty
+FIFO read, replacing the quirk which was being used.
 
-I think the fact that the vgxy61, vd56g3 and vd55g1 already coexists as
-separate files in the kernel file structure, all reviewed by Sakari,
-could be seen as an implicit agreement. They all share some common IPs
-but are pretty different. Sakari, if you have anything to add, please do so.
+Moteen Shah (2):
+  dt-bindings: serial: snps-dw-apb-uart: Add ti,tda54-uart
+  serial: 8250_dw: Add capability to skip empty FIFO read
 
-Sorry for repeating myself but I personally think having everything
-separated is better for code clarity. As the register map is
-fundamentally different, you will need an indirection map pointing to
-each register i2c adress for each sensor, like shown in Peter's serie,
-i.e. :
-
-  expoure_register[vd55g1_sensor_type]
-
-While I appreciate the idea, IMHO this boilerplate adds unnecessary
-complexity and feels pretty error prone.
-
-As you mentioned both sensors don't offer the same functionalities, so
-you will also need some kind of :
-
-  if (vd55g1_sensor_type)
-    foorbar();
-
-On top of that, it makes testing a bit more tedious as each change in a
-generalised driver might break the other sensor, which you might not
-want because, well, let's say you made a change for the vd55g0 and don't
-have a vd55g1 to test you didn't break anything on its flow. This issue
-disappear if both files are separated.
-
-I'm also a bit concerned about the history, since an heavy refactoring
-will alter the git history and make git bisect harder. As we already
-have a v55g0 downstream driver, that I think is mature enough. I see it
-as a better idea to use it as a starting point.
-
-This are all the downsides I see while typing, of course I might have
-forgotten some, but you get the idea.
-
-> 
-> If a separate driver is right, I will start and send you something to look
-> at. If the two really should converge, that is worth knowing now too, and
-> Peter's series already points that way.
-
-Thanks a ton, I really appreciate the work you and Peter are doing. If
-you start this journey please add yourself or/and Peter as MODULE_AUTHOR
-and in the maintainers file. Don't hesitate to contact me either.
-
-> 
-> Sergey
-> 
+ .../bindings/serial/snps-dw-apb-uart.yaml        |  1 +
+ drivers/tty/serial/8250/8250.h                   |  1 +
+ drivers/tty/serial/8250/8250_dw.c                | 16 +++++++++++++++-
+ drivers/tty/serial/8250/8250_port.c              | 12 +++++++++---
+ 4 files changed, 26 insertions(+), 4 deletions(-)
 
 -- 
-Regards,
-Benjamin
+2.34.1
 
