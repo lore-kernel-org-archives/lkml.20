@@ -1,111 +1,283 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D144F30C8;
-	Wed, 16 Sep 2026 10:36:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8494EBAC5;
+	Wed, 16 Sep 2026 10:36:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555007; cv=none; b=UFMBoWrYIhGx1OWXD2/9zLnaWfEWNNBSwyu+IV2+tUrbCUYtrLNU8ETYSQVNLelkf/dIV7aJuQ+teTpQ+Owo0CXq8Z+msaTOyG4KMMkIeJ6umqY91RXin6YKpc7lDPTDquL1TCLOIZr1+eE95Zk3BXu0Q7r+6RZYQWE/j32GFBY=
+	t=1789555037; cv=none; b=TpQvlXEKreO5gpqG0cnM1CGl1coLdBgjYxuPSKDobDo4Qh1q3iiT1kyUfougtnvEOn8bSlAHmAATM12U3LuhLnQ3HO6xnQgx2vIETziEZ2xlpWkhddPYLNExxJLrfkLt99HBUdsPRnAhaSSAC1toL6oNij5Mk9un9VoOk+VGyZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555007; c=relaxed/simple;
-	bh=It6pVWCOEJQoZAi/+GplMBQtgO5LmFvL6bcIc9a7iY8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=NrnQ2TRAfJobZzYZ91BgiI7OvAlVevBXaFPeeu/8CFJTjC2rNsgFijWsTl3iRKo6MbCidU9pHY2POmM/DH0fonYaKlXVGiJdjh63fiBT+Wr0pKf3RYH7VnzrigiJnxSy8z32c6sZzK9smDpRtdmFaF9KbdovX77glZG0bodhpKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n3Gkz4tn; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789555037; c=relaxed/simple;
+	bh=htZb+zvuG3SjVYb/M7mKBiWgLdB9QbIDhqQ2LfAalJ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jM5zne9hqFDqTH7PgYZTb/oIR3HMBqV03h6DfurpfMsEyu4Y4Hf1vYChc93B4YSajXDFSw6k9vj3vxo1ZVaHlIwNXkIA/FkK6pugJg3LEzRCMYJ0bU06iRs4RpnvEYpRgQKhiElDY1w6j+MfBd8OxbZJd+2LIUVZ5CyCkbFJw7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=5PhbG/h9; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n3Gkz4tn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789554998; x=1821090998;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=It6pVWCOEJQoZAi/+GplMBQtgO5LmFvL6bcIc9a7iY8=;
-  b=n3Gkz4tn+q+nkdlFN1Iveu7nfPwcJ7slG5RykOR9fKHVLRZAOiQx3Zo6
-   1PSGcjmKJyklDHit+yDkvyn5QollB3BorYfDZWidVwUeG1bNIer9GkKIw
-   V7UToqi3yE9Tq3/zltM291MrQUXEBi4T78K0FbL8L+CFoIHwt97bfFrPn
-   /98DFyjuh6SOoAiBUHHaM2VonAMgHKfutO6TmIt1DqS2sAvMNsXRQnB2r
-   xrVwRlW76rzojSDCUaoLnnbIRB0ghAayR+UXrh6SKkg5gRlhgBhQKUfYq
-   xj5ApPFQ2E5FYKiRrbH/SvRrLnXMBTdQKIZPtVqKzh5kgKjzK8gPI4Ga8
-   Q==;
-X-CSE-ConnectionGUID: FXdLUV5nTvqN0aqbjCwCOA==
-X-CSE-MsgGUID: nwUmOCIFQjGOhZxonoTBcw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92434674"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92434674"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:36:31 -0700
-X-CSE-ConnectionGUID: 9suvTPxqTEeSSMyp38x5vQ==
-X-CSE-MsgGUID: zrmIQs5ZQX6tFckbvQ9H6Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1524209"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.187])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:36:28 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: hansg@kernel.org, Hemanth Selam <hemanth.selam@gmail.com>
-Cc: corentin.chary@gmail.com, luke@ljones.dev, denis.benato@linux.dev, 
- W_Armin@gmx.de, eric.piel@tremplin-utc.net, kenneth.t.chan@gmail.com, 
- jlee@suse.com, srinivas.pandruvada@linux.intel.com, 
- mpearson-lenovo@squebb.ca, platform-driver-x86@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <cover.1789015364.git.hemanth.selam@gmail.com>
-References: <cover.1789015364.git.hemanth.selam@gmail.com>
-Subject: Re: [PATCH v2 0/8] platform/x86: Fix typos in comments
-Message-Id: <178955498348.1723.15488888459425072981.b4-ty@b4>
-Date: Wed, 16 Sep 2026 13:36:23 +0300
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="5PhbG/h9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1789554886;
+	bh=iGkrWYHcQ7YXpnapjSfUIb99gIQOCYTG6EaseNLzoLY=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=5PhbG/h9m8yNhOGhziTJqdlKSi6AT+TRm00d4s+owSc2H4r1KtxlIKkL+lKuRU5Da
+	 Hxp9NMRPxXwkIvq/Pt27jGan1n5xi3GpOafSkF/hn3yatQ3dqniJ3xZSoXruj2zPZe
+	 WCntdOfSqfCevSIYuYp0KNOryhV6aGMi8ehaqV6E=
+X-QQ-mid: esmtpsz10t1789554879t9489ae65
+X-QQ-Originating-IP: 8xkushD0enGkZitgOZg4YxLoUcCT5tnnAzqrZTZXvKQ=
+Received: from hepeiyang-vm.wu.lxd ( [36.152.24.145])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 16 Sep 2026 18:34:37 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 407733813548067960
+EX-QQ-RecipientCnt: 11
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+To: lyude@redhat.com,
+	dakr@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	bskeggs@redhat.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	Peiyang He <peiyang_he@smail.nju.edu.cn>
+Subject: [PATCH] drm/nouveau: fix double-free in nvif_vmm_dtor
+Date: Wed, 16 Sep 2026 18:31:38 +0800
+Message-ID: <03BA723D9E5FF725+20260916103138.2651605-1-peiyang_he@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: MLbAtvpy5B1PS9nBgmub673JDrktkjr9RGqU+CGazrHbwf2U6qUzyb/T
+	kppCYbGioqeJbLsXFUkRx9bEAkELzjlhE1G+OHwEnhK24SpseQ6IkIi/n9DWcvsuEfZGzG9
+	x1+D8KcLdI1refxJ85a0C3J8WtKvaBwyBWfA+ynCkXK/FLTYcfXX542pgOIQAK62B+WpiKp
+	GjrQZYkfbJMgAuel9qocOrjqfC7EJplRbm8sNAGK9aBuMKHAG55uRQaKIvNvhtXFCU+P6wo
+	vFmtoZvmdZ5Q+vo5mASizn415vHcdiemMWmx2YnVW5R//yjvoDuLTdkRZOhkycNEWUiZCDQ
+	Gq7PoF8g7bzyldAADeWphGabTcKR9XPMFkYQMUJmvp3lHlsKgBVkMk8lUHsf0DDyRYSr5Ay
+	FLgYmuhd7Oer7rc+GKGhh31EhacV1rL2ehwN6+8qYOxo/J/co1UgH3yZe4NXvhzkrjaCPzl
+	m3vrKrDKoBfuuwmbPtxIFANtPs9902fED5hjJ6n/5gam4AjaLh7ZVDf2YhDZkCNcjDSABEY
+	xfz+QgNoM22CftwGIkke9LkyPJkjgcDLT0ty0Nac5q91JhHJYXg7kUEYZKBR2uZdYTwZUnW
+	mu2aC5L+MOiBUjkzypI43Jub+de/1vOKV5Xx6FT4Pr4wqKHxvc9lP8v6GUotug2K77/fw4U
+	lfSF4hTeGCgKvautwJkcEZD/xBIQUNbYyFBbKW+gjr12f73Oy/8NcLStdimMqgArUOdjvAZ
+	awEbOkBke0e11unwNNybLWQIU4dsEeBhvYPFzhLKXz0he/N84PTMqn/5Uto3bqdIw2EIwRa
+	VQ7d9zPhX7c7pUM9Xl+RY8Mnzk75/jOG4oFu++zLc274ewo/N5TWkMWW72nJypJcpI3LZVz
+	Stt0A8qxJJBeteP9obXPxskuTBvTF+RrKVY06aYbzRc33E+CcDk55VbrIbvT9/kwF7SIkFa
+	OcGkYbP3AJWYBwkvpeCvSunc4ZTtSXRtBwYGGGr2cxZRx16dHvm7+OuP7YZ3mpceno/om0D
+	Bnb87c9fsFK4x1JeepH3IstILtisOGiqw+u5cIriSIxtV9b83DmdWebHI0/s4=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-On Thu, 10 Sep 2026 10:14:35 +0530, Hemanth Selam wrote:
+On failure, nouveau_cli_init() calls nouveau_cli_fini() to tear
+the client down. Then, nouveau_drm_open() also enters into its
+cleanup path and calls nouveau_cli_fini() AGAIN. nouveau_cli_fini()
+calls nouveau_vmm_fini():
 
-> v1 was one patch touching eight drivers.  Denis Benato asked for it to be
-> split one patch per file or driver, so here it is as eight patches, one
-> per driver.  The corrections themselves are unchanged from v1.
-> 
-> The words all come from scripts/spelling.txt, which is the list
-> checkpatch.pl uses.  codespell finds nothing further in these eight files
-> except "ALS" in asus-laptop.c, which is the Ambient Light Sensor and must
-> stay as it is.
-> 
-> [...]
+	void
+	nouveau_vmm_fini(struct nouveau_vmm *vmm)
+	{
+		nouveau_svmm_fini(&vmm->svmm);
+		nvif_vmm_dtor(&vmm->vmm);
+		vmm->cli = NULL;
+	}
 
-Thank you for your contribution, it has been applied to my local
-review-ilpo-next branch. Note it will show up in the public
-platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-local branch there, which might take a while.
+Inside nvif_vmm_dtor(), vmm->page is freed unconditionally:
 
-FYI [if applicable to your patch], as per Linus' policy change, also
-fixes are mostly routed through for-next unless the fix is for a
-commit introduced in the most recent cycle or is clearly a regression
-fix.
+	void
+	nvif_vmm_dtor(struct nvif_vmm *vmm)
+	{
+		kfree(vmm->page);
+		nvif_object_dtor(&vmm->object);
+	}
 
-The list of commits applied:
-[1/8] platform/x86: asus-laptop: Fix typo in infos_show() comment
-      commit: 3bf79c45d88b54c9a76f8bfb6733249acfc3c8b7
-[2/8] platform/x86: asus-nb-wmi: Fix typo in asus_nb_wmi_quirks() comment
-      commit: b6cf8c621b85648b82a6704b1a68106eb193616f
-[3/8] platform/x86: hp_accel: Fix typo in lis3lv02d_acpi_write() comment
-      commit: ad483da2140339400bc50c69b017f6fd0cc9774b
-[4/8] platform/x86/intel/tpmi: Fix typo in TPMI_FEATURE_NAME_LEN comment
-      commit: 65d3f988c5fae277a3ff732115697d252d5b3913
-[5/8] platform/x86: msi-laptop: Fix typo in struct quirk_entry comment
-      commit: d11503cd82f48242ccaf7b3d481a103d1a75105d
-[6/8] platform/x86: panasonic-laptop: Fix typo in the file history comment
-      commit: d766ef2dab2d718ca760e4f1771e883736ccb861
-[7/8] platform/x86: samsung-laptop: Fix typo in sabi_configs comment
-      commit: 0934b4b77a462240d591f90472b690788b3988b8
-[8/8] platform/x86: uniwill-laptop: Fix typo in the kbd LED brightness comment
-      commit: 974014bb4087fea3b481c0ac358873587f628663
+vmm->page is never cleared after being freed, so the second call of
+nvif_vmm_dtor() will cause a double-free.
 
---
- i.
+Found by fuzzing the nouveau driver with a modified Syzkaller:
 
+	BUG: KASAN: double-free in nvif_vmm_dtor+0x31/0x50 drivers/gpu/drm/nouveau/nvif/vmm.c:194
+	Free of addr ffff888010fcdc30 by task syz.0.173/2567
+
+	CPU: 1 UID: 0 PID: 2567 Comm: syz.0.173 Not tainted 7.2.0 #24 PREEMPT(lazy) 
+	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+	Call Trace:
+	<TASK>
+	__dump_stack lib/dump_stack.c:94 [inline]
+	dump_stack_lvl+0x95/0xe0 lib/dump_stack.c:120
+	print_address_description mm/kasan/report.c:378 [inline]
+	print_report+0xcb/0x5a0 mm/kasan/report.c:482
+	kasan_report_invalid_free+0xaa/0xd0 mm/kasan/report.c:557
+	check_slab_allocation+0xe4/0x110 mm/kasan/common.c:235
+	kasan_slab_pre_free include/linux/kasan.h:199 [inline]
+	slab_free_hook mm/slub.c:2622 [inline]
+	slab_free mm/slub.c:6377 [inline]
+	kfree+0x192/0x590 mm/slub.c:6692
+	nvif_vmm_dtor+0x31/0x50 drivers/gpu/drm/nouveau/nvif/vmm.c:194
+	nouveau_vmm_fini+0x16/0x50 drivers/gpu/drm/nouveau/nouveau_vmm.c:127
+	nouveau_cli_fini+0x10e/0x210 drivers/gpu/drm/nouveau/nouveau_drm.c:225
+	nouveau_drm_open+0x24e/0x740 drivers/gpu/drm/nouveau/nouveau_drm.c:1255
+	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
+	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
+	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
+	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
+	chrdev_open+0x21c/0x660 fs/char_dev.c:411
+	do_dentry_open+0x59d/0x12b0 fs/open.c:947
+	vfs_open+0x82/0x390 fs/open.c:1052
+	do_open fs/namei.c:4700 [inline]
+	path_openat+0x2345/0x3420 fs/namei.c:4863
+	do_file_open+0x207/0x460 fs/namei.c:4892
+	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
+	do_sys_open fs/open.c:1374 [inline]
+	__do_sys_openat fs/open.c:1390 [inline]
+	__se_sys_openat fs/open.c:1385 [inline]
+	__x64_sys_openat+0x144/0x200 fs/open.c:1385
+	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+	RIP: 0033:0x7fc6d687594d
+	Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+	RSP: 002b:00007fc6d5295008 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+	RAX: ffffffffffffffda RBX: 00007fc6d6b06180 RCX: 00007fc6d687594d
+	RDX: 0000000000022501 RSI: 0000200000000000 RDI: ffffffffffffff9c
+	RBP: 00007fc6d691c303 R08: 0000000000000000 R09: 0000000000000000
+	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+	R13: 00007fc6d6b06218 R14: 00007fc6d6b06180 R15: 00007ffd9451d760
+	</TASK>
+
+	Allocated by task 2567 on cpu 1 at 163.593900s:
+	kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+	kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+	poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+	__kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+	kasan_kmalloc include/linux/kasan.h:263 [inline]
+	__do_kmalloc_node mm/slub.c:5334 [inline]
+	__kmalloc_noprof+0x304/0x7c0 mm/slub.c:5359
+	_kmalloc_noprof include/linux/slab.h:992 [inline]
+	nvif_vmm_ctor+0x3c0/0x7e0 drivers/gpu/drm/nouveau/nvif/vmm.c:237
+	nouveau_vmm_init+0x40/0x90 drivers/gpu/drm/nouveau/nouveau_vmm.c:134
+	nouveau_cli_init+0x7b9/0xe10 drivers/gpu/drm/nouveau/nouveau_drm.c:293
+	nouveau_drm_open+0x236/0x740 drivers/gpu/drm/nouveau/nouveau_drm.c:1243
+	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
+	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
+	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
+	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
+	chrdev_open+0x21c/0x660 fs/char_dev.c:411
+	do_dentry_open+0x59d/0x12b0 fs/open.c:947
+	vfs_open+0x82/0x390 fs/open.c:1052
+	do_open fs/namei.c:4700 [inline]
+	path_openat+0x2345/0x3420 fs/namei.c:4863
+	do_file_open+0x207/0x460 fs/namei.c:4892
+	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
+	do_sys_open fs/open.c:1374 [inline]
+	__do_sys_openat fs/open.c:1390 [inline]
+	__se_sys_openat fs/open.c:1385 [inline]
+	__x64_sys_openat+0x144/0x200 fs/open.c:1385
+	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+	Freed by task 2567 on cpu 1 at 163.601355s:
+	kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+	kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+	kasan_save_free_info+0x3b/0x60 mm/kasan/generic.c:584
+	poison_slab_object mm/kasan/common.c:253 [inline]
+	__kasan_slab_free+0x61/0x80 mm/kasan/common.c:285
+	kasan_slab_free include/linux/kasan.h:235 [inline]
+	slab_free_hook mm/slub.c:2677 [inline]
+	slab_free mm/slub.c:6377 [inline]
+	kfree+0x383/0x590 mm/slub.c:6692
+	nvif_vmm_dtor+0x31/0x50 drivers/gpu/drm/nouveau/nvif/vmm.c:194
+	nouveau_vmm_fini+0x16/0x50 drivers/gpu/drm/nouveau/nouveau_vmm.c:127
+	nouveau_cli_fini+0x10e/0x210 drivers/gpu/drm/nouveau/nouveau_drm.c:225
+	nouveau_cli_init+0x593/0xe10 drivers/gpu/drm/nouveau/nouveau_drm.c:324
+	nouveau_drm_open+0x236/0x740 drivers/gpu/drm/nouveau/nouveau_drm.c:1243
+	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
+	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
+	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
+	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
+	chrdev_open+0x21c/0x660 fs/char_dev.c:411
+	do_dentry_open+0x59d/0x12b0 fs/open.c:947
+	vfs_open+0x82/0x390 fs/open.c:1052
+	do_open fs/namei.c:4700 [inline]
+	path_openat+0x2345/0x3420 fs/namei.c:4863
+	do_file_open+0x207/0x460 fs/namei.c:4892
+	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
+	do_sys_open fs/open.c:1374 [inline]
+	__do_sys_openat fs/open.c:1390 [inline]
+	__se_sys_openat fs/open.c:1385 [inline]
+	__x64_sys_openat+0x144/0x200 fs/open.c:1385
+	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+	The buggy address belongs to the object at ffff888010fcdc30
+	which belongs to the cache kmalloc-16 of size 16
+	The buggy address is located 0 bytes inside of
+	16-byte region [ffff888010fcdc30, ffff888010fcdc40)
+
+	The buggy address belongs to the physical page:
+	page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x10fcd
+	flags: 0x100000000000000(node=0|zone=1)
+	page_type: f5(slab)
+	raw: 0100000000000000 ffff88800d441640 dead000000000100 dead000000000122
+	raw: 0000000000000000 0000000000550055 00000000f5000000 0000000000000000
+	page dumped because: kasan: bad access detected
+
+	Memory state around the buggy address:
+	ffff888010fcdb00: fc fc 00 04 fc fc fc fc fa fb fc fc fc fc fa fb
+	ffff888010fcdb80: fc fc fc fc fa fb fc fc fc fc 00 07 fc fc fc fc
+	>ffff888010fcdc00: fa fb fc fc fc fc fa fb fc fc fc fc fa fb fc fc
+										^
+	ffff888010fcdc80: fc fc fa fb fc fc fc fc 00 04 fc fc fc fc fa fb
+	ffff888010fcdd00: fc fc fc fc 00 00 fc fc fc fc fa fb fc fc fc fc
+
+Fix by removing the redundant teardown in nouveau_drm_open(),
+since nouveau_cli_init() already does the cleanup work.
+Also clear vmm->page after its freeing.
+
+Cc: stable@vger.kernel.org
+Fixes: 20d8a88e557a ("drm/nouveau: tidy up the client init/fini interfaces")
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: LLM
+---
+ drivers/gpu/drm/nouveau/nouveau_drm.c | 4 +---
+ drivers/gpu/drm/nouveau/nvif/vmm.c    | 1 +
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index e16f59b00f6f..c465d59ef0a6 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -1251,10 +1251,8 @@ nouveau_drm_open(struct drm_device *dev, struct drm_file *fpriv)
+ 	mutex_unlock(&drm->clients_lock);
+ 
+ done:
+-	if (ret && cli) {
+-		nouveau_cli_fini(cli);
++	if (ret && cli)
+ 		kfree(cli);
+-	}
+ 
+ 	pm_runtime_mark_last_busy(dev->dev);
+ 	pm_runtime_put_autosuspend(dev->dev);
+diff --git a/drivers/gpu/drm/nouveau/nvif/vmm.c b/drivers/gpu/drm/nouveau/nvif/vmm.c
+index 65c3e883b119..579af70766f2 100644
+--- a/drivers/gpu/drm/nouveau/nvif/vmm.c
++++ b/drivers/gpu/drm/nouveau/nvif/vmm.c
+@@ -192,6 +192,7 @@ void
+ nvif_vmm_dtor(struct nvif_vmm *vmm)
+ {
+ 	kfree(vmm->page);
++	vmm->page = NULL;
+ 	nvif_object_dtor(&vmm->object);
+ }
+ 
+-- 
+2.43.0
