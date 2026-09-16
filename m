@@ -1,125 +1,114 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E6146AA7C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648723BADB1;
+	Wed, 16 Sep 2026 08:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546911; cv=none; b=rwgNSBzPvMeLpAQrL2upwaknfWI+sVscNZwPptxaJizcRpkDGoV9ZWtDRG5D0VpPyh6M2h8Kj3pgrijyxiB4T73jGlXhmnRP2WN+oJfCkaaT4Qi9+reTrUsv8xPvpblx5r1OsiaHMBMaenAamRNtA2XZxT2eYwdZWDZrUKIvCSA=
+	t=1789546952; cv=none; b=Gd4F9QXTlGb8FrLHWffrjtIxgLI49XJ37R8WqFjJelStq4udeP8HzG7f+qTs+EIi8O4lm/vngHdhe+CTilDtOZ9QY4qhLiAnVlQJWEr2J9BUldKgZXZpOPBLKNcnhh/P0utky7kl8/vTtQ+HGBRGOrGfV/qLmAyrldljhFE9C/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546911; c=relaxed/simple;
-	bh=1HUGQWUo7DHa+QDueDddUtzEPEP4VkzaWUaP9uZ2X0Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TES2ul6DIDnkPqYlnEZ9/e6GJEFi5flAxliDCTwgM3HX7XjHydc4oIYT8EWV6MR7MBcldAwQcmd6BSxRglEpO9kBAr4GlfNuBVAggEnVw/Rilzhu9/+EL3TpqZKgfrYIoaBwwY+TrhhiA9xkL76/7fuQyRFrLpzXWTW6Bbh9fXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nog/maE0; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789546952; c=relaxed/simple;
+	bh=/2DWkwAr4DbilIKZi5zshYXsB8JYRx9NpzZk7GA/7eY=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=e8+W0szN4AUKYcyUfiH/pE31GD3Ow/Ib/u74CNRDOS7Sr0iLz8Rrs6iJ4+3AahYg5JrUCagRia081kphFlc3HyamBaMOpeZstdSttBO2+A+X9DMF8Ndny6rU/FB7VcvY5yaYvaEjl7Zu696Yijs/d/P798Tt8hhUwrFdy15Guss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9kJ4uXT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nog/maE0"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so3597055e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:21:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789546894; x=1790151694; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Bw432elLmhA4oy2qWRZIhT4M5eB1za1G9hSrgeusNHM=;
-        b=Nog/maE0UF8Pv5w4f87Y92+hTJ9B0UFhPpIBZ/M378xf3MGgTi31u0SippM9dZKV6u
-         Vmi7i8GqkzddAK33fd0PDalmtqmd9EGjGqG28czpyzbpJtzdaRGGZATjcPO7pibvyKT5
-         UL9dvd8LUOqicH6MkTMlu7R4DFhr2vleT5wQEh7Hulp9OjEwP/O4fHyeiNhRGyni0Cdf
-         qTwesT4cnDJiGv+snoUEgSbnKlVmnzGQoEIBjrM2b2QXW6XP/O11jCC2MglsJOEHgZHZ
-         lQWpOIoG4FFP0DE9Ks3+FYVPlDTFPB2BBgJkMAFTnJVLSElAw7AmWSWU/8NVMOlZG8rf
-         YHxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789546894; x=1790151694;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bw432elLmhA4oy2qWRZIhT4M5eB1za1G9hSrgeusNHM=;
-        b=HnutMpI9t5AAbeyUXkUw6Cmc1r5LE06c/JNJj96JTNZH1vONWpuyAAlOtYUwMmWivU
-         BYtNOzidMX+xDAwAj3Dc1ZvlOFwGXIep4+BVUuLY26mzARUO7QrO5vLLrg6415egAgCJ
-         iq4Ti2JZlc3MWlamxegIszkcW9chcaAAf4c85rqI4bD+/OAAktbPcjaOJk26o/PXDLrN
-         BxoVc/hPG+iv/6+ZstVLh/z+OK4dt1f8dtE9APdcWuIIlpkhHxIUgPGPQcbETdCzpkZH
-         ZphGvmwZnRrmqvKquAyUlZBhrt4ddGsCodOHCRQTcCi8sTmRnmd7UGyNDDvtja9BmBjx
-         F/8w==
-X-Forwarded-Encrypted: i=1; AKwUvBwbkJUjm3vIpZGf2Y7hsOzE9fQvI2EgqTPXqzqseTXXpGtlCDzVjlDuN9SKb+8mURG2BgwFeJ/WtLr0mFc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFGreXrAtVCvJVRxooeQ3EFK+O/d0dNlNiGZG3f0iZ6qsbTXgC
-	jQlV0ztQPyRYApTA4xO1td/SqxBLQRZ61hcvyGU1/03rwiA1Jp+jo4si
-X-Gm-Gg: AYBFou2JriXK3c3QIiqgyw9xLBFDqe9PBk+Ct112BR/pooGxI0P+ViF9p0sB+UbwHjW
-	JOnbrPr9pya0yzefkCFhizM3sWqawErmISyz73DOldn82s0Eu/6uEfQixwZtSP5C2p2Ef9/IBy8
-	JxLrOOo60jnm/Uc73/n6EJTW8LMawMF1CIP2kEYtV6RpUvndMWG6YGLRafp5LnQ0u9egJjBtOGC
-	Bfd95r8wdv9SPkdyghQVMhBdQg6WO2SpZHuoDKhWCV7U3Dky1HbgqzsU//9Pz9VTZk1A4Foh+hP
-	BwQ1C30i2R+SG4Qg5EArbfn12sMcgS4USRfMSdJ4chsStFNKjxDG4LPfzE1vGWkqvbRNJeT8+Uk
-	SeNO7O9jKXZbCz+p9lvR6WAz38Sb2+xDnBO4KdkKMp83eo3OCWQheFoe/aT9OzRotfogl0JS/dZ
-	RatvW6SUdtEnBHELUnO7SN6wH3EC2ENdSJAmMEs29nj1+krWHsQU3PT7CdLpCnB+ci/ReXRiSW8
-	qE0O5P1T+qCesX4c7vhYLdhPzVsu2CQUN253pAuHDzQdBRR+odt190KbfF7BzFDmtS34PYnPArU
-	0IkeW5ARTgdlz9WGg7CuJPBQLXmPS/rhEdPJmLoj3O8sCI81FiHDThC/Myq5C8OSwH5NwZFSr6r
-	GcUcb2uT9foeOBKVhOdx9LKBL1Pl89pfY8zkqUBp9KF7IXTme7HHtKEP27dI9Rdpg5Nh3aPyr3S
-	wWKEnY
-X-Received: by 2002:a05:600c:470a:b0:49e:6bce:b0f9 with SMTP id 5b1f17b1804b1-49eb732cc87mr17337945e9.16.1789546893641;
-        Wed, 16 Sep 2026 01:21:33 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83da071asm73394925e9.8.2026.09.16.01.21.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 01:21:33 -0700 (PDT)
-Date: Wed, 16 Sep 2026 10:21:32 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
- Roger Quadros <rogerq@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Mathias Nyman <mathias.nyman@intel.com>,
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Matthias Brugger
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Heikki Krogerus
- <heikki.krogerus@linux.intel.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/6] usb: core: add missing
- pm_runtime_dont_use_autosuspend() call
-Message-ID: <20260916102132.00005129@gmail.com>
-In-Reply-To: <aqpOlKtxeROh-G_s@hovoldconsulting.com>
-References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
-	<20260915090223.1346-2-joshua.crofts1@gmail.com>
-	<aqpOlKtxeROh-G_s@hovoldconsulting.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9kJ4uXT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C04841F000FF;
+	Wed, 16 Sep 2026 08:22:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789546935;
+	bh=ypMNq+uBTf3bV0CvKLttQpjmF2H7YeAIaADnmZI1vjM=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Y9kJ4uXTO8jmgCrbabFZrGG+Cqu40q+3yBPBFjRCxeEkcAJ1SRZ/H89hbQe5z8w89
+	 Fi9gMsrOIaWTkPHU6Z1O9nZjGEXyqJhLCxwViizvownKur6BfX/MrBOJG6DXFnWAOH
+	 V5Dd5q4wz/bPTyZNGAQkocKkxZlk8034cB2zHzCbqVs6rCcVuv0u1J3fnY2JD/z/o+
+	 SyvrY+p1ei9y3FZx5Ge+FpI8UkcZ8j+XJiUY7/6hvmBbkIu+fs9J4x8oxFoHjRCoHt
+	 NWZhmCLG2N9BtlgxQExVcY/Nj3qeXi5ZkRzuZiQx+Bx+6u8i4mfb9U7IiXn0Lve3Xo
+	 7wsXa5wYt3CjA==
+Content-Type: multipart/mixed; boundary="===============0215795013638696076=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Message-Id: <a68ffeb7497f88f7798107f2d93c0ca707fbbb5f1a080f8f268eb5d13367159d@mail.kernel.org>
+In-Reply-To: <20260916072302.1068871-6-cui.tao@linux.dev>
+References: <20260916072302.1068871-6-cui.tao@linux.dev>
+Subject: Re: [RFC PATCH v4 5/5] docs: cgroup-v2: document io.cost model=<name> binding
+From: bot+bpf-ci@kernel.org
+To: cui.tao@linux.dev,tj@kernel.org,josef@toxicopanda.com,axboe@kernel.dk,ameryhung@gmail.com
+Cc: cgroups@vger.kernel.org,linux-block@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,andrii@kernel.org,ast@kernel.org,daniel@iogearbox.net,linux-kselftest@vger.kernel.org,cui.tao@linux.dev,cuitao@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 16 Sep 2026 08:22:14 +0000 (UTC)
+
+--===============0215795013638696076==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-On Wed, 16 Sep 2026 10:08:52 +0200
-Johan Hovold <johan@kernel.org> wrote:
+> diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+> index 86a2a0099178e..5786d86eceeae 100644
+> --- a/Documentation/admin-guide/cgroup-v2.rst
+> +++ b/Documentation/admin-guide/cgroup-v2.rst
 
-> On Tue, Sep 15, 2026 at 09:02:18AM +0000, Joshua Crofts wrote:
-> > The fail label in usb_new_device() disables pm_runtime on failure, but
-> > doesn't call pm_runtime_dont_use_autosuspend(), causing resource leaks.  
-> 
-> No it does not, as the device itself is about to be freed. Sure we could
-> disable autosuspend again here, but it does not really matter.
-> 
+[ ... ]
 
-Okay, commit message aside, you still need to call dont_use_autosuspend()
-on teardown as the driver doesn't use the devm_* counterparts. Currently
-(according to my cocci SmPL [1]) there are 195 instances of this in the kernel.
+> @@ -2120,6 +2120,18 @@ IO Interface Files
+>  	parameters are written to, "ctrl" become "user" and the
+>  	automatic changes are disabled.
+>
+> +	When CONFIG_BLK_CGROUP_IOCOST_BPF is enabled, "model" also accepts
+> +	the name of a registered iocost_model_ops BPF struct_ops model:
+> +	"model=<name>" binds the model to the device and the model fully
+> +	replaces the builtin linear pricing, for every operation including
+> +	flushes; "model=linear" (or "ctrl=auto/user") restores the builtin
+> +	model.  Writing an unknown name fails with ENOENT and nothing is
+> +	applied.  Unregistering a model removes its name so it can no
+> +	longer be selected; devices already bound keep using it, and keep
+> +	receiving cgroup lifecycle notifications, until switched back to
+> +	the builtin model.  See
+> +	include/linux/blk-iocost.h for the model interface.
+> +
 
-...
+Does this section need to document what io.cost.model reads back with
+a BPF model bound?
 
-> But this one should not have a Fixes tag and does not need to be
-> backported.
+Looking at ioc_cost_model_prfill() in block/blk-iocost.c, when a BPF
+model is bound, the file prints:
 
-Yeah, you already mentioned this in IIO once [2]. I found several instances
-of patches like these being backported however, so perhaps times have changed.
+    seq_printf(sf, "%s ctrl=%s model=%s\n",
+        dname, model ? "bpf" : ioc->user_cost_model ? "user" : "auto",
+        model ? model->name : "linear");
 
-[1] https://lore.kernel.org/cocci/20260915064327.1377-1-joshua.crofts1@gmail.com/
-[2] https://lore.kernel.org/linux-iio/aoQEyeHUiTwWenBL@hovoldconsulting.com/
+So with a model bound, io.cost.model reads back "ctrl=bpf model=<name>".
+
+The nested-key table nine lines above this paragraph lists the possible
+values:
+
+    =====           ================================
+    ctrl            "auto" or "user"
+    model           The cost model in use - "linear"
+    =====           ================================
+
+This table doesn't include "bpf" as a ctrl value or "<name>" as a model
+value. The new paragraph also doesn't mention that "ctrl=bpf" is accepted
+on write - ioc_cost_model_write() special-cases it so saved configurations
+can be restored:
+
+    } else if (!strcmp(buf, "bpf")) {
+        /* readback value; keep the bound model */
+        continue;
+    }
+
+Should the table be updated to include the "bpf" ctrl value and the
+"<name>" model value, so the section documents what the kernel actually
+prints?
 
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
--- 
-Kind regards,
-Joshua Crofts
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35070283830
+--===============0215795013638696076==--
