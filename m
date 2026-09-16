@@ -1,35 +1,50 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452783FD96E;
-	Wed, 16 Sep 2026 07:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006AC3F5BE4;
+	Wed, 16 Sep 2026 07:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542586; cv=none; b=dyebXmlvyrtHjKpx9PkThB+jpvp1fvFokc+86VeyJS5ztCvNQdWy1553MDSEFUBW1hjdoOzHteUe1UDf2Eink8t38b0URCls1QKnVb4NH4YE5LNu7cANOxodihi0fLSn7yBzwOARc3CGoSCWABJEq9jXI+DjBPzCiNAODm7pGv0=
+	t=1789542586; cv=none; b=CZqVWdmyvwbPg5wDMgE4cjeMXqajTcKGcdjKQNoe5f1oMiRdfuFYEr6ueAI6zlAgIN1dwHvSxf5UhmeU3QPm+A+ggCfquXQyJ1FSKAbhA3bI8pc2+xDYjuydEADTZ18Q8FFDakVQuC4oj+3BY0/+60j8a8lf0d1A/1Hqo8Xoe4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789542586; c=relaxed/simple;
-	bh=ryCd3CPpqqZzwz//BiKcPgW8B/POumMrzQTjiW2c7WU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=k0LT7Y3R0bYG+RhnhBVzcVW6dhYXm9kHDlenmojUs9k0dUchibrob0wZtBSCb2ilWYxlN/C2V3OxAx69L0C3pp8KiXfBQMGwEfHcjUIH3n8R0ADZTKMdAobf4vmd6+Nfx3qPbId8Bs2oQC+xtbZRCHIpTElZoo5MwvbxeKGuL4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACXmjiuQKpqaPHeBw--.59725S2;
-	Wed, 16 Sep 2026 15:09:34 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: arnaud.pouliquen@foss.st.com
-Cc: broonie@kernel.org,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 05/20] ASoC: sti: uniperif_player: Fix clock leak in uni_player_init()
-Date: Wed, 16 Sep 2026 07:09:06 +0000
-Message-Id: <20260916070906.1965935-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WzUxZECDfvGi7/eKUuf8GzhsXKRJKaq7Fw8C0dh47JeWsGPYhkOAdQLkw9BNgb8E5FEK6dJwer6qWzoenosQSTVl+klLySDl4H29JF//z7yqZiGW0asAbtrqbClTPcEc5h1g9kFp4IYzJILN8pAUXaYRasKJkCTD+30D4OWzOqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Z9HQkU9I; arc=none smtp.client-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Z9HQkU9I"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=Z9HQkU9IlC0lyh8tqAssUAmJEzXtPshdXzCBmilh1pdBu9wkH/xwq31yQ1lz0i4x3M5Xiy0MP
+	Z3y6nFX20E595iQn31Mw1Y+x4YXptGpZhYlEZaju1dcB0ngMCkSbLWlj4s9zOTQjMa9ThZfFe5s
+	oBcJnnBOUNCLP/LpxmXnPjk=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hl8qh4TBJzRhQs;
+	Wed, 16 Sep 2026 14:58:40 +0800 (CST)
+Received: from dggpemr200001.china.huawei.com (unknown [7.185.36.96])
+	by mail.maildlp.com (Postfix) with ESMTPS id C2ACC40561;
+	Wed, 16 Sep 2026 15:09:36 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by dggpemr200001.china.huawei.com
+ (7.185.36.96) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 16 Sep
+ 2026 15:09:35 +0800
+From: Ran Hongyun <ranhongyun1@huawei.com>
+To: <jlayton@kernel.org>
+CC: <anna@kernel.org>, <bcodding@redhat.com>, <cel@kernel.org>,
+	<chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
+	<linux-nfs@vger.kernel.org>, <ranhongyun1@huawei.com>, <trondmy@kernel.org>,
+	<viro@zeniv.linux.org.uk>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: Re: [PATCH 0/2] lockd: fix two bugs on nlmclnt_find_lockowner() failure path
+Date: Wed, 16 Sep 2026 15:01:54 +0800
+Message-ID: <20260916070154.302915-1-ranhongyun1@huawei.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <b17182c347ab5cc092a50cb16c9c11dc9fe449bc.camel@kernel.org>
+References: <b17182c347ab5cc092a50cb16c9c11dc9fe449bc.camel@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,53 +52,7 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXmjiuQKpqaPHeBw--.59725S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKF45Jr1UJr17AF4UWFy5twb_yoWktwcE93
-	yj9r1vqr9rCFWayw1qqrs3AFsYgF18urZ5KF47KF43J34DGws5ta4jqryxur1rWw4rKryk
-	Ary3Wws7Awn3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb4kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUw5l8UU
-	UUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQMA2qqP7kEwwAAsG
-
-In uni_player_init(), player->clk is acquired via of_clk_get(). If any
-subsequent operation fails (e.g. regmap_field_write(), devm_request_irq()),
-or upon driver detachment, the acquired clock is never freed with
-clk_put(), resulting in a resource leak.
-
-Switch to devm_clk_get() so the clock is managed automatically and
-properly released.
-
-Fixes: 76c2145ded6b ("ASoC: sti: Add CPU DAI driver for playback")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- sound/soc/sti/uniperif_player.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/sti/uniperif_player.c b/sound/soc/sti/uniperif_player.c
-index 45d35b887e4e..34a604688cc9 100644
---- a/sound/soc/sti/uniperif_player.c
-+++ b/sound/soc/sti/uniperif_player.c
-@@ -1078,7 +1078,7 @@ int uni_player_init(struct platform_device *pdev,
- 		player->hw = &uni_player_pcm_hw;
- 
- 	/* Get uniperif resource */
--	player->clk = of_clk_get(pdev->dev.of_node, 0);
-+	player->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(player->clk)) {
- 		dev_err(player->dev, "Failed to get clock\n");
- 		return PTR_ERR(player->clk);
--- 
-2.34.1
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ dggpemr200001.china.huawei.com (7.185.36.96)
 
