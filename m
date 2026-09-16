@@ -1,392 +1,287 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011040.outbound.protection.outlook.com [40.93.194.40])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE0B4FECD1;
-	Wed, 16 Sep 2026 10:39:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3FB5013D3;
+	Wed, 16 Sep 2026 10:39:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555178; cv=fail; b=GSSp4zUlrYaRSsknDhf/IIGyWc8ZcybnU1uTOt5KbXCP+BNE2C4H5VFIsR0Y8MQ0zncYyvPnxY/jtubRXZSO7ZNhW5dMGR1h+gyvcz6Ydva8AWmr/aFLXsK+/3iKBaTLnuT1bJo/YLNPl7wARcP5RsRtLF/9epR/ePWuhmHy6As=
+	t=1789555181; cv=fail; b=JCUlOnqQEHN38Ht22eSF2GGJPx+/nV4Xk3U1Of67aaH3aKfvFPQT9fFjo4Jqm+YYZidB0zE23pqaGtl5RJWKBRceUeZohGVK8xsfnubnu8jsKQAZ/GC+KTyfLyvfzxsUmyC31h/PEkNlxXSe94Qjoax8Md50/NzIuZqmeJmU4BE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555178; c=relaxed/simple;
-	bh=R3KfGLagMjMBM2TpLXoM47suK8AQQssODNSuxLCtSUI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YDCrudef3II8HHyffjUDJD+JKHVmVPdMtIU/fPZjsLtUNDhq2Z5MygUJVQprhZfDsM/Japc85o5iGWxOB5tNiqyri69xpTE3eJv7TgIRxaWhrVpGscMzHDzya6Y8hsw/cRHyFJ+IrmOibRPi/rt63ch8FemeOs7HA8io6SdqUm8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ZTPfvQXh; arc=fail smtp.client-ip=40.93.194.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1789555181; c=relaxed/simple;
+	bh=738wcXJdoHPeCgFwl7l7DLzJASxDGyX/wIZWka0kHCM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=WmKQ/jpPv4iWp/Z4oc42QDoFXbqYBXoNWewdm6vTXG55gFiXw8wrK1YYapCJMkihlAHHPyK/LwfM4r74czq0qK9mr7Kc/eHrGtdmfRH0rU24jRBZawz6vasmSdIthAItVOxK95mCbqwjtPGOZEYaqxkBhbacupXiAlbikYTHle8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=q2U93P9w; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=IxA1+Fm8; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ZTPfvQXh"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="q2U93P9w";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="IxA1+Fm8"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68GAAKC43048334;
+	Wed, 16 Sep 2026 05:39:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=HmLI/b5NAnjbav1Z6xsbCiUe7SpJ6cCXVv3aifIDP
+	Uc=; b=q2U93P9wMwF6JYKUQw9WonF/w3ZXXNqsoRHLZ0+RaK9MSZaltW7WyawSK
+	a847iz17Ytn6gVa89tpJZJPjP3zDb94iUqRWuf0AMtxzAdhN/Na82RLbcxDS7+vz
+	DfqFbOEDfWJ/Bnd3V9Qzlm3NHHz0iwkgyZYXl1iAXkrGCqno7XuuHXEITXvl34mB
+	QlVsuqWcDGAM6SVY86v1wyrZRpbZn+HV0TyJZDcuaHRFPWAENgkGTBthGykoJoaw
+	R9iE5ABCVgYzY+4KFa6F+X7GvFXGBpObjJwcPN2VwD3etVpv1G6r4dmn4Bfic75J
+	NOZVvtET1eIZdfgCe05ONeYOv2F6A==
+Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012007.outbound.protection.outlook.com [52.101.48.7])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4gqfuf36cs-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 05:39:19 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YuoN41OD5vDCFsKYWJbGN9WhvJjK2GWy2tEP0y+DHTpyClwJuAlPQuFm0IPLC+MnS4JebaVW1ivDRk9eNRXb2vaZOTy88AlVMasbj2CDaFvLsonrd0iGCePT4eITX295Mb8mcHBeGqoiqYJVyDrnCt2HK/w/xkpTjb5rPeOtubia8Wq5TgQpDttK7h2OeY6Pxi2Vq/zcxm6Ks5oszcQKjJStrf0LAkAOzt7hOlgDKJO2ZcAY/D02k+6E5r8MNqAUUPVVOQmBo8//PNWCN6vbNglvTvJTyc4eizhzYQ53w0kdVzL/bdu/b1KjcTsbEcC5S7fmBdLAU+dfvQa4qoxYvQ==
+ b=A8NKp3mCFu87YGgzvyLZUhe+J9WJBBpD0VEMkpJZXR27Wcznt7KkrRf31kZD4ltR3ISCPqVE8rUnAt5cyTiTspxSgTQ8lzVocq9pCdl+jliEB6eaHofFrmSij2KDAEEGcZV/5LwXV7gCqv4/GnDSqwbNcjgCRcOydcTXo0RzxIaaL99ttb4MiZ1g9sgX7zITxk4gTQPpBxCfunt4tVc/6tQ23sPLX9OSQzMzAlWINHLuT3Z3cqyObFc02iC8ZIOVxI2bzsaoxDITcwRFoGl1rojDAOWu27Ge5PKskEhNvtgupM45z/HCgp/rFNUi7xBlM3xDb+4QvoUcpX4jY7MUYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tXr9gQ01yMVT2+PPfl7nlpwjXuJiYtgnLPxNOnDaOIM=;
- b=O+hu9vhbVYPGuIAWxhXUMYcPDsQ9UaowEF70Q1Gv9CrU15aEUwavUNNIYpwA7RKTt4AAJ5p70mKA0FHZirtCkYP8e9RESLJjMRNzZOoZt4+FNSzC7n2mxLWzKLynFng/aXCzMvadM9Z0kql2LH0Gg+ctUUGPEL++IeCR9qxnqUlnpxffLID7ELTpFhrj2pWFrRkciyKpobxOSIOz67JPkHhPCmX5XU3XgVivq9sYekdayMBku6zGPleQOd3jrkt8zdZtj68vSWnYYWVCmfxzhZCryXWq6r2XPxSEfacKaz95nk/yhNJ6z/07P+F+uf3mtF8N8iPGGsKilzkXqThNZA==
+ bh=HmLI/b5NAnjbav1Z6xsbCiUe7SpJ6cCXVv3aifIDPUc=;
+ b=tCPGIagAf3qmtYCi2u9atlgipuNyiDUaVoDBDrsnKfG8cLxfFzk+T5AVLT4e7bC8DWKZUEkvqqTFPWCapXPCojgIS+QfN9Pku2b++gSNPhjzIvzemByQouhV7Try8pXm4t26scwhlCNnhJInNI7TQyrcTvMrOChln20N/wqDPVyB1mxxp5sfpd+Ki6RGA5Z75/ts0K37QsAGrxPoBYXKsgxSFfAd5ZE8cBOPjODWTxrxr27lt3vWv5n8ohJp2IZO21EgQkR2CcqzA15dCU4FeSetu+dxDGRCHK61U+X+Cs0F8XWmskse0qZrXcyVfk7a8kDRadjHVizvH0Bndxirmg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
  dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tXr9gQ01yMVT2+PPfl7nlpwjXuJiYtgnLPxNOnDaOIM=;
- b=ZTPfvQXhUErPigJtO0VCnPgdPK6Ivme8AMYCeicdvht3nZR+/UUggkghfqhqsDCw9TFsqcIKfzikP18Vhmde7Sr87aVdhLXFHe1JpgPvftYJpEnN0kd1ktyhd0pfUzmIj0svpuW38I46xULyfol9zyzeuwAFPzfTa9gJjEOmJRPnWxLETZ2nb5zYTqungukjaf3qecvDeyCi7+Eb7Cb8f0qWZTyOyMyLuCZDw6WOXwcWKN/4OHFl5Vp5NUvP507g+cakQ3SBnRpDJSmWC9TZ58pueenf2Y7DR9Gr8gfLUAKW8/WJlQhKO+z4QrxN88pleB/jWrkMQxtvjVUxMW+cog==
-Received: from BY3PR05CA0039.namprd05.prod.outlook.com (2603:10b6:a03:39b::14)
- by SJ0PR12MB5674.namprd12.prod.outlook.com (2603:10b6:a03:42c::7) with
+ bh=HmLI/b5NAnjbav1Z6xsbCiUe7SpJ6cCXVv3aifIDPUc=;
+ b=IxA1+Fm8/KvPnmA2k2E0skrx5sGjfjJ9HHYDmPkjHbS1nzHU5r84qLTFoE5r5876Rzr+NQilEN0FS1INmC5dxahfYJNVCT2ImTxSMZ7jHjMK15p47w1Rf6n5QfZLhnGuSGjeowLVCMl8JFYRAPEY7oPWL2+v7xKImG1YaHst6ug=
+Received: from CH5PR03CA0001.namprd03.prod.outlook.com (2603:10b6:610:1f1::29)
+ by DS4PR10MB362516.namprd10.prod.outlook.com (2603:10b6:8:4f1::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Wed, 16 Sep
- 2026 10:39:20 +0000
-Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
- (2603:10b6:a03:39b:cafe::71) by BY3PR05CA0039.outlook.office365.com
- (2603:10b6:a03:39b::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 16
- Sep 2026 10:39:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.5; Wed, 16 Sep
+ 2026 10:39:17 +0000
+Received: from BN2PEPF0000A801.namprd02.prod.outlook.com
+ (2603:10b6:610:1f1:cafe::7e) by CH5PR03CA0001.outlook.office365.com
+ (2603:10b6:610:1f1::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
+ 16 Sep 2026 10:39:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ BN2PEPF0000A801.mail.protection.outlook.com (10.167.245.170) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 10:39:20 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 03:39:00 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 16 Sep
- 2026 03:38:59 -0700
-Received: from sumitg-l4t.nvidia.com (10.127.8.14) by mail.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 16 Sep 2026 03:38:52 -0700
-From: Sumit Gupta <sumitg@nvidia.com>
-To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, <pierre.gondois@arm.com>,
-	<christian.loehle@arm.com>, <ionela.voinescu@arm.com>,
-	<zhenglifeng1@huawei.com>, <zhanjie9@hisilicon.com>, <lenb@kernel.org>,
-	<ray.huang@amd.com>, <mario.limonciello@amd.com>, <perry.yuan@amd.com>,
-	<kprateek.nayak@amd.com>, <linux-kernel@vger.kernel.org>,
-	<linux-pm@vger.kernel.org>, <linux-acpi@vger.kernel.org>,
-	<acpica-devel@lists.linux.dev>, <linux-tegra@vger.kernel.org>
-CC: <treding@nvidia.com>, <jonathanh@nvidia.com>, <vsethi@nvidia.com>,
-	<ksitaraman@nvidia.com>, <sanjayc@nvidia.com>, <mochs@nvidia.com>,
-	<bbasu@nvidia.com>, <sumitg@nvidia.com>
-Subject: [PATCH v5 3/4] cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
-Date: Wed, 16 Sep 2026 16:08:19 +0530
-Message-ID: <20260916103820.1760297-4-sumitg@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260916103820.1760297-1-sumitg@nvidia.com>
-References: <20260916103820.1760297-1-sumitg@nvidia.com>
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 10:39:16 +0000
+Received: from DLEE210.ent.ti.com (157.170.170.112) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
+ 2026 05:39:01 -0500
+Received: from DLEE204.ent.ti.com (157.170.170.84) by DLEE210.ent.ti.com
+ (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
+ 2026 05:39:00 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE204.ent.ti.com
+ (157.170.170.84) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 16 Sep 2026 05:39:00 -0500
+Received: from [10.24.68.129] (a0507033-hp.dhcp.ti.com [10.24.68.129])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68GAcvW4857757;
+	Wed, 16 Sep 2026 05:38:58 -0500
+Message-ID: <5d11ff80-02b9-41f6-9022-b784b9459ea9@ti.com>
+Date: Wed, 16 Sep 2026 16:08:57 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] PCI: cadence: Store the core controller in platform
+ drvdata
+To: Linmao Li <lilinmao@kylinos.cn>, Bjorn Helgaas <bhelgaas@google.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        "Manivannan
+ Sadhasivam" <mani@kernel.org>
+CC: Rob Herring <robh@kernel.org>, Tom Joseph <tjoseph@cadence.com>,
+        "Vladimir
+ Oltean" <vladimir.oltean@nxp.com>,
+        <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260915082826.4135665-1-lilinmao@kylinos.cn>
+Content-Language: en-US
+From: Aksh Garg <a-garg7@ti.com>
+In-Reply-To: <20260915082826.4135665-1-lilinmao@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|SJ0PR12MB5674:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75613a40-71bd-4c6e-c4b3-08df13dec43e
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A801:EE_|DS4PR10MB362516:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43f64a33-ead3-4144-1440-08df13dec216
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|7416014|1800799024|82310400026|13003099007|921020|6133799003|22082099003|10067099003|56012099006|5023799004|11063799006|18002099003;
+	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|36860700016|7416014|376014|10067099003|18002099003|56012099006|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	wt+4RM1e7mpQufwzanq5fYT2v8hdUNbTHquFmcXd1762xgjlGwL1h4bBWy5Pycv8dLXyJUjZLy/2OOw8FUWrSwKuWa3M7E/nBcvTme7ea1B+P/hrJWbRtcF5SID7bpj+mqf3kmxSEoDM3sFGSwRAp29MVx2RtO2u16e3OO1R/39D7jsjyKxUR/IcEH/GSXfptgKiyADnOryO8iUzccGch2SjbjEGpDhIsPb98mVCl2cB8J25PYoPQ3hwB7vg33/364n/et5ciCs/jsEwm0b8jq+q0yjK5IX9If6gkkWgaxAhVqBR1BzzJk9NBsV6sskIJixns8CMMiYWCygMJHJXY+uWZ6Ye9vahYPfisPvCy6tsaUlIGFwSKgM8+4sV+3BkTvuQSPWiFuFIsJ5dRI+4EOY91oVKs5K2pCU89E2559nG1vCYoJcfyZNtAe//NJQAMEBsQmiuH4R29KcFYBI1urv3ksFFteSz8z8j14aJwj+2Ou0b0wLQfs4SMPafd3f/yLrBx+BzGoO9hgaZWH9suzMmGK2HylH/+fruIjtnB7Y0/jXYm8qesUDFuAZwOig9bMrn/MJwVWpYrPP81lzsLclykEnqrRAg1VhlNfyvTXOGbXvLCdSl7vAvOpS7egER9j8apuDryBaiy8LEeGNOHlQ2psYM8JoNI6P5zaLwJhjPXUCgov+MGC+iCQsOEQBYVJRqYneElhtG32Od99b0dnm5IWMOBqcDVbFXgqtby0vDpcf2Y6ZMP+5/3Ve6JA6e
+	XwiQun1oE2eJqV2xcjijEF0muYJ8JRb6nVi6I9Y+HxGAsibyvKkYLGxFKJeIsJGwIItyGspP9F1t9s1c6sR9AEYdlpUbV9S2GCay1RG7FM7yNg+VaVp/tvtG4l01jVvYhq37EKJocUUh8IoNEUwxH9kA6B0R3+D92DtfVrGjhGkpNsru083jFE/iZFl1txyuvVJXGcXRoA9ca3Lj16U4KGmw2a4lFJ2LLq3YqCAaoQAj1SIQnQQzm2aQmXIdaFhmqEoOY1OzQ8XTXuyhzxs+JVx2g2Vq/kW7/BbwKyi/Y7D+bxGFt8a2V/cIevPZjS2N9iCZmtA++dSHzgV6aqdrR3CCtoDgbRMmQshVmz2UVRNaWoZcW5xuD3rtVyJga+B11BA1ZIobn1r9kZcuIh+vrgRxlID2v5D1UNA2C5QoIQoPbjupCHZwX32ibkNasMmIq/XZ2o29JUHvcme0FjSgnoopSW1BmLId6BqLUAl4mse31rDwgwI/kY3TbfOuWHRhUbpHxD/jH36gJPlr3ovtt1ntKLMrs5gGy+ff4Gx5Pm65q5ieDizhImuZ3IVMfDAwXRePRsLnN/Je8Kxe/fpMW0udyVRS6ZgNTP4wC+TPMt98NuJtcVz+UxaUT8k4vDjhXyrkjV6wavvf+NRZENv5z+J3lRm/LmMvhN5dkWqq7u7GuGyGb8ANYf9+kIayYKvjkVN4hsrhU3ALNUDyWCd/YQ==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(7416014)(1800799024)(82310400026)(13003099007)(921020)(6133799003)(22082099003)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(7416014)(376014)(10067099003)(18002099003)(56012099006)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	YmcV1ReGx5r9EtXz/TvIcUAqcLdQq+6MmXT1boVPXq9RQrZHGR4m7Z2wVlVlbuYDgbb/L5csfX+m+VbVs/HEgUrLCW26u5DQr+LX0p5uIpFchyKjIby1ORBLGpSuPMTNuh+p7eY5FhTsWLOwVJtUPZLBPLaMJGRaUVNKXo6oi2qOlJb8FIjwCyGzxIg5/n03oPQTBOS5xtzKXY8dNFJccVUaIXcO8JyaaexAFCnj767f/wqSBoEV+qpBuZ6rgmR6eicnXj0oGTNWjhxXaKHJ797pyeEuYaA4oK1MrKOrMJQQ0HJTia95Zvnj9UyTGVbh2HmB+ove6zPJViAhaM4sH8UAEC6j0oHd90hAKpa6UMF5sbVMkmHlMeAsV5rjTRoyzbhSaJQIJ+Ah0GjGTrBbZiYkOVDpgN1ar7wTmW5Tq6thi0x/aJGlUVGioxdveVfl
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 10:39:20.4626
+	6C2sNL2jmHj3UXtozLsJoYhza8EI1pVQayCHLXHrwGBQsQxA6aEeU5JreXC4B6L1/Yk8O/irYdeKTYvoOew97Y4gulAa5NGru287FTneVsYYbAILJv1MGKsZqMCcty1bd6EkZQ90X7FixQv8QCBTLYr8fmc/xV6PIYho9vtLmOjNLtiMCEnnjNwA32Jk04j4zz3mhkf7g9MnIqeMgTr2LGwul/eWSAFGPHAQscPamx3Cp5+NMWGO2fQSfiY9aw8QqnmSXO7FAmNKaeoktMH2IDOmC+1Udy54N8hEjl7LM6W/IqQcYSNdKtTvXeXQsxPMnPgh/Ue5DbdrTqCNmmK/+ywun7Wsvo6I7J3crLqDdCYhGUK19t1aL5FWl33d0yVxL1LWM587vxKBbCkQh0ZTvENuAYEYrh+3Z7HRFiAkrY+JVvQIchgbkQkNz92StWIx
+X-Exchange-RoutingPolicyChecked:
+	nUwvE+aU91Fu8AuyGhqzfp2t+trYYIUClSLxFjNPHD7FK7KKEqZhqBVmXaZx9NWBJmQaULwtxL9bF4xNUfdFj0dfJ2UOrnY9iqFBrD6PYNpgmViE9Tl0LzAMyMbvpiqbgxvijtVXFjlAIwsQuKtiGW5OTh3BfA+hDg3G/r1twpTnD0UEWOfHG5sinpStA5S4CBl37PziED1eGbu7O/HzFl0KmsCA1zfmYr3ffr7HUiydZUkXwaBSwB6k7RpDO3TnGLk/Ff4rWH4Vpzjj7tgCZ5Ch3OR52mdU7bADsAg/0Mu5uqP1Uravv2MM3hQXtzj8l5Ed/kCE2Co3DYtlwupWhQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 10:39:16.8662
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75613a40-71bd-4c6e-c4b3-08df13dec43e
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43f64a33-ead3-4144-1440-08df13dec216
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C8.namprd04.prod.outlook.com
+	BN2PEPF0000A801.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5674
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR10MB362516
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDEzOSBTYWx0ZWRfXwIEmz2Exg14x
+ MOfssUggcfyLL7MLRNbu8Znf033b15vXgDivDF4MR6JsMFpPDtbeG6VrRcQ381eXL+I2IW5qZlE
+ 6qcEqX0wBRhHfenUq2FI48ZoMXLzDCaRt807KeKMFSBe4jIblcQ8Z5SI82OtStXDyP+r5DCXd0U
+ aV0uvZNYB4A0JcniaJ4PRuySWHOfwtAJ9SUB02r29kuJ7Ht02NqxkX5AJQ3jHbMLGaJrcL6pZdb
+ 4EaQQE0Wl8MnOu+Dtjg53Dumn4h1Ry03/7iEtvc2vFd1poyB4XXnxw53W20lbmFGSWn/9Uv3azv
+ 23C9GPsErD0BIx5b4U3dQEGF0PROtQboFJeslztjmCinEX6vxIM0L6v/WWUuahgwfOo6pPr620v
+ zgFpiLCaQifLX8bgfL5dTDnl5Kur6g0QoMYEUW/ipcaCdRmYnh1diQT2LEISu9fyS8iO3KcCMyJ
+ Iy+VgnnVtYxawYBbSKQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDEzOSBTYWx0ZWRfX7y9XND5c82WN
+ gJnR5NsD2LEJn2leYAyD9heWYWpwgrt4b5gJd9H/wL2eiW7VWcVVT1jqkXn5c4asdVm4WXCE2G+
+ mIFJZJy64XwJSnYFisjE7fKQ12XgBpM=
+X-Authority-Analysis: v=2.4 cv=E7JYNqdl c=1 sm=1 tr=0 ts=6aaa71d7 cx=c_pps
+ a=F1HhE1toGRAZ88wdd1wKFg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8
+ a=S-R87FCbgeg6FCKjwTYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: ZwPxEMsUD0ZsHqmXulIWMIt46xXN9soW
+X-Proofpoint-ORIG-GUID: ZwPxEMsUD0ZsHqmXulIWMIt46xXN9soW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 phishscore=0 suspectscore=0 adultscore=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609160139
 
-Values written to OSPM-set CPPC registers via sysfs can be lost in two
-ways:
 
-  - Across CPU hotplug: the platform may reset a CPU's registers while it
-    is offline.
-  - On driver unload: the value the driver wrote is left in the register
-    instead of returning to its pre-driver state.
 
-Add a small table-driven mechanism that handles both:
+On 15/09/26 13:58, Linmao Li wrote:
+> cdns_plat_pcie_probe() stores a struct cdns_plat_pcie pointer with
+> platform_set_drvdata(). cdns_plat_pcie_shutdown() and the callbacks in
+> cdns_pcie_pm_ops retrieve the same pointer with dev_get_drvdata() and
+> use it as a struct cdns_pcie pointer. This makes them read phy_count
+> and phy beyond the wrapper.
+> 
+> struct cdns_plat_pcie only contains a pointer to struct cdns_pcie. Drop
+> the redundant wrapper and store the struct cdns_pcie pointer directly.
+> 
+> Fixes: bd22885aa188 ("PCI: cadence: Refactor driver to use as a core library")
+> Suggested-by: Aksh Garg <a-garg7@ti.com>
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+> ---
 
-  - On init(), capture each register's firmware value before the
-    driver programs anything.
-  - On offline(), read back each register's current value (whatever was
-    last set via sysfs) so it can be reapplied, then restore the firmware
-    value.
-  - On online(), reapply the value captured at offline() after
-    reprogramming the performance controls. A failed write to the controls
-    does not skip the reapply, as no other path restores these registers.
-  - On exit(), nothing is needed, as the core calls offline() first, which
-    already restored the firmware values.
+Suggested-by tag can be dropped IMO as the suggestion was not the core 
+insight of the patch (to store the struct cdns_pcie pointer directly).
 
-Cover the Autonomous Selection (auto_sel), Energy Performance Preference
-(EPP) and Autonomous Activity Window (auto_act_window) registers. Writes
-to EPP and auto_act_window only have meaning while auto_sel is enabled,
-so write auto_sel before them when enabling it and after them when
-disabling it. While autonomous selection stays disabled, the platform may
-ignore those writes.
+Reviewed-by: Aksh Garg <a-garg7@ti.com>
 
-Suggested-by: Pierre Gondois <pierre.gondois@arm.com>
-Link: https://lore.kernel.org/all/86780f97-29ee-4a72-b311-38c89434b707@arm.com/
-Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
----
- drivers/cpufreq/cppc_cpufreq.c | 193 ++++++++++++++++++++++++++++++++-
- 1 file changed, 190 insertions(+), 3 deletions(-)
+Regards,
+Aksh Garg
 
-diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index d7d96fe0da1b..ac315071a979 100644
---- a/drivers/cpufreq/cppc_cpufreq.c
-+++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -28,6 +28,183 @@
- 
- static struct cpufreq_driver cppc_cpufreq_driver;
- 
-+/*
-+ * OSPM-set CPPC registers tracked for save/restore. A value the OS wrote is
-+ * reapplied from online() across CPU hotplug, and the firmware value is
-+ * restored from offline().
-+ *
-+ * Autonomous Selection (auto_sel) is kept first, as the registers after it
-+ * only have meaning while it is enabled.
-+ */
-+enum cppc_saved_reg_id {
-+	CPPC_SAVED_AUTO_SEL,
-+	CPPC_SAVED_EPP,
-+	CPPC_SAVED_AUTO_ACT_WINDOW,
-+	CPPC_NR_SAVED_REGS,
-+};
-+
-+struct cppc_saved_reg {
-+	const char *name;
-+	int (*get)(int cpu, u64 *val);
-+	int (*set)(int cpu, u64 val);
-+};
-+
-+static const struct cppc_saved_reg cppc_saved_regs[CPPC_NR_SAVED_REGS] = {
-+	[CPPC_SAVED_AUTO_SEL] = {
-+		.name = "auto_sel",
-+		.get = cppc_get_auto_sel,
-+		.set = cppc_set_auto_sel,
-+	},
-+	[CPPC_SAVED_EPP] = {
-+		.name = "epp",
-+		.get = cppc_get_epp_perf,
-+		.set = cppc_set_epp,
-+	},
-+	[CPPC_SAVED_AUTO_ACT_WINDOW] = {
-+		.name = "auto_act_window",
-+		.get = cppc_get_auto_act_window,
-+		.set = cppc_set_auto_act_window,
-+	},
-+};
-+
-+enum cppc_saved_type {
-+	CPPC_SAVED_FIRMWARE,
-+	CPPC_SAVED_REQUESTED,
-+};
-+
-+/*
-+ * Per-policy values saved for each register in cppc_saved_regs[]:
-+ *   firmware_val  - value before the driver touched it, captured at init()
-+ *                   and written back when the policy goes offline. U64_MAX
-+ *                   if it could not be read
-+ *   requested_val - value in effect when the policy last went offline,
-+ *                   reapplied at online(). U64_MAX if none
-+ */
-+struct cppc_saved_vals {
-+	u64 firmware_val;
-+	u64 requested_val;
-+};
-+
-+struct cppc_policy_state {
-+	struct cppc_saved_vals regs[CPPC_NR_SAVED_REGS];
-+};
-+
-+static DEFINE_PER_CPU(struct cppc_policy_state, cppc_policy_state);
-+
-+/*
-+ * Per-policy state is kept in the per-CPU variable of the first CPU the policy
-+ * manages. related_cpus (the policy's full set of CPUs) never changes while the
-+ * policy exists, so this CPU (unlike policy->cpu) stays the same across CPU
-+ * hotplug, and every callback reaches the same copy.
-+ */
-+static struct cppc_policy_state *
-+cppc_cpufreq_policy_state(struct cpufreq_policy *policy)
-+{
-+	const struct cpumask *policy_cpus = policy->related_cpus;
-+
-+	/*
-+	 * related_cpus is empty until the core fills it in after init(), so
-+	 * fall back to policy->cpus, which has the same first CPU.
-+	 */
-+	if (cpumask_empty(policy_cpus))
-+		policy_cpus = policy->cpus;
-+
-+	return &per_cpu(cppc_policy_state, cpumask_first(policy_cpus));
-+}
-+
-+/*
-+ * Save each register's current value, either as the firmware value, captured
-+ * before the driver programs anything, or as the requested value, to reapply
-+ * at online().
-+ */
-+static void cppc_cpufreq_save_regs(struct cpufreq_policy *policy,
-+				   enum cppc_saved_type saved_type)
-+{
-+	struct cppc_policy_state *st = cppc_cpufreq_policy_state(policy);
-+	unsigned int cpu = policy->cpu;
-+	u64 val;
-+	int i;
-+
-+	for (i = 0; i < CPPC_NR_SAVED_REGS; i++) {
-+		if (cppc_saved_regs[i].get(cpu, &val))
-+			val = U64_MAX;
-+
-+		if (saved_type == CPPC_SAVED_FIRMWARE) {
-+			st->regs[i].firmware_val = val;
-+			st->regs[i].requested_val = U64_MAX;
-+		} else {
-+			st->regs[i].requested_val = val;
-+		}
-+	}
-+}
-+
-+static u64 cppc_cpufreq_saved_reg_value(const struct cppc_saved_vals *st,
-+					enum cppc_saved_reg_id reg,
-+					enum cppc_saved_type saved_type)
-+{
-+	if (saved_type == CPPC_SAVED_FIRMWARE)
-+		return st[reg].firmware_val;
-+
-+	return st[reg].requested_val;
-+}
-+
-+/*
-+ * Write one tracked register, skipping it when there is no saved value.
-+ * A register the platform does not allow writing is not an error.
-+ */
-+static void cppc_cpufreq_write_saved_reg(unsigned int cpu,
-+					 enum cppc_saved_reg_id reg, u64 val,
-+					 enum cppc_saved_type saved_type)
-+{
-+	const char *op = (saved_type == CPPC_SAVED_FIRMWARE) ?
-+			 "restore firmware" : "reapply saved";
-+	int ret;
-+
-+	if (val == U64_MAX)
-+		return;
-+
-+	ret = cppc_saved_regs[reg].set(cpu, val);
-+	if (ret == -EOPNOTSUPP)
-+		return;
-+	if (ret)
-+		pr_debug("Failed to %s %s=%llu on CPU%u (%d)\n", op,
-+			 cppc_saved_regs[reg].name, val, cpu, ret);
-+}
-+
-+/*
-+ * Apply the saved firmware or requested value to each tracked register.
-+ *
-+ * Write auto_sel first when the value being applied enables autonomous
-+ * selection and last when it disables it, so the writes to the dependent
-+ * registers can still take effect. While autonomous selection stays disabled,
-+ * the platform may ignore those writes. Do not enable it temporarily to force
-+ * them through.
-+ */
-+static void cppc_cpufreq_apply_saved_regs(struct cpufreq_policy *policy,
-+					  enum cppc_saved_type saved_type)
-+{
-+	const struct cppc_saved_vals *st = cppc_cpufreq_policy_state(policy)->regs;
-+	unsigned int cpu = policy->cpu;
-+	u64 auto_sel, val;
-+	int i;
-+
-+	auto_sel = cppc_cpufreq_saved_reg_value(st, CPPC_SAVED_AUTO_SEL,
-+						saved_type);
-+
-+	if (auto_sel)
-+		cppc_cpufreq_write_saved_reg(cpu, CPPC_SAVED_AUTO_SEL, auto_sel,
-+					     saved_type);
-+
-+	for (i = CPPC_SAVED_AUTO_SEL + 1; i < CPPC_NR_SAVED_REGS; i++) {
-+		val = cppc_cpufreq_saved_reg_value(st, i, saved_type);
-+		cppc_cpufreq_write_saved_reg(cpu, i, val, saved_type);
-+	}
-+
-+	if (!auto_sel)
-+		cppc_cpufreq_write_saved_reg(cpu, CPPC_SAVED_AUTO_SEL, auto_sel,
-+					     saved_type);
-+}
-+
- #ifdef CONFIG_ACPI_CPPC_CPUFREQ_FIE
- static enum {
- 	FIE_UNSET = -1,
-@@ -718,6 +895,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
- 	policy->cur = cppc_perf_to_khz(caps, caps->highest_perf);
- 	cpu_data->perf_ctrls.desired_perf =  caps->highest_perf;
- 
-+	cppc_cpufreq_save_regs(policy, CPPC_SAVED_FIRMWARE);
-+
- 	ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
- 	if (ret) {
- 		pr_debug("Err setting perf value:%d on CPU:%d. ret:%d\n",
-@@ -791,12 +970,14 @@ cppc_cpufreq_prepare_perf_restore(unsigned int cpu,
-  *
-  * The platform may have disabled CPPC and reset the performance controls
-  * (desired, min and max performance) while the CPU was offline, so re-enable
-- * CPPC and reprogram them.
-+ * CPPC and reprogram them. Also reapply the OSPM-set registers that offline()
-+ * reset to firmware values.
-  *
-  * Report failures without returning them, or the core would free the policy and
-  * leave the CPU without cpufreq. A failed write to the performance controls is
-- * not fatal, as the governor's next request programs them again. A failed CPPC
-- * enable stops the restore, as the writes that follow may not reach the
-+ * not fatal, as the governor's next request programs them again. The OSPM-set
-+ * registers are reapplied even then, as no other path restores them. A failed
-+ * CPPC enable skips both restores, as the writes that follow may not reach the
-  * platform.
-  */
- static int cppc_cpufreq_cpu_online(struct cpufreq_policy *policy)
-@@ -832,6 +1013,8 @@ static int cppc_cpufreq_cpu_online(struct cpufreq_policy *policy)
- 		pr_debug("Failed to restore perf controls on CPU%u (%d)\n",
- 			 cpu, ret);
- 
-+	cppc_cpufreq_apply_saved_regs(policy, CPPC_SAVED_REQUESTED);
-+
- out_fie:
- 	/* Restart what offline() stopped, with a new counter snapshot. */
- 	cppc_cpufreq_cpu_fie_init(policy);
-@@ -851,6 +1034,10 @@ static int cppc_cpufreq_cpu_offline(struct cpufreq_policy *policy)
- 	unsigned int cpu = policy->cpu;
- 	int ret;
- 
-+	/* Save what the OS set, and leave the platform in its pre-driver state. */
-+	cppc_cpufreq_save_regs(policy, CPPC_SAVED_REQUESTED);
-+	cppc_cpufreq_apply_saved_regs(policy, CPPC_SAVED_FIRMWARE);
-+
- 	/*
- 	 * Stop the frequency invariance updates and cancel the pending work, so
- 	 * that no sample spans the offline window. online() restarts them with
--- 
-2.34.1
+> Changes in v2:
+> - Drop the redundant struct cdns_plat_pcie wrapper (Aksh Garg).
+> ---
+>   .../controller/cadence/pcie-cadence-plat.c    | 27 ++++++-------------
+>   1 file changed, 8 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+> index 13edc6be21f5..4a24302cc5b2 100644
+> --- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
+> +++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
+> @@ -14,14 +14,6 @@
+>   
+>   #define CDNS_PLAT_CPU_TO_BUS_ADDR	0x0FFFFFFF
+>   
+> -/**
+> - * struct cdns_plat_pcie - private data for this PCIe platform driver
+> - * @pcie: Cadence PCIe controller
+> - */
+> -struct cdns_plat_pcie {
+> -	struct cdns_pcie        *pcie;
+> -};
+> -
+>   static const struct of_device_id cdns_plat_pcie_of_match[];
+>   
+>   static u64 cdns_plat_cpu_addr_fixup(struct cdns_pcie *pcie, u64 cpu_addr)
+> @@ -36,9 +28,9 @@ static const struct cdns_pcie_ops cdns_plat_ops = {
+>   static int cdns_plat_pcie_probe(struct platform_device *pdev)
+>   {
+>   	const struct cdns_plat_pcie_of_data *data;
+> -	struct cdns_plat_pcie *cdns_plat_pcie;
+>   	struct device *dev = &pdev->dev;
+>   	struct pci_host_bridge *bridge;
+> +	struct cdns_pcie *pcie;
+>   	struct cdns_pcie_ep *ep;
+>   	struct cdns_pcie_rc *rc;
+>   	bool is_rc;
+> @@ -51,11 +43,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+>   	is_rc = data->is_rc;
+>   
+>   	pr_debug(" Started %s with is_rc: %d\n", __func__, is_rc);
+> -	cdns_plat_pcie = devm_kzalloc(dev, sizeof(*cdns_plat_pcie), GFP_KERNEL);
+> -	if (!cdns_plat_pcie)
+> -		return -ENOMEM;
+> -
+> -	platform_set_drvdata(pdev, cdns_plat_pcie);
+>   	if (is_rc) {
+>   		if (!IS_ENABLED(CONFIG_PCIE_CADENCE_PLAT_HOST))
+>   			return -ENODEV;
+> @@ -67,9 +54,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+>   		rc = pci_host_bridge_priv(bridge);
+>   		rc->pcie.dev = dev;
+>   		rc->pcie.ops = &cdns_plat_ops;
+> -		cdns_plat_pcie->pcie = &rc->pcie;
+> +		pcie = &rc->pcie;
+>   
+> -		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
+> +		ret = cdns_pcie_init_phy(dev, pcie);
+>   		if (ret) {
+>   			dev_err(dev, "failed to init phy\n");
+>   			return ret;
+> @@ -94,9 +81,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+>   
+>   		ep->pcie.dev = dev;
+>   		ep->pcie.ops = &cdns_plat_ops;
+> -		cdns_plat_pcie->pcie = &ep->pcie;
+> +		pcie = &ep->pcie;
+>   
+> -		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
+> +		ret = cdns_pcie_init_phy(dev, pcie);
+>   		if (ret) {
+>   			dev_err(dev, "failed to init phy\n");
+>   			return ret;
+> @@ -114,13 +101,15 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+>   			goto err_init;
+>   	}
+>   
+> +	platform_set_drvdata(pdev, pcie);
+> +
+>   	return 0;
+>   
+>    err_init:
+>    err_get_sync:
+>   	pm_runtime_put_sync(dev);
+>   	pm_runtime_disable(dev);
+> -	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
+> +	cdns_pcie_disable_phy(pcie);
+>   
+>   	return ret;
+>   }
+> 
+> base-commit: 9a9d18547ddc97a73d5d90cff4d5aef90bd8c15d
 
