@@ -1,259 +1,85 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1080D40B11B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C574E80BF
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:32:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565564; cv=none; b=MHBJi2VzpSOnC16MXdGSNL+lVMOJq/+SXUg/hTjS6HJD0tOlu1aSBJuIma417iR1yeX5vEnFbYFoXHGLltq5zyGZ2CNkGIN2kK7YoDoPU1HBUg/IxHzJ+ixTfk6B2oqndHlrpYpwhf8Zi1DN9AwBWgf+9zFf3Mn/QbHCEc43bV8=
+	t=1789565566; cv=none; b=IcUWMT7ztqI1VH8Ta+obT9r/R3XcSfdifZVm0uGp0OUg5yDef6TrysN1rk2la1cnKFXlD3Qst9nfKkiN96Qfp/7p/GOdxcPabHqWNgZk33kMMdcVg3+5NBkjfslL3k4QIlOyqJTxg0kS8fNFPukkYvOFY/dx0u8VQCSfJZoci+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565564; c=relaxed/simple;
-	bh=ntRH15t4Lvt22zdvEstGdhxFnzUJuuJOBEZqDNUl1wo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CAslV9HbPS0P7MctH/6GNS1qbuB8Om+gYrT5GWxpNMxTL/0OZr4Tfb+h6CVbwxzcEOOuJyC70Bo8HeZAEAFYlO8iXlL2e6/GdIiWt7yBD0aE72YTjh+TBaMvFZGqb5oWE3J5D3wXi6hj+bBHaOXbAn4BhM1wuvrOeAGyIS4RJVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ArIcPp5X; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789565566; c=relaxed/simple;
+	bh=2J7eRse2ylA7RXRuyP+C8aDAe5OYglmpzhcByI0nxjk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=m6XX00PfmFJeUhXjdyHRRGHp+wLgNgRhneMyAgPiUNRt8XRAqw786G7Uj2Ou5ky3n+rJO+QyJAXlOmHJPylUv2JDhkAgxOauMcODAQZ9xsS8CufCbkihcaFuUQKcKu//SrbBnCJsA5xnyFKTOwHkiiHC41vdYlA9ESLVQRgdHdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iLqrYtAv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ArIcPp5X"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4ae616175so581105a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:32:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789565555; x=1790170355; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4l3Wyd9thJNNsaD9/92h5owhyhVWLhgVC84mljLruBo=;
-        b=ArIcPp5X+cwASztbnIMjMGVsyQ5QnX4xs5JSbQyeDgarT/CkoSIMahGssF1Oo1pPCf
-         EI/HTcvm1jaSWzeBNmY9RwrfeD1eKoKW36ezTzBW9AbsRuoJt9DMymrdixPvjDxxtOFy
-         zbURPAcF/GweGLdkKJOkc4WSK08oRwd7BlaXjxYJapMXLQQq9BzIGAFB2GnBYzXpBAlF
-         KTzA1VUB3k1G1lMNnK65zL6N/OM0GDdEFIxLtZR+EGdHMAzLfinrIwLGAM1Kg7HQ33g2
-         N9xFZpyWg63BnwKKcrH5nYkmbjXp2XfNiD76fn0cIXCj/9XrW/RsrDDHdvWFb2F3h8rc
-         y+vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789565555; x=1790170355;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4l3Wyd9thJNNsaD9/92h5owhyhVWLhgVC84mljLruBo=;
-        b=dwhKeRsWKN6shWboSDzChKJcmtKOiMhfZOMojW9CrOHwTgPWjmWosFpLu0tbLVtN4g
-         s68bgNDNtDLkogpqHbv19gKzppnzvpWm1LtnmJ7JuWDiNQcFqhvBRH6922aysoNe2/Rx
-         EclYhN4j1hCKZEfo4bpGfFrGhuFgM4f45x7rTnveMCnLJiCdBqY5YUuNwfqpp/yHPnKg
-         otWoyj8IIFdLCDlK7IYFYwZEgBPEW0trWD5+uhnslrgvE5iEQ5/MCZh/ZFT/WP4VzawN
-         RIqQQ0dK6TLHYbLvLhF0eYqrcbDHTWeVhub6o2Fwg3dsuqVj2Vt7s4aGmldhD84Zh/Uv
-         L4pg==
-X-Forwarded-Encrypted: i=1; AKwUvBxqRg8Vd9LgjbAUzn2Z2SQhpApwaMp+w+FwhlSWLQUTaqW8QMLg7BPlmvaOhyFVS114NEg0BNznLYLhwME=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5kn+ReSbwpyVWvHDr/UUFosKDGfGO/58bkSO/JL6YtKyq5Ap8
-	30F5io7/nVa5LCYLa91YZglSMOufRpXQXNK30NyXnKzH4lTAcDIOiqjZ
-X-Gm-Gg: AYBFou0eqBpCkiZL62m3Mpz6ZUg/xtkhPbaRLEcCoCbMZ9eoVnFUVgXq+C+TqiJsmSC
-	xHO3ZmaAtP8SDILb45dXDBQpGz/IpLqCTH5J63vaXFYytky94jl52lcXxbNJXgATtGKQF7t/BJ0
-	ISS/gyLg4tfmAPUYQ7/7wu3KNZbbuxkXhTcSvTaramw20U1uh479w7PaCrxevh7hw2NACq+POA8
-	vTKVzwdDEMcRAq6fEE80y+o2ewlqgF0dNpcUjYfvAWdzF0316qWYhsfbaDNUCeoAfHcwBTA8oCH
-	AGQFDl4UL2tgPYyQqgtFcm/1noLnfq495ic2tg9YAPUVd2pq1SOsjM2/HNn4nhYxMQRTSrnF1eX
-	Oxv/0zeMhA9OZx7TGMg7htaiyYkyk7fvJf+gOmf8Ndb3Gldaksa6s8JoI/tGcF2QZcxwFwUmwQv
-	f3zoLP19ph3r91KHQBSn//S0e1rFKyZ6Kowtgs8pc+4Dtn82ksYXn/ymlIsrcI+r/lo8MKOqIH8
-	WqmhuWCbUE6ZbXIr8Cu01XRiA==
-X-Received: by 2002:a05:6a21:4d0c:b0:3d3:b00a:6f03 with SMTP id adf61e73a8af0-3dd5f7dac4dmr7049928637.28.1789565555369;
-        Wed, 16 Sep 2026 06:32:35 -0700 (PDT)
-Received: from pengdl-pc.mioffice.cn ([43.224.245.249])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50ab960edsm1651702a12.20.2026.09.16.06.32.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:32:34 -0700 (PDT)
-From: Donglin Peng <dolinux.peng@gmail.com>
-To: rostedt@goodmis.org
-Cc: mhiramat@kernel.org,
-	dolinux.peng@gmai.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	pengdonglin <pengdonglin@xiaomi.com>,
-	Xiaoqin Zhang <zhangxiaoqin@xiaomi.com>
-Subject: [PATCH v6 4/4] tracing: Update funcgraph-retval documentation
-Date: Wed, 16 Sep 2026 21:32:18 +0800
-Message-Id: <20260916133218.1282590-5-dolinux.peng@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260916133218.1282590-1-dolinux.peng@gmail.com>
-References: <20260916133218.1282590-1-dolinux.peng@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iLqrYtAv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D26511F000FF
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:32:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789565563;
+	bh=2J7eRse2ylA7RXRuyP+C8aDAe5OYglmpzhcByI0nxjk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=iLqrYtAvCORrfWkMnaxWGhkFy/obOPO1OQebmIS0SH7yAJQmONQhmO1lIRRNkgfrV
+	 v8VHEcDJ/Qr5onPHRQ+CYvKCnAH4pgIL4teOvcTvJlTJ//8/r6Kp86sP1jYC2CXleB
+	 2kInprLXPeGnqT0xyJo3XDvRu7aQOmecF2UNUnN6jrEieEx+UT/TZn1oGB2gTtgYop
+	 76XIUMODsMXZRz6gFmwoVzUTuA8UBdMh4D8s0aAsg4iWn/HFp+RDQMcVD9lA+PSxUi
+	 EsgaxUDuVmWEFWXL5AhgzlIQgcJ2mP4dgJlHO2ITeeNojc8pWeM6POxgWoD7Eihl9i
+	 4oT+XrbxnGSRQ==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a318299b38so8614481fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:32:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxr5UL7k4MEf7tamxSyS+8sNE4YZyReEfHx6Asd3gXh4L+Dp1yXb+tMo7ZQAWFFz5PT985OfqVN0R13dOc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mrsKq/ijEkVq7TFPjDpFYjfs7l3LZ/JBfqEtEsVqomuJrOYvsW
+	4volyarUe9S4wel6ofWKKa1B6gjzOURjmn9aS/gV3J4fbw/7dyFHi7hydSGw0habN/M4wJngZpT
+	VbOsML/43kZFDnpNry0I88mT7+1i2ZZs=
+X-Received: by 2002:ac2:51ca:0:b0:5b6:1a7c:59d7 with SMTP id
+ 2adb3069b0e04-5b8b664ffd5mr746249e87.49.1789565562592; Wed, 16 Sep 2026
+ 06:32:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <55267dce42a63e5210c34e49747f564f5cc0b0cf@linux.dev>
+In-Reply-To: <55267dce42a63e5210c34e49747f564f5cc0b0cf@linux.dev>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 15:32:30 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=KoKd4gLcyxuTTT904oR=EFeVkqQF-iD6qcc-GwQ39ug@mail.gmail.com>
+X-Gm-Features: AcwNN1XIhauDEL53Qu0WeLNzQx2IVlVzXQcgLWnShIejgmghe2oHxiaISiq4Li8
+Message-ID: <CAD++jL=KoKd4gLcyxuTTT904oR=EFeVkqQF-iD6qcc-GwQ39ug@mail.gmail.com>
+Subject: Re: gpio-hog names
+To: Frank Wunderlich <frank.wunderlich@linux.dev>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: pengdonglin <pengdonglin@xiaomi.com>
+On Sun, Sep 6, 2026 at 9:05=E2=80=AFPM Frank Wunderlich
+<frank.wunderlich@linux.dev> wrote:
 
-The existing documentation for funcgraph-retval is outdated and partially
-incorrect, as it describes limitations that have now been resolved.
+> Until v7.0, GPIO hogs inherited the DT node name
 
-Recent changes (e.g., using BTF to obtain function return types) have
-addressed key issues:
-1. Return values are now printed only for non-void functions.
-2. Values are trimmed to the correct width of the return type, avoiding
-   garbage data from high bits.
+Where? In debugfs? /sys/kernel/debug/gpio?
 
-Cc: Steven Rostedt (Google) <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Xiaoqin Zhang <zhangxiaoqin@xiaomi.com>
-Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
----
- Documentation/trace/ftrace.rst | 96 ++++++++++++++++++++--------------
- 1 file changed, 58 insertions(+), 38 deletions(-)
+> when no line-name
+> property was specified. This was implemented as a fallback in
+> of_parse_own_gpio().
+>
+> Commit d1d564ec4992 ("gpio: move hogs into GPIO core") moved hog parsing
+> into the GPIO core and removed this fallback.
+>
+> Consequently, GPIO hogs without a line-name property are now displayed
+> with a ? in /sys/kernel/debug/gpio.
 
-diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-index 7261f25f8b4b..9423722848c6 100644
---- a/Documentation/trace/ftrace.rst
-+++ b/Documentation/trace/ftrace.rst
-@@ -1483,6 +1483,10 @@ Options for function_graph tracer:
- 	printed in hexadecimal format. By default, this option
- 	is off.
- 
-+  funcgraph-retaddr
-+	When set, the return address will always be printed.
-+	By default, this option is off.
-+
-   sleep-time
- 	When running function graph tracer, to include
- 	the time a task schedules out in its function.
-@@ -2829,7 +2833,7 @@ It is default disabled.
-     0)   2.861 us    |      } /* putname() */
- 
- The return value of each traced function can be displayed after
--an equal sign "=". When encountering system call failures, it
-+an equal sign "ret=". When encountering system call failures, it
- can be very helpful to quickly locate the function that first
- returns an error code.
- 
-@@ -2839,16 +2843,16 @@ returns an error code.
-   Example with funcgraph-retval::
- 
-     1)               |    cgroup_migrate() {
--    1)   0.651 us    |      cgroup_migrate_add_task(); /* = 0xffff93fcfd346c00 */
-+    1)   0.651 us    |      cgroup_migrate_add_task(); /* ret=0xffff93fcfd346c00 */
-     1)               |      cgroup_migrate_execute() {
-     1)               |        cpu_cgroup_can_attach() {
-     1)               |          cgroup_taskset_first() {
--    1)   0.732 us    |            cgroup_taskset_next(); /* = 0xffff93fc8fb20000 */
--    1)   1.232 us    |          } /* cgroup_taskset_first = 0xffff93fc8fb20000 */
--    1)   0.380 us    |          sched_rt_can_attach(); /* = 0x0 */
--    1)   2.335 us    |        } /* cpu_cgroup_can_attach = -22 */
--    1)   4.369 us    |      } /* cgroup_migrate_execute = -22 */
--    1)   7.143 us    |    } /* cgroup_migrate = -22 */
-+    1)   0.732 us    |            cgroup_taskset_next(); /* ret=0xffff93fc8fb20000 */
-+    1)   1.232 us    |          } /* cgroup_taskset_first ret=0xffff93fc8fb20000 */
-+    1)   0.380 us    |          sched_rt_can_attach(); /* ret=0x0 */
-+    1)   2.335 us    |        } /* cpu_cgroup_can_attach ret=-22 */
-+    1)   4.369 us    |      } /* cgroup_migrate_execute ret=-22 */
-+    1)   7.143 us    |    } /* cgroup_migrate ret=-22 */
- 
- The above example shows that the function cpu_cgroup_can_attach
- returned the error code -22 firstly, then we can read the code
-@@ -2859,43 +2863,55 @@ be displayed in a smart way. Specifically, if it is an error code,
- it will be printed in signed decimal format, otherwise it will
- printed in hexadecimal format.
- 
-+When CONFIG_DEBUG_INFO_BTF is enabled, the smart format also takes the
-+declared return type into account. Signed integer and signed enum return
-+values are printed in signed decimal format, unsigned enum return values
-+are printed in unsigned decimal format, and unsigned integer, pointer, and
-+aggregate return values are printed in hexadecimal format. Boolean return
-+values are printed as ``true`` or ``false``. If the BTF type is unavailable,
-+the legacy error-code detection is used.
-+
- 	- smart: echo nofuncgraph-retval-hex > trace_options
- 	- hexadecimal: echo funcgraph-retval-hex > trace_options
- 
-   Example with funcgraph-retval-hex::
- 
-     1)               |      cgroup_migrate() {
--    1)   0.651 us    |        cgroup_migrate_add_task(); /* = 0xffff93fcfd346c00 */
-+    1)   0.651 us    |        cgroup_migrate_add_task(); /* ret=0xffff93fcfd346c00 */
-     1)               |        cgroup_migrate_execute() {
-     1)               |          cpu_cgroup_can_attach() {
-     1)               |            cgroup_taskset_first() {
--    1)   0.732 us    |              cgroup_taskset_next(); /* = 0xffff93fc8fb20000 */
--    1)   1.232 us    |            } /* cgroup_taskset_first = 0xffff93fc8fb20000 */
--    1)   0.380 us    |            sched_rt_can_attach(); /* = 0x0 */
--    1)   2.335 us    |          } /* cpu_cgroup_can_attach = 0xffffffea */
--    1)   4.369 us    |        } /* cgroup_migrate_execute = 0xffffffea */
--    1)   7.143 us    |      } /* cgroup_migrate = 0xffffffea */
--
--At present, there are some limitations when using the funcgraph-retval
--option, and these limitations will be eliminated in the future:
--
--- Even if the function return type is void, a return value will still
--  be printed, and you can just ignore it.
--
--- Even if return values are stored in multiple registers, only the
--  value contained in the first register will be recorded and printed.
--  To illustrate, in the x86 architecture, eax and edx are used to store
--  a 64-bit return value, with the lower 32 bits saved in eax and the
--  upper 32 bits saved in edx. However, only the value stored in eax
--  will be recorded and printed.
--
--- In certain procedure call standards, such as arm64's AAPCS64, when a
--  type is smaller than a GPR, it is the responsibility of the consumer
--  to perform the narrowing, and the upper bits may contain UNKNOWN values.
--  Therefore, it is advisable to check the code for such cases. For instance,
--  when using a u8 in a 64-bit GPR, bits [63:8] may contain arbitrary values,
--  especially when larger types are truncated, whether explicitly or implicitly.
--  Here are some specific cases to illustrate this point:
-+    1)   0.732 us    |              cgroup_taskset_next(); /* ret=0xffff93fc8fb20000 */
-+    1)   1.232 us    |            } /* cgroup_taskset_first ret=0xffff93fc8fb20000 */
-+    1)   0.380 us    |            sched_rt_can_attach(); /* ret=0x0 */
-+    1)   2.335 us    |          } /* cpu_cgroup_can_attach ret=0xffffffea */
-+    1)   4.369 us    |        } /* cgroup_migrate_execute ret=0xffffffea */
-+    1)   7.143 us    |      } /* cgroup_migrate ret=0xffffffea */
-+
-+Note that there are some limitations when using the funcgraph-retval
-+option:
-+
-+- If CONFIG_DEBUG_INFO_BTF is disabled (n), a return value is printed even for
-+  functions with a void return type. When CONFIG_DEBUG_INFO_BTF is enabled (y),
-+  the return value is printed only for non-void functions.
-+
-+- If a return value occupies multiple registers, only the value in the first
-+  register is recorded and printed. For example, on the x86 architecture, a
-+  64-bit return value is stored across eax (lower 32 bits) and edx (upper 32 bits),
-+  but only the contents of eax are captured. If CONFIG_DEBUG_INFO_BTF is enabled,
-+  the suffix "(trunc)" is appended to the printed value to indicate that the
-+  output may be truncated because high-order register contents are omitted.
-+
-+- Under certain procedure-call standards (e.g., arm64's AAPCS64), when the return
-+  type is smaller than a general-purpose register (GPR), the caller is responsible
-+  for narrowing the value; the upper bits of the register may contain undefined data.
-+  For instance, when a u8 is returned in 64-bit GPR, bits [63:8] can hold arbitrary
-+  values, especially when larger types are truncated (explicitly or implicitly). It
-+  is therefore advisable to inspect the code in such cases. If CONFIG_DEBUG_INFO_BTF
-+  is enabled (y), the return value is automatically trimmed to the width of the return
-+  type.
-+
-+  The following examples illustrate the behavior:
- 
-   **Case One**:
- 
-@@ -2914,7 +2930,9 @@ option, and these limitations will be eliminated in the future:
- 		RET
- 
-   If you pass 0x123456789abcdef to this function and want to narrow it,
--  it may be recorded as 0x123456789abcdef instead of 0xef.
-+  it may be recorded as 0x123456789abcdef instead of 0xef. When
-+  CONFIG_DEBUG_INFO_BTF is enabled, the value will be correctly truncated
-+  to 0xef based on the size constraints of the u8 type.
- 
-   **Case Two**:
- 
-@@ -2939,7 +2957,9 @@ option, and these limitations will be eliminated in the future:
- 		RET
- 
-   When passing 0x2_0000_0000 to it, the return value may be recorded as
--  0x2_0000_0000 instead of 0.
-+  0x2_0000_0000 instead of 0. When CONFIG_DEBUG_INFO_BTF is enabled, the
-+  value will be correctly truncated to 0 based on the size constraints of
-+  the int type.
- 
- You can put some comments on specific functions by using
- trace_printk() For example, if you want to put a comment inside
--- 
-2.34.1
+It seems like so...
 
+> Is this an intentional change, or should the fallback to the DT node name
+> be retained?
+
+No reason to since debugfs is not ABI.
+
+But if you think that *looks better* then by all means send a patch!
+
+Yours,
+Linus Walleij
