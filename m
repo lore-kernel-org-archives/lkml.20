@@ -1,116 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8522037C119
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:32:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2A74F0557
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572732; cv=none; b=A2jvZnQMgU28psbBrvi5+flDP6V85TCAhUotfVe9sJIFYvDBMfGGJhOhPYFzCvBo+RhQMF4YAJtdxLenxP7sPv77lvSSgmVtrcn8IJb2n877aWzA4meXUkukTANxpsfTrsuJBA+1FskPPoO6C4Pyq2liicvUTLcLscSp0/zo8PA=
+	t=1789572742; cv=none; b=kb4EBN+XOBEm5YSw+5aoEyfd/3qhyPxJRkcJ54h7AdPD2Z9macZilA7XnH/uUttMydGVdRWfg+Mz84rHz7sF85112+JZGKqwWSSdzqvIeN7q5cyxEKwJdUjUTVWqc3X54fXuQxlZCzgPZD/yIqKE3yApJZC2kuRf6yW22Z2zM3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572732; c=relaxed/simple;
-	bh=6cJZ3vF0dSDjjEMMG9H2JHANKMhOY+wqpAkHW2i9jYQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=osOYiVPE+iScUTa2U0KoTl0g+VFfDf3JBv+g1xQfRTmzA+6xFBcNvE1azDOkRSO8xpyRChyPT7BpLFJ7VtDVEZhZpvFV33AMLDUDJTuvbpVynWBQiPQUOrK1BLoT7CyHdYtgk7741QIV8m+bzyDG1NKuRLv6Y9qMQRGkvJNtXqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzhTXwDa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789572742; c=relaxed/simple;
+	bh=GNXX10jFFVYPSFMnTtwo/nB37qWTYupUa8HU1zg4KgM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ER82DC23HjRrImdYN22QxXQHzBSeKonxVkSoAtiA2LKSOvU/bgOt8Xf6sAogvMRO3MdrRmWrj538fbK3GUFyhqmYFvvPSEsLKxXstJvZeor+4l+ba4wNS9A47ydLZblrn2lKwxqCnjZoYQt2jLgiVwKa+AodcRLPkPk8am7lVOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Od7nyhHi; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzhTXwDa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2864E1F00893;
-	Wed, 16 Sep 2026 15:32:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789572725;
-	bh=r+L+gdmlejhQNmtecvJQTWNGDQdwYrl4NsxaG1tw1go=;
-	h=From:To:Cc:Subject:Date;
-	b=hzhTXwDa2Qo+pmZ4YoZsP+RopMjaOH8/EFzDBkw4eb1XHwdMhB39araxeWwgADPOq
-	 pYnfRc9aTr+p+ELU3hp8lvVV3Qf5GnwWsEY0+Py7rbPdrm52t2D83Qy3MwvbSvemgK
-	 9NX0R3PvbM1aO6Qx6Db1XkwNRDELcXHR8WTw6Hr/EGJQAQTblRbXuHDLjNVgYmF27E
-	 sjRDoqy/UBenFAbuKFw3z9obu79qycztHMaAeUW0kk6+Sce2I5z4YViwmmKFQzZJ/Z
-	 F9MEqsFGzyFJx4xNzSO9ltdlMTmC+OBwLlP2V5SbhCs8MGZOPo0Eeu+XiHCNJC/5f7
-	 J6eKaT8Fwwt3Q==
-From: Thorsten Blum <blum@kernel.org>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Sourabh Jain <sourabhjain@linux.ibm.com>,
-	Thorsten Blum <blum@kernel.org>,
-	Aditya Gupta <adityag@linux.ibm.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] powerpc/kexec_file: Simplify add_usable_mem()
-Date: Wed, 16 Sep 2026 17:31:49 +0200
-Message-ID: <20260916153149.127278-3-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Od7nyhHi"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5D6D240E00B9;
+	Wed, 16 Sep 2026 15:32:14 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id FEbHYErFmwH0; Wed, 16 Sep 2026 15:32:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789572723; bh=+ncQkglgN0s+DNE7ulb0S3bNaiYn12xAJ1A7efer6HY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Od7nyhHiVCmmM93z/j14/G5Tld0fi1nBHjy2H6KN0ye5CLZ8dOr7qKsyF88rahZhO
+	 P+kkOK7DbxEzdZ1KdS5fxslACPySDeeH8EyBVItSshs16dEiMYH5fVQKTpTxP7Cjc9
+	 X+7wOiaIj+p0yhhGxgupjRcA+W065wW9yF9EQJOap0TZWzebIdqRwUmCD2XbT47AiD
+	 fa69YNOFbfBxSUO5ElKIIXER6zUf4Fv+pJ93Ii/58OnZ9ngQKFwl07Cb/VDPDPggLC
+	 Jht6oGkDUeVDMdbgjk4MIalEyzBDLe/kfGAQwD02UViHy3kAmsmivXwBATAH789grG
+	 DwJzUgBwXEeKwunjJu36VaO/rfmFGZZdRxrNuBikIpciFnRo97aA/eKRlW6SMBrEPO
+	 lBDYnQ7ivDsUM9ofJYL+nyHNcmcbYZ3glPsMXWpcRmwOSrwo2NzZ6dYHD5u80jP5zt
+	 IajzXQ+gpDQYaCrGnqGdcRfEbcecfyghbkeDWs5HdkrezvJt+6I0BHnzr4rb+ME6wR
+	 YHD/zsb/w2PhcIoMDoNjxkB5rRR8n32wvlJvnRGeQYHmsjN4Y8nv+yiT4ITD03Kxuw
+	 a1WXjKWiJJAGRCXkEUZfaNBf0Ub9BIcvdlDXxXoqHOmfzAvmLGTfMiPISiLeLM2Naz
+	 /j9kREWZ62V1w5aH1/sGN4fo=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 1A9AE40E022C;
+	Wed, 16 Sep 2026 15:31:52 +0000 (UTC)
+Date: Wed, 16 Sep 2026 08:31:49 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Andrei Vagin <avagin@google.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	"Chang S. Bae" <chang.seok.bae@intel.com>,
+	linux-kernel@vger.kernel.org, criu@lists.linux.dev,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH 1/7] x86/fpu: Document signal frame layout and portability
+Message-ID: <20260916153149.GAaqq2ZcheETQAosSE@fat_crate.local>
+References: <20260908043427.1842515-1-avagin@google.com>
+ <20260908043427.1842515-2-avagin@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1962; i=blum@kernel.org; h=from:subject; bh=6cJZ3vF0dSDjjEMMG9H2JHANKMhOY+wqpAkHW2i9jYQ=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmrtqW6LnzKtdX5g/DrurMLlHqd1aT1H8UVRCp4J0TM+ f6theFARykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAEzkbSojw623mb/NhZbminyI 2f1yddMLg/fBsx6FhZmmnCqO2sO25B3D/1CBvUZrLVZu7J0dkhrQz1FrN/HcEx2FlTzH8zasYG0 15wAA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260908043427.1842515-2-avagin@google.com>
 
-Use max() and min() to calculate loc_base and loc_end, respectively.
-Skip to the next range if loc_base > loc_end and drop the now-obsolete
-boolean add variable.
+On Tue, Sep 08, 2026 at 04:34:21AM +0000, Andrei Vagin wrote:
+> The x86 signal frame is designed to be self-describing, with the
+> 'xstate_size' field in the software-reserved bytes indicating the actual
+> size of the context. This design is required for portability, allowing a
+> signal frame created on a system with a specific set of xstate features
+> to be restored on a machine with a different (larger) set of features.
+> 
+> Document the signal frame software reserved bytes (struct _fpx_sw_bytes)
+> and portability constraints in Documentation/arch/x86/xstate.rst, and
+> add a summary and cross-reference in <uapi/asm/sigcontext.h>.
+> 
+> Reviewed-by: Alexander Mikhalitsyn <alexander@mihalicyn.com>
+> Signed-off-by: Andrei Vagin <avagin@google.com>
+> ---
+>  Documentation/arch/x86/xstate.rst      | 55 ++++++++++++++++++++++++++
+>  arch/x86/include/uapi/asm/sigcontext.h | 14 +++++++
+>  2 files changed, 69 insertions(+)
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- arch/powerpc/kexec/file_load_64.c | 29 +++++++++--------------------
- 1 file changed, 9 insertions(+), 20 deletions(-)
+Sashiko has some comments here:
 
-diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
-index bd80c5fb1b1f..6162afbe919a 100644
---- a/arch/powerpc/kexec/file_load_64.c
-+++ b/arch/powerpc/kexec/file_load_64.c
-@@ -20,6 +20,7 @@
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/memblock.h>
-+#include <linux/minmax.h>
- #include <linux/slab.h>
- #include <linux/vmalloc.h>
- #include <asm/setup.h>
-@@ -104,31 +105,19 @@ static __be64 *check_realloc_usable_mem(struct umem_info *um_info, int cnt)
- static int add_usable_mem(struct umem_info *um_info, u64 base, u64 end)
- {
- 	u64 loc_base, loc_end;
--	bool add;
- 	int i;
- 
- 	for (i = 0; i < um_info->nr_ranges; i++) {
--		add = false;
--		loc_base = um_info->ranges[i].start;
--		loc_end = um_info->ranges[i].end;
--		if (loc_base >= base && loc_end <= end)
--			add = true;
--		else if (base <= loc_end && end >= loc_base) {
--			if (loc_base < base)
--				loc_base = base;
--			if (loc_end > end)
--				loc_end = end;
--			add = true;
--		}
-+		loc_base = max(base, um_info->ranges[i].start);
-+		loc_end = min(end, um_info->ranges[i].end);
-+		if (loc_base > loc_end)
-+			continue;
- 
--		if (add) {
--			if (!check_realloc_usable_mem(um_info, 2))
--				return -ENOMEM;
-+		if (!check_realloc_usable_mem(um_info, 2))
-+			return -ENOMEM;
- 
--			um_info->buf[um_info->idx++] = cpu_to_be64(loc_base);
--			um_info->buf[um_info->idx++] =
--					cpu_to_be64(loc_end - loc_base + 1);
--		}
-+		um_info->buf[um_info->idx++] = cpu_to_be64(loc_base);
-+		um_info->buf[um_info->idx++] = cpu_to_be64(loc_end - loc_base + 1);
- 	}
- 
- 	return 0;
+https://sashiko.dev/#/patchset/20260908043427.1842515-1-avagin%40google.com
+
+Please address them.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
