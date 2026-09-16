@@ -1,177 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD4637FF67
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:23:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 883084F4755
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565001; cv=none; b=LHFGIi6sDUfIcSzaUTnqDuG0G+ut9KDfHx4SGfz8eRZHImxk0qBi0zwQpRIEOMiyD5HjqX1j7bjYwtqNz8CuLtyZyJGwH2kP+5lCz7vq/rR7D8xrcpqKYO/eT9F1m6Molop2zdABF5d1Qn8+ng7fDtF78nlkjFyFf/76at9v5aI=
+	t=1789565151; cv=none; b=kA4OAxrBz3yLMvV87twca4bBM0fPD2O4o8WWT/R0y8Mdfl3aucrBg9HT4tnhWCfEWbzq7Y8FccFx7cSFStLKT9n/Wb1ZzKI2MwDEdBeM14BdvFmz2Um4oiDSayZL8BfhDHEB/IyzUJ9M45NuYKiBidOfvbV+lHL2K0iMkvWtjVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565001; c=relaxed/simple;
-	bh=jsSn/dJ3du8mtrFnVq7nUxNuhYUF1hfGYrdD52t/hQA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vBM/gluW8LWs0sPfEDVBbpjqRo2tPoTAp4HDZ4CLnCPLmnGLro1ZOHWi++CrORHcutppYI0vKqlo4fWf7PcNqkCz2pQsUkMQeLOPwaj/q9LjEzey2q5ddNQpVF1l44og6wHPsjdVvfsOevmZrBaxJzRvnWYdQBiTW7GbxlZiecw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iyqfQ56R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789565151; c=relaxed/simple;
+	bh=cGVvjXNh01uco9P4TObFJJ6STEQrLkR65na6DpvO3wk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=gk9T7apBIJ3+s070hp18fvYamosFVP71bNjx6O8XYxDVdCSlKHfam/GQMV8NxXyy5+4j3BB10TBLF24xKk7a8jrIzKdLbxIB8Oc6/IG8kuZfqTlgF3c8IgI4cnmK1fnDpLZe/ssplHT9rUn9AzyLnHzoY2JTOi6FjMT5dTLH2Lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UZIzzNnC; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iyqfQ56R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2A01F000FF;
-	Wed, 16 Sep 2026 13:23:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789564998;
-	bh=t1n21esTWFIARb22DabL327mvFBcDYA8LulYh58X1JM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iyqfQ56RCSKneDh03pMqIw3w4xWZI6hlxEMUUXydQndV49m08vRmeRcTuK5Ef+WjO
-	 o9QTFocyfQEIerKgrSC3l9RQGmjvcP7quw6zXK6TDxv+tr+tGyrXLlnRm8CHnm3ts+
-	 tZvsitIFUR7yj7H2xjQR3atAhMD4MMwUeaYpSbFJr1tTo5hnQ/mJwAMDS0kIW9DA4Y
-	 smXDfOHMOFBUa+BqOm7WKQrGUCUIWZb4o1HXfMHnzR4W/Arupulis00Ym4dCVjWJOG
-	 sUb/pChJrOO216PGv0ZVv3oiEsr/qZPi8j5QkjKCq8XIJ2IYqoCb8aVDZiELS49uiE
-	 TLZchf3Rqv8Xw==
-Message-ID: <69a7987f-15fb-4793-81b6-cc436525224e@kernel.org>
-Date: Wed, 16 Sep 2026 15:23:13 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UZIzzNnC"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 40E7F152B;
+	Wed, 16 Sep 2026 06:25:42 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (unknown [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E08DC3F86F;
+	Wed, 16 Sep 2026 06:25:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789565145; bh=cGVvjXNh01uco9P4TObFJJ6STEQrLkR65na6DpvO3wk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=UZIzzNnCJnq+5NTtRsFxr5h9tDPp71kwrxcKq3gOU+0tjJ2PvHKza6XEztBr8WPrh
+	 lbZtOrCiQIc3Dl9gLEc13Ar7JnRR25NFS3ZGN19SnBT6vtRHMFVKhIhBN75TujQDzb
+	 0lHzOMTPzNT6ZTh09jdh+tyM+Mhf5ZaK375LuWfU=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Tian Zheng <zhengtian10@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from S2AP_W to DBM
+Date: Wed, 16 Sep 2026 14:25:41 +0100
+Message-ID: <aqqY1QiB0ZBAQkwc@LeoBrasDK>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <86fqz95qwe.wl-maz@kernel.org>
+References: <20260901171558.2674031-1-leo.bras@arm.com> <20260901171558.2674031-2-leo.bras@arm.com> <86bja17cg7.wl-maz@kernel.org> <aql8jY4o8SzjJuFU@LeoBrasDK> <aqnku2TcFzIKhjQl@kernel.org> <aqp73SxO78o7LJTs@LeoBrasDK> <86fqz95qwe.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 01/14] mm: Add read-write accessors for vm_page_prot
-To: Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-References: <20260907035030.2839978-1-anshuman.khandual@arm.com>
- <20260907035030.2839978-2-anshuman.khandual@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260907035030.2839978-2-anshuman.khandual@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On 9/7/26 05:50, Anshuman Khandual wrote:
-> Currently vma->vm_page_prot is safely read from and written to, without any
-> locks with READ_ONCE() and WRITE_ONCE(). But with introduction of D128 page
-> tables on arm64 platform, vm_page_prot grows to 128 bits which can't safely
-> be handled with READ_ONCE() and WRITE_ONCE().
+On Wed, Sep 16, 2026 at 01:20:33PM +0100, Marc Zyngier wrote:
+> On Wed, 16 Sep 2026 12:22:05 +0100,
+> Leonardo Bras <leo.bras@arm.com> wrote:
+> > 
+> > On Tue, Sep 15, 2026 at 05:37:15PM -0700, Oliver Upton wrote:
+> > > On Tue, Sep 15, 2026 at 06:12:45PM +0100, Leonardo Bras wrote:
+> > > > > Yes, the HW should ignore it. But we have also
+> > > > > seen quite a few broken designs in this area...
+> > > > > 
+> > > > 
+> > > > I lack experience on what bad thing could happen. So I will expand on what 
+> > > > I belive to understand up to here:
+> > > > 
+> > > > - The PTE is in memory, so the DBM bit can be set regardless of being RES0
+> > > > - For SW pagetable walking, I don't think 'bit 51 == 0' is checked
+> > > > - For HW pagetable walking, maybe some faulty implementation may rely on 
+> > > >   bit51 being RES0, and fault otherwise.
+> > > > 
+> > > > If that's the case, then we would have to actually support both encodings, 
+> > > > and only enable the new one if HAFDBS is available in the system. 
+> > > > 
+> > > > I just wonder how high are the chances to have such a broken design, 
+> > > > or other broken designs did not come to my mind, and if we have to start 
+> > > > with that multiple-encoding option.
+> > > 
+> > > FWIW, the host stage-1 already uses the DBM bit unconditionally,
+> > > treating it as a software bit on implementations without HAFDBS.
+> > > Although given the quality of any garden variety Arm MMU I understand
+> > > where Marc is coming from.
+> > > 
+> > > I don't think the HAFDBS enablement is complicated enough to be done in
+> > > a separate series without any meaningful users, nor would I really be
+> > > interested in taking it without, say, HDBSS.
+> > > 
+> > > Can you please work with Tian to get a combined series out for this?
+> > > 
+> > 
+> > Hi Oliver, thanks for reviewing!
+> > 
+> > Sure, one of the reasons I sent like this is so Tian could use it as a base 
+> > for his next version.
+> > 
+> > 
+> > > > > > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > > > > > index 17123f0b6dab..eb8dfffc32c7 100644
+> > > > > > --- a/arch/arm64/kvm/nested.c
+> > > > > > +++ b/arch/arm64/kvm/nested.c
+> > > > > > @@ -379,21 +379,23 @@ static int walk_nested_s2_pgd(struct kvm_vcpu *vcpu, phys_addr_t ipa,
+> > > > > >  	}
+> > > > > >  
+> > > > > >  	addr_bottom += contiguous_bit_shift(desc, wi, level);
+> > > > > >  
+> > > > > >  	/* Calculate and return the result */
+> > > > > >  	paddr = (desc & GENMASK_ULL(47, addr_bottom)) |
+> > > > > >  		(ipa & GENMASK_ULL(addr_bottom - 1, 0));
+> > > > > >  	out->output = paddr;
+> > > > > >  	out->block_size = 1UL << ((3 - level) * stride + wi->pgshift);
+> > > > > >  	out->readable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> > > > > > -	out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > > > > > +	/* Takes care of both RO/RW and RO/WC/WD encodings */
+> > > > > > +	out->writable = desc & (KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+> > > > > > +				KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W);
+> > > > > 
+> > > > > Absolutely NOT. For a start, NV doesn't support FEAT_HAFDBS. But even
+> > > > > if it did, you are now actively corrupting memory by turning a RO
+> > > > > mapping with a spurious DBM bit set into a writable mapping.
+> > > > > VTCR_EL2.HD exists for a reason.
+> > > > > 
+> > > > > Do you see why your blanket approach of equating DBM with writable is
+> > > > > plain wrong?
+> > > > 
+> > > > Sorry, not really... please help me understand it.
+> > > > 
+> > > > When you say a spurious DBM bit, what does it mean?
+> > > 
+> > > You've implemented the exact sort of bug that was alluded to above. In
+> > > this case it's a software page table walker consuming DBM regardless of
+> > > the value of VTCR_EL2.HD.
+> > > 
+> > 
+> > So you mean that DBM being treated as "writable" could _only_ happen if we 
+> > have VTCR_EL2.HD=1? I was previously under the impression that it could be 
+> > used regardless of HD value.
 > 
-> Add read and write accessors for vm_page_prot like pgprot_[read|write]()
-> which any platform can override when required, although still defaulting as
-> READ_ONCE() and WRITE_ONCE(), thus preserving the functionality for others.
+> Then you have failed to understand the architecture. When
+> VTCR_EL2.HD==0, DBM can be treated as RES0, RES0, or RES0.
 > 
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: linux-mm@kvack.org
-> Cc: linux-kernel@vger.kernel.org
-> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
-> ---
->  include/linux/pgtable.h | 14 ++++++++++++++
->  mm/huge_memory.c        |  4 ++--
->  mm/memory.c             |  2 +-
->  mm/migrate.c            |  2 +-
->  mm/mmap.c               |  2 +-
->  5 files changed, 19 insertions(+), 5 deletions(-)
-> 
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index e3c8ab96941c..0df57a5c19ef 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -524,6 +524,20 @@ static inline pgd_t pgdp_get(pgd_t *pgdp)
->  }
->  #endif
->  
-> +#ifndef pgprot_read
-> +static inline pgprot_t pgprot_read(pgprot_t *prot)
+> R_XZFQH and R_BRFGY are pretty clear that DBM can only be evaluated
+> when dirty hw update is enabled, and I_MHJZP tells you what it means
+> for S2 to have this enabled.
 
-Try passing "const pgprot_t *prot" instead.
+Right, I_MHJZP says that if VTCR_EL2.HD is 1, then dirty state hardware 
+management is enabled.
 
-[...]
+Then, R_XZFQH and R_BRFGY say that if (DBM+S2AP) bit combination is the 
+given and the dirty state hardware management is enabled then a block 
+descriptor is WC/WD.
 
-> diff --git a/mm/migrate.c b/mm/migrate.c
-> index 15b45832bcfa..579152cce502 100644
-> --- a/mm/migrate.c
-> +++ b/mm/migrate.c
-> @@ -387,7 +387,7 @@ static bool remove_migration_pte(struct folio *folio,
->  
->  		folio_get(folio);
->  		new = folio_page(folio, idx);
-> -		pte = mk_pte(new, READ_ONCE(vma->vm_page_prot));
-> +		pte = mk_pte(new, pgprot_read(&vma->vm_page_prot));
-I do wonder whether a
+R_XZFQH header, as an example:
+For each translation stage using Direct permissions, if all of the 
+following apply, then a Block descriptor or Page descriptor is described 
+as writable-clean[...]
 
-ogprot_t vma_get_page_prot(const struct vm_area_struct *vma)
+It says: 
+"if all apply, the block is WC", 
+it does not say 
+"only if all apply, the block is WC".
+so it forces one way, but not the other.
 
-where we hide the pgprot access would be a good complement for vma_set_page_prot().
+So I previously understood that we could also use the encoding for WC/WD in 
+software, to avoid having 2 distinct encodings, when VTCR_EL2.HD=0. 
 
-Just a thought.
+If that's not possible, as you mentioned, then yes, I failed to get that 
+part. I also see that you mention it being RES0 when VTCR_EL2.HD==0, but I 
+honestly could not find reference to that. :(
 
+What I could find on Arm ARM M.cc was Table D8-53, which states for 
+bit 51 that it's DBM if indirect permissions are disabled, or PIINDEX[1] 
+if they are enabled. There is also no such information in D8.5.2 about this 
+res0 behavior. 
 
-> diff --git a/mm/mmap.c b/mm/mmap.c
-> index 4bf26b0f1e6e..729bc244b317 100644
-> --- a/mm/mmap.c
-> +++ b/mm/mmap.c
-> @@ -89,7 +89,7 @@ void vma_set_page_prot(struct vm_area_struct *vma)
->  		vm_page_prot = vma_pgprot_modify(vm_page_prot, vma_flags);
->  	}
->  	/* remove_protection_ptes reads vma->vm_page_prot without mmap_lock */
-> -	WRITE_ONCE(vma->vm_page_prot, vm_page_prot);
-> +	pgprot_write(&vma->vm_page_prot, vm_page_prot);
->  }
->  
->  /*
+So I am possibly missing the proper place to look for that information. 
+Could you please share that with me so I can improve and maybe avoid being 
+a inconvenience in the future?
 
-
--- 
-Cheers,
-
-David
+Thanks!
+Leo
