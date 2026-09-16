@@ -1,82 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382ED4A7CB9
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:24:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8E43AE6FD
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579441; cv=none; b=iAAqvswYh6uNftp5CPZKx//1TRXW768FrOrklA6etytPAUbs8aAP6xHMsE1JO95vdNacDDIcRxzJBmKpz7IszpjHybSz1uE4nzPtNC76y58r8VFKHSrMH+TVu65MLu9r4DbmfEbOHiT6uDoRLhFe+p5e/UjPMb8fyUAYWA0ndik=
+	t=1789579516; cv=none; b=f/deGY/Njov64qM0942jUx33MSvu8RAuTpDex8+QHVS8YJUMHrqWDLCHQWXUYFJ2xwG4a6/SWdSAIAM/KXkMK7ujtRDX7fxF0mxCxl2apo+TLhUtjAQ0VlJbIFzEHoPF96RXvUMK5Dbzq3v04cNpLM9O2wfCShNDcVXFmAyy5Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579441; c=relaxed/simple;
-	bh=0vCWf9MxiT2b+E/T1q/nTE5apuDRiYUK4+cddGkhdWc=;
+	s=arc-20240116; t=1789579516; c=relaxed/simple;
+	bh=s52gVOYZqnLKHeXJlNl3uBds3Ehnp+0LYabdURZR1SU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WBaAXIglPl1nBqs+xpNQ3olB4+TfiSpbFst3Z1Q2A8QRcLvfo2ilWbkcJCnNyTOYEhA/kcWiE36rAmV6oEt75xrHyw3SUoHfa1tiaWGLbQp+0RjWCEm9qioSmFGVcXblkfhcH+MXEoOB6ELY061mj0pG/chGWLK/RBdAOdQ/Jug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9UhQg/h; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=joKHv7zJ/rtXwqPVGeFxS67BmVkjAlfAvG8qSR2X8cr8FEF3rp/1FlGM1nPC/EQxbspjIBw8rDzVpWVNhR/qse/lRav8uw1dSWM7GzwTxAhqD5LseCGR7a+8nE8GQ7SPth4bP+NMsUALY8WhqTd9dGAxt/SHIMcqxZsWXYLk8E8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alhnppaW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9UhQg/h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C3781F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:24:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alhnppaW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D607D1F000FF
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:25:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789579440;
-	bh=0vCWf9MxiT2b+E/T1q/nTE5apuDRiYUK4+cddGkhdWc=;
+	s=k20260515; t=1789579514;
+	bh=s52gVOYZqnLKHeXJlNl3uBds3Ehnp+0LYabdURZR1SU=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=b9UhQg/hFLmc0yJyOsH5yHc4qWjxLbaWEpPPSPIOpWGomGurZfgXfG2BOGARFDXOe
-	 GBE6XRsZFPobgKGvRvl1obzYywrBG7wg6NRNTjdtPfRIZpBCF3+gmQjIO3H8NtaVyq
-	 oaCBmC84C57pFpGsqD2+woXiMi/47aCmXKqsFrWvSYVL/tcOfdqnOLM0qv92Q0OlGG
-	 EOcIJPF0nzrm734TvNnu4DeYPj5CCnehFEAjTLL/bbDibJ6VQc6lSv5iStqawl/RU2
-	 KV5dgyYOB9PkYY/CxnEHFTqwt0tDCOuWMWnhvOIaOTZr2mWJ084j1Pqs4ZrNJxscJa
-	 gV9YG40eUwTTQ==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b76668f4ddso502380e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:24:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzQnAo392RKvDaFrqTFjJX+JNtHPUux/nFd6v4z/2XIC7wSZuk9aIfWcftwM6AwZPvOJkhbQaid3oRe5+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kX/LLRiujpdKPMca7lTzwFUwyOQxKgXHnkJgucjSVQOzT0KYAs
-	IqJ05s6Bcdwj0w+R1urOv3V+qA7ZtSwIWaM7RoOC5JcZF4APto8LvUR9P6MNan4PvNkL8YGDGIa
-	42K0Z1heH7EdbRaeTPB+sVENfd7QIaVE=
-X-Received: by 2002:ac2:520e:0:b0:5b6:421:8ad9 with SMTP id
- 2adb3069b0e04-5b8ba5f0937mr86681e87.14.1789579438832; Wed, 16 Sep 2026
- 10:23:58 -0700 (PDT)
+	b=alhnppaWDGQjJH+bPVDzqxfHjXf/GzEo847VTkan5v3llIOpyH+lz/wCjoINkZPC6
+	 hE2wkjavMuvjHOEzcdROFDPkqf4F0R/R6n5Pw+vRIb0uh1Ab04UXUvqOpVH4gV9TZu
+	 lE2KLAxwg2Vsv4ENqAGqoneeqlaxKTTZiimd2bnV3tvPs4kYEysImDxDSHbMpy0aet
+	 Zj5tKgyjs6L6p3cJV95tgf/DpYhUFG40m2BnePI04kl85ky/W5CRg/p/yGJs8RBPsz
+	 qD3v3TYdMFYx2m0yOW3bszjorjwOvM+5b6pJ8R4HY4jsVoHm0t0P1/9HowlqqEe4un
+	 VIZKPHIOOTYOg==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff17443dso12445831fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:25:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzYNP7GFgHP8LLdjSKqTicDK8JcRYrsJfRwzmwuMrRAow2mxnWgJKAPukAZIW2/5fOJVQoVzzf+oPtz8S8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmNR6OYWk9ynGH+0YP1hCWHsQAabHxpn/XAmifQW8+TvvmCXHZ
+	h8YxqlZXDL0XSX4/D9cV0s3taOW46c7dpNFgZHyWUk1HucPs3y2dYa7zCelvi7x1tnxWEzouiUp
+	jkbiKMh9qsRVR6oss0npxm64bC6CE3D0=
+X-Received: by 2002:a05:6512:3e03:b0:5b6:1783:d7b1 with SMTP id
+ 2adb3069b0e04-5b8b6645ecemr2159966e87.17.1789579513602; Wed, 16 Sep 2026
+ 10:25:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915031225.191639-1-rosenp@gmail.com>
-In-Reply-To: <20260915031225.191639-1-rosenp@gmail.com>
+References: <20260915045426.1726805-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260915045426.1726805-1-vulab@iscas.ac.cn>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 19:23:46 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=pO+O7iPdE-fBTMSGxQU6LZU-zSrY4X0_rF8=fZ2hvMw@mail.gmail.com>
-X-Gm-Features: AcwNN1WAae-jbKZTyT-X17VkdT-7OKOay0Vn4pBpi5oDtpaiYUqdHzuNBS_jXx4
-Message-ID: <CAD++jL=pO+O7iPdE-fBTMSGxQU6LZU-zSrY4X0_rF8=fZ2hvMw@mail.gmail.com>
-Subject: Re: [PATCH] gpio: mvebu: fix Armada XP per-CPU mask register save/restore
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, 
-	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>, 
-	open list <linux-kernel@vger.kernel.org>
+Date: Wed, 16 Sep 2026 19:25:01 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmETw1EUA13dFsow6bEzJrZ_mmXAuAbcyqCukXsKtTgyg@mail.gmail.com>
+X-Gm-Features: AcwNN1X0N-q2IxUe2y-ly1EfRJ9zPtfunE2njDfjUfWGryWDkiq8y0qPyYhU2zw
+Message-ID: <CAD++jLmETw1EUA13dFsow6bEzJrZ_mmXAuAbcyqCukXsKtTgyg@mail.gmail.com>
+Subject: Re: [PATCH] clocksource/drivers/fttmr010: Fix clk reference leak in
+ error paths
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: daniel.lezcano@kernel.org, linux-kernel@vger.kernel.org, tglx@kernel.org, 
+	lkml@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 15, 2026 at 5:12=E2=80=AFAM Rosen Penev <rosenp@gmail.com> wrot=
-e:
+On Tue, Sep 15, 2026 at 6:55=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
 
-> The Armada XP variant keeps the per-CPU edge/level mask registers in a
-> second I/O window (percpu_regs) rather than in the main GPIO window.
-> The suspend and resume paths however read and wrote them through
-> mvchip->regs with the per-CPU offsets, which hits the global
-> GPIO_EDGE_MASK / GPIO_LEVEL_MASK registers instead. Per-CPU mask state
-> was therefore lost across suspend/resume, so a level line could end up
-> unmasked behind genirq's back and trigger an interrupt storm once
-> interrupts are re-enabled.
+> fttmr010_common_init() obtains the PCLK reference with
+> of_clk_get_by_name() but never calls clk_put(). If clk_prepare_enable()
+> fails the reference is leaked directly, and every error path that jumps
+> to out_disable_clock only calls clk_disable_unprepare(), which releases
+> the prepare/enable state but not the reference obtained from
+> of_clk_get_by_name().
 >
-> Use mvchip->percpu_regs for the Armada XP per-CPU mask registers in
-> both the suspend save and the resume restore paths, matching the
-> mask/unmask handlers and the probe-time masking.
+> Add clk_put() to the clk_prepare_enable() failure path and to the
+> out_disable_clock label so the clock reference is no longer leaked. The
+> success path keeps PCLK enabled for the lifetime of the timer and is
+> left untouched.
 >
-> Fixes: b5b7b487431b ("gpio: mvebu: add suspend/resume support")
+> Fixes: dd98442e17a6 ("clocksource/drivers/fttmr010: Drop Gemini specifics=
+")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 
