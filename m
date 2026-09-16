@@ -1,42 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C017E4BD7B7;
-	Wed, 16 Sep 2026 22:32:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83115EEA8;
+	Wed, 16 Sep 2026 22:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789597934; cv=none; b=kkMcywLJtvjxhXg12+xB6MKdrH+29iT8GBgKrga69+3RNoJlo/txou7St2CE29ElfAQTFynLwNULnGf12qOtQOJqFxz42LYkSmAcX+pgK/0/Ar7BPeCv7X8cS/afcP8nGGFG+I29AXcaMY/xFljzvW3ftZ1iryxUVA1FH9I+1TY=
+	t=1789597934; cv=none; b=ayByBUxzjM5XwTJUJo+UgVPEg6Xpm3wlHAgYLKn3zOPvY/DojyboDEnQp18KERIP8QOhdmFYIvCsfF+vqnLZFwWxlpa+oOYz1K2sWyGRJwEQB59WEfBofrg93POAzWgr4aQgs98hupGcAIEQg7OovQoHiMtLp6qNDkK2nD9PVyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789597934; c=relaxed/simple;
-	bh=sbVzSJLW3oX5KtM7Go0Cq+/WWnngD20gRbN+GP16BZY=;
+	bh=bjJU9Z44PVUCvG8pMcP/6V4IFB0tGC6BdvqUumYtqw4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G5GQFNLD9I3bHluSRb/NcxzLWtXexNpIqD7LbONGlSyJoVSiLHJNy//iu80ZLRzLz5GsTiPocELjnGEqfN21EWoI8rW1XOEH94DH/+Ux11LrgvCFKECS8Ya86qN8ztrOF3dULbmMeZ2HssbwFFnaxGUuJ2rWw+Mo6kRGAmcN3/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mNFbeDCn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=lXRIbAb0NCYzlJJ5U/UtdljZ5LaiPNYrQreMjlSqfC9S1FRqWWs1EWhf0/dzXfds6esGiEiC/Bkpo2IIvVh/ETR2fu5zgd6MKX8l7A142NlkI2Jo80CqCLu7zDSJY3pSvevB5UGBBoSk/dfYls1mg+DQa0qoWlkd8t44GzG2ujs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WovI67HE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mNFbeDCn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A14211F0089C;
-	Wed, 16 Sep 2026 22:32:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WovI67HE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E28D1F00898;
+	Wed, 16 Sep 2026 22:32:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789597927;
-	bh=Ae/A1vxdV1gmMxQqD2Q1btqKzFyjmSlJCGakMquo+xo=;
+	s=k20260515; t=1789597926;
+	bh=HNIzeR8GVk5pXPZw5/ct6bVdaLu6p1p4DPsLEAsyheU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mNFbeDCnj2j3EZyaftPmpXQHfuFUtX2lKOlq1tlUW6Ze1DGEeWJvchCD0uW6K378K
-	 jg4Yr4TYvKhYVxfJyGvo3RZLYLpqVvo1InCCIsXU0fZY3tJ1z7bmRLAQzh2o7UgrJd
-	 VaZ9vycLHuw/MFRBncBaCTHPTiOWwVxBJmkm84/2Xy48N91EvTgY/5Qfk7hRQ4TgYm
-	 WFFDl1FM5/BmFSh0aN7IMI0gaipgyTL+IG+M4+zBzcxZA8KrDTZkPKYdkx1YlptWQv
-	 rK5Mje9rdjNA/8MOTPN1hzp/u33/E/j1auG3Ls9wRAVdGwvB4F4LbtkUYbN3tkfkfh
-	 kEMI1gqsw/lGA==
+	b=WovI67HEHgRdOuHiDSrtjfnN51hG+7vdxYMhYqvup1FCDjCDmiJIPcMx9FXO5KIyr
+	 My8M6sGBpZvi5iXFa7SKB5v6G0pF4+S92fHBrLbwz8MsDeubCDZT/r4PEzDjkMYkeS
+	 z8d+9OrkZZzZ+Du6kCCh+uQhHCkIy0814zUfgxP8R7Ov4eHa2WCm/HQ//1vwu6MMv1
+	 UupHLt7GMBBs701ESbxJQxIFQlf79iwPjE9x0RXN1PPUwrxwj1fyQoVwxDamlWD8mM
+	 dP/nFucWgUKNNmP1kGsszAFFg1TKy8sP22vcqnxbeJHkzqmYw6n4qEQOITieZRfF0s
+	 5BnHu295UM9ew==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Qiang Yu <qiang.yu@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: Fix CLK_GLYMUR_GPUCC default and CLK_GLYMUR_EVACC duplicate
-Date: Wed, 16 Sep 2026 17:31:55 -0500
-Message-ID: <178959783408.1336377.16132938816078163121.b4-ty@kernel.org>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v10 0/5] Add QMP PCIe Multi-PHY support
+Date: Wed, 16 Sep 2026 17:31:54 -0500
+Message-ID: <178959783406.1336377.10908661913613570380.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821045214.2623299-2-sivansh.gupta@oss.qualcomm.com>
-References: <20260821045214.2623299-2-sivansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20260825-glymur_linkmode_0826-v10-0-56ab597d77e4@oss.qualcomm.com>
+References: <20260825-glymur_linkmode_0826-v10-0-56ab597d77e4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,21 +54,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 21 Aug 2026 10:22:15 +0530, Sivansh Gupta wrote:
-> Commit 6b150572bb76 ("clk: qcom: Add defaults for desired arm64 drivers")
-> missed adding a defaults for CLK_GLYMUR_GPUCC and created a duplicated
-> for CLK_GLYMUR_EVACC instead. The original patch series did't have this
-> problem and was introduced during the merge. Fix this by removing the
-> duplicate and adding a default for CLK_GLYMUR_GPUCC.
+On Tue, 25 Aug 2026 19:59:19 -0700, Qiang Yu wrote:
+> Some QMP PCIe PHY hardware blocks can be configured through a link-mode
+> register into different link topologies, such as a single wide link, or
+> multiple independent narrower links (e.g. x8 or x4+x4 mode on the Glymur
+> PCIe3 PHY).
 > 
-> Fixes: 6b150572bb76 ("clk: qcom: Add defaults for desired arm64 drivers")
+> Earlier revisions tried to extend the existing single-instance
+> phy-qcom-qmp-pcie.c driver to cover this hardware. That added a large
+> amount of conditional, multi-PHY logic to a driver whose data model
+> assumes one PHY per node.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] clk: qcom: Fix CLK_GLYMUR_GPUCC default and CLK_GLYMUR_EVACC duplicate
-      commit: 364709a9d450ae3814726768aec6611e5f003467
+[5/5] arm64: defconfig: Enable QMP PCIe Multi-PHY driver
+      commit: 6708289cc13812cebedcc396a42f62d3f92b2dbd
 
 Best regards,
 -- 
