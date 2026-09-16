@@ -1,276 +1,181 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67F03AAF74;
-	Wed, 16 Sep 2026 01:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789522252; cv=none; b=CptlbR4Wk1uHamxioh4/nTL54vNGjY9ZZAn1v9vWJkMY0hPoWDQ50Hb4zEr/Euy90d4jhjRnPVQxPf6Guq8TzJQWTa/V/u0Lb5EVvL0WEqx3iL2RYoMT+ksqEuapjufdtSBxfiLi5RjTNYCYdFYhxv6ITKdwjS6itw5uLDEr/3I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789522252; c=relaxed/simple;
-	bh=T40kEutOn8ITViARUJiEcJEfzEa0SOgxcP+gjzasNto=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=YL35MYsOhtWNAsUBj1i2NpXGHhGR6qyY5ZFOkMxaIkoOk9lCJfnTy1LVGEKGX0mX6CqKT+XWRF3Bz0sv2TyxCqntIZysfLpRBG8TLhNxwYo8rFK2JkFBHStbBMaV45bStxPVBhN1acce9J/GjQO2cAOr1fMNP6Ybk+Yq4kWcmgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hl1Y41D1zzKHMQm;
-	Wed, 16 Sep 2026 09:30:32 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id C7A694056F;
-	Wed, 16 Sep 2026 09:30:45 +0800 (CST)
-Received: from huawei.com (unknown [10.67.174.45])
-	by APP1 (Coremail) with UTF8SMTPA id cCh0CgBHwPo_8alqshDTAQ--.7335S3;
-	Wed, 16 Sep 2026 09:30:45 +0800 (CST)
-From: Tengda Wu <wutengda@huaweicloud.com>
-To: Namhyung Kim <namhyung@kernel.org>,
-	james.clark@linaro.org,
-	xueshuai@linux.alibaba.com,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	leo.yan@linux.dev,
-	Li Huafei <lihuafei1@huawei.com>,
-	Kim Phillips <kim.phillips@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Bill Wendling <morbo@google.com>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Zecheng Li <zli94@ncsu.edu>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v6 25/26] perf annotate-arm64: Support per-cpu variable access tracking
-Date: Wed, 16 Sep 2026 01:30:17 +0000
-Message-Id: <735c23b4a55db2c67be4920792922550ff4f6409.1789521520.git.wutengda@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1789521520.git.wutengda@huaweicloud.com>
-References: <cover.1789521520.git.wutengda@huaweicloud.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9082C3AFCEE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:33:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789522412; cv=pass; b=n69Y+0Uo6ZkiPtYJwglXWQC/f+xFQJ5n1CQEaT2pNvFymt2sNYzM+Z41hZ2rKWYaQLXjW7ZqzdZ1PDTIw1UmGdvUTfxSf5oPPX/iM6QVzf/3cxCGwzxQ0ulvnskhdILvhB1yZRTvfnwgLZnDsuV4GvCcR93D5KYPymT6GLPmDyw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789522412; c=relaxed/simple;
+	bh=5Ztf0qMjYRT3YmteIgUtTBDw9tTq4t89/7WSQzzqUiU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rNey++mut10Hp3JIabV0lCVpvUR1cBjQpJDwx4nOC8jV4GevmHds4TgU4HBTV+pzQ3NI3v6xx+z8NAOvHfXURYx1AnWYQPII+YF7KriW3c1/sNsVkP9D/HFOIGIuBh3thFx87bh8pjDIN5Y/xJvr8cYFkJtVWepVGp1MeNurqEg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y+DbufsI; arc=pass smtp.client-ip=74.125.231.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y+DbufsI"
+Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-7f4f0d37f9dso168345a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 18:33:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789522396; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L3SHtbe4kVxKrZ9dUJoM7lH7wbacvoNKoZC69EDCQNVdQqXBMcO+vrYeU0d2IwBewW
+         a09vk899UQv5MsMjolGa3ecnNBEDTWFQ3Px20NWG5jMWIXHv8JxM0DwICRQ/sy6jKdS9
+         BDiBULfKIuEymn7Oi5IIIfISgegpY/udxgJ66KgKcDfogW6WUAyXc9I3vXgabH+3GRtG
+         U3gUNIl++iq1aIG/1VWpBtyW03PYNdDrUgWcXSPj3PNVFZ/VpaC1j+l+nw1tQhjYJqnW
+         qDPoBCcJ8FjkErGrxodKuDc6Z5wOcbYgvwCv9r0WSTsN8D4+p3Rn8c6iLTNn6lgnmL8c
+         ov/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NzYXWSSJlKGV+Gc5Rdc9JQPvWSUHP7lfXEi/F4mrLtw=;
+        fh=uZ0Hc2VbTDxYDfVWwYteS1P9DJ4Y5Tsuf7feblYyK8U=;
+        b=WAng8jbJmEP9GJ4wpGBiIHXibIjb+zcbXeqyEaFo4oEphwJL+CTA8ZkcggFxG6XEFy
+         zucYpzkFnqfCMoYOsme7ezR0cCsRYL2IxhCy+qtfLhRx5lUCtIvMriZQw8fec5R4jbBh
+         fheOHBcz4IFSf/eGGr8hUgzTaCxw8Az8POc7S25k5EhghC4g7jtsBUSe45/6b9jk13Sn
+         KsTfRbQR269/N25snjClB+FbIXLIxpeqb7Oxp2z7Cga39zhmWDGLQJ8hKFqPguix9pTI
+         Lcyc1ZGHSZSLiHEBTVUsLNb/ZDMVa+qBzsY4WDxMvF71AycK7olux0PjQ8497eAVbI0Z
+         KtXQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789522396; x=1790127196; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NzYXWSSJlKGV+Gc5Rdc9JQPvWSUHP7lfXEi/F4mrLtw=;
+        b=Y+DbufsI0ZZDqoM1aJiTrFXb65c2kNdiUwVT7icOKG4BwvmySAwLloArTnM6JPF6dc
+         HWS8vRDjgXQklkZ36KLtQmHFFivqSYx9oqOHI7XsqxYnM7nnrBSXC33N6pTLDHU5bZNq
+         fty/KR8BFHi7e+n2B5T54wwqjUK4Gz0YfKOGd92lAXAx8AmkiJcTsbKXQHCaK9LWXIDN
+         HudqiRP/LHPStx/74lWsp3Wkl/Z0x7XUGtg9uq5usyE+omNhEYEySBiNsGC7Y5fGRwVu
+         zv7OqrdvC9eQ33QyvN/yGDz4+Jez0QUnIctIGnp48iMykveUxp781mH4rGHepuloWsHU
+         tcGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789522396; x=1790127196;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NzYXWSSJlKGV+Gc5Rdc9JQPvWSUHP7lfXEi/F4mrLtw=;
+        b=jSnHU71tGdr8Nu7X7Tcp8KauFOg6uMC4yNeAKQCo/VWctxLddabVPH0sKg9kj2SzKU
+         L+G4cQ4QDWc8zGbw6y7DY7zB9EDgaX2mmA8K1/+ZZL+m4SOn2zH/kwX79BpmIpKq/2Sb
+         jmmD6zeIKGObKr/4gqhejp+Hyx5tH0m/lmZ42xWRb2ryxui7ZB3eGfpKwIJUBlgURGTI
+         jnKZSpYasyO2EDJLhK+npXaT/EKK+DZLLVz7D0+mK03OPN5ctwyzOvp9ln+r2KPumY7a
+         qtAkoKfv8QfmGbGZ6ulLIucjNVJX9s36sHcl/nquL9cESGL2S2E072Hrxx1dqoWktjrw
+         zgDQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLHErzJ/H2gOXgfY3vAh/uwW9Q0F5iSR4C6uKVS47WtOKE2Ib4hpfpNsi4NT2CLZEKXzaSEdv9Rpanwz0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMb5l7hUkDKCLDcnxlA8iws4zzWUeIi7MlQ++0T0JLdo+ICedO
+	bRs8UiYnR7nDCK0/3sBTSiYNLtW7GcgPfUpipf3JHr23iE5Z2x5A8LpDAjVK2vcaVWngGzrXfBz
+	upUlNMhWu4bfp9Whrd2uj22QEcKCGfPI=
+X-Gm-Gg: AYBFou1wPWeCGCqIr8G8NT3L9tWy3DVvqKizTYopBLqb5cqTOLWE0Luh6cLZT/QV3Fe
+	4mBZjq9qMwFvO8INOG6PPJ2ajvo++duAXbffzCEzHaOJtoEF5A9LJAm4FKAo8BIjNZA9iPY7NwP
+	+c3R/hYWPPxa/R5AoW1S3tHDy60cHnex71cc96D0kWS682IPhwa19DcT6tmKAoYfhldZ+VchZnq
+	HK8IMPwgf711w4BQb40Q9UySaqvI8aT9LaaF++EulyUHNEgCIKfeKGURd/snEFxT9xt4gRKMqFD
+	oGKFFSVjG1vSCV930ahW4ur61gtcRlPqMlNUQmQa6d28urPPn4r6GQs8fQ==
+X-Received: by 2002:a05:6820:81d8:b0:6aa:e573:9ce0 with SMTP id
+ 006d021491bc7-6c7d16ce206mr1034905eaf.16.1789522395927; Tue, 15 Sep 2026
+ 18:33:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgBHwPo_8alqshDTAQ--.7335S3
-X-Coremail-Antispam: 1UD129KBjvJXoW3Xr15KrWDAF15Cr4ftw4UCFg_yoWxAr1xp3
-	95Kry5W34vqrsrWws3tFW5XryF9a93Jas2k34Y9w1a9r1xKr1UG397KrW5tF4UGFnay3W7
-	tr9xtrZrXrnFkaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQa14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdM2
-	8EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
-	e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
-	8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
-	jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
-	kIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc7CjxVAKzI0EY4vE52x082I5MxAIw28IcxkI7VAK
-	I48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
-	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xII
-	jxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJr0_GcWlIxAIcVCF04
-	k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7Cj
-	xVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x0pROJ5rUUUUU=
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+References: <20260914013033.3938-1-ki.chiang65@gmail.com> <20260914130907.749cd8e7.michal.pecio@gmail.com>
+In-Reply-To: <20260914130907.749cd8e7.michal.pecio@gmail.com>
+From: Kuangyi Chiang <ki.chiang65@gmail.com>
+Date: Wed, 16 Sep 2026 09:33:05 +0800
+X-Gm-Features: AcwNN1VLAxgU8jUn2SKIvvg4jEKPXKphx-A7W_IX-q6bjSUvDc3ySm2Ohv-nfKk
+Message-ID: <CAHN5xi0NSJO=V0=eVd4_MGp2Lg5NrwB3D+hsF87ehTSmaeeSbQ@mail.gmail.com>
+Subject: Re: [PATCH] xhci: Fix HIK camera control timeout on Etron hosts
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Extend update_insn_state_arm64() to handle per-cpu variable addressing.
+Hi,
 
-On arm64, per-cpu variables are accessed by adding a per-cpu offset
-(typically from the '__per_cpu_offset' array) to the address of a global
-variable or a structure field with '__percpu' modifier (e.g.,
-'s32 __percpu *counters' in struct percpu_counter). This results in
-instruction patterns like:
+Thanks for the review.
 
-  ldr   x0, [x6, x5]   // Pattern A: direct load per-cpu instance
-  add   x0, x6, x5     // Pattern B: compute per-cpu address
+Michal Pecio <michal.pecio@gmail.com> =E6=96=BC 2026=E5=B9=B49=E6=9C=8814=
+=E6=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=887:09=E5=AF=AB=E9=81=93=EF=BC=
+=9A
+>
+> On Mon, 14 Sep 2026 09:30:33 +0800, Kuangyi Chiang wrote:
+> > Control transfers to the HIK 1080P Camera (2bdf:0280) can time out when
+> > the device is connected through an Etron xHCI host:
+> >
+> > [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0=
+280)
+> > [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 2=
+6).
+> > [   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110=
+ (exp. 26).
+> > [   58.592967] uvcvideo: Failed to initialize the device (-5).
+> >
+> > Testing shows that at least 125 us between control transfers is require=
+d
+> > to avoid the timeout. Limit the workaround to the affected Etron host a=
+nd
+> > USB device combination to avoid changing control-transfer timing for ot=
+her
+> > devices.
+>
+> Any idea why it happens or why the delay helps?
 
-where x6 holds the per-cpu offset retrieved from:
+We don't know the root cause yet, but we did some more testing.
 
-  adrp  x4, <page>
-  add   x4, x4, #offset          // x4 = &__per_cpu_offset
-  ldr   x6, [x4, w0, sxtw #3]    // x6 = __per_cpu_offset[cpu]
+We tested delays of 50us, 125us, and 200us. The issue was still
+reproducible with 50us, while 125us and 200us passed our test.
 
-and x5 is one of the following:
+Our pass criterion is 30 successful plug/unplug cycles on each port.
+So 125us is the minimum delay we tested that consistently works.
 
-  case 1: global variable
-    adrp  x5, <page>
-    add   x5, x5, #offset        // x5 = &global_var
+We also tried USB_QUIRK_DELAY_CTRL_MSG, but its 200ms delay is too
+long and causes UVC initialization to fail.
 
-  case 2: '__percpu' field embedded in a structure
-    ldr   x5, [x25, #32]         // x5 = &percpu_field
+> How many other HCs did you test this camera with?
 
-To handle such cases:
+The camera works with the EHCI host we tested without any delay.
+We can also reproduce a similar issue with an ASMedia ASM1142 xHCI
+host (1b21:1242). This patch, however, is limited to the Etron/HIK
+combination.
 
-1. Identify per-cpu base initialization: Detect 'adrp + ldr' pairs that
-   resolve to the '__per_cpu_offset' symbol and mark the destination
-   register as TSR_KIND_PERCPU_BASE.
-2. Propagate type information: During subsequent 'ldr' or 'add'
-   instructions, if one register is TSR_KIND_PERCPU_BASE, attempt to
-   resolve the type from the other register.
+> Does it help to reconnect and try again?
 
-A real-world example is shown below:
+No. The issue is still reproducible after reconnecting the camera.
 
-  ffff8000808f2d28 <cppc_set_perf>:
-  ffff8000808f2d38:  adrp  x2, ffff800082033000
-  ffff8000808f2d3c:  add   x5, x2, #0x3f8         // x5 = &__per_cpu_offset
-  ffff8000808f2d44:  adrp  x2, ffff800081f73000
-  ffff8000808f2d48:  add   x2, x2, #0x6b8         // x2 = &cpu_pcc_subspace_idx
-  ffff8000808f2d6c:  ldr   x5, [x5, w0, sxtw #3]  // x5 = __per_cpu_offset[cpu]
-* ffff8000808f2d80:  ldr   w23, [x5, x2]          // per_cpu_var(cpu_pcc_subspace_idx)
+>
+> FWIW, I tried a few USB 2.0 cameras with my Etron and they mostly work,
+> except one. It passes probe just fine, but fails on streaming attempt.
+> Adding 125us delay doesn't help, but 1000 works sometimes and 4000 even
+> more often.
+>
+> Probably a HW bug. Honestly, I never use Etron for anything serious.
+>
+> > Perform the delay before taking xhci->lock so the existing state
+> > validation and TD queueing remain in the same critical section. Use
+> > udelay() because urb_enqueue() may be called from atomic context and
+> > cannot use a sleeping delay.
+>
+> Actually, you would need to do that under lock if you want to ensure
+> that multiple callers can't submit URBs closely together. But that's
+> dodgy and we don't even know what exactly triggers it or whether this
+> solution really is the best one.
 
-Before this commit, the tracker could not link x5 back to a per-cpu
-context, resulting in an incorrect data type resolution:
+Agreed. For the UVC control transfers involved here, the next transfer
+is submitted only after the previous one completes, so they are
+serialized.
 
-  adrp [10] global addr=0xffff800082033000 -> reg2
-  add [14] global 0x3f8(reg2) -> reg5
-  adrp [1c] global addr=0xffff800081f73000 -> reg2
-  add [20] global 0x6b8(reg2) -> reg2
-  ldr [44] global (reg5, reg0) -> reg5 type='long unsigned int[]' size=0x1000
-  chk [58] reg5 offset=0 ok=1 kind=1 (long unsigned int[]) : Good!
-  found by insn track: 0(reg5, reg2) type-offset=0
-  final result:  type='long unsigned int' size=0x8
+The delay before xhci->lock does not prevent other callers from
+submitting control URBs close together. However, this workaround is
+limited to control transfers for the affected Etron/HIK combination.
 
-After this commit, the tracker correctly identifies the per-cpu flow and
-resolves the actual variable type:
+Regards,
+Kuangyi
 
-  ldr [44] global (reg5, reg0) -> reg5 percpu base
-  chk [58] reg5 offset=0 ok=1 kind=2 percpu var : retry
-  chk [58] reg2 offset=0 ok=1 kind=7 global addr : Good!
-  found by insn track: 0(reg5, reg2) type-offset=0
-  final result:  type='int' size=0x4
-
-Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
----
- .../perf/util/annotate-arch/annotate-arm64.c  | 47 ++++++++++++++++++-
- tools/perf/util/annotate-data.c               | 22 ++++++++-
- 2 files changed, 67 insertions(+), 2 deletions(-)
-
-diff --git a/tools/perf/util/annotate-arch/annotate-arm64.c b/tools/perf/util/annotate-arch/annotate-arm64.c
-index b25a3c70675c..f4b7b0eb44f4 100644
---- a/tools/perf/util/annotate-arch/annotate-arm64.c
-+++ b/tools/perf/util/annotate-arch/annotate-arm64.c
-@@ -12,6 +12,7 @@
- #include "../disasm.h"
- #include "../annotate-data.h"
- #include "../debug.h"
-+#include "../dso.h"
- #include "../map.h"
- #include "../symbol.h"
- 
-@@ -643,13 +644,23 @@ static int propagate_load_reg_state(struct type_state *state,
- 		u64 ip = dloc->ms->sym->start + dl->al.offset;
- 		u64 addr = src_tsr->imm_value + reg_offset;
- 		int offset;
-+		u8 kind;
-+		const char *var_name = NULL;
-+
-+		/* it might be per-cpu offset */
-+		if (dso__kernel(map__dso(dloc->ms->map)) &&
-+		    get_global_var_info(dloc, addr, &var_name, &offset) &&
-+		    !strcmp(var_name, "__per_cpu_offset"))
-+			kind = TSR_KIND_PERCPU_BASE;
-+		else
-+			kind = TSR_KIND_TYPE;
- 
- 		if (!get_global_var_type(cu_die, dloc, ip, addr, &offset, &type_die) ||
- 		    !die_get_member_type(&type_die, offset, &type_die))
- 			return -1;
- 
- 		tsr->type = type_die;
--		tsr->kind = TSR_KIND_TYPE;
-+		tsr->kind = kind;
- 		tsr->offset = 0;
- 		tsr->imm_value = 0;
- 		tsr->ok = true;
-@@ -666,6 +677,12 @@ static int propagate_load_reg_state(struct type_state *state,
- 	}
- 
- load_non_regoff:
-+	/*
-+	 * If src_tsr->kind is TSR_KIND_PERCPU_BASE, treat it as an array.
-+	 * No special handling is needed here; just fall through to retry
-+	 * and resolve the type from the second register.
-+	 */
-+
- 	/* Try another register if any */
- 	if (src->multi_regs && src->reg1 != src->reg2 && sreg != src->reg2 &&
- 	    !(src->extend_type || src->shift_type)) {
-@@ -967,6 +984,34 @@ static void update_add_insn_state(struct type_state *state,
- 	}
- 
- add_non_regoff:
-+	if (src_tsr.kind == TSR_KIND_PERCPU_BASE) {
-+		int reg2;
-+
-+		if (!src->multi_regs) {
-+			invalidate_reg_state(tsr);
-+			return;
-+		}
-+
-+		reg2 = (sreg == src->reg1) ? src->reg2 : src->reg1;
-+
-+		if (!has_reg_type(state, reg2) || !state->regs[reg2].ok) {
-+			invalidate_reg_state(tsr);
-+			return;
-+		}
-+
-+		/* Treat percpu as array: inherit type from reg2 */
-+		tsr->type = state->regs[reg2].type;
-+		tsr->kind = state->regs[reg2].kind;
-+		tsr->offset = state->regs[reg2].offset;
-+		tsr->imm_value = state->regs[reg2].imm_value;
-+		tsr->ok = state->regs[reg2].ok;
-+
-+		pr_debug_dtp("add [%x] percpu (reg%d, reg%d) -> reg%d",
-+			     insn_offset, src->reg1, src->reg2, dreg);
-+		pr_debug_type_name(&tsr->type, tsr->kind);
-+		return;
-+	}
-+
- 	/* Try another register if any */
- 	if (src->multi_regs && src->reg1 != src->reg2 && sreg != src->reg2 &&
- 	    !(src->extend_type || src->shift_type)) {
-diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-index 592ad8b1bc96..a2434b978ec7 100644
---- a/tools/perf/util/annotate-data.c
-+++ b/tools/perf/util/annotate-data.c
-@@ -1342,11 +1342,31 @@ static enum type_match_result check_matching_type(struct type_state *state,
- 	}
- 
- 	if (state->regs[reg].kind == TSR_KIND_PERCPU_BASE) {
--		u64 var_addr = (s64) offset;
-+		u64 var_addr;
- 		int var_offset;
- 
- 		pr_debug_dtp("percpu var");
- 
-+		if (arch__is_arm64(dloc->arch)) {
-+			int reg2;
-+
-+			if (!retry || !dloc->op->multi_regs ||
-+			    dloc->op->reg1 == dloc->op->reg2 ||
-+			    dloc->op->extend_type || dloc->op->shift_type)
-+				return PERF_TMR_BAIL_OUT;
-+
-+			reg2 = dloc->op->reg2;
-+			if (!has_reg_type(state, reg2) || !state->regs[reg2].ok)
-+				return PERF_TMR_NO_TYPE;
-+
-+			pr_debug_dtp(" : retry\n");
-+			retry = false;
-+			reg = reg2;
-+			goto again;
-+		}
-+
-+		var_addr = (s64) offset;
-+
- 		if (dloc->op->multi_regs) {
- 			int reg2 = dloc->op->reg2;
- 
--- 
-2.34.1
-
+>
+> Regards,
+> Michal
