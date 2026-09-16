@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4B6A59C984;
-	Wed, 16 Sep 2026 16:29:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4AB75A9869;
+	Wed, 16 Sep 2026 16:29:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576180; cv=none; b=G3gctJCtL9XwK2llNup7krjNomEHXhesvYfWQdingMNxa/LEq4SNZJ3Ph5JrsfLBnlTwDlelbTrJKlvgWY5v0uv41iPwJzpKvNtGpJT2ItAR60AUMHrKaM11nVg6BkZK9rmU0E8a1UKv2mvmLQHJzd4N1z/6HiwetVimKAJxQ2E=
+	t=1789576187; cv=none; b=A8OqNUsacSBtc4cXlvJCuMURnauBH4ggOUtI1vQPic/VCDL5VPEVi2DvfcRJ8w9iAQ5rzDW+C/WuISe91JnUpDiG8TA/OSLbiiVGxIKvcg3GhjpHCQ1IN7URUnj5ByqW+EAR8bR2UZavb1cBzWL68e/zrLy5BZ7z1qdEaNQ66Ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576180; c=relaxed/simple;
-	bh=wsZACRQhALR2CLD79GiRJTrOcLt5s/qZqfKdPCz2IME=;
+	s=arc-20240116; t=1789576187; c=relaxed/simple;
+	bh=wXKQoHwSGPiZJlMjn/ELdHKMrUAbjo2VwzzGOf424RU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nvtHJc7kQHjqIt3pJdxj8Xf0wh+kCE5HoGehUVKoe6QokBBV5OJJvRlmI0qxCdg7oZvAXIhe/Gb4VCI3LCDPv+s5evrRbMLh0K9pOMfVkpkcsrJNavnokK91TCuHayDLWnlDKmiulFUQCFBK9/oKkKwvdpHpuP5XiNgaepsnOf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pTTzl5Q0; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=N22qTnDcPUUyVQLdVttcOTf89YIVYf0KBpOrEGJyarrAmigD7SUq93xQB7hTCGoyCrLPiSWeHk5qLL2CcZjRjhTtq4/ePpujUKrwsaI29jOGmU8BycnIBviLqcBDERmlQRHKkzC+0LsOBPwonHpnUT7mS4EBfwkiOVM8UO9ND0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lvuh7cHe; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pTTzl5Q0"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lvuh7cHe"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8D1871516;
-	Wed, 16 Sep 2026 09:29:32 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 752F0176A;
+	Wed, 16 Sep 2026 09:29:38 -0700 (PDT)
 Received: from e127648.carmbridge.arm.com (unknown [10.0.129.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id DF3EA3F7B4;
-	Wed, 16 Sep 2026 09:29:33 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 819803F7B4;
+	Wed, 16 Sep 2026 09:29:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789576176; bh=wsZACRQhALR2CLD79GiRJTrOcLt5s/qZqfKdPCz2IME=;
+	t=1789576182; bh=wXKQoHwSGPiZJlMjn/ELdHKMrUAbjo2VwzzGOf424RU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pTTzl5Q0OQexQcY8KLvBVJKv//M0+TeoxzWqJDerG5Loeu8pQBTt89p5jLnPjgTwF
-	 AcDX7JN52EgFIQA4xSIlgbg9yhODRFKuN6DCYjyVqoWvtdKAgTBTNR4vMXhpJmbmf1
-	 IQkqInWpeV5xhrMR7s6IQbPL/JrmOopv0JG2y6zU=
+	b=lvuh7cHeao6i1+dVt4gyVhS/W6KfGIHZKqgr2f0WNAaNua4LGVdUXJIoHNsK3E59l
+	 5XzhFuMlVQ1k4svCx1LloyK8k7ptretjGTInRZSbEu0RG3YHAIrM38yUc2BPNx8WmA
+	 c3Tfkz7dNQnfi+AYy+kZ2nyr+YZ3XxVhQ2NzPtuE=
 From: Christian Loehle <christian.loehle@arm.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
 	Viresh Kumar <viresh.kumar@linaro.org>
@@ -40,10 +40,11 @@ Cc: linux-pm@vger.kernel.org,
 	Sudeep Holla <sudeep.holla@arm.com>,
 	Ionela Voinescu <ionela.voinescu@arm.com>,
 	zhongqiu.han@oss.qualcomm.com,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH v7 15/20] ACPI: CPPC: Keep Performance Limited clearable on NVIDIA T41
-Date: Wed, 16 Sep 2026 17:28:00 +0100
-Message-Id: <20260916162805.1039247-16-christian.loehle@arm.com>
+	Christian Loehle <christian.loehle@arm.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v7 17/20] ACPI: CPPC: Propagate errors from cross-CPU FFH calls
+Date: Wed, 16 Sep 2026 17:28:02 +0100
+Message-Id: <20260916162805.1039247-18-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260916162805.1039247-1-christian.loehle@arm.com>
 References: <20260916162805.1039247-1-christian.loehle@arm.com>
@@ -55,191 +56,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sumit Gupta <sumitg@nvidia.com>
+The arm64 and RISC-V CPPC FFH accessors ignore the return value of
+smp_call_function_single(). If the target CPU is offline, the call can
+return -ENXIO without running the callback. The accessors then consume
+callback output which was never initialized and may report success.
 
-NVIDIA T41 firmware describes Performance Limited as a two-bit field at
-offset zero in a DWord SystemMemory access unit. Generic CPPC code must
-keep such a field read-only because preserving the remainder when clearing
-it requires a read-modify-write which cannot be interlocked with platform
-updates.
+CPU offlining leaves the CPU's CPPC sysfs attributes present. On arm64,
+the AMU feature mask does not exclude an offline CPU, so a paired counter
+read can expose uninitialized stack values through feedback_ctrs. RISC-V
+has the same problem in both SBI and CSR reads, and its write paths also
+inspect an uninitialized callback status after a failed cross-CPU call.
 
-The remaining bits of this access unit are unimplemented on T41: they read
-as zero, writes have no side effects, and no other register uses them. The
-Performance Limited register therefore owns the complete access unit, but
-shipped firmware does not describe that property accurately.
+Return the SMP call error before using callback output. The arm64 single
+and paired counter readers already check the helper's return value. For
+RISC-V, also check the callback status before copying a read value: an
+unsupported CSR sets the error but does not initialize the value.
 
-Add a CPPC platform-quirk table keyed by the DSDT header and carry quirk
-behavior through explicit flags. Cache a successful table lookup, copy each
-GAS into the driver's private descriptor, and apply fixups before layout
-validation, mapping and overlap registration.
-
-Distinguish a genuine non-match from a table-header lookup failure in
-acpi_match_platform_list(). Propagate lookup errors from CPPC probe without
-caching them, so a transient mapping failure cannot disable the workaround
-for every later processor. Existing matcher callers still treat all
-negative results as no match.
-
-For the known T41 layout only, widen a two-bit Performance Limited field at
-offset zero to its 32-bit access width. Clearing both status bits can then
-be issued as one DWord write of zero without a stale read. Corrected
-firmware which reports the full width is unchanged. The workaround
-therefore lapses automatically when corrected firmware ships.
-
-Link: https://lore.kernel.org/lkml/d5f1ea9b-53b7-4db2-983a-b5be8e71a371@arm.com/
-Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
-[ Rework quirk matching and fixup placement; propagate lookup failures
-  without caching them. ]
+Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
+Fixes: 30f3ffbee86b ("ACPI: RISC-V: Add CPPC driver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
- drivers/acpi/cppc_acpi.c | 72 ++++++++++++++++++++++++++++++++++++++++
- drivers/acpi/utils.c     | 13 ++++++--
- 2 files changed, 82 insertions(+), 3 deletions(-)
+ arch/arm64/kernel/topology.c |  2 +-
+ drivers/acpi/riscv/cppc.c    | 26 ++++++++++++++++++++------
+ 2 files changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 6d130381245e..0e218f2be0fe 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -330,6 +330,68 @@ static unsigned int cpc_reg_access_width(const struct cpc_reg *reg)
- 	return reg->bit_width;
- }
- 
-+enum cpc_platform_quirk {
-+	CPC_QUIRK_PERF_LIMITED_OWNS_UNIT = BIT(0),
-+};
-+
-+static const struct acpi_platform_list cpc_platform_quirk_list[] = {
-+	{
-+		.oem_id = "NVIDIA",
-+		.oem_table_id = "T41",
-+		.table = ACPI_SIG_DSDT,
-+		.pred = all_versions,
-+		.reason = "Performance Limited owns its access unit",
-+		.data = CPC_QUIRK_PERF_LIMITED_OWNS_UNIT,
-+	},
-+	{ }
-+};
-+
-+static DEFINE_MUTEX(cpc_platform_quirk_lock);
-+static bool cpc_platform_quirks_initialized;
-+static u32 cpc_platform_quirks;
-+
-+static int cpc_get_platform_quirks(u32 *quirks)
-+{
-+	int idx, ret = 0;
-+
-+	mutex_lock(&cpc_platform_quirk_lock);
-+	if (!cpc_platform_quirks_initialized) {
-+		idx = acpi_match_platform_list(cpc_platform_quirk_list);
-+		if (idx < 0 && idx != -ENODEV) {
-+			ret = idx;
-+			goto out;
-+		}
-+		if (idx >= 0)
-+			cpc_platform_quirks = cpc_platform_quirk_list[idx].data;
-+		cpc_platform_quirks_initialized = true;
-+	}
-+	*quirks = cpc_platform_quirks;
-+out:
-+	mutex_unlock(&cpc_platform_quirk_lock);
-+
-+	return ret;
-+}
-+
-+static void cpc_apply_platform_quirks(struct cpc_reg *reg,
-+				      unsigned int reg_idx, u32 quirks)
-+{
-+	unsigned int access_width;
-+
-+	if (!(quirks & CPC_QUIRK_PERF_LIMITED_OWNS_UNIT) ||
-+	    reg_idx != PERF_LIMITED ||
-+	    reg->space_id != ACPI_ADR_SPACE_SYSTEM_MEMORY ||
-+	    reg->bit_width != 2 || reg->bit_offset)
-+		return;
-+
-+	access_width = cpc_reg_access_width(reg);
-+	if (access_width != 32)
-+		return;
-+
-+	reg->bit_width = access_width;
-+	pr_info_once("firmware quirk: Performance Limited owns its access unit, using Bit Width %u\n",
-+		     access_width);
-+}
-+
- static u64 cpc_sysmem_access_size(const struct cpc_register_resource *reg)
- {
- 	unsigned int width = cpc_reg_access_width(&reg->cpc_entry.reg);
-@@ -1857,6 +1919,7 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	acpi_handle handle = pr->handle;
- 	unsigned int num_ent, i, cpc_rev;
- 	u32 unsupported_regs = 0;
-+	u32 platform_quirks;
- 	int pcc_subspace_id = -1;
- 	bool pcc_data_ref = false;
- 	bool cpc_present = false;
-@@ -1866,6 +1929,12 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 
- 	if (per_cpu(cpc_desc_ptr, pr->id))
- 		return 0;
-+	ret = cpc_get_platform_quirks(&platform_quirks);
-+	if (ret) {
-+		pr_err("CPU%d: failed to match CPPC platform quirks: %d\n",
-+		       pr->id, ret);
-+		return ret;
-+	}
- 	per_cpu(cpu_pcc_subspace_idx, pr->id) = -1;
- 
- 	if (!osc_sb_cppc2_support_acked) {
-@@ -2002,6 +2071,9 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 			cpc_ptr->cpc_regs[i - 2].type = ACPI_TYPE_BUFFER;
- 			memcpy(&cpc_ptr->cpc_regs[i - 2].cpc_entry.reg, gas_t,
- 			       sizeof(*gas_t));
-+			gas_t = &cpc_ptr->cpc_regs[i - 2].cpc_entry.reg;
-+			cpc_apply_platform_quirks(gas_t, i - 2,
-+						  platform_quirks);
- 
- 			/*
- 			 * The PCC Subspace index is encoded inside
-diff --git a/drivers/acpi/utils.c b/drivers/acpi/utils.c
-index d499b72574ab..7c584d490d6a 100644
---- a/drivers/acpi/utils.c
-+++ b/drivers/acpi/utils.c
-@@ -1069,19 +1069,26 @@ EXPORT_SYMBOL(acpi_dev_is_video_device);
-  * @plat: pointer to acpi_platform_list table terminated by a NULL entry
-  *
-  * Return the matched index if the system is found in the platform list.
-- * Otherwise, return a negative error code.
-+ * Return -ENODEV for no match, or another negative error code if a table
-+ * header could not be read and no entry matched.
-  */
- int acpi_match_platform_list(const struct acpi_platform_list *plat)
- {
- 	struct acpi_table_header hdr;
-+	acpi_status status;
-+	int ret = -ENODEV;
- 	int idx = 0;
- 
- 	if (acpi_disabled)
- 		return -ENODEV;
- 
- 	for (; plat->oem_id[0]; plat++, idx++) {
--		if (ACPI_FAILURE(acpi_get_table_header(plat->table, 0, &hdr)))
-+		status = acpi_get_table_header(plat->table, 0, &hdr);
-+		if (ACPI_FAILURE(status)) {
-+			if (status != AE_NOT_FOUND)
-+				ret = status == AE_NO_MEMORY ? -ENOMEM : -EIO;
- 			continue;
-+		}
- 
- 		if (strncmp(plat->oem_id, hdr.oem_id, ACPI_OEM_ID_SIZE))
- 			continue;
-@@ -1096,6 +1103,6 @@ int acpi_match_platform_list(const struct acpi_platform_list *plat)
- 			return idx;
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index 2c030e78d5e4..55bd8fa3e95c 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -427,7 +427,7 @@ int counters_read_on_cpu(int cpu, smp_call_func_t func, void *val)
+ 			return -EPERM;
+ 		func(val);
+ 	} else {
+-		smp_call_function_single(cpu, func, val, 1);
++		return smp_call_function_single(cpu, func, val, 1);
  	}
  
--	return -ENODEV;
-+	return ret;
- }
- EXPORT_SYMBOL(acpi_match_platform_list);
+ 	return 0;
+diff --git a/drivers/acpi/riscv/cppc.c b/drivers/acpi/riscv/cppc.c
+index 42c1a9052470..4ea4ddedd91f 100644
+--- a/drivers/acpi/riscv/cppc.c
++++ b/drivers/acpi/riscv/cppc.c
+@@ -97,6 +97,7 @@ bool cpc_ffh_supported(void)
+ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ {
+ 	struct sbi_cppc_data data;
++	int ret;
+ 
+ 	if (WARN_ON_ONCE(irqs_disabled()))
+ 		return -EPERM;
+@@ -107,19 +108,27 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ 
+ 		data.reg = FFH_CPPC_SBI_REG(reg->address);
+ 
+-		smp_call_function_single(cpu, sbi_cppc_read, &data, 1);
++		ret = smp_call_function_single(cpu, sbi_cppc_read, &data, 1);
++		if (ret)
++			return ret;
++		if (data.ret.error)
++			return sbi_err_map_linux_errno(data.ret.error);
+ 
+ 		*val = data.ret.value;
+ 
+-		return (data.ret.error) ? sbi_err_map_linux_errno(data.ret.error) : 0;
++		return 0;
+ 	} else if (FFH_CPPC_TYPE(reg->address) == FFH_CPPC_CSR) {
+ 		data.reg = FFH_CPPC_CSR_NUM(reg->address);
+ 
+-		smp_call_function_single(cpu, cppc_ffh_csr_read, &data, 1);
++		ret = smp_call_function_single(cpu, cppc_ffh_csr_read, &data, 1);
++		if (ret)
++			return ret;
++		if (data.ret.error)
++			return data.ret.error;
+ 
+ 		*val = data.ret.value;
+ 
+-		return data.ret.error;
++		return 0;
+ 	}
+ 
+ 	return -EINVAL;
+@@ -128,6 +137,7 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
+ {
+ 	struct sbi_cppc_data data;
++	int ret;
+ 
+ 	if (WARN_ON_ONCE(irqs_disabled()))
+ 		return -EPERM;
+@@ -139,14 +149,18 @@ int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
+ 		data.reg = FFH_CPPC_SBI_REG(reg->address);
+ 		data.val = val;
+ 
+-		smp_call_function_single(cpu, sbi_cppc_write, &data, 1);
++		ret = smp_call_function_single(cpu, sbi_cppc_write, &data, 1);
++		if (ret)
++			return ret;
+ 
+ 		return (data.ret.error) ? sbi_err_map_linux_errno(data.ret.error) : 0;
+ 	} else if (FFH_CPPC_TYPE(reg->address) == FFH_CPPC_CSR) {
+ 		data.reg = FFH_CPPC_CSR_NUM(reg->address);
+ 		data.val = val;
+ 
+-		smp_call_function_single(cpu, cppc_ffh_csr_write, &data, 1);
++		ret = smp_call_function_single(cpu, cppc_ffh_csr_write, &data, 1);
++		if (ret)
++			return ret;
+ 
+ 		return data.ret.error;
+ 	}
 -- 
 2.34.1
 
