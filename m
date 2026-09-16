@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967E637C930;
-	Wed, 16 Sep 2026 12:06:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE48377004;
+	Wed, 16 Sep 2026 12:06:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789560413; cv=none; b=Zh/8DgWWbQBlnyl5UoLJZ3EnKxY6Z7ivaomLj0AsNFyTH70rYnmpXw2hKDatjGCXbJnKYNiu+1AbixCWMC9NGzNzW5kyFw7tkk5a8ECiEBTYJIgqn+v4wofh/QAXsl+/JfsJsaE9fhUOepIUp6io57LnxlZvbR/lVStxi0WM0eI=
+	t=1789560423; cv=none; b=vEw60XbuEouIdjTHo5e0bWnawMxFkskhqgjKh97k5NIFTndLcU7xtITAKRNNgJRC1YxcxwvOU3nm7LHoxxs9wBekhw4pD+WdMDTD3N0uN8VHPuBZENl24ZEXkzIC7h0bSiP+qovlQy5wmyALMYmX6eXkj1lYnlBWoC+OKmEFVIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789560413; c=relaxed/simple;
-	bh=V9WmN3pS9RQt3VJdSTU3OsV+czBArpTcxUhzd5C60LA=;
+	s=arc-20240116; t=1789560423; c=relaxed/simple;
+	bh=qnsS/THUvbFpG2tkKYuenXLXKYmGCD48lEe9++9Wtl0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=QW+IBftviS8OwwQJeOjfOPwfaJKBJBToCT5h+OibrUzLscum4Z3pgO1tP++LtGjz3AWp/8JQHoo8Gq201iT+5aeDlZmYi8TC3SJvA8dg8MzDuvnIAoxLcwyayInpsZhXPPAmhV+RqzH4Dy8d7S2c4CIk3Ze/g2FYKMJ65RgzUKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AgdnOPoX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cuaBLAvZkuP+X/ewIr12gxeJtd8uzYkfzGmY6MYibPeS2dWdmdX9KmwOg1RKLkno8/HMelXx1hT/nf/nkh5qAhlLKczGR+ZIoqedZ4Wc5vQ/ipgvotexzC5aBdKquAGZEBF/b1gbg7jhoFcvA9EH2VE8CNJiVeDr7X5c9qdklOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=drlo5kv1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AgdnOPoX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1C61F0089A;
-	Wed, 16 Sep 2026 12:06:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="drlo5kv1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBEEC1F0089C;
+	Wed, 16 Sep 2026 12:06:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789560405;
-	bh=3BVXiVmYcM6ZXh0uAhydcd0lKmWtt4lNRNnh97r56I4=;
+	s=k20260515; t=1789560408;
+	bh=X8lcAJmUcXqnrC+UEGlYp5KMa/5pviL4RkBYBUO0Zvo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=AgdnOPoXxVubyQ8Uc4YeQcA9bm/Y741cELaSbSEqVbtSciP0vZlAHOUPXPWwS+wKm
-	 02Qm/vz4zTb2ugjjGZPyZt2qC83uuzScWEFod/jn5Le3TCN3Ry05TCOR0tvyUi6afe
-	 GEyXYZYBCIZlVXXdqVbrxcK5jMO/9UR+WAGm7dxIIX9tQ5g9ZgXLkedZVf5kudSDsU
-	 JUZDSILEOhUqH5x+LIDWmQ6PXLdBmHV1w8+UaCLAKDD2sJx6Rnp0MIGhBaft//ru1x
-	 q2EAmY5Ns8u1cI+pP+t57zj/lPTW6TbHcBXM1K6zJ6PYinEMJwVJpYnGVTiu9YxKSl
-	 3hNOUB7VXN/rA==
+	b=drlo5kv1ZXYL7l5ltHlLSzy7A+zj/eV8GL5fZhdk+tLr0G9roQpWINLnr3iMG5K5+
+	 n9ujM4CSxuuOyAxgJqp2RYAv7zXaeh5rCw10t+bnhHScjEqEZh8rLyRIloiOyKUY9/
+	 LsTJ7hLUfaB5kCkyHnOzylW4qY3ch4p4wJwYrORPkN+dDJ0HfPJmRoDGKEsu4gx6I6
+	 8eZAlJCOdr24baLxPZoT7URICGSeLWdrCRRKpSbf1AbMw/KTsMoKsMgf9httUG5gES
+	 bCiOvRWq6DUrQ1he2ckIA0+c5e+VMrPbhGnbqFwexmMRU13TbPQX9H0H3IDSZGuu2E
+	 j/5CjHELsN6iw==
 From: Carlos Maiolino <cem@kernel.org>
-To: Jiangshan Yi <yijiangshan@kylinos.cn>
-Cc: djwong@kernel.org, ljp1205831794@gmail.com, gaoyingjie@uniontech.com, 
- linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- 13667453960@163.com
-In-Reply-To: <20260914082111.195006-1-yijiangshan@kylinos.cn>
-References: <20260914082111.195006-1-yijiangshan@kylinos.cn>
-Subject: Re: [PATCH] xfs: remove duplicate INO1_WRITTEN check
-Message-Id: <178956040379.10466.12341783504062469919.b4-ty@kernel.org>
-Date: Wed, 16 Sep 2026 14:06:43 +0200
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: djwong@kernel.org, linux-xfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260911073007.22530-1-hemanth.selam@gmail.com>
+References: <20260911073007.22530-1-hemanth.selam@gmail.com>
+Subject: Re: [PATCH v3] xfs: fix typos and repeated words in comments
+Message-Id: <178956040745.10466.4414118980786144351.b4-ty@kernel.org>
+Date: Wed, 16 Sep 2026 14:06:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,20 +45,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
-On Mon, 14 Sep 2026 16:21:11 +0800, Jiangshan Yi wrote:
-> Commit a23eca88448e ("xfs: fix exchange-range reflink flag clearing
-> issue with INO1_WRITTEN") duplicated commit b2d5a81dae38 ("xfs: fix
-> exchange-range reflink flag clearing issue with INO1_WRITTEN"), so
-> xmi_can_exchange_reflink_flags() ended up with two identical
-> XFS_EXCHMAPS_INO1_WRITTEN checks.  The second one is dead code,
-> since the first one already returned false.  Remove it.
+On Fri, 11 Sep 2026 13:00:07 +0530, Hemanth Selam wrote:
+> Correct ten misspellings and eight accidentally doubled words in
+> comments.  No code changes.
+> 
+> The doubled word in xfs_zone_alloc.c was not a duplicate: "so that is is
+> reused" is "it is" misspelt, so that one reads "so that it is reused"
+> rather than dropping a word.
 > 
 > [...]
 
 Applied to for-next, thanks!
 
-[1/1] xfs: remove duplicate INO1_WRITTEN check
-      commit: ce2b91bebc7bc0495fe3ad5ee47e4977fbb77fc5
+[1/1] xfs: fix typos and repeated words in comments
+      commit: 2f3c2a6f963e57cf4f0f34cbf24ab11abb64d118
 
 Best regards,
 -- 
