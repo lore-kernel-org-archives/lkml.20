@@ -1,386 +1,167 @@
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9244F4F0557;
-	Wed, 16 Sep 2026 14:21:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2111D23BD1B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:22:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568483; cv=none; b=V2/vqnqCUBskmg19R6J5OXns6DbO9xnyMBLj1FYOBnw3n43jE+CWf5w+DnlLY2MyGRmp7lVdfGVNNZEwOKPdRjGqfQMnpJFMuIRq8YFj0iwY1H9l0D/6EqcRODZDzaLdDPh0fKY+Ybup+fe3PnOkkU7aaT7iwTj3aEWFjlJBZJo=
+	t=1789568536; cv=none; b=bYLLSnj4XRbB0xjnu+H1aYRt+tZfO33z6bVdVYrvrLv4OOySsJJJY5lGbc7aazMkbjvwEbya2lSvIVvSv2RlAZPCbA4telhbbXsk6/8giQqyWefOsE+XyYXfdph8dWUohkLSb0WomM6sx7usBkMXAhREtl/FnnVr+LoQj37BhuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568483; c=relaxed/simple;
-	bh=c1EiGq1tPPNgiSwecQ3o0q2poq2y5FMhzPdU/yDl6wM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=uvTZppv51K9sKvx0Ru82HRXx9V8sXYjZN71I5nmemrIyxDS3/XHaJToCpOZL5e+xUwqzh2OMM1hnP+LYzGuNPRaVRWRbAJUh9pRm9QSZnZm6Sra5+5SFr3d3CGROSEj1T1JlZGHOb1/KR7i24gsfKC3etU3IaBGCrymhTXQDfHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
-	id F216E1EABBD; Wed, 16 Sep 2026 22:21:12 +0800 (AWST)
-X-Spam-Level: 
-Received: from [IPV6:2001:8003:8802:7000::41b] (unknown [IPv6:2001:8003:8802:7000::41b])
-	by sphereful.davidgow.net (Postfix) with ESMTPSA id 169211EABAA;
-	Wed, 16 Sep 2026 22:21:04 +0800 (AWST)
-Message-ID: <236f1c15-9532-405a-818d-9bf52349f25a@davidgow.net>
-Date: Wed, 16 Sep 2026 22:21:00 +0800
+	s=arc-20240116; t=1789568536; c=relaxed/simple;
+	bh=tQm+SUjJhqlfSnnyRbTVMTyJzx51Yfv7VQK1ltt+dY8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=swPaz2bTWGTQHDr5a4zKO080XRMCZjZyfL5qBpY6KB61aF+l+N5nOA+eOVhwxXvNOWWSvJzK7Qh8F95aqCa7/SBm8aLz81hd5p9MEffpCCv6BC48+vZ1BvjLGy5+n9WJaq0ZJPoZLIfsR6RjTctv99lNvrqyzcm/qFAeHzcmmTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=V8miW70Q; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="V8miW70Q"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso5210945e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:22:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789568531; x=1790173331; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P0uZ4BnvDof5wiqfMQXLES5jMiUYascBq/gJHlhVBLY=;
+        b=V8miW70QddG/j8ICrGFb0+NrK3xjiZ+j7BL+GQD9R5la3SzC10H/rmq5S/ng9fInt/
+         aiB+wlVhZGoUKvIXgLoTqRhRfLsCM8XKwRHgcFEGbaUgw+hiunI1oL4z33SoF6KrLs/B
+         2tfzyDdYhR0GdbOcC4b3WRWEJtgkjP/4RMyZGDTezeeDMkbQBL6IlGzv0fV+mD/rO2r4
+         rbKS/O1vs5+Bses/nTUHzgzMrIUvO3Z4QidIIhhvm3EmQh4EHIXPG5Wm978w/oZQhCs6
+         7FaWy89EK86exb5UCjeatZIy+usHsOl32gBnGCqmD5GUURPGwKKkCNP/ps+k357onnk2
+         txAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789568531; x=1790173331;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P0uZ4BnvDof5wiqfMQXLES5jMiUYascBq/gJHlhVBLY=;
+        b=KkRGbPUKQ4cn2UexSGOJdAEqdCMh/rP3XNVqRIoec5X3K3yROkYTxBwm7vh9rwDuI0
+         GT/78UQm/7B5iwGzj9Kz7yl+Xhx0GvELFMkTbwA8m2mXzYPt9VH/NKp3LlUVA9sBL7j+
+         BOFfZ8lgsMTYWHdGU332Zi8eSe05uee06825EofxjPauz7J+SuZpNqGldNm+C7QCJv9W
+         v0IS+tPKRVh7z+UlYp0BNNe8C7LsPL5FfieXAWFzBl7BdZiBEDpdR0YWIhEVvq8Z/UhN
+         Ph08x+Es0vl6qbIMNxMEHB9QL9CVl5htHCmkEP/Dat8zdpTffpBdRTCwRmLCGEvyphqo
+         Yn9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwOnqcEl8jiPU4pSWK1LMCCggDV3fAZH1Q3BgcC2qaXzWMtnjTMUogThOfmJBJIYGA3imt2bCaRlYFe+5o=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHSEaon/n9bC0laJNw/qpbi81vMDWIq36ik9vWDuSemkPWJ2oM
+	t1zq9BrbEqO+CLk2rPF/6/Qu8jbu6pnLWMRbzlAVNdLxU0JNPq8xcT0mE8f4I0itxC7MVvV3jDR
+	ZQG1k
+X-Gm-Gg: AYBFou1yPAB5qXkTb/YxGKdVu3icpTX527Rk6CHfzS3yl0IvMSmiwIzswk9R33KjzER
+	9qvG/3hacGRs/76ynJUN3x3tCJ2TY1zYkrBiYgaKRsz4asXhSd7zEK5CIY7QUiPE11qh9EYnE8P
+	pTsz6fMoTBgZtDS2ogNbYzw4128YlpueclzUhygHm0ijlwJ9DoXdfJzimJiXFie+r+P43+y2eKc
+	lZLGYP4eslh0Epap2bKiW5vwOuiFRFaLTiZY7WfFFvUb02KOnnHRW7UDT7j96t9fWYFn8R4T4eG
+	4lCSsbeEKaaPz82gmyI9XX2PNd0Lb4VOjHKwgTU/wQPwfAzPTm365aTBkCbjP+LBWqbfdJxg8Cb
+	D6FIQ4/qGNQ5frtRJeomYla92uPNJCg6C2iaQwZgUEA31BscszPimezNm/2R0cVEq0pl4ODxIx8
+	u9Dzhs5o4UWNP/Y04gvdA/vFquQpj0ikowwRtdQDgKVLGS5nD46p7Rr3vRB9Bd+PQNgTKPij10h
+	F5hIgtJ5dCUVbYm4w==
+X-Received: by 2002:a05:600c:1f96:b0:49d:243a:e4f9 with SMTP id 5b1f17b1804b1-49eb6e2c8e4mr31133135e9.10.1789568531214;
+        Wed, 16 Sep 2026 07:22:11 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83aead50sm92828195e9.7.2026.09.16.07.22.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 07:22:10 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Dan Carpenter <error27@gmail.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] clk: Document of_clk_get_by_name() return values
+In-Reply-To: <aqpJ_pupkr8HDIz2@stanley.mountain>
+References: <cover.1789451862.git.error27@gmail.com>
+ <b3de48fdbaaade69cce126b59bd6dfb8f437b495.1789451862.git.error27@gmail.com>
+ <1jzexhd58n.fsf@starbuckisacylon.baylibre.com>
+ <aqpJ_pupkr8HDIz2@stanley.mountain>
+Date: Wed, 16 Sep 2026 16:22:09 +0200
+Message-ID: <1jqzitcm3y.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V5 2/2] rust: kernel: Add KUnit tests for powerpc
- ARCH_WARN_ASM bug table emission
-To: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
- maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
- chleroy@kernel.org, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org,
- daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com,
- work@onurozkan.dev, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, nathan@kernel.org,
- ndesaulniers@google.com, morbo@google.com, justinstitt@google.com,
- ynorov@nvidia.com, joelagnelf@nvidia.com, fujita.tomonori@gmail.com,
- linkmauve@linkmauve.fr, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-riscv@lists.infradead.org, llvm@lists.linux.dev
-References: <20260915090453.1227034-1-mkchauras@gmail.com>
- <20260915090453.1227034-3-mkchauras@gmail.com>
-Content-Language: en-US
-From: David Gow <david@davidgow.net>
-In-Reply-To: <20260915090453.1227034-3-mkchauras@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Le 15/09/2026 à 17:04, Mukesh Kumar Chaurasiya (IBM) a écrit :
-> Verify that the __bug_table entry emitted by ARCH_WARN_ASM has a correct
-> bug_addr displacement — i.e. the '1b' label reference in _EMIT_BUG_ENTRY
-> resolves to the trap instruction — by calling find_bug() with the exact
-> virtual address of the twi instruction, mirroring what the real powerpc
-> trap handler does.
-> 
-> The trap address is captured at link time via a .dc.a 1b relocation placed
-> in .data by the global_asm! block. global_asm! is used instead of asm!
-> because LLVM eliminates asm! blocks in dead branches; global_asm! is
-> file-scope and always emitted. BUG_KUNIT_TRAP_ADDR is defined as a .global
-> symbol directly on the .dc.a word so the linker relocation lands on it —
-> a Rust static initialized to zero would end up in BSS where relocations are
-> not applied.
-> 
-> .dc.a emits a pointer-width word (4 bytes on ppc32, 8 bytes on ppc64),
-> so BUG_KUNIT_TRAP_ADDR is declared as usize on the Rust side, making the
-> tests correct on both ppc32 and ppc64. The global_asm! block is split into
-> two cfg-gated variants (CONFIG_PPC64 / !CONFIG_PPC64) to select the right
-> .balign since concat!() only accepts literals.
-> 
-> Five tests are included in the rust_kernel_bug_powerpc suite:
-> 
->    bug_entry_found         - find_bug() returns non-NULL for the trap address,
->                              proving the bug_addr displacement is correct
->    bug_entry_is_warning    - the emitted entry has BUGFLAG_WARNING set
->    bug_entry_file          - bug_get_file_line() returns the correct source
->                              file (requires CONFIG_DEBUG_BUGVERBOSE)
->    bug_entry_line          - the recorded line number is non-zero, confirming
->                              the {line} operand was substituted correctly
->                              (requires CONFIG_DEBUG_BUGVERBOSE)
->    bug_entry_addr_is_in_text - kernel_text_address() confirms the trap address
->                              lies in kernel text, not data or zero
-> 
-> The suite is named rust_kernel_bug_powerpc and the Kconfig option
-> CONFIG_RUST_BUG_POWERPC_KUNIT_TEST depends on PPC && GENERIC_BUG,
-> covering both ppc32 and ppc64.
-> 
-> Tested on ppc64le (ltcfujiaac-lp3, 7.3.0-rc1+): pass:5 fail:0 skip:0.
-> Tested on ppc32 Book3S (QEMU mac99 G4, chrp32_defconfig): pass:5 fail:0 skip:0.
-> Tested on ppc64le (QEMU pseries, pseries_le_defconfig): pass:5 fail:0 skip:0.
-> 
-> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> ---
+On mer. 16 sept. 2026 at 10:49, Dan Carpenter <error27@gmail.com> wrote:
 
-This works for me under QEMU, but I have a couple of small suggestions.
+> On Wed, Sep 16, 2026 at 09:28:56AM +0200, Jerome Brunet wrote:
+>> On mar. 15 sept. 2026 at 19:38, Dan Carpenter <error27@gmail.com> wrote:
+>> 
+>> > Callers should test the return from of_clk_get_by_name() with IS_ERR().
+>> > The function returns a valid clock on success and an error pointer on
+>> > failure; NULL is not a valid return value.
+>> >
+>> > Document this explicitly to prevent callers from treating NULL as a
+>> > separate failure case.
+>> >
+>> > Assisted-by: ChatGPT:gpt-5
+>> > Signed-off-by: Dan Carpenter <error27@gmail.com>
+>> > ---
+>> > There are a few other functions which look like they return NULL but
+>> > never actually do.  This is one which has caused some confusion in
+>> > the past.
+>> >
+>> >  drivers/clk/clk.c | 3 +++
+>> >  1 file changed, 3 insertions(+)
+>> >
+>> > diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+>> > index f1756fe59372..a71bcf780de4 100644
+>> > --- a/drivers/clk/clk.c
+>> > +++ b/drivers/clk/clk.c
+>> > @@ -5430,6 +5430,9 @@ EXPORT_SYMBOL(of_clk_get);
+>> >   * This function parses the clocks and clock-names properties,
+>> >   * and uses them to look up the struct clk from the registered list of clock
+>> >   * providers.
+>> > + *
+>> > + * Returns: A clock pointer on success or an error pointer on failure.  This
+>> > + * function never returns NULL.
+>> 
+>> Thanks Dan. I was about to apply the change but it feels a bit strange
+>> to document what a function never does.
+>> 
+>> Is this a documentation that should be added everywhere the return value
+>> is to be tested with IS_ERR() ?
+>> 
+>> What about being more direct then:
+>> 
+>> "Returns: A clock pointer on success or an error pointer on failure.
+>>  Caller should test the return value with IS_ERR()"
+>
+> First of all, I just want to confirm that actually it's true, right?
+> I've read the code but this isn't my background so I might have been
+> confused.
 
-1. You should use the kernel CStr and kernel::ffi::c_* types, not the 
-ones from core. This properly matches the way the kernel uses 
--funsigned-char. For any architectures where char is normally signed, 
-this would fail to build. Which brings me to…
+I think you got it right. Instead of NULL, it should return
+ERR_PTR(-ENOENT).
 
-2. Why is this specific to powerpc? Shouldn't it be possible to do this 
-in a way that works across more architectures? (Indeed, the current 
-implementation happens to pass on x86_64 with the above fix, though more 
-would be needed for other architectures, and there's probably a better 
-solution overall which doesn't hardcode a special bug address.)
+Looking more closely, It is not entirely impossible to get NULL. If a
+provider returns NULL instead of ERR_PTR(-ENOENT), we will just pass it
+back.
 
-So this still seems like it's something worth having, but I'd much 
-prefer it to not be architecture-specific if we can avoid it.
+clk_hw_create_clk() has this
 
-Cheers,
--- David
+	if (IS_ERR_OR_NULL(hw))
+		return ERR_CAST(hw);
 
->   rust/kernel/Kconfig.test |  13 +++
->   rust/kernel/bug.rs       | 209 +++++++++++++++++++++++++++++++++++++++
->   2 files changed, 222 insertions(+)
-> 
-> diff --git a/rust/kernel/Kconfig.test b/rust/kernel/Kconfig.test
-> index e6a5c7a795f0..5a82f0812c89 100644
-> --- a/rust/kernel/Kconfig.test
-> +++ b/rust/kernel/Kconfig.test
-> @@ -83,4 +83,17 @@ config RUST_BITFIELD_KUNIT_TEST
->   
->   	  If unsure, say N.
->   
-> +config RUST_BUG_POWERPC_KUNIT_TEST
-> +	bool "KUnit tests for powerpc ARCH_WARN_ASM bug table emission" if !KUNIT_ALL_TESTS
-> +	depends on PPC && GENERIC_BUG
-> +	default KUNIT_ALL_TESTS
-> +	help
-> +	  This option enables KUnit tests that verify ARCH_WARN_ASM emits a
-> +	  correct __bug_table entry on powerpc (both ppc32 and ppc64): the
-> +	  bug_addr displacement must resolve back to the trap instruction so
-> +	  that find_bug() can locate the entry — exactly as the real trap
-> +	  handler does.
-> +
-> +	  If unsure, say N.
-> +
->   endif
-> diff --git a/rust/kernel/bug.rs b/rust/kernel/bug.rs
-> index 3566f0234ca4..cd90bd511479 100644
-> --- a/rust/kernel/bug.rs
-> +++ b/rust/kernel/bug.rs
-> @@ -152,3 +152,212 @@ macro_rules! warn_on {
->           cond
->       }};
->   }
-> +
-> +// Test-only constants and file static referenced by the global_asm block below.
-> +//
-> +// global_asm! is file-scope and always emitted — LLVM cannot eliminate it,
-> +// unlike asm! inside a function which is subject to dead-code removal.
-> +//
-> +// BUG_KUNIT_TRAP_ADDR is declared as a .global symbol entirely inside the
-> +// global_asm! block so the .dc.a 1b relocation lands directly on it.
-> +// A Rust static initialized to zero would end up in BSS; the linker does
-> +// not apply relocations to BSS, so the address would stay zero at runtime.
-> +#[cfg(CONFIG_RUST_BUG_POWERPC_KUNIT_TEST)]
-> +mod test_statics {
-> +    use crate::bindings::{bug_entry, BUGFLAG_WARNING, TAINT_WARN};
-> +
-> +    pub(super) const FLAGS: u32 = BUGFLAG_WARNING | (TAINT_WARN << 8);
-> +    pub(super) const SIZE: usize = core::mem::size_of::<bug_entry>();
-> +
-> +    // LINE and BUG_KUNIT_FILE are only referenced by the {file}/{line}
-> +    // operands in global_asm!, which are only present when
-> +    // CONFIG_DEBUG_BUGVERBOSE is set (the non-verbose _EMIT_BUG_ENTRY
-> +    // drops the file/line fields from the bug table entry entirely).
-> +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
-> +    pub(super) const LINE: u32 = line!();
-> +
-> +    // Null-terminated source file name — the assembler references this symbol
-> +    // for the verbose file pointer in __bug_table, same as warn_flags!.
-> +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
-> +    const _FILE: &[u8] = file!().as_bytes();
-> +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
-> +    #[no_mangle]
-> +    pub(super) static BUG_KUNIT_FILE: [u8; _FILE.len() + 1] = {
-> +        let mut bytes = [0u8; _FILE.len() + 1];
-> +        let mut i = 0;
-> +        while i < _FILE.len() {
-> +            bytes[i] = _FILE[i];
-> +            i += 1;
-> +        }
-> +        bytes
-> +    };
-> +}
-> +
-> +// Emit ARCH_WARN_ASM at file scope and capture the trap address.
-> +//
-> +// BUG_KUNIT_TRAP_ADDR is defined as a .global symbol right on top of the
-> +// .dc.a 1b directive so the linker resolves the relocation directly into
-> +// that symbol's storage — no BSS, no zero-init problem.
-> +// .dc.a emits a pointer-width word (4 bytes on ppc32, 8 bytes on ppc64),
-> +// matching the usize declaration on the Rust side.
-> +#[cfg(all(CONFIG_RUST_BUG_POWERPC_KUNIT_TEST, CONFIG_PPC64, CONFIG_DEBUG_BUGVERBOSE))]
-> +::core::arch::global_asm!(
-> +    concat!(
-> +        include!(concat!(env!("OBJTREE"), "/rust/kernel/generated_arch_warn_asm.rs")),
-> +        ".pushsection .data\n\t",
-> +        ".balign 8\n\t",
-> +        ".global BUG_KUNIT_TRAP_ADDR\n\t",
-> +        "BUG_KUNIT_TRAP_ADDR:\n\t",
-> +        ".dc.a 1b\n\t",
-> +        ".popsection\n",
-> +    ),
-> +    file  = sym test_statics::BUG_KUNIT_FILE,
-> +    line  = const test_statics::LINE,
-> +    flags = const test_statics::FLAGS,
-> +    size  = const test_statics::SIZE,
-> +);
+I could turn it into
 
-It'd be really nice to use the warn_flags!() macro here (or even all of 
-warn_on!() instead of hardcoding a separate implementation here. But 
-even if we can't (due, e.g., to the need for global_asm! vs asm!), it'd 
-be nice if this were more similar to the warn_flags!() implementation. 
-Not only would that reduce the likelihood of these deviating needlessly, 
-but it'd better support more architectures, too.
+	if (!hw)
+		return ERR_PTR(-ENOENT);
+        else if (IS_ERR(hw))
+		return ERR_CAST(hw);
 
-For example, the commented "{size}" would help on architectures where 
-size isn't needed.
+>
+> If it only returns an error pointer then, it's obvious that it should
+> only be tested with IS_ERR().  I would be fine with just saying the
+> first part:
+>
+> Returns: A clock pointer on success or an error pointer on failure
 
-> +
-> +#[cfg(all(CONFIG_RUST_BUG_POWERPC_KUNIT_TEST, CONFIG_PPC64, not(CONFIG_DEBUG_BUGVERBOSE)))]
-> +::core::arch::global_asm!(
-> +    concat!(
-> +        include!(concat!(env!("OBJTREE"), "/rust/kernel/generated_arch_warn_asm.rs")),
-> +        ".pushsection .data\n\t",
-> +        ".balign 8\n\t",
-> +        ".global BUG_KUNIT_TRAP_ADDR\n\t",
-> +        "BUG_KUNIT_TRAP_ADDR:\n\t",
-> +        ".dc.a 1b\n\t",
-> +        ".popsection\n",
-> +    ),
-> +    flags = const test_statics::FLAGS,
-> +    size  = const test_statics::SIZE,
-> +);
-> +
-> +#[cfg(all(CONFIG_RUST_BUG_POWERPC_KUNIT_TEST, not(CONFIG_PPC64), CONFIG_DEBUG_BUGVERBOSE))]
-> +::core::arch::global_asm!(
-> +    concat!(
-> +        include!(concat!(env!("OBJTREE"), "/rust/kernel/generated_arch_warn_asm.rs")),
-> +        ".pushsection .data\n\t",
-> +        ".balign 4\n\t",
-> +        ".global BUG_KUNIT_TRAP_ADDR\n\t",
-> +        "BUG_KUNIT_TRAP_ADDR:\n\t",
-> +        ".dc.a 1b\n\t",
-> +        ".popsection\n",
-> +    ),
-> +    file  = sym test_statics::BUG_KUNIT_FILE,
-> +    line  = const test_statics::LINE,
-> +    flags = const test_statics::FLAGS,
-> +    size  = const test_statics::SIZE,
-> +);
-> +
-> +#[cfg(all(CONFIG_RUST_BUG_POWERPC_KUNIT_TEST, not(CONFIG_PPC64), not(CONFIG_DEBUG_BUGVERBOSE)))]
-> +::core::arch::global_asm!(
-> +    concat!(
-> +        include!(concat!(env!("OBJTREE"), "/rust/kernel/generated_arch_warn_asm.rs")),
-> +        ".pushsection .data\n\t",
-> +        ".balign 4\n\t",
-> +        ".global BUG_KUNIT_TRAP_ADDR\n\t",
-> +        "BUG_KUNIT_TRAP_ADDR:\n\t",
-> +        ".dc.a 1b\n\t",
-> +        ".popsection\n",
-> +    ),
-> +    flags = const test_statics::FLAGS,
-> +    size  = const test_statics::SIZE,
-> +);
-> +
-> +#[cfg(CONFIG_RUST_BUG_POWERPC_KUNIT_TEST)]
-> +#[::kernel::macros::kunit_tests(rust_kernel_bug_powerpc)]
-> +mod tests {
-> +    use crate::bindings;
-> +
-> +    fn trap_addr() -> usize {
-> +        // BUG_KUNIT_TRAP_ADDR is a .global symbol defined in the global_asm!
-> +        // block above, placed in .data at the exact .dc.a 1b relocation word.
-> +        // The linker resolves it to the virtual address of the twi instruction
-> +        // before any Rust code runs, so reading it here is always safe.
-> +        extern "C" {
-> +            // .dc.a emits a pointer-width word: 4 bytes on ppc32, 8 on ppc64.
-> +            // usize matches the native pointer width on both.
-> +            static BUG_KUNIT_TRAP_ADDR: usize;
-> +        }
-> +        // SAFETY: read-only after link time, no concurrent mutation possible.
-> +        unsafe { BUG_KUNIT_TRAP_ADDR }
-> +    }
-> +
-> +    /// The `__bug_table` entry emitted by `ARCH_WARN_ASM` must be locatable
-> +    /// via `find_bug()` using the trap instruction's address.  A NULL result
-> +    /// means the `1b` label reference in `_EMIT_BUG_ENTRY` resolved to the
-> +    /// wrong address and the real trap handler would not recognise the site.
-> +    #[test]
-> +    fn bug_entry_found() {
-> +        // Non-zero proves the .dc.a relocation was resolved by the linker.
-> +        assert!(trap_addr() != 0);
-> +
-> +        // SAFETY: find_bug() is always safe to call with any address; it
-> +        // simply walks __bug_table and returns NULL if nothing matches.
-> +        let entry = unsafe { bindings::find_bug(trap_addr()) };
-> +        // Non-NULL proves the bug_addr displacement in _EMIT_BUG_ENTRY is correct.
-> +        assert!(!entry.is_null());
-> +    }
-> +
-> +    /// The emitted entry must be flagged as a warning (not a hard BUG).
-> +    #[test]
-> +    fn bug_entry_is_warning() {
-> +        assert!(trap_addr() != 0);
-> +        let entry = unsafe { bindings::find_bug(trap_addr()) };
-> +        assert!(!entry.is_null());
-> +        // SAFETY: entry is non-null and points to a valid bug_entry.
-> +        let flags = unsafe { (*entry).flags } as u32;
-> +        assert!(flags & bindings::BUGFLAG_WARNING != 0);
-> +    }
-> +
-> +    /// With `CONFIG_DEBUG_BUGVERBOSE` the entry must record a non-null file
-> +    /// pointer pointing back into this source file.
-> +    #[test]
-> +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
-> +    fn bug_entry_file() {
-> +        use core::ffi::CStr;
+Even better. 
 
-Please don't use core::ffi::* in the kernel. The kernel provides its own 
-CStr and c_char implementations. Otherwise, this can lead to issues as 
-the kernel builds with -funsigned-char, but core::ffi will use the 
-architecture default.
+>
+> regards,
+> dan carpenter
+>
 
-> +
-> +        assert!(trap_addr() != 0);
-> +        let entry = unsafe { bindings::find_bug(trap_addr()) };
-> +        assert!(!entry.is_null());
-> +
-> +        let mut file_ptr: *const core::ffi::c_char = core::ptr::null();
-
-Again, core::ffi::c_char should be avoided in kernel code. Use 
-[kernel::]ffi:c_char
-
-> +        let mut line: u32 = 0;
-> +        // SAFETY: entry is non-null and valid; file_ptr and line are local
-> +        // variables passed as out-parameters.
-> +        unsafe { bindings::bug_get_file_line(entry, &mut file_ptr, &mut line) };
-> +
-> +        assert!(!file_ptr.is_null());
-> +        // SAFETY: file_ptr is a null-terminated C string from BUG_KUNIT_FILE.
-> +        let file_str = unsafe { CStr::from_ptr(file_ptr) }.to_str().unwrap_or("");
-> +        assert!(file_str.contains("bug"));
-> +    }
-> +
-> +    /// With `CONFIG_DEBUG_BUGVERBOSE` the recorded line number must be
-> +    /// non-zero (a zero line would mean the asm operand was not substituted).
-> +    #[test]
-> +    #[cfg(CONFIG_DEBUG_BUGVERBOSE)]
-> +    fn bug_entry_line() {
-> +        assert!(trap_addr() != 0);
-> +        let entry = unsafe { bindings::find_bug(trap_addr()) };
-> +        assert!(!entry.is_null());
-> +
-> +        let mut file_ptr: *const core::ffi::c_char = core::ptr::null();
-
-And again.
-
-> +        let mut line: u32 = 0;
-> +        // SAFETY: entry is non-null and valid.
-> +        unsafe { bindings::bug_get_file_line(entry, &mut file_ptr, &mut line) };
-> +
-> +        assert!(line != 0);
-> +    }
-> +
-> +    /// The trap address stored in `__bug_table` must lie within the kernel
-> +    /// text segment.  If the label reference in `_EMIT_BUG_ENTRY` resolved
-> +    /// to data or zero, `kernel_text_address()` would return false.
-> +    #[test]
-> +    fn bug_entry_addr_is_in_text() {
-> +        assert!(trap_addr() != 0);
-> +        // SAFETY: kernel_text_address() is always safe to call with any addr.
-> +        let in_text = unsafe { bindings::kernel_text_address(trap_addr()) };
-> +        assert!(in_text != 0);
-> +    }
-> +}
-
+-- 
+Jerome
