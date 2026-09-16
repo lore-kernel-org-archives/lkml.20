@@ -1,216 +1,644 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013056.outbound.protection.outlook.com [40.107.159.56])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804314F0553;
-	Wed, 16 Sep 2026 14:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568020; cv=fail; b=f9bP+9gMipakqJiJyPht8LFPbrIHePQfIZ+n92Rj4MiPasQO3DSdDVfCksDPNWAdBD13hkmbrXCCP1qR8t52qzu92Yznklj9Rcq68/Yzwg0nqM2nCX8QAZtZVjE3GfDUbWNbIEjqmPito/5UY/eiiVpKbt85bZSvCXufenRmq5Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568020; c=relaxed/simple;
-	bh=1z7uXC5y4x2J29g2i2+1sggrwV5JbsThueUOL8A9yZ0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=iROk1bGgBv6CCrPfCdqD0CpDQ1yyrcxZhbnoUH3uVFJzPIOEBQkNDPrVVOwEZd9Juajfju4IGf9Y2hhsxq2uGjHj5E5iqkL2olB2QvCD24Cnf7uQE/k39yBwjUnQMhTe6Wo7RzsScim+XtGgaGZnFlsLYvxe5GFc76urQoyf9W0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Bw85ub8u; arc=fail smtp.client-ip=40.107.159.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEEA3DD86C;
+	Wed, 16 Sep 2026 14:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789568031; cv=none; b=Y6B0UznB4efmqD6McKzOkLQQKceADK4t7XWOIcfv1FWP0xGJItBQyqMs5fDhcymA/ZNtFdUoTLiikNvyqIH0TPFCva4WqRTJXdaA3a9B+8a4OCC49TJ9MOOnV2ogM2vGflvAuhraR+ssCA1oU3P/fL5PB4/iQNx3RgwfufJvkdc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789568031; c=relaxed/simple;
+	bh=eAEe1LKgzqTgJRY4ztn3bSQB27NXPUetf8PHJok5cHE=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=KQ6zAEljvxkbv2ZysFZGN3iWdvxzY0vLz3ZpQK83wEcO2qM3eRoSbHTq4MRYy8QK9PuEzhkTinA7pEBhoUor6SGaYVAjb4MEIzwy16y1dy+/6xZTvcWhXkyVxfNOU3hKj+dxpzuahyung1yCesvSbbdNw6v8yuL7k6hwcIwqdfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=C4eXPyel; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Bw85ub8u"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ABZ4B0qmXl6X3yqg8Pt3HT8PVgYLC1P9T12NcqBm15ps/DELhYj3uVUVuoWNaLt+G5MqEkHcxe9rMqFODIeb4yNpD+WT3z+7YPCRoUKO3NHHXuZn7Rbzq7gFYQngOdQOSb4+ow4Th0Y0NTaXrSeJKC5NLDh0brlr4Va8gkbPFQZZV7XPNXlnPb2Z/5W5JoOeR83VLldUyAAgTwe0kTt3vlNIi2kciASdyrd8AVnzvS5I2GTylchZhXLp16QhD316gvCf1pPfX4pZ7wXUmHpjfIDBLtaM0qu1LNwUCwunNWzMPjUgGdaUkZnE6Ry9Gw8BLqWICp3dJlBfMvYopKJPEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=324p2Cfe//Shb2BLQKnxO87X9B2RZ+K5uWEfkM6+JbI=;
- b=hmoTIEvt2v0yHqJt5MOFvOslPhpwvUnStvq0jnyd10uG9UskCTeBzC1e475qeS2x12TTmlsXmITv4lCSvFRgHmyznLkG37f3NmEkN2FhhxwLDt4f6KqDKTgRkAdpi+an58Qzku34dKmOURn8clsM8PLog01D4bY2pC03OkOhs8NSasw8IvAW3t1JCRx+sLVCHLgSSN73wPPpOPgTaC3DraFctsJPg4MaUyn+kTmNgplxbLCByN2zjOW3vL9jJA6v9W8dqr+JVHkiixp28kfPkrOGu19tjxvY2gdBumkQCZUXlelwnpnjo7OKXVx7KxCDve1JowwlbYiHeII7AP3y+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=baylibre.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=324p2Cfe//Shb2BLQKnxO87X9B2RZ+K5uWEfkM6+JbI=;
- b=Bw85ub8uz111OQmUV1HDbYvtasVlvPBKVS82ZoLR0eArIoP1F77liH7U4/85xE/M0axPFmRXxCBPd/Kd8wAoWVHgXJDcREl/lgLMc8glPEO+OtF1DfMTsoUcnGMv6/6LbIQm7RrI0dHWOtVodZlfZyQ1JczqGtKqkmEDD03wpUaOwpdG6slohEV1Kf6cG2WPUy6zrfPnt/CDJSxyfrTkXW5B6qYNnCfuthtWeLyRA+hArT31mXVuBMSo+fwBKX9+vjfr4hp4d6pFdGoOkR+A5Lc6ZP8iZVFrLAxVRk/EPSr1EKQLCWvRri5Za7wqWipJ2mKh66wXk1x6VSOHQLWxZw==
-Received: from DUZPR01CA0118.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4bc::29) by PRAPR10MB5177.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:102:29c::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
- 2026 14:13:32 +0000
-Received: from DU2PEPF00028D05.eurprd03.prod.outlook.com
- (2603:10a6:10:4bc:cafe::8f) by DUZPR01CA0118.outlook.office365.com
- (2603:10a6:10:4bc::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 14:13:32 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DU2PEPF00028D05.mail.protection.outlook.com (10.167.242.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 14:13:31 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
- 2026 16:19:36 +0200
-Received: from localhost (10.48.86.251) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
- 2026 16:13:31 +0200
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Wed, 16 Sep 2026 16:13:23 +0200
-Subject: [PATCH v2] iio: adc: stm32-adc: fix check on internal channel
- availability
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="C4eXPyel"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789568029; x=1821104029;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=eAEe1LKgzqTgJRY4ztn3bSQB27NXPUetf8PHJok5cHE=;
+  b=C4eXPyeldvYr5aYetgpB/eaiOWNZW6oLHffLBb8gMAbZdc6WyYVlIkJl
+   kpe7fkVvo7CI2BcWQ/DCXPnfFJXcspK1gTfCdEekxWJCm0ekPeNa1KFku
+   abHwn2uNU5Z+Fmji3n+7AmT+Cg59JlQJFteebxb4Fn0PnZzWpRZkgfPXR
+   5arq5iVbT0H8hu3ID7jPRhOzYpIgYGBDYCX1bfttWd6ph8EjX0KfgCwIK
+   BR5HaNbxp4zgcVXBSqDnFIUROKhkbSyv1zCecp4ItobUTFk4waxfvOQYt
+   2zR2xcQ/2IRWxA3UcH6O44KJYZx++SJkQ71z8TPb2AzU66urt3noJEezi
+   g==;
+X-CSE-ConnectionGUID: 35zRtH6ETsWdnZHYHN1hug==
+X-CSE-MsgGUID: ZmPES2JJQpKRyJzufrXdhw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="453470"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="453470"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 07:13:48 -0700
+X-CSE-ConnectionGUID: UpHUtbRjR4OJBSv0NHQtWg==
+X-CSE-MsgGUID: 7YXH6ImaRjyJRWDnyFbg0A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="303239830"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.187])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 07:13:45 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 16 Sep 2026 17:13:41 +0300 (EEST)
+To: Alex Yeo <alexyeo362@gmail.com>
+cc: platform-driver-x86@vger.kernel.org, 
+    Kenneth Chan <kenneth.t.chan@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH v1 1/1] platform/x86: panasonic-laptop: add
+ platform_profile support
+In-Reply-To: <20260805180544.1134916-2-alexyeo362@gmail.com>
+Message-ID: <4a918d1e-490b-3236-b72b-ef952e11a1a3@linux.intel.com>
+References: <20260805180544.1134916-1-alexyeo362@gmail.com> <20260805180544.1134916-2-alexyeo362@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260916-adc-fix-intchan-v1-v2-1-ef70baecd082@foss.st.com>
-X-B4-Tracking: v=1; b=H4sIAAKkqmoC/32NywrCMBBFf0Vm7ZRMS+tj5X9IF3lMbQQbycSil
- P67Sd0Ld3Pg3HsXEI6eBc67BSLPXnyYMtT7HdhRTzdG7zJDrepOnahF7SwO/o1+SkXAmbBx7PT
- RsjWtglx8Rs7GNnrtfywvc2ebylIxRi8pxM/2OlPx/h7kEB460mSaVikylyGIVJIqGx7Qr+v6B
- eRri5vIAAAA
-X-Change-ID: 20260915-adc-fix-intchan-v1-3deda8cecb50
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Olivier Moysan
-	<olivier.moysan@foss.st.com>
-CC: <linux-iio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, Sashiko <sashiko-bot@kernel.org>,
-	<stable@vger.kernel.org>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D05:EE_|PRAPR10MB5177:EE_
-X-MS-Office365-Filtering-Correlation-Id: db68f70c-5e6c-4783-1562-08df13fcb057
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|23010399003|1800799024|36860700016|13003099007|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	LIyPJ5uk92MmTAzObPSTJsX55pBYOD9O7B61Qgcd/A0vrQdHLaL9xS6ScW8hJ5S93V/dXbu8ufH52vPpQekFLvnzsbS6jCD/4FLfmBwCpJ4LiDwjCLdeEVrxRQ7SfuirtArgYUgxVHxLfF4ijRGlAjdJqw69I+UBzTMUlFexja6THQIxuOAn538M8xtWLKi/0THK790GfRd4KUNbE0z4vnOGtysoxup7veMYRqKIBxBv8Zdo5Y7gTqPPUvCEY8YqAmDbo/fYhKaxruHRgbzt3QcImIsFJnNHyslub6HRDU4HRRCnn4wumoDFDWWceSv2XDGNfeEg945pL/ITWp0cHlR7MWMUaDdMXGCP3njD6MQHnLZmwVc1b80gZUlCkaUrxXPg3s53mhg0YWOlaS27yPwH2RutvRwQsjf+M7NpWpmk8Pgd3R7ReDabosIZ8ChzFtmwptgH+DPUmfulXLvb+MtZaf0MmkMIaOS/T/EEizIw5lfFRq9Y7OUuJjy7sWwpa8JiSwcRofkz51Fms3UGLVVMnEGJVammkoDuvf6htEhZlDDT0ZOkyNfRmRrxfiK50xHDCtVjISH7sIJVL0NeNfUvo3xUZ7PQ8HAeuMvUFiLit0RHUZXbTV8mV1fBhVdY5NvQiO66nG7WaFVvYgGKypeShmrthK9EdwlX8HEJ74c=
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(13003099007)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	aesdlYevOfCcnZnyUivmtJRIgO2b8h2qIzl+r0TjX/VQqK4Cq3rWHO218WkqM3iAJEtfLq9G6hvWLn/uUUsUaSClBOlvcGGa44YnW2MGgGMg0GEkAkbqJJ0uVNMYr4sRVcn8fZT7AXp63tY+pdwl9ILwiJG+e2x1Si3TfjZyyO2MYRI+MmCSCP0AMxR6OWwVl1nluI+XMveRhdMhJ2noeZK2oWJB1NWgLNEe4P7SOvN3578ocxa3HvuGlSShTy4k0IZTK1geevKtkWlF4nq9dGM0Bjga1EkbNAfltmMFGUHiT9KYoVep77ZXn5WYWZMwq+ShDLLRCOVesSv/U3xi3LiWaUWe1g1spLCuraczLUjQx6fGHWyH8wZorpBIgkA/iCTnh8GBVtophIBnfPPaFy6qZRW8PO8Hw4/9iWVo47BgPAKvICGVcUXviMTgV4NV
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 14:13:31.9816
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: db68f70c-5e6c-4783-1562-08df13fcb057
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D05.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PRAPR10MB5177
+Content-Type: text/plain; charset=US-ASCII
 
-If an unsupported internal channel like vddgpu is requested, the driver
-prints a warning but falls through and assigns it a valid int_ch below.
+On Thu, 6 Aug 2026, Alex Yeo wrote:
 
-This causes a problem later during setup:
-stm32_adc_int_ch_enable() {
-    ...
-    case STM32_ADC_INT_CH_VDDGPU:
-        stm32_adc_set_bits(adc, adc->cfg->regs->or_vddgpu.reg,
-                           adc->cfg->regs->or_vddgpu.mask);
-    ...
-}
+> Expose firmware thermal and power management policies via the
+> platform_profile interface.
+> 
+> Supported and tested models:
+>  - CF-RZ6 (2016)
+>  - CF-SV8 (2019)
+>  - CF-QV9 (2020)
+>  - CF-SR4 (2024)
+> 
+> Firmware fan operating mode and the TDP limit switch are mapped onto
+> the Linux platform_profile ABI.
+> 
+> This implementation queries the firmware for every get().
+> CUSTOM is returned when the current state is not recognized.
+> The set() callback writes the values regardless of what the
+> current fan mode and TDP limit is.
+> 
+>  - DMI quirks restrict support to tested models
+>  - Missing includes such as sysfs.h were added based on previous
+>    feedback.
+>  - Logging: pr_fmt added
+>  - When raising TDP, fan mode is switched first
+>  - When limiting TDP, TDP limit is applied first
+>  - ACPI handle for the EC device was used as the EC path varies
+>    slightly between models.
+> 
+> Signed-off-by: Alex Yeo <alexyeo362@gmail.com>
+> ---
+>  drivers/platform/x86/panasonic-laptop.c | 380 ++++++++++++++++++++++++
+>  1 file changed, 380 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/panasonic-laptop.c b/drivers/platform/x86/panasonic-laptop.c
+> index 719add753cb3..eeb89892768b 100644
+> --- a/drivers/platform/x86/panasonic-laptop.c
+> +++ b/drivers/platform/x86/panasonic-laptop.c
+> @@ -119,10 +119,16 @@
+>   *		- v0.1  start from toshiba_acpi driver written by John Belmonte
+>   */
+>  
+> +#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+> +
+>  #include <linux/acpi.h>
+>  #include <linux/backlight.h>
+>  #include <linux/bits.h>
+> +#include <linux/cleanup.h>
+>  #include <linux/ctype.h>
+> +#include <linux/dmi.h>
+> +#include <linux/err.h>
+> +#include <linux/errno.h>
+>  #include <linux/i8042.h>
+>  #include <linux/init.h>
+>  #include <linux/input.h>
+> @@ -130,13 +136,18 @@
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/platform_profile.h>
+> +#include <linux/printk.h>
+>  #include <linux/seq_file.h>
+>  #include <linux/serio.h>
+>  #include <linux/slab.h>
+> +#include <linux/sysfs.h>
+>  #include <linux/types.h>
+>  #include <linux/uaccess.h>
+>  #include <acpi/video.h>
+>  
+> +DEFINE_FREE(acpi_dev_put, struct acpi_device *, if (_T) acpi_dev_put(_T))
+> +
+>  MODULE_AUTHOR("Hiroshi Miura <miura@da-cha.org>");
+>  MODULE_AUTHOR("David Bronaugh <dbronaugh@linuxboxen.org>");
+>  MODULE_AUTHOR("Harald Welte <laforge@gnumonks.org>");
+> @@ -158,12 +169,39 @@ MODULE_LICENSE("GPL");
+>  #define ECO_MODE_OFF		0x00
+>  #define ECO_MODE_ON		0x80
+>  
+> +#define PCC_ACPI_FAN_ACTIVE_MODE	0x00
+> +#define PCC_ACPI_FAN_PASSIVE_MODE	0x01
+> +#define PCC_ACPI_TDP_LIMIT_ON		0x01
+> +#define PCC_ACPI_TDP_LIMIT_OFF		0x00
+> +
+>  #define ACPI_PCC_DRIVER_NAME	"Panasonic Laptop Support"
+>  #define ACPI_PCC_DEVICE_NAME	"Hotkey"
+>  #define ACPI_PCC_CLASS		"pcc"
+>  
+>  #define ACPI_PCC_INPUT_PHYS	"panasonic/hkey0"
+>  
+> +enum pcc_fan_mode {
+> +	PCC_FAN_MODE_UNSET = 0,
+> +	PCC_FAN_MODE_ACTIVE,
+> +	PCC_FAN_MODE_PASSIVE,
+> +};
+> +
+> +enum pcc_tdp_mode {
+> +	PCC_TDP_MODE_UNSET = 0,
+> +	PCC_TDP_MODE_LOCKED,
+> +	PCC_TDP_MODE_UNLOCKED,
+> +};
+> +
+> +struct pcc_platform_profile {
+> +	enum pcc_fan_mode fan_mode;
+> +	enum pcc_tdp_mode tdp_mode;
+> +};
+> +
+> +struct pcc_quirk {
+> +	bool use_platform_profiles;
+> +	struct pcc_platform_profile platform_profiles[PLATFORM_PROFILE_LAST];
+> +};
+> +
+>  /* LCD_TYPEs: 0 = Normal, 1 = Semi-transparent
+>     ECO_MODEs: 0x03 = off, 0x83 = on
+>  */
+> @@ -239,6 +277,7 @@ static const struct key_entry panasonic_keymap[] = {
+>  
+>  struct pcc_acpi {
+>  	acpi_handle		handle;
+> +	acpi_handle		ec_handle;
+>  	unsigned long		num_sifr;
+>  	int			sticky_key;
+>  	int			eco_mode;
+> @@ -246,13 +285,111 @@ struct pcc_acpi {
+>  	int			ac_brightness;
+>  	int			dc_brightness;
+>  	int			current_brightness;
+> +	const struct pcc_quirk	*quirks;
+>  	struct acpi_device	*device;
+>  	struct input_dev	*input_dev;
+>  	struct backlight_device	*backlight;
+>  	struct platform_device	*platform;
+> +	struct device		*platform_profile_dev;
+>  	u32			sinf[] __counted_by(num_sifr);
+>  };
+>  
+> +static struct pcc_quirk quirk_cf_sr4 = {
+> +	.use_platform_profiles = true,
+> +	.platform_profiles = {
+> +		[PLATFORM_PROFILE_QUIET] =  {
 
-Because the register offset is uninitialized (0), this performs a
-read-modify-write on offset 0, which corresponds to the ISR register.
+There's extra space in all these.
 
-Fix this by returning before a valid int_ch is assigned. Choice is
-made to keep current driver behavior to warn about the channel name.
+> +			.fan_mode = PCC_FAN_MODE_PASSIVE,
+> +			.tdp_mode = PCC_TDP_MODE_LOCKED,
+> +		},
+> +		[PLATFORM_PROFILE_COOL] =  {
+> +			.fan_mode = PCC_FAN_MODE_ACTIVE,
+> +			.tdp_mode = PCC_TDP_MODE_LOCKED,
+> +		},
+> +		[PLATFORM_PROFILE_PERFORMANCE] =  {
+> +			.fan_mode = PCC_FAN_MODE_ACTIVE,
+> +			.tdp_mode = PCC_TDP_MODE_UNLOCKED,
+> +		},
+> +	},
+> +};
+> +
+> +static struct pcc_quirk quirk_cf_qv9 = {
+> +	.use_platform_profiles = true,
+> +	.platform_profiles = {
+> +		[PLATFORM_PROFILE_BALANCED] =  {
+> +			.fan_mode = PCC_FAN_MODE_ACTIVE,
+> +			.tdp_mode = PCC_TDP_MODE_LOCKED,
+> +		},
+> +		[PLATFORM_PROFILE_PERFORMANCE] =  {
+> +			.fan_mode = PCC_FAN_MODE_ACTIVE,
+> +			.tdp_mode = PCC_TDP_MODE_UNLOCKED,
+> +		},
+> +	},
+> +};
+> +
+> +static struct pcc_quirk quirk_cf_sv8 = {
+> +	.use_platform_profiles = true,
+> +	.platform_profiles = {
+> +		[PLATFORM_PROFILE_BALANCED] =  {
+> +			.fan_mode = PCC_FAN_MODE_ACTIVE,
+> +			.tdp_mode = PCC_TDP_MODE_LOCKED,
+> +		},
+> +		[PLATFORM_PROFILE_PERFORMANCE] =  {
+> +			.fan_mode = PCC_FAN_MODE_ACTIVE,
+> +			.tdp_mode = PCC_TDP_MODE_UNLOCKED,
+> +		},
+> +	},
+> +};
+> +
+> +static struct pcc_quirk quirk_cf_rz6 = {
+> +	.use_platform_profiles = true,
+> +	.platform_profiles = {
+> +		[PLATFORM_PROFILE_BALANCED] =  {
+> +			.fan_mode = PCC_FAN_MODE_ACTIVE,
+> +			.tdp_mode = PCC_TDP_MODE_LOCKED,
+> +		},
+> +		[PLATFORM_PROFILE_PERFORMANCE] =  {
+> +			.fan_mode = PCC_FAN_MODE_ACTIVE,
+> +			.tdp_mode = PCC_TDP_MODE_UNLOCKED,
+> +		},
+> +	},
+> +};
+> +
+> +static const struct dmi_system_id pcc_quirks[] = {
+> +	{
+> +		.ident = "Panasonic Connect Co., Ltd. CFSR4-1",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Panasonic Connect Co., Ltd."),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "CFSR4-1"),
+> +		},
+> +		.driver_data = &quirk_cf_sr4,
+> +	},
+> +	{
+> +		.ident = "Panasonic Corporation CFQV9-1",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Panasonic Corporation"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "CFQV9-1"),
+> +		},
+> +		.driver_data = &quirk_cf_qv9,
+> +	},
+> +	{
+> +		.ident = "Panasonic Corporation CFSV8-2",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Panasonic Corporation"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "CFSV8-2"),
+> +		},
+> +		.driver_data = &quirk_cf_sv8,
+> +	},
+> +	{
+> +		.ident = "Panasonic Corporation CFRZ6-2",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Panasonic Corporation"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "CFRZ6-2"),
+> +		},
+> +		.driver_data = &quirk_cf_rz6,
+> +	},
+> +	{},
+> +};
+> +
+>  /*
+>   * On some Panasonic models the volume up / down / mute keys send duplicate
+>   * keypress events over the PS/2 kbd interface, filter these out.
+> @@ -958,6 +1095,207 @@ static int acpi_pcc_init_input(struct pcc_acpi *pcc)
+>  	return error;
+>  }
+>  
+> +static int pcc_fan_mode_get(struct pcc_acpi *pcc, enum pcc_fan_mode *fan_mode)
+> +{
+> +	unsigned long long state;
+> +	acpi_status status;
+> +
+> +	status = acpi_evaluate_integer(pcc->ec_handle, "CEFM", NULL,
+> +				       &state);
 
-Fixes: cf0fb80ae167 ("iio: adc: stm32-adc: add stm32mp13 support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260911162602.D323F1F000FF@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
-Changes in v2:
-- Review comments from Andy: use bool flag closer to the channel
-  availabilty checks. Add a default case.
-- Link to v1: https://patch.msgid.link/20260915-adc-fix-intchan-v1-v1-1-761a1b35001b@foss.st.com
----
- drivers/iio/adc/stm32-adc.c | 34 +++++++++++++++++++---------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
+Fits to one line.
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 5c6c06b269be..b77f39f305d8 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -2263,33 +2263,37 @@ static int stm32_adc_populate_int_ch(struct iio_dev *indio_dev, const char *ch_n
- 
- 	for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
- 		if (!strncmp(stm32_adc_ic[i].name, ch_name, STM32_ADC_CH_SZ)) {
-+			bool na;
-+
- 			/* Check internal channel availability */
- 			switch (i) {
- 			case STM32_ADC_INT_CH_VDDCORE:
--				if (!adc->cfg->regs->or_vddcore.reg)
--					dev_warn(&indio_dev->dev,
--						 "%s channel not available\n", ch_name);
-+				na = !adc->cfg->regs->or_vddcore.reg;
- 				break;
- 			case STM32_ADC_INT_CH_VDDCPU:
--				if (!adc->cfg->regs->or_vddcpu.reg)
--					dev_warn(&indio_dev->dev,
--						 "%s channel not available\n", ch_name);
-+				na = !adc->cfg->regs->or_vddcpu.reg;
- 				break;
- 			case STM32_ADC_INT_CH_VDDQ_DDR:
--				if (!adc->cfg->regs->or_vddq_ddr.reg)
--					dev_warn(&indio_dev->dev,
--						 "%s channel not available\n", ch_name);
-+				na = !adc->cfg->regs->or_vddq_ddr.reg;
- 				break;
- 			case STM32_ADC_INT_CH_VREFINT:
--				if (!adc->cfg->regs->ccr_vref.reg)
--					dev_warn(&indio_dev->dev,
--						 "%s channel not available\n", ch_name);
-+				na = !adc->cfg->regs->ccr_vref.reg;
- 				break;
- 			case STM32_ADC_INT_CH_VBAT:
--				if (!adc->cfg->regs->ccr_vbat.reg)
--					dev_warn(&indio_dev->dev,
--						 "%s channel not available\n", ch_name);
-+				na = !adc->cfg->regs->ccr_vbat.reg;
- 				break;
-+			default:
-+				return -EINVAL;
-+			}
-+
-+			if (na) {
-+				/*
-+				 * Channel label matches an internal STM32 ADC channel.
-+				 * Warn about it, as there's normally no restriction on the
-+				 * name but that's not among available internal channels.
-+				 */
-+				dev_warn(&indio_dev->dev, "no %s internal channel\n", ch_name);
-+				return 0;
- 			}
- 
- 			if (stm32_adc_ic[i].idx != STM32_ADC_INT_CH_VREFINT) {
+> +	if (ACPI_FAILURE(status)) {
+> +		pr_err("cannot get fan mode via CEFM\n");
+> +		return -EIO;
+> +	}
+> +
+> +	if (state == PCC_ACPI_FAN_ACTIVE_MODE)
+> +		*fan_mode = PCC_FAN_MODE_ACTIVE;
+> +	else if (state == PCC_ACPI_FAN_PASSIVE_MODE)
+> +		*fan_mode = PCC_FAN_MODE_PASSIVE;
+> +	else
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +static int pcc_tdp_mode_get(struct pcc_acpi *pcc, enum pcc_tdp_mode *tdp_mode)
+> +{
+> +	unsigned long long state;
+> +	acpi_status status;
+> +
+> +	status = acpi_evaluate_integer(pcc->ec_handle, "EPLE", NULL,
+> +				       &state);
+> +	if (ACPI_FAILURE(status)) {
+> +		pr_err("cannot read power limit using EPLE\n");
+> +		return -EIO;
+> +	}
+> +
+> +	if (state == PCC_ACPI_TDP_LIMIT_ON)
+> +		*tdp_mode = PCC_TDP_MODE_LOCKED;
+> +	else if (state == PCC_ACPI_TDP_LIMIT_OFF)
+> +		*tdp_mode = PCC_TDP_MODE_UNLOCKED;
+> +	else
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +static int pcc_fan_mode_set(struct pcc_acpi *pcc, enum pcc_fan_mode fan_mode)
+> +{
+> +	acpi_status status;
+> +
+> +	switch (fan_mode) {
+> +	case PCC_FAN_MODE_ACTIVE:
+> +		status = acpi_execute_simple_method(pcc->ec_handle,
+> +						    "SEFM",
+> +						    PCC_ACPI_FAN_ACTIVE_MODE);
+> +		break;
+> +	case PCC_FAN_MODE_PASSIVE:
+> +		status = acpi_execute_simple_method(pcc->ec_handle,
+> +						    "SEFM",
+> +						    PCC_ACPI_FAN_PASSIVE_MODE);
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (ACPI_FAILURE(status)) {
+> +		pr_err("failed to set fan mode via SEFM\n");
+> +		return -EIO;
+> +	}
 
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260915-adc-fix-intchan-v1-3deda8cecb50
+IMO, spreading stuff around like this just makes it harder to follow code 
+flow. And the variation is just to pass a different argument to 
+acpi_execute_simple_method() which would suggest a helper would be useful.
 
-Best regards,
---  
-Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Once everything is done within the case, you can directly return from 
+those cases for simplicity.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int pcc_tdp_mode_set(struct pcc_acpi *pcc, enum pcc_tdp_mode tdp_mode)
+> +{
+> +	acpi_status status;
+> +
+> +	switch (tdp_mode) {
+> +	case PCC_TDP_MODE_LOCKED:
+> +		status = acpi_execute_simple_method(pcc->ec_handle,
+> +						    "SEPL",
+> +						    PCC_ACPI_TDP_LIMIT_ON);
+> +		break;
+> +	case PCC_TDP_MODE_UNLOCKED:
+> +		status = acpi_execute_simple_method(pcc->ec_handle,
+> +						    "SEPL",
+> +						    PCC_ACPI_TDP_LIMIT_OFF);
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (ACPI_FAILURE(status)) {
+> +		pr_err("failed to set power mode via SEPL\n");
+> +		return -EIO;
+> +	}
+
+Same problem here as above.
+
+> +	return 0;
+> +}
+> +
+> +static int pcc_platform_profile_get(struct device *dev, enum platform_profile_option *profile)
+> +{
+> +	struct pcc_acpi *pcc = dev_get_drvdata(dev);
+> +	enum pcc_fan_mode fan_mode;
+> +	enum pcc_tdp_mode tdp_mode;
+> +	int status;
+> +
+> +	status = pcc_fan_mode_get(pcc, &fan_mode);
+> +	if (status)
+> +		return status;
+> +
+> +	status = pcc_tdp_mode_get(pcc, &tdp_mode);
+> +	if (status)
+> +		return status;
+
+Please leave "status" for acpi_status and pick another name for the 
+generic return variable (I personally prefer "ret" because it doesn't 
+carry error connotation "err" does, but the latter seems to be already 
+in use by this driver, among other variable names).
+
+> +	for (enum platform_profile_option pp_opt = 0;
+
+Move declaration to the beginning of the function.
+
+> +	     pp_opt < PLATFORM_PROFILE_LAST;
+
+Please use ARRAY_SIZE() + make sure you add the include for it.
+
+> +	     pp_opt++) {
+> +		enum pcc_fan_mode profile_fan_mode =
+> +			pcc->quirks->platform_profiles[pp_opt].fan_mode;
+> +		enum pcc_tdp_mode profile_tdp_mode =
+> +			pcc->quirks->platform_profiles[pp_opt].tdp_mode;
+
+Please make a local variable out of pcc->quirks->platform_profiles[pp_opt] 
+instead (with a reasonably short name).
+
+> +
+> +		if (!(profile_fan_mode && profile_tdp_mode))
+
+This code doesn't make sense for variables that are declared as enums 
+(do not handle enums as truth values).
+
+> +			continue;
+> +
+> +		if (tdp_mode == profile_tdp_mode && fan_mode == profile_fan_mode) {
+> +			*profile = pp_opt;
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	*profile = PLATFORM_PROFILE_CUSTOM;
+> +	return 0;
+> +}
+> +
+> +static int pcc_platform_profile_set_profile(struct pcc_acpi *pcc,
+> +					    enum pcc_fan_mode fan_mode,
+> +					    enum pcc_tdp_mode tdp_mode)
+> +{
+> +	int status;
+
+Change name.
+
+> +
+> +	switch (tdp_mode) {
+> +	case PCC_TDP_MODE_UNLOCKED:
+> +		status = pcc_fan_mode_set(pcc, fan_mode);
+> +		if (status)
+> +			return status;
+> +
+> +		return pcc_tdp_mode_set(pcc, tdp_mode);
+> +	case PCC_TDP_MODE_LOCKED:
+> +		status = pcc_tdp_mode_set(pcc, tdp_mode);
+> +		if (status)
+> +			return status;
+> +
+> +		return pcc_fan_mode_set(pcc, fan_mode);
+
+This is structurally much easier to follow than pcc_fan_mode_set() above.
+
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int pcc_platform_profile_set(struct device *dev, enum platform_profile_option profile)
+> +{
+> +	struct pcc_acpi *pcc = dev_get_drvdata(dev);
+> +	struct pcc_platform_profile pcc_profile;
+
+Why isn't this a pointer?
+
+> +	pcc_profile = pcc->quirks->platform_profiles[profile];
+
+I'd put the assignment to the declaration line (it'll be only 91 chars 
+long and is quite boilerplately so fits well into the variable 
+declarations block, IMO)
+
+> +	if (pcc_profile.fan_mode && pcc_profile.tdp_mode)
+
+Again, those are enums but you treat them as truth values which makes 
+things harder to understand.
+
+> +		return pcc_platform_profile_set_profile(pcc,
+> +							pcc_profile.fan_mode,
+> +							pcc_profile.tdp_mode);
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int pcc_platform_profile_probe(void *drvdata, unsigned long *choices)
+> +{
+> +	struct pcc_acpi *pcc = drvdata;
+> +
+> +	for (enum platform_profile_option pp_opt = 0;
+> +	     pp_opt < PLATFORM_PROFILE_LAST;
+> +	     pp_opt++) {
+
+Declare the enum in the function variables and put this to single line.
+
+> +		enum pcc_fan_mode fan_mode =
+> +			pcc->quirks->platform_profiles[pp_opt].fan_mode;
+> +		enum pcc_tdp_mode tdp_mode =
+> +			pcc->quirks->platform_profiles[pp_opt].tdp_mode;
+> +
+> +		if (fan_mode && tdp_mode) {
+
+Same comments as with the other code.
+
+> +			set_bit(pp_opt, choices);
+> +		} else if (fan_mode || tdp_mode) {
+> +			pr_err("error probing platform profiles: malformed quirk\n");
+
+This looks a clear developer error so WARN_ON() would be more appropriate 
+than pr_err().
+
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct platform_profile_ops pcc_platform_profile_ops = {
+> +	.probe = pcc_platform_profile_probe,
+> +	.profile_get = pcc_platform_profile_get,
+> +	.profile_set = pcc_platform_profile_set,
+> +};
+> +
+>  /* kernel module interface */
+>  
+>  #ifdef CONFIG_PM_SLEEP
+> @@ -979,8 +1317,37 @@ static int acpi_pcc_hotkey_resume(struct device *dev)
+>  }
+>  #endif
+>  
+> +static int acpi_pcc_platform_profile_probe(struct pcc_acpi *pcc, struct platform_device *pdev)
+> +{
+> +	struct acpi_device *adev __free(acpi_dev_put) =
+> +		acpi_dev_get_first_match_dev("PNP0C09", NULL, -1);
+> +	int err;
+> +
+> +	if (!adev) {
+> +		pr_err("failed to find embedded controller path\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	pcc->ec_handle = acpi_device_handle(adev);
+> +
+> +	pcc->platform_profile_dev =
+> +		devm_platform_profile_register(&pdev->dev,
+> +					       "panasonic-laptop",
+> +					       pcc,
+> +					       &pcc_platform_profile_ops);
+> +	if (IS_ERR(pcc->platform_profile_dev)) {
+> +		err = PTR_ERR(pcc->platform_profile_dev);
+> +		pcc->platform_profile_dev = NULL;
+> +		return dev_err_probe(&pdev->dev, err,
+> +				     "failed to register platform profiles\n");
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int acpi_pcc_hotkey_probe(struct platform_device *pdev)
+>  {
+> +	const struct dmi_system_id *dmi_id;
+>  	struct backlight_properties props;
+>  	struct acpi_device *device;
+>  	struct pcc_acpi *pcc;
+> @@ -1020,6 +1387,12 @@ static int acpi_pcc_hotkey_probe(struct platform_device *pdev)
+>  	strscpy(acpi_device_name(device), ACPI_PCC_DEVICE_NAME);
+>  	strscpy(acpi_device_class(device), ACPI_PCC_CLASS);
+>  
+> +	dmi_id = dmi_first_match(pcc_quirks);
+> +	if (dmi_id) {
+> +		pcc->quirks = dmi_id->driver_data;
+> +		pr_debug("quirk detect: enabled quirks for %s\n", dmi_id->ident);
+> +	}
+> +
+>  	result = acpi_pcc_init_input(pcc);
+>  	if (result) {
+>  		pr_err("Error installing keyinput handler\n");
+> @@ -1091,6 +1464,13 @@ static int acpi_pcc_hotkey_probe(struct platform_device *pdev)
+>  	}
+>  
+>  	i8042_install_filter(panasonic_i8042_filter, NULL);
+> +
+> +	if (pcc->quirks && pcc->quirks->use_platform_profiles) {
+> +		result = acpi_pcc_platform_profile_probe(pcc, pdev);
+> +		if (result)
+> +			pr_warn("error occurred setting up platform profiles\n");
+> +	}
+> +
+>  	return 0;
+>  
+>  out_platform:
+> 
+
+Also, this looked entirely independent of the existing code (?) so it 
+looks as if it should be make a separate platform_driver instead of trying 
+to klugde it into the existing probe. If there aren't cross references 
+besides the sharing of the private data structure, I'd just introduce it 
+as a separate struct platform_driver with a proper ID table and own probe, 
+etc.
+
+-- 
+ i.
 
