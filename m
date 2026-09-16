@@ -1,103 +1,105 @@
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com [208.88.110.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f98.google.com (mail-wm1-f98.google.com [209.85.128.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F7637BE75;
-	Wed, 16 Sep 2026 23:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=208.88.110.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AEEE4C957B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789601114; cv=none; b=InnYq835VLNdf0VH3KbYvJewn2XA8zoFBMXud1AO9exdQyXUGuYCM3y/gImeLCbmwiFP3ZQ+5nxiQNptp9QVNApK7vDrm0MASj5+TROtVc8hC3OMRquYKWPtnVmITaehS5xfHxbSodw3FmJOIOEjJZpJH4V57Uhb1SCyblIaHNE=
+	t=1789601148; cv=none; b=JNIscOBZOEeyTXMmzJk/WzlvRU9sERbgd3uB27BDzFmfoFUy1cflw+EMMSFRrkMwavoc6kxHFEfvvHlUrYRNvR2UXihm/EW/2Dw+LaqLV5PnDa+ikgOtPcQ0iqutyCQv106BiPCZtSK10ifKzqOv94HNRff4R5aoEE8/qPkocFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789601114; c=relaxed/simple;
-	bh=dpxRaKomOgYQOFDdhOiZvN28wNyECU55UPVOVakvXOM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ObXd8fa8dvU0WbKUnKgHgLUWUHdU23UF8Rn13cFB3k7uWCYlt989P914pQFtR1v1D7lPuaLP2Bw1IULiHqMmP8VuWd2xVNPkH89bKwNQKimb0obM/BAj4owRIfVFpe/64W1ITnP38x6LLfN5gHSPl2m0qA1PbsCK0pnGb75pJFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com; spf=pass smtp.mailfrom=savoirfairelinux.com; dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b=YS3/nrJE; arc=none smtp.client-ip=208.88.110.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=savoirfairelinux.com
+	s=arc-20240116; t=1789601148; c=relaxed/simple;
+	bh=abZ+0AvUY4oazPRqaXspWDPFpaIpjOBE+mBXBPZkJLw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=tD5UmjBf3PgUxCVziziwbsN0z4pVzE38FJ3b7/R0IXtGyC5q34lSo8t2k4Az0imv9tImdmqpUKGEy15UXaEJeEQieUEGNLd0wWDYlFKIou69XLkx8aj9DWtH78/a7hAHqd8U98MxMtXBIlom+5gZKTQNQV/sGm1eOWvPXmjQq+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=Xf72g0Hz; arc=none smtp.client-ip=209.85.128.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="YS3/nrJE"
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 102D93D815C0;
-	Wed, 16 Sep 2026 19:19:42 -0400 (EDT)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id OqeLlMrvr1Tp; Wed, 16 Sep 2026 19:19:41 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 42E923D81784;
-	Wed, 16 Sep 2026 19:19:41 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 42E923D81784
+	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="Xf72g0Hz"
+Received: by mail-wm1-f98.google.com with SMTP id 5b1f17b1804b1-49e73611928so927895e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:25:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1789600781; bh=h+vrNHjDFH3BleBMVZsBLVFryjoMLJgk0xB4KKR8Ovo=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=YS3/nrJEc1ISRwbvKbN9UcMnmwMjy1Uu+RtAJjqNhlIKiyIF+VZfu/ynr0V5gBu/9
-	 NlWII6QdwYa4HefeIv1m9IQLHhhVw3yW0v9eqOkPW/ICEHiDJpfKqfm52fbEeWnDIf
-	 mkpvgJq31HGqBgdby4O+RNepoJR9VDDFnGW3gpGLmKNuHspUgEgPjMp9/wUlpmMeCs
-	 YndNiQA8pIXv7mTsMoXFkrsU8ztM5NpwMYhDxyK5xivrJoQkRQk17fB6ZlRPsFPwUw
-	 pATnEjeYsTHUTcBAkeeYfn7TV9V7wfDFRP4D4yBuM20fxVi/X3RuQuhGJhQCeGfWX/
-	 7tH8JXd1HizDQ==
-X-Virus-Scanned: amavis at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id vkdFdstcDByy; Wed, 16 Sep 2026 19:19:41 -0400 (EDT)
-Received: from aojha-pc.mtl.sfl (unknown [192.168.51.254])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id F11233D815C0;
-	Wed, 16 Sep 2026 19:19:40 -0400 (EDT)
-From: Abhishek Ojha <abhishek.ojha@savoirfairelinux.com>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com
-Cc: linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	rmk+kernel@armlinux.org.uk,
-	horatiu.vultur@microchip.com,
-	netdev@vger.kernel.org,
+        d=everpuredata.com; s=google; t=1789601145; x=1790205945; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PPMmzeMGw5inM8GWwOz7lS3Of5P0aQnoyqgcSMcVsuo=;
+        b=Xf72g0HzpXjPRHx/aZbRnuHo7gLoR9zyhVlhb6+DSotRD3cjWSKzlmDIyR4mjbXjG4
+         9+kE0dy0h1XQN27MlrUc4NgMYzl53IzqfY62FozdGeMPBKEv8MtfA4OpaAnAetrkp1RG
+         /XDmX5YPdS/EJuYlFWZL+x9zX0qcjjV0WBSdE1wlLA0gwvtCK7g/v0M7LihfmxajNbm5
+         cqS+3nlUevJHEJHD3pBYNAU+6AxGvYTzJYDbV5FALCPLK7ip3pTguriFFHqfDPQ/Vl1y
+         3yQs5qS5rTo88jlYVNbniOL6Y9Y3OWpYn1mKeEC7BGpZPb5kRcJvz+gilRIpBrhhCE89
+         zhmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789601145; x=1790205945;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PPMmzeMGw5inM8GWwOz7lS3Of5P0aQnoyqgcSMcVsuo=;
+        b=SaPM6AHY4rS9ONre1zYS+UEahWMTax7TfUeGQSqy+fjpvQaGW05vsNDvjkcTTWbGZK
+         BkvvZhm3QRvKAlDqjGajjsarKN7GdI/sfPm9jGtKwp1pRP0LiNZ2ullRPk/I7wNAN9bg
+         rzytKXKjgzTJ9BMYlokTgXurXZHXX6GIzXsOYBtmWApoJfTLsnkxmPtQ7tS4Mi4+Akrw
+         n0LlV6ZKRA6y9UgefBdQPmFbXR5l4vsryR4wF0C3BuWzi3LAUtzbZucrNQ4w/ZlR8YpH
+         eCC6wVzbbUiq5yMkMPnOxnPK6UJfKfOuJ4Rgp70DcqGYvgLzDlSsc6FpvmnU1TdQgh9P
+         hBUg==
+X-Forwarded-Encrypted: i=1; AKwUvBzSYcW1kMjWEgS3MHww2agEqsfJvyvc52hfclbJyOxFgGySkHEd5sWBOpY/fJvQTYeyW0zVZaAWejAvQBc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFu7wTEeO1EczeLz97RPL8OPNs3izpYzV3bCNclb4N1L0whpZ4
+	DqbK8aTHd4gX8PEOErQJW47DvHjtPxAUxKGDfBn7Zar8WPwymZVX/lQpC/f2hCJ9e2vwOQIbzXl
+	miHhP5CghNHny2dX0WJgBucq1++2poCFmCUlE
+X-Gm-Gg: AYBFou1HzvGplXoVMH5SS+Brh8V1z1PEp8he6AuLCYUDBHEs/ZaO1BYzN0piSd/leL2
+	ec5Ut1JgqghkfxVjTPPaSINs5gMqlPhKSxoCn6aXZ2Sn3YNhMCw58kqz2qDQY1mKGmLzfNqKJrx
+	wkoPcmYu5fh5nKiFjbdUhmiNFJhsi5ua4hHA/sJ7TorvUIqmdkSRDe9QCX7EhOR5hOHyfwmuvVH
+	gZR4TqtaFNXp1oVsgJbW4clYwGkkkibjnk+CkXt7zG8zlMmUusssiOlRXjKMG+2kVG42SfIAawa
+	esvofL1cjIyoi92ePNRzOwCDJ86akoNEplWFhsXBK0Z8I2nKe8vmL7kTKWx6+JPClpDLcMHV+Bg
+	8+SezMf6docelLPoBEqzLraM11faacDrTWhrrIyo=
+X-Received: by 2002:a05:600d:8643:20b0:49e:7c8c:bc77 with SMTP id 5b1f17b1804b1-49fbd1c9005mr12325555e9.7.1789601145442;
+        Wed, 16 Sep 2026 16:25:45 -0700 (PDT)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
+        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-49fbd520ad4sm1982415e9.1.2026.09.16.16.25.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 16:25:45 -0700 (PDT)
+X-Relaying-Domain: everpuredata.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id D574934014B;
+	Wed, 16 Sep 2026 16:25:43 -0700 (PDT)
+From: Tim Menninger <tmenninger@everpuredata.com>
+To: Chuck Lever <cel@kernel.org>
+Cc: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Abhishek Ojha <abhishek.ojha@savoirfairelinux.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: phy: micrel: Advance register data pointer in write loop
-Date: Wed, 16 Sep 2026 19:19:28 -0400
-Message-ID: <20260916231928.1336305-1-abhishek.ojha@savoirfairelinux.com>
-X-Mailer: git-send-email 2.43.0
+	Eric Badger <ebadger@everpuredata.com>,
+	Jon Curley <jcurley@everpuredata.com>
+Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
+Date: Wed, 16 Sep 2026 23:25:43 +0000
+Message-Id: <20260916232543.4100078-1-tmenninger@everpuredata.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <0e2f9688-097c-4bb9-a7ec-82b41bdb3653@slotpi15m67>
+References: <0e2f9688-097c-4bb9-a7ec-82b41bdb3653@slotpi15m67>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-lanphy_write_reg_data() does not advance the data pointer while iterating
-over the register table. As a result, it writes the first entry num times
-and leaves the remaining errata registers unconfigured.
+I took the SLUB side of this to linux-mm as you suggested:
 
-Single-entry tables are unaffected, but tables with multiple entries
-leave every entry after the first unapplied.
+    https://lore.kernel.org/linux-mm/20260916232227.4098143-1-tmenninger@everpuredata.com/
 
-Advance the data pointer after each successful write so every table entry
-is applied in order.
+The more careful reruns also resolved the inconsistency you pointed
+out between the perf-lock wait time and the idle CPU measurement.
+When mpstat is collected during the same 10-second perf-lock window,
+the machine is almost fully utilized and throughput drops
+substantially; without that instrumentation there is significant idle
+CPU remaining.
 
-Fixes: c8732e933925 ("net: phy: micrel: lan8842 errata")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abhishek Ojha <abhishek.ojha@savoirfairelinux.com>
----
- drivers/net/phy/micrel.c | 1 +
- 1 file changed, 1 insertion(+)
+I also collected cmpxchg_double_fail over uninstrumented 10-second
+windows in several NUMA/CQ placements. Those numbers are included in
+the linux-mm report.
 
-diff --git a/drivers/net/phy/micrel.c b/drivers/net/phy/micrel.c
-index ae830781824b..5c8461db7b4b 100644
---- a/drivers/net/phy/micrel.c
-+++ b/drivers/net/phy/micrel.c
-@@ -6344,6 +6344,7 @@ static int lanphy_write_reg_data(struct phy_device =
-*phydev,
- 					    data->val);
- 		if (ret)
- 			break;
-+		data++;
- 	}
-=20
- 	return ret;
---=20
-2.43.0
-
+Thanks again for helping separate the allocator behavior from the NFS
+regression.
