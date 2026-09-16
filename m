@@ -1,106 +1,78 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E1D392C32;
-	Wed, 16 Sep 2026 01:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9D738F253;
+	Wed, 16 Sep 2026 01:21:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789521669; cv=none; b=VCljW8lZ69pHfDvoKHrucn3oavfsqIAbydKZ4TgDcHuLWf1L9pnMDWRxqQo6NMEA3BH0Bb4R2Lj6hxWkALvdieyE43Awy4qXkL7vPcDy5+cBxk0j8IzTXZNF8idVJLxhHuu9DY/whzfQRkf6c0jjGcIiQoOz9bfy18leBDby27k=
+	t=1789521674; cv=none; b=hNWCUPx4JoC7KiXs9NdfZQQ1Ns1EQlTO66gVcO2phzkxDWakStwjEO3M0tX3AHsEizHoe70HciVsXGG4kI/YMhRrG6tjyYZboOfCKED1gUKtPkZj1+fn48Z3PH65V6GnSsKmPk8jUcKSkTowFxjo+YXbrQoH6dj7qN24Zumk2ns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789521669; c=relaxed/simple;
-	bh=1UBaKzUVsEr0WxpAtruTBKKwn+ntddLNTSmOFB8wQok=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N3VK9hQ7lJ2+Tz8sVY4KEkgqqxY3PtVVu4q5OkRqc8oixJeRVxzAZEQB6+N4K0p+wM5b2r2uGUtKWpX3vuL0U8wNIk6a9wTItZ6mJfX6MlVXckrmmGUfBzsuKdvjj48KISPwGhrh8+0EMJYzF7gM8P7cKn/RovZ/FIO0o92V6kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=dpvw2WJJ; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789521674; c=relaxed/simple;
+	bh=DHLMQOYC8C4G8KEDugaGMVZg2k45mWxlXS9FzgigAtE=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=OcWuih6nVmxgbt51cWSp1mFHrTYKI6wyE6pCyqjx3AgM3viDKgEDNbOvm/iHZrTkWxnk41MNczS9ge/+/LpGgCOUBnUDSUKz1IXZZb/tSRp/v10Sd094ajRDDGvlrducPVXmGWCGuYz8qClFoQ0qUs1GcH0kYPfbCp32lrzBVCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AuIRieq2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="dpvw2WJJ"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7171740E015B;
-	Wed, 16 Sep 2026 01:21:04 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 3m4E6WTpuOPC; Wed, 16 Sep 2026 01:20:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789521654; bh=bKJQIDsqZ5rL5b37AOsDJQpQ4Es2yzu120kfyXa63a4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dpvw2WJJycynN6u4TTzrudIuXymxBxoTelMOVXiNQF4tgFgRTS+k44dLLG4n0kYnB
-	 EMwM7guPWk4vBuoJxWjlgWgGQ/+T1kRu1bruUWB0DFw2AxcgGXCkF1GohDBPR8Lotq
-	 zoXrhXYmjTZs5XoRFQrJ+rFDgti+jgJcok7BmbhSu9KA+bBT3GfSze+fUBpsFbdGMs
-	 iJnHpiIYMAzNUAthyYLucSRQyCYb87MMRgqvhlWxY3F16+627rk53iySS2XIFTvlTx
-	 0nA+4hGY/1O5eOCLumgLW4HmA4vCIF1zzYr4/NI+lF5xwKbo01ZlNJGEui78B9sxfC
-	 A53zuwc1VEpylpKOAjHxi1bCMZzMv3Jzs27lTLAt5SEOQwcRfYEPSL1SvRb3uaLPRQ
-	 THcC2cUBNPbyF1tQzAoeYJ1IMDS4Rcxy9T4Lm4o+wVQg5NJWiZTreeIKvRfsb3q/Jr
-	 JYVTc5lKIvmU8Ed3zIAwqNK8WEdLaMzfE/M7hnl6nXrNmfC7rRLbKxHlhTMJpDEwsW
-	 ITIKhp71mJPZNvWvnibBkF4BZ/ry6iFqj/D8pxezztNYwpsB0TzanXFZxiun8hZwMh
-	 LaBrSu647FJ5W2UAgQLWB1lPwYh9fJMvuzLbWtbFqmFalrmdTHlkRHJ4dLmR1xhKtB
-	 PEywYZVzr2ahZrmhNtMnjZJg=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D2F4840E00B9;
-	Wed, 16 Sep 2026 01:20:49 +0000 (UTC)
-Date: Tue, 15 Sep 2026 18:20:46 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Tony Luck <tony.luck@intel.com>
-Cc: Myeonghun Pak <mhun512@gmail.com>, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] EDAC/e752x: Use managed PCI device enablement
-Message-ID: <20260916012046.GDaqnu7sIhsWbtLCOG@fat_crate.local>
-References: <20260915015519.83833-1-mhun512@gmail.com>
- <20260915015519.83833-2-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AuIRieq2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2AF1F00893;
+	Wed, 16 Sep 2026 01:21:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789521673;
+	bh=qFu+XMRGsq0vqlI36YH0NwpY2enQgcyoZNkpFXENMyo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=AuIRieq2mB3oy5C3YgHYq64JbtB3IG5yK0N5QSAwvKmmQhyMY89sRrfEcNKeOBYuZ
+	 QlB1wi8vhoUxDYFQWKd/BU02sOkROGNbbam7T8GtVIiM618oUxZ7yKwYbaIlk2/RnV
+	 +cc/es9RHZldS3tBDDEMKjtC5gMtaFo4yedWT4qhtUSIe1mbZCi3AfHjszwdnl8bm5
+	 0yDPJnVXf8MH2xeqM+UGxuGgt1G3CpbUC09LlIEbMBsyuthGig7neA8wLzyTwtIfa5
+	 kL2fi0SYezQYrYYOsTqvwBLQEffe8HxXjG6YItADzJY1EbG3DDvRS+3gK6cRf6Dbr1
+	 Cu/SM2Ze0vekA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A8D3927075;
+	Wed, 16 Sep 2026 01:20:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260915015519.83833-2-mhun512@gmail.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: txgbe: free the fixed-rate clock on cleanup
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178952160739.2349576.12830147384050698573.git-patchwork-notify@kernel.org>
+Date: Wed, 16 Sep 2026 01:20:07 +0000
+References: <20260911155318.88857-1-mhun512@gmail.com>
+In-Reply-To: <20260911155318.88857-1-mhun512@gmail.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: jiawenwu@trustnetic.com, mengyuanlou@net-swift.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ae878000@gmail.com
 
-This one too?
+Hello:
 
-If no objections, I'd orphan them all and stop taking patches for them.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon, Sep 14, 2026 at 09:55:17PM -0400, Myeonghun Pak wrote:
-> e752x_init_one() enables the PCI device without balancing the enable
-> reference on probe failure or removal. Use pcim_enable_device() so the
-> PCI device is disabled after failed probing and after driver removal.
+On Fri, 11 Sep 2026 11:53:18 -0400 you wrote:
+> The fixed-rate clock is registered with clk_register_fixed_rate(), but
+> its error and removal paths use clk_unregister(). That unregisters the
+> clock without freeing the fixed-rate provider allocation.
 > 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
+> Use clk_unregister_fixed_rate() on lookup creation failure, later PHY
+> initialization failure and removal to release the provider allocation as
+> well. Keep the existing clock registration and lookup cleanup ordering.
 > 
-> Fixes: 806c35f5057a ("[PATCH] EDAC: drivers for AMD 76x and Intel E750x, E752x")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  drivers/edac/e752x_edac.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/edac/e752x_edac.c b/drivers/edac/e752x_edac.c
-> --- a/drivers/edac/e752x_edac.c
-> +++ b/drivers/edac/e752x_edac.c
-> @@ -1387,7 +1387,7 @@ static int e752x_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
->  	edac_dbg(0, "\n");
->  
->  	/* wake up and enable device */
-> -	if (pci_enable_device(pdev) < 0)
-> +	if (pcim_enable_device(pdev) < 0)
->  		return -EIO;
->  
->  	return e752x_probe1(pdev, ent->driver_data);
+> [...]
 
+Here is the summary with links:
+  - [net] net: txgbe: free the fixed-rate clock on cleanup
+    https://git.kernel.org/netdev/net-next/c/87b80c2f6b05
+
+You are awesome, thank you!
 -- 
-Regards/Gruss,
-    Boris.
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-https://people.kernel.org/tglx/notes-about-netiquette
+
