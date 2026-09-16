@@ -1,182 +1,233 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134C04DD3CF
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488974D0CDD
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578397; cv=none; b=NFUHB5hYYVZrCyW/qPnZmAcoPuqK8xo9KvRTTqWDGIXS+KMxhDf6Nv6vYCJqUxDzCmHPvAIKndL2mRt5dx8prTKc1CMaBPNFnNA62XGS/XOGcM5NOejY8/9RHwn295GR7gaphiWK55l+FJb5Qgz2XI0ZJcC7EdZLZEzyDQyxpMg=
+	t=1789578399; cv=none; b=i9u3UQ0PS8cdOIrjzhoIAy7ZnKHnEEF5UBxMDoi2CgHYNzEua4OqZNORtixHITCfBvfl8h+KhNJNyXufEvWweuZq1c7QcoNq2hqoFv6nBq+HOjdAsCLzb9d6aCmebCu93bQdvLo7sPVGViLRUmTdcjRYhD1oy/Bo1fCmsL9zv08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578397; c=relaxed/simple;
-	bh=DvDRUmbdA1hNLtbXg8l29Y6o593XR55fqEPA4seYRpk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tSMTH1KqWBncehtdplgTEdxqPlX2w7bPdW6Mwe0YB14LYCWzNmfHyDI6y5viVPVQLNXcch1Qx8sm9uZWQV3P5Oo13CRnWeQ+dlQ6tUNNve0sJafKFTPJnpExcJUO60a+FZ2Fl/mDieQT1nKUP/rku1+QtHHGvxGEWZT+AVquIb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G6on4X0/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BwCBwhOL; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789578399; c=relaxed/simple;
+	bh=qfLN5WLAFy26QaPMK2Ae9ZgOW29L0epdNq5+HfGEGw4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rSRRfC1ahV9zHtbCS2Q4Cvs0+R1T7dOeTfzmYbeUcUl4uWzZ5fEkxGY/7d5vScHhY4UfGiH5dcmUI/Q1rvDOJ5F8S5Eq7SOufEeVE+MebGEK/oecIZAVU5nYBAwjRNqCLuRb1clcAAOMfJ5OWCX2rYpMp3EK6uFyfJGFq0lXJ3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OF3Bp44b; arc=none smtp.client-ip=74.125.231.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G6on4X0/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BwCBwhOL"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GGiLf3210470
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:06:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=R8MN1jUSDFS343/7fvvAHk
-	6j8IvEcZo9/KawqASQ3kY=; b=G6on4X0/Mla60a3HI91EnVnQVoH8GaUZ1gQN2M
-	vYHlwg0qvlPIxzsYyZKr+NJGyEpZcAxSPIlynJan9+qlQsIyXnLXXpEoDxAZQVXU
-	CfItnzMo+c3QbHc4HDE0NunTVzkR/TIlKZbzlI7RT4VKrjuK3K+Iw1VsUQba8k6s
-	9xGOggaDlMP2vGz2Azs6brFm2cOcbSuaOuMXNYqt8pJWmsHomFb18QiPdhr85tZh
-	XE0ITtFp9VQA20WqdIbd5+tXDeJNGV189eNBugECl6id0xFfmRmZo9xDZvAR/sRj
-	21/yzWrDofJcQnN3RIs7+8qBUpdf09EQNYQ6BKc4m4uhY8VA==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqxw8r3tn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:06:24 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c96449cc2aso2573472e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:06:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OF3Bp44b"
+Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-804ef461aedso801896a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:06:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789578384; x=1790183184; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=R8MN1jUSDFS343/7fvvAHk6j8IvEcZo9/KawqASQ3kY=;
-        b=BwCBwhOL+RdQwzJ+q5O3iTRdVoM/iZtLPBibik11t7152G9AygVMw8fB4W/Fxq8YmE
-         Nh/3uFVr7ZkJ+XPoQbkrEgB24ECSrMvX5garJVZvAiSE7JwE7/2uqYB5qfjLNj+/rPGw
-         ugJQpLqHjx/Jdpq7dZ2qgwzNEmYOxKQkc5isicSBZzEHNk79TYWVYORNd1pblzQITnId
-         yumzt3j3mCIsy5lW6eU4XslwZJDxquWIIZB8lG51zqYVo38vXRoz3iDp7rqtjxdPjA6y
-         CBs4Pvtw8sHdNdbzHCA9iFjkc8fVXgDMxS1hKzmEERa8dsLETvKchQqwzIh3/mgNDNlL
-         rclA==
+        d=gmail.com; s=20251104; t=1789578389; x=1790183189; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=r0v/Glg/t1TxvoAL2KbqVzGsnLvj1ftPu+eZkPIP73o=;
+        b=OF3Bp44bpUHGzhDGJCQyV5nTYALEW303eyPqI3c6y/9UORrFy3uH3WBx93s3iPRh4f
+         /VNDTg4gBjm/ANrj0Sdt8DlgE2TRS1KVL/UV3tpzaf040HlsGm2KouRmnLXLLIeGG+GQ
+         8FmtDK6WvW0sMMjfF52BJqspAkG3dmVX0JO8McYLdEOFOCnax0XgB0dyLVbGOCP6LL6Y
+         wT1NZYvuE3deFY3Q57lx1syhNauHUYbGmuhVVUJYjmZ0Oq1t7kLkIYbJ/4+pXdB8TaL4
+         PnX5HzxGxlcxnFMjl11Q+zWLNTnJu1iZRrOuhKek2zjB2/wkrbvpuVzBKq2uP7gZ923Q
+         8x9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789578384; x=1790183184;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=R8MN1jUSDFS343/7fvvAHk6j8IvEcZo9/KawqASQ3kY=;
-        b=1IXErSi4/GUw6elRyhVi1ploK6X5bb4K0tMfEqS/n2jiSEV8Vu0T228AM69g4MO7E2
-         ODIeEaqp/wcOkMf6qKpT39l32/uUOPwkMZVxIRoz1OjbTxrhim60XfSmJpLXXqDgU4Ee
-         7mkUGK+NnHo01t6boDxjiVZT4i7orsdEnrd6L2rLdWVPgsb6f2llPNJRRM97pOOpyk9M
-         yBhZmHlC/L9cf+mo8aPvi7nNSjhv+joaZmo8irtIOP0nSDz8BrBc8yJBdr6/ybSVTKCH
-         bvqChm/HFMv1LGzzWz6k4DU8bohQ7PnTp1MPgu/EV+QbhDRKj0Rx0XKW+dNfXSqURfNv
-         4Qkg==
-X-Forwarded-Encrypted: i=1; AKwUvBxMnXtolegCqkcfhmwJ5YnVrbgAQCy1j7DlbULp12P9R0shMGwRkLN7gd9lyf0atCj+koG09860nu6IXls=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8+QnQ5RivKU+CAQDCn8y1iwbs12BZ3JcZ9deSEsxxavckFrXs
-	8Vg5j+IyM/AdRBVYlXHpcgMHitY8zABmhITAC7G6AZ7zNjTeKD+huSWlPMp6628HQNRN8/GQJnW
-	zY20oaghrz8HX6Nsv/ZXolapkz7N/+5Xx0ij6kMZVb51zUvV2bi2wFvFEGUOvU1f8pB8=
-X-Gm-Gg: AYBFou2wTbFlUidT6qzM+72UZhdD78kercH6RhIMyHE8TRjhZVeFMWYR5z0FXwYHLju
-	omdLl6Ha2XEjNsBNs0NM/MHU058bP17oiJPg2dV13rkgrH/ZQKtUTuz9K9N+VKc+gV3ndCCxLq1
-	wEvGsGCOJhUEh4Aiiwj0cGRQN1csJg/fHr8DKREI/I9ZUiwGf3Hkz2VojvRgrqaSPKa9Heb/0tZ
-	VSD3S3bqLAxa5Q5QsmC4xG/3X5asoaAEHDrwCZtMYXPMlABZh65kxl48Yd1FrcN3PEEemRZqq+I
-	N2RZ2Kj9FpMLp51uZNcnz8dOVUeqJUrvfVa7u37Y9G3h9WoFrsX58IS4w+Qs6RhIlwJtqK8Xtam
-	UIXkZP9GK6Xml1bcSqiVb1Vs=
-X-Received: by 2002:a05:6122:6314:b0:5c7:ea14:4fe7 with SMTP id 71dfb90a1353d-5c9a574a8acmr223980e0c.9.1789578383734;
-        Wed, 16 Sep 2026 10:06:23 -0700 (PDT)
-X-Received: by 2002:a05:6122:6314:b0:5c7:ea14:4fe7 with SMTP id 71dfb90a1353d-5c9a574a8acmr223943e0c.9.1789578383352;
-        Wed, 16 Sep 2026 10:06:23 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf344bfsm7951293f8f.27.2026.09.16.10.06.21
+        d=1e100.net; s=20260707; t=1789578389; x=1790183189;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r0v/Glg/t1TxvoAL2KbqVzGsnLvj1ftPu+eZkPIP73o=;
+        b=ukZootDuSZcvYz8kFPYnwOFp9AtI6ZVDzSfRKP9s8QBDCKau35LCz6lW/pY/P5W/RL
+         XOynG5qjcbCUUGLSQgvSKxkciqwV8a2+fiwUfcgLdWSDP7/xmLLAbWdO7IVoy/GuHh/l
+         PmHEluFyIkLlLDwZohPdPFuTgE+keJyIHezzubN4UxGMWB/Wn5JCEGpbsG+xfk5fi83y
+         TVe59h80uzZLv1ELcwh6jvDF+SH+chpe2wZWRZ6k/e1AM56ngKbuDTJQlbQWvw0AMhED
+         SOgFf1REb7j1fd3gqsy9l0YWmB8kdfX6UsZ84cOtrjA/XrtgouP36EuztEOcDOljO5io
+         g/QQ==
+X-Forwarded-Encrypted: i=1; AKwUvByyAc+w26a3PaBOHqoD6zApVScvSyWclWuM7577FnC+h19BN4c9Q9vQelo6cH7j+vhv+l+Jxnc2TUnE2Ic=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMLSgfL5sFRtG1+K+iGWe6PGUbTkoLL+bwlTN55otcbUO1fhBu
+	QEf5llUHGvJiYrFx5fWaMynu/u+0xWoTV+lq9cngWcuRFq48kQ2M89ma
+X-Gm-Gg: AYBFou3D2+7M58uWLgAWFYjHiLNxan3yDcZ87xFCT9cOsYcjq3FEfARXrzWkTdJXRcd
+	KG+/EmG93zLt8fjh9zTnSqMOsesR22a45esBRdw8camIeLtwmjsAMhYsx5zZE5oT9vP/FuvD6hs
+	u9+85Y7r1vpCHYPrCx9xREmSl0PlzzC6wfU1ePn4wjW+3G7cjJ6934AnQJiPftq6Vzttago+7LQ
+	QdhbmM9fA0BDl3wtbeHA+HAXhLbqMhK6Wn7A53xIiakM4sQkA9qshhHG62qzI9V4y1CmJsAPN82
+	ikmEJ3chDr48iQAwYqGMyqAR/F6aG6vxZhYh58TyevNmvcN46rGrcSU5iHwD7LRJe9JbVX/n5/w
+	pbtfToT521hqSTdAiLTF8weyXMONwXW/EhM5w9G3cL1vXpLGeWpxsRACt8/HiQQZFTQOEvwYG0T
+	fNah9lbuB/oDSEQCAYJy4g7yBaHYbk1qRwydzFDzoXt9UbyGua/H4W0PrvbelPED5hHBZ6cAtbz
+	fMMQOOw2uRd+v62naSwRPu0CRknosk=
+X-Received: by 2002:a05:6830:2705:b0:806:1e7:4167 with SMTP id 46e09a7af769-80b2da2b31fmr3730712a34.13.1789578388877;
+        Wed, 16 Sep 2026 10:06:28 -0700 (PDT)
+Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:46::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80c46199e89sm362502a34.9.2026.09.16.10.06.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 10:06:22 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 0/2] arm64: dts: exynos: Few strict dt-style-check
- cleanups
-Date: Wed, 16 Sep 2026 19:06:16 +0200
-Message-Id: <20260916-b4-dts-samsung-cleanup-strict-continued-v2-0-8e9d534ba5b8@oss.qualcomm.com>
+        Wed, 16 Sep 2026 10:06:28 -0700 (PDT)
+Date: Wed, 16 Sep 2026 10:06:24 -0700
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+	virtualization@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	sargun@sargun.me, jlinbox@meta.com,
+	Bobby Eshleman <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next 3/6] vsock/virtio: support guest device network
+ namespace
+Message-ID: <aqrMkHgwZdEz1dq+@devvm29614.prn0.facebook.com>
+References: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
+ <20260902-vsock-guest-ns-v1-3-9995383e9a8b@meta.com>
+ <aqlkWGyoUYrgQUzz@sgarzare-redhat>
+ <aqmLFzcF3MmwRITz@devvm29614.prn0.facebook.com>
+ <aqqNZX0gk0I6AbVG@sgarzare-redhat>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOTQ6CMBSEr2K69hFawYgr72FY9OcJNdBiX0s0h
- Ltb8ARuJvmSyTezMMJgkdj1sLCAsyXrXQZxPDDdS9chWJOZiVKcy4ZzUBWYSEBypOQ60ANKlya
- gGKyOoL2L1iU0gOYijVHayBNn2TYFfNj3vnRvf0xJPVHHTb81ekvRh89+ZeZb7//VmUMJjZR1X
- dZcV0LdPFHxSnLQfhyLHKxd1/ULDkYRg/cAAAA=
-X-Change-ID: 20260911-b4-dts-samsung-cleanup-strict-continued-ed8addbcda31
-To: Jesper Nilsson <jesper.nilsson@axis.com>,
-        Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Peter Griffin <peter.griffin@linaro.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
-        Tudor Ambarus <tudor.ambarus@linaro.org>,
-        Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-        linux-arm-kernel@axis.com, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1013;
- i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=DvDRUmbdA1hNLtbXg8l29Y6o593XR55fqEPA4seYRpk=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqqsyK0nTkSriwe/0MMAuYN/f8r3VaRJQpQYSlC
- XYDy3ELxdKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqrMigAKCRDBN2bmhouD
- 1wmHEACWWgibWkjIlfqAt2MKy9hE2yYOPIVsZ8DGJ26S3kKVqOosYVDeaZk9FLCPPdT2B4RAbs2
- j0FXA6Nw3bX6XsRI64oIWE5z004fs/SitB8i4DZgriK/+QWFuwtFuk7JAmdASf6mV6yaeMI4J2q
- +s7TcTkQzqIMGYn2N3OyJNVT1H6axeXTi91VSZ8theoYSfKxwNE08lJoZEYZraNfOMg4fyKsRn1
- K+Gg2mzWXzwHtvXdzAE7VS4QdgW4aIsPvEwI7nAXIFNo1/+Nohfp2qmV1z9W2CTcLXo6YLLLKPu
- XzYvxdlSiFSfQ6xIbSGYyw5kIyRyAkp7Lpx565zautGlFaBhnZDP+ll4541fd1h+m48aW+N/xYq
- uvGr6t35lybnW/541vys1fCdGLdkeJesQsgrPEG8bGvblCEC0uPgpsy0Tla3HAd7vFm4OlKIYQi
- 6HxHqbLBZKeb/Fz+aq1aNsWeYiA2xWW7diaY6bpCDY2r56calFBTZDRZx4KMRY0ropOo6bFKJw1
- DE8vozcjKQ/zDXCQ/FyAsR98/zTJBasPJGeurSyxSVOtuLLZvGI4vBbKqRoyaAI4XAnzqA1eDeg
- NWanNJg0jxQ2eAyDMZve3tiBJrIciBJ2iCr3HIM3qhKK+XH9l6dTzoiFlSvqIr23srP6mYi41aS
- Ge74esyIK+t8Hcg==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-GUID: 57d3O5xhY1tjEnWZh0XqWJkLyTkQGABv
-X-Authority-Analysis: v=2.4 cv=bY3+w+PB c=1 sm=1 tr=0 ts=6aaacc90 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=xKH-exNoj8ZXVN6IjzYA:9 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIzNCBTYWx0ZWRfX00C+xhexUqSR
- F0maadQ1REVdvvIknUmoOakhHEtthBuNmTQmmX+6F4zI3jykC55+6xPfJGVRpvDUU8wS/NxHe6R
- aLxD77XNA0G0RilYn1sMKwD14/URgLU=
-X-Proofpoint-ORIG-GUID: 57d3O5xhY1tjEnWZh0XqWJkLyTkQGABv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIzNCBTYWx0ZWRfX6juVDb1qHppB
- BCO/wOmTd1K3aLXza6zOTRE/nvvg2NqIqXLiWGURmjw2sRbpGIE5UCbnlqFI/7q6YJk8a3t/95h
- /Dn2Nl0PVEVtxBMrHPzuhg8ZfbD2fkp9kMBky1Hr11GPnH331yLh/3kUrfu9lr2zYPrG+TtcOkK
- qjBsQb7xDjZ12KYQSagdCIYkY4tppNjaRCWceflU5jMZ8rZzQo/PhxioZOa4FiLPQw4WbsH4RAg
- bi8Kw+WXOImR2W4aWOZmHfapLZnEZDY4ntsW9V8KqL0yK+EjrW2DA2WCBjwWJ9p/zBq6xUN99zF
- Iywujml/rtOIZ8hqO4Tm25P+aleNRGLEjdjykBRyfWNRwECcYh8jxezgzOf7AQvJK6/XnRjXO05
- MAxQ6AyqNGAh7991s8yzWN+gBAgJaYhN4ViBnj+RERC4OW2YvEfNd2jO0w3mi+6+mFmfRCE4+k0
- jGpSyMddeTrfaYIdkwA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0
- priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160234
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqqNZX0gk0I6AbVG@sgarzare-redhat>
 
-Changes in v2:
-- Do not reorder CPUs because cpu@4 must be the first one/boot.
-- Remove applied patches.
-- Link to v1: https://patch.msgid.link/20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com
+On Wed, Sep 16, 2026 at 02:44:28PM +0200, Stefano Garzarella wrote:
+> On Tue, Sep 15, 2026 at 11:14:47AM -0700, Bobby Eshleman wrote:
+> > On Tue, Sep 15, 2026 at 05:47:02PM +0200, Stefano Garzarella wrote:
+> > > On Wed, Sep 02, 2026 at 04:00:49PM -0700, Bobby Eshleman wrote:
+> > > > From: Bobby Eshleman <bobbyeshleman@meta.com>
+> > > >
+> > > > virtio-vsock did not have namespace support (the device was always
+> > > > accessible to any global namespace).
+> > > >
+> > > > Make the virtio-vsock device assignable to a namespace and initialize it
+> > > > to init_net. Because virtio-vsock and init_net are both hardcoded to
+> > > > global mode, nothing changes until the assign ioctl is issued.
+> > > >
+> > > > When the device's local-mode namespace is being destroyed, received
+> > > > packets are reset until new valid a namespace has been assigned and/or
+> > > > automatically returned to, and the next RX batch begins (in
+> > > > virtio_transport_rx_work). They are reset rather than dropped because
+> > > > vsock does not retransmit, so a silent drop would leave the host waiting
+> > > > for a timeout, and a connection request arriving in that window has no
+> > > > socket whose teardown would tell it otherwise. This requires making
+> > > > virtio_transport_reset_no_sock() available outside of the common code.
+> > > >
+> > > > When a device is assigned to a namespace, every already established
+> > > > vsock socket that is no longer able to reach the device is forcibly
+> > > > reset. For that reason, adding new sockets to the connected table must
+> > > > be performed atomically with regards to namespace assignment. This
+> > > > ensures that when the socket is added to the connected table that it
+> > > > actually passes the new reachability conditions set by ns assignment. If
+> > > > it wins the race to the table and does NOT pass the reachability tests,
+> > > > then the reset sweep will correctly catch it. This is the purpose
+> > > > of the new helper 'vsock_maybe_set_connected()'.
+> > > >
+> > > > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+> > > > ---
+> > > > include/linux/virtio_vsock.h            |  2 ++
+> > > > net/vmw_vsock/virtio_transport.c        | 28 ++++++++++++++++++++++------
+> > > > net/vmw_vsock/virtio_transport_common.c | 28 +++++++++++++++++++++-------
+> > > > 3 files changed, 45 insertions(+), 13 deletions(-)
+> > > >
+> > > > diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+> > > > index f91704731057..9c68ce1d7fb4 100644
+> > > > --- a/include/linux/virtio_vsock.h
+> > > > +++ b/include/linux/virtio_vsock.h
+> > > > @@ -286,6 +286,8 @@ void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *
+> > > > u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
+> > > > void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
+> > > > void virtio_transport_deliver_tap_pkt(struct sk_buff *skb);
+> > > > +int virtio_transport_reset_no_sock(const struct virtio_transport *t,
+> > > > +				   struct sk_buff *skb, struct net *net);
+> > > > int virtio_transport_purge_skbs(void *vsk, struct sk_buff_head *list);
+> > > > int virtio_transport_read_skb(struct vsock_sock *vsk, skb_read_actor_t read_actor);
+> > > > int virtio_transport_notify_set_rcvlowat(struct vsock_sock *vsk, int val);
+> > > > diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+> > > > index 4f9aa9c4c3aa..a453a4f828dc 100644
+> > > > --- a/net/vmw_vsock/virtio_transport.c
+> > > > +++ b/net/vmw_vsock/virtio_transport.c
+> > > > @@ -540,9 +540,14 @@ static bool virtio_transport_msgzerocopy_allow(void)
+> > > > 	return true;
+> > > > }
+> > > >
+> > > > +static bool virtio_transport_netns_assign_allow(void)
+> > > > +{
+> > > > +	return true;
+> > > > +}
+> > > > +
+> > > > bool virtio_transport_stream_allow(struct vsock_sock *vsk, u32 cid, u32 port)
+> > > > {
+> > > > -	return vsock_net_mode_global(vsk);
+> > > > +	return vsock_g2h_net_reachable(sock_net(sk_vsock(vsk)));
+> > > > }
+> > > >
+> > > > static bool virtio_transport_seqpacket_allow(struct vsock_sock *vsk,
+> > > > @@ -587,6 +592,7 @@ static struct virtio_transport virtio_transport = {
+> > > > 		.seqpacket_has_data       = virtio_transport_seqpacket_has_data,
+> > > >
+> > > > 		.msgzerocopy_allow        = virtio_transport_msgzerocopy_allow,
+> > > > +		.netns_assign_allow       = virtio_transport_netns_assign_allow,
+> > > >
+> > > > 		.notify_poll_in           = virtio_transport_notify_poll_in,
+> > > > 		.notify_poll_out          = virtio_transport_notify_poll_out,
+> > > > @@ -616,7 +622,7 @@ virtio_transport_seqpacket_allow(struct vsock_sock *vsk, u32 remote_cid)
+> > > > 	struct virtio_vsock *vsock;
+> > > > 	bool seqpacket_allow;
+> > > >
+> > > > -	if (!vsock_net_mode_global(vsk))
+> > > > +	if (!vsock_g2h_net_reachable(sock_net(sk_vsock(vsk))))
+> > > > 		return false;
+> > > >
+> > > > 	seqpacket_allow = false;
+> > > > @@ -634,6 +640,9 @@ static void virtio_transport_rx_work(struct work_struct *work)
+> > > > 	struct virtio_vsock *vsock =
+> > > > 		container_of(work, struct virtio_vsock, rx_work);
+> > > > 	struct virtqueue *vq;
+> > > > +	struct net *net;
+> > > > +
+> > > > +	net = vsock_g2h_net_get();
+> > > >
+> > > > 	mutex_lock(&vsock->rx_lock);
+> > > >
+> > > > @@ -682,10 +691,14 @@ static void virtio_transport_rx_work(struct work_struct *work)
+> > > >
+> > > > 			virtio_transport_deliver_tap_pkt(skb);
+> > > >
+> > > > -			/* Force virtio-transport into global mode since it
+> > > > -			 * does not yet support local-mode namespacing.
+> > > > -			 */
+> > > > -			virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
+> > > > +			if (unlikely(!net)) {
+> > > > +				virtio_transport_reset_no_sock(
+> > > > +					&virtio_transport, skb, &init_net);
+> > > 
+> > > Why init_net?
+> > 
+> > This parameter is actually unused by virtio_transport_reset_no_sock(),
+> > its call to virtio_transport_send_pkt(), and even the eventual call to
+> > virtio_transport_deliver_tap_pkt()... so maybe NULL w/ a comment would
+> > be better?
+> 
+> mmm, should we remove that parameter if unused?
 
-Not yet complete, more files will follow. I probably won't re-order all
-Exynos5433 soc nodes by unit address because it is way too disruptive.
+Sadly the vhost path uses it for its vhost_vsock lookup by CID. I guess
+it would be needed by g2h too if it had multiple devices and had to
+lookup by net+CID.
 
-Best regards,
-Krzysztof
+> 
+> Anyway, not in this series/patch.
+> 
+> Here, anything is fine, just put a comment with the reason.
 
----
-Krzysztof Kozlowski (2):
-      arm64: dts: exynos5433: Re-order nodes to match coding style
-      arm64: dts: exynos5433: Re-order properties to match coding style
 
- .../boot/dts/exynos/exynos5433-tm2-common.dtsi     |  93 +++++++++---------
- arch/arm64/boot/dts/exynos/exynos5433.dtsi         | 108 ++++++++++-----------
- 2 files changed, 102 insertions(+), 99 deletions(-)
----
-base-commit: 9e8494291f765bb1a8f43e36fb6b9146b20bc12e
-change-id: 20260911-b4-dts-samsung-cleanup-strict-continued-ed8addbcda31
+Sounds good!
 
-Best regards,
---  
-Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
+Thanks,
+Bobby
