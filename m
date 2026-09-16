@@ -1,123 +1,163 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FDF14D6C23;
-	Wed, 16 Sep 2026 17:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+Received: from wind.enjellic.com (wind.enjellic.com [67.230.224.160])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBAAD485CF1;
+	Wed, 16 Sep 2026 17:38:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.230.224.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580334; cv=none; b=bJDr7HOc+jZ9ngMzyVwd9Hz3nQ9nY5mxRIqIK4giSIyEYX9juNKTVeDlcQP9JOhF+ddjxyRT2n+r3mG7sXBil67GPiBiC8uJTrSLa4h5Y/oAhL2kpGV+2C10suMAf1QVBgOT07Zh/0EJJEAH7c/crNj1gDdP/a4U+1HK1oxq16c=
+	t=1789580334; cv=none; b=UCAe/W4EietTMGkhNcyQ0qQCs4LO7D0QuDf5hilRz68WgXmLAR4TZJifgyCz2cjVFvjDsUjZKSFHeZdigq+mEY8f6Ah7HYKN191AWL3H/TxnQuhOHNpQ63lGQx7CLGABt+ovI5UKbhbTrIjnxbWHA0Fu2inExAGBGtGpk83vEv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789580334; c=relaxed/simple;
-	bh=1xBOa/arXWhUJUP6g5m17JkL1URolc5p+IQdAXLKJ/M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JgGSmamELerhU6BDrK7Is5YWg6mCS+zACDjk2s8PdTN6HUlvzfQdWPwxvdxn0cPNm3uB3EOVnd1baocy7Ir8xQNM2qpDFa8nKeny7qDtFikbbvTYzKS/50JALkqEHZgWSl3hADSK+h8Xj8kYcRzLdeykBq/FY/y2xFXTvPCsWdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: jre@pengutronix.de
-X-PTX-Original-Recipient: kernel@pengutronix.de
-X-PTX-Original-Recipient: akpm@linux-foundation.org
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-X-PTX-Original-Recipient: linux-hardening@vger.kernel.org
-X-PTX-Original-Recipient: andy@kernel.org
-X-PTX-Original-Recipient: kees@kernel.org
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 53C512059ED;
-	Wed, 16 Sep 2026 19:38:15 +0200 (CEST)
-Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <jre@pengutronix.de>)
-	id 1x6taJ-001Go9-0m;
-	Wed, 16 Sep 2026 19:38:15 +0200
-From: Jonas Rebmann <jre@pengutronix.de>
-Date: Wed, 16 Sep 2026 19:38:10 +0200
-Subject: [PATCH 5/5] lib/string_helpers: fix counting of remaining bytes in
- string_unescape()
+	bh=csd2y2nYEEOCZfVox3c0d8z/t40ySqKYAVwh+i+0fGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Omh80TqMWkn0/OXSfA7ACGqCqTAxHbbhVk2VROxHS+Aa0cLsCllfoMaJdksLPj6fBi/O/eNANwNNVQj+cwe5KzP+J26fGUK2fv658SHkPAGKn8H56z0arkEHfLQNQDzZ8TjKkGmsB3fJCfkfXpAyN6Qr3uJ4jUT2hw4PCy9p7wM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enjellic.com; spf=pass smtp.mailfrom=wind.enjellic.com; arc=none smtp.client-ip=67.230.224.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enjellic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wind.enjellic.com
+Received: from wind.enjellic.com (localhost [127.0.0.1])
+	by wind.enjellic.com (8.15.2/8.15.2) with ESMTP id 68GHbLf8030165;
+	Wed, 16 Sep 2026 12:37:21 -0500
+Received: (from greg@localhost)
+	by wind.enjellic.com (8.15.2/8.15.2/Submit) id 68GHbIiG030164;
+	Wed, 16 Sep 2026 12:37:18 -0500
+Date: Wed, 16 Sep 2026 12:37:18 -0500
+From: "Dr. Greg" <greg@enjellic.com>
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+        Paul Moore <paul@paul-moore.com>, Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andrii Nakryiko <andrii@kernel.org>, KP Singh <kpsingh@kernel.org>,
+        Matt Bobrowski <matt@bobrowski.net>,
+        Micka??l Sala??n <mic@digikod.net>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>,
+        Casey Schaufler <casey@schaufler-ca.com>,
+        G??nther Noack <gnoack@google.com>, Jan Kara <jack@suse.cz>,
+        Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
+        Martin KaFai Lau <martin.lau@linux.dev>, Eduard <eddyz87@gmail.com>,
+        Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+        Jiri Olsa <jolsa@kernel.org>, Tingmao Wang <m@maowtm.org>,
+        bpf <bpf@vger.kernel.org>,
+        LSM List <linux-security-module@vger.kernel.org>,
+        LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
+ kfunc and policy object destructor
+Message-ID: <aqrTzoO6xF_AhuTZ@wind.enjellic.com>
+Reply-To: "Dr. Greg" <greg@enjellic.com>
+References: <20260909193719.518517-5-utilityemal77@gmail.com>
+ <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
+ <aqHUw6k0Mf83CGFT@zenbox>
+ <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
+ <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
+ <aqTZdCz6JaoK16Fp@zenbox>
+ <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
+ <aqcb2eXw61LaFaqY@zenbox>
+ <CAADnVQ+v9_a8Q_YOvS9fmXG+-Ga0ADKrjGDDUCiFaipo2vUDmg@mail.gmail.com>
+ <aqiJrkNyGM6hYu9A@zenbox>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-string_unescape-v1-5-7f8bd986fa33@pengutronix.de>
-References: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
-In-Reply-To: <20260916-string_unescape-v1-0-7f8bd986fa33@pengutronix.de>
-To: Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel@pengutronix.de, Jonas Rebmann <jre@pengutronix.de>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2281; i=jre@pengutronix.de;
- h=from:subject:message-id; bh=1xBOa/arXWhUJUP6g5m17JkL1URolc5p+IQdAXLKJ/M=;
- b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYshadYVNz/jirVZhl00dzbwfT7Od9J7l/T9PqrTwCl/Fr
- RSZBTN/d5SyMIhxMciKKbLEqskpCBn7XzertIuFmcPKBDKEgYtTACYSsJzhN3tu7aefdxZesDQ5
- W/vO96/aQpP2Y47KR5Pdkqxsu143LWP4HxkmeYtZy1LffsJ9xbL9+c/KJi8sLjyR7fFGYoJQRfV
- aFgA=
-X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
- fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqiJrkNyGM6hYu9A@zenbox>
+X-Greylist: Sender passed SPF test, not delayed by milter-greylist-4.2.3 (wind.enjellic.com [127.0.0.1]); Wed, 16 Sep 2026 12:37:21 -0500 (CDT)
 
-All of the available sequences expand to exactly one byte, the size
-check in the loop condition is sufficient for the case of an escaped
-character too.
+On Mon, Sep 14, 2026 at 09:13:29PM -0400, Justin Suess wrote:
 
-Otherwise, an escape sequence that should be unescaped to the last
-character before terminating with null in the destination buffer will be
-output as backslash instead of the escaped character.
+> On Sun, Sep 13, 2026 at 07:31:44PM -0700, Alexei Starovoitov wrote:
+> > On Sun, Sep 13, 2026 at 5:20???PM Justin Suess <utilityemal77@gmail.com> wrote:
+> > >
+> > > Sure, in some perfect world in the future where every verifier
+> > > challenge is solved and BPF has feature parity with in-tree c on
+> > > a 1:1 basis, you could implement something like SELinux, or Landlock
+> > > in pure eBPF.
+> > 
+> > Try.. give it a shot? What is missing in the verifier?
 
-The only exception is when encountering a backslash that turns out to
-not start a valid escape sequence and both the backslash and the
-character following are handled in one iteration. Move the check there.
+> Howdy Alexei,
 
-Add a kunit regression-test that unescapes a character to right in front
-of the null terminator of the destination buffer.
+> I'll stick to Landlock as the concrete case, as it's what I'm most
+> familiar with.
+>
+> From security/landlock/fs.c: hook_sb_delete() holds the superblock's
+> s_inode_list_lock, takes a nested lock of the inode's i_lock inside
+> it, takes the RCU read lock inside that to dereference the per-inode
+> Landlock object, and then the object's own lock, which is four
+> levels of lock nesting, and even with all of that it still has to
+> handle a race by re-checking inode_state_read() for specific flags
+> to maintain VFS invariants.
+>
+> BPF cannot take any of these kernel locks, and the current BPF
+> locking model deliberately excludes any nesting (bpf_spin_lock) or
+> resolves contention by bailing out (trylock style); the opposite of
+> what maintaining VFS invariants requires.  To do effective
+> inode-based access control without TOCTOU or bailing out of a long
+> path walk, you'd need to solve nested locking with colored locks:
+> inode spinlocks, superblock locks, unix_state_lock, etc, and solve
+> nested locking along the way.
+>
+> You'd also need to convince the verifier that an upward VFS walk
+> (dget_parent) is bounded, and find a way to cross mount boundaries;
+> getting from a vfsmount to its struct mount is
+> container_of(). (Pointer is arithmetic rejected even on trusted
+> pointers).  Pointers walked via d_parent become untrusted, so they
+> can't be passed to any kfunc (bpf_path_d_path(),
+> bpf_inode_storage_get()): inode local storage, which is otherwise an
+> idiomatic inode security blob replacement, is only usable for the
+> object at hand, but not its ancestors required for VFS walk.
+>
+> Making it string/pathname based instead doesn't help either: any
+> string-based method fails because the same file can be linked from
+> multiple places, the same path string means different things in
+> different mount namespaces, and strings aren't TOCTOU safe (the path
+> can change during the walk).  And you can't currently take
+> references or locks on inodes, dentries or mounts from BPF, so any
+> hierarchy walk is a lockless, unreferenced snapshot racing against
+> rename, whereas Landlock's walk holds path_get()/dget_parent() holds
+> the references at every step.
+>
+> You'd also need credential-attached storage. BPF task storage has a
+> different lifecycle, and is no substitute. It does not define how policy
+> is shared by threads using the same credentials, copied or replaced
+> during credential transitions, propogated through file->f_cred,
+> or synchronized across a thread group. Recreating those semantics in
+> BPF would require explicit BPF APIs for credential storage to be
+> consistent.
 
-Fixes: 16c7fa05829e ("lib/string_helpers: introduce generic string_unescape")
-Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
----
- lib/string_helpers.c             | 5 +++--
- lib/tests/string_helpers_kunit.c | 2 ++
- 2 files changed, 5 insertions(+), 2 deletions(-)
+Excellent summary.
 
-diff --git a/lib/string_helpers.c b/lib/string_helpers.c
-index cb41ef9d8c5b..4a621f884bde 100644
---- a/lib/string_helpers.c
-+++ b/lib/string_helpers.c
-@@ -329,7 +329,7 @@ int string_unescape(char *src, char *dst, size_t size, unsigned int flags)
- 		size = SIZE_MAX;
- 
- 	while (*src && --size) {
--		if (src[0] == '\\' && src[1] != '\0' && size > 1) {
-+		if (src[0] == '\\' && src[1] != '\0') {
- 			src++;
- 
- 			if (flags & UNESCAPE_SPACE &&
-@@ -349,7 +349,8 @@ int string_unescape(char *src, char *dst, size_t size, unsigned int flags)
- 				continue;
- 
- 			*out++ = '\\';
--			size--;
-+			if (!--size)
-+				break;
- 		}
- 		*out++ = *src++;
- 	}
-diff --git a/lib/tests/string_helpers_kunit.c b/lib/tests/string_helpers_kunit.c
-index 2e02c680cbb2..10763a01be83 100644
---- a/lib/tests/string_helpers_kunit.c
-+++ b/lib/tests/string_helpers_kunit.c
-@@ -626,6 +626,8 @@ static void test_unescape(struct kunit *test)
- 
- 	test_string_unescape_one(test, "short buffer", UNESCAPE_HEX, "\\x41\\x41B", 4, "AAB", 3);
- 	test_string_unescape_one(test, "unrecognized escape at end", UNESCAPE_HEX, "B\\qX", 4, "B\\q", 3);
-+
-+	test_string_unescape_one(test, "end of buffer", UNESCAPE_HEX, "B\\x41", 3, "BA", 2);
- }
- 
- static void test_escape(struct kunit *test)
+Alexei, for those of us contemplating potentially large BPF-LSM
+projects, does this imply that eBPF may never be ready for other than
+small boutique based security implementations?
 
--- 
-2.56.0.rc0.108.gf0ef1b96a0
+Interested in your thoughts.
 
+> (These in this patch hooks are contrary; they are giving BPF control
+> over LSM policy. And, indeed, no hook is called from kfuncs, as you
+> stated).
+>
+> The proposal is intended to add a narrow generic bridge, not to
+> expose Landlock-specific kfuncs or make BPF depend on Landlock
+> internals:
+
+Based on Micka's mail that we responded to, this seems contrary to the
+intent of what you are trying to implement.
+
+We can see where you are not making BPF depend on LandLock internals.
+
+However, from his description, the intent is to have a process compose
+a LandLock policy and then hand enforcement off to an eBPF program,
+which on the surface would seem to suggest that the intent is to allow
+eBPF programs to enforce LandLock specific functionality and controls.
+
+Perhaps we still misunderstand.
+
+> All in good faith, 
+> Justin
+
+The same.
+
+Greg
+
+My opinions and those of my Golden Retriever Hezzie only.
