@@ -1,160 +1,82 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6924D45517D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CF9456287;
+	Wed, 16 Sep 2026 20:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789590027; cv=none; b=Mmi3i7TjovhDCEsNuB7JlJzmObKFwFOTQeKZ626nXmdmYp8Vu/cKAE+LeXysqWlKbLbctyqILdtT7LBKcR6hSvLPW+wXlnrTHIj9kC5OKAEHBzipkfWnH0MYOuxPnuH5/9uhuSCGMCMgIgrzJIp0sWjNQQ3trCqRx7QwDykHPhI=
+	t=1789590071; cv=none; b=Hyfd8SnxobOM59PehsBBeeKd7Q/cvGRhb8FX9D/eAud44uNBy8XFEnfmyfpo5cY3DJv/TdO/OsNJapdhPWYulNb1VZ3DgVDTOT7mbVtgc34KUUFChoq+utwIpgy6pQx+WnxccXX6gQUTzpilM9BUIdEUHFMjELE0bYvUZIYv954=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789590027; c=relaxed/simple;
-	bh=Ej22vtckdvfQ+B6irJUNrCPNb/Gby576+ozFZBj1s5g=;
+	s=arc-20240116; t=1789590071; c=relaxed/simple;
+	bh=+m0a54FZfvugrElKZTtAn5ayVVRuVQnKs26vNaDrX4c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rEVV6wOw8HjtULg8aCMo8N9Vib3sL8emJpp1oLS1tB4m4cCwnA3e6fteHxyP0NPmqm2HRw6fh+1gQrBZqc0Vi6CLyogvGj022n0hDOU6fpZY0hyBiL7jqy3pF4zluIrnwp17QDDGguhzk6qzswc/X6NH5vsyiJho6djCZyQagPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lmddu+L/; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=TKD6TYuKDJEPALoEKN3GZ4iWr7eWsaB8J5XahPrVEsLVdloruOvk2aXQ0bKtdq2TxRbI9jLTSHj/wieJThTPzvxEwHtyag+t6dG9bm+/7hTkpTZ283F41smNtysDr2i4WgStSq9r6Xk/k7JdEBY8DI4VDXUKulI6b6hGgvx9CkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qg0W61qb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lmddu+L/"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so1095165e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:20:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789590009; x=1790194809; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p0JU7NG9wWGfnbR02xknk5oExK7M/TW6csExg90umtY=;
-        b=lmddu+L/f1iUwEmQVkkOI3ZFWSpv5tSw/48+ly/d8AI8yN0TRkx7HuxOJlcVUp/l78
-         3Rjawz3CY+VT2e8rWlA7yxpKNGHBKd0t9kvW28TgXmJs9Dp39TtFr3QUBPjfMw3I3wQZ
-         tA44/QW3ixdrLGQ0ky8CJyGXTfpPtvCkSm4Ro9Ufer2UY22fr+eNbkxUc9XOMHoNlXGK
-         pI9IdbBF9baui4ThsaCcEqO8EZpiNLXjDklO/qJycN/cBRGPGMQuHxJBww/n109mdpiU
-         sBZ0UKRIyYGmsnSOx3PB3ETN8keGYT+r402ahVBYh3DZQ+fWi3t5WS2XmELboZdqX9tO
-         O5HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789590009; x=1790194809;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=p0JU7NG9wWGfnbR02xknk5oExK7M/TW6csExg90umtY=;
-        b=ZOEFiuad7hIpbfwsWqbD2z8cQ1HwqPkm4dAX/076CIVJJtm8p0p7sxniysY1aapZ18
-         pU2oQBXQqsQm0uZM7jBPi1UQCFxqf0gu7edWZ3GXunoZwl0j2k46FvqldCBi8Of8Vg2Y
-         QwsVQDNWFOi5E+/qTqKGMl7zTE0awCpBqtHfkVjRsd2tdfB3Yk4Zl0brdij9QAHI2SSA
-         wQSydzHdJpPNYbyeVbQz+/r1RaV/HjeekQJhSpZveW5m+7FIP4Zy2GFru8tTEW6TZYf5
-         6sP9bUTFdFvXx8R6rYTrKOir80YTMZyUj4GEThbiJJ+CJs/XnDzKcdVpPnX24piTGsf6
-         kNdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwT55ejDy61IX9k/x07jzd/QvH7yFNmQb14cW+IdY43DidXxFxXBANXX2uQA2OnrZOOlc5xAs2UnHoZnVU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRONaIdCK08CMr30sdLBV6RFHCd/UdUxD6PvL8a4RgOeioBnJF
-	HsOgxbxsyjD6v+TByLw59t5dFzbgrK2+fYIlIRifkafP/sTievPHpj4z
-X-Gm-Gg: AYBFou2LcbJocPg03A0IWQO9e1KtI7+L/HtV84Dyj1gNHXtiz+eoY//n6ajQRQMK1eV
-	cbeELnLq9U1xbyQJ9vn5orIJzNhxm03UtBMgcvKrpU/EbdPbjiy8C6zrFUFb/6f9/gKaq/dH0Fc
-	wgrxINYM/wU/nX675gHidDNyf/dPbZXBdzMTqlGk2u/ASipqIGdNqF5A/BtKStAIpYd1X4NX9gQ
-	37KdmFMb+yYkmE2zs8Tjmse8GONmqEIihxBABCmuN5HRTJTNrertU8BbxTKpQgpdztgee9Al68s
-	FNtiuQZRz7yOpNGiIhO/gtwzhZlROzS/9UFQoc0Y+XbtRUQnoh4Kgmo3RQ6c5ICyh2SpEHuFvJN
-	mBTTkNX/+EuZSMmBKRxtcsC9w6iEtshbqFOVta7vVcjp4FpEbDgkyw8L97I2ICSocTmgJ1TNlgS
-	mCqWhe5Wwb7fCSpam/OO6+Ik60XboGcDL9Av4nQVPrFc0qoc4Jzy0FqPTlFQWB9r2aexr9PQmuR
-	jq+1MAHr25yq6EnBLir6uyD
-X-Received: by 2002:a05:600c:1907:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-49eb73143c7mr47167685e9.1.1789590008675;
-        Wed, 16 Sep 2026 13:20:08 -0700 (PDT)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd24774esm27685625e9.10.2026.09.16.13.20.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 13:20:08 -0700 (PDT)
-Date: Wed, 16 Sep 2026 22:20:03 +0200
-From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Justin Suess <utilityemal77@gmail.com>,
-	Paul Moore <paul@paul-moore.com>, ast@kernel.org,
-	daniel@iogearbox.net, andrii@kernel.org, kpsingh@kernel.org,
-	matt@bobrowski.net, viro@zeniv.linux.org.uk, brauner@kernel.org,
-	kees@kernel.org, casey@schaufler-ca.com, gnoack@google.com,
-	jack@suse.cz, song@kernel.org, yonghong.song@linux.dev,
-	martin.lau@linux.dev, eddyz87@gmail.com, memxor@gmail.com,
-	jolsa@kernel.org, m@maowtm.org, bpf@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
- kfunc and policy object destructor
-Message-ID: <20260916.e518e5ee513e@gnoack.org>
-References: <20260909193719.518517-1-utilityemal77@gmail.com>
- <20260909193719.518517-5-utilityemal77@gmail.com>
- <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
- <aqHUw6k0Mf83CGFT@zenbox>
- <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
- <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
- <aqTZdCz6JaoK16Fp@zenbox>
- <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
- <20260915.ok8eig8Eishi@digikod.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qg0W61qb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940141F000FF;
+	Wed, 16 Sep 2026 20:20:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789590055;
+	bh=SQeI/VDfR5tYFTqV051ErdqYf/V0bL/cD3Mwtz9zqsQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qg0W61qbZZFZPoMvz7qNJ+kxUMT5wxe8iPh5q9o75QeaIT7VUiw5tOHVFJs42KxGL
+	 nsFM1lj6muLqiVUoH4K4DcTassbEKsnkrgRQH1ynhIjiGSLAfM/ifcCsEM+EsCDaXT
+	 Oxe9Oc3XVInlbDrwouwnnXyRuwsabH/n1ZgX79in/phKKoQPYWJfkKVZfWxhDaDvEx
+	 ajWji40Z5KD4+Z7tq2zHIPoEt62yRGjJdAe/GYOmoAUWgsdIZlwqdiTNa/r5ce8IWd
+	 8QPWgtLvvlPBzkLi2FFgizFjkAJWZApYKaZFuu63ixvG6qSJ9QUgDXnSGGtkUyGuiW
+	 WhKKPcawl5dFw==
+Date: Wed, 16 Sep 2026 15:20:53 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/7] dtc: dt-check-style: Improvements for handling
+ continued lines
+Message-ID: <20260916202053.GD1926857-robh@kernel.org>
+References: <20260915-b4-dts-style-checker-continued-lines-v4-0-5b8e09b11ef2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915.ok8eig8Eishi@digikod.net>
+In-Reply-To: <20260915-b4-dts-style-checker-continued-lines-v4-0-5b8e09b11ef2@oss.qualcomm.com>
 
-On Tue, Sep 15, 2026 at 11:25:13AM +0200, Mickaël Salaün wrote:
-> On Sat, Sep 12, 2026 at 12:33:13PM -0700, Alexei Starovoitov wrote:
-> > On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
+On Tue, Sep 15, 2026 at 07:03:44PM +0200, Krzysztof Kozlowski wrote:
+> Changes in v4:
+> - Rebase - drop WIP patch used as a base by mistake.
+> - Link to v3: https://patch.msgid.link/20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com
 > 
-> [...]
+> Changes in v3:
+> - New commit:
+>   "dtc: dt-check-style: Relax property ordering rules (drop alphabetical)"
+> - Improve commit msg of "Unduplicate checks in
+>   check_mixed_indent_chars()" patch.
+> - Link to v2: https://patch.msgid.link/20260909-b4-dts-style-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com
 > 
-> > landlock was designed for unprivileged users. bpf needs CAP_BPF.
+> Changes in v2:
+> 1. Four new commits 1-4
+> 2. Drop last commit
+> v1: https://lore.kernel.org/all/20260906180437.166760-6-krzysztof.kozlowski@oss.qualcomm.com/
 > 
-> Yep, and this series would kind of bridge these two worlds. ;)
+> Best regards,
+> Krzysztof
 > 
-> > There is a fundamental disconnect. If you can tolerate CAP_BPF then
-> > just use bpf-lsm and implement whatever policy you need there.
-> > If bpf-lsm is missing a feature we can fix that.
-> 
-> The question is not if BPF LSM can or cannot do what Landlock does.
-> Landlock provides a way for userspace to sandbox processes, and that
-> comes with a well-defined semantic, logs, and an user space ABI, which
-> are specific and dedicated to Landlock.  Some user space depend on that.
-> 
-> The goal of this patch series is to improve BPF LSM to enable it to
-> (also) enforce a Landlock security policy defined by user space thanks
-> to the Landlock syscalls.  The security policy still has the properties
-> that makes it possible to safely compose different ones (e.g.
-> monotonicity/stacking enforcement, inheritance, separation of duty, no
-> cover channel, safe privilege reduction without confused deputy issues).
-> 
-> A process can currently define such security policy, get a file
-> descriptor referring to it, and pass this FD to another process that
-> would enforce it.  This helps design secure architectures by splitting
-> ownership, trust, and privileges (e.g. CAP_BPF).  Being able to use BPF
-> programs instead of user space programs to enforce (e.g. an already
-> defined) security policy would make this enforcement more powerful
-> thanks to the context BPF have access to.  Of course, BPF LSM can (and
-> should) also enforce other kind of complementary restrictions.
+> ---
+> Krzysztof Kozlowski (7):
+>       dtc: dt-check-style: Handle continued lines in check_hex_case()
+>       dtc: dt-check-style: Handle continued lines in check_line_length()
+>       dtc: dt-check-style: Handle continued lines in check_trailing_whitespace()
+>       dtc: dt-check-style: Unduplicate checks in check_mixed_indent_chars()
+>       dtc: dt-check-style: Right strip whitespaces, leftovers before comments
+>       dtc: dt-check-style: Properly detect comments in multi-line properties
+>       dtc: dt-check-style: Relax property ordering rules (drop alphabetical)
 
-I'd like to voice my support for this here and maybe try to make more
-concrete the "bridging of the two worlds".
+Applied, thanks!
 
-For normal Landlock use, CAP_BPF can *not* be assumed because Landlock
-is designed to be used by unprivileged processes.  (See
-https://landlock.io/integrations/ for an incomplete list of programs
-already using it.)  It works similar to the unprivileged use of
-seccomp-bpf: The unprivileged process both defines and enforces the
-Landlock policy, by invoking unprivileged syscalls.
-
-So a full rewrite of Landlock in eBPF seems infeasible (and TBH, it
-would be quite a drastic deviation from the original scope of this
-patch set).
-
-However: It *is* true that a program that would use Justin's patch set
-*would* need CAP_BPF to use it, and therefore that program *could*
-also implement custom logic with the BPF-LSM.
-
-But then again, since Landlock anyway already ships with well-reviewed
-policy logic for the normal unprivileged use-case, I don't understand
-why it should not be allowed for CAP_BPF programs to lean on that?  It
-may be technically feasible to reimplement similar policies in eBPF,
-but it might also avoid a lot of complication and potential bugs if
-people could lean on a maintained solution like Landlock for the
-aspects where it fits the purpose?
-
-–Günther
+Rob
