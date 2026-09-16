@@ -1,115 +1,100 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5374AB3C2
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:43:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15CE24D797B;
+	Wed, 16 Sep 2026 15:43:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573384; cv=none; b=GqzVjnaEZgT6H1dDECnPswrlgp9/4CZbdLZ2zEWj91mjdcIvkLOEnC2UKXA2VIqf4DJdr9tw5rHduqcPxPs24YuVQ7Ao23XkLye2n2duw/Iaw3q+FHaI2Z8GJks6kaYz/seA4SRbjxxLOuQj1JrQ+GxoLyRaEijdRGVkOF5iJSs=
+	t=1789573407; cv=none; b=hR7pmfH679Ia+cKEMLn7YJwqerb0qfbMh0jgwy1HhtxJX12fpMs7DJoFznuM3+r+cPY9ORAUwaOkgiDMVvefe6Qt4u/spIr51Ps/TVXeokVZkw5Hws69ldriTIVj1Y/zL4zGfeZyF98ZKAKTDyvOsYJiJEXHEsHDPKHAjYh7YFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573384; c=relaxed/simple;
-	bh=xzkEs5LiSja3dbzzicR21Qn0XTrKAUdE1PB/NwOkDos=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tDsNPkzTRRqeFNNxCAJqtrYR8UVGPOWI2N3uNLLOnzhyafbi94UG2ZlDXISjrpm3VDng1o/xLWWSJzT23HGkowgwTJtLeOBGlJ0oaiPFHRylenAY7EHm7wUJoJpEqC9fPM6heBj0Z1dVbAO45Xk/YuApMMjZnsJJxARs36G4LQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Kod5TDBu; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789573407; c=relaxed/simple;
+	bh=hF2hqF//d30+BO1ckNXZ6ZOVG/l7TRhPpGypEh7VGCc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dwIpCfSwE9RfJC2F3HtUa1rE6ClKGRCRduvRtHeOO4lrTkwgZlvlIF1dS2lqMiUv7r7xbMQTtL8JQfLmaeUDEZtPutzI6dVlfy7zNrVe8z+4+D0VMkrzDGn0zLhlTUXxcoTNEUqI/tzB5rAabn8vo7eNEmbhJKMk+eQeg6kddBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Qtkbc7O2; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Kod5TDBu"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso12198735e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:43:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789573380; x=1790178180; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6Sim/Uq2bss990wMC5LOqQrIp+Z1Yp2vLh2aHVXHuME=;
-        b=Kod5TDBumB6ymIwo7H/RjtjtrnCuDomtfuR8A8HGXpN9zgO1n4IyBkl3igGXu+7HOs
-         zw27PQMKllXoPTSLu/HpagKlvd8CU2+NFGHJiZ2WyfdcqLz31yTLCw7AVgVcp/IYfVbS
-         I1Xlt7B7YltXwZ+O7fBbgLEprxlZ4BCPNCxrn3IRJudknDVfer8wPbaz5xom4wVVpNSL
-         LHRQSL7U4jIQQm+VrlVv4qjOU1i3lYzkhhb76vIkfawkePesgPYnJBAcsLVs2B0IHc7o
-         eavU318LnTyYFVlk/KW38KOB3d93So/91Lwn4vbIy35Ivb0es/onxLKICAcyvHkNdNk/
-         IIlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789573380; x=1790178180;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6Sim/Uq2bss990wMC5LOqQrIp+Z1Yp2vLh2aHVXHuME=;
-        b=lAfa2GKZ3KzvWmIt3k0EepaY0X33d5FmA0P7D3F0iw7VVcMysjcp2taOqCxTNqI1Er
-         0bjT3mSpv+WfLrvECehak1F9qPLlSCfDhIw/qor1KJKoDdd4zoRTM1v8nbfDvdwvUeyg
-         +W/jwfv+2mJ4ptG1HZO2Av8GPTpas41Pxp9qQ5eFQhGaucVOLRuwfL6QlSvEICvZqNih
-         YWxNTREGd3C3iEnwd+Wby95mY+kSQVb9ZxvUYebSuAlm3+oRZyJupexN2GsCe3K1QU/I
-         dB9b71lU4sfs6kZ01txLcLjaUXNz4lDKmqaN+Lcm3yUSknYtRDN9XalQdRO5T5GPdwmo
-         kSQg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFIGoPI2ZsZ23lkwCXJoCSYqRa4IjBf+lN1HoWmOpFuanpP14HPpAoWBgpQ6OyT1b1GzwpQOGoZYk9n2k=@vger.kernel.org
-X-Gm-Message-State: AFuF++myZJmSDNI2TFfGda64tq83CyypEGFhJHkj07vg+2utLmzYPiik
-	uzy2une1UYh7VtpyjPUe2HNMaiq7//Ypn/WAsbW2B6XMoXFSKnw+862eltum5xVBMg==
-X-Gm-Gg: AYBFou1iBlSm5p1ZRRCB/5WvZFo4d81jCNFLsc2jyiE0j96RiieHF5B3g3fsNYs9Exe
-	k1sDMya2QXXaUkWtDtwW3RLasMMxt+02ulVcFQYsn+lqv3wyRPVIycYwDiJ/hjuxsCTe1oK16Hy
-	2oaPNWjcynRQCI+d3na1cIsAyUHRONQS1fg7FQU4WGhWMJymEhtnUrubFJvd5ZwDXHH1sfWqCyq
-	mHI0Ow7xB5xBAOGFMpuWzEApqfj5/fufk3IdWCwrirzUmsCh6k76DHVM2/jRK5d+zFevJ55+uvW
-	+wmXWhCWOqTCRmVdXZtvQ0JkYnt6SUyhupz0XEAux2lOf2Y9/wcnTgQHkqR7ljtHoamyVh0f4ar
-	f402wkIajOcX99vQEbE4tFysq93eM5KIQZjMJwYI9DQNFD8aHpHy6/Qzx5H5qtyh7pNWRV/DTw3
-	WKpv8685N8c0roItdB7IWhm73IQCrNqggJ2j8jE5EruaxWuAgbZD9AkOz8Ylunbe6A0Cq32urTl
-	avU4px8raOio9dYVownBz9T6sUGhMgcO2Nm8Vo=
-X-Received: by 2002:a05:600c:5489:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49eb7340a28mr62591055e9.16.1789573378755;
-        Wed, 16 Sep 2026 08:42:58 -0700 (PDT)
-Received: from google.com ([2a00:79e0:288a:8:a430:d4f:f001:4a5d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27198sm7580265f8f.15.2026.09.16.08.42.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:42:58 -0700 (PDT)
-Date: Wed, 16 Sep 2026 17:42:53 +0200
-From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-To: Christopher Lusk <clusk@northecho.dev>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: landlock: clarify TTY signal scoping
-Message-ID: <aqq4_Xh_JJ6OHpST@google.com>
-References: <20260914.b8a029f9abb8@gnoack.org>
- <20260914180946.1462099-1-clusk@northecho.dev>
- <aqqJAZfG9FC7PgMW@google.com>
- <20260916145255.1587381-1-clusk@northecho.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Qtkbc7O2"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 099C91516;
+	Wed, 16 Sep 2026 08:43:21 -0700 (PDT)
+Received: from [10.2.200.62] (unknown [10.2.200.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 700A53F86F;
+	Wed, 16 Sep 2026 08:43:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789573404; bh=hF2hqF//d30+BO1ckNXZ6ZOVG/l7TRhPpGypEh7VGCc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Qtkbc7O2vqbc+V4MkstxiqWF5r/H+OYro5ZO8pRFkm/W3OgCkN+9TvKaNG4dMLem8
+	 sF34UciZVSH0EJYAiWZfDBNlMVfCgZ8uXgEkk7KOnr9cFGg6pciSi/RIrkSX2BrDko
+	 bf13LRLYg1tHP9oEWoAWij8jHGajPbRc7oAuAJuk=
+Message-ID: <335cf0a8-4c0e-4c07-8d81-c076ac73d329@arm.com>
+Date: Wed, 16 Sep 2026 16:43:21 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260916145255.1587381-1-clusk@northecho.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: mali-c55: add padding to mali_c55_params_ccm
+ structure
+To: Arnd Bergmann <arnd@kernel.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260915202458.3673504-1-arnd@kernel.org>
+Content-Language: en-US
+From: Vincenzo Frascino <vincenzo.frascino@arm.com>
+In-Reply-To: <20260915202458.3673504-1-arnd@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 10:52:55AM -0400, Christopher Lusk wrote:
-> Hello Günther,
+Hi Arnd,
+
+quick question since you are mentioning information leaking in the commit message.
+
+On 15/09/2026 21:24, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> Thank you for the careful review.
+> The newly added structure has extra padding on the on
+> some architectures, which triggers a pedantic uapi check:
 > 
-> The phrase "or otherwise driving a terminal" was LLM over-generalization,
-> not a separate mechanism.  I checked the paths I had in mind against the
-> source, and none justifies that broader wording.  I am dropping it.
-
-Thanks for double checking the wording, sounds good.
-
-        
-> You are also right about the verbosity.  The generated text expanded a
-> two-line distinction into 15 lines and obscured the main point.  I will use
-> your suggested sentence and remove the signal enumeration.  I do not have a
-> stable kernel documentation URL for that list, so I will not add a citation.
+> ./usr/include/linux/media/arm/mali-c55-config.h:807:1: error: padding struct size to alignment boundary with 2 bytes [-Werror=padded]
 > 
-> v2 will contain your sentence and a short LANDLOCK_SCOPE_SIGNAL remark in
-> landlock.h, matched to the recent MAKE_REG whiteout remark.  I will post it
-> as a new top-level patch with a Link back to this discussion.
+> Add explicit padding here to avoid risking information leaks
+> and incompatibilities between architectures.
 > 
-> I will keep the positive selftest you suggested as a separate follow-up so
-> the documentation clarification can be reviewed independently.
+> Fixes: bb401df68c06 ("media: mali-c55: Add support for CCM")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  include/uapi/linux/media/arm/mali-c55-config.h | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/include/uapi/linux/media/arm/mali-c55-config.h b/include/uapi/linux/media/arm/mali-c55-config.h
+> index 84d8f3901405..9c922290e035 100644
+> --- a/include/uapi/linux/media/arm/mali-c55-config.h
+> +++ b/include/uapi/linux/media/arm/mali-c55-config.h
+> @@ -804,6 +804,7 @@ struct mali_c55_params_ccm {
+>  	__u16 coeffs[3][3];
+>  	__u16 gains[3];
+>  	__u16 offs[3];
+> +	__u16 __pad;
 
-Sounds good as well.
+Does this field need to be explicitly zeroed/validated anywhere the structure is
+populated? Turning implicit padding into a named member fixes the layout
+warning, but by itself does not seem to prevent leaking uninitialized data if
+this structure is ever copied from the kernel to userspace. It might also be
+worth documenting that __pad is reserved and must be zero.
 
-—Günther
+I think you already checked that changing the explicit structure layout/size is
+safe for existing userspace :)
+
+>  };
+>  
+>  /**
+
+-- 
+Regards,
+Vincenzo
+
