@@ -1,92 +1,82 @@
-Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488974D0CDD
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368084DD3BC;
+	Wed, 16 Sep 2026 17:06:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578399; cv=none; b=i9u3UQ0PS8cdOIrjzhoIAy7ZnKHnEEF5UBxMDoi2CgHYNzEua4OqZNORtixHITCfBvfl8h+KhNJNyXufEvWweuZq1c7QcoNq2hqoFv6nBq+HOjdAsCLzb9d6aCmebCu93bQdvLo7sPVGViLRUmTdcjRYhD1oy/Bo1fCmsL9zv08=
+	t=1789578399; cv=none; b=RV2FQGpmzGQp2grepqvgiar69M1bvEsvdL0OTM+LbaKdaN5N/ey+TRSF7WNxTIO+KnFcO3pJ0wzqd/JlLQDlWN6CvTRmDkBh8mHwsvMfRpsuipSebgu32vOrgkIOQfq4efhixKgclVJSd0nuAYKw31/MBVmV+eHQjEMLgfUS5Pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789578399; c=relaxed/simple;
-	bh=qfLN5WLAFy26QaPMK2Ae9ZgOW29L0epdNq5+HfGEGw4=;
+	bh=DyY92omELeVm4uig6i+GjBD9Q9GrgbPw/Jz0OIMI+po=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rSRRfC1ahV9zHtbCS2Q4Cvs0+R1T7dOeTfzmYbeUcUl4uWzZ5fEkxGY/7d5vScHhY4UfGiH5dcmUI/Q1rvDOJ5F8S5Eq7SOufEeVE+MebGEK/oecIZAVU5nYBAwjRNqCLuRb1clcAAOMfJ5OWCX2rYpMp3EK6uFyfJGFq0lXJ3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OF3Bp44b; arc=none smtp.client-ip=74.125.231.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=FE/nCfSxCvP03L65DlnVzx4QmZ9Ry/32IFzGN828EYf5A5NfGPeVRfFAJXSRSP5afRvkYrp/3PC2qOc1RTEps4YkgWNX0LtMfhwUpOXDQjFkOlmE/Hsn0K+snTaS9Bu3s8le6qfltl5SnrKNrBP8HMwTeTJyoDQP14Vc2YaAZMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io; spf=pass smtp.mailfrom=bur.io; dkim=pass (2048-bit key) header.d=bur.io header.i=@bur.io header.b=iFka4FzJ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LfM0GQLm; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OF3Bp44b"
-Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-804ef461aedso801896a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:06:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789578389; x=1790183189; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r0v/Glg/t1TxvoAL2KbqVzGsnLvj1ftPu+eZkPIP73o=;
-        b=OF3Bp44bpUHGzhDGJCQyV5nTYALEW303eyPqI3c6y/9UORrFy3uH3WBx93s3iPRh4f
-         /VNDTg4gBjm/ANrj0Sdt8DlgE2TRS1KVL/UV3tpzaf040HlsGm2KouRmnLXLLIeGG+GQ
-         8FmtDK6WvW0sMMjfF52BJqspAkG3dmVX0JO8McYLdEOFOCnax0XgB0dyLVbGOCP6LL6Y
-         wT1NZYvuE3deFY3Q57lx1syhNauHUYbGmuhVVUJYjmZ0Oq1t7kLkIYbJ/4+pXdB8TaL4
-         PnX5HzxGxlcxnFMjl11Q+zWLNTnJu1iZRrOuhKek2zjB2/wkrbvpuVzBKq2uP7gZ923Q
-         8x9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789578389; x=1790183189;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r0v/Glg/t1TxvoAL2KbqVzGsnLvj1ftPu+eZkPIP73o=;
-        b=ukZootDuSZcvYz8kFPYnwOFp9AtI6ZVDzSfRKP9s8QBDCKau35LCz6lW/pY/P5W/RL
-         XOynG5qjcbCUUGLSQgvSKxkciqwV8a2+fiwUfcgLdWSDP7/xmLLAbWdO7IVoy/GuHh/l
-         PmHEluFyIkLlLDwZohPdPFuTgE+keJyIHezzubN4UxGMWB/Wn5JCEGpbsG+xfk5fi83y
-         TVe59h80uzZLv1ELcwh6jvDF+SH+chpe2wZWRZ6k/e1AM56ngKbuDTJQlbQWvw0AMhED
-         SOgFf1REb7j1fd3gqsy9l0YWmB8kdfX6UsZ84cOtrjA/XrtgouP36EuztEOcDOljO5io
-         g/QQ==
-X-Forwarded-Encrypted: i=1; AKwUvByyAc+w26a3PaBOHqoD6zApVScvSyWclWuM7577FnC+h19BN4c9Q9vQelo6cH7j+vhv+l+Jxnc2TUnE2Ic=@vger.kernel.org
-X-Gm-Message-State: AFuF++lMLSgfL5sFRtG1+K+iGWe6PGUbTkoLL+bwlTN55otcbUO1fhBu
-	QEf5llUHGvJiYrFx5fWaMynu/u+0xWoTV+lq9cngWcuRFq48kQ2M89ma
-X-Gm-Gg: AYBFou3D2+7M58uWLgAWFYjHiLNxan3yDcZ87xFCT9cOsYcjq3FEfARXrzWkTdJXRcd
-	KG+/EmG93zLt8fjh9zTnSqMOsesR22a45esBRdw8camIeLtwmjsAMhYsx5zZE5oT9vP/FuvD6hs
-	u9+85Y7r1vpCHYPrCx9xREmSl0PlzzC6wfU1ePn4wjW+3G7cjJ6934AnQJiPftq6Vzttago+7LQ
-	QdhbmM9fA0BDl3wtbeHA+HAXhLbqMhK6Wn7A53xIiakM4sQkA9qshhHG62qzI9V4y1CmJsAPN82
-	ikmEJ3chDr48iQAwYqGMyqAR/F6aG6vxZhYh58TyevNmvcN46rGrcSU5iHwD7LRJe9JbVX/n5/w
-	pbtfToT521hqSTdAiLTF8weyXMONwXW/EhM5w9G3cL1vXpLGeWpxsRACt8/HiQQZFTQOEvwYG0T
-	fNah9lbuB/oDSEQCAYJy4g7yBaHYbk1qRwydzFDzoXt9UbyGua/H4W0PrvbelPED5hHBZ6cAtbz
-	fMMQOOw2uRd+v62naSwRPu0CRknosk=
-X-Received: by 2002:a05:6830:2705:b0:806:1e7:4167 with SMTP id 46e09a7af769-80b2da2b31fmr3730712a34.13.1789578388877;
-        Wed, 16 Sep 2026 10:06:28 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:46::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80c46199e89sm362502a34.9.2026.09.16.10.06.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 10:06:28 -0700 (PDT)
-Date: Wed, 16 Sep 2026 10:06:24 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-	virtualization@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	sargun@sargun.me, jlinbox@meta.com,
-	Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next 3/6] vsock/virtio: support guest device network
- namespace
-Message-ID: <aqrMkHgwZdEz1dq+@devvm29614.prn0.facebook.com>
-References: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
- <20260902-vsock-guest-ns-v1-3-9995383e9a8b@meta.com>
- <aqlkWGyoUYrgQUzz@sgarzare-redhat>
- <aqmLFzcF3MmwRITz@devvm29614.prn0.facebook.com>
- <aqqNZX0gk0I6AbVG@sgarzare-redhat>
+	dkim=pass (2048-bit key) header.d=bur.io header.i=@bur.io header.b="iFka4FzJ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LfM0GQLm"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 5FF997A00CE;
+	Wed, 16 Sep 2026 13:06:25 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Wed, 16 Sep 2026 13:06:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1789578385; x=1789664785; bh=hNqcTswGdS
+	aEycTRiZCcJRFbsIJyY2y4r4eY6uKvk3A=; b=iFka4FzJpSnobQ2OgALU8//U8r
+	J7P2iGzvTgZ34wp64ENKJ5m2Zn9tCjaxh8Y7w4KzIsFvCIWPkD80+T9PZBbXb27K
+	Y+Cix+TaHU+00dyLdw23fEELvKueZEADeClcl347MvwXE70kNVvifw1ceiC/tAYR
+	VZSaUtSfpviK5GB+0J2/6y8tSJrpvp9CxFwBn5S41wo8K5B92D8mpB2HsP5fAW5G
+	et5/U2hTayzIlJaDRhxQ9nAt/kWdeq1s3oV7mHt6aGkOSUyxh+A8kTNs1VRDn17Q
+	y9BidGYJ/3FGCMwMjMY6lZS1qgFjA9wi1jdkuPUNl1ZA6HrRb3OLzid5LhCw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789578385; x=1789664785; bh=hNqcTswGdSaEycTRiZCcJRFbsIJyY2y4r4e
+	Y6uKvk3A=; b=LfM0GQLmQ/mWMJ+c+CJhU4UvFaOZe0t5frBtRnDTcKAfqc9heJT
+	kn1H+RGhOw4p4z3pubdLl7a74976AEdmotSyfW1tgJvAOzHEkijZzZyXl7ZN9SqS
+	ZwFcrYUoQYm0GZ5l5YT82wK9YC4c4hvVwg6ht5CaQxyw8cAJsApJREr5hp+TMKRM
+	yyqYksX5sjrp9xUs1BjiSHh6+1OcDh6vHmJEFL28UlBoz5sXSjL2kcMgEZmanbBt
+	NSxyAZJEJDSI6Aarx9adHEb6KXr7eJMRuBEtBhEGnCJXmsqdXYCTa7OGD9ZYuekS
+	ggOS/ukSer62hwGk0pleO9RCXZCLaaNXdsw==
+X-ME-Sender: <xms:kMyqas9FRHTr2v68UZGoJ6mzsMaRoe_8ZyMFtn_vztPdTahWII-8XA>
+    <xme:kMyqaguxVZX9gOm5GM_MUaNn-yED2Rm-hWNprKfqo-6l_X7MZ9IRP8Pjr8Pe0tkPN
+    GaXfX61UfQh8PlM2zONyeL-_lQ62tfQl17-QGp13l5vs2VCz8x0rw>
+X-ME-Received: <xmr:kMyqakOUc9U4Ou7C_HsotxVBVqGylKgAJ-T5Wrk4uaHVR6W7pkEmaC8>
+X-ME-Proxy-Cause: dmFkZTGOX0kJKhjnaGk4qwvxs2aPGu2AXSr7Vp8bf5VKuF1lRuq6CLCjw6NcKgoKzEM0ck
+    I/TziC5znurtx/cmr5m40rZi5egdG/l06WlL1RDxXXC4P/jHpzHGCsbfSCSc+NkTnf6CyZ
+    kvEa8B49+g+2WKa00JAPkJa2re2OqLkGQzGfRE7r5R3C2Wib6LUqX9dUfoAr0U1NJvCcOa
+    KOFNBPiP+CLiL9Gbj12ubSfsV8Fm41ddcCu++WKpCPQBgjdHBO1mIr33WwATKN64lGOYQX
+    UQO5+HWJkp6W9wDRfbhf1jQtg9pXUNZ0DnhteoGpEHGW/IA/Teu4daQzpnxdesIpGayHPJ
+    gruWHAzSCHP+/diRhF8vdOUH8cHAzJzgtBMB/2yTwI46Le/DVUWq1wtAnzr/6VRepRFGLA
+    uwN/t757GmUBLeWz3LKMhCaAgD6/0dCCJzeaeXKnqRyoRYlo2xcBOSGKPiITjuoYEWiNMr
+    GnLAkbyURJTCX8SvAPBZDohOOnUsoyt8Np8ApHDAXTFlE1+738emXaG4c7Xd06DU5lS0o9
+    I8CllK6XzxTuYpWINklIlHGyUfrtw/GG+cByv5DWYA+8xu5+u/DkU2NHaJA96HiapP6+F9
+    IZ41rdW+qrkbCSDLHGirHK5jRyOrPt3Ggj3SXreIK/ZgMTlAYyPx3PIMY9KQ
+X-ME-Proxy: <xmx:kMyqatgy4rPcmSU7j8ET-wspilNETceLiKsR5EkA4ZQPLs4LLczEBw>
+    <xmx:kMyqau6KO4doAYASntBggeVdK7RnIWSaE_KbpbN4rS1XOZAK895vYQ>
+    <xmx:kMyqas2wIJj0ADnKWCRdDA9NipxvxzvJu4Tum5VYRNAWtl2VwsPCtw>
+    <xmx:kMyqahulP2k5MwrKzhZwg3A5KNMXCw5lgKM8o0UkJzeOewPoLjhe5A>
+    <xmx:kcyqanVJBjTrAPtHR5tN-MsmpHMnqNLIsyj4sMEtMuCvzLY7r5bNTC3u>
+Feedback-ID: i083147f8:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 16 Sep 2026 13:06:24 -0400 (EDT)
+Date: Wed, 16 Sep 2026 10:06:39 -0700
+From: Boris Burkov <boris@bur.io>
+To: Guanghui Yang <3497809730@qq.com>
+Cc: linux-btrfs@vger.kernel.org, wqu@suse.com, dsterba@suse.com,
+	mason@kernel.org, fdmanana@suse.com, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] btrfs: clear free space tree creation state on
+ rebuild failure
+Message-ID: <20260916170639.GA1491164@zen.localdomain>
+References: <tencent_705010B6315454003C478AE79E1F215E6E08@qq.com>
+ <tencent_17320F87E281276888825B1844508C179506@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -95,139 +85,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqqNZX0gk0I6AbVG@sgarzare-redhat>
+In-Reply-To: <tencent_17320F87E281276888825B1844508C179506@qq.com>
 
-On Wed, Sep 16, 2026 at 02:44:28PM +0200, Stefano Garzarella wrote:
-> On Tue, Sep 15, 2026 at 11:14:47AM -0700, Bobby Eshleman wrote:
-> > On Tue, Sep 15, 2026 at 05:47:02PM +0200, Stefano Garzarella wrote:
-> > > On Wed, Sep 02, 2026 at 04:00:49PM -0700, Bobby Eshleman wrote:
-> > > > From: Bobby Eshleman <bobbyeshleman@meta.com>
-> > > >
-> > > > virtio-vsock did not have namespace support (the device was always
-> > > > accessible to any global namespace).
-> > > >
-> > > > Make the virtio-vsock device assignable to a namespace and initialize it
-> > > > to init_net. Because virtio-vsock and init_net are both hardcoded to
-> > > > global mode, nothing changes until the assign ioctl is issued.
-> > > >
-> > > > When the device's local-mode namespace is being destroyed, received
-> > > > packets are reset until new valid a namespace has been assigned and/or
-> > > > automatically returned to, and the next RX batch begins (in
-> > > > virtio_transport_rx_work). They are reset rather than dropped because
-> > > > vsock does not retransmit, so a silent drop would leave the host waiting
-> > > > for a timeout, and a connection request arriving in that window has no
-> > > > socket whose teardown would tell it otherwise. This requires making
-> > > > virtio_transport_reset_no_sock() available outside of the common code.
-> > > >
-> > > > When a device is assigned to a namespace, every already established
-> > > > vsock socket that is no longer able to reach the device is forcibly
-> > > > reset. For that reason, adding new sockets to the connected table must
-> > > > be performed atomically with regards to namespace assignment. This
-> > > > ensures that when the socket is added to the connected table that it
-> > > > actually passes the new reachability conditions set by ns assignment. If
-> > > > it wins the race to the table and does NOT pass the reachability tests,
-> > > > then the reset sweep will correctly catch it. This is the purpose
-> > > > of the new helper 'vsock_maybe_set_connected()'.
-> > > >
-> > > > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
-> > > > ---
-> > > > include/linux/virtio_vsock.h            |  2 ++
-> > > > net/vmw_vsock/virtio_transport.c        | 28 ++++++++++++++++++++++------
-> > > > net/vmw_vsock/virtio_transport_common.c | 28 +++++++++++++++++++++-------
-> > > > 3 files changed, 45 insertions(+), 13 deletions(-)
-> > > >
-> > > > diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
-> > > > index f91704731057..9c68ce1d7fb4 100644
-> > > > --- a/include/linux/virtio_vsock.h
-> > > > +++ b/include/linux/virtio_vsock.h
-> > > > @@ -286,6 +286,8 @@ void virtio_transport_inc_tx_pkt(struct virtio_vsock_sock *vvs, struct sk_buff *
-> > > > u32 virtio_transport_get_credit(struct virtio_vsock_sock *vvs, u32 wanted);
-> > > > void virtio_transport_put_credit(struct virtio_vsock_sock *vvs, u32 credit);
-> > > > void virtio_transport_deliver_tap_pkt(struct sk_buff *skb);
-> > > > +int virtio_transport_reset_no_sock(const struct virtio_transport *t,
-> > > > +				   struct sk_buff *skb, struct net *net);
-> > > > int virtio_transport_purge_skbs(void *vsk, struct sk_buff_head *list);
-> > > > int virtio_transport_read_skb(struct vsock_sock *vsk, skb_read_actor_t read_actor);
-> > > > int virtio_transport_notify_set_rcvlowat(struct vsock_sock *vsk, int val);
-> > > > diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
-> > > > index 4f9aa9c4c3aa..a453a4f828dc 100644
-> > > > --- a/net/vmw_vsock/virtio_transport.c
-> > > > +++ b/net/vmw_vsock/virtio_transport.c
-> > > > @@ -540,9 +540,14 @@ static bool virtio_transport_msgzerocopy_allow(void)
-> > > > 	return true;
-> > > > }
-> > > >
-> > > > +static bool virtio_transport_netns_assign_allow(void)
-> > > > +{
-> > > > +	return true;
-> > > > +}
-> > > > +
-> > > > bool virtio_transport_stream_allow(struct vsock_sock *vsk, u32 cid, u32 port)
-> > > > {
-> > > > -	return vsock_net_mode_global(vsk);
-> > > > +	return vsock_g2h_net_reachable(sock_net(sk_vsock(vsk)));
-> > > > }
-> > > >
-> > > > static bool virtio_transport_seqpacket_allow(struct vsock_sock *vsk,
-> > > > @@ -587,6 +592,7 @@ static struct virtio_transport virtio_transport = {
-> > > > 		.seqpacket_has_data       = virtio_transport_seqpacket_has_data,
-> > > >
-> > > > 		.msgzerocopy_allow        = virtio_transport_msgzerocopy_allow,
-> > > > +		.netns_assign_allow       = virtio_transport_netns_assign_allow,
-> > > >
-> > > > 		.notify_poll_in           = virtio_transport_notify_poll_in,
-> > > > 		.notify_poll_out          = virtio_transport_notify_poll_out,
-> > > > @@ -616,7 +622,7 @@ virtio_transport_seqpacket_allow(struct vsock_sock *vsk, u32 remote_cid)
-> > > > 	struct virtio_vsock *vsock;
-> > > > 	bool seqpacket_allow;
-> > > >
-> > > > -	if (!vsock_net_mode_global(vsk))
-> > > > +	if (!vsock_g2h_net_reachable(sock_net(sk_vsock(vsk))))
-> > > > 		return false;
-> > > >
-> > > > 	seqpacket_allow = false;
-> > > > @@ -634,6 +640,9 @@ static void virtio_transport_rx_work(struct work_struct *work)
-> > > > 	struct virtio_vsock *vsock =
-> > > > 		container_of(work, struct virtio_vsock, rx_work);
-> > > > 	struct virtqueue *vq;
-> > > > +	struct net *net;
-> > > > +
-> > > > +	net = vsock_g2h_net_get();
-> > > >
-> > > > 	mutex_lock(&vsock->rx_lock);
-> > > >
-> > > > @@ -682,10 +691,14 @@ static void virtio_transport_rx_work(struct work_struct *work)
-> > > >
-> > > > 			virtio_transport_deliver_tap_pkt(skb);
-> > > >
-> > > > -			/* Force virtio-transport into global mode since it
-> > > > -			 * does not yet support local-mode namespacing.
-> > > > -			 */
-> > > > -			virtio_transport_recv_pkt(&virtio_transport, skb, NULL);
-> > > > +			if (unlikely(!net)) {
-> > > > +				virtio_transport_reset_no_sock(
-> > > > +					&virtio_transport, skb, &init_net);
-> > > 
-> > > Why init_net?
-> > 
-> > This parameter is actually unused by virtio_transport_reset_no_sock(),
-> > its call to virtio_transport_send_pkt(), and even the eventual call to
-> > virtio_transport_deliver_tap_pkt()... so maybe NULL w/ a comment would
-> > be better?
+On Wed, Sep 16, 2026 at 05:16:38AM +0000, Guanghui Yang wrote:
+> btrfs_rebuild_free_space_tree() sets
+> BTRFS_FS_CREATING_FREE_SPACE_TREE before rebuilding the free space tree.
+> Several error paths return without clearing this flag.
 > 
-> mmm, should we remove that parameter if unused?
-
-Sadly the vhost path uses it for its vhost_vsock lookup by CID. I guess
-it would be needed by g2h too if it had multiple devices and had to
-lookup by net+CID.
-
+> The transaction restart failure path can leave the flag set on a live
+> filesystem, causing delayed reference processing to be skipped. Clear it
+> on all free space tree rebuild failure paths. Keep
+> BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED set, since a failed rebuild leaves the
+> free space tree untrusted. Callers must fall back to extent-tree caching.
 > 
-> Anyway, not in this series/patch.
+> Fixes: 882af9f13e83 ("btrfs: handle free space tree rebuild in multiple transactions")
+> Cc: stable@vger.kernel.org # 6.14+
+> Tested:
+>   xfstests btrfs/015 btrfs/032 btrfs/104 btrfs/131 btrfs/352 (pass)
+>   xfstests btrfs/quick: 261 passed, 30 failed, 90 not run on
+>   Ubuntu 5.15.0-60-generic
+> Assisted-by: LLM
+
+Reviewed-by: Boris Burkov <boris@bur.io>
+
+> Signed-off-by: Guanghui Yang <3497809730@qq.com>
+> ---
+>  fs/btrfs/free-space-tree.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
 > 
-> Here, anything is fine, just put a comment with the reason.
-
-
-Sounds good!
-
-Thanks,
-Bobby
+> diff --git a/fs/btrfs/free-space-tree.c b/fs/btrfs/free-space-tree.c
+> index 1b3d82ae3de8..b7a4a6ade30f 100644
+> --- a/fs/btrfs/free-space-tree.c
+> +++ b/fs/btrfs/free-space-tree.c
+> @@ -1353,7 +1353,7 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+>  	if (unlikely(ret)) {
+>  		btrfs_abort_transaction(trans, ret);
+>  		btrfs_end_transaction(trans);
+> -		return ret;
+> +		goto out_clear;
+>  	}
+>  
+>  	node = rb_first_cached(&fs_info->block_group_cache_tree);
+> @@ -1371,14 +1371,16 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+>  		if (unlikely(ret)) {
+>  			btrfs_abort_transaction(trans, ret);
+>  			btrfs_end_transaction(trans);
+> -			return ret;
+> +			goto out_clear;
+>  		}
+>  next:
+>  		if (btrfs_should_end_transaction(trans)) {
+>  			btrfs_end_transaction(trans);
+>  			trans = btrfs_start_transaction(free_space_root, 1);
+> -			if (IS_ERR(trans))
+> -				return PTR_ERR(trans);
+> +			if (IS_ERR(trans)) {
+> +				ret = PTR_ERR(trans);
+> +				goto out_clear;
+> +			}
+>  		}
+>  		node = rb_next(node);
+>  	}
+> @@ -1390,6 +1392,10 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+>  	ret = btrfs_commit_transaction(trans);
+>  	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
+>  	return ret;
+> +
+> +out_clear:
+> +	clear_bit(BTRFS_FS_CREATING_FREE_SPACE_TREE, &fs_info->flags);
+> +	return ret;
+>  }
+>  
+>  static int __add_block_group_free_space(struct btrfs_trans_handle *trans,
+> 
+> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+> -- 
+> 2.34.1
+> 
