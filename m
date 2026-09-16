@@ -1,104 +1,170 @@
-Received: from mta0.migadu.com (out-89.mta0.migadu.com [91.218.175.89])
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF1E3BB11D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:08:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D0C361965
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585756; cv=none; b=o9IatbLHiba8m+MkPdq9xvBruSC5beMwK0eIHoSH50w13ZIcdJ2pFWVJLjN0USLacuLuj4SOO4Sdn5hEp9xJ0MpUtsRG8L4GzOM2JWWJogXzVEFo/IVqYdgq5MK5FjWy7RJvdXSsW9rMTGqL6mUxpsn0eV40HPxPQYpPpAH5e1c=
+	t=1789585824; cv=none; b=Sw9JEpKzv6CLqqA7/N4mkV3F3v+RvuClVAZFSRhy7l6wuIpsewlv62Ou9DR/8kNcMwhByLU7d5i/pH05Tbeh7ZY+imREYeS9fOliVkiMfkZnNOSTQfXoxwJPKXwmT/qaNbgnh/rwy6vc/gVjqeoJUyhWOvSWiFxMLAqODoPZEyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585756; c=relaxed/simple;
-	bh=eFc2+iQ2uor4nljrCfWRFp6wcNqGR5KKJNmBsadf8CM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aSLiIXQOkFjCJAZtPVv1w4vLAIzmhDv9aFw9XwjRd2mAnu3HwR+SE1LGfh2F73Mv5edZlp8Cra6JBz7RVpiyLHYwFj5syV0qt4/Sigmqu7BBZaHhWQY4+wdLzITuZpkD6PMWn2dbryxHokRAPIjxisL/7C9opZoZg6GQetDDQsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JuAk2DF0; arc=none smtp.client-ip=91.218.175.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789585824; c=relaxed/simple;
+	bh=dWhyAImIfrgrm+GktFBPHJ3oz0UcioWGpy6TiaEbbcY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jXjVcfWMMqfwyrtLpj9aOlddxvpgs4A78bKl70kq8lC+FKrtw20A1U/PDJqWCqClm8dK+E4OVXEXqL/K1SsxWUqeIykdTEwZyvaK2ValxJhX7toKob+JcV9Uqi6tMJAHl8j7hMhKMWqokNgfgbutYE9uRqItsyFrJvgKJL7PuUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=AAztSuf1; arc=none smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JuAk2DF0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eFc2+iQ2uor4nljrCfWRFp6wcNqGR5KKJNmBsadf8CM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789585732; v=1; x=1790190532;
- b=JuAk2DF0h7716A7x1rt7YUeYh1aHm0nx8UjYzJ1flByP2hFRrVLpWqNKYQO9lMEkrOij3dT4
- /Uaa8rehj8lROv7xtRPZTqV8AoX8amLPLWZfqgjheItY8avZXBuds0//iOBsxnqHoLR/76AtyUv
- qqwVIbPwZ/z5xHhC78A6gJ6Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6ed42f582d2d30d6;
-	Wed, 16 Sep 2026 19:08:52 +0000
-X-Mizu-Trace-ID: 6ed42f582d2d30d6
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b78e073980so880e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:08:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy3/mRtPKEcCE2/txiTGGubmg2odo8qHP/gb7aV+fRIEoa8DOf60KFxdJ5YpLH3/nUkkKYpcbKeD2GCqXQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrrSCDMN+YYxDYwdlqpqxGZF9lGbqOHyMsVsL215aub8U3k4zj
-	GR+UNwTdUX+51e0TLU77jHzYWwuBl/j9cqpTCMlU3Mkf9Sq5wty4o34HXtYulQZWkDKLMxV1Dp8
-	b+1fqrlmHHiY8cCN1FbTOkV/UzjmhaxnhEzjy1DDs
-X-Received: by 2002:a05:6512:2355:b0:5b6:4ae:3ff0 with SMTP id
- 2adb3069b0e04-5b8bab3fbc9mr21749e87.15.1789585729580; Wed, 16 Sep 2026
- 12:08:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="AAztSuf1"
+Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-66e4ab201ebso28070d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:10:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789585808; x=1790190608; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nnX6TMlM7TkvtbK7Ln9VIw2FWzmoodBJCcoSVeS4ETw=;
+        b=AAztSuf1g4y4Pn7zC2B02/TsPk/pZSFhqpyrpJRvS6P3JbxOVQ81LSGL8ueoNsEytu
+         JOYCar++n3MOzCvbMKAiudY1I+V38jgT4L9rL62b+pp5lqhBDgzH8llYWCLr2EeR3y5n
+         CMvSwtggKS4bBKnPg1l+4qgmW8O9I/coYEZvBGuZMo+Usucm85BBxzz79JeYehfE71DB
+         BFyUvDS5WMzLxOMecyXg5RhR3jO7MqRrXp2n42Orxn5gTB9axDEgznT44OwEIyelHuqL
+         ii2y17JyRz6h43CasMYMpPXw+dV6ybd8S4SVoPE0jaEdf4f+NQpAtSLutYCR8fgLzjgr
+         2FgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789585808; x=1790190608;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nnX6TMlM7TkvtbK7Ln9VIw2FWzmoodBJCcoSVeS4ETw=;
+        b=SwOUIbqtVUz8XyGd8IjDwqJW2j9EhOpT8KUckUGzw6k4f1CxPhFdxuW0kUB4YQPvR1
+         Z9D4X0jSfqvMlaogkFOa89SW9y+RGmoovhU1mPTFfX0PbLdBF319Kg4eTsH++L8hzmJ2
+         WPrGtPF8UTYOO3FK2+SEj1qpTY6iHBWivn9lBOG5DyiAC9yhb77Qp+fdXHVLoAUoEjiz
+         BQnW2T+NuGAJAjoCJjEUUiuhcWgJDOBQccq4J1hVqdMrYBKG9MWrnzSN7C6pjM/cAYSf
+         4C0qHxC6ifoda2Z6YFADP4PP2pA+7ZU8vORx+3UdySSxFpYTmkEjpONA050ELO8OhNWw
+         6EZw==
+X-Forwarded-Encrypted: i=1; AKwUvBzndVbeazL3O15tgIZTUzNW7DrxA4qcRQiCH/+ddopJiWNm67PJpIy36J7RusukJaPBMsWvmm6+Auu/k1A=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIcBKB6WsDOZuxIUFsJ5GjZ5qqJYi4eNJio3oA5e5TP3dofmQy
+	kCYAhf4Lc+3FqpB6Ji+7/DEUW3lnw4SgXgyj2lFV9ZonkHMaQf5vdtBX+axKvxAEdUs=
+X-Gm-Gg: AYBFou39z0E3AOaSoR9JJ4NmuIUipGlKJ31m8G9PHaF2FpCuIJHxxx6Jk4+iIRrFbrJ
+	tIXR2OzdeN9uVdN+jTFS/NjyWuy1ypyFh9yitdmVzL2OFnzoR3GiX/I5VSNxVo/KsIkl6kViXHG
+	2fCoP7cK1C3G0QLhyUT9867limg5kp8XZBtV0WbmchjsxcrySz7uav0pEj4U/NyJcyQIlXG7bap
+	T/V3HT5SIhH+DP4voP5k11THNy1cA3SCxL2gYzzZPasOrSl8iHVXNP04Dt+YxOsoCr0I+IWlWkp
+	WlwozmfAGiicShu3eF3E0w8pyEfyHYWaMd3BZ7pkdlk2Z9SWlCzYG2KQAE1zQ++091VYWwfRai3
+	UHyKLJFr7v/KQ+SSD+uP6h2R/1ne1u/1lKjvaPnzuz57fmERq4dSy5jLko+Mm5st/m3ihzHa007
+	ljQELrTrbMHJZ6w331Ze2iO6e2DBOVrY8uQ2v4AYIamB+S1+aHAwu1zY+3lJaaedNB0mQE0N0YU
+	un4lmLsrarZKFsqc+/+na8GBUDUqHlbwFQoENmX2Sq+5deTpliumGsuhgKCHqLviTMGdfJEPTrA
+	5+ooshKTiMpVIl28zUle3MqtiqQRjlNIBwrbDlBrBsmUtlDm++HsgPLR+YyQ+Npy
+X-Received: by 2002:a05:690e:1685:b0:671:3f7:9cf1 with SMTP id 956f58d0204a3-6716321385dmr1421432d50.25.1789585808172;
+        Wed, 16 Sep 2026 12:10:08 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:f547:a2c0:72f7:6671? ([2600:1700:6476:1430:f547:a2c0:72f7:6671])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6715f79a963sm1664399d50.20.2026.09.16.12.10.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 12:10:07 -0700 (PDT)
+Message-ID: <07b8c0e199af4df459668e6ddca0eee10a735956.camel@dubeyko.com>
+Subject: Re: [PATCH v2] nilfs2: validate file block counts during recovery
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
+	 <konishi.ryusuke@gmail.com>
+Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Wed, 16 Sep 2026 12:10:05 -0700
+In-Reply-To: <20260915195752.3337033-1-qwe.aldo@gmail.com>
+References: <20260915111351.2726334-1-qwe.aldo@gmail.com>
+	 <20260915195752.3337033-1-qwe.aldo@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914113338.159227-1-fuad.tabba@linux.dev> <20260914113338.159227-17-fuad.tabba@linux.dev>
- <868q515eqf.wl-maz@kernel.org>
-In-Reply-To: <868q515eqf.wl-maz@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 16 Sep 2026 20:08:12 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTw1HKxntc_XsBGK6ugVYyL8HVLMzUtiRin7OgCVic8bVQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XhAbmtcjnzFyAA7N0SNImoWsnKazUmdDqXvnrAn69zT4QFsz2-FY_zZUU
-Message-ID: <CA+EHjTw1HKxntc_XsBGK6ugVYyL8HVLMzUtiRin7OgCVic8bVQ@mail.gmail.com>
-Subject: Re: [PATCH v3 16/18] KVM: arm64: Reject host power-on of a vCPU that
- EL2 holds powered off
-To: Marc Zyngier <maz@kernel.org>
-Cc: oupton@kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, 
-	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
-	mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, 
-	qperret@google.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Marc,
+On Tue, 2026-09-15 at 16:57 -0300, Aldo Ariel Panzardo wrote:
+> nilfs_scan_dsync_log() trusts the block counts in each on-disk file
+> information entry. If fi_ndatablk is greater than fi_nblocks, the
+> data
+> block loop can consume excessive summary entries and the later
+> subtraction
+> used to derive the number of node blocks underflows.
+>=20
+> Reject inconsistent file information entries before consuming their
+> block
+> information.
+>=20
+> Fixes: 0f3e1c7f23f8 ("nilfs2: recovery functions")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+> =C2=A0fs/nilfs2/recovery.c | 4 ++++
+> =C2=A01 file changed, 4 insertions(+)
+>=20
+> diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
+> index 4d5a6aa521..28200cef4d 100644
+> --- a/fs/nilfs2/recovery.c
+> +++ b/fs/nilfs2/recovery.c
+> @@ -359,6 +359,10 @@ static int nilfs_scan_dsync_log(struct the_nilfs
+> *nilfs, sector_t start_blocknr,
+> =C2=A0		ino =3D le64_to_cpu(finfo->fi_ino);
+> =C2=A0		nblocks =3D le32_to_cpu(finfo->fi_nblocks);
+> =C2=A0		ndatablk =3D le32_to_cpu(finfo->fi_ndatablk);
+> +		if (ndatablk > nblocks) {
+> +			err =3D -EIO;
+> +			goto out;
+> +		}
+> =C2=A0		nnodeblk =3D nblocks - ndatablk;
+> =C2=A0
+> =C2=A0		while (ndatablk-- > 0) {
 
-On Wed, 16 Sept 2026 at 17:43, Marc Zyngier <maz@kernel.org> wrote:
-[...]
-> > diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> > index 37d0721d39a45..2e2c051dd8e62 100644
-> > --- a/arch/arm64/include/asm/kvm_host.h
-> > +++ b/arch/arm64/include/asm/kvm_host.h
-> > @@ -922,6 +922,8 @@ struct kvm_vcpu_arch {
-> >          /* vcpu power state */
-> >          struct kvm_mp_state mp_state;
-> >          spinlock_t mp_state_lock;
-> > +        /* EL2 holds the protected vCPU powered off. Under mp_state_lock. */
-> > +        bool pkvm_powered_off;
->
-> I'm definitely not keen on yet another random boolean to describe some
-> new state. We already have mp_state. Why can't we use one of the
-> unused encodings and check that, since it very much looks like a case
-> of "let userspace change the MP_STATE unless EL2 says otherwise".
->
-> Can that be made to work?
+Looks good.
 
-Yes. The bool kept the VMM's STOPPED and EL2's off apart without a new
-userspace-visible value, but a distinct mp_state value does that and
-lets the VMM see why RUNNABLE is rejected.
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
 
-It's set where the bool is set today, on the guest's CPU_OFF and at
-hyp vCPU creation for a vCPU that starts STOPPED, and only the guest's
-CPU_ON sets it back to RUNNABLE. KVM_SET_MP_STATE returns -EPERM for
-RUNNABLE and SUSPENDED on it and -EINVAL for the value itself, STOPPED
-and kvm_prepare_system_event() leave it in place, and
-kvm_arm_vcpu_stopped() returns true for it.
-
-KVM_MP_STATE_UNINITIALIZED looks like the closest fit, a vCPU the
-guest has yet to bring up. I'll use that in v4 unless you'd rather
-another.
-
-Cheers,
-/fuad
+Thanks,
+Slava.
