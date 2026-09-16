@@ -1,139 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C008D306746;
-	Wed, 16 Sep 2026 17:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DBA2BEC23
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578584; cv=none; b=ik/F5OPAML3enr/J8nh/BdpYsDfYeBhfAc8bWABRZ6GPgLuHDy//4SSFBEDr7ayrbFaKs693LD5lM1RmYQoQPlq3LWdCX3Gl7vxZ+azWgPUbkRiCYqDQ1Nkcuoa4Jd6CtAFcnrkQ4KY3b8bI1UCLDHO4TbfNEkrkUa4S6kWCQsA=
+	t=1789578638; cv=none; b=VUKoGCi5JfeAdqPRtYpJG2mlt0k5aWHwU1+9/W/Ehj67r3VQQO9mU4Ua/ETWsty8clOYwCuuxnRjkIVy4Mkpwd2avtj11cTskflkrXjqzEILi4xdB6qvbkyYaTA+qhr0f8gEj9geHBjT9Ts0l3SwRLm/96b6gPICpcmTEXOm8Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578584; c=relaxed/simple;
-	bh=wzoOAZtHWO1VK42/OD6jmwXxNw2aPfhujFb1VZifudM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AeDCb9w4KY6XT9VsEDilwv9bSZPNj1lAfarxzqsIGlaFedRHjJsOCuKc9ilz4FWDlOKk4QvgBxCSBYVWTfZ+YZBtcWyie5rPpWTP26WQnWHc2gP7vNFCyL3wWgQlYzbiGGFdNTa+bXFSGmFiVmRYHyNrSIIeYl06nmyYDE4eg2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LWqerj0a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789578638; c=relaxed/simple;
+	bh=i8Tw9+Y0LbLQQkfb0VjBjO33Jh4ZfQKD94u7NvLdVx8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GFXExrrtGgrMflu64d6Z/uX/lNgQD7OOmfnGrKQjpoo36ApM9TiEktU2IX4gG14AGFYHiY/rDt8+XApOD2hFAbP5v0zJ0YH7LPjsK9zG+V0bj1wWyNV8HaRq5mYcQBpF6AP91Y1F0HmlxF5MYCQzmEZKhkpCTw5oVhttAgxg/Qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=I/zvzBTb; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LWqerj0a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D4B01F000FF;
-	Wed, 16 Sep 2026 17:09:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789578567;
-	bh=EYIPtNMDNyQ/6WY1hk2JBEVGtLHLfjG619n8HAgX2tw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LWqerj0asUBl5mtWNWo7n/nykCqCU502c2DJydmt2eMm7kzsEvMm9nPaKCKnYxFle
-	 PtJ4nQtsfIWJrDtrDFpS4Ro3cO7+E5Fo7fC8y+ZE08Li+lRcdurVqgRlxM41vlWpvH
-	 cPFaiYckAIS3XUTkkwbCtKT5yzSJ0NY15pBcj2+2sZVOK4jJmWZqJQwXpWUKBouDjU
-	 VborlYuABqOtgaJHC4/qx6LFR/W6ZJAk+SXmbugszPA5iXmBsKbQslwn32WDORnPt0
-	 q9Fhq5vhndQDxsJfruuRYAWGkZu+moIPwHBUWk5lffpo36mq4f0+8Ghe3NzOOOCcYJ
-	 cFCxxhMTRfWWA==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 37F4F198003A;
-	Wed, 16 Sep 2026 13:09:20 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Wed, 16 Sep 2026 13:09:24 -0400
-X-ME-Sender: <xms:P82qaiwtHNsjl1hytDOaqAe2_6EnrUrcXt0YfqaFCHBsC1kn_e4gAw>
-    <xme:P82qavHnQFv0mIWxMbXrNw6e8CuhjHis_cEvFycaQtXEPGUBUZOZG0Nowg2VtLybu
-    XKviAE09c-CjE4SKlyODnQZNoS8yGD-pLu1VLsUt1Cbqhw279yV4rZc>
-X-ME-Received: <xmr:P82qai6IeaGYtne0hJP-GQQZwYeGGBBW7KK-J8g6wGh258to265jQr29PBk>
-X-ME-Proxy-Cause: dmFkZTFV2UCcZr2GlXxYscRnpO5twby6pXhiHVdxeWgqRFx4KTYs3c1z/LJtw2pl3bmLGT
-    SjKcaugx9MWXu+xOcXXwd3VtNepswxZmDVEUvi4lQHUKvURxNnarwj9loY6NXKq6Cmax9y
-    wvcU8EkW3DVn16heKoIFJ9UsUjMtAoXK96bkebfHJeZRVjxqjgNOj5/kPQYwVdE6TQ023p
-    CCMxllIHDMNupE3Ac77/LjqyVd4CZI78dRY4ZeB+OTMw0dQ5oQfzfZU3NzQDR3P7wW0c4C
-    MR6zFt8bbwxRh8gyLQ4m2aFbkZWXqUilZTaeerE8U5TZFrY9Tu74f8LWMkHwlcVPKSEYI2
-    ELt8rO+LmPoGRacMpaFK8VJNEhSga/OemsP/etzQg1NA43uDvwJZ0Q2iamr6+cOrrJOhhZ
-    Ob/D4EoB7s9eGmNKK9Wz6Ql53fVTRhZz9hsfNDrz/iRxFYhzq1Oet95QNfTfSTAx8qRS12
-    XoveBvdLrXUqsJgzaNLg5Xp6q9CDIweabgLMlRM8sT2kuNZr1P11u9NUfzslS40hwlG4mM
-    BBJQCOEnxSthIZ6iy2lRp+l50IFyD/wYYuipel/bc7f2gdEIMGPIcUiJ0nRIi3ODY3yYAB
-    l0dUjaHDx59hhDtjphJgpyQSHZMQNDMPfPiHlFmeY+TovoCEGh26+KFTIK+g
-X-ME-Proxy: <xmx:P82qauV7CdE5fVc-RlAU-sFYarVXpHS9ezru3zj4s_TpDtcO4BmE0w>
-    <xmx:P82qavJfqmCsNrsZp8GNVrYoFUI_uoM5FdBIHd_xHZAV57bSfl6d6Q>
-    <xmx:P82qauQ2vQD3aUgol4h2WHHUmis3y1dwQGiZabPW3M1vGPioub3tXQ>
-    <xmx:P82qaiBnhXmiTuoavJ0sd348dWGmzObwLtYoGHBva5EB2kMbIk800w>
-    <xmx:P82qak-gvAifzihzhevXQjss8iKtVSzDLmJGWJhmOTU4yAarpr4l6OnL>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Sep 2026 13:09:18 -0400 (EDT)
-Date: Wed, 16 Sep 2026 18:09:17 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Cc: akpm@linux-foundation.org, David Hildenbrand <david@kernel.org>, 
-	Boris Burkov <boris@bur.io>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>, 
-	Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, Jann Horn <jannh@google.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	"Darrick J. Wong" <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>, 
-	Usama Arif <usama.arif@linux.dev>, Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [RFC PATCH 0/5] mm: sub-folio dirty tracking for PTE-mapped mmap
- writes
-Message-ID: <aqrJAX6nMTIo6Vnn@thinkstation>
-References: <20260903182943.662461-1-kirill@shutemov.name>
- <ap6LFvuOuWf_BkGi@thinkstation>
- <aqrDfoFFr8o0Mf0G@casper.infradead.org>
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="I/zvzBTb"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8631d0023daso814316b3a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:10:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1789578627; x=1790183427; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4QH7TCKimipR8xV32SdX4PILN4e3j5bJ+o9cYY2F4DU=;
+        b=I/zvzBTb7sbhurrPW5561okUsTghPC9kVPuSE7tPT0eu/vA7FoUUPFVFb3NSHth3vp
+         Vqlu7DBQxnLIsmiq/Tm5NeVoIF138k+sKKhUgZp1AZvX4+CfV29HcUPleGItk0+dCW9k
+         pTp5Fgik1hPe/CvV50nLG+ll/TqX7Z4OKEqX1IfXHsinfbRQHsHSYdBplHTSjqAo6xQy
+         fcpayIXMEVymGFpSKYmLNDygvJZA65k83+SsrDSmeJGGOMt+XuXpD7EG39ucajZUE0lg
+         BY2MoICXzutJrTsYbvQAfXTpH7zOtJstOarPH/m3f7BYB/Pqcr86m9ssIrqAwBjjDFos
+         EMUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789578627; x=1790183427;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4QH7TCKimipR8xV32SdX4PILN4e3j5bJ+o9cYY2F4DU=;
+        b=Kh8uRlxLhO7s0qFRR+AdAEMQBh+tOIDiZVal9sSmqJ+ZXH1Rp15jNEah3fY1I9SAgB
+         iPJQJQh9SAWNaYLhnM48AelVXO7uZ8YFz8UV5J+wpYlpyzgQn7cKiDcrxnfpJOR56Two
+         pPHp6dtqWuh9SCi/E0FOQkfeL6fnourP3NYtIKSIfWJrw+zNWwP1zOQdh7BW5gVOOw0i
+         UX6DYghQQQDFnmBtl1LBXZ4qmz3HceqsL4fFw/oR8yIGAW0do/jn2DD7KnrHJkWg/+t7
+         EBl/px8QWKdW2Du6ZM6M3Ab0z/jI/cbX6s/nYSRJnwTEToA3HnKB7Os7zmw+R9GjLs1/
+         XjJw==
+X-Forwarded-Encrypted: i=1; AKwUvBzeczdzqf2rFzo+uLUXrZjmFlj5rUdBgoeN8MQXxPWiQfKVFMowuNpYNhRyEMGOzo4/1iP9oTZYuabCPZE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCfy3qnq/EYLMFMNAXui+wmCePBCWYXBxyW5d1MiKxj9HSbbBA
+	wPj2LnBVUJhd/++LL/rtPvnFTRqcwjCVN7HowchikCPbYinfDcdKN64vneAMcZ02OO8=
+X-Gm-Gg: AYBFou0/f851KgZULoSv3BxwV9DGE/9Wn8b1b2wARblUIIPR91VVQBP90Xi90/Lyk7M
+	oZ4h8YXVbE4xbe+J1HioQPlWrUawPLXJ6Ek2o0q8IRe++qy9Nl0kO4186AkmeJOMJZeufSM7DnS
+	bG7eCpiDgyzEINqBI60cR0S3zWc21dxETdGmygOrF4MOLl+zgPaEE46bZsyu6Fqlw8hXtdTsAGt
+	1kTaWio1NCTU/Lx0FUjoCbsrykKK8IzHfw2O71wGy60Y6xIuA1Evz9QPP+r1dyLy23+5oE8oXgZ
+	X4Nw3MVfVvKserHrHUH9encDsonuhGN/9QMJ7C9coNEiH+a6pXrxUvm00/YDwHIKiBv9yuDksN0
+	s3vgPNU5hgaHfqWrEwsclBU7aYonypy6jBZgUpeTEkzRK8t3ZmQYt37XxQWOfsXShfhBWlezAfw
+	J1cpuXtFLUz7zOEVvGM0795OQQg5fzctu6NlhqRh2zDUoCL/g6oaDKzUbGG1nEelu8ej0wuykgS
+	ad+kwnMCLbpQF51zIVg
+X-Received: by 2002:a05:6a00:181b:b0:86d:3958:6b13 with SMTP id d2e1a72fcca58-872391ab57emr6854570b3a.19.1789578626409;
+        Wed, 16 Sep 2026 10:10:26 -0700 (PDT)
+Received: from [100.64.0.1] ([170.85.13.74])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d1b275sm1607393b3a.51.2026.09.16.10.10.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 10:10:25 -0700 (PDT)
+Message-ID: <6e4b5c98-7d48-4629-a6a0-4d930327f9a0@sifive.com>
+Date: Wed, 16 Sep 2026 12:10:23 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqrDfoFFr8o0Mf0G@casper.infradead.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: dts: sophgo: sg2000-milkv-duo-s: reserve memory
+ for RTOS
+To: Andrei Lalaev <andrey.lalaev@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Chen Wang <chen.wang@linux.dev>,
+ Inochi Amaoto <inochiama@gmail.com>
+Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260916-milkv-duo-s-rtos-memory-v1-1-6ca72d5a3924@gmail.com>
+From: Samuel Holland <samuel.holland@sifive.com>
+Content-Language: en-US
+In-Reply-To: <20260916-milkv-duo-s-rtos-memory-v1-1-6ca72d5a3924@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 05:27:42PM +0100, Matthew Wilcox wrote:
-> On Mon, Sep 07, 2026 at 11:15:15AM +0100, Kiryl Shutsemau wrote:
-> > Boris pointed me to Matthew's proposal to remove ->dirty_folio:
-> > 
-> > https://lore.kernel.org/all/aoyWln-Gt-yvZQkE@casper.infradead.org
+Hi Andrei,
+
+On 2026-09-16 11:06 AM, Andrei Lalaev wrote:
+> The FSBL loads the coprocessor firmware into the last 2 MB of RAM.
+> Reserve this region to prevent Linux from using it.
+
+If the FSBL wants to reserve some RAM, it should modify the devicetree at
+runtime to add that reservation. Adding the reservation here creates an
+unnecessary ABI surface between the FSBL and all consumers of the devicetree.
+
+Regards,
+Samuel
+
+> Signed-off-by: Andrei Lalaev <andrey.lalaev@gmail.com>
+> ---
+>  arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
-> Thanks, Boris ;-)
+> diff --git a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+> index 78a257839f6f..693c9fd7b771 100644
+> --- a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+> +++ b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+> @@ -22,6 +22,17 @@ chosen {
+>  		stdout-path = "serial0:115200n8";
+>  	};
+>  
+> +	reserved-memory {
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges;
+> +
+> +		coprocessor_rtos: region@9fe00000 {
+> +			reg = <0x9fe00000 0x200000>;
+> +			no-map;
+> +		};
+> +	};
+> +
+>  	wifi_pwrseq: wifi-pwrseq {
+>  		compatible = "mmc-pwrseq-simple";
+>  		reset-gpios = <&porta 15 GPIO_ACTIVE_LOW>;
 > 
-> > I agree that the current ->dirty_folio() makes little sense and that
-> > dirtying the folio can be bundled into ->page_mkwrite(), as they are
-> > matched 1-to-1.
-> > 
-> > My proposal makes the distinction between making the folio writable and
-> > making it dirty meaningful. ->page_mkwrite() allocates whatever is needed
-> > on the filesystem side to track dirty state and drive writeback for the
-> > *folio*, while ->dirty_folio_range() marks part of the folio dirty.
+> ---
+> base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+> change-id: 20260916-milkv-duo-s-rtos-memory-7a94933e35bd
 > 
-> Why do you think that's a meaningful distinction?  We create a writable
-> PTE because we've taken a page fault for write.  There's probably a few
-> naoseconds where the PTE is writable+clean before it becomes
-> writable+dirty, but even then sometimes we do both pte_mkwrite() and
-> pte_mkdirty() as an optimisation in the write fault path.
-
-This is true for the PTE that the fault was for. But we don't necessarily
-want to dirty the other 511 pages at the same time.
-
-The basic idea is to make the whole folio writable at fault and shift
-dirtying to be per-PTE on write to it.
-
-> > We can still drop ->dirty_folio(). A filesystem can provide
-> > ->dirty_folio_range() if it wants fine-grained (sub-folio) dirty
-> > tracking.
-> > 
-> > A separate question is whether we want to avoid installing a writable PMD
-> > entry for filesystems that want fine-grained dirty tracking. I have a
-> > patch for this, but it deserves a separate discussion once we agree that we
-> > want this for PTE-mapped folios first.
-> > 
-> > Any feedback?
+> Best regards,
+> --  
+> Andrei Lalaev <andrey.lalaev@gmail.com>
 > 
-> It's very odd to be optimising for shared-writable-mmap.  This is a
-> horrid model for I/O.  https://cs.brown.edu/people/acrotty/pubs/p13-crotty.pdf
+> 
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
 
-Sure.
-
-But not everybody got the memo[1] :P
-
-I think it worth considering if we want to make large folio adoption
-smoother.
-
-[1] https://www.reddit.com/r/bcachefs/comments/1vepk4a/comment/p1sn4v1/
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
