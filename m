@@ -1,154 +1,157 @@
-Received: from mail-24426.protonmail.ch (mail-24426.protonmail.ch [109.224.244.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A8A3644A4;
-	Wed, 16 Sep 2026 12:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353414968EC
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:34:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562063; cv=none; b=AU51C24wd3ndDwReMmWNlr9V9dA0jRdVT3yg8DHW/agGZUQFwXn8be2GggTdeigeU20ehPvhmeToUKUhdpvDTEh4Wj1y0DrptjnuEPpApdhexE/ucgm4D/oATI5C6wnul0pdUhDUVBN/1cRHaG4JIWLB4buJd6mpJ/CapuDsyds=
+	t=1789562097; cv=none; b=naJ0DhAu02PObxqwmlD/vJhWwHbdU8TahSSun4ZyfosF6o637o+8uoPdqhWA//9CDqppVBn74mMlTy1k1unwfIl9WxZqKPr19eUtNkNRVOZCOa00g8/DGV5RuOfgnzN/ozgJ7wSKMyy1EbHgr9/2kRfka7cSHqBgHi+WYgTEePg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562063; c=relaxed/simple;
-	bh=Afuig7NdFAQ5XnHoQ8HzWcRJNPh6Fl9+Itbf/eok9q4=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Gesjrot++J+OZfCCWpfmb9bBGCzkijbVzZuuijGy2jSqTE2E1q1VbMr6cZXt3dlDd5vNp6ZPo3dnsNUtgTuf918iK0u8b4SeJQHNaEqe04N/IOiQOIP//Vin4MjLoLbTEGIRwNQycLZOVARQoxCH5poRZipqW+92VzZYOG8Q/TQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=eP2m+BlE; arc=none smtp.client-ip=109.224.244.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1789562097; c=relaxed/simple;
+	bh=J2mnMneTYDIrpgB5k5VIkuxwj0BCnLfl7kCAK1Mrvtw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=am+3FUxmXGsW46Qrbkgdb8WSV8uQIAOq2dAw9h8+nogUal1Hh0BKnEtGCNlAXd93X9RP5z7uZi8ABwQ9Vhwkfh5cwFYZ5sjo4Xo3HJ7zhDbdmLHeLLJwElIld1VFTScUhDSL76ogq3iB/TJgDmx4RKbGaU53yjE9SMLxs6E/ZzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DiEpCa7W; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="eP2m+BlE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1789562053; x=1789821253;
-	bh=Afuig7NdFAQ5XnHoQ8HzWcRJNPh6Fl9+Itbf/eok9q4=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=eP2m+BlEvnRBrC/brOvZjY6UgP/qCQldM5DvoCG7JLV9JBIvU4ZGAaPX9W2JVoCox
-	 rgezLkqCrnJSjqZ9V9/PyycraBGBY7KiyhbylIKQlwvYxdF7edtQRRBU0FeK/gxRGd
-	 NPVlK5yNhuzmr2cZuPp7vjgLmQoJ6hInKyadsyAiIlVFPdtRu5mqq5DGig4F5Ztv9o
-	 Q7zsNnWcWCaHSobu+fHsW0/3anH/bGqPA5SuJ9Ox326TfjiM6Mi0fKXnC/Y5R6BhhG
-	 feY/S9Z8E/gNX7FsY8aPPeF8tpHV4R4IdMiFByxjbXg1n9DduEx4uHjZYF6daaQyFb
-	 5Azk+iiGN8Htw==
-Date: Wed, 16 Sep 2026 12:34:06 +0000
-To: ricardo@pardini.net, alchark@flipper.net
-From: Ryan Leung <untilscour@protonmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, finley.xiao@rock-chips.com, gregkh@linuxfoundation.org, heiko@sntech.de, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, michael@walle.cc, miquel.raynal@bootlin.com, robh@kernel.org, srini@kernel.org, stable@vger.kernel.org, untilscour@protonmail.com
-Subject: Re: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP CPU ID
-Message-ID: <20260916123355.4507-1-untilscour@protonmail.com>
-Feedback-ID: 184418679:user:proton
-X-Pm-Message-ID: e5075cf7b5d4595542ae7b0ca159d512ead7b50d
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DiEpCa7W"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so7701155e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:34:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789562088; x=1790166888; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wmytOkW2R/xIUqZXV3QPl8yko/uu1lEG9yR+JJLsZQc=;
+        b=DiEpCa7Wo/uFu4wx5mcsUKYPkZ+X2biNDLoeA3nmLjhZNInCEkGAD1WNRz9tC6YP1Y
+         DEAp3VKAyLfWQoHSrZOf8Ja0Xuv70iEVom1UwOm+bg5a77B+Us672pSSJhOyT9lxENdm
+         WQr//ExCqxprQbPR7ITV1+mC9Gaie7zWuhjSwqQ4PCSdiNLHyZAFZnKl3J7SgTVSyemL
+         CShDuF4SJc7Psg4oLpiBADyyPY3aPUtYCjHRZpd7WTaA4bN9UmBDNEEHfyDwANtWZbwa
+         e4hLmOHti4AU0bIzAnvkRnkMYqwt2WZsBztJFDmRcOEh1i3HfPELAU3vm+P295s0O5Yg
+         EdQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789562088; x=1790166888;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wmytOkW2R/xIUqZXV3QPl8yko/uu1lEG9yR+JJLsZQc=;
+        b=1mhdrsPJzbgfJYxYoRmHniYK6py5ioviPg7YbCo5Bi1ApqKAOdekdr1jo8NGg5TQyR
+         UbV6+F8RLSklt3jSRAZmBwk3mWcGrBXLDCYdpwEvcMa7otdtdIfP10HNnM+PJ1LlBGwP
+         abxOdpTQmtX1YfO4Fq1LLOCgFYnJLwEEhAZt9s0PIEz1rrq+3NKmiPekZ0Yc6EaQSSGX
+         56bBkY02jKCVEQUpTAHVBz929r4Bxix1lG8PQUFWYnKxYskuJe8UYJoHRLG3ieJonUys
+         foamdQiesOfl1kSbswzgFlNfPDfq/ca8mNSijeYrFJAJ6SPoFBo2GWq96fi41Yn2B5oy
+         4SUw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAylGc5UK+w8xkvrZdp2nLYkSDPPobaK0MQIADR+KUI2urJYsLVkDLEDl/ONW+nLXSxH108SRFFQv6S60=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEpBgZvNMR25voy58tbxHRNtcWVCKQLTkiSUPHEVAO6NJgOxXL
+	IFPNfwuMATVyGZ4686grzKDb+uGyrYyGBJ48W7IBqg8XWb5WQBzbmeG+
+X-Gm-Gg: AYBFou3iVYBDx9BWeO3J7eEJvD6NBz80pq1l/WGcmQlt3h4Dh/NFyPsybE7sDN6wjn4
+	FfwvFMU5HuxV8/nMRXVZFWtHHRFePl4KVjXgf+c8O+uDuiq0ciuAthsfg/VVw9foVKDlT7hN5Wb
+	pZyCddib75qc2u55bOUjotFdYWzClLEMlJlHfb+YV00/JP3u6B1bqaYOjfmlEPgwAQimhKSYhnE
+	ruqs5PC8EccfnG4BCrVe/8H5OSTsXpIckfYNZdX22Rk1i1Umw4d3dARasn/ORmS2TFVSx5Gl0z1
+	Cny6g+9AvZIpS2IeX4cSE6Rd38MZdQdfuanyO6bZQb2/xQK5HUWFVXlmEcU+bWtYTdkpt687jQ+
+	iVKsGiI2CzTFdkOxEC7pFuUhG+i+//S6y4yWmzD80czOaIG6CBRTl/RI1KXwaz1AnGLbcjAtU48
+	LX6JAwJsMgAlYwq+BTW3rMPPMWN6YaF7RZVPhLYJ/WBAyayv2ZUJoZZ88Hpd9zkBIOGkIsPhTtN
+	I1imdko+MuJ+xILaSO0t0PR7bpi8L4RAmIj
+X-Received: by 2002:a05:600c:3513:b0:49c:eb17:cf3b with SMTP id 5b1f17b1804b1-49eac4678e6mr27024995e9.8.1789562087480;
+        Wed, 16 Sep 2026 05:34:47 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e84202028sm57591175e9.0.2026.09.16.05.34.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 05:34:47 -0700 (PDT)
+Date: Wed, 16 Sep 2026 13:34:42 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Linus
+ Walleij <linusw@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: ux500: avoid -Wparentheses warning
+Message-ID: <20260916133442.2d21ff5f@pumpkin>
+In-Reply-To: <20260915202038.3534453-1-arnd@kernel.org>
+References: <20260915202038.3534453-1-arnd@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Ricardo, Alexey,
+On Tue, 15 Sep 2026 22:20:31 +0200
+Arnd Bergmann <arnd@kernel.org> wrote:
 
-> On 02/09/2026 15:07, Alexey Charkov wrote:
-> > Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
-> > memory, and Rockchip bootloaders use it to give boards which have no
-> > dedicated storage for a MAC address a stable one anyway: they hash the =
-CPU
-> > ID and patch the resulting addresses into the device tree they hand ove=
-r.
-> >=20
-> > Kernels started without that fixup, e.g. straight from the SPL in Falco=
-n
-> > mode or by any other loader which does not implement Rockchip's derivat=
-ion,
-> > fall back to random MAC addresses which change on every boot.
-> >=20
-> > Formalize the derivation in the DT binding and add a Linux kernel drive=
-r
-> > implementing it, so that a Linux image can use the same stable addresse=
-s
-> > regardless of the boot flow.
-> >=20
-> > Only RK3576 is wired up here, that being the SoC I can test on. Other
-> > Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rath=
-er
-> > than 0xa on RK3588, for instance - which makes supporting them a two-li=
-ne
-> > addition to the driver's match table plus the layout node.
-> Hi Alexey,
->=20
-> I went off trying this on RK3588 and - exactly like you said - it=20
-> translates perfectly there, just with a different offset. Thanks!
->=20
-> Not content, I went for RK356x as well - and that revealed what I think=
-=20
-> is a snag.
->=20
-> Both RK3576 and RK3588 currently describe their fixed cells as direct=20
-> children of the OTP node -- turns out that is the "legacy" way, which=20
-> works due to 'add_legacy_fixed_of_cells'.
->=20
-> But RK356x/3528/3562, done more recently [1], use a single=20
-> 'fixed-layout' with child cells; and there can only ever be one layout,=
-=20
-> so we wouldn't be able to use the new layout for those.
->=20
-> I imagine one way around it would be to allow such fixed cells also=20
-> under the new layout, by delegating to 'nvmem_add_cells_from_dt()' and=20
-> adding patternProperties with '$ref: fixed-cell.yaml' in the binding,=20
-> similar to what fixed-layout.yaml does, but I'm unsure that would be a=20
-> good idea?
->=20
-> Either way, thanks for this, it really helps with Falcon mode and edk2;=
-=20
-> I can also use it for the fixed-function RTL8125 PCIe NICs I started=20
-> describing [2] (and will eventually send a v5).
->=20
-> [1] https://lore.kernel.org/all/20260312213019.13965-3-heiko@sntech.de/
-> [2]=20
-> https://lore.kernel.org/linux-rockchip/20260617-rk3588-dts-rtl-eth-descri=
-be-dt-alias-v4-0-2bd38922d129@pardini.net/
->=20
-> mvg,
-> Ricardo
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> gcc warns about a slightly confusing expression in two lines
+> of this driver:
+> 
+> In file included from sound/soc/ux500/ux500_msp_i2s.c:20:
+> sound/soc/ux500/ux500_msp_i2s.c: In function 'configure_protocol':
+> sound/soc/ux500/ux500_msp_i2s.h:151:38: error: suggest parentheses around arithmetic in operand of '^' [-Werror=parentheses]
+>   151 | #define MSP_TX_CLKPOL_BIT(n)     ((n & TCKPOL_MASK) << TCKPOL_SHIFT)
+> sound/soc/ux500/ux500_msp_i2s.c:204:21: note: in expansion of macro 'MSP_TX_CLKPOL_BIT'
+>   204 |         temp_reg |= MSP_TX_CLKPOL_BIT(!protdesc->tx_clk_pol ^
+>       |                     ^~~~~~~~~~~~~~~~~
+> 
+> config->bclk_inverted is a boolean variable, while protdesc->tx_clk_pol
+> is a 32-bit unsigned integer that can only be zero or one in order to
+> be passed into MSP_RX_CLKPOL_BIT().
+> 
+> Move the negation out of the inner expression to make this easier
+> to understand by the compiler.
+> 
+> Fixes: 9ccbacf5a012 ("ASoC: ux500: Validate MSP DAI configuration")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+> I still find the new version equally confusing, if anyone has a
+> better idea to make this more readable, let's do that instead.
 
-What about changing the driver to handle something like:
+How about:
+	temp_reg = readl(msp->registers + MSP_GCR);
+	if (protdesc->tx_clk_pol ^ config->bclk_inverted)
+		temp_req &= ~TX_CLK_POL_RISING;
+	else
+		temp_req |= TX_CLK_POL_RISING;
+	if (protdesc->rx_clk_pol ^ config->bclk_inverted)
+		temp_req |= RX_CLK_POL_RISING;
+	else
+		temp_req &= ~RX_CLK_POL_RISING;
+	writel(temp_reg, msp->registers + MSP_GCR);
+Assuming that [rt]x_clk_pol is only ever 0 or 1,
+if invalid if will default to 'normal polarity; clocks.
+Completely open-coding it removes the negation.
 
-=09otp: otp@... {
-=09=09compatible =3D "rockchip,rk3528-otp";
+You could try replacing the ^ with !=
 
-=09=09#address-cells =3D <1>;
-=09=09#size-cells =3D <1>;
+David
 
-=09=09nvmem-layout {
-=09=09=09compatible =3D "fixed-layout";
-
-=09=09=09#address-cells =3D <1>;
-=09=09=09#size-cells =3D <1>;
-
-=09=09=09otp_id: id@a {
-=09=09=09=09reg =3D <0x0a 0x10>;
-=09=09=09};
-=09=09};
-=09};
-
-=09otp_mac: otp-mac {
-=09=09compatible =3D "rockchip,otp-cpuid-mac";
-
-=09=09nvmem-cells =3D <&otp_id>;
-=09=09nvmem-cell-names =3D "source";
-
-=09=09#address-cells =3D <1>;
-=09=09#size-cells =3D <1>;
-
-=09=09otp_mac_address: mac-address@0 {
-=09=09=09reg =3D <0 0x10>;
-=09=09=09#nvmem-cell-cells =3D <1>;
-=09=09};
-=09};
-
-using devm_nvmem_cell_get("source") to read the otp cell.
-
-Then a match table would not be necessary and it would work with every
-SoC, even those without the fixed-layout nvmem, because of
-add_legacy_fixed_of_cells as you mentioned.
-
-Best regards,
-Ryan
+> ---
+>  sound/soc/ux500/ux500_msp_i2s.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/sound/soc/ux500/ux500_msp_i2s.c b/sound/soc/ux500/ux500_msp_i2s.c
+> index 683b485fb570..588d381230b6 100644
+> --- a/sound/soc/ux500/ux500_msp_i2s.c
+> +++ b/sound/soc/ux500/ux500_msp_i2s.c
+> @@ -201,12 +201,12 @@ static int configure_protocol(struct ux500_msp *msp,
+>  
+>  	/* The code below should not be separated. */
+>  	temp_reg = readl(msp->registers + MSP_GCR) & ~TX_CLK_POL_RISING;
+> -	temp_reg |= MSP_TX_CLKPOL_BIT(!protdesc->tx_clk_pol ^
+> -					  config->bclk_inverted);
+> +	temp_reg |= MSP_TX_CLKPOL_BIT(!(protdesc->tx_clk_pol ^
+> +					  config->bclk_inverted));
+>  	writel(temp_reg, msp->registers + MSP_GCR);
+>  	temp_reg = readl(msp->registers + MSP_GCR) & ~RX_CLK_POL_RISING;
+> -	temp_reg |= MSP_RX_CLKPOL_BIT(protdesc->rx_clk_pol ^
+> -					  config->bclk_inverted);
+> +	temp_reg |= MSP_RX_CLKPOL_BIT(!!(protdesc->rx_clk_pol ^
+> +					  config->bclk_inverted));
+>  	writel(temp_reg, msp->registers + MSP_GCR);
+>  
+>  	return 0;
 
