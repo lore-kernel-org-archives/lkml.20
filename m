@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EAA51FCD3
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0987F52B1FB
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600429; cv=none; b=hl0f8l+WFS9WoKMqDveDnyJWwiA2WVZ1bN2IxLO0rTBjVIuX8WUu1IEWs1Qq+ci9+TAsNPtmkCmu3ZPXQnb+KtjtuAsnO89DIho46B1hyIlfnJXrfYus6ACGP7b9UMH7g6+YsZavQTRnakD1Vvsxax+4A6o9kyTnuXV6bR/lORU=
+	t=1789600431; cv=none; b=dpxlunByBwK1y3A0XCwUub7oGOc59qdIYsUSO4WzTGDlzUO2kiS/HXUjldXzolhtBoPsE4wvryCQFcg7XlVgZKjVQ4nWMNNibVHtcoHNEuQsIV97OBTpBV/y5wOMW/8ITrDua2vKWIPi00qLZ5DDM1Krg3xKdqD8xIZ6E+AoJ8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600429; c=relaxed/simple;
-	bh=rDLLR0LDnRx/9atFQ+G3cGMZ7kZWOpg49SUEMq2vW0I=;
+	s=arc-20240116; t=1789600431; c=relaxed/simple;
+	bh=9CyekPmxUkpvx5IqdU7Rjc0F6QQlf4amQJEjXjx4+mI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jX3IadwQp4AMWVLFLk/XYCN84EMIOs2CIskR5beRXZjIQllqS27qvL/CG71pthWPsMHRzscrx1rmxBouBZ96VR7CD1jy21KN85sTkx1OFNzTiv9rAokJdGvTbqeGBti2Zhxnz9HX71Hsgb48f0ZCKBivz9uWD4GPZj72uq/KQww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=byIUXC90; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=JPfUjftefQ+LElWTPncaLxzczbv7TfgG/QVm8a56/jQ9sImkdrkITEaZfGMnOC4dKraT9rC5aasuZTdnb70h1qxw82d3TJP0Shfgn31DhKqGR8zKlMDXrVMTElKqQnnVZBgGI5QJNecRbnpPXIFqN5BDjjVt0UAOUPe1XuCpCpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nU77YMN8; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="byIUXC90"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nU77YMN8"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789600427; x=1821136427;
+  t=1789600429; x=1821136429;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=rDLLR0LDnRx/9atFQ+G3cGMZ7kZWOpg49SUEMq2vW0I=;
-  b=byIUXC907lvpl0RrpuD/wsh61bXQ2o9JgREiYEnxKgGe78ABUCrwZcyq
-   kP+yAwihat+rNVGATIbGClszU1Ojp8wUzJ/6TcKYT311alRpreEzC6u5w
-   UTPSNbZKbHVU5WBF5iTwPDAkwLbeKlFHD6WaW4wG+u5uER1+oAno00V17
-   s+lfNSp9PEz5hPWGDw9WcurCCddHU2e9yQa3+6KnsXwfJfZBrt9AblUdo
-   Y8gjBABwkKKQVbJttxk7vDD6vS887hl9ty8LAiWTiAcPv9g40+rmTuDYp
-   PpmTzLgq5NC0q8i0WaJnsWAbm3SnE2E9qSTIEwKeWsbSJG3tcfEmV6mQx
-   w==;
-X-CSE-ConnectionGUID: WV7J0hriQZ+LELot/i41qg==
-X-CSE-MsgGUID: QMgypRhcSHSpSNtu3ESYlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861452"
+  bh=9CyekPmxUkpvx5IqdU7Rjc0F6QQlf4amQJEjXjx4+mI=;
+  b=nU77YMN8w/CjCzwmDatuFheaFvV6AsfyTZZ30+fg4aOXQWUWKQA4dyNN
+   y+0peyPW1Uib+2gwRxgwDFaaYVF1/o4ARlvBHGc5k7hAXvP7pZe/U1PRa
+   80gyWiwPaRQc9IJ75upiyemcM8LX4i/S78McoqMBBvYC1U2mZhvCsVhxV
+   w4FuhXoU344gqHM9ktAirCJelQq3ILBS2b+Uzp/yYXLUqXWHpXOOavM2I
+   MQDanND+3WXdYH+ZoOPbOVDmUcJmLJ528xME31b6nV5NNrqqb/NlbQeob
+   qCLI0PHj6doMdkW2e/yRaXJQDs9eRrHeeWqdhf6vxNwbMcSn9coFWe0L4
+   A==;
+X-CSE-ConnectionGUID: sKFFpImBSRyo/k65YCdo4g==
+X-CSE-MsgGUID: yDDQw8QLQJi5rEUwxKHe6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861470"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93861452"
+   d="scan'208";a="93861470"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:37 -0700
-X-CSE-ConnectionGUID: ilIvPQJaS5mmoc0aIfMOmA==
-X-CSE-MsgGUID: 1WnhJTtjTpCBX2LF8q692Q==
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:38 -0700
+X-CSE-ConnectionGUID: i+Qn/mRvRGOmj0VRlgeHzg==
+X-CSE-MsgGUID: 7bfyiY+tTmqaC5Do7ETucw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277231476"
+   d="scan'208";a="277231483"
 Received: from khuang2-desk.gar.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.219])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:37 -0700
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:38 -0700
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -59,9 +59,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v12 15/25] x86,fs/resctrl: Handle systems where AET is the only resource
-Date: Wed, 16 Sep 2026 16:13:10 -0700
-Message-ID: <20260916231320.14502-16-tony.luck@intel.com>
+Subject: [PATCH v12 17/25] platform/x86/intel/pmt: Register enumeration functions with resctrl
+Date: Wed, 16 Sep 2026 16:13:12 -0700
+Message-ID: <20260916231320.14502-18-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916231320.14502-1-tony.luck@intel.com>
 References: <20260916231320.14502-1-tony.luck@intel.com>
@@ -73,142 +73,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On a system with no L3 monitor resources it should still be possible to
-run with just AET.
+INTEL_PMT_TELEMETRY is a loadable module, but resctrl is built-in and cannot
+call PMT functions directly.
 
-Update get_rdt_mon_resources() to return true based on whether the
-system supports monitoring rather than on the presence of any of the
-L3 monitor features.
+Use ".probe_type = PROBE_FORCE_SYNCHRONOUS" to ensure sequential, synchronous
+calls to per-device .probe() functions.  Register the telemetry enumeration
+function pointers at the end of pmt_telem_init() when all .probe() functions
+have run and enumeration is complete.
 
-Refuse to mount the resctrl file system if there are no monitoring or
-control features.  Add invalfc() to rdt_get_tree() so the console log will
-let the user know why the mount failed.
+Unregister at the start of pmt_telem_exit() before teardown of the
+auxiliary drivers.
 
+Suggested-by: Christoph Hellwig <hch@infradead.org>
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
 v12:
-	Cleanups in get_rdt_mon_resources()
-	Add invalfc() to rdt_get_tree()
-	Change commit message with updated changes
+	No change
 ---
- arch/x86/kernel/cpu/resctrl/internal.h |  2 +-
- arch/x86/kernel/cpu/resctrl/core.c     | 20 +++++++++++---------
- arch/x86/kernel/cpu/resctrl/monitor.c  |  4 +---
- fs/resctrl/rdtgroup.c                  |  8 ++++++--
- 4 files changed, 19 insertions(+), 15 deletions(-)
+ drivers/platform/x86/intel/pmt/telemetry.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-index e46eb9a4c725..d70c8cb1cb81 100644
---- a/arch/x86/kernel/cpu/resctrl/internal.h
-+++ b/arch/x86/kernel/cpu/resctrl/internal.h
-@@ -226,7 +226,7 @@ union l3_qos_abmc_cfg {
+diff --git a/drivers/platform/x86/intel/pmt/telemetry.c b/drivers/platform/x86/intel/pmt/telemetry.c
+index 953f35b6daec..bf0c9295feb3 100644
+--- a/drivers/platform/x86/intel/pmt/telemetry.c
++++ b/drivers/platform/x86/intel/pmt/telemetry.c
+@@ -427,16 +427,30 @@ static struct auxiliary_driver pmt_telem_aux_driver = {
+ 	.id_table	= pmt_telem_id_table,
+ 	.remove		= pmt_telem_remove,
+ 	.probe		= pmt_telem_probe,
++	.driver		= {
++		.probe_type = PROBE_FORCE_SYNCHRONOUS,
++	},
+ };
  
- void rdt_ctrl_update(void *arg);
- 
--int rdt_get_l3_mon_config(struct rdt_resource *r);
-+void rdt_get_l3_mon_config(struct rdt_resource *r);
- 
- bool rdt_cpu_has(int flag);
- 
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index e633da548959..addcb2a19c98 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -991,7 +991,7 @@ static __init bool get_rdt_alloc_resources(void)
- static __init bool get_rdt_mon_resources(void)
+ static int __init pmt_telem_init(void)
  {
- 	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
--	bool ret = false;
-+	bool l3_mon_found = false;
- 
- 	/* Any monitoring at all? */
- 	if (!cpu_feature_enabled(X86_FEATURE_CQM))
-@@ -1001,27 +1001,29 @@ static __init bool get_rdt_mon_resources(void)
- 
- 	/* Any of the L3 monitoring features? */
- 	if (!cpu_feature_enabled(X86_FEATURE_CQM_LLC))
--		return false;
-+		goto skip_l3_feature_checks;
- 
- 	if (rdt_cpu_has(X86_FEATURE_CQM_OCCUP_LLC)) {
- 		resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID, false, 0, NULL);
--		ret = true;
-+		l3_mon_found = true;
- 	}
- 	if (rdt_cpu_has(X86_FEATURE_CQM_MBM_TOTAL)) {
- 		resctrl_enable_mon_event(QOS_L3_MBM_TOTAL_EVENT_ID, false, 0, NULL);
--		ret = true;
-+		l3_mon_found = true;
- 	}
- 	if (rdt_cpu_has(X86_FEATURE_CQM_MBM_LOCAL)) {
- 		resctrl_enable_mon_event(QOS_L3_MBM_LOCAL_EVENT_ID, false, 0, NULL);
--		ret = true;
-+		l3_mon_found = true;
- 	}
- 	if (rdt_cpu_has(X86_FEATURE_ABMC))
--		ret = true;
-+		l3_mon_found = true;
- 
--	if (!ret)
--		return false;
-+	if (l3_mon_found)
-+		rdt_get_l3_mon_config(r);
- 
--	return !rdt_get_l3_mon_config(r);
-+skip_l3_feature_checks:
-+	/* Even if there are no L3 monitor events, AET might be supported */
-+	return true;
- }
- 
- static __init void __check_quirks_intel(void)
-diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
-index 2f3e5b89a7fc..e684353631de 100644
---- a/arch/x86/kernel/cpu/resctrl/monitor.c
-+++ b/arch/x86/kernel/cpu/resctrl/monitor.c
-@@ -431,7 +431,7 @@ static void __init intel_rdt_mbm_apply_quirk(u32 num_rmid)
- 	mbm_cf = mbm_cf_table[cf_index].cf;
- }
- 
--int __init rdt_get_l3_mon_config(struct rdt_resource *r)
-+void __init rdt_get_l3_mon_config(struct rdt_resource *r)
- {
- 	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
- 	unsigned int mbm_offset;
-@@ -514,8 +514,6 @@ int __init rdt_get_l3_mon_config(struct rdt_resource *r)
- 		intel_rdt_mbm_apply_quirk(r->mon.num_rmid);
- 
- 	r->mon_capable = true;
--
--	return 0;
- }
- 
- static void resctrl_abmc_set_one_amd(void *arg)
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 0c9c29037667..2e9f71901f68 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -3195,6 +3195,11 @@ static int rdt_get_tree(struct fs_context *fc)
- 		goto out;
- 	}
- 
-+	if (!resctrl_alloc_capable() && !resctrl_mon_capable()) {
-+		ret = invalfc(fc, "No allocation or monitoring features are available or enabled");
-+		goto out;
-+	}
+-	return auxiliary_driver_register(&pmt_telem_aux_driver);
++	int ret;
 +
- 	ret = setup_rmid_lru_list();
- 	if (ret)
- 		goto out;
-@@ -3253,8 +3258,7 @@ static int rdt_get_tree(struct fs_context *fc)
- 	if (resctrl_mon_capable())
- 		resctrl_arch_enable_mon();
++	ret = auxiliary_driver_register(&pmt_telem_aux_driver);
++
++	if (ret)
++		return ret;
++
++	intel_aet_register_enumeration(THIS_MODULE, intel_pmt_get_regions_by_feature,
++				       intel_pmt_put_feature_group);
++
++	return 0;
+ }
+ module_init(pmt_telem_init);
  
--	if (resctrl_alloc_capable() || resctrl_mon_capable())
--		resctrl_mounted = true;
-+	resctrl_mounted = true;
- 
- 	if (resctrl_is_mbm_enabled()) {
- 		r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+ static void __exit pmt_telem_exit(void)
+ {
++	intel_aet_unregister_enumeration();
+ 	auxiliary_driver_unregister(&pmt_telem_aux_driver);
+ 	xa_destroy(&telem_array);
+ }
 -- 
 2.55.0
 
