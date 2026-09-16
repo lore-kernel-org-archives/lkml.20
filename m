@@ -1,184 +1,179 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589CC473C73;
-	Wed, 16 Sep 2026 08:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E4046DFF8
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547021; cv=none; b=OEWpKbMo5G0uL+kG696Wu9a9cIFFUn6juOizDnmUqypq/odhKvATzwloR9Cmv3bAhGhoQCAsQScla0dpvrHQoIiH168yhWhNw8UIwxIeki1FpNZidBVpvbuaetCQRQV7eycY8X6/NApQKD2ig0AbeNuBbrBhO96YiUcS2l2zDNI=
+	t=1789547075; cv=none; b=PYwHZTz85CWIph3BJwt9eGPC0FDwFMhQT4w4qQ0w2Iw2jD2l9hciBlReJzmAohoMgRdQGEL4lQ+UgHejTqD1MeNGOouA5a1RiSS2YpxJUQUwV0PCh6l8J6uo1Wgq1HOz3FYhGHkvW04tmCapuCjGifUXiWot6a0x8QMEmJvVp7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547021; c=relaxed/simple;
-	bh=/Ef6xJ/oX5ziPvVzOADL4FglLe5X/TcDsZJ25iJOyfo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YUo3vlOekWnd9CGxjl7+PPOvtOklTFnT8qT4Gy3dW5UkgwyiapfxZlfDCBim4hjWSoC2E80fdzwUFzTLopxfUFKdCOrnZ5UPfpf2cPPYrkvZPql9oqAnN3ub0qXRjysWoKU45NCFhX0ERgW6kTPmR6Dpjeov52qCx9tElaPxb7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=vek7Yt0A; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1789547075; c=relaxed/simple;
+	bh=g8uBSMPifiQxnfvJtoapPRLsvdZMMJIbdJSyrdf1uf8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZsoU4Qz8lLhstZPKCDaa5d/KsTiTkTOdjUsAu+uViulSW69os62xiKYC5e/MLtepFmBVwAg4ZWKhIKa7eV0ArAvsUMNVpZ9ts4Kgl+dBO8MotVjsxguwHS0n/J6/inklYxGY4uVckD2d9D/Q2URMhADYIpnbFidpRk4V/j/k0aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rsyge08l; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="vek7Yt0A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1789546982;
-	bh=UisVH+zAA7Jkcdzds8fAYf6ZlF5YRN+sefWgI1lIMmc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vek7Yt0AhtYAt5p28dkvu9L4gkPBBUMqDEW6BZvnTUoyKPPJ3jQ6VszuTkDj+w3dQ
-	 NNXcPq8jN8P5PU1Hx2UO8bhvS/1fQs9jADcMHgoWuaujcBRq/WN/8B3IT2zZKtemWM
-	 7nCWFODRCcer/ptKNu0T/izdzlN5qqFO0LBQMM0OeqEFdis9oSS3/CRickJHUfQV1k
-	 /KuvjHGLGShL8piDHG4ZNWKtYd0vsKpJepT+i4an4Hn+gqf2VR71Z1kHFUFuFVU5lq
-	 +TDUDJ5PfPkVZoAV4TQXjN6LmZTiT6BxB94UwcJACpLiPotxJCa5y1dTJ3DqtgnLiG
-	 iDTP4GvL2LXew==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hlBj26vb1z4w9R; Wed, 16 Sep 2026 18:23:02 +1000 (AEST)
-Date: Wed, 16 Sep 2026 15:21:15 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <aqonNkbVqW9tf6Bg@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-7-herve.codina@bootlin.com>
- <aqI3KnnQnUytqkEc@gractus.seuss>
- <20260910094126.4bf4cae6@bootlin.com>
- <aqJ5OhJcv4k-ZAj8@gractus.seuss>
- <20260911091653.37b22b0f@bootlin.com>
- <aqS6HmkaVYbrePtN@gractus.seuss>
- <20260914121937.5b7fa2bb@bootlin.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rsyge08l"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 915CC4E4067D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:24:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4FA4A60337;
+	Wed, 16 Sep 2026 08:24:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2F28211C7B017;
+	Wed, 16 Sep 2026 10:24:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789547061; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=SVAN+3IUpX5RA1dOezK1YWO9DvSgx4s6NbQW+cUqHz8=;
+	b=rsyge08lMMwcBYBTuyd1oWuldElUhrw14qjiqv7b5OSkul4t9OnhTAQzLDGuMbABpEZrPJ
+	7dVJqWRmYGUixZUstGve2oewYzw/uHg3izpUjazmff9+I5dn+lEl13UgsHXudHeICrRM0g
+	kHMtoUYsW3oJOb8cEAnvnaYYroEVNk0Gw/C0dBygzMq41A+g8b64OoJ6m9ToYvy2IDN89v
+	kBFrcdeF+4fPIlPawFfWLQwMZDHmuoQZr9U9Os3YkdCX4/KvVwJYUtTyiODbRvOuc52OWk
+	adP78IoaGLN6C6142kXv7jo1AhUfMtfLIlH4NB9QAL6Bo1z3DwIAdFiDiRa/Kw==
+From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+Subject: [PATCH v11 0/2] dmaengine: fsl-edma: Scatter/gather improvements
+Date: Wed, 16 Sep 2026 10:24:10 +0200
+Message-Id: <20260916-fsl-edma-dyn-sg-v11-0-02792de71b92@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OXpIoQ8msCZFwtww"
-Content-Disposition: inline
-In-Reply-To: <20260914121937.5b7fa2bb@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIACpSqmoC/23RzW7DIAwH8FepOI/JBsLHTnuPaYcAps3UJlOSR
+ auqvvugm5RM5Ghk/7D+vrGJxo4m9nK4sZGWbuqGPheITwcWTm1/JN7F/MAECA1KWJ6mM6d4aXm
+ 89nw6cqfBSCRpYitYnvocKXXfD/Lt/beevvwHhbkwpePUTfMwXh9/Llj6/nQJlb4gB64IKHgSM
+ Wn96odhPnf9cxgurPiLWIUGdC2ILGitpAsxKlRUC3IjINaCzIKzLVo0pontjqC2Qp3RorJgA5n
+ oGo+BXC00q2BA1EKTBdTGGrSNJ7Uj6I2AO0nqsoNE77QnmSTWgtkIO5deTNkBYkpe5VWCqAW7C
+ hZkLdgsxCA8SDQCdKwFtwoOXC24ck3wXlAOg2yqBYQNsXfOHA5wA0DeiEipMf+N+/3+A44wyJM
+ XAwAA
+X-Change-ID: 20260428-fsl-edma-dyn-sg-960731e37da2
+To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Frank Li <Frank.Li@kernel.org>, imx@lists.linux.dev, 
+ dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
---OXpIoQ8msCZFwtww
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series adds support for scatter/gather DMA transfers via dma_vec
+and dynamic descriptor chaining to the Freescale eDMA controller driver.
 
-On Mon, Sep 14, 2026 at 12:19:37PM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Sat, 12 Sep 2026 12:34:24 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> ...
->=20
-> > > Do you mean that we should avoid the DATA_LEN_ENCODING and always hav=
-e the
-> > > 32-bit value right after the tag to give the size for all "skippable"=
- tags? =20
-> >=20
-> > Yes.
-> >=20
->=20
-> I did a test using a dts file available in kernel sources. I used (arbitr=
-ary
-> choice) juno.dts [0].
->=20
-> Without any new tags, the size of the compiled dtb is 27067 bytes.
->=20
-> With new metadata tags identifying phandles in properties (FDT_PROPDATA_P=
-HANDLE),
-> the size of the dtb becomes 29027 bytes and so 29027 - 27067 =3D 1960 byt=
-es for
-> those FDT_PROPDATA_PHANDLE tags (+7.2%).
->=20
-> The tags used are composed of:
-> 32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit for data
-> 32-bit: offset in the property where a phandle is present.
->=20
-> Removing the '1 x 32-bit' information from the tag value and adding a 32-=
-bit
-> 'length' in all cases will lead 3 x 32-bit values for a FDT_PROPDATA_PHAN=
-DLE
-> tag (tag + length + offset) instead of the 2 x 32-bit (tag + offset).
->=20
-> Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_PHANDLE will need
-> 1960 * 3 / 2 =3D 2640 bytes (+9.7%). This leads to around +2.5% of the wh=
-ole
-> dtb just to have the 32-bit for length. This +2.5% can be easily avoided.
->=20
-> Also, I will not be surprised to see more tags in the future adding some =
-more
-> metadata information and so increasing dtb sizes.
->=20
-> Quite often you have mentioned memory constraints system where libfdt sho=
-uld
-> be as small as possible. On those system, the dtb itself is embedded in t=
-he
-> binary close to libfdt. The size of dtb should be taken into account.
+The first patch implements the .device_prep_peripheral_dma_vec() callback,
+enabling the DMA engine to accept an array of dma_vec structures. This
+callback supports both regular and cyclic transfer modes.
 
-Yeah, those proportions are high enough that I think it's worth it.
+The second patch introduces dynamic scatter/gather chaining, which allows
+multiple DMA descriptors to be linked together without stopping the channel.
+This optimization eliminates idle periods when back-to-back transfers are
+submitted, improving throughput and reducing latency. The implementation
+carefully preserves cyclic transfer semantics and respects hardware
+constraints on platforms with split register layouts.
 
-> If the SAFE_SKIP bit is removed, I even plan to use this now free bit in =
-the
-> length encoding part:
->   0b000: No data
->   0b001: 1 fdt32
->   0b010: 2 fdt32
->   ...
->   0b110: 6 fdt32
->   0b111: On additional fdt32 to encode the length of data.
->=20
-> IHMO, length encoding bits in tag value definition should be kept and used
-> for all tags where the length is fixed and can be encoded using
-> these bits.
+I tested it on the i.MX93. The dynamic scatter/gather chaining should
+work with other eDMA controller with split register layout.
 
-Well, I'm convinced we want some sort of compact encoding of the
-length, but I think we can do better than the current proposal.  It
-seems implausible to me that we'll need 2^29 different metadata tags,
-so I think we can spend some more of the tag bits on the length.  How about:
+Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
+---
+Changes in v11:
+- Add missing bitfield header (Thanks Vinod for the review)
+- Link to v10: https://patch.msgid.link/20260911-fsl-edma-dyn-sg-v10-0-700eb72def57@bootlin.com
 
-   0x80000000		structured tag bit
-   0x7fff0000		tag type
-   0x0000ffff		tag length
+Changes in v10:
+- Don't move backslash in fsl-edma-common.h to minimize diff, no
+  functional changes.
+- Link to v9: https://patch.msgid.link/20260909-fsl-edma-dyn-sg-v9-0-60bb2e678e8f@bootlin.com
 
-So we have up to 2^15 (32k) different structured tags each with a
-length of [0..65534] bytes (length=3D=3D65535 reserved for those that need
-a full 32-bit length word).
+Changes in v9:
+- Rebased and retested on v7.3-rc1.
+- Drop the check on CSR E_LINK flag as it is never set in the driver.
+- Add FSL_EDMA_DRV_CSR_LINKCH flag for eDMA3 and eDMA4 to indicate which
+  controllers can link SG descriptors.
+- Count and limit the number of linked SG descriptors once per
+  issue_pending() call, instead of O(n^2).
+- Link to v8:
+https://patch.msgid.link/20260803-fsl-edma-dyn-sg-v8-0-dc2b0317206d@bootlin.com
 
-I believe that will avoid the extra length word for everything you
-have currently drafted.
+Changes in v8:
+- Enforce that major channel linking in not used when linking a descriptor
+  in fsl_edma_link_sg() by checking all TCD, not just the first one.
+- Don't compare the descriptor link_sg_id with the CSR LINKCH field
+  if major channel linking is enabled, to avoid completing unfinished
+  descriptors in fsl_edma_tx_chan_handler().
+- Handle the completion of the last transaction of a linked SG chain if
+  the previous interrupt was missed by checking for the channel completion.
+- Add comments to clarify the assumptions I made.
+- Link to v7: https://patch.msgid.link/20260728-fsl-edma-dyn-sg-v7-0-10dffb4167c2@bootlin.com
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+Changes in v7:
+- In fsl_edma_prep_peripheral_dma_vec(), make sure that CITER/BITER
+  values fit in their registers.
+- Add the identifier to all TCD of a linked transaction so that we can
+  always identify it when handling the end-of-transfer interrupt.
+- Handle missed/coalesced end-of-transfer interrupt even when the transfer
+  is completed.
+- Link to v6: https://patch.msgid.link/20260710-fsl-edma-dyn-sg-v6-0-831b96be3f31@bootlin.com
 
---OXpIoQ8msCZFwtww
-Content-Type: application/pgp-signature; name=signature.asc
+Changes in v6:
+- Link DMA transactions in fsl_edma_issue_pending() when they are issued,
+  not when submitted.
+- Add an identifier to linked transactions to handle missed/coalesced
+  end-of-transfer interrupt.
+- Link to v5: https://patch.msgid.link/20260702-fsl-edma-dyn-sg-v5-0-16787185be49@bootlin.com
 
------BEGIN PGP SIGNATURE-----
+Changes in v5:
+- Rebased on v7.2-rc1.
+- Add a call to dma_wmb() to ensure that dlast_sga is updated
+  before csr when linking scatter/gather transactions.
+- Don't update TCD registers if updating csr requires clearing the
+  channel DONE bit to avoid a status mismatch in fsl_edma_tx_chan_handler().
+- Link to v4: https://patch.msgid.link/20260518-fsl-edma-dyn-sg-v4-0-8ce7d95b1ce9@bootlin.com
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqqJzYACgkQzQJF27ox
-2Gedow/+PaKFeN38xKkeFSgxRHAuRdGV3THxlRq1m7Ax33zAL8H3uyVgWZ8BKEZT
-9fLR8z2sgh+ecfRE5RXykJjmYrdvGmzNN/CpSBHZYXo8JV3hTJoPpi/pNfZ2smJW
-eLKYjKNRLXEpOnQfslXzc72dLNdToQyOjyQnwG9wVe3dprXV2SxfPS8zk17hzNZS
-K5BweIrxQ4VQVOagDWV/L5K5I13sybB/H1T97oilDMdsCgXTEIwHQvigsqQqFL0J
-WEWmbkaEqzRPnDTk6DzrJbe8uo5/bTma90rD5SH9gWzzHTjBmRC1OzMo7ERcI6tu
-XcBMx0BWlkOAokZbkxF4WFY93vDsgmNll0Rhw0hCM29NXoQqBCs0Vix1+GvTTLFS
-bX593x1siQ3l47UGUboowLR92K9NtEWj5qWN84C5hWXdU7AGiYnmwphDkpbzZIVP
-m3lBUKlbdI0OgiHP5XnS0YYSSNmgxuGIILPq6+tbyBbJwmzYKvjwwdKcGXVb8JuL
-iPMRcact/lLS1xKDFG8fZt0KVADUQP+KfUKFTi4THXo34ADNfzsI9gzRm+QE8evz
-S/vAFS8s1bIVunhwV7ECxW6gCdcvXSmtRCon82+3HhGb7QSftUH7BGs/jTos2muu
-H7MBARXfodJoWAuwRqk8VB6igawZRQo53Mv92TqIng74NukWo4g=
-=hkgL
------END PGP SIGNATURE-----
+Changes in v4:
+- To keep transactions in order, link DMA transaction to the end of
+  submitted list first, only lookup the issued list is the submitted
+  list is empty.
+- Link to v3: https://patch.msgid.link/20260511-fsl-edma-dyn-sg-v3-0-98a181775dae@bootlin.com
 
---OXpIoQ8msCZFwtww--
+Changes in v3:
+- Fix formatting errors reported by Frank Li.
+- Add fsl_edma_tx_submit() to link the DMA transactions
+  when they are submitted, not when they are prepared.
+- Link to v2: https://patch.msgid.link/20260506-fsl-edma-dyn-sg-v2-0-66439cdd414e@bootlin.com
+
+Changes in v2:
+- Drop the RFC prefix, as asked by Frank Li
+- No code change
+- Link to v1: https://patch.msgid.link/20260430-fsl-edma-dyn-sg-v1-0-4e0ecbe2df66@bootlin.com
+
+To: Frank Li <Frank.Li@nxp.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Frank Li <Frank.Li@kernel.org>
+Cc: imx@lists.linux.dev
+Cc: dmaengine@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Benoît Monin (2):
+      dmaengine: fsl-edma: Implement device_prep_peripheral_dma_vec
+      dmaengine: fsl-edma: Support dynamic scatter/gather chaining
+
+ drivers/dma/fsl-edma-common.c | 255 +++++++++++++++++++++++++++++++++++++++++-
+ drivers/dma/fsl-edma-common.h |  15 ++-
+ drivers/dma/fsl-edma-main.c   |   2 +
+ drivers/dma/fsl-edma-trace.h  |   5 +
+ 4 files changed, 269 insertions(+), 8 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260428-fsl-edma-dyn-sg-960731e37da2
+
+Best regards,
+--  
+Benoît Monin, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
