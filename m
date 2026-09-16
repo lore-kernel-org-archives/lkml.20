@@ -1,120 +1,96 @@
-Received: from mail-qv2-f40.google.com (mail-qv2-f40.google.com [74.125.230.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00B952B1E1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:21:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E47525A77;
+	Wed, 16 Sep 2026 16:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575685; cv=none; b=UkyICZNITQ/+fTEPKRaVde7GCzQ80Dq2XMqrxYsBF0PWT0M8mzI+FT5EXJQbXLWXXnRryANQX7f5L9U0p/7L9IrHC3+hCfDjOE5UhknTIbmA6MYJCbPTsbLzSg170NusjLkcTTmWl8glKxGBnNuCuyK774RtsKaQaUJ+4dxUOgM=
+	t=1789575715; cv=none; b=MWQO0RCPv2fRCFsifCBs1ba5InwbO1qBfGRyqcaWN322brUpDSyqWwEsokjaPZaHCyeeVn4GhQV+xtB6DiX/TURpT7YgpAdD920rjQXcchGMI41/gMtgCZoNeHZaL+Tlu/hX2yBFEb6QPLmx4Q3DLa2W9coFte135yrcdZt7b1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575685; c=relaxed/simple;
-	bh=8aZkNP08PVvZg7BWbE33AZXpZ6tdXswnwBF9qWrlNhg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ddN1xRQjhH35pMJRBQPzAjGPj7iCFt8FrYV3kw8hBm2D60MMqP8WbDFbGw7c2mIgGFGCJxvtMD5zkx/eQBEqo3EKQfzERvDrkL+Js9/RMkREaYr5P37OfVNRvbTxLEDEiYHn5HDlxeQ6vsgNHRHIFNV0p+rJu5HUgy6HEVPuTC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jOVowhAj; arc=none smtp.client-ip=74.125.230.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jOVowhAj"
-Received: by mail-qv2-f40.google.com with SMTP id 6a1803df08f44-90cdfe57a3bso8830966d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:21:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1789575682; x=1790180482; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/muLCENQ3ztU+dyE1LuzDRQMa5pSiiT+WmL99wCRWBs=;
-        b=jOVowhAjMSUqLSMGs3Ddi94lMt4+OrizP4ZcNnmXKfuDh7uHyPMgfYwAQHtFfka6mr
-         zaOrljo4n818ISYogU4qf/8wUvUjQEVI6JQeDol275PqeS4id6Ii5vE1ZTY9CeFDFcwP
-         bLT39it4x2o6XfyOh96LknrvO97XRCsIBZZOY7caW1U14/1if56SKNpxWMNVv41Xup0q
-         y7NUYOvKxtgWf/eXf2j7A2j3ZuMFjl6bgKoAUZvbDodNl5oJmibA40hng/cYJX054nEn
-         RAde+Drj4rKkAf5FKGjFQpHUwceS0F2BJOSI4WH4a7fGr6fGc2l0NVlNvqt67OYsIniX
-         2Iug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789575682; x=1790180482;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/muLCENQ3ztU+dyE1LuzDRQMa5pSiiT+WmL99wCRWBs=;
-        b=y7OAcPaD0G+29uWPItG+qGTLM8OzRjalfyZRTCggXmX06NenchCF2bt74mxnxnEZBv
-         ds31lo+J6p9okNkpT/YVpouWIfEj4l/Jz2AiupEKUaJTMApThf4TpGfO8Tt8R7N+PYk7
-         CpNv+YDb5o+uw4iwzawUhEgZngHkEGtl9oWtAJV7X5TvBnQsuDhRxznPRDQZDp9U8Q11
-         lsQF0MtltUmqSQ3JKWM72rBmt2BZi+XRztrvcUS6GL1A41ysG6SQ3ohbRworLk20WmRa
-         wbq1EOKhTZ/0hiYvx0BmG6bKL9TKVijBXmE+UkIOVq0w+13ssP9Qob8NJWtmUzKpD6/+
-         J1Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBwvRsWS9TenBtYHfpZeAq2ADIyyMBI9Y14++sFUCnjiZlGvCTA4QvRyo3sHltMv1g37JXj1U5suhcI1cyY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfI21s7paKrwRGUJ3pj6LE8CXrzLAIMjrSxL7kYRqRMlIxja+0
-	FSoRe7YJLRbBOfVDHE/3qWqJHwdHZX46k5ofATpbutpE00HSsNvDSRvWzlztEWRSnZg=
-X-Gm-Gg: AYBFou02U8Lsh4V/YMBnYudkeAvev7fGmhY5Ct4uu/wsbiTiJxFbagiCkabbRXKxP/7
-	D4sX0DNxMu4Ui53/+Q9+0atKOvCcrSzJPU2IkI6ri2Y61TeWhHTma2EPmyybIeI54iwH9FvVjTU
-	WcKP/gDLq6cXXwNqM1J7Y9LmPnB1i9mZmExcZKNMNFuNht8BHjf8TT7rJ6kF3wfhabFJwJNM8FT
-	Zf5wK1fLAx17ohQdQhC3f3VJFLBlbXmVuoum0ica0JbAn9A/BPy1rdp7z7f2srxP6mrWGsMsEqs
-	so9lv2pjC/b//okZ9DUK7b7JbfxbXHBRGHvJ1FlqRDkZsQoMw5rn1W78Z6ae2cFMk1LS3aCFAqa
-	yFTO3IWtkJs0FTtsjO3GHiwAu++MUGUOdRcqPSGC3F9GoWCE1Qhjfuf6wqBHA7uUuFPs0KCdu3h
-	JRhTRfpHqMJX1c2o3FZmLPAQ8N8rK+s8KB52oY5IvxhcnYGuDQajAFbBWJ4a1O9XHga8kpqUlh1
-	3ZJrCKO6QK0BDPrS+h2w0Lc1iDMbr4hNMoFH0WD5DP2vPWhBC/vmhA9d5sKPnsS0js=
-X-Received: by 2002:a05:6214:20a4:b0:90e:98c9:548 with SMTP id 6a1803df08f44-9123d722130mr58507346d6.1.1789575682451;
-        Wed, 16 Sep 2026 09:21:22 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123bddd42fsm28905456d6.7.2026.09.16.09.21.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:21:21 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x6sNt-00000009d5Z-0kli;
-	Wed, 16 Sep 2026 13:21:21 -0300
-Date: Wed, 16 Sep 2026 13:21:21 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Honggang LI <honggangli@163.com>
-Cc: Leon Romanovsky <leon@kernel.org>, zyjzyj2000@gmail.com,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] RDMA/rxe: Fix out-of-range unsigned-to-signed conversion
- for RDMA message in 2GiB size
-Message-ID: <20260916162121.GF3196566@ziepe.ca>
-References: <20260915064532.194540-1-honggangli@163.com>
- <20260915114914.GL13683@unreal>
- <aqoLuVxDIOHMuePi@fedora>
+	s=arc-20240116; t=1789575715; c=relaxed/simple;
+	bh=X72K8yI4FtHqgPJl+jZS7K3JRhvak6JU+coWihSZ9OI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TNwv0yZA6tC3GxUu89KwkMw+Qtj5VOBO8f+PEvtiT3LGbafpGKij2lKwNRe+2VbyCzdxG/bxi7yLbsbC6sw/gjzefRqCAjU0OhMcDpqLz7N9Wiqi/Uobf+boNvIR38Cdr5FgK9i8lwc8Pful0qiQ2FlNDDKZq0L5F78bpK+Y9wY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAXgDoWwqpqaJBtCA--.44387S2;
+	Thu, 17 Sep 2026 00:21:42 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andy@kernel.org
+Cc: dlechner@baylibre.com,
+	jic23@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com,
+	tomislav.denis@avl.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: adc: ti-ads131e08: Fix trigger reference leak in ads131e08_probe()
+Date: Wed, 16 Sep 2026 16:21:14 +0000
+Message-Id: <20260916162114.2083166-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqoLuVxDIOHMuePi@fedora>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAXgDoWwqpqaJBtCA--.44387S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47GryDArWDury5GFWrAFb_yoW8Grykpa
+	nagFnIyFyDGr18AF4kZw17Ca4ava15tr48CFW8ZasI93y5ZFyY9r1jvr4Yvw1kAFW0g3y7
+	Jr1fAr18CF40vFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
+	UPEDUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2qqpO9HSgABsH
 
-On Wed, Sep 16, 2026 at 11:23:37AM +0800, Honggang LI wrote:
-> On Tue, Sep 15, 2026 at 02:49:14PM +0300, Leon Romanovsky wrote:
-> > > After fixed it, the active side of RDMA READ failed with error code
-> > > "IB_WC_LOC_PROT_ERR". When RDMA_READ_RESPONSE_FIRST packet recived by
-> > > the active side, `do_read` call `copy_data`. dma->resid is u32 0x80000000.
-> > > 
-> > >    int resid	= dma->resid;
-> > > 
-> > > This conversion set resid to -2147483648. `copy_data` abort as length
-> > > greater than resid. Change resid to int64_t fixes this issue.
-> > 
-> > Why not size_t?
-> 
-> First, size_t is u64. dma->resid is u32. If use unsigned type, u32 is enough.
-> 
-> Second, I'm not sure it is right to use unsigned type. In `copy_data`,
-> the loop terminate on negative value of `length`.
+The reference taken with iio_trigger_get() is only dropped by
+iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. If
+devm_iio_triggered_buffer_setup() fails before setting that mode, the
+reference acquired for indio_dev->trig leaks. Move the
+iio_trigger_get() after the buffer setup succeeds.
 
-Please do not use signed values to store must-be-unsized quantities in
-rdma land..
+Fixes: d935eddd2799 ("iio: adc: Add driver for Texas Instruments ADS131E0x ADC family")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/iio/adc/ti-ads131e08.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> > > -	payload = min_t(int, res->read.resid, mtu);
-> > > +	payload = min_t(u32, res->read.resid, mtu);
-> > 
-> > Why don't we use the proper types from the start to avoid the need for
-> > u32 casts?
-> 
-> Again, minimal the changes with u32 casts. We need something like this
-> to use u32.
+diff --git a/drivers/iio/adc/ti-ads131e08.c b/drivers/iio/adc/ti-ads131e08.c
+index a585621b0bc3..d976214504c3 100644
+--- a/drivers/iio/adc/ti-ads131e08.c
++++ b/drivers/iio/adc/ti-ads131e08.c
+@@ -851,8 +851,6 @@ static int ads131e08_probe(struct spi_device *spi)
+ 		return ret;
+ 	}
+ 
+-	indio_dev->trig = iio_trigger_get(st->trig);
+-
+ 	ret = devm_iio_triggered_buffer_setup(&spi->dev, indio_dev,
+ 		NULL, &ads131e08_trigger_handler, NULL);
+ 	if (ret) {
+@@ -860,6 +858,8 @@ static int ads131e08_probe(struct spi_device *spi)
+ 		return ret;
+ 	}
+ 
++	indio_dev->trig = iio_trigger_get(st->trig);
++
+ 	st->vref_reg = devm_regulator_get_optional(&spi->dev, "vref");
+ 	if (!IS_ERR(st->vref_reg)) {
+ 		ret = regulator_enable(st->vref_reg);
+-- 
+2.34.1
 
-This seems better to me
-
-Jason
