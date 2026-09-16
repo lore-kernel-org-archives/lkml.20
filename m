@@ -1,126 +1,121 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EE94FC8CC
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:34:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E24C4FECE0;
+	Wed, 16 Sep 2026 13:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565655; cv=none; b=QW8SLYWyEHK1Qp0CsMuICApPIcrZg3isg2vk4tzJcRd5ZvEUtHoy9aMId/1MkxsXhbu3o5xfWc2Sn/uT+lhPoUdaDFdp5K4TSxURm7szJ9qP4HcquINykA8zQOXfIni8dSWtf2GXDp/VdDgcqD7fFQm9MV291L3VBLU7VTAodyw=
+	t=1789565669; cv=none; b=qvOnBhwiFIhMpYgnPvXWsNBVaGepr8lR+de66lGovqWaca4Ngdqo/goye4DVDNKgxLBBb9JXw96XLQBky/ecbw+cVGPpmWjxBg7BZ/huLkXlALlsPSVFmX/+85vWoObpQ6Lijep4p4JE4V5y6m6OOaSnoMVM/z02hduqPyqJ9E8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565655; c=relaxed/simple;
-	bh=TWTYiq5qy4yczgvLZWe5852fv9kP7nXzwOzboAO4VhU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NKcT+iqsHxwsRKjhRZtTZiz489TCcAlRV35e2gZCawMw7Y7vwoi384eoeL4Jdppu96kkywvG/mk7Mw+ILAZBSeqsSWWEHU8r2iJy2treWaUl2GcNSwCoQYprVbBvmMHhIxym5dkthz7rw6oTrs2GKu50CZIM3945oEspl+6IAuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YORpnS6k; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789565669; c=relaxed/simple;
+	bh=fLoaW2b0XzoIjRglXsq3OJ3Glg24SoQ3XvJvf0iXsZk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aVpZL9sk8wqWe6LJKvIhpx1J+VhXC7uH6Ir8JuMr8fe0wplanJXerW8iXZl77/kJNnArQgsM3+rkce2tT+RDdlNtL4cUj+ohUCPy+zKnMq41t/MEjxetoxvmE8C44NYiAhu9jpxVNvwMPw5C7zwBUWAd0gZN/YeJ614BYXYwvx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZCYZZfUe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YORpnS6k"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1ddd5d0aso671705e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:34:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789565645; x=1790170445; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KKxhsj7x2KGNTWtDWeg+zi9RZVEL4pyqe1TauKiMIHM=;
-        b=YORpnS6koHvO4MR9LQ7/GuDjQpiqBz9rxLRHUE9v4tcHIq2J3qmC2/yGE3Nw3nfI2N
-         YsHw5/jrLTFkPHHpBr/OXt7oCU8rUlHMqWaYwbFMMlWFgMRVJR8yQ5KPb0d1q3HwS30B
-         GF4GGeo1ALUzFaeGSuD5frMjS208Tlc9x1pnl581GA4VKEKbJarc1wq5hoSzeQWxtOTg
-         twYliD3nz3ZpXUgEKTML8K7uWPuc/aN3zWZqGQo9F+soRvBKEsTfkzPxcyOmVxGwiN0G
-         /QTV/3L2e4r5maVYjPVXskHgHk15IhTn29OA0jMxFC0MXXlHV9zr6N0NlfWKcv5FW3sM
-         9wxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789565645; x=1790170445;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KKxhsj7x2KGNTWtDWeg+zi9RZVEL4pyqe1TauKiMIHM=;
-        b=2eTzY7xDtT6E1JQ4u2zVvXUa4sDrfdNw3r/twbRqMY1R7BkBlcdpr1VTtdo8bK3IYd
-         YkuHgrZg90/oj4X5x7zK2QWg7CXNaq6Z4Z8BWudQv0NvUVT6vx1VCsS2Mj6dGYlYNB71
-         r0rndV8dfwbsmKAPjOxPHPz2UXqtbZVjQNvwpv/MHeirIA/hqrSG5mSp3bUO6LMcH499
-         WBDTk4ameU7NlY2nZpy5z5cQfsNd2lXnEBidw4BT0AmZjV8SM20/+g0JQ4S69EY+Uwyc
-         pAc80pr9nARemmOS0antHy48crZvlfEHwHfwRFwChXIVUPgjiCqc+tKG7ZHPqcRjiDRp
-         XGXw==
-X-Forwarded-Encrypted: i=1; AKwUvByUe7swSmrrvef7rt/M0cOaAJ0aKKo/0woF72RkN8DbQg0N81RM9htcFaGlOdgcmGiOs8KnAjOfb+vwj/I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lApKb2gYsoqWkMC5IpYCtTxR5jF3JwxZl2ILmig9kbUYQWRvMd
-	/hsV0FcgauTs93A8LVlKcck5lO3GydX9krmqOnbg3Dj78dQVhxYXzAlD
-X-Gm-Gg: AYBFou03pl+6vN8noMLgVHEyxq5yblZseOe0Lj7DAdndM8LKpNgv+nnv8pIfRenO3Tr
-	0MGRoxxm6WOw6u+t3zbfMHnTEUkxqdF/A/gIRJ4vvhtLjtaQ+/dR46Roumhvg7It8/Tw5uqHbNM
-	zlBXctzqa/wYQXlz5otU/XP9uJVreqnKWVvSHo8bcLeNpSYzFfcuRpD81EenaY3d3gqHIWrYbG/
-	gUUC0Dcb7rwuIt6BRA5WNZweewnQynYW3WeZx17Mogau4Xj9w8yRywD5pjkY7LyF8+59WZgybfc
-	XT5H2Df3G/KNYWGtl9ev20qZ+tlEt/QExCupmw9sac0/SSq/8IQqEqB+E0Y2yDP3JGUXG6acM0S
-	xqmHmgNSatUN3lrDzrTlJAT4s9advFlygejrXyYMd2kX6xtk1njEinqh3A3Z5gyBo+LWWQ/r5IO
-	j1PIXlNcvcLI3cDDMtUHiuYjNWkcGPDN0OoSgs74oDegkKqDhWFGdC9ez+n68mqcNkYXexwN1O2
-	uGh0SZNuk3vyTIxQcHBzCP9QKk7pQYZVw==
-X-Received: by 2002:a05:600c:1f84:b0:49e:6806:5712 with SMTP id 5b1f17b1804b1-49eb733596bmr27842625e9.2.1789565644472;
-        Wed, 16 Sep 2026 06:34:04 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1fa70sm6931392f8f.9.2026.09.16.06.34.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:34:04 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: peterz@infradead.org,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	Chen Yu <yu.c.chen@intel.com>
-Cc: brauner@kernel.org,
-	bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	imv4bel@gmail.com,
-	jack@suse.cz,
-	juri.lelli@redhat.com,
-	kees@kernel.org,
-	kprateek.nayak@amd.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	qyousef@layalina.io,
-	ricardo.neri-calderon@linux.intel.com,
-	rostedt@goodmis.org,
-	srikar@linux.ibm.com,
-	sshegde@linux.ibm.com,
-	vincent.guittot@linaro.org,
-	vineethr@linux.ibm.com,
-	viro@zeniv.linux.org.uk,
-	vschneid@redhat.com,
-	wanglu.priv@gmail.com,
-	yi1.lai@intel.com,
-	zhanxusheng1024@gmail.com,
-	zhanxusheng@xiaomi.com,
-	ziqianlu@bytedance.com
-Subject: Re: [PATCH 1/4] sched/cache: Keep nr_pref_llc_running in the runnable domain
-Date: Wed, 16 Sep 2026 16:33:28 +0300
-Message-ID: <20260916133328.3422-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916123046.GE776954@noisy.programming.kicks-ass.net>
-References: <20260916123046.GE776954@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZCYZZfUe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6A61F000FF;
+	Wed, 16 Sep 2026 13:34:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789565663;
+	bh=2Z0tDRbfIu14gBiwBTHTnXsfRNC4/vvPKIDDl1Wr1Wg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZCYZZfUe2VXwIRg14QoroYNTZXywKr3OsnaMGA0X6vHMZkznCnqFoTZ7cASnmjWSx
+	 e+fqG574aLUN7JUyYqpTQcX4mxopFrxfwvp/lSs0HEx6Cl8HhU6nVuCpee7pYtW0zy
+	 WrITWsGDQIO2/fiYGSDqdPVzl2VKbP8HFYpChZfuVx71SH7zcS/nRl9IN65Dm1/bvs
+	 sGV4hYi1OybacI5MHgLfD74wysS1nA81WUQR6cyV9MzUa0Ykeca2a3BNRLnIUjIird
+	 qxy6NMoMyF95YrJHvhXzfsA3w/yhOS5VY0BwwuEVZv7gt0xHYJwQXrrLsWW03ABtVS
+	 4bsRK7es+cY4Q==
+Date: Wed, 16 Sep 2026 14:34:11 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 00/11] mm: memcontrol: constify the read side of the
+ memcg API
+Message-ID: <aqqaaDqTDahlZ7bR@gremlin>
+References: <20260908-folio_memcg-const-v2-0-811e9f443409@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-folio_memcg-const-v2-0-811e9f443409@columbia.edu>
 
-> Needs a fixes tag.
+On Tue, Sep 08, 2026 at 11:57:36AM -0400, Tal Zussman wrote:
+> The memcg accessors, lruvec helpers, and stat readers only read from
+> the memcg, folio, or lruvec they are given, but take non-const
+> pointers. Constify them, along with a couple other helper functions in
+> mm/page_counter.c along the way.
+>
+> This started as a follow-up to [1] that quickly grew in proportions :)
+>
+> [1]: https://lore.kernel.org/linux-mm/anYqSDnC2BbJXv1h@casper.infradead.org/
 
-Hi Peter and Tim,
+:)
 
-The Fixes tag should be something like: 
+I looked through it, all looks sensible, and it compiles locally and
+const-ifies things so it's all good AFAIC! So:
 
-Fixes: 714059f79ff0 ("sched/cache: Handle moving single tasks to/from their preferred LLC")
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This is the commit that adds this:
-env->src_rq->nr_pref_llc_running == env->src_rq->cfs.h_nr_runnable
-thing. It causes the issue so, you can use this, Tim.
+For the whole series :)
 
-Hope this wasn't a unnecessary message. I wanted to
-say this since I already found the commit and didn't want 
-you guys to search for it again.
+>
+> ---
+> Changes in v2:
+> - Patch 3: Constify the folio argument of folio_lruvec_relock_irq() and
+>   folio_lruvec_relock_irqsave() as well, per Sashiko
+> - Patch 3: Note that mem_cgroup_lruvec() updates lruvec->pgdat in the
+>   per-node structure, not the memcg, per Sashiko
+> - Patches 3 and 8: Use container_of_const() in lruvec_memcg() and the
+>   lruvec_page_state() family, per Sashiko
+> - Link to v1: https://patch.msgid.link/20260902-folio_memcg-const-v1-0-e2c1da22246d@columbia.edu
+>
+> ---
+> Tal Zussman (11):
+>       mm: memcontrol: take a const folio in folio_memcg() and friends
+>       mm: memcontrol: constify obj_cgroup_memcg() and friends
+>       mm: memcontrol: constify the lruvec helpers
+>       mm/page_io: take a const folio in bio_associate_blkg_from_folio()
+>       mm: memcontrol: constify the mem_cgroup accessors
+>       mm: page_counter: constify page_counter_read() and page_counter_margin()
+>       mm: memcontrol: constify the reclaim protection helpers
+>       mm: memcontrol: constify the memcg and lruvec stat readers
+>       mm: memcontrol: constify the swap accounting helpers
+>       mm: memcontrol: constify mem_cgroup_swappiness() and mem_cgroup_get_max()
+>       mm: memcontrol: constify the zswap and socket pressure helpers
+>
+>  include/linux/memcontrol.h   | 204 ++++++++++++++++++++++---------------------
+>  include/linux/mmzone.h       |   2 +-
+>  include/linux/page_counter.h |   4 +-
+>  include/linux/swap.h         |  12 +--
+>  mm/memcontrol.c              |  49 ++++++-----
+>  mm/page_counter.c            |   2 +-
+>  mm/page_io.c                 |  14 +--
+>  mm/swap.h                    |   2 +-
+>  8 files changed, 148 insertions(+), 141 deletions(-)
+> ---
+> base-commit: 9d3243fc689fef444f87e0a703b4c99653137e1b
+> change-id: 20260807-folio_memcg-const-4a67e40d485b
+>
+> Best regards,
+> --
+> Tal Zussman <tz2294@columbia.edu>
+>
 
-Thanks,
-Kayra :>
-
-
+--
+Cheers, Lorenzo
