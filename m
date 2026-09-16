@@ -1,159 +1,144 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECD05013BD
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F606381B1D;
+	Wed, 16 Sep 2026 13:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565602; cv=none; b=k1cViaQTAgd7MoCAOv7zTpK4cMBiuA67wu2TYufFIivTlxz+LJTqE1hADjj+JbqcXfA21ZoJ5SkAtE8Y9Fz3STc3N9K6FRcJVBUzeNhuVDPx5ma4cg2b+NU2RYQm3LjTRa32RTmiPeuz/WJS3BRufB5HjNxfURkTOz7uezloNwc=
+	t=1789565620; cv=none; b=ZdBp9ZnLycAlqAqftldkiob/0VPRFvBVtN054PbOFh82pJs0n6NTzATc13ielvkpaSFlugJAd624am/fTJJYNrDZRnPfVMfrR1OMB3s15KJNSbfQOtNOIkwCyfIJkIzK1PB47Crit4Y/qNU7Eb5mm58YGiBYCgxZINVj6p/24ME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565602; c=relaxed/simple;
-	bh=pSG/TrwXhQ2SDtoVxMKdzFoXta17jnhiWAGC9pF1ycE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WIczubTDgA6bueRQUtAl6lT33y2INZNgm+Pgd3WTxQTuk/OETf3BHXw9db6X5hziYFGtXqgf7tEL8XhiTsoi4SQW+Ngwwbwx8grmSOUtwEaOoITbq/bEA1y9L9ihTFe4RNd6mqD2JdWiegAuCl6Fk6BcNLy9XMFojw+Vt8Vv6GQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=e+LUSMrR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IajFUMuj; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789565620; c=relaxed/simple;
+	bh=Y4NzPUL9L4tIEd9zy59/7Y4AiYMSe/1eG0LgDQEaXsc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=rTXplXX2G7OJNTQouHf7nxrL4aPkIzEMZaKPRvke2ULIMpS36w712JnljYwDFS0jbpknqP4+dQ6m+uEqMxY6xOTGGzmNwQE6J6oD5DborMePAAKWeRAnhfWM2S9LBI6/d1kpBE3i+m37l7+guGQoQgJu2Aj9zPvjqNDxkniksRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RiBbjLOD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="e+LUSMrR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IajFUMuj"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCYVhX3291234
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:33:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=WSw25v0bjyM
-	ImA+vtAQs+sdauYT+Btn5U4Rr1BPpU9w=; b=e+LUSMrRDwemHg4p3ifF/lzSPkU
-	zt8FGkx3j9M+3A7eYDS6Spkff0SQ4hwBEsrh2+vJ3NP/xNWGQDY6aiISob6rRZ11
-	GKoNfvIvpg4u4rN0R4suLbisqtCokQ8WYI/FCyhGDJNsOKTlrssw5PAK+Y40FBbl
-	Ostu745vptMplsHY3GwU5g33+3YiR4MfwQdR5vtI2N8COs+F8DVwhU4bmD16YEwM
-	lOQakvzEkhyIQOyj/1XfRlVc3wFU9Uq4qTixpS6xp9AJWRHkRz4Ev21DDsCj9Tbx
-	Hub8xbfP2NczQ6bgBtrecHN6YQ/HcE4vUdBYbAYKdacU99wfTRM0PB4UX9g==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqfvfk25x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:33:11 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6df0a1e18so108238115ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:33:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789565590; x=1790170390; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WSw25v0bjyMImA+vtAQs+sdauYT+Btn5U4Rr1BPpU9w=;
-        b=IajFUMuj3YDDivI/ZNpbWu2zZ4zfHCxIerLxj9/qsXDpSlrfLL1GdI6bLOHPysux9G
-         2jq0R6s9MbGicC42gzHmCiyDatbovPSfZV7pqsRfIVIaCTNcEa2DGYhRTN/9FkHvKQ8O
-         5jf5uuZeYxJLz9lE9Kvuqd8WbIzmLD2p/vGEyAu+EZ9qkSJEZ4LVh6NloBdpOvLn/qkR
-         pAC9v9L3bvwXkErSdPZg2W2HAaxONVrsTTwj42+c1kYxCZHKmD6IQHXeSZPhO5i/wuB5
-         3Si4xxwt2nD2FAH7g6YQBt2DQPzX7l0mtl2Act9Zbk+6K3nOFaDpdv0mbX6Ja9lAvNJK
-         PtLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789565590; x=1790170390;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WSw25v0bjyMImA+vtAQs+sdauYT+Btn5U4Rr1BPpU9w=;
-        b=O276s3iqolvSkoSrXqfAM1uFYBsL8TDhcAVlhzULi+Ugt/bN7lBemtmOt73Q3ElkiY
-         1d5M6DKVd0LWdu2dGJMUVks6y6g70ML/jDzvP1h4r89Zgv2Oyp4dRRG/Omms0zwHb4Ro
-         /w41vtlsYt4beQte85u6tqV1xlZEsbmCYlPWbptBU5krvG6DCor75i1rxexkenjYyg93
-         Aipkgv6V4XA03qU5f+imyKkurrIKoMu2O9GNBBNCxM3AH7HwzFlUj0jo5s6z9vt5iU6A
-         4DYwBZ8L8fWkYoXo+kWkNFZqy58KRVgyQMh89kCgc8LjXd7OpRQydKBN+UJNN6pLUVGr
-         TeDQ==
-X-Forwarded-Encrypted: i=1; AKwUvByO3lsP+st/0KeNILXRPzOpp/GzBQ+evdfWVBTI2PX0sg4mChQ2QwOroR86Bs1cJAZKxnDPLv8Ke2q25Fg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbC800RUwpUcbUOrIfjqvzuEhosKrSJ9s8FhtWGgjGeKdkpT8L
-	OdqF7oxhO78E4BpNjPoDnD5TKKSqfaYD5DScxls7gkzphHe0hazQSVBV9C5B4Xf4qIgygPCRq1Q
-	6MHTl1ALVxX+wUzzcZ5tc7V2qkRSP3EcG0oIL7aI1bisn+Bv2CfwNfj0Gs45L+zlYpbk=
-X-Gm-Gg: AYBFou2p8QWvWFdVgQnqhNm+M9jJbTo0DCEh9hdsmqVpmnoDsV6xZD5TqdfvrvLCzEF
-	h2uCTBFa1JZVQ0Hvh4+nsC3j6CWSQfC6AlNJ/1Op/5xWgffUeYRvGsLZeR+MPMtI81xI7bnJYB6
-	EuXvX+uYmFRZi558EIzzVImokfBRr1CAlzscd4pQJsei+0KVj0w5PUxrE4l0txFa2XqvYTcVYCi
-	NGnCJdD8wbP+88/a/5GyWFjtjhvIDMaYmpuP7EAt0JafSYY43wWftzw65UIE6Ms3kXs5bmCfK+R
-	kbxG4DYMGIPumP1FOK+M9BfkVVe+y+aoDD6LHD0yEJ/R2DFK+XXgIjTYCf1TJ5tEzE4pwSY1Gpz
-	alEPLObmn8+DCcWELXGe+ZkcG2BZZaCMM
-X-Received: by 2002:a17:902:db06:b0:2db:18fe:bb08 with SMTP id d9443c01a7336-2dd8e632e4emr60389755ad.10.1789565590192;
-        Wed, 16 Sep 2026 06:33:10 -0700 (PDT)
-X-Received: by 2002:a17:902:db06:b0:2db:18fe:bb08 with SMTP id d9443c01a7336-2dd8e632e4emr60388955ad.10.1789565589697;
-        Wed, 16 Sep 2026 06:33:09 -0700 (PDT)
-Received: from hu-faisalh-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89ebf2e2sm12077945ad.42.2026.09.16.06.33.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:33:09 -0700 (PDT)
-From: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Sriram Dash <sriram.dash@oss.qualcomm.com>,
-        Jack Pham <jack.pham@oss.qualcomm.com>,
-        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/7] usb: dwc3: add xhci-reset-on-resume property for power-loss resume
-Date: Wed, 16 Sep 2026 19:03:04 +0530
-Message-Id: <20260916133304.3720801-1-faisal.hassan@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <aqSVKL2riEdZfS0D@vbox>
-References: <aqSVKL2riEdZfS0D@vbox>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RiBbjLOD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F4C51F00893;
+	Wed, 16 Sep 2026 13:33:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789565611;
+	bh=48O5W+8FxmPWYMElE36wRWyIA2XwfxakENPtIBB9GHk=;
+	h=Date:From:To:Cc:Subject;
+	b=RiBbjLODw3pcQwKwCP/6Mv8N1W3Q/am+WxvzIZwUZj5F3U+m19zbafJmc7CtD+duZ
+	 GmDjNescsQB4tqqcaDCEM7NKaal9P4WxpMXgPkz3m3RRScyamrgBGAMVy9wCPAvjDk
+	 x64zU8VWyVoS2rFcdrmGI4jJQdvufxmI+fLk20elOWlbLqrexQ0zjzdW+QaA5c2TM9
+	 P3fwovgCLyF3TlDcUhwHgBrqJsrVDF8sjGsB7UB49vmzNUCvKXBXAMYOC3Fldzu2Ai
+	 a4uzGcosl4vrSpBixNGVgurEZdodL3qG7rDlcQlXcX+Vuq4auK3Mx9Bn+1eiNGMRQ8
+	 Atgmh30QJXeEQ==
+Date: Wed, 16 Sep 2026 14:33:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sean Christopherson <seanjc@google.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the kvm-x86 tree
+Message-ID: <aqqap3DngKznNrSA@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=JYkpPkKV c=1 sm=1 tr=0 ts=6aaa9a97 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=hk5jl9konaNAbWeGehQA:9
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE4MSBTYWx0ZWRfXxZFTWZAUITDE
- GAeHHgFPlyqPPyhyQ/ovRxLTs9ZDJ0YYn5dJzNBBAtMus+C805L4P8XUEhrg+9Gw21ZA9oNauP1
- gB9yMf4i6FWEa9Ii8XzHeLzpSN9v4OmspNS+cFPE52qwJRQYZqW+7iYtqxcYzjkXai1ofoBIA6w
- FBZohhLYkOX1ALRKbHDdf+5/4HWAnklgizHb6M74uiAhLjjaQ3G+2OS/YFDUnxFJFcj9h2CnaBC
- WdZO01Z/f3Ht/om4igou7pteyiFHNH5gMroLqdcmpFMn3dHQTd2f2QSNCrn/9PIAQ1t94L2it+R
- 4bS2BjWuKwigsEAEHH7CHYArEaIcamPUH4p81qmV6xAeJ8FDJhUuS2zpbzKzP9NzbhL8Wntqix5
- h5cmr748qjo0A44tTqwtgZEqrLK16a1Le7rmFAQT6DChid0u0AsHXOAXoBINXUlD77/7GSPjd8M
- ncLKhqBnk1C2robbtsw==
-X-Proofpoint-GUID: Y1vbFX9RBeR3pg6S1OwY6yS_0OmK7_Km
-X-Proofpoint-ORIG-GUID: Y1vbFX9RBeR3pg6S1OwY6yS_0OmK7_Km
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE4MSBTYWx0ZWRfX/hr7VVJ2v2ty
- 8Sdy9KO7MYdULz0AnnfLC4mCED4G8BxSL0nLETdD+hzdCVxv7m6+X9aorwlSbWe5gCwtwcZOGB2
- 9haTmP80PEdM+8H0WBGjLRfdhURcAlA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 priorityscore=1501
- spamscore=0 malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160181
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+xw00WeumcH4DC+3"
+Content-Disposition: inline
 
-On Thu, Sep 03, 2026, Thinh Nguyen wrote:
->> --- a/drivers/usb/dwc3/core.h
->> +++ b/drivers/usb/dwc3/core.h
->> @@ -1420,6 +1424,7 @@ struct dwc3 {
->>  	unsigned		wakeup_configured:1;
->>  	unsigned		suspended:1;
->>  	unsigned		susphy_state:1;
->> +	unsigned		xhci_reset_on_resume:1;
->
-> Can you move this after dis_split_quirk and add a blank line to separate
-> properties from dwc3 state/config fields?
->
->> --- a/drivers/usb/dwc3/host.c
->> +++ b/drivers/usb/dwc3/host.c
->> @@ -129,7 +129,7 @@ static int dwc3_host_get_irq(struct dwc3 *dwc)
->>  int dwc3_host_init(struct dwc3 *dwc)
->>  {
->> -	struct property_entry	props[6];
->> +	struct property_entry	props[7];
->
-> This should be 8. There's already a fix patch for this. Hopefully it
-> gets picked up soon.
 
-Turns out this whole patch isn't needed -- see my reply to Krishna on
-this same thread. xhci-plat already walks the parent device chain for
-this property, so I'm dropping this patch and attaching it directly on
-dwc3-qcom's own device instead, in the "Support broken suspend for
-SA8255P" patch later in the series. Both nits go away with it.
+--+xw00WeumcH4DC+3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
-Faisal
+Hi all,
+
+After merging the kvm-x86 tree, today's linux-next build
+(arm64 kselftest) failed like this:
+
+arm64/vgic_its_save.c: In function 'alloc_64k':
+arm64/vgic_its_save.c:289:21: error: too many arguments to function
+'vm_phy_pages_alloc'
+  289 |         gpa_t gpa =3D vm_phy_pages_alloc(vm, nr * pages_per_64k, gp=
+a_base,
+      |                     ^~~~~~~~~~~~~~~~~~
+In file included from arm64/vgic_its_save.c:24:
+include/kvm_util.h:1062:21: note: declared here
+ 1062 | static inline gpa_t vm_phy_pages_alloc(struct kvm_vm *vm, size_t nr=
+_pages,
+      |                     ^~~~~~~~~~~~~~~~~~
+
+Caused by commits
+
+  36a062568ea80 (KVM: selftests: Take the memory region type, not memslot, =
+in page allocators)
+  6c28a0d7cf125 (KVM: selftests: Automatically pick min_gpa for allocations=
+ based on region type)
+
+interacting with commit
+
+  6f182db39fb00 (KVM: arm64: selftests: Add ITS table save tests)
+
+=66rom the kvm-arm tree.  I have applied the fixup below and can carry as
+needed:
+
+=46rom ceedc17041d689c99453d14f867d6b0badc8da8b Mon Sep 17 00:00:00 2001
+=46rom: Mark Brown <broonie@kernel.org>
+Date: Wed, 16 Sep 2026 14:18:38 +0100
+Subject: [PATCH] KVM: selftests: Fix up phy_pages_alloc() API rework
+ interaction
+
+arm64/vgic_its_save.c: In function 'alloc_64k':
+arm64/vgic_its_save.c:289:21: error: too many arguments to function
+'vm_phy_pages_alloc'
+  289 |         gpa_t gpa =3D vm_phy_pages_alloc(vm, nr * pages_per_64k, gp=
+a_base,
+      |                     ^~~~~~~~~~~~~~~~~~
+In file included from arm64/vgic_its_save.c:24:
+include/kvm_util.h:1062:21: note: declared here
+ 1062 | static inline gpa_t vm_phy_pages_alloc(struct kvm_vm *vm, size_t nr=
+_pages,
+      |                     ^~~~~~~~~~~~~~~~~~
+
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ tools/testing/selftests/kvm/arm64/vgic_its_save.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/kvm/arm64/vgic_its_save.c b/tools/test=
+ing/selftests/kvm/arm64/vgic_its_save.c
+index 864da01539f3f..9a8a65fd7196b 100644
+--- a/tools/testing/selftests/kvm/arm64/vgic_its_save.c
++++ b/tools/testing/selftests/kvm/arm64/vgic_its_save.c
+@@ -286,8 +286,8 @@ static void setup_memslot(size_t sz)
+ static gpa_t alloc_64k(size_t nr)
+ {
+ 	size_t pages_per_64k =3D vm_calc_num_guest_pages(vm->mode, SZ_64K);
+-	gpa_t gpa =3D vm_phy_pages_alloc(vm, nr * pages_per_64k, gpa_base,
+-				       TEST_MEMSLOT_INDEX);
++	gpa_t gpa =3D vm_phy_pages_alloc(vm, nr * pages_per_64k,
++				       MEM_REGION_TEST_EXTRA);
+=20
+ 	TEST_ASSERT(IS_ALIGNED(gpa, SZ_64K),
+ 		    "Allocation at 0x%lx is not 64K aligned, GITS_BASER cannot address i=
+t",
+--=20
+2.47.3
+
+
+--+xw00WeumcH4DC+3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqqmqcACgkQJNaLcl1U
+h9DcfAf7B/BbRnFmcCTD3k09Y0n/hk4r9OCNe9IYr5IoWCx9QYR5E9fSey8IAulL
+T8PEUaCA1nNJ4ABKGCH9dP4e7dwBRIDQ1ROQhjhcLdgSQZH8ju+sxiXPpRonITn6
+3Giw/gF6H5FW+VJe6lc2BSSzsh/F0x7kI8YVBfmVn60Se6wE04s3wl00QBxk0KST
+ZEkPDOWxouZDqySQ8p5bE6t+VcJOq1LBeDPCSLagSmzMVdyeTQDq4PfEFn2Jd7ZI
+EOKEFLxSgDri5K4x3s+BedMOSR/of/4Qs9kNX6TwauDPaPXwGDKaoC/r97b5QcwT
+9cA2deqZdeNfb/WIjdVSUw3xuG/mGg==
+=nCXk
+-----END PGP SIGNATURE-----
+
+--+xw00WeumcH4DC+3--
