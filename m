@@ -1,109 +1,152 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A43B3939DB
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:19:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDC43AEF54;
+	Wed, 16 Sep 2026 15:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571981; cv=none; b=RiCx9/Ad1HWYVtu14JsMp9Hm2u/Vp9pS/VuKkYHmqOuyHfRJ/zRcCfXhORZKWbWqpfVLcyrk6EL416atZdcapFoMLpmtfxODkDE9z+oqUW9ihe3H7Cdr8J8cphu0c9n3iAdxqfFCHoRWmZKsVmzCcgrc+IyUlGzIxVJnML03KkE=
+	t=1789572059; cv=none; b=pYI26Z29TnyLLLUniCU+1Y9YAbpQEK75EG6SQ0lC/rBPUned/kjdfeMVpKqmxf7HLgWVd/Ir1Lw+UMv9Q/Mk8lTGXEliVzmbOt2HH+wZF3I7VbliAkQ9+UF5kO7VRr6P13UrYOoWLj0bPTCqC39BMI6LlqAa9CoPrkKwA45XuCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571981; c=relaxed/simple;
-	bh=Bd04q5qs6Pp42KGej2Kz0loIBOnLQGooaDFK4aZEIJM=;
+	s=arc-20240116; t=1789572059; c=relaxed/simple;
+	bh=ABPqlFY+qgVQVQriZmgkEfnyudsflUMPcXg+FS+S01s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gecI9dquIwW7h5IXmhCrVNW5H22w5O/ncNqkFICxgAfeJG9+V2cJyDYVfGU4iuxbzVmIOzy4KDRdIR4KpHgzUsd4J9ob5K5RqzwjoRIrdJPLd18Jn/cV4dRQIvJLtMMj5hPTmMil6psmP41F2dz2eokwi0c2tnF3OQAhkrOttf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=BACNNE0X; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=OUMmFZverZb+L17NmWhMVvZZiVAQHiPO6Rfh42P6SJgcl7KNcJKKHak95RUmSSVfzaLm7rIek309DodCpxudedt0EcgdgQrmC140KgcedSrewwZpkz5rmLqsYTVAEubguTa4kaZWQ5hSOC1IrJMHGBCPs0adda06jCBXieg/c2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P9R1Ie7d; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="BACNNE0X"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76bcb1fso9813461cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:19:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789571978; x=1790176778; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VpNPb1TxYXca1d4OZUk8cPR+2lzT1yr8aN9KjQ5b67k=;
-        b=BACNNE0Xqy/Rl6Bfr/VLgJYpoONgFWFRN5s4uaN6JJXD6Qri79ws+Azw5u7E0YD5M5
-         9Uob73NNG+cWlVvnsEJigtih0YfuG7m3VyV+KlDpqP8SfxXtF3kvENbkzUD4NfDw6FDX
-         Wv+GXA8G0SfFJP+pH22OoJxYPowJVPXPzKNG4yt+zJbdt8uQsG6h0a5R33CaX86FEQok
-         H2idjs4XNSGSwMYwwQjSstlYE0cruav/qGcjewr1yyet9r57ab3hoYLYh1zu5yIMHWNn
-         NatKYiY8u/d8VdOkNLNIqHAJWGjP91VjGYyv/G7p4FgQQz8oPf/AMOtKoWW+TPWXVSlN
-         l9iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789571978; x=1790176778;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VpNPb1TxYXca1d4OZUk8cPR+2lzT1yr8aN9KjQ5b67k=;
-        b=ttFlLv35Y2YJPgTClaCzvQLvmpIhim7Ha6Wtg21b5LysJNgtdaqr+4qN1SCz3faGS/
-         iEd2PwfjRk/wp4oa+85VinPnI8i955vQTfipQLDK3Yuo5OemUk43WkIdNpL2Rd0yKi4M
-         tkeDv5flYjsN999CqMzrr2H7QTX7rdABU0zJALDM8m+Y6lks1bt+Kv+rv4Sdst33mxUW
-         JgHolcEVsMBgRjmdcoOMOOvPMgwSlJKrFVS2ptFLwT/pCXv/HTfsasBuSjicYg8DDCD/
-         GQYfLwa2kgeohWoe3eQqtsRRNMxuDVO1b31EV/hqf73itul01YdbaO1B1ZfA+BU3LBsA
-         g4tg==
-X-Forwarded-Encrypted: i=1; AKwUvBwaEzLG4WSVEzj7fuuy9ZGHqQKVvniY9oTqPQ7vSpf3/27rvoqPDex+bRM3tjO1usHqqFrQbogGybjig4I=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksNxXV+WkXbnE4MiEm0caYguXNHJ64a0qivtCTz+zOppKN1/Oz
-	5wBb/9BqoH1bExTsBS1XHKXTH/tRtBzKoz5coR7dswU1pwj/SLS4pvAXesFkrkrzaA4=
-X-Gm-Gg: AYBFou3fL80yXvU7+78Dd9u0pF8HgsZAehRnivU3drnu/+lpd2rzCwEz+Iq9H2XPl3R
-	ll1vpUYpFN2V55C+mtt1RlYgVQvQ9kOLZZ+U31eIu+CwzbjLtBsPGWFSfHzU8Sqg788D05cs7ok
-	Rj63++zsLSUKotGzRPTKlKjAQ3hg/20eAmNggKVYPIMpV2hpAYER6kObFlbMxRmLyn5NAVY8HeW
-	xb2AM8jYjrlAKL3u8tPS+iJbKgAqjdwZdd6QfaRax34SNVEh7HaRJHQwu1t9yZRdoaTnba9HpP9
-	cEXv7gZClmBaEV+MfdGI16epyRyf2FHb70B7QGA+OzbwjIOXlpOYtqmRCMmN/Cy8zZAorXCjqfF
-	l6fzuEmT1gvXGZVa1Mpo3ZF7GxKin7SBnO56WmNKUb8HLbgp2jOFdl2vFre/xu029zmogx8CxmN
-	ULBc9DVrqFiPytDOeSOG2d7D/J7sXRG70weoJAxtVedFBu9OzlgUctdGqx71V73hdiUo3I+cjQq
-	3+Uzq5xlx8PT+MHCvfZAmJvNyToEDlUBqL5CzZ7lzzgs6tXozDMeac=
-X-Received: by 2002:ac8:5f0e:0:b0:531:2154:becc with SMTP id d75a77b69052e-5327eead6e2mr49713181cf.22.1789571977900;
-        Wed, 16 Sep 2026 08:19:37 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53262024a94sm24051881cf.15.2026.09.16.08.19.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:19:37 -0700 (PDT)
-Date: Wed, 16 Sep 2026 11:19:35 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
-	liam@infradead.org, vbabka@kernel.org, jannh@google.com, wangjiexun@tinylab.org, 
-	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
-Message-ID: <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
-References: <20260912110832.3203902-1-gourry@gourry.net>
- <aqloB0zm3RjJ47m1@gremlin>
- <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
- <aqqTbGMJL86TzDrf@gremlin>
- <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
- <aqqjW5dpyznijYLh@gremlin>
- <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
- <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
- <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
- <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P9R1Ie7d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789572055; x=1821108055;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=ABPqlFY+qgVQVQriZmgkEfnyudsflUMPcXg+FS+S01s=;
+  b=P9R1Ie7dh/WuZ/gm4VrKfwWkQjGWNtJaDLJPWL1UMlgR2iVm+wKCmRbQ
+   fgbMCIzChwCNsdz9CEm8vNgB+RBtxuOwcQ+FuyIJrva8kn72p6jWTSh4t
+   zOE3FHoEZ4aD94u9uJf6prRjpm+hgwshy4v8nDzKvEzrnqwfjcrqSocfq
+   8aVQ0UQfYh048ni2IirXb58Ol+1xO90YqGZCk0I0nj7DY69bfvEuGt4P6
+   8LkYGN0z/EXfOowtasDLApIqrwHieDkmsWteEbx5r/NbbRGClayYzVtxf
+   9h5BbOw+ixYyoZSgl1arfiGmHQJru56FDXD57EbbI1HO2JMpMoB+gLqiU
+   A==;
+X-CSE-ConnectionGUID: AxT9WPvfQcGmdQFfABdgLQ==
+X-CSE-MsgGUID: +P4sgKO0Tk+U4oPjYzFuvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93653712"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93653712"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:20:49 -0700
+X-CSE-ConnectionGUID: JwexR3oJQzatmu4g5LEWDA==
+X-CSE-MsgGUID: vFlYH9tyRkangFMS75Q85w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="296853472"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:20:43 -0700
+Date: Wed, 16 Sep 2026 18:20:40 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: zl020895 <zl020895@163.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, soc@lists.linux.dev,
+	longzhao@ambarella.com,
+	Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
+Message-ID: <aqqzyPR-2JKr-2Me@ashevche-desk.local>
+References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+ <CAMRc=McEOcWq8i3B01AR1PnfBzSQaLEaOzE6Qa+QdVXrvS_YrA@mail.gmail.com>
+ <CAD++jLnRL_s9zPNkSj2UnHWPx+QHAXV19DA7dEmGZu0AkxxyaA@mail.gmail.com>
+ <aqpuMcqbra9i6UDq@ashevche-desk.local>
+ <23d61058.962b.1a0a9e0b355.Coremail.zl020895@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <23d61058.962b.1a0a9e0b355.Coremail.zl020895@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Sep 16, 2026 at 04:59:32PM +0200, David Hildenbrand (Arm) wrote:
-> >>
-> >> I told Brendan exactly that (try stubbing it) and he tried ... and had to give
-> >> up at some point because it just wasn't feasible. ;)
-> >>
-> > 
-> > LLM go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+On Wed, Sep 16, 2026 at 07:01:10PM +0800, zl020895 wrote:
+
+> ACK: GPIO bits through the GPIO tree, then an IB for the SoC tree.
+> I will keep a unified series for now.
 > 
-> No schlop like that please, I don't want to hate my life
+> regmap-irq cannot do PL061 type (IS/IBE/IEV, both-edge) plus the
+> AMBA chained demux.
 > 
+> Two options for v8 — Andy, which do you prefer?
+>   1) Convert PL061 MMIO to regmap only. Keep the existing gpio_chip
+>      and irqchip/girq (double-write stays in the driver). Ambarella
+>      layout can be a follow-up on that. No gpio-regmap yet.
+> 
+>   2) After (1), also move get/set/direction to gpio-regmap. IRQ
+>      would stay a custom PL061 irqchip (not regmap-irq). I am not
+>      sure we can avoid a way to get the gpio_chip for
+>      gpiochip_*_irq() / the chained handler.
+> 
+> I am leaning to (1) for v8.
 
-You missed this part:
+I would prefer to see (2) and then we can discuss to roll-back if it looks not
+good enough.
 
-"I'm trying to be careful about not causing a bigger maintenance burden"
+Either way your PM runtime support for gpio-regmap is a good change.
 
-I wouldn't do that to you :]
+> 在 2026-09-16 18:23:45，"Andy Shevchenko" <andriy.shevchenko@linux.intel.com> 写道：
+> >On Wed, Sep 16, 2026 at 11:42:56AM +0200, Linus Walleij wrote:
+> >> On Wed, Sep 16, 2026 at 11:14 AM Bartosz Golaszewski <brgl@kernel.org> wrote:
+> >> > On Tue, 15 Sep 2026 13:15:30 +0200, Long Zhao via B4 Relay
+> >> > <devnull+longzhao.ambarella.com@kernel.org> said:
+> >> > > This series adds minimal Ambarella CV75 support for early bring-up with
+> >> > > a serial console: DT bindings, RCT clocks, pinctrl, PL061 GPIO via
+> >> > > gpio-regmap, 8250_dw UART quirks, ARCH_AMBARELLA, CV75 EVK DT, and
+> >> > > MAINTAINERS.
+> >> > >
+> >> > > This is a single unified series. Please apply via the SoC
+> >> > > tree; subsystem maintainers are Cc'd for their pieces.
+> >> >
+> >> > I would prefer to take the GPIO regmap bits through the GPIO tree and provide
+> >> > an immutable branch to the SoC tree as it has potential for conflicts that
+> >> > early into the cycle.
+> >> 
+> >> Queue them up and send us the IB if you think they are ready!
+> >> 
+> >> Long can probably send a PR based on that IB for the rest to the
+> >> SoC tree, a bit tricksy but it works.
+> >
+> >I'm still unsure why we can't use IRQ facility from gpio-regmap.
+> >Can you have a look there?
+> >
+> >With that being said, I'm not sure that the patch that exposing gpio_chip
+> >from gpio-regmap is justified.
+> >
+> >The whole GPIO rework needs a bit more routine work (resplitting, refactoring,
+> >et cetera), so later we may see clearer what's going on.
 
-~Gregory
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
