@@ -1,144 +1,111 @@
-Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D571B4A92C7;
-	Wed, 16 Sep 2026 11:00:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.97
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA6584E8DFA
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:01:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556470; cv=none; b=V+oS4FKvE6z0rJ9IkXLTOUpUlFKChL+sddJm5SuIgct+PIZlvkFfcJ942/DTGAKDKrvlIR4nurDgHvRJcbMRhdEylhQdilSUxVKostbs6wOXekPVb+Q2vmRDuSxO6dzLhsxvYvWZcIDMJidWgeuOHgDmaIPNe9ALx6hYhP5dNlE=
+	t=1789556472; cv=none; b=CKt6uFVeBsxd2bTE4poFuXx030rpMQJmZQ1D9dXXfrH19+JqUnKVb4dLb159eklVRdTz/FQ92efgVjicphDqfx1QWalc2oEbffJI4AelNl10R5XcUUFNBmFGB0Wkyr8TuXag7Y4DqiaVTKTqL9DUj6s51QNUKnswJEmwxhMsFU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556470; c=relaxed/simple;
-	bh=Zvl8/4ZZwYZLccVkUB547ZzDDQ1t32sAHwySvAl/eMU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jCUxpf0K0cYYfYjQYe+vceJL7lkG855927eWjgVsROoHq7KxN9EDwv6QyiR90peQflgvl7Mdb5BwBrw5xYBhIpUAsDzq7iT1kbQ8AEdRo14tRhvrFD+SbkXJr2XBe7Y2zJE0UZkFgclqL5Wt64VOMm9D9DnM9dhqXaka7tfEHEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06751054|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.316453-0.0542113-0.629336;FP=13581216796813840310|15|2|17|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=19;RT=19;SR=0;TI=SMTPD_---.jExZdZ9_1789556112;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jExZdZ9_1789556112 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 16 Sep 2026 18:55:12 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	Frank.Sae@motor-comm.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	jie.han@motor-comm.com
-Subject: [PATCH net-next v19 2/3] net: phy: Add support for Template Control register for PMA
-Date: Wed, 16 Sep 2026 18:55:03 +0800
-Message-Id: <20260916105504.3262767-3-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260916105504.3262767-1-kyle.switch@motor-comm.com>
-References: <20260916105504.3262767-1-kyle.switch@motor-comm.com>
+	s=arc-20240116; t=1789556472; c=relaxed/simple;
+	bh=le64yFWu89IwQTgKsaA74r4GubOSVodhBlaIxBJsy1Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dPqY3ZY+PgqWZ+Do1IvYleleYpZP41hSF1vY+cqSm765STKczTT+bP+huh8xRxQKjsz9rl/nfFrd8qNobqe3/5JAihw4rsqquESm1/dz2V7/3ppf5uUykIHf9fG/PPJ2nmtzVQ0Gbk050WFKiLCRrAE9AdqOhNFLf4exuBiKBAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VeHro92U; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VeHro92U"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 45062152B;
+	Wed, 16 Sep 2026 04:00:56 -0700 (PDT)
+Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C886E3F882;
+	Wed, 16 Sep 2026 04:00:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789556459; bh=le64yFWu89IwQTgKsaA74r4GubOSVodhBlaIxBJsy1Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VeHro92U0oRR3vwxd1JwJpCnnmvxSmWT5qbm9wVCD7uvApw8F7Ka2crYiiXwI/uTp
+	 vYgQG5zxs0l8zCLSiKde0WIau2Hjc31y+np0XjwrxTCwkutglwEtnOahfk5+ISkDxT
+	 ywM/0JFHlDAknHew+79UxH+X+H1IL6vXMKYOgB44=
+Date: Wed, 16 Sep 2026 12:00:52 +0100
+From: Joey Gouly <joey.gouly@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com, will@kernel.org, seiden@linux.ibm.com,
+	suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com,
+	vdonnefort@google.com, qperret@google.com, Sascha.Bischoff@arm.com,
+	steven.price@arm.com, tabba@google.com
+Subject: Re: [PATCH 3/7] KVM: arm64: Validate the host-provided vgic model in
+ pKVM
+Message-ID: <aqp25JLeqyCKtCQH@e143914.arm.com>
+References: <20260915123846.2317931-1-fuad.tabba@linux.dev>
+ <20260915123846.2317931-4-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915123846.2317931-4-fuad.tabba@linux.dev>
 
-Add support for the 10GBASE-T PMA Template Test Mode register
-field, which allows selecting one of eight test modes (Normal and
-TestMode1..TestMode7) used for PHY validation.
+Question(s)
+   |
+   |
+   v
 
-Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
----
- drivers/net/phy/phy-c45.c | 23 +++++++++++++++++++++++
- include/linux/phy.h       |  1 +
- include/uapi/linux/mdio.h | 12 ++++++++++++
- 3 files changed, 36 insertions(+)
+On Tue, Sep 15, 2026 at 01:38:42PM +0100, Fuad Tabba wrote:
+> EL2 copies vgic_model from the host's struct kvm unchecked, and the nVHE
+> world switch dispatches on it with no cpucap guard. A host writing
+> KVM_DEV_TYPE_ARM_VGIC_V5 makes EL2 access GICv5 CPU interface registers
+> that are UNDEFINED without FEAT_GCIE, and panics the hypervisor on any
+> GICv3 machine.
+> 
+> Accept only GICv3, the one model pKVM supports, forcing anything else
+> to 0.
+> 
+> Fixes: 9b8e3d4ca0e73 ("KVM: arm64: gic-v5: Implement GICv5 load/put and save/restore")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/kvm/hyp/nvhe/pkvm.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> index 459bd9eb7e4bc..4c33c863e90e1 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> @@ -340,13 +340,19 @@ static void pkvm_init_features_from_host(struct pkvm_hyp_vm *hyp_vm, const struc
+>  {
+>  	struct kvm *kvm = &hyp_vm->kvm;
+>  	unsigned long host_arch_flags = READ_ONCE(host_kvm->arch.flags);
+> +	u32 vgic_model = READ_ONCE(host_kvm->arch.vgic.vgic_model);
+>  	DECLARE_BITMAP(allowed_features, KVM_VCPU_MAX_FEATURES);
+>  
+>  	/* CTR_EL0 is always under host control, even for protected VMs. */
+>  	hyp_vm->kvm.arch.ctr_el0 = host_kvm->arch.ctr_el0;
+>  
+> -	/* Preserve the vgic model so that GICv3 emulation works */
+> -	hyp_vm->kvm.arch.vgic.vgic_model = host_kvm->arch.vgic.vgic_model;
+> +	/*
+> +	 * GICv3 is the only model pKVM runs, and the GICv5 world switch
+> +	 * touches registers UNDEFINED at EL2 without FEAT_GCIE.
+> +	 */
+> +	if (vgic_model != KVM_DEV_TYPE_ARM_VGIC_V3)
+> +		vgic_model = 0;
+> +	hyp_vm->kvm.arch.vgic.vgic_model = vgic_model;
 
-diff --git a/drivers/net/phy/phy-c45.c b/drivers/net/phy/phy-c45.c
-index 870920311f9a..c5f5753f7194 100644
---- a/drivers/net/phy/phy-c45.c
-+++ b/drivers/net/phy/phy-c45.c
-@@ -1408,6 +1408,29 @@ int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable)
- }
- EXPORT_SYMBOL_GPL(genphy_c45_fast_retrain);
- 
-+/**
-+ * genphy_c45_template_testmode - configure template testmode registers
-+ * @phydev: target phy_device struct
-+ * @test_mode: testmode includes Normal to Test mode 7
-+ *
-+ * Description: Set template testmode include Normal to Test mode 7
-+ *
-+ * Return: 0 on success, or a negative error code on failure (e.g. register
-+ * read/write error).
-+ */
-+int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode)
-+{
-+	u16 ctrl;
-+
-+	if (test_mode > MDIO_PMA_10GBT_TESTMODE_7)
-+		return -EOPNOTSUPP;
-+
-+	ctrl = FIELD_PREP(MDIO_PMA_10GBT_TESTMODE_MASK, test_mode);
-+	return phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_PMA_10GBT_TESTMODE,
-+			      MDIO_PMA_10GBT_TESTMODE_MASK, ctrl);
-+}
-+EXPORT_SYMBOL_GPL(genphy_c45_template_testmode);
-+
- /**
-  * genphy_c45_plca_get_cfg - get PLCA configuration from standard registers
-  * @phydev: target phy_device struct
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 3d8afe6b7f1c..2db804b8fd4d 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -2357,6 +2357,7 @@ int genphy_c45_loopback(struct phy_device *phydev, bool enable, int speed);
- int genphy_c45_pma_resume(struct phy_device *phydev);
- int genphy_c45_pma_suspend(struct phy_device *phydev);
- int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable);
-+int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode);
- int genphy_c45_plca_get_cfg(struct phy_device *phydev,
- 			    struct phy_plca_cfg *plca_cfg);
- int genphy_c45_plca_set_cfg(struct phy_device *phydev,
-diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
-index 06f4bc3c20c7..353ca13c64fc 100644
---- a/include/uapi/linux/mdio.h
-+++ b/include/uapi/linux/mdio.h
-@@ -63,6 +63,7 @@
- /* Media-dependent registers. */
- #define MDIO_PMA_10GBT_SWAPPOL	130	/* 10GBASE-T pair swap & polarity */
- #define MDIO_PMA_10GBT_TXPWR	131	/* 10GBASE-T TX power control */
-+#define MDIO_PMA_10GBT_TESTMODE 132 /* Test mode control */
- #define MDIO_PMA_10GBT_SNR	133	/* 10GBASE-T SNR margin, lane A.
- 					 * Lanes B-D are numbered 134-136. */
- #define MDIO_PMA_10GBR_FSRT_CSR	147	/* 10GBASE-R fast retrain status and control */
-@@ -320,6 +321,17 @@
- /* PMA 10GBASE-R Fast Retrain status and control register. */
- #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
- 
-+/* PMA 10GBASE-T Template Test Mode Register*/
-+#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mode */
-+#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
-+#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
-+#define MDIO_PMA_10GBT_TESTMODE_2 0x2 /* Template TestMode2 */
-+#define MDIO_PMA_10GBT_TESTMODE_3 0x3 /* Template TestMode3 */
-+#define MDIO_PMA_10GBT_TESTMODE_4 0x4 /* Template TestMode4 */
-+#define MDIO_PMA_10GBT_TESTMODE_5 0x5 /* Template TestMode5 */
-+#define MDIO_PMA_10GBT_TESTMODE_6 0x6 /* Template TestMode6 */
-+#define MDIO_PMA_10GBT_TESTMODE_7 0x7 /* Template TestMode7 */
-+
- /* PCS 10GBASE-R/-T status register 1. */
- #define MDIO_PCS_10GBRT_STAT1_BLKLK	0x0001	/* Block lock attained */
- 
--- 
-2.25.1
+A bit confused by what is expected by writing 0 here? I would have maybe
+expected to refuse running this VM? What happens if the host writes some
+garbage here, so vgic_model=0, but then tries to access gic-v3
+registers?
 
+Thanks,
+Joey
+
+>  
+>  	/* No restrictions for non-protected VMs. */
+>  	if (!kvm_vm_is_protected(kvm)) {
+> -- 
+> 2.39.5
+> 
