@@ -1,90 +1,62 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2863B407575;
-	Wed, 16 Sep 2026 07:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0653411F83;
+	Wed, 16 Sep 2026 07:13:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542771; cv=none; b=MBAihbwLq47P8+b/ZhZS9Kuta2Se+dOsHE+fUhNGCyLcs1sqOIchou0JQ/6NJhAILgH4NY1x+LaibkoelxLWcvsd443hs/JQejdqD82F69HHrK7aZ8n6+zihd8EMCVeEovDyz6jG1iSgqb4DGZ79GkaZ3SuQXhHuuWbTYKIJ/1Q=
+	t=1789542811; cv=none; b=IvvsLgdj5JiZ/qSZxT4YrZqGyU3cPlTpArfXF/y6qhAbLQsY/2sWw8umoMor54OQl55u9ymj8jWwnJO0ca/9UpgyxpAlaTtOClTe2GC26AOQwTMsORHhhnGOZz/GM98n0ulg6UrzfH6tsDwN/+94Cm4qYgtWbkDnlxNTqJF8Ilk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542771; c=relaxed/simple;
-	bh=DnkDmd4+Pgqm2v0ucYAFdsXYwg3Nz87GbeTOO/FGKUc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=a1ov4K4ka/Ty8k9DrHI5qEJ7oDI0f9RUj1mICkb6vbPRTmmox7SJlV25SJ+AVcZKfJ5kmaMaCljNCfvbP6Z09kTt8g8+N841sEl2fOeOexDQSOgGcXri8TW0cJUPtaLaZcgGb37t6iol26qRJcavpBJa9G62/c13vMTx9APutMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADn6jhdQapqy_jeBw--.34108S2;
-	Wed, 16 Sep 2026 15:12:29 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: lenb@kernel.org
-Cc: linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux@zary.sk,
-	rafael@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 06/20] ACPI: video: Fix PCI device reference leak in video_detect_portege_r100()
-Date: Wed, 16 Sep 2026 07:12:01 +0000
-Message-Id: <20260916071201.1966195-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789542811; c=relaxed/simple;
+	bh=NGUu7Eat2u8NKBdJT5OjJPLD4oT04Rr5HsjYrsGJzW0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h5EypVXIMabbyu9uqVJfrENQ6ENaD1uV4Lf6yPhSFgQCVHtJec3Wr/74CzK+B32LyY8NxPvB3yOAUOBCPkT/Zia06driZGbjG8WUDB/wvWi5i69QTvjCwr2EKokwqMA0SSdFss7xQ64fCWCz193g8PXDLG14nz3NeSaj95kxGeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EYmQ4H0n; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EYmQ4H0n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70CD11F000FF;
+	Wed, 16 Sep 2026 07:13:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789542796;
+	bh=ZSwnXaMIy041+a4ctb+SDaVtRs2WLnKtUxx+YycEzsY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EYmQ4H0nu5BZqOUtqtFo2NYp9AVPzFGDUe5ZwCzKuB6TK2x6pfyMvPLUQ1VNB92nJ
+	 RBjVq9PohXucMP4aCYhLKbojQHmHs3Nor66iA6XLOGyB72336VGWq4TrCo0zahYyny
+	 Ya+OFzY9rlUmmOj2+IbcvqNtd4RwAMQ0GVVoKAz4=
+Date: Wed, 16 Sep 2026 09:11:22 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, usb4-upstream@oss.qualcomm.com,
+	Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH] thunderbolt: Make PCIe NHI support opt-in
+Message-ID: <2026091611-backward-monogram-82e7@gregkh>
+References: <20260915-topic-tbt_pcie_optional-v1-1-47c4a3d129bd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADn6jhdQapqy_jeBw--.34108S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Gr4UWrWDCw1xXry3trWrKrg_yoW8Jr45pF
-	Wa9FW3trW8Gr1xGw47Jw1UuFyruw48A3yrKrW8Cw1I9F15Wa4avr1UXa4qqa9FvrZ3Gw4Y
-	vF9rtF4rCFy5ZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
-	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUJuc
-	_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMMA2qqQJUDtAAAsp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-topic-tbt_pcie_optional-v1-1-47c4a3d129bd@oss.qualcomm.com>
 
-In video_detect_portege_r100(), pci_get_device() is used to check for
-the presence of the Trident CyberBlade XP4m32 PCI device, which returns
-a device pointer with its reference counter incremented. However, the
-acquired reference is never released, resulting in a reference count leak.
+On Tue, Sep 15, 2026 at 07:04:10PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> With more implementations coming in, one may desire not to enable
+> support for the PCIe-attached NHIs. Allow it to be built as a module
+> atop the framework.
+> 
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Add pci_dev_put() to properly drop the reference when the device is found.
+Why would you not want this?  Can hardware not provide this for some
+platforms?  I thought it was part of the spec...
 
-Fixes: 35a341c9b25d ("ACPI: video: Add acpi_backlight=vendor quirk for Toshiba Portégé R100")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/acpi/video_detect.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+thanks,
 
-diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
-index 458efa4fe9d4..4c1c3b0b5499 100644
---- a/drivers/acpi/video_detect.c
-+++ b/drivers/acpi/video_detect.c
-@@ -137,8 +137,10 @@ static int video_detect_portege_r100(const struct dmi_system_id *d)
- 	struct pci_dev *dev;
- 	/* Search for Trident CyberBlade XP4m32 to confirm Portégé R100 */
- 	dev = pci_get_device(PCI_VENDOR_ID_TRIDENT, 0x2100, NULL);
--	if (dev)
-+	if (dev) {
- 		acpi_backlight_dmi = acpi_backlight_vendor;
-+		pci_dev_put(dev);
-+	}
- 	return 0;
- }
- 
--- 
-2.34.1
-
+greg k-h
