@@ -1,249 +1,446 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazolkn19011036.outbound.protection.outlook.com [52.103.39.36])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77C24E56C7;
-	Wed, 16 Sep 2026 10:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.39.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555806; cv=fail; b=I1+xiiu4+oge+B8AIo9aKSpJKO6DkiWMXxmPT2iJSeikJ64ucDeZ6J80MlAHemYapwV9VtU4U0Hfqm5YMRcV/krRCaIdItUuth2JBPBd0W/rxnbBtpxYVraSBH9HIq5Qpz1ioTToag6X20/ZFq0IMd9/La4EOn25nAjEN3Ew2pg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555806; c=relaxed/simple;
-	bh=PZovdgJLKKrrK4650llKJ32TbTBFmX4NutU7Xt9TPms=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=udqDDRwxmV4AM+tJq4iK0s5SPQDyOmH/F03WrI3L5qlGH6y81X1EIJ2wAWXFM/N8Z1aQB9J20l5JOT1aFqqZQ/xAXCPXwUluc+nA49ePLr+9qGYquDtsqQ5+3hf/EYghHYan8RgQ05GR2Kw1Mj5jQ1ADqR9K2WeQZCeuKuelAh4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=FeITsGkI; arc=fail smtp.client-ip=52.103.39.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03394C67F3;
+	Wed, 16 Sep 2026 10:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789555837; cv=none; b=TX9HEgCgxkBYzWGST+v8uqTfUrw8oZgbLAsieHJ8YRSiAMbdyG+9vQuImtULNqSMEd21iwngea6WS3CfwjszGVmUuFpAXQ2+ChQQSfE+7yaEsR6QAkPlqtE8yJPjxiV3dhJ9rTwBLINEPx7HMELiseGWOgCBmDODwsHsU7X2fXU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789555837; c=relaxed/simple;
+	bh=OT3IE4Z8J1dRKbh31nrw/ExOCgfzBzB9bdPinP6gAls=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WjEg2pEcv4YwEY7GkNO5j1hzua7B9ZntsyYj3ePe6WrCayYKjw9F3VTNDXYCqSV7WqHVMWsSJeMN+ynx9OuVvbMFLTvQxCRTQP8eIZlygJssfktSCHdFEK0VunT1VbeXO46cXiq2mEJ3PO7ylSz4I1zFz9zztHfI2Wk5msuEeRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=C3QIg/i1; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="FeITsGkI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iOAHh4eCBwYDVLL4WJLn2j462X3nzdMZwUlKIbi67GnliSa5KEh0Yjg7QDhnJmJbGVkuRnLSXKR7ppGUqe8rs2UYngPXb78sT9Kk3lk91ioI0uLy4p167dSFGboHiuGbrKiyCcZGNxHIs52sGyf8CRRlZW+vR1Ukdn5xYFUdTa31v35z4w/+U+2WJYdmORjGaWH28m0ykOYXiCZq8xRy/kMkzmFkinc6pQTl6PTDP4YohjZmRqUQj2NgPNQOnTVRJb5gl8JPPilXDKT+YtZXcUt2chg/Y/2OOJHry1EU3lrADfns4jXvWM0EZCU3PKuz5elkzIbWdRZPIhOksXY/LA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LxISeNYsdCPhy9m4AawHsiwHLbPj/mJ3BIxnAntxNj0=;
- b=nlyVerGqlypASmlpUiasH6Q1gDbsWZjgCz4noo559IWh2VIRjCQHKd/sS2pnV7ZJItbDC2QcA1n9t2n9A+wGDEQXrSn29lMFYAGcYr0a7SdgG64QWMC11rBwMEAxP0snQg4B/HmCrXs7OkaWCEia7xWLTQfaBYPOZfOtml3U+b/0yFV+/YJXg3I5dXyTZCAsu5ZesJ9djlc3W4TUNORBIl49Rrkuc6JA2I3sKRV8yYkysF60e2NuVyQu1nwlH8xd2V0UOgl/NlqfTu33+eu7Sis6XR9tmUmAi5gpaw6PkvHJD+VUM8BJ6m74ZmmODqArSL4K/Q6JIE0kQM9pY6oIhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LxISeNYsdCPhy9m4AawHsiwHLbPj/mJ3BIxnAntxNj0=;
- b=FeITsGkIsnMI2/j2tI1d5CqcnT1v6mq/raZFy8oRlHJ7k5M3uIhlG30kMPRpAktAP9YLiOnSbVYqRln3aQc0dmQPTcioSC+2EEq2rAfP9j1Lev+EGGg+5ZZum5bR4xTRxTXUigRJI3QphtjW305iSxbHR5iPhPpEHp1Vmy9JYRZjOXpCh9bgI0GD9sZCaBB0sa4Vd53WyIkl4VIkktmRffn+Sv7E4Wlque/mdwpbgaoUNAvIiumBfENTKKW+bpR5SgZxjkP4+/6BkGy0iMZcMCFgk5SrLOgn93xOjJtkwobO9Ui7xeTslOM+Pe7Wc9otdEdVZZWi8N2I90FZFuDglg==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by AS4P251MB0798.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:511::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 10:49:30 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 10:49:30 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Ronnie Sahlberg <lsahlber@redhat.com>,
-	Steve French <stfrench@microsoft.com>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aamir Ahmed <elb12345@hotmail.co.uk>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ksmbd: deny access for an empty DACL instead of granting the request
-Date: Wed, 16 Sep 2026 11:49:27 +0100
-Message-ID:
- <AS8P251MB000104EEF679ECC44D8791F2C8B92@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.53.0.windows.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0117.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c3::20) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260916104927.18825-1-elb12345@hotmail.co.uk>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="C3QIg/i1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789555815; x=1821091815;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OT3IE4Z8J1dRKbh31nrw/ExOCgfzBzB9bdPinP6gAls=;
+  b=C3QIg/i1AtzRm2b96wOoGZKDn/6lT/WA3WamY4/xp5nR6Gv0Cc1xcic3
+   mzBmBofvnN0c4UbyAp1xMXufV70rlMJkCJrf4snNV7eJBZuHvCyVVlyAP
+   7OgqXieCUWo9K1eRToAVDa4yg8H2z1WKm2WrvSygGWjz6T+YzqhFdUaWz
+   OXNErJVdVP9uje8pCbT++8Rd7Cg1k2WMBJuADkb8rYIJnS1mKuVqa8WQy
+   kTZRaQ4KgUya79IYV9MFe0VCm3TMR2pczxoHtkyEsQRxWsJJXtrJEkv1b
+   bmBSV8wZIXKnN0HO9INTMDZoiDVoFhvvmBANdWlQYd33CXKASHt/ELSmi
+   w==;
+X-CSE-ConnectionGUID: lHP8btBuQw+mfU43gtPFzg==
+X-CSE-MsgGUID: ZRvJ3IS/R3axDGytKF7OBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93632217"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93632217"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:50:06 -0700
+X-CSE-ConnectionGUID: gmfebdBYSwujWMTLn9OVRw==
+X-CSE-MsgGUID: 6NotP4dCSS2ky5FSZxb+vA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="267093716"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:50:00 -0700
+Date: Wed, 16 Sep 2026 13:49:58 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 12/15] pinctrl: ambarella: add CV75 pin controller
+Message-ID: <aqp0VlwWotnuK9t7@ashevche-desk.local>
+References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+ <20260915-cv75-v5-v7-12-3297d3fbc9c0@ambarella.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|AS4P251MB0798:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64158b6e-6db4-4d4e-7125-08df13e02f66
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|25010399006|4140399003|55001999006|24021099003|41001999006|51005399006|5072599009|5062599005|15080799012|23021999003|8060799015|19110799012|12121999013|25031999004|37011999003|40105399003|1602099012|10035399007|2607281247196008|4302099013|26104999009|3412199025|440099028|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?l6ZRoFvGsk1Ba3Z4cGQYhSytOI9/Gjvjq/Bb4UDwiWQNixqIyoT1oFIlPxwB?=
- =?us-ascii?Q?BIQN6rt+DipFNjgkWe2KpSs5MVovSV+mtYape8OGuWGbrDklaID60voMmCHh?=
- =?us-ascii?Q?ivp9XDcvsXaPhajMPuL1ftK/SuoZAfUqyzrWYL3cIBWf8LfczbiwqUrcH5cb?=
- =?us-ascii?Q?MfeZC6vbDKvTyumQ6GiQX1WCBiLm6yQBkKYC+o2ak5/WT7yJaRfAppJ0Qcm/?=
- =?us-ascii?Q?TT+6K+ZqtUVZ71pBczng/vZV2tRAb9EvdR7sXtceb6dbH3EGQKIQ46iTX3wq?=
- =?us-ascii?Q?pvr8qDTYSaG64WtLpqwJrCxiAaQLkwunuk9qk5eODeTBhDZ3tBVy7kp9M28X?=
- =?us-ascii?Q?ydqZtuY1KA+AoaEw4nrrMssf9HiqjfKEgnOONq+1gQxu0RGNPuUA2gCxhksk?=
- =?us-ascii?Q?yWRjWWb24tJ2e8TI9feCwbr9c7xxu6QqwrMcz7WCgT5jVeNh4F5N+8plcvOU?=
- =?us-ascii?Q?byZoSbCjUoVc5Wxu9aSHMJkaZ116Jtr+AVcATqqbbg1bJGN7KxEjKJNo26ky?=
- =?us-ascii?Q?yVMtBV1YrmeIPjvF51HoJWbNbI5nkQo4DxoTQwa7QJUad4hDmT4DrHD5S/hg?=
- =?us-ascii?Q?Nk1i2R+1lCm7/NEvAXAUx2frj3sxjTzdrQuLf46cSDrrxmaS9t8rAa0D95OZ?=
- =?us-ascii?Q?jTzecCREC0ybTCw39tPB34zoOTqc641SL1CMZBVJWIGc7xBMBnxuVr1d4H9C?=
- =?us-ascii?Q?uhSu7n006FA03wXcGuNQ2JmWAyCHU3vz/eT3U6IJakmMp80spNCo2JaDZpzn?=
- =?us-ascii?Q?aNpmdEYy+eMyeLJRsG7MWzC04OUj+7D+NT+zOtuhknWvq9nUlOni1CwYJo+O?=
- =?us-ascii?Q?M21EGYmI81GKAYWR9iI9+ddNGXO2xUX4cbEkOpBHv1C4BjE0jzFc7OBhzZgs?=
- =?us-ascii?Q?J+VLHjm2HnQFxRbP+5qmdvrmg1rEYndfyZUPEinXQaKhKrnVLwPxbVm4rhTJ?=
- =?us-ascii?Q?Kkg9yfBejryyEQoQbysZDt7hpaInTR7h3GzFRP9g+edpnDjqDutiV5DsuKP6?=
- =?us-ascii?Q?kHsaqf0vTMM7kSDtZyDkpO+jVjI7pVcfQRH/Td8dMQmPzAd7C7XL/xwcMxAs?=
- =?us-ascii?Q?1T91U1/hlVw1Z8RmDt3Ww2aZTn2XIs/ebTeNDT5Hyx44trzLTzdrJ7W+x6Uc?=
- =?us-ascii?Q?TqYbndW8CfKQfSk+PnulKwXP2k7k1QWPLWLx2U4a6IhEcaC3Zj1YJ16SNlGX?=
- =?us-ascii?Q?UNclbjChBjMuXAmx03RalL94p0sWBIl4/ywyn2vdtgvJ5tt382LR8meeK8ni?=
- =?us-ascii?Q?fxFtgRwRG7lO4PogtRg0?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?XTRuTLwCoTyhl8Vyc7ECGdfKDsslz4OxsiMU9IXZac6VeSidFlRIdEaJq/d4?=
- =?us-ascii?Q?1dQ6v0z/U02W36dh9zT3FoqCtqFtGc/wQ+V9R4AKkyxl9DUWPhJME06HSF8n?=
- =?us-ascii?Q?AoRNWwv7TTkDY7pUXbMYftENTA33jiue7XMPwbybfywD38bp+eTsCDNJJyEE?=
- =?us-ascii?Q?u5Ru5wm6FdsBmNWM6ZsSfKkWKEiCZiIZH5+kVWSi8aFOx5dOFPEahsia7NDa?=
- =?us-ascii?Q?Jqmm+4pqvwDDcRSsHyTY4gM/ab+GBbtthuKZn9GIsq36N7lGRM6Ccb12c+mj?=
- =?us-ascii?Q?YqJ0cl/470ps4qc3xJGmXlCHrG92KTTSd1qzUeC15bCZFlqQaLExWCrbErWg?=
- =?us-ascii?Q?UjWzeVdnZwPu5zsFDPliWIYJJX6+/UYttOpee6jX5x1vCcjNSfEv0Sv1mmgW?=
- =?us-ascii?Q?vpC67KuHESpwXRnX8bb0dZngXT4MF8qZo8wJg8ZPxAATXBW96uREDi3tgsZy?=
- =?us-ascii?Q?lvbu7dG9xd3HUSuA/RRve4hDLJ6VtlOJr3Il/3XcR2n8kSDkuFk/CbVbwHvD?=
- =?us-ascii?Q?lqVbz5Ctjj8qQM7I5EuX5wvuj3i2wY2ncPDehC9rr7Lyq2iISkHQdercoKrN?=
- =?us-ascii?Q?tne5T3WL8L/6dDGCCdt7VpjPmljfQo83yWTAn9FpJjvS6dfS2ffBdtiHrCyQ?=
- =?us-ascii?Q?e6hnfhTajrvRz8idjqxjuiPL7dpV0/FpQWtaWgCBh216BVs/RzyHi6NgZ+EI?=
- =?us-ascii?Q?IWiasPe4JSukiIsbaa4lhIuutcUqZhJgONwZnEGbFtqprPCESwG/v/MJpNA3?=
- =?us-ascii?Q?uFMaCgfA+qjbsV4Guh4qXqEoQUkYKzxg69HK+uoCzR/jFyyo3aHm4S//B6oo?=
- =?us-ascii?Q?e/UrWQNbNM4fQ1nBZlc24QkWhn07XhLgV5sg7p17ZGwQ31rBWo/3Zl3+LkSP?=
- =?us-ascii?Q?Z74/6luiCK4NfTbp4gymXL6/Z62i4EV+kChhofNXfTpy0WjcJFdQhT1HStcK?=
- =?us-ascii?Q?8wnHvBJqwPahMc+5+dOzwlteMil7QtUsa2YXhKncw7sMOSKXe5Es3uZ7PXcG?=
- =?us-ascii?Q?MOzZDOnPJWV7wsJ/z0TJNHOqpob64RONkkfP87fZJ7NDH/SYdchWn/nlWEDw?=
- =?us-ascii?Q?E0c84WoUKhGH+DcQylvScJWgo9GquDezxpfTDal5INz+LcgSYSj3WTNCGIBD?=
- =?us-ascii?Q?Sw8Gg5Debs6NTlZU1s1+F4M/iQAqsrCdcWJ0sI4/hr6Wkg8gq1/mYu/CDDJv?=
- =?us-ascii?Q?PGj+hmpVcDtjQIbfpKGIR6fvhbHmpT16huq4qBfmrWK/etoBiwTDhmFgXOXk?=
- =?us-ascii?Q?HMowcBUjAg2IVkVK+7pUSqJCIPzR4AdhE34Hv3Sx71BgJNHig6si/Pu864Sm?=
- =?us-ascii?Q?8L0iAF7A2h4GpoTA1IwiIXDeVlo+ypN2+pF+D+WKL2TTPXjwGPzTqnkobk2q?=
- =?us-ascii?Q?njc7EWQ0nTVQKetx7FQF5Zt4tJ1rJmgROdG7R2gy80ju3bAcUDpbSSXkbcr1?=
- =?us-ascii?Q?tWeGp/UZkE11QIZwhd9iBf2z1QXH6je8?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64158b6e-6db4-4d4e-7125-08df13e02f66
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 10:49:30.3585
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4P251MB0798
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-cv75-v5-v7-12-3297d3fbc9c0@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-smb_check_perm_dacl() returns the access mask it computes to the SMB2
-CREATE handler, which uses it as the granted access for the open. For a
-security descriptor whose DACL is present but contains no ACEs, the
-function is supposed to deny access: an empty (non-NULL) DACL grants no
-access to anyone except the object owner's implicit READ_CONTROL and
-WRITE_DAC (MS-DTYP 2.4.5).
+On Tue, Sep 15, 2026 at 07:15:42PM +0800, Long Zhao via B4 Relay wrote:
 
-The empty-DACL branch only denies when both
+> Add an Ambarella pinmux-only pinctrl driver with CV75 function/group
+> tables. GPIO is handled by the PL061 driver.
 
-  - the DACL has no trailing bytes (pdacl_size == sizeof(struct smb_acl)),
-    and
-  - the request contains bits beyond READ_CONTROL / WRITE_DAC.
+...
 
-In every other case it takes the shared "goto err_out" with rc still 0,
-which returns success without modifying *pdaccess, so the caller grants
-the full requested access. Three problems follow:
+> +#define CV75_GROUP(_name)						\
+> +	{								\
+> +		.name = #_name,						\
+> +		.mux = cv75_##_name##_pinmux,				\
+> +		.nmux = ARRAY_SIZE(cv75_##_name##_pinmux),		\
+> +	}
 
-  - The READ_CONTROL / WRITE_DAC carve-out models the owner's implicit
-    rights, but the check runs before is_owner is computed, so those
-    rights are handed to *every* caller, not just the owner. For
-    READ_CONTROL the SMB2 CREATE path does not fall back to
-    inode_permission(), so any user can read the security descriptor of
-    an object whose empty DACL is meant to deny them.
+Can't we use PICTRL_PINGROUP()? Why not?
 
-  - A request of exactly READ_CONTROL and/or WRITE_DAC is granted to any
-    caller. WRITE_DAC lets the handle rewrite the DACL.
+...
 
-  - A DACL that declares zero ACEs but carries trailing bytes
-    (pdacl_size > sizeof(struct smb_acl)) skips the deny entirely and is
-    granted whatever was requested.
+> +#define CV75_FUNCTION(_name)						\
 
-On shares where the NT ACL is the authoritative access control -- e.g.
-"force user" shares, where every client maps to one POSIX identity so
-POSIX cannot distinguish users -- this is an access-control bypass.
+> +	PINCTRL_PINFUNCTION(#_name, cv75_##_name##_groups,		\
+> +			    ARRAY_SIZE(cv75_##_name##_groups))
 
-Compute is_owner before the empty-DACL branch and deny access from an
-empty DACL unless the caller is the owner requesting no more than
-READ_CONTROL / WRITE_DAC.
+I would dare to make it a single line.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
----
+...
 
-Notes:
-    v2:
-      - add the Assisted-by: LLM tag
-    v1: https://lore.kernel.org/linux-cifs/AS8P251MB000152D9BF4B8E0601640661C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
-    
-    This supersedes both v1 postings; "ksmbd: fix empty DACL handling in
-    smb_check_perm_dacl()" was the same patch sent by mistake and can be
-    dropped.
-    
-    The bug was located by auditing smb_check_perm_dacl() for paths that
-    return success (rc == 0) while leaving *pdaccess unmodified -- the same
-    class as commit 08f41323f549 ("ksmbd: fix maximal access leak when
-    object has no NT ACL"), which fixed one such path for the maximal-access
-    caller. The empty-DACL and malformed-descriptor paths were not covered.
-    
-    Compiled (CC fs/smb/server/smbacl.o) and checkpatch --strict clean; the
-    decision change was cross-checked with a small semantic model of the
-    branch for owner/non-owner x requested-bits x trailing-bytes.
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/errno.h>
 
- fs/smb/server/smbacl.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+I don't see the need to use errno.h, err.h provides the basic ones.
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index e752479..3611dc6 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1494,21 +1494,27 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	if (pdacl_size > acl_size || pdacl_size < sizeof(struct smb_acl))
- 		goto err_out;
- 
--	if (!pdacl->num_aces) {
--		if (!(pdacl_size - sizeof(struct smb_acl)) &&
--		    *pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)) {
--			rc = -EACCES;
--			goto err_out;
--		}
--		goto err_out;
--	}
--
- 	if (!uid)
- 		sid_type = SIDUNIX_USER;
- 	id_to_sid(uid, sid_type, &sid);
- 	vfsuid = i_uid_into_vfsuid(idmap, d_inode(path->dentry));
- 	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
- 
-+	if (!pdacl->num_aces) {
-+		/*
-+		 * An empty (present, zero-ACE) DACL grants no access to
-+		 * anyone except the object owner's implicit READ_CONTROL
-+		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
-+		 * deny the owner any access beyond those two bits, and do
-+		 * not let trailing bytes after a zero-ACE DACL become an
-+		 * implicit grant.
-+		 */
-+		if (!is_owner ||
-+		    (*pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)))
-+			rc = -EACCES;
-+		goto err_out;
-+	}
-+
- 	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
- 		ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
- 		aces_size = pdacl_size - sizeof(struct smb_acl);
+> +#include <linux/init.h>
+> +#include <linux/io.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/slab.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/types.h>
+
+...
+
+> +static void amb_pinmux_set_altfunc(struct amb_pinctrl *ipc, u32 bank,
+> +				   u32 offset, u32 altfunc)
+> +{
+> +	if (bank >= ipc->data->nr_banks)
+> +		return;
+> +
+> +	for (unsigned int i = 0; i < 3; i++) {
+> +		u32 data;
+> +
+> +		data = readl_relaxed(ipc->iomux_base + IOMUX_REG(bank, i));
+> +		data &= ~BIT(offset);
+> +		data |= ((altfunc >> i) & 1U) << offset;
+
+		data |= ((altfunc & BIT(i)) >> i) << offset;
+
+Or even
+
+		unsigned long data;
+		...
+		__assign_bit(offset, &data, altfunc & BIT(i));
+
+> +		writel_relaxed(data, ipc->iomux_base + IOMUX_REG(bank, i));
+> +	}
+> +}
+
+...
+
+> +static int amb_pinconf_set(struct pinctrl_dev *pctldev, unsigned int pin,
+> +			   unsigned long *configs, unsigned int num_configs)
+> +{
+> +	struct amb_pinctrl *ipc = pinctrl_dev_get_drvdata(pctldev);
+> +	u32 bank = PINID_TO_BANK(pin);
+> +	u32 offset = PINID_TO_OFFSET(pin);
+> +	int ret;
+> +
+> +	if (bank >= ipc->data->nr_banks)
+> +		return -EINVAL;
+> +
+> +	for (unsigned int i = 0; i < num_configs; i++) {
+> +		enum pin_config_param param = pinconf_to_config_param(configs[i]);
+> +		u32 arg = pinconf_to_config_argument(configs[i]);
+> +		int ds;
+> +
+> +		switch (param) {
+> +		case PIN_CONFIG_BIAS_DISABLE:
+> +			ret = regmap_update_bits(ipc->pull_regmap,
+> +						 ipc->data->pull_en[bank], BIT(offset), 0);
+> +			if (ret)
+> +				return ret;
+> +			break;
+> +		case PIN_CONFIG_BIAS_PULL_DOWN:
+> +		case PIN_CONFIG_BIAS_PULL_UP:
+> +			ret = regmap_update_bits(ipc->pull_regmap,
+> +						 ipc->data->pull_dir[bank], BIT(offset),
+> +						 (param == PIN_CONFIG_BIAS_PULL_UP) ?
+> +						 BIT(offset) : 0);
+
+_assign_bits()?
+Ditto for the rest of the similar cases.
+
+> +			if (ret)
+> +				return ret;
+> +			ret = regmap_update_bits(ipc->pull_regmap,
+> +						 ipc->data->pull_en[bank], BIT(offset),
+> +						 BIT(offset));
+> +			if (ret)
+> +				return ret;
+> +			break;
+> +		case PIN_CONFIG_DRIVE_STRENGTH:
+> +			ds = amb_drive_strength_to_reg(ipc, arg);
+> +			if (ds < 0)
+> +				return ds;
+> +			if (ipc->data->have_ds2) {
+> +				ret = regmap_update_bits(ipc->ds_regmap,
+> +							 ipc->data->ds0[bank], BIT(offset),
+> +							 (ds & BIT(0)) ? BIT(offset) : 0);
+> +				if (ret)
+> +					return ret;
+> +				ret = regmap_update_bits(ipc->ds_regmap,
+> +							 ipc->data->ds1[bank], BIT(offset),
+> +							 (ds & BIT(1)) ? BIT(offset) : 0);
+> +				if (ret)
+> +					return ret;
+> +				ret = regmap_update_bits(ipc->ds_regmap,
+> +							 ipc->data->ds2[bank], BIT(offset),
+> +							 (ds & BIT(2)) ? BIT(offset) : 0);
+> +				if (ret)
+> +					return ret;
+> +			} else {
+> +				ret = regmap_update_bits(ipc->ds_regmap,
+> +							 ipc->data->ds0[bank], BIT(offset),
+> +							 (ds & BIT(1)) ? BIT(offset) : 0);
+> +				if (ret)
+> +					return ret;
+> +				ret = regmap_update_bits(ipc->ds_regmap,
+> +							 ipc->data->ds1[bank], BIT(offset),
+> +							 (ds & BIT(0)) ? BIT(offset) : 0);
+> +				if (ret)
+> +					return ret;
+> +			}
+> +			break;
+> +		default:
+> +			return -EOPNOTSUPP;
+
+Is it indeed what we use in pin control? I think the correct one here is
+ENOTSUPP (and in that case errno.h is required, yes). Yeah, some drivers
+has a mixture and they probably didn't get how this error code is used.
+
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int amb_pinconf_get(struct pinctrl_dev *pctldev,
+> +			   unsigned int pin, unsigned long *config)
+> +{
+> +	struct amb_pinctrl *ipc = pinctrl_dev_get_drvdata(pctldev);
+> +	enum pin_config_param param = pinconf_to_config_param(*config);
+> +	u32 bank = PINID_TO_BANK(pin);
+> +	u32 offset = PINID_TO_OFFSET(pin);
+> +	u32 pull_en, pull_dir, ds0, ds1, ds2, ds;
+> +	int ret, strength;
+> +
+> +	if (bank >= ipc->data->nr_banks)
+> +		return -EINVAL;
+> +
+> +	switch (param) {
+> +	case PIN_CONFIG_BIAS_DISABLE:
+> +	case PIN_CONFIG_BIAS_PULL_DOWN:
+> +	case PIN_CONFIG_BIAS_PULL_UP:
+> +		ret = regmap_read(ipc->pull_regmap, ipc->data->pull_en[bank],
+> +				  &pull_en);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = regmap_read(ipc->pull_regmap, ipc->data->pull_dir[bank],
+> +				  &pull_dir);
+> +		if (ret)
+> +			return ret;
+
+> +		pull_en = (pull_en >> offset) & 1;
+> +		pull_dir = (pull_dir >> offset) & 1;
+
+Seems to me they can be boolean?
+In any case, use ' & BIT(offset)' instead of the above.
+
+> +		if (param == PIN_CONFIG_BIAS_DISABLE) {
+> +			if (pull_en)
+> +				return -EINVAL;
+> +			*config = pinconf_to_config_packed(param, 0);
+> +			return 0;
+> +		}
+> +
+> +		if (!pull_en)
+> +			return -EINVAL;
+> +		if (param == PIN_CONFIG_BIAS_PULL_UP && !pull_dir)
+> +			return -EINVAL;
+> +		if (param == PIN_CONFIG_BIAS_PULL_DOWN && pull_dir)
+> +			return -EINVAL;
+> +
+> +		*config = pinconf_to_config_packed(param, 1);
+> +		return 0;
+> +
+> +	case PIN_CONFIG_DRIVE_STRENGTH:
+> +		ret = regmap_read(ipc->ds_regmap, ipc->data->ds0[bank], &ds0);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = regmap_read(ipc->ds_regmap, ipc->data->ds1[bank], &ds1);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ds0 = (ds0 >> offset) & 1;
+> +		ds1 = (ds1 >> offset) & 1;
+> +		if (ipc->data->have_ds2) {
+> +			ret = regmap_read(ipc->ds_regmap, ipc->data->ds2[bank],
+> +					  &ds2);
+> +			if (ret)
+> +				return ret;
+> +
+> +			ds2 = (ds2 >> offset) & 1;
+> +			ds = (ds2 << 2) | (ds1 << 1) | ds0;
+> +		} else {
+> +			ds = (ds0 << 1) | ds1;
+> +		}
+
+Same here, use BIT(offset). For example,
+
+			ds2 = !!(ds2 & BIT(offset));
+
+> +		strength = amb_reg_to_drive_strength(ipc, ds);
+> +		if (strength < 0)
+> +			return strength;
+> +
+> +		*config = pinconf_to_config_packed(param, strength);
+> +		return 0;
+> +
+> +	default:
+> +		return -EOPNOTSUPP;
+
+Same Q about the error code.
+
+> +	}
+> +}
+
+...
+
+> +	for (unsigned int pin = 0; pin < ipc->data->npins; pin++) {
+> +		pindesc[pin].number = pin;
+> +		pindesc[pin].name = devm_kasprintf(ipc->dev, GFP_KERNEL,
+> +						   "io%u", pin);
+> +		if (!pindesc[pin].name)
+> +			return -ENOMEM;
+> +	}
+
+Use devm_kasprintf_strarray().
+
+...
+
+> +static int amb_pinctrl_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct amb_pinctrl *ipc;
+> +	int ret;
+> +
+> +	ipc = devm_kzalloc(dev, sizeof(*ipc), GFP_KERNEL);
+> +	if (!ipc)
+> +		return -ENOMEM;
+> +
+> +	ipc->dev = dev;
+> +	ipc->data = device_get_match_data(dev);
+> +	if (!ipc->data)
+> +		return dev_err_probe(dev, -EINVAL, "missing SoC data\n");
+
+-ENODATA
+
+> +	if (!ipc->data->nr_banks || ipc->data->nr_banks > AMBA_MAX_BANKS ||
+> +	    !ipc->data->npins ||
+> +	    !ipc->data->groups || !ipc->data->ngroups ||
+> +	    !ipc->data->functions || !ipc->data->nfunctions)
+> +		return dev_err_probe(dev, -EINVAL, "invalid SoC data\n");
+> +
+> +	ipc->iomux_base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(ipc->iomux_base))
+> +		return PTR_ERR(ipc->iomux_base);
+> +
+> +	ipc->ds_regmap = syscon_regmap_lookup_by_phandle(dev_of_node(dev),
+> +					"ambarella,drive-strength-syscon");
+> +	if (IS_ERR(ipc->ds_regmap))
+> +		return dev_err_probe(dev, PTR_ERR(ipc->ds_regmap),
+> +				     "missing drive-strength syscon\n");
+> +
+> +	ipc->pull_regmap = syscon_regmap_lookup_by_phandle(dev_of_node(dev),
+> +					"ambarella,pull-syscon");
+> +	if (IS_ERR(ipc->pull_regmap))
+> +		return dev_err_probe(dev, PTR_ERR(ipc->pull_regmap),
+> +				     "missing pull syscon\n");
+> +
+> +	spin_lock_init(&ipc->lock);
+> +
+> +	ret = amb_pinctrl_register(ipc);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to register pinctrl\n");
+> +
+> +	platform_set_drvdata(pdev, ipc);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +#include <linux/types.h>
+
+> +#include <linux/pinctrl/pinctrl.h>
+
+Not really used. Can be replaced with forward declarations.
+
+> +#define AMBA_MAX_BANKS			8
+> +
+> +#define AMBA_PINMUX(pin, alt)		(((alt) << 12) | (pin))
+> +#define AMBA_PINMUX_TO_PIN(mux)		((mux) & 0xfff)
+> +#define AMBA_PINMUX_TO_ALT(mux)		(((mux) >> 12) & 0x7)
+> +
+> +struct amb_pinmux_group {
+> +	const char *name;
+> +	const u32 *mux;
+> +	unsigned int nmux;
+> +};
+> +
+> +struct amb_pinctrl_data {
+> +	const struct amb_pinmux_group *groups;
+> +	const struct pinfunction *functions;
+> +	unsigned int ngroups;
+> +	unsigned int nfunctions;
+> +	unsigned int nr_banks;
+> +	unsigned int npins;
+> +	unsigned int ds0[AMBA_MAX_BANKS];
+> +	unsigned int ds1[AMBA_MAX_BANKS];
+> +	unsigned int ds2[AMBA_MAX_BANKS];
+> +	unsigned int pull_en[AMBA_MAX_BANKS];
+> +	unsigned int pull_dir[AMBA_MAX_BANKS];
+> +	bool have_ds2;
+> +};
+> +
+> +extern const struct amb_pinctrl_data ambarella_cv75_pinctrl_data;
+
 -- 
-2.53.0.windows.1
+With Best Regards,
+Andy Shevchenko
+
 
