@@ -1,191 +1,161 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 340BD52BE3D;
-	Wed, 16 Sep 2026 14:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E72252D2D8;
+	Wed, 16 Sep 2026 14:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569346; cv=none; b=hHVIy3kUVub+xAKXD6q85WdOOhrP/V0gOO4W1y16jNEUX/P5BBmxRG+WvMIVo8xsm8uV52yn5fWKD7mcqg0epKwWKPrppfujJkCNkcN7EReTFu+i4ldT03QGCg8dhTivHzUtzYUAls9kyfSwUc4aiHfOfMJHNfkKClVP/TBYwe8=
+	t=1789569355; cv=none; b=e65BA4UrH606IhIr6X+UP/pGchMKDOWNpNpSPMtaaXjmwRZSxDb0R7+VBcgXd0oEmmZxIZxFdB7CV4tMdqkjoyjhcpKLTolVHyNtQc1ZyKcUuZrpdsBkNJypAkpYjk4l+iX6ui8yvTtIDNP7ASIT2UJI2euVruF8xnyV3O7INWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569346; c=relaxed/simple;
-	bh=Xphohe89z0TLV/9BLB5FyAHdcroVAJrXQ51HiX2RHDU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=W89olxvucUXjFamywIedmIv+iw4/uzizDKSI2Ivli9gQcRLnUjuIzMYFD8L2dq/gtt3tcjeTnlnOYrdYGJ5mniMiooXUEd8RXMWaZz3n4UdyHMuo/0KVXQr+vQ5l1xnfTPwgoBoHG0FHp0JpSfYldOFZyL0Vaa6dx+0++19IwS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SASV+5Cr; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789569355; c=relaxed/simple;
+	bh=7oUNScbLhLVmbifKAon+Dy5z9EPbwE+6Slb6PewB6wI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CFa4TRMrDMeJYSQFlCct/p8oBrMFYnXeFK9jsiZUVcdNVFiKZiOR2cKY3DuiffB8Q18jkDACTtKm+Ce11Hucs/IhY1C1GX+o9wPWA06dyUC5PHldAZhc8HBANgF0BTT9vMGujIU2WNnakp5KxBdtPXO1vKJf6on4QkCkAGlM5P8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FA5kMueD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SASV+5Cr"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1486EC42;
-	Wed, 16 Sep 2026 16:34:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789569242;
-	bh=Xphohe89z0TLV/9BLB5FyAHdcroVAJrXQ51HiX2RHDU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=SASV+5CrvkIF9rg5JKJ+cPxPOlQ4dodcvFl3MtbVn+BIXTx1CVUxkzS1/6AG83/Tf
-	 w4hEeAhxJtPV0x9Z3j8TDCTYz3ttP2fgpAiT0BLEfEpXEggWfslD83LWUxW6Gl+8NV
-	 +M3yAGtBjSktCDFe+uGXh1PvopNtNECw4XGL4vHA=
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Wed, 16 Sep 2026 20:03:05 +0530
-Subject: [PATCH v4 08/10] media: platform: broadcom: Move unicam driver to
- subdir
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FA5kMueD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284711F00893;
+	Wed, 16 Sep 2026 14:35:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789569353;
+	bh=dRzGIp8BZC3HTfXO+TCW/m41vLXjfhf9X+2OCoM1kLM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FA5kMueDfHQy6e7vnoQFHpYhwZpX7iem27nD89IbZJX2O9EUmarZgs1YNP4KAYjAK
+	 QifdGNffl2hCcco37lyGuH3hnSh6qg+tY3yJtb3RWolk50ac+Z7PmhikxXXLCDUc3l
+	 CnuwVmM9f3JUI5Ylx7XQYhbg4O78htzc8S2XmH7oHC9F2WbMqRXZ2mLRizxW4+c6IK
+	 wLhbL7RGjN9QRqvaBL7HmI70fgIgjcWABsFnNBBIbszSofHGVMPtQmr61SstIQUgeI
+	 nEaLyqYTCaYzHG7enXG6FfKdw6evl82vQs3bPs+7qBV93sYtEKnTZ4HL2C4CoAyN71
+	 tmAdxw/yHaJMw==
+Date: Wed, 16 Sep 2026 16:35:50 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
+ for reader-marked trampolines
+Message-ID: <aqqpRoTfywUuTgoC@localhost.localdomain>
+References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
+ <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com>
+ <aqlgxKGk_AEKls_1@localhost.localdomain>
+ <edc7cca2-a5c5-455c-8969-ea05dbdb08f7@paulmck-laptop>
+ <aqqONH8flTIpOUqT@localhost.localdomain>
+ <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-b4-vchiq-isp-v4-8-f668c2017b74@ideasonboard.com>
-References: <20260916-b4-vchiq-isp-v4-0-f668c2017b74@ideasonboard.com>
-In-Reply-To: <20260916-b4-vchiq-isp-v4-0-f668c2017b74@ideasonboard.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, 
- Tomasz Figa <tfiga@chromium.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, 
- Paul Elder <paul.elder@ideasonboard.com>, Hans Verkuil <hans@jjverkuil.nl>, 
- Tomasz Figa <tfiga@chromium.org>, linux-media@vger.kernel.org, 
- linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Jai Luthra <jai.luthra@ideasonboard.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5004;
- i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=Xphohe89z0TLV/9BLB5FyAHdcroVAJrXQ51HiX2RHDU=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqqqkNwPBqlbty23UoF4YfS2+UG7CHUYDyGdShd
- 6Gzabr4OvSJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaqqpDQAKCRBD3pH5JJpx
- RROnD/4vX7pbew2dB/F8NKexnr7NTFM5tztd2Iw0cRVdgVOq97Msp1oNqpWBjziMTO/gGQulQVj
- 14/DeJEegRycml6ezvrIMOSetaHhrE21NrFKPSRUyOKEw3PWC71qVvFW/13dA0P8gOhCgHa7ZtR
- suKgAJvCNBVaZ3cbv8KAxcGo9YdNUaGTSNgdMYsrLa3Jj2uGw5ahX+9N1rW4PPQi9uZeZvn3gm8
- jrJYkiezlKXVQ+GRENxBUAAgBl1nFC2H2A8W67pQe8wVO3w5PLx7D+mDNT0wJkFX5Rh0gxIyH6y
- 8+9UCM8uRaBTUz1A6cFfvsLKg9QDLKGKanh0l2WR6qEtTJN2qXmtcTGYKvHTXZoGwHXpAMwBjU2
- s1tb7/V36E4b4bW18T6qk7EYeoZpJtVWth5DyUc8YCJhkc6T0M4epLUBIg3Wy5hyi4uHBPK7TtN
- m0EGeKx4iTn0ZZIngVKvIth7c1/DgAMWvHg1fbVLT+WY4KNx13OrDv5KOBI5/eVqymqunHmEwmt
- 61kPbxlqhPpkgnLKapUiPUMkAxiX+CG4miLA4yJeYKLePBe3u008pCFSydrXr9xkY5KavllaMUE
- EbSQHiZ5PG/M7cMK2u5bVvyjA2Ox2CfTwrpvwlMz2xCXfqWLCtdbpcNc0Yws+Mltg6tGly2CIy4
- ZyDfBl7/v0XrJqw==
-X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
- fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
 
-The BCM283x/BCM2711x SoCs capture camera frames using CSI-2, and
-optionally process the raw frames using a VC4 firmware-based ISP block.
+Le Wed, Sep 16, 2026 at 07:26:35AM -0700, Paul E. McKenney a écrit :
+> On Wed, Sep 16, 2026 at 02:40:20PM +0200, Frederic Weisbecker wrote:
+> > Le Tue, Sep 15, 2026 at 04:56:41PM -0700, Paul E. McKenney a écrit :
+> > > > Alternatively the approach could be generalized to vanilla RCU, it could be
+> > > > possible to define a .text.rcu_no_qs section within which code running is
+> > > > considered as an RCU reader (with a pause while on the explicit RCU tasks
+> > > > section). It would be forbidden to voluntary sleep inside
+> > > > and to put explicit preemption points (CONFIG_PROVE_RCU could report misuses).
+> > > > 
+> > > > Based on IP, RCU could consider those interrupted section as readers. This would
+> > > > require PREEMPT_RCU though.
+> > > > 
+> > > > And then synchronize_rcu() would do the 1, 2, 4 jobs.
+> > > 
+> > > If I am following correctly (ha!), sleepable BPF programs rule out use
+> > > of RCU in this manner.
+> > > 
+> > > But your point is nevertheless valid, in that SRCU could be used.
+> > > And because rcu_read_lock_trace() is a thin wrapper around SRCU-fast, we
+> > > *might* be able to instead use rcu_read_lock_tasks_trace(), which would
+> > > skip the task-struct increment and decrement, saving a few instructions.
+> > > Then, instead of waiting for each task's counter to go to zero, instead
+> > > just invoke synchronize_rcu_tasks_trace().
+> > > 
+> > > Which is pretty close to what Josef is proposing, just with the new RCU
+> > > Tasks Trace read-side primitives.  I think.  ;-)
+> > > 
+> > > This assumes that we do not need to flatten partially overlapping RCU
+> > > Tasks Trace readers into one big reader.
+> > > 
+> > > Or am I missing something here?
+> > 
+> > Yes I think that's what Josef does in this patchset. The problem is about
+> > handling the few instructions:
+> > 
+> > 1) between the begining of the trampoline and the call to rcu_read_lock_trace()
+> > 
+> > 2) between the call to rcu_read_unlock_trace() and the end of the trampoline
+> > 
+> > So what I'm proposing is to make those two parts implicit RCU read lock sections.
+> > 
+> > So the whole trampoline would be .text.rcu_no_qs:
+> > 
+> > .text.rcu_no_qs trampoline:
+> >   __________________________________________________________________________________________
+> >  |Few instructions 1 | rcu_read_lock_trace() .... rcu_read_unlock_trace | Few instructions 2|
+> >  ___________________________________________________________________________________________
+> > 
+> > Then when a tick fires, rcu_flavor_sched_clock_irq() discards the interrupted
+> > code as QS if the IP was within .text.rcu_no_qs _unless_ it is in the
+> > rcu_read_lock_trace. Both are easy and quick to verify.
+> > 
+> > Also preempt_schedule_irq() would make sure to verify the same condition and
+> > enqueue the task as a GP blocker if preempting inside "Few instructions 1"
+> > or "Few instructions 2".
+> 
+> Ah, OK, I might be following now.  ;-)
+> 
+> We also need both versions of rcu_exp_handler() to check the IP as well,
+> given that sooner or later someone is going to want trampoline removal
+> to go faster.  Or am I still missing a turn in here somewhere?
 
-As the ISP driver will be added subsequently, move the files related to
-the unicam driver to a separate subdirectory to ease distinction between
-the two drivers' files.
+Yes indeed, missed the exp part!
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
-Tested-by: Paul Elder <paul.elder@ideasonboard.com>
-Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
----
-Changes in v4:
-- Drop old paragraph in Kconfig that got copied from previous revision
----
- MAINTAINERS                                            |  2 +-
- drivers/media/platform/broadcom/Kconfig                | 17 ++---------------
- drivers/media/platform/broadcom/Makefile               |  2 +-
- drivers/media/platform/broadcom/bcm2835-unicam/Kconfig | 18 ++++++++++++++++++
- .../media/platform/broadcom/bcm2835-unicam/Makefile    |  3 +++
- .../{ => bcm2835-unicam}/bcm2835-unicam-regs.h         |  0
- .../broadcom/{ => bcm2835-unicam}/bcm2835-unicam.c     |  0
- 7 files changed, 25 insertions(+), 17 deletions(-)
+> 
+> > And since RCU tasks already does a synchronize RCU before and after the scan,
+> > that's all we would have to do.
+> 
+> This is going to need some *serious* documentation.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0ac9a9d7b215..68ef4b2f9db6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5185,7 +5185,7 @@ M:	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/media/brcm,bcm2835-unicam.yaml
--F:	drivers/media/platform/broadcom/bcm2835-unicam*
-+F:	drivers/media/platform/broadcom/bcm2835-unicam/*
- 
- BROADCOM BCM47XX MIPS ARCHITECTURE
- M:	Hauke Mehrtens <hauke@hauke-m.de>
-diff --git a/drivers/media/platform/broadcom/Kconfig b/drivers/media/platform/broadcom/Kconfig
-index 93ba565d9a02..cab44885182c 100644
---- a/drivers/media/platform/broadcom/Kconfig
-+++ b/drivers/media/platform/broadcom/Kconfig
-@@ -1,18 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0
- 
--config VIDEO_BCM2835_UNICAM
--	tristate "Broadcom BCM283x/BCM271x Unicam video capture driver"
--	depends on ARCH_BCM2835 || COMPILE_TEST
--	depends on COMMON_CLK && PM
--	depends on VIDEO_DEV
--	select MEDIA_CONTROLLER
--	select V4L2_FWNODE
--	select VIDEO_V4L2_SUBDEV_API
--	select VIDEOBUF2_DMA_CONTIG
--	help
--	  Say Y here to enable support for the BCM283x/BCM271x CSI-2 receiver.
--	  This is a V4L2 driver that controls the CSI-2 receiver directly,
--	  independently from the VC4 firmware.
-+comment "Broadcom BCM283x/BCM271x media platform drivers"
- 
--	  To compile this driver as a module, choose M here. The module will be
--	  called bcm2835-unicam.
-+source "drivers/media/platform/broadcom/bcm2835-unicam/Kconfig"
-diff --git a/drivers/media/platform/broadcom/Makefile b/drivers/media/platform/broadcom/Makefile
-index 03d2045aba2e..33a89bdb0029 100644
---- a/drivers/media/platform/broadcom/Makefile
-+++ b/drivers/media/platform/broadcom/Makefile
-@@ -1,3 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
- 
--obj-$(CONFIG_VIDEO_BCM2835_UNICAM) += bcm2835-unicam.o
-+obj-y += bcm2835-unicam/
-diff --git a/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig b/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig
-new file mode 100644
-index 000000000000..93ba565d9a02
---- /dev/null
-+++ b/drivers/media/platform/broadcom/bcm2835-unicam/Kconfig
-@@ -0,0 +1,18 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+config VIDEO_BCM2835_UNICAM
-+	tristate "Broadcom BCM283x/BCM271x Unicam video capture driver"
-+	depends on ARCH_BCM2835 || COMPILE_TEST
-+	depends on COMMON_CLK && PM
-+	depends on VIDEO_DEV
-+	select MEDIA_CONTROLLER
-+	select V4L2_FWNODE
-+	select VIDEO_V4L2_SUBDEV_API
-+	select VIDEOBUF2_DMA_CONTIG
-+	help
-+	  Say Y here to enable support for the BCM283x/BCM271x CSI-2 receiver.
-+	  This is a V4L2 driver that controls the CSI-2 receiver directly,
-+	  independently from the VC4 firmware.
-+
-+	  To compile this driver as a module, choose M here. The module will be
-+	  called bcm2835-unicam.
-diff --git a/drivers/media/platform/broadcom/bcm2835-unicam/Makefile b/drivers/media/platform/broadcom/bcm2835-unicam/Makefile
-new file mode 100644
-index 000000000000..03d2045aba2e
---- /dev/null
-+++ b/drivers/media/platform/broadcom/bcm2835-unicam/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+obj-$(CONFIG_VIDEO_BCM2835_UNICAM) += bcm2835-unicam.o
-diff --git a/drivers/media/platform/broadcom/bcm2835-unicam-regs.h b/drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam-regs.h
-similarity index 100%
-rename from drivers/media/platform/broadcom/bcm2835-unicam-regs.h
-rename to drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam-regs.h
-diff --git a/drivers/media/platform/broadcom/bcm2835-unicam.c b/drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam.c
-similarity index 100%
-rename from drivers/media/platform/broadcom/bcm2835-unicam.c
-rename to drivers/media/platform/broadcom/bcm2835-unicam/bcm2835-unicam.c
+Yes :-)
+
+> Also, what would be a good way to add tests for this to rcutorture?
+> Designate some new rcutorture function as being in .text.rcu_no_qs and
+> add this as another type of rcutorture reader?  Or is there a better way?
+
+Yes that sounds good!
+
+> 
+> 							Thanx, Paul
 
 -- 
-2.55.0
-
+Frederic Weisbecker
+SUSE Labs
