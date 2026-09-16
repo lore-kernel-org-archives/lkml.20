@@ -1,150 +1,150 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010060.outbound.protection.outlook.com [52.101.229.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB4B4457DF;
-	Wed, 16 Sep 2026 23:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603151; cv=fail; b=AEIUeAfOtRmIpfQZHtkwoadJ5NiwcdoW/sjb7kPX7Dt7Xjj9N5ufP+T36bO7/saMjyET5EowvKY+Tpl4rpii4bGzU552w1/Uy8iKO3//gDOjdpsoO9xbIhXOpfvq+mMRDaGHe8eLLxcnBn++7/9CmnZP2bxo6v0Rpcf8R2yv4Ww=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603151; c=relaxed/simple;
-	bh=UknYgK3+eitZyZkVK+HR+FI8FWE81VjdWBjxiYbAR5w=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=o7/6N1I7p9H6VFApMxMaeP+boX7ng6hRk3Gz692nXGo/0/rC4B2KWnlHbR2zkukEVSg/7NrerN3mv1umCqHHmboCs4StBtX6hSa4IskC3Jc8g28n7KFIgFxLb6m7vNZaDFq6hWjDD+xPlRM5j11WOK2tKeSxqYANVWet9uzZocc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=UOySMT8+; arc=fail smtp.client-ip=52.101.229.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9E248CD7F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:59:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789603177; cv=none; b=QL28YZOdtzFNemH6WPZAtYNJKOj2x7GvYscRCyd93FnWSBca6Z8oZwDH7DUwJXONhJJjtmrj3Wc+W9v7ubmba2xvnFaOxetQIhTxBeOV00qXLP0qpHqItL4e3UO8yxV7XcEvGD5uAtrDwH1e05i04Fags5nVEaRFBoZ6d86ARNA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789603177; c=relaxed/simple;
+	bh=iZDTSEutdlzrNt+HsK0gMg7KCjGzgbTctzIAFcA3ZWQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=n6N8Z+jaCwY4jQJFN7jVzFTDbyYeVoFaIMoQtVFsHuFC+PDdQD7s5AncCrxNS8yuDr7yDPUooO71TudjbCOnx50ojuy8fzOfrP7Oh/etKyHwMbGGJ5jP7gPyoyb2hDcppCQ45vJXV89tlOpYuo5fGfJd38XVYcl5hvbMWpD6sCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=LEYFL6rs; arc=none smtp.client-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="UOySMT8+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eojx+A33rowovGYO+UuMtRphcWEjEZJnwlvBiTmyaAl8Xlsa03z+ITD+R3atawMLGf6q9Qdh7gRMZ4Dep1JnccPYVK7eChIw+eTyoXweuQTWZ9rLsqTyQQYpXAStFicWZn/TyMea3ivG4xVvwNh0QaaPMm6SrTAZK1yvWDar3pbK8zZc6wjeDSujIfJ8qkT5lcLn11zkDqj3NrVAArYULpZzPYRWi8q+KsP9Ih1mvbck89xW4SMDcnki939DfrAtOvia/3u7fCb0d1G1YUhMa4iC8bOpxZNdNoRZRhMxuCx+vnQnxkeVGV0aXAOiKwebdSt0BfutS0p0aUNax+bQRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DWxVxOo2SGwl2ResFwz+O3479wsd7r0m7mKSfK7aWxk=;
- b=RBjRD7CJ0M0fqxkyFTWMFa9JTReLpX4tU4j9/Ddt6ZRYCdElcqrrBzZ09y0liWkx1hb6qnEB6A7VZC0zg0nt9bz7/KksNh5hbnSvFR6uUftOenJa3wiSmxVp2sc0Borui8rNmUwB8H+4HbGttft21ULgQHT9+KyfluYINv66LhkoF4s5Gjf0GVDDFjC61krIpq0j5W9R6u8OjFVvLH6puK46Ut33sbACMCm6bGeFEfIxkGB72UXLBvZinwqWdV/zcwa1QZ8hkASzFWthUykTYXo3ikzVpCf92vOn1YKlC2PkWSrRRSTHsi7Tn7xUNApvuunNnFmjWlSvIoVbLa/NnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DWxVxOo2SGwl2ResFwz+O3479wsd7r0m7mKSfK7aWxk=;
- b=UOySMT8+n2M2VoB0nHJ8B0mFBwnKh/rpJm46Qc+0FlaOBAaktMm30f3isbKNnBpvPXpPqryGpm0Rm63KnnQAHVyynLHJwL3fMUWb5ugsMiPzp1XZX5G0ViQzJ70GsaSNWryuwNct3fSiQHDXPLgm3RKbB4waLgpph6ZazR5iWE8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS9PR01MB14121.jpnprd01.prod.outlook.com (2603:1096:604:367::5)
- by OSZPR01MB8035.jpnprd01.prod.outlook.com (2603:1096:604:1b0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 23:59:05 +0000
-Received: from OS9PR01MB14121.jpnprd01.prod.outlook.com
- ([fe80::e5f:713b:1ac1:961c]) by OS9PR01MB14121.jpnprd01.prod.outlook.com
- ([fe80::e5f:713b:1ac1:961c%4]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
- 23:59:04 +0000
-Message-ID: <87fqz8zr22.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: broonie@kernel.org,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 08/20] ASoC: audio-graph-card2: Fix device node leaks in graph_count_c2c()
-In-Reply-To: <20260916071631.1966635-1-vulab@iscas.ac.cn>
-References: <20260916071631.1966635-1-vulab@iscas.ac.cn>
-User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 16 Sep 2026 23:59:03 +0000
-X-ClientProxiedBy: OS3PR01CA0064.jpnprd01.prod.outlook.com
- (2603:1096:604:de::15) To OS9PR01MB14121.jpnprd01.prod.outlook.com
- (2603:1096:604:367::5)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="LEYFL6rs"
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so94112a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:59:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789603175; x=1790207975;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=V0OARD0PLF4mIwzcACpuZC6ushW9KkulR8L/wcLq6TE=;
+        b=kfHMiLb4n0xwxU0F6c+it7wbV+FXLkr+/sFNWAl0Xyrpse7VLvCmvhH6aX/DjhTVEE
+         Zq2XzJhbIFqhBxc9QKuz5GScL3uZXSsb3El6DijKpmbhrqh9b6TZRcK3wVr7EvSzWInE
+         aSRTiKShkQNGZT4az0ft5w34fiiBGZM1AARG+7oRDnAtJujPKNdRaHyoTuSHT326jba+
+         ruTaxryYrPcnlMVFP6+XNpKOooGCKeEe3YLvDfBiUyzxCuYJ1AtHALzaHNFwS+QDgIqH
+         gY/Q2LRYedeACwOoF1jZo3ELjxwliWJf3isc4ukvwFESjOwS03NnuGozSLbD/H6ofS+d
+         JGng==
+X-Forwarded-Encrypted: i=1; AKwUvBxwk9c2ULM0f+JNFC+ccA6cm2q2GaS02P4hK3HdKrVTlY6ccWfZGV4a/bqbkUuTXxMzNXRRcC9WWOAQ7W0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXLpHQVM57+vpf4rTPTj5cYRwOvp7OTabsWYF3cNN+KMkyHQZ/
+	HCQ/ivlh3Mjie82ytxim4vNEjAMi2clrbWkvKN+WLtWM5F6zvW+4sOlJE+gt2ck3dzqJYRl+sO1
+	qMVVnWMuT+pFwzZCoUguoOVEqXgD7lAP9eOVGizVvtzTZ0pfxn9Wkxvj+dqIQc88r1u1uH3UjlM
+	VM1fV8PgXL/tUqPbR1JslXx1WRnXWLKsHveFEKDBZr6XZPq5OAkDblAs6ZjxFiOw0BJpOww70sh
+	wcPjZ+XuQ6bV4F3A0NJIYmn
+X-Gm-Gg: AYBFou0E6l8ecNvPJldz/9RZ4T3M4OyelHKcp5tMxs7vTFUcad4Eo62NDdZlHjMxY3b
+	IYqHBSiCvMKxuhhCvXAI5Q6NDp9IdwMVaIzMfhfVdSOnobjCLv4I2SPRMHC4iBEUfwt8uN7pUM3
+	xrReb8gUDjdXxGxXTN5oCwCaiw5k60QQgXED7ZfN5Fr02ncB9Eckle7fXe8/WfVnx4Me2yzQBRe
+	UGs/9qnbMBS3mlYGDVCliCg3Us2o9Ol9Vy02hqv/Vc+wA6QafVDImku4XGeCR4GWg7sa49WcWPw
+	+WJ21/yA1cT65PNMabVjszBDG/LfkCYc0WjucE5ENXYJ1Hr0L0CkVtlh6U/RB+dZ7/sLWyHsiux
+	JHdLaXYnQ5L/EThrYoG4czsnHBuu8pRnuh/u2cSMZ01ikVZO8sqCb+OpfncLzGODZVQLuFeAjc3
+	RjfLRP33VorsykGuxcNfQbnZXxlJNnMvVhZbTT1h/l/nI=
+X-Received: by 2002:a17:90a:1189:b0:39e:21a7:5df5 with SMTP id 98e67ed59e1d1-39e21a761b4mr6613328a91.24.1789603174902;
+        Wed, 16 Sep 2026 16:59:34 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39e35d7c196sm560344a91.2.2026.09.16.16.59.34
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 16 Sep 2026 16:59:34 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1a439db36so214501a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:59:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1789603173; x=1790207973; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V0OARD0PLF4mIwzcACpuZC6ushW9KkulR8L/wcLq6TE=;
+        b=LEYFL6rsQkD1A3c7ONFpHBihET+pNZcB87/twudVGqsDB0slzUmKc61lGKQJbRqFdp
+         G/jqFjY26fhX5YJgin6V30Q+9GABBtFFWPDWltD7aze0Rv/h+JWCv/6Z5kaRp/XcwgPj
+         vmL++FjuuB26s6N5eGBAGwcHwoC4tmwsxDU8o=
+X-Forwarded-Encrypted: i=1; AKwUvBy3W5AHTt8gq7NcZ6CcngMWvw+Mltl7aLsBkXFYeVeLP9/kKG/4f5QwVIN9p3hwn49vT64w+ZQWWrP/K7g=@vger.kernel.org
+X-Received: by 2002:a05:6a20:e212:b0:3cd:7ba2:e669 with SMTP id adf61e73a8af0-3dd5f45d85bmr11067014637.10.1789603172972;
+        Wed, 16 Sep 2026 16:59:32 -0700 (PDT)
+X-Received: by 2002:a05:6a20:e212:b0:3cd:7ba2:e669 with SMTP id adf61e73a8af0-3dd5f45d85bmr11066949637.10.1789603172424;
+        Wed, 16 Sep 2026 16:59:32 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a175sm11074324eec.9.2026.09.16.16.59.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 16:59:31 -0700 (PDT)
+Message-ID: <9a741390-503b-403d-a34d-d4919edf1d8c@broadcom.com>
+Date: Wed, 16 Sep 2026 16:59:30 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS9PR01MB14121:EE_|OSZPR01MB8035:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe679055-98c4-4b4c-42ed-08df144e7c56
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|52116014|366016|376014|1800799024|38350700014|10067099003|11063799006|22082099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	15VCT1Ej469RQ4HLB/kiaWJb3amY+15FA1Df4hT4ePxkz9RVgw8To0gIBdCHwmCk0b2cxZp302mJCxqhJAV/7ATZaegiCt55b30kxejlbVS2u1D5WM+PVk8ELx30nvXUDQA3f1wzFRUeAr9wh1xhslU2fRpFHjeWpJOppmGcxgzDoeSam8E+elmjHmg6IhGWbIABeoNE+s09lN5t2tekoctZuOUrlAOYlEM+wMNN2H15FUF9KRGytOFNW66XD6gPvfiYRU1oZQK7es+oEo4mpdNj/+KhypwFCr8uLyzUtacNQAXgHU6aXBKJLk9Bkka9dZTsz6laUl65pwcslZ4r8hcFZv1KMekDdhdOC3qZM2QhQtZAw5gsnfB9i1fwK35Ope7cJeaLO+zSMzmA12Q2MDTSlwIDD3sLUPuHKU+QdI+8m7qE99mrzJxFCxGG2TRtwvGLHtDDQMDNbtrGQywNJ5UZLutjnQ6cefDSxMgM/lABfqPRIyD2XKcz3hMzgQsIecYWKdBiMb/jpbBZg7jiLG0EPuWY/KJm915lU3Qb9gRtifEx4by/gOz9aV1TfU5oAKFx7hJ3qHhkszC/qAkH5Oftnp/JIhdFWljendKykM6nKMt1b+5l7VMo/D5jo8Um5KfSTB60hu4CEuoBjD1pnUhmqHJXnrp9fDcE/Y8N+rL4CLTpREjZb1ZJaI8NvSx83OVW1uD+8iqhlMGVX3g/8vyvA8k4BQXce5JkKGythxw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9PR01MB14121.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(52116014)(366016)(376014)(1800799024)(38350700014)(10067099003)(11063799006)(22082099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?D2vZCpzhWmbzu1/iE1AOOgQEO/vcn1tUVBJwXKOG3YEBRQWQTBdKQlDJ9zfg?=
- =?us-ascii?Q?CjLM4gAKCq2ZUj+0iM60xnsuA96VFkuczyRJtrvZ5D5A6MKHtl5tw14lExiQ?=
- =?us-ascii?Q?tXfugkJpwyu1u7NmSi8vKjVxVyX70uO+n1OCIA9iH03rzJWhjOsDvKpI20SQ?=
- =?us-ascii?Q?/hM8Q8m2eBXDYpcOl2WYVZL9G47jyBgjWFE4ckD+oTMYBfDBNQ8eFuJs22gz?=
- =?us-ascii?Q?mhiSUJS+UXgcPcsxwSnjD9h8BvZbvtZw9/9aEzy9kcmmY1Ui2Ymb8p0Ktwdz?=
- =?us-ascii?Q?9tV4kdIdlUhy3N6brkPVkFDo7149S075TF9qv2i+YR4PZ2RpMw3/Dwl0jiX7?=
- =?us-ascii?Q?XnuKGvJ2WnmdgNywhJeFfJQnDwPGAiBWVTwY6oKRnKYoncCQUlUHSd4v2UhO?=
- =?us-ascii?Q?BaI2kCGHG9cp5ghqHk3QsCaJAhuh3SOR01ZEUY5WEzrI342XZYlAdnIyMkKG?=
- =?us-ascii?Q?x2N0QB+z1pjy6IoN2Nyqnw5O5LNQN50je8s627K5XF8zAOIzalbM9b3DUdIr?=
- =?us-ascii?Q?Wuh6+v8aqRCSPhQ6VvZ7erBc74HY4f2r5Fe9wLfrGHTsin8V6tZTFIhL7Mvp?=
- =?us-ascii?Q?vPiwdIAvhJFTkYY67UfSuWDDw1igO5q6+3twWSHrbPXtD/IVuNpLWIIoJx+3?=
- =?us-ascii?Q?XEIFG6xXtjTx9sMJTQPc41+kP2PLZOeSVeJTnR5/F2emHesrxdOUSIJNLNQ4?=
- =?us-ascii?Q?hGce38e8EX/4o6RaRAhmTEY5RRTBaQJWw1kUL1sB5kwE0IGfp9prIjog7Ocr?=
- =?us-ascii?Q?EvOQ+WDOVJiLwO9I/Sftromu8lJDSs3nesQ+Ai8KvZ0F0z++T/zcQxD6SnN/?=
- =?us-ascii?Q?R4JItbE5GHK99EKfA7kpJg5VgAJIXrV5IyFqD0RueHTOhNcW9lDDdn5b0u/H?=
- =?us-ascii?Q?RhASXlK6xwN9XA5HWDaHnYdtOc4+EIbF3eVihvkD9G4XUAR8xRvGsdaRuz0g?=
- =?us-ascii?Q?yI7FDwU79/0+a5EHzkoUXtr8XgLP5x3MfyF75hCxVvup8YKvT5kR0afP6Kqf?=
- =?us-ascii?Q?COc4tQQPP2/iqBXGYNklfPol5C1Ir6rzC9NczWxvK/yJ0rrGzJnJW8L3IcVh?=
- =?us-ascii?Q?9opt3Nl2npz9XXrHT54f4xVttMS2gmPPsrei36Xh72Vf+2n//G8EISdTqimv?=
- =?us-ascii?Q?UJu7bCmTooxKyOAvF6TQLEHQJsJoDmDkcW6hnBhISJObqzrU1MIP4dppHRpD?=
- =?us-ascii?Q?UVcrR9KUbicJCbCWwB/aSOz+hO91tZauwgGpa4/9nt8p3sptGv/Pd2EYFnm+?=
- =?us-ascii?Q?TIgzXNAeNbxX8FW2Nn215DbYXreIvOCe5KJi8js51j7RkAwuyn0Mw7kH072w?=
- =?us-ascii?Q?MP4d1AxRAZzCbeHM/DiGWaLo4nGtChw3d9IpDMuAOuI/aQIVo6ZRQPHBn6Xf?=
- =?us-ascii?Q?+7bwTOlDYozBSn2U54HRZ7yhSbYmZLk+vK6WgdMVW608HlXRRi0WhwVLgTGC?=
- =?us-ascii?Q?toM35xrJPMB+rE7IKKIQ9MLFUQ6cN2H+WTCeXLcUw/uROmfmv6AbAa9Mdv+V?=
- =?us-ascii?Q?Bp9nLBBfsKLeKSlb4lY8DHLyk1hAui04wLxzayLFdgiIOr6SbzpJp90pKmQj?=
- =?us-ascii?Q?+5jH7LwW1Sfw2uKXilsiqc4DYc1XAPl9yeDl3PSO7ui6InF0nknjptDV4uk5?=
- =?us-ascii?Q?AoGTDSCW3rtoLgxR4fjuHKQrCgTfSR9VCP90cPc0x6ywYbddr1yKv5HiimfB?=
- =?us-ascii?Q?pV/28P7pPcy/4WbrsMAe5V+Rlt8B7JkEJTJfkTSMBenqw5ZNs/HDfIu6CopS?=
- =?us-ascii?Q?oe9h7Ja3kw5NQC5/XkkbUeKfdFiS2rblyfDqKb8jeNz45auqbFEP?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe679055-98c4-4b4c-42ed-08df144e7c56
-X-MS-Exchange-CrossTenant-AuthSource: OS9PR01MB14121.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 23:59:03.8976
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y8t0HWaa61hHf02+/nEIeAviB2HeU5hQHyZshTgB3QQ3fwgfpal3xXDkFQ7/FF6kAmjlkRnwEHIJ21f1RH0dPsu3E0A3Ui7O34d6WrRsBseWc2VIkrgtkV4yuVK0Feou
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8035
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/13] PCI: brcmstb: Remove redundant const specifier for
+ struct fields
+To: Jim Quinlan <james.quinlan@broadcom.com>, linux-pci@vger.kernel.org,
+ Nicolas Saenz Julienne <nsaenz@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ bcm-kernel-feedback-list@broadcom.com, jim2101024@gmail.com
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
+ <linux-rpi-kernel@lists.infradead.org>,
+ "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260911233541.1650895-1-james.quinlan@broadcom.com>
+ <20260911233541.1650895-2-james.quinlan@broadcom.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20260911233541.1650895-2-james.quinlan@broadcom.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
+On 9/11/26 16:35, Jim Quinlan wrote:
+> All of the variables using this particular structure are declared as const.
+> There is no reason to declare its individual fields as being const.
+> 
+> Signed-off-by: Jim Quinlan <james.quinlan@broadcom.com>
 
-Hi Wentao
-
-Thank you for your patch
-
->  	struct device_node *ports	__free(device_node) = port_to_ports(lnk);
-> -	struct device_node *port0	= of_node_get(lnk);
-> -	struct device_node *port1	= of_node_get(of_graph_get_next_port(ports, of_node_get(port0)));
-> +	struct device_node *port0	__free(device_node) = of_node_get(lnk);
-> +	struct device_node *port1	__free(device_node) =
-> +		of_graph_get_next_port(ports, of_node_get(port0));
->  	struct device_node *ep0		__free(device_node) = of_graph_get_next_port_endpoint(port0, NULL);
->  	struct device_node *ep1		__free(device_node) = of_graph_get_next_port_endpoint(port1, NULL);
-
-Ah, it is confusale part, indeed.
-I have confirmed that your code seems correct.
-
-My personally, I like 1 line code for port1
-
-Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
