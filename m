@@ -1,56 +1,42 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED763115AE;
-	Wed, 16 Sep 2026 14:50:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8392F2C0F8C;
+	Wed, 16 Sep 2026 14:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570215; cv=none; b=OnU7ihyE+6jXtOHVkpDGdaz//wbVl4aqCWZ9FDYGlLTkwSqvvESZzjhjwtuRDJFM+vvBX3/GnS0OZ1O2Q1zZypRI/uASPF2RxEnhLKT4Pq9hKviWcm26Uu+uUjMVeJUunnSTM6hV6IcSLh0UGVPp/ROqRxDnjPES5SQ4yM1wvp8=
+	t=1789570248; cv=none; b=fPKgJjWnW7fDZIRBFrH9RX0OYnc1RXeOi6gcPa7AV93Bm1LPFMiB2q/M6wvDfVWOr84f3WjI0Tfl5D8m2Zq7HQPXtJxiFhvCRKG9+pvMIpT3L92wShmIuHMK2gh3N0iOM7IDihl+6gmVPsrZ5dSv7QDHku48+xWH+srabBGyAYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570215; c=relaxed/simple;
-	bh=T5oJQRvlKGIT5Z+xpOUQyew7rmZYZtulwLyGUmPxkbA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YF+QsaKnKrSaa+6jTpoT2f8FsIYYxeWvohlBHte+vJxAhoE2vxP1YOetYHzbg2VqU1g5iYqU02BZ0zV2okmWNh/D9Ecw+ec+jXsdj1SyBbguHPQgHOKiIn3JJsrtGzJwptAf05gYLRMoQIhM0G4NAOtgv1rcsFQW8pL84Ahij3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=2iqH+ziL; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789570248; c=relaxed/simple;
+	bh=RhVLTWzVaJaLgfP7/phIIe+ekkV4rdTVEVwEjVESCC4=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=P+G5T9UQ3Y8mJtXc17ulgqFABx1XtRQj6yXL47ETdUIjAbFJ/gx1lxtAC9xGxDFHgwJgFTnbcIf8H5UrFLM38rT1Wxpae55wjKVJmNTMESSg1hHXfHPWgv8Dic9z6nXd8tyFisbT4CVKvJVNp1x1FeIKq0VBTOALwV6Nynwc0jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j1Jr2asw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="2iqH+ziL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=lGQP+UWUC6IA+x0OfkhU76QWikjYeprvqcMNeO6W3jM=; b=2iqH+ziL6DOHx27n8oKGzt+bMN
-	E3EvR7lKy/+6Bl/eI6pBGWSL5sVW1hmN6pKtXWiuP7C44euWLzIZZa/ow7qoDSdLAeySKEVpORbZ+
-	En1TlJV7qo5Wnrck/0zJISOQ4eg7VB+Atq6WCeZ0pIswCobSGx/aKOIccymUC5i7RPyE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6qxR-005UoK-NO; Wed, 16 Sep 2026 16:49:57 +0200
-Date: Wed, 16 Sep 2026 16:49:57 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Alastair D'Silva <alastair@d-silva.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Subject: Re: [PATCH net-next 1/4] dt-bindings: net: phy: Add Allwinner AC300
- EPHY binding
-Message-ID: <dbf2768d-1c83-4524-98c4-156ce4d16bb2@lunn.ch>
-References: <20260916044119.475666-1-alastair@d-silva.org>
- <20260916044119.475666-2-alastair@d-silva.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j1Jr2asw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2AC21F000FF;
+	Wed, 16 Sep 2026 14:50:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789570247;
+	bh=9n9CTHcuaXijNoFZR6DZmPgiz11kru6+rNJJzvGm2JI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=j1Jr2aswkdTNWl5sS0SE0HNk/mgydrHOcEq9xTtwwmAXXzqKwaZTRXHUrYQKHsZFC
+	 kOXVjd9yGc5jFlTpqRmBHCDwtaUEm16fp2vgWSDGOkFsyDHnf902ox63Ux44efukZa
+	 9vFQ5OHtX4eS6OxvnuBrjc7J8CJgt8Y6RSPWI9Y2qVBLXziCoJGbowm8Zad4whnO81
+	 sHJwD2BVnzwwNFOlZeMjKoPDl2Klztbn+HZg5LvA1ILP0bG3bxcFYhkTSY4/WPIlYY
+	 4OodtnTuVnCicd0cL2oYHcJRggjwqkXKwhyqJQl/02B2RCo2BatJR/IxdP09YRIL0s
+	 uFhFO1pcB01Ow==
+Date: Wed, 16 Sep 2026 09:50:45 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Angel J <iamanaws@httpd.dev>
+Cc: linux-pci@vger.kernel.org, bhelgaas@google.com, robh@kernel.org,
+	herve.codina@bootlin.com, lizhi.hou@amd.com, andrea.porta@suse.com,
+	florian.fainelli@broadcom.com, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	stable@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] PCI: of_property: Omit bus properties without a
+ subordinate bus
+Message-ID: <20260916145045.GA922158@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,18 +45,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916044119.475666-2-alastair@d-silva.org>
+In-Reply-To: <20260912043106.10715-1-iamanaws@httpd.dev>
 
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: ethernet-phy-id0044.1400
-> +      - const: allwinner,sun50i-h618-ac300-ephy
+On Fri, Sep 11, 2026 at 09:31:06PM -0700, Angel J wrote:
+> A device can satisfy pci_is_bridge() without having a subordinate bus.
+> The dynamic OF helpers for bus-range and interrupt-map dereference
+> pdev->subordinate without checking it.
+> 
+> On a Dell XPS 8940, device 0000:00:00.0 [8086:4c43] has no subordinate
+> bus, and enabling CONFIG_PCI_DYNAMIC_OF_NODES causes an early boot hang.
+> 
+> Generate bus-range and interrupt-map only when a subordinate bus exists.
+> Keep the node and its remaining properties for bridges without one.
+> 
+> Boot-tested on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=y. The
+> system boots and the node for 00:00.0 retains device_type, reg and
+> compatible. The other bridges retain their nodes and bus ranges.
 
-PHYs don't have compatibles which are vendor strings, only IDs or
-c22/c45. PHYs get probed by ID, not these strings.
+I think this is the right approach, with something like this included
+in the commit log:
 
-    Andrew
+  A bridge (a device with a Type 1 header) may not have a secondary
+  bus allocated (pdev->subordinate), e.g., if there are no available
+  bus numbers or the bridge secondary/subordinate bus numbers are not
+  writable.
 
----
-pw-bot: cr
+I don't think it's necessary to connect this with [8086:4c43] because
+I think this situation is very common, and I don't want to leave the
+impression that it's related to a Dell system or to that specific
+device.  It's just a bug to assume that pci_is_bridge() implies
+pdev->subordinate is valid.
+
+> Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Angel J <iamanaws@httpd.dev>
+> ---
+> Changes in v2:
+> - Keep the dynamic OF node and skip only bus-range and interrupt-map
+>   when no subordinate bus exists, following review of v1.
+> - Tested on Linux 6.18.44 with the v1 guard removed.
+> 
+>  drivers/pci/of_property.c | 14 ++++++++------
+>  1 file changed, 8 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
+> index 75a358f73..acd2e0f70 100644
+> --- a/drivers/pci/of_property.c
+> +++ b/drivers/pci/of_property.c
+> @@ -361,13 +361,15 @@ int of_pci_add_properties(struct pci_dev *pdev, struct of_changeset *ocs,
+>  		if (ret)
+>  			return ret;
+>  
+> -		ret = of_pci_prop_bus_range(pdev, ocs, np);
+> -		if (ret)
+> -			return ret;
+> +		if (pdev->subordinate) {
+> +			ret = of_pci_prop_bus_range(pdev, ocs, np);
+> +			if (ret)
+> +				return ret;
+>  
+> -		ret = of_pci_prop_intr_map(pdev, ocs, np);
+> -		if (ret)
+> -			return ret;
+> +			ret = of_pci_prop_intr_map(pdev, ocs, np);
+> +			if (ret)
+> +				return ret;
+
+I think this is the best solution, but I do think it would be a little
+cleaner to check for pdev->subordinate inside of_pci_prop_bus_range()
+and of_pci_prop_intr_map() instead of assuming things here about the
+internals of those functions.  We could just make them return
+immediately without doing anything.
+
+> +		}
+>  	} else {
+>  		ret = of_pci_prop_intr_ctrl(pdev, ocs, np);
+>  		if (ret)
+> -- 
+> 2.54.0
+> 
