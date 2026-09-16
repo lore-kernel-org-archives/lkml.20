@@ -1,62 +1,51 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7544134BA42
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D0F378822
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:12:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571494; cv=none; b=A2nUJR7kKolVI7i+ED0KqJLbJpw20MEy2YgdSXzOQQpguZTAGrhrKHeWxLcx4GuF8aIlvMi32LZI2fitUmO/Idc5CADz8Fk8etTm99VHCS9CgmOn3be4Nqke1kV6Pt82B1MX3dB1CGI0XEtteCykKOVBWkVT18I101cQ3XK6td8=
+	t=1789571539; cv=none; b=gP0LS+NZidjKOQJSupLYDQj9bZfVSGov69ht+2cAlK5C1E3jk5m19k72d0Ftaul2FKaGuVpfhVmmP4rcaP1+EgeVwcCOVNEGhGkhu1CYFJqiEYlDskJpn1XU2REBm9wIy1XXbjjdV7Odgq7zSqU5JWF/D2h6Ml7ZLoM4cwkeep0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571494; c=relaxed/simple;
-	bh=KLjAsmeeOIZJCMWKS89bqsF0L69UzKvkBuEnkD4hohs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EmhQnGw8I4sBqBzk6WCPaYMyZSJmePjQb6OkjrvH8GmCVDN7pM6c7/i8K1g6LXpVEYwJ+5PkLxvWOFhtt/gh3QmA4TQfQX//xRLpuwJR/pnPP1U5gIp6QYloUpD3MD4rcR/+/f+oZA0X1xDQW0h5m8JC1tqq+ACtPgEev+DoU/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=G+SCWkmJ reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789571539; c=relaxed/simple;
+	bh=h/4pJke9npT07KHcze9UxFGBbJz+qQoBKGe8nr3KocM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=rDBpSG413bSOTZHKcgyy8/CTq8RzwYRQ0K82AvNaiE7nl3gZCvYZ/rAWdG05AR2zWgY2cb/3JPb0qUUz8bv7HH6NeBwCJ7g347f6y3h07uKf6O0x2BHZuXJ+6F3GhNEdlhnyGxhW+Q9vzOLtjy5gHlw8jFT/FgCxU1Qw4hVxlAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AimCvowf; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="G+SCWkmJ"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 1391B40E00E8;
-	Wed, 16 Sep 2026 15:11:29 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id hI0MaEUscZXt; Wed, 16 Sep 2026 15:11:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789571479; bh=Y4gQCJuCLWVMNjrLR3ITyxCKiMN9VSOVUnFo8wvE85w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=G+SCWkmJAFBTS8hhZgcJ7AuaYNOFdBuuqLVT5KXFqNDVofnomEL9lP6iTrwhNoYbs
-	 xxKjqXyawW6aSPJigEKZaOQUCIFwwGypX9SpS0eLHjrXb0CJ1byqQWtPEJv9D3WCWs
-	 el5WEWJ6XvDlHxJlxJ4Wu65N5eFqrr7eM3NLzDFhd1D68luW9RB2Mlg7H7QAVXIs+j
-	 Df1p7W/iOpHV8GSqY4LWy8zsU39Ii+YrROwGHIwMhKvx6GhONLl24x16NT5nq3OV3P
-	 O7i9lAijx8Ki9L1XV8gUipbE0DeVuX5Y5dPnn6tOGpkyi3yfuxlZES1AqN480lPol+
-	 Z1XG4rEcPHrO/9cFWqVsZxyP7ddyNlxQ8OocLL2DnMs5HjbiYGA4dXsMwWEQSYteVj
-	 MGtw0nhwd3BOCEPH5u9V5No5eXQ7G3MoUfoBSncwnYxNbn2RQSwX0ICT0gQ0pEu1sS
-	 gZ5+46rzemdVWF6npS6n9zDeY1A5nO8EIrySV8BCLlq4TEhLgdYkMu5g98BHGA48XW
-	 HAWQKBQCVYAfMez95Pg4V2N5UQ5l0SjjCsIe6Duh3ofPppHo0jZZvy2cWk2Ep/x3U8
-	 ITTTMNNG1DrngHKszhpW+g3u5xH2IGjaz1cQKTmhkL9F1FtVnCUYich1WZ3S5G5a8W
-	 ydwgRSYSy9DTRogwRhmJEASU=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 77B9840E015B;
-	Wed, 16 Sep 2026 15:11:13 +0000 (UTC)
-Date: Wed, 16 Sep 2026 08:11:10 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: "yolezz. secret" <yolezz.secret@gmail.com>
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>, mario.limonciello@amd.com,
-	x86@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] x86/amd/node: Release reserved config regions on init
- error
-Message-ID: <20260916151110.GBaqqxjqPlcUAORINT@fat_crate.local>
-References: <6bd2cad5-65ef-4f3d-a146-d91f120c86ad@amd.com>
- <20260915180543.112708-1-yolezz.secret@gmail.com>
- <20260915222010.GA3101@yaz-khff2.amd.com>
- <CABLVixVbsR1Au=ReUUR2tpzhy0+5L8rm6VAAkrwJKR1ahR1sag@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AimCvowf"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id F2A11C653E5;
+	Wed, 16 Sep 2026 15:12:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CF7E060337;
+	Wed, 16 Sep 2026 15:12:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D80FB11C7B02C;
+	Wed, 16 Sep 2026 17:12:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789571534; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=quuIl1qQ1CatIDWdv+/finp0pmoVfonu/MDoOFq07A4=;
+	b=AimCvowfLlMvokrdjJX5e2YCiM28fEhNcPXWxmeWSB94JsYqVuHiSBLg7yjTCjvfK49btr
+	2bCB2l1AbcJoB7Ys8jM47/Uc6VuirvZ6/qmipEHIYv6Eh58gFgDWHIQEHoWPVnWbOWxSTf
+	IhF5SRLQQzzWHJMsdmkTqpRLkMpYpIX8FXH1eO4R6tjuFObwH1FBhPdJ0P76SCfQ99Yzom
+	RihUsUp6vhI99csxxGsER4VYINT7EB4p3qkVBbQtPJhgDw5+jOUstGsCgK1qmdqLMvRUiX
+	fIC+ccDGY4BqzrUWKfIZFsIKs1wxTExrENwQjWP4Q43PyRZlsiAwjy8c6yUtkA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Orgad Shaneh <orgads@gmail.com>
+Cc: richard@nod.at,  vigneshr@ti.com,  linux-mtd@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v2] mtd: cfi_cmdset_0002: cap the write-buffer chunk at
+ 256 bytes on an x8 device
+In-Reply-To: <20260915075028.21658-1-orgads@gmail.com> (Orgad Shaneh's message
+	of "Tue, 15 Sep 2026 07:50:03 +0000")
+References: <20260915071339.15172-1-orgads@gmail.com>
+	<20260915075028.21658-1-orgads@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 16 Sep 2026 17:12:11 +0200
+Message-ID: <8733v9mdro.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,37 +53,80 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CABLVixVbsR1Au=ReUUR2tpzhy0+5L8rm6VAAkrwJKR1ahR1sag@mail.gmail.com>
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 16, 2026 at 12:50:44PM +0200, yolezz. secret wrote:
->    Thanks for the feedback, Borislav and Yazen. I will drop the =E2=81=A0=
-__free()=E2=81=A0
->    approach, switch to the traditional =E2=81=A0goto=E2=81=A0 cleanup p=
-attern, and fix the
->    changelog attribution (and my sign-off name). I'll send out a v5 sho=
-rtly.
+On 15/09/2026 at 07:50:03 GMT, Orgad Shaneh <orgads@gmail.com> wrote:
 
-Thanks.
+> The word count of the Write to Buffer command is a single bus word per
+> device, so an x8 device can be told to program at most 256 bytes
+> regardless of the buffer size it advertises.
+>
+> A Micron M29EW (an x16 part wired in x8 mode) advertises a 512-byte
+> write buffer. cfi_amdstd_write_buffers() used the full 512, CMD(511)
+> truncated the count to 0xff on the way out, and the chip aborted the
+> program on the 257th data byte.
 
-Also, if you are considering of contributing to the kernel more often, yo=
-u
-should fix your mail client to not send HTML mail but simply plain text a=
-nd
-also you should not top-post but reply underneath the quoted text, like I=
- did.
+This sentence does not mean anything, I'm sorry.
 
-We have a very nice document to peruse:
+> Every full-size chunk failed while the
 
-https://kernel.org/doc/html/latest/process/development-process.html
+failed? do you have hardware that actually triggered that issue?
 
-when in doubt and to skim through while waiting for review.
+> partial ones at the start of a write went through:
+>
+>   MTD do_write_buffer_wait(): software timeout, address:0x03278bff.
+>   jffs2: Write of 4164 bytes at 0x02c789b4 failed. returned -5, retlen 68
+>   jffs2: No space for garbage collection. Aborting GC thread
+>
+> Clamp MaxBufWriteSize in the write-buffer fixup for x8 devices, and keep
+> mtd->writebufsize (computed before the fixups run) consistent with it.
+>
+> The bug predates the git history, so there is no Fixes: tag.
 
-HTH.
+That's incorrect. It indicates until when we need to backport it. So if
+it's the first Git commit, it's the first Git commit.
 
---=20
-Regards/Gruss,
-    Boris.
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+> ---
+>
+> v2: test the device width (cfi->device_type) instead of the aggregate bus
+>     width. map_bankwidth_is_1() is false for x8 devices interleaved on a
+>     wider bus, which have the same 256-byte ceiling: do_write_buffer()
+>     sends CMD(words - 1), and CMD() replicates that count into each
+>     device's lane, where it is truncated to 8 bits - so two x8 chips with
+>     a 512-byte buffer are told 255 words and are still sent 512 bytes
+>     each. device_type is also immune to map_bankwidth_is_1() compiling to
+>     a constant 0 when CONFIG_MTD_MAP_BANK_WIDTH_1 is off. Caught by the
+>     Sashiko review bot.
+>
+> diff --git a/drivers/mtd/chips/cfi_cmdset_0002.c b/drivers/mtd/chips/cfi_=
+cmdset_0002.c
+> --- a/drivers/mtd/chips/cfi_cmdset_0002.c
+> +++ b/drivers/mtd/chips/cfi_cmdset_0002.c
+> @@ -283,6 +283,21 @@ static void fixup_use_write_buffers(struct mtd_info =
+*mtd)
+>  		pr_debug("Using buffer write method\n");
+>  		mtd->_write =3D cfi_amdstd_write_buffers;
+>  	}
+> +
+> +	/*
+> +	 * The word count of the Write to Buffer command is a single bus
+> +	 * word per device, so an x8 device can be told to program at most
+> +	 * 256 bytes however large a buffer it advertises - including when
+> +	 * several of them are interleaved on a wider bus, where CMD()
+> +	 * replicates the count into each device's lane and it is truncated
+> +	 * there.
+> +	 */
+> +	if (cfi->device_type =3D=3D CFI_DEVICETYPE_X8 &&
+> +	    cfi->cfiq->MaxBufWriteSize > 8) {
+> +		cfi->cfiq->MaxBufWriteSize =3D 8;
+> +		mtd->writebufsize =3D cfi_interleave(cfi) <<
+> +				    cfi->cfiq->MaxBufWriteSize;
 
-https://people.kernel.org/tglx/notes-about-netiquette
+Ideally, I'd like feedback from Vignesh on this.
+
+Thanks,
+Miqu=C3=A8l
