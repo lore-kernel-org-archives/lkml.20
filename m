@@ -1,275 +1,207 @@
-Received: from mta0.migadu.com (out-164.mta0.migadu.com [91.218.175.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0535A481238
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:17:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A7E4AA3F0
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:18:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561082; cv=none; b=kjKRvsKs6fRSMaHg6y/v9Oxa1PwZbYhR0KjXkjMOCq/ZEzuOxaO74gkRBfKrkMUfVS6wqwAfo0cGsJEjHmsXhx5xYn3u0YUHNd6a6oZ0s1A3ApWeqOs1Q9F0DDwtk1EEUcKRBWvr8qEleJT2++wNS6tVBwwQo3LmuTvD4/qrkXE=
+	t=1789561091; cv=none; b=ikLU1eBm2p+yD4SNm+Aiw+k37Fkz2VMFaMgSmaHcTbd4m6v/mvywABm4BdVF3b7Dzr4uDwpyZ4/LCpk5dmFcnz+UiCm0DvW3ZvxydHRsScDA/qJfTbnCyBgsS4Rido+SWZEE2bbG2UTjT3i9AhGzM0Madmmx5+6x531VsuuNqQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561082; c=relaxed/simple;
-	bh=sGhhbpRXCSZiqq9AwMFqiHAd8QFegqbJzta1OrqUPoA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s29Oe82+3QzAW7kU+MqTpK6xhgd4t0seP5JR4uPBez5yvuLw/8a6ruRHA/H3E9g28ZNQm0+XEZn6xikqk782MrBBLlmuQ5owCn5yEvgCt7T1UAZ1sTzwMLneK2eebiJFWjBwkD1IA/QMuJzSj34bnFdl8stX+CR+BdGVZtRkIJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c25CGZ/2; arc=none smtp.client-ip=91.218.175.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789561091; c=relaxed/simple;
+	bh=XUlmkcZ5RWVZdPh6nzmGjp1yFPSyzH5dobkGwv2oChw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o2nK01mBkmE9zvC+K+gPg9UgdGtrAoVHR4qhpcxXmBSywrvY4AiOD3czFsooVo/QR4IcDPaIlxVpuiC32ZxWmNZHBacSmywtLleRU1sXcLftalTCQIcQ8hYBP4jFeYuC1Qa6ww5M1Z/sY4gDphrBtGw+j8aP77J8J4d7CHabU0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kvGe5OLk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bgmpHDqV; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c25CGZ/2"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sGhhbpRXCSZiqq9AwMFqiHAd8QFegqbJzta1OrqUPoA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789561077; v=1; x=1790165877;
- b=c25CGZ/2a9gYO97w3wlEuqufGxCY8YY1R3JrasXSSYkaa0SdoRigNjuXzpjNMzsGBSWDfCLD
- td81QVhFUYbWlcC17XsgF4Y3CLvOdYzNqZY2DvlH/B/4+lRcF9U4NjrD81QUMGvUUf5svLevtpe
- kG4nxik3htx6lDDlhA3UIuYU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6aeebd5c5ba43b2f;
-	Wed, 16 Sep 2026 12:17:57 +0000
-X-Mizu-Trace-ID: 6aeebd5c5ba43b2f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ce8c2ebf-7eb4-4afc-a007-1cfcec439ede@linux.dev>
-Date: Wed, 16 Sep 2026 20:17:50 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kvGe5OLk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bgmpHDqV"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GBsATJ1963750
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:18:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=btpq+GMkcN0fP8tlXTzfdclT
+	vfX1VTNaQI1C0weG74A=; b=kvGe5OLkoa/Xv2QpWYixqouDqZYE5/tvPF7Mgwxk
+	shYz1m2yyUODnAF5mEbiaUWk8vAl9w+g7WmEjP1chk8l2izKak0Hu1ly1pMFk1Jj
+	grNqUilAVgf+E5ZVz9BjwCmj7xd3gQQ3ivTQL9UwYzCubEP5nG+RFT5ZfD3m4RKf
+	P+K/4GmBxVSTeK6kQ8CMbQzlNGPcHAj7Bx30rfdV2mR73tfv/byCs3emZAhqn/L3
+	ru2ub21KN2K9HtJp8jO+pqvLqU6PDW7JGkwB8oFOnIbFTtFDtp7Ac93ip0nD2IU1
+	pZq2jCwICPxM7N6eHBeaoydwI8sup2sniV0VS4DMorR2HQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqtn502r3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:18:08 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc4afc810bfso1970981a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:18:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789561087; x=1790165887; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=btpq+GMkcN0fP8tlXTzfdclTvfX1VTNaQI1C0weG74A=;
+        b=bgmpHDqVIRPRazxMegizZ3D6++KMDVeKn7nTK+LnazoL1sSMzuCcoAsvKdfWwOjCzn
+         t5e3TvoRAo3sSxk5z0MTIod/cKSiSPXc7+j9QgKjkeCHCl8W/t2vslgsiIpXX/4bKrcs
+         yWKAHMu04Iwg6b7x5BG6YdaxTjJgMO3dUIQo5tlW0t+nF6xV9b86tHtMsxHzxlbQBOKf
+         RpE3rrmlEutuu13aFYt3RvKyQ7/HGtcl7kb+OGUXdWJJXU4MVTbO4YpewK+Fcj6lQc3G
+         rb1cYtKDiji0C2DF05JgYMwAt+/fmbeR3G39th0liYC2hRyG2Y2+HpT/Z8ODcW+qdxIH
+         NiJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789561087; x=1790165887;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=btpq+GMkcN0fP8tlXTzfdclTvfX1VTNaQI1C0weG74A=;
+        b=vA87MvPQOBmd9hLjFlhsUXnotP350AQVcu4ysHSR2eC3b7xM6jvs7UGF5TSLZo8gY5
+         dantbLb/UM0nXftHQYHiA0L26Wqf8pNLBYPM0sR0wTmVs2HPy3c6DP08LLE7Y5mCH+ou
+         7J98k63rr+STm9tXuQVO7d085thduaUL0q2mI1qWBIU4dUOGRblanpnbJLsQWSDYtJX1
+         jDg6SGS2GGJ7xsQ9KRNNmEEgRMeELHHEqzGvPnwcfu+UGXWc63yVTRfBlUxtnFn9RbNy
+         5qf5q4P/G3GMXYizwJFWfKJJi7/d7y6C+URTtREayGLfZE3LgQ8tFP3Xx5jHdo/SIm9E
+         7Szw==
+X-Forwarded-Encrypted: i=1; AKwUvBwR9M6+I8FEQr6mTYY8Eg2TCHiwQkxYLTMgqgCeDBtOVyYyXCk5vUALm1xmvVG3B9u8/ikXsTwAJxlccTA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGtJzOkJTpjRIEkby1InjSdwG3yj47wqNa/q+RB0J6B7hImoJa
+	LI6O65q5YuWKtgGzDSQ7o+c5ypQLNQiYHCA5Pn5czjb/+k0iYIok7TdHlmDdzYf37L2vUxVLjiJ
+	d6E1UID3jawbeEi0LeYmlkP0B7v+VExM7zzlcr3pYU6uiqpgI4v2/qrWCavi98wT49Kw=
+X-Gm-Gg: AYBFou2qCrMNL2E2QB0+9XDWvXWql1cHW5DQZtG2sc/IY84tVZA/m65G3TvenDqXOAZ
+	DHVJZDijl/EveE4Ccpaz5//n06u1Y7vsv53CILggAHEBxXGs6z2eiD+pQBBHD8TkzVGTULwKXmh
+	Y6xIsFuqSyWzDFF5g7ogDrPikDOIadJvL/bR5Y1caZoBf8qScioaWlVMEVvNXXCbiY2ujKJcpzU
+	xMUymINMhH6HomfWB3SkpvACvkCGRvSTh3xJuWz9qbHwzX2xTcgTa+5LFJnBXzGbveWiNXOJ0Ut
+	6ae4WCcYLle67+reATpKEFIfjaWOkYJ/rjQ966KBEX7yW4c11x2Vk+FNT43NAAF5+oPOXgdsng3
+	IWsmc/4odCFndaw==
+X-Received: by 2002:a17:90b:254b:b0:39b:5622:d645 with SMTP id 98e67ed59e1d1-39e1fb45010mr2698944a91.0.1789561087157;
+        Wed, 16 Sep 2026 05:18:07 -0700 (PDT)
+X-Received: by 2002:a17:90b:254b:b0:39b:5622:d645 with SMTP id 98e67ed59e1d1-39e1fb45010mr2698870a91.0.1789561086513;
+        Wed, 16 Sep 2026 05:18:06 -0700 (PDT)
+Received: from oss.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bc26a65sm4761643a91.13.2026.09.16.05.18.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 05:18:05 -0700 (PDT)
+Date: Wed, 16 Sep 2026 17:47:59 +0530
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+To: Thomas Karpiniec <tom.karpiniec@outlook.com>
+Cc: netdev@vger.kernel.org, Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S . Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Russell King <rmk+kernel@armlinux.org.uk>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 2/2] net: stmmac: qcom-ethqos: advertise supported
+ SerDes interfaces
+Message-ID: <aqqI9wOnradk9d7K@oss.qualcomm.com>
+References: <CH3PR11MB8413FCBA598F7FABC04ADCFEE4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
+ <CH3PR11MB841353E5708DDD7C5E2EA1D5E4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] mm/mglru: add tracepoint for scan_folios()
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260911102939.2485750-1-ridong.chen@linux.dev>
- <20260911102939.2485750-3-ridong.chen@linux.dev> <aqkoeJvFzqpoGeaP@fedora>
- <e38f2b80-20f2-4787-9e07-fb601552f550@linux.dev> <aqn7h3BVCCRFI2TI@fedora>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <aqn7h3BVCCRFI2TI@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CH3PR11MB841353E5708DDD7C5E2EA1D5E4B92@CH3PR11MB8413.namprd11.prod.outlook.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE2MiBTYWx0ZWRfX6BHFn6zKpNPz
+ XLOATXhp44Hh4wjczoG5PrWPx3+JmuabLvoAszjePSdFDUsIsnmcpL/wuPWZYq3Cs8PzR01WjBe
+ /YUOBwuPRFWjof7zPZYIBuaA/cf3WvtBtYojHJTJ2cf9btfHG4ZAHcwGes79Ks5d0+YMBkdG9b4
+ 21f/8cqHnsBVU0p/K021umPbZ3rCUCQOiMxGCd/Pq4FO/0gEsugKGZg4sSjWvzoQFQpg8WEGWxg
+ W3i6bowjGrFmracc7w+ZBSz4ZKKJ8s3Z0yfqq4WmypBGVPukWDo9wGvhYEJNQaPg8gsQ/sPHmwZ
+ TlSkC/tzxg+fT/rw8wmJyMpxc+jEUPhEGxkccguj+0BCQLoAov4x7TY0FJjVDnIV+AGbX2uTnOp
+ gDg63aWyL0yD/BONKNm1b3PFE+asUlLh+4tA8xXqkUmpxkO2+eSB392GZqt47PX67lAIXMt8+0q
+ ym9ZonM+1q+gzTx+LOg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE2MiBTYWx0ZWRfX5zynJOb5QDrO
+ qNiXzbBYYe2aU3EERWSVDkdMTedY7CiVWcCcOf3wHQchZCZ4QSOSNIimQGhRxdaRKzCeqJRnqj9
+ ObpTD4fjcyNDh6qfLTp+zkHT8JTsvNw=
+X-Proofpoint-ORIG-GUID: T0JYDhAcDoeBmKX0fWkLYSguWxX3LhhA
+X-Authority-Analysis: v=2.4 cv=K7O3jCWI c=1 sm=1 tr=0 ts=6aaa8900 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=MoAyQRu-XjFdVeW2IIMA:9 a=CjuIK1q_8ugA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: T0JYDhAcDoeBmKX0fWkLYSguWxX3LhhA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 phishscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 adultscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160162
 
-
-
-On 9/16/2026 10:14 AM, Baoquan He wrote:
-> On 09/15/26 at 08:17pm, Ridong Chen wrote:
->>
->>
->> On 9/15/2026 7:14 PM, Baoquan He wrote:
->>> On 09/11/26 at 06:29pm, Ridong Chen wrote:
->>>> From: Ridong Chen <chenridong@xiaomi.com>
->>> ...snip...
->>>> ---
->>>>    include/trace/events/vmscan.h | 63 +++++++++++++++++++++++++++++++++++
->>>>    mm/vmscan.c                   |  6 ++++
->>>>    2 files changed, 69 insertions(+)
->>>>
->>>> diff --git a/include/trace/events/vmscan.h b/include/trace/events/vmscan.h
->>>> index 8a872990b4be..5defa8f6719c 100644
->>>> --- a/include/trace/events/vmscan.h
->>>> +++ b/include/trace/events/vmscan.h
->>>> @@ -392,6 +392,69 @@ TRACE_EVENT(mm_vmscan_lru_isolate,
->>>>    		__print_symbolic(__entry->lru, LRU_NAMES))
->>>>    );
->>>> +TRACE_EVENT(mm_mglru_scan_folios,
->>>> +
->>>> +	TP_PROTO(struct lruvec *lruvec,
->>>> +		int highest_zoneidx,
->>>> +		int order,
->>>> +		unsigned long nr_requested,
->>>> +		unsigned long nr_scanned,
->>>> +		unsigned long nr_sorted,
->>>> +		unsigned long nr_skipped,
->>>> +		unsigned long nr_taken,
->>>> +		int lru,
->>>> +		unsigned long max_seq,
->>>> +		int tier,
->>>> +		unsigned long min_seq),
->>>
->>
->> Thank you for your review.
->>
->>> Do we need show nid? Guess phone vendor doesn't care about multi-NUMA
->>> system.
->>>
->>
->> Eh, nid is not an mglru-specific key. Since there are 12 elements here, it
->> can't be added here.
+On Wed, Sep 16, 2026 at 08:39:50PM +1000, Thomas Karpiniec wrote:
+> From: Thomas Karpiniec <tom@wendy.sh>
 > 
-> Hmm, we print memcg_id but not nid, it may not be so clear. How do you
-> differentiate several lruvec-s on one memcg? I am not very familiar with
-> trace mechanism, do we have a element number limit?
+> With a QCA8081 PHY and phy-mode = "2500base-x", stmmac reports only
+> 2500BASE-X in phylink's supported_interfaces. Phylink consequently removes
+> 10/100/1000BASE-T modes from the PHY's advertisement, preventing a link
+> with a gigabit switch.
 > 
-
-Yes, it will fail to compile if there are more than 12 elements.
-
-With AI's help, see
-
-include/trace/bpf_probe.h
-```
-30 #define __CAST1(a,...) __CAST_TO_U64(a)
-  31 #define __CAST2(a,...) __CAST_TO_U64(a), __CAST1(__VA_ARGS__)
-  32 #define __CAST3(a,...) __CAST_TO_U64(a), __CAST2(__VA_ARGS__)
-  33 #define __CAST4(a,...) __CAST_TO_U64(a), __CAST3(__VA_ARGS__)
-  34 #define __CAST5(a,...) __CAST_TO_U64(a), __CAST4(__VA_ARGS__)
-  35 #define __CAST6(a,...) __CAST_TO_U64(a), __CAST5(__VA_ARGS__)
-  36 #define __CAST7(a,...) __CAST_TO_U64(a), __CAST6(__VA_ARGS__)
-  37 #define __CAST8(a,...) __CAST_TO_U64(a), __CAST7(__VA_ARGS__)
-  38 #define __CAST9(a,...) __CAST_TO_U64(a), __CAST8(__VA_ARGS__)
-  39 #define __CAST10(a,...) __CAST_TO_U64(a), __CAST9(__VA_ARGS__)
-  40 #define __CAST11(a,...) __CAST_TO_U64(a), __CAST10(__VA_ARGS__)
-  41 #define __CAST12(a,...) __CAST_TO_U64(a), __CAST11(__VA_ARGS__)
-/* tracepoints with more than 12 arguments will hit build error */
-```
-
-> Imagine I only want to trace this function, now I can see memcg_id,
-> zone_idex, while don't know node/lruvec, that's a little pitty. Just my
-> personal opinion, I could miss anything.
+> The QCA8081 uses SGMII for lower copper speeds and 2500BASE-X for 2.5Gbps.
+> ETHQOS already reconfigures the SerDes in ethqos_mac_finish_serdes() when
+> the PHY changes interface, but does not advertise this capability.
 > 
-
-Yeah, you are right. In my personal experience, I always enable 
-trace_mm_vmscan_lru_isolate and trace_mm_vmscan_lru_shrink_inactive, which 
-contain node_id. So we can see how the lruvec is scanned and shrunk, and we can 
-get node_id from trace_mm_vmscan_lru_shrink_inactive. I am not arguing that this 
-is exactly the 'correct' way to use these tracepoints, but I think it is a 
-common usage.
-
-I am open to that. If we want to record node_id, we have to remove an element. 
-Maybe tier? But I would strongly recommend record memcg_id, we frequently need 
-to check the reclaim behavior of a memcg, and most of our scenarios are non-NUMA.
-
->>
->>
->>> And I checked v1 thread, seems Steven suggested to move the two int to
->>> avoid extra padding.
->>>
->>
->> Yeah, I will update it. I updated v2 to fix Sashiko's issue, before Steven
->> had any comment.
->>
->>
->>>> +
->>>> +	TP_ARGS(lruvec, highest_zoneidx, order, nr_requested, nr_scanned,
->>>> +		nr_sorted, nr_skipped, nr_taken, lru, max_seq, tier, min_seq),
->>>> +
->>>> +	TP_STRUCT__entry(
->>>> +		__field(u64, memcg_id)
->>>> +		__field(int, highest_zoneidx)
->>>> +		__field(int, order)
->>>> +		__field(unsigned long, nr_requested)
->>>> +		__field(unsigned long, nr_scanned)
->>>> +		__field(unsigned long, nr_sorted)
->>>> +		__field(unsigned long, nr_skipped)
->>>> +		__field(unsigned long, nr_taken)
->>>> +		__field(int, lru)
->>>> +		__field(unsigned long, max_seq)
->>>> +		__field(int, tier)
->>>> +		__field(unsigned long, min_seq)
->>>> +	),
->>>> +
->>>> +	TP_fast_assign(
->>>> +		__entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
->>>> +		__entry->highest_zoneidx = highest_zoneidx;
->>>> +		__entry->order = order;
->>>> +		__entry->nr_requested = nr_requested;
->>>> +		__entry->nr_scanned = nr_scanned;
->>>> +		__entry->nr_sorted = nr_sorted;
->>>> +		__entry->nr_skipped = nr_skipped;
->>>> +		__entry->nr_taken = nr_taken;
->>>> +		__entry->lru = lru;
->>>> +		__entry->max_seq = max_seq;
->>>> +		__entry->tier = tier;
->>>> +		__entry->min_seq = min_seq;
->>>> +	),
->>>> +
->>>> +	TP_printk("memcg_id=%llu classzone=%d order=%d nr_requested=%lu nr_scanned=%lu nr_sorted=%lu nr_skipped=%lu nr_taken=%lu lru=%s max_seq=%lu tier=%d min_seq=%lu",
->>>> +		__entry->memcg_id,
->>>> +		__entry->highest_zoneidx,
->>>> +		__entry->order,
->>>> +		__entry->nr_requested,
->>>> +		__entry->nr_scanned,
->>>> +		__entry->nr_sorted,
->>>> +		__entry->nr_skipped,
->>>> +		__entry->nr_taken,
->>>> +		__print_symbolic(__entry->lru, LRU_NAMES),
->>>> +		__entry->max_seq,
->>>> +		__entry->tier,
->>>> +		__entry->min_seq)
->>>> +);
->>>> +
->>>>    TRACE_EVENT(mm_vmscan_write_folio,
->>>>    	TP_PROTO(struct folio *folio),
->>>> diff --git a/mm/vmscan.c b/mm/vmscan.c
->>>> index 2554a6513aa8..67f59aa73fb9 100644
->>>> --- a/mm/vmscan.c
->>>> +++ b/mm/vmscan.c
->>>> @@ -4876,6 +4876,12 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->>>>    	trace_mm_vmscan_lru_isolate(sc->reclaim_idx, sc->order, nr_to_scan,
->>>>    				scanned, skipped, isolated,
->>>>    				type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
->>>> +	trace_mm_mglru_scan_folios(lruvec,
->>>> +				   sc->reclaim_idx, sc->order, nr_to_scan,
->>>> +				   scanned, sorted, skipped, isolated,
->>>> +				   type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON,
->>>> +				   lrugen->max_seq, tier,
->>>> +				   lrugen->min_seq[type]);
->>>
->>> And seems Steven also suggested to calculate lru, max_seq, min_seq in
->>> TP_fast_assign() in v1 which could be missed.
->>>
->>
->> Thanks, I will update it following Steven's suggestions.
->>
->>
->>>           TP_fast_assign(
->>>                   __entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
->>>                   __entry->highest_zoneidx = sc->reclaim_idx;
->>>                   __entry->order = sc->order;
->>>                   __entry->nr_requested = nr_requested;
->>>                   __entry->nr_scanned = nr_scanned;
->>>                   __entry->nr_sorted = nr_sorted;
->>>                   __entry->nr_skipped = nr_skipped;
->>>                   __entry->nr_taken = nr_taken;
->>>                   __entry->lru = type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON;
->>>                   __entry->max_seq = lrugen->max_seq;
->>>                   __entry->tier = tier;
->>>                   __entry->min_seq = lrugen->min_seq;
->>>           ),
->>>
->>
->> However, 'sc' is an internal structure, so sc->order cannot be accessed in
->> TP_fast_assign(), and I don't think it is worth making scan_control an
->> external structure just for this.
+> Provide a get_interfaces() callback for serial interfaces. Add SGMII and
+> 2500BASE-X when the SerDes validates them, allowing phylink to retain the
+> corresponding copper link modes. Leave the existing stmmac fallback to
+> the firmware interface in place when no interfaces are reported. RGMII
+> configurations are unchanged.
 > 
-> Agree.
+> Fixes: 61e9be0efbe8 ("net: stmmac: qcom-ethqos: add support for 2.5G BASEX mode")
+> Cc: stable@vger.kernel.org # 7.1+
+> Assisted-by: LLM sparse
+> Signed-off-by: Thomas Karpiniec <tom@wendy.sh>
+> ---
+>  .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 22 +++++++++++++++++++
+>  1 file changed, 22 insertions(+)
 > 
->>
->>>
->>>>    	*isolatedp = isolated;
->>>>    	return scanned;
->>>> -- 
->>>> 2.34.1
->>>>
->>
->> -- 
->> Best regards
->> Ridong
->>
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> index ac7d6d3e205a..3493e090f1a8 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  // Copyright (c) 2018-19, Linaro Limited
+>  
+> +#include <linux/bitops.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/of_net.h>
+> @@ -564,6 +565,26 @@ static void ethqos_pcs_set_inband(struct qcom_ethqos *ethqos, bool enable)
+>  	stmmac_pcs_ctrl_ane(priv, enable, 0);
+>  }
+>  
+> +static void ethqos_get_interfaces_serdes(struct stmmac_priv *priv, void *bsp_priv,
+> +					 unsigned long *interfaces)
+> +{
+> +	struct qcom_ethqos *ethqos = bsp_priv;
+> +
+> +	if (!ethqos->serdes_phy)
+> +		return;
+> +
+> +	/* PHYs such as QCA8081 switch between SGMII and 2500BASE-X with
+> +	 * the negotiated copper speed. mac_finish reconfigures the SerDes
+> +	 * accordingly; let phylink validate all modes that path supports.
+> +	 */
+> +	if (!phy_validate(ethqos->serdes_phy, PHY_MODE_ETHERNET,
+> +			  PHY_INTERFACE_MODE_SGMII, NULL))
+> +		__set_bit(PHY_INTERFACE_MODE_SGMII, interfaces);
+> +	if (!phy_validate(ethqos->serdes_phy, PHY_MODE_ETHERNET,
+> +			  PHY_INTERFACE_MODE_2500BASEX, NULL))
+> +		__set_bit(PHY_INTERFACE_MODE_2500BASEX, interfaces);
+> +}
+> +
 
--- 
-Best regards
-Ridong
+So, I had proposed this exact change a while back:
+https://lore.kernel.org/netdev/aMgootkPQ%2FGcdiXX@oss.qualcomm.com/
 
+As Russell noted, this behaviour is due to the messed-up integrated
+PCS support in STMMAC/QCOM-ETHQOS.
+
+I would defer to him for this if he's around.
+
+	Ayaan
