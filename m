@@ -1,163 +1,122 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pj2-f28.google.com (mail-pj2-f28.google.com [74.125.227.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28A5542806
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F70595740
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:38:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573081; cv=none; b=Op1KVLdVVNHhzRDMMOLR9rPnyuSU9//qxSS9lSpD2g5odzM8sReFxumKYyP3KimxK36fz51a6IVtl7RALLr/ykeihsvO/AkauQN8h0Dk5bRWS7PIWc+X9Vt11K7vglVAzdd2pEdvIHD+0jpxKP3LQd0Lm9M+U3+C9lihkHIHKbY=
+	t=1789573109; cv=none; b=B1U46pJ3bU9SaWgJETj2RfrELb3qYYbLiLiewf8jmuRuqCXPtnFWwuOMc3gFLUmYTTUNxTgJrWeW3Xw4Slfki2bhDd7/4/yfNHlaeWXtQTzV41NIfGvbR7/4Sb8GNhi17+N32qVxhpkvguQAdH/sUBKBhwPER1nc7GCsyQYmpPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573081; c=relaxed/simple;
-	bh=5v/s/7Iuul7C56PuYL9oxgVQSwxVWgtd57ybWn92daw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=do1pfNV2jASbsCaCLUvDCdRei64qvYngsDT+h+bO0buiE/QaTWeNb3j533tMgDc0Uu4WIDv7Q9RTb78yHbxYlvsO5ghGNDKNyFzbAS1YG2LwWGuxusn6h9x4R1RLpAEAY50UGFaQXXnj8eJP5SI2Ml1owguVaDUFB5qGkT3CrsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ESae3DYl; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789573109; c=relaxed/simple;
+	bh=ISZJEItVJiQgJGUVeLdNnUbRuSbsORhE8CJvEj0f84o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bp9DO8fuQ9AZMuJK6x0LMFXoYYkZKtzs5hM/B6F7b9208NmSMedlMqXHKFLF3jxf5Uw9e80QdwWlWvtGDnPy5+8oz1IRKF2nvr1cNW9WT0KdpcRperY7+ZtbtdNtuoBQo247BEPX9/W+c5JHeOicQHIlciL49Xce++fK1uefCi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UduM5mIb; arc=none smtp.client-ip=74.125.227.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ESae3DYl"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484366874b0so536619f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:37:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UduM5mIb"
+Received: by mail-pj2-f28.google.com with SMTP id d9443c01a7336-2d91c22d27dso6498495ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:38:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789573071; x=1790177871; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u78CS4uMDZfbASZgzU72LbLYuroH821SkavMLSLlG4o=;
-        b=ESae3DYl0ElhtPOfui/CPLv6anRyze1qYVeThoLfUDCe0Sh1oPblhbfKsajLJ2zvjj
-         E4NqGzIXCwOq7fvg8lQfCGOPI6JimF+pT87HWuoM+2cIeDeYcuDRLEjUPAVwVkNWhODJ
-         0sN6SLxWPsl6kbPgYlr4RjmzstJTpSocKrcXqqkDOrzaZA6ArbX+mPL+d+e9aDrQAfXq
-         6TBmq6XvGKd6OSxkkcVPtAnRqk58zX94EkP2d69WD9d/ORbD7BZnbF94LIkVjEQWyz9/
-         qoMGlSFf3GQj2N0Vf8Op+AKKBlB60F+utpatGeOYhSqb3om63UFlU9nQfrS5vU1Avnsz
-         BE3w==
+        d=gmail.com; s=20251104; t=1789573104; x=1790177904; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TK4VaypLoqebFwLJd9cSb/TomPtSwVWfslqfBcVdmSs=;
+        b=UduM5mIbVv6x2cZNSn4WjB2+JeO3Ots/73Zvlb7EPUVFYm2X87FG2SK2BlUywZEwvi
+         JgCU2sfwi8IqYSlTe34y1nLwTj29RBPjSVk2Xv5T/t7cXeHTVq6yu5vPPZ9VdtWz8xaL
+         Ko3DVaCzgFXo3An6E+rfA+BvD+sYkX2fRFnD2807xOv6PCIoTHiO7SwWBkA8JXLvMg9P
+         JcW1JFiuACD9r9Ehelbb1vFm1pRO8bqyRD26S0vsK61SJebKKehSqyE0hQo84aDTAFXx
+         zURBDBpjOeyAUjR8H7K8bgnvmAWiRF0kegkWYryplcVVjmO3pF0LdgzoNvXq/+Oyr3U0
+         abeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789573071; x=1790177871;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=u78CS4uMDZfbASZgzU72LbLYuroH821SkavMLSLlG4o=;
-        b=0fj+HPzoR5DSPQtP1U2eIfX9yOvgvDRtF31I1TMvCJ09cypj2fNoWcYYB34tmIDIQS
-         AXCERkmO6nJjKpwkAKMhQsZimxOB9W/nnDYjPImg6KdfRcbuqaQKlxGJ//sCpRkkdQSx
-         Kcg2Us40cN3X9fPtjG5YLppGZ1oGvIS6ZgFNT7hAv+ItgKYYm9DdiCdzZD5mky4fOhes
-         9oG4WoZvEhpQyWdlT1YX7gejpvD8EN6eG9hUKLktzFAdfU9Js+q+HFpAZtFRliEhXjHL
-         glFBOwRacfHoaIhpKPEuKwGCdF6s0ZY3hiGxIxnPIIrskme6BxScVViZ3J9r4/Nbh3Ge
-         Etqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwv9r4g7/Zg9KLq6bv507pRJlYpXID1XwtoCvdNo0JnRPlq4P5YHY72EQzTMG4Ny5pApiFrZtoa/6mGAmk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRTEEPa2OCHYyNPPUpfwK1BExQwk+vZ2rKWtfFNg1AaTbi8QxW
-	Yh6ILbv6va8PZ+ylC4ke6PmhvyE4Lw58xieBv/IWgKT4Au182cIjeBOCEaadmGbGtw==
-X-Gm-Gg: AYBFou0jNqlmHtxrrgOseBLkAs/ag0tuszi0S6H5GSfFLcc94AX/tYe3Vz8ZTuAcfqf
-	im+1XH7fefo9+nZM5PCrNurdDoPULHXCDq8Rpxmk5fjopw1/qgcAdGAcQlK7HsM2u6Ai+jqDc4p
-	jgXHi6EiNhCjmO8J5uSnbTLKHa903yip3byWq3QC6bXi/X1qLQ3zVjwxkDQqjEdDCFf3YU00M1X
-	icx0WX8URDT5UZg8nKOv6s49Hv+RUauN+UYqy/0xjVYeWX03dieIAkjAGnOaibCStH5Wg+yB5A2
-	GaO6sgqVH37yMZkFTDO//uhnr1uf1pAfpfzBRf+A8BfUFgzDFOyswZeYxr53gU51wlyjokrZsOf
-	agtR+bq/HPQwne7orl++b2A6GfYdkcLG1qfEz89tFwqjbWmeFXS7Z+4reP/5b0ALa7+C7eU/dl0
-	JLn7m+79VMRzTsi3lLY1GEr2VCwJvE/yIN/AslFApK1YunQKmrsSxTTq0EOip9R3HAU8ff6ju8A
-	LxEzbqJ0M5IbjyI9gTFHiT6E0sL
-X-Received: by 2002:a05:6000:2408:b0:486:f301:11df with SMTP id ffacd0b85a97d-4870cee0b72mr8867562f8f.6.1789573070432;
-        Wed, 16 Sep 2026 08:37:50 -0700 (PDT)
-Received: from google.com ([2a00:79e0:288a:8:a430:d4f:f001:4a5d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf438fbsm8022313f8f.36.2026.09.16.08.37.49
+        d=1e100.net; s=20260707; t=1789573104; x=1790177904;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TK4VaypLoqebFwLJd9cSb/TomPtSwVWfslqfBcVdmSs=;
+        b=Ubur1ESDXCTlcSn0PHxgn+f51VOsL2upGxSuB1sAkomrEbS8q36RmWGMcuNT8ty9sG
+         RNXhBEfJGmWjOjZfZa+AZTXL8SDFrWyoqfV8dlcfABFXceG7JpV1u7arqHOZxkdj61v9
+         e+uyYUN652hjGhqyz7G/WTJUmKC9WsjexZ1f+cjWtEUaPfIrGE9Kta32eT3g1fmxfGcy
+         xGI8xLspo1w0YnsWFiQkd/bplobx1VUjYoEvi7SAYWUSEnfyDFr5A1dE0Esn8bm+ksca
+         SKB8FCTbYEZIgIESjgS8OyD8KaPma1+XovfS1iUIEw3z/yt+OFhqK98G8T9zF1Rw51aU
+         uQaA==
+X-Forwarded-Encrypted: i=1; AKwUvBxoNnN+Esu+mBTDfvk2+5iuQPaKXp9O5gHwPoRAxGXMnc+W211j4ZBrpqfwnrmTkklN1CKGHCbVM9r4D08=@vger.kernel.org
+X-Gm-Message-State: AFuF++krKioZNeETxeD7xsOiAKo8BnCw+h0qCb++N2iyMTssihuvUc/n
+	CUyJZE2KaXynLDfwX8La9X3jgiauOp0plXLHytd0wwOpnRivG89aVjIU
+X-Gm-Gg: AYBFou2jzbTI70V72ndAcP7z1oUJz4AQ5tzpOQa7+LRSTkTbPQhyomTcfIQQsftH0Cq
+	6nlhQNotPWca/QL6Gv4mufDi5gSzJwjaVgdXAX4IecyrbtQcAnTCaWJo/5eOrROT8GZJjGOmB3L
+	w5RoSqmHOS5JQmJMJuXxecEULub3hsrSniSJLay0pPmuBkqNKOuAVDG64340wuqNYjX+cH5uU/z
+	1sxPp7uWhp+4At/tp2h0TaMTItyWYtLw07KNdP/OpOl6rPo1Ive6p6nIlNGzP+E1IkdTNM32JXh
+	Uwggyp8kk7nZ734VYIZCYbtgIoMPsOlcQ2PT5ZdO2yGv5fDcbA+Hhbc4nc2ILNIPFHtzl+4/Pfv
+	KM2jBs4u51fHZQSksslowzL2dafTE24wcobuhTgwot+2Ze8imODC3VE/2KbjeZYmJG1nQqo4AWv
+	DgZfrWbNuLlLTC8DqqattnMnvdewta9qhoWgfhgw2cgiVTNve17e6J+NCHBKH0bEFIZChgCrzQg
+	ziOlkzqddf6TaMVMg==
+X-Received: by 2002:a17:902:c94a:b0:2da:e634:370e with SMTP id d9443c01a7336-2dd8e40cfbdmr61697765ad.14.1789573103430;
+        Wed, 16 Sep 2026 08:38:23 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:3d29:e4bc:c9af:a918])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89ebc548sm13965735ad.37.2026.09.16.08.38.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:37:50 -0700 (PDT)
-Date: Wed, 16 Sep 2026 17:37:45 +0200
-From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-To: Christopher Lusk <clusk@northecho.dev>
-Cc: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] docs: landlock: clarify TTY signal scoping
-Message-ID: <aqq3yY8SKIBGUZ8v@google.com>
-References: <20260916152336.1589383-1-clusk@northecho.dev>
+        Wed, 16 Sep 2026 08:38:23 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-bluetooth@vger.kernel.org
+Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	syzbot+534002670dd34a114fdc@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: [PATCH] Bluetooth: af_bluetooth: hold a reference on parent in accept_q
+Date: Wed, 16 Sep 2026 22:38:17 +0700
+Message-ID: <20260916153818.24916-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260916152336.1589383-1-clusk@northecho.dev>
 
-On Wed, Sep 16, 2026 at 11:23:36AM -0400, Christopher Lusk wrote:
-> The LANDLOCK_SCOPE_SIGNAL documentation does not describe how TTY-driven
-> signals interact with signal scoping.  Holding a PTY master file descriptor
-> is a separate capability: its holder can cause the TTY layer to signal
-> processes running under that terminal, even across a Landlock domain
-> boundary.
-> 
-> Add a concise clarification to the userspace API guide and the UAPI header.
-> This records the capability boundary identified during review of the
-> TIOCSIG discussion without enumerating individual TTY signal paths.
-> 
-> The documentation text and changelog were drafted with assistance from
-> Codex (gpt-5.6-sol).
-> 
-> The userspace API documentation builds successfully with the kernel-pinned
-> Sphinx dependencies.  The patch introduces no new warnings; the existing
-> missing-graphviz and undefined-label warnings are unchanged.
+bt_sk(sk)->parent is a raw pointer with no refcount backing it, so a
+child sitting in the listening socket's accept_q can outlive it. When
+the child's channel is torn down independently (e.g. hci_error_reset()
+-> l2cap_conn_del() -> l2cap_sock_teardown_cb()), bt_accept_unlink()
+dereferences the freed parent, corrupting its accept_q_lock and list.
 
-Minor nit: Last two paragraphs of the commit message would have been
-fine to drop for conciseness (the Assisted-by line already lists Codex
-and the other paragraph talks about things that didn't change).
+Take a reference on parent in bt_accept_enqueue() and drop it in
+bt_accept_unlink() to keep it alive for as long as a child points to
+it.
 
-But really just very minor, and probably not worth changing unless we
-unexpectedly need a V3.
+Reported-by: syzbot+534002670dd34a114fdc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=534002670dd34a114fdc
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ net/bluetooth/af_bluetooth.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> 
-> Link: https://lore.kernel.org/r/aqqJAZfG9FC7PgMW@google.com
-> Suggested-by: Günther Noack <gnoack@google.com>
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Christopher Lusk <clusk@northecho.dev>
-> ---
->  Documentation/userspace-api/landlock.rst | 3 +++
->  include/uapi/linux/landlock.h            | 2 ++
->  2 files changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
-> index 84cb7bf6b3ed..33a514ebc615 100644
-> --- a/Documentation/userspace-api/landlock.rst
-> +++ b/Documentation/userspace-api/landlock.rst
-> @@ -430,6 +430,9 @@ The operations which can be scoped are:
->      This limits the sending of signals to target processes which run within the
->      same or a nested Landlock domain.
->  
-> +    Holding a PTY master FD still grants the capability to issue signals through
-> +    that PTY to the processes running under that terminal.
-> +
->  ``LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET``
->      This limits the set of abstract :manpage:`unix(7)` sockets to which we can
->      :manpage:`connect(2)` to socket addresses which were created by a process in
-> diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
-> index cceda3b3b961..6485af37dd25 100644
-> --- a/include/uapi/linux/landlock.h
-> +++ b/include/uapi/linux/landlock.h
-> @@ -501,6 +501,8 @@ struct landlock_net_port_attr {
->   *   related Landlock domain (e.g., a parent domain or a non-sandboxed process).
->   * - %LANDLOCK_SCOPE_SIGNAL: Restrict a sandboxed process from sending a signal
->   *   to another process outside the domain.
-> + *   Holding a PTY master FD still grants the capability to issue signals
-> + *   through that PTY to the processes running under that terminal.
->   */
->  /* clang-format off */
->  #define LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET		(1ULL << 0)
-> -- 
-> 2.55.0
-> 
+diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
+index 411d66f24393..f9aae18c6733 100644
+--- a/net/bluetooth/af_bluetooth.c
++++ b/net/bluetooth/af_bluetooth.c
+@@ -224,6 +224,10 @@ void bt_accept_enqueue(struct sock *parent, struct sock *sk, bool bh)
+ 	else
+ 		lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
+ 
++	/* Hold a reference on parent so it cannot be freed while sk keeps
++	 * a raw pointer to it via bt_sk(sk)->parent.
++	 */
++	sock_hold(parent);
+ 	bt_sk(sk)->parent = parent;
+ 
+ 	spin_lock_bh(&par->accept_q_lock);
+@@ -265,6 +269,7 @@ void bt_accept_unlink(struct sock *sk)
+ 	sk_acceptq_removed(parent);
+ 	spin_unlock_bh(&bt_sk(parent)->accept_q_lock);
+ 	bt_sk(sk)->parent = NULL;
++	sock_put(parent);
+ 	sock_put(sk);
+ }
+ EXPORT_SYMBOL(bt_accept_unlink);
+-- 
+2.43.0
 
-Reviewed-by: Günther Noack <gnoack@google.com>
-
-Thank you very much for your contribution! :)
-
-It ended up as a much smaller patch than we started out with, but the
-real advancement lies in the understanding of the semantics and in the
-double checking of these boundary conditions.  The LLM output was in
-some cases a bit wordy ;-) but overall this was a good discovery and
-useful discussion.
-
-Thanks,
-—Günther
