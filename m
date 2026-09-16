@@ -1,143 +1,636 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com [74.125.230.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFD321A42D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542995; cv=pass; b=RTvgP/DyBzegiQo+wM5jzHPx1+X2KW+KcFwW12/+jkS5UtjiEWBmVdofnYyr9Yk14RHrEgxUR1wrWe5Q3zJBlXUg7LZwmW9KqV/ohKH/W5pSd7F18zp1GIhJvIcrKUvrp6orwf35WcHyOPc1wU7N10jfT2e1PxIHabh02WAPnh0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542995; c=relaxed/simple;
-	bh=z5AkRAXM9LdDhqCS28O8reVfk0G0f4N1dCoZbIU3ejA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=imF/S96hPE7nDbvk3a2CbyfkzeRCE+cz4B984I0f2lkSoY4e6s4+kyv3TDdUPzbsmpg21/3IwyVD3ZI701Z/tqeZqmB41DvBPPd9V46urklne65cPX31CVYbcbykC/e8cxB/PKuj6dfi3fACsHJIcsuLibUfBDAhod2PFzAoDqE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sriRUURh; arc=pass smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D74821A42D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789543001; cv=none; b=S/WC078YqVGLOgUz0Lm4VEqbybNhP+wFABkegnlIPTVloP4wmwocmcfDqb/WjXSXVhpbc2eKrWABpXaMQWk/iEnhntGtNYFcmPB1PDOGR7rclNd89Nk2H4H2CiV6e8eO+Q1tHhY7kdNiL0Oh+/4CzBa6sT4gYN89D5QL+YEeV+E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789543001; c=relaxed/simple;
+	bh=AcX2unbYc6kbxDyYiKyDovsSoMq3KmfEvLdD8/tyzoM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gm6nOBd99mRDdlj8L/3Ynk5ua8kOMCHoOOXhDrsiHRZwL8QbVzVsmj8ed6eGvndc/JZ0yd59+MYTNcnzsVz9fAeJQrR7HlVGJj5UtpUh3kwQtuUCWY/13gjaiEDvhscwhn1+ub8RYtXlFaEosPTWuR9KM+n0MQ/9KMhF4ZBz8Qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mswin.me; spf=none smtp.mailfrom=mswin.me; dkim=pass (2048-bit key) header.d=mswin-me.20251104.gappssmtp.com header.i=@mswin-me.20251104.gappssmtp.com header.b=WE0ZH/8/; arc=none smtp.client-ip=74.125.230.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mswin.me
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mswin.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sriRUURh"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8692a8568e9so472401b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:16:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789542993; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eN0L5UeSWc+hee0cRLovTYhwr5CFnzajhOr4WVq4o0uCXw4kbsBlHpICN1/B8ewBTf
-         9QVWTLuAclqeNaAlPq0/NBCYRgygO2/Tp9Kq5D2rMrA5122p/m3Eogz16rUuuqLFx8lT
-         wC3HpLMKU0hd0EyGQ+upcerU3Bq3gkIqSg4XHICK0LGMfoMA9hNI0W9JWwycDf+opvPo
-         1PulrRn3AzuLw5KACz7++vy9kIHlEePiT2hnEDTSZG1pgCFPMUhkxM8rq7wAkKEieh72
-         BUFsOTTFAaLecVKElSJMSwLoH0GSpaa9pkFElPvD0yntFWg6ii6qWtDYYsiO3V2dKefE
-         6bVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=y6wIAcEKWE9nqg7/k3qdRoBKRXzso0r5nn1/whrKqBA=;
-        fh=R9eQaR54zeXAnFJUe8WDxIG9zQqj/YqbAR/xbl7NNX4=;
-        b=qjDsxxQm11gJTEMO7OooWZHw62UZnzReU2kkeZKPO/h6dJTOOZGQd9/s6t3jZjNgyL
-         KXaYjW4Bp7aMY9GAx/mm1VmMBMpjfTx9pKRavhnR+IQb3jz6tqjnLtVOfCrtsuhUgkx3
-         HHxdyhORUbkAp6yzqjDKZym/6Ljq7w5nQ+bAm0yiv/tSFSuo2GizQsWjFGf1qrASLFyA
-         g7p1ksn6V5cfUIJ/4AdZwwBW+EvNua8a9uyl6d5gUY4l+Ssv9JFqrx4VGeET/rDQmvvl
-         ymXLlDnteEVNjWb2c22/4Tm02nAkI5XL5rXRvCw1EfJRFp4sbwTF4PtEyjRR0ZJFdW8F
-         /LpA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=mswin-me.20251104.gappssmtp.com header.i=@mswin-me.20251104.gappssmtp.com header.b="WE0ZH/8/"
+Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a34f24f409so8926861fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:16:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789542993; x=1790147793; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y6wIAcEKWE9nqg7/k3qdRoBKRXzso0r5nn1/whrKqBA=;
-        b=sriRUURhbbXK8jGBCM4O4iPRnNOhoeXrJr6CgQMfVnpatyEh+OmFzlWmF14kYxtNL8
-         BAokMihJICnaOuJbFlW7aW1flZt9WitHPvMS6LajVEhEoTJwa3PDOMz2XvdWqRtfghQS
-         F9wLkcGaF1FnTQ2SixKfGysPOOsQFsiw7O/TLaTErNNt/qkttmznrRcX1Pl5cIaV8qzA
-         VYd8eOCyAOfZsvFPMkmp9i1hCvJBIxtrnufK988q0a81+CyE/It+BTz9MnbP0OcRkHpq
-         FuixZCwKRHaHYzgCOv5c9lLE88fq5rdWYuejOUbPQgKJefgyaJhCOpfsa3PCWbpUkPXG
-         ZxGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789542993; x=1790147793;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=mswin-me.20251104.gappssmtp.com; s=20251104; t=1789542996; x=1790147796; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=y6wIAcEKWE9nqg7/k3qdRoBKRXzso0r5nn1/whrKqBA=;
-        b=Ekrv5lJKPsjpn2aUJNp1jSvk/1HcjxDEsahwi2BNjb5Zu/ZmapgHYz3sYFSTfB8tdb
-         R7Z4xhNTFVs9HneCKJBuQcOefW+Hc7nri6x/1xs0se3WBF//stZk9oJDxJDCmnDMfqgi
-         bLZ+l1d8tugMm/FyFbVoyZKSgC2mWQ0myN1z0JhZA72oTYOvU+LHjw+IJiaqH0m5MxLI
-         GzmgwHnw0mO1AbUtNTwlYq89lJKS4v4d0LUSzjwIwut3zaDXnv/9EnLBcM7/FIq0eONr
-         58Ka48JoEzcKNWB6cQ3q68mHxamRtPOY7vSA99LUeC6NM1FKFcTytp+6jjn8xwR/rc1R
-         sSIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw0jeXCK2R0dkCrbhBY4qm0N8FcdK7OraG6pp5lYma8O3Xgvk+8QWy1kc6vnbcyBVJV0bWoh12Cfn1lKXI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBn6RQdl9wzGAwuxZQqmsPF5D7K7HNAIeuFwxpyQwmSGgDRGLr
-	kevuOMqZKh8Y9jGv//IkJnIg41fpLuDzrAGyfa2BwmnIxYF1PQ6Y9OBtelig16dBGNSb57681pp
-	+RozJ80OQUxQh5/bTzon/xatDhKNoLlQ=
-X-Gm-Gg: AYBFou39wJOhz/FsEB8KblacaN+V8ooHoR2WRjSNRTPTwfRzvS5XwN8zf7MFYWLPZvF
-	NKYjrG7TNw7VdIS+9kKHzdcYH4AF9QNbOJRnNbhWVP2cVJKHatbdIHcr/sb5y4XSG0pn5hXM8CC
-	8PdzCeQiSXWH/l1j9aPqKVfrrpdHEb/0OdC3e2JQ7UODXynH2KsUScBLXXZOZWoZZKZCMYz/uh8
-	NKHRk5SjB6pbcOKQMk65aUJF2Yq1XdQBLNTsjEWDhoo828JbsrUVuOQmirFFoY9buWtWfgXDy2o
-	silr9a5hp9ZqNMsjXI/BwLlUj4FfjBhyuEO5MXy2o5AaBrZ+iZkubf0cc9ADQ6dE1cQogQgczzL
-	mkG/O/9D9fUXUWU+wwbTcNQ8=
-X-Received: by 2002:a05:6a21:6b10:b0:3da:1e7b:ea27 with SMTP id
- adf61e73a8af0-3dd5f6fcf23mr4128744637.21.1789542992705; Wed, 16 Sep 2026
- 00:16:32 -0700 (PDT)
+        bh=tLBRU0pIWM5Jci7fKn6jRMpE2Xm2kCD8LRfqh5i4zTE=;
+        b=WE0ZH/8/BrEXyd48yOPVyY6tFnGVid2zY3va4rayk03XYH67TbSsszWvoA96NKQ9v5
+         PFFejsAnym7w5iIfxEdrnAUmiO21Z+naFOTwcF1wx2ih3CFwoYJyUBMNjLoIqoh4/YbF
+         nYh+BdIJAtTqaBZ2o+lWUlY01+QfquIG1ulvxALezt5IEYgkZdKESt2uCrId6HBDY9Pz
+         TLgg51N4zOc67gA2qppUyIWZPRAtPJcUNGd7occj+WFrCcUWM66TCuSab9iHTsnQQ8N+
+         7lUe6ZlwOzOs8ftG8zVgugqHw4KpHXp/3tlZebvhEFTNfcd6fn+XaZa4tEnlyPkBh2c8
+         x78g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789542996; x=1790147796;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tLBRU0pIWM5Jci7fKn6jRMpE2Xm2kCD8LRfqh5i4zTE=;
+        b=SLES5xBb5IuNgb1qQ5FC8sA5TBWKz1cCnG8uu2uEGunvOlMkMaUe/0wgCQxR1XkGIe
+         b+QQ4rDEQQ/9CMBkWCigAHeFwDRTfBi9tihaQz6112ZIh09Tw67O7CDVIFwtgEVeiNaB
+         FMCIiUhTwMUKY4T0L1bVfa8pYhIAAdenTPL35/MdCsXbg1tf351NH1i0f0hSxBWRqxBs
+         F3k2KOXrUfrUGiYp1Wwu6li9nqbiseS5d91cy2htkdIZ3b7Srrmn97FtaQhmGk6lQ6l+
+         Xne1YwZvtMdh0QM/ys3+7CRy86NkzkYleXqQiotx0AzsiyaTXiCFXqz5VATEumFH2KvI
+         VH7w==
+X-Forwarded-Encrypted: i=1; AKwUvByOBKdVM6oOW4Pz/xGRFwywKX2Ge1RTBojxeNbzCy3+EOPsT/h7/6C/vJWR3qmaPt6dnZgZ73g80FwpuNc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjd9XJ9VpgHIb5XlVgS2SpBQxDnsN81K250l3miP+Xe80PfDCl
+	BdFtzOh1Kkm03rKvA67EbS3ka2F4svu0IwRa6GWyimm02wod/bwvWHqU05uDA7hLiEI=
+X-Gm-Gg: AYBFou2xns9Cv+97hN7DFhY/IGTzBIjPqZR+evvVAHh6gKegH0GOzZk//+/FH2en5ua
+	fkPtB26QQ9FjtHJoFU40sOJQTEAn/7Zv1N1J7QMuwl7dl5RfoFKs6CzfZYezU/eJjz3imh9TbaL
+	XxX+wLmy+BeLAHMvn9zjZKihyL9bzhjTzxCs7XaXNIjbP/Ai3UfoEoo8qKUmKuaXBLvK/TCYYIe
+	mOKi4rOfA5+l4reAnH3nPk9e7OdDGlfq4QlSEoMGRF27Sgbo/MTBb+7JdWSkZpjIFsDKj9e1Xx4
+	USGPMR3Z3Zjp9dOUFuRJCGTbokdfmKruw6+lXwYOWoizgCOon5AhZAvevSWnSNPUvz94lD1nI5W
+	q1fqiO95+HgKxV/uqHDKNIy2WigerBykI47+hTOrh1oumiexIJrthAVe5Nn41WGPP5dDTMpJIxA
+	MttYlem585/Wkflo9F6yKlCoKw8c2/SdkaZpdZDyHVuPMt0Lf6MGD/pj1te45cbD0lUekk1w==
+X-Received: by 2002:a2e:a807:0:b0:3a5:db7a:2395 with SMTP id 38308e7fff4ca-3a5dc9cdc4bmr5266171fa.8.1789542996130;
+        Wed, 16 Sep 2026 00:16:36 -0700 (PDT)
+Received: from [10.122.136.195] ([84.47.187.188])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5dafee2e9sm4462391fa.40.2026.09.16.00.16.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 00:16:35 -0700 (PDT)
+Message-ID: <a3f071d3-6082-47a1-bb00-9d8e72fa3cdd@mswin.me>
+Date: Wed, 16 Sep 2026 10:16:34 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com>
- <20260915-drm-bridge-drm_panel-cleanup-v4-8-30401d9406f3@bootlin.com>
-In-Reply-To: <20260915-drm-bridge-drm_panel-cleanup-v4-8-30401d9406f3@bootlin.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 16 Sep 2026 10:16:21 +0300
-X-Gm-Features: AcwNN1Wu02WhbDbGzw2qQ55m0JlviTMXZEyfe2ujg7uZXtgVBYhdlrVFke0bQq4
-Message-ID: <CAPVz0n3kwZJTpanbCFzYKj=ysXQ_V=+uXjD5hY_n6OcDvnrx1A@mail.gmail.com>
-Subject: Re: [PATCH v4 8/9] drm/bridge: ssd2825: select DRM_PANEL_BRIDGE
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
-	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] arm64: dts: qcom: sm6125: add TSENS die temperature
+ sensing
+To: Amit Kucheria <amitk@kernel.org>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260821030325.1823829-1-admin@mswin.me>
+Content-Language: en-US, ru-RU
+From: Roman Linev <admin@mswin.me>
+In-Reply-To: <20260821030325.1823829-1-admin@mswin.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-=D0=B2=D1=82, 15 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 19:47 Luca=
- Ceresoli <luca.ceresoli@bootlin.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> This driver uses drm_panel_bridge_add_typed() and
-> drm_panel_bridge_remove(), which are enabled by DRM_PANEL_BRIDGE.
->
-> Leave the 'select DRM_PANEL' because it is needed for drm_panel_put() and
-> drm_panel_enable() which the driver uses.
->
-> Cc: Svyatoslav Ryhel <clamor95@gmail.com>
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  drivers/gpu/drm/bridge/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kcon=
-fig
-> index 73e13ad59a93..92938df3b747 100644
-> --- a/drivers/gpu/drm/bridge/Kconfig
-> +++ b/drivers/gpu/drm/bridge/Kconfig
-> @@ -351,6 +351,7 @@ config DRM_SOLOMON_SSD2825
->         select DRM_MIPI_DSI
->         select DRM_KMS_HELPER
->         select DRM_PANEL
-> +       select DRM_PANEL_BRIDGE
->         help
->           Say Y here if you want support for the Solomon SSD2825 RGB/DSI
->           SPI bridge driver.
->
-> --
-> 2.55.0
->
+Arm64 DT patches, against torvalds/master.
 
-LGTM
+Changes in v2:
+ - wire CPU cooling: #cooling-cells on all eight CPUs and per-CPU
+   passive cooling maps for the cluster-1 CPUs, cpu4..cpu7 [Konrad]
+ - make the TM/SROT register regions 0x1000 long and drop the inline
+   comments [Konrad]
+ - drop the sensor-mapping comment from the DTS; the provenance now
+   lives in the commit message [Konrad]
 
-Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Patch 1/2 is unchanged and carries Krzysztof's Acked-by. Abel's
+Reviewed-by was given on the v1 content of 2/2; it is not carried onto
+the reworked patch.
+
+v1: https://lore.kernel.org/r/20260821030325.1823829-1-admin@mswin.me/
+
+Patches inlined below (also against torvalds/master).
+
+
+[PATCH v2 1/2] dt-bindings: thermal: qcom-tsens: add qcom,sm6125-tsens
+
+SM6125 has a TSENS v2 block with 16 sensors. Its register and interrupt
+layout is identical to SM6115's, and it needs no calibration cells
+because v2 self-calibrates, so it is generic apart from the SoC-specific
+compatible.
+
+Document it in the v2 list, bound by the qcom,tsens-v2 fallback.
+
+Signed-off-by: Roman Linev <admin@mswin.me>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
+index 5a8f767..0ac3fdf 100644
+--- a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
++++ b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
+@@ -79,6 +79,7 @@ properties:
+               - qcom,sdm845-tsens
+               - qcom,shikra-tsens
+               - qcom,sm6115-tsens
++              - qcom,sm6125-tsens
+               - qcom,sm6350-tsens
+               - qcom,sm6375-tsens
+               - qcom,sm8150-tsens
+-- 
+2.55.0
+
+
+
+[PATCH v2 2/2] arm64: dts: qcom: sm6125: add TSENS and thermal zones
+
+SM6125 has a TSENS v2 controller with 16 sensors, at 0x04411000 (TM) and
+0x04410000 (SROT), with SPI 275 as "uplow" and SPI 190 as "critical".
+The register and interrupt layout is identical to SM6115's, and being v2
+the block self-calibrates, so it needs no qfprom nvmem cells and no new
+driver code: it binds through the existing qcom,tsens-v2 fallback.
+
+Add the controller and thermal zones for the 15 sensors that are used.
+The sensor-to-zone mapping comes from the downstream device tree for
+Xiaomi Mi A3 (laurel_sprout); the binding documents sensor 5 as unused,
+and it is left out. cpu4..cpu7 are the downstream cpu-1-{0..3} cluster
+sensors: they get #cooling-cells and per-CPU passive cooling maps, which
+stay inert until a cpufreq driver registers cooling devices. The other
+zones report temperature and carry passive and critical trips; GPU
+cooling can be mapped alongside the GPU node when it lands.
+
+Tested on Xiaomi Mi A3 (sm6125): tsens0 binds at 4411000.thermal-sensor
+with no dmesg output, the thermal zone count goes from 5 to 20, and the
+15 new die zones read 37.7-39.6 degrees Celsius at idle. Under a 660 s
+glmark2-es2-drm soak the hottest zone reached 52.2 degrees Celsius, well
+below its 85 degrees Celsius passive trip.
+
+Both SM6125 boards still build with no new dtc warnings.
+
+Signed-off-by: Roman Linev <admin@mswin.me>
+---
+ arch/arm64/boot/dts/qcom/sm6125.dtsi | 336 +++++++++++++++++++++++++++
+ 1 file changed, 336 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm6125.dtsi b/arch/arm64/boot/dts/qcom/sm6125.dtsi
+index 86de156..4eda56c 100644
+--- a/arch/arm64/boot/dts/qcom/sm6125.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6125.dtsi
+@@ -11,6 +11,7 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/power/qcom-rpmpd.h>
++#include <dt-bindings/thermal/thermal.h>
+ 
+ / {
+ 	interrupt-parent = <&intc>;
+@@ -45,6 +46,7 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1024>;
+ 			next-level-cache = <&l2_0>;
++			#cooling-cells = <2>;
+ 			l2_0: l2-cache {
+ 				compatible = "cache";
+ 				cache-level = <2>;
+@@ -59,6 +61,7 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1024>;
+ 			next-level-cache = <&l2_0>;
++			#cooling-cells = <2>;
+ 		};
+ 
+ 		cpu2: cpu@2 {
+@@ -68,6 +71,7 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1024>;
+ 			next-level-cache = <&l2_0>;
++			#cooling-cells = <2>;
+ 		};
+ 
+ 		cpu3: cpu@3 {
+@@ -77,6 +81,7 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1024>;
+ 			next-level-cache = <&l2_0>;
++			#cooling-cells = <2>;
+ 		};
+ 
+ 		cpu4: cpu@100 {
+@@ -86,6 +91,7 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1638>;
+ 			next-level-cache = <&l2_1>;
++			#cooling-cells = <2>;
+ 			l2_1: l2-cache {
+ 				compatible = "cache";
+ 				cache-level = <2>;
+@@ -100,6 +106,7 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1638>;
+ 			next-level-cache = <&l2_1>;
++			#cooling-cells = <2>;
+ 		};
+ 
+ 		cpu6: cpu@102 {
+@@ -109,6 +116,7 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1638>;
+ 			next-level-cache = <&l2_1>;
++			#cooling-cells = <2>;
+ 		};
+ 
+ 		cpu7: cpu@103 {
+@@ -118,6 +126,7 @@
+ 			enable-method = "psci";
+ 			capacity-dmips-mhz = <1638>;
+ 			next-level-cache = <&l2_1>;
++			#cooling-cells = <2>;
+ 		};
+ 
+ 		cpu-map {
+@@ -719,6 +728,17 @@
+ 			#interrupt-cells = <4>;
+ 		};
+ 
++		tsens0: thermal-sensor@4411000 {
++			compatible = "qcom,sm6125-tsens", "qcom,tsens-v2";
++			reg = <0x0 0x04411000 0x0 0x1000>,
++			      <0x0 0x04410000 0x0 0x1000>;
++			#qcom,sensors = <16>;
++			interrupts = <GIC_SPI 275 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 190 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "uplow", "critical";
++			#thermal-sensor-cells = <1>;
++		};
++
+ 		rpm_msg_ram: sram@45f0000 {
+ 			compatible = "qcom,rpm-msg-ram";
+ 			reg = <0x0 0x045f0000 0x0 0x7000>;
+@@ -1634,6 +1654,322 @@
+ 		};
+ 	};
+ 
++	thermal-zones {
++		aoss0-thermal {
++			thermal-sensors = <&tsens0 0>;
++
++			trips {
++				trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cdsp-thermal {
++			thermal-sensors = <&tsens0 1>;
++
++			trips {
++				trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		wlan-thermal {
++			thermal-sensors = <&tsens0 2>;
++
++			trips {
++				trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		camera-thermal {
++			thermal-sensors = <&tsens0 3>;
++
++			trips {
++				trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		video-thermal {
++			thermal-sensors = <&tsens0 4>;
++
++			trips {
++				trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpuss0-thermal {
++			thermal-sensors = <&tsens0 6>;
++
++			trips {
++				trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpuss1-thermal {
++			thermal-sensors = <&tsens0 7>;
++
++			trips {
++				trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpuss2-thermal {
++			thermal-sensors = <&tsens0 8>;
++
++			trips {
++				trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu4-thermal {
++			polling-delay-passive = <250>;
++
++			thermal-sensors = <&tsens0 9>;
++
++			cooling-maps {
++				map0 {
++					trip = <&cpu4_alert0>;
++					cooling-device = <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
++
++			trips {
++				cpu4_alert0: trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu5-thermal {
++			polling-delay-passive = <250>;
++
++			thermal-sensors = <&tsens0 10>;
++
++			cooling-maps {
++				map0 {
++					trip = <&cpu5_alert0>;
++					cooling-device = <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
++
++			trips {
++				cpu5_alert0: trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu6-thermal {
++			polling-delay-passive = <250>;
++
++			thermal-sensors = <&tsens0 11>;
++
++			cooling-maps {
++				map0 {
++					trip = <&cpu6_alert0>;
++					cooling-device = <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
++
++			trips {
++				cpu6_alert0: trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		cpu7-thermal {
++			polling-delay-passive = <250>;
++
++			thermal-sensors = <&tsens0 12>;
++
++			cooling-maps {
++				map0 {
++					trip = <&cpu7_alert0>;
++					cooling-device = <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
++
++			trips {
++				cpu7_alert0: trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		modem0-thermal {
++			thermal-sensors = <&tsens0 13>;
++
++			trips {
++				trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		display-thermal {
++			thermal-sensors = <&tsens0 14>;
++
++			trips {
++				trip-point0 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		gpu-thermal {
++			polling-delay-passive = <250>;
++
++			thermal-sensors = <&tsens0 15>;
++
++			trips {
++				trip-point0 {
++					temperature = <85000>;
++					hysteresis = <1000>;
++					type = "passive";
++				};
++
++				trip-point1 {
++					temperature = <95000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
++
++				trip-point2 {
++					temperature = <115000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++	};
++
+ 	timer {
+ 		compatible = "arm,armv8-timer";
+ 		interrupts = <GIC_PPI 1 IRQ_TYPE_LEVEL_LOW>,
+-- 
+2.55.0
+
+
+
+On 21.08.2026 06:03, Roman Linev wrote:
+> SM6125 has a TSENS v2 block that mainline does not describe, so the SoC
+> has no die temperature sensing: on a stock kernel the only thermal zones
+> on an SM6125 board are the handful backed by PMIC ADC channels.
+> 
+> The block needs no new driver code. Its register and interrupt layout is
+> identical to SM6115's and, being v2, it self-calibrates and needs no
+> qfprom nvmem cells, so it binds through the existing qcom,tsens-v2
+> fallback. Patch 1 documents the SoC-specific compatible; patch 2 adds the
+> controller and the thermal zones.
+> 
+> Sensor-to-zone mapping was taken from the downstream device tree for the
+> Xiaomi Mi A3 (laurel_sprout) and cross-checked against sm6115.dtsi, which
+> agrees on every sensor the two have in common (2, 3, 4, 13, 14 and 15).
+> Sensor 5 is not referenced downstream and is left out, so 15 of the 16
+> sensors get zones.
+> 
+> No cooling devices are referenced, since SM6125 has no GPU node upstream
+> yet. The zones report temperature and carry passive and critical trips;
+> a cooling map for gpu-thermal can follow alongside the GPU node.
+> 
+> Tested on a Xiaomi Mi A3: tsens0 binds at 4411000.thermal-sensor with no
+> dmesg output, the thermal zone count goes from 5 to 20, and the 15 new
+> die zones read 37.7-39.6 degrees Celsius at idle. Under a 660 s
+> glmark2-es2-drm soak the hottest zone reached 52.2 degrees Celsius
+> against its 85 degrees Celsius passive trip.
+> 
+> Both SM6125 boards (laurel-sprout and ginkgo) compile with no new dtc
+> warnings: pristine master emits 7 unique_unit_address warnings on the
+> geniqup nodes, and the series emits the same 7.
+> 
+> I have no other SM6125 board to test on, so the zone naming beyond the
+> sensors shared with SM6115 rests on the downstream device tree.
+> 
+> Roman Linev (2):
+>   dt-bindings: thermal: qcom-tsens: add qcom,sm6125-tsens
+>   arm64: dts: qcom: sm6125: add TSENS and thermal zones
+> 
+>  .../bindings/thermal/qcom-tsens.yaml          |   1 +
+>  arch/arm64/boot/dts/qcom/sm6125.dtsi          | 299 ++++++++++++++++++
+>  2 files changed, 300 insertions(+)
+> 
+
