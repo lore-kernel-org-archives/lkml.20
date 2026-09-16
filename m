@@ -1,346 +1,125 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F8C525A89
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1836D345EA9;
+	Wed, 16 Sep 2026 14:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569772; cv=none; b=dxgSg+9wexralBOmwtakNkAGCxRSYjV+Ae9i7oJ2qP4sFpaDeR5jlxBmjc8coERynZXpaZQ3/1TWGGIkkCChlk12DXm0A73Pja4mCI+CV/+rqwun3Okru6mx7CDcBH4wsTDagLe0wGO9yV9GFlCM6LOVzBiaG5sQBRY5kpXmkTw=
+	t=1789569804; cv=none; b=Jj9PcFVxvNdJ0uJKtitxhW0AxQacsWchp1H6g8bDc3Zb2WhuMHel7NtFnvVPKcwIRUUwmIRc/fjh7PZEuOgIkxHfabBXN396MRafDjIz8eQ+iAEHZbewo31ui+OY4j5fWFObvY2t3+MzEcKydxr9L93Fh6MRPoFMcD37v8FyvcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569772; c=relaxed/simple;
-	bh=bbgggdaW3XVFK0v7GhMrrGy9SPKilqxzLFHbFLiI+Ck=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jXysI5YeIPPsaRlDuSvtGuFLkyWInuROtI12XWqOZ+0Y4E4saj+w5DjcsmksJR0Q6lK2gTBybPOK4Fvi/MwD0a17G6lejVJSMahcnW9rDPyu2CJO15YPWtU/m5FsktxLvgaAb95unpzyTKKTYGw2WlEV7JHXZYP5tfLVLg0VHyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aicharmers.com; spf=fail smtp.mailfrom=pythoncharmers.com; dkim=pass (2048-bit key) header.d=aicharmers.com header.i=@aicharmers.com header.b=Ycf4PCTK; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aicharmers.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pythoncharmers.com
+	s=arc-20240116; t=1789569804; c=relaxed/simple;
+	bh=2blyJVrLPGRj0l0yu7fJBugdjsKzvJN/b9+RvvBJZUk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R3LDOicFez07q/0Cegs3ZEUp0G0y/gz4hSKDcwqOh/OYdA0+HW1vweUNjw6UbhwOJ+xxsUq71BQZiTpR090pn74Tsi4zLdJWD/d0zJFGyWcruBpUMRJ6fHu1kTmHtxyISw/3TPlj5LWxhqgZSUHFMR2ngMDAdEd72KKyFVtyQSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=US4HjDlo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aicharmers.com header.i=@aicharmers.com header.b="Ycf4PCTK"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc433d52421so584538a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:42:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=aicharmers.com; s=google; t=1789569769; x=1790174569; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UintJ1OcX1Vv5LA0Oy4kGu7rjHpo6UkClpvkxFTZXDY=;
-        b=Ycf4PCTKQlc6qFIMLFW9TAiAvOx0IsApMb2wk2f0yz+nAzfDceLjZibpRi6DAuFMfe
-         2gf+Hu/tISj/3uSGb0ajO7GYbodbK6qSLHJOrXl8ctqOwaivTKkfi8miOmu0XrrM6xiL
-         RioQPUvzyiiI79/JBAY56riI1Tm2GqOmAy/mNRAtjAJY3/7KBWfoEnAkquHczq5EFLrq
-         Eo2KFFVIzzJ8ArqJ+1oKA74G7P/peNE2XpQSAnGTE1YN/GuhZp4gq4HWGkg7g7RXUnIN
-         ApbARa60SvoCVp1enHDzK8PexxLFeR3TFBE/lTO0Q6U7SgWUDNX5Nq2UBGx2XHVtAp87
-         JwSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789569769; x=1790174569;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UintJ1OcX1Vv5LA0Oy4kGu7rjHpo6UkClpvkxFTZXDY=;
-        b=gQuJs+Lk3+RJ/Vfz+LtnNsLlJxYWxM0dVJhfCFbkTm2tWJpwyJ9ZRanpZoE05XGQtS
-         cZqQV+TsSoqpmjnOba1ltPqABlKx2R2O3/Gtt7mSw7DbvlvapBm0YKoXViE4WOLQ2JRv
-         m3pdQ2fiuUmC/HsuP+3nxWtO1bZjdXFTwaSfhtdSmDMG8CzhFOPZcj6nfMmdE0xdovc2
-         Obf2btjgnpcVd8DYuMw+t6T8kW7fv6Fqv6QbvD1gQthcnuz9lDFmWz38rdrGTduXv4aF
-         w6C9ufWF4r41mFql6HcOAsPzayvlMbjJoWRxFLjgpY0CDp4YgtYkLPfD3FQVzJ5MoXRe
-         24cw==
-X-Forwarded-Encrypted: i=1; AKwUvBwBfUuOwmLadl66eHHQmhMXgs7vPHghnYICAKPREEAYtgHNS/a+FGF/ruKXrBAKwH8t4JUqbjHbxD4UmDs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCU4atA+ql/yf5mPCWqAcfjDswrzrYcP/05dCi8Dghrh0x4fE5
-	7xM7/8KelccR1UTwQ7UXsg8VP4T9zStqj2+cuaqb9RLKsAfjo/TtIETNKzgAukzlth0=
-X-Gm-Gg: AYBFou3MdCqsLnP4fb9KKmcv2OkiTN/WMfYTjqKOVl1qqWROK13oe6A4mvrxeA1rdBM
-	tbMBsv73Ys10OQKdxHhIYDg4X/dEPwAsYcbsfgI3qckVzlQibC/5/yASnLdtvtMI84Zt7XStHja
-	z27kNIWYqE7dA65H8rjjktTK4PQyYAUhTwgWXxCf40uhXvhD1C6gg5D4Pd6QzztSUGsmkW3i6v7
-	n8DyesIxHFkMx8dNgWMim+saNIlazZS4+jyTGVjT+VmSmBZK54u19Ax9VRtfThi7QvDfFx6NLf+
-	ADe8QMJpQfg39BvAiwXEYi+SLPbo9IfPBfjgdE252IgzkAFWR8f8NmzA0C2ZeNGjN4MYCwunjh1
-	uzzmvHpMVUiLSjvoQlJUzhWmkrvyGDCKOYIFkwc+F0jEBNmcLUnQjapGhOD81F56BubLTPOolAg
-	E1Gijg22lYH6Wj3cQ5aAPS7kTUMKstAkYlOxlF/5oF0RwK3sg3OdYfvc/ZLuqbxYW3Qs9Nwbj38
-	f3VpefLkWxbv7t72vq2DuZixTZCWzijRqiJNeaeJ6y09+F/9cCrEf8Cu+awnPa1Q9hkivjmMxIE
-	h4h0MQdfRqhar34OJkDhz0MzhwaZ
-X-Received: by 2002:a05:6a20:d48e:b0:3da:1e2f:3be9 with SMTP id adf61e73a8af0-3dd5f720482mr8089122637.22.1789569768985;
-        Wed, 16 Sep 2026 07:42:48 -0700 (PDT)
-Received: from ip-10-0-0-163.ap-southeast-2.compute.internal (ec2-15-135-184-173.ap-southeast-2.compute.amazonaws.com. [15.135.184.173])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50ab54cb9sm1780799a12.8.2026.09.16.07.42.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:42:47 -0700 (PDT)
-From: Ed Schofield <ed@aicharmers.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Ed Schofield <ed@aicharmers.com>
-Subject: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-Date: Wed, 16 Sep 2026 14:40:14 +0000
-Message-ID: <20260916144014.879355-1-ed@aicharmers.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="US4HjDlo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879721F000FF;
+	Wed, 16 Sep 2026 14:43:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789569802;
+	bh=xSDVG1lglUQwFFqlygYf5GfKu89gxUCIwl8QHxqxrNQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=US4HjDloLd3rTwRGv61tzk1+s2ehxUJaAKRwaEQW5YxLXGW7eDKunWQaQOXFSm76b
+	 tWV+Ste9NP/hiHh42Gr3UzI1zxBFLXStdNvV7vw1eOxb6tFBMrud8unwiYuUXrvVLx
+	 MHtQ9o1Gyql2G1UBrGgLoErR/sCe6j+DZBf+RYnWRE0M5k/AMxpJBWRhcbwotgQofB
+	 FNJ4N9pQ4qYImsGMsVxwfwrK8YXskAmdRtoUHEv2yX3ThKE/Is3mRJH5FRrETPd72j
+	 bfE/3/ker2vNMZ56/vj2k1CqLwQVDe/Dhh2VPruwWve/28XMRHkr/dTNwW1tjAldj3
+	 l6ePbVM1BezCA==
+Message-ID: <b9693892-d0d3-49aa-8fb8-21da12f6eadc@kernel.org>
+Date: Wed, 16 Sep 2026 15:43:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 3/5] media: qcom: camss: Add support for PHY API
+ devices
+To: Oleg Keri <okerixx@gmail.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-3-ae811e2f0799@linaro.org>
+ <BkBVG4wA3hW3czd3HkiTpcRrXAS9XQUXYIaW-daywIBstO3j8EYH1SjT-KLmM_3FIkcbIETf8t-eyx048tIIzA==@protonmail.internalid>
+ <178956537382.2699.6279926603215472320@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <178956537382.2699.6279926603215472320@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+On 16/09/2026 14:29, Oleg Keri wrote:
+> Hi Bryan,
+> 
+> On Tue, Jul 28, 2026 at 10:35:34AM +0100, Bryan O'Donoghue wrote:
+>> Add support for PHY API devices
+> One thing I ran into while bringing this up on a Lenovo Yoga Slim 7x
+> Gen 11 (Glymur, ov08x40 on CSIPHY4, two lanes), with Nihal's Glymur
+> CAMSS series on top: the two ends of the CAMSS <-> PHY link count lanes
+> differently, and the CAMSS side silently ends up on the wrong lanes.
+> 
+> The csi2-phy binding numbers data-lanes from 1, and the PHY driver
+> converts:
+> 
+> 	/* Convert data-lanes = <1 2 3 4> to bit positions */
+> 	csi2phy->stream_cfg.lane_cfg.data[i].pos = data_lanes[i] - 1;
+> 
+> The CAMSS endpoint still takes its data-lanes as 0-based positions;
 
-Some Apple Navi GPUs intermittently time out during SMU initialization
-when EnableAllSmuFeatures includes UCLK DPM. Leave UCLK out of that early
-request and enable it from Navi post-init, after display hardware init
-and before the UMC workaround and UMD clock setup.
+Resolved here:
 
-Read back the enabled features before rebuilding the memory clock table
-and sustainable clock limits. Also check the PPT memory states used by
-display initialization before late enablement. Keep memory-voltage DPM
-and respect the user's memory-DPM setting and the secure Navi 10 exclusion.
+https://lore.kernel.org/r/20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-5-e2197a3e2551@linaro.org
 
-Limit this workaround to Apple 7340/0218 revision 41, 7340/0219, and
-731b/021a revision 40. Revisions and PCI IDs here are hexadecimal. The
-underlying initialization dependency behind the timing sensitivity is
-still unknown.
-
-This builds on Atharva Tiwari's submitted 0219 delayed-UCLK patch
-and Guna's diagnosis. Ed Schofield moved the enable point into the
-Navi callback, added state validation and clock-table refresh, and
-extended the board matching.
-Independent tests of the related T2 implementation support improved boot
-reliability on 0219 and 021a; those are not tests of this exact AMD patch.
-
-Link: https://lore.kernel.org/amd-gfx/20260824190409.1724-1-atharvatiwarilinuxdev@gmail.com/
-Link: https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5637976466
-Link: https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5645652752
-Assisted-by: Codex:GPT-6
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Co-developed-by: Ed Schofield <ed@aicharmers.com>
-Signed-off-by: Ed Schofield <ed@aicharmers.com>
 ---
-Hi Alex, hi Atharva,
-
-Here is v4 of the delayed-UCLK workaround. Atharva is credited as the
-author in `From:`, with my rework credited through `Co-developed-by:`.
-The local development history starts from Atharva's original 0219
-submission [1], followed by my move to the Navi post-init callback,
-state validation, clock-table refresh and additional board support. This
-export is a single replacement patch against AMD staging at `8a4e96cf2`;
-it is not an incremental patch to apply on top of v2 or Atharva's
-original patch. (V3 was a local revision that I didn't submit to this
-list.)
-
-Atharva, I agree that display initialization may explain the timing
-dependency. This patch already enables UCLK after display hardware
-initialization on the normal probe path. It is intended as a targeted
-workaround for the reported boot failures; it does not establish the
-underlying cause or address native 5K support. Could you share the exact
-initialization-ordering diff, kernel version and GPU IDs from your
-experiment? In the AMD staging tree used for this patch,
-`dce_v10_0_early_init()` handles Tonga/Fiji, while these Navi boards use
-the DCN path.
-
-My goal is to stop the intermittent boot failures on my iMac (0218) and
-other affected machines. Testing of my related T2 candidate in PR 61
-[2], which was based on my local v3, is encouraging:
-
-- Matt Olney's report on 021a [3] records internal-display boot success
-  improving from 2/10 to 10/10, with mixed restart types.
-  External-display results were 4/10 versus 4/5, with uncertain kernel
-  selection on the failed candidate attempt.
-- Vivek Chauhan's report on 0219 [4] records boot success improving from
-  1/5 to 3/3.
-
-These results are from the T2 implementation, not this exact AMD v4
-export. The T2 patch stack also includes a separate correction to its
-existing fixed allowed-feature mask on 0219, which clean AMD does not
-need and this patch does not contain. The results support improved boot
-reliability on these machines, but do not establish full performance or
-reliability across all display configurations.
-
-Compared with public v2, v4 adds 731b/021a revision 40, preserves the
-existing secure-Navi-10 exclusion and generalizes the helper names. It
-retains 7340/0218 revision 41 and 7340/0219. All IDs and revisions here
-are hexadecimal.
-
-Compared with my local v3 / T2 Linux PR #61, v4 excludes 020f: 3v3nFloW
-reported that initialization completed but the machine subsequently hung
-under load [5]. Their follow-up testing with a fixed memory-clock level
-[6] suggests that memory-clock changes cause the hang, but doesn't
-establish whether GPU load or display activity triggers it. I've also
-excluded 021b from this version, which we don't yet have testing results
-for.
-
-Local build and host checks pass. I am currently travelling without my
-iMac and have no new v4 hardware results, but I am submitting this
-version for merging, with the workaround limited to the three board
-matches supported by the existing evidence from the volunteer testers
-mentioned above.
-
-Alex, this patch replaces v2 and applies directly to the AMD staging
-commit identified above.
-
-Thanks,
-Ed
-
-[1] https://lore.kernel.org/amd-gfx/20260824190409.1724-1-atharvatiwarilinuxdev@gmail.com/
-[2] https://github.com/t2linux/linux-t2-patches/pull/61
-[3] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5637976466
-[4] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5645652752
-[5] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646139127
-[6] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646438512
-
-v3 was local, not submitted. Since public v2: add the tested 021a/40
-match, retain the secure-Navi-10 exclusion, and generalize helper names.
-Since local v3: remove 020f (load hangs) and 021b (no testing evidence).
-Base: 8a4e96cf2acd1e0340581df100b559f77ad7d855 (AMD staging).
-This is a full replacement, not a patch to apply on top of v2.
-
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 100 ++++++++++++++++++
- 1 file changed, 100 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index f8ca5eb9a..3ac2a074c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -60,6 +60,37 @@
- 
- static int navi10_init_ppt_limits(struct smu_context *smu);
- 
-+static bool is_asic_secure(struct smu_context *smu);
-+
-+static bool navi10_apple_needs_late_uclk(struct smu_context *smu)
-+{
-+	struct amdgpu_device *adev = smu->adev;
-+	struct pci_dev *pdev = adev->pdev;
-+
-+	if (pdev->vendor != PCI_VENDOR_ID_ATI ||
-+	    pdev->subsystem_vendor != PCI_VENDOR_ID_APPLE ||
-+	    !(adev->pm.pp_feature & PP_MCLK_DPM_MASK))
-+		return false;
-+
-+	/* Preserve the existing secure Navi 10 memory-DPM exclusion. */
-+	if (is_asic_secure(smu) &&
-+	    amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(11, 0, 0) &&
-+	    adev->rev_id == 0)
-+		return false;
-+
-+	switch (pdev->device) {
-+	case 0x7340:
-+		return (pdev->subsystem_device == 0x0218 &&
-+			pdev->revision == 0x41) ||
-+		       pdev->subsystem_device == 0x0219;
-+	case 0x731b:
-+		return pdev->subsystem_device == 0x021a &&
-+		       pdev->revision == 0x40;
-+	default:
-+		return false;
-+	}
-+}
-+
- static const struct smu_feature_bits navi10_dpm_features = {
- 	.bits = {
- 		SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
-@@ -356,6 +387,11 @@ navi10_init_allowed_features(struct smu_context *smu)
- 		smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEATURE_MEM_MVDD_SCALING_BIT);
- 	}
- 
-+	/* Defer UCLK on the selected Apple boards until IP late init. */
-+	if (navi10_apple_needs_late_uclk(smu))
-+		smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
-+					   FEATURE_DPM_UCLK_BIT);
-+
- 	if (is_asic_secure(smu) &&
- 	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(11, 0, 0)) &&
- 	    (adev->rev_id == 0))
-@@ -470,6 +506,25 @@ static int navi10_store_powerplay_table(struct smu_context *smu)
- 	return 0;
- }
- 
-+/* DCN20 consumes these PPT states before the post-init UCLK enable. */
-+static int navi10_apple_check_uclk_states(struct smu_context *smu)
-+{
-+	PPTable_t *ppt = smu->smu_table.driver_pptable;
-+	unsigned int count, i;
-+
-+	if (!navi10_apple_needs_late_uclk(smu))
-+		return 0;
-+
-+	count = ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
-+	if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
-+		return -EINVAL;
-+	for (i = 0; i < count; i++) {
-+		if (!ppt->FreqTableUclk[i])
-+			return -EINVAL;
-+	}
-+	return 0;
-+}
-+
- static int navi10_setup_pptable(struct smu_context *smu)
- {
- 	int ret = 0;
-@@ -490,6 +545,10 @@ static int navi10_setup_pptable(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
-+	ret = navi10_apple_check_uclk_states(smu);
-+	if (ret)
-+		return ret;
-+
- 	return navi10_init_ppt_limits(smu);
- }
- 
-@@ -3219,6 +3278,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu_context *smu)
- 					       NULL);
- }
- 
-+/* IP late init follows display hw_init; refresh clocks before UMC/UMD setup. */
-+static int navi10_apple_late_uclk_enable(struct smu_context *smu)
-+{
-+	struct smu_11_0_dpm_context *dpm = smu->smu_dpm.dpm_context;
-+	struct smu_dpm_table *table = &dpm->dpm_tables.uclk_table;
-+	PPTable_t *ppt = smu->smu_table.driver_pptable;
-+	struct smu_feature_bits enabled;
-+	int ret;
-+
-+	if (!navi10_apple_needs_late_uclk(smu))
-+		return 0;
-+
-+	ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT, true);
-+	if (ret)
-+		return ret;
-+	ret = smu_cmn_get_enabled_mask(smu, &enabled);
-+	if (ret)
-+		return ret;
-+	if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
-+		return -EIO;
-+
-+	smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
-+				 FEATURE_DPM_UCLK_BIT);
-+	table->clk_type = SMU_UCLK;
-+	ret = smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
-+	if (ret)
-+		return ret;
-+	if (!table->count)
-+		return -EINVAL;
-+	if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
-+		table->flags |= SMU_DPM_TABLE_FINE_GRAINED;
-+
-+	return smu_v11_0_init_max_sustainable_clocks(smu);
-+}
-+
- static int navi10_post_smu_init(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
-@@ -3227,6 +3321,12 @@ static int navi10_post_smu_init(struct smu_context *smu)
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
-+	ret = navi10_apple_late_uclk_enable(smu);
-+	if (ret) {
-+		dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n", ret);
-+		return ret;
-+	}
-+
- 	ret = navi10_run_umc_cdr_workaround(smu);
- 	if (ret)
- 		dev_err(adev->dev, "Failed to apply umc cdr workaround!\n");
--- 
-2.43.0
+bod
