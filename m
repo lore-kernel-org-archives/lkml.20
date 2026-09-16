@@ -1,181 +1,132 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C1B3B9D81;
-	Wed, 16 Sep 2026 21:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF603B5311;
+	Wed, 16 Sep 2026 21:19:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789593562; cv=none; b=kmenQiboPWTjl5jSgDBxiSXLBYI0kPCXQ3QmCE8u+glXxPr6xRZwSW3jDtx6PZsD/jF7gZNrKW2qzRif8mcU1sWcJdOTNi57AdX2+buCFD7XjAZnk8EEeK/JItgEA+8Sn4sCFfGYyuQwyo53vMGg3SSQlXxFoZZGL0j7WueWMYY=
+	t=1789593562; cv=none; b=JQIHn0qSyFtkHc5gV1UHj18cI9WGrDlLwO2e1AOGjYimAUVijfw8Tc9JJJzK6SWEEYU9p1fYVj8PPkhWfgAnm1qezdRXhqbVfzQN2rDu7XuOArLdyxMdhPNQ9PaspKBY70FgtE1VrYrYbpVlcEgT/bLhCLi3o3OHvZvOl70kXks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789593562; c=relaxed/simple;
-	bh=+EBw57/rFH0XWMl5nebXIouA0KdfKO1qFcRm561aBC4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q5IWQYbMKFjcpW9MYwF54s7CchXgGvJFzP8rnfdkvYuwjGfKjhDKrwTYzaE5CxtZAKYn9Y8u/sThZQOb6RHQVKvlnUJo4cNksRaLhnFfQpeEcSl8z4Se4tkyZ5g1VNlJ1OBXMayDtfwL6ViTiIFVq6hKYFrOGTpaqg4HTTJX46M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UL2m8ysa; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	bh=ZJj6sOnAWihmjCAI1p9TzUptqhR6jfpsZ0hJnvzvjA4=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WJGTpFfK9ItoEOGQwykN4H+dzthW7doYdwBwLHNr3JFMjO/EatUfZB9xNZqU2fEts0/lpq89UZmRyElGppfUPeOxMTuWdq2555t7Y88bWXLBCBuv+CTnNNHZNeyfqCsHxbrvnBYJ6VJFsHBChTWAlkbVN8d8NGP3UwExbf/LF9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=auPAgx9P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UL2m8ysa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=3T3VyGT3/1mRXHqqrNTQqE6TeL6iYTnHree8fp3aLWI=;
-	b=UL2m8ysaxd2o3t8HHpuJTWkEprXk/lETht9XT4k8ZKFzpr8xuRLVns6PmnKbQG
-	i45zoO3QrTJz4G49XxidO6kGGlDLzWznhhC/f8kyPsM9uEk4gi+cs3QdiNLEzEsl
-	xp9LayaF4Xtx4gi4VRVfI1lp2IUbg6PcaxgkS7E7Q1Azk=
-Received: from [IPV6:2409:8900:21a7:a33a:b45d:31d1:c098:7d46] (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgAX_EmUB6tqF8zMPQ--.18673S2;
-	Thu, 17 Sep 2026 05:18:13 +0800 (CST)
-Message-ID: <2cc9b583-8966-454e-9e5e-48e992ca6070@163.com>
-Date: Thu, 17 Sep 2026 05:18:12 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="auPAgx9P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C7711F00893;
+	Wed, 16 Sep 2026 21:19:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789593542;
+	bh=GrE93os0smfRVept2SAd6k9NjBTA7zM10Cs3NirTs20=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=auPAgx9PgTFnpeSp/JBqkRFzaWH9lJJ2wDmVTstmDvlNA6hKESZr3jp+YcySerB8l
+	 rDeCRq8tPkt2FO7SR3EdFg5Tg3Rcypd1Fzg15oljQ2ooe2hLxBxDQc1QwEmK+/C9Z2
+	 r6zpeOTUj/kI6VCoUZAJejUNUp/Y0MDCzpsOT1L05BqSxYQC9j3K426mHJ1LNElSm2
+	 zVSySWfgWeQbl7drn54kNXTV5OrM559Bn0Xf13jMSLjipEpAtZ+kwmQieBhJJ/wUxD
+	 7wuVGO542ayrhEeLpSck/+e7zgRnIBtAJSJwIfNSXOxYAXm9oaejNaQ+dDtz4C4fQL
+	 0m93vLFgf9uyg==
+Message-ID: <3cd8e126a2f214673abfa78fc303b1b1@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+ Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <etsal@meta.com>,
+ Cheng-Yang Chou <yphbchou0911@gmail.com>, sched-ext@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] selftests/sched_ext: Add lazy preemption tests
+Date: Wed, 16 Sep 2026 11:03:36 -1000
+In-Reply-To: <20260915194611.2674127-3-arighi@nvidia.com>
+References: <20260915194611.2674127-1-arighi@nvidia.com>
+ <20260915194611.2674127-3-arighi@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 5/7] ntfs: do not clear the volume dirty bit during
- sync
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, Baolin Liu <liubaolin@kylinos.cn>,
- stable@vger.kernel.org
-References: <20260915083252.812126-1-zenghongling@kylinos.cn>
- <20260915083252.812126-6-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260915083252.812126-6-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgAX_EmUB6tqF8zMPQ--.18673S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKFyDKF1xWFWfKr4kCFykKrg_yoW7Wr13pr
-	Zrtwn3CFWkJry7CwnI9w429F1S93s7Cay5Cry3Jw1aqrs5tr1UtF4rt3Wrua1vkryxXr1Y
-	qrWjg3y3ua1DAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UxxhLUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RVsN2qrB5V+IAAA3q
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
+Hello, Andrea.
 
+This is an AI review. The tests pass here under vng in lazy, full and none
+modes. The timing below was measured with the target CPU on nohz_full.
 
-在 2026/9/15 16:32, Hongling Zeng 写道:
-> ntfs_sync_fs() clears VOLUME_IS_DIRTY while the volume is still mounted
-> read-write, so a sync running concurrently with an in-flight metadata
-> modification can clear and persist a bit that was just set: the
-> modification then lands on a volume that is clean on disk, and a crash
-> does not run chkdsk.
-> 
-> Stop clearing the bit in ntfs_sync_fs() and leave the clearing to the
-> remount-to-read-only path, which the VFS reaches only after
-> sb_prepare_remount_readonly() has drained in-flight writers, and to
-> ntfs_put_super(), which runs after evict_inodes() on a quiesced
-> filesystem.  A mounted read-write volume now keeps the dirty bit until
-> it is dismounted cleanly, which matches the NTFS semantics; the cost is
-> a needless chkdsk if the machine crashes between a sync and the unmount.
-> 
-> A recorded error state is still persisted right away when the
-> filesystem is synced: with NVolErrors() set,
-> ntfs_sync_volume_dirty_state() can only set the bit, never clear it,
-> so it cannot lose a modification the way the old unconditional call
-> did.  This keeps the error report from being lost to a crash on a
-> volume that has seen no modification; an error recorded after the
-> last sync is still only persisted at the next quiescent transition.
-> 
-> sync_blockdev() and blkdev_issue_flush() are both called and the first
-> error is returned, so a writeback failure neither hides a flush failure
-> nor skips it.
-> 
-> A RWF_NOWAIT write still blocks in the marking when the volume looks
-> clean, as it already did on the base; a non-blocking marking is
-> follow-up work.
-> 
-> Reported-by: Baolin Liu <liubaolin@kylinos.cn>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/file.c  |  7 ++++---
->   fs/ntfs/super.c | 31 ++++++++++++++++++++++++-------
->   2 files changed, 28 insertions(+), 10 deletions(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index cfc7b36b7dff..99a2c7a5cf81 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -621,9 +621,10 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   
->   	/*
->   	 * The volume must be marked dirty before the modification is made,
-> -	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
-> -	 * can clear the bit concurrently and the modification would then
-> -	 * land on a volume that is clean on disk.
-> +	 * without an unlocked check of the in-memory flag: the dirty bit
-> +	 * is only cleared at the quiescent transitions, under the same
-> +	 * $Volume mrec_lock this call takes, so an unlocked skip could
-> +	 * lose the set to one of them.
->   	 */
->   	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 3574c224fe28..463050ae1b0e 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -486,8 +486,9 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
->    * This is the single point that persists the in-memory error state to disk.
->    * The runtime error paths only record NVolErrors() because they run under a
->    * variety of ntfs locks the dirty-bit write cannot be taken under (runlist
-> - * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); the first
-> - * ntfs_sync_fs(), a remount, or the unmount then persists the flag here.
-> + * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); a sync of a
-> + * volume with recorded errors, a remount to read-only, or the unmount,
-> + * then persists the flag here.
->    *
->    * A hibernated volume is not written from these persistence paths:
->    * resuming Windows from a modified image corrupts it, so the dirty bit
-> @@ -1955,7 +1956,7 @@ static void ntfs_shutdown(struct super_block *sb)
->   static int ntfs_sync_fs(struct super_block *sb, int wait)
->   {
->   	struct ntfs_volume *vol = NTFS_SB(sb);
-> -	int err = 0;
-> +	int ret, err = 0;
->   
->   	if (NVolShutdown(vol))
->   		return -EIO;
-> @@ -1963,14 +1964,30 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
->   	if (!wait)
->   		return 0;
->   
-> -	/* If there are some dirty buffers in the bdev inode */
-> -	if (ntfs_sync_volume_dirty_state(vol)) {
-> +	/*
-> +	 * The volume dirty bit is deliberately not cleared here: a sync
-> +	 * running concurrently with an in-flight modification could clear
-> +	 * and persist a bit that was just set, leaving the modification
-> +	 * on a volume that is clean on disk.  The bit is only cleared at
-> +	 * the quiescent state transitions, remounting read-only and clean
-> +	 * unmount.  A recorded error state, however, is persisted right
-> +	 * away so that it is not lost to a crash on a volume that has
-> +	 * seen no modification; with NVolErrors() set this can only set
-> +	 * the bit, never clear it.
-> +	 */
-> +	if (NVolErrors(vol) &&
-> +	    ntfs_sync_volume_dirty_state(vol)) {
->   		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
->   		err = -EIO;
->   	}
->   	sync_inodes_sb(sb);
-> -	sync_blockdev(sb->s_bdev);
-> -	blkdev_issue_flush(sb->s_bdev);
-> +	ret = sync_blockdev(sb->s_bdev);
-> +	if (ret && !err)
-> +		err = ret;
+On Tue, Sep 15, 2026 at 09:45:13PM +0200, Andrea Righi wrote:
+> +void BPF_STRUCT_OPS(kick_stopping, struct task_struct *p, bool runnable)
+> +{
+> +	if (p->pid == victim_pid && state == KICK_STATE_RESCHED)
+> +		state = KICK_STATE_DONE;
+> +}
+
+In the kick and tick scenarios the victim is the only runnable task on the
+target CPU, so when its slice is cleared the kernel keeps running it with a
+refilled slice and ops.stopping() is never called. DONE only arrives when some
+other task pinned to that CPU wakes up. With the target CPU on nohz_full here,
+the first such wakeup was a kworker 2.86s after the victim started, against
+the 3s wait. Without nohz_full the scenarios still spend about half a second
+each waiting for one. SCX_OPS_ENQ_LAST with the SCX_ENQ_LAST kick as in
+nohz_tick.bpf.c would put the victim through ops.stopping() on its own.
+
+> +SEC("fexit/__resched_curr")
+> +int BPF_PROG(kick_need_resched, struct rq *rq, int tif)
+> +{
+> +	struct task_struct *task = BPF_CORE_READ(rq, curr);
 > +
-> +	ret = blkdev_issue_flush(sb->s_bdev);
-> +	if (ret && !err)
-> +		err = ret;
->   	return err;
->   }
->   
+> +	if (!task || BPF_CORE_READ(task, pid) != victim_pid ||
+> +	    BPF_CORE_READ(rq, cpu) != target_cpu || state != KICK_STATE_QUEUED)
+> +		return 0;
 
-Looks good to me.
+This latches the first resched of the victim whatever the cause. A higher
+class wakeup on the target CPU inside the window, which is the whole 20ms
+slice in TICK_EXPIRY, records a full slice and fails observation_valid().
+Skipping observations with a non-zero slice would be more robust.
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+> +	SCX_EQ(lazy_wait.resched_tif, immediate.resched_tif);
+> +	SCX_GT(lazy_wait.nr_wait_callbacks, 0);
 
+DONE is set from ops.stopping() before the context switch and the balance
+callback runs after it, so this read can race the increment. Poll for it.
+
+> +	file = fopen("/sys/kernel/debug/sched/preempt", "r");
+> +	if (!file) {
+> +#if defined(CONFIG_PREEMPT_LAZY) && !defined(CONFIG_PREEMPT_DYNAMIC)
+> +		return 1;
+> +#else
+> +		return -1;
+> +#endif
+
+This reflects the build tree, not the running kernel. Also, none and voluntary
+return -1 and skip the comparison, but the TIFs must match in those modes too.
+
+> +	skel->rodata->scenario = scenario;
+> +	if (kick__load(skel))
+> +		goto out;
+
+If __resched_curr() isn't in BTF, this fails too and kick_invalid FAILs along
+with the other four although it doesn't use the tracer. Skipping when the
+target is missing would be better.
+
+> +	if (!start_gated_worker(&victim) ||
+> +	    !wait_for_counter(&skel->bss->nr_lazy_victim_running, 1,
+> +			      PHASE_TIMEOUT_MS)) {
+> +		SCX_ERR("Lazy-enqueue victim was not scheduled");
+> +		goto out;
+> +	}
+> +	usleep(100000);
+
+Neither lazy phase checks that the tick actually stopped before the request,
+so they pass with the tick running the whole time.
+
+> Extend the NO_HZ_FULL test with infinite-slice victims. Verify that lazy
+> enqueue and kick requests restart a stopped tick and make forward
+> progress. Keep invalid kick flag coverage and skip modes not exposed by
+> the running kernel.
+
+kick.c is new, nothing is kept. The controller mask and timeout changes to
+nohz_tick aren't mentioned either.
+
+Thanks.
+
+--
+tejun
