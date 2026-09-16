@@ -1,226 +1,217 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012015.outbound.protection.outlook.com [52.101.43.15])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABA6379C23;
-	Wed, 16 Sep 2026 15:00:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570851; cv=fail; b=IJ9V2MxE/vH3Gixyx1P5VACNdEFwVGLEsEW76Cr8BstxhFjFu3wcSmXKwzaJle5DftFBH2jiVJWj2TnXQ+g12AOCobUEk1TmUDcUlc1rEhWxGrbYwaZGRAbv7gXuV2Rk/d7p0MZHxajmT3s19RhOjcLtknwJ0nYB8MEnMT/gde4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570851; c=relaxed/simple;
-	bh=irKh1828CDRRJgIlI1UuNkMlOYommyXEuljy0hceALw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=dbffdmQ0K3KPiE39DxQU0cvQxJi41Mwd/bREsZEbzxcUDh+TZGdPfUhy4xCARU7eA7szbSqHspZBMFtspevRIP1GpeiItIEAAM2xPYmxXRO1WdG8FYNnrZsvSKVBcgN+XfBtoCwbnHOzCS9uFWvc5WNmEcfjC3hbb8ysPnBdspw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KLwly7pB; arc=fail smtp.client-ip=52.101.43.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD803793B0
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789570867; cv=none; b=hhpx8880ltODZSs+9NzwuXY7GXDsHENq9Bthgk1xtQiP9ysRVQzvat9/P1ZmWzt9VlDeQCEnff4RlOUYDFHhQrPFRzx38MO9kcz/iwAcuCPtGtHGuACmT2A7WZVTemYRspckuR8PqI+yxbH743NrVUyGkcgpjyimNv10H3MNRiU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789570867; c=relaxed/simple;
+	bh=bB/7vhXoE0ykCnHM97CE7sp1Ib7yxq2wNHywlTv0Aa4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xv6ATMWlDKTJAe9q9YFk5mbzC2IM00C76fGO13SSrcxgNNc7qzOSdMNYCW+zLydsgEa8cE9nttBSez0wwLRLCzhYRWvBj52BH60ntFIZdly20fezIHLGphC6rkyBbK/D1xiX7mvwniJ8TVFYPw16r1UNuel8VaONYmqjR4ndT9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Vy/KB4PM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I8Q/VyCk; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KLwly7pB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mRwzTkAfysXpELiFleuZ1pAopXo6woWs7NfGiIE/iTYFnDpcE71KqyAEu4IGEiQw1YV0g1OSfsGpOd4qcAp5R6gClxxqPbfJIVq2iT96YX+V5cJgFe83cosh5zDux5Sfgt5+VlG+rgLfyVlkpVAhtn0uwiieTI0kBnGWAjnFlWHTrMlUbgzpsiCrza2+NR8EHLAmhRY8eTtjNZgi/wnKzb6sDxFKcUV+u++5Kd4KIQazmRnxSGY/r5e5aoE5cD4RsJqAUvpDNEH98NN97SBMyv1azv7GGuB8RQ8HIGr56iaSJPAbJxFNtnGae709pOVY75xLtY8Rle45OV4vFuXlLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HqnlhcwA/ifMvtxDgGi9Hau9pzHZyZ5/IBeNngD0ajU=;
- b=Fso5gPKVLK+sP7hB0C+mTX7pifB6S9cyPCUb1jPFhtmy6PKg30N9S5pmavmuUUUJK7HkodEGULtqaSHyRJ+zr8wTCcW19kFRIx2uVx+UTCVIbM4gP34zwnjOMNBS/SGcQ2CK+OcbZfFYITznq6C3+y6Ebt/yIcB28jLSU2TgJECGWp09bOjgNAXPzde5Tjza/+YPSy3HB//Sr4V9ro0AaLjePPMr0jaWm4dBAV4EVplDxWsErqih0C+oUnpknobEg71EpSEmpf9GeCHUGu8SOKh9biH0wwFIndbumuny/FsdjQhFQmFAJwwEqQlpv3eShJlWlZDdP9QlKlXSYaAcCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HqnlhcwA/ifMvtxDgGi9Hau9pzHZyZ5/IBeNngD0ajU=;
- b=KLwly7pBjOO+1SJPgPnFHeotHueIZ4rdpqck3fg6Blo1BMt4WTQ7jnVeq/BbcdHdCsvXX4GQEuEpeANj+6+UEkw+32GglR7bd5WCE8ZkeMi/BqaVc0u2MDc88vuHZ9XOpHCwEMxozWvJCxdHZLRpG3yMmTZ5dopoyC5UFhsN8mkPWPpMKCSYiDHHeV5K1Pq2E+ZjvExeE5mgfyQJ7dDt0LhKRI167wNjd+M5b87q6kHL0pLOv9Ht+1Y6xqrhYeSUmwgjtpHyZVX8d9PhcwKXKHgpdKjS2saYb6hhrtG5IrJ7KwTvPq/h1BQZTUVe1FrBG1nKtvh32CG6j8qNmEiSxA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
- by DS7PR12MB6237.namprd12.prod.outlook.com (2603:10b6:8:97::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 15:00:45 +0000
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
- 15:00:45 +0000
-Message-ID: <166a36de-56c5-47d7-b76c-37875ccacf80@nvidia.com>
-Date: Wed, 16 Sep 2026 16:00:39 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] usb: typec: ucsi_ccg: Add retry mechanism in ccg_read
-To: Wayne Chang <waynec@nvidia.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thierry Reding <thierry.reding@gmail.com>
-Cc: linux-usb@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260916061858.1471606-1-waynec@nvidia.com>
-Content-Language: en-US
-From: Jon Hunter <jonathanh@nvidia.com>
-In-Reply-To: <20260916061858.1471606-1-waynec@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P192CA0041.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:658::11) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vy/KB4PM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I8Q/VyCk"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEZX7I2852410
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:01:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fJRqo4fa5r8K+BgNujQkH+UdzXPRZZmUzCKYh3BrEjM=; b=Vy/KB4PMrSnE4YBP
+	uhs6xA+rnTaPv4eiMrIhJBSsNN4Eb7gDqLx56+cwHpnrYnFXKw4i4X50qfayKr+9
+	GrcK/NoR56LaRU+jLnZNci+q28XlCssQUgo2umCirws3wKMinXfS3RtxGKXm8ab0
+	QRQ+tKircg2puofY9y5V+G+On9bcEUnBoE42w4En1ywHl8Hfdr65kPdZwt3jLiTJ
+	wl0BKn54B89Q9wJiNUJmwrve+8woMTmVLSN3tYvVZnxLUlEYRG8uavvGZNBZAd/4
+	lQS3eHfkqMdMjI6Kdy//dQMEZ729UGXdhGg3LxlDyQAzlJSzB2TrU3TytJrbPbe0
+	NPT5DQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqkv7jkwb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:01:03 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8632fdf67dfso3310196b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:01:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789570862; x=1790175662; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fJRqo4fa5r8K+BgNujQkH+UdzXPRZZmUzCKYh3BrEjM=;
+        b=I8Q/VyCkzxu0hSCuou/GHvMqPw/CjCsM0Yr1CKTlGtFYDYlKhI0SxrDLabuCp7y+wb
+         j5HTheWcycYiPc0LPQQiFVznPO8zosggAB+G6uOId1y+2rK56ZccEj5GiDGZCCfg3ZRj
+         YnfjI0Hwe/Gbiq6/1362iNFJqnFyMkTiahCwseoWJV8cYIlVV6A/VGJ/obwCgDp0a0uv
+         t4HnhS9DE35GdzHlTepYgogPiozOd97JiRdqlzHzKco6rXtcNC4TnZHq5y9DMeIS+0DE
+         G3RdwLPImmCmlyR+ecskY+9u/f36szvajaHV/0FkIAAsc/SrjIIT5qOb+7bhOTN2xlq2
+         s/LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789570862; x=1790175662;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fJRqo4fa5r8K+BgNujQkH+UdzXPRZZmUzCKYh3BrEjM=;
+        b=fNHJciGQqvOX5TN5Xn07EkQ4bFldZS1jZE88G6SjNq818inE/BNdKl1jRCjSB7IJrb
+         95BCiEnEAE2wU9EBHSBr2TIp9vxikXj5v1dvzmd2yOefA9B+OsXoNt+AKZos5jsHuggt
+         iHYFQ05+DkkNX+NC2fInWYMXnKQ/aVJ4SNv+95/qtHq5v8BpF4rExF4nT31g5or+h9+2
+         JmPVnSJHbaMSniXXl4tGSXkk54a/3gVZGw0aXso2Q5fIIXYtvfck7DU+nXTdmabD7VMc
+         KSSc2yKzlUQffp53C13ywPuO3H4h03Vuv2W6i+fxNHNqlp4/HkhRD95QU1trx7RMGFCC
+         MG1A==
+X-Forwarded-Encrypted: i=1; AKwUvBwl+hF6L/yL3w7JJ/GBQ1JbTgqaR05V4QYerE7kta6lkd4HCXzA+xdacnAZENDsrEiEs8bWu8thuP+7eSI=@vger.kernel.org
+X-Gm-Message-State: AFuF++muHbvdxLELRZK+Iqqdh0b2mINqMLVNxhtkd0TWeNZiX7pgy8MP
+	xF1ASY2/DcRU5l228FFRJezgsnNCIe9Xcss3l9gq+AQMnUqH9jQQLNtkVSAhN+qXT0ScpgOVELO
+	i3AGEFnZ+7fQrsLhug6mpu6/tSpQc4DdihQcw8Tsmt2UUgbDs8Fcn6Pocx1jJr0/MNOQ=
+X-Gm-Gg: AYBFou3ywyuWHvQUw1yPksyV5ZpAwLEOslVJIApxPoXuvuFs7I+Hu5/2mzK7b9zFJEd
+	po8Xkv0ePY+JHXHdR7S/M+7aUepJP2MAJzRMuRGnVAUDOt0Bq1tpkyGPzrFbdrR7+7Dpev2oPpj
+	kZ8XwUpaXCb1vjc7Ds6QFWXHu9gXB3XsaLYte+syk55qaSSuvICQtHuarj/XjQEWBEE+xqlpBGy
+	eJJQGyX4UT0hF23ISoVHM/jwzwA4CJ6P89IqC3nkpyWSMadiBKriUcqgxVx9lBIQwuM6pzrgbDQ
+	tthb8aW3pU+RUqIqOfx1jZVZJ1EY2Ze1aSaxcyYZIeFtepqDbvS2Hj0HTaC2m+78NOhyUP88fy3
+	o576r6XpVvGT3SxKVFQtvnrgKezEBnWQhMw5jAA==
+X-Received: by 2002:a05:6a00:8089:b0:84f:6f7e:493 with SMTP id d2e1a72fcca58-8723208dcb6mr4375230b3a.3.1789570862323;
+        Wed, 16 Sep 2026 08:01:02 -0700 (PDT)
+X-Received: by 2002:a05:6a00:8089:b0:84f:6f7e:493 with SMTP id d2e1a72fcca58-8723208dcb6mr4375119b3a.3.1789570861619;
+        Wed, 16 Sep 2026 08:01:01 -0700 (PDT)
+Received: from [192.168.0.116] ([124.123.146.251])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8720172b13esm1419604b3a.33.2026.09.16.08.00.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 08:01:01 -0700 (PDT)
+Message-ID: <64fc0855-3dd5-4668-9d4d-bd82be246de8@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 20:30:55 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|DS7PR12MB6237:EE_
-X-MS-Office365-Filtering-Correlation-Id: b888a081-37df-4dae-440a-08df140348d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10070799003|18002099003|22082099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	yCA8kkgaZFk5HDtG2dHNZXsnsnCgFd1NXXGHNSvjeVs+9u73TZGPMLDh6Yq4TKZTU/y1kQ3pECfHUfPBEq19eO9vVeJ7Y6jTFeIrFxJJ6k7rrH66pmlgxXhzk/rpOz8tpz4yqIZLGo6qvhxohzQ99rcY3oHlmAYx2EYJmWMECL57N6lSuyqWbszR/NQGy1NzFC7pfNbve5Ge9foGLBm8l3FBDmXDqjRbHPirRRlwLmF+/XkPvLRDCEBBV2oIZnYLYddsR4bD0B+l6X0gGeSFJBtRnS4yJlv/by+KlRJLQa0c3xTKtRlaql7IjdmlYbMyAdVvc6f84hSoqfq6GR7r85nR60+x62SQ5BDlQqQm7AHeb5yKto0+f3vSzWZx1Ylvn6vHqoUpb4/gdFZfXI6TpbyluZvWmRrqpUj0Qhn56I032jGagD7mQWJ2QTjQt2D2l6VpLUPM/VM/+gEc5W8eNQPnRau/bN72jQc7UsmwzomluxOI3W2YahiOXYVhNN/T+IHMd1pN4Ix9Fl/UW9iHrVMKNQtuQWcpdMh3udwtE9Q90NF5NgrzVD4PhknMBEDi2LBLOCOFyoy4DpHq/NNCeDLLzdUjI35lL3k8mg0hYLJU8pN2mQSzwtlZhhPJGD5dqPMyErgcmN4ehKKI7sy2ES5T3C7PyGkbmAEaj3a5W2s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10070799003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d1U3Q3NYaTRya0hFREdrekNvUnM0SS9ob21JSkFuWm9laGZmNnB5MGlZUzgr?=
- =?utf-8?B?L3JkSzJCYVJpR1VyU2ZQbDluRzhNWUxZdWFsbkR6ODVEY29oQytVVmd5TkU2?=
- =?utf-8?B?WVpMeEJ1c1ZCR2hwMThkWFhnUUhCQVJDT283bTJ1RGNkdkVCL05PNzFzMU5K?=
- =?utf-8?B?RWNBK2VVUzJoNmkrR0p4T3NINUxURTF4dEVIai8yWU9Gc0NZYmE4TGR4STlh?=
- =?utf-8?B?dDNBa0FTaVRXY2xtc0MrQzlrR3I0ejBqUHRUQzh3RVJMZURPbVhLUVJUUWF1?=
- =?utf-8?B?ZWhiQ1ZZZ0pHaUFvazZUanY1bFRENVl3WmlrOWVmT3FBdVlVSFUxdUNmdjBL?=
- =?utf-8?B?eTlUcjVMK0lDTWlWS0tVOHVWS0p0NlhBdHZkaG1FSmtDU0Z3UXJ6djFLVW1x?=
- =?utf-8?B?aytGcURPT3NpazMzZUNNK29BOXlJd2lnU3IxL1JBdkhjNzBrZ1M4VXU2OCtH?=
- =?utf-8?B?cnBFcUEvWkFud2RTY1RMQlNvdXY5K3ZBQlY2UExFWjVBVGFyUEFHWGcrYVgy?=
- =?utf-8?B?VDhsWGlkQnl6amZnQjVubDh0MGUrM2poU2ExaGxtc2VyNEU4aXc3QUFDRnpW?=
- =?utf-8?B?bmxLR3ZUaWxLZThqeXVYRmZOMU5TMWVUYUZhUGcvMWY1NFFjNXJKVFNvcU5y?=
- =?utf-8?B?ZVVIRTE3cXJXMm13Nzh1RVFPeTRrZi9PUXJ5NFFQeGhOdUk2eUFjbmplYlJ0?=
- =?utf-8?B?d285TDE0aERDQ1BnM1hXa3d0RCtoN2R0Q1pQV2lTRit5Rk5jNUpCaUREQTMz?=
- =?utf-8?B?ZVV5WXNHVmQwL3p4enlzR25QWGVQTEErUHY2d1dnYXY3VE8vUkhOaCtSTTd2?=
- =?utf-8?B?MDgvZUxEODZjVmZ0Vi8rVDF1U0UzV3FQZDgxRnJmQ1ZLakQwRTU1dlpiNXVB?=
- =?utf-8?B?VEhFWmZXdVhFck9LVFhBdHg2MC9qSlhBRmo3R2RHSUJQVSt4S0IyVUYvSkFF?=
- =?utf-8?B?UUM4SjNHTTZxeENRdm02clBLMHhiMTF4TFNjdUZScmdNR3dQYTUyYW16d0R6?=
- =?utf-8?B?YU1OT1d0ZmlIekxNaHhGbjhZVHRQbTE1NEYzWkhiTGFGV3dOVzlEanZzRnVP?=
- =?utf-8?B?V0JRQm9TWE1yRkpFbnJvNjR0MndMTEs1SGZseWt3L1ZlbjVtUHhYejhxTjFo?=
- =?utf-8?B?UHJwV2UvT0F1UmVMUFExTlRKU0xHZXRoSjNkUnRZRFNtSUpHWkU5OWhweHI1?=
- =?utf-8?B?OFc3bHE4MExmU2VVTVBLSWFScnNHTWxGVE5pS1FiQ3R4MW4rSWhJelczMDVO?=
- =?utf-8?B?QURmNXJvUmdvbEc4ejhzOVVvbWkvaEM1dDRRMFc0WWNKTld3VlR6Z09WQlJ0?=
- =?utf-8?B?Q1hDQy9mUVhYcVBsZGtjN1NuQ1JaMjdXQ3QrNEM2VzgvMXB6dktYNjh5MXNB?=
- =?utf-8?B?YjNPVkJibC9YQjRCZTBNMTh0ZU1Ed3RONzBYVzlWeVd5ZlhRaVcrSGtCQVc2?=
- =?utf-8?B?cjVBb2VTcDV2SmdSYVh0RmFXV3F1V3JTMWpTS2tkT25iTUVlZExRdWppYXZy?=
- =?utf-8?B?Z3B0bTZzR0oreENaa3NhTk1TNFlhNUFYTVFhOU0vSnFpOUQzMWtCbGMrOG1t?=
- =?utf-8?B?elprNGZrNnBVUSs2UUlyalFUd1Z4bng5clU3Q20xcmhvVDRVWE9jRStUMk1y?=
- =?utf-8?B?UkV3WjVvZmZRZjhKWXJabmtweGpCRFhIWnJCblpKYlovL0kxM3ZFdTFvVEtU?=
- =?utf-8?B?Y2hvR1VRaGdFZ3BmV3JJbDBsYUF3N2QwSjNQY28rV3Z5UkREYmQ2OXFxZ0lw?=
- =?utf-8?B?allncEhsRElFZFAxMC9ENzRVcG5TQ2dZNXRDYVp2UW5aaHlDOENRMDFjSkY0?=
- =?utf-8?B?L1B2VVh6eHNiVGswQi9BRzRUODNvRFg4K1VEL0ZQKzEwMGJVaDR6SmZsOURs?=
- =?utf-8?B?aURpcFB1aVVzd0E0Q0RlaU5IdTdhbTV4U2tQemtVVmg2S09yajhOb0hjdGxD?=
- =?utf-8?B?QmFrM3VqNW00UFRFS1lZcDU0aFA5cEI5eEQ1bWlJczFuMUJGSThWQ2NQakVR?=
- =?utf-8?B?OGdpMHdUcEY4UDNxUWh1UGtuT2p6d2pCWkV0Q0lzV0RhdXp6SHdMMi9TaVJV?=
- =?utf-8?B?WU5QelY5OFNPVFdSb040cFZ0cURNUVhYb2cxTWFuZWlUYmdyeG9NKzBjajJP?=
- =?utf-8?B?V2Fia2NDWkF0cjcvOTNyZmRpRVVoRVFEOUl3ZFJ1TFkvL0VmdS9MdklvNkZm?=
- =?utf-8?B?bC9YeXNFcmZhVml2S0Jrc3JTOE1PQmthVktWWEtUTG1JSnRJeml2ZGQvT1k0?=
- =?utf-8?B?NThhc3REWXQrTDFZQW93THkxR200R0JxdGloUTdlUG1wZThpUXIyS0hkcGFK?=
- =?utf-8?B?QStKaG1yTnFsMGhLS00zMEFoeFE3TlIyTDNvYktaQVFGRnNPcjZTWEZkaTRZ?=
- =?utf-8?Q?yJFbNTntG+LP18vbyKtvLbV4f3tRter+xNYZWhxUfNv1k?=
-X-MS-Exchange-AntiSpam-MessageData-1: CVN3DN7efvEqCQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b888a081-37df-4dae-440a-08df140348d6
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 15:00:45.0793
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nH1R5unCtkXjsgxv8J+rkbCvaBN32zm+07W2MoXQERFe4jE835eRj6WjWciaRYtICqog731+v5Wqe4AjPYWoKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6237
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] dmaengine: qcom: bam_dma: Defer IRQ trigger type
+ to device tree
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Andy Gross <agross@codeaurora.org>, linux-arm-msm@vger.kernel.org,
+        dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+References: <20260717-qcom-bam-dma-irq-trigger-v1-1-6405eac86f00@oss.qualcomm.com>
+ <aqlQ_y-um0yqo6jj@SMW015318>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <aqlQ_y-um0yqo6jj@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 5OEnq1Fu9ndXZ80CIaHUpsmColrALoiY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIwMyBTYWx0ZWRfX+V+UXYlqYiEG
+ PvL+DZ9m1YdQUTJrv0MlWMw9V5zhfm6yaobBw0V/r10VOX9WuhghjROuNxlo+rfb7J1erk/7ZNS
+ n7YDKx8eUVfV66to8GV/cG9SndxgmAkAvPkNeW788zdUTHS7tG7le8pPfZUPj+3bfXQBFYDkQQH
+ dkPOH7293zhpvulkzfGrkj7P6U6+Lbwr2/MzPQ7KVjPZJNwXQjKU7Hd3gqFCdgMIGG2XHi/KmF6
+ Vb3J1SToPu/X7kz7NoXrclhdeprojhoeftr6onaGCUY2xdYiAFyuKUa8Sp2whTJHfSm0GOoLmmK
+ cCifTnyma34oPHZAFvfEINx6V6G3YQ52vdzvS16DQE/wDMA3ydMESBKOQumQ1Ji29W+aPafQiPZ
+ ce1IySzK3JS5gKg+m/tPlC6h8c/AF56MblEBkMOTs/AbiGL6E5WbVUZktpDYOPkN8RUUHfugIV6
+ 933ces0rH3FL6Gi/ROw==
+X-Authority-Analysis: v=2.4 cv=eKmGH3p1 c=1 sm=1 tr=0 ts=6aaaaf2f cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=K/78aEDNEn2Q/Yuv7mVN5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=8k-RipbJOExq7qeMm_4A:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIwMyBTYWx0ZWRfXyOmDUJw8JxK2
+ eq1iE7mmWKaOtKoFGWBCjkYuYaSznr7EBq9AOGjzORCVPulLdm9nchtkK+Zkn3ObZLz5UG4nqI4
+ FyPGJn1tmYw4veLplvZj/0d+CWFIctg=
+X-Proofpoint-GUID: 5OEnq1Fu9ndXZ80CIaHUpsmColrALoiY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ phishscore=0 spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160203
 
 
-On 16/09/2026 07:18, Wayne Chang wrote:
-> CCG4 firmware occasionally fails to respond to I2C read requests,
-> especially when reading cci and intr_reg from the ISR path. In these
-> cases, i2c_transfer() returns -EREMOTEIO.
-> 
-> The CCG4 is EOL, and Infineon no longer supports firmware updates, so
-> a software workaround is necessary.
-> 
-> Attempt the read up to CCG_READ_MAX_RETRIES (4) times in total when
-> -EREMOTEIO is returned, sleeping ~1 ms via fsleep() between attempts.
-> This allows recovery from transient I2C failures without affecting
-> other error paths.
-> 
-> The sleep is safe because ccg_read() is called both from process
-> context and from ccg_irq_handler(), which runs in threaded IRQ
-> context (registered via request_threaded_irq() with a NULL hard-IRQ
-> handler), so sleeping is allowed in both cases.
-> 
-> Fixes: 247c554a14aa ("usb: typec: ucsi: add support for Cypress CCGx")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wayne Chang <waynec@nvidia.com>
-> ---
-> v1 -> v2: Per Heikki's review:
-> - Fix off-by-one: CCG_READ_MAX_RETRIES was 3 but the loop ran 4 times
->    (retry_count <= CCG_READ_MAX_RETRIES). Changed the macro to 4 (the
->    actual total attempt count) and the loop condition to
->    retry_count < CCG_READ_MAX_RETRIES, so the name and the loop bound
->    now agree. Adjusted the "skip the sleep on the last attempt" check
->    to retry_count == CCG_READ_MAX_RETRIES - 1 to match.
-> - Use fsleep(1000) instead of usleep_range(1000, 2000).
-> - Reworded the commit message to say "up to CCG_READ_MAX_RETRIES (4)
->    times in total" instead of the ambiguous "up to three times (four
->    attempts total)" that prompted the off-by-one question.
-> 
->   drivers/usb/typec/ucsi/ucsi_ccg.c | 15 ++++++++++++++-
->   1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
-> index 91c2958a708c..4b6c53d2a998 100644
-> --- a/drivers/usb/typec/ucsi/ucsi_ccg.c
-> +++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
-> @@ -135,6 +135,8 @@ struct version_format {
->   #define NVIDIA_FTB_DP_OFFSET	(2)
->   #define NVIDIA_FTB_DBG_OFFSET	(3)
->   
-> +#define CCG_READ_MAX_RETRIES	4
-> +
->   struct version_info {
->   	struct version_format base;
->   	struct version_format app;
-> @@ -255,6 +257,7 @@ static int ccg_read(struct ucsi_ccg *uc, u16 rab, u8 *data, u32 len)
->   	};
->   	u32 rlen, rem_len = len, max_read_len = len;
->   	int status;
-> +	int retry_count;
->   
->   	/* check any max_read_len limitation on i2c adapter */
->   	if (quirks && quirks->max_read_len)
-> @@ -266,7 +269,17 @@ static int ccg_read(struct ucsi_ccg *uc, u16 rab, u8 *data, u32 len)
->   		rlen = min_t(u16, rem_len, max_read_len);
->   		msgs[1].len = rlen;
->   		put_unaligned_le16(rab, buf);
-> -		status = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
-> +
-> +		for (retry_count = 0; retry_count < CCG_READ_MAX_RETRIES; retry_count++) {
-> +			status = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
-> +
-> +			/* Only retry on -EREMOTEIO, and not after the last attempt */
-> +			if (status != -EREMOTEIO || retry_count == CCG_READ_MAX_RETRIES - 1)
-> +				break;
-> +
-> +			fsleep(1000);
-> +		}
-> +
->   		if (status < 0) {
->   			dev_err(uc->dev, "i2c_transfer failed %d\n", status);
->   			pm_runtime_put_sync(uc->dev);
+On 15-09-2026 07:36 pm, Frank Li wrote:
+> On Fri, Jul 17, 2026 at 10:30:28AM +0530, Vishnu Santhosh wrote:
+>> The driver hardcodes IRQF_TRIGGER_HIGH when registering the BAM
+>> interrupt, which overrides the trigger type specified in the device
+>> tree. On Qualcomm Shikra SoC, the A2 BAM signals an edge interrupt
+>> to the apps processor; registering it as level-high causes the
+>> interrupt to not fire, resulting in missed DMA completions.
+>>
+>> Use IRQF_TRIGGER_NONE instead, which causes the kernel to use the
+>> trigger type already configured by platform_get_irq() when it parsed
+>> the device tree interrupts property. This makes the driver
+>> platform-agnostic.
+> where show this? can you point me doc or code?
+>
+> Frank
 
-I was wondering if we could avoid the extra check inside the loop for
-'CCG_READ_MAX_RETRIES - 1' but this does avoid an addition sleep. So ...
+Hi Frank,
 
-Reviewed-by: Jon Hunter <jonathanh@nvidia.com>
-Tested-by: Jon Hunter <jonathanh@nvidia.com>
+The BAM driver obtains the IRQ through platform_get_irq():
 
-Thanks!
-Jon
+bdev->irq = platform_get_irq(pdev, 0);
 
--- 
-nvpublic
+in https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/dma/qcom/bam_dma.c#L1270
 
+It then registers the same IRQ with:
+
+ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+                          IRQF_TRIGGER_HIGH, "bam_dma", bdev);
+
+in https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/dma/qcom/bam_dma.c#L1335
+
+The comment above IRQF_TRIGGER_NONE in include/linux/interrupt.h
+states that when no trigger flag is specified, the interrupt uses the trigger type already
+configured by the machine or firmware.
+
+https://elixir.bootlin.com/linux/v7.3-rc3/source/include/linux/interrupt.h#L25
+
+Therefore, IRQF_TRIGGER_HIGH overrides the trigger type associated with the IRQ during
+DT/IRQ-domain mapping, while IRQF_TRIGGER_NONE preserves it.
+
+The Shikra DTS which is still under review describes the BAM interrupt as edge-triggered:
+
+interrupts = <GIC_SPI 74 IRQ_TYPE_EDGE_RISING 0>;
+
+This driver change is needed so that the DT-specified trigger type remains effective once
+the Shikra DTS change is accepted.
+
+
+Thanks,
+Vishnu
+
+
+>
+>> Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+>> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>> ---
+>>   drivers/dma/qcom/bam_dma.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+>> index 19116295f8325767a0d97a7848077885b118241c..6c3e2ca8a572fd04c925de0adbd5cc0616b361ef 100644
+>> --- a/drivers/dma/qcom/bam_dma.c
+>> +++ b/drivers/dma/qcom/bam_dma.c
+>> @@ -1303,7 +1303,7 @@ static int bam_dma_probe(struct platform_device *pdev)
+>>   		bam_channel_init(bdev, &bdev->channels[i], i);
+>>
+>>   	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+>> -			IRQF_TRIGGER_HIGH, "bam_dma", bdev);
+>> +			IRQF_TRIGGER_NONE, "bam_dma", bdev);
+>>   	if (ret)
+>>   		goto err_bam_channel_exit;
+>>
+>>
+>> ---
+>> base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+>> change-id: 20260601-qcom-bam-dma-irq-trigger-0366e7e86f17
+>>
+>> Best regards,
+>> --
+>> Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>>
