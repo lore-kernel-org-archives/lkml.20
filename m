@@ -1,33 +1,35 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5A450EC13;
-	Wed, 16 Sep 2026 18:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CE44DA9D2;
+	Wed, 16 Sep 2026 18:41:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584122; cv=none; b=MZpKDTaZuRfLa4mnazGdTmzSFTeYXK3BZPdVFUhOEpIbnaKpxDoszvLjezYr3EWItV908XCxkPSB4AvkcHk3t4HU1Sf41QxdSlYggCH5zk3W88kc3fM+k5rbLAO+XVDqZlpLIAfQMJCUHuNbOChfFaKFilbYqsCoXUush3uxDsU=
+	t=1789584129; cv=none; b=CiX8zY0A6qxt9A+wfYJkVl6PuURL0Mr//qse/pLanfrnxWa0cTCeHcqdZeooqWjZr+oquzlnwsceFtftNuKXRXCx2uoRC652eeUGPzf+Roi1z+AMOjLda/qGiqb7yMtDd9TGjkQv73B5GmwBKOShwwuUpP+fYWspXfCj7OtWY44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584122; c=relaxed/simple;
-	bh=6Nv1oz96v+e+9AfJZ5HQQYBaNX8xC9MmKUt1Q5W1nyY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n4dzlFP0A7pierKZFdjeOVUGTRWxnnv23iNfnGqBEyUAWusAgCwKTOC48esCKHSv3T3UknM1SxBFUjOCDWNRIAJiaiOuSKvVLs4n3oPgvm2dLkirgHxcDcmt+Wls2rj9kwUElc7/KpdpFdrkN4Cum6fXERIfwWu3imYT6UueBvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADH+ELh4qpq8rtvCA--.24533S2;
-	Thu, 17 Sep 2026 02:41:37 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: bernard.metzler@linux.dev
-Cc: jgg@ziepe.ca,
-	leon@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 6/7] RDMA/siw: Fix new_cep use-after-free in siw_accept_newconn()
-Date: Wed, 16 Sep 2026 18:41:09 +0000
-Message-Id: <20260916184109.2092928-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789584129; c=relaxed/simple;
+	bh=IHnKZKMVvxRIw5vix+b5WTBv8ERLlHKvaVGtm2KUB6Y=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=BuSkum6ADsnrttn1xuCXrGtmPzJfkICDstU8PhMHW0qhhAPUOkYehmxoDmnnBELeCKkscr66LMuotqb3q0oA42BzOxfSpFVaIBvvgNeWu/5/ZNbl5TYYqBVSk4AfsUbpvedhD6Pb9p54Ju+W6KgvJLBRk7ple9TMFUaZiduBQrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NIuWTiIV; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NIuWTiIV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119141F0089B;
+	Wed, 16 Sep 2026 18:41:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789584076;
+	bh=dv+tNSsCg+epusvovYLvo1Q1vd2NMXatfZ4gDeyg5jg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=NIuWTiIVQZVjRpAh7dEQOIDKp+V37OLqRfJkd59LMmnlPsrq6jPbkEX3XnrVd+a9Q
+	 Kf56ZlIJxJ7YYN5AX1heIWPD3IK36UCgo3g4JC9Iw3XZjCjyyupytkpORK/7SHzmD1
+	 FFwNgQjea+sGg+9d8cY578cLloFdpaabCK44Dasme3RG46t1Q9gk2B0caSJlwPwXZv
+	 UFFceZfy3jY6J9Dt7xwQ5epFKnWQkBih8syecYxwAbpZjsjRZJkSzt2V2us0Vq1UV9
+	 c7F+WXw5XVQ4AzDA4b/mVCvxQtiI2nIcB2dYIc7+z2CT9qlLdGiP8zaWDVFQj5HGXg
+	 OrFZqSc/KB5Sw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5690139E8A59;
+	Wed, 16 Sep 2026 18:40:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,65 +37,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADH+ELh4qpq8rtvCA--.24533S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrZF1UCw43Kw1rZry5GF13CFg_yoW8Jryrpr
-	43Xw1jkr4DJa1Iva1rtFyDZFyYyws3K347W3sxt3WDZrn3ZrW5XwnYgrW8WF1kAFWkXa1j
-	vr4jkFZYgF18Za7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
-	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x0J
-	UJuc_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqozWJrQAAsm
+Subject: Re: [PATCH v1] MAINTAINERS: add entry for NXP wireless Bluetooth
+ driver
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <178958400988.3235826.5026729407609214703.git-patchwork-notify@kernel.org>
+Date: Wed, 16 Sep 2026 18:40:09 +0000
+References: <20260916020719.61981-1-alex.zhou@oss.nxp.com>
+In-Reply-To: <20260916020719.61981-1-alex.zhou@oss.nxp.com>
+To: None <alex.zhou@oss.nxp.com>
+Cc: linux-kernel@vger.kernel.org, luiz.von.dentz@intel.com,
+ luiz.dentz@gmail.com, marcel@holtmann.org, linux-bluetooth@vger.kernel.org,
+ amitkumar.karwar@nxp.com, sherry.sun@nxp.com, neeraj.sanjaykale@nxp.com,
+ song.xue_1@nxp.com, alex.zhou@nxp.com
 
-On the error path the listening endpoint reference of new_cep is
-dropped before the accepted socket is disassociated.  When only the
-socket's reference remains, siw_socket_disassoc() drops that last
-reference and frees the endpoint, leaving the subsequent
-'new_cep->sock = NULL' writing into freed memory.
+Hello:
 
-Tear the accepted socket down first and put the endpoint last.
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/infiniband/sw/siw/siw_cm.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+On Wed, 16 Sep 2026 04:07:19 +0200 you wrote:
+> From: Alex Zhou <alex.zhou@nxp.com>
+> 
+> Add Song Xue and Alex Zhou as maintainers for the NXP wireless
+> Bluetooth driver.
+> 
+> Signed-off-by: Alex Zhou <alex.zhou@nxp.com>
+> Acked-by: Neeraj Sanjay Kale <neeraj.sanjaykale@nxp.com>
+> 
+> [...]
 
-diff --git a/drivers/infiniband/sw/siw/siw_cm.c b/drivers/infiniband/sw/siw/siw_cm.c
-index f7ac81c0f267..1b93963cb191 100644
---- a/drivers/infiniband/sw/siw/siw_cm.c
-+++ b/drivers/infiniband/sw/siw/siw_cm.c
-@@ -1044,14 +1044,16 @@ static void siw_accept_newconn(struct siw_cep *cep)
- 	return;
- 
- error:
--	if (new_cep)
--		siw_cep_put(new_cep);
--
- 	if (new_s) {
- 		siw_socket_disassoc(new_s);
- 		sock_release(new_s);
--		new_cep->sock = NULL;
-+		if (new_cep)
-+			new_cep->sock = NULL;
- 	}
-+
-+	if (new_cep)
-+		siw_cep_put(new_cep);
-+
- 	siw_dbg_cep(cep, "error %d\n", rv);
- }
- 
+Here is the summary with links:
+  - [v1] MAINTAINERS: add entry for NXP wireless Bluetooth driver
+    https://git.kernel.org/bluetooth/bluetooth-next/c/b9409f97f553
+
+You are awesome, thank you!
 -- 
-2.34.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
