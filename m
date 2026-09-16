@@ -1,233 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012027.outbound.protection.outlook.com [52.101.66.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D209840B116;
-	Wed, 16 Sep 2026 19:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586711; cv=none; b=DK1Ymt6xqVTUGR/Jvg7EPGxp5oGFcNTug/mM+P5v6hAx/zV/uAATVt5MipoFhIYuDLAMSdKm1SWqD74ibGdvoSsQzt3w71m4ZwAnQBU2LpndKOPSnqxYNn2nRVO2WQtKrZx6iaYKda5CcYbukJdNkYYJXA3s2N2UPbUC/SXQr28=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586711; c=relaxed/simple;
-	bh=vBLWiwsvcrO2QTp/Qkh5PZXG+Y2wDOEwySNTzXkON5c=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tTMJAWcJDbgQTX8JuM4QzmGEAlk5lyZ8lkFS5L9PE9dI2SJP8gwo2yNNOt9B4jUxvo4Zxp6ebIr9Ewque6CHMOjA6Qja8J9Io1yLL3jseDWRB0zjHAl6AItU/fjpHX0a4jdX/lwNXKZKMx8h4tpFUT+QfCLbVnmK+/pz314Plkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AujQkcLT; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E618A414404;
+	Wed, 16 Sep 2026 19:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789586778; cv=fail; b=OQUwfkBXJWx3dDHRcxTjTZ7phdF5O8HsEEe1l5GeDrb55Gx59vSa9DjcTcO0B3ALcT94iSOStGHAeKGA43hkHll58y2g+iGzQhneTK9bDxyC6uBwoOA51ds0YZkzYhvugEiTU8xSWAKaNsV4kW4GTw21MmBzS7SAgl6JqQPzlZ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789586778; c=relaxed/simple;
+	bh=++cBjmdVvp73C3ofoQK7CTFFjYWK1OCyg5WDcgrAU6Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Wneb15qYZBOJb+/CFdKzgiTCgrim9if7ic60tPBD1hjKlJgj/Dk5HOAL11R3VacEoNvvJb/XVlhhkYUg3ENoE59JbF0dfSmH08i7oPEBSP3Ja3QjLS8aGPWJS1v/4XCD+lgRfbjPhPda1Xza7WPETGWlT6zKIJxBQ48ZQL+V5b8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=kGmPuZnB; arc=fail smtp.client-ip=52.101.66.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AujQkcLT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 602CB1F00893;
-	Wed, 16 Sep 2026 19:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789586705;
-	bh=oSJ4At+/bKyZm3/c0BeAcv+TQwh0u1yTXsJ1f6zkWGg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AujQkcLT6a3xSAZouOMSWDO1CPqpS0cACsSo1hZxIUQI+4faiO9GRHiyEP1NGsGOC
-	 9lCwV9ZKw4uMDOUuv3gD/1Iz9anxIkyRK75y3C6ua5aGDJudRxTVr3YcboJDuP4UAg
-	 bvdfsaGF43MzVmismA/J45ItMuFM/TDFYliqBJrVaawPWEerv7DNGffUenlfe7u76C
-	 FoaHhiuggfgzPdDxd86KT5CCFEBGBEPBYnOmcpMx2nSVK6UHWTcua6XkSU9BccLXR9
-	 SM4L6s4r1OUS7eRedi2XYljKzPQRPyazkfUHgr7Rx9G2fdzyQFnPgq361JgsxS4mbr
-	 jN5lk91uOVupA==
-Subject:
- Re: [PATCH net v2] net: prestera: validate num_counters in counter response
-From: netdev-bot+sashiko@kernel.org
-To: elb12345@hotmail.co.uk
-Cc: enachman@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, vmytnyk@marvell.com,
- serhiy.boiko@marvell.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 16 Sep 2026 19:25:03 +0000
-Message-ID: <178958670391.22033.8038941818788955835@kernel.org>
-In-Reply-To: =?utf-8?q?=3CAS8P251MB0001EE76C8EC41B2CEFAE213C8BB2=40AS8P251MB?=
- =?utf-8?q?0001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-References: =?utf-8?q?=3CAS8P251MB0001EE76C8EC41B2CEFAE213C8BB2=40AS8P251MB0?=
- =?utf-8?q?001=2EEURP251=2EPROD=2EOUTLOOK=2ECOM=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="kGmPuZnB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=acLea3PigPqeDBoXBDO96ysWLYKhx4/WCez10C0gcZJ/sm0DrzYyhyqawvAm5GvEkltgg0kFEiP+y/gR0tBGo309BhAvlw/2+JX5LerMaFOxq/HJ8Z7PiycCeeiJwc94Pi/adl6KAnaRFi3fU/KBydiLjB5h4mRj74OS8EXT5Wm8krkNtaPOXCwl71wpMHvdOVhfm91db7pFKQRldcHSuy07wBWG9+hh6OOS5w82nzFjFvt4pTV+arcBGRG7BAHn4DCyVqgnbm38CwzVDbM26xp8StOg4EVo0J6HQ1Qrb5tN5YUmS3bp9k4xRMQ0aIbdHDP1Y/7inrLZvovyzBhaFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w25UG7eTCI3epGPiH1p+gMYK6k6El5KE1bvDr0Nm4xY=;
+ b=jEonhypX0XRNxY0RnwzAt1CTz5S/g5OzVtKOjJU5HC8yL61h2RE1kpiiwlOArcN7vk8c+4pvP2999HIhrC56SKe2Xa7DKuuIvh+lcp82MjwMCjpcbuyoZ+RX0VPJh/1YypX1Dvl8zEeZ+qdp65DirITw/6iAONc97Ri0BEk1ON6Eg5qAWwHaGUJU5+zjC3c69zmKhNmAoIAtmRfpcCypZLHNxPJVWnfAe62I2KNSI/Ky8L/xIId6qaxKU5uBmIp/cS0UwFs10y/RvGYUUEvNYZGTTH4+2B8qIg5vzG0eujpwekPc1dIxhzShyQUT6iS9IBjKeM6MMxY9cMIJTmJKYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w25UG7eTCI3epGPiH1p+gMYK6k6El5KE1bvDr0Nm4xY=;
+ b=kGmPuZnBW1iLRXr2ng6VdrmrnKwOVtvZHuF6/47eg4mzrOaeQT+RW6Rkr82ycB7ao3vCCTzBiDW5FYxMtznfHYaSZo783O7xeN6dVruCrLwOcpwXoeB8oolb5C0lRgEqdzNMsJ5kb0zihlJnB6b0TFlwB73FxtfBJLXNblRlw8dSIvCGbIC5F3VTeL6HQC2B/5GDCFZFOnvk62FikgrHOYLOZrEmujFiIzVWYYpHyvf3mEcF6mhIEVrvl0BhRANlqlI7qBTmeXFtQBe+SQQ9omWYbnWAS9ZvyCj3EFyZ1z0agsqLe/uOudsTGuN3gnGxYQwXrHOxR2Wc6XukLWd2iA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AMBPR04MB457368.eurprd04.prod.outlook.com (2603:10a6:20b:798::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
+ 2026 19:26:01 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
+ 19:26:01 +0000
+Date: Wed, 16 Sep 2026 14:25:50 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Frank.Li@kernel.org, dmaengine@vger.kernel.org, geert+renesas@glider.be,
+	laurent.pinchart+renesas@ideasonboard.com,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	magnus.damm@gmail.com, vkoul@kernel.org, lkml@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 4/4] dmaengine: rcar-dmac: Fix runtime PM leak in error
+ path of channel alloc
+Message-ID: <aqrtPpSO-FOnUZZx@SMW015318>
+References: <20260915035602.1724403-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915035602.1724403-1-vulab@iscas.ac.cn>
+X-ClientProxiedBy: PH7PR17CA0060.namprd17.prod.outlook.com
+ (2603:10b6:510:325::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMBPR04MB457368:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7042bec-98cc-46ea-5e28-08df14285783
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|19092799006|23010399003|376014|7416014|22082099003|18002099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	I82+mcWa5doO1O0mKklCmqreV9kvXVJbG3umnma+MV6MfKzoJZVqZt3dsNmuJugfbrny29Y3TZQFZMsiLO4N2k5wAinObw2rvQhSAk7wbYnxDqhJVi2N/8e3IeQUbC26UkCubBQxdWT42gfZCWHn7E+BVyIu7hsUER78840qV/TY5UIiMhCpRk7aOUgGFt29U3X+Q9SV2c4smlYtm804KvjAxcU3HGQ+l+GdfkjN7hW4KSQtDiy88vkFagp2INhI/Kj2KmsjI3wVpO48yxTGJQSca8QTagbyVgaC7W/Pz1mCdF5g7QzHqovNUR2eqa1xdJMar9GAp3fZBbK7CKqEjNcPjJvNhSy8BfHdNZRsJHZwXhNDI19PCDGEzMg8JYbenaspqUIyN4rzcaOmPoX9HcV+O7Ttn7aE/8OA5zmkej4eSfLlLV8At8BysTxYiCFNJDygH7EruHJtCuPlkzgJRwaieI/XYhy63M/OEjzBGNPJRamqcrWOG1sVwNi4KOWTG/IsMwlQEry35ArvawdWm/Nw5MoUOusQ/9JXW/+qIwQfFBJuUkHiqJ1kCx2kXQUYKH3zEzUOrQduryxBiQxayS0yeQS0QpSxZxRQrvbuL4861sfwUo5+AD11ejp2Z3TZTPhUctHEOuwM/Z2r15bAzJ6A7yBynTzn7RkOHEDYQCE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(23010399003)(376014)(7416014)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?J9CYfAYVHSE0qsheg/2VNaeAx2VG8rwuZzLVOifGeUugcRslqjwo9DUM5fRi?=
+ =?us-ascii?Q?mta+ft21Lx3HVu84T3sfuRw50Kg5RNq6fgA6YFiwBAthffY0HABnfhd3LNyD?=
+ =?us-ascii?Q?Nd4i4w659KhFYecCJUYqlrTc8gkyLaCYhkUsnsCOnYVji+SPq055dsAII2TX?=
+ =?us-ascii?Q?XClngr6/yZSQibi8050yODaCM3Z1IuzlVPSOslT+DVmG31KVzn1RcdkAvkoy?=
+ =?us-ascii?Q?OB6hiNsxFx3umwCIaQ3CVt46+hu0WPfL+hONChDPKiUNJlSYMSbuFHVge8GB?=
+ =?us-ascii?Q?0VWMiCN1ohdiofmmBPrqSPgTvTXVaVmyewdob2HUz1B1j3nWoTrk5q8hIVpV?=
+ =?us-ascii?Q?aG8As7ajiqD3FoMj6svMXXssi9BqwL/kdps/c5R1uipQZ3edt44VhShq79FM?=
+ =?us-ascii?Q?++RiHgad22PxznN7oYluQszRk5MqYAqvttrfWLvQZJ9Yu53vJT6uPPu1B4C9?=
+ =?us-ascii?Q?vFI0ju+rcMbfkNq9TcG3KOOsGIT3pNi2JuEls+zmVsIr63hm4OsPVWC/pDP7?=
+ =?us-ascii?Q?TDcVSCDXgbC8NVlfq//GZngL4WtNQotvgGRoEglKLePqaPAZgWepHRJKMyeo?=
+ =?us-ascii?Q?gCDWkNfMda3A+vad7oHy2TfaGbxS5Q5iPrE0vFzKDUf9JCry0qgYnCCRzlGE?=
+ =?us-ascii?Q?BZbA1RxyMBuPij5oVPOgkrG036RuJ+rxh9eokIw+jjVRI9qiRaginAxR8Y87?=
+ =?us-ascii?Q?pQth5oD7Bx7dE4Q1OTKudN82iRtVvVm6ZWFRW8BRutDSk2LiBYoHLobL3X+z?=
+ =?us-ascii?Q?zo1sFnX0c7pvDvmyXpOuFmnrM++hTH5JCqPJROgamhCidzxJYORl228nwdGc?=
+ =?us-ascii?Q?/12irLh0OIJl+N9YqXoEIgBojZBPCc8aCnQ3hBvDNMI/+4Tzv7do1uJM1DcY?=
+ =?us-ascii?Q?jjLshv17rlTd0UsqYdicoAEnj9mA4+2C7YFelpNxw7pAt+H/nTaII1I+8t3i?=
+ =?us-ascii?Q?6KWp0r+UjRBvjcqbivQuelVeIvmhZzFAyfsGhrj3NglJ2wmB1gHXJsDFzwP2?=
+ =?us-ascii?Q?EE+Suh1csLBMAyOcMr4dgrOfhzdXJimLxkmIQCLxVyBKRq9NSsA6aqPd23cm?=
+ =?us-ascii?Q?o5B2JQjBRFcBvhIX5IZI1MuigefQjDwOJvNwrs7ydTuUXwJuXpvXW4DdGtHW?=
+ =?us-ascii?Q?CebcWotQHsHKEhWzgUeYDl/8MqMZWxN1doBvr0UQrx225yPrGRYC5KR/PMWo?=
+ =?us-ascii?Q?Xb2z22Im9g0Qg45ducqT4UEn2Unr2qOJDmeKEZS6dknbYAgFqLHMtOMOIoo+?=
+ =?us-ascii?Q?UzDrCcFIF7FjyXHJvLNK1+9QRpbSAkq2E+/3/VL4hBHjUT7LdAsXPt9iFFNE?=
+ =?us-ascii?Q?qIpc42UYcMCkLcnOGBcRt2eqTcylaX79DNWNWSQNhw73QUHKtycPxmKw2hz4?=
+ =?us-ascii?Q?M0SPIOPF6Mg1QLzyZZzJtkmG3Au74KQFc46fhhZaQwIf0W6XGpdnwmv/nl+B?=
+ =?us-ascii?Q?wipMwydcrgVj3EshZtipXkCnLtv9GH6xkRXSYgl28xDHjnYth9u6sB2PZhJF?=
+ =?us-ascii?Q?ztWq2/3QZfwBBWw9TnsugPDmrf/L+awyyJ//RlW1ekaaIi6aJIUeIHib7rgb?=
+ =?us-ascii?Q?dMD0oqQ6eILCoijBV035uV/RWrU33uLeiXwADmHcFNJ17owI9dAwI7sKqIH3?=
+ =?us-ascii?Q?Kmzsyx6f8ZmxOHKhrYahCaHCQeZudjUIjDttEe6RRxx4OWOnr9zGzTNdpuAT?=
+ =?us-ascii?Q?3nSzSqm0y6XkjYIO0ZEugXMfhqNPSI3qCU7nsvfHgWsa+d2JD9Cz6t78gaRF?=
+ =?us-ascii?Q?voa6IUFtbAohCCIwrkKdMw43y04BxEf57InxG+ySUeFgk+pVlHBQ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7042bec-98cc-46ea-5e28-08df14285783
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 19:26:01.2238
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qNgrP+RjZ4vfr0E2tuuaQHVOGbSZQaZvl4jqWAGajwfj1ImSfsJt7WsfeeolH4dRR0h+uoi/3sO5fKo3Hn6HVoDlc4elCNBINgheT2XM1da23DHEyXX69UI3EZbo6n/L
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB457368
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Tue, Sep 15, 2026 at 03:56:02AM +0000, Wentao Liang wrote:
+> [You don't often get email from vulab@iscas.ac.cn. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> rcar_dmac_alloc_chan_resources() ends with
+> "return pm_runtime_get_sync(chan->device->dev);".  Even when
+> pm_runtime_get_sync() fails, it leaves the device's runtime PM
+> usage count incremented, and the negative return value propagates
+> straight to the dmaengine core, which aborts the channel
+> allocation without ever calling device_free_chan_resources().  The
+> balanced pm_runtime_put() only happens later in
+> rcar_dmac_free_chan_resources(), so the reference is leaked
+> whenever resuming the device fails.
+>
+> Use pm_runtime_resume_and_get() instead, which drops the reference
+> again on failure and returns 0 on success.
+>
+> Fixes: 87244fe5abdf ("dmaengine: rcar-dmac: Add Renesas R-Car Gen2 DMA Controller (DMAC) driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
 
-Critical: 0 · High: 1 (1) · Medium: 0 (1) · Low: 0
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-- [High] In prestera_counter_stats_work() the new capacity value is
-  computed as an unguarded u32 subtraction, `remaining =…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  block->counter_flag, allocated with kcalloc(block->num_counters, 1) in…
-- [Medium] prestera_hw_counters_get() derives resp->num_counters,
-  resp->done and every resp->stats[i] entry from a buffer allocated with…
-
---
-
-net: prestera: validate num_counters in counter response
-
-The patch adds a stats_len parameter to prestera_hw_counters_get() and
-rejects a firmware reply whose num_counters exceeds either the requested
-bulk count or the space left in the caller's stats array.  The only caller,
-prestera_counter_stats_work(), computes that space as
-block->num_counters - counter->total_read.
-
-> diff --git a/drivers/net/ethernet/marvell/prestera/prestera_counter.c b/drivers/net/ethernet/marvell/prestera/prestera_counter.c
-> index 3a762d17ba6c6..f261104729e91 100644
-> --- a/drivers/net/ethernet/marvell/prestera/prestera_counter.c
-> +++ b/drivers/net/ethernet/marvell/prestera/prestera_counter.c
-> @@ -342,6 +342,7 @@ static void prestera_counter_stats_work(struct work_struct *work)
->  	u32 resched_time = COUNTER_POLL_TIME;
->  	u32 count = COUNTER_BULK_SIZE;
->  	bool done = false;
-> +	u32 remaining;
->  	int err;
->  	u32 i;
->  
-> @@ -368,10 +369,12 @@ static void prestera_counter_stats_work(struct work_struct *work)
->  		goto resched;
->  	}
->  
-> +	remaining = block->num_counters - counter->total_read;
-
-[Severity: High]
-Can this u32 subtraction underflow, and if so does the new bound still
-protect block->stats[]?
-
-counter->total_read and counter->is_fetching live in struct
-prestera_counter and survive across work invocations, but the block
-reference is dropped on every reschedule:
-
-  resched:
-  	if (block)
-  		prestera_counter_block_put(counter, block);
-  	schedule_delayed_work(&counter->stats_dw, resched_time);
-
-If the last counter of that block is released in the meantime, the
-refcount-zero path in prestera_counter_block_put() clears the list slot
-and frees the block:
-
-  	for (i = 0; i < counter->block_list_len; i++) {
-  		if (counter->block_list[i] &&
-  		    counter->block_list[i]->id == block->id) {
-  			counter->block_list[i] = NULL;
-  			break;
-  		}
-  	}
-
-prestera_counter_block_list_add() then reuses the first NULL slot, so a
-different block, with its own firmware-reported num_counters, can end up
-at the same index.  prestera_counter_block_get_by_idx() re-resolves purely
-by index:
-
-  	if (idx >= counter->block_list_len)
-  		return NULL;
-  	...
-  	if (!counter->block_list[idx] ||
-  	    !prestera_counter_block_incref(counter->block_list[idx])) {
-
-There is no check that this is the same block the in-progress fetch
-started on, so the next poll continues with the old total_read.  When
-total_read is larger than the new block->num_counters, remaining wraps to
-near 4G and &block->stats[counter->total_read] is already past the end of
-the smaller allocation.
-
-Should total_read be validated or clamped against block->num_counters
-here, or should the fetch state (is_fetching/total_read) be made
-per-block, rather than deriving the bound from it?
-
->  	prestera_counter_block_lock(block);
->  	err = prestera_hw_counters_get(counter->sw, counter->total_read,
->  				       &count, &done,
-> -				       &block->stats[counter->total_read]);
-> +				       &block->stats[counter->total_read],
-> +				       remaining);
->  	prestera_counter_block_unlock(block);
->  	if (err)
->  		goto abort;
-
-The commit message says:
-
-    Pass the remaining capacity down and reject a reply that exceeds the
-    request or the space left. This also keeps counter->total_read within
-    block->num_counters, so the next poll cannot start past the array.
-
-Does that invariant hold only while the block instance at curr_idx stays
-the same?  If the block can be replaced between polls, the "next poll
-cannot start past the array" claim looks like it needs qualifying.
-
-> diff --git a/drivers/net/ethernet/marvell/prestera/prestera_hw.c b/drivers/net/ethernet/marvell/prestera/prestera_hw.c
-> index 7695cbb2ce626..2e5cffefea701 100644
-> --- a/drivers/net/ethernet/marvell/prestera/prestera_hw.c
-> +++ b/drivers/net/ethernet/marvell/prestera/prestera_hw.c
-> @@ -2324,6 +2325,11 @@ int prestera_hw_counters_get(struct prestera_switch *sw, u32 idx,
->  	if (err)
->  		goto free_buff;
->  
-> +	if (__le32_to_cpu(resp->num_counters) > min(*len, stats_len)) {
-> +		err = -EINVAL;
-> +		goto free_buff;
-> +	}
-> +
->  	for (i = 0; i < __le32_to_cpu(resp->num_counters); i++) {
->  		stats[i].packets += __le64_to_cpu(resp->stats[i].packets);
->  		stats[i].bytes += __le64_to_cpu(resp->stats[i].bytes);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the new check relates
-resp->num_counters to the requested count and the destination capacity,
-never to the number of bytes the device actually wrote.
-
-The reply buffer in prestera_hw_counters_get() comes from kmalloc(), not
-kzalloc(), and prestera_fw_cmd_send() only bounds the reply length from
-above and copies exactly that many bytes:
-
-  drivers/net/ethernet/marvell/prestera/prestera_pci.c:prestera_fw_cmd_send() {
-  	ret_size = prestera_fw_read(fw, PRESTERA_CMDQ_RCV_LEN_REG(qid));
-  	if (ret_size > out_size) {
-  	...
-  	memcpy_fromio(out_msg, prestera_fw_cmdq_buf(fw, qid) + in_size, ret_size);
-  }
-
-ret_size is not propagated back, and prestera_cmd_ret() validates only the
-ACK type and status, which sit in the first bytes of the reply.  For a
-short but ACKed reply, num_counters, done and stats[] would be stale heap
-content, and a garbage count within min(*len, stats_len) passes the new
-test, so uninitialised bytes get accumulated with += into block->stats[]
-and later reported to userspace via prestera_counter_stats_get() ->
-prestera_acl_rule_get_stats().
-
-Would using kzalloc() for the reply buffer, or plumbing ret_size out of
-the send path so the reply length can be checked against
-struct_size(resp, stats, resp->num_counters), be worth doing while this
-area is being touched?
-
-[Severity: High]
-This is a pre-existing issue and not introduced by this patch, but since
-it is in the same block lifecycle the patch relies on: does
-prestera_counter_block_put() leak block->counter_flag?
-
-prestera_counter_block_get() allocates it:
-
-  	block->counter_flag = kcalloc(block->num_counters,
-  				      sizeof(*block->counter_flag),
-  				      GFP_KERNEL);
-
-and the refcount-zero teardown frees everything else:
-
-  	prestera_hw_counter_block_release(counter->sw, block->id);
-  	idr_destroy(&block->counter_idr);
-  	mutex_destroy(&block->mtx);
-  	kfree(block->stats);
-  	kfree(block);
-
-The only kfree(block->counter_flag) in the driver is on the err_list_add
-unwind path in prestera_counter_block_get(), so every block create/destroy
-cycle driven by tc flower rule add/delete appears to lose num_counters
-bytes.  Should a kfree(block->counter_flag) be added next to
-kfree(block->stats)?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/AS8P251MB0001EE76C8EC41B2CEFAE213C8BB2%40AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+>  drivers/dma/sh/rcar-dmac.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/dma/sh/rcar-dmac.c b/drivers/dma/sh/rcar-dmac.c
+> index 44eab2d21d54..2d2baa36feea 100644
+> --- a/drivers/dma/sh/rcar-dmac.c
+> +++ b/drivers/dma/sh/rcar-dmac.c
+> @@ -1068,7 +1068,7 @@ static int rcar_dmac_alloc_chan_resources(struct dma_chan *chan)
+>         if (ret < 0)
+>                 return -ENOMEM;
+>
+> -       return pm_runtime_get_sync(chan->device->dev);
+> +       return pm_runtime_resume_and_get(chan->device->dev);
+>  }
+>
+>  static void rcar_dmac_free_chan_resources(struct dma_chan *chan)
+> --
+> 2.34.1
+>
