@@ -1,68 +1,227 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-154.mta0.migadu.com [91.218.175.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 512AC43CE71
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BD1445AE7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544022; cv=none; b=Dr37ktE3uYmojZ7wQjrumG9EjL/OXi05yXYWgXIIi9zuNJHnta+cKZ4E/sJl5lAKEYyzb86VF7nZ98vaE/DuOGrTazGah9ym109AgmHPDkClJ4Otglgr4QuoqmhbnjkSJmbDXwCEzblhhomKhWPC09kLJD1EsKjQqIhtQENxtXE=
+	t=1789544039; cv=none; b=Sazja/2QuU36YYhnwGDC9HpDALScxW7/SfinpeGMORXCn2TjMM0toshc+UZxogxBvYC1oQlCoIvemZBSfUEtgeP90GvDUsFzOmkoqJiWK3zP95wgeui4HVWSjsMs2Fu1+A38qUhbCQl/EwDCnsyTnKZhD5ta4rN32O06ZzLtrDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544022; c=relaxed/simple;
-	bh=/+CHFvxaZXBEDsaaK3F3gevt+zVsEDflv0XeEM83ZB0=;
+	s=arc-20240116; t=1789544039; c=relaxed/simple;
+	bh=D3AZYVFwXkt7bPWVEG/PBf6aO/+18hlPXbGfAJOcu9Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E0Zb7pvRyPr7SzadB8jHR17JwhtVXnSsBYqQpvY/MPHpMeZFr/y+dJy8zosuNrUZrIV0IdwWK56j061aFENOgIg/VMH1DZkphISHYexHmqIjnEKsv+ZYJRk7uV9bYDo1P7Z83KNvRt7xrNZBb7oSb94Cs17baG9QSmGgmSbAyWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OnOXX945; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cs3yre+fF6bASDvYekzOZkAnomJGjDwmAX8ZBxAUthYYWPbmIBTfZf6v9v7KUWpmYE5poKNSIJfBp1SWvjcZnmChlKTmZ0jD45NARYBswMVhBrFKrAR/UJRN+BIZu9ffwSfTtuNuZC9K8JT/zOkuPwV142UqTo8EjwPSFfXqtv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=raM5XhAV; arc=none smtp.client-ip=91.218.175.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OnOXX945"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=/+CHFvxaZXBEDsaaK3F3gevt+zVsEDflv0XeEM83ZB0=; b=OnOXX945bC2LjGbz+EOiwpqcHq
-	crFbhDl9vjS30xuWw/+XuXl1OVMSi1qcKlkPmuD6Hc1+KicoeJ1qBCQE5JstCol1yRsaCTCILLfPa
-	bIMTA/bbJtDHyzIjVY/mUR49+X/v1WB3+ed0k+5pEh+5ZAGF6LGPWrKJNqu/XRFZvVaucpKpePfju
-	8BpV1CrpKY1eUK13BcF8bJ1PXef0smngZMymHiBuRed2hWSY5nt5jjcjR2NncnfpAVw/rwPo14qL6
-	Nqxp7iHlJOePIGE81sDLw1IY+kr9QnrWGL7YuFgrzw4FoZoUyqTiWbE/7Z6m7H3EXfBwi6Z344GSj
-	B2HYR24A==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x6k8j-00000007aPX-413x;
-	Wed, 16 Sep 2026 07:33:10 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 3C08F3012C6; Wed, 16 Sep 2026 09:33:08 +0200 (CEST)
-Date: Wed, 16 Sep 2026 09:33:08 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Waiman Long <longman@redhat.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, linux-kernel@vger.kernel.org,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Haakon Bugge <haakon.bugge@oracle.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Yafang Shao <laoar.shao@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v3] locking/osq_lock: Ensure proper locking semantics for
- osq_lock/osq_unlock()
-Message-ID: <20260916073308.GK4120091@noisy.programming.kicks-ass.net>
-References: <20260914202102.551333-1-longman@redhat.com>
- <20260915082655.GX4121339@noisy.programming.kicks-ass.net>
- <89a400fa-f23d-41d4-9a82-df8697eed0b3@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="raM5XhAV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=D3AZYVFwXkt7bPWVEG/PBf6aO/+18hlPXbGfAJOcu9Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789544022; v=1; x=1790148822;
+ b=raM5XhAVIv7hETvmFWax/zdQw1WlFoCUi6rwh3HkCNQ+3F009aGeTRgb4KcNoRmgF/S9p0cO
+ 2ZqGxV6NXEFIUg36ZN04EudkS6sJgDCXA0CF+nWtT4o8Ff1MN/DbRiZWd72hkXuaFFGyZZfV8yZ
+ quovv+2N+GJU/GtQPTfxPB10=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 78ccef53a41417d8;
+	Wed, 16 Sep 2026 07:33:42 +0000
+X-Mizu-Trace-ID: 78ccef53a41417d8
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 16 Sep 2026 09:33:36 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+Message-ID: <aqpC8fxO4F3bFjF4@bombadil>
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <89a400fa-f23d-41d4-9a82-df8697eed0b3@redhat.com>
+In-Reply-To: <20260916-daft-relaxed-mouse-9bfaf4@quoll>
 
-On Tue, Sep 15, 2026 at 01:53:05PM -0400, Waiman Long wrote:
-> The main reason for this patch is for addressing the locking test failure
-> reported by Håkon due to missing barrier.
+Hi Krzysztof,
 
-What crackpot test is that? osq isn't meant to be used as a stand alone
-lock.
+thanks for the review!
+
+On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+> > Add bindings for the Vision Components MIPI Camera Module Controller.
+> > 
+> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > ---
+> >  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
+> >  MAINTAINERS                                        |  7 ++
+> >  2 files changed, 99 insertions(+)
+> 
+> This fails tests, so a very brief review / a few comments:
+
+Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
+Will not happen again.
+
+> 
+> > 
+> > diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> > new file mode 100644
+> > index 0000000000000..2a031aea68457
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> > @@ -0,0 +1,92 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Vision Components MIPI Camera Module Controller
+> > +
+> > +maintainers:
+> > +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > +  - Richard Leitner <richard.leitner@linux.dev>
+> > +
+> > +description: |-
+> > +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
+> > +  controller found on MIPI camera modules from Vision Components. It abstracts
+> > +  the camera sensor behind a unified register interface, and controls and
+> > +  sequences the on-board power supplies and clocks.
+> > +
+> > +  The camera sensor abstraction is optional. The controller exposes a tunneled
+> > +  downstream I2C bus used by the attached image sensor. The controller node
+> > +  acts as the upstream device on the host bus, while child node below the
+> > +  controller represent the sensor device reachable through the tunnel.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: vision-components,mipi-module-controller
+> 
+> There is no model name, no version, nothing identifying it better?
+> Compatible must be specific to the device (see also writing bindings).
+
+There is one FPGA implemenation for all Vision Components MIPI camera
+modules AFAICT. So I have no idea how it could be more specific, TBH...
+
+Adding the FPGA hardware model/type is wrong IMHO as it depends on its
+configuration/firmware, not the hw.
+
+There are different versions of the configuration/firmware. But I think
+this is also not the correct way to distinguish those, or is it?
+
+According to their homepage the vendor calls those modules simply
+"VC MIPI" modules, which implies this FPGA controller is available on it.
+So maybe "vision-components,vc-mipi-controller" would be a better fit?
+
+Do you have any ideas/feedback on how improve this name?
+
+> 
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  '#clock-cells':
+> > +    const: 0
+> > +
+> > +  clock-frequency:
+> > +    description: Frequency of the sensor clock provided by the module
+> 
+> Drop, implied by the compatible
+> 
+
+Do you mean dropping the whole property, or just the "description"?
+
+> > +
+> > +  vcc-supply:
+> > +    description: Power supply of the module (3.3V)
+> > +
+> > +  '#address-cells':
+> > +    const: 1
+> > +
+> > +  '#size-cells':
+> > +    const: 0
+> 
+> No children allowed, so why these two?
+
+Based on your and the bot feedback I would suggest for v2 to change this
+"generic i2c bus" to a simple "i2c-tunnel" property which has
+"$ref: /schemas/i2c/i2c-controller.yaml".
+
+This would better reflect the actual hardware, as there is only this one,
+in firmware hard-coded I2C downstream bus.
+
+Would this be a sane approach?
+
+> 
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - '#clock-cells'
+> > +  - clock-frequency
+> > +  - vcc-supply
+> > +  - '#address-cells'
+> > +  - '#size-cells'
+> > +
+> > +unevaluatedProperties: false
+> 
+> additionalProperties instead, see writing bindings or writing schema.
+> Unless you miss here some other schema $ref.
+> 
+> > +
+> > +examples:
+> > +  - |
+> > +    i2c {
+> > +        #address-cells = <1>;
+> > +        #size-cells = <0>;
+> > +
+> > +        vc_mipi_ctrl: controller@10 {
+> > +            compatible = "vision-components,mipi-module-controller";
+> > +            reg = <0x10>;
+> > +            #clock-cells = <0>;
+> > +            clock-frequency = <37125000>;
+> > +            vcc-supply = <&cam_3v3>;
+> > +
+> > +            #address-cells = <1>;
+> > +            #size-cells = <0>;
+> > +
+> > +            i2c@0 {
+> > +                #address-cells = <1>;
+> > +                #size-cells = <0>;
+> > +
+> > +                vc_mipi_sensor: camera@60 {
+> > +                    compatible = "ovti,ov9281";
+> > +                    reg = <0x60>;
+> 
+> Why having the child abstraction if it is completely abstracted? I don't
+> fully get the explanation from description. Completely optional means no
+> benefits, no point in it, no?
+
+I will try to improve the description. The idea behind this device
+driver/devicetree node is to not rely on the sensor abstraction from
+vision components, but to use the upstream sensor specific driver.
+
+As the tunneled downstream i2c bus needs quirks applied this is modeled
+as a separate bus.
+
+Previous discussions on this approach are available at:
+	https://lore.kernel.org/lkml/20260728092856.GB1494774@killaraus.ideasonboard.com/
+
+Thanks again for your review Krzysztof!
+
+regards;rl
+
+> 
+> Best regards,
+> Krzysztof
+> 
