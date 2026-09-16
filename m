@@ -1,81 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB2740B11B;
-	Wed, 16 Sep 2026 10:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B53E4BB7E4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:05:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553138; cv=none; b=oJWExAtwIf5w0501Dy7tTCge34YVI4ncgCjZ66nQv50I7MLOOMfX4g5funxjRaEcV6JVUqoerD+klrXNuqlS0eKGqxkpFZSkiadrW/Csj3w2Y86Wvy7NXpQW6OMaEsUZTlLz57bva2GBqqod9XcHQ+uQNTyns8cYGm+mUC6aUaY=
+	t=1789553165; cv=none; b=LXjPY3mHLC47y6hStUf9bNoH+hn73YLL0Qnldh89xubjF/6XseGEG6R9Irx2VFemT09oBxpG1mmnDrK2JA7kUxfMKQFhFxYH2pumaJ8obgQfhJTHVfM4STcv/Brzg+x4FVKO6XnD30oGODTxuc1+KOaiu1PLxEbHBklcsbq5ZeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553138; c=relaxed/simple;
-	bh=dwoz3Fs3dILagQbEX8XA1D1oUsVK1MB5fEJUuiT05/4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kx536cVNjdDYbTGAUDkBKVB24BRv58Kr6BzrR+dbxZFpkZY8PMYOUtpxK7xQY0nFY1btACto986a+OXvkAQbf42qiJQrf0yY/E1neJWKZtuEV67xnWKSmTUGv0+y07Q1NuJHjQnNOGXoijqvusLjFTQm4T+uwgs/H68xNR+6NpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C9Cl+vCL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789553165; c=relaxed/simple;
+	bh=ofElsNABt+b8mzZHZC0QsNKjZvHd8Uyu2Z/XtfzFnDY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CjV+iqedGDuwaULifhwvrEV4F5JCjhws+j6NdrGCBmcsfOkGReTJZQdJu/PLo1NG1Sy5uiPb4wTA7hzTUwumwfmPOiTVK6jWSfEhk2L+OMKO/vnAsVvPYO7Gi4i/N70J7MfsKRhI5nN0iC/Twhzws5+GBGNbBxf9rtt28cD/VJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jQTZW1WD; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C9Cl+vCL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AB7E1F000FF;
-	Wed, 16 Sep 2026 10:05:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789553123;
-	bh=SIrswBEKjvCahBhBDYV/KjaS7T/gmu6ZCkRCQ0/C6gY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C9Cl+vCLMMQYcLw6a56qj2Cug2HwTT6C16xyQTzyweeCLdHbgMEIePT6BVfohimvn
-	 kJ2JgCw5R8oNecMy+PdQ1uIh64KPEgjQbIIm68kIm257CYjPCTDQRqS3RFoJh7PXBa
-	 5igGQOPvegnLlPg7UPGrcWex82s2T0PWx9p09ukCPDHgIhTr3vVd0m+zWSAEg2rFlo
-	 2OjdI4/6Aro2N3K/lFZcJTGdorNN6YTCi9R3i/E+CCq1Tb80MMg7H1tbeSOdrbhmr7
-	 chSZF+aczY5dmXRAoZ07O/SxGmyhSQz5+c/6ic+ioJ3xotW2jVtnqAsBoPbBsBi9So
-	 WNnpg7Uvxa4NQ==
-Date: Wed, 16 Sep 2026 12:05:19 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Aniket Randive <aniket.randive@oss.qualcomm.com>
-Cc: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>, 
-	Dmitry Guzman <Dmitry.Guzman@mobileye.com>, naresh.maramaina@oss.qualcomm.com, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Subject: Re: [PATCH v9 0/2] i2c: Add dynamic transfer timeout based on
- message length and frequency
-Message-ID: <aqppo9OvQ8b_bvTg@zenone.zhora.eu>
-References: <20260911-master-v9-0-77ac458344e2@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jQTZW1WD"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so5220105e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 03:05:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789553143; x=1790157943; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DSLFVgXdU1ZjalH3c+5t4p/z9xUpz8ESSa4EgBQ9fIU=;
+        b=jQTZW1WD6n5L2Q56IxJVwtY4ARZwTZC/A5wUAqqAPHim1SkgOtGLuiseaInyJEaf5b
+         ak8qu2sJnz7Z3NncnDIjCcp/qQLadT7BhpEmKTy+f8m/RUtsOF3nmXcyvAjWdinfXBmr
+         9E1rjfOUX893OYuVEl9nqWOt3JW6WhzFt7aNsc/xSYQXuFZ3wtayF//xF6Vwk5GeUrpk
+         WGgtNS9QRRY67n1DfAEIH5AjU1hxxpW3UrPpbBa80mvdT1wJAPR3s9N6Vjq4XNy4Y8YI
+         9zMrmODrI/2SbDbicIfSizsWllUgIvqRlqQYZFZ8J3AMoGypzTWwHsYXYlW9PTupt5t3
+         AxKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789553143; x=1790157943;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DSLFVgXdU1ZjalH3c+5t4p/z9xUpz8ESSa4EgBQ9fIU=;
+        b=1Oasvuzc/LjA5JPiIGOlrgLCuiwpOYn8V9ijyfx7ocjy0UQnYYIR4abqte5iE93uhv
+         hRFkk14dOgcIiQdnNH4pKmMntDOfhyN4h48dYU4GwNYPvLc1UAbBJX/yTZsuBANOg2vk
+         uR3oXHcRu2ETQHq4eAA/7OZsgVj8mDcB9rTM5hVuugoQuybGkGLwK21SlTYNn/BIDViS
+         cf2KpepOanAnda9DT+nLczxPfvLh4k4xoApWxoFptOleZLsFglhDA7aK6bLC2ZJsgjxh
+         BAHONGBe2XTqo/Jktcox9vQrpvlO2EM65BSRRdVsNn7hGthAkpAhUTfz+gqPc1AX+98e
+         MG6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxMFFDfaI5q8iIs+TXPCqRh42ZctSrb9SMXhaf+yB5DTPuMV6YhZG9mHhnAWIwafD3RIv4DuRhBLzb9mzU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPC36GKQTSrv4/XRjT7WTaNohkKMmHmXRqgW4FAxXNZ/PbSfHr
+	kW2ghHHcRxS89zQ4oZrS2Pr3tEI626iqIAPaRv94S8AFMTIGe43n9u8D
+X-Gm-Gg: AYBFou1M+Ku3p4tdp48wt6rbdJNN+IBlyUuf7Dps0pXDSB0Hfg2s46ACQUDC9A/xwRB
+	40hdhtERbBX0xNQMbwRo9ZHIKRrAImzUcEhUnxFIB4KfGnUUsE0gNAB4aeyuR3t1bvbLUYnlUPm
+	oO/gh/22xof4gH5eVDAd+8gk/9UFPMUSqi1b86jfrBAPQmeUnnL2oVNUuGI4FixNLQk7lY1dH97
+	+e+q6a4IIlENjmi/aIGbScgI42piueO64plBHQgsk/IFAmMgiEF1d/rMwhRgHGyi2a1J5A3wAkQ
+	tzaShwNBoHCERMu8lEWhLS6+2rGRuBOy+CPNnieELKX2xR9uni4514dY67uXNEwV01sfo625p/G
+	yq15OLuQ+9UcRXJjoT4KWBoQ0kCnna3GM1kEA06Ki2G+0A/OrHl/mHc1n9ZqxPoKZcmKP2gkrRR
+	WsOCUWu5tvdRTVtwxvceiicy61wV+KzxEoafbl2FwLOUDxjwUzl3cVZs8r+QjjssdesnuxlXC2d
+	CSqycFRyo7yjulf2UORiWkg05nlqMDrsFm/
+X-Received: by 2002:a05:600c:3547:b0:49e:7423:687c with SMTP id 5b1f17b1804b1-49eac46377amr20615655e9.1.1789553143138;
+        Wed, 16 Sep 2026 03:05:43 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83fca640sm39034375e9.1.2026.09.16.03.05.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 03:05:42 -0700 (PDT)
+Date: Wed, 16 Sep 2026 11:05:41 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger
+ <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Arnd Bergmann
+ <arnd@arndb.de>, Takahiro Kuwano <takahiro.kuwano@infineon.com>, Tudor
+ Ambarus <tudor.ambarus@linaro.org>, HyeongJun An <sammiee5311@gmail.com>,
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mtd: spi-nor: reduce stack usage in
+ spi_nor_parse_sfdp()
+Message-ID: <20260916110541.35d70289@pumpkin>
+In-Reply-To: <20260915194203.3511147-1-arnd@kernel.org>
+References: <20260915194203.3511147-1-arnd@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911-master-v9-0-77ac458344e2@oss.qualcomm.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Aniket,
+On Tue, 15 Sep 2026 21:40:31 +0200
+Arnd Bergmann <arnd@kernel.org> wrote:
 
-On Fri, Sep 11, 2026 at 12:29:50PM +0530, Aniket Randive wrote:
-> The I2C core and many controller drivers currently rely on a fixed
-> timeout value that does not account for transfer characteristics such as
-> message length or bus frequency. This can make the timeout unnecessarily
-> large for short transfers, while longer transfers at lower bus
-> frequencies may require a timeout that better matches the expected
-> transfer duration.
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> Introduce a generic helper API in the I2C core to calculate a
-> transfer-specific timeout from the expected wire time of a transaction.
-> Store the computed value in adap->timeout so that both the I2C core retry
-> logic and controller drivers use a timeout value that reflects the
-> current transfer.
+> Two large spi_nor_flash_parameter structures on a function stack
+> is really too much, and this can exceed an otherwise reasonable
+> frame limit:
 > 
-> Keep timeout policy decisions within individual controller drivers. Let
-> drivers provide their own safety margins and minimum timeout floors, and
-> avoid exposing those driver-specific policy values as part of the
-> generic API.
+> drivers/mtd/spi-nor/sfdp.c: In function 'spi_nor_parse_sfdp':
+> drivers/mtd/spi-nor/sfdp.c:1717:1: error: the frame size of 1600 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
 > 
-> Convert the Qualcomm GENI I2C driver to use the helper while preserving
-> its existing timeout policy. Preserve the static timeout behaviour when
-> CONFIG_I2C_DYNAMIC_TIMEOUT is disabled, and let a userspace-configured
-> I2C_TIMEOUT value take precedence over the computed timeout.
-> 
-> Suggested-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+> Change one of them to a dynamic allocation to make this more reasonable.
 
-Pushed to i2c/i2c.
+It wouldn't be much more complicated to do a single kmalloc() for both.
+Then replace then memcpy() with structure copies for type safety.
 
-Thanks,
-Andi
+Might stop saskiko bleating as well.
+
+David
+ 
+> 
+> Fixes: d20029474a76 ("mtd: spi-nor: push the rollback mechanism into the sfdp module")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  drivers/mtd/spi-nor/sfdp.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
+> index c21a6953db96..5d0901074f50 100644
+> --- a/drivers/mtd/spi-nor/sfdp.c
+> +++ b/drivers/mtd/spi-nor/sfdp.c
+> @@ -1520,7 +1520,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
+>  {
+>  	const struct sfdp_parameter_header *param_header, *bfpt_header;
+>  	struct sfdp_parameter_header *param_headers = NULL;
+> -	struct spi_nor_flash_parameter params, params2;
+> +	struct spi_nor_flash_parameter __free(kfree) *params = NULL;
+>  	struct sfdp_header header;
+>  	struct device *dev = nor->dev;
+>  	struct sfdp *sfdp;
+> @@ -1532,7 +1532,9 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
+>  	 * Get a backup of all the parameter to roll back to in case of an
+>  	 * error.
+>  	 */
+> -	memcpy(&params, nor->params, sizeof(params));
+> +	params = kmemdup(nor->params, sizeof(*params), GFP_KERNEL);
+> +	if (!params)
+> +		return -ENOMEM;
+>  
+>  	/* Get the SFDP header. */
+>  	err = spi_nor_read_sfdp_dma_unsafe(nor, 0, sizeof(header), &header);
+> @@ -1652,6 +1654,8 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
+>  
+>  	/* Parse optional parameter tables. */
+>  	for (i = 0; i < header.nph; i++) {
+> +		struct spi_nor_flash_parameter params2;
+> +
+>  		memcpy(&params2, nor->params, sizeof(params2));
+>  		param_header = &param_headers[i];
+>  
+> @@ -1711,7 +1715,7 @@ int spi_nor_parse_sfdp(struct spi_nor *nor)
+>  free_param_headers:
+>  	kfree(param_headers);
+>  	if (err)
+> -		memcpy(nor->params, &params, sizeof(*nor->params));
+> +		memcpy(nor->params, params, sizeof(*nor->params));
+>  
+>  	return err;
+>  }
+
