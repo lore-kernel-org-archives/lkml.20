@@ -1,34 +1,85 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010045.outbound.protection.outlook.com [52.101.56.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FE34EBAD4;
-	Wed, 16 Sep 2026 18:36:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583802; cv=none; b=pOCE245olLVg1GLjkPxLwUsH3W3tMv0cqCkdnh73foWiojShLNh3lzy61UkxGYhemcyqxqVybZi4Xev4ODgHw5RlnLcS+h+hgw+b8NcO9ynI3MvXU81dad6lNRe5wILKKWYadn+WUnym3jPmXqcW78rHlQKwUGB1pICJsD8ZPPE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583802; c=relaxed/simple;
-	bh=XPuTOMghW30lDvXu64EuUJRMaCy05g5c36w72VLxxbs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uMqKDuyRqAj+EM2WLYNddKOItyBeMwElMfLFFZaQjjMcpu9Z42QKxOefYIue8Zs4HaQ+XI6pwQFzkGb7/ERFzlF+yzWvAEWMGpmSmZIFPm4M1D3puiewKpHPSqWg5iOazYWKZZyTvcOQq+0t/szBLBX+Mnk7/tuPv26jV3Fv/Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABXwz2O4apq+aZvCA--.24790S2;
-	Thu, 17 Sep 2026 02:35:58 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: bharat@chelsio.com
-Cc: jgg@ziepe.ca,
-	leon@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	n.zhandarovich@fintech.ru,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/5] RDMA/cxgb4: Fix neigh reference leak in rx_pkt()
-Date: Wed, 16 Sep 2026 18:35:30 +0000
-Message-Id: <20260916183530.2092534-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208684DAFB5;
+	Wed, 16 Sep 2026 18:37:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789583833; cv=fail; b=rAVZgUne+FhwzYr1CRcUaKw+QKaHGyFm/LYGRCi9zg+vD9FI8KsM7WkcIbuUmc1P8J+eqkprOx9UMvOrc9+eX8oCspGyG3NbjpEG0yyGSKpiM0nzC7kJMrOPtgVnh+OrHc2B0fqpMPIOYlvAkLGt+1ZAgtpGglYxkqGf8kmGTUs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789583833; c=relaxed/simple;
+	bh=IC6vn3X1VMMBI7YHpR788VNWxBalfoFl+2LwP05FyH8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YXmAHNkX/jSTDQ3KrUyr78pFEV/+RgKBbcdj42mW/0x5tdB2OAiyZeC4gLS2MbJQFwhaX88kRPd0IFs2LcM2n6RaXolpOeEFWa1eESicqO7nXi9zUOrsiZOci8aosxRzU6WpuLPwPeHA8cxW0/hlC096f9j8UlPNM8X7xwvnTgI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=CM/u/VZa; arc=fail smtp.client-ip=52.101.56.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="CM/u/VZa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w3TChDNxkE/lWur/ac2ZfLENvza9zWcJfFwOiqX1h0IoTJUAczg3C50IhwfoCApjHr0eJNlOf6m0bKuSRkRT15p+B9ESNReeNwrQKL00VINYfFD+Q4UyVFInXhc7OqHdpPJRM14bvqeej65FnMciori5kxdOxnzEyPc/BuUSG5MC9FT5yo8LUU82uD6kEaFE4moTwBnlQ4ZBeCVRqAKMvr2DMa/nfyb0M+KoIoUcXXt5KXFUU9sQAH18tz4CLhr6I+UBsDEHsXbcnxIvmWiFj4BJkywyTtz3+v3ucTGkDF3/vZwVwdiEPFNnH2Pxzb9jXyqc5CBgtUER4fJLfBaYHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TPDimQCpMRZ2zwHgUKQ+mZadhC+KU4LVD+dKbpAN+60=;
+ b=kFgClq5m0hdZvuHhr4stvJdLo/GW1I5iKSZ3MyaR29E9WJ2dNA5JkP2FV+lSZSEGWZHQOd8aPeIpyEK7CCHvlH0TgClasQeNiQ0SzX9f7+Iur0kuh8fa1c5RzBq2Fdc7UhEuKF9/tZiahXVe7O2f0HMbNZ0UPWkJoVUQwneehhZ1e6jBzngsFz3BCWzpU9c7jGIA/hZwn6ivqHFP1Jl1fzOiXBNyOxedgRWOTXa+AOihV3W4I+aCjW/+/POVnTiRC4K87Y7ckSkw980KE78XgjrGVPbhYZp5Ee9RVSdisXl3oajRduF1/m3jJcHs9TdzT8MpkX/JaK2NXBmO3VWybA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=shazbot.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TPDimQCpMRZ2zwHgUKQ+mZadhC+KU4LVD+dKbpAN+60=;
+ b=CM/u/VZa0RLBO1AfZ2BKi56Sgi/pXs5zynJqRlw7BvrnfWavkv6VrOg+lpH8CbZbgAEhlgRe5PMPcTR9ZH4rmD2emfwO9Hfyf7vLYsWwHEe9guV0KYSIwZx9hvt+CliVFnwWgYn8ECOUL2IOa4r5ZhHpki6q/tURZ+jpeR8kzpPCy3vjqpgMa3lv0J1k1neUSMclKqBWPPME3aAtM+v/0F9fFOwuRwipEIfaqc14BqlOHJ24MinmVyNVazGe5yomI9wPJ+aDJSegAbl2iYDbMUrvKQcaoDvqZcj4ocKKJLR/dJiHUhsJLXYHViB6JKrJaWaohCaZCBrPFRDE7u257w==
+Received: from BL1PR13CA0216.namprd13.prod.outlook.com (2603:10b6:208:2bf::11)
+ by SJ2PR12MB7867.namprd12.prod.outlook.com (2603:10b6:a03:4cd::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Wed, 16 Sep
+ 2026 18:36:49 +0000
+Received: from LV8PEPF0000006B.namprd03.prod.outlook.com
+ (2603:10b6:208:2bf:cafe::8b) by BL1PR13CA0216.outlook.office365.com
+ (2603:10b6:208:2bf::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 16
+ Sep 2026 18:36:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ LV8PEPF0000006B.mail.protection.outlook.com (10.167.248.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 18:36:48 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
+ 2026 11:36:16 -0700
+Received: from nvidia-4028GR-scsim.nvidia.com (10.126.230.37) by
+ rnnvmail202.nvidia.com (10.129.68.7) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 16 Sep 2026 11:36:07 -0700
+From: <mhonap@nvidia.com>
+To: <alex@shazbot.org>, <jgg@ziepe.ca>, <ankita@nvidia.com>,
+	<jic23@kernel.org>, <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
+	<smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+	<dave@stgolabs.net>, <alison.schofield@intel.com>,
+	<vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
+	<yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+	<bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
+	<gustavoars@kernel.org>
+CC: <cjia@nvidia.com>, <kjaju@nvidia.com>, <vsethi@nvidia.com>,
+	<zhiw@nvidia.com>, <mhonap@nvidia.com>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
+	<linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>
+Subject: [PATCH v5 01/27] cxl/regs: Split the BAR block request and ioremap helpers
+Date: Thu, 17 Sep 2026 00:05:14 +0530
+Message-ID: <20260916183540.3813685-2-mhonap@nvidia.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260916183540.3813685-1-mhonap@nvidia.com>
+References: <20260916183540.3813685-1-mhonap@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,50 +87,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABXwz2O4apq+aZvCA--.24790S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jw4UtF4DAr4xWrW3Gr45ZFb_yoWDWrg_CF
-	W8ZrZ3Xry5CFs0kF4qgFnxuryq9w1qq3yxXwn2qF15Ja4agFnFqa93ur98Ww4xXw45JFnx
-	Gr98Jr48Grn3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbxAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x0J
-	UJuc_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozWHTQAAsJ
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail202.nvidia.com (10.129.68.7)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000006B:EE_|SJ2PR12MB7867:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7341e51-9c2c-4f89-0d65-08df142177e4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|82310400026|36860700016|23010399003|376014|921020|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	BoVyYIxbKOGhCMaZTDKJ9bQhRyfziOjzXPfFQq082WX2Sa7a7nS1zQ+O+lG9M4AGoQ4SuD03nU+U74bmlYHpgbmuOe6o5wWVa56XQBo+vy/BvuZ68DxKDdV44f1wKevEvG2XMEdTvcflshKXEz8r8eKnCSsd5xMtr5B3WA/fTzZ93/75gG3dLbWteRP9PctH1XnqksRnIJSQf9W4SHp2kLMUZQTGdJSwqJzcdWxgR9imqICnRuhTdX2F8s7xfswkffmnsF5iPLkFKPEktB+sjo/Ij4jzT9JaVds4e85mcro/zVycQ2XrTK/LNUs0AhoQlSEdHwXFOM1XBCrnZdIlRNaA2Vor1Zfc+NWgyzodpYuvDslxfHKj6IKYvR2+yIAjSJHmX3aPfd38EIZRV0e0guGay5P0OAnNqQu722Nq9KPtn4q707zfV0x5CKImjOVKrjH1TnFEC0X6MQN6Uw3VgZx57GrgApbPbBFuKAaDW9VWTlNOvz21diJSJOfUmahbJXXwwT30HWVZ0I4zuCg4EuKdtmdkkJz447EU0k4MJkVtAfkNXmGQX8owJTE00xbpG4Ny/ksg30BAo+eehVScnkdq4EH1P9+L10ej0EFUqRPvpvoqpNO1WrP/wMl8bChQWPcNOcrXC0xtgoK6zLTIYaKKS9PGEMknj6deiOwMSzt0+uvj1+xSouQAVOFJxINb0xJ6sTIg8oodFig18hjC9sAOCDPvVLLEYs8j+Qlj1I5IgUxQ/jRPw3Bwj34W0v1F
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(82310400026)(36860700016)(23010399003)(376014)(921020)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+z6Lrj9Msi/vLkU8DyAVcHeSotCKSqotQK7peVn7yXq/B3hn0/buuBepQcxHcuKAI7KipWufu9zIPPFF/p6Xqd+CbBY2BIbAnSn64mQHzhrY2WsGEnbwJnaPxLbb0kicWUPtUbNoOZaDBdCe3HjoJCVDbIW3Fi4kC9YADPkYKKIcJtyT8ms7/JV4n0TqSV4WlGXXfZRKSN/flsD/XKGRXGxzgNTZop1U0ymeZBt9ks0E080v48RO5DNZhlWTotTIV9NX9HhrlrMrqzrZYEf/ngHiC1hYYmRUTLQCYfWDN7EMArcjrXuSAPCtUxvKxrIz1E1UA1xbJvvQelS7VYstlo8sm3PJ4k/ZbF4VKWgEdWzI2MVefv24Eky9lPeza1C/3uYnG3Q+i08Rui4pUBjMFG5HzeqA5/aDGMUG6WzyCMP8vy1DezduW7L0YVuias0j
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 18:36:48.5972
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7341e51-9c2c-4f89-0d65-08df142177e4
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	LV8PEPF0000006B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7867
 
-If ip_dev_find() fails on the loopback path the code jumps to
-free_dst without releasing the neighbour reference taken by
-dst_neigh_lookup_skb(), leaking one neigh reference.
+From: Manish Honap <mhonap@nvidia.com>
 
-Release the neighbour before jumping to free_dst.
+devm_cxl_iomap_block() claims a register block with
+devm_request_mem_region() and then maps it with devm_ioremap().
 
-Fixes: ef42520240aa ("RDMA/cxgb4: add null-ptr-check after ip_dev_find()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+A driver that already owns the parent BAR needs to skip the sub-block
+request while still mapping it, so the request and the map must be
+callable independently.
+
+Split them into devm_cxl_request_block() and devm_cxl_ioremap_block().
+devm_cxl_iomap_block() keeps calling both in turn, so there is no
+functional change.
+
+Assisted-by: LLM
+Signed-off-by: Manish Honap <mhonap@nvidia.com>
 ---
- drivers/infiniband/hw/cxgb4/cm.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/cxl/core/regs.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/infiniband/hw/cxgb4/cm.c b/drivers/infiniband/hw/cxgb4/cm.c
-index b3b45c49077d..f57a31cf4fc7 100644
---- a/drivers/infiniband/hw/cxgb4/cm.c
-+++ b/drivers/infiniband/hw/cxgb4/cm.c
-@@ -4156,6 +4156,7 @@ static int rx_pkt(struct c4iw_dev *dev, struct sk_buff *skb)
- 		pdev = ip_dev_find(&init_net, iph->daddr);
- 		if (!pdev) {
- 			pr_err("%s - failed to find device!\n", __func__);
-+			neigh_release(neigh);
- 			goto free_dst;
- 		}
- 		e = cxgb4_l2t_get(dev->rdev.lldi.l2t, neigh,
+diff --git a/drivers/cxl/core/regs.c b/drivers/cxl/core/regs.c
+index 989e79383b99..d79550dbb484 100644
+--- a/drivers/cxl/core/regs.c
++++ b/drivers/cxl/core/regs.c
+@@ -177,6 +177,20 @@ void cxl_probe_device_regs(struct device *dev, void __iomem *base,
+ }
+ EXPORT_SYMBOL_NS_GPL(cxl_probe_device_regs, "CXL");
+ 
++static struct resource *devm_cxl_request_block(struct device *dev,
++					       resource_size_t addr,
++					       resource_size_t length)
++{
++	return devm_request_mem_region(dev, addr, length, dev_name(dev));
++}
++
++static void __iomem *devm_cxl_ioremap_block(struct device *dev,
++					    resource_size_t addr,
++					    resource_size_t length)
++{
++	return devm_ioremap(dev, addr, length);
++}
++
+ void __iomem *devm_cxl_iomap_block(struct device *dev, resource_size_t addr,
+ 				   resource_size_t length)
+ {
+@@ -186,7 +200,7 @@ void __iomem *devm_cxl_iomap_block(struct device *dev, resource_size_t addr,
+ 	if (WARN_ON_ONCE(addr == CXL_RESOURCE_NONE))
+ 		return NULL;
+ 
+-	res = devm_request_mem_region(dev, addr, length, dev_name(dev));
++	res = devm_cxl_request_block(dev, addr, length);
+ 	if (!res) {
+ 		resource_size_t end = addr + length - 1;
+ 
+@@ -194,7 +208,7 @@ void __iomem *devm_cxl_iomap_block(struct device *dev, resource_size_t addr,
+ 		return NULL;
+ 	}
+ 
+-	ret_val = devm_ioremap(dev, addr, length);
++	ret_val = devm_cxl_ioremap_block(dev, addr, length);
+ 	if (!ret_val)
+ 		dev_err(dev, "Failed to map region %pr\n", res);
+ 
 -- 
-2.34.1
+2.25.1
 
