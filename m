@@ -1,68 +1,73 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4FE221FC6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA35314A65
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:47:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570050; cv=none; b=d/GwDr0pCxbOYjMy2Z4GNTdYAhq6IVHlwDbZy76jpUtqls4LnE5zFyFJ1/Y1P6OWtRwMBPiTFYTFRX643vU5vIwFMLaQ1Rbpf6gOwfM0uRIXmtTs3sJ+8G3M1yIfE5p7qJjyB84hSLqLiTNp05KQnBdN1e7EO/DR/mjIJERA8s4=
+	t=1789570051; cv=none; b=BANHi6ETr5gxL2UbnVWSS0kQfLoVtB2qstM+rziUP66EYySRPSN4t0yAIQIQV/1EYelZhzrkqUjQwATQPOuMZ9Q9P9Sr93ocA4KnmK0lorOLd1pLHxaaoSc4rDFP1rm/IAHjuSxqUgdZJ/rCjjfUqiA/1iroWr0Arg8A/REHCVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570050; c=relaxed/simple;
-	bh=qfqJRVx0qRIe/cIj/FEe5qp5EZejFBPmZ7p2+iqBpus=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=r7dB8xy/JJ86vu6kzRA2nBy2e6xEUx6jKlc8FD3VpVSAOLVx+QmbqlQRMB9GsyIVPSeZ9RKjCMT1lyZ2DtdfXHQSgzt9fAAkkk9FJzSB7GqLL5Um4ewp2/2PJJC/mofE02zxERQdreslArM2v9NMgCmsTptV1Bthaze2Ev77+9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NJgpYLMz; arc=none smtp.client-ip=209.85.221.71
+	s=arc-20240116; t=1789570051; c=relaxed/simple;
+	bh=C1oNciHcEscYHEFiBPOAp/Z1rml/FIlWarmSgscZ6yc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=muzozJjeL3H2pwNhyUebGaxnH1zjzV/1KSzVScPErEri91z/wCmaXiPZjNDkKRj19dUcib0i33WebXnb9Xga9dSgG7/N64G4mSxCirAtimROgAnGbOIO/JqIArTkFMzaoadEYk3N34iKM1PJzqL6+ULzn6tnSuZoKTSZP/Mg/fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ram7WL1U; arc=none smtp.client-ip=209.85.128.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NJgpYLMz"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48584d903ddso1431390f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ram7WL1U"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so47446985e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789570046; x=1790174846; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2ZOHOvowM8dbCq8/NqSkPXbtI2xme9ytyB46uLhDq60=;
-        b=NJgpYLMz/2TnSMa+cIyVT3xJZv7VgoTnkEFrxwyLWBfInCI6rg0pNw114gLnQ05AlS
-         WFYb6Hf7fpaNZgCrOhV7Ekf4NC9NCC3vC/upGYAf6o99ZHRmYW+1c+5YoKxavR34B3EB
-         K4l/QfgDRleWPlfHJk7YML4ZJgLr/ugJPuFeGmKGS9lMAXBU+8YuQmSr49kx5/fLJ3w0
-         37tPOqmkvUAEB/I8VxVa9g2xv5enVEOl/jpN3CGVVY4brfVoD30Nfke3oF6AK3tK6S6g
-         pYNYpQC6Mn+pEQAJiOqw6+YbiWulckVvAdDMsToIsMMzob2I72KCuv7FMAHKCdYPl93O
-         y9tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570046; x=1790174846;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789570048; x=1790174848; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2ZOHOvowM8dbCq8/NqSkPXbtI2xme9ytyB46uLhDq60=;
-        b=kWdBZ4TyIvmibV3gEvobZtqMHOoKV9AwtFDXTPY/ONUPEDQh5/EBWPCVFQPNfWabrA
-         oXALDlMtJF431ZkzYW/cDaLsMk6AgSZqyYhdcKe5yBNlmV30yNkhMttniwkIjeuEgypY
-         2uOjDmXrLfHfMd42xYLq66ZziKQv1bCraGdNhvKPo5es1bPP213GpjQLr+DQ5xkUAKuP
-         oZ3lFL+t3Tqw3CkLVOkpLNoXurlI1x/1nLWi51HtxxpwF6+jlg/2YRgM/WTb4MJiPof5
-         VbE0xo/JhUzdm455yPO2L7ePPKo+dqRSAJ05yro1Mjo8t+2SYTLwuCnnobs7BmfRydsS
-         /7/A==
-X-Gm-Message-State: AFuF++l16d1Y0Bv3B9b3EqJM2Hx45WdwyIufDyPYFDyB4vBhNIwHMNlF
-	gRsIqMAEknou3ia/L+LTR6YMVR29+PNqO5G7HBF477C/NbpevmH6OBZZVC6EtwYO9cC7dJI+Dw=
+        bh=SChD6gZN6HYF8sdEF4kgrqs3H/vnYWBrVFLBfW4Uqts=;
+        b=ram7WL1UkFun17DGGjfsO6e/gXDih8BVBZPFc6KbHc+b7rw+7UxT/tQ2XAvTuXTaqB
+         5oNh2oFIRZpK3VjWZpC0kSqSA5iIDhTIbO5Sds/bruL8eR+WkhjBiZj86N4sSaB3z7Aa
+         GmMy8M6ACk/70uM/tMNBkwRgGAWC6dInIXAAtCCSrQBYPBeSFEar/674vTThJZseCqY/
+         aB5t7kbNvAtUy9s6DYPdcvU8Fz0eIpyEYFZU3ZP+2562G88s/ASIzheutpWiFffoUgdo
+         emC4bPyNhYhoJuqFgIVLlyXEPATiFEvCzN8LBYzHSN1TjkddQal/bcw/eTKqHdpRPNIV
+         orrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789570048; x=1790174848;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SChD6gZN6HYF8sdEF4kgrqs3H/vnYWBrVFLBfW4Uqts=;
+        b=fGd137K5We2VYxlnij9jNbswloWztHHt0xK7EmjINIznpljrDxqUZ7rDAqEhnntvlH
+         ARpGSEomm01THXIC1k7oKkIUn49fjavRxEqEqLLJcgvnrmKNTGs0SWAEsRdEnEpfpeSq
+         0P8n/QpTCjzVOrXCa5JSSqjpA+/MktfKxgUF9EWl7HxORUAeKQiwrDoVNZfGwRDIy/M6
+         r7Xr7Bh90I4Ry2Uz6qm3tNFPMlayuSfyFP+0IPX+fKcTZPxk4qlXu5lGeh9FGe4HV6Fl
+         sS8KXixfUfipG245yv+6WvznLpvBwuXYB75fBpH83Ov+WUyb3sjsLvg2BQch9aZsWC1+
+         bwyg==
+X-Gm-Message-State: AFuF++nexjbJK7f8nPOXl7bmjzlcJARCY6zq0gqirw4pBfEybqgJcwi5
+	r6UJLYxqJTTJLc3FULT33jEeX5KAFsdVOxWhaQ3cfbZUG8FKyH7dkdbjSuCVyps0bctdGuWx6A=
 	=
-X-Received: from wrbgx24.prod.google.com ([2002:a05:6000:4718:b0:486:ed6c:1749])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6000:4711:b0:487:fb0:a55
- with SMTP id ffacd0b85a97d-4870fb00cbcmr2667774f8f.24.1789570046021; Wed, 16
- Sep 2026 07:47:26 -0700 (PDT)
-Date: Wed, 16 Sep 2026 16:46:48 +0200
+X-Received: from wmbgx11.prod.google.com ([2002:a05:600c:858b:b0:49f:646f:58cf])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:3b29:b0:49c:fa21:e74a
+ with SMTP id 5b1f17b1804b1-49eb733e4camr32594375e9.32.1789570048115; Wed, 16
+ Sep 2026 07:47:28 -0700 (PDT)
+Date: Wed, 16 Sep 2026 16:46:50 +0200
+In-Reply-To: <20260916144647.2651379-11-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260916144647.2651379-11-ardb+git@google.com>
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3135; i=ardb@kernel.org;
- h=from:subject; bh=NpUActtl36RpBYI8LXKBqA4W1/quvyhnCoUKaScrRj4=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6hssZsa5Kff5TsT4b65d2H7yTWDo1CyeTbUvNCWeC
- Pl1Pq/rKGVhEONikBVTZBGY/ffdztMTpWqdZ8nCzGFlAhnCwMUpABN5bsHIsFx33ctoVm9tht/n
- 1E++r7NtOMog6e93WlN3YeJXH1UOX4Z/9u7nnVbf0L+/MkTk4aHD3/YLJynwaPo4Ox9JO+8vnOL HCwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=705; i=ardb@kernel.org;
+ h=from:subject; bh=qgkzqtEAKN071Ee9/bQchBV2SIPhg66nmHFUwJgGBhA=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6tt+qv/5vh6efeW1WvZCDaON99Uy1h/fbsCW8PJ8U
+ GG1rLNYRykLgxgXg6yYIovA7L/vdp6eKFXrPEsWZg4rE8gQBi5OAZiIRRDDP8XLBYaKknVxKc+1
+ dk897rVIyeXJI9vLkQG8B6x2Gj2pWsLIcGRGY0P9vA/Vou/Zp88LmcNlc31RyXOTjwttfZTsIw4 U8wIA
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260916144647.2651379-11-ardb+git@google.com>
-Subject: [PATCH v3 0/9] efi/libstub: Avoid UTF-16 conversion busywork
+Message-ID: <20260916144647.2651379-13-ardb+git@google.com>
+Subject: [PATCH v3 2/9] lib/ucs2_string: Suppress modinfo when
+ __DISABLE_EXPORTS is set
 From: Ard Biesheuvel <ardb+git@google.com>
 To: linux-efi@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
@@ -71,72 +76,27 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Ard Biesheuvel <ardb@kernel.org>
 
-The EFI libstub performs some redundant conversions between UTF-16 and
-UTF-8 and back again, which includes dealing with surrogate pairs, which
-UEFI implementations themselves simply ignore.
+Allow the UCS-2 string library to be reused in the EFI stub, by
+suppressing the modinfo data that is usually emitted so that the library
+can be built as a module.
 
-So drop all the homegrown code, and use the existing UCS-2 (== UTF-16
-without surrogate pairs) library code where conversion to UTF-8 is
-actually needed (the kernel command line).
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+---
+ lib/ucs2_string.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-The remaining handling involves the EFI console, which supports wide
-characters natively, so just use those directly.
-
-Changes since v2 [1]:
-- drop x86 specific patch, it has been split out into a separate series
-  [2]
-- handle truncated output of ucs2_as_utf8() in the middle of a multibyte
-  character correctly
-- improve ucs2_as_utf8() documentation
-- tweaks to the commit logs
-
-Changes since v1 [0]:
-- drop size limit from ucs2_strscpy() instead of just the WARN()
-- suppress modinfo sections from ucs2_string when __DISABLE_EXPORTS is
-  defined
-- allow the input limit and max output size to be passed separately to
-  ucs2_to_utf8()
-- reimplement efi_convert_cmdline() to optimize the common case, and
-  only process the input character by character if its size exceeds
-  COMMAND_LINE_SIZE
-- use memcpy() to avoid strscpy() semantics in handling of %ls
-- incorporate Vincent's patch (which inspired this work) for
-  completeness
-	
-Cc: Vincent Mailhol <mailhol@kernel.org>
-
-[0] https://lore.kernel.org/all/20260906130817.1151961-9-ardb@kernel.org
-[1] http://lore.kernel.org/r/20260909115530.1924665-12-ardb+git@google.com
-[2] http://lore.kernel.org/r/20260914183745.37538-5-ardb@kernel.org
-
-Ard Biesheuvel (8):
-  lib/ucs2_string: Drop arbitrary input size limit and associated WARN()
-  lib/ucs2_string: Suppress modinfo when __DISABLE_EXPORTS is set
-  lib/ucs2_string: Split out ucs2_as_utf8_l() taking a separate limit
-  efi/libstub: Use ucs2_string library for UTF-16 to UTF-8 conversion
-  efi/libstub: Avoid efi_puts() for compile time constant strings
-  efi/libstub: Output UTF-16 directly from vsnprintf()
-  efi/libstub: Add support for printing human readable GUIDs
-  efi/libstub: Add efi_snprintf() to construct wide strings
-
-Vincent Mailhol (1):
-  efi/libstub: add initial Boot Loader Interface support
-
- drivers/firmware/efi/libstub/Makefile          |   3 +-
- drivers/firmware/efi/libstub/bli.c             |  87 ++++++++++++
- drivers/firmware/efi/libstub/efi-stub-helper.c |  98 +++++--------
- drivers/firmware/efi/libstub/efi-stub.c        |   1 +
- drivers/firmware/efi/libstub/efistub.h         |   8 +-
- drivers/firmware/efi/libstub/gop.c             |   6 +-
- drivers/firmware/efi/libstub/printk.c          |  95 ++-----------
- drivers/firmware/efi/libstub/vsprintf.c        | 149 +++++++-------------
- drivers/firmware/efi/libstub/x86-stub.c        |   1 +
- include/linux/efi.h                            |  22 +++
- include/linux/ucs2_string.h                    |  11 +-
- lib/ucs2_string.c                              |  19 +--
- 12 files changed, 242 insertions(+), 258 deletions(-)
- create mode 100644 drivers/firmware/efi/libstub/bli.c
-
+diff --git a/lib/ucs2_string.c b/lib/ucs2_string.c
+index d66fef9c9b81..f75fb4f7961a 100644
+--- a/lib/ucs2_string.c
++++ b/lib/ucs2_string.c
+@@ -165,5 +165,7 @@ ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
+ }
+ EXPORT_SYMBOL(ucs2_as_utf8);
+ 
++#ifndef __DISABLE_EXPORTS
+ MODULE_DESCRIPTION("UCS2 string handling");
+ MODULE_LICENSE("GPL v2");
++#endif
 -- 
 2.55.0.1032.g73a4cd73de-goog
 
