@@ -1,288 +1,175 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC114F6469;
-	Wed, 16 Sep 2026 13:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D36B84A8FE5
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:38:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565907; cv=none; b=uhdCScLoqoIP4dcvydjIOK0lXk/H4dGR5gjbNiuc32KgOPIupDRITffSi9zWv6gEuIYyVArTYLCgYOASiBamToz/BfyTdCDGid/8WrGz3ocOvHCzG6uzq1/ERnjjldECQinXPRFJg47CgsNsuaxs1R6+ennCfnHipbAFHi3QfVk=
+	t=1789565906; cv=none; b=khzF2igwtZzUI/zMJSo+bk0Us/9M6nphSGUhCXITNoFY2DjqLlPC8xaPhFcQaAxC2kkzsefNXsRUDG2fakOk2XvyrAFnT4HMCmYWya1ZYdsRYiZ7eZ/+wr5Gc3Uv3ivdz3pKdm2FSYmGk2GAqkrQkOEsEwWSNH7KsAhWVAdClAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565907; c=relaxed/simple;
-	bh=fuBsbpigXt8rl/xctfu6h4Htdp0PNGGgrkMRqR0Fo90=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iovQFCdFukKjmiShb+dy3+FuQTKD7BigR17o/S9DVSl/OQyxPngAvok10UAHxLMeLGFc5pTpTo6Jw6ExQddPsgRAGIuwb4dTeeUI0Fb92YwLqFMbI/W/b5dshMWnPG/deXGBmvnvQvk7NOGh0BDW4H0lYi7AiCxwHVay8ZZ2xj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=pNfxbv5e; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hw2nSju/; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=uU/pgSib; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DbDmEYYo; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789565906; c=relaxed/simple;
+	bh=gr8uD9XWy7EPGvPIwLrmL5ImB5sWtzac4sXA0IvvQd0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pGWeaJzeAmOZAxzhGBAZhZjyOSiq5QZ888AkIhmjH0oYYLzXDFSpK3v7s9SBJ8ZVQBH0P7crjQ65n0flHefgBkhrq2+XMY0cBebMVLJm1tpvNnFyvjMfFH8gYu2dPNsVxEwCOzdzs397dzkTLObkZNiy+f6wl/08ckoZMn28HFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F8kSfjgk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TY6GmmXl; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pNfxbv5e";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hw2nSju/";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uU/pgSib";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DbDmEYYo"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B014821B17;
-	Wed, 16 Sep 2026 13:38:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789565887; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ThsH8r1A3eSYCfF5vCHdWdVDmJLOjxaFxZk4Ur818XM=;
-	b=pNfxbv5eOS65FsIoi+q21OpCAbLo3BAiSjbniG2YuOUv/bEcmMhI72A2WnO0xIKXXnqo+G
-	TgHG0Wt63uM7lyVKY09gcXwh410dNeMTuIQ1/ajLX7A4rf3nNSfuyNPK/igKlFreE93yOE
-	bp/7mGKBD37n0bTDU653peDM+sRUyd8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789565887;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ThsH8r1A3eSYCfF5vCHdWdVDmJLOjxaFxZk4Ur818XM=;
-	b=hw2nSju/r1VZo9eqEV7wdmDWFdaSF+1iE2eWgI02GN+Jqsn9Pnb3EUON7e2EH3gkA2M5aZ
-	rJxVuJn4b9lUIjCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789565883; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ThsH8r1A3eSYCfF5vCHdWdVDmJLOjxaFxZk4Ur818XM=;
-	b=uU/pgSibs/k7zjqKhG5RJ81cOSCI5OZvAoPdddBlis82K4bfgdGoXBEDCU/1PH9z772/J/
-	SoKR69T9In3tP5Udek1vUd0VqSFTcdeTDkozH7Fz8Sg1Em09/ChpjKbM3A1VNjojTDghLX
-	Gbr6DUK6tvzhyof9ikw76a6fYyfIT50=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789565883;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ThsH8r1A3eSYCfF5vCHdWdVDmJLOjxaFxZk4Ur818XM=;
-	b=DbDmEYYoSjTIwSVjPPxYGhKHwGyddVVDxXK71BWhHA7mR4jzG8IyZO+RdxSUBGgipeB17C
-	XdofkGy0W7w9eSBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 540A61348F;
-	Wed, 16 Sep 2026 13:38:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id w8V8CrubqmoNKQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 16 Sep 2026 13:38:03 +0000
-Date: Wed, 16 Sep 2026 15:38:02 +0200
-Message-ID: <87ecetjozp.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: =?ISO-8859-1?Q?Isma=EFl?= Bahloul <i.bahloul01@gmail.com>
-Cc: linux-sound@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v4 0/3] ALSA: usb: add RME Babyface Pro driver (proprietary mode)
-In-Reply-To: <20260914172334.49074-1-i.bahloul01@gmail.com>
-References: <20260914172334.49074-1-i.bahloul01@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F8kSfjgk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TY6GmmXl"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCYZRS3291278
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:38:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=LlhMlNHGEpK0T30X/QJXpo30
+	EE7ZsUpq2JBHpDtamuk=; b=F8kSfjgkXsDY12jEah2EiaQ98LB4kaRz6Sw5gUOD
+	dS3eDgCRFh2ZAlTRJWcgy48XpX9PzIAhjSO7vthSxzPJPWWNFJpzhJp8tEPrxA4h
+	u873Ci8ACv7nlOsU/Dxof+ezLjEs6cWrJdbScBHKoIJkOJCit5ih2E1IKCc9RsrW
+	8tqiyc37ynjhH2V2nkDN0x8QKoLp16aB5CpbzEz3vMKQcbtKTOSim68smku3mpnf
+	Jr2fiDpHVMAZpKyHzvxkPJJzWnXzIRWTLBjtOnE1HQSOL0ConSZU6fnNXNekqQie
+	DQXtDrzY/AfZkQ3j7P/oIsPs9mGOpByYOlSBYjOiyMn6sw==
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqfvfk2wb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:38:12 +0000 (GMT)
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8076c66efc6so5767640a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:38:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789565892; x=1790170692; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LlhMlNHGEpK0T30X/QJXpo30EE7ZsUpq2JBHpDtamuk=;
+        b=TY6GmmXl6/ib8uv3Ot3V+A7hpe1nV7WaAjtJh2DTJgi+RvnaWH0WhXbxGQs2/W25tl
+         JzL5jE66B1YNrLST1a6g6M7+xRV/1yeZlrRAViRCGHhqlFNsvy7kqRvcPvBNkb6o+BWi
+         3HFnmhYSDZuHra6x94y3aeuI9B7Xwq6SSeOXIR7ijIfJ6yKSEKTcgGvyFUG+w3Yp+i0L
+         ymn3xLJ74biNk9FMxfqL3BchmeYt88DEEtNospknxEGb2o/3H80/5Nqyb8OlivHhGT6e
+         aMn7GmH71Lp04Ya8zDGlEipejxR453DfOAR2COsqbEbNI6r6Yd+87NUzBnlULQs/yRnV
+         UAOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789565892; x=1790170692;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LlhMlNHGEpK0T30X/QJXpo30EE7ZsUpq2JBHpDtamuk=;
+        b=veKCQ/DvKGpmgne89hTTNZnKINhMwR9utJDgLe3btg1BEXsGmXccCoxguEJpM386EW
+         t3904oxQDdyMvgSOZAz36i2KJp73mwB9mtGjAvY6zM+HiufEie5Ag+NJlRC3kPl63EFR
+         rMvaw7xx3PXyN5mzcVpBXGieaz10m0DDRVYtkMxGMtazuG56iTynXtavOcc7vNpCGIw4
+         pk+qXtKBocZ0HenAoMhPoV7FlBErx7+HwO97amUYq4cEhahUiP4KUdevSh9bfmnczfo2
+         F18pwNVqSOCq3wZr6kdVOL3zgIqvinDBsDR5z6/6D3LmNhLmSJMCCRnW9tCc+A+sV8iZ
+         VvfA==
+X-Forwarded-Encrypted: i=1; AKwUvBydGABIEdyjLUF4fyMsIAsGyjblAeBjJ5fDkdg+ELFYsV7pbdX9nILG+/tKw/xW3jekf4QpBdJ/93a6hPY=@vger.kernel.org
+X-Gm-Message-State: AFuF++meTQV0XPgK35w3SAL/eHFV5lg05ShaPHFGF1E0yJ3yvsGYI8bh
+	exD6qVMdX6c7IlY1TIef5JT725Vs4s6E9oaV32kcBt082L9Ob14ei1gmvW5lq3kMZhVEvxSICeU
+	Oz5WpU6N6Ha+W+XAmKNHT/P0bkIQfz+nhZ9Z1+iKt0MwMMTg6wTHp3Fq6wusZ+IyHlwI=
+X-Gm-Gg: AYBFou16a26UuVwEN1+rQBqXQJoRkTHWSKIQKoJoNq8rczBeJ9BqhyiF+hEzEMj59gf
+	G/395HbJLufiqOg2rTAtGWhpjGkjm6NTeD4WzpsjiH8a2lr7BflKxcu9OLJbkR8Wz+BEs2okrqy
+	RwG8cdYZLcFn0WUZ5+IZCuxjIBNNBLuEm6b7LQnyBJJcHlLxM/y0A/+5QSehY0fZckhvzGt8Ncw
+	eEHVsD7wSuCvLbuLAVxlQWcPgHMU/hiQaLgUJXobgNclY026UBI4y4qhRd50wFFgKNkCpVlCfnn
+	CklSWMveqX8fVZCzsBuyQQn7iXA8IVGrLXwyQkNA7hyxauBVPc5ax57e3WKJnCDhQB7XsZ+LyC2
+	8J1DeSN9Q2Q6lmcz1j5lNF23EYIQj1EH/2Lz9guuZXqg=
+X-Received: by 2002:a05:6830:410c:b0:7f4:effa:a5ad with SMTP id 46e09a7af769-80b2ec5aac4mr4800099a34.10.1789565891855;
+        Wed, 16 Sep 2026 06:38:11 -0700 (PDT)
+X-Received: by 2002:a05:6830:410c:b0:7f4:effa:a5ad with SMTP id 46e09a7af769-80b2ec5aac4mr4800069a34.10.1789565891485;
+        Wed, 16 Sep 2026 06:38:11 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80b07ad0302sm2541841a34.25.2026.09.16.06.38.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 06:38:11 -0700 (PDT)
+Date: Wed, 16 Sep 2026 21:38:04 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 RESEND 2/2] usb: typec: Add onsemi FUSB15201 driver
+Message-ID: <aqqbvEH0U6LYR8UR@QCOM-aGQu4IUr3Y>
+References: <20260911073414.16711-1-shengchao.guo@oss.qualcomm.com>
+ <20260911073414.16711-3-shengchao.guo@oss.qualcomm.com>
+ <aqfyPQ8bxxvBEB_3@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -1.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqfyPQ8bxxvBEB_3@black.igk.intel.com>
+X-Authority-Analysis: v=2.4 cv=JYkpPkKV c=1 sm=1 tr=0 ts=6aaa9bc4 cx=c_pps
+ a=OI0sxtj7PyCX9F1bxD/puw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=8alAasM9Vt_m-_31djgA:9 a=CjuIK1q_8ugA:10
+ a=Z1Yy7GAxqfX1iEi80vsk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE4MiBTYWx0ZWRfX8KbUVOVUOHDh
+ 8qZ/IjN5kb+R6hMvOJj+hg4lU3GFx/dLf1/E4u+pnNUcx/iFKvNAtaoVDa6kYZgCjTBa6K0KiNF
+ GBPdjwoecA6bzjCqUWQL8uljuiaiqYehfaeLxJ12T2kdrjd9Rdp27UK7plYBa3EKuTHS0HvxQV6
+ VpgaVAtpAEh/ZIxrj6CQ/c1tJ4/rCyDWLSCCk4P/CyGQEbOIfErqahvpoJ7btJiUQbr1RoEjjAK
+ 6ZJbMDHy+IvIcsSbwJ3OpMx5HnTM7Yo7nUba0ajZaVJsy4hkEF4U1riIXh6z9aOtYQo9nBxVA1x
+ rSoGklSiT6giBTZIs9TivZWsoHK50OmaWsrWMx2RaM15yGCJqt+uXfqnJrTQ3ZC2bf2woqPkzKh
+ YSNSz3dtfxC6bEmofqRI95T7qQ/d7qw/qHPUiMjrSojuUQoFrfvT36Iv1LzTTPILb+QDb43Qxe+
+ wmBD1OxOD8mnxvofCjQ==
+X-Proofpoint-GUID: hI-E7us5cyfj9qI01oJdgeeuwIsYXlHu
+X-Proofpoint-ORIG-GUID: hI-E7us5cyfj9qI01oJdgeeuwIsYXlHu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE4MiBTYWx0ZWRfX3tmpgESgR/7E
+ YsKalbf2Mt+tQzqNay1p3KdtOb1nejubZGtOp0QK6pkpiMG3bauYK2RLgG0iii4ILZFsJY9cFL/
+ /SmWsttUwazzf237duQSutWAi4XNeTE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609160182
 
-On Mon, 14 Sep 2026 19:23:31 +0200,
-Ismaïl Bahloul wrote:
+On Mon, Sep 14, 2026 at 03:10:21PM +0200, Heikki Krogerus wrote:
+> On Fri, Sep 11, 2026 at 03:34:14PM +0800, Shawn Guo wrote:
+> > The FUSB15201 is a dual-port USB Type-C and Power Delivery controller
+> > which runs the Type-C state machine and the PD policy engine on an
+> > integrated microcontroller. The host only observes the resulting state
+> > and may ask for role swaps, so this is a plain Type-C class driver
+> > rather than a TCPC driven by the Type-C Port Manager.
+> > 
+> > Register a Type-C port for each connector described in firmware, report
+> > attach and detach, orientation, power and data roles and the PD
+> > capability of the partner, and drive the USB role switch of the attached
+> > USB controller so that OTG role switching works. Data and power role
+> > swaps requested through sysfs are forwarded to the controller, which
+> > performs them asynchronously and reports the outcome as a port status
+> > interrupt.
+> > 
+> > The controller exposes a per-port VBUS ADC reading, but the Type-C class
+> > has no VBUS attribute and nothing needs the value, so it is not read.
+> > PD messages, PDOs and alternate modes are not exposed by the hardware at
+> > all. The chip-wide MASTER_RESET command would drop both ports at once
+> > and has no caller, so it is left alone as well.
+> > 
+> > Assisted-by: LLM
+> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > 
-> Hi,
-> 
-> This is v4 of the RFC for a driver for the RME Babyface Pro in its
-> proprietary USB mode (VID 0x2a39, PID 0x3fc0).  In that mode the PCM
-> stream runs on interrupt endpoints instead of the class-compliant
-> isochronous path, so it cannot be a quirk on top of snd-usb-audio and
-> needs a standalone driver, modelled on snd-usb-caiaq.
-> 
-> Changes since v3:
-> 
->  - A real bug in the crosspoint routing matrix, found while trying to
->    hardware-verify the dB TLV metadata added to the crosspoint faders
->    (below): the AN1/2 output's own crosspoint fader had no audible
->    effect on the signal, for every source, for as long as the matrix
->    has existed - a generated tone swept from off through +6 dB
->    produced no change at all, while the identical control targeting
->    any other output tracked the fader correctly. The vendor software's
->    own capture shows why: for this one output it always writes a
->    second register (the "low map") alongside the usual crosspoint
->    address, at the same value; the driver wrote only the usual
->    address. Three call sites (the live control, the probe-time
->    default, and the reconnect/resume replay) needed the same fix,
->    folded into one exported helper. Verified fixed with the same
->    tone-sweep method that found it, and that a real crosspoint value
->    survives an actual unbind/rebind, both the cached control and the
->    audible level.
-> 
->  - Two real bugs found, diagnosed and fixed by David Fredman, who also
->    became this driver's second tester, on an original (2015, non-FS)
->    Babyface Pro:
-> 
->    * The stream URBs were submitted without URB_NO_TRANSFER_DMA_MAP
->      even though their buffers come from usb_alloc_coherent(), so the
->      USB core tried to map them a second time and failed with -EAGAIN
->      on any IOMMU-translated host.  That is the default on current AMD
->      and Intel desktops, which means v3 as posted would not have
->      streamed at all on most machines.  Every other sound/usb driver
->      that allocates coherent buffers sets this flag; this one was the
->      exception.
-> 
->    * The mic preamp gain register was decoded as a 5-bit value plus a
->      rotating transaction counter.  Bits 5-7 are in fact the fine part
->      of the gain: value = (fine << 5) | coarse, coarse 3 dB per step
->      saturating at 20, fine the 0-2 dB remainder.  The control was
->      therefore reaching 21 of its 66 positions, and because the
->      rotating value landed in those same bits, the gain actually
->      applied depended on where the rotation stood - the same requested
->      setting did not give a repeatable gain.  Measured on hardware
->      before and after: 0.808 dB per dB of control, against 1.000 after
->      the fix.
-> 
->  - The power-on masters no longer come up at unity, and the -20 dB
->    safety default is scoped to the two analog outputs only.  The
->    routing default sends all 14 sources into every output at unity,
->    and they sum, on every fresh module load before alsa-restore can
->    restore the user's levels; AN1/2 and PH3/4 now come up at -20 dB,
->    the level the hardware's own DIM button writes.  The four digital
->    outputs (AS1/2, ADAT3/4, ADAT5/6, ADAT7/8) keep the vendor
->    software's own 0 dB default instead, since nothing downstream of a
->    digital feed can be damaged by a loud signal the way a speaker or a
->    pair of headphones can - David Fredman flagged that the original
->    six-output default reached those too, for no reason a receiving
->    digital device could infer.
-> 
->  - The driver is no longer FS-specific.  It runs unmodified on an
->    original (2015) Babyface Pro; the two models share VID:PID,
->    bcdDevice and iProduct shape, and nothing in the descriptors tells
->    them apart.  card->driver, the card id, the shortname and the
->    Kconfig text are model-neutral accordingly.  This seemed worth
->    getting right before the strings are frozen by a release, since
->    card->driver is what alsa-lib configs and UCM profiles match on.
-> 
->  - The front-panel DIM button acts now instead of only being decoded.
->    SET already toggled phantom from the same poll.  Its scope (Phones
->    only) matches the one vendor capture we have of it; whether that is
->    the only possible target or just the default "Main Out" assignment
->    is an open protocol question, noted rather than guessed at.
-> 
->  - Added dB TLV information to the preamp gain, trim and crosspoint
->    controls; only the output masters had any before.  Hardware-
->    verifying the crosspoint curve is what surfaced the routing bug
->    above.
-> 
->  - Fixed a state-restore bug in the input trim: it is one shared
->    register per input pair but two per-channel controls, and the
->    restore replayed the pair from its even index, so a trim set on the
->    odd channel was silently dropped on re-probe.
-> 
->  - Split into three patches rather than the four of v3.  The v3 split
->    put the mixer in its own patch, which meant earlier patches carried
->    stub control functions that later patches replaced.  The mixer and
->    the core share the device state structure and the whole
->    save/restore path, so that seam was artificial.  The front panel
->    and the DSP EQ are genuinely separable: each of the three patches
->    here contains only final code, nothing a later patch rewrites, and
->    each builds in-tree on its own.
-> 
-> Known limitations, stated up front:
-> 
->  - USB autosuspend is not supported.  It is explicitly disabled at
->    probe rather than left as an untested path: the panel poll and
->    keepalive work items run continuously and nothing pairs
->    usb_autopm_get/put around the stream.  S3 suspend/resume works and
->    is tested.
-> 
->  - A few protocol details are not fully pinned down and are documented
->    as open: the preamp readback index semantics, a width
->    strip-ownership edge case, whether DIM's scope is reassignable with
->    TotalMix's Main Out setting, and the exact high-frequency warping
->    of the EQ coefficients against the vendor curve.  None of them
->    affect the shipped controls.
-> 
->  - The latency profile is chosen at load time through the
->    frames_per_urb and nurbs module parameters; changing it means a
->    module reload.  Runtime reconfiguration is a follow-up.
-> 
-> Validation: a full-duplex sweep across the whole rate x period matrix
-> with a signal-integrity tap, 30 start/stop cycles, mixer-state restore
-> across an interface unbind/rebind, and a mid-stream disconnect - 40 of
-> 40 on the current tree.  Each patch was also built in-tree on its own
-> against next-20260911.
-> 
-> I am still mainly after feedback on the interrupt-URB PCM design, the
-> control naming and topology, and the subdirectory layout.
-> 
-> Disclosure: the reverse-engineering (decoding the USB captures, the
-> magic packets and the front-panel behaviour) and substantial portions
-> of the kernel implementation were written with heavy assistance from
-> AI coding assistants, credited per patch as Assisted-by.  All of it
-> was verified by hand on real hardware; the human authors remain
-> responsible for the result via Signed-off-by.
-> 
-> Thanks for reading,
-> Ismaïl
-> 
-> Ismaïl Bahloul (3):
->   ALSA: usb: add RME Babyface Pro driver (proprietary mode)
->   ALSA: usb: babyfacepro: add the front-panel poll and controls
->   ALSA: usb: babyfacepro: add the hardware DSP EQ
+> You changed the commit message, and that counts too. This is v3.
 
-It's good that you started splitting, but they are still too coarse
-and too big to review.  Try to split harder.
+The resend only removes a Link tag. I did not know that removal/addition
+of tags in commit log counts too.
 
-For example, try to start with a very minimalistic core code: doing
-only probe, disconnect and PCM operations.  No mixer, equalizer, or
-whatever.  Just let module probed and running PCM -- that's the first
-step.  This could be even multiple patches if you can split well.
+> A
+> few nitpicks below.
 
-Then, start adding mixers.  Also, no single commit but try to add
-piece-by-piece.
+I will change those as suggested.
 
-Then, the rest features.  The suspend/resume comes mostly last, for
-example.
+Thanks for reviewing, Heikki!
 
-But, before all; please give more "big picture" of your
-implementations as a proper documentation.  This isn't for AI but for
-human who need to read and review the code.
-
-
-thanks,
-
-Takashi
+Shawn
