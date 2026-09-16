@@ -1,165 +1,245 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD084CEE7C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA146530DEC;
+	Wed, 16 Sep 2026 16:27:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576059; cv=none; b=WIk+bOiAYMitpR9qSKUmcENanu4Jebo9gbusjU7HSlrOW3PGQ8CtjClJYX5tbWYbntGOodcKcrIZsNZkDktMG5EwGIE/qdornw9izzsNJdwClczytbm6nozPotnwmydZA/xRog3A9AOnrhT66029SYDwTEWDr38R1V008C+YYCM=
+	t=1789576070; cv=none; b=r7Jy7gxpgfy4rV1//IlcfeWA9rZfeXcXcvarpXKfqE/lbD87uuMjzlBreEXR2BJA7j29b9141l8lqBztBi17VTMsX09ZtKsTByqLZJqyc0HAeCnc3JnrzoIPkWPW334AG/PLMjtf5c6KGAmvbS6wkflmlESQxgNDhAGlsiO3dmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576059; c=relaxed/simple;
-	bh=+GC+NRBfG9u+sUvPxunyVELI6qKPkDEpvjERcQpRxDA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=imkDskkafZqqfj+A8NgGCRPxHNtJUcI7kazztZx7um06P4oqGBzniszp21dODWojMA9SVejRi0Bw9uno9BqmElx2lKJLx2q7CB7JZyyBRcRR7XO9+ewHQYKF1Ae9rLVFfPdZlSiePNY8GzQwgkBlw+r6SeL3Q+ffNYLWiJuVs5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qzVzqpv0; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789576070; c=relaxed/simple;
+	bh=vwki1WboN3tyzrW0mxsEgCsHlLPU27C8Wfgu6rAxjQI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rYvpGCpIujQ5llcpD56g7j7xxhSUUd/KzoqoMZq+DKFw9oDRnU9SNIGAx1MsNlpNE29Oq4bFQM1H0t1x3wN/UqwQJ5htuhe37hpqenNPtC+ZgIWCg6KJh815c/qFhtf5adnzh00xF3cR9+4aDA7ZHxsGnroNRbBaDBX1w9eZWI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CsFUdgf2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qzVzqpv0"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so12431355e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:27:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789576053; x=1790180853; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OQJbelWBBQ8IcOB6iLsaKQN+w2bMgRzdfuJznAc9A94=;
-        b=qzVzqpv0i/prjs+Yu3aPXK0Ivds6tw8wIAdYm4abuiFQeU77fMau5+34c8bX9/SGFO
-         w7BwG0RQNfs/LoOuW1lzDMk5iuQlPnZP1AO4U3wUZoWECMeHmv5cIz/eV+KKF0Biwhc9
-         JZpT9fsvWeIfXhsc8Okowtkmp9MB8LHH1Bg3XmyakNpCIq6g1TG/MC9LfDQAbq8SmFHW
-         rvdGeOm96pPBuduH/T9ruc8hUe9TY8x/HBW+NWeCUPd/owwGiiPIHVs1PIKkZIBJ1J+J
-         GyXAodHUISzNOra2hg1rPCCoa8ZyMxBEyA1uP1PdFbZPBI9h0lYdvF5pKq9pO8Wi9E7M
-         lnUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789576053; x=1790180853;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OQJbelWBBQ8IcOB6iLsaKQN+w2bMgRzdfuJznAc9A94=;
-        b=O4MeU92Jbng3OSW3gqHulUI3llhPWOoFyrVsNYwCyVY8tUEMSAKA74dIb+Hq8Y189R
-         8OklC9mpIZ1J3mXFIOrfJYQ7iDf/Gt+pJ5RyUso2bQuWKIGlD7XLc2ff2f7VLIToD7ID
-         NlKjH5lV0i9lZsTDdG+VXtAW1EGgIghQeNhDBVJe0o7sieIks4EGStmRL0gGL+RbfGSn
-         4b2ITHglHzAlk1nTi7j1SBIODoQ0fs3ac6ytToNxKrUNOSXJxvP9Gi6bDTm5TofA4vBI
-         +CktXVtO8oVtmhe3+0vKHW2+iN/fqJEF8zlp5H/VNhRbjMzoeJ9TQNYuJSm/Ai4f5Fe4
-         +hig==
-X-Forwarded-Encrypted: i=1; AKwUvBzeGmI1MeNZvNN3zprMKXXpO0NP0Dxl8VyRgnWaLcj1al+NKlTjSCvxTvtChQUQxbmMGI9CMidD2wG2F2c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmlmPHTEXFNe42Ip46BVFm9OK4cBKn5RvQa8a8yQDxdxhzYyVv
-	9RLgPYE7pZMX2g1CeefSYrIPqdBFfIwTp1VGAh3mCE9iw+FT+DSaOxn0cU66bw==
-X-Gm-Gg: AYBFou3hC2GHxXA3geVX+V1PolRxhY4adaphgDVwMyxzBUMklhzD5m81qS66ZuQh1Jt
-	UJq3nhJEK2jVFyUdlRL7u+FisQpIKkOi4qwgTammz6nVAdtQtgFYnKXMCPjaUeBm/Fb97ux1ExQ
-	3R8C9vxfzuaeIyvJ2W/Mdj/fK67x3j6JsSlusECDyOiONDKz15gH7MMAGgjKZNIcG3OmANE8D3W
-	cEBfmHfia7CiiYewBpA2xnfrRO7KBPXO3v/XSDzFGQo3YwMmWH1vsdvdLx5UfJxgNRnAdlwRu13
-	EJ1bycdCkvnK4k+u9CbrFvaO+4aAsPOQMHPYeQ5kMeM6Esav915OfNCBbHNKz1ZhjONTfKa8Bte
-	qqAEFm/MWWzGmpKaw1ZZQO/jJKZDEa5+8zR1NNUunZyBPtXlSSzq1K8yDuCVx/NEaMGzXWgiMcC
-	7osAf6R53w0pbTNknTTQjFGW0zFdx1Sw+WH+jkoZ8DpFmE+OeYuBW05lDne0/B/jRgWGkGX3RVb
-	fSuMen8EFZDJQWLtxrBTlANZ/as65+iilGKNqXYZ6RkWFX7Vhwepr9QYV0GJUaNUXL5nOhOFLBG
-	dwwAV7oR3cw14q69
-X-Received: by 2002:a05:600c:8b8a:b0:49e:799a:8951 with SMTP id 5b1f17b1804b1-49eb72fc61emr48484825e9.11.1789576052365;
-        Wed, 16 Sep 2026 09:27:32 -0700 (PDT)
-Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbbcf5277sm28816925e9.3.2026.09.16.09.27.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:27:31 -0700 (PDT)
-From: Orgad Shaneh <orgads@gmail.com>
-To: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256 bytes on an x8 device
-Date: Wed, 16 Sep 2026 16:27:31 +0000
-Message-ID: <20260916162731.307959-1-orgads@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260915075028.21658-1-orgads@gmail.com>
-References: <20260915075028.21658-1-orgads@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CsFUdgf2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDD801F00893;
+	Wed, 16 Sep 2026 16:27:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789576055;
+	bh=TgVu3p5uICF4iZHEkTZjZru9hK9LNYjA++8/1STw7BM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=CsFUdgf2e+8fqwHIGFPB05TrJAw6N24PTMQwuvf98ZFUXfOldmbE7I+bndH2NJ0ir
+	 xQSgcjYpCO0WuckExu+mc99X/rgJsInD0pkVhCFrt1Dli1jSgpxyEthmeXuPhs3tGu
+	 w7XM3udF/tHFEKMpz7JWQPHsFhZWgxH+s0sFOg4B1hExOYkK4ebaOkE0t3FSNwQcOC
+	 J/ICjs6Qlpr+qBlSiRtToQW+rEAZ0CLzSqh9LOipn0qkU5iNjp5E4PY1xR005F4iwF
+	 hk+zLoWuYDf0oFJKNbtDq7ddEj/oZXrumHzQUcV0s4586NTRp1TaGiMiKMi0Pf4JBl
+	 0M70QJWA/6xmA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x6sTs-00000009iFg-1p6Q;
+	Wed, 16 Sep 2026 16:27:32 +0000
+Date: Wed, 16 Sep 2026 17:27:04 +0100
+Message-ID: <86bj9x5fhj.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	mark.rutland@arm.com,
+	steven.price@arm.com,
+	vdonnefort@google.com,
+	qperret@google.com,
+	tabba@google.com
+Subject: Re: [PATCH v3 14/18] KVM: arm64: Add per-EC entry/exit state marshalling for protected guests
+In-Reply-To: <20260914113338.159227-15-fuad.tabba@linux.dev>
+References: <20260914113338.159227-1-fuad.tabba@linux.dev>
+	<20260914113338.159227-15-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, qperret@google.com, tabba@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-The Write to Buffer command takes the number of words to program minus
-one, and do_write_buffer() sends that count as a single bus word:
+On Mon, 14 Sep 2026 12:33:34 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> Move a protected guest's state between the hyp vCPU and the host per
+> exception class instead of copying the whole context. Add
+> entry_hyp_pvm_handlers[] and exit_hyp_pvm_handlers[] for WFx, SYS64,
+> IABT, DABT and HVC64, and route protected guests through them: on exit
+> each handler copies out only what its class needs, and on re-entry
+> only what the host may have changed: the PC update or exception it
+> requested (PC_UPDATE_REQ), the value of a read it emulated, and a
+> forwarded PSCI call's return value. entry_hyp_vm_handlers[] is
+> removed: a non-protected vCPU's iflags are copied wholesale.
+> 
+> The host's fault view is EL2's own syndrome with the guest register
+> index withheld, the deferred SError syndrome (DISR_EL1), and the
+> addresses each class needs. The value of a written register is passed
+> in r0. MMIO data is clamped to the access width and, for a load,
+> sign-extended at EL2 from EL2's syndrome. Endianness stays with the
+> host. A data abort's PC update is taken for a completed MMIO access,
+> and for a cache maintenance operation the host skips on unbacked
+> memory, as it does for any guest.
+> 
+> The host's copy of a protected vCPU's PSTATE is a view the guest never
+> runs from: its reset value has PSTATE.A set, and EL2 sets PSTATE.A in
+> the mode it copies out regardless of the guest's, so, unless the VMM
+> wrote the host copy's PSTATE or SCTLR2_EL1 before the first run,
+> serror_is_masked() is true and kvm_inject_serror_esr() pends a
+> host-injected SError through HCR_EL2.VSE, masked by the guest's own
+> PSTATE.A, instead of emulating the entry on that copy.
+> 
+> Neither dispatch runs for a trap taken with an SError pending: EL2
+> doesn't handle it, and the guest replays it once the host has
+> injected the SError. The exit handlers would otherwise marshal a trap
+> EL2 never handled, and handle_pvm_exit_hvc64() would panic on an
+> unfiltered function id.
+> 
+> For HVC64, only the PSCI calls EL2 forwards reach the host: the exit
+> handler passes the function id and the arguments each call needs, and
+> the entry handler returns the host's result. A CPU_ON the host failed
+> is rolled back to OFF and returned as INTERNAL_FAILURE, or as
+> ALREADY_ON when that's what the host returned: PSCI defines it as the
+> retry signal for a CPU_ON that reaches the implementation before the
+> target's CPU_OFF has been processed (DEN0022 section 6.6), which a
+> guest that doesn't poll AFFINITY_INFO first can do. A target that
+> already ran returns SUCCESS. The rollback leaves the published reset
+> state in place: clearing it races a fresh CPU_ON's publication and
+> wedges the target at ON_PENDING, and the entry point left behind is one
+> the guest supplied. The rollback's cmpxchg carries no generation, so
+> one that lands after a later CPU_ON has republished ON_PENDING cancels
+> that cycle too. The target is then OFF at EL2 while the host has it
+> runnable, and its CPU_ONs return ALREADY_ON until the VMM stops it
+> again.
+> 
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 430 +++++++++++++++++++++++++++--
+>  1 file changed, 407 insertions(+), 23 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> index 1dcc75261dc08..3d59c4827c42a 100644
+> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+> @@ -4,6 +4,8 @@
+>   * Author: Andrew Scull <ascull@google.com>
+>   */
+>  
+> +#include <kvm/arm_hypercalls.h>
+> +
+>  #include <hyp/adjust_pc.h>
+>  #include <hyp/switch.h>
+>  
+> @@ -34,13 +36,366 @@ void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
+>  
+>  typedef void (*hyp_entry_exit_handler_fn)(struct pkvm_hyp_vcpu *);
+>  
+> -static void handle_vm_entry_generic(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +static bool pvm_sys64_is_write(u64 esr)
+>  {
+> -	vcpu_copy_flag(&hyp_vcpu->vcpu, hyp_vcpu->host_vcpu, PC_UPDATE_REQ);
+> +	return (esr & ESR_ELx_SYS64_ISS_DIR_MASK) == ESR_ELx_SYS64_ISS_DIR_WRITE;
+>  }
+>  
+> -static const hyp_entry_exit_handler_fn entry_hyp_vm_handlers[] = {
+> -	[0 ... ESR_ELx_EC_MAX]		= handle_vm_entry_generic,
+> +static void handle_pvm_entry_wfx(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
+> +
+> +	/* Exceptions have priority; the host injects none on WFx. */
+> +	if (vcpu_get_flag(host_vcpu, PENDING_EXCEPTION))
+> +		return;
+> +
+> +	if (vcpu_get_flag(host_vcpu, INCREMENT_PC)) {
+> +		vcpu_clear_flag(&hyp_vcpu->vcpu, PC_UPDATE_REQ);
+> +		kvm_incr_pc(&hyp_vcpu->vcpu);
+> +	}
+> +}
+> +
+> +static void handle_pvm_entry_sys64(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
+> +	bool pc_update;
+> +
+> +	/* Exceptions have priority over anything else */
+> +	if (vcpu_get_flag(host_vcpu, PENDING_EXCEPTION)) {
+> +		/* A host-requested exception on SYS64 is always an UNDEF. */
+> +		u32 esr = (ESR_ELx_EC_UNKNOWN << ESR_ELx_EC_SHIFT) | ESR_ELx_IL;
+> +
+> +		__vcpu_assign_sys_reg(&hyp_vcpu->vcpu, ESR_EL1, esr);
+> +		kvm_pend_exception(&hyp_vcpu->vcpu, EXCEPT_AA64_EL1_SYNC);
+> +		return;
+> +	}
+> +
+> +	/* Handle PC increment on a host-emulated access */
+> +	pc_update = vcpu_get_flag(host_vcpu, INCREMENT_PC);
+> +	if (pc_update) {
+> +		vcpu_clear_flag(&hyp_vcpu->vcpu, PC_UPDATE_REQ);
+> +		kvm_incr_pc(&hyp_vcpu->vcpu);
+> +	}
+> +
+> +	/* If the host emulated a read access, update the register */
+> +	if (pc_update &&
+> +	    !pvm_sys64_is_write(hyp_vcpu->vcpu.arch.fault.esr_el2)) {
+> +		/* r0 as transfer register between the guest and the host. */
+> +		u64 rt_val = READ_ONCE(host_vcpu->arch.ctxt.regs.regs[0]);
 
-	map_write(map, CMD(words - 1), cmd_adr);
+Why isn't this
 
-CMD() replicates the value into every device lane, so each device reads
-the count off its own data lines - eight of them on an x8 part. A count
-that does not fit in eight bits is truncated there, which limits one
-Write to Buffer to 256 words on an x8 device, however large a buffer the
-chip advertises in its CFI query.
+		rt_val = READ_ONCE(vcpu_gp_regs(host_vcpu)->regs[0]);
 
-The M29EW on a Cavium Octeon CN6335 board (an x16 part strapped to x8)
-advertises MaxBufWriteSize = 512 bytes, so cfi_amdstd_write_buffers()
-split the data into 512-byte chunks and do_write_buffer() sent a count of
-511. The chip saw 511 & 0xff = 255, expected 256 bytes, and aborted the
-program when the 257th arrived. Chunks below 256 bytes - the leading
-partial chunk of a write - completed normally, so only the full-size ones
-failed:
+and similarly everywhere else?
 
-  MTD do_write_buffer_wait(): software timeout, address:0x03278bff.
-  jffs2: Write of 4164 bytes at 0x02c789b4 failed. returned -5, retlen 68
-  jffs2: No space for garbage collection. Aborting GC thread
+[...]
 
-Clamp MaxBufWriteSize for x8 devices in the write-buffer fixup, and
-recompute mtd->writebufsize, which cfi_cmdset_0002_setup() derives from
-MaxBufWriteSize before the fixups run.
+> +static void handle_pvm_exit_sys64(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
+> +	u32 esr_el2 = hyp_vcpu->vcpu.arch.fault.esr_el2;
+> +
+> +	/* The mode is required for the host to emulate some sysregs */
+> +	host_vcpu->arch.ctxt.regs.pstate =
+> +		pvm_host_pstate(hyp_vcpu->vcpu.arch.ctxt.regs.pstate);
+> +
+> +	/* r0 as transfer register between the guest and the host. */
+> +	if (pvm_sys64_is_write(esr_el2)) {
+> +		int rt = kvm_vcpu_sys_get_rt(&hyp_vcpu->vcpu);
+> +		u64 rt_val = vcpu_get_reg(&hyp_vcpu->vcpu, rt);
+> +
+> +		host_vcpu->arch.ctxt.regs.regs[0] = rt_val;
 
-The clamp deliberately keys off the device width rather than the part,
-even though the driver already recognises this one in is_m29ew(): the
-ceiling comes from the width of a device's data bus, not from the chip,
-so any x8 device advertising a larger buffer is told a count it cannot
-receive. The M29EW is only where it was found.
+and this should be
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Orgad Shaneh <orgads@gmail.com>
----
+		vcpu_set_reg(host_vcpu, 0, rt_val);
 
-v3: rewrite the description - the v2 wording of the failure was not
-    comprehensible (Miquel). Name the board it was found on: the failure
-    is not theoretical, the log above is from that board and the clamp
-    fixes it. Add the Fixes: tag - do_write_buffer() already sent
-    CMD(words - 1) in 1da177e4c3f4, so the first git commit is where the
-    backport has to reach.
+assuming you don't need a WRITE_ONCE() to match the READ_ONCE() in the
+other direction.
 
-v2: test the device width (cfi->device_type) instead of the aggregate bus
-    width. map_bankwidth_is_1() is false for x8 devices interleaved on a
-    wider bus, which have the same 256-byte ceiling: do_write_buffer()
-    sends CMD(words - 1), and CMD() replicates that count into each
-    device's lane, where it is truncated to 8 bits - so two x8 chips with
-    a 512-byte buffer are told 255 words and are still sent 512 bytes
-    each. device_type is also immune to map_bankwidth_is_1() compiling to
-    a constant 0 when CONFIG_MTD_MAP_BANK_WIDTH_1 is off. Caught by the
-    Sashiko review bot.
+> +	}
+> +}
+> +
+> +static void handle_pvm_exit_iabt(struct pkvm_hyp_vcpu *hyp_vcpu)
+> +{
+> +	hyp_vcpu->host_vcpu->arch.fault.hpfar_el2 =
+> +		hyp_vcpu->vcpu.arch.fault.hpfar_el2;
 
-diff --git a/drivers/mtd/chips/cfi_cmdset_0002.c b/drivers/mtd/chips/cfi_cmdset_0002.c
---- a/drivers/mtd/chips/cfi_cmdset_0002.c
-+++ b/drivers/mtd/chips/cfi_cmdset_0002.c
-@@ -283,6 +283,21 @@ static void fixup_use_write_buffers(struct mtd_info *mtd)
- 		pr_debug("Using buffer write method\n");
- 		mtd->_write = cfi_amdstd_write_buffers;
- 	}
-+
-+	/*
-+	 * The word count of the Write to Buffer command is a single bus
-+	 * word per device, so an x8 device can be told to program at most
-+	 * 256 bytes however large a buffer it advertises - including when
-+	 * several of them are interleaved on a wider bus, where CMD()
-+	 * replicates the count into each device's lane and it is truncated
-+	 * there.
-+	 */
-+	if (cfi->device_type == CFI_DEVICETYPE_X8 &&
-+	    cfi->cfiq->MaxBufWriteSize > 8) {
-+		cfi->cfiq->MaxBufWriteSize = 8;
-+		mtd->writebufsize = cfi_interleave(cfi) <<
-+				    cfi->cfiq->MaxBufWriteSize;
-+	}
- }
- #endif /* !FORCE_WORD_WRITE */
- 
+Please keep assignments on a single line (everywhere).
+
+Thanks,
+
+	M.
+
 -- 
-2.47.0
+Without deviation from the norm, progress is not possible.
