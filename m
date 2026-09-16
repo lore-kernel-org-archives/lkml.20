@@ -1,70 +1,59 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769D558FD22
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6884E2F35;
+	Wed, 16 Sep 2026 23:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600439; cv=none; b=rVe3Ut+haFqU6ciCW0xD3uJVmNfJ26ws9zU1TpxQudC9QkyBY0yuD6lfCwbhICTbPFb5JeVs7uj3usy1W05BqS8fcdmkHALkUTxE7H2lY9c+XaUtIuSLAQAoXEaNkdNrpIm6XBuzJDmYwextLoFyKLqBDpk58eRARPA7v7TreYI=
+	t=1789600538; cv=none; b=kNa4H6+YfXaqwETqVd0y3UV7nElDvlpduqCAImtLJyEU/3NKvpdsuJmdC4jR+gjXnIWdQrsnKQAOS0lS6zDW84OCN1bCQNln0+iaKuJGH40SIDLpttb9JbslVxwkyjMcQHwkJZ4oDewMuZzeB7dRJGlSrv6bEymjGnu10aXLyuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600439; c=relaxed/simple;
-	bh=ydpynI7FWRcDuv3jJBE/xxqcbkyClGw2KGJIvYL2PfA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V6Qsb09yvGnp3G9K4YkS2BfKPMrWgIyMmxjkWtic8U7UduHJ+X7aGSD9N2rXcq39hR13tgaaYBMjQkd0CiOhSzFpUMMdnsje4kzdh537VtwfZuBVUWjMDnw6hh1m0w44eGj0oHsRAco5+LKBxdpXxfDMUTDh6ylZthShx/H8uY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PfrSFRfF; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789600538; c=relaxed/simple;
+	bh=ca6lbr7wC1+lUpAgeUoXIoCrLo2Z7L/ATuhGgXdAd88=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DGt88/xoSaYvu+z1+YBK1p8waPy+fo8iPnM+eKuoL28S9S3CJvy6Pj5lgcfDDxng6+ZDb+bhQBjmWDhjVJfjo3E6QTm8PUD8dS8JA2gkNt2JYuyS6r2/VlLJs3Ao7YyAaE+vhi9+26cmO1JLXUHUOemRCMy4YWy0LCh7GQ9+FKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=ZfGkcAXM; arc=none smtp.client-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PfrSFRfF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789600438; x=1821136438;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ydpynI7FWRcDuv3jJBE/xxqcbkyClGw2KGJIvYL2PfA=;
-  b=PfrSFRfFal9U9CTQ8dtC9C++Vbyz3hnG+BXUpx6+yWj77zwradePgf1N
-   TPR4IJWw6S/blc0KX+ZS9m7eVWY0oUO5A8a+PsPhEFHLGf5lUQg1c6Su3
-   3trcpuZTYN1SF2oBh6PuGyw5l9RG9LibajUy/WAUyMmG7D3dsEvKEaQc0
-   OkCDWGqHc6XS33a0t/HppAzEplJ9K6XTqXByXWyv2nQFmYGt9fuxlYrAd
-   xS8nh1VDkdhSgmziqZkG6s5az1NE0z8CLPC+70E0KWeSloIrZhsQX9Y3j
-   s4XxiihUNAfY7w7YMMGb6TW6ZkTOgI0Xiyk9sHX+gL6SceYfbqFaTtFZn
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="ZfGkcAXM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1789600535; x=1821136535;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=LTzfF0ba3sVoZXZpxsz+WNjWVEl6ayiNWdWiX2wMLEQ=;
+  b=ZfGkcAXM7IWm3pPrQaBRsw3XZ61fwzbbeFrY4r+j1iKs1HbwR4JxKR9N
+   fLROXgg8OXiHZDgAy4uqs83Uxsoot53f0J0HVFuLPxERr1AacghQQHiR6
+   quLJ/ak+eTHZBA1WoXP8P7hyc7NioXAx+VQEWBZoFwuIex8AtEKrr5Q07
+   gd9JjndDrvv6vqOfHiyiqzWvfJRUZn+JLi+0WgZFh4rqihm/upcGFA9Vl
+   yEHpX9YNkDpqmx0DGB6UsS2xFLYGELrZrCMU6ffpu21tfRAV77UMKUso9
+   ioaivdVfuL8RrSjUpKoqpTGitTfVlhvSPFemP8vhP1L81Lge33YhfcPKj
    w==;
-X-CSE-ConnectionGUID: dxJyyyBCRY2yQm9HetLoRw==
-X-CSE-MsgGUID: iPU3cyivQzOCPnCaGW1aEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861549"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93861549"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:41 -0700
-X-CSE-ConnectionGUID: 6uAJXPrqTSOky6uUNq5jBA==
-X-CSE-MsgGUID: sJ7fYBpYSqqIeQApm81J5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277231511"
-Received: from khuang2-desk.gar.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.219])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:41 -0700
-From: Tony Luck <tony.luck@intel.com>
-To: Fenghua Yu <fenghuay@nvidia.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>,
-	Babu Moger <babu.moger@amd.com>,
-	Drew Fustini <dfustini@baylibre.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	David E Box <david.e.box@intel.com>,
-	x86@kernel.org
-Cc: Christoph Hellwig <hch@infradead.org>,
-	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v12 25/25] x86,fs/resctrl: Document telemetry mount timing caveat
-Date: Wed, 16 Sep 2026 16:13:20 -0700
-Message-ID: <20260916231320.14502-26-tony.luck@intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916231320.14502-1-tony.luck@intel.com>
-References: <20260916231320.14502-1-tony.luck@intel.com>
+X-CSE-ConnectionGUID: sJG9NG0YTt6Msxk8nAjAJg==
+X-CSE-MsgGUID: lV6ugIeOSoKddvXBdCjX3A==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
+   d="scan'208";a="28910240"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 23:15:32 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:20482]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.137:2525] with esmtp (Farcaster)
+ id bf4ca4c1-1aca-4897-b613-c1b1dfeed924; Wed, 16 Sep 2026 23:15:32 +0000 (UTC)
+X-Farcaster-Flow-ID: bf4ca4c1-1aca-4897-b613-c1b1dfeed924
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Wed, 16 Sep 2026 23:15:31 +0000
+Received: from 6c7e67c92ceb.amazon.com (10.187.170.36) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Wed, 16 Sep 2026 23:15:31 +0000
+From: Nathan Gao <zcgao@amazon.com>
+To: Shuah Khan <shuah@kernel.org>, Christian Brauner <brauner@kernel.org>
+CC: <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Nathan
+ Gao" <zcgao@amazon.com>, <stable@vger.kernel.org>
+Subject: [PATCH] selftests/empty_mntns: fix unknown_flags_rejected using a valid clone3 flag
+Date: Wed, 16 Sep 2026 16:15:17 -0700
+Message-ID: <20260916231517.26147-1-zcgao@amazon.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,67 +61,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D038UWC002.ant.amazon.com (10.13.139.238) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The PMT driver enumerates telemetry features asynchronously, so an
-automatic mount of resctrl from /etc/fstab early in boot may occur before
-those features are available, resulting in them not being enabled in the
-mounted instance.
+unknown_flags_rejected passes a supposedly unknown flag to clone3() and
+expects EINVAL.  The flag it uses, 0x800000000ULL, is bit 35, which is
+CLONE_NNP.  CLONE_NNP was added in commit 24baca56fafc ("clone: add
+CLONE_NNP"), which got merged about the same time as this test, so the
+bit was still unused when the test was written.  The clone3() call now
+succeeds and the test fails.
 
-Add a footnote to the 'If telemetry monitoring is enabled' sentence
-pointing readers to a new "Mounting resctrl with telemetry" section. That
-section explains the race.
+Use bit 63 instead.  The topmost bit is the last one that can be
+allocated, unlike any low unused bit which can more easily become valid
+silently.
 
-Signed-off-by: Tony Luck <tony.luck@intel.com>
+Fixes: 5b8ffd63fbd9 ("selftests/filesystems: add clone3 tests for empty mount namespaces")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nathan Gao <zcgao@amazon.com>
 ---
-v12:
-	Drop problematic examples of systemd/udev rules.
----
- Documentation/filesystems/resctrl.rst | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ .../selftests/filesystems/empty_mntns/clone3_empty_mntns_test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
-index e4b66af55ffb..91a2ab0fa027 100644
---- a/Documentation/filesystems/resctrl.rst
-+++ b/Documentation/filesystems/resctrl.rst
-@@ -630,7 +630,7 @@ When monitoring is enabled all MON groups will also contain:
- 	each instance of an L3 cache. Each directory contains files for the enabled
- 	L3 events (e.g. "llc_occupancy", "mbm_total_bytes", and "mbm_local_bytes").
+diff --git a/tools/testing/selftests/filesystems/empty_mntns/clone3_empty_mntns_test.c b/tools/testing/selftests/filesystems/empty_mntns/clone3_empty_mntns_test.c
+index 6370086f886df..72c20130a627f 100644
+--- a/tools/testing/selftests/filesystems/empty_mntns/clone3_empty_mntns_test.c
++++ b/tools/testing/selftests/filesystems/empty_mntns/clone3_empty_mntns_test.c
+@@ -869,7 +869,7 @@ TEST(unknown_flags_rejected)
  
--	If telemetry monitoring is enabled, there will be a "mon_PERF_PKG_YY"
-+	If telemetry monitoring is enabled [#]_, there will be a "mon_PERF_PKG_YY"
- 	directory for each physical processor package. Each directory contains
- 	files for the enabled telemetry events (e.g. "core_energy". "activity",
- 	"uops_retired", etc.)
-@@ -669,6 +669,10 @@ When monitoring is enabled all MON groups will also contain:
- 	returned if the MBM event does not have an assigned counter in the
- 	CTRL_MON group nor in any of its associated MON groups.
- 
-+.. [#] Telemetry features are enumerated asynchronously by the PMT driver, so
-+   an automatic mount of resctrl from ``/etc/fstab`` at boot may not enable
-+   them. See `Mounting resctrl with telemetry`_ below.
-+
- "mon_hw_id":
- 	Available only with debug option. The identifier used by hardware
- 	for the monitor group. On x86 this is the RMID.
-@@ -1898,6 +1902,18 @@ m. Unmount the resctrl filesystem.
- 
-   # umount /sys/fs/resctrl/
- 
-+Mounting resctrl with telemetry
-+===============================
-+
-+Telemetry features (e.g. the ``mon_PERF_PKG_YY`` events) are enumerated
-+asynchronously by the PMT driver. If resctrl is mounted before that
-+enumeration completes (for example, when mounted automatically from
-+``/etc/fstab`` early in boot) the telemetry features will not be available
-+at mount time and will therefore not be enabled in the mounted instance.
-+
-+To avoid this race, defer the mount until after the ``pmt_telemetry`` module
-+has loaded.
-+
- Intel RDT Errata
- ================
- 
+ 	if (pid == 0) {
+ 		struct __clone_args args = {
+-			.flags		= 0x800000000ULL,
++			.flags		= (1ULL << 63),
+ 			.exit_signal	= SIGCHLD,
+ 		};
+ 		pid_t ret;
+
+base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
 -- 
-2.55.0
+2.50.1
 
