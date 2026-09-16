@@ -1,116 +1,187 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBEB3C3F6B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF77E4EBAF4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:24:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789557832; cv=none; b=FBTvWfRCRkZzBfw5OVxOtIsD8AolFaQYQ2IvadWLeGibp6Hk6OJLcSfBf3S2YbmcfAr1AMYF2uCtqe8O0rwPO4mgGWD8u9asM7rdr8nrcJTyqnCNbDq5zgRPA/TfsQidIcBXE+Y0uMsA6wBm9NiLwN4a+PJG/5xRT5UrYJafepY=
+	t=1789557864; cv=none; b=jsZKV3vpk+Dvji1Li0ZdGNCuJ5IFBmqpCkRE+4k6PP5MWTONsHNB2H3jqdTH8bISVxC3oUAGbYydSC3wMSz5LSjGsiMxdw301SG/UC4XLB0uFjwZkVnwFYKYqnLhEsyyWzllI/pFMwImT9MxVknTjqObPuEhBdJBz+vnbDiOzJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789557832; c=relaxed/simple;
-	bh=9xfCnfWUft91FQ9MOOueIx15mDmNvVVdKkU3/hZKgHo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qvYxrbeQN16s1qz2g3pq/Gu/mUSh9dfM1hOeffNX7oU75Gv2omxfeC6QXHri0+FMP7+rckuakIXU7ZGdXRPuFIgcMQP6M4oO+HTzsbIvSUsVVyEMTVuu4Ij4j5kht1q1AvUS/bfiP0Cbk1cYsnSk7yuHt84piITyOGgtyD5lWc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KznDIepM; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789557864; c=relaxed/simple;
+	bh=6UxCH6MRYg6mEePj2KMRo1g+H/E4R17RxQPgnOFUnWo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EEjILakTzvfvJ9WIAvB+Cin612vS0PVHFkSanyMKzr49TIEIuWT7MuhAZ9lUu17KXH2E5MlUAUj06wjPJeuoRv9tkKlQ+hmYf+lVY2DGsbA6YvvaX7UE87F89WGNBuxEBNqieUpajCX/pOjIeCyxoxv9cfqoHSb++pF1TcjbGNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GFVe+g7B; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=s5x3CSK9; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KznDIepM"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso5925405e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:23:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GFVe+g7B";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="s5x3CSK9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789557855;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=94ot/NkUW9As5MJhkTwENc7dewwxKgZK/8SOm5fAzho=;
+	b=GFVe+g7Bk+mtcemQJm8oi98J0ezhK69GhTdnODJAQsYdOb8+eUlAEA+NI/DG6das4uhZH5
+	Pklo+RoCKZYUki4OgrarT9tVitWZdyg0gcUAszy4LWmkHk7g/6jm8hsq06ibVLE4zntJTN
+	vUIAHyNvexVtRt+/cBxZwzTqnHUbJWY=
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-249-tXWxYWODN6W1zNIVoLgrxg-1; Wed, 16 Sep 2026 07:24:13 -0400
+X-MC-Unique: tXWxYWODN6W1zNIVoLgrxg-1
+X-Mimecast-MFC-AGG-ID: tXWxYWODN6W1zNIVoLgrxg_1789557853
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cc73f47bdcso73717895ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:24:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789557808; x=1790162608; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9xfCnfWUft91FQ9MOOueIx15mDmNvVVdKkU3/hZKgHo=;
-        b=KznDIepMwI5gk4UeJdZCO8BouTShkrtZyFygLGKAug/vX9irn7LxY7Qu8fo7SCKdzz
-         ymP7kE1Gu8zfPTTanl7KcyUw8/RfsohNp1wGc5MoINZP9ccRvHiGNhDP63NjcKqD1ddi
-         RgLpR0dnz0UmM0fS5z0s1n5l87SMtaDBjGHCwzsvrw2S3LjAv0Pb9fq1FGd1n1yBEnO9
-         h/0vLsaL6MQNxST1EXz9bjK9T/43Ns3hD4yYDz2TSJKNMw4SGKw7Dyk7GgX9wVh2mu9g
-         540Jk/kRxT3RRfcQ7v0Ao6pNZbiawylp7bBh9uR74plkLyY5eSK57UVmoMMxE5W8qvlq
-         Y7Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789557808; x=1790162608;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1789557852; x=1790162652; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9xfCnfWUft91FQ9MOOueIx15mDmNvVVdKkU3/hZKgHo=;
-        b=dKRxY8rgXnOEZW6e8y2IOvDmAoUAC91aIFkcXzxH8MEfi/ELnuTQzS5qAeEIh4NcwX
-         eZlswlz2dHjh5uunPX3xBDYl+o12uvSiHzUTebAh8TuuJO93RDWFtDx03F1wG6Jqzuuh
-         ZAKDOZPuXNqO5zKUidJK4ptz2wIGbfsp9Yllu9uYSZCqqZsLHMao2mxXppxv+XFzapnc
-         NmH4ZBqnHojI+NTOMIYyUDbX1oh1B4lPUFr8+RtP1g3P6naHoVD6QDp0IlALy/KBjCFG
-         lvuDnOEWoa4HwaNDqYYz9BY0g5hqQHt149bTEpMb28iRbjf+DkXvV06htsbgy78MSiMf
-         X2AQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwt8THnRbImivOQbgcQvmhJ9jLv8a6ltacd1lVTIaGOHt+MGg4Ae2txifL66I5/NWPDO4UvGhs/mWafAyQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4x3f5QrJIn3qEVWeZBaULdeKyTeeMoA0ojkxeEmadEBrgIVUv
-	Rsx7wNZNDh7qARO84PUcFxaJTXsqsYO+8FGGuWCW201PmrXW6obsmhCg
-X-Gm-Gg: AYBFou1Le3gxGtnNV7JBP/lT1hEQzQwzX7Goyo7KJlI8jtDEHnSfCM2EmyDbBjau6oE
-	2nQXERbxLd1g3aJ35SOFHvMz9WiJ14tfA5dz7955qENDcc7iMI0IS0gKN3Xx0aqvQgyzAYVk7/Z
-	20zK4WvuKC5dCDILAcuMYpuLm7+LfJA5lP+7v2AIspB6NUN/caRT4iqJ84h0nyCCSXosy1/JevJ
-	ojGTSVuImPBywjS72BOaxy1muWCuhN7psa0djn3i2aUI0gcXa9gfBu9p1yG8tc44//9fleLAf9+
-	La7cKVYUhd55WRS/NyIhj1ZzQaqTHf66Xrg8KYBZVt/fpXiETEfOUqtzKfpAZRJ57Zsh/ZlmCD8
-	sSPzCYKnYE7oVkxlowlgw3EBK8k+Pdui1VVbpTFh+68MOvz7AXyyVkBnwbAt2fLXTonMFpraq1K
-	OZgcxTgPZlujzJto1dNCyyeQkBXm9Tf/xAhR5T3Qz+52GQJ+YyRC+3TdotAi4VQtaaJ2M2cH0a/
-	AQ1Z7wB77M=
-X-Received: by 2002:a05:600c:6296:b0:49e:602a:b4ec with SMTP id 5b1f17b1804b1-49eb730e225mr53609375e9.8.1789557807754;
-        Wed, 16 Sep 2026 04:23:27 -0700 (PDT)
-Received: from localhost.localdomain ([194.154.195.114])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49e83d9057dsm80761805e9.3.2026.09.16.04.23.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 04:23:27 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Dietmar Eggemann <dietmar.eggemann@arm.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
-	Beata Michalska <beata.michalska@arm.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] arm64: topology: fix arch_freq_get_on_cpu() overflow above 4.19 GHz
-Date: Wed, 16 Sep 2026 13:23:19 +0200
-Message-ID: <178955779940.30466.10860982419496123467@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <55538466-2203-42ec-a0bd-b743c04a3b38@arm.com>
-References: <55538466-2203-42ec-a0bd-b743c04a3b38@arm.com>
+        bh=94ot/NkUW9As5MJhkTwENc7dewwxKgZK/8SOm5fAzho=;
+        b=s5x3CSK9fL0+TfCQoOUEDIxOzf3FlUIB6lYgTfs9+iMrrOcY5tyYREKEjMiiLxHhVg
+         Ql4l1RtoeFO7IvD1GvXKn6spaMr9QqV5QtZGsay+6Zyu5O7895BiOrJwhTPzg2JGNgY+
+         GY5pjmeJ96j/djUIBAN+58CNQ5IKPRlRBF1RK8epg1IhHcR5qAXBFFBR1M/z35tPQpRL
+         dsMdaW1oIW/oudluW9rJiASYC9qbLBky5/6oGBf4OQ8X0mF2/SWTWugvBc0E/fPr43FB
+         2Jg4VSnsTVmbysqk6LonnXI0HMrkZnpakmUyIRZXc34+1K8BnL+Z7qkJA16wxR2hFyR2
+         cisQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789557852; x=1790162652;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=94ot/NkUW9As5MJhkTwENc7dewwxKgZK/8SOm5fAzho=;
+        b=hibys+V6c7ASABis7gIBX+uLIztemz/Y3hZRzAFaeq6EVJGLw1XZNp94LJ3xaEQKyP
+         ZXY8vxEb995HZfDkf08KYb9nmzgYwhVN1IyRy//9Neg68XKsfeIyI8bRtDwiLGiKFNSe
+         Xu4T2UJ8niwFYwsZDFv1TlzzxxeZFN7aNZXkIodwmeieJj66jan1yAtZnZ1IgUNYo3mb
+         afU19einO0SYLZZcCscpgd9qKzfxoMgg6rc6BiM3V6K0UnPNtqPxM36UrF0ZiLJJ8Tvz
+         tqpk1M/qv1rjk1myW4RZC9R8GXLHmr3NJ6YD6rLbeeyxwUHCDV6PlBgjkL3zpvdFeliE
+         ps7A==
+X-Forwarded-Encrypted: i=1; AKwUvBwfnqztVVEvD09MF/+khWYfbV2AjVsaxTniztrBqIMK7Cisubmhg1jjxypKPVTqjmmpy/LRHvz3ymkOx60=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcTryD6a2QoADSd/Kzs1bo47u0S7RIvkJk9KyPNVi5YuTcCSM+
+	P32jXKsO2/wQRvuWd5zio4ZuhNe9Pt/PVlcAaNPiQDwhx+EogEUffju4I4hTSUj+rA5ecoCm83a
+	exKQN8ACTiUlnkpW2z2VyW30++F93/JL/acL8GQVadwzGui1Nbueks8/fODva3cvQrg==
+X-Gm-Gg: AYBFou1PvBbBlyDOO/Ao01jGLwLgTP83Oz7hQfBDOarOHy0J4sNu36fICfVzA1OHtOa
+	oXbTg8p8K8t7vth0HTxhzGLYXZ3dyoa7F+GVrqZ73ZXwxNzKRKgC0rJufelrP/8qTLJegxnLahV
+	pl/OjUlYNoazGpr3m2njfGgZnFqtkZSYP4Nt/pYr56zZkMDgx4kJEuwu4EoIU+OrEQ6r/ZYAPRM
+	wXP1mro/0LhWXXnE/02QIq+h0v7+bLkgji4ijmfS1hQIPRuwJRBcCbe7bDDm79lZ1UwAnlwjaln
+	sBDK2SzmeSolpU7onqotnaHVg6sUJDzbx0IVdyYRWRJJqm2qoOjSlAc9pi6v7oFPK7hEV397lAi
+	JnkihxP+MgAEqVZ/ld4Zht0OdaAlfURSy5vhAGYdT0Q==
+X-Received: by 2002:a17:902:ebd2:b0:2dd:7ede:4c0e with SMTP id d9443c01a7336-2dd8e402c96mr56049525ad.12.1789557852587;
+        Wed, 16 Sep 2026 04:24:12 -0700 (PDT)
+X-Received: by 2002:a17:902:ebd2:b0:2dd:7ede:4c0e with SMTP id d9443c01a7336-2dd8e402c96mr56048745ad.12.1789557852161;
+        Wed, 16 Sep 2026 04:24:12 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89ebc548sm9967905ad.37.2026.09.16.04.24.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 04:24:11 -0700 (PDT)
+Message-ID: <ea703546-3871-42f9-840b-3fe38b9dc67f@redhat.com>
+Date: Wed, 16 Sep 2026 21:24:05 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm_mpam: resctrl: Catch and propagate error from
+ get_cpu_cacheinfo_id()
+To: Ben Horgan <ben.horgan@arm.com>, Andre Przywara <andre.przywara@arm.com>,
+ James Morse <james.morse@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>,
+ Fenghua Yu <fenghuay@nvidia.com>, Tony Luck <tony.luck@intel.com>,
+ Dave Martin <Dave.Martin@arm.com>, Yin Li <yin.li@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260902143757.3469690-1-andre.przywara@arm.com>
+ <ea42f2a7-f4f7-46ab-a5e0-239c74174499@arm.com>
+ <2c682691-3037-4d62-a941-bc41baca35aa@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <2c682691-3037-4d62-a941-bc41baca35aa@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Dietmar,
+On 9/16/26 7:49 PM, Ben Horgan wrote:
+> Hi Andre,
+> 
+> On 07/09/2026 13:59, Ben Horgan wrote:
+>> Hi Andre,
+>>
+>> On 02/09/2026 15:37, Andre Przywara wrote:
+>>> get_cpu_cacheinfo_id() can fail, in which case it returns a negative
+>>> error value.
+>>>
+>>> Check the returned value for this error condition, before passing the
+>>> value on to other code, which would hide the negative number in some high
+>>> value in the unsigned type.
+>>>
+>>> Fixes: 36528c7681b8 ("arm_mpam: resctrl: Add support for 'MB' resource")
+>>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>>
+>> This looks good to me. Out of interest what led you to find this?
+>>
+>> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+> 
+> I seem to have been a bit hasty here.
+> 
+> Sashiko points out at [1] that 0xFFFFFFFF is the only value we were previously considering invalid
+> and that the value coming from dt or acpi can provid other valid values that would after this patch
+> be considered invalid.
+> 
+> [1] https://sashiko.dev/#/patchset/20260902143757.3469690-1-andre.przywara%40arm.com
+> 
 
-On Wed, Sep 16, 2026, Dietmar Eggemann wrote:
-> In task scheduler code we use cap_scale(v, s) for CPU capacity related
-> scaling.
->
-> We could move its definition from private task scheduler include file
-> kernel/sched/sched.h to include/linux/topology.h to be able to use it
-> also outside the task scheduler?
+I think Sashiko is correct that the check 'if (cache_id < 0) return -ENOENT' is incorrect
+because only -1 is a invalid ID. The correct check would be:
 
-Fine by me, that reads better than open-coding the shift. Your diff
-builds here on arm64 (topology.o and kernel/sched/), so I will fold it
-into v4 and add the scheduler maintainers to Cc for the header move.
+	u32 cache_id = get_cpu_cacheinfo_id(cpu, 3);
 
-Since the diff is yours: is a Suggested-by enough, or would you rather
-have Co-developed-by and your Signed-off-by on the patch?
+	if (cache_id = UINT_MAX)
+		return -ENOENT;
+
+Or
+
+	int cache_id = get_cpu_cacheinfo_id(cpu, 3);
+
+	if (cache_id == -1)
+		return -ENOENT;
 
 Thanks,
-Oleg
+Gavin
+
+> Thanks,
+> 
+> Ben>
+>> Thanks,
+>>
+>> Ben
+>>
+>>> ---
+>>>   drivers/resctrl/mpam_resctrl.c | 5 ++++-
+>>>   1 file changed, 4 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+>>> index 9d223057953ab..a5e661eff86d7 100644
+>>> --- a/drivers/resctrl/mpam_resctrl.c
+>>> +++ b/drivers/resctrl/mpam_resctrl.c
+>>> @@ -786,7 +786,10 @@ static u32 get_mba_min(struct mpam_props *cprops)
+>>>   /* Find the L3 cache that has affinity with this CPU */
+>>>   static int find_l3_equivalent_bitmask(int cpu, cpumask_var_t tmp_cpumask)
+>>>   {
+>>> -	u32 cache_id = get_cpu_cacheinfo_id(cpu, 3);
+>>> +	int cache_id = get_cpu_cacheinfo_id(cpu, 3);
+>>> +
+>>> +	if (cache_id < 0)
+>>> +		return -ENOENT;
+>>>   
+>>>   	lockdep_assert_cpus_held();
+>>>   
+>>
+>>
+> 
+> 
+
