@@ -1,147 +1,128 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD284BD375
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:30:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583433; cv=pass; b=VPU3AtANJKxjS2BmiXQMqGNaYhSeFPnHmN2dgpC/h2oUUcbIo6ZpyN/Xthio++7QECEekeH9Fij2n7gMoveEX1logUGGg8LppwaswnsrA0mEmjxw6n6gK/+Nki7cmp9iX7nTRKvV8c16heIZwfBtK7GC0vB2vPY4S1IErxsRSes=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583433; c=relaxed/simple;
-	bh=9cB8xedQQvj0IrSKjUMXK0LwEeN65e2heD7WX5ql/Fk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QukYi5gV7IZuwHrXiCwFnvwWQpvYSypJe3vOsqlSauS0fDxMr7dDx3iKIHevmsZ08+lU3z6KA64n+weHmdrpTkXa7Lk7AQAbWQnr/OTWWFw9iRHNtO+KpyGu7hQywOuJ/KpjTQXR8H1DioTJY1GtuYxWfyAdSWIzH+Iv/wvvKpQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=li5GkeEp; arc=pass smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="li5GkeEp"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c3b639adbcso15209b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:30:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789583418; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QCmDDco5OqTLtnXTDt05G84FGny23jf0SxMmQrY0YCyOKmHel/kJLaBucVt0UWME2f
-         g/kFfa5DyDVntrO7hVtxithrY2pPSFMam9xyJecmwsCFC3MaFt1SSXTFbC+aYrnd948H
-         4srigeIcI5C7Fhzl6K2/iX4rhJ28ElmeukEte7NJsui5e6vD/U0ZnmaKpJBPC3EXq8kq
-         +8+VvCe8HG5VbiTjVZux6YQv4Uq6uyb8u0OqW7C3LFOfMVSJt7gHv30q9hfpGw887k25
-         xfWTlur4OgBM2IGFtLHH2/jMF9jYWbzx7e0Oifce0tDwRaktanKTsu1dEWw21rnxEp2f
-         hxng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9cB8xedQQvj0IrSKjUMXK0LwEeN65e2heD7WX5ql/Fk=;
-        fh=alGyp/riMsftnqn5WF6cvbfMynL5hgSLM60RvDWU7K8=;
-        b=b/xW+063fgZ2Is8Qz2X4NeagG6Gt0lOEg+MtoRFIYAhbw5VRsnzXct/rY6fXpbu1+N
-         9buJnCWdt/R6g5eP34miIT3lLwpj5N2n9SSPfJPHr7nC6yn1MfoobVabdRxZPD1p7jSV
-         MGDv0vItD8JsGbQjx0Su7r4atZ4Vkp/P4jqhC5eyH9lauxiWU9rt2D3oUjOYnCNVxyCM
-         2o+hiZFPltHa1jd8qrWv6m/CvcHDRFptryCVg4ADHZEEmqMERg7VXy0QMMhZUCycBUP3
-         vJY3KmzBmf0gBdROpori1PeIupNdYAuSNHU6SWDDhs/4qsmKSKRYwXomy+6Xb8jieFRQ
-         wJEA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789583418; x=1790188218; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9cB8xedQQvj0IrSKjUMXK0LwEeN65e2heD7WX5ql/Fk=;
-        b=li5GkeEpy0Qk4UTd3q2XUIy41WKHj2oYZ5WaNe++/18GZwPo82yHFKH5nfvnyWx8PP
-         MD4/OccLaAfYGkEakYW6IUXIOwPtkjJDHw8A3zGDP4Nctwhx4c1GiX1mPXjhXWnKhb4B
-         8c85LehzXTMrr/tGqtNqUWP9wLI4tn9iSjHXlcxh/fE+U9APshkDxdoHZH7mlWQgCofo
-         J5WTA3TBRDnLb6eXjg0N6su6z/tiX9b3TZwz2TcHvGtcI9ty4l2vJ+BGQrogELqRtzj4
-         CAMv9QSXijojrQH4zprNaQiG79PwgLcdQd3DbheIVbaTVTE7hKsJ8gaBE+LqYEWhQ8YU
-         C1ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789583418; x=1790188218;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9cB8xedQQvj0IrSKjUMXK0LwEeN65e2heD7WX5ql/Fk=;
-        b=QJ9YxlExlSKgPkp+SCLrEXiNqzUAYMJSBDA1s7nK2NmzuxUUBqRbsbXwGy+OwshXVk
-         UviCHszC5ooGl8MlNDDNeD7L7wgphIIBwezg11orZRQ5ayQaWQK5ONBDcUCAD0CGJPV/
-         qcEAm1yIwZQlNNb2TbaTOc8rEQx8cXOMKC0QMxoJvJ0jBdtlgLwbBR5LxZ5SgGKFrsed
-         VHctJ6ckafyzkHU0C/G/m/9j0rT8M3gtlAto3AF6rPzXO2mZ+eYT6EbXLGcV7XYMXCTM
-         L3fglXHGjnaCc2XnkYgF2X2xGJ29D6ExC1EbLmAxlOmVeSFM8MBkpND/kQq9a2EP1/9U
-         fHsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwXMKC+/qTP2b6hGEM1BBELZG3O3tUKz26IYwzEusHl/EfSSd1sfWxIL+cQCfTWKSJIrgmhJGNT4Hak0fg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kw2EjaOdNBo+hFiDeHLLVGmZ54cRf9/aLi5G5qX7QIRYWq0/cj
-	ClQH0INbpp+QLdExSH9MJoIlK/TpVI5RBd2UetK9gUTlDWlku+OEQgnLgHeegBv2+DQKMlZUm1d
-	THanWZtlwzxksDH+yVIstQgkNKDYQXr4=
-X-Gm-Gg: AYBFou37QoNi+wPwdyWWjfK+JR7IBf3QGj2bLivPJbCR8lFRBNcMB2QC3utJ8dSrOu3
-	1HfBA7fA+h98VuU3CqS57EWNuv03gxzYVmHqHSNfeaG291eAomtkwyKJSuzF2/vi+r7XQzc1Lrv
-	PRZOlKIvXzOgWvUG3hH5wYcXm7Job07MfzrzLYQ8gBmwvpvC3fZ/C5hsBnpaKq+2vqYhAlj5Mno
-	pcCJ7hgKyCwdVFKVV9Uh9tPSakvcY0HvQWbX//LtVg3wV/Cwhuqta8hYY+e5kjMzYmW8RLgb1+K
-	l2UyaIUtYrsKeeouNNTcfvifqqgZOvachZagu5DaayaQReWXICFBFCY=
-X-Received: by 2002:a05:6808:6412:b0:4c5:7d0d:7a5f with SMTP id
- 5614622812f47-4ca499cc905mr4023538b6e.6.1789583418230; Wed, 16 Sep 2026
- 11:30:18 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D7C4D37CB;
+	Wed, 16 Sep 2026 18:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789583434; cv=none; b=ngr26X7QYbfOpVoTU3JB0dTdFSh/Y4uTIcQffi7r3K5SIUAI048Sbylst22PF/IWSJWILhMRlkhgYMLo/rq260grPt2wI2N67SarT59Ay3r61c+bj2XsIJk22wgzIYgeLvDZdCsWns/1ubGP3HxLDvY7yZJTrveQsT0F2GsovMo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789583434; c=relaxed/simple;
+	bh=1L0EWxkDhNvr8iX44QENpR0+tXTy2IOKo6E6J3CPJHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QTrJrkIal12knp2CUwkBUUExBS5gcBwPK1peuNc+88BzcdpFUoOlgmtmuUK2dH7RaziY7nrMBXt4av8x6OsFHqI7x78RjVPWj+ZRmHjhidfv/b81GYKxtlV/h7rXhrv7O3qXmkS4ojvImcnPYneleUgnzG+t19t45R5E5T11pes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+From: Bradley Morgan <brads@mainlining.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Petr Mladek <pmladek@suse.com>,
+	Jinchao Wang <wangjinchao600@gmail.com>,
+	Craig Lamparter <craig.lamparter@hpe.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bradley Morgan <brads@mainlining.org>
+Subject: [PATCH v7 5/6] panic: allow force_cpu redirect from an NMI
+Date: Wed, 16 Sep 2026 18:29:56 +0000
+Message-ID: <20260916182957.7788-6-brads@mainlining.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260916182957.7788-1-brads@mainlining.org>
+References: <20260916182957.7788-1-brads@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916181001.201787-1-usama.arif@linux.dev> <DLGY7IFP8MOG.YFISSWRDGKR3@gmail.com>
-In-Reply-To: <DLGY7IFP8MOG.YFISSWRDGKR3@gmail.com>
-From: Amery Hung <ameryhung@gmail.com>
-Date: Wed, 16 Sep 2026 11:30:07 -0700
-X-Gm-Features: AcwNN1UGPx7lnVvt3z2iap40dwD-R4LLwB6dyuaIBNTPY2xkFaNousEY7ARosjA
-Message-ID: <CAMB2axOVd3jx+Gznb4mrNTBN=5oXqeDx-WfHPx5d1E7tbwoejg@mail.gmail.com>
-Subject: Re: [PATCH] bpf: local_storage: avoid redundant IRQ save on bucket locks
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Usama Arif <usama.arif@linux.dev>, ast@kernel.org, andrii@kernel.org, 
-	bpf@vger.kernel.org, daniel@iogearbox.net, eddyz87@gmail.com, 
-	emil@etsalapatis.com, ihor.solodrai@linux.dev, jolsa@kernel.org, 
-	justinstitt@google.com, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	martin.lau@linux.dev, morbo@google.com, nathan@kernel.org, 
-	ndesaulniers@google.com, song@kernel.org, yonghong.song@linux.dev, 
-	yatsenko@meta.com, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 11:22=E2=80=AFAM Kumar Kartikeya Dwivedi
-<memxor@gmail.com> wrote:
->
-> +Cc Amery
->
-> On Wed Sep 16, 2026 at 8:10 PM CEST, Usama Arif wrote:
-> > bpf_local_storage_update() takes the map bucket lock while holding
-> > local_storage->lock. bpf_selem_unlink_map() does the same; its only
-> > caller holds local_storage->lock. The outer lock is acquired with
-> > raw_res_spin_lock_irqsave(), so interrupts are already disabled at both
-> > sites.
-> >
-> > Using raw_res_spin_lock_irqsave() for the nested lock saves the already
-> > disabled IRQ state and issues another IRQ disable. The matching unlock
-> > tests that saved state before leaving interrupts disabled. On x86-64,
-> > this adds a pushfq/popq/cli sequence and a test/branch around an
-> > unreachable sti to each acquisition.
-> >
-> > Use raw_res_spin_lock() and raw_res_spin_unlock() instead. They retain
-> > preemption nesting, memory ordering and resilient-lock bookkeeping. The
-> > outer unlock remains responsible for restoring the caller's IRQ state.
-> >
-> > In the tested clang x86-64 build, this removes five executed instructio=
-ns
-> > from each uncontended nested acquisition. It also shrinks
-> > bpf_local_storage_update() from 1732 to 1702 bytes and bpf_selem_unlink=
-()
-> > from 1030 to 992 bytes. The affected paths are updates that add or repl=
-ace
-> > an element in existing owner storage and successful unlinks.
-> >
-> > Document the owner-lock requirement of bpf_selem_unlink_map() and asser=
-t
-> > that interrupts are disabled.
-> >
-> > Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> > ---
->
-> Makes sense. But did you observe any measurable improvement with this cha=
-nge?
->
+nmi_panic() claims panic_cpu via panic_try_start() before calling
+panic(). When the panic later reaches panic_try_force_cpu(), the
+panic_in_progress() check sees panic_cpu set and refuses to redirect.
+The crash kernel runs on the CPU that took the NMI instead of the CPU
+requested with panic_force_cpu=:
 
-Same question, but the change looks right to me.
+  nmi_panic()
+    panic_try_start()              wins, panic_cpu = X
+    panic("%s", msg)
+      vpanic()
+        panic_try_force_cpu()
+          panic_in_progress()      true, panic_cpu is X
+          return false             redirect bypassed
+        panic_try_start()          already won
+        __crash_kexec()            on X, not the requested CPU
 
-> > [...]
+Try the redirect before claiming panic_cpu instead, as suggested by
+Petr Mladek. nmi_panic() now calls panic_try_force_cpu() first and
+claims panic_cpu only when no redirect happened. The requested CPU
+claims panic_cpu itself when it runs panic(), so panic_cpu does not
+need to be handed off. panic_try_force_cpu() copies the arguments
+before formatting (patch 3), so nmi_panic() can pass them to vpanic()
+again when no redirect happens.
+
+The redirect IPI is sent with smp_call_function_single_async(), which
+is not guaranteed to work from NMI context. Treat it as best effort.
+It is worth the risk because the redirection is only used when the
+crash kernel would not work on the panicking CPU anyway.
+
+Keep returning when the panic is already running on this CPU. A
+nested NMI, for example with unknown_nmi_panic while this CPU is
+inside panic(), must return and let the interrupted panic() continue
+instead of parking the CPU in nmi_panic_self_stop().
+
+Mark the redirecting CPU offline before stopping it, like vpanic()
+does, so that panic_other_cpus_shutdown() on the target CPU does not
+wait for it.
+
+Fixes: 2e171ab29f91 ("panic: add panic_force_cpu= parameter to redirect panic to a specific CPU")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260708164312.19044-1-include@grrlz.net
+Cc: stable@vger.kernel.org
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ kernel/panic.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/panic.c b/kernel/panic.c
+index e240ca06faab..29c981926f5f 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -513,10 +513,11 @@ bool panic_on_other_cpu(void)
+ EXPORT_SYMBOL(panic_on_other_cpu);
+ 
+ /*
+- * A variant of panic() called from NMI context. We return if we've already
+- * panicked on this CPU. If another CPU already panicked, loop in
+- * nmi_panic_self_stop() which can provide architecture dependent code such
+- * as saving register state for crash dump.
++ * A variant of panic() called from NMI context. The panic is first
++ * redirected to the CPU requested via panic_force_cpu=, when configured.
++ * We return if we've already panicked on this CPU. If another CPU already
++ * panicked, loop in nmi_panic_self_stop() which can provide architecture
++ * dependent code for saving register state for crash dump.
+  */
+ void nmi_panic(struct pt_regs *regs, const char *fmt, ...)
+ {
+@@ -524,6 +525,16 @@ void nmi_panic(struct pt_regs *regs, const char *fmt, ...)
+ 
+ 	va_start(args, fmt);
+ 
++	/* Try to redirect to the requested CPU before claiming panic_cpu. */
++	if (panic_try_force_cpu(fmt, args)) {
++		/*
++		 * Mark ourselves offline so panic_other_cpus_shutdown() won't
++		 * wait for us on architectures that check num_online_cpus().
++		 */
++		set_cpu_online(raw_smp_processor_id(), false);
++		nmi_panic_self_stop(regs);
++	}
++
+ 	if (panic_try_start())
+ 		vpanic(fmt, args);
+ 
+-- 
+2.47.3
+
