@@ -1,82 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C358937FF50;
-	Wed, 16 Sep 2026 06:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D716A3E9F8E;
+	Wed, 16 Sep 2026 06:55:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541713; cv=none; b=HeTQw/dtqaUdTA4Wuvgw9PLAj/6QQ9Pzt6FKQY859k0Ia7elr7EB9g9L88Hgi3C9dezQRb8qyUSMYHI1iYihUmxGgVwcgJ6nlQriF7E0V7qG2E/XUlv6Aqgxq/d61mdEdvA43ufMYG31WyE72q2AcQqWflibO7NiLF8+4e+EZ5M=
+	t=1789541729; cv=none; b=ujVfO1k9D+DCtDNzO9mKMllR4gDgan1idQppW9RaarCdBEWknpSy1lj42kJpOSuGPeLbvUWARU+/5l39igPgKF9Y/RZEqA27lgmlpWCH+jbeT4pIXU2xmF6ThJ/8NNLFj5Z09jba1vI6YsKKdEmJxrajZDnmdQ1jWmbVd0xYvrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541713; c=relaxed/simple;
-	bh=gmCyq99m/Y2kjvxT53XUEfGSuXCbwQPwZ20ia3jEWTI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=u9+8DMHoo5oV2QPUB1nju9Klb+UfIk/IyQgwnZjDsgH4Uwwr7Qb+TAy+5LbX4iQ+UN16gMNIiH/i9+U9NkyeFROL9pq+QcWtLtUAAJEYEv26CoYBIMYWMkI2FybqOpNdT/S+2HaPoeUu2aM4nkaIBpZxD4b9ERYM5jx9w0sQSSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PqATvzKv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789541729; c=relaxed/simple;
+	bh=QXTe48Zea/Trvazz/Pkd3exaoVKlULQahD22GQ0/e4g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s8tbM3PIKOc4p9hQspTdQJeagSrYdzLuunRoa6L/BNXbg3WfII8r7+eqkE3Gy6eYWReGf34PWvuAxw4TH1GOV8W7eqPJ0Ui6gRE/9G1n54he3Vmzb0gxixXyGrHMCRRkSi8be2um9krjxtkY+GFfVpZ9R76+Re12sT9FuUCCUzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=d8KzTUND; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=nTqE4oSa; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PqATvzKv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 939EA1F000FF;
-	Wed, 16 Sep 2026 06:55:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789541712;
-	bh=pI3c7sR+lcohoH9PWKKSjyS/ad5hTcsa7OVIdMBndec=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=PqATvzKvFAkJzCYchF3ZBAYiBo5BBYWusuJb5FhLTVmuvK7MVGYLST6PFFFsW8bXF
-	 tK794uJdp6KCYDMFPDkdSrlEKivuN8nuRXEmXnJJs7eoPdC13Qa45oHzXbOQvShbgs
-	 eMq1wlHkw8t2cPomcsoMjrMwgr7x8eW5ehLQdoEMRN7DE+YBHigm8ou/oKgtRIUi4w
-	 AgCuAQhGgpWhrP9S/gpyYNaK15wtB9BahZITR0jCYhvha2IESqWnIJeWJJH6lAgr2+
-	 ZPYQH8Xk3jNWRoHOkwRvz7k0bkkZ0e9mvXkvkYsKKrjHcw49JEf9lZi9iamL9fWRVN
-	 hQmrzbGjMGNcg==
-From: Nathan Chancellor <nathan@kernel.org>
-To: nsc@kernel.org, Aayansh Ranjan <computergod47@gmail.com>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260915062613.13761-1-computergod47@gmail.com>
-References: <20260915062613.13761-1-computergod47@gmail.com>
-Subject: Re: [PATCH] kbuild: fix grammar in output Makefile .gitignore
- generation comment
-Message-Id: <178954166847.3651306.5651675539464102219.b4-ty@b4>
-Date: Tue, 15 Sep 2026 23:54:28 -0700
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="d8KzTUND";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="nTqE4oSa"
+Date: Wed, 16 Sep 2026 08:55:23 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789541725;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y9JO/nXJM4LsTI15Dh6R6P3Rqfh7Ru0q6bmBLCp4g7U=;
+	b=d8KzTUND03j3NdeVuY3GH23jIk5brwhQtdraM7PikkrUR4bKEOI2aB9YfQwuZwQF9ijVF5
+	Hs+RE6lvS9GCn5qsmyrtGKXmAnuHYp8WGtSEHKxoONTuB3V/USNkwbUYN/DVmXTyvNbYQb
+	g8xtIBUmvAN3MZa8RQB3dm759d9QjiRjhmHXiY2W2NmzLVO7myiEc+g8m++eEAB9TFGO1Q
+	VwtqPrukbNv0l5EdXExKtnWbIQxqCBdB3+f0PjrDQUnbNEJTJmhDNndPSQ8e8zQ8lmdS9L
+	1CQM9VL4nxU+PV7idppSNyCZ9Tw18esIW2cpzrxAfoGNfhb57ggLzXCV64ZUMg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789541725;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y9JO/nXJM4LsTI15Dh6R6P3Rqfh7Ru0q6bmBLCp4g7U=;
+	b=nTqE4oSalnbUJXQjhv1kggMWeeRiI+xO13V29BwxV1TwdkgYL7rTZ6g0zU+oZLqhxLFISo
+	sqmSlQs+UFZPJsBA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:Real-time Linux (PREEMPT_RT):Keyword:PREEMPT_RT" <linux-rt-devel@lists.linux.dev>
+Subject: Re: [PATCHv2] gpio: mvebu: keep resume masks within the irqchip cache
+Message-ID: <20260916065523.ZJKAHHyW@linutronix.de>
+References: <20260915004406.115230-1-rosenp@gmail.com>
+ <20260915064352.T4HiPnt_@linutronix.de>
+ <CAKxU2N_+H50zy7V0FR-_4KiyAG8+_x4kg2QZBsumHEXgdwmqKQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=842; i=nathan@kernel.org;
- h=from:subject:message-id; bh=gmCyq99m/Y2kjvxT53XUEfGSuXCbwQPwZ20ia3jEWTI=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFmrbL2aVF+9/vm9T/2Dm7873/3F2omXl25LfBL3YvP3o
- wynTpRO6yhlYRDjYpAVU2Spfqx63NBwzlnGG6cmwcxhZQIZwsDFKQATUdJmZJi41sLtsZHI6Str
- 9Ezr1locva5T7/IxR92AU/zxrwDRyZqMDDPufba+slj15LLXdi/2Oi059tauYfbVVQUaln2Pi3V
- /L+MDAA==
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAKxU2N_+H50zy7V0FR-_4KiyAG8+_x4kg2QZBsumHEXgdwmqKQ@mail.gmail.com>
 
-On Tue, 15 Sep 2026 11:56:13 +0530, Aayansh Ranjan wrote:
-> kbuild: fix grammar in output Makefile .gitignore generation comment
+On 2026-09-15 15:24:24 [-0700], Rosen Penev wrote:
+> On Mon, Sep 14, 2026 at 11:43=E2=80=AFPM Sebastian Andrzej Siewior
+> <bigeasy@linutronix.de> wrote:
+> >
+> > On 2026-09-14 17:44:06 [-0700], Rosen Penev wrote:
+> > > mvebu_gpio_resume() writes the edge/level mask registers saved at
+> > > suspend time straight back to hardware, bypassing the irqchip's
+> > > mask_cache_priv.  genirq skips mask_irq() for a line it already
+> > > considers masked, so restoring a bit in hardware that genirq thinks
+> > > is still masked leaves that line unmasked behind genirq's back.  An
+> > > asserted level line then has nobody to ack it, and the moment
+> > > interrupts are re-enabled the chained handler storms, hanging resume.
+> >
+> > Why is the mask value changed after suspend?
+> In order to keep genirq and the hardware in sync.
 
-Applied to
+There seems to be write after suspend took place or before resume.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-unstable
-
-Thanks!
-
-[1/1] kbuild: fix grammar in output Makefile .gitignore generation comment
-      https://git.kernel.org/kbuild/c/322b0463f30b0
-
-I adjusted "when" to "the" in the comment to make it flow a little
-better.
-
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped or
-reverted. Patches applied to an "unstable" branch are accepted pending
-wider testing in -next and any post-commit review; they will generally
-be moved to the main branch in a week if no issues are found.
-
-Best regards,
--- 
-Cheers,
-Nathan
-
-
+Sebastian
