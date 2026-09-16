@@ -1,111 +1,84 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28E73C5540;
-	Wed, 16 Sep 2026 17:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382ED4A7CB9
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:24:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579431; cv=none; b=nrERR5jJH9geisnmv/ZTHUP8H5dJkoxDA0XrFM2wv8+tQJrEJqgi7281ZUInpi8Scgt9ASNIoWOilYd/KZFt3CQ0aG+1LjHRvxJ6/lbLF7BskSEkHnLSQ6OAYP3IdJc5m8yOzKFlxEqaA9qqNXRxc/aUKS60enxnlrHkPWyNjvA=
+	t=1789579441; cv=none; b=iAAqvswYh6uNftp5CPZKx//1TRXW768FrOrklA6etytPAUbs8aAP6xHMsE1JO95vdNacDDIcRxzJBmKpz7IszpjHybSz1uE4nzPtNC76y58r8VFKHSrMH+TVu65MLu9r4DbmfEbOHiT6uDoRLhFe+p5e/UjPMb8fyUAYWA0ndik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579431; c=relaxed/simple;
-	bh=i/9Nz5U0exD65WjNlUWRI5iAClBZ5byKB6pnI1UoGUk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WFrw1LW0HQ4CXbOhzfYAom5lQfwDUHwC9wWESGGbz6rbabvq5sdAR8Mj69AtoaAwKPxn20Mzi/m6/OyVwy62lDbGVdI95ZGeTUZM6LirEoA+C0bOa9s/Jbh5tnOvwVZVZ/3yw2xwoRfATKiPiaRpDiWceiHAU4Ne7G3pjfdtB4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnETyc0KpqD4xuCA--.45751S2;
-	Thu, 17 Sep 2026 01:23:40 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: chris@chris-wilson.co.uk,
-	dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org,
-	jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	rodrigo.vivi@intel.com,
-	simona@ffwll.ch,
-	tursulin@ursulin.net,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/gt: Fix ce use-after-free in signal_irq_work()
-Date: Wed, 16 Sep 2026 17:23:12 +0000
-Message-Id: <20260916172312.2087555-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789579441; c=relaxed/simple;
+	bh=0vCWf9MxiT2b+E/T1q/nTE5apuDRiYUK4+cddGkhdWc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WBaAXIglPl1nBqs+xpNQ3olB4+TfiSpbFst3Z1Q2A8QRcLvfo2ilWbkcJCnNyTOYEhA/kcWiE36rAmV6oEt75xrHyw3SUoHfa1tiaWGLbQp+0RjWCEm9qioSmFGVcXblkfhcH+MXEoOB6ELY061mj0pG/chGWLK/RBdAOdQ/Jug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9UhQg/h; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9UhQg/h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C3781F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:24:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789579440;
+	bh=0vCWf9MxiT2b+E/T1q/nTE5apuDRiYUK4+cddGkhdWc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=b9UhQg/hFLmc0yJyOsH5yHc4qWjxLbaWEpPPSPIOpWGomGurZfgXfG2BOGARFDXOe
+	 GBE6XRsZFPobgKGvRvl1obzYywrBG7wg6NRNTjdtPfRIZpBCF3+gmQjIO3H8NtaVyq
+	 oaCBmC84C57pFpGsqD2+woXiMi/47aCmXKqsFrWvSYVL/tcOfdqnOLM0qv92Q0OlGG
+	 EOcIJPF0nzrm734TvNnu4DeYPj5CCnehFEAjTLL/bbDibJ6VQc6lSv5iStqawl/RU2
+	 KV5dgyYOB9PkYY/CxnEHFTqwt0tDCOuWMWnhvOIaOTZr2mWJ084j1Pqs4ZrNJxscJa
+	 gV9YG40eUwTTQ==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b76668f4ddso502380e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:24:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzQnAo392RKvDaFrqTFjJX+JNtHPUux/nFd6v4z/2XIC7wSZuk9aIfWcftwM6AwZPvOJkhbQaid3oRe5+0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kX/LLRiujpdKPMca7lTzwFUwyOQxKgXHnkJgucjSVQOzT0KYAs
+	IqJ05s6Bcdwj0w+R1urOv3V+qA7ZtSwIWaM7RoOC5JcZF4APto8LvUR9P6MNan4PvNkL8YGDGIa
+	42K0Z1heH7EdbRaeTPB+sVENfd7QIaVE=
+X-Received: by 2002:ac2:520e:0:b0:5b6:421:8ad9 with SMTP id
+ 2adb3069b0e04-5b8ba5f0937mr86681e87.14.1789579438832; Wed, 16 Sep 2026
+ 10:23:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnETyc0KpqD4xuCA--.45751S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF4fGF13Jr1rurWktrW5Wrg_yoW8Zry5pr
-	43JFyayrZ5XFsxuan8C3W0vF1aga4xtF18Wan5Gw1xAwn0q3Z5J34Sya4jyFyY9r4kXr1Y
-	qrWqqa4xGF4UZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9q14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
-	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
-	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
-	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F
-	4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgUMA2qqok9p+gADsx
+References: <20260915031225.191639-1-rosenp@gmail.com>
+In-Reply-To: <20260915031225.191639-1-rosenp@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 19:23:46 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=pO+O7iPdE-fBTMSGxQU6LZU-zSrY4X0_rF8=fZ2hvMw@mail.gmail.com>
+X-Gm-Features: AcwNN1WAae-jbKZTyT-X17VkdT-7OKOay0Vn4pBpi5oDtpaiYUqdHzuNBS_jXx4
+Message-ID: <CAD++jL=pO+O7iPdE-fBTMSGxQU6LZU-zSrY4X0_rF8=fZ2hvMw@mail.gmail.com>
+Subject: Re: [PATCH] gpio: mvebu: fix Armada XP per-CPU mask register save/restore
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, 
+	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The final intel_context_put() may drop the last reference to a signaler
-context. GuC parallel child contexts are freed immediately by
-__guc_context_destroy() rather than via call_rcu(), so reading
-ce->signal_link.next to advance the RCU iterator afterwards is a
-use-after-free. Cache the next context before the loop body instead.
+On Tue, Sep 15, 2026 at 5:12=E2=80=AFAM Rosen Penev <rosenp@gmail.com> wrot=
+e:
 
-Fixes: c744d50363b7 ("drm/i915/gt: Split the breadcrumb spinlock between global and contexts")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+> The Armada XP variant keeps the per-CPU edge/level mask registers in a
+> second I/O window (percpu_regs) rather than in the main GPIO window.
+> The suspend and resume paths however read and wrote them through
+> mvchip->regs with the per-CPU offsets, which hits the global
+> GPIO_EDGE_MASK / GPIO_LEVEL_MASK registers instead. Per-CPU mask state
+> was therefore lost across suspend/resume, so a level line could end up
+> unmasked behind genirq's back and trigger an interrupt storm once
+> interrupts are re-enabled.
+>
+> Use mvchip->percpu_regs for the Armada XP per-CPU mask registers in
+> both the suspend save and the resume restore paths, matching the
+> mask/unmask handlers and the probe-time masking.
+>
+> Fixes: b5b7b487431b ("gpio: mvebu: add suspend/resume support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index c10ac0ab3bfa..f840e98792cd 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -174,7 +174,7 @@ static void signal_irq_work(struct irq_work *work)
- 	struct intel_breadcrumbs *b = container_of(work, typeof(*b), irq_work);
- 	const ktime_t timestamp = ktime_get();
- 	struct llist_node *signal, *sn;
--	struct intel_context *ce;
-+	struct intel_context *ce, *cn;
- 
- 	signal = NULL;
- 	if (unlikely(!llist_empty(&b->signaled_requests)))
-@@ -210,9 +210,19 @@ static void signal_irq_work(struct irq_work *work)
- 
- 	rcu_read_lock();
- 	atomic_inc(&b->signaler_active);
--	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
-+	for (ce = list_first_or_null_rcu(&b->signalers, typeof(*ce), signal_link);
-+	     ce;
-+	     ce = cn) {
- 		struct i915_request *rq;
- 
-+		/*
-+		 * Grab the next signaler up front, as dropping the final
-+		 * reference below may free the current one before we
-+		 * advance the iterator.
-+		 */
-+		cn = list_next_or_null_rcu(&b->signalers, &ce->signal_link,
-+					   typeof(*cn), signal_link);
-+
- 		list_for_each_entry_rcu(rq, &ce->signals, signal_link) {
- 			bool release;
- 
--- 
-2.34.1
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
+Yours,
+Linus Walleij
