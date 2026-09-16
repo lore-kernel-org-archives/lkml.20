@@ -1,160 +1,113 @@
-Received: from mta0.migadu.com (out-91.mta0.migadu.com [91.218.175.91])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D628648EBFC
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.91
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551696; cv=none; b=Gs6TPIdth/lNMZCDF8pF42uXtGyDjudLov1VJCpun5vy3Gf4/+wHZxQhsmFwYi9ToVdanZN89wCvxmFY3h4wc/NwnYqIMNfZf0rwzKTjoiRIoegWYSb4JTIqrNOjUcs/FtLJIi8JjHbojiQ2DobQbo5FsCbpxgQT6x7L9eotDZE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551696; c=relaxed/simple;
-	bh=/O66kM1XqK/k+1+V8AfJSc2H9zVFlAnRkccenBDJgnQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bs+u7dVp6fdC/82l2huFRXsaHYLhx5Z+SmBHrhUKGczJPMcDx+tP9VUW4Taa88XrI8bdCwbwSsqi+ht6ou43sZobn9HJzmMifOETyrG8+QdGvxVW80qfjEGNjp8YOA8wOAMoPPPVgb++R4i+Y4sMDmTcLd0exZTpT44d4wZJrpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kxr+j67c; arc=none smtp.client-ip=91.218.175.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0764AA1C2
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789551712; cv=pass; b=RsfFAYdKTvAclyMxNZ1X/Ci2rg/ZWKFEAcPAyFHCzqVHpuEvS2M8LFk5EQlwnvUWgNa57qo/7Y8yY0ayDBpWqJE1Ob3RGyebDdhk724vVY2VYT8GQ2gmD0ZA92SEh8roB3pJGhA+HvQshybZSWdYiYlKfd8Y6H3cR+OHVlwqdgk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789551712; c=relaxed/simple;
+	bh=dd0XjmXLbr6av17ldrfsndZXMA3/+aCy2CJ+JrZ60SY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rNzW6vURchTQI9VJZFkKzRoz5QyPINbQwqOtvkHw+m0SNbkEfTXhUOOSj9mvZLLym15dUiPU3+6YIRgNIkuxcHUVKkjMGBy0WpbAUy6ioIkdQDx/YsXvY3+GElxIfg25USvrp9ygK5Ex8cgI48Rn0j73yV8Utm1ZNQDgF51gmIg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qQck2Eax; arc=pass smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kxr+j67c"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/O66kM1XqK/k+1+V8AfJSc2H9zVFlAnRkccenBDJgnQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789551688; v=1; x=1790156488;
- b=kxr+j67cWvfl9niH+dahQfwtlUZACE/1mJVRa3Yqi3zANF7wEEIVAUbPaoXV3B1TJBXrJoJa
- +nZv4SStHF2SzrN2vop29oJkHnIP50DpWcEp79i58lWZMVkjRnJGKcl5VRGpFpQLOmaKkqr58fV
- 0OKFsToDHCC2aR5eniPB6bYs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6bb14bcd9a7238ed;
-	Wed, 16 Sep 2026 09:41:28 +0000
-X-Mizu-Trace-ID: 6bb14bcd9a7238ed
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <cfcba100-609a-4016-9b47-186346709634@linux.dev>
-Date: Wed, 16 Sep 2026 17:42:08 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qQck2Eax"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-939109f067fso83349685a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:41:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789551701; cv=none;
+        d=google.com; s=arc-20260327;
+        b=czX3m5z13UYnpr7pTMWsDvT5Ns8z3J9JTe6SKazgwkdWpFQr5kuzh3Rjm+Qsq7lgN6
+         6z12qH9HkzPF2xgMbJFAByl8dbDsipz5kPelWJCF2bgExNkwyfdqURj0v5sJhNu53LNI
+         Vc9xW/zO8hLeQUvRFsWiPqOBBGcTIb6ppcW0KxnHO1gcbkaV+8ONDmnSDgj4RzJPSqHk
+         YsXZsJT0UlSCKTsuelTKmH8YMQAJmYk2jcMhn9V54xMVqhIT4fPGQ6TlYxG5RcEKbt2Z
+         y9H+bgI795cmMOCqzy2xLsMDpUGLYo1HiDWg8JVIOO4eqT7Jop1wR0ASd/PtXWRYRgso
+         AEmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dd0XjmXLbr6av17ldrfsndZXMA3/+aCy2CJ+JrZ60SY=;
+        fh=xrDzM9hxwTDCK/CjHZGrcaC5aXzrdZW9CRHh4GygG44=;
+        b=qzFEfCPtzp3Jt/Oqgtm5v+P0QwO383CHvAIAkLUzD5JjNz+1lEVMP0uoskzPuqIOSL
+         7gknsiuYXWzcFfOMrxcIRKVkb3hdR+vBl5pcM0A+pS9CIV0HkM2NQww8x8UYz14oLnV2
+         kbucAiIBZwebXda8cFvZwwcF+1TBVkHgOt31DI7fksBjCtmFMf4pud5hgRqjq9urvFA6
+         9qYDErbwGerDfKKzcsYpArswQAQDiT9Lof3WmRlK6voF9DSoLxAKrKDUxd3TeOT3NLNu
+         DdbKYneyVJ5iNR9+73Y+x4YrFZRIMG+Db0g9lbwJlH9mvSNO+xTs3qj/pq90tuQ7A0Hb
+         l9Jw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789551701; x=1790156501; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dd0XjmXLbr6av17ldrfsndZXMA3/+aCy2CJ+JrZ60SY=;
+        b=qQck2EaxCKi4Uv0sJjK3manqk1cVY7UTs+3b6Rg7JosOC0NAhCZTy3X2x9wUG0VV7Q
+         WcNv/i/HyuUlGMTnc2y4LJEMccBKJsEiITHqf1vysluHNcpxRYbmligHei4FYY4IJIV/
+         QAr5Af0qjKwl1UtvyZaLvQCUEcZ6CpiU0WxdoAXkDzkP9lS3eQXamwqkwX88tacqgAID
+         7XoO/Fb5o4U/p7+Xna7qIIL9Pn3KoSnMxvsv5/ekXojPfgns+1kJxR6QNqKQX3PD8Kft
+         9O9F5sxZF3abTKexlCbyDCQy0usdH+BmLkdq2dp+QZv8pbE6/+wIulSeb4BaD05Dwh6d
+         oBOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789551701; x=1790156501;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dd0XjmXLbr6av17ldrfsndZXMA3/+aCy2CJ+JrZ60SY=;
+        b=wDxZNjWKzi+jj+WC60YUiIyiiNDdNtiBiCnEEEt65JkY2AFnL6RGNbbbK5vYcm/B0n
+         s1qVtLNcNSeaRgCGMuSC1tEdf7s+MXN7fmDzEYYxonvlzpRyQUwHoqez5idM95WQE6Vh
+         4H7RbwA39DEGAziKl9N5ZyNkL6h+S92rW/u9R5gpNGKB+Fbivyefu07pNlYyFMOMCsME
+         sPHaDWpRV66ipTm8/XcmD1Y0DVFpRKSrNRtSvqzaKBLzqvzRpnAGtvF6izw3BDRfmuds
+         KcomOx/kdNvLxIU39BKDbxJ9zAHE+PfZ9qjiUjIqL/TdDM/PXOQDcbxFPVz/WZJlaPkK
+         Uvhw==
+X-Forwarded-Encrypted: i=1; AKwUvByv2C3zJ8ROlxONdc6HJa4o6Ea35pO5jAccJ/xl7Lq+bTd+Wr6x+alSxkOeA0WOkoKao3RQLRoZbYEY9cY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuaDIBmK1wQmzn9+ckqxwMKsYySkajdB42QejGJBT9m2u76Cbv
+	RtX7hmT6qc2QzLw2cEexJoqwmCwfPJ24txLENsgtuK5n3AgYjKvRBqcTZF0AWiSt8j0NM1W1dvv
+	SL2xlIRvgEpWkrrnw68HoweSg+JVP9xMckr9JgSZV
+X-Gm-Gg: AYBFou1jRu+R99bnwgggCtAWr6n0/ubOotBK1Z4XMiiQpEoEmp6VS+RBR501n1rjk/N
+	pPJ23m+QE17xpz0lGscqq6iyFTd+NEDvjaJKjhQXGhSEeqDuqgbBhfoqbuyYbxvIc9VONgVNYbV
+	fEI2GjW8A8iWeMoaYYRMxAWjjg6jzIxJjTLZxxrz5sbbuXuRqwuQamWuI/SzltTBWUA+z//QNII
+	0OViiMdapSq7KexSj1w+kZPmVQFiYbL+lLTtBQJtQFy3zrGE35Oml94QTHDtgBQ556HQANSKONB
+	c1/l3wwgFB4Th9IP88xKriuAwKNzMtvxe/aZqcr2sITEAZnY7ZTEfR6N8ZxHefBVnSSqnQ1+UAX
+	ULFaIi9qGcpPwGQwSdDIMleFQF3tA9Stg//4scpd0gC1xw2siqZ/XnXAtGUD3m7FjSYQ=
+X-Received: by 2002:a05:620a:72d2:20b0:93b:c22a:e98a with SMTP id
+ af79cd13be357-93bc22af796mr17857385a.2.1789551700440; Wed, 16 Sep 2026
+ 02:41:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: client side "current->alloc_tag not set WARNING:
- ./include/linux/alloc_tag.h:161" at accessing CIFS share
-To: Paulo Alcantara <pc@manguebit.org>, Erhard Furtner <erhard_f@mailbox.org>
-Cc: linux-cifs@vger.kernel.org, David Howells <dhowells@redhat.com>,
- netfs@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <0b004319-9ef7-437c-a4dd-174d6a9a83db@mailbox.org>
- <0e8961201179ba88038de511c587ddc7@manguebit.org>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <0e8961201179ba88038de511c587ddc7@manguebit.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260916041102.1914333-1-xmei5@asu.edu> <CAPpSM+SpeOa5uo5rffXejDa4g9VGphp1GvirJgUWze-O+cQyzA@mail.gmail.com>
+In-Reply-To: <CAPpSM+SpeOa5uo5rffXejDa4g9VGphp1GvirJgUWze-O+cQyzA@mail.gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 16 Sep 2026 02:41:29 -0700
+X-Gm-Features: AcwNN1UxUZyShrWWdOdzZP5TvGhMt62DuqGu9sAhw7uSD_TZmpKiYAfpJ3xalwE
+Message-ID: <CANn89iJtyY_ooHfbqPw4=GVwXQeEc0k6RxS9dJGnA8TZgu8rSw@mail.gmail.com>
+Subject: Re: [PATCH net] bpf: lwt: clear stale IP control block after pushing
+ an encap header
+To: Xiang Mei <xmei5@asu.edu>
+Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	co+ff13a35f73bb7891@bugs.sh, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Paulo
+On Wed, Sep 16, 2026 at 12:32=E2=80=AFAM Xiang Mei <xmei5@asu.edu> wrote:
 
-
-Sorry to jump in.
-
-On 2026/9/2 07:19, Paulo Alcantara wrote:
-> Erhard Furtner <erhard_f@mailbox.org> writes:
-> 
->> Getting this "current->alloc_tag not set WARNING:" every time on my 
->> client PC when I open files on the CIFS share (exported via KSMBD) from 
->> my host PC:
-> 
-> The warning is triggered by running the following in
-> netfs_alloc_request() with CONFIG_MEM_ALLOC_PROFILING_DEBUG=y kernels:
-> 
->         rreq = mempool->alloc(gfp, mempool->pool_data);
-> 
-> for the non-writeback path.
-> 
-> @mempool->alloc is set to mempool_alloc_slab(), which calls
-> kmem_cache_alloc_noprof() directly and expects the caller to have
-> already set current->alloc_tag.
-> 
-> It doesn't occur in the writeback path, however, because we call
-> mempool_alloc() macro that wraps to
-> 
->         alloc_hooks(mempool_alloc_noprof(...))
-> 
-> and it sets current->alloc_tag before the allocation.
 >
+> I just found Weiming post a patch solving same problem:
+>
+> https://lore.kernel.org/bpf/20260915170147.3943392-2-bestswngs@gmail.com/
+>
+> and that patch covers the cases I didn't consider so please ignore this p=
+atch.
 
-Right - and there's one more instance of the same pattern.
-Erhard's second warning (alloc_tag was not set on free) comes from
-netfs_folioq_alloc(), which does the same for the folio_queue:
-	
-	fq = netfs_folioq_pool.alloc(gfp, netfs_folioq_pool.pool_data);
+pw-bot: cr
 
-When I first saw the report I wondered why no other mempool user trips over this,
-so I had a look around the tree:
-
-Everyone else gets their elements through the mempool_alloc() macro, so the tag is
-set at their callsite and the callbacks see a valid current->alloc_tag.
-
-I went back to the commit that introduced the raw call, 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in
-writeback by adding a mempool") and OK, I think I roughly understand the story now.
-
-Here is my proposed fix patch. I don't have a test environment handy though. What do you think?
-
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index 420ee7b26580..373be970ec31 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -45,6 +45,9 @@ extern mempool_t netfs_request_pool;
- extern mempool_t netfs_subrequest_pool;
- extern mempool_t netfs_folioq_pool;
- 
-+#define mempool_alloc_element(_pool, _gfp)				\
-+	alloc_hooks((_pool)->alloc(_gfp, (_pool)->pool_data))
-+
- #ifdef CONFIG_PROC_FS
- static inline void netfs_proc_add_rreq(struct netfs_io_request *rreq)
- {
-diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-index 01461a74642d..18f5c64d404e 100644
---- a/fs/netfs/objects.c
-+++ b/fs/netfs/objects.c
-@@ -34,7 +34,7 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
- 
- 		rreq = mempool_alloc(mempool, gfp);
- 	} else {
--		rreq = mempool->alloc(gfp, mempool->pool_data);
-+		rreq = mempool_alloc_element(mempool, gfp);
- 		if (!rreq)
- 			return ERR_PTR(-ENOMEM);
- 	}
-@@ -206,7 +206,7 @@ struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq
- 	struct kmem_cache *cache = mempool->pool_data;
- 
- 	if (rreq->gfp == GFP_KERNEL)
--		subreq = mempool->alloc(rreq->gfp, mempool->pool_data);
-+		subreq = mempool_alloc_element(mempool, rreq->gfp);
- 	else
- 		subreq = mempool_alloc(mempool, rreq->gfp);
- 	if (!subreq)
-diff --git a/fs/netfs/rolling_buffer.c b/fs/netfs/rolling_buffer.c
-index 8c0026836f9c..d1ae6e081664 100644
---- a/fs/netfs/rolling_buffer.c
-+++ b/fs/netfs/rolling_buffer.c
-@@ -29,7 +29,7 @@ struct folio_queue *netfs_folioq_alloc(unsigned int rreq_id, gfp_t gfp,
- 	struct folio_queue *fq;
- 
- 	if (gfp == GFP_KERNEL)
--		fq = netfs_folioq_pool.alloc(gfp, netfs_folioq_pool.pool_data);
-+		fq = mempool_alloc_element(&netfs_folioq_pool, gfp);
- 	else
- 		fq = mempool_alloc(&netfs_folioq_pool, gfp);
- 	if (fq) {
--- 
-2.25.1
-
-Thanks
-Best Regards
-Hao
-
-> I'll look for a possible solution and then let you know.
-> 
-> Thanks for the report.
+Thanks.
