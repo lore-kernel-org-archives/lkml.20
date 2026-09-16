@@ -1,149 +1,505 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318064B04B1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EB749CF38
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789559224; cv=none; b=Uj+bZ/w8paraCM7/dELgkVv1sph10ec+oCYkbJ5BlGhkiaFf+QaKfzlQ9LkslxIsXowCaNSMwC8I+bklNr+EkbpRO3BnBFLEAitK3HS3TW+Uin10D5pnvwKfSEyzYjGxGwYkjYbWBB/3mt2bv7WwLipwQ5mUR2o67a4ozJWU+38=
+	t=1789559243; cv=none; b=VsXgqw50DrAoRuec7dWixBwYC2z89dCKh4PV0yuCgmyzS54VThcrqHZ88ldVnxiM5h9mL4HT3eAGMogXOWetBBpreL0Kc8o/slQE+eTN9u7OOu3T+cq/hDXV+SbPLUvb/JdlXkMA1ttl/KVoAkhsn1gvXJqY5DZNy95uduVSzzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789559224; c=relaxed/simple;
-	bh=41/H3+wV+C3ujyoz9pIl1FvptpMMe2jRK1WK+9Zs6CU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mt8/zQhG58sNlUfB9aEX4JUx6pCni6O1zA6jfUkdDMrl6kcdG0APOSJQBAsGvtICYVCquKKlzdJgA+wrv1SxX/HxFjhOMbB+NBH5SQcYQMAj7w56B2JhvmZWBrrbhnau7YyGuXcroAid41V/THynTPmPsvLxwCayP2L1K6FIeUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OLzZqs6t; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789559243; c=relaxed/simple;
+	bh=H7ePCZO2obUSv27UWVjzoXMjJ4aoUc5wM+sVbHcrI+U=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=QR+AJGFLxL4xkA6WL1cf5Q2giL9DUhkRjUZSgPGoh1vlG8WBPaPsPYNfIkE45iXN3YblOBpSmOZ3dJm5wG6Wmcbt+I5GmOUXMjM2y5i+hhmqBgvGC/t+1inhbMk1bi7Xzf+IXL6A2WtlQbOv1nQAbIlWFKG7VkG5Mbb0vCydm6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J8Qrbztg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OLzZqs6t"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fbb1e1cabso360055e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:46:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789559213; x=1790164013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YbkqAaL5SGcaxI6pARTdx7iSpDgbeB9gXVgD+3Jn6FQ=;
-        b=OLzZqs6tsqcFeJChFXqBt33mFcrUQadko/AR+6SrEGPJmXRbSZtteGBX8BLw3u9FvH
-         Pkaixygcbr569PD8aqZZjF2kNLVaSDS5Xv1ysjYO/9YMPu/Ye5Zr5i6i5GnzRiIrJYOY
-         74quZqzqPN1h6Rfdj8x6C4I+p4gmWIkvTOeDVr4ycTmpSwhAr227Bs+eTLfwwkdUEvTV
-         LRV5/ZAD+MkoRIVf6oNLuAtkQPf3I9+DGX3WIJMZG8BTvPpn03iy1z2mcFMzJLcT+cWL
-         HgFyeRoJyzP9vG0be+xN4P7uNC5oI8KXgiejFOLrGPbN1McWGuV5MuRqN+ZKerHud8cc
-         YeCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789559213; x=1790164013;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YbkqAaL5SGcaxI6pARTdx7iSpDgbeB9gXVgD+3Jn6FQ=;
-        b=CTXbWTZVI5AdzYUyl2FN7aYtuxY1X/mUKBQCb/9+si7oCVOV4bq3n0KxKZn0aRLUaS
-         ejRNIK2+ZUXAFjvXQRojaDHAVCUop4otm/BSz41QIZHcZVsm885MiYjaHP5RMRkP2l66
-         KYFzDS4arVarlVl+bk/9RcROMit+thOs9Q6TsKonnP3ohIWGIVXh9yFI67vaskQRO7SC
-         1J+/h1urG+V8jbPRLzm4O6DljyXbG0QVwsuwSAheMAp4Q5UtorGrI/gpZ+0r6omgTBLc
-         Qwc8pynnc6JRVoPjDf3+cjamdWpPMkmm42TDnqzjwMFfoQ40udKrzolu8T/JqaZOXAiy
-         jwfg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3ipuCqgnuk7z8rDS8Dg7Wm0MntDUN7Whp7NNXGkUufzhEbeDGPEc7gwljx23IWHllMFosmWIdDagn2vc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJQ4yebyrwJHHIbrkx6UVt/KxJ1UAYwA+7llWxYEUH5h+CuS2a
-	S3q1JBYHeiy384T9ajZFIQWzx38ezqiylJgdsI4eRD4PivbZhK9sMziy
-X-Gm-Gg: AYBFou0+3nbpFujMZUNm7nhR+BUu6mbDlYPGyFW/dqp1Jt+p3zzxmY21/n2MVsb5zG8
-	3W0xsyVUWWTULNjaMlVvnZeH5kzuxKImZKmnzqeAJXs0fwPxh0eD00syysG4DgY+7bIJV/KhXN+
-	WASBW8g2+yMJq/23tnJNYSzwLKUnvXUv5QngovsGH5teG6nZig1fiIZbw03dUuyrZZ/5wIS+CSw
-	xOlUs8I6wgE2PhcE/ry/VOWHZ7n1knGzfevzjQ1E3SyP6R92B3ftvtfNO6CZtLrilYGMw7pjt74
-	4DGpDzXTQfvDrHuHhu1aRwB+li3jUQuxk+jSpVZQszjdv/E62l0ENIan4VeGIFvU4xZcVWdKSRN
-	bJE81NeiVKE9sa5jwfBZn4LSq0ouAg5Wu7Ln9KLDw9nlGHMRRZ7xKpz4BcsbesUPleQ+Mo6y6m0
-	ibeba9IjuuYFu/Rnl1FWLQG026YnN5a6ThE5D03mHbB1/l6z6P9OhpcOizGmzFHJ9LeUYTnLUbo
-	T6QTaWm2X7IGxH9IV9IYw==
-X-Received: by 2002:a05:600c:4e0a:b0:49e:479b:c13b with SMTP id 5b1f17b1804b1-49eb732056fmr20743095e9.1.1789559212997;
-        Wed, 16 Sep 2026 04:46:52 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e847f176asm44406885e9.3.2026.09.16.04.46.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 04:46:52 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: christian.loehle@arm.com
-Cc: beata.michalska@arm.com,
-	cl@gentwo.org,
-	daniel.lezcano@kernel.org,
-	dietmar.eggemann@arm.com,
-	elif.topuz@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rafael@kernel.org,
-	rostedt@goodmis.org,
-	sh@gentwo.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH 2/2] sched/fair: Randomize equally shallow slow-path candidates
-Date: Wed, 16 Sep 2026 14:46:49 +0300
-Message-ID: <20260916114650.2627-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ea2c4680-ccee-4ad5-978c-95dade454091@arm.com>
-References: <ea2c4680-ccee-4ad5-978c-95dade454091@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J8Qrbztg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792821F000FF;
+	Wed, 16 Sep 2026 11:47:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789559233;
+	bh=kZRKNSQWm5kS0+QGQvTDt2BAcQoG2wcXTtCy79m3lRY=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=J8QrbztgqNLFVtevBJaDEMoVW3hPUV0Uf5zEWfVj9xDHax+pK//CvJqaqnHRROsbB
+	 9RgZYSjnzczbFcKG5X9LE4w2fa0LXXos/u7h0c2jL8ksCatydtjmvG5qEa8LaPNmKb
+	 Ek/4d+8MStEj9oALgch/R+F0GYwvZmGYyGqrFZy4+cXwa34ZNLg3lca82iEF1eDY90
+	 gxYvMh8YhKJlG/+hDBsani2Tgf5Gtx9n3CJ9sanqjrsTBEaFkVZU2XKioeJPyolI+a
+	 CLTBuliKst+m7Cjmslg7/jGtIQnnCWZtCjVLRquBFg/EQdQieNTW2vpajzalpgJk2l
+	 9uOkdhV692bcA==
+Message-ID: <78333738-966d-498e-9c36-19312de9ff71@kernel.org>
+Date: Wed, 16 Sep 2026 19:47:09 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
+ Juan Yescas <jyescas@google.com>, Dev Jain <Dev.Jain@arm.com>,
+ linux-kernel@vger.kernel.org, David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v2 03/14] f2fs: support regular file buffered writes on
+ large folios
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20260915041909.2903887-1-zhaonanzhe@xiaomi.com>
+ <20260915041909.2903887-4-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260915041909.2903887-4-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> > Hello Christian :>
-> > 
-> >> Picking the first eligible idle CPU leaves a scan-order bias. Concurrent
-> >> slow-path selectors can choose the same CPU before either task is enqueued.
-> > 
-> >> Use reservoir sampling in the tie branch, resetting the candidate count
-> >> when a lower advertised exit latency is found. Use the per-CPU scheduler
-> >> PRNG and reciprocal_scale() to avoid variable division or a second scan.
-> > 
-> >> This reduces deterministic convergence without reserving the chosen CPU.
-> > 
-> > OK. 
-> > 
-> > But, your test platform was 160 Cores too. I don't think randomization has the same effect on lower
-> > CPU systems.
-> > 
-> > Let's create a scenario:
-> > 
-> > On a 80 Core System, that %50 of it's CPU's are idle the randomization's chance of choosing the same CPU
-> > is low. Since there are 40 CPU's to choose from.
-> > 
-> > But on a 8 Core System in the same idle conditions, randomization's chance of choosing the same CPU
-> > is really higher. Since there are only 4 CPU's to choose from.
-> > 
-> > I think this solution works better on higher CPU counted systems. 
+On 9/15/26 12:18, Nanzhe Zhao wrote:
+> To avoid the complexity of unlocking a large folio in write_begin,
+> preallocate partial blocks for inodes that can use large folios.
+> During write_begin, read only the partial head and tail 4K subpages
+> that need read-before-write, and skip read I/O for the full middle
+> subpages covered by the write.
+> 
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> ---
+>  fs/f2fs/data.c | 300 +++++++++++++++++++++++++++++++++++++++++++++++--
+>  fs/f2fs/f2fs.h |   1 +
+>  fs/f2fs/file.c |  17 ++-
+>  3 files changed, 304 insertions(+), 14 deletions(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index f14044e8a6f4..a490df4f50b3 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -1233,6 +1233,35 @@ static void f2fs_submit_page_read(struct inode *inode, struct fsverity_info *vi,
+>  	f2fs_submit_read_bio(sbi, bio, DATA);
+>  }
+>  
+> +/*
+> + * Synchronously read a single 4K subpage by reusing f2fs_submit_page_read()
+> + * so that iostat, trace, blk-crypto and post-read handling are all preserved.
+> + * The caller must have already allocated ffs for the folio.
+> + */
+> +static int f2fs_submit_page_read_sync(struct inode *inode, struct folio *folio,
+> +				      pgoff_t index, block_t blkaddr)
+> +{
+> +	struct f2fs_folio_state *ffs = folio->private;
+> +
+> +	/* Add bias so end_io does not call folio_end_read(). */
+> +	f2fs_update_read_folio_pending(folio, 1);
 
-> Yes, this mostly works for higher CPU count domains, but the
-> issue I'm trying to fix basically doesn't exist in the 8 CPU domain
-> in the first place (first of all fewer chances of having simultaneous
-> slow paths running that can race and also the slow path is much faster,
-> i.e. the race window much smaller).
+f2fs_update_read_folio_pending() was used here for the first time, do we need
+to relocate definition in this patch?
 
-> > 
-> > And I don't think it fully removes the issue. Just better than the original tho.
-> > Thinks can still go bad on this one too, just harder.
+> +
+> +	f2fs_submit_page_read(inode, NULL, folio, index, blkaddr,
+> +			      REQ_OP_READ, false);
+> +
+> +	/* Wait until all bios have completed (pending drops back to our bias). */
+> +	while (READ_ONCE(ffs->read_pages_pending) != 1)
+> +		f2fs_io_schedule_timeout(DEFAULT_SCHEDULE_TIMEOUT);
+> +
+> +	/* Remove the bias. */
+> +	f2fs_update_read_folio_pending(folio, -1);
+> +
+> +	if (!f2fs_ffs_test_blk_uptodate(folio, index))
+> +		return -EIO;
+> +
+> +	return 0;
+> +}
+> +
+>  static void __set_data_blkaddr(struct dnode_of_data *dn, block_t blkaddr)
+>  {
+>  	__le32 *addr = get_dnode_addr(dn->inode, dn->node_folio);
+> @@ -2570,6 +2599,114 @@ static void ffs_detach_free(struct folio *folio)
+>  	kfree(ffs);
+>  }
+>  
+> +bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index)
+> +{
+> +	struct f2fs_folio_state *ffs;
+> +	unsigned int idx;
+> +
+> +	f2fs_bug_on(F2FS_F_SB(folio), !folio_contains(folio, index));
+> +
+> +	if (folio_test_uptodate(folio))
+> +		return true;
+> +
+> +	if (!f2fs_folio_has_ffs(folio))
+> +		return false;
+> +
+> +	ffs = (struct f2fs_folio_state *)folio->private;
+> +	idx = index - folio->index;
+> +	return test_bit(idx, ffs->state);
+> +}
+> +
+> +static bool __ffs_mark_subrange_uptodate(struct folio *folio,
+> +		struct f2fs_folio_state *ffs, size_t offset, size_t len)
+> +{
+> +	unsigned int nr_subpages = folio_nr_pages(folio);
+> +	unsigned int start, end;
+> +
+> +	start = offset >> PAGE_SHIFT;
+> +	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
+> +	end = min(end, nr_subpages);
+> +
+> +	bitmap_set(ffs->state, start, end - start);
+> +	return bitmap_full(ffs->state, nr_subpages);
+> +}
+> +
+> +static void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
+> +				       size_t len)
+> +{
+> +	struct f2fs_folio_state *ffs;
+> +	unsigned long flags;
+> +	bool mark_uptodate = false;
+> +
+> +	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
+> +
+> +	if (!f2fs_folio_has_ffs(folio)) {
+> +		folio_mark_uptodate(folio);
+> +		return;
+> +	}
+> +
+> +	ffs = (struct f2fs_folio_state *)folio->private;
+> +	spin_lock_irqsave(&ffs->state_lock, flags);
+> +	mark_uptodate = __ffs_mark_subrange_uptodate(folio, ffs, offset, len) &&
+> +			!ffs->read_pages_pending;
+> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
+> +	if (mark_uptodate)
+> +		folio_mark_uptodate(folio);
+> +}
+> +
+> +static void f2fs_ffs_mark_subrange_dirty(struct folio *folio,
+> +				    size_t offset, size_t len)
+> +{
+> +	struct f2fs_folio_state *ffs;
+> +	unsigned int nr_subpages, start, end;
+> +	unsigned long flags;
+> +
+> +	f2fs_bug_on(F2FS_F_SB(folio), offset + len > folio_size(folio));
+> +
+> +	if (!f2fs_folio_has_ffs(folio))
+> +		return;
+> +
+> +	ffs = (struct f2fs_folio_state *)folio->private;
+> +	nr_subpages = folio_nr_pages(folio);
+> +	start = offset >> PAGE_SHIFT;
+> +	end = (offset + len + PAGE_SIZE - 1) >> PAGE_SHIFT;
+> +	end = min(end, nr_subpages);
+> +
+> +	spin_lock_irqsave(&ffs->state_lock, flags);
+> +	bitmap_set(ffs->state, nr_subpages + start, end - start);
+> +	spin_unlock_irqrestore(&ffs->state_lock, flags);
+> +}
+> +
+> +static bool find_next_valid_block(const struct folio *folio,
+> +				  size_t orig_off, size_t *need_off,
+> +				  size_t len)
+> +{
+> +	size_t start = orig_off;
+> +	size_t end = start + len;
+> +	size_t head, tail;
+> +	pgoff_t index;
+> +
+> +	if (start & (PAGE_SIZE - 1)) {
+> +		head = round_down(start, PAGE_SIZE);
+> +		index = folio->index + (head >> PAGE_SHIFT);
+> +		if (!f2fs_ffs_test_blk_uptodate(folio, index)) {
+> +			*need_off = head;
+> +			return true;
+> +		}
+> +	}
+> +
+> +	if (end & (PAGE_SIZE - 1)) {
+> +		tail = round_down(end - 1, PAGE_SIZE);
 
-> Fully removing the issue would require some synchronisation which the
-> numbers (which admittedly are pretty modest already) just don't justify.
+tail = round_down(end, PAGE_SIZE);
 
-> > 
-> > Maybe we could add a fallback. Because the real concern is the selected CPU's state
-> > changes when we come to enqueue. If possible tho, I did not really test anything.
+> +		index = folio->index + (tail >> PAGE_SHIFT);
+> +		if (!f2fs_ffs_test_blk_uptodate(folio, index)) {
+> +			*need_off = tail;
+> +			return true;
+> +		}
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  static int f2fs_read_data_large_folio(struct inode *inode,
+>  		struct fsverity_info *vi,
+>  		struct readahead_control *rac, struct folio *folio)
+> @@ -3927,6 +4064,110 @@ static int prepare_atomic_write_begin(struct f2fs_sb_info *sbi,
+>  	return 0;
+>  }
+>  
+> +static int prepare_large_folio_write_begin(struct inode *inode,
+> +					  struct folio *folio, loff_t pos,
+> +					  unsigned int len)
+> +{
+> +	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+> +	struct f2fs_folio_state *ffs;
+> +	size_t ori_off = offset_in_folio(folio, pos);
+> +	size_t need_off = ori_off;
+> +	int err = 0;
+> +
+> +	len = min_t(unsigned int, len, folio_size(folio) - ori_off);
+> +
+> +	/*
+> +	 * When folio minimum order is non-zero, the fsverity
 
-> And then do what? rescan?
-> I don't think increasing the slow path is justified at all, when this relatively
-> straightforward randomization already significantly reduces the chance
-> for the 'pathological' test platform.
+Seems there is a condition that folio minimum order is non-zero, do we
+need to check this condition along w/ FI_PREALLOCATED_ALL?
 
-Fair. 
+> +	 * page_cache_write() path enters f2fs_write_begin() via
+> +	 * aops->write_begin without going through f2fs_write_iter(),
+> +	 * so preallocation from f2fs_write_iter() is skipped.  In that
+> +	 * case, if FI_PREALLOCATED_ALL is not set, we must preallocate
+> +	 * the write blocks here.
+> +	 */
+> +	if (!is_inode_flag_set(inode, FI_PREALLOCATED_ALL)) {
+> +		struct f2fs_map_blocks map = {};
+> +
+> +		map.m_lblk = F2FS_BYTES_TO_BLK(sbi, pos);
+> +		map.m_len = F2FS_BLK_ALIGN(sbi, pos + len) - map.m_lblk;
+> +
+> +		if (!IS_DEVICE_ALIASING(inode))
+> +			map.m_may_create = true;
+> +		map.m_seg_type = NO_CHECK_TYPE;
+> +
+> +		err = f2fs_map_blocks(inode, &map, F2FS_GET_BLOCK_PRE_AIO);
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	ffs = f2fs_ffs_find_or_alloc(folio);
+> +	if (!ffs)
+> +		return -ENOMEM;
+> +
+> +	/* Skip read if the folio is already fully uptodate or the write
+> +	 * covers the entire folio.
+> +	 */
+> +	if (folio_test_uptodate(folio) || len == folio_size(folio))
+> +		return 0;
+> +
+> +	if (!f2fs_verity_in_progress(inode) &&
+> +	    !(pos & (PAGE_SIZE - 1)) && (pos + len) >= i_size_read(inode)) {
+> +		size_t zoff = ori_off + len;
+> +
+> +		if (zoff < folio_size(folio))
+> +			folio_zero_segment(folio, zoff, folio_size(folio));
+> +		return 0;
+> +	}
+> +
+> +	/* Inline data must have been converted before reaching here. */
+> +	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
+> +
+> +	while (find_next_valid_block(folio, ori_off,
+> +				     &need_off, len)) {
+> +		struct dnode_of_data dn;
+> +		pgoff_t index = folio->index + (need_off >> PAGE_SHIFT);
+> +		block_t blkaddr;
+> +		bool get_dn = false;
+> +
+> +		if (!f2fs_lookup_read_extent_cache_block(inode, index,
+> +							&blkaddr)) {
+> +			if (IS_DEVICE_ALIASING(inode))
+> +				return -ENODATA;
+> +
+> +			set_new_dnode(&dn, inode, NULL, NULL, 0);
+> +			err = f2fs_get_dnode_of_data(&dn, index, LOOKUP_NODE);
+> +			if (err)
+> +				return err;
+> +			get_dn = true;
 
-My real concern is that randomization is not predictable while the other solutions are.
-I don't really care about their speed when it comes to that.
+Can we call f2fs_put_dnode(&dn) here? since we don't need to cover dnode
+lock during I/O?
 
-That's just a concern tho. I think this version is better than just placing the task
-to the CPU anyways. (in terms of approach)
+Thanks,
+
+> +			blkaddr = dn.data_blkaddr;
+> +
+> +			if (blkaddr == NEW_ADDR) {
+> +				size_t off = offset_in_folio(folio,
+> +							     index << PAGE_SHIFT);
+> +
+> +				folio_zero_segment(folio, off, off + PAGE_SIZE);
+> +				f2fs_ffs_mark_subrange_uptodate(folio, off,
+> +							       PAGE_SIZE);
+> +				goto out;
+> +			}
+> +
+> +			if (!f2fs_is_valid_blkaddr(sbi, blkaddr,
+> +						  DATA_GENERIC_ENHANCE_READ)) {
+> +				err = -EFSCORRUPTED;
+> +				goto out;
+> +			}
+> +		}
+> +
+> +		err = f2fs_submit_page_read_sync(inode, folio, index, blkaddr);
+> +out:
+> +		if (get_dn)
+> +			f2fs_put_dnode(&dn);
+> +		if (err)
+> +			return err;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int f2fs_write_begin(const struct kiocb *iocb,
+>  			    struct address_space *mapping,
+>  			    loff_t pos, unsigned len, struct folio **foliop,
+> @@ -3938,6 +4179,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>  	pgoff_t index = pos >> PAGE_SHIFT;
+>  	bool need_balance = false;
+>  	block_t blkaddr = NULL_ADDR;
+> +	fgf_t fgp = FGP_LOCK | FGP_WRITE | FGP_CREAT;
+>  	int err = 0;
+>  
+>  	trace_f2fs_write_begin(inode, pos, len);
+> @@ -3985,9 +4227,15 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>  	 * Do not use FGP_STABLE to avoid deadlock.
+>  	 * Will wait that below with our IO control.
+>  	 */
+> -	folio = f2fs_filemap_get_folio(mapping, index,
+> -				FGP_LOCK | FGP_WRITE | FGP_CREAT,
+> -				mapping_gfp_mask(mapping));
+> +	/*
+> +	 * Inline data is carried in the first subpage.  Keep the index #0
+> +	 * folio order-0 so that the existing inline read/convert paths
+> +	 * (prepare_write_begin()) still apply; large folios are used from
+> +	 * the second folio on.
+> +	 */
+> +	fgp |= fgf_set_order(f2fs_has_inline_data(inode) ? PAGE_SIZE : len);
+> +	folio = f2fs_filemap_get_folio(mapping, index, fgp,
+> +				      mapping_gfp_mask(mapping));
+>  	if (IS_ERR(folio)) {
+>  		err = PTR_ERR(folio);
+>  		goto fail;
+> @@ -4000,7 +4248,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>  	if (f2fs_is_atomic_file(inode))
+>  		err = prepare_atomic_write_begin(sbi, folio, pos, len,
+>  					&blkaddr, &need_balance);
+> -	else
+> +	else if (!folio_test_large(folio))
+>  		err = prepare_write_begin(sbi, folio, pos, len,
+>  					&blkaddr, &need_balance);
+>  	if (err)
+> @@ -4021,6 +4269,14 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>  
+>  	f2fs_folio_wait_writeback(folio, DATA, false, true);
+>  
+> +	if (folio_test_large(folio)) {
+> +		err = prepare_large_folio_write_begin(inode,
+> +					folio, pos, len);
+> +		if (!err)
+> +			return 0;
+> +		goto put_folio;
+> +	}
+> +
+>  	if (len == folio_size(folio) || folio_test_uptodate(folio))
+>  		return 0;
+>  
+> @@ -4081,15 +4337,20 @@ static int f2fs_write_end(const struct kiocb *iocb,
+>  	trace_f2fs_write_end(inode, pos, len, copied);
+>  
+>  	/*
+> -	 * This should be come from len == PAGE_SIZE, and we expect copied
+> -	 * should be PAGE_SIZE. Otherwise, we treat it with zero copied and
+> -	 * let generic_perform_write() try to copy data again through copied=0.
+> +	 * If a short copy happens on a folio that isn't uptodate, we treat
+> +	 * it with zero copied and let generic_perform_write() try to copy
+> +	 * data again through copied=0.
+>  	 */
+>  	if (!folio_test_uptodate(folio)) {
+> -		if (unlikely(copied != len))
+> +		if (unlikely(copied != len)) {
+>  			copied = 0;
+> -		else
+> +		} else if (folio_test_large(folio)) {
+> +			f2fs_ffs_mark_subrange_uptodate(folio,
+> +					offset_in_folio(folio, pos), len);
+> +		} else {
+> +			/* This should be come from len == PAGE_SIZE */
+>  			folio_mark_uptodate(folio);
+> +		}
+>  	}
+>  
+>  #ifdef CONFIG_F2FS_FS_COMPRESSION
+> @@ -4108,6 +4369,9 @@ static int f2fs_write_end(const struct kiocb *iocb,
+>  	if (!copied)
+>  		goto unlock_out;
+>  
+> +	if (folio_test_large(folio))
+> +		f2fs_ffs_mark_subrange_dirty(folio, offset_in_folio(folio, pos),
+> +								   copied);
+>  	folio_mark_dirty(folio);
+>  
+>  	if (f2fs_is_atomic_file(inode))
+> @@ -4170,8 +4434,22 @@ static bool f2fs_dirty_data_folio(struct address_space *mapping,
+>  
+>  	trace_f2fs_set_page_dirty(folio, DATA);
+>  
+> -	if (!folio_test_uptodate(folio))
+> -		folio_mark_uptodate(folio);
+> +	if (!folio_test_uptodate(folio)) {
+> +		bool uptodate = true;
+> +
+> +		if (f2fs_folio_has_ffs(folio)) {
+> +			struct f2fs_folio_state *ffs =
+> +				(struct f2fs_folio_state *)folio->private;
+> +			unsigned long flags;
+> +
+> +			spin_lock_irqsave(&ffs->state_lock, flags);
+> +			uptodate = bitmap_full(ffs->state, folio_nr_pages(folio)) &&
+> +				   !ffs->read_pages_pending;
+> +			spin_unlock_irqrestore(&ffs->state_lock, flags);
+> +		}
+> +		if (uptodate)
+> +			folio_mark_uptodate(folio);
+> +	}
+>  	BUG_ON(folio_test_swapcache(folio));
+>  
+>  	if (filemap_dirty_folio(mapping, folio)) {
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 326382ede1c3..8eccca6e5d27 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -4392,6 +4392,7 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
+>  				struct writeback_control *wbc,
+>  				enum iostat_type io_type,
+>  				int compr_blocks, bool allow_balance);
+> +bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index);
+>  void f2fs_write_failed(struct inode *inode, loff_t to);
+>  void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
+>  bool f2fs_release_folio(struct folio *folio, gfp_t wait);
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index b0bdc7a977b9..9071bd23e57b 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -5412,9 +5412,20 @@ static int f2fs_preallocate_blocks(struct kiocb *iocb, struct iov_iter *iter,
+>  			return ret;
+>  	}
+>  
+> -	/* Do not preallocate blocks that will be written partially in 4KB. */
+> -	map.m_lblk = F2FS_BLK_ALIGN(sbi, pos);
+> -	map.m_len = F2FS_BYTES_TO_BLK(sbi, pos + count);
+> +	if (!dio && mapping_large_folio_support(inode->i_mapping)) {
+> +		/*
+> +		 * Preallocate all blocks touched by a large-folio buffered write so
+> +		 * the regular write_begin path does not need to unlock the folio for
+> +		 * f2fs_balance_fs().  Rechecking large-folio state after unlock is
+> +		 * unreliable since partial truncation can split the folio.
+> +		 */
+> +		map.m_lblk = F2FS_BYTES_TO_BLK(sbi, pos);
+> +		map.m_len = F2FS_BLK_ALIGN(sbi, pos + count);
+> +	} else {
+> +		/* Do not preallocate blocks that will be written partially in 4KB. */
+> +		map.m_lblk = F2FS_BLK_ALIGN(sbi, pos);
+> +		map.m_len = F2FS_BYTES_TO_BLK(sbi, pos + count);
+> +	}
+>  	if (map.m_len > map.m_lblk)
+>  		map.m_len -= map.m_lblk;
+>  	else
 
