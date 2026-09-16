@@ -1,120 +1,154 @@
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+Received: from mail-24426.protonmail.ch (mail-24426.protonmail.ch [109.224.244.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E810C397332;
-	Wed, 16 Sep 2026 12:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A8A3644A4;
+	Wed, 16 Sep 2026 12:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562045; cv=none; b=aImVY4r294lyVf5NKHdui4JDM1ggwsRfpiwTX1q//XHdmMSed88r5FTfEP1XN/dGuhpNgYBOrGDlMcfSzebGQAyeawlj6WZX3dp3PxtJjTVAVoNkzCLmy4Ad9pD5vveVIRhFfmQFKzEuoxY3Lku77L7d6xbGg9LfKa8w1YFSeD8=
+	t=1789562063; cv=none; b=AU51C24wd3ndDwReMmWNlr9V9dA0jRdVT3yg8DHW/agGZUQFwXn8be2GggTdeigeU20ehPvhmeToUKUhdpvDTEh4Wj1y0DrptjnuEPpApdhexE/ucgm4D/oATI5C6wnul0pdUhDUVBN/1cRHaG4JIWLB4buJd6mpJ/CapuDsyds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562045; c=relaxed/simple;
-	bh=CTYpGLfzf06i6XjDq87lF0QNPY4CEguC68xK62qqZGA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LpVEXUr+3J4mxFZXfKMx6JoywDO/s+uhWRrnoxVrRkWOVlwBy9HHoW0oQ2QdZqRsF1DesVU+1S4jg2zFCh7vZKQ3AmTbjAXyo2Cfy5ljyUrF8R+AHJsY2oyyLShadUuIKKr4Vi7enkuafob4h6RVLanXhljISc1mb96OuVyG0x4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=Mrd98u5p; arc=none smtp.client-ip=34.218.115.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1789562063; c=relaxed/simple;
+	bh=Afuig7NdFAQ5XnHoQ8HzWcRJNPh6Fl9+Itbf/eok9q4=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Gesjrot++J+OZfCCWpfmb9bBGCzkijbVzZuuijGy2jSqTE2E1q1VbMr6cZXt3dlDd5vNp6ZPo3dnsNUtgTuf918iK0u8b4SeJQHNaEqe04N/IOiQOIP//Vin4MjLoLbTEGIRwNQycLZOVARQoxCH5poRZipqW+92VzZYOG8Q/TQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=eP2m+BlE; arc=none smtp.client-ip=109.224.244.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="Mrd98u5p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1789562043; x=1821098043;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=5NxDUihJPHiGDRQYSDDtVC+R4CeSGVyeXtq6Wtw8UtQ=;
-  b=Mrd98u5p0fKGpX4kTHKmY/4M6SEyvB5i3rQdQEx8wqs4q5R930F9R9/p
-   1P9lHRIMHdMO+pM5I5Xs6YIiNgZKLIm5L3aS5UyjDoby5Ja67AQDBFzHR
-   vduLhAK68nqv5eZgn8Y2FRWns/1YHM2Fr0Z/DaQNUg2IzRnou197DyUUD
-   L7rXMXQTewKMgX9YMBwwN2TRH9zqteWXzDnj0L30is4j1y4sldXIGUSiA
-   S7y1oVQ17zfUGQzA7E9BNnMzxMeBItd25/SLT5BA+j+LhyH4SWfntyCaD
-   zPuzObXdUjRqOM04J2AA8A/Mgf/Pp2NISzxTczbPJonLBVwfSmc0JG29X
-   A==;
-X-CSE-ConnectionGUID: P2CMm6IrRJiqbYeIRza5gg==
-X-CSE-MsgGUID: 2bgfVeYvQUin65kJlC7fLg==
-X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
-   d="scan'208";a="28611434"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 12:34:01 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:2947]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.10:2525] with esmtp (Farcaster)
- id 430a1dff-0731-4995-8b18-068a5ea79f19; Wed, 16 Sep 2026 12:34:00 +0000 (UTC)
-X-Farcaster-Flow-ID: 430a1dff-0731-4995-8b18-068a5ea79f19
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Wed, 16 Sep 2026 12:34:00 +0000
-Received: from dev-dsk-absandze-1c-663c31a8.eu-west-1.amazon.com
- (172.19.91.26) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Wed, 16 Sep 2026
- 12:33:58 +0000
-From: Luka Absandze <absandze@amazon.de>
-To: <peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
-	<namhyung@kernel.org>, <tglx@kernel.org>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <yaoz@meta.com>,
-	<dwmw2@infradead.org>
-CC: <kim.phillips@amd.com>, <kvm@vger.kernel.org>,
-	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Luka
- Absandze" <absandze@amazon.de>
-Subject: [PATCH] perf/x86/amd: Reject AMD Merge event as a countable event
-Date: Wed, 16 Sep 2026 12:33:15 +0000
-Message-ID: <20260916123315.89042-1-absandze@amazon.de>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="eP2m+BlE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1789562053; x=1789821253;
+	bh=Afuig7NdFAQ5XnHoQ8HzWcRJNPh6Fl9+Itbf/eok9q4=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eP2m+BlEvnRBrC/brOvZjY6UgP/qCQldM5DvoCG7JLV9JBIvU4ZGAaPX9W2JVoCox
+	 rgezLkqCrnJSjqZ9V9/PyycraBGBY7KiyhbylIKQlwvYxdF7edtQRRBU0FeK/gxRGd
+	 NPVlK5yNhuzmr2cZuPp7vjgLmQoJ6hInKyadsyAiIlVFPdtRu5mqq5DGig4F5Ztv9o
+	 Q7zsNnWcWCaHSobu+fHsW0/3anH/bGqPA5SuJ9Ox326TfjiM6Mi0fKXnC/Y5R6BhhG
+	 feY/S9Z8E/gNX7FsY8aPPeF8tpHV4R4IdMiFByxjbXg1n9DduEx4uHjZYF6daaQyFb
+	 5Azk+iiGN8Htw==
+Date: Wed, 16 Sep 2026 12:34:06 +0000
+To: ricardo@pardini.net, alchark@flipper.net
+From: Ryan Leung <untilscour@protonmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, finley.xiao@rock-chips.com, gregkh@linuxfoundation.org, heiko@sntech.de, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, michael@walle.cc, miquel.raynal@bootlin.com, robh@kernel.org, srini@kernel.org, stable@vger.kernel.org, untilscour@protonmail.com
+Subject: Re: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP CPU ID
+Message-ID: <20260916123355.4507-1-untilscour@protonmail.com>
+Feedback-ID: 184418679:user:proton
+X-Pm-Message-ID: e5075cf7b5d4595542ae7b0ca159d512ead7b50d
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D039UWA002.ant.amazon.com (10.13.139.32) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-AMD event select 0xFFF (Merge) is the hardware control encoding used by
-Large Increment per Cycle (LIPC) pairs.  When written into an odd
-counter's PerfCtl it turns that counter into the upper 16 bits of a
-64-bit merged accumulator; any subsequent arming write (-(2^47-1)) is
-silently truncated to its low 16 bits, while hwc->prev_count retains the
-full value.
+Hi Ricardo, Alexey,
 
-This is particularly problematic with a KVM guest, which will program
-the Merge encoding into its own odd vPMC as a normal part of scheduling
-a LIPC event.  KVM intercepts that write and faithfully forwards it to
-the host as a raw event carrying the Merge encoding, where it is
-accepted as an ordinary countable event. Once a counter's PerfCtl holds
-the Merge encoding, every later user of that counter gets a first delta
-inflated by 2^47
+> On 02/09/2026 15:07, Alexey Charkov wrote:
+> > Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
+> > memory, and Rockchip bootloaders use it to give boards which have no
+> > dedicated storage for a MAC address a stable one anyway: they hash the =
+CPU
+> > ID and patch the resulting addresses into the device tree they hand ove=
+r.
+> >=20
+> > Kernels started without that fixup, e.g. straight from the SPL in Falco=
+n
+> > mode or by any other loader which does not implement Rockchip's derivat=
+ion,
+> > fall back to random MAC addresses which change on every boot.
+> >=20
+> > Formalize the derivation in the DT binding and add a Linux kernel drive=
+r
+> > implementing it, so that a Linux image can use the same stable addresse=
+s
+> > regardless of the boot flow.
+> >=20
+> > Only RK3576 is wired up here, that being the SoC I can test on. Other
+> > Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rath=
+er
+> > than 0xa on RK3588, for instance - which makes supporting them a two-li=
+ne
+> > addition to the driver's match table plus the layout node.
+> Hi Alexey,
+>=20
+> I went off trying this on RK3588 and - exactly like you said - it=20
+> translates perfectly there, just with a different offset. Thanks!
+>=20
+> Not content, I went for RK356x as well - and that revealed what I think=
+=20
+> is a snag.
+>=20
+> Both RK3576 and RK3588 currently describe their fixed cells as direct=20
+> children of the OTP node -- turns out that is the "legacy" way, which=20
+> works due to 'add_legacy_fixed_of_cells'.
+>=20
+> But RK356x/3528/3562, done more recently [1], use a single=20
+> 'fixed-layout' with child cells; and there can only ever be one layout,=
+=20
+> so we wouldn't be able to use the new layout for those.
+>=20
+> I imagine one way around it would be to allow such fixed cells also=20
+> under the new layout, by delegating to 'nvmem_add_cells_from_dt()' and=20
+> adding patternProperties with '$ref: fixed-cell.yaml' in the binding,=20
+> similar to what fixed-layout.yaml does, but I'm unsure that would be a=20
+> good idea?
+>=20
+> Either way, thanks for this, it really helps with Falcon mode and edk2;=
+=20
+> I can also use it for the fixed-function RTL8125 PCIe NICs I started=20
+> describing [2] (and will eventually send a v5).
+>=20
+> [1] https://lore.kernel.org/all/20260312213019.13965-3-heiko@sntech.de/
+> [2]=20
+> https://lore.kernel.org/linux-rockchip/20260617-rk3588-dts-rtl-eth-descri=
+be-dt-alias-v4-0-2bd38922d129@pardini.net/
+>=20
+> mvg,
+> Ricardo
 
-Reject Merge (AMD_MERGE_EVENT) in amd_core_hw_config() so it cannot be
-submitted as a user-visible event.  The pair mechanism programs it
-itself via x86_pmu.perf_ctr_pair_en; nothing else should do so.
+What about changing the driver to handle something like:
 
-Fixes: 5738891229a2 ("perf/x86/amd: Add support for Large Increment per Cycle Events")
-Reported-by: Yao Zhou <yaoz@meta.com>
-Signed-off-by: Luka Absandze <absandze@amazon.de>
----
- arch/x86/events/amd/core.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+=09otp: otp@... {
+=09=09compatible =3D "rockchip,rk3528-otp";
 
-diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
-index 49b6b8fce566..cb655c751e5b 100644
---- a/arch/x86/events/amd/core.c
-+++ b/arch/x86/events/amd/core.c
-@@ -380,8 +380,12 @@ static int amd_core_hw_config(struct perf_event *event)
- 	else if (event->attr.exclude_guest)
- 		event->hw.config |= AMD64_EVENTSEL_HOSTONLY;
- 
--	if ((x86_pmu.flags & PMU_FL_PAIR) && amd_is_pair_event_code(&event->hw))
--		event->hw.flags |= PERF_X86_EVENT_PAIR;
-+	if (x86_pmu.flags & PMU_FL_PAIR) {
-+		if ((event->hw.config & AMD64_EVENTSEL_EVENT) == AMD_MERGE_EVENT)
-+			return -EINVAL;
-+		if (amd_is_pair_event_code(&event->hw))
-+			event->hw.flags |= PERF_X86_EVENT_PAIR;
-+	}
- 
- 	if (has_branch_stack(event))
- 		return static_call(amd_pmu_branch_hw_config)(event);
--- 
-2.47.3
+=09=09#address-cells =3D <1>;
+=09=09#size-cells =3D <1>;
+
+=09=09nvmem-layout {
+=09=09=09compatible =3D "fixed-layout";
+
+=09=09=09#address-cells =3D <1>;
+=09=09=09#size-cells =3D <1>;
+
+=09=09=09otp_id: id@a {
+=09=09=09=09reg =3D <0x0a 0x10>;
+=09=09=09};
+=09=09};
+=09};
+
+=09otp_mac: otp-mac {
+=09=09compatible =3D "rockchip,otp-cpuid-mac";
+
+=09=09nvmem-cells =3D <&otp_id>;
+=09=09nvmem-cell-names =3D "source";
+
+=09=09#address-cells =3D <1>;
+=09=09#size-cells =3D <1>;
+
+=09=09otp_mac_address: mac-address@0 {
+=09=09=09reg =3D <0 0x10>;
+=09=09=09#nvmem-cell-cells =3D <1>;
+=09=09};
+=09};
+
+using devm_nvmem_cell_get("source") to read the otp cell.
+
+Then a match table would not be necessary and it would work with every
+SoC, even those without the fixed-layout nvmem, because of
+add_legacy_fixed_of_cells as you mentioned.
+
+Best regards,
+Ryan
 
