@@ -1,96 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6129A375AA8
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E1537C108
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:51:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563095; cv=none; b=lw6BsCClllMEAJGIV0Lr4ze2KcA+KBXK+gmRSzYRybkVqpQwf/Wz+cZ//cJXhm32ZqYRfP34LTjnn385C9lUdtzqJqaQ97buYdloRTdiko0DHchuF9KmwquXZ+h3QPa+pGy3zqellpIpBlKlZm0aM0645K7gqdmNaxfpXXj4ECc=
+	t=1789563104; cv=none; b=YV8v+83qlBbTglC6JjSOzUwR6v/FJZsJlFfj0eWjsfyQdhaKPTtQhnJM7ZIOC2TSksfNt1Mu0S3xm9mOypGJpEa0COF9nu1AyAgjUuhn8NcUUcu1S7tCMuE84tObvPcT/3KpzByAoHBOyCIb9qMZ5e7AR1i+gWYL8VyqqICkIhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563095; c=relaxed/simple;
-	bh=pu6X9klI1k9sB+YbdsGiZd902YtqCsCKNONBNzlZKTE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NRPA9iFvCnqrs2ItR++GuEmITET4bepOkQxh96dB6IlSWc9aP6FdiQ8rCyZjh840XuHzq+01l5/1q8bPNp0fdWEXmWng/urtkL7H4lhHlKu1ucJ3at6MkajqLovNyQs3522Hsi/MJu4eMeDN3zEXGim++1NBJrlCfglA1cIG+Cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSmY6qQH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789563104; c=relaxed/simple;
+	bh=/GTEXjAO8G07aQ62TimyMku3VnOjLh/C2zIWvY7maY0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fab5jMICaA+wgwiQxt08tjVM5Z58xhhUsICsiyFqUhZG+N+nic3J7SPp0C4IPcPGUz2lBPIc7TPfBuFY1o1ckQAPWYJm3YghE0YvgSILj5NXvPyTIQaTsrMq531fuMB0VarE2mInx+PVRUB5lH+lWJzmROkz7xNkbThuBlRdxMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qLfThpJn; arc=none smtp.client-ip=91.218.175.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSmY6qQH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE911F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:51:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789563091;
-	bh=wF3oG5+si3MD5cI1NUF4lhUkkspODcUmglSJAEfVfdA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cSmY6qQHLjsdL7iqxeKbkhK4Lj4ZbOc44kuO45QGP07fd4F4AfgqJ1Zc2iBPSwghD
-	 5/LboLiwHUmWpx3ztjO/n8D8m+waCLf7r7niyey9JfyF4WILu5PREKaD8tuxuBenlu
-	 lV58gWS1/0amdUAN52LGmxkRpNlpo9SMGiG9up4cneUHPzR2F2vSNbZWk1YtgBfkdl
-	 /jMrzwc1JdPA5qPWYtBaJ9Ab1sBbiX0jL6TQwHU5a2Sno1KgrfehTnlTc1EnGywA+r
-	 3lh61Y+bwWCuHb1e+y5woSbr1b0IqggD1G86B+Mh37ygK1MHzTOSj8WfykCR38RIgn
-	 yzeQNRCdGeOQw==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b899413537so1178533e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:51:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByk9mKFsLQ1KOTj/Y1lZwdkLN0LSSpznbsi+sPR1+zgpsb1iC6z7SK4QUD1b/lOKvjt4rtzo+7jKnYNiFE=@vger.kernel.org
-X-Gm-Message-State: AFuF++krPQIuo4EgxZyaPEbuR855GE+1Kz+11CxO28FSIxF2xorRyv83
-	HtxP4nv8bG1NOXVPjbe1S4CcFFUEHOLcv6XQanTkbAsZBnpvI5M715l/dQJc/Z0drMN84O+gYCp
-	cU1wRireJGNCw9jEUIIrmsueqc7pKYZ4=
-X-Received: by 2002:a05:6512:1151:b0:5b7:651b:1cc2 with SMTP id
- 2adb3069b0e04-5b8b66120d1mr695592e87.6.1789563089824; Wed, 16 Sep 2026
- 05:51:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qLfThpJn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/GTEXjAO8G07aQ62TimyMku3VnOjLh/C2zIWvY7maY0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789563099; v=1; x=1790167899;
+ b=qLfThpJnuV2qzRJzau+BUNAKZxTbQM+pZ2bPZOLeVdrT0Tj1iAyNvR1J7z7DaYC6vJoSLkbV
+ ViHJ7KnN9aka+1FrYZcFJaaSAU86jfcPdfuOEkYVqPDCTE/d6gSw8FxLPoBPIyRBDdtBy2Ohn7L
+ 3nu48xdYKNXCBxiNmmQYI81w=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 13cff38a12b166cd;
+	Wed, 16 Sep 2026 12:51:29 +0000
+X-Mizu-Trace-ID: 13cff38a12b166cd
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	jack@suse.cz,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	willy@infradead.org,
+	david@kernel.org
+Cc: hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	roman.gushchin@linux.dev,
+	muchun.song@linux.dev,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	kernel-team@meta.com,
+	Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH] mm: filemap: move lruvec accounting outside the xarray lock
+Date: Wed, 16 Sep 2026 05:51:22 -0700
+Message-ID: <20260916125122.2696271-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913173132.1172003-1-sashal@kernel.org>
-In-Reply-To: <20260913173132.1172003-1-sashal@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 14:51:16 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmdWkGjhOpv=qQHnHx2Q=EhA=bEH_7Z3R0BQe5m7XFwQQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WAroJLkrx3qUVBuNGwMlcQNSu2Wv4gTPn3O7hmcVanEmCJ1KrfBZgTpdI
-Message-ID: <CAD++jLmdWkGjhOpv=qQHnHx2Q=EhA=bEH_7Z3R0BQe5m7XFwQQ@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: ux500: Parenthesize MSP_{RX,TX}_CLKPOL_BIT() arguments
-To: Sasha Levin <sashal@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, kernel test robot <lkp@intel.com>, 
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 13, 2026 at 7:31=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
-te:
+__filemap_add_folio() inserts a folio and updates mapping->nrpages
+while holding mapping->i_pages.xa_lock with interrupts disabled. The
+XArray insertion and nrpages update require the lock, but the lruvec
+statistic updates do not. With CONFIG_MEMCG, those calls also update
+per-CPU memcg and lruvec counters and notify cgroup rstat, extending the
+critical section.
 
-> arm allmodconfig fails to build with gcc:
->
->   In file included from sound/soc/ux500/ux500_msp_i2s.c:20:
->   sound/soc/ux500/ux500_msp_i2s.h:151:38: error: suggest parentheses
->   around arithmetic in operand of '^' [-Werror=3Dparentheses]
->   sound/soc/ux500/ux500_msp_i2s.c:204:21: note: in expansion of macro
->   'MSP_TX_CLKPOL_BIT'
->   cc1: all warnings being treated as errors
->
-> The macros never parenthesized their argument:
->
->   #define MSP_TX_CLKPOL_BIT(n)  ((n & TCKPOL_MASK) << TCKPOL_SHIFT)
->
-> That went unnoticed while every caller passed a plain variable, but
-> configure_protocol() now passes an XOR expression, which binds as
-> "a ^ (b & MASK)" rather than "(a ^ b) & MASK", and gcc rightly
-> complains.
->
-> No functional change: tx_clk_pol and rx_clk_pol only ever hold
-> MSP_FALLING_EDGE (0) or MSP_RISING_EDGE (1), and bclk_inverted is a
-> bool, so masking before or after the XOR gives the same 0/1 result.
-> Parenthesize the argument anyway - it fixes the build and stops the
-> macros from silently mis-evaluating a future composite argument.
->
-> Fixes: 9ccbacf5a012 ("ASoC: ux500: Validate MSP DAI configuration")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202609051547.G9SJp8UQ-lkp@i=
-ntel.com/
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Move the lruvec accounting after a successful XArray insertion and
+after xas_unlock_irq(). The page-cache references pin the folio, while
+the folio lock keeps folio->mapping stable and prevents removal until
+accounting is complete. This moves one lruvec update for ordinary folios
+and a second for PMD-mappable folios out of the serialized section.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+In a 30-second system-wide perf lock contention -ab capture on a
+production host, the hottest caller-stack record attributed to
+__filemap_add_folio() had 20,867 contentions and 557.930 ms total wait.
+That was 14% of the 3.998 seconds of aggregate lock wait in the
+capture. Moving lruvec accuting outside of critical section should
+help optimize it.
 
-Yours,
-Linus Walleij
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+ mm/filemap.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 00fd89cf6f550..4720bbfc1a663 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -918,14 +918,6 @@ noinline int __filemap_add_folio(struct address_space *mapping,
+ 
+ 		mapping->nrpages += nr;
+ 
+-		/* hugetlb pages do not participate in page cache accounting */
+-		if (!huge) {
+-			lruvec_stat_mod_folio(folio, NR_FILE_PAGES, nr);
+-			if (folio_test_pmd_mappable(folio))
+-				lruvec_stat_mod_folio(folio,
+-						NR_FILE_THPS, nr);
+-		}
+-
+ unlock:
+ 		xas_unlock_irq(&xas);
+ 
+@@ -942,6 +934,13 @@ noinline int __filemap_add_folio(struct address_space *mapping,
+ 	if (xas_error(&xas))
+ 		goto error;
+ 
++	/* hugetlb pages do not participate in page cache accounting */
++	if (!huge) {
++		lruvec_stat_mod_folio(folio, NR_FILE_PAGES, nr);
++		if (folio_test_pmd_mappable(folio))
++			lruvec_stat_mod_folio(folio, NR_FILE_THPS, nr);
++	}
++
+ 	trace_mm_filemap_add_to_page_cache(folio);
+ 	return 0;
+ error:
+-- 
+2.53.0-Meta
+
