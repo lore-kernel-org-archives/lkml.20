@@ -1,25 +1,36 @@
-Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com [115.124.28.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-99.mta0.migadu.com [91.218.175.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2F345000;
-	Wed, 16 Sep 2026 00:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7471FD4
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789518684; cv=none; b=kX5YT7OeE8VDqqJxzYP6HVvV5xZVbYyL0uSd7c6olHDYexsbzzM8aNwGIGjq+9+1z0R9RyIPyiWR3JRXhSTnkhZ5OtLa4iS3V4w1lCoJx6XNCimyOnvnYTfMhi7JlZzkD6vcl3RAFQjnbYPyuOwfRGqxeooetYnH9LhWmAjggPY=
+	t=1789518849; cv=none; b=O5NgU6q/cFoEyrupy4wD6tzAouLco0ebapCf+42a9U6s9E2QYfPL12HX2VEPzCOv+b7TY1BKOfRC0prOYh3Kok7Zni/2JlDXsxhowdb86jJCoVWm1buXou1+mR0Q20eJo6SnLAXen6my4T3AiA6gie+oCvPfoB5JyqNF3Uejw+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789518684; c=relaxed/simple;
-	bh=kCxwuC7dMHYQ4sYN/7/iFSsHj/IK2Vos6fZU6YhqjNs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KMkh1yb39mgy59BhOZnjLQV7j20H7nQgS7FYrLkn7xtLdlTf8ouQa1aCrjkNIMjUC5/zrmo7bV8u7/1oAHwlhCucukN6NgGhCShIQeI8b4A25hcODnFz76lmpKUf1Yw6BeeylXo+FtRVEeUaU3vebn5BXofDZdXMZB/sXcXL13o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09281327|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0524633-0.000200874-0.947336;FP=17182777707830527215|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jEZ0uKj_1789518354;
-Received: from 172.19.20.178(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.jEZ0uKj_1789518354 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 16 Sep 2026 08:25:56 +0800
-Message-ID: <3451f275-d88d-4db9-acb9-ca80d717df7a@open-hieco.net>
-Date: Wed, 16 Sep 2026 08:25:54 +0800
+	s=arc-20240116; t=1789518849; c=relaxed/simple;
+	bh=71YSysbM73J8M4gTfdyWpUgg7TRPpNjqYLUW3z1uREc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=gylfw5G8FxW3K2O4s0kOspkAbitevA6QFybEbrB4aVRwMsWtWhSwYsELDQV8cH3eGsnZtlsAQW59e8SvQ+Xmq1h3pXKqbK9MBeczSSlnKRdcF0x1QfycthS/aGxDC5IOG9FGLjPNF/OSnDq3NnXhu6mVS6r+zJM9yQPYoUrIHMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aKIahy0Z; arc=none smtp.client-ip=91.218.175.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aKIahy0Z"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=71YSysbM73J8M4gTfdyWpUgg7TRPpNjqYLUW3z1uREc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789518845; v=1; x=1790123645;
+ b=aKIahy0ZXPJTdImTyEVVCc0OkQesMmxnod0xgWe6F67miWdo8+BrmwvSIupTZdLp8ZoyEd55
+ nfcPHFMNv6QHrxDwyXxaNnuSbHjvZRug22Lxd5EsSfTYn3XcKIyaqux63TRXxFIkDed4swYu9QD
+ PevwMTZJ+OenF7QlT+jT4h5E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 361132ff8be2991e;
+	Wed, 16 Sep 2026 00:33:55 +0000
+X-Mizu-Trace-ID: 361132ff8be2991e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <95955dcd-98ae-4130-91d7-a334818662cc@linux.dev>
+Date: Wed, 16 Sep 2026 08:33:46 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -27,106 +38,118 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/8] KVM: x86: Provide INVLPG linear address to
- intercept handlers
-To: Jim Mattson <jmattson@google.com>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org,
- Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>,
- zhouyanjing@hygon.cn, linux-kselftest@vger.kernel.org,
+Cc: shawn.lin@linux.dev, Rui Miguel Silva <rmfrfs@gmail.com>,
+ Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org
-References: <cover.1789281096.git.zhang_wei@open-hieco.net>
- <fc88f299f41c99ddb5851c24d97970dc29584876.1789281096.git.zhang_wei@open-hieco.net>
- <CALMp9eSv77sBcfYpPJm4Uk+9CePV7YMdYXhvBHKHSvacnnRBUA@mail.gmail.com>
-Content-Language: en-US
-From: Tina Zhang <zhang_wei@open-hieco.net>
-In-Reply-To: <CALMp9eSv77sBcfYpPJm4Uk+9CePV7YMdYXhvBHKHSvacnnRBUA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] mmc: core: Turn mmc_alloc|free_host() into static
+ functions
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>, linux-mmc@vger.kernel.org,
+ Ulf Hansson <ulfh@kernel.org>
+References: <20260915132052.273212-1-ulf.hansson@oss.qualcomm.com>
+ <20260915132052.273212-3-ulf.hansson@oss.qualcomm.com>
+From: Shawn Lin <shawn.lin@linux.dev>
+In-Reply-To: <20260915132052.273212-3-ulf.hansson@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-
-
-On 9/15/2026 2:23 AM, Jim Mattson wrote:
-> On Sat, Sep 12, 2026 at 11:44 PM Tina Zhang <zhang_wei@open-hieco.net> wrote:
->>
->> INVLPG's memory operand is decoded with NoAccess, and thus src_val does
->> not contain the operand address.  Intercept handlers therefore cannot
->> construct exit state that reports the linear address from the existing
->> x86_instruction_info fields.
->>
->> Add get_invlpg_linear_addr() to compute the address through __linearize(),
->> using the same flags as em_invlpg(), and pass the result through
->> x86_instruction_info.
->>
->> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
->> ---
->>   arch/x86/kvm/emulate.c     | 18 ++++++++++++++++++
->>   arch/x86/kvm/kvm_emulate.h |  1 +
->>   2 files changed, 19 insertions(+)
->>
->> diff --git a/arch/x86/kvm/emulate.c b/arch/x86/kvm/emulate.c
->> index 8071b372d233..1dfece6af81e 100644
->> --- a/arch/x86/kvm/emulate.c
->> +++ b/arch/x86/kvm/emulate.c
->> @@ -410,6 +410,9 @@ static int em_salc(struct x86_emulate_ctxt *ctxt)
->>          _fault ? X86EMUL_UNHANDLEABLE : X86EMUL_CONTINUE; \
->>   })
->>
->> +static u64 get_invlpg_linear_addr(struct x86_emulate_ctxt *ctxt,
->> +                                 enum x86_intercept intercept);
->> +
-> Nit: I would move __linearize() rather than add a forward declaration,
-> but maybe it all unravels if you pull on that thread.
+在 2026/09/15 星期二 21:20, Ulf Hansson 写道:
+> From: Ulf Hansson <ulfh@kernel.org>
 > 
->>   static int emulator_check_intercept(struct x86_emulate_ctxt *ctxt,
->>                                      enum x86_intercept intercept,
->>                                      enum x86_intercept_stage stage)
->> @@ -427,6 +430,7 @@ static int emulator_check_intercept(struct x86_emulate_ctxt *ctxt,
->>                  .src_type   = ctxt->src.type,
->>                  .dst_type   = ctxt->dst.type,
->>                  .ad_bytes   = ctxt->ad_bytes,
->> +               .invlpg_linear_addr = get_invlpg_linear_addr(ctxt, intercept),
->>                  .rip        = ctxt->eip,
->>                  .next_rip   = ctxt->_eip,
->>          };
->> @@ -702,6 +706,20 @@ static __always_inline int __linearize(struct x86_emulate_ctxt *ctxt,
->>                  return emulate_gp(ctxt, 0);
->>   }
->>
->> +static u64 get_invlpg_linear_addr(struct x86_emulate_ctxt *ctxt,
->> +                                 enum x86_intercept intercept)
->> +{
->> +       unsigned int max_size;
->> +       unsigned long linear = 0;
->> +
->> +       if (intercept != x86_intercept_invlpg)
->> +               return 0;
->> +
->> +       __linearize(ctxt, ctxt->src.addr.mem, &max_size, 1, ctxt->mode,
->> +                   &linear, X86EMUL_F_INVLPG);
+> As there are no longer any users of these functions, let's make them
+> internal to the mmc core. While at it, let's also flip the order of the
+> in-parameters to mmc_alloc_host() to be consistent with devm_alloc_host().
 > 
-> What if __linearize() fails?
 
-This was also my concern with using __linearize() in v5, which is why I 
-initially calculated the address directly. I wasn't sure how to handle 
-its failures when we only need the address for EXITINFO1.
+Nice move when vub300 was gone,
 
-Simply propagating the error seems questionable, since em_invlpg() 
-itself skips the invalidation on failure and returns X86EMUL_CONTINUE.
+Reviewed-by: Shawn Lin <shawn.lin@linux.dev>
 
-Would either of these approaches make sense?
-Option 1: Factor the address calculation out into a helper shared by
-__linearize() and get_invlpg_linear_addr(), leaving the checks in
-__linearize().
-
-Option 2: Extend the existing flags argument to __linearize() with an 
-option to calculate the address without performing access checks.
-
-Both would avoid duplicating the address calculation or modifying
-ctxt->exception just to obtain the address for EXITINFO1.
-
-Do you have a preference, or another approach in mind?
-
-Thanks,
-Tina
-
+> Signed-off-by: Ulf Hansson <ulfh@kernel.org>
+> ---
+>   drivers/mmc/core/host.c  | 35 +++++++++--------------------------
+>   include/linux/mmc/host.h |  2 --
+>   2 files changed, 9 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
+> index 1bcf0e917b59..8e9e61839198 100644
+> --- a/drivers/mmc/core/host.c
+> +++ b/drivers/mmc/core/host.c
+> @@ -505,14 +505,7 @@ static int mmc_first_nonreserved_index(void)
+>   	return max + 1;
+>   }
+>   
+> -/**
+> - *	mmc_alloc_host - initialise the per-host structure.
+> - *	@extra: sizeof private data structure
+> - *	@dev: pointer to host device model structure
+> - *
+> - *	Initialise the per-host structure.
+> - */
+> -struct mmc_host *mmc_alloc_host(int extra, struct device *dev)
+> +static struct mmc_host *mmc_alloc_host(struct device *dev, int extra)
+>   {
+>   	int index;
+>   	struct mmc_host *host;
+> @@ -583,7 +576,13 @@ struct mmc_host *mmc_alloc_host(int extra, struct device *dev)
+>   	return host;
+>   }
+>   
+> -EXPORT_SYMBOL(mmc_alloc_host);
+> +static void mmc_free_host(struct mmc_host *host)
+> +{
+> +	cancel_delayed_work_sync(&host->detect);
+> +	cancel_work_sync(&host->sdio_irq_work);
+> +	mmc_pwrseq_free(host);
+> +	put_device(&host->class_dev);
+> +}
+>   
+>   static void devm_mmc_host_release(struct device *dev, void *res)
+>   {
+> @@ -598,7 +597,7 @@ struct mmc_host *devm_mmc_alloc_host(struct device *dev, int extra)
+>   	if (!dr)
+>   		return NULL;
+>   
+> -	host = mmc_alloc_host(extra, dev);
+> +	host = mmc_alloc_host(dev, extra);
+>   	if (!host) {
+>   		devres_free(dr);
+>   		return NULL;
+> @@ -692,19 +691,3 @@ void mmc_remove_host(struct mmc_host *host)
+>   }
+>   
+>   EXPORT_SYMBOL(mmc_remove_host);
+> -
+> -/**
+> - *	mmc_free_host - free the host structure
+> - *	@host: mmc host
+> - *
+> - *	Free the host once all references to it have been dropped.
+> - */
+> -void mmc_free_host(struct mmc_host *host)
+> -{
+> -	cancel_delayed_work_sync(&host->detect);
+> -	cancel_work_sync(&host->sdio_irq_work);
+> -	mmc_pwrseq_free(host);
+> -	put_device(&host->class_dev);
+> -}
+> -
+> -EXPORT_SYMBOL(mmc_free_host);
+> diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
+> index ddb32bc2946f..198554e48346 100644
+> --- a/include/linux/mmc/host.h
+> +++ b/include/linux/mmc/host.h
+> @@ -585,11 +585,9 @@ struct mmc_host {
+>   
+>   struct device_node;
+>   
+> -struct mmc_host *mmc_alloc_host(int extra, struct device *);
+>   struct mmc_host *devm_mmc_alloc_host(struct device *dev, int extra);
+>   int mmc_add_host(struct mmc_host *);
+>   void mmc_remove_host(struct mmc_host *);
+> -void mmc_free_host(struct mmc_host *);
+>   void mmc_of_parse_clk_phase(struct device *dev,
+>   			    struct mmc_clk_phase_map *map);
+>   int mmc_of_parse(struct mmc_host *host);
 
