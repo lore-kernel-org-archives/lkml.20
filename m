@@ -1,79 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DED336D51B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:49:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9298B379EF7;
+	Wed, 16 Sep 2026 12:49:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562946; cv=none; b=WpFJT9MytaLdtAwn0RUON71++0mJEojJv7S7U5aa58ZuzledL2/K1YX4QUDNbC8z/vMjkBerFd2UOp9L8Z8bSTtrrNqzxoVqzLSIXQqnPUQTJv6y8jtdU8IDUfGMGfTSCVbjIDDb5KoR+Kf21T6pefXh0ihd3uMuIvJXkupU5Bk=
+	t=1789562955; cv=none; b=O39BC03h61egim2IrqM4sZWwlwrmEc7byTkI9WFUAstRFSbII32EV3Aqpst56YppDJW9KZ+n5cF0KZr3NYLLaH1Q6MlqN0a7mqcf+PSDAPrRPIzG9y97t36cdXnahTtD1tgNciqAHAEIxmCpneDMJv/17MtCdgQ4xLsyJrUyvNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562946; c=relaxed/simple;
-	bh=XDWCb4ckC9QO3PHnDil0UM01Z8cTM6kD0+bCjmJ22TY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Nqb5ind7DGUYCOkKtXCxVx8OZwWTBtAXPNJx8MC4nQCkayc3NqTcMKdlYQsxyZjEqKKprNhskOjFFUTPVhPe9Wp1qAxx7SsijUlXfbEmxjC3K2+23LgSycTIL9OpQi8LuoXbLIVA9i5Nac1+6CjczQy4r3TrH9tZUxtLQ7OSI2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f3jhGW3a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789562955; c=relaxed/simple;
+	bh=aXD+aDZjT4W62ZovS6WlHqNRB2tUZg07K2BOjth0IGw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qylwHo0rvx30LK9da5+OAYRn3A5J8UPfypg3uN8PGqw8QKXmIFm6iiErQ/vZ/nhoDaNrAfL/hEtbS/h9aCKCeVP/Vhti7DDdottiUtbIx5x15W2pkDI5XBfdsBGD7v1Suyl6KjBijfG3zqx8SyGZADhvW+PTEqifio55MVn/OW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BdVOKmpQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f3jhGW3a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F0D1F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:49:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BdVOKmpQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E3F1F000FF;
+	Wed, 16 Sep 2026 12:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789562942;
-	bh=XDWCb4ckC9QO3PHnDil0UM01Z8cTM6kD0+bCjmJ22TY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f3jhGW3a1NAbItmB1xsfzgXiDAsVzXdEC9XxhJhqQ/zK0Jc9JV63IZY6skD8zfRm1
-	 Wxm9LSctY6Io+l3MPyIZdugOp/5Kj2RfLQkbCjjnIip1schDg5ASJDBJzumibeyKNB
-	 J/LQZysTYifOV1QqQ+3JzH2NBDPYDWldsqhwRiaOjW/J3DomfVlFVJzf4KkUThSBuH
-	 lP19YAsckyQC/tkAIX/rjRUONQ0fR4sAK+J+1ce8Kuwgxfw+uJg0zMIIZ6conjRyNf
-	 YrOjy7WfUdW1W5EyoKLFic9hnEHGlf4Pjsx3pIUSUTLz4p6ydOZ+tXrD806ILbxmnI
-	 Xc4lBvWg0FIAg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f16f15so861059e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:49:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzeJbNKyhPzFzucieAfilwHaCet5//1s3pmqB+YAN/IO8FKBuUucQFohaEphR0l1WX4o4Nak8BOFka3yPU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhpv+2RkQQdrWGA9iCCTWW4v96jHBUsc9W7S5m9UfgrGvrMz5O
-	/pqmZzjfIs7kijaNO6AeG46CDqBPYI4+nZXO9FkjxI+F5eVMhVlHghDWlycXuxyII2Di0XmtQbQ
-	+72s5D68e+VIt5fjqIvGGfgAFOJRNjq0=
-X-Received: by 2002:a05:6512:2341:b0:5b2:a919:f9fb with SMTP id
- 2adb3069b0e04-5b8b6655c91mr1363745e87.22.1789562941365; Wed, 16 Sep 2026
- 05:49:01 -0700 (PDT)
+	s=k20260515; t=1789562953;
+	bh=Akpf3sVV5hMKrXoprjFhWmMCl1UxJohB43ip4C/fV4c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BdVOKmpQMqrTMV6o4Q/J4t3nWmPfkRZQX/rBaZFfPDKBw52V9kbILFD2UPUC0w27o
+	 KJ7P22LQzrCF6Y8gWgsjLOPgAw6iU1QYaWNfcgiM0f2mWoynS1t0z25LYQ9o0br8vW
+	 quRyC6NXIg9wKzxbNoKl2P5RMA75y4YTTdc0+NvV1GOcSs0zY2p5p55LpgOyix/ZpS
+	 INsWmjq+rJBriwPASkCRiB+Fl+MfdVnZHfP8gA7E+GSnsaxNnB7prSEFqjgTnJKS+B
+	 xHhwz2ILc/SITxzezVvDvFS2BcMr7a+7msD7O+sZwUgC/KTyqgWue+5hsTvpYlFThu
+	 4DMLDOMtmo0ng==
+Date: Wed, 16 Sep 2026 13:49:08 +0100
+From: Simon Horman <horms@kernel.org>
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: linux-ppp@vger.kernel.org, netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Tom Parkin <tparkin@katalix.com>,
+	LKML <linux-kernel@vger.kernel.org>, Kees Cook <kees@kernel.org>
+Subject: Re: [PATCH v2 net-next] ppp_synctty: Use common error handling code
+ in ppp_sync_txmunge()
+Message-ID: <20260916124908.GG51261@horms.kernel.org>
+References: <15f151c7-58c8-4116-8a03-e985fd132b0f@web.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916114358.195465-1-arnd@kernel.org>
-In-Reply-To: <20260916114358.195465-1-arnd@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 14:48:48 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkVbbzsxZ8u469g=XwVcOMsmjPP1c27skcnNqa3qB_pwQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VwdnDlWD_3jtgfRq2nA6TC7L88Cuyaa5EX7enCgQeRXmvek1aAryWPqP8
-Message-ID: <CAD++jLkVbbzsxZ8u469g=XwVcOMsmjPP1c27skcnNqa3qB_pwQ@mail.gmail.com>
-Subject: Re: [PATCH] usb: fotg210: fix USB_EHCI_HCD dependency
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <15f151c7-58c8-4116-8a03-e985fd132b0f@web.de>
 
-On Wed, Sep 16, 2026 at 1:44=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wro=
-te:
+On Tue, Sep 15, 2026 at 11:23:01AM +0200, Markus Elfring wrote:
+> From: Markus Elfring <elfring@users.sourceforge.net>
+> Date: Tue, 15 Sep 2026 10:48:11 +0200
+> 
+> Use an additional label so that a bit of exception handling can be better
+> reused at the end of this function implementation.
+> 
+> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+> ---
+> 
+> v2:
+> The application of a known source code transformation pattern could be repeated
+> after the commit 8aaeb56aff2a557a88f83ae866da2c91ad247e59 ("ppp_synctty:
+> ensure a writeable skb header") was integrated.
 
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> When EHCI is a loadable module, the fotg210 HCD code cannot
-> be built-in:
->
-> s390-linux-ld: drivers/usb/fotg210/fotg210-hcd.o: in function `fotg210_hc=
-d_reset':
-> fotg210-hcd.c:(.text+0x102): undefined reference to `ehci_setup'
->
-> Fix this using the same type of dependency that is already
-> used for the USB host support.
->
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+I have mixed feelings about this as it seems to be a cleanup
+outside of the context of other work [1].
 
-Oh the usual Kconfig tripwire. Thanks Arnd!
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+But I believe it is correct and does use the preferred goto label based
+cleanup mechanism.
 
-Yours,
-Linus Walleij
+Reviewed-by: Simon Horman <horms@kernel.org>
+
