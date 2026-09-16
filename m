@@ -1,68 +1,70 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBE44DAF87;
-	Wed, 16 Sep 2026 20:37:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C534DAF8E
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591086; cv=none; b=J+Frpk2L9JW36M472CzJUS5rniddLjl+WsFFythfb61Rtg5jzgqhMfbopSmehG8TFcx0obpfDReKD24kQQzrm4lllGA93vP0ExHTSL1WcMQk/tiLjA2DT0E9LfOgb5jI3+8lRPhrWkcO1R5rbn6nE2FJbjpzTlWWk/Hve7BjMAo=
+	t=1789591454; cv=none; b=SUGU/BBmXg3KJ0aCb1e1jfrdYngWOT+rSqiCThgF5x/zySrKDgxfGzfTh47fshHyi9L/X34u4mZnhNuw9gdt80X5U1ArsLXImFIG9NekUen2PlABNE7jC6EtHcqgQZjz6WLXJtuZV8HMBHlvFy6w+6wYHoJe5xLj2OM4phY+jPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591086; c=relaxed/simple;
-	bh=ay5/0symFws9XMwCKMYAdNh2eKNS2sl33H+ddFWjN4o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h3aJFIb6JLK6Kfi/+1ZnWUyIvrMxfVKsmqN9Zxp30OOt6uu2+fvrmP7k6IZcpDosbZbobI+ugcVTj2eUqDJ0FN6EfqHEE1lb1B7vpqCFvCtKILDltpytfVzYI3nLPmHaBJi94IM7KLxtLXhaYVUWDPzv0hZn3n+/mZ6dWC2n/zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mogBdBb9; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789591454; c=relaxed/simple;
+	bh=nF7AXE2oK+SyYZ+x/sFO8sHhl4Pfns9IDb+N6dybQeQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SKRzU0VhualGatI/rOczvHntaFLsCqrkoH77fRB223zS2rCP07ay4g/9mUBK5Jdmly6fn66fwRixk5VZxQeuEpe66CmJxzBFJkhZ7oz2wA8GVZmUR41cTE6dBwYffh540oHqIIA7eMWuhKl5Gy+9BrdI/Jgr6Kas2c0dRK+YvB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ag0iCw3N; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mogBdBb9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789591073; x=1821127073;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ay5/0symFws9XMwCKMYAdNh2eKNS2sl33H+ddFWjN4o=;
-  b=mogBdBb9+cRejapQK2b8dY+CP+TRHe+QlUnAaZmfQx6WMTSWYgphS0rp
-   adl3doXIAcv0B4T+AlkCJJr/9onUua6FIu+5y4nuGyz3XWcHX0fexkitF
-   JkQ9KiCxe7PJMXKst0dNhKeaOE0fgN4p6t+/Rfq0RpoFJCCe9HDxmWVSD
-   4EPJUj6hlRPt3yk1xC2wY4pihdFTSkKsRgsA2VjtZXyorWpcj2QZM3QGc
-   hlZsSTUGSqYvszIzo9YgToe2u4Ks1l1N/9xvr8A0MzkYUbk//F97qCKOD
-   bbk8DS95AlfWMG6taxUrmKNIWES9pez4yS/EElDfGD5YpoIXVn6bNbSJL
-   A==;
-X-CSE-ConnectionGUID: iVfMy9svQa60T8XKpXZ10A==
-X-CSE-MsgGUID: +arf3sJMRwaWjDdK+NsK2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100574713"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100574713"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 13:37:47 -0700
-X-CSE-ConnectionGUID: 3DPbwcs4TrqCt5vPk+XoJw==
-X-CSE-MsgGUID: u9hG+TBVQqafGplgqyBNVQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="278674100"
-Received: from 9cc2c43eec6b.jf.intel.com ([10.54.77.29])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 13:37:46 -0700
-From: Zide Chen <zide.chen@intel.com>
-To: Namhyung Kim <namhyung@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Ian Rogers <irogers@google.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	James Clark <james.clark@linaro.org>
-Cc: Andi Kleen <ak@linux.intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	thomas.falcon@intel.com,
-	dapeng1.mi@linux.intel.com,
-	xudong.hao@intel.com,
-	Zide Chen <zide.chen@intel.com>
-Subject: [PATCH] perf topdown: Don't require config1==0 for a slots event
-Date: Wed, 16 Sep 2026 13:27:40 -0700
-Message-ID: <20260916202740.257376-1-zide.chen@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ag0iCw3N"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109f067fso8134585a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:44:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789591437; x=1790196237; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yi1Rfr9drk8zScNg2s6ZLOqeNm8GiRX36Fti9lQIdVA=;
+        b=ag0iCw3NWbjpow9eqHTVQQACmR6NMftum3i1coYcK4jOcpIcF720FVRftQabERGVPV
+         O8wwfJpcIpVjwY7y9suy9MY7o6ItWvCTvRhEeUUJyrYFP9/+pqGWj5KtXQjfIT2pXeoo
+         hisEX7lQsaOfVoLf8ufBdOSJ9ewExtjwcocHMGjdcunqNTjo23bHCcDi9Vh5xBljTKfK
+         rVLWxcjRrsvOA72FmSSSl9OoH9nijBnuQd9gOM1l8PhaLhF/TA5vZxvPXm/vifaaQoVk
+         mbIdWJcCJsgpED+65vI7wPm7RRrgzJda+9hpuNHJTjei4FBtmgL54S/9xmC2/p9fhVaT
+         bIYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789591437; x=1790196237;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yi1Rfr9drk8zScNg2s6ZLOqeNm8GiRX36Fti9lQIdVA=;
+        b=HSVMT61GiLoVq8XL2h4fR5yUMDnh+P57f6s+UHq8M+klJvahpATH4cJwUtLZbbiOkb
+         0eCLhmMcCsEm/qtavz0BQ862FoPsjIx1gRatIGCtkQQ9rBspKXOtPWydNAHWaGPUbLMx
+         3xwL8+bOyZPyS2GJuhYdR7w3oUSBhgwgX7VY77xMbOTfvlYvstx4FKYKbjNQikU9C60t
+         XaH10MOTFC0R+ExU4r47zna8geyv4L5jjApmkroWiTjok0OfywHeJuLNRBOlMx9LPinJ
+         +z44lG3x9Q3tOvw4a60K/FYmAZb4H9LjKtpkXnncu1swNhlcnvtoevgpXi0GHhvGDsIP
+         urtA==
+X-Gm-Message-State: AFuF++lf++efLD0SXpXK0jiHf5L96VbKMkFHM993Nq3febao1o0dzzZ+
+	F+c8w/aSLc9CqVqDLMHMd2Au3eZlmS/CcSl48DMQaZCydxe4mBur3vew
+X-Gm-Gg: AYBFou2U+YHl67C4Or65MajNcTo/jJr/MaK72tbZgMECkt0VMJ5Eirjgn7umhVsxJ9X
+	QD6/aqhw3wusbE3ASwIez9ucK156HNlq6RCJx3WhTdB6MbzPk4tHDIJ+m0ErPbXvapNFD5fBTdY
+	QXDrh9PJJ0DuLRZmpltyXep8eVgJbUrKgM3jYR6KuxOrox4DiJJ7Apjb8pumgWw91w8HJoP1AWb
+	x5VxuvdNfylBsGDd4yRZY6SHKr+R3M/Nkdv8pdy9XZT5vd1MfcIU2obDHjZ5przly8MTbiM9pSL
+	8WHLw9O47DdLVeI0DX1mvuM7vRcunFmZrMjMzebFbKl9nEEcjqlK51tSJshzUEGEilJTi3CH4j8
+	0FO0GkHzzSwW/mi3bm/NoA58I/c90mDAWQ9+s61tuSFxRY4d/ppvl+lgoaLplgTIiLAFoZLbeTW
+	2M1iUt2VKLCj7WtgiA0oJ8IUHl5jYIJesjqAqZQjOS1efj7BddYJlcXwNT1WpAyPEKI5+X6XK3d
+	CsyiCQFHpsxmFRiaq6yN+hV+GxiqJXWD0sIBmrXIQ1mlGNt
+X-Received: by 2002:a05:620a:2809:b0:936:77d7:55a4 with SMTP id af79cd13be357-93bb76b85cfmr676967785a.19.1789591437256;
+        Wed, 16 Sep 2026 13:43:57 -0700 (PDT)
+Received: from Cumhall ([70.53.55.174])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b78255316sm295176785a.29.2026.09.16.13.43.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 13:43:56 -0700 (PDT)
+Sender: John Kacur <jkacur@gmail.com>
+From: John Kacur <jkacur@redhat.com>
+To: linux-rt-users@vger.kernel.org
+Cc: lkml <linux-kernel@vger.kernel.org>,
+	Clark Williams <williams@redhat.com>
+Subject: [ANNOUNCE] rt-tests-2.11
+Date: Wed, 16 Sep 2026 16:43:41 -0400
+Message-ID: <20260916204341.238841-1-jkacur@redhat.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -70,97 +72,123 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-arch_is_topdown_slots() requires config1 == 0, so it misidentified
-"cpu/slots,metrics_clear=1/" as not being the slots event, and an
-additional slots event gets inserted, which fails event scheduling
-since the group now needs two fixed counter 3.
+We are pleased to announce rt-tests-2.11
 
-  $ perf stat -e "{cpu/slots,metrics_clear=1/,cpu/topdown-retiring/}" -- sleep 1
-  WARNING: events were regrouped to match PMUs
-       <not counted>      slots
-     <not supported>      cpu/slots,metrics_clear=1/
-       <not counted>      cpu/topdown-retiring/
+To fetch:
 
-Drop the config1 == 0 check from arch_is_topdown_slots(). This is
-safe: config1 has no bearing on the event's identifying config value
-(TOPDOWN_SLOTS, 0x0400).
+Clone one of the following
+git://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
+https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
+https://kernel.googlesource.com/pub/scm/utils/rt-tests/rt-tests.git
 
-The attr.type == PERF_TYPE_RAW check is what actually matters: only the
-core PMU is registered with PERF_TYPE_RAW, and on x86, 0x400 is
-guaranteed to be slots event on core CPU.
+Branch: main
+Tag: v2.11
 
-arch_is_topdown_metrics() keeps its own config1 == 0 check, since
-genuine metrics events have no "metrics_clear" and config1 remains 0.
+Tarballs are available here:
+https://kernel.org/pub/linux/utils/rt-tests
 
-Add a test verifying that an explicit "slots,metrics_clear=1" event in
-a group does not trigger an extra slots event injection.
+Older version tarballs are available here:
+https://kernel.org/pub/linux/utils/rt-tests/older
 
-Fixes: 5b546de9cc17 ("perf topdown: Use attribute to see an event is a topdown metic or slots")
-Signed-off-by: Zide Chen <zide.chen@intel.com>
----
- tools/perf/arch/x86/tests/topdown.c | 28 ++++++++++++++++++++++++++++
- tools/perf/arch/x86/util/topdown.c  |  3 +--
- 2 files changed, 29 insertions(+), 2 deletions(-)
+Thank to everyone who contributed.
+patches and bug-reports are always welcome.
 
-diff --git a/tools/perf/arch/x86/tests/topdown.c b/tools/perf/arch/x86/tests/topdown.c
-index 2b6f47ce4932..b1ce9f83db00 100644
---- a/tools/perf/arch/x86/tests/topdown.c
-+++ b/tools/perf/arch/x86/tests/topdown.c
-@@ -229,10 +229,38 @@ static int test__x86_topdown_slots_injection(struct test_suite *test __maybe_unu
- 	return TEST_OK;
- }
- 
-+/*
-+ * An explicit "slots,metrics_clear=1" event is still the slots event and
-+ * must not cause an extra slots event to be injected into the group.
-+ */
-+static int test__x86_topdown_metrics_clear(struct test_suite *test __maybe_unused,
-+					   int subtest __maybe_unused)
-+{
-+	struct perf_pmu *pmu;
-+	char event_str[128];
-+	int ret;
-+
-+	if (!topdown_sys_has_perf_metrics())
-+		return TEST_OK;
-+
-+	pmu = perf_pmus__find_by_type(PERF_TYPE_RAW);
-+	if (!pmu || !perf_pmu__has_format(pmu, "metrics_clear"))
-+		return TEST_OK;
-+
-+	snprintf(event_str, sizeof(event_str),
-+		 "{%s/slots,metrics_clear=1/,%s/topdown-retiring/}",
-+		 pmu->name, pmu->name);
-+	ret = test_sort(event_str, 2, 1);
-+	TEST_ASSERT_EQUAL("explicit metrics_clear slots event isn't duplicated", ret, TEST_OK);
-+
-+	return TEST_OK;
-+}
-+
- static struct test_case x86_topdown_tests[] = {
- 	TEST_CASE("topdown events", x86_topdown),
- 	TEST_CASE("topdown sorting", x86_topdown_sorting),
- 	TEST_CASE("topdown slots injection", x86_topdown_slots_injection),
-+	TEST_CASE("topdown metrics_clear no extra slots", x86_topdown_metrics_clear),
- 	{ .name = NULL, }
- };
- 
-diff --git a/tools/perf/arch/x86/util/topdown.c b/tools/perf/arch/x86/util/topdown.c
-index bafd285119d7..64bc64e335a2 100644
---- a/tools/perf/arch/x86/util/topdown.c
-+++ b/tools/perf/arch/x86/util/topdown.c
-@@ -37,8 +37,7 @@ bool topdown_sys_has_perf_metrics(void)
- bool arch_is_topdown_slots(const struct evsel *evsel)
- {
- 	return evsel->core.attr.type == PERF_TYPE_RAW &&
--	       evsel->core.attr.config == TOPDOWN_SLOTS &&
--	       evsel->core.attr.config1 == 0;
-+	       evsel->core.attr.config == TOPDOWN_SLOTS;
- }
- 
- bool arch_is_topdown_metrics(const struct evsel *evsel)
+John Kacur
+
+
+Ahmed S. Darwish (28):
+  cyclictest.8: Comment-out SPDX license tag
+  cyclictest.8: Synopsis: Remove -U
+  cyclictest.8: Synopsis: Remove -w/-W
+  cyclictest.8: Synopsis: Remove -y
+  cyclictest.8: Synopsis: Remove -h flag
+  cyclictest.8: Standardize --verbose paragraph formatting
+  cyclictest.8: Remove left-over comments
+  cyclictest.8: Align source file to 75 columns
+  cyclictest.8: Separate source sections
+  cyclictest.8: Capitalize section headers
+  cyclictest.8: Synopsis: Fix parameters list rendering
+  cyclictest.8: Rework the Synopsis blurb
+  cyclictest.8: Synopsis: Distinguish --help mode
+  cyclictest.8: Group system-altering options
+  cyclictest.8: Group sleep-mechanism (clock) options
+  cyclictest.8: Group thread wakeup timing options
+  cyclictest.8: Group SMP-related options
+  cyclictest.8: Group memory options
+  cyclictest.8: Group thread priority options
+  cyclictest.8: Group tracing options
+  cyclictest.8: Group test duration options
+  cyclictest.8: Group output options
+  cyclictest.8: Group x86 options
+  cyclictest.8: System options: Deprecate --laptop
+  cyclictest.8: Options: Expand --default-system description
+  cyclictest.8: Options: Reference clock_getres(2)
+  cyclictest.8: Add example invocation
+  cyclictest.8: Reference rtla-timerlat(1)
+
+Costa Shulyupin (2):
+  rt-tests: hwlatdetect: Add timestamp delta
+  rt-tests: hwlatdetect: Add --time-format argument
+
+John Kacur (13):
+  Makefile: Use relative symlinks for Python scripts
+  cyclictest: Simplify auxiliary clock parsing
+  rt-tests: README: Remove obsolete -n option from cyclictest examples
+  rt-tests: Add SPDX identifiers and fix documentation issues
+  rt-tests: Add AGENTS.md guide for AI coding assistants
+  pi_stress: Fix inconsistent barrier wait logic to prevent deadlock
+  pi_stress: Validate numeric command-line arguments
+  pi_stress: Improve error message for permission failures
+  pi_stress: Fix error and debug message formatting
+  pi_stress: Ensure null-termination of JSON filename
+  cyclicdeadline: Fix potential path truncation in open_cpuset()
+  rt-tests: rt-migrate-test: Report trace_marker write errno once and
+    stop
+  rt-tests: Create v2.11
+
+Lukas Beckmann (1):
+  cyclictest: fix growing shm stat file
+
+Sebastian Andrzej Siewior (4):
+  rt-tests: cyclicdeadline: Remove unused `alloverflows'
+  cyclictest: Acquire a lock before invoking pthread_cond_signal()
+  cyclictest: Make break_thread_id_lock a PI lock
+  cyclictest: Make trigger_lock a PI lock
+
+Suneeth D (1):
+  cyclictest: Fix BUILD failure for GCC_VER < 14
+
+Thomas Weißschuh (Schneider Electric) (6):
+  cyclictest: Centralize clock option parsing
+  cyclictest: Test the return value of timer_create()
+  cyclictest: Fix error error returns for uclibc clock_nanosleep()
+    fallback
+  cyclictest: Correctly print clock_nanosleep() errors
+  cyclictest: Allow symbolic clock names
+  cyclictest: Add support for auxiliary clocks
+
+ AGENTS.md                             | 416 ++++++++++++++++++++++++++
+ Dockerfile                            |   1 +
+ MAINTAINERS                           |   2 +
+ Makefile                              |   6 +-
+ README-Dockerfile                     |  11 +-
+ README.markdown                       |   6 +-
+ get_pylib.py                          |   1 +
+ src/cyclictest/cyclictest.8           | 405 ++++++++++++++++---------
+ src/cyclictest/cyclictest.c           |  93 ++++--
+ src/hwlatdetect/hwlatdetect.py        |  26 +-
+ src/pi_tests/README                   |  10 +-
+ src/pi_tests/pi_stress.c              |  44 ++-
+ src/queuelat/README                   |   3 +-
+ src/queuelat/targeted-ipi/README      |   1 +
+ src/rt-migrate-test/rt-migrate-test.c |  22 +-
+ src/sched_deadline/cyclicdeadline.c   |   9 +-
+ 16 files changed, 850 insertions(+), 206 deletions(-)
+ create mode 100644 AGENTS.md
+
 -- 
 2.55.0
 
