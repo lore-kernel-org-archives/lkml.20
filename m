@@ -1,99 +1,161 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F8349A3DD;
-	Wed, 16 Sep 2026 19:02:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7619349B468;
+	Wed, 16 Sep 2026 19:02:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585335; cv=none; b=iiOLq4u4txt+14vaHU7vD2dp8BGcYIQcwIIwUrx2EplQZbswYKlFqB7Fzz5L326TcqJmsZN8Rf0QdbSw3SNjJHr9dyLnZO0shh2E+4tDLfyKK1s4dcxbuzMsEQLduqzi3Mj5qQ8zKCiuk2cZMJtoUf0N1yKIeshl75uQCOHHykU=
+	t=1789585350; cv=none; b=JKHg1OQkrlGwKTanzr38Y3eZbxCBFVEJ5/T8QKS/qbAPS3o1NylnFO0vxnlZU5w/4dMEH21a3T/7WvP6fW5fWB81i8ZOSd0VMVt2MrAAOirTVdSv9f5LQ6I6C2W5JmVYM2gsMA44FtrZg8L48CtPN+rW3zDl5+h1ETi1gr9qVlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585335; c=relaxed/simple;
-	bh=EI8ULIbBrDvRXrJW5Q2Smr4/pWyac6UYfVhBkBYaouY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rPk4dBK7at7RR7D/xB4O1psRJyD89lyfY4jIZx84V2mssPTQpVKP5O+uxenSdi4rfqZMJ76K5gGjHNdbpPPyp31/weNngDbz6Bp3tQ8NzbDBhNq6hAZwAQZLtfpgWBBAKhD6Ups1T/oh5vUR3FQzbA0BPsxSS0qlVYbuds6r30g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=MVkXWlzo; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1789585350; c=relaxed/simple;
+	bh=cx6YlY2EdJ+cNjWHxG0MUy1VTj9IPDy5W9mL2MWARdk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aSClskXDEoQ7mxOufLYu14/IDDh/cXlmfs2svf7P/bMdVjn0apAGy4OVW+s6jXKA03vjWI8Yc1fJFYOYNXKG1FPZyqYARGGKsyEe3O5zEt/VAqEUYxaYauG6J1Gsv5J60xzDF8QdFpoyDPfNhMtLKpntP87s7hyapvL9r8YEKHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BD5h3PL0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="MVkXWlzo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=Qljgg2HuwrDs6FB5Z7besedOOauzUgeW51ZsZoEhveQ=; t=1789585329;
-	x=1790190129; b=MVkXWlzownt6DqBM7DPADbbwqiDGNVqerMeHL9+8tynYYOAMYDrt7pUSjQNFF
-	zPwT1vPb+oCaZ6NNBOjxCbcovWBV4y32ql18b5w5pkLrzGWPXiPQrHJUPBi9DPjOsdudWJAiDpBAx
-	5ReH3cvFGYueeaShA2oluPaYz0Uc6XhxjSRbOM+wQx37rcHYbFZ49BJAP0nFBzYIiBGAU9ueJWI0o
-	hdjeM8B05+2ApBDtOW37p/cDwPRdJ70shyK7Qdbm9MZpYRxD7oBxJMOIB37GlLuFhQYhLoAL8kPI2
-	CLmh8ffZ6GE7Od24MQ0MajKLtlBfO5HyiMQRlt0LD/PgeeNqZQ==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.99)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1x6utQ-0000000192f-04Al; Wed, 16 Sep 2026 21:02:04 +0200
-Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=suse-laptop.fritz.box)
-          by inpost2.zedat.fu-berlin.de (Exim 4.99)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1x6utP-0000000324a-3KcW; Wed, 16 Sep 2026 21:02:03 +0200
-Message-ID: <84a0f85161d26174f47965b3ae760dc3b9beee2a.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH v2] sh: defconfig: enable the current M66592 UDC symbol
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Geert Uytterhoeven <geert@linux-m68k.org>, Pengpeng Hou
-	 <pengpeng@iscas.ac.cn>
-Cc: Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker
- <dalias@libc.org>,  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Wed, 16 Sep 2026 21:02:03 +0200
-In-Reply-To: <CAMuHMdUZdv6FdhgSB_u5wU4YoqpKFqKmhs8x+bZeGFYyvZ5Puw@mail.gmail.com>
-References: <20260814075531.15446-1-pengpeng@iscas.ac.cn>
-	 <CAMuHMdUZdv6FdhgSB_u5wU4YoqpKFqKmhs8x+bZeGFYyvZ5Puw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BD5h3PL0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F14601F000FF;
+	Wed, 16 Sep 2026 19:02:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789585333;
+	bh=Xo27toqevnPdEBMDm6fesTvae198prwaWdMkd4Swf6Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BD5h3PL0Mn1piVpYcwogBCSkESdoFyZgEqOt/AKS1UHLApsUTjFdJjas+gUBwhoVG
+	 8Sy9JHm0QVLkSPIrrrF7QRdmKXpvjppCHX5o5Mnc31MV9KKQ/YUn0J89eGcptHctJW
+	 b9tGU42q56jK4TBiWw/RLTQmr6HMSb6SgBtqZbwn0a8C1+4HQCOOqlZWKSbEF1AP6G
+	 sSjzjSQ8hY5kgJ59q6DmbOzVLmU4jThPTLd36acQHoEBFBRLpFi3RpmLgja0PFwph7
+	 W+iSCkPGaZ1J/PZdGAn1uH7SlF7Wqyr+SQGYXra7Yw4YhCnhNmVKVvNmalOlTqUASu
+	 gVA3cPvgSRjsA==
+Date: Wed, 16 Sep 2026 16:02:10 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH 02/12] perf debuginfo: Fetch debuginfo keyed by build ID
+ using debuginfod
+Message-ID: <aqrnssk8iekDb2jC@x2>
+References: <20260916114740.48230-1-acme@kernel.org>
+ <20260916114740.48230-3-acme@kernel.org>
+ <CAP-5=fWr46YKripkCvFHO23k+0SUHfGgYBTDc_qp=ev_Fucc1Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fWr46YKripkCvFHO23k+0SUHfGgYBTDc_qp=ev_Fucc1Q@mail.gmail.com>
 
-Hi Geert,
+On Wed, Sep 16, 2026 at 10:59:31AM -0700, Ian Rogers wrote:
+> On Wed, Sep 16, 2026 at 4:48 AM Arnaldo Carvalho de Melo <acme@kernel.org> wrote:
+> >
+> > perf already uses debuginfod to fetch source files when annotating
+> > (via probe-finder.c) and 'perf probe' has open_from_debuginfod(),
+> > which queries debuginfo keyed by build ID when a module's debuginfo
+> > isn't found locally, largely the same thing this adds; eventually
+> > that one could be moved over to the new helper.  For the analysis
+> > tools there was no way to obtain the debuginfo for a DSO in a
+> > profile when it isn't available locally under the name the DSO was
+> > opened with, for instance the vmlinux for the kernel a profile was
+> > recorded on when processing it on another machine, or after the
+> > kernel and its debuginfo package got upgraded in between.
+> >
+> > Add debuginfo__find_build_id(), that uses the debuginfod client to
+> > locate a debuginfo file keyed by the build ID, checking its local
+> > cache first and then querying the servers in DEBUGINFOD_URLS, and
+> > debuginfo__new_build_id(), that opens the DWARF in the file it finds.
+ 
+> When do we have a build ID but not a DSO? The current intent is that
 
-On Fri, 2026-08-14 at 10:32 +0200, Geert Uytterhoeven wrote:
-> On Fri, 14 Aug 2026 at 10:01, Pengpeng Hou <pengpeng@iscas.ac.cn> wrote:
-> > The M66592 UDC provider is built under CONFIG_USB_M66592. Several
-> > SuperH defconfigs still enable the removed CONFIG_USB_GADGET_M66592
-> > symbol.
-> >=20
-> > Replace the stale entries with the current provider symbol.
-> >=20
-> > Assisted-by: Codex:gpt-5
-> > Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
->=20
-> Fixes: 193ab2a6070039e7 ("usb: gadget: allow multiple gadgets to be built=
-")
->=20
-> > The Kconfig/provider mapping was reviewed statically; no SuperH kernel
-> > build was performed.
->=20
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be> # build-tested
+Trying to parse this: Before we had a PERF_RECORD_MMAP with a dso name
+that we, at the end, when enabled, would look for a build-id to add to
+the perf.data headers, now we get both in the PERF_RECORD_MMAP3, right?
 
-Thanks, I'll pick up this patch and add the Fixes tag manually if b4 doesn'=
-t
-do it automatically when downloading the series.
+> dso__debuginfo hide these complexities. We currently don't purge DSOs
 
-Adrian
+From the cache, right, and that is a problem, we need to do that LRU you
+mention, to not have a ever growing cache.
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+There is a recent patch from someone at Uber about another aspect of
+this, the symtabs loaded in memory for resolving symbols are not in any
+way constrained, we go on loading, not purging, hope that patch gets
+resubmitted addressing the sashiko reviews that were acknowledged.
+
+> and the first call to dso__debuginfo should trigger loading with the
+> DSO owning the debuginfo. With this change we now have a duplication
+> of DSO's data, keyed by build ID and mapping directly to the
+> debuginfo. I can't see a performance or efficiency gain and we could
+> potentially implement some kind of LRU mechanism for DSOs, which would
+> benefit memory usage for things like perf top.
+ 
+> > The debuginfod client fails when DEBUGINFOD_URLS isn't set even when
+> > what it wants is in its local cache, and the distro setup scripts that
+> > populate it from /etc/debuginfod don't reach cron jobs, systemd services
+> > and other environments that don't source the profile scripts, so also
+> > set it from the .urls files in /etc/debuginfod when not set.
+ 
+> I found the explanation above hard to follow. Are we setting an
+> environment variable because debuginfod isn't respecting its /etc
+> setup?
+
+IIRC what I saw was the debuginfod client not finding things in the
+cache when that DEBUGINFO_URLS variable wasn't set, so setting it
+doesn't mean to ask for downloads necessarily, but to use what is
+already cached locally.
+ 
+> > That has
+> > to happen before any thread that can call getenv() is started, as
+> > setenv() is not thread safe, and there are getenv()s outside the fetch
+> > lock: libdebuginfod reads DEBUGINFOD_URLS in every debuginfod_begin(),
+> > which perf also does in build-id.c, probe-event.c and probe-finder.c,
+> > so do it from symbol__init(), on the single-threaded setup, and not
+> > lazily from the fetch path.
+> >
+> > Querying servers, possibly third party ones, sends off-box the build
+> > IDs of the binaries being analysed and a fetch can take a while, so
+> > this is opt-out: on by default, off with --no-debuginfod, with
+> > core.debuginfod=false, per tool with report.debuginfod and
+> > top.debuginfod, and, since users that set buildid.dir to /dev/null
+> > (e.g. Linus) or otherwise turn the local build-id cache off clearly
+> > don't want fetched files stored on the box, off too in that case.
+
+> > The opt-outs also cover libdwfl's own debuginfod client, that reads
+> > DEBUGINFOD_URLS in every query: when debuginfod is off, be it with
+> > --no-debuginfod, core.debuginfod=false or by disabling the build-id
+> > cache, the variable is set to the empty string, that the client treats
+> > as an opt-out and fails the query without even looking at its cache,
+> > instead of being exported from /etc/debuginfod.  Tools that manage
+> > DEBUGINFOD_URLS themselves, such as 'perf record --debuginfod', keep
+> > doing so.
+ 
+> Libdwfl is part of elfutils and so is debuginfod. Is it possible to
+> share clients?
+
+We need to stop using ~/.debug/ and move to have the cache where elfutils
+libraries have it.
+
+Transitioning should just use ~/.debug if available but saving copies of
+local DSOs like perf does in the elfutils cache directory.
+
+<SNIP>
+ 
+> > +static bool build_id__equal(const struct build_id *a, const struct build_id *b)
+> > +{
+> > +       return a->size == b->size && memcmp(a->data, b->data, a->size) == 0;
+> > +}
+> 
+> This is probably worth moving to the build-id.[ch] file. I see similar
+> logic in places like __dso_id__cmp,  dso__missing_buildid_cache in
+> builitin-buildid-cache.c and sort__dcacheline_cmp. dso__build_id_equal
+> has some special backward compatibility checks.
+
+Agreed, will do.
+
+- Arnaldo
