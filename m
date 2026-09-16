@@ -1,164 +1,150 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772A62F1FE4
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:47:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806B834BA42;
+	Wed, 16 Sep 2026 14:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570053; cv=none; b=sKbtf1i2T94WUVU5rUVGW1Osfi89oNeZLNNSN8/v8ESeRE5fBp1dvPRsNICA8/duKLo26+44FBs9u6/nQaMRaXFH2uq4blnRXR2bYCrZoIIVuAPlvQx/Gecl0mef9xI0oek6S0oeMGjCp5ym2UvZSg8DuOnGe8SnYXaWiglxVeY=
+	t=1789570053; cv=none; b=WvpQ87wFZ+cLptofIqngGVuPSEF7EWLJwydi337VLpZFnNx21wAWHXLAxSSk4OmdvIGXSEjHtt1GFb+yhMabIKf0bUNeTrSc3mU55peKLb0vX+oKXlgcV7K8Io334YvA5uFscWbiJSrPJ0JDgmFOwj5AZgknobQkxe0PFvo86z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789570053; c=relaxed/simple;
-	bh=eqWkJSmv/tiBGGD3+FSHwBakwbSAKn+5SWHD5Y176es=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=WiFsZgQWqc6uB5t28/7gUSuKbURS0RHTJx2nUWU8qSnuoOMmWZSIqhArd43Q2FR+AxeHaOmt/EqMdPtAsznZY6pdgEqKXWeSbpLs2IydR7UHdTIFl+vzItcKEag5vwX1gkE8SP2BAWnnNq98EUHVUgS043RWSqx+I0jejprdoiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=moEFLI5z; arc=none smtp.client-ip=209.85.128.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	bh=7yWzwBFvf5ZnG2jt1gGj+ESSg2SyZdkgKqtfTpjBQ5M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GQ9p5LsJQfuYDfPsS0RGKyApOfmi880zfzne7tfO6h5SH99n+UUUQuJ9rK+i7/DyIrGDJj/VXdRgbAc69UbFcRfwfmaonGq4o4WWwqqRNc28md7Z7X2iSDVzQgSlVw+cwJyYJfmxxqNNHaXmnJTdE+LHAw4Bj5Wqg91GJYUJ4fU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESfNYJff; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="moEFLI5z"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49e6b5c5f44so37943945e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:47:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789570049; x=1790174849; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VEK2A1EMPHm2wewONLMkfK/EPHAjA+H6M8lM4TvNREg=;
-        b=moEFLI5z8hObgBF+l6eDz3V5/pSP7848c/fAi4BYcBbX6E38FiiScdnURwJJ3yxBSH
-         qL80Idx9zKC0ly1rGrjBHk0L+mwWVgA1vxrx0MM0vdJYbbcpMHqDRndRLYAB/KLzsBMA
-         H0my9/pCvik/k0L+aHn/y4Ez7HDzle3Cl/IFJE1GcLtmkngcTsOUqhGugw9LGWSATQYM
-         +2N5299SEtKpLBTrHwzJifdXHv6CuUFVUO7GGHcK9ktEzQUCtY06ztzheaOIpqDPh6OX
-         fxtcBgz5tUClOpBVMSaB1CuJ0kqAUQzpEajOZMNFZJpKzcHwFYuJdZel9a+3v44D7SiZ
-         xIkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570049; x=1790174849;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VEK2A1EMPHm2wewONLMkfK/EPHAjA+H6M8lM4TvNREg=;
-        b=RsOCT/2K0wQCL6D/m/4xO0JZFPERcPQ7cdhYzBPKmnR36lXiluC/1s0Gp8cL/9kvAg
-         uL6iSBwfGpFuUqDa3slt0G1UoDphV1Qb0zJxozgyqEX0hs54iOgYAtL/VfxCZymirxZl
-         QkApp3xwwMUX+6nKpihisFjpSwLQVevQYTjO9qR2sbUWZu4O1Iy2dLwYX7qSY9HN0tr+
-         EXQNdcRBo97L8dptUD76BlAleNVhXfzCJ2jwFxFtSubsW1tTrz172U4u/EAmHGnMIwU2
-         fPbl2UGMZLwB/sAfaRJAGYBas23vbYtZVi4ygjwGd8vrgbvkpx5J4XdYI6zyWdeV9S8I
-         vD7Q==
-X-Gm-Message-State: AFuF++mA/zvSMkK0fB5z3iogeityod6PlFzXum9uifnwYWJdntdfioZo
-	VlnRnygamqrfd8Jnkfz5WzCt9R3MP67MlavBFQDnL6Qr8b2/c3Tu3KFyklE8YuJJHaSlFcw1Og=
-	=
-X-Received: from wmoo14.prod.google.com ([2002:a05:600d:10e:b0:499:b2b5:78e8])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:4713:b0:49d:4ef:bf70
- with SMTP id 5b1f17b1804b1-49eac467915mr34495405e9.10.1789570049219; Wed, 16
- Sep 2026 07:47:29 -0700 (PDT)
-Date: Wed, 16 Sep 2026 16:46:51 +0200
-In-Reply-To: <20260916144647.2651379-11-ardb+git@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESfNYJff"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E8D21F00898;
+	Wed, 16 Sep 2026 14:47:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789570052;
+	bh=nEwQ5laeGMbsqBGqeW1j1B+pVXcHOGrBCoV3rMszFqI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ESfNYJff1sk7IiuwwG3HvTPMmCGAx8UgjOjjnCy2TviZOIYSqWqg0sdwtZLMQ4SFB
+	 GyQc6zB66KFJ3Hi63acec2mkm3/wskIaQUWVvFemdJFFUL1G7AfAM8FQYe7cuyIbHB
+	 miyVE3hyVQL8kdra34J+OCKDwWqkJmxHNhFMtUeYQ1viY/hUvEL0XJvzopfNZi1HSQ
+	 A4bpEm24o23fCoTayuANP3RG7p91ZWCy73UOFpsXrGlDJhyXXuUUk57L8Td1dVTqGE
+	 QqMx7zWctlVHg2zHVM5GFk/JJcNw4M0KV7vjs9yEPLrAQdLvmK0jdT5zjbjd0ikjFM
+	 Zz70PSLp81qDA==
+Date: Wed, 16 Sep 2026 16:47:29 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
+ for reader-marked trampolines
+Message-ID: <aqqsAUVV8a1yrQzX@localhost.localdomain>
+References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
+ <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com>
+ <aqlgxKGk_AEKls_1@localhost.localdomain>
+ <edc7cca2-a5c5-455c-8969-ea05dbdb08f7@paulmck-laptop>
+ <aqqONH8flTIpOUqT@localhost.localdomain>
+ <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
+ <aqqpRoTfywUuTgoC@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260916144647.2651379-11-ardb+git@google.com>
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3279; i=ardb@kernel.org;
- h=from:subject; bh=Lgsb/yq0Dq6T5v71CGxty1QuUmSRQI4tlUIGP++kj0I=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWvV6jsstjJcUfP+pp2QVK5huc4T4lP51VOkeYdP4DHBt
- gmzv8R3lLIwiHExyIopsgjM/vtu5+mJUrXOs2Rh5rAygQxh4OIUgIms/cTIsMp0w4z8EhmXTo2d
- oam89xeLaBRumS+36YM4z+P+1a/uGjP8Zl+8zynS0uZIGRPzZ3/B9c8/zWorV7mX6fPkxR42fvX ZXAA=
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260916144647.2651379-14-ardb+git@google.com>
-Subject: [PATCH v3 3/9] lib/ucs2_string: Split out ucs2_as_utf8_l() taking a
- separate limit
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
-	Vincent Mailhol <mailhol@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqqpRoTfywUuTgoC@localhost.localdomain>
 
-From: Ard Biesheuvel <ardb@kernel.org>
+Le Wed, Sep 16, 2026 at 04:35:50PM +0200, Frederic Weisbecker a écrit :
+> Le Wed, Sep 16, 2026 at 07:26:35AM -0700, Paul E. McKenney a écrit :
+> > On Wed, Sep 16, 2026 at 02:40:20PM +0200, Frederic Weisbecker wrote:
+> > > Le Tue, Sep 15, 2026 at 04:56:41PM -0700, Paul E. McKenney a écrit :
+> > > > > Alternatively the approach could be generalized to vanilla RCU, it could be
+> > > > > possible to define a .text.rcu_no_qs section within which code running is
+> > > > > considered as an RCU reader (with a pause while on the explicit RCU tasks
+> > > > > section). It would be forbidden to voluntary sleep inside
+> > > > > and to put explicit preemption points (CONFIG_PROVE_RCU could report misuses).
+> > > > > 
+> > > > > Based on IP, RCU could consider those interrupted section as readers. This would
+> > > > > require PREEMPT_RCU though.
+> > > > > 
+> > > > > And then synchronize_rcu() would do the 1, 2, 4 jobs.
+> > > > 
+> > > > If I am following correctly (ha!), sleepable BPF programs rule out use
+> > > > of RCU in this manner.
+> > > > 
+> > > > But your point is nevertheless valid, in that SRCU could be used.
+> > > > And because rcu_read_lock_trace() is a thin wrapper around SRCU-fast, we
+> > > > *might* be able to instead use rcu_read_lock_tasks_trace(), which would
+> > > > skip the task-struct increment and decrement, saving a few instructions.
+> > > > Then, instead of waiting for each task's counter to go to zero, instead
+> > > > just invoke synchronize_rcu_tasks_trace().
+> > > > 
+> > > > Which is pretty close to what Josef is proposing, just with the new RCU
+> > > > Tasks Trace read-side primitives.  I think.  ;-)
+> > > > 
+> > > > This assumes that we do not need to flatten partially overlapping RCU
+> > > > Tasks Trace readers into one big reader.
+> > > > 
+> > > > Or am I missing something here?
+> > > 
+> > > Yes I think that's what Josef does in this patchset. The problem is about
+> > > handling the few instructions:
+> > > 
+> > > 1) between the begining of the trampoline and the call to rcu_read_lock_trace()
+> > > 
+> > > 2) between the call to rcu_read_unlock_trace() and the end of the trampoline
+> > > 
+> > > So what I'm proposing is to make those two parts implicit RCU read lock sections.
+> > > 
+> > > So the whole trampoline would be .text.rcu_no_qs:
+> > > 
+> > > .text.rcu_no_qs trampoline:
+> > >   __________________________________________________________________________________________
+> > >  |Few instructions 1 | rcu_read_lock_trace() .... rcu_read_unlock_trace | Few instructions 2|
+> > >  ___________________________________________________________________________________________
+> > > 
+> > > Then when a tick fires, rcu_flavor_sched_clock_irq() discards the interrupted
+> > > code as QS if the IP was within .text.rcu_no_qs _unless_ it is in the
+> > > rcu_read_lock_trace. Both are easy and quick to verify.
+> > > 
+> > > Also preempt_schedule_irq() would make sure to verify the same condition and
+> > > enqueue the task as a GP blocker if preempting inside "Few instructions 1"
+> > > or "Few instructions 2".
+> > 
+> > Ah, OK, I might be following now.  ;-)
+> > 
+> > We also need both versions of rcu_exp_handler() to check the IP as well,
+> > given that sooner or later someone is going to want trampoline removal
+> > to go faster.  Or am I still missing a turn in here somewhere?
+> 
+> Yes indeed, missed the exp part!
 
-ucs2_as_utf8() takes a maxlength argument, which specifies how many
-bytes the function is permitted to store into the destination buffer.
+What remains to handle also is non-preemptible RCU because if the task is
+preempted by an IRQ while in the .text.rcu_no_qs, we may still need to keep
+track of that somewhere.
 
-The same value is used as an upper bound for the ucs2_strnlen()
-invocation, which is reasonable in the general case, as each UCS-2
-character produces at least one byte of UTF-8 output, and so there is
-never a need to process more than 'maxlength' UCS-2 characters.
-
-However, if the UCS-2 string is not NUL terminated, ucs2_strnlen() may
-read past the end of the buffer if 'maxlength' is set to a high value.
-
-Current callers pass UCS-2 strings that are expected to be NUL
-terminated, but for processing the load options in the EFI stub, a
-version is needed that takes a separate limit argument. So split that
-off from the current implementation.
-
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
----
- include/linux/ucs2_string.h | 11 ++++++++++-
- lib/ucs2_string.c           | 15 ++++++++-------
- 2 files changed, 18 insertions(+), 8 deletions(-)
-
-diff --git a/include/linux/ucs2_string.h b/include/linux/ucs2_string.h
-index c499ae809c7d..74f23ca5a967 100644
---- a/include/linux/ucs2_string.h
-+++ b/include/linux/ucs2_string.h
-@@ -14,7 +14,16 @@ ssize_t ucs2_strscpy(ucs2_char_t *dst, const ucs2_char_t *src, size_t count);
- int ucs2_strncmp(const ucs2_char_t *a, const ucs2_char_t *b, size_t len);
- 
- unsigned long ucs2_utf8size(const ucs2_char_t *src);
-+unsigned long
-+ucs2_as_utf8_l(u8 *dest, const ucs2_char_t *src, unsigned long limit,
-+	       unsigned long maxlength);
-+
-+static inline
- unsigned long ucs2_as_utf8(u8 *dest, const ucs2_char_t *src,
--			   unsigned long maxlength);
-+			   unsigned long maxlength)
-+{
-+	return ucs2_as_utf8_l(dest, src, ucs2_strnlen(src, maxlength),
-+			      maxlength);
-+}
- 
- #endif /* _LINUX_UCS2_STRING_H_ */
-diff --git a/lib/ucs2_string.c b/lib/ucs2_string.c
-index f75fb4f7961a..6c067b4280b9 100644
---- a/lib/ucs2_string.c
-+++ b/lib/ucs2_string.c
-@@ -125,18 +125,19 @@ ucs2_utf8size(const ucs2_char_t *src)
- EXPORT_SYMBOL(ucs2_utf8size);
- 
- /*
-- * copy at most maxlength bytes of whole utf8 characters to dest from the
-- * ucs2 string src.
-+ * Copy at most @limit whole utf8 characters to @dest from the ucs2 string
-+ * @src, using no more than @maxlength bytes of buffer space.
-  *
-- * The return value is the number of characters copied, not including the
-- * final NUL character.
-+ * The return value is the number of bytes copied, not including the final NUL
-+ * character. No NUL character will be appended if the output length equals
-+ * @maxlength.
-  */
- unsigned long
--ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
-+ucs2_as_utf8_l(u8 *dest, const ucs2_char_t *src, unsigned long limit,
-+	       unsigned long maxlength)
- {
- 	unsigned int i;
- 	unsigned long j = 0;
--	unsigned long limit = ucs2_strnlen(src, maxlength);
- 
- 	for (i = 0; maxlength && i < limit; i++) {
- 		u16 c = src[i];
-@@ -163,7 +164,7 @@ ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
- 		dest[j] = '\0';
- 	return j;
- }
--EXPORT_SYMBOL(ucs2_as_utf8);
-+EXPORT_SYMBOL(ucs2_as_utf8_l);
- 
- #ifndef __DISABLE_EXPORTS
- MODULE_DESCRIPTION("UCS2 string handling");
 -- 
-2.55.0.1032.g73a4cd73de-goog
-
+Frederic Weisbecker
+SUSE Labs
