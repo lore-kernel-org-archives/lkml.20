@@ -1,123 +1,188 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBCA4D9F6A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15E14BF931
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:44:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789595066; cv=none; b=iA0vGtbe3pAPbv1nIkBMUL2ur2Qv4oFZg4C73kTFlg8mC0hf2UYslFDlPaORwENlHMn2v8xbpeRaBPJ/bHWozmeV6ho06/kgMoT8O5zaiymEu5uxpGUn+KAbCsvhekC6BrKlZIoH3qwFBAJdyAPBF2wxRlTj3DBX4yIsJep2Ntw=
+	t=1789595069; cv=none; b=UCYjTUrNSBunI4HQxO8gXG3QoNACJ0YLkEOeOGa9VbUjlBwHzFSaYjl9WUxu4TkA3C09Qdx8EyBp6xe9ixyeDF9wHNTaPGz9rvO1RI16eTYpHDxvJKS8beG1KHwfb1+xM3cd4hHq5d41QD/zK8n7c1Z6BuzBwbvXz7dA3FNKoiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789595066; c=relaxed/simple;
-	bh=u9CwAkRmRgfbHgKS7O8auSQpb+Jkdl9BSbZ4LLxb8Ig=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XT40ZM3MB71oILc3KSX1gHlmD3LRaU35BpMAMQHedIs5F/l28245VktbelfmnT+64LyZGCPHk9USBGG2cJGYeEkkSNdfa9KEXk47BaxP6tzU1yiMur5rxf4PT1+PfLK6NFr5rnOMi5L2q74Dau5EULeEhtRyog4fpTSQxfV8Qp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=k67sJ/iv; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1789595069; c=relaxed/simple;
+	bh=eVwAxwIHPv5sTNmzVLKDZnp4GCwOva7HQs7nyqQVR/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V7aQ2V7U9ndknBJwmukOr7U7bGjqkX+8gj0A9czbvi4VG6MQmIwM8jM1bdC1psSqUdZzcatQ5H4fR68n9Nr0zrFS32qv7Bi+16URBAXGIt9H+nkrS6bmQ7+PlmgSSP4txXnjFKfsB/czY816RO68vAMXHI56TOoof3JLGQlKTPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RjXdezg7; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="k67sJ/iv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=DM/W
-	7KCnxU7/tdq5Kc2WNPGwfZ0hBpeFzr7aGr/+qyo=; b=k67sJ/ivCmMJjXEfmVDt
-	OXjDHvG9OqgfnDebkf05kUT1KLP+v9b21MYYDXEZcTJZZodnd3RGeykQI7RjtgPK
-	R48INoQPNUNMxRyR1iIPzh4m0zYWmHa2ily7IbZfPD4dPzGdPlEke18fZo5OErnm
-	/d1dsobEryvSpaM/xzU5WBNrVNq6p//DtL1IekdooVEmUU4L6WVfRaQYvXrB2sH9
-	XjjfZJgWNrAB1Yd82mEFpC25oK0k7ie7wBoSZFu7y2grULX6/nlqV+GUE0kmlLX4
-	I16/5vGZ9bnO5MkIUWGfCWK7LjUhMAPPDX5BZ6+ClVNWoO1/0zKg04EG0JTbC0N3
-	kA==
-Received: (qmail 1718523 invoked from network); 16 Sep 2026 23:44:04 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Sep 2026 23:44:04 +0200
-X-UD-Smtp-Session: l3s3148p1@gFzskKBb+tsujnt4
-Date: Wed, 16 Sep 2026 23:44:04 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v7 3/3] hwspinlock: add low level debug capabilities
-Message-ID: <aqsNpEXjuZswCC9w@shikoro>
-References: <20260912191442.99453-1-wsa+renesas@sang-engineering.com>
- <20260912191442.99453-4-wsa+renesas@sang-engineering.com>
- <CAMuHMdX27+sdJYd06v3T9hj2=z3ADSKOVGvu+02-qe+Jp6R4Bw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RjXdezg7"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b0dd3e1d0so206165e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:44:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789595046; x=1790199846; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FjY+yTooIwgjzGQxDpIA0K3uDvsszA1PxNKQSXHovCI=;
+        b=RjXdezg7hC3I0tRdRlyfrlijC4LDjc0TUA+UGSGqRStz6tQyGa/sXzeJtmp8eEPiu2
+         TiOer+mzoeACb2LJnI1kqqEP4mBXket7J7x0Kfeibrx+XzgfYScgk4RM+Zodip51DNGo
+         8R9czOBSJ4xLBpAfCUai9vHaDiw47aYde/SzfjTd7Razpvt/IDLFfbzS2321cmjCkJCI
+         pQiL4Fn31o11exQH5gtyQlSP4Fx3zkbLWNi1esx/pQY53XxItdlTTJKJUwiQ8+W3X6v1
+         smKsnF1gCRhJGNl9fbMNfSF4PHqbnMUmTZ+K8yJtxk/gAnmSNI8jpvva69Z5c13GohGt
+         AWMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789595046; x=1790199846;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FjY+yTooIwgjzGQxDpIA0K3uDvsszA1PxNKQSXHovCI=;
+        b=trBrbevw0lqvWjIg84yYU7+gR8/ESciL5ydQvdYuhQ9qzYR6oUVATkXf1eKFOVAAOj
+         vT5FJKj+rm7ZBQXNiil2JK2z0mzka6OEjbZyjn0kyFcl4uSuNfkPetjfC4L55vQDNrBw
+         iLglxhb1T8A/1M0mi6L6qCX9yqFdGqjZ1+R1hIOTawsDnSkDvDMqKtw0vTzZgaUndKBk
+         3dJ4sjW4FqlME4XmeSQw7I4K2TWh56S6TQbhhzfmGn592YXJqK6XO+NT/8GoH5vE8cz7
+         hDwC7glMSiXwLq9TNIEpVAlQkPBy+tcxdTor/Z+GXpwZ2ReMQfEGbaNCqfsBAXjJdW/K
+         vadg==
+X-Forwarded-Encrypted: i=1; AKwUvBzJghVC1k78PkOTmR+WHHI3xfVl4jlf0hb7/hbCSvc5bIqVutwFfHYrn+1ovoRBcbkRUS1RD/Yo4YrAqPI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ns/ls1ttjWk6Ft2+cIKPNapNVwMWFCo9nUCfOrSIADpgApnpqm
+	UCQpiigTDzTWrj4FG4tGYQU9KdK4pD1S+7LaT7rS92BB6/WO5pt8cZI8
+X-Gm-Gg: AYBFou04Me0wl6a+/wZoxHEMcMLcapUg5VMGvgHCZcnj31lqA+h0TXoK+Nthq+mK05M
+	aYl28yJYs5omYCg3GTs8ek3RJ3jLbklhwwbidsOrH6Gh4jKXOGuAmn+FCOp9EcYEquW53ZSpiAd
+	36Arnv72zOFI+lnujO4+/DAQ8lr8pYG116ctARqbAWs6eRbkuhU0Ftrl/kqJHLZJjmZjU8cD7Zl
+	62lHqlo/ffSvXJ2r5OR/05XEPOcDl5NR1s6zNzBMTHpmgOeUvuCPlcFQ80jcB2UQnDuKfAWmEAM
+	VZDGRnrYTpiSchvsGfTXu/7vf9GR/ZVUXpdQjDUBVDSvse0Xtxzci8qtrU4GAXGI+c5QGi0rLFC
+	p0cqe1Naur21N0bewVtsCD4DrTno7JhnVBD0yZx83IU9hAT1VB/RRqhVRbcVza1MMKVg+7Hg1tK
+	d9WvinirJFwF5ALX7GmDXDPV/orSlovFF30jp/v6Jg8D3XCHk0/ez8DAmZwRBEBxboaY/3pMMam
+	wnxmwx8gNHvDV/R7gc=
+X-Received: by 2002:a05:600c:5489:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49eb732b2c8mr49393815e9.2.1789595045874;
+        Wed, 16 Sep 2026 14:44:05 -0700 (PDT)
+Received: from Nuel20.localdomain ([105.118.73.8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd32c5e1sm35176755e9.5.2026.09.16.14.44.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 14:44:04 -0700 (PDT)
+From: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+To: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	intel-wired-lan@lists.osuosl.org
+Cc: corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	mchehab@kernel.org,
+	aleksander.lobakin@intel.com,
+	aleksandr.loktionov@intel.com,
+	tudor.ambarus@linaro.org,
+	emmaonana18@gmail.com,
+	bvanassche@acm.org
+Subject: [PATCH v2] docs: kdoc: fix struct_group_tagged() parsing regression
+Date: Wed, 16 Sep 2026 22:43:57 +0100
+Message-ID: <20260916214357.22573-1-emmaonana18@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1ydJZIwgFrpNtqTV"
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdX27+sdJYd06v3T9hj2=z3ADSKOVGvu+02-qe+Jp6R4Bw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
---1ydJZIwgFrpNtqTV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+kernel-doc reports struct_group_tagged() members as excess because
+the macro transformation rewrites it to an anonymous struct and drops their
+member names.
 
+Keep the tag and member name when transforming struct_group_tagged(). The
+nested members are then recorded as names such as fast.order; accept the
+existing unqualified @order documentation tag during validation.
 
-> > While developing the hwspinlock core or a device driver, it can be
-> > really helpful to change states from userspace. Add a debugsfs interface
->=20
-> debugfs
+Add a regression test based on struct page_pool_params.
 
-Yes.
+Reported-by: Randy Dunlap <rdunlap@infradead.org>
+Link: https://lore.kernel.org/all/0cf8ea5f-418f-45f0-907c-3d1ed4f03e9f@infradead.org/
+Fixes: 2f07ddbd5793 ("docs: xforms_lists: better evaluate struct_group macros")
+Assisted-by: LLM
+Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+---
+Changes in v2:
+- Add Assisted-by: LLM as requested by Jonathan Corbet.
 
->=20
-> > to request, free, lock, unlock, and test hwspinlocks. Because this is a
-> > potentially dangerous interface, it can only be enabled via source code.
->=20
-> ... code,
->=20
-> > Similar to writeable attributes for clocks where this idea stems from.
->=20
-> similar ...
+ tools/lib/python/kdoc/kdoc_parser.py  |  4 ++-
+ tools/lib/python/kdoc/xforms_lists.py |  2 +-
+ tools/unittests/test_kdoc_parser.py   | 37 +++++++++++++++++++++++++++
+ 3 files changed, 41 insertions(+), 2 deletions(-)
 
-You mean I should merge the two sentences into one?
+diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
+index d9ad1ddc87dd..ced09504f3d7 100644
+--- a/tools/lib/python/kdoc/kdoc_parser.py
++++ b/tools/lib/python/kdoc/kdoc_parser.py
+@@ -635,7 +635,9 @@ class KernelDoc:
+                 continue
+             if param_name.startswith("{unnamed_"):
+                 continue
+-            if param_name in self.entry.parameterlist:
++            if param_name in self.entry.parameterlist or \
++               any(actual.endswith('.' + param_name)
++                   for actual in self.entry.parameterlist):
+                 continue
+ 
+             hint = self.get_suggestions_hint(param_name, self.entry.parameterlist)
+diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+index e3dda2fe8a53..9e8b3a6b1da1 100644
+--- a/tools/lib/python/kdoc/xforms_lists.py
++++ b/tools/lib/python/kdoc/xforms_lists.py
+@@ -60,7 +60,7 @@ class CTransforms:
+         #
+         (CMatch("struct_group"), r"struct { \2+ };"),
+         (CMatch("struct_group_attr"), r"struct { \3+ };"),
+-        (CMatch("struct_group_tagged"), r"struct { \3+ };"),
++        (CMatch("struct_group_tagged"), r"struct \1 { \3+ } \2;"),
+         (CMatch("__struct_group"), r"struct { \4+ };"),
+     ]
+ 
+diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
+index c4a76ed13dbc..1a8287e99f2e 100755
+--- a/tools/unittests/test_kdoc_parser.py
++++ b/tools/unittests/test_kdoc_parser.py
+@@ -418,6 +418,43 @@ class TestSelfValidate(GenerateKdocItem):
+         """
+         self.run_test(self.SOURCE, [self.DEFAULT.copy()], self.EXPORTS)
+ 
++
++class TestStructGroupTagged(GenerateKdocItem):
++    def test_nested_struct_group_tagged_members(self):
++        source = """
++            /**
++             * struct page_pool_params - page pool parameters
++             * @fast: Fast path parameters.
++             * @order: Order of pages.
++             * @pool_size: Number of pages.
++             * @slow: Slow path parameters.
++             * @netdev: Net device pointer.
++             * @queue_idx: Queue index.
++             * @flags: Flags.
++             */
++            struct page_pool_params {
++                struct_group_tagged(page_pool_params_fast, fast,
++                                    unsigned int order;
++                                    unsigned int pool_size;
++                );
++                struct_group_tagged(page_pool_params_slow, slow,
++                                    struct net_device *netdev;
++                                    unsigned int queue_idx;
++                                    unsigned int flags;
++                );
++            };
++        """
++
++        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
++        patcher = patch('builtins.open', new_callable=mock_open,
++                        read_data=dedent(source))
++        with patcher:
++            _, entries = kernel_doc.parse_kdoc()
++
++        self.assertEqual(len(entries), 1)
++        self.assertEqual(entries[0].warnings, [])
++
++
+ #
+ # Class and logic to create dynamic tests from YAML
+ #
+-- 
+2.43.0
 
-> > +static void hwspin_lock_low_level_debug_init(struct dentry *rootdir)
-> > +{
-> > +       debugfs_create_file("request", 0200, rootdir, NULL, &fops_reque=
-st);
-> > +       debugfs_create_file("free", 0200, rootdir, NULL, &fops_free);
-> > +       debugfs_create_file("lock", 0200, rootdir, NULL, &fops_trylock_=
-raw);
-> > +       debugfs_create_file("unlock", 0200, rootdir, NULL, &fops_unlock=
-_raw);
-> > +       debugfs_create_file("test_lock", 0200, rootdir, NULL, &fops_tes=
-t);
->=20
-> Perhaps just "test"?
-
-Hmm, too generic for my taste. In fact, I think I should maybe rename it
-to "test_single_lock" to make it more precise...
-
-> The rest LGTM, so
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Thank you!
-
-
---1ydJZIwgFrpNtqTV
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqrDaQACgkQFA3kzBSg
-KbbFixAAgz371RqwNn/QHdIZlTiyc/IwwfiPlgZOQSKC//TA3PLQwhpjESSNaOj1
-cUd66gVDmROXA5gZyY5k5XEhAD2YPgkRoPfy8lGaiNC/xuZ+3Soxvl2IfIZoKO6r
-I1AFSFjUtCSouLHB0NFz4t8TxYL0kFBjniWaqNjgZP8K50uo3NaaS4dmRsYa7t01
-t0uVAE0V1J8EG1u2XqjWKeUAX2fBHn1SmsTk3Jjeb/aYScd4ZP4XVS3iM7kjkEuf
-R4KrlWBvR+GwXiB947dD8xs0l1OiqRgVSD17eiYtP0+fY07LuG+SE7mmuUyaYWfS
-Q4SOUHqNs7Bw/p5lCMAno1cB74U+NxX+LJZgzos1jvjcBl814y5gKvFElDj57N6R
-SMinFdOZxdDOfWtrTzTvquDnnrDbJAJR+iHQB2Fzka4d9uz3UnmQl0j+mSOOTH8N
-Gwhigp76UejYwe4blLKn8oTzHOUTcPWbeS65HWddy82Zn2PBUAVBWkB7G0FY4EsB
-pwgs9Jzr+ih1Ix515xuNfFLn6BfI/mhFQPD7SuAdhL691T+pjeU5rx/36BhvyVzE
-fCoWr9MwJozctyWMkoomtZd26M53aQUrGxVBdc6Ofjwmv6s+PtH0NkUHfFuCXnQb
-2xGKmSfVdmGnED3TSFQcmwVFcY9OxnNmGspxAB+/ALc9svEVPiw=
-=C3xR
------END PGP SIGNATURE-----
-
---1ydJZIwgFrpNtqTV--
