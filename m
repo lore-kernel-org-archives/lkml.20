@@ -1,317 +1,147 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C76399011
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:23:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789539815; cv=none; b=HdLF3H1R3AqxLz6U25PDYGNKpOqxV3PCsnD6NGg0snh4sRdjM0WtwLauvuWgtvwNCJ1GZUjV9OGvw+gMkxdB51h8Tm0t0kUAPMjEbSZp/eKK3ExBkS20xnpyuIEBIfirsZG/iVLPCKFYXYmbtACsm8JgOsgcl/he/bIUOjabcHc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789539815; c=relaxed/simple;
-	bh=KUtBdq12OEY1wSIMIJXVPi81koLSIF0WSo9YTwXXD4s=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=rRqn+09VRIwXHK7lGk0sOVEOa+HkivrlFxt067AyORN+JjF/b7DVFQ6rXxwyxtrvh4oXRLHhGYQIdLT1k58vijfUWAhPpHDAU20NAM5aXoFiwwoYeYYW7Ili+lJi2AWEUwtOh2r05imTlNPWXqYMIhZwzU1JHHRgsooSmVrfTFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=brqwwvhe; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A0F399011
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789539849; cv=pass; b=acCtRGbbmNCAQeGXcUYbsE2t3SRVWYQlSAtCthAefInN+Gsq/KhSxqkYJpyYg9K+Qv/pXBOBWk4Lz6TcSPyNiTyNW6hcEPPuCLR6wm9mxGiB7EKIDdJqyvdM3jzq2uBsbvQTolHWAztmCoFsIyUL0T1IYcLrphjPcumSHh7cnCA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789539849; c=relaxed/simple;
+	bh=mAIrKBvRrMomGH0iYWEN1Ps+5CGaEFImVIbj9hUuyyk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=alyzC4HfKm/JVyvzH66BswRT8GJqMDXnQw7ybGnkvrkSZe4UQZ88NI81kMVyWWjexvjUfSJ41Osesm9cDQrrBn/SorS9WPkjJf3i3Zf4LcsTmkADtsiNuG3LCfHrQLmbpF/i8EaOeTso0MfwB7MPDSd+3YETjpLBlY14+g+YNL4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OSx2qtBc; arc=pass smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="brqwwvhe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789539813; x=1821075813;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=KUtBdq12OEY1wSIMIJXVPi81koLSIF0WSo9YTwXXD4s=;
-  b=brqwwvhecDCJGLjTTaKDKp7BcYGH8JjyPr+irR4/qaSuM5X+/6nCwxkT
-   bD2hn2AVQPnl95XlPFUjBEV8BQvYdvniTJMos1z8nwrzHvzko0nD8Oc2r
-   xF8UDBWT9MSJxg+e1tJrSjLU2bnNO7yDuHB3q8wqVTQOGfxlkL2unh9If
-   w7zyJnfdJhFzEg4doctOeFM+kbetOo8uHdRfExK0gw8kT/SR9IHL0QEpK
-   ACxRwv2bnaNh9zV0AyG6N6ukA1a92SpO4cOqh+3W4Zej9VwNhdGePXm60
-   q7MaNwhnfDkGfpfL+P4yqc82sGyQk57gAVESItmKe0QXjx1ymEzbtO7QK
-   w==;
-X-CSE-ConnectionGUID: Jhu6dMKsRXq++oKzaH6JeA==
-X-CSE-MsgGUID: InVuluvsShql0nNL6kGhxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93612111"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93612111"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 23:23:32 -0700
-X-CSE-ConnectionGUID: mkW9Ij6OR6qOzjT60bIdvw==
-X-CSE-MsgGUID: NUUKZEE9SvOVMQPDRRHlfg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271796302"
-Received: from unknown (HELO [10.238.1.188]) ([10.238.1.188])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 23:23:30 -0700
-Message-ID: <e56a23f2-216c-41ea-991d-495962e6b7af@linux.intel.com>
-Date: Wed, 16 Sep 2026 14:23:27 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OSx2qtBc"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so2645295e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:24:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789539846; cv=none;
+        d=google.com; s=arc-20260327;
+        b=k1ruDqkqEOjAxlOnmQ0da++CS0GsUdmojQV7LR1RI9u3zOYcuQxFzqCW6YWJHtjFKR
+         Wb2CrmVFcP5P+tQue30sueqw6/Ea0FDJV/g5oBpYuRij+x++IXJNrk1RnqXubddu7IVR
+         IoTWtc6pYZmJ4NTlj4mwk+BpuzsFwn3AUzTIToxIlcI9N+fefkcwGXLgJ8IomugB+68o
+         NVD4FgC0TnDiqhpN9onPy3Y+i4XeNP214rID1ecK5I6ypxFOD8Kyb7sAApp9te2Y53CW
+         1CfVUJ3ZNH6CbpcEsG87t8tfGbKLbLIx/m79zxClOLzVw/xzc3PW1M/9RPttjVfNv4ai
+         eppw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mAIrKBvRrMomGH0iYWEN1Ps+5CGaEFImVIbj9hUuyyk=;
+        fh=dfFO4lWGEzbcM/XPiGHJPM/DR7EBvQ3g9kiZ54j+aWE=;
+        b=qxD0a8e+zKbaUVwDxsYxGXsMNFKIZg3R/MtGNIo0NUe6hfDQ4G/7rZCeJx9QBAW+u/
+         EfEPoUh/ficwfJA2ej4PRG5u2qsqRuY16ezJTs4HRCmjH3NNvNXUjT41UZIEvY193ABY
+         INSeeLgX0b6vRJB4lTlovitMfxUVMrWs2NJgW6hO/BJKgCo8KQvhgBbfxGVzCS8vCkMg
+         OY4V3AnegMt1byI1kZhAbFSmIVkHW44Y9zmegF0TzY8PKYsjf/OMCNOrTOUlzxQM2yf9
+         bUTRQPUlwex4YxmRzMC0Vac3/7mMW3kUh/DlDuq2mnKawc5MrhvqvZjc2pXutXEbDV1K
+         nc/g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789539846; x=1790144646; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mAIrKBvRrMomGH0iYWEN1Ps+5CGaEFImVIbj9hUuyyk=;
+        b=OSx2qtBc/r+rHIFwZ8pNBLz9gbhv8ovncxqro4LoO2+CywqM5P+sHaSnSPArsmph5v
+         Y7SV8y5Fb5FVe1atPoJ51khAuqQknd++N2RwmUE4Ex00XWej+hMwgoMBEGg9DPTS+OCp
+         g/Thw9AVDhEcqv0cR3dBkir49sAtuXkDPCLa2lM7futROTtprJ94/XkDn1lpwfK5NQok
+         GCwU1C3Nu8M2NwyrV2e7Tb9dUnPchCFuJkafpyNJTzZ0WtPglS9mFZNYIBv3/PrQVFh4
+         OVkO4Uetw5N5pyGAXFcONnCZhI74EF/fOhUqYN34WKeoyWsjFl30af8yYMvaOeZq/6w4
+         ywIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789539846; x=1790144646;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mAIrKBvRrMomGH0iYWEN1Ps+5CGaEFImVIbj9hUuyyk=;
+        b=wOxR/rwsYDd5nFi4lWvvb6yF8ebVeaDrV0nbOYFbLZz7sYTyym+j2FAtEiD9xlTHtP
+         L1yU/dBaetQFsw+HkZiMRIykqCSuIdfsSS2LbpEvylC8mAdaIVW4JGMLTdBE3TKwVjMK
+         480L0JQ+i3Od6ZnolU26FFE5iEB8NuUKuSvNbhB1PcG99In7bfj4dVGq/fFlY3DKAhem
+         3+W8ltMTZTVMXsGRQFzF9bFOwimthi7zyq86OqkZzjSNazHo6qBMKtuzbUvKb++/nu69
+         jTipfL3pWsc06nyH07Wm5pfCxY20HDNtapEtDtVLiAgMZohPbDCMhTbxZD9Lq5kU1mZU
+         vZQg==
+X-Forwarded-Encrypted: i=1; AKwUvBy+UKb+rszGz8myYOXZHZvZyRQu9mJI8zgSG53WbWOsFyr+YW0vkYAFU26/yvlZv8Cq0fj3avFJ1cvbuYY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJFg/49O3B+JJmnfPUnNXQk3Xzbgjl/3adQcQWYGaU3hSnquIY
+	CHOzn2foWjU3gtQuFzxwb/3TNGBwm24tlAZxb6yRwGYSsbbLvH+wUi+unNnwZTy4AtPvyQxflv2
+	JN8kPvLLG+7ZrGjbwUmZfbYZg7RVgWRlXnIMdbcg=
+X-Gm-Gg: AYBFou0HDlrr84xg7Gk9D6FIuQWjh+Uw5LzMj09HpHyhPZUEa8CB1GeLdw9L0JxzlI4
+	3IqrIwT/jQP9LEo6BJw0wMHe/jZwkz8McYein2lEdmGplGRklruX91XaiqOI/sfatAkIMSzB2z/
+	/LJiXKoXa70yfVKeL9OUhIFnBcnSvlt49Y14RAVRubk8EvCiMjZtU/3RytAz/hhrCRYnc7Q1Tzw
+	ndKaTYkvSnjHGjp/QJSc2y4QSgeBJvlgJI6MTeKPF06hKYpZ64dCe6+PN0A10cq34O7L70VXY9b
+	e7WXs7w1RkbHkO58e+m9+I7XzK6TfRXjujT0jj99U8qTRDsH4bNuS+6NjOyITnmT+/Z2tPKGaR7
+	Lv8gIw/dGPh1bAdaOGZ4v22ZDpYRn+mFJxXJcbwOejXguUbE9ITWdhYzG0K8+bA3J7eVeTmM/a3
+	2Au5v0yd9Bog22RhqxeA==
+X-Received: by 2002:a05:600c:34c3:b0:49e:65ac:eb5f with SMTP id
+ 5b1f17b1804b1-49eb7328a3fmr26373395e9.10.1789539845298; Tue, 15 Sep 2026
+ 23:24:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, bikuan.zbk@alibaba-inc.com,
- dwmw2@infradead.org, iommu@lists.linux.dev, joro@8bytes.org,
- linux-kernel@vger.kernel.org, robin.murphy@arm.com, will@kernel.org
-Subject: Re: [PATCH v3] iommu/vt-d: Fix IQE handling to cover all descriptors
- in submission range
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-References: <2c0d1b6d-6844-4413-b399-1000cc6712e4@linux.intel.com>
- <20260914141958.584919-1-guanghuifeng@linux.alibaba.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20260914141958.584919-1-guanghuifeng@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260826062901.2137-1-kprateek.nayak@amd.com> <CANDhNCpEYgckCPYhjL8oQGYv9r8joP_1tBps4bGQFD3vWDCetA@mail.gmail.com>
+ <a367d70f-a095-419f-83e8-5d7458204f3d@amd.com>
+In-Reply-To: <a367d70f-a095-419f-83e8-5d7458204f3d@amd.com>
+From: John Stultz <jstultz@google.com>
+Date: Tue, 15 Sep 2026 23:23:51 -0700
+X-Gm-Features: AcwNN1XqzRtFKZVAE5Q7sPJSncMNWqmLUccb5egv6CwKSNa89CMp9K55SIsYzoU
+Message-ID: <CANDhNCo4EHNXY9zWhE3ngzHN_7eHpjP9v2MrBkrS8vHpTD7jWw@mail.gmail.com>
+Subject: Re: [RFC PATCH 00/16][PoC] sched/core: Alternate approach to
+ sleeping-owner handling in PROXY_EXEC
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Suleiman Souhlal <suleiman@google.com>, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Will Deacon <will@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Andrea Righi <arighi@nvidia.com>, linux-kernel@vger.kernel.org, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, Waiman Long <longman@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/14/2026 10:19 PM, Guanghui Feng wrote:
-> When an Invalidation Queue Error (IQE) occurs, hardware halts fetching
-> and IQH points at the faulting descriptor. The previous code only
-> checked whether IQH matched the first descriptor index of the current
-> submission, missing faults on any other descriptor within the batch.
-> 
-> Expand the check to cover the entire submission range [index, wait_index],
-> accounting for circular wrap-around.
-> 
-> Furthermore, after detecting IQE, the old recovery only replaced the
-> single faulting slot with a copy of the wait descriptor and immediately
-> returned -EINVAL. This left two problems:
-> 
->    a) Hardware resumed fetching and could hit another invalid descriptor
->       in the same abandoned batch, raising a second IQE that no submitter
->       would claim — permanently deadlocking the queue.
-> 
->    b) The caller reclaimed all batch slots (QI_FREE) while hardware might
->       still be asynchronously processing descriptors from that batch,
->       allowing concurrent overwrite and descriptor corruption.
-> 
-> Fix both by introducing qi_drain_remaining_descs(): upon IQE detection,
-> overwrite the stranded slots in [IQH, wait_index) with no-op wait
-> descriptors, resubmit the wait descriptor at wait_index, then clear IQE.
-> The caller's existing poll loop naturally waits for QI_DONE — which per
-> VT-d spec §6.5.2.12 is only written after ALL preceding descriptors
-> complete — guaranteeing hardware has fully drained the batch before
-> slots are reclaimed.
-> 
-> Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-> Signed-off-by: bikuan.zbk <bikuan.zbk@alibaba-inc.com>
-> ---
->   drivers/iommu/intel/dmar.c | 78 ++++++++++++++++++++++++++++++--------
->   1 file changed, 63 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
-> index ba675b08cd20..db92fb247131 100644
-> --- a/drivers/iommu/intel/dmar.c
-> +++ b/drivers/iommu/intel/dmar.c
-> @@ -1344,6 +1344,43 @@ static void qi_dump_fault(struct intel_iommu *iommu, u32 fault)
->   	       (unsigned long long)desc->qw1);
->   }
->   
-> +/**
-> + * qi_drain_remaining_descs - drain descriptors stranded by an IQE
-> + * @iommu: the affected IOMMU
-> + * @wait_index: slot index of the wait descriptor of the current submission
-> + * @shift: qi_shift(iommu), converts a slot index into a byte offset
-> + * @options: QI_OPT_* flags of the current submission
-> + *
-> + * Overwrite the slots in [IQH, @wait_index) with no-op descriptors, resubmit
-> + * the wait descriptor at @wait_index, and clear IQE so hardware resumes and
-> + * eventually signals QI_DONE. Must be called with qi->q_lock held.
-> + */
-> +static void qi_drain_remaining_descs(struct intel_iommu *iommu,
-> +				     int wait_index, int shift,
-> +				     unsigned long options)
+On Tue, Sep 15, 2026 at 11:10=E2=80=AFPM K Prateek Nayak <kprateek.nayak@am=
+d.com> wrote:
+> On 9/16/2026 10:52 AM, John Stultz wrote:
+> > On Tue, Aug 25, 2026 at 11:29=E2=80=AFPM K Prateek Nayak <kprateek.naya=
+k@amd.com> wrote:
+> > Again, it definitely is interesting and appears to be more integrated
+> > into the scheduler logic, so I'd expect that will give us better
+> > results then my maybe more isolated and tacked on activation logic.
+> >
+> > Have you gotten a sense of what Peter thinks of it?
+>
+> I think Peter is slowly getting through the more stable stuff first
+> and may arrive at this at some point but I'll try to get a word in
+> at LPC if he is planning on attending.
+>
+> That said, knowing Peter, I have a hunch he might like your approach
+> better since it handles delayed tasks too (tasks may be eligible at the
+> time of chain-wakeup), does not add stuff into ttwu_runnable(), and does
+> not have the insane (DEQUEUE_SLEEP | DEQUEUE_MIGRATING) behavior which
+> has larger implications for PELT tracking and SCHED_DEADLINE.
+>
+> I sent out the RFC since it makes for an interesting discussion but I
+> have a feeling lot more things need ironing out if w go this way but
+> I can always do it later after the stuff from you and Suleiman lands
+> once I can prove some benefit.
+>
 
-This is only an internal helper, so there is no need to add a kernel-doc
-comment like this.
+Ok. I'd like to try to make more progress moving the sleeping owner
+enqueuing upstream as soon as possible, so deciding to push forward
+with my big patch or migrate to focusing on your set would be a good
+call to make quickly here.
 
-> +{
-> +	struct q_inval *qi = iommu->qi;
-> +	struct qi_desc desc;
-> +	int head_idx;
-> +	int cur;
-> +
-> +	head_idx = (readl(iommu->reg + DMAR_IQH_REG)) >> shift;
-> +
-> +	memset(&desc, 0, sizeof(desc));
-> +	desc.qw0 = QI_IWD_TYPE;
-> +	for (cur = head_idx; cur != wait_index; cur = (cur + 1) % QI_LENGTH)
-> +		memcpy(qi->desc + (cur << shift), &desc, 1 << shift);
-> +
-> +	desc.qw0 = QI_IWD_STATUS_DATA(QI_DONE) |
-> +			QI_IWD_STATUS_WRITE | QI_IWD_TYPE;
-> +	if (options & QI_OPT_WAIT_DRAIN)
-> +		desc.qw0 |= QI_IWD_PRQ_DRAIN;
-> +	desc.qw1 = virt_to_phys(&qi->desc_status[wait_index]);
-> +	memcpy(qi->desc + (wait_index << shift), &desc, 1 << shift);
-> +
-> +	writel(DMA_FSTS_IQE, iommu->reg + DMAR_FSTS_REG);
-> +}
+Your lock nesting optimization at the end seems like it might still be
+applicable with my patch, no? Maybe we can pull that in at least?
 
-I would like this helper to be self-contained; that is, it should
-replace all abandoned descriptors with wait descriptors and then wait
-until hardware fetch passes those descriptors. Something like this (not
-tested yet):
+I'm also wondering if trying to refactor the is_linked bits in after
+my change might make sense, though I suspect that will require the
+_MIGRATING flag dependencies?
 
-+static int qi_drain_remaining_descs(struct intel_iommu *iommu, int head,
-+				    int wait_index)
-+{
-+	struct q_inval *qi = iommu->qi;
-+	int shift = qi_shift(iommu);
-+	struct qi_desc wait_desc = {};
-+	struct qi_desc nop_desc = {};
-+	cycles_t start;
-+
-+	nop_desc.qw0 = QI_IWD_FENCE | QI_IWD_TYPE;
-+
-+	wait_desc.qw0 = QI_IWD_STATUS_DATA(QI_DONE) |
-+			QI_IWD_STATUS_WRITE | QI_IWD_FENCE | QI_IWD_TYPE;
-+	wait_desc.qw1 = virt_to_phys(&qi->desc_status[wait_index]);
-+
-+	while (head != wait_index) {
-+		memcpy(qi->desc + (head << shift), &nop_desc, 1 << shift);
-+		head = (head + 1) % QI_LENGTH;
-+	}
-+
-+	WRITE_ONCE(qi->desc_status[wait_index], QI_IN_USE);
-+	memcpy(qi->desc + (wait_index << shift), &wait_desc, 1 << shift);
-+
-+	/*
-+	 * Order the descriptor rewrites before the writel() that restarts
-+	 * the fetch engine.
-+	 */
-+	wmb();
-+
-+	writel(DMA_FSTS_IQE, iommu->reg + DMAR_FSTS_REG);
-+
-+	start = get_cycles();
-+	while (READ_ONCE(qi->desc_status[wait_index]) != QI_DONE) {
-+		if (DMAR_OPERATION_TIMEOUT < (get_cycles() - start)) {
-+			pr_err("Timeout draining invalidation queue after IQE\n");
-+			return -ETIMEDOUT;
-+		}
-+		cpu_relax();
-+	}
-+
-+	return 0;
-+}
-
-> +
->   static int qi_check_fault(struct intel_iommu *iommu, int index, int wait_index)
->   {
->   	u32 fault;
-> @@ -1366,21 +1403,22 @@ static int qi_check_fault(struct intel_iommu *iommu, int index, int wait_index)
->   	 * is cleared.
->   	 */
->   	if (fault & DMA_FSTS_IQE) {
-> +		int head_idx;
-> +
->   		head = readl(iommu->reg + DMAR_IQH_REG);
-> -		if ((head >> shift) == index) {
-> -			struct qi_desc *desc = qi->desc + head;
-> +		head_idx = head >> shift;
->   
-> -			/*
-> -			 * desc->qw2 and desc->qw3 are either reserved or
-> -			 * used by software as private data. We won't print
-> -			 * out these two qw's for security consideration.
-> -			 */
-> -			memcpy(desc, qi->desc + (wait_index << shift),
-> -			       1 << shift);
-> -			writel(DMA_FSTS_IQE, iommu->reg + DMAR_FSTS_REG);
-> -			pr_info("Invalidation Queue Error (IQE) cleared\n");
-> +		/*
-> +		 * The faulting descriptor can be anywhere within the current
-> +		 * submission's range [index, wait_index]. Since the queue is
-> +		 * circular, this submission may wrap around QI_LENGTH
-> +		 * (index > wait_index in that case), so check both the
-> +		 * non-wrapped and wrapped cases of the range.
-> +		 */
-> +		if (index <= wait_index ?
-> +		    (head_idx >= index && head_idx <= wait_index) :
-> +		    (head_idx >= index || head_idx <= wait_index))
->   			return -EINVAL;
-> -		}
->   	}
-
-Then call the above helper directly here.
-
-@@ -1366,18 +1409,25 @@ static int qi_check_fault(struct intel_iommu 
-*iommu, int index, int wait_index)
-  	 * is cleared.
-  	 */
-  	if (fault & DMA_FSTS_IQE) {
-+		int head_idx, ret;
-+
-  		head = readl(iommu->reg + DMAR_IQH_REG);
--		if ((head >> shift) == index) {
--			struct qi_desc *desc = qi->desc + head;
-+		head_idx = (head >> shift) % QI_LENGTH;
-+
-+		/*
-+		 * The faulting descriptor can be anywhere within the current
-+		 * submission's range [index, wait_index]. Since the queue is
-+		 * circular, this submission may wrap around QI_LENGTH
-+		 * (index > wait_index in that case), so check both the
-+		 * non-wrapped and wrapped cases of the range.
-+		 */
-+		if (index <= wait_index ?
-+		    (head_idx >= index && head_idx <= wait_index) :
-+		    (head_idx >= index || head_idx <= wait_index)) {
-+			ret = qi_drain_remaining_descs(iommu, head_idx, wait_index);
-+			if (ret)
-+				return ret;
-
--			/*
--			 * desc->qw2 and desc->qw3 are either reserved or
--			 * used by software as private data. We won't print
--			 * out these two qw's for security consideration.
--			 */
--			memcpy(desc, qi->desc + (wait_index << shift),
--			       1 << shift);
--			writel(DMA_FSTS_IQE, iommu->reg + DMAR_FSTS_REG);
-  			pr_info("Invalidation Queue Error (IQE) cleared\n");
-  			return -EINVAL;
-  		}
-
->   
->   	/*
-> @@ -1452,7 +1490,7 @@ int qi_submit_sync(struct intel_iommu *iommu, struct qi_desc *desc,
->   	int wait_index, index;
->   	unsigned long flags;
->   	int offset, shift;
-> -	int rc, i;
-> +	int rc = 0, fault, i;
->   	u64 type;
->   
->   	if (!qi)
-> @@ -1528,9 +1566,19 @@ int qi_submit_sync(struct intel_iommu *iommu, struct qi_desc *desc,
->   		 * a deadlock where the interrupt context can wait indefinitely
->   		 * for free slots in the queue.
->   		 */
-> -		rc = qi_check_fault(iommu, index, wait_index);
-> -		if (rc)
-> +		fault = qi_check_fault(iommu, index, wait_index);
-> +		if (fault == -EINVAL) {
-> +			/*
-> +			 * IQE in our batch: drain the remaining descriptors
-> +			 * and keep polling until hardware completes.
-> +			 */
-> +			qi_drain_remaining_descs(iommu, wait_index, shift,
-> +						  options);
-> +			rc = -EINVAL;
-> +		} else if (fault) {
-> +			rc = fault;
->   			break;
-> +		}
-
-As a result, there is no need to change the caller of qi_check_fault().
-
->   
->   		raw_spin_unlock(&qi->q_lock);
->   		cpu_relax();
-
-Thanks,
-baolu
+thanks
+-john
