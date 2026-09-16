@@ -1,94 +1,87 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCEB4B0E54;
-	Wed, 16 Sep 2026 17:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC244B0E54
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:21:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579292; cv=none; b=TixSji+7sXTY1auRmiG9kM9gpqNZw/xqrUimDU2Fn1Xt5Lpc3eSQcL/iOEJQPikTle7b6QxQrT8b+XWSmeDMi7dB2X2xq/0Poq9cz0HIbVYIlrA0sE6BXjNe0QbSdkqP9wWbXbxEOBRZ/VczH77I7miAJRFWTwDEsKPjvNj6xEw=
+	t=1789579303; cv=none; b=Kq4Y69/K3YJwpkgTSodDwSn76rUBL/48PWybsciPC+llfeENzOachKnk6QPrJKrDn7wIlgkH6EOSHUFPRLDFh2q8J2H/2o0t7qAuIv1uNFNWBb4Ugwznl0RIawoNoEvA6O511QPKYJEsCbC5Etl6z2NfrK4aFgbVNhqKxjGFlwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579292; c=relaxed/simple;
-	bh=8lNUhLYneBnu7K/P0ITtAAhPfijQpEtXyXK4yyuVYhQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZD1rxJKcvW3teYz9qpG+YVCqMQ7uGluhhMz69Dc4uJ8rhyhkDCNzcV471PakKb56lrfeEjnLWxOUC3XIsiI4cCWv4vtJBVqgXnQZ7kG4BdLnI+2jycjEAat3egZOlstQ8OOiPzI4UCOb1h+CJPOiCo2Jpm27x8s6Hv4ehKbkox4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADH+EIR0KpqZoNuCA--.22990S2;
-	Thu, 17 Sep 2026 01:21:21 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org,
-	hansg@kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	matthew.d.roper@intel.com,
-	rodrigo.vivi@intel.com,
-	simona@ffwll.ch,
-	tursulin@ursulin.net,
-	vivek.kasireddy@intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/dsi: Fix i2c adapter reference leak in i2c_adapter_lookup()
-Date: Wed, 16 Sep 2026 17:20:53 +0000
-Message-Id: <20260916172053.2087412-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789579303; c=relaxed/simple;
+	bh=+Wm8XztWe9cjSuQsXSOKuMkDzkD1yzW07KRTOyVgie0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CI1aORot30R8p06V3T1ZPWNjMGdOdYIKEr5vzHTZCH9S1nldEO3yL/Ij4gycumTdS0X+MmJwHsasLUS4fLCxkfWF5Agg5/sH+sSlUjvJMVXpLSuebtPKTFuQWHVpxkSKLaUJUXzOWkINHwS3nnCybhQNfGTww2rZfA2CdiiOiyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkXi8UIf; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkXi8UIf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4B481F0089A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:21:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789579301;
+	bh=F1UErD4H6r6whOgpoMHeGy/yiV6kGc+XBk8QJER2Od8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EkXi8UIfYQfKatoSflTMKoZodk2MFzTeqn7IzFw5own8by4E4X16L2h/ix8kE8zBX
+	 cqm8+yilh8//wJFwcRlPFj8XbvL9n/SJXykY/n384D5CJsiov0+h+AOVx/oTkKb2Y7
+	 lEGo4xi6G2c5kMX9Jwy9u3c9xSohw6kM6ewpOuRspjSk/KbFgc9Q+Y20moK8Q9Cle0
+	 LMySEXuzfhWhnWstDPZ1AEhJyJGSVe0oxzWxrfWMWBg9iYw1oqUHvmQEZa+ErvRGH8
+	 GDp06kn44KOOYFlXwvtsa/1EM1GEQEDJjyD43SlMEcx9ogqVB7yIto//IFLrxyPI0O
+	 nWAABdTdFAhAw==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso2069794e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:21:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzTtJ0IE6M9VxPs3/3xnI+QtkK88F5zT4C5WVfcEN/jyH0chgg6YC+MvChy4w4rS2Nrk9rslB81wJAoc0E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lb/675GN31ESZ+bPNC7JDISTsEKiLicy7E5KcayewQ7t3Ijmw1
+	eAPpup0oNyL4Eaw+yLH3KwFPs0GDYrroQpUO4OUbqQbDdjdosWutB/sa/uctADBK0/+CZDPSZyd
+	hs94WtBEh4CsRInmnULLCvVbQfRxR5W8=
+X-Received: by 2002:a05:6512:6883:10b0:5b6:172b:7ba1 with SMTP id
+ 2adb3069b0e04-5b8ba5d1a82mr67749e87.9.1789579300578; Wed, 16 Sep 2026
+ 10:21:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADH+EIR0KpqZoNuCA--.22990S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZFW5AF1ruFW8Xry7ZFWxtFb_yoWkJrc_K3
-	WrZr12gr98Zan09F1UAw1furyS9FsFqw48u3WxtFWSyw1Syr4UX39rWrn8Xws0v3WYkw1D
-	J3Wjgr1kZrsrWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
-	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
-	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr
-	1UYxBIdaVFxhVjvjDU0xZFpf9x0JUDOz3UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgUMA2qqok9p+gABsz
+References: <20260913123223.99893-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260913123223.99893-2-krzysztof.kozlowski@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 19:21:28 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm2hQ=fHmLGL4KnaK-q2L95tz3P6__qx=dFCUeiMUz9tA@mail.gmail.com>
+X-Gm-Features: AcwNN1WeMHFPjUODWxifW5uhfKTviiZfd6OYXXOq_JHN6cgG4pckjp0gwgbXDp4
+Message-ID: <CAD++jLm2hQ=fHmLGL4KnaK-q2L95tz3P6__qx=dFCUeiMUz9tA@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: pinctrl: Use consistent indentation in the example
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dong Aisheng <aisheng.dong@nxp.com>, 
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Sean Wang <sean.wang@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Michal Simek <michal.simek@amd.com>, Gary Yang <gary.yang@cixtech.com>, 
+	Fugang Duan <fugang.duan@cixtech.com>, 
+	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>, 
+	Del Regno <angelogioacchino.delregno@somainline.org>, 
+	Rahul Tanwar <rahul.tanwar@linux.intel.com>, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, 
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Krishna Potthuri <sai.krishna.potthuri@amd.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-i2c_acpi_find_adapter_by_handle() returns the i2c adapter with its
-device reference incremented. The lookup callback only reads the bus
-number and never drops the reference. Put it back once done.
+On Sun, Sep 13, 2026 at 2:32=E2=80=AFPM Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
 
-Fixes: 8cbf89db2941 ("drm/i915/dsi: Parse the I2C element from the VBT MIPI sequence block (v3)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> Correct indentation in the examples to consistent 2- or 4-spaces
+> indentation to fix dt-check-style warnings ("example 0
+> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+> re-indenting entire example just for that is too much churn.
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index fe12041e913c..2097c5d17cb7 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -460,8 +460,10 @@ static int i2c_adapter_lookup(struct acpi_resource *ares, void *data)
- 		return 1;
- 
- 	adapter = i2c_acpi_find_adapter_by_handle(adapter_handle);
--	if (adapter)
-+	if (adapter) {
- 		intel_dsi->i2c_bus_num = adapter->nr;
-+		put_device(&adapter->dev);
-+	}
- 
- 	return 1;
- }
--- 
-2.34.1
+Patch applied!
 
+Yours,
+Linus Walleij
