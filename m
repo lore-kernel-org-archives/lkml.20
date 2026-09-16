@@ -1,270 +1,161 @@
-Received: from mta0.migadu.com (out-26.mta0.migadu.com [91.218.175.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCD74DF4AC
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D23485CDA;
+	Wed, 16 Sep 2026 10:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554055; cv=none; b=fPw2DM5TWq/a5DkkfWi9sV3Zs731ODzuGJojlHHJGJCnlXu59q3hh5T3kuESsOp1wcR/NNiLHubWWJ8n+d9dS/HK6EwhNAlY16xclnNeZMY9LMMLEcAmY44MLY2pXTcAnx+3H055GIdBFcsoqiVBDx3aE9suo1pxLR4qJYeJ7d0=
+	t=1789554055; cv=none; b=T/JJqXd14SLHEK9/bvXvjaIeG/NYAdQIEyx7+wuHmPQSSJIq1sUQxMNO+toxnzivOAqDoE7rVjMRbPIK++OcSkoNwM4RoMh6obTe/2icRb+UZVcUbsBNsPAa90hR9t+INtHKR3aZDreuYL0XiNYNMg1QG5Rl3On1iTChQZAMLmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789554055; c=relaxed/simple;
-	bh=p1spLcHWbZIGQMljIGWtStjdi/jnP7xL0fS82Z2ENIo=;
+	bh=TdIp7DG+ACmACB9vqF8clHvKQaY4dkde44IUUgk6af0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=sWVwN7zhM11h9DZJGpzlooFnlLcSrb/aChQYCmlV7IB8JFWxwcApC2rzaqPsYTCe0zg6zoZ7nUud+KxHWf6LoLb4dDveN+cvn7tcPONR6o2M6rZZLCagGXIfmikQ3VEAzxdMkzDy5QUnwAdil4zn712GDoOgVPdOpC59aXjFEe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 237cca9ece2c04ea;
-	Wed, 16 Sep 2026 10:20:46 +0000
-X-Mizu-Trace-ID: 237cca9ece2c04ea
-X-Migadu-Flow: FLOW_OUT
-From: Baoquan He <hebaoquan@kylinos.cn>
-To: linux-mm@kvack.org
-Cc: akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	nphamcs@gmail.com,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	yosry@kernel.org,
-	shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev,
-	baoquan.he@linux.dev,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	kunwu.chan@gmail.com,
-	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v3 07/14] mm, swap: add xswap_try_shrink and shrink trigger on cluster free
-Date: Wed, 16 Sep 2026 18:19:14 +0800
-Message-ID: <20260916101929.149106-8-hebaoquan@kylinos.cn>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260916101929.149106-1-hebaoquan@kylinos.cn>
-References: <20260916101929.149106-1-hebaoquan@kylinos.cn>
+	 MIME-Version; b=d05434gq9uFKHHzfajEU0h5uwFY5gETFZWFXgiu//K2SLIHoxj1vP8+2ZOfqqTdtj7mNV6Pigk2OBFTcDx9faSP8jXOLufVR3F8LO4kPMN7Ck2paCkzIA43wpybA/tw1f19OgAQAinaBrb6k6yzemCrnirg2y34tn6A+ezw5zOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o1yobHcj; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o1yobHcj"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G93AgZ2823494;
+	Wed, 16 Sep 2026 10:20:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=VhbHHMWfVen
+	Ewg6cXydhdCoNazkq8JLNGuh1Z57Fzlc=; b=o1yobHcjctt3HAnb7HZ+Evu9uC7
+	+yiXFXzoX86UWJr2cVdOiWoK/fv8xr2IZmTB23kO+A3A5AQn4/wX+SsL0GnMWYSA
+	dX1qRiVSril9PfV1Dg4mvs3EvjU5MdssrHA9OwepHINg4ibxC80uKZR4Lh6chHJC
+	WGco6LgpbULWIL4DFIO1D84sLrSgQfZoPcgDhLDqD2Etgtw480T1Z/74MX1jSIHT
+	p4pYvBR8oGkIpuhS+f4dJw5kgZzxob87KSPRljzpLAd6u5n5nLMA+uu9uWOu5FNV
+	qQ3U1UWcRB6i+2jq8X6c7PTbgqxrqMHzC7SbYSbAKlrzQ093QsHrwXqEVxA==
+Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqfvfja3v-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 10:20:31 +0000 (GMT)
+Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
+	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GAKTvZ1172517;
+	Wed, 16 Sep 2026 10:20:29 GMT
+Received: from cse-cd02-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
+	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 68GAKSma1172494
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 10:20:28 +0000 (GMT)
+Received: by cse-cd02-lnx.qualcomm.com (Postfix, from userid 4438065)
+	id 661A4492EE; Wed, 16 Sep 2026 18:20:27 +0800 (CST)
+From: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        peter.chen@oss.qualcomm.com, qiang.yu@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+Subject: [PATCH v2 4/4] arm64: dts: qcom: sa8775p: Add qref and refgen supply for PCIe PHYs
+Date: Wed, 16 Sep 2026 18:20:23 +0800
+Message-ID: <20260916102023.2054761-5-ziyue.zhang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
+References: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-type: text/plain
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=JYkpPkKV c=1 sm=1 tr=0 ts=6aaa6d6f cx=c_pps
+ a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=EM5WzatUieOqsTOJ-ZQA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDEzNSBTYWx0ZWRfX5IrHIktFaUUN
+ 6DUmoU3v+5SLQXwU4mZR0Bab9zLKUrlHksfjF86uOfe2YIRlRTxvGmkyL1/YloBqsSm6seHI46X
+ ArJLM0F3RlyzUJvMbgXxaBLSpSmm0HVikc8hQucRF2+RyVgtuYIl/t0ayx5B+1Pbm7O3SXY3Qy2
+ DZ5Om7ISFlUvScmWJUBagpOvFz2hQRw6ag6KGDefGiPha7e6kXzr/aMaY7Qf7725oSYhZZxIfaL
+ V6FwMf9+9gzUFjpPlq31bVMz7bqdbEZ3BOPYOtE9DnOvyR75NvY/YqF9m4/6hhK2OAr0tUVGNDt
+ jjAy63pHf//FZNXLiVaZuMgjYGiodj30/3y6Z714Cw1bvNzbc2fl4b+2kJJ81nr30hecb0dpevr
+ 7dhrUhMNxa/U9WXPhygTZ32oAnKXPkwPduq9gsIXVlYG9QFBElRAuWEwFfgeNMj/eOPaxgOVRhu
+ uzU/uWf5pv8QTuUCXIw==
+X-Proofpoint-GUID: gMZ5NNgNnqPCj-xhjPGzbEy6aRl7Xpeb
+X-Proofpoint-ORIG-GUID: gMZ5NNgNnqPCj-xhjPGzbEy6aRl7Xpeb
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDEzNSBTYWx0ZWRfXyLw9IhvaeUIu
+ Cu3zcBPPBhoGj1fy23uBcOySyNr5fKVrdJPwfPtMV+aXAi+3EAaBxRiCKtIsHrxonQ5rxLI7nqT
+ dJCWQiwTDucGaAzeUWNhUx4dfwe/aWo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609160135
 
-Add xswap_try_shrink() to unmap the free clusters at the tail of the
-mapped range. It only reclaims when the range is at most half in use,
-leaving one chunk of slack for the next allocation.
+The QMP PCIe PHYs on SA8775p require dedicated qref and refgen voltage
+supplies for stable operation. Without these supplies, the system may
+occasionally crash.
 
-Call it from __free_cluster() after a cluster is released.
+Add vdda-qref-supply and vdda-refgen-supply in the board files
+(Lemans-EVK and Lemans-RIDE).
 
-Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+Fixes: 94d7d37f6ac3 ("arm64: dts: qcom: lemans-evk: Enable PCIe support")
+Fixes: 76326da895b8 ("arm64: dts: qcom: lemans: Refactor ride/ride-r3 boards based on daughter cards")
+Signed-off-by: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
 ---
- mm/swapfile.c | 100 +++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 94 insertions(+), 6 deletions(-)
+ arch/arm64/boot/dts/qcom/lemans-evk.dts          | 4 ++++
+ arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 17e482059d32..2a03b13c0ed2 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -54,12 +54,13 @@
+diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+index a45485b54a5b..11fb11b161fc 100644
+--- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
++++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+@@ -851,6 +851,8 @@ &pcie0 {
+ &pcie0_phy {
+ 	vdda-phy-supply = <&vreg_l5a>;
+ 	vdda-pll-supply = <&vreg_l1c>;
++	vdda-qref-supply = <&vreg_l4a>;
++	vdda-refgen-supply = <&vreg_l7a>;
  
- #ifdef CONFIG_XSWAP
- /*
-- * xswap: dynamically grow the cluster_info array via a VM_SPARSE area.
-+ * xswap: dynamically grow and shrink the cluster_info array via a
-+ * VM_SPARSE area.
-  *
-- * XSWAP_GROW_CLUSTERS is the number of clusters to map in one grow
-- * operation.  It is set to the number of cluster_info structs that
-- * fit in a single page (at least 16), so that the vmalloc page table
-- * overhead is proportional to the number of clusters mapped.
-+ * XSWAP_GROW_CLUSTERS is the number of clusters to map/unmap in one
-+ * grow/shrink operation: the number of cluster_info structs that fit in
-+ * a single page (at least 16), so that the vmalloc page table overhead
-+ * is proportional to the number of clusters mapped.
-  */
- #define XSWAP_GROW_CLUSTERS \
- 	max_t(unsigned long, PAGE_SIZE / sizeof(struct swap_cluster_info), 16)
-@@ -69,6 +70,7 @@ static int xswap_map_clusters(struct swap_info_struct *si,
- static void xswap_unmap_clusters(struct swap_info_struct *si,
- 				 unsigned long start_idx, unsigned long nr);
- static int xswap_mapped_end(pte_t *pte, unsigned long addr, void *data);
-+static void xswap_try_shrink(struct swap_info_struct *si);
+ 	status = "okay";
+ };
+@@ -868,6 +870,8 @@ &pcie1 {
+ &pcie1_phy {
+ 	vdda-phy-supply = <&vreg_l5a>;
+ 	vdda-pll-supply = <&vreg_l1c>;
++	vdda-qref-supply = <&vreg_l4a>;
++	vdda-refgen-supply = <&vreg_l7a>;
  
- static int xswap_create(int prio);
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi b/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
+index 144f117ba511..c312fbd6ac48 100644
+--- a/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
+@@ -983,6 +983,8 @@ &pcie1 {
+ &pcie0_phy {
+ 	vdda-phy-supply = <&vreg_l5a>;
+ 	vdda-pll-supply = <&vreg_l1c>;
++	vdda-qref-supply = <&vreg_l4a>;
++	vdda-refgen-supply = <&vreg_l7a>;
  
-@@ -696,6 +698,9 @@ static void __free_cluster(struct swap_info_struct *si, struct swap_cluster_info
- 	swap_cluster_free_table(ci);
- 	move_cluster(si, ci, &si->free_clusters, CLUSTER_FLAG_FREE);
- 	ci->order = 0;
-+#ifdef CONFIG_XSWAP
-+	xswap_try_shrink(si);
-+#endif
- }
+ 	status = "okay";
+ };
+@@ -990,6 +992,8 @@ &pcie0_phy {
+ &pcie1_phy {
+ 	vdda-phy-supply = <&vreg_l5a>;
+ 	vdda-pll-supply = <&vreg_l1c>;
++	vdda-qref-supply = <&vreg_l4a>;
++	vdda-refgen-supply = <&vreg_l7a>;
  
- /*
-@@ -1063,6 +1068,9 @@ static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
- 	lockdep_assert_held(&ci->lock);
- 	VM_WARN_ON(!cluster_is_usable(ci, order));
- 
-+	/* ci is used without ci->lock; an xswap unmap waits for this. */
-+	rcu_read_lock();
-+
- 	if (end < nr_pages || ci->count + nr_pages > SWAPFILE_CLUSTER)
- 		goto out;
- 
-@@ -1091,6 +1099,7 @@ static unsigned int alloc_swap_scan_cluster(struct swap_info_struct *si,
- out:
- 	relocate_cluster(si, ci);
- 	swap_cluster_unlock(ci);
-+	rcu_read_unlock();
- 	if (si->flags & SWP_SOLIDSTATE) {
- 		this_cpu_write(percpu_swap_cluster.offset[order], next);
- 		this_cpu_write(percpu_swap_cluster.si[order], si);
-@@ -1134,6 +1143,9 @@ static void swap_reclaim_full_clusters(struct swap_info_struct *si, bool force)
- 		to_scan = swap_usage_in_pages(si) / SWAPFILE_CLUSTER;
- 
- 	while ((ci = isolate_lock_cluster(si, &si->full_clusters))) {
-+		/* As in alloc_swap_scan_cluster(). */
-+		rcu_read_lock();
-+
- 		offset = cluster_offset(si, ci);
- 		end = min(si->max, offset + SWAPFILE_CLUSTER);
- 		to_scan--;
-@@ -1158,6 +1170,7 @@ static void swap_reclaim_full_clusters(struct swap_info_struct *si, bool force)
- 			relocate_cluster(si, ci);
- 
- 		swap_cluster_unlock(ci);
-+		rcu_read_unlock();
- 		if (to_scan <= 0)
- 			break;
- 
-@@ -1506,11 +1519,17 @@ static bool swap_alloc_fast(struct folio *folio)
- 	/*
- 	 * Once allocated, swap_info_struct will never be completely freed,
- 	 * so checking it's liveness by get_swap_device_info is enough.
-+	 *
-+	 * The cached offset indexes si->cluster_info, which xswap can
-+	 * unmap; cover both the read and the use with RCU.
- 	 */
-+	rcu_read_lock();
- 	si = this_cpu_read(percpu_swap_cluster.si[order]);
- 	offset = this_cpu_read(percpu_swap_cluster.offset[order]);
--	if (!si || !offset || !get_swap_device_info(si))
-+	if (!si || !offset || !get_swap_device_info(si)) {
-+		rcu_read_unlock();
- 		return false;
-+	}
- 
- 	ci = swap_cluster_lock(si, offset);
- 	if (cluster_is_usable(ci, order)) {
-@@ -1522,6 +1541,7 @@ static bool swap_alloc_fast(struct folio *folio)
- 	}
- 
- 	put_swap_device(si);
-+	rcu_read_unlock();
- 	return folio_test_swapcache(folio);
- }
- 
-@@ -2312,8 +2332,11 @@ swp_entry_t swap_alloc_hibernation_slot(int type)
- 	/*
- 	 * Try the local cluster first if it matches the device. If
- 	 * not, try grab a new cluster and override local cluster.
-+	 *
-+	 * Same RCU requirement as swap_alloc_fast().
- 	 */
- 	local_lock(&percpu_swap_cluster.lock);
-+	rcu_read_lock();
- 	pcp_si = this_cpu_read(percpu_swap_cluster.si[0]);
- 	pcp_offset = this_cpu_read(percpu_swap_cluster.offset[0]);
- 	if (pcp_si == si && pcp_offset) {
-@@ -2323,6 +2346,7 @@ swp_entry_t swap_alloc_hibernation_slot(int type)
- 		else
- 			swap_cluster_unlock(ci);
- 	}
-+	rcu_read_unlock();
- 	if (!offset)
- 		offset = cluster_alloc_swap_entry(si, NULL);
- 	local_unlock(&percpu_swap_cluster.lock);
-@@ -3981,6 +4005,15 @@ static void xswap_unmap_clusters(struct swap_info_struct *si,
- 		return;
- 	}
- 
-+	/*
-+	 * A per-cpu cluster cache can still hold an offset in this range.
-+	 * Invalidate those references, then wait out the readers that have
-+	 * already loaded one, so that nobody can dereference cluster_info
-+	 * past this point.  swapoff() needs the same before it releases.
-+	 */
-+	flush_percpu_swap_cluster(si);
-+	synchronize_rcu();
-+
- 	vm_area_unmap_pages(si->cluster_vm, vm_start, vm_end);
- 	/* vm_area_unmap_pages() clears PTEs but does not free pages. */
- 	/* TODO: free backing pages via page table walk or tracking bitmap */
-@@ -3999,6 +4032,61 @@ static int xswap_mapped_end(pte_t *pte, unsigned long addr, void *data)
- 	*mapped_end = addr + PAGE_SIZE;
- 	return 0;
- }
-+
-+/*
-+ * Automatic reclaim: leave one chunk of the free tail mapped as slack, so
-+ * that the next allocation does not grow the range straight back, and only
-+ * unmap once several chunks can go, so the unmap is worth the RCU grace
-+ * period it costs.
-+ */
-+#define XSWAP_SHRINK_SLACK	XSWAP_GROW_CLUSTERS
-+#define XSWAP_SHRINK_MIN	(XSWAP_GROW_CLUSTERS * 4)
-+
-+/*
-+ * Try to shrink the cluster_info tail: unmap contiguous free clusters
-+ * at the end of the mapped range.
-+ */
-+static void xswap_try_shrink(struct swap_info_struct *si)
-+{
-+	struct swap_cluster_info *ci;
-+	unsigned long nr_mapped, last, idx;
-+
-+	if (!(si->flags & SWP_XSWAP))
-+		return;
-+
-+	nr_mapped = READ_ONCE(si->nr_clusters_mapped);
-+	if (nr_mapped <= 1) /* keep cluster 0 */
-+		return;
-+
-+	/*
-+	 * Reclaim on our own, but only once the mapped range is at most
-+	 * half in use: growth is demand driven, so reclaiming on a smaller
-+	 * dip would only map the same clusters again, and every unmap costs
-+	 * an RCU grace period.
-+	 */
-+	if (swap_usage_in_pages(si) * 2 > nr_mapped * SWAPFILE_CLUSTER)
-+		return;
-+
-+	/* Find the last non-free cluster from the tail */
-+	last = nr_mapped;
-+	while (last > 1) {
-+		idx = last - 1;
-+		ci = &si->cluster_info[idx];
-+		if (ci->count || ci->flags != CLUSTER_FLAG_FREE)
-+			break;
-+		last = idx;
-+	}
-+
-+	if (last == nr_mapped)
-+		return; /* nothing to shrink */
-+
-+	if (nr_mapped - last < XSWAP_SHRINK_SLACK + XSWAP_SHRINK_MIN)
-+		return;
-+
-+	last += XSWAP_SHRINK_SLACK;
-+
-+	xswap_unmap_clusters(si, last, nr_mapped - last);
-+}
- #endif /* CONFIG_XSWAP */
- 
- static int setup_swap_clusters_info(struct swap_info_struct *si,
+ 	status = "okay";
+ };
 -- 
-2.54.0
+2.43.0
 
