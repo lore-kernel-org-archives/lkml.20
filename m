@@ -1,181 +1,79 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A217A375AA8
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:48:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DED336D51B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562933; cv=none; b=q2zKVCVFNN5rBswXE+FGl11LovVXKby33/Wd1RxgOJfNDPgv/3auXcptY90L1739F265RWeQSw6D02ARrjnvGmo/Hpee3KP3sbjQgcfvxl5FQrEwTgBlDxBbaopoUca1OS31IdIjhLpb5Nrp0hpRg0Cd4krUuSs3uepwuqzpEtI=
+	t=1789562946; cv=none; b=WpFJT9MytaLdtAwn0RUON71++0mJEojJv7S7U5aa58ZuzledL2/K1YX4QUDNbC8z/vMjkBerFd2UOp9L8Z8bSTtrrNqzxoVqzLSIXQqnPUQTJv6y8jtdU8IDUfGMGfTSCVbjIDDb5KoR+Kf21T6pefXh0ihd3uMuIvJXkupU5Bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562933; c=relaxed/simple;
-	bh=H34k7SsIUJ0nZ0sEaZhQtlZ3Kbira6446GXQ2UQYvlA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nH4JumJTchjdTE3euHzILLMzWU7iSJXtqndHbPIgYH4ILJVFzFxXkhQoQ0Lxy8yelMBinzE8czzoKPBNtDEZzGmzGSA81c0so/lMsDBgzrNQtNlCwEIFoJYHLxpfOZ6FxUvYg0G1F+EUETht4dLhp7me8wXDs2grAsCQB35cRTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=UYHFLxHT; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1789562946; c=relaxed/simple;
+	bh=XDWCb4ckC9QO3PHnDil0UM01Z8cTM6kD0+bCjmJ22TY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Nqb5ind7DGUYCOkKtXCxVx8OZwWTBtAXPNJx8MC4nQCkayc3NqTcMKdlYQsxyZjEqKKprNhskOjFFUTPVhPe9Wp1qAxx7SsijUlXfbEmxjC3K2+23LgSycTIL9OpQi8LuoXbLIVA9i5Nac1+6CjczQy4r3TrH9tZUxtLQ7OSI2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f3jhGW3a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="UYHFLxHT"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910c9ff1fso104489185a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:48:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1789562930; x=1790167730; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VzaI7ZYbqdoJC4coFReri2t1Bm12kg0MhPi/KYFxqXI=;
-        b=UYHFLxHT4tZADRfpps3/kPdRToXmVpOT+yeTerpUx+frrD5S1Vd4xEsnYf2fUNAK+z
-         TJej/1g0956DfFk8A0HCE8pk2I0yXGuoBCJ9rRkqvWqECXzOo7Ri4Bz6/DwyL2x1Xwvm
-         Vf+HBexeoo3hCuE6HFiL+Im6mQzWPwXv+sOfdbz9EuSW/X1axwSKIvWY6kXcXIapema8
-         h1FCrw0ML5RMzigsKcZudElSnwPJbz1HGkEc7IZDAd7dM+4IrbtOAKmrpK97wL7MvWk/
-         jP7q1oc7Y9ERG7ZCDWYjtFOHpjuqt1gjg4E/R19mC2Cn8648kFnLgcZdFSxH9qLNXzPw
-         0Dgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789562930; x=1790167730;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VzaI7ZYbqdoJC4coFReri2t1Bm12kg0MhPi/KYFxqXI=;
-        b=AkLjTTilzpGkF100g6GShTRWccwqVg0BeDvDecgKoQqwwFEFSrJrnVYb9BFNb/7spc
-         gz8J6X38ED2VGoigZ1+UfM4z6Kz0CRM7ok4gMWeYOIpM3wamIguzeATloTXojBTuZgy8
-         wdDWBHetHc6SGn47F3/LOTuqDpQcP49Tx2fVnVjDtQcU/WK3GyxLaslz4xMVTv94ceuE
-         zdRCa+pTP4lrTXKSpp5qg7Sm4+Y4Id3800Yy4siYEPxq7BomlPecBp8WexLF6Gpho/RH
-         JncigsiZbvI/0QdH7CvVNqkxqR2gH0I2xu5ackMP9rh6wTIw6Go0FjhkF+zuvb5Xc1BZ
-         P+ww==
-X-Forwarded-Encrypted: i=1; AKwUvBy74yrnaWs2CaD1wZuXI0lyS4ComsVfoElq4aO9j9kVxbaVUxdUEul7HS5r/p0l8A0ykTW4D8/i+gNxv3s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSa80NjeKxhHy55UPSz4XzGCswomUOV7ehzzLDCFw6deCrVQev
-	cUHhDrmdErOA5IPmNKDVoGFipshXeLjNjpydyf2B2drpSpnuSV3/vM9myPXZk+8/+uo=
-X-Gm-Gg: AYBFou3v3TfERQSv/RlORlVnX5caQcir2atL9vxYWRqntN4Ky5sJHqc5l4eMSz6/gLq
-	HNeln1RpyF9k6aOm5CG3A5Gd28NPcpB9iFoUBoE+a5Xrzj0s6gUC++jEo9WZ3Sz4IhN0FdRB+PI
-	uL0LkF9wFEahwoDhNLHid/zIBM9Fr1WXkv3idEvBTmid3povnK5ghalHm+6ISbRT5Aq9dx28WBZ
-	cMXsUbVBnnaaB38UymwHPcuAjJzZHg1EvFIvjVD3OgkO3xP3HHmSn9LKoNHeWeQzmk9l7tYJp7b
-	hct7vcaa43w/xJXypjQJbQHmaEMfBFkyRLhMZA4hquUGXLGnjUgF3yC+WuWihQDsUEQJNOj1WVA
-	+X2XhmJ1jy3MBDdZGtq+GQ/paXrnSedDvnQY3b9h0rpEtdnLy1FRtSvg0bG3s1iiffbNGN1g3A0
-	kpJ9RJcia1y6m+ePDVoSa6UgLaAVCCFrbD6H6JsPT0lb6vb0p/6qSP12qrm8URXXHuQAMAxgEqs
-	v8lego/HV1SJo3sI9oc7LB+uKhOPsNvIHY44u0zv9h7b8DxKqsqws0BpA==
-X-Received: by 2002:a05:620a:d8e:b0:939:6de9:4cff with SMTP id af79cd13be357-93bb7907fecmr386232885a.45.1789562930363;
-        Wed, 16 Sep 2026 05:48:50 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b7821dcfesm208481285a.18.2026.09.16.05.48.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 05:48:49 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x6p4D-000000099Zm-0Jbp;
-	Wed, 16 Sep 2026 09:48:49 -0300
-Date: Wed, 16 Sep 2026 09:48:49 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Alexey Kardashevskiy <aik@amd.com>
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-pci@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ashish Kalra <ashish.kalra@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jini Susan George <jinisusan.george@amd.com>,
-	Kees Cook <kees@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
-	Nikunj A Dadhania <nikunj@amd.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Kim Phillips <kim.phillips@amd.com>, Joerg Roedel <jroedel@suse.de>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	"Tycho Andersen (AMD)" <tycho@kernel.org>,
-	Liam Merwick <liam.merwick@oracle.com>,
-	Michael Kerrisk <mtk.manpages@gmail.com>,
-	Suresh Siddha <suresh.b.siddha@intel.com>,
-	Xiaotian Feng <dfeng@redhat.com>,
-	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
-	Andi Kleen <ak@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Carlos =?utf-8?B?TMOzcGV6?= <clopez@suse.de>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Ian Campbell <ian.campbell@citrix.com>,
-	Jeremy Fitzhardinge <jeremy.fitzhardinge@citrix.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	David Howells <dhowells@redhat.com>,
-	Haavard Skinnemoen <hskinnemoen@atmel.com>,
-	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Ilias Stamatis <ilstam@amazon.com>,
-	Sumanth Korikkar <sumanthk@linux.ibm.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	Toshi Kani <toshi.kani@hp.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Jiang Liu <jiang.liu@linux.intel.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Palmer Dabbelt <palmerdabbelt@google.com>,
-	linux-coco@lists.linux.dev, xen-devel@lists.xenproject.org,
-	iommu@lists.linux.dev, linux-mm@kvack.org, aik@ozlabs.ru,
-	Santosh Shukla <santosh.shukla@amd.com>,
-	"Pratik R . Sampat" <prsampat@amd.com>,
-	Scott Soule Cheloha <scott.cheloha@amd.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [RFC PATCH kernel 10/17] x86, dma: Allow accepted devices to map
- private memory
-Message-ID: <20260916124849.GD3196566@ziepe.ca>
-References: <20260916115159.1938195-1-aik@amd.com>
- <20260916115159.1938195-11-aik@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f3jhGW3a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F0D1F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:49:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789562942;
+	bh=XDWCb4ckC9QO3PHnDil0UM01Z8cTM6kD0+bCjmJ22TY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=f3jhGW3a1NAbItmB1xsfzgXiDAsVzXdEC9XxhJhqQ/zK0Jc9JV63IZY6skD8zfRm1
+	 Wxm9LSctY6Io+l3MPyIZdugOp/5Kj2RfLQkbCjjnIip1schDg5ASJDBJzumibeyKNB
+	 J/LQZysTYifOV1QqQ+3JzH2NBDPYDWldsqhwRiaOjW/J3DomfVlFVJzf4KkUThSBuH
+	 lP19YAsckyQC/tkAIX/rjRUONQ0fR4sAK+J+1ce8Kuwgxfw+uJg0zMIIZ6conjRyNf
+	 YrOjy7WfUdW1W5EyoKLFic9hnEHGlf4Pjsx3pIUSUTLz4p6ydOZ+tXrD806ILbxmnI
+	 Xc4lBvWg0FIAg==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f16f15so861059e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:49:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzeJbNKyhPzFzucieAfilwHaCet5//1s3pmqB+YAN/IO8FKBuUucQFohaEphR0l1WX4o4Nak8BOFka3yPU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhpv+2RkQQdrWGA9iCCTWW4v96jHBUsc9W7S5m9UfgrGvrMz5O
+	/pqmZzjfIs7kijaNO6AeG46CDqBPYI4+nZXO9FkjxI+F5eVMhVlHghDWlycXuxyII2Di0XmtQbQ
+	+72s5D68e+VIt5fjqIvGGfgAFOJRNjq0=
+X-Received: by 2002:a05:6512:2341:b0:5b2:a919:f9fb with SMTP id
+ 2adb3069b0e04-5b8b6655c91mr1363745e87.22.1789562941365; Wed, 16 Sep 2026
+ 05:49:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916115159.1938195-11-aik@amd.com>
+References: <20260916114358.195465-1-arnd@kernel.org>
+In-Reply-To: <20260916114358.195465-1-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 14:48:48 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkVbbzsxZ8u469g=XwVcOMsmjPP1c27skcnNqa3qB_pwQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VwdnDlWD_3jtgfRq2nA6TC7L88Cuyaa5EX7enCgQeRXmvek1aAryWPqP8
+Message-ID: <CAD++jLkVbbzsxZ8u469g=XwVcOMsmjPP1c27skcnNqa3qB_pwQ@mail.gmail.com>
+Subject: Re: [PATCH] usb: fotg210: fix USB_EHCI_HCD dependency
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 09:51:50PM +1000, Alexey Kardashevskiy wrote:
->  bool force_dma_unencrypted(struct device *dev)
->  {
->  	/*
-> -	 * For SEV, all DMA must be to unencrypted addresses.
-> +	 * Require unencrypted DMA unless the device has been "accepted",
-> +	 * enabled by a TSM driver to DMA to private encrypted memory.
->  	 */
->  	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
-> -		return true;
-> +		return !__device_cc_accepted(dev);
+On Wed, Sep 16, 2026 at 1:44=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wro=
+te:
 
-I want this out of arch code, after Aneesh's recent rework Nicolin is trying
-this approach:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> When EHCI is a loadable module, the fotg210 HCD code cannot
+> be built-in:
+>
+> s390-linux-ld: drivers/usb/fotg210/fotg210-hcd.o: in function `fotg210_hc=
+d_reset':
+> fotg210-hcd.c:(.text+0x102): undefined reference to `ehci_setup'
+>
+> Fix this using the same type of dependency that is already
+> used for the USB host support.
+>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-https://lore.kernel.org/all/abddd433493324a6bfdf8ba9710e96d90f0d1ccc.1789010941.git.nicolinc@nvidia.com/
+Oh the usual Kconfig tripwire. Thanks Arnd!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Jason
+Yours,
+Linus Walleij
