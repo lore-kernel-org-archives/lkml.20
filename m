@@ -1,208 +1,245 @@
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0161A4B4044;
-	Wed, 16 Sep 2026 15:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574181; cv=fail; b=HLOI6xlPnJJRed4ZXJ/9jRos3Mg/W2vmyex/38qRlOxmhFRoSQ2j8EBJo+f7ONHBQhUdp1hQ15l43rISkm82/ACcSY/VhDIYmTYJjEfluZM1th6fVSdiRAaqO2qWWAXjkOQCfipPUfZ3EPYaSesU57JuOfx3hFyswFC9cgJ/WZo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574181; c=relaxed/simple;
-	bh=xXEqsnwqBO7RuY2yWBhU1IGuqGcNZhtGXqs/luMogD0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Sym70guKmJE/H2/85yH0Lh/vkmSs0ac45F/XNUdFqiGpYJ/km4CMkku3Qy39VeKEnY+wxe3kQPFIIfdaVflkMeIO74cErDLuT5tzVF113r35VTUhQwnvSFvq4a5qGpOraKpOX0n1apHrwSGmxf3vHUy2ZO1GgRG6aZm63I1VF70=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=RUzkgYBe; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=H68bcxBg; arc=fail smtp.client-ip=67.231.152.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EC9383980
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:57:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789574268; cv=none; b=MqJRH7oMNQeATbSzWvHGgAw/8pRS+x78grQjcaaRgrYyHIkCd7vgPZV1DnEWEmeZVC0PifiC08BaIOlVJ6gp42mQnVQdne4BO+DiGz2hfqB8gLIBnTUBNx13F0mYaOlTre81hh4Y0nXaI4hbJ9qVc6m1u5G2hq0LSg6puRvUu04=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789574268; c=relaxed/simple;
+	bh=auMR1DZLBravuhu7e2NcveFuwUASgZkdee5L2rKw368=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DYe+UEIZQ/DbTkd6gpTRLW+C0zbBjGLDeB37t/VQbCMu2uW6inWgZCstPDOQmXcvSPb5ptnGZuk6lGCk4dpGoWJDzgV3HaiL7AXvIvVbXChWOhhTWfFf0Wtm7+FWmz3fR3v/s/oYnpmoV4PMz9rNpG1jFSU0bYmlc8L9XaY0bk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CPmWOdUc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="RUzkgYBe";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="H68bcxBg"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GDBDYN1837606;
-	Wed, 16 Sep 2026 10:54:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=BL3NE0is/YN90uc/e8
-	kiZTGpClC5xHpNfTPpIKmXeSk=; b=RUzkgYBekmNWBOujUoa2rWmcJ0TUFqYDxG
-	cLPbUSVxIG7fbv65+8fW07MY7ojAPUC+C36G1mNlKQ34jROdonPW1Lf70IsLQyEt
-	pB7IS+mL72DFl27cqS8x19ZaNo8c2AzI9We1I4hqgVcONzG0BlgRgn49MlqOgoQr
-	iOLcYyIyb7P3w89zLzh5/R6XlJWOT92EUv9S7HGh/1HliMWzLM68RY+/+Ngo7CuN
-	VUgorPFc4ds1LLN3r+MUm8KtuTpQPa9YFkbIDwvTFk3v5Ub7ENIC9ft91PHo0+HJ
-	3ecF1c9M2nhkT2BFBDuHP/j3h/0HlBmW1dnOrM1R3h7Ps7ojYoBQ==
-Received: from dm1pr04cu001.outbound.protection.outlook.com (mail-centralusazon11020087.outbound.protection.outlook.com [52.101.61.87])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4gn35hdb6m-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 10:54:36 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WrADsvrAB+YzOvSr9sOzPDgX3gLkWdEz98eTbsT+QgECR95HjTqLcu1Vj+rRGmz0JoY2HKnDxT57jIW/x30Mq6Y4G+434DVlA13IbQtaRLp9qAbg6v+e+mQCD4eKZKlYwn3zfESS7lAEnXMK/ieXYpb3gDw7ph+wIxxjOLivMdUUSdexJi1zqnWIYxqAqmSVWHWPr2F8g37WksJPHqqvO8gAtu8JM9WJUfpgpj52ZZAEAUX6xENH71/mgCQifRlaPCx6fNlt6Sy6oevMHvFSwq3hm6Qmdp14ZzxM7qQoXktbzdCnDFaxVnjegk9ri17yQJkBuF++6mrlJ2poSvTiKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BL3NE0is/YN90uc/e8kiZTGpClC5xHpNfTPpIKmXeSk=;
- b=rWmuaHZ/bfHxW74oaC/XwSVH1+v21yVu5bhZRRSw/Ue+KPXcEuxgMQ0xkbavpJ6+ra2Mp+9x07wVyMqfdW5UuT5jcz2KsRuppxwi8JTrl/De4nayN7Xjm211eOKmuPFd8NFF0+Cn+bqJnE2Y6TE8U+Uz1r00Z2yK4vr4VmGLb4R1nO0t0WlKc8WgcVKuFKLZk9gpspHH6MltazcysPB2diGYJVy8w/G4Rq5ltycUOpuUNkFOQbzFRno+WJiiIzds/ojQi/mPUNfRw+zcfl6M1vjjl+XxLpB0pQz4chV7lchJxJvbLpZ4IDUXL8cMfzmncBr6Ely2xkX+ZivDw/DIZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=arndb.de
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BL3NE0is/YN90uc/e8kiZTGpClC5xHpNfTPpIKmXeSk=;
- b=H68bcxBg3PMQWpHvTPMtnYNnAkidehE4NpveTJLrgt3xT7OeyC9Ydwzf65/nrfATibe79LzH3rGiJ23I2l4xOx6qToN/AMHboPmWnpM6FPg64SOwJTjqkFJcRTcyRqS5RRXeR4mHcjnNMXyHrnWoSx/yMMH+1WR+99WT8UZLcEk=
-Received: from LV3P220CA0006.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::9)
- by DS2PR19MB9175.namprd19.prod.outlook.com (2603:10b6:8:2b1::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 15:54:13 +0000
-Received: from BL02EPF00029927.namprd02.prod.outlook.com
- (2603:10b6:408:234:cafe::3) by LV3P220CA0006.outlook.office365.com
- (2603:10b6:408:234::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 16
- Sep 2026 15:54:13 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BL02EPF00029927.mail.protection.outlook.com (10.167.249.52) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.7
- via Frontend Transport; Wed, 16 Sep 2026 15:54:12 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 61E43406542;
-	Wed, 16 Sep 2026 15:54:11 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 4BCDC820244;
-	Wed, 16 Sep 2026 15:54:11 +0000 (UTC)
-Date: Wed, 16 Sep 2026 16:54:10 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Mark Brown <broonie@kernel.org>, Arnd Bergmann <arnd@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Shuming Fan <shumingf@realtek.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        Niranjan H Y <niranjan.hy@ti.com>,
-        Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
-        Alexey Klimov <alexey.klimov@linaro.org>,
-        Julian Braha <julianbraha@gmail.com>, Peng Fan <peng.fan@nxp.com>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: rt766: fix HID dependency for SND_SOC_SDCA_HID
-Message-ID: <aqq7ospXwXfyFB2N@opensource.cirrus.com>
-References: <20260915211658.1671821-1-arnd@kernel.org>
- <f9c9aef3-6e0b-4f7e-914e-35a82b5f962a@sirena.org.uk>
- <d09d7709-e537-472c-82d6-e532e955f137@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CPmWOdUc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303251F000FF;
+	Wed, 16 Sep 2026 15:57:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789574247;
+	bh=XN+Zp9/GNf101whKzUoJhTi8UW65xULFMuNHBkfGcuA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CPmWOdUcWYOk0Bg/VDgSvDyRu5zASVMzHcID6o5azxbk2nZhuxHgyNYA+Ppz52ohF
+	 ZxqHXao6kQZKEGDPkED8gFUGKQwrYGtGsRMNmH6LhdXLgbWFu28O/mjS0Mp4z+7zqc
+	 Eh2Uh+8BKqAs0R55QoRsfjjqwZZtGh3yZQk/IyPnN3azypSr1NlDux0C+635plufhJ
+	 Wi5m8WQohlZVEavxVQ1Rq2xr4yJP8/rI+ANbT/P0pUQ+bm6J+klXikzHldtaY0md8m
+	 IIahutEc8ADm6yAURbBhRcBF6CHpDx4r+ygMjo6mlM6NJd1WDT8F77cHs09RHsULcb
+	 MW6wpuv6VUK3g==
+Message-ID: <d7f162eb-4214-456c-9d1b-a8623da61b45@kernel.org>
+Date: Wed, 16 Sep 2026 17:57:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d09d7709-e537-472c-82d6-e532e955f137@app.fastmail.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00029927:EE_|DS2PR19MB9175:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73259e7c-35da-4cef-7dde-08df140ac0d4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|23010399003|7416014|376014|82310400026|36860700016|11063799006|4143699003|56012099006|6133799003|16102099003|18002099003|10067099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	PWHldtlfBPPZFrePBMsJA4k0wlgb42UA+h+nVfgzKonz9Ukjc6WRv/gDZ/dYW+8xr6OhAJcQmjpOcIbDdK02IFq/+Su7GQUZzwNVjgANKOK1RD3p5008jZRLWyIq3PtVHsHPWilRyuHdLOf/f9j3F1qNncFNqoceEG0UuwH/OnJrzjKMYyNlY17omKKBqlxJOT+ZZB+Wz1OtFeHnWb5z6s8QDPkHkt/DFXjub9b4u62cb0CNoo6Y7frAZckgW48keQfZdrHXpy+80nENmCb5v1k8Av7Jq2xPKcRNFt4/QTTpP5ZWT8R+37SuBhzniaGaA1JagYODDJgp166Nr1E4NNbY/e84+6QFvQglmAdtwNfMRQ9jk9w/lSP50lYJGeqjTDMsKbdNBKvMOPauIrIUlYe20Z0Thk19F09RN4fRI0CYtva2gYfpgy7B74aD60cSu0ABdYyEKXiiGl0M/X18AJQVfD0nlezqgT1a0i5gKRm1MxKV8RhJE/kNaPNOtM1z/ySFCe2kNv3wQUlN/6iwhTsB2OS+ui27TqG+1r2iPd9TEnoF2CiN2MleBNaGNTgt38lhANC3InjPpXjxX9TbZAY0r3kd2LO7Hy/O/mC8U8n914G/Mpfv3roXRQx99QJMwIYF8AobyZdkw/i8kqnGQ+AhrkrLXZSRzz8cLfS+DJf1HECGzwg8T2z2c0LnhmbjnJ6rvhbo+N4cciuQNWuKuw==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(23010399003)(7416014)(376014)(82310400026)(36860700016)(11063799006)(4143699003)(56012099006)(6133799003)(16102099003)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	No2tgInzendSD37H5d1bHbYf+o3Lr7+JC2hpBnPIkMd1h7WXK9UYtVBIgWPPHhVUKp9Qao2S7+VNVogkD3YDvZwbcB5LoHQbaf2zW8pxjbUOsIB4WIAjLJlk3uH/DBMO2BCCXqbnvLV4aKVOK/QEMkB/YvyQLRaFQFyQRLhckE3vHNf7XO3reUBVhq2cZPEJK7oMhfhoQUBQQYRVs2zEsKqLvyoMcRSm9LJDOw4+yiA0FKdtL1aOlv3XRFGFOen1a48tdnmyzE1DVyou+Kk0RlM73BPWPnajA1fpWYr89AIDma6eW5MfjUjwuOadAkEFwYO44bcwshLxZ+xOCRimbCofadvy2QX/lXcKA51eGUl219p2K80miNGb2PZJCRhD8dimmqbumkG60k/4RXLSTM4EervR4+nk6pH7UoKue2p9kazU89sOpi6SWGL7J79v
-X-Exchange-RoutingPolicyChecked:
-	L/uW9yEjQ7PIZIdB+wWLhqNURF5Nz/iA/K+DjJ95L2EpzLS1iBXumZnxfI3eeYa5QCXARrULzDkvcmKxnb92paUTXEK56mwYEcR3sElJfaFrWc06B2Ml8rtXDOCSuACx1vc/GLH7aVvLF9rlMQauqTOBEra2IpCpYV+MZkQG5WGmWXyZ5k2qY5Q7r7P/QwfbPebyveBXhjb012KO3P6OYcEbbI4UhTl4vzIxcml4EDoQPqLTUOac6KOsambOYoRdVVqmaAAXP88sfEgojElhZpy354LlH0foSqn4pM5DwsfUuZrFjNdex+z+X6QRIs1VahzX7brZ4JegNuuJdnQIKg==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 15:54:12.5149
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73259e7c-35da-4cef-7dde-08df140ac0d4
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BL02EPF00029927.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR19MB9175
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIxNiBTYWx0ZWRfXwG1T2ahwUg9U
- K2ucrgKyuDlv4Vo8UBPbMBPX5UTWZXza5qgPlHvuTZWgjAz7kKRZBS7aH6q7UZA9uiMzKwMh9Ec
- 3EOxtKio+xJIpGruSr7iLfkQXQ9MlG8=
-X-Proofpoint-GUID: tstQJ5x17ONXrZZmcnl3LzBwAjfIaN17
-X-Proofpoint-ORIG-GUID: tstQJ5x17ONXrZZmcnl3LzBwAjfIaN17
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIxNiBTYWx0ZWRfX+0OIj820ePGO
- zNWMVUgzYGQ1i8RrDXTUOgJJKAI9yruUeZnQs7C+PmIoR0hLRCVO1VV/fBIBIlD9BR/3d0qXBer
- 1FnpyPULTfsn9ra18eL0zWKxpCH0sxIQSAMlAhw8NGd3Jw25w3LKjk6l3KZGY5OFgFjdNv/PK0o
- qDM+wzg3MqBKG/Bz+aBULrMWWZ6zwgGJiky0KTVNMnfQw3U76cXYTnoQ5e2OVoxpjSegKk3YGQp
- DSqA+nhGXhqVKiZE+AXtIwccfopXJgvybN80c5xX+XvGmlsso85wf2JniV4XxbEB+3UWIcJMMvT
- Or/k4dks+PgDzcTf+mM7UTLOdm0YlwZRF7QLyAmIeHQOk/iLM1n+H0NxKI2tXI+FBCIoHwfQTH2
- 7tGaegXEx5f6sFtyYeqLbRlo9zxkwodqOMe4oFMUn7jkHcxmwo0BjjuEAFkG6dUDJxZavk5VMYw
- ju/DQD/TsHe0SLt7nRw==
-X-Authority-Analysis: v=2.4 cv=It6L47/g c=1 sm=1 tr=0 ts=6aaabbbc cx=c_pps
- a=uUOONCeAppmmVOxUvBiRog==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=7_V6Y45QZqM_IbsKU7oA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Reason: safe
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] mm/mempolicy: stop copying the nodemask in the
+ interleave paths
+To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, ziy@nvidia.com, matthew.brost@intel.com,
+ joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com,
+ ying.huang@linux.alibaba.com, apopple@nvidia.com, urezki@gmail.com,
+ chenwandun@huawei.com
+References: <20260829015943.1258774-1-gourry@gourry.net>
+ <20260829015943.1258774-3-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260829015943.1258774-3-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 05:36:02PM +0200, Arnd Bergmann wrote:
-> On Wed, Sep 16, 2026, at 17:10, Mark Brown wrote:
-> > On Tue, Sep 15, 2026 at 11:16:34PM +0200, Arnd Bergmann wrote:
-> >> Selecting SND_SOC_SDCA_HID only works if HID is enabled:
-> >
-> >> --- a/sound/soc/codecs/Kconfig
-> >> +++ b/sound/soc/codecs/Kconfig
-> >> @@ -1992,6 +1992,7 @@ config SND_SOC_RT766_SDCA_SDW
-> >>  	tristate "Realtek RT766 SDCA Codec - SDW"
-> >>  	depends on SOUNDWIRE
-> >>  	depends on SND_SOC_SDCA
-> >> +	depends on HID
-> >>  	select SND_SOC_SDCA_HID
-> >>  	select SND_SOC_SDCA_IRQ
-> >>  	select REGMAP_SOUNDWIRE
-> >
-> > Should that be HID=y || HID=SND_SOC_SDCA like for SND_SOC_SDCA_HID and
-> > SND_SOC_SDCA_CLASS?  The dependencies on _CLASS should stop the
-> > problematic cases from actually occurring but I'm not sure if it stops
-> > the warning.
+On 8/29/26 03:59, Gregory Price wrote:
+> The interleave node selectors copy pol->nodes onto the stack so the mask
+> cannot change while they walk it.  nodemask_t is 128 bytes at
+> MAX_NUMNODES=1024, and two of the three run per folio fault.
 > 
-> Yes. Just as I was trying to write up my presentation slides for next
-> week trying to explain how nobody ever gets this right, you have reminded
-> me that I can't do it either ;-)
+> The copy only buys consistency between the node count and the walk.
+> Drop the consistency and just bounds check the walk instead.
+
+I think you should document here that accessing the node bitnmap is safe (is RCU
+responsible for that? I think yes), but it can get updated concurrently.
+
 > 
-> How about this version?
+> If an empty nodelist or weight is perceived, fall back to numa_node_id(),
+> which is what the functions already did when the copy came back empty.
+
+Makes sense.
+
 > 
-> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-> index 181ed1b8a6dc..f88381523ea3 100644
-> --- a/sound/soc/codecs/Kconfig
-> +++ b/sound/soc/codecs/Kconfig
-> @@ -1991,10 +1991,7 @@ config SND_SOC_RT715_SDCA_SDW
->  config SND_SOC_RT766_SDCA_SDW
->  	tristate "Realtek RT766 SDCA Codec - SDW"
->  	depends on SOUNDWIRE
-> -	depends on SND_SOC_SDCA
-> -	depends on HID
-> -	select SND_SOC_SDCA_HID
-> -	select SND_SOC_SDCA_IRQ
-> +	depends on SND_SOC_SDCA_CLASS
->  	select REGMAP_SOUNDWIRE
->  	select REGMAP_SOUNDWIRE_MBQ
+> weighted_interleave_nid() counts the nodes as we sum the weights. We use
+> that node count to limit the maximum skew a single node can host.
+> 
+> interleave_nid() walks with next_node_in() rather than next_node(), so a
+> mask that shrank mid-walk wraps to a node still in the policy.
+> 
+> alloc_pages_bulk_weighted_interleave() derives per-node counts from a
+> weight total summed over the mask, so a changing mask can make them exceed
+> the request.  Clamp each chunk to the space left in page_array.
+> 
+> A cpuset cookie will not work here: two of these take VMA policies, which
+> mpol_rebind_mm() rebinds under mmap_write_lock(), not mems_allowed_seq.
+> 
+> Cost is distribution accuracy during a rebind - but the copy never
+> corrected this anyway, it was just a safety mechanism to prevent div/0
+> and overrunning the alloc request buffer.
+> 
+> Remove read_once_policy_nodemask(), now unused.
+> 
+> -fstack-usage at MAX_NUMNODES=1024:
+> 
+>   weighted_interleave_nid            184 -> 56
+>   interleave_nid                     168 -> 32
+>   alloc_pages_bulk_mempolicy_noprof  360 -> 136
+
+Nice!
+
+>  static unsigned int weighted_interleave_nid(struct mempolicy *pol, pgoff_t ilx)
+>  {
+>  	struct weighted_interleave_state *state;
+> -	nodemask_t nodemask;
+> -	unsigned int target, nr_nodes;
+> +	unsigned int target, nnodes = 0;
+>  	u8 *table = NULL;
+>  	unsigned int weight_total = 0;
+>  	u8 weight;
+>  	int nid = 0;
 >  
-> I think this is much clearer than the original version or my
-> first patch, as it avoids the fragile 'select'. If you like this
-> one, I'll send a v2 after this passes some more randconfig testing,
-> or you can apply that directly.
+> -	nr_nodes = read_once_policy_nodemask(pol, &nodemask);
+> -	if (!nr_nodes)
+> -		return numa_node_id();
+> -
+>  	rcu_read_lock();
+>  
+>  	state = rcu_dereference(wi_state);
+> @@ -2232,22 +2213,40 @@ static unsigned int weighted_interleave_nid(struct mempolicy *pol, pgoff_t ilx)
+>  	if (state)
+>  		table = state->iw_table;
+>  
+> -	/* calculate the total weight */
+> -	for_each_node_mask(nid, nodemask)
+> +	/* calculate the total weight and the node count */
+> +	for_each_node_mask(nid, pol->nodes) {
+>  		weight_total += table ? table[nid] : 1;
+> +		nnodes++;
+> +	}
+> +
+> +	/* the mask is empty */
+> +	if (!weight_total) {
+> +		rcu_read_unlock();
+> +		return numa_node_id();
+> +	}
+>  
+>  	/* Calculate the node offset based on totals */
+>  	target = ilx % weight_total;
+> -	nid = first_node(nodemask);
+> -	while (target) {
+> +	nid = first_node(pol->nodes);
+> +
+> +	/*
+> +	 * The target was calculated in a separate loop, and a concurrent
+> +	 * rebind can change the total number of nodes.  Clamp this loop to
+> +	 * a single pass (nnodes) to keep the walk bounded by node count.
 
-This seems a little odd though, as the driver doesn't actually
-depend on SND_SOC_SDCA_CLASS. That builds in the actual class
-driver, which this driver doesn't use, it only uses functions
-from the SDCA library.
+Might want to explicitly comment here that we are looking at a moving target and
+might race with node bitmap modifications.
 
-THanks,
-Charles
+> +	 */
+> +	while (target && nnodes-- && nid < MAX_NUMNODES) {
+>  		/* detect system default usage */
+>  		weight = table ? table[nid] : 1;
+>  		if (target < weight)
+>  			break;
+>  		target -= weight;
+> -		nid = next_node_in(nid, nodemask);
+> +		nid = next_node_in(nid, pol->nodes);
+>  	}
+>  	rcu_read_unlock();
+> +
+> +	/* the mask emptied under the walk */
+> +	if (nid >= MAX_NUMNODES)
+> +		return numa_node_id();
+
+Makes sense.
+
+>  	return nid;
+>  }
+>  
+> @@ -2258,18 +2257,21 @@ static unsigned int weighted_interleave_nid(struct mempolicy *pol, pgoff_t ilx)
+>   */
+>  static unsigned int interleave_nid(struct mempolicy *pol, pgoff_t ilx)
+>  {
+> -	nodemask_t nodemask;
+>  	unsigned int target, nnodes;
+>  	int i;
+>  	int nid;
+>  
+> -	nnodes = read_once_policy_nodemask(pol, &nodemask);
+> +	nnodes = nodes_weight(pol->nodes);
+>  	if (!nnodes)
+>  		return numa_node_id();
+>  	target = ilx % nnodes;
+> -	nid = first_node(nodemask);
+> -	for (i = 0; i < target; i++)
+> -		nid = next_node(nid, nodemask);
+> +	nid = first_node(pol->nodes);
+
+Similarly, I wonder whether we should spell out the raciness.
+
+[...]
+
+
+Nothing jumped at me
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
