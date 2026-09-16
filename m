@@ -1,227 +1,150 @@
-Received: from mta0.migadu.com (out-154.mta0.migadu.com [91.218.175.154])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BD1445AE7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:33:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91235446BE2;
+	Wed, 16 Sep 2026 07:33:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544039; cv=none; b=Sazja/2QuU36YYhnwGDC9HpDALScxW7/SfinpeGMORXCn2TjMM0toshc+UZxogxBvYC1oQlCoIvemZBSfUEtgeP90GvDUsFzOmkoqJiWK3zP95wgeui4HVWSjsMs2Fu1+A38qUhbCQl/EwDCnsyTnKZhD5ta4rN32O06ZzLtrDw=
+	t=1789544037; cv=none; b=N7v1WsrVxWJtWhFFguXRNN7BsYJZTezIPtvXOiwxr2UOdm5gBrdYygcYh4/+e0c3weu1F4i7YHm1DuIeMinQqL8nb8NHo9tAz/haeshKlNPo9KaFBb+qLixLAJkXsJjJd+dlRJ22M1bwD+Q7H/txxx3Kg3oY15EfNkdj37NyTL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544039; c=relaxed/simple;
-	bh=D3AZYVFwXkt7bPWVEG/PBf6aO/+18hlPXbGfAJOcu9Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cs3yre+fF6bASDvYekzOZkAnomJGjDwmAX8ZBxAUthYYWPbmIBTfZf6v9v7KUWpmYE5poKNSIJfBp1SWvjcZnmChlKTmZ0jD45NARYBswMVhBrFKrAR/UJRN+BIZu9ffwSfTtuNuZC9K8JT/zOkuPwV142UqTo8EjwPSFfXqtv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=raM5XhAV; arc=none smtp.client-ip=91.218.175.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789544037; c=relaxed/simple;
+	bh=LvMw61dibRIW+4fVO1QJlzkWbSQ+bVE6zhZek3EDjEE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=q/lSrySb+iIH8zE7J5PLUvVgsG1+Rx+0LoZc2TIx8FPH3N1TrDegWvR8VjIQJwAvG6PATvkd7kR7M7idkRReAyvJJ97E8EkIVsz9IebQEHyd25GZLId+/dTfhLRrraqs+1a0CVUM5T+twSH66sch727Z3vW07qjyZMBVdFjYvWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=DLJ+aSQk; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FfAVxjZG; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Q0cnmw4w; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=y7Pa3rsK; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="raM5XhAV"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=D3AZYVFwXkt7bPWVEG/PBf6aO/+18hlPXbGfAJOcu9Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789544022; v=1; x=1790148822;
- b=raM5XhAVIv7hETvmFWax/zdQw1WlFoCUi6rwh3HkCNQ+3F009aGeTRgb4KcNoRmgF/S9p0cO
- 2ZqGxV6NXEFIUg36ZN04EudkS6sJgDCXA0CF+nWtT4o8Ff1MN/DbRiZWd72hkXuaFFGyZZfV8yZ
- quovv+2N+GJU/GtQPTfxPB10=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 78ccef53a41417d8;
-	Wed, 16 Sep 2026 07:33:42 +0000
-X-Mizu-Trace-ID: 78ccef53a41417d8
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 16 Sep 2026 09:33:36 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
- vision-components,mipi-module-controller
-Message-ID: <aqpC8fxO4F3bFjF4@bombadil>
-References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
- <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
- <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="DLJ+aSQk";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FfAVxjZG";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Q0cnmw4w";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="y7Pa3rsK"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id CD8671FE4E;
+	Wed, 16 Sep 2026 07:33:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789544019; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A0NbHjrngbuHOeHp1Az9Ca1YwjQzYzoNm/qMlYvRwsM=;
+	b=DLJ+aSQkmKAIuo5EQtj63WVt9JGqKDm2+zkWtpeVWDmuoc1w+xaEpvGn+i746heJAyN0/T
+	shDY0otlLT0ShqpAmIFhXbCEK/+v/3bwcEK3OQjItZodKAZQEhtRNHr09c3zISWV6U8a1i
+	+Y+Qpo7L61HsTmPkCpSOAuezjk+MXFw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789544019;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A0NbHjrngbuHOeHp1Az9Ca1YwjQzYzoNm/qMlYvRwsM=;
+	b=FfAVxjZGFLc58i6fal+6Uu+hdTsONBMO1uP+gQLCrLBGPy9waU50DuWeo8/X7sQbP51bqm
+	52bAboP1nLGqwkAg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Q0cnmw4w;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=y7Pa3rsK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789544014; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A0NbHjrngbuHOeHp1Az9Ca1YwjQzYzoNm/qMlYvRwsM=;
+	b=Q0cnmw4w6AwLrZl5QrHnqgfBravVCUc/Ws9yvIQreTpUYjT5Dz/0RLG8hrl/ajoY95P690
+	hi9HnITruSyQvI1dp8aiwe/4Ypg5tSxoha9BvAj5pas1XgRhm8GuENTEixOFfA5nCvTh6q
+	Xmn4M8tcraSm3U+oRLiM2SanKbAUvjM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789544014;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A0NbHjrngbuHOeHp1Az9Ca1YwjQzYzoNm/qMlYvRwsM=;
+	b=y7Pa3rsKY3YrLUT0KxqAqGdbpwK27xawRRLRlsNX+aOBtph5WGvH3zTtDM3OamLvWH5y0W
+	/i5SnUwdbi2mLbAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 88E75136A5;
+	Wed, 16 Sep 2026 07:33:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id IWnmF05GqmrQEwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 16 Sep 2026 07:33:34 +0000
+Date: Wed, 16 Sep 2026 09:33:34 +0200
+Message-ID: <875x05lkfl.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Steven 'Steve' Kendall <skend@chromium.org>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] ALSA: hda/cs8409: Fix for Dell Cirrus audio jack detect
+In-Reply-To: <87fqzan7jp.wl-tiwai@suse.de>
+References: <20260915-fix-headphone-plug-cirrus-dell-v3-1-6dc555b00f61@chromium.org>
+	<87fqzan7jp.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: CD8671FE4E
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[chromium.org:email,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,sashiko.dev:url];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
 
-Hi Krzysztof,
-
-thanks for the review!
-
-On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
-> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
-> > Add bindings for the Vision Components MIPI Camera Module Controller.
+On Tue, 15 Sep 2026 12:16:42 +0200,
+Takashi Iwai wrote:
+> 
+> On Tue, 15 Sep 2026 04:11:38 +0200,
+> Steven 'Steve' Kendall wrote:
 > > 
-> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > ---
-> >  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
-> >  MAINTAINERS                                        |  7 ++
-> >  2 files changed, 99 insertions(+)
-> 
-> This fails tests, so a very brief review / a few comments:
-
-Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
-Will not happen again.
-
-> 
+> > On some models like the Dell Inspiron 15 3520, jack
+> > detection does not work. This patch switches to
+> > delayed work to fix jack plug on Chrome OS.
 > > 
-> > diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-> > new file mode 100644
-> > index 0000000000000..2a031aea68457
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-> > @@ -0,0 +1,92 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Vision Components MIPI Camera Module Controller
-> > +
-> > +maintainers:
-> > +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > +  - Richard Leitner <richard.leitner@linux.dev>
-> > +
-> > +description: |-
-> > +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
-> > +  controller found on MIPI camera modules from Vision Components. It abstracts
-> > +  the camera sensor behind a unified register interface, and controls and
-> > +  sequences the on-board power supplies and clocks.
-> > +
-> > +  The camera sensor abstraction is optional. The controller exposes a tunneled
-> > +  downstream I2C bus used by the attached image sensor. The controller node
-> > +  acts as the upstream device on the host bus, while child node below the
-> > +  controller represent the sensor device reachable through the tunnel.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: vision-components,mipi-module-controller
+> > Assisted-by: LLM
+> > Signed-off-by: Steven 'Steve' Kendall <skend@chromium.org>
 > 
-> There is no model name, no version, nothing identifying it better?
-> Compatible must be specific to the device (see also writing bindings).
-
-There is one FPGA implemenation for all Vision Components MIPI camera
-modules AFAICT. So I have no idea how it could be more specific, TBH...
-
-Adding the FPGA hardware model/type is wrong IMHO as it depends on its
-configuration/firmware, not the hw.
-
-There are different versions of the configuration/firmware. But I think
-this is also not the correct way to distinguish those, or is it?
-
-According to their homepage the vendor calls those modules simply
-"VC MIPI" modules, which implies this FPGA controller is available on it.
-So maybe "vision-components,vc-mipi-controller" would be a better fit?
-
-Do you have any ideas/feedback on how improve this name?
-
+> The code change looks acceptable, but the patch description gives too
+> little information.
 > 
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  '#clock-cells':
-> > +    const: 0
-> > +
-> > +  clock-frequency:
-> > +    description: Frequency of the sensor clock provided by the module
-> 
-> Drop, implied by the compatible
-> 
+> And, should we apply it unconditionally all models with this code?
 
-Do you mean dropping the whole property, or just the "description"?
+... also please check sashiko's review
+  https://sashiko.dev/#/patchset/20260915-fix-headphone-plug-cirrus-dell-v3-1-6dc555b00f61%40chromium.org
 
-> > +
-> > +  vcc-supply:
-> > +    description: Power supply of the module (3.3V)
-> > +
-> > +  '#address-cells':
-> > +    const: 1
-> > +
-> > +  '#size-cells':
-> > +    const: 0
-> 
-> No children allowed, so why these two?
+They aren't always correct but often give good hints.
 
-Based on your and the bot feedback I would suggest for v2 to change this
-"generic i2c bus" to a simple "i2c-tunnel" property which has
-"$ref: /schemas/i2c/i2c-controller.yaml".
 
-This would better reflect the actual hardware, as there is only this one,
-in firmware hard-coded I2C downstream bus.
+thanks,
 
-Would this be a sane approach?
-
-> 
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - '#clock-cells'
-> > +  - clock-frequency
-> > +  - vcc-supply
-> > +  - '#address-cells'
-> > +  - '#size-cells'
-> > +
-> > +unevaluatedProperties: false
-> 
-> additionalProperties instead, see writing bindings or writing schema.
-> Unless you miss here some other schema $ref.
-> 
-> > +
-> > +examples:
-> > +  - |
-> > +    i2c {
-> > +        #address-cells = <1>;
-> > +        #size-cells = <0>;
-> > +
-> > +        vc_mipi_ctrl: controller@10 {
-> > +            compatible = "vision-components,mipi-module-controller";
-> > +            reg = <0x10>;
-> > +            #clock-cells = <0>;
-> > +            clock-frequency = <37125000>;
-> > +            vcc-supply = <&cam_3v3>;
-> > +
-> > +            #address-cells = <1>;
-> > +            #size-cells = <0>;
-> > +
-> > +            i2c@0 {
-> > +                #address-cells = <1>;
-> > +                #size-cells = <0>;
-> > +
-> > +                vc_mipi_sensor: camera@60 {
-> > +                    compatible = "ovti,ov9281";
-> > +                    reg = <0x60>;
-> 
-> Why having the child abstraction if it is completely abstracted? I don't
-> fully get the explanation from description. Completely optional means no
-> benefits, no point in it, no?
-
-I will try to improve the description. The idea behind this device
-driver/devicetree node is to not rely on the sensor abstraction from
-vision components, but to use the upstream sensor specific driver.
-
-As the tunneled downstream i2c bus needs quirks applied this is modeled
-as a separate bus.
-
-Previous discussions on this approach are available at:
-	https://lore.kernel.org/lkml/20260728092856.GB1494774@killaraus.ideasonboard.com/
-
-Thanks again for your review Krzysztof!
-
-regards;rl
-
-> 
-> Best regards,
-> Krzysztof
-> 
+Takashi
