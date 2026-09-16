@@ -1,131 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93825388E7E;
-	Wed, 16 Sep 2026 08:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673E446C4BC;
+	Wed, 16 Sep 2026 08:04:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545823; cv=none; b=ta0j0xTcsYKsae5Q/ezKt9j+cv3mc6TvQ0JxrfhbAXTBxytLsjex/zHzpggwilBWEjsTI4xFnO1OXugc0XTknCOM+3ziaqWd75iDA6KIW0o3nzPT07f+Lt1pg+R+XuAm2vNYTcLbeSeficUtn++zR7zyOavCMIAdvqqfBJNNSVw=
+	t=1789545867; cv=none; b=CCA0smYAxUSODosY+r3AUCiIRO30ALrxI4fAFgFE63WtCmQZgz0LvKEuTTyXiG2i4lBiJK15AVBWacC62y8pMR8EcS97rfAkdrPScFi8KUJlpDGbXZ3mbhCZbZTFQM6u9usdR7SIDBfwbyIeSz3qRfjjSkZKvWHunEl6ctMr6zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545823; c=relaxed/simple;
-	bh=KyLeZDs65SJigKA9uBYEoUpTW2XH2SOgKl2BHTpojYY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TBCSAiYOI6XTCs7eijlK9rfBmCXa79haoUlN8ADnEyPlB5VdvNmK5yIKZ8vRry4xOnldK2Ds948QPPW6XJ/yX4843vM7Xge7Bk923UdOt4DCCd8P8LJA5E8BopLxSe1VF2JvhP3efSHsBkW0Dwgf3Eo/jhWKhWhNUFdxXRpeM0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SMVra4ZE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789545867; c=relaxed/simple;
+	bh=d4d6oleAEESSodKUXQ7H4/1eWU0GujX1j9FiMqddfuQ=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WGW/nwZslhB+t4dZyN2AnHOyU4wSsd+10ILtDqFAVbjHXcY4fHKtI51A5yFT2gcjU1c5KDVNuwNGjdXwA1gA476PNuohMXO4jArTlJSWx+pjTJ3fsg2oUO54pVhdlKtE2PgOONrIH7OLMPHj8g8v065pYrfNjJ+XyfxzIq0TOrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=gb9qahvl; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SMVra4ZE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03BAA1F000FF;
-	Wed, 16 Sep 2026 08:03:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789545809;
-	bh=XIBzlK2j0riyQGL55D1titlOQJB9O6G+ICsOTOSNMtM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=SMVra4ZERH4PoKOds3r0DQlp0tyeT4BzWfkiz8NejsvdN5aBCI8A6ezKj773wen9n
-	 iJiuuO+KUak6rbmCV5ZNZqc9XNTK8+Z+hBIUq+53/vbzMUE0La20b0UVp3DY9eMkyj
-	 vRmDvBvFG4GAQix8vDBvdC19oJpdAYU/dM2ajLz3+sZaE9ZDROYfjpVYsHNzNo0dAH
-	 y8XkCdg1htRfB+arjQW88RAejYQh/CVe0656eEpicN474lNoR5SNJHVWJ1Z8T2jI2E
-	 qzA9NZtOVtRipNvZnMqppv2ME8s63t12l9YkqFH52l6IBany/n1eEl2/V3BYP4JYRA
-	 Q9REjNywDnKUg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x6kc2-00000009VAE-3lNw;
-	Wed, 16 Sep 2026 08:03:26 +0000
-Date: Wed, 16 Sep 2026 09:03:26 +0100
-Message-ID: <86jyol62sx.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,	Qiang Yu
- <qiang.yu@oss.qualcomm.com>,	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,	Rob
- Herring <robh@kernel.org>,	Bjorn Helgaas <bhelgaas@google.com>,	Konrad
- Dybcio <konrad.dybcio@oss.qualcomm.com>,	linux-pci@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,	linux-kernel@vger.kernel.org,	James Morse
- <james.morse@arm.com>,	Andrew Scull <ascull@google.com>
-Subject: Re: [PATCH v2] PCI: qcom: Block accesses to downstream devices on link down
-In-Reply-To: <20260915231421.GA881410@bhelgaas>
-References: <2ibficaitalz4lacqffsrp4kuqzanxnxr2bwd6x5yti4mmfabf@h3y63kuz7fjh>
-	<20260915231421.GA881410@bhelgaas>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="gb9qahvl"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Jq/o5YCc64Ell41XdScaZncbRs5gyCGI3NZ9mDBN+X4=;
+	b=gb9qahvlhgpwoOgsN3DCkIlfVDrUdNvcesk0KR7XYQu0a8OPAb6gUwB4sCoUXJh1kcgEDJjNB
+	4NF9XtmNqywiiwzt/pKoIv7vnFexE8FFwL2/sLkCfbhuExnSgiRfWNDr3LJjJBqKR6S/3ZrxyOd
+	VhmRvyQz/k/hJy1FPrG9B2M=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hlB1q5GSgz1T4LY;
+	Wed, 16 Sep 2026 15:52:31 +0800 (CST)
+Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
+	by mail.maildlp.com (Postfix) with ESMTPS id 22AD74057F;
+	Wed, 16 Sep 2026 16:04:13 +0800 (CST)
+Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
+ kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 16 Sep 2026 16:04:12 +0800
+From: Xie Yuanbin <xieyuanbin1@huawei.com>
+To: <sashal@kernel.org>, <gregkh@linuxfoundation.org>,
+	<linux@armlinux.org.uk>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
+	<rostedt@goodmis.org>, <rmk+kernel@armlinux.org.uk>, <linusw@kernel.org>,
+	<kuninori.morimoto.gx@renesas.com>, <arnd@arndb.de>, <xiqi2@huawei.com>,
+	<ljs@kernel.org>, <wozizhi@huaweicloud.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rt-devel@lists.linux.dev>, <stable@vger.kernel.org>,
+	<patches@lists.linux.dev>, <lisongze2@huawei.com>, <wangbing6@huawei.com>,
+	Xie Yuanbin <xieyuanbin1@huawei.com>
+Subject: [PATCH 5.10.y/5.15.y 2/4] ARM: fix branch predictor hardening
+Date: Wed, 16 Sep 2026 16:00:09 +0800
+Message-ID: <20260916080011.170295-2-xieyuanbin1@huawei.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916080011.170295-1-xieyuanbin1@huawei.com>
+References: <20260916080011.170295-1-xieyuanbin1@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: helgaas@kernel.org, mani@kernel.org, qiang.yu@oss.qualcomm.com, lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org, bhelgaas@google.com, konrad.dybcio@oss.qualcomm.com, linux-pci@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, james.morse@arm.com, ascull@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk300012.china.huawei.com (7.202.194.175)
 
-On Wed, 16 Sep 2026 00:14:21 +0100,
-Bjorn Helgaas <helgaas@kernel.org> wrote:
-> 
-> [+cc James, Andrew, Marc for guidance on generic arm64 PCIe error
-> recovery; beginning of thread:
-> https://lore.kernel.org/all/20260819-ecam_blocker-v2-1-e7a8fdc1c5cb@oss.qualcomm.com]
-> 
-> On Tue, Sep 15, 2026 at 07:16:11PM +0200, Manivannan Sadhasivam wrote:
-> > On Fri, Sep 11, 2026 at 12:18:07PM -0500, Bjorn Helgaas wrote:
-> > > On Fri, Sep 11, 2026 at 08:17:29AM +0200, Manivannan Sadhasivam wrote:
-> > > > On Tue, Sep 08, 2026 at 06:00:30PM -0500, Bjorn Helgaas wrote:
-> > > > > On Wed, Aug 19, 2026 at 11:36:54PM -0700, Qiang Yu wrote:
-> > > > > > After a PCIe link goes down, software may still access the
-> > > > > > BAR (MMIO) space or configuration space of devices behind
-> > > > > > that link before recovery has run. As the link is down,
-> > > > > > these accesses never complete, resulting in a storm of
-> > > > > > Completion Timeout AERs.
-> > > > > 
-> > > > > What is special about qcom here?  It seems like the Completion
-> > > > > Timeouts and AER interrupts should happen with every PCIe
-> > > > > controller.
-> > > > 
-> > > > The special behavior which is common across many (not all) ARM
-> > > > SoCs is that they don't synthesize all-one response for
-> > > > completion timeouts, unlike RCs in x86 machines. Rather, they
-> > > > return AXI error response, resulting in CPU treating them as
-> > > > SError, in-addition to AER storm.
-> > > > 
-> > > > Commit message missed mentioning SError though.
-> > > 
-> > > I don't know how SError works, but this sounds like a pretty big
-> > > open issue with respect to RAS.  I don't think we want a kernel
-> > > panic because a device failed to respond to a config or MMIO
-> > > access, e.g., if a card or Thunderbolt cable got unplugged.
-> 
-> I still don't know anything about arm64 or SError, but I see these KVM
-> commits about using ESB to manage SError in some cases:
-> 
->   0e5b9c085dce ("KVM: arm64: Consume pending SError as early as possible")
->   472fc011ccd3 ("KVM: arm64: nVHE: Don't consume host SErrors with ESB")
-> 
-> I assume it's not possible or practical to use ESB in the native host
-> case to deal with issues like this in a generic way instead of the
-> vendor-specific feature Qcom is using here?
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 
-In general, an SError is fatal. No ifs, no buts. It is asynchronous,
-and has no syndrome information. Once you find out about it, you're
-already dead.
+From: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-ESB is a way to paper over this sorry state of affair by making sure
-that the error is observed at a known point. You can think of it as a
-barrier synchronising potential errors for transactions in flight. KVM
-uses that to attribute SErrors triggered by a guest, on an exception
-boundary.
+[ Upstream commit fd2dee1c6e2256f726ba33fd3083a7be0efc80d3 ]
 
-That's not applicable to the kernel itself, unless you want to place
-an ESB after each and every load/store in the kernel (/s).
+__do_user_fault() may be called with indeterminent interrupt enable
+state, which means we may be preemptive at this point. This causes
+problems when calling harden_branch_predictor(). For example, when
+called from a data abort, do_alignment_fault()->do_bad_area().
 
-Modern versions of the architecture allow these errors to be reported
-as *synchronous* exceptions, with all the syndrome information you
-want. I guess this HW doesn't implement it, which is a pretty big
-mistake for systems that allow surprise removal of devices...
+Move harden_branch_predictor() out of __do_user_fault() and into the
+calling contexts.
 
-	M.
+Moving it into do_kernel_address_page_fault(), we can be sure that
+interrupts will be disabled here.
 
+Converting do_translation_fault() to use do_kernel_address_page_fault()
+rather than do_bad_area() means that we keep branch predictor handling
+for translation faults. Interrupts will also be disabled at this call
+site.
+
+do_sect_fault() needs special handling, so detect user mode accesses
+to kernel-addresses, and add an explicit call to branch predictor
+hardening.
+
+Finally, add branch predictor hardening to do_alignment() for the
+faulting case (user mode accessing kernel addresses) before interrupts
+are enabled.
+
+This should cover all cases where harden_branch_predictor() is called,
+ensuring that it is always has interrupts disabled, also ensuring that
+it is called early in each call path.
+
+[ Xie Yuanbin: At the upstream, the following patches are a patch set:
+  1. commit dea20281ac8822661576 ("ARM: group is_permission_fault() with
+     is_translation_fault()")
+  2. commit 40b466db1dffb41f0529 ("ARM: allow __do_kernel_fault() to
+     report execution of memory faults")
+  3. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault")
+  4. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening")
+  patch 1. and 2. is unneeded for 5.10.y and 5.15.y . This patch backports
+  patch 4. and simply adapts to the context differences. ]
+
+Reviewed-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Tested-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ arch/arm/mm/alignment.c |  4 ++++
+ arch/arm/mm/fault.c     | 39 ++++++++++++++++++++++++++-------------
+ 2 files changed, 30 insertions(+), 13 deletions(-)
+
+diff --git a/arch/arm/mm/alignment.c b/arch/arm/mm/alignment.c
+index bcefe3f51744..758504a28c13 100644
+--- a/arch/arm/mm/alignment.c
++++ b/arch/arm/mm/alignment.c
+@@ -23,6 +23,7 @@
+ #include <asm/cp15.h>
+ #include <asm/system_info.h>
+ #include <asm/unaligned.h>
++#include <asm/system_misc.h>
+ #include <asm/opcodes.h>
+ 
+ #include "fault.h"
+@@ -809,6 +810,9 @@ do_alignment(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+ 	int thumb2_32b = 0;
+ 	int fault;
+ 
++	if (addr >= TASK_SIZE && user_mode(regs))
++		harden_branch_predictor();
++
+ 	if (interrupts_enabled(regs))
+ 		local_irq_enable();
+ 
+diff --git a/arch/arm/mm/fault.c b/arch/arm/mm/fault.c
+index 094137cd29c8..4afb076383a8 100644
+--- a/arch/arm/mm/fault.c
++++ b/arch/arm/mm/fault.c
+@@ -145,9 +145,6 @@ __do_user_fault(unsigned long addr, unsigned int fsr, unsigned int sig,
+ {
+ 	struct task_struct *tsk = current;
+ 
+-	if (addr > TASK_SIZE)
+-		harden_branch_predictor();
+-
+ #ifdef CONFIG_DEBUG_USER
+ 	if (((user_debug & UDBG_SEGV) && (sig == SIGSEGV)) ||
+ 	    ((user_debug & UDBG_BUS)  && (sig == SIGBUS))) {
+@@ -255,8 +252,10 @@ do_kernel_address_page_fault(struct mm_struct *mm, unsigned long addr,
+ 		/*
+ 		 * Fault from user mode for a kernel space address. User mode
+ 		 * should not be faulting in kernel space, which includes the
+-		 * vector/khelper page. Send a SIGSEGV.
++		 * vector/khelper page. Handle the branch predictor hardening
++		 * while interrupts are still disabled, then send a SIGSEGV.
+ 		 */
++		harden_branch_predictor();
+ 		__do_user_fault(addr, fsr, SIGSEGV, SEGV_MAPERR, regs);
+ 	} else {
+ 		/*
+@@ -421,16 +420,20 @@ do_page_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+  * We enter here because the first level page table doesn't contain
+  * a valid entry for the address.
+  *
+- * If the address is in kernel space (>= TASK_SIZE), then we are
+- * probably faulting in the vmalloc() area.
++ * If this is a user address (addr < TASK_SIZE), we handle this as a
++ * normal page fault. This leaves the remainder of the function to handle
++ * kernel address translation faults.
+  *
+- * If the init_task's first level page tables contains the relevant
+- * entry, we copy the it to this task.  If not, we send the process
+- * a signal, fixup the exception, or oops the kernel.
++ * Since user mode is not permitted to access kernel addresses, pass these
++ * directly to do_kernel_address_page_fault() to handle.
+  *
+- * NOTE! We MUST NOT take any locks for this case. We may be in an
+- * interrupt or a critical region, and should only copy the information
+- * from the master page table, nothing more.
++ * Otherwise, we're probably faulting in the vmalloc() area, so try to fix
++ * that up. Note that we must not take any locks or enable interrupts in
++ * this case.
++ *
++ * If vmalloc() fixup fails, that means the non-leaf page tables did not
++ * contain an entry for this address, so handle this via
++ * do_kernel_address_page_fault().
+  */
+ #ifdef CONFIG_MMU
+ static int __kprobes
+@@ -496,7 +499,8 @@ do_translation_fault(unsigned long addr, unsigned int fsr,
+ 	return 0;
+ 
+ bad_area:
+-	do_bad_area(addr, fsr, regs);
++	do_kernel_address_page_fault(current->mm, addr, fsr, regs);
++
+ 	return 0;
+ }
+ #else					/* CONFIG_MMU */
+@@ -516,7 +520,16 @@ do_translation_fault(unsigned long addr, unsigned int fsr,
+ static int
+ do_sect_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+ {
++	/*
++	 * If this is a kernel address, but from user mode, then userspace
++	 * is trying bad stuff. Invoke the branch predictor handling.
++	 * Interrupts are disabled here.
++	 */
++	if (addr >= TASK_SIZE && user_mode(regs))
++		harden_branch_predictor();
++
+ 	do_bad_area(addr, fsr, regs);
++
+ 	return 0;
+ }
+ #endif /* CONFIG_ARM_LPAE */
 -- 
-Without deviation from the norm, progress is not possible.
+2.55.0
+
