@@ -1,65 +1,65 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012063.outbound.protection.outlook.com [52.101.43.63])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012002.outbound.protection.outlook.com [52.101.48.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC5F4DA9AD;
-	Wed, 16 Sep 2026 18:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1374DA9A3;
+	Wed, 16 Sep 2026 18:40:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.2
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584018; cv=fail; b=K6jj08KJ6Wa34bTEmprSUhBTQBqcSBJ+7RW4sey/UxW2C90VEzi9vNaWronP56ACHhyZlQv/UJdFn7GgMlrv3H+awu9K1BYPgpsakewECxAiOxVL2BM2jU6Df3j+Z0ZCG22eJdLXiyJTDEl1WodBBMa/EnHOtb9L9NFoN/UVDf0=
+	t=1789584037; cv=fail; b=MIF4hgNSDWzvkUUu6fY2vKUF64KRfHithq6IVj219XiO/Mek+qp+iK6/pZ+/tX8IfFZGSYBWQeVy72vWzEH5lVim202U7au5bAMpNWRyCNfKoTH/MxzFLxlQuT008j8AZ6SVK6vY1ZIP+xjihTYGdVcV9IvflCx5nltNUYnBDew=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584018; c=relaxed/simple;
-	bh=WRH0kzzfyuLsciNtwByzNE7iMGTYk1vUbJarGVRmF2s=;
+	s=arc-20240116; t=1789584037; c=relaxed/simple;
+	bh=e4vFf+RfOUbiZnHmpI510UCsOC6IeLXV+PxZZM9zmiw=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Jed7Ygw7M1F5TgAf3J5o4wpe9TBhUSYiaaOmk8ytpJacJZb2EwDbyATrlC36X7bC4+aiFC5Q+DCnTchZo0g9EzKuLF8UqrCJD+ofOlov+mlBRsKtZQPyhDQL9V+vaKg++IsknR6rT0s7crN1ViiL4+rYPTBDCPf30LBcyiOhYPw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=S8qJuVWa; arc=fail smtp.client-ip=52.101.43.63
+	 MIME-Version:Content-Type; b=m8CjapVnu5oipAHnw/7QeOQJZ5l07UZMQc/8dIzyEF56vDzZu2T+XkMgHHgmOHQAzY78kTrjr62B5frnBzAEsghxkR5XRlQAD411l8i7PsX/8HDl1M9C7PVtz/Flm1cGLt9GzYckb0pOWSHeFmTSdHFNunauqpwB+otd1JuyN20=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bz3qTUQk; arc=fail smtp.client-ip=52.101.48.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="S8qJuVWa"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bz3qTUQk"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fP/rD0c2/zoURCvx7ZiBA7kYxa082Fz+fj64yIDb3+iRezdpY2tNTFMpt3Vc+WfWTQrQUxnCzbH3K9Lj1YEXx+EtcqticH/Oh/53bgAgL46Fsgpi2iV+eeDfHgqC3/0Q7dB4VZBLw2XJfm1M5ZHuz2YsmPALbdUx/HX3XdBTZYNN2njWOvdm0o969JTl2tau1SIvhvABwfTlEEUjJeCLKes2npJWKGEiDAS+wk6IU9l32QrtDlOzMNNiamZepsIaAW872CkrJzNaDdKwq4pXa8qF4wrx1+PAsItv1trZ9CqSJD8rdckMRQSapU3qx+ssR+Y2LtBoaZ9nCp2nug0dRg==
+ b=rHcVZXeZ2JEQGQ/VoITrNBmpPI3iUZvgFrXRcV6b/ihZMwmV+Bzi5MZMYt0lEFnBO16zXyIXZdoPrD5K0BFPWlfOuK+HdFC1c5i0D4Q5MZ6CQ/5Z5/UlelubSWBkVRHXvpHTz/XpZSqrQLr3igt46gau2xWT5hIM5MOqyGdqPbow0OstS3XyhB5xWZ2oBoTYF5SKivjJCVVDZtpeBAn4zdgY0XvDICTPyCEVMDMXj2j6Yt/StsAh/H0g57dIcrsZfvdm0ZRnKwIzw237xqx86Wx9CNYcKg+Y5nuM5b7fiyERVtwweNnPqU6OwITUHO5rzKv/ymTC+0lBZssJnLL7kw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UN45E6cy3y0MHWat+jNEXnZKy+YJeXOaOpv3Od0cQQM=;
- b=BzjQjlMEyMi8+8ZX2D8CmA5v83xbgNsgzoikqUoaPtjYVuDh/mnPT868nLZDIaKCmEy5rWb/KyYHnWeUXFVO2yJegCccZAuN0xSdBH3PERJ77zJn6SpKVNS25VtHfHkTaSk9Do4u9NUfED/mkUoAMMTK2k08JGQh7+pPqRivLxnHuom+LmSldOrPelN17M0knQQ7STPgHgV678NohUwf+Rl25oiJ/NGH6gH4sbLlUkWSyTZgofn0QyIKFU135NL2J6toKM/cVSCN2E3JmUd1CqTIYLPiVsFg8F3TjFbRkPhttmwa6iBdmicXzmriC8xjNmbX+/Uy9hV3Z9GfHR4wIg==
+ bh=pg3xIkb2nnm4LVzwL1pIoA3t/kVOkG/kv5FPBj1KBzc=;
+ b=UtFz8xNGpOplcIFuza/nmj+fYCEoqKy93yEiuOx7lUiZhDSvBbVyxLGwLVgtft0R/2Z8GVbIKEDhb4Hwt1CAREohgMB832u518icNA9Hne1BFF5y8kKFt1rs8zNEdLVwnuWBDtA2m+FDKAAHaIeKCMSYZtBBg6IwHus0qc+ZjQV1aaSyuqlw2jQU0luAzlRCrPq/AOOdHLbPO3gNni/XtLTcWd2oE+fk1W9FpYvzm4AWDSakV4ijk4/rQYxC1A9b6lRUd4OAhUyFOGVjwVnBQtTghCuSC4dO+iVR6jYzlHMYf/WuiHdlJFsWs1X64ElZNoFvaK2NSz4NNqK2e3swyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=shazbot.org smtp.mailfrom=nvidia.com;
+ 216.228.117.161) smtp.rcpttodomain=shazbot.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UN45E6cy3y0MHWat+jNEXnZKy+YJeXOaOpv3Od0cQQM=;
- b=S8qJuVWaDuvF6KTYgvaPu8mH/B4pPoQxWsEoGeq7gN4hPl5k+F8pem03YKulw9h2qWpey0Bn7szdlVqpLRT4B8zITPyfcWVH9Z11IU8Zbo4dmbXUg3Oe+kMDOpGKEjtwytVcuOgzT1E+KfOOsplLpYx4eyRJyLez03Hmk0JsxDAeFnNB8SH/WczcbLzYy7m4YBuGXencjGfBjLO3EugF7BWYzJ0gWdtUm3l3pDQkvniX5nKQwWBTQ9zjGaFKr4OZtG00ylcNVZvpQtO/x1JXNXU7ZB3vDxF4ThUWg07MDDyVopV9WBFb/ifQusBRe/eeppXwDB8wRr++qYUQMGIv8A==
-Received: from SA9PR13CA0029.namprd13.prod.outlook.com (2603:10b6:806:21::34)
- by CYXPR12MB9385.namprd12.prod.outlook.com (2603:10b6:930:e2::13) with
+ bh=pg3xIkb2nnm4LVzwL1pIoA3t/kVOkG/kv5FPBj1KBzc=;
+ b=bz3qTUQkb2KzcG+/XRCysDpAbe27/2OZENyy0cQe2uDk71nQgg2q3jS+tagUpqD1SHEpuuk0GQDbkTI6CNKK86Gq0A2K/W6k2WrKLwDFbEH/wPpjlnBF7YYDzccJNDlwOaxJvcuP9Su64lT6sxHlLEqioAglEZ5TxguWi67THw93TpshCe/LKjcCYhdvUF1k+HAydgMAxhxDE9inVWsb1M4Lr1z5RUeWxz/zI4hxrUqIWtF71fp+6v8pd/DDju5VP9MBU8UfxHmh2Y4tNpk5VorqCdFVNjc3DQuSYNa/RYhaQHNYpbbWi5wAQ6sqwU3prPwaZGNgeCUy3Z2Fs85uhA==
+Received: from BN0PR03CA0049.namprd03.prod.outlook.com (2603:10b6:408:e7::24)
+ by SJ0PR12MB5661.namprd12.prod.outlook.com (2603:10b6:a03:422::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 18:39:58 +0000
-Received: from SN1PEPF00036F41.namprd05.prod.outlook.com
- (2603:10b6:806:21:cafe::1f) by SA9PR13CA0029.outlook.office365.com
- (2603:10b6:806:21::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.7 via Frontend Transport; Wed, 16
- Sep 2026 18:39:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ 2026 18:39:57 +0000
+Received: from BL02EPF00021F69.namprd02.prod.outlook.com
+ (2603:10b6:408:e7:cafe::5) by BN0PR03CA0049.outlook.office365.com
+ (2603:10b6:408:e7::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
+ 16 Sep 2026 18:39:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
 Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- SN1PEPF00036F41.mail.protection.outlook.com (10.167.248.25) with Microsoft
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BL02EPF00021F69.mail.protection.outlook.com (10.167.249.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 18:39:58 +0000
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 18:39:56 +0000
 Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 11:39:30 -0700
+ 2026 11:39:21 -0700
 Received: from nvidia-4028GR-scsim.nvidia.com (10.126.230.37) by
  rnnvmail202.nvidia.com (10.129.68.7) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 16 Sep 2026 11:39:21 -0700
+ 15.2.2562.46; Wed, 16 Sep 2026 11:39:12 -0700
 From: <mhonap@nvidia.com>
 To: <alex@shazbot.org>, <jgg@ziepe.ca>, <ankita@nvidia.com>,
 	<jic23@kernel.org>, <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
@@ -74,9 +74,9 @@ CC: <cjia@nvidia.com>, <kjaju@nvidia.com>, <vsethi@nvidia.com>,
 	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
 	<linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
 	<linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>
-Subject: [PATCH v5 22/27] vfio/cxl: Clear the HDM access gate after a hot reset
-Date: Thu, 17 Sep 2026 00:05:35 +0530
-Message-ID: <20260916183540.3813685-23-mhonap@nvidia.com>
+Subject: [PATCH v5 21/27] vfio/cxl: Exclude the HDM decoder registers from direct BAR access
+Date: Thu, 17 Sep 2026 00:05:34 +0530
+Message-ID: <20260916183540.3813685-22-mhonap@nvidia.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260916183540.3813685-1-mhonap@nvidia.com>
 References: <20260916183540.3813685-1-mhonap@nvidia.com>
@@ -92,107 +92,79 @@ X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
  rnnvmail202.nvidia.com (10.129.68.7)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F41:EE_|CYXPR12MB9385:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa4782d1-3595-4071-07f0-08df1421e8ec
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|SJ0PR12MB5661:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21805d9f-38f2-490e-20ab-08df1421e7f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|7416014|1800799024|376014|921020|5023799004|56012099006|11063799006|10067099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|11063799006|56012099006|10067099003|921020|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	izt0ocP+xV0U/ZINvV20Um73bQneE797OjPy5AwIb0a605FD6tDT38/XwU+ba1x65I2ezqB2G5doG5diYN5W+0vtyrc9z4xWHK3iCbYpdAKjfvFDnlaWaZrKJvI+Lc107U7cnFrey7eDnu9XnCv+BQre6dfsJRkmQNx/faFIZTizgRMMAPAZ6ruaQWi8/zsj6Qwy5jZlaDlM863wy8NS2c2yvLAzt9i2vYgLvisiEMYxvAgGfrAns9Prfqgo/+yLlmphz8jFKcRH4P18DQUbn+OUWQPCbGtk67OtuaPZG9bP6b0Mi6AH0wx1bdtMwbOJ1VILevyxKnmsTsZ+MKZspxx+LMCOW0dTf9RvRkQIuRi5vkjzErsP/WQvO80Zq00W3YI1EOXBiFMSOOckMLHxULtDtx6TDwo9iTX1t8UXZn3kxp38ptKp7ExjnaAto6jSA+st2fn9XG5eycRKhV0pl3Eiqdti3nbZq1C6BX1mKqZoKCdCMQDoqSSgS731W655Kt+Fm16CwtyKylH9decfb59ieZBwLZHO175dKXrVg/Y4FbZZJZIwfbKixIY4+AsTti6WZ5nIz9QcKkyNLkpGDs/JfDDDoBHNMwTN8EyRzsH3+eCcJ9oaAcO7Gqmf0lJGQRt1brcfQIoqpe4ufIzHsdvzY0DsMhPBqb5CK1XuCmcCTfFrP5DA4r9FaPPg8DdWnoO0wDXiVfng42Ln1e+ltZTCFKs7ox3P066nL97FsDMIEGdSa7M4X1YG9MeDAAxB
+	s6bgOpCpYhbzjZKV/TvG+cOeGgDe9Em3bTEHMRhaqxcfmab9ucmiNJSHkoEvGjQnaXePsinYjiRb9CJFJIN2Y3KS78q21CxSws496Qkluyc3/SCRvBX9UB0aksEKZv5wVE6+OUe7ehCwNmFGmG//wfWfnEmFq/QnGfpE79rZCzWeywbDpAAN7txTq5uCly2pOYdsU/8FWQT+3RMf5ALA+DvMohRIpXigea9iTHhAbQovBSGRTDTepJh7hQLRg81coLucQBelyuDSwceVR5NkLRLXw8vkDgO11wL520vtOWtZqDvtYXeUoiqwDpy3e8f5XBYwiH2yVKHTQ0xxl+/zecUwoK5EM5J3WaMh4uXhB1k/4e958ZEty/I/OYh53zM2K3jD1AhjvyKWdWmh0bc4bXj2OfP/ZJBhyKOPVcjhNtfNzisljBJRiwhvz+IIj1ZaX1iUO+6AvM1xxhqV0bwhaNayB4HPZB3speP7Hhd4Q1GEYgHWggmEK7ApBazmmkflJmOOFhyROw+ylGrzIG+TqzhJ3uRsFYROULiuvEBUOLtdseA7Bs4M42bBKqoeICaKPZo0TiQzlgGDImS+q7uB+HQA4cHcZs0Oey6MZ3sEDOVgMeymhpuT2xvBDP+u8D+1My/H+9g+dzJ+1VV4bqjVgwrLF9WVha8IElLSzJZO9D/3ShjpR7Wqar748/jWLnzw60jqncFiA5XXEUwG5TdxTYR9VtHZEapB4z7Ik92SJPovaW/hALXUrk/dRDAR4Ugd
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(7416014)(1800799024)(376014)(921020)(5023799004)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(11063799006)(56012099006)(10067099003)(921020)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ymq6Ru1dMaWZLI7baZskdlwDpYcW5+Ow45kZyGNxZxWRTvPQgn7lEzf8rdSC+MW19BmB3iQ8He5cALSGvkkDAeB1l3btK9UP9GJzgPwDZyJ3hi5O9zYfXTvPPBXyO7KfAH2qu7ATLRGN37C2d66ltWiOvQfmzfOLcT6dCdgtW/rBHyTisAXdYcjxD9tzPR7zYVtX4VjrXKas2MKgJMA+8+tBI4antaF36qgSeNkskT9A3N4pRcsDcQGCh9UQZOY+M24rDbd5SQiVuYdQ/NuZ5TQldyi2RMN4sZ2JycOMjAGeEZjRxl5+InrB3Z9sxF6286KJ7RgLaQUDAlN3gy6E2+4p14SqFYxN+uZXPC5hTjhkH/YOv10kck9xHJLLN5WRO8WT5OrWrLDIvvvScc5JZeFBICoy8noh31gINwoLnpg0zLxMlzd9xL5Ec3woowJK
+	YDRUhhLGSGfYXFF/MCK2Wep9Ztd6qPuXBOJ0lskKsoVKY7kgTa6S3WYo86V1w+Qnl4Hpoy8DVGazQHpUERQT7PUHV/680nb7F7t9lo8zRuA7K9g3zcTVPKS8pZQ+2G++HxNMCjMIzmT87v3uFk8+GoeCASdZhj77iRbVWgKJYsuRAGHT9QYb6nFYxsUTWQTXNAkQNQF2fMvNGKYp2gJSrCaA9CS5M41ArF6SmB+Hn9sTPakV8lYDCRqdO8tokZHa8B3IqNeWFfilXfCzwvs/cjw4HYFHH79Dngl/kOFKYtEocXKyBTvtSo83/u95ATnZ0fRxHAUrXblhN8kH2F2ocTjaqioCqYd3NljqdlMMzIk2fFc3FWmmm85Fxijgk/ZNTkw+KzfKoNE/2a3KJGutptiTV/3ow0vxzrQGfW1Ur2iis8jgPa8jf6WwUlCOCBe0
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 18:39:58.2685
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 18:39:56.5777
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa4782d1-3595-4071-07f0-08df1421e8ec
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21805d9f-38f2-490e-20ab-08df1421e7f0
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00036F41.namprd05.prod.outlook.com
+	BL02EPF00021F69.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9385
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5661
 
 From: Manish Honap <mhonap@nvidia.com>
 
-The HDM memory fault inserts a PFN only when the decoder is in a
-known-good state (cxl->hdm_valid), so the host CPU never faults the
-coherent range into a disabled decoder.
+The HDM decoder register block lives in the component BAR that vfio-pci
+owns. The guest reads the decoder only through the trapped, read-only
+decoder region; it must not reach the physical registers through the BAR
+directly, and a host read of the range through a kernel mapping could
+abort as a fatal host SError.
 
-VFIO_DEVICE_PCI_HOT_RESET drives a plain secondary bus reset rather than
-the CXL reset sequence, so nothing restores the decoder in the
-reset_done handler. A secondary bus reset only reaches a CXL endpoint
-when the upstream port has SBR unmasked (CXL r3.1 sec 8.1.5.2); in that
-case the reset decommits the decoder, so clear cxl->hdm_valid to keep a
-later fault from inserting a PFN into a dead decoder.
-
-A subsequent VFIO_DEVICE_RESET runs the CXL reset sequence and restores
-it, and a masked SBR is a no-op that leaves the decoder intact.
-
-vfio_cxl_sbr_unmasked() mirrors the cxl_sbr_masked() check the PCI core
-uses (drivers/pci/pci.c) for its own CXL bus reset.
+Add the block to the generic excluded-range list with
+VFIO_PCI_EXCLUDE_MMAP | VFIO_PCI_EXCLUDE_READ | VFIO_PCI_EXCLUDE_WRITE
+similar to the MSI-X exclusion.
 
 Assisted-by: LLM
 Signed-off-by: Manish Honap <mhonap@nvidia.com>
 ---
- drivers/vfio/pci/cxl/vfio_cxl_core.c | 38 ++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ drivers/vfio/pci/cxl/vfio_cxl_core.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 diff --git a/drivers/vfio/pci/cxl/vfio_cxl_core.c b/drivers/vfio/pci/cxl/vfio_cxl_core.c
-index 37e8a3b54cfb..395b4a5b0956 100644
+index da04776356e4..37e8a3b54cfb 100644
 --- a/drivers/vfio/pci/cxl/vfio_cxl_core.c
 +++ b/drivers/vfio/pci/cxl/vfio_cxl_core.c
-@@ -514,8 +514,46 @@ static void vfio_cxl_reset_prepare(struct vfio_pci_core_device *vdev)
+@@ -435,8 +435,25 @@ static int vfio_cxl_add_region(struct vfio_pci_core_device *vdev, u32 subtype,
+ static int vfio_cxl_open_device(struct vfio_pci_core_device *vdev)
  {
- }
+ 	struct vfio_cxl_state *cxl = vdev->cxl;
++	struct pci_dev *pdev = vdev->pdev;
+ 	int ret;
  
-+/*
-+ * A secondary bus reset only reaches a CXL endpoint when the upstream port
-+ * has SBR unmasked (CXL r3.1 sec 8.1.5.2); otherwise the Bridge Control SBR
-+ * bit is ignored and the decoder is left intact. Mirrors the cxl_sbr_masked()
-+ * check the PCI core uses for its own CXL bus reset.
-+ */
-+static bool vfio_cxl_sbr_unmasked(struct pci_dev *pdev)
-+{
-+	struct pci_dev *bridge = pci_upstream_bridge(pdev);
-+	u16 dvsec, ctl;
-+
-+	if (!bridge)
-+		return false;
-+
-+	dvsec = pci_find_dvsec_capability(bridge, PCI_VENDOR_ID_CXL,
-+					  PCI_DVSEC_CXL_PORT);
-+	if (!dvsec)
-+		return false;
-+
-+	if (pci_read_config_word(bridge, dvsec + PCI_DVSEC_CXL_PORT_CTL, &ctl))
-+		return false;
-+
-+	return ctl & PCI_DVSEC_CXL_PORT_CTL_UNMASK_SBR;
-+}
-+
- static void vfio_cxl_reset_done(struct vfio_pci_core_device *vdev)
- {
-+	struct vfio_cxl_state *cxl = vdev->cxl;
-+
 +	/*
-+	 * VFIO_DEVICE_PCI_HOT_RESET drives a plain secondary bus reset, not the
-+	 * CXL-aware cxl_reset_bus_function(), so nothing restores the HDM
-+	 * decoder here. When the upstream port has SBR unmasked the reset
-+	 * decommits the decoder; gate host access to the HDM range so a later
-+	 * fault cannot insert a PFN into a dead decoder. A VFIO_DEVICE_RESET
-+	 * then runs the CXL reset sequence and restores it. A masked SBR is a
-+	 * no-op and leaves the decoder intact.
++	 * Keep the HDM decoder block out of the guest's direct BAR access: the
++	 * guest reaches it only through the trapped decoder region, and a host
++	 * read of the range through a kernel mapping could abort as an SError.
++	 * Exclude it from mmap, fill reads with -1 and drop writes. The list is
++	 * cleared on close, so re-add it per open.
 +	 */
-+	if (vfio_cxl_sbr_unmasked(vdev->pdev))
-+		cxl->hdm_valid = false;
- }
- 
- static const struct vfio_cxl_ops vfio_cxl_ops = {
++	ret = vfio_pci_core_add_excluded_range(vdev, pdev->hdm->hdm_bar,
++					       pdev->hdm->hdm_offset,
++					       cxl->hdm_len,
++					       VFIO_PCI_EXCLUDE_MMAP |
++					       VFIO_PCI_EXCLUDE_READ |
++					       VFIO_PCI_EXCLUDE_WRITE);
++	if (ret)
++		return ret;
++
+ 	/*
+ 	 * vfio_pci_core_disable() frees all dynamic regions on close, so register
+ 	 * them here per open rather than at bind. A failed first open never
 -- 
 2.25.1
 
