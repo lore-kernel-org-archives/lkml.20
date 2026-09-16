@@ -1,67 +1,69 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8911378D8A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:06:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AF1374A01
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571186; cv=none; b=M/YQ8I9H2ELCMV0g/ySn85tMBpr82NeiaqklRG505AL3tWpO+LthEEuYy0PTMagWLNHbnc9QiRfeY/pcsiM81ydHk1fD6i5yGnfFVb8yZGgjbwFrriqcjHpWnR33zkB0/jXMaQE4M9RDitmKTznY8rD5+fOuLCvFDqEevZu+Rxg=
+	t=1789571265; cv=none; b=Dy/s9XJ3NzWlqz16QyDK/DAzsfxxDqFAQlzP1nyP34U/CanFfRP/3yH8KfU9LsqyPDzhKEWn9bMnXgLhlKuI2AdP4lOLzzv3LQSL95sio25uH5iAx84gAiO+qEDckeTMMc5FC+JcSVC8PQ5BQHwt4vMY/z2Cx0DyXZbjRAQDDeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571186; c=relaxed/simple;
-	bh=fnE5efAXrYDH63o61zDt3jsPaz4AKBrN/AQ+31gDqD0=;
+	s=arc-20240116; t=1789571265; c=relaxed/simple;
+	bh=9ptK272UmUXCYLv4ne/mizdEeZwa3NL7MbAui3XKul0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UpnmJ6w3OUPaDWB28Cz9MdolEkCsjlYZ91bSKsBW/gGlqefKOxSkmBQYJ+hdipY+AaoTrqILyxf9+/Qfg5KHvEIrU1U3oYWGNJYlE6pXcx7e45xoT8hk+Tsi5kqUKAqRzSdeE2s9VgTwDi0hWKkx/RB3+YozS0EnWDr2FTPgnM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=g8uLxNpD; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=lQj6Byr7G+ucULIfZ3PXLlwxk1LlY+sGSySg3Jo+BzkjfRAQTUleaV4wpDnukDX5PAYY4c+veud0Q7IrS6n+TbymKT+D4i3M2mQc0kmKX3ydWIcQZKHmPS8reXPQ550E+X4V5kbUzuKadIUPD3/Mp4lc3hNen3YND4HxF0FEB4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ni/jN0pP; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="g8uLxNpD"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a985fba28bso1426691a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:06:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ni/jN0pP"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so749189a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:07:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789571183; x=1790175983; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a0ZqTXxWmIi8spdoKcHLXhkmgdsqCfsr13D7RbpQDjQ=;
-        b=g8uLxNpDOWf4Ro7imrfuTpkB6KLXSmbO1UOnSXsw2RC6r7A56yhtpHPYkjqEXC7Opn
-         3KbDBbfSVL2DTORigWOSZp9Dw7fkEXdzcpRfuoOr+dWA5+OvWogxcd1nYtK8Z17rTuwk
-         fGls2FrkynG5efUKCsJ4Ksi10mPXB2TZ51lSLT0RrxKdtom1a5WHAhCrH84b4N6+po5j
-         yCelzRRzH/JW5rt0Dkc/Iv8ip6vC+hKSvRMTR8Kyqcp4LXk1uAM7CGQqK1TXnOXRly8D
-         sG27oApa+Ydp/VvAZtMbJw5m9pJR96v+024AMiu7rVjnkBUqfxCNKPKw2vROzGbPYNeZ
-         4TYg==
+        d=gmail.com; s=20251104; t=1789571263; x=1790176063; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FmDUnv3dz6RwL5QOQmwdsG0HAL/+njqCyjmAnfq84xM=;
+        b=ni/jN0pPUWTcxX+QI02PJ+WjuP8tiMkBYXc7AVZY7tp4dBMiUyrKpckpW1ScfRp1Qe
+         e68rSy96bZCy6s+UpAyECmgQX6dkhS5UOthtF31dWI4OHHHOu9hhLndottu/3L+FjHz2
+         a8mdkU62j2hNCIIL0HQPftUA+mv33jKDaRuJ4OcqtF4bHlkjxNb9O2S0MMQas1YSOX3a
+         oAjzKEOS26kx76EG6O3fobYXMrLyAf93Msj9mAEv9Z3eACrwILfvvhDCHeiBkvBI4ry4
+         mnO0atDXra9qYOgaiYJ6hNsn/Xpq/nzivoeG8mNFYQ4gENmAL4M6flsjwkIehlWRCpxg
+         FofA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789571183; x=1790175983;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a0ZqTXxWmIi8spdoKcHLXhkmgdsqCfsr13D7RbpQDjQ=;
-        b=VZqOaNi8Z1m3cYXYSqm6he22hKNSI7Y6fRvikkxnSwiUI7nWwgAnWy4ojd6sfK8frk
-         QlstGxRjVTp29bY6VoaNV6nhBbi4w6vZvoUWxCZ/BNa+yjHP6CGYMTZ5f/R1y6PIUE/6
-         5cNW2g3sDzw5kl9HRxDievj1+NjGecSfR73rVBFuhWBnl8n33WW12N9ABhgfFEpEWUFl
-         rh7a6rt23jYJt1XOX6Svk30DbaieP4vwGjMq8Kz3OJycwPmKzpKQSJ3N9fZPqcNIz7rx
-         IuV5sXlloHKn5YUKueuYmrc/d0tHJf4iPoBYQZtKdCrPj7p7xlHO/PerjSvaEguHHETc
-         PWjw==
-X-Forwarded-Encrypted: i=1; AKwUvBxnsNuXy8N5YiVOZnD+R1primNmIWAJZ2/Gn0FQ/0qJAslCHUBaSjm3eq9iLlz5OZgzZuxc9ONSOgs7EGA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1KaiAr/1onWvy9qOQLaEQvuTOXe5/J9coQCzXKYkfIcA8C5TF
-	hmMjidlc+TlrFpGUQZC51Sw1F+oWDk8cvRHuY6DNGRMwtyK+OvNbbV7xwKuaQ95nGq4=
-X-Gm-Gg: AYBFou2k/L3wUGJdEbgOYpl217/72lD1Z0B3tjV6Rr1CBkJ1SSHzUusZQ7yQi1MI1Rw
-	2EhjQ1eEZWvErkTo8AnhH7IAJw21K6AcBsZgIPy8SZ1eJnUlQHSMydKpYGcl5hd0WvibZRFb3YF
-	11pmGV0zsPPbToW55r0Ev37N0VgOQbJWToGaZSGEeZj9l/4YZXWNGKVBBQ3ScOKQpGo7x3IncIV
-	0zT/cqEvqBQ6HMGX75d18H0ABNL5M3VEX0RyFkf5bvB+Z47yyjM7GarviwMDae1ziVguDXnvpuS
-	NCqXYEVSEsDI88Q6n0CdzulHQnkGHr3EcgSeQSiSAolXS1PGUDdw5splk8rxCAxA78OhdwfBUyz
-	meOZOLrV4h3FwaFsyzY2hL07amfGyI4ngqgF1Qg3FQ6jdb3wMOrbhiSL+8gihn0jia+GTDykehN
-	3Uh+tX8n7EJBKsMrgenO1d4BrzRZfNLI41+Ha4693woMzZyR9KcaT7y4cV+BDd9cLqr6oEQ8Y2z
-	FOU/5jY3l1k
-X-Received: by 2002:a05:6402:c42:b0:6a9:232b:ec6d with SMTP id 4fb4d7f45d1cf-6aa22479709mr2186159a12.41.1789571182901;
-        Wed, 16 Sep 2026 08:06:22 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.116.194])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d260702sm1876319a12.18.2026.09.16.08.06.20
+        d=1e100.net; s=20260707; t=1789571263; x=1790176063;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FmDUnv3dz6RwL5QOQmwdsG0HAL/+njqCyjmAnfq84xM=;
+        b=X09vczHr2pRLAYQcRv6rRxhxjtAJtFtzi5mNzbnhuzyfUXibpXtqd2180j3WbJxk94
+         2u1LtFj/axRWzfpAqOuEQRcaBWEt2Ni8ty41KWHTnU+5lMLaXI1eRwpnTAf02vbMb90Q
+         x7L0ngOo5HkyMlOURdtyYAhOZ6bvSJYWAyW312qT2eJ2lBEZIb6S8UeywmaoVXWYW0Ze
+         9cfkmL0aFXQIYDTjVWhTGHHZcvPQMnAJL5HwzTst/kvzGz1FqM4HVHHNVNNj/sa9IY0v
+         m0d7obiGmwg0Lh9uV8uCYSZkyKvTaPEv6R2/TYrEnPJUukWmQ4oLR4K2KJQHUT3016Zn
+         adrg==
+X-Forwarded-Encrypted: i=1; AKwUvBw3AscPgxTxQQLnoAevVYk9AKKqxAXQZc8su1YIxaWYwQXEgxyyZ6jd9Dh94+CDLe1cRFtWV777imuZ9Rk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nre+w78PTpMKhcq0N57sBtAOujJjayYuM0J6BBdjdCIiG+mWVR
+	uZg7bginMmytS3jdw733s6rCWlq8/GPyY6SughE+oB6WoOW0ZOskLa/FXRn+QQ==
+X-Gm-Gg: AYBFou1/8ti3Zya16zNnvh/QwOQXa44vwXjMdP12/4Cl+GuM5fNcGhndCsApc4sCbmv
+	5Jrv+UHyX2IoR8iRsemAAD6CKAh2NO0SPNq39McW03zp9QppiJafJ5FZVWAcYJK3Byf9jUJfHc/
+	UEHMDECfAMHUZZ0VFkRHqqE23aEIJFMlf0XKHqRXt1pkXeCZMXPGb+p/eBfl6e22Ljdes5yqATk
+	E0Vwl7db9ks1FBoxE6rBI7CgRDShAB8hcrQSE4m0R4WLoQFLrN8H0Scld1JymdHCqlYl/Nh/weJ
+	VvikAqUo0l1/L5NsnQSZfIkAS3jDbbRAZ1AlTqh68TeDUAFqRFGCDb0neNGE4rmvz9WVcbYkAwp
+	LmJr71geRAXJKgpoWjggurIJ+dQcWv25iJJUkF6+EPg+jwDjWvrbVxrwWdQi3oAsBono0O2MdpY
+	tSRZC4A4OjbcsxytNCTr075m8qdQ4Ul0JHx+J7Qu+oI0Sv0l6Hnva7NRlXdfOKe6Wl2FZhGubb2
+	A1Ou2WVaw1rVMmriZW8t6euaz1uowhkGqgA4UrymDKBrk6AVG+nxEpMs9M=
+X-Received: by 2002:a17:90b:280a:b0:39d:fcbe:fdcf with SMTP id 98e67ed59e1d1-39e1e2659a8mr7386821a91.1.1789571263345;
+        Wed, 16 Sep 2026 08:07:43 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b90a5a0sm5209457a91.2.2026.09.16.08.07.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 08:06:22 -0700 (PDT)
-Message-ID: <510e12e9-fa79-456b-8215-9f613d6d6e7b@linaro.org>
-Date: Wed, 16 Sep 2026 16:06:20 +0100
+        Wed, 16 Sep 2026 08:07:42 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <9ea1fcf0-ad68-441c-9394-5722b00a4d7e@roeck-us.net>
+Date: Wed, 16 Sep 2026 08:07:41 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,58 +71,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/13] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB
- sensor on CSIPHY4
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
- <20260906-x1e-camss-csi2-phy-dtsi-v6-7-067f2ecc4630@linaro.org>
- <EcOn_d45L85SEZXEL9tJYp8j2B3-IIn5Ao1OiDaZsoJZOhfDjo04cEbn_YvY3I0eidZYm2PvZNw0K2e9D62CGQ==@protonmail.internalid>
- <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
- <8c82ffbe-748a-49f2-aa52-eb7a56165c03@kernel.org>
- <6dcb0b11-3490-4254-b86c-a1afbcd3b863@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <6dcb0b11-3490-4254-b86c-a1afbcd3b863@oss.qualcomm.com>
+Subject: Re: [PATCH v2] hwmon: use named initializers for acpi_device_id
+To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Cc: Luca Tettamanti <kronos.it@gmail.com>,
+ Cosmo Chou <cosmo.chou@quantatw.com>, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260915-acpi-hwmon-v2-1-39d17c748eb6@thegoodpenguin.co.uk>
+ <70746c77-e113-4bc6-93b6-7ac6027c86a4@roeck-us.net>
+ <CAA6zWZ+8KUSzah7y4TXrkvOnChDyEur=HCXgukcFke2dEjgQ2g@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CAA6zWZ+8KUSzah7y4TXrkvOnChDyEur=HCXgukcFke2dEjgQ2g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 16/09/2026 16:04, Konrad Dybcio wrote:
-> Perhaps moving the endpoint label and definition there too would
-> make sense, i.e.
+On 9/16/26 07:33, Pawel Zalewski wrote:
+>> It also replaces pointers to empty strings with NULL pointers,
+>> which is a functional change and still neither documented nor explained.
 > 
-> -- hamoa.dtsi
-> ports {
-> 	#address-cells = <1>;
-> 	#size-cells = <0>;
-> 
-> 	port@0 {
-> 		reg = <0>;
-> 
-> 		camss_csiphy4_inep: endpoint {
-> 		};
-> 	};
-> 
-> 	...
-> };
-> 
-> 
-> -- x1-crd.dtsi
-> &camss_csiphy4_inep {
-> 	...
-> };
+> Please note that the 'id' here is an __u8[] array, not a const char *
+> and that the generated .o objects are equal pre/post the patch as both
+> methods just initialize the array to 0s. So I think the commit message
+> explains what the patch is doing, perhaps it might be worth mentioning
+> that the 'id' field is a byte array in the message.
 
-I don't think I can add the endpoint, my memory is I tried that and the 
-dtbs_checker spat it back out at me.
 
-I'll retry though since I may be mis-remembering.
+Thanks for the information.
 
----
-bod
+I accepted the patch as-is.
+
+Guenter
+
