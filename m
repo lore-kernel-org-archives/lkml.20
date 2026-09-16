@@ -1,115 +1,109 @@
-Received: from prod-dose-smtp-2.daouoffice.com (prod-dose-smtp-2.daouoffice.com [35.216.41.104])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42897399892;
-	Wed, 16 Sep 2026 02:32:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.216.41.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E95345EAC;
+	Wed, 16 Sep 2026 02:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789525966; cv=none; b=KN7raPHHX+8wrnegOGVMVktJLIxKemeUf9BPoShE+8KPMyQr4SUnqlOKjgCHLHJsgOOe1q7dpzFZwsaFcyxz1FtXuOw5e25/oBMDz5W54UhGULe/fb+g3iPbBezkSuooi1HMxHgRI1Gt9Lr692+Qw7WNUM98V905hwpw+DeerPs=
+	t=1789525968; cv=none; b=eTIWXetd/y6QNlYAlmfbj1Y/08stVcgTcUgDvZ9bV2zmU87hDNq+cjitH+eMgPl3SquzkEyf9KEE0kxR9soiarYz6/adJuvfiuI3hLHCRUIfoF3Fe5q7KQpbWCFgslqrFlBDOYwwovUUKZBe1d1aj/3VEtql+I5NYPzwJVrsZgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789525966; c=relaxed/simple;
-	bh=td6z8OOnq27AUhhjoCxNOWf9kEpdYb0FDq6/KkiIGdA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xeo7s7PQhOazSp8LhnugY7+CwvukHfXcQacI4VipNQ6PnUbohpGK/6QmvlhdpuO3JynsHxpmFgkV/gjTIsa0nnSba83GC9c3J2xNE9e+c21k9U557N5zMZzsbdaSakBuQiZWe007rt1moa+20NDi8cfBs38SMSCfbUpn9pj1Vww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pribit.com; spf=pass smtp.mailfrom=pribit.com; arc=none smtp.client-ip=35.216.41.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pribit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pribit.com
-Received-SPF: SoftFail 
-	client-ip="106.245.249.210" envelope-from="his1415@pribit.com" 
-Received: from [106.245.249.210] ([106.245.249.210]) 
-          by prod-dose-smtp-2.daouoffice.com ([10.37.10.9]) 
-          with ESMTP id 1789525901.216075.140358845105728.prod-dose-smtp-2
-          for <>; 
-          Wed, 16 Sep 2026 11:31:41 +0900 (KST) 
-From: Hong In-su <his1415@pribit.com>
-To: steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	netdev@vger.kernel.org
-Cc: edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hong In-su <his1415@pribit.com>
-Subject: [PATCH net-next v2] xfrm: add ARIA CBC and CTR support
-X-TERRACE-DUMMYSUBJECT: Terrace Spam system                                  *
-Date: Wed, 16 Sep 2026 02:31:35 +0000
-Message-ID: <20260916023135.26043-1-his1415@pribit.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1789525968; c=relaxed/simple;
+	bh=+gvY37AcT3k5wbBYEtbtg6xNzgR7aqPbXSkxXJ4FWOE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pVd30B/5gPskXGJWoH5C8VT6GHJXaryQdW4vU5kTfNIyURGbU/IfzcWx6i22xL7vNR2VpAV952fT1Ox/Amv8hZA7HkkVREk82/FhO8FlSgnWtd06BC5fM04dY5x2sqof8PJBKDq350iDXnof4nDCmB/L/N8wPPBBJhAdlwmIols=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJtaT7fB; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJtaT7fB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2BD1F000FF;
+	Wed, 16 Sep 2026 02:32:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789525964;
+	bh=vwHTsbU5VsC9bg5GbUtPtfKqW9squjPWGLhZeAaw10k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nJtaT7fBH4ug66H5PilqmXMG9aw8jB1TzX1pyBfA/vk+Tw+9VhJ2j2b+zSwhUmk+3
+	 Lv9lr7BewnJNrN9OgmXsKIpLCq6gYgFZRVeJ4Kxm6KnJVmFcOG5LQnuYfNdQV+ohQ6
+	 UBAPNurFHwtKmvXsf6u/BNxPiQ5pVYAWCmpd/8GpzKd/z3qfKIEgQlW3FaliMHuQn7
+	 IHzcUPl+bsPWVoa5duC1wHjwNAiK6jvOZ/WHZ0dXS9icHACxrUZnvOk95FrRgeUSto
+	 7tpovPCUnXsjnWKOfIFSUOlhkf1LIxLr2hJ9s0vsop+U0LTzsfVut+wkwGGoHM9gec
+	 oshffKJOMD/dA==
+Date: Wed, 16 Sep 2026 03:32:40 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: Richard Cheng <icheng@nvidia.com>, <dave@stgolabs.net>,
+ <dave.jiang@intel.com>, <vishal.l.verma@intel.com>, <iweiny@kernel.org>,
+ <ming.li@zohomail.com>, <gourry@gourry.net>, <rrichter@amd.com>,
+ <linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <kees@kernel.org>, <newtonl@nvidia.com>, <kristinc@nvidia.com>,
+ <kaihengf@nvidia.com>, <kobak@nvidia.com>
+Subject: Re: [PATCH v7 5/7] cxl/memdev: Don't overwrite the error from an
+ earlier partition poison query
+Message-ID: <20260916033240.36c5b6ea@jic23-hlaptop>
+In-Reply-To: <appXoR5rCn91KF34@aschofie-mobl2.lan>
+References: <20260902053839.25595-1-icheng@nvidia.com>
+	<20260902053839.25595-6-icheng@nvidia.com>
+	<appXoR5rCn91KF34@aschofie-mobl2.lan>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TERRACE-SPAMMARK: NO       (SR:11.88)                     
-  (by Terrace)                                                  
-X-TERRACE-SUPERWHITEIP: pribit_com_packetgoOS
-X-TERRACE-SID: 1789525901.216075.140358845105728.prod-dose-smtp-2
-X-TERRACE-CLASSID: Terrace Spam system                                      
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The kernel crypto API already provides ARIA implementations, but XFRM
-does not have algorithm descriptors for them. Consequently, ARIA cannot
-be selected for ESP through XFRM.
+On Thu, 3 Sep 2026 22:31:13 -0700
+Alison Schofield <alison.schofield@intel.com> wrote:
 
-Add XFRM algorithm descriptors for CBC and RFC3686 CTR modes using the
-existing cbc(aria) and rfc3686(ctr(aria)) crypto algorithms.
+> On Wed, Sep 02, 2026 at 01:38:37PM +0800, Richard Cheng wrote:
+> > cxl_get_poison_by_memdev() queries Get Poison List per partition but
+> > never checks the result inside the loop, so a later partition's success
+> > overwrites an earlier partition's failure and the whole scan reports
+> > success while that partition's poison went unlisted. Before the loop
+> > conversion the PMEM query returned early on error. Stop the loop on any
+> > error not already tolerated as a RAM -EFAULT.  
+> 
+> Before be5cbd084027 pmem was queried first, then ram, so a ram failure
+> was reported after the pmem records had been collected. Now w the order
+> reversed, breaking on a ram error means pmem is never queried. I'm not
+> sure that is what we want.
+> 
+> What matters more to poison list user - a truthful return code or every
+> record the device is able to give us?
 
-The CBC and CTR modes have been tested with IPsec using strongSwan.
+If we can have both, that would be nice.  That sort of multiple return code
+fusing is nasty to read but here I think it makes sense.
 
-Signed-off-by: Hong In-su <his1415@pribit.com>
----
-Changes in v2:
-- Drop the duplicate "aria" compatibility alias from the CTR entry.
-- Use a 128-bit default key size for CBC.
-- Document that the CTR default key size includes the 32-bit nonce.
+Jonathan
 
-v1: https://lore.kernel.org/netdev/20260909054530.7861-1-his1415@pribit.com/
-
- net/xfrm/xfrm_algo.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
-
-diff --git a/net/xfrm/xfrm_algo.c b/net/xfrm/xfrm_algo.c
-index 70434495f23f..7ed84220ad5d 100644
---- a/net/xfrm/xfrm_algo.c
-+++ b/net/xfrm/xfrm_algo.c
-@@ -512,6 +512,33 @@ static struct xfrm_algo_desc ealg_list[] = {
- 		.sadb_alg_maxbits = 256
- 	}
- },
-+{
-+	.name = "cbc(aria)",
-+	.compat = "aria",
-+
-+	.uinfo = {
-+		.encr = {
-+			.geniv = "echainiv",
-+			.blockbits = 128,
-+			.defkeybits = 128,
-+		}
-+	},
-+
-+	.pfkey_supported = 0,
-+},
-+{
-+	.name = "rfc3686(ctr(aria))",
-+
-+	.uinfo = {
-+		.encr = {
-+			.geniv = "seqiv",
-+			.blockbits = 128,
-+			.defkeybits = 160, /* 128-bit key + 32-bit nonce */
-+		}
-+	},
-+
-+	.pfkey_supported = 0,
-+},
- {
- 	.name = "cbc(twofish)",
- 	.compat = "twofish",
--- 
-2.43.0
-
-
+> 
+> -- Alison
+> 
+> 
+> > 
+> > Fixes: be5cbd084027 ("cxl: Kill enum cxl_decoder_mode")
+> > Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+> > Closes: https://sashiko.dev/#/patchset/20260708074228.43654-1-icheng@nvidia.com?part=5
+> > Signed-off-by: Richard Cheng <icheng@nvidia.com>
+> > ---
+> >  drivers/cxl/core/memdev.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> > 
+> > diff --git a/drivers/cxl/core/memdev.c b/drivers/cxl/core/memdev.c
+> > index b3419df586b9..e39b3d13fd56 100644
+> > --- a/drivers/cxl/core/memdev.c
+> > +++ b/drivers/cxl/core/memdev.c
+> > @@ -231,6 +231,8 @@ static int cxl_get_poison_by_memdev(struct cxl_memdev *cxlmd)
+> >  		 */
+> >  		if (rc == -EFAULT && cxlds->part[i].mode == CXL_PARTMODE_RAM)
+> >  			rc = 0;
+> > +		if (rc)
+> > +			break;
+> >  	}
+> >  	return rc;
+> >  }
+> > -- 
+> > 2.53.0
+> >   
+> 
 
