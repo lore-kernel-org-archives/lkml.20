@@ -1,244 +1,195 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010007.outbound.protection.outlook.com [40.93.198.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A1A4E06DF;
-	Wed, 16 Sep 2026 20:54:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789592054; cv=fail; b=Bads12TjuebKKE7UOqlVlu+r/j5vq/Xx/AEYk/qYvXKFCy3UIgvCYWxrWRSynUj0wq5/ohS4F3Su2/OmDRoelmr2vT1jorrRMxnHObzjGgH2Uo+PRvY1DP+PKmVsYbGWLJnfb5CKC6UZNaVgy+IoGVcs19gX7Q8pNax3VDOYKf4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789592054; c=relaxed/simple;
-	bh=sTPbxk6UK8v6lEq88cEFtsx4RsyZyAoSSoF4MezZcI4=;
-	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=kEBsUqD8xk2xZf/lFLu3hhL3H/QvWSVpSokIuR0NUJU2Zuw4+ciD4Peq1RqhtPmxBgIAAdiYZq6lDYlA5Gaa/SG3pWSE/mXvRfmuv7vj61dKXnwi//kw3W8MlW+0kMClsfelidwVjN03W+svTmKB4gEaoJ4/NPnbVhKKj4XAHgY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=c9JPS0Tb; arc=fail smtp.client-ip=40.93.198.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3814E4E1C8B
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:53:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789592050; cv=none; b=L3SFDTA/ckzT1IWKkdBbSYEEFdRr+vmqJ99m66ZI3grZOmulGYa8H1BE5SniL7SVKZUxd1Xs4fAYhPK8FW1rIbVHFotzLSsDkhLujLoWLR6o5YoQjsZ6BMA1CLvlDl5UQW1rJNXAVemQxITyMPJsVcVgE+notAFXhv/vSA3nt0g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789592050; c=relaxed/simple;
+	bh=pI6wT2AVh5yAvV66BledWhgr6biNtXsQP6dV0Cf2EOo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Oqh2bIglbEbcYdLccrXXju8ZyP6gDLZdQoKWVQGhmtOvvi1CW5dQqC7xwtOnT9xJ6Gro5b2Ns3jYtMbqlTQ48Q9g404BH5m5ERCKN9DUPj0P3OHigbEGd+AfWmukKZJwH8xBxvyHKA90evxN1YPDxBEQ2bwB0sHUUawTdR5ZtaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qWCLFauk; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="c9JPS0Tb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jf/QPy4u8okJc4KEcEFV32lrf2rRGdDShAi8W0jb28rhflhSZaeC4auTB4120FJZkTuClCws9tsvTkp3eLVqRc9STdIm9vVC/8XDm1fxMWfAn+uBMUx5C+INjpDv8DkimkokGszNp0ABRF3MLP02fo90A5DKy6449+KoT//g3x0Mo/BFVshYXaFTTLx1jsJsLZYv7sMGbNtIb5IMnuNsn62e1R56wLjZt7C4l4jvJowyXxlg+61d/Uti9Hg+CaOReWHiphlZJvcoqnA4Yi1SLlm8dudAmzV6mmLOvWIImEWeY4l09v7mW1QykxHfHswXpjPZ/AsNKO76BjyH0uyutQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4EWXheQWvvK91gl2riUfKWCra9d5E39I/bx05n6uyEI=;
- b=PZKxBsaDUppznowvilMCAdf8UWUryYZcSRnywRk2Gq1HrKLWXLQOJHfLxkSn8ufKnh6eT0fwUSbAim7/OzuWejOT8ynTvpmW/GjjrLAszL2VsaiSctj9zT22rDkSzxyvfv76emI3RegfXo9Rz2ICePbixgMK4Zd0gvTaw0azswfcD2CH7sIdgf43870VeJduB7mZyP/K0ut/zgaLJgH9do6lmKOqMWKh97JV2YoAtOAMUbCBMcP+AdgSqPaRN9/3/OEIx5bXIPO3V/g9KkImTu0bCU905w6VHcrLrKBJDzD+JeB27iIYON74lshPOlSIECxJ93uosn1uEHkEHDH8wA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4EWXheQWvvK91gl2riUfKWCra9d5E39I/bx05n6uyEI=;
- b=c9JPS0TblYeXG0IwBskNc8+RdtAALV0iagQmSq9gklZknZ5vG8iRYAdJNOyBS+Y+c5BL87Nldqvi/7vGq79qkZ54UScFdxvZ2o7L8XYfcDyTQBuyeHhZ2iixqswwxnlGXUMbTJ64LKYriFY9HaV147EbB8oON4XmRjK7j3WIOg0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
- by SJ2PR12MB8133.namprd12.prod.outlook.com (2603:10b6:a03:4af::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 20:53:54 +0000
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
- 20:53:53 +0000
-Message-ID: <ea65c041-384c-4d16-810e-c3ab070db317@amd.com>
-Date: Wed, 16 Sep 2026 15:53:50 -0500
-User-Agent: Mozilla Thunderbird Beta
-From: Babu Moger <babu.moger@amd.com>
-Subject: Re: [PATCH v5 04/16] fs/resctrl: Introduce kernel mode policy enum
-To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
- Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de, ben.horgan@arm.com
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
- tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
- hpa@zytor.com, fenghuay@nvidia.com, akpm@linux-foundation.org,
- rppt@kernel.org, dapeng1.mi@linux.intel.com, elver@google.com,
- jlayton@kernel.org, enelsonmoore@gmail.com, kuba@kernel.org,
- ebiggers@kernel.org, seanjc@google.com, peterz@infradead.org,
- chao.gao@intel.com, jmattson@google.com, naveen@kernel.org,
- ricardo.neri-calderon@linux.intel.com, tiala@microsoft.com,
- chang.seok.bae@intel.com, prathyushi.nangia@amd.com, kim.phillips@amd.com,
- elena.reshetova@intel.com, darwi@linutronix.de, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, x86@kernel.org
-References: <cover.1787772750.git.babu.moger@amd.com>
- <a4fc2a485b26b94b8ae604ac3e82dcf33e39684d.1787772750.git.babu.moger@amd.com>
- <5a85e139-99de-4821-97ae-5a7b5b4b5027@intel.com>
-Content-Language: en-US
-In-Reply-To: <5a85e139-99de-4821-97ae-5a7b5b4b5027@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH2PR17CA0021.namprd17.prod.outlook.com
- (2603:10b6:610:53::31) To BL1PR12MB5320.namprd12.prod.outlook.com
- (2603:10b6:208:314::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qWCLFauk"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633ece3so108793f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:53:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789592013; x=1790196813; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vQCQCsXRyOMK2lxbcg+U/XVY1PZxvpDAiiCFQ6+e0aY=;
+        b=qWCLFauku+QrSmjWXbodOKbkW7XrPKG5pYD61LeUZK9V8LLDFhCYpaboZO3hnIbCw9
+         WdqPMlnpEC4v6PsRBm+MDwlmde7K4rpki7vmjKsW27IxNaL+RkSpplZeCemt3Kr9PiyA
+         QYoXDLpgutSonA/1rdhMonvWl1XsZY1iZsd2Bt0bARNULBonTUEG4MoQTDosNkqKYnNS
+         jFaDnUraHYWQ71nqUa/ZM2+QvspnLec37/qfmcE2lGP9j4SkxiHqHJaemRYwstJ7fdM5
+         3kE9IFl1IK8qETf6cWrAqv/5zBexGW5O/MLOXpbwbKMWr5GEiagpX4BupcO929luz7cA
+         lw5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789592013; x=1790196813;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vQCQCsXRyOMK2lxbcg+U/XVY1PZxvpDAiiCFQ6+e0aY=;
+        b=DB1FOJo9sQmIJTwE9G4Z9zhHCGvkGP+BAy0eUV+cBY0qJXGdzf6j3E/rbvbU4KeGik
+         9V3q2DNCveA99DKNqKKOezy7X0pT/EOmfivTnafPlvV+ZKMxbppNzrOVcEjnnXde6N1h
+         FGQqJggpauzCK54pYvIocp2tsxSIpX0UCzoVaBoh2UIZNe4UAMVJ57y/xGnNpMoloxX2
+         fOIa4lvA2O1pDafdizWB7I1Yr32RpfLSMNPiPZfSLvBGQBaYsErD6pzhe/33L6bU4qj3
+         q6//3MEIQbYkrz+u23n8teE8MgsgRhSgsEGbp14T+KspNCzNPyUcuz7LJga3o3Q20wwm
+         M0lg==
+X-Forwarded-Encrypted: i=1; AKwUvBxgzpAO644uw0D7oKbLwdePgQM1DgDNcgqISfthr/utdtvHGpfbd/eKxorfLHf1xWCsoMcoh62kD2ljPnU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNJps2IxRZLaFlBbPH/zruvJoh77m8BwwmovT+Q957xbL1x5mf
+	qhL4JkSHJBlTFQ/QQRVFPB3fN2WHpY+QHgANQsm28r//Yflz30qLTgFZ
+X-Gm-Gg: AYBFou1U2WY10nAE1Ep8k8a0mRq+enQOvrV3+GXtd6FfThbk+BLHYfoEFZuTB/4Sm1I
+	vepLapwdGa3m0KkMEBBfx1BFcE0hZWy9B5yJ03w0w8BZrukwGKUDLhAntIFDcT3euM49w2sEeBz
+	p9+4LOlawByu5EdYVzhFzQv54L/rrCyix0emHrqH9ob0OIvUQJuKCQRz9eZw8GdzQ1/5zkq5ZjA
+	faKSTmjP04c3WU1l71/WpS/P/IOViOoaifvP/deYFHSFu80qJ6nApSfJn/7qY1YiNytM+/9Ymhv
+	lELDsP7N49EL/USB1EGQYSODXYGNPGjoBVMAWyaVm8NR4a3XBYbemhZf6JOu5oa0Ht7f45zlDqL
+	JL/G2VfKzl4sfyLl7IvJyr8x0QXHJ/TgoJwdOlyH+lDaPNImXRi3ro8atYiwtWELZblRWSY4DnL
+	RUpbMCldaqYmxcdXyLNHHtrHtcdWVGCKR8ibJo6foA3qOXw67DyP9jp/xX2apqkf0xkKwu6Q==
+X-Received: by 2002:a05:6000:1a8b:b0:486:fed8:8710 with SMTP id ffacd0b85a97d-4870d16b67fmr5230115f8f.38.1789592013464;
+        Wed, 16 Sep 2026 13:53:33 -0700 (PDT)
+Received: from antoniarch ([78.210.41.3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bef7678sm11086166f8f.2.2026.09.16.13.53.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 13:53:33 -0700 (PDT)
+From: Antoni Pokusinski <apokusinski01@gmail.com>
+To: alexandre.belloni@bootlin.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Antoni Pokusinski <apokusinski01@gmail.com>
+Subject: [PATCH v7 4/9] rtc: abx80x: properly handle shared IRQs
+Date: Wed, 16 Sep 2026 22:51:33 +0200
+Message-ID: <20260916205138.16771-5-apokusinski01@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916205138.16771-1-apokusinski01@gmail.com>
+References: <20260916205138.16771-1-apokusinski01@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|SJ2PR12MB8133:EE_
-X-MS-Office365-Filtering-Correlation-Id: a349c524-e90d-4ac9-eaa8-08df14349e4e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|6133799003|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ixKEozAkNfuT99T/Y3QxAldcTDRnOdFdCTq+TmE3UKSaCaKl7TJ8uojyn7Pe9Y+TKMjohIuZG1fM6iwDSDssvTI8c6Cn9m1lef9wNv4gfaA/4dRMfLYEXlpnuwVJXoU6wbcVvYHHzLkcJLQQ0BWRc5ZTMx5fZLKwySw6LxBOWmAy8aD4NvRH691B3BvTqYTrX65aFtR0twB+aKHvCj6Hqwbd2MxZbrsNKD18LJVZ9t1kLisQP+zIcTjtWAwa9oGuglfok6Fl4RjlVpcMurK6HL+78wd7hvci54Wgb8ln+Z943Nl4JwgF4GwHRu85e9Vll/DTG19hOiHf0bC+a58YA7L3zPcKdcKpjPC9MWk4hiGKTBSnYB9Prch6nsrefJSvBHP+LCGQxR/VQvRGyiCw60zq8Xm/FrsRFRUu72/TRCQi8R5St0nCzdxIrjhewX4v8nSRGpzKUOWAd9JoNb+2E0Xsm8DYpod8RzuXN8DoMYeL8B/owyU/ebJKl0m19zmLQdnT0nOTB/sKBWZ+9u5xfxaxuReJDjODEoIXYKwfM7vDqFWWQ3XL+AuxhA/GN17+jFTZwtTf9owIrpNEbBIB+sTVlF5oIz91860phxm35VtH7pEKhZwc0SJrIEab1zz+EKn44rWhulY6ebEGISLyj4bfiUQqT7Z7nM+ZXNQqlMs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(6133799003)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?THJ0YmxRSXNJZWpVbk4rR2VvUW5GemN5QVorOFhuejR4ekZPaTA3UjRORlhv?=
- =?utf-8?B?YlYrMFlwb1Z0RG05Q08vZW1WMFRyWklRRDBDQ0dkOVc0VkVPS2xZWXR3VW9L?=
- =?utf-8?B?bzdUL0UxdmplRUd6a3ZWKzFMR2dMTFozdWs4Mjg1cnFxbXMwRXRsRUo1MDdI?=
- =?utf-8?B?SVBURkFPOTJkWlFwNU1jd2xHRC8zZkpONThZMG1Ja3VheHljcnc3VHVHUHhs?=
- =?utf-8?B?L242RUQzbnRZVkYvT0xraFEyZVBQM0luSVVMc09EdkMwUkVFMTlRU3hrUG9C?=
- =?utf-8?B?YTdXSjE1Vzdlc0xxa1AwRXd0UDVLQ1JNUWVEbG5iS0duVWJlNkE5K21EbmpY?=
- =?utf-8?B?VUk2QmVITjBFVklhTnVTQ1lXOTV6emY5MHAvdnJncVRsQ1BsdGwveEZIWnV5?=
- =?utf-8?B?c1pwcUt3WlR5VVdNalVtNkQzenJoM0YyTCs5Mm5jNWRUWVBqRUxMTld2bitH?=
- =?utf-8?B?S25jNWxZWkU0QzR4eVBiYWcwbjI0MmlsNmNrZHg2S1FlVnZ0RThYUkdtMlRz?=
- =?utf-8?B?ZlgxZXd6WTBON3RPUVNlMjZCc0RnS2lNUnpQTk0vaHdKTno1VWZoeStXbVF1?=
- =?utf-8?B?M0pPWkJGK29QZWFQUnpFN3VHdVhDbGQwQUZjTUF0Vi9JbWw5RjZTekZSUTRS?=
- =?utf-8?B?Z2RscTR4ZGlHVk1qQWN5emxQVVd2YmREOFIya3U0cWpUMzEyMXpyKzNuZ2dl?=
- =?utf-8?B?eWtKMnZzUWp0bkU2VWxLK2JHWis0ekZJVDNTd3BaLzlMYldjYjJZUWJoa2VG?=
- =?utf-8?B?cnZOak5vNGtmdGF5NUlvb3NXK21GWXhHZ3dzVkh1L013STd3OXJEMkIwczFK?=
- =?utf-8?B?YkRpWmZ1SDBhT1ZDSExiWUFudjJ4S2FhKzYrMGRTaS9qY1IrMC8vMkZxeExo?=
- =?utf-8?B?NGFDbW9SdTVTSzB4Ym5DTm9VcThFVzVXbE1mbnlyZllDQWRaY1haNW5uanZX?=
- =?utf-8?B?WGxFY1FualhyQ3VPVnFZWnVXV0laRGpJSmpYR2VHTHg0MzdtWjdGM2U0aWVx?=
- =?utf-8?B?L2xpWEYvSk5sdmZCd1U5SlpTWUlNb3JVb3FnLzVVWXJ1TXZKSG9MVXF1eERM?=
- =?utf-8?B?eTh5ck5JUVRiVk4zVWY4MGZsN0pTWWNqOUxuYVB5enZZdDlKaU1qSElvL0hW?=
- =?utf-8?B?bVcvNVl4bVlnOFN5cjN1WGcrbEVYcTEwbVlSdU9pdHZGZUc0eXppZy96d2ha?=
- =?utf-8?B?d2UxczZBYnU1OGFBbldBK1JiOUpUN2xPMzF3Z08xRWUzck9raDFWa092K0RB?=
- =?utf-8?B?QlFMVUk3bGNaOFNYSTNhODk1aDZST1Bzb3dlM3JRZUwrbmJBNmJuNkhjSkhF?=
- =?utf-8?B?MHpGemxBQ1JXVjFsVmRmVVUxZC9YY2ZNZ2JMR3c0b2ZOWUtMQWxHR2JMSW9u?=
- =?utf-8?B?RzE3R2kyQ3BDL092eFg0bUhYL21TZzEyblVZUW9sQVNlTnZEMGFyZXJ2U29z?=
- =?utf-8?B?UU1aSnFnNGVjd0VxUS9YOG1rYWVVaXJVV0lac2laa3k0NTAyQ0ZiL3R5Lyt3?=
- =?utf-8?B?L3BJT2pNdWdYWUJLVXFSS0krOU1BS1hKemk4WUpkUTdOb3JqK1JpVnJId3ht?=
- =?utf-8?B?WXFDZ2JNR2RIckJaTVEyWEg2Rnh6Tjc1V2FheFFBdllCUHRYaVZmVjQyZTlR?=
- =?utf-8?B?NkNTL0s3Sm1xUnc1c0JlMU5qVi9WZ2dwYkMrZWJXSFk3RE5La2lBY2JML0NI?=
- =?utf-8?B?YWxsMUZSbXNpMmtOSHZsb2IzdU0yait6cW1yQng2ZUNlS1hQYUdqckhnL1dW?=
- =?utf-8?B?b3QrYUMxTURycjFVWDYzcXlPY0YzTncrdllGMFY0T3hsVVB6UWJLU0FpY1ZB?=
- =?utf-8?B?cGswQmlNSDhYcUd3akpuNnBnMnNVcnF2alJkenJUWnZKaGt2SzAvVXFUUE83?=
- =?utf-8?B?Y29adGZJeG93Y1Z0akJxWnBXTmtKSVBqcU8wVDhjd3hqbXJ4OXp4ZnYyQ0tU?=
- =?utf-8?B?NmV6bmg1VVFIQm9Fc0w4L2VLekY5QWVLSU1PY2lVMTdhRll4MmZmT1dVbGFv?=
- =?utf-8?B?RzdPZHo3SnV5SWZ5bXBNNnNHdlZkQ2tzUzRyTVRCN1VqY09GbUthVHJPdU5u?=
- =?utf-8?B?TEUxWGJidGRGdkM4NEc0UzhQbXpQMkdjV0w3Y0xPOUNLZU9BVG1lTjVoT1FF?=
- =?utf-8?B?dDB2OVdmWXRsekoraVk1Qm5rcjZyY1ZkaThlUG5IZStxSmhIbHU0V3cxTUsy?=
- =?utf-8?B?aTBrVWJsOGFDQzBQUzQxQk16bWhmRHFqa1FyeStjcE4zYThERUcvZHdITWY0?=
- =?utf-8?B?WGFwbDBlMHhhYndhNks4am8vVG1xbGFSakl6VDY3MzEwb25rR3JvaHFlN25U?=
- =?utf-8?Q?y1Xep90rxL7x++8K/6?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a349c524-e90d-4ac9-eaa8-08df14349e4e
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 20:53:53.7670
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qBhZ86AsSCI52fNOsx5xTne7sPGU8yijvp2jY/1PYP1FBewMgJngKvA0LSOUA2uO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8133
+Content-Transfer-Encoding: 8bit
 
-Hi Reinette,
+The abx80x RTC driver registers its interrupt handler with IRQF_SHARED,
+but the handler always returned IRQ_HANDLED and cleared the status
+register even when no interrupt source from the RTC was active.
 
-On 9/16/26 00:14, Reinette Chatre wrote:
-> Hi Babu,
-> 
-> On 8/26/26 12:32 PM, Babu Moger wrote:
->> Kernel mode traffic can use different allocation and monitoring
-> 
-> "traffic" -> "work" to not imply this is just about memory traffic but
-> also includes cache allocation?
+This could cause the driver to claim interrupts belonging to other
+devices sharing the same IRQ line and could also clear unrelated status
+bits in the RTC status register.
 
-Sure.
+Only handle the interrupt when the alarm or watchdog flags are set, and
+clear only those interrupt status bits that were handled. Return
+IRQ_NONE when the interrupt was not generated by the RTC.
 
-> 
->> associations than the originating user task. On x86, Privilege Level Zero
->> Association (PLZA) enables the kernel to switch to a different CLOSID/RMID
->> when entering kernel mode.
->>
->> Architectures need a common way to name kernel modes before resctrl
->> can report what is active or what the platform supports.
->>
->> Introduce enum resctrl_kernel_mode:
->>    - RESCTRL_INHERIT_USER: Kernel mode inherits allocation and monitoring
->>      from the user task.
->>    - RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU: Kernel mode may use allocation
->>      and/or monitoring associations that differ from the user task. On x86,
->>      CLOSID and RMID can be configured independently for kernel mode.
->>
->> Signed-off-by: Babu Moger <babu.moger@amd.com>
->> ---
-> 
-> ...
-> 
->> ---
->>   include/linux/resctrl.h | 25 +++++++++++++++++++++++++
->>   1 file changed, 25 insertions(+)
->>
->> diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
->> index dd09c2ce9a0f..4245d1e65ccc 100644
->> --- a/include/linux/resctrl.h
->> +++ b/include/linux/resctrl.h
->> @@ -704,6 +704,31 @@ int resctrl_arch_io_alloc_enable(struct rdt_resource *r, bool enable);
->>    */
->>   bool resctrl_arch_get_io_alloc_enabled(struct rdt_resource *r);
->>   
->> +/**
->> + * enum resctrl_kernel_mode - Kernel mode control and monitoring association.
->> + *
->> + * @RESCTRL_INHERIT_USER:
->> + *     Kernel mode inherits both allocation and monitoring associations
->> + *     from the user space task. On x86, kernel uses the same CLOSID and
->> + *     RMID as the user-space task.
->> + *
->> + * @RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU:
->> + *     Kernel mode may use allocation and monitoring associations that
-> 
-> Why is this "may use"? Could this be made more accurate? Consider, for
-> example:
-> 	All kernel mode work uses the same allocation and/or monitoring
-> 	association via an assigned CTRL_MON or MON group. The mode can
-> 	be enabled/disabled per-CPU. When the mode is disabled on a CPU
-> 	then the kernel work on that CPU inherits the allocation and
-> 	monitoring association from the user space task, effectively the
-> 	kernel mode becomes RESCTRL_INHERIT_USER on that CPU.
-> 
+Fixes: 718a820a303c ("rtc: abx80x: add alarm support")
+Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
+---
+ drivers/rtc/rtc-abx80x.c | 52 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 50 insertions(+), 2 deletions(-)
 
-Sure. Thanks.
+diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+index 44de234efecf..2fd0079b7c51 100644
+--- a/drivers/rtc/rtc-abx80x.c
++++ b/drivers/rtc/rtc-abx80x.c
+@@ -51,12 +51,18 @@
+ #define ABX8XX_CTRL2_RSVD	BIT(5)
+ 
+ #define ABX8XX_REG_IRQ		0x12
++#define ABX8XX_IRQ_EX1E		BIT(0)
++#define ABX8XX_IRQ_EX2E		BIT(1)
+ #define ABX8XX_IRQ_AIE		BIT(2)
++#define ABX8XX_IRQ_TIE		BIT(3)
++#define ABX8XX_IRQ_BLIE		BIT(4)
+ #define ABX8XX_IRQ_IM_1_4	(0x3 << 5)
+ 
+ #define ABX8XX_REG_CD_TIMER_CTL	0x18
+ 
+ #define ABX8XX_REG_OSC		0x1c
++#define ABX8XX_OSC_ACIE		BIT(0)
++#define ABX8XX_OSC_OFIE		BIT(1)
+ #define ABX8XX_OSC_FOS		BIT(3)
+ #define ABX8XX_OSC_BOS		BIT(4)
+ #define ABX8XX_OSC_ACAL_512	BIT(5)
+@@ -266,6 +272,7 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
+ 	struct i2c_client *client = dev_id;
+ 	struct abx80x_priv *priv = i2c_get_clientdata(client);
+ 	struct rtc_device *rtc = priv->rtc;
++	unsigned int status_flags_clear;
+ 	int status;
+ 
+ 	guard(mutex)(&priv->lock);
+@@ -284,9 +291,15 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
+ 	if (status & ABX8XX_STATUS_WDT)
+ 		dev_alert(&client->dev, "watchdog timeout interrupt.\n");
+ 
+-	i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS, 0);
++	status_flags_clear = status & (ABX8XX_STATUS_AF | ABX8XX_STATUS_WDT);
+ 
+-	return IRQ_HANDLED;
++	if (status_flags_clear) {
++		i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS,
++					  status & ~status_flags_clear);
++		return IRQ_HANDLED;
++	}
++
++	return IRQ_NONE;
+ }
+ 
+ static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
+@@ -942,6 +955,41 @@ static int abx80x_probe(struct i2c_client *client)
+ 
+ 	i2c_set_clientdata(client, priv);
+ 
++	/* Disable unused interrupts */
++	data = i2c_smbus_read_byte_data(client, ABX8XX_REG_IRQ);
++	if (data < 0) {
++		dev_err(&client->dev, "Unable to read irq register\n");
++		return -EIO;
++	}
++
++	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_IRQ,
++					data & ~(ABX8XX_IRQ_EX1E |
++						 ABX8XX_IRQ_EX2E |
++						 ABX8XX_IRQ_TIE |
++						 ABX8XX_IRQ_BLIE));
++	if (err < 0) {
++		dev_err(&client->dev, "Unable to write irq register\n");
++		return -EIO;
++	}
++
++	data = i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
++	if (data < 0) {
++		dev_err(&client->dev, "Unable to read Oscillator Control register\n");
++		return -EIO;
++	}
++
++	/* Unlock write access to Oscillator Control Register */
++	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
++		return -EIO;
++
++	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC,
++					data & ~(ABX8XX_OSC_ACIE |
++						 ABX8XX_OSC_OFIE));
++	if (err < 0) {
++		dev_err(&client->dev, "Unable to write Oscillator Control register\n");
++		return -EIO;
++	}
++
+ 	if (abx80x_caps[part].has_wdog) {
+ 		err = abx80x_setup_watchdog(priv);
+ 		if (err)
+-- 
+2.55.0
 
-> 
->> + *     differ from the user task. On x86, CLOSID and RMID are configured
->> + *     independently; either or both may differ from user mode.
-> 
-> Please first provide all details that support what resctrl fs exposes to
-> user space before, if at all, adding any x86 specific details.
-> 
-Sure.
-
->> + *
->> + *     All online CPUs are included by default. A subset may be selected
->> + *     through the resctrl group interface, and a CTRL_MON or MON group
->> + *     may be associated with this mode.
-> 
-> Please note that the word "associated" appears in multiple contexts here.
-
-"assigned" might work better here.
-
-> 
->> + */
->> +enum resctrl_kernel_mode {
->> +	RESCTRL_INHERIT_USER,
->> +	RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU,
-> 
-> Something that stands out in this series is the multiple occurrences of
-> "assigned" in the new interface. What do you think of just dropping
-> "assign" from the kernel mode name?
-
-Actually, I was thinking about shortening the name here.
-
-Let's remove "assign" from here.
-
-Thanks
-Babu
-.
