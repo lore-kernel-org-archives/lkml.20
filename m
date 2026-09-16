@@ -1,133 +1,89 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5786F4477FE
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B5344998E;
+	Wed, 16 Sep 2026 07:29:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543761; cv=none; b=dISCsr7GkRmxk1YrWDdmEdG59wY+jz8MuB5rqBnye7ASXX3yQilVeZcW4nTRXr2g1YoNzWk3onrQtn9sSZ1cimeLatel62AWHnogY2fU2ncppTWOjpu1VU6AW1/SF0+/8l2CRGlVdNMENN2FljUmEz1moH0VSvePq3y6f6tQwOY=
+	t=1789543790; cv=none; b=Qj3aWDlNbG9W5j7ni3T3hbDhVNYmjkehd7GjD7ZoSuNWWIGB6su05kN+o912zfGUVFJyNF0tLneuFwEIGIpNHcmRto6/rVs1SnX7/VkxcTJhJayNHrWDJhVUi8cPPMojOsTVeLdKqIHndfNbxEk6t6WwulV/rnva0qmAbl8RPhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543761; c=relaxed/simple;
-	bh=pilzREsNIZ1G0lYCS0dSTmxnisyBU8U1x4zAL6KG8dg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DsVwhWSKdVfjdenq1ocYkPFDv5/Lpf8i+6z4TjmnO1/i1D9KZ26KnqxrwxMvyGNUm+oULlOQC14JoitB+JGQo3kVopuXvkHcMpyLfvXTWM/UCdsDw18kAlFryEcaiVsOOYePyHgKggCAZd2JCi/3Q/tQVkHD7nYUHkIggVldvxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=X+4DrZXl; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="X+4DrZXl"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e2406so2465905e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:29:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789543742; x=1790148542; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VxCgt40wED/Mb/f0Kzm7IXN9qFkw/Cys5WGiW3j9fpw=;
-        b=X+4DrZXlo4oy6Hf9p8JO8mfRvuhs2k6t7ZrPwyrL8Luz8OMd1st9yz2wu5nXSof/Lt
-         HkvsU583aBs8F5jrxHSpeByrfrwDin4d0NMiTgqunCrys2Wkl1LBgXbZp80QPShCMPBV
-         CdfWnlP1rcxDrUf0dR+Mp6ykWsc8DyzZpzuHavQhH5Cqh1vHXws4ncBFAGqpgcIBXopC
-         AYjp68hYmRPV0GGWoSAAqZkQ3BpZwsBwX1n5V18F1JvLb/6FAoxR9NXcyqAKKY2+YPOt
-         G2Z7myK690SRqgNGGd3ft4q6Qixu9KIksLROWEqBk/jlOw16ZVN6kqTtxWh0irk+RNkj
-         vdzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789543742; x=1790148542;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VxCgt40wED/Mb/f0Kzm7IXN9qFkw/Cys5WGiW3j9fpw=;
-        b=Bx/6mC4FbfNxyxFjwBaLcgqUkilRCyGsfBBMQiyhA7x3rINXE0DL7x3cOFpZ7LdS+E
-         J6OAif5Y31KPShDmwWwLEn8+Q/90417C/8X5Lzz5mrHWhdESwrPCPM2mBR1UQdxJm4i5
-         C5VlUmLq6zowDmDS1ux2U2yenS6O/whVSdxmWfJLgctk0CeSK4G36gf6swVaoFeqVzbk
-         ScUDziavEi2bhSO3TKhDPx54zk91zOWoxkiGHA3GUJftgO2ZizTMTp6HkmifZcp4HYUR
-         0VUHLM6KuKu0izG6DA1HW9Te+G5wPHQbvmnzS9FvQohtzYnGv92N2rqReoNMQ2/kfKSg
-         /0yA==
-X-Forwarded-Encrypted: i=1; AKwUvBxBSJ/l0NqUmzd9rlh4q73QMR4qabtQXXn8Z6Ym1mmxMorCkrTMaDg9OJUD3DqADoIr0IFHTW/gBlPIq3w=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZFUTiLvtSb2/rH3ot0wOYLsXT/lQrU0y/Y829eUFdjZWgiJkg
-	MQ9pFw6jNAhAnwlyB3iSXta+D/jCg8pH+WaCRNPPFPJHRKhjSygthOewTK04mYpGg+w=
-X-Gm-Gg: AYBFou0QMlv+q29xMX8dq1Wa+Pj4+oaQyqoiIJHTrc7usDOvmclCUXFkulRXAc5srhc
-	ErG7jSSJ+2arwxZlZAcPXFlR7TDN/Sw9nUmihTZi8uQOAyasY6CUG5LS7vZ5LcxRY9h7CdhmJyz
-	0tReevHkIuBX5hxYjCHkc95mCt/GhK+3gFTn1zZDqknKsatwKCpTJz33d/5nBYgDK410mhLyR22
-	2L6n6V2fo++35QpTUCo1eurF7DOZpjipazBlVYVyM2eWXFZLkYHtdlX/6yFuh2DFSxs4pQc+tZs
-	gl9VmSwb/FuGmOL+8U2NYDMDd7aRyOvsnGC/TR46iwoDIt/okurVTsGbJE/v03SGhHchfOWvTxp
-	Lz1GE59UgwwkBvLGIG/8W26rwLXshN4O1sP33Jkk76wgKtkAhLwacg0fA01FMPcgbWXMSv9uy1y
-	NWM1fF6oE2OBiAD8mpVj4YHyP1HkSITm4Y5I5jUuKYLB3mLwrgWsFMI8mTClE1z8WAp5mVlqqdZ
-	t4ANRV/EtkPbz2jZw==
-X-Received: by 2002:a05:600c:3507:b0:49c:f13e:e52 with SMTP id 5b1f17b1804b1-49ea20b48c2mr16037415e9.15.1789543742232;
-        Wed, 16 Sep 2026 00:29:02 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83aeae01sm61474455e9.6.2026.09.16.00.29.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 00:29:01 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Dan Carpenter <error27@gmail.com>, Stephen Boyd <sboyd@kernel.org>
-Cc: Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] clk: Document of_clk_get_by_name() return values
-In-Reply-To: <b3de48fdbaaade69cce126b59bd6dfb8f437b495.1789451862.git.error27@gmail.com>
-References: <cover.1789451862.git.error27@gmail.com>
- <b3de48fdbaaade69cce126b59bd6dfb8f437b495.1789451862.git.error27@gmail.com>
-Date: Wed, 16 Sep 2026 09:28:56 +0200
-Message-ID: <1jzexhd58n.fsf@starbuckisacylon.baylibre.com>
+	s=arc-20240116; t=1789543790; c=relaxed/simple;
+	bh=H96PbQbIeciJSeGmI1wVjzVFKtesSzBqQg+dMQVLm8E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ofniM1pkkvpTEYc2VPbUH43bbzn+kRmCpJWO+ujEQqlqQvJ/+0loYMifX/gurmd4hQwjExRCGLEyfzhTbcQ8+djOaOAt08gMSMy7z82XPKcbubmiKkxE145dBiXfeG2oZsq8qw1VC5+yiXCzfE/WoQJsogsROKtG0cFjY772200=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADX2jhYRapqSyTfBw--.41369S2;
+	Wed, 16 Sep 2026 15:29:28 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: broonie@kernel.org
+Cc: lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: arizona-jack: Fix runtime PM imbalance in arizona_start_hpdet_acc_id()
+Date: Wed, 16 Sep 2026 07:29:00 +0000
+Message-Id: <20260916072900.1971595-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADX2jhYRapqSyTfBw--.41369S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrZw17uF17uFyfKF15Kry7trb_yoW8Jr1Upr
+	n7WrWkJFWrt3yUC3ZavF18XFykuFWjkrW3tr97t3W7Ar13JFs2vFWUGr1Yya10yr95uasx
+	Jr12v343ZF1qyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUFh
+	L0UUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIMA2qqQJUUWAAAsT
 
-On mar. 15 sept. 2026 at 19:38, Dan Carpenter <error27@gmail.com> wrote:
+In arizona_start_hpdet_acc_id(), pm_runtime_get_sync() is called to keep
+the device powered during headphone detection. If setting the HPDET mode
+or starting the measurement fails and the function jumps to err,
+pm_runtime_put_autosuspend() was not called while info->hpdet_active was
+set to false, resulting in a runtime PM usage count leak.
 
-> Callers should test the return from of_clk_get_by_name() with IS_ERR().
-> The function returns a valid clock on success and an error pointer on
-> failure; NULL is not a valid return value.
->
-> Document this explicitly to prevent callers from treating NULL as a
-> separate failure case.
->
-> Assisted-by: ChatGPT:gpt-5
-> Signed-off-by: Dan Carpenter <error27@gmail.com>
-> ---
-> There are a few other functions which look like they return NULL but
-> never actually do.  This is one which has caused some confusion in
-> the past.
->
->  drivers/clk/clk.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-> index f1756fe59372..a71bcf780de4 100644
-> --- a/drivers/clk/clk.c
-> +++ b/drivers/clk/clk.c
-> @@ -5430,6 +5430,9 @@ EXPORT_SYMBOL(of_clk_get);
->   * This function parses the clocks and clock-names properties,
->   * and uses them to look up the struct clk from the registered list of clock
->   * providers.
-> + *
-> + * Returns: A clock pointer on success or an error pointer on failure.  This
-> + * function never returns NULL.
+Add pm_runtime_put_autosuspend() in the err error path to keep runtime PM
+balanced.
 
-Thanks Dan. I was about to apply the change but it feels a bit strange
-to document what a function never does.
+Fixes: 9dd5e53d9d2f ("extcon: arizona: Retry HPDET identification for high impedance")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ sound/soc/codecs/arizona-jack.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Is this a documentation that should be added everywhere the return value
-is to be tested with IS_ERR() ?
-
-What about being more direct then:
-
-"Returns: A clock pointer on success or an error pointer on failure.
- Caller should test the return value with IS_ERR()"
-
-?
-
->   */
->  struct clk *of_clk_get_by_name(struct device_node *np, const char *name)
->  {
-> -- 
-> 2.53.0
->
-
+diff --git a/sound/soc/codecs/arizona-jack.c b/sound/soc/codecs/arizona-jack.c
+index a9063bac2752..c84e4961655f 100644
+--- a/sound/soc/codecs/arizona-jack.c
++++ b/sound/soc/codecs/arizona-jack.c
+@@ -698,6 +698,7 @@ static void arizona_start_hpdet_acc_id(struct arizona_priv *info)
+ 	snd_soc_jack_report(info->jack, SND_JACK_HEADPHONE,
+ 			    SND_JACK_LINEOUT | SND_JACK_HEADPHONE);
+ 
++	pm_runtime_put_autosuspend(arizona->dev);
+ 	info->hpdet_active = false;
+ }
+ 
 -- 
-Jerome
+2.34.1
+
