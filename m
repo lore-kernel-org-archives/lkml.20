@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7774E06E9
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E85A51FCA1
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600426; cv=none; b=rPM9kURgWnxkLT0MgA/RgrRdnrVLiDvKOZ+82RS5PME1x9FwSXNvc5/i/ZShjZx9T6iYcZPMevFhjoeT/it2px8FMpS9uvSf278DycOwkyrdZL84zRlcPZBf6jIFDHUAbYhAc6eXq0B9tPBgBhu8MPl9XJwDo8pBHesLn6RBDFw=
+	t=1789600428; cv=none; b=vBStSfRX/wxWiM5a1d6KjG5gQ6qmk0bzmDD8YV6smbeoKHp9gvBamftqm+Uev+iGjVLB+btK72LPGhvbGDcNyxRsDiJpmEyCrey0sVbTfuU50yQkSuppqsyzApYH7kSlOYppGMKIASkpB8SKqUep3UDln+zcmz6DiW1/9orlqcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600426; c=relaxed/simple;
-	bh=AOTgnRzzoC8PIhxgcqVQ7yQ+PJ606+1nZeY+ZVMUtPE=;
+	s=arc-20240116; t=1789600428; c=relaxed/simple;
+	bh=bjl53x6ixGVQwtoXJbvhU84Wge/Z4FIAwJfWtvF1zdo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SMq1fNrtLNm5F0E18QX5ByDFnPoCT2rdbVFFxk5gAYpgd/8uP+LohnUdmRnlH/J/SnTe1ZnH7YaShE66DS+BcZYVqQbRQYSh5vylJTolGZ+pPTGCr6KewWAoQL90l8n03IWx6F+ZrF7AT9qCQ6jg8xSO9fH9399QDE839GfwoDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OB/hgLst; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=Wxv09dS3qzmicDtsrKk638LHC9fmOmrwR1vuTosDZO80yo2aELIojbE+O84FdLb3v0VgJYhax0AN177lR3lALFFwLmY9BPmkJEmd6lagpBrug0coZr3Oa3AgsO7pxDTrsOqGabw9yvS33+DC++1u4ajAqaG76ZvmnFxktr40Jbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KFyYFO9C; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OB/hgLst"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KFyYFO9C"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789600424; x=1821136424;
+  t=1789600427; x=1821136427;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=AOTgnRzzoC8PIhxgcqVQ7yQ+PJ606+1nZeY+ZVMUtPE=;
-  b=OB/hgLstu+/oQKMDqqW1eprsF3H8Oe2AMZXRW9wst0k5ryv+mhZU2v9Q
-   /rKdQ0YzgbivxIxSEeqiS/CGYHtkDlPM6/ekiQjrFLiYDIG/XYG7NZHfc
-   7KhDuvrNNlDCPY7pNxmR7et6gInlfx129RBLIs4+SkBTa2rYSfzDMRRTF
-   OTDMWXu8xbkoV93jhyht7etr3Ya68sAy+IJ9XA+iHzaU/x6WBr2LZ2lUr
-   AvPhXu6G2ILRKvxiPxWzZA4gU/Wv0X+O64QdiNpUYx6ASfgXj8GZXS8EF
-   FWe20Wi6F/us66B6mFeMoi+AP8qDke8WQAoc79o4xq8oGB62wNJmIDtRT
-   A==;
-X-CSE-ConnectionGUID: m5JeQxeRQsWAeqYuMaoLng==
-X-CSE-MsgGUID: 5yoKQdPJTRSJT/rnZvR7Mg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861414"
+  bh=bjl53x6ixGVQwtoXJbvhU84Wge/Z4FIAwJfWtvF1zdo=;
+  b=KFyYFO9CD0DKVGZ/38FL5ch94QHLNLYbS1pqbLXBilU09+dNvBnc0JwW
+   IqSJ/uOcNrTVyfyuno7+1rn7Kzy5aWUMFoQKo4WsIVuhzJCqUeEWVxf4w
+   zlwoNtd1xdcJAcfe4jBFA6RaiospF3ktZMiD68aNI2DHVWIV5JOm0bw6k
+   sbq13MM39zhkwkiNeleEGwfy9aDf4CFc83f+HGLI08V50nhr1gATJyhtB
+   XWYK9LLsF77Q6GbmEicmLXSCbbtw8HTIoCveJVWEbjEg01A/RspNG4gaG
+   M3+vc4fbPSLhzzcxzlpOiaF4QfZ0iQApvKi8NwCfClAd3jPjURTY18zIi
+   w==;
+X-CSE-ConnectionGUID: doULrU+tT6WmT3aCtMSsWA==
+X-CSE-MsgGUID: Dy26DaO/SVWk4OMUj7JguQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861443"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93861414"
+   d="scan'208";a="93861443"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:35 -0700
-X-CSE-ConnectionGUID: L+oIe3ktQY66zA0YI57MkQ==
-X-CSE-MsgGUID: UeYhN7QdSWONac7nIkK10A==
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:36 -0700
+X-CSE-ConnectionGUID: RT5IhKlMSmaXgZQnznc2Iw==
+X-CSE-MsgGUID: 2n05r5EDT42UKKmYE1PkeQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277231462"
+   d="scan'208";a="277231472"
 Received: from khuang2-desk.gar.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.219])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:35 -0700
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:36 -0700
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -59,9 +59,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v12 11/25] fs/resctrl: Add interface to disable a monitor event
-Date: Wed, 16 Sep 2026 16:13:06 -0700
-Message-ID: <20260916231320.14502-12-tony.luck@intel.com>
+Subject: [PATCH v12 14/25] fs/resctrl: Rebuild free RMID list on each mount
+Date: Wed, 16 Sep 2026 16:13:09 -0700
+Message-ID: <20260916231320.14502-15-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916231320.14502-1-tony.luck@intel.com>
 References: <20260916231320.14502-1-tony.luck@intel.com>
@@ -73,105 +73,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-resctrl currently assumes all monitor events are enabled before any domain
-is created, because per-domain state is allocated by the architecture's CPU
-hotplug callbacks. There is no way to disable an event once registered.
+Application Energy Telemetry (AET) event enumeration takes place
+asynchronously. Linux builds the pmt_telemetry module into the kernel to
+kick off enumeration early enough that it completes before first mount of
+the resctrl file system.
 
-AET events are enumerated by the INTEL_PMT_TELEMETRY driver. To allow that
-driver to be a loadable module, resctrl must tolerate AET events appearing
-and disappearing, which requires the ability to disable an event when the
-driver is unloaded.
+Allowing pmt_telemetry to be a loadable module means that it is possible
+for different numbers of RMIDs to be supported on each mount, depending
+on whether pmt_telemetry module is loaded.
 
-Add resctrl_disable_mon_event(). The architecture owns domain lifetime
-and knows mount state, so it is responsible for calling this only while
-resctrl is unmounted and for cleaning up any per-domain state. Document
-those requirements in the kerneldoc since they are not enforced in code.
+Initialize rmid_free_lru based on the number of RMIDs available for the
+current mount cycle.
 
 Signed-off-by: Tony Luck <tony.luck@intel.com>
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
 ---
 v12:
-	Added Reinette RB tag (from v10 review).
-	Better header comment for resctrl_disable_mon_event().
+	New patch. Split from patch 12.
 ---
- include/linux/resctrl.h | 34 ++++++++++++++++++++++++++++++++++
- fs/resctrl/monitor.c    | 15 +++++++++++++++
- 2 files changed, 49 insertions(+)
+ fs/resctrl/monitor.c | 64 +++++++++++++++++++++++++++++---------------
+ 1 file changed, 42 insertions(+), 22 deletions(-)
 
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 6b07ac2c8675..fbf737e884db 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -449,9 +449,43 @@ u32 resctrl_arch_get_num_closid(struct rdt_resource *r);
- u32 resctrl_arch_system_num_rmid_idx(void);
- int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid);
- 
-+/**
-+ * resctrl_enable_mon_event() - Enable monitoring event
-+ * @eventid:	ID of the event
-+ * @any_cpu:	True if event data can be read from any CPU.
-+ * @binary_bits: Number of binary places of the fixed-point value expected to
-+ *		back a floating point event. Can only be set for floating point
-+ *		events.
-+ * @arch_priv:  Architecture private data associated with event. Passed back to
-+ *		architecture when reading the event via resctrl_arch_rmid_read().
-+ *
-+ * The file system must not be mounted when enabling an event.
-+ *
-+ * Events that require per-domain (architectural and/or filesystem) state must
-+ * be enabled before the domain structures are allocated. For example before
-+ * CPU hotplug callbacks that allocate domain structures are registered. If the
-+ * architecture discovers a resource after initialization it should enable
-+ * events needing per-domain state before any domain structure allocation which
-+ * should be coordinated with the CPU hotplug callbacks.
-+ *
-+ * Return:
-+ * true if event was successfully enabled, false otherwise.
-+ */
- bool resctrl_enable_mon_event(enum resctrl_event_id eventid, bool any_cpu,
- 			      unsigned int binary_bits, void *arch_priv);
- 
-+/**
-+ * resctrl_disable_mon_event() - Disable monitoring event
-+ * @eventid:	ID of the event
-+ *
-+ * Never disable an event that may be accessed while the file system is unmounted.
-+ *
-+ * Events that require per-domain (architectural and/or filesystem) state
-+ * will require additional cleanup which should be coordinated with the CPU
-+ * hotplug callbacks.
-+ */
-+void resctrl_disable_mon_event(enum resctrl_event_id eventid);
-+
- bool resctrl_is_mon_event_enabled(enum resctrl_event_id eventid);
- 
- bool resctrl_arch_is_evt_configurable(enum resctrl_event_id evt);
 diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 02e81fc82b14..2a28fe04284b 100644
+index b8bd59c52c62..8dde2b81b72f 100644
 --- a/fs/resctrl/monitor.c
 +++ b/fs/resctrl/monitor.c
-@@ -1066,6 +1066,21 @@ bool resctrl_enable_mon_event(enum resctrl_event_id eventid, bool any_cpu,
- 	return true;
- }
+@@ -75,6 +75,11 @@ static unsigned int rmid_limbo_count;
+  */
+ static struct rmid_entry	*rmid_ptrs;
  
-+void resctrl_disable_mon_event(enum resctrl_event_id eventid)
-+{
-+	if (WARN_ON_ONCE(eventid < QOS_FIRST_EVENT || eventid >= QOS_NUM_EVENTS))
-+		return;
-+	if (!mon_event_all[eventid].enabled) {
-+		pr_warn("Event %d already disabled\n", eventid);
-+		return;
-+	}
++/*
++ * @num_rmid_ptrs - The number of elements in rmid_ptrs[].
++ */
++static u32 num_rmid_ptrs;
 +
-+	mon_event_all[eventid].any_cpu = false;
-+	mon_event_all[eventid].binary_bits = 0;
-+	mon_event_all[eventid].arch_priv = NULL;
-+	mon_event_all[eventid].enabled = false;
-+}
-+
- bool resctrl_is_mon_event_enabled(enum resctrl_event_id eventid)
+ /*
+  * This is the threshold cache occupancy in bytes at which we will consider an
+  * RMID available for re-allocation.
+@@ -975,45 +980,60 @@ void mbm_setup_overflow_handler(struct rdt_l3_mon_domain *dom, unsigned long del
+ 
+ int setup_rmid_lru_list(void)
  {
- 	return eventid >= QOS_FIRST_EVENT && eventid < QOS_NUM_EVENTS &&
+-	struct rmid_entry *entry = NULL;
+-	u32 idx_limit;
+-	u32 idx;
++	struct rmid_entry *entry;
++	u32 cur_idx_limit;
++	u32 rsvd_idx;
+ 	int i;
+ 
+ 	if (!resctrl_mon_capable())
+ 		return 0;
+ 
+ 	/*
+-	 * Called on every mount, but the number of RMIDs cannot change
+-	 * after the first mount, so keep using the same set of rmid_ptrs[]
+-	 * until resctrl_exit(). Note that the limbo handler continues to
+-	 * access rmid_ptrs[] after resctrl is unmounted.
++	 * Allocate the largest number of RMIDs that this system will ever
++	 * need. These cannot be freed until resctrl_exit() because the limbo
++	 * handler continues to access rmid_ptrs[] after resctrl is unmounted.
+ 	 */
+-	if (rmid_ptrs)
+-		return 0;
++	if (!rmid_ptrs) {
++		num_rmid_ptrs = resctrl_arch_system_max_rmid_idx();
++		rmid_ptrs = kzalloc_objs(struct rmid_entry, num_rmid_ptrs);
++		if (!rmid_ptrs) {
++			num_rmid_ptrs = 0;
++			return -ENOMEM;
++		}
+ 
+-	idx_limit = resctrl_arch_system_max_rmid_idx();
+-	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
+-	if (!rmid_ptrs)
+-		return -ENOMEM;
++		for (i = 0; i < num_rmid_ptrs; i++) {
++			entry = &rmid_ptrs[i];
++			INIT_LIST_HEAD(&entry->list);
+ 
+-	for (i = 0; i < idx_limit; i++) {
+-		entry = &rmid_ptrs[i];
+-		INIT_LIST_HEAD(&entry->list);
++			resctrl_arch_rmid_idx_decode(i, &entry->closid, &entry->rmid);
++		}
++	}
+ 
+-		resctrl_arch_rmid_idx_decode(i, &entry->closid, &entry->rmid);
+-		list_add_tail(&entry->list, &rmid_free_lru);
++	/* Find how many RMIDs are available for this mount */
++	cur_idx_limit = resctrl_arch_system_num_rmid_idx();
++	if (cur_idx_limit > num_rmid_ptrs) {
++		pr_warn_once("RMID count %u exceeds allocated %u; capping\n",
++			     cur_idx_limit, num_rmid_ptrs);
++		cur_idx_limit = num_rmid_ptrs;
+ 	}
+ 
++	INIT_LIST_HEAD(&rmid_free_lru);
++
+ 	/*
+ 	 * RESCTRL_RESERVED_CLOSID and RESCTRL_RESERVED_RMID are special and
+ 	 * are always allocated. These are used for the rdtgroup_default
+ 	 * control group, which was setup earlier in rdtgroup_setup_default().
+ 	 */
+-	idx = resctrl_arch_rmid_idx_encode(RESCTRL_RESERVED_CLOSID,
+-					   RESCTRL_RESERVED_RMID);
+-	entry = __rmid_entry(idx);
+-	list_del(&entry->list);
++	rsvd_idx = resctrl_arch_rmid_idx_encode(RESCTRL_RESERVED_CLOSID,
++						RESCTRL_RESERVED_RMID);
++
++	for (i = 0; i < cur_idx_limit; i++) {
++		entry = &rmid_ptrs[i];
++		/* Don't add reserved or busy entries to free list */
++		if (i == rsvd_idx || entry->busy)
++			continue;
++		list_add_tail(&entry->list, &rmid_free_lru);
++	}
+ 
+ 	return 0;
+ }
 -- 
 2.55.0
 
