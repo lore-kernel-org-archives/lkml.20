@@ -1,51 +1,35 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 982D03F329F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452783FD96E;
+	Wed, 16 Sep 2026 07:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542520; cv=none; b=fqyevXOSuusesOIcRwS056K6GwEehRfW5T9HO0oyD6pw3QLHNWcJzBhYXj4FmdbKAybyb4xgWKD6ImU4jFlfdkE5HGakdbEf7tGAb0vxTjZ6Xr3AcqjBD2RXu2mNL7ynjoY9jYujv5xUagR2YbNGPbFlsd+ynH5uS9JzPdOB7u8=
+	t=1789542586; cv=none; b=dyebXmlvyrtHjKpx9PkThB+jpvp1fvFokc+86VeyJS5ztCvNQdWy1553MDSEFUBW1hjdoOzHteUe1UDf2Eink8t38b0URCls1QKnVb4NH4YE5LNu7cANOxodihi0fLSn7yBzwOARc3CGoSCWABJEq9jXI+DjBPzCiNAODm7pGv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542520; c=relaxed/simple;
-	bh=nZWozdCsKsTydq66SiPljQpKHpGbkSShhWhmwArclCs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PhgxsboFKQOTdQMr0n6zLVUy0IhnEwcvRwbkTVlFG1/JCfoJMZfn8T6hwYoyEJ/gaHQALwSCTIS0GvqlMR8KAHaPJAU3h5jpUChMjvvRZKFp+ear+Opqo5068QNsvfILDNWHYo2/y2JDxmeOxEn6aJaaW2bTcc67BZ6HUiQYx84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 5eeb8ff2b19d11f19a56ed5b684f684d-20260916
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d99696cd-eff6-4a53-a9e3-25859ee42cd4,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:513cfa374a888c19904f8891eb2c83ff,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
-	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5eeb8ff2b19d11f19a56ed5b684f684d-20260916
-X-User: fangqiurong@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <fangqiurong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 115659232; Wed, 16 Sep 2026 15:08:08 +0800
-From: Qiurong Fang <fangqiurong@kylinos.cn>
-To: tj@kernel.org
-Cc: arighi@nvidia.com,
-	void@manifault.com,
-	changwoo@igalia.com,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] sched_ext: Don't run ops.dequeue() with a DSQ lock held
-Date: Wed, 16 Sep 2026 15:07:52 +0800
-Message-Id: <20260916070753.3343113-2-fangqiurong@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260916070753.3343113-1-fangqiurong@kylinos.cn>
-References: <20260916070753.3343113-1-fangqiurong@kylinos.cn>
+	s=arc-20240116; t=1789542586; c=relaxed/simple;
+	bh=ryCd3CPpqqZzwz//BiKcPgW8B/POumMrzQTjiW2c7WU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=k0LT7Y3R0bYG+RhnhBVzcVW6dhYXm9kHDlenmojUs9k0dUchibrob0wZtBSCb2ilWYxlN/C2V3OxAx69L0C3pp8KiXfBQMGwEfHcjUIH3n8R0ADZTKMdAobf4vmd6+Nfx3qPbId8Bs2oQC+xtbZRCHIpTElZoo5MwvbxeKGuL4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACXmjiuQKpqaPHeBw--.59725S2;
+	Wed, 16 Sep 2026 15:09:34 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: arnaud.pouliquen@foss.st.com
+Cc: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 05/20] ASoC: sti: uniperif_player: Fix clock leak in uni_player_init()
+Date: Wed, 16 Sep 2026 07:09:06 +0000
+Message-Id: <20260916070906.1965935-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,150 +37,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACXmjiuQKpqaPHeBw--.59725S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKF45Jr1UJr17AF4UWFy5twb_yoWktwcE93
+	yj9r1vqr9rCFWayw1qqrs3AFsYgF18urZ5KF47KF43J34DGws5ta4jqryxur1rWw4rKryk
+	Ary3Wws7Awn3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb4kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUw5l8UU
+	UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQMA2qqP7kEwwAAsG
 
-From: fangqiurong <fangqiurong@kylinos.cn>
+In uni_player_init(), player->clk is acquired via of_clk_get(). If any
+subsequent operation fails (e.g. regmap_field_write(), devm_request_irq()),
+or upon driver detachment, the acquired clock is never freed with
+clk_put(), resulting in a resource leak.
 
-ops.dequeue() is invoked with the source user DSQ's lock still held on
-the consume and move paths (scx_consume_dispatch_q(),
-move_task_between_dsqs()). A BPF scheduler which locks the source user
-DSQ from ops.dequeue() - e.g. by iterating it with bpf_iter_scx_dsq -
-self-deadlocks.
+Switch to devm_clk_get() so the clock is managed automatically and
+properly released.
 
-ops.dequeue() can only call the "any" kfuncs and none of them can lock a
-builtin DSQ, so the global and bypass paths can't deadlock; however,
-all DSQ locks share one lockdep class, so iterating any user DSQ from
-ops.dequeue() there trips the recursion check.
-
-Move the invocation after the DSQ unlock on all three paths.
-SCX_TASK_IN_CUSTODY is cleared under the lock serializing the transfer
-so that the callback is invoked exactly once.
-
-Fixes: ebf1ccff79c4 ("sched_ext: Fix ops.dequeue() semantics")
-Cc: stable@vger.kernel.org # v7.1+
-Acked-by: Andrea Righi <arighi@nvidia.com>
-Signed-off-by: fangqiurong <fangqiurong@kylinos.cn>
+Fixes: 76c2145ded6b ("ASoC: sti: Add CPU DAI driver for playback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- kernel/sched/ext/ext.c | 41 +++++++++++++++++++++--------------------
- 1 file changed, 21 insertions(+), 20 deletions(-)
+ sound/soc/sti/uniperif_player.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 40fa1697bdb7..b3aa2fb729a2 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -1499,27 +1499,22 @@ static inline bool task_scx_migrating(struct task_struct *p)
- 	return p->scx.sticky_cpu >= 0;
- }
+diff --git a/sound/soc/sti/uniperif_player.c b/sound/soc/sti/uniperif_player.c
+index 45d35b887e4e..34a604688cc9 100644
+--- a/sound/soc/sti/uniperif_player.c
++++ b/sound/soc/sti/uniperif_player.c
+@@ -1078,7 +1078,7 @@ int uni_player_init(struct platform_device *pdev,
+ 		player->hw = &uni_player_pcm_hw;
  
--/*
-- * Call ops.dequeue() if the task is in BPF custody and not migrating.
-- * Clears %SCX_TASK_IN_CUSTODY when the callback is invoked.
-- */
--static void call_task_dequeue(struct scx_sched *sch, struct rq *rq,
--			      struct task_struct *p, u64 deq_flags)
-+/* Must be called under the lock serializing @p's custody transfers. */
-+static bool task_leave_custody(struct task_struct *p)
- {
- 	if (!(p->scx.flags & SCX_TASK_IN_CUSTODY) || task_scx_migrating(p))
--		return;
--
--	if (SCX_HAS_OP(sch, dequeue))
--		SCX_CALL_OP_TASK(sch, dequeue, rq, p, deq_flags);
-+		return false;
- 
- 	p->scx.flags &= ~SCX_TASK_IN_CUSTODY;
-+	return true;
- }
- 
- static void rq_owned_post_enq(struct scx_sched *sch, struct rq *rq,
- 			      struct scx_dispatch_q *dsq, struct task_struct *p,
- 			      u64 enq_flags)
- {
--	call_task_dequeue(sch, rq, p, 0);
-+	if (task_leave_custody(p) && SCX_HAS_OP(sch, dequeue))
-+		SCX_CALL_OP_TASK(sch, dequeue, rq, p, 0);
- 
- 	/*
- 	 * Only local inserts get the wakeup treatment below. Rejects kick the
-@@ -1705,20 +1700,28 @@ static void scx_dispatch_enqueue(struct scx_sched *sch, struct rq *rq,
- 	if (is_rq_owned) {
- 		rq_owned_post_enq(sch, rq, dsq, p, enq_flags);
- 	} else {
-+		bool call_dequeue = false;
-+
- 		/*
- 		 * Global and bypass DSQs are terminal - the task leaves the
--		 * scheduler's custody, so ops.dequeue() fires here. It can run
-+		 * scheduler's custody, so ops.dequeue() fires. It can run
- 		 * without @p's rq lock (finish_dispatch() passes the dispatch
- 		 * rq); that's safe because dequeue_task_scx() waits on
- 		 * SCX_OPSS_DISPATCHING (see the ops_state note above) and so
- 		 * can't race it. A non-terminal DSQ keeps the task in custody.
-+		 * The custody transfer happens under @dsq->lock so that
-+		 * later consumers see the flag clear; the callback runs
-+		 * unlocked - it must not run with a DSQ lock held.
- 		 */
- 		if (dsq->id == SCX_DSQ_GLOBAL || dsq->id == SCX_DSQ_BYPASS)
--			call_task_dequeue(sch, rq, p, 0);
-+			call_dequeue = task_leave_custody(p);
- 		else
- 			p->scx.flags |= SCX_TASK_IN_CUSTODY;
- 
- 		raw_spin_unlock(&dsq->lock);
-+
-+		if (call_dequeue && SCX_HAS_OP(sch, dequeue))
-+			SCX_CALL_OP_TASK(sch, dequeue, rq, p, 0);
- 	}
- 
- 	/*
-@@ -2210,7 +2213,7 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
- 		/*
- 		 * A queued task must always be in BPF scheduler's custody. If
- 		 * SCX_TASK_IN_CUSTODY is clear, finish_dispatch() on another
--		 * CPU has already passed call_task_dequeue() (which clears the
-+		 * CPU has already passed task_leave_custody() (which clears the
- 		 * flag), but has not yet written SCX_OPSS_NONE. That final
- 		 * store does not require this rq's lock, so retrying with
- 		 * cpu_relax() is bounded: we will observe NONE (or DISPATCHING,
-@@ -2258,7 +2261,8 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
- 	 * NONE but the task may still have %SCX_TASK_IN_CUSTODY set until
- 	 * it is enqueued on the destination.
- 	 */
--	call_task_dequeue(sch, rq, p, deq_flags);
-+	if (task_leave_custody(p) && SCX_HAS_OP(sch, dequeue))
-+		SCX_CALL_OP_TASK(sch, dequeue, rq, p, deq_flags);
- }
- 
- static bool dequeue_task_scx(struct rq *rq, struct task_struct *p, int core_deq_flags)
-@@ -2379,9 +2383,6 @@ void scx_move_local_task_to_local_dsq(struct scx_sched *sch, struct task_struct
- {
- 	struct scx_dispatch_q *dst_dsq = scx_resolve_local_dsq(sch, dst_rq, p, &enq_flags);
- 
--	/* @p is on @dst_rq, an rq-owned @src_dsq is covered by the rq lock */
--	if (!dsq_is_rq_owned(src_dsq))
--		lockdep_assert_held(&src_dsq->lock);
- 	lockdep_assert_rq_held(dst_rq);
- 
- 	WARN_ON_ONCE(p->scx.holding_cpu >= 0);
-@@ -2629,8 +2630,8 @@ static struct rq *move_task_between_dsqs(struct scx_sched *sch,
- 		/* @p is going from a non-local DSQ to a local DSQ */
- 		if (src_rq == dst_rq) {
- 			scx_task_unlink_from_dsq(p, src_dsq);
--			scx_move_local_task_to_local_dsq(sch, p, enq_flags, src_dsq, dst_rq);
- 			raw_spin_unlock(&src_dsq->lock);
-+			scx_move_local_task_to_local_dsq(sch, p, enq_flags, src_dsq, dst_rq);
- 		} else {
- 			raw_spin_unlock(&src_dsq->lock);
- 			move_remote_task_to_local_dsq(sch, p, enq_flags, src_rq, dst_rq);
-@@ -2680,8 +2681,8 @@ bool scx_consume_dispatch_q(struct scx_sched *sch, struct rq *rq,
- 
- 		if (rq == task_rq) {
- 			scx_task_unlink_from_dsq(p, dsq);
--			scx_move_local_task_to_local_dsq(sch, p, enq_flags, dsq, rq);
- 			raw_spin_unlock(&dsq->lock);
-+			scx_move_local_task_to_local_dsq(sch, p, enq_flags, dsq, rq);
- 			return true;
- 		}
- 
+ 	/* Get uniperif resource */
+-	player->clk = of_clk_get(pdev->dev.of_node, 0);
++	player->clk = devm_clk_get(&pdev->dev, NULL);
+ 	if (IS_ERR(player->clk)) {
+ 		dev_err(player->dev, "Failed to get clock\n");
+ 		return PTR_ERR(player->clk);
 -- 
-2.43.0
+2.34.1
 
