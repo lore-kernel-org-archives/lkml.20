@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D3D385D69;
-	Wed, 16 Sep 2026 12:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CDA3438A8;
+	Wed, 16 Sep 2026 12:03:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789560226; cv=none; b=UbH+N1UIrYDZawl5251N/zN3tMMT1jkfT5LEkH9cHrEqvbpCC6sC0KjxnoC44/6umJU8T7RhSdD5yN1bkgvzIyvPN2QZODfyjMfVkEWnWhll6m1lADLVHBZYhJTskX2fGKYrzsz5a2XfplSgCiw3/IytzWIj07VH3ba0Q1QSXIk=
+	t=1789560219; cv=none; b=E8tH3aLj/cJ9qSbrgvEDP2R1eo0EjCgQVttNu800nPmwD1Pr+PPzFwsUm3QQ4j4ItBOoJFOdegzl3XAYRv+553wA3m13B7TU75QO606/TSW4vW11LKgxggQhPYBYf98zQ3ueFa4MRVGiinX3U9NVckICGXR6+lLYW/J3W25piGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789560226; c=relaxed/simple;
-	bh=OPEjpdpHJ8HkCCzkXsbFMzy/C+tLBx1daKwtN+9ZOAo=;
+	s=arc-20240116; t=1789560219; c=relaxed/simple;
+	bh=27W7XaDI53ge61OsV1O82PMbVANHyRB3FsKg1gBZ+r0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tJrRcCF7ciQnuhDRg8XRMwGMcprsldk8/9dTfNpKkNLaLemaVT+mQpvlx65aKjXvzL3FBZrg5A1O73fuPOzFJN550fvOszWiZXltLVZDvjZNhk1QUwe3kyA2zvyC3ogKyFIBT82PtKU3wEvT0LUHXTDs8Io0+EdEraPW3/qobAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hurb/eAm; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=oh3rvKO6dz4ljsDmYrq+NsABjRr3kCA6bbq7jgbFMRJm10GjZvbOxR0cUAuUBX0H9ZbL/q2/BfdwegqJ1nZmqhXuX/+zS43MF7+hjGhoFCKtMalugraD+PIRswakND789Yj1+Izv4X6HFum3ExWWwkNU3yjrwQk+/Go5M5P6YZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ahSvR4zm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hurb/eAm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C93F1F0089B;
-	Wed, 16 Sep 2026 12:03:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ahSvR4zm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2FF41F00899;
+	Wed, 16 Sep 2026 12:03:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789560213;
-	bh=NE/c7IMcBZdCzVyFsxXaIo3nYpN6KWCimcqlbKV3gw0=;
+	s=k20260515; t=1789560206;
+	bh=/CjaWpeoftE+Wn2hDoCKbw50T/OskJjYcBztwhRMRzs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Hurb/eAmlQUwytzx60cR7oXIXwPA9vQ9j3r7mE5ESHPcxyZwpxAIKXedhTuem/7+4
-	 k8VJcCj4MvctRgAIRQZzv9lPBK8r+oWCR9GlPv+9bM9PzG8AZKhenrd74PlzLwcoK/
-	 C9iwWhoecv5nUoGvli8YQnAB6j2mMBVNl91ZnMatnQnoD06LhHPKeU/9ud6HpuHYbh
-	 ZHlKMVe+PMyggGdXJmXkv8WAvH8eeUe+/6MqH1OyusTwnPoDeOy7d81H2i7l8HY2RU
-	 kGMHU5sjGvBOZq8kV3KUP87V/yB7P28VA7MZuqJIeApCocYKcM5t5WgSUR6dVC5gXW
-	 3G2leQwBMM50A==
+	b=ahSvR4zmrj7MlMn11+aRMD7jMFHhkqn7OicU0oNfie1ohykF4eMiO/GZbA1eg+IiL
+	 gQb1me0lzuUfrSY8Ogl3inoXdAtcNgVH2IHfLrCZ2srfIR/tv7hwD2tPhMXuDFiojD
+	 KckhvxKtPszP5sKUZeWMntOw11BxZBhIMWgOt7pyrzupodB6cHiqdgWFKH+VMesBAM
+	 k++X0VduwxKPhrEpGl90pK1/vYk3Ea32IOj1sjAp5VdIpYk7Q9ECwKsGDMa/7wYRv4
+	 e2uaINP294bJ5aj9C+pCaOHXyVESvZ1ZmEyCWCzHw3Nwd++SdfHu3bQcbnmMrk+bHx
+	 tka3wEO888xVg==
 From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Wed, 16 Sep 2026 15:03:12 +0300
-Subject: [PATCH v3 05/13] s390/cio: Use kzalloc() for CHSC work areas
+Date: Wed, 16 Sep 2026 15:03:10 +0300
+Subject: [PATCH v3 03/13] s390/chsc_sch: Use kzalloc() for CHSC requests
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-s390-cio-ready-v3-5-39e4894637d6@kernel.org>
+Message-Id: <20260916-s390-cio-ready-v3-3-39e4894637d6@kernel.org>
 References: <20260916-s390-cio-ready-v3-0-39e4894637d6@kernel.org>
 In-Reply-To: <20260916-s390-cio-ready-v3-0-39e4894637d6@kernel.org>
 To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
@@ -51,8 +51,8 @@ Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
  linux-kernel@vger.kernel.org, linux-mm@kvack.org
 X-Mailer: b4 0.17-dev
 
-chsc_init() allocates the work area for CHSC commands and
-qdio_allocate() allocates one for CHSC calls during qdio_establish().
+The CHSC ioctl handlers allocate request and response areas for
+CHSC commands issued on behalf of userspace.
 
 This memory can be allocated with kmalloc() as there's nothing special
 about it to go directly to the page allocator.
@@ -67,8 +67,6 @@ fast path allocations.
 For the slow path the performance is anyway determined by the amount of
 reclaim involved rather than by what allocator is used.
 
-While on it, change qdio_irq.chsc_page to void * to get rid of the casts.
-
 Replace use of get_zeroed_page() with kzalloc() and free_page() with
 kfree().
 
@@ -76,114 +74,211 @@ Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.co
 Assisted-by: copilot:claude-opus
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- drivers/s390/cio/chsc.c         | 6 +++---
- drivers/s390/cio/qdio.h         | 2 +-
- drivers/s390/cio/qdio_main.c    | 6 +++---
- drivers/s390/cio/qdio_setup.c   | 2 +-
- drivers/s390/cio/qdio_thinint.c | 2 +-
- 5 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/s390/cio/chsc_sch.c | 44 ++++++++++++++++++++++----------------------
+ 1 file changed, 22 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/s390/cio/chsc.c b/drivers/s390/cio/chsc.c
-index c3186c0a372b4..d98f629e89295 100644
---- a/drivers/s390/cio/chsc.c
-+++ b/drivers/s390/cio/chsc.c
-@@ -1143,7 +1143,7 @@ int __init chsc_init(void)
+diff --git a/drivers/s390/cio/chsc_sch.c b/drivers/s390/cio/chsc_sch.c
+index b6cb8bb8bcc4b..c8d6871d1841e 100644
+--- a/drivers/s390/cio/chsc_sch.c
++++ b/drivers/s390/cio/chsc_sch.c
+@@ -292,7 +292,7 @@ static int chsc_ioctl_start(void __user *user_area)
+ 	if (!css_general_characteristics.dynio)
+ 		/* It makes no sense to try. */
+ 		return -EOPNOTSUPP;
+-	chsc_area = (void *)get_zeroed_page(GFP_DMA | GFP_KERNEL);
++	chsc_area = kzalloc(PAGE_SIZE, GFP_DMA | GFP_KERNEL);
+ 	if (!chsc_area)
+ 		return -ENOMEM;
+ 	request = kzalloc_obj(*request);
+@@ -321,7 +321,7 @@ static int chsc_ioctl_start(void __user *user_area)
+ 	snprintf(dbf, sizeof(dbf), "ret:%d", ret);
+ 	CHSC_LOG(0, dbf);
+ 	kfree(request);
+-	free_page((unsigned long)chsc_area);
++	kfree(chsc_area);
+ 	return ret;
+ }
+ 
+@@ -340,7 +340,7 @@ static int chsc_ioctl_on_close_set(void __user *user_area)
+ 		ret = -ENOMEM;
+ 		goto out_unlock;
+ 	}
+-	on_close_chsc_area = (void *)get_zeroed_page(GFP_DMA | GFP_KERNEL);
++	on_close_chsc_area = kzalloc(PAGE_SIZE, GFP_DMA | GFP_KERNEL);
+ 	if (!on_close_chsc_area) {
+ 		ret = -ENOMEM;
+ 		goto out_free_request;
+@@ -353,7 +353,7 @@ static int chsc_ioctl_on_close_set(void __user *user_area)
+ 	goto out_unlock;
+ 
+ out_free_chsc:
+-	free_page((unsigned long)on_close_chsc_area);
++	kfree(on_close_chsc_area);
+ 	on_close_chsc_area = NULL;
+ out_free_request:
+ 	kfree(on_close_request);
+@@ -375,7 +375,7 @@ static int chsc_ioctl_on_close_remove(void)
+ 		ret = -ENOENT;
+ 		goto out_unlock;
+ 	}
+-	free_page((unsigned long)on_close_chsc_area);
++	kfree(on_close_chsc_area);
+ 	on_close_chsc_area = NULL;
+ 	kfree(on_close_request);
+ 	on_close_request = NULL;
+@@ -392,7 +392,7 @@ static int chsc_ioctl_start_sync(void __user *user_area)
+ 	struct chsc_sync_area *chsc_area;
+ 	int ret, ccode;
+ 
+-	chsc_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	chsc_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!chsc_area)
+ 		return -ENOMEM;
+ 	if (copy_from_user(chsc_area, user_area, PAGE_SIZE)) {
+@@ -414,7 +414,7 @@ static int chsc_ioctl_start_sync(void __user *user_area)
+ 	else
+ 		ret = 0;
+ out_free:
+-	free_page((unsigned long)chsc_area);
++	kfree(chsc_area);
+ 	return ret;
+ }
+ 
+@@ -438,7 +438,7 @@ static int chsc_ioctl_info_channel_path(void __user *user_cd)
+ 		u8 data[PAGE_SIZE - 20];
+ 	} __attribute__ ((packed)) *scpcd_area;
+ 
+-	scpcd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	scpcd_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!scpcd_area)
+ 		return -ENOMEM;
+ 	cd = kzalloc_obj(*cd);
+@@ -476,7 +476,7 @@ static int chsc_ioctl_info_channel_path(void __user *user_cd)
+ 		ret = 0;
+ out_free:
+ 	kfree(cd);
+-	free_page((unsigned long)scpcd_area);
++	kfree(scpcd_area);
+ 	return ret;
+ }
+ 
+@@ -500,7 +500,7 @@ static int chsc_ioctl_info_cu(void __user *user_cd)
+ 		u8 data[PAGE_SIZE - 20];
+ 	} __attribute__ ((packed)) *scucd_area;
+ 
+-	scucd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	scucd_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!scucd_area)
+ 		return -ENOMEM;
+ 	cd = kzalloc_obj(*cd);
+@@ -538,7 +538,7 @@ static int chsc_ioctl_info_cu(void __user *user_cd)
+ 		ret = 0;
+ out_free:
+ 	kfree(cd);
+-	free_page((unsigned long)scucd_area);
++	kfree(scucd_area);
+ 	return ret;
+ }
+ 
+@@ -563,7 +563,7 @@ static int chsc_ioctl_info_sch_cu(void __user *user_cud)
+ 		u8 data[PAGE_SIZE - 20];
+ 	} __attribute__ ((packed)) *sscud_area;
+ 
+-	sscud_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	sscud_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!sscud_area)
+ 		return -ENOMEM;
+ 	cud = kzalloc_obj(*cud);
+@@ -602,7 +602,7 @@ static int chsc_ioctl_info_sch_cu(void __user *user_cud)
+ 		ret = 0;
+ out_free:
+ 	kfree(cud);
+-	free_page((unsigned long)sscud_area);
++	kfree(sscud_area);
+ 	return ret;
+ }
+ 
+@@ -625,7 +625,7 @@ static int chsc_ioctl_conf_info(void __user *user_ci)
+ 		u8 data[PAGE_SIZE - 20];
+ 	} __attribute__ ((packed)) *sci_area;
+ 
+-	sci_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	sci_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!sci_area)
+ 		return -ENOMEM;
+ 	ci = kzalloc_obj(*ci);
+@@ -662,7 +662,7 @@ static int chsc_ioctl_conf_info(void __user *user_ci)
+ 		ret = 0;
+ out_free:
+ 	kfree(ci);
+-	free_page((unsigned long)sci_area);
++	kfree(sci_area);
+ 	return ret;
+ }
+ 
+@@ -696,7 +696,7 @@ static int chsc_ioctl_conf_comp_list(void __user *user_ccl)
+ 		u32 res;
+ 	} __attribute__ ((packed)) *cssids_parm;
+ 
+-	sccl_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	sccl_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!sccl_area)
+ 		return -ENOMEM;
+ 	ccl = kzalloc_obj(*ccl);
+@@ -745,7 +745,7 @@ static int chsc_ioctl_conf_comp_list(void __user *user_ccl)
+ 		ret = 0;
+ out_free:
+ 	kfree(ccl);
+-	free_page((unsigned long)sccl_area);
++	kfree(sccl_area);
+ 	return ret;
+ }
+ 
+@@ -756,7 +756,7 @@ static int chsc_ioctl_chpd(void __user *user_chpd)
  	int ret;
  
- 	sei_page = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
--	chsc_page = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
-+	chsc_page = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	if (!sei_page || !chsc_page) {
+ 	chpd = kzalloc_obj(*chpd);
+-	scpd_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	scpd_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!scpd_area || !chpd) {
  		ret = -ENOMEM;
- 		goto out_err;
-@@ -1153,7 +1153,7 @@ int __init chsc_init(void)
- 		goto out_err;
- 	return ret;
- out_err:
--	free_page((unsigned long)chsc_page);
-+	kfree(chsc_page);
- 	kfree(sei_page);
+ 		goto out_free;
+@@ -775,7 +775,7 @@ static int chsc_ioctl_chpd(void __user *user_chpd)
+ 		ret = -EFAULT;
+ out_free:
+ 	kfree(chpd);
+-	free_page((unsigned long)scpd_area);
++	kfree(scpd_area);
  	return ret;
  }
-@@ -1161,7 +1161,7 @@ int __init chsc_init(void)
- void __init chsc_init_cleanup(void)
- {
- 	crw_unregister_handler(CRW_RSC_CSS);
--	free_page((unsigned long)chsc_page);
-+	kfree(chsc_page);
- 	kfree(sei_page);
+ 
+@@ -796,7 +796,7 @@ static int chsc_ioctl_dcal(void __user *user_dcal)
+ 		u8 data[PAGE_SIZE - 36];
+ 	} __attribute__ ((packed)) *sdcal_area;
+ 
+-	sdcal_area = (void *)get_zeroed_page(GFP_KERNEL | GFP_DMA);
++	sdcal_area = kzalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
+ 	if (!sdcal_area)
+ 		return -ENOMEM;
+ 	dcal = kzalloc_obj(*dcal);
+@@ -834,7 +834,7 @@ static int chsc_ioctl_dcal(void __user *user_dcal)
+ 		ret = 0;
+ out_free:
+ 	kfree(dcal);
+-	free_page((unsigned long)sdcal_area);
++	kfree(sdcal_area);
+ 	return ret;
  }
  
-diff --git a/drivers/s390/cio/qdio.h b/drivers/s390/cio/qdio.h
-index 4bd4c00c9c0ca..dff5f53a8795d 100644
---- a/drivers/s390/cio/qdio.h
-+++ b/drivers/s390/cio/qdio.h
-@@ -244,7 +244,7 @@ struct qdio_irq {
- 	int perf_stat_enabled;
- 
- 	struct qdr *qdr;
--	unsigned long chsc_page;
-+	void *chsc_page;
- 
- 	struct qdio_q *input_qs[QDIO_MAX_QUEUES_PER_IRQ];
- 	struct qdio_q *output_qs[QDIO_MAX_QUEUES_PER_IRQ];
-diff --git a/drivers/s390/cio/qdio_main.c b/drivers/s390/cio/qdio_main.c
-index c1e09fa34e774..d137bf8c70664 100644
---- a/drivers/s390/cio/qdio_main.c
-+++ b/drivers/s390/cio/qdio_main.c
-@@ -934,7 +934,7 @@ int qdio_free(struct ccw_device *cdev)
- 
- 	qdio_free_queues(irq_ptr);
- 	free_page((unsigned long) irq_ptr->qdr);
--	free_page(irq_ptr->chsc_page);
-+	kfree(irq_ptr->chsc_page);
- 	kfree(irq_ptr->ccw);
- 	free_page((unsigned long) irq_ptr);
- 	return 0;
-@@ -986,7 +986,7 @@ int qdio_allocate(struct ccw_device *cdev, unsigned int no_input_qs,
- 	 * qdio_establish. In case of low memory and swap on a zfcp disk
- 	 * we may not be able to allocate memory otherwise.
- 	 */
--	irq_ptr->chsc_page = get_zeroed_page(GFP_KERNEL);
-+	irq_ptr->chsc_page = kzalloc(PAGE_SIZE, GFP_KERNEL);
- 	if (!irq_ptr->chsc_page)
- 		goto err_chsc;
- 
-@@ -1006,7 +1006,7 @@ int qdio_allocate(struct ccw_device *cdev, unsigned int no_input_qs,
- err_queues:
- 	free_page((unsigned long) irq_ptr->qdr);
- err_qdr:
--	free_page(irq_ptr->chsc_page);
-+	kfree(irq_ptr->chsc_page);
- err_chsc:
- err_dbf:
- 	kfree(irq_ptr->ccw);
-diff --git a/drivers/s390/cio/qdio_setup.c b/drivers/s390/cio/qdio_setup.c
-index ea09aadaae4ec..bd80703c174c7 100644
---- a/drivers/s390/cio/qdio_setup.c
-+++ b/drivers/s390/cio/qdio_setup.c
-@@ -253,7 +253,7 @@ int qdio_setup_get_ssqd(struct qdio_irq *irq_ptr,
- 		if (!ssqd)
- 			return -ENOMEM;
- 	} else {
--		ssqd = (struct chsc_ssqd_area *)irq_ptr->chsc_page;
-+		ssqd = irq_ptr->chsc_page;
+@@ -904,7 +904,7 @@ static int chsc_release(struct inode *inode, struct file *filp)
  	}
- 
- 	rc = chsc_ssqd(*schid, ssqd);
-diff --git a/drivers/s390/cio/qdio_thinint.c b/drivers/s390/cio/qdio_thinint.c
-index e167aa75c3dff..a2ff51887537f 100644
---- a/drivers/s390/cio/qdio_thinint.c
-+++ b/drivers/s390/cio/qdio_thinint.c
-@@ -136,7 +136,7 @@ static struct airq_struct tiqdio_airq = {
- 
- static int set_subchannel_ind(struct qdio_irq *irq_ptr, int reset)
- {
--	struct chsc_scssc_area *scssc = (void *)irq_ptr->chsc_page;
-+	struct chsc_scssc_area *scssc = irq_ptr->chsc_page;
- 	dma64_t summary_indicator_addr, subchannel_indicator_addr;
- 	int rc;
- 
+ 	snprintf(dbf, sizeof(dbf), "relret:%d", ret);
+ 	CHSC_LOG(0, dbf);
+-	free_page((unsigned long)on_close_chsc_area);
++	kfree(on_close_chsc_area);
+ 	on_close_chsc_area = NULL;
+ 	kfree(on_close_request);
+ 	on_close_request = NULL;
 
 -- 
 2.53.0
