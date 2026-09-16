@@ -1,100 +1,86 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35CA414435;
-	Wed, 16 Sep 2026 18:17:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29AA948FF6A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:17:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789582687; cv=none; b=jNixYLPRtTBhyUnhnAZ4t6VrS8qegWceIqnToEIOsdSRef5r42OXRhS+if3iWuSTdnPknMAH8wXP2BJF193O11Jj7ArpDuApoeEXfg3U6T+RfPWwRvs2hK24bqpWK6TAqXmt+IdRaeBNn2JpB/PytuXrFQT8tMRPHhk2RswR0eY=
+	t=1789582688; cv=none; b=D2iVNdV/ws8ca/9e2C3sifW9Vood9YJoWqv1eE9CFuvc4oyBwXwihNY/s5/R2tQJP+MaN1Rt4st2dfAWo2i/sXHbD95eP5uJrBs6qk3ePMnaLuY8lyACXNJYZht5RJmSXT0gyz301BpmcGHGSNKT3DKccpuS05549ELpIdw87CY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789582687; c=relaxed/simple;
-	bh=SNBU3LDY5WiGXZdi0zwQP/kdHhTLC06NrqJQebeYLQE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ivGHKqp+SBHcfsNYTkHpR4ljtlt8ogr9+0zYDP59WaRC9FYBGs0D7u+dhnMa679OzzD46Se88Y8soL+a6qKimfGShOYPDMSUYgAA4lOuVlRqIKVvPIijnf+t93I2DXodKbzFQ86mB6EkpLmY68hbirCuHVr9TDnaQJYaGTRdUfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABn0z1F3apq2VpvCA--.24248S2;
-	Thu, 17 Sep 2026 02:17:41 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: andy.yan@rock-chips.com,
-	dri-devel@lists.freedesktop.org,
-	heiko@sntech.de,
-	hjc@rock-chips.com,
-	jonas@kwiboo.se,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/rockchip: dw_hdmi: Fix hdmiphy_clk reference leak in dw_hdmi_rockchip_bind()
-Date: Wed, 16 Sep 2026 18:17:13 +0000
-Message-Id: <20260916181713.2091226-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789582688; c=relaxed/simple;
+	bh=qmNHsftrPigc6z9lAhD5TrQ9HA5z1cFLq5Fdk1Pby1Q=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KwM/D7MwkWLeOlWvt+wpHlhsUWKrDDeEMM3PXBZAbplKxI+bmI9IZLK2rsQu8YTMERvtrx4LLsy/SJBAl5HKnLixgggAEzTbFA4lXrVPNnkhibrl6XMbDXamOGZln6uon2k7VKp/6RB0rOqKYJiXm6kFDRXajxN+P5LS2VviAu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=luD3KYPt; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="luD3KYPt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E05F81F0089E
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:17:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789582674;
+	bh=NcQe03qyUu7W4K18zVzWNwv6MgOA45mAnb9g7/iXl8I=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=luD3KYPtQ6rVMU3canU+kY6TJZHae8NyVUBeWdM/TSLcgcyFEK9fHqsZ1Lf/ggrPJ
+	 +AQ62gV/2VLSfGIbVcm3QyD+DhZTf1ZWcGCI+LJQ5f8blfGn637DLQd0cvnGT8nR5V
+	 g1Drbzd11p8TrUI3uM7g39+m4LS3EYGDxxxRnlAdstpY2wJHyzZCTpO+IfOal5J/F1
+	 IhOMNQ/BmPqwUx/8F18mbeqf7+0srQYWLOOcOIyIjE97ZzzOG5bAR3gkXLMMQ1c7xF
+	 pl4hKbBH7Vkr6CLJK70t3r2GEdvHpXocftmnMqRKAftqA2OQmV6mJUzUgehhuO6z5y
+	 6qlQanImIhZkQ==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a306a4f797so366931fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:17:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxFipk7Cnaz0K3+SXiX2SuLPxRCt/mEE5ppl8XxK1b6nvXivasvlIV6ApnpmzdNHQQpLlgnEd5xzwOsgA0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLHEb32ATAIUakEhiFtb3kRecXG8kCCQxid3w0LYQ52TV0JPW2
+	dnSVG8g31JvteP08f2/Hz0sJuET1TcOYFU9519M94g51hvXIGOu/5wCVVIMl2OsTo/QUaknAHM0
+	NVV1YczbnhjkJd3e393xxuzofvjvqwfLsxy3ScwnXEg==
+X-Received: by 2002:a05:6512:3345:b0:5b7:f0b9:ea7c with SMTP id
+ 2adb3069b0e04-5b8b6605f11mr972331e87.8.1789582673568; Wed, 16 Sep 2026
+ 11:17:53 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 16 Sep 2026 14:17:51 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 16 Sep 2026 14:17:51 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260907090956.2825703-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABn0z1F3apq2VpvCA--.24248S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFyDtryUXw48ur1kur4kJFb_yoW8JF4kpw
-	srJayYqrW8GF4IgasrArn5ZrWft3ZFyFWfGrWIkayfCa1fKr1Yka4UWr4rXry3AF13u3W2
-	krn7J3s5Ga12grJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9v14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
-	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF
-	7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0
-	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr
-	0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VU1go2UUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMMA2qqpVh2pAABsl
+References: <20260907090956.2825703-1-arnd@kernel.org>
+Date: Wed, 16 Sep 2026 14:17:51 -0400
+X-Gmail-Original-Message-ID: <CAMRc=McRc9Aw-5WBipW5QhqqHp4+UKch15ui3E8a0srk2CUN7g@mail.gmail.com>
+X-Gm-Features: AcwNN1WT39KCCBGzK8bB5OYELfDMzkO3xawenRbklBZjDzeHGIgp80Nbi0LahYQ
+Message-ID: <CAMRc=McRc9Aw-5WBipW5QhqqHp4+UKch15ui3E8a0srk2CUN7g@mail.gmail.com>
+Subject: Re: [PATCH 0/2 v7] gpiolib: finish the legacy cleanup
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Kent Gibson <warthog618@gmail.com>, 
+	Johannes Berg <johannes@sipsolutions.net>, linux-kernel@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-sh@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The reference to the HDMI PHY clock obtained with
-of_clk_get_from_provider() is never released, neither when binding
-fails nor when the component is unbound.  Drop it on both paths.
+On Mon, 7 Sep 2026 11:09:54 +0200, Arnd Bergmann <arnd@kernel.org> said:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> These two patches are left from my cleanup series, finishing off the
+> work to turn off CONFIG_GPIOLIB_LEGACY by default, and removing the
+> include/linux/gpio.h header.
+>
+> I had originally planned to send these during the merge window after all
+> the prerequisites made it in, but didn't finish that before my vacation,
+> so I'm sending it now.  I suppose this makes them 7.4 material now,
+> but at least the first one could stil be fast-tracked to 7.3 if there
+> is a good reason.
+>
+> The second patch has to remove a few more leftover <linux/gpio.h>
+> inclusions that made it into 7.3-rc1 either from new code or from
+> conflicts with other changes.
+>
 
-Fixes: 3303a206ae74 ("drm/rockchip: dw_hdmi: Filter modes based on hdmiphy_clk")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c | 4 ++++
- 1 file changed, 4 insertions(+)
+With acks from SH and MIPS maintainers, I can take it for v7.4 through the
+GPIO tree.
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-index 0dc1eb5d2ae3..5b90de4da5a9 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
-@@ -622,6 +622,8 @@ static int dw_hdmi_rockchip_bind(struct device *dev, struct device *master,
- 	return 0;
- 
- err_bind:
-+	if (hdmi->hdmiphy_clk)
-+		clk_put(hdmi->hdmiphy_clk);
- 	drm_encoder_cleanup(encoder);
- 
- 	return ret;
-@@ -632,6 +634,8 @@ static void dw_hdmi_rockchip_unbind(struct device *dev, struct device *master,
- {
- 	struct rockchip_hdmi *hdmi = dev_get_drvdata(dev);
- 
-+	if (hdmi->hdmiphy_clk)
-+		clk_put(hdmi->hdmiphy_clk);
- 	dw_hdmi_unbind(hdmi->hdmi);
- 	drm_encoder_cleanup(&hdmi->encoder.encoder);
- }
--- 
-2.34.1
-
+Bart
