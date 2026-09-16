@@ -1,37 +1,37 @@
 Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0984483AF;
-	Wed, 16 Sep 2026 08:09:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0833A3830
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:09:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546189; cv=none; b=Sd4uofQXky8vrdqRgrQgBt351S5VNMGn/gDuMxS3hP+SF0dqP3TJeaxIBxcHgp3XEUQ+dhwytqwQXQ7q+bauaLD16LhyjVDQNuphZHTgNyUIR4Y+f8sZqD78PGHfEs8zNRZHATRpLz76G8Anr+p2llsq+2hmIEMqClwkdIcd2JI=
+	t=1789546190; cv=none; b=TtXBh+SHpvGATn7HfcYWnPGF6VPZphV4rraBw/MWY1l6TqdAtnGzy9G2VoI6zsr7Zoq8mPErMhn5dDw6AmrwFO00yg85Xii+FCWZV7k1CGIDUdCPHOvBD0xwRSSrE0D7B7Km44RUwgIPOETVdsFrpHPEYs4hNnzqNK231hrrSTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546189; c=relaxed/simple;
-	bh=Vy2kFGWf40LZZu/OrRKxOp27EqZPY3iYxkaZKLnSAbQ=;
+	s=arc-20240116; t=1789546190; c=relaxed/simple;
+	bh=afe1n+Wf/XPJVThN6jURieB4LpbuLHGELAAR7V1RVb0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e+objT0xXsDxBeudq2VVoNDDgHKN9BphEG0zXVAzmyJI2T8djDTqmkEYSiS2GtBBM1/hgQDEH71x80/If8irvOgXiIce6P8nFfDaEqX2UNabVjbfyDzIwbShHl3LUbZ5P3jG3Qycisw+ZJLMTSYX1Pu3X4wvmDskWu/hZoRT0J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=jgvbVR1C; arc=none smtp.client-ip=185.70.43.172
+	 In-Reply-To:To:Cc; b=pyrZQpj8myv4o6g3YyHiEFR2+i4oGnCgucfiWvqsPgSO5GDJud0ofES61KTCd4ifTKZuGXNgr4osgew9c0mnV/ytuxBv9SEkVOndv0tDkRTTMhqTVR5nk+jYMVukVfSQcTTBI1nC3rucK2W9VRxJhvq8Q5U1ENpFUntP1IQFIB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=sMC4c4fg; arc=none smtp.client-ip=185.70.43.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="jgvbVR1C"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="sMC4c4fg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789546162; x=1789805362;
-	bh=sNcmNScEhpmF/4cOJIi/n2ntDi0iE/3WYicZo1sq86I=;
+	s=protonmail; t=1789546174; x=1789805374;
+	bh=+lNbw586DMMVtwI3LXF73zybAcTYv38dit0+gXZryTE=;
 	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=jgvbVR1C2miDAi8+mWdOxhQ2VIBjqj7+WGoaYWQva0zQV3ZhySWAvo2rRIX0dX+wa
-	 xmGT8XEgXuNCfjQumFc3LxW0gVVXd/kbgz0B85ZvFIHbPx49CGbZIN2b85ftYUlGQd
-	 4XD2zzCBc9VAzuRREEpviR1N60fOaswHvU9ZFuEOI0qeaKStdtc8n56SklJiXQE/Uf
-	 o+plmjr3iIvfWVQgdLh7vzTx4Usr23qJ+pPMoXbMjiCDpoCLDKd6+ecDnH8Y3v73/5
-	 XSaApKUpc3auokq3IQJBWTZklzESDFHC6foP28e6SonnPyQdGgnxlKjap95en5pj8N
-	 hCsKlEuPuBMhA==
-X-Pm-Submission-Id: 4hlBPD2cLfz1DDKv
+	b=sMC4c4fgUvl1bQ7Hri+yfImYMJVsuXNACwghzTonGYJ9hey1Olyy6FGQryDaCC3FA
+	 VF1bESWchAEd6ONS7wYxcPt0SYL3M/IHQF9EPl4cbHJcTC/P/cw9FUrwhEQasA16ap
+	 1nvYZZx5zVQSz0z5gAIplHQqVcYRF9i0njWUohcnmIKS+2FchMp48Z2sKqDuIEGp9c
+	 OEgdIdn0bKOYOA/WFo+nbGuMDy4qeCLFTMh9+vDtrcmvx2DfJZCyHksknSMh1Y3ioJ
+	 4r7EEoNJ1oX3dcKtTtvzISXcYUj+87PI6PQikHyfStSztXHwH8rj4I163qG1ZYR8AL
+	 qHXpVm0/50VQg==
+X-Pm-Submission-Id: 4hlBPT1JSBz1DDrw
 From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 16 Sep 2026 10:07:57 +0200
-Subject: [PATCH v9 01/10] dt-bindings: iio: accel: mma8452: Add
- drive-open-drain
+Date: Wed, 16 Sep 2026 10:08:03 +0200
+Subject: [PATCH v9 07/10] iio: accel: mma8452: Add comment block for struct
+ mma8452_data
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-mma8452-open-drain-v9-1-0dd24fa2f3d7@geanix.com>
+Message-Id: <20260916-mma8452-open-drain-v9-7-0dd24fa2f3d7@geanix.com>
 References: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
 In-Reply-To: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -53,42 +53,53 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, 
  Christoph Muellner <christoph.muellner@theobroma-systems.com>
 Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joshua Crofts <joshua.crofts1@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789546157; l=1037;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789546157; l=1365;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=Vy2kFGWf40LZZu/OrRKxOp27EqZPY3iYxkaZKLnSAbQ=;
- b=Xylm022efn23CkDn2cmNcTM9uttisqYkTx3O6Bgd6V5Sp9P71o/xLgVH9Zgfz9Xmp2y2CLNH6
- 1OuA7/VRvGyCPmcQz2QKxwRr9mZ4OXfe5N8ht2mv7VFfWxP+T9Isowa
+ bh=afe1n+Wf/XPJVThN6jURieB4LpbuLHGELAAR7V1RVb0=;
+ b=ZCTkhNTdnAvjzqMdj+xvLEQyb5025RxvLGkWY5KHni7E4RxvW2dNhrMQMluxO3DGHCI6R2szt
+ c5Uk3XYnGz0CFWdY7rodBM8Uf3FKpdb5YJ1B1wl4K6IFWWNgRpKf/1v
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-Add new boolean to configure selected interrupt pin to open drain instead
-of the default push-pull mode.
+The struct mma8452_data is central for this driver, and it makes sense to
+have a description of the fields in it to make it easier to work with the
+driver.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/iio/accel/mma8452.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml b/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml
-index b0dd2b4e116a..20701aa725d0 100644
---- a/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml
-+++ b/Documentation/devicetree/bindings/iio/accel/fsl,mma8452.yaml
-@@ -39,6 +39,12 @@ properties:
-     minItems: 1
-     maxItems: 2
+diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+index b70bc8638128..223bef4f7baf 100644
+--- a/drivers/iio/accel/mma8452.c
++++ b/drivers/iio/accel/mma8452.c
+@@ -104,6 +104,21 @@
  
-+  drive-open-drain:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    description: the interrupt line will be configured as open drain, which is
-+      useful if several sensors share the same interrupt line. (This binding is
-+      taken from pinctrl.)
-+
-   vdd-supply: true
-   vddio-supply: true
+ #define MMA8452_AUTO_SUSPEND_DELAY_MS		2000
  
++/**
++ * struct mma8452_data - IIO device private data structure
++ * @client:			the I2C client object
++ * @lock:			mutex for synchronziation of register
++ *				read-modify-write sequences and holding chip in
++ *				STANDBY mode while writing to registers
++ * @orientation:		mounting matrix, flipped axis etc.
++ * @chip_info:			chip specific data
++ * @regs:			reference to voltage regulators
++ * @buffer:			triggered buffer
++ * @sleep_val:			time in ms to sleep while waiting for drdy
++ * @ctrl_reg1:			CTRL_REG1 register shadow value
++ * @data_cfg:			DATA_CFG register shadow value
++ * @open_drain:			true for irq pin in open-drain mode
++ */
+ struct mma8452_data {
+ 	struct i2c_client *client;
+ 	struct mutex lock;
 
 -- 
 2.55.0
