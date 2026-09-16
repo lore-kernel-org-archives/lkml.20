@@ -1,770 +1,228 @@
-Received: from mta0.migadu.com (out-80.mta0.migadu.com [91.218.175.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4803E5A38
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.80
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789539031; cv=none; b=cgtnu9KvE9xesFGGxBFzRYD3OwWnBkJerrRbQ30+YqoSFOH1pBvGQPdV5V4g8x3rHbZwW0etUp4ANtJ5QKuG5FXypqiY60qT9DUnOJTCghliwXd/MrVvjnT8D9UejWCwK4JpCIYJmWbr6qs0rOaGfjiHevR+myOecxdaaiKZ7Xc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789539031; c=relaxed/simple;
-	bh=/q/n1nYHeptm9sHCe7whjb1nmm/1KeqDDyNXgHrXXGo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tJt0XdPH1JyXB7WpJeBKtJIMWflBnaA3wj8BSm6G0B9ylUPcxZUpOdwI06sQ1h6fA24T4BuDSBDQpXkKWSKd57PYF7tqNbd/p7JktDxDBJ6d34SfiUqqD0mZlB62WcgNvxXuVmqpjRxXJdChfgG3iJWa9Iml2Q+48uvSOP4tcXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wZWVWrD2; arc=none smtp.client-ip=91.218.175.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48DE3E5A35
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789539054; cv=fail; b=bC/QGxQA+iNIWwBJv2qOaaVg76SIBnlpsjeBLgxA7rLTOrM2p/WxPXzhrFEWiyqH4rLSL7rv+pZ2Z7rXrxGD2NAiNRK7PwCf+aNJ2MAdMqL7ADoTIUP1wwO5JrtGJf3aob/LmVnNRlRAzTiqzHoetEjZ5laekMSkdbbHcng5Mtc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789539054; c=relaxed/simple;
+	bh=1fxkjs/G4YoKG8ASNY+w5h0ITMpRz/JisbjAIwVGM0A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=hvt4GZg2VUDGVs+EY1OkoXIIcWsl9YOBvmQccxVgORHC56kyuUCoPzK4ThwuKUYiYCjsYoTk4ERwAitkBxqmRp6Z2QwZqq4qimt6d33TLRJ7EnvfiajQRnhUgcOPocAE9Wdgbz+Ffuur+nUBCJ1YeNiJDod1W7EHUvlnEdIdSzs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kzSKzC3J; arc=fail smtp.client-ip=52.101.43.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wZWVWrD2"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/q/n1nYHeptm9sHCe7whjb1nmm/1KeqDDyNXgHrXXGo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789539025; v=1; x=1790143825;
- b=wZWVWrD2dOwk/teo5vm9W59kJteqGHtdWRSChZ+uaRIFZb2XjVr3hSqrU10DbMHJUVPvDSTt
- yxSfkAUb4+9kcT9OpC2+bInflGIzGsTBFNFIdJKSOlzpB2lzGNLHi5+HvJGAI0tUA3IJTrHaV4j
- GsKQqm4wN/3I74iZv55KGdiU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id e26a2287e5b3465a;
-	Wed, 16 Sep 2026 06:10:08 +0000
-X-Mizu-Trace-ID: e26a2287e5b3465a
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 16 Sep 2026 09:10:00 +0300
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
-	Alexander <alexander.sverdlin@siemens.com>
-Subject: [PATCH v4 07/10] regulator: bd71828: Support ROHM BD73800
-Message-ID: <94a1cef828fb5f6ea1703167c819f321ee3bde77.1789538455.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
-References: <cover.1789538455.git.mazziesaccount@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kzSKzC3J"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ER/dzpO6wWGMt8wvLQOGF9W2WrKOrxeYq5CNbJhanD+Ma8mXP6oqHQtqUV+wcHimwcO2ax3jT10hyee7gHnGeUPrjp0jMmB+HfEmLROImSZS/2ioAX3zqosPYI21rPQN1GydZtPl3MngfayrGptfsbdJ+U38lhIWlULousSIMP0HDMsWx53qR03cbs2cQd/McfZWovEBVd4Td4RqF+VbklJMpBR4Yi5MRZH8xqIkMj6RYw9MY8/Uuji3Q8uvymXLeKKk3xk+rOOJMdsU9EfySE6c+9yZtYHMvya0HtsNA2Dc+1NaikwnzNb+eMRWGcal5G/VX0zFxj31Kund2MsHHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4sr4OkqAOQkPverA6s/D6oHCYRFr5ZRAdOkQ4F4nYX0=;
+ b=hHcIDIQUIiEr/biaLxqaCg6L04CDd8OtML3JJvTWmJOkoXeLPvNXp5kxGgfYYiy/jFi4I70QeqiBceOBY9O57gxCOah+82xAq1PfVZSngDFpDg+IfyjtOBjPEFYXCI2sRkGE0AWJQceGzpouxXRw4WwMP00HIsdg2INoxRuXZbAPDAJgG3Ilux1aQale25ZcrRAxTgbl4vli8aPayD1zxhqDkMP8zn5F1yJBSbrawL6s5k4vavdpVAbOPPT9hjg2z6CeKxxZlcAzG0x0HiTEla6tj3eI9PiD7uB+Ghp7fVzLa6fQ6ZC3JTRWg6ZVmycdfgYXqrSxvvGTthhG9imbLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4sr4OkqAOQkPverA6s/D6oHCYRFr5ZRAdOkQ4F4nYX0=;
+ b=kzSKzC3JNGkDP3pyQLxPM7X56/WrSAxSyTgBpz/f5traaZgbwOwiT52nafcMAyrQ8b897Qd0cAjRA8s3qLJus66bMNnKUzoLksY1KzXHoB9aISUk2T+RN0y985y2O9VxzXWgYsyC4b0mgAgPR5UQcsycBsRbRoneVW/G8s/eYZk=
+Received: from SJ0PR03CA0155.namprd03.prod.outlook.com (2603:10b6:a03:338::10)
+ by DM3PR12MB9413.namprd12.prod.outlook.com (2603:10b6:8:1af::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 06:10:46 +0000
+Received: from BY1PEPF000264B3.namprd02.prod.outlook.com
+ (2603:10b6:a03:338:cafe::65) by SJ0PR03CA0155.outlook.office365.com
+ (2603:10b6:a03:338::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 16
+ Sep 2026 06:10:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF000264B3.mail.protection.outlook.com (10.167.242.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 06:10:46 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
+ 2026 01:10:45 -0500
+Received: from [10.136.41.131] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 16 Sep 2026 01:10:41 -0500
+Message-ID: <a367d70f-a095-419f-83e8-5d7458204f3d@amd.com>
+Date: Wed, 16 Sep 2026 11:40:40 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="A3pNrLY9qnADI+zz"
-Content-Disposition: inline
-In-Reply-To: <cover.1789538455.git.mazziesaccount@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/16][PoC] sched/core: Alternate approach to
+ sleeping-owner handling in PROXY_EXEC
+To: John Stultz <jstultz@google.com>
+CC: Suleiman Souhlal <suleiman@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Andrea Righi <arighi@nvidia.com>,
+	<linux-kernel@vger.kernel.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel
+ Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Waiman
+ Long <longman@redhat.com>
+References: <20260826062901.2137-1-kprateek.nayak@amd.com>
+ <CANDhNCpEYgckCPYhjL8oQGYv9r8joP_1tBps4bGQFD3vWDCetA@mail.gmail.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <CANDhNCpEYgckCPYhjL8oQGYv9r8joP_1tBps4bGQFD3vWDCetA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B3:EE_|DM3PR12MB9413:EE_
+X-MS-Office365-Filtering-Correlation-Id: 584187e7-f7fb-450d-8fbe-08df13b93f58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|23010399003|18002099003|56012099006|11063799006|4143699003|10067099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	Vv3/5KTYnFtYVPThmAHCvMednaY/33tp9kA8+fdPMqj8SftT7Hhv8rshu45GwHqYSf7bKg9m1W3filONnJdGHFm4t6k5gHLp3iX3g+QmOsV+8b5enphFa/cOSiPEKSsLWRlVarxRn1Na+OKpLyt/KltKNnaV78ua1JagmQG6tddaGVHnseA/j1fHQG+bwQdIWkgEKaUys2N7nJlWkqWEIakPml3fv8/JVuqajT8TRBvMQrBVDwjFfHqPqzCTCrs5P9AbqJ4z6LuFY99cdq3CkKj+vcQ/xYrQn6cSjgBbPWhNSRdlU7+vd7RrGsRbcF/K1oi7wFaEAgFSPjhnnP9Uj+Mo8VqaWXwyvStzUEasnJI1WMxA6Tet4OUwFuR6MEPdv88qYX2fuw/sTGk+WDkEYn/5AuFp3pxTHg9oG/Yc6OQ1xzv3Ju47TyDx/wCpb/kg767Q1w5hVqnE1nakKQOVF99NZc7w47rj5hxznyGmpv2W1XXwMbfSeC4SQU0luMUS2HHLb/yC1dhwBjChGn0xyK39Cw37oVeMPy0uzeufA3uqSKAEsqjWE2NXfxLzYyTFxKuN5LoANVF6ogigqslnTgSbxyj5z9foeq0hI0xiGctfWEXevq8DSUDaK+P/R4AeiqZo3lBcayoOBPQFKomLNjVrOLNk0wR0mimWxEv9nx/MEFitOdmprMmYjQpi1QsmilqW73MGn9FWz9FND5V2Bg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(23010399003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	CknrlW7JKcpLyUEUev5SYN5VSGbeO5vKC5lOYB3pi/fMTQJ2a7N7QEa/qaC8jdYQdX/Yug6FPh3lEUMbMR88OcI50vhp1ZtFGDla7CausSuray9Bbz7fAKJ+vgFJtL8GeHT2oBVeU4DEfFyH3Vop7sCjgAksKmnc/K/CrBm9Q7Lta5YRPGkPQNa2Xfpp/jmNUjUQ5UGO8QSZTg4jorM9u2YXjgcDEiNSVIjE/Em4oOKFWtUFRe35tCToIQRtuPwqw5VirBiqr78WwNKRXluPafy7htuoVleZLmfPkNelYcbO3Y0F44YbgrKUe7o82+4pii/gZgfKHrQgM0qV8FZeVkPhToK+kxhJk2sMITtvGCZt7xKVDZL4NJ9It+XtW2mSNyHQogKMh1xXSS5xJwkpPEs45dQ1d6kR/idD1zmrDam+3k/mgyXOWN0iJyjC+YPQ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 06:10:46.1547
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 584187e7-f7fb-450d-8fbe-08df13b93f58
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF000264B3.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9413
 
---A3pNrLY9qnADI+zz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hello John,
 
-=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
+On 9/16/2026 10:52 AM, John Stultz wrote:
+> On Tue, Aug 25, 2026 at 11:29 PM K Prateek Nayak <kprateek.nayak@amd.com> wrote:
+>>
+>> I had promised John I would share an insane idea if I got it
+>> working(ish) so this RFC presents an alternate approach to handle
+>> enqueued donor wakeup vs owner's chain-wakeup race via ttwu_runnable()
+>> path and make the activate path as light as possible for tasks that
+>> don't need to do a chain wakeup.
+>>
+>> The series essentially breaks down John's large patch at
+>> https://lore.kernel.org/lkml/20260807035232.1881495-9-jstultz@google.com/
+>> into smaller chunks while introducing the new approach and fixing a few
+>> snags encountered along the way (Patch 1 - Patch 4 are fixes that can be
+>> discussed without getting into the rest of the RFC).
+>>
+>> Disclaimer: Series in not bisectible in any way at the moment - related
+>> bits are introduced together at and intermediate builds may fail.
+>>
+>> Introduction
+>> ============
+>>
+>> Handling sleeping owner requires proxy-chains to queue on the said owner
+>> and perform a chain activation when the blocked owner wakes up.
+>>
+>> Since a blocked donor can be woken up by another concurrent wake event,
+>> the activation path becomes complicated and wakeup has to take an extra
+>> lock (p->blocked_lock) to prevent any modifications to "p->blocked_head"
+>> and miss activating any blocked donors.
+>>
+> ...
+>> Trade-off
+>> =========
+>>
+>> Advantages:
+>>
+>> o Only need to juggle blocked_lock(s) under a single rq_lock().
+>> o Re-use ttwu_runnable bit to handle removal of proxy donor.
+>> o No need to do get_task_stuct() / put_task_struct() juggling.
+>>
+>> Disadvantages:
+>>
+>> o Possible increased rq_lock contention on the chain-wakeup path but
+>>   those events are generally rare.
+>> o Lack of delayed task handling since the src_rq need to be locked
+>>   separately to migrate it.
+>>
+>> For the delayed handling, it is possible to use proxy_migrate_task() to
+>> move the task after blocking. Series does not implement this yet to
+>> limit the number of bad ideas.
+>>
+> 
+> Sorry again for being so slow to respond here!
+> 
+> The series definitely looks interesting, and it seems to be holding up
+> ok in testing.  Though figuring out how to refactor them so that they
+> are also bisectable looks like a real challenge (part of why my
+> sleeping-owner enqueuing is basically one big patch)!
+> 
+> That said, I can't say I've truly gotten my head fully around your
+> series yet. I've definitely had way more time with my change, so I'm a
+> little biased in feeling its somewhat more bounded (even though the
+> activate_blocked_waiters() function and the multiple lists of tasks
+> are very complicated).
+> 
+> My initial sense of the downsides here with your series are: It adds a
+> lot of new per-task state (blocked_cpu, is_linked/needs_rq_sync,
+> sched_migrated_on_blocking, lock_nesting) to keep track of, and some
+> of rules for the new state have dependencies
+> (sched_migrated_on_blocking is tied to is_linked), and leveraging the
+> ENQUEUE/DEQUEUE_MIGRATING flags feels a little subtle (I have often
+> gotten the ENQUEUE/DEQUEUE flags wrong in my patch series, and
+> unfortunately the general documentation around those flags is lagging
+> a bit, so this adds to it).
+> 
+> The locking being simpler is a clear benefit and definitely sound
+> appealing - though I do agree the rq_lock hold time in
+> proxy_activate_blocked_task() seems like it might be an issue.
 
-The ROHM BD73800 is a power management IC which integrates 8 BUCKs and 4
-LDOs. The PMIC has internal state-machine and it can support transitions
-to RUN, SUSPEND and IDLE states. The LDOs 1 and 3 have two different
-voltage range configurations that can be set at the manufacturing phase
-by OTP. By default driver assumes low voltage ranges to be used because
-the data-sheet indicates the higher voltage ranges to be an 'OTP option'.
-The high voltage range can be indicated via device-tree property.
+Ack! My original thinking was it is only done in the slow-path and
+is only held for a few ->on_rq and list manipulations so I might be
+able to get away with that small overhead.
 
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Acked-by: Mark Brown <broonie@kernel.org>
+> 
+> I've got a few more questions on specific patches, so I'll reply there.
 
----
-Revision history:
-v3 =3D> :
- - No changes
-v1 =3D> v2:
- - Simplified DT parsing as was suggested by Mark
- - Fix buck5 vsel_mask
----
- drivers/regulator/Kconfig             |   4 +-
- drivers/regulator/bd71828-regulator.c | 558 +++++++++++++++++++++++++-
- 2 files changed, 559 insertions(+), 3 deletions(-)
+Looking forward to those.
 
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index 89789ac7a786..13928af8cad4 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -241,12 +241,12 @@ config REGULATOR_BD71815
- 	  will be called bd71815-regulator.
-=20
- config REGULATOR_BD71828
--	tristate "ROHM BD71828, BD72720 and BD73900 Power Regulators"
-+	tristate "ROHM BD71828, BD72720 and BD73[8/9]00 Power Regulators"
- 	depends on MFD_ROHM_BD71828
- 	select REGULATOR_ROHM
- 	help
- 	  This driver supports voltage regulators on ROHM BD71828,
--	  BD71879, BD72720 and BD73900 PMICs. This will enable
-+	  BD71879, BD72720 and BD73[8/9]00 PMICs. This will enable
- 	  support for the software controllable buck and LDO regulators.
-=20
- 	  This driver can also be built as a module. If so, the module
-diff --git a/drivers/regulator/bd71828-regulator.c b/drivers/regulator/bd71=
-828-regulator.c
-index 2ced81df0c02..dea551cf658a 100644
---- a/drivers/regulator/bd71828-regulator.c
-+++ b/drivers/regulator/bd71828-regulator.c
-@@ -1,7 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- // Copyright (C) 2019 ROHM Semiconductors
- // bd71828-regulator.c ROHM BD71828GW-DS1 regulator driver
--//
-=20
- #include <linux/cleanup.h>
- #include <linux/delay.h>
-@@ -10,6 +9,7 @@
- #include <linux/kernel.h>
- #include <linux/mfd/rohm-bd71828.h>
- #include <linux/mfd/rohm-bd72720.h>
-+#include <linux/mfd/rohm-bd73800.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-@@ -31,6 +31,13 @@ struct bd71828_regulator_data {
- 	int reg_init_amnt;
- };
-=20
-+/*
-+ * LDO1 and LDO3 node names are used also in the driver to find OTP settin=
-g for
-+ * the used voltage range.
-+ */
-+#define LDO1_NODE_NAME "ldo1"
-+#define LDO3_NODE_NAME "ldo3"
-+
- static const struct reg_init bd71828_buck1_inits[] =3D {
- 	/*
- 	 * DVS Buck voltages can be changed by register values or via GPIO.
-@@ -172,6 +179,55 @@ static const struct linear_range bd72720_ldo6_volts[] =
-=3D {
- 	REGULATOR_LINEAR_RANGE(1800000, 0x79, 0x7f, 0),
- };
-=20
-+static const struct linear_range bd73800_buck12348_volts[] =3D {
-+	REGULATOR_LINEAR_RANGE(500000, 0x00, 0x50, 10000),
-+	REGULATOR_LINEAR_RANGE(1300000, 0x51, 0xff, 0),
-+};
-+
-+static const unsigned int bd73800_buck5_volt_range_sel[] =3D {
-+	0x0, 0x0, 0x1, 0x1,
-+};
-+
-+static const struct linear_range bd73800_buck5_volts[] =3D {
-+	/* range selector 0 */
-+	REGULATOR_LINEAR_RANGE(500000, 0x00, 0x50, 10000),
-+	REGULATOR_LINEAR_RANGE(1300000, 0x51, 0x7f, 0),
-+	/* range selector 1 */
-+	REGULATOR_LINEAR_RANGE(300000, 0x00, 0x46, 10000),
-+	REGULATOR_LINEAR_RANGE(1000000, 0x47, 0x7f, 0),
-+};
-+
-+/*
-+ * BUCK5 has two different pickable ranges, each having voltages matching
-+ * selectors 0x0 to 0x7f. This gives 0x7f + 1 different voltages for each =
-of
-+ * the ranges.
-+ */
-+#define BD73800_NUM_BUCK5_VOLTS ((0x7f + 1) * 2)
-+
-+static const struct linear_range bd73800_buck67_volts[] =3D {
-+	REGULATOR_LINEAR_RANGE(1500000, 0x00, 0xc8, 10000),
-+	REGULATOR_LINEAR_RANGE(3500000, 0xc9, 0xff, 0),
-+};
-+
-+/*
-+ * On the BD73800 the LDO1 and LDO3 support two different voltage areas.
-+ * Whether to use 'high' or 'low' ranges is configured by OTP. There seems
-+ * to be no register to read the configured area so it must be given via
-+ * device-tree properties.
-+ */
-+static const struct linear_range bd73800_ldo13_low_volts[] =3D {
-+	REGULATOR_LINEAR_RANGE(600000, 0x00, 0x78, 10000),
-+	REGULATOR_LINEAR_RANGE(1800000, 0x79, 0xff, 0),
-+};
-+
-+static const struct linear_range bd73800_ldo13_high_volts[] =3D {
-+	REGULATOR_LINEAR_RANGE(750000, 0x00, 0xff, 10000),
-+};
-+
-+static const struct linear_range bd73800_ldo24_volts[] =3D {
-+	REGULATOR_LINEAR_RANGE(750000, 0x00, 0xff, 10000),
-+};
-+
- static const unsigned int bd71828_ramp_delay[] =3D { 2500, 5000, 10000, 20=
-000 };
-=20
- /*
-@@ -225,6 +281,36 @@ static int bd71828_ldo6_parse_dt(struct device_node *n=
-p,
- 	return 0;
- }
-=20
-+/* Operations for all other BUCKs but BUCK 5 */
-+static const struct regulator_ops bd73800_buck_ops =3D {
-+	.enable =3D regulator_enable_regmap,
-+	.disable =3D regulator_disable_regmap,
-+	.is_enabled =3D regulator_is_enabled_regmap,
-+	.list_voltage =3D regulator_list_voltage_linear_range,
-+	.set_voltage_sel =3D regulator_set_voltage_sel_regmap,
-+	.get_voltage_sel =3D regulator_get_voltage_sel_regmap,
-+	.set_ramp_delay =3D regulator_set_ramp_delay_regmap,
-+};
-+
-+static const struct regulator_ops bd73800_buck5_ops =3D {
-+	.enable =3D regulator_enable_regmap,
-+	.disable =3D regulator_disable_regmap,
-+	.is_enabled =3D regulator_is_enabled_regmap,
-+	.list_voltage =3D regulator_list_voltage_pickable_linear_range,
-+	.set_voltage_sel =3D regulator_set_voltage_sel_pickable_regmap,
-+	.get_voltage_sel =3D regulator_get_voltage_sel_pickable_regmap,
-+	.set_ramp_delay =3D regulator_set_ramp_delay_regmap,
-+};
-+
-+static const struct regulator_ops bd73800_ldo_ops =3D {
-+	.enable =3D regulator_enable_regmap,
-+	.disable =3D regulator_disable_regmap,
-+	.is_enabled =3D regulator_is_enabled_regmap,
-+	.list_voltage =3D regulator_list_voltage_linear_range,
-+	.set_voltage_sel =3D regulator_set_voltage_sel_regmap,
-+	.get_voltage_sel =3D regulator_get_voltage_sel_regmap,
-+};
-+
- static const struct regulator_ops bd71828_buck_ops =3D {
- 	.enable =3D regulator_enable_regmap,
- 	.disable =3D regulator_disable_regmap,
-@@ -1565,6 +1651,412 @@ static const struct bd71828_regulator_data bd72720_=
-rdata[] =3D {
- 	},
- };
-=20
-+static const struct bd71828_regulator_data bd73800_rdata[] =3D {
-+	{
-+		.desc =3D {
-+			.name =3D "buck1",
-+			.of_match =3D of_match_ptr("buck1"),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_BUCK1,
-+			.ops =3D &bd73800_buck_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_buck12348_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_buck12348_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_BUCK1_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_BUCK1_VOLT_RUN,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.ramp_delay_table =3D bd71828_ramp_delay,
-+			.n_ramp_values =3D ARRAY_SIZE(bd71828_ramp_delay),
-+			.ramp_reg =3D BD73800_REG_BUCK1_MODE,
-+			.ramp_mask =3D BD73800_MASK_RAMP_DELAY,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_BUCK1_VOLT_RUN,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_reg =3D BD73800_REG_BUCK1_VOLT_IDLE,
-+			.idle_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_reg =3D BD73800_REG_BUCK1_VOLT_SUSP,
-+			.suspend_mask =3D BD73800_MASK_VOLT,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+	}, {
-+		.desc =3D {
-+			.name =3D "buck2",
-+			.of_match =3D of_match_ptr("buck2"),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_BUCK2,
-+			.ops =3D &bd73800_buck_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_buck12348_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_buck12348_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_BUCK2_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_BUCK2_VOLT_RUN,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.ramp_delay_table =3D bd71828_ramp_delay,
-+			.n_ramp_values =3D ARRAY_SIZE(bd71828_ramp_delay),
-+			.ramp_reg =3D BD73800_REG_BUCK2_MODE,
-+			.ramp_mask =3D BD73800_MASK_RAMP_DELAY,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_BUCK2_VOLT_RUN,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_reg =3D BD73800_REG_BUCK2_VOLT_IDLE,
-+			.idle_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_reg =3D BD73800_REG_BUCK2_VOLT_SUSP,
-+			.suspend_mask =3D BD73800_MASK_VOLT,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+	}, {
-+		.desc =3D {
-+			.name =3D "buck3",
-+			.of_match =3D of_match_ptr("buck3"),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_BUCK3,
-+			.ops =3D &bd73800_buck_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_buck12348_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_buck12348_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_BUCK3_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_BUCK3_VOLT_RUN,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.ramp_delay_table =3D bd71828_ramp_delay,
-+			.n_ramp_values =3D ARRAY_SIZE(bd71828_ramp_delay),
-+			.ramp_reg =3D BD73800_REG_BUCK3_MODE,
-+			.ramp_mask =3D BD73800_MASK_RAMP_DELAY,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_BUCK3_VOLT_RUN,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_reg =3D BD73800_REG_BUCK3_VOLT_IDLE,
-+			.idle_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_reg =3D BD73800_REG_BUCK3_VOLT_SUSP,
-+			.suspend_mask =3D BD73800_MASK_VOLT,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+
-+	}, {
-+		.desc =3D {
-+			.name =3D "buck4",
-+			.of_match =3D of_match_ptr("buck4"),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_BUCK4,
-+			.ops =3D &bd73800_buck_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_buck12348_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_buck12348_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_BUCK4_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_BUCK4_VOLT_RUN,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.ramp_delay_table =3D bd71828_ramp_delay,
-+			.n_ramp_values =3D ARRAY_SIZE(bd71828_ramp_delay),
-+			.ramp_reg =3D BD73800_REG_BUCK4_MODE,
-+			.ramp_mask =3D BD73800_MASK_RAMP_DELAY,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_BUCK4_VOLT_RUN,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_reg =3D BD73800_REG_BUCK4_VOLT_IDLE,
-+			.idle_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_reg =3D BD73800_REG_BUCK4_VOLT_SUSP,
-+			.suspend_mask =3D BD73800_MASK_VOLT,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+	}, {
-+		.desc =3D {
-+			.name =3D "buck5",
-+			.of_match =3D of_match_ptr("buck5"),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_BUCK5,
-+			.ops =3D &bd73800_buck5_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_buck5_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_buck5_volts),
-+			.linear_range_selectors_bitfield =3D
-+						bd73800_buck5_volt_range_sel,
-+			.n_voltages =3D BD73800_NUM_BUCK5_VOLTS,
-+			.enable_reg =3D BD73800_REG_BUCK5_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_BUCK5_VOLT_RUN,
-+			.vsel_mask =3D BD73800_MASK_BUCK5_VOLT,
-+			.vsel_range_reg =3D BD73800_REG_BUCK5_MODE,
-+			.vsel_range_mask =3D BD73800_BUCK5_RANGE_MASK,
-+			.range_applied_by_vsel =3D true,
-+			.ramp_delay_table =3D bd71828_ramp_delay,
-+			.n_ramp_values =3D ARRAY_SIZE(bd71828_ramp_delay),
-+			.ramp_reg =3D BD73800_REG_BUCK5_MODE,
-+			.ramp_mask =3D BD73800_MASK_RAMP_DELAY,
-+			.owner =3D THIS_MODULE,
-+		},
-+		.dvs =3D {
-+			/*
-+			 * We don't support setting the IDLE / SUSPEND voltages
-+			 * for the BUCK 5 for now. Reason is that the pickable
-+			 * range selector bit is common for all states (RUN,
-+			 * SUSPEND and IDLE), and toggling it for one impacts
-+			 * also others.
-+			 * Furthermore, writing the BD73800 range selector does
-+			 * not impact the RUN voltage until a new voltage value
-+			 * is also written to the vsel register. Hence the
-+			 * voltage change can be done without any 'intermediate
-+			 * voltages', even when the range is changed when the
-+			 * BUCK is enabled.
-+			 * It, however, is not documented how the IDLE / SUSPEND
-+			 * states work in this regard. I expect the full
-+			 * combination of the range selector and vsel is taken
-+			 * into account at the state change, no matter when they
-+			 * have been written to.
-+			 */
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_BUCK5_VOLT_RUN,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+
-+	}, {
-+		.desc =3D {
-+			.name =3D "buck6",
-+			.of_match =3D of_match_ptr("buck6"),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_BUCK6,
-+			.ops =3D &bd73800_buck_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_buck67_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_buck67_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_BUCK6_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_BUCK6_VOLT_RUN,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.ramp_delay_table =3D bd71828_ramp_delay,
-+			.n_ramp_values =3D ARRAY_SIZE(bd71828_ramp_delay),
-+			.ramp_reg =3D BD73800_REG_BUCK6_MODE,
-+			.ramp_mask =3D BD73800_MASK_RAMP_DELAY,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_BUCK6_VOLT_RUN,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_reg =3D BD73800_REG_BUCK6_VOLT_IDLE,
-+			.idle_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_reg =3D BD73800_REG_BUCK6_VOLT_SUSP,
-+			.suspend_mask =3D BD73800_MASK_VOLT,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+	}, {
-+		.desc =3D {
-+			.name =3D "buck7",
-+			.of_match =3D of_match_ptr("buck7"),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_BUCK7,
-+			.ops =3D &bd73800_buck_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_buck67_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_buck67_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_BUCK7_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_BUCK7_VOLT_RUN,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.ramp_delay_table =3D bd71828_ramp_delay,
-+			.n_ramp_values =3D ARRAY_SIZE(bd71828_ramp_delay),
-+			.ramp_reg =3D BD73800_REG_BUCK7_MODE,
-+			.ramp_mask =3D BD73800_MASK_RAMP_DELAY,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_BUCK7_VOLT_RUN,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_reg =3D BD73800_REG_BUCK7_VOLT_IDLE,
-+			.idle_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_reg =3D BD73800_REG_BUCK7_VOLT_SUSP,
-+			.suspend_mask =3D BD73800_MASK_VOLT,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+	}, {
-+		.desc =3D {
-+			.name =3D "buck8",
-+			.of_match =3D of_match_ptr("buck8"),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_BUCK8,
-+			.ops =3D &bd73800_buck_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_buck12348_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_buck12348_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_BUCK8_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_BUCK8_VOLT_RUN,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.ramp_delay_table =3D bd71828_ramp_delay,
-+			.n_ramp_values =3D ARRAY_SIZE(bd71828_ramp_delay),
-+			.ramp_reg =3D BD73800_REG_BUCK8_MODE,
-+			.ramp_mask =3D BD73800_MASK_RAMP_DELAY,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_BUCK8_VOLT_RUN,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_reg =3D BD73800_REG_BUCK8_VOLT_IDLE,
-+			.idle_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_reg =3D BD73800_REG_BUCK8_VOLT_SUSP,
-+			.suspend_mask =3D BD73800_MASK_VOLT,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+	}, {
-+		.desc =3D {
-+			.name =3D "ldo1",
-+			.of_match =3D of_match_ptr(LDO1_NODE_NAME),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_LDO1,
-+			.ops =3D &bd73800_ldo_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_ldo13_low_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_ldo13_low_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_LDO1_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_LDO1_VOLT,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			/*
-+			 * LDOs support only single voltage for all states.
-+			 * Voltage can be individually enabled for each state
-+			 * though. Allow setting enable/disable config by
-+			 * setting the <state>_on_mask for all supported states.
-+			 */
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_LDO1_VOLT,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+	}, {
-+		.desc =3D {
-+			.name =3D "ldo2",
-+			.of_match =3D of_match_ptr("ldo2"),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_LDO2,
-+			.ops =3D &bd73800_ldo_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_ldo24_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_ldo24_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_LDO2_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_LDO2_VOLT,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_LDO2_VOLT,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+	}, {
-+		.desc =3D {
-+			.name =3D "ldo3",
-+			.of_match =3D of_match_ptr(LDO3_NODE_NAME),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_LDO3,
-+			.ops =3D &bd73800_ldo_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_ldo13_low_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_ldo13_low_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_LDO3_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_LDO3_VOLT,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_LDO3_VOLT,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+	}, {
-+		.desc =3D {
-+			.name =3D "ldo4",
-+			.of_match =3D of_match_ptr("ldo4"),
-+			.regulators_node =3D of_match_ptr("regulators"),
-+			.id =3D BD73800_LDO4,
-+			.ops =3D &bd73800_ldo_ops,
-+			.type =3D REGULATOR_VOLTAGE,
-+			.linear_ranges =3D bd73800_ldo24_volts,
-+			.n_linear_ranges =3D ARRAY_SIZE(bd73800_ldo24_volts),
-+			.n_voltages =3D BD73800_NUM_VOLTS,
-+			.enable_reg =3D BD73800_REG_LDO4_ON,
-+			.enable_mask =3D BD73800_MASK_RUN_EN,
-+			.vsel_reg =3D BD73800_REG_LDO4_VOLT,
-+			.vsel_mask =3D BD73800_MASK_VOLT,
-+			.owner =3D THIS_MODULE,
-+			.of_parse_cb =3D buck_set_hw_dvs_levels,
-+		},
-+		.dvs =3D {
-+			.level_map =3D ROHM_DVS_LEVEL_RUN | ROHM_DVS_LEVEL_IDLE |
-+				     ROHM_DVS_LEVEL_SUSPEND,
-+			.run_reg =3D BD73800_REG_LDO4_VOLT,
-+			.run_mask =3D BD73800_MASK_VOLT,
-+			.idle_on_mask =3D BD73800_MASK_IDLE_EN,
-+			.suspend_on_mask =3D BD73800_MASK_SUSP_EN,
-+		},
-+	},
-+};
-+
- static int bd72720_buck10_ldon_head_mode(struct device *dev,
- 					 struct device_node *npreg,
- 					 struct regmap *regmap,
-@@ -1619,6 +2111,52 @@ static int bd72720_dt_parse(struct device *dev,
- 	return bd72720_buck10_ldon_head_mode(dev, nproot, regmap, buck10_desc);
- }
-=20
-+static bool bd73800_use_ldo_high_range(struct device_node *nproot,
-+				       const char *ldo_node)
-+{
-+	struct device_node *np __free(device_node) =3D
-+		of_get_child_by_name(nproot, ldo_node);
-+
-+	if (!np)
-+		return false;
-+
-+	return of_property_read_bool(np, "rohm,ldo-range-high");
-+}
-+
-+static int bd73800_check_ldo_otp_options(struct device *dev,
-+					 struct bd71828_regulator_data *d,
-+					 unsigned int num_reg_data)
-+{
-+	struct device_node *nproot __free(device_node) =3D
-+		of_get_child_by_name(dev->parent->of_node, "regulators");
-+
-+	/*
-+	 * The code assumes regulator IDs to start from 0 and to match the
-+	 * indexing of regulator data arrays. WARN if someone changes this.
-+	 */
-+	WARN_ON(d[BD73800_LDO1].desc.id !=3D BD73800_LDO1);
-+	WARN_ON(d[BD73800_LDO3].desc.id !=3D BD73800_LDO3);
-+
-+	if (!nproot) {
-+		dev_err(dev, "failed to find regulators node\n");
-+		return -ENODEV;
-+	}
-+
-+	if (bd73800_use_ldo_high_range(nproot, LDO1_NODE_NAME)) {
-+		d[BD73800_LDO1].desc.linear_ranges =3D bd73800_ldo13_high_volts;
-+		d[BD73800_LDO1].desc.n_linear_ranges =3D
-+					ARRAY_SIZE(bd73800_ldo13_high_volts);
-+	}
-+
-+	if (bd73800_use_ldo_high_range(nproot, LDO3_NODE_NAME)) {
-+		d[BD73800_LDO3].desc.linear_ranges =3D bd73800_ldo13_high_volts;
-+		d[BD73800_LDO3].desc.n_linear_ranges =3D
-+					ARRAY_SIZE(bd73800_ldo13_high_volts);
-+	}
-+
-+	return 0;
-+}
-+
- static int bd71828_probe(struct platform_device *pdev)
- {
- 	int i, j, ret, num_regulators;
-@@ -1656,6 +2194,23 @@ static int bd71828_probe(struct platform_device *pde=
-v)
- 		num_regulators =3D ARRAY_SIZE(bd71828_rdata);
-=20
- 		break;
-+
-+	case ROHM_CHIP_TYPE_BD73800:
-+	{
-+		rdata =3D devm_kmemdup(&pdev->dev, bd73800_rdata,
-+				     sizeof(bd73800_rdata), GFP_KERNEL);
-+		if (!rdata)
-+			return -ENOMEM;
-+
-+		num_regulators =3D ARRAY_SIZE(bd73800_rdata);
-+
-+		ret =3D bd73800_check_ldo_otp_options(&pdev->dev, rdata,
-+						    num_regulators);
-+		if (ret)
-+			return ret;
-+
-+		break;
-+	}
- 	default:
- 		return dev_err_probe(&pdev->dev, -EINVAL,
- 				     "Unsupported device\n");
-@@ -1692,6 +2247,7 @@ static int bd71828_probe(struct platform_device *pdev)
- static const struct platform_device_id bd71828_pmic_id[] =3D {
- 	{ .name =3D "bd71828-pmic", .driver_data =3D ROHM_CHIP_TYPE_BD71828 },
- 	{ .name =3D "bd72720-pmic", .driver_data =3D ROHM_CHIP_TYPE_BD72720 },
-+	{ .name =3D "bd73800-pmic", .driver_data =3D ROHM_CHIP_TYPE_BD73800 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, bd71828_pmic_id);
---=20
-2.55.0
+> Again, it definitely is interesting and appears to be more integrated
+> into the scheduler logic, so I'd expect that will give us better
+> results then my maybe more isolated and tacked on activation logic.
+> 
+> Have you gotten a sense of what Peter thinks of it?
 
+I think Peter is slowly getting through the more stable stuff first
+and may arrive at this at some point but I'll try to get a word in
+at LPC if he is planning on attending.
 
---A3pNrLY9qnADI+zz
-Content-Type: application/pgp-signature; name=signature.asc
+That said, knowing Peter, I have a hunch he might like your approach
+better since it handles delayed tasks too (tasks may be eligible at the
+time of chain-wakeup), does not add stuff into ttwu_runnable(), and does
+not have the insane (DEQUEUE_SLEEP | DEQUEUE_MIGRATING) behavior which
+has larger implications for PELT tracking and SCHED_DEADLINE.
 
------BEGIN PGP SIGNATURE-----
+I sent out the RFC since it makes for an interesting discussion but I
+have a feeling lot more things need ironing out if w go this way but
+I can always do it later after the stuff from you and Suleiman lands
+once I can prove some benefit.
 
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmqqMrgACgkQeFA3/03a
-ocUCFAgAomqBRAkMU+XgPLqVLpFoMd9A6UnA9V6BS5Kc0K5vZyWVvworsAVvSj/e
-ld1x9Vs1CBbt7AUWhu3XDz/01DvMnbCkNN/sEEccYNZZ1rbzJyuPlhGGY5pM8c4J
-RRWinOOII3rxOARe0JrxkbmoYQjKJ1R72K0xk+qoyRTwUZq7ntHX/Fm6bvStIm01
-xeMvvIX3obE5sPOGDn84NV1iSVthL+Dh0FV08K2Cdg7uKXIS4jHAwfFRuljGSb5+
-ENPy5jMrO6ptEdZF60ZROGkr51U7LXe4Xt4+yIuIL3kA3w01MquKIgBFEfyzstT2
-7mS1zyI6h0LYe4mwIrd+tYYezYUCiA==
-=SQRh
------END PGP SIGNATURE-----
+-- 
+Thanks and Regards,
+Prateek
 
---A3pNrLY9qnADI+zz--
