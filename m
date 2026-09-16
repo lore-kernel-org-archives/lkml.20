@@ -1,183 +1,105 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2A9501F47;
-	Wed, 16 Sep 2026 13:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AEF4FDE48;
+	Wed, 16 Sep 2026 13:47:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566476; cv=none; b=PJOvMm8u32y2R/9jlrZkL7uUTEvBApHtxn5o3ljIywO6KvdQwCL2RGgOKG5jzkcVEimT1Uh1yBSux873HcSlnLWA8XLLgSMfPoroyQBBgxRk6QO0/ukfb0aGHg5TQMvzQO8xefo4vLsNA4a0OFz5ozfI6xEyhmbuD9fsPVgl2f8=
+	t=1789566479; cv=none; b=Fe7jGm2zZ+FCtJ22q5Vh3XBQRIR/JMkUa5BPd1OmlVTDrK8gLKFwavOv5vVymCr2YAxCjQkBEDDKsPmuARJqDSp9UvB7Ea3vUmrqyjGdY28B4gnLOwAWK+AdcrxRJHQYQVCn5Sd7Qzn62Z0bSRiuEBFMWJ1ic1w6rz/DqbQp1XE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566476; c=relaxed/simple;
-	bh=kxTubGxHcYFwyJG2XY2V/pVSP4/XR/b7EwR8feBBVX4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nm7bbk2/GbbBIWx07CJh4Of7YFUb6J3YvHF+EQ91HAM0wr4cNRd2U/PSUefX1HNOjSSD36zFdINvrbqxcLI7FRafc8nDkuN2fz6VHux9xLjB9rN3LrYtvwJrxdDGLzUTRiXnWDQQk1aZpiZiSlySPsR04KUF1hIaD/iB51Ar0lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GaLXVyvl; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789566479; c=relaxed/simple;
+	bh=t38x6Ilod+A9TPPwTeE6A2F1He/NYDEW6J690WJNu88=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DHgkliwJeYw8sKOd4ffaNL9Y4VZvvku50aVrrSR5p5S3M2bxif8PJp/qUy4QE/OaPULjMHCjKxtddMS9NvNmNGkg+EWANDX+YX8fka00wgS28icS1qJOTQrEnkQCYtWBcuNa7x6hvN8L7eAcWfqkjWO1yXVgucGJMKY7OciAJkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=U4F7ab4Q; arc=none smtp.client-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GaLXVyvl"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id A6ADB1A07A8;
-	Wed, 16 Sep 2026 13:47:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7988B60337;
-	Wed, 16 Sep 2026 13:47:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 28BE011C7B010;
-	Wed, 16 Sep 2026 15:47:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789566464; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=EWRTsEHuRPkhkItzwYv+I9LHRR2SBwOu9YrwdxAKFPU=;
-	b=GaLXVyvlnZ11WFk3pSwWsFPtpLVHBau1pJicQ7XfphujamQascdo7WaeiZeosNYAn0TjtD
-	tuIuipnC8LUTc0y91LT92dF0N5/w6b4jhR7zKOifZUdBI/0j+E1WuzQULiqS2mmgpDjN8a
-	J1OWzRWDDt2soWH4ivaWECOyMYgy5SAuUviWVJvzuV9P3WhWQJPh0rMltE2QxjtwIJ+HE1
-	spZCl3T9x4LMaW1Fq41yIDoI1VCj1T7TjoON+rqt6QHz0Ce0AScAZSGMFREXhawBSzZwku
-	k76+c5B7LPAwBQXflZogBi/avMX6EANwWNvlUN5Edm1y9KfU952vzhCPeJntCQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 16 Sep 2026 15:45:39 +0200
-Subject: [PATCH v3 15/19] drm/bridge: tc358768: don't create a panel_bridge
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="U4F7ab4Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1789566475; x=1821102475;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=JKVHAWC57vQp2Tay3J4KAXguT0TgfJs2JYRovTvx0qo=;
+  b=U4F7ab4QSCO8qYWDnxpTLdNevyPlw8sj74zA7zp/8aJyW+WwHZk6Vvcw
+   5AEr+xIIOxeEaF6vpGw9IEDKqjjNLlRqPlXovrJ4hCT/TKs2NpEO0FQAF
+   4mbH4BoN5CysELTURcURK2W5pHtkg6fjGO0bSflTUAlqAMqOWxQytyuOB
+   Ovsy8pKyF5ZxrWJG4CcujrpbdnsHLKxEmmFP37EM68z2LMyUkPXrZDgCN
+   Q3i1Wyx1RKx30e1ooQciK91mI9q0fzeTYJvd/tFg1Iqcvtz+OgYj+5vQR
+   IxIgGnt4YnZZrRM1EqWapcivPJtMUNGrObwZlf7l1JKpkVoPwwDpPcpUo
+   Q==;
+X-CSE-ConnectionGUID: 1rikMTuuSICK5y6Bk1nD6Q==
+X-CSE-MsgGUID: euvmbbfOSKSyQSXrPK5+Kw==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
+   d="scan'208";a="28616843"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 13:47:52 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:26409]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.5.10:2525] with esmtp (Farcaster)
+ id 98c42118-29c4-4c54-a25d-659f05731a52; Wed, 16 Sep 2026 13:47:52 +0000 (UTC)
+X-Farcaster-Flow-ID: 98c42118-29c4-4c54-a25d-659f05731a52
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Wed, 16 Sep 2026 13:47:51 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Wed, 16 Sep 2026
+ 13:47:50 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: Fabio Estevam <festevam@gmail.com>, Andrew Morton
+	<akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Eliav Farber <farbere@amazon.com>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/2] pps-gpio: restore pin mux on unbind and shutdown
+Date: Wed, 16 Sep 2026 13:47:42 +0000
+Message-ID: <20260916134744.46354-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-drm-bridge-every-panel-v3-15-83afb4f1a707@bootlin.com>
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
- Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Sean Paul <sean@poorly.run>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Albert Esteve <aesteve@redhat.com>, 
- Anusha Srivatsa <asrivats@redhat.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D037UWB003.ant.amazon.com (10.13.138.115) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Now a panel_bridge is automatically created for every drm_panel and the
-panel-bridge API is just a deprecated wrapper to access it.
+Some boards route the PPS input GPIO through a pin controller and mux the
+pins to a different function when the pps-gpio driver is not active.
 
-Update and simplify the code by just getting a reference to the
-already-existing bridge using of_drm_get_bridge_by_endpoint().
+The driver core already selects the "default" pinctrl state before probe,
+so the pins can be muxed for GPIO/PPS use while the driver is bound without
+any driver change. Nothing, however, hands the pins back when the driver
+is unbound or the system is shut down (for example before kexec), leaving
+them stuck in the GPIO mux for the next kernel.
 
-As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take care
-of putting the bridge reference when not used anymore.
+This series lets pps-gpio select an optional "idle" pinctrl state in
+remove() and shutdown(), so a board can describe the alternate mux there
+and have it restored. It is a no-op for boards that do not describe an
+"idle" state, and depends on CONFIG_PM (which performs the idle-state
+lookup).
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/bridge/Kconfig    |  2 --
- drivers/gpu/drm/bridge/tc358768.c | 25 ++++++-------------------
- 2 files changed, 6 insertions(+), 21 deletions(-)
+Patch 1 documents the optional "default"/"idle" pinctrl-names in the
+binding; patch 2 implements the driver side.
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 4be220f7335c..847a6397eb10 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -408,8 +408,6 @@ config DRM_TOSHIBA_TC358768
- 	depends on OF
- 	select DRM_KMS_HELPER
- 	select REGMAP_I2C
--	select DRM_PANEL
--	select DRM_PANEL_BRIDGE
- 	select DRM_MIPI_DSI
- 	select VIDEOMODE_HELPERS
- 	help
-diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
-index d1fc6af37cc5..cc989ab5cf25 100644
---- a/drivers/gpu/drm/bridge/tc358768.c
-+++ b/drivers/gpu/drm/bridge/tc358768.c
-@@ -22,7 +22,6 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_of.h>
--#include <drm/drm_panel.h>
- #include <video/mipi_display.h>
- #include <video/videomode.h>
- 
-@@ -137,7 +136,6 @@ static const char * const tc358768_supplies[] = {
- 
- struct tc358768_dsi_output {
- 	struct mipi_dsi_device *dev;
--	struct drm_panel *panel;
- 	struct drm_bridge *bridge;
- };
- 
-@@ -443,7 +441,6 @@ static int tc358768_dsi_host_attach(struct mipi_dsi_host *host,
- {
- 	struct tc358768_priv *priv = dsi_host_to_tc358768(host);
- 	struct drm_bridge *bridge;
--	struct drm_panel *panel;
- 	struct device_node *ep;
- 	int ret;
- 
-@@ -471,24 +468,15 @@ static int tc358768_dsi_host_attach(struct mipi_dsi_host *host,
- 		return -ENOTSUPP;
- 	}
- 
--	ret = drm_of_find_panel_or_bridge(host->dev->of_node, 1, 0, &panel,
--					  &bridge);
--	if (ret)
--		return ret;
-+	bridge = of_drm_get_bridge_by_endpoint(host->dev->of_node, 1, 0);
-+	if (IS_ERR(bridge))
-+		return PTR_ERR(bridge);
- 
--	if (panel) {
--		bridge = drm_panel_bridge_add_typed(panel,
--						    DRM_MODE_CONNECTOR_DSI);
--		drm_panel_put(panel);
--		if (IS_ERR(bridge))
--			return PTR_ERR(bridge);
--
--		bridge->pre_enable_prev_first = true;
--	}
-+	bridge->type = DRM_MODE_CONNECTOR_DSI;
-+	bridge->pre_enable_prev_first = true;
- 
- 	priv->output.dev = dev;
- 	priv->output.bridge = bridge;
--	priv->output.panel = panel;
- 
- 	priv->dsi_lanes = dev->lanes;
- 	priv->dsi_bpp = mipi_dsi_pixel_format_to_bpp(dev->format);
-@@ -518,8 +506,7 @@ static int tc358768_dsi_host_detach(struct mipi_dsi_host *host,
- 	struct tc358768_priv *priv = dsi_host_to_tc358768(host);
- 
- 	drm_bridge_remove(&priv->bridge);
--	if (priv->output.panel)
--		drm_panel_bridge_remove(priv->output.bridge);
-+	drm_bridge_put(priv->output.bridge);
- 
- 	return 0;
- }
+Tested on an AL11 K2V6 JRD10 board: binding/unbinding each pps-gpio device
+toggles the corresponding PBS pin-mux register between the GPIO function
+and the alternate ec_ptp_trigger_in function as expected, and re-binding
+restores the GPIO function via the core-applied "default" state.
+
+Eliav Farber (2):
+  dt-bindings: pps: pps-gpio: document optional idle pinctrl state
+  pps: clients: gpio: release pins to idle state on remove and shutdown
+
+ .../devicetree/bindings/pps/pps-gpio.yaml     | 15 ++++++++++++++-
+ drivers/pps/clients/pps-gpio.c                | 19 +++++++++++++++++++
+ 2 files changed, 33 insertions(+), 1 deletion(-)
 
 -- 
-2.55.0
+2.47.3
 
