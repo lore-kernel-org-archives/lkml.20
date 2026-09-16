@@ -1,45 +1,57 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA6584E8DFA
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:01:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670574AFE14
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556472; cv=none; b=CKt6uFVeBsxd2bTE4poFuXx030rpMQJmZQ1D9dXXfrH19+JqUnKVb4dLb159eklVRdTz/FQ92efgVjicphDqfx1QWalc2oEbffJI4AelNl10R5XcUUFNBmFGB0Wkyr8TuXag7Y4DqiaVTKTqL9DUj6s51QNUKnswJEmwxhMsFU8=
+	t=1789556516; cv=none; b=J/Mq0lktFDG55dohndsYdEmSCLU3xZGkcl1ULAUkBWjMbQojzH/P0q9uuRLjxE/xmP7hale4mRFEoZFqWz16oVuqjcdvOYcf2/W87uwGR2DcV8sgjTjAQF8Ab8Fu0ALTOcHiymVrbuIQLcYqWSXmMVpAC7mmZUuhZYOGp9GxVHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556472; c=relaxed/simple;
-	bh=le64yFWu89IwQTgKsaA74r4GubOSVodhBlaIxBJsy1Y=;
+	s=arc-20240116; t=1789556516; c=relaxed/simple;
+	bh=ZgHhEaRahJwkbaHFYWSN4ZGdYIdpQi0S6GSbhcaGKLQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dPqY3ZY+PgqWZ+Do1IvYleleYpZP41hSF1vY+cqSm765STKczTT+bP+huh8xRxQKjsz9rl/nfFrd8qNobqe3/5JAihw4rsqquESm1/dz2V7/3ppf5uUykIHf9fG/PPJ2nmtzVQ0Gbk050WFKiLCRrAE9AdqOhNFLf4exuBiKBAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VeHro92U; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=RnB43+6pp53+rbc3sNA5lAeTkwvwJK51JXtL+A0WZTKIQQtUnFCIgK87SJuPjG/u2UeWL33fcfa8vxdCgWDdtSFT9ClI6aIgOp3+FEmjd4fQFWVRZjj1ekfaLLdmskUi6RP/mrJI6Ht7tg6YlKzgNqjhrIWWMQt7BJ1vLcBIYLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lMoBZ32u; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VeHro92U"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 45062152B;
-	Wed, 16 Sep 2026 04:00:56 -0700 (PDT)
-Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C886E3F882;
-	Wed, 16 Sep 2026 04:00:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789556459; bh=le64yFWu89IwQTgKsaA74r4GubOSVodhBlaIxBJsy1Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VeHro92U0oRR3vwxd1JwJpCnnmvxSmWT5qbm9wVCD7uvApw8F7Ka2crYiiXwI/uTp
-	 vYgQG5zxs0l8zCLSiKde0WIau2Hjc31y+np0XjwrxTCwkutglwEtnOahfk5+ISkDxT
-	 ywM/0JFHlDAknHew+79UxH+X+H1IL6vXMKYOgB44=
-Date: Wed, 16 Sep 2026 12:00:52 +0100
-From: Joey Gouly <joey.gouly@arm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: maz@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com, will@kernel.org, seiden@linux.ibm.com,
-	suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com,
-	vdonnefort@google.com, qperret@google.com, Sascha.Bischoff@arm.com,
-	steven.price@arm.com, tabba@google.com
-Subject: Re: [PATCH 3/7] KVM: arm64: Validate the host-provided vgic model in
- pKVM
-Message-ID: <aqp25JLeqyCKtCQH@e143914.arm.com>
-References: <20260915123846.2317931-1-fuad.tabba@linux.dev>
- <20260915123846.2317931-4-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lMoBZ32u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789556506; x=1821092506;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZgHhEaRahJwkbaHFYWSN4ZGdYIdpQi0S6GSbhcaGKLQ=;
+  b=lMoBZ32ud1H1Kg04FdBBb9cGvfgShZj7NWKgD1pUmX7c/ysULnXuAA3+
+   DXqnPPjzMEOMf7nzwm6jStRp03vhvntjNS3DZ3JOwOcmjd76FQwhKsZdw
+   3TpQRaUX80blhpPE3tzjF0cqTo20Sk6O3xoi0wzxxX1DF7iFoTh+aDT7E
+   t49NDbNKoIeQTiQ5LJmybBcJIjqf/un8sNtkzdwWXDHz7X3R8UXJrmuk2
+   EmYoYDjQyBrDWKzEe1KvPDMFnMx7VyxWff/dXFy/Vtslnfz/+IsbrOMgI
+   ldDrPpmVE1D5nTUi3+3fmIuDmDUNQEtR2isRaZgAmw/wDnUrV2RWC6qRt
+   A==;
+X-CSE-ConnectionGUID: pAfEShn2QsKsvvmG0NrIZA==
+X-CSE-MsgGUID: I3vzi7FBSACRKyh7+W4FSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89685110"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89685110"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:01:44 -0700
+X-CSE-ConnectionGUID: xNBFxqqmSLGHbHlQEmX23A==
+X-CSE-MsgGUID: +Mm8Fq7hTqmIU2PoHWqeuw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269040543"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:01:43 -0700
+Date: Wed, 16 Sep 2026 14:01:40 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Maria Lisina <sekoohaka.sarisan@gmail.com>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] mfd: intel-lpss: Clean up and modernize DebugFS usage
+Message-ID: <aqp3FMncWrzR1adT@ashevche-desk.local>
+References: <20260916-intel-lpss-debugfs-v5-1-99295f534067@gmail.com>
+ <20260916102732.GJ11487@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,64 +60,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915123846.2317931-4-fuad.tabba@linux.dev>
+In-Reply-To: <20260916102732.GJ11487@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Question(s)
-   |
-   |
-   v
-
-On Tue, Sep 15, 2026 at 01:38:42PM +0100, Fuad Tabba wrote:
-> EL2 copies vgic_model from the host's struct kvm unchecked, and the nVHE
-> world switch dispatches on it with no cpucap guard. A host writing
-> KVM_DEV_TYPE_ARM_VGIC_V5 makes EL2 access GICv5 CPU interface registers
-> that are UNDEFINED without FEAT_GCIE, and panics the hypervisor on any
-> GICv3 machine.
+On Wed, Sep 16, 2026 at 11:27:32AM +0100, Lee Jones wrote:
+> On Wed, 16 Sep 2026, Maria Lisina wrote:
 > 
-> Accept only GICv3, the one model pKVM supports, forcing anything else
-> to 0.
-> 
-> Fixes: 9b8e3d4ca0e73 ("KVM: arm64: gic-v5: Implement GICv5 load/put and save/restore")
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/kvm/hyp/nvhe/pkvm.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> index 459bd9eb7e4bc..4c33c863e90e1 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> @@ -340,13 +340,19 @@ static void pkvm_init_features_from_host(struct pkvm_hyp_vm *hyp_vm, const struc
->  {
->  	struct kvm *kvm = &hyp_vm->kvm;
->  	unsigned long host_arch_flags = READ_ONCE(host_kvm->arch.flags);
-> +	u32 vgic_model = READ_ONCE(host_kvm->arch.vgic.vgic_model);
->  	DECLARE_BITMAP(allowed_features, KVM_VCPU_MAX_FEATURES);
->  
->  	/* CTR_EL0 is always under host control, even for protected VMs. */
->  	hyp_vm->kvm.arch.ctr_el0 = host_kvm->arch.ctr_el0;
->  
-> -	/* Preserve the vgic model so that GICv3 emulation works */
-> -	hyp_vm->kvm.arch.vgic.vgic_model = host_kvm->arch.vgic.vgic_model;
-> +	/*
-> +	 * GICv3 is the only model pKVM runs, and the GICv5 world switch
-> +	 * touches registers UNDEFINED at EL2 without FEAT_GCIE.
-> +	 */
-> +	if (vgic_model != KVM_DEV_TYPE_ARM_VGIC_V3)
-> +		vgic_model = 0;
-> +	hyp_vm->kvm.arch.vgic.vgic_model = vgic_model;
+> > The DebugFS API is designed to handle errors gracefully.
+> > Any explicit checking on return values is considered an anti-pattern.
+> > 
+> > This patch removes unnecessary error checking and converts
+> > intel_lpss_debugfs_add() into a void function.
+> > 
+> > While at it, this patch also clean ups legacy and deprecated usage
+> > of S_IRUGO macro and debugfs_remove_recursive() function.
 
-A bit confused by what is expected by writing 0 here? I would have maybe
-expected to refuse running this VM? What happens if the host writes some
-garbage here, so vgic_model=0, but then tries to access gic-v3
-registers?
+...
 
-Thanks,
-Joey
+> Why continue if this returns an error?
 
->  
->  	/* No restrictions for non-protected VMs. */
->  	if (!kvm_vm_is_protected(kvm)) {
-> -- 
-> 2.39.5
+Because we don't care.
+
+> > +	debugfs_create_x32("capabilities", 0444, lpss->debugfs,
 > 
+> Does this accept a NULL pointer or an error in parameter 3?
+
+Yes, debugfs is designed to be used without checks.
+
+> > +					   &lpss->caps);
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
