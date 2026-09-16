@@ -1,337 +1,159 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46BFF4EA361
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:42:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B69D4CB8D7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555368; cv=none; b=Y0sMIqWJsI1wc3piIoVAxJyUAwYcdbLrzYRKGBxdmDlriDd4hphsO2hgO1DEwm9CH0abmSRknbC+XICxxWfTsuQVNyKPbFnETLA7S2gvc/HuaelkeL082sf01Qe0T8374/jfF9tNq6it3n7164dCV5+KVmYrf/szcfEMVFIhufk=
+	t=1789555397; cv=none; b=dOKsP34hZFJJCWLyXVsg7QtPN973r79NpwlgeAHEZB5PIUc11U4U/ashOxxFtbqaJmOwNG3XJaYECor4F0b+JV663YrRu8bOFIJyjW9XBAwljZewRTyxkMYuRDaSY5fpqJ1O1RfekNSbLW4x27QvnbRwmRQaT02J+7p1LFusFLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555368; c=relaxed/simple;
-	bh=72bw0BcMUCVvCQ7vf4mFDz8HuMiUwHA3B8eOOm++j/M=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BaUTh71/e3tBZYyGMls5RrxCXtb6i5IcuNUZDW0UrDTdKMwmrvXyeONG2Ex4prq+h2fZG/BzpA+ZlGl4S/fJ/lYdxQ1G/8Xw08uU+M7TS3YmjGAdqBCObShSi+cSgo4q7xjISTuXY3LH9Wqhi19blfvnP8ICl10jKJqnSiIr9fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=x0K/ozyR; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789555397; c=relaxed/simple;
+	bh=Kq6hnJS1LPeRAuBNKz6yxBErH2+9XipDjrF6CPyZTBQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EQgXLv2rgwYyQ0z735nfQ0aQ2kMn5Lci+kQ1tvi70J6DC/CAiFWD0P/z50Mn3zP/Cs5EBccv1txdy9fNiHDugZhqFjiEHzYv9KZ/O0ZBmoPqmldJwadJ7dtgHjSGn74VRk5a4HiZ4oL6MZzWhyr6DJ24g43ypCJvl26qGx+xP4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a22qWG6x; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="x0K/ozyR"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 11805C62215;
-	Wed, 16 Sep 2026 10:43:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1F2C160337;
-	Wed, 16 Sep 2026 10:42:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C76A411C7B01B;
-	Wed, 16 Sep 2026 12:42:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789555338; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=P955IYJPq3OLonmhBqM0xlbQIrEV7AwZGdAdJtSEJVc=;
-	b=x0K/ozyRjkiZsYw2rrn3wdJNvIYGvo4NBkQWaps6rDi4s8iqrIZEutT0GjZC//acBLo09x
-	JVTjafMhnrXKWEZuPSmtzqJytXe+zzNPyExy6KvQKjZ0VrlVvHB4EhxQkBUwA9QCGTw5az
-	FIMc9A2LHWteiAWYAxP5JZzvsO1L2V/CuHi/Yg0zUlBdNRTmLhPnEA2e2U+u/eD84JI9S9
-	rlpggL1sVxDVaTlVe0cx9Rl3iJN3cTL6zt4pbaF+kYgSr7DIhEdSh+RtbBK1j7Od03bAvB
-	h4hUzkjFi861VOLiR+Rtjsr7/fpNs19zxCFmbV2JzWq90V+cEt2OW2ZPNZqnzw==
-Date: Wed, 16 Sep 2026 12:42:05 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 11/15] libfdt: Introduce fdt_getprop_by_offset_w()
-Message-ID: <20260916124205.28a71859@bootlin.com>
-In-Reply-To: <aqpnzXyR_k4fs7Jk@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-12-herve.codina@bootlin.com>
-	<aqpnzXyR_k4fs7Jk@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a22qWG6x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789555374; x=1821091374;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=Kq6hnJS1LPeRAuBNKz6yxBErH2+9XipDjrF6CPyZTBQ=;
+  b=a22qWG6x+g63k7XKwtJAqU9tlsBgpc6uf6fDX5PUyKJrdIvhrxWVTMlC
+   TJx3QjV7/GU60zSh5rShTgMa+mLPS7b8mi5qyNltv4yVDm+k/nNnr2PZa
+   x8DyDIlR0U/TsXLddj5ZIR5pNH4xZLJjiGT/nSDhta5VM9KjeNrUxRZp6
+   pIInhLIwPGSdWyKtn9UffLmAtCPloSj09ud2gYkF2+KNH3aziBMFiZXf7
+   ijQNsIy7DjUVhrmSoU7YMKbir3J3SFgyYXFoi4qy7XRfc9w7sfmu08Mpi
+   RQjqziRIka5YU354oyD56ILCZ/b9j4mXB4dJSs/s45hk/9InRwplir5iq
+   w==;
+X-CSE-ConnectionGUID: sQkvhamjQcqLXnhU4YhtxA==
+X-CSE-MsgGUID: fVFnj1g1ST+m5lpuPViv/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100253321"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100253321"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:42:50 -0700
+X-CSE-ConnectionGUID: gRbfWwABTseGunggg6ZmjA==
+X-CSE-MsgGUID: p8wrbXx9RriZih2aWnZV2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="272826997"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.154]) ([10.245.244.154])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:42:47 -0700
+Message-ID: <df14f0da3538cbac98384bdf538de137ea2a3278.camel@linux.intel.com>
+Subject: Re: [PATCH] MAINTAINERS: change TTM maintainers to Natalie and Arun
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Natalie Vock <nat@pixelcluster.dev>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <ckoenig.leichtzumerken@gmail.com>, christian.koenig@amd.com,
+ ray.huang@amd.com, 	arunpravin.paneerselvam@amd.com,
+ matthew.auld@intel.com, matthew.brost@intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Wed, 16 Sep 2026 12:42:45 +0200
+In-Reply-To: <5e301f2e-730c-479a-890d-7ed6044b8a1c@pixelcluster.dev>
+References: <20260915154804.605772-1-christian.koenig@amd.com>
+	 <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
+	 <5e301f2e-730c-479a-890d-7ed6044b8a1c@pixelcluster.dev>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+On Wed, 2026-09-16 at 12:35 +0200, Natalie Vock wrote:
+> Hi,
+>=20
+> On 9/16/26 11:44, Thomas Hellstr=C3=B6m wrote:
+> > On Tue, 2026-09-15 at 17:48 +0200, Christian K=C3=B6nig wrote:
+> > > The blunt reality is that I don't have time to look into patches
+> > > or
+> > > bugs
+> > > any more as it would be necessary. The same counts for Ray.
+> > >=20
+> > > Natalie has been working on the dmem cgroup patches for TTM and
+> > > agreed
+> > > to take over looking more into TTM.
+> > >=20
+> > > Arun is working in my team and already maintaining AMDs VRAM
+> > > backend
+> > > for
+> > > TTM and the underlying buddy allocator.
+> > >=20
+> > > Add Thomas as reviewer as well, better to have more eyes on that
+> > > component.
+> > >=20
+> > > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > ---
+> > > =C2=A0=C2=A0MAINTAINERS | 5 +++--
+> > > =C2=A0=C2=A01 file changed, 3 insertions(+), 2 deletions(-)
+> > >=20
+> > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > index 5b5a4e4b35cf..b6e58a138501 100644
+> > > --- a/MAINTAINERS
+> > > +++ b/MAINTAINERS
+> > > @@ -9140,10 +9140,11 @@
+> > > F:	drivers/gpu/drm/drm_privacy_screen*
+> > > =C2=A0=C2=A0F:	include/drm/drm_privacy_screen*
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0DRM TTM SUBSYSTEM
+> > > -M:	Christian Koenig <christian.koenig@amd.com>
+> > > -M:	Huang Rui <ray.huang@amd.com>
+> > > +M:	Natalie Vock <nat@pixelcluster.dev>
+> > > +M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
+> > > =C2=A0=C2=A0R:	Matthew Auld <matthew.auld@intel.com>
+> > > =C2=A0=C2=A0R:	Matthew Brost <matthew.brost@intel.com>
+> > > +R:	Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > > =C2=A0=C2=A0L:	dri-devel@lists.freedesktop.org
+> > > =C2=A0=C2=A0S:	Maintained
+> > > =C2=A0=C2=A0T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+> >=20
+> > Acked-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> >=20
+> > @Natalie, @Arun Do you have a presence on dri-devel IRC? If so,
+> > Nicks?
+>=20
+> Yes, I have the nick "pixelcluster".
+>=20
+> >=20
+> > Also what is your stance on merging pages to TTM?
+> > 1) Requiring an explicit maintainer ack, or
+> > 2) an R-B from one of the reviewers/maintainers and no concerns
+> > raised
+> > within reasonable time?
+>=20
+> I think my preference would more or less be 2). That is, if for some
+> reason no maintainer answers, after some time the patches should be
+> ok
+> to merge (but if a maintainer does explicitly ack/R-b the patch it
+> can
+> be merged sooner). I'll try my best to not leave patches unanswered
+> so
+> hopefully 2) stays a rarity :)
+>=20
+> > 3) drm-misc as default merge repo?
+>=20
+> Sure, why not? Basically like it's been so far as well, right? It
+> didn't
+> seem to me like the patch volume for TTM is particularly large at
+> least
+> so far, so something like a separate branch might not be worth the
+> hassle.
 
-On Wed, 16 Sep 2026 19:56:46 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Great. Thanks. Reason for the last question was more that if we want to
+merge TTM patches outside of the default branch if they are required
+for a driver feature, and then we always ask for ack to merge on a
+different branch / repo. If we have an agreed default we typically
+don't ask for a separate merge ack on that one.
 
-> On Wed, Aug 26, 2026 at 10:31:42AM +0200, Herve Codina wrote:
-> > Future operations, such as handling unknown tags on dtb modifications,
-> > need to modify properties retrieved by their offset.
-> > 
-> > fdt_getprop_by_offset() already exists to get a preperty by its offset
-> > but the property returned is read-only. A writable returned property is
-> > needed.  
-> 
-> Since we already have fdt_get_property_by_offset_w() this is an
-> obvious gap and I'd be happy in principle to apply this independent of
-> the rest of the series.
+/Thomas
 
-Nice :)
-
-> 
-> > Fill the lack and introduce fdt_getprop_by_offset_w(), the write enabled
-> > variant of fdt_getprop_by_offset().
-> > 
-> > Add also its related test.
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > ---
-> >  libfdt/libfdt.h           |  6 +++
-> >  tests/.gitignore          |  1 +
-> >  tests/Makefile.tests      |  2 +-
-> >  tests/get_prop_offset_w.c | 84 +++++++++++++++++++++++++++++++++++++++
-> >  tests/meson.build         |  1 +
-> >  tests/run_tests.sh        |  1 +
-> >  tests/tests.h             |  1 +
-> >  tests/testutils.c         | 18 +++++++++
-> >  8 files changed, 113 insertions(+), 1 deletion(-)
-> >  create mode 100644 tests/get_prop_offset_w.c
-> > 
-> > diff --git a/libfdt/libfdt.h b/libfdt/libfdt.h
-> > index 7a1915a5..82965e32 100644
-> > --- a/libfdt/libfdt.h
-> > +++ b/libfdt/libfdt.h
-> > @@ -856,6 +856,12 @@ static inline struct fdt_property *fdt_get_property_w(void *fdt, int nodeoffset,
-> >  #ifndef SWIG /* This function is not useful in Python */
-> >  const void *fdt_getprop_by_offset(const void *fdt, int offset,
-> >  				  const char **namep, int *lenp);
-> > +static inline void *fdt_getprop_by_offset_w(const void *fdt, int offset,
-> > +					    const char **namep, int *lenp)
-> > +{
-> > +	return (void *)(uintptr_t)fdt_getprop_by_offset(fdt, offset, namep,
-> > +							lenp);
-> > +}
-> >  #endif
-> >  
-> >  /**
-> > diff --git a/tests/.gitignore b/tests/.gitignore
-> > index 69693129..1091174a 100644
-> > --- a/tests/.gitignore
-> > +++ b/tests/.gitignore
-> > @@ -30,6 +30,7 @@ tmp.*
-> >  /get_phandle
-> >  /getprop
-> >  /get_prop_offset
-> > +/get_prop_offset_w
-> >  /incbin
-> >  /integer-expressions
-> >  /fs_tree1
-> > diff --git a/tests/Makefile.tests b/tests/Makefile.tests
-> > index 63e201ae..0d4d399f 100644
-> > --- a/tests/Makefile.tests
-> > +++ b/tests/Makefile.tests
-> > @@ -16,7 +16,7 @@ LIB_TESTS_L = get_mem_rsv \
-> >  	sw_tree1 sw_states \
-> >  	move_and_save mangle-layout nopulate \
-> >  	open_pack rw_tree1 rw_oom set_name setprop del_property del_node \
-> > -	appendprop1 appendprop2 propname_escapes \
-> > +	appendprop1 appendprop2 propname_escapes get_prop_offset_w \
-> >  	string_escapes references path-references phandle_format \
-> >  	boot-cpuid incbin relref_merge \
-> >  	extra-terminating-null \
-> > diff --git a/tests/get_prop_offset_w.c b/tests/get_prop_offset_w.c
-> > new file mode 100644
-> > index 00000000..dbfa5dd7
-> > --- /dev/null
-> > +++ b/tests/get_prop_offset_w.c
-> > @@ -0,0 +1,84 @@
-> > +// SPDX-License-Identifier: LGPL-2.1-or-later
-> > +/*
-> > + * libfdt - Flat Device Tree manipulation
-> > + *	Testcase for fdt_getprop_by_offset_w()
-> > + * Copyright (C) 2026 Bootlin.
-> > + */
-> > +
-> > +#include <stdlib.h>
-> > +#include <stdio.h>
-> > +#include <string.h>
-> > +#include <stdint.h>
-> > +
-> > +#include <libfdt.h>
-> > +
-> > +#include "tests.h"
-> > +#include "testdata.h"
-> > +
-> > +#define SPACE		65536
-> > +
-> > +int main(int argc, char *argv[])
-> > +{
-> > +	const void *exp_val;
-> > +	const char *name;
-> > +	char *modif_val;
-> > +	void *propval;
-> > +	int proplen;
-> > +	int exp_len;
-> > +	int poffset;
-> > +	void *fdt;
-> > +	void *buf;
-> > +	int err;
-> > +
-> > +	test_init(argc, argv);
-> > +	fdt = load_blob_arg(argc, argv);
-> > +
-> > +	buf = xmalloc(SPACE);
-> > +
-> > +	err = fdt_open_into(fdt, buf, SPACE);  
-> 
-> You shouldn't need an fdt_open_into().  You're modifying the contents
-> of a single property, but not moving tags about or (specifically)
-> expanding the tree as a whole.  This is a "write in place" operation
-> rather than a "read/write" operation in libfdt terms.
-
-Ok, I will update in the next iteration.
-
-> 
-> > +	if (err)
-> > +		FAIL("fdt_open_into(): %s", fdt_strerror(err));
-> > +
-> > +	free(fdt);
-> > +	fdt = buf;
-> > +
-> > +	/* Retrieve the offset of the 'prop-str' property */
-> > +	poffset = get_poffset(fdt, 0, "prop-str");
-> > +	if (poffset < 0)
-> > +		FAIL("Property 'prop-str' not found")  
-> 
-> Introducing get_poffset() seems a bit awkward compared to using an
-> fdt_for_each_property_offset() like get_prop_offset.c does.
-
-Ok, will use fdt_for_each_property_offset() directly here and remove
-get_poffset() in the next iteration.
-
-> 
-> > +
-> > +	/* Get the property value for modification */
-> > +	propval = fdt_getprop_by_offset_w(fdt, poffset, &name, &proplen);
-> > +	if (!propval)
-> > +		FAIL("fdt_getprop_by_offset_w(%d): %s", poffset,
-> > +		     fdt_strerror(proplen));
-> > +
-> > +	/* Check original values */
-> > +	if (strcmp(name, "prop-str"))
-> > +		FAIL("Name mismatch : %s instead of prop-str", name);
-> > +
-> > +	exp_len = strlen(TEST_STRING_1) + 1;
-> > +	if (proplen != exp_len)
-> > +		FAIL("Original size mismatch on property \"%s\": %d instead of %d",
-> > +		     name, proplen, exp_len);
-> > +
-> > +	exp_val = TEST_STRING_1;
-> > +	if (memcmp(exp_val, propval, exp_len))
-> > +		FAIL("Original data mismatch on property \"%s\"", name);
-> > +  
-> 
-> You could re-use check_get_prop_offset() from testutils.c to perform
-> these tests before invoking fdt_getprop_by_offset_w().
-
-I wanted to test that the value returned by fdt_getprop_by_offset_w() is the
-correct one. check_get_prop_offset() calls fdt_getprop_by_offset() and not
-fdt_getprop_by_offset_w(). I know it doesn't matter with current implementation
-of fdt_getprop_by_offset_w() but I am not supposed to know about this
-implementation here in the test. Also, this implementation could change in the
-future (not planned on my side).
-
-> 
-> > +	if (exp_len < 4)
-> > +		CONFIG("Property \"%s\" should be at least 4 bytes", name);
-> > +
-> > +	/* Modify the property value */
-> > +	modif_val = xmalloc(proplen);
-> > +	memcpy(modif_val, propval, proplen);  
-> 
-> Why malloc() and memcpy()?  The whole point of
-> fdt_getprop_by_offset_w() is that you get a writable pointer into the
-> fdt which you can modify in place.
-
-I want to keep the modified value for later comparison.
-
-- modif_val : Current property val + modification.
-- Update propval: Current property val.
-- Check reading the property with check_get_prop_offset() that the
-  property has been really updated.
-
-If instead I use only propval, I use only one buffer and so
-- propval = modified value
-- check that get check_get_prop_offset() which will also return the 
-  propval buffer matches the propval buffer.
-
-In check_get_prop_offset();
---- 8< ---
-const void *check_get_prop_offset(void *fdt, int poffset, const char *exp_name,
-                                  int exp_len, const void *exp_val)
-{
-	const void *propval;
-	...
-	propval = fdt_getprop_by_offset(fdt, poffset, &name, &proplen);
-	...
- 	if (exp_len && memcmp(exp_val, propval, exp_len))
-             FAIL("Data mismatch on property \"%s\"", name);
-        ...
-}
-
-Using a pointer returned by fdt_getprop_by_offset_w() as exp_val parameter
-leads to something like:
-	memcmp(propval, propval, exp_len)
-
-This is always successful even if the propval buffer doesn't contain the
-data expected by the test. If for whatever reason the propval buffer is
-wrongly modified by some internal libfdt function called by
-check_get_prop_offset(), we cannot see it.
-
-With the additional buffer (modif_val) which is never passed to libfdt,
-and contains expected data, we can see any wrong proval modification.
-
-> 
-> > +	modif_val[1] = (modif_val[1] != 'A') ? 'A' : 'a';
-> > +	modif_val[3] = (modif_val[3] != 'B') ? 'B' : 'b';
-> > +	memcpy(propval, modif_val, exp_len);
-> > +
-> > +	/* Check that the modified value is taken into account */
-> > +	if (!check_get_prop_offset(fdt, poffset, "prop-str", exp_len, modif_val))
-> > +		FAIL("Modified property 'prop-str' not found");
-> > +
-> > +	PASS();
-> > +}
-> > diff --git a/tests/meson.build b/tests/meson.build
-> > index 779e6bc7..dae6a941 100644
-> > --- a/tests/meson.build
-> > +++ b/tests/meson.build
-> > @@ -50,6 +50,7 @@ tests = [
-> >    'get_path',
-> >    'get_phandle',
-> >    'get_prop_offset',
-> > +  'get_prop_offset_w',
-> >    'get_next_tag_invalid_prop_len',
-> >    'getprop',
-> >    'incbin',
-> > diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-> > index 225c22f8..419a24d8 100755
-> > --- a/tests/run_tests.sh
-> > +++ b/tests/run_tests.sh
-> > @@ -419,6 +419,7 @@ tree1_tests_rw () {
-> >      run_test setprop $TREE
-> >      run_test del_property $TREE
-> >      run_test del_node $TREE
-> > +    run_test get_prop_offset_w $TREE  
-> 
-> This belongs with the other write-in-place tests in tree1_tests(), not
-> as an rw test.
-
-Ok, I will move it.
-
-Best regards,
-Hervé
+>=20
+> Best,
+> Natalie
