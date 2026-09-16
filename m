@@ -1,120 +1,276 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FC0493635
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:01:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4881C479865
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:02:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549306; cv=none; b=R+jVTLzpsJzCFLy1NnDgc3H1VvufDRT5Lo4XoQH+AYV/jiAHXdkmLFqs4bkG1lKM9FNKxJngUATWgts/Y01EQsT4IJ8Ug6gkHr6EG/IDRvv1ni0zq1vX0Y9rN9hPACElRReV0fnnXrTkTbWObeKvpwm8xCixkopl422l2qQyyms=
+	t=1789549327; cv=none; b=mSTJqnbWGEVXAZyzdPQBJ7nXWlm4ycHQHI/6vQX50GBj5qRHfxS2Yb6h3X5FA1A1/1Kj8lS7LaNS6gsGov1PgppLL2X4T5V5R6D1ZkjJ2U8JzJh6qXSKKAR9VsENlNtcxfs1NHYdZwQMHYtEQRbsRlOL6HfZNcaVsuIWvBp7mTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549306; c=relaxed/simple;
-	bh=74+NXWRLulW42h8LCDGQtUqGGw4TZyZ6WSPtQhdY/jE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uUR3Ls+2bLhRWmQPQyqkrkta+b4bMJMxTEfCvuW9qR1SIRSiMZm89edFa07EC6qJG4wTr+EOPSrQ7KuViAVbi2VpHEwOtCenXMxo76H6qAftiT/8od1qRjmCENcc4vaL6HQ3WvH7aZsQKMBan1spVAoqCxJeU7yrhLE+gP0bgYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KDfjua9P; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789549327; c=relaxed/simple;
+	bh=8oHUhBDo+/jTkCvbCJge5wJmHwyd6hCpQMKj52r+FXA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SDSs85pH/rfBdOPdsIXFKWy+aJIcEw76F0xtZxvUzRRh9qHimwJAUT/Zz4BEK3etSErUuOPXzj0gg/4sEquPezBr1MfF02v6wJf8N8wJXdZnmyfuY7bV15YudgTPmc7XJ2SGc+d5R9RqVckr0KyOAUTsrM0GJOUypqOX8XwYsIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XXmcZqsX; arc=none smtp.client-ip=91.218.175.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KDfjua9P"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398cb5615deso646567a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:01:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789549302; x=1790154102; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D6tQdqZnuOU/60EvuEJ2W5w4uMx9pH4irbJ1JjeHep4=;
-        b=KDfjua9Pfabyus4iUkLuEbwaH8RqIk4642tFlU9F326OxUY2IXPaixt2PpQ1dHrqMo
-         PtpTOu9wwhWUXwKSTbwpdHRbCzaanWXS+CabwFJroa6oKndYx440PeHOm8+ZYOPv2Te3
-         S8ud/y1XoOQGbTr+JWDXurNKM8kIcc5BSk2T/cH2sj4A04psErV+zs02J9prcGqSP8II
-         BlzXeGqBw2k4o1clumzPfBY7iTVc8xxGdnsdSvp+qO/Tq5AyVxtKQVK+vPHRj8tLTROK
-         JYjE3BDWCZUJZ1rNixPB2GzSVsIRwdosV5WMGaM4QhCl6v2nqN0igQSwp3EgpSaHfDhI
-         OsdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789549302; x=1790154102;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D6tQdqZnuOU/60EvuEJ2W5w4uMx9pH4irbJ1JjeHep4=;
-        b=j5fPZWs6f1tRUh4IKmmcjVsKkJd39FufYV6CAbXiP8ndIZHQDEfJofL00oHOZiuroT
-         VR0Nqt6aHZLxKZQNrxmV4j5hSjs5+VERDBlR1IuHGR/Q/QFexvidev0RfxrSnL1DoeuZ
-         TPPg62f4H7v7Y6rJ654PXjAgE41TSXa2ZCa0F5fVRMXfc2tzWlciQHx89vIIrGYGKmb1
-         NbBlzj9CP54tA7x7jSINzH/Vc9sZaw6Xo5DNAzN4jJHLBfnKs6SvF1aKvO3eD+vIWR2Z
-         ei4pG2u8eHoS99RXmqaogM/r5OI/OZSURshnoSS3REAcf82fZnn8ISeF2AXXs/56JpYr
-         vZFw==
-X-Forwarded-Encrypted: i=1; AKwUvBw4/uZAt6fQP099dxIZY6ObITKCSRpeZM/Pj9BH03h9Z6971NkWpQrM5uC3gJh6aYXTVT7mhjkCuXaLugs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJ4QOcaIWTBr1YulJptuRcrfrfrtZQapDimUwRtLc928P0x/AM
-	/o5JrSS50sR7k3csQyYcePHPfNPBJqcIT0S70s1j7u15t7EkypsPXiRl
-X-Gm-Gg: AYBFou3iJkNi+0OMzjWd8W9ayfL8M96xzFm3oz5S7SRTdPMv2useHCS/ipvYP2YOERg
-	ie4t+Pmy84TCRYsebRAErNxmR60cj4i/JC6JRGzlXJK2tCi9aG7f4rI8EXx9hH5f4AC1Net5kaH
-	ZPHTS+NXZKpuUsMcYZlVUl84AodGgzUvbFOcI8Pe/YWGfErEnHJW8L532Pf3uRTZtKN1B7fIzfK
-	93GaAc9MonKpVriQ+2lRPp3O1Dw4Li7Guszfxb8xsxTKWR/34b5cOPcwlCK41Pz1H3G1NDhvvkG
-	srcg9BxAQbZrasZxjUVrpoIUjPTHOMJrQMs5JwFjQa1BUfvFmyrW7x4Z5clY9l+1daoXarOdT+J
-	8SP8TQUYebz4+qG4JGG5JITNB55Wv9jIGClIM7/zh8BUA0nGwQthUk5FjXyh4ixoKqvSzeHRckW
-	GfYdKboB+6/2CroKGtCFWko3P5jT1HtO7PT8jrYhLevlsCXsuFnn98r0rK2k8SEe5mBJF2mw==
-X-Received: by 2002:a17:90b:3950:b0:396:d27b:89b9 with SMTP id 98e67ed59e1d1-39e1e31e264mr4511213a91.10.1789549301596;
-        Wed, 16 Sep 2026 02:01:41 -0700 (PDT)
-Received: from lgs.. ([101.76.249.46])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbe3e62sm3609040a91.10.2026.09.16.02.01.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 02:01:40 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Siddartha Mohanadoss <smohanad@codeaurora.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] PCI: qcom-ep: deinitialize endpoint on remove
-Date: Wed, 16 Sep 2026 17:01:26 +0800
-Message-ID: <20260916090126.2963064-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XXmcZqsX"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8oHUhBDo+/jTkCvbCJge5wJmHwyd6hCpQMKj52r+FXA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789549314; v=1; x=1790154114;
+ b=XXmcZqsXxa9hB8GUc4ZO2oXD5shmwFFcwggPI6lUkZWJz0wBZahKngAqkkaZUJ6dICeKMvvd
+ H6Iyj3m8UgGQRl1zkZMc0TAuFyyefh5IoXjiYVfAp8pbNoCISkcGhw5cDvgPiVMN6lCYBuS+Jx5
+ 3qXrGkY/xfsy/qN9fsoYVUOs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d8ef2e75950357ff;
+	Wed, 16 Sep 2026 09:01:53 +0000
+X-Mizu-Trace-ID: d8ef2e75950357ff
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 16 Sep 2026 11:01:42 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+Message-ID: <aqpYqrtKTY20IW_0@bombadil>
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+ <aqpC8fxO4F3bFjF4@bombadil>
+ <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
 
-qcom_pcie_ep_probe() initializes the DesignWare PCIe endpoint with
-dw_pcie_ep_init(). The probe failure paths call dw_pcie_ep_deinit() to
-release the corresponding endpoint resources, but the remove path does
-not perform the matching teardown after a successful probe.
+On Wed, Sep 16, 2026 at 10:35:22AM +0200, Krzysztof Kozlowski wrote:
+> On 16/09/2026 09:33, Richard Leitner wrote:
+> > Hi Krzysztof,
+> > 
+> > thanks for the review!
+> > 
+> > On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+> >> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+> >>> Add bindings for the Vision Components MIPI Camera Module Controller.
+> >>>
+> >>> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> >>> ---
+> >>>  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
+> >>>  MAINTAINERS                                        |  7 ++
+> >>>  2 files changed, 99 insertions(+)
+> >>
+> >> This fails tests, so a very brief review / a few comments:
+> > 
+> > Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
+> > Will not happen again.
+> > 
+> >>
+> >>>
+> >>> diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> >>> new file mode 100644
+> >>> index 0000000000000..2a031aea68457
+> >>> --- /dev/null
+> >>> +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> >>> @@ -0,0 +1,92 @@
+> >>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> >>> +%YAML 1.2
+> >>> +---
+> >>> +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
+> >>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >>> +
+> >>> +title: Vision Components MIPI Camera Module Controller
+> >>> +
+> >>> +maintainers:
+> >>> +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> >>> +  - Richard Leitner <richard.leitner@linux.dev>
+> >>> +
+> >>> +description: |-
+> >>> +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
+> >>> +  controller found on MIPI camera modules from Vision Components. It abstracts
+> >>> +  the camera sensor behind a unified register interface, and controls and
+> >>> +  sequences the on-board power supplies and clocks.
+> >>> +
+> >>> +  The camera sensor abstraction is optional. The controller exposes a tunneled
+> >>> +  downstream I2C bus used by the attached image sensor. The controller node
+> >>> +  acts as the upstream device on the host bus, while child node below the
+> >>> +  controller represent the sensor device reachable through the tunnel.
+> >>> +
+> >>> +properties:
+> >>> +  compatible:
+> >>> +    const: vision-components,mipi-module-controller
+> >>
+> >> There is no model name, no version, nothing identifying it better?
+> >> Compatible must be specific to the device (see also writing bindings).
+> > 
+> > There is one FPGA implemenation for all Vision Components MIPI camera
+> > modules AFAICT. So I have no idea how it could be more specific, TBH...
+> > 
+> > Adding the FPGA hardware model/type is wrong IMHO as it depends on its
+> > configuration/firmware, not the hw.
+> > 
+> > There are different versions of the configuration/firmware. But I think
+> > this is also not the correct way to distinguish those, or is it?
+> > 
+> > According to their homepage the vendor calls those modules simply
+> > "VC MIPI" modules, which implies this FPGA controller is available on it.
+> > So maybe "vision-components,vc-mipi-controller" would be a better fit?
+> > 
+> > Do you have any ideas/feedback on how improve this name?
+> 
+> So there are different modules? I see several different names on:
+> https://www.mipi-modules.com/en/mipi-camera-modules/
 
-As a result, resources initialized by the DesignWare endpoint core can
-remain allocated when the endpoint controller is removed.
+Yes, there are different modules, but all feature the same controller.
+Which this is basically the device driver binding for. So the idea is to
+describe the controller independently from the sensor which is "behind"
+it.
 
-Notify endpoint functions about EPC deinitialization and call
-dw_pcie_ep_deinit() before disabling the controller resources. Keep the
-existing early return when the link is already disabled since Qualcomm
-endpoint controllers depend on the host refclk for hardware cleanup.
+This works because the controller "soft-core" should be the same on all
+modules. A downstream implemenation (which I haven't studied in detail)
+is available at https://github.com/VC-MIPI-modules/vc_mipi_core if that
+helps?
 
-This issue was found by manual code inspection.
+> 
+> 
+> > 
+> >>
+> >>> +
+> >>> +  reg:
+> >>> +    maxItems: 1
+> >>> +
+> >>> +  '#clock-cells':
+> >>> +    const: 0
+> >>> +
+> >>> +  clock-frequency:
+> >>> +    description: Frequency of the sensor clock provided by the module
+> >>
+> >> Drop, implied by the compatible
+> >>
+> > 
+> > Do you mean dropping the whole property, or just the "description"?
+> 
+> I meant entire property, but we keep discussing in Laurent's reply.
+> 
+> > 
+> >>> +
+> >>> +  vcc-supply:
+> >>> +    description: Power supply of the module (3.3V)
+> >>> +
+> >>> +  '#address-cells':
+> >>> +    const: 1
+> >>> +
+> >>> +  '#size-cells':
+> >>> +    const: 0
+> >>
+> >> No children allowed, so why these two?
+> > 
+> > Based on your and the bot feedback I would suggest for v2 to change this
+> > "generic i2c bus" to a simple "i2c-tunnel" property which has
+> > "$ref: /schemas/i2c/i2c-controller.yaml".
+> > 
+> > This would better reflect the actual hardware, as there is only this one,
+> > in firmware hard-coded I2C downstream bus.
+> > 
+> > Would this be a sane approach?
+> 
+> If the underlying I2C bus and sensor are important, then yes. But I have
+> doubts that you need to describe the sensor if it is truly
+> unadressable/invisible to the OS.
 
-Fixes: f55fee56a631 ("PCI: qcom-ep: Add Qualcomm PCIe Endpoint controller driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/pci/controller/dwc/pcie-qcom-ep.c | 2 ++
- 1 file changed, 2 insertions(+)
+Yes, the I2C bus and sensor is important. The device driver of the sensor
+talks (via the tunneled I2C interface) directly to the sensor.
 
-diff --git a/drivers/pci/controller/dwc/pcie-qcom-ep.c b/drivers/pci/controller/dwc/pcie-qcom-ep.c
-index 56184e6ca6e6..28949386b0e8 100644
---- a/drivers/pci/controller/dwc/pcie-qcom-ep.c
-+++ b/drivers/pci/controller/dwc/pcie-qcom-ep.c
-@@ -944,6 +944,8 @@ static void qcom_pcie_ep_remove(struct platform_device *pdev)
- 
- 	if (pcie_ep->link_status == QCOM_PCIE_EP_LINK_DISABLED)
- 		return;
-+	pci_epc_deinit_notify(pcie_ep->pci.ep.epc);
-+	dw_pcie_ep_deinit(&pcie_ep->pci.ep);
- 
- 	qcom_pcie_disable_resources(pcie_ep);
- }
--- 
-2.43.0
+The separate I2C controller/bus description is necessary as the tunneled
+I2C bus has some quirks unfortunately. Those need to be addressed as 
+otherwise the sensor drivers do not work.
 
+So the idea is to not have a vc-mipi module binding per "sensor variant"
+of the camera modules, but provide a common controller driver which
+provides the I2C bus for the sensor driver.
+
+> 
+> > 
+> >>
+> >>> +
+> >>> +required:
+> >>> +  - compatible
+> >>> +  - reg
+> >>> +  - '#clock-cells'
+> >>> +  - clock-frequency
+> >>> +  - vcc-supply
+> >>> +  - '#address-cells'
+> >>> +  - '#size-cells'
+> >>> +
+> >>> +unevaluatedProperties: false
+> >>
+> >> additionalProperties instead, see writing bindings or writing schema.
+> >> Unless you miss here some other schema $ref.
+> >>
+> >>> +
+> >>> +examples:
+> >>> +  - |
+> >>> +    i2c {
+> >>> +        #address-cells = <1>;
+> >>> +        #size-cells = <0>;
+> >>> +
+> >>> +        vc_mipi_ctrl: controller@10 {
+> >>> +            compatible = "vision-components,mipi-module-controller";
+> >>> +            reg = <0x10>;
+> >>> +            #clock-cells = <0>;
+> >>> +            clock-frequency = <37125000>;
+> >>> +            vcc-supply = <&cam_3v3>;
+> >>> +
+> >>> +            #address-cells = <1>;
+> >>> +            #size-cells = <0>;
+> >>> +
+> >>> +            i2c@0 {
+> >>> +                #address-cells = <1>;
+> >>> +                #size-cells = <0>;
+> >>> +
+> >>> +                vc_mipi_sensor: camera@60 {
+> >>> +                    compatible = "ovti,ov9281";
+> >>> +                    reg = <0x60>;
+> >>
+> >> Why having the child abstraction if it is completely abstracted? I don't
+> >> fully get the explanation from description. Completely optional means no
+> >> benefits, no point in it, no?
+> > 
+> > I will try to improve the description. The idea behind this device
+> > driver/devicetree node is to not rely on the sensor abstraction from
+> > vision components, but to use the upstream sensor specific driver.
+> 
+> You can use driver even without these nodes... but fine, let's assume
+> you have them, so driver will talk with OV9281 sensor for example?
+
+The vc-mipi driver does not talk to sensor at all. This is done by the
+dedicated sensor driver. The vc-mipi driver is only controlling the
+regulator, clock, etc. as described and sets up the "quirk aware"
+tunneled i2c interface.
+
+> 
+> > 
+> > As the tunneled downstream i2c bus needs quirks applied this is modeled
+> > as a separate bus.
+> > 
+> > Previous discussions on this approach are available at:
+> > 	https://lore.kernel.org/lkml/20260728092856.GB1494774@killaraus.ideasonboard.com/
+> > 
+> Best regards,
+> Krzysztof
+
+If you have any other questions or something is still unclear to you,
+please feel free to reach out!
+
+regards;rl
