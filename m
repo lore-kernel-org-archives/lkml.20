@@ -1,334 +1,172 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011047.outbound.protection.outlook.com [40.93.194.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89ADB59C972;
-	Wed, 16 Sep 2026 18:38:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583932; cv=fail; b=ERwqlDdFc5KFiH5Js/N4XnoxfFaL0UZv/dfg1mfRQSUzafz96WtglaVbiDiTy1MFAyawctCd9lSxsrsg2QpYjsismtbpmU+fnzoqgNBdzQHUlyiv9/zq/Hd5/L2R4h48PQptOv7nQA++KQP7fDWdoe1iYSZqR83yVciCXTNeyfY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583932; c=relaxed/simple;
-	bh=HarnXl+76jENvf0k1sLPHOiWdZfFXUFDnkp4EEg45NY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lt8QJEcCsnLK1QAUvm0pjjuq/ZzBeCEUI8qMoc8p7O8N1jN4Nug4khbedrduAC3IkE91mGdpgZYYIwE6JWCsoQzTq6PZmhn3TpmTzGqc/hf1vFTkYQHPdPWFJc9K17JaMCliqnd+V4WPlhaG8dYeLRb9q9UB7V+Mi8MyVmakGs8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YVOByMZ3; arc=fail smtp.client-ip=40.93.194.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DD74C9DE5
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:38:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.128
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789583943; cv=none; b=G5QE6TSG4K4PQWM+x7AafvoYODUQMU6Hk1hBMvach4qQdKsiY0m/Gh57xfqjtZt1K+VHfLL5QUsAmIPlwfj59FR5h1SnEYfhFPZUX/mP2joVDSWHSTyBZl5rxtP/Zl1Gc8zUFWF9HM75L1QG9DpGzb6mhKFBkJBYDbg1lToDaqA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789583943; c=relaxed/simple;
+	bh=gL63a7H40eYnPHpwXj+vmcavoE50KRdYhOSiWJgvpCU=;
+	h=From:Date:Subject:MIME-Version:Message-Id:In-Reply-To:References:
+	 To:Cc:Content-Type; b=RQFL8ZQc5sEp7v1s8MqKFekzf6eIL6EA+l4hpAqQlSbWIbtoeAoH6GWj9FyVqL23oyoMqg+L7KvOFuKharhMHJEXPkF0q1fBy6H1fJ26CscBznR4UbVKtvgS4H9fTkgHhxUb5K0f6iMVNP31Z1sY91H5JsZDgxXAXu/EH9ACR5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sne.moe; spf=none smtp.mailfrom=sne.moe; dkim=pass (2048-bit key) header.d=sne.moe header.i=@sne.moe header.b=Gi2LWAYc; arc=none smtp.client-ip=74.125.227.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sne.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=sne.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YVOByMZ3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bohqI6jZ28002Yl+5/4sIJzCX8U0h83VikO+aTZaimb1eUVMNahd14G00vzjwevIfZdLTwJ4C4UGhY66zL7fw5+Iz+/IJ5ELP5b362ZngjDrW1uqMV8PaBO4AEQskbwxUoFGl6x4BgzEP7uuVyJDGpW9HEbdy3Zi014KZA/1nSWEb9C/3xfbGsXyrMTeMviy4WNonHyFA+h+Ctswjvywczdy9n795o/0PGZQRUmnu4haCEsW/6fsAoHULlZX+aGvARMNdwhZIyVoPYR1O+zTdtApGuoO05Hyk5jK7+vvl4WCECkERQ/Acui03iSkqJCd1lx8MN76XKcTvmhbuB0ZSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=decP5zO7Z6mzPDwjjw5ozaqmByV54aA8aCnC4oQIaCE=;
- b=S20LNtjc/AbPa1NYz6lYnrlB64cDl+2WTWPs1lnOfMCCfGLEbkbwALaUYhafe6JqptQYtRaZLpF5W2DJldjb0GsqueG0kFZ3DGPlIshUmai1i41HXXD0Vm45dCB0H4+uT08wuOxxekdYlHbc19pe5wwZyaM6cWRmKHJ/wf5ZGxCnw28HKoG+Fh3zKNDWwK1fbESWpczKZhNcOv330D0DekpVJRvT8VS0LR4sGriDcNJ8j4vjY0CMIGHmwf9B2mBkXFpdnnTWaISkw9bjl3Sf9Cm+wZXshef5XbKYkfKiFo7icUX8ND98mfTL8Vjt0Gi21Qhqh6cW9Uj+BzZkE/3xaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=shazbot.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=decP5zO7Z6mzPDwjjw5ozaqmByV54aA8aCnC4oQIaCE=;
- b=YVOByMZ38hBzOhajn+dO8ucFiT709XQqPMxCBf27rX9eWYhftu0HjIWcd/hZITMCuVFoQsg5+yqYSfHjFcAhxjw5dkPEtVNXnasYNlSE5Cod7CPKM1qYufYYzkXT8awGza2fUfL7gM5I6o16BbQQVxrk3apWX5I79uRz9Xs/Zf5pQBwCV+1hVF5P0oL8LSrX9WuWSwx3PPI8ppsREld6apvARfj4wv5vULqeOEygLr1ZzvFk5U7022yoQ7LguYcD5WjxzjbiWPSAY/dcT+lr8Ok8DGa3hu0G47/2RgTwUSystDiWcccB+GOk71pZvZ2kEl2cAmkNC035/kKaxt0fcg==
-Received: from BN9PR03CA0265.namprd03.prod.outlook.com (2603:10b6:408:ff::30)
- by CH3PR12MB583062.namprd12.prod.outlook.com (2603:10b6:610:363::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 18:38:16 +0000
-Received: from BN6PEPF00000071.namprd03.prod.outlook.com
- (2603:10b6:408:ff:cafe::44) by BN9PR03CA0265.outlook.office365.com
- (2603:10b6:408:ff::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Wed, 16
- Sep 2026 18:38:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN6PEPF00000071.mail.protection.outlook.com (10.167.248.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 18:38:15 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
- 2026 11:37:48 -0700
-Received: from nvidia-4028GR-scsim.nvidia.com (10.126.230.37) by
- rnnvmail202.nvidia.com (10.129.68.7) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 16 Sep 2026 11:37:39 -0700
-From: <mhonap@nvidia.com>
-To: <alex@shazbot.org>, <jgg@ziepe.ca>, <ankita@nvidia.com>,
-	<jic23@kernel.org>, <dave.jiang@intel.com>, <alejandro.lucero-palau@amd.com>,
-	<smadhavan@nvidia.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<dave@stgolabs.net>, <alison.schofield@intel.com>,
-	<vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
-	<yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
-	<bhelgaas@google.com>, <dmatlack@google.com>, <kees@kernel.org>,
-	<gustavoars@kernel.org>
-CC: <cjia@nvidia.com>, <kjaju@nvidia.com>, <vsethi@nvidia.com>,
-	<zhiw@nvidia.com>, <mhonap@nvidia.com>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>,
-	<linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <linux-hardening@vger.kernel.org>
-Subject: [PATCH v5 11/27] vfio/pci: Virtualize the CXL DVSEC in vfio_pci_config.c
-Date: Thu, 17 Sep 2026 00:05:24 +0530
-Message-ID: <20260916183540.3813685-12-mhonap@nvidia.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260916183540.3813685-1-mhonap@nvidia.com>
-References: <20260916183540.3813685-1-mhonap@nvidia.com>
+	dkim=pass (2048-bit key) header.d=sne.moe header.i=@sne.moe header.b="Gi2LWAYc"
+Received: by mail-pj2-f0.google.com with SMTP id 98e67ed59e1d1-3809ce7d0c1so106a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:38:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sne.moe; s=google; t=1789583917; x=1790188717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:references:in-reply-to
+         :message-id:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XcUk3UaRbOyGEjinqyIXDL6LCWZo9vrOTEoez3yNJSc=;
+        b=Gi2LWAYcR4sAMVDAtxtGogwdC9nsQ7Ll02RN68RqWpHSv9Oy5IblBEShO0fJfKDlND
+         MVzZhJ7AGlcJHCn+tG58zJaLAOO63rjuk9YHT1pGHFqU6YMcnZHD4Hsd+CJUgQBTIpHv
+         IxGT9cMUtr0UAB7BjZGR7s02Ko59PrVAc4cwaEVhwZuZaXo3/lNymdn0UP5euOWUmsCa
+         11N+6cwth+q14ck7DdznKai9aD971S9QX9Luofo9U77vlkbflKBUI3ggHwyJVkwj+6Oz
+         usgCIYJS9UmrDzWGRJvoibVk69DJtnsSOdbaEsPfDIVqbrWbuCs6Tw5ggPh2HeDwzd+H
+         Km4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789583917; x=1790188717;
+        h=content-transfer-encoding:content-type:cc:to:references:in-reply-to
+         :message-id:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XcUk3UaRbOyGEjinqyIXDL6LCWZo9vrOTEoez3yNJSc=;
+        b=N7Jz0hbQeF1klQMh3qP4UBOHRYTj7Ln9ZK+1Q0m1aENxko7C8oypcHnwVbaIKZhwkJ
+         1y46UVoiqN9dpVfNyyTVJ90/tsTNycHQhy9+t7meZKsq22gWxeDQDPFO6xELuZIZj1op
+         uPZdA8CqFebnV9Q08Tg5GhltFCB8tvLVNE/zmmvhNE2AxIDBSKhU9awerck+8tsEz5jV
+         VNqKcnMBZ75vuf3NYaZj0HRnqu4O4Q14aaUhxRGgVGFzhOiFV9W2usyRp5Wnij3a/Bbz
+         G3Lpjuiop+IgwJ3aUroYyW43fPtFneg8EkEM0j+bKyorjlBdrEMmjYFJteAlBar8ixng
+         btbA==
+X-Forwarded-Encrypted: i=1; AKwUvBw2pk6z3j2M5exdHTiTYCunuxQO2IH6qbNMUSNKJ07fjz2rIm6GSGBi+o2N3qdP2QtmEnCVCNA3b001dDs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMmdXHVUH1ZVb4CovKQ2r9ZMbkkouwqznLW+wfeEm4Q8Nz5tjo
+	3N8jtIVASaXEedVPgcgEdi+seuKd3AHHixt8Jw/I0QU5368LLGpayKEJOPtIKnXE+HIJmBVQd07
+	vrKa+uw7KF3uTfEKODhi8c7RCZA+NWiPCzDx5zkKEp7cHCHPWqcoFuMmwj779eQ==
+X-Gm-Gg: AYBFou3/jhcF7zXhpyqIR1GZJBaU10xT9WKGZleqZ0ptAC4crWTozM7I2QxhNoO0JAB
+	+Ys82AhSt9xQlOKp5CrK0Ko1QJIU0TxIlc5v30Emoi4WdDdt4wZioiUf/p+bNXKpxHn9ZbFGtnK
+	UjPMHNpD9KM/GdQx7DAc9bNawR/mKGGbWwKMVo9lJVGdy8pCE548fxyzjwFwxRkJlPE/mnB0sd+
+	DDtqTiDoJl9MHWgo9DQPEDiQmSM9Ob8AGErRs19wAATVHGng+sjwM3A5vgzYgi521BFJ/7vW2kn
+	1ytiwAaUxJNgZmX8D7Py/HIxixAvnHesfPZ2SFTZcVusMtCukyr+KT5ey/N4yK6WiYz/gDMhOCQ
+	+0O7VfTBYl0ORSnP5MPykyVwzDjdmrbljvpTTURrcVciQW+B1conpV7Xn4Q6OrOhabdX+Z5MbE/
+	fYeAHKXltb2UorVkmwKYOdUGzxgrb/t+7f954LGwnyq8EJlTM4+MmmN68fuSXAqoc=
+X-Received: by 2002:a17:90b:4c49:b0:39b:3510:4af7 with SMTP id 98e67ed59e1d1-39e1e2655f1mr5720832a91.1.1789583917465;
+        Wed, 16 Sep 2026 11:38:37 -0700 (PDT)
+Received: from [127.0.0.2] ([2403:18c0:1001:3a:74ea:baff:fe97:d2e7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e360aa230sm667330a91.14.2026.09.16.11.38.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 11:38:36 -0700 (PDT)
+From: Asai Neko <sugar@sne.moe>
+Date: Thu, 17 Sep 2026 02:38:24 +0800
+Subject: [PATCH v2] platform/x86: asus-wmi: don't warn when LPS0 is
+ unavailable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail202.nvidia.com (10.129.68.7)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PEPF00000071:EE_|CH3PR12MB583062:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0010e6cc-7950-45c2-39b1-08df1421abc4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|82310400026|36860700016|11063799006|921020|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	6KKf2MiMqRsPr2HbNvCeOv3INb4cv7xpLOziyXTGgYNFJGKt0ZZH1ZMyzquO8frRRrsRXrEqFlryCBenasNkFGiOOlGEa8sGcaUq5tAFP+Ty7d4t3v4Eg80khAvRpVarggEnf9IiAsGH7mK6XNlM14UntVoFTIj6Yb6csb0RmgAAPgi7+W9yRR9kFj+eRq7qBWiwxxgPl9fmLF/XVP7QfooRCWov8EmTACJZ+SdM1k4j26eVKPDdtZxOJpVf9m+DnBGSE1kcr5NFRHTzrI1b7hiALIisiArPXthc4ukVsSDflc/mKRCeT538OhcFJXDJOvflZrraU6yPS54ZB2VTcAhHLISkkvyshQrkY651/3iASJLGaeTRWZM8SznmKAUaHN3lWsgFI4WgmAsLUj/HGESGkECULihRm9v121Pgai4K90Pecd5LCbhl4e6kOtqyhXiiMHOxbvz6bQ6wxncyP/rFEKhosGiSemX6a+saddZFzXpC20jWRbSvOqkBGxjCg6BPNOJ9sWTk7IZo/62yq2HZ7YYKZWJm/bn61UHi3JdpDSQfxdNemHRWxw2ukXv3505LkD+oP4NlGtFzDznXjXYVp055AqlFVY6hREo0Bw6yEmRq9q1GyCgX8i1hPSFcKApkLOfF6a7qg2Rg7zk7ZvJLO5CXw1jDMea5qoYpqyDfDAfkiwqqE01fw+BEYwMb3xB4lz0dP5zaW+nCLiz8hFmJSDi7VqNDpqTRbOcxGVBV0VFdTq/71OFBDJDU3CGA
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(11063799006)(921020)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	rni4/OqE7I5LSD7EfHqTSCe3iJL2f4yEivGTqpp79tRYOWnhOgYdgrYq45+GBTcfhngOl9spH/wE+VE6t1HZcPmyDu/HujNmZeKktmsPWhhLWsH3BTaujlaU5z6fZj8jv6cL5YoUbZaItdhUHWfCGd+4lNPZxhoDJfeuwHAk3ol6CEjhYfGl0wauOxmx4/lDmt8bnjyV4ls9JSZ7RRkaGMLSHZwk1F6d+ZI7RCkGOraCr6P3nbpkplp9ZN9i2PToPJCkl0/STtfelV4jKMUI9v0C5C6RWqi4CUC186QFUx6+fyfJuQVgf22CBLzvmdRbBfxHRtCW3YWJNgRFgImqhPmK6AAfawjo1qxohCw4LQG0jh2hBgYOvQmjHLIhNL5W+p5A9QXEVfOe3igTjcZD6wcCOiLk9hBNQOm4MDosiBcdp/B0LIBFRSdSf4VWU+4o
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 18:38:15.6277
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0010e6cc-7950-45c2-39b1-08df1421abc4
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN6PEPF00000071.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB583062
+Message-Id: <20260917-asus-wmi-lps0-unavailable-warn-v2-1-aa8e3d73634a@sne.moe>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr0Jm7Zi2IZi68h6GRQuDjIFiOlA0h
+ LsLeAGXL3n57y8gFJkErtkCkRILD2EDc8qgal14EHK9MRhlCmV1gU4mwbln7F6icAouOe6c7wh
+ nFwNadzGe8txbqmEbeUVq+H0E7uWPZfJPqsZ9dTdalnGIn+NB0rv3dyxp1Gh9XTQ+r7Rq7E0Cn
+ fuBoFzX9Quti8Wm3AAAAA==
+X-Change-ID: 20260916-asus-wmi-lps0-unavailable-warn-9a72be44b9ed
+In-Reply-To: <20260916-asus-wmi-lps0-unavailable-warn-v1-1-9bd6fb4c10f9@sne.moe>
+References: <20260916-asus-wmi-lps0-unavailable-warn-v1-1-9bd6fb4c10f9@sne.moe>
+To: Corentin Chary <corentin.chary@gmail.com>, 
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Asai Neko <sugar@sne.moe>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2548; i=sugar@sne.moe;
+ h=from:subject:message-id; bh=oIpR//feF5h7AD1VSBdYcyg/cFmtxitujGaVDAw2NKc=;
+ b=owJ4nJvAy8zAJfZHZ3FlRAEbJ+NptSSGrFWPtGq+rr87j0XbeWvu7uzkKcHzhDqM800aFTvfz
+ 3z5YdvBqj8dpSwMYlwMsmKKLJ1HugqfvJ734YCLLh/MHFYmkCEMXJwCMBHj2wz/jJnSNhezv7qy
+ 3JSz+EVng8eCiLxfVSUvtmTI5EUFy4r2MvyP1tGRCJ20YMpsx/IX/0RCasxnRh1Lf5WSe+kXh+b
+ zvkB+AFYkSaQ=
+X-Developer-Key: i=sugar@sne.moe; a=openpgp;
+ fpr=89C48A71E4EB9EF0C0442D0EFC2CA37958700609
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Manish Honap <mhonap@nvidia.com>
+asus-wmi attempts to register its LPS0 suspend-to-idle callback during
+probe. acpi_register_lps0_dev() returns -ENODEV when the LPS0 interface
+is unavailable or explicitly disabled, but the driver treats this
+expected condition as a registration failure and prints:
 
-A CXL Type-2 device is reprogrammable through its CXL DVSEC: a guest could
-set Config Lock, toggle CXL.cache and CXL.mem enable, or rewrite the HDM
-range registers that govern host memory decode. Virtualize the DVSEC so
-the guest sees a shadow it cannot use to reprogram the hardware.
+  failed to register LPS0 sleep handler in asus-wmi
 
-Build a per-device cxl_perm permission map, modeled on msi_perm, when the
-device is bound through the CXL provider (e.g. vfio-cxl). The whole CXL
-DVSEC is served from the vconfig shadow; only Control and Control2 are
-guest programmable, while Capability, Status, Lock and the Range registers
-keep their firmware snapshot. A vendor DVSEC on the same device is
-unaffected: the map is selected only for the CXL DVSEC offset.
+This occurs on the ASUS ROG STRIX X670E-A GAMING WIFI with BIOS 2704.
+The system exposes no PNP0D80 ACPI device and uses deep suspend. The
+warning therefore misleadingly suggests a sleep-related malfunction
+on a platform where the LPS0 callback is not applicable.
 
-Control2 carries the CXL reset and cache write-back-invalidate initiate
-bits as self-clearing doorbells. vfio never forwards them to hardware, so
-a custom writefn synthesizes their completion in the shadow: the initiate
-bit self-clears and the matching Status2 bit (Cache Invalid or Reset Done)
-is set, so a guest following the spec reset sequence
-(INIT_CACHE_WBI, poll Cache Invalid, INIT_CXL_RST, poll Reset Done)
-progresses instead of timing out. The host performs the real cache
-write-back and reset at the vfio reset points.
+Suppress the warning for -ENODEV while retaining it for other errors.
+Leave callback registration and suspend/resume behavior unchanged.
 
-Assisted-by: LLM
-Signed-off-by: Manish Honap <mhonap@nvidia.com>
+Signed-off-by: Asai Neko <sugar@sne.moe>
 ---
- drivers/vfio/pci/vfio_pci_config.c | 132 ++++++++++++++++++++++++++++-
- include/linux/vfio_pci_core.h      |   3 +
- 2 files changed, 133 insertions(+), 2 deletions(-)
+Avoid the misleading ASUS WMI warning when LPS0 is unavailable.
+The diagnosis and rationale are included in the patch commit
+message.
+---
+Changes in v2:
+- Fix the missing format specifier for ret reported by kernel test robot.
+- Shorten the warning message to keep the format string on one line.
+- Report: https://lore.kernel.org/oe-kbuild-all/202609170237.IYNujwsM-lkp@i=
+ntel.com/
+- Link to v1: https://patch.msgid.link/20260916-asus-wmi-lps0-unavailable-w=
+arn-v1-1-9bd6fb4c10f9@sne.moe
 
-diff --git a/drivers/vfio/pci/vfio_pci_config.c b/drivers/vfio/pci/vfio_pci_config.c
-index 9914f3ac69ae..9a020a768055 100644
---- a/drivers/vfio/pci/vfio_pci_config.c
-+++ b/drivers/vfio/pci/vfio_pci_config.c
-@@ -1747,6 +1747,119 @@ static const struct pci_device_id known_bogus_vf_intx_pin[] = {
-  * for each area requiring emulated bits, but the array of pointers
-  * would be comparable in size (at least for standard config space).
-  */
-+static int vfio_cxl_dvsec_write(struct vfio_pci_core_device *vdev, int pos,
-+				int count, struct perm_bits *perm,
-+				int offset, __le32 val)
-+{
-+	__le16 *pctrl2, *pstatus2;
-+	u16 ctrl2, status2;
-+	int start;
-+
-+	count = vfio_default_config_write(vdev, pos, count, perm, offset, val);
-+	if (count < 0)
-+		return count;
-+
-+	/* Only Control2 carries the self-clearing doorbells. */
-+	if (offset > PCI_DVSEC_CXL_CTRL2 ||
-+	    offset + count <= PCI_DVSEC_CXL_CTRL2)
-+		return count;
-+
-+	start = vfio_find_cap_start(vdev, pos);
-+	pctrl2 = (__le16 *)&vdev->vconfig[start + PCI_DVSEC_CXL_CTRL2];
-+	pstatus2 = (__le16 *)&vdev->vconfig[start + PCI_DVSEC_CXL_STATUS2];
-+	ctrl2 = le16_to_cpu(*pctrl2);
-+	status2 = le16_to_cpu(*pstatus2);
-+
-+	/*
-+	 * INIT_CACHE_WBI and INIT_CXL_RST are self-clearing doorbells that vfio
-+	 * never forwards to hardware. Synthesize their completion in the shadow
-+	 * so the guest poll finishes: clear the initiate bit and set the
-+	 * matching Status2 completion.
-+	 */
-+	if (ctrl2 & PCI_DVSEC_CXL_INIT_CACHE_WBI) {
-+		ctrl2 &= ~PCI_DVSEC_CXL_INIT_CACHE_WBI;
-+		status2 |= PCI_DVSEC_CXL_CACHE_INV;
-+	}
-+	if (ctrl2 & PCI_DVSEC_CXL_INIT_CXL_RST) {
-+		ctrl2 &= ~PCI_DVSEC_CXL_INIT_CXL_RST;
-+		status2 &= ~PCI_DVSEC_CXL_RST_ERR;
-+		status2 |= PCI_DVSEC_CXL_RST_DONE;
-+	}
-+
-+	*pctrl2 = cpu_to_le16(ctrl2);
-+	*pstatus2 = cpu_to_le16(status2);
-+
-+	return count;
-+}
-+
-+static int init_cxl_dvsec_perm(struct perm_bits *perm, int len)
-+{
-+	int i;
-+
-+	if (alloc_perm_bits(perm, len))
-+		return -ENOMEM;
-+
-+	perm->writefn = vfio_cxl_dvsec_write;
-+
-+	/* Serve the whole CXL DVSEC from the shadow. */
-+	for (i = 0; i < len; i++)
-+		p_setb(perm, i, (u8)ALL_VIRT, NO_WRITE);
-+
-+	/*
-+	 * Control and Control2 are guest programmable; Capability, Status,
-+	 * Lock and the Range registers keep their firmware snapshot, so the
-+	 * guest cannot set Config Lock or rewrite the capability and ranges.
-+	 */
-+	p_setw(perm, PCI_DVSEC_CXL_CTRL, (u16)ALL_VIRT, (u16)ALL_WRITE);
-+	p_setw(perm, PCI_DVSEC_CXL_CTRL2, (u16)ALL_VIRT, (u16)ALL_WRITE);
-+
-+	return 0;
-+}
-+
-+/* Virtualize the CXL DVSEC so a guest cannot reprogram the device through it. */
-+static int vfio_cxl_dvsec_init(struct vfio_pci_core_device *vdev)
-+{
-+	struct pci_dev *pdev = vdev->pdev;
-+	u32 dword;
-+	u16 dvsec;
-+	int len, ret;
-+
-+	dvsec = pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
-+					  PCI_DVSEC_CXL_DEVICE);
-+	if (!dvsec)
-+		return 0;
-+
-+	ret = pci_read_config_dword(pdev, dvsec + PCI_DVSEC_HEADER1, &dword);
-+	if (ret)
-+		return pcibios_err_to_errno(ret);
-+	len = PCI_DVSEC_HEADER1_LEN(dword);
-+
-+	/*
-+	 * The virtualization writes fixed DVSEC offsets up to Status2 (the reset
-+	 * doorbell stamps it). A device that reports a shorter DVSEC is not a
-+	 * usable Type-2 function; leave it as plain vfio-pci rather than index the
-+	 * device-length-sized perm allocation past its end.
-+	 */
-+	if (len < PCI_DVSEC_CXL_STATUS2 + 2)
-+		return 0;
-+
-+	vdev->cxl_perm = kmalloc_obj(struct perm_bits, GFP_KERNEL_ACCOUNT);
-+	if (!vdev->cxl_perm)
-+		return -ENOMEM;
-+
-+	ret = init_cxl_dvsec_perm(vdev->cxl_perm, len);
-+	if (ret) {
-+		kfree(vdev->cxl_perm);
-+		vdev->cxl_perm = NULL;
-+		return ret;
-+	}
-+
-+	vdev->cxl_dvsec = dvsec;
-+	vdev->cxl_dvsec_len = len;
-+
-+	return 0;
-+}
-+
- int vfio_config_init(struct vfio_pci_core_device *vdev)
+To: Corentin Chary <corentin.chary@gmail.com>
+To: "Luke D. Jones" <luke@ljones.dev>
+To: Denis Benato <denis.benato@linux.dev>
+To: Hans de Goede <hansg@kernel.org>
+To: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/platform/x86/asus-wmi.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wm=
+i.c
+index a65090429ca7..c2af1f049b67 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -5421,8 +5421,11 @@ static struct acpi_s2idle_dev_ops asus_ally_s2idle_d=
+ev_ops =3D {
+=20
+ static void asus_s2idle_check_register(void)
  {
- 	struct pci_dev *pdev = vdev->pdev;
-@@ -1842,6 +1955,12 @@ int vfio_config_init(struct vfio_pci_core_device *vdev)
- 	if (ret)
- 		goto out;
- 
-+	if (vdev->cxl_ops) {
-+		ret = vfio_cxl_dvsec_init(vdev);
-+		if (ret)
-+			goto out;
-+	}
+-	if (acpi_register_lps0_dev(&asus_ally_s2idle_dev_ops))
+-		pr_warn("failed to register LPS0 sleep handler in asus-wmi\n");
++	int ret;
 +
- 	return 0;
- 
- out:
-@@ -1863,6 +1982,12 @@ void vfio_config_free(struct vfio_pci_core_device *vdev)
- 		kfree(vdev->msi_perm);
- 		vdev->msi_perm = NULL;
- 	}
-+	if (vdev->cxl_perm) {
-+		free_perm_bits(vdev->cxl_perm);
-+		kfree(vdev->cxl_perm);
-+		vdev->cxl_perm = NULL;
-+		vdev->cxl_dvsec = 0;
-+	}
++	ret =3D acpi_register_lps0_dev(&asus_ally_s2idle_dev_ops);
++	if (ret && ret !=3D -ENODEV)
++		pr_warn("failed to register LPS0 sleep handler: %d\n", ret);
  }
- 
- /*
-@@ -1926,12 +2051,15 @@ ssize_t vfio_pci_config_rw_single(struct vfio_pci_core_device *vdev,
- 			 * of the extended capability list.  Use default, ro
- 			 * access, which will virtualize the id and next values.
- 			 */
-+			cap_start = vfio_find_cap_start(vdev, *ppos);
-+
- 			if (cap_id > PCI_EXT_CAP_ID_MAX)
- 				perm = &direct_ro_perms;
-+			else if (cap_id == PCI_EXT_CAP_ID_DVSEC && vdev->cxl_perm &&
-+				 cap_start == vdev->cxl_dvsec)
-+				perm = vdev->cxl_perm;
- 			else
- 				perm = &ecap_perms[cap_id];
--
--			cap_start = vfio_find_cap_start(vdev, *ppos);
- 		} else {
- 			WARN_ON(cap_id > PCI_CAP_ID_MAX);
- 
-diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-index 92e3db116068..e8a1fc398571 100644
---- a/include/linux/vfio_pci_core.h
-+++ b/include/linux/vfio_pci_core.h
-@@ -120,6 +120,9 @@ struct vfio_pci_core_device {
- 	u8			*pci_config_map;
- 	u8			*vconfig;
- 	struct perm_bits	*msi_perm;
-+	struct perm_bits	*cxl_perm;
-+	u16			cxl_dvsec;
-+	u16			cxl_dvsec_len;
- 	spinlock_t		irqlock;
- 	struct mutex		igate;
- 	struct xarray		ctx;
--- 
-2.25.1
+=20
+ static void asus_s2idle_check_unregister(void)
+
+---
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+change-id: 20260916-asus-wmi-lps0-unavailable-warn-9a72be44b9ed
+
+Best regards,
+-- =20
+Asai Neko <sugar@sne.moe>
+
+
+--=20
+Asai Neko
+
 
