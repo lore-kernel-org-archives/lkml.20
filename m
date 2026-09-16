@@ -1,143 +1,95 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DBA2BEC23
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D9A35CB91;
+	Wed, 16 Sep 2026 17:10:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578638; cv=none; b=VUKoGCi5JfeAdqPRtYpJG2mlt0k5aWHwU1+9/W/Ehj67r3VQQO9mU4Ua/ETWsty8clOYwCuuxnRjkIVy4Mkpwd2avtj11cTskflkrXjqzEILi4xdB6qvbkyYaTA+qhr0f8gEj9geHBjT9Ts0l3SwRLm/96b6gPICpcmTEXOm8Og=
+	t=1789578641; cv=none; b=usmetoarEFGlTUlTc6le3sqLKQJgPMWJ9FPCAPA3ardDlJVOfFgsuqvQ5Am5Vr+AIQLZva42NZx60wVihd0Ht5lAolzLFqiKraUqcBbz5guDsOKPAci85Q7aubBWCfGFhx7rXjVkYbo60USa3avav8IJyzAn2dsHgexV2PJAWsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578638; c=relaxed/simple;
-	bh=i8Tw9+Y0LbLQQkfb0VjBjO33Jh4ZfQKD94u7NvLdVx8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GFXExrrtGgrMflu64d6Z/uX/lNgQD7OOmfnGrKQjpoo36ApM9TiEktU2IX4gG14AGFYHiY/rDt8+XApOD2hFAbP5v0zJ0YH7LPjsK9zG+V0bj1wWyNV8HaRq5mYcQBpF6AP91Y1F0HmlxF5MYCQzmEZKhkpCTw5oVhttAgxg/Qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=I/zvzBTb; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="I/zvzBTb"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8631d0023daso814316b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:10:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1789578627; x=1790183427; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4QH7TCKimipR8xV32SdX4PILN4e3j5bJ+o9cYY2F4DU=;
-        b=I/zvzBTb7sbhurrPW5561okUsTghPC9kVPuSE7tPT0eu/vA7FoUUPFVFb3NSHth3vp
-         Vqlu7DBQxnLIsmiq/Tm5NeVoIF138k+sKKhUgZp1AZvX4+CfV29HcUPleGItk0+dCW9k
-         pTp5Fgik1hPe/CvV50nLG+ll/TqX7Z4OKEqX1IfXHsinfbRQHsHSYdBplHTSjqAo6xQy
-         fcpayIXMEVymGFpSKYmLNDygvJZA65k83+SsrDSmeJGGOMt+XuXpD7EG39ucajZUE0lg
-         BY2MoICXzutJrTsYbvQAfXTpH7zOtJstOarPH/m3f7BYB/Pqcr86m9ssIrqAwBjjDFos
-         EMUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789578627; x=1790183427;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4QH7TCKimipR8xV32SdX4PILN4e3j5bJ+o9cYY2F4DU=;
-        b=Kh8uRlxLhO7s0qFRR+AdAEMQBh+tOIDiZVal9sSmqJ+ZXH1Rp15jNEah3fY1I9SAgB
-         iPJQJQh9SAWNaYLhnM48AelVXO7uZ8YFz8UV5J+wpYlpyzgQn7cKiDcrxnfpJOR56Two
-         pPHp6dtqWuh9SCi/E0FOQkfeL6fnourP3NYtIKSIfWJrw+zNWwP1zOQdh7BW5gVOOw0i
-         UX6DYghQQQDFnmBtl1LBXZ4qmz3HceqsL4fFw/oR8yIGAW0do/jn2DD7KnrHJkWg/+t7
-         EBl/px8QWKdW2Du6ZM6M3Ab0z/jI/cbX6s/nYSRJnwTEToA3HnKB7Os7zmw+R9GjLs1/
-         XjJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzeczdzqf2rFzo+uLUXrZjmFlj5rUdBgoeN8MQXxPWiQfKVFMowuNpYNhRyEMGOzo4/1iP9oTZYuabCPZE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCfy3qnq/EYLMFMNAXui+wmCePBCWYXBxyW5d1MiKxj9HSbbBA
-	wPj2LnBVUJhd/++LL/rtPvnFTRqcwjCVN7HowchikCPbYinfDcdKN64vneAMcZ02OO8=
-X-Gm-Gg: AYBFou0/f851KgZULoSv3BxwV9DGE/9Wn8b1b2wARblUIIPR91VVQBP90Xi90/Lyk7M
-	oZ4h8YXVbE4xbe+J1HioQPlWrUawPLXJ6Ek2o0q8IRe++qy9Nl0kO4186AkmeJOMJZeufSM7DnS
-	bG7eCpiDgyzEINqBI60cR0S3zWc21dxETdGmygOrF4MOLl+zgPaEE46bZsyu6Fqlw8hXtdTsAGt
-	1kTaWio1NCTU/Lx0FUjoCbsrykKK8IzHfw2O71wGy60Y6xIuA1Evz9QPP+r1dyLy23+5oE8oXgZ
-	X4Nw3MVfVvKserHrHUH9encDsonuhGN/9QMJ7C9coNEiH+a6pXrxUvm00/YDwHIKiBv9yuDksN0
-	s3vgPNU5hgaHfqWrEwsclBU7aYonypy6jBZgUpeTEkzRK8t3ZmQYt37XxQWOfsXShfhBWlezAfw
-	J1cpuXtFLUz7zOEVvGM0795OQQg5fzctu6NlhqRh2zDUoCL/g6oaDKzUbGG1nEelu8ej0wuykgS
-	ad+kwnMCLbpQF51zIVg
-X-Received: by 2002:a05:6a00:181b:b0:86d:3958:6b13 with SMTP id d2e1a72fcca58-872391ab57emr6854570b3a.19.1789578626409;
-        Wed, 16 Sep 2026 10:10:26 -0700 (PDT)
-Received: from [100.64.0.1] ([170.85.13.74])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d1b275sm1607393b3a.51.2026.09.16.10.10.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 10:10:25 -0700 (PDT)
-Message-ID: <6e4b5c98-7d48-4629-a6a0-4d930327f9a0@sifive.com>
-Date: Wed, 16 Sep 2026 12:10:23 -0500
+	s=arc-20240116; t=1789578641; c=relaxed/simple;
+	bh=8mDVMhyc9DSK3T89LmZQB+NqzZtAzQOxaffFxWzmYzs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eLnAC55Cohi3Owe0dqvE7PFFUpxF03b/hEbtSgbtTITxAWhAnOcoRuqUSIASInsH63zRLXq/w+nJ0J0kI6ebHYiEwrlyQdjq10xAU0P560+sVuE4MSciwMNsjZ+2IMbYjsfGIj3eSK/Td/qq3FVvw1T5985Xy/WEw47izxpA5f8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABHsTuAzapqVVJuCA--.22263S2;
+	Thu, 17 Sep 2026 01:10:24 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: boris.ostrovsky@oracle.com
+Cc: jgross@suse.com,
+	linux-kernel@vger.kernel.org,
+	oleksandr_andrushchenko@epam.com,
+	oleksandr_tyshchenko@epam.com,
+	sstabellini@kernel.org,
+	xen-devel@lists.xenproject.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in dmabuf_exp_wait_released()
+Date: Wed, 16 Sep 2026 17:09:56 +0000
+Message-Id: <20260916170956.2086505-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: dts: sophgo: sg2000-milkv-duo-s: reserve memory
- for RTOS
-To: Andrei Lalaev <andrey.lalaev@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Chen Wang <chen.wang@linux.dev>,
- Inochi Amaoto <inochiama@gmail.com>
-Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260916-milkv-duo-s-rtos-memory-v1-1-6ca72d5a3924@gmail.com>
-From: Samuel Holland <samuel.holland@sifive.com>
-Content-Language: en-US
-In-Reply-To: <20260916-milkv-duo-s-rtos-memory-v1-1-6ca72d5a3924@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHsTuAzapqVVJuCA--.22263S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tw4kAFyfCrWxJw4rtFW5ZFb_yoW8GF1xpr
+	sIqFy8AFZ3t347ta1DJ34Y9ryYyayDtrySkrW5Aws8Zry5Xw1xXF1fJr18XFyqkws3ua4f
+	Aa40yFy3Xr45AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
+	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
+	UgXocUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqozVjiwAAsq
 
-Hi Andrei,
+dmabuf_exp_wait_released() takes a reference on the exported
+gntdev_dmabuf with dmabuf_exp_wait_obj_get_dmabuf() and passes it to
+dmabuf_exp_wait_obj_new(), which drops that reference after adding the
+wait object to the wait list.  When the wait object allocation fails,
+dmabuf_exp_wait_obj_new() returns ERR_PTR(-ENOMEM) early and the
+reference is never dropped, leaking a reference to the exported
+gntdev_dmabuf.
 
-On 2026-09-16 11:06 AM, Andrei Lalaev wrote:
-> The FSBL loads the coprocessor firmware into the last 2 MB of RAM.
-> Reserve this region to prevent Linux from using it.
+Drop the reference on the allocation failure path so the reference is
+consumed whether the wait object is created or not.
 
-If the FSBL wants to reserve some RAM, it should modify the devicetree at
-runtime to add that reservation. Adding the reservation here creates an
-unnecessary ABI surface between the FSBL and all consumers of the devicetree.
+Fixes: 932d6562179e ("xen/gntdev: Add initial support for dma-buf UAPI")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/xen/gntdev-dmabuf.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Regards,
-Samuel
-
-> Signed-off-by: Andrei Lalaev <andrey.lalaev@gmail.com>
-> ---
->  arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-> index 78a257839f6f..693c9fd7b771 100644
-> --- a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-> +++ b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-> @@ -22,6 +22,17 @@ chosen {
->  		stdout-path = "serial0:115200n8";
->  	};
->  
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		coprocessor_rtos: region@9fe00000 {
-> +			reg = <0x9fe00000 0x200000>;
-> +			no-map;
-> +		};
-> +	};
-> +
->  	wifi_pwrseq: wifi-pwrseq {
->  		compatible = "mmc-pwrseq-simple";
->  		reset-gpios = <&porta 15 GPIO_ACTIVE_LOW>;
-> 
-> ---
-> base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
-> change-id: 20260916-milkv-duo-s-rtos-memory-7a94933e35bd
-> 
-> Best regards,
-> --  
-> Andrei Lalaev <andrey.lalaev@gmail.com>
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 83b0df460894..df1883aca850 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -96,8 +96,10 @@ dmabuf_exp_wait_obj_new(struct gntdev_dmabuf_priv *priv,
+ 	struct gntdev_dmabuf_wait_obj *obj;
+ 
+ 	obj = kzalloc_obj(*obj);
+-	if (!obj)
++	if (!obj) {
++		kref_put(&gntdev_dmabuf->u.exp.refcount, dmabuf_exp_release);
+ 		return ERR_PTR(-ENOMEM);
++	}
+ 
+ 	init_completion(&obj->completion);
+ 	obj->gntdev_dmabuf = gntdev_dmabuf;
+-- 
+2.34.1
 
