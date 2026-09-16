@@ -1,96 +1,88 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E47525A77;
-	Wed, 16 Sep 2026 16:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AC74FDE65;
+	Wed, 16 Sep 2026 16:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575715; cv=none; b=MWQO0RCPv2fRCFsifCBs1ba5InwbO1qBfGRyqcaWN322brUpDSyqWwEsokjaPZaHCyeeVn4GhQV+xtB6DiX/TURpT7YgpAdD920rjQXcchGMI41/gMtgCZoNeHZaL+Tlu/hX2yBFEb6QPLmx4Q3DLa2W9coFte135yrcdZt7b1Y=
+	t=1789575733; cv=none; b=KKfWQPHi8XA+iv2grPUaKX8LVGUT8IQ3esbik8xG99SNwyILjpuIyKOGxYS8ztdtbrStt1HeldWreWrTeXh02Q7PuDgBVUzlDaoMbdqQVzuGRPuuLYhIaT5kGuSC1MkiUkP54OtnoKUwAXFofKzw+4lS5EHTWdjexLdn6qkHQFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575715; c=relaxed/simple;
-	bh=X72K8yI4FtHqgPJl+jZS7K3JRhvak6JU+coWihSZ9OI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TNwv0yZA6tC3GxUu89KwkMw+Qtj5VOBO8f+PEvtiT3LGbafpGKij2lKwNRe+2VbyCzdxG/bxi7yLbsbC6sw/gjzefRqCAjU0OhMcDpqLz7N9Wiqi/Uobf+boNvIR38Cdr5FgK9i8lwc8Pful0qiQ2FlNDDKZq0L5F78bpK+Y9wY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXgDoWwqpqaJBtCA--.44387S2;
-	Thu, 17 Sep 2026 00:21:42 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andy@kernel.org
-Cc: dlechner@baylibre.com,
-	jic23@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com,
-	tomislav.denis@avl.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: adc: ti-ads131e08: Fix trigger reference leak in ads131e08_probe()
-Date: Wed, 16 Sep 2026 16:21:14 +0000
-Message-Id: <20260916162114.2083166-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789575733; c=relaxed/simple;
+	bh=PXPYrVFlU0tYj/yNWMnzGDjhCXDfMRpZr8XpmJ/vHFA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RpOBzL3JPMOLHMXKcve4jOayR5HrAZCz3zwXZDF9wiI+7QDPIbyK8rhJdZJ9CtAr8+WsHuilpHBkRDNGkS3cst8akUEZDFgRmXU9krbR50WYJuv3lizSPEiFz5iawzBTPM+WjeQw3WvSdR4tAUOo4DU0ivK3H+Dk4+iGN2PUUaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=bdVpx8O8; arc=none smtp.client-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="bdVpx8O8"
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hlPKq0Zkzz1XM6J7;
+	Wed, 16 Sep 2026 16:22:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1789575718; x=1792167719; bh=PXPYrVFlU0tYj/yNWMnzGDjh
+	CXDfMRpZr8XpmJ/vHFA=; b=bdVpx8O8iFgBJ5zwfESb6/wkovkjAKuQhsIYbDFL
+	DKYF2rRbpyfRUFlT8y5iOi55qn0ONz32v0Jaexgn4B4SnabiIFBv4o3nFjld6mh8
+	xKCDO7dWeL+IOD+GA51TejoC92+u3ET7bLA+yvpj0aDu/MATMfXEnZODlfQuF8Kb
+	6wnB8WamecFbPTIqO2rjBeR3MnYn9R6V8D/3/0JLDs2yIiu5BT9HgXXKULB3D6v1
+	OF4qAd9A+0AoSffT4R4U5w85Mk5uapurBLAuSKiSGNSYF6lfe4U7YR8X/7pWZiFM
+	OP8zL7uUNcx162KIP5Bo76d+3wpNV4bZ7+JzEIS5hRi6AQ==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id f32hYN8Iu33m; Wed, 16 Sep 2026 16:21:58 +0000 (UTC)
+Received: from [100.86.177.31] (unknown [104.133.214.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hlPKW4jYRz1XM4Sx;
+	Wed, 16 Sep 2026 16:21:51 +0000 (UTC)
+Message-ID: <d19d0b37-a599-426c-b54f-cf9b16462904@acm.org>
+Date: Wed, 16 Sep 2026 09:21:50 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXgDoWwqpqaJBtCA--.44387S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47GryDArWDury5GFWrAFb_yoW8Grykpa
-	nagFnIyFyDGr18AF4kZw17Ca4ava15tr48CFW8ZasI93y5ZFyY9r1jvr4Yvw1kAFW0g3y7
-	Jr1fAr18CF40vFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	UPEDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2qqpO9HSgABsH
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
+To: Andreas Hindborg <a.hindborg@kernel.org>, Bean Huo <beanhuo@iokpp.de>,
+ jaemyung.lee@samsung.com, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
+ <8mLXEMDMxh8mZQqVywUYUeOiZPZIPmrVGRlOkDbHptW0NEJeszKVpff5h39MjUvD5yyivwY3Z7kCXIH5VlGoiw==@protonmail.internalid>
+ <4c38f13af8f75020fefc35827463e9bc643b99f4.camel@iokpp.de>
+ <87jyoqvhpm.fsf@kernel.org>
+ <01d56517261d397f5e17101f03554f91529e23f0.camel@iokpp.de>
+ <8733vduwin.fsf@kernel.org>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <8733vduwin.fsf@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The reference taken with iio_trigger_get() is only dropped by
-iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. If
-devm_iio_triggered_buffer_setup() fails before setting that mode, the
-reference acquired for indio_dev->trig leaks. Move the
-iio_trigger_get() after the buffer setup succeeds.
+On 9/13/26 6:10 AM, Andreas Hindborg wrote:
+> I understand that userland tools need to be updated, and that
+> carries cost.
+Hmm ... my understanding is that the Rust UFS host driver needs to be
+modified. Why should user space code have to know what UFS driver has
+been activated in the kernel? sysfs ABIs are assumed to be stable, isn't
+it?
 
-Fixes: d935eddd2799 ("iio: adc: Add driver for Texas Instruments ADS131E0x ADC family")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/iio/adc/ti-ads131e08.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks,
 
-diff --git a/drivers/iio/adc/ti-ads131e08.c b/drivers/iio/adc/ti-ads131e08.c
-index a585621b0bc3..d976214504c3 100644
---- a/drivers/iio/adc/ti-ads131e08.c
-+++ b/drivers/iio/adc/ti-ads131e08.c
-@@ -851,8 +851,6 @@ static int ads131e08_probe(struct spi_device *spi)
- 		return ret;
- 	}
- 
--	indio_dev->trig = iio_trigger_get(st->trig);
--
- 	ret = devm_iio_triggered_buffer_setup(&spi->dev, indio_dev,
- 		NULL, &ads131e08_trigger_handler, NULL);
- 	if (ret) {
-@@ -860,6 +858,8 @@ static int ads131e08_probe(struct spi_device *spi)
- 		return ret;
- 	}
- 
-+	indio_dev->trig = iio_trigger_get(st->trig);
-+
- 	st->vref_reg = devm_regulator_get_optional(&spi->dev, "vref");
- 	if (!IS_ERR(st->vref_reg)) {
- 		ret = regulator_enable(st->vref_reg);
--- 
-2.34.1
-
+Bart.
