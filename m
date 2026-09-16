@@ -1,117 +1,100 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A68736D503;
-	Wed, 16 Sep 2026 17:27:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579648; cv=pass; b=DhaFEPVEvx07MhHGk1Zo9lpPbn8gHCDLmAxzH9Syfv+fIT7DYcDnUPo3e8hjCI0RTsMKgv6XYHrv8/4Ncx0W36kmxh9bGffwxpPCLIV5F6oNatUPHs302SySHq9zSI5Ds7Cmt0O4ieYctPeUGuuJSrulprkOfhoZnFxxdhi788g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579648; c=relaxed/simple;
-	bh=92tg37CmSF1ufzebv0RSmYfnRdV6jfMV9hOZCai3IOw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jwbkByFPwgeHYxvZv2RyskzRu+O39DQqjzbSVQSaopNbehD7xyvc4X4qFz1ocvNcmlM6STt+N3v7KjbQN28FkPwcOdVmcjDOHko/SVyleeC/Js60ydbzvp9IKhTl2a9iruW8bUo+5Zf3Ufcj5BgYH7xxl7mNcoXLtfdLnFub51g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=JCN6Jf3V; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA944BD35C;
+	Wed, 16 Sep 2026 17:27:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789579662; cv=none; b=cB/0almEyARvH/sLKpa1zJuOk/kGxE9FNeEjU3NsWk2U8AGtIAotvIhUb27Ucgm8zEJxnuP8XrIMLdEPOV+KQy5utgRQsQ6lQcxN7f//wx2G8qTHNSVz6bLKXk04g9C1D3snIbmP3xLXnpQypJmxvRY1AHp6zFNgACLqCoHGqsg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789579662; c=relaxed/simple;
+	bh=BxO6rgLM9SfX8tEbiU9nwYK0vqz+F0hGK0aWbt8kezo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=so3UBGt94ZfeUSGN5jM/KrJdpqcwFHY8Bd5KPivcNk4mwIDmjHyaDAYSsix7tHp7eg7f2IcCelHp7fErvS7QUKp/iL0LAlqannNss1Ks4954uHtZELOla6eArcT3s01yQd3e/BcLk+xpvmx9wD7Crchc3eHlGMIsTKBzYvQjeH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mSuvysOB; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="JCN6Jf3V"
-ARC-Seal: i=1; a=rsa-sha256; t=1789579634; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OcWGWbCtQyAF4qkrN7p4azhGGDdw+5U5j8VyYOYLb1gBsSy3qgD5MLDMhBmn9+QjxkOqvYGfCX1flfr+kKYJxLwzsFX1cRUoA0iZWajNauXTL5DcfCF6+8H/CZOCKHJH9rZ8Z0yGzLIHMXFqU38Th52vBvswiwzlz/YcrTqiqrM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789579634; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=yu4I8aA/dSCWiNzd0EiMaIb1hEBPZBMS5B0bclDwg3U=; 
-	b=j1EjAJDPWLzUqrtf/AWps9jhj7K6lk233J0lmD2EGKZD6Xs1NfIr5FzpvHJvh4jpa3HwPTEXTskgBmeApmAwq8PIskOPdChg2bnHC/+cNVLIvBRe5ar9uK6zK/DSVa3694wXupmzLoyL1VBtW45k49r78EvTopgQqZ+yBA0WQrI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
-	dmarc=pass header.from=<detlev.casanova@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789579634;
-	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=yu4I8aA/dSCWiNzd0EiMaIb1hEBPZBMS5B0bclDwg3U=;
-	b=JCN6Jf3VoU2FPQcE7Cla4Ac5E0bw+bPSvMGe+NiYJCMTz422U1TYnCsuRJOreAtD
-	2ca+SRFf5xxKjMxM/+jr4coKAkqbDzVU5gThzZjCCf30AOZ+/Ypuvxar3/2759XUcmy
-	W5TjQELzpkBQvDKB8T7xNYVjeI5pzIdNItz7RHY0=
-Received: by mx.zohomail.com with SMTPS id 1789579634133586.5912753636819;
-	Wed, 16 Sep 2026 10:27:14 -0700 (PDT)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Guangshuo Li <lgs201920130244@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] media: rkvdec: do not destroy borrowed SRAM pool
-Date: Wed, 16 Sep 2026 13:27:12 -0400
-Message-ID: <h_fJ5CZXS3anfaQzbf4v3w@collabora.com>
-In-Reply-To: <20260915140511.2429792-1-lgs201920130244@gmail.com>
-References: <20260915140511.2429792-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mSuvysOB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C7FD8C5CD6B;
+	Wed, 16 Sep 2026 17:28:19 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AFDCD60337;
+	Wed, 16 Sep 2026 17:27:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0E4E811C7B00D;
+	Wed, 16 Sep 2026 19:27:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789579654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=dCA8Ne2C7wLdhEcx1e006q+Jrs7Uu0Is5AQBioqBLFk=;
+	b=mSuvysOByqxjLwQqnHc7+WWWcyfDJDP7JEPeoSW7DjmMC2Jp/Oy/3LTLzTZtj80/zDxGB4
+	RrkHbDqBTDGdt2/hhm6H+I7/2NWWZOsVz0KyKfWeFI55w1rxhCIGBvoy/ghmZHnURbPzZb
+	2JqEixXywVAeVdVoBa/2CnuC1CZ6riAXv/Yh0gw+UKjzCNt5wHibTHPwlqB8IHDpDYR9Nc
+	QEfhIwFjU+jwOrUhrWTlvH2iDFr2v8mm2nN9qGALtLlzSdBakYhh2hab4yjqCtWol5CYDO
+	EsmAWYR8EL6/yp1EkbuQ1R34pYThZ9qSZaA41CDWrCztMfzdbymKfV/Lwa//OQ==
+Date: Wed, 16 Sep 2026 19:27:27 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 13/15] tests: Add wip_func utility
+Message-ID: <20260916192727.28850127@bootlin.com>
+In-Reply-To: <aqpoxzD14OQazE1y@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-14-herve.codina@bootlin.com>
+ <aqpoxzD14OQazE1y@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Guangshuo,
+Hi David,
 
-On Tuesday, 15 September 2026 10:05:11 EDT Guangshuo Li wrote:
-> rkvdec_probe() obtains a provider-owned SRAM pool with
-> of_gen_pool_get(), but its error path incorrectly destroys the borrowed
-> pool with gen_pool_destroy().
+On Wed, 16 Sep 2026 20:00:40 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+> On Wed, Aug 26, 2026 at 10:31:44AM +0200, Herve Codina wrote:
+> > wip_func is a test utility allowing to wrap the write inplace functions.
+> > 
+> > It allows to create tests with custom wip write sequence.
+> > 
+> > Also the modified dtb is saved allowing to perform later checks on this
+> > modified dtb.  
 > 
-> of_gen_pool_get() returns a pool managed by the SRAM provider. The pool
-> is not created or owned by the rkvdec driver and is destroyed by the
-> provider when its own managed resources are released.
+> It's not clear to me what this is useful for that's not already
+> covered by the existing write-in-place tests (nop_node.c,
+> nop_property.c and setprop_inplace.c).
 > 
-> Destroying it when rkvdec_v4l2_init() fails can invalidate the pool
-> while the provider and other consumers still reference it, and can also
-> result in the provider attempting to destroy it again later.
-> 
-> Remove the incorrect gen_pool_destroy() call from the probe failure
-> path.
 
-This is indeed invalid, as the gen_pool is already created when this driver is 
-being probe()'d.
-The sram module can only be built-in, not a module, so we know that the 
-gen_pool will never be destroyed while rkvdec uses it. That allows rkvdec to 
-just get the pool pointer and not have to call a matching put() function as 
-there is no need for ref counting.
+Used in tests to check dtb updates when "unknown" tags are involved.
+See '[PATCH v3 14/15] libfdt: Handle unknown tags on dtb modifications' [0]
+or full source at [1].
 
-Reviewed-by: Detlev Casanova <detlev.casanova@collabora.com>
+Depending on modification performed, "unknown" tags must be removed or not
+and the version must be downgrade or not. The test checked for rules defined
+for modification when "unknown" tags are involved (see patch 14/15 commit log)
 
-> This issue was found by manual code inspection.
-> 
-> Fixes: e5640dbb991c ("media: rkvdec: Add RCB and SRAM support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/media/platform/rockchip/rkvdec/rkvdec.c | 3 ---
->  1 file changed, 3 deletions(-)
-> 
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> b/drivers/media/platform/rockchip/rkvdec/rkvdec.c index
-> 061281f903f3..4541ef9ee3b9 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> @@ -1857,9 +1857,6 @@ static int rkvdec_probe(struct platform_device *pdev)
->  	pm_runtime_dont_use_autosuspend(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
-> 
-> -	if (rkvdec->sram_pool)
-> -		gen_pool_destroy(rkvdec->sram_pool);
-> -
->  	return ret;
->  }
+I don't think that this could be covered in a simple way by existing
+write-in-place tests.
 
-Regards,
-Detlev.
+[0] https://lore.kernel.org/devicetree-compiler/20260826083146.304291-15-herve.codina@bootlin.com/
+[1] https://github.com/bootlin/dtc/blob/2653bb9cd4414780c863051467b5e77eea6e5bdd/tests/run_tests.sh#L590
 
-
+Best regards,
+Hervé
 
