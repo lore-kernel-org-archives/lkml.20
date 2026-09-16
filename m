@@ -1,127 +1,109 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E834C14F3;
-	Wed, 16 Sep 2026 10:20:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C0A4D09E3
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:19:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554010; cv=none; b=JFzw/q4haEXbz2d0tMI4AA4fCNxeGnLL16aNVhH+D7oLQcswQOUNeJU798pwmkDBYLEbfqzsk1YhMGh5hdBVtFkf1YsDxlZ5779+oz61TQnCnNFgpoqqa1nNHVv+xHhHSkL3atXfB7n90Zn5WkGQc8obboxJhEdZJ2mQ7jwYZGc=
+	t=1789554017; cv=none; b=N9ZD5t9EBN5kXI747sJqG8Cm6OrYhdx2r4vVMZD/BOYvpmtkFBPAWhj+9CMewmo/HYTpwqyDEtuXyHNJTqDKjmlQqYEDnzSgIS2uBMuPUiHm3HhbdSjoEepRUBA08WBNptoh8X126ZEiVlOzSI5EChxWTP/+1U3TBD1cTOICIKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554010; c=relaxed/simple;
-	bh=ZdiiynkTSEzixqoDULJaTjJ2JCfd9M9hNholTnj5GQU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OEW0J0b1wg9YvOJJ6v1UkfUepm0uKR11tUMDtF9CSMlpKf/yCwZJ1oZ6KR7T9+jC13EESYURJZmx/6rOfT4Sx4gVi4YTp/rCCjGh7dAsANTt4UbLD2b1BD+ZPV6ow3fjFT8Qy566Vo3OAnMYDaQkaCGBKHtYNBsKZFW+TpIeXGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mSIn0NIG; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mSIn0NIG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789553998;
-	bh=ZdiiynkTSEzixqoDULJaTjJ2JCfd9M9hNholTnj5GQU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mSIn0NIG7emGT1WDtVPOGhV9vO5/hD739A2wU0lUdlnlJ41tHMC0YYehbWqSPjDW/
-	 BKKJg5d4OVpSEsvqIbRt7c2DlxJ90fxG09yH6/OqQBobMrbLh7OwxhUCOSEBY/zkvG
-	 /UFoRyGIc4zvqn9/6YvV4hEgFqAdUKHla2Yx0UbqIqJjBqh8rtwPVjUaFt9LQGQblx
-	 d+oebwWbgh8eYTHB1kx3h+UOy+45/ex9QtheyI+CSWJz08SIzYMMA1eONeNbLqutNX
-	 6F2kd72D2QJD5KHhRjMQ9ciHXyiqjek7+nXguzHMgLPE7u5ierx9Ircz9sWpHi3l+0
-	 KicQ1/YeeHGjQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CC5AF17E0420;
-	Wed, 16 Sep 2026 12:19:57 +0200 (CEST)
-Message-ID: <c8fb208f-c9a8-45ae-93f2-161279f2ba37@collabora.com>
-Date: Wed, 16 Sep 2026 12:19:57 +0200
+	s=arc-20240116; t=1789554017; c=relaxed/simple;
+	bh=XlYAfe857GrqSDz9vgpM+rs+tEmHVx0+RvAgnQ5G+1E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-type; b=TH6DCCJynwL33tazGTro3nLME4ybX/KiCgC7riYNBN2idgDy9/C2rzgNqvT1Mv7BTlkASARSgkcSSII21e3IU7HQo6yPo1xJE8YsT2NC8IUTJVp0WH1SJEYVBn9MDy65+uMQaDRObmJAePgXoYlhQn6idalT4UiFRtiWtu/k4QI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id a96bfd4b4d4e7194;
+	Wed, 16 Sep 2026 10:19:48 +0000
+X-Mizu-Trace-ID: a96bfd4b4d4e7194
+X-Migadu-Flow: FLOW_OUT
+From: Baoquan He <hebaoquan@kylinos.cn>
+To: linux-mm@kvack.org
+Cc: akpm@linux-foundation.org,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	nphamcs@gmail.com,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	hannes@cmpxchg.org,
+	yosry@kernel.org,
+	shikemeng@huaweicloud.com,
+	chengming.zhou@linux.dev,
+	baoquan.he@linux.dev,
+	david@kernel.org,
+	linux-kernel@vger.kernel.org,
+	kunwu.chan@gmail.com,
+	Baoquan He <hebaoquan@kylinos.cn>
+Subject: [PATCH v3 02/14] mm, swap: add CONFIG_XSWAP and xswap fields to swap_info_struct
+Date: Wed, 16 Sep 2026 18:19:09 +0800
+Message-ID: <20260916101929.149106-3-hebaoquan@kylinos.cn>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260916101929.149106-1-hebaoquan@kylinos.cn>
+References: <20260916101929.149106-1-hebaoquan@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/12] ASoC: mediatek: mt8189: Improve error handling
-To: phucduc.bui@gmail.com, Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
- Cyril Chao <Cyril.Chao@mediatek.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Dan Carpenter <error27@gmail.com>, cassiogabrielcontato@gmail.com,
- linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260916050020.14575-1-phucduc.bui@gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260916050020.14575-1-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On 9/16/26 07:00, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> Hi all,
-> 
-> This series addresses part of the error handling in the MT8189 AFE driver.
-> 
-> It propagates errors from clock operations and runtime resume, validates
-> clock parameters, and removes redundant error messages.
-> 
-> In v2, there was discussion about checking the return value of
-> regmap_update_bits(). While opinions differed, the existing driver already
-> checks it in mt8189_afe_enable_top_cg(), which is used by
-> mt8189_apll1_enable() and mt8189_apll2_enable() touched by this series.
-> 
-> Therefore, I keep these checks and add the corresponding error paths for
-> consistency.
-> 
-> Compile-tested only.
+Add CONFIG_XSWAP Kconfig option for extendable swap device support.
+It depends on SWAP && 64BIT && ZSWAP, since xswap devices are backed by
+zswap, and on SYSFS, which is currently the only way to create one.
 
-Series is
+Add three fields to struct swap_info_struct under CONFIG_XSWAP:
+- cluster_vm: the VM_SPARSE vm_struct backing the cluster_info array
+- nr_clusters_max: total number of clusters in the xswap address space
+- nr_clusters_mapped: number of clusters currently mapped (lazy grow)
+These fields enable lazy vmalloc-based dynamic cluster management.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+---
+ include/linux/swap.h | 5 +++++
+ mm/Kconfig           | 9 +++++++++
+ 2 files changed, 14 insertions(+)
 
-Cheers,
-Angelo
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index b4331ca4759a..b7882aac1eab 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -242,6 +242,11 @@ struct swap_info_struct {
+ 	signed char	type;		/* strange name for an index */
+ 	unsigned int	max;		/* size of this swap device */
+ 	struct swap_cluster_info *cluster_info; /* array, one entry per cluster */
++#ifdef CONFIG_XSWAP
++	struct vm_struct	*cluster_vm;	/* VM_SPARSE area for cluster_info */
++	unsigned long		nr_clusters_max;/* total clusters in the xswap address space */
++	unsigned long		nr_clusters_mapped; /* currently mapped cluster count */
++#endif
+ 	struct list_head free_clusters; /* free clusters list */
+ 	struct list_head full_clusters; /* full clusters list */
+ 	struct list_head nonfull_clusters[SWAP_NR_ORDERS];
+diff --git a/mm/Kconfig b/mm/Kconfig
+index c180d40cd671..5d6c7845c422 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -122,6 +122,15 @@ config ZSWAP_COMPRESSOR_DEFAULT
+        default "zstd" if ZSWAP_COMPRESSOR_DEFAULT_ZSTD
+        default ""
+ 
++config XSWAP
++	bool "Extendable (virtual) swap device"
++	depends on SWAP && 64BIT && ZSWAP && SYSFS
++	help
++	  Adds support for extendable swap devices (xswap) that decouple
++	  PTE swap entries from physical backing storage. The cluster_info
++	  array is backed by a sparse vmalloc area that grows and shrinks
++	  on demand, avoiding static pre-allocation overhead.
++
+ config ZSMALLOC
+ 	tristate
+ 
+-- 
+2.54.0
 
-> 
-> Link v1 :
-> https://lore.kernel.org/all/20260910125742.150902-1-phucduc.bui@gmail.com/
-> Link v2:
-> https://lore.kernel.org/all/20260914072842.24420-1-phucduc.bui@gmail.com/
-> 
-> Changes in v2:
->   - Update the names of the goto labels.
->   - Check for zero frequency since freq is unsigned.
-> Changes in v3:
->   - Add Angelo's Reviewed-by tag.
->   - Restore the existing afe->regmap checks,
->     making the separate patch for missing regmap unnecessary.
->   - Do not pre-initialize ret; set ret = 0 in the default case throughout
->     the series.
-> 
-> Best regards,
-> Phuc
-> 
-> bui duc phuc (12):
->    ASoC: mediatek: mt8189: Propagate APLL enable errors
->    ASoC: mediatek: mt8189: Propagate MCK enable errors
->    ASoC: mediatek: mt8189: Validate MCK ID
->    ASoC: mediatek: mt8189: Propagate reg_rw clock errors
->    ASoC: mediatek: mt8189: Use dev_err_probe() for clock errors
->    ASoC: mediatek: mt8189: Propagate runtime resume errors
->    ASoC: mediatek: mt8189: Remove redundant error message
->    ASoC: mediatek: mt8189: Propagate APLL errors
->    ASoC: mediatek: mt8189: Propagate MCLK errors
->    ASoC: mediatek: mt8189: Validate sysclk frequency
->    ASoC: mediatek: mt8189: Propagate TDM clock errors
->    ASoC: mediatek: mt8189: Validate TDM MCLK frequency
-> 
->   sound/soc/mediatek/mt8189/mt8189-afe-clk.c | 134 +++++++++++++++------
->   sound/soc/mediatek/mt8189/mt8189-afe-pcm.c |  45 ++++---
->   sound/soc/mediatek/mt8189/mt8189-dai-i2s.c |  18 ++-
->   sound/soc/mediatek/mt8189/mt8189-dai-tdm.c |  19 ++-
->   4 files changed, 154 insertions(+), 62 deletions(-)
-> 
