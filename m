@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09ADC4DE709
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118AF4CE677
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600422; cv=none; b=DznvJZYgXjw6dAQQSjDJTUUuPxO4WAsiD+gnpV2EJBdwFVZFtfd0JspN6u3YcXS+BiiXKY0tXcSt/w5T3ZeUjuZpXnQxGXwrS8fEJwqgKS3e3KWmqpiPnFCdRVoxRfxtfnNaC+b90JGRshzHT5t9+/H8dZ0z/RHo5RuSMv5Fv3I=
+	t=1789600424; cv=none; b=iakX6t6x/21QxhHf3djzAMJFd1yarrXSWkFgKkcT/HNqbepB073xThyFsMoAalINSXTF49JwhFZFhbFNq2dd2JZzWp2WF4GdJ/0pd93DNguKYVc/VOCYsZKRD5ZD+zdxgFMfWcc+uugsCGaLPXWSPzqaLujd7DTj1OhMmnPUi1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600422; c=relaxed/simple;
-	bh=LkEGaL6edY32DUDcv/ylXMeVcz/O/JZteQw/+LK2t+w=;
+	s=arc-20240116; t=1789600424; c=relaxed/simple;
+	bh=GcxFliNTIAtRq7uiuS+67NRJavF9d5TyAC+yRtsjs+4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KtDYR8TtK9qccb+1aC9rS8putTgpDZsUtKWvXZ+GHi7WTOwUB8h4cALCSn8CL0RW5sGWJChlf7V9moCaJZ9IP3PkJMOqbWpnPFbRqJLZII2p+u57xCpAq4QE3LtHcBhAXW/Kjy8WOsK6o57ADr8GylI3EEKHjLalkGctQxzy4EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SZatjaV7; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=NG8oiqKZqcXlD6e4vFPr15n6yIKkVCbUf8FckhiOFgyMz21ejrGWcokdfqF3ZmpqKlxvw3Du9Yz0xir7NUnShpEcFlqW/jx4kyXMyz/LmXGgDo/CoxmAoTt8WdFpLDIU/FUJcD02n/3eG/MbZH3wKsTm9PkqX6sz3fEvV3prZkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZpUGohQY; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SZatjaV7"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZpUGohQY"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789600419; x=1821136419;
+  t=1789600420; x=1821136420;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=LkEGaL6edY32DUDcv/ylXMeVcz/O/JZteQw/+LK2t+w=;
-  b=SZatjaV7D3BjOdVOHntMAF55376o+ozahzTr2VkbiyHhNh737qk8/Kos
-   7b4QE1WEEX3Vqgfs3zjt9f+TI14sCpZWmSy5ZpdwR939YVtApyJXMX2Ol
-   kenlaLLJ83V9xLKgr8/DmJMfbkq/wQ6URCoBrWheNTCZ5ro8imcFM5+LI
-   X5Y/e0RPdS0giP7T2jsqOnHO22YGCZpN0GP2jM31j2TlVK7cv74ZAgv+T
-   RE7Qik5t9srtmdm4D8NRTMEBWeO1AS1Gw8pvk0kz2bGeA3hArVCdausN6
-   UI9dNdCS0MMhblnARlodvtOCFs6tcY5LD6qZpxh0NqMyOFj+Lwcf4jwob
-   g==;
-X-CSE-ConnectionGUID: 480cYj+UTcWl5A13Xv+rdQ==
-X-CSE-MsgGUID: /4gJhfV7Sv+rRvi6xbp1CA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861381"
+  bh=GcxFliNTIAtRq7uiuS+67NRJavF9d5TyAC+yRtsjs+4=;
+  b=ZpUGohQYBvZdvndZAqJb6tmrk6DsHsmxgiAjA9OWWu1NcYLa0v/TtIYu
+   nvW6uhk/IUs/LJnxXJS4Wr2kDPPTWynh1+9zqI7DIBYrekUWuJOwO/0IZ
+   emAxnkzLzkvfjuGF2O2MiOXFwe2mtogPtOK6qMIe8nDchjnwsrRMSrco6
+   hJe0L925xopyKXp9SrNABiRbmkb3WczJRB8C9czeGOimnZ9Z5q213V1Po
+   NDPw+UrmG4oSJ+tm82THsanv83SZqnsKXkch581TOTMxYsvqEU1057EX9
+   K9b3nY3C0+H3buOLiKqTafFi3Xue/8SPQ33lz8etRc9uyJ+0LcW00V8MR
+   Q==;
+X-CSE-ConnectionGUID: olmYedPxRsK2afTi7Fjslw==
+X-CSE-MsgGUID: RHOsxff7QgaqNuQVtmK2Mw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861404"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93861381"
+   d="scan'208";a="93861404"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:34 -0700
-X-CSE-ConnectionGUID: w0y+UQK2T72Q+QD7KcCXCA==
-X-CSE-MsgGUID: Y8IF91JQQd2ymtNCSw7RLQ==
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:35 -0700
+X-CSE-ConnectionGUID: mXegwrkSScyepjynTHED1A==
+X-CSE-MsgGUID: kZgJRk6XQJ2jWjiMlOShMQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277231451"
+   d="scan'208";a="277231459"
 Received: from khuang2-desk.gar.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.219])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:33 -0700
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:34 -0700
 From: Tony Luck <tony.luck@intel.com>
 To: Fenghua Yu <fenghuay@nvidia.com>,
 	Reinette Chatre <reinette.chatre@intel.com>,
@@ -59,9 +59,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v12 08/25] x86/resctrl: Delete rdt_alloc_capable and rdt_mon_capable
-Date: Wed, 16 Sep 2026 16:13:03 -0700
-Message-ID: <20260916231320.14502-9-tony.luck@intel.com>
+Subject: [PATCH v12 10/25] x86/resctrl: Honor rdt=perf option to force enable AET perf events
+Date: Wed, 16 Sep 2026 16:13:05 -0700
+Message-ID: <20260916231320.14502-11-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916231320.14502-1-tony.luck@intel.com>
 References: <20260916231320.14502-1-tony.luck@intel.com>
@@ -73,87 +73,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These globals are no longer needed, delete them.
+resctrl can disable ("force_off") a feature supported by the platform if,
+for example, there is an erratum related to the feature or, in the case of AET
+(Application Energy Telemetry), when the event group has insufficient RMIDs. The
+"rdt=" kernel command line option lets the user override ("force_on") when
+a feature is disabled in such case. Users may also disable ("force_off")
+individual supported resctrl features they do not need.
 
+Linux enumerates AET once on first mount and skips this enumeration if
+the associated event group is supported but disabled. Since AET is only
+enumerated once, this check is guaranteed to only consider disabling via
+the rdt= kernel parameter.
+
+However, when transitioning to enumerate AET on every mount, it is no longer
+correct to skip enumeration simply because an event group is marked as
+disabled. It is then possible for resctrl to have force-disabled the event
+group during an earlier enumeration due to insufficient RMIDs, which would
+improperly cause the kernel to ignore a user's explicit rdt= override on
+subsequent mounts.
+
+Ensure the user's command line choices take precedence over system-level limits.
+
+Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
 v12:
-	Changed names of local variables in get_rdt_resources()
+	No change
 ---
- arch/x86/include/asm/resctrl.h        |  2 --
- arch/x86/kernel/cpu/resctrl/core.c    | 13 +++----------
- arch/x86/kernel/cpu/resctrl/monitor.c |  6 ------
- 3 files changed, 3 insertions(+), 18 deletions(-)
+ arch/x86/kernel/cpu/resctrl/intel_aet.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/include/asm/resctrl.h b/arch/x86/include/asm/resctrl.h
-index fb6cfff82e2f..49b5357e2e5c 100644
---- a/arch/x86/include/asm/resctrl.h
-+++ b/arch/x86/include/asm/resctrl.h
-@@ -42,8 +42,6 @@ struct resctrl_pqr_state {
+diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
+index c22c3cf5167d..4ad6ad78e93e 100644
+--- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
++++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
+@@ -228,7 +228,7 @@ static bool enable_events(struct event_group *e, struct pmt_feature_group *p)
+ 	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_PERF_PKG].r_resctrl;
+ 	int skipped_events = 0;
  
- DECLARE_PER_CPU(struct resctrl_pqr_state, pqr_state);
+-	if (e->force_off)
++	if (e->force_off && !e->force_on)
+ 		return false;
  
--extern bool rdt_alloc_capable;
--extern bool rdt_mon_capable;
- extern unsigned int __ro_after_init rdt_l3_mon_scale;
- 
- DECLARE_STATIC_KEY_FALSE(rdt_enable_key);
-diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-index f2bf160d01c1..2e3b9c16cbda 100644
---- a/arch/x86/kernel/cpu/resctrl/core.c
-+++ b/arch/x86/kernel/cpu/resctrl/core.c
-@@ -45,12 +45,6 @@ static DEFINE_MUTEX(domain_list_lock);
-  */
- DEFINE_PER_CPU(struct resctrl_pqr_state, pqr_state);
- 
--/*
-- * Global boolean for rdt_alloc which is true if any
-- * resource allocation is enabled.
-- */
--bool rdt_alloc_capable;
--
- static void mba_wrmsr_intel(struct msr_param *m);
- static void cat_wrmsr(struct msr_param *m);
- static void mba_wrmsr_amd(struct msr_param *m);
-@@ -781,7 +775,6 @@ void resctrl_arch_pre_mount(void)
- 	cpus_read_lock();
- 	mutex_lock(&domain_list_lock);
- 	r->mon_capable = true;
--	rdt_mon_capable = true;
- 	for_each_online_cpu(cpu)
- 		domain_add_cpu_mon(cpu, r);
- 	mutex_unlock(&domain_list_lock);
-@@ -1026,10 +1019,10 @@ static __init void check_quirks(void)
- 
- static __init bool get_rdt_resources(void)
- {
--	rdt_alloc_capable = get_rdt_alloc_resources();
--	rdt_mon_capable = get_rdt_mon_resources();
-+	bool alloc = get_rdt_alloc_resources();
-+	bool mon = get_rdt_mon_resources();
- 
--	return (rdt_mon_capable || rdt_alloc_capable);
-+	return alloc || mon;
- }
- 
- static __init void rdt_init_res_defs_intel(void)
-diff --git a/arch/x86/kernel/cpu/resctrl/monitor.c b/arch/x86/kernel/cpu/resctrl/monitor.c
-index ab9cb34145c5..2f3e5b89a7fc 100644
---- a/arch/x86/kernel/cpu/resctrl/monitor.c
-+++ b/arch/x86/kernel/cpu/resctrl/monitor.c
-@@ -26,12 +26,6 @@
- 
- #include "internal.h"
- 
--/*
-- * Global boolean for rdt_monitor which is true if any
-- * resource monitoring is enabled.
-- */
--bool rdt_mon_capable;
--
- /*
-  * Scale factor to convert L3 monitor events to bytes.
-  */
+ 	if (!group_has_usable_regions(e, p))
 -- 
 2.55.0
 
