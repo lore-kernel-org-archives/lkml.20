@@ -1,141 +1,83 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C539A499F3B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:45:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AC345C6FC
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551911; cv=none; b=lp+mw7oKw6blBaVY+CM8iDr6XKJDSIQVL9A214NSSLOlj5Xl4EhSLM/vi5teUJ8AVOLfi932sLt0r+JlkrtPjJ+VaXaJPM5BzS60L5+Gc2CXvTkDAchJX2kKo6LBD9fNx+tM0Ffp4jnMt8uAnoE0RcKRyT3NV1aEjuVLOpwbsg4=
+	t=1789551966; cv=none; b=H0jQxlTftwnAOjHbv/IOgKMli1FgxJvXpbyuvVZsKkZ2Oicg4VPxg5WYYuOEI5EyWBForj7QmvwELCWrzUN8WxZ+rNi9E/ejsejJsFkzs7KoIGfBJDI9A/U73TXtg8tBdKLfNX6Da7g4AFMjAAYXmuILJDK2NOZD5NeAcdRbU3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551911; c=relaxed/simple;
-	bh=MR2n2E+Ve4xO4iUtdmDW34456DHtOWZBko8Pj6o1iIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qpzkVO/DzG4yXF3hKX6EkkKdtQlMSwTLJGquoN2PHPF6PY3U1WI0dEaiyrvFGWOtGVzczTKjqXqgDWbFa4DE87e3TtuVUUf74rNRbeVY4diPbatcDJXETqbscPdIUdAI2goCE8OW7dOKEKli8amNeD3rUsq5vJa5qdjwCVoiDiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UZLSb1k0; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789551966; c=relaxed/simple;
+	bh=zgugq9bF5a+yimXJQ9CJ49FLry0pnjlitUad9lusJRw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j5cG06iuQahisvlrlMMliXM0/wUBQcYhWz8PDW/x0Bjxp/PoAgpj3QvXdWP2a1rbrmsOaNxjn1MzO9Ro0fvYANHnccoddTUEGWx6QQ9bNiJDupL325H7PbLRvW4d5BZPLgyiynVhy1gNoXIXpa92/PB4DgptMnU844qAuGjSpdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3c7G7mz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UZLSb1k0"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so3462485e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:45:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789551899; x=1790156699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mlvIWhHxBEziBE7U0OeSd/0yRYTGHP2RvC97KNNwMIM=;
-        b=UZLSb1k05dP78zdfVGpisY9oAFhpWoCGbeS8KoAGEA8ewUFklmFuh2TSCQwO7D8UiX
-         G6GDeKk1WwAd0xq/l8HCB4qAsyk53jDcjQO7tkLPCSAjCRI7azo7jI+eZBpton19mjBs
-         k9dc+EVMxflSj2ItGCN36FvTK1sbHwUwybI7qBhwinzIsnPRhEMnt6U35OzrEiiKY+De
-         Uz96mnCn32+iEIE6w4l9h6b+lahYa6qJToo4/7RUyKQxFpp2SqcUNBt0upvMeAzgzhil
-         rcUPB7dzG76c7cdorV82MEn0IazAaNEw7NsAIzkw3CHUT+T3+yX1xRXfqCuBQFT97E9u
-         25iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789551899; x=1790156699;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mlvIWhHxBEziBE7U0OeSd/0yRYTGHP2RvC97KNNwMIM=;
-        b=bMOlrIE2wAtla3Yh7pTzDDIm3ViAc+BcjDYAhSHh7GYkye1Yf8PbK1/USR3bHRB08A
-         f8HSWJt2MnwPXH1bGCIDdB+3bz8gNEBDoHjuxq8HcqIxAn5ZsKWt2q538Pqn21COwvgp
-         49n27IknjyxXobo5pi11t+7Vo2HpCprudRyaheC8wUub9GLmSmnC6eosT9kE81LwB4gA
-         pIi0Gbtsv4U9FZYmJ6tyvrZABaqYCgW/lp0Exzf2AvwYaCI3RXAuK/bcoViPw+6L64OI
-         27KzWtahuRmUujX4arUUpi/GW0oRvZQ2rw4iyOTwh6iEfXV1jycuuRAF1U5aRnXiTj21
-         rATQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz3OHS42wG275sD04NhGfkj6yRQTvPiEQx/K0C3r6yiQL/sVFjv2sXJm6Akya6kdP26dWxABAGM+gzcPNM=@vger.kernel.org
-X-Gm-Message-State: AFuF++na6qxyB0kk0SfJjM+Nq1nLDZACgMszD9YEiuRE8qduxGcU1k3g
-	ZSAJKEquuHg2hjvb/q/2vi4/QoK/PqnchqUtLEpNTsbF6hU5gJnuRHit
-X-Gm-Gg: AYBFou0mOe5vKNS0EsMce0D02aK5fMj1b+C2EHFJ109MRcLI00t4kRcNzNjEzJUQvFq
-	WjhGPoVC9gnwBwRcRFBOyZSAMQC1aqgdrpfL9hxfEkpVS/+Pp1e5HGtVPY6dslkXzuwUh3E33Br
-	wEnSZcwbA+tVtdzqTHcNd5ADvSswtJ4kaI6yrqG2fyWZrvpQlIBXSGaeqjLvm6TLClNVhH1s5wT
-	ElDXN22Tv7EPehi9tnCBcUL8ZdJ/qTSjvsiNcudZYqxOa+4zMXrJ6BrQWFycMrxNxEn0vDXvCqJ
-	WqdRpWRsgEtV2Y+zn7BHl/AaXWtL+KHZ3QRxaCpS5Bi7bljPgezLP2y1UP2nbdm6HsureDF4+ch
-	zEFfM/Rf9CN3zNFGmQl0Q8CpyRL8tbEAN63+bI7TF6DiSzZbsp7nxU2euFbmCCoL74dXDMaPqDL
-	nbCL4bw19+IFr4BHsOG0Jcq1m9JBwiLl5uEKi3K9shUxkey/uxnxJRKyml6CCYCbOktYkKArUtH
-	bkEDWC9vb9X8UkoyQ5Jai0bZVJUvBeMJ3O2/R4O/VJmPtR0IBPC2twMG2zdRvYx7Ql8tZdSY773
-	BkBjg6VEd71bGKPxCGxsbiBi+8X+L2NGqAmifTDzNL7YOzc2jWBIYSB5JaLhqaZYFr7g0AcozT/
-	T0wFWFmI4aSnZg5pg3Dy2g9AIU4GI/UzYx86XW+ZlqtNQH9tuNVM+BOi0m+9/jb2JKCv5zjtnwa
-	AOnsHc
-X-Received: by 2002:a05:600d:1b:b0:49b:9105:cdaf with SMTP id 5b1f17b1804b1-49f1d516a12mr35131575e9.8.1789551898435;
-        Wed, 16 Sep 2026 02:44:58 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83b02211sm68509815e9.9.2026.09.16.02.44.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 02:44:58 -0700 (PDT)
-Date: Wed, 16 Sep 2026 11:44:57 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Kanak Shilledar <Kanak.Shilledar@axis.com>
-Cc: "jic23@kernel.org" <jic23@kernel.org>, "dlechner@baylibre.com"
- <dlechner@baylibre.com>, Henrik Grimler <Henrik.Grimler@axis.com>,
- "nuno.sa@analog.com" <nuno.sa@analog.com>, "jean-baptiste.maneyrol@tdk.com"
- <jean-baptiste.maneyrol@tdk.com>, "robh@kernel.org" <robh@kernel.org>,
- "marcelo.schmitt1@gmail.com" <marcelo.schmitt1@gmail.com>,
- "andy@kernel.org" <andy@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "macromorgan@hotmail.com" <macromorgan@hotmail.com>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>, Kernel <Kernel@axis.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v3 7/8] iio: imu: inv_icm42607: Add accelerometer
- calibbias support
-Message-ID: <20260916114457.000073ba@gmail.com>
-In-Reply-To: <b58448efafcd27ceb2c924139ea97201b349b534.camel@axis.com>
-References: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
-	<20260901-b4-inv_icm42370p-v3-7-77cc31642115@axis.com>
-	<178874609182.3402141.6437933635539106261.b4-review@b4>
-	<b58448efafcd27ceb2c924139ea97201b349b534.camel@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3c7G7mz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3211F00899
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:45:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789551948;
+	bh=zgugq9bF5a+yimXJQ9CJ49FLry0pnjlitUad9lusJRw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=W3c7G7mzlSw9gbqfMBSWaPV/kzLBT7B5U7UEJ4ydjnGtU/D2GPOvPAtZVs875p5B8
+	 rrx0ojuBgZlWS50XR+UBOYUYUEDZaHx4k5Koak9QrGfijB+RyV/wh4qGlBQnoNYpjq
+	 5B4jcmwOkbmBD2fZN3piHLSiJKSXX/VAQj41+bkPPamA3zglJogfiu5rS+mCnsi+9Z
+	 81EFqnOLmGqNE4FrvTp/d5xVU9+3sdO4D7wC88cBnCoLTUFx9WWOX3UnkZPdYJCBjc
+	 QDG1O5Eei6d7s5UGEjXBJzpp+JuvNOtXgsCtHoVyNpsa1PIa4vswIDODYV7Vjs+mlL
+	 cwwBIfNlKnvCA==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b89a0e69dfso656341e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:45:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByYhDHJYqdRmJlRP3vM3hVNywiz/wrEQbsVBqpha2UJ4YUaRiuscA1FvZaGlKUQnVm4+w6D1wbLkx7XjuQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBHEFjJg/7G8YxbMuZOm2UwLocgE54gN04DNWgs2LclWuxC4/3
+	dmQ8Owx7gwGbmI3eGjxq2Lf2JKw9gQt++yfmjYdDKX1pigIgzEa+YOmTR0dy9mzNelJLOhskTgh
+	NQ1Fk+OBqq8i0NFksY8Gxx6CMV9VWg+M=
+X-Received: by 2002:a05:6512:1290:b0:5b0:c95:cdb9 with SMTP id
+ 2adb3069b0e04-5b8b661e54dmr561873e87.23.1789551946817; Wed, 16 Sep 2026
+ 02:45:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260916082623.3972767-1-arnd@kernel.org>
+In-Reply-To: <20260916082623.3972767-1-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 11:45:33 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnsKoXxK5mdNUqWT+ggn+7k4D6H0HZuCcLu4_pv6QFS1w@mail.gmail.com>
+X-Gm-Features: AcwNN1VLg9mt0BIjlYKxJHsgzgkG3OqyDxyCoNNUv41KC2ewOWQB23tO-mD8VnM
+Message-ID: <CAD++jLnsKoXxK5mdNUqWT+ggn+7k4D6H0HZuCcLu4_pv6QFS1w@mail.gmail.com>
+Subject: Re: [PATCH] usb: fotg210: fix link error for CONFIG_USB=n
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Kees Cook <kees@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
+	Huacai Chen <chenhuacai@kernel.org>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 16 Sep 2026 09:37:32 +0000
-Kanak Shilledar <Kanak.Shilledar@axis.com> wrote:
+On Wed, Sep 16, 2026 at 10:26=E2=80=AFAM Arnd Bergmann <arnd@kernel.org> wr=
+ote:
 
-> Hi Jonathan,
-> 
-> On Mon, 2026-09-07 at 02:54 +0100, Jonathan Cameron wrote:
-> > > Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
-> > > registers are stored in MREG1, which can be accessed by the
-> > > mreg_read
-> > > and mreg_write routines. The calibration bias is written to
-> > > OFFSET_USER4
-> > > to OFFSET_USER8 registers in MREG1.
-> > > 
-> > > Note: The accelerometer functionality is tested with Invensense,
-> > > ICM42370-P development board.
-> > > 
-> > > Datasheet:
-> > > https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
-> > > Datasheet: https://www.lcsc.com/product-detail/C5129967.html
-> > > Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>  
-> > 
-> > Various things inline.
-> > 
-> > Thanks
-> > 
-> > Jonathan  
-> 
-> I will fix these issues.
-> Thanks and Regards,
-> Kanak Shilledar
-> 
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> Calling usb_hcd_platform_shutdown() is not possible if CONFIG_USB
+> is disabled:
+>
+> arm-linux-gnueabi-ld: drivers/usb/fotg210/fotg210-core.o: in function `fo=
+tg210_shutdown':
+> fotg210-core.c:(.text+0x40): undefined reference to `usb_hcd_platform_shu=
+tdown'
+>
+> Move this call into the hcd file to ensure this is only used
+> when USB host mode is actually available.
+>
+> Fixes: 7dbc2e1ba8fd ("usb: fotg210: use the common EHCI core")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Hi Kanak,
+Good catch!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-No need to send a response to a review only saying you'll fix the
-pointed out issues, it generates too much noise on the list. No
-response means you agree with the review and will address it in
-the next version :)
-
-Thanks!
-
---
-Kind regards,
-Joshua Crofts
+Yours,
+Linus Walleij
