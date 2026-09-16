@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B3E4D9560;
-	Thu, 17 Sep 2026 11:32:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8C54D9F88;
+	Thu, 17 Sep 2026 11:32:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789644750; cv=none; b=IorZCq+5xO2zOJzygcQ/MfsmWQIhin1+dbsJws3dJO2pSDMDHfWcN+M7E1JgwCOHw8VJvW5z7j99lucvbmErDEFGdKF/c8aWIgsidSa+3V2OwRJRvtv6gVQt4Y6OJHTn2VL+7wpadXFU5pGB5TcBlqstfAtkWZj/rMnF5iXuzbU=
+	t=1789644755; cv=none; b=pVPmcS4b8RNeEnbwXZy1JfxpQdAiHJYPklqWxwEAl8jsLw05ScrdDGJUnvgRlx48eC1LJZBAipiNp6GypOvdT1TK5NIb1fhg1IN+01DPyfKiCaqCH5mVs8VSIqOsSlUuLZ4nGO///rL3A2olgH4aILmnZu/71Y+kjFhpQd62P7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789644750; c=relaxed/simple;
-	bh=bVU8bp4iIHucX65r0y3mUOPDOCm09oiCFmlXLL3OfCg=;
+	s=arc-20240116; t=1789644755; c=relaxed/simple;
+	bh=WOThHWUMf6yap0/UQanUca4eFbQ6S55BqPy9cD0JtPc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=HzNsLyFK3Mbu3C8RKHyOxdV6X21Vsw2V8gAxUKpqR3SN21z8ZmtpQwXBVYDK5HFP3CKFx9etCR3ZPFRdVF29R1SllRV82KLh3XuXqutZ1ZAk5CnyNRowZMdK4f6p58x/4CAtRVdtYWvbk4FX8kKRFDk+fZl27EOdTG1RdgREJEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NuS3+7HL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=bLqWz1xQXNP+VTC+bwiyW6DhiQpf1uRKoEz8OrdYQyQPP1h0VnvUWLDyEPxk6KHjXhh9DBoXUqd6DxrjasLMakripklTkEgz34RoiE98zga9rzhuFqhT1zruBwpaWow6nEgDDSfTc2JtuGj3kEFTHXjoXsOspJpUyGF0oplY214=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T+085Gae; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NuS3+7HL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C53611F000FF;
-	Thu, 17 Sep 2026 11:32:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T+085Gae"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925561F000FF;
+	Thu, 17 Sep 2026 11:32:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789644749;
-	bh=fQ8wMCWCIy/WlWl+fLkiP1H94HLWJReXNyPVq5dItoo=;
+	s=k20260515; t=1789644753;
+	bh=Lvd+5MlXZA2aI1FCI4/ytRRmptuWqZmgHAdnvYqpv+k=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=NuS3+7HLpz4N6/Ztuf9i7Ky3ytq7Z9wu/t5P2lm0SxvFQGYJ0HNo4fjp2sFmpfk16
-	 CyTOHO0ZblgZeALqV6wSUp+fi1tTii4hKeHTFseS5rw99dQpHnCtTJy93MHTPl7X+Y
-	 oNM0aE0bxIEPomy8SPK37VmJjlr/s7xL9x9xQgT4RmBKGd/meDul3nbMuYDOPD51Y1
-	 Wr2/5ayOqwndR22xiniCSs92lxzpEzGr7oQQVSv+H6SrS/GdJLtgnhyXqhINwk4xaj
-	 MPQlgyYLCepW8mq7dycPAwvjbUW/T4u5G0TAh5PyLBPdJbvBpk8P/+8EC68plFxa6i
-	 1YJmU1sjKgfZQ==
+	b=T+085GaeYevtQd8Uc7gVOOrC3GTjx9CoZYHOiKW5bjHpEMA64fRfzAwNW8RuHuN6N
+	 umeiAIpGM+vMM10N09blXUpD7sZ2fexYWipeCzsqENI6KMdXto2TMXDqmWssnBkQkP
+	 Z5KTlp36bOyEm9UDNG1fbnHFYCrygnYmIktOGKET7XCtpqBNzDaFtWnPGKFeoOwhgX
+	 yK+Uu1fA61f5RY61ufAW55GI9h3blkTBXzUP5vPVYHs6oSiZWoqCYe3i5mGgyJg/UK
+	 +F+nGs5Pa6wCBCwmjIxRBWjkGUF4KoRnzFwOYQW6dXv5McuE126e1/2i5fpS4RdRev
+	 38Lm9W8il3D9w==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, linux-sound@vger.kernel.org, 
- Neo Chang <YLCHANG2@nuvoton.com>
-Cc: error27@gmail.com, lkp@intel.com, perex@perex.cz, 
- krzysztof.kozlowski@oss.qualcomm.com, linux-kernel@vger.kernel.org, 
- alsa-devel@alsa-project.org, neo.chang70@gmail.com, kchsu0@nuvoton.com
-In-Reply-To: <20260915014940.317403-1-YLCHANG2@nuvoton.com>
-References: <20260915014940.317403-1-YLCHANG2@nuvoton.com>
-Subject: Re: [PATCH] ASoC: codecs: nau8360: Fix misleading return in
- nau8360_message_to_dsp()
-Message-Id: <178958230980.100121.14321855165528287319.b4-ty@b4>
-Date: Wed, 16 Sep 2026 19:11:49 +0100
+To: lgirdwood@gmail.com, HyeongJun An <sammiee5311@gmail.com>
+Cc: perex@perex.cz, tiwai@suse.com, mripard@kernel.org, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260915092515.2638542-1-sammiee5311@gmail.com>
+References: <20260915092515.2638542-1-sammiee5311@gmail.com>
+Subject: Re: [PATCH] ASoC: hdmi-codec: Report a change when the channel
+ status moves
+Message-Id: <178958553576.100121.15556907354609737785.b4-ty@b4>
+Date: Wed, 16 Sep 2026 20:05:35 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,29 +45,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1159; i=broonie@kernel.org;
- h=from:subject:message-id; bh=bVU8bp4iIHucX65r0y3mUOPDOCm09oiCFmlXLL3OfCg=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqq8/JEsVMvTGGLTsQ5wpJxRFi7tRSlF/4yvbkG
- cZR7bfgMGmJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqvPyQAKCRAk1otyXVSH
- 0OHAB/98XV4Ty0RKilnS2YbNh25IeCzJ+hTrZ6pRdhMUzH7MDZCw2sK65DVR8XulEVng9y632qQ
- lsbww3Vr2RsA9SnuI4SCsJl4X87FDhT8MGhuevuXbQqpYZ4fLo7bAndh+t2chVWu+B9WM5U7mAK
- 4p4IK53Q/6ESsmRngWw3F/g72Ldy8wuJTY/xNim3DW9jm5NbJ2XW3WIwNmF3zl4aa4ctJfpjNKW
- nYkJNErAd0qVwEX+/6ls3aPdcHdXr55K0LRzkYZx4m6fCRHjlDEaplB65HPjlvElKCfqVKtbB3z
- wHW60QRXE7BqczEhExcxsG9UG8ElRQRCeLxdwzziqLIz2x4W
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1144; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=WOThHWUMf6yap0/UQanUca4eFbQ6S55BqPy9cD0JtPc=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqq8/O8tUQpaN90Lm1wTTEVBnviVGumL5QUpmiq
+ qisDE+AAzuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqvPzgAKCRAk1otyXVSH
+ 0KCkB/9wzTU28s2c7HVzO8sEfsfiWmhy0YCqwu2o/gUjZPLib4MZQE/dWvw1ygs6+evLoN2njsN
+ KowO4TrmN4S0XwpiBUz7fMcgzCiSZH+gLvgx9DdL/96bnt5lV/tkWmGaAYcXECiNRi881y3m8pj
+ MnnQuVJ/pTNGx1SHlPEgQq87SwxjE5b95wmx/fyEkP0e3uxfM1LPvGvyRb6/bhk6OOi10nIT6Zy
+ 3pMXp5TvqobzQY54L7c4z3uZWiC1iXDWYDyMMYmucUpgqGukjrh4EktiW/nQ+K0K798/7EFR207
+ t7iYZdxKCHBL1ei6odsyHZ3GtIzxgOhHcDMta3k6BhPs2gTN
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 15 Sep 2026 09:49:40 +0800, Neo Chang wrote:
-> ASoC: codecs: nau8360: Fix misleading return in nau8360_message_to_dsp()
+On Tue, 15 Sep 2026 18:25:15 +0900, HyeongJun An wrote:
+> ASoC: hdmi-codec: Report a change when the channel status moves
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
 Thanks!
 
-[1/1] ASoC: codecs: nau8360: Fix misleading return in nau8360_message_to_dsp()
-      https://git.kernel.org/broonie/sound/c/ed7d8ed9a915
+[1/1] ASoC: hdmi-codec: Report a change when the channel status moves
+      https://git.kernel.org/broonie/sound/c/c17ae8c26eac
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
