@@ -1,61 +1,61 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3588C44A3F0
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F102468C01
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545542; cv=none; b=GCJfYwFO8KcokaH/ghosZJt8tMItq1/M6BtXqkGOYqTGU90DZFxzDjhyp/fZsXyknN/dsnIEKSAwzsM7pXkNnDhvHPRU69KPC4JIsS6y2U2fi2TOX6jdpuwCsR0rgwRrAk6si2LOtfaHN24YFwpw7fB4Qr34gslqBhlqXgTpla0=
+	t=1789545546; cv=none; b=KBVyp1s5z4XAnBKlLtG3k4zOIWhd/SjUDW1FGn2JaUhzqAc4DmNEyTa29cCyEeiKbqg6l//j7p/vmu0v3xYWVsjIRl9IZidzQ9cmrgGOWRQRckQPSBkZa+upJM1A63SnNDxG6jg3XF/pWBgH8OeUodnU3DE5J0mPgsPZjrpGT8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545542; c=relaxed/simple;
-	bh=guAn9TMfJdLxEfb0LTGkrmmVx3DDJgyF4Kcka2QfUz8=;
+	s=arc-20240116; t=1789545546; c=relaxed/simple;
+	bh=PPQwnBevhndYutuKDdDvehHKW7FqGHGO5QlRVDsedNs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mIpQxtlcDbT1ctvP9PVt+olcjE1hMDhhsxHNBPRg29NNLWPckrPGuGUI6WXT78EqAXE6BuduC2yO4pBvGukSyTjLHA/zWjadvxu0tHHvdViyQnGOB1r/1fC968cD8X/fPruF6J/7s92h+tmOMqmlUXpTsSYRf+Lbg/QBW5059cU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=bFRS5K0f; arc=none smtp.client-ip=74.125.227.171
+	 MIME-Version; b=kbZtRfFJvQnTyr1ArAogt9ikg12UaNX6Npo1rT3PT0h4oPnLZV0Mtu+XoiP1yvX40NxJd/ehgMafPGDq866DZQEgYtOQsSVcXncUheGz0BuLTjmaNp7w3RJHxUOtPpK0wH02PluW/E7Nm/AhOOnxVnTi6m3Koy+t/kQpBgvsSqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Ipq2ISt0; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="bFRS5K0f"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396cccbba92so527836a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:58:47 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Ipq2ISt0"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd4b43b20bso4133555ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:58:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789545523; x=1790150323; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1789545528; x=1790150328; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9EP7B7Ij+uzgh7ozqOWENJmY+4dziA6HYdxmCK1rOAM=;
-        b=bFRS5K0fJAFRwemfCnobO4KDZTJ0Upc+aurdNPL5HXxuXmicqD+uwP31FwD0DPH+2h
-         guPLAibJTdNgLyZ1K8XB7SpjnWbvJ6sd6N2NPfzzBbnRJUZv5BtKeDkNWIzn/YTEs1p5
-         p/SihHo7CsS/rx2z6z70oTxKTyoxlUNDjUrVU=
+        bh=SWwi8XOZ6LU+PxR6btCprbkiTyl3Q4dICGc4z937Hmk=;
+        b=Ipq2ISt0pOHBw/MedOHquRdKJL8cr81NU8lTbtIi0375m9EvnwtQ5Cu0+JLOohQWAH
+         Z2yAczKbLMHtbCZ1JR5dvkvOPKbIZp1zWutKzSKJouwlTG0iavUXgS6XXeUJucT/9HoF
+         LmR92+Lbp15SkFfG87C9Q9+StcoQp2bKXq/oQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789545523; x=1790150323;
+        d=1e100.net; s=20260707; t=1789545528; x=1790150328;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9EP7B7Ij+uzgh7ozqOWENJmY+4dziA6HYdxmCK1rOAM=;
-        b=Uqf2sqE2jRlKPT/qGxVUE3QevXaJYty/GeRR078qHI4m0TwmIx9GupEcaBEvQqPozf
-         L8mZtTGMZSYxDQJUTbhVLCwJi93oNCWazTw/bw/oup1AIJP/AC3CwQlTNFg/hQmALyk4
-         PBxxWavZZwkLTyIbEZO/wVI8tBiiviGIUak70W3+icmgOw5TzpkbtbRKWcpNozJiUqmu
-         MaxU8zb9l7i3q7KS+OLsF0fjdXqpeKOpaasLGPGlXrzkAqiJomcHVCHRUy9wHEXW9ySX
-         ldRzACUK/Sbo2WP5FB06rmBjjpcAFD2pqxIiD6ccIqOpb21nZmyovTgjGw+N8G9v8t7y
-         3RQg==
-X-Forwarded-Encrypted: i=1; AKwUvBzozMDdT+v/ijpi4Gm06+crQfB9UvIpm3JLwAFsmc8dqNrL07suG2mN7uosNmkhxETCsAJvzTinsI2h4ls=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqZDLzGIs08eHBgdR1grtJ4IVvkp7UU1Q8ahuojRkz/yqsEGtc
-	59RN+HtgpZD3KulEdXPy+Zsa3n0M86XxQVuLZdLUiMDsxx5CY2Bw4GV2rtzHIBb9lA==
-X-Gm-Gg: AYBFou15PaSZbQ6S2ESsLi+sk7vUSAC2L24parMXM0f3sL8/8el3NQScgLIkZ96gRYD
-	2bGzP8IAKenQkfkmtN6z8EQOWfvPS9mhfEYNNaWgtYUF1vBZn+qEQX0YTTVMo2Nn7au+MdU5JaP
-	v+UcW+epvcmCJ/X5ZP75eFfchOQILrKmkUze/PfBl87yo0Y6yml9mKxeG4PdWCtJJG3su/jkXdu
-	aB+TszEZXjyh9pImaIVUjXxwhVynX6l0xAXecv4c4qRDAAyKFTiCVc1Ht7Wv2Sd7PbAVBRWgcH0
-	mVBVLBuMSC8NT0wfFD5W2n872eQJv97QOWI7EXrMZHL9Y4x61rQf8TFTQ8p23rmpa+aofWFYtM8
-	BIsPdTNqT+5kXIgBYbilOEMNnGt9XDxfpJQeplSqCGqgD6R4bGlQGz2Zg0XU3qyir79F0RxcL/A
-	qH7FVXQRPhLPj+gDxkMpGn0wrF1jdOfs92dlgTVz7VqofnVFaUzC3fV/P5/TNapFHW/BRLX6N+O
-	e0dfn9BKb2bDPmAKNcH4WsimO5Pq5J6Y90v2aUZ5xgRt08sQPjzK1KIVw==
-X-Received: by 2002:a17:90b:440c:b0:39d:fea0:c17 with SMTP id 98e67ed59e1d1-39e1e309c21mr3792094a91.8.1789545523106;
-        Wed, 16 Sep 2026 00:58:43 -0700 (PDT)
+        bh=SWwi8XOZ6LU+PxR6btCprbkiTyl3Q4dICGc4z937Hmk=;
+        b=m2td1ZXufxnqGnkgIV8biR+KvEe9vGcC016y9J0YrLwgGQNdxPqAWJPclnY6SY45YC
+         9HMvMPcZeYYsrxcG4lwQY7E9kYkK7x0sXuO2H9ie0oY5WwsOcrCMxoZm2HwUhTJphHkz
+         yasRP5l7oa/tv1Gop0JTGaLrfVLS/JHavs5Hg0dBvnaBvftJMcpeFLqZPskjVlw6D22H
+         26gTgv6dXP6Xyuizt/UW25oZXEE5SF/w0FVTJz2kkWj5ZR1sK3gTQzZRo/V9Ekn4Tb+Q
+         9S281jxn7RmgPSdQ0XKISjEA2uTPt4sQdQl4WqIvoNf7VMFrBVtYoMtvWBIMuKNQ4IQb
+         Rx7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzP2/Y694tNVrv4T7KFDrOZeHcWQ9KOdQA0go8VJSCt+8Z2Qa/pr/XjMV34b3CpflAIceoJ647HsLLBssw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXlZKecGoSvfbdtUqP5d/5te1L1sMFjvpclSj2kOQLjOuwnn8F
+	tvl3CQtvFEi4x72P8j7UY5GAbVsODoRHUI7Y7CLdQqBhuLon/jk3Db5oUNFkIVrnoQ==
+X-Gm-Gg: AYBFou3KxQ8Xl5wUQfyoq+AoCTqSs7NTGWmvhlrxqbvxK5FMGvJub/Sfi6+9myC1QR+
+	rHML5WowFW9zq+V4BGaRtJEKUZTuHq8oXbqWn2mHSi3cG7aVDH0ITutUSA0tyAtsF5vzkawM5Fx
+	/pYrS+CsDk27iOI/gRJNHzC8fUv3HMiherjir6bfK8S3wMnse7kdMLpMAAP7bHX2ZpKSEaG63B0
+	sLLXHaIPCzgLPW7dvEAbShYUhcvMdg9f6vO1ZdF+GbCv6bIRHsJOfpa79gspOqOhGu35zOt1tBw
+	M1FoNwP1hEBjdu/Yva2E5wo9axmW+qJKb9BgncikwXgYDLDxDbstX4+yo0AXUPtGKi+bBk0Sq/e
+	0qCTThCdw4OJXFUtmZcWPjZElIZ5IUetYGvFf9swCQNp+pd1p+3RhMxbYQgrOBUzGSC8q4gyGZ3
+	obEVySt2S98NYN55rirp4Y07HiP3ogzrhye8fheg4ZYO57OlYP8tBbv4kX9nO5twTiWJESxQ/Pm
+	iP8asBUQzI/dZnQqoTBpX33AoPFH1JJ8fcQYlUhec0sbXBeo0pmLpgtfsLnn2RgedEz
+X-Received: by 2002:a17:90b:39a3:b0:39e:233f:cee9 with SMTP id 98e67ed59e1d1-39e233fd063mr2563733a91.11.1789545528600;
+        Wed, 16 Sep 2026 00:58:48 -0700 (PDT)
 Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:1f62:7622:5d61:2578])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b7acba2sm4348197a91.16.2026.09.16.00.58.38
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b7acba2sm4348197a91.16.2026.09.16.00.58.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 00:58:42 -0700 (PDT)
+        Wed, 16 Sep 2026 00:58:47 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Bartosz Golaszewski <brgl@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -82,9 +82,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	Manivannan Sadhasivam <mani@kernel.org>,
 	Alan Stern <stern@rowland.harvard.edu>,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v9 04/15] usb: hub: Use assign_bit() in usb_hub_set_port_power()
-Date: Wed, 16 Sep 2026 15:57:30 +0800
-Message-ID: <20260916075745.3549953-5-wenst@chromium.org>
+Subject: [PATCH v9 05/15] usb: hub: Return actual error from hub_configure() in hub_probe()
+Date: Wed, 16 Sep 2026 15:57:31 +0800
+Message-ID: <20260916075745.3549953-6-wenst@chromium.org>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
 In-Reply-To: <20260916075745.3549953-1-wenst@chromium.org>
 References: <20260916075745.3549953-1-wenst@chromium.org>
@@ -96,51 +96,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-usb_hub_set_port_power() open-codes assign_bit(). Just use the
-assign_bit() macro instead. This makes subsequent additions to
-usb_hub_set_port_power() easier to read.
+The addition of power sequencing descriptor handling in the USB hub code
+requires dealing with deferred probing from pwrseq_get(). The power
+sequencing provider may not yet be available when the USB hub probes.
 
-This change does not introduce any functional changes.
+Return the actual error code from hub_configure() when it fails, so that
+the driver core can notice the deferred probe request.
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Also rewrite this section into the standard error handling pattern:
+
+    if (error) {
+        # handle error
+        return error;
+    }
+
+    # do more work
+    return 0;
+
 Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
-Attributing suggestion to Andy, since the change was originally
-requested as part of a review.
+Changes since v2:
+- Rewrite into standard error handling pattern
 
-Changes since v4:
-- New patch (split out from "usb: hub: Power on connected M.2 E-key
-  connectors with power sequencing API") (Andy)
+Changes since v1:
+- Moved "int ret" declaration in hub_configure() over here from the next
+  patch
 ---
- drivers/usb/core/hub.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/usb/core/hub.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-index 199d3f535a89..a4ec79a06a5c 100644
+index a4ec79a06a5c..707eeee198b0 100644
 --- a/drivers/usb/core/hub.c
 +++ b/drivers/usb/core/hub.c
-@@ -10,6 +10,7 @@
-  * Released under the GPLv2 only.
-  */
+@@ -1875,6 +1875,7 @@ static int hub_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 	struct usb_host_interface *desc;
+ 	struct usb_device *hdev;
+ 	struct usb_hub *hub;
++	int ret;
  
-+#include <linux/bitops.h>
- #include <linux/kernel.h>
- #include <linux/errno.h>
- #include <linux/module.h>
-@@ -902,10 +903,7 @@ int usb_hub_set_port_power(struct usb_device *hdev, struct usb_hub *hub,
- 	if (ret)
- 		return ret;
+ 	desc = intf->cur_altsetting;
+ 	hdev = interface_to_usbdev(intf);
+@@ -2006,14 +2007,15 @@ static int hub_probe(struct usb_interface *intf, const struct usb_device_id *id)
+ 		usb_set_interface(hdev, 0, 0);
+ 	}
  
--	if (set)
--		set_bit(port1, hub->power_bits);
--	else
--		clear_bit(port1, hub->power_bits);
-+	assign_bit(port1, hub->power_bits, set);
- 	return 0;
+-	if (hub_configure(hub, &desc->endpoint[0].desc) >= 0) {
+-		onboard_dev_create_pdevs(hdev, &hub->onboard_devs);
+-
+-		return 0;
++	ret = hub_configure(hub, &desc->endpoint[0].desc);
++	if (ret < 0) {
++		hub_disconnect(intf);
++		return ret;
+ 	}
+ 
+-	hub_disconnect(intf);
+-	return -ENODEV;
++	onboard_dev_create_pdevs(hdev, &hub->onboard_devs);
++
++	return 0;
  }
  
+ static int
 -- 
 2.55.0.1032.g73a4cd73de-goog
 
