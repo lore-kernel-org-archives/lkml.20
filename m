@@ -1,261 +1,127 @@
-Received: from mta0.migadu.com (out-190.mta0.migadu.com [91.218.175.190])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBB84D990A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.190
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E834C14F3;
+	Wed, 16 Sep 2026 10:20:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554004; cv=none; b=YgdyCYfKyM4P6HNXRoIPi0xJO3TGtqhmL0rHXYGNhwdehi0YyoPsbsVkDi9TSDv44n0UzvtHDQAKqmqGhCkFEYeRipguqNl4sMGvFAW5VpAmz0ksOHhtgo/TbtJDMkNxavnyTYuo5sXLiej/aEVOXre/TMzFG/2SiCcoaJv4BHY=
+	t=1789554010; cv=none; b=JFzw/q4haEXbz2d0tMI4AA4fCNxeGnLL16aNVhH+D7oLQcswQOUNeJU798pwmkDBYLEbfqzsk1YhMGh5hdBVtFkf1YsDxlZ5779+oz61TQnCnNFgpoqqa1nNHVv+xHhHSkL3atXfB7n90Zn5WkGQc8obboxJhEdZJ2mQ7jwYZGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554004; c=relaxed/simple;
-	bh=yHUdw2SliBhqyIthTxgdHp+3fEdjzm0Ya/fgObjL84U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=isL3n2DdPrUHzC08ydUz9cqx47/12k6XRMlRz0CAhoJErL3KdLwOACba450IOYT8cPPBj4gTxYMqErcT1slACcKHkMNUDSn+g1zQJ6YhOW31Y7s1nZPd8Q2YSPDKUqM+8O1p7NApd3XiWwl2LgBpXwpI9o7qBwqvKe5zLGxNizs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.190
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id dbbdf434853dd29a;
-	Wed, 16 Sep 2026 10:19:43 +0000
-X-Mizu-Trace-ID: dbbdf434853dd29a
-X-Migadu-Flow: FLOW_OUT
-From: Baoquan He <hebaoquan@kylinos.cn>
-To: linux-mm@kvack.org
-Cc: akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	nphamcs@gmail.com,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	yosry@kernel.org,
-	shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev,
-	baoquan.he@linux.dev,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	kunwu.chan@gmail.com,
-	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v3 01/14] mm: xswap support for zswap
-Date: Wed, 16 Sep 2026 18:19:08 +0800
-Message-ID: <20260916101929.149106-2-hebaoquan@kylinos.cn>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260916101929.149106-1-hebaoquan@kylinos.cn>
-References: <20260916101929.149106-1-hebaoquan@kylinos.cn>
+	s=arc-20240116; t=1789554010; c=relaxed/simple;
+	bh=ZdiiynkTSEzixqoDULJaTjJ2JCfd9M9hNholTnj5GQU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OEW0J0b1wg9YvOJJ6v1UkfUepm0uKR11tUMDtF9CSMlpKf/yCwZJ1oZ6KR7T9+jC13EESYURJZmx/6rOfT4Sx4gVi4YTp/rCCjGh7dAsANTt4UbLD2b1BD+ZPV6ow3fjFT8Qy566Vo3OAnMYDaQkaCGBKHtYNBsKZFW+TpIeXGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mSIn0NIG; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mSIn0NIG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789553998;
+	bh=ZdiiynkTSEzixqoDULJaTjJ2JCfd9M9hNholTnj5GQU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=mSIn0NIG7emGT1WDtVPOGhV9vO5/hD739A2wU0lUdlnlJ41tHMC0YYehbWqSPjDW/
+	 BKKJg5d4OVpSEsvqIbRt7c2DlxJ90fxG09yH6/OqQBobMrbLh7OwxhUCOSEBY/zkvG
+	 /UFoRyGIc4zvqn9/6YvV4hEgFqAdUKHla2Yx0UbqIqJjBqh8rtwPVjUaFt9LQGQblx
+	 d+oebwWbgh8eYTHB1kx3h+UOy+45/ex9QtheyI+CSWJz08SIzYMMA1eONeNbLqutNX
+	 6F2kd72D2QJD5KHhRjMQ9ciHXyiqjek7+nXguzHMgLPE7u5ierx9Ircz9sWpHi3l+0
+	 KicQ1/YeeHGjQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id CC5AF17E0420;
+	Wed, 16 Sep 2026 12:19:57 +0200 (CEST)
+Message-ID: <c8fb208f-c9a8-45ae-93f2-161279f2ba37@collabora.com>
+Date: Wed, 16 Sep 2026 12:19:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-type: text/plain
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/12] ASoC: mediatek: mt8189: Improve error handling
+To: phucduc.bui@gmail.com, Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Cyril Chao <Cyril.Chao@mediatek.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Dan Carpenter <error27@gmail.com>, cassiogabrielcontato@gmail.com,
+ linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260916050020.14575-1-phucduc.bui@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260916050020.14575-1-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Chris Li <chrisl@kernel.org>
+On 9/16/26 07:00, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> Hi all,
+> 
+> This series addresses part of the error handling in the MT8189 AFE driver.
+> 
+> It propagates errors from clock operations and runtime resume, validates
+> clock parameters, and removes redundant error messages.
+> 
+> In v2, there was discussion about checking the return value of
+> regmap_update_bits(). While opinions differed, the existing driver already
+> checks it in mt8189_afe_enable_top_cg(), which is used by
+> mt8189_apll1_enable() and mt8189_apll2_enable() touched by this series.
+> 
+> Therefore, I keep these checks and add the corresponding error paths for
+> consistency.
+> 
+> Compile-tested only.
 
-Introduce extendable swap device support - xswap.
+Series is
 
-An xswap device has no backing storage and no swap data section, so
-it wastes no disk space. Creation is via a sysfs interface added in a
-later patch.
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Zswap writeback is gated on whether a real (non-xswap) swap device is
-active. nr_real_swapfiles counts such devices and is maintained at
-swapon/swapoff only, so the gate reflects "a device exists to write
-back to" rather than "a device currently has free slots". This keeps
-writeback working even when the real swap device is full, and avoids
-a double decrement when a full device is swapped off.
+Cheers,
+Angelo
 
-Co-developed-by: Baoquan He <hebaoquan@kylinos.cn>
-Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
-Signed-off-by: Chris Li <chrisl@kernel.org>
----
- include/linux/swap.h |  2 ++
- mm/page_io.c         | 19 +++++++++++++++++++
- mm/swap_state.c      |  4 ++++
- mm/swapfile.c        | 28 ++++++++++++++++++++++++----
- mm/zswap.c           |  7 ++++++-
- 5 files changed, 55 insertions(+), 5 deletions(-)
-
-diff --git a/include/linux/swap.h b/include/linux/swap.h
-index 43155e122b5c..b4331ca4759a 100644
---- a/include/linux/swap.h
-+++ b/include/linux/swap.h
-@@ -201,6 +201,7 @@ enum {
- 	SWP_STABLE_WRITES = (1 << 11),	/* no overwrite PG_writeback pages */
- 	SWP_SYNCHRONOUS_IO = (1 << 12),	/* synchronous IO is efficient */
- 	SWP_HIBERNATION = (1 << 13),	/* pinned for hibernation */
-+	SWP_XSWAP	= (1 << 14),	/* extendable swap device */
- 					/* add others here before... */
- };
- 
-@@ -375,6 +376,7 @@ void free_folio_and_swap_cache(struct folio *folio);
- void free_pages_and_swap_cache(struct encoded_page **, int);
- /* linux/mm/swapfile.c */
- extern atomic_long_t nr_swap_pages;
-+extern atomic_t nr_real_swapfiles;
- extern long total_swap_pages;
- extern atomic_t nr_rotate_swap;
- 
-diff --git a/mm/page_io.c b/mm/page_io.c
-index 1da4ff484f09..d685c2e2429a 100644
---- a/mm/page_io.c
-+++ b/mm/page_io.c
-@@ -248,6 +248,15 @@ int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
- 	}
- 	rcu_read_unlock();
- 
-+	/*
-+	 * xswap has no backing store: keep the folio.  ctx->sis is not set
-+	 * yet, so look the device up from the entry.
-+	 */
-+	if (unlikely(__swap_entry_to_info(folio->swap)->flags & SWP_XSWAP)) {
-+		folio_mark_dirty(folio);
-+		return AOP_WRITEPAGE_ACTIVATE;
-+	}
-+
- 	__swap_writeout(ctx, folio);
- 	return 0;
- out_unlock:
-@@ -482,6 +491,16 @@ void swap_read_folio(struct swap_io_ctx *ctx, struct folio *folio)
- 	if (zswap_load(folio) != -ENOENT)
- 		goto finish;
- 
-+	if (unlikely(sis->flags & SWP_XSWAP)) {
-+		/*
-+		 * An xswap entry only ever lives in zswap, so zswap_load()
-+		 * must have found it.  Unlock and let the caller retry.
-+		 */
-+		WARN_ON_ONCE(1);
-+		folio_unlock(folio);
-+		goto finish;
-+	}
-+
- 	/* We have to read from slower devices. Increase zswap protection. */
- 	zswap_folio_swapin(folio);
- 	swap_add_folio(ctx, folio, READ);
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index 625c185a1ca4..8bba3e533b28 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -837,6 +837,10 @@ struct folio *swap_cluster_readahead(swp_entry_t entry, gfp_t gfp_mask,
- 	struct blk_plug plug;
- 	swp_entry_t ra_entry;
- 
-+	/* xswap entries live only in zswap; readahead does not help. */
-+	if (si->flags & SWP_XSWAP)
-+		goto skip;
-+
- 	mask = swapin_nr_pages(offset) - 1;
- 	if (!mask)
- 		goto skip;
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 280dd906eb18..13ae681acf07 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -66,6 +66,7 @@ static void move_cluster(struct swap_info_struct *si,
- static DEFINE_SPINLOCK(swap_lock);
- static unsigned int nr_swapfiles;
- atomic_long_t nr_swap_pages;
-+atomic_t nr_real_swapfiles;
- /*
-  * Some modules use swappable objects and may try to swap them out under
-  * memory pressure (via the shrinker). Before doing so, they may wish to
-@@ -733,7 +734,8 @@ static void free_cluster(struct swap_info_struct *si, struct swap_cluster_info *
- 	/*
- 	 * If the swap is discardable, prepare discard the cluster
- 	 * instead of free it immediately. The cluster will be freed
--	 * after discard.
-+	 * after discard.  xswap has no bdev and never sets
-+	 * SWP_PAGE_DISCARD, so it always takes the free path below.
- 	 */
- 	if ((si->flags & (SWP_WRITEOK | SWP_PAGE_DISCARD)) ==
- 	    (SWP_WRITEOK | SWP_PAGE_DISCARD)) {
-@@ -1216,6 +1218,9 @@ static void del_from_avail_list(struct swap_info_struct *si, bool swapoff)
- 		 */
- 		lockdep_assert_held(&si->lock);
- 		si->flags &= ~SWP_WRITEOK;
-+		/* Count active devices, not merely those on the avail list. */
-+		if (!(si->flags & SWP_XSWAP))
-+			atomic_sub(1, &nr_real_swapfiles);
- 		atomic_long_or(SWAP_USAGE_OFFLIST_BIT, &si->inuse_pages);
- 	} else {
- 		/*
-@@ -1273,6 +1278,8 @@ static void add_to_avail_list(struct swap_info_struct *si, bool swapon)
- 	}
- 
- 	plist_add(&si->avail_list, &swap_avail_head);
-+	if (swapon && !(si->flags & SWP_XSWAP))
-+		atomic_add(1, &nr_real_swapfiles);
- 
- skip:
- 	spin_unlock(&swap_avail_lock);
-@@ -3266,7 +3273,8 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 
- 	destroy_swap_extents(p, p->swap_file);
- 
--	if (!(p->flags & SWP_SOLIDSTATE))
-+	if (!(p->flags & SWP_XSWAP) &&
-+	    !(p->flags & SWP_SOLIDSTATE))
- 		atomic_dec(&nr_rotate_swap);
- 
- 	mutex_lock(&swapon_mutex);
-@@ -3376,6 +3384,19 @@ static void swap_stop(struct seq_file *swap, void *v)
- 	mutex_unlock(&swapon_mutex);
- }
- 
-+static const char *swap_type_str(struct swap_info_struct *si)
-+{
-+	struct file *file = si->swap_file;
-+
-+	if (si->flags & SWP_XSWAP)
-+		return "xswap\t";
-+
-+	if (S_ISBLK(file_inode(file)->i_mode))
-+		return "partition";
-+
-+	return "file\t";
-+}
-+
- static int swap_show(struct seq_file *swap, void *v)
- {
- 	struct swap_info_struct *si = v;
-@@ -3395,8 +3416,7 @@ static int swap_show(struct seq_file *swap, void *v)
- 	len = seq_file_path(swap, file, " \t\n\\");
- 	seq_printf(swap, "%*s%s\t%lu\t%s%lu\t%s%d\n",
- 			len < 40 ? 40 - len : 1, " ",
--			S_ISBLK(file_inode(file)->i_mode) ?
--				"partition" : "file\t",
-+			swap_type_str(si),
- 			bytes, bytes < 10000000 ? "\t" : "",
- 			inuse, inuse < 10000000 ? "\t" : "",
- 			si->prio);
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 507f2d19fd2a..96fb993d18cb 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -1018,6 +1018,11 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	if (IS_ERR_OR_NULL(si))
- 		return -ENOENT;
- 
-+	if (si->flags & SWP_XSWAP) {
-+		put_swap_device(si);
-+		return -EINVAL;
-+	}
-+
- 	mpol = get_task_policy(current);
- 	folio = swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
- 				       NO_INTERLEAVE_INDEX);
-@@ -1567,7 +1572,7 @@ bool zswap_store(struct folio *folio)
- 	zswap_pool_put(pool);
- put_objcg:
- 	obj_cgroup_put(objcg);
--	if (!ret && zswap_pool_reached_full)
-+	if (!ret && zswap_pool_reached_full && atomic_read(&nr_real_swapfiles))
- 		queue_work(shrink_wq, &zswap_shrink_work);
- check_old:
- 	/*
--- 
-2.54.0
-
+> 
+> Link v1 :
+> https://lore.kernel.org/all/20260910125742.150902-1-phucduc.bui@gmail.com/
+> Link v2:
+> https://lore.kernel.org/all/20260914072842.24420-1-phucduc.bui@gmail.com/
+> 
+> Changes in v2:
+>   - Update the names of the goto labels.
+>   - Check for zero frequency since freq is unsigned.
+> Changes in v3:
+>   - Add Angelo's Reviewed-by tag.
+>   - Restore the existing afe->regmap checks,
+>     making the separate patch for missing regmap unnecessary.
+>   - Do not pre-initialize ret; set ret = 0 in the default case throughout
+>     the series.
+> 
+> Best regards,
+> Phuc
+> 
+> bui duc phuc (12):
+>    ASoC: mediatek: mt8189: Propagate APLL enable errors
+>    ASoC: mediatek: mt8189: Propagate MCK enable errors
+>    ASoC: mediatek: mt8189: Validate MCK ID
+>    ASoC: mediatek: mt8189: Propagate reg_rw clock errors
+>    ASoC: mediatek: mt8189: Use dev_err_probe() for clock errors
+>    ASoC: mediatek: mt8189: Propagate runtime resume errors
+>    ASoC: mediatek: mt8189: Remove redundant error message
+>    ASoC: mediatek: mt8189: Propagate APLL errors
+>    ASoC: mediatek: mt8189: Propagate MCLK errors
+>    ASoC: mediatek: mt8189: Validate sysclk frequency
+>    ASoC: mediatek: mt8189: Propagate TDM clock errors
+>    ASoC: mediatek: mt8189: Validate TDM MCLK frequency
+> 
+>   sound/soc/mediatek/mt8189/mt8189-afe-clk.c | 134 +++++++++++++++------
+>   sound/soc/mediatek/mt8189/mt8189-afe-pcm.c |  45 ++++---
+>   sound/soc/mediatek/mt8189/mt8189-dai-i2s.c |  18 ++-
+>   sound/soc/mediatek/mt8189/mt8189-dai-tdm.c |  19 ++-
+>   4 files changed, 154 insertions(+), 62 deletions(-)
+> 
