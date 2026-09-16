@@ -1,101 +1,142 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f37.google.com (mail-ed2-f37.google.com [74.125.228.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2A74F0557
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4ECA5293EE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:32:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572742; cv=none; b=kb4EBN+XOBEm5YSw+5aoEyfd/3qhyPxJRkcJ54h7AdPD2Z9macZilA7XnH/uUttMydGVdRWfg+Mz84rHz7sF85112+JZGKqwWSSdzqvIeN7q5cyxEKwJdUjUTVWqc3X54fXuQxlZCzgPZD/yIqKE3yApJZC2kuRf6yW22Z2zM3c=
+	t=1789572781; cv=none; b=nzdPur6dYdUAlCegDceW8f868XP62lCTlBj8mBPtUs6oQysI7nPMNAQl3sQNmX+DwAJrgzelinIRtsZRzCCDt2eL2TfwB1KIlKsWf2MCp20mOUSlNd065zSysoIx8hsbIlnyW/utVjAlVsow2lGkpBEqtZ3bllsIf7zgvhgUXck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572742; c=relaxed/simple;
-	bh=GNXX10jFFVYPSFMnTtwo/nB37qWTYupUa8HU1zg4KgM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ER82DC23HjRrImdYN22QxXQHzBSeKonxVkSoAtiA2LKSOvU/bgOt8Xf6sAogvMRO3MdrRmWrj538fbK3GUFyhqmYFvvPSEsLKxXstJvZeor+4l+ba4wNS9A47ydLZblrn2lKwxqCnjZoYQt2jLgiVwKa+AodcRLPkPk8am7lVOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Od7nyhHi; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789572781; c=relaxed/simple;
+	bh=/zZcWsZyiiERqW21qgwZOwA78F/SYZekoddGZXoMhpw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LJuutANPu9J8xpDlwuWB8INLEWR7oXfyPbNc5yWtGXGBWsvZRUeOXyVIWld0OV/UKAhZFP0/ydI1cfpZWgBPDxWUdsq8K4Q6ePXaZWQ5Nih0baOONNDXz6utkXE+POmyR1iApPyPlBXfXetEbp6pAEaCUTg3kkK3MFgCBkgbCnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rTqCZm1r; arc=none smtp.client-ip=74.125.228.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Od7nyhHi"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5D6D240E00B9;
-	Wed, 16 Sep 2026 15:32:14 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id FEbHYErFmwH0; Wed, 16 Sep 2026 15:32:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789572723; bh=+ncQkglgN0s+DNE7ulb0S3bNaiYn12xAJ1A7efer6HY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Od7nyhHiVCmmM93z/j14/G5Tld0fi1nBHjy2H6KN0ye5CLZ8dOr7qKsyF88rahZhO
-	 P+kkOK7DbxEzdZ1KdS5fxslACPySDeeH8EyBVItSshs16dEiMYH5fVQKTpTxP7Cjc9
-	 X+7wOiaIj+p0yhhGxgupjRcA+W065wW9yF9EQJOap0TZWzebIdqRwUmCD2XbT47AiD
-	 fa69YNOFbfBxSUO5ElKIIXER6zUf4Fv+pJ93Ii/58OnZ9ngQKFwl07Cb/VDPDPggLC
-	 Jht6oGkDUeVDMdbgjk4MIalEyzBDLe/kfGAQwD02UViHy3kAmsmivXwBATAH789grG
-	 DwJzUgBwXEeKwunjJu36VaO/rfmFGZZdRxrNuBikIpciFnRo97aA/eKRlW6SMBrEPO
-	 lBDYnQ7ivDsUM9ofJYL+nyHNcmcbYZ3glPsMXWpcRmwOSrwo2NzZ6dYHD5u80jP5zt
-	 IajzXQ+gpDQYaCrGnqGdcRfEbcecfyghbkeDWs5HdkrezvJt+6I0BHnzr4rb+ME6wR
-	 YHD/zsb/w2PhcIoMDoNjxkB5rRR8n32wvlJvnRGeQYHmsjN4Y8nv+yiT4ITD03Kxuw
-	 a1WXjKWiJJAGRCXkEUZfaNBf0Ub9BIcvdlDXxXoqHOmfzAvmLGTfMiPISiLeLM2Naz
-	 /j9kREWZ62V1w5aH1/sGN4fo=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 1A9AE40E022C;
-	Wed, 16 Sep 2026 15:31:52 +0000 (UTC)
-Date: Wed, 16 Sep 2026 08:31:49 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Andrei Vagin <avagin@google.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	"Chang S. Bae" <chang.seok.bae@intel.com>,
-	linux-kernel@vger.kernel.org, criu@lists.linux.dev,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH 1/7] x86/fpu: Document signal frame layout and portability
-Message-ID: <20260916153149.GAaqq2ZcheETQAosSE@fat_crate.local>
-References: <20260908043427.1842515-1-avagin@google.com>
- <20260908043427.1842515-2-avagin@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rTqCZm1r"
+Received: by mail-ed2-f37.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9a59so1577669a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:32:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789572770; x=1790177570; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o2o1V2LPzxwvgGW3zNcUG+5E2H/7M9BqltvIjN9oO0g=;
+        b=rTqCZm1rwwzxwbesd9HpO8HZ7ps9c1tPPryJmnsBGi+02SuJxCJvT82illM408QI2K
+         mvmprRFKup4eOsZx8ilYHj5Mtew9no4eVjI0Xs1QQwOgVwerxvzuky2hdkz6cGUnXE8p
+         y8zL9KQqc8WdEj3JX2XSa3yVBE7KfsyO2jYdkG21zyQxdGxlbHSpSLCsvUzEvTqFVSHQ
+         KjEdAYo0ZgCBMEY7MgffeCMNomZIPQ6ICWBZWMCRQtFNbzhgZnLV/CAkxoVfxOdfFiA6
+         52zD12daKe5itkd/ZX3+xwdK8tV17LxDdeFJIAKPFTSUuhFsusMvlHOSlEr96eadBkmS
+         HWDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789572770; x=1790177570;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o2o1V2LPzxwvgGW3zNcUG+5E2H/7M9BqltvIjN9oO0g=;
+        b=dVtEUoa01S6pKuuRRqTADTq0Jjxm9fue1ItlxoK1AUoO7IHlOGGmXeI6U6FC4ea9VB
+         ksQ/4TzfYXpElL8oZesRkdSjXH7A5xg3fGA5llVbay/m2vUjnY4afGULggddQ4VmdnXr
+         +PiEM0l7N5dgBQlL2XF/7HG6zVp1mSIB2ijmH+GmVW5/6/iHDRw8QEvsA2Cn2HY2YRNq
+         o1g5fdSSorQLpi04TcMtcSuYMIPUfQJzOyejoIe2DYrffwRHtwE95nBtK9NnoSdcDGPa
+         XiYARMHMssmFOgVyzQGXs+mmJf8icIA+kn0U47Eg+WYvNc5Q4Io/eP90BrxCsnDoBPGT
+         pTRA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPOfvG/uJYoNeusG5nPHqdVOXyZpBVv2kVlSvvUDbEj4ObXfsI3ZDyW4toTrlZmLpaOhjUhl58H4NuiHw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGae2pBRRdHQmaGpK+U++lWLqGGgQscxXn2xz/1YTX3uKIOYWP
+	22VqqqveoWN4ubYTthCdbcBoQIHJ9AIHDirp0wYjN5AFSA15lVDoIO0O
+X-Gm-Gg: AYBFou3dlwQ2h1n9x7tUmPIrDtFFODFSA685Yo2U/2QOrkjQgjmapZW5fvdS4PdnASF
+	a08UCulCE67EcoXDOTID/BM/KAyX0wd1727ctdfTFiHH1yCJ/bWZZ7/6lOX03HLUNXki5hQwj+l
+	SuCAhnbVQOqCtFCdQMhae1VujRKfcwIIp5q7Hi3JFfe/SE3QYo8SAn+FzJzxsmhFm09Fa4QMg2D
+	UtiK/VKf2oIVo3Cztmgb6a+QWaXHS1HmGdtZjSR/0/8kYHusskjE2btc2efa7M4rCTvYYwMmr8x
+	3o3aPoyWl0Xn5RT9aKNFbE0nos5vG21V/s+LTLS3iW/TygwGSTROmJza90U3pcsVUxXxxaVoy2A
+	HbR0nxboBEUXkI2iqdUdldrntWAFQ3vAFBW5J9DKzJt8E9QL1d6zzMOoc43zlzhS5N+a7Ip33+r
+	bjHSoq2xuXLdb0Oj3uRGs/hSnDGcr5vd2muvYaOnz0lPw6HXNHvdmI+lDvainXPV0Ek6a7WJrNj
+	HAEKfKHeXzQJXSBWsw3Q9g4TULC4/3cFHW0wv+i8w==
+X-Received: by 2002:a05:6402:44c5:b0:6a9:cd44:bee2 with SMTP id 4fb4d7f45d1cf-6aa22443689mr1880157a12.21.1789572770270;
+        Wed, 16 Sep 2026 08:32:50 -0700 (PDT)
+Received: from fedora-tap.advaoptical.com ([82.166.23.19])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1cfe0562sm2067081a12.3.2026.09.16.08.32.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:32:49 -0700 (PDT)
+From: Sagi Maimon <maimon.sagi@gmail.com>
+X-Google-Original-From: Sagi Maimon <sagi.maimon@adtran.com>
+To: Richard Cochran <richardcochran@gmail.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Simon Horman <horms@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	netdev@vger.kernel.org
+Cc: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sagi Maimon <maimon.sagi@gmail.com>
+Subject: [PATCH net-next v15 1/4] ptp: ocp: unregister devlink before detach on probe error
+Date: Wed, 16 Sep 2026 18:32:39 +0300
+Message-ID: <20260916153242.157171-2-sagi.maimon@adtran.com>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20260916153242.157171-1-sagi.maimon@adtran.com>
+References: <20260916153242.157171-1-sagi.maimon@adtran.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260908043427.1842515-2-avagin@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 04:34:21AM +0000, Andrei Vagin wrote:
-> The x86 signal frame is designed to be self-describing, with the
-> 'xstate_size' field in the software-reserved bytes indicating the actual
-> size of the context. This design is required for portability, allowing a
-> signal frame created on a system with a specific set of xstate features
-> to be restored on a machine with a different (larger) set of features.
-> 
-> Document the signal frame software reserved bytes (struct _fpx_sw_bytes)
-> and portability constraints in Documentation/arch/x86/xstate.rst, and
-> add a summary and cross-reference in <uapi/asm/sigcontext.h>.
-> 
-> Reviewed-by: Alexander Mikhalitsyn <alexander@mihalicyn.com>
-> Signed-off-by: Andrei Vagin <avagin@google.com>
-> ---
->  Documentation/arch/x86/xstate.rst      | 55 ++++++++++++++++++++++++++
->  arch/x86/include/uapi/asm/sigcontext.h | 14 +++++++
->  2 files changed, 69 insertions(+)
+From: Sagi Maimon <maimon.sagi@gmail.com>
 
-Sashiko has some comments here:
+devlink_register() runs before the dpll setup in ptp_ocp_probe(), but the
+failure paths after it went straight to ptp_ocp_detach() and then
+devlink_free(), which opens with ASSERT_DEVLINK_NOT_REGISTERED(devlink).
+Any dpll failure during probe therefore freed a devlink instance that was
+still registered.
 
-https://sashiko.dev/#/patchset/20260908043427.1842515-1-avagin%40google.com
+Route those paths through a new out_devlink label that unregisters first,
+matching the order ptp_ocp_remove() already uses.
 
-Please address them.
+Fixes: 09eeb3aecc6c ("ptp_ocp: implement DPLL ops")
+Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
+---
+ drivers/ptp/ptp_ocp.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Thx.
-
+diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
+index 3d26ec1f7b9e..401b04f12d2b 100644
+--- a/drivers/ptp/ptp_ocp.c
++++ b/drivers/ptp/ptp_ocp.c
+@@ -5119,12 +5119,12 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	if (IS_ERR(bp->dpll)) {
+ 		err = PTR_ERR(bp->dpll);
+ 		dev_err(&pdev->dev, "dpll_device_alloc failed\n");
+-		goto out;
++		goto out_devlink;
+ 	}
+ 
+ 	err = dpll_device_register(bp->dpll, DPLL_TYPE_PPS, &dpll_ops, bp);
+ 	if (err)
+-		goto out;
++		goto out_devlink;
+ 
+ 	for (i = 0; i < OCP_SMA_NUM; i++) {
+ 		bp->sma[i].dpll_pin = dpll_pin_get(clkid, i, THIS_MODULE,
+@@ -5151,6 +5151,8 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		dpll_pin_put(bp->sma[i].dpll_pin, &bp->sma[i].tracker);
+ 	}
+ 	dpll_device_put(bp->dpll, &bp->tracker);
++out_devlink:
++	devlink_unregister(devlink);
+ out:
+ 	ptp_ocp_detach(bp);
+ out_disable:
 -- 
-Regards/Gruss,
-    Boris.
+2.47.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
