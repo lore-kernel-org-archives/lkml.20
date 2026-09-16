@@ -1,141 +1,107 @@
-Received: from smtpout5.mo536.mail-out.ovh.net (smtpout5.mo536.mail-out.ovh.net [51.210.91.14])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3ED14EE85E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A5B4FECE5;
+	Wed, 16 Sep 2026 10:44:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555498; cv=none; b=tYvxUoqTEJYdpWC7A37kQ5UwCQHM7MDzpguZYm+l1ncVL+175zipEPxWep73dykpsipUVxPfkNy4MkWZTXxSQBnfS+tUsawOibFZoqVPI26mcQPBb6KHDh9QkHO7F/KUWPxkmq8rQnlix82omDTKP2aO/e66Uukasiv7DxfJEF0=
+	t=1789555527; cv=none; b=mHcsn0oY6H4BMqvDGLRkvJV3kCzQkgl1QtPcQR4Ilp2lppTuymni9gSpkX7QuLIAAuqTrYSMik8jAkSTKtOxVXQE95tv2Ee8X5s9DBOs16d74mr+9qKoVF+DDkmdqWvpaIqkf8RpcmXLWKSe2cEYDce8dSk5nbVjb6zb4luY7P8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555498; c=relaxed/simple;
-	bh=dh6cWE1nGDxHUnJu7kDb7ZhzfrdxQIGjYDOHXXvezeQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jOpUxFhr6J0+suOhB2fZK7c/fgLqZpt2EDcDG1nPYxT8x0Q1caOK9p4KQJyfolm35lmTzMNi+DGZzqnQyJlgjtzOU2CQaoPuYUe2Nxkox7p8H2h3fn8GCA1GQ5wmVirBWLoBpsYHrqJqGoW2Zjt5pPpYGiowIYJ4AQK7qr9aSnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pixelcluster.dev; spf=pass smtp.mailfrom=pixelcluster.dev; dkim=pass (2048-bit key) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b=lmODPOKr; arc=none smtp.client-ip=51.210.91.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pixelcluster.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pixelcluster.dev
+	s=arc-20240116; t=1789555527; c=relaxed/simple;
+	bh=7e8L4zD0Xm8HDCepCxOzn187CvpONJz72dR1IkEbxjQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iNnbJCoFkNYYUHS4YwDHrPSjQC+VNzsIvxcWeI5bySAWViId6/Ebo8vBTS8f8BN/9+XFqRL2vLnxLi+E+PlVBF0syFIfDUlLwxK9qzJ8BC0n1sYkhhq+TaRh7j29/TWjjs5puWvK6MgxHYKd8gkrZEPvJDXtVA3SD2Lsug2Heyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=u/8ywcwc; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=X/TyP2wJ; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="lmODPOKr"
-Received: from director4.derp.mail-out.ovh.net (director4.derp.mail-out.ovh.net [79.137.60.37])
-	by mo536.mail-out.ovh.net (Postfix) with ESMTPS id 4hlFdc21vVz880h;
-	Wed, 16 Sep 2026 10:35:16 +0000 (UTC)
-Received: from director4.derp.mail-out.ovh.net (director4.derp.mail-out.ovh.net. [127.0.0.1])
-        by director4.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <arunpravin.paneerselvam@amd.com>; Wed, 16 Sep 2026 10:35:16 +0000 (UTC)
-Received: from mta10.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.188.201])
-	by director4.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hlFdc168Sz1xtp;
-	Wed, 16 Sep 2026 10:35:16 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.9])
-	(Authenticated sender: nat@pixelcluster.dev)
-	by mta10.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id A8732781C1E;
-	Wed, 16 Sep 2026 10:35:14 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-113S0075e4818bc-688d-4982-a32e-6e16fa858dde,
-                    69B76013C106EEA375DAA2C64D98DF65BC6C8E4B) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp:88.133.252.134
-Message-ID: <5e301f2e-730c-479a-890d-7ed6044b8a1c@pixelcluster.dev>
-Date: Wed, 16 Sep 2026 12:35:13 +0200
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="u/8ywcwc";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="X/TyP2wJ"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hlFrD2rHszMlCf;
+	Wed, 16 Sep 2026 12:44:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789555468;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Uh5ymucdRi2MylCiaaFqi90by3OPOvkWAM/nLZR9o+I=;
+	b=u/8ywcwcRxzqJcryZItTzVmVzYAosjXyO7I67IAisNrKuWCwfNsJWRy2KBzA4jzUKP3m0I
+	D0XUjv850O4z29QaDFnaysvjZe6vXJ+jg4rDNbXqn/ZFyy0va7L40tveuKcDQmlUGjs8Dr
+	KwSeIMX2RDNUTuHIxTyloYMLJI1DvtEMfhROJU5gz7prnCwiN82ycK4S3LPuuR6mLAAJlF
+	fJaZjOzeBxMIobg7PYV/zfsmFbigcroeFdiIxsJ9pNTo/DVq4Zy8J0dXuXdE+Xbz7JAE6y
+	ohpoPy4chlGYIy5HZNXPPMQD1whmDwLTw3RBPLXlQPAuOKW8kPOutetANX/USw==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789555466;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Uh5ymucdRi2MylCiaaFqi90by3OPOvkWAM/nLZR9o+I=;
+	b=X/TyP2wJt+FRIQNxzw0qideQ/CP7dqSOTiOHDDpQ4jajzh87y782omnQokTBzgVTrCo8EA
+	QQMR/+/ef7UEtaELnlxzOn5he59XJop4WivWoW5IKkocBe6OI19fdIbuuOPUbcQxY3M32Z
+	4LxwtUGQGgSyXY4ltDnjgyV7HThpkek3P9fBennj0dpif5ss/E08U/CzT/f6r4bNzp7p0C
+	RIxj22y4fDOwoFlwGdxS0IglHDeBa26YTX9yQ6v/rk2Nqmo0LgFa3HecaF8AcXpElatuaj
+	dOcWNf9RRjQda2T5VfXng6us2z8po8K5Flyf8NFOYj35jWnOfjhbiNoBiboT3A==
+To: "Theodore Ts'o" <tytso@mit.edu>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-ext4@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ext4, doc: remove unnecessary bracket
+Date: Wed, 16 Sep 2026 12:42:52 +0200
+Message-ID: <20260916104251.296148-3-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: change TTM maintainers to Natalie and Arun
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- christian.koenig@amd.com, ray.huang@amd.com,
- arunpravin.paneerselvam@amd.com, matthew.auld@intel.com,
- matthew.brost@intel.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260915154804.605772-1-christian.koenig@amd.com>
- <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
-Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <a3c94fcf0029e7f257a0219532d906643846ffd1.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 8134626828561047868
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGglG5C7iKN+LXavtK7wlbmmkf4F/ObYq9HxSCoL2A5ZMFapu7bWDJwcVtau5SozmeyW9OkZUGBc54FdE5LfCQ9+7rP1QEij5VZBTLhL2FpmK/PgFTo022WCwiA1vkWSlvf8pFgT8+0irNsrZ4Hps+PAJyPcTn6b0GTKZ+UqM47ZQGzEqheWTpf+E6uB2fqcPyhyI2aGrC8HiqI0CiCdPyWc9rXjC3J+g97YQrSocvhmiq39dsG+SFJbQpk3Jookrce8Yjy7odG13oeVC1IJ7VsQDGEJjzMq1FJtQE0Y0Kd8a6Zd7uojJD5BvAyKgsw4IwU05W/x6RRLiWOQsJKpjEip/JxggW9ydd5k/mjqRcx303fOFUo70Lz7FGYgHUIE6J+XfwF9fJiy1cp+m9TiMiOXh2LMZGh6NrkkpVoDmoY53TrbzS7jBSf786C7ak+RW8HsJabmgMn6LHonxNnjFdpwzkDcFVosry8gMjeXqR8Ui7rEqXfwmxoCTAtg0yMXT5FINQ+4hmcGQkyIknSNFrqKx7/NLlYoQUCu5COJX4oblLJKF2MRPK6zh09RpmgUZq7JAu4/V3ieOSseaef485dua5MSBZ3uByu/W/W3gL5a4DzUcWxoiR7zQSZxNohITi9Yh8ZHw3ac6Wk2n4Lh+9muCR2mOampUpMYc+eRB/K8w
-DKIM-Signature: a=rsa-sha256; bh=A+22pfm5bN0jvueOmz1GvYenM8HgxlTvocVz96fbruU=;
- c=relaxed/relaxed; d=pixelcluster.dev; h=From; s=ovhmo-selector-1;
- t=1789554917; v=1;
- b=lmODPOKrFz/jQ3FRlII/7+3fHr98CXYvizu/nmzb1pSZgqi9qDzIRxEquk3EF7XcLbBOwfH9
- 92a/g+8hQSIiwYx7fhh2l7s23EXc3Vs4pyK16HfIO2MIziSW4dlINKIW6bQo5tiZTMeqy42B/vz
- QyVRqZFoRsixoWd8Xo5wlwi4kcYTKjjoioNk4awDk9Xuor2NIBkP3VP3GSCD6pMsxbnSLtheWcI
- 7KB0JHbAxQpXnwh38ZQkM5shczRwD1v3TrOFDFKPdYeZdw6sCd3FwZ+KznrqgpDATyKg1wIN1CJ
- eZhEV/LNzeOPtGkOkZV2BrotClfjoshrvAku91CofQHVQ==
+X-MBO-RS-META: 7dd6d9kycmqcedz6cb59uctu6ipkj1ew
+X-MBO-RS-ID: 15f51d3f17e7961cc77
 
-Hi,
+Fix sentence structure to improve readability
 
-On 9/16/26 11:44, Thomas Hellström wrote:
-> On Tue, 2026-09-15 at 17:48 +0200, Christian König wrote:
->> The blunt reality is that I don't have time to look into patches or
->> bugs
->> any more as it would be necessary. The same counts for Ray.
->>
->> Natalie has been working on the dmem cgroup patches for TTM and
->> agreed
->> to take over looking more into TTM.
->>
->> Arun is working in my team and already maintaining AMDs VRAM backend
->> for
->> TTM and the underlying buddy allocator.
->>
->> Add Thomas as reviewer as well, better to have more eyes on that
->> component.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   MAINTAINERS | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 5b5a4e4b35cf..b6e58a138501 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -9140,10 +9140,11 @@ F:	drivers/gpu/drm/drm_privacy_screen*
->>   F:	include/drm/drm_privacy_screen*
->>   
->>   DRM TTM SUBSYSTEM
->> -M:	Christian Koenig <christian.koenig@amd.com>
->> -M:	Huang Rui <ray.huang@amd.com>
->> +M:	Natalie Vock <nat@pixelcluster.dev>
->> +M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
->>   R:	Matthew Auld <matthew.auld@intel.com>
->>   R:	Matthew Brost <matthew.brost@intel.com>
->> +R:	Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>   L:	dri-devel@lists.freedesktop.org
->>   S:	Maintained
->>   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> 
-> Acked-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> 
-> @Natalie, @Arun Do you have a presence on dri-devel IRC? If so, Nicks?
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
+CC: Randy Dunlap <rdunlap@infradead.org>
+---
+@Jan Kara, is the reviewed-tag ok even though I changed the patch?
 
-Yes, I have the nick "pixelcluster".
+[v2]
+ Incorporate Randys suggestion.
 
-> 
-> Also what is your stance on merging pages to TTM?
-> 1) Requiring an explicit maintainer ack, or
-> 2) an R-B from one of the reviewers/maintainers and no concerns raised
-> within reasonable time?
+[v1]
+ https://lore.kernel.org/all/20260902143254.702971-2-manuelebnerli@mailbox.org/
+---
+ Documentation/filesystems/ext4/directory.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I think my preference would more or less be 2). That is, if for some
-reason no maintainer answers, after some time the patches should be ok
-to merge (but if a maintainer does explicitly ack/R-b the patch it can
-be merged sooner). I'll try my best to not leave patches unanswered so
-hopefully 2) stays a rarity :)
-
-> 3) drm-misc as default merge repo?
-
-Sure, why not? Basically like it's been so far as well, right? It didn't
-seem to me like the patch volume for TTM is particularly large at least
-so far, so something like a separate branch might not be worth the
-hassle.
-
-Best,
-Natalie
+diff --git a/Documentation/filesystems/ext4/directory.rst b/Documentation/filesystems/ext4/directory.rst
+index 9b003a4d4..6d8021309 100644
+--- a/Documentation/filesystems/ext4/directory.rst
++++ b/Documentation/filesystems/ext4/directory.rst
+@@ -429,7 +429,7 @@ block (precisely the length of one dx_entry) are used to store a
+ ``count`` entries in the dx_root/dx_node structures are adjusted as
+ necessary to fit the dx_tail into the block. If there is no space for
+ the dx_tail, the user is notified to run e2fsck -D to rebuild the
+-directory index (which will ensure that there's space for the checksum.
++directory index, which will ensure that there's space for the checksum.
+ The dx_tail structure is 8 bytes long and looks like this:
+ 
+ .. list-table::
+-- 
+2.55.0
 
