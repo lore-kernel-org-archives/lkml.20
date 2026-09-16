@@ -1,36 +1,37 @@
-Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17853486E7D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C1F47ACD1;
+	Wed, 16 Sep 2026 21:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789593731; cv=none; b=ayWHFpqFFWtZMqI7TIWQFzKKndnIYPm+5yJO82Fzwlgwul5YVhxJwR/oJ0rzSWuM1jsV1UPian+Jxh5hU60hNOTHQcOKPcFfKyZkaZs2X/DxtEd7oyeoJIAcPvo+3AWHqGwv/d2PUU71DkFrf6ZpHJyHOFQMWtBq5K7T02iYlCM=
+	t=1789593760; cv=none; b=bajmNLS9la5fFnW7lsFyvadGTKA7WlAR2fyyGJHKQvmaZrYq/2ldW+GVuw1upbUw6iVA+ItYN3fgxuVm0TH3HgzJVE7EQCXs+Fu7bQFPgVkHB+9TATCMOHkpIdeQp3QOIwn1THasRbTfFA4Xv7Y8P/ONDW09Dyig6HsoXdFhqdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789593731; c=relaxed/simple;
-	bh=TKqfw40iLLCdcqUk+pf6hQQvVP/pt7DLVj4/paVDPE8=;
+	s=arc-20240116; t=1789593760; c=relaxed/simple;
+	bh=/Lv7IZ5zfEfM8gZladiI+LqOK4yZDS02l8twYvRWjZY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D/b42Xw8dwhcix/GGH3KnPTaqhammifvor1J+Y5Pon3C6vn8wzc/ZxrqRSW1VfSi+5GldYyQRWiSJM6gAztIJ8H2jyBJoOTum+yFvJGRZaB53maEKBtyaega0F1U/UJv8hBDh5N4LdR9YABv9aIIfFW+MCJBDQ96xzPRhIBS7ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YftSTz39; arc=none smtp.client-ip=91.218.175.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=PB4U7l19dLCoMPHHW50CjCyvy7nr8iGTxRQDZ7LHJ8sWtx4Hj5aSu8tAfZIq4ZFi7AnpkHpEF4AekWZv6xLRUtZlyOwSU27rCRlj2sAZtGzAQA8UNyWtJY/w8XgiYjoOQFdRRqg0CNEpWkAFuu/glp1brbuV/TWPrqzmEhx6s0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=MlT2t8uU; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YftSTz39"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TKqfw40iLLCdcqUk+pf6hQQvVP/pt7DLVj4/paVDPE8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789593722; v=1; x=1790198522;
- b=YftSTz39qvJWfHwAumN910fcSnrRrQrU2o5E+DSzwz7mpO7e1iwrVPYiz/G8+xn4VoJZBp0a
- jjUjJBfKqrhIzV6Nyp+vXtb27CxH+y9SjaHcwzAjjUFLjRUOiLAnEaQeiDR/o+PuDlRaxqXKD+A
- /9kWrcKOi1tzM7DChkpSHQdg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5d1bf85c37014b36;
-	Wed, 16 Sep 2026 21:22:02 +0000
-X-Mizu-Trace-ID: 5d1bf85c37014b36
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e4faecf5-8734-4c5f-9fb4-72886d80ec2b@linux.dev>
-Date: Wed, 16 Sep 2026 14:21:57 -0700
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="MlT2t8uU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=hI36Dt83+aBklx0mctAZ5voXCECNLVsKWv1vBMRK6q8=; b=MlT2t8uUqAHjVOEfAVvpKLynqk
+	s7uz9sdzSbpbuNGds+mV45rbKrkvgrwXKpdP3vHZ9nCXDT+iAGyBiZKxZntBPQcPnWgysNHWeTBP6
+	h7YJCZ4kxc3LxCh+2kqK2of4U2CXI9slEHiSCnVG5FA6tgj+4bcqRFkuHar7IjDuHpLksiaYJ6Y3w
+	cdUeNgQgkErD/jMKu64ZjY3MiVgUPjwTZCg7faxfbqwfPqgJigjoxXPBGJRSIi3vcaijQDW7wT34e
+	eoaYJmGEvMeyV2JZbQMOz22nmEY7u+CKvzP1pEOxyQFdkUT5uCtUlDkUQUz7e5oP1Q9CBSui2ZLWH
+	y8ae3c8w==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6x5K-0000000A8mG-0TOL;
+	Wed, 16 Sep 2026 21:22:30 +0000
+Message-ID: <f0591ce9-2e8f-4777-90ab-b9159b7d8f20@infradead.org>
+Date: Wed, 16 Sep 2026 14:22:29 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,113 +39,129 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
- bpf_reg_state->id [NFC]
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, bot+bpf-ci@kernel.org,
- ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20260910164635.459558-2-vineet.gupta@linux.dev>
- <6ba21fcb39349c144c340d3605e25a30710ff43c5ea0c53045e78f4408411fdd@mail.kernel.org>
- <4cddd4a4-d684-46c9-862e-5708797f399d@linux.dev>
- <DLH1N1KP02XT.1KJ79QEMQORI2@gmail.com>
-From: Vineet Gupta <vineet.gupta@linux.dev>
+Subject: Re: [PATCH v2] docs: kdoc: fix struct_group_tagged() parsing
+ regression
+To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, mchehab@kernel.org,
+ aleksander.lobakin@intel.com, aleksandr.loktionov@intel.com,
+ tudor.ambarus@linaro.org, bvanassche@acm.org
+References: <20260916211012.16821-1-emmaonana18@gmail.com>
 Content-Language: en-US
-In-Reply-To: <DLH1N1KP02XT.1KJ79QEMQORI2@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260916211012.16821-1-emmaonana18@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/16/26 2:03 PM, Alexei Starovoitov wrote:
-> On Mon Sep 14, 2026 at 6:02 PM UTC, Vineet Gupta wrote:
->>
->> On 9/10/26 11:22 PM, bot+bpf-ci@kernel.org wrote:
->>>> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
->>>> index 66fb11b6c6a7..d974baad37ee 100644
->>>> --- a/kernel/bpf/states.c
->>>> +++ b/kernel/bpf/states.c
->>> [ ... ]
->>>
->>>> @@ -369,13 +369,6 @@ static bool check_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>>>     * and r7.id=0 (both independent), without temp IDs both would map old_id=X
->>>>     * to cur_id=0 and pass. With temp IDs: r6 maps X->temp1, r7 tries to map
->>>>     * X->temp2, but X is already mapped to temp1, so the check fails correctly.
->>>> - *
->>>> - * When old_id has BPF_ADD_CONST set, the compound id (base | flag) and the
->>>> - * base id (flag stripped) must both map consistently. Example: old has
->>>> - * r2.id=A, r3.id=A|flag (r3 = r2 + delta), cur has r2.id=B, r3.id=C|flag
->>>> - * (r3 derived from unrelated r4). Without the base check, idmap gets two
->>>> - * independent entries A->B and A|flag->C|flag, missing that A->C conflicts
->>>> - * with A->B. The base ID cross-check catches this.
->>>>     */
->>>>    static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>>>    {
->>>> @@ -384,15 +377,7 @@ static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
->>>>
->>>>    	cur_id = cur_id ? cur_id : ++idmap->tmp_id_gen;
->>>>
->>>> -	if (!check_ids(old_id, cur_id, idmap))
->>>> -		return false;
->>>> -	if (old_id & BPF_ADD_CONST) {
->>>> -		old_id &= ~BPF_ADD_CONST;
->>>> -		cur_id &= ~BPF_ADD_CONST;
->>>> -		if (!check_ids(old_id, cur_id, idmap))
->>>> -			return false;
->>>> -	}
->>>> -	return true;
->>>> +	return check_ids(old_id, cur_id, idmap);
->>>>    }
->>> [ ... ]
->>>
->>>> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->>>> index d571fbfc86a3..da6cb961a520 100644
->>>> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->>>> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->>> [ ... ]
->>>
->>>> @@ -648,10 +648,10 @@ l_exit_%=:							\
->>>>    }
->>>>
->>>>    /*
->>>> - * Test that regsafe() verifies base_id consistency for BPF_ADD_CONST
->>>> + * Test that regsafe() verifies base_id consistency for ADD_CONST_*
->>>>     * linked scalars during state pruning.
->>>>     *
->>>> - * The false branch (explored first) links R3 to R2 via ADD_CONST.
->>>> + * The false branch (explored first) links R3 to R2 via ADD_CONST_64.
->>>>     * The true branch (runtime path) links R3 to R4 (unrelated base_id).
->>>>     * At the merge point, pruning must fail because the linkage topology
->>>>     * differs.
->>> Does this comment still match what the code does? The patch removes the
->>> "base_id" concept from kernel/bpf/states.c (deleted the paragraph that
->>> defined it, removed the two-level compound/base id check from
->>> check_scalar_ids), but the comment here still describes the test as
->>> verifying "base_id consistency" and refers to "unrelated base_id" on the
->>> next line.
->>>
->>> Looking at the function name and __description below:
->>>
->>>>     */
->>>>    __description("add_const base_id must be consistent for pruning")
->>>>    __failure __msg("invalid variable-offset")
->>>>    __naked void add_const_base_id_pruning(void)
->>> and later at line 695:
->>>
->>>>    	/* Runtime: R2.id=A, R4.id=C: base_ids A vs C inconsistent,
->>>>    	 * pruning should have failed. */
->>> Should these be updated to use current terminology, or does "base_id"
->>> still have meaning in this context? The test itself still works correctly
->>> after the patch, so this appears to be a documentation consistency
->>> question rather than a functional issue.
->> Indeed base_id as a term is gone, but just id alone might be confusing
->> as well.
->> How about link id as a replacement for base_id
-> I don't think "link id" fits either. Just use id.
+Hi,
 
-SG !
+On 9/16/26 2:10 PM, Omokefe Emmanuel Onanaroghene wrote:
+> kernel-doc reports struct_group_tagged() members as excess because
+> the macro transformation rewrites it to an anonymous struct and drops their
+> member names.
+> 
+> Keep the tag and member name when transforming struct_group_tagged(). The
+> nested members are then recorded as names such as fast.order; accept the
+> existing unqualified @order documentation tag during validation.
+> 
+> Add a regression test based on struct page_pool_params.
+> 
+> Reported-by: Randy Dunlap <rdunlap@infradead.org>
+> Link: https://lore.kernel.org/all/0cf8ea5f-418f-45f0-907c-3d1ed4f03e9f@infradead.org/
+> Fixes: 2f07ddbd5793 ("docs: xforms_lists: better evaluate struct_group macros")
+> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
+> ---
+>  tools/lib/python/kdoc/kdoc_parser.py  |  4 ++-
+>  tools/lib/python/kdoc/xforms_lists.py |  2 +-
+>  tools/unittests/test_kdoc_parser.py   | 37 +++++++++++++++++++++++++++
+>  3 files changed, 41 insertions(+), 2 deletions(-)
+> 
 
-Thx,
--Vineet
+This is the same as your v1 patch. Did you send the wrong patch contents
+by mistake?
+
+Also, please tell what changed between versions between the "---" line above
+here and the diff below here.
+
+> diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
+> index d9ad1ddc87dd..ced09504f3d7 100644
+> --- a/tools/lib/python/kdoc/kdoc_parser.py
+> +++ b/tools/lib/python/kdoc/kdoc_parser.py
+> @@ -635,7 +635,9 @@ class KernelDoc:
+>                  continue
+>              if param_name.startswith("{unnamed_"):
+>                  continue
+> -            if param_name in self.entry.parameterlist:
+> +            if param_name in self.entry.parameterlist or \
+> +               any(actual.endswith('.' + param_name)
+> +                   for actual in self.entry.parameterlist):
+>                  continue
+>  
+>              hint = self.get_suggestions_hint(param_name, self.entry.parameterlist)
+> diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+> index e3dda2fe8a53..9e8b3a6b1da1 100644
+> --- a/tools/lib/python/kdoc/xforms_lists.py
+> +++ b/tools/lib/python/kdoc/xforms_lists.py
+> @@ -60,7 +60,7 @@ class CTransforms:
+>          #
+>          (CMatch("struct_group"), r"struct { \2+ };"),
+>          (CMatch("struct_group_attr"), r"struct { \3+ };"),
+> -        (CMatch("struct_group_tagged"), r"struct { \3+ };"),
+> +        (CMatch("struct_group_tagged"), r"struct \1 { \3+ } \2;"),
+>          (CMatch("__struct_group"), r"struct { \4+ };"),
+>      ]
+>  
+> diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
+> index c4a76ed13dbc..1a8287e99f2e 100755
+> --- a/tools/unittests/test_kdoc_parser.py
+> +++ b/tools/unittests/test_kdoc_parser.py
+> @@ -418,6 +418,43 @@ class TestSelfValidate(GenerateKdocItem):
+>          """
+>          self.run_test(self.SOURCE, [self.DEFAULT.copy()], self.EXPORTS)
+>  
+> +
+> +class TestStructGroupTagged(GenerateKdocItem):
+> +    def test_nested_struct_group_tagged_members(self):
+> +        source = """
+> +            /**
+> +             * struct page_pool_params - page pool parameters
+> +             * @fast: Fast path parameters.
+> +             * @order: Order of pages.
+> +             * @pool_size: Number of pages.
+> +             * @slow: Slow path parameters.
+> +             * @netdev: Net device pointer.
+> +             * @queue_idx: Queue index.
+> +             * @flags: Flags.
+> +             */
+> +            struct page_pool_params {
+> +                struct_group_tagged(page_pool_params_fast, fast,
+> +                                    unsigned int order;
+> +                                    unsigned int pool_size;
+> +                );
+> +                struct_group_tagged(page_pool_params_slow, slow,
+> +                                    struct net_device *netdev;
+> +                                    unsigned int queue_idx;
+> +                                    unsigned int flags;
+> +                );
+> +            };
+> +        """
+> +
+> +        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
+> +        patcher = patch('builtins.open', new_callable=mock_open,
+> +                        read_data=dedent(source))
+> +        with patcher:
+> +            _, entries = kernel_doc.parse_kdoc()
+> +
+> +        self.assertEqual(len(entries), 1)
+> +        self.assertEqual(entries[0].warnings, [])
+> +
+> +
+>  #
+>  # Class and logic to create dynamic tests from YAML
+>  #
+
+thanks.
+-- 
+~Randy
+
