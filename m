@@ -1,34 +1,35 @@
 Received: from danaos.cslab.ece.ntua.gr (danaos.cslab.ece.ntua.gr [147.102.3.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD5F44B66B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:39:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5E04EBAEB
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:39:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=147.102.3.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789558765; cv=none; b=GDfLFd0ahrAP1THuXroxKASCrHH1ZkYnXiQN1f72n3w1OBmhTrqRqbQgXGf4DpDQ1/pE7s+oJ0iMqNgqctm7mz162HlwVEDsNVK3Bjo39iukpnKA0azx1kJdO57+e/QAcg6EGjO4daJiITKW9w/WasLVoNiCjYL2rQLEjsMuykU=
+	t=1789558771; cv=none; b=B7cy7/kqRTYDWzdfTIPyX+MOZgyij9hgpaHFhYMxkfcA/zLqD9HSSRSP+zqFahDnz4sXE//LcOvLdXpvfavzOlTbus+KR8UGhqBDgnXBxGifzqv+nJpgFP2ACbTFQW2Fmbk09nVEiC+tXSn+OrZv2hv2QnzTQcC58IhuYVAZ/JM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789558765; c=relaxed/simple;
-	bh=rp+GnoA6aH/bX888ZhhE4/Uvu4tL8BbKtB39uGTOfzM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ktw5pd3NQ4IG7KOCcy7Z8iqGmQSEovbWlIRjddKpQSzEcBSB8nZT8IJJFVlLjKqHIKl2QuVj3B/qaZSqcF//TyrYzNHXJVamBnpBkoeexet6JEHCeKj/JWwZ57uK4B9UywLFVuRhpIN8YIBwY+phlP0JZGM7smq6kVMpeNVwjgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr; spf=pass smtp.mailfrom=cslab.ece.ntua.gr; dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b=GCr8XKiJ; arc=none smtp.client-ip=147.102.3.1
+	s=arc-20240116; t=1789558771; c=relaxed/simple;
+	bh=Y1SFoLhBIFd6pX1RkY73sxEGVjFfj6zsBKMG2Gysrbc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=t+L16o/28m11eLDwIITAaYAT3RN76lbxsIUguwqPBZkXBKWKmIqgwu2OFAGiN2f1VXd9KP+7nXyije60P4pdjXsj8g92H0BKXxH03z0IEY9vh8xpRBoJqkirwGmQ+qIA+25thzZ1xp7KbQC4rsuHnq8YcI0HtBu/A/CifiXAExo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr; spf=pass smtp.mailfrom=cslab.ece.ntua.gr; dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b=am3FPyaP; arc=none smtp.client-ip=147.102.3.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cslab.ece.ntua.gr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b="GCr8XKiJ"
+	dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b="am3FPyaP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cslab.ece.ntua.gr;
 	s=smtp-cslab; t=1789558743;
-	bh=rp+GnoA6aH/bX888ZhhE4/Uvu4tL8BbKtB39uGTOfzM=;
-	h=From:Subject:Date:To:Cc:From;
-	b=GCr8XKiJcFnf0hKmAQZL3dDsWlCJvm4dhK/m+0F3/a9BuKLXPFjWH4CfkWZO+1Ycv
-	 +6HqwWOdzg7uniOGMUsBH5Al7092koXi5SngH1+jaaKVQU6RNz8rQKTPgfsNWWlxpd
-	 Ayjuc0H9hS3cqTXPbxgIaHaWNJgw6LnVdiyU8BXc=
+	bh=Y1SFoLhBIFd6pX1RkY73sxEGVjFfj6zsBKMG2Gysrbc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=am3FPyaPipHW4yX/qhIBiB5rBHVCCgYrVvR5SqtJPa9iSeMr8VPph3LDHi6EOXYpB
+	 s0Wa3dIj0xBT7vXVWvPd1UKqgpMqJiLry8OmcvSeYEum6F4N0INbzu3xaR/3el0fIC
+	 fSSSRo1RyjZYPYtqc9Y3TdQM4w5A3kisb/jPoHWs=
 Received: from [127.0.0.1] (armor.cslab.ece.ntua.gr [147.102.4.33])
-	by danaos.cslab.ece.ntua.gr (Postfix) with ESMTPSA id ABE00120B72;
+	by danaos.cslab.ece.ntua.gr (Postfix) with ESMTPSA id CA559120B7D;
 	Wed, 16 Sep 2026 14:39:03 +0300 (EEST)
 From: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-Subject: [PATCH v2 0/4] maple_tree: fix maple_range_64 crashes in RCU mode
-Date: Wed, 16 Sep 2026 11:38:41 +0000
-Message-Id: <20260916-fix-maple-tree-range64-rcu-v2-0-0b09de37eb69@cslab.ece.ntua.gr>
+Date: Wed, 16 Sep 2026 11:38:42 +0000
+Subject: [PATCH v2 1/4] maple_tree: remove mt_clear_meta() to fix a pointer
+ corruption
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,11 +38,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMF/qmoC/32Nyw6CMBBFf4V07ZA+FMWV/2FYTMsATRDItBAN4
- d8tJG5dnpuTc1cRiD0Fcc9WwbT44MchgT5lwnU4tAS+Tiy01IUslYbGv+GFU08QmQh4d4ozsJt
- B6gZNrelS4lWkwMSU7CP+rBJ3PsSRP8fXovb1lzX/sosCCUahMtLam7PNw4UebU6O8iHOmLcsq
- m3bvlimsvrMAAAA
-X-Change-ID: 20260912-fix-maple-tree-range64-rcu-02fa3d2e59a7
+Message-Id: <20260916-fix-maple-tree-range64-rcu-v2-1-0b09de37eb69@cslab.ece.ntua.gr>
+References: <20260916-fix-maple-tree-range64-rcu-v2-0-0b09de37eb69@cslab.ece.ntua.gr>
+In-Reply-To: <20260916-fix-maple-tree-range64-rcu-v2-0-0b09de37eb69@cslab.ece.ntua.gr>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Alice Ryhl <aliceryhl@google.com>, 
  Andrew Ballance <andrewjballance@gmail.com>, 
@@ -51,167 +50,95 @@ Cc: maple-tree@lists.infradead.org, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org, Dimitris Charisis <dchar@cslab.ece.ntua.gr>
 X-Mailer: b4 0.14.2
 
-The patch series fixes two RCU destroy path issues on maple_range_64
-nodes. Both arising from the fact that a maple_range_64 node repurposes
-the last slot to hold metadata when the node is not full. Patches 1 and
-3 address each issue, and patches 2 and 4 add the tests used to catch
-them.
+mt_clear_meta() decides whether the last slot of a maple_range_64 node
+holds a child pointer or a struct maple_metadata with the check
 
-Currently there is no in-tree user of maple_range_64 nodes in RCU mode.
-All in-tree users of MT_FLAGS_USE_RCU also set MT_FLAGS_ALLOC_RANGE
-which makes the internal nodes maple_arange_64.
+        if (unlikely((mte_to_node(next) &&
+                      mte_node_type(next))))
+                return; /* no metadata, could be node */
 
-Below is the minimal reproducer used during debugging:
+The check expects the pointer to be encoded.  But the only callsite of
+mt_clear_meta() is mt_destroy_walk() on the RCU destroy path, and by the
+time it runs, mte_dead_leaves() has overwritten every slot on a full
+node with a raw pointer, stripping the type information. Thus, the check
+above never returns early for a full node as it should. It falls through
+and then:
+        meta->gap = 0;
+        meta->end = 0;
+zeroes two bytes of a valid child pointer. Later, mt_free_walk()
+dereferences the corrupted pointer.
 
-static DEFINE_MTREE(tree);
-static int __init maple_fix_init(void)
-{
-        unsigned long i, j;
+Fix this by removing mt_clear_meta() along with its only callsite.
+mt_clear_meta() is only called for the root of each sub-tree destroyed
+under RCU. Descendant nodes retain their metadata until they are freed.
+RCU readers may use the metadata while traversing a node, but do not use
+cleared metadata to detect that a node has been removed. They detect a
+dead node via ma_dead_node().
 
-        for (i = 10; i < 4000; i++) {
-                mt_init_flags(&tree, MT_FLAGS_USE_RCU);
-
-                for (j = 0; j < i; j++) {
-                        mtree_insert_range(&tree, j * 10, j * 10 + 9,
-                                        xa_mk_value(j), GFP_KERNEL);
-                }
-
-                mtree_destroy(&tree);
-                rcu_barrier();
-        }
-        return 0;
-}
-
-Patch 1 fixes the first issue. The splat is shown below. mt_clear_meta()
-runs after the slots have been rewritten with raw pointers by
-mte_dead_leaves(), so it cannot recognize a valid last pointer because
-the type information is stripped. On my 64-bit LE machine, it clears
-bytes 248 and 249 of the maple_range_64 which are the two least
-significant bytes of the last pointer. The lowest byte is already zero,
-since nodes are 256-byte aligned, but zeroing byte 249 corrupts the
-pointer.
-
-KASAN catches it as a double-free, because that corrupted pointer
-happens to land on a node that was freed previously. The splat appears
-at 226 insertions in the reproducer. This is when the tree has a full
-root node on a 64-bit build.
-
-  ==================================================================
-  BUG: KASAN: double-free in mt_free_walk+0x138/0x3a0
-  Free of addr ffff0000f3d40000 by task swapper/2/0
-  [...]
-  Call trace:
-   [...]
-   kmem_cache_free_bulk+0x5b8/0xc18
-   mt_free_walk+0x138/0x3a0
-   rcu_core+0x5d0/0x1638
-   rcu_core_si+0x18/0x30
-   [...]
-
-  Allocated by task 1218:
-   [...]
-   kmem_cache_alloc_from_sheaf_noprof+0xa8/0x2f0
-   dst_setup+0x210/0x630
-   mas_wr_split+0x568/0x26e0
-   mas_wr_store_entry+0x98c/0x1de0
-   mas_insert.isra.0+0x3d0/0x5d8
-   mtree_insert_range+0xec/0x1c8
-   maple_fix_init+0x94/0xff8 [maple_fix_obj]
-   [...]
-
-  Freed by task 0:
-   [...]
-   __kasan_slab_free+0x88/0xb8
-   __rcu_free_sheaf_prepare+0x94/0x360
-   rcu_free_sheaf+0x30/0x138
-   rcu_core+0x5d0/0x1638
-   rcu_core_si+0x18/0x30
-   [...]
-
-  The buggy address belongs to the object at ffff0000f3d40000
-   which belongs to the cache maple_node of size 256
-  The buggy address is located 0 bytes inside of
-   256-byte region [ffff0000f3d40000, ffff0000f3d40100)
-
-  [...]
-  Memory state around the buggy address:
-   ffff0000f3d3ff00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-   ffff0000f3d3ff80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-  >ffff0000f3d40000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                     ^
-   ffff0000f3d40080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-   ffff0000f3d40100: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-  ==================================================================
-
-Patch 3 fixes the second issue. mt_free_walk() descends by checking if
-the corresponding slot[offset] entry is non-zero. In a maple_range_64
-node that has MAPLE_RANGE64_SLOTS-1 valid pointers to child nodes, all
-slots will be non-zero, since the last slot holds the metadata. Thus,
-mte_dead_walk() dereferences the metadata as if it were a node and hits
-the null-ptr-deref as shown in the splat below.
-
-After applying patch 1, the reproducer reaches this case at 3166
-insertions. The affected node is the root on a tree with height 3 and it
-has 15 valid child nodes on a 64-bit machine.
-
-Patch 1 does not introduce this bug, but it exposes it for the root node
-because it no longer clears the root metadata. On an unmodified kernel
-before patch 1, the same bug exists and is reachable when such a
-maple_range_64 node appears below the root, where mt_clear_meta() is not
-called.
-
-Second KASAN splat:
-
-  Unable to handle kernel paging request at virtual address dfff800000000006
-  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
-  [...]
-  Call trace:
-   mte_dead_walk+0x78/0x140 (P)
-   mt_free_walk+0x1f8/0x3a0
-   rcu_core+0x5d0/0x1638
-   rcu_core_si+0x18/0x30
-   [..]
-
-Both splats are from an arm64 QEMU guest. The test_maple_tree and the
-userspace suite pass after each patch in the series.
-
----
-Note for reviewers:
-
-* Before commit 790e1fa86b34 ("maple_tree: add RCU lock checking to rcu
-  callback functions") mas_clear_meta() was called while descending the
-  tree, so metadata was cleared on every node. That commit removed the
-  call from the descend path leaving only the final call for the root
-  node, and renamed it to mt_clear_meta().
-
-  An alternative fix would be to restore metadata clearing for every
-  node and fix mt_clear_meta() for full maple_range_64 nodes. I
-  preferred removing the clearing and use slot_len to identify the valid
-  slots directly.
-
+Fixes: 2e5b4921f8ef ("maple_tree: fix freeing of nodes in rcu mode")
 Signed-off-by: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-
 ---
-Changes in v2:
-- Add one test after each fix.
-- Reword the cover letter.
-- Link to v1: https://lore.kernel.org/r/20260913-fix-maple-tree-range64-rcu-v1-0-31a130bb8cbf@cslab.ece.ntua.gr
+ lib/maple_tree.c | 39 ---------------------------------------
+ 1 file changed, 39 deletions(-)
 
----
-Dimitris Charisis (4):
-      maple_tree: remove mt_clear_meta() to fix a pointer corruption
-      test_maple_tree: test a full maple_range_64 node in RCU mode
-      maple_tree: fix invalid memory access in mt_free_walk()
-      test_maple_tree: test a maple_range_64 metadata slot in RCU mode
+diff --git a/lib/maple_tree.c b/lib/maple_tree.c
+index 1aba6cced71307245cbbca26986e14e74b35a14f..e86eee43aa0ada6963995cd74495d9344f6ccd06 100644
+--- a/lib/maple_tree.c
++++ b/lib/maple_tree.c
+@@ -763,43 +763,6 @@ static inline void ma_set_meta(struct maple_node *mn, enum maple_type mt,
+ 	meta->end = end;
+ }
+ 
+-/*
+- * mt_clear_meta() - clear the metadata information of a node, if it exists
+- * @mt: The maple tree
+- * @mn: The maple node
+- * @type: The maple node type
+- */
+-static inline void mt_clear_meta(struct maple_tree *mt, struct maple_node *mn,
+-				  enum maple_type type)
+-{
+-	struct maple_metadata *meta;
+-	unsigned long *pivots;
+-	void __rcu **slots;
+-	void *next;
+-
+-	switch (type) {
+-	case maple_range_64:
+-		pivots = mn->mr64.pivot;
+-		if (unlikely(pivots[MAPLE_RANGE64_SLOTS - 2])) {
+-			slots = mn->mr64.slot;
+-			next = mt_slot_locked(mt, slots,
+-					      MAPLE_RANGE64_SLOTS - 1);
+-			if (unlikely((mte_to_node(next) &&
+-				      mte_node_type(next))))
+-				return; /* no metadata, could be node */
+-		}
+-		fallthrough;
+-	case maple_arange_64:
+-		meta = ma_meta(mn, type);
+-		break;
+-	default:
+-		return;
+-	}
+-
+-	meta->gap = 0;
+-	meta->end = 0;
+-}
+-
+ /*
+  * ma_meta_end() - Get the data end of a node from the metadata
+  * @mn: The maple node
+@@ -4885,8 +4848,6 @@ static void mt_destroy_walk(struct maple_enode *enode, struct maple_tree *mt,
+ free_leaf:
+ 	if (free)
+ 		kfree(node);
+-	else
+-		mt_clear_meta(mt, node, node->type);
+ }
+ 
+ /*
 
- lib/maple_tree.c      | 43 +------------------------------------------
- lib/test_maple_tree.c | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 33 insertions(+), 42 deletions(-)
----
-base-commit: e2e54005e20fb42d4a5e140d70a65be4a2363045
-change-id: 20260912-fix-maple-tree-range64-rcu-02fa3d2e59a7
-
-Best regards,
 -- 
-Dimitris Charisis <dchar@cslab.ece.ntua.gr>
+2.47.3
 
