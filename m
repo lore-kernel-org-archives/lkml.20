@@ -1,144 +1,122 @@
-Received: from mail-ed2-f26.google.com (mail-ed2-f26.google.com [74.125.228.90])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5631A5221F5
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.90
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8EB511180;
+	Wed, 16 Sep 2026 15:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572783; cv=none; b=dogfEhbxBPzCsEIf0TC9/Bc0bl8w21v29oOgFDX7T/AzBlH92Ip2flZ8cIJFdyDZcjVuG/M3BT192KsCI3i/rKhDHQH5XxOQlDi+PlMA+HeTqmESpQBHdELhlKWtjxt0CK0sWjy003EHy5gJ/FQJBAXB4xJ7KkxxSDmZ2f3tO3o=
+	t=1789572783; cv=none; b=cPNhWJahCW9AGqTxDZOOVuu4jPcedeKRfHSww63BV/JBYc8Gz33pMS+d2/GgGvEjZPe2lvUHrHzMAqPj7k4AEznFAM5nXkHLcJHm4RkiAqZE5rXYcUIP2KDoLMw69v7kEvgEI6I5BYCqobXNRUVcjRnG+aSzt8fMm7aooYqeWho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789572783; c=relaxed/simple;
-	bh=sUK+d0HwIPouiw4GF2YvY3hSuqBUYY7UDZVaeoPdCco=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RvI2dSXdQfMDbNAr7JxqNIU2eFi+wN4el1+magr0Yn69yPMbFmPv7k+3d8mDkad8SUxmwenW5dIVApBLTSm5+I0iMCsqMMTGHImls4ypij5piN+kEvAcnpnLwCDROOpwYi9FZ4r0onDr0Y7lnSGPpOMxO6cqRUsh5NYO/E0EUX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hrSF4YYm; arc=none smtp.client-ip=74.125.228.90
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=oYK6blO7F6plBbHXnQ3FHlcmqrRnRoAREkrF1chFxd4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=eE/YHi50pYstWAHLbE5QKM2pmWuHjCk2BqXniOhAie0BhRdM7+VVYPp3/CH9y0l6SZAeJp83ffzd3/INxw8MW1dyNtj0VSg1eH3fAOlG0UNPCSzrLfHgQSoOCQ3UUJAHm9xoPpWveyIBdeAmvi0HOxjvmT7JlEwiimDM2DAMdyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BUpGEwU4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hrSF4YYm"
-Received: by mail-ed2-f26.google.com with SMTP id 4fb4d7f45d1cf-6aa13e194easo1721847a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:32:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789572772; x=1790177572; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RCHve4KAw17DJDENoy3wdVsGPjRR9u4ySMXlBrw/K6U=;
-        b=hrSF4YYm8fCXcQzH3M9am8EXav+JsFDfD8g1Id9PWFaI/2Y5h5aNN6zy1e14NTTDD7
-         tKx++o4Rfi+r+e0riV/p7V8HJe/O7hy+oOauiuWcTpMR+MuDirgPuEdQ49Mi+9lpERr8
-         6Qx5QUjvDO0VqWGMAX3zlvGNfydi3UatZF+Xpdtq0hfVBVhIsS/aFQT5Ra0vPjP3ZGj7
-         q6Q47AkxHuy3ylx0IlWQwoxUuNQ6WB6B3j2f5BhSMngNxPzSLiTNVJpg7R2vo6f/pyAK
-         3ZmoPpCN4TBWLhQykjISERAM3ZcxoULNZTHL+B4MDcCx/KitUw4GVx6nVHtxKJDO+vfQ
-         4W+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789572772; x=1790177572;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RCHve4KAw17DJDENoy3wdVsGPjRR9u4ySMXlBrw/K6U=;
-        b=S5kgva7Li228xyLKBUtO8nhVUXryjWbynYbTA9kJNqREwABJ/pZPowJiYN5p3vTbs0
-         mCRzCHpaQbWDr8EfV1Aq7p/ynjQqP+Zl11bGIuMc5sb/cv+jCnmum9C3KYT61/QVuxZF
-         8np0G0ulICoareoSmW7DAsmEgqTszPZvirEkjWiZE0N+OQz0efxcSaHyToNebrOl3x63
-         M1eCU4mwvGa8kEqUvwXIpP/iMukcA7+ZXJg1+aHvA5ZfyHZdUOn2n0lfzjIR4d1l9E9Z
-         frxf2lULyQOGcW/BiWS/CvAK1SeFW8+SfEUUWEGXoyOrgX62+d/pYtF0Kwsoy+51Vmte
-         YiRA==
-X-Forwarded-Encrypted: i=1; AKwUvBwLQ8M2X5kMyF5THKOF+fw9Xj+0MZfzq82lHjeWrXu9GPogfeCQo6DYXEAFVWLvz85jsC9TS47NqS1r7uc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYHojvRh8denPnlIv45ncT+e2uKSvSTPnerx5/AEQh945QOezK
-	Mknbpb/RnqoIgD5JdKUvhGaumgHBNsoRyrLPJ+IaymDJNlXJsQAtiPPk
-X-Gm-Gg: AYBFou12jM1BsZVklAAqV4IAJUW+wZeP3c+SKh3vaJboj5D7Bk1p2qTn0+rTlZ8V5a5
-	ptb2oBK5JfV5/HealR5IztOCK7lb59itRXTS1iyYIH+UaP8m0mt2kQQjMKMckmRM6xSHbsC78tK
-	Q6CFSlhfAsHsACpTfTpeR/T3Le1HXxSEzbox/OqdxET4oDCI6szHNpZcesb3XT5mEDm0hKSYNtj
-	rEIMp9EuxiwxQAlnA1PWND/cv/mgoMkcNlAY/LEVhX8zx+C/ErqV+o5U+DHFA0U+s82ZirTg1Uc
-	B+GykaIAPwh3k6q2fLmjAixVLDyFFTrv10D9rr+zGR2Onr6UwbeHM6EG2/m+nhu3Vwwps72Well
-	jyd8aC5FuIpPOnTI2jCb+n+LVtd3IlpF3cu/lKo+/Y+xMGHs+mtfACP7T4Z3q6K5VRV/SvuE+yj
-	3Knhbi8wd9fyYinzVOoF2fqzN1OIdvJ6kMD6dHQ4pmQ6Fjnj6RTWJqNFcSlmt/AF630ITtcnZJ8
-	1C0x7f0gVs5vai3laTUhjik/GYGW6TUhkdUYUz1mFyOfWzSpmCY
-X-Received: by 2002:a05:6402:2498:b0:6a9:b87f:8ea3 with SMTP id 4fb4d7f45d1cf-6aa2244cd2amr2521242a12.45.1789572772441;
-        Wed, 16 Sep 2026 08:32:52 -0700 (PDT)
-Received: from fedora-tap.advaoptical.com ([82.166.23.19])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1cfe0562sm2067081a12.3.2026.09.16.08.32.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:32:51 -0700 (PDT)
-From: Sagi Maimon <maimon.sagi@gmail.com>
-X-Google-Original-From: Sagi Maimon <sagi.maimon@adtran.com>
-To: Richard Cochran <richardcochran@gmail.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Simon Horman <horms@kernel.org>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	netdev@vger.kernel.org
-Cc: linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sagi Maimon <maimon.sagi@gmail.com>
-Subject: [PATCH net-next v15 2/4] ptp: ocp: fix dpll cleanup on probe error
-Date: Wed, 16 Sep 2026 18:32:40 +0300
-Message-ID: <20260916153242.157171-3-sagi.maimon@adtran.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20260916153242.157171-1-sagi.maimon@adtran.com>
-References: <20260916153242.157171-1-sagi.maimon@adtran.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BUpGEwU4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 73B7CC4AF13;
+	Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789572780;
+	bh=oYK6blO7F6plBbHXnQ3FHlcmqrRnRoAREkrF1chFxd4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=BUpGEwU4yKlgbOudlGfGgpBPDJrjY7riC/UfezUp/6AsuwSBs/k1afPJbR8y78Bby
+	 3A9F1H/2D3ZU+HoitoQKYG0KxbN+5h/qH7TftR4cSM/6lW20Qx5JPXv2HN6XQz4Iw9
+	 +Rh5FHmidVuvT1A8BMWagJkya6KXAIlokuZGBheUSY/W60AFtOEGau39C+yS9SfU0Q
+	 nWAAGSEGRQOuEtbCcn9jj5I2tjFDSxnt0yUsRc5rZHmADKMcet8EQ4DAn5hGibJoq7
+	 /CQcj0q76xDIOcGqW4692KYf/0lWrAtK4mO1WwLGuZvWy569jZyuHWCvAwtTdXplfK
+	 TBVBgHUIwpTlA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F76AC982CB;
+	Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
+From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
+Date: Wed, 16 Sep 2026 09:33:01 -0600
+Subject: [PATCH v10 09/38] dyndbg: reword "class unknown," to
+ "class:_UNKNOWN_"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-dd-cmap-part2-clean-v10-9-af4cf4767707@gmail.com>
+References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
+In-Reply-To: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
+To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Jonathan Corbet <corbet@net.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Len Brown <lenb@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
+ linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Jim Cromie <jim.cromie@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=1375;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=csqO3nNcbjzgMPxkjWfqE3DZm4hxNgITA915Yd69aPA=;
+ b=7ADwEfXu+vb3PCq2NEl1CNxzwsWxZKKMLDSu9U7PwWa2x9bFQ8wfb3R0hxR7Or+rXJOQI1Pta
+ w6s5TByVQ5VCZfxdIr7D+x8zVgW90biqEZd3dgaIM4ZcFOo0zd02wTT
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
+ auth_id=958
+X-Original-From: Jim Cromie <jim.cromie@gmail.com>
+Reply-To: jim.cromie@gmail.com
 
-From: Sagi Maimon <maimon.sagi@gmail.com>
+From: Jim Cromie <jim.cromie@gmail.com>
 
-Two problems on the dpll error paths in ptp_ocp_probe().
+When a dyndbg classname is unknown to a kernel module, the callsite is
+un-addressable via >control queries, and therefore uncontrollable.
 
-dpll_device_register() takes a second reference and stores bp as the
-registration private data, and only dpll_device_unregister() drops it.
-out_dpll dropped bp->tracker but never unregistered, so a dpll_pin_get()
-or dpll_pin_register() failure left the device registered and visible to
-userspace with a priv pointer into the storage devlink_free() releases a
-few lines later, as well as leaking the registration object.
+The control-file displays this condition as "class unknown, _id:N"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_ _id:N" to loudly announce the erroneous situation,
+and to make it uniquely greppable.
 
-A failing dpll_device_register() jumped to the same label as the failing
-dpll_device_get(), so the reference taken by dpll_device_get() was never
-dropped either.  Give that case its own label.
+NB: while this might be seen as a user-visible change, this shouldn't
+disqualify the change:
 
-Fixes: 09eeb3aecc6c ("ptp_ocp: implement DPLL ops")
-Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
+a- it reports a classmap coding error condition, which should be
+   detected in (or before) review.
+b- SHOUTING the error makes it more visible, uniquely greppable.
+c- the classmap feature is marked BROKEN for its only current user.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/ptp/ptp_ocp.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index 401b04f12d2b..f4299878c27c 100644
---- a/drivers/ptp/ptp_ocp.c
-+++ b/drivers/ptp/ptp_ocp.c
-@@ -5124,7 +5124,7 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 
- 	err = dpll_device_register(bp->dpll, DPLL_TYPE_PPS, &dpll_ops, bp);
- 	if (err)
--		goto out_devlink;
-+		goto out_dpll_put;
- 
- 	for (i = 0; i < OCP_SMA_NUM; i++) {
- 		bp->sma[i].dpll_pin = dpll_pin_get(clkid, i, THIS_MODULE,
-@@ -5150,6 +5150,12 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		dpll_pin_unregister(bp->dpll, bp->sma[i].dpll_pin, &dpll_pins_ops, &bp->sma[i]);
- 		dpll_pin_put(bp->sma[i].dpll_pin, &bp->sma[i].tracker);
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 5187516c57a9..2269166763cc 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1174,7 +1174,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
  	}
-+	/* dpll_device_register() takes a second reference and stores bp; only
-+	 * dpll_device_unregister() drops it.  Without this the device stays
-+	 * visible with a priv pointer into storage devlink_free() will release.
-+	 */
-+	dpll_device_unregister(bp->dpll, &dpll_ops, bp);
-+out_dpll_put:
- 	dpll_device_put(bp->dpll, &bp->tracker);
- out_devlink:
- 	devlink_unregister(devlink);
+ 	seq_putc(m, '\n');
+ 
+
 -- 
-2.47.0
+2.55.0
+
 
