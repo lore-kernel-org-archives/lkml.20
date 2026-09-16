@@ -1,104 +1,91 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7895A479897
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A379836403D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548152; cv=none; b=iWxBTztstYuEwQQ0zj6M/5EBwVNgNd8Z2QsHvECQfKd7bt1MiLmjW/2dbYCESsVwd9+DbUJAUDdAJj/aE9BUcEKHHKqKjqBLo3TaXMq3PEt0iTuHMFv6E4AiC+SVkqv8s3PNZgCyQkCmlskvZ8AyDDGcH3ZjtdUn8Srm50GanGc=
+	t=1789548255; cv=none; b=ZIDII7XKoKu2/mkm1qW0ACBcZDl0N+XE1vprr6ZNIF4IjPYwfpb0cSIorjVpC2qQCqGks1rAV6bpE1qpjxxZhw0IUnrUNf2Y+EsLyE4yFrrRY+PH4aUAb219kIag2Ejn5URWZK1NbjgWyw+y2l77xJyGT267s1nDqW/6VfXX8jY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548152; c=relaxed/simple;
-	bh=1tqdQQ/v7gDOFj91ORdBN+Bzs5PrNZvdwFQjj2olYNI=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=X0ZEFfdi9FBr8e6yF4j8NJrBnJvkw9ArHl/FVlm5lfJuZwX9Jd7vS2HNT+hynzWULCnSb9FeJDOmRiqTSTg7aXvxhghoJQw0FXpkF80scdx+NnvJnLpwPAepa8mHG2K1Dv71gXHNr+dL0jVZUrZAjcS/9DNGUhexV8TJEDMqiPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0gRJMAIf; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789548255; c=relaxed/simple;
+	bh=lrtM+xBeckFR4nZsxsjHFZh0rlxPGu3kN0vHHxpEVk4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CDxoHxjOXcKFvgQLcPQPhSo+naX31/J6Witz2b4s+XleFX6W4AF0h3QPpIuNJXE/FE+9uTKe5eYJzQ3hJOBNFM9rjFLfN2uJsWH0DaWD3jduvnK6oogxUByJ2faCQGNNGVQEYwL6GjStO/MwVx8Z/PZuzLGctRMWi4Y+1fk+c1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=x0XjFA0+; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=1ptiGNVr; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0gRJMAIf"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 019C94E40744;
-	Wed, 16 Sep 2026 08:42:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C39AF60337;
-	Wed, 16 Sep 2026 08:42:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C28611C7B017;
-	Wed, 16 Sep 2026 10:42:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789548147; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=uCt+S52i9jhWLqP9Ai43Jys+VpUMZGBQ6OzhaRvb6Io=;
-	b=0gRJMAIfWz6BUbxtkOAo8e6cSqhth/n/K1YBrrTpLgEVFbS2QnVoq/U8AKVLciIeHSaxT5
-	FzWDbx7Thb7Ers94EYnPTVOk41nLLyZIIooATPJQuNfsDyra7GKkz8wxo3JgN5FCsD0kF7
-	S1dF6e3LTlw1mgMup3nDG3hdrFxqcFIEZGEaXZbkQEjsdqC3X0/ErSZllYp7+mfCRlbvd/
-	hLXc8nXyRnrocos4BsnqafeBfYMlTdhskVIsFNmi/lyneHeKuwkI/bdRwSt5Gy9yN/I3OX
-	r/RRLkuIedIxrpCuuy7e6mdn170mFrR6KuAW2m4yzaFB3x3R1MvN+wv1s6wx7g==
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="x0XjFA0+";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1ptiGNVr"
+Date: Wed, 16 Sep 2026 10:44:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789548245;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ASF/WpIYGZkEbpolc/F3Wi3P1TTRk1E6xzIEUVemjeI=;
+	b=x0XjFA0+VS6BEKMMEdfX7q5Mr7EzX5vKE1y8qLI28gVtUd4fqQ0gJZvoX1zIdSzgBweSvZ
+	DHJ0iNK3IgVzJ3ASqIH1f1M1R33T0DszXC4siJCzMIu9Wpd9xZXhqSSCUJzXU/0/9JHfaR
+	yyCZVH64c8Wc9x3iXPCsKGtZful+hF2cMgASgIlNe7Rt9VdQSBdHTtD/DO0q8f6XoSKQRS
+	1KVnPvm8tihat2j8M+RtsbcfExXVE++fWc0GBhT2xR/jsT6Fx9ftzEbs+H8Ha6UFa5458f
+	lU2j+Q3iAb6TfbdBU0OXUbqddMY8RkwC3PJNM9HR2ffX/J1Llv7WItTKPSed6A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789548245;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ASF/WpIYGZkEbpolc/F3Wi3P1TTRk1E6xzIEUVemjeI=;
+	b=1ptiGNVr4mlsFj9znayV4gv6dZ4sSq/SvRX/Iy9R4YOr4p6vIgSVu9BW8La9EtFdlCrxcy
+	ouInbmvfiVhXKVBw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Linus Walleij <linusw@kernel.org>, Radu Rendec <rrendec@redhat.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH 0/4] ARM: allocate the cacheinfo early to fix the
+ PREEMPT_RT boot warning
+Message-ID: <20260916084404.fjkCQKUK@linutronix.de>
+References: <20260912195552.76673-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 3/4] ARM: dts: imx6ull-colibri: Set LCDIF bus-width
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260813092836.38367-4-francesco@dolcini.it>
-References: <20260813092836.38367-1-francesco@dolcini.it>
- <20260813092836.38367-4-francesco@dolcini.it>
-Date: Wed, 16 Sep 2026 10:42:13 +0200
-Message-Id: <178954813309.214898.9623998050171113140.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260912195552.76673-1-kmehltretter@gmail.com>
 
-Hi Francesco,
+On 2026-09-12 21:55:48 [+0200], Karl Mehltretter wrote:
+> This series moves ARM cacheinfo allocation to the boot CPU to avoid
+> sleeping-lock warnings during PREEMPT_RT secondary-CPU startup. It is
+> based on 5225b8eec4c9 (7.3-rc2 plus one day).
+> 
+> Patches 1-3 prepare for early allocation: bound cache-leaf writes,
+> include external caches in the allocation size, and guard CLIDR reads
+> on older CPUs. Patch 4 enables early allocation. Please take all four
+> patches together for stable.
+> 
+> Tested on QEMU virt (Cortex-A15), vexpress-a9 (Cortex-A9 with PL310),
+> and realview-eb-mpcore (ARM11 MPCore) with PREEMPT_RT, plus non-RT
+> virt and vexpress-a9 builds. Cache sysfs output is unchanged for the
+> normal platform DTs, and CPU hotplug passes where supported. Additional
+> checks cover DT leaf undercounting with KASAN and ARM11 DT cache
+> descriptions.
+> 
+> The full series also passes on a Raspberry Pi 400 with a 32-bit
+> PREEMPT_RT 7.2.6-rc1 kernel: the boot warning is absent and all 12 cache
+> sysfs entries match the baseline. CPU hotplug is unavailable there.
 
-> The lcd DPI interface on colibri imx6ull uses a 18-bit width bus, set
-> the bus-width property accordingly.
->
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
->
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-> index ec3c1e7301f4..1eb1cf2d7395 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-> @@ -229,6 +229,7 @@ &lcdif {
->
->  	port {
->  		lcdif_out: endpoint {
-> +			bus-width = <18>;
+This makes sense.
 
-I don't know the hardware in detail, but the datasheet [0] mentions 16, 18
-and 24 bits, and says "Up to 24-bit color (18-bit recommended)". More
-details in ection 5.6.1.
+Tested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-This patch would force 18 bits, but "recommended" suggests 24 bits makes
-sense in some cases, no?
-
-Can you elaborate on this?
-
-Same for patch 4.
-
-[0] https://docs.toradex.com/104446-colibri-arm-som-imx6ull-datasheet.pdf
-
-Luca
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Sebastian
