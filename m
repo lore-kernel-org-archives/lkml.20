@@ -1,74 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03174514766;
-	Wed, 16 Sep 2026 22:00:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FBF511E8D;
+	Wed, 16 Sep 2026 22:01:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789596061; cv=none; b=TIl5g2a13wOc3IcEirGnEUN6F13q59lSSDC7PZQXpp2SstQ0iLidCbqw0IEziWrKYA3Ax0GGclao1G2A3FosqmWt8YqSoKPZ9VzMRSqoORnmekwloOHWg3qc1REiTuKNEqdQ/zj8Hd7igcVr78oAzT8J/P4iZ2ywIMSGYDovhuE=
+	t=1789596072; cv=none; b=A7jZrf+0YexQLeLe6V8K5D4H8iRHshdYneh1QrX7n2sXt7rH1fh2ufiAkC/Yq8fauWgWG94iv7Cf+MfNp02Iq0V7Cq3QjB0k34qugpEn3rfJNz4mKBKn3HOM2DzWM7/8QYeJpfEliw0VefMLhU5MoHvZYW0PBt+Ce1exaIt+swI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789596061; c=relaxed/simple;
-	bh=gl1wPUFRKBmMC+6aiLaKMw4KOvv/LA+lecwlEAljxCM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=Iy+hsvWUNcZZyjQw4XRi9Q2NrlKvAe1ciK3deAIz9tAPFCb0WL8cqFoelZz5cJFM1FenNPS1JTs4VA/lmJJt1peCUQXibGTOwI+VomqOSD8vj2mTA5aMFBr/rfvdl+RNIgSUjyY2VrxMUs5ou77OU3OpAjvcwONPH6q40lpdgVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egKe0Mgu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789596072; c=relaxed/simple;
+	bh=wcHgehP2Ip2QVN1vAXVNxL/yk7AGWUsHVVEwg2tDCUk=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=TzaPDN3IR6P72ydCIOXy0cWHkdflP5ePwCnKeGtJByAjvfFOvamRM0ZP19KExNdzhXDNPH4XL6zEOA2KTcew5D/M1yFO8cQPzJLnHQQgl819BT6G3jlPI2IdoDYebr/ki8erKIBm376LRIN3667vMPVK7VcVk5i4FZRalkNJekU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frIvug/N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egKe0Mgu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B034A1F000FF;
-	Wed, 16 Sep 2026 22:00:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frIvug/N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4111F00893;
+	Wed, 16 Sep 2026 22:00:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789596049;
-	bh=mUsjiXM8sKB6lLAxc59Pp1p39vtMlcEughWfWrT/3g8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=egKe0MguorJM42nl6FYXXXzfr+iqEEDBnSURW+pWVyeLxqBkl++P1y8RTfeZ2u7cQ
-	 RHV9K3m8wZNJ9nou8rD1gZex2tyb98CRDHP+ITnBEgg0xPHzCog6aqCL/dsj/ahz9F
-	 tKZK7iNp/8GV498eO7mdMJqZfQTAiRRiN78NiNdpw2YuLItO1WM5HFR9RSouw6EO+Z
-	 JGAoTX5c0wyiuKYW5Z9K7NMoavfOcODdgRErCk95GVB6ZgZCMBcWCO7iXcyzYUrew2
-	 WvVWozGsgaV+za7H2zU6170xRlLDpMLjzpy01EJYCo4Nb2I2FflHfTol3JeTcrijEt
-	 /dohdjYoHdj+Q==
-Date: Wed, 16 Sep 2026 12:00:49 -1000
-Message-ID: <313d3ed89d24c8415a11ea864ebdc84d@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Cheng-Yang Chou <yphbchou0911@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ching-Chun Huang <jserv@ccns.ncku.edu.tw>,
-	Chia-Ping Tsai <chia7712@gmail.com>, chengyang.chou@mediatek.com,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.3-fixes] sched_ext: Unlink pending local
- reenqueues before freeing scheduler
-In-Reply-To: <20260916145807.3250167-1-arighi@nvidia.com>
-References: <20260916145807.3250167-1-arighi@nvidia.com>
+	s=k20260515; t=1789596057;
+	bh=bRe5+0z9WObVqkY9t9W7TzPyySZ5x1RzQcBR6ZRgZyc=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=frIvug/Nfu7jBKrvDkIscNbUjVCLSWcZbfyW+E5+Y9Al8BYu8ihZtcA21Y/BeLgNO
+	 2U4gGVmOs29vAgERP9K18zHiwVTaCKhFvU3ZOxpkcjPrcJF7omGYR7wvCpNRZ0+xxf
+	 KRecvc8SccK8M/hMQA2uW3a5adlNGVzuEdvTzTkxH70dEr6TwoJShcosE9Dw1EIouF
+	 RKHnmLtnlBydPdlrCHYoHA5K818h+NI6YNTJDfDU847LdB8YiXLuV7+10Vhkhn9fyE
+	 Iui2fzh49scMTPAzL23Sw7ikK4O4ExTb28pGlJgupSP/QDquorVddjgOrElGLP9sja
+	 0gaKU+uPk1Ycg==
+Content-Type: multipart/mixed; boundary="===============8930977808325852854=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Message-Id: <3be99835c8dfd22e0b1607ffc0146711e2f8f804ad9c371b90d6a11ade7a3715@mail.kernel.org>
+In-Reply-To: <20260916-libbpf-elf-entsize-fix-v1-1-cf181da33eab@gmail.com>
+References: <20260916-libbpf-elf-entsize-fix-v1-1-cf181da33eab@gmail.com>
+Subject: Re: [PATCH bpf-next] libbpf: Validate ELF symbol table entry size
+From: bot+bpf-ci@kernel.org
+To: luisflavieira@gmail.com,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com
+Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,luisflavieira@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 16 Sep 2026 22:00:56 +0000 (UTC)
 
-Hello,
+--===============8930977808325852854==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 04:58:07PM +0200, Andrea Righi wrote:
-> A scheduler teardown enters bypass before the RCU grace period, which
-> prevents new requests. However, this does not guarantee that an
-> already-linked request has been consumed. An RCU grace period waits for
-> active readers and it does not flush a pending rq deferred request.
+>     libbpf: Validate ELF symbol table entry size
+>
+>     elf_sym_iter_new() calculates the number of symbols by dividing the
+>     symbol table data size by sh_entsize. A malformed ELF file with a zero
+>     sh_entsize causes a division by zero.
+>
+>     Reject symbol table sections with a zero entry size before calculating
+>     the number of symbols.
+>
+>     Signed-off-by: Luis Vieira <luisflavieira@gmail.com>
 
-Every link is followed by a scheduled run_deferred(), so a request that is
-still linked when the scheduler is freed means that schedule was lost. The
-WARN is doing its job there. Unlinking would hide the next one.
+This looks like a bug fix for the elf symbol iterator. Should this include:
 
-The lost schedule comes from move_remote_task_to_local_dsq(). It stashes the
-mover's enq_flags for the destination enqueue and, since 57ccf5ccdc56
-("sched_ext: Fix enqueue_task_scx() truncation of upper enqueue flags"),
-those flags decide SCX_RQ_IN_WAKEUP. An IMMED insert into a busy remote CPU
-requests a local reenqueue while the flag is set, schedule_deferred_locked()
-leaves it to task_woken_scx(), and nothing calls that after activate_task().
-Fix posted here:
+  Fixes: 3774705db171 ("libbpf: Add elf symbol iterator")
 
-  https://lore.kernel.org/all/20260916215713.2701551-1-tj@kernel.org/
 
-Thanks.
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
--- 
-tejun
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35154126900
+--===============8930977808325852854==--
