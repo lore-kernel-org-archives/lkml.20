@@ -1,130 +1,77 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA382EC083
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB44E495AC9
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576816; cv=none; b=D/KUv5xKQFveE7D1vGuXT9NElID9H1YuGPhQiIgb08RvjNgDELMy87TUY8yKuSwMTo/JJhFbHiqHQmXgW/tIYlrn3b9/9J65HBJ7yzpMdr6T/rsJU3sjLUh9QsvToiGcO2b5p5BjeUAXABwtPqj9orbwMDLedGfXuXjEvO4uGBk=
+	t=1789576836; cv=none; b=I7VfmTh4u2MjFp/MUReFYIetb2Qur4tGiNKf1xDB4SIxHmKBX4d6/pAfPNrJ9h8WKukEqln/Lvs4E2aNDZ9Air1Pf7V48719wA6dDPj6Wx1JxqGHGpLqjm+NMWZtVp6Cevvk4K8cZ96eNRZC1SV9ry5vUELh08/IZm5OFmoTtX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576816; c=relaxed/simple;
-	bh=c2e7JWptlPyFgFbfKdSHDffFP06ijENTeL8y49l/Pc8=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=F1TMvru6GSXBUO3XUfTlh/kMOoJJno9YcNHyBeRQw0Ckg9sjAiUYfxWRTcKwZLl7DK7FBuFfvpTfIwFM39D7ZzaRKJJV94uXius1+nCYXoI2/LGRCPDFe1eLARkbbIa59z1JtbQpiIkrYtr7bwijsgqix0xcjdYFbCD88pi+sVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=f21o9XtW; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=2c/09ULG; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789576836; c=relaxed/simple;
+	bh=NMD7vBQ6RWs/J5cNo+VFCsSkxyb2apVp1B4H98H0FXc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G9AMzGNQaHmvCWockFr8xVfzZ3LZ9+r+cSpUTEMjCjmQKkZkYDwTxlevBaxb/lWTA8BNUNp56RckBUgM+8XO2R1Rf+TJQxVJYjADlLLdRDsphgJgwMiYnf8JI+6/TdRTgS1dUjAkl43qfe6aHfpiVD3kx+X5AaGHu6RfJAdaUmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TKsIZmoj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="f21o9XtW";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="2c/09ULG"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789576806; bh=0XAAKtPMKM1R5EhwY3gbwpW
-	a+3p4GtZHocoSh14uIK4=; b=f21o9XtWHAOEKcjyZRptJU5B8eHtRvi/t/OJP/yKlN+6Gtfyyc
-	LvDHitiQvGyxOBYrpZeC2adZMWvrj1YI02f43JYlEjQSllYHavvKPKM/dUtefAn1whV03RTXxzw
-	1irggAO/2jVWnXlLfnsR4EAh4kuHGfT56Hu9bOgaX55saz+J9l6Y+POiATl9iO68v0BfUAYQfhB
-	PFnz+rKAr/JgNmGfyhq5bxOqdn3c7ndKHLBgJ2nQDza/EqLxrtyYtmqFTm5UYFfTmUKJO5I+GDV
-	/1RJGehObeyDWNUMSAEaHCL16z2vuZMCmtBMGaUANt3p8VYhn6h0bMkNUdkEoGlibuw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789576806; bh=0XAAKtPMKM1R5EhwY3gbwpW
-	a+3p4GtZHocoSh14uIK4=; b=2c/09ULGWM5gdNYMjXo4fUlOdBvq4/6oFxdwKD7pMaNuBW/tu0
-	qvrByS9W8Fm0llqcP2t+In/5tKDWy6GM+/Aw==;
-Date: Wed, 16 Sep 2026 17:40:07 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: quchaosheng000406@163.com
-CC: linux-kernel@vger.kernel.org,
- syzbot+37ca7ae3e98cb65c3209@syzkaller.appspotmail.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_kthread=3A_Report_cpumask?=
- =?US-ASCII?Q?_allocation_failure_without_warning?=
-In-Reply-To: <20260916015948.113062-1-quchaosheng000406@163.com>
-Message-ID: <B6BD0B30-6E75-49ED-A13D-33FED28AD032@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TKsIZmoj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E61C1F0089D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:40:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789576828;
+	bh=NMD7vBQ6RWs/J5cNo+VFCsSkxyb2apVp1B4H98H0FXc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TKsIZmojAOCZjVkuTEgu/Ojwjhf036GzQdXroxfypwiDNIxHQWqBjvK0vOkxCSOvf
+	 SDTolr2qG/vfhUXo0swwfHYpn9E8Z47GZVBKvuDxpwgQ1cXXuQh9Fh877873KVTmzB
+	 XQyqW0MAgfIvsHXGLckUqVpptBkk31pAt/Q9KMAu02W9Fvi9xEodCxZPsLnbYp+k8+
+	 n+6cOLyimrkEwcaLHYCw4WMeswPWzpUp5oX0knNETQuVaKKQ8xoaEsU1O1qy2GNzPg
+	 aR+ez/vPscABS5AEn7M4qruHiurIohb0SFlk4+C07AlCWDYM088WL3whOU8RqNtLXx
+	 JMVjqi15NNTfQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b899413537so1630690e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:40:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzT7vHs4dinzfRvpmHZ6l2sLNuH8WAUfEOX0/q742yufc6YQwDzdpP+qc0dlyCiwyWvRA94MV0WAEguaOU=@vger.kernel.org
+X-Gm-Message-State: AFuF++khOoDfA30Afs7aP6DvhhMafwx6+hN0/2b3ge/NIOdyR7MHE8/w
+	GxK+XHE5AkY4G10YqQL35k16DU0gBfRPfaKVM5EBmPcND1WNY4BrsvqvBwsmZrqY3+3s+qNyMAC
+	s457Pd8d+8hTkv1RVcaPAjCKI8KX2lAE=
+X-Received: by 2002:a05:6512:1107:b0:5b4:a836:13fd with SMTP id
+ 2adb3069b0e04-5b8b661e3a7mr897834e87.22.1789576826773; Wed, 16 Sep 2026
+ 09:40:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+References: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+In-Reply-To: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 18:40:12 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkQw-U=e43K7Zjdawid5D54hoQFAkVLBLmOsq00FGOoAg@mail.gmail.com>
+X-Gm-Features: AcwNN1WRdUJu-Cn8nI0om7fEFyccuBINdekovMd8_4ronkacx1OYdjXuVXiord8
+Message-ID: <CAD++jLkQw-U=e43K7Zjdawid5D54hoQFAkVLBLmOsq00FGOoAg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] Xiaomi Poco F1 (ebbg display variant) fixes
+To: david@ixit.cz
+Cc: Joel Selvaraj <foss@joelselvaraj.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	phone-devel@vger.kernel.org, Casey Connolly <casey.connolly@linaro.org>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 16 September 2026 02:59:48 BST, Quchaosheng <quchaosheng000406@163.com>
-wrote:
->kthread_affine_node() warns when zalloc_cpumask_var() fails:
+On Tue, Sep 8, 2026 at 2:45=E2=80=AFPM David Heidelberg via B4 Relay
+<devnull+david.ixit.cz@kernel.org> wrote:
+
+> Been broken in mainline for some time.
 >
->  if (!zalloc_cpumask_var(&affinity, GFP_KERNEL)) {
->          WARN_ON_ONCE(1);
->          return;
->  }
->
->The allocation uses GFP_KERNEL, so it can fail under memory pressure or
->fault injection.  A failed allocation is a recoverable condition and not a
->kernel bug, so the warning is noise.  syzbot reports it for a WireGuard
->NAPI thread:
->
->  WARNING: kernel/kthread.c:359 at kthread_affine_node+0x200/0x2e8
->  CPU: 0 PID: 5207 Comm: napi/wg2-0
->  Call Trace:
->   alloc_cpumask_var_node+0xfc/0x138
->   zalloc_cpumask_var
->   kthread_affine_node+0x148/0x2e8
->   kthread+0x29c/0x3d4
->   ret_from_fork+0x10/0x20
->
->The failure is not silent though: the early return also skips
->list_add_tail() of kthread::affinity_node, so the thread never joins
->kthread_affinity_list and kthreads_online_cpu() will not fix up its
->affinity on a later CPU hotplug.  Keep the failure visible with
->pr_warn_once() instead of dropping the message.
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 
-I swear there was a patch for this I  kinda NAKed.
+Looks good to me:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
->
->Reported-by: syzbot+37ca7ae3e98cb65c3209@syzkaller.appspotmail.com
->Closes: https://syzkaller.appspot.com/bug?extid=37ca7ae3e98cb65c3209
->Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
->---
-> kernel/kthread.c | 9 ++++++++-
-> 1 file changed, 8 insertions(+), 1 deletion(-)
->
->diff --git a/kernel/kthread.c b/kernel/kthread.c
->index a3f95c904..b59fa7c7e 100644
->--- a/kernel/kthread.c
->+++ b/kernel/kthread.c
->@@ -356,7 +356,14 @@ static void kthread_affine_node(void)
-> 		return;
-> 
-> 	if (!zalloc_cpumask_var(&affinity, GFP_KERNEL)) {
->-		WARN_ON_ONCE(1);
->+		/*
->+		 * The thread stays out of kthread_affinity_list, so a later
->+		 * CPU hotplug will not fix up its affinity. Report it, but do
->+		 * not warn: the allocation can fail under memory pressure or
->+		 * fault injection, and that is not a kernel bug.
->+		 */
+Or should I simply apply it for fixes?
 
-For the comment length, I have to ask did you use AI to develop this?
-
->+		pr_warn_once("kthread: %s: no cpumask, node affinity not set\n",
->+			     current->comm);
-
-Ummmmmm. I mean, okay then? But what effect does this make? (Except from
-the message).
-
-Under memory pressure I presume
-
-1: your memory needs replacing, you get what you get
-2: you did this on purpose, you deserve whatever you get.
-
-And under fault injection is just a test.
-
-I really think this code is sane as is, 
-
-NAK.
-
-> 		return;
-> 	}
-> 
->
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+Yours,
+Linus Walleij
