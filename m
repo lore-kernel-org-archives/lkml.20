@@ -1,114 +1,102 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD68E4BD7BE;
-	Wed, 16 Sep 2026 10:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3683D4C14FA;
+	Wed, 16 Sep 2026 10:02:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552922; cv=none; b=YcfGgWrlVlxTc1OzyuI5NEgYHBnENiywC371kwHPCexM92iD3awk0bxiHG8mAHH6IcmdmtwUdAwtOtTAt+StLoMrxYICGWDnLn7LEdlLyxOpjYt3IUjLriRptyb9QwiHrTPA+sb9hBXF5ngXZSyVlcdUTFN+pLHN2u6jEWaOZtk=
+	t=1789552955; cv=none; b=KrGJqk84knVw32+CB5FN4biBr4peDRc6Yy+eR3OcCj/jX63Z9u1zlJ//tmVpSHVvAtGzpTi/i6ZChpM+Nwk8k3c8o7+gUMCebn4sFZfvOyU8a8v4mSD491KIw0dtowRspb3qtyVdVzhm8R+t3twwNU8TOh5+J60YBVE5OM1SWjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552922; c=relaxed/simple;
-	bh=Q0KUjZndmryi6+lJ1zoTmy/CxkR8d4apeEMW4Q28Ong=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z/uBpROUsCwefo4N5WlHuz5+edMT8hpttFB3sVghOJWBmu2t5b0VI83YGPg++OaFh3o/oqSisyGuW5udfrtijAhqq0DAQ3vGKgs1QxsPPg6/p1hi++3JjkOpkB8hhdAiieDv5QeCFKoD5mn+EmfP1NekYt9hVIYbMoKtNphX0eE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=S/OjSK/F; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="S/OjSK/F"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=XH9Pqr4Mw5lyo9AD7bbvs9Z81Iv1pNh6ufP64/whGEQ=; b=S/OjSK/FX+BcCeoff2wXcUWnNe
-	c/WsgEG8fkFISfOLaJUDPYNcGsyu5+DxsATTK7u4/sRxxqQYC6FpHtFW+PgYJpmoSpSAoQRK1rE+3
-	30T7BOUehS8jjS8643QaeovOsEugdoNXeSNHO7DxbcJsl9IV0Z+T0U2b9zLiRtaG9/43mQlVOEm29
-	trh0mEfe24CReel1BRsecA38Rin2Vv/TmbF2yF7cJ2d9DR2iWEfAjz/vjNxDJHfbForDAcqxYZfSX
-	wqECoTMAa0scBQOat+DEj0JmID9E8PbD46TVV2hR65PkPbxymBU4QaP6UuJ0SAx54Aw2EoHdgDmEF
-	qKc8w1Dg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x6mSM-0055Sa-2G;
-	Wed, 16 Sep 2026 10:01:34 +0000
-Date: Wed, 16 Sep 2026 03:01:30 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Zack Gomez <zack.gomez@gmail.com>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] netpoll: bound the deferred transmit queue
-Message-ID: <aqpnhJyXHYrqqohg@gmail.com>
-References: <20260914041221.1028092-1-zack.gomez@gmail.com>
- <aqeyvaw06I2883Fo@gmail.com>
- <CAErB-w3fmW4bQqRg7895dZ4ZRqkDJmfb7FSCLPvRCkwrhQzaqQ@mail.gmail.com>
+	s=arc-20240116; t=1789552955; c=relaxed/simple;
+	bh=EjIVUVIJw2sXKAgu/3pZH9Pdrd6GeTatdPpPEEdMrUQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ILqSKcrLPUpcDboKGEfQeknMKn1pgEMQhN9NM4mMunH6reNA/RjdFIcUbsMIbZtCyxQnF3nN6VmojUZUfAQdgpz9j/TYzNcO2JoMqylMMZdwtPoadNZmHMFM3ixUX3PE4yJSN+pXGiZHGQJuFHvLn37whFdT5sGqOh6CpGjBnFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACXmjgfaapqL8_gBw--.61668S2;
+	Wed, 16 Sep 2026 18:02:07 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: alexander.deucher@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	andrey.grodzovsky@amd.com,
+	christian.koenig@amd.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	simona@ffwll.ch,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix vmid_wait fence leak in amdgpu_ring_init()
+Date: Wed, 16 Sep 2026 10:01:39 +0000
+Message-Id: <20260916100139.2012124-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAErB-w3fmW4bQqRg7895dZ4ZRqkDJmfb7FSCLPvRCkwrhQzaqQ@mail.gmail.com>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACXmjgfaapqL8_gBw--.61668S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw17JrWDXr13uw18Ar43KFg_yoW8Zr4xpF
+	WSg345JrykZF17K3yUAFy8WFyUK3WxJrWIgF4xCw1F9wn8CF95tFyrJw4YqryDCFsFkF43
+	tr98Xa9rGF1qkrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
+	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
+	UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYMA2qqPpSvhAAAsO
 
+amdgpu_ring_init() initializes ring->vmid_wait with a reference to the
+stub fence taken via dma_fence_get_stub().  When a later step of the
+initialization fails, e.g. amdgpu_fence_driver_init_ring(), a writeback
+slot allocation or the ring buffer allocation, the function returns an
+error without releasing the stub fence reference and the reference is
+leaked if the ring is torn down without amdgpu_ring_fini().
 
-On Tue, Sep 15, 2026 at 12:45:00PM -0400, Zack Gomez wrote:
-> On Mon, Sep 14, 2026 at 01:47:39AM -0700, Breno Leitao wrote:
->
-> Seems to work as advertised: with the link healthy the target sends
-> exactly the configured rate and nothing is parked. 
+Move the stub fence assignment to the end of the initialization, right
+before the ring is registered with the GPU scheduler, where no further
+failure is possible.  The stub fence is only consumed by command
+submission handling in amdgpu_ids.c once the ring is up and running, so
+nothing reads it during the error-prone part of the initialization.
 
-Good to hear it.
+Fixes: 48e9fbd1a284 ("drm/amdgpu: initialize the vmid_wait with the stub fence")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> > I think the rate limiting should live on the netconsole side, not
-> > netpoll.
-> 
-> I'd still argue the netpoll change is required: there should not be
-> a path to OOMing the box. The rate limit is opt-in, and even once
-> set it OOMs the same way if the limit is above what the link is
-> draining at that moment, which above is 8k/s under the pause and
-> 200k/s without it. The two rows at 20k/s are the same configuration
-> on a good day and a bad day.
-> 
-> I read the two as solving different problems. Yours is consumer
-> side: it limits how much damage one machine can do to a listener.
-> The netpoll cap is producer side: it keeps the sender from damaging
-> itself. Both seem worth having.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index d6bee5c30073..8c12c373ab7b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -254,7 +254,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 		ring->adev = adev;
+ 		ring->num_hw_submission = sched_hw_submission;
+ 		ring->sched_score = sched_score;
+-		ring->vmid_wait = dma_fence_get_stub();
+ 
+ 		ring->idx = adev->num_rings++;
+ 		adev->rings[ring->idx] = ring;
+@@ -374,6 +373,7 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 
+ 	ring->max_dw = max_dw;
+ 	ring->hw_prio = hw_prio;
++	ring->vmid_wait = dma_fence_get_stub();
+ 
+ 	if (!ring->no_scheduler && ring->funcs->type < AMDGPU_HW_IP_NUM) {
+ 		hw_ip = ring->funcs->type;
+-- 
+2.34.1
 
-Yes, I agree.
-
-> > If we do end up also rate limiting at the netpoll side, I'd like to
-> > see a WARN_ON_ONCE() here, since it shouldn't be the main ratelimit
-> > path, but rather something to flag that something is off.
-> 
-> No strong opinion on that; I'll defer to the maintainers. The drop
-> is counted either way: netconsole sees NET_XMIT_DROP in
-> xmit_drop_count and exposes it as transmit_errors.
-
-I am not worried about netconsole here, it copes with the drop fine.
-
-My concern is some other netpoll users that do not check for return
-value. Is this change going to affect them?
-
-For instance, team doesn't even check the return value.
-
-	static inline void team_netpoll_send_skb(struct team_port *port,
-						struct sk_buff *skb)
-	{
-		netpoll_send_skb(port->np, skb);
-	}
-
-One way or another, I am in favor of adding it, but, with more
-extra information about this drop.
-
-If a WARN is too heavy and it seems it might be, would a drop with
-a reason be better than just dev_kfree_skb_irq() ?
-
-      dev_kfree_skb_irq_reason(skb, SKB_DROP_REASON_FULL_RING); 
-
-
-Thanks,
---breno
