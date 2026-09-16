@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D7552E078;
-	Wed, 16 Sep 2026 15:33:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D265328C8;
+	Wed, 16 Sep 2026 15:33:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572782; cv=none; b=rz2e/vvVINq8Bdp23mSmGWf/niS5hDCHXcZhQNKpdYgkgNHyOcxdka4YZqHOkdsZ3vEoSCdLSSgyER94E77xS6jxKCC+HJji7RAftS9rgCmMIGWjnhK+K2k66yPjSVP+aSIThjCrC+b1g5hShwjWeRZsa1Cc3qoBaLpPMhLyLE8=
+	t=1789572783; cv=none; b=p+sHJwwX+m55SuJcPLrAa9+za8MQEV1/xFL217JRze43mJ84hLWNjP9xllwV656WfGEeJlHHmoI4vJPtrYL5tBhGFqiXj1RVm2O5rZ4+GD9RwHWl8fFbcvB/wgmQIoKHBxh+3IREZ0/QA0EuT+oBVMBMOafV7TqZAYOuR7ZzmRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572782; c=relaxed/simple;
-	bh=NDrZE41402D/UHYSx49263+3eXhDlauLvRgsYeGLj0M=;
+	s=arc-20240116; t=1789572783; c=relaxed/simple;
+	bh=cNiGErIulZKMDAbhqRkYA5lNr7vWOESlPNeVtrkWjAA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DKRwxjiBs+43wjnPV3l7Y0C1fsEARjNyd09OhehsArodsCXI/ne7Bg8FlFLZREk/XEPaU06di/a5EkUszgGxsF/USX44yc7jx6DXTue7XSwh755J7/1CuzZ3Z4k8Qya9V8ggpDqnl48n4Kc4X/8g3XNYVz0+lTnBbbdyYZJbOHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NHYP1n+h; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=MBiZQ9dENLl5ukTxBufCtaGbSNjEOfTMUwQ0A/Fn5e1xljAsbjWkxOzR6XQsNmpti8jX4VhkvByahj9XeANG3BVhpyQ8cGdkCg4ilhwlrRb95B6I+l7x5987z1C+NNpmC1lNChK2C1w9Wfzs1LJMCNGNQFnhA5bBNw7Pug1+TAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tqUR8fxK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NHYP1n+h"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C988EC4AF15;
-	Wed, 16 Sep 2026 15:32:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tqUR8fxK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 599DDC2BCFC;
+	Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789572779;
-	bh=NDrZE41402D/UHYSx49263+3eXhDlauLvRgsYeGLj0M=;
+	s=k20201202; t=1789572780;
+	bh=cNiGErIulZKMDAbhqRkYA5lNr7vWOESlPNeVtrkWjAA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=NHYP1n+hhPY3yrKlimTlcdCg6r+xcH4jfIvEuGkAJHIPSa141vuo5aAiBQGnHBvxo
-	 CteJE2rIhRxeDM5E5xMqvb/frS7RV8ROqwUanizbxG8TLA71/WQp/6bHJ8bkN95Vl0
-	 0e4/nWgoQG6oM/l+Lz8UrLbBrAVcww3C1Ev08LrDblkAbrbnJpjnRLF6ZCo9QeiTJ8
-	 u+JXOmfzjdyENaGz1B6XaTLQlLj0vK0+TWVXyuB7+R697eleFZm1F+78pjmGdIEhRU
-	 GAfAWHZpQbPT/+lxIN+0Z4JvuwmV9djh3/ARmDrKsBQfUGKrDSimuY32D4g+KBYZBU
-	 dUHW+B69ckGsg==
+	b=tqUR8fxKwHEAv103ZSLj0EC2uau/KHK3tAcfxAnNgM1Dwrz2FtZ5VcIQwOIFNKr18
+	 lR/w7cRrkyQP0ONFjqUWxxLkWPyzyTm+8cnignT7XBHkj6pYNsh4m+0vQmUTmyvm1I
+	 uC4ddJjsiaApvTosIn/hGF5Wo20Po+I6orWWMQprNpFcIzfpleVo55q7JwVohaSv75
+	 R0Sc4hoFaufvv1tKnywfyZjzcArudX3eavfFIzSLabzs44GEaPenJM+SWOuGAkDSMG
+	 2PzFA0/qzpe8bpdCDwZYgzwiXyDk+HIbtD6zCUqzyGZZsxX0eg6tTR2Wpt6lddBJ9e
+	 Vxw29Gkp108Uw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B01A9C982C9;
-	Wed, 16 Sep 2026 15:32:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36E6BC982C4;
+	Wed, 16 Sep 2026 15:33:00 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Wed, 16 Sep 2026 09:32:56 -0600
-Subject: [PATCH v10 04/38] vmlinux.lds.h: Fix ALIGN(8) omission causing
- NULL ptr on i386
+Date: Wed, 16 Sep 2026 09:33:00 -0600
+Subject: [PATCH v10 08/38] dyndbg: add stub macro for
+ DECLARE_DYNDBG_CLASSMAP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-dd-cmap-part2-clean-v10-4-af4cf4767707@gmail.com>
+Message-Id: <20260916-dd-cmap-part2-clean-v10-8-af4cf4767707@gmail.com>
 References: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
 In-Reply-To: <20260916-dd-cmap-part2-clean-v10-0-af4cf4767707@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -63,14 +63,13 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
+ Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=6221;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572777; l=3163;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=22WCSuGF05p8gA76uv7PlnmHWahruFec5XONc19uauM=;
- b=0A7NnOViySI5isyLb0PtrCo6DPjCTk4HR08Sf0w8Xw7vpJ470MrK41HfHkVD1g+Fnw5ABF1Zr
- vYt2wXH7fAyCw2U0xkGvDDUM66L3EjJsZJKnciN6d7lZQE75sb9q8DZ
+ bh=ZuzqA3zGt/j9kYmFGfFlaL94NbjSKGlzcBcWBUqAWbM=;
+ b=zpzVNPNi6BirL5+75bfaSRvtlmosMixzbPIKy1tA129ywzf/p4Yd9f16XTi6UOc1kG+Pggzso
+ DTEHXTD53ZZBX8XcMvmq/4MW5cE+qiTZ7Lp4wlIABNsjMCgeePStJC2
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -80,160 +79,83 @@ Reply-To: jim.cromie@gmail.com
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Almost all uses of the BOUNDED_SECTION macros are ALIGN(8), either
-explicitly, or by being below an aligned section containing x*8 byte
-objects.  The noteworthy exception is BOUNDED_SECTION(__dyndbg), which
-immediately follows BOUNDED_SECTION(__dyndbg_classes).
+Add the stub macro for !DYNAMIC_DEBUG builds, after moving the
+original macro-defn down under the big ifdef.  Do it now so future
+changes have a cleaner starting point.
 
-On i386, struct _ddebug_classmap is 28 bytes, so without an explicit
-ALIGN(8) in the macro, the following __dyndbg section gets misaligned,
-causing a NULL ptr deref in dynamic_debug_init().
-
-So fix this with an explicit ALIGN(8) in the existing BOUNDED_SECTION
-macros, and introduce _ALIGNED variants to handle the cases with an
-explicit . = ALIGN(x)
-
-Also add explicit alignments for: EXCEPTION_TABLE, ORC_UNWIND_TABLE,
-TRACEDATA, INIT_SETUP, and NOTES.
-
-update BOUNDED_SECTION uses inside . = ALIGN(x) stanzas to use
-_ALIGNED variants, but keep the outer ALIGNs so the symbols between
-them are not "re-aligned".
-
-In particular, scripts/sorttable.c does not tolerate sloppy padding.
-
-At the top of ORC_UNWIND_TABLE, add . = ALIGN(4) to match the struct
-orc_header __align() call in the code:
-
-commit b9f174c811e3 ("x86/unwind/orc: Add ELF section with ORC version identifier")
-
-Suggested-by: Louis Chauvet <louis.chauvet@bootlin.com>  # _ALIGNED variants.
-Link: https://lore.kernel.org/lkml/177402491426.6181.12855763650074831089.b4-review@b4/
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v3:
+ include/linux/dynamic_debug.h | 43 ++++++++++++++++++++++---------------------
+ 1 file changed, 22 insertions(+), 21 deletions(-)
 
-sashiko complained about NOTES and .BTF_ids.
-gemini asserts that NOTES are natively 4-byte aligned, add comment repeating it.
-.BTF_ids doesnt use BOUNDED_BY, since start/end isnt needed;
-sashiko evidently got confused by immediately preceding usage.
-
-v2:
-
-sashiko picked up 2 cases, added to the explicit list above
-https://sashiko.dev/#/patchset/20260515-asm-generic-1-v3-0-680b273666d4%40gmail.com
----
- include/asm-generic/bounded_sections.lds.h | 17 ++++++++++++++---
- include/asm-generic/vmlinux.lds.h          | 18 ++++++++++--------
- 2 files changed, 24 insertions(+), 11 deletions(-)
-
-diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
-index 268cdc34389b..8ff3e3420f60 100644
---- a/include/asm-generic/bounded_sections.lds.h
-+++ b/include/asm-generic/bounded_sections.lds.h
-@@ -3,19 +3,30 @@
- #ifndef _ASM_GENERIC_BOUNDED_SECTIONS_H
- #define _ASM_GENERIC_BOUNDED_SECTIONS_H
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 05743900a116..a10adac8e8f0 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -93,27 +93,6 @@ struct ddebug_class_map {
+ 	enum class_map_type map_type;
+ };
  
--#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+#define BOUNDED_SECTION_PRE_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, _ALIGNED_) \
-+	. = ALIGN(_ALIGNED_);						\
- 	_BEGIN_##_label_ = .;						\
- 	KEEP(*(_sec_))							\
- 	_END_##_label_ = .;
+-/**
+- * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
+- * @_var:   a struct ddebug_class_map, passed to module_param_cb
+- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
+- * @_base:  offset of 1st class-name. splits .class_id space
+- * @classes: class-names used to control class'd prdbgs
+- */
+-#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
+-	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
+-	static struct ddebug_class_map __aligned(8) __used		\
+-		__section("__dyndbg_classes") _var = {			\
+-		.mod = THIS_MODULE,					\
+-		.mod_name = KBUILD_MODNAME,				\
+-		.base = _base,						\
+-		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
+-		.class_names = _var##_classnames,			\
+-	}
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
+-
+ /* encapsulate linker provided built-in (or module) dyndbg data */
+ struct _ddebug_info {
+ 	struct _ddebug *descs;
+@@ -138,6 +117,27 @@ struct ddebug_class_param {
+ #if defined(CONFIG_DYNAMIC_DEBUG) || \
+ 	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
  
--#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	BOUNDED_SECTION_PRE_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, 8)
++/**
++ * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
++ * @_var:   a struct ddebug_class_map, passed to module_param_cb
++ * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
++ * @_base:  offset of 1st class-name. splits .class_id space
++ * @classes: class-names used to control class'd prdbgs
++ */
++#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
++	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
++	static struct ddebug_class_map __aligned(8) __used		\
++		__section("__dyndbg_classes") _var = {			\
++		.mod = THIS_MODULE,					\
++		.mod_name = KBUILD_MODNAME,				\
++		.base = _base,						\
++		.map_type = _maptype,					\
++		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.class_names = _var##_classnames,			\
++	}
++#define NUM_TYPE_ARGS(eltype, ...)				\
++	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
 +
-+#define BOUNDED_SECTION_POST_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, _ALIGNED_) \
-+	. = ALIGN(_ALIGNED_);						\
- 	_label_##_BEGIN_ = .;						\
- 	KEEP(*(_sec_))							\
- 	_label_##_END_ = .;
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
  
-+#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	BOUNDED_SECTION_POST_LABEL_ALIGNED(_sec_, _label_, _BEGIN_, _END_, 8)
-+
- #define BOUNDED_SECTION_BY(_sec_, _label_)				\
- 	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
+@@ -314,6 +314,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
  
--#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
-+#define BOUNDED_SECTION_BY_ALIGNED(_sec_, _label_, _ALIGNED_)		\
-+	BOUNDED_SECTION_PRE_LABEL_ALIGNED(_sec_, _label_, __start, __stop, _ALIGNED_)
-+
-+#define BOUNDED_SECTION(_sec)   BOUNDED_SECTION_BY(_sec, _sec)
+ #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) false
++#define DECLARE_DYNDBG_CLASSMAP(...)
  
- #endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index b4ece391f7b1..b1a69f8af6d2 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -640,7 +640,7 @@
- #define EXCEPTION_TABLE(align)						\
- 	. = ALIGN(align);						\
- 	__ex_table : AT(ADDR(__ex_table) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(__ex_table, ___ex_table)		\
-+		BOUNDED_SECTION_BY_ALIGNED(__ex_table, ___ex_table, align) \
- 	}
- 
- /*
-@@ -650,7 +650,7 @@
- #define BTF								\
- 	. = ALIGN(PAGE_SIZE);						\
- 	.BTF : AT(ADDR(.BTF) - LOAD_OFFSET) {				\
--		BOUNDED_SECTION_BY(.BTF, _BTF)				\
-+		BOUNDED_SECTION_BY_ALIGNED(.BTF, _BTF, PAGE_SIZE)	\
- 	}								\
- 	. = ALIGN(PAGE_SIZE);						\
- 	.BTF_ids : AT(ADDR(.BTF_ids) - LOAD_OFFSET) {			\
-@@ -840,16 +840,17 @@
- 
- #ifdef CONFIG_UNWINDER_ORC
- #define ORC_UNWIND_TABLE						\
-+	. = ALIGN(4);							\
- 	.orc_header : AT(ADDR(.orc_header) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(.orc_header, _orc_header)		\
-+		BOUNDED_SECTION_BY_ALIGNED(.orc_header, _orc_header, 4)	\
- 	}								\
- 	. = ALIGN(4);							\
- 	.orc_unwind_ip : AT(ADDR(.orc_unwind_ip) - LOAD_OFFSET) {	\
--		BOUNDED_SECTION_BY(.orc_unwind_ip, _orc_unwind_ip)	\
-+		BOUNDED_SECTION_BY_ALIGNED(.orc_unwind_ip, _orc_unwind_ip, 4)\
- 	}								\
- 	. = ALIGN(2);							\
- 	.orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)		\
-+		BOUNDED_SECTION_BY_ALIGNED(.orc_unwind, _orc_unwind, 2)	\
- 	}								\
- 	text_size = _etext - _stext;					\
- 	. = ALIGN(4);							\
-@@ -877,7 +878,7 @@
- #define TRACEDATA							\
- 	. = ALIGN(4);							\
- 	.tracedata : AT(ADDR(.tracedata) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_POST_LABEL(.tracedata, __tracedata, _start, _end) \
-+		BOUNDED_SECTION_POST_LABEL_ALIGNED(.tracedata, __tracedata, _start, _end, 4) \
- 	}
- #else
- #define TRACEDATA
-@@ -906,13 +907,14 @@
- 		*(.note.gnu.property)					\
- 	}								\
- 	.notes : AT(ADDR(.notes) - LOAD_OFFSET) {			\
--		BOUNDED_SECTION_BY(.note.*, _notes)			\
-+		/* *(.note.*) are natively 4-byte aligned */		\
-+		BOUNDED_SECTION_BY_ALIGNED(.note.*, _notes, 4)		\
- 	} NOTES_HEADERS							\
- 	NOTES_HEADERS_RESTORE
- 
- #define INIT_SETUP(initsetup_align)					\
- 		. = ALIGN(initsetup_align);				\
--		BOUNDED_SECTION_POST_LABEL(.init.setup, __setup, _start, _end)
-+		BOUNDED_SECTION_POST_LABEL_ALIGNED(.init.setup, __setup, _start, _end, initsetup_align)
- 
- #define INIT_CALLS_LEVEL(level)						\
- 		__initcall##level##_start = .;				\
+ #define dynamic_pr_debug(fmt, ...)					\
+ 	no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
 
 -- 
 2.55.0
