@@ -1,179 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16CC356757;
-	Wed, 16 Sep 2026 05:11:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789535519; cv=none; b=XnLP07Dgal1rKF09+hKF5cVC2ue4wNwzyYH7jjSvghl72xUmzbc/XytNm0UqDRRep3DCTMnI9cq/tMLDqCIGoUcWgvARauQ4sLu+AbWkjoFukxIfVhjDAbYz0EPPsBgL7RpwoHwGwhGPoRJ7be0pdx4o5J54pC2QKUUorx8Ggl4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789535519; c=relaxed/simple;
-	bh=40uwVthNvpqCFoNvfj6Yz4eGpiTrsvWrYCjFS0g9jRw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iPyWDXL+kmWxgkAY8RtwKU9bmbLvwVMY3xP6VrsDoiuU5UaI8U82IISGQXHvpFpzvOB7u7NZI0A6tIjqxLxF7eoEh+7wpF2KXnhBmrE3uvN2iXFm60hQN5hM+zxGZpkNUSCa4MaeNimvYtzlEORkKk+BQ7zvsEq8JPAsK29St7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLQGCWUr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E471395AF2
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:12:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789535551; cv=pass; b=rhRdp/nrEHZjS3Kwr08dmPDkDXwC9tqCSEEknu/2mlu2/v91HvNX2c3fCihAUpR6tpfCqpATAC5dFoPQ4kZ4p8kGGLH/h1OiRe/sLtRK+bZUNa0R9++KqDLYpgUpXx7wOOtFn+ugwWfHgP5CxFmkxLUK9dgogI+wTxjScilfHjo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789535551; c=relaxed/simple;
+	bh=xfMfjILt2qYVQAqWVFpTkowhP2xgf3MvNiTst1AwzOg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=epWVaK/0rgJido0UgWIx7Nwq39GkT+LJTkAKkcFn+xm8jl9CmqpiUU36crKr5aaGaOpBeqAkuneVTv63+SOA/QT6bhUTmsnfg1HNlwUlqaIYU7nHLtCWwpA2SYnjk6Hwvo8OpMtcRtwFcDoMk8YagGPwDT0kF216c3J8xpjt8ms=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XoYzsp2Y; arc=pass smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLQGCWUr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23D01F000FF;
-	Wed, 16 Sep 2026 05:11:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789535517;
-	bh=kNEW7NhnOUY8v9q+C+Hpu+A+v8WziHcF3NFyEfbmrH8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FLQGCWUrq4wrW/Oa3OqlQ5cNqAUaO3UEA49euXSpwoEG5p2n1OFcnoRNbwUgX7sMC
-	 ln7tCuXC8SL1cuAcqZYIXev2KqfozXLELQT+Gl2IEqpCNxfbCpQ1k/aA0t21wKLm38
-	 8NWpPW5fKFGqU/mQ7p/8x+Xw7wejdA0M4qf7HSxMnyV9HfeG4GF+4PjgTpQVU7IIDM
-	 cge+ZUq7HpmCFI49B+HjLpo3ua1E5lNrwpFvHQtm40eNzy0CVXOZBQUjwATPyPRoQr
-	 hs+HvFbzDzatb2hcwj3KioP8m1gbCHmCwbHCfJY83+/FpYjV+6miW6FNRXk+F5DaWI
-	 jyesMs//9cc8w==
-From: SJ Park <sj@kernel.org>
-To: "Lian Wang (ProcessMission)" <lianux.mm@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
-	akinobu.mita@gmail.com,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	akpm@linux-foundation.org,
-	corbet@lwn.net,
-	bijan311@gmail.com,
-	ajayjoshi@micron.com,
-	honggyu.kim@sk.com,
-	yunjeong.mun@sk.com,
-	rientjes@google.com,
-	weixugc@google.com,
-	jic23@kernel.org,
-	gourry@gourry.net,
-	Kunwu Chan <kunwu.chan@linux.dev>
-Subject: DAMON reporting more hot memory on huge pages (was: "Re: [RFC PATCH v2 0/9] mm/damon: hardware-sampled access reports")
-Date: Tue, 15 Sep 2026 22:11:49 -0700
-Message-ID: <20260916051150.107931-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260916034439.28517-1-lianux.mm@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XoYzsp2Y"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e53002bso291990e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 22:12:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789535548; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aoCKHwkTvh/KMkFk+QTuxffVDokEX+BpK/zmNf+Z87pQHAa+IMjf43gNYf9Eo1YSDl
+         S0jefo7IbI5zm1Q2QecR6XartokukfqUwJkxIPbbEYFMrKNH3Q4S5W9Gh3Z5pkLWuuoI
+         1zOc2J1QN0fgoF22c0cH7jlwcdXIdYn3sDHOS6piXLx1X3rPDHk3W4va42lIwpiJcmjb
+         fZ0hkH/pi/Goez94/vSEvzyVUfGGFVYSHlGRaMr5TSIiRExDC/Sx9MDvhf9CxcmGYFMz
+         /0GcFBKe3hzJdUpr6XEPiXLjqNNKvRSnBu2TbL/aip3Yp9wjTIstL34fx3dWUsr0oD4q
+         fZsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EVAkoIa4qb/USGuXY22Fjfb1KpGXE+Xb86EIM7n4PT8=;
+        fh=usancjy772ZSWpTq6Bp0WUGkHLN/P0qVRSFsNDCh4r0=;
+        b=Qpu6IwsR/ZVhBmo+YSY6itRaAnmrC0xC6gaAlq+q0UhPv46DQcVkUMFXlSbhpXG/ND
+         tkXxkCOQtDQJ3PXeXncklGOZWL3wm51XVjHuVqkR/x2Fc80Z3wTZO79rE5LHtswffatA
+         sa2ZBdoDz4kjnV6b8yU/C7re5bwRcjbrKBm+Npr0MM6SkJy1rKpo90wu8vyuPMcZYr6z
+         7iC2TUrVwvASxtjn0R23X+ULxbkgPWmL5kZo28ggdhbiXsVHA/YI5KlOezRwXN5Vd27o
+         yBCrKPPgpQ3E8MvYlOW25ZaBgXr545K23UEgk4++cJ9CnBmF5gi3QrBy0+mF58Mv4axY
+         3CMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789535548; x=1790140348; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EVAkoIa4qb/USGuXY22Fjfb1KpGXE+Xb86EIM7n4PT8=;
+        b=XoYzsp2YhnEj9tlW4XHgn995P2na4t2gSWWxk2SiJP8ad7mKThT4Y2a8CWDzf8C1Yq
+         SrK6GhePfogTZkYeMNs+qudtEZCaHxoyZzh2l4BjVYrdsUC+YNor94INAd7cFvbnqkC9
+         Ap7ibXqKgl6H/dBqrZLfL6jCQ0/pms6nLa6G6W+XeO2wm/uOpUm1pcgsDAVCcmlsoZ98
+         2qzETLTUpMqnw7ayJIpBMm2PTDedi64KyixAtjwqd511aLIfxZ4V7dxzixwwZLpbZ5yI
+         vybsmFdHC903hzXM9NsdCqWc8FOusttxOFXnLnMFtSEoH5CHPGZu4Hux4VAtPHi5ZKoE
+         A0tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789535548; x=1790140348;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EVAkoIa4qb/USGuXY22Fjfb1KpGXE+Xb86EIM7n4PT8=;
+        b=JRrQZn+nW0xwunYPPhKXblnwAHhGwRdDHdFoqYmgptsyiHKMKANjkyqb+3SrFDvDbO
+         z26/NhvsPC04cmmxGU5bsi3zTHzoENHf6iwOY1tmnlXB71vD3fr1bsF20YXO4zAlNNJV
+         xrgRMS0jYmsuPpR5O48dzRkqDR+E0QT11ZDrYwG80La6oao0F5S/9tXxS/+M1Z9/aYlu
+         gd9bt7NEFN65PKoSnKzTzvGsTys9BsCtgDVf75S+FIyvcRxwMCg17aiF1IhjL3MJbOFA
+         VWfX7cdrU0FUvJPKGGQzq3vlvR5qSNWDOGPiH4wZylfyy3ZkzyyU47T3lTHm0exaENEz
+         AFwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzmqkhRUoTDxdyN1pWa0QCF3SMWDFAdUWL5cN0WbLnRObkR4Jh9vr4h9gjopUpxMHn1VL1+VM2W1xcTzg0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSL+2ufZIdBeUqMjVaYdjJoUBI2V+wPNeT3TCvbPIi/zMsiWd2
+	jifJ7tCgIb4jjbu0MKXaB4qDEyge+r5nzcjCSDxfvZTdREW0ocgi6BK1JW+8PCR95fPLBLTLw/p
+	mQ/zIGL0xmCWTjxuTP06Zhg2TE5wOJZI=
+X-Gm-Gg: AYBFou0XqU7m9w7ioFIRPQwJDNhMQaHQjJuBEefNDrLezMhKhejIs0GexnJ9jSS2Xw9
+	KxRyywXaDM2XVYJEWzTMfdk7dB+dLFRo00/7/UtEeicUvl23y8VDtxjL86G4WJNqR3WWJl+DrId
+	vTPsrHR1+wU+/rkBrjb3dkEHznFWHN4QmSY+xuahaYXJWdC6Y/y7Qb006g2oFncqnuQged7x3vI
+	fws+0z6PxbWihS4Ofbq4mJBost93cbBhJuYrqqu7I9xg1kXc0WJ/W2JpahOBL1JEwQDyZt+p9kJ
+	iT1akIjXty3YZgDV5BPeDPVTk2cMpCQK9f//N2frzZEie9U9WzyM42s3pDth+5V7pUi2vGLre32
+	hAvcsE4Z6mDsbMd6Zo3rh9w/U11bLaY+2qUivPtuosFerny5dPYOElLfb8h5PXF4qZkIAKSZKWh
+	b7U2xY2ahdS/rHnSSpqswhAW0L+UC+L4TTvCNhKPBcoYkb
+X-Received: by 2002:a05:6102:38ca:b0:79e:caaf:de9 with SMTP id
+ ada2fe7eead31-7a02acc855amr1205112137.6.1789535548385; Tue, 15 Sep 2026
+ 22:12:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260916044119.475666-1-alastair@d-silva.org> <CAGb2v64HZoqBscyKTkTin6DnMv5_kZpBxoS+cm7aYy09pRc7hA@mail.gmail.com>
+In-Reply-To: <CAGb2v64HZoqBscyKTkTin6DnMv5_kZpBxoS+cm7aYy09pRc7hA@mail.gmail.com>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 15 Sep 2026 23:12:17 -0600
+X-Gm-Features: AcwNN1UNecxTndtUibx9ggVDgut-WAi8ElAvEyyyzRhfanBmsu20NosAEZK33OI
+Message-ID: <CADvTj4qRMviM=KXinCKi657pVC_kj7Kt1yizW_EGDu4m7VKQFg@mail.gmail.com>
+Subject: Re: [PATCH net-next 0/4] net: Add Allwinner H616/H618 EMAC1 and AC300
+ EPHY support
+To: wens@kernel.org
+Cc: "Alastair D'Silva" <alastair@d-silva.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 16 Sep 2026 11:44:30 +0800 "Lian Wang (ProcessMission)" <lianux.mm@gmail.com> wrote:
+On Tue, Sep 15, 2026 at 10:56=E2=80=AFPM Chen-Yu Tsai <wens@kernel.org> wro=
+te:
+>
+> On Wed, Sep 16, 2026 at 12:41=E2=80=AFPM Alastair D'Silva <alastair@d-sil=
+va.org> wrote:
+> >
+> > This series adds support for the secondary Ethernet MAC controller (EMA=
+C1)
+> > and the co-packaged AC300 Fast Ethernet Physical Layer (EPHY) found on
+> > Allwinner H616 and H618 SoCs.
+> >
+> > The Allwinner H616/H618 SoCs feature two EMAC instances: EMAC0 (typical=
+ly
+> > used with an external RGMII Gigabit PHY) and EMAC1 (Fast Ethernet,
+> > connected internally to the co-packaged AC300 EPHY). EMAC1 uses a
+> > dedicated clock control register in the syscon register space, which is
+> > accessed via an offset index in the DT syscon property.
+> >
+> > The AC300 is an integrated 10/100M (100BASE-TX / 10BASE-T) Fast Etherne=
+t
+> > PHY communicating over MDIO at address 16 + phy_addr. It requires
+> > retrieving factory bandgap calibration data from the SID nvmem controll=
+er,
+> > managing internal power rails and clocks, and optimizing transceiver si=
+gnal
+> > parameters.
+>
+> There is already a series from James covering the same thing. Please chec=
+k
+> the mailing list and possibly our wiki (linux-sunxi.org) to avoid duplica=
+te
+> work and subjecting the maintainers to the same discussions again.
 
-> Hi SJ,
-> 
-> Thank you for the questions.  I mixed the original field scenario and our
-> controlled reproducer in my previous mail.  I also jumped from the observation
-> problem to PMD mapping demotion before explaining why the deployment needs both
-> huge pages and finer-grained observation.  That made it sound as if our goal
-> was simply to stop using huge pages.
-> 
-> > The observation makes sense.  However, does the sparse access pattern
-> > realistic?  If so, what is the purpose or expected benefit of using huge page
-> > for workloads having such access pattern?
-> 
-> The original case is not a lab-created request to use huge pages for a sparse
-> microbenchmark.  It was reported by SXF from a KVM/QEMU deployment where the
-> VM has a large memory allocation backed by a shared tmpfs file, host THP is
-> enabled, and Oracle runs inside the guest.  They use host-side DAMON to measure
-> the VM's hot-memory proportion.  With the same business memory use, they
-> observed a much larger hot proportion when THP was enabled.
+See:
+https://git.kernel.org/netdev/net-next/c/783f6f1fdcd5
+https://git.kernel.org/netdev/net-next/c/6cc2fbceb49b
+https://lore.kernel.org/all/20260915-submit-h616-emac1-v1-v2-2-322b32e40eb9=
+@gmail.com/
 
-Thank you for clarifying this.  So I understand it is an issue from a real
-world workload.  I'm still curious how sparse the real access pattern in the
-real world workload is, and if there is a low haning fruit.  There might be
-rooms to improve in their DAMON usage.
-
-Could you share more details about the real world setup and findings?  More
-specifically, how they define the hot proportion and how they collect the
-number?  What is DAMON setup?  What are the real numbers they saw?
-
-Also, I understand they want to understand real working set size of guests.
-Could you further share what they are planning to do with the monitored working
-set size?  The required level of accuracy of the monitoring could depend on the
-purpose.
-
-> 
-> The guest tmpfs 4 KiB/2 MiB writer is their controlled diagnostic case for
-> isolating that observation; it is not a claim that the Oracle workload is
-> exactly a one-page-per-2-MiB loop.  We then reproduced and quantified the same
-> effect on a PC and on the x86 server.
-> 
-> For this deployment, keeping large pages is a real requirement at the host
-> virtualization layer.  QEMU owns a large resident guest-RAM mapping.  Host THP
-> allows that mapping to use PMDs and allows KVM to use large secondary mappings,
-> reducing host page-table memory, TLB and nested-page-walk pressure, and KVM
-> mapping/fault overhead.  These benefits are independent of whether every 4 KiB
-> page inside a particular 2 MiB range is hot at one observation time.
-
-Thank you for clarifying this.  Now I understand why they use THP, and I fully
-agree they should keep using THP.
-
-[...]
-> The performance requirement and monitoring use case come from the deployment,
-> not from our lab model.  We will also report the measured Oracle/VM benefit and
-> the production access distribution when those data are ready.  The diagnostic
-> result establishes the observation mechanism, but it should not substitute for
-> those workload-level measurements.
-
-Thanks to your detailed and nice explanation, I don't doubt about the needs to
-use huge pages.  So I wouldn't insist on Oracle/VM benefit from huge pages.
-
-I'm still curious the real access distribution, though.  I understand you don't
-have the data yet.  It would be very helpful if you could share that in future.
-
-> 
-> > I'm not very sure if this is the right direction.  PMD mapping demotion sounds
-> > like you just don't want to use huge pages.  If so, you could disable huge
-> > pages.
-> 
-> I agree.  My reasoning in the previous mail was too jumpy: I went from a coarse
-> observation directly to a possible MM response, and that obscured the actual
-> goal.  PMD mapping demotion is not part of our current proposed solution.  The
-> current direction is to keep both the huge folio and PMD mapping unchanged and
-> use a genuinely fine-grained access primitive to improve the observation and
-> the stat-only decision.  We should first find out whether that is sufficient
-> before discussing any mapping change at all.
-
-Thank you for clarifying.  Yes, if you really need sub-pmd access, I believe
-the perf event based DAMON could be more useful.  Nonetheless, as I requested
-above, knowing the DAMON usage and purpose in more detail might let us finding
-a low hanging fruit.
-
-[...]
-> With this context clarified, we will return to the immediate work: use the
-> existing IBS/perf-event proposal as the concrete strategy under test, and see
-> whether its fine-grained evidence can improve the observation and DAMOS
-> decision for this case.  We will use the results to test and review this series,
-> report both improvements and remaining gaps, and not assume in advance that it
-> is the final solution.
-
-That makes sense.  Because Ravi thankfully already implemented this nice
-working version prototype, there is no reason to not test it right now.
-
-> 
-> I hope this clarifies why keeping huge pages and requesting finer-grained
-> observation are not contradictory requirements in this case.
-
-Yes, it is now clear to me.  Thank you for patiently englightening me, Lian.
-
-> 
-> If I am still misunderstanding any part of your questions, or if any part of
-> this explanation remains unclear, please continue to correct me.  We will keep
-> sharing our findings and would like to make sure we are aligned before going
-> further.
-
-I believe testing the perf event based monitoring with Ravi's implementation is
-a good path forward.
-
-I'm curious about the real setup and results your clients got from their real
-world wokload.  But that's not necessarily a blocker of the perf event based
-monitoring test.
-
-
-Thanks,
-SJ
-
-[...]
+>
+>
+> ChenYu
+>
+> > To ensure reliable link establishment and MAC software reset with the
+> > internal PHY, dwmac-sun8i is updated to defer MAC software reset until
+> > sun8i_dwmac_init() after the internal PHY has powered on and begun
+> > clock generation.
+> >
+> > The series is structured as follows:
+> > - Patch 1: DT binding for Allwinner AC300 EPHY.
+> > - Patch 2: PHY driver for Allwinner AC300 EPHY.
+> > - Patch 3: DT binding update for Allwinner H616 EMAC1 and syscon index.
+> > - Patch 4: dwmac-sun8i driver support for H616 EMAC1 clock index and
+> >            internal PHY deferred reset.
+> >
+> > Testing:
+> > - Tested on physical Mellow Fly-C5 hardware (Allwinner H618) running
+> >   Armbian with sustained 100Mbps full-duplex network traffic (DHCP,
+> >   iperf3, NFS rootfs).
+> > - Device tree bindings validated with dt_binding_check.
+> > - Separate SoC and board DTS additions will be submitted via the
+> >   linux-sunxi tree.
+> >
+> > Alastair D'Silva (4):
+> >   dt-bindings: net: phy: Add Allwinner AC300 EPHY binding
+> >   net: phy: Add Allwinner AC300 EPHY driver
+> >   dt-bindings: net: allwinner,sun8i-a83t-emac: Add Allwinner H616 EMAC1
+> >     and syscon index
+> >   net: stmmac: dwmac-sun8i: Add Allwinner H616 EMAC clock index and
+> >     internal PHY support
+> >
+> >  .../net/allwinner,sun50i-h618-ac300-ephy.yaml |  79 +++++
+> >  .../net/allwinner,sun8i-a83t-emac.yaml        |  14 +-
+> >  .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  65 +++-
+> >  drivers/net/phy/Kconfig                       |   9 +
+> >  drivers/net/phy/Makefile                      |   1 +
+> >  drivers/net/phy/ac300-phy.c                   | 331 ++++++++++++++++++
+> >  6 files changed, 486 insertions(+), 13 deletions(-)
+> >  create mode 100644 Documentation/devicetree/bindings/net/allwinner,sun=
+50i-h618-ac300-ephy.yaml
+> >  create mode 100644 drivers/net/phy/ac300-phy.c
+> >
+> > --
+> > 2.53.0
+> >
