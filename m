@@ -1,172 +1,111 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181C935A387
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789602975; cv=pass; b=L3xizCRa0lCl3z3GVg8kJHAXa+n8WOWMEn8M2IPUoKdQ6pHSVunQfrSVBiMkzta+77B/XWssQQ+TY5QoPHldvS1Gfk8v285JDMXihELeGl3tK2y8qPns4R/pR9QZNniluc1SpTv4IzKuk8Xg65Ndul0aKVFWOkmf9RizmLJ3tvc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789602975; c=relaxed/simple;
-	bh=5tKaWdmu51kDXBBHcn30mMEVoJTfZmICHt+dSfRbXmI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pInjhf+9+dPmyqbm9FC95q7TIwkwc0jQfjno/PIQ5pYGZPzpMnq/xDn7UCS2MDHnkCVCEE+U/ypVWkADNPoS1+arqWjg4PAdOejGUixdPJyP1JKamzJdKQUdjZSpYSQcW1tQtVTPOsyKMQdiUDxNbVviliYilFp/IVHa8+0YKUo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mqcRcSQN; arc=pass smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2633D75BE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789603022; cv=none; b=CkakF6KG5EWDG87oxGCmZcyCpm98csh6XugX4LD+f+HioNuMSP9n+46897U82s4M1cylY5Hglkz9PnL2gssX3ooeM11nUv2pY3JaEwuvTkx9mSLn3EnHu/FFkn14Appe//OvtXPgTwqMq/jaPYN5LAe0IEzZDTphHKjhESFXJ+w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789603022; c=relaxed/simple;
+	bh=VGvZ2McX4R5AmpM+aD65U//d38njXDMp/8lXGO8s9fY=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rcwGsEMKzjrVHKH/SY2tFQ1TpSoqDqKfp1NxHUyozyZG1LoU20QzX2mqb+4nmQydRxddXbDuj9+BWbj12lurTsSl29Ez2W49zh26DcldJPn66JLj/J3wjAMi2fx47yXZLpuUMAdkuGsZYD8UDthCH3rOsJcBTw7CI3mi45moJLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L1hfraDg; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mqcRcSQN"
-Received: by mail-vs2-f43.google.com with SMTP id 71dfb90a1353d-5c82bb05ddaso148854e0c.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:56:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789602973; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XdWOwocfhOT71XSr55Js/gpWd13T/4U0iJiMlETkpwXB2PYw7rcP33c2NnF2kxE202
-         VNNb982Oys+1YELPCx1NMIwLbd9SmQJwG7AEwNU1cq7Vi7R1u8I+QAFp5WyKhnpu/TgS
-         6Bg204sByPxh8qcnw/1C+/fTDYA6EPBeF0I4zzgOki7kVLnfsUBGRRaHw+WfX/fnQLvR
-         Tmr5eFw+hZUenG9QMfCaBLCDOdlpgVPqc2naoSp+/F7UNfLuUt9a5lvxzVM1HfKD48Lh
-         STJaZOTDBh/kMGcy5aVX9pM30RiUVJNPWIFPT1BAf5ZjFUvEP2baIUjiU6vyitDtTVkX
-         Wi1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LRwA+HQjBliPkd+fmYUUZiunYG12ceL1uUJHyUv3qZk=;
-        fh=OJITtme0eUFXwmQK0FUKxKxHuExcE3le/D1xN9KdSOo=;
-        b=TQ/iNfUkX+m9ndxe6/PXFtVez9V0zxvFfGx7btLPXNUSUSg4QRElSC+nqJ3cge4lUV
-         vuG9ucQ3bbNLfM5dZqJTbyN8LfgkUwh7FRdkk3Zxt3t/KPpxtS5eE/sjWZ/DND9TxJR8
-         2hcdcpgXjXrjuAoDENO1mm2Kt0h8cw2vFIRjRWMO/uo1S5PGDxTBcZJYoeYtJ4sQVZqe
-         zOSeBA0ZvqWiPbDdRqMLCUULFU4Dwh3EFNL7V37e0KW3pQrX7tKOFZ7ViewCziZMLScW
-         sNAJcBR1Ri72M77tXfHo8P4hZi3uMrE32qFiFSge1Af7QFmkAcXycfV1boqoT38zfXI4
-         q4LQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L1hfraDg"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so1851735e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:57:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789602973; x=1790207773; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789603019; x=1790207819; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=LRwA+HQjBliPkd+fmYUUZiunYG12ceL1uUJHyUv3qZk=;
-        b=mqcRcSQN9xkuxJOcjn1PYlCnePK5Zv6c9NB8AQYLh2+NWPg2RUZPWnU4LepZPyH9NL
-         XaWUr55EgE9Z03CylPh77r14jmZitCgp92ajvAaxr3x4xh1ThDPas/lpT5ZHCQfaVzE4
-         d3H1FOWDPxSg4GRtSjbKfzjWYYEFz0OazelYmrXBhuRHsb571TXF3ZtTq4+eoPeMTmWb
-         whUJ+WQXr0eMIQ6e4gyRuspLODaKuhGrElEbnkgjPsKfQqfl1KN8aX1hwZp/0Lpa9dLf
-         uZgTnlZZ1Ufwb/TH96MDY5hR0kcN+m0XwWwYqZqnjMtJ3ailRNanJPXrUUJz71/DRfT1
-         j8jA==
+        bh=RqA/0fr84svz/HOqoCjORMcBVPzXHKYkGVcKqp7/wRg=;
+        b=L1hfraDglk5BdW6YWihQ50AqrP4vcNrcDQPMCeT55kTyhQfjquN0wS5bob4Almk6SB
+         /ipLB6Ju+6KWkQKioXpu/Nj6DZUypa+8NwgIMi+osPdw8CPwK3j3oDMR+2S+UxhOVK2G
+         tXlzeFWEeFBNnRQlhm5ehtdj7K1+PPtnMh6yo4MZF39AE2+9FJrx9tLX+sJGiLMxrGqh
+         S6oGCEj16lNXyZX+LKwErapwpdMpO7Qi0R6dt2elaJiT5FVPL1DTnpGteHaqMXQ3RL39
+         uj2bBIwNpRE8Pa4QswCYq9xm1DhOf/chjn2nTVsCIphNdF2DfmUzS5bzhCilFkncOzwp
+         VqNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789602973; x=1790207773;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789603019; x=1790207819;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LRwA+HQjBliPkd+fmYUUZiunYG12ceL1uUJHyUv3qZk=;
-        b=aTYbAgS+bssqeMdyCdMkJnxS5AY6DA1VpIWFQoz38D3NdVjhM9pOzz4HgaLt4njPIU
-         njQ2VNEPgHes9NCWYoF4cEZXt10dnzYbZ96EkxWWohSdId1T9iA/qe2iIqg9p0Y51r3W
-         7AR9d9XbkwPRRtReqS4NTzEs1k/UoA2yKiF9YorR/fjk7md2B0c8bkoJ0xXC363/6Abg
-         OtdIAqc0HMRN4Wxzc9M/OFdstMCfplYJ/QYwqKiljnLp/G9+QCHLtH8qkcda8OXGZ1u5
-         GFrNd0uVr3A/oFhRacxzhJRPAU+YHn6IxWOmX50Q0ODapgnKJYHFmgoT2SPzLwJW+h1M
-         bc9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByyHAL7pVuAy0o+2z9bK1i/GsHl359iFvsHOABDO2d/m/yGvi/t5rU3Kfpm0PVbWCzqfXgKfFqB8etfRXI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFoauarxHGB99lvAr8QBlpgLlTCY3Ue4Cz/aazcwlfju7Xqu6A
-	00T+WPPXaJjBPXp7nmxGu/wLhnnw3dgFtNEODPsDqjpACiqn5Lcat0L4AzrlNIHDjxb2kS1E/jU
-	lk9Ej9H2DmaP4uUXef+6gKNvZCQpugvHIYGTyODg=
-X-Gm-Gg: AYBFou3jpH7elxj+AqOBpgFo/BMooTc8TLtI+72UMO/xoeAjpbLV7hy3gaF1MKwCXm2
-	/zXq7B6uopbMgJG2R++alEhQxK3tFXfTdxCEaOzpbJPOKeZ5eZjAJDa+XlUy09/E0f8W+S05OGG
-	c9+tfpvUD/31sg68aZCG0uwc5VOJ2ylHDg7uZ4VvhTSECUBunPtRXY2+QbQuwpGh1kWWKFm9aVS
-	mE3JJdLY4oTIaKfJb//5P2NYcynuXgs0C1aPRiUcZUnpWPMeelWOgecHpn4NkOtVOfD6t7onp2h
-	o6c/A1bP3Fb1wol4f10wAnpUNY4/LSO4lx/p/usjgIHBzlc/FhwNaL3b2IFWFz0sgRWLvCBL+oG
-	N7Hh1rD1z3rjz3QiPUraZ
-X-Received: by 2002:a05:6102:1624:b0:7a1:f7e2:aae3 with SMTP id
- ada2fe7eead31-7a1f7e2f578mr1223176137.21.1789602972255; Wed, 16 Sep 2026
- 16:56:12 -0700 (PDT)
+        bh=RqA/0fr84svz/HOqoCjORMcBVPzXHKYkGVcKqp7/wRg=;
+        b=NyhybU9ltw1s6NdYc4ojH6Ej0m3pz0HqI7Baag0zwNgZIBD9QQf8PD1lsjCZrrTiXC
+         JjtfjN1lx+FR+xOFI4HeTQaMzocedXgGNvoqNqG08pji8ee1aBq2uQyvRO2DZS566D9o
+         7YsbauVPBET1TFHH24/V2BVOU7fHXRq3sXDTT39b1yyiIFfC1d3Tm8xeM/yS55YCKjHv
+         GahvtBLRjrul1bVINQOQjJlQ2YT577G+ZmzPI3eVt/DnTByla0xJUg3xMT4A13/fAmNP
+         JGUvF80NTexDxe4Zr6uxXoAJ/nXtmsY2DqljMNkzrgeYL9W/T3NNjxjBCFStCyDOh8rs
+         ++lA==
+X-Forwarded-Encrypted: i=1; AKwUvByEZp0aJurGAs+bLbjV2m7Osdf+EaRLWz2IjQ1Mu3x8XKzxvpikb+F3mkQdzoa3hJF3rUppVIyFuXTXL0E=@vger.kernel.org
+X-Gm-Message-State: AFuF++le8nQDU+bvUVnCTPBsPHFk9L4CWXPotWTG+6verYdSTaA9v83H
+	WgufbSGtr4SOdAT41Uf3MQoYCbS9EG58IyEiUPV7xcbWiW/QDCL/50lp
+X-Gm-Gg: AYBFou25yinxoMrxYcRZcVS4hwL9Fi1NJQT5xJ7nOVwhrfKYGwOQzcXBmWaTyoYCYDv
+	UApvOGrsfjmnZaBv4VPrqN26EvfOosQBDDtd5lhWIiNHyb4BRQFs76iPmug/UpvP0lfT3z7VLls
+	ptSN1ro0I76RFMsaR5srzyXGfhYVlaSbHAyorJnkHCeKmunfRijvF9qAVRsHrCFth4Tgcos112h
+	qI1toLMfCmU+lh3cm5/pm5LhJxSrQjeWt/nPxA/eIb3QSCgLD5kmWS6nZsQCmQ6JCHXmQobwIzd
+	x7x7/rbGiLrRNUvYiNcx4VNw5Y+1MngDCc693PB3yQQ7JMgW8H08sCR6dA0fmKRC4rM5sNyXWqs
+	/5NZTIVTuK29x5KD1zINhHe06sP9zuiu1shEKX7OqtqHRhAWLwl2D2Oit2ob+ko0OgBS8scSEMl
+	XM9okAEr8ECssCz7gYq3z5G5Y5Q5ZsLpO81OACKc8/obPgEHZx7bosLM0uNVjMd+ilnAzY//vY1
+	JyzJMQ9qsZFP7IGXvbMAQrbtzRznipZ4eT6YnWHpF4o9u4=
+X-Received: by 2002:a05:6000:18a6:b0:487:b00:3853 with SMTP id ffacd0b85a97d-4870d16b717mr5872158f8f.27.1789603018764;
+        Wed, 16 Sep 2026 16:56:58 -0700 (PDT)
+Received: from Ansuel-XPS. (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf33d93sm9643791f8f.22.2026.09.16.16.56.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 16:56:58 -0700 (PDT)
+Message-ID: <6aab2cca.142fb78a.207455.5b1d@mx.google.com>
+X-Google-Original-Message-ID: <aqssx5dMEgQaR1jD@Ansuel-XPS.>
+Date: Thu, 17 Sep 2026 01:56:55 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Rosen Penev <rosenp@gmail.com>, Sashiko <sashiko-bot@kernel.org>,
+	netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v3 1/2] net: phy: qca808x: accept the active-high LED
+ polarity mode
+References: <20260915223138.321307-1-donggeunyoo.kernel@gmail.com>
+ <20260915223138.321307-2-donggeunyoo.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916221528.1256283-1-morbo@google.com> <20260916222125.1259631-1-morbo@google.com>
- <20260916164711.1cf51b0c3f085639dac5d690@linux-foundation.org>
-In-Reply-To: <20260916164711.1cf51b0c3f085639dac5d690@linux-foundation.org>
-From: Bill Wendling <morbo@google.com>
-Date: Wed, 16 Sep 2026 16:55:55 -0700
-X-Gm-Features: AcwNN1V6pZlAsSvT8PHa-4kEYXErDLD2dlhlA1kYs4I7L9QvkcLNRYmodw5KG84
-Message-ID: <CAGG=3QWmJZP72d12B1T5o56YbmVFRbyWFg0j_mFOyZUnBtVGrQ@mail.gmail.com>
-Subject: Re: [PATCH v2] seq_buf: add seq_buf_strlen(), seq_buf_init_append(), seq_buf_puts_trunc()
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Kees Cook <kees@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915223138.321307-2-donggeunyoo.kernel@gmail.com>
 
-On Wed, Sep 16, 2026 at 4:47=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
->
-> On Wed, 16 Sep 2026 22:21:25 +0000 Bill Wendling <morbo@google.com> wrote=
-:
->
-> > Converting some strlcat() call sites seq_buf need behavior seq_buf does=
-n't
-> > currently provide, either directly or without introducing subtle bugs:
-> >
-> >  - seq_buf_strlen(): seq_buf_used() reports the full buffer size when t=
-he
-> >    buffer is completely filled, even though seq_buf_str() then overwrit=
-es the
-> >    final byte with a NUL terminator, leaving only size - 1 bytes of
-> >    actual content. Callers that need the true length of the
-> >    NUL-terminated string have to fall back to strlen(seq_buf_str(s)).
-> >    seq_buf_strlen() mirrors seq_buf_str()'s NUL-termination logic but r=
-eturns
-> >    the resulting string's length directly.
-> >
-> >  - seq_buf_init_append(): seq_buf_init() always clears the buffer it's =
-given
-> >    via seq_buf_clear(). Code migrating from strlcat(buf, ...), which
-> >    appends to whatever @buf already contains, can't use seq_buf_init()
-> >    without silently discarding that existing content. seq_buf_init_appe=
-nd()
-> >    preserves it and positions the seq_buf to append after it.
-> >
-> >  - seq_buf_puts_trunc(): seq_buf_puts() (like seq_buf_printf() and frie=
-nds)
-> >    writes nothing at all if the string doesn't fully fit, whereas strlc=
-at()
-> >    always copies as much of the source as there is room for. Converting=
- a
-> >    strlcat() call site that relied on that partial-copy behavior to
-> >    plain seq_buf_puts() can silently drop content that used to survive
-> >    truncated. seq_buf_puts_trunc() keeps the leading bytes of the strin=
-g
-> >    that fit.
-> >
-> > ...
-> >
-> >  include/linux/seq_buf.h | 60 +++++++++++++++++++++++++++++++++++++++++
-> >  lib/seq_buf.c           | 35 ++++++++++++++++++++++++
-> >  2 files changed, 95 insertions(+)
->
-> This seems a lot of code for enabling some strlcat removals.  How many
-> is "some"?  If "3" then perhaps do something different at those
-> callsites?
->
-In the series of patches I have in the wings (I sent one version, but
-it was a bit scattered and need to be resent), there are roughly 7
-patches which use them, some more than once. While the impetus for
-these new functions are to help streamline the removal of the
-remaining strlcat, I believe Kees suggested these in order to keep the
-mathematics involved in keeping the seq_bufs correct was behind the
-API, rather than relying upon each user to get the math "correct".
-(Kees, please correct me if I'm wrong.)
+On Wed, Sep 16, 2026 at 07:31:37AM +0900, Donggeun Yoo wrote:
+> commit a274465cc3be ("net: phy: support 'active-high' property for PHY LEDs")
+> added PHY_LED_ACTIVE_HIGH, but qca808x_led_polarity_set() still rejects
+> everything except PHY_LED_ACTIVE_LOW. An LED node carrying 'active-high'
+> therefore falls into the default case and returns -EINVAL, which
+> phy_probe() propagates: the mdio device is left unbound and
+> phy_attach_direct() falls back to the genphy driver, so the PHY loses
+> every qca808x-specific feature, not just the LED.
+> 
+> Accept the mode. The register write below already handles both
+> polarities.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: a274465cc3be ("net: phy: support 'active-high' property for PHY LEDs")
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> Assisted-by: Claude:claude-fable-5
 
-> Sashiko had a couple of comments:
->         https://sashiko.dev/#/patchset/20260916222125.1259631-1-morbo@goo=
-gle.com
->
-I'll look into them.
+Reviewed-by: Christian Marangi <ansuelsmth@gmail.com>
 
-> Should these new functions be added to lib/tests/seq_buf_kunit.c?
-
-Yes. I'll send a followup with the Sashiko comments addressed and the
-KUnit tests added.
-
-Share and enjoy!
--bw
+-- 
+	Ansuel
