@@ -1,28 +1,28 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 645513F2109;
-	Wed, 16 Sep 2026 07:07:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F733F106F;
+	Wed, 16 Sep 2026 07:07:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542470; cv=none; b=vEt0VUd1ZQJ/Im6gmziozUMWQMN+JFEtu1RRMA6NvGx2DJoCpogSc/lsFTds+IVLFb1nXg5Hp2ho9cJeueCqXZYyqf/U4T1kZVUViic486v2kFtYknO7+UU07n1AZtS5ks1RCcdfEbIBEBeeRfln52ZiPO2dU/ixvMzOB7w4cZc=
+	t=1789542474; cv=none; b=iGxKsv0T0PfPkD2jaqJeXB+Nwt7MnXsXrKtS6FCTbr1U6tDmeWh1fh001cTtzrjBy1PKKd1er92DOp0/lU2AcNnZOGvGWqm+AR5YVeVq8m9hc9bcD0ugLqDH214nXCYMwDc7EC/SR02p6qRX+BaQDXIh1L3SAybpuZT+4w/LJdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542470; c=relaxed/simple;
-	bh=+/EhQ88no7utZrh5iMaDvLdyGY7Uw4+tfg7X9XP8iDo=;
+	s=arc-20240116; t=1789542474; c=relaxed/simple;
+	bh=O8w+9MjG3TvGfxcBTR45EMmXNvs5b21aV44z6YC2dZc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=iC94ofN07DYDDk3f4NB7sXVc3Mq1vBODy9DNHLJoxUjQ817Mcmj3Wx9DP+iYHB6adW6Ykco3y6iRVeAmayH/5Yn39UmAuCRo+jIPk3WDweC6ZW474C5K4MQkxpnIQ4kHNAY6odg0WAPNTCbyVkp5IB0uXZZSbOYKIasE4KD6NUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+	 MIME-Version; b=ZWe539S5pYCFOixxHgGmpyMCJ3j4qh0F7dJ+7wZShd1y5eZR695GN1CuCypfBRye9ghO6g6h+dEeH8xv/1dUBvCLVO+aZ26zisumMg78N6sdEFatt+YmvSeLaSAW81wsQM68Obk3Od7mQxCc0cZCmy30D7HLoy6MLLjfUKVFRCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D6FE61A0079;
-	Wed, 16 Sep 2026 09:07:39 +0200 (CEST)
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 68463200192;
+	Wed, 16 Sep 2026 09:07:43 +0200 (CEST)
 Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 76B781A018E;
-	Wed, 16 Sep 2026 09:07:39 +0200 (CEST)
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 0863B20018D;
+	Wed, 16 Sep 2026 09:07:43 +0200 (CEST)
 Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 44714180006C;
-	Wed, 16 Sep 2026 15:07:36 +0800 (+08)
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id CC0BB18000BE;
+	Wed, 16 Sep 2026 15:07:39 +0800 (+08)
 From: Lakshay Piplani <lakshay.piplani@nxp.com>
 To: linux-kernel@vger.kernel.org,
 	linux-i3c@lists.infradead.org,
@@ -39,9 +39,9 @@ Cc: vikash.bansal@nxp.com,
 	priyanka.jain@nxp.com,
 	aman.kumarpandey@nxp.com,
 	Lakshay Piplani <lakshay.piplani@nxp.com>
-Subject: [PATCH v19 1/8] i3c: master: Add APIs for I3C hub support
-Date: Wed, 16 Sep 2026 12:37:21 +0530
-Message-Id: <20260916070728.1088801-2-lakshay.piplani@nxp.com>
+Subject: [PATCH v19 2/8] i3c: master: Add controller-only device operation helpers
+Date: Wed, 16 Sep 2026 12:37:22 +0530
+Message-Id: <20260916070728.1088801-3-lakshay.piplani@nxp.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260916070728.1088801-1-lakshay.piplani@nxp.com>
 References: <20260916070728.1088801-1-lakshay.piplani@nxp.com>
@@ -54,41 +54,37 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Virus-Scanned: ClamAV using ClamSMTP
 
-From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+The generic I3C device attach and IBI paths perform both core-level
+bookkeeping and controller-specific operations. An I3C hub, however,
+maintains a logical device descriptor on the virtual downstream bus and
+a separate parent-facing descriptor used by the physical parent
+controller.
 
-Add CCC helpers to check CCC support and send CCC commands, address slot
-helpers to query and update I3C bus address slot state, registering virtual
-masters with an explicit firmware node, and exposing the bus maintenance
-lock helpers.
+Add controller-only helpers that invoke the controller callbacks
+without updating the bus device list, address-slot state, or generic IBI
+lifecycle. This allows the hub framework to keep the logical descriptor
+associated with the virtual controller while using a permanent
+parent-facing descriptor for operations handled by the physical
+controller.
 
-These additions prepare for I3C hub support. A hub driver needs to reserve
-and query parent bus address slots, forward CCC commands, register virtual
-target port controllers using the target-port firmware node, and serialize
-operations against the parent bus maintenance lock.
+Add helpers for:
+  - attaching, reattaching, and detaching a device from a controller;
+  - requesting and freeing controller IBI resources;
+  - enabling and disabling IBIs at the controller;
+  - recycling controller IBI slots.
 
-The hub also forwards private transfers via i3c_dev_do_xfers_locked() and
-serializes its IBI and private-transfer paths against the shared lock, so
-the normal-use lock/unlock pair is exposed alongside the maintenance-lock
-helpers.
+Refactor the existing generic core paths to use these helpers, keeping
+the current behaviour unchanged for regular I3C devices.
 
-i3c_master_register_fwnode() allows virtual I3C masters to register using a
-firmware node different from their parent device node without temporarily
-modifying parent->of_node.
+Also release the generic IBI workqueue and state when the controller
+request callback fails.
 
-The new helpers are:
-1) i3c_master_send_ccc_cmd()
-2) i3c_master_supports_ccc_cmd()
-3) i3c_bus_get_addr_slot_status()
-4) i3c_bus_set_addr_slot_status()
-5) i3c_bus_maintenance_lock()
-6) i3c_bus_maintenance_unlock()
-7) i3c_master_register_fwnode()
-8) i3c_bus_normaluse_lock()
-9) i3c_bus_normaluse_unlock()
-10) i3c_dev_do_xfers_locked()
+The helpers are declared in the I3C internal header because they are
+intended for use by the generic I3C hub framework rather than by
+individual controller drivers.
 
-Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
@@ -98,354 +94,423 @@ Changes in v19:
 
 Changes in v18:
  - Rebased onto v7.3-rc1; no intended driver behaviour changes
- - Adapted i3c_master_register_fwnode() to the generic fwnode handling
-   introduced in v7.3-rc1
 
 Changes in v17:
- - No code changes
- - Added Frank Li's Reviewed-by tag
+ - Document the calling context of i3c_dev_recycle_ibi_slot_controller():
+   it runs in workqueue context without the bus lock held, while the 
+   controller owns and synchronizes its IBI pool
+ - Retain the request_ibi capability check to preserve the pre-series
+   behaviour for regular I3C devices
 
 Changes in v16:
- - Rewrite the commit message to match the code, It now describes only
-   the helpers actually exported
+ - Rename the controller-only device helpers with a "_locked" suffix to make
+   the locking contract explicit (caller must hold the parent bus lock)
+ - Route i3c_master_handle_ibi() through i3c_dev_recycle_ibi_slot_controller()
+   instead of calling master->ops->recycle_ibi_slot() directly
+ - Destroy the generic IBI workqueue when the controller request_ibi()
+   callback fails, avoiding a workqueue leak on the request error path
 
 Changes in v15:
- - Drop the direct attach and detach helpers that also modified address-slot
-   state
- - Export these APIs:
-   - i3c_bus_normaluse_lock()
-   - i3c_bus_normaluse_unlock()
-   - i3c_dev_do_xfers_locked()
-
-Changes in v14:
- - Add i3c_master_register_fwnode() to register virtual I3C masters with an
-   explicit firmware node
- - Export i3c_bus_maintenance_lock() and i3c_bus_maintenance_unlock()
- - Add runtime PM get/put around i3c_master_send_ccc_cmd()
- - Make i3c_master_supports_ccc_cmd() return false when the controller does
-   not implement send_ccc_cmd()
-
-Changes in v13:
- - Fix address handling in direct attach by using i3c_master_get_i3c_addrs() and
-   adding rollback on failure to prevent bus address collisions
- - Fix detach path by clearing master_priv and releasing addresses to avoid use-after-free
-   and stale state issues
- - Export address slot helper APIs and add kernel-doc for them
-
-Changes in v12:
- - Add address check in i3c_master_direct_detach_i3c_dev_locked() to skip
-   detach for unaddressed devices.
-
-Changes in v11:
- - Convert i3c_master_supports_ccc_cmd() to return bool and align
-   semantics with CCC support checks used by the I3C core
-
-Changes in v10:
- - Rename i3c_master_direct_attach_i3c_dev and i3c_master_direct_detach_i3c_dev
-   APIs to *_locked, as these APIs must be called with the bus lock held in
-   write mode
-
-Changes in v9:
- - No change
-
-Changes in v8:
- - No change
-
-Changes in v7:
- - Update commit message to clarify purpose (prepare for I3C hub support)
-
-Changes in v6:
- - Split the patch into two parts:
-        1) expose the existing API
-        2) add new APIs.
+ - Rework the patch to introduce controller-only attach, reattach and detach
+   helpers for use by the I3C hub core
+ - Add controller-only helpers for requesting, freeing, enabling, disabling
+   and recycling IBI resources
 ---
 ---
- drivers/i3c/master.c       | 146 +++++++++++++++++++++++++++++++------
- include/linux/i3c/master.h |  17 +++++
- 2 files changed, 139 insertions(+), 24 deletions(-)
+ drivers/i3c/internals.h |  14 +++
+ drivers/i3c/master.c    | 239 +++++++++++++++++++++++++++++++++++-----
+ 2 files changed, 225 insertions(+), 28 deletions(-)
 
+diff --git a/drivers/i3c/internals.h b/drivers/i3c/internals.h
+index 86a36b951e0d..416c37e2f75a 100644
+--- a/drivers/i3c/internals.h
++++ b/drivers/i3c/internals.h
+@@ -22,6 +22,20 @@ int i3c_dev_setdasa_locked(struct i3c_dev_desc *dev);
+ int i3c_dev_do_xfers_locked(struct i3c_dev_desc *dev,
+ 			    struct i3c_xfer *xfers,
+ 			    int nxfers, enum i3c_xfer_mode mode);
++
++int i3c_master_attach_i3c_dev_controller_locked(struct i3c_dev_desc *dev);
++int i3c_master_reattach_i3c_dev_controller_locked(struct i3c_dev_desc *dev,
++						  u8 old_dyn_addr);
++void i3c_master_detach_i3c_dev_controller_locked(struct i3c_dev_desc *dev);
++
++int i3c_dev_disable_ibi_controller_locked(struct i3c_dev_desc *dev);
++int i3c_dev_enable_ibi_controller_locked(struct i3c_dev_desc *dev);
++int i3c_dev_request_ibi_controller_locked(struct i3c_dev_desc *dev,
++					  const struct i3c_ibi_setup *req);
++void i3c_dev_free_ibi_controller_locked(struct i3c_dev_desc *dev);
++void i3c_dev_recycle_ibi_slot_controller(struct i3c_dev_desc *dev,
++					 struct i3c_ibi_slot *slot);
++
+ int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev);
+ int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev);
+ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
 diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index afcd7a21a3e6..9ea4726495ff 100644
+index 9ea4726495ff..b864fcbb1a59 100644
 --- a/drivers/i3c/master.c
 +++ b/drivers/i3c/master.c
-@@ -49,10 +49,11 @@ static BLOCKING_NOTIFIER_HEAD(i3c_bus_notifier);
-  * logic to rely on I3C device information that could be changed behind their
-  * back.
-  */
--static void i3c_bus_maintenance_lock(struct i3c_bus *bus)
-+void i3c_bus_maintenance_lock(struct i3c_bus *bus)
- {
- 	down_write(&bus->lock);
- }
-+EXPORT_SYMBOL_GPL(i3c_bus_maintenance_lock);
- 
- /**
-  * i3c_bus_maintenance_unlock - Release the bus lock after a maintenance
-@@ -63,10 +64,11 @@ static void i3c_bus_maintenance_lock(struct i3c_bus *bus)
-  * i3c_bus_maintenance_lock() for more details on what these maintenance
-  * operations are.
-  */
--static void i3c_bus_maintenance_unlock(struct i3c_bus *bus)
-+void i3c_bus_maintenance_unlock(struct i3c_bus *bus)
- {
- 	up_write(&bus->lock);
- }
-+EXPORT_SYMBOL_GPL(i3c_bus_maintenance_unlock);
- 
- /**
-  * i3c_bus_normaluse_lock - Lock the bus for a normal operation
-@@ -88,6 +90,7 @@ void i3c_bus_normaluse_lock(struct i3c_bus *bus)
- {
- 	down_read(&bus->lock);
- }
-+EXPORT_SYMBOL_GPL(i3c_bus_normaluse_lock);
- 
- /**
-  * i3c_bus_normaluse_unlock - Release the bus lock after a normal operation
-@@ -101,6 +104,7 @@ void i3c_bus_normaluse_unlock(struct i3c_bus *bus)
- {
- 	up_read(&bus->lock);
- }
-+EXPORT_SYMBOL_GPL(i3c_bus_normaluse_unlock);
- 
- static struct i3c_master_controller *dev_to_i3cmaster(struct device *dev)
- {
-@@ -402,11 +406,19 @@ i3c_bus_get_addr_slot_status_mask(struct i3c_bus *bus, u16 addr, u32 mask)
- 	return status & mask;
+@@ -1898,6 +1898,30 @@ static int i3c_master_get_i3c_addrs(struct i3c_dev_desc *dev)
+ 	return -EBUSY;
  }
  
--static enum i3c_addr_slot_status
 +/**
-+ * i3c_bus_get_addr_slot_status() - Get I3C bus address slot status
-+ * @bus: I3C bus.
-+ * @addr: I3C address to query.
++ * i3c_master_attach_i3c_dev_controller_locked() - Attach device state to
++ *						   controller
++ * @dev: I3C device descriptor
 + *
-+ * Return: Address slot status for @addr.
-+ */
-+enum i3c_addr_slot_status
- i3c_bus_get_addr_slot_status(struct i3c_bus *bus, u16 addr)
- {
- 	return i3c_bus_get_addr_slot_status_mask(bus, addr, I3C_ADDR_SLOT_STATUS_MASK);
- }
-+EXPORT_SYMBOL_GPL(i3c_bus_get_addr_slot_status);
- 
- static void i3c_bus_set_addr_slot_status_mask(struct i3c_bus *bus, u16 addr,
- 					      enum i3c_addr_slot_status status, u32 mask)
-@@ -422,11 +434,18 @@ static void i3c_bus_set_addr_slot_status_mask(struct i3c_bus *bus, u16 addr,
- 	*ptr |= ((unsigned long)status & mask) << (bitpos % BITS_PER_LONG);
- }
- 
--static void i3c_bus_set_addr_slot_status(struct i3c_bus *bus, u16 addr,
--					 enum i3c_addr_slot_status status)
-+/**
-+ * i3c_bus_set_addr_slot_status() - Set I3C bus address slot status
-+ * @bus: I3C bus.
-+ * @addr: I3C address to update.
-+ * @status: Address slot status to set.
-+ */
-+void i3c_bus_set_addr_slot_status(struct i3c_bus *bus, u16 addr,
-+				  enum i3c_addr_slot_status status)
- {
- 	i3c_bus_set_addr_slot_status_mask(bus, addr, status, I3C_ADDR_SLOT_STATUS_MASK);
- }
-+EXPORT_SYMBOL_GPL(i3c_bus_set_addr_slot_status);
- 
- static bool i3c_bus_dev_addr_is_avail(struct i3c_bus *bus, u8 addr)
- {
-@@ -2812,6 +2831,59 @@ static void i3c_master_reconcile_dyn_addrs(struct i3c_master_controller *master)
- 	}
- }
- 
-+/**
-+ * i3c_master_supports_ccc_cmd() - check CCC command support
-+ * @master: I3C master controller
-+ * @cmd: CCC command to verify
++ * Invoke the current controller's attach callback without changing address
++ * slot state or adding the device to the controller's device list.
 + *
-+ * Return: true if @cmd is supported, false otherwise.
++ * Context: The caller must hold the bus lock.
++ *
++ * Return: 0 on success, or a negative error code returned by the controller.
 + */
-+bool i3c_master_supports_ccc_cmd(struct i3c_master_controller *master,
-+				 const struct i3c_ccc_cmd *cmd)
++int i3c_master_attach_i3c_dev_controller_locked(struct i3c_dev_desc *dev)
 +{
-+	if (!master || !cmd)
-+		return false;
++	struct i3c_master_controller *master = i3c_dev_get_master(dev);
 +
-+	if (!master->ops->send_ccc_cmd)
-+		return false;
++	/* Do not attach the master device itself. */
++	if (master->this != dev && master->ops->attach_i3c_dev)
++		return master->ops->attach_i3c_dev(dev);
 +
-+	if (!master->ops->supports_ccc_cmd)
-+		return true;
-+
-+	return master->ops->supports_ccc_cmd(master, cmd);
++	return 0;
 +}
-+EXPORT_SYMBOL_GPL(i3c_master_supports_ccc_cmd);
++EXPORT_SYMBOL_GPL(i3c_master_attach_i3c_dev_controller_locked);
 +
-+/**
-+ * i3c_master_send_ccc_cmd() - send a CCC command
-+ * @master: I3C master controller issuing the command
-+ * @cmd: CCC command to be sent
-+ *
-+ * This function sends a Common Command Code (CCC) command to devices on the
-+ * I3C bus. It acquires the bus maintenance lock, executes the command, and
-+ * then releases the lock to ensure safe access to the bus.
-+ *
-+ * Return: 0 on success, or a negative error code on failure.
-+ */
-+int i3c_master_send_ccc_cmd(struct i3c_master_controller *master,
-+			    struct i3c_ccc_cmd *cmd)
-+{
-+	int ret;
-+
-+	ret = i3c_master_rpm_get(master);
-+	if (ret)
-+		return ret;
-+
-+	i3c_bus_maintenance_lock(&master->bus);
-+	ret = i3c_master_send_ccc_cmd_locked(master, cmd);
-+	i3c_bus_maintenance_unlock(&master->bus);
-+
-+	i3c_master_rpm_put(master);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(i3c_master_send_ccc_cmd);
-+
- /**
-  * i3c_master_do_daa_ext() - Dynamic Address Assignment (extended version)
-  * @master: controller
-@@ -3634,30 +3706,23 @@ static int i3c_master_check_ops(const struct i3c_master_controller_ops *ops)
- }
- 
- /**
-- * i3c_master_register() - register an I3C master
-+ * i3c_master_register_fwnode() - register an I3C master with a custom fwnode
-  * @master: master used to send frames on the bus
-- * @parent: the parent device (the one that provides this I3C master
-- *	    controller)
-+ * @parent: the parent device providing this I3C master controller
-+ * @fwnode: firmware node describing this I3C bus, or NULL
-  * @ops: the master controller operations
-- * @secondary: true if you are registering a secondary master. Will return
-- *	       -EOPNOTSUPP if set to true since secondary masters are not yet
-- *	       supported
-+ * @secondary: true if registering a secondary master
-  *
-- * This function takes care of everything for you:
-- *
-- * - creates and initializes the I3C bus
-- * - populates the bus with static I2C devs if @parent->of_node is not
-- *   NULL
-- * - registers all I3C devices added by the controller during bus
-- *   initialization
-- * - registers the I2C adapter and all I2C devices
-+ * This helper is useful for virtual I3C masters whose firmware node is not
-+ * the same as @parent's firmware node.
-  *
-  * Return: 0 in case of success, a negative error code otherwise.
-  */
--int i3c_master_register(struct i3c_master_controller *master,
--			struct device *parent,
--			const struct i3c_master_controller_ops *ops,
--			bool secondary)
-+int i3c_master_register_fwnode(struct i3c_master_controller *master,
-+			       struct device *parent,
-+			       struct fwnode_handle *fwnode,
-+			       const struct i3c_master_controller_ops *ops,
-+			       bool secondary)
+ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
+ 				     struct i3c_dev_desc *dev)
  {
- 	unsigned long i2c_scl_rate = I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE;
- 	struct i3c_bus *i3cbus = i3c_master_get_bus(master);
-@@ -3674,7 +3739,7 @@ int i3c_master_register(struct i3c_master_controller *master,
+@@ -1915,12 +1939,10 @@ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
  		return ret;
  
- 	master->dev.parent = parent;
--	device_set_node(&master->dev, fwnode_handle_get(dev_fwnode(parent)));
-+	device_set_node(&master->dev, fwnode_handle_get(fwnode));
- 	master->dev.bus = &i3c_bus_type;
- 	master->dev.type = &i3c_masterdev_type;
- 	master->dev.release = i3c_masterdev_release;
-@@ -3792,6 +3857,38 @@ int i3c_master_register(struct i3c_master_controller *master,
+ 	/* Do not attach the master device itself. */
+-	if (master->this != dev && master->ops->attach_i3c_dev) {
+-		ret = master->ops->attach_i3c_dev(dev);
+-		if (ret) {
+-			i3c_master_put_i3c_addrs(dev);
+-			return ret;
+-		}
++	ret = i3c_master_attach_i3c_dev_controller_locked(dev);
++	if (ret) {
++		i3c_master_put_i3c_addrs(dev);
++		return ret;
+ 	}
  
- 	return ret;
+ 	list_add_tail(&dev->common.node, &master->bus.devs.i3c);
+@@ -1928,6 +1950,31 @@ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
+ 	return 0;
  }
-+EXPORT_SYMBOL_GPL(i3c_master_register_fwnode);
-+
+ 
 +/**
-+ * i3c_master_register() - register an I3C master
-+ * @master: master used to send frames on the bus
-+ * @parent: the parent device (the one that provides this I3C master
-+ *	    controller)
-+ * @ops: the master controller operations
-+ * @secondary: true if you are registering a secondary master. Will return
-+ *	       -EOPNOTSUPP if set to true since secondary masters are not yet
-+ *	       supported
++ * i3c_master_reattach_i3c_dev_controller_locked() - Reattach controller
++ *						     device state
++ * @dev: I3C device descriptor
++ * @old_dyn_addr: Previous dynamic address
 + *
-+ * This function takes care of everything for you:
++ * Invoke the current controller's reattach callback without modifying the
++ * controller's address-slot state.
 + *
-+ * - creates and initializes the I3C bus
-+ * - populates the bus with static I2C devs if @parent->of_node is not
-+ *   NULL
-+ * - registers all I3C devices added by the controller during bus
-+ *   initialization
-+ * - registers the I2C adapter and all I2C devices
++ * Context: The caller must hold the bus lock.
 + *
-+ * Return: 0 in case of success, a negative error code otherwise.
++ * Return: 0 on success, or a negative error code returned by the controller.
 + */
-+int i3c_master_register(struct i3c_master_controller *master,
-+			struct device *parent,
-+			const struct i3c_master_controller_ops *ops,
-+			bool secondary)
++int i3c_master_reattach_i3c_dev_controller_locked(struct i3c_dev_desc *dev,
++						  u8 old_dyn_addr)
 +{
-+	return i3c_master_register_fwnode(master, parent,
-+					  dev_fwnode(parent),
-+					  ops, secondary);
++	struct i3c_master_controller *master = i3c_dev_get_master(dev);
++
++	if (master->ops->reattach_i3c_dev)
++		return master->ops->reattach_i3c_dev(dev, old_dyn_addr);
++
++	return 0;
 +}
- EXPORT_SYMBOL_GPL(i3c_master_register);
- 
++EXPORT_SYMBOL_GPL(i3c_master_reattach_i3c_dev_controller_locked);
++
  /**
-@@ -3852,6 +3949,7 @@ int i3c_dev_do_xfers_locked(struct i3c_dev_desc *dev, struct i3c_xfer *xfers,
+  * i3c_master_reattach_i3c_dev_locked() - reattach an I3C device with a new address
+  * @dev: I3C device descriptor to reattach
+@@ -1958,25 +2005,39 @@ int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
+ 						     I3C_ADDR_SLOT_FREE);
+ 	}
  
- 	return master->ops->i3c_xfers(dev, xfers, nxfers, mode);
+-	if (master->ops->reattach_i3c_dev) {
+-		ret = master->ops->reattach_i3c_dev(dev, old_dyn_addr);
+-		if (ret) {
+-			i3c_master_put_i3c_addrs(dev);
+-			return ret;
+-		}
++	ret = i3c_master_reattach_i3c_dev_controller_locked(dev, old_dyn_addr);
++	if (ret) {
++		i3c_master_put_i3c_addrs(dev);
++		return ret;
+ 	}
+ 
+ 	return 0;
  }
-+EXPORT_SYMBOL_GPL(i3c_dev_do_xfers_locked);
+ EXPORT_SYMBOL_GPL(i3c_master_reattach_i3c_dev_locked);
  
+-static void i3c_master_detach_i3c_dev(struct i3c_dev_desc *dev)
++/**
++ * i3c_master_detach_i3c_dev_controller_locked() - Detach device state from
++ *						   controller
++ * @dev: I3C device descriptor
++ *
++ * Invoke the current controller's detach callback without releasing address
++ * slots or removing the device from the controller's device list.
++ *
++ * Context: The caller must hold the bus lock.
++ */
++void i3c_master_detach_i3c_dev_controller_locked(struct i3c_dev_desc *dev)
+ {
+ 	struct i3c_master_controller *master = i3c_dev_get_master(dev);
+ 
+ 	/* Do not detach the master device itself. */
+ 	if (master->this != dev && master->ops->detach_i3c_dev)
+ 		master->ops->detach_i3c_dev(dev);
++}
++EXPORT_SYMBOL_GPL(i3c_master_detach_i3c_dev_controller_locked);
++
++static void i3c_master_detach_i3c_dev(struct i3c_dev_desc *dev)
++{
++	i3c_master_detach_i3c_dev_controller_locked(dev);
+ 
+ 	i3c_master_put_i3c_addrs(dev);
+ 	list_del(&dev->common.node);
+@@ -3520,7 +3581,6 @@ static void i3c_master_handle_ibi(struct work_struct *work)
+ 	struct i3c_ibi_slot *slot = container_of(work, struct i3c_ibi_slot,
+ 						 work);
+ 	struct i3c_dev_desc *dev = slot->dev;
+-	struct i3c_master_controller *master = i3c_dev_get_master(dev);
+ 	struct i3c_ibi_payload payload;
+ 
+ 	payload.data = slot->data;
+@@ -3529,7 +3589,7 @@ static void i3c_master_handle_ibi(struct work_struct *work)
+ 	if (dev->dev)
+ 		dev->ibi->handler(dev->dev, &payload);
+ 
+-	master->ops->recycle_ibi_slot(dev, slot);
++	i3c_dev_recycle_ibi_slot_controller(dev, slot);
+ 	if (atomic_dec_and_test(&dev->ibi->pending_ibis))
+ 		complete(&dev->ibi->all_ibis_handled);
+ }
+@@ -3640,6 +3700,29 @@ i3c_generic_ibi_alloc_pool(struct i3c_dev_desc *dev,
+ }
+ EXPORT_SYMBOL_GPL(i3c_generic_ibi_alloc_pool);
+ 
++/**
++ * i3c_dev_recycle_ibi_slot_controller() - Recycle an IBI slot through
++ *					   the current controller
++ * @dev: I3C device descriptor
++ * @slot: IBI slot to recycle
++ *
++ * Invoke the current controller's IBI slot recycling callback.
++ *
++ * Context: Called from the generic IBI work handler in workqueue context.
++ * No bus lock is taken here: the controller owns its IBI pool and is
++ * responsible for synchronizing access to it. The generic pool
++ * implementation uses its own spinlock.
++ */
++void i3c_dev_recycle_ibi_slot_controller(struct i3c_dev_desc *dev,
++					 struct i3c_ibi_slot *slot)
++{
++	struct i3c_master_controller *master = i3c_dev_get_master(dev);
++
++	if (master->ops->recycle_ibi_slot)
++		master->ops->recycle_ibi_slot(dev, slot);
++}
++EXPORT_SYMBOL_GPL(i3c_dev_recycle_ibi_slot_controller);
++
+ /**
+  * i3c_generic_ibi_get_free_slot() - Get a free slot from a generic IBI pool
+  * @pool: the pool to query an IBI slot on
+@@ -3951,6 +4034,32 @@ int i3c_dev_do_xfers_locked(struct i3c_dev_desc *dev, struct i3c_xfer *xfers,
+ }
+ EXPORT_SYMBOL_GPL(i3c_dev_do_xfers_locked);
+ 
++/**
++ * i3c_dev_disable_ibi_controller_locked() - Disable IBI in the controller
++ * @dev: I3C device descriptor
++ *
++ * Invoke the current controller's IBI disable callback without waiting for
++ * pending IBIs or updating the generic IBI enabled state.
++ *
++ * Context: The caller must serialize access to @dev->ibi and the generic
++ * IBI lifecycle.
++ *
++ * Return: 0 on success, or a negative error code.
++ */
++int i3c_dev_disable_ibi_controller_locked(struct i3c_dev_desc *dev)
++{
++	struct i3c_master_controller *master = i3c_dev_get_master(dev);
++
++	if (!dev->ibi)
++		return -EINVAL;
++
++	if (!master->ops->disable_ibi)
++		return -EOPNOTSUPP;
++
++	return master->ops->disable_ibi(dev);
++}
++EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_controller_locked);
++
  /**
   * i3c_dev_disable_ibi_locked() - Disable IBIs coming from a specific device
-diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-index f7ceec2b4477..10876d9ac38c 100644
---- a/include/linux/i3c/master.h
-+++ b/include/linux/i3c/master.h
-@@ -649,9 +649,18 @@ DEFINE_FREE(i3c_master_dma_unmap_single, void *,
+  * @dev: device on which IBIs should be disabled
+@@ -3963,14 +4072,9 @@ EXPORT_SYMBOL_GPL(i3c_dev_do_xfers_locked);
+  */
+ int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
+ {
+-	struct i3c_master_controller *master;
+ 	int ret;
  
- int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
- 				       u8 old_dyn_addr);
-+int i3c_master_send_ccc_cmd(struct i3c_master_controller *master,
-+			    struct i3c_ccc_cmd *cmd);
-+bool i3c_master_supports_ccc_cmd(struct i3c_master_controller *master,
-+				 const struct i3c_ccc_cmd *cmd);
- int i3c_master_set_info(struct i3c_master_controller *master,
- 			const struct i3c_device_info *info);
+-	if (!dev->ibi)
+-		return -EINVAL;
+-
+-	master = i3c_dev_get_master(dev);
+-	ret = master->ops->disable_ibi(dev);
++	ret = i3c_dev_disable_ibi_controller_locked(dev);
+ 	if (ret)
+ 		return ret;
  
-+int i3c_master_register_fwnode(struct i3c_master_controller *master,
-+			       struct device *parent,
-+			       struct fwnode_handle *fwnode,
-+			       const struct i3c_master_controller_ops *ops,
-+			       bool secondary);
- int i3c_master_register(struct i3c_master_controller *master,
- 			struct device *parent,
- 			const struct i3c_master_controller_ops *ops,
-@@ -775,4 +784,12 @@ void i3c_for_each_bus_locked(int (*fn)(struct i3c_bus *bus, void *data),
- int i3c_register_notifier(struct notifier_block *nb);
- int i3c_unregister_notifier(struct notifier_block *nb);
+@@ -3984,6 +4088,32 @@ int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
+ }
+ EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_locked);
  
-+enum i3c_addr_slot_status
-+i3c_bus_get_addr_slot_status(struct i3c_bus *bus, u16 addr);
++/**
++ * i3c_dev_enable_ibi_controller_locked() - Enable controller IBI resources
++ * @dev: I3C device descriptor
++ *
++ * Invoke the current controller's IBI enable callback without updating the
++ * generic IBI enabled state.
++ *
++ * Context: The caller must serialize access to @dev->ibi and the generic
++ * IBI lifecycle.
++ *
++ * Return: 0 on success, or a negative error code.
++ */
++int i3c_dev_enable_ibi_controller_locked(struct i3c_dev_desc *dev)
++{
++	struct i3c_master_controller *master = i3c_dev_get_master(dev);
 +
-+void i3c_bus_set_addr_slot_status(struct i3c_bus *bus, u16 addr,
-+				  enum i3c_addr_slot_status status);
++	if (!dev->ibi)
++		return -EINVAL;
 +
-+void i3c_bus_maintenance_lock(struct i3c_bus *bus);
-+void i3c_bus_maintenance_unlock(struct i3c_bus *bus);
- #endif /* I3C_MASTER_H */
++	if (!master->ops->enable_ibi)
++		return -EOPNOTSUPP;
++
++	return master->ops->enable_ibi(dev);
++}
++EXPORT_SYMBOL_GPL(i3c_dev_enable_ibi_controller_locked);
++
+ /**
+  * i3c_dev_enable_ibi_locked() - Enable IBIs from a specific device (lock held)
+  * @dev: device on which IBIs should be enabled
+@@ -4000,13 +4130,9 @@ EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_locked);
+  */
+ int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev)
+ {
+-	struct i3c_master_controller *master = i3c_dev_get_master(dev);
+ 	int ret;
+ 
+-	if (!dev->ibi)
+-		return -EINVAL;
+-
+-	ret = master->ops->enable_ibi(dev);
++	ret = i3c_dev_enable_ibi_controller_locked(dev);
+ 	if (!ret)
+ 		dev->ibi->enabled = true;
+ 
+@@ -4014,6 +4140,35 @@ int i3c_dev_enable_ibi_locked(struct i3c_dev_desc *dev)
+ }
+ EXPORT_SYMBOL_GPL(i3c_dev_enable_ibi_locked);
+ 
++/**
++ * i3c_dev_request_ibi_controller_locked() - Request controller IBI resources
++ * @dev: I3C device descriptor
++ * @req: IBI setup request
++ *
++ * Invoke the current controller's IBI request callback without allocating the
++ * generic IBI object or workqueue. The caller must ensure that @dev->ibi has
++ * already been initialized.
++ *
++ * Context: The caller must serialize access to @dev->ibi and the generic
++ * IBI lifecycle.
++ *
++ * Return: 0 on success, or a negative error code.
++ */
++int i3c_dev_request_ibi_controller_locked(struct i3c_dev_desc *dev,
++					  const struct i3c_ibi_setup *req)
++{
++	struct i3c_master_controller *master = i3c_dev_get_master(dev);
++
++	if (!dev->ibi)
++		return -EINVAL;
++
++	if (!master->ops->request_ibi)
++		return -EOPNOTSUPP;
++
++	return master->ops->request_ibi(dev, req);
++}
++EXPORT_SYMBOL_GPL(i3c_dev_request_ibi_controller_locked);
++
+ /**
+  * i3c_dev_request_ibi_locked() - Request an IBI
+  * @dev: device for which we should enable IBIs
+@@ -4056,8 +4211,15 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
+ 	ibi->num_slots = req->num_slots;
+ 
+ 	dev->ibi = ibi;
+-	ret = master->ops->request_ibi(dev, req);
++	ret = i3c_dev_request_ibi_controller_locked(dev, req);
+ 	if (ret) {
++		/*
++		 * The controller request callback failed, so tear down the
++		 * workqueue allocated above before freeing the IBI object.
++		 * This is the owner of the workqueue, so it must destroy it
++		 * here to avoid leaking it on the error path.
++		 */
++		destroy_workqueue(ibi->wq);
+ 		kfree(ibi);
+ 		dev->ibi = NULL;
+ 	}
+@@ -4066,6 +4228,27 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
+ }
+ EXPORT_SYMBOL_GPL(i3c_dev_request_ibi_locked);
+ 
++/**
++ * i3c_dev_free_ibi_controller_locked() - Free controller IBI resources
++ * @dev: I3C device descriptor
++ *
++ * Invoke the current controller's IBI free callback without destroying the
++ * generic IBI workqueue or freeing @dev->ibi.
++ *
++ * Context: The caller must serialize access to @dev->ibi and the generic
++ * IBI lifecycle.
++ */
++void i3c_dev_free_ibi_controller_locked(struct i3c_dev_desc *dev)
++{
++	struct i3c_master_controller *master = i3c_dev_get_master(dev);
++
++	if (!dev->ibi)
++		return;
++
++	master->ops->free_ibi(dev);
++}
++EXPORT_SYMBOL_GPL(i3c_dev_free_ibi_controller_locked);
++
+ /**
+  * i3c_dev_free_ibi_locked() - Free all resources needed for IBI handling
+  * @dev: device on which you want to release IBI resources
+@@ -4096,7 +4279,7 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
+ 			dev_err(&master->dev, "Failed to disable IBI before freeing\n");
+ 	}
+ 
+-	master->ops->free_ibi(dev);
++	i3c_dev_free_ibi_controller_locked(dev);
+ 
+ 	if (dev->ibi->wq) {
+ 		destroy_workqueue(dev->ibi->wq);
 -- 
 2.25.1
 
