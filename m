@@ -1,30 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7ED45293EE;
-	Wed, 16 Sep 2026 16:28:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D672353D0C9;
+	Wed, 16 Sep 2026 16:28:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576139; cv=none; b=Goof2l8tK1RP2CZIZc9sHN0RSmf0D0zBQVVw5I00dslVPepB/VonEEfq9FJYP/mCk0Jc19OsekuAscfqR7uVGHqbmL1jaLOGvx1YecefSQ5/vwGvRELGnVskrSX9pQzEIxuDYKPh+DMTkERk21+sLFlVo/Sww3BaClwhpr2AsS8=
+	t=1789576143; cv=none; b=r0joR0WpO1Rod/ff2ouCbmgds9zU9mInOgWHF+OgBot6x948dKeZPg38I6fpt+uLVr+cIVQbL11/V9kYN5+Onfe7U0CixTQFN+AGnz21FMeRVkFQmWSm9M0t3+2WsAp9m426sqai9nSmQ8ouIOX1DbSz0F3j72ERA/du4eF4zao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576139; c=relaxed/simple;
-	bh=+GWH8lgLg4HvnyhSrckaExsJdcchJNKi750cectG9qY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ggrotbu4hvc5rJnMHnR7xMjOLIyTWDbspQyBmiZxblK+lkkeorZA2g5NggrNNrEOD9aE8hFgeUH9+k9LnfSd1iqcfQBFbUS/fTt7OMsbxkaOxT8DCv+Gx/hatjJ/boEw7t4D7SvXXAy4Pzr3VYQlW4t9U2nivi57QptwBf+IX98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KnMHbsTe; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1789576143; c=relaxed/simple;
+	bh=ySacX45P6RmSBPLX9JgzKf0Y4oG/b/PpPRsagPhYqV4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=mPW8zR1HrHOyRnf6kJ1XyD28BGWQcXDYuQToCpfNnAzuDWCwssDkF1TBuPqd4OAekCiRkJFLP2tMwrFUbZXqawfga+oGKWa+W1Jw+8dw5OmxNTYyNbB55YL9OxcfF5AzfLw/nxjDJHOG24dmKhNGarIqyW1ENUyC+lw7XOlFDCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Xvg6/RSV; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KnMHbsTe"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Xvg6/RSV"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D30EA1516;
-	Wed, 16 Sep 2026 09:28:48 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4C2B31E32;
+	Wed, 16 Sep 2026 09:28:55 -0700 (PDT)
 Received: from e127648.carmbridge.arm.com (unknown [10.0.129.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A57C63F7B4;
-	Wed, 16 Sep 2026 09:28:49 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 384A63F7B4;
+	Wed, 16 Sep 2026 09:28:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789576132; bh=+GWH8lgLg4HvnyhSrckaExsJdcchJNKi750cectG9qY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=KnMHbsTeixKTJ4Hz2jnO8sfzb1bklqkG8CLGKKLhUeoJdqXj28tQh6LyAnvuYO0sT
-	 gTfuBBoZnljKD3iIRDESgKSPLQHpLm/KizLjArd5v1gIktYRTeIj9KpAW3i9aNtK4N
-	 CzzN+EJdVlAHsx4BPBuBc1i/icYx4AsMFghZX6Ak=
+	t=1789576138; bh=ySacX45P6RmSBPLX9JgzKf0Y4oG/b/PpPRsagPhYqV4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Xvg6/RSVF6ubk/8TaxJNz8hborlflVIGBWrtav/uBD7aAEss2XV8Nw7/5EjfmuROA
+	 jyaELWcgLoegTDL2E9m+suik1/F8q1k2US1DmsgXz/kvDCMvG2+1KkbsrYBxprDxCF
+	 9l3/ZEtePzXJIgQe3Jz2/C9bJWuKLaZKbHQ/muDg=
 From: Christian Loehle <christian.loehle@arm.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
 	Viresh Kumar <viresh.kumar@linaro.org>
@@ -39,11 +40,14 @@ Cc: linux-pm@vger.kernel.org,
 	Sudeep Holla <sudeep.holla@arm.com>,
 	Ionela Voinescu <ionela.voinescu@arm.com>,
 	zhongqiu.han@oss.qualcomm.com,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH v7 0/20] ACPI: CPPC: Fix register access and lifetime bugs
-Date: Wed, 16 Sep 2026 17:27:45 +0100
-Message-Id: <20260916162805.1039247-1-christian.loehle@arm.com>
+	Christian Loehle <christian.loehle@arm.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v7 02/20] ACPI: CPPC: Validate _CPC entry and control semantics
+Date: Wed, 16 Sep 2026 17:27:47 +0100
+Message-Id: <20260916162805.1039247-3-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260916162805.1039247-1-christian.loehle@arm.com>
+References: <20260916162805.1039247-1-christian.loehle@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,323 +56,501 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes malformed _CPC handling, control-write error propagation,
-PCC ownership and cleanup, CPC sysfs lifetime, register-field access,
-cross-processor aliases, and Performance Limited clearing.
+Writable _CPC controls are Register descriptors encoded as Buffer objects.
+Integer entries represent fixed values or legacy placeholders for
+unsupported optional registers; Autonomous Selection Integer 1 is the
+special immutable form which enables operation without Desired Performance.
 
-Series structure
-================
+The parser accepts arbitrary object types and cpc_write() assumes that its
+argument contains a GAS. Malformed firmware can therefore make it interpret
+an Integer union member as a register.
 
-Patches 1-7 cover parsing and control semantics, error propagation,
-PCC update serialization, and descriptor/PCC cleanup. Patches 8-15
-validate the register layouts and aliases which the existing accessors and
-locking can safely support, and correct Performance Limited clearing.
-Patch 16 bounds x86 and arm64 FFH fields before accessing hardware, checks
-x86 MSR numbers, and dispatches FFH before generic Access Size decoding.
-Patch 17 propagates failed cross-CPU FFH calls on arm64 and RISC-V before
-using callback output, including counter reads for an offline CPU.
-Patch 18 accepts a request to retain immutable Autonomous Selection as a
-no-op, rejects unsupported amd-pstate transitions to passive mode before
-changing state or removing the driver, and restores cppc-cpufreq's previous
-mode if a later bounds update fails. The immutable-capability query is
-serialized with descriptor publication and removal.
-Patch 19 selects the frequency-invariance callback per CPU, avoiding
-uninitialized deferred work in policies mixing PCC and direct counters.
-Patch 20 creates the FIE worker when policy initialization encounters PCC
-counters, before publishing callbacks. This covers offline and later-added
-PCC members without making direct-counter FIE depend on worker setup.
+Validate the portion of each encoding consumed by the driver: bound Integer
+capabilities stored in u32 fields to U32_MAX, and require Buffer entries to
+start with a complete Generic Register descriptor with the expected header.
+Do not restrict an Integer Counter Wraparound Time. Both AML Integers and
+the kernel interface are 64-bit, despite the DWORD annotation in the ACPI
+table. Continue tolerating Integer 0 placeholders for absent optional
+Buffer registers to avoid breaking legacy platforms. Report their invalid
+encoding as a firmware bug. Retain type checks in cpc_write() as defense in
+depth. Reject an attempt to disable immutable Autonomous Selection instead
+of silently applying only the EPP part of the request.
 
-The layout fixes are more substantial: a physical access unit can contain
-several fields or be shared across processors and _PSD domains. Probe-time
-interval registries enforce the assumptions of the existing
-descriptor-local locking model. They add no lookup to the scheduler path;
-standalone full-width SystemMemory writes remain lockless. Disjoint fields
-within one descriptor retain their shared lock when their access units
-overlap, including a full-width byte beside a wider partial-field access.
+Capability registers are read into u64 temporaries but exposed through u32
+fields. Reject values above U32_MAX instead of allowing them to be
+truncated. In particular, a truncated Highest Performance value can become
+a zero divisor in the performance-to-frequency conversion. Enforce the
+required ordering from Highest through Nominal, Lowest Nonlinear, and
+Lowest Performance, and constrain a present Guaranteed Performance to the
+inclusive Lowest-to-Nominal range. Also reject reversed frequency anchors
+and unequal frequency anchors with identical performance anchors. Those
+invalid tuples otherwise make affine-conversion differences wrap or divide
+by zero.
 
-Behavior description
-==================
+Check mandatory object presence separately from the Integer-zero convention
+for absent optional fields.
 
-The parser validates the package before indexing its entries and the
-Generic Register descriptor consumed by the driver. It tolerates trailing
-package/ResourceTemplate data and legacy Integer-zero absent controls.
-Buffer-backed capabilities and bound readbacks are checked before narrowing
-to u32. Minimum and Maximum Performance must form a usable pair, and
-an explicit minimum-valid flag preserves a zero Minimum Performance
-readback across cpufreq initialization and exit. Maximum Performance and
-amd-pstate's unsaved firmware-minimum restore requests retain their existing
-zero-means-omitted convention.
+Reject Minimum and Maximum Performance readbacks above U32_MAX before
+narrowing them. A truncated minimum could otherwise become an explicit
+zero update when cppc-cpufreq writes the initial controls back to the
+platform.
 
-Lowest Performance must remain nonzero, as before the series. Accepting zero
-needs separate changes to consumers which assume a zero frequency origin
-or use a zero capability as an absence sentinel. This does not change the
-explicit zero Minimum Performance update used to remove a lower bound.
-Invalid firmware-provided Lowest/Nominal Frequency values remain an error.
+Minimum Performance also defines zero as a real no-limit value, but the
+exported cppc_set_perf() interface historically used zero to omit a bound.
+Add a minimum-valid flag so callers can request zero without changing that
+legacy convention. Set it when reading a supported Minimum Performance
+register, preserving zero across cppc-cpufreq initialization and exit.
+Keep zero-as-omit for Maximum Performance, whose no-limit encoding is all
+ones, not zero. Initialize amd-pstate's control structure with the new flag
+clear: its shared-memory backend does not record bios_min_perf, so its
+zero-valued restore requests must remain omitted.
 
-PCC ownership is acquired before staging payload updates. Direct-only,
-batched PCC, and mixed-address-space performance updates retain their
-separate ordering requirements. PCC lifecycle locking and payload-copy
-serialization protect different state.
+Performance Limited is listed as a required Buffer, but the interface does
+not depend on it to control performance and the specification permits a
+platform with no limiting indication to always report zero. Preserve
+compatibility with firmware that represents that case using a NULL register
+descriptor instead of disabling CPPC entirely.
 
-Frequency-invariance policy teardown remembers which PCC work was
-initialized, so it can drain that work after processor removal unpublishes
-the CPC descriptor. Callback selection uses that same per-CPU initialization
-state rather than looking up the potentially removed descriptor again.
-Worker creation is serialized and occurs only when initializing PCC
-counters, before that policy publishes callbacks. Setup failure leaves
-that policy without FIE, but does not disable direct-counter or already
-active policies. Direct-only systems create no worker or deadline
-reservation. Direct-counter CPUs continue updating in the tick.
-This does not solve the separate runtime-accessor lifetime races with
-processor removal (which I will post in a later series).
+Emit an error when a present _CPC package fails parsing or initialization
+so such firmware and resource failures no longer silently suppress cpufreq.
+Initialize malformed-package failures to -EINVAL and preserve specific
+allocation, mapping, and unsupported-access errors in that diagnostic.
 
-SystemMemory permits read-only overlaps, supported exact writable aliases,
-and safe descriptor-local partial writes. A full-width writer may share a
-larger read access unit across descriptors when their logical fields are
-disjoint. Only controls written by the CPPC library count as competing
-writers (i.e. OSPM Nominal Performance is not written). Its write-only
-readback protections still apply. The validation rejects cross-descriptor
-partial writers which its locks cannot serialize and accesses which replay
-a write-only neighbour's undefined readback. SystemIO permits read-only
-aliases with write-only controls, but not with readable controls whose
-readback would select the wrong register. Unsupported optional controls are
-disabled only where doing so cannot silently change the operating mode.
-Present but inaccessible Enable or Autonomous Selection controls fail
-probe, including sub-byte PCC forms which the existing writer cannot
-program. This may reject firmware-enabled configurations that previously
-worked until the driver attempted an unsupported control access.
-Optional-writer fallback only changes unpublished descriptors. A conflict
-with an already-published writer can still fail probe; making recovery
-independent of CPU discovery order requires runtime quiescence support.
+Fixes: 337aadff8e45 ("ACPI: Introduce CPU performance controls using CPPC")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260724134251.1632824-1-christian.loehle%40arm.com
+Suggested-by: Rafael J. Wysocki <rafael@kernel.org>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+ drivers/acpi/cppc_acpi.c     | 183 +++++++++++++++++++++++++++++++----
+ drivers/cpufreq/amd-pstate.c |  10 +-
+ include/acpi/cppc_acpi.h     |   2 +
+ 3 files changed, 169 insertions(+), 26 deletions(-)
 
-Performance Limited is sticky, but ACPI does not define the effect of
-writing one. A selective clear can either replay stale status or set a bit
-on a plain read/write implementation. Write 0x3 to the perf_limited
-attribute to clear both bits with one literal-zero register write;
-selective clears return -EOPNOTSUPP. Partial SystemMemory/SystemIO status
-fields remain readable but cannot be cleared generically. This is a status
-acknowledgement, not a lossless event log.
-
-Inaccessible status ranges remain visible to overlap validation without
-being accessed. Sumit Gupta's NVIDIA T41 quirk widens only the verified
-two-bit, offset-zero DWord descriptor whose remaining bits are unimplemented,
-allowing that platform to use the safe clear-all operation.
-
-The general SystemMemory/SystemIO alignment checks retain the x86 exception
-for unaligned accesses. Performance Limited currently inherits that policy.
-This is not a guarantee of an indivisible device transaction at an unaligned
-address; the stricter status-atomicity question remains separate work. No
-torn access or affected platform has been demonstrated by the reviews.
-
-Testing
-=======
-
-An earlier iteration was built and booted on Orion O6-01, with CPPC sysfs,
-frequency changes, advancing counters and module reloads checked. The
-subsequent AMD transition guard and FIE fixes have passed source/model
-checks and checkpatch, but this tip has not yet been built or booted.
-Those checks are not AMD hardware, mixed-PCC hotplug or concurrency tests.
-
-Changes since v6
-================
-
-Patch 1: Validate the _CPC package header
-  Unchanged from v6.
-
-Patch 2: Validate _CPC entry and control semantics
-  Allow the full 64-bit Integer Counter Wraparound Time and emit FW_BUG
-  once for tolerated legacy Integer-zero Buffer placeholders. (Rafael)
-  Drop v6's zero Lowest Performance support: nonzero frequency anchors do
-  not make it safe for all consumers. Retain the pre-series nonzero check.
-  Reject Minimum/Maximum readbacks above U32_MAX before narrowing them.
-  Keep only min_perf_valid: an explicit zero minimum removes a lower bound,
-  whereas zero Maximum Performance retains its legacy omitted-update
-  meaning. Document the flag and leave it clear for amd-pstate's unsaved
-  firmware-minimum restore requests.
-
-Patch 3: Propagate performance-control write errors
-  Adjust for patch 2's minimum-only validity flag; a zero maximum remains
-  an omitted update.
-
-Patch 4: Serialize PCC single-register payload updates (v6 patch 5)
-  Reject unsupported PCC widths before taking the exclusive lock, so a
-  malformed request cannot abort an older valid performance batch.
-  Match both subspace and generation when completing failed PCC writes;
-  equal generation numbers in another subspace must not receive the error.
-
-Patch 5: Serialize PCC EPP payload updates (v6 patch 6)
-  Preflight PCC widths and SystemIO writer geometry before changing any
-  direct control. This keeps the patch independently safe before the later
-  probe-time layout validation. Pass the subspace to error completion.
-  Patches 10 and 11 remove these preflights once probe guarantees them.
-
-Patch 6: Release CPC descriptors through kobject (v6 patch 7)
-  Track initialized PCC frequency-invariance work independently of the CPC
-  descriptor, so policy exit still drains it after descriptor unpublication.
-  Make the counter-transport query tolerate a missing descriptor. Broader
-  runtime-accessor lifetime protection remains deferred.
-
-Patch 7: Release PCC data after probe failures (v6 patch 8)
-  No functional changes from v6. Only clarify the channel-reuse comment.
-
-Patch 8: Reject unsafe cross-CPU SystemMemory RMW (v6 patch 9)
-  Mark successful relaxed MMIO writes pending for lock-handoff ordering.
-  Use the interval walk to lock both same-descriptor overlapping accesses,
-  including mixed-width full/partial fields, without another overlap pass.
-  Permit a full-width writer beside a disjoint logical read-only field,
-  including across descriptors when the reader uses a larger access unit.
-  Do not count OSPM Nominal Performance as a competing writer: Linux does
-  not write it. Its write-only readback protections remain in patch 9.
-  Exact-alias coalescing and representative promotion were already in v6
-  and remain present; they are not additions in this version.
-
-Patch 9: Reject direct reads of write-only controls (v6 patch 10)
-  Also reject readable SystemMemory fields whose logical bits overlap a
-  write-only control, including retained inaccessible fields. Treat a
-  retained zero-width field conservatively before the no-writer shortcut.
-  Reuse the logical-field overlap check instead of a separate full-width
-  ownership helper. Remove the duplicate Desired Performance getter check;
-  the common getter already enforces write-only semantics.
-
-Patch 10: Validate and access PCC register layouts (v6 patch 11)
-  Fail probe for a present inaccessible Autonomous Selection control,
-  instead of hiding it without establishing the hardware's operating mode.
-  Separate the final bound-pair check from mandatory-control validation.
-  Remove setter PCC-width preflights once probe validates every published
-  writer, and remove unreachable PCC branches in the memory accessors.
-  Keep actual access-error handling and ownership serialization.
-
-Patch 11: Validate SystemIO register layouts (v6 patch 12)
-  Allow a read-only port alias with a write-only control, but reject aliases
-  with readable controls whose readback would select the wrong register.
-  Remove the EPP setter's duplicate SystemIO geometry preflight once probe
-  enforces it. Read-only partial-field support and the x86 exception to
-  natural alignment were already in v6 and remain unchanged.
-
-Patch 12: Validate PCC overlaps across processors (v6 patch 13)
-  Replace the separate same-descriptor overlap pass with registry checks.
-  Drop v6's expansion to additional byte-multiple PCC writer widths; retain
-  the existing 8/16/32/64-bit widths, subject to control-specific limits.
-  Keep one interval record per descriptor entry; PCC alias coalescing is
-  deferred. Correct Fixes to 80b8286aeec0 (CPPC request batching).
-
-Patch 13: Validate SystemIO overlaps across processors (v6 patch 14)
-  Apply patch 11's direction-aware alias policy across processors and
-  remove the now-redundant same-descriptor overlap pass. Retain per-entry
-  interval records; SystemIO alias coalescing remains deferred.
-
-Patch 14: Clear Performance Limited without a stale read (v6 patch 15)
-  Stop assuming write-zero-to-clear semantics for written ones. Reject
-  selective clears and implement clear-all (sysfs 0x3) with one literal-zero
-  register write, avoiding both stale readback and fabricated status. (Sumit)
-  Extend the readable-but-not-clearable fallback to partial SystemIO fields.
-  Extend inaccessible-range retention to PCC and SystemIO, including status
-  crossing the PCC payload end or port 0xffff. PCC claims retain their own
-  subspace without selecting or retaining an unnecessary access channel.
-  Permit disabling only unpublished, disjoint optional SystemMemory writers
-  which share a status access unit; never hide a required or Autonomous
-  Selection control. Published writers are not changed during another probe.
-  Compare bit geometry as well as byte ranges for exact PCC/SystemIO aliases,
-  and count only accessible controls as writers in those registries.
-  Make status fallback warnings once-only and document the clear-all and
-  unsupported-access behavior in the sysfs ABI.
-
-Patch 15: Keep Performance Limited clearable on NVIDIA T41 (new)
-  Add Sumit's quirk for the verified two-bit, offset-zero DWord layout.
-  Use a cached DSDT match and quirk flags, applying the fixup to the private
-  GAS copy before validation and mapping. Distinguish lookup failures from
-  non-matches and leave failures retryable. Keep all quirk plumbing here,
-  so patch 14 remains independently buildable without unused declarations.
-
-Patch 16: Validate FFH register fields before hardware access (new)
-  Reject invalid x86 field geometry and GAS addresses that would truncate
-  to another 32-bit MSR number. Bound arm64 AMU fields in both single and
-  paired readers. Dispatch FFH before generic Access Size decoding can
-  shift by an invalid amount using an architecture-specific field.
-
-Patch 17: Propagate errors from cross-CPU FFH calls (new)
-  Return failed SMP-call errors on arm64 and RISC-V before consuming
-  uninitialized callback output. Also check RISC-V callback errors before
-  copying a read value. Keep this as a separate backportable error-path fix.
-
-Patch 18: Accept requests to retain immutable autonomous selection (new)
-  Treat setting immutable Autonomous Selection Integer 1 to one as a
-  successful no-op; disabling it still fails. Distinguish immutable-one
-  descriptors from writable controls currently reading one. Reject an
-  unsupported amd-pstate transition to passive before changing the mode or
-  unregistering the working driver, checking known offline CPUs too.
-  Serialize the immutable query with descriptor publication/removal,
-  including probe failure, since CPU-hotplug locking does not pin it.
-  On a later bounds-update failure, restore cppc-cpufreq's previous mode
-  rather than always disabling selection.
-
-Patch 19: Select the frequency-invariance callback per CPU (new)
-  Register the PCC callback only on CPUs with PCC counters. A shared policy
-  can also contain direct-counter CPUs, whose irq_work is not initialized.
-  Select from the recorded work-initialization state, so descriptor removal
-  between initialization and publication cannot change the callback choice.
-  Keep callback registration after the complete counter-initialization
-  pass, so an online CPU's failed initial read publishes no CPPC callbacks.
-
-Patch 20: Create the FIE worker before enabling PCC callbacks (new)
-  Create the worker when initializing PCC counters, rather than relying
-  on an online-only startup scan. Serialize creation and reuse it until
-  driver teardown. Offline members and later PCC policies are covered.
-  On setup failure, skip FIE for that policy without changing the global
-  setting or affecting existing policies. Direct-only systems do not
-  allocate an unused worker or consume deadline admission bandwidth.
-
-Dropped v6 patch 4: Use 64-bit masks for register fields
-  All supported CPPC configurations are already 64-bit, so this is only
-  a cleanup I'll submit later on.
-
-Separate lifetime work
-======================
-
-The PCC mailbox teardown fixes are posted separately: [1] is their cover,
-[2] frees the channel before unmapping its shared memory, and [3] serializes
-channel updates with shared-memory teardown. They are not included here;
-this series alone does not close the mailbox IRQ-teardown races.
-
-[1] https://lore.kernel.org/all/20260903111328.805352-1-christian.loehle@arm.com/
-[2] https://lore.kernel.org/all/20260903111328.805352-2-christian.loehle@arm.com/
-[3] https://lore.kernel.org/all/20260903111328.805352-3-christian.loehle@arm.com/
-
-Christian Loehle (19):
-  ACPI: CPPC: Validate the _CPC package header
-  ACPI: CPPC: Validate _CPC entry and control semantics
-  ACPI: CPPC: Propagate performance-control write errors
-  ACPI: CPPC: Serialize PCC single-register payload updates
-  ACPI: CPPC: Serialize PCC EPP payload updates
-  ACPI: CPPC: Release CPC descriptors through kobject
-  ACPI: CPPC: Release PCC data after probe failures
-  ACPI: CPPC: Reject unsafe cross-CPU SystemMemory RMW
-  ACPI: CPPC: Reject direct reads of write-only controls
-  ACPI: CPPC: Validate and access PCC register layouts
-  ACPI: CPPC: Validate SystemIO register layouts
-  ACPI: CPPC: Validate PCC overlaps across processors
-  ACPI: CPPC: Validate SystemIO overlaps across processors
-  ACPI: CPPC: Clear Performance Limited without a stale read
-  ACPI: CPPC: Validate FFH register fields before hardware access
-  ACPI: CPPC: Propagate errors from cross-CPU FFH calls
-  ACPI: CPPC: Accept requests to retain immutable autonomous selection
-  cpufreq: CPPC: Select the frequency-invariance callback per CPU
-  cpufreq: CPPC: Create the FIE worker before enabling PCC callbacks
-
-Sumit Gupta (1):
-  ACPI: CPPC: Keep Performance Limited clearable on NVIDIA T41
-
- Documentation/ABI/testing/sysfs-devices-system-cpu |   16 +-
- arch/arm64/kernel/topology.c                       |   14 +-
- arch/x86/kernel/acpi/cppc.c                        |   14 +
- drivers/acpi/cppc_acpi.c                           | 2209 +++++++++++++++++---
- drivers/acpi/riscv/cppc.c                          |   26 +-
- drivers/acpi/utils.c                               |   13 +-
- drivers/cpufreq/amd-pstate.c                       |   31 +-
- drivers/cpufreq/cppc_cpufreq.c                     |   73 +-
- include/acpi/cppc_acpi.h                           |   18 +-
- 9 files changed, 2024 insertions(+), 390 deletions(-)
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
---
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index 3b8cdf88e31d..965ac29ab8b1 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -129,6 +129,21 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
+ 				!!(cpc)->cpc_entry.int_value :		\
+ 				!IS_NULL_REG(&(cpc)->cpc_entry.reg))
+ 
++static bool cpc_is_writable(const struct cpc_register_resource *cpc)
++{
++	return cpc->type == ACPI_TYPE_BUFFER &&
++	       !IS_NULL_REG(&cpc->cpc_entry.reg);
++}
++
++static bool cpc_entry_present(const struct cpc_register_resource *cpc)
++{
++	if (cpc->type == ACPI_TYPE_INTEGER)
++		return true;
++
++	return cpc->type == ACPI_TYPE_BUFFER &&
++	       !IS_NULL_REG(&cpc->cpc_entry.reg);
++}
++
+ /*
+  * Each bit indicates the optionality of the register in per-cpu
+  * cpc_regs[] with the corresponding index. 0 means mandatory and 1
+@@ -142,6 +157,36 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
+  */
+ #define IS_OPTIONAL_CPC_REG(reg_idx) (REG_OPTIONAL & (1U << (reg_idx)))
+ 
++static bool cpc_integer_entry_valid(unsigned int reg_idx, u64 value,
++				    bool *legacy_null)
++{
++	*legacy_null = false;
++
++	switch (reg_idx) {
++	case HIGHEST_PERF:
++	case NOMINAL_PERF:
++	case LOW_NON_LINEAR_PERF:
++	case LOWEST_PERF:
++	case REFERENCE_PERF:
++	case LOWEST_FREQ:
++	case NOMINAL_FREQ:
++		return value <= U32_MAX;
++	case CTR_WRAP_TIME:
++		/* AML Integers and the kernel interface are both 64-bit. */
++		return true;
++	case AUTO_SEL_ENABLE:
++		return value <= 1;
++	case DESIRED_PERF:
++		/* Validated against Autonomous Selection after parsing. */
++		*legacy_null = value == 0;
++		return *legacy_null;
++	default:
++		/* Tolerate legacy Integer 0 placeholders for absent options. */
++		*legacy_null = value == 0 && IS_OPTIONAL_CPC_REG(reg_idx);
++		return *legacy_null;
++	}
++}
++
+ /*
+  * Arbitrary Retries in case the remote processor is slow to respond
+  * to PCC commands. Keeping it high enough to cover emulators where
+@@ -150,6 +195,8 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
+ #define NUM_RETRIES 500ULL
+ 
+ #define OVER_16BTS_MASK ~0xFFFFULL
++#define CPC_GENERIC_REGISTER_DESCRIPTOR 0x82
++#define CPC_GENERIC_REGISTER_LENGTH (sizeof(struct cpc_reg) - 3)
+ 
+ #define define_one_cppc_ro(_name)		\
+ static struct kobj_attribute _name =		\
+@@ -773,8 +820,10 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	acpi_handle handle = pr->handle;
+ 	unsigned int num_ent, i, cpc_rev;
+ 	int pcc_subspace_id = -1;
++	bool cpc_present = false;
+ 	acpi_status status;
+ 	int ret = -ENODATA;
++	int err;
+ 
+ 	if (!osc_sb_cppc2_support_acked) {
+ 		pr_debug("CPPC v2 _OSC not acked\n");
+@@ -791,6 +840,8 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 		ret = -ENODEV;
+ 		goto out_buf_free;
+ 	}
++	cpc_present = true;
++	ret = -EINVAL;
+ 
+ 	out_obj = (union acpi_object *) output.pointer;
+ 	if (out_obj->package.count < 2) {
+@@ -871,11 +922,38 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 		cpc_obj = &out_obj->package.elements[i];
+ 
+ 		if (cpc_obj->type == ACPI_TYPE_INTEGER)	{
+-			cpc_ptr->cpc_regs[i-2].type = ACPI_TYPE_INTEGER;
+-			cpc_ptr->cpc_regs[i-2].cpc_entry.int_value = cpc_obj->integer.value;
++			bool legacy_null;
++
++			if (!cpc_integer_entry_valid(i - 2,
++						     cpc_obj->integer.value,
++						     &legacy_null)) {
++				pr_debug("Invalid Integer _CPC register %u for CPU:%d\n",
++					 i - 2, pr->id);
++				ret = -EINVAL;
++				goto out_free;
++			}
++			if (legacy_null)
++				pr_warn_once(FW_BUG "_CPC register %u uses Integer 0 for an absent Buffer\n",
++					     i - 2);
++			cpc_ptr->cpc_regs[i - 2].type = ACPI_TYPE_INTEGER;
++			cpc_ptr->cpc_regs[i - 2].cpc_entry.int_value = cpc_obj->integer.value;
+ 		} else if (cpc_obj->type == ACPI_TYPE_BUFFER) {
++			if (cpc_obj->buffer.length < sizeof(*gas_t)) {
++				pr_debug("Invalid register descriptor for CPU:%d\n",
++					 pr->id);
++				ret = -EINVAL;
++				goto out_free;
++			}
++
+ 			gas_t = (struct cpc_reg *)
+ 				cpc_obj->buffer.pointer;
++			if (gas_t->descriptor != CPC_GENERIC_REGISTER_DESCRIPTOR ||
++			    gas_t->length != CPC_GENERIC_REGISTER_LENGTH) {
++				pr_debug("Invalid register resource for CPU:%d\n",
++					 pr->id);
++				ret = -EINVAL;
++				goto out_free;
++			}
+ 
+ 			/*
+ 			 * The PCC Subspace index is encoded inside
+@@ -886,8 +964,11 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 			if (gas_t->space_id == ACPI_ADR_SPACE_PLATFORM_COMM) {
+ 				if (pcc_subspace_id < 0) {
+ 					pcc_subspace_id = gas_t->access_width;
+-					if (pcc_data_alloc(pcc_subspace_id))
++					err = pcc_data_alloc(pcc_subspace_id);
++					if (err) {
++						ret = err;
+ 						goto out_free;
++					}
+ 				} else if (pcc_subspace_id != gas_t->access_width) {
+ 					pr_debug("Mismatched PCC ids in _CPC for CPU:%d\n",
+ 						 pr->id);
+@@ -900,14 +981,18 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 
+ 					if (!osc_cpc_flexible_adr_space_confirmed) {
+ 						pr_debug("Flexible address space capability not supported\n");
++						ret = -EOPNOTSUPP;
+ 						if (!cpc_supported_by_cpu())
+ 							goto out_free;
++						ret = -EINVAL;
+ 					}
+ 
+ 					access_width = GET_BIT_WIDTH(gas_t) / 8;
+ 					addr = ioremap(gas_t->address, access_width);
+-					if (!addr)
++					if (!addr) {
++						ret = -ENOMEM;
+ 						goto out_free;
++					}
+ 					cpc_ptr->cpc_regs[i-2].sys_mem_vaddr = addr;
+ 				}
+ 			} else if (gas_t->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
+@@ -929,14 +1014,17 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 				}
+ 				if (!osc_cpc_flexible_adr_space_confirmed) {
+ 					pr_debug("Flexible address space capability not supported\n");
++					ret = -EOPNOTSUPP;
+ 					if (!cpc_supported_by_cpu())
+ 						goto out_free;
++					ret = -EINVAL;
+ 				}
+ 			} else {
+ 				if (gas_t->space_id != ACPI_ADR_SPACE_FIXED_HARDWARE || !cpc_ffh_supported()) {
+ 					/* Support only PCC, SystemMemory, SystemIO, and FFH type regs. */
+ 					pr_debug("Unsupported register type (%d) in _CPC\n",
+ 						 gas_t->space_id);
++					ret = -EOPNOTSUPP;
+ 					goto out_free;
+ 				}
+ 			}
+@@ -961,15 +1049,35 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	}
+ 	per_cpu(cpu_pcc_subspace_idx, pr->id) = pcc_subspace_id;
+ 
++	/*
++	 * Performance Limited is required by the specification, but tolerate a
++	 * NULL descriptor used by firmware which cannot report limiting events.
++	 * CPPC control does not depend on this status.
++	 */
++	for (i = 0; i < num_ent - 2; i++) {
++		if (i != DESIRED_PERF && i != PERF_LIMITED &&
++		    !IS_OPTIONAL_CPC_REG(i) &&
++		    !cpc_entry_present(&cpc_ptr->cpc_regs[i])) {
++			pr_debug("CPU:%d lacks mandatory _CPC register %u\n",
++				 pr->id, i);
++			ret = -EINVAL;
++			goto out_free;
++		}
++	}
++
+ 	/*
+ 	 * In CPPC v1, DESIRED_PERF is mandatory. In CPPC v2, it is optional
+ 	 * only when AUTO_SEL_ENABLE is supported.
+ 	 */
+-	if (!CPC_SUPPORTED(&cpc_ptr->cpc_regs[DESIRED_PERF]) &&
++	if (!cpc_is_writable(&cpc_ptr->cpc_regs[DESIRED_PERF]) &&
+ 	    (!osc_sb_cppc2_support_acked ||
+-	     !CPC_SUPPORTED(&cpc_ptr->cpc_regs[AUTO_SEL_ENABLE])))
+-		pr_warn("Desired perf. register is mandatory if CPPC v2 is not supported "
+-			"or autonomous selection is disabled\n");
++	     cpc_ptr->cpc_regs[AUTO_SEL_ENABLE].type != ACPI_TYPE_INTEGER ||
++	     cpc_ptr->cpc_regs[AUTO_SEL_ENABLE].cpc_entry.int_value != 1)) {
++		pr_debug("CPU:%d lacks a writable Desired Performance register\n",
++			 pr->id);
++		ret = -EINVAL;
++		goto out_free;
++	}
+ 
+ 	/*
+ 	 * Initialize the remaining cpc_regs as unsupported.
+@@ -1037,6 +1145,8 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	kfree(cpc_ptr);
+ 
+ out_buf_free:
++	if (cpc_present)
++		pr_err("CPU%d: failed to initialize _CPC: %d\n", pr->id, ret);
+ 	kfree(output.pointer);
+ 	return ret;
+ }
+@@ -1217,11 +1327,18 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
+ 	u64 prev_val;
+ 	void __iomem *vaddr = NULL;
+ 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpu);
+-	struct cpc_reg *reg = &reg_res->cpc_entry.reg;
++	struct cpc_reg *reg;
+ 	struct cpc_desc *cpc_desc;
+ 	unsigned long flags;
+ 	bool locked = false;
+ 
++	if (reg_res->type != ACPI_TYPE_BUFFER)
++		return -EOPNOTSUPP;
++
++	reg = &reg_res->cpc_entry.reg;
++	if (IS_NULL_REG(reg))
++		return -EOPNOTSUPP;
++
+ 	size = GET_BIT_WIDTH(reg);
+ 
+ 	if (IS_ENABLED(CONFIG_HAS_IOPORT) &&
+@@ -1364,7 +1481,9 @@ static int cppc_get_reg_val(int cpu, enum cppc_regs reg_idx, u64 *val)
+ 
+ 	reg = &cpc_desc->cpc_regs[reg_idx];
+ 
+-	if ((reg->type == ACPI_TYPE_INTEGER && IS_OPTIONAL_CPC_REG(reg_idx) &&
++	/* Desired may be absent for immutable autonomous selection. */
++	if ((reg->type == ACPI_TYPE_INTEGER &&
++	     (IS_OPTIONAL_CPC_REG(reg_idx) || reg_idx == DESIRED_PERF) &&
+ 	     !reg->cpc_entry.int_value) || (reg->type != ACPI_TYPE_INTEGER &&
+ 	     IS_NULL_REG(&reg->cpc_entry.reg))) {
+ 		pr_debug("CPC register is not supported\n");
+@@ -1415,7 +1534,7 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
+ 	reg = &cpc_desc->cpc_regs[reg_idx];
+ 
+ 	/* if a register is writeable, it must be a buffer and not null */
+-	if ((reg->type != ACPI_TYPE_BUFFER) || IS_NULL_REG(&reg->cpc_entry.reg)) {
++	if (!cpc_is_writable(reg)) {
+ 		pr_debug("CPC register is not supported\n");
+ 		return -EOPNOTSUPP;
+ 	}
+@@ -1505,7 +1624,7 @@ int cppc_get_perf_caps(int cpunum, struct cppc_perf_caps *perf_caps)
+ 	struct cpc_register_resource *highest_reg, *lowest_reg,
+ 		*lowest_non_linear_reg, *nominal_reg, *reference_reg,
+ 		*guaranteed_reg, *low_freq_reg = NULL, *nom_freq_reg = NULL;
+-	u64 high, low, guaranteed, nom, ref, min_nonlinear,
++	u64 high, low, guaranteed = 0, nom, ref, min_nonlinear,
+ 	    low_f = 0, nom_f = 0;
+ 	int pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, cpunum);
+ 	struct cppc_pcc_data *pcc_ss_data = NULL;
+@@ -1588,7 +1707,12 @@ int cppc_get_perf_caps(int cpunum, struct cppc_perf_caps *perf_caps)
+ 		goto out_err;
+ 	perf_caps->lowest_nonlinear_perf = min_nonlinear;
+ 
+-	if (!high || !low || !nom || !ref || !min_nonlinear) {
++	if (!high || !low || !nom || !ref || !min_nonlinear ||
++	    high > U32_MAX || low > U32_MAX || guaranteed > U32_MAX ||
++	    nom > U32_MAX || ref > U32_MAX || min_nonlinear > U32_MAX ||
++	    high < nom || nom < min_nonlinear || min_nonlinear < low ||
++	    (CPC_SUPPORTED(guaranteed_reg) &&
++	     (guaranteed < low || guaranteed > nom))) {
+ 		ret = -EFAULT;
+ 		goto out_err;
+ 	}
+@@ -1605,6 +1729,14 @@ int cppc_get_perf_caps(int cpunum, struct cppc_perf_caps *perf_caps)
+ 		if (ret)
+ 			goto out_err;
+ 	}
++	/* Require ordered anchors and a nonzero slope when frequencies differ. */
++	if (low_f > U32_MAX || nom_f > U32_MAX ||
++	    (low_f && nom_f &&
++	     (nom_f < low_f || nom < low ||
++	      (nom_f != low_f && nom == low)))) {
++		ret = -EFAULT;
++		goto out_err;
++	}
+ 
+ 	perf_caps->lowest_freq = low_f;
+ 	perf_caps->nominal_freq = nom_f;
+@@ -1779,6 +1911,9 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+ 
+ 	auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
+ 	epp_set_reg = &cpc_desc->cpc_regs[ENERGY_PERF];
++	if (!enable && auto_sel_reg->type == ACPI_TYPE_INTEGER &&
++	    auto_sel_reg->cpc_entry.int_value == 1)
++		return -EOPNOTSUPP;
+ 
+ 	epp_ffh_sysmem = CPC_SUPPORTED(epp_set_reg) &&
+ 		(CPC_IN_FFH(epp_set_reg) || CPC_IN_SYSTEM_MEMORY(epp_set_reg));
+@@ -1791,13 +1926,13 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+ 			return -ENODEV;
+ 		}
+ 
+-		if (CPC_SUPPORTED(auto_sel_reg)) {
++		if (cpc_is_writable(auto_sel_reg)) {
+ 			ret = cpc_write(cpu, auto_sel_reg, enable);
+ 			if (ret)
+ 				return ret;
+ 		}
+ 
+-		if (CPC_SUPPORTED(epp_set_reg)) {
++		if (cpc_is_writable(epp_set_reg)) {
+ 			ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
+ 			if (ret)
+ 				return ret;
+@@ -1996,6 +2131,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ 	max_perf_reg = &cpc_desc->cpc_regs[MAX_PERF];
+ 	energy_perf_reg = &cpc_desc->cpc_regs[ENERGY_PERF];
+ 	auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
++	perf_ctrls->min_perf_valid = false;
+ 
+ 	/* Are any of the regs PCC ?*/
+ 	if (CPC_IN_PCC(min_perf_reg) || CPC_IN_PCC(max_perf_reg) ||
+@@ -2020,6 +2156,10 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ 		ret = cpc_read(cpu, max_perf_reg, &max);
+ 		if (ret)
+ 			goto out_err;
++		if (max > U32_MAX) {
++			ret = -EFAULT;
++			goto out_err;
++		}
+ 	}
+ 	perf_ctrls->max_perf = max;
+ 
+@@ -2027,6 +2167,11 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ 		ret = cpc_read(cpu, min_perf_reg, &min);
+ 		if (ret)
+ 			goto out_err;
++		if (min > U32_MAX) {
++			ret = -EFAULT;
++			goto out_err;
++		}
++		perf_ctrls->min_perf_valid = true;
+ 	}
+ 	perf_ctrls->min_perf = min;
+ 
+@@ -2113,12 +2258,8 @@ int cppc_set_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+ 	if (CPC_SUPPORTED(desired_reg))
+ 		cpc_write(cpu, desired_reg, perf_ctrls->desired_perf);
+ 
+-	/*
+-	 * Only write if min_perf and max_perf not zero. Some drivers pass zero
+-	 * value to min and max perf, but they don't mean to set the zero value,
+-	 * they just don't want to write to those registers.
+-	 */
+-	if (perf_ctrls->min_perf && CPC_SUPPORTED(min_perf_reg))
++	if (CPC_SUPPORTED(min_perf_reg) &&
++	    (perf_ctrls->min_perf || perf_ctrls->min_perf_valid))
+ 		cpc_write(cpu, min_perf_reg, perf_ctrls->min_perf);
+ 	if (perf_ctrls->max_perf && CPC_SUPPORTED(max_perf_reg))
+ 		cpc_write(cpu, max_perf_reg, perf_ctrls->max_perf);
+diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
+index 8bfd46d60843..6ee2d43b7b95 100644
+--- a/drivers/cpufreq/amd-pstate.c
++++ b/drivers/cpufreq/amd-pstate.c
+@@ -544,7 +544,11 @@ static int shmem_update_perf(struct cpufreq_policy *policy, u8 min_perf,
+ 			     u8 des_perf, u8 max_perf, u8 epp, bool fast_switch)
+ {
+ 	struct amd_cpudata *cpudata = policy->driver_data;
+-	struct cppc_perf_ctrls perf_ctrls;
++	struct cppc_perf_ctrls perf_ctrls = {
++		.max_perf = max_perf,
++		.min_perf = min_perf,
++		.desired_perf = des_perf,
++	};
+ 	u64 value, prev;
+ 	int ret;
+ 
+@@ -577,10 +581,6 @@ static int shmem_update_perf(struct cpufreq_policy *policy, u8 min_perf,
+ 	if (value == prev)
+ 		return 0;
+ 
+-	perf_ctrls.max_perf = max_perf;
+-	perf_ctrls.min_perf = min_perf;
+-	perf_ctrls.desired_perf = des_perf;
+-
+ 	ret = cppc_set_perf(cpudata->cpu, &perf_ctrls);
+ 	if (ret)
+ 		return ret;
+diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
+index 94a6277edab2..edf0f6ffb437 100644
+--- a/include/acpi/cppc_acpi.h
++++ b/include/acpi/cppc_acpi.h
+@@ -141,6 +141,8 @@ struct cppc_perf_ctrls {
+ 	u32 desired_perf;
+ 	u32 energy_perf;
+ 	bool auto_sel;
++	/* Allow an explicit zero minimum; otherwise zero omits the update. */
++	bool min_perf_valid;
+ };
+ 
+ struct cppc_perf_fb_ctrs {
+-- 
 2.34.1
+
