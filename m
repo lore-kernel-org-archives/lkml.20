@@ -1,103 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender-op-o18.zoho.eu (sender-op-o18.zoho.eu [136.143.169.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAE34D6C45
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579961; cv=none; b=r1XNoH6pie0eWk+uPo2J6//qcvRqKckKw/VuOb2iTRmD2EFjKOKc/XKOdFS76Oz5xyguO3mFuTUPlddlKgPwgEnXQ2ODN7jDQs7IbkKculhR60++SByCexuZKlFFwbmWmiaTkqPIsSIYk2D2jjhyupEkM0QwFPc0Ysr6ylsPB2c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579961; c=relaxed/simple;
-	bh=7MaHX5Khe4czDQucHPkA7rQSGwChp73MQfgrIuIDsFw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j5lpsaXCl34zSOzq5ABMx72NoJhlCZk6UPzk4Q38KNAylF9DbkXDedO5NdLsXJzS/G8Eqrd8HEdeZqwcS59Q/aJM1wwqijA84qth4Ra0GqWgDY30T0pREMViiZrKztgQWnjvQjqqrWbaqz4/wSWxBN3jfRouy8aL6bCiVfLluz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alU6nCQZ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDADB4B4057
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:32:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789579959; cv=pass; b=amnwfPw7WFhJ9tT+5HReK48R+VT9lUGiT9tvUdNP1vYllPlkEwd/6GS7Lvdp8Hbajy4IEe4aMvkn1ll6J22uwc75EhxJ+RkMAaCQcjS0zX/vohiWoastdvDw1U3mPV5W3O+HoIhVEGdCRMXvR0f4B+wrG19BCOD9fEpfxQTSIwo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789579959; c=relaxed/simple;
+	bh=oAa3SBrrTjLoox+i4iUmhXb/fwu1/bR1IUV7BRob+JU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nS7z1qg5HvV86JCo/FDSYkJ4JsrMKzKpbrVBWPSGjguO96xv2QLnXT0pq0OnAJ4Xv2hyPr/xFohAFBefmZE9+NcKLiMbEmW0G+XHcG2BsrWITPJvl4KtoBjG1tN853+8TuvSycEidatcauKzXW+TDQKvrKMmkw/ixYWVstSEm0U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redaril.me; spf=pass smtp.mailfrom=redaril.me; dkim=pass (1024-bit key) header.d=redaril.me header.i=development@redaril.me header.b=DDaxLZFU; arc=pass smtp.client-ip=136.143.169.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redaril.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redaril.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alU6nCQZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE7B1F0089A
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:32:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789579954;
-	bh=32+oDyoFESxqHqBnox8/Lmr9Se4+wo4fXsv98uxSdec=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=alU6nCQZk5xNBr1xOqKi9u73Op8brwQ1qowxM34xg2VFR94DCYy9spAJ+1OlWM4jl
-	 ajJb3z3oDB2jEk3ceT9dIy5mwVYxNdpRk/vs1yaevWnTzFJmQVkwxXaMQ6/Hkcc6MJ
-	 yFYd11AcPaIp241Ew+87Th8Hh8DbYhGsfSQ5XDmKwcyiLWhGHpKHAvcBby37clbQO8
-	 0iHRyvUatNkoZP5WrvpX4otvq/+oyiCmAtV1yb0b+WI64lzoCuvEohMDhi+md6H3Cd
-	 K9JuMHne7d72WiLecUM5Er9juBTrv+hgkitZI+XM8A5rc2+XuguAo1pWdWpGN0PK3G
-	 nYKqNhYedDrLQ==
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e512ee6so472971e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:32:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxI0kucRfSF7FKj3hTpfih70y1YO+EtdqOIkoYBVxTW91zWiPhFJ6+GN6qCbTYGScn1J8sBQrhgy8CVPdA=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljg4DO+xaARK+51GlK9umq99yaDJi1r5UrfuGWAuis1N9DaASO
-	9z5UmPP32P45BfGH0ruoT7sQy47/T3VDOdj4rpS4pufilIw8gysRzpRFE0BBl5crE/tpdLUo3lr
-	qSRtLA/yk7oTuAkgX4ig46nBtroLknC0=
-X-Received: by 2002:a05:6122:1d43:b0:5c9:a60d:3277 with SMTP id
- 71dfb90a1353d-5c9a60d3a1cmr203449e0c.11.1789579954058; Wed, 16 Sep 2026
- 10:32:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redaril.me header.i=development@redaril.me header.b="DDaxLZFU"
+ARC-Seal: i=1; a=rsa-sha256; t=1789579008; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=R9besDUi/p53nZ+fAI2coxLJETH96+HzEAj5ywrBEPoSVZHn/TYhBjtXuplhfZoh9igNaGEGiNba5c66wMPHFAdQBpALSAICRilzDwy1Mf/zMnCXWXgeG+FAB4wyb6Sq6HQx1iyqF5DH/NXbDwiBn/anwZkLkqXcs4Q/RCZ0uzI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1789579008; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Blv5jiN0BR3ipsn4O8tc3Bw4Ar3/gMwpFNNVRV9eNjk=; 
+	b=dlAmWZASbUMoHh7l73hLw2oJCfaQk9cgD+wyrqKqGfoO3YAgEWp5DNrhDb+ZDr2EpxgaPkLCaHObEV7SNzEcuae6NYOTiSZeGh9cexV5e5Q0XWobPlWfSVmnn595ZpAIgq+lWd3jiw423uMGfU6iatAAj4QDar2lROB6dD1TN50=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=redaril.me;
+	spf=pass  smtp.mailfrom=development@redaril.me;
+	dmarc=pass header.from=<development@redaril.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789579008;
+	s=zmail; d=redaril.me; i=development@redaril.me;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Blv5jiN0BR3ipsn4O8tc3Bw4Ar3/gMwpFNNVRV9eNjk=;
+	b=DDaxLZFUtBhNPsZI+/6rfUDwyKcTEyeqwuXhyXqn9uQRtQcPJ+XPQdSuq0mwYhoo
+	WiEC9QGUPrtMjuCBQd+RyALqqFTOPi4DrcvnI5EGJBwARzcmzWL78Uw/vmU/9gC+NgW
+	QwM8sOHBCiMd/JiOUGFNp1RYZXJGrDYpGLFHvAgk=
+Received: by mx.zoho.eu with SMTPS id 1789579007499959.3930304878398;
+	Wed, 16 Sep 2026 19:16:47 +0200 (CEST)
+Message-ID: <b4f7c0f4-199b-4ab2-81b3-277f08d41036@redaril.me>
+Date: Wed, 16 Sep 2026 19:16:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916171829.2087132-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260916171829.2087132-1-vulab@iscas.ac.cn>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Wed, 16 Sep 2026 18:31:57 +0100
-X-Gmail-Original-Message-ID: <CAL3q7H4zcpuz0N2KW33GMecGLyEw0LRsXKenh4AwgW8DyC0fpA@mail.gmail.com>
-X-Gm-Features: AcwNN1VKyht7PLf8O8YAf4X3uMXkcE5VCSoZx5WTNTzb2NGjZVAKpLo8bBEd90g
-Message-ID: <CAL3q7H4zcpuz0N2KW33GMecGLyEw0LRsXKenh4AwgW8DyC0fpA@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: Fix root reference leak in merge_reloc_roots()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: clm@fb.com, dsterba@suse.com, fdmanana@suse.com, 
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, wqu@suse.com, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mux: convert to use fwnode interface
+To: =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+ development@redaril.me
+Cc: Peter Rosin <peda@lysator.liu.se>, Linus Walleij <linusw@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, xu.yang_2@nxp.com
+References: <20260915-mux_fwnode-v1-1-ed5a6d8202d4@redaril.me>
+ <aqngNh-V7z3L2lP6@analog.com>
+Content-Language: en-US
+From: Fabio Forni <development@redaril.me>
+In-Reply-To: <aqngNh-V7z3L2lP6@analog.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 6:26=E2=80=AFPM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
->
-> When the fs root read back for a reloc root does not have the expected
-> reloc_root backref, merge_reloc_roots() warns, sets ret =3D -EINVAL and
-> jumps to out without dropping the reference returned by
-> btrfs_get_fs_root(), leaking it on this error path.
->
-> Drop the reference before jumping to out, matching what
-> merge_reloc_root() already does for the same mismatch condition.
->
-> Fixes: 05d7ce504545 ("btrfs: exit gracefully if reloc roots don't match")
+> On Tue, Sep 15, 2026 at 09:35:21PM +0200, Fabio Forni via B4 Relay wrote:
+>> @@ -821,23 +825,23 @@ static struct mux_state *__devm_mux_state_get(struct device *dev, const char *mu
+>>   }
+>>   
+>>   /**
+>> - * devm_mux_state_get_from_np() - Get the mux-state for a device, with resource
+>> + * devm_mux_state_get_from_swnode() - Get the mux-state for a device, with resource
+>>    *				  management.
+>>    * @dev: The device that needs a mux-control.
+>>    * @mux_name: The name identifying the mux-control.
+>> - * @np: the device nodes, use dev->of_node if it is NULL.
+>> + * @node: the device nodes, use dev's fwnode if it is NULL.
+>>    *
+>>    * Return: Pointer to the mux-state, or an ERR_PTR with a negative errno.
+>>    *
+>>    * The mux-state will automatically be freed on release.
+>>    */
+>>   struct mux_state *
+>> -devm_mux_state_get_from_np(struct device *dev, const char *mux_name,
+>> -			   struct device_node *np)
+>> +devm_mux_state_get_from_swnode(struct device *dev, const char *mux_name,
+>> +			       struct fwnode_handle *node)
+> 
+> Shouldn't it be get_from_fwnode (not swnode)?
 
-What tree are you using? This was already fixed in 7.2:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
-id=3Dce6050bafb4e33377dc17fcc357736bfc351180c
-
-The Fixes tag is also wrong, it's the one mentioned in that commit.
-
-Thanks.
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  fs/btrfs/relocation.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
-> index 3ebaf5880125..6c826be41749 100644
-> --- a/fs/btrfs/relocation.c
-> +++ b/fs/btrfs/relocation.c
-> @@ -1850,6 +1850,7 @@ void merge_reloc_roots(struct reloc_control *rc)
->                                  * corruption, e.g. bad reloc tree key of=
-fset.
->                                  */
->                                 ret =3D -EINVAL;
-> +                               btrfs_put_root(root);
->                                 goto out;
->                         }
->                         ret =3D merge_reloc_root(rc, root);
-> --
-> 2.34.1
->
->
+Yes, it's definitely a lapsus, good catch. I'll fix it.
