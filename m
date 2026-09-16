@@ -1,92 +1,222 @@
-Received: from mta0.migadu.com (out-169.mta0.migadu.com [91.218.175.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C1A27E074
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEA3392C42;
+	Wed, 16 Sep 2026 02:35:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789526071; cv=none; b=GVJDSzlRiIWHdTiW6mKCqwdBLaMrmRamSt3iSXVV6R44CUz6jopKNeI229vhO0CoHMgrjIiXvGz8c4p8X4eVthp6PC9h9RL6PHjjSDA513NttQMzdPP6UzxTuhTWlCtfu39xFihcbfu+xi9Pz9iHbZewuYIPuZbTf+9J36heh7Y=
+	t=1789526141; cv=none; b=cOb8fGjDEko/iPQSMlQmFl/wbY6XcERA+eAD6fg/tXubkpq4biIIGULz48wbuOs2EBln+5TK8zisCSkoRAATUomePITb7Q3WiyoFNXDBwvl5AtvgHcrGGcamqrhzRrJkobrh6+/BYqAJ1oPy0Ex5MxiB5FK8rOMQMKblyv85zUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789526071; c=relaxed/simple;
-	bh=Hs8628BmLtIotljSK0JYWBNuNJKKbRI+x10DyPysmnY=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=NDR7MxKfHre8ypJzThdYka2I10XzpoCdVgu31P/pVdKhjSaC4QX5jo9H56NynAgSPH0LXJuTur6cjLW0usMsR8mFn9kAXTnwmsWl/kQN8V4bGxBUhmht7vZDPcVw1GgENvKw/qJFhpShoB9bKlNGXN2kxA34by+gjivt0wPxzQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=X0uDq3ty; arc=none smtp.client-ip=91.218.175.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789526141; c=relaxed/simple;
+	bh=msfL9JO4ZeYfaEo+wQ64pWmcq2jR5oDPh92FhG1BpT8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aSL5l6lECUQHSPFLrfo5ghLy1SHk9cNWsCwFaGcys3++XztItwEBE5Xsmnud6vJCZsGlXxiBguDPX3C2JSMXC68Ufyhx0M0WZ/yeU8l9p5RyQ2YWWiKS4jS7ux+LNmpdKa5zFZXGqTr+W1nbTHuc69tCMaLSsOOxxz3lYrtrsWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwGL+g5F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="X0uDq3ty"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Hs8628BmLtIotljSK0JYWBNuNJKKbRI+x10DyPysmnY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789526063; v=1; x=1790130863;
- b=X0uDq3tyjfjcc6QfQvDcr/90SRBbfV6B7yyrcc4ytPZ9mAf3gftiAh16p+3YlCMQQ0jBsyBM
- HpMGKYzggI2IjROZPTD/PPoxQpmyYWjSQ62AH6r4QXRYfdk5Rqvz7QyyA73ANw1KFSaHLrImX4v
- QqIYnwuUCChWksYraqJeyRqo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 4843396426b2392f;
-	Wed, 16 Sep 2026 02:34:22 +0000
-X-Mizu-Trace-ID: 4843396426b2392f
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwGL+g5F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6167E1F000FF;
+	Wed, 16 Sep 2026 02:35:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789526134;
+	bh=hhOGsu2vBqRiy9aLaubxv4k01Wen6BTPaLQlfTu2L30=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cwGL+g5FFgSeP+661WsYGa8yHdAcKLcf7A+D4Rq8ZBe3KDzInBDwhjbcMnJSNlt3U
+	 s54TEttsYnz+v4RM0O0hoOgO8p44JV4+c2qdsBGPrMPjnEd4o8JCV+WQKtgVGv4SVQ
+	 BLyPi2p28J6YLVQtjAAUkaQ0s+04q38UOT2dvjF3+Vd84/GVVh1+codvtUVwTcyFHh
+	 N8alG+rGAhXMqm+vDfY+djlWBwU7uzaL/l9SMyqA3G3JeucUWOGvhvkYTd8tT9Vpf7
+	 D7NlIv/vn0rGI3IBltHzgXyocXdRpGsjD4NmrYTwBNXYH5vl1JB4D+2iiM+Dt1ieG1
+	 5HyPAYh7k0ZvA==
+Date: Tue, 15 Sep 2026 21:35:30 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Nicko van Someren <nicko@nicko.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: glymur: Add Asus Zenbook A14
+ (UX3407NA)
+Message-ID: <aqn-nRTRuXgjE9Qi@baldur>
+References: <20260623-zenbook-dts-v1-0-3f80f680381d@oss.qualcomm.com>
+ <20260623-zenbook-dts-v1-2-3f80f680381d@oss.qualcomm.com>
+ <1D8BC06E-7D8C-4BD6-ADF2-A4CC1BD24B93@nicko.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH v3 07/11] mm: memcontrol: constify the reclaim protection
- helpers
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20260915-folio_memcg-const-v3-7-c239a6010b58@columbia.edu>
-Date: Wed, 16 Sep 2026 10:34:02 +0800
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Kairui Song <kasong@tencent.com>,
- Qi Zheng <qi.zheng@linux.dev>,
- Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chris Li <chrisl@kernel.org>,
- Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>,
- Youngjun Park <youngjun.park@lge.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- cgroups@vger.kernel.org,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <6770F941-463A-486A-990B-BF4533823434@linux.dev>
-References: <20260915-folio_memcg-const-v3-0-c239a6010b58@columbia.edu>
- <20260915-folio_memcg-const-v3-7-c239a6010b58@columbia.edu>
-To: Tal Zussman <tz2294@columbia.edu>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1D8BC06E-7D8C-4BD6-ADF2-A4CC1BD24B93@nicko.org>
 
-
-
-> On Sep 16, 2026, at 07:20, Tal Zussman <tz2294@columbia.edu> wrote:
+On Mon, Aug 03, 2026 at 10:19:33AM -0600, Nicko van Someren wrote:
+> On Jun 22, 2026, at 19:31, Bjorn Andersson <andersson@kernel.org> wrote:
 > 
-> mem_cgroup_protection(), mem_cgroup_unprotected(),
-> mem_cgroup_below_low(), and mem_cgroup_below_min() only read the
-> protection state. Constify them.
+> > From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> > 
+> > UX3407NA is a variant of the Asus Zenbook A14 built on the Qualcomm
+> > Glymur platform. It comes with an 18-core X2 Elite SoC, 32GB DDR, and
+> > the other typical Glymur platform capabilities.
 > 
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> Firstly, many thanks for this. I recently acquired one of these machines
+> for some firmware work I'm doing and having a working Linux system on it
+> makes my life much easier!
+> 
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+Happy to hear that, and thank you for your reply.
 
-Thanks.
+> I tested this patch set, along with the others it depends on. I have it
+> mostly working now but ran into some issues that might indicate a few
+> changes.
+> 
+> WIFI:
+> 
+> > + wifi@0 {
+> > + compatible = "pci17cb,1107";
+> > ...
+> > + };
+> 
+> ASUS don't specify what WiFi7 chip they use, which is fairly normal since
+> ASUS tends to swap the parts depending on supply. As a result, my machine
+> has a QCC2072 (17cb:1112) WiFi/BT module not the WCN7850 (17cb:1107) device
+> that you listed. Inspection of the hardware shows that the WiFi/BT module
+> is a solder-down M.2 LGA module, but electrically that's still an M.2
+> interface. Photos that I can find of the Zenbook A16 show it does the same.
+> I think it might be more reliable to define a wlan-connector, like Konrad
+> Dybcio did in the Asus Zenbook A16 (UX3607OA) (2/3) from 2026-07-21,
+> rather than specify the chip.
+> 
 
+Yes, this seems to be a more suitable representation, I have adopted the
+setup from Konrad's solution.
+
+> 
+> SOUND:
+> 
+> Regarding sound definitions, the dts declares four WSA8845s -- a woofer
+> and tweeter per side, two on swr0 and two on swr3. 
+> 
+> > +&swr0 {
+> > + status = "okay";
+> > +
+> > + /* WSA8845, left woofer */
+> > ...
+> > +
+> > + /* WSA8845, left tweeter */
+> > ...
+> > +};
+> > +
+> > +&swr3 {
+> > + status = "okay";
+> > ...
+> > + /* WSA8845, right woofer */
+> > ...
+> > +
+> > + /* WSA8845, right tweeter */
+> > ...
+> > +};
+> 
+> This machine only has two speakers (again confirmed by physical inspection).
+
+Thanks for the confirmation. I haven't opened mine, but that was the
+only remaining explanation, so I updated the patches accordingly and got
+audio to work.
+
+> Only swr0 shows attached on /sys/bus/soundwire/devices/sdw:*/status:
+> 
+>   sdw:1:0:0217:0204:00:0   Attached
+>   sdw:1:0:0217:0204:00:1   Attached
+>   sdw:4:0:0217:0204:00:0   UNATTACHED
+>   sdw:4:0:0217:0204:00:1   UNATTACHED
+> 
+> I don't think that's a config fault either; the swr0 and swr3 reset lines are
+> both claimed and in identical state of (out, 0, 2mA, no pull). It's not really
+> a surprise that the cheaper model from ASUS would not use the full spec audio
+> offered on the Qualcomm reference designs, but without a suitable
+> UX3407NA-tplg.bin topology file I can't really tell more.
+> 
+
+This also matches the Hamoa-based Asus Zenbook A14.
+
+> It appears that the audio setup is blocked further up the audio stack anyway.
+> I hacked some dts changes, purloined blobs from Windows and got a stereo speaker
+> setup configured. SoundWire is healthy, but no audio is possible because the DSP
+> does not respond. The ADSP boots and the audio PD is reported up:
+> 
+>   remoteproc remoteproc1: remote processor adsp is now up
+>   PDR: Indication received from msm/adsp/audio_pd, state: 0x1fffffff
+>   qcom,apr ...: Adding APR/GPR dev: gprsvc:service:2:1
+> 
+> then, on every boot:
+> 
+>   qcom-apm gprsvc:service:2:1: CMD timeout for [1001021] opcode
+> 
+
+This can be ignored.
+
+> I'm curious as to if you tested this (or if this even known to work on the
+> Zenbook A16, Yoga Slim 7x or EliteBook X G2q with the other submissions). Do
+> you know if/when the required firmware blobs will be forthcoming and
+> upstreamed?
+> 
+
+At the time of posting this initial version, testing was blocked by
+something else (don't remember exactly).
+
+I now have working audio, but I am carrying a pm_runtime_forbid() in
+qcom_swrm_probe() as a temporary workaround for hitting a "bus clash"
+error.
+
+You can find the UCM and topologies that I've tested with here:
+  https://github.com/alsa-project/alsa-ucm-conf/pull/858
+  https://github.com/linux-msm/audioreach-topology/pull/78
+
+> 
+> HDMI:
+> 
+> The built-in HDMI cannot read EDID: the connector reports "connected" with
+> a monitor attached but the EDID is 0 bytes and there are no modes. Less than
+> 2 seconds into every boot, before any cable is involved:
+> 
+>   gcc_usb3_tert_phy_com_aux_clk status stuck at 'off'
+>   Failed to enable clk 'com_aux': -16
+>   phy phy-88e1000.phy.5: phy init failed --> -16
+> 
+> I have not really investigated this in detail.
+> 
+
+We've made some progress on finding the cause for this, so I hope we
+have some patches soon (unless I've already missed them?).
+
+> 
+> eDP:
+> 
+> eDP link training intermittently times out on resume, leaving visible flicker
+> until another suspend/resume retrains it:
+> 
+>   [drm:msm_dp_ctrl_link_train_1_2] *ERROR* link training #2 on phy 0 failed. ret=-110
+> 
+> I am carrying the (unmerged) "phy: qcom: edp: update v8 power-on
+> programming sequence" series, so this may be feedback for that rather than
+> a report against mainline.
+> 
+
+Thanks for the report. Konrad reported seeing the same, so this needs to
+be analysed.
+
+> 
+> Anyway, thank you again for this patch series. It got me to the point of
+> having a very usable machine for my limited needs. If you have updates the
+> need testing I'm happy to help.
+> 
+
+Thank you. v2 is in better shape and can be found here:
+https://lore.kernel.org/all/20260915-zenbook-dts-v2-0-41de8669a7a8@oss.qualcomm.com/#t
+
+Regards,
+Bjorn
+
+> Nicko
+> 
+> 
+> 
