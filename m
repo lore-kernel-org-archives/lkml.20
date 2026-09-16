@@ -1,98 +1,75 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9440E51122B;
-	Wed, 16 Sep 2026 16:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C12F3B1BD;
+	Wed, 16 Sep 2026 16:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575330; cv=none; b=ajPVgmvqUPY9YMuYUsGHHZ/OTtgFxbcdKCxNPjuCsMAWNDucbHXJSf17RZ6UIgZDv/f5kqgc9lqEgt0swuKUb5zBYxZ2DD0OXxyZQoi2f9xRRqezuIwqSYFHdvfDlUEP2lHMPbu8d5zVYLTnBNh3OKGzYJfnE9tsuIpJWROV4/M=
+	t=1789575354; cv=none; b=BE62B41ybzs01gwF2tN1XPDlQoBg3FScb0ZdU9lNgZL1tq/NMMSpklpfm8JktYgkYup2PGBQBof83APymGdaAUm1XHzCfOwLb7O55HhtMYjubn6QCwZdzuLByLRmCED9atAUmFgChnPaBmQisHpqZK2ZDx+v82WPlS+j8ZRGlzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575330; c=relaxed/simple;
-	bh=ElMhvI81mHxcd0OH/PIRl5sxZRu/bgqaqH//V3yOZlE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XljZhNL5tj+R6PabW1BbS+6XiuemY1Zelq5WcP5sVEsV3+ruSDx8qd9gtt7i7nXDn+l0bL1nX82a+PPMOy3O+cP/D5DJ3R5Sq8FGXg/bygmrFPRuwA6DyR9Aq3xdog1y4XTvM65CuE6MQwgJxDQNmVWbDP04hFdmZldm0SyTyDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACH7zmawKpqmHptCA--.21809S2;
-	Thu, 17 Sep 2026 00:15:22 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Michael.Hennerich@analog.com
-Cc: andy@kernel.org,
-	dlechner@baylibre.com,
-	jic23@kernel.org,
-	lars@metafoo.de,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com,
-	stefan.popa@analog.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: adc: ad7606: Fix trigger reference leak in ad7606_probe()
-Date: Wed, 16 Sep 2026 16:14:54 +0000
-Message-Id: <20260916161454.2082753-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789575354; c=relaxed/simple;
+	bh=qWInVneJ7RbCBusQmKKzOTQjNWP0GzmObdbyX2HNE8g=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=XwTQQ4GgSr2dEXa7DbHUxP1NaASh7DUG6Lo5X60PviLNanvOHlImjZd7+MWgamOqXKaNxyZpODRqaJ5j8hIUzGlckz5mLUBNMhdNunnKfgKzykMRaJnGjX+59rmXw06Hb0QGJvSbYA2zBHpHlY6BunfaP6YdPtfqWxNLnS0llY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oom4I5jc; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oom4I5jc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6B31F00893;
+	Wed, 16 Sep 2026 16:15:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789575353;
+	bh=gSmdzWYpg2kGEx3qGnltYO8Ah+wVn8kK+NM2C4sxKWA=;
+	h=From:To:In-Reply-To:References:Subject:Date;
+	b=Oom4I5jcAehOB2uY90+Mn5KHDMTW1Qvurd0KRvUAwDLfRV+uNwRkYAWq46aIpe+dM
+	 Q4eVJeLx738DXbbbDA51cokQnAAR9Uzu4ItO3dcKGU3VLl25J+2L4deo7DMhXwQcTe
+	 t+V2pfi/OCNMui3p9eOT4iPtQX+KW2VFYEV3bePx7lenk33OZk24DFxmT/wOsgYJAC
+	 HNK3rzU2VjIjmYlWEmlPbzlk/GuwzoFl68pjk2ADpm9CfEOZ25RFHlafYtw1ZbekZE
+	 aOsWxbWdcj3x9yUKHKTS9RhYSeA9sljwxdeUvsnYk4xmS6iHwUf6uLhsCv6MpKlrD5
+	 65Ba1dZIFs6qQ==
+From: Lee Jones <lee@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+ Rob Herring <robh@kernel.org>, Eduard Bostina <egbostina@gmail.com>
+In-Reply-To: <20260905215234.454266-1-egbostina@gmail.com>
+References: <20260905215234.454266-1-egbostina@gmail.com>
+Subject: Re: (subset) [PATCH v4] dt-bindings: mfd: Convert TI TWL6040 to DT
+ schema
+Message-Id: <178957535112.1772310.15751079430814296463.b4-ty@b4>
+Date: Wed, 16 Sep 2026 17:15:51 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACH7zmawKpqmHptCA--.21809S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47ZFy7Xw1DGr1fKw1xKrg_yoW8Gr47pF
-	s29FWjkrWYyr18AF4DZ3WUCFyjyan3KrWxuayUZasa93y5Zr1Y9F1Yva4Sgr18ZFWUX398
-	XFZ3Jry8GFWUAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JV
-	W8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
-	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7VUblAp5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgIMA2qqok9NWQAAsy
+X-Mailer: b4 0.16-dev-ad80c
 
-The reference taken with iio_trigger_get() is only dropped by
-iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. If
-devm_request_threaded_irq() or triggered buffer setup fails, probe
-returns before the mode is set and the trigger reference leaks. Move
-the iio_trigger_get() after those setup steps succeed.
+On Sat, 05 Sep 2026 21:52:34 +0000, Eduard Bostina wrote:
+> Convert the Texas Instruments TWL6040 audio codecs family bindings to DT
+> schema.
+> 
+> During the conversion, the following updates were made:
+> - Changed 'twl6040,audpwron-gpio' to 'ti,audpwron-gpio', which was
+>   misnamed in the old txt binding.
+> - Made 'gpio-controller', '#gpio-cells', and 'ti,audpwron-gpio' optional
+>   because modern platforms do not require them.
+> - Renamed the vibra 'vddvibl_uV'/'vddvibr_uV' properties to
+>   'ti,vddvibl-uV'/'ti,vddvibr-uV', the names actually read by the
+>   twl6040-vibra driver.
+> - Required 'vddvibl-supply' and 'vddvibr-supply' when the 'vibra' child
+>   node is present, since the twl6040-vibra driver unconditionally
+>   requests both.
+> 
+> [...]
 
-Fixes: cc49bd1652a4 ("staging: iio: adc: ad7606: Add support for threaded irq")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/iio/adc/ad7606.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Applied, thanks!
 
-diff --git a/drivers/iio/adc/ad7606.c b/drivers/iio/adc/ad7606.c
-index d9271894f091..2deef474001b 100644
---- a/drivers/iio/adc/ad7606.c
-+++ b/drivers/iio/adc/ad7606.c
-@@ -1638,8 +1638,6 @@ int ad7606_probe(struct device *dev, int irq, void __iomem *base_address,
- 		if (ret)
- 			return ret;
- 
--		indio_dev->trig = iio_trigger_get(st->trig);
--
- 		ret = devm_request_threaded_irq(dev, irq, NULL, &ad7606_interrupt,
- 						IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
- 						chip_info->name, indio_dev);
-@@ -1652,6 +1650,8 @@ int ad7606_probe(struct device *dev, int irq, void __iomem *base_address,
- 						      &ad7606_buffer_ops);
- 		if (ret)
- 			return ret;
-+
-+		indio_dev->trig = iio_trigger_get(st->trig);
- 	}
- 
- 	st->write_scale = ad7606_write_scale_hw;
--- 
-2.34.1
+[1/1] dt-bindings: mfd: Convert TI TWL6040 to DT schema
+      commit: 40bdb5ad52ceb020925557e8d7293bd27262c4e7
+
+--
+Lee Jones [李琼斯]
 
