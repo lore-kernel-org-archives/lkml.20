@@ -1,26 +1,26 @@
 Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020096.outbound.protection.outlook.com [52.101.225.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A8C349CD2;
-	Wed, 16 Sep 2026 05:54:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00ABC3E1736;
+	Wed, 16 Sep 2026 05:54:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.96
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789538042; cv=fail; b=RAucLh3ZhAu5SsI4rYNppMSmxIMbR9bo5Onew+vCo4QsK5qMQhlZ3Dyafex5lffD734XCiavb5Fc3bZrvvfoPVTf6/oH3twWVeKzBy0pITEC/fqBHI9WQo1wFRHDrYh9j/dNxmCapCyFa2L+ln8/kXZu0sIWdMii8NcxsbkfLeE=
+	t=1789538044; cv=fail; b=WwqWOAmlApfVE2A1UFdjlNMJ8rvW1xjnL9/k/96hcLAqs2cITtLJgxk8IgMCtsbEjckjm2BH1YwF8VnXrgbj2e6NMR9MSZENn1fjjvdyGQvk3Xj3tbVTA6DwFfhZb7GqIMVIWUUKhLC3Jv9MSw285ZdSjhgbgi9gA2b0aYDVPhA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789538042; c=relaxed/simple;
-	bh=1/+ACbYpEBng2t4qWNxJZzQ92PJmBdqIggqBak3Qkbc=;
+	s=arc-20240116; t=1789538044; c=relaxed/simple;
+	bh=ssfgFZ+LvoRNmkZGLQPZhQGgV18nuf6UytgZE2A8cH8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JajyXQfbPNeyFzkeGTryeXLzB87SlC66aiYSxPUn4+wAlxOMvSvEphi5026M+z3kdH8zYtEgXabEQuPbeHrbQkfV+Sb3J8t8agm5rz++KvqW3vU2De2rkNH1xquOpQ6ETOzCHUmrgXGgQMVqG5SNUVQLfytfTuP2VUlxi2nxbNw=
+	 Content-Type:MIME-Version; b=K+UnRH4N2YndN0xVUXPKHe/hoYqt3adICa9rmn9es9HSYLiFWx/Zkn/6PYP5jhMkvItv5lEq+C8mqybebKSR8gejL3UdRlXlpsqLQfVdOvHOWdu0i0toAKFMYW0bUAedmU721/n5QllWTl7ITfwk965JIaIdAY3UqFUNo7BUt1Q=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.96
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Csa7asPPW9CzNVVP30Fk9mK0KHbGcjLHmDO+iT+3UvvSFfgFlI671c7SwtII4sQrLfsb0yQMvPanNap1fYP3UkSQ6h8ILXcUPJx8AfnUNTf7yOu4YnjonbuHC/pBzPqgKjk4+a5zGrqCjGsMKGg8LIQO1tNn2HKEp706TUvotHfpDLaNYOt1FI5Rfj2n8vHTdwjGEkEaILNCdLkaPoTzsRU8FxQDHqtUClI9OcLF8JQLBUZIbLocxIioR9OISBJMcM4y7jreQ4WM4/e9P4WzQEg/KW1UvtLKhLlu5NETv3U1xRysUeBajRPLHJRbHu3QTbCeZShC0iTVvJub5NL+Xg==
+ b=iSxZMm7YVjgMpJu+ScGMhnwAMeGhPpmIdd6DKtldiA8rC0lcQ8FsqTtj0mV+u9fntcfaS4BbeRHd5OawuDoCLRq9uqaFP7/aBFb2Gm9++XwxmYHFgpdDWHU1F/gmDGbYiK3CYNL0Tbr8tmfl8GBJU2VWKK+gYdc8DVIn06NUr1qBCPDd8cwAzWMidt4cMc9nOzDYtX83+6Ly2XLmGM2pg8D4uwuJNnXPePW8vlaKrXNOcMJfhXEOgbUCwjvsy6jkpXARayBLQYizuhtt1GZ4BmfWabkYgc6jdKjUPrMd3jwu3h/3F+dZ7gDiIvDPyqM9QK00WZH40nhj66c1nVgAAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PbQOIOZh4WJJ87DhgL1nYOKMZkHNc6sqQvvuGsP+ZB8=;
- b=m7OBafNKMFkIpAUOYpkQwag21L8A3UZk7KdB//5Zs4GnSdmOefbVXVlAtxxbXgldAC/mpe92IFKDrapf7bAjJwUFoWAkzCLkAGnlRzT+S3Jjczrwvebew+kRlmwasLFJhWjkUvEoPUsisqrpBu1QX8ZORxFTrjBup8TObdUY5jQcOTP6/r586CzuyiHD22lcp3L33rt6mCWvt/ZQEXEkYbZQLq5uraba84uEHj3K6jA2V9MkMJRtSjZ2+8OMMn9BlS1lW3rA3WjqczvUcpw9VNsk2ZuVCfFkyw7V5u/b9ERIYBnHfbts6J8gdyB6nbCVWN1DD4PmmH2wDpXVam1HDA==
+ bh=1RnrmqdUTVZLgPF97PmJ/A9JWGxD4eJKTgxXE4NvmeQ=;
+ b=G7umqgh/GXgBhwW8nzHPj1qH1zyblM2N3f/t6RCaGf5WZiT9Dj0kNZS+dj5LLtJjFCBjIiC5ezmqEyJNbhapnquuWWm3u7yNam4D5OXLCDF4eI1AkxVsVjrqkBvgfcmtxDQWQpRCmAwx4SDqXOFx62PB1cRnr5Tjz0poE0aRbtr+tNPshaUuK3N2y4Y1IxnbCqcqo09sYUImil7I24pSPyUl4Y5GAu34YlpYB9rKW3x+zHGAq0Iowzx4RTwe8Ur1Ss4xkVU5duMUuoYC9IKTNfeBNJK4WITI5OXreIZo+op/P06ni4s9p7WaO0r1/dyF+OIqt05JX4ZZ9P93ON4MMg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
  header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
@@ -30,11 +30,11 @@ Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
  by MA5P287MB4465.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:195::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
- 2026 05:53:56 +0000
+ 2026 05:53:59 +0000
 Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
  ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
- 05:53:55 +0000
+ 05:53:59 +0000
 From: Hitesh Patel <hitesh@ebytelogic.com>
 To: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -49,12 +49,13 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	linux-kernel@vger.kernel.org,
 	ravi@ebytelogic.com,
 	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v2 0/2] media: qcom: camss: SC7280 fixes for the streams API series
-Date: Wed, 16 Sep 2026 11:23:44 +0530
-Message-ID: <20260916055346.520826-1-hitesh@ebytelogic.com>
+Subject: [PATCH v2 1/2] media: qcom: camss: Do not link CSID source pads the CSID does not have
+Date: Wed, 16 Sep 2026 11:23:45 +0530
+Message-ID: <20260916055346.520826-2-hitesh@ebytelogic.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915121536.19207-1-hitesh@ebytelogic.com>
+In-Reply-To: <20260916055346.520826-1-hitesh@ebytelogic.com>
 References: <20260915121536.19207-1-hitesh@ebytelogic.com>
+ <20260916055346.520826-1-hitesh@ebytelogic.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: PNYP287CA0104.INDP287.PROD.OUTLOOK.COM
@@ -68,89 +69,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MA5P287MB4465:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79850c8b-6bc4-41ec-2ee2-08df13b6e4e4
+X-MS-Office365-Filtering-Correlation-Id: fd7ef825-064d-44ee-ccb4-08df13b6e6e5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|52116014|23010399003|1800799024|366016|10070799003|22082099003|18002099003|56012099006|10067099003;
+	BCL:0;ARA:13230040|7416014|376014|52116014|23010399003|1800799024|366016|10070799003|22082099003|18002099003|56012099006|10067099003|4143699003;
 X-Microsoft-Antispam-Message-Info:
-	xsdLhrBIMH2O4lKoI3omJRTMwEL0G0SyCqakRraf/p7akIzWofPVeUMHHt2Hb3/EmbqlvcQFalqht8F5DIgaKMPgNrE/WmJ2WEa5MzOmX73RxvmLwFqtrbj11409LY4oxpJvyUh+vQu5b5CZCLBE7aO4UOoAHIrvGYuQOQXCfjP/XlonSvtprclyMpNXnHOoJnfUYOSte84KYZAwVHt04n30Kfek4e84NIX9aMwOpKldHDO4PeryvK/L5lqd4hNKCYqSL2eiWfx9vlOd3M4FLPgf8WRQwgAol1zwqmKgMqHKoIqWZtwdziqqd9T5UezkJ0w92XTrZMVB/1p3f69zu3Qy9l14LmngEYKURsmY9FGPm1su+kRpUfam6sXmc3/CDRswDwUveqKhVBrg1ZkDDtrhyL8qpKIviGbQMmt5CcOMPPawFtNylad76XLnfrf/a569xqciZ9XO0CfYU2tBrVa0Ac27OKyYuXUFCI1EeMYSSI4H0EEaYs8TIpwUeimF+W/S8vuY99rvrzF43/nU9if7n4M/7zgjQ+E61Asrsaq6XWe4hFzBIXY5kRVFTTO0GANFV171/wPut+P+tWE1tP3ZxQwxsSpB/aBUg2ObqG+WtMNmARBouaqVlp73AtbBhAXDVwXWOW02ctLZt/BTuK3PjCpinUrtn6LFZVFdbuo=
+	4NtoJ9hDkEEngEBnS4K52EWoPqM+2N7hLEH4Y/w8OsXUpeQ0wGA8JUH8xBeCh8SHvf99rmygeY+hqTopyvXyOA7xKLnPgSSUNi183YgukXv+2xiPMZjmVnrDlI2iWTnpJljzQi6v2RqMawkhQ7fG+GsUxLK5/jGs+3jRulZoNDKw9ErHIz9poyHdTKywt5TiZFsnNR3zPNJ1uQ7RJQUmG0hRCjC/cKYzfxHbn7M8heYzaMgeygR/SuCh88GBZPeLXEeisPVTl8QkN9DCDhUHQdT2Hady08p5ISV7+jojP71Z9FUJOPl7TPLXDRZpwUZUj/w1qRUfq1eHigqNCRn5hV1IUiY+T+mmWy+GnqPXVgFYQrXLmZpa51TKJJw4F5vBLNGiNoEkN9YrxzBtFO8Rjo0rHSLVPRG8s47vENh31W/nGo0bPBPMcH+QnR2YcQ0nGv+3e0ZPBheemJcgXIDmT3BTLnYfH+G1yvxd07ELbJdqi6O4lB5hrfUOaUCqlW1I4RmGU08I7bevuSnVB/GK+4LXbwSBX6Gkgu0NkNiOu1zA52jdK1xNujHezGeahiMHx0QphZ0Yyc6l5TkoW8MyDgq8HhCLI2UZiOysg5wYHeCWaX62o07JpHgj3hSFMArGe0kN23AwqVmlDLEnQmmTTtl3w+YXo9KqEwGDPNyvu0g=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(52116014)(23010399003)(1800799024)(366016)(10070799003)(22082099003)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(52116014)(23010399003)(1800799024)(366016)(10070799003)(22082099003)(18002099003)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GorVLxtDcP+xsyehkz/VgheF8nqsXFsseZABK1YGpvPH/TlY1HXwWyxKl2KS?=
- =?us-ascii?Q?GXYXxRoQJzehNFcF2UIjBZ6trH6ytAjslvvF+UzO/lSf8a7GBsDKLv6ly1At?=
- =?us-ascii?Q?jigDjZh2dKFZ4lbOcpTy9FmAJA3F+k6BpYo6w7UUvcLWNCFKWm8U6DWbWSvK?=
- =?us-ascii?Q?mPSQs5dN7DPBejycx4kSaJCcM9pRefZ5vEkD8+MvblVdGMoypwSsEUEdiRpZ?=
- =?us-ascii?Q?q8XtpUeoJD0Gyu9K1QVmZwdCqOif3gp/wN0sB41ksh8M/RO6xao6D1fcx06m?=
- =?us-ascii?Q?x21Qt5FijeJBNtSm1yXWNP+BnDtSEWQ0QtF+tw/5VfyxkMOa8o5E6FMz6x6R?=
- =?us-ascii?Q?R0jyrvyjFNWyzCSWjT24LaoYDPZQgNp64n4da0Y8iD/q4opiJlSxMW8gXqsC?=
- =?us-ascii?Q?pZ5iXzXaF81m/wL6u7JSaQnFGNwcQB7UOQKkteaWm9RD4/7uMtUy1o3wiDJH?=
- =?us-ascii?Q?XCvQ2JA26K3hgEnYuulZ7IT5r3oH6rS4rWEQEoa57h/yZH7t+WDzff4MP9c3?=
- =?us-ascii?Q?7d4mlkt41ZQFCxCw3rcQPetGx0OnIMTUUg0NokrSiW7WZTg7LUbjGRLsH70D?=
- =?us-ascii?Q?g29KWpQGK6Y5X1JNeti0oxuTqwM7fPr2KXucvNi0nLhBDa91CMNAjq6/6Slr?=
- =?us-ascii?Q?rFwZEwuLodsczqtXL50xMpC1UbNfuMbWjsHQQrvSIhn6SsmJz5ppOzE443c6?=
- =?us-ascii?Q?49ytdCF6J+xwZRw8g/38bFe87Mva3gHEAgU1uzJQ2QKrpCNiehaR1P5RdyQG?=
- =?us-ascii?Q?a0PZwCvlbOYregszr9fVC8xm+kdPjNuOCWeWG0Rxpa95mpe5NwtI8YvCnWyb?=
- =?us-ascii?Q?u0HthquToe9lRMk9Gg7pLj3LkqroGNd+fhPhwkBU7gziPswZMPNNqQKXmht+?=
- =?us-ascii?Q?/8qy1O33vLzGA9yuA1qDaKMxWXGTr7G1nLF9M3OckjpcuOyx3I/swzpsBuBT?=
- =?us-ascii?Q?lRvafWWTq2IWTUOwnnq9UGHgQrkSNMZeXrxFR1mUkgkQmO3s9Cjv5XBoXgI0?=
- =?us-ascii?Q?XkhPa/onfGrsCm1k85on7pXNdAeAsDvE7Tv3mqx6A1O20HuJ2kGFLwR0hDFO?=
- =?us-ascii?Q?EYbAIrCzSxkwEOG0XuLkJH+ktEUKhtEbLjZLypYv3s020V6XZFDjJK/szyXZ?=
- =?us-ascii?Q?1M7t1Gz4PWxjrLZWxcYqYYKbUwPOWFc2D9rqKINajhkUSNB7cWKgoTJWFgmh?=
- =?us-ascii?Q?UCuiyzdDSUx7DW5mWYgEKC06H426xTxF3pB6TMxnTVMrwMqlyUViIn7MxiOg?=
- =?us-ascii?Q?OFP1aHeluQ226A7PhBsHBW2buXrsstmz9seNLkaqfD8RTA+Dj2brdNq+CPDq?=
- =?us-ascii?Q?nnE9iTXPPOTfFc3ZQYWh6a227mJPZwQVs1DlQKkSpbbXbGrgzgdPBCSBazRj?=
- =?us-ascii?Q?h1l9DcU9nwG7HPv1R3Bvlslxw6hgY81BQa6T5QjpFo7XhlEunc0gXbDui8VG?=
- =?us-ascii?Q?OpipTQB5l6NPDRzk3i4zCKZ4L/NW1dDdi8Yz9jb1z9ASaa/4s/fxphtnVMZr?=
- =?us-ascii?Q?BRy91wu43F2E2ne+jLxzkMwfgmQcY0WOx64GWalpW7uHu038NNfYfW3x8owW?=
- =?us-ascii?Q?QuZG5pZ1em+q7wG0r2PNLR1fdS6BCEgLKMS49Q8YjLEc267r3oO6yUtb4OgV?=
- =?us-ascii?Q?VUivE8xTc4BMq4ynUiS9aNVPvuvphD/HcOwG+2b9hWWsLt0ONaEe216C2L4S?=
- =?us-ascii?Q?blJl4hl6yAmUW6QRH2FToQjKz/EfALX78eB//TtdRq5RxHK8cS1qZaC74Ob5?=
- =?us-ascii?Q?MF4FUFcRksB6vblZg5iuSxHqBr3t7iz01ejcHudwT3Ee99CDVVeWNLm7vi5m?=
-X-MS-Exchange-AntiSpam-MessageData-1: lkc7dCkjrXy+pQ==
+	=?us-ascii?Q?HobvU+QTOE2oDOU4toJPcko/26+sukOhiuoPlyBcBNLDm1rV/zzcuQVv48Ty?=
+ =?us-ascii?Q?yFCoejs/fTCNsN+N7Bx78WplQmTUt3X0467XqibV5o2V+2pKyBwGmn+hz/68?=
+ =?us-ascii?Q?t7m6xbdpAOVPbxzEZWSmwHJX7ifFhKz+H3ufd8Hi2qD1+iiept97GifxFVB9?=
+ =?us-ascii?Q?L/HoPY9Akem4iy1spyz8X0KTjWL5xJZNPrG1O+YZ7AHWgZEb5i9G6Q1W46rG?=
+ =?us-ascii?Q?N7+nreABF03dQSbLcz0sS/Puv76YLw0cO/Cn4cfNHjLVYG/RFjEdVXFy8N33?=
+ =?us-ascii?Q?qubNf+kcMxcnbjNMjnuKHyW+3cgof19ye2XOYYktcx10lCEXL3b3tXw7TT7e?=
+ =?us-ascii?Q?JJcnuLVKrsS+6oOXGO6xA08SOnX2NUN3ibRbAUmVP5mjNfF5XBNDuEA9y4Ta?=
+ =?us-ascii?Q?fKapB8PEEhCxyjnPaBdrQU2TF4M+XEgJu/7y/3sqyJ8g9EmX0TFEO5ieLw1p?=
+ =?us-ascii?Q?tmD0UeAg+UtI6Gdl3WB3oflv1zdlEptvQvGyM0y6iQguK+UpXJZBqe2Snt2H?=
+ =?us-ascii?Q?s+lplRkF2HNjAIj2i2lW+WM+Orpr4FS3avPpI6lxPxtFRdAlrnZDIlutBNpJ?=
+ =?us-ascii?Q?Lbh3mC5rrcvcJYwqqW2O9gPkBeFfSmF8coTot9LBC0k+cDiNRJEl9YIy90+K?=
+ =?us-ascii?Q?7DDl3Sv0TEjcIx65cskbNyvy5/9y5aK0tcB9AcZKqogc35RM7sWdhDkKnCqW?=
+ =?us-ascii?Q?aiaXHbpxpnnXDs+0tqFNS/8AKQC0kZxVT5hzd+bu2OXwD7CL7sGZar9uxRNH?=
+ =?us-ascii?Q?0MbSjqZwrGzLlV5/URwY/yRUFqImlWnRz0f5cuP3DaWMs65n7Y93zqp4xOUP?=
+ =?us-ascii?Q?Z9G6RKmKzb1mqoAFLSJTMOHo1MdXwcFKwp/c0s/Ry9E5AY7wYLuz372vejkw?=
+ =?us-ascii?Q?p9h80e4LMGLUa4lwskVEAawPJePt3t/BnMJVUa6D+nZDS7m2xyhuMVloKqt+?=
+ =?us-ascii?Q?vX0G5YCtJMw2v0yaMdXFE0FqU3yhQ+k5JuMkZnHEkDbyZolFTnM+SS1TVGkx?=
+ =?us-ascii?Q?QvKMUBAv6JDIQLSfOCSg3FsX2aV8mYNth2HRX3GjvTY2zSMtZuqDy7zkQFBF?=
+ =?us-ascii?Q?wqBganDr8IicNdbKAdRJXH2LuMT6Fy5L0TTQ5YE0dqG/gc+JpRTrrn9L27F5?=
+ =?us-ascii?Q?z8jZ2pHVoRRVCXaLWYPhTcbyVpChkb0ErZ3/pc+IpV3qu43WHbz6gc0yucx6?=
+ =?us-ascii?Q?R1eWlMa0U9Q+lZEoJ4xPtABu0ADFkC75Zc+pyggSTvfm28hOiewqSfMPvHKX?=
+ =?us-ascii?Q?lyNjOVBLy63+JU8q4nrL5sdXMSTQiX33FQhxxpqoog8VCCPoj6JBJoshLg4T?=
+ =?us-ascii?Q?B6qKxS4oO9WCrW72jVYoCGT+roqRg8jSan1OtkarTgwYVBUwVgZS5Qo+zp81?=
+ =?us-ascii?Q?TvT0TD4JQ15ahJ5ve868QteG16fzuF/hdPcK1j0Y8yR4M9YqOehGs9nIwV7x?=
+ =?us-ascii?Q?nllWInsPyJ0krNeCUDezhDM5KrcRflsJtCA/Io9xHhk6yEWTv/7j7nS3WIng?=
+ =?us-ascii?Q?Kj335/w7/Fo1m1mH4dfTQ4lwCfA/a7GPvH/wqbLI0x03t5Xqk3mHFTwFipV5?=
+ =?us-ascii?Q?MCy68t8NpObnoaAursJKaOSYZNeRv5QsbAFY4AItqfOz7QFC7oy4y4uM5Srf?=
+ =?us-ascii?Q?SvNjVSAA+91QN1ftmL01vPUNBvyt3vmATMwasahwRYY4noyRC6GpguZ+nNRt?=
+ =?us-ascii?Q?tZNL5ioEEhyPBWQps7z+XbAGQsR6jviDT5Zz13ok3TwSE4SW7mPm/9Lc9IWI?=
+ =?us-ascii?Q?j/kQWOQ85PSeVxvhN1Xc+acvwxHcBU5XqJN/pXiq6LIyK45RzOB6fWfNV0rT?=
+X-MS-Exchange-AntiSpam-MessageData-1: uuYJps0eiKPG2w==
 X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79850c8b-6bc4-41ec-2ee2-08df13b6e4e4
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd7ef825-064d-44ee-ccb4-08df13b6e6e5
 X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 05:53:55.8007
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 05:53:59.0148
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hfEUUALsScoDPDdpYovDeX8Bu9o/whCNeuSIYwWMzrt+ZonIF9ksHjoaiRC2F2FawK+xqaqVbteiCfhP06CHow==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Moyx5Ds2FkH/6LXyRzYGvurElCaaCWE8Vp4/3YEIXNs8vezQG0mK9q8eqrQVBn5G7107BPSOg4hdmOY5gvZoGQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB4465
 
-Hi Gjorgji,
+With the streams API a non-lite CSID registers MSM_CSID_PADS_NUM - 1
+pads, one source pad per RDI0..2, while a lite CSID keeps all
+MSM_CSID_PADS_NUM pads. camss_link_entities() still links source pad
+MSM_CSID_PAD_FIRST_SRC + j of every CSID to line j of every VFE.
 
-these two patches are the ones I sent on top of your "add V4L2 subdev
-streams API support" series [1] yesterday; resent as v2 because the
-Media CI picked them up as a standalone series and, of course, they do
-not build without your series: every error in the CI report is a symbol
-your series adds (streams_enable, csid_hw_ops.configure_rx/enable_stream/
-disable_stream). No code changed, v2 only spells the dependency out in
-the commit messages and in base-commit/prerequisite-patch-id trailers so
-patchwork and the CI apply them onto your series. I will mark v1 as
-superseded on patchwork.
+On SC7280 the non-lite csid0 is linked to vfe_lite0, which has four
+lines, so the loop asks for csid0 source pad 4:
 
-Since patch 1 is a fix to the series itself (every platform that links
-all CSIDs to all VFEs fails to probe once streams_enable is set on a
-non-lite CSID), feel free to fold both into your v2 instead of carrying
-them separately; whichever you prefer.
+  WARNING: drivers/media/mc/mc-entity.c:1150 media_create_pad_link
+  qcom-camss acb3000.isp: Failed to link msm_csid0->msm_vfe3_rdi3 entities: -22
+  qcom-camss acb3000.isp: probe with driver qcom-camss failed with error -22
 
-Both tested on RB3 Gen2 (QCS6490/SC7280) with two GMSL cameras behind a
-MAX9296A, as described in my earlier report on this thread.
+SM8250 does not hit this because csid_vfe_fixed_pairing only links
+csid[i] to vfe[i]. Every other platform that links all CSIDs to all
+VFEs fails to probe as soon as streams_enable is set on a non-lite
+CSID.
+
+Skip the VFE lines for which the CSID has no source pad.
+
+This patch applies on top of Gjorgji Rosikopulos' series "media: qcom:
+camss: add V4L2 subdev streams API support" [1]; it does not build
+without it.
 
 [1] https://lore.kernel.org/linux-media/20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com/
 
-Hitesh Patel (2):
-  media: qcom: camss: Do not link CSID source pads the CSID does not have
-  media: qcom: camss: Enable the streams API on SC7280
+Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+---
+v2: no code change. Add the dependency on [1] to the commit message
+    and as base-commit/prerequisite-patch-id trailers, so patchwork and
+    the Media CI do not try to build the patches standalone.
 
- drivers/media/platform/qcom/camss/camss.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/media/platform/qcom/camss/camss.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 9bfb02903..0201debd4 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -5022,6 +5022,9 @@ static int camss_link_entities(struct camss *camss)
+ 					struct v4l2_subdev *csid = &camss->csid[i].subdev;
+ 					struct v4l2_subdev *vfe = &camss->vfe[k].line[j].subdev;
+ 
++					if (MSM_CSID_PAD_FIRST_SRC + j >= csid->entity.num_pads)
++						continue;
++
+ 					ret = media_create_pad_link(&csid->entity,
+ 								    MSM_CSID_PAD_FIRST_SRC + j,
+ 								    &vfe->entity,
+-- 
+2.43.0
 
 base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
 prerequisite-patch-id: 285e8b983e45d4184863e92ae99ebe46bb4f7020
