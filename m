@@ -1,91 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72BB3515E2
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789516813; cv=none; b=YDWRNrwc1aXoaPpj8dzPl0+H0bd9MrqlK0MhcI5UBusC4ScmexdlDDJ/g4dPZFVCj2OL7Y7Rp5VJ0tuCaId3a+ANvm1oaAFFNtPKfG1daNh+8sQoNG9rwJU0DOlU4Al2XjWM6z9owuBLvKGgdZa2qEp9AMIuypu4C8jfEvc6b8o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789516813; c=relaxed/simple;
-	bh=wFoZZKwbOpKMpCDvwWjaKGuo4zoC43xc4mt4ZOFBjZc=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=aQFfvVU2t79zbCvOYGFhmYmRy3cfXXLfdxa7ylfiBm2uZPs28nEgvvlRmvjNB5HhSPni3fKnbzMNyfS14RKPPqK4OsI/D2f8HypVoYZGNIcTecfQNDMGx8/GYouUfbw8dXhjXfxonH+EZ8xltBbxmDh/4FNS2t/TXwJWOa9U0Us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1C59dYo6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3D2306746
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789516819; cv=pass; b=X3ytcKB66UmSxdVM8CN95Taj3ePtxQxNyvDCphUKNWFv3jwD/WThoX8hMIhFpTAeZOvDZxf9kl70Xa5yZZeA56UtcGautZAK2pLeEoM+6hFFy/u0XRuWEDCcnbRaTF6/3Y8IE3j3yvbSTlw+Yl6SO0h6cbwHCI9FV/d2zLFzu3c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789516819; c=relaxed/simple;
+	bh=rFk3NaeHNNH0hSNPhaHZllTRrOXlY/xKEfFXelzLWb0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=le7nGVUzyFE3118wtLgK+6M/moYfm/KXsEXorMJH6NMhMwwtM+cNh+Wp5yQmzJk4hTmIFWiuWh0qJmaNoohkgg6476W1Nj1yxQkClRmM1HTd4hnULl/3WwrPaJI3Hd+WhndaIDUXDDRtSjt269tYtfiShhkdwS6Vd7RKFq+Bpjw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oxpdGfRM; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1C59dYo6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F96F1F000FF;
-	Wed, 16 Sep 2026 00:00:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oxpdGfRM"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43da99ddso3015087b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:00:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789516817; cv=none;
+        d=google.com; s=arc-20260327;
+        b=P1bAW3R6Sz/FsgEIFTAOPLxIle1tdcJoeDYBcTeqLk/FB9TFS7cKy45pjWyFzlafey
+         auHS8rPf+nb3/c2AVe5hhLOfHSD0jqVIK+Fh2xx+fxJadpoyTLTnhaDvS1JSRdkEmoVT
+         FAjuSld2k5nt6vC0OXGjnn47coi6wPKb4gsZxkmly5Ki5zf9Nxixfm/IHw6Hqe+xfMjE
+         f6hIt/Lmuw44aR87Z6OWqREGvTd8sMLHTaiIFk1VGn+Bg9Z6kX4JVgaXZbRb0c5I52jb
+         qgM7i4SE3/ew4Ud66usX3Xhf5s3uTU1QXfci/Ira/Rk+sVHCx9hEfaSLuA80UJrESmjU
+         3mmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=m2j/UN3Om6uoh71hgVNZqVY7SOMb3gp+7bzpkgn28wQ=;
+        fh=FN6cAZYbJvfJbrJI+Q/tsX35aDN2nzYxYQ64PgkMk30=;
+        b=lvSizFc4YXU6vyChugVI8lJUX2tASUEusdOpVQM94RckcETlJ6BpVSQO/sM8cwhScG
+         VXSXjLnx93Y6858epCyeyGFhhXXnW/iH8H9PIMUNP7EfSE6sYCudxU50L9511T6UPSke
+         8xTMSDdcq+e58KvHu+4IsSgmOPopsIuCBRFnzI/KjNAgQdWJtzgZvUtc7DklNtc9B0NE
+         XDWhYs7eTlkMssIseoGF2oqgaUpNgtQCVfGg0gVrHgz33eFRrryCFTp1a7oINIpsfupe
+         XtHfpPYfH5fx/XmR6UYrHkAaFo0ydj2mVX6WqRSAf3y9fz493Lds+kNmIuSYG23CFZQB
+         hyfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789516812;
-	bh=lsG2UJoJMhrVhGOcp/RTa9rgqpxI7yatSzmwd8yhhxk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=1C59dYo66QV+RKUWZNkNSJKjp2seecbRk2ujMq+oeftUoRIcPPX+1yEcLeM93SJfK
-	 jYQVNI7P5FG0EJ4uXrKQCUTc+hoLutKaGcdEzB46e0LhpElLl6z7MS+yfZX2XV3KbF
-	 WNG9OJOwPzGbwY25294h3e7JSRzmaBn+ojJclNIo=
-Date: Tue, 15 Sep 2026 17:00:10 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: david@kernel.org, chrisl@kernel.org, kasong@tencent.com, ljs@kernel.org,
- ziy@nvidia.com, linux-mm@kvack.org, ying.huang@linux.alibaba.com, Baoquan
- He <baoquan.he@linux.dev>, willy@infradead.org, youngjun.park@lge.com,
- hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
- alex@ghiti.fr, kas@kernel.org, baohua@kernel.org, dev.jain@arm.com,
- baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>,
- "Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com, Vlastimil
- Babka <vbabka@kernel.org>, lance.yang@linux.dev,
- linux-kernel@vger.kernel.org, nphamcs@gmail.com, shikemeng@huaweicloud.com,
- yosry@kernel.org, qi.zheng@linux.dev, luizcap@redhat.com,
- kernel-team@meta.com
-Subject: Re: [RESEND v7 00/29] mm: PMD-level swap entries for anonymous THPs
-Message-Id: <20260915170010.0667b6dee268fb6fb29a3fee@linux-foundation.org>
-In-Reply-To: <ae847e8a-8c16-4170-a18c-19adb1a50de2@linux.dev>
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
-	<20260914203237.7cdfcd4c320470f4ae5cafd2@linux-foundation.org>
-	<ae847e8a-8c16-4170-a18c-19adb1a50de2@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=google.com; s=20251104; t=1789516817; x=1790121617; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=m2j/UN3Om6uoh71hgVNZqVY7SOMb3gp+7bzpkgn28wQ=;
+        b=oxpdGfRMFo+k6jjRt20bZ+8RCeb1TY1m43tAURUh128lyxMHIfTEwZes0ZXKSbes0R
+         eF3aI+lzB4XwRJQ8s+S8pWGLAPVdPd6Yc6e3fAOSEqt9eEyVOK0dtigbABYQGCtDDRU1
+         c9Q/jzDMrXyUfsd9oKJw3eDB0uP539AL0PVnVaes+Zq1chfIS2OgXGfa1wIMoqjMzyWI
+         chdciJoQ5jeF0HMrLrWQIELyOBRdiVZkCBQN/bC+Rk+8S6+YEMQZGwT+D7q2V53KE4b9
+         fsBZHQ+YbebyDRJShlwYXXpIyp0dZ9fNE8lNVtZNw5vE1rNVKLP8q2/Hne8Xy3ETb5hq
+         Nhtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789516817; x=1790121617;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m2j/UN3Om6uoh71hgVNZqVY7SOMb3gp+7bzpkgn28wQ=;
+        b=20uBeo0K2VDUiV85v4frxv//fkm18009ajltFpuE9RMGt1qf/r3V0I3yyFcPboGzVJ
+         SOFecWyaC1Q9ULj8Qzjq8MiHClGnfl7XOaVVYcJUJp6p0jQgOf5/9ISBv1VzpO2IsMMe
+         8jQQKzHPshQubuVapmA3eZaMRE43To2BV7/sNj9Sqc24BPGuNa7D96yNpQri26uZ/owf
+         cm30d9RwLAXT3EEjrTQR+pwtgcrZ6H7Fw6hn8ZVFGI1Xb0HBQERnze+6QnU86uudURIZ
+         q0doTwsD9QK3rEw/L4a/asvtpk/25IaDOnmCK1utLFFOSW6rB63EH7JAih4Fc7E6blRl
+         A3JQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPipr6AcEpdDcN6qeDQxxTv2L7UOMluJFSApxy6hGwCyJFjdIkeM0D6o+oej+2VR7cFNrNeqo8BrzRPrk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjU5kVF8ks5OjxAHr1Cx3NbzqfMQuiWetWoGgtY5raAc5ljMpm
+	E7o7SJ4yt/Z6IAzkugbKnSQ+ket1Ftbp6QhasmLi05OiirsB18AVTtFxrGy2IJkOWOfOlhwksg0
+	jDGY6f4T6z1gwYFZ/Qt9PDdeI3S/xhVegw3DTtDSq
+X-Gm-Gg: AYBFou3YDvNf7D5/6yEjBoYyfdG9wUP/OsjzrjyufCx2mOK/paCmkiADZPTYcS4tdHd
+	lAvjPZbo6n0OYqGH2OxZ+098DAKvevNmgbezE7lK8EjjfTfGY6uP5ScnyuV0sHCXypETXdiqj2Y
+	Dgct9HD8F54pptT9vMEucs4T1qmcTIdnYK0c7QszztC40iFh9FFTwRPE6nUMUDfq+VJoEBhtjWO
+	xLRj+Ptd7m5N5ukq7UxK27ppVQ1v5gRYcE1H04axVgL4hvAePCTtoYMXz1tTbJVc272yfPjdgi6
+	tcIh3zMj8sLcl43TxQ27Os3UYcoVwqLfBmaBOeaVH2TPoIZniyB+gLtMkR2HQdByeHpAPMRgP34
+	50Vferd/WmNFFDEMTlhWsEaEgfLa3uQ6aPRvG+AqkxvmTpQZomm+a3g6B0vT9tNqpGrQyaStbA8
+	xjhSC6Dm92FYyIjrDFAxgH
+X-Received: by 2002:a05:690c:6602:b0:878:cee5:989b with SMTP id
+ 00721157ae682-892207639c5mr2133347b3.6.1789516815928; Tue, 15 Sep 2026
+ 17:00:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+References: <20260911020438.3502801-1-kris.pan@intel.com> <20260911023804.3503989-1-kris.pan@intel.com>
+ <20260915164008.4f65ddc4@kernel.org> <20260915235335.3580993-1-kris.pan@intel.com>
+In-Reply-To: <20260915235335.3580993-1-kris.pan@intel.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Tue, 15 Sep 2026 17:00:03 -0700
+X-Gm-Features: AcwNN1XHLPi6WXJbDgXJBEW9xClFElJ8jnBfY1cNd_Ib0ENvWLhMDV8ounMWFwo
+Message-ID: <CANn89i+_mDmngcd2rm_huSOd7y5m-Ek8d_h1vspHZNmTBCeRoQ@mail.gmail.com>
+Subject: Re: [PATCH v2] net: iterate online nodes in skb_defer_free_flush()
+To: Kris Pan <kris.pan@intel.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, davem@davemloft.net, pabeni@redhat.com, 
+	horms@kernel.org, atomasov@redhat.com, oliver.sang@intel.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 15 Sep 2026 15:09:16 +0100 Usama Arif <usama.arif@linux.dev> wrote:
+On Tue, Sep 15, 2026 at 4:56=E2=80=AFPM Kris Pan <kris.pan@intel.com> wrote=
+:
+>
+> Right, the node-offline race is real.  I'll fix it in a v3 so the flush
+> doesn't depend on node_online_map, e.g. a per-CPU mask of pending nodes
+> set by the producer and drained by the flush.
 
-> 
-> Four workers repeatedly write the working set, forcing memory to be
-> swapped out and back in. The results below are the medians of five
-> interleaved runs per kernel, following one warm-up run:
-> 
-> Metric                           Baseline median   Patched median   Change
-> Aggregate benchmark throughput   584.3 MiB/s       2,408.9 MiB/s    +312.2% (4.12x)
-> Elapsed time                     85.43 s           20.72 s          -75.7%
-> Major faults                     1,814,699         228,466          -87.4%
-> Swap I/O rate                    1.02 GiB/s        4.10 GiB/s       +303.9%
-> 
-> The results look good as this is a swap-intensive workload.
-> It primarily demonstrates the reduction in swap-fault and page-table
-> overhead from preserving PMD mappings.
-> 
-> For long-running workloads, where I believe the series will shine, I expect
-> benefits from fewer TLB misses, less khugepaged work as well as less kernel churn
-> due to larger folios, although there aren't a lot of benchmarks to test that.
-> PMD swap entries also move us closer to eliminating page-table deposits for
-> anonymous THPs, which would provide memory savings.
-> 
+Certainly not.
 
-Thanks.  Wow.
+We should not add a per-CPU active-node bitmask updated by
+skb_attempt_defer_free(),
+as writing to a shared bitmask from remote CPUs would re-introduce the
+cross-NUMA
+cache line bouncing that commit 5628f3fe3b16 eliminated.
 
-This doesn't look totally real-world but it's close enough to indicate
-that real people doing real things will see nice benefits from this
-change.  As expected - leaving post-swapin thp reassembly to khugepaged
-was so lame.
-
-Please add the above info to the [0/N] and maintain it.
-
-(I'm itching to get this moving ahead, but we do need eyes on those
-core bits).
-
+Instead, keep for_each_online_node(node) in the skb_defer_free_flush()
+fast path,
+and handle cleanup in the cold dev_cpu_dead(unsigned int oldcpu) hotplug pa=
+th.
