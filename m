@@ -1,66 +1,66 @@
-Received: from mail-wr2-f30.google.com (mail-wr2-f30.google.com [74.125.225.94])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544954D6C5D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:34:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E436E4D7D53
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:34:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580089; cv=none; b=jq5ULMg+vke6Zdf1LiO0goOBaZ4kkJvRGm3UQyYzH1m3ylQraL9p6HRicuvnA5/8KHymq+xmmA05P8Ltqd3xoXgoxhkWy/2K+FeUKFBhlj+aYX6rHeiSrM3EhHJk23f+YPJbT0wyANd+unZJrbYuiN33/zMqWkcgQrdQ0adYP4E=
+	t=1789580091; cv=none; b=D5ajhA8MJslY3oqnfaAw6NKmfQTZDJo1rW5HuzgnYnAfhlFiYuXX8Em0M5l3ST7ODFS+1IAm4UuGYPYMNNuc+zMwTrUbY/N2RE9b4JqI1HYyksR9qeTLMm+FqIYNV9gx9n2MQ4SDSUYZvBWERF4qePFfk2MdYqwS8/oKv6CAJhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580089; c=relaxed/simple;
-	bh=DbTuwqjf85854fenTtyIPM+vsibM6VyN2XhXfAJ4Lkk=;
+	s=arc-20240116; t=1789580091; c=relaxed/simple;
+	bh=O4fQFptbwIWGrP3i51so22Moy8UsJAxa2WB25LmlnH0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pKfSgK1k1mGRMlOwmNdk+2mSgLOIVGaWpubHnD+Bntm+peMggfQ8hvmeQzklIGdEilLzbzhTT+RIXD6CE3NdRBu94hOLXH2OAivTFsJZBtAX8eVAVd/iCsPWIh7JRQ1bu8WQNrmANkLaxcHYDd+kRH5P9jfbvbSSLKhqLcNDWnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L4aWH/B5; arc=none smtp.client-ip=74.125.225.94
+	 MIME-Version:Content-Type; b=FODodj/6Z9cRsz5VQRhZlW4WWou6u8pzT8oZqYriT/YHa/uMUiYBFI9hztwhpP9vyWvAnyaXmuIyd+CQszOkBCKx8Lf/5VmTQcRo/Kzi9zfELHb7bAtPYs3ClMXf+CG8gRQXBHq1UDrqqg3wNw2f95v7qWT9OOyGm1+jTtlc7v8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WjakcTaJ; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L4aWH/B5"
-Received: by mail-wr2-f30.google.com with SMTP id ffacd0b85a97d-48439feca17so858460f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:34:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WjakcTaJ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso6408995e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:34:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789580078; x=1790184878; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789580076; x=1790184876; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=ROTRY7hKYrz3TsSfE8T23LGWXQ6PydcyjAIm+qUiZis=;
-        b=L4aWH/B5/Ed1NWRE+Ijt3SKX0qX+rkQA5qMTLm3zhIaM+UtHEpSe5lZUzHghelX+p+
-         sJHEU7FC5jxkmn2p5fsLLDIi31RPKT1BS5nx42KMvT9eWxNOnCVJY9roeAHr0snr4yk1
-         8WnWsaRw6ITCIHTiPvwQr6+sdSi5e1/S3m24FOx6KjuNEoBNeCadAEefvHsRvfK8p6Ho
-         8NQLqjco0oWL8GwpKQwNvjzpSIwv9y4VHDSlzvj0jVOLH10AA5MuQOxQTREkkIxYB0W2
-         MTR47RUQBwNKPs+36nZ53HFDsLkRKJHbL28pTq/gu6TPI02rRaOXqQ/q9nYHYIZ7X5LB
-         bXhw==
+        bh=b//GgrHPthUrwrYixVrlFYT/x+uXt+xKgBiSW3+vKf4=;
+        b=WjakcTaJvDEo/tboaKFdS/cl9UWHlASfpBtfKZ2v/EmgDeCmOpisQSX48nh5ssgl/3
+         Sboh6dMEBy3CHONGqvXLqL3PW14/XuWDlc2KAXStseUXqrGTH69hESqvLU/fmJpZgQcl
+         0fH6GCGFr5pm/BNqEIuSykBmX/e7eQIwLXwpa5w2Wxp6tBRFOjKUBiSPggl3GNvLHfTm
+         77MiTYzQcJktCzMEL7dEDm21FrRIFTAbUmuo5r6xQ9h8OeBHhBtHFFVhnQZb5Sckkm4Q
+         5TIxsHur4ORMPxrzbfD8qHwkRYmuU4sqVsDE3eoRaDumeaArLtSCTub1d520DV+Z3WJb
+         1eVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789580078; x=1790184878;
+        d=1e100.net; s=20260707; t=1789580076; x=1790184876;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ROTRY7hKYrz3TsSfE8T23LGWXQ6PydcyjAIm+qUiZis=;
-        b=zlVYxu+1wSPNmSt2RUDDNXjPScC2HombN7la0AbXeXVqa7r44Iiek192TavpglCcm6
-         VCvabZ//lbS7TwzS0FixA5RSAZddVfvsJxJV19N68eSTQsfqmddP4AHZpZjWy3Xf2Y9B
-         atZUm3uYQCr8L/WRfiaPrzu/SnLiULEpz26sote6l9DM7yi+AQdjMnE6ZSXjNcSoYmOK
-         gy+qRGbc7IHq1+G/8N8WsF7DiNlCP+Z2phZyI+s9xGNa/6A15TJKTeTgjv2nJBSIXSGz
-         dpbELLZa6JIwetVXRxUFZVMZapOkTNBK7dx2srAyolx6HeWgl5fhtK+MPJXF8Yd/1T/7
-         VIDw==
-X-Forwarded-Encrypted: i=1; AKwUvBykknMf5ecEx9rnXaN3XgOre+v4u0IkImlGq/DMTOkOvzjZj+Cb6i1Y2vlDgid3EnobVCLwhpFropvXeDA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZg3HL2B72M3GShstA4xe+6SqBuGBZ/Y0iu42deQ9Gn003d4q3
-	A7YRjh2subJat0OHX6HkqROExoK86m+xp8J99w54oOnfB//ZCSjgJdY=
-X-Gm-Gg: AYBFou1xb94e49rIeubNxiQFSZsS4zHmfjm/iGAu/KhPmmlqB1Uzhvg3a/5y9Qjfj/a
-	pN4sWgBL7OD5Wr3S1mvHpPp5YXJn7eqWndBuTNkZGyDeTYXrL2WP9eMKeNCZygAQLMwiuxiPB0x
-	26uNgvXuHZQQKOkkUPonpNpbvWwH4DV8Ct7xb8nIBrz07IuabfbBP+GAIymb9YfrnVHO7qC3vVF
-	yIK2HpbckhtDzhceIdwcJMmKG+wsHYlpZgaM0mvqBJqJ7LJB+e+kqbhdq61foFzlOOaH0D+IvBt
-	/4ayoY1qeYmfOmkMGXWu5NCxCZDgsdWVdQRXaAvWstrQENnGAYgQwlp8w4v9YXT5vdTDAuqafnJ
-	Y9At+8pi2+whoK04BGr8NY1UxK+T2jdT2dHhymynUGmc1/bxgxYdnZ1fY82WaZNEi+iTLIwLiB7
-	R+GwsPHQuXedpnckyxiYjaNsKAqFtoehFZcRbsX2QCDWZds0Ztm56WUMVmIeTR8HDlaM1rV4k1S
-	pZXHkJcvQFXVCXPE+vTfeVtwgB+yv6nTkG03Ct3/zggEc3PxDZWeHSLMAAC/Bv3eMZ8Vm+WEUNu
-	t046/CtF/30faWYp
-X-Received: by 2002:a05:6000:41cd:b0:487:72f:fbe0 with SMTP id ffacd0b85a97d-4870d0666c3mr4743641f8f.35.1789580078373;
-        Wed, 16 Sep 2026 10:34:38 -0700 (PDT)
+        bh=b//GgrHPthUrwrYixVrlFYT/x+uXt+xKgBiSW3+vKf4=;
+        b=wBvZWffeTNELXtPDm5NiKfA5Fz7wAjDmMycV4+5kS+Ubx0kdmWPBXlhskZuQFSPxMJ
+         GKMrkvTyd9Uo9HsJtxTXgEU5+ks/G4Chk69VINbiXG8bI581OmzPsra4hxeuIMGae24H
+         U5SbeccjVPpTNquZBLotk34DoFttNMMTcn5GXkfzK98101vgKcytGPSljvJ0SC0gU4gz
+         iEiE+Q7DUH4myBnwmFjj8YQqdjjlFliZPGuNYYxSr7xxqDmYeF3quvmDWTTWFUnXvK11
+         x9AS5LA22nYtLz3qmicS1Gt5+5TMDu46yllrtnOFlrDh8pAy6t1rbPCnU8KQ7gioqnbF
+         I0tA==
+X-Forwarded-Encrypted: i=1; AKwUvBwHZCs87tAcLUFYGLUiUem2bKmhbg7bUGizxojGVszwKdlRa3hBQTfhyxOttSqBcTGdytJE+/PV6w4d1gg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBs/jSBhq0R2z5AzvWr+SDbzCyYnNYt4FvcgUrHXQEipsyELop
+	PF/XvbtX43yv9lIxSjPq1ptKb+a1FZSu2NKj+96J0dueP7RfM5wB3/0=
+X-Gm-Gg: AYBFou3vQ7IV0kbwoBOclwq0ahg7/aw0+h03xbW3/TWb3+zq+wNtSc30ifaer+JU/nE
+	zqFFC2Vsb1rQtColrLvnLMeOVxs+gb68krGG3ByaG8zxIR6UdvlHTA6a1831g27jHWHUDTwZT7O
+	Tg+4ZRvOI77nYi1n0Il5s30BON+v6tz7qlR6zBkb8KtnNW0v7S7nY1zw2a8nCOeCSuSdbyLEuxy
+	egO/kFtKh9po/UYKgm7YMc/rGuzACI8hEbrDonYhTkRC6jz6FDxymUvPa0PhlKP6IAZ7y5EDmQV
+	F1nVysBCFqZd6nCBnC9rG80ewKVQ9x7X1IDVOThRTbsDPEMxvI3vwwOIYL/ilGNkqJaNDxuFg1G
+	ABX/fC11oDJiau3StXxwfFKFLBoFJ7qeU57U8tmFynOqaeLrOetJoPuW9ilG77+Jt4Ld2MZT3hj
+	XNof8aNamTDOnfNxUiChLvUVsUXwFkNW8vluNgHyJpt7nktv5FYq6ke84+//JTdm0vWLx/IkVC4
+	U7q38g4bL+0F0+qbkkykrQxBnOXw/9Adzw0GZyNxQSlbIyxcC5m3KNnH9cMS1B/gTj7dK8AGHb/
+	ESFnpue7B5LMhdg=
+X-Received: by 2002:a05:600c:1909:b0:49e:715e:ec1f with SMTP id 5b1f17b1804b1-49eb7339c99mr38436865e9.30.1789580076159;
+        Wed, 16 Sep 2026 10:34:36 -0700 (PDT)
 Received: from nn ([2001:1ab8:1003:0:f23c:f0c3:c09d:d6d6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27ce2sm8987544f8f.20.2026.09.16.10.34.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27ce2sm8987544f8f.20.2026.09.16.10.34.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 10:34:37 -0700 (PDT)
+        Wed, 16 Sep 2026 10:34:35 -0700 (PDT)
 Sender: N B <gen.benner@gmail.com>
 From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
 To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
@@ -72,9 +72,9 @@ Cc: linux-wireless@vger.kernel.org,
 	Kalle Valo <kvalo@kernel.org>,
 	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
 	stable@vger.kernel.org
-Subject: [PATCH ath-next v4 4/8] wifi: ath9k: stop a failed register read from opening the RX filter
-Date: Wed, 16 Sep 2026 20:34:25 +0300
-Message-ID: <20260916173429.403889-5-nerijus.bendziunas@gmail.com>
+Subject: [PATCH ath-next v4 2/8] wifi: ath9k_htc: fix the byte count of a full RMW buffer flush
+Date: Wed, 16 Sep 2026 20:34:23 +0300
+Message-ID: <20260916173429.403889-3-nerijus.bendziunas@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916173429.403889-1-nerijus.bendziunas@gmail.com>
 References: <20260916173429.403889-1-nerijus.bendziunas@gmail.com>
@@ -87,98 +87,53 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On USB a register read is a WMI round trip and a timeout returns -1.
-The spectral trigger reads AR_RX_FILTER back, ORs in the PHY error
-bits and writes it, so a timed-out read stores 0xffffffff and the
-device forwards every frame and PHY error to the host.
+ath9k_reg_rmw_buffer() sizes a full-buffer flush with
+sizeof(struct register_write), 8 bytes, instead of
+sizeof(struct register_rmw), 12 bytes. ar9271_hw_pa_cal() queues
+exactly 15 read-modify-writes, so the AR9271 PA calibration has been
+losing its last five writes since the buffer was added.
 
-Add ath9k_hw_enable_rxfilter(), which sets the requested bits with
-REG_SET_BIT() instead of reading the register from the driver, and
-use it in the trigger. With firmware 1.4 and later the
-read-modify-write is done by the firmware; older firmware still reads
-from the host.
+The corrected command is 192 bytes, three full 64-byte USB packets,
+and the firmware ends a command only on a short packet, so the device
+stops answering WMI on the first interface open. Send the whole buffer
+on a full flush and cap it at 14 entries; 15 is the only count within
+the buffer's reach that fills whole packets.
 
-Fixes: e93d083f42a1 ("ath9k: add spectral scan feature")
+Fixes: 8badb50cfab6 ("ath9k_htc: add new WMI_REG_RMW_CMDID command")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
 ---
- .../net/wireless/ath/ath9k/common-spectral.c  |  7 ++----
- drivers/net/wireless/ath/ath9k/hw.c           | 23 +++++++++++++++++++
- drivers/net/wireless/ath/ath9k/hw.h           |  1 +
- 3 files changed, 26 insertions(+), 5 deletions(-)
+ drivers/net/wireless/ath/ath9k/htc_drv_init.c | 2 +-
+ drivers/net/wireless/ath/ath9k/wmi.h          | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath9k/common-spectral.c b/drivers/net/wireless/ath/ath9k/common-spectral.c
-index ca01a07f6630..73c1eb4ebe0e 100644
---- a/drivers/net/wireless/ath/ath9k/common-spectral.c
-+++ b/drivers/net/wireless/ath/ath9k/common-spectral.c
-@@ -716,7 +716,6 @@ void ath9k_cmn_spectral_scan_trigger(struct ath_common *common,
- 				 struct ath_spec_scan_priv *spec_priv)
- {
- 	struct ath_hw *ah = spec_priv->ah;
--	u32 rxfilter;
+diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_init.c b/drivers/net/wireless/ath/ath9k/htc_drv_init.c
+index 3798d3375158..2d9c14006972 100644
+--- a/drivers/net/wireless/ath/ath9k/htc_drv_init.c
++++ b/drivers/net/wireless/ath/ath9k/htc_drv_init.c
+@@ -408,7 +408,7 @@ static void ath9k_reg_rmw_buffer(void *hw_priv,
+ 	if (priv->wmi->multi_rmw_idx == MAX_RMW_CMD_NUMBER) {
+ 		r = ath9k_wmi_cmd(priv->wmi, WMI_REG_RMW_CMDID,
+ 			  (u8 *) &priv->wmi->multi_rmw,
+-			  sizeof(struct register_write) * priv->wmi->multi_rmw_idx,
++			  sizeof(priv->wmi->multi_rmw),
+ 			  (u8 *) &rsp_status, sizeof(rsp_status),
+ 			  100);
+ 		if (unlikely(r)) {
+diff --git a/drivers/net/wireless/ath/ath9k/wmi.h b/drivers/net/wireless/ath/ath9k/wmi.h
+index 5c3b710b8f31..f9c0fe54a884 100644
+--- a/drivers/net/wireless/ath/ath9k/wmi.h
++++ b/drivers/net/wireless/ath/ath9k/wmi.h
+@@ -126,7 +126,7 @@ enum wmi_event_id {
+ };
  
- 	if (IS_ENABLED(CONFIG_ATH9K_TX99))
- 		return;
-@@ -730,10 +729,8 @@ void ath9k_cmn_spectral_scan_trigger(struct ath_common *common,
- 		return;
+ #define MAX_CMD_NUMBER 62
+-#define MAX_RMW_CMD_NUMBER 15
++#define MAX_RMW_CMD_NUMBER 14
  
- 	ath_ps_ops(common)->wakeup(common);
--	rxfilter = ath9k_hw_getrxfilter(ah);
--	ath9k_hw_setrxfilter(ah, rxfilter |
--				 ATH9K_RX_FILTER_PHYRADAR |
--				 ATH9K_RX_FILTER_PHYERR);
-+	ath9k_hw_enable_rxfilter(ah, ATH9K_RX_FILTER_PHYRADAR |
-+				     ATH9K_RX_FILTER_PHYERR);
- 
- 	/* TODO: usually this should not be necessary, but for some reason
- 	 * (or in some mode?) the trigger must be called after the
-diff --git a/drivers/net/wireless/ath/ath9k/hw.c b/drivers/net/wireless/ath/ath9k/hw.c
-index e08ab73fcacb..7cafd6c5870f 100644
---- a/drivers/net/wireless/ath/ath9k/hw.c
-+++ b/drivers/net/wireless/ath/ath9k/hw.c
-@@ -2905,6 +2905,29 @@ void ath9k_hw_setrxfilter(struct ath_hw *ah, u32 bits)
- }
- EXPORT_SYMBOL(ath9k_hw_setrxfilter);
- 
-+/**
-+ * ath9k_hw_enable_rxfilter() - set RX filter bits without a driver-side read
-+ * @ah: the atheros hardware data structure
-+ * @bits: ATH9K_RX_FILTER_* bits to set
-+ */
-+void ath9k_hw_enable_rxfilter(struct ath_hw *ah, u32 bits)
-+{
-+	u32 phybits = 0;
-+
-+	if (bits & ATH9K_RX_FILTER_PHYRADAR)
-+		phybits |= AR_PHY_ERR_RADAR;
-+	if (bits & ATH9K_RX_FILTER_PHYERR)
-+		phybits |= AR_PHY_ERR_OFDM_TIMING | AR_PHY_ERR_CCK_TIMING;
-+
-+	REG_SET_BIT(ah, AR_RX_FILTER, bits);
-+
-+	if (phybits) {
-+		REG_SET_BIT(ah, AR_PHY_ERR, phybits);
-+		REG_SET_BIT(ah, AR_RXCFG, AR_RXCFG_ZLFDMA);
-+	}
-+}
-+EXPORT_SYMBOL(ath9k_hw_enable_rxfilter);
-+
- bool ath9k_hw_phy_disable(struct ath_hw *ah)
- {
- 	if (ath9k_hw_mci_is_enabled(ah))
-diff --git a/drivers/net/wireless/ath/ath9k/hw.h b/drivers/net/wireless/ath/ath9k/hw.h
-index b942b8303d8f..f102f73a0114 100644
---- a/drivers/net/wireless/ath/ath9k/hw.h
-+++ b/drivers/net/wireless/ath/ath9k/hw.h
-@@ -1055,6 +1055,7 @@ void ath9k_hw_get_channel_centers(struct ath_hw *ah,
- 				  struct chan_centers *centers);
- u32 ath9k_hw_getrxfilter(struct ath_hw *ah);
- void ath9k_hw_setrxfilter(struct ath_hw *ah, u32 bits);
-+void ath9k_hw_enable_rxfilter(struct ath_hw *ah, u32 bits);
- bool ath9k_hw_phy_disable(struct ath_hw *ah);
- bool ath9k_hw_disable(struct ath_hw *ah);
- void ath9k_hw_set_txpowerlimit(struct ath_hw *ah, u32 limit, bool test);
+ struct register_write {
+ 	__be32 reg;
 -- 
 2.55.0
 
