@@ -1,86 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA434D6C22;
-	Wed, 16 Sep 2026 17:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DBE36D503;
+	Wed, 16 Sep 2026 17:29:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579729; cv=none; b=aN2blgwcON7hcztQ3w7jb8SmYbAVTLVRenivlyOcLULL96BBBeI/8+jftiMczNH9V6Ur5bW0DPZ5DBc9QXr7veZYeZ6lNNP1USMS007/nlNQXzSY5kpB4FW51tpK00TqPQ/0GI4VYajSYBWw706UA5WYBe9XS7Hx+0TwtJzZiMc=
+	t=1789579763; cv=none; b=T5Hh77LAjRM9etXOydgE01UwvCWZ5iTF363L/uDu4+IskVxbyD0d/qtfGt+Y6hzpVmH/sw2VYKwIAPHMOGG8c8I5Kg1COEs/qjmybQpCgUDFx5TRKN4b9Tgy0i0q5gZw6O2baM5vaD9CdJkhnVfqhZEy3++AleWaPnpoHCym/bU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579729; c=relaxed/simple;
-	bh=8NtqovApGf8dvKnjUST6br5s7d5zKceLLw06RUJrpIw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tr6gfIc/zhN8lWlJwvJ8z8MR13KyWVOCcnzBnv0N20O4IeuSxNDagLeVMqEBjz1VGcHqu7+NNojOKf/REnPDTQkkkHpPgcGXYyyrtHyf0PqjobINVxGQo17eILHpzesJ88D8ZQllEf1aorpJsq4pRZ64k94WY+EcTX+P5qt6qEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cnA3Mnwc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cnA3Mnwc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADD261F000FF;
-	Wed, 16 Sep 2026 17:28:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789579726;
-	bh=8NtqovApGf8dvKnjUST6br5s7d5zKceLLw06RUJrpIw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cnA3MnwcbVLsJ11I+8hYtmzPV27C3NRL5NVBmMMsbRrnYusv1fuUyeDaEcrEylZ4Q
-	 TPDczkYw3kZbarkCsiptbpLP2ywaNSrq6VJL0PtRbMwBnbC53v0hDsYqujLYQL+YIh
-	 itAiwVGFDPnTEmWE6Fe2qmgdBc6Zqi7Sd98tgG0rMD8CE0BccS9nbJf4SAY37iQU/M
-	 5XbvEAV2bqAZf2L+E2GrKEaR2M58wnZUBUIOzdw/Lg63m1e0IYJVjq3WPaqKaxO+wP
-	 zMpQyU3Acqw6M8uuLPRGlXbJPV+B2zZbWYlphDkAFDyYkbFa9BzLOeZBiGJ5r+gN1N
-	 EVY6U32ALGvBw==
-Date: Wed, 16 Sep 2026 18:28:20 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Tal Zussman <tz2294@columbia.edu>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 00/11] mm: memcontrol: constify the read side of the
- memcg API
-Message-ID: <aqrRewVuKfPk7y1U@lucifer>
-References: <20260915-folio_memcg-const-v3-0-c239a6010b58@columbia.edu>
- <20260916035222.GA19557@shakeel.butt@linux.dev>
+	s=arc-20240116; t=1789579763; c=relaxed/simple;
+	bh=3F+/Vfhc8Rh0Xlo8+0M6by/0bTS+n5+7+zjCYGeHuOw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kZ05GOdhB2cxI88dDTPIONG3myeIUNjxjkpvIkneIbedVa8KOyNv0W+GmME+rJsCtjj62ZtFUB8X1iRE1DhxATYR41s2tOLw7DfTQf+dDpbGrAMhf/Ue7naISIJQh6T1Ur6fkdRQT7jQuvF9ZGCvIu2P95K3oUyavhlz3fNCnpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACXAj3o0apquZ9uCA--.22432S2;
+	Thu, 17 Sep 2026 01:29:12 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: chris@chris-wilson.co.uk,
+	dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	jani.nikula@linux.intel.com,
+	joonas.lahtinen@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	rodrigo.vivi@intel.com,
+	simona@ffwll.ch,
+	tursulin@ursulin.net,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915/gt: Fix rq use-after-free in signal_irq_work()
+Date: Wed, 16 Sep 2026 17:28:44 +0000
+Message-Id: <20260916172844.2087895-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916035222.GA19557@shakeel.butt@linux.dev>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXAj3o0apquZ9uCA--.22432S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww4xuFy8AFykury3trW5ZFb_yoW8Ww4Dpr
+	43JFyYyrZ8ZFnFv3WrC3W8CF4fWa42yF1UWF98G3s3Jwn8tas3Ar9YvFyjqFyY9rs3Xw1q
+	qryqqrW7WFWUZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9q14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
+	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F
+	4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIMA2qqpVhjkQAAsF
 
-On Tue, Sep 15, 2026 at 08:53:10PM -0700, Shakeel Butt wrote:
-> On Tue, Sep 15, 2026 at 07:20:04PM -0400, Tal Zussman wrote:
-> > The memcg accessors, lruvec helpers, and stat readers only read from
-> > the memcg, folio, or lruvec they are given, but take non-const
-> > pointers. Constify them, along with the page_counter readers and the
-> > swap I/O blkg helpers along the way.
-> >
-> > This started as a follow-up to [1] that quickly grew in proportions :)
-> >
-> > [1]: https://lore.kernel.org/linux-mm/anYqSDnC2BbJXv1h@casper.infradead.org/
->
-> For the whole series:
->
-> Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+The final i915_request_put() can release the last reference to a
+signaled request, freeing it synchronously (kmem_cache_free) before the
+RCU iterator advances to read rq->signal_link.next. Grab the next
+request up front, so the loop does not touch a request that may already
+have been freed.
 
-Oops, I replied on the v2 with the same:
+Fixes: c744d50363b7 ("drm/i915/gt: Split the breadcrumb spinlock between global and contexts")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-https://lore.kernel.org/linux-mm/aqqaaDqTDahlZ7bR@gremlin/
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index f840e98792cd..90bc32b526b8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -213,7 +213,7 @@ static void signal_irq_work(struct irq_work *work)
+ 	for (ce = list_first_or_null_rcu(&b->signalers, typeof(*ce), signal_link);
+ 	     ce;
+ 	     ce = cn) {
+-		struct i915_request *rq;
++		struct i915_request *rq, *rn;
+ 
+ 		/*
+ 		 * Grab the next signaler up front, as dropping the final
+@@ -223,9 +223,16 @@ static void signal_irq_work(struct irq_work *work)
+ 		cn = list_next_or_null_rcu(&b->signalers, &ce->signal_link,
+ 					   typeof(*cn), signal_link);
+ 
+-		list_for_each_entry_rcu(rq, &ce->signals, signal_link) {
++		for (rq = list_first_or_null_rcu(&ce->signals,
++						 typeof(*rq), signal_link);
++		     rq;
++		     rq = rn) {
+ 			bool release;
+ 
++			rn = list_next_or_null_rcu(&ce->signals,
++						   &rq->signal_link,
++						   typeof(*rn), signal_link);
++
+ 			if (!__i915_request_is_complete(rq))
+ 				break;
+ 
+-- 
+2.34.1
 
-but obviously, equally so for v3 :) thanks for doing this!
-
-For whole series:
-
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
---
-Cheers, Lorenzo
