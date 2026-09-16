@@ -1,167 +1,256 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E223EC827
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:59:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542001; cv=fail; b=resMRR0i5gKRgaxs2/nifDhFlNHA8SOUPiBG8IG4Xq6H73kmrtr2Yzzgi9IOrKRhHVFpT0qfrKiSs1EfgXutjD7aXXcGNB1fN90Q3Kq6WC0dr9uh8GgGVLrGAh4AntVmxebuRlinbLAa08kG0yErI2dMQmIabMS7OYluB3C/P90=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542001; c=relaxed/simple;
-	bh=r2Z5uOmYYQPIIDJaU83KHUL1mym6Og96C6HjVMCyGSM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=EpjennTKAEzHx8pBuMEUQOAO4Q29bcoe4OBCIv/xWPL0PxRuj8NCEdDFGSQ7TLh6LpuRz1ZuxhVBIWE3GBVDvMO7hXQCR4b1LIxdsmMIXHMxv2kcKfOaHA4Vk8VveqSwHcWqJXzdDKvlwFudezR/QBkFvW7aLgBusZugb3HIQnc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h2V6UJDu; arc=fail smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2E33EEADE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789542048; cv=none; b=FYaImjIVtHT5RZBaNF/4g9xG/01aAyCgqARUuyp1yTztVgyAn7XWwDmDM5pAagBrgrFQ4GYpWaPlPG2vFAj4hqv1E2ECFqpghYu4+KqpUbznQlZWYHJ45w3RRRj9xw6QkZnv9OJGmmYFxqrgCIKgzKfmzTXnZ9vXqp4G6EE7Jo4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789542048; c=relaxed/simple;
+	bh=LG6AJIIkRfn7S+iYZV4oKjByyozoP/ADpIP7sRwcgAM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lff7RWTbwhBvr6x1HOY3r8oamN9gtpl2F0p2N9dzAoTt1/wW8Et+Pgl7b3FFCiSgeSgL807WG1subScrXA0eGfiXpToEBbhcxekMox/ifGeA8WimqRaKD/b92HOuPkytuJeWR/mOSrkvbbgoPz+Fl0vJ+vhsz36Hz1jKNgLdUsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jVsRR6YY; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h2V6UJDu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789541999; x=1821077999;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=r2Z5uOmYYQPIIDJaU83KHUL1mym6Og96C6HjVMCyGSM=;
-  b=h2V6UJDuLqxbd3ZJKX8lg+WqJ5CWKesJGZa8FqzypO7RPVa6BDHbJ4Bv
-   aLhxWc+27vbOPQIQRH9MIEH2zedI3CWQTlkp0nQ0g7z66LwP4QqDdfMvq
-   eDeNODhUMOwYUj5msfpDVUGX6xUBtaHIfqkDIc+dd//KmmTemmVvNLhTN
-   YUGeNr2DpHDe3Qtynw6sxhzfMXsZ8yCbFht6GGbBNt+xnS6wHxcmwqfC2
-   igZSPfxJtFJbg7Gmj1QnU7E7aAW+StrsQKtThdlwwSk73HQSj8VY86hgd
-   dyVljnijiunAmEIb6QebQnhx6+HAaEC+2ms1rHeJpbmzF5nhnRsRgUXpE
-   Q==;
-X-CSE-ConnectionGUID: QD4nKey3SYqxFIhwCXljjw==
-X-CSE-MsgGUID: pGfQPog/SRCMVMH1iSp6wQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89957249"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89957249"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 23:59:58 -0700
-X-CSE-ConnectionGUID: pQh3t+ldSRCnqoWqsGXYhw==
-X-CSE-MsgGUID: BFQgPhRDSXmbpX58K11How==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="273216404"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 23:59:59 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 15 Sep 2026 23:59:58 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 15 Sep 2026 23:59:58 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.70) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 15 Sep 2026 23:59:55 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wgKvoJDsv59e6xUYWrdftsfqRbwMQ6VyNMyCq24PtIP8qCFsWKBK3MXVNVmj3DBHL+TP7ySi7f0W15naueEhSwyq4gRBa13oBOi8L1VC0NZznX9QVSK0lwUB6GpkwSV0FUmhR2Y8PuBA+5jDiycK6AexVqT9noNGzqp/4v4x3ky7rqigXFr9YXTYuSR+y39ShB8qlziIiPn/qQVQ7yZOBB2edQpFCsHS5drKcOJIxKi8QGosJ+iGRm26GIqTQrLJ8kB+XxnQQWXLN/oIPGI+k2FAjoCdQhAUSKfJDsHzcp80U7YN0mOP+fCqDX5r9whc0ffVE9iBQu8YUmWr9a5pxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r2Z5uOmYYQPIIDJaU83KHUL1mym6Og96C6HjVMCyGSM=;
- b=muNzHF0VAULr7sTdU10SmG79IBtxUv5WtC4/NEppH5aZ/N+iPJprKYN5GFS2ZyGwjtJ023pUlYcRKzfvIXRxp79FhY0LZVlsx3FuelhBLIX9ggK8E/EQUcfyN5jukT3IKCjIjf/WAGSNK0LueaFRaqW6/2mWVZehrNH9KbwfvtU8mRnr4x3qB+k/D58wlKQ9nA5R/MiqngV6XrceKlDK6RHTZfk1SNQAWE1YdvbHRKuQRsM94ttbFDrWnIhBX+zZyWsDB8IDCIX1fsimWB+tBjrHbJc58egNEHDmgwwU57xnLfvjboCOkNoU3yJQ8yVy3RMxpHOjOE8JBf2jpDv9vQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
- by SAWPR11MB9545.namprd11.prod.outlook.com (2603:10b6:806:4e3::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 06:59:54 +0000
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225%4]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
- 06:59:53 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>
-CC: Joao Martins <joao.m.martins@oracle.com>, "iommu@lists.linux.dev"
-	<iommu@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] iommufd: Fix iommufd_hw_capabilities reference in
- kernel-doc
-Thread-Topic: [PATCH] iommufd: Fix iommufd_hw_capabilities reference in
- kernel-doc
-Thread-Index: AQHdQkQjWbjVZ+0c5UyOUWdHn1Vl2bbQzRkA
-Date: Wed, 16 Sep 2026 06:59:53 +0000
-Message-ID: <CO1PR11MB483528118DF38CBA06BFCDC08CB92@CO1PR11MB4835.namprd11.prod.outlook.com>
-References: <20260911231850.20737-1-kmehltretter@gmail.com>
-In-Reply-To: <20260911231850.20737-1-kmehltretter@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|SAWPR11MB9545:EE_
-x-ms-office365-filtering-correlation-id: 21a6e5b4-ac89-49d3-13c5-08df13c01c35
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|38070700021|11063799006|56012099006|10067099003|18002099003|6133799003|22082099003;
-x-microsoft-antispam-message-info: vDae6qBMOr66N24QAw+0looH+b2T4tMs+JooLByiNGh2VtpV9a7lpl+FhhKQpw6i/AAV9J78jujMkzevjGF7wSrB3GtX+su9QeBlWpeq1MJWW8biR54q7XXEL1FRIKriEmth9/haa6FCCj7Ij5wAYqUid66KzqxZdME2fKm8YMDqsewubb6rFvv2dLfuZ3FXzlq+HtSq8NbH6Ntrq4TwKZz3bg3ws7tFCflt+tyG1MIZS7CAgSZCwIoFUsdmy/WKNaK3DidSC7x5PCAXEGFZFb5fXfU0HLdYppZNfJJAPvw3WRlafSwwiraEiVbt43AypJqjpj1bhnydOYJwqEtdtErt/1Tvtl2LvkhzkwxgbSUXHfns/i24wd9b6sJYPn+8XHb+rtFWPuVqbbSilyIW8/QGUZIbLcO2RVuDMrWw7K5FPdEtQg1rgbrGhsBVilYVy1zvxGR1uVOUhbT6KvVMeJ5MGxT/61lu8rykK2XsEmwvaYSK0pltu4gYg+4dtqZCrmN+1OT59ftGFb81WIVYVEDMYgSE4Yz58sI71nWlmP3bJX++QkaGsa6er/vTn21JQJXksGzCt6so7EL8doIyAkSMaHo/k3Ts1yyPOKVqk+3rOIyeG6CFXsNNjIqeC2MAyNlgTVKuBlCY0MavjS6O9vyxh5ws5/jSMwTsGOdJnKsIGARfT0/4szyh78HdZ2r1YZlj/8zartfEZa0Pk+PG/QNojJAbOlA2a6CGT9z1yOY=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(38070700021)(11063799006)(56012099006)(10067099003)(18002099003)(6133799003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?5Hg0qsjeE75gXaVOGfhKO1C4tjA32+u0dGQh3XxlK5mag5SX1OoS19JVtOaX?=
- =?us-ascii?Q?0gh37rwMDjwGiSloVEnGjqhlBhJpzs3JTUMEexWVzZdpGtCPnZq0/gwL0UWv?=
- =?us-ascii?Q?LaQF2+YJxY9ahbRZj17VshZcjy4w/+l16Vvpqy+e6HUWKsnKJjZM42Q1V2gp?=
- =?us-ascii?Q?VvTqPOON0SPfKwKTsYoMZRDRyUkUr2XyTfd0ZYEw6YG6/fkyo0DUaUoiQcjE?=
- =?us-ascii?Q?GrDP1bNqkZWYnmkbI562S9WoVj8lfYMmvGBdmpL1V398BlojvDwP8M5uqEOb?=
- =?us-ascii?Q?ICopeOlYZWNCXdkG+Lu/C0grMaqosnnkAsxdQomKUILWt84raFtqUi9nWKBG?=
- =?us-ascii?Q?QIg9UXCMbGt6UhgEGNPjHnL8rQpbkTOTSjNtW2mS6CTUevHs9ynXETQXqB1U?=
- =?us-ascii?Q?FmUR5g+IoJBkXyu2f3v4NnH7RRzpceF+B0Vqggw2d+/hQHI5VFAk1vj1Oy7E?=
- =?us-ascii?Q?JRoRY5TbQxFTcFwIfCo55aR9SY0pceEcT01ca0qWUwF7cFtOUsZDbtm2/5m7?=
- =?us-ascii?Q?1g69ZqToOiqDOZuWn7GDYmFiIpLlULUl05gCHFiSoM7P5K19aiVwcwnItCA7?=
- =?us-ascii?Q?uwFoHJ7rQzJBC5spo++nqOX1eCO1sr5UeUqnLuM9h9tGNdUdEQomQaTc2XOx?=
- =?us-ascii?Q?h9y8F8faTqC/NADy2r1zuzIMWkPFk++T9qiT4Z7PCZRR95J8WEYjAwM5TOtT?=
- =?us-ascii?Q?kPq3Lpg/BtWabPC4E91cGvFaWKFk8Ho8ocwNO7t15/MUkDwo/M/4+fxfBdr2?=
- =?us-ascii?Q?BPRbPLEoqD0O0t9G3zrRdYhvFQ8CX0c9673RDqqWlZO/4l7vCNBmz1rCZiIY?=
- =?us-ascii?Q?KbFdMPJAKyMYRiGkGo26m9Y1F8PWSHzIHg2q3VTA/TXZkMfeBPhHE+xcQB2H?=
- =?us-ascii?Q?fh4SKfWWp/XOurdEYSMPeXTZtIBIe85Q2fQDEGCqoIU97PGEJASiycFCVMqK?=
- =?us-ascii?Q?Jpxky7UgVYFfmK9O7k+J6TtjUY4zY64ExcAEqzVRBiDh0OK6oEm0aJbh4b2P?=
- =?us-ascii?Q?nBnwLP1UMgz3/vZe5mzlUzlOfO4RFD5kScnz8GZVH1B0hs1lz1npfokDGmwG?=
- =?us-ascii?Q?pX0hDov8NCbmcBupucVvBwlgcNPQqCN20RWPHvK/7BNDQfRD/r7KFa97l+DT?=
- =?us-ascii?Q?fWtU90ctq9vNjTzfOdLzz5sv67b2Q0RUv0jkUQHAwkLWgQjYrKKRaeHLnImE?=
- =?us-ascii?Q?l0LWPiXu1X05trrGuRTMgF/jrMmkDkDqzBvqHEt09abjBgz7F74QA9kh0k9W?=
- =?us-ascii?Q?oeV7y9lOq8sAwSxKNu5mpj0xerEAwzLemraubiDqwIqs5jIcO0KBU26jt7CT?=
- =?us-ascii?Q?sEfV2U/UZZM3owolXcIQc9cShFnwh4CcjBdR7igJuObyDF8DkMDk4zCsHgwO?=
- =?us-ascii?Q?mOFQdD7xUT5i9Ic2m9Dvy+mar7bVTTQMUgwsGVuo1PR1jCfg777rBvNOogmp?=
- =?us-ascii?Q?1+Z16D3HUFZU/XK/wl2seQqQr1zYvAR+2+IZofpstluEkfEtyjeMilc7BQ6h?=
- =?us-ascii?Q?klUOfgCikKl34tUnNDXFG9WIIIdQC0bBhMyy9xbNBXnXNEX+zyf47bb+wKfV?=
- =?us-ascii?Q?0nNWUgd/Lq9lSGenv0jlWDWnD16qgJULaRraXf2BpiGenXhkUXmZWAO4vXWe?=
- =?us-ascii?Q?jCG/3D9ycEKfcN+e6FzIdKkRobHEFBYIxOxQytMk2miWYsh8JWosE+himBTA?=
- =?us-ascii?Q?pTzgWNIrHJ90+hzvUa49Ig5y//trgqsp46+UM2gWKh96mMH/?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jVsRR6YY"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc433d52421so343059a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:00:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789542037; x=1790146837; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6wrThbUr5h6Qt4cUaRIQYOkzVBKkR93c24dMiK4OIRw=;
+        b=jVsRR6YYkDyyeKSZVPWdriJrXtxT7OmJWN+NoyePdjs2q9J2CuUBF65YrbMSwHWBIs
+         o1JybkpEb8Ce/uVR2Zadt6//dcYwkXE2sG3US+F2LnBpuM6fJxIHVapg5Py4ERdFwUuE
+         iAD8qK0slhLsdZ2hIriEXGrYcl1WSCISC+5mcFaht1QA5HTIYrpsCER/dQmBxSBAbDB9
+         lCy2F1KetdeEKzqpIKVDhMTenqWhHwPrNqtMNBZ+ajnLobKqgnaGKI0Ie0+/Kk/221Qe
+         jp/xm6+k3YPIAKdI0iu2yWZL8PazA4Ghyv30Em9qCUEeiDsH8+gugfC8CBbNMEWruAG6
+         PooA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789542037; x=1790146837;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6wrThbUr5h6Qt4cUaRIQYOkzVBKkR93c24dMiK4OIRw=;
+        b=ImtdiJee49CQEyYKKQan4FTUr+YWDloe6kK8n8kqdDsKBE6p/rfqkUBfH24M0LlFhf
+         n3SaSpBHyYLksF6953A4ayGbACPNzqVZOdCbpir08sg0O+fSDVnOsffpehlRwq3oDuuu
+         6qXl5U0jOH1PCKEsy8JZDFa/rk1Q+73W1+YGJQHxKkFDkmqcf7cgDPCktfLGuW54JYVW
+         QUy/uiwD/EsiGjArTPIwVXTY31Ecr+UWOwXXBMNeIZi2AZ/uxV89qj0FsAZ+0/CyR6KD
+         sSKbtQdLc4DHFOSCM+nSwuylj1RKseKscQSB2rGrLS4ZrObbcF8MXPdg65oHk/npge3Q
+         e+Fg==
+X-Forwarded-Encrypted: i=1; AKwUvByTxJXRXkLwqX2sFDa38DgsuZhYFpMj3mlhS8GS5Zc1BHVz0NEdgUmPQcjxovABN+5EmSBiT1cxG1Z1RK8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMELJfnPzijZGIGX510evUbkVy9cs8OeK1z/Iv9bFcACzk7T5c
+	PR9yL2XdwzLGaxEDOH63Cc2ZgvbH3KZ3UtD/k8XMoh8k2FtnPIMJVCjP
+X-Gm-Gg: AYBFou0NQneH+mQ7WZplo83ak/Wsxln+PHTn36pEL4msSbE649yTzXpJSsErQC6jJa4
+	A2Cc9IXvDSvOGQFVM9nRz7NR0seIdLlHWQYdUup1JDuEtWlHYF5suQYikKWv4K3Tppu6QJLS4AG
+	f+7FoRYcsQZQntAR3kJHGZLi74lak1TDy3LwPrMzmPS+DZXPCg5A7aazu/jxrc1Idq0uBAWAPBs
+	zC1nf1AzCzeLnLL3wCU7ygiK6PLjcCw0p6mflhr7GPctP4OOY+FJVuUWQ0RPFEKA3UUypbDrW1b
+	QuK5Z4jJ88SSsv6C5DL1xor5zGlEYhXKyW7xSgM4X1qu2ynYefurfz/0n2LhPfiKxd6cocbYo7t
+	Qc4bzaEMoDdVEnAas4+8wwoc01F9cEf9WXjMuJB5wXb8YlvrliwoTP4vdKFyynsADkUACoCehiz
+	6l9JKBm+MGxiWhf0j3ybuRDvHlwWzjB0X2ljh9EX3EdHUzEvHLCVpoIY/rs9GsREGQZpTKOkhf5
+	6/IMvXP3oOlFE85/0pBzivl0CvIxTyboThxaQCOnSStuuUmIzeCXNBScw==
+X-Received: by 2002:a05:6a21:6b10:b0:3da:3bdb:b22a with SMTP id adf61e73a8af0-3dd5f71a912mr3967045637.20.1789542035671;
+        Wed, 16 Sep 2026 00:00:35 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395cacce6sm4225845c88.1.2026.09.16.00.00.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 00:00:35 -0700 (PDT)
+Date: Wed, 16 Sep 2026 12:30:28 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, 
+	josh@joshtriplett.org, boqun@kernel.org, urezki@gmail.com, rostedt@goodmis.org, 
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, qiang.zhang@linux.dev, 
+	rcu@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rcu: Guard deferred QS on kernel exit behind
+ need_deferred_qs() check
+Message-ID: <aqo-KIDk0Z5gRM5u@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20260915102241.1344738-1-mkchauras@gmail.com>
+ <dc328ed5-12fd-4e52-b340-d4a5adb575d2@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: UMrRdth9cdvvaBoIXLI6KZRek1VHzoCDHX9wMe3fik5G4lYCIyfdH1/UorxYfPYUNCCvulwHwKn36ChVYjKMgTkdClR6OE65atKa+S7dcn6UedDZxsU8c4+gIsh1U2sY7jzezv1tLdPToeRvhO4NBQimS/yjf2BCFHAGLD38YOZDdO0M3/HTJq6r86NjBioLYZeGptWuv4KGamCKKoBobfBnILViq72lyc8gK1FUKjzE54mWWW8lYjBB30pHnJ6GcY2DpHzaXzzgGFYP4nV06PE+nfOoPEKM1dwYjTX13kbq38sj328hi3jK26vvH0Xcv0QrzIkjrJwF/B+y1W1+4g==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21a6e5b4-ac89-49d3-13c5-08df13c01c35
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 06:59:53.7146
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SzFxjjK1FghsNCPYn5YqKGmcW+iUSRoiw1CIEAe0a58qxej0beaViMkzrGBj4LSNbshxSiHaZpe4vm2X3dlf3Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR11MB9545
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <dc328ed5-12fd-4e52-b340-d4a5adb575d2@paulmck-laptop>
 
-> From: Karl Mehltretter <kmehltretter@gmail.com>
-> Sent: Saturday, September 12, 2026 7:19 AM
->=20
-> The kernel-doc comment of struct iommu_hw_info refers to
-> iommu_hw_capabilities, which does not exist. The name is
-> iommufd_hw_capabilities. Say iommufd_hw_capabilities.
->=20
-> Fixes: 7623683857e5 ("iommufd: Add capabilities to IOMMU_GET_HW_INFO")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+On Tue, Sep 15, 2026 at 05:06:39PM -0700, Paul E. McKenney wrote:
+> On Tue, Sep 15, 2026 at 03:52:41PM +0530, Mukesh Kumar Chaurasiya (IBM) wrote:
+> > ct_kernel_exit() unconditionally calls rcu_preempt_deferred_qs(current)
+> > on every return to userspace.  On the common fast path nothing is
+> > actually deferred, so this is a needless write to
+> > current->rcu_read_unlock_special -- a word that lives on the task_struct
+> > and is therefore subject to cross-CPU cache-line traffic.
+> > 
+> > On weakly-ordered architectures such as ppc64le, rcu_read_lock() and
+> > rcu_read_unlock() already issue lwsync/isync barriers and touch that
+> > same cache line in the syscall body.
+> 
+> You lost me on this one.  The non-debugging operations in preemptible
+> rcu_read_lock() are:
+> 
+> 	WRITE_ONCE(current->rcu_read_lock_nesting, READ_ONCE(current->rcu_read_lock_nesting) + 1);
+> 	barrier(); // Empty as with the "memory" clobber.
+> 
+> I don't see how this emits lwsync or isync instructions.
+> 
+> Now I do agree that rcu_read_unlock() will emit all sorts of heavyweight
+> instructions in the case where there are deferred quiescent states,
+> which is the only case where rcu_preempt_need_deferred_qs() is important.
+> But I don't see how rcu_read_unlock() emits isync or lwsync in the normal
+> case where the preceding RCU read-side critical section was not preempted.
+> 
+> But on rcu_read_lock(), what am I missing?
+> 
+Hey Paul,
+You are correct.  Looking at __rcu_read_lock() in tree_plugin.h, it is
+just a WRITE_ONCE on ->rcu_read_lock_nesting and a compiler barrier().
+No lwsync, no isync.  That claim in the commit message was wrong.
 
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> >                                       Bouncing it again at syscall exit
+> > adds measurable overhead, particularly on workloads with a high syscall
+> > rate (e.g. SELinux-heavy workloads where every AVC check issues a
+> > system call).
+> > 
+> > Introduce rcu_ct_kernel_exit_qs() which wraps the deferred-QS call with
+> > a rcu_preempt_need_deferred_qs() guard, matching the pattern already
+> > used in rcu_flavor_sched_clock_irq():
+> > 
+> >   notrace void rcu_ct_kernel_exit_qs(void)
+> >   {
+> >           if (rcu_preempt_need_deferred_qs(current))
+> >                   rcu_preempt_deferred_qs(current);
+> >   }
+> > 
+> > The declaration is added to <linux/rcutree.h> and a stub no-op is added
+> > to <linux/rcutiny.h> so that TINY_RCU builds are unaffected.
+> > 
+> > ct_kernel_exit() is updated to call rcu_ct_kernel_exit_qs() in place of
+> > the direct rcu_preempt_deferred_qs() call.  Semantics are identical when
+> > a deferred QS is actually pending; only the unnecessary write on the
+> > fast path is eliminated.
+> > 
+> > Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> > ---
+> >  include/linux/rcutiny.h   |  1 +
+> >  include/linux/rcutree.h   |  1 +
+> >  kernel/context_tracking.c |  2 +-
+> >  kernel/rcu/tree.c         | 19 +++++++++++++++++++
+> >  4 files changed, 22 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/include/linux/rcutiny.h b/include/linux/rcutiny.h
+> > index e56ded733b1b..dcad641eb2c2 100644
+> > --- a/include/linux/rcutiny.h
+> > +++ b/include/linux/rcutiny.h
+> > @@ -120,6 +120,7 @@ static inline bool rcu_preempt_need_deferred_qs(struct task_struct *t)
+> >  	return false;
+> >  }
+> >  static inline void rcu_preempt_deferred_qs(struct task_struct *t) { }
+> > +static inline void rcu_ct_kernel_exit_qs(void) { }
+> >  void rcu_scheduler_starting(void);
+> >  static inline void rcu_end_inkernel_boot(void) { }
+> >  static inline bool rcu_inkernel_boot_has_ended(void) { return true; }
+> > diff --git a/include/linux/rcutree.h b/include/linux/rcutree.h
+> > index 16a04202888b..d623f2a7d3fc 100644
+> > --- a/include/linux/rcutree.h
+> > +++ b/include/linux/rcutree.h
+> > @@ -87,6 +87,7 @@ static inline void rcu_irq_exit_check_preempt(void) { }
+> >  
+> >  struct task_struct;
+> >  void rcu_preempt_deferred_qs(struct task_struct *t);
+> > +void rcu_ct_kernel_exit_qs(void);
+> >  
+> >  void exit_rcu(void);
+> >  
+> > diff --git a/kernel/context_tracking.c b/kernel/context_tracking.c
+> > index a743e7ffa6c0..011018214c6d 100644
+> > --- a/kernel/context_tracking.c
+> > +++ b/kernel/context_tracking.c
+> > @@ -118,7 +118,7 @@ static void noinstr ct_kernel_exit(bool user, int offset)
+> >  	lockdep_assert_irqs_disabled();
+> >  	trace_rcu_watching(TPS("End"), ct_nesting(), 0, ct_rcu_watching());
+> >  	WARN_ON_ONCE(IS_ENABLED(CONFIG_RCU_EQS_DEBUG) && !user && !is_idle_task(current));
+> > -	rcu_preempt_deferred_qs(current);
+> > +	rcu_ct_kernel_exit_qs();
+> 
+> You also lost me here.  The rcu_preempt_deferred_qs() function is as
+> follows:
+> 
+> notrace void rcu_preempt_deferred_qs(struct task_struct *t)
+> {
+> 	unsigned long flags;
+> 
+> 	if (!rcu_preempt_need_deferred_qs(t))
+> 		return;
+> 	local_irq_save(flags);
+> 	rcu_preempt_deferred_qs_irqrestore(t, flags);
+> }
+> 
+> So the only savings is the local_irq_save(), and even then only in the
+> uncommon case where rcu_preempt_need_deferred_qs() returns true.
+> 
+> So again, what am I missing here?
+> 
+> 							Thanx, Paul
+> 
+Nothing you are not missing anything.  Looking at
+rcu_preempt_deferred_qs() again, the fast path (need_deferred_qs
+returns false) already returns immediately with no writes and no
+irq save. My wrapper adds an outer check that is redundant with
+the one already inside.  In the case where need_deferred_qs() *is*
+true, my patch saves a local_irq_save() only to then call
+rcu_preempt_deferred_qs() which immediately does local_irq_save()
+again — so it saves nothing even there.
+
+I will drop this patch and properly profile the regression before
+sending anything further.
+
+Sorry for the noise.
+
+Regards,
+Mukesh
+
+> >  	// instrumentation for the noinstr ct_kernel_exit_state()
+> >  	instrument_atomic_write(&ct->state, sizeof(ct->state));
+> > diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
+> > index 96848fc1f02b..c23478f70c17 100644
+> > --- a/kernel/rcu/tree.c
+> > +++ b/kernel/rcu/tree.c
+> > @@ -368,6 +368,25 @@ notrace void rcu_momentary_eqs(void)
+> >  }
+> >  EXPORT_SYMBOL_GPL(rcu_momentary_eqs);
+> >  
+> > +/**
+> > + * rcu_ct_kernel_exit_qs - report deferred QS on syscall/exception exit if needed
+> > + *
+> > + * Called from ct_kernel_exit() on every return to userspace.  Guards the
+> > + * rcu_preempt_deferred_qs() call with rcu_preempt_need_deferred_qs() so that
+> > + * on the common fast path -- where nothing is deferred -- we avoid the
+> > + * cache-line traffic on current->rcu_read_unlock_special that the unconditional
+> > + * call causes.  This is particularly significant on weakly-ordered architectures
+> > + * (e.g. ppc64le) where rcu_read_lock/unlock issue lwsync/isync barriers and
+> > + * already touch that cache line in the syscall body.
+> > + *
+> > + * Follows the same pattern used by rcu_flavor_sched_clock_irq().
+> > + */
+> > +notrace void rcu_ct_kernel_exit_qs(void)
+> > +{
+> > +	if (rcu_preempt_need_deferred_qs(current))
+> > +		rcu_preempt_deferred_qs(current);
+> > +}
+> > +
+> >  /**
+> >   * rcu_is_cpu_rrupt_from_idle - see if 'interrupted' from idle
+> >   *
+> > -- 
+> > 2.55.0
+> > 
