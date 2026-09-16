@@ -1,293 +1,253 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010001.outbound.protection.outlook.com [52.101.84.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328034C2265
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:46:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577172; cv=none; b=uhaTlA95MCW23IPTJQ/f4rqyKbMNtW8C/eZRL+Rk5EYnpjx6rcKk+FuuIiTgwrxiMxer7Q3j6OTxhwicA86r5wRo1I5xmstzRdjwYjjWsYOlEjyi/XZQmDRRd4ec2oYabV+IGqBd68dP7lMDoqnbY1cVEq3If/RaKccVQpkJbCo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577172; c=relaxed/simple;
-	bh=qUjUi4OUkxEIztp25vsRitnlL+dXfqSGw1HVgzhiFO8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s41rE45wqTK/GkC79ngzAucWymGUzwF+rO0atTQ8UPSx4/bqMUzECmfaJGnvAGsVmSA1kZO6Fz2+BCdAde7KVJH2CmGADn0dgJ+tOlnUsw0hxfTRCD9QVM2jonIJ/bVjRq1oNlVlLxriFwo9xtrQulKqDVLOLxKQw06k3BOvNOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EPKDZ+PL; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB4D4B826E;
+	Wed, 16 Sep 2026 16:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789577197; cv=fail; b=Q19MhEP7daWjpL23h4tbxW8PkQ9dD8WjjlDLDWOfgzUlpQ3pEyBkD9sLE8/HPgsx3LY7GmlFUBXtwJtQM2+8m469T7I3a9Glw7pBaIDy3m6SqWvjs0NLlDLa4Ad7SdZZAZWWgFeAFf0Orr4XfA7cbrGC0L2GyfZQTvQnrBNCVhY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789577197; c=relaxed/simple;
+	bh=9oVDwQeyyEYBqxfF91rS1DPshtshLlC5HycrlpiNGT0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=rOSn30AvvtdPVlf18Xq+Af6NiCixcpNkCkBZ3pErsFSW0cheYrwC1/7KdcoGujde0+RkB62q9/hsoaNgCnJ8vxW5dOGv1RODSBmIhiFnJwT5hsFJnxTjmRkQZ4x4/y0wr64bOXOxkHLlZlQa6zMw10YdTdH/Dh7E6+1zXl37X7k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=mzvjRXRs; arc=fail smtp.client-ip=52.101.84.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EPKDZ+PL"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43ac6090so13653597b3.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:46:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789577157; x=1790181957; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Bn6aZ1lxwJ4I9Ak9bkD3kswRMqJ+xZxBaB9EJrANxpc=;
-        b=EPKDZ+PLK5/qV2BV9dlC+vUbDDr8CnTKrtN0betFSOYS+eL8+V5Bv3HIVcBBw8nZkG
-         XvhCJX/4FvNyMkMAzvXNG0dhRvApwgrvst//XT2eqy5l1sQrgagon4+ITro8R827A2j6
-         mTo2KPv7QWxuhHJ6H82l+G971tl2EeL4s5RaKmnWNey10/zDsUK2xJHi39q2qyID6xKE
-         x0hbedXU8yudpc43hhJaA7YZok0lfhP/R1VizEnTiHBod/wEQ98gbTzxZ77k+H3nPJ+X
-         mRBqkaFQ/zLCAKIdQFEEpfiMGm6RE9Iu7pjuL6NHvWjDy3fjWAlVKa65s1UCdr7v9ifJ
-         q7Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789577157; x=1790181957;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bn6aZ1lxwJ4I9Ak9bkD3kswRMqJ+xZxBaB9EJrANxpc=;
-        b=mESPMAa+FDGb7N7j+vydrKtq0iZc5gPoD7pa59H8nlaGFgUiz6v/pkThpmz5ScBAx9
-         RC2DOSmkWL2CntP4HJJEJNB9DmnBA4WBp3cRGjspwNI6PKyANYX13aN/PNGWShKOc/Xi
-         apNhwnEND5WMlmtR+SRie7hWT5jY/BZnHz7Td3ML5gP/jQGfePb4LTiFIjY1ZcKa0AHX
-         BuiMGdiI/Ibg142evBK5ZQcf+m1vz2Jd7om2fkmxWL0yucShhxswwF96Yf1+ID2KScHo
-         xv2Qa5YdPEPCmEhT7A8Wc4qToornH2u0slB+8rsqKDy6ayTwfp1rfqg9OJEFubwECLAt
-         spXQ==
-X-Forwarded-Encrypted: i=1; AKwUvByuxzHq8T8xHHeIcjiBcCK6HNRxg1257eFHMtz1V7WqJ1w/5lXMCVenuPgzJaYJDpspb9JeBUXxyFPacNc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8WmRggS52y9f4SM0gL+rRNIcwxkXQ9Ij2uL1eSZxz3ejyikFQ
-	sghLbL75pzkb1W6p3qchYsx0SC9VFdD7i1c/kgf1TW3sXibOQqPzM8FD
-X-Gm-Gg: AYBFou2IFHBSBWvrqQ1sj3WPkq5A6gYhs4alu6lLUdRnwn2/+ZirpGJMQbMLiI/EJTD
-	rG0wz7e7FT+pLOG2BYsBPiHX0LUL6WU/NMrePL/HCSwkeorDoEv90FgX/y2XdlovueziFDsasxu
-	22XDrtKFWKYe04tLILGDLeD5OOwqjKEDfStP15Zkek8cOoz1PIXE3TlvwzXk+RsewbMg6JoJQlr
-	T9hLADlCeK1qXY9YKZescHffQdeZnd8LbtWJrklVdghG+89IBY9Xb0FxY3gScfPe3hsYH2yblq4
-	jKCvWeaFTZh8uB25dtrmz+IGplnWsShkD0O+UOgA3gIeqvDcbl2SKJQNolRlaAe89zH4xazh37v
-	rBNrU6XKmYlJ4qOf9zuYWnuBLaXycgFihpZIZlhgUjvHEge8mk0rwVUmytf/V/bO4Sn3NsObeeR
-	9tCm8JRvMHw6z9CqtE2lfeAecrWeKaKrbNO4kGyhTILtRi1aWFXnLK1TrwER+d3fZON4Jdwo7QZ
-	w==
-X-Received: by 2002:a05:690e:1501:b0:66f:c1bc:4025 with SMTP id 956f58d0204a3-671632afbedmr1106459d50.82.1789577157100;
-        Wed, 16 Sep 2026 09:45:57 -0700 (PDT)
-Received: from [10.138.10.6] ([185.98.168.18])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6715f45f803sm1587709d50.0.2026.09.16.09.45.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 09:45:55 -0700 (PDT)
-Message-ID: <157aa2cc-65b3-4d89-aa5e-eccd87296293@gmail.com>
-Date: Wed, 16 Sep 2026 12:45:40 -0400
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="mzvjRXRs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=J/+JiU8eIgAou5ROpObkZGH45PPJpTjCbuCsmfdsIqASYgrupacr+Y3a9+uYaFNAFusEa30YElCqssZoaHYGvRFrc1uwS2dqhyXLOl8bZVtSddyih8QdcnuyuX8PLiUSOyBs1qSGOnm/x10jAM3Qu7f3ZGiU0mdTubh2/rvVuL8Ne9NECBE2u/uk4asdfHQOi69uTp1kDstw+EM0h1hJW57fp0yWE1Hk1gNimsPQoQ2Iu4AB4dOojAZXzflDQDFzdV5NNWL1d1uyC4Og3NKU3c5S3rWILFvMO8s3ayEUqwn2gQTpC/dDNnBx+uFf5l5cfsxKoplBRETgjKjTjbX4og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5UwmAhRLqbLnobohqK1Ph+p2J6buYETnBn5qbP/1yeY=;
+ b=MOI/8X0DaHEVy87pAc3oXv9+47XBIkji3zYXffPv4gA77SS9egsNOwlOMZoEWwyYTH45nna3aNPBnEVjSNLddxk2aHnMAwyIrtjkozf5DzZhyxpNXSSEsjeHLEEMKf9ykAsZQpplduXPpWuEb5nf+cn8j73oJAWPRt3bMESWaYnEG/qvOsUsZXyLnp8WGWw3UzfrF1bYGRPN0fgI4w85+OTQ/x7mkIoEe6UB6IdSwVl8zmEV1iGe12jq3M4PH7PjPFgCmBjwp1NKdoqKePDuEoPH7gRVgQ+PtW6UPcQf6NfUddj/cTEUvCoaf9b5ysd4KAWDgWWy7G1O5ybdHu2LIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5UwmAhRLqbLnobohqK1Ph+p2J6buYETnBn5qbP/1yeY=;
+ b=mzvjRXRs33xVkJ2VRQaJRlHZDTw0eMBreu9xqsL69FSw296rw9flGxMRaGhEdrT794kYccpHfQ5x0uTGLHQ8tCKndYwCROnF8Gn9fVeOoD/nSvD+GallKoZ3pVOurDBTuPkXXT6Qn0i0WoTLVz5oOMdjQOnTGVH2KHYyqnklPIlLLyfTmVOt8lnNLN13IoZ7cS1A5XHSjX4qcKYSElbFtLudZX6V8nfSdwjZne9aYFuiVLr1G5YsmrHO5nlLapQ7dXea7JeQ88D/lVhtLmvW2dnKducK6UyjrrlCLQefYktBlZpFwn/kKWYHL7JWqWvQzvCtv8UKFC6efchmuqFt5g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB10879.eurprd04.prod.outlook.com (2603:10a6:800:25c::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 16:46:16 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
+ 16:46:16 +0000
+Date: Wed, 16 Sep 2026 11:46:05 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	imx@lists.linux.dev, dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH 1/2] dt-bindings: dma: fsl,edma: add iommu-map property
+Message-ID: <aqrHzWp7joSs593p@SMW015318>
+References: <20260916-edma-iommu-v1-0-e1731968081e@nxp.com>
+ <20260916-edma-iommu-v1-1-e1731968081e@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-edma-iommu-v1-1-e1731968081e@nxp.com>
+X-ClientProxiedBy: CY8PR19CA0012.namprd19.prod.outlook.com
+ (2603:10b6:930:44::29) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 00/12] crypto: qce - Fix crypto self-test failures
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- Stanimir Varbanov <svarbanov@mm-sol.com>,
- Eneas U de Queiroz <cotequeiroz@gmail.com>,
- Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
- Eric Biggers <ebiggers@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-crypto@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
- <7e1b4800-258b-4410-8e88-2ce49505689e@gmail.com>
- <CAMRc=Mdd-_t4HniR0k-xhyS4aMD1gnqJPYgS2cEY81b0dwDZGA@mail.gmail.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <CAMRc=Mdd-_t4HniR0k-xhyS4aMD1gnqJPYgS2cEY81b0dwDZGA@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------3xXgf3kbCf0caq6YE31E0Mh9"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB10879:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d042421-1fc1-4da5-c98a-08df1412064f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|19092799006|23010399003|366016|1800799024|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	nbcHZGEvnepuhQ+wpslwlNcwjiHQSLsksku6vcRKGgkeOKsDSVo2j2inE1hyfRdXr78vkGSo6rCAiSLBfjU7n/B3L6IhTeZx8mpm4GmX+gxJRZQaiVVwLdKVN5BVts+u8mzXny0cKZBVw4+61bfm2AbruGc1MEPKWkKkVftjsUrQijQGYBoRTLkF48S8fq+nlZ9uWQlMutCiD2kI5Ea4ZtGiHUaxTlxGRFQfhcwp6U0K51ykrKcy8t56m2jPkThQDyfW1MZ7elN1EKGwzDjSnrP1iyPZBuevQviGxoWjISuxKQ7slPksXa5Qj7YdlD3m7/tr2JmAWTZXiFsEGaF0Roj3svEHi4vyY3ao1h0dxv25oPO8hWKcrZjHeZmww9vJpYDbiYPAfG1eLGNaezozqYc76wi0/i+87So3awi8wzqQdwbXMAfb6zTilsRyr0OqZtpdQkCzB9uU3UXuPA+FCTX55W1Qp10g5MncCudvdZMApBoGGG4g5kwqAVDfOrIiJ25A6qv/Nzx6E67xswZ0qCd8dBM5B7YrliHYrVH+o4cDUzbt4RUyIf5312bzP5O7Y4apHLNqWCpDE23PtZSKdUiOwNGAcBj7h57ERnvI8KIYSGQ+ntuahVOgc1C2wuxkAH4NH9jxPgoXOiTh5QQaCeC9cQ+bHVYU0q4PXyeCB60=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(23010399003)(366016)(1800799024)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?sXO35uGTqSkb6FX9en250Sc+gFzE7YJk6CpJpdpoo5MlG0AZK1rIUogmx3DN?=
+ =?us-ascii?Q?F8nU7cBsBxVV+SrgyrLk1XMtx/aSHdHWBWhyGFi22g2TEdzkieq+ZzWBek0u?=
+ =?us-ascii?Q?0kbkCRtLH6WKbNsvbLZRVVbK2Kyc96rar+XK5ST0L2oo4ZRVNHyy4Hn9W4NC?=
+ =?us-ascii?Q?IQ8znEHsWQXvzvY4Hr3hSUBayYR74CKG0QjexRxnX9dgepKhWI3wiK/+TJLy?=
+ =?us-ascii?Q?POcU0xyW+oN+JLm1qXXCyQIG/2Q5ix/EK4+B1RZqfbySO2ATOWUnfEJhw21g?=
+ =?us-ascii?Q?9FqyDofj/mQVolZtnH3TdDXh3aDrtNDbyhXyEonGKuZLJJOUA+jFGizMfqFr?=
+ =?us-ascii?Q?U+B+PpHPj/Hwe7wsFpxVJnAOd/pKDyUi4P4oHBlgOmA6fPXHEdkh4/F6ros6?=
+ =?us-ascii?Q?zD/VoMQZFP74wewxmizP1aQn3YH+fSvtnM8thWdsFvaPum+4jE7r4L0hKeHq?=
+ =?us-ascii?Q?8CdFezrskvAM4I564d26fPsdLJm+owxfa+H/MgLi3lRNj6qfx1XbeAUnuE36?=
+ =?us-ascii?Q?wQw1jr8eE7rT/F+dRODO77OgTGb4hSSEq9h7AzFqXZtZOtW77MfsJgiP1p3G?=
+ =?us-ascii?Q?U5Cq0GozVghm4C9m8I4T6I5ulrf1rUk6nOOkomIUGG6/gdbFzIcBrlXheHCE?=
+ =?us-ascii?Q?SiY9AjZY0byedpLhKOktdW3wCr46XE9DHBZsJlStgnmWb16FkAa/qOLieXis?=
+ =?us-ascii?Q?Hmi71A9pvU/+KdIitfYp2RGDL/DO7HRSGvVs76Lh9T+nuAGGsT6d7xDteLlw?=
+ =?us-ascii?Q?QcxukffH8mXYsoZs2fqRw+dqdnuc/CeBTqeuKw49mdFgkkrHle9WuWLogrt/?=
+ =?us-ascii?Q?47WVTcNPpTJ1heGT2qDiFB6sq4p/XrZj4oDTXywNZ5vsdvvGfd3s3TwyQvan?=
+ =?us-ascii?Q?578YGu+43FRJLMCE9PfIpjVg+YwWtHJHLPCHK4DLj4U/I/DzpXjtd+N1/C9W?=
+ =?us-ascii?Q?nion5Hc3xdOqwBZOE8QdNmnOXmofMADTeJsNRchqAJzQq4ltFRJKLFEt5Ny0?=
+ =?us-ascii?Q?gPg9qp78W3uNcBtqS85F6dCdChGAzGO4G63zI3lkaZeFU35GLBw97f7g44bq?=
+ =?us-ascii?Q?5VRwI0k0JkuYRqzqjHVyevJVKXsOf5QC7AtJw2dIMyRIExB7TZj/2vM75p9I?=
+ =?us-ascii?Q?ex3O/hSth6hMUoer0mQLU1DBgufwgU0hh61oX0fA72FlGz0tPqOblfsC+RIe?=
+ =?us-ascii?Q?D6QJT0XHxwrK1sU4Z/ksJ0UMp934JQ9Gl1bRGSGeDG1WdxiMlnTqYlXJ0Tjv?=
+ =?us-ascii?Q?wSZttTCe/Z3O6XUsMcCIpeBjA26faEc4orXUsX6WTCAVDwxrqvQKCLSUYFDd?=
+ =?us-ascii?Q?a6LkwvW7NGoAjmIMx5hYGWp0cn65fUEfZhN0B+g8y2gIF7TYR1nfL6ONcWQv?=
+ =?us-ascii?Q?QvlNoy4rrVMLimhxr3l+rOK3jR1BVRDsbyiLNrfujbISuMEF54IBONadJnIy?=
+ =?us-ascii?Q?HHH5Js5/e3FW0AN63UOEjP9G70YCYiy4a85WVlVd0lUcxCcBH+9FjxNJWoIM?=
+ =?us-ascii?Q?FSGkLXjRZhdSfSwrNJ+BvBvW6Hk0y3jz0C1EqKs4TPj8+wRcGN/zX2r4b3Eo?=
+ =?us-ascii?Q?gz77ojO48bvvWRln1TZbvYLleRW7eSvFhGxCf5zV/2PyC8oYGaXhlp11bH5N?=
+ =?us-ascii?Q?HdYw4cNotVK4Vv6fujxO7bLYfTvKUnbJcrjvncq0hBL+qdkHuGlJbrrcZ4it?=
+ =?us-ascii?Q?0jC3lqPITeiOAALJW4/ETWWLhchguiQolIqtlFFeJqkk4nwDte90Jj8wNtkU?=
+ =?us-ascii?Q?DBzNyA462tyFGlk2KpDpW/TT34tveZJOWg/CnW7xGSKTOSpelMAv?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d042421-1fc1-4da5-c98a-08df1412064f
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 16:46:16.1039
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lPna5DyLrkMJXn1ymCjo1HRvNk8OVAhcE6x+uFtD2IJ76tN8LP052Axv4iVmJ1j35ce6sg6rWgyK5eWsLgDadl6zg8m5d0XorxtbC6x3WAP+tTuYjWEreBRLDPHJ9ubg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10879
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------3xXgf3kbCf0caq6YE31E0Mh9
-Content-Type: multipart/mixed; boundary="------------dkM26DHH2Ls9uC8sbskWeJcz";
- protected-headers="v1"; hp="clear"
-Message-ID: <157aa2cc-65b3-4d89-aa5e-eccd87296293@gmail.com>
-Date: Wed, 16 Sep 2026 12:45:40 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 00/12] crypto: qce - Fix crypto self-test failures
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- Stanimir Varbanov <svarbanov@mm-sol.com>,
- Eneas U de Queiroz <cotequeiroz@gmail.com>,
- Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
- Eric Biggers <ebiggers@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-crypto@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
- <7e1b4800-258b-4410-8e88-2ce49505689e@gmail.com>
- <CAMRc=Mdd-_t4HniR0k-xhyS4aMD1gnqJPYgS2cEY81b0dwDZGA@mail.gmail.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <CAMRc=Mdd-_t4HniR0k-xhyS4aMD1gnqJPYgS2cEY81b0dwDZGA@mail.gmail.com>
+On Wed, Sep 16, 2026 at 11:55:25PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> Add the iommu-map property to the fsl,edma binding to allow per-channel
+> IOMMU stream ID mapping. This enables IOMMU translation for individual
+> eDMA channels, where paired channels can share the same stream ID and
+> channels without an entry operate in bypass mode.
+>
+> Also add a new example using fsl,imx95-edma5 that demonstrates the
+> iommu-map usage with per-channel mappings.
+>
+> Assisted-by: Claude:claude-opus-4-6
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
 
---------------dkM26DHH2Ls9uC8sbskWeJcz
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-On 9/15/26 05:42, Bartosz Golaszewski wrote:
-> On Fri, 11 Sep 2026 20:34:39 +0200, Demi Marie Obenour
-> <demiobenour@gmail.com> said:
->> On 9/10/26 09:00, Bartosz Golaszewski wrote:
->>> This iteration - in addition to the previous fixes - proposes to spli=
-t
->>> the QCE driver into a core part necessary to bind to the QCE DT node =
-and
->>> enable runtime power management in order to allow to drop the
->>> interconnect votes, and the crypto part registering the crypto
->>> algorithms. The core module is then enabled in arm64 defconfig while =
-the
->>> crypto part stays disabled by default.
->>>
->>> The QCE hardware crypto engine has several limitations that cause it =
-to
->>> produce incorrect results or stall on certain inputs. This series fix=
-es
->>> several bugs and adds workaround allowing the deiver to pass crypto
->>> self-tests.
->>>
->>> The failures addressed are:
->>>
->>> - HMAC self-test failures for empty messages
->>> - AES-XTS returning success on zero-length input (should be -EINVAL)
->>> - AES-CTR: partial final block causes the engine to stall, output IV
->>>   derivation was incorrect
->>> - AES-XTS with key1 =3D=3D key2 is not supported by the CE
->>> - AES-CCM: partial final block and fragmented payload both stall the
->>>   engine
->>>
->>> All fixes were tested on an SM8650 QRD board with
->>> CONFIG_CRYPTO_SELFTESTS=3Dy and CONFIG_CRYPTO_SELFTESTS_FULL=3Dy.
->>>
->>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.=
-com>
->> For stable, would it be better to not register the algorithms, thus
->> preventing their use?  Another option would be to replace the whole
->> driver with an always-on stub driver that just does power management.
->=20
-> A module parameter called: really_register_algos that's disabled by def=
-ault?
->=20
-> Bart
-
-Works for me!  If you add that and fix the tests, go ahead and revert
-my patch that marked it as BROKEN.  I suggest reverting the defconfig
-changes too, for power management reasons.
-
-While the driver is buggy, you might want to add a kernel taint if
-the option is set.  There's precedent for that in other parts of the
-kernel.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-
---------------dkM26DHH2Ls9uC8sbskWeJcz--
-
---------------3xXgf3kbCf0caq6YE31E0Mh9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmqqx78ACgkQszaHOrMp
-8lOXMg//YUoYq1jOWJhfaYWrvjJUWr4wIsMXxR7r4HrvqRlmSA7MysXs6nyT2/YS
-0jq8PO5/hR7WNnQIKLnWOvCuVJAvftfLKXla2X2W+PUdjP6o7Z1B9w087OGk9RWL
-iPMCo8p4RkK0m+eJs4FNBLV71Xi24ivv0/2o2ixyJSOH939/Xa8x3ndW3SGajA9v
-ErJFDlD0nIpDNVk4lY/meOVy1Na/JTujjboJBcqqlkQcfATgqNkPepwqJCnYbe6w
-SeqfPMOlG7LqzBU7FL7ZIbo5sRBLqU1qmAQ4qlVyRcvr3nuNsHku2u8/kMNFLB4n
-cxM+PwZ+5LPhV50Cic/INKASvblYZ7sGkFMgjHP9sSiFctYUPylsm1jbHCl6rt3U
-qRWqZURLgrV6AmSbb9wFPkmUeVdHyVq7ZiCzoXtpVTPJ3j8Epdx0B/M7gzTrmF5Q
-4VyeVVbEap8sRQrJYmAbZtzlRppZMUQjMi7ZrAvg+r/FmTxcHGknFBZ9UGRgT/7Y
-EYMBMuUCOGlos+6qS2PXLV3Onsi+olovwhrR45EffzBTSzopqX6EQDxZcQS04mVa
-fJk8NcewRI9vnOoeJR7jsFhUlY0HSo7Xf1LShGGHEKGJB9nrDylccN4HqI/U6lI+
-Ued2Zg9qqzbB/KIOZlyMWhn9FulgcVI84kpEsPXlWfTLt+f2NrQ=
-=Uo2z
------END PGP SIGNATURE-----
-
---------------3xXgf3kbCf0caq6YE31E0Mh9--
+>  .../devicetree/bindings/dma/fsl,edma.yaml          | 89 ++++++++++++++++++++++
+>  1 file changed, 89 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> index f609038e35ae1..cb8c650a5bb90 100644
+> --- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> +++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
+> @@ -104,6 +104,15 @@ properties:
+>        Bit semantics: 0 means channel available, 1 means channel unavailable
+>      default: 0
+>
+> +  iommu-map:
+> +    description:
+> +      Maps DMA channel numbers to IOMMU stream IDs. Each entry maps one
+> +      or more channels to a contiguous range of stream IDs. Paired channels
+> +      may share the same stream ID. Channels without an entry operate in
+> +      bypass mode.
+> +    minItems: 1
+> +    maxItems: 64
+> +
+>  required:
+>    - "#dma-cells"
+>    - compatible
+> @@ -351,3 +360,83 @@ examples:
+>                        <&pd IMX_SC_R_DMA_3_CH6>,
+>                        <&pd IMX_SC_R_DMA_3_CH7>;
+>      };
+> +
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    dma-controller@42000000 {
+> +      compatible = "fsl,imx95-edma5";
+> +      reg = <0x42000000 0x210000>;
+> +      #dma-cells = <3>;
+> +      dma-channels = <64>;
+> +      interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 156 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 156 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 157 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 157 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 158 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 158 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>;
+> +      clocks = <&clk 0>;
+> +      clock-names = "dma";
+> +      /*
+> +       * Per-channel IOMMU mapping. Each channel
+> +       * occupies one entry; paired channels share
+> +       * the same SID. Channels without an entry
+> +       * operate in bypass mode.
+> +       */
+> +      iommu-map = <2 &smmu 0x30 1>,
+> +                  <3 &smmu 0x30 1>,
+> +                  <4 &smmu 0x31 1>,
+> +                  <5 &smmu 0x31 1>,
+> +                  <6 &smmu 0x32 1>,
+> +                  <7 &smmu 0x32 1>,
+> +                  <8 &smmu 0x33 1>,
+> +                  <9 &smmu 0x33 1>,
+> +                  <10 &smmu 0x34 1>,
+> +                  <11 &smmu 0x34 1>,
+> +                  <12 &smmu 0x35 1>,
+> +                  <13 &smmu 0x35 1>,
+> +                  <14 &smmu 0x36 1>,
+> +                  <15 &smmu 0x36 1>,
+> +                  <16 &smmu 0x37 1>,
+> +                  <17 &smmu 0x37 1>,
+> +                  <18 &smmu 0x38 1>,
+> +                  <19 &smmu 0x38 1>;
+> +    };
+>
+> --
+> 2.34.1
+>
