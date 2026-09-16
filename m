@@ -1,232 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD1B263F44;
-	Wed, 16 Sep 2026 00:28:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789518496; cv=none; b=XldB3rdzM9R4OL88tZXJLxyGqAA1DzmynNX1Ii0121NlxZ1Tc6GvyrjCZ8i2NyCwPRr+bfC86OK6/4bOMJhvAQqPOcI1YzjsVQnsRtuRJt/Rt5GXgx3DExHVckptxXEnvnLJQ5wUGBjOtQzT/EoU5MW8cO1cxgEAfk9l/8EZk+s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789518496; c=relaxed/simple;
-	bh=Ny41xNGqO6b5R6Wa+gW0apsQgTnW0x5xcQAkJaLfuw8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=TmREZjQWEXeVMWNKWmaFGmeKnqs/tI+uJLsX2xsTJxKsFFlX+70OBq6uyqZZiTcaTzXgT7wApth3ynUQfL0VSrUSyPLAWqd8nh/v5wSIr/9/BkQR8scrcvxPJqyBLzt+BfCj86ZUeelEXYunKPXnMHoZQnZsNf1c5oczUQizFeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2anxolS; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1162E22425B;
+	Wed, 16 Sep 2026 00:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789518535; cv=fail; b=OoEdob+oF79srbOAhYoZkkCzC9FN8fXLgW/q1i3Uwl5e1oAHdO5tvpsQ2zbJoRlisCqUh2M9XaB2RU4AnMtpB4djN3bxV9DqFEsJocV6RXVBWZMCLUvFpfFQ0aC44fg15N2pDL+6Q/t4O2FTPV7eMS5cXbLhZyMSq6PhdCDwe2M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789518535; c=relaxed/simple;
+	bh=oru5w6axS18zqvefAx8CIF/8ELT+3zvLvFJtW1r1HQs=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=mb47rfdvkhjySNGnKSYlgKdHqx4+wih7VRtaW+h+mga6iubM3G1d8dfMXRPv886h82ESZ84X91q9HPkXHtv5pCN9CQeAxSS72TZK19Lf1nuLWlv/8uG3SrLbqEcjOj+4s/nz5iXU/D7aDbCgGjNKEyFpKCCTFxr2CchNDB+yBPQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NYz04+ZC; arc=fail smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2anxolS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6EE21F000FF;
-	Wed, 16 Sep 2026 00:28:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789518491;
-	bh=2zmHRFdTlNJTWZ2YTgH3+XapaGG7xJUHGS4YejvCz70=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=h2anxolSckCnGkH4gp4TqdRdlaE9ERFilKHeERzT/qziDzzVSoBZJsbxIy+nmEtyJ
-	 6BRMgdZwHio6LGUI/96N6b0bpJeurLOTWnvG7LZt24uQVwB1iNEPWqK9ptibABAZwd
-	 uOl0vgZPmR1kzwLiQdjF0RWqIp4mXnIl7B21dhS0IHKK1sl54si+jYoKWp0NV1jCJv
-	 itha2tr2Gp82MEHtIjxroD+XiSUB3I/Un+YXhtirXf/BBxTIM9Uxw1i5YOtNHsY5iV
-	 0JMqHopdIBs2KYjNaHIGg8ZZnKLPw2q5hsjKDkeuhwJ4vmNFykJxfjWS3ROMeOlRm8
-	 PgWYbvh22aJqQ==
-Subject:
- Re: [PATCH] ixgbe: do not busy wait in ixgbe_devlink_reload_empr_finish()
-From: netdev-bot+sashiko@kernel.org
-To: xiaolinkui@126.com
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, xiaolinkui@kylinos.cn
-Date: Wed, 16 Sep 2026 00:28:10 +0000
-Message-ID: <178951849042.22033.2945172314296253214@kernel.org>
-In-Reply-To: <20260914092626.263886-1-xiaolinkui@126.com>
-References: <20260914092626.263886-1-xiaolinkui@126.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NYz04+ZC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789518533; x=1821054533;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=oru5w6axS18zqvefAx8CIF/8ELT+3zvLvFJtW1r1HQs=;
+  b=NYz04+ZCjklHlLUrw+mgyZwb8BRHsna+eP/YWxGqj2VgIzbn2UcDaQ4e
+   9FMQ95b+qBS/mNCb0+BvpFuHiJZym2a9THeB5VTLKlhDwMYD70BTgShuj
+   LboxtK1A/DoG5DQ76tMXyxBn8UepHRYhUSWNjTtfOuEUleCo8JgeXKnah
+   171XEAcTgsCFxpE9wFGcZ1om9Nsu8ubS2zCXcaMCSCRGsuMRM5l68+Efc
+   fZ3WYGlmWRXgvFoXsjKHU6VTuPIImoQNPT2iPIFoms3mTew2BExIxe/t7
+   iE5dKRulRl3z/VvXFVkejXYFbfX0jixDjE3+WCCSFetUjiJloVj5tpMYk
+   g==;
+X-CSE-ConnectionGUID: UIhEDnKfQKquest5o6nFiQ==
+X-CSE-MsgGUID: Iq+FvCA+QxO8niq+/4Ha3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101239139"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="101239139"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 17:28:52 -0700
+X-CSE-ConnectionGUID: OwXZTVlDRFGaNFYGXQ0N2Q==
+X-CSE-MsgGUID: soPIR3mCQEa52kjDS8Y4FA==
+X-ExtLoop1: 1
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 17:28:52 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 17:28:51 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 15 Sep 2026 17:28:51 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.22) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 17:28:49 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h1sicojMq0DYuMDPODe+guIiYJW/u/SLmq/0UIAza0V9zzmL542Pw/f0xnypjZSugSNamWpW3b3QiwSSCcQBXNKwxBO1/ix7ZJxr+sz5muDH512gRB5jGqqr6eyV1f7+FGLvovL2YmSk/UhtninpMDRdyDs/qzgqmqNpqpFHn4PKtwRmi6sJ+AKGjgBk8bzisE8cgze+mRudquW0uSx6ai5JYRzvkBTdKP0B5W/p9Ln6uH9kmsDke3p6yDTFAMKPEuoeWavMMwLlO14EbD+Ln91L3N4BAELpEbvadYXzjzSpRoeaPKgK6kkoW90ZurvGLx1hfaW8JJIHncaI6oQ7Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DAQNUwH0GB8Gun3OT4FnbK25kzyU0kUM17oMrWTy4EI=;
+ b=es3P+t8nB+Cwbp5dRLWEsD6aNTXAXL006X04/o1G6ZFy+Iwn897OVndZ3T79sV4j9RSWUXNoTAV3m8HgdugDN74jvcr4vPzzJFUo2MzxqPq8Mdg6c5JKQOEhK06dKcOIm2Xm8l6eGXVctN0lAU4iMrAbVOgasd0llAnxBuYM1kuhs8pxY9JjyBIZumPYrmLDlWacnIPGjpi+/CHNZ0Tvm0XdxKnmbhKqAFueDTiu7USe8n4VbQiuNiOUNXdTT2jZOFMm99GG7VH0xEX2aoSP2Z0A/qA1w1G4l0Stf9bxAyE0kcv1rXBPMh12CwJatU7rj7dk/NhOIWe4BFozWdP2gw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by IA4PR11MB9420.namprd11.prod.outlook.com (2603:10b6:208:563::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 00:28:47 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::e721:90d7:9214:2d53]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::e721:90d7:9214:2d53%6]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
+ 00:28:47 +0000
+Date: Tue, 15 Sep 2026 17:28:42 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Richard Cheng <icheng@nvidia.com>
+CC: <dave@stgolabs.net>, <jic23@kernel.org>, <dave.jiang@intel.com>,
+	<vishal.l.verma@intel.com>, <iweiny@kernel.org>, <ming.li@zohomail.com>,
+	<gourry@gourry.net>, <rrichter@amd.com>, <linux-cxl@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <kees@kernel.org>, <newtonl@nvidia.com>,
+	<kristinc@nvidia.com>, <kaihengf@nvidia.com>, <kobak@nvidia.com>
+Subject: Re: [PATCH v7 5/7] cxl/memdev: Don't overwrite the error from an
+ earlier partition poison query
+Message-ID: <aqniugvoJ6POAnxj@aschofie-mobl2.lan>
+References: <20260902053839.25595-1-icheng@nvidia.com>
+ <20260902053839.25595-6-icheng@nvidia.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260902053839.25595-6-icheng@nvidia.com>
+X-ClientProxiedBy: SJ2P220CA0007.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5da::13) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|IA4PR11MB9420:EE_
+X-MS-Office365-Filtering-Correlation-Id: d406607d-ba0f-4ce7-496c-08df1389790c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: pJEZIt19kA/guL+DHbk2dq/e/tUMXF/zwY1B5EgOYpPLsl2PBkm4A54V2V4bqslYWhr7TBqyXdLkUb5TPfmAmH1HtkjhLpZ/TMiaSBELA/TbS5E1/Zz9YT15Z7UQf40ik8/fm0/tjpITV4Nf5qAx64Iy8wddtr26HJh1aUZA/AaVH60u3LTm8fxpsw6EXxccphJJiQsO+DkBAGx2Wc1/ShrR/OUu7pARAhKqulXt2iq18+6wWcntx+Lp0ox98rUrxn1cgBWZShVNWK2mwB6qRdP9+eY48iaC48F7KicbAJUBvZ3muAhrOuulLo3j39/DU6cDhCnQcVR0ZdAEMqGYBjPDy7YW4+fPxGZ29Tv49pRs+cucIhIoFJqsx2fIdVmOlOG0ijJo16RW84n8jiISz6TQDy4depAJ6tAuWyE/u/4iM6mlU9877VxcdLQkf4ZZVF27iiWbpv+oJQUqToE507/Yfk067BDoLEuprnMlop5UYrCHkbhbYDCxoCGRJEdmhdJDAzVeyZgA17emf15K6kvlMPNDD1g77W89W7EZtNfxVyD/jkbeChU+XDVFChAsgJAR7X/3IxVzY0GxJuX75l/WuU7++g4fPvc0Gdt0slc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?X4l7LAqk61CKpcVRnt5yOj1YSMwDe0tWe5j9qHDDqfIWg6+7sK5U3xECCK5K?=
+ =?us-ascii?Q?IbDqt/895atpHpmGavTx9COOSDPGi5bBP6oGp/nDpLop72B4sxCjEd9qAvTG?=
+ =?us-ascii?Q?s9PMOfIE6OtStrK22udC0aZhbYOrX1xB6bRyxKZPFArXZg3Ip0xKyVUO2cek?=
+ =?us-ascii?Q?HwABjgtG4I9tLqina2y7Y0Rfk3bGDW4B4iRd4A87Hcgzsve4D9SWAJi2jGpI?=
+ =?us-ascii?Q?BIOpvJWL5DYZ7PYs/gyIKksxXC4O5BBgDiI//WbkCktZrCGxGM5TEdXLcBSA?=
+ =?us-ascii?Q?vSZj87HhITGb2qhg8vptqQHrQO68mIZ3HFGbfOT04ajgJUwJKhueDyZGcCdf?=
+ =?us-ascii?Q?P1gZbmyNJOcH65KqUah5O3iGaMkuN6vMMEqjAQDy7QZ24Rpra0u64rTpE6NC?=
+ =?us-ascii?Q?0vtz16X2kUNFz+X45h4dKLJ8JUq+MWCfCegbP64g+ugkNaQXuXQJ4kYSqpb/?=
+ =?us-ascii?Q?IOk95EujC584zvZ+CpeSbRymi39K1e7MsD3Wtym5lEHx01/KtoJEcDC8i1nZ?=
+ =?us-ascii?Q?+t+Al3DoVFX9GMTHZmaNbyfiJbn++znZI1HnBSsMpmLlFvqMu8GdeFzPGSvL?=
+ =?us-ascii?Q?UqusdDvqtkwdCHD2TdosWcbUZIT7QnnLoMbzkKIzbTmNDGm8sh8K+R5/iKB+?=
+ =?us-ascii?Q?c+/j/KT5seLKsHoQQsUzfGwuZjNVFrVaDgMWjBsk75i127zM9NPXhp1OXR+P?=
+ =?us-ascii?Q?AQddriu21i/BDhx6vzKVIV11nudsICAS0SC8Z5WoGum71Drx6qJH3eBDlnCu?=
+ =?us-ascii?Q?78Sm42oAOvmNUN5hUqM/TE02XXr9VY1+nmXduXHemsIortTtH9d1zqIal3ZN?=
+ =?us-ascii?Q?Dc9XDvNbhXFwQdOfwxnUI8qoafKJHJgFlemCQgas8XEQAH7YJ0KvTYF9tOdP?=
+ =?us-ascii?Q?z1FN8/zNyzX7dKiqcA6eHnRju0+9rUJrqi/36R8jMa8ZaTVWeym1c61NbGhy?=
+ =?us-ascii?Q?Gs0PwskyGSrSDDT2gMFeYnVrtbmJZtJ5h17sb+UcGT2eZGLSIfSp4wU8Rke9?=
+ =?us-ascii?Q?u3mUvLuxWooRhJh9jvWFupRlpakAo/Vd+cYWZ4Kd99XYtSj6hCYUvAvqt8ak?=
+ =?us-ascii?Q?DVRw0szAoPHd8Rqb2atirsP++/zhlsH58ZluTJHAHld01/Ko4Y9dEXacESz4?=
+ =?us-ascii?Q?4VaVGIx6Q6GyFBTEdi8hRRnkI7ZQ+OIk+OWaXOmAJnbTVD4WR1MA+Hk4VUgF?=
+ =?us-ascii?Q?MJe4lINqBdFIRLZwSHe+k7HGjXYaknpKGRhrrhWqaWn01pA7TWAxIuuDMiJ4?=
+ =?us-ascii?Q?uM5fDrcp015oqovI2G4VaujqIJj0PXRhPXki5InKebGWpFBvsNDqybp2wFeF?=
+ =?us-ascii?Q?kE/0PVe978A+N0I3RMr7nZEnamKpwQGFaOn/oDk05h1tS6Ct0YJRBH5VzvFC?=
+ =?us-ascii?Q?ZyApsvRas6gXjTqEtN5YIqICvkCvwJXT4JAcWM3vDSYfjCeexrhxC8hPKkh5?=
+ =?us-ascii?Q?Sg3+UDazlTj8V7zLXLIERT0KotATCnCc8q+PPlr3lzhUy+azjdgMgzlJIeY+?=
+ =?us-ascii?Q?pr1Ib/cUMiyRUPNJBcwpkTvY1rNOTnlnXDrq+KbUQT1DWeAVq/Q3O7mMgz9L?=
+ =?us-ascii?Q?Xxm9st99YYB1coFtDw4IcR1kV1mdyIcHWsTHOVeakx4efoduWXR+x9z3HejU?=
+ =?us-ascii?Q?PRSGPgv5mefCL1bp9V5vLc74/C4EVH+DIPNo7O3/sE/0I8ja82+vXhq5pR59?=
+ =?us-ascii?Q?bxAbx8Sv8BxL2qgm4TXIqWA4bVIR7hh1vUrfRPqFV+YX18H/PpWQddB846FH?=
+ =?us-ascii?Q?ot9wfbo0FrMLUXXG2K1DDvtB7bAX9Ws=3D?=
+X-Exchange-RoutingPolicyChecked: dTbUVvtvbjyIch86CrEbwChxIZc8wZB9Q218mWCVPO+XCjFoKb8AW4ve/h+9Y8jS2BvjO29qmyh76bT9H+0c8O0hESQSzQ3mNdZsE/2kDeyfnyPlKR0DNhCz+XzmVqVkI2v4Jkr1XUzxwKyoKf0YvMeDXYgJI+yoTprLO6/baofjEjmqupTYo1O33qfBXDC+Bs/w7mMh6FhfSpp3A4Ous4wnNZa7APIOKaVUdYOuPTWmIYl5IyH43nngFFmWrBusWyeTfvuXco/YIZl6fnbV+7g+PMIXMMhLhIDbXimDoft5DRu2/yeAn/3Olq0t/hqZKEXFTMUruNZxNPEbmA6+Vg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d406607d-ba0f-4ce7-496c-08df1389790c
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 00:28:47.4293
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wXavu5rS6NyHLwRvIZHDejenwKpOMt+mt3p3uJjN4LlGl2FKrm6mxC/Vu1hrworFET+OXxwDaXmUEgpYZTPSDmcOXQBFq+tkwddqy/GZW4s=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9420
+X-OriginatorOrg: intel.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+On Wed, Sep 02, 2026 at 01:38:37PM +0800, Richard Cheng wrote:
+> cxl_get_poison_by_memdev() queries Get Poison List per partition but
+> never checks the result inside the loop, so a later partition's success
+> overwrites an earlier partition's failure and the whole scan reports
+> success while that partition's poison went unlisted. Before the loop
+> conversion the PMEM query returned early on error. Stop the loop on any
+> error not already tolerated as a RAM -EFAULT.
 
-Critical: 0 · High: 0 · Medium: 1 (2) · Low: 1
+Ignore my previous comment. This is stopping on first failure as all
+similar queries do. 
 
-- [Medium] The commit message justifies the mdelay()->msleep() conversion
-  with technically false claims about mdelay().
-- [Low] The patch bundles a purely cosmetic macro rename
-  (IXGBE_DEVLINK_RELOAD_TIMEOUT_SEC ->…
+LGTM
 
-Pre-existing issues:
-- [Medium] In ixgbe_devlink_reload_empr_finish()
-  (drivers/net/ethernet/intel/ixgbe/devlink/devlink.c:455-470) the…
-- [Medium] The EMPR completion poll in ixgbe_devlink_reload_empr_finish()
-  treats an all-ones FWSM read as 'firmware valid'.
+Reviewed-by: Alison Schofield <alison.schofield@intel.com>
 
---
 
-ixgbe: do not busy wait in ixgbe_devlink_reload_empr_finish()
 
-This converts the EMP reset completion poll in
-ixgbe_devlink_reload_empr_finish() from mdelay(500) to msleep(500), and
-renames IXGBE_DEVLINK_RELOAD_TIMEOUT_SEC to
-IXGBE_DEVLINK_RELOAD_TIMEOUT_TICS.  The commit carries a Fixes: tag
-pointing at c9e563cae19e ("ixgbe: add support for devlink reload").
-
-A few questions on the changelog and on the polling loop below.
-
-> ixgbe_devlink_reload_empr_finish() is the .reload_up devlink operation,
-> so it always runs in process context with the devlink instance lock held.
-> Its polling loop delays with mdelay(500), i.e. it busy waits for half a
-> second per iteration and, because the loop bound is 20 iterations, for up
-> to ten seconds with preemption and interrupts to the timer subsystem
-> effectively blocked on that CPU. That is long enough to trip the soft
-> lockup detector and to stall RCU grace periods, and it keeps a CPU fully
-> occupied while the firmware performs the EMP reset.
-
-[Severity: Medium]
-Is this description of mdelay() accurate?  mdelay() is a plain udelay()
-loop:
-
-include/linux/delay.h:
-    #define mdelay(n) (\
-    	(__builtin_constant_p(n) && (n)<=MAX_UDELAY_MS) ? udelay((n)*1000) : \
-    	({unsigned long __ms=(n); while (__ms--) udelay(1000);}))
-
-There is no local_irq_disable() or preempt_disable() anywhere in that
-path, so timer interrupts (including the watchdog hrtimer) keep firing
-and the loop stays preemptible on CONFIG_PREEMPT kernels.  In what sense
-are "preemption and interrupts to the timer subsystem effectively
-blocked on that CPU"?
-
-Are the two detectors named here actually reachable at the stated bound?
-get_softlockup_thresh() in kernel/watchdog.c returns watchdog_thresh * 2,
-which is 20 s by default, and RCU_CPU_STALL_TIMEOUT defaults to 21 s, both
-above the ~10 s worst case described.
-
-Since the changelog is paired with a Fixes: tag, could it be reworded to
-state the rationale that does hold, namely that spinning a CPU for ~10 s
-in sleepable process context is wasteful and needlessly non-preemptible
-on CONFIG_PREEMPT_NONE, rather than citing soft lockup splats and RCU
-stalls?
-
-> diff --git a/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c b/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
-> index cf8908b82f8a3..7ce0a0cbf9d2a 100644
-> --- a/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
-> +++ b/drivers/net/ethernet/intel/ixgbe/devlink/devlink.c
-> @@ -430,7 +430,7 @@ static int ixgbe_devlink_reload_empr_start(struct devlink *devlink,
->  }
->  
->  /*Wait for 10 sec with 0.5 sec tic. EMPR takes no less than half of a sec */
-> -#define IXGBE_DEVLINK_RELOAD_TIMEOUT_SEC	20
-> +#define IXGBE_DEVLINK_RELOAD_TIMEOUT_TICS	20
-
-[Severity: Low]
-This isn't a bug, but would it be better to keep this rename out of a
-Fixes-tagged commit that also carries the behavioural mdelay() to
-msleep() change?
-
-Also, "TICS" reads as a misspelling of "TICKS", and "tick" in kernel
-parlance means a jiffy/timer tick rather than an arbitrary 500 ms poll
-iteration.  What the constant expresses is a maximum iteration count, so
-something like IXGBE_DEVLINK_RELOAD_MAX_ITER, or a bound stated in ms
-next to the 500 ms step, would say what the value is.
-
->  
->  /**
->   * ixgbe_devlink_reload_empr_finish - finishes EMP reset
-> @@ -460,11 +460,11 @@ static int ixgbe_devlink_reload_empr_finish(struct devlink *devlink,
->  		 * may be not cleared yet, so begin the loop with the delay
->  		 * in order to not check the not updated register.
+> 
+> Fixes: be5cbd084027 ("cxl: Kill enum cxl_decoder_mode")
+> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+> Closes: https://sashiko.dev/#/patchset/20260708074228.43654-1-icheng@nvidia.com?part=5
+> Signed-off-by: Richard Cheng <icheng@nvidia.com>
+> ---
+>  drivers/cxl/core/memdev.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/cxl/core/memdev.c b/drivers/cxl/core/memdev.c
+> index b3419df586b9..e39b3d13fd56 100644
+> --- a/drivers/cxl/core/memdev.c
+> +++ b/drivers/cxl/core/memdev.c
+> @@ -231,6 +231,8 @@ static int cxl_get_poison_by_memdev(struct cxl_memdev *cxlmd)
 >  		 */
-> -		mdelay(500);
-> +		msleep(500);
->  
->  		fwsm = IXGBE_READ_REG(hw, IXGBE_FWSM(hw));
->  
-> -		if (i++ >= IXGBE_DEVLINK_RELOAD_TIMEOUT_SEC)
-> +		if (i++ >= IXGBE_DEVLINK_RELOAD_TIMEOUT_TICS)
->  			return -ETIME;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but since the patch renames the
-macro to declare its unit as tics and touches the delay right above it:
-does this loop really perform the 20 tics that the macro name and the
-comment advertise?
-
-With i starting at 0, the test is false for the pre-increment values 0
-through 19, so the check first fires on the 21st pass:
-
-    do {
-    	msleep(500);
-
-    	fwsm = IXGBE_READ_REG(hw, IXGBE_FWSM(hw));
-
-    	if (i++ >= IXGBE_DEVLINK_RELOAD_TIMEOUT_TICS)
-    		return -ETIME;
-
-    } while (!(fwsm & IXGBE_FWSM_FW_VAL_BIT));
-
-That is 21 sleeps, i.e. at least 10.5 s, and more once msleep() rounds up
-to whole jiffies, against the "/*Wait for 10 sec with 0.5 sec tic." above.
-
-Separately, is the fwsm value read on that last pass being thrown away?
-The return -ETIME happens before the while() condition is evaluated, so if
-firmware sets IXGBE_FWSM_FW_VAL_BIT exactly in the final 500 ms window,
-devlink reload reports -ETIME even though the read already showed the bit
-set.  In that case *actions_performed is left unset, the
-IXGBE_FLAG2_API_MISMATCH and IXGBE_FLAG2_FW_ROLLBACK bits stay stale and
-ixgbe_refresh_fw_version() is skipped.  Would moving the bound check
-before the sleep, or testing fwsm before returning -ETIME, be preferable?
-
->  
->  	} while (!(fwsm & IXGBE_FWSM_FW_VAL_BIT));
-
-[Severity: Medium]
-This is also a pre-existing issue rather than something this patch
-introduces, but can a failed register read end this wait early and be
-reported as a successful firmware activation?
-
-IXGBE_READ_REG() goes to ixgbe_read_reg() in ixgbe_main.c, which returns
-IXGBE_FAILED_READ_REG (0xFFFFFFFF) when the adapter is marked removed, and
-otherwise funnels an all-ones readl() through ixgbe_check_remove():
-
-drivers/net/ethernet/intel/ixgbe/ixgbe_main.c:ixgbe_read_reg() {
-	if (ixgbe_removed(reg_addr))
-		return IXGBE_FAILED_READ_REG;
-	...
-	value = readl(reg_addr + reg);
-	if (unlikely(value == IXGBE_FAILED_READ_REG))
-		value = ixgbe_check_remove(hw, reg);
-}
-
-ixgbe_check_remove() only tolerates about 15 ms of unresponsiveness before
-declaring the adapter gone:
-
-drivers/net/ethernet/intel/ixgbe/ixgbe_main.c:ixgbe_check_remove() {
-	for (i = 0; i < IXGBE_FAILED_READ_RETRIES; i++) {
-		value = readl(reg_addr + IXGBE_STATUS);
-		if (value != IXGBE_FAILED_READ_REG)
-			break;
-		mdelay(3);
-	}
-
-	if (value == IXGBE_FAILED_READ_REG)
-		ixgbe_remove_adapter(hw);
-}
-
-0xFFFFFFFF has IXGBE_FWSM_FW_VAL_BIT (BIT(15)) set, so the while()
-condition above is satisfied by a failed read.  The function then sets
-*actions_performed to BIT(DEVLINK_RELOAD_ACTION_FW_ACTIVATE), clears the
-API_MISMATCH and FW_ROLLBACK flags and calls ixgbe_refresh_fw_version(),
-which issues ACI commands to a device the driver has just flagged as
-surprise-removed.
-
-Should the poll reject fwsm == IXGBE_FAILED_READ_REG, or check
-ixgbe_removed(hw->hw_addr), and keep polling until the timeout instead?
-This depends on whether the E610 memory BAR actually returns all-ones
-during the EMP reset window, which I could not confirm from the tree.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914092626.263886-1-xiaolinkui%40126.com
+>  		if (rc == -EFAULT && cxlds->part[i].mode == CXL_PARTMODE_RAM)
+>  			rc = 0;
+> +		if (rc)
+> +			break;
+>  	}
+>  	return rc;
+>  }
+> -- 
+> 2.53.0
+> 
