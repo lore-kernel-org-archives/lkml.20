@@ -1,176 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BB03B83FE;
-	Wed, 16 Sep 2026 01:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F222E3B841F;
+	Wed, 16 Sep 2026 01:39:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789522550; cv=none; b=q9T/cy4203Q/0RUliluPQdbnYKWzB/pLXy7LNkofCr2s7oTjEKHUDQQL7kPyZK/6i0pb6X6H35VbXRst4NFgDP5Ahird7fgditQovLuGVwyHcXRzhaemL/Gjt0G4AOUrUEpPqg48BjT+PZNwTFe+kebwE0bdI2P036SYHAoA98U=
+	t=1789522765; cv=none; b=D0dW94m0H3qQqSrwL1DX8/HKAZLCncrn2PmbUj7LvtQ86CL9VB6VIeZg8nL4PAvTQJIEuqPB0VoWxOQWAjw3DqWgug6OAHpKN06HcjvXEigIVp6Z1Opd6GF9a/wS5QmsR3O+NnQMI0pnLzF+7h5nbRsX7Jy4cm2w986C7F9baus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789522550; c=relaxed/simple;
-	bh=ROPiQSIwv3xQU7D8gWJS0717yYoXlOjMRWTtuPxplzM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=piQ6yM27YG8ys+L3Dahih9Ys+GaXTkGaztouKldo1Fnu61UXylfJki0zBJsA0u5AMd24FdlcJfWpWaFsHDuuEXTqv9FMbk9aMUKt/deHm4HBic5gkQMgzf1lftTK89MsXolQR780GsvKlA5RctnievHawON8SMd9neCA514QI3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D4pfHXER; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789522765; c=relaxed/simple;
+	bh=/C170y5rW0RrZmD7rP12k8+Uz3daPnt4kT2oGNVAx48=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UOmvejZBmOeFb7Hv3pnPzE72KyJxlkV9dLZKNvq0NdFomWtRr2ApdPrZQ08hD7uWWVzsP0hz3lMrbwPwTSwli2kI5zvKwcmAtCrcK6jpaTHc0B88L3kzjscG0gq/P1WrezTmOhvWm8g1kzKOHfSJsxeJXjHfNrJAzm9U1tw2WQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=PKED8iCv; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D4pfHXER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D93F1F00893;
-	Wed, 16 Sep 2026 01:35:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789522533;
-	bh=dZJ7QNXdOtUPLSZh4nHpG5qz/wjlrArTyCFkINwLWvo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=D4pfHXERW8Dg02w9q1ndsgtnDNJNMlg8gx9OUZYriqVgWnGGfA9Cxnih4KH4adOAH
-	 yyWR/+XSMwc4Do8bBrJUZLNqjlkht3oR+HMpBusOmmoYuBoh0CtOE8WM2/c0MS1EI1
-	 FLtaDpz7DkBFvrbnjxFSagqiYy7WwBX0nptnWN8uLC7kUp0bwcJvXu3s3Ap7Icrfhv
-	 mPpmTkuQCcSE/70AYoj/nv6QmZqJaVAfKNVP4nuagfX9aQ+hFeJajNerTI6hjxx3Zv
-	 1TYXWamQKcNv3YYx4M8H0fo54l8gwlW0jQkAJd2DRCrMYQOCQP3JIxo5P5hHT/PygQ
-	 kzLvn/ctLuQgA==
-Subject: Re: [PATCH] net: prestera: return error on hash table init failure
-From: netdev-bot+sashiko@kernel.org
-To: enachman@marvell.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, yevhen.orlov@plvision.eu,
- taras.chornyi@plvision.eu, oleksandr.mazur@plvision.eu,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, error27@gmail.com
-Date: Wed, 16 Sep 2026 01:35:31 +0000
-Message-ID: <178952253180.22033.10137454952622538480@kernel.org>
-In-Reply-To: <20260914112026.2822222-1-enachman@marvell.com>
-References: <20260914112026.2822222-1-enachman@marvell.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="PKED8iCv"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 8FF1F40E015D;
+	Wed, 16 Sep 2026 01:39:07 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id JzzIELwBECFg; Wed, 16 Sep 2026 01:38:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789522735; bh=p2oAlHCd/geuDdW1a+/n5HlGdYgs966WFk5qNTGC344=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PKED8iCveVhId3TjoHtAsoH5W/WlK91NL8fWLOt6NSw0RYDQ2YryNVecG/X4SMNwK
+	 GRc2EpmkaoFNpbEF48K0ARgI/F9nVOoQ9EQ8/sfVZ/1F7R+9l1b/THuol6JWuViJMQ
+	 u5BDNZHJV14iJD2Vm7Q77V5brWx9E/YYCGAcw6V58bIWTV3CWByAZ1UZ2IqepjWyDs
+	 dL2zQMtbacnfXGaU5262waR0AdwTMR5Stza0i2ja9pH1pV2QzZcgfSzykbUFtsl29P
+	 9ZEJocH1bu70wu/HCWt+zJAO9u+zzlk8mDNQLLgWy38H8ieu3GueYbFQiUzM4sUVif
+	 QXA0HpI9lgsEpHfIaXNWpI1heHoHZ/PlKBNy1jAHHmk3XFhKh+S1Zqj9vAzBbikBfb
+	 ut4ga4hgF0D+3njJmTri4phfwtLEvsZIt9gR1kYrzFIJkgPz72pNaf3bGbxoqFLOXS
+	 6q30u2DiYau6oAX+PMHp5DTS9cYaQCauX7A/jm01JrIV1dtd1XNtlqJ0lX3qfaclJQ
+	 4H3xP9aflIXNoqldtT2YKfK4S3QUFNIX60DLPFzhdhW/kAGSCY44obVrJW43C4BPlB
+	 3c/iFO1TSSpsT2w1ByYBUliDE/eS+QPIE7pVr0fx+NAV3nDnn313sOKGatY8biW5HX
+	 iKkeoxm3dyZE9SnIbhG9YpMY=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 24DAF40E015B;
+	Wed, 16 Sep 2026 01:38:50 +0000 (UTC)
+Date: Tue, 15 Sep 2026 18:38:46 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: "Arvind R." <arvino55@gmail.com>
+Cc: Myeonghun Pak <mhun512@gmail.com>, Tony Luck <tony.luck@intel.com>,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] EDAC/i82975x: Balance PCI ownership on probe and module
+ exit
+Message-ID: <20260916013846.GIaqnzJg9VuUaiH2JG@fat_crate.local>
+References: <20260915013537.71211-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915013537.71211-1-mhun512@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Mon, Sep 14, 2026 at 09:35:37PM -0400, Myeonghun Pak wrote:
+> i82975x_init_one() leaves its PCI enable reference behind on failure
+> and removal. Also, the fallback probe is never removed at module exit:
+> i82975x_registered is initialized to one and never changed.
+> 
+> Balance PCI enablement and track successful fallback initialization so
+> module exit removes controllers that are not bound to the PCI driver.
+> Only remember a normally probed device after successful initialization,
+> and release the saved device reference on both normal and fallback exit.
+> 
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
+> 
+> Fixes: 420390f06a5a ("drivers/edac: new i82975x driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>  drivers/edac/i82975x_edac.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
 
-Critical: 1 · High: 0 · Medium: 0 · Low: 0
+Arvind R., lemme know if you'd like to have an entry in CREDITS.
 
-- [Critical] Double destroy / double free of rhashtable bucket tables on
-  the prestera router teardown path.
+And if so, you can suggest one.
 
---
+Thx.
 
-net: prestera: return error on hash table init failure
+From: "Borislav Petkov (AMD)" <bp@alien8.de>
+Date: Tue, 15 Sep 2026 18:27:46 -0700
+Subject: [PATCH] MAINTAINERS: Orphan drivers/edac/i82975x_edac.c
 
-prestera_router_hw_init() ran its rhashtable cleanup labels but returned 0,
-so a failing rhashtable_init() was reported to prestera_router_init() as
-success.  The patch changes the final return in the error path from 0 to err.
+The driver has only been "carried forward" without any recent
+maintainership interest or testing. Orphan it.
 
-Link: https://lore.kernel.org/kernel-janitors/aqT9h61WBcslE0gJ@stanley.mountain
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+---
+ MAINTAINERS | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> diff --git a/drivers/net/ethernet/marvell/prestera/prestera_router_hw.c b/drivers/net/ethernet/marvell/prestera/prestera_router_hw.c
-> index ccf6cf98920f2..4785fcb62735d 100644
-> --- a/drivers/net/ethernet/marvell/prestera/prestera_router_hw.c
-> +++ b/drivers/net/ethernet/marvell/prestera/prestera_router_hw.c
-> @@ -93,7 +93,7 @@ int prestera_router_hw_init(struct prestera_switch *sw)
->  err_nexthop_grp_ht_init:
->  	rhashtable_destroy(&sw->router->nh_neigh_ht);
->  err_nh_neigh_ht_init:
-> -	return 0;
-> +	return err;
->  }
->  
->  void prestera_router_hw_fini(struct prestera_switch *sw)
-
-[Severity: Critical]
-The commit message describes the bug being fixed as "dereferencing of freed
-memory 'sw->router->nexthop_group_ht.tbl'".  Is a very similar dereference
-still left in prestera_router_hw_fini() itself, on every teardown rather
-than only on the init error path?
-
-drivers/net/ethernet/marvell/prestera/prestera_router_hw.c:
-void prestera_router_hw_fini(struct prestera_switch *sw)
-{
-	rhashtable_free_and_destroy(&sw->router->fib_ht,
-				    prestera_fib_node_destroy_ht_cb, sw);
-	WARN_ON(!list_empty(&sw->router->vr_list));
-	WARN_ON(!list_empty(&sw->router->rif_entry_list));
-	rhashtable_destroy(&sw->router->fib_ht);
-	rhashtable_destroy(&sw->router->nexthop_group_ht);
-	rhashtable_destroy(&sw->router->nh_neigh_ht);
-}
-
-fib_ht is destroyed twice here, and rhashtable_destroy() is only a wrapper
-around the same function that already ran:
-
-lib/rhashtable.c:
-void rhashtable_destroy(struct rhashtable *ht)
-{
-	return rhashtable_free_and_destroy(ht, NULL, NULL);
-}
-
-rhashtable_free_and_destroy() does not clear ht->tbl after freeing the
-bucket table:
-
-lib/rhashtable.c:rhashtable_free_and_destroy() {
-	tbl = rcu_dereference_raw(ht->tbl);
-restart:
-	...
-	next_tbl = rcu_dereference_raw(tbl->future_tbl);
-	bucket_table_free(tbl);
-	if (next_tbl) {
-		tbl = next_tbl;
-		goto restart;
-	}
-}
-
-and the free is synchronous, with another dereference of the table inside
-it:
-
-lib/rhashtable.c:
-static void bucket_table_free(const struct bucket_table *tbl)
-{
-	if (tbl->nest)
-		nested_bucket_table_free(tbl);
-
-	kvfree(tbl);
-}
-
-So does the second rhashtable_destroy(&sw->router->fib_ht) read tbl->nest
-and tbl->future_tbl out of an already kvfree()d allocation and then kvfree()
-it a second time?  If the object has been recycled by then, could the
-garbage value read from tbl->future_tbl send the restart loop into freeing
-an unrelated pointer?
-
-The destroys of nexthop_group_ht and nh_neigh_ht look fine, since those two
-tables were only rhashtable_init()'ed and never passed to
-rhashtable_free_and_destroy().
-
-The same duplication appears one level up for kern_fib_cache_ht:
-
-drivers/net/ethernet/marvell/prestera/prestera_router.c:prestera_k_arb_abort() {
-	rhashtable_free_and_destroy(&sw->router->kern_fib_cache_ht,
-				    __prestera_k_arb_abort_fib_ht_cb,
-				    sw);
-	...
-}
-
-drivers/net/ethernet/marvell/prestera/prestera_router.c:prestera_router_fini() {
-	...
-	prestera_k_arb_abort(sw);
-
-	kfree(sw->router->nhgrp_hw_state_cache);
-	rhashtable_destroy(&sw->router->kern_fib_cache_ht);
-	prestera_router_hw_fini(sw);
-	...
-}
-
-Both of these run unconditionally on device unbind and module removal, and
-prestera_router_hw_fini() is also reached from the init error label:
-
-err_kern_fib_cache_ht_init:
-	prestera_router_hw_fini(sw);
-
-which is the very path this patch makes reachable with a non-zero return.
-Should the redundant rhashtable_destroy() calls for fib_ht and
-kern_fib_cache_ht be dropped as part of this fix?
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c2414447892c..d0c02c08b670 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -9472,9 +9472,8 @@ S:	Maintained
+ F:	drivers/edac/i7core_edac.c
+ 
+ EDAC-I82975X
+-M:	"Arvind R." <arvino55@gmail.com>
+ L:	linux-edac@vger.kernel.org
+-S:	Maintained
++S:	Orphan
+ F:	drivers/edac/i82975x_edac.c
+ 
+ EDAC-IE31200
+-- 
+2.53.0
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914112026.2822222-1-enachman%40marvell.com
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
