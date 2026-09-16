@@ -1,161 +1,82 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-145.mail.aliyun.com (out28-145.mail.aliyun.com [115.124.28.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92C261EB1AA
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3072931FF;
+	Wed, 16 Sep 2026 00:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789519050; cv=none; b=nE5UmYLJb7aYfqeKUy9sfVernDdSCteHvSgbx81QOYSauOaX7io+zECHDJlro33JXNuc5eGi1HETz1cfoABufKrtk1ulpWbOrxQZv20EZeyEgZSnQx2ksFzFDRnVJJ/ZiW1OmWuw2sEl/0aYX8Zxfxk/7o9khgD7X3bozl34ZXM=
+	t=1789519054; cv=none; b=V6oRZ8nS6ClZPNbz6Rl2K0HAapOMmbUlbSYoWaeWEiUqGcTexhmzLlm4xT3lg2W9Y4kK60jEwJBodLKGQewAPlL8XJGqOfWkYY3YXPhW+CXLLBgIQW1vVZBAEIOAV7WcmRLUBBQ5z8T8enxx3FaXMwla3Q04AXOKeP8SKoRYVdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789519050; c=relaxed/simple;
-	bh=/PjDFzNQ4MwfKQTCx8WL+nddwpz++fXoI2e7Z6CnAHo=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ul5/K2yY9ZizmPvF68dd8p+hVuzH59L59wtjg+V60vPHRFdVJfx0GXXqm4WWqgw9PcysnZTuuUtfzlfn2401/dI8FMf0yM6Yh0ybqKcofUpk9Nv58ymsiKjf7/WP2dcFGIjcaOEf9oAI2XCAuA2LlOp0xlqH/AP85W5oXZ4Rt5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E45Rm/5p; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E45Rm/5p"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469d249c4so257151b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:37:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789519048; x=1790123848; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yqKkVTQQYcwc0gbDN5faBzOyekyMfBu7hjn3LfeaFvo=;
-        b=E45Rm/5plnl8zHt1CD+RThMP5/scOyy233xBzGtB5YzAGoEzY3jGavgwAz6pc1JjlC
-         IPTfgbqzAJMukih5nybTFkQxbzqYHtNExrgIBEIjtzvOVGFRXiypKEfe0wE8/YmDX9ic
-         dDZVC5WxXNHrRfdrd0YjHeW/icCvHwbU+OEkhXe+C5rTF4SRue4OJ+8QANrNxUE4fOUx
-         FW4f+IcPoIc1deTpOidGwoGjUWv99DnEGyhAVEyf+iLYr6PkfmnGFdkJI5lBFfxd5qct
-         cAWp4DSdUqh2nPu6o7Zq1QuFgOc5mj2V30S6KhxWE1Y4nHy3YHNWrbnWWVUCfdU23g3z
-         2iWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789519048; x=1790123848;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yqKkVTQQYcwc0gbDN5faBzOyekyMfBu7hjn3LfeaFvo=;
-        b=seFOxZRbImwY0pYDQgbi4bWwhMZnxfmlXWwxn6Lu8hhdj7qjKF92kjH/5Io+fl15rQ
-         Nf6YwFzjqZgcgQ7L3IR2Hs/mKkTboPLhS/scfiTfg/FbgPrldpXAnEq4cuGgO4GFb7rQ
-         wz3vjvWlxXHMD3TWn7G9XyT/tI/VRJlp1GQGQJV6aRozzpmF+PiKoxknYPfcPakzY9EC
-         M0j1TrwjQrP+gy0Aadd/SPftfXAdkfVAtd8nT6Vhv/jxGdE/2K5vH41WwFP2mH+7spWL
-         HYg2rPorWld/pBCL/w50tBGUy2aBCNNhCSBY+loHSxxNN8pZcoRWe35lSz//N5wIeDOl
-         lrUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKYJpYqjp1VW+0nn/mo18UYXfhIO5MpLWabVk8W/KkJPXkVzgRQCKZmHwIdX8Al6W1X/JfnCfxPyhBwfQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5w0msl7SQZlDSey/ZiIxp1bhBlfJ03VAaS4NuYCS3pcuVLZxJ
-	X5InUJiyEP8bFvUhceslNMOJpw+J53rFxSGjBREAEY5XR3zxdfZKB9wf
-X-Gm-Gg: AYBFou3fIZpFmf2I0uwhndgZb5GkH/+grPPaYUtApSbRgGd6K2H385ry+/RskytgPcN
-	n+kmB1shk8enr2RODluMiGHQHT5lLTJBS/goeQZ0CxLC1ATSFR9k3ZFoAWgDXvE+D5WEkfSuYiw
-	HbXPzbsiNmErwKa1K0rMkQBsnUr1kKT27MiB31/4dDfOhWKAY7kFENvugKl6cnLwKkmA8X55z00
-	PMdK7yOnLG5J6CYeKeAKvhZD8tQ0qm63Hf3UQHgJS7ajFhnBHP9dPhSZuoNWcufIN7/LmILJ2Is
-	EM5FQnJS0uz00HnboTQ4skjmW/Kg8nUmMzSnHOilkMbe6W7zERmQq7/aIiHbxUHPozWLFfrc803
-	c6uRWLNveCl+I+3+0UaHKHwakLy1ZJuhXFSf7q7VIILo0asduywMto4C2YHwh/88323CoD7Sk2d
-	tJCfjlXUKyaLMkUqFCn9yqycgK8cnngvh17bbDZIb7CdER5ovTm1vl2/chNXX+Q5zaCtx+mQXk3
-	ijrge5HUBrl9nOf8k4BxodNw2KeZSzAx/jm
-X-Received: by 2002:a05:6a00:244a:b0:837:e9cc:d474 with SMTP id d2e1a72fcca58-872369ec1c8mr829313b3a.2.1789519047717;
-        Tue, 15 Sep 2026 17:37:27 -0700 (PDT)
-Received: from cxlqual ([220.120.90.131])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-871febde2f7sm317692b3a.6.2026.09.15.17.37.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 17:37:27 -0700 (PDT)
-From: Anisa Su <anisa.su887@gmail.com>
-X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
-Date: Wed, 16 Sep 2026 09:38:37 +0900
-To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>, anisa.su887@gmail.com,
-	benjamin.cheatham@amd.com, linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] cxl/events: Return IRQ_NONE when no event is pending
-Message-ID: <aqnlDSdofHDUNdiT@cxlqual>
-References: <20260912093815.14455-1-shaikhkamal2012@gmail.com>
+	s=arc-20240116; t=1789519054; c=relaxed/simple;
+	bh=UkAG70pi2/dyoRCYz8wEbaqYu82SIuXi26QHMtt/I5s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LR2O7r/Aw9CqerKXfIMBP2KG6iKXDuR9Lzm3hF3YIkax20rqrWL8nD3JToy65SRAkjSXRWNZeikmA/dYGbLF63Ehi9n+y4nvRreWlkdp78DNUlKmrBvcZJ4z+fwGuamrQLzlHgIi1luBeWluJsOdLE5T9BBd57seKLxwVCNa8K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09247962|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0533815-0.00289987-0.943719;FP=12248529796002867167|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032023038;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jEVUG-r_1789519039;
+Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jEVUG-r_1789519039 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 16 Sep 2026 08:37:22 +0800
+Message-ID: <0179cc88-0270-4056-9a71-11bf3e2cf3c1@motor-comm.com>
+Date: Wed, 16 Sep 2026 08:37:19 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260912093815.14455-1-shaikhkamal2012@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v18 1/3] dt-bindings: net: Document Motorcomm
+ YT8824 PHY package
+To: Krzysztof Kozlowski <krzk@kernel.org>, Frank.Sae@motor-comm.com,
+ andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com, jie.han@motor-comm.com
+References: <20260915082152.3104633-1-kyle.switch@motor-comm.com>
+ <20260915082152.3104633-2-kyle.switch@motor-comm.com>
+ <321725f2-7012-4fc9-8889-33ea7cef1b65@kernel.org>
+Content-Language: en-US
+From: Kyle Switch <kyle.switch@motor-comm.com>
+In-Reply-To: <321725f2-7012-4fc9-8889-33ea7cef1b65@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 12, 2026 at 03:08:15PM +0530, Shaikh Kamaluddin wrote:
-> CXL event interrupts may share an MSI/MSI-X vector with other event
-> logs or device features. Consequently, cxl_event_thread() is registered
-> with IRQF_SHARED and must determine whether the event-log facility
-> claimed the interrupt.
-> 
-> The handler masks the Device Event Status register to the event logs
-> supported by the driver. However, when no supported status bit is set,
-> it exits the processing loop and still returns IRQ_HANDLED. This
-> incorrectly reports that the interrupt was claimed and prevents the
-> generic spurious-interrupt detector from accounting it as unhandled.
-> 
-> Track whether the CXL event handler claimed the interrupt and return
-> IRQ_NONE when no supported event is detected. If no handler sharing the
-> vector claims a sustained interrupt storm, the generic spurious-
-> interrupt detector can eventually identify and disable the affected
-> IRQ.
-> 
-> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-Reviewed-by: Anisa Su <anisa.su@samsung.com>
-> ---
-> Changes in V2:
-> - Emphasize that returning IRQ_NONE enables generic spurious-interrupt
->   detection and drop the Fixes tag. (Jonathan Cameron)
-> - Check whether the event interrupt is already disabled by Anisa Su's
->   patch; no code changes were needed. (Ben Cheatham)
 
-One thing I want to correct: The change requested was to say a
-spurious IRQ will eventually be disabled in the commit message, not
-check whether the event interrupts is already disabled...
-See https://lore.kernel.org/linux-cxl/aqLZP3ORYzCLfSgR@acer-nitro-anv15-41/T/#m32c74ebf05eee9a3ee49c57dd24848db29919031
-I do see that it's been added to the commit message though, so no need
-to do anything.
-
-Thanks,
-Anisa
-> - Rebase onto v7.3-rc2; no code changes.
-> 
->  drivers/cxl/pci.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
-> index c7c91e8dc51d..8b560cae91f2 100644
-> --- a/drivers/cxl/pci.c
-> +++ b/drivers/cxl/pci.c
-> @@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
->  	struct cxl_dev_id *dev_id = id;
->  	struct cxl_dev_state *cxlds = dev_id->cxlds;
->  	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
-> +	bool handled = false;
->  	u32 status;
->  
->  	do {
-> @@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
->  		status &= CXLDEV_EVENT_STATUS_ALL;
->  		if (!status)
->  			break;
-> +
-> +		handled = true;
->  		cxl_mem_get_event_records(mds, status);
->  		cond_resched();
->  	} while (status);
->  
-> -	return IRQ_HANDLED;
-> +	return handled ? IRQ_HANDLED : IRQ_NONE;
->  }
->  
->  static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
-> 
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> -- 
-> 2.43.0
-> 
+On 9/15/26 17:16, Krzysztof Kozlowski wrote:
+> On 15/09/2026 10:21, Kyle Switch wrote:
+>> Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
+>>
+>> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+> I already asked you to Cc the right addresses. That was two months ago.
+> I don't understand why can't you just use tools which do all this
+> correctly, but repeating same feedback and expecting different results
+> is pointless, so shortly:
+>
+> NAK
+>
+> Longer explanation below.
+>
+>
+> Please use scripts/get_maintainers.pl to get a list of necessary people
+> and lists to CC. It might happen, that command when run on an older
+> kernel, gives you outdated entries. Therefore please be sure you base
+> your patches on recent Linux kernel.
+>
+> Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+> people, so fix your workflow. Tools might also fail if you work on some
+> ancient tree (don't, instead use mainline) or work on fork of kernel
+> (don't, instead use mainline). Just use b4 and everything should be
+> fine, although remember about `b4 prep --auto-to-cc` if you added new
+> patches to the patchset.
+>
+> You missed at least devicetree list (maybe more), so this won't be
+> tested by automated tooling. Performing review on untested code might be
+> a waste of time.
+>
+> Please kindly resend and include all necessary To/Cc entries.
+Ans: sorry for this, it will be done ASAP.
+> Best regards,
+> Krzysztof
