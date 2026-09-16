@@ -1,392 +1,183 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2101.outbound.protection.partner.outlook.cn [139.219.17.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2436D352C28
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:54:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789520067; cv=none; b=UgUPOspFpq1AslKXqJZ2vtZfjw0t4pdy6JRGBwGNMw7GQZ2KB4d9hm65WfsvN8atKcn2/pPKEMN1uVfR5vvRy25/3mMqoPCoYpBVcMzPygleES/lX+2dvsHk0PCNFTkHCH6KoDjJCPROcv3gtWEM0PCot2MRhgy+a8FX+fBc0Yo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789520067; c=relaxed/simple;
-	bh=QNyrKLfygxdwkjOQuKG0DYvoOYzaQwnyMoJrWEtRyuM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t9e14P67Kzml/JbSYyhQi607+kkLD4JzhNRWamEUtH0SAFfHDsjl1JS72ZEloIqU440Hsv8P9Dvt0j2UzDfU6KGaAWSjLssfbT90JiZAYTsuIgSca4rvG7sCzAaA0RNaucnJPIvefNkTOieZibypZvWXQlj7KDU+pvAMwmLhou4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KtQC0LNB; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KtQC0LNB"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so3168165e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 17:54:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789520063; x=1790124863; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dyuLZJXkPRi4fNif6ZQOyJ47bmiKCrSFmmrUPvKFMn4=;
-        b=KtQC0LNB9oRddCSW5uOewATDnIyY/nrlAI78UNejcFWhzgDXaGTyXlxrplzkJTW4aI
-         fMChxFJhJChdUprhQnlPpnSqBefWc1z870Pg1SGJkulpLNpiOk8qnvMEiCHhIC3fsuh7
-         iA/2ODunIoetSpcooo2whdzNoBrm5ZCPZLClPUn8YCOzzqUSeHqch+6NmWIwF6N1zUOq
-         uIRk6g3+D13g/Y/inccyZsQZe5S7hgx+ToQHGVedqaWEvqW4xdpxDntZ/BcMsn32cU+J
-         BhY7AFzIzK4UhepKZ7PcdskyU27t1kuOm51GjiBQ6/2Z6SRQpWzLqNuvFWRJeK+mRV9+
-         L+lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789520063; x=1790124863;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dyuLZJXkPRi4fNif6ZQOyJ47bmiKCrSFmmrUPvKFMn4=;
-        b=zmBl61RgjDYbdSMt2qCGDIyhvCHA6RSzCJKczT97UKiCMKQyaK6rbcqXErNhQ7+bPP
-         LSGXKhV73n2rS/gepWSFTKAGRIf95stVDf6zXsOeunALalSeOkJaaa0MzhzWWqQL4RNb
-         0dnNBh/DHZqLidPrL8hA26D9tEBAoXwsAT7fEY/+t061eJXim1FjS8ujrGADcN1+y+Mp
-         4Fe+7KPt9TdL+JQgcwQUajrDW+cU4TQHDa8HFY0cxparSUr5pQn1spelTun5px43dVVm
-         tmRxyufooILHhQGDrjripah4CMqO7glnccSAjrvOglUu9ojX8XuMHH6olmq7kONcLySk
-         dl+Q==
-X-Gm-Message-State: AFuF++lec+Eyrq6QE4EBz5HHzAIybz8sHnmY5gV9/DlpAUY5lKFdHJgN
-	xXnl8z2ruViIBMOM7yv2Mcagy8ExT0SBlvUPZ+hHKSVsM1NnCGRfBN4KMPYxAA==
-X-Gm-Gg: AYBFou11RhvLTwffiN/dHa79lCfwg1JVAwp57YkflNH1Rlp14u1pLcZUrdcqrj+FGss
-	hYLCA2FxhUmfAf/JtDWmVfPU8MqaE8i8b8/Z7nQ8a6n4Cv8B9DbC/gXdHO9hmx78m6XIpXyosuJ
-	TwcijeR1RmjwjhSFct1Un/BVMGq+l429NATrfdnX+XRGz74kcQeMuWZk8I65/6ZZ2HesmcXtdEI
-	6WciY4wB26Gdn+l2uTQqWL7kr2lsEXZgbkmV18SO5Q2EoJ91y017ugynpOLp4Lr069t+oXNpKtp
-	c0IygVhPlnv9dWPF031X8Rkkpulit4UyhwzYawkUfJpZYb1Jh6tHt7WATv4HI2IRE7LIMFJicyu
-	eB2N1d/wGeqYxzBi0Na7HCUvjqP20vXIq95kJ6kQjr2JCZ1cXOpb1ZM1wzKhoGgmXQAtOoJ8xaH
-	NTf5awBJso+N5shpO3fAKY4/Pd4wKVUYVFEj9DsMdojqBXOsPehTt3t7ts2BJph+JPuby5+xJHQ
-	rHM
-X-Received: by 2002:a05:600c:3b87:b0:49e:6c9b:4e94 with SMTP id 5b1f17b1804b1-49eb73308bemr5347775e9.28.1789520062558;
-        Tue, 15 Sep 2026 17:54:22 -0700 (PDT)
-Received: from [10.80.0.99] ([151.95.60.216])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83da071asm40923465e9.8.2026.09.15.17.54.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 17:54:22 -0700 (PDT)
-Message-ID: <9fd173d2-08c2-4455-b251-27af53db2028@gmail.com>
-Date: Wed, 16 Sep 2026 02:54:21 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8A7386C1E;
+	Wed, 16 Sep 2026 00:58:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789520292; cv=fail; b=QWHxo1BjMPGmQQKE0kt7hUfq4uERd3hlCMHxt2EorlZw7dy6+L3IzKSKYlm4XvMZ6fuFQGixirAkJ72S53wCJ4qa2NECJWWVI09CE6Rvh+1jCEIVvvoPuIeTkFQL9e9Q4y/cfQlmITWqSVsY9z6+NhOWP1wfT1Q4GIwtsBBnsdQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789520292; c=relaxed/simple;
+	bh=Nppx/t30depvwuQflkF1afQCm+eVFjnDcpRJBQrDr7Q=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=h9MQWDvVZmc11YvK9hxFg81NoB4vGfoqsQsPodrd3tRTkATkqB508EDmYekeWt9h2i1ZHkbKbWllUu2Rh3jm2rKlnpBQkeoM2zBWGq0SZ9mvaSDVTwjJUds60bdbphECbVb6lfjBhYfLcLFHURRWuRlRwT/3tiYqPzcZxOI95KA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IiWquKUJD7e+aSfGMKf0oH/wGtFFZhcYyTreOQzCU71p4+ITosLn3XenqPr+sPIcb0X6Wt+jU6miHV/q0sJNCS7fJvKeCvX27X07fEC2+Jb2gihezJEzHV5sjaPi4eGMCNhDHayHAVzuwrcP2yfiJe+bbO5+07P4khVrEpXreoxbjka+U4a6252/HOGQ//KW3h8j98D2hjpXF5D/KWtE3+4DKlnUtQUDD74qxS6pxnEwcOwh03QbL8nJ0BFF9hcX4sV4f8/8I1lxQEkUfkzAulj16TxkOLEMMHIZ+hpTePb4YfTYiYGLOT2hAwRXl7RptmwSPPWlR8CGsprBX8sFrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Nppx/t30depvwuQflkF1afQCm+eVFjnDcpRJBQrDr7Q=;
+ b=R64DivDVJWZQxo1rmOVoYV7IcnHlNwgYPOidZAtY2bBuBIrSht2aIM7q+Ju3f6qpEoLS7/xpBgQ7h6b1C4PfaRIzUtDnIHCOWqOFAu+ncafxqsDLGG0d4tyEUByvb48fX1Up9KsY7mxKLh7PSeYm+AChuRlJZwwJSOD/hsP5JlqmsrKXcseI4A/j8Ryk3cHRz2w+KbKiPw6Gptu0RiDNfG1KpHIQh9mnj7ow2vJB9nEeG0DqRqtPou2j8hSaVvcF/pxeT9GwRYEvhUZ5PBm+A4onfzf3TcQ3QLPMYUL9rvLgk+4iL0QAQPAgCxevaZlvNxHuxlzqqMIL23UhwrS8EA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1249.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 00:57:54 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0428.008; Wed, 16 Sep 2026 00:57:54 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Iwona Winiarska <iwona.winiarska@intel.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, Philipp Zabel
+	<p.zabel@pengutronix.de>
+Subject: Re: [PATCH v1 6/6] hwmon: (peci/dimmtemp) Add support for Granite
+ Rapids (GNR)
+Thread-Topic: [PATCH v1 6/6] hwmon: (peci/dimmtemp) Add support for Granite
+ Rapids (GNR)
+Thread-Index: AQHdO6kXA4sHfaC14U25FDUP6J6nyLbLGoOAgADY2xCAAAKHgIAEf5aA
+Date: Wed, 16 Sep 2026 00:57:53 +0000
+Message-ID:
+ <ZQ4PR01MB1202537F45A6D33446A3E080F2B92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
+ <20260903133408.110847-7-changhuang.liang@starfivetech.com>
+ <c89f582d-57fe-40d5-835b-5e5ce38daccb@roeck-us.net>
+ <ZQ4PR01MB1202109A402BBFDAD908C08EF2BC2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <eefdb261-49d7-42dd-9ec8-850789852bec@roeck-us.net>
+In-Reply-To: <eefdb261-49d7-42dd-9ec8-850789852bec@roeck-us.net>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1249:EE_
+x-ms-office365-filtering-correlation-id: 65389338-5270-417c-07dc-08df138d8a47
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|38070700021|6133799003|3023799007|10067099003|4143699003|56012099006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ 5saHXZfNL2IMj4PCf9is1mi8uPXF/Ai7xkdlsYodd8LWvskHAiOmznQPXDK+5H5yTIWlq1CJLLdEdY0jNCdU3oQVziXQlJ3n0V16n821LKohdM5D/2uylG73KVsPBxkBkysUZu4sqE4+BEAgxrUAq22vKe/rMgZV0Pp8y91Z0sJIl+Ftj4K7F3Dbtc6OaWx7DzYPITfNBTpAKy4OQRcL9aPhzuiDGKcfCMAJRHVI1QmhT4pBSkQ0zKAuVN3DmxIrtk5JxJhVOM0+Dn9cJNpPf/QCu8iaSJ4xRXZHiW+oBX8tVGS/9QfYFFbGsYatbTf6WF13cPB3LXhakzUr10Bl1EP6MqO8G1twwxFop3tYwNbJ7RhQcNIk9Qxjq450WkL6qVbAqunnNXojzxXFOtGRihhThxL6/3f1xv+ZCi36+dlMM8Xhur1AcNOlADnhWRfQsJ6IHpemHDJTyinz8Ymb8nL/Gls+SqymW6RB8iCoGrZ8mJFukJyR8TGsLHzO8FrWP0X6pd0P3kNU4WltxWQl+ZqWo+CCpKFMsCifT8iMAX0AuRBgtomime3ZMLyXUMwb
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(38070700021)(6133799003)(3023799007)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?Q1NDUDV2OW1pL2g2U1JHcCt2ZFFWcjYweUVWdHBMaExmdmRlQ0lVK2hZMVVB?=
+ =?utf-8?B?WTk0c0pLNXlOQkcyVDVoYnE2bTltWFY1QkZDY1p4U3dnWWpTNmh1SGhlZXpU?=
+ =?utf-8?B?TUQ3ZDIzL1ZpM1hVM3gwc0FESlBEUWNobHBLSzZrWk1tU0dqcUUya3oyeDRa?=
+ =?utf-8?B?QVFMajgzRFpjTzVVNHZsVXdINTgrM2J5enErQUZOY3ZWempEd29MejRMN0ZZ?=
+ =?utf-8?B?a3k2QUpETHI5cWM4dTdscGFtT0VYTmNueTZDT2ZyQVh4c25oZjJ1SGtNaHR1?=
+ =?utf-8?B?UlFaNjRHL0oxSlhtWGQwWXJXM3hSbVpQeTBqbVluU21xekpybXpMRzI0bnlG?=
+ =?utf-8?B?aTd3dDNCWEttUFcwNXRYclZvNElqNnhnaEo3WnJTTHBSd0dRLzhRaHJLMTZB?=
+ =?utf-8?B?dkpFZU5XZ3ErT2pBRWE3d1I1ckNRZmdSMFNXUm9oVlQ3em8rMjMyRWg5eGFC?=
+ =?utf-8?B?bE15Vjd5WXFmMzFBei9SN3lESkN0S3ZRU1ZHMGRvZXNWV1dETHljamJzMkdv?=
+ =?utf-8?B?Y3JsYXBPcEhHa2x3UWYzK3BIell1QWlSdDN4cTUvaXRLalJKb2hScGQyRE4v?=
+ =?utf-8?B?TzBuanVCRGJUdzV1eTFmci9XZGIwT3FOcC9iNFliRHphUW9MdHNMRXdWaUdr?=
+ =?utf-8?B?RzhTSUQvU2grZkYwSHVUeHQ1WW1oWDJVZHIwaW1SSG56bXJxaWVsbWUvR2hC?=
+ =?utf-8?B?YzFRdEtqQURjQXRyY0RUZ0F6UVp0d2NML0JHQTM3dUM0bGFqbTlRbUVacEov?=
+ =?utf-8?B?c3gwUmY2NXFqcDVjMUdhYTlRMUpyUWhJdThXYnRwVm56T3UzRDFYTVdHeUxx?=
+ =?utf-8?B?VFJoMXVuU1hudGlFdEt1LzEvMWVyL09PYTBmc0pWWnphT1crVmlqU1ZUazFm?=
+ =?utf-8?B?MkpPSUIwajh1RnM3MFFPZlZncFNHRUJjbFFNRkVhbEx1eVNsNlZENVBicy9Y?=
+ =?utf-8?B?N3VLTU5ZZmF3RXlGN3p5bXJIZWZXT0R0bS9ZNmdTSkRnTFJadmF2NUMrd2ZT?=
+ =?utf-8?B?TEJYTDd2YmpSVlNzblU4cnByN0x4cFdackVFWjN4aHlFa1VFWXdLS0ljVnBm?=
+ =?utf-8?B?OFBEdGFrNEpjekhVOEQyZXFMeWcvNGUyWmVYSGFlRXlyYjluSnpIdk5Iak9B?=
+ =?utf-8?B?a0FQbnZEc0ZNcmhYeUF0U3B0UEo1d1Ntb1lRVGFSL2QrNW9KWEdOSGNjZzFZ?=
+ =?utf-8?B?SlQ5T0dyOXFyNkswdjZKRzNIa0pUV1hKakY0Wlk3ZTFmaDhmMmhKWHp2Zml2?=
+ =?utf-8?B?ZmVKdFZPYkhlbk9pbWZuRDZZeEZ0bzlaZUdjQ05KVERoa1hEV1h6Z3hET3JG?=
+ =?utf-8?B?MTl5Kzl0MjdYSVp2MmxjUldhRWZEaFJqUnkxbWFZV0ZHeENWRElTNHFxei94?=
+ =?utf-8?B?cFg3MG9sUkdZRElmdmNWKzYydUp3N0E4NUg1Q0FmUWxYQW1SQlk4ZmhUYWph?=
+ =?utf-8?B?MWd0S2g1TEp5M29VZVVHdFh3ZU0zaXBZaFMxemNRMUtMSnM3TStOQ0FSL24y?=
+ =?utf-8?B?MFFHTHMyQ3ZoWlNHOFo4RkY1aEhpazE5U0FmTWJGSHJ6V3AvN2JKOXd3WWU4?=
+ =?utf-8?B?WVd6OW1oZEhCTkV4MTZuL0xadUIvQ1R1S3Nyb3RUTXFkSEpUM3duQy80ZlhW?=
+ =?utf-8?B?aS8yeU9wbDFCaGdybHRQZlg3VWJ4endpWWNGSmp4MVN4TVB3SXFHL1BhS0JF?=
+ =?utf-8?B?SEc1aWNZMGdoV0xxSzNaQnM3R1o2VEVvSHR6VEtheHB0M0xPZjZpakozbFlv?=
+ =?utf-8?B?aHY1Z3duYXdXbE5DV3EvOVEwUmREK0xhc2F1UG9hNTNsajAwRE5MQlhUQ0w1?=
+ =?utf-8?B?TXhpaXMxMzhIMjZzWnliYWdJWDhrcWlWK3hpTFp3V2JLeVZNV2VhSjZ0c0xJ?=
+ =?utf-8?B?OVVBejg5RXM5UzZkODZMU1BLQ3JYZ3pKUEdQUGRrMDUwR1I3UEtoc0YzOVEz?=
+ =?utf-8?B?VDF4eFNWVEtjQ1JHWEIxOTMzL2dJUytIRWpSd2xxMDZ3TXBuYkVmTUk5OXh5?=
+ =?utf-8?B?RW1WY1kwR2VCN0pUNGd1RjVrdmdhVUxWSUEzUndqUUdsckVzRWg3TS9EQkFv?=
+ =?utf-8?B?NS81N2s5MkV5OU8xczhvSFR3VStkMFRtZWNtU2lUZ0FITWdyajkzSUt3T0tj?=
+ =?utf-8?B?VCtjVU5qWlIyTWQrVGJCVWNNRDRmdlBzTm1KZEQrdVBGMVVnTnJKR05JT2NV?=
+ =?utf-8?B?cHk5eEdDbGwwMDVESmhnSTBBdEFHQkIzZFdReEhDbERCUGlkZnhzam1rQUp6?=
+ =?utf-8?B?a1NDNTAxMTJScU5ISEw3QWdsKy9lbm9Zd3ZMdjd3aHY2T0pmc1ZLTlc4NjRn?=
+ =?utf-8?B?Q3BjdXlDMlpkdlJtZlpxR3VIUDdxRGgyN3AwQTB3VkE5VUxDOTErWngraWdW?=
+ =?utf-8?Q?xBCLX4nRkWmQecJ4=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] HID: asus: add support for xgm led
-To: Antheas Kapenekakis <lkml@antheas.dev>,
- Denis Benato <denis.benato@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org,
- Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
- "Luke D . Jones" <luke@ljones.dev>, Mateusz Schyboll <dragonn@op.pl>
-References: <20260915181200.18086-1-denis.benato@linux.dev>
- <20260915181200.18086-4-denis.benato@linux.dev>
- <CAGwozwHe7dnSi1=NuqeQuXD0FtdPKLJvwyC53ff6LUmRU9Z7SQ@mail.gmail.com>
-Content-Language: en-US
-From: Denis Benato <benato.denis96@gmail.com>
-In-Reply-To: <CAGwozwHe7dnSi1=NuqeQuXD0FtdPKLJvwyC53ff6LUmRU9Z7SQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65389338-5270-417c-07dc-08df138d8a47
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 00:57:54.0029
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: upVovY4EL7ZCdKCSiIYr0hfD94UaqzZycQRfIyXoEK/Yb2+sqQYcg5VLgBQzWB6YfbhXyhpgD+r/QapEi5HPolv+q1rfYvOqVWOp7UyUsSPGkufBbNoWKjsJGqn4SUnf
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1249
 
-
-On 9/15/26 23:52, Antheas Kapenekakis wrote:
-> On Tue, 15 Sept 2026 at 20:12, Denis Benato <denis.benato@linux.dev> wrote:
->> XG mobile stations have very bright leds behind the fan that can be
->> turned either ON or OFF: add a cled interface to allow controlling the
->> brightness of those red leds.
-> Hi Denis,
-> as of last month, I am also the proud owner of a XG Mobile (2025 in my
-> case). Therefore, I can now comment on this series and give you
-> feedback.
-
-
-Perhaps. These two devices have nothing in common but the name.
-
-> First, I have some interim patches that are not ready yet to post. The
-> device still has some led behavior that I need to investigate, but I
-> attach them here for your reference. You may send them on my behalf if
-> you want to see them sooner though.
->
-> https://github.com/anatase-org/patchwork/commit/af3e5e1755f720a2fffd1b67cb1253e11efbc5bb
-> https://github.com/anatase-org/patchwork/commit/7718c4b64b03ca9be043e8c56f1833e5c4880fff
->
-> Note that these two patches are essentially a replacement for this
-> patch essentially, except for the binding, where your device is I2C
-> where mine is thunderbolt, so that still needs to be added. There are
-> still leftover issues with the LED I have to investigate before I
-> submit these patches.
->
-> As you know, USB keyboards in Asus laptops are connected over WMI
-> through s2idle as well, which is what makes them turn off their
-> backlight during suspend. However, our devices are external and cannot
-> use the same path. I suspect that there is a different notifier for
-> these devices over armoury crate we need to investigate first.
-
-Your device is thunderbolt only, but 2022, 2023 and 2024
-xg mobiles that his patch targets are devices for which the
-ACPI of laptops supporting this weird connector is full of
-references to and handling and custom code all over the place.
-
-They are nothing alike. They share the name....
-
-If I connect mine to my rog ally armoury crate gains a
-slider that sends the exact same command my patch sends...
-
-I couldn't find anything else over USB with wireshark:
-everything else is ACPI-driven.
-
->> Let the led core manage the power transitions: the classdev is flagged
->> with LED_CORE_SUSPENDRESUME, so it is switched off at suspend and its
->> last brightness is restored at resume. The EC drives its own blinking
->> pattern during s2idle anyway, so the led state while the machine is
->> asleep is not meaningful.
->>
->> Cc: Antheas Kapenekakis <lkml@antheas.dev>
->> Signed-off-by: Denis Benato <denis.benato@linux.dev>
->> ---
->>  drivers/hid/hid-asus.c | 84 ++++++++++++++++++++++++++++++++++++++++++
->>  1 file changed, 84 insertions(+)
->>
->> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
->> index 03150d29eec5..a427e272563d 100644
->> --- a/drivers/hid/hid-asus.c
->> +++ b/drivers/hid/hid-asus.c
->> @@ -51,6 +51,8 @@ MODULE_DESCRIPTION("Asus HID Keyboard and TouchPad");
->>  #define FEATURE_KBD_LED_REPORT_ID1 0x5d
->>  #define FEATURE_KBD_LED_REPORT_ID2 0x5e
->>
->> +#define ROG_XGM_REPORT_SIZE 300
-> Here, you define an additional report size var. This is not necessary,
-> as ROG_ALLY_REPORT_SIZE is only used for reads currently in the driver
-> and we defer to hid core to set the write length. Therefore, you might
-> increase ROG_ALLY_REPORT_SIZE to 300 universally instead, as a
-> correctness fix. This way, when Aura devices attempt to write 300
-> bytes, they still work regardless of the quirk. This is what
-> af3e5e1755f720a2fffd1b67cb1253e11efbc5bb.
-
-I answer to this below, but I want to point out something here:
-you are right in wanting to join these, but wrong on what to join:
-the right thing to do is not to join the ALLY_REPORT_SIZE and the
-XGM report size, but instead to join the  KBD report size and the
-ally one as one NKEY_REPORT_SIZE since this is exactly what they
-are: N-KEY devices.
-
->> +
->>  #define ROG_ALLY_REPORT_SIZE 64
->>  #define ROG_ALLY_X_MIN_MCU 313
->>  #define ROG_ALLY_MIN_MCU 319
->> @@ -144,6 +146,11 @@ struct asus_worker {
->>         bool removed;
->>  };
->>
->> +struct asus_xgm_led {
->> +       struct led_classdev cdev;
->> +       struct hid_device *hdev;
->> +};
->> +
->>  struct asus_touchpad_info {
->>         int max_x;
->>         int max_y;
->> @@ -170,6 +177,7 @@ struct asus_drvdata {
->>         unsigned long battery_next_query;
->>         struct asus_hid_listener listener;
->>         bool fn_lock;
->> +       struct asus_xgm_led *xgm_led;
->>  };
->>
->>  static int asus_report_battery(struct asus_drvdata *, u8 *, int);
->> @@ -1161,6 +1169,26 @@ static int asus_battery_probe(struct hid_device *hdev)
->>         return ret;
->>  }
->>
->> +static int asus_xgm_led_set(struct led_classdev *led_cdev, enum led_brightness value)
->> +{
->> +       const u8 buf[ROG_XGM_REPORT_SIZE] = {
->> +               FEATURE_KBD_LED_REPORT_ID2, 0xC5, (value) ? 0x50 : 0x00
->> +       };
->> +       struct asus_xgm_led *xgm = container_of(led_cdev, struct asus_xgm_led, cdev);
->> +       int ret;
->> +
->> +       ret = asus_kbd_set_report(xgm->hdev, buf, ROG_XGM_REPORT_SIZE);
->> +       if (ret < 0) {
->> +               hid_err(xgm->hdev, "Unable to set XG mobile led state: %d\n", ret);
->> +               return ret;
->> +       } else if (ret != ROG_XGM_REPORT_SIZE) {
->> +               hid_err(xgm->hdev, "Unexpected partial transfer to XG mobile: %d\n", ret);
->> +               return -EIO;
->> +       }
->> +
->> +       return 0;
->> +}
->> +
-> Moreover, as this is an Aura device, and by setting
-> ROG_XGM_REPORT_SIZE to 300, you can now reuse the initial inits and
-> brightness handler instead of adding new ones as you did here. This
-> way, for asus laptops with a wmi handler, the brightness keyboard
-> shortcut of the device will also control the eGPU, which is preferable
-> behavior. This is what 7718c4b64b03ca9be043e8c56f1833e5c4880fff does
-> in part.
-
-
-Absolutely bad idea, trust me: I have recently followed the fix
-of a regression I introduced sending a 64-bytes command to
-touchpads that accepts some other length as those stopped
-working. Doing that is asking for troubles. Listen to who
-caused the trouble already and make the most out of my
-mistakes.
-
-I also had to make asusctl send exactly 64-bytes commands
-because of random bugs to zephyrus and strix models.
-Sending 65 bytes to anime matrix is not a very good idea either.
-
-Also Armoury Crate never sends anything different to 64 bytes
-to N-key devices and I do not want to send anything different
-than windows does.
-
-Do you remember what happens to rainbow on ROG ally if you send
-commands the MCU doesn't like? I don't want having weird things
-difficult to debug and nearly impossible to recover from only because
-the code would look better/be shorter.
-
-These devices are fragile in handling, tied to the EC and low lever
-hardware and I absolutely don't want to diverge from what
-Armoury Crate does unless there is a very good reason to it.
-
-I agree that ASUS devices are somewhat forgiving in accepting
-different lengths, unlike MSI claws that will not answer to
-commands until you have sent a number of bytes multiple of
-the length they want, but this is no reason to toy around this. 
-
-> I have not tested the common path yet. I have been travelling so I
-> have not flashed the new kernel on my z13. I have been using the eGPU
-> with a different device.
-
-If with "the new kernel" you mean 7.3 I can tell you it appears
-d3 is broken and some ASUS laptops stopped entering s2idle...
-
-> 7718c4b64b03ca9be043e8c56f1833e5c4880fff also fixes the "blinking
-> pattern" of the EC, as you note in your subject. With the init,
-> suspend and resume handlers sending the init of that patch, during
-> boot the light blinks, it becomes solid once hid-asus binds, then
-> during the transition to sleep, it starts to blink until it turns red,
-> and does the reverse during resume. It would be good for you to give
-> feedback for that. I have not verified the Windows behavior there, and
-> we should do that for correctness. The init is referenced from
-> g-helper in Windows, but maybe there is another command that signals
-> sleep better.
-
-2022, 2023 and 2024 models don't blink outside of s2idle...
-Because ACPI is all over the place and the device gets informed
-constantly of what the host is doing.
-
-If 2025 models blink until you bind the driver it that means they
-rely on commands from the windows application... We will need
-to replicate those as closely as possible.
-
-I can ask ASUS if wireshark captures don't shed some lights to it.
-
-> I do not have an answer to the sleep leds unfortunately. My XG's RGB
-> stays on while there is a device plugged in, regardless of whether its
-> sleeping or shutdown. This makes me think that we are missing a
-> notifier command, and the brightness patch you propose here just
-> papers over the issue. So we should investigate that first.
-
-What I propose is correct for old models. Newer ones I know nothing
-about except that there is no custom ACPI handling them.
-
-
-> Let me know how you'd like to proceed.
-
-Honestly I think you should name those something like xgb_tb_.....
-and handle them separately since they have pretty much nothing
-in common... Except the price maybe. Lol.
-
-In general don't go crazy over refactors and trying to make the
-code looks better at the expense of proven things: the priority
-is for this driver to work reliably and to reuse as much things
-proven to work as possible.
-
-> Best,
-> Antheas
->
->
->>  static int asus_input_configured(struct hid_device *hdev, struct hid_input *hi)
->>  {
->>         struct input_dev *input = hi->input;
->> @@ -1406,6 +1434,49 @@ static void asus_initialize_reports(struct hid_device *hdev)
->>         }
->>  }
->>
->> +static int asus_xgm_init(struct hid_device *hdev, struct asus_drvdata *drvdata)
->> +{
->> +       const char *name;
->> +       int ret;
->> +
->> +       drvdata->xgm_led = devm_kzalloc(&hdev->dev, sizeof(*drvdata->xgm_led), GFP_KERNEL);
->> +       if (drvdata->xgm_led == NULL)
->> +               return -ENOMEM;
->> +
->> +       name = devm_kasprintf(&hdev->dev, GFP_KERNEL, "asus:xgm-%s:led",
->> +                             strlen(hdev->uniq) ? hdev->uniq : dev_name(&hdev->dev));
->> +
->> +       if (name == NULL) {
->> +               ret = -ENOMEM;
->> +               goto asus_xgm_init_err;
->> +       }
->> +
->> +       drvdata->xgm_led->hdev = hdev;
->> +       drvdata->xgm_led->cdev.name = name;
->> +       drvdata->xgm_led->cdev.brightness = 1;
->> +       drvdata->xgm_led->cdev.max_brightness = 1;
->> +       drvdata->xgm_led->cdev.brightness_set_blocking = asus_xgm_led_set;
->> +       drvdata->xgm_led->cdev.flags = LED_CORE_SUSPENDRESUME;
->> +
->> +       /* LED state is arbitrary on boot, set a default */
->> +       ret = asus_xgm_led_set(&drvdata->xgm_led->cdev, drvdata->xgm_led->cdev.brightness);
->> +       if (ret) {
->> +               hid_err(hdev, "Asus failed to set xgm led: %d\n", ret);
->> +               goto asus_xgm_init_err;
->> +       }
->> +
->> +       ret = devm_led_classdev_register(&hdev->dev, &drvdata->xgm_led->cdev);
->> +       if (ret) {
->> +               hid_err(hdev, "Asus failed to register xgm led: %d\n", ret);
->> +               goto asus_xgm_init_err;
->> +       }
->> +
->> +       return 0;
->> +asus_xgm_init_err:
->> +       drvdata->xgm_led = NULL;
->> +       return ret;
->> +}
->> +
->>  static int __maybe_unused asus_resume(struct hid_device *hdev)
->>  {
->>         struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
->> @@ -1545,6 +1616,16 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
->>         if (!drvdata->tp)
->>                 asus_initialize_reports(hdev);
->>
->> +       if (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID) &&
->> +           ((hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2022) ||
->> +            (hdev->product == USB_DEVICE_ID_ASUSTEK_XGM_2023))) {
->> +               ret = asus_xgm_init(hdev, drvdata);
->> +               if (ret) {
->> +                       hid_err(hdev, "Failed to initialize xg mobile: %d\n", ret);
->> +                       goto err_stop_hw;
->> +               }
->> +       }
->> +
->>         /* Laptops keyboard backlight is always at 0x5a */
->>         if (is_vendor && (drvdata->quirks & QUIRK_USE_KBD_BACKLIGHT) &&
->>             (asus_has_report_id(hdev, FEATURE_KBD_REPORT_ID)) &&
->> @@ -1594,6 +1675,9 @@ static void asus_remove(struct hid_device *hdev)
->>         if (drvdata->listener.brightness_set)
->>                 asus_hid_unregister_listener(&drvdata->listener);
->>
->> +       if (drvdata->xgm_led)
->> +               devm_led_classdev_unregister(&hdev->dev, &drvdata->xgm_led->cdev);
->> +
->>         asus_worker_stop(drvdata->worker);
->>         hid_hw_stop(hdev);
->>  }
->> --
->> 2.47.3
->>
->>
+SGksIEd1ZW50ZXINCg0KPiBPbiA5LzEyLzI2IDIxOjA3LCBDaGFuZ2h1YW5nIExpYW5nIHdyb3Rl
+Og0KPiA+IEhpLCBHdWVudGVyDQo+ID4NCj4gPiBUaGFua3MgZm9yIHRoZSByZXZpZXcuDQo+ID4N
+Cj4gPj4gT24gOS8zLzI2IDA2OjM0LCBDaGFuZ2h1YW5nIExpYW5nIHdyb3RlOg0KPiA+Pj4gQWRk
+IHN1cHBvcnQgZm9yIEdyYW5pdGUgUmFwaWRzIChHTlIpIHBsYXRmb3JtIGluIFBFQ0kgRElNTQ0K
+PiA+Pj4gdGVtcGVyYXR1cmUgbW9uaXRvcmluZyBkcml2ZXIuDQo+ID4+Pg0KPiA+Pj4gVGhlIEdO
+UiBwbGF0Zm9ybSBoYXMgZGlmZmVyZW50IERJTU0gdG9wb2xvZ3kgZnJvbSBwcmV2aW91cw0KPiA+
+Pj4gZ2VuZXJhdGlvbnMsIHdpdGggMTIgY2hhbm5lbCByYW5rcyAoQ0hBTl9SQU5LX01BWF9PTl9H
+TlIpIGFuZCAyDQo+ID4+IERJTU0NCj4gPj4+IGluZGV4ZXMgcGVyIGNoYW5uZWwuIERlZmluZSB0
+aGVzZSBuZXcgY29uc3RhbnRzIGFuZCB1cGRhdGUNCj4gPj4+IENIQU5fUkFOS19NQVggdG8gdXNl
+IHRoZSBHTlIgdmFsdWUgc2luY2UgaXQgcmVwcmVzZW50cyB0aGUNCj4gbWF4aW11bQ0KPiA+Pj4g
+YWNyb3NzIGFsbCBzdXBwb3J0ZWQgcGxhdGZvcm1zLg0KPiA+Pj4NCj4gPj4+IEkgYW0gbm90IHN1
+cmUgd2hldGhlciBpdCBkaWZmZXJzIGZyb20gcHJldmlvdXMgbW9kZWxzLCBidXQgb24gR05SLA0K
+PiA+Pj4gcmVxdWVzdHMgdG8gcmVhZCBESU1NIHRlbXBlcmF0dXJlIHRocmVzaG9sZHMgKERJTU1f
+VEVNUF9NQVgvDQo+ID4+PiBESU1NX1RFTVBfQ1JJVCkgdmlhIFBFQ0kgYXJlIHJlamVjdGVkIHdp
+dGggY29tcGxldGlvbiBjb2RlIDB4OTANCj4gPj4+IChpbnZhbGlkIHJlcXVlc3QpLiBUbyBoYW5k
+bGUgdGhpcywgdGhlIHJlYWRfdGhyZXNob2xkcyBjYWxsYmFjayBpcw0KPiA+Pj4gbm90IGRlZmlu
+ZWQgZm9yIEdOUiwgYW5kIHRoZSB2aXNpYmlsaXR5IGxvZ2ljIGlzIHVwZGF0ZWQgdG8gc2tpcA0K
+PiA+Pj4gZXhwb3NpbmcgdGhlIG1heCBhbmQgY3JpdCB0ZW1wZXJhdHVyZSBhdHRyaWJ1dGVzIHdo
+ZW4gdGhyZXNob2xkcyBhcmUNCj4gPj4+IG5vdCBzdXBwb3J0ZWQuDQo+ID4+Pg0KPiA+Pg0KPiA+
+PiBBcmUgeW91IHN1cmUgdGhpcyBkb2Vzbid0IGp1c3QgcmVxdWlyZSBkaWZmZXJlbnQgcGFyYW1l
+dGVyIGNvbnZlcnNpb24NCj4gPj4gd2hlbiBjYWxsaW5nIHBlY2lfcGNpX2xvY2FsX3JlYWQoKSA/
+IFRoZSB0cmFuc2xhdGlvbiBmcm9tIGRpbW1fb3JkZXINCj4gPj4gYW5kIGNoYW5fcmFuayB0byB0
+aGUgcmVnaXN0ZXIgbnVtYmVyIHNlZW1zIHRvIGJlIGRpZmZlcmVudCBmb3IgZWFjaA0KPiBhcmNo
+aXRlY3R1cmUuDQo+ID4+DQo+ID4NCj4gPiBZZXMsIGRpZmZlcmVudCBtb2RlbHMgaGF2ZSBkaWZm
+ZXJlbnQgY29uZmlndXJhdGlvbiBwYXJhbWV0ZXJzLiBUaGUgZm9sbG93aW5nDQo+IGNvbW1pdCBo
+YXMgYSByZWZlcmVuY2UgZm9yIHRoaXMgcGFydC4NCj4gPg0KPiA+DQo+IGh0dHBzOi8vZ2l0aHVi
+LmNvbS9vY3AtaG0tb3BlbmJtYy1vcGYtYW1pL2xpbnV4L2NvbW1pdC9mODUxYTc5MTQzNTU2Zg0K
+PiAwDQo+ID4gYzEzODYxN2Q2OGU5MjQwNzE0MzRkOGJiNw0KPiA+DQo+ID4gSG93ZXZlciwgYWZ0
+ZXIgbXkgYWN0dWFsIHRlc3RpbmcsIEkgZm91bmQgdGhhdCB0aGlzIGxvZ2ljIHdvdWxkIGFsd2F5
+cw0KPiA+IGdldCBhbiBpbnZhbGlkIHJlcXVlc3QsIGNhdXNpbmcgaXQgdG8gZmFsbCB0aHJvdWdo
+IHRvIHRoZSBzdGF0ZW1lbnQgYmVsb3c6DQo+ID4gLyogVXNlIGRlZmF1bHQgb3IgcHJldmlvdXMg
+dmFsdWUgKi8sDQo+ID4NCj4gPiBhbmQgaW4gdGhlIGVuZCwgaXQgYWN0dWFsbHkgbmV2ZXIgb2J0
+YWluZWQgdmFsaWQgZGF0YSBmcm9tIHRoZSBwZWNpIGNsaWVudC4NCj4gPg0KPiA+IFNvIGluIG15
+IGN1cnJlbnQgdGVzdCBlbnZpcm9ubWVudCwgSSdsbCB0ZW1wb3JhcmlseSByZWdhcmQgdGhpcyBw
+YXJ0IGFzIGRlYWQNCj4gY29kZSBhbmQgbm90IGluY2x1ZGUgaXQgaW4gdGhpcyBzZXJpZXMuDQo+
+ID4gSXQgd291bGQgYmUgZ3JlYXQgaWYgSXdvbmEgY291bGQgaGVscCBjb25maXJtIHRoaXMuIFRo
+aXMgYWxzbyBuZWVkcyB0bw0KPiA+IGJlIGltcHJvdmVkIGxhdGVyIGJ5IHNvbWVvbmUgd2hvIHVu
+ZGVyc3RhbmRzIHRoaXMgQ1BVIG1vZGVsIGJldHRlci4NCj4gPg0KPiANCj4gSSB0aGluayBpdCB3
+b3VsZCBiZSB1c2VmdWwgdG8gY2xhcmlmeSBpbiB0aGUgY29tbWl0IG1lc3NhZ2UgdGhhdCB0aGlz
+IGlzIG5vdCBhDQo+IHBsYXRmb3JtIGxpbWl0YXRpb24gYnV0IGEgZHJpdmVyIGxpbWl0YXRpb24u
+DQo+IEFzIGN1cmVudGx5IHdyaXR0ZW4sIHRoZSBjb21taXQgbWVzc2FnZXMgZm9yIHRoaXMgYW5k
+IHRoZSBwcmV2aW91cyBwYXRjaA0KPiBzdWdnZXN0IHRoYXQgdGhlIHBsYXRmb3JtIGRvZXMgbm90
+IHN1cHBvcnQgaXQsIHdoaWNoIGJhc2VkIG9uIHRoZSBhdmFpbGFibGUNCj4gaW5mb3JtYXRpb24g
+aXMgaW5jb3JyZWN0OiBUaGUgcHJvYmxlbSBpcyAob3IgYXBwZWFycyB0byBiZSkgdGhhdCBpdCBp
+cyB1bmtub3duDQo+IGhvdyB0byBleHRyYWN0IHRoZSBpbmZvcm1hdGlvbiwgbm90IHRoYXQgaXQg
+aXNuJ3Qgc3VwcG9ydGVkIGJ5IHRoZSBwbGF0Zm9ybS4NCg0KT2theSwgSSdsbCB1cGRhdGUgdGhp
+cyBjb21taXQgbWVzc2FnZS4NCg0KQmVzdCBSZWdhcmRzLA0KQ2hhbmdodWFuZw0KDQoNCg==
