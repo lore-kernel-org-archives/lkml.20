@@ -1,108 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899DA37BE75;
-	Wed, 16 Sep 2026 23:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB48B4C957B;
+	Wed, 16 Sep 2026 23:26:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789601186; cv=none; b=bnjdEuTUdAgxGzoIhb45P+QRjptdQoXMUfflIf7riZ+BrmASTX1u9kusna0GelAsifLRfGyLAUWceErA9eSjshWLCz3Csv4DWWKRg/MBeHnYYyUtdVxwEBBErig2byaFVncnNcF6t+8qZtYLbQAci8ZWcv+iYDNNmwfoy5342cA=
+	t=1789601186; cv=none; b=IEzBoHoOEutqKBgk+Wb8dxe+cFvRDEBdbNZ/Xa7Vcp9pQL1dRDVI0mUm9EOEPiZCelp+ulCFOyEvj+bXcOeL38map0y7FPdGB4sCAbHoBSgE65QLp3LPQ4C5iybKs7Mjp5SToqO8vdSSdQqIacSNGIdu/LselWbuoCEhMdySf+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789601186; c=relaxed/simple;
-	bh=t1SKHkKzjFAxFiudhxAdEM8nJWM0RZmUr7uidHT/DXM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dx6urSvmPp+F6yQFatS1VXlR6vquR8jkIUY7LEZxHSVyqbrsMIw5Z/Z3oh4lfHTXw0O6uFCdbUUy8q+TausgMsDdwrDYRFJaqIrtoIb4kPj7bcj2eM/Pr9lyNR/hXH9xmlyzsCoFLBlflSynH5l9erOYCS3a2Moz7XK4Py3HhY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GxFKKnsb; arc=none smtp.client-ip=100.103.45.18
+	bh=iAECNsv0Lwxzy8dLjWkZQlyTMj+r/7qE9/C97BfwrHw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cs+fp93HVj2ep5zBxMuXHRSCGq0p2hGWuzYBY2iKGjLQtF05QMOde3c0Easq38Y72WLlpL59aOcARQQyaABe9hzxT08q+893pGLPd6Z12DK2tzz3oCdTOpatrs8r68T2lw/a6GtPtNGpbEorq43Xy8CKB+mxbXrKXrcZ30Pf0o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=htexgVkY; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GxFKKnsb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E4C1F000FF;
-	Wed, 16 Sep 2026 23:26:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789601185;
-	bh=5cCX6PEia6C63BkkFvkvNh/Lx1QqHRrUj2a30TwF+dY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GxFKKnsbNIgRLEuGqeWV7/FYV5KVkVll72Sg0nK1pEqSBfQDVKRMmmdP79QDV8JTc
-	 OpAwyYuPAHCRP7eFoabb9sINdmTxCy0sE2OGCr7k/m6/qa4IYcVEKlkpzAyjuPiNrI
-	 VW+YFE8FJNlMlfHNme6M/6d0YG/aYdyiLqcsD26I/HWUZwQnkPxT38gAh9PmgJjy7m
-	 GQDbLtDbDvnnzIBrVcV+QBLqhI3jjFumUPwyGHvynS+YUis0WQxkppyk7SFkl6WrTy
-	 PmyywxEZNVLMoElrSJQyW7FJ3WSBNOJ+4DqryvC3iPNJppoLDB8Y/svdvjGWKom1S7
-	 i7iMkKGJG13aA==
-Date: Wed, 16 Sep 2026 18:26:21 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, jens.glathe@oldschoolsolutions.biz, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
- Purwa
-Message-ID: <aqsj20VhODaklyEy@baldur>
-References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
- <ap_PdUrwLIVGJ3oG@google.com>
- <799c3128-cf43-4a64-a8c8-3f6695bbf424@kernel.org>
- <ap_RKfCbXAVBRtSY@google.com>
- <4d2c00e1-8331-4a08-93f9-6564d0c46aa6@oss.qualcomm.com>
- <ap_rUIaJGAk-gZVP@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="htexgVkY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789601185; x=1821137185;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=iAECNsv0Lwxzy8dLjWkZQlyTMj+r/7qE9/C97BfwrHw=;
+  b=htexgVkYZwOTqCLy48nq3cLKmcnz0ucMafxQcVeLaaDnbcJUbQAVngnU
+   dkaDdMeRLmNrH0tc2dH4XTU5aSnrIXgVwfOYmUPillm033kbmP+0BhBzP
+   tZu3wPUVLiPfYKrDa0WqGUMzcGSmyWEe0QZ+vGD50pgMuv5DeaH3ZA7Do
+   wn+9iVFOxHk+IQXNxSHySx4jk66Y2M/rOJCJFzHla+lnBN0k5CVRgIp4q
+   NZWssJdLBaxabMRfrv8P7TbcSm4VLXTV4OHzqPFQz/rW8OmkjFDam6Cct
+   YvL1PYqulqZ2CE0NiFzjMuEJEiupulGRQFvS020YiRto7azh5beRx6prb
+   g==;
+X-CSE-ConnectionGUID: 87n4lvSDRTChcGfP48214Q==
+X-CSE-MsgGUID: a65iJeOkT+GDwO6ONEQlwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112756636"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="112756636"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:26:24 -0700
+X-CSE-ConnectionGUID: hCOZOQCFQ1CGz9GLoa3Bsg==
+X-CSE-MsgGUID: pNN7kIJCTz+MdsTRp4upVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1697194"
+Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
+  by fmviesa011.fm.intel.com with ESMTP; 16 Sep 2026 16:26:24 -0700
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+To: linux-kernel@vger.kernel.org
+Cc: x86@kernel.org,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	andrew.cooper3@citrix.com,
+	arjan.van.de.ven@intel.com,
+	sohil.mehta@intel.com,
+	chang.seok.bae@intel.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3] x86/microcode/intel: Reject problematic loading on Granite Rapids systems
+Date: Wed, 16 Sep 2026 22:59:39 +0000
+Message-ID: <20260916225939.1144524-1-chang.seok.bae@intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260908223209.916758-1-chang.seok.bae@intel.com>
+References: <20260908223209.916758-1-chang.seok.bae@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap_rUIaJGAk-gZVP@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 11:02:40AM +0000, Mostafa Saleh wrote:
-> On Tue, Sep 08, 2026 at 11:57:33AM +0200, Konrad Dybcio wrote:
-> > On 9/8/26 11:11 AM, Mostafa Saleh wrote:
-> > > On Tue, Sep 08, 2026 at 11:05:34AM +0200, Krzysztof Kozlowski wrote:
-> > >> On 08/09/2026 11:03, Mostafa Saleh wrote:
-> > >>> Hi Jens,
-> > >>>
-> > >>> On Sat, Sep 05, 2026 at 11:28:55AM +0200, Jens Glathe via B4 Relay wrote:
-> > >>>> The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
-> > >>>> (X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
-> > >>>> chassis, different silicon. Stubble and the DTB loader need distinct
-> > >>>> compatibles.
-> > 
-> > [...]
-> > 
-> > >>>> base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
-> > >>>
-> > >>> This series does not apply to ToT nor I can find this base-commit
-> > >>> in it.
-> > >>
-> > >> It's a public/standard commit, next.
-> > >>
-> > >> What is ToT in upstream development?
-> > > 
-> > > I am using Linus's Tree:
-> > > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/
-> > 
-> > This tree contains the latest release/rc tags, linux-next is an
-> > aggreagation of each submaintainers' branches, effectively "what is
-> > the next release going to look like" so essentially that's where the
-> > development happens
-> 
-> AFAIU, linux-next is useful to get a view of the next release.
+Microcode updates can usually jump revisions. However, there is an
+erratum on Granite Rapids systems. If they "jump over" revision
+0x1000405, they result in #MC. Avoid it.
 
-That's exactly the reason why you should develop on linux-next, it gives
-you the view of how your patches fits together with the other changes
-staged for that next release - before we try to merge them.
+Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: <stable@vger.kernel.org>
+---
+V2 -> V3:
+* Shorten the changelog and rename the function (Boris)
+* Reduce the code comment (Dave)
+* Allow 0x1000405 loading. Thanks to Andrew, this fix got attention.
+* Collect Dave review tag. Thanks, Dave!
 
-> However,
-> it shouldn't be used for developement. It should be either Linus's tree
-> or the maintainer's tree (as mentioned in process/submitting-patches)
-> 
+Note:
+* GNR98 currently describes loading 0x1000405 itself is unsafe, but it
+  will be updated to say okay with that. I will watch out the GNR98
+  changes.
+* Jumping from < 0x1000380 to 0x1000405 was identified as an issue, but
+  0x1000380 is the first revision as GNR products. So loading 0x1000405
+  in production systems should be okay.
+---
+ arch/x86/kernel/cpu/microcode/intel.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-Please develop and test on linux-next.
+diff --git a/arch/x86/kernel/cpu/microcode/intel.c b/arch/x86/kernel/cpu/microcode/intel.c
+index 1142183c950c..30a22388d4b1 100644
+--- a/arch/x86/kernel/cpu/microcode/intel.c
++++ b/arch/x86/kernel/cpu/microcode/intel.c
+@@ -309,6 +309,26 @@ static void save_microcode_patch(struct microcode_intel *patch)
+ 		pr_err("Unable to allocate microcode memory size: %u\n", size);
+ }
+ 
++static bool revision_is_safe(struct cpu_signature *sig, u32 rev)
++{
++	u32 vfm = IFM(x86_family(sig->sig), x86_model(sig->sig));
++
++	/*
++	 * Erratum GNR98 can cause #MC's if "jumping over" revision 0x1000405.
++	 * Avoid the jumps.
++	 */
++	if (vfm == INTEL_GRANITERAPIDS_X &&
++	    x86_stepping(sig->sig) == 1 &&
++	    sig->pf & 0x95 &&
++	    sig->rev < 0x1000405 &&
++	    rev > 0x1000405) {
++		pr_err_once("Erratum GNR98: skipping revision 0x%x.\n", rev);
++		return false;
++	}
++
++	return true;
++}
++
+ /* Scan blob for microcode matching the boot CPUs family, model, stepping */
+ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
+ 						     struct ucode_cpu_info *uci,
+@@ -330,6 +350,9 @@ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
+ 		if (!intel_find_matching_signature(data, &uci->cpu_sig))
+ 			continue;
+ 
++		if (!revision_is_safe(&uci->cpu_sig, mc_header->rev))
++			continue;
++
+ 		/*
+ 		 * For saving the early microcode, find the matching revision which
+ 		 * was loaded on the BSP.
+@@ -878,6 +901,9 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
+ 		if (!intel_find_matching_signature(mc, &uci->cpu_sig))
+ 			continue;
+ 
++		if (!revision_is_safe(&uci->cpu_sig, mc_header.rev))
++			continue;
++
+ 		is_safe = ucode_validate_minrev(&mc_header);
+ 		if (force_minrev && !is_safe)
+ 			continue;
+-- 
+2.53.0
 
-Regards,
-Bjorn
-
-> Thanks,
-> Mostafa
-> 
-> > 
-> > Konrad
