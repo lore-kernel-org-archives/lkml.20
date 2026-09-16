@@ -1,232 +1,642 @@
-Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B792E6CA6;
-	Wed, 16 Sep 2026 06:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.148.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541417; cv=fail; b=H79Zzq5uFlEhguoyt76Zr3CzFuuvn5VEn2wJlizrOMDePHQauQ+hnxARyaeiL6N5RXa2a+QQGLUwh1UCjFPWzozHu7yywXLlCPvmLN07c/pjF/m5TAQ0Ka1PsCrWeq2OPWXRwenMQ3SAJe21FFjMCdL+4ps8/ucDMEij2XNfnPw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541417; c=relaxed/simple;
-	bh=9uwES4Ua0rM0G/fif1fSSejtVqfvFnCM4I986erT8qg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Yu25e98tQxVFhGVhk7HwwlLZacQ5vy/rLvO0eL1Bv2MPjQwRjjMH5dEdLVJ4NAGLBaxrdATSoOPFOPRkmtkwvVNHqnp1d215V5I2vMat7vj1nfuq+tLRj1yZpXt/NA/dxx/LvaPPF4nGyC8eG0pzt8/MMQKYIMEwUO6nfInMQuw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b=szKlkaT2; arc=fail smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994AC3B38AA
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789541436; cv=none; b=PTYuBy8PwyGXMa2FEgMC9BuMEvpceJQRLKO5lBCnDN8joYWwRHjlHwclE58EZ2jmqoaI4KHy1K1q0EXDHH4ZYSNI0gbKBsIi2KAEK+iFK5BWigrLHwnUH24ZeCkvYbCzpOKrMA28fy7hlNHPP03Byf0Gbg1LYHZ/stVYTrNBaJE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789541436; c=relaxed/simple;
+	bh=PG3i3hAHtr/Vr8LKQSSUdwQJ/lgOKyDKv84MqaQ/A6Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PMk5DOfhV8GhnpQ991zF/HxvkP/WxzuQHsyN6zP6uxE6+JFvbNWddGdVu0+vofRxIVNC0mdpMJM332Uate+gdCnRCfgRHKR2bA9K2CdvKKt8Kh/y3cl50str6Rf/WuF5m02e8hcEcTlnGp1thqTnnA3KO1Ua8FP+AdOhqxIcl5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TZ/zq1Rn; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=e5N4EcVW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0/M4VYRi; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=cd3MI51R; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=marvell.com header.i=@marvell.com header.b="szKlkaT2"
-Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FLZAa8473334;
-	Tue, 15 Sep 2026 23:50:04 -0700
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11022139.outbound.protection.outlook.com [40.107.209.139])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gq5e4pb8m-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 15 Sep 2026 23:50:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pgMDfFdNuyIEsN+ACsB+gN1XMurerD9AjvcE+DMJOXL6wfB2ho2wPxMPcsYrhLIjXLXmME5YZazkMxIw8pnphJR9GStokwbtTPPXDIWffn0+1mi9bXK3YW4B5sDW6zjW8qLxk2Nrr3wJlhdTvm4YyJRbAgWjcvFvZgf4Wp4HtZC9tdGRnbsb/kR21+EYHpXlYlDKbaV711DjPnNQB0AglM7z4PuvUg9Ed4VadqR0TeZYCxLOL80VDLpsMhh5NUPiogyOgcAJTeYmTOBuB2jrxhrsSl3ij+qupkk2vxPTBWBhh8H70d6bODnmlVOt5WqLtqLZK/pgVyg+/RY6iqfL+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/+fe5u1WuUHARWGJvBu9+rkFjJBFUfhMeR1fVBoAb/A=;
- b=cOdt9XXNLDs03iyakX05kwOM/PK2Ms10Dj9072SyBQF/WW8e81en3UlQOAsU9G2LzaZ2LQnIRXi64hJvXFFvs2UIx0aQqXp3WQcVC8ahff0rw2SU+M1UGxo1Gjbq1ZktBrzbOS4CHsdx45A5ESANs2D/LfLLGeVdXnYsmYJOFyQ6Vzf+DugcwBwfs6nIWxjaW7k4s1eIOaaNDfl/85yHoOebjKHq7+NDSNxXQK/f2tkAl4XR5xU/Ajn6Fnj0tlC0UUB3mryVIqocZHAkQQC256o9BI2F91s7+iK75WF85qMSp++uWPgfYGOeYsj7sybnNph5Si9wYxNcEuziDGFcBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
- dkim=pass header.d=marvell.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/+fe5u1WuUHARWGJvBu9+rkFjJBFUfhMeR1fVBoAb/A=;
- b=szKlkaT2xLxwrkCO1a62amNYSuoBvndvn1tb/ozX7wSMqBgj4vipLccC8J32rkD0wMwLAD3rdW0FeGr2WYZ0V4kks0iB+k7aPF8T4fG9jDgkpEU9+hHGfd09ZQ3moM4+MkVY2cgpJTEMCdp4siIdrcJT79nzD+SxfVKWPZgVK8c=
-Received: from CH0PR18MB4339.namprd18.prod.outlook.com (2603:10b6:610:d2::17)
- by DM4PR18MB4285.namprd18.prod.outlook.com (2603:10b6:5:394::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 06:50:02 +0000
-Received: from CH0PR18MB4339.namprd18.prod.outlook.com
- ([fe80::210a:9dad:297f:3540]) by CH0PR18MB4339.namprd18.prod.outlook.com
- ([fe80::210a:9dad:297f:3540%5]) with mapi id 15.21.0382.014; Wed, 16 Sep 2026
- 06:50:02 +0000
-From: Geethasowjanya Akula <gakula@marvell.com>
-To: Slavin Liu <bolin.liu@seu.edu.cn>,
-        Sunil Kovvuri Goutham
-	<sgoutham@marvell.com>,
-        Ratheesh Kannoth <rkannoth@marvell.com>,
-        Subbaraya
- Sundeep Bhatta <sbhatta@marvell.com>,
-        "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>,
-        "davem@davemloft.net" <davem@davemloft.net>,
-        "edumazet@google.com" <edumazet@google.com>,
-        "kuba@kernel.org"
-	<kuba@kernel.org>,
-        "pabeni@redhat.com" <pabeni@redhat.com>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [EXTERNAL] [PATCH net] octeontx2-af: validate MCS blocks before
- initialization
-Thread-Topic: [EXTERNAL] [PATCH net] octeontx2-af: validate MCS blocks before
- initialization
-Thread-Index: AQHdQ363LJjArLoe70mDsmGvUBlt7LbQxFMQ
-Date: Wed, 16 Sep 2026 06:50:02 +0000
-Message-ID:
- <CH0PR18MB4339B9364231B6E9A8AF0A19CDB92@CH0PR18MB4339.namprd18.prod.outlook.com>
-References: <20260913125206.109985-1-bolin.liu@seu.edu.cn>
-In-Reply-To: <20260913125206.109985-1-bolin.liu@seu.edu.cn>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR18MB4339:EE_|DM4PR18MB4285:EE_
-x-ms-office365-filtering-correlation-id: 7f103576-fa9e-40d5-4719-08df13bebbaf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|6133799003|18002099003|22082099003|38070700021|10067099003|56012099006|5023799004|11063799006;
-x-microsoft-antispam-message-info:
- +t4u1cxo/azVY5IjiuMi8aV9Xf2l13W/D0TSrMBP/4ewvB0QGAieBUq05KZ1Ayjlj9TGyo8ybnVl1V/4mXSU0I5vGkeLGwq2cwNzj2aNVfiBGjjfWPvsUkOD7JNMzQG1paz9N5mM3FGZrMhP+EneJupcmPGW6YizKsN75EGkV1R+nA0jyNmWZBHU4Z3C8+pLtWcZnzyphnPikUkG43mU0rQci/azZE09m3aIB5Ss16L3wAVoVgH0HOBJWiKfS3NzEYShtKjGA8oTBKuvqKOJ7+yGdImwY664I0jQtRLoX3TjOSQnzvxSKfXmc2fgmXr6BcG/PFaAsxW+32dDFkfwEOtEUejNJOQiyLsumRTFgaXJXOwflYH2shrijP9SyFp74O3iYgobjUahQ8oWX+WretRv/gtLdUTyjVbwPRjEn1qCLDsRpqUmcYU9pnbUdlwiydVzZtF0qW10V1PD71YJozHScKZ4ib9LEEpNl4P9wn+tbmx9OTuROvYrXmhcBa29ebBKv7WmS/CYrAAe6E/FQBguWvpqIGW5qa1pzlokl4vveMStMRURjMNly9d6qeF9h3UaTr1BSI9q+lame7XrwL+Sxy98A5sVqV+46HTJO7i86k9Q4d8g2kOugQj4Xe/ZE6TQnnri9mpRwUkopEONWMwD6iVnM6buzwhshk1QA6WsnuZwzqal4S1It52zCgJ9L+uf6TS3WxTHkEoFVlgUNMPGqm45CpAykZfv5aZdueg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR18MB4339.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(18002099003)(22082099003)(38070700021)(10067099003)(56012099006)(5023799004)(11063799006);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?0yVIPuKVLUkzy+8g9r1whNGW7UmeKIUW38Jquzpygj7VCW/lxq15lCcNmije?=
- =?us-ascii?Q?ntloEEaex9LLrpqZIjJDqETT4Y7pyXmFCy6MLSp/LKzhVb9kndL7SJV7l2gD?=
- =?us-ascii?Q?iTOedl8Yr4K+7hXArEMPGEAM+T5Az1CmvPvi2qH5EdUbkpYjdl2TULf9/s7i?=
- =?us-ascii?Q?iGScfvn4g82xh0BOCFqBZCc01ma2lMrfzk5PwY92jkcfAb7S4wAzOu9XAJBR?=
- =?us-ascii?Q?sEXXz1mRnuKmuIRwFJ8jxh3A4wwrCh5f9+JeaS/ps6Itr+5ZRibe4vYZhQNC?=
- =?us-ascii?Q?4S16lYj73FzpsHtZZaZKoXvc5JKVsR3cLG1XaE82VhwFhjy+yoNveE5xzpVM?=
- =?us-ascii?Q?fcm5ZG3fshm3HOEY60uKr+Tzq/Ic/g9MP0/LJvQPauMt/1DHwl3MYkKQHrgu?=
- =?us-ascii?Q?NtBIPW/XMAeNFFz1KAa0gdqVQdfnRDcfvtxbDke/KXykKIjoaRN2SW3YRZPi?=
- =?us-ascii?Q?T90v5GnTEnZ9PaNVKAAxNOgNrYqOGpjeOiYM1w5AYR5yZu7BViAf2oGFVHlq?=
- =?us-ascii?Q?OR96fQfI7xVGVgv/rM9T5H7o5FAZYP9If0mnONa7srnThNOH1UrlRZH/YcKC?=
- =?us-ascii?Q?VeW7bgXsnrWCy7HohPXxBGEepajMpini09MPDAtE9PiBan9zvBoWNI7VSOwc?=
- =?us-ascii?Q?CH+NqxI1bwmFPBLtqcYpP8mlwlvMPIJQWz+vrde3DwVdK4Vw2yn3dJF2/fiU?=
- =?us-ascii?Q?GIKwMnNJx/RytqTJ1MwBzQZjYcLS32zkA0HBe0uF+OeczWfmaLEINJzEVqj8?=
- =?us-ascii?Q?Qo4juZebxPtB7PUmZpT44ejV0hLr5suEGzMOwgCiZAO/sl1A+xxkLH0JwRIR?=
- =?us-ascii?Q?fJyAn8cGKua+CXzRWe1kHYUa/ASG0hZ5/T46xNCPTJnIhcsyQsGJrxCqQXw9?=
- =?us-ascii?Q?D71bC9dEXmr3Ft2Prwa4iVzg/xH5N1ykW5ychOM/XwoOAdrWCKPZ1LyeAwGT?=
- =?us-ascii?Q?T6fHfir9GwqQmtmWACJc0QLFrug1k5FgJxFBwCaQ61QgNIsrqH96phaC3L1G?=
- =?us-ascii?Q?ubvs6p7TJ2qq9X2cw51xQHthi0nscH5gG9n4WmAqLLxEC9re1qfXza3ad42q?=
- =?us-ascii?Q?HDcs+pInQ5ik9qwCaFIDQ1qWOnZN0N0OqZJkxi8fw7Zc5Nu9bgiBlLQP4S/a?=
- =?us-ascii?Q?OX+7lVk7bOQcQlr3WYzxNvDnrkR9dAmPCu0CoL9msAQzaf556ZVqd1QHh8jn?=
- =?us-ascii?Q?sEZ9XzNN+5YwHT95/+4Gu4r93dCoLB58G6OHDFaQqfDfsVQGJ6jjAbLy94Et?=
- =?us-ascii?Q?xOKbccXNtaOXX9aUIVvwtuJCy3o15ssBkrFdvvAWqw/Npf5IrUld7dM6yqNG?=
- =?us-ascii?Q?lFIhC5VM2GANInnzktOv+saGcsZ8TyMVrAQuKfKT+uvynhk4dJTBoW22XUnS?=
- =?us-ascii?Q?K8tTKPoj4Q3DQQHWrlwkWCAy2BfPNXHk3HBwMaYcEFfDPKXr6QpjeTUgfyYB?=
- =?us-ascii?Q?QHOjskKuSHv/hU3FZjFqBc4OleOGkZaEgfB7b78JiAFua+PKVzYTj+OOH/Kt?=
- =?us-ascii?Q?0+XinNS13upd/TM3ArBj15pxbSPi7WM1H84McH9KwCHFykP1eW7rdE65+BHf?=
- =?us-ascii?Q?v0pK0sNq1UqQS94HykXMqZzQpJMHAKsadEOJI/rB2Co2Ba/Wsf3fcAlemGjb?=
- =?us-ascii?Q?AhqXL9jvP/vyQRVTiG22JZ9orNEHIy4PVY2K3sT/aFihcS7StrBQH9YaceUa?=
- =?us-ascii?Q?6lIktYTd2UFEQ0S8EfIO3AihfKpfw+8aqBXGUPyLOAwR11LE?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TZ/zq1Rn";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="e5N4EcVW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0/M4VYRi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="cd3MI51R"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 38C6A1FDD2;
+	Wed, 16 Sep 2026 06:50:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789541427; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=q1Rlto9SnJgRaHJraIYWJFcfagZYqIMFP0BBB/sf7fE=;
+	b=TZ/zq1RnlM2xpYQOmH/HwJkp52sY0SEiteMePDhTlwWGfBUZHpTyHScFA59Y81pfwVw/EI
+	5TGLA4NaOat3FNyV3fDgwLj5DgPHZr7rgw+ppJSdcOJHfAJBtyvL88dmmBLYnim0IMjT3J
+	l77GTDr9t23y9GiGER02VBh3aQh2djA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789541427;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=q1Rlto9SnJgRaHJraIYWJFcfagZYqIMFP0BBB/sf7fE=;
+	b=e5N4EcVW7vOCcAoIIiYm3cIS8BaVJB0Mbo77IPyji6ZoQAZnZQpJ77LI7UNWhAvGBMgMcN
+	OKIq7Dtdr70o0IBA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="0/M4VYRi";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cd3MI51R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789541423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=q1Rlto9SnJgRaHJraIYWJFcfagZYqIMFP0BBB/sf7fE=;
+	b=0/M4VYRiPlBIQlmFuj1q2+uA1pXiWQ9A2HAy2vIXEEcrush/tlyFGsE7Xq0f+w6oU0y72w
+	0BB+Kh+6eRrssN2U3/VBty0LYeYIvQ8RdrPEhWdGbCXCLfb9ZVUT0k8b0oyGu10Xj0CyvH
+	0+57HrK3SBPeRoyTFFffmW3EIb0OQ3Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789541423;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=q1Rlto9SnJgRaHJraIYWJFcfagZYqIMFP0BBB/sf7fE=;
+	b=cd3MI51RD6FudCt6pZ5qioa6wu2F0gZlMJFOQ3lZ/z2GekKGtjSos20r1Jd3JSxsPv7wIt
+	WpdvOtYiAR/zABBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3ED2C136D1;
+	Wed, 16 Sep 2026 06:50:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id K2fRBy48qmqIYgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 16 Sep 2026 06:50:22 +0000
+Message-ID: <8e4c84be-5c89-4d84-adda-aad4c7de0c8a@suse.de>
+Date: Wed, 16 Sep 2026 08:50:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	TUQsT5LGFmZz44pZ6j5p0h5DRXYvUDHpx2OOKaMDepqSzngfwrsRpWZxAC38UgzCgoI7BqET0JWjFGb5Gytmrz+brCSYQIFcoL0vU6fHY33njTfA5USc7wbg9OzzlSl2ZvHtCBezc40LtNb3jULNvYWpfi02wA0892B+D/HJrAank1qN49Ye5yN2vqDD8oG7BfJwAwWdkPMH/KwDPeS9hV5alVeOWprNABCAeVRagW5mxTigXkZDLZah+tTZiyYPBC7QAyOvmTuZlPitVG+PIjWMMAjdbZd5WnZGSDqZ4EOxUM3oJ5TU7raU6Zam5FisL1xDOUzLOv/4jSVq8sV6mg==
-X-OriginatorOrg: marvell.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR18MB4339.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f103576-fa9e-40d5-4719-08df13bebbaf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 06:50:02.2892
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zUANMByoI4tF/+60M78VIMzy/L4sY6OikYbuvDM+H+/6j6yG10Yxw3Y1GTEMPyYwHCkMczvQ9/GRHxv8wSKh4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR18MB4285
-X-Proofpoint-GUID: yGtcP9i8ctkPfR1ipCrqyzibU7x6h0HJ
-X-Proofpoint-ORIG-GUID: yGtcP9i8ctkPfR1ipCrqyzibU7x6h0HJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDA4NiBTYWx0ZWRfX3UolFMukTKXE
- yPc/Wku+d388dLkTJkUDtTGSjH/17ASSnUFUyv54wocV6G4zK7lifKxoAONs72CgAaDn36A2yVL
- i1xUUWh6jIZu//Z85SVBLtt369cOLlLBKGDdo8oW7TdX2uNWP/NECtH8BNIs15zwfmgNBIuBxMt
- Ld9vz2xpdJ2LLy3DH1p3P9zU9DpLE2H4D3tO6uViuNat4UJwFh1K2fCvvknxxJ/oeTX0RELK5r8
- GgUs2hucFf+fDKlft2urgo+wFdnXayBeD66IgKvFrj2/zcJwPnQ0O/c5Z4oM74C80aOzqR/c5K+
- fVpnStK5ktc2IKtwlwcFnAgPrtDfcgBHd5E3g6jt7RwmvkhqfHPPRvdRrWfG+YTeRpQKNldNa9A
- GjKBNFemPuaFexPtD3F97/llCpP0lhiv85pmSkLEu4WwhNL9XGfv4yB/id9Kveps9YdcaQky6d+
- qKsReiGz0rPBUb3g+PA==
-X-Authority-Analysis: v=2.4 cv=N6W8hG9B c=1 sm=1 tr=0 ts=6aaa3c1c cx=c_pps
- a=A91p8pFdSY8iZOlwlHItIA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=-AAbraWEqlQA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=EAYMVhzMl8SCOHhVQcBL:22 a=M5GUcnROAAAA:8
- a=J1Y8HTJGAAAA:8 a=1XWaLZrsAAAA:8 a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8
- a=4oP7AnTtpOX4v7av_QoA:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
- a=y1Q9-5lHfBjTkpIzbSAN:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDA4NiBTYWx0ZWRfX3nN3mVSpee+V
- MrJs64DygHRiTMoZv033UPddrPEpKBtJ07HCXMsiddGmfcStmWZzI9kv6qAqZenpKISL+da6tnR
- He4Na8dFmBFzM9u0LUU/k16TfMgBkwQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] drm/imx: replace struct drm_simple_display_pipe
+ with regular atomic helpers
+To: Ze Huang <ze.huang@oss.qualcomm.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Marian Cichy <m.cichy@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev, xen-devel@lists.xenproject.org
+References: <20260727-drm-simple-kms-removal-v3-0-de36e534f7a1@oss.qualcomm.com>
+ <20260727-drm-simple-kms-removal-v3-2-de36e534f7a1@oss.qualcomm.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260727-drm-simple-kms-removal-v3-2-de36e534f7a1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 38C6A1FDD2
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,qualcomm.com:email,suse.de:dkim,suse.de:mid,bootlin.com:url,pengutronix.de:email,i.mx:url];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[25];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:url,pengutronix.de:email,i.mx:url,suse.com:url,qualcomm.com:email,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
 
+Hi
 
-
->-----Original Message-----
->From: Slavin Liu <bolin.liu@seu.edu.cn>
->Sent: Sunday, September 13, 2026 6:22 PM
->To: Sunil Kovvuri Goutham <sgoutham@marvell.com>; Ratheesh Kannoth
-><rkannoth@marvell.com>; Geethasowjanya Akula <gakula@marvell.com>;
->Subbaraya Sundeep Bhatta <sbhatta@marvell.com>;
->andrew+netdev@lunn.ch; davem@davemloft.net; edumazet@google.com;
->kuba@kernel.org; pabeni@redhat.com
->Cc: netdev@vger.kernel.org; linux-kernel@vger.kernel.org;
->bolin.liu@seu.edu.cn
->Subject: [EXTERNAL] [PATCH net] octeontx2-af: validate MCS blocks before
->initialization
->The MCS count is a maximum successful ID plus one, not proof of a dense
->device set. Validate the complete range before programming any block, so a
->failed lower-ID probe cannot cause a NULL dereference.
+Am 26.07.26 um 21:42 schrieb Ze Huang:
+> Convert i.MX LCDC to explicit primary plane, CRTC and encoder objects.
+> Keep no-scaling plane check and GEM framebuffer prepare callback from
+> simple-KMS path.
 >
->Detected by static analysis and reviewed with AI-assisted source auditing.
+> Wire the vblank lifecycle explicitly with CRTC vblank callbacks and
+> drm_crtc_vblank_on()/drm_crtc_vblank_off(). Use the old CRTC state in the
+> disable path for clock unwinding so the clock reference count remains
+> paired with the previous active state.
 >
->Fixes: 080bbd19c9dd ("octeontx2-af: cn10k: mcs: Add mailboxes for port
->related operations")
->Assisted-by: LLM
->Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
->---
-> drivers/net/ethernet/marvell/octeontx2/af/mcs_rvu_if.c | 5 +++++
-> 1 file changed, 5 insertions(+)
+> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/imx/lcdc/imx-lcdc.c | 264 ++++++++++++++++++++++++++----------
+>   1 file changed, 190 insertions(+), 74 deletions(-)
 >
->diff --git a/drivers/net/ethernet/marvell/octeontx2/af/mcs_rvu_if.c
->b/drivers/net/ethernet/marvell/octeontx2/af/mcs_rvu_if.c
->index fce22e314cac..0ee2d0d698e5 100644
->--- a/drivers/net/ethernet/marvell/octeontx2/af/mcs_rvu_if.c
->+++ b/drivers/net/ethernet/marvell/octeontx2/af/mcs_rvu_if.c
->@@ -889,6 +889,11 @@ int rvu_mcs_init(struct rvu *rvu)
-> 		rvu_mcs_set_lmac_bmap(rvu);
-> 	}
->
->+	for (mcs_id =3D 0; mcs_id < rvu->mcs_blk_cnt; mcs_id++) {
->+		if (!mcs_get_pdata(mcs_id))
->+			return -ENODEV;
->+	}
->+
-> 	/* Install default tcam bypass entry and set port to operational mode
->*/
-> 	for (mcs_id =3D 0; mcs_id < rvu->mcs_blk_cnt; mcs_id++) {
-> 		mcs =3D mcs_get_pdata(mcs_id);
+> diff --git a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> index 81024f7d9e96..4835f01954f7 100644
+> --- a/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> +++ b/drivers/gpu/drm/imx/lcdc/imx-lcdc.c
+> @@ -2,6 +2,7 @@
+>   // SPDX-FileCopyrightText: 2020 Marian Cichy <M.Cichy@pengutronix.de>
+>   
+>   #include <drm/clients/drm_client_setup.h>
+> +#include <drm/drm_atomic.h>
+>   #include <drm/drm_bridge.h>
+>   #include <drm/drm_bridge_connector.h>
+>   #include <drm/drm_damage_helper.h>
+> @@ -14,9 +15,9 @@
+>   #include <drm/drm_gem_dma_helper.h>
+>   #include <drm/drm_gem_framebuffer_helper.h>
+>   #include <drm/drm_of.h>
+> +#include <drm/drm_plane_helper.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_probe_helper.h>
+> -#include <drm/drm_simple_kms_helper.h>
+>   #include <drm/drm_vblank.h>
+>   #include <linux/bitfield.h>
+>   #include <linux/clk.h>
+> @@ -102,7 +103,9 @@
+>   
+>   struct imx_lcdc {
+>   	struct drm_device drm;
+> -	struct drm_simple_display_pipe pipe;
+> +	struct drm_plane plane;
+> +	struct drm_crtc crtc;
+> +	struct drm_encoder encoder;
+>   	struct drm_connector *connector;
+>   	void __iomem *base;
+>   
+> @@ -135,14 +138,15 @@ static unsigned int imx_lcdc_get_format(unsigned int drm_format)
+>   	}
+>   }
+>   
+> -static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe *pipe,
+> -					 struct drm_plane_state *old_state,
+> +static void imx_lcdc_update_hw_registers(struct drm_crtc *crtc,
+> +					 struct drm_crtc_state *old_crtc_state,
+> +					 struct drm_crtc_state *new_crtc_state,
+> +					 struct drm_plane_state *new_state,
+>   					 bool mode_set)
+>   {
+> -	struct drm_crtc *crtc = &pipe->crtc;
+> -	struct drm_plane_state *new_state = pipe->plane.state;
+> +	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
+> +	const struct drm_display_mode *mode = &new_crtc_state->mode;
+>   	struct drm_framebuffer *fb = new_state->fb;
+> -	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
+>   	u32 lpcr, lvcr, lhcr;
+>   	u32 framesize;
+>   	dma_addr_t addr;
+> @@ -155,24 +159,24 @@ static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe *pipe,
+>   		return;
+>   
+>   	/* Disable PER clock to make register write possible */
+> -	if (old_state && old_state->crtc && old_state->crtc->enabled)
+> +	if (old_crtc_state && old_crtc_state->enable)
+>   		clk_disable_unprepare(lcdc->clk_per);
+>   
+>   	/* Framesize */
+> -	framesize = FIELD_PREP(IMX21LCDC_LSR_XMAX, crtc->mode.hdisplay >> 4) |
+> -		FIELD_PREP(IMX21LCDC_LSR_YMAX, crtc->mode.vdisplay);
+> +	framesize = FIELD_PREP(IMX21LCDC_LSR_XMAX, mode->hdisplay >> 4) |
+> +		FIELD_PREP(IMX21LCDC_LSR_YMAX, mode->vdisplay);
+>   	writel(framesize, lcdc->base + IMX21LCDC_LSR);
+>   
+>   	/* HSYNC */
+> -	lhcr = FIELD_PREP(IMX21LCDC_LHCR_HFPORCH, crtc->mode.hsync_start - crtc->mode.hdisplay - 1) |
+> -		FIELD_PREP(IMX21LCDC_LHCR_HWIDTH, crtc->mode.hsync_end - crtc->mode.hsync_start - 1) |
+> -		FIELD_PREP(IMX21LCDC_LHCR_HBPORCH, crtc->mode.htotal - crtc->mode.hsync_end - 3);
+> +	lhcr = FIELD_PREP(IMX21LCDC_LHCR_HFPORCH, mode->hsync_start - mode->hdisplay - 1) |
+> +		FIELD_PREP(IMX21LCDC_LHCR_HWIDTH, mode->hsync_end - mode->hsync_start - 1) |
+> +		FIELD_PREP(IMX21LCDC_LHCR_HBPORCH, mode->htotal - mode->hsync_end - 3);
+>   	writel(lhcr, lcdc->base + IMX21LCDC_LHCR);
+>   
+>   	/* VSYNC */
+> -	lvcr = FIELD_PREP(IMX21LCDC_LVCR_VFPORCH, crtc->mode.vsync_start - crtc->mode.vdisplay) |
+> -		FIELD_PREP(IMX21LCDC_LVCR_VWIDTH, crtc->mode.vsync_end - crtc->mode.vsync_start) |
+> -		FIELD_PREP(IMX21LCDC_LVCR_VBPORCH, crtc->mode.vtotal - crtc->mode.vsync_end);
+> +	lvcr = FIELD_PREP(IMX21LCDC_LVCR_VFPORCH, mode->vsync_start - mode->vdisplay) |
+> +		FIELD_PREP(IMX21LCDC_LVCR_VWIDTH, mode->vsync_end - mode->vsync_start) |
+> +		FIELD_PREP(IMX21LCDC_LVCR_VBPORCH, mode->vtotal - mode->vsync_end);
+>   	writel(lvcr, lcdc->base + IMX21LCDC_LVCR);
+>   
+>   	lpcr = readl(lcdc->base + IMX21LCDC_LPCR);
+> @@ -184,19 +188,20 @@ static void imx_lcdc_update_hw_registers(struct drm_simple_display_pipe *pipe,
+>   	writel(new_state->fb->pitches[0] / 4, lcdc->base + IMX21LCDC_LVPWR);
+>   
+>   	/* Enable PER clock */
+> -	if (new_state->crtc->enabled)
+> +	if (new_crtc_state->enable)
+>   		clk_prepare_enable(lcdc->clk_per);
+>   }
+>   
+> -static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
+> -				 struct drm_crtc_state *crtc_state,
+> -				 struct drm_plane_state *plane_state)
+> +static void imx_lcdc_crtc_helper_atomic_enable(struct drm_crtc *crtc,
+> +					       struct drm_atomic_commit *commit)
+>   {
+>   	int ret;
+>   	int clk_div;
+>   	int bpp;
+> -	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
+> -	struct drm_display_mode *mode = &pipe->crtc.mode;
+> +	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
+> +	struct drm_crtc_state *cstate = drm_atomic_get_new_crtc_state(commit, crtc);
+> +	struct drm_plane_state *pstate = drm_atomic_get_new_plane_state(commit, &lcdc->plane);
+> +	struct drm_display_mode *mode = &cstate->mode;
+>   	struct drm_display_info *disp_info = &lcdc->connector->display_info;
+>   	const int hsync_pol = (mode->flags & DRM_MODE_FLAG_PHSYNC) ? 0 : 1;
+>   	const int vsync_pol = (mode->flags & DRM_MODE_FLAG_PVSYNC) ? 0 : 1;
+> @@ -207,7 +212,7 @@ static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
+>   
+>   	clk_div = DIV_ROUND_CLOSEST_ULL(clk_get_rate(lcdc->clk_per),
+>   					mode->clock * 1000);
+> -	bpp = imx_lcdc_get_format(plane_state->fb->format->format);
+> +	bpp = imx_lcdc_get_format(pstate->fb->format->format);
+>   
+>   	writel(FIELD_PREP(IMX21LCDC_LPCR_PCD, clk_div - 1) |
+>   	       FIELD_PREP(IMX21LCDC_LPCR_LPPOL, hsync_pol) |
+> @@ -231,40 +236,46 @@ static void imx_lcdc_pipe_enable(struct drm_simple_display_pipe *pipe,
+>   
+>   	ret = clk_prepare_enable(lcdc->clk_ipg);
+>   	if (ret) {
+> -		dev_err(pipe->crtc.dev->dev, "Cannot enable ipg clock: %pe\n", ERR_PTR(ret));
+> +		dev_err(crtc->dev->dev, "Cannot enable ipg clock: %pe\n", ERR_PTR(ret));
+>   		return;
+>   	}
+>   	ret = clk_prepare_enable(lcdc->clk_ahb);
+>   	if (ret) {
+> -		dev_err(pipe->crtc.dev->dev, "Cannot enable ahb clock: %pe\n", ERR_PTR(ret));
+> +		dev_err(crtc->dev->dev, "Cannot enable ahb clock: %pe\n", ERR_PTR(ret));
+>   
+>   		clk_disable_unprepare(lcdc->clk_ipg);
+>   
+>   		return;
+>   	}
+>   
+> -	imx_lcdc_update_hw_registers(pipe, NULL, true);
+> +	imx_lcdc_update_hw_registers(crtc, NULL, cstate, pstate, true);
+>   
+>   	/* Enable VBLANK Interrupt */
+>   	writel(INTR_EOF, lcdc->base + IMX21LCDC_LIER);
+> +
+> +	drm_crtc_vblank_on(crtc);
+>   }
+>   
+> -static void imx_lcdc_pipe_disable(struct drm_simple_display_pipe *pipe)
+> +static void imx_lcdc_crtc_helper_atomic_disable(struct drm_crtc *crtc,
+> +						struct drm_atomic_commit *commit)
+>   {
+> -	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(pipe->crtc.dev);
+> -	struct drm_crtc *crtc = &lcdc->pipe.crtc;
+> +	struct drm_crtc_state *old_crtc_state = drm_atomic_get_old_crtc_state(commit, crtc);
+> +	struct drm_crtc_state *new_crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
+> +	struct imx_lcdc *lcdc = imx_lcdc_from_drmdev(crtc->dev);
+>   	struct drm_pending_vblank_event *event;
+>   
+> +	drm_crtc_vblank_off(crtc);
+> +
+>   	clk_disable_unprepare(lcdc->clk_ahb);
+>   	clk_disable_unprepare(lcdc->clk_ipg);
+>   
+> -	if (pipe->crtc.enabled)
+> +	if (old_crtc_state->enable)
+>   		clk_disable_unprepare(lcdc->clk_per);
+>   
+>   	spin_lock_irq(&lcdc->drm.event_lock);
+> -	event = crtc->state->event;
+> +	event = new_crtc_state->event;
+>   	if (event) {
+> -		crtc->state->event = NULL;
+> +		new_crtc_state->event = NULL;
+>   		drm_crtc_send_vblank_event(crtc, event);
+>   	}
+>   	spin_unlock_irq(&lcdc->drm.event_lock);
+> @@ -273,66 +284,151 @@ static void imx_lcdc_pipe_disable(struct drm_simple_display_pipe *pipe)
+>   	writel(0, lcdc->base + IMX21LCDC_LIER);
+>   }
+>   
+> -static int imx_lcdc_pipe_check(struct drm_simple_display_pipe *pipe,
+> -			       struct drm_plane_state *plane_state,
+> -			       struct drm_crtc_state *crtc_state)
+> +static int imx_lcdc_crtc_helper_atomic_check(struct drm_crtc *crtc,
+> +					     struct drm_atomic_commit *commit)
+>   {
+> +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
+> +	struct drm_crtc_state *old_crtc_state = drm_atomic_get_old_crtc_state(commit, crtc);
+>   	const struct drm_display_mode *mode = &crtc_state->mode;
+> -	const struct drm_display_mode *old_mode = &pipe->crtc.state->mode;
+> +	const struct drm_display_mode *old_mode = &old_crtc_state->mode;
+> +	int ret;
+>   
+> -	if (mode->hdisplay < LCDC_MIN_XRES || mode->hdisplay > LCDC_MAX_XRES ||
+> -	    mode->vdisplay < LCDC_MIN_YRES || mode->vdisplay > LCDC_MAX_YRES ||
+> -	    mode->hdisplay % 0x10) { /* must be multiple of 16 */
+> -		drm_err(pipe->crtc.dev, "unsupported display mode (%u x %u)\n",
+> +	if (crtc_state->enable) {
+> +		ret = drm_atomic_helper_check_crtc_primary_plane(crtc_state);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (crtc_state->enable &&
+> +	    (mode->hdisplay < LCDC_MIN_XRES || mode->hdisplay > LCDC_MAX_XRES ||
+> +	     mode->vdisplay < LCDC_MIN_YRES || mode->vdisplay > LCDC_MAX_YRES ||
+> +	     mode->hdisplay % 0x10)) { /* must be multiple of 16 */
+> +		drm_err(crtc->dev, "unsupported display mode (%u x %u)\n",
+>   			mode->hdisplay, mode->vdisplay);
+>   		return -EINVAL;
+>   	}
+>   
+> -	crtc_state->mode_changed =
+> -		old_mode->hdisplay != mode->hdisplay ||
+> -		old_mode->vdisplay != mode->vdisplay;
+> +	if (old_mode->hdisplay != mode->hdisplay ||
+> +	    old_mode->vdisplay != mode->vdisplay)
+> +		crtc_state->mode_changed = true;
+>   
+> -	return 0;
+> +	return drm_atomic_add_affected_planes(commit, crtc);
+>   }
+>   
+> -static void imx_lcdc_pipe_update(struct drm_simple_display_pipe *pipe,
+> -				 struct drm_plane_state *old_state)
+> +static void imx_lcdc_plane_helper_atomic_update(struct drm_plane *plane,
+> +						struct drm_atomic_commit *commit)
+>   {
+> -	struct drm_crtc *crtc = &pipe->crtc;
+> -	struct drm_pending_vblank_event *event = crtc->state->event;
+> -	struct drm_plane_state *new_state = pipe->plane.state;
+> +	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(commit, plane);
+> +	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(commit, plane);
+> +	struct drm_crtc *crtc = new_state->crtc;
+> +	struct drm_crtc_state *old_crtc_state = NULL;
+> +	struct drm_crtc_state *new_crtc_state;
+>   	struct drm_framebuffer *fb = new_state->fb;
+>   	struct drm_framebuffer *old_fb = old_state->fb;
+>   	struct drm_crtc *old_crtc = old_state->crtc;
+>   	bool mode_changed = false;
+>   
+> +	if (!fb || !crtc)
+> +		return;
+> +
+> +	if (old_crtc)
+> +		old_crtc_state = drm_atomic_get_old_crtc_state(commit, old_crtc);
+> +
+> +	new_crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
+> +	if (!new_crtc_state)
+> +		return;
+> +
+>   	if (old_fb && old_fb->format != fb->format)
+>   		mode_changed = true;
+>   	else if (old_crtc != crtc)
+>   		mode_changed = true;
+>   
+> -	if (!drm_atomic_crtc_needs_modeset(crtc->state))
+> -		imx_lcdc_update_hw_registers(pipe, old_state, mode_changed);
+> +	if (!drm_atomic_crtc_needs_modeset(new_crtc_state))
+> +		imx_lcdc_update_hw_registers(crtc, old_crtc_state, new_crtc_state,
+> +					     new_state, mode_changed);
+> +}
+>   
+> -	if (event) {
+> -		crtc->state->event = NULL;
+> +static int imx_lcdc_plane_helper_atomic_check(struct drm_plane *plane,
+> +					      struct drm_atomic_commit *commit)
+> +{
+> +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(commit, plane);
+> +	struct drm_crtc_state *crtc_state = NULL;
+> +
+> +	if (plane_state->crtc) {
+> +		crtc_state = drm_atomic_get_crtc_state(commit, plane_state->crtc);
+> +		if (IS_ERR(crtc_state))
+> +			return PTR_ERR(crtc_state);
+> +	}
+>   
+> -		spin_lock_irq(&crtc->dev->event_lock);
+> +	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   DRM_PLANE_NO_SCALING,
+> +						   false, false);
+> +}
+>   
+> -		if (crtc->state->active && drm_crtc_vblank_get(crtc) == 0)
+> -			drm_crtc_arm_vblank_event(crtc, event);
+> -		else
+> -			drm_crtc_send_vblank_event(crtc, event);
+> +static const struct drm_plane_helper_funcs imx_lcdc_plane_helper_funcs = {
+> +	.prepare_fb	= drm_gem_plane_helper_prepare_fb,
+> +	.atomic_check	= imx_lcdc_plane_helper_atomic_check,
+> +	.atomic_update	= imx_lcdc_plane_helper_atomic_update,
+> +};
+>   
+> -		spin_unlock_irq(&crtc->dev->event_lock);
+> -	}
+> +static const struct drm_plane_funcs imx_lcdc_plane_funcs = {
+> +	.update_plane		= drm_atomic_helper_update_plane,
+> +	.disable_plane		= drm_atomic_helper_disable_plane,
+> +	.destroy		= drm_plane_cleanup,
+> +	.reset			= drm_atomic_helper_plane_reset,
+> +	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
+> +	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
+> +};
+> +
+> +static void imx_lcdc_crtc_helper_atomic_flush(struct drm_crtc *crtc,
+> +					      struct drm_atomic_commit *commit)
+> +{
+> +	struct drm_crtc_state *new_crtc_state = drm_atomic_get_new_crtc_state(commit, crtc);
+> +	struct drm_pending_vblank_event *event = new_crtc_state->event;
+> +
+> +	if (!event)
+> +		return;
+> +
+> +	new_crtc_state->event = NULL;
+> +
+> +	spin_lock_irq(&crtc->dev->event_lock);
+> +	if (new_crtc_state->active && drm_crtc_vblank_get(crtc) == 0)
+> +		drm_crtc_arm_vblank_event(crtc, event);
+> +	else
+> +		drm_crtc_send_vblank_event(crtc, event);
+> +	spin_unlock_irq(&crtc->dev->event_lock);
+>   }
 
-Thanks, Slavin, for the patch.
-The additional check can be moved into the existing loop below, which avoid=
-s iterating over the MCS blocks twice.
+Please use drm_crtc_vblank_atomic_flush(). [1]
 
-Also, on CN10KB silicon, the MCS block count is always 1. Therefore, the ex=
-isting check: "if (!rvu->mcs_blk_cnt)"=20
-should be sufficient to handle the absence of MCS blocks.
-         =20
-@@ -892,6 +892,8 @@ int rvu_mcs_init(struct rvu *rvu)
-        /* Install default tcam bypass entry and set port to operational mo=
-de */
-        for (mcs_id =3D 0; mcs_id < rvu->mcs_blk_cnt; mcs_id++) {
-                mcs =3D mcs_get_pdata(mcs_id);
-+               if (!mcs_get_pdata(mcs_id))
-+                       return -ENODEV
-                mcs_install_flowid_bypass_entry(mcs);
+[1] 
+https://elixir.bootlin.com/linux/v7.2.5/source/drivers/gpu/drm/drm_vblank_helper.c#L51
+
+Best regards
+Thomas
+
+>   
+> -static const struct drm_simple_display_pipe_funcs imx_lcdc_pipe_funcs = {
+> -	.enable = imx_lcdc_pipe_enable,
+> -	.disable = imx_lcdc_pipe_disable,
+> -	.check = imx_lcdc_pipe_check,
+> -	.update = imx_lcdc_pipe_update,
+> +static const struct drm_crtc_helper_funcs imx_lcdc_crtc_helper_funcs = {
+> +	.atomic_check	= imx_lcdc_crtc_helper_atomic_check,
+> +	.atomic_enable	= imx_lcdc_crtc_helper_atomic_enable,
+> +	.atomic_disable	= imx_lcdc_crtc_helper_atomic_disable,
+> +	.atomic_flush	= imx_lcdc_crtc_helper_atomic_flush,
+> +};
+> +
+> +static int imx_lcdc_crtc_enable_vblank(struct drm_crtc *crtc)
+> +{
+> +	return 0;
+> +}
+> +
+> +static void imx_lcdc_crtc_disable_vblank(struct drm_crtc *crtc)
+> +{
+> +}
+> +
+> +static const struct drm_crtc_funcs imx_lcdc_crtc_funcs = {
+> +	.reset			= drm_atomic_helper_crtc_reset,
+> +	.destroy		= drm_crtc_cleanup,
+> +	.set_config		= drm_atomic_helper_set_config,
+> +	.page_flip		= drm_atomic_helper_page_flip,
+> +	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
+> +	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
+> +	.enable_vblank		= imx_lcdc_crtc_enable_vblank,
+> +	.disable_vblank		= imx_lcdc_crtc_disable_vblank,
+> +};
+> +
+> +static const struct drm_encoder_funcs imx_lcdc_encoder_funcs = {
+> +	.destroy = drm_encoder_cleanup,
+>   };
+>   
+>   static const struct drm_mode_config_funcs imx_lcdc_mode_config_funcs = {
+> @@ -370,7 +466,7 @@ MODULE_DEVICE_TABLE(of, imx_lcdc_of_dev_id);
+>   static irqreturn_t imx_lcdc_irq_handler(int irq, void *arg)
+>   {
+>   	struct imx_lcdc *lcdc = arg;
+> -	struct drm_crtc *crtc = &lcdc->pipe.crtc;
+> +	struct drm_crtc *crtc = &lcdc->crtc;
+>   	unsigned int status;
+>   
+>   	status = readl(lcdc->base + IMX21LCDC_LISR);
+> @@ -388,6 +484,9 @@ static int imx_lcdc_probe(struct platform_device *pdev)
+>   	struct imx_lcdc *lcdc;
+>   	struct drm_device *drm;
+>   	struct drm_bridge *bridge;
+> +	struct drm_plane *plane;
+> +	struct drm_crtc *crtc;
+> +	struct drm_encoder *encoder;
+>   	int irq;
+>   	int ret;
+>   	struct device *dev = &pdev->dev;
+> @@ -429,23 +528,40 @@ static int imx_lcdc_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "Cannot initialize mode configuration structure\n");
+>   
+> -	/* CRTC, Plane, Encoder */
+> -	ret = drm_simple_display_pipe_init(drm, &lcdc->pipe,
+> -					   &imx_lcdc_pipe_funcs,
+> -					   imx_lcdc_formats,
+> -					   ARRAY_SIZE(imx_lcdc_formats), NULL, NULL);
+> +	plane = &lcdc->plane;
+> +	ret = drm_universal_plane_init(drm, plane, 0,
+> +				       &imx_lcdc_plane_funcs,
+> +				       imx_lcdc_formats,
+> +				       ARRAY_SIZE(imx_lcdc_formats),
+> +				       NULL,
+> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
+> +	if (ret < 0)
+> +		return dev_err_probe(drm->dev, ret, "Cannot initialize primary plane\n");
+> +	drm_plane_helper_add(plane, &imx_lcdc_plane_helper_funcs);
+> +
+> +	crtc = &lcdc->crtc;
+> +	ret = drm_crtc_init_with_planes(drm, crtc, plane, NULL,
+> +					&imx_lcdc_crtc_funcs, NULL);
+> +	if (ret < 0)
+> +		return dev_err_probe(drm->dev, ret, "Cannot initialize CRTC\n");
+> +	drm_crtc_helper_add(crtc, &imx_lcdc_crtc_helper_funcs);
+> +
+> +	encoder = &lcdc->encoder;
+> +	ret = drm_encoder_init(drm, encoder, &imx_lcdc_encoder_funcs,
+> +			       DRM_MODE_ENCODER_NONE, NULL);
+>   	if (ret < 0)
+> -		return dev_err_probe(drm->dev, ret, "Cannot setup simple display pipe\n");
+> +		return dev_err_probe(drm->dev, ret, "Cannot initialize encoder\n");
+> +	encoder->possible_crtcs = drm_crtc_mask(crtc);
+>   
+>   	ret = drm_vblank_init(drm, drm->mode_config.num_crtc);
+>   	if (ret < 0)
+>   		return dev_err_probe(drm->dev, ret, "Failed to initialize vblank\n");
+>   
+> -	ret = drm_bridge_attach(&lcdc->pipe.encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+> +	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>   	if (ret)
+>   		return dev_err_probe(drm->dev, ret, "Cannot attach bridge\n");
+>   
+> -	lcdc->connector = drm_bridge_connector_init(drm, &lcdc->pipe.encoder);
+> +	lcdc->connector = drm_bridge_connector_init(drm, encoder);
+>   	if (IS_ERR(lcdc->connector))
+>   		return dev_err_probe(drm->dev, PTR_ERR(lcdc->connector), "Cannot init bridge connector\n");
+>   
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
 
