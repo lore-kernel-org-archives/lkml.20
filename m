@@ -1,147 +1,91 @@
-Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53D93515D0;
-	Tue, 15 Sep 2026 23:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.155.198.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72BB3515E2
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:00:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789516720; cv=none; b=mNN+A7CLIUrtSo7wNNxOjXuyuXUfn9Vl7IuleBXhgGw0EpV8AYQ1RVqJikUDQ/ge1ttX+m/5eIH6HBfrukflSKRKam2aWNT54BNjlzwCKJl5YXt6JFCJvZU7fUanGtWpQp5JKuSakZMEX/tPflTpkD1RhMLwm6d/cU9izjLuspk=
+	t=1789516813; cv=none; b=YDWRNrwc1aXoaPpj8dzPl0+H0bd9MrqlK0MhcI5UBusC4ScmexdlDDJ/g4dPZFVCj2OL7Y7Rp5VJ0tuCaId3a+ANvm1oaAFFNtPKfG1daNh+8sQoNG9rwJU0DOlU4Al2XjWM6z9owuBLvKGgdZa2qEp9AMIuypu4C8jfEvc6b8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789516720; c=relaxed/simple;
-	bh=DCvst1yYbdhpjU7c/fmVI2EYWBw5faQnvtGB/RGBgQU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gB0Ww59dO4fi6D6Bb+ojcpk+rcdvrAgT37/lMmf9m2/EbnVqrofq5ACiw/UyUo2iBNE9X4LoFv9lrKosokZuzyLxAbOqTQOxzPDq50PLv1oEd/nyLz/rVMg2JTPFOZfkHuiAqlJ8HgHZGd8OHOoLbkfPr5DWZmo+4I7wXONrmGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=mBVtjrbh; arc=none smtp.client-ip=35.155.198.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1789516813; c=relaxed/simple;
+	bh=wFoZZKwbOpKMpCDvwWjaKGuo4zoC43xc4mt4ZOFBjZc=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=aQFfvVU2t79zbCvOYGFhmYmRy3cfXXLfdxa7ylfiBm2uZPs28nEgvvlRmvjNB5HhSPni3fKnbzMNyfS14RKPPqK4OsI/D2f8HypVoYZGNIcTecfQNDMGx8/GYouUfbw8dXhjXfxonH+EZ8xltBbxmDh/4FNS2t/TXwJWOa9U0Us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1C59dYo6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="mBVtjrbh"
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1C59dYo6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F96F1F000FF;
+	Wed, 16 Sep 2026 00:00:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1789516718; x=1821052718;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=odap5gdV04/t27HraMBx8bD0KEBu67w6nTFvWHfmhCA=;
-  b=mBVtjrbhR5PioGNRrlJNElT9YQZXMBU/q+mPv3PUIopssizOpEDB9mIC
-   P/uZCWf/mmo1aSwMbUjk2YoV1odDKo3LCkBQaXygm6xj/0+nKrsJm+Nic
-   edca3W7GZpFrmEUG8Ws3xsYvUNNK/twxt2Ob8UF07aE6dYv1zxlWrBRMb
-   d2oS0wO3KHMBXiOo5f2A2cY33gVee3y7D6YHyogveoCr7pM8Ik5yFP+aB
-   uASQsRK5Ug8cF4p2LofPU0cc929vy/0HXPKr9gNihNyVCAY78QPu/501e
-   +2DZYT+Q5yJOOSNlUeOEpDjKktIwYw6dceJuYdPRzePvVqOPnMJrEoNNL
-   Q==;
-X-CSE-ConnectionGUID: BXyKZk6ESEyWgZe6FrLc7g==
-X-CSE-MsgGUID: GHdLMXppRBODiNyDAC1VGA==
-X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
-   d="scan'208";a="28676298"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 23:58:38 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:29530]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.43.236:2525] with esmtp (Farcaster)
- id 7fd5a7e0-7d17-4795-9a70-a21049c45c2c; Tue, 15 Sep 2026 23:58:38 +0000 (UTC)
-X-Farcaster-Flow-ID: 7fd5a7e0-7d17-4795-9a70-a21049c45c2c
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Tue, 15 Sep 2026 23:58:38 +0000
-Received: from dev-dsk-surajjs-2c-afd24e6d.us-west-2.amazon.com
- (10.189.247.117) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Tue, 15 Sep 2026
- 23:58:37 +0000
-From: Suraj Jitindar Singh <surajjs@amazon.com>
-To: <stable@vger.kernel.org>
-CC: <gregkh@linuxfoundation.org>, <chenyichong@uniontech.com>,
-	<andrii@kernel.org>, <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<regressions@lists.linux.dev>
-Subject: [REGRESSION] 5.15.221 & 6.1.188: bpftool: redefinition of 'free_btf_vmlinux'
-Date: Tue, 15 Sep 2026 23:58:34 +0000
-Message-ID: <20260915235834.20559-1-surajjs@amazon.com>
-X-Mailer: git-send-email 2.47.3
+	d=linux-foundation.org; s=korg; t=1789516812;
+	bh=lsG2UJoJMhrVhGOcp/RTa9rgqpxI7yatSzmwd8yhhxk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=1C59dYo66QV+RKUWZNkNSJKjp2seecbRk2ujMq+oeftUoRIcPPX+1yEcLeM93SJfK
+	 jYQVNI7P5FG0EJ4uXrKQCUTc+hoLutKaGcdEzB46e0LhpElLl6z7MS+yfZX2XV3KbF
+	 WNG9OJOwPzGbwY25294h3e7JSRzmaBn+ojJclNIo=
+Date: Tue, 15 Sep 2026 17:00:10 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: david@kernel.org, chrisl@kernel.org, kasong@tencent.com, ljs@kernel.org,
+ ziy@nvidia.com, linux-mm@kvack.org, ying.huang@linux.alibaba.com, Baoquan
+ He <baoquan.he@linux.dev>, willy@infradead.org, youngjun.park@lge.com,
+ hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
+ alex@ghiti.fr, kas@kernel.org, baohua@kernel.org, dev.jain@arm.com,
+ baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>,
+ "Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com, Vlastimil
+ Babka <vbabka@kernel.org>, lance.yang@linux.dev,
+ linux-kernel@vger.kernel.org, nphamcs@gmail.com, shikemeng@huaweicloud.com,
+ yosry@kernel.org, qi.zheng@linux.dev, luizcap@redhat.com,
+ kernel-team@meta.com
+Subject: Re: [RESEND v7 00/29] mm: PMD-level swap entries for anonymous THPs
+Message-Id: <20260915170010.0667b6dee268fb6fb29a3fee@linux-foundation.org>
+In-Reply-To: <ae847e8a-8c16-4170-a18c-19adb1a50de2@linux.dev>
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+	<20260914203237.7cdfcd4c320470f4ae5cafd2@linux-foundation.org>
+	<ae847e8a-8c16-4170-a18c-19adb1a50de2@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D037UWC004.ant.amazon.com (10.13.139.254) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Greg, all,
+On Tue, 15 Sep 2026 15:09:16 +0100 Usama Arif <usama.arif@linux.dev> wrote:
 
-Building bpftool from the v6.1.188 and v5.15.221 stable tags fails with a
-duplicate function definition:
+> 
+> Four workers repeatedly write the working set, forcing memory to be
+> swapped out and back in. The results below are the medians of five
+> interleaved runs per kernel, following one warm-up run:
+> 
+> Metric                           Baseline median   Patched median   Change
+> Aggregate benchmark throughput   584.3 MiB/s       2,408.9 MiB/s    +312.2% (4.12x)
+> Elapsed time                     85.43 s           20.72 s          -75.7%
+> Major faults                     1,814,699         228,466          -87.4%
+> Swap I/O rate                    1.02 GiB/s        4.10 GiB/s       +303.9%
+> 
+> The results look good as this is a swap-intensive workload.
+> It primarily demonstrates the reduction in swap-fault and page-table
+> overhead from preserving PMD mappings.
+> 
+> For long-running workloads, where I believe the series will shine, I expect
+> benefits from fewer TLB misses, less khugepaged work as well as less kernel churn
+> due to larger folios, although there aren't a lot of benchmarks to test that.
+> PMD swap entries also move us closer to eliminating page-table deposits for
+> anonymous THPs, which would provide memory savings.
+> 
 
-  tools/bpf/bpftool/map.c: error: redefinition of 'free_btf_vmlinux'
-  note: previous definition of 'free_btf_vmlinux' was here
+Thanks.  Wow.
 
-This is a stable-only regression caused by a bad backport (the fix is
-correct in mainline). It affects only the current head of each series:
+This doesn't look totally real-world but it's close enough to indicate
+that real people doing real things will see nice benefits from this
+change.  As expected - leaving post-swapin thp reassembly to khugepaged
+was so lame.
 
-  Tree     Broken      Last good
-  5.15.y   v5.15.221   v5.15.220
-  6.1.y    v6.1.188    v6.1.187
+Please add the above info to the [0/N] and maintain it.
 
-6.6.y, 6.12.y, 6.18.y and 7.2.y are NOT affected -- those trees already
-carried free_btf_vmlinux() in its current (btf_vmlinux = NULL) form
-before this cycle, so the backport deduplicated cleanly there.
+(I'm itching to get this moving ahead, but we do need eyes on those
+core bits).
 
-Root cause
-----------
-In 6.1.y the backport of
-
-  660a19e46942 ("tools/bpf/bpftool: Reset vmlinux BTF after map commands")
-  [mainline 66d7e39e49b0]
-
-*adds* a free_btf_vmlinux() definition. But 6.1.y still carried the older
-definition that mainline had already removed, so the result is two
-identical-signature static definitions in map.c and the build breaks.
-
-The same happens in 5.15.221, where two commits applied in the same
-release collide:
-
-  a9e2496111aa ("tools/bpf/bpftool: Reset vmlinux BTF after map commands")
-  44f58f0c5202 ("bpftool: Use libbpf_get_error() to check error")
-
-the latter keeping the old guarded form (if (!libbpf_get_error(...)))
-while the former adds the new form.
-
-Reproducer (no kernel build / .config needed)
----------------------------------------------
-  git checkout v6.1.188   # or v5.15.221
-  gcc -fsyntax-only tools/bpf/bpftool/map.c \
-      -Itools/bpf/bpftool -Itools/include -Itools/include/uapi \
-      -Itools/lib -Itools/bpf/bpftool/../../include
-
-  => map.c: error: redefinition of 'free_btf_vmlinux'
-
-Suggested fix
--------------
-Drop the stale pre-existing definition and keep the one introduced by the
-backport (which also resets btf_vmlinux = NULL, matching mainline
-66d7e39e49b0). For 6.1.y:
-
-  --- a/tools/bpf/bpftool/map.c
-  +++ b/tools/bpf/bpftool/map.c
-  @@ -817,11 +817,6 @@ static void free_map_kv_btf(struct btf *btf)
-   		btf__free(btf);
-   }
-
-  -static void free_btf_vmlinux(void)
-  -{
-  -	btf__free(btf_vmlinux);
-  -}
-  -
-   static int
-   map_dump(int fd, struct bpf_map_info *info, json_writer_t *wtr,
-
-For 5.15.y the same fix applies -- remove the older
-libbpf_get_error()-guarded free_btf_vmlinux() definition, keeping the
-one that resets btf_vmlinux = NULL.
-
-Happy to send this as a formal patch per-tree if you prefer.
-
-#regzbot introduced: 660a19e46942
-
-Thanks,
-Suraj
