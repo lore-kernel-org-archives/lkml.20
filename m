@@ -1,166 +1,169 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013011.outbound.protection.outlook.com [40.93.201.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949A23DF008;
-	Wed, 16 Sep 2026 20:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591539; cv=none; b=fTgNYmJO38zC74Z6fgbIBn5ecMdHbuRMxrnJOkPNAK3cmMBBXHTqo8yq16G0fN2nsRxg7IQ9J5oigjD5ooR2NSw/ai0OMhXuTbg/cK1KI4xgCspkPoA2XokhUGrSYgPLZ6k3YQsK0+yaBB4a1tv/o/A5hh/OYoTYcjTan27Vkcc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591539; c=relaxed/simple;
-	bh=hjTvvy91IucTh3uvTAe8EJ5wySr8vMkmQuHDiStZ1Us=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dDSULc0ptbvin6rZt3HLHKL/db68amJiZtSiGB7og1yWD2IobuGtnh87VV0bdt19sO2RlLJJGBeNa/hEadBgiHqDhkxPgUidx+Ygha38n9GzpP1UXIGAStQJlLAY4CcXaihc13u1tqGigheNCO0xEJlAvPy3PFfg3AP2ni0PRx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=rwLIQ2+I; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDFE4DAF8C;
+	Wed, 16 Sep 2026 20:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789591547; cv=fail; b=m6y5oacHneUb5uEGESUludzBe2SfRhVXiZ0f5jHIQvOoRtbS2J+hPyy7TLL4E9HQaXMTY15udNsZlGi29Ak0+Fu88HxF5OWxqD+x664zjRMWDLVdIiqqpWrCbrRIRLw+ckIbfGAk289xGVpyRDcXzROahjhrI9HCadmXRs+cGCU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789591547; c=relaxed/simple;
+	bh=KYeFwBpFtmKDa0gwG6/DgNuIhhyFLqAYEZz0yWaLuW0=;
+	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=VwZwYS8xrfsi6e6+cO08ZXbNeUqnwW6FZgTROADitVLTpZz/b5e83JYTGNfBwchUdNTNt+r5byuxL26ShF8E79Bue6/31wLn6lhIdItAgKAfMOk69C7/3WV+p6cC4XRkcpMJgEEymL6KddLymcYI8FncYgQAQSPvHhJoCRRA718=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=KAxaRrIF; arc=fail smtp.client-ip=40.93.201.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="rwLIQ2+I"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=0e4JuDoGwJko+bWyw7DMuKSr0o57ajEnpbZrPm7VLzw=; b=rwLIQ2+IvPMDeexyGSSoUIWAlW
-	vcOYNsE8OHjcoqWBx3G+PcIAvTX6tINDBo5QnGL3H9kVNaUSyNgPP2eA/PLBegpel8aTh7Y+NrVIX
-	CpZqNWonEnKVZBww4olulWDz/7pG0jL0WmTNMRv/DQr8dPbLbE0i88PFDx9UeBrmM1ujhj09ceSpF
-	C30iw3gx+Kt+cBSN4Yp2DhyvPORqCBJf6feRFOPgSNyIMGCFkkoMYdrthFr2LaLA+3MmijQIxTWdz
-	K11Almdt5ybXRn0OPjRKgl/OyJlX7O087zGXCKYkLOGtjk+3Lmz6N1cjsYzHkw2UO9+i/XU4fMloP
-	up/CE/Jw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x6wVV-0000000A5dA-3pSq;
-	Wed, 16 Sep 2026 20:45:29 +0000
-Message-ID: <e8344a91-b2a1-42a5-b65d-e02939103108@infradead.org>
-Date: Wed, 16 Sep 2026 13:45:29 -0700
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="KAxaRrIF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oAToHui9+asQ5HrxganK6e9GqjY5v5UbWcnSlLbHVfUx6bR8AN9ikA5wNxDNEEtu+WeyzHkw+hhUeyfOV9tFRYDNMG7/2PQFm+pG/JC5K/EWcmDLf1vyxTvkTKJZ6UH4mtTgBFmuPYfY9gBWW4m0iauhcLSEb+oEadegO8QtTW9ixmvnYnLnaZfEzWoljkguNAJHx6orb8DOzvjfYh2nX29DVBdNY5kUGtf6cEal4mZlfwtDj37R7SE8SXFtjvHCk0yFQ/XW2N5xk6S5uxmA4thffIMoydxRahfUPgQuZJLdTvk5hsMnvZrG+tFWn45xLYhIopnMoIb8iQpZ7MbMpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MG3ld6VcXqYkMoH/XOL0AclURW5xWJNY96Ip5AMITXE=;
+ b=jaWZw++PEM/cgYlvfRqgiFeDDMj0HfGx2FpAIIbQGzYmEo0XD6RzHXZaR5dB3WjVZhvK3LL4hYXCiI44R/hxGp3kY88uL/roF45Brwd9acpvEjTbunsoTyTOLiSTYECs44oPMk2VWiWJfjPQn9qBJpQvqWwAjpRSR0C7F577UZjNa9okqcwDY+A84HHA0b3c5aIgF7AFu6KVJz4jAI/9BnrCuBvNBLtN3YYMIY1Rtt3jfN+yA7qp3KnUgggVCleENyGZ/3XeevPugYTaPFyX7NPZ5tESkct5gcVajlVMwKgpiQslK6ULqfHc0z51/M0aCr60f2ccakX5+GjZCOMx6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MG3ld6VcXqYkMoH/XOL0AclURW5xWJNY96Ip5AMITXE=;
+ b=KAxaRrIFVdSuA+yKC8ZCPdYzSJx9UWtXiJsD+0EgUOgSrq3sN45XhZr4e+nKE7iXlajZ9lQRfxZdQ9U9mxSTd9T7dib+OK2i8X1lIXzVO2HjeDuLZcPVQCsXVKnsnHw2J8D5GgOA8L2A/IBXOClDVPrWdbGbxN20BmTAUF/euAY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 20:45:34 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
+ 20:45:33 +0000
+Message-ID: <6be71f8d-579b-4673-865c-f8ab1c0ae379@amd.com>
+Date: Wed, 16 Sep 2026 15:45:30 -0500
+User-Agent: Mozilla Thunderbird Beta
+From: Babu Moger <babu.moger@amd.com>
+Subject: Re: [PATCH v5 02/16] x86/resctrl: Add PLZA support to command-line
+ options
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de, ben.horgan@arm.com
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+ hpa@zytor.com, fenghuay@nvidia.com, akpm@linux-foundation.org,
+ rppt@kernel.org, dapeng1.mi@linux.intel.com, elver@google.com,
+ jlayton@kernel.org, enelsonmoore@gmail.com, kuba@kernel.org,
+ ebiggers@kernel.org, seanjc@google.com, peterz@infradead.org,
+ chao.gao@intel.com, jmattson@google.com, naveen@kernel.org,
+ ricardo.neri-calderon@linux.intel.com, tiala@microsoft.com,
+ chang.seok.bae@intel.com, prathyushi.nangia@amd.com, kim.phillips@amd.com,
+ elena.reshetova@intel.com, darwi@linutronix.de, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <cover.1787772750.git.babu.moger@amd.com>
+ <e669cb9aa6a2a4f4c1720d627278bb287cb20479.1787772750.git.babu.moger@amd.com>
+ <07d90b5d-d512-4059-898f-42531fc649a7@intel.com>
+Content-Language: en-US
+In-Reply-To: <07d90b5d-d512-4059-898f-42531fc649a7@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR03CA0232.namprd03.prod.outlook.com
+ (2603:10b6:610:e7::27) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: kdoc: fix struct_group_tagged() parsing regression
-To: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, intel-wired-lan@lists.osuosl.org
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, mchehab@kernel.org,
- aleksander.lobakin@intel.com, aleksandr.loktionov@intel.com,
- tudor.ambarus@linaro.org, bvanassche@acm.org
-References: <20260914155127.21515-1-emmaonana18@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260914155127.21515-1-emmaonana18@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|DM4PR12MB8476:EE_
+X-MS-Office365-Filtering-Correlation-Id: f4e81c9c-c86e-4efd-a112-08df14337455
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|7416014|4143699003|56012099006|10067099003|22082099003|18002099003|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	+RN0C9wtMmBOMaW/zJB3J/ltuUvUDjQV8ekz7hfxK8JnDV5aDjQnWuZfRNxDbzY5rE3y+9u5KyZUQQ2r/wv75Cdiq1qb55mPWfP4ht7lSHPy0RNdbCFmUhMpRKnq5DW+l+jYmmQFdt/9mwXbEDTfBtThnH64F02nv5HM68e4XgCM7bBeoVTRvF/BJqHTa/a9SojnByhJts8ybV0xQ6LsQbQ1yFAfddP33ZRJ1Yw3shbJhtMHIBnb7OzbRkuyLu8KLtCU/fJyZ8KVc7hYuyVvFtjlBfcIo7qgVA8S0mV+B6hHlwOoud1g8HxCQItDtWYSSkNdS28DoWVyraELbGA8Vfx9Lh5GhkGyPHm9ncG39Gg+iTorvQtLhyTvw6FkJuvQV8D6E6shN6xu2VXDBfSKFSMXVbRkx3V9/5bCWIx8jlCF5vdgccyCSaV488877o4ezHAaTJKTHD7UKLp22zu22t/AL/fDfSse2VOCVkhpzacawP4Vrx2JorY8rvobq2VpJMlq41AyGIzSFTxfwl1dyanNAqsJbdVaRUFWJE77zaYa3veAYYRRDKEd7PGvAyVM+JcOXbx7F6PvHMBJebL6iLImHM6opNzGgb0+rAZdYjUbe5w+pnkG+4nZRfq3veLMssgjqOQ1/6s3dG7jkoVa+ojRM/Fq4UXNeJm2HOdlQiw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(7416014)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SkhiNTRkcE9ZZ21EUE5jRzZyMkV2MVU3aGlyZVd6RmpvcThUZ0w4dVFhU0Qw?=
+ =?utf-8?B?R1pGeW1yRmwyRmJscUNzZFVOeVBUV0QxTmUyKzBBdHFOcHJUQWxEVDVpSkgy?=
+ =?utf-8?B?MjhMYjZKY2xkYnE2bGVGUTcvRW1NaVB5aFdyNGxMSEZFZ1BUOW1LSHJZWjFk?=
+ =?utf-8?B?OWtsZzNWVjVPNWJ4aUx4WWZrNXJsbllhUmQ2OEw2TGErTTlsZjdWQVBuMEtF?=
+ =?utf-8?B?VEE1UktPbWZoWFJoOTR1YXF2b0dHaTVERndUb2JjWXZXTHpQOCtyNXR3WjBO?=
+ =?utf-8?B?RE1UR0xxYXRMNUlZTW5OUWwrbkZNd0RQNnJYdzdYQWdkZzU0T3E1WW1ndzVP?=
+ =?utf-8?B?TG1iY1l3YlV0enlmdTRWa0YraGF5Y2lDTUk5bERhMGtwWEJkb1c1N2RoMUQy?=
+ =?utf-8?B?U3M4RmsxckZqck03NlVrYkFQWWlmdmlvY1Y0cm80L2NwZWdiQzY4Z0VCazFM?=
+ =?utf-8?B?OXI0aS9hblB4Q04rY1JJMkozSTlkZHdCQWllQU1MRktZTmhLRmNWYy9jVzRH?=
+ =?utf-8?B?UnBZZi91a3RvTDJac0k1eDg3TlA1aUdTc05KWmlNWVpoMVlWdzVtY3FRVWRo?=
+ =?utf-8?B?L2FiZnNVSVB2MXZIbnNiU3pySS9mSHdpV0h3N0U1SzVlb0VqRVYyQVZGRFI3?=
+ =?utf-8?B?T1h0cm1NellFU3NxYzJTU1I0M2ROVERWYVpQK01EVGl1c0Jac0RER0FOMW5S?=
+ =?utf-8?B?TWE1WDdJaXNaWDFiMllCVFFaN1RqL2JKNmtXQjhnc2FkTjNDQktUbnhrSWhE?=
+ =?utf-8?B?Zm96dURMbHg1VHJlQk9RNjhqWVRJT29HSGxpWUZUTmp3WGpIeDBERzhObENJ?=
+ =?utf-8?B?emN4cE5qcXVKY0VnczJCaHdab0FCNGVPeUVuK0hrYk1GamcrdUUxTnptQS8v?=
+ =?utf-8?B?YnB4RlUvcUtpeTJEeGxqNGlqLy9OV2NaZllVUU1JaEZMb3VBZmFGcmMrM1VP?=
+ =?utf-8?B?cXNTRTZaY2x2ZlVmc1Y4cVVDazhGcnUwVVcvNHpubFdSeThwbnRHMGdWRy9C?=
+ =?utf-8?B?SVROeTNwNEpaRXJKYksyVDZhTkMxMFRmZ2Y0d3BLQ1N6cWJqYUk4UTBaS3Qv?=
+ =?utf-8?B?WjVlUlhZR1IvTGZIdUxiTy9yUElyVFRlSFlPUmUySk9JalhGaUxUZER0U1Ur?=
+ =?utf-8?B?U0NMK3hGYWRmM0VIRThoYk5PUCs2RDBtT09EMUVzMDFSdWlNNitNMjAwNUND?=
+ =?utf-8?B?b1MxOW1OemxBV1BNWDBpL1ZmTXJFNjhQTS94UURhMzlvbGNNQzRxeGJoMTdv?=
+ =?utf-8?B?UXBqTE1YWjhJWmp5ckZwV2tXV0tXMVBrTzYyK2pwWHYrbVZQdGJycWIwdWtL?=
+ =?utf-8?B?Yk1OS2JBd1ZudEtLRlQwamVrSDRCa2ZOcHMrcnRXWkFDY1ZYMXdGL0d2ZThY?=
+ =?utf-8?B?UkVGcW41eHlLWnVZdWdVZFlZRGFtMGdnZkVKV29Ka3VXZTNHSXhVeUQ5dWEw?=
+ =?utf-8?B?bnV5SnB4VjBJc2cvN29jdHNyR2ZNVkFqMUwraWJTVjlEZnJIZkFXbWlPRWxl?=
+ =?utf-8?B?MU92aXVxODdzcnBQQWhqNktqNmVwdDl6M3dJMGs5RzA2Yk1BZ3hkcmRCN21m?=
+ =?utf-8?B?TTJZUnRrcUY3QzBKRVV1b0NjNXRwaFBHbGUvbXVlQmdNK0xvd25ueUExcDB5?=
+ =?utf-8?B?K3F1citMTVhRamtOSWZkUVdacFBTZTdEMFc1NXlTSU5wV3VSc2tPclZjRHR5?=
+ =?utf-8?B?Zk0zNHFGSTEvakxBd09OTTRpUEpQWThNK2JuVjcxQkVOZFMydklNVkcwK2Y4?=
+ =?utf-8?B?eDMrOVJZZk5RajYzTW93d3ZCMm93bndVNVMxR2Z3b2hiM2gwd3MwTnovZEpa?=
+ =?utf-8?B?NnA3em9PcVdJTUU2MS9JY2hHWDFWL2wvWFFMdjNxcG5ndGNkZHljS3Yya2NS?=
+ =?utf-8?B?aVJ0cG13Uml6bkNGQ2RKcERwbHFyMVR1OHU1RzQvUzBCQVJ5KzVmQXZ2MEFx?=
+ =?utf-8?B?WE42M3hOS3hBcndjVElWMFEwRmJHOTdjYnI5Tk4xbDVLWk8vTi9rdkExdG5k?=
+ =?utf-8?B?ZHFJVGtlNlQrR1AzelZxa0hFWFp1ODc5S2hwL0RUZThEWHVaVHVQVDZjZzdO?=
+ =?utf-8?B?MnhaZzJ0dlgvR2pUaXhMbW50dnFmYitMV3kyWnVwTkZETDlNcHpDNGJpNm5w?=
+ =?utf-8?B?ajdZaWgwZ2YyWG1oSEdkRm1HOVdyaysxY2lwRTJNeFg4WXdDTit1T2hOckhK?=
+ =?utf-8?B?T25Yckh6dnNPblZQZXNVYTM1UkFaSmhZMTB2ZC9JK1FiNzBUZEIzU3hPTU56?=
+ =?utf-8?B?N2MrZnF1Y0kyN3R2K3BBNVpHZmFqdzIzYUFlT0paUVRxQnluTnk3WGZlbzVy?=
+ =?utf-8?Q?N922zPjRFLA0RyqvUZ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4e81c9c-c86e-4efd-a112-08df14337455
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 20:45:33.8718
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z3D2DWt7Y8imjLb1KzJX1qqQMth88jR3OFlf4XByKOgHS2aHx/ltR5dMTWXyUIc0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8476
 
-Hi--
+Hi Reinette,
 
-On 9/14/26 8:51 AM, Omokefe Emmanuel Onanaroghene wrote:
-> kernel-doc reports struct_group_tagged() members as excess because
-> the macro transformation rewrites it to an anonymous struct and drops their
-> member names.
+On 9/16/26 00:12, Reinette Chatre wrote:
+> Hi Babu,
 > 
-> Keep the tag and member name when transforming struct_group_tagged(). The
-> nested members are then recorded as names such as fast.order; accept the
-> existing unqualified @order documentation tag during validation.
+> On 8/26/26 12:32 PM, Babu Moger wrote:
+>> Add a kernel command-line parameter to enable or disable the exposure of
+>> the PLZA (Privilege Level Zero Association) feature to resctrl.
+>>
+>> This allows administrators to control PLZA visibility at boot time via the
+>> rdt= option (e.g. rdt=plza or rdt=!plza).
+>>
+>> Resctrl exposes PLZA by default without requiring any explicit rdt= option
+>> if supported. The rdt=!plza parameter can be used to disable PLZA exposure
+>> to resctrl, while rdt=plza explicitly enables it.
 > 
-> Add a regression test based on struct page_pool_params.
+> There is a lot of repetition. How about something like:
 > 
-> Reported-by: Randy Dunlap <rdunlap@infradead.org>
-> Link: https://lore.kernel.org/all/0cf8ea5f-418f-45f0-907c-3d1ed4f03e9f@infradead.org/
-> Fixes: 2f07ddbd5793 ("docs: xforms_lists: better evaluate struct_group macros")
-> Signed-off-by: Omokefe Emmanuel Onanaroghene <emmaonana18@gmail.com>
-> ---
->  tools/lib/python/kdoc/kdoc_parser.py  |  4 ++-
->  tools/lib/python/kdoc/xforms_lists.py |  2 +-
->  tools/unittests/test_kdoc_parser.py   | 37 +++++++++++++++++++++++++++
->  3 files changed, 41 insertions(+), 2 deletions(-)
+> 	Add "plza" to the rdt= command-line parameter so PLZA exposure to resctrl
+> 	can be enabled or disabled at boot. PLZA is exposed by default when
+> 	supported; rdt=!plza suppresses it.
 > 
-> diff --git a/tools/lib/python/kdoc/kdoc_parser.py b/tools/lib/python/kdoc/kdoc_parser.py
-> index d9ad1ddc87dd..ced09504f3d7 100644
-> --- a/tools/lib/python/kdoc/kdoc_parser.py
-> +++ b/tools/lib/python/kdoc/kdoc_parser.py
-> @@ -635,7 +635,9 @@ class KernelDoc:
->                  continue
->              if param_name.startswith("{unnamed_"):
->                  continue
-> -            if param_name in self.entry.parameterlist:
-> +            if param_name in self.entry.parameterlist or \
-> +               any(actual.endswith('.' + param_name)
-> +                   for actual in self.entry.parameterlist):
->                  continue
->  
->              hint = self.get_suggestions_hint(param_name, self.entry.parameterlist)
-> diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
-> index e3dda2fe8a53..9e8b3a6b1da1 100644
-> --- a/tools/lib/python/kdoc/xforms_lists.py
-> +++ b/tools/lib/python/kdoc/xforms_lists.py
-> @@ -60,7 +60,7 @@ class CTransforms:
->          #
->          (CMatch("struct_group"), r"struct { \2+ };"),
->          (CMatch("struct_group_attr"), r"struct { \3+ };"),
-> -        (CMatch("struct_group_tagged"), r"struct { \3+ };"),
-> +        (CMatch("struct_group_tagged"), r"struct \1 { \3+ } \2;"),
->          (CMatch("__struct_group"), r"struct { \4+ };"),
->      ]
->  
-> diff --git a/tools/unittests/test_kdoc_parser.py b/tools/unittests/test_kdoc_parser.py
-> index c4a76ed13dbc..1a8287e99f2e 100755
-> --- a/tools/unittests/test_kdoc_parser.py
-> +++ b/tools/unittests/test_kdoc_parser.py
-> @@ -418,6 +418,43 @@ class TestSelfValidate(GenerateKdocItem):
->          """
->          self.run_test(self.SOURCE, [self.DEFAULT.copy()], self.EXPORTS)
->  
-> +
-> +class TestStructGroupTagged(GenerateKdocItem):
-> +    def test_nested_struct_group_tagged_members(self):
-> +        source = """
-> +            /**
-> +             * struct page_pool_params - page pool parameters
-> +             * @fast: Fast path parameters.
-> +             * @order: Order of pages.
-> +             * @pool_size: Number of pages.
-> +             * @slow: Slow path parameters.
-> +             * @netdev: Net device pointer.
-> +             * @queue_idx: Queue index.
-> +             * @flags: Flags.
-> +             */
-> +            struct page_pool_params {
-> +                struct_group_tagged(page_pool_params_fast, fast,
-> +                                    unsigned int order;
-> +                                    unsigned int pool_size;
-> +                );
-> +                struct_group_tagged(page_pool_params_slow, slow,
-> +                                    struct net_device *netdev;
-> +                                    unsigned int queue_idx;
-> +                                    unsigned int flags;
-> +                );
-> +            };
-> +        """
-> +
-> +        kernel_doc = KernelDoc(self.config, "test.c", self.xforms)
-> +        patcher = patch('builtins.open', new_callable=mock_open,
-> +                        read_data=dedent(source))
-> +        with patcher:
-> +            _, entries = kernel_doc.parse_kdoc()
-> +
-> +        self.assertEqual(len(entries), 1)
-> +        self.assertEqual(entries[0].warnings, [])
-> +
-> +
->  #
->  # Class and logic to create dynamic tests from YAML
->  #
+> Patch looks good.
+> 
 
-Would something similar to this work for this warning?
-
-Warning: include/linux/debugfs.h:246 context_lock_struct(debugfs_cancellation) { struct list_head list; void (*cancel)(struct dentry *, void *); void *cancel_data; }; error: Cannot parse struct or union!
-
-Even though context_lock_struct is in xforms_list.py, it's not working
-in this case (above).
-
-thanks.
--- 
-~Randy
-
+Thanks
+Babu
