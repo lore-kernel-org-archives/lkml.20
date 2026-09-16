@@ -1,73 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F95F2D0C63
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED763115AE;
+	Wed, 16 Sep 2026 14:50:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570189; cv=none; b=Eo8PKjUlxOo3uTSPtz04kUPItnEshUSGFs1AyFpgNKynt0jxXbxzmpWl9ibWFWet+BhMFqF8YDXmvAK7f5PmIxQyXUQ7sS/BNY4TmTCJez1wyvirsb07mpSOcdRE3IHxbCyLS0vaH5qiiQVjeZO83ZPDaPP54YtJGkbQ/vYvnLo=
+	t=1789570215; cv=none; b=OnU7ihyE+6jXtOHVkpDGdaz//wbVl4aqCWZ9FDYGlLTkwSqvvESZzjhjwtuRDJFM+vvBX3/GnS0OZ1O2Q1zZypRI/uASPF2RxEnhLKT4Pq9hKviWcm26Uu+uUjMVeJUunnSTM6hV6IcSLh0UGVPp/ROqRxDnjPES5SQ4yM1wvp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570189; c=relaxed/simple;
-	bh=xoj8b95DS7WIGf46IXzStMOd+XCjfFVgNPFYQxPHFqA=;
+	s=arc-20240116; t=1789570215; c=relaxed/simple;
+	bh=T5oJQRvlKGIT5Z+xpOUQyew7rmZYZtulwLyGUmPxkbA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kF2yCU4/S9rSAVbXxlsgOnfUvtgzrRPytu3lz8ewihm8C/AjaiONOjUGEdLDJus7jLAdG0keftoAiyzkYuWOIwWYOYpvfHeAvsCHDpOIZktlvq1f2aC3za27WtwOHciZOSUCVdTODEKNRVSTB7Aej4H8CZNGhev0Hg7hcdtTGmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCC4yT62; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=YF+QsaKnKrSaa+6jTpoT2f8FsIYYxeWvohlBHte+vJxAhoE2vxP1YOetYHzbg2VqU1g5iYqU02BZ0zV2okmWNh/D9Ecw+ec+jXsdj1SyBbguHPQgHOKiIn3JJsrtGzJwptAf05gYLRMoQIhM0G4NAOtgv1rcsFQW8pL84Ahij3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=2iqH+ziL; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCC4yT62"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25561F000FF;
-	Wed, 16 Sep 2026 14:49:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789570188;
-	bh=2l7UexOzwasamiPYlC/kvUD4LQW4XsL9deK0FXSafNY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OCC4yT627K6qmnWUU5+H6XGv9MV2EjESTI1wS9O5BKP2EIJqIWiwY95v1dRqJQVl0
-	 tlwZ3qc2A0GRG/fALMIfLl7qx3gfjDa4o8GDRR24+nwgdJb/JRvFdlvac2RIf0EYXZ
-	 kHYad3mGwpuRVg8ZR57V4RL8Rj9DD2jHw4owXFPG6g6IGQW5A0dXamprVD2sN6IyVo
-	 I11TKbZglAlCL9wECWyYc55YPXLOKhNU/qsk5VM+QIDKyzVbiuHY8ywvzfmzmF8Lib
-	 3lgSreN9LQsTQlfXqQR4mTR7gqBbLI0BNRPmIIFcO6XfhLw2xQf+G/KZBXviqvi18f
-	 27F/bsi7TYV5Q==
-Date: Wed, 16 Sep 2026 16:49:45 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: tglx@kernel.org, anna-maria@linutronix.de, linux-kernel@vger.kernel.org,
-	mingo@kernel.org, hannes@cmpxchg.org, shakeel.butt@linux.dev,
-	riel@surriel.com, kernel-team@meta.com
-Subject: Re: [PATCH] tick/nohz: Remove redundant IRQ save/restore
-Message-ID: <aqqsiSDCpvkfxFTI@localhost.localdomain>
-References: <20260916141530.3423310-1-usama.arif@linux.dev>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="2iqH+ziL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=lGQP+UWUC6IA+x0OfkhU76QWikjYeprvqcMNeO6W3jM=; b=2iqH+ziL6DOHx27n8oKGzt+bMN
+	E3EvR7lKy/+6Bl/eI6pBGWSL5sVW1hmN6pKtXWiuP7C44euWLzIZZa/ow7qoDSdLAeySKEVpORbZ+
+	En1TlJV7qo5Wnrck/0zJISOQ4eg7VB+Atq6WCeZ0pIswCobSGx/aKOIccymUC5i7RPyE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x6qxR-005UoK-NO; Wed, 16 Sep 2026 16:49:57 +0200
+Date: Wed, 16 Sep 2026 16:49:57 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Alastair D'Silva <alastair@d-silva.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Subject: Re: [PATCH net-next 1/4] dt-bindings: net: phy: Add Allwinner AC300
+ EPHY binding
+Message-ID: <dbf2768d-1c83-4524-98c4-156ce4d16bb2@lunn.ch>
+References: <20260916044119.475666-1-alastair@d-silva.org>
+ <20260916044119.475666-2-alastair@d-silva.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260916141530.3423310-1-usama.arif@linux.dev>
+In-Reply-To: <20260916044119.475666-2-alastair@d-silva.org>
 
-Le Wed, Sep 16, 2026 at 07:15:30AM -0700, Usama Arif a écrit :
-> tick_nohz_update_jiffies() is only reached through tick_irq_enter() from
-> hard interrupt entry, where local interrupts are already disabled.
-> 
-> tick_do_update_jiffies64() requires interrupts to be disabled. The
-> local_irq_save()/local_irq_restore() pair around it therefore provides no
-> additional interrupt exclusion.
-> 
-> Remove it and assert the caller invariant instead.
-> 
-> On x86-64, this avoids the redundant RFLAGS save, CLI, saved-IF test and
-> conditional branch on the tick-stopped path.
-> 
-> On a 252-CPU host running a Thrift RPC service, tick_irq_enter() ran
-> 165,116 times/s out of 212-244k interrupts/s. Only calls with
-> TS_FLAG_STOPPED reach the optimized path, so this is an upper bound on
-> its execution rate.
-> 
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: ethernet-phy-id0044.1400
+> +      - const: allwinner,sun50i-h618-ac300-ephy
 
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+PHYs don't have compatibles which are vendor strings, only IDs or
+c22/c45. PHYs get probed by ID, not these strings.
 
--- 
-Frederic Weisbecker
-SUSE Labs
+    Andrew
+
+---
+pw-bot: cr
