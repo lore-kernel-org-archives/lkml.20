@@ -1,90 +1,166 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f26.google.com (mail-pj2-f26.google.com [74.125.227.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF892BD00C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:54:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472EC361965
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789534462; cv=none; b=RxC05GE2AT0jwku5wz2FuujUko7RVyYHfYzkzmtakikJ4NiE1vCTb3IKyNJe6IRN7UTx2ZccFTRB0otev1INS/A8wDoht1n4wcgVBTAHi/9AY4WpSpdTTkZ1YhgWDSNPqmk6iuHUMasF9TbOBxitpIGjST+RzEvpJ+gFTYp5F14=
+	t=1789534564; cv=none; b=RzQhJyb/zMCQB9gHMARdEghRcvWI9jiRbB+o9F9lb/9MAe+NDbN2QmnpoizaEX9fvF8SM34NQ89fvaCJ0czyunuXH+iNuiaAQLwR3ha1L70u3pz03/LlA4jFjKsm2kGTG17pV7QVF6ehA1BHYcoFdtB5mPSmVGTOxWg4q+RqQkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789534462; c=relaxed/simple;
-	bh=fU7vRJN/RkrHsrR+xp0E2tLiD/3a+xc4dMZXnHRhIWo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FVKY1OFaGzsSBGsPRpAz7HMZU55wRDROvdbFvNm+ZE4J0JIFW/LzJPpkzrIqS3fL9utC5G94RA0pMHW0ySLOYT5MjTY9ZvlUjfWfKXzvyWEmzwPzexvXyOhrjIO5TV2d8YxXv5vVCi0HXbMpNEgZMZ4vm8HUbtk2tDndZ+KdRdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ovm5Xnkf; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789534564; c=relaxed/simple;
+	bh=/y3E593iRUA37jO7B38pBXA7r37+dX3kgWb6Dllnr30=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c1jlel8HWpEOMQqW8BXar/TLgO30zrIN9m3d5NIECExISluMaE3JnULTtuSOEdeghb70xwwnN6eYPzUpbp5bJy6ma8+iEBDp/gWUYG4L5yZlVrqm1nthSPVaIptuIPFxatUfG/qLGToZZxm7gcgYqkNbYqSuHm8bvN2DkxhkdXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dw7jm/qO; arc=none smtp.client-ip=74.125.227.154
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ovm5Xnkf"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39e03468a5fso390408a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:54:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dw7jm/qO"
+Received: by mail-pj2-f26.google.com with SMTP id d9443c01a7336-2d8fb334e72so4668475ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 21:56:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789534461; x=1790139261; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=34AsoScSr372HQ81huKFVdThsUFHshWxaz7XBk7BIog=;
-        b=ovm5XnkfQviT3GQxHdVnIVLPifcDmCGGEmatz9wRj2ahhiapTxynmvQojAjQCt6AoX
-         TKfbbsdwJDgJ8QzPNUfT87Yhnwfs5EsF5DRTTKGzGLLsLJliTruwoCiSJbWXGb469u+9
-         gJ2Ld3bypoR+9aV2yZ7fhaF6Kg9GuKWWtG/aeLrprsKoWRFapZYQyaL9pgPbroZ1Nbuv
-         Ndw5mzibSkigJjvckCoSbetD1vIlob1RdzuTiduWKtWvS2WgvcJaFolEdjUnl60pjewb
-         VoQi4hZdaLDyA/ohAQPdgq6PJF7QOeMw3SXX8IPHzlm5K4BNB8g714Lu+LdL+2OG/gYm
-         5g4Q==
+        d=gmail.com; s=20251104; t=1789534562; x=1790139362; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NH5SR9jg7eNT12/RBDArov96uanRr4HR7KrIlDgUX+4=;
+        b=dw7jm/qOs+Zdasl6A5QzGg89Jluc1GsMiN3uCNh4DUsqJhagQh6gabpmqlyS4vTMyF
+         kXQXxPlM6IU66Pctwrxbwanvrv2pRXI4uSU/kINNH6zFKUGcQiAr+hfXojoif/xRTpZB
+         XwTHrG5+XbxSWmF4CkRZj2gKV/MD3tXHinD4lgLLjX2eujiLC+1CGFVXvq2JqN640M6H
+         0LAV4DJneQFVCJEuaCAk3UlF/WqA+zEpEBP9zQtoNZWRE0mFQTt9dMhwcxr4WuF+voKt
+         nGALsx8JvOl3cTmpBD0Jf3Zq2mLoHZSIOjnGKygG2ghcgYsS57mSiYQ0EhEwmSWp+46s
+         YhSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789534461; x=1790139261;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=34AsoScSr372HQ81huKFVdThsUFHshWxaz7XBk7BIog=;
-        b=mexwtPz1LSvK6l0yA7pPqQaNjJUROW0csC7tDcKK3Jluk/MOxvT/GARKOIn/qsfzJb
-         ybhesTi/OeGsoyR8SXyAyxsSHgScXTWhSf1fuV9uknwl3BkrVX6gbOEget/IRxHzC+be
-         ZoaiadkFmwQx5f/hOEtYmOmJQttlP6CB5CNgeZvZyrKQvDYmhHLM18NrTRcQPq9D62GT
-         yHYS5BELDUrjV1OCaH+Oc1drvMX7pCMXyqllRSw3xdduw2Ga+6BPqY58Zhp06Mx5Dkbp
-         oWdhs3Q709fuIxCMbQOH4f9ZVPc6B/eIntWKYuEJyG06VvSsBySKl78DhthjGnir51Js
-         Bztg==
-X-Gm-Message-State: AFuF++kU/5yiAmmv6HfUX8vbsiRd4KZ/04k2RcjE2pD/Nc7avMLuIENN
-	RqcIruTUGm4tr+w3M0FGQ8eqbo6sCDqIcW7vtDdIevHPA1wnnMBvvqoZKueY49E=
-X-Gm-Gg: AYBFou1o5ZfFdDarl2Kr2c6Ky4RXa5mCLRKWXHdbQ3Cc/ev4ohLmQgxPZI16buX9T8I
-	ZMrwKRpF+D9wCi7I5liV9wCmztZPk1nTYUOr+h0iobB2vL6viLxdELZJJh9d1v1fnt2YAZNEGcK
-	e08Dc3EkGJF5itcs0/aoycYsIt1K4zqiYDZuZ0H4VyB9Guuen1fu5qahTT/X6Qs/Cpku4sHwrbc
-	LjD1XPxfK70Cbt8WbAPcmgi+BDKt9ilEmwJsz7aF/W8qg7joX8PHfoEeE+GG3XUYSQ9gsXzOx/s
-	aMfyIJ61ICnB+tHHwF0FpvX+i1nTT4gNXFPJfnWkUQ0PQ5uUlthzj48JZcY2w16fS2TOeZb0aSq
-	FVCwoPK4iyip3hlH8hXnYjNz+b7Y/mlNZKgfBWX8KD2r5Y1CXzF03Cn611pSUN1/97gL6M97t5R
-	pOQ+K4bzjDv2ZjIGtPvv1Bb4D64L+esO/yELocbk6X3Ek16SgWXWO+h+ZTuroj3f05ci9vmjNXe
-	YZI/HV/l/E+
-X-Received: by 2002:a17:90a:902:b0:39e:2192:97dc with SMTP id 98e67ed59e1d1-39e2192b682mr1243464a91.6.1789534460596;
-        Tue, 15 Sep 2026 21:54:20 -0700 (PDT)
-Received: from DL2XHKPB4.dl.net ([103.63.104.162])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b7a3cc9sm2308379a91.14.2026.09.15.21.54.18
+        d=1e100.net; s=20260707; t=1789534562; x=1790139362;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NH5SR9jg7eNT12/RBDArov96uanRr4HR7KrIlDgUX+4=;
+        b=UC61fueTYCbwELvuvqvBUOEAinZe9iGbkGzrV5W0st8qPHTFB0oG4WDHGMP+uKT1ox
+         wCHDsab4h6Eo7I1bHxJ8zEogM7Pths7Dt8m1MWMnddyhkur5ShHPh+nwWQIQYR9aZTHx
+         V0ud5KHEpOOHQTyLGlErBtG8m7vrr6xQ2D2WcqkjArej96To2AfNwoEw9J7ySPGcw0Wz
+         euEnYGMNJ4HPhxJZR/44z9DddqVxzq2VAcFI8Don12BgukohZC73pUkmyGbZUal44N8p
+         Wpa0jYlc8FuwzoRRtJNYDFPkPbv+Vh4KqwFG/LV8T6FL+SgVRWB34rraCzXTaXZk67Tg
+         1log==
+X-Forwarded-Encrypted: i=1; AKwUvBwduJD+ge7PqPQ3YpLSCKHBFOMRjzAGEWHNOGsTfWSn1qQH6Vvb0XuhHd3pxQ1S38f7mIxlLqBotlFADgk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvxGfWF48tmOf9EIMa3Sy025gtNp5awhjJPcuceIEL9EQVnQcW
+	vXLKg/BAQxM1rGLUa4GMTQLbo8SIC9wJyreufg1yHhy0hcYphEUdeLSn
+X-Gm-Gg: AYBFou2e6RMVWPxYXABYTI/tQJQOyZtH5b/ViZoYSd8Q7rc6jdlxW/eDIYeQh7z06SI
+	k5Pt3CaolHx9MiEo+JQseNcHDn0II6l1HkcHRa/7MFAqgB9btAhEJOcclOn1rQbJKjUfmbfWZfK
+	nMNwv/ECmmyfSVUIm2RpVrc3MhNahb9kvytmLJwVFM74weLu/S0fwgaiNwbzqx9FbL71GAzaYLL
+	w9liTTakZT3bhhMrVsrXAVA2UYqzab6kJweTZPIEplLVY2An+6Gs94BVecSDdHUi+N8WyoRNCG3
+	15WEznFdzo+YkC2erCrpilbsEyUVL4gcNyMwYYaGnkh9GhDqsOf4uLUDPgEt4cw/+oBQ7qZanEz
+	RccqxC/lAAPNwPAMCVHim8b6UfIl/uMVqtR4tmus+ftlS1VXb5gZEbR/lmynJkSngx9yomeSiRW
+	CvAi/npB46aAwzn/iZdOi1s5EG4auhy5SDxUN68KfL5Fg3CtEy0c8UB+15yufbGkHLLkAL0m5Bs
+	/r5ezfNFL3UrSDjjw==
+X-Received: by 2002:a17:903:2f91:b0:2dd:9112:c4c9 with SMTP id d9443c01a7336-2dd9112ca94mr10220955ad.7.1789534562517;
+        Tue, 15 Sep 2026 21:56:02 -0700 (PDT)
+Received: from kernel ([45.251.35.123])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aee8b0sm9261930eec.23.2026.09.15.21.55.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 21:54:20 -0700 (PDT)
-From: Triet Hoang <triet.hoang.dev@gmail.com>
-To: tzungbi@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	linux@roeck-us.net,
-	triet.hoang.dev@gmail.com,
-	wim@linux-watchdog.org
-Subject: Re: [PATCH v2 1/8] watchdog: cadence_wdt: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
-Date: Wed, 16 Sep 2026 11:54:17 +0700
-Message-ID: <20260916045417.77262-1-triet.hoang.dev@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aqoMxDnKCOARllQC@google.com>
-References: <aqoMxDnKCOARllQC@google.com>
+        Tue, 15 Sep 2026 21:56:01 -0700 (PDT)
+Date: Wed, 16 Sep 2026 10:25:54 +0530
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: clabbe@baylibre.com, herbert@gondor.apana.org.au, davem@davemloft.net
+Cc: linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-kernel@vger.kernel.org, skhan@linuxfoundation.org,
+	jkoolstra@xs4all.nl, lkp@intel.com
+Subject: Re: [PATCH v2] crypto/amlogic: Use devm APIs for clock management
+Message-ID: <aqohWhV8HLW_J9AY@kernel>
+References: <20260901024302.5407-1-raizudeen.kerneldev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901024302.5407-1-raizudeen.kerneldev@gmail.com>
 
-On Wed, 16 Sep 2026 03:28:04 +0000 Tzung-Bi Shih wrote:
+On Tue, Sep 01, 2026 at 08:12:52AM +0530, Mohamad Raizudeen wrote:
+> The driver currently gets the core clock and manually enables it using
+> clk_prepare_enable(). This requires matching calls to
+> clk_disable_unprepare() in the error paths and remove function.
+> 
+> Switch to devm_clk_get_enabled() instead. This lets the kernel handle
+> enabling and disabling the clock automatically, which allow us to drop
+> the manual cleanup code and keeps the probe function simple.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202608310329.QgxCCMs1-lkp@intel.com/
+> Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+> ---
+> Changes in v2:
+> - Dropped the devm_crypto_engine_alloc_init() change due to build
+>   failure reported by the kernel test robot.
+> - Kept the devm_clk_get_enabled() clock cleanup as the sole focus of
+>   this patch.
+> - Link to v1: https://lore.kernel.org/linux-crypto/20260821151303.8150-1-raizudeen.kerneldev@gmail.com/T/#u
+> 
+>  drivers/crypto/amlogic/amlogic-gxl-core.c | 16 +++-------------
+>  1 file changed, 3 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/amlogic/amlogic-gxl-core.c
+> index 169c6eeb51e5..6f4c62ddaf89 100644
+> --- a/drivers/crypto/amlogic/amlogic-gxl-core.c
+> +++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
+> @@ -243,10 +243,10 @@ static int meson_crypto_probe(struct platform_device *pdev)
+>  	if (IS_ERR(mc->base))
+>  		return PTR_ERR(mc->base);
+>  
+> -	mc->busclk = devm_clk_get(&pdev->dev, "blkmv");
+> +	mc->busclk = devm_clk_get_enabled(&pdev->dev, "blkmv");
+>  	if (IS_ERR(mc->busclk)) {
+>  		err = PTR_ERR(mc->busclk);
+> -		dev_err(&pdev->dev, "Cannot get core clock err=%d\n", err);
+> +		dev_err(&pdev->dev, "Cannot get/enable core clock err=%d\n", err);
+>  		return err;
+>  	}
+>  
+> @@ -261,15 +261,9 @@ static int meson_crypto_probe(struct platform_device *pdev)
+>  			return err;
+>  	}
+>  
+> -	err = clk_prepare_enable(mc->busclk);
+> -	if (err != 0) {
+> -		dev_err(&pdev->dev, "Cannot prepare_enable busclk\n");
+> -		return err;
+> -	}
+> -
+>  	err = meson_allocate_chanlist(mc);
+>  	if (err)
+> -		goto error_flow;
+> +		return err;
+>  
+>  	err = meson_register_algs(mc);
+>  	if (err)
+> @@ -290,8 +284,6 @@ static int meson_crypto_probe(struct platform_device *pdev)
+>  error_alg:
+>  	meson_unregister_algs(mc);
+>  	meson_free_chanlist(mc, MAXFLOW - 1);
+> -error_flow:
+> -	clk_disable_unprepare(mc->busclk);
+>  	return err;
+>  }
+>  
+> @@ -306,8 +298,6 @@ static void meson_crypto_remove(struct platform_device *pdev)
+>  	meson_unregister_algs(mc);
+>  
+>  	meson_free_chanlist(mc, MAXFLOW - 1);
+> -
+> -	clk_disable_unprepare(mc->busclk);
+>  }
+>  
+>  static const struct of_device_id meson_crypto_of_match_table[] = {
+> -- 
+> 2.53.0
+>
+Hi, 
 
-> Not only for resume(); maybe just "PM callbacks"?  This suggestion applies
-> to all patches in the series.
+Just following up on this patch. Please let me know if you have any
+feedback or if further changes are needed.
 
-You're right! I will update this in v3.
-
-Thanks for review,
-Triet
+Thanks,
+Mohamad Raizudeen
