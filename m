@@ -1,167 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656ED42CB1C;
-	Wed, 16 Sep 2026 23:27:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D8242CB1C
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:28:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789601242; cv=none; b=fKGXsWlMhHuQV2mwKAO0LHfGBiE/Z3U3yscc2txb32m6iMQ3Rm7YYIbz4PX7HEfoPJ1jB4wZ9/J5iW+tWJYMtgxOY3ogssa5m29crFLICcxr8Dh2V76s5R2/N3WFE9KfRblXrTg2YRiSuYfsTI2Lq7WG807PzwuGB6nKMtME5yE=
+	t=1789601298; cv=none; b=Cb2qhLqvdGwBuMALS2jRnmYDBAjbnVmZLTuxx585IzYWyolRvLW4WjA9S124UdZzDTCWjm7wb8EybmUlgKyNFjzg+um66StayBvS9amCEQu+gCyOC5Eors4KqK6R1KFWq0JxbHz+Ys9z0Wy1hJO8Awt+zDyFnhv+oFVZvJ4HNkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789601242; c=relaxed/simple;
-	bh=kVukq6PGE++Zf2M92DLF9J8c1ZNhBniKUYbXKgjndWA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ftFFwG3P5y3kUzLfv1xjeUGFdiZ7F9+6eIcFQlO7SbuvO963vmyvp3RXTkcK3i0uRy0Hk1sziMoj1PBRA4n4NYiCDy4CJzYFCNmCCx0G333/KyGvhS4dsegZmXVhXIUS4kTwQh3mZpM2HUAme+bFEGa/HinZOZaGhfftYhYR9pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kequ4qrL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789601298; c=relaxed/simple;
+	bh=eIYaTbOyCqRYPJn7/8Rhy6w3wPYle3dovTqH6wLFO/s=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=m4gzyDaURrZTzsmkDimj7i4vSG7Ak5XLlb/E4XMG1klcP9+PePugtXH6Rzn551QroaHx79C31Ea4yzyS5joezhojxfV7jkasOO+pTbb8wjcFDMMiOVpq+GBRaqt+2Ack4EODEZkVM7AJG/SzbiidJaekzwJ/qtWHPjl6oalWi1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=srvA9OXD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kequ4qrL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1371F000FF;
-	Wed, 16 Sep 2026 23:27:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789601241;
-	bh=DdxpGXS/wnimnfN1olqkWbYsmp9jSsthllf3I7l40Ts=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kequ4qrLA/stLLGW3CIkibGQx0JSpzNkkyEC2GB6l4KbXM1pbpDkBhKYpRYWyRIwm
-	 caDnU8ZHFn/B0sKQskme34CLjplcus9b7TlWQJacNToFnA5bAbOllLlXZYmDH6zMAm
-	 BXDoZnZZixhR6e0K0+UCYtZ5PemfnyR03j1heAsH8SrfhE6fWfTDnJoje2bpD5xFml
-	 DnzY5Qkw80HsnXUwaPjQDtVsHgv0yFNKNOwH0BcPlZ2kCqNFiEGbI5HkXrq3RxF3bS
-	 dCDvCwKGfBp8TcOEIkQbawKkW9Lox0zzpsfJ6q9uANwzcHOQHf6I8KpzbqcV35R5vS
-	 UCDetSCvp93rw==
-Date: Wed, 16 Sep 2026 16:27:19 -0700
-From: Oliver Upton <oupton@kernel.org>
-To: Leonardo Bras <leo.bras@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Tian Zheng <zhengtian10@huawei.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on
- migration
-Message-ID: <aqsl1_IqnV2r8kUL@kernel.org>
-References: <20260901171558.2674031-1-leo.bras@arm.com>
- <20260901171558.2674031-6-leo.bras@arm.com>
- <aqneWnlsdpocLIl6@kernel.org>
- <aqqhDs3NyjtkZzXK@LeoBrasDK>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="srvA9OXD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886311F000FF;
+	Wed, 16 Sep 2026 23:28:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789601297;
+	bh=UPs0AIc/Ul5bydtRCdm7Q9haA+pM2MhBAlRyqbrA+uo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=srvA9OXDoPzoqx9Pib4l6v8rqaRVTEd6e0c5mvHaxz5vdsP2Mm+d9TCxc+TJpMPRu
+	 dtEuSBeHPRpI3Zzlu3voDCT62LC76011AqrTfcp8LFhJoRO1s+rP8ah1qikeBWXr1v
+	 MTzLCu3Chm+GXcLyiPXTYGZCG+dk7Zb8Hmg4qrgk=
+Date: Wed, 16 Sep 2026 16:28:16 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Arnd Bergmann <arnd@arndb.de>,
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Qi
+ Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo
+ Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, Barry Song
+ <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie
+ <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He
+ <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, Ridong
+ Chen <chenridong@xiaomi.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/vmscan: avoid false-positive -Wuninitialized
+ warning, again
+Message-Id: <20260916162816.39f0f33f6a48d30a71be3575@linux-foundation.org>
+In-Reply-To: <20260916083456.4136132-1-arnd@kernel.org>
+References: <20260916083456.4136132-1-arnd@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqqhDs3NyjtkZzXK@LeoBrasDK>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 03:00:46PM +0100, Leonardo Bras wrote:
-> On Tue, Sep 15, 2026 at 05:10:02PM -0700, Oliver Upton wrote:
-> > Hi,
-> > 
-> > On Tue, Sep 01, 2026 at 06:15:56PM +0100, Leonardo Bras wrote:
-> > > When dirty-logging is disabled, even non-write faults make a page dirty,
-> > > which avoids a second fault when the page is actually written to.
-> > > 
-> > > On dirty-logging enable, this approach causes all (writable) pages on the
-> > > memslot to be marked clean, even if they were not written to, which can
-> > > take a lot of time, while holding the MMU lock, doing atomic writes to
-> > > PTEs.
-> > 
-> > Do you have any performance numbers for this? Enabling HAFDBS seems a
-> > bit involved to avoid some stores on the first pass.
-> 
-> Not yet, but if the idea does not look too crazy I can find hardware and 
-> collect some data :)
+On Wed, 16 Sep 2026 10:34:46 +0200 Arnd Bergmann <arnd@kernel.org> wrote:
 
-TBH this looks like a micro-optimization so I'm not expecting the
-performance gains to justify the behavior change.
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> I previously worked around a false-postive gcc-16 warning in the
+> get_tier_idx() function, by adding a fake initializer. This happens with
+> the -fsanitize=bounds sanitizer when the compiler creates a specialized
+> variant of isolate_folios():
+> 
+> In function 'get_tier_idx',
+>     inlined from 'isolate_folios.constprop' at mm/vmscan.c:4982:9:
+> mm/vmscan.c:4934:9: error: 'sp.refaulted' is used uninitialized [-Werror=uninitialized]
+>  4934 |         read_ctrl_pos(lruvec, type, LRU_TIER_MIN, LRU_TIER_MIN, 2, &sp);
+>       |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> mm/vmscan.c: In function 'isolate_folios.constprop':
+> mm/vmscan.c:4946:25: note: 'sp.refaulted' was declared here
+>  4946 |         struct ctrl_pos sp, pv = {};
+>       |                         ^~
+> 
+> Adding another "= {}" would solve the problem as well, but to prevent
+> this from happening again after the next code refactoring, try instead to
+> prevent this by forbidding interprocedural optimizations on this function.
+> 
+> ...
+>
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -3274,8 +3274,10 @@ struct ctrl_pos {
+>  	int gain;
+>  };
+>  
+> -static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
+> -			  int tier_max, int gain, struct ctrl_pos *pos)
+> +/* __noipa works around  gcc-16 warning for uninitizled use of pos->refaulted */
+> +static __noipa void read_ctrl_pos(struct lruvec *lruvec, int type,
+> +				  int tier_min, int tier_max, int gain,
+> +				  struct ctrl_pos *pos)
+>  {
+>  	int i;
+>  	struct lru_gen_folio *lrugen = &lruvec->lrugen;
 
-> > > 						      has_vhe() &&
-> > 
-> > I don't see a reason why this needs to be constrained to VHE-only.
-> > 
-> 
-> Humm, in nVHE would not the host kernel run in EL1?
-> I thought that this being a feature that depends on EL2 registers host 
-> would need to be in EL2 to make use of it.
-> 
-> That being said, I understand very little of how this works, so I 
-> constrained to VHE only at the start.
-> 
-> Would this work in nVHE?
+Current code has changed here somewhat, but I expect the error is still
+there.  I fixed that "uninitizled" while in there.  Altered patch is
+below.
 
-We already pass a stage-2 MMU configuration to EL2 from EL1 in nVHE and
-hVHE. How is this any different?
 
-I'm not opposed to making features VHE-only, but there needs to be some
-amount of reasoning to justify it.
+--- a/mm/vmscan.c~mm-vmscan-avoid-false-positive-wuninitialized-warning-again
++++ a/mm/vmscan.c
+@@ -3195,8 +3195,12 @@ struct ctrl_pos {
+ 	int gain;
+ };
+ 
+-static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
+-			  struct ctrl_pos *pos)
++/*
++ * __noipa works around  gcc-16 warning for uninitialized use of
++ * pos->refaulted
++ */
++static __noipa void read_ctrl_pos(struct lruvec *lruvec, int type, int tier,
++			  int gain, struct ctrl_pos *pos)
+ {
+ 	int i;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+@@ -4802,7 +4806,7 @@ static int scan_folios(unsigned long nr_
+ static int get_tier_idx(struct lruvec *lruvec, int type)
+ {
+ 	int tier;
+-	struct ctrl_pos sp, pv = {};
++	struct ctrl_pos sp, pv;
+ 
+ 	/*
+ 	 * To leave a margin for fluctuations, use a larger gain factor (2:3).
+@@ -4821,7 +4825,7 @@ static int get_tier_idx(struct lruvec *l
+ 
+ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
+ {
+-	struct ctrl_pos sp, pv = {};
++	struct ctrl_pos sp, pv;
+ 
+ 	if (swappiness <= MIN_SWAPPINESS + 1)
+ 		return LRU_GEN_FILE;
+_
 
-> > > +		!kvm_vcpu_has_nv(kvm) && cpus_have_final_cap(ARM64_HW_DBM);
-> > 
-> > Same thing goes for nested... KVM can make use of HAFDBS in the
-> > canonical stage-2 MMU (or even a shadow stage-2) independent of the
-> > guest hypervisor.
-> > 
-> 
-> Humm, I remember reaching the conclusion that it could not be used if the 
-> guest supported NV. Let's say:
-> 
-> L0 - Host	- Has HAFDBS enabled
-> L1 - Hypervisor - Has HAFDBS disabled
-> L2 - Guest	-
-> 
-> Let's say guest writes to a page, and the shadow S2 has DBM=1, so it's 
-> marked as WD by HAFDBS. Since no fault was taken, how would the L1 be able 
-> to update it's S2 pagetables to mark the page dirty?
-> 
-> (We would have to transverse the Shadow S2 Pagetable updating the original 
-> S2 pagetable)
-> 
-> I was wondering, thought, that we could emulate it in the last level 
-> hypervisor, if it's guest does not support nested guests. That would mean 
-> we can have the last-1 level hypervisor to update the S2 pagetable on the 
-> last level hypervisor without it having to fault. Ex:
-> 
-> L0 Host - HAFDBS disabled
-> [...]
-> Ln-1 Hypervisor - HAFDBS disabled
-> Ln   Hypervisor - HAFDBS enabled
-> Ln+1 Guest - No E2H feature
-> 
-> When the guest writes to a page, the host should receive a fault, that IIUC 
-> have to propagate down up to Ln Hyp. If Ln Hyp has HAFDBS, we could skip 
-> injecting a fault in Ln Hyp, as  Ln-1 Hyp could emulate HAFDBS and write 
-> the dirty bit to S2 pagetagle of Ln+1 guest, that resides in Ln memory.
-> 
-> Not sure if the troulbe would be worth, though.
-> Does it make sense?
-
-I'm not following your reasoning here. Treat the shadow stage-2 MMU as a
-TLB; that TLB is filled with a writable translation when S2AP[1]=1 in the
-L1 translation.
-
-The dirty state of the pseudo-TLB is completely internal. You could then
-layer HAFDBS for the L1 translation on top of this (which we don't
-support) by potentially relaxing the descriptor _before_ evaluating the
-resulting permissions. You'd then take write permission faults to set
-S2AP[1] in the L1 translation.
-
-> > The name would suggest this thing takes a vcpu pointer...
-> > 
-> 
-> Ah, that name was based on
-> #define kvm_vcpu_has_feature(k, f)  __vcpu_has_feature(&(k)->arch, #(f))
-> 
-> That takes a kvm struct to check the kvm_arch one, instead of looking into 
-> the vcpu. I did it like this because there were some scenarios it was not 
-> quite straightforward to get the vcpu to use vcpu_has_nv(), which takes a 
-> vcpu.
-
-This thing probably should've been "kvm_has_vcpu_feature()" or similar to
-massage the expected typing.
-
-Thanks,
-Oliver
