@@ -1,125 +1,82 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB32374A0E;
-	Wed, 16 Sep 2026 13:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4144FECE5
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566446; cv=none; b=sThJpa6CvT5vxP1vzo3X2Ef+dlaIKc5Adbvyk8Z0RW/xNztlCfmFkBEl0wFVLn9E1B4zvy6tV1g0YTGtMnuBvqpqoep9lfnQdj4aUzxPBk76jICgZTWQ8G549DHytfjOaWGqmKWtSQlaMNg3OtAbeHxSpaupqXb9BJdtVJ5Fs1A=
+	t=1789566446; cv=none; b=qR0sBREr/q/NN0XjUX5j+6U/JWUYZdCXotAoorHcQPQRBq9E0Wg65z2MWaJdnqzpGcNCifo74mYYcaK0zWQrLIan1rCvHjjZvFiNvjNQI1Jgv8LHu0O0uvS1ihkJhQ8mtXMnUsXYgN9mUmy4zsOJc9g1RROMfl7gGsqvNgPzeAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789566446; c=relaxed/simple;
-	bh=7HBTXOG+9JVl/hOKqf2kQnfCJZT7V4XzpggQ1Yhk7/k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eXeUmZNhjQIJQ1ZSHR8YISDzi8sew3S+MOGzkhNTfikLgFaXYZsMvCt1hyFiWKnS+MQrPXmMHckHnqpGTqrMyTdYGFYDE85lL4hFPfzDMlw9l0Aa1ukV9fi9Zc+kJCMtARr4PhmZETIm2r6lM/nmHJV9MryEpgq3Jo3Vvn/+Pgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cQmZkswO; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=tH2TyRyrHUfYivxY9vkK6rsqtkiNGwOuf34YFqaNWdo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pXPdwPwGfCHYc5+lhppmhFweIWReB8sPcUS+ivCnfnUp5hFW79YsGIeO8dMBhCQwJcPG7idhdZEUwzZvrtI4hKCUHLK+xC33g76jQUuchqm4OBTJ1pVy3RZIapuj2AI2S7vSbKcXVNCdlClIrpcsDZnw2ST0obEu2trh/UKlM+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bY+Ya2I2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cQmZkswO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 8B0FFC5CD60;
-	Wed, 16 Sep 2026 13:48:01 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8DF5560337;
-	Wed, 16 Sep 2026 13:47:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3556A11C7B010;
-	Wed, 16 Sep 2026 15:47:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789566433; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lt+P2hfM1B9VSLV7z/VcpgI97WE51IIjwkLTEjmGwTo=;
-	b=cQmZkswOmGefbgPMgegXXD5h/lvNJGPTl+2w+JldvN3e5pzOO5HYwNmkkn8JhCQRiTofg7
-	1BeQSzlVI3tumoKcNAhFHC+tPV/CkGgz9Lulxxr+06MO+dBAJNtJlu2NpVmGNVWZA3twZX
-	R5YMftaXEGWbz6sORBBVOjUyZ3IOyjBlKcnF9xCh0uKS8t2LWhBzpYp4hR7gq1w9XdacJL
-	g5430sZU4vsT9yAnP5CUnqUwVHunvzeIT0mN8G0qqRgPPyKX1Jn+NmNLwD151zxrypaHJC
-	+HR8+xTu/MxlAPi5pT/rpgDIC3dSHfnKNQaullkA1qCEUu3sEjBbp6lREaiyGQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 16 Sep 2026 15:45:35 +0200
-Subject: [PATCH v3 11/19] drm/mcde: dsi: remove unused includes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bY+Ya2I2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD421F00898;
+	Wed, 16 Sep 2026 13:47:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789566442;
+	bh=q7xO4hFi2UtZfonLXP+mL7IxnXY+Fr9azw/0sP29fPQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bY+Ya2I2Hqz72MS3hfKFQW2c7SFMItvABWch7KKERuFr2NVo7N06tg7g5QKhbRkCC
+	 L1fmjBauqaCZsNk9tdJWiYyRtf9IbKhbVqAFwptGsxPOOg1tUpoJqHSa1UZY0Ai+sl
+	 /hCjgCMEeqIFjMUY6I4Lb+odENTb9dMnwiAWzo7wg3TYN6tPDxUpJP9Ww4qFmoPg1a
+	 cHG/xVPu8H3ZRiJDVcP1vp3WsSQjZMYNXlSCLqHzhBTOyeEX/1fC76gRB1v5l7dEOj
+	 Y0tMumskOFjm+bBN2rJhLcMCU+h1A5KwPDidHXXTyEYy4smume/x2Gy7C8g5ZGcvOw
+	 BNVfyLa2V6nlw==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1x6pyp-00000006DD0-3XB9;
+	Wed, 16 Sep 2026 15:47:19 +0200
+Date: Wed, 16 Sep 2026 15:47:19 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [BUG] general protection fault in upd78f0730_tiocmset
+Message-ID: <aqqd55r5Nl00FBFt@hovoldconsulting.com>
+References: <CA+0ovChXjGWuRQuKHHWkSiLbdt-WEWv=M0mGOB2eKcJjFiEY=A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-drm-bridge-every-panel-v3-11-83afb4f1a707@bootlin.com>
-References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
-In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
- Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Sean Paul <sean@poorly.run>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Albert Esteve <aesteve@redhat.com>, 
- Anusha Srivatsa <asrivats@redhat.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+0ovChXjGWuRQuKHHWkSiLbdt-WEWv=M0mGOB2eKcJjFiEY=A@mail.gmail.com>
 
-The helpers are included but unused.
+On Fri, Sep 11, 2026 at 01:16:11PM -0700, Farhad Alemi wrote:
 
-However symbols from drm_atomic_helper.h are used, and were previously
-available as a side effect of drm_atomic_helper.h including
-drm_atomic_state_helper.h. Add drm_atomic_state_helper.h.
+> We are reporting the following crash (reproducer attached):
+> Linux version 7.3.0-rc2 50d05c7c76c96b90462f24debacca971d2e86713
+> Build Config: UpstreamAppArmorKASAN (KASAN + UBSAN, panic_on_warn=1)
+> 
+> [   44.256596][ T9490] Oops: general protection fault, probably for
+> non-canonical address 0xdffffc00000000ba: 0000 [#1] SMP KASAN NOPTI
+> [   44.258408][ T9490] KASAN: null-ptr-deref in range
+> [0x00000000000005d0-0x00000000000005d7]
+> [   44.259206][ T9490] CPU: 0 UID: 0 PID: 9490 Comm: repro Not tainted
+> 7.3.0-rc2-00099-g50d05c7c76c9 #1 PREEMPT(full)
+> [   44.260235][ T9490] Hardware name: QEMU Standard PC (Q35 + ICH9,
+> 2009), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+> [   44.261396][ T9490] RIP: 0010:upd78f0730_tiocmset+0x86/0x4b0
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> [   44.270495][ T9490] Call Trace:
+> [   44.270882][ T9490]  <TASK>
+> [   44.271160][ T9490]  ? __pfx_upd78f0730_tiocmset+0x10/0x10
+> [   44.271694][ T9490]  ? __pfx_serial_port_dtr_rts+0x10/0x10
+> [   44.272208][ T9490]  tty_port_shutdown+0x165/0x220
+> [   44.272672][ T9490]  tty_port_hangup+0xee/0x170
+> [   44.273101][ T9490]  ? __pfx_serial_hangup+0x10/0x10
+> [   44.273600][ T9490]  __tty_hangup+0x5a7/0x650
+> [   44.274074][ T9490]  tty_ioctl+0x757/0xde0
 
----
+Another symptom of this issue was reported by syzbot a couple of weeks
+ago and I posted a fix for the tty layer last week:
 
-New patch in v2
----
- drivers/gpu/drm/mcde/mcde_dsi.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+	https://lore.kernel.org/lkml/20260910125114.640880-1-johan@kernel.org/
 
-diff --git a/drivers/gpu/drm/mcde/mcde_dsi.c b/drivers/gpu/drm/mcde/mcde_dsi.c
-index ce078aa3910f..77cf253a2152 100644
---- a/drivers/gpu/drm/mcde/mcde_dsi.c
-+++ b/drivers/gpu/drm/mcde/mcde_dsi.c
-@@ -11,17 +11,15 @@
- #include <linux/regulator/consumer.h>
- #include <video/mipi_display.h>
- 
--#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_mipi_dsi.h>
--#include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
- #include <drm/drm_print.h>
--#include <drm/drm_probe_helper.h>
- 
- #include "mcde_drm.h"
- #include "mcde_dsi_regs.h"
-
--- 
-2.55.0
-
+Johan
