@@ -1,73 +1,45 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3005013B3
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84074F4746;
+	Wed, 16 Sep 2026 13:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566903; cv=none; b=FsnI1viNpJM4BawCzq2M4BE8CChXuhxaqYMz2vDKPTSpn8kyw51tW2cBLkar/WpAzORxxkubQMHXiDukjKRkJZlyqXba3n5F+68yg/pEf7v8y9jcFuxVctdZOtPU2MA7Ii6aNHWFwPuR+bwuzjk9otAWuTFdn/owM7QNTk8sGkQ=
+	t=1789566940; cv=none; b=Gv5qcgzoCKigzAUCY3TPVazDg66qIbbcnAwd1f351GVOk/I4X/0OKpA7xIsnAZR8WRHQEz9q6JDsUGoaL/C33v/Iao3QWEa3tX5xoJWz2fKb2uMWVnXNXT/5mxHuf5PoxD2RFHxUIupMYCMIUGEh6GZ5CjalB2RJc3yRLeNhWCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566903; c=relaxed/simple;
-	bh=X7H/+PCa7na8YAQKP6nTZfBLQN6WGcAiu+Y7lmqirPg=;
+	s=arc-20240116; t=1789566940; c=relaxed/simple;
+	bh=r5iSzj8clLV7VEGkPNoN6Ep2Cm/5urm4aGSrADjdWa4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jw8PClEkKZR2vwiQC+rHsr4bukUjPq+B2byotqVrDTc/MUeAdRL5PEvwMHSjDe0o+xhv56OxEoyKVoOCX/XRXtln3ZsKF4wjZbvMhTdNZ5Da5eKD8/+H+Rc7aFZzAPaiL2+Mq/YPebJxx8A+GbDtzzA/SJSSsH5WdMin6mMgimw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=B4GvMxqJ; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bTMeBbqe6Lev63Ih1acf4780U0vruBYVwhJ3tKlVuwiyPUpuW2o5UZzC2lK+i05XagPGg0wc4n1KZlYkdUrgA/y+KjcJYoUMVAtj9XhDzgK8hBY06Hy35IxSlmJ2zR1/SzhSGczmqJmsE6Ob+hqT296FOXKKStuvmgLc/9g+WrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JS0ciWPm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="B4GvMxqJ"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2939b2e4caso13263166b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:54:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789566890; x=1790171690; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iDchB+ryUkdDdWE5U+mZxjTR/yYOQrNzWlaxP9QHW2Q=;
-        b=B4GvMxqJqHjg7jHODO1Wp6SRRU6KmYsBVRsuggi+0Z/6pBCqepcPgnsb+rdxo7Z0N2
-         zoqNQf8n1lmTyG4Lh1bov7LtHoCzKOzSXOJK4QPOftPwsu5qoKZFdsnXmR8IZrptoES0
-         GmR2z3h0mmYtV695/WoGE9aK/+FLRgLwXMY/4oxfTDMkgiQb+l2nwh5W2KhC8XzWsyCw
-         DRPvCZSiegJUqfLhOpZJApcmaYoT3/NSeCgvnNC2u5w4b5Gm4gc1xAWWqMV0dYKpkhkf
-         bHVfERWYX7e3H9H7FcuRq1YBMzIWkAKRFg5Ts1X46XFrMtsut6EyUarDk7eq1eFun1ll
-         7ZBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789566891; x=1790171691;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iDchB+ryUkdDdWE5U+mZxjTR/yYOQrNzWlaxP9QHW2Q=;
-        b=lM6tpUpGr1/Uc9zpBY4HuBptKWukrkf3omRdb+x7PQ8QF97sg8qtW/KoqA93B91gfF
-         LX0KCHoxM+JyuEo76EcxlFyEHrce1hhIbdqEISgrtRhrCRTw9htGiM28xeb6LhhELz+a
-         22jKCFErDzCiUuZVatqr/qBr21ivvYVaYzVefe/CyhFcwuVCpY/dsXzcdQw06XtRYEbb
-         v5zHzTdY3J0KKDKHZNnv4rFfavf9fh3Lb0hkIbTLBJzitwbIyTvh4nrobfFlX8GUUwYB
-         qEyPQFX1Vgt061r34+yWl+y/PsP5QGBntTWao5U54tCXg/fALW3PQ4+/qhQdpdzZn10d
-         4xcw==
-X-Forwarded-Encrypted: i=1; AKwUvBwh1wvcTD1XzWDp+sV6QrgnRF2/6MKjJSLnkFkIgCz2AB5kN/OSOke8w5zh1tx4nvYQijrmSPDnSTY5FMs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lc8Rw+mR5dnbb7XeK2APjTmL6K5v93v6DDM37jlyDaRnyGxUIu
-	5wBTW3mSN4+FIshE1Waw6hGOpidB5+WBkMUdA4km6Eno6rBGijeBUnT7dEaYTKiShq8=
-X-Gm-Gg: AYBFou35JXBJ4fKBk7LeLHE1YUZIld4WDcI1Tz0uFSfemSTvtbdtvT1e9xLSpfsQiBn
-	6+ezhGFpwRemwLLzMGO0Rd5BlMkLfwHTsNw0zCyBs0AnGFzr3Lr2WSAsA/SuKbMPirgAFhciGL/
-	54A9BfCUe0PZSKxgKYGmrWPN9VvtHCGr15WI+bbRcxEHWGE5NUnsmgqu4McBrxhrH/NkH+adofJ
-	k8h1x4uxkCUSun/gMvB3ukh0FGZUSgYcblvnwNLr2vJi+fp894RD2VYDkBrSVWpV85WB5kJOlkt
-	TZ658MOionkn82QFE2xTbviuF6rDIUhhoBv8Qcn+wtieKuWJRL9o+bC2+Y8eqpVU5DxTePLPYUX
-	bXyCrWPojjcMGdmB3uUCzx2fBmqWOL1qTerlY7m4yOatnE3LRpcxX0+nFpS1cT+/bIKWW2WqZ2/
-	n1574hV/ZpiyujtW4dQF3QWo0MycSdVml9G4CqV5PDoeAAOWFrR8o+qWctzWOG99KiQlGHTbs=
-X-Received: by 2002:a17:906:f59d:b0:c25:2fb5:e57c with SMTP id a640c23a62f3a-c29e5302b7cmr203357166b.3.1789566890387;
-        Wed, 16 Sep 2026 06:54:50 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b7e29f3sm5106347a91.17.2026.09.16.06.54.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:54:49 -0700 (PDT)
-Date: Wed, 16 Sep 2026 21:54:46 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
-	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ocfs2: retain all security xattrs during inode creation
-Message-ID: <aqqe10w7OONy6pcI@p15>
-References: <20260916120258.3583355-1-joseph.qi@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JS0ciWPm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E79A1F000FF;
+	Wed, 16 Sep 2026 13:55:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789566926;
+	bh=OTxyEhJMxuk5Pjf/eVkUDSq9wsvcYeccJugcO02f5B0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JS0ciWPmY0kaKtJYyMAEptYFHghx7v9oQMf7Q8/dzrIfeE1ZSiCg5jFmgxMoWZDWT
+	 OynqQMe5FslIETBnS6JdcNxEtTYocCNZX/wxR+swBe8jYvTdYWsST7rum5c0xCYkjX
+	 pYtbXaBARInTB6vump61zFyskVkBmHkT1+5yNxFtYZ0b2xdvr3tYxYiN0x9+ZUS84W
+	 by/DrUsjwSFFUwqUIy7g8ceaxFOWe6QX2oNfW/6tbIznh/xfdEKW0MkfDIJhbC4I+w
+	 Kr/7DgeBlmts7N7wdutrKAnPdFSP7WuO2WIn6ttnD67cD8e1HIJdNgH/wKFqFvy/R8
+	 AfgSvWTa4h6lg==
+Date: Wed, 16 Sep 2026 10:55:21 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: peterz@infradead.org, mingo@redhat.com, namhyung@kernel.org,
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org, adrian.hunter@intel.com,
+	kan.liang@linux.intel.com, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liujing <liujing@cmss.chinamobile.com>
+Subject: Re: [PATCH] perf bench messaging: Fix the formatting issue when
+ printing.
+Message-ID: <aqqfyX9nkOrVqwUb@x2>
+References: <20250922091736.2798-1-liujing@cmss.chinamobile.com>
+ <20260915221122.2174928-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,317 +48,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916120258.3583355-1-joseph.qi@linux.alibaba.com>
+In-Reply-To: <20260915221122.2174928-1-irogers@google.com>
 
-On Wed, Sep 16, 2026 at 08:02:58PM +0800, Joseph Qi wrote:
-> When creating a new inode, ocfs2_init_security_get() stores the
-> security xattr returned by the LSM framework in
-> ocfs2_security_xattr_info so that it can be written later within the
-> same transaction.  But ocfs2_initxattrs() only ever looks at the
-> first element of the xattr array, and it keeps the name as a bare
-> pointer into memory owned by the security layer instead of copying
-> it.  The value, by contrast, is already duplicated with kmemdup().
+On Tue, Sep 15, 2026 at 03:11:22PM -0700, Ian Rogers wrote:
+> From: liujing <liujing@cmss.chinamobile.com>
 > 
-> With stacked LSMs, security_inode_init_security() provides one xattr
-> per LSM, so all labels but the first are silently dropped and never
-> written to disk, leaving newly created files without the security
-> xattrs the other LSMs rely on.
+> The unsigned int type should use the %u format specifier when
+> printing with printf or related functions.
 > 
-> The borrowed name is not an outright bug with the LSMs in tree
-> today: security_inode_init_security() frees only ->value once the
-> callback returns, and documents ->name as the attribute name
-> suffix, so the pointer stays valid for as long as ocfs2 uses it.
-> It is fragile though, as an LSM that allocates the name together
-> with the value would turn it into a use-after-free, so the rework
-> below copies the names as well.
-> 
-> Fix this by storing copies of all the security xattrs: allocate an
-> array in ocfs2_initxattrs(), copy the names and values, account for
-> all of them in the credit calculations, and write each one in
-> ocfs2_init_security_set().
-> 
-> While at it, switch the allocations from GFP_KERNEL to GFP_NOFS.
-> The callback runs in the inode creation path with the parent
-> directory locked, and the security layer allocates the very same
-> xattr array with GFP_NOFS, so direct reclaim must not be allowed to
-> recurse into the filesystem from here.
-> 
-> Fixes: de3004c874e7 ("ocfs2: Switch to security_inode_init_security()")
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> Signed-off-by: liujing <liujing@cmss.chinamobile.com>
+> Reviewed-by: Ian Rogeres <irogers@google.com>
 
-The code looks good to me.
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+s/Rogeres/Rogers/g
+
+Applied,
+
+- Arnaldo
+
 > ---
->  fs/ocfs2/namei.c |   6 +--
->  fs/ocfs2/xattr.c | 122 ++++++++++++++++++++++++++++++++++++-----------
->  fs/ocfs2/xattr.h |  12 +++--
->  3 files changed, 105 insertions(+), 35 deletions(-)
+>  tools/perf/bench/sched-messaging.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/fs/ocfs2/namei.c b/fs/ocfs2/namei.c
-> index 58c6061ed983..ef03f90e7265 100644
-> --- a/fs/ocfs2/namei.c
-> +++ b/fs/ocfs2/namei.c
-> @@ -248,7 +248,6 @@ static int ocfs2_mknod(struct mnt_idmap *idmap,
->  	int want_meta = 0;
->  	int xattr_credits = 0;
->  	struct ocfs2_security_xattr_info si = {
-> -		.name = NULL,
->  		.enable = 1,
->  	};
->  	int did_quota_inode = 0;
-> @@ -475,7 +474,7 @@ static int ocfs2_mknod(struct mnt_idmap *idmap,
+> diff --git a/tools/perf/bench/sched-messaging.c b/tools/perf/bench/sched-messaging.c
+> index 4fb6657fc826..c5c9a7a1d7db 100644
+> --- a/tools/perf/bench/sched-messaging.c
+> +++ b/tools/perf/bench/sched-messaging.c
+> @@ -338,9 +338,9 @@ int bench_sched_messaging(int argc, const char **argv)
 >  
->  	brelse(new_fe_bh);
->  	brelse(parent_fe_bh);
-> -	kfree(si.value);
-> +	ocfs2_free_security_xattrs(&si);
->  
->  	ocfs2_acl_init_release(&acl_state);
->  
-> @@ -1831,7 +1830,6 @@ static int ocfs2_symlink(struct mnt_idmap *idmap,
->  	int want_clusters = 0;
->  	int xattr_credits = 0;
->  	struct ocfs2_security_xattr_info si = {
-> -		.name = NULL,
->  		.enable = 1,
->  	};
->  	int did_quota = 0, did_quota_inode = 0;
-> @@ -2063,7 +2061,7 @@ static int ocfs2_symlink(struct mnt_idmap *idmap,
->  
->  	brelse(new_fe_bh);
->  	brelse(parent_fe_bh);
-> -	kfree(si.value);
-> +	ocfs2_free_security_xattrs(&si);
->  	ocfs2_free_dir_lookup_result(&lookup);
->  	if (inode_ac)
->  		ocfs2_free_alloc_context(inode_ac);
-> diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-> index a2d6c3d0f2e8..f2b7a53ed969 100644
-> --- a/fs/ocfs2/xattr.c
-> +++ b/fs/ocfs2/xattr.c
-> @@ -643,10 +643,15 @@ int ocfs2_calc_security_init(struct inode *dir,
->  			     int *xattr_credits,
->  			     struct ocfs2_alloc_context **xattr_ac)
->  {
-> +	int i;
->  	int ret = 0;
->  	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
-> -	int s_size = ocfs2_xattr_entry_real_size(strlen(si->name),
-> -						 si->value_len);
-> +	int s_size = 0;
-> +
-> +	for (i = 0; i < si->count; i++)
-> +		s_size += ocfs2_xattr_entry_real_size(
-> +				strlen(si->xattrs[i].name),
-> +				si->xattrs[i].value_len);
->  
->  	/*
->  	 * The max space of security xattr taken inline is
-> @@ -664,13 +669,15 @@ int ocfs2_calc_security_init(struct inode *dir,
->  	}
->  
->  	/* reserve clusters for xattr value which will be set in B tree*/
-> -	if (si->value_len > OCFS2_XATTR_INLINE_SIZE) {
-> -		int new_clusters = ocfs2_clusters_for_bytes(dir->i_sb,
-> -							    si->value_len);
-> -
-> -		*xattr_credits += ocfs2_clusters_to_blocks(dir->i_sb,
-> -							   new_clusters);
-> -		*want_clusters += new_clusters;
-> +	for (i = 0; i < si->count; i++) {
-> +		if (si->xattrs[i].value_len > OCFS2_XATTR_INLINE_SIZE) {
-> +			int new_clusters = ocfs2_clusters_for_bytes(dir->i_sb,
-> +						si->xattrs[i].value_len);
-> +
-> +			*xattr_credits += ocfs2_clusters_to_blocks(dir->i_sb,
-> +								   new_clusters);
-> +			*want_clusters += new_clusters;
-> +		}
->  	}
->  	return ret;
->  }
-> @@ -680,12 +687,16 @@ void ocfs2_calc_xattr_init(struct inode *dir, umode_t mode,
->  			   int *want_clusters, int *xattr_credits,
->  			   int *want_meta, struct ocfs2_acl_state *acl_state)
->  {
-> +	int i;
->  	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
->  	int s_size = 0, a_size = 0, acl_len = 0, new_clusters;
->  
-> -	if (si->enable)
-> -		s_size = ocfs2_xattr_entry_real_size(strlen(si->name),
-> -						     si->value_len);
-> +	if (si->enable) {
-> +		for (i = 0; i < si->count; i++)
-> +			s_size += ocfs2_xattr_entry_real_size(
-> +					strlen(si->xattrs[i].name),
-> +					si->xattrs[i].value_len);
-> +	}
->  
->  	if (osb->s_mount_opt & OCFS2_MOUNT_POSIX_ACL) {
->  		if (acl_state->default_acl && S_ISDIR(mode)) {
-> @@ -732,12 +743,14 @@ void ocfs2_calc_xattr_init(struct inode *dir, umode_t mode,
->  	 * reserve credits and clusters for xattrs which has large value
->  	 * and have to be set outside
->  	 */
-> -	if (si->enable && si->value_len > OCFS2_XATTR_INLINE_SIZE) {
-> -		new_clusters = ocfs2_clusters_for_bytes(dir->i_sb,
-> -							si->value_len);
-> -		*xattr_credits += ocfs2_clusters_to_blocks(dir->i_sb,
-> -							   new_clusters);
-> -		*want_clusters += new_clusters;
-> +	for (i = 0; si->enable && i < si->count; i++) {
-> +		if (si->xattrs[i].value_len > OCFS2_XATTR_INLINE_SIZE) {
-> +			new_clusters = ocfs2_clusters_for_bytes(dir->i_sb,
-> +						si->xattrs[i].value_len);
-> +			*xattr_credits += ocfs2_clusters_to_blocks(dir->i_sb,
-> +								   new_clusters);
-> +			*want_clusters += new_clusters;
-> +		}
->  	}
->  	if (osb->s_mount_opt & OCFS2_MOUNT_POSIX_ACL) {
->  		if (acl_state->default_acl && S_ISDIR(mode)) {
-> @@ -7630,17 +7643,46 @@ static int ocfs2_initxattrs(struct inode *inode, const struct xattr *xattr_array
->  {
->  	struct ocfs2_security_xattr_info *si = fs_info;
->  	const struct xattr *xattr;
-> +	struct ocfs2_security_xattr *xattrs;
-> +	int count = 0, i;
->  	int err = 0;
->  
->  	if (si) {
-> -		si->value = kmemdup(xattr_array->value, xattr_array->value_len,
-> -				    GFP_KERNEL);
-> -		if (!si->value)
-> +		for (xattr = xattr_array; xattr->name != NULL; xattr++)
-> +			count++;
-> +
-> +		xattrs = kcalloc(count, sizeof(*xattrs), GFP_NOFS);
-> +		if (!xattrs)
->  			return -ENOMEM;
->  
-> -		si->name = xattr_array->name;
-> -		si->value_len = xattr_array->value_len;
-> +		for (i = 0; i < count; i++) {
-> +			xattrs[i].name = kstrdup(xattr_array[i].name, GFP_NOFS);
-> +			if (!xattrs[i].name) {
-> +				err = -ENOMEM;
-> +				goto out_err;
-> +			}
-> +
-> +			xattrs[i].value = kmemdup(xattr_array[i].value,
-> +						  xattr_array[i].value_len,
-> +						  GFP_NOFS);
-> +			if (!xattrs[i].value) {
-> +				err = -ENOMEM;
-> +				goto out_err;
-> +			}
-> +			xattrs[i].value_len = xattr_array[i].value_len;
-> +		}
-> +
-> +		si->xattrs = xattrs;
-> +		si->count = count;
->  		return 0;
-> +
-> +out_err:
-> +		for (; i >= 0; i--) {
-> +			kfree(xattrs[i].name);
-> +			kfree(xattrs[i].value);
-> +		}
-> +		kfree(xattrs);
-> +		return err;
->  	}
->  
->  	for (xattr = xattr_array; xattr->name != NULL; xattr++) {
-> @@ -7653,6 +7695,19 @@ static int ocfs2_initxattrs(struct inode *inode, const struct xattr *xattr_array
->  	return err;
->  }
->  
-> +void ocfs2_free_security_xattrs(struct ocfs2_security_xattr_info *si)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < si->count; i++) {
-> +		kfree(si->xattrs[i].name);
-> +		kfree(si->xattrs[i].value);
-> +	}
-> +	kfree(si->xattrs);
-> +	si->xattrs = NULL;
-> +	si->count = 0;
-> +}
-> +
->  int ocfs2_init_security_get(struct inode *inode,
->  			    struct inode *dir,
->  			    const struct qstr *qstr,
-> @@ -7670,7 +7725,7 @@ int ocfs2_init_security_get(struct inode *inode,
->  		 * security_inode_init_security() does not return -EOPNOTSUPP,
->  		 * we have to check the xattr ourselves.
->  		 */
-> -		if (!ret && !si->name)
-> +		if (!ret && !si->count)
->  			si->enable = 0;
->  
->  		return ret;
-> @@ -7687,10 +7742,21 @@ int ocfs2_init_security_set(handle_t *handle,
->  			    struct ocfs2_alloc_context *xattr_ac,
->  			    struct ocfs2_alloc_context *data_ac)
->  {
-> -	return ocfs2_xattr_set_handle(handle, inode, di_bh,
-> -				     OCFS2_XATTR_INDEX_SECURITY,
-> -				     si->name, si->value, si->value_len, 0,
-> -				     xattr_ac, data_ac);
-> +	int i;
-> +	int ret = 0;
-> +
-> +	for (i = 0; i < si->count; i++) {
-> +		ret = ocfs2_xattr_set_handle(handle, inode, di_bh,
-> +					     OCFS2_XATTR_INDEX_SECURITY,
-> +					     si->xattrs[i].name,
-> +					     si->xattrs[i].value,
-> +					     si->xattrs[i].value_len, 0,
-> +					     xattr_ac, data_ac);
-> +		if (ret)
-> +			break;
-> +	}
-> +
-> +	return ret;
->  }
->  
->  const struct xattr_handler ocfs2_xattr_security_handler = {
-> diff --git a/fs/ocfs2/xattr.h b/fs/ocfs2/xattr.h
-> index 887cc1a18b1a..1dd08f979e3c 100644
-> --- a/fs/ocfs2/xattr.h
-> +++ b/fs/ocfs2/xattr.h
-> @@ -20,13 +20,18 @@ enum ocfs2_xattr_type {
->  	OCFS2_XATTR_MAX
->  };
->  
-> -struct ocfs2_security_xattr_info {
-> -	int enable;
-> -	const char *name;
-> +struct ocfs2_security_xattr {
-> +	char *name;
->  	void *value;
->  	size_t value_len;
->  };
->  
-> +struct ocfs2_security_xattr_info {
-> +	int enable;
-> +	struct ocfs2_security_xattr *xattrs;
-> +	int count;
-> +};
-> +
->  extern const struct xattr_handler ocfs2_xattr_user_handler;
->  extern const struct xattr_handler ocfs2_xattr_trusted_handler;
->  extern const struct xattr_handler ocfs2_xattr_security_handler;
-> @@ -49,6 +54,7 @@ int ocfs2_xattr_remove(struct inode *, struct buffer_head *);
->  int ocfs2_init_security_get(struct inode *, struct inode *,
->  			    const struct qstr *,
->  			    struct ocfs2_security_xattr_info *);
-> +void ocfs2_free_security_xattrs(struct ocfs2_security_xattr_info *);
->  int ocfs2_init_security_set(handle_t *, struct inode *,
->  			    struct buffer_head *,
->  			    struct ocfs2_security_xattr_info *,
+>  	switch (bench_format) {
+>  	case BENCH_FORMAT_DEFAULT:
+> -		printf("# %d sender and receiver %s per group\n",
+> +		printf("# %u sender and receiver %s per group\n",
+>  		       num_fds, thread_mode ? "threads" : "processes");
+> -		printf("# %d groups == %d %s run\n\n",
+> +		printf("# %u groups == %u %s run\n\n",
+>  		       num_groups, num_groups * 2 * num_fds,
+>  		       thread_mode ? "threads" : "processes");
+>  		printf(" %14s: %lu.%03lu [sec]\n", "Total time",
 > -- 
-> 2.39.3
-> 
+> 2.55.0.1032.g73a4cd73de-goog
