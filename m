@@ -1,213 +1,188 @@
-Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012033.outbound.protection.outlook.com [52.101.66.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E03C4908A3
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 19:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.192
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585632; cv=none; b=a3VGlapRu8dAmBnBg9YURYEZQ0JYBTcpQtYkO5kHk4kfe80+nnOGrPC3woeo8I6RHqCNpSc1pt6irJ6h2jZoFVAOdv7iNUHgjP7KDo1qeUM9T9KNbLVa5GjbunluzvUVGM5QWi3lOHk+c3b3ktHBwmv7LIHkWzWAcTDiBpr/Y/k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585632; c=relaxed/simple;
-	bh=OI/zLBdcwWqcXJBcsdijqs7A/oYENRcAZRhIyGNfddw=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=GbDcEhqdZdE93Ojua66ekJ9xDbsS4rKMyCGmyEOuv/1vGGkB/3bxO/owI7dMfBbvvseFytEuXGf9GfYDPjM1QBdPD9AuwtZ/e043vo2ZIivIk7QkDI+kozSor9R8STcR+DQVuNPIYYNpAKIBcZhS9H1iBRIEiRt7WJlF410dSfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-4a49b13b745so19529b6e.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:06:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789585600; x=1790190400;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XIPY72zdQv/KP29Dl1qeIzc7ZNVmzi1pbkW7l8G4bEo=;
-        b=A+x+nHh+oz9kQzsfsoGVaS+QvOTSr+mJGlybp0pyMhH5STvGXmKZT3x6dnDn+k2Ah3
-         1lPacoT/YYpaF1ZQzHRQOzEB/TG4aWTPk0lUnQTa5yopiez8Tm6V7lFLW5nyaajfYife
-         7KU8psgdN/Y7TaW/RMBhO/7Ws30Wr4lVCFyTw1/luWjAmK7y4b6nvTQ+dnzK/Imwq1FS
-         LQ48KDuDERrMYLFqXSQ5lETWFoojtkTE1BouwTkuSVNAxKHXu/08YUxzwXBxsMrU/U3d
-         tUHyDzpNQ9RyEFiwGYCbqRq3Zk4NhfCYEJazvoYEzU6VPZs4zqAfB/1rYD8JnHmq3MDP
-         DSAg==
-X-Gm-Message-State: AFuF++nX2y3OpUWnG77pPJuydejTkIwTcTnTgtW/WEinLBvcpZoPMB3D
-	W4dcckNhU+rCSuAS6k1TiKlfPPD8RrGcSRl1Cqsm8PhrTZbTAa7WASjPe8UYtpA+q/t1P96zneC
-	HGL7OnY7kqyR7ylMqmiCLEhV0cqHmKYE9hfuJM/BLfEwFmaLlBOlgGp1E2GPOrg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D966D44A3F0;
+	Wed, 16 Sep 2026 19:06:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789585637; cv=fail; b=VWRQOEGW1gEUKwVIV+dH94SQjS1WAp1KWNuYkiMd+ImkFmt/0C0PcvS9CaM+PpCES1WVao90qwW3WI1+pMs1IB8pFGPKHh6oL3/HYDQRxDpNmOUHKVIbPsK+tu9duWtZ/B7A4NDRH8TG6ALcVo5Bz3rRXHEBCLCu/tR5alrB2uk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789585637; c=relaxed/simple;
+	bh=Ls31iUgXnDOSkGb4MgN6S5m0iYy9yvOswRQ7yE/hWlQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Sqt2IT5H/OoO68jVsXt+P8S4YemxHBcYj45qaS22GAFB5gkO6NhEX5P1XgXzVfSrgfDD7Q3B0NEeiLIUNkS3fwrBrEqukZAaffYtgQ7r6Az33mTvE0cMtKZDwyBde+T47Fl09z4uGT0Xib08cP4u0J0UWjmE9YPv98R395yNlUY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=p29lF4Vp; arc=fail smtp.client-ip=52.101.66.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="p29lF4Vp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OiP80uqgRCZLzTUzTe4Oy12UC8dQiCQpvN2Eizntf7rknWXh2ondkXKJMmSJWakZv6G7wPN4EY/P8mZIHm1jSC6r3L2EjVeThm/oFQ3+/QKHEpvRQis7/v69/hMBFU2S3j6bDJcO/UHNsBBLGbwUOWY+51x5KyPh55uzHmIBQSYKU3/0FgHoTzzkmtpEKZlwRf7xYLUcG/zO7oraXLT+tAKzrLC4Wp59O2ESM2CLwPPfNcv0rQo0xcYyJ9hUNII4xzjzj4ToD0+fHx3u6oOg8qyTgohKfkAjR/dl3snOvrwYAN9Xke4xswlNhpRLa9V7c93K7GJv/57m33K027VwjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R+6oPOUM0bmnWYJbG1Mof+Wh27qPvw2VsIJfZ7dN9PA=;
+ b=aNkLctih+qlL514FhD22YDuzEu1GRHDhUzITercl4zRkDnhbNNSed8MWawtG6xTuNdtC+/ZPZymL5S6R9GjoTB5LdY9ZVhWFxMCH1v6sityAAtG88QgKi6PV/nK71cJ2hLKTYu8mICgR5EEZf4ewrmOCzeG7hZHGH7aS+HylxyGqZtPLIn5UxrnRBa68JS1/mHx4OpyM6HiJwnnbInlNWzJ8IrNDN4xtVeH3BIXPJqP/V59n/VRrdtb+N5XzAiFtQVXv35z8cUol2f4SVmvp/7xXwcSmyb5FCpa0NRD6d8XzFGWi+msRdeAsIqeJimBt77RuWM4jVbc1AQBsi9oSLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R+6oPOUM0bmnWYJbG1Mof+Wh27qPvw2VsIJfZ7dN9PA=;
+ b=p29lF4VpOaYzDdvXpovuEuZBJr0OXpHRa1iu89x5MyIRyPX7LaHecGayfA6Da3CZfWK6ExA3UtTRtBQSX/vF7SJ6qF6unk8FdVGUez0LM84UtcCCTnL9fBRmNILB9JoC+06V7RXLtiCgGwrXexOZDQyrNRLuLswlhp3jYpL3XRr+8tDufKYg0xva7ovDzVfWSS0L8tqkDtV/N/fWlIWSrhiu5grzmA+fZU3YtvaMoD6hWepRK7meiGwcItEK/FRBprMryA1SERqruxSUyS2OdKLpjXk8N2hXcYnHGyE0lu4K8qNiQIVKS/ykmPjuSbRvTsOxeUrhDmqevNebF/u30w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS8PR04MB7621.eurprd04.prod.outlook.com (2603:10a6:20b:299::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Wed, 16 Sep
+ 2026 19:06:52 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
+ 19:06:52 +0000
+Date: Wed, 16 Sep 2026 14:06:41 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Saeed Bishara <saeed@marvell.com>,
+	Lennert Buytenhek <buytenh@marvell.com>,
+	Maciej Sosnowski <maciej.sosnowski@intel.com>,
+	Dan Williams <djbw@kernel.org>, Nicolas Pitre <nico@marvell.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] dmaengine: mv_xor: use writel() instead of relaxed
+ variant
+Message-ID: <aqrowa1TFhIDA-17@SMW015318>
+References: <20260916182405.12985-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916182405.12985-1-rosenp@gmail.com>
+X-ClientProxiedBy: CY5P221CA0141.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:930:6a::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f94:b0:4c5:bdb8:e579 with SMTP id
- 5614622812f47-4ca4ccde595mr6372904b6e.12.1789585599946; Wed, 16 Sep 2026
- 12:06:39 -0700 (PDT)
-Date: Wed, 16 Sep 2026 12:06:39 -0700
-In-Reply-To: <6a88eb8b.ae6ddae5.3da009.004b.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aaae8bf.e91c2013.3bdb06.0002.GAE@google.com>
-Subject: Re: [syzbot] [media?] [usb?] WARNING in vb2_video_unregister_device
-From: syzbot <syzbot+f26bc23e42eeb548dee1@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org, m.szyprowski@samsung.com, mchehab@kernel.org, 
-	syzkaller-bugs@googlegroups.com, tfiga@chromium.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB7621:EE_
+X-MS-Office365-Filtering-Correlation-Id: 341db3fd-d806-46b6-065d-08df1425aa9f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|19092799006|376014|7416014|22082099003|56012099006|11063799006|6133799003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	s+Mhn+B/3uoKKXxcYURnCtbv2mlmwyORfLF8NBLnLV+im2I3jIsMA8MygsLeYOx8nFWAVoVU8M3rUaFSlS7qq0c6ALVMORP3aTVvO5/tte/C92IfH48nJMwasBzSdrLac7YNp/zKF8gHPlPvQxF5t7PWR9h4Og14Jgq4TTncesX3nrbuFDBIpCSLpRRTb5NBgjyzZMh1h1wMywCldMZBOCE66XQw7tqgjdC+4IlAB62bMTV24ZtS3W6j2n3v9LcC5W7m9K72QtqeZ42bFZ0Vu6TwkydtxJXL4RGeCcPxdlSpFnJnb5QiOBziNu5KgszloQdWx/U8KIvA5k3FgJFNSknCu1SXPOsjRZrV/fFqnfmh2cCXFktbn24RZUbT+X+vqEHqZcK/sTUyP9opEo0iJsBFQyneAahnDtSm1Gj0CY4Zr1PvjUpDxGdBHnsV6ylUQVcYXnv4fXoEyrxNppXy5X2IDhClM1GC7pfj/oDKTaBlxEu8e+vvwr9zj7ULlB5Wet2mySveA6EdBTwRR9IOXeBPdA+7W1T0EQ+abjfd27DSDwWnIEP0ejLZJAettOwkk6vjAfVPBZHUa6Ywjv8FSXbcgIBtvvDuP6RMkYDJOs1fwDlNV0p1sIsmODqybi3D+e3ON4XCvMu851VO6VdPwpzFj0P+t2r9jXAC7Rzxzk4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(19092799006)(376014)(7416014)(22082099003)(56012099006)(11063799006)(6133799003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5IsOIBP8pp2uN+e1R4z72OjPQJjhKUXdz9Z8hmBsQy6gqkkA23zHdpMI1s9V?=
+ =?us-ascii?Q?1dX+MRwPGlX/S3sZsWa6dgeAdCjFmdl5LrYM5fsk0lbkbM2zFj/EhISbFFnp?=
+ =?us-ascii?Q?M6P8ul982HExIuvPoBdqp64dZKJlk0vmf8Gki4vQshGupxIMshCZBQ8S9jy9?=
+ =?us-ascii?Q?JV7FH1Oy69t1Csdu5Gn+SXgGRd+SFskXJHc+QDyOvuy7KiJlwKacFfJuVbe4?=
+ =?us-ascii?Q?Ewb5CH+4qThhF2ZPzWEUm6jlODvfUqSU1iPTs9BriNgH62WL8FeprL/Toe3y?=
+ =?us-ascii?Q?8GY4GMMGUq8f/jE0E2SgMNB83/QGPqJfZDEdjgdRa2mdD1pPBLOIdg7bFLZg?=
+ =?us-ascii?Q?it50Q+BnYJaSqAaFlN5TTWuiGXYrDFN4LUPJ43jqjKWZtKqnfCKSqmioiV0E?=
+ =?us-ascii?Q?wVa0iZmPtEnJrSan3PTqYuAPfj4B69r8EpzoYgXV/fMG6phqHCjuPnkWgFRU?=
+ =?us-ascii?Q?wQ5TMzStFCMF6VRX0h7rFsT+YoVkzl6q0IPf6iVy0Wm/wM19p4SofJxgzkuk?=
+ =?us-ascii?Q?XWlQQQSmnFgyDIiZ3jvwBTB7vY64lXhbJL2nDAD4zB1tFJ4+FxaWD4YyyuHK?=
+ =?us-ascii?Q?s4xGXaS1iwFYeylZhQo0sd8X+lu3M8Zafv+LHhr16ocOEWHKTdiiZkX8tlPb?=
+ =?us-ascii?Q?geEekKwSiygUYjQvtJdvr6ma2HB34QR9MhwLogLWVS8hh/BJKAqAYjmaZN7A?=
+ =?us-ascii?Q?MC/Y9/qxlxLqxne/t/+Fvi2HeypuDiOfH05k0fKGnFqDcoYFsE4F/QjdCBxJ?=
+ =?us-ascii?Q?tuA/QoWUwLOp3RcFf3ms85Qm4j1G+q+sK5vedLZJxNwxFjT77sVP4XQfRriG?=
+ =?us-ascii?Q?YecSrdVsSO4dPc60+qZhGvEdBpZsLLvsRnlOB2XwJBnvCyiaI7u+KnNlWJin?=
+ =?us-ascii?Q?tfPMOvX81UGzW+ldzZLfumewEpzej5lHHs7LPgJ4EB/Qg96Fe2ZHyORNUI82?=
+ =?us-ascii?Q?8ZjSn/s42fn/1LSD7Ulbln3G4ZXyUYHbuhhcgXEs6HnV60hWf/t6J3KoVfYe?=
+ =?us-ascii?Q?1SjabC+SWS7uGwFhz77l9JmvekGN8oUTrsjzPePgya9t6e8FzWQ2dKxmOJlw?=
+ =?us-ascii?Q?M4ybHwsq0+3Hr/gEZPo7eK6lQqqDp2uWDG7nyKP9CQ/R6tOzM8iUxqWzbbnK?=
+ =?us-ascii?Q?SlAUj73IrM8zipD5TW78NvAMggOs6WK/A16/EKVLgSq3j9g1cGHTKkPOCxrO?=
+ =?us-ascii?Q?8RFH9vcTUAUyqZdvrC5yJ+zE0+sutcFMzgkiijAdES2Z64eHd6Fisp6vsl6A?=
+ =?us-ascii?Q?B1PxfCVlyoR77xNtyNHHwn/xYBkkKErcPZuBv1i/NmyJigec14saiDZ81WGu?=
+ =?us-ascii?Q?XYMXkB+x9v7gobjl7hA97mlMNrInnXaNZlx3nlzXfDk5VwCdMbKK49lGx3Of?=
+ =?us-ascii?Q?gvRp0ZW2ZpXE1a3oz83DKcE8xwHwVE2wav6J3tyUbYK7WXcXr6NR76vaQCck?=
+ =?us-ascii?Q?ViTyO+N7tUmscuoCwSpZDqBcYngW8pKd9Mu0YCwYpWENZhkXDkVtemAHylX+?=
+ =?us-ascii?Q?aB5hpTxagnUDtKiANCg+ZsDvNszWs/qLeUevapDBDg3Ef0Y6v21KzWPvf4/M?=
+ =?us-ascii?Q?nySq14DXhhDPvwfoZoM/AeT+5Lry/XCCq7UbI2vRQr15ZrMiX33s1C0kNSGZ?=
+ =?us-ascii?Q?neQW+t2HumvlFbWl+3fq8hiqn96nzwB1rJtZgjDQuEbd7JYfCAH7yOIMdaLD?=
+ =?us-ascii?Q?v/HA/Y0ZEJiVFSmnsnVEcoa9q2+jwpoWd/luPI4eTr+jXd+mF5DsNetUaObi?=
+ =?us-ascii?Q?jGbo9oBgfC7KdWHdXErgNgeGaaeP2VhMHZeddswr9Yfm68osPhuO?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 341db3fd-d806-46b6-065d-08df1425aa9f
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 19:06:52.2140
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mrM+Sep5fTCeWRQsT1D6WfxbTgkbS6V8OcmEZdGa27gDzOpbYWW9vYINcTVBHsBBRw0yktLd+mjf5WHgTvzEWaKDqz2CXC1DFRfMfU5DbCDHbZeKF6yEb3uLh053dsG3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7621
 
-syzbot has found a reproducer for the following issue on:
+On Wed, Sep 16, 2026 at 11:24:05AM -0700, Rosen Penev wrote:
+> Fix the ordering guarantees between descriptor memory writes and the
+> MMIO accesses that expose them to the engine. The descriptor pool is
+> allocated with dma_alloc_wc(), so writes sit in the CPU write buffers
+> and must be drained before the engine is allowed to read them.
+>
+> Program the next-descriptor pointer with writel() instead of
+> writel_relaxed(); the full accessor drains prior memory writes before
+> the MMIO write.
+>
+> In mv_xor_tx_submit() the appended chain link must be visible before the
+> busy-status register is read. Use a full mb() so the engine cannot fetch a
+> stale chain link and stall the channel after the CPU decides it is still
+> busy.
+>
+> Fixes: ff7b04796d98 ("dmaengine: DMA engine driver for Marvell XOR engine")
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/dma/mv_xor.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/dma/mv_xor.c b/drivers/dma/mv_xor.c
+> index c4e0dce3ca64..0de2b1ad5c30 100644
+> --- a/drivers/dma/mv_xor.c
+> +++ b/drivers/dma/mv_xor.c
+> @@ -103,7 +103,10 @@ static u32 mv_chan_get_current_desc(struct mv_xor_chan *chan)
+>  static void mv_chan_set_next_descriptor(struct mv_xor_chan *chan,
+>  					u32 next_desc_addr)
+>  {
+> -	writel_relaxed(next_desc_addr, XOR_NEXT_DESC(chan));
+> +	/* writel drains descriptor writes to DRAM before the engine
+> +	 * is pointed at them
+> +	 */
+> +	writel(next_desc_addr, XOR_NEXT_DESC(chan));
 
-HEAD commit:    5445d6419962 arm64: Don't read GMID_EL1 when MTE is disabled
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=151998c9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
-dashboard link: https://syzkaller.appspot.com/bug?extid=f26bc23e42eeb548dee1
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11ec93f9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17e15bf9580000
+I remember this my comments before, should be v2 version?
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e8b70e3bd109/disk-5445d641.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e5227e56ac93/vmlinux-5445d641.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/54905f78be59/Image-5445d641.gz.xz
+>  }
+>
+>  static void mv_chan_unmask_interrupts(struct mv_xor_chan *chan)
+> @@ -410,6 +413,11 @@ mv_xor_tx_submit(struct dma_async_tx_descriptor *tx)
+>  		/* fix up the hardware chain */
+>  		mv_desc_set_next_desc(old_chain_tail, sw_desc->async_tx.phys);
+>
+> +		/* make the new link visible to the engine before we read
+> +		 * the channel state, the device may fetch it at any point
+> +		 */
+> +		mb();
+> +
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f26bc23e42eeb548dee1@syzkaller.appspotmail.com
+The first is readl_relaxed() in mv_chan_is_busy(), all io readl and writel
+is ordered.
 
-em28xx 1-1:1.0: Registered radio device as radio2
-usb 1-1: Decoder not found
-em28xx 1-1:1.0: failed to create media graph
-em28xx 1-1:1.0: V4L2 device radio2 deregistered
-------------[ cut here ]------------
-WARNING: drivers/media/common/videobuf2/videobuf2-v4l2.c:1264 at vb2_video_unregister_device+0x1c8/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1264, CPU#1: kworker/1:2/1094
-Modules linked in:
-CPU: 1 UID: 0 PID: 1094 Comm: kworker/1:2 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-Workqueue: events request_module_async
-pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : vb2_video_unregister_device+0x1c8/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1264
-lr : vb2_video_unregister_device+0x1c8/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1264
-sp : ffff800094617a20
-x29: ffff800094617a20 x28: dfff800000000000 x27: 1fffe0001945a826
-x26: ffff800087610300 x25: ffff800087611620 x24: 1fffe00018d04aa1
-x23: ffff0000c6825508 x22: dfff800000000000 x21: ffff0000c6824000
-x20: 0000000000000001 x19: ffff0000c6824f58 x18: 00000000ffffffff
-x17: ffff800083d9271c x16: ffff800083da2fd4 x15: ffff800083a47b40
-x14: 0000000000000001 x13: 0000000000000001 x12: 0000000000000003
-x11: 0000000000000000 x10: 0000000000000001 x9 : 0000000000000000
-x8 : 0000000000000000 x7 : ffff80008048e314 x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff800083b611c0
-x2 : 0000000000000001 x1 : ffff0000c74cbb00 x0 : 0000000000000000
-Call trace:
- vb2_video_unregister_device+0x1c8/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1264 (P)
- em28xx_v4l2_init+0x1320/0x247c drivers/media/usb/em28xx/em28xx-video.c:3085
- em28xx_init_extension+0x10c/0x1b4 drivers/media/usb/em28xx/em28xx-core.c:1248
- request_module_async+0x24/0x34 drivers/media/usb/em28xx/em28xx-cards.c:-1
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3470
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3551
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-irq event stamp: 35758
-hardirqs last  enabled at (35757): [<ffff8000804918ac>] vprintk_store+0x924/0xb94 kernel/printk/printk.c:2385
-hardirqs last disabled at (35758): [<ffff8000869841d4>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:445
-softirqs last  enabled at (35698): [<ffff800084c72d48>] __alloc_skb+0x1c0/0x610 net/core/skbuff.c:698
-softirqs last disabled at (35696): [<ffff800084c72d30>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (35696): [<ffff800084c72d30>] __alloc_skb+0x1a8/0x610 net/core/skbuff.c:697
----[ end trace 0000000000000000 ]---
-em28xx 1-1:1.0: V4L2 device video11 deregistered
-INFO: trying to register non-static key.
-The code is fine but needs lockdep annotation, or maybe
-you didn't initialize this object before use?
-turning off the locking correctness validator.
-CPU: 1 UID: 0 PID: 1094 Comm: kworker/1:2 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-Workqueue: events request_module_async
-Call trace:
- show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
- __dump_stack+0x30/0x40 lib/dump_stack.c:94
- dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
- dump_stack+0x1c/0x28 lib/dump_stack.c:129
- assign_lock_key+0xcc/0xdc kernel/locking/lockdep.c:1000
- register_lock_class+0xf8/0x31c kernel/locking/lockdep.c:1315
- __lock_acquire+0xc0/0x2a6c kernel/locking/lockdep.c:5128
- lock_acquire+0x150/0x370 kernel/locking/lockdep.c:5908
- __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
- _raw_spin_lock_irqsave+0x5c/0x7c kernel/locking/spinlock.c:181
- __wake_up_common_lock+0x30/0x78 kernel/sched/wait.c:125
- __wake_up+0x18/0x24 kernel/sched/wait.c:147
- __vb2_queue_cancel+0x248/0xa78 drivers/media/common/videobuf2/videobuf2-core.c:2244
- vb2_core_queue_release+0x34/0x13c drivers/media/common/videobuf2/videobuf2-core.c:2677
- vb2_queue_release drivers/media/common/videobuf2/videobuf2-v4l2.c:943 [inline]
- vb2_video_unregister_device+0x12c/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1279
- em28xx_v4l2_init+0x1368/0x247c drivers/media/usb/em28xx/em28xx-video.c:3097
- em28xx_init_extension+0x10c/0x1b4 drivers/media/usb/em28xx/em28xx-core.c:1248
- request_module_async+0x24/0x34 drivers/media/usb/em28xx/em28xx-cards.c:-1
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3470
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3551
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-Unable to handle kernel paging request at virtual address dfff800000000000
-KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-Mem abort info:
-  ESR = 0x0000000096000005
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x05: level 1 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0
-[dfff800000000000] address between user and kernel address ranges
-Internal error: Oops: 0000000096000005 [#1]  SMP
-Modules linked in:
-CPU: 1 UID: 0 PID: 1094 Comm: kworker/1:2 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-Workqueue: events request_module_async
-pstate: 034000c5 (nzcv daIF +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : __wake_up_common+0xac/0x180 kernel/sched/wait.c:105
-lr : __wake_up_common_lock+0x4c/0x78 kernel/sched/wait.c:126
-sp : ffff8000946178a0
-x29: ffff8000946178a0 x28: dfff800000000000 x27: dfff800000000000
-x26: dfff800000000000 x25: ffff0000c682576c x24: 0000000000000000
-x23: ffff0000c6825800 x22: 0000000000000003 x21: 0000000000000000
-x20: 0000000000000000 x19: 0000000000000000 x18: 00000000ffffffff
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
-x14: 0000000000000000 x13: 0000000000000001 x12: 0000000000000004
-x11: ffff7000128c2f04 x10: ffff7000128c2f04 x9 : 0000000000000003
-x8 : 0000000000000000 x7 : 0000000000000000 x6 : ffff80008048e314
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : 0000000000000000
-x2 : 0000000000000000 x1 : 0000000000000003 x0 : ffff0000c68257c0
-Call trace:
- __wake_up_common+0xac/0x180 kernel/sched/wait.c:105 (P)
- __wake_up_common_lock+0x4c/0x78 kernel/sched/wait.c:126
- __wake_up+0x18/0x24 kernel/sched/wait.c:147
- __vb2_queue_cancel+0x248/0xa78 drivers/media/common/videobuf2/videobuf2-core.c:2244
- vb2_core_queue_release+0x34/0x13c drivers/media/common/videobuf2/videobuf2-core.c:2677
- vb2_queue_release drivers/media/common/videobuf2/videobuf2-v4l2.c:943 [inline]
- vb2_video_unregister_device+0x12c/0x1d0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1279
- em28xx_v4l2_init+0x1368/0x247c drivers/media/usb/em28xx/em28xx-video.c:3097
- em28xx_init_extension+0x10c/0x1b4 drivers/media/usb/em28xx/em28xx-core.c:1248
- request_module_async+0x24/0x34 drivers/media/usb/em28xx/em28xx-cards.c:-1
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3470
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3551
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:838
-Code: f94002f8 eb17031f 54000500 d343ff08 (387b6908) 
----[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess):
-   0:	f94002f8 	ldr	x24, [x23]
-   4:	eb17031f 	cmp	x24, x23
-   8:	54000500 	b.eq	0xa8  // b.none
-   c:	d343ff08 	lsr	x8, x24, #3
-* 10:	387b6908 	ldrb	w8, [x8, x27] <-- trapping instruction
+which part need mb() here?
 
+Frank
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+>  		/* if the channel is not busy */
+>  		if (!mv_chan_is_busy(mv_chan)) {
+>  			u32 current_desc = mv_chan_get_current_desc(mv_chan);
+> --
+> 2.55.0
+>
