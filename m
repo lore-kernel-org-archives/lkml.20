@@ -1,129 +1,99 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.6])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CD7446074;
-	Wed, 16 Sep 2026 13:28:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08EE636C5B2
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:29:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565337; cv=none; b=ToJO2p5inaLEUEm2MZC0tlkIkga5tSkcrzHsMun0EoTyRCW+mEtutGi2EFEogtnMtgDlDcM9EFYK91EVvK7XCjYW3yJVsS0fQaFKj6kTM9iSCvA1cCnuWjYfwG30F1VaE8bKEDZ5m4UfZYr0uWi3SNnmz/D+SBVr8mR6mN/GEGM=
+	t=1789565346; cv=none; b=fQ5Ah2y3rfZ2uOFIyq74UlZYJ7gGvaN3ZOIpiv2HdVQ4HuHFCZ/+8MHyMgBdc+aHz1TXPQdGBNNGEHcvbMJB6PoZ5K7TbzlSmVPu1X41lmSCo5L/rIaEsuWAYVg1Saot5omixRFqHVq5JH6zQ7HKQh6Av26U2kWVMrvQCVq2tfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565337; c=relaxed/simple;
-	bh=9MrfUzBbRxO3K/j5gxi6S7iy4qoB+aIJE60TUfbvLEQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ckfAD5Fz/tL4qpVhKximi9HQbw8Ph/75a4GBvCkHKpkZaLmQcGc/l7WXK1IWLyuq9wLFSHtOBxB+CPHEwOOg7Gsz6PdWDc+vyLKMfJcfhpktzDvrCaEDgTA2RIj1mk/yVUUbEs49qOjS6OHITQQfcbiERSnUkSOv0yKK1jnuqG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=FckN4SA3; arc=none smtp.client-ip=117.135.210.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789565346; c=relaxed/simple;
+	bh=DuCtb9s3GxBflb05RsmY9gtapXBWYniJ4ybKet7iHtI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-type; b=kMKTEpIwyiJPKtb7oxIY2xFrzGARzXFBFZeZoDUvpwvROxvSeR+KLCxLK3hrdidHBg/sP9qEDPziI+KCGSyqrKcVXnDX6Sy/x1+2f6DIrnhwsKqgNY4Hx8vhk1BjMPcFUwhAB4r6HHEsEZXXvBaUo0of9CSkBs5h7cO47nxbiss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fcNe3SH9; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="FckN4SA3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=mU
-	eWvQyELQ91Zo7gd0quF0DPhsMTPLIThzQR0sZzvog=; b=FckN4SA30XOP6w1T8p
-	4TiZwK09qFPed466ZHcJoH/Ha4DkptRPANfpFDGVbaPNK2iTvxQ2yFu3Yt0jhuOi
-	KwJpH+Oqqn0QMpbuvJkWV4NUlDokgKxHx+UYSRiM3QJsSUp3uOqH1+gjvwax8rqF
-	mlU5vRsnWVvSTkauwH2Nr/qSk=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PikvCgDnvepPmapqaFzjHw--.21948S2;
-	Wed, 16 Sep 2026 21:27:43 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [Intel-wired-lan] [PATCH net] igb: unregister the i2c adapter when register_netdev() fails
-Date: Wed, 16 Sep 2026 21:27:40 +0800
-Message-Id: <20260916132740.1001797-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fcNe3SH9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789565343;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yujGt1GkWQ2RNAZS1blJViwQT7Osz6xYsfGP32GibmQ=;
+	b=fcNe3SH98vbc1G3jR84OwaAowlDAuzwdhYOFMAvUzL+5Sapw+zvIdoEAy4Lvm8DGMxA+IY
+	3Gykz0hRGTbHAeAkvPCdZBeN3Cr/rslz7nQSNJmRWOy/7XCMgo/pNCHlJ7sNnfO0LUDoKg
+	dyLzrwkOufgBAwNQZnPOuxPlxRLbtC8=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-622-GM2OBS7_MN-1pfIICxINqQ-1; Wed,
+ 16 Sep 2026 09:29:02 -0400
+X-MC-Unique: GM2OBS7_MN-1pfIICxINqQ-1
+X-Mimecast-MFC-AGG-ID: GM2OBS7_MN-1pfIICxINqQ_1789565341
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 40DB319539BE;
+	Wed, 16 Sep 2026 13:29:00 +0000 (UTC)
+Received: from jstancek-thinkpadt14gen5.redhat.corp (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B26A030001BB;
+	Wed, 16 Sep 2026 13:28:58 +0000 (UTC)
+From: Jan Stancek <jstancek@redhat.com>
+To: shuah@kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: jstancek@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] selftests/timens: extend CFLAGS to keep options from environment
+Date: Wed, 16 Sep 2026 15:28:47 +0200
+Message-ID: <06b3bb05b9512695a9833a9bb291b768516578e2.1789565191.git.jstancek@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-type: text/plain
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PikvCgDnvepPmapqaFzjHw--.21948S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGr17Wr45XF17Ar4DAw4Utwb_yoW5GF4xpF
-	4DAa4fCr4jqrnFga1DJ3W0yFyYkaySk3yYka17Zw4fWFn8tryDXryYyFyYyFyrKrZ5u3Zx
-	tr4qvw15Cr1UAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UA9N3UUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqQ++lWqqmU+yYgAA3L
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+Package build environments like Fedora rpmbuild introduced hardening
+options (e.g. -pie -Wl,-z,now) by passing a -spec option to CFLAGS
+and LDFLAGS.
 
-igb_probe() sets up the bit-banging i2c adapter with igb_init_i2c()
-before it registers the netdev, but the err_register path only zeroes
-adapter->i2c_adap instead of unregistering the adapter. On i350 parts,
-where igb_init_i2c() really registers the bus, the adapter is therefore
-still registered when free_netdev() releases the memory that embeds it.
-The i2c core keeps pointing at the freed adapter, so any later access to
-that bus dereferences freed memory, and the adapter number is leaked.
+Some Makefiles currently override CFLAGS but not LDFLAGS, which leads
+to a mismatch and build failure, for example:
 
-Call igb_remove_i2c() instead, the same way igb_remove() tears the bus
-down. Move the helper next to igb_init_i2c() so that it is in scope for
-igb_probe(). i2c_del_adapter() returns early for an adapter that was
-never registered, so the parts without i2c support are unaffected.
+  CC       timens
+  /usr/bin/ld: /tmp/cc2nZXqb.o: relocation R_X86_64_32 against `.rodata'
+    can not be used when making a PIE object; recompile with -fPIE
+  /usr/bin/ld: failed to set dynamic section sizes: bad value
 
-Fixes: 441fc6fdb47a ("igb: Add i2c interface to igb.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+This mimics fixes already done in other tests, for example:
+  commit 23b3a7c4a758 ("selftests: mptcp: extend CFLAGS to keep options
+  from environment")
+
+Signed-off-by: Jan Stancek <jstancek@redhat.com>
 ---
- drivers/net/ethernet/intel/igb/igb_main.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ tools/testing/selftests/timens/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-index d4a897a8c82c..f965ca144f42 100644
---- a/drivers/net/ethernet/intel/igb/igb_main.c
-+++ b/drivers/net/ethernet/intel/igb/igb_main.c
-@@ -3190,6 +3190,16 @@ static s32 igb_init_i2c(struct igb_adapter *adapter)
- 	return status;
- }
+v2: Rebased to v7.3-rc3
+
+diff --git a/tools/testing/selftests/timens/Makefile b/tools/testing/selftests/timens/Makefile
+index f0d51d4d2c87..357077792395 100644
+--- a/tools/testing/selftests/timens/Makefile
++++ b/tools/testing/selftests/timens/Makefile
+@@ -1,7 +1,7 @@
+ TEST_GEN_PROGS := timens timerfd timer clock_nanosleep procfs exec futex vfork_exec
+ TEST_GEN_PROGS_EXTENDED := gettime_perf
  
-+/**
-+ *  igb_remove_i2c - Cleanup  I2C interface
-+ *  @adapter: pointer to adapter structure
-+ **/
-+static void igb_remove_i2c(struct igb_adapter *adapter)
-+{
-+	/* free the adapter bus structure */
-+	i2c_del_adapter(&adapter->i2c_adap);
-+}
-+
- /**
-  *  igb_probe - Device Initialization Routine
-  *  @pdev: PCI device information struct
-@@ -3657,7 +3667,7 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+-CFLAGS := -Wall -Werror -pthread
++CFLAGS += -Wall -Werror -pthread
+ LDLIBS := -lrt -ldl
  
- err_register:
- 	igb_release_hw_control(adapter);
--	memset(&adapter->i2c_adap, 0, sizeof(adapter->i2c_adap));
-+	igb_remove_i2c(adapter);
- err_eeprom:
- 	if (!igb_check_reset_block(hw))
- 		igb_reset_phy(hw);
-@@ -3849,16 +3859,6 @@ static int igb_enable_sriov(struct pci_dev *pdev, int num_vfs, bool reinit)
- }
- 
- #endif
--/**
-- *  igb_remove_i2c - Cleanup  I2C interface
-- *  @adapter: pointer to adapter structure
-- **/
--static void igb_remove_i2c(struct igb_adapter *adapter)
--{
--	/* free the adapter bus structure */
--	i2c_del_adapter(&adapter->i2c_adap);
--}
--
- /**
-  *  igb_remove - Device Removal Routine
-  *  @pdev: PCI device information struct
+ include ../lib.mk
 -- 
-2.25.1
+2.55.0
 
