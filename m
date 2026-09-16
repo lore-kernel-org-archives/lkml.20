@@ -1,269 +1,348 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7424C3DDDCA;
-	Wed, 16 Sep 2026 05:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789536518; cv=none; b=VkycTCsOKhw1SbcguyiA32KWVdJLgtf2BycpQIaSS0izfYkj+EPQWSYld0lCBJx3owwvT/I0q47GwJQ0vYkRfr5ONC1OJqDAPaX8BPmf0z7zuben6e6iSCs21Lo+Sz6nDZF6TJsVLhpRjyys60R6fvNjP3mB5RGqE+5wNj9YiwQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789536518; c=relaxed/simple;
-	bh=Ke9mw1SgN6oy0duPoAmlGtiA+5iA/78O/GTyrXwROVc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HoNC0mglzG0jsqGZ8VQ3n4DUUhEBb9YHBS1ZHM+X26/5ykgRjCMXIzqFRNoM60o7skqJmUdkjZeIRpq/gu93hJEuo8Fj5HCYXqGjg4w6m0ov4XHBmcicPGg0C7JvDSLE02jvmCxh9ot7iaYcnUPLf+60iRZmYQFqrR3Vy0wmn9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com; spf=pass smtp.mailfrom=gmx.com; dkim=pass (2048-bit key) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b=VQd9yNEh; arc=none smtp.client-ip=212.227.15.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD185372058;
+	Wed, 16 Sep 2026 05:28:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789536541; cv=fail; b=Gif9POYddF0ABBbIPJHlDziS9jeNiM2XzPmtEQNxCxqMpYgUSvggYyBX3uZVN7UhlXWL2Z7S6zq17Jz08vDtfJw3DtmpEG4dHKpelACTiFmSf5FjTh2X5GwT4vg1pm2H3jMAGlebvVNeNjh/+LyI35OaoD6POQ55TnmIPpiA5Qw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789536541; c=relaxed/simple;
+	bh=3Q19ec883wb+VDFAlVR4+2qfv0jTT61436rerZ0vIpo=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=u93NJC5ne1YfGXj9M3jLdpsn0f39HgiWtYDC3/KpLGpU3N4uuJvwmMfk2SyQhlOEFJHkqZM/rkPKTDAgwnIq5afk4GgaUcrcyKJW9hRz2d36wbIjs9U+9xjbJeh0fgyr9yjl6sCQ/Yo6s6D1tTcq2zvILtd+L6BmFmXAZ3U+t9w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gOZOarlZ; arc=fail smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b="VQd9yNEh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
-	s=s31663417; t=1789536511; x=1790141311; i=quwenruo.btrfs@gmx.com;
-	bh=wXhCcHHMcSHm5oTGGTaAAAXGER3rw753AhLSBx3Xge8=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=VQd9yNEhacGBLqz+rhuFOBzPOtt8FbB+V2470+cN/yaR4ZO/bwDwMqmYft/RYYZC
-	 /v1RIkz2iSiw2j2yJWC+PrCTWLCikoCCy0L7vCSFFYDWpnILDeaFxYO7CUwCEyyG/
-	 A8DZdtLnl9DQz0NPyY2QbENvSZYZ+LyOuqryWI+Z0wUdtFMoO1N0tLaOeqMbXwmng
-	 lEB3zU0M3yHjE2AJUohICT2mz294mukPxQQbimx7tcp72VJ8NiZnpHxOoV3Zyytkf
-	 172H+iFDyIoqgDOmv59vWojXLJWQzP/Cc6v0q2SHxLE3jVNpugGbhSI28mJy96zM3
-	 tt5RIO2ZwkHBcJX3dQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.184]) with ESMTPSA (Nemesis) id 1MWzfv-1xI1tn3MHR-00V6qp; Wed, 16
- Sep 2026 07:28:31 +0200
-Message-ID: <c59e1aea-616f-40e6-97aa-ac14d187d727@gmx.com>
-Date: Wed, 16 Sep 2026 14:58:25 +0930
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gOZOarlZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789536540; x=1821072540;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=3Q19ec883wb+VDFAlVR4+2qfv0jTT61436rerZ0vIpo=;
+  b=gOZOarlZZuzBIA7v89+PWGYxr1/IQDr9mC+qAcp4dGZBmthgQG5uDOFU
+   X/mCdG0S/WqUu677YgIy2ezPmbxaSmeB/lUFPQsH6U1hQCJJK/PGsUgOu
+   vxlbs4AsXIMi4rCo4j4pS3AN4SmRQy95nD52iha9Ugoxq4TW/tZYJJtlG
+   pa3GIHljfzC/amFmD6DWpsJUedowY3kBiu055qoKWKNFvREXIpPhgGBwt
+   9gmm9/Fw6Pf2EDp80HXY/y0uQ/89DXFXG91pe2v6ODg+VDBBT+GKzN/RD
+   mTMBBOcS293eCUQt83HhTZJ0ufA4IWYpykoNUqsMdeBnjbj5pER4L64xp
+   w==;
+X-CSE-ConnectionGUID: 2lWhlZEtSZW8f/Ep0ZPh8w==
+X-CSE-MsgGUID: DgNDKXRtREeJUJLthGQqng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100506081"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100506081"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 22:28:59 -0700
+X-CSE-ConnectionGUID: ATVUCXMpRiiiaATCAR5Qcg==
+X-CSE-MsgGUID: nL4NiUADS2awyfP389ZlNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="278472643"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 22:28:59 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 22:28:58 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 15 Sep 2026 22:28:58 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.55) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 15 Sep 2026 22:28:57 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N976zD/m749jeJTVf+Icw7sGNEFeL/IyQZAhWRY049K+9uOjaU7xrNI1HeLVUiDCN6ro96XRg6kh6klW65qjPGSIYxXKaXaM73H8RZPTxJMfeDf/r2mKyoizk/fz1HOJyzdZbTQGdupw+McBXn5mbStmV1Kg6KokbsZMALSo4m0XAdSXXZV+dvwZsw3r8mwvpUZIsMWfuQL2V2cI8QvSznB8LQyiCva7v4/sKgjILlE0Dq3JyE4R0YMY222jQvyKR3NbDlEsRpNZJL7WR3ph0y5P/08ePSxZGIfcmPyIJOBVTfQ/hRAdh+XF8RRp9O/R/Z6QXjg86lGcqq886Rb0cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=20+cZxZiw6UOz5bYeW48RfKXrw50GfXN8gvH/bMGHcw=;
+ b=EDDrRZOn2PcztzUph263Fc6geresOuUr9eQ3LtzeFKtgXgvLhJay2Jgs3eKK9WllXgfDNYbWrrPfY8iPsmy1ML9vzOGozPw62Jm0SuewiWQGdlsuJN83hO8bNKgkqGHvEfvKxWZUGTCcGEQjSH5kmXfPdQB/BL99eLk1Guen5NQAdP7XcbQ2sg0NiFLI1LYty9lAwnjSblJqRXOMzS6csGRbfAhgJ4k1ZxpbZH0IH7HzrNzSopi0/NC6hcITQZNpqYqqzMgXuLmYRPL/j5h2uXpaTpTy/VYh/FUBEL5jh4efthgCdunMrMYp7wj6Doaj+76ddVEyxT1BqlC+w1ihPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by DM6PR11MB4708.namprd11.prod.outlook.com (2603:10b6:5:28f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 05:28:49 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
+ 05:28:49 +0000
+Message-ID: <4277c043-c854-4c9f-90cd-9cceaab3c88c@intel.com>
+Date: Tue, 15 Sep 2026 22:28:45 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 06/16] fs/resctrl: Introduce kernel mode states for
+ resctrl
+To: Babu Moger <babu.moger@amd.com>, <tony.luck@intel.com>,
+	<Dave.Martin@arm.com>, <james.morse@arm.com>, <bp@alien8.de>,
+	<ben.horgan@arm.com>
+CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <fenghuay@nvidia.com>, <akpm@linux-foundation.org>,
+	<rppt@kernel.org>, <dapeng1.mi@linux.intel.com>, <elver@google.com>,
+	<jlayton@kernel.org>, <enelsonmoore@gmail.com>, <kuba@kernel.org>,
+	<ebiggers@kernel.org>, <seanjc@google.com>, <peterz@infradead.org>,
+	<chao.gao@intel.com>, <jmattson@google.com>, <naveen@kernel.org>,
+	<ricardo.neri-calderon@linux.intel.com>, <tiala@microsoft.com>,
+	<chang.seok.bae@intel.com>, <prathyushi.nangia@amd.com>,
+	<kim.phillips@amd.com>, <elena.reshetova@intel.com>, <darwi@linutronix.de>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <x86@kernel.org>
+References: <cover.1787772750.git.babu.moger@amd.com>
+ <89413e63d627ed967108bb77e6f56e7ceb977571.1787772750.git.babu.moger@amd.com>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <89413e63d627ed967108bb77e6f56e7ceb977571.1787772750.git.babu.moger@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0330.namprd04.prod.outlook.com
+ (2603:10b6:303:82::35) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] btrfs: clear free space tree creation state on rebuild
- failure
-To: Guanghui Yang <3497809730@qq.com>, linux-btrfs@vger.kernel.org
-Cc: wqu@suse.com, boris@bur.io, dsterba@suse.com, mason@kernel.org,
- fdmanana@suse.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <tencent_705010B6315454003C478AE79E1F215E6E08@qq.com>
- <tencent_17320F87E281276888825B1844508C179506@qq.com>
-Content-Language: en-US
-From: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNIlF1IFdlbnJ1byA8cXV3ZW5ydW8uYnRyZnNAZ214LmNvbT7CwJQEEwEIAD4CGwMFCwkI
- BwIGFQgJCgsCBBYCAwECHgECF4AWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1YAUJEP5a
- sQAKCRDCPZHzoSX+qF+mB/9gXu9C3BV0omDZBDWevJHxpWpOwQ8DxZEbk9b9LcrQlWdhFhyn
- xi+l5lRziV9ZGyYXp7N35a9t7GQJndMCFUWYoEa+1NCuxDs6bslfrCaGEGG/+wd6oIPb85xo
- naxnQ+SQtYLUFbU77WkUPaaIU8hH2BAfn9ZSDX9lIxheQE8ZYGGmo4wYpnN7/hSXALD7+oun
- tZljjGNT1o+/B8WVZtw/YZuCuHgZeaFdhcV2jsz7+iGb+LsqzHuznrXqbyUQgQT9kn8ZYFNW
- 7tf+LNxXuwedzRag4fxtR+5GVvJ41Oh/eygp8VqiMAtnFYaSlb9sjia1Mh+m+OBFeuXjgGlG
- VvQFzsBNBFnVga8BCACqU+th4Esy/c8BnvliFAjAfpzhI1wH76FD1MJPmAhA3DnX5JDORcga
- CbPEwhLj1xlwTgpeT+QfDmGJ5B5BlrrQFZVE1fChEjiJvyiSAO4yQPkrPVYTI7Xj34FnscPj
- /IrRUUka68MlHxPtFnAHr25VIuOS41lmYKYNwPNLRz9Ik6DmeTG3WJO2BQRNvXA0pXrJH1fN
- GSsRb+pKEKHKtL1803x71zQxCwLh+zLP1iXHVM5j8gX9zqupigQR/Cel2XPS44zWcDW8r7B0
- q1eW4Jrv0x19p4P923voqn+joIAostyNTUjCeSrUdKth9jcdlam9X2DziA/DHDFfS5eq4fEv
- ABEBAAHCwHwEGAEIACYCGwwWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1gQUJEP5a0gAK
- CRDCPZHzoSX+qHGpB/kB8A7M7KGL5qzat+jBRoLwB0Y3Zax0QWuANVdZM3eJDlKJKJ4HKzjo
- B2Pcn4JXL2apSan2uJftaMbNQbwotvabLXkE7cPpnppnBq7iovmBw++/d8zQjLQLWInQ5kNq
- Vmi36kmq8o5c0f97QVjMryHlmSlEZ2Wwc1kURAe4lsRG2dNeAd4CAqmTw0cMIrR6R/Dpt3ma
- +8oGXJOmwWuDFKNV4G2XLKcghqrtcRf2zAGNogg3KulCykHHripG3kPKsb7fYVcSQtlt5R6v
- HZStaZBzw4PcDiaAF3pPDBd+0fIKS6BlpeNRSFG94RYrt84Qw77JWDOAZsyNfEIEE0J6LSR/
-In-Reply-To: <tencent_17320F87E281276888825B1844508C179506@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:20K8O0D4uuE5uwRJ5ue8JaQGliGkQuSvVBzipXtoV6QxNQwLY5C
- g8perIcw7arQLIAeXS+TBOU8r3r707TxSdmECMaw0FVwsT4yefwi1TIqNL8x1TFHWiTZVDi
- npSZlKtxuJGDbHg2U9O0hsdT/FObHB0QIgxRucW2kTVUCMxOyYZVpQiKArf7zLf5m1uPxI2
- RbegocE0pAOUE916T+xpA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:q7k8ZI8eZZY=;9Xio5EaBVmv8uQTHvIDuOpqEieQ
- 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
- /q74cJBeD9Jfq
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|DM6PR11MB4708:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3040173e-d550-41aa-53ba-08df13b362be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|18002099003|18092099006|22082099003|3023799007|10067099003|56012099006|4143699003|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info: ypo+dJ4GLbuT2/0FHe+8ODG5K35cZmDA5l2QRPKqD0OjJlKXc0RE4mjL2hBXmprUHyOqrwHRwIY9RUAxFILLZ9A3CSp7Q14GchT3dTglfhpfi7d84CvWFVTNst85S28SMLHap4vtruLxcwGGzOefOibQ+83N0sZn8OcId1Zo1bFQFbc9nxcCHbhTJ5DvzAwWe/qBhE4wNw9QtIA0H9BH1HEk1WTR4gSOGarnlBDnGDpiRTfZgB0QZy5fsXu4d43L/kfGCVMGkmQKVAqXB6lccqP4vSNxTCQIEJga33sVWaKy7r1P5AhDF2OuxHZjutrya/r01Sz+GdLRWBvxmBCA1Ti6e4YUdw67+gGeJpy9pA5X9FTeOyyPjnj+5AAza5o0RvT3hfkLqFiFFqxsntjfnhvX+Hdqo5b9wSA+vUSVYYtDsNfwxp92XBTH4TlYb1Dvr6isFGTrAjezmRvgY/1OU/cVzU/Hlfs0pKyrAZRPsz3TlJ9k2q7+1A0tyPR9STC0PXudkklPVb+COfUU88wHqA3STsk8ggxwIM2/2+jc72jtrEbSmFcFmu1B9IU/B+iuDY8+ULd+xQr8VFX6vKrxUqFKV9b/0cvvl8axyDTdj8qCKc5MF0OzuIuuPjhN/WV2jk4kZLuI1WdCMnWpoiiShFlP/NSV6noVeXpQvl3mc9w=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(18002099003)(18092099006)(22082099003)(3023799007)(10067099003)(56012099006)(4143699003)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WExEa3Bra0RySGxWVm9HT3V1TE1BOFFlSjBxQ21SeEMrRWJOZlAvT293OTBt?=
+ =?utf-8?B?UC9kWVlEUVdxMkRXbjYwbzJ4MXVjak81L2RZdjBRR3E0cURJVFR4aFZtZUVW?=
+ =?utf-8?B?enl2Uk84U3Z2WXUrWUh0KzhyamdvdGdKa0tPTlVNbVVxWU5YVnVFdjd6dml1?=
+ =?utf-8?B?ZnB1Y0FJUzNuUDBOWTVvbzZjd09ySk9WTElUUmdpUmpzRnNBWXczUkFhalRy?=
+ =?utf-8?B?UE41V3BHR21GbVJGS25BYlU4Q1IyVzdBSElCQU0wL3JBb0tFenpjVCtGREI3?=
+ =?utf-8?B?KzRIYUFKMTBiaTc1NXJTa3hLNUpzVXorMFZ3eTF6ZzhuYXFGQ2d6bnFXRG9F?=
+ =?utf-8?B?d1QvRStIMHpMNThyZkJjM1pUTXJyU3hjczgzV0dKSHorS1pZYllGME93cGxk?=
+ =?utf-8?B?TUtibGlSOXgxdXBCbWFXYzhjZUJPcENCT1BERW9HaTd0d0JqU3lXa0JTU3Nv?=
+ =?utf-8?B?cXVuTHJReGgySE5Qd1l1NnVSZ050eGRiS3dlbW1VMU45L1FoZWxwV2dBZksw?=
+ =?utf-8?B?ZlBkVUV5aVB2akZoZ1VlQnJhTE5pQkVUVGtmaEt2bTZlS293UE1KdlJtVzV1?=
+ =?utf-8?B?OUdVbUVWYmM1Q01IeE5lM04rdjErK2RiK1V5cVZkT04zUXF2NEc1RlBsbnNz?=
+ =?utf-8?B?OUgwRFU1eHhzSVRrdzA0YUtkcEJKMjZodWVrRWxkNldnRklJQXIyMExERmhn?=
+ =?utf-8?B?ZXNBSU90djRFYmVKRmRpVXB0MmxjQis3ai9TREhLQ1ZVa0tOa0J1NDdCUGQ1?=
+ =?utf-8?B?b3FsdDVOaTdPcFJCVzNHSmxsUForRzM3SXlVTVdWbHFEdmdIVzB6eXE3VEl1?=
+ =?utf-8?B?Mzd0eUxNSjNMVDU5VGZoZWM0ZXRSOVVTbUNMTXg5Z0oxQ1pOOUhBcEM1eU1X?=
+ =?utf-8?B?bERteVJjbU1KR0luS3Zmd05RWlNhT0p3WHgzUk9zYmt0cnh3TDJUbDl3eS9H?=
+ =?utf-8?B?SFdXcFpsbXVFWm9aY2V3dXAyMG5yMllkTFJ2VFVxc3NuaWxlU201YUd6QnFK?=
+ =?utf-8?B?clBjNkF0UWRWRkRsaW84SHp2aXR6ckJRR3VFQXErS3VLK1BEZ3p1S1BNVkNU?=
+ =?utf-8?B?L29RK01JbkxNT3JwSG1ITjNaK3ZHS2k3aGdhbDFhTnJvVXp1R0lXR1JvZ3Iw?=
+ =?utf-8?B?SzA0SWc0cktDRnVOd1FjRGRhSHFxSTVDOUJJc1JoL05NSkNkN0VqVUtrekVI?=
+ =?utf-8?B?V2IwVjJ3VWN6UkVPaVJMLzBXS2wvZzZLQnh3N05MUGJFelZMakVCNFYvd3pn?=
+ =?utf-8?B?VVZhRjhwWG5USjlwNDZGdXp5a09ZMWpTVk95Vk94blFIa2U0bTBheUdxT2VB?=
+ =?utf-8?B?K0NQaTI4UzJzQnljMWVQQmhBemhTazgyZ0tRMjhVc294a1JmdEpXV3lBTUdk?=
+ =?utf-8?B?emlLaUZxQ05FdDdQaUZubGprUUh3RC82TVRBSU9iOXdzbFFEaHBIUEdDbVFU?=
+ =?utf-8?B?Z2E1MUQ1T3EyWlBWZFNKWlF2Titxc0FvMjJDbjdtUnlkNVRucnA4dU9pbUFV?=
+ =?utf-8?B?NmJzL0Y4enBBZ3lCY0pjOUNjMnFGYnh4MjlNUXR1NHZtZGcxOWFrbE1YWGlt?=
+ =?utf-8?B?bGticHVwQ3NHdWlpSE1ZU3YxZWRqQm9KYklpZFlLWTc1UCtZU29zc3Z3czVL?=
+ =?utf-8?B?UVZ1MnlmVVlOa2NtcElWMkFhdnRuZTRVUnlHRFMyMUpGck5tczFSNzZOeUZ0?=
+ =?utf-8?B?aGNvRWlyRXVwVkVVd0I2NCtGMWgzWVRKbU9SRHlFeVBxc2ZVQlBTd0t0eGRL?=
+ =?utf-8?B?MWVFd2J1eWhISndPU00wbDA0eG9uYXkySC96MGhSOENaYjEyRlp4bG91MFVh?=
+ =?utf-8?B?Ni9pUmF4QlhXQWVvNW4ydTIyYTFtYjc5ZXFnNm5NN3NRRmJmRGlwVXl1NCtj?=
+ =?utf-8?B?cFhlMi9HYUFJVUx3Q2xEQlFTKzEwN2ZUdUdZUE9yV2hKK3FpYllQbFZ3SG50?=
+ =?utf-8?B?dHFTdVl4VVI4QzU3eTNiN1NYQWhQRjh2elYvREdWQUxXTEdpZ1I5cktQSjBH?=
+ =?utf-8?B?WDNXY1JQYkMvRUovZlJ4OExDRFBMVUhyTUFXR1RBQ29KdlZLQjk5aUhmaUNh?=
+ =?utf-8?B?aWJwOVh3Mm05WjZOclYvUFMxK1Jvbk9wQ3YzSzhIZ0tKM0ljdVpkRC9vNlhk?=
+ =?utf-8?B?MmVXWGNaanZtNDYrNU5HdHBzN0Y0V3AwZCtvV2lCT2hYTUhxalh2OHR1R0Vh?=
+ =?utf-8?B?M3I5QzM5WWpvcmRObTl2RjV0dEhqU0d4bm05QzVweVhZWGxMOGRyU2d3aG1U?=
+ =?utf-8?B?Q0xjODJiQ1ltUkp4RFFKQ3Jrd1Z5a0EyckdQNmloQmVBaC95ay9Cb3Nkc3g3?=
+ =?utf-8?B?ZnMzMU9abmhta1RvSDRsc0hHdFhWYzNEZy9wVDd5TU1GYlZpMEpGNlMxVTJ1?=
+ =?utf-8?Q?AvPjCFHBWWn14Vdg=3D?=
+X-Exchange-RoutingPolicyChecked: IiFLhXZaq0IdJs9Rv0/sf4/d6ltZeZtFAmPDChmlfHB2OPR+RDhSUjuSC9yy8djyUG0CFV/sB/OzXPYqzv5AqvXbkh43zDfJb0BBF5WhRtUuUbT3Lu9knlFKYhS3LtMppNRolfEjpdwTFf+TjRMGhpoLU/zLkF3yAwTDDU0kAy11tYgr/rgS149zV1zU3R34uu2hJAplmy7xqQAxx8vj8VSHyNl9VNkKYdhGYkKCIadb/G5KDWWR1vdr613rOyX0yF0d/p13Y68D25XVbGUuYLo0vIwksFRBIXjRfy6P/9vLcPkkUn3k95wPXpSaMAxPAyBJuhQpiDt3S/wM/5U+6g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3040173e-d550-41aa-53ba-08df13b362be
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 05:28:49.2307
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FwdgBgg/8pCYF5LwX3DI5tXuUYcXpCs8D7rbOxgE1ua53obdTekIrj0qeA1W+/9YVvwoa/uFE5KClHMHIGC/X45yfDmA+9tGAwRdriqv6cw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4708
+X-OriginatorOrg: intel.com
 
+Hi Babu,
 
+On 8/26/26 12:32 PM, Babu Moger wrote:
 
-=E5=9C=A8 2026/9/16 14:46, Guanghui Yang =E5=86=99=E9=81=93:
-> btrfs_rebuild_free_space_tree() sets
-> BTRFS_FS_CREATING_FREE_SPACE_TREE before rebuilding the free space tree.
-> Several error paths return without clearing this flag.
->=20
-> The transaction restart failure path can leave the flag set on a live
-> filesystem, causing delayed reference processing to be skipped. Clear it
-> on all free space tree rebuild failure paths. Keep
-> BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED set, since a failed rebuild leaves th=
-e
-> free space tree untrusted. Callers must fall back to extent-tree caching=
-.
->=20
-> Fixes: 882af9f13e83 ("btrfs: handle free space tree rebuild in multiple =
-transactions")
-> Cc: stable@vger.kernel.org # 6.14+
-> Tested:
->    xfstests btrfs/015 btrfs/032 btrfs/104 btrfs/131 btrfs/352 (pass)
->    xfstests btrfs/quick: 261 passed, 30 failed, 90 not run on
->    Ubuntu 5.15.0-60-generic
-
-WTF? You're not even running the tests with an upstream kernel with your=
-=20
-patch applied?
-
-Thankfully the patch still looks good to me.
-
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-
-I'll remove the stupid tag, and finally stop wasting time on someone who=
-=20
-doesn't have any brain cell to properly test the patch.
-
-> Assisted-by: LLM
-> Signed-off-by: Guanghui Yang <3497809730@qq.com>
 > ---
->   fs/btrfs/free-space-tree.c | 14 ++++++++++----
->   1 file changed, 10 insertions(+), 4 deletions(-)
->=20
-> diff --git a/fs/btrfs/free-space-tree.c b/fs/btrfs/free-space-tree.c
-> index 1b3d82ae3de8..b7a4a6ade30f 100644
-> --- a/fs/btrfs/free-space-tree.c
-> +++ b/fs/btrfs/free-space-tree.c
-> @@ -1353,7 +1353,7 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_=
-info *fs_info)
->   	if (unlikely(ret)) {
->   		btrfs_abort_transaction(trans, ret);
->   		btrfs_end_transaction(trans);
-> -		return ret;
-> +		goto out_clear;
->   	}
->  =20
->   	node =3D rb_first_cached(&fs_info->block_group_cache_tree);
-> @@ -1371,14 +1371,16 @@ int btrfs_rebuild_free_space_tree(struct btrfs_f=
-s_info *fs_info)
->   		if (unlikely(ret)) {
->   			btrfs_abort_transaction(trans, ret);
->   			btrfs_end_transaction(trans);
-> -			return ret;
-> +			goto out_clear;
->   		}
->   next:
->   		if (btrfs_should_end_transaction(trans)) {
->   			btrfs_end_transaction(trans);
->   			trans =3D btrfs_start_transaction(free_space_root, 1);
-> -			if (IS_ERR(trans))
-> -				return PTR_ERR(trans);
-> +			if (IS_ERR(trans)) {
-> +				ret =3D PTR_ERR(trans);
-> +				goto out_clear;
-> +			}
->   		}
->   		node =3D rb_next(node);
->   	}
-> @@ -1390,6 +1392,10 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs=
-_info *fs_info)
->   	ret =3D btrfs_commit_transaction(trans);
->   	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
->   	return ret;
+>  fs/resctrl/internal.h | 51 +++++++++++++++++++++++++++++++++++++++++++
+>  fs/resctrl/rdtgroup.c | 33 ++++++++++++++++++++++++++++
+>  2 files changed, 84 insertions(+)
+> 
+> diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+> index e62a277dee85..4087bf44a06d 100644
+> --- a/fs/resctrl/internal.h
+> +++ b/fs/resctrl/internal.h
+> @@ -314,6 +314,57 @@ struct mbm_state {
+>  	u32	prev_bw;
+>  };
+>  
+> +/**
+> + * enum kmode_state - Control or monitoring state for a kernel mode
+> + * @KMODE_INHERIT: Inherit from the user space task.
+> + * @KMODE_ASSIGN: Use a global assignment for kernel mode.
+> + */
+> +enum kmode_state {
+> +	KMODE_INHERIT,
+> +	KMODE_ASSIGN
+> +};
 > +
-> +out_clear:
-> +	clear_bit(BTRFS_FS_CREATING_FREE_SPACE_TREE, &fs_info->flags);
-> +	return ret;
->   }
->  =20
->   static int __add_block_group_free_space(struct btrfs_trans_handle *tra=
-ns,
->=20
-> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+> +/**
+> + * struct resctrl_kmode_caps - Static kernel mode capabilities
+> + * @kmode_sup:	Bitmap of supported kernel modes. Empty when neither
+> + *		@ctrl_en nor @mon_en is set and kernel mode policy is
+> + *		unavailable on this system.
+> + * @ctrl_en:	Whether kernel mode may use global assignment for control.
+> + * @mon_en:	Whether kernel mode may use global assignment for monitoring.
 
+Why is ctrl_en and mon_en needed? It seems to just store the output of
+whether system supports allocation and monitoring. I only see these used
+when user interacts reads or writes the kernel mode so not a "hot path" that
+needs to be optimized. Can these just be dropped and just use resctrl_arch_alloc_capable()
+and resctrl_arch_mon_capable() directly? Please note they are in process of
+being changed/renamed:
+
+https://lore.kernel.org/lkml/20260831174421.13921-7-tony.luck@intel.com/
+
+> + */
+> +struct resctrl_kmode_caps {
+> +	DECLARE_BITMAP(kmode_sup, RESCTRL_NUM_KERNEL_MODES);
+> +	bool				ctrl_en;
+> +	bool				mon_en;
+> +};
+> +
+> +/**
+> + * struct resctrl_kmode_active - Runtime kernel mode state
+> + * @kmode_cur:	Currently selected kernel mode.
+> + * @ctrl_mode:	Control assignment state when kernel mode is active.
+> + * @mon_mode:	Monitoring assignment state when kernel mode is active.
+> + * @k_rdtgrp:	Resource group backing global assignment mode.
+> + *
+> + * When @kmode_cur is %RESCTRL_INHERIT_USER, assignment state is ignored and
+> + * @k_rdtgrp is %NULL.
+
+This implies that this is only the state for RESCTRL_ASSIGN_GLOBAL_ENABLE_PER_CPU.
+If it is made specifically so there is no need to pretend it is generic and
+add all these caveats.
+
+> + */
+> +struct resctrl_kmode_active {
+> +	enum resctrl_kernel_mode	kmode_cur;
+> +	enum kmode_state		ctrl_mode;
+> +	enum kmode_state		mon_mode;
+
+Is "mode" accurate? This is all about kernel "mode" and now control and
+monitoring have other modes?
+
+> +	struct rdtgroup			*k_rdtgrp;
+
+Could naming be consistent? Consider, for example, kmode_rdtgrp? Although
+if this struct can be specific to the global per-CPU kernel mode then it can
+just be "rdtgrp".
+
+> +};
+> +
+> +/**
+> + * struct resctrl_kmode_cfg - Global kernel mode state
+> + * @caps:	Supported modes and assignment capabilities.
+> + * @active:	Active mode, assignment state, and assigned group.
+
+Please do not list the struct members as part of its description elsewhere since
+that will be difficult to keep accurate. Just describe what the struct represents.
+
+> + */
+> +struct resctrl_kmode_cfg {
+> +	struct resctrl_kmode_caps	caps;
+> +	struct resctrl_kmode_active	active;
+> +};
+> +
+>  extern struct mutex rdtgroup_mutex;
+>  
+>  static inline const char *rdt_kn_name(const struct kernfs_node *kn)
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index 5dcbb0a964e8..3c53f3f74e5a 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -76,6 +76,13 @@ static void rdtgroup_destroy_root(void);
+>  
+>  struct dentry *debugfs_resctrl;
+>  
+> +/*
+> + * Global kernel mode policy state: supported modes, active mode, assignment
+> + * capabilities, assignment state, and the resource group selected for a global
+> + * assignment.
+
+Same here - please do not just provide a list of the struct's members. A high level
+description instead.
+
+This code is really strange. This whole series is difficult to read. I have not seen
+these styles used before and surprised that it comes from you.
+
+> + */
+> +static struct resctrl_kmode_cfg resctrl_kcfg;
+
+I think the code will be easier to read if "resctrl_kcfg" -> "resctrl_kmode".
+
+> +
+>  /*
+>   * Memory bandwidth monitoring event to use for the default CTRL_MON group
+>   * and each new CTRL_MON group created by the user.  Only relevant when
+> @@ -2297,6 +2304,30 @@ static void io_alloc_init(void)
+>  	}
+>  }
+>  
+> +/*
+> + * Initialize kernel mode policy defaults from architecture capabilities.
+> + *
+> + * When ctrl_en or mon_en is set, RESCTRL_INHERIT_USER is supported and
+> + * selected as the initial active mode. When neither is set, kmode_sup is
+> + * left empty, kernel mode policy is unavailable, and kmode_cur remains at
+> + * its zero-initialized default (RESCTRL_INHERIT_USER) but is unused.
+
+Above just verbatim describes the code. Please provide higher level why the
+code does what it does.
+
+> + */
+> +static void resctrl_kmode_init(void)
+> +{
+> +	resctrl_kcfg.caps.ctrl_en = resctrl_arch_alloc_capable();
+> +	resctrl_kcfg.active.ctrl_mode = KMODE_INHERIT;
+> +	resctrl_kcfg.caps.mon_en = resctrl_arch_mon_capable();
+> +	resctrl_kcfg.active.mon_mode = KMODE_INHERIT;
+> +	resctrl_kcfg.active.k_rdtgrp = NULL;
+> +
+> +	if (resctrl_kcfg.caps.ctrl_en || resctrl_kcfg.caps.mon_en) {
+> +		resctrl_kcfg.active.kmode_cur = RESCTRL_INHERIT_USER;
+> +		__set_bit(RESCTRL_INHERIT_USER, resctrl_kcfg.caps.kmode_sup);
+> +	} else {
+> +		bitmap_zero(resctrl_kcfg.caps.kmode_sup, RESCTRL_NUM_KERNEL_MODES);
+> +	}
+> +}
+> +
+>  void resctrl_file_fflags_init(const char *config, unsigned long fflags)
+>  {
+>  	struct rftype *rft;
+> @@ -4816,6 +4847,8 @@ int resctrl_init(void)
+>  	if (ret)
+>  		return ret;
+>  
+> +	resctrl_kmode_init();
+> +
+>  	ret = sysfs_create_mount_point(fs_kobj, "resctrl");
+>  	if (ret) {
+>  		resctrl_l3_mon_resource_exit();
+
+Reinette
