@@ -1,163 +1,100 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151E8378822
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:11:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7544134BA42
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:11:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571466; cv=none; b=O0RBfcrqh3YH4m1F0Kww7e2OvAKZtcoifywHOA9Gkc3jmXL0tCC6ve2/OCoHVow/TgJfZ1X5Z41u1yef+Cd7uExAyEQ3zZ2yFFc266/ybUBKhcePeXmh8koZz9TBP0Y8elPY35OEpw6lH1Hwrw12RfMJz6ouXFdtUzCeJq7GgOM=
+	t=1789571494; cv=none; b=A2nUJR7kKolVI7i+ED0KqJLbJpw20MEy2YgdSXzOQQpguZTAGrhrKHeWxLcx4GuF8aIlvMi32LZI2fitUmO/Idc5CADz8Fk8etTm99VHCS9CgmOn3be4Nqke1kV6Pt82B1MX3dB1CGI0XEtteCykKOVBWkVT18I101cQ3XK6td8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571466; c=relaxed/simple;
-	bh=82Po+MWtnddHsMFzebg79RzSQQLt8vBCjhQTbPXgZLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=li5Pgaa6/eL6H2WhDZGOv9i7Sl5rbyViCrMJm3LD5YPdllrTxLv7N3EvZd1rVPkTrtVYJdq+wNeQeB976az+BlOiyQHo+69zGHSk1gtoUeiKPUswo4ed5t+8AfHmMmhlnW3YbZbUh3p4v92Yxw8CoGhDabjIjqcOZ0DegZkdecc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=eOiPHdb3; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789571494; c=relaxed/simple;
+	bh=KLjAsmeeOIZJCMWKS89bqsF0L69UzKvkBuEnkD4hohs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EmhQnGw8I4sBqBzk6WCPaYMyZSJmePjQb6OkjrvH8GmCVDN7pM6c7/i8K1g6LXpVEYwJ+5PkLxvWOFhtt/gh3QmA4TQfQX//xRLpuwJR/pnPP1U5gIp6QYloUpD3MD4rcR/+/f+oZA0X1xDQW0h5m8JC1tqq+ACtPgEev+DoU/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=G+SCWkmJ reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="eOiPHdb3"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEVuP44007658;
-	Wed, 16 Sep 2026 15:10:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=FqLDnrcteHK5S/7d6
-	FBsaAPQcmaAmif37JjMEJUwCSQ=; b=eOiPHdb3lbaDHsR1RVLJdGygZGtD9OfIk
-	hhC0hW+xcG4kW2WvSF/yzdbxBz1GY1w3R8mrScBR7Um9DrizJdF2QW3xYAdhsH5O
-	Uvy2rtJlvV1pV7vtnw2XN9KKavW0pAI9BnU+iezZsFszJs/T5YTT8e6bypFdiTE+
-	KRVK+HDL3Uj4frRY8bYjAFpD2L1wQ43xNxQtutztyxBy9UlJrsd9bRxke+1JRnso
-	gwBoVW4yK2EGpAr/hHFyVsTSi8BApHrArnRAlFDkWdVwoMRFCnn/YrdsfsbUaXs6
-	BtNnHqvggSGcVKNYvDjFaGFGbVO74snTC7EZ4y9ItvyojeSyp9ndA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmx83wa2r-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 15:10:39 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEaBXj1585015;
-	Wed, 16 Sep 2026 15:10:38 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gq089putb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 15:10:38 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68GFAXin41091564
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 16 Sep 2026 15:10:33 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3081020040;
-	Wed, 16 Sep 2026 15:10:33 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CE75020043;
-	Wed, 16 Sep 2026 15:10:28 +0000 (GMT)
-Received: from li-a84c74cc-2b13-11b2-a85c-acdd023f0674.ibm.com.com (unknown [9.61.52.228])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 16 Sep 2026 15:10:28 +0000 (GMT)
-From: Nilay Shroff <nilay@linux.ibm.com>
-To: hch@lst.de, kbusch@kernel.org, sagi@grimberg.me, kch@nvidia.com
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-        gjoyce@linux.ibm.com, Nilay Shroff <nilay@linux.ibm.com>
-Subject: [PATCH 1/2] nvmet: defer setting ns->enabled to false in nvmet_ns_disable()
-Date: Wed, 16 Sep 2026 20:39:59 +0530
-Message-ID: <20260916151012.3702896-2-nilay@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916151012.3702896-1-nilay@linux.ibm.com>
-References: <20260916151012.3702896-1-nilay@linux.ibm.com>
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="G+SCWkmJ"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 1391B40E00E8;
+	Wed, 16 Sep 2026 15:11:29 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id hI0MaEUscZXt; Wed, 16 Sep 2026 15:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789571479; bh=Y4gQCJuCLWVMNjrLR3ITyxCKiMN9VSOVUnFo8wvE85w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=G+SCWkmJAFBTS8hhZgcJ7AuaYNOFdBuuqLVT5KXFqNDVofnomEL9lP6iTrwhNoYbs
+	 xxKjqXyawW6aSPJigEKZaOQUCIFwwGypX9SpS0eLHjrXb0CJ1byqQWtPEJv9D3WCWs
+	 el5WEWJ6XvDlHxJlxJ4Wu65N5eFqrr7eM3NLzDFhd1D68luW9RB2Mlg7H7QAVXIs+j
+	 Df1p7W/iOpHV8GSqY4LWy8zsU39Ii+YrROwGHIwMhKvx6GhONLl24x16NT5nq3OV3P
+	 O7i9lAijx8Ki9L1XV8gUipbE0DeVuX5Y5dPnn6tOGpkyi3yfuxlZES1AqN480lPol+
+	 Z1XG4rEcPHrO/9cFWqVsZxyP7ddyNlxQ8OocLL2DnMs5HjbiYGA4dXsMwWEQSYteVj
+	 MGtw0nhwd3BOCEPH5u9V5No5eXQ7G3MoUfoBSncwnYxNbn2RQSwX0ICT0gQ0pEu1sS
+	 gZ5+46rzemdVWF6npS6n9zDeY1A5nO8EIrySV8BCLlq4TEhLgdYkMu5g98BHGA48XW
+	 HAWQKBQCVYAfMez95Pg4V2N5UQ5l0SjjCsIe6Duh3ofPppHo0jZZvy2cWk2Ep/x3U8
+	 ITTTMNNG1DrngHKszhpW+g3u5xH2IGjaz1cQKTmhkL9F1FtVnCUYich1WZ3S5G5a8W
+	 ydwgRSYSy9DTRogwRhmJEASU=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 77B9840E015B;
+	Wed, 16 Sep 2026 15:11:13 +0000 (UTC)
+Date: Wed, 16 Sep 2026 08:11:10 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: "yolezz. secret" <yolezz.secret@gmail.com>
+Cc: Yazen Ghannam <yazen.ghannam@amd.com>, mario.limonciello@amd.com,
+	x86@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] x86/amd/node: Release reserved config regions on init
+ error
+Message-ID: <20260916151110.GBaqqxjqPlcUAORINT@fat_crate.local>
+References: <6bd2cad5-65ef-4f3d-a146-d91f120c86ad@amd.com>
+ <20260915180543.112708-1-yolezz.secret@gmail.com>
+ <20260915222010.GA3101@yaz-khff2.amd.com>
+ <CABLVixVbsR1Au=ReUUR2tpzhy0+5L8rm6VAAkrwJKR1ahR1sag@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIwNCBTYWx0ZWRfX6dGS980MbI+N
- E1uazvwmAOosUXR53+sqojk1wQtwy4HaJuwQ+ri6fotqzASbEtxSeEoe6uszcHBpdWI+8G/8uam
- xxaimdewMd8Uj0ZJlT6T5v1Fk3o/caG8CD22/H6b5bs3qs5UNWvc205DfdBNJiO+/D/ywOs+iJq
- LzxEe88ZpobH95How3Z5meiB+LdaBRW6vvxUaYsog/Qu6fsNRKmrM04sAGw0ta+7xh+wJaYvXyH
- RHAjvm2NV6z8iXXJSXbYj0pEG4Lmu3Nug41FO80LcXmt/H9rJAI7p518MVHqdFYnAvS/qQ/KZ6z
- 7KYmbNgmyIROd5ZmHPUftp9h8ToT3Zd0NaegIMC1x6iX8jeM/L3Ijr5HhOTb9fPwqS+dKx7s5hB
- FZihB2JzPn2LWBK9yFgctUIOMfOe5fRBgrXSNYaWNItwCH2uXf/bHv+MY2wNiKtxpWqLrkv3Vht
- vA/rlyLaWc0ZxqAvLKA==
-X-Proofpoint-ORIG-GUID: NBho84BV1Yc1YOjkmKW_iko5EqwNDbEV
-X-Proofpoint-GUID: NBho84BV1Yc1YOjkmKW_iko5EqwNDbEV
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIwNCBTYWx0ZWRfXxLI6g4tw+KuB
- EQDM3IKNfYidhgyHthDLcZZHFgaj+75EOKsGL2RZiyIdjPh0KeIysjC5vQydWiwkbbWq73qoVCC
- z+fIVccUmemAhPgUs9n6MX/zYRlysyM=
-X-Authority-Analysis: v=2.4 cv=cY9HPXDM c=1 sm=1 tr=0 ts=6aaab16f cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=rmADpZh76WS4eRlhKtcA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 malwarescore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160204
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CABLVixVbsR1Au=ReUUR2tpzhy0+5L8rm6VAAkrwJKR1ahR1sag@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-nvmet_ns_disable() currently clears ns->enabled before draining
-in-flight I/O references. This allows namespace configuration to be
-changed while existing I/O requests can still hold a reference to the
-namespace.
+On Wed, Sep 16, 2026 at 12:50:44PM +0200, yolezz. secret wrote:
+>    Thanks for the feedback, Borislav and Yazen. I will drop the =E2=81=A0=
+__free()=E2=81=A0
+>    approach, switch to the traditional =E2=81=A0goto=E2=81=A0 cleanup p=
+attern, and fix the
+>    changelog attribution (and my sign-off name). I'll send out a v5 sho=
+rtly.
 
-This can race with configuration of namespace attributes such as the
-device path, UUID, NGUID etc. These attributes can be accessed by I/O
-requests without holding subsys->lock and must not be modified while
-such requests are still using the namespace.
+Thanks.
 
-In nvmet_ns_disable(), keep ns->enabled set while existing namespace
-references are being drained, so namespace configuration remains blocked
-until all in-flight I/O has completed. Set ns->enabled to false only
-after the namespace references have been drained and the namespace
-device has been disabled.
+Also, if you are considering of contributing to the kernel more often, yo=
+u
+should fix your mail client to not send HTML mail but simply plain text a=
+nd
+also you should not top-post but reply underneath the quoted text, like I=
+ did.
 
-Since setting ns->enabled to false is deferred in nvmet_ns_disable(),
-use the NVMET_NS_ENABLED XArray mark in nvmet_req_find_ns() to
-determine whether a namespace can accept new I/O.
+We have a very nice document to peruse:
 
-Similarly, use the NVMET_NS_ENABLED XArray mark in nvmet_ns_disable()
-to prevent concurrent callers from starting namespace disable.
+https://kernel.org/doc/html/latest/process/development-process.html
 
-Signed-off-by: Nilay Shroff <nilay@linux.ibm.com>
----
- drivers/nvme/target/core.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+when in doubt and to skim through while waiting for review.
 
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 43871a8f56ca..77d113fceced 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -448,7 +448,8 @@ u16 nvmet_req_find_ns(struct nvmet_req *req)
- 	struct nvmet_subsys *subsys = nvmet_req_subsys(req);
- 
- 	req->ns = xa_load(&subsys->namespaces, nsid);
--	if (unlikely(!req->ns || !req->ns->enabled)) {
-+	if (unlikely(!req->ns) ||
-+	    !xa_get_mark(&subsys->namespaces, nsid, NVMET_NS_ENABLED)) {
- 		req->error_loc = offsetof(struct nvme_common_command, nsid);
- 		if (!req->ns) /* ns doesn't exist! */
- 			return NVME_SC_INVALID_NS | NVME_STATUS_DNR;
-@@ -644,10 +645,9 @@ void nvmet_ns_disable(struct nvmet_ns *ns)
- 	struct nvmet_ctrl *ctrl;
- 
- 	mutex_lock(&subsys->lock);
--	if (!ns->enabled)
-+	if (!xa_get_mark(&subsys->namespaces, ns->nsid, NVMET_NS_ENABLED))
- 		goto out_unlock;
- 
--	ns->enabled = false;
- 	xa_clear_mark(&subsys->namespaces, ns->nsid, NVMET_NS_ENABLED);
- 	nvmet_debugfs_ns_free(ns);
- 
-@@ -675,6 +675,7 @@ void nvmet_ns_disable(struct nvmet_ns *ns)
- 	mutex_lock(&subsys->lock);
- 	nvmet_ns_changed(subsys, ns->nsid);
- 	nvmet_ns_dev_disable(ns);
-+	ns->enabled = false;
- out_unlock:
- 	mutex_unlock(&subsys->lock);
- }
--- 
-2.53.0
+HTH.
 
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
