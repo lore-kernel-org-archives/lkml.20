@@ -1,524 +1,420 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422F93BBFD4
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC91C3BB9F3
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789534918; cv=none; b=iAUHFl0LpRfBXH03SQlguhwsHFGVEGfnaMxutPyoTk2mtLYwYE47bnen9QxMqjH5Tvk096lK0K+wRjMwkWHupY3jPiFfIjQV+D66S+D9dC2vPSU82SDvRRy/xXyndl/vcDqqQOgU7sefkoeeLvE83UHW00DWD7123fRrrEH0y1A=
+	t=1789534970; cv=none; b=DasyZeNy7+hdsWhm+WL6AbMqzluAitNiq1j6iqu2a3cdkQMZOZ07LRgHwGM6FWjcPWfu0ISdYIzbJUunYH87ZYCOVM3CBOWCnl0PXi7zVv3K+wOWMTT6UmRNcWJxA++3a3xUn8I0SQpDwXy9F/B0lEbYpOrx44Ey99LBXvZIJY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789534918; c=relaxed/simple;
-	bh=bsafpUuWLgk0WK1IwhHGAQ0GEP2f9cuwNbRx2fkO6tQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 References; b=PG7qliBH0zaVpLYc2hDfRRiFSSkxYLQx5hDtLTSBVURWR/a1L0hNqnXlLg0JZYExA8VsvBSc5BsFqMPNZPYi2MPPuUzHE0mMnrKiTzzahmACkDwd8pt513fT+u/4XNOIbd3XqF0Qz2G4AOuJXICQ1Wi0TweaUwI9VMWlrsZ9Fb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=vF/hrG1M; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789534970; c=relaxed/simple;
+	bh=361UyB5xmz/mni17yfKbIKbrKSDZjOv7DGwA2jAOyFM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SNNa35iqEexxg+9jZLwEK4OGsV8phbInCaerX9RCdfUMC4vzDvpJM3csGrTtx1uuypC2gSJ6l8o6LgsjwqEtTEByF8esXSOIbapSBzlh0b0j+T9E4igjSWYJsrqG+euP8Xbo2iW61kNzaNMqOTuhg7Yje+xE4YB3y6bPXGZcu0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=r8k8Zbfe; arc=none smtp.client-ip=91.218.175.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="vF/hrG1M"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260916050146epoutp0480a5274774ea38ee9033feb08cb5a742~VtIQfjHmN1856418564epoutp04y
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:01:46 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260916050146epoutp0480a5274774ea38ee9033feb08cb5a742~VtIQfjHmN1856418564epoutp04y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789534906;
-	bh=rPkEWV3BQ7erFyfva4lOcp8vL47NH5mXVq7j6DMgt8k=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=vF/hrG1MtZVuSWNnIVCfPyyqViYXAMeBTdL/mFwUbaA+VJEg5NYHDwtIucw7Gpa0t
-	 3YgVvQ9cxiWOXKQiPtBMOyGwRrpGiUD0TRpM9PNgU++3yEWtJNG7nHk5B4YkKl33eM
-	 /Czl7sfLrz0hlEpqpYwq0zVyHznbjnfrCK0M8ZYM=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
-	20260916050145epcas5p30ea86fcc1bd9cd72563cbbecf77fda7b~VtIP23zRi2424124241epcas5p37;
-	Wed, 16 Sep 2026 05:01:45 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.95]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4hl6Dn0Hn8z3hhT3; Wed, 16 Sep
-	2026 05:01:45 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20260916050144epcas5p3f7d6a44556baabd24027af8f4bce7893~VtIOaSaAu2441924419epcas5p3d;
-	Wed, 16 Sep 2026 05:01:44 +0000 (GMT)
-Received: from ws2030076956.sa.corp.samsungelectronics.net (unknown
-	[107.99.235.31]) by epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260916050140epsmtip1dabda817650ecbd05add8b14e16a4437~VtILS5woZ0885108851epsmtip1R;
-	Wed, 16 Sep 2026 05:01:40 +0000 (GMT)
-From: Irlanki Sandeep <irlanki.s@samsung.com>
-To: netdev@vger.kernel.org, bpf@vger.kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, ncardwell@google.com, ast@kernel.org,
-	daniel@iogearbox.net, andrii@kernel.org, corbet@lwn.net,
-	linux-kernel@vger.kernel.org, lorenzo@google.com, maze@google.com,
-	sporeba@google.com, motomuman@google.com, srihari.k@samsung.com,
-	g.pokhra@samsung.com, r.kumawat@samsung.com, raj.kumars@samsung.com,
-	ts413.lee@samsung.com, ramyashree.s@samsung.com, daeil2.hwang@samsung.com,
-	Irlanki Sandeep <irlanki.s@samsung.com>
-Subject: [PATCH net-next v4] tcp: add TCP_ECN and TCP_ECN_OPTION socket
- options
-Date: Wed, 16 Sep 2026 10:32:55 +0530
-Message-Id: <20260916050255.1379192-1-irlanki.s@samsung.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="r8k8Zbfe"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=361UyB5xmz/mni17yfKbIKbrKSDZjOv7DGwA2jAOyFM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789534965; v=1; x=1790139765;
+ b=r8k8ZbferAtxo9RAXe9Hpb80Qol6LxmmZ5H8JWmmdXEx6EJL0WJ/5usQbZ2bwdaz3sbJ6EPw
+ JcW5ExiS7KM7VbUDZBsmWsbeAA3pq1MxNjDh22k6s+U4jMeYNHhtg/OefFP6snaUvJXm52e8mm6
+ aJGmjqbiLl6XvPKGcGL8kmKo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9ef9bf98db223ad1;
+	Wed, 16 Sep 2026 05:02:45 +0000
+X-Mizu-Trace-ID: 9ef9bf98db223ad1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <cd2ece6e-8b5a-4047-85ec-3ccfaf1182a2@linux.dev>
+Date: Wed, 16 Sep 2026 13:03:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 0/6] alloc_tag and module codetag section fixes
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260915070001.113559-1-hao.ge@linux.dev>
+ <CAJuCfpE3z69Dqn_HoBz_XX+_hQMXeuqA04o4t=xQLaWFHmwqPQ@mail.gmail.com>
+Content-Language: en-US
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <CAJuCfpE3z69Dqn_HoBz_XX+_hQMXeuqA04o4t=xQLaWFHmwqPQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260916050144epcas5p3f7d6a44556baabd24027af8f4bce7893
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-065,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260916050144epcas5p3f7d6a44556baabd24027af8f4bce7893
-References: <CGME20260916050144epcas5p3f7d6a44556baabd24027af8f4bce7893@epcas5p3.samsung.com>
 
-Currently, ECN and Accurate ECN (AccECN) configurations in the Linux
-kernel are controlled globally via the net.ipv4.tcp_ecn and
-net.ipv4.tcp_ecn_option sysctl variables. This global approach lacks the
-granularity required for modern multi-application runtimes.
+Hi Suren
 
-In diverse network environments (such as mobile operating systems like
-Android), different applications route their traffic over distinct
-physical and virtual interfaces (cellular, Wi-Fi, VPNs, etc.). In the
-wild, certain legacy network paths or misconfigured middleboxes (such as
-routers, DPIs, or firewalls) are known to blackhole packets with ECN
-negotiation flags in the SYN, or silently drop packets containing AccECN
-option headers during active sessions.
+On 2026/9/16 02:23, Suren Baghdasaryan wrote:
+> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
+>>
+>> With profiling toggled off, the overflow check in
+>> reserve_module_tags() did not run, a module could load with more
+>> tags than the page flags can address, and re-enabling profiling
+>> then silently corrupted /proc/allocinfo. On overflow the fix shuts
+>> profiling down, releases the reservation and returns -EAGAIN, and
+>> the codetag section lands as regular module data in the same load,
+>> so the module loads without profiling.
+>>
+>> Review of the earlier series by Sashiko turned up two more problems.
+>>
+>> One is a race. layout_sections() and move_module() both asked
+>> codetag_needs_module_section() where a codetag section goes, and
+>> mem_profiling_support can change between the two calls, for instance
+>> when another module load overflows the tag index and shuts profiling
+>> down. move_module() then copied the codetag section to offset 0 of
+>> its regular destination and clobbered the first section placed in
+>> that region.
+>>
+>> v7 reworks where codetag sections are allocated, on a prototype by
+>> Petr Pavlu [1]. The allocation runs before layout_sections() and the
+>> placement is decided in one step, so nothing re-asks the question
+>> and the race is gone. The retry is gone too, on -EAGAIN the section
+>> is laid out as regular module data right in the same load.
+>>
+>> [1] https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/
+>>
+>> Following review feedback from Petr and Suren the series is now
+>> split into six patches. The two alloc_tag fixes from [2] are folded
+>> in as patches 5 and 6 and replace the versions currently in the mm
+>> tree. Sashiko keeps flagging the percpu counter leak [3], patch 5
+>> fixes it, and now the whole set goes through review again.
+>>
+>> [2] https://lore.kernel.org/all/20260817062726.106511-1-hao.ge@linux.dev/
+>> [3] https://lore.kernel.org/all/20260908094736.2B1A61F00A3A@smtp.kernel.org/
+>>
+>> Patch 1 moves release_module_tags() above reserve_module_tags(),
+>> since the failure paths now have to call it.
+>>
+>> Patch 2 cleans up the populate failure path: the reservation is
+>> released, module_tags.size rolled back and the PTEs a failed
+>> vmap_pages_range() left behind unmapped, so a later populate of the
+>> same range is safe. It carries both Fixes tags so it backports
+>> wherever patch 4 goes, which uses its prev_size.
+>>
+>> Patch 3 introduces SH_ENTSIZE_STANDALONE to mark sections with a
+>> separate allocation. The percpu section was previously excluded
+>> from the layout by clearing its SHF_ALLOC, which per the ELF spec
+>> says the section occupies memory during execution, and percpu does,
+>> only outside the regular module layout. The mark lives in sh_entsize
+>> now, find_sec(".data..percpu") gives stable results again and
+>> apply_relocations() goes back to testing only SHF_ALLOC. The
+>> section would show up under /sys/module/*/sections/, but it has one
+>> instance per CPU and no single address, and the entry never
+>> existed, so add_sect_attrs() and add_notes_attrs() skip it.
+>>
+>> Patch 4 moves the codetag allocation out of move_module() in front
+>> of layout_sections(), so the placement is decided in one step and
+>> the race is gone. On overflow profiling is shut down, the
+>> reservation released, module_tags.size rolled back and -EAGAIN
+>> returned, the section is laid out as regular module data and the
+>> module loads without profiling instead of failing. Any other error
+>> fails the load. The release and the fallback belong together,
+>> without the release rmmod hits the stale entry and panics.
+>>
+>> Patch 5 skips the percpu counter allocation when profiling is off.
+>> After the shutdown modules load their codetag section as regular
+>> data, load_module() still allocated counters for every tag and
+>> release_module_tags() cannot find them on unload, so they leaked
+>> (Suggested by Suren).
+>>
+>> Patch 6 defers the /proc/allocinfo removal to a workqueue.
+>> shutdown_mem_profiling() runs under mod_lock, and the synchronous
+>> remove_proc_entry() deadlocks with a reader taking mod_lock for
+>> read in allocinfo_start(). The file is also created at the end of
+>> alloc_tag_init(), a leftover file after a failed init would panic
+>> its readers (Found by Sashiko).
+>>
+>> Tested on an x86_64 virtual machine:
+>>
+>> Booted without sysctl.vm.mem_profiling=1,compressed:
+>> # cat /proc/allocinfo is fine
+>>
+>> Booted with sysctl.vm.mem_profiling=1,compressed:
+>> # cat /proc/allocinfo is fine
+>> # insmod overflow_tag.ko
+>> # dmesg
+>>   With module overflow_tag there are too many tags to fit in 13 page
+>>   flag bits. Memory allocation profiling is disabled!
+> 
+> Do you have your overflow_tag module posted anywhere in public (github perhaps?)
+>
 
-If ECN or AccECN options are disabled globally to prevent connection
-failures on a single broken path, the system loses the low-latency and
-throughput benefits of L4S across all other compliant network paths.
-Conversely, if enabled globally, connections on broken paths will suffer
-severe packet loss and timeout regressions.
+This is our simple test program:
 
-Introduce two new TCP socket options to enable granular, per-connection
-dynamic adaptation based on runtime network metrics and diagnostics:
-
-1. TCP_ECN: Exposes per-socket configuration of ECN negotiation modes
-   (0-5, corresponding to existing sysctl modes, or 255/UNSPEC to
-   revert to the global sysctl default). This allows an application or
-   framework to selectively disable ECN negotiation on sockets where
-   path anomalies are detected.
-2. TCP_ECN_OPTION: Exposes per-socket control of AccECN option sending
-   frequency (0-3, or 255/UNSPEC to revert to the global sysctl default).
-   This allows disabling the option headers on active sockets if
-   middlebox dropping behavior is observed after session establishment.
-
-Provide helper functions tcp_ecn_mode_eff() and tcp_accecn_option_eff()
-to dynamically evaluate per-socket overrides with transparent fallback
-to system sysctl defaults. Also expose these options via BPF sockops
-and update documentation and BPF selftests accordingly.
-
-Signed-off-by: Irlanki Sandeep <irlanki.s@samsung.com>
 ---
-v3 -> v4:
- - Define TCP_ECN and TCP_ECN_OPTION in bpf_tracing_net.h to fix
-   BPF selftest compilation failure in progs/setget_sockopt.c (bpf-ci).
-v2 -> v3:
- - Use READ_ONCE() when reading ecn_mode and ecn_option in tcp_ecn_mode_eff()
-   and tcp_accecn_option_eff() to prevent compiler double-fetches (sashiko-bot).
- - Move cookie_ecn_ok() to include/net/tcp_ecn.h and update syncookies verification
-   to respect the listener socket's effective ECN configuration instead of the
-   global sysctl (sashiko-bot).
-v1 -> v2:
- - Remove unused variable 'net' in tcp_ecn_create_request() reported
-   by kernel test robot.
+ overflow_tag/overflow_tag.c | 109 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 109 insertions(+)
+ create mode 100644 overflow_tag/overflow_tag.c
 
- Documentation/networking/ip-sysctl.rst        | 37 +++++++++++++++++++
- include/linux/tcp.h                           |  7 ++++
- include/net/tcp.h                             |  6 ---
- include/net/tcp_ecn.h                         | 31 +++++++++++++++-
- include/uapi/linux/bpf.h                      |  3 +-
- include/uapi/linux/tcp.h                      |  2 +
- net/core/filter.c                             |  2 +
- net/ipv4/syncookies.c                         |  2 +-
- net/ipv4/tcp.c                                | 22 +++++++++++
- net/ipv4/tcp_input.c                          |  5 +--
- net/ipv4/tcp_output.c                         |  6 +--
- net/ipv6/syncookies.c                         |  2 +-
- tools/include/uapi/linux/bpf.h                |  3 +-
- tools/include/uapi/linux/tcp.h                |  3 +-
- .../selftests/bpf/progs/bpf_tracing_net.h     |  2 +
- .../selftests/bpf/progs/setget_sockopt.c      |  2 +
- 16 files changed, 117 insertions(+), 18 deletions(-)
-
-diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
-index 208f46967..2e55d9e2e 100644
---- a/Documentation/networking/ip-sysctl.rst
-+++ b/Documentation/networking/ip-sysctl.rst
-@@ -528,6 +528,43 @@ tcp_ecn_fallback - BOOLEAN
- 
- 	Default: 1 (enabled)
- 
-+tcp_ecn (socket option) - TCP_ECN
-+	Per-socket control of ECN mode, allowing per-connection override of the
-+	tcp_ecn sysctl setting. This enables L4S (Low Latency, Low Loss, Scalable
-+	Throughput) configuration on a per-socket basis.
+diff --git a/overflow_tag/overflow_tag.c b/overflow_tag/overflow_tag.c
+new file mode 100644
+index 000000000000..2745ab766473
+--- /dev/null
++++ b/overflow_tag/overflow_tag.c
+@@ -0,0 +1,109 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * overflow_tag - overflow the compressed allocation tag index
++ */
 +
-+	Setting this socket option to any value except 255 will override the
-+	system-wide tcp_ecn sysctl for that particular socket. A value of 255
-+	(TCP_ECN_MODE_UNSPEC) means use the system default sysctl value.
++#include <linux/alloc_tag.h>
++#include <linux/debugfs.h>
++#include <linux/module.h>
++#include <linux/slab.h>
 +
-+	Possible values: 0-5 (see tcp_ecn sysctl description above), or 255 to
-+	use the system default (sysctl_tcp_ecn).
++#ifndef CONFIG_MEM_ALLOC_PROFILING
++#error "overflow_tag requires CONFIG_MEM_ALLOC_PROFILING=y"
++#endif
 +
-+	Example::
++#ifndef NR_OVERFLOW_TAG_BITS
++#define NR_OVERFLOW_TAG_BITS	13
++#endif
 +
-+		int val = 3;  /* AccECN mode */
-+		setsockopt(fd, SOL_TCP, TCP_ECN, &val, sizeof(val));
++#define NR_OVERFLOW_TAGS	(1UL << NR_OVERFLOW_TAG_BITS)
 +
-+	Default: 255 (unspecified - uses tcp_ecn sysctl value)
++#define MAX_TRIGGER_PAGES	10000
 +
-+tcp_ecn_option (socket option) - TCP_ECN_OPTION
-+	Per-socket control of Accurate ECN (AccECN) option sending behavior,
-+	allowing per-connection override of the tcp_ecn_option sysctl setting.
++static struct alloc_tag overflow_tags[NR_OVERFLOW_TAGS] __used __aligned(8)
++		__section(ALLOC_TAG_SECTION_NAME) = {
++	[0 ... NR_OVERFLOW_TAGS - 1] = {
++		.ct = {
++			.modname	= KBUILD_MODNAME,
++			.function	= "overflow_tags",
++			.filename	= __FILE__,
++			.lineno		= __LINE__,
++		},
++		.counters = NULL,
++	},
++};
 +
-+	Setting this socket option to any value except 255 will override the
-+	system-wide tcp_ecn_option sysctl for that particular socket. A value of
-+	255 (TCP_ACCECN_OPTION_UNSPEC) means use the system default sysctl value.
-+
-+	Possible values: 0-3 (see tcp_ecn_option sysctl description above), or 255
-+	to use the system default (sysctl_tcp_ecn_option).
-+
-+	Example::
-+
-+		int val = 2;  /* Send AccECN option on every packet */
-+		setsockopt(fd, SOL_TCP, TCP_ECN_OPTION, &val, sizeof(val));
-+
-+	Default: 255 (unspecified - uses tcp_ecn_option sysctl value)
-+
- tcp_fack - BOOLEAN
- 	This is a legacy option, it has no effect anymore.
- 
-diff --git a/include/linux/tcp.h b/include/linux/tcp.h
-index 6a8c77719..7cb1e765f 100644
---- a/include/linux/tcp.h
-+++ b/include/linux/tcp.h
-@@ -289,6 +289,13 @@ struct tcp_sock {
- 					 * sacked_out > 0)
- 					 */
- 	u8	ecn_flags;	/* ECN status bits.			*/
-+	u8	ecn_mode;	/* Per-socket ECN mode override
-+				 * (TCP_ECN_MODE_UNSPEC = use sysctl)
-+				 */
-+	u8	ecn_option;	/* Per-socket AccECN option override
-+				 * (TCP_ACCECN_OPTION_UNSPEC = use sysctl)
-+				 */
-+
- 	__cacheline_group_end(tcp_sock_write_tx);
- 
- 	/* TXRX read-write hotpath cache lines */
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 5e5f5f9b8..b7c0b519a 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -707,12 +707,6 @@ u64 cookie_init_timestamp(struct request_sock *req, u64 now);
- bool cookie_timestamp_decode(const struct net *net,
- 			     struct tcp_options_received *opt);
- 
--static inline bool cookie_ecn_ok(const struct net *net, const struct dst_entry *dst)
--{
--	return READ_ONCE(net->ipv4.sysctl_tcp_ecn) ||
--		dst_feature(dst, RTAX_FEATURE_ECN);
--}
--
- #if IS_ENABLED(CONFIG_BPF)
- static inline bool cookie_bpf_ok(struct sk_buff *skb)
- {
-diff --git a/include/net/tcp_ecn.h b/include/net/tcp_ecn.h
-index 865d5c5a7..48e364c45 100644
---- a/include/net/tcp_ecn.h
-+++ b/include/net/tcp_ecn.h
-@@ -22,6 +22,7 @@ enum tcp_ecn_mode {
- 	TCP_ECN_IN_ACCECN_OUT_ACCECN = 3,
- 	TCP_ECN_IN_ACCECN_OUT_ECN = 4,
- 	TCP_ECN_IN_ACCECN_OUT_NOECN = 5,
-+	TCP_ECN_MODE_UNSPEC = 255,	/* Use sysctl default (per-socket) */
- };
- 
- /* AccECN option sending when AccECN has been successfully negotiated */
-@@ -30,8 +31,36 @@ enum tcp_accecn_option {
- 	TCP_ACCECN_OPTION_MINIMUM = 1,
- 	TCP_ACCECN_OPTION_FULL = 2,
- 	TCP_ACCECN_OPTION_PERSIST = 3,
-+	TCP_ACCECN_OPTION_UNSPEC = 255,	/* Use sysctl default (per-socket) */
- };
- 
-+/* Resolve the effective ECN mode: per-socket override or sysctl fallback */
-+static inline u8 tcp_ecn_mode_eff(const struct sock *sk)
++static int overflow_alloc_and_free(unsigned long nr_pages)
 +{
-+	u8 mode = READ_ONCE(tcp_sk(sk)->ecn_mode);
++	struct page **pages;
++	unsigned long i;
 +
-+	if (mode == TCP_ECN_MODE_UNSPEC)
-+		return READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_ecn);
-+	return mode;
++	pages = kvmalloc_array(nr_pages, sizeof(*pages), GFP_KERNEL);
++	if (!pages)
++		return -ENOMEM;
++
++	for (i = 0; i < nr_pages; i++)
++		pages[i] = alloc_hooks_tag(
++			&overflow_tags[NR_OVERFLOW_TAGS - 1],
++			alloc_pages_noprof(GFP_KERNEL, 0));
++
++	for (i = 0; i < nr_pages; i++)
++		if (pages[i])
++			__free_pages(pages[i], 0);
++
++	kvfree(pages);
++	return 0;
 +}
 +
-+/* Resolve the effective AccECN option: per-socket override or sysctl fallback */
-+static inline u8 tcp_accecn_option_eff(const struct sock *sk)
++static ssize_t overflow_tag_alloc_write(struct file *file,
++					const char __user *ubuf, size_t count,
++					loff_t *ppos)
 +{
-+	u8 opt = READ_ONCE(tcp_sk(sk)->ecn_option);
++	unsigned long nr_pages;
++	int err;
 +
-+	if (opt == TCP_ACCECN_OPTION_UNSPEC)
-+		return READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_ecn_option);
-+	return opt;
++	err = kstrtoul_from_user(ubuf, count, 0, &nr_pages);
++	if (err)
++		return err;
++
++	if (!nr_pages || nr_pages > MAX_TRIGGER_PAGES)
++		return -EINVAL;
++
++	err = overflow_alloc_and_free(nr_pages);
++	if (err)
++		return err;
++
++	pr_info("allocated and freed %lu pages through the last tag\n",
++		nr_pages);
++
++	return count;
 +}
 +
-+/* ECN support for SYN cookies: per-socket override or route feature */
-+static inline bool cookie_ecn_ok(const struct sock *sk, const struct dst_entry *dst)
++static const struct file_operations overflow_tag_fops = {
++	.owner		= THIS_MODULE,
++	.write		= overflow_tag_alloc_write,
++};
++
++static struct dentry *overflow_tag_dir;
++
++static int __init overflow_tag_init(void)
 +{
-+	return tcp_ecn_mode_eff(sk) ||
-+		dst_feature(dst, RTAX_FEATURE_ECN);
++	overflow_tag_dir = debugfs_create_dir("overflow_tag", NULL);
++	debugfs_create_file("alloc_and_free", 0200, overflow_tag_dir, NULL,
++			    &overflow_tag_fops);
++
++	pr_info("loaded with %lu allocation tags\n", NR_OVERFLOW_TAGS);
++	return 0;
 +}
 +
- /* Apply either ECT(0) or ECT(1) based on TCP_CONG_ECT_1_NEGOTIATION flag */
- static inline void INET_ECN_xmit_ect_1_negotiation(struct sock *sk)
- {
-@@ -599,7 +628,7 @@ static inline void tcp_ecn_send_syn(struct sock *sk, struct sk_buff *skb)
- 	struct tcp_sock *tp = tcp_sk(sk);
- 	bool bpf_needs_ecn = tcp_bpf_ca_needs_ecn(sk);
- 	bool use_ecn, use_accecn;
--	u8 tcp_ecn = READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_ecn);
-+	u8 tcp_ecn = tcp_ecn_mode_eff(sk);
- 
- 	use_accecn = tcp_ecn == TCP_ECN_IN_ACCECN_OUT_ACCECN ||
- 		     tcp_ca_needs_accecn(sk);
-diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
-index 732b35cc0..c58b1633b 100644
---- a/include/uapi/linux/bpf.h
-+++ b/include/uapi/linux/bpf.h
-@@ -2985,7 +2985,8 @@ union bpf_attr {
-  * 		  **TCP_SYNCNT**, **TCP_USER_TIMEOUT**, **TCP_NOTSENT_LOWAT**,
-  * 		  **TCP_NODELAY**, **TCP_MAXSEG**, **TCP_WINDOW_CLAMP**,
-  * 		  **TCP_THIN_LINEAR_TIMEOUTS**, **TCP_BPF_DELACK_MAX**,
-- *		  **TCP_BPF_RTO_MIN**, **TCP_BPF_SOCK_OPS_CB_FLAGS**.
-+ *		  **TCP_BPF_RTO_MIN**, **TCP_BPF_SOCK_OPS_CB_FLAGS**,
-+ *		  **TCP_ECN**, **TCP_ECN_OPTION**.
-  * 		* **IPPROTO_IP**, which supports *optname* **IP_TOS**.
-  * 		* **IPPROTO_IPV6**, which supports the following *optname*\ s:
-  * 		  **IPV6_TCLASS**, **IPV6_AUTOFLOWLABEL**.
-diff --git a/include/uapi/linux/tcp.h b/include/uapi/linux/tcp.h
-index 03772dd4d..01ebb348b 100644
---- a/include/uapi/linux/tcp.h
-+++ b/include/uapi/linux/tcp.h
-@@ -142,6 +142,8 @@ enum {
- #define TCP_RTO_MAX_MS		44	/* max rto time in ms */
- #define TCP_RTO_MIN_US		45	/* min rto time in us */
- #define TCP_DELACK_MAX_US	46	/* max delayed ack time in us */
-+#define TCP_ECN			47	/* Per-socket ECN mode (0-5, 255=use sysctl) */
-+#define TCP_ECN_OPTION		48	/* Per-socket AccECN option (0-3, 255=use sysctl) */
- 
- #define TCP_REPAIR_ON		1
- #define TCP_REPAIR_OFF		0
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 61940e753..993b31e10 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -5670,6 +5670,8 @@ static int sol_tcp_sockopt(struct sock *sk, int optname,
- 	case TCP_NOTSENT_LOWAT:
- 	case TCP_SAVE_SYN:
- 	case TCP_RTO_MAX_MS:
-+	case TCP_ECN:
-+	case TCP_ECN_OPTION:
- 		if (*optlen != sizeof(int))
- 			return -EINVAL;
- 		break;
-diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-index 73e129768..ebc438bc6 100644
---- a/net/ipv4/syncookies.c
-+++ b/net/ipv4/syncookies.c
-@@ -490,7 +490,7 @@ struct sock *cookie_v4_check(struct sock *sk, struct sk_buff *skb)
- 	 */
- 	if (!req->syncookie)
- 		ireq->rcv_wscale = rcv_wscale;
--	ireq->ecn_ok &= cookie_ecn_ok(net, &rt->dst);
-+	ireq->ecn_ok &= cookie_ecn_ok(sk, &rt->dst);
- 	treq->accecn_ok = ireq->ecn_ok && cookie_accecn_ok(th);
- 
- 	ret = tcp_get_cookie_sock(sk, skb, req, &rt->dst);
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index 1c867a302..fb376a97f 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -463,6 +463,8 @@ void tcp_init_sock(struct sock *sk)
- 
- 	tp->tsoffset = 0;
- 	tp->rack.reo_wnd_steps = 1;
-+	tp->ecn_mode = TCP_ECN_MODE_UNSPEC;
-+	tp->ecn_option = TCP_ACCECN_OPTION_UNSPEC;
- 
- 	sk->sk_write_space = sk_stream_write_space;
- 	sock_set_flag(sk, SOCK_USE_WRITE_QUEUE);
-@@ -4160,6 +4162,18 @@ int do_tcp_setsockopt(struct sock *sk, int level, int optname,
- 		tcp_enable_tx_delay(sk, val);
- 		WRITE_ONCE(tp->tcp_tx_delay, val);
- 		break;
-+	case TCP_ECN:
-+		if (val != TCP_ECN_MODE_UNSPEC && (val < 0 || val > TCP_ECN_IN_ACCECN_OUT_NOECN))
-+			err = -EINVAL;
-+		else
-+			WRITE_ONCE(tp->ecn_mode, val);
-+		break;
-+	case TCP_ECN_OPTION:
-+		if (val != TCP_ACCECN_OPTION_UNSPEC && (val < 0 || val > TCP_ACCECN_OPTION_PERSIST))
-+			err = -EINVAL;
-+		else
-+			WRITE_ONCE(tp->ecn_option, val);
-+		break;
- 	default:
- 		err = -ENOPROTOOPT;
- 		break;
-@@ -4842,6 +4856,12 @@ int do_tcp_getsockopt(struct sock *sk, int level,
- 	case TCP_DELACK_MAX_US:
- 		val = jiffies_to_usecs(READ_ONCE(inet_csk(sk)->icsk_delack_max));
- 		break;
-+	case TCP_ECN:
-+		val = READ_ONCE(tp->ecn_mode);
-+		break;
-+	case TCP_ECN_OPTION:
-+		val = READ_ONCE(tp->ecn_option);
-+		break;
- 	default:
- 		return -ENOPROTOOPT;
- 	}
-@@ -5256,6 +5276,8 @@ static void __init tcp_struct_check(void)
- 	CACHELINE_ASSERT_GROUP_MEMBER(struct tcp_sock, tcp_sock_write_tx, tsorted_sent_queue);
- 	CACHELINE_ASSERT_GROUP_MEMBER(struct tcp_sock, tcp_sock_write_tx, highest_sack);
- 	CACHELINE_ASSERT_GROUP_MEMBER(struct tcp_sock, tcp_sock_write_tx, ecn_flags);
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct tcp_sock, tcp_sock_write_tx, ecn_mode);
-+	CACHELINE_ASSERT_GROUP_MEMBER(struct tcp_sock, tcp_sock_write_tx, ecn_option);
- 
- 	/* TXRX read-write hotpath cache lines */
- 	CACHELINE_ASSERT_GROUP_MEMBER(struct tcp_sock, tcp_sock_write_txrx, pred_flags);
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index 0f60a1dbf..0043b4b2b 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -7457,13 +7457,12 @@ static void tcp_ecn_create_request(struct request_sock *req,
- 				   const struct dst_entry *dst)
- {
- 	const struct tcphdr *th = tcp_hdr(skb);
--	const struct net *net = sock_net(listen_sk);
- 	bool th_ecn = th->ece && th->cwr;
- 	bool ect, ecn_ok;
- 	u32 ecn_ok_dst;
- 
- 	if (tcp_accecn_syn_requested(th) &&
--	    (READ_ONCE(net->ipv4.sysctl_tcp_ecn) >= 3 ||
-+	    (tcp_ecn_mode_eff(listen_sk) >= 3 ||
- 	     tcp_ca_needs_accecn(listen_sk))) {
- 		inet_rsk(req)->ecn_ok = 1;
- 		tcp_rsk(req)->accecn_ok = 1;
-@@ -7477,7 +7476,7 @@ static void tcp_ecn_create_request(struct request_sock *req,
- 
- 	ect = !INET_ECN_is_not_ect(TCP_SKB_CB(skb)->ip_dsfield);
- 	ecn_ok_dst = dst_feature(dst, DST_FEATURE_ECN_MASK);
--	ecn_ok = READ_ONCE(net->ipv4.sysctl_tcp_ecn) || ecn_ok_dst;
-+	ecn_ok = tcp_ecn_mode_eff(listen_sk) || ecn_ok_dst;
- 
- 	if (((!ect || th->res1 || th->ae) && ecn_ok) ||
- 	    tcp_ca_needs_ecn(listen_sk) ||
-diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
-index 00417a429..82b96c401 100644
---- a/net/ipv4/tcp_output.c
-+++ b/net/ipv4/tcp_output.c
-@@ -1045,7 +1045,7 @@ static unsigned int tcp_syn_options(struct sock *sk, struct sk_buff *skb,
- 	if (unlikely((TCP_SKB_CB(skb)->tcp_flags & TCPHDR_ACK) &&
- 		     tcp_ecn_mode_accecn(tp) &&
- 		     inet_csk(sk)->icsk_retransmits < 2 &&
--		     READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_ecn_option) &&
-+		     tcp_accecn_option_eff(sk) &&
- 		     remaining >= TCPOLEN_ACCECN_BASE)) {
- 		opts->use_synack_ecn_bytes = 1;
- 		remaining -= tcp_options_fit_accecn(opts, 0, remaining);
-@@ -1133,7 +1133,7 @@ static unsigned int tcp_synack_options(const struct sock *sk,
- 	smc_set_option_cond(tcp_sk(sk), ireq, opts, &remaining);
- 
- 	if (treq->accecn_ok &&
--	    READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_ecn_option) &&
-+	    tcp_accecn_option_eff(sk) &&
- 	    synack_type != TCP_SYNACK_RETRANS && remaining >= TCPOLEN_ACCECN_BASE) {
- 		opts->use_synack_ecn_bytes = 1;
- 		remaining -= tcp_options_fit_accecn(opts, 0, remaining);
-@@ -1221,7 +1221,7 @@ static unsigned int tcp_established_options(struct sock *sk, struct sk_buff *skb
- 	}
- 
- 	if (tcp_ecn_mode_accecn(tp)) {
--		int ecn_opt = READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_ecn_option);
-+		int ecn_opt = tcp_accecn_option_eff(sk);
- 
- 		if (ecn_opt && tp->saw_accecn_opt &&
- 		    (ecn_opt >= TCP_ACCECN_OPTION_PERSIST ||
-diff --git a/net/ipv6/syncookies.c b/net/ipv6/syncookies.c
-index b581cb1ee..06efcbf46 100644
---- a/net/ipv6/syncookies.c
-+++ b/net/ipv6/syncookies.c
-@@ -271,7 +271,7 @@ struct sock *cookie_v6_check(struct sock *sk, struct sk_buff *skb)
- 	 */
- 	if (!req->syncookie)
- 		ireq->rcv_wscale = rcv_wscale;
--	ireq->ecn_ok &= cookie_ecn_ok(net, dst);
-+	ireq->ecn_ok &= cookie_ecn_ok(sk, dst);
- 	tcp_rsk(req)->accecn_ok = ireq->ecn_ok && cookie_accecn_ok(th);
- 
- 	ret = tcp_get_cookie_sock(sk, skb, req, dst);
-diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
-index 732b35cc0..c58b1633b 100644
---- a/tools/include/uapi/linux/bpf.h
-+++ b/tools/include/uapi/linux/bpf.h
-@@ -2985,7 +2985,8 @@ union bpf_attr {
-  * 		  **TCP_SYNCNT**, **TCP_USER_TIMEOUT**, **TCP_NOTSENT_LOWAT**,
-  * 		  **TCP_NODELAY**, **TCP_MAXSEG**, **TCP_WINDOW_CLAMP**,
-  * 		  **TCP_THIN_LINEAR_TIMEOUTS**, **TCP_BPF_DELACK_MAX**,
-- *		  **TCP_BPF_RTO_MIN**, **TCP_BPF_SOCK_OPS_CB_FLAGS**.
-+ *		  **TCP_BPF_RTO_MIN**, **TCP_BPF_SOCK_OPS_CB_FLAGS**,
-+ *		  **TCP_ECN**, **TCP_ECN_OPTION**.
-  * 		* **IPPROTO_IP**, which supports *optname* **IP_TOS**.
-  * 		* **IPPROTO_IPV6**, which supports the following *optname*\ s:
-  * 		  **IPV6_TCLASS**, **IPV6_AUTOFLOWLABEL**.
-diff --git a/tools/include/uapi/linux/tcp.h b/tools/include/uapi/linux/tcp.h
-index 13ceeb395..4f52b9df4 100644
---- a/tools/include/uapi/linux/tcp.h
-+++ b/tools/include/uapi/linux/tcp.h
-@@ -128,7 +128,8 @@ enum {
- #define TCP_CM_INQ		TCP_INQ
- 
- #define TCP_TX_DELAY		37	/* delay outgoing packets by XX usec */
--
-+#define TCP_ECN			47	/* Per-socket ECN mode (0-5, 255=use sysctl) */
-+#define TCP_ECN_OPTION		48	/* Per-socket AccECN option (0-3, 255=use sysctl) */
- 
- #define TCP_REPAIR_ON		1
- #define TCP_REPAIR_OFF		0
-diff --git a/tools/testing/selftests/bpf/progs/bpf_tracing_net.h b/tools/testing/selftests/bpf/progs/bpf_tracing_net.h
-index 593b38f90..8d6ee2411 100644
---- a/tools/testing/selftests/bpf/progs/bpf_tracing_net.h
-+++ b/tools/testing/selftests/bpf/progs/bpf_tracing_net.h
-@@ -59,6 +59,8 @@
- #define TCP_CA_NAME_MAX		16
- #define TCP_NAGLE_OFF		1
- #define TCP_RTO_MAX_MS		44
-+#define TCP_ECN			47
-+#define TCP_ECN_OPTION		48
- 
- #define TCP_ECN_OK              1
- #define TCP_ECN_QUEUE_CWR       2
-diff --git a/tools/testing/selftests/bpf/progs/setget_sockopt.c b/tools/testing/selftests/bpf/progs/setget_sockopt.c
-index d96e99b67..fb97fa0bc 100644
---- a/tools/testing/selftests/bpf/progs/setget_sockopt.c
-+++ b/tools/testing/selftests/bpf/progs/setget_sockopt.c
-@@ -64,6 +64,8 @@ static const struct sockopt_test sol_tcp_tests[] = {
- 	{ .opt = TCP_BPF_DELACK_MAX, .new = 30000, .expected = 30000, },
- 	{ .opt = TCP_BPF_RTO_MIN, .new = 30000, .expected = 30000, },
- 	{ .opt = TCP_RTO_MAX_MS, .new = 2000, .expected = 2000, },
-+	{ .opt = TCP_ECN, .new = 3, .expected = 3, .restore = 255, },
-+	{ .opt = TCP_ECN_OPTION, .new = 2, .expected = 2, .restore = 255, },
- 	{ .opt = 0, },
- };
- 
-
-base-commit: 548b86839f7fb819a4d6c83b71c73ec378d24275
++static void __exit overflow_tag_exit(void)
++{
++	debugfs_remove_recursive(overflow_tag_dir);
++}
++
++module_init(overflow_tag_init);
++module_exit(overflow_tag_exit);
++
++MODULE_AUTHOR("Hao Ge <hao.ge@linux.dev>");
++MODULE_DESCRIPTION("Test module overflowing the compressed allocation tag index");
++MODULE_LICENSE("GPL");
 -- 
-2.34.1
+2.25.1
 
+The test machine uses 13 bits for tag index. Relevant kernel config is as follows:
+CONFIG_NUMA_BALANCING=y
+CONFIG_NR_CPUS=32
+CONFIG_NODES_SHIFT=10
+CONFIG_SPARSEMEM=y
+CONFIG_SPARSEMEM_VMEMMAP=y
+CONFIG_ZONE_DEVICE=y
+# CONFIG_LRU_GEN is not set
+CONFIG_MEM_ALLOC_PROFILING=y
+# CONFIG_MEM_ALLOC_PROFILING_DEBUG is not set
+
+Steps to reproduce the corruption on the unfixed kernel:
+# boot with sysctl.vm.mem_profiling=0,compressed
+# insmod overflow_tag.ko
+# echo 1 > /proc/sys/vm/mem_profiling
+# echo 10 > /sys/kernel/debug/overflow_tag/alloc_and_free
+# cat /proc/allocinfo
+
+Observed corruption after a 10-page run:
+       40960       10 overflow_tag.c:30 [overflow_tag] func:overflow_tags
+       -40960 18446744073709551606 overflow_tag.c:41 [overflow_tag] func:overflow_alloc_and_free
+
+Thanks
+Best Regards
+Hao
+
+>> # rmmod overflow_tag
+>> The module loads without profiling and unloads cleanly.
+>>
+>> Also ran continuous LTP stress for a few days, nothing abnormal
+>> so far.
+>>
+>> Changes in v10:
+>> - fold in the two alloc_tag fixes from [2] as patches 5 and 6, they
+>>   replace the versions in the mm tree and fix the percpu leak
+>>   Sashiko keeps flagging [3]
+>> - create /proc/allocinfo at the end of alloc_tag_init(), a
+>>   leftover file after a failed init would panic its readers
+>>   (Found by Sashiko)
+>> - count note sections with sect_visible() in add_notes_attrs() too,
+>>   the count has to match the fill loop
+>>
+>> Changes in v9:
+>> - do not export .data..percpu under /sys/module/*/sections/ (Petr
+>>   Pavlu).
+>> - move the populate failure cleanup in front of the rework, v8 patch
+>>   4 is patch 2 now. It declares prev_size itself, which the overflow
+>>   path of the rework also uses, so it carries both Fixes tags and the
+>>   two patches backport together
+>>
+>> Changes in v8:
+>> - roll back module_tags.size when the reservation is released, so a
+>>   concurrent load which already passed needs_section_mem() does not
+>>   skip populate for the freed gap (Sashiko)
+>> - unmap the PTEs a failed vmap_pages_range() installed, a retry to
+>>   populate the same range would BUG on them
+>> - zero the separately allocated codetag memory for an SHT_NOBITS
+>>   section, the tag area pages are not zeroed on allocation (Sashiko)
+>> - .data..percpu is exported under /sys/module/*/sections/ with the
+>>   boot CPU instance of the per-cpu area, and the interface is
+>>   documented in the ABI docs (Petr Pavlu)
+>> - keep a comment in apply_relocations() on how .data..percpu is
+>>   relocated (Petr Pavlu)
+>> - replace the "Based-on-a-patch-by:" tag with an in-body
+>>   attribution and a numbered Link: (Andrew Morton)
+>>
+>> Changes in v7:
+>> - split the rework following review feedback (Petr Pavlu, Suren
+>>   Baghdasaryan)
+>> - new patch 2 marks separately allocated sections with
+>>   SH_ENTSIZE_STANDALONE instead of clearing SHF_ALLOC
+>>   (suggested by Petr Pavlu)
+>> - split the populate failure release into its own patch (suggested
+>>   by Suren Baghdasaryan)
+>>
+>> Changes in v6:
+>> - rework on Petr's prototype and allocate codetag sections before
+>>   layout_sections(), the retry and its state resets are gone
+>> - fix the layout_sections()/move_module() race (Found by Sashiko)
+>> - release the reservation on populate failure as well (Found by
+>>   Sashiko)
+>> - only -EAGAIN keeps the fallback, other errors fail the load
+>>
+>> Changes in v5:
+>> - add Fixes: and Cc: stable to patch 1/2 as well, since 2/2 does not
+>>   compile without it (Andrew Morton)
+>> - restore frob-adjusted mem[type].size on retry instead of zeroing,
+>>   as s390 and parisc add GOT/PLT space there in
+>>   module_frob_arch_sections() (Reported by Sashiko)
+>> - drop the load_module() mem_profiling_support check; the percpu
+>>   counter leak is pre-existing and orthogonal to this fix
+>>
+>> Changes in v4:
+>> - add a new patch (1/2) to move release_module_tags() above
+>>   reserve_module_tags(); the overflow fix is 2/2
+>> - release the reservation on the -EAGAIN path
+>> - return -EAGAIN instead of -ENOMEM so the module can still load
+>>   without profiling (Suren)
+>> - reset sh_addr, mem[type].size and sym/str SHF_ALLOC before retry
+>> - skip percpu counters in load_module() when profiling is off
+>>
+>> Changes in v3:
+>> - use pr_warn_once() instead of pr_warn()
+>> - return -ENOMEM instead of -ENOSPC (Suren)
+>> - expand the commit message to describe the /proc/allocinfo impact
+>>   (Andrew)
+>>
+>> Changes in v2:
+>> - return an error after shutdown_mem_profiling() to skip
+>>   vm_module_tags_populate()
+>>
+>> v1: https://lore.kernel.org/all/20260804064408.105033-1-hao.ge@linux.dev/
+>> v2: https://lore.kernel.org/all/20260804122038.190270-1-hao.ge@linux.dev/
+>> v3: https://lore.kernel.org/all/20260805090633.141001-1-hao.ge@linux.dev/
+>> v4: https://lore.kernel.org/all/20260810093955.153015-1-hao.ge@linux.dev/
+>> v5: https://lore.kernel.org/all/20260812054105.102637-1-hao.ge@linux.dev/
+>> v6: https://lore.kernel.org/all/20260831072104.120197-1-hao.ge@linux.dev/
+>> v7: https://lore.kernel.org/all/20260902081802.146145-1-hao.ge@linux.dev/
+>> v8: https://lore.kernel.org/all/20260907062414.106873-1-hao.ge@linux.dev/
+>> v9: https://lore.kernel.org/all/20260908092412.115953-1-hao.ge@linux.dev/
+>>
+>> Hao Ge (6):
+>>   alloc_tag: move release_module_tags() above reserve_module_tags()
+>>   alloc_tag: clean up the populate failure path
+>>   module: introduce SH_ENTSIZE_STANDALONE for separately allocated
+>>     sections
+>>   module: allocate codetag sections before the regular module layout
+>>   alloc_tag: skip percpu counter allocation when profiling is disabled
+>>   alloc_tag: Defer /proc/allocinfo removal to a workqueue
+>>
+>>  include/linux/module.h   |   2 +
+>>  kernel/module/internal.h |   8 +++
+>>  kernel/module/kallsyms.c |  13 +---
+>>  kernel/module/main.c     | 133 +++++++++++++++++++-----------------
+>>  kernel/module/sysfs.c    |  17 +++--
+>>  lib/codetag.c            |  10 ++-
+>>  mm/alloc_tag.c           | 141 +++++++++++++++++++++++----------------
+>>  7 files changed, 188 insertions(+), 136 deletions(-)
+>>
+>> --
+>> 2.25.1
+>>
