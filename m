@@ -1,123 +1,138 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D61519BC8;
-	Wed, 16 Sep 2026 06:33:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7A43CF034
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:33:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789540395; cv=none; b=PsFgvgMmsdvmSSdM0XtRZ1uz3z56YSf8XKLVzsrsXAm3qH+eyln0v3FYWgGRmLd1S2PnTw/DMPXrgwlX+pewRM+15xaSx4QZaomNt0tGottvG035riGR7OUGspjfxsZALur0Zjee9Q+CTNtHU4OVmsRGtJrn5bCtJuLirVHgmGQ=
+	t=1789540411; cv=none; b=pHwNgJMrc6UBPAxqHPN3K14nxJRou2BZ9i/YRprLfbiiIyk+0CjBkC6ZWpRA5WWjt/fDLGMXv9zrhE5yxU/8JbJsRtnPL9Ezmt8jprwHzDkf4UikrN+vqKmQz7kkPiaDYpJZsldIZJcyzCXgdtWk5Qw93yyI3oWAI7V2J6EEELc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789540395; c=relaxed/simple;
-	bh=6NwVT5tyzGKdUksS5LStZZX+lHdyEM0Wn26H98KskgU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YghGZdoWjf1KsvxRgMEatnIy13cODTaMtcdVqIVvTkuyJzMDRkEPAu8CBXqx7kIfFmKSU7++8vj364LFIb5GnpiqRGviEbXD2vElOlgkva/MpkP17oN9kKC+KeA+0E6xyiPQr+rgMIF++3x3oAftCmxHagtw9qiNByx0UcXVNdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [127.0.1.1] (unknown [223.166.93.127])
-	by APP-03 (Coremail) with SMTP id rQCowAAnKjgUOKpq44zeBw--.39416S2;
-	Wed, 16 Sep 2026 14:32:58 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-Date: Wed, 16 Sep 2026 14:32:44 +0800
-Subject: [PATCH] riscv: mm: Apply T-Head PMA memory-type errata to PUD and
- P4D entries
+	s=arc-20240116; t=1789540411; c=relaxed/simple;
+	bh=+Ywr8dNeYt04JAexQVPvB6K7SKfbN+RvvMKisuvDrCc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=GbsiXjaCUlt6QNVg4wyocNmsiMbay2id79J19YA5WAq8ZfwPVCiIrnxGGgWkSG/gZIEyMmd7EPl69741kNAEEvW5zbumlY/3TdZElhRqV3z9+amGlKFDslw0JXC5DPmXQB46G4vewUZ/Ij4aNnat9PWYq0WavOBSYgS0BAyxS7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rzCfH7qG; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rzCfH7qG"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85a4329731cso385470b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:33:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789540409; x=1790145209; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zx1l11ls0EXmesHaL//CT+u8UTaRnoRzDQ7z4nlNask=;
+        b=rzCfH7qGc5BLL049hAcUKZ3SltYvZAjJYPRF5h8TJvugtQYmrhOh3eicEVSHbi2de7
+         MdcQhX2urUYWtlZ6cOnCBbihD2dfRK7cWGL1/0BrbbICAjYoXS2D5lbkLn2gK1FDBmPj
+         Jova3zNte/XdkwpWNEQnf/9fHyRKjxVCChnMnLUWlRkAGTEcMxDwXTRv7N1BOwBFsOsa
+         ELevlpGeTw3byLd2bvUoXjP8qDVq2lg13uiNhpm5dXoNg97yqTK6DhKj8tM6uRlo8wu9
+         oa4MPiV2AvU8kCJC5PhDTeMez/+1w/iIJnMQ6Xd6H6gPaiUwVRbFkoE/G8yKgDBqfgoy
+         uJVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789540409; x=1790145209;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zx1l11ls0EXmesHaL//CT+u8UTaRnoRzDQ7z4nlNask=;
+        b=boo2l6EIQAvxu2c9BZ6x70g8nylWlIYn+/md8HsVYvLrh45CWx8NJkxTnrd/uPo3Zb
+         dXUVmqrLwmYaPw5Jio7PoHSzTz+b/Al5zKSnD8W2DxtosHNHuG4DfBdag9JEf6Up8Ag3
+         75lhR8KqShZtVxvhDs6W6uhYLUkxyEN5SFHQlZRvVYVAdFQfUvNYLdygat3vhPjMF1Hp
+         3e/BmfbZYWOEVt/7fHijq+ifaYEL/vvyVFUFzgx+nyQ7ytU9d/jmK5RKUKv0WsTtnKTQ
+         s3uPkKRgqECwiPYsxC76pHtt8hXeTqf/rODboaz3jeyT4nxydgRxJk2NXM/RIbQQltvE
+         qw4w==
+X-Forwarded-Encrypted: i=1; AKwUvBzzdhdEylgXne1scDDq6I0uki1hZy/8JGIVZ6MKbd4MWRUefehaGoUtiuqSC01GkbtncorQW5kdyRMSpwM=@vger.kernel.org
+X-Gm-Message-State: AFuF++myZW9bHa+FFiIkZWXICPE1FOiJm7cqTXoLBF4zuuLhTpn36q+1
+	6qayEcd2jNGo6GmpxDpDmwXR5XHQH7ApKnqIP7ar0+lR65clKDhdxAVs
+X-Gm-Gg: AYBFou1z913ln2TCcKgwfdHZumHMxrSpMhVJ4rLdHdLcCqRrEVlRt9l+P75mAT9res/
+	fW00CFgYyZaZfVaWhlRGZMiEJR0sFytzCEe56G4L4K6ZmSZbx9IgF5r3eAYu7qgjsenkUMaalLC
+	pjsbTjS25PRlrrgzbmZPaSMwQzWouIIwARXzaAtDHKp8WvDALvP4iBlDHBzY1Xht18qyr/ZExUS
+	PykOO6L2w7gV1V5mY248Ry3gi15pp4hgeHSvjCSB3qdCA/A1FNMHbk3bozlDLjbna1cw/t2rsKg
+	K+5Ev/0Zo5+rObk83KJiGD17BWqIKbxUlX/7lrdPccuXEa5nV5ni+xMMCUefwnR1/5BITd4AnGP
+	/h9nWrOLyPygfluNr+7p5e4T0PNJicmWgiGCEu3KWMDCRqAkaGSi9d3U7ekkIyhiLZhktWZ3vbS
+	tljFu49JnxM32KvnKsWuyOLaYs2wb1cEIVl1YSzizKi8xpThS9QocLFW1Ika6Q538dbRPJBIUdj
+	MuHJJtUHRbVfd9vZlHhHx+UXexANtlbv+BZ1nj+0Ce97wzj6Q==
+X-Received: by 2002:a05:6a20:7d9c:b0:3da:5b4d:a89f with SMTP id adf61e73a8af0-3dd5f7fa951mr3440114637.27.1789540409280;
+        Tue, 15 Sep 2026 23:33:29 -0700 (PDT)
+Received: from bj-kjy-standalone-gaoxiang17.mioffice.cn ([43.224.245.230])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50aba87basm1005550a12.23.2026.09.15.23.33.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 23:33:28 -0700 (PDT)
+From: Xiang Gao <gxxa03070307@gmail.com>
+X-Google-Original-From: Xiang Gao <gaoxiang17@xiaomi.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	gao xu <gaoxu2@honor.com>,
+	yinchuang1@xiaomi.com,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiang Gao <gaoxiang17@xiaomi.com>
+Subject: [PATCH v3 0/2] tracing: add ring-buffer memory usage statistics
+Date: Wed, 16 Sep 2026 14:33:20 +0800
+Message-Id: <20260916063322.472172-1-gaoxiang17@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260911155017.3377254-1-gaoxiang17@xiaomi.com>
+References: <20260911155017.3377254-1-gaoxiang17@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-fix-mm-v1-1-297034b4457f@iscas.ac.cn>
-X-B4-Tracking: v=1; b=H4sIAAs4qmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS0Mz3bTMCt3cXF3DtCTLlGQD82RDwxQloOKColSgDNig6NjaWgB86+6
- MWAAAAA==
-X-Change-ID: 20260916-fix-mm-1fb9dc07c11d
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: Palmer Dabbelt <palmer@rivosinc.com>, Han Gao <rabenda.cn@gmail.com>, 
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.14.2
-X-CM-TRANSID:rQCowAAnKjgUOKpq44zeBw--.39416S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WFy3XF1UJF43GFWxKr4DJwb_yoW8tw47pF
-	WkJFyF9a95KryIkFW2kF1F9r15A395G39rGwsIk34kC3WYqFs7XFWqkw1UXF1rJFyI93W2
-	yrZrtrs8Cr4ftwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
-	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiCRUMDGqqBo7dBwAAsO
+Content-Transfer-Encoding: 8bit
 
-The T-Head memory-type errata injects the PMA type bits via
-ALT_THEAD_PMA() when building a page table entry. It is applied in
-pfn_pte(), pfn_pmd(), pfn_pgd() and pte_modify(), but not in pfn_pud()
-or pfn_p4d().
+Report the memory consumed by the tracing ring buffers, rather than the
+usable data capacity exposed by buffer_size_kb. Android low-memory
+diagnostics need this to attribute the memory used by tracing when
+calculating lost RAM.
 
-As a result, PUD-level (1GB) and, on sv57, P4D-level (512GB) huge page
-mappings never carry the T-Head PMA memory-type encoding. On cores that
-require the errata, such mappings fall back to the implied/default PMA
-instead of the explicit cacheable type the errata mandates, so their
-memory attributes can differ from every other mapping size. These leaf
-entries are reachable from the linear mapping (create_pud_mapping() with
-PUD_SIZE) and from huge vmap.
+The buffers can be spread across the global trace array, dynamically
+created instances, and snapshot buffers. Userspace currently has to
+discover and sum every instance, and snapshot memory is not exposed by
+the per-instance totals.
 
-Mirror pfn_pmd() and run ALT_THEAD_PMA() on the protection value in
-pfn_pud() and pfn_p4d() as well.
+Patch 1 adds:
 
-Cc: stable@vger.kernel.org
-Fixes: a35707c3d850 ("riscv: add memory-type errata for T-Head")
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
- arch/riscv/include/asm/pgtable-64.h | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+  /sys/kernel/tracing/trace_stats/memory_usage_kb
 
-diff --git a/arch/riscv/include/asm/pgtable-64.h b/arch/riscv/include/asm/pgtable-64.h
-index 6e789fa58514c7dd11ef9c87050a3fa10fd4908d..1329a1ddee072dfb9a97f52bf1aad9f515aa96fe 100644
---- a/arch/riscv/include/asm/pgtable-64.h
-+++ b/arch/riscv/include/asm/pgtable-64.h
-@@ -212,7 +212,11 @@ static inline void pud_clear(pud_t *pudp)
- 
- static inline pud_t pfn_pud(unsigned long pfn, pgprot_t prot)
- {
--	return __pud((pfn << _PAGE_PFN_SHIFT) | pgprot_val(prot));
-+	unsigned long prot_val = pgprot_val(prot);
-+
-+	ALT_THEAD_PMA(prot_val);
-+
-+	return __pud((pfn << _PAGE_PFN_SHIFT) | prot_val);
- }
- 
- static inline unsigned long _pud_pfn(pud_t pud)
-@@ -313,7 +317,11 @@ static inline void p4d_clear(p4d_t *p4d)
- 
- static inline p4d_t pfn_p4d(unsigned long pfn, pgprot_t prot)
- {
--	return __p4d((pfn << _PAGE_PFN_SHIFT) | pgprot_val(prot));
-+	unsigned long prot_val = pgprot_val(prot);
-+
-+	ALT_THEAD_PMA(prot_val);
-+
-+	return __p4d((pfn << _PAGE_PFN_SHIFT) | prot_val);
- }
- 
- static inline unsigned long _p4d_pfn(p4d_t p4d)
+reporting:
 
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260916-fix-mm-1fb9dc07c11d
+  buffers: ...
+  snapshot_buffers: ...
 
-Best regards,
+covering the global trace array and all instances across all CPUs.
+
+Patch 2 adds the per-CPU view under
+trace_stats/per_cpu/cpuN/memory_usage_kb.
+
+The values account for the full pages backing the data sub-buffers and
+reader page, plus the cached read page and mmap metadata page when
+present. Slab-allocated ring-buffer metadata is not included.
+
+Changes since v2:
+- Account for the bootstrapping temp_buffer (Donggeun Yoo).
+- Rebase onto latest mainline; adapt to free_page becoming struct
+  buffer_data_read_page.
+
+Tested on arm64 QEMU with global buffer resize, snapshot alloc/free,
+instance create/remove, and per-CPU aggregation, all against the
+baseline that includes temp_buffer (3 pages per CPU).
+
+Xiang Gao (2):
+  tracing: add ring-buffer memory usage statistics in tracefs
+  tracing: add per-CPU memory usage statistics in tracefs
+
+ Documentation/trace/ftrace.rst |  15 +++++
+ include/linux/ring_buffer.h    |   1 +
+ kernel/trace/ring_buffer.c     |  41 ++++++++++++
+ kernel/trace/trace.c           | 118 +++++++++++++++++++++++++++++++++
+ 4 files changed, 175 insertions(+)
+
 -- 
-Han Gao <gaohan@iscas.ac.cn>
+2.34.1
 
