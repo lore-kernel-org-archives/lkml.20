@@ -1,46 +1,46 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594FB563FD6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769D558FD22
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 23:13:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789600438; cv=none; b=JYucoQ1GNJYf2tl1JfHV/HQE5tEcdGyRBJlh6U2QHb0e/0qzn/vTcJ5qbOoPOeXq5aHGwp4d43e/osgUxA0Qv7ZUUyF2n+eG/7uPrhZk1JORGJ4i7TgPk5e/eZSR9p50w2jq1A+nvZeRxufoumom140xHp5YSDZSaMetZVJTLko=
+	t=1789600439; cv=none; b=rVe3Ut+haFqU6ciCW0xD3uJVmNfJ26ws9zU1TpxQudC9QkyBY0yuD6lfCwbhICTbPFb5JeVs7uj3usy1W05BqS8fcdmkHALkUTxE7H2lY9c+XaUtIuSLAQAoXEaNkdNrpIm6XBuzJDmYwextLoFyKLqBDpk58eRARPA7v7TreYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789600438; c=relaxed/simple;
-	bh=hTr11v7wHlQ5Hv/kNGVDfeuTKIxCaC8hCsKMiFNheOQ=;
+	s=arc-20240116; t=1789600439; c=relaxed/simple;
+	bh=ydpynI7FWRcDuv3jJBE/xxqcbkyClGw2KGJIvYL2PfA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xh3741Unp9fBcRgNiaXpSft/VUPDeSrsViC9wsimuqEP78tcywTfGRyR0ObaP3yC883UmVQ10EC+4e3JgOPHeM4wi3orYvpg66dC4rsheHRYKFgLXqQPg2f4rq7J7EqJ4Nqzrc4lceC+pD4ZtaBDNf/5XDkDyVLQDK2Jo+mvXco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BJbf598n; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=V6Qsb09yvGnp3G9K4YkS2BfKPMrWgIyMmxjkWtic8U7UduHJ+X7aGSD9N2rXcq39hR13tgaaYBMjQkd0CiOhSzFpUMMdnsje4kzdh537VtwfZuBVUWjMDnw6hh1m0w44eGj0oHsRAco5+LKBxdpXxfDMUTDh6ylZthShx/H8uY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PfrSFRfF; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BJbf598n"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PfrSFRfF"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789600437; x=1821136437;
+  t=1789600438; x=1821136438;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=hTr11v7wHlQ5Hv/kNGVDfeuTKIxCaC8hCsKMiFNheOQ=;
-  b=BJbf598nrJU2qBrNK/NTxw+prXGxoeDju4QS10wZM8miuyYog6YK3l8X
-   2krVh5HjHv2ZDqF5IPuT1Qk810P3Rboza0zMJ3chU5Kn5GQbOwTKJwiHU
-   MeRhTG/wgGHvYEvmYxQIUTqYEr7rKQqAp4PMaSbEUAiN+ROvaBoD9fTOw
-   +wft8qJdN8HXH/82lJxVbHy+UGmJ0lkn1+tr2fa401MfbETY180frxyvF
-   pAP4FnkCWbQMbzeu6pJ+WtvlCwLNxC2XJe7khnUyLJH21fHqfyNXsVugZ
-   W084fuMvvl7fmwY3+RZElspZuJz09O2Yjd1O2CYi1kgIgM42ZiVXOCzI+
+  bh=ydpynI7FWRcDuv3jJBE/xxqcbkyClGw2KGJIvYL2PfA=;
+  b=PfrSFRfFal9U9CTQ8dtC9C++Vbyz3hnG+BXUpx6+yWj77zwradePgf1N
+   TPR4IJWw6S/blc0KX+ZS9m7eVWY0oUO5A8a+PsPhEFHLGf5lUQg1c6Su3
+   3trcpuZTYN1SF2oBh6PuGyw5l9RG9LibajUy/WAUyMmG7D3dsEvKEaQc0
+   OkCDWGqHc6XS33a0t/HppAzEplJ9K6XTqXByXWyv2nQFmYGt9fuxlYrAd
+   xS8nh1VDkdhSgmziqZkG6s5az1NE0z8CLPC+70E0KWeSloIrZhsQX9Y3j
+   s4XxiihUNAfY7w7YMMGb6TW6ZkTOgI0Xiyk9sHX+gL6SceYfbqFaTtFZn
    w==;
-X-CSE-ConnectionGUID: xJyuVlgoQxe+B14G3+11Tg==
-X-CSE-MsgGUID: 8+uHvKZkQjG8itUp01AJmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861539"
+X-CSE-ConnectionGUID: dxJyyyBCRY2yQm9HetLoRw==
+X-CSE-MsgGUID: iPU3cyivQzOCPnCaGW1aEQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93861549"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93861539"
+   d="scan'208";a="93861549"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:41 -0700
-X-CSE-ConnectionGUID: NKId3sCRR6Kn2XU+lB1PBw==
-X-CSE-MsgGUID: L3XQfS0IQBizwhh6dsrPbw==
+X-CSE-ConnectionGUID: 6uAJXPrqTSOky6uUNq5jBA==
+X-CSE-MsgGUID: sJ7fYBpYSqqIeQApm81J5w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277231508"
+   d="scan'208";a="277231511"
 Received: from khuang2-desk.gar.corp.intel.com (HELO agluck-desk3.home.arpa) ([10.124.223.219])
   by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:13:41 -0700
 From: Tony Luck <tony.luck@intel.com>
@@ -59,9 +59,9 @@ Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	patches@lists.linux.dev,
 	Tony Luck <tony.luck@intel.com>
-Subject: [PATCH v12 24/25] x86/resctrl: Simplify Kconfig options for resctrl
-Date: Wed, 16 Sep 2026 16:13:19 -0700
-Message-ID: <20260916231320.14502-25-tony.luck@intel.com>
+Subject: [PATCH v12 25/25] x86,fs/resctrl: Document telemetry mount timing caveat
+Date: Wed, 16 Sep 2026 16:13:20 -0700
+Message-ID: <20260916231320.14502-26-tony.luck@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916231320.14502-1-tony.luck@intel.com>
 References: <20260916231320.14502-1-tony.luck@intel.com>
@@ -73,117 +73,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Linus Torvalds complained[1] about Kconfig complexity making it too
-hard for "random people to build their own kernels".
+The PMT driver enumerates telemetry features asynchronously, so an
+automatic mount of resctrl from /etc/fstab early in boot may occur before
+those features are available, resulting in them not being enabled in the
+mounted instance.
 
-CONFIG_X86_CPU_RESCTRL_INTEL_AET has been causing problems since it was first
-added as it required other config options to be set to "built-in".  There is
-no longer a requirement that INTEL_PMT_TELEMETRY or INTEL_TPMI be built-in.
+Add a footnote to the 'If telemetry monitoring is enabled' sentence
+pointing readers to a new "Mounting resctrl with telemetry" section. That
+section explains the race.
 
-Drop CONFIG_X86_CPU_RESCTRL_INTEL_AET and unconditionally include
-AET (Application Energy Telemetry) as part of X86_CPU_RESCTRL.
-
-Link: https://lore.kernel.org/all/CAHk-=whigg3hvOy7c1j1MXFy6o6CHp0g4Tc3Y-MAk+XDssHU0A@mail.gmail.com # [1]
 Signed-off-by: Tony Luck <tony.luck@intel.com>
 ---
 v12:
-	Added [] around "1" in Link tag.
-	In resctrl Makefile add intel_aet.o to ctrlmondata.o line.
-	Rewrite commit using imperative.
+	Drop problematic examples of systemd/udev rules.
 ---
- include/linux/intel_vsec.h             |  4 ++--
- arch/x86/kernel/cpu/resctrl/internal.h | 13 -------------
- arch/x86/Kconfig                       | 13 -------------
- arch/x86/kernel/cpu/resctrl/Makefile   |  3 +--
- 4 files changed, 3 insertions(+), 30 deletions(-)
+ Documentation/filesystems/resctrl.rst | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/intel_vsec.h b/include/linux/intel_vsec.h
-index bcbf4937c71c..885f8e3ab057 100644
---- a/include/linux/intel_vsec.h
-+++ b/include/linux/intel_vsec.h
-@@ -257,7 +257,7 @@ static inline void
- intel_pmt_put_feature_group(struct pmt_feature_group *feature_group) {}
- #endif
+diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+index e4b66af55ffb..91a2ab0fa027 100644
+--- a/Documentation/filesystems/resctrl.rst
++++ b/Documentation/filesystems/resctrl.rst
+@@ -630,7 +630,7 @@ When monitoring is enabled all MON groups will also contain:
+ 	each instance of an L3 cache. Each directory contains files for the enabled
+ 	L3 events (e.g. "llc_occupancy", "mbm_total_bytes", and "mbm_local_bytes").
  
--#ifdef CONFIG_X86_CPU_RESCTRL_INTEL_AET
-+#ifdef CONFIG_X86_CPU_RESCTRL
- void intel_aet_register_enumeration(struct module *module,
- 				    struct pmt_feature_group *(*get)(enum pmt_feature_id id),
- 				    void (*put)(struct pmt_feature_group *p));
-@@ -269,6 +269,6 @@ static inline void intel_aet_register_enumeration(struct module *module,
- 						  void (*put)(struct pmt_feature_group *p)) { }
- static inline void intel_aet_unregister_enumeration(void) { }
- static inline void intel_aet_invalidate(u8 package_id) { }
--#endif /* CONFIG_X86_CPU_RESCTRL_INTEL_AET */
-+#endif /* CONFIG_X86_CPU_RESCTRL */
+-	If telemetry monitoring is enabled, there will be a "mon_PERF_PKG_YY"
++	If telemetry monitoring is enabled [#]_, there will be a "mon_PERF_PKG_YY"
+ 	directory for each physical processor package. Each directory contains
+ 	files for the enabled telemetry events (e.g. "core_energy". "activity",
+ 	"uops_retired", etc.)
+@@ -669,6 +669,10 @@ When monitoring is enabled all MON groups will also contain:
+ 	returned if the MBM event does not have an assigned counter in the
+ 	CTRL_MON group nor in any of its associated MON groups.
  
- #endif
-diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
-index 5e71dd758624..93d36fa8c638 100644
---- a/arch/x86/kernel/cpu/resctrl/internal.h
-+++ b/arch/x86/kernel/cpu/resctrl/internal.h
-@@ -233,24 +233,11 @@ bool rdt_cpu_has(int flag);
- void rdt_domain_reconfigure_cdp(struct rdt_resource *r);
- void resctrl_arch_mbm_cntr_assign_set_one(struct rdt_resource *r);
++.. [#] Telemetry features are enumerated asynchronously by the PMT driver, so
++   an automatic mount of resctrl from ``/etc/fstab`` at boot may not enable
++   them. See `Mounting resctrl with telemetry`_ below.
++
+ "mon_hw_id":
+ 	Available only with debug option. The identifier used by hardware
+ 	for the monitor group. On x86 this is the RMID.
+@@ -1898,6 +1902,18 @@ m. Unmount the resctrl filesystem.
  
--#ifdef CONFIG_X86_CPU_RESCTRL_INTEL_AET
- bool intel_aet_pre_mount(void);
- void intel_aet_unmount(void);
- int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val);
- void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resource *r,
- 				struct list_head *add_pos);
- bool intel_handle_aet_option(bool force_off, char *tok);
--#else
--static inline bool intel_aet_pre_mount(void) { return false; }
--static inline void intel_aet_unmount(void) { }
--static inline int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val)
--{
--	return -EINVAL;
--}
--
--static inline void intel_aet_mon_domain_setup(int cpu, int id, struct rdt_resource *r,
--					      struct list_head *add_pos) { }
--static inline bool intel_handle_aet_option(bool force_off, char *tok) { return false; }
--#endif
+   # umount /sys/fs/resctrl/
  
- #endif /* _ASM_X86_RESCTRL_INTERNAL_H */
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 06b5d0c4633e..47f92613434e 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -539,19 +539,6 @@ config X86_CPU_RESCTRL
++Mounting resctrl with telemetry
++===============================
++
++Telemetry features (e.g. the ``mon_PERF_PKG_YY`` events) are enumerated
++asynchronously by the PMT driver. If resctrl is mounted before that
++enumeration completes (for example, when mounted automatically from
++``/etc/fstab`` early in boot) the telemetry features will not be available
++at mount time and will therefore not be enabled in the mounted instance.
++
++To avoid this race, defer the mount until after the ``pmt_telemetry`` module
++has loaded.
++
+ Intel RDT Errata
+ ================
  
- 	  Say N if unsure.
- 
--config X86_CPU_RESCTRL_INTEL_AET
--	bool "Intel Application Energy Telemetry"
--	depends on X86_CPU_RESCTRL && CPU_SUP_INTEL && INTEL_PMT_TELEMETRY=y && INTEL_TPMI=y
--	help
--	  Enable per-RMID telemetry events in resctrl.
--
--	  Intel feature that collects per-RMID execution data
--	  about energy consumption, measure of frequency independent
--	  activity and other performance metrics. Data is aggregated
--	  per package.
--
--	  Say N if unsure.
--
- config X86_FRED
- 	bool "Flexible Return and Event Delivery"
- 	depends on X86_64
-diff --git a/arch/x86/kernel/cpu/resctrl/Makefile b/arch/x86/kernel/cpu/resctrl/Makefile
-index 273ddfa30836..9daf1c0abb80 100644
---- a/arch/x86/kernel/cpu/resctrl/Makefile
-+++ b/arch/x86/kernel/cpu/resctrl/Makefile
-@@ -1,7 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0
- obj-$(CONFIG_X86_CPU_RESCTRL)		+= core.o rdtgroup.o monitor.o
--obj-$(CONFIG_X86_CPU_RESCTRL)		+= ctrlmondata.o
--obj-$(CONFIG_X86_CPU_RESCTRL_INTEL_AET)	+= intel_aet.o
-+obj-$(CONFIG_X86_CPU_RESCTRL)		+= ctrlmondata.o intel_aet.o
- obj-$(CONFIG_RESCTRL_FS_PSEUDO_LOCK)	+= pseudo_lock.o
- 
- # To allow define_trace.h's recursive include:
 -- 
 2.55.0
 
