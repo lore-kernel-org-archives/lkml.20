@@ -1,141 +1,254 @@
-Received: from k25.k3ae2098.use4.send.mailgun.net (k25.k3ae2098.use4.send.mailgun.net [204.220.183.25])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4654B048F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE944AD4D1
 	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 22:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.220.183.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789597299; cv=none; b=kfwc1O6gm5KdmlDSgkYK7KfwnHL3tNjstKJvME8P0VniPg5uqBqXSJo2mRdblKBya870q3DYeT/HQj8YifkbNxPLYSwfF8q0TsS9Zop/EhuagXLubXcyKivqNbxQXUJGWbr8ctjuzEoCCjoNXFQBbfzPFnYrtBCtwP1POIH7tyY=
+	t=1789597302; cv=none; b=I9UeaRBR1vsWQjO9dWL3vY/Iv8iPNFC4OBhmxMhIkmhrRUAMnVGbUPUwS9/qkqWWU0X6VU4xC731oNi1E9hOlpllf5LVcoKjJyEVSVo0V6lWLw/JRzdYcZOSjT2nslK+drTYPbSy+KE5amLU6jO+vqTYwIUKLhZgBdDO1fnLqlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789597299; c=relaxed/simple;
-	bh=XirUPjKgYnLGE0iepLt/+c0IEvC+K1+V3X3HhpmBuIk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fzA1ePLSqpZer4aL+XCn6+PAhrRjJdWse6pIEVyoCU8xZOcFCmoHyYgDfs0qsLm1FoUOmpV6ut06UYSJEkONdOBpsW+0HGCOSxP+gpd0UfAe3gDxGO4aC/zBDDKfkmjsqZAFyaGxw2oItGZq//LgG+tnPKPNDJ7gGw2aQkpT060=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=equiv.tech; spf=pass smtp.mailfrom=equiv.tech; dkim=pass (2048-bit key) header.d=equiv.tech header.i=@equiv.tech header.b=kkQLXt+l; arc=none smtp.client-ip=204.220.183.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=equiv.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=equiv.tech
+	s=arc-20240116; t=1789597302; c=relaxed/simple;
+	bh=3IUthFCIQe0CN7x8Mg7+90SA1ewsCpM6PLVBE4HZS44=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=MbRqkJPCnWrcYtD9cHNjum3U7qsv7gaVwxJXDpSr7XceCDZNz5ND/WeZmI+dMnhuf1b1Lsb+KGNSRh253A9JDbW+6ioFQvICHwa9+RQXpKfEzu+cPQObiiCZMBvUIpp7LL0KBcl7vg+3XPSQPg+MzQzf6+ChKRj5vjOETevfdNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eU+xYvOv; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=equiv.tech header.i=@equiv.tech header.b="kkQLXt+l"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=equiv.tech; q=dns/txt; s=pdk1; t=1789597288; x=1789604488;
- h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Subject: Cc: To: To: From: From: Sender: Sender;
- bh=9Jx+ZMihMrOwkf77HEaScdT13YyLh2kz4eqVsGu+914=;
- b=kkQLXt+l0v/V+BqitNb/y0hJlU5Im2p+FiuLoTTxJT/B4dGjGehc8T74lZcGBhk+frq+KDGMsrLE9SbQ7RqvV+qWuldsjlk8VGZuUQ//Uc0/VYFnc87XIHAUipOACm5HI+MWN5MOjMjDfqXyehaLmQONbmeXSqaZ4ACR7BeEDo12+GMa/2FVWX0YKxppUdo6XXrYLdMcHivXk5whd4xxHsfVJ48/nq5QYD6qj5pC38SyrjINkROoQo/gwVOGxKlUkMPN1S1VPhOsxlTPgFMifDp8ggieRXisuqDrzmZ6y27SMqJxf3g87G/n4/ID5UZaL+vmc5IJbSmwfpioKgHVOw==
-X-Mailgun-Sid: WyI4ZWI3MiIsImxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmciLCI5M2Q1YWIiXQ==
-Received: from mail.equiv.tech (equiv.tech [142.93.28.83]) by
- a0257b1dc05eb87ae5782024d79ced72a9ecc6fcd8b634f7ff81a8c152d1d5eb with SMTP id
- 6aab1668f473cbd189eb5594 (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 16 Sep 2026 22:21:28 GMT
-X-Mailgun-Sending-Ip: 204.220.183.25
-Sender: james@equiv.tech
-From: James Seo <james@equiv.tech>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	James Seo <james@equiv.tech>
-Subject: [PATCH] hwmon: (hp-wmi-sensors) Improve raw WMI string handling
-Date: Wed, 16 Sep 2026 15:19:15 -0700
-Message-ID: <20260916221912.434119-5-james@equiv.tech>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eU+xYvOv"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfc52ddc55so2613635ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:21:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789597288; x=1790202088; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cdC0Aij8DIx1VpvwjMV99CPapZgugvAI9la0yQFpjcc=;
+        b=eU+xYvOveSpQCzax4NbbMciXVi0+Fk5YaOy4U2Z17rt336Gh+ReqdwmK8anC1OSQqh
+         0YkyT/Vm+AQmCWcQVCplilenIXIPW42+jBxlpXFl5ipawiAtWS/KnChBwvUBoBY7KAqx
+         M0T93a+uqoFrw0s4ZphR7QGoLEkGmd5KhXedwu4o7Lp37VWC+sVf2p6/rxQG8bKfFexy
+         /QH61xnnnxhKSByZ3FaFZTVsrQLd1ew9R69oVkXWZDeNYYgw7eXKDUOiIKpYbnDYReH3
+         QaYWWju11vyxFN/Y6dOjB4067J5KJJtKWqk3NCMmm2/3XTrnPZbUg346Z9V2t02FUcT9
+         rH0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789597288; x=1790202088;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cdC0Aij8DIx1VpvwjMV99CPapZgugvAI9la0yQFpjcc=;
+        b=EbKWapLazl058pb2wGVjAQTUCkftii+WewWRqSx0ygLR6Wkea9OimIv79FVWAWJ71X
+         vs/K5UVJbe3vu8ca8EMvTS6+vKGgwZvRsIp/bbbxEGrxbQyRyKtB2hWHvDTDhxdsyUPK
+         uo1zCAixRx31m8C3URD28Ug1AU55jU7+SytQbrQiAsH+BfTy1In1Fwc+Wxv9pVitQwad
+         vu4ebz9YigMs3ft5yBjqdelbsoer+We1Eg9S01N4J6NOYP19fxOYE+zBHRLgax8yEU+n
+         Dq+3qrew5lfRZd40BgT8aW6PVuYK3M2r9kpxiHFbLvmvAi22JeLafyNyUiREHbARQL2B
+         FnoA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXulMJx5jJzZXfoC+26ZFT7gGWfwGVHQn7lCj1eR+1+gp8PVzknyKp/p7kVte5wdIIdfge9bcDQNLxTvk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mClEIt7T4rnoWR3+UaGPe3IMR0YZsG72+lr8Od2zCATAyhLi2/
+	jWhEVUFSlKcbctU+mVxSxrznAjs7uQFKjvCdXGlLt8csK/SbpTSqOB+crVAEdEUWwLjY6dO00Ms
+	W
+X-Received: from plhy3.prod.google.com ([2002:a17:902:d643:b0:2dd:7e95:7c98])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:faf:b0:2dd:8e5:28d
+ with SMTP id d9443c01a7336-2dd8e026e01mr89207705ad.8.1789597287619; Wed, 16
+ Sep 2026 15:21:27 -0700 (PDT)
+Date: Wed, 16 Sep 2026 22:21:25 +0000
+In-Reply-To: <20260916221528.1256283-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260916221528.1256283-1-morbo@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260916222125.1259631-1-morbo@google.com>
+Subject: [PATCH v2] seq_buf: add seq_buf_strlen(), seq_buf_init_append(), seq_buf_puts_trunc()
+From: Bill Wendling <morbo@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Kees Cook <kees@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Bill Wendling <morbo@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Commit c9ba59258094 ("hwmon: (hp-wmi-sensors) Fix failure to load on
-EliteDesk 800 G6") left out some logic for recognizing raw WMI
-strings in check_numeric_sensor_wobj(). This issue was reported by a
-user along with an incomplete and unsuitable proposed solution [1].
+Converting some strlcat() call sites seq_buf need behavior seq_buf doesn't
+currently provide, either directly or without introducing subtle bugs:
 
-Add the missing logic and properly remedy the issue. Also slightly
-refactor how raw WMI strings are recognized elsewhere to make the
-intent that they should be treated as regular ACPI strings clearer.
+ - seq_buf_strlen(): seq_buf_used() reports the full buffer size when the
+   buffer is completely filled, even though seq_buf_str() then overwrites the
+   final byte with a NUL terminator, leaving only size - 1 bytes of
+   actual content. Callers that need the true length of the
+   NUL-terminated string have to fall back to strlen(seq_buf_str(s)).
+   seq_buf_strlen() mirrors seq_buf_str()'s NUL-termination logic but returns
+   the resulting string's length directly.
 
-Reported-by: Muhammad Bilal <meatuni001@gmail.com>
-Link: https://lore.kernel.org/linux-hwmon/20260916002907.161210-1-meatuni001@gmail.com/ [1]
-Fixes: c9ba59258094 ("hwmon: (hp-wmi-sensors) Fix failure to load on EliteDesk 800 G6")
-Signed-off-by: James Seo <james@equiv.tech>
+ - seq_buf_init_append(): seq_buf_init() always clears the buffer it's given
+   via seq_buf_clear(). Code migrating from strlcat(buf, ...), which
+   appends to whatever @buf already contains, can't use seq_buf_init()
+   without silently discarding that existing content. seq_buf_init_append()
+   preserves it and positions the seq_buf to append after it.
+
+ - seq_buf_puts_trunc(): seq_buf_puts() (like seq_buf_printf() and friends)
+   writes nothing at all if the string doesn't fully fit, whereas strlcat()
+   always copies as much of the source as there is room for. Converting a
+   strlcat() call site that relied on that partial-copy behavior to
+   plain seq_buf_puts() can silently drop content that used to survive
+   truncated. seq_buf_puts_trunc() keeps the leading bytes of the string
+   that fit.
+
+Assisted-by: LLM
+Suggested-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Bill Wendling <morbo@google.com>
 ---
- drivers/hwmon/hp-wmi-sensors.c | 30 ++++++++++++++++++++++--------
- 1 file changed, 22 insertions(+), 8 deletions(-)
+v2: Reword the commit message to be clearer and not refer to a series of
+    patches
+---
+ include/linux/seq_buf.h | 60 +++++++++++++++++++++++++++++++++++++++++
+ lib/seq_buf.c           | 35 ++++++++++++++++++++++++
+ 2 files changed, 95 insertions(+)
 
-diff --git a/drivers/hwmon/hp-wmi-sensors.c b/drivers/hwmon/hp-wmi-sensors.c
-index 03c684ba83bd..cb2eb9bd278a 100644
---- a/drivers/hwmon/hp-wmi-sensors.c
-+++ b/drivers/hwmon/hp-wmi-sensors.c
-@@ -526,14 +526,12 @@ static int check_wobj(const union acpi_object *wobj,
- 	for (prop = 0; prop <= last_prop; prop++) {
- 		type = elements[prop].type;
- 		valid_type = property_map[prop];
--		if (type != valid_type) {
--			if (type == ACPI_TYPE_BUFFER &&
--			    valid_type == ACPI_TYPE_STRING &&
--			    is_raw_wmi_string(elements[prop].buffer.pointer,
--					      elements[prop].buffer.length))
--				continue;
-+		if (type == ACPI_TYPE_BUFFER &&
-+		    is_raw_wmi_string(elements[prop].buffer.pointer,
-+				      elements[prop].buffer.length))
-+			type = ACPI_TYPE_STRING;
-+		if (type != valid_type)
- 			return -EINVAL;
--		}
+diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
+index 9f2839e73f8a..a552bcaab07f 100644
+--- a/include/linux/seq_buf.h
++++ b/include/linux/seq_buf.h
+@@ -30,6 +30,10 @@ struct seq_buf {
+ 		.size = SIZE,				\
  	}
  
- 	return 0;
-@@ -579,6 +577,7 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
- 	int prop = HP_WMI_PROPERTY_NAME;
- 	acpi_object_type valid_type;
- 	union acpi_object *elements;
-+	union acpi_object *element;
- 	u32 elem_count;
- 	int last_prop;
- 	bool is_new;
-@@ -602,13 +601,20 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
- 	    elem_count > HP_WMI_MAX_PROPERTIES)
- 		return -EINVAL;
++/**
++ * seq_buf_clear - reset the seq_buf to be read / appended from the beginning
++ * @s: the seq_buf handle
++ */
+ static inline void seq_buf_clear(struct seq_buf *s)
+ {
+ 	s->len = 0;
+@@ -37,6 +41,14 @@ static inline void seq_buf_clear(struct seq_buf *s)
+ 		s->buffer[0] = '\0';
+ }
  
--	type = elements[HP_WMI_PROPERTY_SIZE].type;
-+	element = &elements[HP_WMI_PROPERTY_SIZE];
-+	type = element->type;
- 	switch (type) {
- 	case ACPI_TYPE_INTEGER:
- 		is_new = true;
- 		last_prop = HP_WMI_PROPERTY_RATE_UNITS;
- 		break;
++/**
++ * seq_buf_init - initialize a seq_buf
++ * @s: the seq_buf handle
++ * @buf: pointer to the buffer
++ * @size: total size of @buf
++ *
++ * The contents of the buffer are ignored.
++ */
+ static inline void
+ seq_buf_init(struct seq_buf *s, char *buf, unsigned int size)
+ {
+@@ -45,6 +57,26 @@ seq_buf_init(struct seq_buf *s, char *buf, unsigned int size)
+ 	seq_buf_clear(s);
+ }
  
-+	case ACPI_TYPE_BUFFER:
-+		if (!is_raw_wmi_string(element->buffer.pointer,
-+				       element->buffer.length))
-+			return -EINVAL;
-+		fallthrough;
++/**
++ * seq_buf_init_append - initialize a seq_buf over a buffer that may
++ *			 already hold NUL-terminated content
++ * @s: the seq_buf handle
++ * @buf: pointer to the (possibly non-empty) buffer
++ * @size: total size of @buf
++ *
++ * Unlike seq_buf_init(), which always clears @buf, this preserves
++ * whatever NUL-terminated content @buf already holds and positions
++ * @s to append after it. Useful for converting code that used to
++ * append to an existing buffer with strlcat()/scnprintf() and friends.
++ */
++static inline void
++seq_buf_init_append(struct seq_buf *s, char *buf, unsigned int size)
++{
++	s->buffer = buf;
++	s->size = size;
++	s->len = strnlen(buf, size);
++}
 +
- 	case ACPI_TYPE_STRING:
- 		is_new = false;
- 		last_prop = HP_WMI_PROPERTY_CURRENT_READING;
-@@ -631,6 +637,10 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
- 	for (i = 0; i < elem_count && prop <= last_prop; i++, prop++) {
- 		type = elements[i].type;
- 		valid_type = hp_wmi_property_map[prop];
-+		if (type == ACPI_TYPE_BUFFER &&
-+		    is_raw_wmi_string(elements[i].buffer.pointer,
-+				      elements[i].buffer.length))
-+			type = ACPI_TYPE_STRING;
- 		if (type != valid_type)
- 			return -EINVAL;
+ /*
+  * seq_buf have a buffer that might overflow. When this happens
+  * len is set to be greater than size.
+@@ -108,6 +140,33 @@ static inline const char *seq_buf_str(struct seq_buf *s)
+ 	return s->buffer;
+ }
  
-@@ -651,6 +661,10 @@ static int check_numeric_sensor_wobj(const union acpi_object *wobj,
- 			/* PossibleStates[0] has already been type-checked. */
- 			for (j = 0; i + 1 < elem_count && j + 1 < count; j++) {
- 				type = elements[++i].type;
-+				if (type == ACPI_TYPE_BUFFER &&
-+				    is_raw_wmi_string(elements[i].buffer.pointer,
-+						      elements[i].buffer.length))
-+					type = ACPI_TYPE_STRING;
- 				if (type != valid_type)
- 					return -EINVAL;
- 			}
++/**
++ * seq_buf_strlen - get the length of the NUL-terminated string in seq_buf
++ * @s: the seq_buf handle
++ *
++ * Like seq_buf_str(), this makes sure that the buffer in @s is
++ * NUL-terminated, and returns the length of the resulting string.
++ * Unlike seq_buf_used(), the returned length is always correct, even
++ * when the buffer is completely full: in that case seq_buf_used()
++ * reports @s->size, but the last byte was overwritten with the
++ * trailing NUL, so only @s->size - 1 bytes of content remain.
++ *
++ * Returns: the length of the NUL-terminated string in @s->buffer.
++ */
++static inline size_t seq_buf_strlen(struct seq_buf *s)
++{
++	if (WARN_ON(s->size == 0))
++		return 0;
++
++	if (seq_buf_buffer_left(s)) {
++		s->buffer[s->len] = 0;
++		return s->len;
++	}
++
++	s->buffer[s->size - 1] = 0;
++	return s->size - 1;
++}
++
+ /**
+  * seq_buf_get_buf - get buffer to write arbitrary data to
+  * @s: the seq_buf handle
+@@ -179,6 +238,7 @@ extern int seq_buf_putmem(struct seq_buf *s, const void *mem, unsigned int len);
+ extern int seq_buf_putmem_hex(struct seq_buf *s, const void *mem,
+ 			      unsigned int len);
+ extern int seq_buf_path(struct seq_buf *s, const struct path *path, const char *esc);
++extern size_t seq_buf_puts_trunc(struct seq_buf *s, const char *str);
+ extern int seq_buf_hex_dump(struct seq_buf *s, const char *prefix_str,
+ 			    int prefix_type, int rowsize, int groupsize,
+ 			    const void *buf, size_t len, bool ascii);
+diff --git a/lib/seq_buf.c b/lib/seq_buf.c
+index a92093f346da..4d56ac71fafe 100644
+--- a/lib/seq_buf.c
++++ b/lib/seq_buf.c
+@@ -376,6 +376,41 @@ int seq_buf_to_user(struct seq_buf *s, char __user *ubuf, size_t start, int cnt)
+ 	return cnt - ret;
+ }
+ 
++/**
++ * seq_buf_puts_trunc - append as much of a string as fits, keeping any of it
++ * @s: the seq_buf handle
++ * @str: the string to append
++ *
++ * seq_buf_puts() writes nothing at all if @str doesn't fully fit,
++ * unlike strlcat()/strscpy(), which copy as much of the source as
++ * there is room for. That all-or-nothing behavior is usually what's
++ * wanted for building diagnostic/trace text, but it's the wrong
++ * choice when converting code that relied on strlcat()'s always-copy-
++ * what-fits truncation to avoid losing content that was already
++ * appended. This copies the leading bytes of @str that fit, reserving
++ * room for the NUL terminator later added by seq_buf_str().
++ *
++ * Unlike seq_buf_puts(), this does NOT NUL-terminate @s->buffer as it
++ * goes (it copies raw bytes via seq_buf_putmem(), not @str's own
++ * terminator). Callers MUST call seq_buf_str() or seq_buf_strlen()
++ * before using @s->buffer as a C string.
++ *
++ * Returns: the number of bytes copied from @str.
++ */
++size_t seq_buf_puts_trunc(struct seq_buf *s, const char *str)
++{
++	size_t left = seq_buf_buffer_left(s);
++	size_t len;
++
++	if (left <= 1)
++		return 0;
++
++	len = strnlen(str, left - 1);
++	seq_buf_putmem(s, str, len);
++
++	return len;
++}
++
+ /**
+  * seq_buf_hex_dump - print formatted hex dump into the sequence buffer
+  * @s: seq_buf descriptor
 -- 
-2.53.0
+2.55.0.1082.g2b9226bbc0-goog
 
