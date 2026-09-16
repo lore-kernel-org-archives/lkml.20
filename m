@@ -1,342 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D293D891F
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:20:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17853486E7D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:22:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789593623; cv=none; b=HI6FIWPeIl0H/VND6Sp3iOUGhH/FVTR8XnWf67Y6Az63q2FV071tV2Qcl62uOOsyVONGn55p75qY/5zKMaM5sNJG7JUW7Zhg5Ccb8jHLPkU87ww8OU6Gp3dbJ5tskox4Whm11/XP21hOm/rZphLeKeJhkuudA5HD6sa3bh1AH4I=
+	t=1789593731; cv=none; b=ayWHFpqFFWtZMqI7TIWQFzKKndnIYPm+5yJO82Fzwlgwul5YVhxJwR/oJ0rzSWuM1jsV1UPian+Jxh5hU60hNOTHQcOKPcFfKyZkaZs2X/DxtEd7oyeoJIAcPvo+3AWHqGwv/d2PUU71DkFrf6ZpHJyHOFQMWtBq5K7T02iYlCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789593623; c=relaxed/simple;
-	bh=pee1z2UJL9xdaD3L056DYXmrTlFh9o/gVqUP4f/yWPk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=EtHDgWCSWaVn7FrUDZzlyURbF4FELW8rxfH8bikmyA59Zj9KwWYJxBKIe8ukw+kN7KkGQ/7tes9e6nxHOHwxmps+75ljkGh5PxiaTB5Cj/P93//7OqJGTeU2jxqtcrJIsmVshNdXp95tMOJb5XQkcl+/E5AyVtKt9U4QcMLUsrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HADrWZ9W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789593731; c=relaxed/simple;
+	bh=TKqfw40iLLCdcqUk+pf6hQQvVP/pt7DLVj4/paVDPE8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D/b42Xw8dwhcix/GGH3KnPTaqhammifvor1J+Y5Pon3C6vn8wzc/ZxrqRSW1VfSi+5GldYyQRWiSJM6gAztIJ8H2jyBJoOTum+yFvJGRZaB53maEKBtyaega0F1U/UJv8hBDh5N4LdR9YABv9aIIfFW+MCJBDQ96xzPRhIBS7ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YftSTz39; arc=none smtp.client-ip=91.218.175.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HADrWZ9W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B23E1F000FF;
-	Wed, 16 Sep 2026 21:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789593608;
-	bh=Oe6mW2CXrVR5WY7fsD36LGo48FbH9kjoarD1uR/66r4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=HADrWZ9WCAPNuNXv2XeVFLsYqSWm9p18O2sv3ufm2i5Oszyw1ukSlbwg4i01yCVwe
-	 jF/arwxKjW35Nm5OhJK/Cq2tSRU8JrVTz3XFWp5z2L4Nz4xkr008qGhZeLzVITvyWI
-	 XomZ619dkp9oqpkCOXovdI/CYe18vQ049u2omDtKSF4ZXXCk/NOPVefwcFVcMj1M+6
-	 +5qqEULm/fqLfaF0Gj5McoNUPJFIma9u7wHqFxLdTFAk9/f4ihPEkW9l8ygyWDbegq
-	 0GCkdDn1e2vubKpJpP91hchStHHWN8ZrV/Wces2g8ikzGo6MIeGwg2WW+dX7aGGUQG
-	 UWVwF9vPVfgxA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Grzegorz Jaszczyk <jaszczyk@chromium.org>
-Cc: linux-kernel@vger.kernel.org, dmaluka@chromium.org,
- vineethrp@chromium.org, chuanxiao.dong@intel.com, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Eric Dumazet <edumazet@google.com>, Melody Wang
- <huibo.wang@amd.com>
-Subject: Re: [PATCH] x86/apic: Switch to x2apic driver early if x2apic is
- enabled
-In-Reply-To: <CAGptq8F7MgYt94QuCFF0hRGDAw851sK_xByBJc_cnUpYAF2yMQ@mail.gmail.com>
-References: <20260910090512.1197517-1-jaszczyk@chromium.org>
- <875x0cymr5.ffs@fw13>
- <CAGptq8F7MgYt94QuCFF0hRGDAw851sK_xByBJc_cnUpYAF2yMQ@mail.gmail.com>
-Date: Wed, 16 Sep 2026 23:20:05 +0200
-Message-ID: <87qzis7v22.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YftSTz39"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=TKqfw40iLLCdcqUk+pf6hQQvVP/pt7DLVj4/paVDPE8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789593722; v=1; x=1790198522;
+ b=YftSTz39qvJWfHwAumN910fcSnrRrQrU2o5E+DSzwz7mpO7e1iwrVPYiz/G8+xn4VoJZBp0a
+ jjUjJBfKqrhIzV6Nyp+vXtb27CxH+y9SjaHcwzAjjUFLjRUOiLAnEaQeiDR/o+PuDlRaxqXKD+A
+ /9kWrcKOi1tzM7DChkpSHQdg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5d1bf85c37014b36;
+	Wed, 16 Sep 2026 21:22:02 +0000
+X-Mizu-Trace-ID: 5d1bf85c37014b36
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e4faecf5-8734-4c5f-9fb4-72886d80ec2b@linux.dev>
+Date: Wed, 16 Sep 2026 14:21:57 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
+ bpf_reg_state->id [NFC]
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, bot+bpf-ci@kernel.org,
+ ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+ memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ martin.lau@kernel.org, mason@kernel.org
+References: <20260910164635.459558-2-vineet.gupta@linux.dev>
+ <6ba21fcb39349c144c340d3605e25a30710ff43c5ea0c53045e78f4408411fdd@mail.kernel.org>
+ <4cddd4a4-d684-46c9-862e-5708797f399d@linux.dev>
+ <DLH1N1KP02XT.1KJ79QEMQORI2@gmail.com>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <DLH1N1KP02XT.1KJ79QEMQORI2@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11 2026 at 17:17, Grzegorz Jaszczyk wrote:
-> On Fri, Sep 11, 2026 at 2:51=E2=80=AFPM Thomas Gleixner <tglx@kernel.org>=
- wrote:
+On 9/16/26 2:03 PM, Alexei Starovoitov wrote:
+> On Mon Sep 14, 2026 at 6:02 PM UTC, Vineet Gupta wrote:
 >>
->> On Thu, Sep 10 2026 at 09:04, Grzegorz Jaszczyk wrote:
->> > To prevent this, check if x2apic is enabled in hardware during early A=
-PIC
->> > call setup in apic_setup_apic_calls() and switch the default APIC driv=
-er
->> > from apic_physflat to apic_x2apic_phys immediately. This ensures that =
-any
->> > early EOI writes use safe MSR-based accesses. The driver can still be
->> > upgraded later during the normal APIC probe phase.
->>
->> That's really the wrong place. Initializing those calls has absolutely
->> nothing to do with the driver probing.
->>
->> There is quite some historical ballast in this whole APIC driver
->> probing, which I never came around to clean up.
->>
->> I'll have a look how this can be done sanely without replicating half of
->> the existing code just to paper over the real issue.
->>
-> Ok, understood. Thank you. Let me know when you have something to look
-> at or test.
+>> On 9/10/26 11:22 PM, bot+bpf-ci@kernel.org wrote:
+>>>> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
+>>>> index 66fb11b6c6a7..d974baad37ee 100644
+>>>> --- a/kernel/bpf/states.c
+>>>> +++ b/kernel/bpf/states.c
+>>> [ ... ]
+>>>
+>>>> @@ -369,13 +369,6 @@ static bool check_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>>>     * and r7.id=0 (both independent), without temp IDs both would map old_id=X
+>>>>     * to cur_id=0 and pass. With temp IDs: r6 maps X->temp1, r7 tries to map
+>>>>     * X->temp2, but X is already mapped to temp1, so the check fails correctly.
+>>>> - *
+>>>> - * When old_id has BPF_ADD_CONST set, the compound id (base | flag) and the
+>>>> - * base id (flag stripped) must both map consistently. Example: old has
+>>>> - * r2.id=A, r3.id=A|flag (r3 = r2 + delta), cur has r2.id=B, r3.id=C|flag
+>>>> - * (r3 derived from unrelated r4). Without the base check, idmap gets two
+>>>> - * independent entries A->B and A|flag->C|flag, missing that A->C conflicts
+>>>> - * with A->B. The base ID cross-check catches this.
+>>>>     */
+>>>>    static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>>>    {
+>>>> @@ -384,15 +377,7 @@ static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *idmap)
+>>>>
+>>>>    	cur_id = cur_id ? cur_id : ++idmap->tmp_id_gen;
+>>>>
+>>>> -	if (!check_ids(old_id, cur_id, idmap))
+>>>> -		return false;
+>>>> -	if (old_id & BPF_ADD_CONST) {
+>>>> -		old_id &= ~BPF_ADD_CONST;
+>>>> -		cur_id &= ~BPF_ADD_CONST;
+>>>> -		if (!check_ids(old_id, cur_id, idmap))
+>>>> -			return false;
+>>>> -	}
+>>>> -	return true;
+>>>> +	return check_ids(old_id, cur_id, idmap);
+>>>>    }
+>>> [ ... ]
+>>>
+>>>> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+>>>> index d571fbfc86a3..da6cb961a520 100644
+>>>> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+>>>> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+>>> [ ... ]
+>>>
+>>>> @@ -648,10 +648,10 @@ l_exit_%=:							\
+>>>>    }
+>>>>
+>>>>    /*
+>>>> - * Test that regsafe() verifies base_id consistency for BPF_ADD_CONST
+>>>> + * Test that regsafe() verifies base_id consistency for ADD_CONST_*
+>>>>     * linked scalars during state pruning.
+>>>>     *
+>>>> - * The false branch (explored first) links R3 to R2 via ADD_CONST.
+>>>> + * The false branch (explored first) links R3 to R2 via ADD_CONST_64.
+>>>>     * The true branch (runtime path) links R3 to R4 (unrelated base_id).
+>>>>     * At the merge point, pruning must fail because the linkage topology
+>>>>     * differs.
+>>> Does this comment still match what the code does? The patch removes the
+>>> "base_id" concept from kernel/bpf/states.c (deleted the paragraph that
+>>> defined it, removed the two-level compound/base id check from
+>>> check_scalar_ids), but the comment here still describes the test as
+>>> verifying "base_id consistency" and refers to "unrelated base_id" on the
+>>> next line.
+>>>
+>>> Looking at the function name and __description below:
+>>>
+>>>>     */
+>>>>    __description("add_const base_id must be consistent for pruning")
+>>>>    __failure __msg("invalid variable-offset")
+>>>>    __naked void add_const_base_id_pruning(void)
+>>> and later at line 695:
+>>>
+>>>>    	/* Runtime: R2.id=A, R4.id=C: base_ids A vs C inconsistent,
+>>>>    	 * pruning should have failed. */
+>>> Should these be updated to use current terminology, or does "base_id"
+>>> still have meaning in this context? The test itself still works correctly
+>>> after the patch, so this appears to be a documentation consistency
+>>> question rather than a functional issue.
+>> Indeed base_id as a term is gone, but just id alone might be confusing
+>> as well.
+>> How about link id as a replacement for base_id
+> I don't think "link id" fits either. Just use id.
 
-It actually needs a larger overhaul because when the x2apic_phys driver
-is installed early on then its probe function will prevent installing
-the cluster driver.
+SG !
 
-So your claim that any other driver can still be selected is only true
-when ACPI invokes the MADT check function, but not via the probe
-mechanism.
-
-I'm not really happy about the untested below, but something like that
-should solve your problem and still keep all options open. That patch
-needs to be split up in more digestable pieces.
-
-FYI, I'm on vacation and only sporadically at the keyboard. So if you
-get it working feel free to polish it up and submit the whole pile with
-a "Suggested-by: tglx..." tag. It definitely needs some eyeballs and
-testing time in tip.
-
-Thanks,
-
-        tglx
----
---- a/arch/x86/include/asm/apic.h
-+++ b/arch/x86/include/asm/apic.h
-@@ -133,7 +133,8 @@ extern void sync_Arb_IDs(void);
- extern void init_bsp_APIC(void);
- extern void apic_intr_mode_select(void);
- extern void apic_intr_mode_init(void);
--extern void init_apic_mappings(void);
-+void apic_early_init(void);
-+void apic_finalize_early_init(void);
- void register_lapic_address(unsigned long address);
- extern void setup_boot_APIC_clock(void);
- extern void setup_secondary_APIC_clock(void);
-@@ -254,7 +255,6 @@ static inline u32 native_apic_msr_read(u
- #define x2apic_mode		(0)
- #define	x2apic_supported()	(0)
- #endif /* !CONFIG_X86_X2APIC */
--extern void __init check_x2apic(void);
-=20
- struct irq_data;
-=20
-@@ -288,7 +288,8 @@ struct apic {
- 	u32	disable_esr		: 1,
- 		dest_mode_logical	: 1,
- 		x2apic_set_max_apicid	: 1,
--		nmi_to_offline_cpu	: 1;
-+		nmi_to_offline_cpu	: 1,
-+		probed			: 1;
-=20
- 	u32	(*calc_dest_apicid)(unsigned int cpu);
-=20
-@@ -366,9 +367,6 @@ extern int lapic_can_unplug_cpu(void);
- #ifdef CONFIG_X86_LOCAL_APIC
- extern struct apic_override __x86_apic_override;
-=20
--void __init apic_setup_apic_calls(void);
--void __init apic_install_driver(struct apic *driver);
--
- #define apic_update_callback(_callback, _fn) {					\
- 		__x86_apic_override._callback =3D _fn;				\
- 		apic->_callback =3D _fn;						\
---- a/arch/x86/kernel/apic/apic.c
-+++ b/arch/x86/kernel/apic/apic.c
-@@ -1869,7 +1869,7 @@ static __init void try_to_enable_x2apic(
- 	x2apic_enable();
- }
-=20
--void __init check_x2apic(void)
-+static __init struct apic *check_x2apic(void)
- {
- 	if (x2apic_enabled()) {
- 		pr_info("x2apic: enabled by BIOS, switching to x2apic ops\n");
-@@ -1879,15 +1879,19 @@ void __init check_x2apic(void)
- 		else
- 			x2apic_state =3D X2APIC_ON;
- 		apic_read_boot_cpu_id(true);
-+		/* Force the initial driver to X2APIC */
-+		return &apic_x2apic_phys;
- 	} else if (!boot_cpu_has(X86_FEATURE_X2APIC)) {
- 		x2apic_state =3D X2APIC_DISABLED;
- 	}
-+	/* Keep the default driver */
-+	return NULL;
- }
- #else /* CONFIG_X86_X2APIC */
--void __init check_x2apic(void)
-+static __init struct apic *check_x2apic(void)
- {
- 	if (!apic_is_x2apic_enabled())
--		return;
-+		return NULL;
- 	/*
- 	 * Checkme: Can we simply turn off x2APIC here instead of disabling the A=
-PIC?
- 	 */
-@@ -1896,6 +1900,7 @@ void __init check_x2apic(void)
-=20
- 	apic_is_disabled =3D true;
- 	setup_clear_cpu_cap(X86_FEATURE_APIC);
-+	return &apic_noop;
- }
-=20
- static inline void try_to_enable_x2apic(int remap_mode) { }
-@@ -2064,10 +2069,22 @@ static bool __init detect_init_APIC(void
- }
- #endif
-=20
--/**
-- * init_apic_mappings - initialize APIC mappings
-- */
--void __init init_apic_mappings(void)
-+void __init apic_early_init(void)
-+{
-+	struct apic *driver;
-+
-+	if (acpi_mps_check()) {
-+		apic_is_disabled =3D true;
-+		setup_clear_cpu_cap(X86_FEATURE_APIC);
-+		driver =3D &apic_noop;
-+	} else {
-+		driver =3D check_x2apic();
-+	}
-+
-+	apic_install_default_driver(driver);
-+}
-+
-+void __init apic_finalize_early_init(void)
- {
- 	if (apic_validate_deadline_timer())
- 		pr_info("TSC deadline timer available\n");
---- a/arch/x86/kernel/apic/init.c
-+++ b/arch/x86/kernel/apic/init.c
-@@ -80,19 +80,8 @@ static __init void update_static_calls(v
- 	update_call(wakeup_secondary_cpu_64);
- }
-=20
--void __init apic_setup_apic_calls(void)
-+static void __init __apic_install_driver(struct apic *driver)
- {
--	/* Ensure that the default APIC has native_eoi populated */
--	apic->native_eoi =3D apic->eoi;
--	update_static_calls();
--	pr_info("Static calls initialized\n");
--}
--
--void __init apic_install_driver(struct apic *driver)
--{
--	if (apic =3D=3D driver)
--		return;
--
- 	apic =3D driver;
-=20
- 	if (IS_ENABLED(CONFIG_X86_X2APIC) && apic->x2apic_set_max_apicid)
-@@ -105,6 +94,24 @@ void __init apic_install_driver(struct a
- 	/* Apply any already installed callback overrides */
- 	restore_override_callbacks();
- 	update_static_calls();
-+}
-=20
--	pr_info("Switched APIC routing to: %s\n", driver->name);
-+void __init apic_install_default_driver(struct apic *driver)
-+{
-+	if (driver && driver !=3D apic) {
-+		__apic_install_driver(driver);
-+	} else {
-+		/* Ensure that the default APIC has the native_eoi() callback populated =
-*/
-+		apic->native_eoi =3D apic->eoi;
-+		update_static_calls();
-+	}
-+	pr_info("Set default APIC routing to: %s\n", apic->name);
-+}
-+
-+void __init apic_install_driver(struct apic *driver)
-+{
-+	if (apic !=3D driver)
-+		__apic_install_driver(driver);
-+	apic->probed =3D true;
-+	pr_info("Switched APIC routing to: %s\n", apic->name);
- }
---- a/arch/x86/kernel/apic/local.h
-+++ b/arch/x86/kernel/apic/local.h
-@@ -13,12 +13,16 @@
- #include <asm/irq_vectors.h>
- #include <asm/apic.h>
-=20
-+void __init apic_install_default_driver(struct apic *driver);
-+void __init apic_install_driver(struct apic *driver);
-+
- /* X2APIC */
- u32 x2apic_get_apic_id(u32 id);
-=20
- void x2apic_send_IPI_all(int vector);
- void x2apic_send_IPI_allbutself(int vector);
- void x2apic_send_IPI_self(int vector);
-+extern struct apic apic_x2apic_phys;
- extern u32 x2apic_max_apicid;
-=20
- /* IPI */
---- a/arch/x86/kernel/apic/x2apic_phys.c
-+++ b/arch/x86/kernel/apic/x2apic_phys.c
-@@ -7,7 +7,6 @@
-=20
- int x2apic_phys;
-=20
--static struct apic apic_x2apic_phys;
- u32 x2apic_max_apicid __ro_after_init =3D UINT_MAX;
-=20
- void __init x2apic_set_max_apicid(u32 apicid)
-@@ -113,7 +112,7 @@ static int x2apic_phys_probe(void)
- 	if (x2apic_phys || x2apic_fadt_phys())
- 		return 1;
-=20
--	return apic =3D=3D &apic_x2apic_phys;
-+	return apic =3D=3D &apic_x2apic_phys && apic->probed;
- }
-=20
- u32 x2apic_get_apic_id(u32 id)
-@@ -121,7 +120,7 @@ u32 x2apic_get_apic_id(u32 id)
- 	return id;
- }
-=20
--static struct apic apic_x2apic_phys __ro_after_init =3D {
-+struct apic apic_x2apic_phys __ro_after_init =3D {
-=20
- 	.name				=3D "physical x2apic",
- 	.probe				=3D x2apic_phys_probe,
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -993,14 +993,7 @@ void __init setup_arch(char **cmdline_p)
-=20
- 	x86_report_nx();
-=20
--	apic_setup_apic_calls();
--
--	if (acpi_mps_check()) {
--#ifdef CONFIG_X86_LOCAL_APIC
--		apic_is_disabled =3D true;
--#endif
--		setup_clear_cpu_cap(X86_FEATURE_APIC);
--	}
-+	apic_early_init();
-=20
- 	e820__finish_early_params();
-=20
-@@ -1062,7 +1055,6 @@ void __init setup_arch(char **cmdline_p)
- 	/* max_low_pfn get updated here */
- 	find_low_pfn_range();
- #else
--	check_x2apic();
-=20
- 	/* How many end-of-memory variables you have, grandma! */
- 	/* need this before calling reserve_initrd */
-@@ -1242,7 +1234,7 @@ void __init setup_arch(char **cmdline_p)
- 	x86_init.mpparse.parse_smp_cfg();
-=20
- 	/* Last opportunity to detect and map the local APIC */
--	init_apic_mappings();
-+	apic_finalize_early_init();
-=20
- 	topology_init_possible_cpus();
-=20
-
+Thx,
+-Vineet
