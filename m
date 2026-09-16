@@ -1,88 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7193F44470C
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:14:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEBB481FDF;
+	Wed, 16 Sep 2026 09:14:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550081; cv=none; b=IMwzeILXt3jV2AwSCmprbep7rW9jnNtdZERqJbGPy31upWnmylofhiJVvRNzs7hXR1zEAgFtK6lVoGFEaDu52g8tU213R3nzm6oVK2Avz1yQZE2D8F+AXdGPuOOywQWEZWDWxrjzwYjmz2NdJlsOzynroQDasaOmFeB4+9cpLmM=
+	t=1789550099; cv=none; b=YLNLFqARJt5cgbYHexPppsO59niD0oqb6hCHZ9A8ypm5XZXXUAAr+lMqNnDJwWoI5P/Yh/dZtNmqJYa8Ux9oN+JmkD46F3BUssjPWTJGcVjBK70UgHlnJwf24ll2XB6m5aCK1SsWboiSYHFTSmDrMmrYfFpJ0/tQq1tO65QxP5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550081; c=relaxed/simple;
-	bh=IqWr3OCkEbgbUvmDu/uRyxYgoRP9YkYUb5hBzz6eFS4=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gS34PvNVOIdUnldJa6gRTUfEUn2Q896Fiu8THNnEh7sR5tRsltizFuETaLJ8251YSaR7wnMhrA3tp/6AEbxUHkalh4AGo20CTCPJKfw0+ChdaPmLFifmLr5ZZTskmK2eI5W5uzg+zzLf0jjfuSr3aQen+Kg4rYHAdv4VhRo5gjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4629f/U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789550099; c=relaxed/simple;
+	bh=UopWjlwMF3bjhzOzb3h9pMV+6wfrWbRilvHvIHUhrb8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ex172HkNjBd+B3dG8DKOYaQYeN5GuSRERWOAnnXP0uvbydQ2flVe8a//a1Iuklo4dzTGYt9uaGdMSgFJlrYEGosRtOXXYraZI7Ad1Dh4QUL3Fd4wyrM8wqDU2+VBfzwu9KBtBlbxq/TY3sbjt3OWjTHXt+o2aWbKWyXW8WSLjRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9RvePjC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4629f/U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FE281F008A0
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:14:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9RvePjC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12C551F000FF;
+	Wed, 16 Sep 2026 09:14:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789550045;
-	bh=IqWr3OCkEbgbUvmDu/uRyxYgoRP9YkYUb5hBzz6eFS4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=G4629f/UcKe7I5SlFPmwy6hXIMvYowntf5zI+TVR5dUYVPVgiH/HGqzVVCQI9+K9x
-	 r9HPN+Oq8a/822bZWof702+JiwGheNgxzoaFwJMc07QmoyD69TKuZGt8ZvBqRKU6E5
-	 ydySK/Mu/7VVjVD/79Z1Y5Ol/GL3efea9FLw+lj2hnBatbnfO+98mZlzKsTeq8+fcr
-	 iPlHBdT68m0oPDLgPCIoPG7jwOFP+zKzdDXx3QpR6bSNenfMopFTUSZwA8SdG+this
-	 V4rtdEx7iar3eLNPj3luvexbGMwq2uVwhh9X4fLIgHt12mph04moHTNd7A89RwSgXR
-	 KdWQOXnCs808g==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff16c0e6so5416311fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:14:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBymV1uu/t+oKpVG9AiruM49GX4W9nBG40Foqt0/ogXdLxUzWuYREJ40EMNDVRrzwPkpLxoIELPI2BO7Vw8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1MbPJX0tfof/lofMaeU9gxDwyYZSUSNWEt83LTkr95AEOJXy5
-	tThH7Wa9TCtmHeOZ090PYCVg8+5HBsIHNoVwHjIbAUBGJ0tVYFLkcMZd62F5NX63aSOElX5ZnTN
-	NRrU/QPbZfOppdGbBOJJFjoCNWSN4bb/pNRCcC8CrUw==
-X-Received: by 2002:a2e:b8c3:0:b0:3a2:72c:cde9 with SMTP id
- 38308e7fff4ca-3a5dc9a7cefmr3078451fa.4.1789550043681; Wed, 16 Sep 2026
- 02:14:03 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 05:14:01 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 05:14:01 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+	s=k20260515; t=1789550049;
+	bh=BodzLEqlrUVJHz6lO02G+Wl1n2t5FZKPPceRuU58IM0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K9RvePjC5ZjOKjhuM/i26A7E9mNoXeUe/EGzQlCF234FP8BU4uvcg3wNA0NfCs82x
+	 RKKcUDcWpj8UGjzpAfatri8J3mKYJ5YeqfF8L8/nr61uACotSx+AnkcMzZGX61ShWX
+	 r8HmV76Z8abJex/qCR9p9N9gsTczzZ56P7Tc1nqDKJqC7G1l3Gn04n1j8FusuE+rXP
+	 hrhRBzYVMcagifgJHlBjTvnhRptB2K8qwcmYHamQCzwOadqhjeMzwIjYtHy0h9vZuq
+	 gnEhh4QEEP9Vwoe+Y0QR9XxGrVylBs9uin7ZfMddwHgtH7Bpbn+D8S8LL55QHy9Mx8
+	 E0alZKLR/q8MQ==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1x6liQ-00000005xMX-2H9f;
+	Wed, 16 Sep 2026 11:14:06 +0200
+Date: Wed, 16 Sep 2026 11:14:06 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] usb: core: add missing
+ pm_runtime_dont_use_autosuspend() call
+Message-ID: <aqpd3viN1UoZBkgL@hovoldconsulting.com>
+References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
+ <20260915090223.1346-2-joshua.crofts1@gmail.com>
+ <aqpOlKtxeROh-G_s@hovoldconsulting.com>
+ <20260916102132.00005129@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
-Date: Wed, 16 Sep 2026 05:14:01 -0400
-X-Gmail-Original-Message-ID: <CAMRc=McEOcWq8i3B01AR1PnfBzSQaLEaOzE6Qa+QdVXrvS_YrA@mail.gmail.com>
-X-Gm-Features: AcwNN1V2X8i9yMMrAT1QmpJK0AF7EkMhYvRTvc6M9zTS3HHfv-L8qE4KXcdtIiI
-Message-ID: <CAMRc=McEOcWq8i3B01AR1PnfBzSQaLEaOzE6Qa+QdVXrvS_YrA@mail.gmail.com>
-Subject: Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
-To: longzhao@ambarella.com
-Cc: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916102132.00005129@gmail.com>
 
-On Tue, 15 Sep 2026 13:15:30 +0200, Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> said:
-> This series adds minimal Ambarella CV75 support for early bring-up with
-> a serial console: DT bindings, RCT clocks, pinctrl, PL061 GPIO via
-> gpio-regmap, 8250_dw UART quirks, ARCH_AMBARELLA, CV75 EVK DT, and
-> MAINTAINERS.
->
-> This is a single unified series. Please apply via the SoC
-> tree; subsystem maintainers are Cc'd for their pieces.
->
+On Wed, Sep 16, 2026 at 10:21:32AM +0200, Joshua Crofts wrote:
+> On Wed, 16 Sep 2026 10:08:52 +0200
+> Johan Hovold <johan@kernel.org> wrote:
+> 
+> > On Tue, Sep 15, 2026 at 09:02:18AM +0000, Joshua Crofts wrote:
+> > > The fail label in usb_new_device() disables pm_runtime on failure, but
+> > > doesn't call pm_runtime_dont_use_autosuspend(), causing resource leaks.  
+> > 
+> > No it does not, as the device itself is about to be freed. Sure we could
+> > disable autosuspend again here, but it does not really matter.
+> > 
+> 
+> Okay, commit message aside, you still need to call dont_use_autosuspend()
+> on teardown as the driver doesn't use the devm_* counterparts.
 
-I would prefer to take the GPIO regmap bits through the GPIO tree and provide
-an immutable branch to the SoC tree as it has potential for conflicts that
-early into the cycle.
+No, you don't *need* to call it, but it is good practice to clean up
+after yourself even for the theoretical corner case of someone forcibly
+rebinding a different driver (which will soon also be tainting the
+kernel).
 
-Bart
+But in this particular case (usb core) where all callers *free* the
+device after the function returns it does not matter one bit.
+
+> Currently
+> (according to my cocci SmPL [1]) there are 195 instances of this in the kernel.
+> 
+> ...
+> 
+> > But this one should not have a Fixes tag and does not need to be
+> > backported.
+> 
+> Yeah, you already mentioned this in IIO once [2]. I found several instances
+> of patches like these being backported however, so perhaps times have changed.
+
+If you write a misleading commit message and add a CC stable tag,
+chances are that a maintainer will miss this when reviewing and then
+the commit gets backported.
+
+That in no way means that you should continue doing so on purpose,
+that's bordering willful deception.
+
+Johan
+
+> [1] https://lore.kernel.org/cocci/20260915064327.1377-1-joshua.crofts1@gmail.com/
+> [2] https://lore.kernel.org/linux-iio/aoQEyeHUiTwWenBL@hovoldconsulting.com/
