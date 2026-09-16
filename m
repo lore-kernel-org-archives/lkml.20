@@ -1,92 +1,449 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC414D6C5D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4C04D7D5F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:43:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580598; cv=none; b=mUeA00yp9n77X2F+vj7WtSuq2tZJQEF2S2Ama4Arcifh09jNvq1AbUzfGeCstIOmJiPwEFc3qZhfW1ZnfRVTEQx5imTNkeR6ptiUgmMEle2WQZ3Hzhc/x9NwOBgE+Fw7UJh6MDrW0NfNVl42CVgXwqntkOpicNMyEmWmL8ouX4s=
+	t=1789580609; cv=none; b=gDJTZJClTR6iy++hwJ9GR2QJb4HWlWJSMEDnAd7z5qWxz7PEw7LmRi1m89CYHxLVEGSvNyhlmJ7TTpNDIiWnp+rAQhMr/B3cCPEsrmhK0d3q8cnxsxAQ0RyzVOkH5J5I5PbH+t9aGmYp4mcpeWInOP/sbAAzAvMcDklTM9QLUzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580598; c=relaxed/simple;
-	bh=FkDlnl50rtINtpy1FY8hg//aOd+DbTo18IUP8j2qOfg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gZyiBJ5GyTrCjd377y9d7PvymmpG+S8NwBJoRcg2HcgTxv1Q+Av+Lh2EB91AhBuKTxcB2gGluBCtO/P0OfNMXWUNcv5DQmNcYZ2Rmaq13FPIaXq4wijLIUqSHODnIHDfRLRz8eVgCGjWgMcN28MLn6spXN/ZNBkPkNtQXPx5Y3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oDog1apqdNFuCA--.23031S2;
-	Thu, 17 Sep 2026 01:42:57 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: angelogioacchino.delregno@collabora.com,
-	chunkuang.hu@kernel.org,
-	ck.hu@mediatek.com,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	louisalexis.eyraud@collabora.com,
-	matthias.bgg@gmail.com,
-	p.zabel@pengutronix.de,
-	simona@ffwll.ch,
-	Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH] drm/mediatek: Fix runtime PM leak in mtk_hdmi_ddc_v2_probe()
-Date: Wed, 16 Sep 2026 17:42:29 +0000
-Message-Id: <20260916174229.2088824-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789580609; c=relaxed/simple;
+	bh=/EQmlTpPWabY3NIR14EHBnf/GGPLY/Gd8xk8Z8Tii4A=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=aExdda2g/1E0TBftnwhf+3UJE78IEITVPjkM1W1LLruzOkPujz/HWj1udHNxyrSpwEGyZy1jRvrPCkaZztaJFtIruy46iMp6rPSQWUv9N+OYL9R2bXXo+rnvlRViMColqbqbtwI+4Md7cn+6jzCXFt4JJ6djRuGKlED0TDrkHWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b4xNSpuX; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b4xNSpuX"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b35611so799247b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:43:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789580594; x=1790185394; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZbW+4m7Ckt5T3Vp0i2qlknolTY3jp+RjMzIv0/DlDJ8=;
+        b=b4xNSpuXwmkzbsZ28awrx3a9n1EIPa+llNW8kvJCGPnDmKCHETbeohmM586vr+jBH8
+         5gxI/Ob0Hx4vTDFDTLD9ica7af62Q9dZcbXceIJhu5ewU+4A1ovkPkVFCJ47HSj2yzx0
+         6hY2Q0K3uSEPviQttYxhBnoZ7Ydk3yWvPVbn/QX/po4jLmSFubWZWaeOZwPLBjk7pLWG
+         54Jz6wN2EXSsKtMEqrL2IMlIf6RJiyNakQZjliLs2vod6uIA3TQlgphITZAXx4YiYVnE
+         pOfWgmYe4++elR77Hy8S7Ul2Pazi0qfcawN5fRN/DrY36dySh/p0WK6UXNXBaXkHMZUt
+         hNbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789580594; x=1790185394;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZbW+4m7Ckt5T3Vp0i2qlknolTY3jp+RjMzIv0/DlDJ8=;
+        b=j4f6hO8kyjupmPh+qUzvf/1NEX5A8lPL4MhEIqxM86Bn+bzLOeIjUnQnMtKdYKwht8
+         omKnchIwfKXlkQTaAWPPpNSWHrD9J07rWse1ecNWR4kViUoYwSjefvmiNCek9m+drA/A
+         6EXKzr4B/YI+nZPi+OXNCmk83bzaPhYD5hFE7KUe75KlOSG4cPvL+vx0fgAi0JRctGJ/
+         o9CnPPbvy7eBIMRvcNrRSTwVTq3sc8GbWSsVYaNxQ+TeJ6Qp8+RaV+AJ8uzyjiPFyN9B
+         4uoK446EIwNn8PGSekwLORaiOHqxVCNuFVpC1lJvZUgkW2I04o5uHxAXXYupda4WO42b
+         Z2kQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxLXSi5Yrd2NXNLhTzwHRoaSGVgOT5vxGKezl+3nMlXItZlqo3Hvq6GfxYC4sOs8iODr7XAMJh+AmQc/rU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZ6WAh5U3ZGErSWtoMdcqCX8KwfpTRIqyBRhXULxJei6b9Oc6s
+	wOeIbmMYMaS+rrJDB163jBnFetsXiDxeHf8nOwjqPUX4YVvcIk8djQt1
+X-Gm-Gg: AYBFou057chMseX7wXBMfuewgaEvBl0yK1h+KgM7W0Eg58aXkTK3QTNceua64kSTEu8
+	Fn3xCj4yVLjedg/MgsZQln9cu0CT/N6F0GBq81b5smItpeW/zmO5plmBnQFSN4d3lZSPEiQR+hr
+	bC9gwBI+i/98/3rmH4naMZdFMb1saRxPDLg6zw55Epuv2eSFBifc1l1aJ2UdIptsaglJTpVNOuB
+	EibJrqntI/7OYja4YaPdYu6Pgqj7iBB29172DUaUKE0zfK2IM17rPbusibTnj1hMIQCxjCy3pTT
+	kjhVSQrX/MxS6QTJ/g09JwM7s5s7s8yxz88n1LLpMt8CaHXISSN1LLEBQHPb5qNVFwk/rOL+WJ3
+	oeETIvqBUe6aZi2CzWMp93yE6RLs2wWRZjgPKANU1CFbipfCk5od997XwZ0JqfKruUKhef0WT3l
+	JOje2U7vssgCJiglPu1PBdy0meIQ149r62D/P34mP7hU/Oj30Xb1E7iZIVp08B5Qg55dfYZ6IBf
+	WSzpEnelx32CJ42uJ10dIjfsA==
+X-Received: by 2002:a05:6a00:6088:b0:857:73e2:9106 with SMTP id d2e1a72fcca58-87239aa08b2mr7833547b3a.22.1789580594131;
+        Wed, 16 Sep 2026 10:43:14 -0700 (PDT)
+Received: from localhost ([13.93.150.60])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-871febde2f7sm1700356b3a.6.2026.09.16.10.43.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 10:43:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oDog1apqdNFuCA--.23031S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jr4xWryfWw4kWFWrAr17GFg_yoWkGFc_uw
-	4q9rnrXFnxGF1DGr17tF4rZr97tFW3uw4kWFsYya4avry5AFyqvryqqF98ZrsrXrs3AFyD
-	tws2qFyfAFsxCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
-	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
-	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
-	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6r
-	xdYxBIdaVFxhVjvjDU0xZFpf9x0JUtgA7UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgAMA2qqok9yLgABs5
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 16 Sep 2026 17:43:11 +0000
+Message-Id: <DLGXDIB879EO.IDZNAIRY0VFJ@gmail.com>
+Subject: Re: [PATCH net-next v2 1/2] ipv6: update NUD_FAILED neighbors from
+ NA messages
+From: "Lawrence Lee" <lfqlee314@gmail.com>
+To: "Ido Schimmel" <idosch@nvidia.com>
+Cc: "David Ahern" <dsahern@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Simon
+ Horman" <horms@kernel.org>, "Randy Dunlap" <rdunlap@infradead.org>,
+ <netdev@vger.kernel.org>, "Arun Ajith S" <aajith@arista.com>, "Roopa
+ Prabhu" <roopa@nvidia.com>, "Jaehee Park" <jhpark1013@gmail.com>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Shuah
+ Khan" <shuah@kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ "Alexander Aring" <alex.aring@gmail.com>, <linux-wpan@vger.kernel.org>,
+ <linux-bluetooth@vger.kernel.org>
+X-Mailer: aerc 0.17.0
+References: <cover.1789448374.git.lfqlee314@gmail.com>
+ <6596966f734f3d416bfa83722f7a595149bcc3f8.1789448374.git.lfqlee314@gmail.com> <20260916120202.GA935660@shredder>
+In-Reply-To: <20260916120202.GA935660@shredder>
 
-pm_runtime_get_sync() unconditionally bumps the usage counter, but
-nothing puts it back when devm_i2c_add_adapter() fails, leaving the DDC
-runtime-resumed after a failed probe. Drop the reference on that error
-path.
+On Wed Sep 16, 2026 at 12:02 PM UTC, Ido Schimmel wrote:
+> On Tue, Sep 15, 2026 at 05:01:31AM +0000, Lawrence Lee wrote:
+> > Transition a FAILED neighbor entry to STALE upon receipt of an NA
+> > message on routers when accept_untracked_na is enabled. This extends th=
+e
+> > RFC 9131 accept_untracked_na behavior so that FAILED entries are treate=
+d
+> > the same as non-existent entries. In the context of RFC 4861 which
+> > introduced NDP, both non-existent and FAILED entries are considered
+> > untracked since they do not have a valid neighbor cache entry.
+>
+> RFC 4861 didn't introduce NDP (RFC 1970 did), so please omit this bit.
+> But if you're going to mention RFC 4861, then cite 7.3.3 which says that
+> "If address resolution fails, the entry SHOULD be deleted". The fact
+> that Linux keeps it as FAILED is an implementation detail and treating
+> it as untracked is correct from RFC perspective.
+>
 
-Fixes: 8d0f79886273 ("drm/mediatek: Introduce HDMI/DDC v2 for MT8195/MT8188")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/mediatek/mtk_hdmi_ddc_v2.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+That's my mistake, I'll update this to mention that 4861 is just the=20
+most recent NDP standard and will cite 7.3.3.
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi_ddc_v2.c b/drivers/gpu/drm/mediatek/mtk_hdmi_ddc_v2.c
-index 31e81a6de6d8..1ec973d3f52c 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi_ddc_v2.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi_ddc_v2.c
-@@ -376,8 +376,10 @@ static int mtk_hdmi_ddc_v2_probe(struct platform_device *pdev)
- 	pm_runtime_get_sync(dev);
- 
- 	ret = devm_i2c_add_adapter(dev, &ddc->adap);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(dev);
- 		return dev_err_probe(dev, ret, "Cannot add DDC I2C adapter\n");
-+	}
- 
- 	platform_set_drvdata(pdev, ddc);
- 	return 0;
--- 
-2.34.1
+> >=20
+> > Trying to resolve FAILED neighbors via periodic probing (e.g. using
+> > NTF_EXT_MANAGED) is more work compared to this approach which uses
+> > information in NAs that the kernel may already be receiving. Note that
+> > because this behavior in IPv6 is dependent on the accept_untracked_na
+> > sysctl setting, this approach is more conservative than IPv4 which
+> > transitions FAILED neighbors to STALE by default upon receiving GARPs.
+> >=20
+> > Link: https://lore.kernel.org/r/20260813233344.445265-1-lfqlee314@gmail=
+.com
+> > Assisted-by: LLM Sashiko sparse
+> > Signed-off-by: Lawrence Lee <lfqlee314@gmail.com>
+> > ---
+> >  Documentation/networking/ip-sysctl.rst | 28 ++++----
+> >  include/net/ndisc.h                    | 15 ++--
+> >  net/6lowpan/ndisc.c                    | 15 ++--
+> >  net/ipv6/ndisc.c                       | 94 +++++++++++++++++---------
+> >  4 files changed, 96 insertions(+), 56 deletions(-)
+>
+> The RFC was:
+>
+> 1 file changed, 11 insertions(+), 2 deletions(-)
+>
+> I'm not sure how this ballooned to this size...
+>
+
+Some of the additional size can be attributed to doc/comment changes,=20
+but a lot of it comes from changes I implemented to address issues found=20
+by the local Sashiko review I ran. It was definitely an oversight on my=20
+part to not mention these in either the commit message or comments,=20
+sorry about that.
+
+> > diff --git a/include/net/ndisc.h b/include/net/ndisc.h
+> > index 96e3bb6e83af..7fb3f10eca6c 100644
+> > --- a/include/net/ndisc.h
+> > +++ b/include/net/ndisc.h
+> > @@ -154,11 +154,13 @@ void __ndisc_fill_addr_option(struct sk_buff *skb=
+, int type, const void *data,
+> >   *     option parser will take care about that option.
+> >   *
+> >   * void (*update)(const struct net_device *dev, struct neighbour *n,
+> > - *		  u32 flags, u8 icmp6_type,
+> > + *		  u32 flags, bool failed_recovery, u8 icmp6_type,
+> >   *		  const struct ndisc_options *ndopts):
+> >   *     This function is called when IPv6 ndisc updates the neighbour c=
+ache
+> >   *     entry. Additional options which can be updated may be previousl=
+y
+> >   *     parsed by parse_opts callback and accessible over ndopts parame=
+ter.
+> > + *     failed_recovery indicates that ndisc accepted the packet to rec=
+over
+> > + *     an entry observed in NUD_FAILED.
+> >   *
+> >   * int (*opt_addr_space)(const struct net_device *dev, u8 icmp6_type,
+> >   *			 struct neighbour *neigh, u8 *ha_buf,
+> > @@ -197,7 +199,7 @@ struct ndisc_ops {
+> >  				 struct nd_opt_hdr *nd_opt,
+> >  				 struct ndisc_options *ndopts);
+> >  	void	(*update)(const struct net_device *dev, struct neighbour *n,
+> > -			  u32 flags, u8 icmp6_type,
+> > +			  u32 flags, bool failed_recovery, u8 icmp6_type,
+> >  			  const struct ndisc_options *ndopts);
+> >  	int	(*opt_addr_space)(const struct net_device *dev, u8 icmp6_type,
+> >  				  struct neighbour *neigh, u8 *ha_buf,
+> > @@ -227,12 +229,13 @@ static inline int ndisc_ops_parse_options(const s=
+truct net_device *dev,
+> >  }
+> > =20
+> >  static inline void ndisc_ops_update(const struct net_device *dev,
+> > -					  struct neighbour *n, u32 flags,
+> > -					  u8 icmp6_type,
+> > -					  const struct ndisc_options *ndopts)
+> > +				    struct neighbour *n, u32 flags,
+> > +				    bool failed_recovery, u8 icmp6_type,
+> > +				    const struct ndisc_options *ndopts)
+> >  {
+> >  	if (dev->ndisc_ops && dev->ndisc_ops->update)
+> > -		dev->ndisc_ops->update(dev, n, flags, icmp6_type, ndopts);
+> > +		dev->ndisc_ops->update(dev, n, flags, failed_recovery,
+> > +				       icmp6_type, ndopts);
+> >  }
+>
+> All the changes in this file can be dropped. See below.
+>
+
+This is tied to the lowpan changes below.
+
+> > =20
+> >  static inline int ndisc_ops_opt_addr_space(const struct net_device *de=
+v,
+> > diff --git a/net/6lowpan/ndisc.c b/net/6lowpan/ndisc.c
+> > index 868d28583c0a..8fedfef93740 100644
+> > --- a/net/6lowpan/ndisc.c
+> > +++ b/net/6lowpan/ndisc.c
+> > @@ -47,7 +47,8 @@ static int lowpan_ndisc_parse_options(const struct ne=
+t_device *dev,
+> >  	}
+> >  }
+> > =20
+> > -static void lowpan_ndisc_802154_update(struct neighbour *n, u32 flags,
+> > +static void lowpan_ndisc_802154_update(struct neighbour *n,
+> > +				       bool failed_recovery,
+> >  				       u8 icmp6_type,
+> >  				       const struct ndisc_options *ndopts)
+> >  {
+> > @@ -87,20 +88,24 @@ static void lowpan_ndisc_802154_update(struct neigh=
+bour *n, u32 flags,
+> >  		ieee802154_be16_to_le16(&neigh->short_addr, lladdr_short);
+> >  		if (!lowpan_802154_is_valid_src_short_addr(neigh->short_addr))
+> >  			neigh->short_addr =3D cpu_to_le16(IEEE802154_ADDR_SHORT_UNSPEC);
+> > +	} else if (failed_recovery) {
+> > +		neigh->short_addr =3D cpu_to_le16(IEEE802154_ADDR_SHORT_UNSPEC);
+> >  	}
+> >  	write_unlock_bh(&n->lock);
+> >  }
+> > =20
+> >  static void lowpan_ndisc_update(const struct net_device *dev,
+> > -				struct neighbour *n, u32 flags, u8 icmp6_type,
+> > +				struct neighbour *n, u32 flags,
+> > +				bool failed_recovery, u8 icmp6_type,
+> >  				const struct ndisc_options *ndopts)
+> >  {
+> >  	if (!lowpan_is_ll(dev, LOWPAN_LLTYPE_IEEE802154))
+> >  		return;
+> > =20
+> > -	/* react on overrides only. TODO check if this is really right. */
+> > -	if (flags & NEIGH_UPDATE_F_OVERRIDE)
+> > -		lowpan_ndisc_802154_update(n, flags, icmp6_type, ndopts);
+> > +	/* React to overrides or accepted FAILED-entry recovery. */
+> > +	if ((flags & NEIGH_UPDATE_F_OVERRIDE) || failed_recovery)
+> > +		lowpan_ndisc_802154_update(n, failed_recovery, icmp6_type,
+> > +					   ndopts);
+> >  }
+> > =20
+> >  static int lowpan_ndisc_opt_addr_space(const struct net_device *dev,
+>
+> I'm not sure why you added these lowpan changes to the patch. They are
+> not described in the commit message. Given that lowpan_ndisc_update()
+> already has a TODO comment about only handling overrides, I suggest to
+> ignore it. If needed, it can be modified in the future by someone who
+> can explain the use case and test the change.
+>
+
+I added the lowpan changes after my local Sashiko review run identified=20
+an issue where a FAILED neighbor can retain an outdated private short=20
+address if it's moved to STALE by a non-override NA. Happy to drop all=20
+lowpan-related changes or update comments/commit message to reflect the=20
+changes, please let me know your preference.
+
+> > diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
+> > index 90cd5d852569..84d70c09205a 100644
+> > --- a/net/ipv6/ndisc.c
+> > +++ b/net/ipv6/ndisc.c
+> > @@ -778,13 +778,23 @@ static int pndisc_is_router(const void *pkey,
+> >  	return ret;
+> >  }
+> > =20
+> > +static void __ndisc_update(const struct net_device *dev,
+> > +			   struct neighbour *neigh, const u8 *lladdr, u8 new,
+> > +			   u32 flags, bool failed_recovery, u8 icmp6_type,
+> > +			   struct ndisc_options *ndopts)
+> > +{
+> > +	neigh_update(neigh, lladdr, new, flags, 0);
+> > +	/* report ndisc ops about neighbour update */
+> > +	ndisc_ops_update(dev, neigh, flags, failed_recovery, icmp6_type,
+> > +			 ndopts);
+> > +}
+> > +
+> >  void ndisc_update(const struct net_device *dev, struct neighbour *neig=
+h,
+> >  		  const u8 *lladdr, u8 new, u32 flags, u8 icmp6_type,
+> >  		  struct ndisc_options *ndopts)
+> >  {
+> > -	neigh_update(neigh, lladdr, new, flags, 0);
+> > -	/* report ndisc ops about neighbour update */
+> > -	ndisc_ops_update(dev, neigh, flags, icmp6_type, ndopts);
+> > +	__ndisc_update(dev, neigh, lladdr, new, flags, false, icmp6_type,
+> > +		       ndopts);
+> >  }
+>
+> This hunk can be dropped.
+>
+
+Tied to the lowpan changes above.
+
+> > =20
+> >  static enum skb_drop_reason ndisc_recv_ns(struct sk_buff *skb)
+> > @@ -972,14 +982,18 @@ static enum skb_drop_reason ndisc_recv_ns(struct =
+sk_buff *skb)
+> > =20
+> >  static int accept_untracked_na(struct inet6_dev *idev, struct in6_addr=
+ *saddr)
+> >  {
+> > +    /* For any given neighbor IP address, consider it an untracked nei=
+ghbor if
+> > +     * it is absent from the neighbor cache or if it has a NUD_FAILED =
+entry in
+> > +     * the neighbor cache
+> > +     */
+>
+> Redundant given the comments in the caller and the sysctl documentation.
+> Simply modify the existing comments below to mention FAILED case.
+>
+
+Will update.
+
+> >  	switch (READ_ONCE(idev->cnf.accept_untracked_na)) {
+> > -	case 0: /* Don't accept untracked na (absent in neighbor cache) */
+> > +	case 0: /* Reject NAs for untracked neighbours */
+> >  		return 0;
+> > -	case 1: /* Create new entries from na if currently untracked */
+> > +	case 1: /* Accept NAs for untracked neighbours */
+> >  		return 1;
+> > -	case 2: /* Create new entries from untracked na only if saddr is in t=
+he
+> > +	case 2: /* Accept NAs for untracked neighbours only if saddr is in th=
+e
+> >  		 * same subnet as an address configured on the interface that
+> > -		 * received the na
+> > +		 * received the NA
+> >  		 */
+> >  		return !!ipv6_chk_prefix(saddr, idev->dev);
+> >  	default:
+> > @@ -1001,6 +1015,9 @@ static enum skb_drop_reason ndisc_recv_na(struct =
+sk_buff *skb)
+> >  	struct neigh_table *tbl;
+> >  	struct neighbour *neigh;
+> >  	struct inet6_dev *idev;
+> > +	bool neigh_failed =3D false;
+> > +	bool neigh_untracked =3D false;
+> > +	bool accept_untracked =3D false;
+>
+> Try to maintain reverse xmas tree:
+>
+> https://docs.kernel.org/next/process/maintainer-netdev.html#local-variabl=
+e-ordering-reverse-xmas-tree-rcs
+>
+
+Will fix.
+
+> >  	new_state =3D msg->icmph.icmp6_solicited ? NUD_REACHABLE :=20
+> >  	NUD_STALE;
+> > -	if (!neigh && lladdr && idev && READ_ONCE(idev->cnf.forwarding)) {
+> > -		if (accept_untracked_na(idev, saddr)) {
+> > -			neigh =3D neigh_create(tbl, &msg->target, dev);
+> > -			new_state =3D NUD_STALE;
+> > -		}
+> > -	}
+> > +	neigh_failed =3D neigh &&
+> > +		       (READ_ONCE(neigh->nud_state) & NUD_FAILED);
+> > +	neigh_untracked =3D !neigh || neigh_failed;
+> > +	if (neigh_untracked) {
+> > +		accept_untracked =3D lladdr && idev &&
+> > +				   READ_ONCE(idev->cnf.forwarding) &&
+> > +				   accept_untracked_na(idev, saddr);
+> > +		new_state =3D NUD_STALE;
+> > +	}
+> > +	if (!neigh && accept_untracked)
+> > +		neigh =3D neigh_create(tbl, &msg->target, dev);
+> > =20
+> >  	if (neigh && !IS_ERR(neigh)) {
+> > +		u32 update_flags;
+> >  		u8 old_flags =3D neigh->flags;
+> > =20
+> > -		if (READ_ONCE(neigh->nud_state) & NUD_FAILED)
+> > +		if (neigh_untracked && !accept_untracked)
+> >  			goto out;
+> > =20
+> >  		/*
+>
+> This can be simplified to:
+>
+> diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
+> index 90cd5d852569..7d114bdb263e 100644
+> --- a/net/ipv6/ndisc.c
+> +++ b/net/ipv6/ndisc.c
+> @@ -1082,19 +1082,21 @@ static enum skb_drop_reason ndisc_recv_na(struct =
+sk_buff *skb)
+>  	 * Note that we don't do a (daddr =3D=3D all-routers-mcast) check.
+>  	 */
+>  	new_state =3D msg->icmph.icmp6_solicited ? NUD_REACHABLE : NUD_STALE;
+> -	if (!neigh && lladdr && idev && READ_ONCE(idev->cnf.forwarding)) {
+> -		if (accept_untracked_na(idev, saddr)) {
+> -			neigh =3D neigh_create(tbl, &msg->target, dev);
+> -			new_state =3D NUD_STALE;
+> +	if (!neigh || (READ_ONCE(neigh->nud_state) & NUD_FAILED)) {
+> +		if (!lladdr || !idev || !READ_ONCE(idev->cnf.forwarding) ||
+> +		    !accept_untracked_na(idev, saddr)) {
+> +			if (neigh)
+> +				neigh_release(neigh);
+> +			return reason;
+>  		}
+> +		if (!neigh)
+> +			neigh =3D neigh_create(tbl, &msg->target, dev);
+> +		new_state =3D NUD_STALE;
+>  	}
+> =20
+>  	if (neigh && !IS_ERR(neigh)) {
+>  		u8 old_flags =3D neigh->flags;
+> =20
+> -		if (READ_ONCE(neigh->nud_state) & NUD_FAILED)
+> -			goto out;
+> -
+>  		/*
+>  		 * Don't update the neighbor cache entry on a proxy NA from
+>  		 * ourselves because either the proxied node is off link or it
+>
+
+Was originally unsure if I should modify the existing logical structure. =
+=20
+Thanks for the suggestion, will implement this. Is it appropriate to=20
+credit you with a commit tag?
+
+> > =20
+> >  		if ((old_flags & ~neigh->flags) & NTF_ROUTER) {
+> >  			/*
+> >  			 * Change: router to host
+> >  			 */
+> > -			rt6_clean_tohost(dev_net(dev),  saddr);
+> > +			rt6_clean_tohost(net,
+> > +					 neigh_failed ? &msg->target : saddr);
+> >  		}
+>
+> What is the reason for this change? It's also not explained in the
+> commit message and I suspect it's not needed.
+
+This was added in response to another Sashiko local review finding. =20
+Let's say we have some FAILED neighbor T with NTF_ROUTER set. If we get=20
+an NA from source address S with target address T and with the Router=20
+bit clear, existing kernel code will cleanup routes with gateway S, but=20
+IMO we should clean routes with gateway T instead since that is the=20
+neighbor which was updated by the NA. I can either update=20
+comments/commit message to reflect this or remove the change entirely,=20
+please let me know your preference.
 
