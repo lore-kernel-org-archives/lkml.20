@@ -1,78 +1,95 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 739E64DD3A7;
-	Wed, 16 Sep 2026 16:56:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228E554CF6C
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577803; cv=none; b=YZr/Ewd2EAYbqt+aqMDgq62ssR5VFp0SIBRgrGTTx0fiKq0HYVkHhTSwiY71OIJzms5W/r4NACXBBswpjzrIOUqOstXA1KjRP2hximOT7b3DW/vc7ZEOVbGvqrI5z3Hae/jUA+rpMUZQGO9AXeEd6QFoqolbSdtOVgLBYv9x3Bs=
+	t=1789577810; cv=none; b=NdBS0gy5Psosee11ZOQHDFlcxvUOfasqRkDH1jFlmBJIem2OBAAXmxzh6siLBfthQyZum8aji+H/0I8q84ZYYFx2GKFeuJ6dGeDOMjruf9Fc2oM2oz0mlK8Tu6/kuzGa/c6HFcePkY9Gj7ESVxxvORtc3jWuvrRcCgpw7BYgQXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577803; c=relaxed/simple;
-	bh=9fSY0YtZszmnwmnH72T2AXZffe4pzVRSX07T/e91g2w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ku8w8cG0iYZsJ9cB6m/4eS9WwWTnQr4Euh5eMjlgRaFNG+uzZlRo9RoeyLE32VwCT4q2ZHoEm54J1MkjWygyQkRbpSXu0iiIcBfsNzW3ECtbyNrvJWl+qY3vVIdqz/z3RwCRKb5ynq9iWmonIdOgJ136wtYbUocXL9UCofYLYpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Vef64xh9; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789577810; c=relaxed/simple;
+	bh=fuqbMSXmKaVksZQ0mp9Ucbs7t4/StAc7bwI5H6qAaCU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mr7DUTSDb+ZhfO6QrcfiXq28y5jFHIoO7wgmDwHcTcC4uNdBGOYeTuwwEDuu4OgIyNEHsGMDZdffojZK0dHEJ5EocOr+WGH1eCAs16p/TUH7RdjCuFGjnkiOIE9io0wjNqS3ITGONh6qj0ggFjhhgQeZtMYZzEjhBb5L/yCLNP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cg/A8+VC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Vef64xh9"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 386EA1476;
-	Wed, 16 Sep 2026 09:56:33 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE4803FAA1;
-	Wed, 16 Sep 2026 09:56:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789577796; bh=9fSY0YtZszmnwmnH72T2AXZffe4pzVRSX07T/e91g2w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Vef64xh9KpWL2pmX8x3XXeNP4dknBKucoXLhzKgP8teEasVYgR9XZfcGfJUzoKvj4
-	 i0/ODhioxM1eIhQIAitKxdZrFXMdEimBOUh2fwKYciRlYZdBxTX72iTZbsWkTBen4V
-	 tdy5aVDJnMqpujftXrCqeSXXJH5WsRVooO60ju9U=
-Date: Wed, 16 Sep 2026 17:56:30 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
-	will@kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
-	joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
-Message-ID: <aqrKPkMPeHdtCVGg@arm.com>
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
- <aqrGPK0lFBFXL2qY@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cg/A8+VC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6CFF1F00893
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:56:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789577791;
+	bh=fuqbMSXmKaVksZQ0mp9Ucbs7t4/StAc7bwI5H6qAaCU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Cg/A8+VC9E080TzyvTpxu0YnPUmsHYmEPc7xtw8lOlwVWQFVXT213KsByPqqSIU2I
+	 YKezTVvqkqyFj8RCV6X6z796z+cgGL3/V6KKfDg+c71b1lvwwgWiG1EI1uwu/m3Th0
+	 3PiWWmOGjEHneUgz6Si80Fbz7NLf7VJpVq/lxnf4hkRztmLGONXApvwq5Bj6ihxbnh
+	 2DEb0f9/ARGDI62c/9rCPp7kYe7gh6X3Np4O26+gdKgWFKq9/xbV2rRVt1oCMkC32O
+	 lt6rPATnGQ4rlLkFzK27Q7Nts5BzFzoK5WLviocUhwMjzceCEZEyQbrc9KdJxu4ARU
+	 QjSSuos16jzVg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15d00so1184155e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:56:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy2CyxCzpsYbacBtjNALDURITkypC26XsfwpCXFFDaIA2CbBZCCMLi9umJjPu4YsoTK7UGLX2iPEIULYfA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5qu9/4Q30Zf1zDJxgPnbpPnoxSjOqWv4ZI5EXlWoR2pwno49g
+	pKtZb+BcD3qhKAK5uKoM3vaaZC6g8yOheUeGWnBOeO1bQ0WlZL2PqTP7Vn5dQYIlR9oEeMblnkX
+	3AdH79cJ0mgSoXNXDMU2Nvo6HZD7nt5E=
+X-Received: by 2002:a05:6512:3a96:b0:5b6:1a7c:59dc with SMTP id
+ 2adb3069b0e04-5b8b66504bdmr1056044e87.54.1789577790547; Wed, 16 Sep 2026
+ 09:56:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqrGPK0lFBFXL2qY@arm.com>
+References: <20260909132153.1596191-1-arnd@kernel.org> <20260909132153.1596191-12-arnd@kernel.org>
+In-Reply-To: <20260909132153.1596191-12-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 18:56:17 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=LM2agPEcCxjtQuCNx4q7zqutFA6oDb61kKEDAADR4Vw@mail.gmail.com>
+X-Gm-Features: AcwNN1Uahpnh6JEjJOB4HtYt7IIRQWlpnYcwXmBiixUkMQ8clPYYJyQ4xy80br8
+Message-ID: <CAD++jL=LM2agPEcCxjtQuCNx4q7zqutFA6oDb61kKEDAADR4Vw@mail.gmail.com>
+Subject: Re: [PATCH 11/14] mfd: remove unused wm8350 driver
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Arnd Bergmann <arnd@arndb.de>, 
+	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
+	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
+	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 05:39:31PM +0100, Catalin Marinas wrote:
-> On Sun, Sep 13, 2026 at 08:04:58AM +0100, Suzuki K Poulose wrote:
-> > +static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
-> > +{
-> > +	if (!user_mode(regs) && !is_el1_instruction_abort(esr) &&
-> > +	    fixup_exception(regs, esr))
-> > +		return 0;
-> > +
-> > +	return 1;
-> > +}
-> 
-> We discussed briefly offline. With the latest patches around, would we
-> ever end up with private memory mapped in the VMM and hence the GPF? If
-> not, I would still keep this handling but add a
-> WARN_ON_ONCE(user_mode(regs)).
+On Wed, Sep 9, 2026 at 3:23=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
+e:
 
-Actually, even better:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> This driver was used on the i.MX31 ADS reference board from Freescale
+> and the smdk6410 reference board from Samsung. Both used platform_data
+> based driver probing and are now gone from the kernel.
+>
+> Since probing with devicetree has never been supported by wm8350,
+> it is clear that nothing can use the driver on an upstream kernel,
+> and it is unlikely that anyone is still interested in a devicetree
+> conversion, so remove it.
+>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-	WARN_ON_ONCE(is_ttbr0_addr(untagged_addr(far)));
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-to capture uaccess. The user_mode() test you have above can stay the
-same.
-
--- 
-Catalin
+Yours,
+Linus Walleij
