@@ -1,132 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00982521229;
-	Wed, 16 Sep 2026 15:27:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F59D51476D;
+	Wed, 16 Sep 2026 15:27:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572435; cv=none; b=nZ/AJaPLpyO9/S4WH4SgW76mt+s80JHR63g35/awvW6PP3efFarw5tWUi/56XSWO+7UdnAv/SmZP4xfyUqPgj1Yiy4/2stQz7xJRrAiL5Y0N6gvAfg4Rc7ND5sgTUbd3uhMHWbydhwLTLeZArK/+aT7c3ByRkmNYdacsfQGvyRE=
+	t=1789572437; cv=none; b=lWJaprSPozytd7Q6VNs3JpHx00CblyWmczpePYoBNvU9wyp7jCqdGIlSNj5TTvTT4XcM+alqTBGgQF+krLnwZmoDhJZdN7xlN2rzi9I80PDJmJo3+iRdJhY5ZlkVql+2bfjwF0BszlAIl+3P7s18CW1C3s/Kc+hQlCLYGfqSguE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572435; c=relaxed/simple;
-	bh=fQV4rSiHmdiI0jtkCgcO0ezwkrfUrjLXCKAPjBp4W1k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G7RiLh1RDmpsychIuxcEiJsZI0xK5BwxtajXr+sOriCutlB5AA9VIL+zJw7GRmiJI97isR/vIYqsMJQhTYDyGjEM+25F1D2RtaH8TSe9gduw8KjuxuvvVfU2GTapkBCruUSIQXbI6yCjiVefq72Sb9TC/TauaBrwtU52Ggf+D2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4zyDQK3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789572437; c=relaxed/simple;
+	bh=J5IUzn5jWVSvUHw8EEJo+HSH8W0oYtJMMRaB/fsOUtc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ofg0gUMCoCA6z8Vwg+PyPgGNDn6GIcP3FuOzgHZOYYwTkMtlsqyuu+Uzv1V7wM6zfa/FtYyiTzzYPuRrfWIoRrY/WvCj7PwPFfkSNPXN1bD4EEEqD9FEVjO4QTPHdf8nuj5cEa2rl7i/IdTWxryJUsrmW9EjWM5ss7PYrN05WBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M147Y4WN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4zyDQK3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29E4B1F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M147Y4WN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396991F00898;
 	Wed, 16 Sep 2026 15:27:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789572430;
-	bh=UkRbXLbpw+AP2jr8iP96phPK0XDdfYv/MOHvNo1E1vo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K4zyDQK3PDEMTdWFvmeoWoqSY4bftx/jIM47m+e5m/CxuUgT2ZlxOgrpbi8scn6zA
-	 QVKN7ZD9SORGKm3IBe/NE6t27UzhPfsBm/WZe+N7lz8+tNzpq09wAFnfd0tXjv81xh
-	 8rvuaPTitkf5DvhUxl5/uIMlCntdrSUBTbc0Nl9wCiBCLt0ysG9RDdTG7UNBtFuv+N
-	 vx4N/BEQJLgSIglrxXmmd/2SbmxnmWg7UK0VPlxcFsCJ8072505DSOwvaGsjM7tV+d
-	 dNbIGqX8V6mt4oDoL+ZGWrk110WemqKgp5jhPvmlaWG38bbsOuVV/b72clK+giRlzw
-	 R8h3G0UoIzEGg==
-Date: Wed, 16 Sep 2026 08:27:09 -0700
-From: Kees Cook <kees@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-	Linux-Arch <linux-arch@vger.kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 21/21] kbuild: use pigz for gzip compression if
- available
-Message-ID: <202609160809.78E97DC34F@keescook>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <20260914-build-speedup-v2-21-39817ec5db23@kernel.org>
- <202609151758.BA5732348@keescook>
- <081b2b60-e295-4cd7-b201-d996a88c5f28@app.fastmail.com>
+	s=k20260515; t=1789572432;
+	bh=pEp4ZnPbrejlMbShDfgZlS9JJ0BVmM1UYTzr+qTasEE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=M147Y4WNSRLQzLz095+KM8Q0tz8N4DxvBUKJ4Z1D6WyxX19+dYyjefg3rZGCnN3gC
+	 jGZASvaW1D0vNi/vmu1kfxeuULgNODd29T16eicployzlDPWQjTOuf8Y83Uyfft1FU
+	 iwQ5EiVCmg/SNdqMqQouOSxKothPEymGg24/WlS4SJ/A+2o37vS5Ie6Jjcaew79+bb
+	 XNF9+5Ymfy9YJFIA4vsG4xWjagM5OLwQTgXChBKTZeeih7yNO+G5Ab5PryIjS+NUJf
+	 D681IKJHKhNfiXD1M2t7sbtihOOg1W3nde2w4nRq09CPyo9FdA4UCJ5g4O8W66HbGa
+	 Zfut5LYDRi49w==
+Message-ID: <88807afb-06a6-46df-a936-ec2a56cb4319@kernel.org>
+Date: Wed, 16 Sep 2026 17:27:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <081b2b60-e295-4cd7-b201-d996a88c5f28@app.fastmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] selftests/mm: mark file-local symbols of
+ pagemap_ioctl.c static
+To: Zenghui Yu <zenghui.yu@linux.dev>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ shuah@kernel.org, gourry@gourry.net
+References: <20260908134117.84405-1-zenghui.yu@linux.dev>
+ <20260908134315.84431-1-zenghui.yu@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260908134315.84431-1-zenghui.yu@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 08:38:33AM +0200, Arnd Bergmann wrote:
-> On Wed, Sep 16, 2026, at 03:06, Kees Cook wrote:
-> > On Mon, Sep 14, 2026 at 10:22:20AM +0100, Lorenzo Stoakes (ARM) wrote:
-> >
-> > Makefile:
-> >
-> > KPGZIP	:= $(if $(shell command -v pigz 2>/dev/null),$(PYTHON3) 
-> > $(abs_srctree)/scripts/jobserver-exec 
-> > $(abs_srctree)/scripts/parallel-gzip,gzip)
-> >
-> > and the same scripts/parallel-gzip:
-> >
-> > 	#!/bin/sh
-> > 	exec pigz -p ${PARALLELISM:-1} "$@"
-> >
-> > And then replace the /boot/ KGZIP uses with KPGZIP. Then we don't need
-> > to change modules, config_data, new users, nor cmd_gzip, etc, which all
-> > continue to use the regular KGZIP and the "use python" part for the
-> > KPGZIP case becomes is a 1-time cost?
+On 9/8/26 15:43, Zenghui Yu wrote:
+> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
 > 
-> Nice, I like the idea and this this will work. I didn't know about
-> scripts/jobserver-exec, but this does seem like a perfect fit.
+> The file-scope variables (pagemap_fd, uffd, page_size, hpage_size and
+> progname) and most functions of the pagemap_ioctl test are only used
+> locally, but lack the static storage class.  Mark them static so that the
+> compiler can catch accidental outer references.
 > 
-> I checked the other compression tools we support, and found that
-> zstd is another one that has built-in support for parallel
-> compression, so we probably want to have it there as well.
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+> ---
 
-Follow-up idea:
+Thanks!
 
-Having to make a dedicated wrapper script to use jobserver-exec is a bit
-clunky, so maybe the ergonomics need to be improved there slightly?
-Maybe we can add a simple template thingy to
-tools/lib/python/jobserver.py's "run" to replace, say, '%PARALLELISM%'
-automatically, then it becomes:
-
-KPGZIP	:= $(if $(shell command -v pigz 2>/dev/null),$(PYTHON3) \
-		$(abs_srctree)/scripts/jobserver-exec \
-		pigz -p %PARALLELISM%
-
--Kees
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
-Kees Cook
+Cheers,
+
+David
