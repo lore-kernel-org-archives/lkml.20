@@ -1,166 +1,280 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0B749A3CA
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1784B1D1D
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584450; cv=none; b=bfN6bbJ2dqKqBZyCpu8DmYj2oZe2e6d7JFQajtLPLcExZrYmFD/wtixtwJSCsTviLnIiLBe0JMpha/KRSal8QLOpLm3x4vj/FhdfEEsdTKNXhHwYt4exSFP8b828L5OcSao2hiBb3ReNB85q2rAqw2dtMLhbwbWXzWadw8Lf9b0=
+	t=1789584449; cv=none; b=PDXtrW1VdebgupAPP+ytNxRBSD4NBv6yoLTt8OBu9gq9Hzks90r4AHaBqcTMLUySV83cjDNlUescE/C8EcfwUSMn8RixVlSMFZxIsBCTxE4zBcbpVTO2E3H/jYLza7ipcBBSQa3zhMGbg/dqLDua7t3RrE7RJUhbCqDLUG/RsDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584450; c=relaxed/simple;
-	bh=1jT0wxmlJgM7h/FwhWUm0yaXm9KSVxkqh7ltpP0Td0M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ogrSatW186NAG7v7EV6H4KN7irJ5ylTe3gchbG3Yxale6inynfYHPo9qNp8dsBrOKPutEbs8ysUwBmw4Kd5jlnlID3+2KnWpPeBPLCdobTjKWHi7/bpUxV6q8gVFm/Fp+wee4sQHPFMF3AyM2r+Tr5mQRZTe+ZDFd7xGd31GAtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X+y/9hXp; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789584449; c=relaxed/simple;
+	bh=yvv8LMKz9LtYI3xqHkjIYrRGDkfHlFNSP9M3SO9epto=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NYkKuMjvnqmZeQtUOKV+dsiG5WOkRKnT4lXAE82JmboZXZzz5/Mmhvjv1e69pwbZ6STLMqgNBUzY1/iqSAA28uU31YDbU1LCol396awMrQxiDzkC4fJVkCpUaXRRXRoG5Chd+5YiEX88WaLeYyJx31e3rhxusaclcYnEkQBWQmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fjeVOhBk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X+y/9hXp"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f05ffcso347015ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:47:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789584424; x=1790189224; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=id2J5iDXrFVnIxVAGr7DM5v73OGdSGZqAF4hKdj2nAA=;
-        b=X+y/9hXp5EiyecafDHX8xc2uRbn2IjfykvrnvDTFY01mh/bkMSrI4W8uQaqmV63dN/
-         b1+BNCOXCFq4W18k+ddawcSJ8RVwlvpuAiE6qKFRI92BYVf4fJ7FiVVJlgIDOnWisjIn
-         108IS4R+FFq2gY+75Tqi5PsHOXHcTa29anQdRp+7hmF+C197BMh7Y7GyVegvzATpEz9B
-         zFpv3AzruhYKDt4uwGaZU8liI0V4N+dR0vIeDml9W5pAu3FqH285ovG4fKYdD7DL1sRX
-         Fhyei9xWJbmIedyqcupn3KQ46aM9M5q/cOjhtuPv/ttF/9YcP5sUFfyCWy0x7JeKOUvV
-         Ob9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789584424; x=1790189224;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=id2J5iDXrFVnIxVAGr7DM5v73OGdSGZqAF4hKdj2nAA=;
-        b=f1alQF4sWqt+QiHk0C0JnJ6LB407cah5zpgkHyDdin/9b9fHqDe1KutyLQVcYbaiIK
-         8eIv1/2qyj8mXk55pNYF9ARmBtr3R4gW7x2nmKZt6bwWXeVmhZ0vdnHTaYQEjsco5hXP
-         vEAHWbYwcJzykU3Fdykfvw74DOR29kKO4pj61zfrzai4P/PUh/4biTgQTMNtmABivIkS
-         DFLktBfW/SgZUHYdw5/ByaylbW+7vbwmdYsdF+bKeWMVQ7FfuF2LTJOoET1Ubj6bSmon
-         1ZXQvvCn4I1HPPh1PeUZUy0Nxl20LKMkl0N3oHYe0SuA/h/gn1uwa4t9kPEFEhblucBQ
-         TtZA==
-X-Forwarded-Encrypted: i=1; AKwUvBwp/baX6LotqxcTsqqBRJZI9K9V3L5saK4yKGnxNO7Nj+WWT1qErmevkxog32C8jEeY3n4c6a99ndWsMjc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lq+l7sNVT2XgMjs2RxBIPC/+ZVg22uztZvM2ED90oeJwpVqaSU
-	i/zds+7uzmfK1DOv/BTM/xaxexHJgJ9hDLiVOSWeitw9KORJC7ss+W2n
-X-Gm-Gg: AYBFou3vELssKHwjff0LhmgjmQeR1ZVN4nw2Cnqd7U6bYmNXJFgy0vtoBch/1Zi4ptb
-	d0TTBzqaWUA962osLP18vxK6momRrZThJZ83Ktk/N2eXYzD2BgZ+WZMS5n7EZKDBH9NO5l9BErF
-	gl8Ihindf6mP1oC6dgK9eU49E8aUSygbO59t2DiDApOC0tomKlt+k8hyP2HeDxIC3i8m3XKXxU0
-	yS2EO2D8327xKXmF+VnrwjcD5rx7qZXF98Cf1axvUgT26waO3RUxY7qbqYacIsBEw2hIuFHQLWZ
-	nyTW7uAu94r7F5WQc3bhHEjDIq3xhhVDsPTjWNs6xLQvKDP65FsUdRa4WgnTgUVVLgFHzklh8PE
-	aY4mWkUXCsTvIdstDh8VntGRdVJixwEYoTlgXqeym7sOzDEjX1Tg7jARqEKeoOrUuSS9w/8qfJB
-	/KAOezDqu62qzQaMlaFAEJZtcE46jB8VTsKCdfgsarUKF2sCN6Rxq/l0ctvt6bgd7ctP+gAapXj
-	lL5J+OWSsjsxdhKDW6bM34y2RsOyN3jgl3+QHoIe0yE0KGwgRSml6DJdQ7gtVG6IMJAu4hnC+nv
-	1EBtUnGvH8M70S+AqELJ37LLTQ==
-X-Received: by 2002:a17:902:d4c2:b0:2d9:3be4:7e31 with SMTP id d9443c01a7336-2dd8dd0b188mr78874235ad.5.1789584423704;
-        Wed, 16 Sep 2026 11:47:03 -0700 (PDT)
-Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (36-232-230-153.dynamic-ip.hinet.net. [36.232.230.153])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d9007csm16143405ad.5.2026.09.16.11.47.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 11:47:03 -0700 (PDT)
-From: Yuan-Hao Hsu <aa9736195201@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Matthew Wilcox <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Chao Yu <chao@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/readahead: use large folios in page_cache_ra_unbounded()
-Date: Thu, 17 Sep 2026 02:46:58 +0800
-Message-ID: <20260916184658.647-1-aa9736195201@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915172615.c183c61c774f529ca57f1fb5@linux-foundation.org>
-References: <20260915135909.1007-1-aa9736195201@gmail.com> <20260915172615.c183c61c774f529ca57f1fb5@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fjeVOhBk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AADD21F0089E
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 18:47:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789584433;
+	bh=4jiUvRz2xzBBtQ7C75rWeguyMQEVO7haRwsq2vm6ttw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fjeVOhBkKUlyJn93hirV7NsniN5d1kvwdxfMqOP5gu06LRod7olhmAvZchKuklb6g
+	 HPQzfH+8YAEBc084Qv4bqiB2vQzrkWhqWHx2Xn9IQGh0eakyRpUG3Bn9Y4o4lxsTgU
+	 rbQs/hZS/BHsYYE53u6vnUqocsYyNH9zboOLFixZteI8uA0vExXVILeL+W+K2m8wR2
+	 vzuXl0OCdGQanClQjuyfx3OgCfVig7hQFWrC82OUMnHuvkEM5BWqV2XSutPrGygT42
+	 EbwSCTeKLxAOZ8SJI7zbd74wvaLIcD7SJPAxumSHokRsGYKGaZCiYvAnuF1avD+gQs
+	 N3aDBXTAoSIQg==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15d00so1292410e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:47:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwfSAGDnz/d+0ceDgbXAQoA6qXiLs8pxSMmYO+/3hvV5NZq5ac58cyXWNhaBQdvGaOchPrboDC/DS/w7eQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJnIBpA3mjOrjmniuR2QrBp4YC0ML/QWBfjvOXPyNHW2mdiYHC
+	ABZRcgA4AJA8NoelCLqNSIlBKuHzMgEv4BQ40rqGjm8Bc3nKGspzH3QSI9J+jHrv7L7JHAYH/OS
+	AyyrM2b+/3bIpdJ/M9sDGn/JUJLnQhBQ=
+X-Received: by 2002:a05:6512:3c8a:b0:5b1:5a2d:55f9 with SMTP id
+ 2adb3069b0e04-5b8b66135bamr1068200e87.21.1789584432009; Wed, 16 Sep 2026
+ 11:47:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <6329043.lOV4Wx5bFT@rafael.j.wysocki>
+In-Reply-To: <6329043.lOV4Wx5bFT@rafael.j.wysocki>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 16 Sep 2026 20:45:50 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0geju99B56CqAQjKwZcwg7mqXPUxx_a=kQ1KpaKpQztuw@mail.gmail.com>
+X-Gm-Features: AcwNN1VWW1dM32A_yMxCWEo-nNNXbKEFGtckxg39KzA9hSlPJShbVmUIbKQ1JF4
+Message-ID: <CAJZ5v0geju99B56CqAQjKwZcwg7mqXPUxx_a=kQ1KpaKpQztuw@mail.gmail.com>
+Subject: Re: [PATCH v2] driver core/ACPI: Introduce companion_bus_register()
+To: Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Linux ACPI <linux-acpi@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+	Linux Driver Core Development <driver-core@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 15 Sep 2026 17:26:15 -0700, Andrew Morton wrote:
-> Thanks, and welcome to Linux (I think?).
-
-Thanks.  Yes, this is my first patch.
-
-> Are any other filesystems affected by this change?
-
-Every mapping with mapping_max_folio_order() above the minimum: ext4
-(except the encrypt feature and data=journal), xfs, btrfs (except
-HIGHMEM), erofs, nfs, afs, cifs, zonefs, f2fs immutable files, and the
-block device page cache.  overlayfs follows the filesystem below it.
-
-tmpfs sets the flag but cannot get here: force_page_cache_ra() returns
-without read_folio/readahead a_ops, generic_fadvise() ignores hints on
-a noop bdi, and madvise(MADV_WILLNEED) takes shmem_swapin_range().
-fuse, gfs2, ubifs, ntfs3, ceph and 9p do not enable large folios.
-Nothing changes with CONFIG_TRANSPARENT_HUGEPAGE=n.
-
-v2 is tested on ext4, f2fs, xfs, btrfs, erofs, a block device, NFS and
-cifs over loopback, and zonefs on a zoned null_blk; read() and mmap()
-match the O_DIRECT sha256 of the file on each.  I could not set up
-afs, but its ->readahead is netfs_readahead(), as used by cifs.
-
-> This all sounds great, but I worry that the resulting increased
-> consumption of larger-order pages will cause all sorts of unexpected
-> mayhem to all sorts of unexpected things.
-
-You are right, and v1 does exactly that.  __GFP_NORETRY on a costly
-order still means an async compaction, a round of direct reclaim, a
-second compaction and two kswapd wakeups before giving up, and v1
-could pay that up to nine times per read().
-
-Memory fragmented so that no block above order 3 remained, with the
-remaining pages pinned so compaction could not help, 1024 x 1 MiB
-pread() after POSIX_FADV_RANDOM from a RAM disk:
-
-                              before       v1       v2
-  sys ms                         219    1,462      239
-  compact_stall                    0    2,437        0
-  pgsteal_kswapd (pages)           0  234,494        0
-  pswpout (pages)                  0   23,759        0
-  folios left in the cache   262,144   36,508  260,869
-
-v1 also made a plain sequential read() 3.6x slower there, through the
-page_cache_ra_order() fallback into page_cache_ra_unbounded().
-
-v2 allocates above the minimum order without __GFP_RECLAIM: it takes
-a large folio when the free lists have one and never reclaims,
-compacts or wakes kswapd to make one.  On the first failure the rest
-of the request uses the minimum order, as page_cache_ra_order() does.
-Keeping the reclaim flags but limiting it to one attempt per request
-was not enough (543 ms, 67,183 pages reclaimed by kswapd): the gfp
-mask is what matters, not the number of attempts.
-
-> So for several reasons it's
+On Wed, Sep 9, 2026 at 6:41=E2=80=AFPM Rafael J. Wysocki <rafael@kernel.org=
+> wrote:
 >
-> - allocate a large folio
-> - check it
-> - oops, can't use it, free it and retry with a smaller one
+> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+>
+> The ACPI bus type does not allow drivers to be registered, so the sysfs
+> attributes related to drivers created for it and its devices are
+> useless, and its drivers/ directory is always empty.  All of that is
+> confusing and wasteful.
+>
+> To allow skipping the creation of those sysfs attributes, introduce a
+> "companion" bus type concept and add a special registration function for
+> registering "companion" bus types, companion_bus_register().
+>
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-v2 scans the xarray first and sizes the folio to the absent run, so
-filemap_add_folio() fails with -EEXIST only when another reader got
-in between, and then the loop rescans instead of trying smaller
-orders.  Four processes reading the same cold file after
-POSIX_FADV_RANDOM, 64 KiB at a time, counted with a kretprobe:
+It's been a while since this was posted, so any feedback would be appreciat=
+ed.
 
-  before  7,754 -EEXIST (one order-0 page each)
-  v1     59,783
-  v2     15,828
+In the absence thereof, I'll trust Sashiko that there are no issues
+with it and pick it up.
 
-What is left is the race itself; the unpatched kernel sees the same
-race at page granularity.  A memcg charge over the limit now fails
-without reclaim and the request continues at the minimum order, the
-path it takes today.
+Thanks!
 
-The setup and the numbers are in the v2 changelog.
-
-Thanks,
-Yuan-Hao Hsu
+> ---
+>
+> v1 -> v2:
+>    * Address Sashiko feedback regarding possible leaks of references in t=
+wo
+>      places:
+>
+>      https://sashiko.dev/#/patchset/8753121.T7Z3S40VBb%40rafael.j.wysocki
+>
+> ---
+>  drivers/acpi/bus.c         |    8 -----
+>  drivers/base/bus.c         |   72 ++++++++++++++++++++++++++++++++++----=
+-------
+>  include/linux/device/bus.h |    1
+>  3 files changed, 57 insertions(+), 24 deletions(-)
+>
+> --- a/drivers/acpi/bus.c
+> +++ b/drivers/acpi/bus.c
+> @@ -1120,11 +1120,6 @@ EXPORT_SYMBOL_GPL(acpi_driver_match_devi
+>                                ACPI Bus operations
+>     ---------------------------------------------------------------------=
+----- */
+>
+> -static int acpi_bus_match(struct device *dev, const struct device_driver=
+ *drv)
+> -{
+> -       return 0;
+> -}
+> -
+>  static int acpi_device_uevent(const struct device *dev, struct kobj_ueve=
+nt_env *env)
+>  {
+>         return __acpi_device_uevent_modalias(to_acpi_device(dev), env);
+> @@ -1132,7 +1127,6 @@ static int acpi_device_uevent(const stru
+>
+>  const struct bus_type acpi_bus_type =3D {
+>         .name           =3D "acpi",
+> -       .match          =3D acpi_bus_match,
+>         .uevent         =3D acpi_device_uevent,
+>  };
+>
+> @@ -1451,7 +1445,7 @@ static int __init acpi_bus_init(void)
+>          */
+>         acpi_root_dir =3D proc_mkdir(ACPI_BUS_FILE_ROOT, NULL);
+>
+> -       result =3D bus_register(&acpi_bus_type);
+> +       result =3D companion_bus_register(&acpi_bus_type);
+>         if (!result)
+>                 return 0;
+>
+> --- a/drivers/base/bus.c
+> +++ b/drivers/base/bus.c
+> @@ -738,6 +738,11 @@ int bus_add_driver(struct device_driver
+>         if (!sp)
+>                 return -EINVAL;
+>
+> +       if (!sp->drivers_kset) {
+> +               error =3D -ENXIO;
+> +               goto out_put_bus;
+> +       }
+> +
+>         /*
+>          * Reference in sp is now incremented and will be dropped when
+>          * the driver is removed from the bus
+> @@ -930,15 +935,7 @@ static ssize_t bus_uevent_store(const st
+>  static struct bus_attribute bus_attr_uevent =3D __ATTR(uevent, 0200, NUL=
+L,
+>                                                      bus_uevent_store);
+>
+> -/**
+> - * bus_register - register a driver-core subsystem
+> - * @bus: bus to register
+> - *
+> - * Once we have that, we register the bus with the kobject
+> - * infrastructure, then register the children subsystems it has:
+> - * the devices and drivers that belong to the subsystem.
+> - */
+> -int bus_register(const struct bus_type *bus)
+> +static int bus_register_internal(const struct bus_type *bus, bool use_dr=
+ivers)
+>  {
+>         int retval;
+>         struct subsys_private *priv;
+> @@ -960,7 +957,7 @@ int bus_register(const struct bus_type *
+>
+>         bus_kobj->kset =3D bus_kset;
+>         bus_kobj->ktype =3D &bus_ktype;
+> -       priv->drivers_autoprobe =3D 1;
+> +       priv->drivers_autoprobe =3D use_drivers;
+>
+>         retval =3D kset_register(&priv->subsys);
+>         if (retval)
+> @@ -976,10 +973,12 @@ int bus_register(const struct bus_type *
+>                 goto bus_devices_fail;
+>         }
+>
+> -       priv->drivers_kset =3D kset_create_and_add("drivers", NULL, bus_k=
+obj);
+> -       if (!priv->drivers_kset) {
+> -               retval =3D -ENOMEM;
+> -               goto bus_drivers_fail;
+> +       if (use_drivers) {
+> +               priv->drivers_kset =3D kset_create_and_add("drivers", NUL=
+L, bus_kobj);
+> +               if (!priv->drivers_kset) {
+> +                       retval =3D -ENOMEM;
+> +                       goto bus_drivers_fail;
+> +               }
+>         }
+>
+>         INIT_LIST_HEAD(&priv->interfaces);
+> @@ -989,9 +988,11 @@ int bus_register(const struct bus_type *
+>         klist_init(&priv->klist_devices, klist_devices_get, klist_devices=
+_put);
+>         klist_init(&priv->klist_drivers, NULL, NULL);
+>
+> -       retval =3D add_probe_files(bus);
+> -       if (retval)
+> -               goto bus_probe_files_fail;
+> +       if (use_drivers) {
+> +               retval =3D add_probe_files(bus);
+> +               if (retval)
+> +                       goto bus_probe_files_fail;
+> +       }
+>
+>         retval =3D sysfs_create_groups(bus_kobj, bus->bus_groups);
+>         if (retval)
+> @@ -1016,9 +1017,41 @@ out:
+>         kfree(priv);
+>         return retval;
+>  }
+> +
+> +/**
+> + * bus_register - register a driver-core subsystem
+> + * @bus: bus to register
+> + *
+> + * Once we have that, we register the bus with the kobject
+> + * infrastructure, then register the children subsystems it has:
+> + * the devices and drivers that belong to the subsystem.
+> + */
+> +int bus_register(const struct bus_type *bus)
+> +{
+> +       return bus_register_internal(bus, true);
+> +}
+>  EXPORT_SYMBOL_GPL(bus_register);
+>
+>  /**
+> + * companion_bus_register - register a companion bus type
+> + * @bus: companion bus to register
+> + *
+> + * A companion bus is a bus without drivers.  Devices that belong to it =
+can be
+> + * bound to other devices as their "companions" and represent interfaces=
+ that
+> + * can be used by the drivers of those other devices.  They may also be =
+used for
+> + * the enumeration of those other devices.
+> + *
+> + * The ACPI bus is a specific example of a companion bus.
+> + *
+> + * Registering a companion bus is like registering a regular bus except =
+that it
+> + * skips the creation of sysfs interfaces related to drivers for @bus.
+> + */
+> +int companion_bus_register(const struct bus_type *bus)
+> +{
+> +       return bus_register_internal(bus, false);
+> +}
+> +
+> +/**
+>   * bus_unregister - remove a bus from the system
+>   * @bus: bus.
+>   *
+> @@ -1415,6 +1448,11 @@ struct device_driver *driver_find(const
+>         if (!sp)
+>                 return NULL;
+>
+> +       if (!sp->drivers_kset) {
+> +               subsys_put(sp);
+> +               return NULL;
+> +       }
+> +
+>         k =3D kset_find_obj(sp->drivers_kset, name);
+>         subsys_put(sp);
+>         if (!k)
+> --- a/include/linux/device/bus.h
+> +++ b/include/linux/device/bus.h
+> @@ -113,6 +113,7 @@ struct bus_type {
+>         bool need_parent_lock;
+>  };
+>
+> +int __must_check companion_bus_register(const struct bus_type *bus);
+>  int __must_check bus_register(const struct bus_type *bus);
+>
+>  void bus_unregister(const struct bus_type *bus);
+>
+>
+>
+>
