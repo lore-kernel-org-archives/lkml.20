@@ -1,263 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1434EC67C;
-	Wed, 16 Sep 2026 12:19:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9744908AE;
+	Wed, 16 Sep 2026 12:20:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561200; cv=none; b=ke3QAqZk1GhqIeQnkHOhsymNQoA7lFmyxPdfXhqJQfUIct+oMX3M2w2hx0PhLRg1CBPgKvHR3Xam1n46dxI2N1twc3eliGT66fy5HX9PPrt7oALFPvvQvIz91XbfT3FK/cE87s4+p8rJl21RLs5HGuO6lv3poKNuPIdA6z2FTzI=
+	t=1789561238; cv=none; b=Xxj35CPfvAoJQ32eO1lk0hpgvOIDdME8/woE/7XUT4voxrvdMOxC4hZDBJ8X9T7F2CZIm1Ur6NKln5LOt6zYfTzAlXuOl18oJTybB9/uK3udYvSBHqkWaFu0xTP7L/p5LyzJpFQgi1N72J6wIIVz6CFLO/F5kY707xU+I5PDdwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561200; c=relaxed/simple;
-	bh=7YwXfIzsjoMjOKwvDCdQfphejDrDv6RQV+RiJWeOjDU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sNsX9W9twUVRGa2YuZwB7d4MBw+bW5yoztXTGON+h/EH+oymv8B60KKtg5z9EqWfhM/kCCtLIsIW1xhBnam9qkIBPLDcRsYocJsrSq/7ie52MeA89FpG+MrMhGdJNBRdr+UUjbpOFVTj/tCEyltHnUrkzmytQA4ROPMSG8R1jqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VETJ3404; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789561238; c=relaxed/simple;
+	bh=J98oaV6EV/qhDJT3FvLqHFdEB3jNPjeilwPX3Y7TI04=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=R4BeaVDPLjQtj6bHGhIcczwfIU0+RizmTHoo7uCbRGJKrjvKBEWJmCE+ylQWWCEN77/WN+oa+Ww7YaAEV+0Xu+n4eulLJdZkvdZedZDYALggAwNk5pe6njLs8YvnWV9E19Kh6N+IyhWyd+t4kcufY9haoTBIJm8Bh7LZChdMrxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLgF5pmg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VETJ3404"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588BA1F000FF;
-	Wed, 16 Sep 2026 12:19:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLgF5pmg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57E591F000FF;
+	Wed, 16 Sep 2026 12:20:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789561198;
-	bh=fEFhzHMPOvWbVMmoEUILoLP5Uzr9QE7En/pY6cDBeSo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VETJ3404ZnXG12u1D26Ca2+XB8zTtwldgtksvFJ2Kjn7u1N0NC+CWdcTJu5V+X3F4
-	 dStzW7ovl2Z3UWJOypGRErX5cAMtMadHbvOgtGJ50PmI5a7Qt78AuJo7ZXpt6jJ2iA
-	 mf9BxlyFdC17517819knDAMxMgirrnaLiLMJimRS5GlVndwK1UX6GNx5fXacXjOzdc
-	 exuXuCDgvodioicIU235GxKd3k5EsPwAk/9YeI27OtCWnCx2yxOp4uzw1RGonO+4pY
-	 jFPUmEDyAK84nJ6lwe+z6tE2fGD65rmKpQFZpjYIr4QJ3WFEYAZbKQqwbvdTq3uRB/
-	 s+8DRvBlxpkIQ==
-Subject: Re: [PATCH v5 net-next] net: phy: mediatek: support MT7530 PHYs on
- EN71221 MCM
-From: netdev-bot+sashiko@kernel.org
-To: cjd@cjdns.fr
-Cc: netdev@vger.kernel.org, daniel@makrotopia.org, dqfext@gmail.com,
- SkyLake.Huang@mediatek.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- srherobrine20@gmail.com
-Date: Wed, 16 Sep 2026 12:19:56 +0000
-Message-ID: <178956119685.22033.3792668833363404378@kernel.org>
-In-Reply-To: <20260915113427.113296-1-cjd@cjdns.fr>
-References: <20260915113427.113296-1-cjd@cjdns.fr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789561236;
+	bh=QiMiil7nH4k58e8PUllAg94lSTZSG0PK0yVGK/5CbjU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YLgF5pmg3/uy8QkZeytemK8Km6GMYdoFe6ct3IUrmp8cwR/aWpC9o84BdMzs4DRVR
+	 /bJl7j4DAnUuHQf25m8bdb+prT/1HoiP2nneNGijieCOkmV/P7YDLfhFOi1AzeLRk+
+	 8Z/ENTiyUemNovj6EE1253G92b03uumhcZAU4RvdvHQsiMLVSXKseuAGsMo5HopSDr
+	 /7sx/AsBGJJvI3+gKHv40DrSCZy0jq9gnRS4IlCvbtNvPFgUybIak9wNCGiNS9mvIZ
+	 ZfTwE5jmShoQNBpLlRfTISq5DSk/CHF77jrP3jGHfGJbgWzwou9/01OJIbxYL1W6st
+	 UVbGEVqRkG0mw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x6ocr-00000009bLG-3kTc;
+	Wed, 16 Sep 2026 12:20:34 +0000
+Date: Wed, 16 Sep 2026 13:20:33 +0100
+Message-ID: <86fqz95qwe.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Leonardo Bras <leo.bras@arm.com>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Tian Zheng <zhengtian10@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from S2AP_W to DBM
+In-Reply-To: <aqp73SxO78o7LJTs@LeoBrasDK>
+References: <20260901171558.2674031-1-leo.bras@arm.com>
+	<20260901171558.2674031-2-leo.bras@arm.com>
+	<86bja17cg7.wl-maz@kernel.org>
+	<aql8jY4o8SzjJuFU@LeoBrasDK>
+	<aqnku2TcFzIKhjQl@kernel.org>
+	<aqp73SxO78o7LJTs@LeoBrasDK>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: leo.bras@arm.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, rananta@google.com, zhengtian10@huawei.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+On Wed, 16 Sep 2026 12:22:05 +0100,
+Leonardo Bras <leo.bras@arm.com> wrote:
+> 
+> On Tue, Sep 15, 2026 at 05:37:15PM -0700, Oliver Upton wrote:
+> > On Tue, Sep 15, 2026 at 06:12:45PM +0100, Leonardo Bras wrote:
+> > > > Yes, the HW should ignore it. But we have also
+> > > > seen quite a few broken designs in this area...
+> > > > 
+> > > 
+> > > I lack experience on what bad thing could happen. So I will expand on what 
+> > > I belive to understand up to here:
+> > > 
+> > > - The PTE is in memory, so the DBM bit can be set regardless of being RES0
+> > > - For SW pagetable walking, I don't think 'bit 51 == 0' is checked
+> > > - For HW pagetable walking, maybe some faulty implementation may rely on 
+> > >   bit51 being RES0, and fault otherwise.
+> > > 
+> > > If that's the case, then we would have to actually support both encodings, 
+> > > and only enable the new one if HAFDBS is available in the system. 
+> > > 
+> > > I just wonder how high are the chances to have such a broken design, 
+> > > or other broken designs did not come to my mind, and if we have to start 
+> > > with that multiple-encoding option.
+> > 
+> > FWIW, the host stage-1 already uses the DBM bit unconditionally,
+> > treating it as a software bit on implementations without HAFDBS.
+> > Although given the quality of any garden variety Arm MMU I understand
+> > where Marc is coming from.
+> > 
+> > I don't think the HAFDBS enablement is complicated enough to be done in
+> > a separate series without any meaningful users, nor would I really be
+> > interested in taking it without, say, HDBSS.
+> > 
+> > Can you please work with Tian to get a combined series out for this?
+> > 
+> 
+> Hi Oliver, thanks for reviewing!
+> 
+> Sure, one of the reasons I sent like this is so Tian could use it as a base 
+> for his next version.
+> 
+> 
+> > > > > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > > > > index 17123f0b6dab..eb8dfffc32c7 100644
+> > > > > --- a/arch/arm64/kvm/nested.c
+> > > > > +++ b/arch/arm64/kvm/nested.c
+> > > > > @@ -379,21 +379,23 @@ static int walk_nested_s2_pgd(struct kvm_vcpu *vcpu, phys_addr_t ipa,
+> > > > >  	}
+> > > > >  
+> > > > >  	addr_bottom += contiguous_bit_shift(desc, wi, level);
+> > > > >  
+> > > > >  	/* Calculate and return the result */
+> > > > >  	paddr = (desc & GENMASK_ULL(47, addr_bottom)) |
+> > > > >  		(ipa & GENMASK_ULL(addr_bottom - 1, 0));
+> > > > >  	out->output = paddr;
+> > > > >  	out->block_size = 1UL << ((3 - level) * stride + wi->pgshift);
+> > > > >  	out->readable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> > > > > -	out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > > > > +	/* Takes care of both RO/RW and RO/WC/WD encodings */
+> > > > > +	out->writable = desc & (KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+> > > > > +				KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W);
+> > > > 
+> > > > Absolutely NOT. For a start, NV doesn't support FEAT_HAFDBS. But even
+> > > > if it did, you are now actively corrupting memory by turning a RO
+> > > > mapping with a spurious DBM bit set into a writable mapping.
+> > > > VTCR_EL2.HD exists for a reason.
+> > > > 
+> > > > Do you see why your blanket approach of equating DBM with writable is
+> > > > plain wrong?
+> > > 
+> > > Sorry, not really... please help me understand it.
+> > > 
+> > > When you say a spurious DBM bit, what does it mean?
+> > 
+> > You've implemented the exact sort of bug that was alluded to above. In
+> > this case it's a software page table walker consuming DBM regardless of
+> > the value of VTCR_EL2.HD.
+> > 
+> 
+> So you mean that DBM being treated as "writable" could _only_ happen if we 
+> have VTCR_EL2.HD=1? I was previously under the impression that it could be 
+> used regardless of HD value.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 1
+Then you have failed to understand the architecture. When
+VTCR_EL2.HD==0, DBM can be treated as RES0, RES0, or RES0.
 
-- [High] The new MCM detection in en751221_is_mcm_phy()
-  (drivers/net/phy/mediatek/mtk-ge.c:138-144) tests the MDIO bus *parent…
-- [Medium] mt7530_is_gphy() (drivers/net/phy/mediatek/mtk-ge.c:150-154)
-  masks the raw return value of phy_read(phydev, MII_ESTATUS) with…
-- [Low] The commit subject reads "net: phy: mediatek: support MT7530 PHYs
-  on EN71221 MCM" while the commit body, the new code…
+R_XZFQH and R_BRFGY are pretty clear that DBM can only be evaluated
+when dirty hw update is enabled, and I_MHJZP tells you what it means
+for S2 to have this enabled.
 
---
-
-net: phy: mediatek: support MT7530 PHYs on EN71221 MCM
-
-This adds a second phy_driver entry for MTK_GPHY_ID_MT7530 with an extra
-register sequence for the EcoNet EN751221 multi-chip module, selects
-between the two entries with new match_phy_device callbacks, and skips
-MT7530-ID PHYs that report no gigabit support.
-
-> net: phy: mediatek: support MT7530 PHYs on EN71221 MCM
-
-[Severity: Low]
-This isn't a bug, but the subject says EN71221 while the body, the code
-(en751221_is_mcm_phy(), en751221_mcm_phy_config_init(), the driver name
-"EcoNet EN751221 MCM PHY"), the compatible "econet,en751221" and every
-other in-tree reference say EN751221.  Grepping the tree finds no
-EN71221 identifier at all.
-
-> diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
-> index 96d8ac5154e5e..eddb66218d7c0 100644
-> --- a/drivers/net/phy/mediatek/mtk-ge.c
-> +++ b/drivers/net/phy/mediatek/mtk-ge.c
-
-[ ... ]
-
-> @@ -101,6 +102,69 @@ static int mt7530_phy_config_init(struct phy_device *phydev)
->  	return 0;
->  }
->  
-> +/*
-> + * The EcoNet EN751221 "G" multi-chip module MT7530 requires additional PHY
-> + * configuration.
-> + */
-> +static int en751221_mcm_phy_config_init(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +
-> +	ret = genphy_soft_reset(phydev);
-> +	if (ret)
-> +		return ret;
-
-[ ... ]
-
-> +static bool en751221_is_mcm_phy(struct phy_device *phydev)
-> +{
-> +	struct device *parent = phydev->mdio.bus->parent;
-> +
-> +	return parent && parent->of_node &&
-> +	       of_device_is_compatible(parent->of_node, "econet,en751221");
-> +}
-
-[Severity: High]
-Can this predicate ever return true?
-
-"econet,en751221" is documented only as a machine compatible on the DT
-root node:
-
-Documentation/devicetree/bindings/mips/econet.yaml
-  properties:
-    $nodename:
-      const: '/'
-    compatible:
-      oneOf:
-        - description: Boards with EcoNet EN751221 family SoC
-          items:
-            - enum:
-                - smartfiber,xp8421-b
-            - const: econet,en751221
-
-and the only in-tree users put it on '/':
-
-arch/mips/boot/dts/econet/en751221.dtsi
-  / {
-        compatible = "econet,en751221";
-
-arch/mips/boot/dts/econet/en751221_smartfiber_xp8421-b.dts
-  / {
-        model = "SmartFiber XP8421-B";
-        compatible = "smartfiber,xp8421-b", "econet,en751221";
-
-The node handed to of_device_is_compatible() here is the MDIO bus parent
-device, which for MT7530-internal PHYs is the switch device:
-
-drivers/net/dsa/mt7530.c:mt7530_setup_mdio() {
-    ...
-	bus->parent = dev;
-    ...
-}
-
-of_device_is_compatible() only inspects the compatible list of the node it
-is given, so a switch node that is a child of '/' will not match a root
-node compatible.  Does that make en751221_phy_match() always return zero,
-leaving the new "EcoNet EN751221 MCM PHY" entry and
-en751221_mcm_phy_config_init() unreachable, with mt7530_phy_match()
-binding the plain MT7530 entry on the MCM hardware instead?
-
-Would matching the switch's own compatible work better here?  The EcoNet
-MCM switch already has one in-tree:
-
-drivers/net/dsa/mt7530-mmio.c
-  { .compatible = "econet,en7528-switch", .data = &mt753x_table[ID_EN7528], },
-
-Alternatively, of_machine_is_compatible("econet,en751221") would test the
-root node, or a new documented compatible for the MCM switch/MDIO node
-could be added.
-
-> +
-> +/*
-> + * MTK_GPHY_ID_MT7530 ID is also used for an EcoNet SoC FE phy, but that PHY
-> + * does not advertise ESTATUS_1000_TFULL.
-> + */
-> +static bool mt7530_is_gphy(struct phy_device *phydev)
-> +{
-> +	return phydev->phy_id == MTK_GPHY_ID_MT7530 &&
-> +	       (phy_read(phydev, MII_ESTATUS) & ESTATUS_1000_TFULL) != 0;
-> +}
-
-[Severity: Medium]
-Should the phy_read() return value be checked for an error before it is
-masked?
-
-ESTATUS_1000_TFULL is 0x2000, i.e. bit 13, and every small negative errno
-has bit 13 set in two's complement (-EIO is 0xfffffffb, -ETIMEDOUT is
-0xffffff92).  So a failed MDIO read makes mt7530_is_gphy() report
-"gigabit capable", which is the opposite of the intended exclusion of the
-FE PHY that shares MTK_GPHY_ID_MT7530.
-
-phy_bus_match() returns the callback result verbatim:
-
-drivers/net/phy/phy_device.c:phy_bus_match() {
-    ...
-	if (phydrv->match_phy_device)
-		return phydrv->match_phy_device(phydev, phydrv);
-    ...
-}
-
-so on a transient bus error the FE PHY would be claimed and programmed
-with the GbE sequence in en751221_mcm_phy_config_init() (paged write of
-0x3a04, MMD VEND2 0x0417, VEND1 0xa6 and 0x12) or mt7530_phy_config_init().
-
-Should MII_ESTATUS also be gated on BMSR_ESTATEN, the way phylib does it
-elsewhere?
-
-drivers/net/phy/phy_device.c:genphy_read_abilities() {
-    ...
-	if (val & BMSR_ESTATEN) {
-		val = phy_read(phydev, MII_ESTATUS);
-		if (val < 0)
-			return val;
-    ...
-}
-
-Without that check, the value read from register 15 on a PHY that does not
-implement it is not defined by Clause 22.
-
-> +
-> +static int mt7530_phy_match(struct phy_device *phydev,
-> +			    const struct phy_driver *phydrv)
-> +{
-> +	return mt7530_is_gphy(phydev) && !en751221_is_mcm_phy(phydev);
-> +}
-> +
-> +static int en751221_phy_match(struct phy_device *phydev,
-> +			      const struct phy_driver *phydrv)
-> +{
-> +	return mt7530_is_gphy(phydev) && en751221_is_mcm_phy(phydev);
-> +}
-> +
->  static int mt7531_phy_config_init(struct phy_device *phydev)
->  {
->  	mtk_gephy_config_init(phydev);
-> @@ -135,6 +199,23 @@ static struct phy_driver mtk_gephy_driver[] = {
->  		 */
->  		.config_intr	= genphy_no_config_intr,
->  		.handle_interrupt = genphy_handle_interrupt_no_ack,
-> +		.match_phy_device = mt7530_phy_match,
-> +		.suspend	= genphy_suspend,
-> +		.resume		= genphy_resume,
-> +		.read_page	= mtk_phy_read_page,
-> +		.write_page	= mtk_phy_write_page,
-> +	},
-> +	{
-> +		PHY_ID_MATCH_EXACT(MTK_GPHY_ID_MT7530),
-> +		.name		= "EcoNet EN751221 MCM PHY",
-> +		.probe		= mt7530_phy_probe,
-> +		.config_init	= en751221_mcm_phy_config_init,
-> +		/* Interrupts are handled by the switch, not the PHY
-> +		 * itself.
-> +		 */
-> +		.config_intr	= genphy_no_config_intr,
-> +		.handle_interrupt = genphy_handle_interrupt_no_ack,
-> +		.match_phy_device = en751221_phy_match,
->  		.suspend	= genphy_suspend,
->  		.resume		= genphy_resume,
->  		.read_page	= mtk_phy_read_page,
+	M.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915113427.113296-1-cjd%40cjdns.fr
+Without deviation from the norm, progress is not possible.
