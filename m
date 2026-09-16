@@ -1,162 +1,162 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE5E4C67F3;
-	Wed, 16 Sep 2026 10:26:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA8F4AF142;
+	Wed, 16 Sep 2026 10:27:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554393; cv=none; b=ICa8M7iE3fZUIQlnASPQrKMEpUflVftOG6Ynt6qcSB4t48pYm8fJ++T5yKNIu7wJtqYMvfH9DhgF2Gl6neXOKOXV5GrYhHUT2vZ63g/S2mOuUuSWnZSMmh196ygTtJ80js4qiDO6lxU2KTGetz8fQMT6dUZ0AcTpspOnZ1rKkTc=
+	t=1789554473; cv=none; b=K65ahm40CiBX05YtKGjMQos0zgT1AiJnCWEIPAY/g4oOpN5B5OkgBieD7MR74/zATI4bxLhPgag9XWfACM3iuKcUcDaeSLjaIqml1V1yBZWca374PEQRSr8bXKdlZ2Wc5NxwwJpv85Ie4QnDmTV6xK1cR2LQe/p+4/qV51fkWrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554393; c=relaxed/simple;
-	bh=RqPzWt+oHUBg+h1+63Lh5bVhj7REFL828WImcX4mdec=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ys1AeYBP4ajaLxruIZRP2ouWYLjWtnFNRMgWEiidtgbDeRkCi+KABebGT8KWyHrTcNU10Gg1dpeQVtido5HBQheLA0fGu9A01LjVfdy87qnQbct04LUmOrerLGWDfhO1gGesb0fSLKpypSlvZ35L2UVo0ywwTIPF9lTv4SM0x88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFCeuEsA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789554473; c=relaxed/simple;
+	bh=wXreIP3tC205f3nPQFVedjNw6ICCrCqnjkjAc3ffaGY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cxKHtvcojKC9DY/kBFs2dfyjzZZ7xled5rbDGid3KCvTxWN47Ts0heij0cI0DxEPIwQeG1mc0l2fG0SPzuSn4DioqD3nehzH/K28RbgUr5HNFsSdc2ZwrfW9Nw1Gj0IcvmogMgD9WrtZSjfyTqSLqH+Ch1YPEaXvtnvB1khN3ZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SFNwsPtB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFCeuEsA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D535B1F000FF;
-	Wed, 16 Sep 2026 10:26:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SFNwsPtB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB8AA1F000FF;
+	Wed, 16 Sep 2026 10:27:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789554386;
-	bh=DTp1iA6KwxfztWvDrOMeMz5Phpuk6ej6XYTDd5JnmEM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NFCeuEsAfNPwnulZLAZl8koAwRmcS/GD9LoqYg6yFF6sd0+OgPkJBXjMyP3iJcxY4
-	 nw80+05z82v7E0JgmCA089uLt+CyomXrEREXGy5JnAWK5zjTvHwoPuYrKAoRol2cqa
-	 AidO0FR4enzxHHJRDMBJj8Weujftym8B4+Po47swavPmgQXlZHP4MWOcLqYPMdrWTB
-	 M4btQ6ZjcMle919gKCDPGzAcgKHXGPS5ff8GBQmQw1azivW/ho/lVrmkUiQpIJNYVo
-	 duH7v5eZpHpmFp1RmFKu4TkX8IgtpGiag6xGK71Iw3sEdOJJSxBEi6JnNu6b1N9OVC
-	 x7Cqh18FasrLw==
-Message-ID: <1d5c8df2-2517-4e01-a7b2-6a03e31b4b1a@kernel.org>
-Date: Wed, 16 Sep 2026 12:26:22 +0200
+	s=k20260515; t=1789554455;
+	bh=x4jHf775ozqpKeid93D9RRDJNOOQZz0wUt4rIU/B1rA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SFNwsPtBe/BjLRWY4fpK1iXFneo/VYdGEknGosnm5IdOVtgRCU6z65FrAVKakj4Rf
+	 0GUPB0aE2X98KztSAjIJnOGXqE7iEZ/CewPW+ktFsFLfcuz8iYIApqgu+TM4l/CxYy
+	 GUyzYIq2UMPXC4IpF9isKXnl6i/dADhXrwgjbnoyXXOYj5GT4ykU4K21qilrHqkroG
+	 xFJ6SQ5feeabbEd2rFxEMr4bOcH1a5/LNwon7awpRWkdqLk4k7qz9V/4STFqIhCHgz
+	 BVNakNYgW38m0iNu1HEDnJ7Epdj2BcbIa+5KEG2MN6ag8Vnw/myJzYkqIB1xu6GRuz
+	 uqgY0erNP1JNQ==
+Date: Wed, 16 Sep 2026 11:27:32 +0100
+From: Lee Jones <lee@kernel.org>
+To: Maria Lisina <sekoohaka.sarisan@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] mfd: intel-lpss: Clean up and modernize DebugFS usage
+Message-ID: <20260916102732.GJ11487@google.com>
+References: <20260916-intel-lpss-debugfs-v5-1-99295f534067@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/10] lib/ucs2_string: Split out ucs2_as_utf8_l()
- taking a separate limit
-To: Ard Biesheuvel <ardb+git@google.com>, linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
- x86@kernel.org
-References: <20260909115530.1924665-12-ardb+git@google.com>
- <20260909115530.1924665-16-ardb+git@google.com>
-From: Vincent Mailhol <mailhol@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
- 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
- dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
- zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <20260909115530.1924665-16-ardb+git@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-intel-lpss-debugfs-v5-1-99295f534067@gmail.com>
 
-On 09/09/2026 at 13:55, Ard Biesheuvel wrote:
-> From: Ard Biesheuvel <ardb@kernel.org>
-> 
-> ucs2_as_utf() takes a maxlength argument, which specifies how many bytes
-  ^^^^^^^^^^^^^
-Typo: ucs2_as_utf8() (missing '8').
+On Wed, 16 Sep 2026, Maria Lisina wrote:
 
-> the function is permitted to store into the destination buffer.
+> The DebugFS API is designed to handle errors gracefully.
+> Any explicit checking on return values is considered an anti-pattern.
 > 
-> The same value is used as an upper bound for the ucs2_strnlen()
-> invocation, which is reasonable in the general case, as each UCS-2
-> character produces at least one byte of UTF-8 output, and so there is
-> never a need to process more than 'maxlength' UCS-2 characters.
+> This patch removes unnecessary error checking and converts
+> intel_lpss_debugfs_add() into a void function.
 > 
-> However, if the UCS-2 string is not NUL terminated, ucs2_strnlen() may
-> read past the end of the buffer if 'maxlength' is set to a high value.
+> While at it, this patch also clean ups legacy and deprecated usage
+> of S_IRUGO macro and debugfs_remove_recursive() function.
 > 
-> Current callers pass UCS-2 strings that are expected to be NUL
-> terminated, but for processing the load options in the EFI stub, a
-> version is needed that takes a separate limit argument. So split that
-> off from the current implementation.
-> 
-> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> Signed-off-by: Maria Lisina <sekoohaka.sarisan@gmail.com>
 > ---
->  include/linux/ucs2_string.h | 11 ++++++++++-
->  lib/ucs2_string.c           |  6 +++---
->  2 files changed, 13 insertions(+), 4 deletions(-)
+> Changes in v5:
+> - Changed the goal of the patch to DebugFS modernization.
+> - Refactored intel_lpss_debugfs_add() into a void function.
+> - Removed deprecated macros and functions.
+> - Removed dmesg message completely.
+> - Link to v4: https://lore.kernel.org/r/20260914-intel-lpss-debugfs-v4-1-0eb82ea7c1e3@gmail.com
 > 
-> diff --git a/include/linux/ucs2_string.h b/include/linux/ucs2_string.h
-> index c499ae809c7d..74f23ca5a967 100644
-> --- a/include/linux/ucs2_string.h
-> +++ b/include/linux/ucs2_string.h
-> @@ -14,7 +14,16 @@ ssize_t ucs2_strscpy(ucs2_char_t *dst, const ucs2_char_t *src, size_t count);
->  int ucs2_strncmp(const ucs2_char_t *a, const ucs2_char_t *b, size_t len);
->  
->  unsigned long ucs2_utf8size(const ucs2_char_t *src);
-> +unsigned long
-> +ucs2_as_utf8_l(u8 *dest, const ucs2_char_t *src, unsigned long limit,
-> +	       unsigned long maxlength);
-> +
-> +static inline
->  unsigned long ucs2_as_utf8(u8 *dest, const ucs2_char_t *src,
-> -			   unsigned long maxlength);
-> +			   unsigned long maxlength)
-> +{
-> +	return ucs2_as_utf8_l(dest, src, ucs2_strnlen(src, maxlength),
-> +			      maxlength);
-> +}
->  
->  #endif /* _LINUX_UCS2_STRING_H_ */
-> diff --git a/lib/ucs2_string.c b/lib/ucs2_string.c
-> index f75fb4f7961a..2df9bef79eea 100644
-> --- a/lib/ucs2_string.c
-> +++ b/lib/ucs2_string.c
-> @@ -132,11 +132,11 @@ EXPORT_SYMBOL(ucs2_utf8size);
->   * final NUL character.
->   */
-
-ucs2_as_utf8_l() still uses the old documentation of ucs2_as_utf8().
-It currently reads:
-
-  /*
-   * copy at most maxlength bytes of whole utf8 characters to dest from the
-   * ucs2 string src.
-   *
-   * The return value is the number of characters copied, not including the
-   * final NUL character.
-   */
-
-That documentation should probably be moved to linux/ucs2_string.h so
-that ucs2_as_utf8() remains documented after being turned into a
-static inline wrapper.
-
-As for ucs2_as_utf8_l(), it would be worth adding a new comment block
-to highlight its specific behaviour: the new limit argument, the fact
-that the string is only NUL-terminated if there is enough space and
-that the return value is not the number of wide characters copied but
-the number of bytes copied.
-
->  unsigned long
-> -ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
-> +ucs2_as_utf8_l(u8 *dest, const ucs2_char_t *src, unsigned long limit,
-> +	       unsigned long maxlength)
->  {
->  	unsigned int i;
->  	unsigned long j = 0;
-> -	unsigned long limit = ucs2_strnlen(src, maxlength);
->  
->  	for (i = 0; maxlength && i < limit; i++) {
->  		u16 c = src[i];
-> @@ -163,7 +163,7 @@ ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
->  		dest[j] = '\0';
->  	return j;
+> Changes in v4:
+> - Keep the dmesg messages, instead check whether DebugFS is initialized
+> - Link to v3: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com
+> 
+> Changes in v3:
+> - Fixed commit name and description.
+> - Link to v2: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v2-1-a1a4faf5cc63@gmail.com
+> 
+> Changes in v2:
+> - Fixed function name in comment section.
+> - Link to v1: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v1-1-833cbb6fffc9@gmail.com
+> ---
+>  drivers/mfd/intel-lpss.c | 28 +++++++++++-----------------
+>  1 file changed, 11 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
+> index 63d6694f71457b2e09d238af0a9bfb897a169a64..1a61ef1a62b3e8a2777f357d5c4605d5d57d9532 100644
+> --- a/drivers/mfd/intel-lpss.c
+> +++ b/drivers/mfd/intel-lpss.c
+> @@ -142,28 +142,25 @@ static void intel_lpss_cache_ltr(struct intel_lpss *lpss)
+>  	lpss->idle_ltr = readl(lpss->priv + LPSS_PRIV_IDLELTR);
 >  }
-> -EXPORT_SYMBOL(ucs2_as_utf8);
-> +EXPORT_SYMBOL(ucs2_as_utf8_l);
 >  
->  #ifndef __DISABLE_EXPORTS
->  MODULE_DESCRIPTION("UCS2 string handling");
+> -static int intel_lpss_debugfs_add(struct intel_lpss *lpss)
+> +static void intel_lpss_debugfs_add(struct intel_lpss *lpss)
+>  {
+> -	struct dentry *dir;
+> -
+> -	dir = debugfs_create_dir(dev_name(lpss->dev), intel_lpss_debugfs);
+> -	if (IS_ERR(dir))
+> -		return PTR_ERR(dir);
+> +	lpss->debugfs =
+> +		debugfs_create_dir(dev_name(lpss->dev), intel_lpss_debugfs);
 
+No need to line-wrap for this.  Use up to 100-chars to prevent this craziness.
 
-Yours sincerely,
-Vincent Mailhol
+Why continue if this returns an error?
+
+>  
+>  	/* Cache the values into lpss structure */
+>  	intel_lpss_cache_ltr(lpss);
+>  
+> -	debugfs_create_x32("capabilities", S_IRUGO, dir, &lpss->caps);
+> -	debugfs_create_x32("active_ltr", S_IRUGO, dir, &lpss->active_ltr);
+> -	debugfs_create_x32("idle_ltr", S_IRUGO, dir, &lpss->idle_ltr);
+> -
+> -	lpss->debugfs = dir;
+> -	return 0;
+> +	debugfs_create_x32("capabilities", 0444, lpss->debugfs,
+
+Does this accept a NULL pointer or an error in parameter 3?
+
+> +					   &lpss->caps);
+
+You should always align to the '(' but in this case, don't wrap at all.
+
+> +	debugfs_create_x32("active_ltr", 0444, lpss->debugfs,
+> +					   &lpss->active_ltr);
+> +	debugfs_create_x32("idle_ltr", 0444, lpss->debugfs,
+> +					   &lpss->idle_ltr);
+>  }
+>  
+>  static void intel_lpss_debugfs_remove(struct intel_lpss *lpss)
+>  {
+> -	debugfs_remove_recursive(lpss->debugfs);
+> +	debugfs_remove(lpss->debugfs);
+
+Please explain why this is required?
+
+>  }
+>  
+>  static void intel_lpss_ltr_set(struct device *dev, s32 val)
+> @@ -432,10 +429,7 @@ int intel_lpss_probe(struct device *dev,
+>  		goto err_clk_register;
+>  
+>  	intel_lpss_ltr_expose(lpss);
+> -
+> -	ret = intel_lpss_debugfs_add(lpss);
+> -	if (ret)
+> -		dev_warn(dev, "Failed to create debugfs entries\n");
+> +	intel_lpss_debugfs_add(lpss);
+>  
+>  	if (intel_lpss_has_idma(lpss)) {
+>  		ret = mfd_add_devices(dev, lpss->devid, &intel_lpss_idma64_cell,
+> 
+> ---
+> base-commit: 2f0c1cf72f4682178506f513bbf015e591b1aa4a
+> change-id: 20260913-intel-lpss-debugfs-eff3580d1295
+> 
+> Best regards,
+> -- 
+> Maria Lisina <sekoohaka.sarisan@gmail.com>
+> 
+
+-- 
+Lee Jones
