@@ -1,36 +1,68 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865884C33E0;
-	Wed, 16 Sep 2026 18:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA524C33FF;
+	Wed, 16 Sep 2026 18:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583191; cv=none; b=KBs9Sz+gKOVStyTyVeHFWWtUEjyPtTwRS8EDovL4VtSDi/iLrhSg/ZrSKbrqnSrJxNe80UM0/ZJD9T2pjqxN96gPblkt4mc4fPMKp/dqMUgPuxQNAp6nBHepCwE3RqPk+uBIEc6TUr0BYxWy9p9T90+BY0WjMS/K1Z/jjU3cRrI=
+	t=1789583220; cv=none; b=lUKWXBMmQBLHbtWe2jB7RoHJDbUV4szdR8UMQrcO6N9RMGIX83ITrE3EPWysVn/Z81lA/4PaPLaLIsX1KskOc7zvn0K5Z0kgluACvnHXF31nnVb7/XZnQh1s9Fs21cFm49WVo+rC3Bsl6aW+2WqMckFabSLHhbmOoKQOJdft+fM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583191; c=relaxed/simple;
-	bh=02pmzJfioY5sM9RU8KqEw/pGb/Mp5V59fFHCtJ+Ck5s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XuLt1bY7heu3nOW/Bc8G2Px9cng2SHmueuicsEFYxpn2aG6aYuAlh1HHDHfFlTIBL1BmTC7v+pnCbETl2plZWbMu/EppT5zalvSZoepmJKuLvt+hW856hceTm1LRvlEMtvfJl4nSazYml9vQKgC2p+WTE4U+vZERcjFNpTM6qo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnVD9K36pqEH1vCA--.24263S2;
-	Thu, 17 Sep 2026 02:26:18 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	mperttunen@nvidia.com,
-	simona@ffwll.ch,
-	thierry.reding@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/tegra: Fix bo reference leak in host1x_reloc_copy_from_user()
-Date: Wed, 16 Sep 2026 18:25:50 +0000
-Message-Id: <20260916182550.2091797-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789583220; c=relaxed/simple;
+	bh=vbvPTAedHIloJ/hO3RGtzyLvW2K8UyP8R23lO9rOi70=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VtscmDxmkWdujDNvwD9P5ztSVXCeOC/TzMBBshf/s8EOLiiMNaN02Sar9KuZNRZxer/3ZtQ4MiCwaGJFGO0EQk/GgdKEMP1vnOdlXZpx1n4fSc3fO7dtBGgqAoventMISL80vKNdVbZRCkwo0bSLDNLCyoY7bTaCw3zdxWRxA1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=S2npcmPD; arc=none smtp.client-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="S2npcmPD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1789583217; x=1821119217;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=BHsCmMc6e2wcBQ2EuI+SHbLbEvrnZvV+I7e/QkGW6C4=;
+  b=S2npcmPDe+m+KvCCBuhlfssjEfYoIJWqUqsDw0sTpXzAsBd0LoPK/QAK
+   fjovPiPYzzDs3ozKHqTXdIEFaXaiUNH26r8obhglreghyOXDHCIVKqpZN
+   +9mLucH6/PITuGtxx25yy01Tpq/Ir8+mXiLv0EThY8ty9jVzVqXIICSIh
+   803zpCsL+gW4qO43msUhaVAztYlI6wf6oNU3dKPsMipiMxRh7bk6ZQGO9
+   0haMpYiYSS/oTF0XTAYRear4plb/JdgulzkBmI9BeK6oKntFOx9E9vJT+
+   ETt5scgVLJ4sCjUaSu9+b05bq1EHbZMRnzXU+lh+EgnMVTdRpD/KGiGJK
+   g==;
+X-CSE-ConnectionGUID: KbshlQW4QomKYV9RrdnqXg==
+X-CSE-MsgGUID: FEqC0JpqTwO8XBagKY84Gw==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
+   d="scan'208";a="28846073"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 18:26:52 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:15796]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.137:2525] with esmtp (Farcaster)
+ id bcb2a6f5-66b0-41a5-9693-8c97a571dc9f; Wed, 16 Sep 2026 18:26:52 +0000 (UTC)
+X-Farcaster-Flow-ID: bcb2a6f5-66b0-41a5-9693-8c97a571dc9f
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Wed, 16 Sep 2026 18:26:51 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Wed, 16 Sep 2026
+ 18:26:49 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>, Andrew Morton
+	<akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Eliav Farber <farbere@amazon.com>, <devicetree@vger.kernel.org>,
+	<linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 1/2] dt-bindings: pps: pps-gpio: document optional pinctrl states
+Date: Wed, 16 Sep 2026 18:26:40 +0000
+Message-ID: <20260916182641.9768-2-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260916182641.9768-1-farbere@amazon.com>
+References: <20260916134744.46354-1-farbere@amazon.com>
+ <20260916182641.9768-1-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,53 +70,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnVD9K36pqEH1vCA--.24263S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKr47tFyDWrWkAr1DKw4xtFb_yoWDGrb_WF
-	1UWFn7W34DuF4qy3WUAr47ZryIyFn5uF48Xa12yayfK34UZFyjq3429ryDur17Ca1xAF1D
-	A347X34SvF4SgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
-	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
-	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
-	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6r
-	xdYxBIdaVFxhVjvjDU0xZFpf9x0JUtgA7UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUMA2qqpVh7CwAAsA
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D040UWA001.ant.amazon.com (10.13.139.22) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-If the lookup of the relocation target fails after the command buffer
-object has been looked up, the reference taken for the latter is not
-recorded in the caller's refs[] array and is never released.  Drop it
-before returning.
+When the PPS input GPIO is routed through a pin controller, a board may
+need to mux those pins to a different function while pps-gpio is not
+driving PPS (for example after the driver is unbound or across a kexec).
 
-Fixes: 961e3beae3b2 ("drm/tegra: Make job submission 64-bit safe")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Document the optional "default" and "inactive" pinctrl-names and show
+both in the example. The "default" state selects the PPS/GPIO function
+and is applied by the driver core before probe; the optional "inactive"
+state, when present, describes the mux to restore when the driver is
+unbound or the system is shut down. As "inactive" is only the state to
+restore after "default", it may only appear as the second entry, so a
+"default" state is required whenever "inactive" is given.
+
+Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- drivers/gpu/drm/tegra/drm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Changes in v2:
+- Rename the released state from "idle" to "inactive"; document that
+  "inactive" may only be the second entry, so a "default" state is
+  required whenever "inactive" is given
 
-diff --git a/drivers/gpu/drm/tegra/drm.c b/drivers/gpu/drm/tegra/drm.c
-index 1dcef4e7d104..4e4d41c527c6 100644
---- a/drivers/gpu/drm/tegra/drm.c
-+++ b/drivers/gpu/drm/tegra/drm.c
-@@ -159,8 +159,10 @@ static int host1x_reloc_copy_from_user(struct host1x_reloc *dest,
- 		return -ENOENT;
+ .../devicetree/bindings/pps/pps-gpio.yaml        | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/pps/pps-gpio.yaml b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
+index 383a838744eb..7d11ec4656ee 100644
+--- a/Documentation/devicetree/bindings/pps/pps-gpio.yaml
++++ b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
+@@ -28,6 +28,19 @@ properties:
+     description: Indicates a falling edge assert, when present. Rising edge if absent.
+     type: boolean
  
- 	dest->target.bo = tegra_gem_lookup(file, target);
--	if (!dest->target.bo)
-+	if (!dest->target.bo) {
-+		drm_gem_object_put(dest->cmdbuf.bo);
- 		return -ENOENT;
-+	}
++  pinctrl-names:
++    description:
++      When the PPS input is muxed through a pin controller, the "default"
++      state selects the PPS/GPIO function and is applied by the driver core
++      before probe. The optional "inactive" state, when present, is selected
++      when the driver is unbound or the system is shut down, handing the pins
++      back to their alternate function. As "inactive" is the state to restore
++      after "default", it may only appear as the second entry.
++    minItems: 1
++    items:
++      - const: default
++      - const: inactive
++
+ required:
+   - compatible
+   - gpios
+@@ -40,8 +53,9 @@ examples:
  
- 	return 0;
- }
+     pps {
+         compatible = "pps-gpio";
+-        pinctrl-names = "default";
++        pinctrl-names = "default", "inactive";
+         pinctrl-0 = <&pinctrl_pps>;
++        pinctrl-1 = <&pinctrl_pps_inactive>;
+         gpios = <&gpio1 26 GPIO_ACTIVE_HIGH>;
+         assert-falling-edge;
+         echo-gpios = <&gpio1 27 GPIO_ACTIVE_HIGH>;
 -- 
-2.34.1
+2.47.3
 
