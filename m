@@ -1,108 +1,148 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DBE36D503;
-	Wed, 16 Sep 2026 17:29:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579763; cv=none; b=T5Hh77LAjRM9etXOydgE01UwvCWZ5iTF363L/uDu4+IskVxbyD0d/qtfGt+Y6hzpVmH/sw2VYKwIAPHMOGG8c8I5Kg1COEs/qjmybQpCgUDFx5TRKN4b9Tgy0i0q5gZw6O2baM5vaD9CdJkhnVfqhZEy3++AleWaPnpoHCym/bU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17D04A7C84
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 17:29:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789579763; cv=pass; b=qkMD2Y1IhdOIRGiX2PJBSWf+6fkXhYZR6lOlwFoDng4GRjYs3PGR6JIA1CJqgcTbfz3TpUUZQZm6JBga32/LcqE5hYiSaAd/d8ATjpO1RbgbCYZbgnqNijtJQCswpIZIPZvZYg8DWAZIcNmGC2k43KIyfKyEIGenua9lpMYVhho=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789579763; c=relaxed/simple;
-	bh=3F+/Vfhc8Rh0Xlo8+0M6by/0bTS+n5+7+zjCYGeHuOw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kZ05GOdhB2cxI88dDTPIONG3myeIUNjxjkpvIkneIbedVa8KOyNv0W+GmME+rJsCtjj62ZtFUB8X1iRE1DhxATYR41s2tOLw7DfTQf+dDpbGrAMhf/Ue7naISIJQh6T1Ur6fkdRQT7jQuvF9ZGCvIu2P95K3oUyavhlz3fNCnpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXAj3o0apquZ9uCA--.22432S2;
-	Thu, 17 Sep 2026 01:29:12 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: chris@chris-wilson.co.uk,
-	dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org,
-	jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	rodrigo.vivi@intel.com,
-	simona@ffwll.ch,
-	tursulin@ursulin.net,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/gt: Fix rq use-after-free in signal_irq_work()
-Date: Wed, 16 Sep 2026 17:28:44 +0000
-Message-Id: <20260916172844.2087895-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	bh=SxMiluOD0uK5+ILAX1qVVq9oZ2A/QJmNeyQU2dGZ29c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=L+1//jdze/c56Dr4qW0fzhknN4v3tg+Ok2yNiEI6ARgUwYbKAdd3q/TC8bAJADK6nwVr8JgxDYpKs+d2gSPyAwrWSnoJwbIbTzSBQSB240LbQmDkrZYdr4PXM9/fP5SOuBiiUEUwhRCvgoMp1wzbGvyYFfAWkrrnl432Wsn2Wu8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=b5sU7hQ3; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="b5sU7hQ3"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ef15c1so172868666b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 10:29:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789579760; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l7tuS+87IQ3MlvOW59M24J/qCnuYt4mRn+Wo2IiuCU72uC+f9XUvlc5MU5rk+UzAbu
+         cDRbu3zRuY8VGqNbz5wRaF1pNeSUgWliBtPC2za69T9E9WsK8gIFfDMMXk4ZyvOHtHDa
+         K02QNaEiKjLQ0wl4nhSGg61R+tgLpg/gycT9rJE2ZWk0+yz/n5nUMF336t96UWVl/enf
+         PjGBx6+z3v9/oF/n9tcKh9ppzumzOBMbdKQogp/uUfbW7KaSItkuTKdYQ04iqgbX344P
+         BtDvMesSXt6mM3nzv4XUtt2OUeyD39yQrMf+JXejsCma9Fry+nlMhID9g0LMFaMf86pi
+         +8gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MsBp/K/8Mh4fs+CJj0dFevHba775OvfQ8W0kzE3hMzk=;
+        fh=Bl0lV7ngNEGozbcwGGqT1qhT1y9q0/S/+Gg/SrJrLv8=;
+        b=lJXa3b3GJfG9IzCF8Fw77yhclueQZZEugmM8/z8X10aZLCdqzEb/MrqMSebIlNSScY
+         XmiLgAcrybQ2t5PrZJhCRWbd3f/GQwAU5qjtaxpaMkAhzNWji+5OPtaNkbYQXR1Wl6gc
+         j2R+fAg9pDiJFFntvheEpEyrUitkEo0Qz+OQ9pINLvmmVVoYktBwR64r4mMT3FjGfQQz
+         N47/WBkYQStvA8NqUtqVf8+cQu1ny47YN5wp45QpQBJrKQH9CAw2wnQ2dSJ8S32+lyUW
+         X2OkiauGwk1IMUAtNfSKmJJEQh8pnZCJZP3A4epAPsoMvitE+K10JMFpUyC8iKzSPqqb
+         czYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789579760; x=1790184560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MsBp/K/8Mh4fs+CJj0dFevHba775OvfQ8W0kzE3hMzk=;
+        b=b5sU7hQ3GCD+ocTbm7CUFqMmSychwuLnFWguz1+RZbFsQl/y5MDpcVHlzcgYO9LRmL
+         RqIatYKNkjEwDKwPPXokqZsxaYStOVConRKHo0U8JUApcmsEhDzupfQl/7nTuWPIPbbP
+         wPZxEMhOz2eHoW6H2C5sSSjnfSvlnvIPmK0AOuQtEmrTn6f9W3ZSPblh5vp3EL7gCa3I
+         sfP1FoeMbJUw31985PL3cjYAj1/gnl9LKmKW2XInqYtfEjRg3wLkK3bcCsAEJyJ0kNeg
+         AHVq0lXDrFj77SZWwkfkPqG8IeMB2aI3Dk9wtEbza3c63y9jpC8ZtWwpR5VP5kFXoOI/
+         bhcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789579760; x=1790184560;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MsBp/K/8Mh4fs+CJj0dFevHba775OvfQ8W0kzE3hMzk=;
+        b=raoFlnR6nM7v3ewRTIYl7blF7uU7/vmwK9NMjrxpuAxImG3utyQMsFaYAY5QMJ+uzy
+         nHTwpZ4pTN79BrfZ1vcSG2yc/hwlUbI+HhE+PPMa+gK/nwHexDO8G7ndBnzs7FKu0RjC
+         WXGAbGSDYYngKdL0057rEWlkzUarl1UJ0LKAoaVtZbnczw5LMlwBbswrOh3S2vxFWZtZ
+         NlOoOgwkPWAsnsCJng889hU0KGfhUn7HL31MQudP00PRhz6MKaFyjD0gkeYX+WalTmVP
+         qiiJKlJ19qYuHdgBoMNX4Vwc7/vXxGnCWA6C7XwfGH2ZAPEVJxf264mzb0sEy792ton4
+         lK8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx9ftH7745BFNMK6tNtLjl+5X5XD0E2JM52tQwOzvW3xb7Wv1ca7KaA7NI7x6Sj6RiHoElTpV1QwfCgzuc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4vArtlEKjYx9RMc/XXafAu/voQ1GOvyTQquFaKiea1+WuKhH0
+	hYXE/sytAXuBQjWsve/beLbnqe5K0e1Okknaxi/BGL8yNVHHyE368mlB+YUtAKpIa36F52e6f95
+	6ljsVWg8LfW0bKZ0CwtLRKKMn1Sw/mICaBrbY22pV
+X-Gm-Gg: AYBFou3SH+Box8clAOgGWTYlM5jY8E0kA33nMD4eQPwVWv+9B/Vze5pk8popFP3kFzD
+	FShhxHl2rBo20sF84S4/FAvswaDohNlesoxy8SaigM2IDdS/EaGc6TJ+W7oSrcqL2oCxVpNH+a/
+	yDXGgx9R/sZtOetUpEogTi4ko7yK0wjDOrsrjkLGso403RG/MeSU08PpF/IUBcLFd2ZgJ8RgZyw
+	DAJz7ei8Uq1yrImCq2Y3qu+G6JeK56tBqn0QBF3HSh6oK9Q41MBtuVBz/0e3TRpPJt2e7MXgBUg
+	OOJSWJtFWgHKTWliEbE7wFWepOorMxF6dmaX4ORGsh1C0fpFFNR4N5kd3To3XtiqovfBGogjqOT
+	6nvt9pF02ejnYGlk1UvmD
+X-Received: by 2002:a17:906:c114:b0:c29:52dd:317c with SMTP id
+ a640c23a62f3a-c29e52ff5aamr253749566b.30.1789579759601; Wed, 16 Sep 2026
+ 10:29:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXAj3o0apquZ9uCA--.22432S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww4xuFy8AFykury3trW5ZFb_yoW8Ww4Dpr
-	43JFyYyrZ8ZFnFv3WrC3W8CF4fWa42yF1UWF98G3s3Jwn8tas3Ar9YvFyjqFyY9rs3Xw1q
-	qryqqrW7WFWUZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9q14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
-	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
-	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
-	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F
-	4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIMA2qqpVhjkQAAsF
+References: <20260728221007.2098560-1-dmatlack@google.com> <20260728221007.2098560-4-dmatlack@google.com>
+ <e099cbaf-3185-4c39-ae36-7f0e074ebff7@linux.dev>
+In-Reply-To: <e099cbaf-3185-4c39-ae36-7f0e074ebff7@linux.dev>
+From: David Matlack <dmatlack@google.com>
+Date: Wed, 16 Sep 2026 10:28:52 -0700
+X-Gm-Features: AcwNN1X8OtlPLlB_fEFGTTxlBHL1RWBLk55_RIeZg7bMhopD1i4pmTuVWaDvZaI
+Message-ID: <CALzav=eX0gVrbWCnYGwfqPHUkoVxqdr2nw3Tx6Aqze0XOcuwzA@mail.gmail.com>
+Subject: Re: [PATCH v8 03/12] PCI: liveupdate: Track incoming preserved PCI devices
+To: Zhu Yanjun <yanjun.zhu@linux.dev>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pci@vger.kernel.org, 
+	Adithya Jayachandran <ajayachandra@nvidia.com>, Alexander Graf <graf@amazon.com>, 
+	Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>, 
+	David Rientjes <rientjes@google.com>, Jacob Pan <jacob.pan@linux.microsoft.com>, 
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, Josh Hilke <jrhilke@google.com>, 
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>, Mike Rapoport <rppt@kernel.org>, 
+	Parav Pandit <parav@nvidia.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pranjal Shrivastava <praan@google.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	Saeed Mahameed <saeedm@nvidia.com>, Samiullah Khawaja <skhawaja@google.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Vipin Sharma <vipinsh@google.com>, 
+	William Tu <witu@nvidia.com>, Yi Liu <yi.l.liu@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The final i915_request_put() can release the last reference to a
-signaled request, freeing it synchronously (kmem_cache_free) before the
-RCU iterator advances to read rq->signal_link.next. Grab the next
-request up front, so the loop does not touch a request that may already
-have been freed.
+On Tue, Sep 15, 2026 at 8:31=E2=80=AFPM Zhu Yanjun <yanjun.zhu@linux.dev> w=
+rote:
+> =E5=9C=A8 2026/7/28 15:09, David Matlack =E5=86=99=E9=81=93:
 
-Fixes: c744d50363b7 ("drm/i915/gt: Split the breadcrumb spinlock between global and contexts")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+> > CONFIG_64BIT is now required to enable CONFIG_PCI_LIVEUPDATE so that th=
+e
+> > domain and bdf can be guaranteed to fit in an unsigned long and be used
+> > as the xarray key.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index f840e98792cd..90bc32b526b8 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -213,7 +213,7 @@ static void signal_irq_work(struct irq_work *work)
- 	for (ce = list_first_or_null_rcu(&b->signalers, typeof(*ce), signal_link);
- 	     ce;
- 	     ce = cn) {
--		struct i915_request *rq;
-+		struct i915_request *rq, *rn;
- 
- 		/*
- 		 * Grab the next signaler up front, as dropping the final
-@@ -223,9 +223,16 @@ static void signal_irq_work(struct irq_work *work)
- 		cn = list_next_or_null_rcu(&b->signalers, &ce->signal_link,
- 					   typeof(*cn), signal_link);
- 
--		list_for_each_entry_rcu(rq, &ce->signals, signal_link) {
-+		for (rq = list_first_or_null_rcu(&ce->signals,
-+						 typeof(*rq), signal_link);
-+		     rq;
-+		     rq = rn) {
- 			bool release;
- 
-+			rn = list_next_or_null_rcu(&ce->signals,
-+						   &rq->signal_link,
-+						   typeof(*rn), signal_link);
-+
- 			if (!__i915_request_is_complete(rq))
- 				break;
- 
--- 
-2.34.1
+> > diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+> > index 3781e2b5f095..8af20f558086 100644
+> > --- a/drivers/pci/Kconfig
+> > +++ b/drivers/pci/Kconfig
+> > @@ -273,7 +273,7 @@ config VGA_ARB_MAX_GPUS
+> >
+> >   config PCI_LIVEUPDATE
+> >       bool "PCI Live Update Support"
+> > -     depends on PCI && LIVEUPDATE
+> > +     depends on PCI && LIVEUPDATE && 64BIT
+>
+> One question about adding 64BIT to the dependency:
+>
+> As I understand it, enabling CONFIG_64BIT essentially means that we are
+> building a 64-bit kernel, and a 32-bit architecture cannot normally
+> enable CONFIG_64BIT.
+>
+> If that is the case, would depends on 64BIT be necessary here? Or is PCI
+> Live Update already inherently restricted to 64-bit architectures by the
+> existing LIVEUPDATE/architecture configuration, so that this dependency
+> would be redundant?
+>
+> If this problem has already discussed, I am very sorry about this.
 
+The necessity is that the PCI core needs to store more than 32-bits in
+the unsigned long xarray key (see the snippet above). The dependency
+on CONFIG_64BIT ensures that unsigned long is big enough. We could
+probably remove the dependency but I would rather wait until someone
+with a 32-bit build has a real use-case for using PCI_LIVEUPDATE
+before putting any effort into it.
