@@ -1,212 +1,317 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5580A2848A7
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:22:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C76399011
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:23:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789539750; cv=none; b=TQqowlI+fx9VXaZXkFlbvC2esH7JyMmScoAizmzWTnj7nnVeO8dXdv65xek10TCwjoNXLSi1Pxapzqly8TG2pWOK2J7JmDKSBpFByvPKjaTQwKrb8tXHrqPLzMTrSsJ/eXvSuj6/d7h0E/zq9gkUJZhsiGrssR17FZ1ze8Pkj7M=
+	t=1789539815; cv=none; b=HdLF3H1R3AqxLz6U25PDYGNKpOqxV3PCsnD6NGg0snh4sRdjM0WtwLauvuWgtvwNCJ1GZUjV9OGvw+gMkxdB51h8Tm0t0kUAPMjEbSZp/eKK3ExBkS20xnpyuIEBIfirsZG/iVLPCKFYXYmbtACsm8JgOsgcl/he/bIUOjabcHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789539750; c=relaxed/simple;
-	bh=IPAgThF9jC7bFh1055v5ZtbJ+nlwCQZ8xCiNPM47tqo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HHLARHwX6QQ//veVO80deTU5HZ+63e7W7DsX1va9gOEoqDi5btjlH08SVmBQDeu8opXhLdFA+brA80mv0sUTqGwiQSfrNRqmxL7P4lCq1/ocbTPEu0vS8I0ugsrK27L8xhFow6IDFYiv+wLbbB9LyHQLlhcM64u8QtYTFfyv7wE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=madHWNbH; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789539815; c=relaxed/simple;
+	bh=KUtBdq12OEY1wSIMIJXVPi81koLSIF0WSo9YTwXXD4s=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=rRqn+09VRIwXHK7lGk0sOVEOa+HkivrlFxt067AyORN+JjF/b7DVFQ6rXxwyxtrvh4oXRLHhGYQIdLT1k58vijfUWAhPpHDAU20NAM5aXoFiwwoYeYYW7Ili+lJi2AWEUwtOh2r05imTlNPWXqYMIhZwzU1JHHRgsooSmVrfTFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=brqwwvhe; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="madHWNbH"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso206533f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:22:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789539748; x=1790144548; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0WHX+dp2Boxju7SrcSzARyHP/hpDCqm9COAQ0KdyjLM=;
-        b=madHWNbHIuPL0HgiuCJOwN0+lK6mQjHN1j5xJJhitMwybMpd+RPODJfQPbetXhGn9b
-         FjiXfBQUf9tPUpOjGHkEjEPmO1LfR5UjyDLOZCvW99qLFFP1d8+jgTntXkJBXno9FLac
-         RnD4wxU1A3/L7bUx/ztYFydzsjmAVElky4QuhtHffOpsqdP1Zz6ASCMIWPrB6VYZ/N2J
-         5QonzydmEj0DCsfHcL6KpaxCu6okKGv4HZtjv6Wh2deP4WpT5PtiWhNSOhZhuYDFjJ6S
-         K25y5SMoWMKhRP8yW0Mi/HuaAaOKcd0eLzPpKKW9I47VHJP/QqkDXvxkG99S29tuWmvT
-         ygLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789539748; x=1790144548;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0WHX+dp2Boxju7SrcSzARyHP/hpDCqm9COAQ0KdyjLM=;
-        b=venMYbrGpGA81bkChwoEio6CnzPjHw2oGuAuBzTLvvPbHsOURFoQ7wlW8tD4Xihw05
-         SE5m2GPShOTEFPFYdzpG35h71D59zWhE4ADpDg5AWuVgW6uRBgbGrPLhHNP89YBSyR0P
-         oOvTIb1kwd4OafvvqulmhrLLOWW30Rjji6lFOxwhIA+rqgkSukCM57lEL+l0D6lwvt6k
-         ZrgxA4FnuPeqZCdpqoV7FUd+NxrXYBFxIRRxZ95+2x0TzOVB2z9BP8xEroFuPqhyJsxL
-         PiG3pa6fZ2tx676YnfWHP8y/l8PatW1EJrAWaDw059IKmw1HPVm+ZmKYGMztxAsYdQ6b
-         Axmw==
-X-Forwarded-Encrypted: i=1; AKwUvBwMyn+YWvLWg0kgZvPd0SajvrgGxgxov6nyZRYuMb3LSUoS2TqVGOMHqAIyxRxyGK/lxlxUZRuxzwfbbr4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLB5y2aijdf2DVhgh808PuLXsES9SweNJn1nBf+R9bNvppPA7R
-	4wH/aroDKD5F6qAdEO7ow35oUeAk1rZUiE9Q8+4HB7nbILGzkOycdp1B
-X-Gm-Gg: AYBFou1kZDsw+qx9TdiH5uxiYQDElcszPoD0xpmF4DJOLLz0VXwixGnKfmLCNZ+hUAe
-	2INm+igNyJNpWNQOTL5nYP5meKYEBIO0s52hmrWgSrBQxiH+6zz2TFW3S+0EomuGi9JFgDVPYbO
-	tynmgR/5OWBCi76pvuIQXn4aZ8r8hvb5WPASIXv8Rn3e5X+ZLHE49p9Lqqe/Fwhazd7+ssBaXkQ
-	9sPTToAqYGbe4UoQtAe1FZNjCTswxs2t0ND6F86ZrUG+u66BI847ipXIjQbv4DK9Y69J3L06wES
-	p3db+nlFYe3IZFL7ZipKdTBYS0gMEyWFpBvJVlQZdDFwRRGyeeI+x547Zhx0NgA3cMYDXJRsG6v
-	4RW2DvX5JJQvy73jBbQl2hoI5dlf3Vq0DSywucDSXtcZalXUqk1G5hhQIDLA1xZ+QZtiRzTSidI
-	WaVv9WOP8rtRyeSHQZf7CJuUo1VTzNN0bgCXFzsFp8hc2UgaziH3TW243c8eYlp8ZtbfFvevSBh
-	9zeZb6696GNH4jFU5O9JBMWq7rsnV4iAMOSqqYEPcCvz2xAt88AFidMWgRILotWJwlWChw=
-X-Received: by 2002:a5d:64ef:0:b0:487:765:46bf with SMTP id ffacd0b85a97d-4870cf2080amr1418487f8f.19.1789539747371;
-        Tue, 15 Sep 2026 23:22:27 -0700 (PDT)
-Received: from localhost ([188.234.148.119])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1fe7esm4336679f8f.6.2026.09.15.23.22.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 23:22:25 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org
-Cc: "H . Peter Anvin" <hpa@zytor.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Toshi Kani <toshi.kani@hpe.com>,
-	linux-mm@kvack.org,
-	regressions@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH] x86/mm: avoid a reclaiming allocation in pud_free_pmd_page()
-Date: Wed, 16 Sep 2026 11:22:22 +0500
-Message-ID: <20260916062222.27347-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="brqwwvhe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789539813; x=1821075813;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=KUtBdq12OEY1wSIMIJXVPi81koLSIF0WSo9YTwXXD4s=;
+  b=brqwwvhecDCJGLjTTaKDKp7BcYGH8JjyPr+irR4/qaSuM5X+/6nCwxkT
+   bD2hn2AVQPnl95XlPFUjBEV8BQvYdvniTJMos1z8nwrzHvzko0nD8Oc2r
+   xF8UDBWT9MSJxg+e1tJrSjLU2bnNO7yDuHB3q8wqVTQOGfxlkL2unh9If
+   w7zyJnfdJhFzEg4doctOeFM+kbetOo8uHdRfExK0gw8kT/SR9IHL0QEpK
+   ACxRwv2bnaNh9zV0AyG6N6ukA1a92SpO4cOqh+3W4Zej9VwNhdGePXm60
+   q7MaNwhnfDkGfpfL+P4yqc82sGyQk57gAVESItmKe0QXjx1ymEzbtO7QK
+   w==;
+X-CSE-ConnectionGUID: Jhu6dMKsRXq++oKzaH6JeA==
+X-CSE-MsgGUID: InVuluvsShql0nNL6kGhxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93612111"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93612111"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 23:23:32 -0700
+X-CSE-ConnectionGUID: mkW9Ij6OR6qOzjT60bIdvw==
+X-CSE-MsgGUID: NUUKZEE9SvOVMQPDRRHlfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="271796302"
+Received: from unknown (HELO [10.238.1.188]) ([10.238.1.188])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 23:23:30 -0700
+Message-ID: <e56a23f2-216c-41ea-991d-495962e6b7af@linux.intel.com>
+Date: Wed, 16 Sep 2026 14:23:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, bikuan.zbk@alibaba-inc.com,
+ dwmw2@infradead.org, iommu@lists.linux.dev, joro@8bytes.org,
+ linux-kernel@vger.kernel.org, robin.murphy@arm.com, will@kernel.org
+Subject: Re: [PATCH v3] iommu/vt-d: Fix IQE handling to cover all descriptors
+ in submission range
+To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+References: <2c0d1b6d-6844-4413-b399-1000cc6712e4@linux.intel.com>
+ <20260914141958.584919-1-guanghuifeng@linux.alibaba.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20260914141958.584919-1-guanghuifeng@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On a box with a discrete GPU, lockdep reports a possible deadlock as soon
-as kswapd shrinks the TTM page pool:
+On 9/14/2026 10:19 PM, Guanghui Feng wrote:
+> When an Invalidation Queue Error (IQE) occurs, hardware halts fetching
+> and IQH points at the faulting descriptor. The previous code only
+> checked whether IQH matched the first descriptor index of the current
+> submission, missing faults on any other descriptor within the batch.
+> 
+> Expand the check to cover the entire submission range [index, wait_index],
+> accounting for circular wrap-around.
+> 
+> Furthermore, after detecting IQE, the old recovery only replaced the
+> single faulting slot with a copy of the wait descriptor and immediately
+> returned -EINVAL. This left two problems:
+> 
+>    a) Hardware resumed fetching and could hit another invalid descriptor
+>       in the same abandoned batch, raising a second IQE that no submitter
+>       would claim — permanently deadlocking the queue.
+> 
+>    b) The caller reclaimed all batch slots (QI_FREE) while hardware might
+>       still be asynchronously processing descriptors from that batch,
+>       allowing concurrent overwrite and descriptor corruption.
+> 
+> Fix both by introducing qi_drain_remaining_descs(): upon IQE detection,
+> overwrite the stranded slots in [IQH, wait_index) with no-op wait
+> descriptors, resubmit the wait descriptor at wait_index, then clear IQE.
+> The caller's existing poll loop naturally waits for QI_DONE — which per
+> VT-d spec §6.5.2.12 is only written after ALL preceding descriptors
+> complete — guaranteeing hardware has fully drained the batch before
+> slots are reclaimed.
+> 
+> Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+> Signed-off-by: bikuan.zbk <bikuan.zbk@alibaba-inc.com>
+> ---
+>   drivers/iommu/intel/dmar.c | 78 ++++++++++++++++++++++++++++++--------
+>   1 file changed, 63 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
+> index ba675b08cd20..db92fb247131 100644
+> --- a/drivers/iommu/intel/dmar.c
+> +++ b/drivers/iommu/intel/dmar.c
+> @@ -1344,6 +1344,43 @@ static void qi_dump_fault(struct intel_iommu *iommu, u32 fault)
+>   	       (unsigned long long)desc->qw1);
+>   }
+>   
+> +/**
+> + * qi_drain_remaining_descs - drain descriptors stranded by an IQE
+> + * @iommu: the affected IOMMU
+> + * @wait_index: slot index of the wait descriptor of the current submission
+> + * @shift: qi_shift(iommu), converts a slot index into a byte offset
+> + * @options: QI_OPT_* flags of the current submission
+> + *
+> + * Overwrite the slots in [IQH, @wait_index) with no-op descriptors, resubmit
+> + * the wait descriptor at @wait_index, and clear IQE so hardware resumes and
+> + * eventually signals QI_DONE. Must be called with qi->q_lock held.
+> + */
+> +static void qi_drain_remaining_descs(struct intel_iommu *iommu,
+> +				     int wait_index, int shift,
+> +				     unsigned long options)
 
-  WARNING: possible circular locking dependency detected
-  7.3.0-rc3-f6e7b42bf05b+ #183 Tainted: G     U
-  ------------------------------------------------------
-  kswapd0/269 is trying to acquire lock:
-  ((init_mm).mmap_lock){++++}-{4:4}, at: change_page_attr_set_clr+0x29a/0x4a0
-  but task is already holding lock:
-  (pool_shrink_rwsem){.+.+}-{4:4}, at: ttm_pool_shrink+0xb2/0x330 [ttm]
-  Chain exists of:
-    (init_mm).mmap_lock --> fs_reclaim --> pool_shrink_rwsem
+This is only an internal helper, so there is no need to add a kernel-doc
+comment like this.
 
-The cycle is built from three edges:
+> +{
+> +	struct q_inval *qi = iommu->qi;
+> +	struct qi_desc desc;
+> +	int head_idx;
+> +	int cur;
+> +
+> +	head_idx = (readl(iommu->reg + DMAR_IQH_REG)) >> shift;
+> +
+> +	memset(&desc, 0, sizeof(desc));
+> +	desc.qw0 = QI_IWD_TYPE;
+> +	for (cur = head_idx; cur != wait_index; cur = (cur + 1) % QI_LENGTH)
+> +		memcpy(qi->desc + (cur << shift), &desc, 1 << shift);
+> +
+> +	desc.qw0 = QI_IWD_STATUS_DATA(QI_DONE) |
+> +			QI_IWD_STATUS_WRITE | QI_IWD_TYPE;
+> +	if (options & QI_OPT_WAIT_DRAIN)
+> +		desc.qw0 |= QI_IWD_PRQ_DRAIN;
+> +	desc.qw1 = virt_to_phys(&qi->desc_status[wait_index]);
+> +	memcpy(qi->desc + (wait_index << shift), &desc, 1 << shift);
+> +
+> +	writel(DMA_FSTS_IQE, iommu->reg + DMAR_FSTS_REG);
+> +}
 
-  1) pool_shrink_rwsem -> (init_mm).mmap_lock
+I would like this helper to be self-contained; that is, it should
+replace all abandoned descriptors with wait descriptors and then wait
+until hardware fetch passes those descriptors. Something like this (not
+tested yet):
 
-     The TTM shrinker restores the caching attribute of every page it
-     frees, while holding pool_shrink_rwsem:
-
-       ttm_pool_shrink()
-       -> ttm_pool_dispose_list()
-       -> ttm_pool_free_page()
-       -> set_pages_wb()
-       -> change_page_attr_set_clr()   [ init_mm mmap read lock ]
-
-  2) fs_reclaim -> pool_shrink_rwsem
-
-     The same shrinker, called from reclaim.
-
-  3) (init_mm).mmap_lock -> fs_reclaim
-
-     ioremap() installing a huge PUD mapping over an existing PMD table:
-
-       ioremap_page_range()
-       -> vmap_range_noflush()
-       -> vmap_try_huge_pud()          [ init_mm mmap read lock ]
-       -> pud_free_pmd_page()
-       -> __get_free_page(GFP_KERNEL)  [ enters reclaim ]
-
-Edge 3 is the one that should not exist.  Now that reclaim can acquire the
-init_mm mmap lock, that lock must not be held over an allocation which can
-enter reclaim.  This rule is stated by commit d5d8b8662e6e
-("x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF")
-and honoured inside CPA itself, where split_large_page() drops the lock
-around pagetable_alloc().  The vmap path took the same lock earlier, in
-commit 26444eb71465
-("mm/vmalloc: acquire init_mm lock on huge vmap to avoid ptdump UAF"),
-and pud_free_pmd_page() still allocates its scratch page with GFP_KERNEL
-underneath it.  Neither commit deadlocks on its own; together they close
-the cycle.
-
-Use GFP_NOWAIT for that page.  pud_free_pmd_page() already returns 0 when
-the allocation fails, and its only caller, vmap_try_huge_pud(), then maps
-at PMD granularity through the existing page table - exactly what it does
-when its own mmap trylock fails.  So the failure path is not new, and a
-failed allocation costs nothing but a smaller mapping.
-
-This breaks the cycle at its source: no code holds the init_mm mmap lock
-across a reclaiming allocation any more, so no shrinker-held lock can be
-ordered against it.  The same cycle was reported from the i915 shrinker
-with &vm->mutex in place of pool_shrink_rwsem.
-
-Link: https://lore.kernel.org/all/80993b70-352f-4069-84c7-39a04c061e98@intel.com/
-Fixes: d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
-
-#regzbot introduced: d5d8b8662e6e
-
-Reproduced and verified on a Ryzen 9 7950X with a Radeon RX 7900 XTX
-(Navi 31, 0000:03:00.0), lockdep and KASAN enabled.
-
-On a kernel with a TTM driver bound the report above reproduces on
-demand, no memory pressure needed:
-
-  # cat /sys/kernel/debug/ttm/page_pool         # wc/uc rows non-zero
-  # cat /sys/kernel/debug/ttm/page_pool_shrink
-
-The second read runs the TTM shrinker with fs_reclaim held, so the
-same cycle is reported from the reading task instead of kswapd.
-
-Before (7.3-rc3-f6e7b42bf05b, #183): report within 105 s of boot,
-2048 pool pages scanned.
-
-After (same base plus this patch, #185): 1536 write-combined pages
-scanned - the order-9 row of the pool went from 3 to 0 and total
-node0 from 27650 to 26114 - no report, and /proc/lockdep_stats still
-showed debug_locks: 1 afterwards.
-
- arch/x86/mm/pgtable.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/mm/pgtable.c b/arch/x86/mm/pgtable.c
-index cb03f5a2b243..c79587962526 100644
---- a/arch/x86/mm/pgtable.c
-+++ b/arch/x86/mm/pgtable.c
-@@ -713,7 +713,7 @@ int pmd_clear_huge(pmd_t *pmd)
-  * Context: The PUD range has been unmapped and TLB purged.
-  * Return: 1 if clearing the entry succeeded. 0 otherwise.
-  *
-- * NOTE: Callers must allow a single page allocation.
-+ * NOTE: Callers must allow a single non-blocking page allocation.
-  */
- int pud_free_pmd_page(pud_t *pud, unsigned long addr)
- {
-@@ -722,7 +722,13 @@ int pud_free_pmd_page(pud_t *pud, unsigned long addr)
- 	int i;
- 
- 	pmd = pud_pgtable(*pud);
--	pmd_sv = (pmd_t *)__get_free_page(GFP_KERNEL);
++static int qi_drain_remaining_descs(struct intel_iommu *iommu, int head,
++				    int wait_index)
++{
++	struct q_inval *qi = iommu->qi;
++	int shift = qi_shift(iommu);
++	struct qi_desc wait_desc = {};
++	struct qi_desc nop_desc = {};
++	cycles_t start;
++
++	nop_desc.qw0 = QI_IWD_FENCE | QI_IWD_TYPE;
++
++	wait_desc.qw0 = QI_IWD_STATUS_DATA(QI_DONE) |
++			QI_IWD_STATUS_WRITE | QI_IWD_FENCE | QI_IWD_TYPE;
++	wait_desc.qw1 = virt_to_phys(&qi->desc_status[wait_index]);
++
++	while (head != wait_index) {
++		memcpy(qi->desc + (head << shift), &nop_desc, 1 << shift);
++		head = (head + 1) % QI_LENGTH;
++	}
++
++	WRITE_ONCE(qi->desc_status[wait_index], QI_IN_USE);
++	memcpy(qi->desc + (wait_index << shift), &wait_desc, 1 << shift);
++
 +	/*
-+	 * The only caller, vmap_try_huge_pud(), holds the init_mm mmap read
-+	 * lock, which reclaim can take via set_memory_*().  Do not enter
-+	 * reclaim from here.  Failing is fine: the caller then keeps the
-+	 * existing PMD table instead of installing a huge PUD mapping.
++	 * Order the descriptor rewrites before the writel() that restarts
++	 * the fetch engine.
 +	 */
-+	pmd_sv = (pmd_t *)__get_free_page(GFP_NOWAIT);
- 	if (!pmd_sv)
- 		return 0;
- 
--- 
-2.55.0
++	wmb();
++
++	writel(DMA_FSTS_IQE, iommu->reg + DMAR_FSTS_REG);
++
++	start = get_cycles();
++	while (READ_ONCE(qi->desc_status[wait_index]) != QI_DONE) {
++		if (DMAR_OPERATION_TIMEOUT < (get_cycles() - start)) {
++			pr_err("Timeout draining invalidation queue after IQE\n");
++			return -ETIMEDOUT;
++		}
++		cpu_relax();
++	}
++
++	return 0;
++}
 
+> +
+>   static int qi_check_fault(struct intel_iommu *iommu, int index, int wait_index)
+>   {
+>   	u32 fault;
+> @@ -1366,21 +1403,22 @@ static int qi_check_fault(struct intel_iommu *iommu, int index, int wait_index)
+>   	 * is cleared.
+>   	 */
+>   	if (fault & DMA_FSTS_IQE) {
+> +		int head_idx;
+> +
+>   		head = readl(iommu->reg + DMAR_IQH_REG);
+> -		if ((head >> shift) == index) {
+> -			struct qi_desc *desc = qi->desc + head;
+> +		head_idx = head >> shift;
+>   
+> -			/*
+> -			 * desc->qw2 and desc->qw3 are either reserved or
+> -			 * used by software as private data. We won't print
+> -			 * out these two qw's for security consideration.
+> -			 */
+> -			memcpy(desc, qi->desc + (wait_index << shift),
+> -			       1 << shift);
+> -			writel(DMA_FSTS_IQE, iommu->reg + DMAR_FSTS_REG);
+> -			pr_info("Invalidation Queue Error (IQE) cleared\n");
+> +		/*
+> +		 * The faulting descriptor can be anywhere within the current
+> +		 * submission's range [index, wait_index]. Since the queue is
+> +		 * circular, this submission may wrap around QI_LENGTH
+> +		 * (index > wait_index in that case), so check both the
+> +		 * non-wrapped and wrapped cases of the range.
+> +		 */
+> +		if (index <= wait_index ?
+> +		    (head_idx >= index && head_idx <= wait_index) :
+> +		    (head_idx >= index || head_idx <= wait_index))
+>   			return -EINVAL;
+> -		}
+>   	}
+
+Then call the above helper directly here.
+
+@@ -1366,18 +1409,25 @@ static int qi_check_fault(struct intel_iommu 
+*iommu, int index, int wait_index)
+  	 * is cleared.
+  	 */
+  	if (fault & DMA_FSTS_IQE) {
++		int head_idx, ret;
++
+  		head = readl(iommu->reg + DMAR_IQH_REG);
+-		if ((head >> shift) == index) {
+-			struct qi_desc *desc = qi->desc + head;
++		head_idx = (head >> shift) % QI_LENGTH;
++
++		/*
++		 * The faulting descriptor can be anywhere within the current
++		 * submission's range [index, wait_index]. Since the queue is
++		 * circular, this submission may wrap around QI_LENGTH
++		 * (index > wait_index in that case), so check both the
++		 * non-wrapped and wrapped cases of the range.
++		 */
++		if (index <= wait_index ?
++		    (head_idx >= index && head_idx <= wait_index) :
++		    (head_idx >= index || head_idx <= wait_index)) {
++			ret = qi_drain_remaining_descs(iommu, head_idx, wait_index);
++			if (ret)
++				return ret;
+
+-			/*
+-			 * desc->qw2 and desc->qw3 are either reserved or
+-			 * used by software as private data. We won't print
+-			 * out these two qw's for security consideration.
+-			 */
+-			memcpy(desc, qi->desc + (wait_index << shift),
+-			       1 << shift);
+-			writel(DMA_FSTS_IQE, iommu->reg + DMAR_FSTS_REG);
+  			pr_info("Invalidation Queue Error (IQE) cleared\n");
+  			return -EINVAL;
+  		}
+
+>   
+>   	/*
+> @@ -1452,7 +1490,7 @@ int qi_submit_sync(struct intel_iommu *iommu, struct qi_desc *desc,
+>   	int wait_index, index;
+>   	unsigned long flags;
+>   	int offset, shift;
+> -	int rc, i;
+> +	int rc = 0, fault, i;
+>   	u64 type;
+>   
+>   	if (!qi)
+> @@ -1528,9 +1566,19 @@ int qi_submit_sync(struct intel_iommu *iommu, struct qi_desc *desc,
+>   		 * a deadlock where the interrupt context can wait indefinitely
+>   		 * for free slots in the queue.
+>   		 */
+> -		rc = qi_check_fault(iommu, index, wait_index);
+> -		if (rc)
+> +		fault = qi_check_fault(iommu, index, wait_index);
+> +		if (fault == -EINVAL) {
+> +			/*
+> +			 * IQE in our batch: drain the remaining descriptors
+> +			 * and keep polling until hardware completes.
+> +			 */
+> +			qi_drain_remaining_descs(iommu, wait_index, shift,
+> +						  options);
+> +			rc = -EINVAL;
+> +		} else if (fault) {
+> +			rc = fault;
+>   			break;
+> +		}
+
+As a result, there is no need to change the caller of qi_check_fault().
+
+>   
+>   		raw_spin_unlock(&qi->q_lock);
+>   		cpu_relax();
+
+Thanks,
+baolu
