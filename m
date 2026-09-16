@@ -1,409 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D374963CF;
-	Wed, 16 Sep 2026 23:39:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB544E4304;
+	Wed, 16 Sep 2026 23:39:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789601946; cv=none; b=AsBJU5gK91apn4trHkk/Fnpb1RCC9hq8bxxAooKYw1htUWhwmEFgGW4Aet0EKCsMR3OqSxX7wN3MBGwOrQzrptX7ASo9GLzVnudg4B44+2F0FC7Lp3lA2Wsv0C1Gc9djXeEUSyxJcckhVAJiuXKWMdTusTPiLLFpIPWgcgqaS2o=
+	t=1789601960; cv=none; b=fdbV46SyZ1WG999HvPomTrdFF0IOVXpvbemoGH3kKQFsIoQE09d7HwbvSqOY1xxnzc729vIqEo4yykFNO6eZlDkl6KOeF/6XqCP/vMSXfug16ciIx/R4asmOmpF44tKJgG03HpEdORge0qINHxeYZWm6D43lUodHS9VC0bTS5A0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789601946; c=relaxed/simple;
-	bh=n3E3ITbJt2F0ATINujb758jtbhACRD+OXMDt7pKPpxw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=X/JHWRR6rfidTdd+HRP+JSYQsSWBlb2IQXPYDSz/Vv4pJWKB9HqVkioYSTtSy8bpAJCkWNNu6bYdANpdP2Jf2kYVmR3dnN/Fh8dgHZakg2Ln0WvFlyCN3kRciTwMnbvgaCwomuCjjiv7L4XlyuANAK+ul4TkvRAIpGImx+WSmdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f1z5CZls; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789601960; c=relaxed/simple;
+	bh=0VruGOcHMn7s4Xvh7/5PEOZ6dO5OOxNk6OshssXhJ/U=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RsK0/jyHFGX6rvb+tBZaHx/cnib/jhKjNwdGb7W8vOdsxnTcpH8hRtIdcGsx1wYdQ9+18lLLQozaIthqnsnLwFzop1x9wVlnkrHhMUl23kb4DhI/PxTAXAyDNMayPaA9VSGH0vGFrQcb88SOzOY6c17xdCMkA6S/F2oB4GgviUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XnjkX/V8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f1z5CZls"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 218FCC2BCF7;
-	Wed, 16 Sep 2026 23:39:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789601946;
-	bh=n3E3ITbJt2F0ATINujb758jtbhACRD+OXMDt7pKPpxw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=f1z5CZlsEaFnb82imS3fpFJauY49vm5e300pO6TQjgFW0A85lvsjfcechGUmyMF3h
-	 uOB472mB4K3fKPGHDK+GbclXgxrV+BRPzjgFhj+RLHViIN1uZlIYM+q6UXZbIBJURa
-	 g8zUxCL6XxqTka+WQxLW9Lal7YEpSUGw0znmjArqDmLolt6nla5Q5fEUu7ezp1/LxO
-	 JFv3SkHo1r3xgDL2sLKPmVDQZb7p1kaTsYQUPl5A2v8oY434klCRRR5hCRS49chlnk
-	 /047LxEDeGNiZYvkynCA/s7/XD3MksoZ8mGAXFg0u088uqLHj5wtSGTH7gTp1rXNOw
-	 cNqS92g1G5cow==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F2F98C982C1;
-	Wed, 16 Sep 2026 23:39:05 +0000 (UTC)
-From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Wed, 16 Sep 2026 16:39:01 -0700
-Subject: [PATCH v3 1/4] mm: hugetlb: Track used_hpages when getting/putting
- pages from subpool
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XnjkX/V8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF51A1F000FF;
+	Wed, 16 Sep 2026 23:39:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789601955;
+	bh=filjnyf342E4M2H2Obf85mVFGHrLc3neRKaFrYuW0tA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XnjkX/V8257k3/suTp3HKJR7LMRPwEWAZuYF3pCsAB74Ghv1KpJDHxncxO6a0Zyoq
+	 Hq9wr/U7ujGEHvT7Ydz2ub0HN1bBunPXYTxyYhxiyio0QeOE2NKdwfS26fc7lCf3Tt
+	 LeKWvKgE77P5bqGgYuiJyOwtIpqmrCxilQ9pJr4T6R8vdGtRxZSjFri/YwYkyNS0Ho
+	 WQFzB9T27e0e+QTUa3WFwFlAqqTUym6a3LQZKFcdbWknd6/f0gp9Bc3+vzGK/8MObT
+	 fkYc1RVmKz6LbUu0lBvR2O8mtUakvfN+qqSKzWp1layUSqrNQbgk+q5yKXJzlmynfp
+	 eCKqmsN8tGdPw==
+Subject: Re: [PATCH net v2 2/5] vsock/virtio: Streamline socket reset on
+ transport/PM event
+From: netdev-bot+sashiko@kernel.org
+To: mhal@rbox.co
+Cc: stefanha@redhat.com, sgarzare@redhat.com, mst@redhat.com,
+ jasowangio@gmail.com, eperezma@redhat.com, davem@davemloft.net,
+ xuanzhuo@linux.alibaba.com, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, asias@redhat.com, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 16 Sep 2026 23:39:14 +0000
+Message-ID: <178960195424.22033.1318608175795217350@kernel.org>
+In-Reply-To: <20260915-vsock-connect-reset-closing-v2-2-a1d9abb472f7@rbox.co>
+References: <20260915-vsock-connect-reset-closing-v2-2-a1d9abb472f7@rbox.co>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260916-hugetlb-subpool-always-track-used-v3-1-38aae9b5ccdd@google.com>
-References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
-In-Reply-To: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
-To: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Hongxiang Lou <louhongxiang@huawei.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Peter Xu <peterx@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
- Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
- Yanteng Si <si.yanteng@linux.dev>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com, 
- jthoughton@google.com, rientjes@google.com, vannapurve@google.com
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, Ackerley Tng <ackerleytng@google.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789601945; l=14450;
- i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=1rJLxc1vQs+7R3iQxLs6DJhbnCNS1veJoZJ6u64m6UE=;
- b=p+Y+YmKHxOPhydDivUi3pXAIbjicZ4mIXrvwEKxw0Fz1syw4o01FWso8Z2ePGDeUQ0DBDIsjE
- 0lOb3CkL9W7BuoI2stEDqkMEkocf5UjhQU7MGeTr89mBx7yICqXut+/
-X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
- pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
-X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
- auth_id=649
-X-Original-From: Ackerley Tng <ackerleytng@google.com>
-Reply-To: ackerleytng@google.com
 
-From: Ackerley Tng <ackerleytng@google.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-HugeTLB subpools currently only track used pages (used_hpages) when a
-maximum size limit (max_hpages) is configured.
+Critical: 0 · High: 1 · Medium: 2 · Low: 0
 
-This breaks minimum size (min_hpages) guarantees. The subpool guarantee
-requires that the sum of used pages and remaining subpool reserves
-satisfies the configured minimum:
+- [High] Lost-update race: the new lockless store `vsk->peer_shutdown =
+  SHUTDOWN_MASK;` in virtio_vsock_reset_sock()…
+- [Medium] Unannotated (plain) store to a locklessly-read field:
+  virtio_vsock_reset_sock() (net/vmw_vsock/virtio_transport.c:423)…
+- [Medium] Commit message does not describe the bug being fixed nor the
+  user-visible behaviour change, while carrying a Fixes: tag.
 
-  used_hpages + rsv_hpages >= min_hpages
+--
 
-where used_hpages includes both allocated folios and active reservations.
-Therefore, when pages or reservations are released, the maximum number
-of reservations the subpool can absorb is:
+vsock/virtio: Streamline socket reset on transport/PM event
 
-  limit = max(0, min_hpages - used_hpages)
+This makes virtio_vsock_reset_sock() set vsk->peer_shutdown to
+SHUTDOWN_MASK in addition to setting TCP_CLOSE and ECONNRESET, matching
+what vhost_vsock_reset_orphans() and vmci_transport_handle_detach() do.
+The changelog describes it as groundwork for later patches in the series.
 
-When used_hpages is untracked and remains zero,
-hugepage_subpool_put_pages() assumes limit == min_hpages. It falsely
-restores reservations to the subpool even when existing allocations
-already satisfy the guarantee.
+A few questions below, one about the changelog and two about the new
+store itself.
 
-This false restoration leads to:
-1. Leaked global reservations: resv_huge_pages is not decremented,
-   reducing the huge pages available for use across the host.
-2. Premature freeing: the subpool considers itself unreferenced on
-   unmount (rsv_hpages == min_hpages), freeing the subpool while folios
-   are still active in page cache and leading to a use-after-free.
+> vsock/virtio: Streamline socket reset on transport/PM event
+>
+> Follow vhost's vhost_vsock_reset_orphans() and VMCI's
+> vmci_transport_handle_detach(): set SHUTDOWN_MASK, which will come handy
+> later in the series.
+>
+> Fixes: 0ea9e1d3a9e3 ("VSOCK: Introduce virtio_transport.ko")
 
-Fix this by unconditionally tracking used_hpages in the subpool, and
-capping the reservations the subpool can absorb to
-(min_hpages - used_hpages).
+[Severity: Medium]
+The changelog says the new state "will come handy later in the series",
+but the patch carries a Fixes: tag against the original transport commit.
+Could the changelog state the failure mode that is being fixed, so this
+can be judged (and backported) on its own?
 
-With used_hpages always tracked:
-- subpool_is_free() is simplified to check whether used_hpages is zero.
-- hugetlbfs_statfs() is updated to explicitly check for max_hpages == -1;
-  previously it relied on (-1 - 0) evaluating to -1, which would now
-  underflow and report negative free block counts.
+The change also looks user-visible by itself. After
+VIRTIO_VSOCK_EVENT_TRANSPORT_RESET or device removal/PM freeze,
+vsock_poll_shutdown() now contributes EPOLLRDHUP:
 
-Trace of a false restoration:
+	if (sk->sk_shutdown & RCV_SHUTDOWN ||
+	    peer_shutdown & SEND_SHUTDOWN)
+		mask |= EPOLLRDHUP;
 
-1. Mount time:
-    + spool->min_hpages = 1 (user requested min_size=2M)
-    + spool->max_hpages = -1 (no maximum size specified)
-    + spool->rsv_hpages = 1 (reserve min_hpages)
-    + spool->used_hpages = 0 (untracked when max_hpages == -1)
-    + h->resv_huge_pages = 1 (reserved by hugetlb_acct_memory(h, 1))
+and vsock_poll() adds EPOLLIN|EPOLLRDNORM, while the blocking send/recv
+loops now terminate on the peer_shutdown condition rather than only on
+sk_err.
 
-2. Shared mapping of 4MB (2 pages) created (mmap with MAP_SHARED):
-    + In hugetlb_reserve_pages(), region_chg() finds chg = 2 (pages 0
-      and 1 need reservations)
-    + hugepage_subpool_get_pages(spool, 2):
-        + spool->rsv_hpages = 0 (consumed the 1 subpool reservation)
-        + Returns 1 (since this subpool only had 1 reservation)
-    + hugetlb_acct_memory(h, 1):
-        + h->resv_huge_pages = 2 (incremented from 1 to 2 for the
-          global reservation)
-        + region_add() records reservations for pages 0 and 1 in
-          resv_map
+The errno also changes for send(). In vsock_connectible_sendmsg() the
+peer shutdown test runs before the state test:
 
-3. Process touches and populates Page 0:
-    + hugetlb_no_page() calls alloc_hugetlb_folio()
-    + Page 0 reuses the existing reservation (vma_needs_reservation()
-      returns 0 => map_chg = MAP_CHG_REUSE = 0)
-    + hugepage_subpool_get_pages() is not called (map_chg == 0)
-    + dequeue_hugetlb_folio_nodemask() consumes 1 reservation:
-      h->resv_huge_pages = 1 (decremented from 2 to 1)
+	if (sk->sk_shutdown & SEND_SHUTDOWN ||
+	    vsk->peer_shutdown & RCV_SHUTDOWN) {
+		err = -EPIPE;
+		goto out;
+	}
 
-4. Process closes the file and exits:
-    + For MAP_SHARED mappings, reservations persist in inode resv_map
-    + Page 1 reservation remains active
-    + h->resv_huge_pages = 1 (retained for Page 1)
+	if (!transport || sk->sk_state != TCP_ESTABLISHED ||
 
-5. File is truncated to 2MB (truncate -s 2M):
-    + Truncation invokes remove_inode_hugepages() for range [1, LONG_MAX)
-    + Page 1 was never faulted into page cache => freed = 0
-    + Calls hugetlb_unreserve_pages(inode, 1, LONG_MAX, freed = 0)
-    + region_del() removes Page 1 from resv_map => chg = 1
+For SOCK_STREAM the error is then passed through sk_stream_error(), which
+consumes the pending ECONNRESET on the first call and raises SIGPIPE on
+subsequent calls unless MSG_NOSIGNAL is set:
 
-6. Inside hugetlb_unreserve_pages(): hugepage_subpool_put_pages(1):
-    + delta = chg - freed = 1 - 0 = 1
-    + Because spool->max_hpages == -1, spool->used_hpages always = 0
-    + spool->used_hpages < spool->min_hpages (0 < 1 => true)
-      <<== subpool assumes 0 pages are in use, ignoring allocated Page 0
-    + spool->rsv_hpages + delta <= spool->min_hpages (0 + 1 <= 1 => true)
-    + spool->rsv_hpages += 1 => spool->rsv_hpages = 1
-      <<== false reservation restored to subpool
-    + Returns 0 (subpool absorbed the reservation)
+net/core/stream.c:sk_stream_error() {
+	if (err == -EPIPE)
+		err = sock_error(sk) ? : -EPIPE;
+	if (err == -EPIPE && !(flags & MSG_NOSIGNAL))
+		send_sig(SIGPIPE, current, 0);
+}
 
-7. Back in hugetlb_unreserve_pages(): hugetlb_acct_memory():
-    + hugetlb_acct_memory(h, -0) does nothing
-    + h->resv_huge_pages remains stuck at 1 even though both reservations
-      have ended (Page 0 allocated, Page 1 truncated)
+Before this patch the same send() returned -ENOTCONN and no signal. Is
+that behaviour change intended, and could it be mentioned in the
+changelog?
 
-8. Later during unmounting:
-    + subpool_is_free() checks spool->rsv_hpages == spool->min_hpages
-      (1 == 1 => true)
-    + The subpool is erroneously considered completely free
-    + hugetlb_acct_memory(spool->hstate, -spool->min_hpages) decrements
-      h->resv_huge_pages by 1 (1 - 1 = 0), masking the leak on unmount
+> diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+> index 4f9aa9c4c3aa5..4d6991321699e 100644
+> --- a/net/vmw_vsock/virtio_transport.c
+> +++ b/net/vmw_vsock/virtio_transport.c
+> @@ -413,11 +413,14 @@ static void virtio_vsock_event_fill(struct virtio_vsock *vsock)
+>  
+>  static void virtio_vsock_reset_sock(struct sock *sk)
+>  {
+> +	struct vsock_sock *vsk = vsock_sk(sk);
+> +
+>  	/* vmci_transport.c doesn't take sk_lock here either.  At least we're
+>  	 * under vsock_table_lock so the sock cannot disappear while we're
+>  	 * executing.
+>  	 */
+>  
+> +	vsk->peer_shutdown = SHUTDOWN_MASK;
 
-9. If the folio outlives the inode:
-    + When Page 0 is freed, free_huge_folio() attempts to access the
-      freed subpool pointer, leading to a use-after-free and double-free.
+[Severity: Medium]
+Should this store be a WRITE_ONCE()?  As the comment right above it says,
+no socket lock is held here, only vsock_table_lock via
+vsock_for_each_connected_socket().  peer_shutdown is sampled locklessly
+by vsock_poll():
 
-Fixes: 09a95e29cb30 ("mm/hugetlb: optimize minimum size (min_size) accounting")
-Fixes: 1c5ecae3a93fa ("hugetlbfs: add minimum size accounting to subpools")
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: stable@vger.kernel.org
----
- Documentation/mm/hugetlbfs_reserv.rst              | 17 +----
- .../translations/zh_CN/mm/hugetlbfs_reserv.rst     | 11 +---
- fs/hugetlbfs/inode.c                               |  8 ++-
- include/linux/hugetlb.h                            |  4 +-
- mm/hugetlb.c                                       | 73 +++++++++++++---------
- 5 files changed, 55 insertions(+), 58 deletions(-)
+net/vmw_vsock/af_vsock.c:vsock_poll() {
+		u32 peer_shutdown = READ_ONCE(vsk->peer_shutdown);
 
-diff --git a/Documentation/mm/hugetlbfs_reserv.rst b/Documentation/mm/hugetlbfs_reserv.rst
-index a49115db18c76..d244583fdcbc3 100644
---- a/Documentation/mm/hugetlbfs_reserv.rst
-+++ b/Documentation/mm/hugetlbfs_reserv.rst
-@@ -314,21 +314,8 @@ huge pages.  If they can not be reserved, the mount fails.
- The routines hugepage_subpool_get/put_pages() are called when pages are
- obtained from or released back to a subpool.  They perform all subpool
- accounting, and track any reservations associated with the subpool.
--hugepage_subpool_get/put_pages are passed the number of huge pages by which
--to adjust the subpool 'used page' count (down for get, up for put).  Normally,
--they return the same value that was passed or an error if not enough pages
--exist in the subpool.
--
--However, if reserves are associated with the subpool a return value less
--than the passed value may be returned.  This return value indicates the
--number of additional global pool adjustments which must be made.  For example,
--suppose a subpool contains 3 reserved huge pages and someone asks for 5.
--The 3 reserved pages associated with the subpool can be used to satisfy part
--of the request.  But, 2 pages must be obtained from the global pools.  To
--relay this information to the caller, the value 2 is returned.  The caller
--is then responsible for attempting to obtain the additional two pages from
--the global pools.
--
-+hugepage_subpool_get/put_pages() use the number of huge pages passed to adjust
-+the subpool 'used page' count.
- 
- COW and Reservations
- ====================
-diff --git a/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst b/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst
-index 20947f8bd0654..ae1f1f31477fc 100644
---- a/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst
-+++ b/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst
-@@ -246,15 +246,8 @@ hugepage_subpool的min_hpages字段中被跟踪。在挂载时，hugetlb_acct_me
- 被调用以预留指定数量的巨页。如果它们不能被预留，挂载就会失败。
- 
- 当从子池中获取或释放页面时，会调用hugepage_subpool_get/put_pages()函数。
--hugepage_subpool_get/put_pages被传递给巨页数量，以此来调整子池的 “已用页面” 计数
--（get为下降，put为上升）。通常情况下，如果子池中没有足够的页面，它们会返回与传递的相同的值或
--一个错误。
--
--然而，如果预留与子池相关联，可能会返回一个小于传递值的返回值。这个返回值表示必须进行的额外全局
--池调整的数量。例如，假设一个子池包含3个预留的巨页，有人要求5个。与子池相关的3个预留页可以用来
--满足部分请求。但是，必须从全局池中获得2个页面。为了向调用者转达这一信息，将返回值2。然后，调用
--者要负责从全局池中获取另外两个页面。
--
-+它们负责所有子池的统计核算，并跟踪与子池相关联的预留。
-+hugepage_subpool_get/put_pages()函数使用传入的巨页数量来调整子池的“已用页面”计数。
- 
- COW和预留
- ==========
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 7611a8470ea26..5113f743f6fc7 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -1109,8 +1109,12 @@ static int hugetlbfs_statfs(struct dentry *dentry, struct kstatfs *buf)
- 
- 			spin_lock_irq(&sbinfo->spool->lock);
- 			buf->f_blocks = sbinfo->spool->max_hpages;
--			free_pages = sbinfo->spool->max_hpages
--				- sbinfo->spool->used_hpages;
-+			if (sbinfo->spool->max_hpages == -1) {
-+				free_pages = -1;
-+			} else {
-+				free_pages = sbinfo->spool->max_hpages -
-+					     sbinfo->spool->used_hpages;
-+			}
- 			buf->f_bavail = buf->f_bfree = free_pages;
- 			spin_unlock_irq(&sbinfo->spool->lock);
- 			buf->f_files = sbinfo->max_inodes;
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 16c4c4caa126c..4551ff3023640 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -39,8 +39,8 @@ struct hugepage_subpool {
- 	spinlock_t lock;
- 	long count;
- 	long max_hpages;	/* Maximum huge pages or -1 if no maximum. */
--	long used_hpages;	/* Used count against maximum, includes */
--				/* both allocated and reserved pages. */
-+	long used_hpages;	/* Used page count, includes both */
-+				/* allocated and reserved pages. */
- 	struct hstate *hstate;
- 	long min_hpages;	/* Minimum huge pages or -1 if no minimum. */
- 	long rsv_hpages;	/* Pages reserved against global pool to */
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 4f6f58bf3db6c..e72e22f887478 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -130,12 +130,8 @@ static inline bool subpool_is_free(struct hugepage_subpool *spool)
- {
- 	if (spool->count)
- 		return false;
--	if (spool->max_hpages != -1)
--		return spool->used_hpages == 0;
--	if (spool->min_hpages != -1)
--		return spool->rsv_hpages == spool->min_hpages;
- 
--	return true;
-+	return spool->used_hpages == 0;
- }
- 
- static inline void unlock_or_release_subpool(struct hugepage_subpool *spool,
-@@ -193,13 +189,18 @@ void hugepage_put_subpool(struct hugepage_subpool *spool)
- 	unlock_or_release_subpool(spool, flags);
- }
- 
--/*
-- * Subpool accounting for allocating and reserving pages.
-- * Return -ENOMEM if there are not enough resources to satisfy the
-- * request.  Otherwise, return the number of pages by which the
-- * global pools must be adjusted (upward).  The returned value may
-- * only be different than the passed value (delta) in the case where
-- * a subpool minimum size must be maintained.
-+/**
-+ * hugepage_subpool_get_pages - Get pages from a subpool
-+ * @spool: pointer to subpool structure (may be NULL)
-+ * @delta: number of pages to allocate or reserve
-+ *
-+ * Check and update subpool page usage counts when allocating or
-+ * reserving @delta hugepages.
-+ *
-+ * Context: Takes spool->lock using spin_lock_irq().
-+ * Return: Non-negative number of reservations that cannot be
-+ *         satisfied by the subpool, or -ENOMEM if the subpool maximum
-+ *         limit would be exceeded.
-  */
- static long hugepage_subpool_get_pages(struct hugepage_subpool *spool,
- 				      long delta)
-@@ -211,15 +212,14 @@ static long hugepage_subpool_get_pages(struct hugepage_subpool *spool,
- 
- 	spin_lock_irq(&spool->lock);
- 
--	if (spool->max_hpages != -1) {		/* maximum size accounting */
--		if ((spool->used_hpages + delta) <= spool->max_hpages)
--			spool->used_hpages += delta;
--		else {
--			ret = -ENOMEM;
--			goto unlock_ret;
--		}
-+	if (spool->max_hpages != -1 &&
-+	    spool->used_hpages + delta > spool->max_hpages) {
-+		ret = -ENOMEM;
-+		goto unlock_ret;
- 	}
- 
-+	spool->used_hpages += delta;
-+
- 	/* minimum size accounting */
- 	if (spool->min_hpages != -1 && spool->rsv_hpages) {
- 		if (delta > spool->rsv_hpages) {
-@@ -240,11 +240,19 @@ static long hugepage_subpool_get_pages(struct hugepage_subpool *spool,
- 	return ret;
- }
- 
--/*
-- * Subpool accounting for freeing and unreserving pages.
-- * Return the number of global page reservations that must be dropped.
-- * The return value may only be different than the passed value (delta)
-- * in the case where a subpool minimum size must be maintained.
-+/**
-+ * hugepage_subpool_put_pages - Release pages back to a subpool
-+ * @spool: pointer to subpool structure (may be NULL)
-+ * @delta: number of pages to free or unreserve
-+ *
-+ * Check and update subpool page usage counts when freeing or
-+ * unreserving @delta hugepages.
-+ *
-+ * Context: Takes spool->lock using spin_lock_irqsave(). May release
-+ *          and free @spool if its usage count and references reach
-+ *          zero.
-+ * Return: Non-negative number of reservations that the subpool cannot
-+ *         absorb.
-  */
- static long hugepage_subpool_put_pages(struct hugepage_subpool *spool,
- 				       long delta)
-@@ -257,19 +265,24 @@ static long hugepage_subpool_put_pages(struct hugepage_subpool *spool,
- 
- 	spin_lock_irqsave(&spool->lock, flags);
- 
--	if (spool->max_hpages != -1)		/* maximum size accounting */
--		spool->used_hpages -= delta;
-+	spool->used_hpages -= delta;
- 
- 	 /* minimum size accounting */
- 	if (spool->min_hpages != -1 && spool->used_hpages < spool->min_hpages) {
--		if (spool->rsv_hpages + delta <= spool->min_hpages)
-+		/*
-+		 * limit is the maximum number of reservations that
-+		 * can be restored to this subpool.
-+		 */
-+		long limit = spool->min_hpages - spool->used_hpages;
-+
-+		if (spool->rsv_hpages + delta <= limit)
- 			ret = 0;
- 		else
--			ret = spool->rsv_hpages + delta - spool->min_hpages;
-+			ret = spool->rsv_hpages + delta - limit;
- 
- 		spool->rsv_hpages += delta;
--		if (spool->rsv_hpages > spool->min_hpages)
--			spool->rsv_hpages = spool->min_hpages;
-+		if (spool->rsv_hpages > limit)
-+			spool->rsv_hpages = limit;
- 	}
- 
- 	/*
+		/* DGRAM sockets do not take lock_sock() in poll(), so use one
+		 * lockless snapshot for all shutdown-derived mask bits.
+		 */
+	...
+		peer_shutdown = READ_ONCE(vsk->peer_shutdown);
+		mask |= vsock_poll_shutdown(sk, peer_shutdown);
+}
+
+and the equivalent assignment in the same transport is annotated:
+
+net/vmw_vsock/virtio_transport_common.c:virtio_transport_do_close() {
+	WRITE_ONCE(vsk->peer_shutdown, SHUTDOWN_MASK);
+}
+
+The other writers in af_vsock.c, hyperv_transport.c and vmci_transport.c
+use WRITE_ONCE() too, so this looks like an unmarked/marked pair that
+KCSAN would flag.  The last patch of the series also reads this field
+with READ_ONCE() from vsock_connect() with the comment "Virtio/PM events
+are serviced locklessly.", which makes the pairing here relevant.
+
+[Severity: High]
+Separately from the annotation: can this store be lost against the
+read-modify-write in the rx path?
+
+virtio_transport_recv_connected() handles OP_SHUTDOWN under lock_sock():
+
+net/vmw_vsock/virtio_transport_common.c:virtio_transport_recv_connected() {
+	case VIRTIO_VSOCK_OP_SHUTDOWN: {
+		u32 peer_shutdown = READ_ONCE(vsk->peer_shutdown);
+
+		if (le32_to_cpu(hdr->flags) & VIRTIO_VSOCK_SHUTDOWN_RCV)
+			peer_shutdown |= RCV_SHUTDOWN;
+		if (le32_to_cpu(hdr->flags) & VIRTIO_VSOCK_SHUTDOWN_SEND)
+			peer_shutdown |= SEND_SHUTDOWN;
+		WRITE_ONCE(vsk->peer_shutdown, peer_shutdown);
+}
+
+while the reset path holds only vsock_table_lock:
+
+net/vmw_vsock/af_vsock.c:vsock_for_each_connected_socket() {
+	spin_lock_bh(&vsock_table_lock);
+	...
+			fn(sk_vsock(vsk));
+}
+
+So the two lock sets are disjoint:
+
+CPU0 (rx_work, lock_sock held)
+  virtio_transport_recv_connected()
+    peer_shutdown = READ_ONCE(vsk->peer_shutdown);   /* reads 0 */
+
+CPU1 (event_work or device removal)
+  virtio_vsock_reset_sock()
+    vsk->peer_shutdown = SHUTDOWN_MASK;
+
+CPU0 continues
+    WRITE_ONCE(vsk->peer_shutdown, peer_shutdown);   /* stale value wins */
+
+Are these two contexts actually serialized anywhere?  virtio_vsock_vqs_del()
+runs the reset loop before rx_run is cleared and rx_work drained:
+
+net/vmw_vsock/virtio_transport.c:virtio_vsock_vqs_del() {
+	/* Reset all connected sockets when the VQs disappear */
+	vsock_for_each_connected_socket(&virtio_transport.transport,
+					virtio_vsock_reset_sock);
+
+	/* Stop all work handlers ... */
+	mutex_lock(&vsock->rx_lock);
+	vsock->rx_run = false;
+}
+
+and the VIRTIO_VSOCK_EVENT_TRANSPORT_RESET path runs from event_work,
+which shares the non-ordered virtio_vsock_workqueue with rx_work.
+
+Since hdr->flags is host supplied and is not validated as non-zero, the
+value written back by the rx path can be the stale snapshot itself, i.e.
+0, which would clear the reset state entirely.  In that case
+vsock_poll_shutdown() reports no EPOLLRDHUP/EPOLLHUP, the sendmsg/recvmsg
+peer_shutdown tests see a stale mask, and the guard added by the last
+patch of the series:
+
+net/vmw_vsock/af_vsock.c:vsock_connect() {
+		/* Virtio/PM events are serviced locklessly. */
+		if (READ_ONCE(vsk->peer_shutdown)) {
+			err = -ECONNRESET;
+}
+
+silently passes.  A WRITE_ONCE() alone would not close this; would an
+atomic update (atomic OR / cmpxchg), or performing the reset from a
+context that can take lock_sock(), be more appropriate here?
+
+>  	sk->sk_state = TCP_CLOSE;
+>  	sk->sk_err = ECONNRESET;
+>  	sk_error_report(sk);
+
+Both of the above were still present in the same form at the end of the
+series, so no later patch appears to change them.
 
 -- 
-2.55.0.1082.g2b9226bbc0-goog
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-vsock-connect-reset-closing-v2-0-a1d9abb472f7%40rbox.co
