@@ -1,86 +1,33 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF77E4EBAF4
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDF84D0A17;
+	Wed, 16 Sep 2026 11:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789557864; cv=none; b=jsZKV3vpk+Dvji1Li0ZdGNCuJ5IFBmqpCkRE+4k6PP5MWTONsHNB2H3jqdTH8bISVxC3oUAGbYydSC3wMSz5LSjGsiMxdw301SG/UC4XLB0uFjwZkVnwFYKYqnLhEsyyWzllI/pFMwImT9MxVknTjqObPuEhBdJBz+vnbDiOzJM=
+	t=1789557891; cv=none; b=aQTvwBwhfPWMxcnlE++t9k/JqT+utSMAeSEkgtcFJ7MmKv4LkbOvBOudesaZ32Hx7pcv5B9B7uAPHJTIl0HbkCoEYx3jWe+qiXCEXskQCXbAT8g76syHOyf6cIBxSHYazHfyDB9TcwMF6t8sUII2NL+g22dTFpVf7Lwvz7gaJF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789557864; c=relaxed/simple;
-	bh=6UxCH6MRYg6mEePj2KMRo1g+H/E4R17RxQPgnOFUnWo=;
+	s=arc-20240116; t=1789557891; c=relaxed/simple;
+	bh=RZci0qwO+deyOL1zjEehaH4/1yFnr58F3J6yMrrLkxQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EEjILakTzvfvJ9WIAvB+Cin612vS0PVHFkSanyMKzr49TIEIuWT7MuhAZ9lUu17KXH2E5MlUAUj06wjPJeuoRv9tkKlQ+hmYf+lVY2DGsbA6YvvaX7UE87F89WGNBuxEBNqieUpajCX/pOjIeCyxoxv9cfqoHSb++pF1TcjbGNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GFVe+g7B; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=s5x3CSK9; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=OuNH5e2KZk253mEZTqdMY1I9pA9CZkxkXqXtEugV35UqHGlQxyxYKgjS9DaDkhRNWzAyQ5k/70hwzwzgjSLcgE6JckxlXeA8jImrc8DkvIAyR2KvYsTtngMg1Sq5ZwcKSQRyNgjJBSpP6PZBTDjfEvPu5BgtVQP1yBB7777VEbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSY66ISb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GFVe+g7B";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="s5x3CSK9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789557855;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=94ot/NkUW9As5MJhkTwENc7dewwxKgZK/8SOm5fAzho=;
-	b=GFVe+g7Bk+mtcemQJm8oi98J0ezhK69GhTdnODJAQsYdOb8+eUlAEA+NI/DG6das4uhZH5
-	Pklo+RoCKZYUki4OgrarT9tVitWZdyg0gcUAszy4LWmkHk7g/6jm8hsq06ibVLE4zntJTN
-	vUIAHyNvexVtRt+/cBxZwzTqnHUbJWY=
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-249-tXWxYWODN6W1zNIVoLgrxg-1; Wed, 16 Sep 2026 07:24:13 -0400
-X-MC-Unique: tXWxYWODN6W1zNIVoLgrxg-1
-X-Mimecast-MFC-AGG-ID: tXWxYWODN6W1zNIVoLgrxg_1789557853
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cc73f47bdcso73717895ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 04:24:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789557852; x=1790162652; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=94ot/NkUW9As5MJhkTwENc7dewwxKgZK/8SOm5fAzho=;
-        b=s5x3CSK9fL0+TfCQoOUEDIxOzf3FlUIB6lYgTfs9+iMrrOcY5tyYREKEjMiiLxHhVg
-         Ql4l1RtoeFO7IvD1GvXKn6spaMr9QqV5QtZGsay+6Zyu5O7895BiOrJwhTPzg2JGNgY+
-         GY5pjmeJ96j/djUIBAN+58CNQ5IKPRlRBF1RK8epg1IhHcR5qAXBFFBR1M/z35tPQpRL
-         dsMdaW1oIW/oudluW9rJiASYC9qbLBky5/6oGBf4OQ8X0mF2/SWTWugvBc0E/fPr43FB
-         2Jg4VSnsTVmbysqk6LonnXI0HMrkZnpakmUyIRZXc34+1K8BnL+Z7qkJA16wxR2hFyR2
-         cisQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789557852; x=1790162652;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=94ot/NkUW9As5MJhkTwENc7dewwxKgZK/8SOm5fAzho=;
-        b=hibys+V6c7ASABis7gIBX+uLIztemz/Y3hZRzAFaeq6EVJGLw1XZNp94LJ3xaEQKyP
-         ZXY8vxEb995HZfDkf08KYb9nmzgYwhVN1IyRy//9Neg68XKsfeIyI8bRtDwiLGiKFNSe
-         Xu4T2UJ8niwFYwsZDFv1TlzzxxeZFN7aNZXkIodwmeieJj66jan1yAtZnZ1IgUNYo3mb
-         afU19einO0SYLZZcCscpgd9qKzfxoMgg6rc6BiM3V6K0UnPNtqPxM36UrF0ZiLJJ8Tvz
-         tqpk1M/qv1rjk1myW4RZC9R8GXLHmr3NJ6YD6rLbeeyxwUHCDV6PlBgjkL3zpvdFeliE
-         ps7A==
-X-Forwarded-Encrypted: i=1; AKwUvBwfnqztVVEvD09MF/+khWYfbV2AjVsaxTniztrBqIMK7Cisubmhg1jjxypKPVTqjmmpy/LRHvz3ymkOx60=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcTryD6a2QoADSd/Kzs1bo47u0S7RIvkJk9KyPNVi5YuTcCSM+
-	P32jXKsO2/wQRvuWd5zio4ZuhNe9Pt/PVlcAaNPiQDwhx+EogEUffju4I4hTSUj+rA5ecoCm83a
-	exKQN8ACTiUlnkpW2z2VyW30++F93/JL/acL8GQVadwzGui1Nbueks8/fODva3cvQrg==
-X-Gm-Gg: AYBFou1PvBbBlyDOO/Ao01jGLwLgTP83Oz7hQfBDOarOHy0J4sNu36fICfVzA1OHtOa
-	oXbTg8p8K8t7vth0HTxhzGLYXZ3dyoa7F+GVrqZ73ZXwxNzKRKgC0rJufelrP/8qTLJegxnLahV
-	pl/OjUlYNoazGpr3m2njfGgZnFqtkZSYP4Nt/pYr56zZkMDgx4kJEuwu4EoIU+OrEQ6r/ZYAPRM
-	wXP1mro/0LhWXXnE/02QIq+h0v7+bLkgji4ijmfS1hQIPRuwJRBcCbe7bDDm79lZ1UwAnlwjaln
-	sBDK2SzmeSolpU7onqotnaHVg6sUJDzbx0IVdyYRWRJJqm2qoOjSlAc9pi6v7oFPK7hEV397lAi
-	JnkihxP+MgAEqVZ/ld4Zht0OdaAlfURSy5vhAGYdT0Q==
-X-Received: by 2002:a17:902:ebd2:b0:2dd:7ede:4c0e with SMTP id d9443c01a7336-2dd8e402c96mr56049525ad.12.1789557852587;
-        Wed, 16 Sep 2026 04:24:12 -0700 (PDT)
-X-Received: by 2002:a17:902:ebd2:b0:2dd:7ede:4c0e with SMTP id d9443c01a7336-2dd8e402c96mr56048745ad.12.1789557852161;
-        Wed, 16 Sep 2026 04:24:12 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89ebc548sm9967905ad.37.2026.09.16.04.24.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 04:24:11 -0700 (PDT)
-Message-ID: <ea703546-3871-42f9-840b-3fe38b9dc67f@redhat.com>
-Date: Wed, 16 Sep 2026 21:24:05 +1000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSY66ISb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 880781F00899;
+	Wed, 16 Sep 2026 11:24:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789557878;
+	bh=9yMRewUVdtk5FTKiyrOjdk+WbBNSVZ/plHkzP6P2SuQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lSY66ISb3m9U6walw2ED+kaCgM2gABW2AgoPJjdeVg7dafwfXiiS2VY9yNMLoovS0
+	 /HCNS6C7dbRdwLV1mezft/EYCTQWtw6Xi2W0ZCbP26gE+1GrfcGaLMTA4/DJvg/n38
+	 X/L2iOHwfiwTNOWhnDMCMyh1rNq2RpYqDKDcErBTvZki/edYI8yFEwlyKCn31B4x/k
+	 j6xN5+ZIjaHBC0ob6CJz6pWn0+FlGblBUjDWi3ulUKl7e5lIjuwWR2baLBBAH/99MV
+	 CbshddnS3zF9W6QG8Nps7bkVMotFH0RLER0n6+Xxw/54ngx0wKejp3dXy08deTuSYr
+	 gN0Oz+amFoBEQ==
+Message-ID: <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
+Date: Wed, 16 Sep 2026 13:24:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,100 +35,183 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: resctrl: Catch and propagate error from
- get_cpu_cacheinfo_id()
-To: Ben Horgan <ben.horgan@arm.com>, Andre Przywara <andre.przywara@arm.com>,
- James Morse <james.morse@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>,
- Fenghua Yu <fenghuay@nvidia.com>, Tony Luck <tony.luck@intel.com>,
- Dave Martin <Dave.Martin@arm.com>, Yin Li <yin.li@oss.qualcomm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260902143757.3469690-1-andre.przywara@arm.com>
- <ea42f2a7-f4f7-46ab-a5e0-239c74174499@arm.com>
- <2c682691-3037-4d62-a941-bc41baca35aa@arm.com>
+Subject: Re: [PATCH v4] mm/page_alloc: avoid direct compaction for costly
+ __GFP_NORETRY allocations
 Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <2c682691-3037-4d62-a941-bc41baca35aa@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Johannes Weiner <hannes@cmpxchg.org>,
+ Salvatore Dipietro <dipiets@amazon.it>
+Cc: akpm@linux-foundation.org, abuehaze@amazon.com, alisaidi@amazon.com,
+ blakgeof@amazon.com, brauner@kernel.org, brendan.jackman@linux.dev,
+ david@redhat.com, dgc@kernel.org, dipietro.salvatore@gmail.com,
+ djwong@kernel.org, hch@infradead.org, hch@lst.de,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-xfs@vger.kernel.org, mhocko@suse.com,
+ ritesh.list@gmail.com, rvvandan@amazon.com, stable@vger.kernel.org,
+ surenb@google.com, willy@infradead.org, ziy@nvidia.com
+References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
+ <20260910114602.926944-1-dipiets@amazon.it> <aqQlUr-1h07G8JWM@cmpxchg.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
+ KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
+ 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
+ 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
+ tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
+ Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
+ 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
+ LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
+ 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
+ BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
+ QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
+ gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
+ CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
+ UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
+ XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
+ 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
+ FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
+ QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
+ 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
+ icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
+ uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
+ SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
+ cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
+ La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
+ FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
+ bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
+ +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
+ jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
+ CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
+ HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
+ SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
+ 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
+ 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
+ 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
+ wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
+ NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
+ OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
+ jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
+In-Reply-To: <aqQlUr-1h07G8JWM@cmpxchg.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/16/26 7:49 PM, Ben Horgan wrote:
-> Hi Andre,
+On 9/11/26 17:59, Johannes Weiner wrote:
+> On Thu, Sep 10, 2026 at 11:46:02AM +0000, Salvatore Dipietro wrote:
+>> 
+>> On Sat, 05 Sep 2026 17:42:39 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+>> 
+>> > Is there anything particularly unusual about this test case?
+>> 
+>> It is a stock pgbench simple-update PostgreSQL workload on a large
+>> instance (96 vCPUs), using standard PostgreSQL settings and with no huge
+>> pages assigned to the database. We deliberately overprovision the
+>> pgbench clients: 1024 clients over 96 threads. That keeps enough writers
+>> in the buffered write path concurrently to hit the costly-order
+>> allocation failure path continuously. The memory fragmentation comes from 
+>> page tables: PostgreSQL spawns a new process per client, and those page
+>> tables consume ~40% of memory, which significantly limits the page cache
+>> and the free memory available.
+>> 
+>> 
+>> > > Results (average of 3 runs, TPS):
+>> > >
+>> > >   Config                   Avg TPS      % vs Baseline
+>> > >   baseline (no patch)       59,408       -
+>> > >   With this patch          155,409      +161.6%
+>> >
+>> > Is this back to pre-5d8edfb900d5 performance?
+>> 
+>> Yes - fully recovered. Here is the summary, same host and workload
+>> throughout, average of 3 runs:
+>> 
+>>   Config                                        Avg TPS   % vs baseline
+>>   AL2023 stock 6.1 kernel                       136,942            n/a
+>>   v7.3-rc1 baseline (no patch)                   59,408             -
+>>   v7.3-rc1, 5d8edfb900d5 behaviour reverted     151,184        +154.5%
+>>   v7.3-rc1 + v4                                 155,409        +161.6%
+>> 
+>> The 6.1 row predates 5d8edfb900d5 entirely. A different kernel version,
+>> so not directly comparable, but it shows the performance this workload
+>> used to get on this host.
+>> 
+>> A literal "git revert 5d8edfb900d5" does not apply to v7.3-rc1 -
+>> iomap_write_iter() has been rewritten since - so the reverted row is a
+>> one-line behavioural revert, forcing the write loop back to copying at
+>> most PAGE_SIZE per iteration:
+>> 
+>>   -	size_t chunk = mapping_max_folio_size(mapping);
+>>   +	size_t chunk = PAGE_SIZE;
+>> 
+>> which is what the pre-5d8edfb900d5 loop computed. That makes
+>> iomap_get_folio() pass no order hint, so the path issues only order-0
+>> allocations.
+>> 
+>> 
+>> > AI review asked a few serious-looking questions:
+>> > 	https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+>> 
+>> Thanks for pointing that out. To address them, we can have something
+>> like the patch below. Performance results are still similar to v4. Happy
+>> to submit a formal v5 patch with it if you would like.
 > 
-> On 07/09/2026 13:59, Ben Horgan wrote:
->> Hi Andre,
->>
->> On 02/09/2026 15:37, Andre Przywara wrote:
->>> get_cpu_cacheinfo_id() can fail, in which case it returns a negative
->>> error value.
->>>
->>> Check the returned value for this error condition, before passing the
->>> value on to other code, which would hide the negative number in some high
->>> value in the unsigned type.
->>>
->>> Fixes: 36528c7681b8 ("arm_mpam: resctrl: Add support for 'MB' resource")
->>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
->>
->> This looks good to me. Out of interest what led you to find this?
->>
->> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+> The feedback looks misleading to me.
+
+Agreed.
+
+> ALLOC_NON_BLOCKING itself is fine, it usually only means something in
+> conjunction with other flags, like __GFP_HIGH.
+
++1
+
+> The access to
+> MIGRATE_HIGHATOMIC that it points out is in itself too generous. This
+> seems like a real but separate bug. It will allow GFP_TRANSHUGE_LIGHT
+> into the highatomic reserves as well, for example.
+
+I don't follow this part. For ALLOC_HIGHATOMIC you need __GFP_HIGH in
+alloc_flags_nonblocking(). So GFP_TRANSHUGE_LIGHT won't get the access, no?
+
+> The rt issue seems made up too. We're talking about costly_order &&
+> __GFP_NORETRY allocations. Why would they need access to reserves?
+
+Yep.
+
+And the concern about warning is also moot as __GFP_NORETRY is still needed
+and its users virtually always add __GFP_NOWARN as well.
+
+>>   Config                                        Avg TPS   % vs baseline
+>>   v7.3-rc1 baseline (no patch)                   59,408             -
+>>   v7.3-rc1 + v4                                 155,409        +161.6%
+>>   v7.3-rc1 + proposed patch                     161,994        +172.7%
+>> 
+>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+>> index 12fac9084c48..be8b0d72a2db 100644
+>> --- a/mm/page_alloc.c
+>> +++ b/mm/page_alloc.c
+>> @@ -4784,10 +4784,22 @@ static inline struct page *
+>>  __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+>>  						struct alloc_context *ac)
+>>  {
+>> -	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+>> +	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
+>> +	/*
+>> +	 * Costly __GFP_NORETRY callers have a cheap fallback to a lower order,
+>> +	 * so don't stall them in direct reclaim or direct compaction.  Exempt
+>> +	 * __GFP_THISNODE (the THP attempt from alloc_pages_mpol() needs direct
+>> +	 * compaction) and __GFP_NOFAIL (must not be made to fail).  Don't
+>> +	 * clear __GFP_DIRECT_RECLAIM from gfp_mask instead: that would also
+>> +	 * change the alloc_flags derived by alloc_flags_slowpath().
+>> +	 */
+>> +	const bool costly_noretry = costly_order &&
+>> +		(gfp_mask & __GFP_NORETRY) &&
+>> +		!(gfp_mask & (__GFP_THISNODE | __GFP_NOFAIL));
+>> +	bool can_direct_reclaim = !costly_noretry &&
+>> +		(gfp_mask & __GFP_DIRECT_RECLAIM);
 > 
-> I seem to have been a bit hasty here.
+> IMO this is worse because now there is a disconnect between these
+> flags and the gfp mask again. This sets us up for subtle bugs.
 > 
-> Sashiko points out at [1] that 0xFFFFFFFF is the only value we were previously considering invalid
-> and that the value coming from dt or acpi can provid other valid values that would after this patch
-> be considered invalid.
-> 
-> [1] https://sashiko.dev/#/patchset/20260902143757.3469690-1-andre.przywara%40arm.com
-> 
+> I much preferred v4.
 
-I think Sashiko is correct that the check 'if (cache_id < 0) return -ENOENT' is incorrect
-because only -1 is a invalid ID. The correct check would be:
-
-	u32 cache_id = get_cpu_cacheinfo_id(cpu, 3);
-
-	if (cache_id = UINT_MAX)
-		return -ENOENT;
-
-Or
-
-	int cache_id = get_cpu_cacheinfo_id(cpu, 3);
-
-	if (cache_id == -1)
-		return -ENOENT;
-
-Thanks,
-Gavin
-
-> Thanks,
-> 
-> Ben>
->> Thanks,
->>
->> Ben
->>
->>> ---
->>>   drivers/resctrl/mpam_resctrl.c | 5 ++++-
->>>   1 file changed, 4 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
->>> index 9d223057953ab..a5e661eff86d7 100644
->>> --- a/drivers/resctrl/mpam_resctrl.c
->>> +++ b/drivers/resctrl/mpam_resctrl.c
->>> @@ -786,7 +786,10 @@ static u32 get_mba_min(struct mpam_props *cprops)
->>>   /* Find the L3 cache that has affinity with this CPU */
->>>   static int find_l3_equivalent_bitmask(int cpu, cpumask_var_t tmp_cpumask)
->>>   {
->>> -	u32 cache_id = get_cpu_cacheinfo_id(cpu, 3);
->>> +	int cache_id = get_cpu_cacheinfo_id(cpu, 3);
->>> +
->>> +	if (cache_id < 0)
->>> +		return -ENOENT;
->>>   
->>>   	lockdep_assert_cpus_held();
->>>   
->>
->>
-> 
-> 
+Unless I'm mistaken about that MIGRATE_HIGHATOMIC part, it seems all sashiko
+concerns can be dismissed and then indeed v4 is the better version.
 
