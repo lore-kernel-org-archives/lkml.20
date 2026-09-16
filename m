@@ -1,304 +1,279 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C97F46E000;
-	Wed, 16 Sep 2026 07:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCC343C054
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545595; cv=none; b=n5WwDDe0wFcjqkmfs6JPWGNmdZ5s8Lv2V0b1QCZZMwnVTFGb8T+BxxTvXHnvrbwv7+QRxahuk+hSr/yd55JTTDXKrr8TGJPTo74WjE4jkTOc1G53Ndhz0lQE0CWNGbK44YUrGPnSxEx4nVcmfzQxwKoEWOhnSbh2pvdkrMTrBs0=
+	t=1789545599; cv=none; b=aJC4y7f4voDxUHLYfbQIz9bWWXZw4VMVFZGUVQBXorFwrSnpWavuj2DJrmHUSPx0ST6xbfz1TN/ihBdwuatDR4iUhYtwJ8bLyk7vfD3hRu++j7pYysblVQmcQzzhfJlmROaLWCN0ZOyoCXnKjtAkwlKV0dmRvRs2nbZt0R7kccA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545595; c=relaxed/simple;
-	bh=b4CqmzvQVSWRsMYDiuzp2BVcXBYrPbrqgrL7jKTp+C0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RYLNTK+fgvmIuWUlExU+CaNUQ7wUC7TbRtZLdJXSoD+TKRVnVGuGL1Jn4xjSwT/iGH42SaDpn/mDOmSK/ht5gJl10nCTmyaDJjlBPTdFbMsFRosvYh2qsiWtNKaZiplhHLNUFZFsL8D8OB6ObDO0swA6lCxwDHliRxRpX67DcN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=db80HVJD; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789545599; c=relaxed/simple;
+	bh=L2XN2l4t/z1NfZp3cK1qJqnXsY4CQFylN1pjRRHNQ54=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t6m0DhylGsqhkJhyTTCeba+W9+sXEr1EZD5vF79TbFkZlPLtqlmccVpRkMBShNYZQpw8V/dJ94VjDDYIIpu4pBrpKJWXP7Ojk98Hd9eWToqynb8Y4BX5BTWj6xIgWv4qJ/bN+Zvkj/vsF7+j32aBULC4cR9pW1Uf4VwVyN9BVig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=XBbTnAAz; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="db80HVJD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789545573; x=1821081573;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=b4CqmzvQVSWRsMYDiuzp2BVcXBYrPbrqgrL7jKTp+C0=;
-  b=db80HVJDgOXSTDglzLs5ZDPmBx5aXT7rfPxyMCTtVqMVpHRbhEVPZB4w
-   C3nHgiI4YQ9Ia70jKG9XnyCP+/WEvHdyFGhhQ+6jzTs73OSHawjjYSc3r
-   lIuJG6pvNlpGxV+VGMd/a+IF5AQ8S0L5nCDk4g0qbTuoHJDFvZN4WRkca
-   iTMUDdp+3c5mnRvLJ86sYiokHpveBpSUX7WHLxpPpeaTPzz+SUBOcviuM
-   zY8fn5cMX3DKLdBpHKO7Uoh3FYjKQIwEDTaHf07+PoE11tsfU8GbPVphk
-   d8ogu5twVDYdubUVa9UVBq1W2O6j1q6L5xCRcc+uLa6On4b93aTK3QSk7
-   Q==;
-X-CSE-ConnectionGUID: qFCb0fWARFayeqPswppXQg==
-X-CSE-MsgGUID: hca7KLx+S9qcd9dhfvtqOw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90050962"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90050962"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:59:27 -0700
-X-CSE-ConnectionGUID: SHkrBPlPTSqxkBqYym0tFw==
-X-CSE-MsgGUID: io/nI3CpSQKChBsvvbXWng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271812541"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa010.jf.intel.com with ESMTP; 16 Sep 2026 00:59:25 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 84FC499; Wed, 16 Sep 2026 09:59:24 +0200 (CEST)
-Date: Wed, 16 Sep 2026 09:59:24 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, usb4-upstream@oss.qualcomm.com,
-	Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] thunderbolt: Make PCIe NHI support opt-in
-Message-ID: <20260916075924.GO106095@black.igk.intel.com>
-References: <20260915-topic-tbt_pcie_optional-v1-1-47c4a3d129bd@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="XBbTnAAz"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso678181a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:59:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789545581; x=1790150381; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R/vaPDanA3j6zkOBVwes5rnF9vpdWJpKDteNb10H5RQ=;
+        b=XBbTnAAzXr3MB2b3V/R+MW39OWgoP6RHN/c+ZuwfEFcrxKPBln5w5BEqxEGFqCq4HF
+         zHMZpHjed+KhCylaH+77qGohjFK2hwpeMgGls5ExnSvFiqtqc3N0c3d2WFpD0KGvi0gv
+         g8qkJr/+G0m3WVGAVgRPP0d3UlonIVdOM+La0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789545581; x=1790150381;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R/vaPDanA3j6zkOBVwes5rnF9vpdWJpKDteNb10H5RQ=;
+        b=A6ixRF1kRGDz0w77hGOzDBEVmCyhbHQFYIZkWCENQ5e7dtIp+rDc5dXsYknzMiR/Nt
+         T5px53s2PhpCRb3v6bxQXZZXFUuoI39HNFY2wK3vDqogHma1sm7Gl9MblzRSxAGZmQWg
+         W0ye3QgwzVNFCAQVpbsn9d6NCD+4qPDHHF2QlISBBjOEy1QgiDMJA5SX594Jxs9mIABj
+         +ZLcqKXe28yRjn83TNerfW7DWVEwZXeEadB0KCfPSLJsDfCNTnfDEBHkRQfAJ2gbRg4j
+         Plrk45ttfrDjFcHgGcTrVfggtkzw8hE1klR/vveILgXqJXxW8LKngn6uXt0G9cV7zeQU
+         64sg==
+X-Forwarded-Encrypted: i=1; AKwUvBz9baOOkwlE+bbuFNILhEJhVAB74uMJctHiZ3I4ebnKcNHc+f+aoI2KL99491QBtQ/s6VMtKQ5x2AriVVc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6TbI+SIBAFf0aDuypMUwsF+G3/tqzWZ0t7VLNYBJ+sYjJ6n3S
+	L7jO6md7qaxTyobrOKoGUOlvubop0r0uFRFRqAZWAqZ6Ik3iReEQGEg1r8kuaTgfEw==
+X-Gm-Gg: AYBFou0QhmbTQZ4fHmVjBGkUtT79RLh0jDoXLZGPy2bvfL9qMdQomqr6ET8awJm8Yfu
+	4FPnjXXsg76OMAmHzKsU6dpwWyfpymkGKwMEUizvTg7AJnBpMLgGXQ6HLB+InynQwVMqCZaTgjj
+	lHWw/yO1GdpUsev+w1dGzCVpRR9IFvCAYD1xuHq2x5hnyWsmY8hWj7G0cCJmOORmB5FP2Z4K7gU
+	9BDP8bRIZxpbyUE2AOsDxKjAdbF50cHn8LOVosL5gXGP2FpFnIDH/PuBkdjIzYVFu7Dof4QGdNW
+	lraeUJzedpKC0D1Gg5moVmE/Ep+d6X+J06qsCWZTz2dSUI6LXnI/Q6jJ4hlabaDaypEacRT4jec
+	P1ep99ajnSicQ9f6+wZgVxBwGlKmC7Skym5nPFsqjH2KAowGneM1YTiM3MDduY1lFQ3ptoIuIho
+	7BvvHH2haN6QVjAsCHIOTeh9UFjUTztzFRqt44CZOvzTT7LPTo5BOPMkgtJUjZtTVqVTrLFYNCS
+	JRlz2fqZiHAJqKhc3k/bMTsCShvVGCf/nuJI/CtUoiIpR5jhz0yXxsYsw8=
+X-Received: by 2002:a17:90b:33c9:b0:39e:1bff:b383 with SMTP id 98e67ed59e1d1-39e1e51bdf8mr4030101a91.24.1789545580791;
+        Wed, 16 Sep 2026 00:59:40 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:1f62:7622:5d61:2578])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b7acba2sm4348197a91.16.2026.09.16.00.59.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 00:59:40 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v9 15/15] arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
+Date: Wed, 16 Sep 2026 15:57:41 +0800
+Message-ID: <20260916075745.3549953-16-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
+In-Reply-To: <20260916075745.3549953-1-wenst@chromium.org>
+References: <20260916075745.3549953-1-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260915-topic-tbt_pcie_optional-v1-1-47c4a3d129bd@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The MT8188 Geralt design features a chip-on-board WiFi/BT solution. This
+is a M.2 E-key WiFi/BT board layout directly inserted into the mainboard
+design. The connections to the rest of the board are almost the same as
+if it were a separate M.2 card. The only addition is the PMU_EN pin on
+the chip; on M.2 cards this would be tied to the primary power source.
 
-On Tue, Sep 15, 2026 at 07:04:10PM +0200, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> With more implementations coming in, one may desire not to enable
-> support for the PCIe-attached NHIs. Allow it to be built as a module
-> atop the framework.
+Model the chip-on-board WiFi/BT solution as a M.2 E-key slot with PCIe,
+USB and auxiliary signals. The PMU_EN pin, which enables the internal
+power controls and regulators, is modeled as a regulator fed by the
+pp3300_wlan regulator. Since power sequencing is now correctly modeled
+using the M.2 E-key slot, drop the "regulator-always-on" property one
+pp3300_wlan regulator. Also drop the comment in xhci2 saying "MT7921's
+power is controlled by PCIe".
 
-Is it so that Qualcomm platform does not support PCIe tunneling at all
-then?
+Also drop the voltage range on the pp3300_wlan regulator. This
+"regulator" is just a load switch and does not provide any regulation.
 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> ---
-> The diff came out a little messy.. compile-tested with CONFIG_PCI=n and
-> tested USB4_PCIE=m/=y on a NUC with an Alpine Ridge controller
-> ---
->  drivers/thunderbolt/Kconfig   | 11 ++++++++++-
->  drivers/thunderbolt/Makefile  |  7 +++++--
->  drivers/thunderbolt/ctl.c     |  6 +++++-
->  drivers/thunderbolt/domain.c  | 14 ++++++++++++--
->  drivers/thunderbolt/nhi.c     | 18 +++++++++++-------
->  drivers/thunderbolt/nhi.h     |  2 ++
->  drivers/thunderbolt/pci.c     | 39 ++++++++++++++-------------------------
->  drivers/thunderbolt/switch.c  |  9 +++++++++
->  drivers/thunderbolt/tb.h      |  2 --
->  drivers/thunderbolt/tunnel.c  |  1 +
->  drivers/thunderbolt/xdomain.c |  5 +++++
->  11 files changed, 74 insertions(+), 40 deletions(-)
-> 
-> diff --git a/drivers/thunderbolt/Kconfig b/drivers/thunderbolt/Kconfig
-> index 294b3227a545..81fca3bfcdd7 100644
-> --- a/drivers/thunderbolt/Kconfig
-> +++ b/drivers/thunderbolt/Kconfig
-> @@ -1,7 +1,6 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  menuconfig USB4
->  	tristate "Unified support for USB4 and Thunderbolt"
-> -	depends on PCI
->  	select APPLE_PROPERTIES if EFI_STUB && X86
->  	select CRC32
->  	select CRYPTO_LIB_SHA256
-> @@ -18,6 +17,16 @@ menuconfig USB4
->  
->  if USB4
->  
-> +config USB4_PCIE
-> +	depends on PCI
-> +	tristate "Support for PCIe-attached USB4 and Thunderbolt controllers"
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+Changes since v2:
+- Drop default GPIO output state from kill pins pinconfig
+---
+ .../boot/dts/mediatek/mt8188-geralt.dtsi      | 92 ++++++++++++++++++-
+ 1 file changed, 88 insertions(+), 4 deletions(-)
 
-I think USB4_PCI and so on.
+diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+index ba3dcfc50956..4704abaebcf8 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+@@ -93,13 +93,11 @@ pp3300_z1: regulator-pp3300-z1 {
+ 	pp3300_wlan: regulator-pp3300-wlan {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "pp3300_wlan";
+-		regulator-always-on;
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+ 		enable-active-high;
+ 		gpio = <&pio 12 GPIO_ACTIVE_HIGH>;
+ 		pinctrl-0 = <&wlan_en>;
+ 		pinctrl-names = "default";
++		/* load switch */
+ 		vin-supply = <&pp3300_z1>;
+ 	};
+ 
+@@ -166,6 +164,17 @@ ppvar_mipi_disp_avee: regulator-ppvar-mipi-disp-avee {
+ 		vin-supply = <&pp5000_z1>;
+ 	};
+ 
++	/* PMU_EN pin controls internal regulators and power sequence */
++	wlan_pmu: regulator-wlan-pmu {
++		compatible = "regulator-fixed";
++		regulator-name = "wlan-pmu";
++		enable-active-high;
++		gpio = <&pio 145 GPIO_ACTIVE_HIGH>;
++		pinctrl-0 = <&wlan_pmu_en>;
++		pinctrl-names = "default";
++		vin-supply = <&pp3300_wlan>;
++	};
++
+ 	reserved_memory: reserved-memory {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -200,6 +209,39 @@ adsp_dma_mem: memory@61000000 {
+ 			no-map;
+ 		};
+ 	};
++
++	wifi-bt-connector {
++		compatible = "pcie-m2-e-connector";
++		pinctrl-names = "default";
++		pinctrl-0 = <&m2_e_key_kill_pins>;
++		vpcie1v8-supply = <&mt6359_vcn18_ldo_reg>;
++		vpcie3v3-supply = <&wlan_pmu>;
++		w-disable1-gpios = <&pio 13 GPIO_ACTIVE_LOW>;
++		w-disable2-gpios = <&pio 14 GPIO_ACTIVE_LOW>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			/* PCIe for WiFi */
++			port@0 {
++				reg = <0>;
++
++				wifi_ep: endpoint {
++					remote-endpoint = <&pcie_ep>;
++				};
++			};
++
++			/* USB for Bluetooth */
++			port@2 {
++				reg = <2>;
++
++				bt_ep: endpoint {
++					remote-endpoint = <&usb2_ep>;
++				};
++			};
++		};
++	};
+ };
+ 
+ &adsp {
+@@ -664,6 +706,22 @@ &pcie {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pcie_pins>;
+ 	status = "okay";
++
++	pcie@0 {
++		compatible = "pciclass,0604";
++		reg = <0 0 0 0 0>;
++		device_type = "pci";
++		num-lanes = <1>;
++		#address-cells = <3>;
++		#size-cells = <2>;
++		ranges;
++
++		port {
++			pcie_ep: endpoint {
++				remote-endpoint = <&wifi_ep>;
++			};
++		};
++	};
+ };
+ 
+ &pciephy {
+@@ -1007,6 +1065,13 @@ pins-bus {
+ 		};
+ 	};
+ 
++	m2_e_key_kill_pins: m2-e-key-kill-pins {
++		pins-kill {
++			pinmux = <PINMUX_GPIO13__FUNC_B_GPIO13>,
++				 <PINMUX_GPIO14__FUNC_B_GPIO14>;
++		};
++	};
++
+ 	mipi_disp_avdd_en: mipi-disp-avdd-en-pins {
+ 		pins-en-ppvar-mipi-disp {
+ 			pinmux = <PINMUX_GPIO3__FUNC_B_GPIO3>;
+@@ -1179,6 +1244,13 @@ pins-bus {
+ 		};
+ 	};
+ 
++	wlan_pmu_en: wlan-pmu-en-pins {
++		pins-wlan-pmu-en {
++			pinmux = <PINMUX_GPIO145__FUNC_B_GPIO145>;
++			output-low;
++		};
++	};
++
+ 	wlan_en: wlan-en-pins {
+ 		pins-en-pp3300-wlan {
+ 			pinmux = <PINMUX_GPIO12__FUNC_B_GPIO12>;
+@@ -1422,10 +1494,22 @@ vdosys1_ep_ext: endpoint@1 {
+ };
+ 
+ &xhci2 {
+-	/* no power supply since MT7921's power is controlled by PCIe */
+ 	/* MT7921's USB BT has issues with USB2 LPM */
+ 	usb2-lpm-disable;
+ 	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
++
++			usb2_ep: endpoint {
++				remote-endpoint = <&bt_ep>;
++			};
++		};
++	};
+ };
+ 
+ #include <arm/cros-ec-keyboard.dtsi>
+-- 
+2.55.0.1032.g73a4cd73de-goog
 
-> +	help
-> +	  Say Y here to add support for the USB4 and Thunderbolt host
-> +	  routers attached over the PCIe bus, commonly found on x86 PCs.
-> +
-> +	  To compile this driver a module, choose M here. The module will be
-> +	  called thunderbolt_pcie.
-
-thunderbolt_pci
-
-> +
->  config USB4_CONFIGFS
->  	def_tristate USB4
->  	depends on CONFIGFS_FS && !(USB4=y && CONFIGFS_FS=m)
-> diff --git a/drivers/thunderbolt/Makefile b/drivers/thunderbolt/Makefile
-> index beb054c3126b..fc808c6b23e6 100644
-> --- a/drivers/thunderbolt/Makefile
-> +++ b/drivers/thunderbolt/Makefile
-> @@ -1,10 +1,13 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  ccflags-y := -I$(src)
->  obj-${CONFIG_USB4} := thunderbolt.o
-> -thunderbolt-objs := nhi.o ctl.o tb.o switch.o cap.o pci.o path.o tunnel.o eeprom.o
-> -thunderbolt-objs += domain.o dma_port.o icm.o property.o xdomain.o lc.o tmu.o usb4.o
-> +thunderbolt-objs := nhi.o ctl.o tb.o switch.o cap.o path.o tunnel.o eeprom.o
-> +thunderbolt-objs += domain.o dma_port.o property.o xdomain.o lc.o tmu.o usb4.o
->  thunderbolt-objs += usb4_port.o nvm.o retimer.o quirks.o clx.o
->  
-> +obj-${CONFIG_USB4_PCIE} += thunderbolt_pcie.o
-> +thunderbolt_pcie-y := pci.o icm.o
-> +
->  thunderbolt-${CONFIG_ACPI} += acpi.o
->  thunderbolt-$(CONFIG_DEBUG_FS) += debugfs.o
->  thunderbolt-$(CONFIG_USB4_CONFIGFS) += configfs.o
-> diff --git a/drivers/thunderbolt/ctl.c b/drivers/thunderbolt/ctl.c
-> index 965988b18608..96717a0a94b1 100644
-> --- a/drivers/thunderbolt/ctl.c
-> +++ b/drivers/thunderbolt/ctl.c
-> @@ -9,7 +9,6 @@
->  #include <linux/crc32.h>
->  #include <linux/delay.h>
->  #include <linux/slab.h>
-> -#include <linux/pci.h>
->  #include <linux/dmapool.h>
->  #include <linux/workqueue.h>
->  
-> @@ -96,6 +95,7 @@ struct tb_cfg_request *tb_cfg_request_alloc(void)
->  
->  	return req;
->  }
-> +EXPORT_SYMBOL_GPL(tb_cfg_request_alloc);
->  
->  /**
->   * tb_cfg_request_get() - Increase refcount of a request
-> @@ -128,6 +128,7 @@ void tb_cfg_request_put(struct tb_cfg_request *req)
->  	kref_put(&req->kref, tb_cfg_request_destroy);
->  	mutex_unlock(&tb_cfg_request_lock);
->  }
-> +EXPORT_SYMBOL_GPL(tb_cfg_request_put);
->  
->  static int tb_cfg_request_enqueue(struct tb_ctl *ctl,
->  				  struct tb_cfg_request *req)
-> @@ -575,6 +576,7 @@ int tb_cfg_request(struct tb_ctl *ctl, struct tb_cfg_request *req,
->  	tb_cfg_request_dequeue(req);
->  	return ret;
->  }
-> +EXPORT_SYMBOL_GPL(tb_cfg_request);
->  
->  /**
->   * tb_cfg_request_cancel() - Cancel a control request
-> @@ -634,6 +636,7 @@ struct tb_cfg_result tb_cfg_request_sync(struct tb_ctl *ctl,
->  
->  	return req->result;
->  }
-> +EXPORT_SYMBOL_GPL(tb_cfg_request_sync);
->  
->  /* public interface, alloc/start/stop/free */
->  
-> @@ -1009,6 +1012,7 @@ struct tb_cfg_result tb_cfg_read_raw(struct tb_ctl *ctl, void *buffer,
->  		memcpy(buffer, &reply.data, 4 * length);
->  	return res;
->  }
-> +EXPORT_SYMBOL_GPL(tb_cfg_read_raw);
->  
->  /**
->   * tb_cfg_write_raw() - write from buffer into config space
-> diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
-> index 12c88509a54f..1c76fd8151ca 100644
-> --- a/drivers/thunderbolt/domain.c
-> +++ b/drivers/thunderbolt/domain.c
-> @@ -313,6 +313,7 @@ const struct bus_type tb_bus_type = {
->  	.remove = tb_service_remove,
->  	.shutdown = tb_service_shutdown,
->  };
-> +EXPORT_SYMBOL_GPL(tb_bus_type);
->  
->  static void tb_domain_release(struct device *dev)
->  {
-> @@ -421,6 +422,7 @@ struct tb *tb_domain_alloc(struct tb_nhi *nhi, int timeout_msec, size_t privsize
->  
->  	return NULL;
->  }
-> +EXPORT_SYMBOL_GPL(tb_domain_alloc);
->  
->  /**
->   * tb_domain_add() - Add domain to the system
-> @@ -514,6 +516,7 @@ void tb_domain_remove(struct tb *tb)
->  
->  	device_unregister(&tb->dev);
->  }
-> +EXPORT_SYMBOL_GPL(tb_domain_remove);
->  
->  /**
->   * tb_domain_suspend_noirq() - Suspend a domain
-> @@ -904,8 +907,9 @@ int tb_domain_unregister_unplugged_xdomains(struct tb *tb)
->  
->  	return ctx.n;
->  }
-> +EXPORT_SYMBOL_GPL(tb_domain_unregister_unplugged_xdomains);
->  
-> -int tb_domain_init(void)
-> +static int __init tb_domain_init(void)
->  {
->  	int ret;
->  
-> @@ -931,7 +935,7 @@ int tb_domain_init(void)
->  	return ret;
->  }
->  
-> -void tb_domain_exit(void)
-> +static void __exit tb_domain_exit(void)
->  {
->  	bus_unregister(&tb_bus_type);
->  	ida_destroy(&tb_domain_ida);
-> @@ -941,3 +945,9 @@ void tb_domain_exit(void)
->  	tb_debugfs_exit();
->  	tb_configfs_exit();
->  }
-> +
-> +postcore_initcall(tb_domain_init);
-> +module_exit(tb_domain_exit);
-> +
-> +MODULE_DESCRIPTION("Thunderbolt/USB4 core driver");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
-> index 020db5a1f029..9b1165b2a484 100644
-> --- a/drivers/thunderbolt/nhi.c
-> +++ b/drivers/thunderbolt/nhi.c
-> @@ -548,6 +548,7 @@ irqreturn_t ring_msix(int irq, void *data)
->  
->  	return IRQ_HANDLED;
->  }
-> +EXPORT_SYMBOL_GPL(ring_msix);
-
-We need to think what is going to be exported and how. For example here
-ring_msix is pretty common name so if nothing else it needs to be properly
-namespaced and that should be the first patch in the series.
-
-Secondly I think it would be good to have this whole thing as part of a
-patch series that adds the Qualcomm controller support so we have an
-explanation there why we are doing all this.
-
->  
->  static int nhi_alloc_hop(struct tb_nhi *nhi, struct tb_ring *ring)
->  {
-> @@ -1001,6 +1002,7 @@ int nhi_mailbox_cmd(struct tb_nhi *nhi, enum nhi_mailbox_cmd cmd, u32 data)
->  
->  	return 0;
->  }
-> +EXPORT_SYMBOL_GPL(nhi_mailbox_cmd);
->  
->  /**
->   * nhi_mailbox_mode() - Return current firmware operation mode
-> @@ -1021,6 +1023,7 @@ enum nhi_fw_mode nhi_mailbox_mode(struct tb_nhi *nhi)
->  
->  	return (enum nhi_fw_mode)val;
->  }
-> +EXPORT_SYMBOL_GPL(nhi_mailbox_mode);
-
-We really need to think what should be exported and what not. This for
-example I think we can move inside pci.c because there is really no user
-outside of Intel PCIe based systems for these.
-
-Ideally export the minimal.
