@@ -1,145 +1,188 @@
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727A7513577;
-	Wed, 16 Sep 2026 13:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24468513566;
+	Wed, 16 Sep 2026 13:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566487; cv=none; b=AOysbPWhd4XXxDw41zhAuZJJLQ6a8gYQDFnRoG1urwr3BfFQ4j6nCoRucya4QEBue2x8A0aGfGhtZWjd+pTOfuAoL5zpWZNxeSXF9XutSR880oyUDx/43gzeEonjoII8lTFeyVAiJoMnTbrNvqX7wwZoixNfMXD58Tpc95Wf1Po=
+	t=1789566487; cv=none; b=GGFBPZV90Nb6ikcRuwhRR1o49+Soh7svMBvYEq5GSg5UuRLbyjmlG8znL43vv8vVEinMHKs5nchSUKbLlZridU109sgMTBk/XCsT1KjTKihoxxE0qemIRMPGxxn30P1pdMXSaCGm/ai6iVX0j+xtp78QCxiuruGFrBgbR7Q0H1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789566487; c=relaxed/simple;
-	bh=KgRqVZhuIqccDBptd5H7jS0b+shb+kbhgsSEI1yzP7Q=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nfN1A/eqCnNwzu00PhVe3eczgA/TulQoJfrYrssUbrdoHUieycPIT+umN7Vtx4y95nEhw64KwqUDVU1g+9LwslGkz3a9cqhpvLUTSgXOq3Uy0uuVBt2HyiwjMtrXKjWAR52Ir10QI+9SoZRAGfcn/BG1BNdm9K3AQa9MFal0N8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=g1IWz/nB; arc=none smtp.client-ip=52.26.1.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	bh=NGCF1odYpyZpT4jPdVyjbHSa/D4W81AHmfHEdqrPKAw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Z3ZM5GZZburb3drRo1LiusDQAk4vPyGMIVZCooPXRtPHbaK/7JzDzuw/OO2rVAdx1pb23+zMjrLafrJtjx/K+wNpIWhETbpqwnp66YFwcf8BtSen/mpIONqWneyjwXS6eI/54w5qGyYju3sirwKdQ4I6dUL8aApi5daGo55NOvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FsjDM4CG; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="g1IWz/nB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1789566481; x=1821102481;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Uv6hp7i4N5YS+pKFhV7bFalg/lcrIhDK/1aui+xYsAA=;
-  b=g1IWz/nBZHe+arTnVgzHi6iHRDh6VOcg5ASlf2uD354DGoayZojB7iY1
-   1ZqdRLxyNoMhMIxNPAluMYliQNZqLUvn5zEfBKyWC40olAHFwDeumKsjg
-   nBtV6NkYTKL4r+orJXYFPx/LDQ41a9Nh24Al3CuJxlyxVskyO3k+dF16T
-   /J4bwU18FhgrvtVkiNVfrTrZD0xw4YyxrFwp7Oje6+YpibLUjBoXKqLSk
-   cWrthPFt5Pbf6eJMqknbHzbJUWGa03x5RAq0ebGDNKdvPNuyqyRP8PKSV
-   1rKGdKzFIBxoovcGQ77ijg+PEeZTIUYP9Rd3F1d0jiXOENM+GDyzV+VqM
-   Q==;
-X-CSE-ConnectionGUID: iF9fap1MR02jnK1yFafbOQ==
-X-CSE-MsgGUID: OI/sbtr8S7OSbxpuTugc8w==
-X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
-   d="scan'208";a="28862260"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 13:47:56 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.105:28690]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.20.120:2525] with esmtp (Farcaster)
- id c4debe2a-bb87-4d90-8786-2c3b32141680; Wed, 16 Sep 2026 13:47:55 +0000 (UTC)
-X-Farcaster-Flow-ID: c4debe2a-bb87-4d90-8786-2c3b32141680
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Wed, 16 Sep 2026 13:47:55 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Wed, 16 Sep 2026
- 13:47:53 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Fabio Estevam <festevam@gmail.com>, Andrew Morton
-	<akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Eliav Farber <farbere@amazon.com>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] pps: clients: gpio: release pins to idle state on remove and shutdown
-Date: Wed, 16 Sep 2026 13:47:44 +0000
-Message-ID: <20260916134744.46354-3-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260916134744.46354-1-farbere@amazon.com>
-References: <20260916134744.46354-1-farbere@amazon.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FsjDM4CG"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 56BC3C5CD60;
+	Wed, 16 Sep 2026 13:48:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5C34860337;
+	Wed, 16 Sep 2026 13:47:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8DD3511C7B038;
+	Wed, 16 Sep 2026 15:47:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789566472; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=9MZSf+qxx8/Ty98JkFRndwTvdhbHq5kenzts5ncPb5U=;
+	b=FsjDM4CGhKTpGI7EPMnp1qVnUDiWZ/MvYCX8oJMcOhlwceApl0fdlmtaPgTFfCjdloIJUq
+	BcyX4XERNbeVj00xyKgOysccMA9MzsBVQgCrAV6xhR3oUQZ84Fe0LXU+5ifFco3zRTD/M9
+	Td5NgPF+IhklwWZehRnZRLwnowV0HuhOgof5SJrHwZuhP64CGoZq47pcVBj4e1wowetaCi
+	OwkdwMfw2X5QkU0cp+OQSQwTnGsVIi4eKkytfJw8DITMQNE4FSiMNU8yNvJrLkp9qGwEyP
+	lMdG5wZ9Vxznx3WQ0A0ZLNdev5B+D7vM4m9N71DkdWlavyuPEZZyVle1JP7GPQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Date: Wed, 16 Sep 2026 15:45:40 +0200
+Subject: [PATCH v3 16/19] drm/bridge: ssd2825: don't create a panel_bridge
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D037UWB003.ant.amazon.com (10.13.138.115) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-drm-bridge-every-panel-v3-16-83afb4f1a707@bootlin.com>
+References: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+In-Reply-To: <20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>, 
+ Paul Kocialkowski <paulk@sys-base.io>, Linus Walleij <linusw@kernel.org>, 
+ Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, Sean Paul <sean@poorly.run>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Albert Esteve <aesteve@redhat.com>, 
+ Anusha Srivatsa <asrivats@redhat.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-mips@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, asahi@lists.linux.dev, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ linux-tegra@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Some boards route the PPS input GPIO through a pin controller and mux it
-to another function when the pps-gpio driver is not bound. The driver core
-already applies the "default" pinctrl state before probe, so the pins are
-muxed for GPIO/PPS use while the driver is bound without any driver change.
+Now a panel_bridge is automatically created for every drm_panel and the
+panel-bridge API is just a deprecated wrapper to access it.
 
-Nothing, however, hands the pins back when the driver is unbound or the
-system is shut down. Select the "idle" pinctrl state in both remove() and
-shutdown() so a board can describe the alternate mux there and have it
-restored, for example before kexec.
+Update and simplify the code by just getting a reference to the
+already-existing bridge using of_drm_get_bridge_by_endpoint().
 
-pinctrl_pm_select_idle_state() is a no-op for devices that have no pin
-controller or no "idle" state, so boards that do not use this are
-unaffected. The "idle" state is only looked up and selectable when
-CONFIG_PM is enabled; without CONFIG_PM the helper compiles to a no-op and
-the pins simply retain their "default" mux.
+As of_drm_get_bridge_by_endpoint() returns a refcounted bridge, take care
+of putting the bridge reference when not used anymore.
 
-Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/pps/clients/pps-gpio.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/gpu/drm/bridge/Kconfig   |  2 --
+ drivers/gpu/drm/bridge/ssd2825.c | 23 +++++------------------
+ 2 files changed, 5 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/pps/clients/pps-gpio.c b/drivers/pps/clients/pps-gpio.c
-index 73ec2c7335e5..bdedbed82d82 100644
---- a/drivers/pps/clients/pps-gpio.c
-+++ b/drivers/pps/clients/pps-gpio.c
-@@ -17,6 +17,7 @@
- #include <linux/slab.h>
- #include <linux/pps_kernel.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/pinctrl/consumer.h>
- #include <linux/list.h>
- #include <linux/property.h>
- #include <linux/timer.h>
-@@ -216,9 +217,26 @@ static void pps_gpio_remove(struct platform_device *pdev)
- 	timer_delete_sync(&data->echo_timer);
- 	/* reset echo pin in any case */
- 	gpiod_set_value(data->echo_pin, 0);
-+	/*
-+	 * Release the pins to their "idle" state, if the board defines one, so
-+	 * they are handed back to whatever function uses them while pps-gpio is
-+	 * not bound. Boards that do not describe an idle pinctrl state are
-+	 * unaffected. The "default" (active) state is applied automatically by
-+	 * the driver core before probe.
-+	 */
-+	pinctrl_pm_select_idle_state(&pdev->dev);
- 	dev_info(&pdev->dev, "removed IRQ %d as PPS source\n", data->irq);
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index 847a6397eb10..c7da6b02d7b6 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -349,8 +349,6 @@ config DRM_SOLOMON_SSD2825
+ 	depends on SPI_MASTER && OF
+ 	select DRM_MIPI_DSI
+ 	select DRM_KMS_HELPER
+-	select DRM_PANEL
+-	select DRM_PANEL_BRIDGE
+ 	help
+ 	  Say Y here if you want support for the Solomon SSD2825 RGB/DSI
+ 	  SPI bridge driver.
+diff --git a/drivers/gpu/drm/bridge/ssd2825.c b/drivers/gpu/drm/bridge/ssd2825.c
+index b0142d6d40dc..71877699dfab 100644
+--- a/drivers/gpu/drm/bridge/ssd2825.c
++++ b/drivers/gpu/drm/bridge/ssd2825.c
+@@ -17,7 +17,6 @@
+ #include <drm/drm_drv.h>
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_of.h>
+-#include <drm/drm_panel.h>
+ #include <video/mipi_display.h>
+ 
+ #define SSD2825_DEVICE_ID_REG			0xb0
+@@ -114,7 +113,6 @@ static const struct regulator_bulk_data ssd2825_supplies[] = {
+ 
+ struct ssd2825_dsi_output {
+ 	struct mipi_dsi_device *dev;
+-	struct drm_panel *panel;
+ 	struct drm_bridge *bridge;
+ };
+ 
+@@ -277,7 +275,6 @@ static int ssd2825_dsi_host_attach(struct mipi_dsi_host *host, struct mipi_dsi_d
+ {
+ 	struct ssd2825_priv *priv = dsi_host_to_ssd2825(host);
+ 	struct drm_bridge *bridge;
+-	struct drm_panel *panel;
+ 	struct device_node *ep;
+ 	int ret;
+ 
+@@ -295,20 +292,14 @@ static int ssd2825_dsi_host_attach(struct mipi_dsi_host *host, struct mipi_dsi_d
+ 		return -EOPNOTSUPP;
+ 	}
+ 
+-	ret = drm_of_find_panel_or_bridge(host->dev->of_node, 1, 0, &panel, &bridge);
+-	if (ret)
+-		return ret;
++	bridge = of_drm_get_bridge_by_endpoint(host->dev->of_node, 1, 0);
++	if (IS_ERR(bridge))
++		return PTR_ERR(bridge);
+ 
+-	if (panel) {
+-		bridge = drm_panel_bridge_add_typed(panel, DRM_MODE_CONNECTOR_DSI);
+-		drm_panel_put(panel);
+-		if (IS_ERR(bridge))
+-			return PTR_ERR(bridge);
+-	}
++	bridge->type = DRM_MODE_CONNECTOR_DSI;
+ 
+ 	priv->output.dev = dev;
+ 	priv->output.bridge = bridge;
+-	priv->output.panel = panel;
+ 
+ 	priv->dsi_lanes = dev->lanes;
+ 
+@@ -333,8 +324,7 @@ static int ssd2825_dsi_host_detach(struct mipi_dsi_host *host, struct mipi_dsi_d
+ 	struct ssd2825_priv *priv = dsi_host_to_ssd2825(host);
+ 
+ 	drm_bridge_remove(&priv->bridge);
+-	if (priv->output.panel)
+-		drm_panel_bridge_remove(priv->output.bridge);
++	drm_bridge_put(priv->output.bridge);
+ 
+ 	return 0;
+ }
+@@ -579,9 +569,6 @@ static void ssd2825_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+ 	/* Initial DSI configuration register set */
+ 	ssd2825_write_reg(priv, SSD2825_CONFIGURATION_REG, config);
+ 	ssd2825_write_reg(priv, SSD2825_VC_CTRL_REG, 0);
+-
+-	if (priv->output.panel)
+-		drm_panel_enable(priv->output.panel);
  }
  
-+static void pps_gpio_shutdown(struct platform_device *pdev)
-+{
-+	/*
-+	 * Leave the pins in their "idle" state on shutdown so a subsequent
-+	 * kernel (e.g. after kexec) finds the pin controller in a known state.
-+	 */
-+	pinctrl_pm_select_idle_state(&pdev->dev);
-+}
-+
- static const struct of_device_id pps_gpio_dt_ids[] = {
- 	{ .compatible = "pps-gpio", },
- 	{ /* sentinel */ }
-@@ -228,6 +246,7 @@ MODULE_DEVICE_TABLE(of, pps_gpio_dt_ids);
- static struct platform_driver pps_gpio_driver = {
- 	.probe		= pps_gpio_probe,
- 	.remove		= pps_gpio_remove,
-+	.shutdown	= pps_gpio_shutdown,
- 	.driver		= {
- 		.name	= PPS_GPIO_NAME,
- 		.of_match_table	= pps_gpio_dt_ids,
+ static void ssd2825_bridge_atomic_enable(struct drm_bridge *bridge,
+
 -- 
-2.47.3
+2.55.0
 
