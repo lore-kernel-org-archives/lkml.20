@@ -1,118 +1,203 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676AD47ECDD
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:18:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29109478E23;
+	Wed, 16 Sep 2026 21:18:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789593530; cv=none; b=n/61s8HdWI8v2JySvoRJrlJXb1En64GkalAdAtBJHYN3ZWGyjHhGo6MriIbC6akzC9BsQKk08/sleYVXEPC9a5EQz4XNRoC/xkytkJ1P1RbFyZ2ZYjXrI096EvI2ERuRQzdiVQbgTLJKFhoTa0h+pUUZtvuoGB6xChCHfSpCpFQ=
+	t=1789593531; cv=none; b=nW8/k4DcaiNZPCQqweQV69bnsikA+b13k4sspJ5/GhiQY/mpVKG6Q2gtJJ71NOk5oSo7CAW4mQB1lZY3oD6eikXRU+RC8RPxaz1tewFysLKYmwVD0+zxQPDIbhyYdHJYXAqkxX951FzKuVDiWefATBbBJU04dvtN5cUut3rrmMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789593530; c=relaxed/simple;
-	bh=vOjv+oaZ+5xB8NjtW5/t7ANQZBpuoikuprd+/++G5ms=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ur9mbXi/h9m0492EJd1Fn264bpNIBBuIWtBr192GWn4PFd19NMGRrZVCJ7hy5pqnhkKdo9wdmQURTALgf7ZwYgcisy/8U9ZjeBCV+ZYIyZfr1gsb4b5QCmVSZSw8dRdJ+g056FXV0pRyObMHVdnixN3Q1pN9nHYADjft0REf/ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems; spf=pass smtp.mailfrom=starlabs.systems; dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b=Ypo15nlP; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.systems
+	s=arc-20240116; t=1789593531; c=relaxed/simple;
+	bh=EtEHkPmTakAyHK0p4aTwgKMToC8/FICbQm3Ha666b60=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Kwa9HRP6KzMWGUjVH5S3tx3Iujp6X/BH2xSjjqDAdVTPc4vu1Hq0vmo1y3Otud8iIbS9c5C7/BPKA8PSdP8SPvajuQKwz2wL5UOquaWs7UBOVlpiup9dB4o23DVdd8/Z6tBhYmvFKRQmoK/TWDyo+N7rKjkttEcV0ia3qo7++7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=BbZpWGy4; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="Ypo15nlP"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so2451835e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:18:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1789593512; x=1790198312; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8c7Lrwf6LLYMTB0zxM6IKxndmvRTeS9nJzIt6c8lINU=;
-        b=Ypo15nlP6c0UWOLpjw/sA27p9+77k/IQ+Gr7G3Vez1uFXbWKopzOpeJOy67s4gujpa
-         r0RnSP1Udup71JVgOWdrZ4TcHPh5waoAPibWeGIJgJi2URWKvE+HCS2KJy2NPk/YEm2z
-         NYPPlaUMJSeys7xiVmyCrc2BCTr9Lz0pQWevnFjt6nYoGr3uS6ngfmc2zXnvwYWioGpx
-         kVAK7H/qq4X6y6e4Cc8s006ulH7Z07fv/Di+smm9D3lyFxm1UiGMjKy8Vs6eN23ve4bT
-         IPnj+q2mLNcr0IAG6rP1h0HF++X0oXImKoR/oC6DD1tf8f2cH43DH4+vTaxp1o1rxI/G
-         HtMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789593512; x=1790198312;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8c7Lrwf6LLYMTB0zxM6IKxndmvRTeS9nJzIt6c8lINU=;
-        b=IGjny3qCFTb6d1ShA9FLwReRkTXQw9K4ykDvcpYgDd0qbdpylzX++6M3PHAu3OauUb
-         eZZvJShkwwFdFEnrDVh1Zr9J5iVF09N8piYIGj2plZrg0x4yTai1R501Ixuh5jnHxZ0M
-         M/cP5FTHrcYgz8HzxTqR1gRzLdLuswOcFBoByWV4Dri7wRK1VPFCYNQaVyT/1HfufNO6
-         u9xKewtMh7Lki1hLQM+r4SebjJj5o4hv0HY2PejbCdDqNwlrlAuT3VsniUoW/s1ByUHb
-         ww5SR1wsRweI3WNkZZ1hBvpaklpN8On5PpSbuS0l956TMia2GTURSiekME8FnO9l2i1u
-         J9UQ==
-X-Gm-Message-State: AFuF++mhEIHUPeSNJ2MTKjsof+tVumVvs414WBmvIFcCHl+BFI5qZ7eC
-	2VMJwhJm/VZeemK88YBbA0HweBdZ1VUdnNDW61kQqcbdHneDAcZJ7Kc7/fVc866FLtPk6LAl9lT
-	T75XBoA==
-X-Gm-Gg: AYBFou07IXm3YDdsgQWFHVrZHQD3XQEXVAoklm1H2/MiktlatlOC3UH5kKZyNlPLKgb
-	LZOOb0hRf/yPR51oo2gko5lDiGZUuN0qGFUm8IDo1DVFiVxUzC3O0C7B1x3O6EqetUtoHR7x2uJ
-	4dKKylKrVan4/oeq8eOjlAFAT1VTrm1jo2X3cOYJYFdzIzsXMPH4qqPehrfAaF/Sek53hxslUCW
-	RifKCReDnX1lr0qWx9P+bC4iWsMpatvV8KtB7M1uRN7veOeSF0mfVLvRFZeOBecRIh3o9o7MbQR
-	lklWTdzS1wnzGI+ArnSduVItGa3Dt17tYgLaTov9h7GppT2Pp5LQkwqA+QU3zVBSi3jBB3Gh1kP
-	QX/pIEORMHTrlquDHQMr72ZP7SUnmeIdEBNA9M2fMT/rBLBMKqHe3PZ7fLL73laf5BFLoEZjOTj
-	ec0wX7BG/Ha5T0/ijHALkSPujkSi91SKKJfkCmqoyR7kWWvRN7gQxjPQNVgqAk8nnLFjmDE98o1
-	dzAuWTTph5VFLObtFoVgJH5yQ==
-X-Received: by 2002:a05:600c:8b78:b0:49c:fc6e:8cb4 with SMTP id 5b1f17b1804b1-49ebb4297c4mr52763795e9.24.1789593511641;
-        Wed, 16 Sep 2026 14:18:31 -0700 (PDT)
-Received: from horizon ([217.155.46.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbbd83e39sm46567695e9.4.2026.09.16.14.18.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 14:18:31 -0700 (PDT)
-From: Sean Rhodes <sean@starlabs.systems>
-To: linux-kernel@vger.kernel.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/i915/drrs: Ignore sync polarity when matching modes
-Date: Wed, 16 Sep 2026 22:18:30 +0100
-Message-ID: <6436114aa461b08bf0abddadf2c091c45dc81075.1789593508.git.sean@starlabs.systems>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="BbZpWGy4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=cSWAuY8c8B29ZzhKeQeJwy1M3UxvvMl2vo35tNx7Fgc=;
+	b=BbZpWGy4K60lYw5GZuHZyfemVd24LLG4NszRcc9Vblb5Yh8+Yz/j2P+n1i2+m7
+	qywGTlJPLLz1BYfVL2aI/3SlAyBDE5AfG5sOvqKduYZ5WS8vUKgK/jHCVJp7jJ6U
+	JCNyhwmOJok8Y0FLulHQL7a5AjaWui7QoG9mKTBUoJ0tk=
+Received: from [IPV6:2409:8900:21a7:a33a:b45d:31d1:c098:7d46] (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wBnTfaIB6tqSyPIBA--.29263S2;
+	Thu, 17 Sep 2026 05:18:01 +0800 (CST)
+Message-ID: <e45017e8-cf0c-4a97-8ae9-03b27ebd840d@163.com>
+Date: Thu, 17 Sep 2026 05:18:00 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 4/7] ntfs: persist the dirty state after the final
+ put_super() commits
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, Baolin Liu <liubaolin@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20260915083252.812126-1-zenghongling@kylinos.cn>
+ <20260915083252.812126-5-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260915083252.812126-5-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBnTfaIB6tqSyPIBA--.29263S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Wr4DGF18WF1UJrWxZFW3GFg_yoW7Cw4rpr
+	Zayws3Gw4ktFy2k3s7KrW0gFySg348Cayxur18Gw17Xwn3Gr1xK3Z8t34S9Fy8trykJw18
+	XF4qyrW5KF4Uur7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UIeHgUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwgppNGqrB4rFwwAA3f
 
-Some panels advertise DRRS modes with matching timings but different sync
-polarities. is_alt_drrs_mode() currently includes DRM_MODE_MATCH_FLAGS and
-rejects such pairs.
 
-Commit 2bd0db4b3f0b ("drm/i915: Allow panel fixed modes to have differing
-sync polarities") already made is_alt_fixed_mode() ignore H/V sync polarity
-because panels can declare alternate modes with different values and
-Windows/GOP accepts them. Apply the same rule when matching DRRS modes.
-Continue to require matching timings, 3D flags, and all other mode flags.
 
-Tested: BOE NE160QAM-NZ1 (3840x2400); DRRS reached low refresh.
-Tested: Huawei 23040676 (2520x1680); DRRS reached low refresh.
-Signed-off-by: Sean Rhodes <sean@starlabs.systems>
----
- drivers/gpu/drm/i915/display/intel_panel.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+在 2026/9/15 16:32, Hongling Zeng 写道:
+> The just-in-case mftmirr/mft commits and the final write_inode_now()
+> in ntfs_put_super() can record NVolErrors() after the dirty state has
+> been persisted, so errors from those points would leave the volume
+> unmounted with a clean on-disk dirty bit - contradicting the "cannot
+> unmount clean" guarantee ntfs_sync_volume_dirty_state() is meant to
+> provide.
+> 
+> Move the persistence to the end of ntfs_put_super(): keep the gated
+> re-commits and the tail commits where they are, run
+> ntfs_sync_volume_dirty_state() and the $Volume commit after the last
+> write_inode_now(), and release vol->vol_ino only after the sync.
+> 
+> The release order of the special inodes matters for the $Volume
+> commit: writing the $Volume record mirrors it through
+> ntfs_sync_mft_mirror() (record number 3 is below vol->mftmirr_size),
+> which fails with -EIO and leaves the mirror stale once
+> vol->mftmirr_ino is gone, so the mirror inode is released only after
+> that commit.  vol->vol_ino is then put before vol->mft_ino is dropped:
+> if the commit failed before it could clear the dirty flag,
+> ntfs_evict_big_inode() commits the inode again on its way out, and
+> __ntfs_write_inode() resolves the runlist through vol->mft_ino.
+> 
+> Reported-by: Baolin Liu <liubaolin@kylinos.cn>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>   fs/ntfs/super.c | 75 ++++++++++++++++++++++++++++++++++---------------
+>   1 file changed, 52 insertions(+), 23 deletions(-)
+> 
+> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+> index 733565953302..3574c224fe28 100644
+> --- a/fs/ntfs/super.c
+> +++ b/fs/ntfs/super.c
+> @@ -1812,26 +1812,13 @@ static void ntfs_put_super(struct super_block *sb)
+>   	ntfs_commit_inode(vol->mft_ino);
+>   
+>   	/*
+> -	 * If a read-write mount, persist the error state in the volume flags:
+> -	 * mark the volume clean if no volume errors have occurred, and make
+> -	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
+> -	 * next mount.  Also, re-commit all affected inodes.
+> +	 * If a read-write mount, re-commit all affected inodes once more.
+> +	 * The dirty state itself is persisted at the end of ntfs_put_super(),
+> +	 * after the last commits and the final write_inode_now(): those can
+> +	 * still record errors via __ntfs_write_inode(), and the sync must
+> +	 * evaluate NVolErrors() with the last setter already run.
+>   	 */
+>   	if (!sb_rdonly(sb)) {
+> -		if (ntfs_sync_volume_dirty_state(vol)) {
+> -			ntfs_warning(sb,
+> -				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
+> -		} else if (NVolErrors(vol)) {
+> -			/*
+> -			 * The dirty bit is on disk now; only warn when the
+> -			 * sync actually succeeded, or this message would
+> -			 * contradict the one above.
+> -			 */
+> -			ntfs_warning(sb,
+> -				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
+> -		}
+> -		/* Commits the updated volume flags if they were written. */
+> -		ntfs_commit_inode(vol->vol_ino);
+>   		if (!NVolErrors(vol)) {
+>   			ntfs_commit_inode(vol->root_ino);
+>   			if (vol->mftmirr_ino)
+> @@ -1840,9 +1827,6 @@ static void ntfs_put_super(struct super_block *sb)
+>   		}
+>   	}
+>   
+> -	iput(vol->vol_ino);
+> -	vol->vol_ino = NULL;
+> -
+>   	/* NTFS 3.0+ specific clean up. */
+>   	if (vol->major_ver >= 3) {
+>   		if (vol->extend_ino) {
+> @@ -1872,8 +1856,6 @@ static void ntfs_put_super(struct super_block *sb)
+>   		/* Re-commit the mft mirror and mft just in case. */
+>   		ntfs_commit_inode(vol->mftmirr_ino);
+>   		ntfs_commit_inode(vol->mft_ino);
+> -		iput(vol->mftmirr_ino);
+> -		vol->mftmirr_ino = NULL;
+>   	}
+>   	/*
+>   	 * We should have no dirty inodes left, due to
+> @@ -1883,6 +1865,53 @@ static void ntfs_put_super(struct super_block *sb)
+>   	ntfs_commit_inode(vol->mft_ino);
+>   	write_inode_now(vol->mft_ino, 1);
+>   
+> +	/*
+> +	 * If a read-write mount, persist the error state in the volume flags:
+> +	 * mark the volume clean if no volume errors have occurred, and make
+> +	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
+> +	 * next mount.
+> +	 */
+> +	if (!sb_rdonly(sb)) {
+> +		if (ntfs_sync_volume_dirty_state(vol)) {
+> +			ntfs_warning(sb,
+> +				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
+> +		} else if (NVolErrors(vol)) {
+> +			/*
+> +			 * The dirty bit is on disk now; only warn when the
+> +			 * sync actually succeeded, or this message would
+> +			 * contradict the one above.
+> +			 */
+> +			ntfs_warning(sb,
+> +				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
+> +		}
+> +		/*
+> +		 * Commits the updated volume flags if they were written.
+> +		 * The mft mirror must still be around for this: the
+> +		 * $Volume record (mft record number 3, below
+> +		 * vol->mftmirr_size) is mirrored by write_mft_record()
+> +		 * through ntfs_sync_mft_mirror(), which fails with -EIO
+> +		 * and leaves the mirror stale once vol->mftmirr_ino is
+> +		 * gone, so the mirror inode is only released after this
+> +		 * commit.
+> +		 */
+> +		ntfs_commit_inode(vol->vol_ino);
+> +	}
+> +
+> +	/*
+> +	 * Release $Volume while the mft inode is still available: if the
+> +	 * commit above failed before it could clear the dirty flag,
+> +	 * ntfs_evict_big_inode() commits the inode again on its way out,
+> +	 * and __ntfs_write_inode() needs vol->mft_ino to look up the
+> +	 * runlist of the record to write.
+> +	 */
+> +	iput(vol->vol_ino);
+> +	vol->vol_ino = NULL;
+> +
+> +	if (vol->mftmirr_ino) {
+> +		iput(vol->mftmirr_ino);
+> +		vol->mftmirr_ino = NULL;
+> +	}
+> +
+>   	iput(vol->mft_ino);
+>   	vol->mft_ino = NULL;
+>   	blkdev_issue_flush(sb->s_bdev);
 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 81e638d0c7b3..e79c51a1c33c 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -144,10 +144,13 @@ intel_panel_fixed_mode(struct intel_connector *connector,
- static bool is_alt_drrs_mode(const struct drm_display_mode *mode,
- 			     const struct drm_display_mode *preferred_mode)
- {
-+	u32 sync_flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NHSYNC |
-+		DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC;
-+
- 	return drm_mode_match(mode, preferred_mode,
- 			      DRM_MODE_MATCH_TIMINGS |
--			      DRM_MODE_MATCH_FLAGS |
- 			      DRM_MODE_MATCH_3D_FLAGS) &&
-+		(mode->flags & ~sync_flags) == (preferred_mode->flags & ~sync_flags) &&
- 		mode->clock != preferred_mode->clock;
- }
- 
+Looks good to me.
+
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+
