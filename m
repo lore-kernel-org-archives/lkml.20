@@ -1,163 +1,123 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61FB47988E
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789595049; cv=pass; b=MBwWrbdu/M4WBZyANit2SOlNkHAdoT2ZUCX3ve8VdVT1ysk9XbOuCapsUWFnMMMJtHJ/Mv5uuvnGWc9x96k6xtYWzN+3RoSDPfi2BSHJ+DJopt2LuWi4tu2J8TyuJnZnLJV9aAwqf6FtGgy1TKfVYaReeZ+4AusdApNqOMm7MOA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789595049; c=relaxed/simple;
-	bh=AayDStxvWbgnmWnKvKHBN/OOsgvHcfSQuvWss2icNiE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B7Jtp/ASFDIFuSjtFSaonoNWygdnyHuw4W8vETEUXGecd1Ny3RJpFAMsKapYUbPBSCbo6SkHWeZ4/Mss/Gp648fK3RvlyA9T3Bc/pUVkcz2XY9ORW8dvNnuQbsEF46weM4WkUzYSslLPetgQVigmGKQxQhPzO01WIIW52XmB3TE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems; spf=pass smtp.mailfrom=starlabs.systems; dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b=dXbtpYXH; arc=pass smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=starlabs.systems
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starlabs.systems
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBCA4D9F6A
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789595066; cv=none; b=iA0vGtbe3pAPbv1nIkBMUL2ur2Qv4oFZg4C73kTFlg8mC0hf2UYslFDlPaORwENlHMn2v8xbpeRaBPJ/bHWozmeV6ho06/kgMoT8O5zaiymEu5uxpGUn+KAbCsvhekC6BrKlZIoH3qwFBAJdyAPBF2wxRlTj3DBX4yIsJep2Ntw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789595066; c=relaxed/simple;
+	bh=u9CwAkRmRgfbHgKS7O8auSQpb+Jkdl9BSbZ4LLxb8Ig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XT40ZM3MB71oILc3KSX1gHlmD3LRaU35BpMAMQHedIs5F/l28245VktbelfmnT+64LyZGCPHk9USBGG2cJGYeEkkSNdfa9KEXk47BaxP6tzU1yiMur5rxf4PT1+PfLK6NFr5rnOMi5L2q74Dau5EULeEhtRyog4fpTSQxfV8Qp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=k67sJ/iv; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="dXbtpYXH"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-86162c086f8so790347b3.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:43:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789595003; cv=none;
-        d=google.com; s=arc-20260327;
-        b=U1EubG4pHMBvI5umkEctOcEJVePVZFeiYayjdu8zf9znlZynTiKdvJmTf2XRJvmLKS
-         Uc+HbTd1hzRG76eT22FIouarS1LXAh1k9pM53oaaj+pXHzy+DuAsC2dKkmRo8ThgFvUj
-         KnqGkkkUv2n4XyLJUNLbgFYQBR56DXnBhb90OmxSN3FHSs8w7mGlaCpoBvqwetpCA9qp
-         iVGZ+IJN4t7RhQ3T/c88JbphACQ8HPAFyuYaBitj52RvW+PVnF467sJ69RCe/1bG5qD6
-         Ky7VqhpWWtwW6OvE3kw9triTPc1DCoAuj2esFk2Tw8ET4wGLAr6q/OW4q8jcZyQIKoRR
-         jPzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XcwxAB43YdszLPV10ZP5iQsr+p0JEvwgv6jHK+rlABU=;
-        fh=QqFXR9r/vB3v4/r4K33bwHxP56UoPCsthLVf7ENyzrU=;
-        b=coXQ23diP1fcnRLNFGatR6H9alFocp+8pQVb8JnTjjIg6usUy0JW2D3ZRjuEo3xtD9
-         dk37Hi7TDz3ZrxU6grKn7E3BHFfgst2UuXFIl2IyF0z6RkXpU0ue+9qbtrJzaNEMqEjA
-         Yorwgtht65M2hGmUIGiakx6RpIu680vTaamTTjlQruRJ8br5LjL0/8o9/kczy84q55Y3
-         /BKaQho1yc5/R0ESRUEiCyjc7Qw6Jv4Ae14Wc377k1b2WAjfGmLYIR5MgOEnhq139VIF
-         eb7xxYO5j5388lyLOuD6bVkd4uFT4iXpVbv+szBnR0BQSDVsh8Swt6RIOz4cGnOt3deD
-         jJqA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1789595003; x=1790199803; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XcwxAB43YdszLPV10ZP5iQsr+p0JEvwgv6jHK+rlABU=;
-        b=dXbtpYXHwQ9TyJdQPhosUApAyoV2HEIct/41EktUePE54v6smV7H3Q8v0nGzn/94sZ
-         mZvMZpMe9XLxMfjWFpQCjrmqc+Z/HemExcC6X9QrSqUA7pGkQ+wvF/tUB5WDTqd9WyA3
-         6NRc4Qghta+bqGxbrV3xAuDsbjgruHCwelrWGV/uun4TDBYo8wlUJmQlvTjTq+CDxZqI
-         3PShdKMApdjlcHlbhuI06nwzjxqY0ek4e/frKxD5wuf3UcYu96nCIggxuvEn0gVBXjdI
-         K6rHo/3zhRGvAdYVxFyd4ILb/btN+a72TV5ott64EfY0CNUPrbuyvg68cKEtwhHg+ct7
-         Ytvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789595003; x=1790199803;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XcwxAB43YdszLPV10ZP5iQsr+p0JEvwgv6jHK+rlABU=;
-        b=PU+7Zpjhs9Ek4VcuGf7WwWSWKG6VI/ulj8q2nGsUfFQzdzUzQP7U3b5dCmv0nMZnKp
-         VtkIjifuZqpGNWetWCkprcLGCXIjxglwoOxZBqhv5tsjksFxAxrt3JreVyM3rVFwje01
-         u43of/sjRJMaOj9CvUKKwqtALwPIy5TypNxSNy+Sd8UPY9px1lXu+FlP4JpLY2rVp3wc
-         d1WQpNgFp9eIDBY/dhOYAPY91DBLbcIt4Gcgqm+KwBLXo1cKIpkw2ha5aJHIpNbMa/u9
-         p7OYFPaO6KwAg1PCnJixysUOcRzP2ISPw/yEzXkP0SdgApAwdXPGQ8n9H1C+fk/MGOEX
-         fYIw==
-X-Gm-Message-State: AFuF++myHBpt/P/RoE3hN6UlawJRh64jauAO64LTxTjPcNGZA0jJBTk2
-	hKMXxr6+SDn+2NKaxBUo4D5So98TH7KzQrMtm3mKzuEhoResmxj2Ir5JOiSf3KtIojo3JrgsaED
-	e2pgzJnALvbXwO/4Dtg+GNDEtLwn4dtPmjaBXuFKv
-X-Gm-Gg: AYBFou0p1EdeXGzxP5aTH5XUqSeP7kgkiLO8Z23JVcm/MEqUVPvcGQurw4BWTqTyA6G
-	n4i2QmVL9eX7uMyAbsaxOY71KSXY/y8X8QI+YsClVzx8e/7o5Psxb2Dug3xGE+bo+0JWc3Ag9JS
-	GACssWQtlzhOIE8nicOjtw5Z0WCdGMEsoLSagsIWerxy3Gohv7PQDIWbKzJeKsDqSsdqSmHakhT
-	70Yh/yJi3NHS0iWGTTbUF46v9uK86Fpyx2F98aTko0z9gF0TEJ7HUDHHkFX9cXVhL3Cgp2YNgz/
-	Cd/NXjnCIn5FEEnttbJhEHSnklyqpyvdW/juPBgFLLDn6u5V30IX9AtGgHdCzcaQbzlKh9WN/vm
-	kUi5qRK2m2Q==
-X-Received: by 2002:a05:690c:7:b0:873:5c7b:c12d with SMTP id
- 00721157ae682-8944596a1a4mr2540477b3.21.1789595003466; Wed, 16 Sep 2026
- 14:43:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="k67sJ/iv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=DM/W
+	7KCnxU7/tdq5Kc2WNPGwfZ0hBpeFzr7aGr/+qyo=; b=k67sJ/ivCmMJjXEfmVDt
+	OXjDHvG9OqgfnDebkf05kUT1KLP+v9b21MYYDXEZcTJZZodnd3RGeykQI7RjtgPK
+	R48INoQPNUNMxRyR1iIPzh4m0zYWmHa2ily7IbZfPD4dPzGdPlEke18fZo5OErnm
+	/d1dsobEryvSpaM/xzU5WBNrVNq6p//DtL1IekdooVEmUU4L6WVfRaQYvXrB2sH9
+	XjjfZJgWNrAB1Yd82mEFpC25oK0k7ie7wBoSZFu7y2grULX6/nlqV+GUE0kmlLX4
+	I16/5vGZ9bnO5MkIUWGfCWK7LjUhMAPPDX5BZ6+ClVNWoO1/0zKg04EG0JTbC0N3
+	kA==
+Received: (qmail 1718523 invoked from network); 16 Sep 2026 23:44:04 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Sep 2026 23:44:04 +0200
+X-UD-Smtp-Session: l3s3148p1@gFzskKBb+tsujnt4
+Date: Wed, 16 Sep 2026 23:44:04 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Bjorn Andersson <andersson@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v7 3/3] hwspinlock: add low level debug capabilities
+Message-ID: <aqsNpEXjuZswCC9w@shikoro>
+References: <20260912191442.99453-1-wsa+renesas@sang-engineering.com>
+ <20260912191442.99453-4-wsa+renesas@sang-engineering.com>
+ <CAMuHMdX27+sdJYd06v3T9hj2=z3ADSKOVGvu+02-qe+Jp6R4Bw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788284852.git.sean@starlabs.systems> <apfz3lf1RIfAkKYS@google.com>
- <CABtds-0w2b0P6SGoAZGHJe-4usmG6B8SUP1ufRQyp0+9UFcF3g@mail.gmail.com>
-In-Reply-To: <CABtds-0w2b0P6SGoAZGHJe-4usmG6B8SUP1ufRQyp0+9UFcF3g@mail.gmail.com>
-From: Sean Rhodes <sean@starlabs.systems>
-Date: Wed, 16 Sep 2026 22:43:10 +0100
-X-Gm-Features: AcwNN1U8ZB3podUdFXiPZ834VqBifCusJKONnKfdetS9jbEaRFfMhwBYCh_JS1c
-Message-ID: <CABtds-2srRmKDvNj7g_0C2w8L72WczLsA+Vc_Yg3KC4gvSJyqw@mail.gmail.com>
-Subject: Re: (subset) [PATCH v14 0/5] coreboot CFR firmware attributes
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, 
-	Denis Benato <denis.benato@linux.dev>, Prasanth Ksr <prasanth.ksr@dell.com>, 
-	Jorge Lopez <jorge.lopez2@hp.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
-	"Derek J. Clark" <derekjohn.clark@gmail.com>, Joshua Grisham <josh@joshuagrisham.com>, 
-	Will Deacon <will@kernel.org>, Douglas Anderson <dianders@chromium.org>, 
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>, Huacai Chen <chenhuacai@kernel.org>, 
-	Chen-Yu Tsai <wenst@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	platform-driver-x86@vger.kernel.org, Dell.Client.Kernel@dell.com, 
-	Brian Norris <briannorris@chromium.org>, Julius Werner <jwerner@chromium.org>, 
-	Javier Martinez Canillas <javierm@redhat.com>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Danilo Krummrich <dakr@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-	Titouan Ameline de Cadeville <titouan.ameline@gmail.com>, 
-	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>, Yidi Lin <yidilin@google.com>, 
-	Kees Cook <kees@kernel.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
-	chrome-platform@lists.linux.dev, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Arnd Bergmann <arnd@arndb.de>, Eric Biggers <ebiggers@kernel.org>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Michal Simek <michal.simek@amd.com>, 
-	Sven Peter <sven@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1ydJZIwgFrpNtqTV"
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdX27+sdJYd06v3T9hj2=z3ADSKOVGvu+02-qe+Jp6R4Bw@mail.gmail.com>
 
-How about patch 1 and 4?
+--1ydJZIwgFrpNtqTV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks
 
-Sean
+> > While developing the hwspinlock core or a device driver, it can be
+> > really helpful to change states from userspace. Add a debugsfs interface
+>=20
+> debugfs
 
-On Wed, 2 Sept 2026 at 11:01, Sean Rhodes <sean@starlabs.systems> wrote:
->
-> Thank you :)
->
-> On Wed, 2 Sept 2026 at 11:01, Tzung-Bi Shih <tzungbi@kernel.org> wrote:
-> >
-> > On Tue, Sep 01, 2026 at 06:48:01PM +0100, Sean Rhodes wrote:
-> > > Move the firmware attributes class helper out of platform/x86, rename the
-> > > coreboot-table firmware driver directory from google to coreboot, and add a
-> > > coreboot CFR firmware attributes driver.
-> > >
-> > > Changes in v14:
-> > > - Rebase on current upstream master after Linux 7.3-rc1, preserving the
-> > >   intervening coreboot table bounds and CBMEM no-map changes.
-> > > - Drop the standalone include-order cleanup. Replace the affected relative
-> > >   includes directly in the firmware attributes helper move, as requested by
-> > >   Tzung-Bi.
-> > > - Split the DRM coreboot framebuffer dependency update from the firmware
-> > >   directory and Kconfig rename so it can receive a DRM Acked-by separately.
-> > > - Keep the CFR driver and its runtime behavior unchanged from v13.
-> > >
-> > > [...]
-> >
-> > Applied to
-> >
-> >     https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-firmware-next
-> >
-> > [2/5] firmware: Rename google firmware directory to coreboot
-> >       commit: 44e33a5aaa2de3f5cf2701d6f4b0a7c63d4fe602
-> >
-> > Also created an immutable branch "ib-coreboot-rename-7.4"[1] for patch 3
-> > and patch 5 which build-time depend on it.
-> >
-> > Thanks!
-> >
-> > [1] https://lore.kernel.org/all/apfyaxKEEJz20wRC@google.com
+Yes.
+
+>=20
+> > to request, free, lock, unlock, and test hwspinlocks. Because this is a
+> > potentially dangerous interface, it can only be enabled via source code.
+>=20
+> ... code,
+>=20
+> > Similar to writeable attributes for clocks where this idea stems from.
+>=20
+> similar ...
+
+You mean I should merge the two sentences into one?
+
+> > +static void hwspin_lock_low_level_debug_init(struct dentry *rootdir)
+> > +{
+> > +       debugfs_create_file("request", 0200, rootdir, NULL, &fops_reque=
+st);
+> > +       debugfs_create_file("free", 0200, rootdir, NULL, &fops_free);
+> > +       debugfs_create_file("lock", 0200, rootdir, NULL, &fops_trylock_=
+raw);
+> > +       debugfs_create_file("unlock", 0200, rootdir, NULL, &fops_unlock=
+_raw);
+> > +       debugfs_create_file("test_lock", 0200, rootdir, NULL, &fops_tes=
+t);
+>=20
+> Perhaps just "test"?
+
+Hmm, too generic for my taste. In fact, I think I should maybe rename it
+to "test_single_lock" to make it more precise...
+
+> The rest LGTM, so
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Thank you!
+
+
+--1ydJZIwgFrpNtqTV
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqrDaQACgkQFA3kzBSg
+KbbFixAAgz371RqwNn/QHdIZlTiyc/IwwfiPlgZOQSKC//TA3PLQwhpjESSNaOj1
+cUd66gVDmROXA5gZyY5k5XEhAD2YPgkRoPfy8lGaiNC/xuZ+3Soxvl2IfIZoKO6r
+I1AFSFjUtCSouLHB0NFz4t8TxYL0kFBjniWaqNjgZP8K50uo3NaaS4dmRsYa7t01
+t0uVAE0V1J8EG1u2XqjWKeUAX2fBHn1SmsTk3Jjeb/aYScd4ZP4XVS3iM7kjkEuf
+R4KrlWBvR+GwXiB947dD8xs0l1OiqRgVSD17eiYtP0+fY07LuG+SE7mmuUyaYWfS
+Q4SOUHqNs7Bw/p5lCMAno1cB74U+NxX+LJZgzos1jvjcBl814y5gKvFElDj57N6R
+SMinFdOZxdDOfWtrTzTvquDnnrDbJAJR+iHQB2Fzka4d9uz3UnmQl0j+mSOOTH8N
+Gwhigp76UejYwe4blLKn8oTzHOUTcPWbeS65HWddy82Zn2PBUAVBWkB7G0FY4EsB
+pwgs9Jzr+ih1Ix515xuNfFLn6BfI/mhFQPD7SuAdhL691T+pjeU5rx/36BhvyVzE
+fCoWr9MwJozctyWMkoomtZd26M53aQUrGxVBdc6Ofjwmv6s+PtH0NkUHfFuCXnQb
+2xGKmSfVdmGnED3TSFQcmwVFcY9OxnNmGspxAB+/ALc9svEVPiw=
+=C3xR
+-----END PGP SIGNATURE-----
+
+--1ydJZIwgFrpNtqTV--
