@@ -1,73 +1,90 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40DFC50EBE9
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8174C4FECDA;
+	Wed, 16 Sep 2026 15:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572125; cv=none; b=TEoDsLqeHYM/08j72i/j51aMUA9AGyQzEXPl+vOXY6GLT7WM7mPQEYuNSKTjmrrFuiHq48ycpP/Yz+GkmzwEk1wGHfqcwiIShgKqvHF9OJdnKyYgC0cnQ0PqsIcMhpS4PnsZlF+VRfivf/gBvADxLTVkxxIH9CiF1DliDdCMEOo=
+	t=1789572120; cv=none; b=evYyjpfMdZFfdyAlcBtxUSrN6SaPKRgMd4VtTq4Zm0EzREAVwS9lmEpyiGZmYpeh9TlonlXlueJO+6dIj2FUc5Lf9BdTgPbX2f7il0moxniV0TQ57u4N85AUNmkWbzNNMwTkCdiu8iBatkcX9v72Wpydg4f1G3YT2qZAU5//oe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572125; c=relaxed/simple;
-	bh=yLzqZqOmebTBUGiFGKZgcketuLUgJ8qsgeE7eEWH3WE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZP4a5NDzduiAOeb7/Exvh8wfg5OyvMJhT0CWTDziz7ziytGX5XpZaVOtiVM14nq/1oz8ezQBH8vrIbImNqFpEjtScpL2+UOkGqcVdDLzep5cRQ0VA76hyO3nK1EFLFNWJuwKJHrRUajdoLYGFYqpwlKsJ7qeYfqAbgaz+hf6Ofw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GvLhrGBr; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789572120; c=relaxed/simple;
+	bh=jYSmK5y+SZIRTC3GyQbRTqJn7SlfXievVVdd5VGAyTI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZsYYW/HE0c9QKi0k+iewjJlMDgaEyDqrBlncPIu6AT+sQftEm33047fs6Yi2EAeHXmi7bmUKt0zn6rbSFLxNfoTMMoog3mwXfMypVv/vzLOpZ3+WAyVz0wH8fLACEc4oDQEFPywB8c5JDj50U5vRGoJfAfB2PKKp5q4bT37egPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YruKXo64; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GvLhrGBr"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BF8FE1516;
-	Wed, 16 Sep 2026 08:21:54 -0700 (PDT)
-Received: from [192.168.4.158] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EAB3A3F86F;
-	Wed, 16 Sep 2026 08:21:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789572118; bh=yLzqZqOmebTBUGiFGKZgcketuLUgJ8qsgeE7eEWH3WE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GvLhrGBrgZKQ6UXMR1KePllYx/JYkHFtc+ee1sTloowa55iV/kp0tYM9EhtuLmniH
-	 I+zaQNzi/XSmbxH+mUYEgbR4/Gh6h8QSKEXJkA4bbi39s6Rm8oLQKJWj4baA1kl7ei
-	 HRfBS4WSl9qLmbfTIAm9o8Ey3xM6GSWbycm80Q28=
-Message-ID: <bb59b1e0-2550-4a9d-8738-a54e5f106f45@arm.com>
-Date: Wed, 16 Sep 2026 16:21:54 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YruKXo64"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905981F000FF;
+	Wed, 16 Sep 2026 15:21:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789572115;
+	bh=jYSmK5y+SZIRTC3GyQbRTqJn7SlfXievVVdd5VGAyTI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YruKXo64eKDZQFGDDd8CEzuHZHfosdcnkd/01HIK6gfZyUV3aIPITuaF3Bx5IQ1JW
+	 vdWSmFv0U0ltztQYw0xb5LedymRs9pTaXO/WBKCOFimTiwzisE4Cvqi2menFkbioZV
+	 Ghugtu5MJWJa3Iz0euWc0rEJtKXUpFdeVO46PBYUgLVA5tz2oA8xCZX+Ojj1si0l96
+	 xmoJEp/7DMlISrSJGF5+fMyGxd3FfWCSCzXFEI3zqAM8AbquN5MS5SRqXA6Jw9cxmB
+	 sulhd9yPZfubs9yJQ3LXvn8uo7eskwHnaRXptcxZ440t2mxx5GnramlMLhMoCJ0Gd4
+	 U45HzK/LmW+aQ==
+Date: Wed, 16 Sep 2026 16:21:49 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
+	liam@infradead.org, vbabka@kernel.org, jannh@google.com, wangjiexun@tinylab.org, 
+	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+Message-ID: <aqqzpldNskE2RRo-@gremlin>
+References: <aqloB0zm3RjJ47m1@gremlin>
+ <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
+ <aqqTbGMJL86TzDrf@gremlin>
+ <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
+ <aqqjW5dpyznijYLh@gremlin>
+ <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
+ <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
+ <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
+ <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
+ <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 4/7] arm64: realm: Move Realm memory encryption ops to
- RSI code
-Content-Language: en-GB
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Greg KH <gregkh@linuxfoundation.org>, Jeremy Linton <jeremy.linton@arm.com>,
- Jonathan Cameron <jic23@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Sudeep Holla <sudeep.holla@arm.com>,
- Will Deacon <will@kernel.org>, Steven Price <steven.price@arm.com>,
- Andre Przywara <andre.przywara@arm.com>
-References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
- <20260914060511.277948-5-aneesh.kumar@kernel.org>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20260914060511.277948-5-aneesh.kumar@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
 
-On 14/09/2026 07:05, Aneesh Kumar K.V (Arm) wrote:
-> Realm memory encryption callbacks are CCA-specific. Keep the Realm callback
-> registration with the RSI initialization code instead of pageattr.c, which
-> only needs to provide the low-level page-attribute transition helper.
-> 
-> Export __set_memory_enc_dec() within arm64 so the RSI code can wrap it with
-> the Realm-specific encrypt/decrypt callbacks and warning policy.
-> 
-> No functional changes in this patch.
-> 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+On Wed, Sep 16, 2026 at 11:19:35AM -0400, Gregory Price wrote:
+> On Wed, Sep 16, 2026 at 04:59:32PM +0200, David Hildenbrand (Arm) wrote:
+> > >>
+> > >> I told Brendan exactly that (try stubbing it) and he tried ... and had to give
+> > >> up at some point because it just wasn't feasible. ;)
+> > >>
+> > >
+> > > LLM go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+> >
+> > No schlop like that please, I don't want to hate my life
 
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@ram.com>
+Somebody doesn't realise it's all too late for that :P
 
+Picture Pennywise the clown in a storm drain etc.
+
+> >
+>
+> You missed this part:
+>
+> "I'm trying to be careful about not causing a bigger maintenance burden"
+
+Yeah that'll be the hard part :))
+
+>
+> I wouldn't do that to you :]
+
+Hmmm... wouldn't you? You want to don't you? ;)
+
+>
+> ~Gregory
+
+--
+Cheers, Lorenzo
