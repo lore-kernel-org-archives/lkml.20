@@ -1,124 +1,326 @@
-Received: from mail-pz2-f25.google.com (mail-pz2-f25.google.com [74.125.228.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4A52DEA93
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:29:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21A23C98B5;
+	Wed, 16 Sep 2026 08:30:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547372; cv=none; b=WHLCaz6RplwMTalnrWk5pCM38jnnfM23dBslfzex6iuuMCrpPk3iHL6dCJmkpgx2fHfwlMoa3MEGYQNG9K0BYK9TbSa7tHcQUd1SfhDEPVwOWaW+2+jx4iCSWlJ0iXklD+kM8qSvBzl14hSjiftd8V5R+3Z2eQOhY/mJB1AbU/8=
+	t=1789547439; cv=none; b=Mx42RTk5lPsZaIeKxoJEx7eT1ejhl5gUsgqvDbZ0+FmNTkIVbYEDCyFFzG59hZsUDcVk2nOQMPXltLzLqilMXqP40ijI1cwNzvu3j30AkgyYM84TZ5XHYEoYV3+cUShzMMPtuIUP3j/tYfwRT8pCN2LxX83rvOR/b6jMpKz5abA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547372; c=relaxed/simple;
-	bh=mgP0U5nmhxHVOFGKUcGuCWBysre1xc+hrQKissKOZMk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=IXjnzBiYB0ICVTh0M8LAy+FVHmEzcxzY/wd8xk1dPMpKhzlXHfDY/iRC8qM12E4S4dnRAZTDHnPoAo3OnJXr6TKfkirr0SeO10N7LlIJuqPPLjH1q5lVwZNX0Hkm7ZVUqMIqXGx2k0I9C2eF+G/wJr2/zsg4ecs6MSzYT3UAzAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mw5c6vA3; arc=none smtp.client-ip=74.125.228.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789547439; c=relaxed/simple;
+	bh=hFV9iLNHD/ACoFHYbtdG9POctTCG+xR14JbZgcyZR2g=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BgG7d1l/3W7vZbW1ipN9Q8/g3HgdLpJ+G0Nv8AMW0m+fmvLkEVYaAw4V1XLY+MR7lRbk6lbDXsw6fEpVipWFrjkPKHmhtYUjZj1lt7ybi77EaYzaByqfWQZoeq6rzBudvhq0AUy2fLGyDWRNfGLV1NybnBtkvA9CK2KSjjJwD8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X38g9nPm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mw5c6vA3"
-Received: by mail-pz2-f25.google.com with SMTP id 41be03b00d2f7-cc1cebad4aeso534531a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:29:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789547370; x=1790152170; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=idOsVahZustf70E3vcAEJkdJDD+K7D4L7o1uL+BpNms=;
-        b=Mw5c6vA3WYZFKuuhLcTK1nxO3K3AouqKATKiEjpd6F6SNM1eu+4SClqtgxbmPuS5ix
-         7kG+zxqWjpdtusAxrH4R8enOCC9KLNYztXfzQBwe5gDzHjVGsahs4hB5zsqqxJm6fqEx
-         ctxCd6I7mtZunoB5dhigv/BuSUS6KHFkzup7XyJiTqriLzHomH5ZffTGojHSj6LFbwk0
-         05swiVCDrWizP6r8EJzy809jA+zEMN7IipQdBzhDRNrKIYJYEXpL3norJfDo6maStoVq
-         b55nU2OnrBq3g6ZJJw1aaLd3zvk0nq+MpkWotMNOJUkE0x1w9luX+ingp9KHbmgulRln
-         b3eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789547370; x=1790152170;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=idOsVahZustf70E3vcAEJkdJDD+K7D4L7o1uL+BpNms=;
-        b=yKQHwZmGBIAyFzTYW10q/y6t8ZA/0pRBj3EOYPOOuMMPnxVS0CgkvcpFeVGjdJTfm6
-         lVBVkReSfGefN/i0VxxvJjgqf3Wg4Y2y9dYLroVigsLN04iSbaMfglaYrGohh1K/QznH
-         YCTEi9P7yFLbl7mv2/zoiFoJ5kUZ9FySJwd7hHar8BGIhrsehl7ZkPkE/Ov7s8mJR4Nl
-         9LHw7vCsJT62Tj79jdnOP3osOyIXKyqIfHOjTeBBPk1fknszX6T7blukOWUHzSpECDUk
-         CGB3HjgrpSYMws1wRLH+l7Lr9i1asuJFmhmPqlf2ZQDK1QcT7raX58YT82NROtzohhb2
-         hDDg==
-X-Forwarded-Encrypted: i=1; AKwUvBx2nv/f1XjA7la9CrBPVYnObJLe3v898oeEFaVLaeayp0PTA6I5g0fPbWcadGUnCuKa93z/AQot22z3z7M=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXP0tOr166wtqNNYbE/IkScyGRLKjTv/fQOZDq2IyWtDsM7udq
-	ldm3m9gAkBVJxu+nhkI5Zr+S3tfiqeitjUn36gA66Vw2dy6AdzHZU3PM
-X-Gm-Gg: AYBFou2LtjipJS35jhyfLJysy2BdSVKvdR3ifM6LU8B92FBuKjJIh5zFm8p1ni8Nuo4
-	OzbymPBDJDs959Q67DUyFRFAnVvqubL6RuasCFC2FTPjG+5KvEHlYX/Dp71aqrEQUaASQDYs4+P
-	IkoKjqtNPehleNDUwWdSbj7kMCMqsXgLuwSiNLKZ5zJQ7AUD5BzE+kGcFiqeQXo6erUPkUoDj4X
-	fFKbpH3Wu+kCA7XLaE3sZO3v+naaVJIkGeyyGmomwdQ1UT75IEddjsmxsWRxjeEAR4SlWzsCyNJ
-	A4GYrf8iJ717L8JxWHPYhKGc3XbhT4NcDSduqMSCDh23iJzBEIWjXwZc5HBRyjUJyYKeiI7aWKE
-	y7if9s0uwG9aG4CR77U7gEC/mcGcUmOYxaT5hF81PgAvCEjIdW2mQiTmJtJbgjC+YyElt1oYvp7
-	0lYu/idKS+/h8ibgRqrdX/TxKpOXsYeUPdu3uEC1dZIHKxeaatCpUipvsQFvlb6RRdLZEkJyITa
-	m+m+9DZiGUW9jyM46GBNem/lV/vR9sQK+nVkIBagd2JynKtMhE6/8I/DcZS9CFrzIWr43bTOrMD
-	74ojVZKRR7k=
-X-Received: by 2002:a05:6a20:7d9d:b0:3da:34a7:6444 with SMTP id adf61e73a8af0-3dd5f7ad642mr4109891637.26.1789547370506;
-        Wed, 16 Sep 2026 01:29:30 -0700 (PDT)
-Received: from lcwang-Precision-3630-Tower.. (125-227-154-99.hinet-ip.hinet.net. [125.227.154.99])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50aba9dbbsm1157594a12.24.2026.09.16.01.29.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 01:29:29 -0700 (PDT)
-From: LiangCheng Wang <zaq14760@gmail.com>
-To: Devarsh Thakkar <devarsht@ti.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wig Cheng <onlywig@gmail.com>
-Cc: LiangCheng Wang <zaq14760@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
-Date: Wed, 16 Sep 2026 16:29:24 +0800
-Message-Id: <20260916082924.956116-1-zaq14760@gmail.com>
-In-Reply-To: <20260731035705.3198816-1-zaq14760@gmail.com>
-References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com> <20260529-bar-v3-2-5c2ac1c751ee@gmail.com> <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com> <20260616083921.4066690-1-zaq14760@gmail.com> <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com> <20260617020926.114947-1-zaq14760@gmail.com> <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com> <20260731035705.3198816-1-zaq14760@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X38g9nPm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC571F000FF;
+	Wed, 16 Sep 2026 08:30:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789547437;
+	bh=ShRlcFO9MVV/rRaefOKq8SWqhcS48xjLIPXGX1RVsoU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=X38g9nPmlELNMHu5H4FMqqXoDP4UaRpugEU0tyhTJuxBpdqZVPoWSv2puPT34J0ZM
+	 vuyAs+ip4VH1VmuiWcpEw4bpMsl0oW8wvF0H/L7hf4DFfiLY/YeUHcsfnf+Do5OPgd
+	 n9+aRYHfsO4v7p1j8cmxazpFijRXCrxryOtoWbdX+RuTxTNLSq5YJyfbLpXmrMJ5Dl
+	 vwuEA6O3EspuJ2qMLbqsBOdCONttlJG9zKlKyKT0Xv4JRhvkuENAruHYxla3TO13lH
+	 At/FKjpxpBiaY1e03sGgNO4A0Yx9KwnJbhikCLeT6pbNu39szGSw0FKNtFS5XeL/m2
+	 TOcCQRI+9Okag==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x6l2J-00000009Vll-2pA1;
+	Wed, 16 Sep 2026 08:30:35 +0000
+Date: Wed, 16 Sep 2026 09:30:35 +0100
+Message-ID: <86h5jp61jo.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Leonardo Bras <leo.bras@arm.com>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Tian Zheng <zhengtian10@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from S2AP_W to DBM
+In-Reply-To: <aql8jY4o8SzjJuFU@LeoBrasDK>
+References: <20260901171558.2674031-1-leo.bras@arm.com>
+	<20260901171558.2674031-2-leo.bras@arm.com>
+	<86bja17cg7.wl-maz@kernel.org>
+	<aql8jY4o8SzjJuFU@LeoBrasDK>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: leo.bras@arm.com, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, rananta@google.com, zhengtian10@huawei.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi Devarsh, Thomas,
+On Tue, 15 Sep 2026 18:12:45 +0100,
+Leonardo Bras <leo.bras@arm.com> wrote:
+> 
+> On Sun, Sep 13, 2026 at 10:00:40AM +0100, Marc Zyngier wrote:
+> > On Tue, 01 Sep 2026 18:15:52 +0100,
+> > Leonardo Bras <leo.bras@arm.com> wrote:
+> > > 
+> > > As a first step of changing the encoding for the Stage2 PTE descriptor,
+> > > introduce the DBM bit, and adapt every usage of writable to use the DBM bit
+> > > (51) instead of S2AP[1]/Dirty bit (7).
+> > > 
+> > > For this step, we convert usages of RW(Dirty) -> WD(DBM|Dirty).
+> > > 
+> > > Signed-off-by: Leonardo Bras <leo.bras@arm.com>
+> > > ---
+> > >  arch/arm64/include/asm/kvm_pgtable.h | 3 +++
+> > >  arch/arm64/kvm/hyp/pgtable.c         | 8 +++++---
+> > >  arch/arm64/kvm/nested.c              | 4 +++-
+> > >  arch/arm64/kvm/ptdump.c              | 4 ++--
+> > >  4 files changed, 13 insertions(+), 6 deletions(-)
+> > > 
+> > > diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+> > > index 41a8687938eb..37baa86d6fd8 100644
+> > > --- a/arch/arm64/include/asm/kvm_pgtable.h
+> > > +++ b/arch/arm64/include/asm/kvm_pgtable.h
+> > > @@ -86,24 +86,27 @@ typedef u64 kvm_pte_t;
+> > >  #define KVM_PTE_LEAF_ATTR_HI		GENMASK(63, 50)
+> > >  
+> > >  #define KVM_PTE_LEAF_ATTR_HI_SW		GENMASK(58, 55)
+> > >  
+> > >  #define KVM_PTE_LEAF_ATTR_HI_S1_XN	BIT(54)
+> > >  #define KVM_PTE_LEAF_ATTR_HI_S1_UXN	BIT(54)
+> > >  #define KVM_PTE_LEAF_ATTR_HI_S1_PXN	BIT(53)
+> > >  
+> > >  #define KVM_PTE_LEAF_ATTR_HI_S2_XN	GENMASK(54, 53)
+> > >  
+> > > +#define KVM_PTE_LEAF_ATTR_HI_S2_DBM	BIT(51)
+> > > +
+> > >  #define KVM_PTE_LEAF_ATTR_HI_S1_GP	BIT(50)
+> > >  
+> > >  #define KVM_PTE_LEAF_ATTR_S2_PERMS	(KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R | \
+> > >  					 KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W | \
+> > > +					 KVM_PTE_LEAF_ATTR_HI_S2_DBM | \
+> > >  					 KVM_PTE_LEAF_ATTR_HI_S2_XN)
+> > >  
+> > >  /* pKVM invalid pte encodings */
+> > >  #define KVM_INVALID_PTE_TYPE_MASK	GENMASK(63, 60)
+> > >  #define KVM_INVALID_PTE_ANNOT_MASK	~(KVM_PTE_VALID | \
+> > >  					  KVM_INVALID_PTE_TYPE_MASK)
+> > >  
+> > >  enum kvm_invalid_pte_type {
+> > >  	/*
+> > >  	 * Used to indicate a pte for which a 'break-before-make'
+> > > diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+> > > index b74dd5ce1efd..ca49f1bd7c34 100644
+> > > --- a/arch/arm64/kvm/hyp/pgtable.c
+> > > +++ b/arch/arm64/kvm/hyp/pgtable.c
+> > > @@ -725,42 +725,43 @@ static int stage2_set_prot_attr(struct kvm_pgtable *pgt, enum kvm_pgtable_prot p
+> > >  	}
+> > >  
+> > >  	r = stage2_set_xn_attr(prot, &attr);
+> > >  	if (r)
+> > >  		return r;
+> > >  
+> > >  	if (prot & KVM_PGTABLE_PROT_R)
+> > >  		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> > >  
+> > >  	if (prot & KVM_PGTABLE_PROT_W)
+> > > -		attr |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > > +		attr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > 
+> > What makes it acceptable to always set DBM? This is an optional
+> > feature, and I'm not exactly comfortable setting bits that are
+> > supposed to be RES0. 
+> 
+> The alternative would be to introduce WC/WD as an alternative encoding
+> infrastructure, and keep making decisions based on having HAFDBS available 
+> or in the system. My intention was to adapt things in a way to avoid 
+> multiple behaviors if we could avoid.
+> 
+> My rationale is, based on our possibility of setting DBM=1:
+> If HAFDBS/HDBSS/HACDBS are not available, or available but disabled, 
+> then the DBM bit is just ignored:
+> RO -> RO
+> WC -> RO
+> WD -> RW
+> 
+> (for reference:
+> - Read-Only (RO):      DBM=0, S2AP[1]=0
+> - Writable-Clean (WC): DBM=1, S2AP[1]=0
+> - Writable-Dirty (WD): DBM=1, S2AP[1]=1
+> )
+> 
+> And the behavior should just the same as what we have today.
+> 
+> 
+> > Yes, the HW should ignore it. But we have also
+> > seen quite a few broken designs in this area...
+> > 
+> 
+> I lack experience on what bad thing could happen. So I will expand on what 
+> I belive to understand up to here:
+> 
+> - The PTE is in memory, so the DBM bit can be set regardless of being RES0
+> - For SW pagetable walking, I don't think 'bit 51 == 0' is checked
+> - For HW pagetable walking, maybe some faulty implementation may rely on 
+>   bit51 being RES0, and fault otherwise.
+> 
+> If that's the case, then we would have to actually support both encodings, 
+> and only enable the new one if HAFDBS is available in the system. 
+> 
+> I just wonder how high are the chances to have such a broken design, 
+> or other broken designs did not come to my mind, and if we have to start 
+> with that multiple-encoding option.
+> 
+> > > +
+> > >
+> > 
+> > Spurious newline.
+> > 
+> 
+> Oh, ok, will get rid of it.
+> 
+> > >  	if (!kvm_lpa2_is_enabled())
+> > >  		attr |= FIELD_PREP(KVM_PTE_LEAF_ATTR_LO_S2_SH, sh);
+> > >  
+> > >  	attr |= KVM_PTE_LEAF_ATTR_LO_S2_AF;
+> > >  	attr |= prot & KVM_PTE_LEAF_ATTR_HI_SW;
+> > >  	*ptep = attr;
+> > >  
+> > >  	return 0;
+> > >  }
+> > 
+> > I don't know how you have configured git on your end, but there is *a
+> > lot* of context...
+> > 
+> 
+> diff.context=10, i.e. 10 lines before and after a change.
+> To me it looks helpful to get more context around the change. 
+> 
+> I can change it back to 5 if it bothers you.
+> 
+> > >  
+> > >  enum kvm_pgtable_prot kvm_pgtable_stage2_pte_prot(kvm_pte_t pte)
+> > >  {
+> > >  	enum kvm_pgtable_prot prot = pte & KVM_PTE_LEAF_ATTR_HI_SW;
+> > >  
+> > >  	if (!kvm_pte_valid(pte))
+> > >  		return prot;
+> > >  
+> > >  	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R)
+> > >  		prot |= KVM_PGTABLE_PROT_R;
+> > > -	if (pte & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W)
+> > > +	if (pte & KVM_PTE_LEAF_ATTR_HI_S2_DBM)
+> > >  		prot |= KVM_PGTABLE_PROT_W;
+> > >  
+> > >  	switch (FIELD_GET(KVM_PTE_LEAF_ATTR_HI_S2_XN, pte)) {
+> > >  	case 0b00:
+> > >  		prot |= KVM_PGTABLE_PROT_PX | KVM_PGTABLE_PROT_UX;
+> > >  		break;
+> > >  	case 0b01:
+> > >  		prot |= KVM_PGTABLE_PROT_UX;
+> > >  		break;
+> > >  	case 0b11:
+> > > @@ -1281,20 +1282,21 @@ static int stage2_update_leaf_attrs(struct kvm_pgtable *pgt, u64 addr,
+> > >  		*orig_pte = data.pte;
+> > >  
+> > >  	if (level)
+> > >  		*level = data.level;
+> > >  	return 0;
+> > >  }
+> > >  
+> > >  int kvm_pgtable_stage2_wrprotect(struct kvm_pgtable *pgt, u64 addr, u64 size)
+> > >  {
+> > >  	return stage2_update_leaf_attrs(pgt, addr, size, 0,
+> > > +					KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+> > >  					KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W,
+> > >  					NULL, NULL,
+> > >  					KVM_PGTABLE_WALK_IGNORE_EAGAIN);
+> > >  }
+> > >  
+> > >  void kvm_pgtable_stage2_mkyoung(struct kvm_pgtable *pgt, u64 addr,
+> > >  				enum kvm_pgtable_walk_flags flags)
+> > >  {
+> > >  	int ret;
+> > >  
+> > > @@ -1361,21 +1363,21 @@ int kvm_pgtable_stage2_relax_perms(struct kvm_pgtable *pgt, u64 addr,
+> > >  	s8 level;
+> > >  	int ret;
+> > >  
+> > >  	if (prot & KVM_PTE_LEAF_ATTR_HI_SW)
+> > >  		return -EINVAL;
+> > >  
+> > >  	if (prot & KVM_PGTABLE_PROT_R)
+> > >  		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> > >  
+> > >  	if (prot & KVM_PGTABLE_PROT_W)
+> > > -		set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > > +		set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM | KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > >  
+> > >  	if (prot & KVM_PGTABLE_PROT_X) {
+> > >  		ret = stage2_set_xn_attr(prot, &xn);
+> > >  		if (ret)
+> > >  			return ret;
+> > >  
+> > >  		set |= xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
+> > >  		clr |= ~xn & KVM_PTE_LEAF_ATTR_HI_S2_XN;
+> > >  	}
+> > >  
+> > > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+> > > index 17123f0b6dab..eb8dfffc32c7 100644
+> > > --- a/arch/arm64/kvm/nested.c
+> > > +++ b/arch/arm64/kvm/nested.c
+> > > @@ -379,21 +379,23 @@ static int walk_nested_s2_pgd(struct kvm_vcpu *vcpu, phys_addr_t ipa,
+> > >  	}
+> > >  
+> > >  	addr_bottom += contiguous_bit_shift(desc, wi, level);
+> > >  
+> > >  	/* Calculate and return the result */
+> > >  	paddr = (desc & GENMASK_ULL(47, addr_bottom)) |
+> > >  		(ipa & GENMASK_ULL(addr_bottom - 1, 0));
+> > >  	out->output = paddr;
+> > >  	out->block_size = 1UL << ((3 - level) * stride + wi->pgshift);
+> > >  	out->readable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
+> > > -	out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
+> > > +	/* Takes care of both RO/RW and RO/WC/WD encodings */
+> > > +	out->writable = desc & (KVM_PTE_LEAF_ATTR_HI_S2_DBM |
+> > > +				KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W);
+> > 
+> > Absolutely NOT. For a start, NV doesn't support FEAT_HAFDBS. But even
+> > if it did, you are now actively corrupting memory by turning a RO
+> > mapping with a spurious DBM bit set into a writable mapping.
+> > VTCR_EL2.HD exists for a reason.
+> > 
+> > Do you see why your blanket approach of equating DBM with writable is
+> > plain wrong?
+> 
+> Sorry, not really... please help me understand it.
+> 
+> When you say a spurious DBM bit, what does it mean?
+> 
+> All I can think is something like a buggy HW implementation setting DBM in 
+> a HAFDBS-disabled machine, which has been unnoticed up to now, and now 
+> could cause problems.
 
-Sorry to come back to this thread after a quiet spell, and apologies in
-advance if I have missed something obvious.
+And pray tell, what is it to have HAFDBS being disabled at S2? Instead
+of throwing the book at me, you should probably read it, and specially
+the effects of VTCR_EL2.HD.
 
-Devarsh, the three fixes from my July testing on the PIXPAPER 4.26m are
-still available:
+	M.
 
-  https://lore.kernel.org/all/20260731-ssd16xx-pixpaper-rpi5-v1-0-18ffc0dbf59a@gmail.com/
-
-I am happy to rebase them, reshape them into whatever form fits your
-series best, or retest on a newer kernel - whatever is most convenient
-for you. There is no hurry at all from my side; please just let me know
-if anything would be useful, and thank you again for making room for the
-panel in your work.
-
-Thomas, may I ask your advice on how best to handle the panel support in
-the meantime? The PIXPAPER 4.26m is the only SSD16xx hardware I have, so
-everything I can contribute is limited to this one panel, and its support
-has been on hold since June waiting for the shared driver.
-
-I wondered whether it might be acceptable to merge the standalone
-PIXPAPER driver as an interim step, on the understanding that I convert
-the panel over to ssd16xx and remove the standalone driver once the
-shared driver lands. I realise that is not ideal, and I may well be
-missing a better option - if you would prefer to wait for the shared
-driver, I am perfectly happy to do that instead. I would rather follow
-your judgement than guess.
-
-Thank you both for the review time so far.
-
-Regards,
-LiangCheng
+-- 
+Without deviation from the norm, progress is not possible.
