@@ -1,98 +1,144 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96F14C041B;
-	Wed, 16 Sep 2026 11:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D571B4A92C7;
+	Wed, 16 Sep 2026 11:00:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556448; cv=none; b=a/uP60qeoKF75o9RfkUQdfCk8JwGfMGouluVtCT8JxtKHVZZFwPHfH9MgU9NLWDJ1/cr/i5LTLWd0xc5S04SXdGFbp9osh1Wo5KsNxKpaA2e6YgaNQayx0OSf4YMJrRjevqTVaOLjgge+JUxyO5NgiZfphwql0cb/WvC7jI8s7E=
+	t=1789556470; cv=none; b=V+oS4FKvE6z0rJ9IkXLTOUpUlFKChL+sddJm5SuIgct+PIZlvkFfcJ942/DTGAKDKrvlIR4nurDgHvRJcbMRhdEylhQdilSUxVKostbs6wOXekPVb+Q2vmRDuSxO6dzLhsxvYvWZcIDMJidWgeuOHgDmaIPNe9ALx6hYhP5dNlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556448; c=relaxed/simple;
-	bh=PJpQYbu415ELCrfr0jCIFjBdr7v2k5CCIebbxVzZso4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=JYc4a+Zrs0lVaaCQf5avI4zcvmHPIgR9+B5hTZbEPsqTBolco+LcipEz5YQy5yPBLOiNmuhBjDjYmj6yNkNPTSM/yMzGDuFzC/2pQS+4MzbnXsrxjhO/kq94dzCFZIq6FJTiFs7gTMd4JbShxJ8P9b0S4vGKkVEd/CdP/W3rvxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uvn4mx7c; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uvn4mx7c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789556436; x=1821092436;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=PJpQYbu415ELCrfr0jCIFjBdr7v2k5CCIebbxVzZso4=;
-  b=Uvn4mx7cS4tObIELk60D3CVVB4dvk6VwMABjWaUmBt8l9i2utKKI9J+8
-   L7+5x94pv9tuxhQKdOOIwI9pC/OKCTR7QmWB4DomJZssniCx91u4Ws6LT
-   7M+w5ND9w2JWXWF7NOBZSzxq1Pl8ebJFe7XvhwFuVpvIpZOTQqtodbVFa
-   4Ir0E+7zDaSFsA/qTrPjAaQnjzNy1E8iaMPD/uLFM9fYm4Dc23W8HgpWn
-   fXsyv8hzY6PGD4+Tf8/G5wm5vIJAqMgnzjTGtQtn94WyWaYhH79nvjccm
-   6GhZO1/qK5UwvgFHJr9K8VgXm+HtW+ixgzFcRg35GDNhCtyUD0ll9IUN2
-   g==;
-X-CSE-ConnectionGUID: i1AXW/0cSM2EkfJALiyxCw==
-X-CSE-MsgGUID: 9UBsu7qhTl2ksZf6Fe2cFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92436558"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92436558"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:00:30 -0700
-X-CSE-ConnectionGUID: wWRFzWo0S/KoLdVZnBZ0+Q==
-X-CSE-MsgGUID: 42a5cbN+SNqLFbCAPVCsSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1708830"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.187])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:00:28 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-kernel@vger.kernel.org, Denis Benato <denis.benato@linux.dev>
-Cc: platform-driver-x86@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
- "Luke D . Jones" <luke@ljones.dev>, Mateusz Schyboll <dragonn@op.pl>, 
- Denis Benato <benato.denis96@gmail.com>, 
- Hugo Baigue <hugobaigue2004@gmail.com>, stable@vger.kernel.org
-In-Reply-To: <20260915172608.14234-1-denis.benato@linux.dev>
-References: <20260915172608.14234-1-denis.benato@linux.dev>
-Subject: Re: [PATCH] platform/x86: asus-wmi: fix use-after-free
- unregistering kbd_led led
-Message-Id: <178955642375.2305.2037186031246803284.b4-ty@b4>
-Date: Wed, 16 Sep 2026 14:00:23 +0300
+	s=arc-20240116; t=1789556470; c=relaxed/simple;
+	bh=Zvl8/4ZZwYZLccVkUB547ZzDDQ1t32sAHwySvAl/eMU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=jCUxpf0K0cYYfYjQYe+vceJL7lkG855927eWjgVsROoHq7KxN9EDwv6QyiR90peQflgvl7Mdb5BwBrw5xYBhIpUAsDzq7iT1kbQ8AEdRo14tRhvrFD+SbkXJr2XBe7Y2zJE0UZkFgclqL5Wt64VOMm9D9DnM9dhqXaka7tfEHEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06751054|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.316453-0.0542113-0.629336;FP=13581216796813840310|15|2|17|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=19;RT=19;SR=0;TI=SMTPD_---.jExZdZ9_1789556112;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jExZdZ9_1789556112 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 16 Sep 2026 18:55:12 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com,
+	jie.han@motor-comm.com
+Subject: [PATCH net-next v19 2/3] net: phy: Add support for Template Control register for PMA
+Date: Wed, 16 Sep 2026 18:55:03 +0800
+Message-Id: <20260916105504.3262767-3-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260916105504.3262767-1-kyle.switch@motor-comm.com>
+References: <20260916105504.3262767-1-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-On Tue, 15 Sep 2026 17:26:07 +0000, Denis Benato wrote:
+Add support for the 10GBASE-T PMA Template Test Mode register
+field, which allows selecting one of eight test modes (Normal and
+TestMode1..TestMode7) used for PHY validation.
 
-> kbd_led_update_all() registers asus->kbd_led with
-> devm_led_classdev_register() on the platform device, but kbd_led is
-> embedded in struct asus_wmi, which asus_wmi_remove() frees at its end.
-> The driver core calls .remove() before devres_release_all(), so the
-> deferred devres release runs led_classdev_unregister() on memory that
-> has already been freed. Whether that faults depends on whether the
-> slab has been reused in between, which makes the crash on module
-> unload intermittent and silently corrupts the led classdev state in
-> the remaining runs.
-> 
-> [...]
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+---
+ drivers/net/phy/phy-c45.c | 23 +++++++++++++++++++++++
+ include/linux/phy.h       |  1 +
+ include/uapi/linux/mdio.h | 12 ++++++++++++
+ 3 files changed, 36 insertions(+)
 
-Thank you for your contribution, it has been applied to my local
-review-ilpo-next branch. Note it will show up in the public
-platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-local branch there, which might take a while.
-
-FYI [if applicable to your patch], as per Linus' policy change, also
-fixes are mostly routed through for-next unless the fix is for a
-commit introduced in the most recent cycle or is clearly a regression
-fix.
-
-The list of commits applied:
-[1/1] platform/x86: asus-wmi: fix use-after-free unregistering kbd_led led
-      commit: 2f5005e261ed758254767a32c24587bfacc6db82
-
---
- i.
+diff --git a/drivers/net/phy/phy-c45.c b/drivers/net/phy/phy-c45.c
+index 870920311f9a..c5f5753f7194 100644
+--- a/drivers/net/phy/phy-c45.c
++++ b/drivers/net/phy/phy-c45.c
+@@ -1408,6 +1408,29 @@ int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable)
+ }
+ EXPORT_SYMBOL_GPL(genphy_c45_fast_retrain);
+ 
++/**
++ * genphy_c45_template_testmode - configure template testmode registers
++ * @phydev: target phy_device struct
++ * @test_mode: testmode includes Normal to Test mode 7
++ *
++ * Description: Set template testmode include Normal to Test mode 7
++ *
++ * Return: 0 on success, or a negative error code on failure (e.g. register
++ * read/write error).
++ */
++int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode)
++{
++	u16 ctrl;
++
++	if (test_mode > MDIO_PMA_10GBT_TESTMODE_7)
++		return -EOPNOTSUPP;
++
++	ctrl = FIELD_PREP(MDIO_PMA_10GBT_TESTMODE_MASK, test_mode);
++	return phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_PMA_10GBT_TESTMODE,
++			      MDIO_PMA_10GBT_TESTMODE_MASK, ctrl);
++}
++EXPORT_SYMBOL_GPL(genphy_c45_template_testmode);
++
+ /**
+  * genphy_c45_plca_get_cfg - get PLCA configuration from standard registers
+  * @phydev: target phy_device struct
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 3d8afe6b7f1c..2db804b8fd4d 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -2357,6 +2357,7 @@ int genphy_c45_loopback(struct phy_device *phydev, bool enable, int speed);
+ int genphy_c45_pma_resume(struct phy_device *phydev);
+ int genphy_c45_pma_suspend(struct phy_device *phydev);
+ int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable);
++int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode);
+ int genphy_c45_plca_get_cfg(struct phy_device *phydev,
+ 			    struct phy_plca_cfg *plca_cfg);
+ int genphy_c45_plca_set_cfg(struct phy_device *phydev,
+diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
+index 06f4bc3c20c7..353ca13c64fc 100644
+--- a/include/uapi/linux/mdio.h
++++ b/include/uapi/linux/mdio.h
+@@ -63,6 +63,7 @@
+ /* Media-dependent registers. */
+ #define MDIO_PMA_10GBT_SWAPPOL	130	/* 10GBASE-T pair swap & polarity */
+ #define MDIO_PMA_10GBT_TXPWR	131	/* 10GBASE-T TX power control */
++#define MDIO_PMA_10GBT_TESTMODE 132 /* Test mode control */
+ #define MDIO_PMA_10GBT_SNR	133	/* 10GBASE-T SNR margin, lane A.
+ 					 * Lanes B-D are numbered 134-136. */
+ #define MDIO_PMA_10GBR_FSRT_CSR	147	/* 10GBASE-R fast retrain status and control */
+@@ -320,6 +321,17 @@
+ /* PMA 10GBASE-R Fast Retrain status and control register. */
+ #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
+ 
++/* PMA 10GBASE-T Template Test Mode Register*/
++#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mode */
++#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
++#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
++#define MDIO_PMA_10GBT_TESTMODE_2 0x2 /* Template TestMode2 */
++#define MDIO_PMA_10GBT_TESTMODE_3 0x3 /* Template TestMode3 */
++#define MDIO_PMA_10GBT_TESTMODE_4 0x4 /* Template TestMode4 */
++#define MDIO_PMA_10GBT_TESTMODE_5 0x5 /* Template TestMode5 */
++#define MDIO_PMA_10GBT_TESTMODE_6 0x6 /* Template TestMode6 */
++#define MDIO_PMA_10GBT_TESTMODE_7 0x7 /* Template TestMode7 */
++
+ /* PCS 10GBASE-R/-T status register 1. */
+ #define MDIO_PCS_10GBRT_STAT1_BLKLK	0x0001	/* Block lock attained */
+ 
+-- 
+2.25.1
 
