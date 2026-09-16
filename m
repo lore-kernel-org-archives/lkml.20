@@ -1,179 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012065.outbound.protection.outlook.com [40.107.200.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D5F4137AD;
-	Wed, 16 Sep 2026 20:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591979; cv=none; b=EB+db5su6yoJOQUiUwbW8PFjmA8w6uJ+Pvty7LeWSTpbFqJG8kog5W1+OYDqTdGbv6Q9SHK2Cd8x2kKcCn50V/AsahB0f0M48hkAM4XhEihdqKU8EeS3ZJYEOxblTJ0xFkM3QbgldX7NwDw3oH7Ie0RvgBlhnVFWQHbTlZB2VXI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591979; c=relaxed/simple;
-	bh=GDTfEHCEYdoIiSxSM0zHJqljeJs2e/1qoXwchI9YfPw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PQ9V6NMFXfEO/evrYwJLSxb3Jwky3phE26AWOGO4Xhwb2ymrbbYtHHN/pzmlCIIBi8FU5+oV9F9RwxKTflNWw1natwPlzOP8WrWFOKsLx6STIOPySBQVtmQCI9gY3G3CumDAE0SsEsfsPxKG5MOjG3KV27+oqLbLDAosltAaZHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ouMR13hu; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF6E24DE70A;
+	Wed, 16 Sep 2026 20:53:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789592020; cv=fail; b=u0dRc2GIJjYiUDDsuGvu2guTosScBmJwCSmhOW1JhvfMVb8vQegOIdQAJFt+H4YN2wuf50TfZEFzYNYTp0GMczw9k/KMQneQV2PfQlwge8rS9HfYN2iZw29IjnfcN61z1MDLxZ29q+4SPKMmZNAHyIQfkdH/XDPg4P56492ROWE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789592020; c=relaxed/simple;
+	bh=8NKNahbMOWDEmbIcWiG4h1FQZKTBNbT82GsaSbdvu0M=;
+	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ILLCRMd/MPVlJd4Z3C4YEruDhSiCM5AVmL8lz5+tT0diuUBqDyKHVUiJzEv6HIIYrL9Ewvw/zhe/Ah4L/IqHWKZUANCU1mG+ZZ7QumL5yWK6WjxaORTO9WHvwEMCaHtfbr0Cx3G3vpgxhn3Ssx08H77xx9iFwQNbo18Ql38QGJM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=NMuBRMwc; arc=fail smtp.client-ip=40.107.200.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ouMR13hu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43EE21F000FF;
-	Wed, 16 Sep 2026 20:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789591962;
-	bh=Ey3W3pKciCj569G+4LgYiLWMcVQFEIDuHCi49VskP+U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ouMR13huu5OQMXLIi9ax5ZG63fAyvLf1MQXdqu3/bBaQNT1VysEngDLv5oAqXB6At
-	 T0kSNphFFGskAnHPTw50obhHLKuke4PAPLgm6neF2yLepzVEALpHq4Bzu07SPBVuGj
-	 Jb++QA0MpeievYbtMMlx4PDRXX1S/Z6PB0ZIbDLRrw9ZNX+kDgxy9K/ZM0BdMUvJvV
-	 oFqJ45zrHoCXOq5UD7ZL8m7BN5HcnGA4TnmrOP4WypR/zXSmen8okZCGYGo5runEix
-	 oo29j2+Iey/ty97LpRVPy3td13KxN6bXktmKFme/NhcLceD44vWRfUXvDnwsvGFPn2
-	 Nxm3He0YcAfNg==
-Message-ID: <c2dca0c1-6dd3-4601-be2f-e5409518bedd@kernel.org>
-Date: Wed, 16 Sep 2026 22:52:35 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="NMuBRMwc"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pofll8ZeweYt9xUnULP2o+nJDeEngg5ttiCD5ATvwUPKsyvv4EKhmaYwJbWZgGOEX4xIx9REdn7MCIUL5/c/pAjh3R+aKKSAC1C3BYyZ0EkFKFLkzo9gk4aRbZwvipRTqrNcTlW6lmVXnmrmDaaxvV3uocHSmVhdYH4CIbRRziikrq0koZDuI9YntlNFwlHH8zufS+2igQbB8jsge2718CunVI777BuHQs59icc+xGmapoS91eDGRS47t94fANUJdSTIFM3cUr4jYKDEOIPLWS7j8e8aOjzwJGVvTHAItzW7GKPbeMr8X9jyRsofFmeDSiYdjRdZuHGdSE3wqGg3BA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q/7HvxLsSbeI9Clq7k+PI/hXkXG6EM09UUWruqE4yx0=;
+ b=bIrIU+ad1sZLmoaF2Dnm8cC3ER0v9au20JKLJ4h15WtQcoPtMarqMn/NsPpjDasXLqV1gocIvlBtpb+O4buhsdduZXPIB56T4zZFZD6M4EKQbLp3hw0i8+/YDzaNBrWOP29x9whj/k1rHvTOrwEyQi8/Dc3ztciAUZcVPzpochy/a4ZvXqxZUA6o+Ng2DnSoR+vnSBZ6sTEZRfpkxxK9YurxHzWTVcAY1ZOtdJMZDh7eGuhTcEI5oStsshmpnJ4/RFNFri2VJaZtBa67QDdVdJyg3FMvm6kiAVuDn1GqNinZwoPApdyPKidSL5dD9e7NE6rfuQKEDYf46vyw88M/7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q/7HvxLsSbeI9Clq7k+PI/hXkXG6EM09UUWruqE4yx0=;
+ b=NMuBRMwcOygehttOgNFgAJbV7+C5NBsxZZoszEheUWhzROLex3nVODUtD8vA2J19uxKdaZwGH1VsqFgGq7fpNU5A4qL8tFN9B4LIHvYwmlNvlsIGZMeeJDsL31X93o3Q9CfngXkmOSlzqa8Ey1CaqWllGp4Ig3TWSDlSBxENikg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 20:53:21 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
+ 20:53:21 +0000
+Message-ID: <869e48d2-f6be-48e4-95ea-31526d692be6@amd.com>
+Date: Wed, 16 Sep 2026 15:53:17 -0500
+User-Agent: Mozilla Thunderbird Beta
+From: Babu Moger <babu.moger@amd.com>
+Subject: Re: [PATCH v5 03/16] x86/resctrl: Add PLZA configuration definitions
+ and data structures
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ Dave.Martin@arm.com, james.morse@arm.com, bp@alien8.de, ben.horgan@arm.com
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+ hpa@zytor.com, fenghuay@nvidia.com, akpm@linux-foundation.org,
+ rppt@kernel.org, dapeng1.mi@linux.intel.com, elver@google.com,
+ jlayton@kernel.org, enelsonmoore@gmail.com, kuba@kernel.org,
+ ebiggers@kernel.org, seanjc@google.com, peterz@infradead.org,
+ chao.gao@intel.com, jmattson@google.com, naveen@kernel.org,
+ ricardo.neri-calderon@linux.intel.com, tiala@microsoft.com,
+ chang.seok.bae@intel.com, prathyushi.nangia@amd.com, kim.phillips@amd.com,
+ elena.reshetova@intel.com, darwi@linutronix.de, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <cover.1787772750.git.babu.moger@amd.com>
+ <702b88901bc62f07829144a96cc887471b427da8.1787772750.git.babu.moger@amd.com>
+ <bd1fb563-15b7-480f-b80c-823c006d91b5@intel.com>
+Content-Language: en-US
+In-Reply-To: <bd1fb563-15b7-480f-b80c-823c006d91b5@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR03CA0211.namprd03.prod.outlook.com
+ (2603:10b6:610:e7::6) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: Suppress a few intentional
- redundant whitespaces
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- cros-qcom-dts-watchers@chromium.org, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org
-References: <20260916-b4-dts-style-checker-suppress-v1-0-81b86685d068@oss.qualcomm.com>
- <20260916-b4-dts-style-checker-suppress-v1-2-81b86685d068@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260916-b4-dts-style-checker-suppress-v1-2-81b86685d068@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|DS7PR12MB6005:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a9290a2-a6a4-436f-9e60-08df14348aec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|18002099003|22082099003|3023799007|4143699003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	3bfNK6JQgYzFtJ+3+WmN9FA/Dq6tNQhpFfxuHKndl37Gla75ECMs96i3KzJX42q5XoF5v85A3iM5F1tX2L0/hNUcXw0HLZN6P77yJqfjlhPRaC3Z8VFXOTx7qSEEdZ4N5hkhZ/a36cqqO3rGx+WhFGAPXIHbNcHdr/fhASHcC6KWSMy3IusxLrBrELlV9blZ6udoU28X4Xtg9xTnZPi9dmV+pOb1fWZmmokeiRU29QK+Wv+TCD1wAKY2+zy/b6z++TCfK0qOV0Ygo2SIjrt/alqo+PlHvZjIpcjTbY1Fn3PiUzsr2xnPPPLkFtr/HzyW9PLI0QRNg8d45BmFAX1g3m1my2rTxstbIglZW1U58KYaPG4le0K89WHbqRdhISO4cLWPR9ERX6IhinJ/DKZNdG2xyt0RS3ZNnIUQY4DhIT/KmhpafwybnM2HVWklKuj51dq8yol70HFv13n0eTMCmjX8wr8eHNudnS2tz1m8Sf3wV0kleR0ZfqvLLApslvM2UM/epVeRrdycCq+VtGhH5S88wLFy4MUBQIxCHRBF6iWDdHvcQMo+Ie66Ww7D89OX7y3Lr8RtouyuDnpaUl8gMU30ueGbaAIod05daXjVUjKuP6YzDqhYQUZojJA+O3/hoPgsW6q+j0Q0ZKJhlQZkDaoK0bS3FjPja0KMWDJp+Is=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(18002099003)(22082099003)(3023799007)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bktZUkxzL0ZZb2loRG1ldjNLYjBUVEZ6TENPQkRjSDZ2ZUNiRE1aOTI5STIz?=
+ =?utf-8?B?NTNXNCtpWXd6ODltMHFnNjl4YTQ1YmdiY2RqdjVqclBmdE5mdDh6dDFCOStM?=
+ =?utf-8?B?UDBDUlBrRXkxV3p4VWsrenBCQ1FHSnlDK3ZzaG9CdmlzUHQyRjUzbW5RNFJL?=
+ =?utf-8?B?dXFPSGUyb2ZlNEZaM3ZMc2ZTZ3MveE1NU0lDdk5SNjlyRXdoMUtrRmlMdkNK?=
+ =?utf-8?B?TDlDMCtZUWh5MGZTNXZMUDRXMlBJWmlZRXJ2Nm1GMEJBbXd2UVdsSFg1MVBr?=
+ =?utf-8?B?S3FPMWJFU0FmMm9kOVM3d0piK2VsUE5HeXoveFBLRHl2WHdUODBHUndPM21h?=
+ =?utf-8?B?TktTK1pFNnc2ZzNtY1NDR2lzZk43UWtHZGRMeFN6Vnh1ZVQ1TDdsVjFqWWpv?=
+ =?utf-8?B?SXBsRTdlemI5Y3J5QWRJWEs1dTRDd0ovanJ2bzUwck1kcnJ3OGE3Q1h1TTVa?=
+ =?utf-8?B?ejEwMjc0L3dyWUx5MTdLQU1XelN2VCsrOVZJdmlWemh4TStHalBWZ0xCTUUz?=
+ =?utf-8?B?YTRzL3RDaG1md0FmcGJQZjZVL3hrdG1nZXZYT3NmMFYxU3N3OVJpZ3ROSkV5?=
+ =?utf-8?B?QjlTV1F5ZlljaG04cmVLU0dVQ1VxT0tCYkgwdGJTR212UFZlbFd0bGVTM25Q?=
+ =?utf-8?B?cndEbEF6WmNTcU4rOTYzTXNxVjNyaEtqN0Y4dkNJMVNyZlI1aUR6WjNHVCs5?=
+ =?utf-8?B?YjZrTUdoSDVlRWlzbUlSSUR6RXJnTm5MbkVMckFEKzE5OTJuVDQvMWZ3WnR1?=
+ =?utf-8?B?Y0FEZnI2dmFjMjEvSG5ndVdwNVFvUGQ4TWhDZnJxNVhKbzlHTEYrZ2FoL3Fw?=
+ =?utf-8?B?MTZZU2wvZzNJVEJPTWRJN2VOenJMQVF2N0FNT2JMMnJIYVRRRTdSeXhvRUpZ?=
+ =?utf-8?B?czZub0tkNXBiZDBOZ01GM3FzWDhnOVh4eXBCTVdZM3FIVVpOSEliT3lkUW9S?=
+ =?utf-8?B?U1FTN3AwL3ZvMzZGcGFkaXJXV2RNNUdXVW1xTk45czAyYzIxa3RyT1VIaHlx?=
+ =?utf-8?B?amQ5bVpvWXdJYXUxYTJOUHRtVzVSaTVPVWNIM05XdFVYYjdHWWh0VW9PSTlH?=
+ =?utf-8?B?U2wrTWpab204Z3hnOWNRUTZxTnJTVVhFS3NQT2dCY1RIKzRLRlc3blJiSHNG?=
+ =?utf-8?B?VXVrUjNLQzA4bnJHZ3FkeTd2b3o4dFdUOGk4a3RmbVVsNlR4M0NYcFNDYm94?=
+ =?utf-8?B?S2s3UWE3cHpSTzQ3Uk03NFJGdEN0bWkzblBmQUdTNWNJd1JVeGx0NlBCRmJk?=
+ =?utf-8?B?T0hLblJjQnZORUx5TzljaDVTT0M2T01sZ29DZ0VsdjJSUEhEaEw1NDY3MWJD?=
+ =?utf-8?B?SlJmc2t5V1lXUWVsOGxDUjBqZy94K21DZUtJaGdlTEM1T2lHU09QL2NScm0y?=
+ =?utf-8?B?My9DNktHVXRZV1hmUFpxY0c3QmNGK29SRUtjbE8rVkFYRU1iVnBQMjBudXBH?=
+ =?utf-8?B?d1RJVGlqa1F3MkQxazJ3K0llcVNTc0ZKd3JpcmlrOElocjJ2QWRTUlV2YTJ0?=
+ =?utf-8?B?WXVxaWdDZkEya2dRRWphWXAyLzVheENiTy85RS9rSnZMU3c2NmF6KzBsbmls?=
+ =?utf-8?B?SHFFNVRFRDE4c0p4Y01ZSjJtdWQzeU5LQ0hUWG5NdTVSaDMrZ05uZjlIN3Vy?=
+ =?utf-8?B?ckJmVlpMZkkrUDdRYmRIQk5HeEpZTjRjMDhqWDFNUG5KWFFYM3o4SUhHc3RI?=
+ =?utf-8?B?QVZSSWlvWTU0NmRNMFlaVzNweElQV1NDQW1kWUZHVlZJZjF3QWl5dXJpcTF1?=
+ =?utf-8?B?NFlJOWFUYVBPOWlzVi95RFhhOTFDaFZZbEIyU2EvR1lmV2tKbnpWZVN4dEZI?=
+ =?utf-8?B?eUN6bk93RUVwZ2E5N2FtQmtlbW8yeGkvTWVjcHAvbmdBVWNOei9SV1cwOG1U?=
+ =?utf-8?B?UkpJUmN4UzVlcU1VMkhXaWFFS1BZSFZ0RzJIbDV0MlU3T2tMZ0duMG8yYnVw?=
+ =?utf-8?B?c05YVDVEcXlQZTd5Q0ZUTTVtbHROYms3QnZkVDNmdndkbGVDUnVXb01hUlVi?=
+ =?utf-8?B?VHJuYnZ3TTBla2R0eU5jR2pKQ3dvMURhOUhkemtSbWJuT3lKZy9MdE9icENz?=
+ =?utf-8?B?T0w0Q0owVXZ1a2d6SldKZXQ1bGhUR3liQkZwaGhNejhSSFNrcXhhWmREMnNQ?=
+ =?utf-8?B?TWk2Q2Q5Uk9wZ05uK0NuT1BBNlkwd0p5bmprL1hnZ0pWVFVnV2htVHovTVo1?=
+ =?utf-8?B?ZkRRYnhOVHlkR2dvR1M2ZExRKzB3SkZXN2ZISkxTeUw0bVpWV0tKVG9aODYy?=
+ =?utf-8?B?Qm1ycUFNM2ZRa2pEb3YvUThkdndzdnVpNnRhZE1pMUFaNDJvTWVJY1A0dWRY?=
+ =?utf-8?Q?jCVbUeMIFRUz5JFO7w?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a9290a2-a6a4-436f-9e60-08df14348aec
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 20:53:21.2803
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7ZGvO/kAsgdQ3++bPitIADFDB5X8Mjtgz2GfDXQRwb+s8EyqzNizX0YFvJX/fLnt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6005
 
-On 16/09/2026 22:46, Krzysztof Kozlowski wrote:
-> Ignore redundant whitespaces in a few places to suppress warnings from
-> `dt-check-style --mode relaxed` like:
+Hi Reinette,
+
+On 9/16/26 00:16, Reinette Chatre wrote:
+> Hi Babu,
 > 
->   sc7280-herobrine.dtsi:357: [redundant-whitespace] extra whitespace after :
+> On 8/26/26 12:32 PM, Babu Moger wrote:
+>> diff --git a/arch/x86/kernel/cpu/resctrl/internal.h b/arch/x86/kernel/cpu/resctrl/internal.h
+>> index e3cfa0c10e92..2f4c60487a5d 100644
+>> --- a/arch/x86/kernel/cpu/resctrl/internal.h
+>> +++ b/arch/x86/kernel/cpu/resctrl/internal.h
+>> @@ -222,6 +222,53 @@ union l3_qos_abmc_cfg {
+>>   	unsigned long full;
+>>   };
+>>   
+>> +/*
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi | 6 ++++++
->  arch/arm64/boot/dts/qcom/sm8750.dtsi           | 4 ++++
->  2 files changed, 10 insertions(+)
+> I understand that this is not specifically kernel-doc (since no /**)
+> but it clearly follows the pattern and also needs to match the
+> style used in this file. Considering this, please use custom that
+> describes members first before the long description? With members
+> described first the long description can then use @ when referring to
+> the members.
+
+Sure.
+
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
-> index 58ea0532c0fb..21179ca1219b 100644
-> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
-> @@ -354,11 +354,13 @@ keyboard_backlight: led-0 {
->  pp1256_s8b: &vreg_s8b_1p256 {};
->  
->  pp1800_l18b_s0: &vreg_l18b_1p8 {};
-> +/* dt-check-style disable=redundant-whitespace */
->  pp1800_l18b:    &vreg_l18b_1p8 {};
->  
->  vreg_l19b_s0: &vreg_l19b_1p8 {};
->  
->  pp1800_alc5682: &vreg_l2c_1p8 {};
-> +/* dt-check-style disable=redundant-whitespace */
->  pp1800_l2c:     &vreg_l2c_1p8 {};
->  
->  vreg_l4c: &vreg_l4c_1p8_3p0 {};
-> @@ -368,14 +370,17 @@ keyboard_backlight: led-0 {
->  pp3000_l7c: &vreg_l7c_3p0 {};
->  
->  pp1800_prox: &vreg_l8c_1p8 {};
-> +/* dt-check-style disable=redundant-whitespace */
->  pp1800_l8c:  &vreg_l8c_1p8 {};
->  
->  pp2950_l9c: &vreg_l9c_2p96 {};
->  
-> +/* dt-check-style disable=redundant-whitespace */
->  pp1800_lcm:  &vreg_l12c_1p8 {};
->  pp1800_mipi: &vreg_l12c_1p8 {};
->  pp1800_l12c: &vreg_l12c_1p8 {};
->  
-> +/* dt-check-style disable=redundant-whitespace */
->  pp3300_lcm:  &vreg_l13c_3p0 {};
->  pp3300_mipi: &vreg_l13c_3p0 {};
->  pp3300_l13c: &vreg_l13c_3p0 {};
-> @@ -384,6 +389,7 @@ keyboard_backlight: led-0 {
->  
->  vreg_edp_bl: &ppvar_sys {};
->  
-> +/* dt-check-style disable=redundant-whitespace */
->  ts_avdd:      &pp3300_left_in_mlb {};
->  vreg_edp_3p3: &pp3300_left_in_mlb {};
->  
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> index ed3d29e13021..afeb6e57e0aa 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> @@ -2480,6 +2480,7 @@ swr3: soundwire@6ab0000 {
->  			qcom,din-ports = <4>;
->  			qcom,dout-ports = <9>;
->  
-> +			/* dt-check-style disable=redundant-whitespace-strict */
->  			qcom,ports-sinterval =		/bits/ 16 <0x07 0x1f 0x3f 0x07 0x1f 0x3f 0x18f 0x18f 0x18f 0x0f 0x0f 0xff 0x31f>;
+>> + * Privilege Level Zero Association (PLZA) is configured via
+>> + * MSR_IA32_PQR_PLZA_ASSOC. This MSR must be programmed on every CPU in
+>> + * a QoS domain. Each domain supports a single PLZA CLOSID and/or RMID
+>> + * association, and all fields except PLZA_EN must be programmed
+>> + * identically across the domain to ensure consistent behavior.
+>> + *
+>> + * RMID and CLOSID selection are controlled independently. When PLZA is
+>> + * enabled (plza_en = 1), CPL0 uses CLOSID and RMID values from
+>> + * MSR_IA32_PQR_PLZA_ASSOC depending on the corresponding enable bits.
+>> + * When PLZA is disabled (plza_en = 0), the CLOSID and RMID are always
+>> + * taken from MSR_IA32_PQR_ASSOC regardless of privilege level.
+>> + *
+>> + *   - rmid_en = 1: use the RMID programmed in this MSR.
+> 
+> "this MSR" -> "MSR_IA32_PQR_PLZA_ASSOC" or keeping text similar to the
+> rmid_en = 0 scenario may make it easier to follow what the bit accomplishes:
+> 	- @rmid_en = 1: use the RMID from MSR_IA32_PQR_PLZA_ASSOC if
+> 			@plza_en = 1
 
-The comment should be placed before node and is not really important
-here, because it is from 'strict' ruleset, unlike the herobrine ones.
+Sure.
 
-I should have called this RFC to show intentions and whether this is the
-code we would like to maintain.
+> 
+>> + *   - rmid_en = 0: use the RMID from MSR_IA32_PQR_ASSOC.
+>> + *   - closid_en = 1: use the CLOSID programmed in this MSR.
+> 
+> same comment as for rmid_en bit:
+> 	- @closid_en = 1: use the CLOSID from MSR_IA32_PQR_PLZA_ASSOC
+> 			  if @plza_en = 1
+> 
 
->  			qcom,ports-offset1 =		/bits/ 8 <0x01 0x03 0x05 0x02 0x04 0x15 0x00 0x00 0x00 0x06 0x0d 0xff 0x00>;
->  			qcom,ports-offset2 =		/bits/ 8 <0xff 0x07 0x1f 0xff 0x07 0x1f 0xff 0xff 0xff 0xff 0xff 0xff 0xff>;
+Sure.
 
+>> + *   - closid_en = 0: use the CLOSID from MSR_IA32_PQR_ASSOC.
+>> + *
+>> + * This allows PLZA to override only RMID, only CLOSID, or both. If both
+>> + * rmid_en and closid_en are clear, the effective behavior is the same as
+>> + * when PLZA is disabled, with RMID and CLOSID derived from
+> 
+> "derived from" -> "used from"?
+> 
 
-Best regards,
-Krzysztof
+Sure.
+
+Thanks
+Babu
