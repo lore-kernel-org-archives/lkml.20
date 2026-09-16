@@ -1,120 +1,108 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A349F19644B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3473590AE
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:00:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789524046; cv=none; b=sF0o2zOpd8hXuMzZ+i8E77MLRWZBnZDlL54+EO+RPtjZO3D5Hwwga9asZeNa8sA3Fh2eXu2QNmuhYD5V63gRLxxs+etNXkqbyu2p4yKJ37wUyZSP9dJMZ29Bv9uvxj6+hsRcsl9GbeSCsHwqRdNup4DokfpUIQT6Tk9F87eRBHU=
+	t=1789524060; cv=none; b=UwCxZ/uZaByqpsXZgPuAMYFZ+TGT47MyssxeemdDahk4RLzJOgYFFADw2fwM4spKWb8IwonBdB6g79M+gMy/m9uNPynTpyq1Js1v38jXAco8kTw9yyaiRNvS7nBJGod57/gRIdcEBouI6a8cVrAhVJ4nB/DI6JS4grxVu4CZVB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789524046; c=relaxed/simple;
-	bh=vRRyZzCbTUtg5f8BS9cG8MLrFzOiTiP+XmXR5M6bTCE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rzws3V65mZ1TKTIK5+hjg7tNMCGYfcfdVDlTLpz/tQBr96h2RLQb4bNbtZ0povwq6EvRUQNaszSQTHksz9jHlDyRsyc/RG/7ldaJx5JgxnkTMguSQnBYolVp/uvHhAItAKd/t6msSl1Atl3W/Wtec63sNLfekF2i+wCaPoICyow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NhZBNFNS; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789524060; c=relaxed/simple;
+	bh=z2vnxYECfe/CK+/EmMjMDlztEhbtnFjpr0RMVFWdXpQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sflQ8In2K4PyXidSXP7cYAFpB21CvLTAkuGHNSsKZqB9//ll43GFBZ8M5p7a1eBPpm3PG7HtHfkV3x6P61q+rMUJ/aTLnq8mwaCzao9G0zGRABIJDtfJIvr0Ct22TSN1M7VrNMw1CzYuL8TYqY33E/tvOEudsTMnSGmM9/otjSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=maticrobots.com; spf=pass smtp.mailfrom=matician.com; dkim=pass (2048-bit key) header.d=maticrobots.com header.i=@maticrobots.com header.b=HVCzwgFK; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=maticrobots.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matician.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NhZBNFNS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=fH
-	1OU1SpOEi1hJxuWZwdPLUXsSC8z51WTyyL5OrxnCE=; b=NhZBNFNSZfBo9lEoI8
-	eVZVxYV76xWXkZF+pTORtt1L9eiBDGRj/+0jIyOIvEPVJtVCJvRyxopkMiAczsSt
-	mJMPD3/vRR6pTM8aWMKwe7isMXxWy2eqOemPnb05zW0XB7wM9JYevKAAa6/ObAUe
-	3RajrZJ/r4Z1c8lagCaIFH0ec=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wA3pNoX+Klq1Q2bAw--.16058S2;
-	Wed, 16 Sep 2026 09:59:52 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Waiman Long <longman@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
-	quchaosheng000406@163.com,
-	syzbot+917245f59371bf1d27f7@syzkaller.appspotmail.com
-Subject: [PATCH] locking/rtmutex: Handle empty waiters tree in try_to_take_rt_mutex()
-Date: Wed, 16 Sep 2026 09:59:50 +0800
-Message-ID: <20260916015950.113090-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=maticrobots.com header.i=@maticrobots.com header.b="HVCzwgFK"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso245964a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 19:00:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=maticrobots.com; s=google; t=1789524042; x=1790128842; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RR+WtBbiVNxPAorgDWRwyWsfbjTaY0Xp64w0w7OzUbY=;
+        b=HVCzwgFKkfh6aKjgL2wKm+4FvR5rkaT7Y6nq7I0TtPmzLzpX5BAbJZjdiIXkBnaE3/
+         W/y1TWuTikGZGhQtgL0kHC1HA5DrSpHTiI6aZ3+N1s6naSeM7bzUekvVtIA5zcqG4CLT
+         h6xI9S17e8cBgdTBtxnLBWxsC7S0BU247nHEq15JXpIYcCgHkC2ZhrpVxbMF3AbOzuYF
+         ngIniWzSDSZmhcrJuWB5lRAB537qrktO8t35j4NPnigpAErznE3zZ+A7Sd2KcVijqckb
+         i29pA/aPhxrQs1k9r6du4Iq5LZN+pBwc8XVueiThQon6quRBMeg87A91Qn2X+fOw7AUC
+         Uzew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789524042; x=1790128842;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RR+WtBbiVNxPAorgDWRwyWsfbjTaY0Xp64w0w7OzUbY=;
+        b=0btgRbrzrbWdKx/vtJHsMSIrOI46RJWGYR77YlxpltvEnEjygD2n3eSC+J6ZlZ3Jkx
+         MyT8xWPayXnCLDkv5QM/VcdNVnKbDTGs2BkAaG2s4RsiM5EQ5PsjeEoEdtU48KdX86tY
+         kxqQZJPcFa++W15cH8RRgjNEN9V9R7lme+x91J0fi4rOhqhnbqwI2p5u8TwIEs7CgEEA
+         cRvpdPykxe/EzcwPzrVqJYkW/rMkR2WH4ej0tUTWWJVCwloOTaRfIUsFtxg/NFZMD6tL
+         mbZaoI478/0QwlX6kY11ceSsSQMfy3LYJ9GYy2lR+mtGIB6N+bkapmLM6ytVdvesFK70
+         wQoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx3hU8WIDAQiWEfpjJm26T7Ymzdso/ksNs24fLyh1TRvWaLDZoG94VkL4qiD+sqOSRlwCThL6ry6RHx+kE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQDg4c7z5zyyWC0TGH1UYetCzR27DxMPapJIoXKY9us+RuAAkt
+	U01Xl3T41jWQwlgrDfsvwlYW00tL3PhAM6U02OCTkcMzXMWewFXXTqjoP0KuLgdKH3o=
+X-Gm-Gg: AYBFou0sjIomk2ZjYtGjUl8t9KoTHyig/tqR9zkX8S9oRUbPlzEYbDdcdblE2tRavT0
+	DpFFTTO9WK48PdzeqPAZOHNNRZ6AXfLFRtucSTnjs4cWR/pzE4MJqtUjCFOGrNFoXk4ZzuKq2+G
+	Ii/I0X/09ctY41/XQUjjxYjlE2yFoMOzuFOg0HAtK8HtWASQUdoIsDL4gFA9UxkuRD4Ozoawsis
+	XIkpyx75RrWwKp2OHevRdf8cAGwOpwXYrHBsXbC0gteE499S+ZB1jL/Plabje8OtDAosGy0inFF
+	OuQAKp0Z1S1ev4hQOFfnD7YZVWQgDE1lsb6j4rFAnHp1WxNAFGNGjpMUgSbdp1bWq/7eDAnJ/zf
+	SXKdv+YdPwWh23/Kkg6p0ezPVFOTgxPgpabJ0Ki86eDCz2hSrE9oGhrBZUGmQOZboaiQj0vXp1W
+	cCzFMiLmK4Eto0M93cPZE1ZRs+eO/ijTLRD7BCqkJ/MttCbOCTCXWb+FwIAeugSPc2P/+eY97Vy
+	XUcPNcuAfT8XH3roJFe2egKQyN9jS+WhZUmdvXFdi+qWtddGwvVZHbKbZA=
+X-Received: by 2002:a17:90b:390d:b0:39d:f66e:1720 with SMTP id 98e67ed59e1d1-39e1e4907e8mr1658967a91.13.1789524042128;
+        Tue, 15 Sep 2026 19:00:42 -0700 (PDT)
+Received: from abeMaticDesktop.1020marsh.offices.matician.com ([2600:1700:471:807f:c09a:1c02:505f:9e4c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5b1d335sm3056984eec.28.2026.09.15.19.00.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 19:00:41 -0700 (PDT)
+From: Abraham Zukor <abe@maticrobots.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Abraham Zukor <abe@maticrobots.com>,
+	Jon Hunter <jonathanh@nvidia.com>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	linux-spi@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] spi: tegra114: initialize native chip selects inactive
+Date: Tue, 15 Sep 2026 19:00:28 -0700
+Message-ID: <20260916020031.161347-1-abe@maticrobots.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <c6868d2a-f55f-4196-9914-f096420cbabc@sirena.org.uk>
+References: <20260826000517.631736-1-abe@maticrobots.com> <420de339-53d2-40d9-b04a-a54428450830@nvidia.com> <c6868d2a-f55f-4196-9914-f096420cbabc@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wA3pNoX+Klq1Q2bAw--.16058S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw4xXFW8uw1xZF4rCF15Arb_yoW5XFWUp3
-	y5KrW7Jw1vqrZ29rW7Zr1xX3y5Aw4rCFW7Jwn7tFyUG3Z8XF42qFnrKa1I9F40kryfX39I
-	grs8Zw4aqFW8XrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pECzuLUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-xhJvmqp+BjboQAA3J
 
-The waiter branch of try_to_take_rt_mutex() reads the top waiter from the
-lock waiters tree and passes it to rt_mutex_steal() without checking that
-the tree still has waiters.
+On Thu, Aug 27, 2026 at 04:38:39PM +0100, Mark Brown wrote:
+> I can see a system having multiple variants with the bootloader
+> selecting which device is active in the DT based on runtime
+> enumeration.  Not sure if anyone is *actually* doing that, but given
+> the state of the world with overlays...
 
-rt_mutex_slowlock_block() calls try_to_take_rt_mutex() in a loop with a
-waiter that was enqueued before the loop.  The loop drops wait_lock around
-rt_mutex_schedule(), so another task can acquire and release the lock and
-dequeue the waiter in the meantime.  The loop then calls
-try_to_take_rt_mutex() again with a waiter that is no longer part of the
-waiters tree.
+I think we should handle this per native chip select:
 
-With an empty waiters tree, rt_mutex_top_waiter() returns NULL, so
-rt_mutex_steal() dereferences a NULL rt_waiter_node and reads tree.prio at
-offset 0x18.  syzbot reports this as a general protection fault in
-try_to_take_rt_mutex on PREEMPT_RT:
+If exactly one node is enabled, use its polarity, ignoring disabled
+alternatives.
 
-  general protection fault, probably for non-canonical address
-  0xdffffc0000000003
-  KASAN: null-ptr-deref in range [0x18-0x1f]
-  RIP: 0010:try_to_take_rt_mutex+0x177/0xac0 kernel/locking/rtmutex.c:1138
-  Call Trace:
-   __rt_mutex_slowlock_locked+0x1fe5/0x25b0
-   __rwbase_read_lock+0xc3/0x190
-   down_read+0x132/0x200
-   inode_lock_shared
-   lookup_slow+0x46/0x70
-   link_path_walk+0xd2a/0x1910
-   path_openat+0x1ce/0x1d60
+If none are enabled, use the polarity specified by the disabled nodes
+when they agree, including when there is only one. If they disagree, log
+a warning and use the polarity of one of them, since no inactive level
+can satisfy both polarities.
 
-Take the lock and skip the steal attempt when the waiters tree is empty.
-rt_mutex_owner() was already checked above, so the lock is free and the
-waiter is the only candidate.  rt_mutex_dequeue() already returns early for
-a waiter that is not queued, so the skipped call is a no-op, and
-rt_mutex_set_owner() clears the transient RT_MUTEX_HAS_WAITERS state.  The
-waiter == NULL branch handles an empty tree the same way.
+Multiple enabled nodes using the same CS are a configuration error that
+the SPI core already checks.
 
-Reported-by: syzbot+917245f59371bf1d27f7@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=917245f59371bf1d27f7
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
- kernel/locking/rtmutex.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
-index 4728631ae..4a6b22027 100644
---- a/kernel/locking/rtmutex.c
-+++ b/kernel/locking/rtmutex.c
-@@ -1131,6 +1131,16 @@ try_to_take_rt_mutex(struct rt_mutex_base *lock, struct task_struct *task,
- 	if (waiter) {
- 		struct rt_mutex_waiter *top_waiter = rt_mutex_top_waiter(lock);
- 
-+		/*
-+		 * The waiter may have been dequeued while the lock was
-+		 * dropped. In that case the waiters tree is empty and
-+		 * top_waiter is NULL, so there is nothing to steal from.
-+		 * Take the lock and leave the transient state to
-+		 * rt_mutex_set_owner() below.
-+		 */
-+		if (!top_waiter)
-+			goto takeit;
-+
- 		/*
- 		 * If waiter is the highest priority waiter of @lock,
- 		 * or allowed to steal it, take it over.
--- 
-2.43.0
-
+My v3 needs adjusting for the first case. I will implement this as a v4
+if no one sees an issue.
