@@ -1,168 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E1F3DDDDA;
-	Wed, 16 Sep 2026 18:02:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0592B4C33E2;
+	Wed, 16 Sep 2026 18:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789581759; cv=none; b=tV6+//rjWNlK/OgQfeSllXFTv6dZkNDoNx4euKKgqUKvSR6mzpdgFj3a2tk9xpPd8sF2tHHhdNF4Wi7Vyj1sH3Scx5p7OeYueZLlZRZlYQH7a0zuK7L+s48Gy1aeA0TfMz8kvpZzyqLzz6s5aQ5RolaILn5bnwHW5DxYpKYMO4E=
+	t=1789581791; cv=none; b=UIJMGAtAiLx0vM+AkO43+GV4axvlS7tvzMWe1yWs/cEgi7cplwiOnLyVNYaa7XCDnmXNqlNNJ3McKGSRZItR1BotEOK0HB9jH+S3WEiBVRXDuE7faAQ/YgUI0pmNyByNJGXadIBkYtEW7pr+V4HGv8LaXaOz5AUpkDEeByDc4iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789581759; c=relaxed/simple;
-	bh=kxgsNNT1KvLPfb3YCHP70inh8dhJgSSo6EGOUD+EiRA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=a/GhEq8p8obqL0NCj9YIqdprxwxEYiuMgDT6zaLEWZ3t1+mOUEmMlquw46r31tkg0plmQUGdjqJXmj3wjxiPC/wRY3loFF9Mb+XFp0UwqCwEESa1KBGkqoEmz+JcNhXs/pctQ9lGX1r5wk7vrFZ4dehMDcYwhma4xKOmUIHLVTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZIOCba99; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZIOCba99"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EAA61F000FF;
-	Wed, 16 Sep 2026 18:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789581746;
-	bh=kxgsNNT1KvLPfb3YCHP70inh8dhJgSSo6EGOUD+EiRA=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=ZIOCba99yzswUHkcAeKvXEWO/4QfUMF9elUUGXb60w+iYrGhurwzzNKJDvqx3u7Iq
-	 YgORqkWOt+1JxM3gK6RqnYFntMYjgloXsb6POOsDfMwcTqlkhFpzmzh2HwDHG8OKYC
-	 +2IfdX+wqXN2n/LN/niNao/Vk7a67L6xKVwOcqz9BwwEXCvrAe4OZUTJ66TBItGxij
-	 NiT217d2NRJxsFMsDYfKXJ1r7ZzzMa2g94xtyQaDvQn0HjZydFmjsK+KNqJkBtmKbH
-	 54qXawlPjADa14Cmq5u0GLAUuwn3ZIPvhToyRmlFoJ4zDXXd857SxdOg2jQtKn9v71
-	 ltjvLmFLWSXTQ==
+	s=arc-20240116; t=1789581791; c=relaxed/simple;
+	bh=5MvNbV8DS1s28LWHHBxFkC6xfM3BtVKYIkDIMppb7tw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pvbK8umnSYhpSqBtiOo8F154LFBmSCuVb5fLoJLg8dvK1egka3sOyP5fbmfb16lqryZOgV6lqrqdRqHi74ry118fXdUF/5R2x/UGDh8ZafyS6fjPUHaJveWITdH8R4/hc2TX+yqkEjllpUZCF+2D9sZHR8Q07jWdYvgS25KRfsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACXAz622apqvB1vCA--.23380S2;
+	Thu, 17 Sep 2026 02:02:30 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: bskeggs@redhat.com,
+	dakr@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	lyude@redhat.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	nouveau@lists.freedesktop.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/nouveau: Fix gem reference leak in validate_init()
+Date: Wed, 16 Sep 2026 18:02:02 +0000
+Message-Id: <20260916180202.2090231-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Sep 2026 20:02:17 +0200
-Message-Id: <DLGXS4SCP3VT.28XXX09BL963U@kernel.org>
-Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
- variant driver
-Cc: "Alex Williamson" <alex@shazbot.org>, "Zhi Wang" <zhiw@nvidia.com>,
- <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
- <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
- <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
- <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
- <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <kvm@vger.kernel.org>
-To: "Jason Gunthorpe" <jgg@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260905081116.106613-1-zhiw@nvidia.com>
- <20260905081116.106613-13-zhiw@nvidia.com>
- <DLCRZLO06SIO.LS7TWQXIPZSQ@kernel.org>
- <20260914121217.70fa0d93@shazbot.org>
- <DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
- <20260915120148.7548a8ca@shazbot.org>
- <DLG7C7MLGSTC.2GSTD84WI595N@kernel.org>
- <20260916141718.GU3968357@nvidia.com>
- <DLGUPX9KPFKF.12CU304YAST79@kernel.org>
- <20260916162817.GW3968357@nvidia.com>
-In-Reply-To: <20260916162817.GW3968357@nvidia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXAz622apqvB1vCA--.23380S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar17Kw4rGFyfuFy3Gr1DGFg_yoW8Gr4rpr
+	ZFkF1jyrWUGw4xKr4xtF1DA3Wakan2gry8GF9ay34agr4fAr1UXrW5Cw1YvrWayF4fC3ya
+	qrnrtasFqryYyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9v14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF
+	7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0
+	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr
+	0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VU1VHq7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgUMA2qqok97cAAAsq
 
-On Wed Sep 16, 2026 at 6:28 PM CEST, Jason Gunthorpe wrote:
-> On Wed, Sep 16, 2026 at 05:38:21PM +0200, Danilo Krummrich wrote:
->> Usually, class device implementations can't make assumptions of the unde=
-rlying
->> bus, because they have to work for any bus. I.e. there's no other way th=
-an
->> providing helpers and letting drivers do the glue code between the bus a=
-nd the
->> class device.
->
-> You should think of VFIO as a series of helper libraries. One of those
-> libraries is "here are all the PCI PM ops you need".
->
-> Drivers rarely need to customize these ops, they just need to wire it
-> up to the support library to avoid a bunch of code duplication.
->
-> Stated another way - the very point of vfio-pci is to remove
-> duplicated code from the drivers.
->
-> So if we wanted to push hard on removing drvdata, and don't want to
-> touch the struct device I would probably say to #define up a way for
-> the driver to build its unique trampolines. It wastes a bunch of .text
-> but at least it doesn't duplicate code.
->
->> The reason this seems undesirable from a vfio-pci perspective is that it=
- is
->> special in the sense that it is a class device that is specifically buil=
-t to sit
->> on top of a spcific bus device (i.e. struct pci_dev).
->
-> It is a library, all these ideas to do things with the driver core to
-> implement a library make no architectural sense.
+On the ttm_bo_reserve() failure and "vma not found" error paths, the
+loop breaks without adding the looked-up object to any validate list,
+so the reference taken by drm_gem_object_lookup() is never released;
+validate_fini() only walks the spliced lists.  Drop the reference
+before breaking out on both paths.
 
-Both is true, it is a library, and it is also a class device built on top o=
-f
-another class device (struct vfio_device) that accomodates to a specific
-underlying bus (PCI).
+Fixes: 19ca10d82e33bcfe ("drm/nouveau/gem: lookup VMAs for buffers referenced by pushbuf ioctl")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/nouveau/nouveau_gem.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Which means that this library has the need to make a generic connection bet=
-ween
-the class (VFIO) and the bus (PCI). And this is something that the kernel h=
-as no
-generic solution for (and isn't represented by the driver core in any way).
+diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
+index 20dba02d6175..c2601b559947 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_gem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+@@ -513,6 +513,7 @@ validate_init(struct nouveau_channel *chan, struct drm_file *file_priv,
+ 			if (unlikely(ret)) {
+ 				if (ret != -ERESTARTSYS)
+ 					NV_PRINTK(err, cli, "fail reserve\n");
++				drm_gem_object_put(gem);
+ 				break;
+ 			}
+ 		}
+@@ -522,6 +523,7 @@ validate_init(struct nouveau_channel *chan, struct drm_file *file_priv,
+ 			struct nouveau_vma *vma = nouveau_vma_find(nvbo, vmm);
+ 			if (!vma) {
+ 				NV_PRINTK(err, cli, "vma not found!\n");
++				drm_gem_object_put(gem);
+ 				ret = -EINVAL;
+ 				break;
+ 			}
+-- 
+2.34.1
 
-Your dev->subsystem_data idea would accomodate this connection. However, I
-object to this, as it'd be for a very special case and I'd be worried it is
-abused by other subsystems in odd ways.
-
-Besides that, I still think that the correct thing to do is to have the glu=
-e in
-the driver and just provide the helpers in the best possible form. In fact,=
- this
-is what a library should do - provide the helpers, but do not directly
-interfere with with other layers.
-
->> It still makes me think that there should be some closer integration of =
-vfio-pci
->> with the PCI core, as it is specifically built for this bus.
->
-> It has such a basic need I don't see this as a reason to pollute pci
-> core with any vfio specific things. Like I would nak your [1], that's
-> completely wrong layering.
-
-As I said in the beginning, it is just a "hack"; and in fact it is the exac=
-t
-same layering violation as abusing dev->driver_data or adding
-dev->subsystem_data.
-
-The reasons I called it "more reasonable" and "less of a hack" in my previo=
-us
-reply are that it doesn't break an existing (driver core) API contract and =
-it
-only affects the the exact two layers this is about in the first place.
-
->> > I don't really understand in a nutshell why we should do this for nova
->> > the mails were so long... Can we not just ignore the lifetime
->> > imperfection for this?
->>=20
->> I mentioned some points in the first two paragraphs of [2]. Besides that=
-, I
->> don't see a reason why we should spend time and effort for working out t=
-he
->> inferior solution, where the better alternative is even less effort, con=
-tributes
->> to better quality and stability of the whole driver project and also off=
-ers a
->> chance for the vfio subsystem to gain new contributors and gather experi=
-ence
->> with the language that has proven itself in many areas already.
->
-> It seems to be quite a leap that it is less effort. IDK..
->
->> TBH, I don't think it makes a difference; having Rust abstractions is pr=
-etty
->> much the same as having another driver. I.e. it would be equivalent to s=
-aying
->> "before we accept another pci-vfio driver we need to do some rework".
->
-> Well, it is, but thats the point when judging effort..
-
-So it seems that we agree that there isn't really a difference between addi=
-ng a
-new C or Rust driver in this regard.
