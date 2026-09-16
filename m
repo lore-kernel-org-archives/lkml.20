@@ -1,143 +1,70 @@
-Received: from mta0.migadu.com (out-48.mta0.migadu.com [91.218.175.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424FA3E6DD9
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5126D357CE1;
+	Wed, 16 Sep 2026 06:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789538985; cv=none; b=RouX7hBi1ZRPAn1x8GHj60d6VGqH7jWtM3AZayALwySOzRayFsXc7bTGEaE9ZL5eOoCaToYgn/S1/va3ivstFpiGsMPDO8OzzMl+yz26dLCKlsvs99B8S+j+ChdnpGjgnobNl9G7OK/rRyXQahXG4Q4wS4VIWXbFAKULlHRm+Nw=
+	t=1789539006; cv=none; b=hsRqpzjACwBmJ+KnJ5CIXxiS/IbDtJbz2EdCR2xIlJCYD+wrlN2TDOR5CozCKU0HpkzN/mrTws/t3bnArN6k0PVDxFi9XpfgAs0mDLcX600bcWc2X42wctY3ocJdHcPAa8KywB1nuvj/fLucZkP3qezz7d0kX25KrdD3pwz7Eso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789538985; c=relaxed/simple;
-	bh=1FXPXUrDPcrYPLwRxPXtr4tpEmOLRIi+Rq2mTTRREaU=;
+	s=arc-20240116; t=1789539006; c=relaxed/simple;
+	bh=cgmZUj37znDWHLe1/1qVDF0HFfyqRXUjGanSdGoxQmw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iNWGjKpM9MuMlfd9eOIHqnxec3AtCOr0NKwWZCaoLP715qUuHfwBYNqn7yuyPA1U6LMbmlqm1yM8sB1e+6SXfg89TVAi8ouhc4LQoHmCRMCqQeZF8yI8cT92sWULE19Q0NN/uudprAnJm+IccCTJLWZEev4LoWFugOTHf1GRBho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P0LRIIU3; arc=none smtp.client-ip=91.218.175.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=dXh5gr1C1bNLT+WWWv113euZn8o5reeIYRxxR2J6UD7RvdeX21nTzJ879DXUBEk/x693tN4beF5gfZCoMaKKcnJd3EiiTZkCo5bv/Rgv1sRsA462buAmD9gx+miOu+sUMOUUgXVeq7CA65Y7GNUYcGRoLPFPyV/B7Yq23u7vE9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EcuhtJlU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P0LRIIU3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1FXPXUrDPcrYPLwRxPXtr4tpEmOLRIi+Rq2mTTRREaU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789538981; v=1; x=1790143781;
- b=P0LRIIU32CE79vjascQV+yMYtw82H/b6dQTfZMWX7/K6l+5JSQ9JaZDydMLCVvdjNAIE+kKq
- 6LZUEeM5G36PWHYACJOahGES010/S5TjcAAW/Iux0fH+oJTZA+3+T9rFwNxsrxyoV7f3gw6gsuv
- KpXCVlVwm74FZLfdRHZi/0rM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 56e648d48c427c41;
-	Wed, 16 Sep 2026 06:09:41 +0000
-X-Mizu-Trace-ID: 56e648d48c427c41
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 16 Sep 2026 09:09:32 +0300
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
-	Alexander <alexander.sverdlin@siemens.com>
-Subject: [PATCH v4 06/10] rtc: bd70528: Support RTC on ROHM BD73800
-Message-ID: <1ff511f419fcbd72dd241f598127608a6a0c9598.1789538455.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
-References: <cover.1789538455.git.mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EcuhtJlU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E848D1F000FF;
+	Wed, 16 Sep 2026 06:10:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789539003;
+	bh=2suWbUO1++tl2GtDPvL7vT4XRH9qSp7387WoQtb3opc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EcuhtJlU2oyKYUerEcaeP1JAQdy9+pthcr9c5F8mt6pRBx9QlMgANwk353gJApHYq
+	 uIJRK7CGLeyWJdfzTfYY6h14+tBTMksR8zDwPCwMn8YD0hhSzF445QuZWLywvu/l9Z
+	 8Y4x46nTAuJ52tDhYFoXtkGg5HUmL/s/0EBkOC8D4gDcaMu4Z5eUN5ZyKNpaEF+nT3
+	 AsthU1Zvjr6aiWwkYdNuV0Cld8MOfSuWLy86fxcxEFdgEwStwh1mRNxhRzLRaBLzZq
+	 Kq0XAPP7oRCrhHehhaU4GzzwJQQ0VrqfL1FaIfpcwnEYO3TKKhSTQVXvM3q0SYTwau
+	 IyLzT85TYv+AQ==
+Date: Wed, 16 Sep 2026 08:09:59 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Linkai Gong <gonglinkai@kylinos.cn>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] i2c: atr: fix dangling adapter pointer on add failure
+Message-ID: <aqoykvwKbsFS81aO@zenone.zhora.eu>
+References: <20260806073545.2071006-1-gonglinkai@kylinos.cn>
+ <20260907071102.1080840-1-gonglinkai@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mUgRN4pDP+5ghfak"
-Content-Disposition: inline
-In-Reply-To: <cover.1789538455.git.mazziesaccount@gmail.com>
-
---mUgRN4pDP+5ghfak
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260907071102.1080840-1-gonglinkai@kylinos.cn>
 
-=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
+Hi Linkai,
 
-BD73800 contains similar RTC block as BD71828 and BD71815. Only the address
-offsets seem different. Support also BD73800 RTC using the rtc-bd70528.
+On Mon, Sep 07, 2026 at 03:11:02PM +0800, Linkai Gong wrote:
+> i2c_atr_add_adapter() stores atr->adapter[chan_id] before
+> i2c_add_adapter() so that the I2C bus notifier can match child clients
+> during registration. On failure the channel is freed but the slot was
+> left pointing at freed memory, which can lead to use-after-free in
+> i2c_atr_del_adapter() / cleanup and also block reuse with -EEXIST.
+> 
+> Clear the slot on the i2c_add_adapter() error path before freeing chan.
+> 
+> Fixes: a076a860acae ("media: i2c: add I2C Address Translator (ATR) support")
+> Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+pushed to i2c/i2c-fixes.
 
----
-Revision history:
- v1 =3D> :
-  - No changes
----
- drivers/rtc/rtc-bd70528.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Please, next time don't send v2 as --in-reply-to.
 
-diff --git a/drivers/rtc/rtc-bd70528.c b/drivers/rtc/rtc-bd70528.c
-index 482810b61495..fd415e327ea6 100644
---- a/drivers/rtc/rtc-bd70528.c
-+++ b/drivers/rtc/rtc-bd70528.c
-@@ -8,6 +8,7 @@
- #include <linux/mfd/rohm-bd71815.h>
- #include <linux/mfd/rohm-bd71828.h>
- #include <linux/mfd/rohm-bd72720.h>
-+#include <linux/mfd/rohm-bd73800.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-@@ -284,6 +285,12 @@ static int bd70528_probe(struct platform_device *pdev)
- 		bd_rtc->bd718xx_alm_block_start =3D BD72720_REG_RTC_ALM_START;
- 		hour_reg =3D BD72720_REG_RTC_HOUR;
- 		break;
-+	case ROHM_CHIP_TYPE_BD73800:
-+		bd_rtc->reg_time_start =3D BD73800_REG_RTC_START;
-+		bd_rtc->bd718xx_alm_block_start =3D BD73800_REG_RTC_ALM_START;
-+		hour_reg =3D BD73800_REG_RTC_HOUR;
-+		break;
-+
- 	default:
- 		dev_err(&pdev->dev, "Unknown chip\n");
- 		return -ENOENT;
-@@ -344,6 +351,7 @@ static const struct platform_device_id bd718x7_rtc_id[]=
- =3D {
- 	{ .name =3D "bd71828-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD71828 },
- 	{ .name =3D "bd71815-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD71815 },
- 	{ .name =3D "bd72720-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD72720 },
-+	{ .name =3D "bd73800-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD73800 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, bd718x7_rtc_id);
---=20
-2.55.0
-
-
---mUgRN4pDP+5ghfak
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmqqMpwACgkQeFA3/03a
-ocWHywf/TpnLoThLOPyYyeFOZbqVLZ+ucK3WNz1ae/rLX+DhEKXRo1QVhzEd1MLU
-G7R6rQKd/0TcWu1aWVO/0+Gu7/AmOs1K0JRJToC6zxWekjznVQT3tZ6TOBZqupm0
-rRMq44S0MVjDhDVCRmt8iCTxF2wdsuVUzWQu3TRs3JhH6wi82Zgdz/SSC6xOPQB/
-nl7xJRLCF0JEAu2uJTPokEjZ1kv/xMHjz4W/LKVV2EBhwniv+UYt8+mXwhlJh3ks
-vRNYzlH7NmnaoVZdR8l7QhPHuu0qrFBjhfTajAVA5IczJee3JCQAp8YVZLcH80Qg
-zNUC1C5MxToP6G1mUQNQiv5w/HDoYA==
-=Hs+m
------END PGP SIGNATURE-----
-
---mUgRN4pDP+5ghfak--
+Thank you,
+Andi
