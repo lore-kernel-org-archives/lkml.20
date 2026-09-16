@@ -1,116 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F59D51476D;
-	Wed, 16 Sep 2026 15:27:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7E13932F7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 15:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572437; cv=none; b=lWJaprSPozytd7Q6VNs3JpHx00CblyWmczpePYoBNvU9wyp7jCqdGIlSNj5TTvTT4XcM+alqTBGgQF+krLnwZmoDhJZdN7xlN2rzi9I80PDJmJo3+iRdJhY5ZlkVql+2bfjwF0BszlAIl+3P7s18CW1C3s/Kc+hQlCLYGfqSguE=
+	t=1789572487; cv=none; b=tOuD49ZyfnGYZccyP80Zo8XpIv8O9lRmHfmyvAglz4LneVAEQUaiYkRfgjUFTQ+uk14yhai4IEJwAKxlGH2e2+6u1FTwu+7FXeqZxIeUr8t8edscm/5pEuHN5LPmSwqRb8bFMZ4BkCNzKlqjXaRv7HyYuyjX/po5Ef/tmVdEvr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572437; c=relaxed/simple;
-	bh=J5IUzn5jWVSvUHw8EEJo+HSH8W0oYtJMMRaB/fsOUtc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ofg0gUMCoCA6z8Vwg+PyPgGNDn6GIcP3FuOzgHZOYYwTkMtlsqyuu+Uzv1V7wM6zfa/FtYyiTzzYPuRrfWIoRrY/WvCj7PwPFfkSNPXN1bD4EEEqD9FEVjO4QTPHdf8nuj5cEa2rl7i/IdTWxryJUsrmW9EjWM5ss7PYrN05WBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M147Y4WN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789572487; c=relaxed/simple;
+	bh=/JpbrBR+OVjJpbG1LD4MSanTICNv4h/sWdJw0dgCPcI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nF2pcymEjfjIOWtJwWrRjRDB8gbMP5/Vf4q5bTo3XKXzKqD/GDJb6RzsPUbRErJCXiPohG7Qi3m+SskhBaOUHWmIb/ZZsHXRpsMSjaiuwjY0Fc7E7IKWn9CCHtQdfTRlD/d+AfTaXB/llSotpwZ6nvB5sJHeGqzH+oUKLt7D4tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=ey2bpWat; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M147Y4WN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396991F00898;
-	Wed, 16 Sep 2026 15:27:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789572432;
-	bh=pEp4ZnPbrejlMbShDfgZlS9JJ0BVmM1UYTzr+qTasEE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=M147Y4WNSRLQzLz095+KM8Q0tz8N4DxvBUKJ4Z1D6WyxX19+dYyjefg3rZGCnN3gC
-	 jGZASvaW1D0vNi/vmu1kfxeuULgNODd29T16eicployzlDPWQjTOuf8Y83Uyfft1FU
-	 iwQ5EiVCmg/SNdqMqQouOSxKothPEymGg24/WlS4SJ/A+2o37vS5Ie6Jjcaew79+bb
-	 XNF9+5Ymfy9YJFIA4vsG4xWjagM5OLwQTgXChBKTZeeih7yNO+G5Ab5PryIjS+NUJf
-	 D681IKJHKhNfiXD1M2t7sbtihOOg1W3nde2w4nRq09CPyo9FdA4UCJ5g4O8W66HbGa
-	 Zfut5LYDRi49w==
-Message-ID: <88807afb-06a6-46df-a936-ec2a56cb4319@kernel.org>
-Date: Wed, 16 Sep 2026 17:27:07 +0200
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="ey2bpWat"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so6091755e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:28:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1789572480; x=1790177280; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=272OvMcHmohpZ1MgcLqkDT/DpXSmh2FGVJu3ZCPDf88=;
+        b=ey2bpWatG3D6ewyK/3VWY/RpAA8CVpKHJHALVRbUaMVNEs3z04zPqPqe4Iu+0WTMWf
+         NvUXQqm9fl07zyNxouWfNRshtbeJHDFqgfPwa0TJabuSPCvq8iVKnBm0HpZZgGsFb9Qz
+         QRY65A2oJj5feU6sDC9rKyJRRsltI68T5NlDDlJE/oQOXhnfG1jjZURipTp/R7v/fcPS
+         D8OoEOhtKD5YNlBoQKVTtFLLIZCoUGVz1qdR+gc86t2tTD3TasLLQ+i9jvdezpVk35/k
+         NRWR1F6UF2p0oj8f2jN/1s1kJ6Mb+S8ods9PlvCwxwR1cuDum/QmhWBEks4tKyIZtUgZ
+         t9Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789572480; x=1790177280;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=272OvMcHmohpZ1MgcLqkDT/DpXSmh2FGVJu3ZCPDf88=;
+        b=k2EhTQkkovC6mY0nvue0sLn0iGVNlz9OPJFZhX1BTuYOtWkuu5sc2+T0vTQSO/KR5t
+         ACZlwa/nRKGY/03bHFUsST1PQ9kV5OKzda17fzcfkKONq8d+6ccK0/uJrs/juCJBR5Eu
+         lHqXBqLeoohs9eCp+R4tSAt8zzfi87WZRD8R/GWtnnbe54DMaKnfSLt+bIju1nG0OAWc
+         aoacdLX0tHUtYzDAX/f8x1FWUcwrpgWqIc7Zb09suf+tUwqK8KOIXOjKFtvRb2CvQN/5
+         m2Xl5ZCiW2o77oA2q2T3JFVkA8ZdnGZhguFLbL8nsB9ZbroINNsNj8Ry2WnLW5Y8Jxzz
+         +iGA==
+X-Forwarded-Encrypted: i=1; AKwUvBz7UWSaADjLsOSamqaym3X3RR7BByngFrHVA/hxWzV8AZnNKfllgf+XvrcIKPJgDZxmz9CIQ1BkJGafjT4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mh3dtZ+3yfi8CeQBM0lUjC+JhkKGfR8tovFYmLkSORlzzniYra
+	FHwg6CkuwcwyTM8KKOnB/H2pvZLBrB7bsI0ACR/DkovTM/Rx7be5HMB0Bu/2kJgLLME=
+X-Gm-Gg: AYBFou0KvYp8jbcrVPad2lwjV+S+SsJ7uYvn3+eW6i3PrqxaLMD6aknxTVvFvDUyZQp
+	CwIee1dkSyE6g0mfvu2mPLH4K+E6n5FKVYkrqchAh410tN3eaOjV1vdbqvXlG0cj3TbqqdhO5G1
+	D0fNyYMNZtiNbk7Mx2vHUw+d17uPoBMahchETEjj0d4yp8uF2TXDeoSZMNzBbX22hLXN4cFwoH8
+	bQ+Hlo0K6TtyadyywueCwFTSTiIwIVgZf+S+yg30p44ZdbnKhJOsA3lBKPG8/LZc74uHZp+MGI0
+	ZaCdPTxl7tWh7E4FKdQmajx2ORRHLJjVmipU/1X3e87AicizNc0hIuHL496O/No9OKQCSASud15
+	yPTNW8fOqv/grgFIhzqcq09IOc8gCa08JAO1QjYvkowPrywf7rczh98htiLnJzkygDk2lpYfbhT
+	+eTeaj6QLL+r9GTnnSChQk1A4uOJkNRWWx2wdPcTKD4goZnQr74UqDGDWwDoz3xG2dQp760VJnq
+	ieqVhDPwC0pIwk=
+X-Received: by 2002:a05:600c:8011:b0:49c:ffe3:2b3f with SMTP id 5b1f17b1804b1-49eac45c233mr34194015e9.3.1789572480413;
+        Wed, 16 Sep 2026 08:28:00 -0700 (PDT)
+Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:f89:61fa:af44:9a4f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf37e69sm7886646f8f.29.2026.09.16.08.27.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:27:59 -0700 (PDT)
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Wed, 16 Sep 2026 16:27:54 +0100
+Subject: [PATCH v3 1/4] dmaengine: dw: use designated initializers for
+ acpi_device_id
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] selftests/mm: mark file-local symbols of
- pagemap_ioctl.c static
-To: Zenghui Yu <zenghui.yu@linux.dev>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- shuah@kernel.org, gourry@gourry.net
-References: <20260908134117.84405-1-zenghui.yu@linux.dev>
- <20260908134315.84431-1-zenghui.yu@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260908134315.84431-1-zenghui.yu@linux.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-acpi-dma-v3-1-0dac05654967@thegoodpenguin.co.uk>
+References: <20260916-acpi-dma-v3-0-0dac05654967@thegoodpenguin.co.uk>
+In-Reply-To: <20260916-acpi-dma-v3-0-0dac05654967@thegoodpenguin.co.uk>
+To: Viresh Kumar <vireshk@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, Sinan Kaya <okaya@kernel.org>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789572477; l=1636;
+ i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
+ bh=/JpbrBR+OVjJpbG1LD4MSanTICNv4h/sWdJw0dgCPcI=;
+ b=TI2PRLu+PWJwKb49U1K2vwZ2j85bEZfhXEHR8NJ+d63p/wSMy7K3t4wGWHCvZRvfhjdfwrpJj
+ mt4OqQOoSpSBmb96hvLhHcQlKlhLNCaAB/spt580AE9pnNsSg/0wgfv
+X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
+ pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-On 9/8/26 15:43, Zenghui Yu wrote:
-> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-> 
-> The file-scope variables (pagemap_fd, uffd, page_size, hpage_size and
-> progname) and most functions of the pagemap_ioctl test are only used
-> locally, but lack the static storage class.  Mark them static so that the
-> compiler can catch accidental outer references.
-> 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
-> ---
+Use a named initializer for the acpi_device_id fields which makes the code
+more readable and consistent with how lists are initialized in the rest of
+the kernel code base.
 
-Thanks!
+Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/dma/dw/platform.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+diff --git a/drivers/dma/dw/platform.c b/drivers/dma/dw/platform.c
+index c63fa52036d7f..5c1c97eb28a4a 100644
+--- a/drivers/dma/dw/platform.c
++++ b/drivers/dma/dw/platform.c
+@@ -141,14 +141,14 @@ MODULE_DEVICE_TABLE(of, dw_dma_of_id_table);
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id dw_dma_acpi_id_table[] = {
+-	{ "INTL9C60", (kernel_ulong_t)&dw_dma_chip_pdata },
+-	{ "80862286", (kernel_ulong_t)&dw_dma_chip_pdata },
+-	{ "808622C0", (kernel_ulong_t)&dw_dma_chip_pdata },
++	{ .id = "INTL9C60", .driver_data = (kernel_ulong_t)&dw_dma_chip_pdata },
++	{ .id = "80862286", .driver_data = (kernel_ulong_t)&dw_dma_chip_pdata },
++	{ .id = "808622C0", .driver_data = (kernel_ulong_t)&dw_dma_chip_pdata },
+ 
+ 	/* Elkhart Lake iDMA 32-bit (PSE DMA) */
+-	{ "80864BB4", (kernel_ulong_t)&xbar_chip_pdata },
+-	{ "80864BB5", (kernel_ulong_t)&xbar_chip_pdata },
+-	{ "80864BB6", (kernel_ulong_t)&xbar_chip_pdata },
++	{ .id = "80864BB4", .driver_data = (kernel_ulong_t)&xbar_chip_pdata },
++	{ .id = "80864BB5", .driver_data = (kernel_ulong_t)&xbar_chip_pdata },
++	{ .id = "80864BB6", .driver_data = (kernel_ulong_t)&xbar_chip_pdata },
+ 
+ 	{ }
+ };
 
 -- 
-Cheers,
+2.43.0
 
-David
