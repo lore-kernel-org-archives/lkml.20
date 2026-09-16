@@ -1,107 +1,101 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B727C53FD24
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 16:27:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1F14E3EF7;
+	Wed, 16 Sep 2026 16:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576078; cv=none; b=KlRwNvcbD3RQWjulVJRUzsHVL3gzYowFINQXLKUZ8qUwFgdf8EPL68SvIDYQcjMBIhxpQiIvlv21RvTmx7fTQfE3qsw7iUg4Y4UZZGuMbeXzcBZX7xg8uXUrD66dyGetxoaZm0x/JgmmiQ85z89cXnybMe0crKyT3FWH0P1A/EM=
+	t=1789576087; cv=none; b=gLR/Y91AHydTy+HnD2JWAM31lRgtzmkzDi9YFEKnIV851yq8vyosYU0fSvPXQO9hXhVzs/JYzc50JjUv6SkSKU9Rb3+IYS80QDr3+28+dNAKp4U1IfMAAGKqVNwHRuaUcDqLQpga8vEqf7QbyApUPijTh47KJiAdhui9hkMoQ20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576078; c=relaxed/simple;
-	bh=lRdwwj8EXSG8IVpxD3HE+riRGCvbuZtBiFL12hxh9mQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A3oCYUSA0VuyVSTU2lnd393ItumFjNfoZvcS+x+PtnY50v6A+LDpOChSLrS07BSZHvYEQXWVpxvS/CVuUNlkoSXkZVzor4kTozPNcCeT3rj6qPAgBA6HHi09Yq+px9D/LTHTTEaVfJlOydtoe+W2b6aRo+pYfnbdmVtr9ZFGGCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n1ZpNUoN; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789576087; c=relaxed/simple;
+	bh=v+YH3yZPXX23orZuHsSIFyNBZE+otvtheGPJKsk4S7k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M0uU6KBeEHfogfiqPdnF8el+4zw6dxG1mchl6L/xOjw481Y3rfLJ08xv1domCjUp9bK88eGtCiyG/TUWFVeF+YEehBULQbWSBlV23GktvFrNWjMpcKQvFnd5W5AusOmITNHK2gKyjUUtPlNuG2vbGFZzegrbhdu+ju4oKBiqKQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=MYoC32Ma; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n1ZpNUoN"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so5804215e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:27:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789576067; x=1790180867; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lRdwwj8EXSG8IVpxD3HE+riRGCvbuZtBiFL12hxh9mQ=;
-        b=n1ZpNUoNQCp65V7KJfSsBCziis/z4t4DTmH1uWQCYmkSZKzNCph2xas8JX3b6WFboY
-         ce8XPfpdmxPH37O9bX+f3avoS8OUWtd0Xf6emJiimpiS5smdVRZL/GEDitVl/D/3ljTc
-         6Mei5F46HD6AeTwwReH7a15MH1GkkAk1pZu82bXoC+Dj22r2hrFhHDvNX5zScD4CPVey
-         iZXF+wXZRTueJMgZoP2zaT3pGp62fi4/mb1SQO//P+32S2AQeGT8ujYzNfBxGqRxzRo4
-         JOLpAyehALF9d1omRuUG1fzUQAj5jlees6wrD9PLqQpg8za0CkhbmLQvJvkcORkJCXWA
-         0H1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789576067; x=1790180867;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lRdwwj8EXSG8IVpxD3HE+riRGCvbuZtBiFL12hxh9mQ=;
-        b=rIPbXitDf8uY5Zy+mA6mg5ByYszMR9DnRRNWhJKY3R+zk12o64xDTsJsWzVi0Jsh9w
-         YGQBgoLne6CPAL+aCyyU7usuEvVipKBYl9Eo/IG6wEyuZAzdCXxcO9hghXb4siFk0Mtb
-         p2tqstth7gCX2Z7Z4hYd9GzxWpsEDwZnF7mnGU8+MOWG0exa6Ryi3+9j2AdRjANC2N1q
-         jY1/7anAeUw1pt9jgw8VOFgY5tEvFVJ2pQxvyEXlQJLHk0ku1zS8D6LcBS9hKhxOS5GP
-         DeqSAMbPCbevvTAN9yEPDl6r/gKqrt2R8zYXI4vN4xzPL1hK2dqajOCi0dAynlYA1VLe
-         WSDg==
-X-Forwarded-Encrypted: i=1; AKwUvBwse072II9Q87qfU6zAQesUy6yViq6KBfOq+W79wGOOvGhclcl3oRod/SF9TPs3CBs9fezUsKyjg33ltdQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTMtAJZO5OVHBW0nrrgOvUwmoel06Qj5P+ESyd7sZiqF4udC3C
-	+ExWtrAexINgOuiN2wTifbb+CqJAEDzYy0aiYTpWnb4N+okw6S5pYvh0
-X-Gm-Gg: AYBFou3AarVqDArNv4BqCmrQeBK9yTia9MHVcHAoYgfWdh1rCgop2Xb/f0OsOQVU2fm
-	ERAsKPNcFzK2TlCbMJzTA6Fd4qBzgLISFKHyZqp06VYWCEboKZdftf+m4pbvE0BRrkyhzYc2NLP
-	O69Qs29Oz3/3d3jEMANRDnC0zs4kTZNw0FK1qzkuhndS+mB9SDkU3a6rQOI0aCPT1gfeB1tt0C4
-	p7eHYB+3rzp/6vHKxMOSAfIGdqjIEGcVu7baqhNodcE6pmw0601FfKXMFY4KWlQ76U79NLta8uw
-	DQUANRpYtD1bO/KKRVRTdJkpmGRUmxIfS75I9P9Fl46D4HVV2ylmoKqQ3LXTXYA3MSzYHsnyaRZ
-	7BIABz4m2lUiryvp8CXaVLPBS+7N0wp+vQWVemimntS9zLoCK+d0vLca/l2s4mpxSEwpNNG/NAp
-	ptL+DKtyE0sptnDgwzIHS+W2pLKggXainxPyZvNrvZ7K3tacpCe/FbBR9ICG++CieCaEe9j2pb9
-	egVxxS6xviRWl1tdo14NNdi7KF4ZlQl5LmuDI5Uug+9t7c7DdqpXfqjFUM2MYhCnnqRxJ8c9rj5
-	qxeTW7XEWdCRd2vo
-X-Received: by 2002:a05:600c:1909:b0:49e:6249:268b with SMTP id 5b1f17b1804b1-49eb733983bmr35504315e9.32.1789576066976;
-        Wed, 16 Sep 2026 09:27:46 -0700 (PDT)
-Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd262912sm2047065e9.15.2026.09.16.09.27.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:27:46 -0700 (PDT)
-From: Orgad Shaneh <orgads@gmail.com>
-To: miquel.raynal@bootlin.com
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	richard@nod.at,
-	vigneshr@ti.com
-Subject: Re: [PATCH v2] mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256 bytes on an x8 device
-Date: Wed, 16 Sep 2026 16:27:45 +0000
-Message-ID: <20260916162746.308008-1-orgads@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <8733v9mdro.fsf@bootlin.com>
-References: <8733v9mdro.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="MYoC32Ma"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=XeMuHz9L3o84HRGeotYyUHn6FZauhqILbGmQBe2dDms=; b=MYoC32Mabv+JwyI5UU+dcCFhDU
+	1KhbGSiCxO2o+794mXo5pj31oJzpuTSaDCRUz++LppEHEYuSFp3rJF38uRQhDqybWIAZpBj9RsrPQ
+	fNeKt9eGgjasvXYESP550Qj6JCqYGVVqNKFF4g054Kv5NESOoK01pVOtJGqA1cFFRJU/u16osc4iv
+	98dIBU38gw25pwifsotx6OVfUatuMOMePjcXGj6Orb0E2oVLRRzDJBniHETHJMq52ygYLUUgZIYX/
+	mSm+WDHueQYoRFUJ+a2UAZnaq9hZdqZ6n4R54r8c4C+WvXIEfcfrxXDnlOtKWGNGZWmqahUBALfmF
+	g9fQcz7A==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6sU2-00000005LUz-1s9o;
+	Wed, 16 Sep 2026 16:27:42 +0000
+Date: Wed, 16 Sep 2026 17:27:42 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: akpm@linux-foundation.org, David Hildenbrand <david@kernel.org>,
+	Boris Burkov <boris@bur.io>, Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>, Jann Horn <jannh@google.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>, Usama Arif <usama.arif@linux.dev>,
+	Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [RFC PATCH 0/5] mm: sub-folio dirty tracking for PTE-mapped mmap
+ writes
+Message-ID: <aqrDfoFFr8o0Mf0G@casper.infradead.org>
+References: <20260903182943.662461-1-kirill@shutemov.name>
+ <ap6LFvuOuWf_BkGi@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap6LFvuOuWf_BkGi@thinkstation>
 
-Hi Miquel,
+On Mon, Sep 07, 2026 at 11:15:15AM +0100, Kiryl Shutsemau wrote:
+> Boris pointed me to Matthew's proposal to remove ->dirty_folio:
+> 
+> https://lore.kernel.org/all/aoyWln-Gt-yvZQkE@casper.infradead.org
 
-Thanks for the review. v3 sent as a reply to v2.
+Thanks, Boris ;-)
 
-> This sentence does not mean anything, I'm sorry.
+> I agree that the current ->dirty_folio() makes little sense and that
+> dirtying the folio can be bundled into ->page_mkwrite(), as they are
+> matched 1-to-1.
+> 
+> My proposal makes the distinction between making the folio writable and
+> making it dirty meaningful. ->page_mkwrite() allocates whatever is needed
+> on the filesystem side to track dirty state and drive writeback for the
+> *folio*, while ->dirty_folio_range() marks part of the folio dirty.
 
-Rewritten: the count goes out as a single bus word, CMD() replicates it
-into every device lane, and an x8 part reads it off eight data lines, so
-anything above 255 is truncated there.
+Why do you think that's a meaningful distinction?  We create a writable
+PTE because we've taken a page fault for write.  There's probably a few
+naoseconds where the PTE is writable+clean before it becomes
+writable+dirty, but even then sometimes we do both pte_mkwrite() and
+pte_mkdirty() as an optimisation in the write fault path.
 
-> failed? do you have hardware that actually triggered that issue?
+> We can still drop ->dirty_folio(). A filesystem can provide
+> ->dirty_folio_range() if it wants fine-grained (sub-folio) dirty
+> tracking.
+> 
+> A separate question is whether we want to avoid installing a writable PMD
+> entry for filesystems that want fine-grained dirty tracking. I have a
+> patch for this, but it deserves a separate discussion once we agree that we
+> want this for PTE-mapped folios first.
+> 
+> Any feedback?
 
-Yes - a Cavium Octeon CN6335 board whose NOR is an M29EW strapped to x8.
-The log in the commit message is from it, and the clamp fixes it. v3
-names the board.
+It's very odd to be optimising for shared-writable-mmap.  This is a
+horrid model for I/O.  https://cs.brown.edu/people/acrotty/pubs/p13-crotty.pdf
 
-> That's incorrect. It indicates until when we need to backport it.
-
-Added. I checked the code is really there: 1da177e4c3f4 already sends
-CMD(words - 1) and already takes the chunk size from MaxBufWriteSize.
-
-Vignesh is on To: for v3.
-
-Thanks,
-Orgad
