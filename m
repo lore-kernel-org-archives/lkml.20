@@ -1,60 +1,144 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3405026ED3D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:07:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7302874E6;
+	Wed, 16 Sep 2026 01:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789520840; cv=none; b=Xy1OUOKoW7agsLpLLDz4Z5v11RRrl3JqdTYM0E1RYSIl/y3G3GaLpsbWSAzLo3sXv5hXHvWjqc8g+4nuisfa0Hd+LWpTWCpqwgCd4Vu87C/Lxw468Ziq5x2xp6PQg+lTCgfal4P2hSeAewokFoLS0IQB6PpYqyrQkIN45qnZ/TQ=
+	t=1789520844; cv=none; b=R+IrV+C1caeFm6mL3FV9f/rvFXFcS86NcLm0bsdOYvHWShC4ckct8phz9zqnD4UTK4gvDLU+VcoJNlNXrOuVvYxhOeYMclW8IJzAl43AL1XK3f0RVV4rdO8LzTqa+hxNGvVTazR9H1mlO9wKTA1k4Mhndy4X9jByLtOso9epVdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789520840; c=relaxed/simple;
-	bh=dapO0baKQ7A5fSYLm2jaHeMRSFuP5ubkiQSWlwV9M4M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I2yVLZboUtYrmYMHn+FAJ33hZqbrPzf5dnqwdCC2NevXh3dQdts1AQqwAJvRBzWEl/toJ8H9s5rRn6lk07LN1HQfd0221EbV0t+jCV2B2XK6MturRESwA1aC1Xv62Erq6300QFK0UKWfZKsPgmVjx/ti7wQ5MrqUKFmqBxKvqX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f07e488eb16a11f19a56ed5b684f684d-20260916
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d24ea6b0-6fb1-46a1-86d1-957573a9d07e,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:34f08496e484b9c3311aaf7a7a37961a,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
-	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f07e488eb16a11f19a56ed5b684f684d-20260916
-X-User: liuxixin@kylinos.cn
-Received: from [127.0.1.1] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liuxixin@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 890354739; Wed, 16 Sep 2026 09:07:08 +0800
-From: Xixin Liu <liuxixin@kylinos.cn>
-To: kbusch@kernel.org
-Cc: hare@suse.de, hch@lst.de, axboe@kernel.dk, sagi@grimberg.me, kch@nvidia.com, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, liuxixin@kylinos.cn
-Subject: Re: [PATCH v1 0/1] nvme-auth: constant-time DH-HMAC-CHAP response comparison
-Date: Wed, 16 Sep 2026 08:50:00 +0800
-Message-ID: <reply-nvme-auth-memneq-thanks.20260916.liuxixin@kylinos.cn>
-In-Reply-To: <aqmY5qqjghx4DFNM@kbusch-mbp>
-References: <cover.nvme-auth-memneq.1781751816.git.liuxixin@kylinos.cn> <reply-nvme-auth-memneq-ping.20260915.liuxixin@kylinos.cn> <aqmY5qqjghx4DFNM@kbusch-mbp>
+	s=arc-20240116; t=1789520844; c=relaxed/simple;
+	bh=2bDaLvokrw5PalTlJ0DxkspfkFvNbvj9si4zl6W0dJ4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=IvxAL9vwLNlmV4udabU10ophks6NH59a+67cuF2EQvYe3/rUsE5nsNPef5HduuL3zFRRQQq3YOrD1wOGlxUOFAea0hJ82nGbNJDXxPA3dcwTOHyee39ZogLlfpkZDTG4nChw9M2M1/en9jWtNp3Bt7FQenae/hBVQ5XealZxd4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=PqTnLRle; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="PqTnLRle"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F216A1F000FF;
+	Wed, 16 Sep 2026 01:07:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789520842;
+	bh=F8rLOmaDy5Alst+sW5lGwCSqiKIKXBBJqz4YrzC1das=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PqTnLRlecmpF316WnrJbPFPJVncRksSE0lygGK2wmbjcEmAiGdrxvsZQkSuvDzR4m
+	 nft97ovIi9DUe6j+Yz9UEVEGRp7TwUX3Ie6270fH1/Rl8LoWNO61fAYG3KY8tJJDwY
+	 g3V+oVe9ElFwHIgnt2NiJd3Z1dsrk4QgHS/459+w=
+Date: Tue, 15 Sep 2026 18:07:21 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jiaming Zhang <r772577952@gmail.com>
+Cc: jlbec@evilplan.org, joseph.qi@linux.alibaba.com, mark@fasheh.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ syzkaller@googlegroups.com, stable@vger.kernel.org
+Subject: Re: [PATCH] ocfs2: fix chunk number of the first chunk in a local
+ quota file
+Message-Id: <20260915180721.1914e74dc8da69e58399d7a6@linux-foundation.org>
+In-Reply-To: <20260914034940.4070970-1-r772577952@gmail.com>
+References: <CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com>
+	<20260914034940.4070970-1-r772577952@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: patches/scripts/send-local.py
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Keith,
+On Mon, 14 Sep 2026 11:49:40 +0800 Jiaming Zhang <r772577952@gmail.com> wrote:
 
-No worries at all, and thanks for applying.
+> The local quota file in OCFS2 is divided into chunks, and each chunk
+> begins with a header block holding a bitmap of the quota entries that
+> chunk has handed out.  Chunks are numbered from zero, and that number is
+> used to convert the file offset of an entry back into a bit position in
+> the bitmap. ocfs2_local_quota_add_chunk() appends a new chunk to the
+> in-memory list and numbers it one past the chunk that was last:
+> 
+> 	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
+> 	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
+> 				   struct ocfs2_quota_chunk,
+> 				   qc_chunk)->qc_num + 1;
+> 
+> The predecessor is looked up after the new chunk is added to the list,
+> so if the list was empty, the prev pointer is the list head itself.  The
+> head is the dqi_chunk member of struct ocfs2_mem_dqinfo and is not a
+> chunk, so reading qc_num through it lands 16 bytes past the start of the
+> head, on the dqi_gqinode pointer that follows it.  The first chunk of
+> the file is then numbered with the lower half of a kernel pointer
+> instead of 0.
+> 
+> The list is empty when the local quota file header claims the file has
+> no chunks.  ocfs2_local_read_info() takes dqi_chunks from that header
+> without validating it, so an image with dqi_chunks == 0 takes this path
+> when the first quota entry is allocated.
+> 
+> ocfs2_create_local_dquot() turns the bad number into a file offset with
+> ol_dqblk_off(), which shifts a 32-bit block number left by the block
+> size bits, so the top bits of such a large block number are lost.
+> ocfs2_local_release_dquot() turns the offset back into a bit index with
+> ol_dqblk_chunk_off(), using the full chunk number, so the lost bits push
+> that index far outside the bitmap, and clearing it corrupts unrelated
+> memory.
+> 
+> Compute the chunk number before putting the chunk on the list, and use 0
+> when the list is empty.
 
-Thanks,
-Xixin Liu
+Thanks.
+
+What's missing here is any description of how the fix affects our
+users.  And that's really really important.
+
+> Fixes: 9e33d69f553a ("ocfs2: Implementation of local and global quota file handling")
+> Closes: https://lore.kernel.org/lkml/CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com/
+> Cc: stable@vger.kernel.org
+
+Especially when proposing a -stable backport.
+
+I see from your KASAN report
+(https://lore.kernel.org/CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com)
+that there's a use-after-free.  But even that wasn't revealed in your
+proposed changelog!
+
+So.
+
+When fixing a bug please always describe the userspace-visible effects
+of that bug.
+
+Describe whether there's a know reproducer.  Tell us whether it's some
+LLM-found-this theoretical thing or whether it's affecting you in the
+real world.
+
+I and all the people downstream from me (Linus, -stable, LTS, distros,
+android, hyperscalars, everyone else) all will want to know these
+things and I'd like you to provide them.
+
+> Assisted-by: Claude Code:claude-opus-5
+
+Great.  Please add prompts to Claude to ensure that all the info I'm
+asking for is included in your changelogs going forward.  Then share
+these prompts across your organization.
+
+> --- a/fs/ocfs2/quota_local.c
+> +++ b/fs/ocfs2/quota_local.c
+> @@ -1071,10 +1071,13 @@ static struct ocfs2_quota_chunk *ocfs2_local_quota_add_chunk(
+>  		goto out;
+>  	}
+>  
+> +	if (list_empty(&oinfo->dqi_chunk))
+> +		chunk->qc_num = 0;
+> +	else
+> +		chunk->qc_num = list_entry(oinfo->dqi_chunk.prev,
+> +					   struct ocfs2_quota_chunk,
+> +					   qc_chunk)->qc_num + 1;
+>  	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
+> -	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
+> -				   struct ocfs2_quota_chunk,
+> -				   qc_chunk)->qc_num + 1;
+>  	chunk->qc_headerbh = bh;
+>  	*offset = 0;
+>  	return chunk;
+
+whew.  Applied.
+
+I'll retain the cc:stable for now, but I don't know why.
 
