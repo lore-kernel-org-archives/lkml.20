@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3EB354AE3;
-	Wed, 16 Sep 2026 12:54:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1913815C3;
+	Wed, 16 Sep 2026 12:54:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563294; cv=none; b=heWDpo+U5peEKX41LXDl8Lr9yyNO0n8Ed98jy2+ScJAavs3r+cRgd7n6xIZzRH6iF42RzpjLXlaYMK543GKg/zu6giXsto4ZAOmDn7OVEloV9HfW6Lp3Go+v80YNs94sq3y/s75Xf86Iuv8hzUwe6nIO+nLPPGiuDrGx0dpXzZw=
+	t=1789563295; cv=none; b=g24LH1OCOcHUt4dsLUk+TISNpS/XabEz/xqsIpv2adw8bYqt9pC/W/36UEXMaDG8MK/FDEzOnanq2uabRj3BjTrvQm/aj2GWg5XtET4vO5lIvRXUUAjLJCQzbU3e0YViaUgGgNj/i7MlM1zGLFpRssYnejvA2Kxg9y8rDhaRVJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563294; c=relaxed/simple;
-	bh=LvhiMCoVTpSz165Ay1Y3k9yppYJjXIMP9WfM997Eh84=;
+	s=arc-20240116; t=1789563295; c=relaxed/simple;
+	bh=024vXHBL3M4Nza6LGz1p+RSiowISrkhNEPP+TzTqIUU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Nn30Q6SsXB/mF1NQCjRckjfoI+/0RfV2/UJhTOIZOmao6EHsaXCN/m6GjpyCVnItTLgH2NisfT7IexRh9c/Vrnf4fpp/RkacqxaUgHDvSEUa59Vv303d3F5EJNNJnL1fARmDpwNJXePmRnaDe6GrZxvdsOAOQW+FtS7woYEyGdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=cxrFLu0s; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=So7qzRCK5MccylW8mX6o8AwR6AJcN6nujOawCBtrEbtBWMsuzN6rP4cRCvfqh1qXpv9IQfP8CnVAOH+PLCcMSWBWf7F/Uf8qIQ8TsNtexoSNOUH4iiVJRfpuYFMFH1820PsRbjNVY5461C2DNhtqxPW8VRMeWptWQZt2YKuTikU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=BjNh4kyK; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="cxrFLu0s"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="BjNh4kyK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1789563290;
-	bh=LvhiMCoVTpSz165Ay1Y3k9yppYJjXIMP9WfM997Eh84=;
+	bh=024vXHBL3M4Nza6LGz1p+RSiowISrkhNEPP+TzTqIUU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cxrFLu0sUxBJeDsdhFOeYO1aD7qcebeiYCEuaa1fVkeECqJnyCMCkOMRG8BXZ+5rI
-	 rLG0l0zBmJP/wIsN4kRsCt0RlWdreNjkaCgCi6eUrZZu0iPhWfzyO9f9VUz6GyjPCZ
-	 1d1/jCZZYHMNuZqPiycZ2tUkRZg1K48LeA2GjS1fKSHwNt3hLujb77SS/ulfu9mEx+
-	 QbJTs5xcXRYqdKijA+Ohnmy3hc+/69nunnmWlsuuM8kKwGXFuK2CAL8WXClhhcOw1L
-	 lJt0KTdrnnXMxXYNrPDjeCD1h2LJoXQiJSRRkHvnQRaK1DtQyqDkmQzA27+an98w3Q
-	 kEwZon+Fyr8OQ==
+	b=BjNh4kyKv2bWwfoYAxCrmXnDEjpt0ID9cNVrNrteimR3Wc9wrRwZk0xsBJr8jBYfz
+	 qtaOc9mMnARoudVijGVcF7t59YP7qR2vJiL2nTn6tuYFO9ybGWZT8/3Go3WJVHEAwa
+	 ZByZ2wZ/j0DEgnIY2Is8d01/sSgVwtw5NaBenUOMjQhocrJi/CPvEg1hKznVfM468b
+	 iBW3OlkN7leGGkRj3QNMeaR2qR9Il/ho/Qt8WzOkVDX+X0EgMN01eGNmtaqlAUsh5H
+	 NKfvBrUn5PIhXDwisGwezHc2cjl6utj5eQr2QfBI/Z5NgPeTME3T9+hEta++sd/Lxq
+	 oAderI16sN1OQ==
 Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: benjamin.gaignard)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C3F617E130A;
-	Wed, 16 Sep 2026 14:54:50 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BFCAC17E1289;
+	Wed, 16 Sep 2026 14:54:49 +0200 (CEST)
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 To: nicolas.dufresne@collabora.com,
 	benjamin.gaignard@collabora.com,
@@ -42,9 +42,9 @@ Cc: linux-media@vger.kernel.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	kernel@collabora.com
-Subject: [PATCH v1 4/7] media: verisilicon: hevc: Use alloc/free helpers for auxiliary buffers
-Date: Wed, 16 Sep 2026 14:54:40 +0200
-Message-ID: <20260916125443.78602-5-benjamin.gaignard@collabora.com>
+Subject: [PATCH v1 2/7] media: verisilicon: AV1: Use alloc/free helpers for auxiliary buffers
+Date: Wed, 16 Sep 2026 14:54:38 +0200
+Message-ID: <20260916125443.78602-3-benjamin.gaignard@collabora.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260916125443.78602-1-benjamin.gaignard@collabora.com>
 References: <20260916125443.78602-1-benjamin.gaignard@collabora.com>
@@ -60,202 +60,251 @@ Simplify and clean up the code by using the helpers.
 
 Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 ---
- .../media/platform/verisilicon/hantro_hevc.c  | 130 +++++-------------
- 1 file changed, 33 insertions(+), 97 deletions(-)
+ .../media/platform/verisilicon/hantro_av1.c   | 177 ++++--------------
+ 1 file changed, 39 insertions(+), 138 deletions(-)
 
-diff --git a/drivers/media/platform/verisilicon/hantro_hevc.c b/drivers/media/platform/verisilicon/hantro_hevc.c
-index 83cd12b0ddd6..cc6fa233c0a0 100644
---- a/drivers/media/platform/verisilicon/hantro_hevc.c
-+++ b/drivers/media/platform/verisilicon/hantro_hevc.c
-@@ -74,7 +74,6 @@ int hantro_hevc_add_ref_buf(struct hantro_ctx *ctx, int poc, dma_addr_t addr)
+diff --git a/drivers/media/platform/verisilicon/hantro_av1.c b/drivers/media/platform/verisilicon/hantro_av1.c
+index 2cde32f0e935..e05816c7dfa3 100644
+--- a/drivers/media/platform/verisilicon/hantro_av1.c
++++ b/drivers/media/platform/verisilicon/hantro_av1.c
+@@ -235,40 +235,17 @@ size_t hantro_av1_chroma_size(struct hantro_ctx *ctx)
  
- static int tile_buffer_reallocate(struct hantro_ctx *ctx)
+ static void hantro_av1_tiles_free(struct hantro_ctx *ctx)
  {
 -	struct hantro_dev *vpu = ctx->dev;
- 	struct hantro_hevc_dec_hw_ctx *hevc_dec = &ctx->hevc_dec;
- 	const struct hantro_hevc_dec_ctrls *ctrls = &ctx->hevc_dec.ctrls;
- 	const struct v4l2_ctrl_hevc_pps *pps = ctrls->pps;
-@@ -82,74 +81,40 @@ static int tile_buffer_reallocate(struct hantro_ctx *ctx)
- 	unsigned int num_tile_cols = pps->num_tile_columns_minus1 + 1;
- 	unsigned int height64 = (sps->pic_height_in_luma_samples + 63) & ~63;
- 	unsigned int size;
-+	int ret;
+ 	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
  
- 	if (num_tile_cols <= 1 ||
- 	    num_tile_cols <= hevc_dec->num_tile_cols_allocated)
- 		return 0;
- 
- 	/* Need to reallocate due to tiles passed via PPS */
--	if (hevc_dec->tile_filter.cpu) {
--		dma_free_coherent(vpu->dev, hevc_dec->tile_filter.size,
--				  hevc_dec->tile_filter.cpu,
--				  hevc_dec->tile_filter.dma);
--		hevc_dec->tile_filter.cpu = NULL;
--	}
+-	if (av1_dec->db_data_col.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->db_data_col.size,
+-				  av1_dec->db_data_col.cpu,
+-				  av1_dec->db_data_col.dma);
+-	av1_dec->db_data_col.cpu = NULL;
 -
--	if (hevc_dec->tile_sao.cpu) {
--		dma_free_coherent(vpu->dev, hevc_dec->tile_sao.size,
--				  hevc_dec->tile_sao.cpu,
--				  hevc_dec->tile_sao.dma);
--		hevc_dec->tile_sao.cpu = NULL;
--	}
+-	if (av1_dec->db_ctrl_col.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->db_ctrl_col.size,
+-				  av1_dec->db_ctrl_col.cpu,
+-				  av1_dec->db_ctrl_col.dma);
+-	av1_dec->db_ctrl_col.cpu = NULL;
 -
--	if (hevc_dec->tile_bsd.cpu) {
--		dma_free_coherent(vpu->dev, hevc_dec->tile_bsd.size,
--				  hevc_dec->tile_bsd.cpu,
--				  hevc_dec->tile_bsd.dma);
--		hevc_dec->tile_bsd.cpu = NULL;
--	}
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_filter);
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_sao);
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_bsd);
- 
- 	size = (VERT_FILTER_RAM_SIZE * height64 * (num_tile_cols - 1) * ctx->bit_depth) / 8;
--	hevc_dec->tile_filter.cpu = dma_alloc_coherent(vpu->dev, size,
--						       &hevc_dec->tile_filter.dma,
--						       GFP_KERNEL);
--	if (!hevc_dec->tile_filter.cpu)
--		return -ENOMEM;
--	hevc_dec->tile_filter.size = size;
-+	hevc_dec->tile_filter.attrs = DMA_ATTR_NO_KERNEL_MAPPING;
-+	ret = hantro_allocate_aux_buf(ctx, &hevc_dec->tile_filter, size);
- 
- 	size = (VERT_SAO_RAM_SIZE * height64 * (num_tile_cols - 1) * ctx->bit_depth) / 8;
--	hevc_dec->tile_sao.cpu = dma_alloc_coherent(vpu->dev, size,
--						    &hevc_dec->tile_sao.dma,
--						    GFP_KERNEL);
--	if (!hevc_dec->tile_sao.cpu)
--		goto err_free_tile_buffers;
--	hevc_dec->tile_sao.size = size;
-+	hevc_dec->tile_sao.attrs = DMA_ATTR_NO_KERNEL_MAPPING;
-+	ret |= hantro_allocate_aux_buf(ctx, &hevc_dec->tile_sao, size);
- 
- 	size = BSD_CTRL_RAM_SIZE * height64 * (num_tile_cols - 1);
--	hevc_dec->tile_bsd.cpu = dma_alloc_coherent(vpu->dev, size,
--						    &hevc_dec->tile_bsd.dma,
--						    GFP_KERNEL);
--	if (!hevc_dec->tile_bsd.cpu)
--		goto err_free_sao_buffers;
--	hevc_dec->tile_bsd.size = size;
-+	hevc_dec->tile_bsd.attrs = DMA_ATTR_NO_KERNEL_MAPPING;
-+	ret |= hantro_allocate_aux_buf(ctx, &hevc_dec->tile_bsd, size);
-+
-+	if (ret)
-+		goto error;
- 
- 	hevc_dec->num_tile_cols_allocated = num_tile_cols;
- 
- 	return 0;
- 
--err_free_sao_buffers:
--	if (hevc_dec->tile_sao.cpu)
--		dma_free_coherent(vpu->dev, hevc_dec->tile_sao.size,
--				  hevc_dec->tile_sao.cpu,
--				  hevc_dec->tile_sao.dma);
--	hevc_dec->tile_sao.cpu = NULL;
+-	if (av1_dec->cdef_col.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->cdef_col.size,
+-				  av1_dec->cdef_col.cpu, av1_dec->cdef_col.dma);
+-	av1_dec->cdef_col.cpu = NULL;
 -
--err_free_tile_buffers:
--	if (hevc_dec->tile_filter.cpu)
--		dma_free_coherent(vpu->dev, hevc_dec->tile_filter.size,
--				  hevc_dec->tile_filter.cpu,
--				  hevc_dec->tile_filter.dma);
--	hevc_dec->tile_filter.cpu = NULL;
-+error:
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_filter);
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_sao);
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_bsd);
- 
- 	return -ENOMEM;
- }
-@@ -214,45 +179,20 @@ int hantro_hevc_dec_prepare_run(struct hantro_ctx *ctx)
- 
- void hantro_hevc_dec_exit(struct hantro_ctx *ctx)
- {
--	struct hantro_dev *vpu = ctx->dev;
- 	struct hantro_hevc_dec_hw_ctx *hevc_dec = &ctx->hevc_dec;
- 
--	if (hevc_dec->tile_sizes.cpu)
--		dma_free_coherent(vpu->dev, hevc_dec->tile_sizes.size,
--				  hevc_dec->tile_sizes.cpu,
--				  hevc_dec->tile_sizes.dma);
--	hevc_dec->tile_sizes.cpu = NULL;
+-	if (av1_dec->sr_col.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->sr_col.size,
+-				  av1_dec->sr_col.cpu, av1_dec->sr_col.dma);
+-	av1_dec->sr_col.cpu = NULL;
 -
--	if (hevc_dec->scaling_lists.cpu)
--		dma_free_coherent(vpu->dev, hevc_dec->scaling_lists.size,
--				  hevc_dec->scaling_lists.cpu,
--				  hevc_dec->scaling_lists.dma);
--	hevc_dec->scaling_lists.cpu = NULL;
--
--	if (hevc_dec->tile_filter.cpu)
--		dma_free_coherent(vpu->dev, hevc_dec->tile_filter.size,
--				  hevc_dec->tile_filter.cpu,
--				  hevc_dec->tile_filter.dma);
--	hevc_dec->tile_filter.cpu = NULL;
--
--	if (hevc_dec->tile_sao.cpu)
--		dma_free_coherent(vpu->dev, hevc_dec->tile_sao.size,
--				  hevc_dec->tile_sao.cpu,
--				  hevc_dec->tile_sao.dma);
--	hevc_dec->tile_sao.cpu = NULL;
--
--	if (hevc_dec->tile_bsd.cpu)
--		dma_free_coherent(vpu->dev, hevc_dec->tile_bsd.size,
--				  hevc_dec->tile_bsd.cpu,
--				  hevc_dec->tile_bsd.dma);
--	hevc_dec->tile_bsd.cpu = NULL;
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_sizes);
-+	hantro_free_aux_buf(ctx, &hevc_dec->scaling_lists);
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_filter);
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_sao);
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_bsd);
+-	if (av1_dec->lr_col.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->lr_col.size,
+-				  av1_dec->lr_col.cpu, av1_dec->lr_col.dma);
+-	av1_dec->lr_col.cpu = NULL;
++	hantro_free_aux_buf(ctx, &av1_dec->db_data_col);
++	hantro_free_aux_buf(ctx, &av1_dec->db_ctrl_col);
++	hantro_free_aux_buf(ctx, &av1_dec->cdef_col);
++	hantro_free_aux_buf(ctx, &av1_dec->sr_col);
++	hantro_free_aux_buf(ctx, &av1_dec->lr_col);
  }
  
- int hantro_hevc_dec_init(struct hantro_ctx *ctx)
+ static int hantro_av1_tiles_reallocate(struct hantro_ctx *ctx)
  {
 -	struct hantro_dev *vpu = ctx->dev;
- 	struct hantro_hevc_dec_hw_ctx *hevc_dec = &ctx->hevc_dec;
- 	unsigned int size;
+ 	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
+ 	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
+ 	const struct v4l2_av1_tile_info *tile_info = &ctrls->frame->tile_info;
+@@ -277,6 +254,7 @@ static int hantro_av1_tiles_reallocate(struct hantro_ctx *ctx)
+ 	unsigned int height_in_sb = height / 64;
+ 	unsigned int stripe_num = ((height + 8) + 63) / 64;
+ 	size_t size;
 +	int ret;
  
- 	memset(hevc_dec, 0, sizeof(*hevc_dec));
+ 	if (av1_dec->db_data_col.size >=
+ 	    ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols)
+@@ -285,44 +263,22 @@ static int hantro_av1_tiles_reallocate(struct hantro_ctx *ctx)
+ 	hantro_av1_tiles_free(ctx);
  
-@@ -262,21 +202,11 @@ int hantro_hevc_dec_init(struct hantro_ctx *ctx)
- 	 * chunk (HW guys wanted to have this).
- 	 */
- 	size = round_up(MAX_TILE_COLS * MAX_TILE_ROWS * 4 * sizeof(u16) + 16, 16);
--	hevc_dec->tile_sizes.cpu = dma_alloc_coherent(vpu->dev, size,
--						      &hevc_dec->tile_sizes.dma,
+ 	size = ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols;
+-	av1_dec->db_data_col.cpu = dma_alloc_coherent(vpu->dev, size,
+-						      &av1_dec->db_data_col.dma,
 -						      GFP_KERNEL);
--	if (!hevc_dec->tile_sizes.cpu)
--		return -ENOMEM;
--
--	hevc_dec->tile_sizes.size = size;
--
--	hevc_dec->scaling_lists.cpu = dma_alloc_coherent(vpu->dev, SCALING_LIST_SIZE,
--							 &hevc_dec->scaling_lists.dma,
--							 GFP_KERNEL);
--	if (!hevc_dec->scaling_lists.cpu)
--		return -ENOMEM;
-+	ret = hantro_allocate_aux_buf(ctx, &hevc_dec->tile_sizes, size);
-+	ret = hantro_allocate_aux_buf(ctx, &hevc_dec->scaling_lists, SCALING_LIST_SIZE);
+-	if (!av1_dec->db_data_col.cpu)
+-		goto buffer_allocation_error;
+-	av1_dec->db_data_col.size = size;
++	ret = hantro_allocate_aux_buf(ctx, &av1_dec->db_data_col, size);
  
--	hevc_dec->scaling_lists.size = SCALING_LIST_SIZE;
+ 	size = ALIGN(height * 2 * 16 / 4, 128) * num_tile_cols;
+-	av1_dec->db_ctrl_col.cpu = dma_alloc_coherent(vpu->dev, size,
+-						      &av1_dec->db_ctrl_col.dma,
+-						      GFP_KERNEL);
+-	if (!av1_dec->db_ctrl_col.cpu)
+-		goto buffer_allocation_error;
+-	av1_dec->db_ctrl_col.size = size;
++	ret |= hantro_allocate_aux_buf(ctx, &av1_dec->db_ctrl_col, size);
+ 
+ 	size = ALIGN(height_in_sb * 44 * ctx->bit_depth * 16 / 8, 128) * num_tile_cols;
+-	av1_dec->cdef_col.cpu = dma_alloc_coherent(vpu->dev, size,
+-						   &av1_dec->cdef_col.dma,
+-						   GFP_KERNEL);
+-	if (!av1_dec->cdef_col.cpu)
+-		goto buffer_allocation_error;
+-	av1_dec->cdef_col.size = size;
++	ret |= hantro_allocate_aux_buf(ctx, &av1_dec->cdef_col, size);
+ 
+ 	size = ALIGN(height_in_sb * (3040 + 1280), 128) * num_tile_cols;
+-	av1_dec->sr_col.cpu = dma_alloc_coherent(vpu->dev, size,
+-						 &av1_dec->sr_col.dma,
+-						 GFP_KERNEL);
+-	if (!av1_dec->sr_col.cpu)
+-		goto buffer_allocation_error;
+-	av1_dec->sr_col.size = size;
++	ret |= hantro_allocate_aux_buf(ctx, &av1_dec->sr_col, size);
+ 
+ 	size = ALIGN(stripe_num * 1536 * ctx->bit_depth / 8, 128) * num_tile_cols;
+-	av1_dec->lr_col.cpu = dma_alloc_coherent(vpu->dev, size,
+-						 &av1_dec->lr_col.dma,
+-						 GFP_KERNEL);
+-	if (!av1_dec->lr_col.cpu)
++	ret |= hantro_allocate_aux_buf(ctx, &av1_dec->lr_col, size);
++
 +	if (ret)
-+		goto error;
+ 		goto buffer_allocation_error;
+-	av1_dec->lr_col.size = size;
  
- 	hantro_hevc_ref_init(ctx);
+ 	av1_dec->num_tile_cols_allocated = num_tile_cols;
+ 	return 0;
+@@ -334,105 +290,50 @@ static int hantro_av1_tiles_reallocate(struct hantro_ctx *ctx)
  
-@@ -284,4 +214,10 @@ int hantro_hevc_dec_init(struct hantro_ctx *ctx)
- 		hevc_use_compression & hantro_needs_postproc(ctx, ctx->vpu_dst_fmt);
+ void hantro_av1_exit(struct hantro_ctx *ctx)
+ {
+-	struct hantro_dev *vpu = ctx->dev;
+ 	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
  
+-	if (av1_dec->global_model.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->global_model.size,
+-				  av1_dec->global_model.cpu,
+-				  av1_dec->global_model.dma);
+-	av1_dec->global_model.cpu = NULL;
+-
+-	if (av1_dec->tile_info.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->tile_info.size,
+-				  av1_dec->tile_info.cpu,
+-				  av1_dec->tile_info.dma);
+-	av1_dec->tile_info.cpu = NULL;
+-
+-	if (av1_dec->film_grain.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->film_grain.size,
+-				  av1_dec->film_grain.cpu,
+-				  av1_dec->film_grain.dma);
+-	av1_dec->film_grain.cpu = NULL;
+-
+-	if (av1_dec->prob_tbl.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->prob_tbl.size,
+-				  av1_dec->prob_tbl.cpu, av1_dec->prob_tbl.dma);
+-	av1_dec->prob_tbl.cpu = NULL;
+-
+-	if (av1_dec->prob_tbl_out.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->prob_tbl_out.size,
+-				  av1_dec->prob_tbl_out.cpu,
+-				  av1_dec->prob_tbl_out.dma);
+-	av1_dec->prob_tbl_out.cpu = NULL;
+-
+-	if (av1_dec->tile_buf.cpu)
+-		dma_free_coherent(vpu->dev, av1_dec->tile_buf.size,
+-				  av1_dec->tile_buf.cpu, av1_dec->tile_buf.dma);
+-	av1_dec->tile_buf.cpu = NULL;
++	hantro_free_aux_buf(ctx, &av1_dec->global_model);
++	hantro_free_aux_buf(ctx, &av1_dec->tile_info);
++	hantro_free_aux_buf(ctx, &av1_dec->film_grain);
++	hantro_free_aux_buf(ctx, &av1_dec->prob_tbl);
++	hantro_free_aux_buf(ctx, &av1_dec->prob_tbl_out);
+ 
+ 	hantro_av1_tiles_free(ctx);
+ }
+ 
+ int hantro_av1_init(struct hantro_ctx *ctx)
+ {
+-	struct hantro_dev *vpu = ctx->dev;
+ 	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
++	int ret = 0;
+ 
+ 	memset(av1_dec, 0, sizeof(*av1_dec));
+ 
+-	av1_dec->global_model.cpu = dma_alloc_coherent(vpu->dev, GLOBAL_MODEL_SIZE,
+-						       &av1_dec->global_model.dma,
+-						       GFP_KERNEL);
+-	if (!av1_dec->global_model.cpu)
+-		return -ENOMEM;
+-	av1_dec->global_model.size = GLOBAL_MODEL_SIZE;
+-
+-	av1_dec->tile_info.cpu = dma_alloc_coherent(vpu->dev, AV1_TILE_INFO_SIZE,
+-						    &av1_dec->tile_info.dma,
+-						    GFP_KERNEL);
+-	if (!av1_dec->tile_info.cpu)
+-		return -ENOMEM;
+-	av1_dec->tile_info.size = AV1_TILE_INFO_SIZE;
+-
+-	av1_dec->film_grain.cpu = dma_alloc_coherent(vpu->dev,
+-						     ALIGN(sizeof(struct hantro_av1_film_grain),
+-							   2048),
+-						     &av1_dec->film_grain.dma,
+-						     GFP_KERNEL);
+-	if (!av1_dec->film_grain.cpu)
+-		return -ENOMEM;
+-	av1_dec->film_grain.size = ALIGN(sizeof(struct hantro_av1_film_grain), 2048);
+-
+-	av1_dec->prob_tbl.cpu = dma_alloc_coherent(vpu->dev,
+-						   ALIGN(sizeof(struct av1cdfs), 2048),
+-						   &av1_dec->prob_tbl.dma,
+-						   GFP_KERNEL);
+-	if (!av1_dec->prob_tbl.cpu)
+-		return -ENOMEM;
+-	av1_dec->prob_tbl.size = ALIGN(sizeof(struct av1cdfs), 2048);
+-
+-	av1_dec->prob_tbl_out.cpu = dma_alloc_coherent(vpu->dev,
+-						       ALIGN(sizeof(struct av1cdfs), 2048),
+-						       &av1_dec->prob_tbl_out.dma,
+-						       GFP_KERNEL);
+-	if (!av1_dec->prob_tbl_out.cpu)
+-		return -ENOMEM;
+-	av1_dec->prob_tbl_out.size = ALIGN(sizeof(struct av1cdfs), 2048);
++	ret |= hantro_allocate_aux_buf(ctx, &av1_dec->global_model, GLOBAL_MODEL_SIZE);
++	ret |= hantro_allocate_aux_buf(ctx, &av1_dec->tile_info, AV1_TILE_INFO_SIZE);
++	ret |= hantro_allocate_aux_buf(ctx, &av1_dec->film_grain,
++				       ALIGN(sizeof(struct hantro_av1_film_grain), 2048));
++	ret |= hantro_allocate_aux_buf(ctx, &av1_dec->prob_tbl,
++				       ALIGN(sizeof(struct av1cdfs), 2048));
++	ret |= hantro_allocate_aux_buf(ctx, &av1_dec->prob_tbl_out,
++				       ALIGN(sizeof(struct av1cdfs), 2048));
++	if (ret)
++		goto buffer_allocation_error;
++
+ 	av1_dec->cdfs = &av1_dec->default_cdfs;
+ 	av1_dec->cdfs_ndvc = &av1_dec->default_cdfs_ndvc;
+ 
+ 	hantro_av1_set_default_cdfs(av1_dec->cdfs, av1_dec->cdfs_ndvc);
+ 
+-	av1_dec->tile_buf.cpu = dma_alloc_coherent(vpu->dev,
+-						   AV1_TILE_SIZE,
+-						   &av1_dec->tile_buf.dma,
+-						   GFP_KERNEL);
+-	if (!av1_dec->tile_buf.cpu)
+-		return -ENOMEM;
+-	av1_dec->tile_buf.size = AV1_TILE_SIZE;
+-
  	return 0;
 +
-+error:
-+	hantro_free_aux_buf(ctx, &hevc_dec->tile_sizes);
-+	hantro_free_aux_buf(ctx, &hevc_dec->scaling_lists);
++buffer_allocation_error:
++	hantro_free_aux_buf(ctx, &av1_dec->global_model);
++	hantro_free_aux_buf(ctx, &av1_dec->tile_info);
++	hantro_free_aux_buf(ctx, &av1_dec->film_grain);
++	hantro_free_aux_buf(ctx, &av1_dec->prob_tbl);
++	hantro_free_aux_buf(ctx, &av1_dec->prob_tbl_out);
 +
 +	return -ENOMEM;
  }
+ 
+ int hantro_av1_prepare_run(struct hantro_ctx *ctx)
 -- 
 2.53.0
 
