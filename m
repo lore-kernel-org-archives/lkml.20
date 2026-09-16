@@ -1,105 +1,125 @@
-Received: from mta0.migadu.com (out-251.mta0.migadu.com [91.218.175.251])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5BDA44780D
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E6146AA7C
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 08:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546910; cv=none; b=rab7QDOouYrfe6BG426qg8ccQVlQBPbSU3BVC3q4FpCBOfZygznpw26tPnKBL4EOey+bTIGauJrExfBK0ZJ1LIEOgXzkLRkHF/vdTnnHeFahk3dqCaVYQmfRk8ITggzC6SKGxRaL1bzZndR9Bad5dxmeqcvZMyvwzGUNN6mEvt8=
+	t=1789546911; cv=none; b=rwgNSBzPvMeLpAQrL2upwaknfWI+sVscNZwPptxaJizcRpkDGoV9ZWtDRG5D0VpPyh6M2h8Kj3pgrijyxiB4T73jGlXhmnRP2WN+oJfCkaaT4Qi9+reTrUsv8xPvpblx5r1OsiaHMBMaenAamRNtA2XZxT2eYwdZWDZrUKIvCSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546910; c=relaxed/simple;
-	bh=4QEPSFxwOL/UNwt7iBdY4dY2kx7+/Hzz8r4iula/V3k=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=J/PJjr4dLUnwvyeOgyDta66agLbjthLO+Fnj698kCz9MbhEGTU/i/glEZRxEQQEliRs02dbD7rBgSOJHKYgaDjBRSVNof4Q2oYKmFvPdMtdLXVDW+UZFo9XBsWqH0/ibf7ONrsPN0nlN/xczMdqwpqM0moP6qLOK3t7TvGBP8ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bwBBKKh3; arc=none smtp.client-ip=91.218.175.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789546911; c=relaxed/simple;
+	bh=1HUGQWUo7DHa+QDueDddUtzEPEP4VkzaWUaP9uZ2X0Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TES2ul6DIDnkPqYlnEZ9/e6GJEFi5flAxliDCTwgM3HX7XjHydc4oIYT8EWV6MR7MBcldAwQcmd6BSxRglEpO9kBAr4GlfNuBVAggEnVw/Rilzhu9/+EL3TpqZKgfrYIoaBwwY+TrhhiA9xkL76/7fuQyRFrLpzXWTW6Bbh9fXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nog/maE0; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bwBBKKh3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4QEPSFxwOL/UNwt7iBdY4dY2kx7+/Hzz8r4iula/V3k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789546894; v=1; x=1790151694;
- b=bwBBKKh3ulVmlTiRnvDIssj406RkbdUEPiWgO3kWpi7/h5u8gER54j04AFHkt1syGy161qXC
- Vk9SlrVo2px1uN+4JntQL04OmbXZnOlp0M296HP59fM2rkjkzkRqhp8/BUZFdE+2gItu2tujU/O
- OvFVxD5FsVS0P1fRZYpkju74=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a6cdd9e4629a66e4;
-	Wed, 16 Sep 2026 08:21:23 +0000
-X-Mizu-Trace-ID: a6cdd9e4629a66e4
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bcea321a-1442-407d-acbf-1e9d5dcb060f@linux.dev>
-Date: Wed, 16 Sep 2026 16:21:20 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nog/maE0"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so3597055e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 01:21:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789546894; x=1790151694; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Bw432elLmhA4oy2qWRZIhT4M5eB1za1G9hSrgeusNHM=;
+        b=Nog/maE0UF8Pv5w4f87Y92+hTJ9B0UFhPpIBZ/M378xf3MGgTi31u0SippM9dZKV6u
+         Vmi7i8GqkzddAK33fd0PDalmtqmd9EGjGqG28czpyzbpJtzdaRGGZATjcPO7pibvyKT5
+         UL9dvd8LUOqicH6MkTMlu7R4DFhr2vleT5wQEh7Hulp9OjEwP/O4fHyeiNhRGyni0Cdf
+         qTwesT4cnDJiGv+snoUEgSbnKlVmnzGQoEIBjrM2b2QXW6XP/O11jCC2MglsJOEHgZHZ
+         lQWpOIoG4FFP0DE9Ks3+FYVPlDTFPB2BBgJkMAFTnJVLSElAw7AmWSWU/8NVMOlZG8rf
+         YHxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789546894; x=1790151694;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bw432elLmhA4oy2qWRZIhT4M5eB1za1G9hSrgeusNHM=;
+        b=HnutMpI9t5AAbeyUXkUw6Cmc1r5LE06c/JNJj96JTNZH1vONWpuyAAlOtYUwMmWivU
+         BYtNOzidMX+xDAwAj3Dc1ZvlOFwGXIep4+BVUuLY26mzARUO7QrO5vLLrg6415egAgCJ
+         iq4Ti2JZlc3MWlamxegIszkcW9chcaAAf4c85rqI4bD+/OAAktbPcjaOJk26o/PXDLrN
+         BxoVc/hPG+iv/6+ZstVLh/z+OK4dt1f8dtE9APdcWuIIlpkhHxIUgPGPQcbETdCzpkZH
+         ZphGvmwZnRrmqvKquAyUlZBhrt4ddGsCodOHCRQTcCi8sTmRnmd7UGyNDDvtja9BmBjx
+         F/8w==
+X-Forwarded-Encrypted: i=1; AKwUvBwbkJUjm3vIpZGf2Y7hsOzE9fQvI2EgqTPXqzqseTXXpGtlCDzVjlDuN9SKb+8mURG2BgwFeJ/WtLr0mFc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFGreXrAtVCvJVRxooeQ3EFK+O/d0dNlNiGZG3f0iZ6qsbTXgC
+	jQlV0ztQPyRYApTA4xO1td/SqxBLQRZ61hcvyGU1/03rwiA1Jp+jo4si
+X-Gm-Gg: AYBFou2JriXK3c3QIiqgyw9xLBFDqe9PBk+Ct112BR/pooGxI0P+ViF9p0sB+UbwHjW
+	JOnbrPr9pya0yzefkCFhizM3sWqawErmISyz73DOldn82s0Eu/6uEfQixwZtSP5C2p2Ef9/IBy8
+	JxLrOOo60jnm/Uc73/n6EJTW8LMawMF1CIP2kEYtV6RpUvndMWG6YGLRafp5LnQ0u9egJjBtOGC
+	Bfd95r8wdv9SPkdyghQVMhBdQg6WO2SpZHuoDKhWCV7U3Dky1HbgqzsU//9Pz9VTZk1A4Foh+hP
+	BwQ1C30i2R+SG4Qg5EArbfn12sMcgS4USRfMSdJ4chsStFNKjxDG4LPfzE1vGWkqvbRNJeT8+Uk
+	SeNO7O9jKXZbCz+p9lvR6WAz38Sb2+xDnBO4KdkKMp83eo3OCWQheFoe/aT9OzRotfogl0JS/dZ
+	RatvW6SUdtEnBHELUnO7SN6wH3EC2ENdSJAmMEs29nj1+krWHsQU3PT7CdLpCnB+ci/ReXRiSW8
+	qE0O5P1T+qCesX4c7vhYLdhPzVsu2CQUN253pAuHDzQdBRR+odt190KbfF7BzFDmtS34PYnPArU
+	0IkeW5ARTgdlz9WGg7CuJPBQLXmPS/rhEdPJmLoj3O8sCI81FiHDThC/Myq5C8OSwH5NwZFSr6r
+	GcUcb2uT9foeOBKVhOdx9LKBL1Pl89pfY8zkqUBp9KF7IXTme7HHtKEP27dI9Rdpg5Nh3aPyr3S
+	wWKEnY
+X-Received: by 2002:a05:600c:470a:b0:49e:6bce:b0f9 with SMTP id 5b1f17b1804b1-49eb732cc87mr17337945e9.16.1789546893641;
+        Wed, 16 Sep 2026 01:21:33 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83da071asm73394925e9.8.2026.09.16.01.21.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 01:21:33 -0700 (PDT)
+Date: Wed, 16 Sep 2026 10:21:32 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
+ Roger Quadros <rogerq@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Mathias Nyman <mathias.nyman@intel.com>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Heikki Krogerus
+ <heikki.krogerus@linux.intel.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] usb: core: add missing
+ pm_runtime_dont_use_autosuspend() call
+Message-ID: <20260916102132.00005129@gmail.com>
+In-Reply-To: <aqpOlKtxeROh-G_s@hovoldconsulting.com>
+References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
+	<20260915090223.1346-2-joshua.crofts1@gmail.com>
+	<aqpOlKtxeROh-G_s@hovoldconsulting.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, tj@kernel.org, josef@toxicopanda.com, axboe@kernel.dk,
- cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH 1/4] blk-iocost: charge flushes as pageless random writes
-To: Christoph Hellwig <hch@infradead.org>
-References: <20260908022135.1429281-1-cui.tao@linux.dev>
- <20260908022135.1429281-2-cui.tao@linux.dev> <aqJDCtbWqXlPu0X9@infradead.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <aqJDCtbWqXlPu0X9@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi, Christoph 
+On Wed, 16 Sep 2026 10:08:52 +0200
+Johan Hovold <johan@kernel.org> wrote:
 
-在 2026/9/10 13:41, Christoph Hellwig 写道:
-> On Tue, Sep 08, 2026 at 10:21:32AM +0800, Tao Cui wrote:
->> From: Tao Cui <cuitao@kylinos.cn>
->>
->> Standalone flushes issued by blkdev_issue_flush() are represented as
->> dataless REQ_OP_WRITE | REQ_PREFLUSH bios, which
->> calc_vtime_cost_builtin() prices at zero.  The flush component of
->> flush-heavy workloads such as database commits, journal flushes, and
->> metadata sync is thus neither charged nor throttled: a cgroup at 1% weight
->> can issue ~510k flushes per 12s, monopolizing the device while iocost
->> reports zero usage.
->>
->> Price them as pageless random writes (LCOEF_WRANDIO), which provides
->> an approximation of the device time consumed by a flush.  For
->> profiles where WRANDIO clamps to zero (ssd_dfl / ssd_fast), use a
->> one-page floor (LCOEF_WPAGE).  After this patch, the same 1%-weight
->> cgroup is limited to 24 flushes per 12s; on ext4, write+fsync
->> workloads are correctly accounted through the journal layer (~2.2us
->> per flush on the ssd_fast profile).
+> On Tue, Sep 15, 2026 at 09:02:18AM +0000, Joshua Crofts wrote:
+> > The fail label in usb_new_device() disables pm_runtime on failure, but
+> > doesn't call pm_runtime_dont_use_autosuspend(), causing resource leaks.  
 > 
-> Flushes are actually a really interesting case.  For devics with
-> a non-volatile write cache they are no-ops, but submit_bio should
-> ensure we never see them here.  
+> No it does not, as the device itself is about to be freed. Sure we could
+> disable autosuspend again here, but it does not really matter.
+> 
 
-Confirmed.  submit_bio_noacct() strips REQ_PREFLUSH and completes
-dataless flush bios early when !bdev_write_cache(), so they never
-reach ioc_rqos_throttle().  The charge only applies where the device
-actually has to drain a cache.
+Okay, commit message aside, you still need to call dont_use_autosuspend()
+on teardown as the driver doesn't use the devm_* counterparts. Currently
+(according to my cocci SmPL [1]) there are 195 instances of this in the kernel.
 
-> But devices with a volatile write
-> cache they are significantly more expensive than any kind of write.
-> If we touch this we should probably figure out a way to model that.
-> Note that this includes standalone flushes and PREFLUSH ones,
-> so this patch might be a good start, but still is missing a very
-> important part.
+...
 
-Right.  The PREFLUSH component of data-bearing writes is the same
-class of bug as the standalone flush (uncharged device time), so I'll
-fold that into v2 as a bugfix: any REQ_PREFLUSH bio gets a flush
-surcharge on top of its data cost, with the same write-coefficient
-fallback.
+> But this one should not have a Fixes tag and does not need to be
+> backported.
 
-For the pricing itself I'm preparing a follow-up RFC with a dedicated
-flushiops= entry in io.cost.model, translated to VTIME_PER_SEC /
-flushiops like the other iops coefficients, and falling back to the
-write coefficients when unset.  On virtio-blk, flushiops=10 throttles
-a flush storm to one flush per 100ms, which is exactly the intended
-budget.  Parameter naming and whether the builtin profiles and
-autocalibration should learn it are better discussed on that thread.
+Yeah, you already mentioned this in IIO once [2]. I found several instances
+of patches like these being backported however, so perhaps times have changed.
+
+[1] https://lore.kernel.org/cocci/20260915064327.1377-1-joshua.crofts1@gmail.com/
+[2] https://lore.kernel.org/linux-iio/aoQEyeHUiTwWenBL@hovoldconsulting.com/
 
 
+
+-- 
+Kind regards,
+Joshua Crofts
