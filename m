@@ -1,130 +1,87 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3604B1CF4;
-	Wed, 16 Sep 2026 18:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96664C6530;
+	Wed, 16 Sep 2026 18:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584958; cv=none; b=nIC/Ko0kLk4zJlClcwmUP6OehDK5AAo6iOGQ+oT30e28TtfPg9FVbhdBPhe1odZg1PiS1f6OMzci97Bxh0SN2KZe7UxiuL3WJVDLZUJGh9T0fowsA3yXCev+fia1CPkpdhtLglcNQR0y8mu3zK8lol0/AJicVKxWy2+eOKUW4xs=
+	t=1789585007; cv=none; b=qS2pUoC3k58aTrQ3x+/LS5OSUAYWxN+JLgblSqVdHyBw75mzjpD5R+I3t+dEnKW4CWavAiNK7pgKX62qnRYSTf1Raa0yZ3qtxpnoaoMtG1e2V60yKd9twRQOhdESYEaGRNjnCEWSF//511SOwHQ/VlvP71t8fOzvncLqiE7Y1yY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584958; c=relaxed/simple;
-	bh=iDDh9rOtsGUyyxFYcXXJCya+hH8rezrq4Xqy4y1T9gQ=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=EYGRAW/BRjYkINLrTCSmVpOa4qWSqf40xypiKbOkEfD7dxEj6jdWK11Alzfykbgk6yT3BuS9NRr/SMwZrZpMwD5N+umWePd1R31EGgg8OR0OXY5fPOP/0C4JyY5XMrhK6eBuAp9zM6N8BRZVosp7Uj6omWzYE95knJ47PseIKjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=h3TVpbqN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hyeGyjos; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="h3TVpbqN";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hyeGyjos"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id CF4731400144;
-	Wed, 16 Sep 2026 14:55:37 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 16 Sep 2026 14:55:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789584937;
-	 x=1789671337; bh=/BtudbvHRu5vzJceqkauvYyu2NJJyTRMpY980kdmrh4=; b=
-	h3TVpbqNxLPGNU1L/6m+55titLaTBtzYGupf2TwfcXj9AKi07zR3NgEAVqClFoUG
-	ecv/bJgRDndO73dqqKu/t6B6a2Q9KxPBoGPOtYZvVazCRUibALhs3r4d++r036wT
-	LtpPkJYS0OYGM6iyrhTv3fWS2AwHoKCTFdqffyTn5un3efpeGh9egItVJaRU8FWI
-	L0BeXz5tXX1iE8F3wJl4itOXdqPgMqdukfbL2MrTgV6ECDkhg3JHwsAcWs8jBFIl
-	l0ekRb2Pw99ECsVap8TzArQC9necHSesFg/xu6qcUalZauh7egeBXIvZicqoMix9
-	lWuhvmgGqSZA+kPv8L54Ow==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789584937; x=
-	1789671337; bh=/BtudbvHRu5vzJceqkauvYyu2NJJyTRMpY980kdmrh4=; b=h
-	yeGyjosr6lxSE48xI5z6OcG2VaQhK53GM03k8CUYk4h1+Wwtzx0xxpXBASO7Rela
-	ikDV+gjP89yVMtuaeapt68cgV+bC3aC1bO9aC7Lpl7BYwirpa8Le859syZhwhbfe
-	ZkwoSokVpsEtYGj1ilgeINo4sGyjZ1GnoAyYS7KSUneiO+WSQd3JwllMAW23eZyD
-	orR0JkNs2t7paWxabqrH0X/ZOhhod+lWZr95UT5UB+XnRf+sLWLMnqK9eDVZv+w1
-	33VA4jJKMFCOQztM3p0EFzn7cPbxGMhjjprhV4iH+DAFqZyebKsBzza4LKsH8lqs
-	OyWVvHWsnjJQ1Mk450Rcw==
-X-ME-Sender: <xms:JeaqaiQIn7mIlX0FWPQ6R6kdYxGjhb-x4tRDw61RFO0BVrR74Xi3wg>
-    <xme:JeaqaimjxX6lLO1LV5kN1zyrdYiz2ukkMAk1hCJxT-Z5LAZZNygF-zWlP1qiAH_u9
-    SSot_MR8pNcsjsd3Lrt4s8qPQ_82akOd0NoAbtI-Fey-VDHGkmtQzQ>
-X-ME-Proxy-Cause: dmFkZTGLyYyUm4JuU/6sohsGxDvYfjBOjcM4ZhfP5vW5Hs9fiAnR0fUKrvHE4IeNGmSPIJ
-    txTc8icooyBZYlby2hI0ys+xENm/ATr0gEPXcrvU/DZ47QA6AnGZxY9AQ/8/wp9yh2HRz3
-    eCJkQ/zjsBaRSOIyB3o1fL+lShjmU7VpINXZNyXbiXazCmJYQezX7kWBUe9apXKb0qpu5f
-    ZZbLJBOi+s/ANO3Be9B1E4PdGS3f8RgbGk6RFpNwHzaa8B+1+YOOISRbMUD0s1IL1Kwp4j
-    JsrkLnlr7RiGyH3brYTkY+CrN2pQoC0EK1/3UimY/IreWhOW+FhhFVay6+q68oLdVyr2jR
-    xVAcvn/ykTRis6p2J868NVQu8PyVoOJ32NxEzNbpaZKcZzaLSubeNIYAS6pUw2l0AoVTDa
-    0d43qKx0CcMhksPmWh7eJe+/JxjNUlqiT9pok4kjww27HVTv8WwErfv77Fgx5z/S95Iu60
-    PTwW+qD93Ug+sRlEvtFx3cnWr7EdDOkylLTwsEAcJm1NdiFZjhn8DQflzHNTjLVJSPpYYe
-    PDYxtNjKLATS8TuFV0lTmtz1nes+bE5HTZgrkDkANzIPmNfuqTkw18CdRj2GQers/qvs7X
-    nwjRpXWvC5aEy4wSRDEhAHXBySZRpn+PrHNJBDGvG6I0uWpq/wm7S4XzJyPw
-X-ME-Proxy: <xmx:J-aqatQxnHI1qyMs6Zmpj0Rv7nfCPRYjUXUF5eEA7BDJeMlib52b3Q>
-    <xmx:J-aqaiytbcnhtYLvEEVdeUDGN5JymtZC2iQRa9VoiKIcz0N_1p4udw>
-    <xmx:J-aqalCUm5xK0prz_pPrtBsySLzZr4V4RgepK6ddllKFIuYqDKL52Q>
-    <xmx:J-aqamHm8cHvnjs-_7epixrtSgfpARnEfdeDR93042MD-2RDOhLcEg>
-    <xmx:KeaqatFn6gsOA3yWNTNvJVgI5dqBUBacHFxZbd0lABS8tuBTleNHTZ6s>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id D987332A0084; Wed, 16 Sep 2026 14:55:33 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1789585007; c=relaxed/simple;
+	bh=QdTJHlvPaT0x8kA6SbOWfo+8feXCZi+nl5EPI1AZoO0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YgSHIGRBbSpMhk3gUb4O1itG5zr/A8BLkPhKlKw5ZRNKGDXhGDL/eZVFF4mB0G/j80mctNR8Is7bPIB0zOuBd3IrbbGiwmtDwc08tFRy6Q5dUypaM2zIr2K9StgKlOv+44hK+sLnNH8I8lx/oiWnUZLvXa8JYW+U9sH5yaECGew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHcz1T5qpqTfRvCA--.24691S2;
+	Thu, 17 Sep 2026 02:56:19 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: iommu@lists.linux.dev
+Cc: joro@8bytes.org,
+	linux-kernel@vger.kernel.org,
+	robin.murphy@arm.com,
+	suravee.suthikulpanit@amd.com,
+	will@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] iommu/amd: Fix root bridge reference leak in iommu_init_pci()
+Date: Wed, 16 Sep 2026 18:55:51 +0000
+Message-Id: <20260916185551.2093860-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AeUjof3PiXZ3
-Date: Wed, 16 Sep 2026 20:55:12 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Vincenzo Frascino" <vincenzo.frascino@arm.com>,
- "Arnd Bergmann" <arnd@kernel.org>,
- "Daniel Scally" <dan.scally@ideasonboard.com>,
- "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>,
- "Hans Verkuil" <hverkuil+cisco@kernel.org>,
- "Linus Walleij" <linusw@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <3052a817-3188-47b2-a95d-ec26aaa0d24d@app.fastmail.com>
-In-Reply-To: <335cf0a8-4c0e-4c07-8d81-c076ac73d329@arm.com>
-References: <20260915202458.3673504-1-arnd@kernel.org>
- <335cf0a8-4c0e-4c07-8d81-c076ac73d329@arm.com>
-Subject: Re: [PATCH] media: mali-c55: add padding to mali_c55_params_ccm structure
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHcz1T5qpqTfRvCA--.24691S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtryfXF4fJFyfGF4UJr4Utwb_yoWDCrX_CF
+	yrZa4xJrWrGa1jk3Wjqr13Zrn0kas5uFn3WrZ2gw1fAr10v3WUCrya9F95Jw4UGw4FyF9r
+	Kwn5K34rA3srZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbx8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_
+	Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x0JUW6w
+	tUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAMA2qqpViF-AAAsM
 
-On Wed, Sep 16, 2026, at 17:43, Vincenzo Frascino wrote:
->> diff --git a/include/uapi/linux/media/arm/mali-c55-config.h b/include/uapi/linux/media/arm/mali-c55-config.h
->> index 84d8f3901405..9c922290e035 100644
->> --- a/include/uapi/linux/media/arm/mali-c55-config.h
->> +++ b/include/uapi/linux/media/arm/mali-c55-config.h
->> @@ -804,6 +804,7 @@ struct mali_c55_params_ccm {
->>  	__u16 coeffs[3][3];
->>  	__u16 gains[3];
->>  	__u16 offs[3];
->> +	__u16 __pad;
->
-> Does this field need to be explicitly zeroed/validated anywhere the structure is
-> populated? Turning implicit padding into a named member fixes the layout
-> warning, but by itself does not seem to prevent leaking uninitialized data if
-> this structure is ever copied from the kernel to userspace. It might also be
-> worth documenting that __pad is reserved and must be zero.
+iommu_init_pci() caches a reference to the root bridge in
+iommu->root_pdev so that iommu_apply_resume_quirks() can reprogram the
+IOMMU on resume without calling pci_get_bus_and_slot(), but nothing
+ever drops that reference again, so it is leaked when the IOMMU is
+freed.
 
-It depends on how the structure is initialized. Depending on the compiler
-version and optimization level, a local variable declared as
+Release iommu->root_pdev in free_iommu_one() as well.
 
-   struct mali_c55_params_ccm v = {};
+Fixes: c1bf94ec1e12 ("iommu/amd: Cache pdev pointer to root-bridge")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/iommu/amd/init.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-may end up with uninitialized stack data in unnamed padding, but if you
-do a memset(), that should always be safe. If the fields are set individually,
-then you also have to set the __pad field, but that's not how you do it here.
+diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+index 4b155970151d..c92f7e64453a 100644
+--- a/drivers/iommu/amd/init.c
++++ b/drivers/iommu/amd/init.c
+@@ -1811,6 +1811,7 @@ static void __init free_iommu_one(struct amd_iommu *iommu)
+ 	iommu_unmap_mmio_space(iommu);
+ 	amd_iommu_iopf_uninit(iommu);
+ 	pci_dev_put(iommu->dev);
++	pci_dev_put(iommu->root_pdev);
+ }
+ 
+ static void __init free_iommu_all(void)
+-- 
+2.34.1
 
-> I think you already checked that changing the explicit structure layout/size is
-> safe for existing userspace :)
-
-On all architectures other than m68k, the position of the struct members
-and the struct size are unchanged by my patch. On m68k. there is no
-implied padding at the end of this structure, so this is theoretically
-an ABI change, but nobody has a mali device on m68k, so we know that it
-is safe.
-
-      Arnd
