@@ -1,157 +1,127 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353414968EC
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:34:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562097; cv=none; b=naJ0DhAu02PObxqwmlD/vJhWwHbdU8TahSSun4ZyfosF6o637o+8uoPdqhWA//9CDqppVBn74mMlTy1k1unwfIl9WxZqKPr19eUtNkNRVOZCOa00g8/DGV5RuOfgnzN/ozgJ7wSKMyy1EbHgr9/2kRfka7cSHqBgHi+WYgTEePg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562097; c=relaxed/simple;
-	bh=J2mnMneTYDIrpgB5k5VIkuxwj0BCnLfl7kCAK1Mrvtw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=am+3FUxmXGsW46Qrbkgdb8WSV8uQIAOq2dAw9h8+nogUal1Hh0BKnEtGCNlAXd93X9RP5z7uZi8ABwQ9Vhwkfh5cwFYZ5sjo4Xo3HJ7zhDbdmLHeLLJwElIld1VFTScUhDSL76ogq3iB/TJgDmx4RKbGaU53yjE9SMLxs6E/ZzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DiEpCa7W; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBDB2DCF61;
+	Wed, 16 Sep 2026 12:35:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789562122; cv=pass; b=keTel0SiWYkBhkSeTsDW/bRRuoI4FXVLgndSPLDFuUsWnDO3ehtV5U20NRj6xgjUjSB1qnIv94zs6CafCwEwImLAQZMZr4foF0xudm66S2LLoJlmi9D2GTbD1V6ymY1sTSuowo3JUOmZcASnvaoJpIBnivcHzuiHBCFvBQjtSTE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789562122; c=relaxed/simple;
+	bh=GNosz1XOEz92dw3lGZReKx/I0Sx1mwVmsK4kiaej6AQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SD8is1HFGQ0nSLyhhNgp4Da3ausXGeC8BZQMUVH/vcMy0s3FMUASVjZmTbxs7/2w7CxhkVsxwdHzA/WQzECuhCYpj36jOs1GL5x1zFDz4x01+Y/3pUIsgu7rhBigBypg5CuGM1kEQoKZbDctVuIkvDitBigTKQP71dWFHHVMEjQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b=QFwVKzj/; arc=pass smtp.client-ip=165.173.180.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DiEpCa7W"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so7701155e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:34:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789562088; x=1790166888; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wmytOkW2R/xIUqZXV3QPl8yko/uu1lEG9yR+JJLsZQc=;
-        b=DiEpCa7Wo/uFu4wx5mcsUKYPkZ+X2biNDLoeA3nmLjhZNInCEkGAD1WNRz9tC6YP1Y
-         DEAp3VKAyLfWQoHSrZOf8Ja0Xuv70iEVom1UwOm+bg5a77B+Us672pSSJhOyT9lxENdm
-         WQr//ExCqxprQbPR7ITV1+mC9Gaie7zWuhjSwqQ4PCSdiNLHyZAFZnKl3J7SgTVSyemL
-         CShDuF4SJc7Psg4oLpiBADyyPY3aPUtYCjHRZpd7WTaA4bN9UmBDNEEHfyDwANtWZbwa
-         e4hLmOHti4AU0bIzAnvkRnkMYqwt2WZsBztJFDmRcOEh1i3HfPELAU3vm+P295s0O5Yg
-         EdQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789562088; x=1790166888;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wmytOkW2R/xIUqZXV3QPl8yko/uu1lEG9yR+JJLsZQc=;
-        b=1mhdrsPJzbgfJYxYoRmHniYK6py5ioviPg7YbCo5Bi1ApqKAOdekdr1jo8NGg5TQyR
-         UbV6+F8RLSklt3jSRAZmBwk3mWcGrBXLDCYdpwEvcMa7otdtdIfP10HNnM+PJ1LlBGwP
-         abxOdpTQmtX1YfO4Fq1LLOCgFYnJLwEEhAZt9s0PIEz1rrq+3NKmiPekZ0Yc6EaQSSGX
-         56bBkY02jKCVEQUpTAHVBz929r4Bxix1lG8PQUFWYnKxYskuJe8UYJoHRLG3ieJonUys
-         foamdQiesOfl1kSbswzgFlNfPDfq/ca8mNSijeYrFJAJ6SPoFBo2GWq96fi41Yn2B5oy
-         4SUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwAylGc5UK+w8xkvrZdp2nLYkSDPPobaK0MQIADR+KUI2urJYsLVkDLEDl/ONW+nLXSxH108SRFFQv6S60=@vger.kernel.org
-X-Gm-Message-State: AFuF++lEpBgZvNMR25voy58tbxHRNtcWVCKQLTkiSUPHEVAO6NJgOxXL
-	IFPNfwuMATVyGZ4686grzKDb+uGyrYyGBJ48W7IBqg8XWb5WQBzbmeG+
-X-Gm-Gg: AYBFou3iVYBDx9BWeO3J7eEJvD6NBz80pq1l/WGcmQlt3h4Dh/NFyPsybE7sDN6wjn4
-	FfwvFMU5HuxV8/nMRXVZFWtHHRFePl4KVjXgf+c8O+uDuiq0ciuAthsfg/VVw9foVKDlT7hN5Wb
-	pZyCddib75qc2u55bOUjotFdYWzClLEMlJlHfb+YV00/JP3u6B1bqaYOjfmlEPgwAQimhKSYhnE
-	ruqs5PC8EccfnG4BCrVe/8H5OSTsXpIckfYNZdX22Rk1i1Umw4d3dARasn/ORmS2TFVSx5Gl0z1
-	Cny6g+9AvZIpS2IeX4cSE6Rd38MZdQdfuanyO6bZQb2/xQK5HUWFVXlmEcU+bWtYTdkpt687jQ+
-	iVKsGiI2CzTFdkOxEC7pFuUhG+i+//S6y4yWmzD80czOaIG6CBRTl/RI1KXwaz1AnGLbcjAtU48
-	LX6JAwJsMgAlYwq+BTW3rMPPMWN6YaF7RZVPhLYJ/WBAyayv2ZUJoZZ88Hpd9zkBIOGkIsPhTtN
-	I1imdko+MuJ+xILaSO0t0PR7bpi8L4RAmIj
-X-Received: by 2002:a05:600c:3513:b0:49c:eb17:cf3b with SMTP id 5b1f17b1804b1-49eac4678e6mr27024995e9.8.1789562087480;
-        Wed, 16 Sep 2026 05:34:47 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e84202028sm57591175e9.0.2026.09.16.05.34.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 05:34:47 -0700 (PDT)
-Date: Wed, 16 Sep 2026 13:34:42 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Linus
- Walleij <linusw@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: ux500: avoid -Wparentheses warning
-Message-ID: <20260916133442.2d21ff5f@pumpkin>
-In-Reply-To: <20260915202038.3534453-1-arnd@kernel.org>
-References: <20260915202038.3534453-1-arnd@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b="QFwVKzj/"
+ARC-Seal: i=1; a=rsa-sha256; t=1789562106; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=J7MRKSkjeQdYkPKWq730XX8O41xx9sgWeLu1xGVQgx64BKeQSF6QK4ijgZ8C2vaftag7SuF9TNKqxNzY3pVr4LAa8QFfGAoySuX1cFfqshvfUVG69vrxKNbbCQN5h9yCAiIqRk/BIiaaHSdpDWBeehg52Lq7vglp+zqgJ5LMppY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789562106; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Gh/eXXjzN6tjNF8DxHBnR10bfGlOpZ51KTjh4kuJbbY=; 
+	b=Zrd+UcUbIs+3mcpg9PBxNILRBtgPaFAqDVX3DUMAfJ0FW6ynvchs7eTZ7yWaHsfT3tTSiwdxURxv8HOGmW3sxCvjKh9dUOl3NGJl14hDL7nbpYF4c91i2kEK5IYTMzIa5uVb1rgsppQlF+xoqOtmQRIXAygHM+G6SXg7SnwG2J4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789562106;
+	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=Gh/eXXjzN6tjNF8DxHBnR10bfGlOpZ51KTjh4kuJbbY=;
+	b=QFwVKzj/5G69/06wE/yyAIGbFz5kWpKFAEbNYyBHR5d5kZmQyc03Gqw2GV4mY9ft
+	6eW6o7s4Ej1nxxAhuSgKpfaDYRlBUHK++7TTIrhTiKyMVnurvyRuu3EWzth+7uq8pho
+	CPX4ICrnmH97G3WltRBxa4Dpefc++y9sJyWZWT5g=
+Received: by smtp.zohomail.com with SMTPS id 1789562105403624.1132428261011;
+	Wed, 16 Sep 2026 05:35:05 -0700 (PDT)
+Message-ID: <58a6251f-b3e1-4616-b174-fab6548ee713@zohomail.com>
+Date: Wed, 16 Sep 2026 20:34:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] cxl/events: Return IRQ_NONE when no event is pending
+To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
+ Ira Weiny <iweiny@kernel.org>
+Cc: anisa.su887@gmail.com, benjamin.cheatham@amd.com,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260912093815.14455-1-shaikhkamal2012@gmail.com>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <20260912093815.14455-1-shaikhkamal2012@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+Feedback-ID: zu0801122769fcaf78a8ca78b070c105d0000051c33f54028605a74cf22ca5cacddae8c371bf3649111d6e31:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-On Tue, 15 Sep 2026 22:20:31 +0200
-Arnd Bergmann <arnd@kernel.org> wrote:
-
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> gcc warns about a slightly confusing expression in two lines
-> of this driver:
-> 
-> In file included from sound/soc/ux500/ux500_msp_i2s.c:20:
-> sound/soc/ux500/ux500_msp_i2s.c: In function 'configure_protocol':
-> sound/soc/ux500/ux500_msp_i2s.h:151:38: error: suggest parentheses around arithmetic in operand of '^' [-Werror=parentheses]
->   151 | #define MSP_TX_CLKPOL_BIT(n)     ((n & TCKPOL_MASK) << TCKPOL_SHIFT)
-> sound/soc/ux500/ux500_msp_i2s.c:204:21: note: in expansion of macro 'MSP_TX_CLKPOL_BIT'
->   204 |         temp_reg |= MSP_TX_CLKPOL_BIT(!protdesc->tx_clk_pol ^
->       |                     ^~~~~~~~~~~~~~~~~
-> 
-> config->bclk_inverted is a boolean variable, while protdesc->tx_clk_pol
-> is a 32-bit unsigned integer that can only be zero or one in order to
-> be passed into MSP_RX_CLKPOL_BIT().
-> 
-> Move the negation out of the inner expression to make this easier
-> to understand by the compiler.
-> 
-> Fixes: 9ccbacf5a012 ("ASoC: ux500: Validate MSP DAI configuration")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+On 9/12/2026 5:38 PM, Shaikh Kamaluddin wrote:
+> CXL event interrupts may share an MSI/MSI-X vector with other event
+> logs or device features. Consequently, cxl_event_thread() is registered
+> with IRQF_SHARED and must determine whether the event-log facility
+> claimed the interrupt.
+>
+> The handler masks the Device Event Status register to the event logs
+> supported by the driver. However, when no supported status bit is set,
+> it exits the processing loop and still returns IRQ_HANDLED. This
+> incorrectly reports that the interrupt was claimed and prevents the
+> generic spurious-interrupt detector from accounting it as unhandled.
+>
+> Track whether the CXL event handler claimed the interrupt and return
+> IRQ_NONE when no supported event is detected. If no handler sharing the
+> vector claims a sustained interrupt storm, the generic spurious-
+> interrupt detector can eventually identify and disable the affected
+> IRQ.
+>
+> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+Reviewed-by: Li Ming <ming.li@zohomail.com>
 > ---
-> I still find the new version equally confusing, if anyone has a
-> better idea to make this more readable, let's do that instead.
-
-How about:
-	temp_reg = readl(msp->registers + MSP_GCR);
-	if (protdesc->tx_clk_pol ^ config->bclk_inverted)
-		temp_req &= ~TX_CLK_POL_RISING;
-	else
-		temp_req |= TX_CLK_POL_RISING;
-	if (protdesc->rx_clk_pol ^ config->bclk_inverted)
-		temp_req |= RX_CLK_POL_RISING;
-	else
-		temp_req &= ~RX_CLK_POL_RISING;
-	writel(temp_reg, msp->registers + MSP_GCR);
-Assuming that [rt]x_clk_pol is only ever 0 or 1,
-if invalid if will default to 'normal polarity; clocks.
-Completely open-coding it removes the negation.
-
-You could try replacing the ^ with !=
-
-David
-
-> ---
->  sound/soc/ux500/ux500_msp_i2s.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/sound/soc/ux500/ux500_msp_i2s.c b/sound/soc/ux500/ux500_msp_i2s.c
-> index 683b485fb570..588d381230b6 100644
-> --- a/sound/soc/ux500/ux500_msp_i2s.c
-> +++ b/sound/soc/ux500/ux500_msp_i2s.c
-> @@ -201,12 +201,12 @@ static int configure_protocol(struct ux500_msp *msp,
+> Changes in V2:
+> - Emphasize that returning IRQ_NONE enables generic spurious-interrupt
+>   detection and drop the Fixes tag. (Jonathan Cameron)
+> - Check whether the event interrupt is already disabled by Anisa Su's
+>   patch; no code changes were needed. (Ben Cheatham)
+> - Rebase onto v7.3-rc2; no code changes.
+>
+>  drivers/cxl/pci.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
+> index c7c91e8dc51d..8b560cae91f2 100644
+> --- a/drivers/cxl/pci.c
+> +++ b/drivers/cxl/pci.c
+> @@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+>  	struct cxl_dev_id *dev_id = id;
+>  	struct cxl_dev_state *cxlds = dev_id->cxlds;
+>  	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
+> +	bool handled = false;
+>  	u32 status;
 >  
->  	/* The code below should not be separated. */
->  	temp_reg = readl(msp->registers + MSP_GCR) & ~TX_CLK_POL_RISING;
-> -	temp_reg |= MSP_TX_CLKPOL_BIT(!protdesc->tx_clk_pol ^
-> -					  config->bclk_inverted);
-> +	temp_reg |= MSP_TX_CLKPOL_BIT(!(protdesc->tx_clk_pol ^
-> +					  config->bclk_inverted));
->  	writel(temp_reg, msp->registers + MSP_GCR);
->  	temp_reg = readl(msp->registers + MSP_GCR) & ~RX_CLK_POL_RISING;
-> -	temp_reg |= MSP_RX_CLKPOL_BIT(protdesc->rx_clk_pol ^
-> -					  config->bclk_inverted);
-> +	temp_reg |= MSP_RX_CLKPOL_BIT(!!(protdesc->rx_clk_pol ^
-> +					  config->bclk_inverted));
->  	writel(temp_reg, msp->registers + MSP_GCR);
+>  	do {
+> @@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+>  		status &= CXLDEV_EVENT_STATUS_ALL;
+>  		if (!status)
+>  			break;
+> +
+> +		handled = true;
+>  		cxl_mem_get_event_records(mds, status);
+>  		cond_resched();
+>  	} while (status);
 >  
->  	return 0;
+> -	return IRQ_HANDLED;
+> +	return handled ? IRQ_HANDLED : IRQ_NONE;
+>  }
+>  
+>  static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
+>
+> base-commit: df2908090cda368b01ff43709f51890076c56157
+
 
