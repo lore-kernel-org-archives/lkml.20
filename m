@@ -1,150 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9565221EF;
-	Wed, 16 Sep 2026 14:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF46052120D;
+	Wed, 16 Sep 2026 14:26:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568797; cv=none; b=DGPe2yJd2/+GZ5EfkRn1NvJZYc3tn5evCJKxf9OkI/qIwZUdvP9eDfi+yCA76dQV77Yh/ZNrmeLdFrSUO9bv2XJrJYtDfJuo8GWSJ6Nu37+qlmEBudcsvHYELbuldWq03REJWlxxVZbU9PtcJwEkTxvkkUNV9bNBC//4yo6af84=
+	t=1789568804; cv=none; b=iISzbG6ZBsOkEIeRgDSTUrTYGUzAZm5BGd/RIjjwJ6PZF3cgdXSOv0gk5u8zejCNzQriZ3zCdL6pRri6heTFzWRbKIrX12hjwiRdygtEtWs9jINRqfkvCYYFn6ZciPNyHOQ1/nZhQwhjOfEiioeJrC/8qVfVDeXpN8EWONVzD7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568797; c=relaxed/simple;
-	bh=5FAMRqjp4KOqSJIjiuk2XIQlxb2HmynTSae9DHgZsQs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MXWyDA2sk1y60V9uu6V3kbcu3Of0KHv9spBp72/Jq7pndR/NXnIYyV9B4AKivpmHAkWE1uOy8E7CoQrOnyIAXtVFp9zJbesxhejKtVUoNiCMLiMjFu4KyOZQU0Q2gx7rSUFYpVTaG+vAUinxUaejpQSl5+gaGokpW6EHgz12S/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bNFUoDHP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789568804; c=relaxed/simple;
+	bh=LDg/LOpHA3pZb1VMLpuIx/TvBG8ah9c2D/LFijUb180=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UANlg95b8rgkTKq4cq16RGHYWcHuedDK+aqkduJ/rQEpPv4XbSvixbVaUWWz3ax8SmMTaE5Upp5CCUYunEk1xdUy85E0wF3vyzUxVkYMq7uoGUCa5wSpy7Q6VvpC0E9C6xTeHcVhhPgd7db+oVBxy9w+UyAYbYtOcgLO0lrkl38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Fg19kLqe; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bNFUoDHP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721FD1F00898;
-	Wed, 16 Sep 2026 14:26:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789568795;
-	bh=YQpLtInKnNU1c3G2VdhDCkw1r2wibZuZTlQmjanXtRs=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=bNFUoDHPGDIHKeQpseuwGqWMM1DE5j1Rk5TojUwfAftuYfcdlx87V1FeTMnCjtl2N
-	 AzZz2tcm6JX+Y1OQc6CtoOxaw5D3FfiXa2dnSchn35L6zymzQspNu5cth2kF7lsF5q
-	 jpNwWJ3uu8kdD0rYYiWAJjzbNTYo7CXS4+AgNb1RdbrKjGhDjwDBgmcBv56HpihnJf
-	 5lAGbidbtuSopBfptp1v/0NgSaHPYv5eiVpr4cDUdhOG39Il9EFme26lRJQ6V++7Fx
-	 IZEnAV/A5Yb1YwrjoCJL+B+GlgcJlLS1josFK4IKPCjqSH/X4mmuQciMXq9yC8zj9q
-	 8uuQhtPvBPadQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 5AEB5CE04DE; Wed, 16 Sep 2026 07:26:35 -0700 (PDT)
-Date: Wed, 16 Sep 2026 07:26:35 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
-	Xu Kuohai <xukuohai@huaweicloud.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
- for reader-marked trampolines
-Message-ID: <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
- <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com>
- <aqlgxKGk_AEKls_1@localhost.localdomain>
- <edc7cca2-a5c5-455c-8969-ea05dbdb08f7@paulmck-laptop>
- <aqqONH8flTIpOUqT@localhost.localdomain>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Fg19kLqe"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C61B218E9;
+	Wed, 16 Sep 2026 16:24:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789568697;
+	bh=LDg/LOpHA3pZb1VMLpuIx/TvBG8ah9c2D/LFijUb180=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=Fg19kLqetIzLb1NxnV9guh/FmXFKNVvIYXF//KaO14A7osiCcORkC7c0WWw8Jere7
+	 o9BPWxfmjDcQJayXSPXWi8vkvaMdqbmmEQ5nc1wjbGmRdO4/g6puTuJAhwdDWVcDm4
+	 hRwQ0uKS7mqWBGjF+HWdOY3kvE0elBCkYsQkhHoo=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Date: Wed, 16 Sep 2026 19:55:34 +0530
+Subject: [PATCH v4 4/6] platform/raspberrypi: vchiq-mmal: Use vc-sm-cma to
+ support zero copy
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqqONH8flTIpOUqT@localhost.localdomain>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-b4-vc-sm-cma-v4-4-476d1142b5df@ideasonboard.com>
+References: <20260916-b4-vc-sm-cma-v4-0-476d1142b5df@ideasonboard.com>
+In-Reply-To: <20260916-b4-vc-sm-cma-v4-0-476d1142b5df@ideasonboard.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ bcm-kernel-feedback-list@broadcom.com, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Phil Elwell <phil@raspberrypi.com>, Hans Verkuil <hverkuil@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Cc: Stefan Wahren <wahrenst@gmx.net>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
+ Jai Luthra <jai.luthra@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6380;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=W/e+hyH1D8pv5YioxZnKsmlthW8o/kVx0Exwlb9+ba4=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqqqb/pH9cpkR7fnd9/v6bhhEZeB/icr1exiQNM
+ AAzGy/SNBCJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaqqm/wAKCRBD3pH5JJpx
+ RTS9D/4tcMipBSTkMDzAcGtHT9wJb9Evaf5wSQS0kbE3oykWJRRiZVhbu0VdAJ786HoVHyZxGIJ
+ YebdvfaHkhf1O6Sb+iCW+mKsuZNN/xITVUxu3E6kRAmTXPrbaRGe4bTunjxGuZMcGOrcWSBfvor
+ BiyyDRLFFLjZOj1dZ0WweXZ4FVd2Xj84mjOLBa+8izumdcXoRTIt31UjJ0I9ZE/KbjT02Qu+fg4
+ l84TGPWEwN2d2MeKPaOJsGPWXyJfPI2luxZPYRDN145T9Qz01RqB9muIbNqobMis7NbmFi4hRUO
+ sdd94ARfpHCNGTtRlfxb+otUudr8r3tBEvzeMNOVPU4mFpu//bLFgzgcT+QHXMiQ6OMCXaF7zKU
+ 6r/Zc4l84SuRpv3DBuHT72LbkAPX+pIqnMEDNPmPMEf0o8kABVgn8OZOhrWGYlDuzFQHUueQRK/
+ Drwefy0ygEEx9wncnMWItFQJxJdXOISOLjKoxiKhjF8VbF708n9B2PgSHNApuofwESiWV0oCQNy
+ pBL0q4zYv8FSfb6tVjkP32d0+DN5mhqBNmasmnVf+Bjo3N8nKngV8x7SVLi9cprbnsufTT7Jqhw
+ VwoEyIKRUVToHRH4iuN+/+Ejm/9swJRR3JqL86vf4EGAu5jEMLcamHJhoZ+0xhraOLwLsnOI6w9
+ a87XrMsRWlh+b7Q==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-On Wed, Sep 16, 2026 at 02:40:20PM +0200, Frederic Weisbecker wrote:
-> Le Tue, Sep 15, 2026 at 04:56:41PM -0700, Paul E. McKenney a écrit :
-> > > Alternatively the approach could be generalized to vanilla RCU, it could be
-> > > possible to define a .text.rcu_no_qs section within which code running is
-> > > considered as an RCU reader (with a pause while on the explicit RCU tasks
-> > > section). It would be forbidden to voluntary sleep inside
-> > > and to put explicit preemption points (CONFIG_PROVE_RCU could report misuses).
-> > > 
-> > > Based on IP, RCU could consider those interrupted section as readers. This would
-> > > require PREEMPT_RCU though.
-> > > 
-> > > And then synchronize_rcu() would do the 1, 2, 4 jobs.
-> > 
-> > If I am following correctly (ha!), sleepable BPF programs rule out use
-> > of RCU in this manner.
-> > 
-> > But your point is nevertheless valid, in that SRCU could be used.
-> > And because rcu_read_lock_trace() is a thin wrapper around SRCU-fast, we
-> > *might* be able to instead use rcu_read_lock_tasks_trace(), which would
-> > skip the task-struct increment and decrement, saving a few instructions.
-> > Then, instead of waiting for each task's counter to go to zero, instead
-> > just invoke synchronize_rcu_tasks_trace().
-> > 
-> > Which is pretty close to what Josef is proposing, just with the new RCU
-> > Tasks Trace read-side primitives.  I think.  ;-)
-> > 
-> > This assumes that we do not need to flatten partially overlapping RCU
-> > Tasks Trace readers into one big reader.
-> > 
-> > Or am I missing something here?
-> 
-> Yes I think that's what Josef does in this patchset. The problem is about
-> handling the few instructions:
-> 
-> 1) between the begining of the trampoline and the call to rcu_read_lock_trace()
-> 
-> 2) between the call to rcu_read_unlock_trace() and the end of the trampoline
-> 
-> So what I'm proposing is to make those two parts implicit RCU read lock sections.
-> 
-> So the whole trampoline would be .text.rcu_no_qs:
-> 
-> .text.rcu_no_qs trampoline:
->   __________________________________________________________________________________________
->  |Few instructions 1 | rcu_read_lock_trace() .... rcu_read_unlock_trace | Few instructions 2|
->  ___________________________________________________________________________________________
-> 
-> Then when a tick fires, rcu_flavor_sched_clock_irq() discards the interrupted
-> code as QS if the IP was within .text.rcu_no_qs _unless_ it is in the
-> rcu_read_lock_trace. Both are easy and quick to verify.
-> 
-> Also preempt_schedule_irq() would make sure to verify the same condition and
-> enqueue the task as a GP blocker if preempting inside "Few instructions 1"
-> or "Few instructions 2".
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-Ah, OK, I might be following now.  ;-)
+With the vc-sm-cma driver we can support zero copy of buffers between
+the kernel and VPU. Add this support to mmal-vchiq.
 
-We also need both versions of rcu_exp_handler() to check the IP as well,
-given that sooner or later someone is going to want trampoline removal
-to go faster.  Or am I still missing a turn in here somewhere?
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+---
+ drivers/platform/raspberrypi/vchiq-mmal/Kconfig    |  3 +-
+ .../platform/raspberrypi/vchiq-mmal/mmal-common.h  |  4 ++
+ .../platform/raspberrypi/vchiq-mmal/mmal-vchiq.c   | 65 ++++++++++++++++++++--
+ .../platform/raspberrypi/vchiq-mmal/mmal-vchiq.h   |  1 +
+ 4 files changed, 68 insertions(+), 5 deletions(-)
 
-> And since RCU tasks already does a synchronize RCU before and after the scan,
-> that's all we would have to do.
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/Kconfig b/drivers/platform/raspberrypi/vchiq-mmal/Kconfig
+index c99525a0bb45..8a798dae408c 100644
+--- a/drivers/platform/raspberrypi/vchiq-mmal/Kconfig
++++ b/drivers/platform/raspberrypi/vchiq-mmal/Kconfig
+@@ -1,6 +1,7 @@
+ config BCM2835_VCHIQ_MMAL
+ 	tristate "BCM2835 MMAL VCHIQ service"
+-	depends on BCM2835_VCHIQ
++	select BCM2835_VCHIQ if HAS_DMA
++	select BCM_VC_SM_CMA
+ 	help
+ 	  Enables the MMAL API over VCHIQ interface as used for the
+ 	  majority of the multimedia services on VideoCore.
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h b/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
+index b33129403a30..6c5092a68b99 100644
+--- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
++++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
+@@ -50,6 +50,10 @@ struct mmal_buffer {
+ 
+ 	struct mmal_msg_context *msg_context;
+ 
++	struct dma_buf *dma_buf;/* Exported dmabuf fd from videobuf2 */
++	void *vcsm_handle;	/* VCSM handle having imported the dmabuf */
++	u32 vc_handle;		/* VC handle to that dmabuf */
++
+ 	unsigned long length;
+ 	u32 mmal_flags;
+ 	s64 dts;
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
+index 918c30d84ba0..a64b5175e1a9 100644
+--- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
++++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
+@@ -23,12 +23,13 @@
+ #include <linux/slab.h>
+ #include <linux/completion.h>
+ #include <linux/raspberrypi/vchiq.h>
++#include <linux/raspberrypi/vchiq_arm.h>
++#include <linux/raspberrypi/vc_sm_knl.h>
+ #include <linux/vmalloc.h>
+ #include <media/videobuf2-vmalloc.h>
+ 
+-#include <linux/raspberrypi/vchiq_arm.h>
+-
+ #include "mmal-common.h"
++#include "mmal-parameters.h"
+ #include "mmal-vchiq.h"
+ #include "mmal-msg.h"
+ 
+@@ -422,8 +423,12 @@ buffer_from_host(struct vchiq_mmal_instance *instance,
+ 
+ 	/* buffer header */
+ 	m.u.buffer_from_host.buffer_header.cmd = 0;
+-	m.u.buffer_from_host.buffer_header.data =
+-		(u32)(unsigned long)buf->buffer;
++	if (port->zero_copy)
++		m.u.buffer_from_host.buffer_header.data = buf->vc_handle;
++	else
++		m.u.buffer_from_host.buffer_header.data =
++			(u32)(unsigned long)buf->buffer;
++
+ 	m.u.buffer_from_host.buffer_header.alloc_size = buf->buffer_size;
+ 	m.u.buffer_from_host.buffer_header.length = 0;	/* nothing used yet */
+ 	m.u.buffer_from_host.buffer_header.offset = 0;	/* no offset */
+@@ -484,6 +489,20 @@ static void buffer_to_host_cb(struct vchiq_mmal_instance *instance,
+ 
+ 		msg_context->u.bulk.status = msg->h.status;
+ 
++	} else if (msg->u.buffer_from_host.is_zero_copy) {
++		/*
++		 * Zero copy buffer, so nothing to do.
++		 * Copy buffer info and make callback.
++		 */
++		msg_context->u.bulk.buffer_used =
++				msg->u.buffer_from_host.buffer_header.length;
++		msg_context->u.bulk.mmal_flags =
++				msg->u.buffer_from_host.buffer_header.flags;
++		msg_context->u.bulk.dts =
++				msg->u.buffer_from_host.buffer_header.dts;
++		msg_context->u.bulk.pts =
++				msg->u.buffer_from_host.buffer_header.pts;
++
+ 	} else if (msg->u.buffer_from_host.buffer_header.length == 0) {
+ 		/* empty buffer */
+ 		if (msg->u.buffer_from_host.buffer_header.flags &
+@@ -1431,6 +1450,9 @@ int vchiq_mmal_port_parameter_set(struct vchiq_mmal_instance *instance,
+ 
+ 	mutex_unlock(&instance->vchiq_mutex);
+ 
++	if (parameter == MMAL_PARAMETER_ZERO_COPY && !ret)
++		port->zero_copy = !!(*(bool *)value);
++
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(vchiq_mmal_port_parameter_set);
+@@ -1599,6 +1621,31 @@ int vchiq_mmal_submit_buffer(struct vchiq_mmal_instance *instance,
+ 	unsigned long flags = 0;
+ 	int ret;
+ 
++	/*
++	 * We really want to do this in mmal_vchi_buffer_init but can't as
++	 * videobuf2 won't let us have the dmabuf there.
++	 */
++	if (port->zero_copy && buffer->dma_buf && !buffer->vcsm_handle) {
++		pr_debug("%s: import dmabuf %p\n", __func__, buffer->dma_buf);
++		ret = vc_sm_cma_import_dmabuf(buffer->dma_buf,
++					      &buffer->vcsm_handle);
++		if (ret) {
++			pr_err("%s: vc_sm_import_dmabuf_fd failed, ret %d\n",
++			       __func__, ret);
++			return ret;
++		}
++
++		buffer->vc_handle = vc_sm_cma_int_handle(buffer->vcsm_handle);
++		if (!buffer->vc_handle) {
++			pr_err("%s: vc_sm_int_handle failed %d\n",
++			       __func__, ret);
++			vc_sm_cma_free(buffer->vcsm_handle);
++			return ret;
++		}
++		pr_debug("%s: import dmabuf %p - got vc handle %08X\n",
++			 __func__, buffer->dma_buf, buffer->vc_handle);
++	}
++
+ 	ret = buffer_from_host(instance, port, buffer);
+ 	if (ret == -EINVAL) {
+ 		/* Port is disabled. Queue for when it is enabled. */
+@@ -1632,6 +1679,16 @@ int mmal_vchi_buffer_cleanup(struct mmal_buffer *buf)
+ 		release_msg_context(msg_context);
+ 	buf->msg_context = NULL;
+ 
++	if (buf->vcsm_handle) {
++		int ret;
++
++		pr_debug("%s: vc_sm_cma_free on handle %p\n", __func__,
++			 buf->vcsm_handle);
++		ret = vc_sm_cma_free(buf->vcsm_handle);
++		if (ret)
++			pr_err("%s: vcsm_free failed, ret %d\n", __func__, ret);
++		buf->vcsm_handle = 0;
++	}
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(mmal_vchi_buffer_cleanup);
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h
+index 8c3959f6f97f..9d31816f5be5 100644
+--- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h
++++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h
+@@ -49,6 +49,7 @@ typedef void (*vchiq_mmal_buffer_cb)(struct vchiq_mmal_instance  *instance,
+ 
+ struct vchiq_mmal_port {
+ 	bool enabled;
++	u32 zero_copy:1;
+ 	u32 handle;
+ 	u32 type; /* port type, cached to use on port info set */
+ 	u32 index; /* port index, cached to use on port info set */
 
-This is going to need some *serious* documentation.
+-- 
+2.55.0
 
-Also, what would be a good way to add tests for this to rcutorture?
-Designate some new rcutorture function as being in .text.rcu_no_qs and
-add this as another type of rcutorture reader?  Or is there a better way?
-
-							Thanx, Paul
