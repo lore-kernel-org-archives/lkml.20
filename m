@@ -1,61 +1,96 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710BF370D6D;
-	Wed, 16 Sep 2026 12:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D57260565
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562883; cv=none; b=Qky7VqJ/Lg0sY7U2oHtdhgTKL4/V6nLqllpt82IG0u4x4sdjr2Y9YYlcKY4h14r9G8MrpPx+Wvfr9wDsRJgCD6eC9ntlqYPBcBB4FHj2PTdgMibW6WBeSVPc2fCa7aPibcnQLeJfuhHT/U6NApBNkHftW8iNa6iAN0g3BkIkIbk=
+	t=1789562883; cv=none; b=LdOX9cwcXD6w2wxUZPP3kebJfowAF7vMicKLZEfm2Guya8J98waCJVHqVVua4AkeRh/iWDVPpgN82Y6WDmOueYfTzIZDDR8dVntpwAFYfwEgBMXoQHrNADiylgdelg22Ek4IS1C4dsLNrzotoc+miuhAW0gI+DkTzyRQBaYTI+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789562883; c=relaxed/simple;
-	bh=R34EB5qFvvrywXo1K+BTEbmF+nDTnonFgX4fLLYengc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gr/0fMpHwHsXIjV0vV3BQ9g5l1Vlb7c79JKdCR0NLmve7uGBNs+GRcWboNQVZKn1Rcu8nTM67Oi12L27PcdihQ21eMmtrYczUi+l0qwYO71j0FioOqDGqn7lZAYnFYaPutFcwTMMcJYdEK2W026DkcH0P00wGMcTcPJ95Vrsudo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=1mtH46k/; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	bh=pF4Z1nahF4n/bVVB8LrpLu/J89R98KhciUBy0FswVAg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DwNXrT81XjqmPvGiNqif/R9E3BHga5wGnyPz+PwAvkkTkanwRmDET9LUsieyad0orRfoWy4QpucteiD8cfeNnt/GzNEykzBN7ZVHuVITxxB8SawIO52QyorthltVpIFIEuf1/RtIochcj0kxsHXQJGEa1BPR6QytxX57acF+YR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HO6rWiGG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="1mtH46k/"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=faRlwFMysTxCjCo21JyJKodaamvxM72G1wUYp1D5DJk=; b=1mtH46k/iB3pekHOQEV+cEM1ut
-	F+lI7wR3/mfk4GNMtuZnHrrN/6iRkS0AFwqwccVodoYvFd0wtZ6fvDIMLI1iJgto9IkmlGdnL7f4v
-	dRiI9+s19Gj36Mgpz1F1ctGswc/dzR6UQkUw5E3q0dyU8zjlQyhfesoNGNgoRKAwktew=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6p3E-005Tll-09; Wed, 16 Sep 2026 14:47:48 +0200
-Date: Wed, 16 Sep 2026 14:47:47 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: ethtool: Fix bracket
-Message-ID: <725e1e77-89e9-4077-b8df-2cb7b9be0cab@lunn.ch>
-References: <20260916123458.314458-2-manuelebnerli@mailbox.org>
- <20260916123458.314458-5-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HO6rWiGG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9DA1F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 12:48:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789562881;
+	bh=pF4Z1nahF4n/bVVB8LrpLu/J89R98KhciUBy0FswVAg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=HO6rWiGGoXUibLEdm0OOC501JdPqHz9pjVMIvP1Hv3gNzqI0q7iSY7AElJfXzykw+
+	 rVScEEKhjlljY34PeC1lUtZprDNsl3HiZBmuGiHvmpzdSkRy9ZVh3ZDFQTfG1alN2N
+	 xbEIHh+VuqPerDqB3jgKj/fnECw/hq7CEHiyt8nw4AiM5ExrAEUVwyFKDFWPfa/1kG
+	 HiYZxv5UpP1mfjc8K03rAtfLRzLV4q3KsvvMYpR3r/ZrRaCoYP9hijnDXIfSzpIKSh
+	 6sNEn/Nqb9s8CNrjBncUADA8oOr9m69OpVPG3pXz7/JmS+pqe0GfQSLmICihyOQTdt
+	 gEXmOUb9GjRvg==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1b846so1118518e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 05:48:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzIa2XRlHETXsNVmlgSazWSkBlWnxeldLavqIwzUoIig0x6LiM9ZZpsN+gMG5vfcrPqYLVKpOHmeN/LRVc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kemP/jHDs9Q0lFFnPKmxwpLGW5skYRr5EDm0nv3pKaJEQZzxM8
+	AwGbMI2d9Qe4BSoW7T2/qaYrvEIYYEzEOgy0wERKFNfw+u3r+NrZ0Tws1mcIPsLCNHsIB2amJgH
+	rJ2XUCv+Not7nSS8hWKrudqOQpUGurSQ=
+X-Received: by 2002:a05:6512:3f22:b0:5b8:23ef:34db with SMTP id
+ 2adb3069b0e04-5b8b65ffbf7mr664198e87.6.1789562880080; Wed, 16 Sep 2026
+ 05:48:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916123458.314458-5-manuelebnerli@mailbox.org>
+References: <20260916082623.3972767-1-arnd@kernel.org> <CAD++jLnsKoXxK5mdNUqWT+ggn+7k4D6H0HZuCcLu4_pv6QFS1w@mail.gmail.com>
+ <75d05e40-789e-4cfe-a6f9-fc86af5864e0@app.fastmail.com>
+In-Reply-To: <75d05e40-789e-4cfe-a6f9-fc86af5864e0@app.fastmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 14:47:47 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=NqTsZWDyZe=KvFVjtBAHXDyQ-+yXikA8tdxrubBRmiA@mail.gmail.com>
+X-Gm-Features: AcwNN1XTVr7ctQab3bIfjuljjC9Jfq_rcYJ1ca5CFvzWyBtotnMTV1R6-o5sCQU
+Message-ID: <CAD++jL=NqTsZWDyZe=KvFVjtBAHXDyQ-+yXikA8tdxrubBRmiA@mail.gmail.com>
+Subject: Re: [PATCH] usb: fotg210: fix link error for CONFIG_USB=n
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Arnd Bergmann <arnd@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kees Cook <kees@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
+	Huacai Chen <chenhuacai@kernel.org>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 16, 2026 at 02:34:55PM +0200, Manuel Ebner wrote:
-> Add missing ')' to sentence.
-> 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+On Wed, Sep 16, 2026 at 1:44=E2=80=AFPM Arnd Bergmann <arnd@arndb.de> wrote=
+:
+>
+> On Wed, Sep 16, 2026, at 11:45, Linus Walleij wrote:
+> > On Wed, Sep 16, 2026 at 10:26=E2=80=AFAM Arnd Bergmann <arnd@kernel.org=
+> wrote:
+> >
+> >> From: Arnd Bergmann <arnd@arndb.de>
+> >>
+> >> Calling usb_hcd_platform_shutdown() is not possible if CONFIG_USB
+> >> is disabled:
+> >>
+> >> arm-linux-gnueabi-ld: drivers/usb/fotg210/fotg210-core.o: in function =
+`fotg210_shutdown':
+> >> fotg210-core.c:(.text+0x40): undefined reference to `usb_hcd_platform_=
+shutdown'
+> >>
+> >> Move this call into the hcd file to ensure this is only used
+> >> when USB host mode is actually available.
+> >>
+> >> Fixes: 7dbc2e1ba8fd ("usb: fotg210: use the common EHCI core")
+> >> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> >
+> > Good catch!
+> > Reviewed-by: Linus Walleij <linusw@kernel.org>
+>
+> Apparently you you already fixed this yourself in commit 600334ef2f29
+> ("usb: fotg210: guard host shutdown in gadget-only builds") in today's
+> linux-next, so this one is no longer needed, the two patches are
+> equivalent.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Haha the solution was so different that I didn't understand it was
+the same problem :D
 
-    Andrew
+Yours,
+Linus Walleij
