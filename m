@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6453C51A73C;
-	Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FF851122A;
+	Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568584; cv=none; b=dzVgQ7dS7bD6JVCzoBITL7maUrLhn25urKg4WpJf2UhsypsfV/bEKWzcUF7ZU1gf51zoCw7r5G0b7GP8EB0r3EkF5g/COqWpFnNkb1nTYyT6Ui5+yy7mN1rOjxV14jWOYJX9Onp41wnAa2I6PmjcVP/VORxLt5b6W35p5yYTFH0=
+	t=1789568583; cv=none; b=ZrCCJQf0SU5LISrZi8Y4e0HkqCXh/cQ1iJVP2kgMj247L/hNzde+0t5FFxwYBoQO7BafBiR8xpHkkVrwJ7mdlR/kEcbW5Oao/h0S3SHz4mf339tq0+8wYfFaWzWHYaTx/wXerZo/I5lfKH3h74/igdH7NurYogOgO+Whif+JT7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568584; c=relaxed/simple;
-	bh=vAFIOZywJ3Cf6QH20r/UhBzUAEPsdRIi9SW9imqskR8=;
+	s=arc-20240116; t=1789568583; c=relaxed/simple;
+	bh=ZxMzSJkRAAT8q4hnIB5+u1Z/6/ziiMQZPOtoIyl9iHo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OdcJRf4+Lg8Spfxzyj9KHemv0k/y19YWvPW1Ak1RORQlqKzwa1+D2qd0ZUR3xRbwlDCmuQMbzup0T1s95f/52SK9BDxet3BgjNPy9l9i98ihq86IPm9wPX+V33CcV70LK2B7sVCFIAo30GNnXKN/WMKOc7+PX5wj8gDZsJV1wXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G2Voys4r; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=d3P1IxoEnWd8uAzd1NvbFNlwjheRE9q9sTmfvlXfPtovDmHUFvk/omWC9MA1eEjxVUyxTtJYmJM2qhq/PMenh6pIW6ox4ywNp3LQh7fLdnlHqooS8p3yIvN4IMvPZ2nBpHCr0pT5fLThjT0ew1SAzSIb/GIEXodNVdvKhQluuFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDRodZd6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G2Voys4r"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 45742C2BCC7;
-	Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDRodZd6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 18B81C4AF64;
+	Wed, 16 Sep 2026 14:23:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789568584;
-	bh=vAFIOZywJ3Cf6QH20r/UhBzUAEPsdRIi9SW9imqskR8=;
+	s=k20201202; t=1789568583;
+	bh=ZxMzSJkRAAT8q4hnIB5+u1Z/6/ziiMQZPOtoIyl9iHo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=G2Voys4rJhKU5J3XzVzbJ4e022V1NbbJH4LJzJAb/Btr9qBEwwV5kDizlVdDF2mjP
-	 86EYBBBkoLlxYLDAzcqrQ7H+cFhCdrL9V6Ng1r1Rp53GHdJ9Ai2nGU8W1jwBwC5HaQ
-	 1/rgZUassqN+6M9BY1nkaEkeBlDqMCg3ShKAbA9ld7bvuntaiTiGzZSe1HQDq1/52s
-	 T/Z85elAJwphe13qitQrwU7mNi7P97Z4z9pEE0plDlXGhZ46/wS8TixeVmv4Vwbv7b
-	 V0FWZ5uM+o2NkKrI/781gACUe39FTAQv9Gqz/wVpu3R4oPCKbnA+S6XHFFePwTnfX5
-	 4ibXKxLWsmaQg==
+	b=kDRodZd6gnJTresbwpA7Al/pmxOc81wqcHfF7sxXnTpuwsZCBi4RhPBpHyiMpCLe4
+	 taZx4eZkIAUhBGe8YhIpfw8smLVivHp8cptG5opGIMiAg7YJfDR2fTiIzpqCWYp9Fm
+	 Hr2bGaq83gQqXELi8BgbIaUwjtZloUIWF0AWeHqgKo8ZA2kR+DpkG3r8cKtxGw2vPK
+	 I/6hZLnbtLaCIRO246+BZAYZZ782rXD0TitI6O6vq1dwxSij0xrkLlmdWYE0f0z5dn
+	 qb6TzNsEi68R73JgKeKrr1XfQL/GEMv2+df5o4/5wKuZiWQmtrkGjiqzPPPWAqX47H
+	 B3ncaWeYO0GZA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 291F5C982C4;
-	Wed, 16 Sep 2026 14:23:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2A3EC982CA;
+	Wed, 16 Sep 2026 14:23:02 +0000 (UTC)
 From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Wed, 16 Sep 2026 17:22:23 +0300
-Subject: [PATCH v2 18/19] dt-bindings: input: touchscreen: goodix: Add
- binding for GT970
+Date: Wed, 16 Sep 2026 17:22:14 +0300
+Subject: [PATCH v2 09/19] dt-bindings: mfd: qcom,tcsr: Add compatible for
+ MSM8952
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-msm8952-initial-support-v2-18-798c2602dde1@mainlining.org>
+Message-Id: <20260916-msm8952-initial-support-v2-9-798c2602dde1@mainlining.org>
 References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 In-Reply-To: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
 To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
@@ -77,11 +77,11 @@ Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
  linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
  Muzaffer Kadir <muzafferkadir@mainlining.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=1586;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568579; l=762;
  i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=7Oq7rS5EzM26Gux3h9WgKT4CbZy8lSOyKUpp4zcOUuY=;
- b=Aen8yDs06Tn7noNOlLxLuP49Uf46jO9Zot2IqdsXB+Hd/ixi0+1rYdTdgcz6nwNrS+wlRzTbY
- rxlolij9v4xBdzlB9rAWgsdNZdwTOlAdMwGARte35k+eIpHYDT8hrYj
+ bh=qeaBGCeLrtM04JD/SV5a/sI/wkX12kN/dQisJFr7ioM=;
+ b=4GZxS8t4nccqh0sc4Jny/8OKmUy92ItLBP1t71gGRWV6HupZAoNiHGn5D/lPF2t8gKR1HvCc3
+ gBo2bsR4q+dBwXuGbraEBu8xhpF8WZQZ07T8qFfYv6d003mm+gAsZH6
 X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
  pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
 X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
@@ -91,60 +91,25 @@ Reply-To: muzafferkadir@mainlining.org
 
 From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-GT970 works with GT911 driver, document it to be
-used with GT911 compatible.
+Document the qcom,tcsr-msm8952 compatible.
 
 Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
- 1 file changed, 20 insertions(+), 15 deletions(-)
+ Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-index a26a54d63a1c..4be2c137abd7 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-@@ -14,21 +14,26 @@ allOf:
- 
- properties:
-   compatible:
--    enum:
--      - goodix,gt1151
--      - goodix,gt1158
--      - goodix,gt5663
--      - goodix,gt5688
--      - goodix,gt911
--      - goodix,gt9110
--      - goodix,gt912
--      - goodix,gt9147
--      - goodix,gt917s
--      - goodix,gt927
--      - goodix,gt9271
--      - goodix,gt928
--      - goodix,gt9286
--      - goodix,gt967
-+    oneOf:
-+      - enum:
-+          - goodix,gt1151
-+          - goodix,gt1158
-+          - goodix,gt5663
-+          - goodix,gt5688
-+          - goodix,gt911
-+          - goodix,gt9110
-+          - goodix,gt912
-+          - goodix,gt9147
-+          - goodix,gt917s
-+          - goodix,gt927
-+          - goodix,gt9271
-+          - goodix,gt928
-+          - goodix,gt9286
-+          - goodix,gt967
-+      - items:
-+          - enum:
-+              - goodix,gt970
-+          - const: goodix,gt911
- 
-   reg:
-     enum: [ 0x5d, 0x14 ]
+diff --git a/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml b/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
+index c3889f974ed3..a021e4dea486 100644
+--- a/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
++++ b/Documentation/devicetree/bindings/mfd/qcom,tcsr.yaml
+@@ -60,6 +60,7 @@ properties:
+           - qcom,tcsr-msm8916
+           - qcom,tcsr-msm8917
+           - qcom,tcsr-msm8937
++          - qcom,tcsr-msm8952
+           - qcom,tcsr-msm8953
+           - qcom,tcsr-msm8960
+           - qcom,tcsr-msm8974
 
 -- 
 2.55.0
