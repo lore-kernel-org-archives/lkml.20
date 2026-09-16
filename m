@@ -1,162 +1,115 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74940501F49;
-	Wed, 16 Sep 2026 14:07:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968594FB9CD
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:07:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567635; cv=none; b=PKGFIO3GtCDvGFvePalQPk9TWO/4opv5ZKGMfBNTWRJj6kWWKO1TA8XcdIWIhUJV0xiX0PmjxcRnpfLd0MAhHXE4a8HF2nHKTpMMJOM6ohLqq0jJ1HwYo311mEpCkOJmAqrR0xBpBCpa7qOqBLRlIyYoZaGDoty8f9o1nRJTIBs=
+	t=1789567670; cv=none; b=r5G7edHFxCPiujZTeAyoweECTrwdUKT1QKbGiKhQtqPDGq9LTd69ML4J+2M7qSP5mMiXWd2gO4rxS0EtNk61M/kIhcr3hAGtS+gJ2Z75TI5G4L630yvjJZDroYGH6YUIPtorsld2kc3Mpg7YXH4WcCrjnb6P+DxEBtIT3n23HMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567635; c=relaxed/simple;
-	bh=MGV0/UiveNiiGplXBn4NQhOcOJpFAI97dT32wObLO5Y=;
-	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Fa5LlZNNkRTxB9nGqvVAQyAVcD/eTibNkkHusZCFhEbU3feh+Bdreq+nW2ToKi/1brwyjBrd0BAtkbYUrzrsFfiHB4ihC8nA/iTWARJvCAi2nbg0FJ1QJS9lJt903hNgW6CAYrQASj06bVUyZhdVv1WMscxxcaMej+NGs5nLiZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=deAxxL2q; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=usEP3hhL; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	s=arc-20240116; t=1789567670; c=relaxed/simple;
+	bh=2ryGNl6oXheRx8aq0X55UmksbIPQgAEgzorLvgUpZ24=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SZwTXKmscWeFB+Y0IiD3VizmbUZepG0zlPFdIArDCYJHJCuonCz/WkUbSqEIt8Bl+R5k6tyPPjKxMPtuEByC+09HVwdDMPWDqiYoocPabfmeLJoy9/PjZGvYm89R17TOtJB3dsM5ZehRc+kZir9GHn5CJajnY2mMe8AK3Bgixdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SZ2ObqZ4; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="deAxxL2q";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="usEP3hhL"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id 7F760EC00D8;
-	Wed, 16 Sep 2026 10:07:12 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Wed, 16 Sep 2026 10:07:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789567632;
-	 x=1789654032; bh=Be2o5M1d9xljHYCRtuNcdhNIc/2it5l8BznRP32aB+E=; b=
-	deAxxL2qOz3i3Nk280cG2SuqAGf0LERKkb+BKPxddkO2Uggd14mT0texUPBovaEQ
-	U9mx9skBudy7DVI5XFPEjTyPgiSnnY3sR3Dgvrv+O/16UiOhJpQbUmhbPwfxvaiO
-	Oo8i04bkxS0tZmGyjWNJu9Bcwo70WPSy1ft7ZIUoYMH8uk0L4LoPSdTu0aoGe2vT
-	Lf7CpUcdN1ceH8IqpBf9efrfO4dIN+Diz+X/7yX+ZNEJ/VFyZvUMjzyE7HZ+atjS
-	fGxoGE8k3Xdz6d0H9qxYVFk67YMdFy0QFZAFT9hpWLyg2iURMGbHhvG2swWodIrW
-	gSeGT8jxhQmJo+m5IjNkkA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789567632; x=
-	1789654032; bh=Be2o5M1d9xljHYCRtuNcdhNIc/2it5l8BznRP32aB+E=; b=u
-	sEP3hhL2wPucrF8g4+DIgHERL4yiNo6RMR+5ANpjRjwcKSnlQ3R58oi1A8Wijzbh
-	Ted5NbSc2V2q7tpOYpaanPrrlGd68k0Y9e+rVTBpFozJl6r9Uqx5ky5uhS4C2RvU
-	ZNu8ggu04ssOSbPoKG5n0EzmPr8wvbdHcQCxfhUK9TaVtLPL5FJlhEQ8v0BryiIO
-	BlDytGlGtgF5TMO40x/a8WNJMBTdYRW9+UO60IyjEj4Fj/P/S9CCco4eL1wq6lXg
-	i2W4wwRkO7kjyQANlP0Z7Z2g8RMfEeGfeMUiQTruTI9GiaFAXte0R4sA+wOv3kDv
-	GVVnR/wmp/IXy9rjwK/kg==
-X-ME-Sender: <xms:jqKqaoYvkYmOg-UJ8gtDH_R0lw7h0d696x39Mb-7Rccp6FxNPpl1hg>
-    <xme:jqKqaipBCGaf_mmfFFtSl_0CdNJHhURYGZk1dNaV6O_B2pEre-0gVZ6Nj-lSD0mSm
-    1hZS9Zw2ah39vt68pOVLR8-3kN5SHricV5oniqmw8-oDieVE0PBRxAy>
-X-ME-Received: <xmr:jqKqavIPKJmgiv_-NDObdJrhZDHjGPG2qs4Yb5KxqLe2MhMfvE2nWxF4QNlO6MMR4R4qA_ki09qaAcSA5KlLseq3>
-X-ME-Proxy-Cause: dmFkZTE24MkS2sB+Rva6s7htY7NC2fdYq4QMZ8DzKsYXOVhrbIfPJcjFGqD8XD9xFUbpzK
-    T8v9MWKCaUPHHVWOdP0Ph3S9vCuzfzvk0UHCjo89hw+hw6yCwrmrMh2jlvplimDpg9mX5W
-    YhumFteGV+Z0jP5x0bAG7YSoLN5yg0xx9AhfBWUqkivBDuW0btCAIIIBjteGEFXAIH2CKq
-    3Xw31wPUpiXBNFegLxJKTpF8ooPmFeH/zfQPNCPE/Yf4R6lW7Xg2opzmbbNczjzmxaZtiG
-    e9if0bFXi+w0RveLM37dEX04I+oZmJ7BC5eGY934whHgua1iPsiYlsb2yu1pD7BcHl+FK8
-    utjsVakpuqQQ1RG/gYGD1xK4i0ykb5u26Z4udx1f4krPFu1gANlPh7NuZm4TWvxkFOUFOu
-    fpnbyfYjIcFoFu5thzd+Jb0sGTJoUqc4mcpwMeHSZMNRxKYuDcHaMv89MyAGNgY6sHT4Sw
-    qyXbRdqJLvhHyDb9CgVIVNWck0tpyr45fSXja/hGhvQXLvBC+9iaM2fNXLdVMh61RHhOsm
-    VTK4la9FOWe0yRop/SLJqUma9repZGnmq/JqZ70bv6cbSiFpGa3srvc8j2u5VstCXQNvas
-    ExDBOTIO2wiP+DNRmJXsFiTYl3RjyJ0E7U7O4Irjvs+6S4HOLmJSspbWI3vg
-X-ME-Proxy: <xmx:jqKqatZua1_v_2U74D2H352410OtvMkZOOHh_YB04rdXM_nF9yCfQQ>
-    <xmx:jqKqamoh3-SJPZp8WCuojHZxYa0aIPpJQMm8Uw9Iv3Eb17mkCzDDUA>
-    <xmx:jqKqagCV_cIiXEvUUKpEe4U4zmWLe76izJJea4qeCB-FLIJ863oOZA>
-    <xmx:jqKqakl3h2L8Fhaayd568-d0y1cvRztxIK7CK2FB1ZP2wMH0ZV5YeQ>
-    <xmx:kKKqahgpoohVyElPk3Kl7S5wiU-zRx3U0PwO4IVEUFMbPx0ga3aJWMbB>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Sep 2026 10:07:02 -0400 (EDT)
-Date: Wed, 16 Sep 2026 23:06:58 +0900 (JST)
-Message-Id: <20260916.230658.2266384286281034372.tomo@flapping.org>
-To: mkchauras@gmail.com
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
- chleroy@kernel.org, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
- aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org,
- daniel.almeida@collabora.com, tamird@kernel.org, acourbot@nvidia.com,
- work@onurozkan.dev, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, nathan@kernel.org,
- ndesaulniers@google.com, morbo@google.com, justinstitt@google.com,
- ynorov@nvidia.com, david@davidgow.net, joelagnelf@nvidia.com,
- fujita.tomonori@gmail.com, linkmauve@linkmauve.fr,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-riscv@lists.infradead.org,
- llvm@lists.linux.dev
-Subject: Re: [PATCH V5 2/2] rust: kernel: Add KUnit tests for powerpc
- ARCH_WARN_ASM bug table emission
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <20260915090453.1227034-3-mkchauras@gmail.com>
-References: <20260915090453.1227034-1-mkchauras@gmail.com>
-	<20260915090453.1227034-3-mkchauras@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SZ2ObqZ4"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed9866so9053995ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:07:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789567669; x=1790172469; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E5Rra/PVcmzax9enHjnZo2f+/CC6GR4PQjiSRwVy+Jw=;
+        b=SZ2ObqZ45OQX8DdeLymePHA+12+hn3haVx+uRwnbUQhSBkTsZGEKZbc7UR4uFGrzNg
+         H+Tgjzd+6BSxcJA9Zl4d/5cj//8/EJGFQkpDqHrcQJe0/QcUP25DHf8vyYjFlxD1U7iX
+         TCF1EdVgZZUPIEWIMuEm778jxImSCjEX1G8U8vTYToASvKyXuaDngld/An9gb3VAZEEG
+         +zoYFS/0hHwf5YhLGRDdQBWxg6q1w5N6igwxmhxhLL+mdha6AlsSgWfgMeWq5d5ZxB1C
+         Ryzwu+jpKKjNq5cUSYemTjrymJgHKevXV4sqVvdQKHIzaE2zTsA8LZQAmvjQ1iumP5fr
+         rKww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789567669; x=1790172469;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E5Rra/PVcmzax9enHjnZo2f+/CC6GR4PQjiSRwVy+Jw=;
+        b=LTQYeUtnIobw2R1lxLqQxUxoZ/6oEuXU7tadMimL7hJXy8YYWyaD5wivPnW/DmgFQw
+         mUdLepYUzzpwT112+v113KrcMWKu7YI5W4wYWXuCKV7dn06OSUrDw9s/QggLo+zukLue
+         bHVHhY03qbWMXKEgHdvMbpr6KICqOFa2mZiXrgWlYyxiioNhqQT4C/lUtbdKsadkqTC1
+         45lHiIetnsNpIKcXIX/yZ/mKbTx7FXA/oCIoa3X/q2nhBWsXa/JVu2H7igohkmb61ASZ
+         bD/kyARDccTZJcB9qS7hrWSbsfO+9uWbTFrs7WZ3nmMNSznuSC7eDkiZwDRu0Mfdi1qj
+         DHEw==
+X-Gm-Message-State: AFuF++mIe85ScHIHmSPVz8OMC2q+q/aCeJWJZvAnVbW2Eho0NDah9ywi
+	zkeCaa+ForKdGOV+NhMw8+fojYfHNR2XgOB3vU+oCMlLc4+6bevhe+HRLz1Ddw==
+X-Gm-Gg: AYBFou3m5pty2Mj2Zcc8et6Jbwba2FjqXkb2ImDxP1FXu2KCSXoqFM4ZqfnF7sUffzt
+	q043l1SVPF6Towrba53GA+g7omueOAyNY+1zvvlRfsJKjkxCpoUP12mWTp0NIjwDiXOMjcHlQet
+	SiFH6W8rSJQF4nn9yIXaLyDiEu6nnFcQocucAed3YtwAXBTPP1WTZrZNIMs6vJdNG9PeqsugV7s
+	52/ptoyZmkHt95EKqQmKxxWxJqnFhiBszk+ATNQ86sNtNJCL/JHcgDRsgRHfdvOB9llWMVIBIzV
+	17o5cjB/zry+KpxbTGW6UzVmoh6W6BuXCdGKzaWIoRdOo6YANyNR7MNk92gjCCfxM8UDyiCDaFQ
+	3T9wgdpRfoe6l40IZAci8TTmQIUXIyObEtB+VKlY2vwGl/weiMSpb5MWJmoSQjkqLsiGdvK7UsX
+	D7pxPvpLg6loU2bXYVcQLWGlblURJ/Bb6f4Xw4LOqdyYnW/aZYv65KsiA0YEv5JPVy+qyyslmTu
+	ksE
+X-Received: by 2002:a17:902:d4cb:b0:2dd:88b4:6920 with SMTP id d9443c01a7336-2dd8e784c69mr58010935ad.22.1789567668803;
+        Wed, 16 Sep 2026 07:07:48 -0700 (PDT)
+Received: from nixos ([171.239.145.84])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89edd1d5sm12622275ad.48.2026.09.16.07.07.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 07:07:48 -0700 (PDT)
+From: Bui Nguyen Nhu Quynh <kaylovefoss@gmail.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Christophe Leroy <chleroy@kernel.org>,
+	linuxppc-dev@lists.ozlabs.org,
+	kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v2] KVM: PPC: Fix callback check in kvmppc_gsm_refresh_info
+Date: Wed, 16 Sep 2026 21:07:42 +0700
+Message-ID: <20260916140742.636708-1-kaylovefoss@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260907145626.7675e892-56-amachhiw@linux.ibm.com>
+References: <20260907145626.7675e892-56-amachhiw@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=iso-2022-jp
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 15 Sep 2026 14:34:53 +0530
-"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com> wrote:
+The kvmppc_gsm_refresh_info() function incorrectly checks for the
+presence of the fill_info callback instead of refresh_info.
 
-> Verify that the __bug_table entry emitted by ARCH_WARN_ASM has a correct
-> bug_addr displacement ― i.e. the '1b' label reference in _EMIT_BUG_ENTRY
-> resolves to the trap instruction ― by calling find_bug() with the exact
-> virtual address of the twi instruction, mirroring what the real powerpc
-> trap handler does.
-> 
-> The trap address is captured at link time via a .dc.a 1b relocation placed
-> in .data by the global_asm! block. global_asm! is used instead of asm!
-> because LLVM eliminates asm! blocks in dead branches; global_asm! is
-> file-scope and always emitted. BUG_KUNIT_TRAP_ADDR is defined as a .global
-> symbol directly on the .dc.a word so the linker relocation lands on it ―
-> a Rust static initialized to zero would end up in BSS where relocations are
-> not applied.
-> 
-> .dc.a emits a pointer-width word (4 bytes on ppc32, 8 bytes on ppc64),
-> so BUG_KUNIT_TRAP_ADDR is declared as usize on the Rust side, making the
-> tests correct on both ppc32 and ppc64. The global_asm! block is split into
-> two cfg-gated variants (CONFIG_PPC64 / !CONFIG_PPC64) to select the right
-> .balign since concat!() only accepts literals.
-> 
-> Five tests are included in the rust_kernel_bug_powerpc suite:
-> 
->   bug_entry_found         - find_bug() returns non-NULL for the trap address,
->                             proving the bug_addr displacement is correct
->   bug_entry_is_warning    - the emitted entry has BUGFLAG_WARNING set
->   bug_entry_file          - bug_get_file_line() returns the correct source
->                             file (requires CONFIG_DEBUG_BUGVERBOSE)
->   bug_entry_line          - the recorded line number is non-zero, confirming
->                             the {line} operand was substituted correctly
->                             (requires CONFIG_DEBUG_BUGVERBOSE)
->   bug_entry_addr_is_in_text - kernel_text_address() confirms the trap address
->                             lies in kernel text, not data or zero
-> 
-> The suite is named rust_kernel_bug_powerpc and the Kconfig option
-> CONFIG_RUST_BUG_POWERPC_KUNIT_TEST depends on PPC && GENERIC_BUG,
-> covering both ppc32 and ppc64.
-> 
-> Tested on ppc64le (ltcfujiaac-lp3, 7.3.0-rc1+): pass:5 fail:0 skip:0.
-> Tested on ppc32 Book3S (QEMU mac99 G4, chrp32_defconfig): pass:5 fail:0 skip:0.
-> Tested on ppc64le (QEMU pseries, pseries_le_defconfig): pass:5 fail:0 skip:0.
-> 
-> Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> ---
->  rust/kernel/Kconfig.test |  13 +++
->  rust/kernel/bug.rs       | 209 +++++++++++++++++++++++++++++++++++++++
->  2 files changed, 222 insertions(+)
+This can lead to:
+- NULL pointer dereference if refresh_info is NULL but fill_info is present
+- EINVAL return if refresh_info is present but fill_info is NULL
 
-I think that testing warn_on!, in particular that the right address is
-put in the bug entry, is a good idea.
+Fix this by checking the correct callback.
 
-I'd prefer such a test to work on every architecture. This one depends on
-details of powerpc's ARCH_WARN_ASM, such as the '1b' label. KUnit has a
-warning suppression API. A test can call warn_on! inside a suppression
-block and check that one warning was counted. The counter is only
-incremented after find_bug() found the entry, so a wrong address is caught
-too.
+Fixes: 6ccbbc33f06ad ("KVM: PPC: Add helper library for Guest State Buffers")
+Signed-off-by: Bui Nguyen Nhu Quynh <kaylovefoss@gmail.com>
+---
+v2:
+- Resend; v1 was mangled by the mail client. No code changes.
 
-I'll send a patch for that shortly.
+ arch/powerpc/kvm/guest-state-buffer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/powerpc/kvm/guest-state-buffer.c b/arch/powerpc/kvm/guest-state-buffer.c
+index 42843eca6727..aeb586ba4523 100644
+--- a/arch/powerpc/kvm/guest-state-buffer.c
++++ b/arch/powerpc/kvm/guest-state-buffer.c
+@@ -598,7 +598,7 @@ EXPORT_SYMBOL_GPL(kvmppc_gsm_fill_info);
+ int kvmppc_gsm_refresh_info(struct kvmppc_gs_msg *gsm,
+ 	struct kvmppc_gs_buff *gsb)
+ {
+-	if (!gsm->ops->fill_info)
++	if (!gsm->ops->refresh_info)
+ 	return -EINVAL;
+ 
+ 	return gsm->ops->refresh_info(gsm, gsb);
+-- 
+2.54.0
