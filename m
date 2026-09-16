@@ -1,74 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B72483BF6
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 21:32:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B42364942;
+	Wed, 16 Sep 2026 21:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789594384; cv=none; b=d5pBGI5TJ6KgKbWzI0pYIT+ryxFp8m5JL6BbJzjixtVrg7La7qeFddwrRI4+Us9wyTVS9Wd6vG4Dnw/w7Q6mwRrSLv4sixn/RBYvmQxuO/1PfXAkjJ7kpcQWeUk4ElQe+wsI+vuFJvLTj4h+TASt0JqEElWnXlePCe93CzzvePY=
+	t=1789594392; cv=none; b=NTDS/0ognxRlFrb8NXUg/i/adkLFEvQNvgFlk0+MzSzMvvGDZPYYwKMuZvYnxfAFolGVounGZ9EBLYQK8dlyZlK/LlL7M2DDKPzhjSqg3LpCSkCkXKI5DRTKJgx1IxSqy+hH9iFPorkK0qodvzCaQA+XlSDTJaRMbwhICJ3wCjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789594384; c=relaxed/simple;
-	bh=17rMwzyZvMupJpY+qw4G+Rdf9lfg49Qchc+3qTXZaPQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tHqMpeb6SmOGOMNuXY32COTsSFDc+0DkjLnRlKFC4QNMifYi5cbx9EEw0KN/FlC4Lnud49i2NJ33gPP2rDTqqghh50N68SqxP6VrCnCSA5e/9ANochqrgNfksydWWPjtx6XArKb26nFba8muZpOv1DdSI8i6hWE2DWm0HHv+8bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f73SiSnZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789594392; c=relaxed/simple;
+	bh=c0QBlhKG71j35+ahEUAuYE2gertFT0ypy2pMftXxiUA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OWW43x4UiQMrEyUqPcTEmi1ZduX/pO4hswXaRlCCSU1v6zroy0AF7xMrQLstqxxHBrQFC+aiU0rDTPIHiQ/TwJNZCB5kzpvCp+3vXIY9pcczrTIAY+BrY1Gu86k/w68Ot3ETmxrmh5SCLcKcXye/io20V17N3o2TWriEftad0vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CHQsP/UJ; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f73SiSnZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5CC31F000FF;
-	Wed, 16 Sep 2026 21:32:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789594375;
-	bh=UPrxWso2jS9frylLdy0Jy0Nxd5S7abxn3XuSWz2Dy0g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=f73SiSnZRvVZuvo0fToEh5hdb+xgrmJGCGftS9N89GzwsCH8RnZjAmDsHqQlVIn7+
-	 E/sMajFArESRXECSJnosiIgeAZ7aKIRKrx635U9PFfrCAz8yTPic9zjkiNSsNHANhi
-	 JZCbZTSSFb2Inze5+aJWbe3eoUO7qJ+fYHh2aFGSYabUwgi6N2hfpHarPp/Jkno6bm
-	 TCsI8nkiTEhdNpLZt+U4GRmD4cL9312J2O7L+EG3HSa6wDJdl+DlodxfNBdAmBQzya
-	 s0VeHVCjyGpPg4Wc0o43jnGuXdKqxE86BMF6mkLYxp5syhuFFgkl3QA2x45wk0l1lM
-	 lF7cso8ylVBmw==
-Date: Wed, 16 Sep 2026 23:32:50 +0200
-From: Thorsten Blum <blum@kernel.org>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Kees Cook <kees@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] powerpc: fsl_rio: Use snprintf() in fsl_rio_setup()
-Message-ID: <aqsLAuX8mHUe5ls2@kernel.org>
-References: <20260630144951.692473-2-thorsten.blum@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CHQsP/UJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789594378; x=1821130378;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=c0QBlhKG71j35+ahEUAuYE2gertFT0ypy2pMftXxiUA=;
+  b=CHQsP/UJiKtoZlUrc3BHFMv2QSI8XEPL7PyrX9PrBjrMOkXjRGfuoKsT
+   A43VjpyFFhFPiHVRe8fXIHlTthPGDCv1/9dwpw+ZTPgdnvJD7ufopM8Mg
+   PdoV0lV8N5ZB4OmIFRv1qmigqQF7TrE02Z5DLy7kHJ0XA69eG5tyRAJm/
+   4UvstMbVV7ThBMTmfAwQHxKy3xB87IEcUkhkGu7OQsdr00JNt65VBr5Iu
+   559G5VfwjMhqQiZQeL1x+DP53PrGa0Q+EFosJF6DuB3jYmsPmQDfruHhW
+   P6V+bTeK9EU75H9KCegj9DomD0sKGlk89zrvGXSRAhNKVLhL9HdVZO+JK
+   A==;
+X-CSE-ConnectionGUID: YzF+IFzsSUK3vJcC59UWcQ==
+X-CSE-MsgGUID: FLsIjSmORjKg5YZ4AUroUQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89918470"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89918470"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 14:32:54 -0700
+X-CSE-ConnectionGUID: eM7YEe0CTjObMA3wkOWBYw==
+X-CSE-MsgGUID: U5+8yxvwTZuuuaD2Ee9rQg==
+X-ExtLoop1: 1
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.185.5]) ([10.122.185.5])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 14:32:52 -0700
+Message-ID: <1320a70d-4d92-45bb-9cca-5e86199b4cb1@intel.com>
+Date: Wed, 16 Sep 2026 16:32:51 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260630144951.692473-2-thorsten.blum@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 5/8] KVM: x86/pmu: Support PERF_METRICS MSR in mediated
+ vPMU
+To: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
+ Andi Kleen <ak@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>,
+ Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi
+ <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260817183143.226156-1-zide.chen@intel.com>
+ <20260817183143.226156-6-zide.chen@intel.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <20260817183143.226156-6-zide.chen@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 30, 2026 at 04:49:50PM +0200, Thorsten Blum wrote:
-> While the current code works correctly, replace the unbounded sprintf()
-> with the safer snprintf() in fsl_rio_setup() to follow secure coding
-> best practices.
-> 
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> ---
->  arch/powerpc/sysdev/fsl_rio.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Gentle ping?
 
-> diff --git a/arch/powerpc/sysdev/fsl_rio.c b/arch/powerpc/sysdev/fsl_rio.c
-> index eb55dabb4748..077c03cd93e4 100644
-> --- a/arch/powerpc/sysdev/fsl_rio.c
-> +++ b/arch/powerpc/sysdev/fsl_rio.c
-> @@ -612,7 +612,7 @@ static int fsl_rio_setup(struct platform_device *dev)
->  				kfree(port);
->  				continue;
->  		}
-> -		sprintf(port->name, "RIO mport %d", i);
-> +		snprintf(port->name, sizeof(port->name), "RIO mport %d", i);
->  
->  		priv->dev = &dev->dev;
->  		port->dev.parent = &dev->dev;
+On 8/17/2026 1:31 PM, Zide Chen wrote:
+> @@ -395,6 +400,14 @@ static int intel_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+>  		if (pmu->fixed_ctr_ctrl != data)
+>  			reprogram_fixed_counters(pmu, data);
+>  		break;
+> +	case MSR_PERF_METRICS:
+> +		/*
+> +		 * Bits [63:32] are ignored on hardware that supports only
+> +		 * level-1 metrics, but may be valid on hardware that supports
+> +		 * level-2 metrics. Preserve guest writes verbatim.
+> +		 */
+
+That comment isn't correct. I've confirmed that MSR_PERF_METRICS[63:32]
+isn't simply ignored on hardware that implements only the four level-1
+Topdown metrics. Those bits are reserved, and KVM should reject non-zero
+writes.
+
+I'll post a fix in the next version. KVM will get the number of Topdown
+metric events supported by the host CPU from perf/x86 and derive the
+MSR_PERF_METRICS reserved-bit mask from that count, using it to reject
+invalid writes.
