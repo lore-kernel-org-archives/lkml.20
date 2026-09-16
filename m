@@ -1,156 +1,84 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 302DB4EBAC5
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 11:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EBB4D09E0;
+	Wed, 16 Sep 2026 11:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789557751; cv=none; b=ZtLGUq7ucunqfmbkD6bo9mzefzuPcL2CM93uBgyV1cMeFWHFJlXyFEGLyPJs2Q1L9c+FDFVdwOCFtzusDbGdjKlI/TwmA8iwaQbVdxZvuABALj9wu+jH6SOhAVQRiFjLwz3D0fHg46d8qXqrdlAJNeWduo5l3gOPGVGz7mv2X9A=
+	t=1789557777; cv=none; b=pGX3A/3LS/nih58p8Ew8APScs2Rqd+pZNU8HLI34nAlWCAdkDGMbT2E5eqfRGBws691ysnu44qpw1wuXXVu+o3H9i7ES/pvFwlUbvPGicAzhdtfj1Rc+KeD9fHm38dLEbvel5lAUXxZH9d/va6zBOFW69kl1xeBmDA7tQxQUXBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789557751; c=relaxed/simple;
-	bh=SpZeWShggoHQnmxhsOFx/oKPgEiPdIUl3gcqEzwY8o4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=ZaWCwDCG3eCgsKsCQGPNwb+88/a0hZEb8a2jbFjqgbOaKRhdjB0shQ33FRcv1thM6+FxnU7tgrkjVkU1Izl7wEgAwSUWrea83OIO6H+5F8Yjb+I1MPKjRo/qVjT0bFKfUmUyBxuAHH61drNnbdzNrWd+iBP1A+Imoi7ssWInV1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=d+g/E/Wb; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789557777; c=relaxed/simple;
+	bh=HaDup1zqLAuloj9vagheUeO2UyYUCSBAeeryA6ayQcQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kK32KSeJN/zqlBdAupI7bD1vpk21uHn/c6Kv2cJpxqdqNn0X4UqAQUGjDRXX35KxISSccE0UnQBi+gp2+d0lkAXrp1XjoJ0Ajw/E1fIUo7o3hoRzUFAFhPiqKoMoC8IeTXaVGcvR0ZlvjzgYfbko8+w7Ec2EhDShww91c32x9+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUguNGok; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="d+g/E/Wb"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AEE49152B;
-	Wed, 16 Sep 2026 04:22:08 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (unknown [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A1483F86F;
-	Wed, 16 Sep 2026 04:22:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789557732; bh=SpZeWShggoHQnmxhsOFx/oKPgEiPdIUl3gcqEzwY8o4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=d+g/E/WbonaThoed9wBDUOQiGEQ6jYTYFOks5xSiHifAf58WA7Ip8QvxsgSqtP7nz
-	 2TOmoEjkdFD2DLu9VQnj2mAD1f0rZwo1Ehc6T58nKtp3gGrVWQBcpIxxwsE1Zmid7Z
-	 soTsBLx9ghIknGFW8TMEdZYHLIO060uy5WRShYWs=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Oliver Upton <oupton@kernel.org>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Tian Zheng <zhengtian10@huawei.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 1/5] KVM: arm64: pgtables: Change write bit from S2AP_W to DBM
-Date: Wed, 16 Sep 2026 12:22:05 +0100
-Message-ID: <aqp73SxO78o7LJTs@LeoBrasDK>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <aqnku2TcFzIKhjQl@kernel.org>
-References: <20260901171558.2674031-1-leo.bras@arm.com> <20260901171558.2674031-2-leo.bras@arm.com> <86bja17cg7.wl-maz@kernel.org> <aql8jY4o8SzjJuFU@LeoBrasDK> <aqnku2TcFzIKhjQl@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUguNGok"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 599E41F00893;
+	Wed, 16 Sep 2026 11:22:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789557770;
+	bh=Bv9caHK0L3VnjzkDAa41MY/MJExPJkSpdY12LFmTBZg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JUguNGok/rnJzGOGXcCKwTaEO9+sBhgPfVld16HUMoI5e/yplK7z8WDRTuemXMzbU
+	 MpzTF4953JBUCMNYt87QkDPjzNC5Che539aqreL0nSm+JWMJZGrOvnH332cE7RrMYs
+	 UK2NH13HMXevazHmGMes3wU7iZuFGaRxkxmQ5C/HT+HKfO87JV/Rmz5liwR8rvHz10
+	 FjKW13iFqn6i3J3g9K5O5pEmnnvoPfJB1oHz8TajHPeukNF2PwQJzp4WScvYL1IYiN
+	 DeTrGHgxphyrG+7OEZbCif3iJCgNcAEhR9T06uMEE66ntSHeLIvIlHBiXghDBMvA46
+	 C4byX0bqGHN4Q==
+Date: Wed, 16 Sep 2026 12:22:45 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: krzk@kernel.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org, perex@perex.cz, s.nawrocki@samsung.com,
+	tiwai@suse.com, stable@vger.kernel.org
+Subject: Re: [PATCH 03/20] ASoC: samsung: snow: Fix clock leak in snow_probe()
+Message-ID: <1a22633e-6264-4ea4-a6be-28f87802000b@sirena.org.uk>
+References: <20260916070341.1965422-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ZyB3ECWHltiMyhAD"
+Content-Disposition: inline
+In-Reply-To: <20260916070341.1965422-1-vulab@iscas.ac.cn>
+X-Cookie: Double!
+
+
+--ZyB3ECWHltiMyhAD
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 05:37:15PM -0700, Oliver Upton wrote:
-> On Tue, Sep 15, 2026 at 06:12:45PM +0100, Leonardo Bras wrote:
-> > > Yes, the HW should ignore it. But we have also
-> > > seen quite a few broken designs in this area...
-> > > 
-> > 
-> > I lack experience on what bad thing could happen. So I will expand on what 
-> > I belive to understand up to here:
-> > 
-> > - The PTE is in memory, so the DBM bit can be set regardless of being RES0
-> > - For SW pagetable walking, I don't think 'bit 51 == 0' is checked
-> > - For HW pagetable walking, maybe some faulty implementation may rely on 
-> >   bit51 being RES0, and fault otherwise.
-> > 
-> > If that's the case, then we would have to actually support both encodings, 
-> > and only enable the new one if HAFDBS is available in the system. 
-> > 
-> > I just wonder how high are the chances to have such a broken design, 
-> > or other broken designs did not come to my mind, and if we have to start 
-> > with that multiple-encoding option.
-> 
-> FWIW, the host stage-1 already uses the DBM bit unconditionally,
-> treating it as a software bit on implementations without HAFDBS.
-> Although given the quality of any garden variety Arm MMU I understand
-> where Marc is coming from.
-> 
-> I don't think the HAFDBS enablement is complicated enough to be done in
-> a separate series without any meaningful users, nor would I really be
-> interested in taking it without, say, HDBSS.
-> 
-> Can you please work with Tian to get a combined series out for this?
-> 
+On Wed, Sep 16, 2026 at 07:03:41AM +0000, Wentao Liang wrote:
+> In snow_probe(), priv->clk_i2s_bus is acquired via of_clk_get_by_name().
+> If devm_snd_soc_register_card() subsequently fails, the acquired clock
+> is never released, leading to a reference count leak.
 
-Hi Oliver, thanks for reviewing!
+You've not copied me on the rest of the series so I don't know what's
+going on with dependencies.  When sending a patch series it is important
+to ensure that all the various maintainers understand what the
+relationship between the patches as the expecation is that there will be
+interdependencies.  Either copy everyone on the whole series or at least
+copy them on the cover letter and explain what's going on.  If there are
+no strong interdependencies then it's generally simplest to just send
+the patches separately to avoid any possible confusion.
 
-Sure, one of the reasons I sent like this is so Tian could use it as a base 
-for his next version.
+--ZyB3ECWHltiMyhAD
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-> > > > diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-> > > > index 17123f0b6dab..eb8dfffc32c7 100644
-> > > > --- a/arch/arm64/kvm/nested.c
-> > > > +++ b/arch/arm64/kvm/nested.c
-> > > > @@ -379,21 +379,23 @@ static int walk_nested_s2_pgd(struct kvm_vcpu *vcpu, phys_addr_t ipa,
-> > > >  	}
-> > > >  
-> > > >  	addr_bottom += contiguous_bit_shift(desc, wi, level);
-> > > >  
-> > > >  	/* Calculate and return the result */
-> > > >  	paddr = (desc & GENMASK_ULL(47, addr_bottom)) |
-> > > >  		(ipa & GENMASK_ULL(addr_bottom - 1, 0));
-> > > >  	out->output = paddr;
-> > > >  	out->block_size = 1UL << ((3 - level) * stride + wi->pgshift);
-> > > >  	out->readable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_R;
-> > > > -	out->writable = desc & KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-> > > > +	/* Takes care of both RO/RW and RO/WC/WD encodings */
-> > > > +	out->writable = desc & (KVM_PTE_LEAF_ATTR_HI_S2_DBM |
-> > > > +				KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W);
-> > > 
-> > > Absolutely NOT. For a start, NV doesn't support FEAT_HAFDBS. But even
-> > > if it did, you are now actively corrupting memory by turning a RO
-> > > mapping with a spurious DBM bit set into a writable mapping.
-> > > VTCR_EL2.HD exists for a reason.
-> > > 
-> > > Do you see why your blanket approach of equating DBM with writable is
-> > > plain wrong?
-> > 
-> > Sorry, not really... please help me understand it.
-> > 
-> > When you say a spurious DBM bit, what does it mean?
-> 
-> You've implemented the exact sort of bug that was alluded to above. In
-> this case it's a software page table walker consuming DBM regardless of
-> the value of VTCR_EL2.HD.
-> 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqqfAQACgkQJNaLcl1U
+h9CZWAf/YsKKjzdxqiPRs2SAcU4OvqyZ+mVhxVFcrOXRsAlpjdRm9NV2h9OaB5Ko
+qGZZAKaOal6iYNpZH0ye4dCf/ncPDV5sKNz0HR4s1w9hzAAShknFPuausbtfmr6o
+XPTBS1LajEZwMxO0HSU2etNjO5xNCO70kJqP0yCpFmNcst/l1MI0XJMvjPC/Ro1W
+B83rnfFQV8FA0xTLZHpT47Vpa7x9IJlqyx8OeKNbNEMmBKaW2czxfsrkliD3HFCq
+QGH/OTqNeRLcS+qzC7ldzlOq+ch+a2kXr6gpXFeg1Ro73saQ+EwEHuw9LztU/HJC
++WJdTu0JF9R3FFTwH/UO9YosSpoGkw==
+=jgHW
+-----END PGP SIGNATURE-----
 
-So you mean that DBM being treated as "writable" could _only_ happen if we 
-have VTCR_EL2.HD=1? I was previously under the impression that it could be 
-used regardless of HD value.
-
-> If the guest hypervisor sets VTCR_EL2.HD=0, the expectation is that the
-> shadow stage-2 MMU treats the corresponding bit in the PTE as RES0.
-> 
-
-Okay, I think I can see it now: since the guest hypervisor could use RO/RW, 
-and has no decoupled concept of dirty and writable, it could think all 
-writable pages are dirty when we run above function.
-
-So.. would it make sense to have an out->dirty, which we would check based 
-on S2AP while out->writable is compared against DBM, and we change the 
-logic that uses out->writable to properly match it, maybe based on the 
-guest having the feature enabled?
-
-Thanks for your patience on explaining this!
-Leo
+--ZyB3ECWHltiMyhAD--
