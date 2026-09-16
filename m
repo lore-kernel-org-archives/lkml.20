@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BD74D9567;
-	Wed, 16 Sep 2026 18:32:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297C94A6CDF;
+	Wed, 16 Sep 2026 18:32:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583583; cv=none; b=sL+YUJ9vEmQ4GX5jvCQD5tRFqk0eM8PMCWvDDDHL/c1cCVhokxq1ZIKcKzj3MKDv+1cdTS0LkY7Duv16lZOaFZxEe5DSQ1y8Ioc2wLh/5/NpsnUwTVd+Z86yUqYycMMb+lXu54UsRhVhc8qfX61X2se+Y92BUL+SJOjei3Ffiw0=
+	t=1789583580; cv=none; b=Y0PrB9pQ4YndWserssvC4j2cyX4KOMmUi/W8jCcuUJ2NQp5zS/O0X2HUJxga6GZ2wqMdof2meTmPTCQfGfbYY5956rLuLCP3ocDHXEBzF22qhLxcMuvPL5JPjs1Zs/ZZXhpe7ypaqDHTXd+Tc9WPRROKzvNIWBJNslVXTQ8t37g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583583; c=relaxed/simple;
-	bh=vcrRIdYWh+TkOxK4o1c2gaMNRQIaB920uKIymM152zw=;
+	s=arc-20240116; t=1789583580; c=relaxed/simple;
+	bh=Bd2K/rqZn6g+lgvp2xT3sh0Dn+kx24gKxAFoEyZyDew=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jr48DbzHQJyYvYNcT8DIPZQ4kLhLCuKDKOMU5t4gjFObZNjOAbcNhAQUdqRoJVO7tmxj1SGL1z/s+XuRNpb63kh0Vxtv22QAqj4CbxybMUblOopxiEGXm3UUeAUI4U0XL1jvzUXnytTVS/xSxfPg621L/VxcTqpePXyGER8S/Wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PVBE0tC5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=s/PXArMi3DoBSzuQ0Gtk7cCObGhmETm9vaNp/34ThsULQ0jqWiu0mgK5QxNDbtb6drSZjQUEzn9+LuhadjUUQuBGjPdN/Aexi+s+Gm/eCZV+mtims/jpiQQW0CU6kO0V3doOsXB8lvsJGS8Ib/dK0xgfy87/rTOlExT1Z5t89wA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HzT3mC+W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PVBE0tC5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E8C1F0089E;
-	Wed, 16 Sep 2026 18:32:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HzT3mC+W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29C01F0089B;
+	Wed, 16 Sep 2026 18:32:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789583578;
-	bh=PesbCEUBP8rgUhZmjbD7d1nULNdWHibHSP58/nvi8YQ=;
+	s=k20260515; t=1789583558;
+	bh=tyorP+8dHgC23zrQXtgg7WR8CCFWQiokgDbNUQmf/Gs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PVBE0tC5ThVwGGQRo1KpSYuBbK4HO/tMq72vd8LGVS8dQd4xE8973bZoKmTBBfHqf
-	 Lbg8plfculrLfALJDCZNNoeOMH9MlieV+aMeD2lsUiXS72fhVqn9G//toKkQR6pYfM
-	 5mNHjMyaPur759UzIhM2lzI8YbVgwhWu6iZaw09YN6n0TDFI9/mrUK8KBhtAEKlz6o
-	 7aj15RhD3PD9L3mCYjRRX1qFh1ogDGRTxA9KZ88PaUYBHIHI42XWgfeefRRojovXin
-	 Opw6fxRC9C88vFXF+r3+ExQwD3vrAPtQxIwp9Zkq0SF/J1uvGtbE1o3itZhC2uzipT
-	 iR4ZYRCJBelRQ==
+	b=HzT3mC+WxD1YhOcf2G7/1VMiC0Sz3r1TS9APs9GZQ2gs2iLI2yf2W3L6KGiuZoi0F
+	 64eVWAr9HV/y5fu2RsyOgEtjy4riT/TiiiPQp2lBq1v8m1JMn7eOY2xsOg6pWk/duR
+	 Gdypmdi55ffk1oV/IQJY1UJlvsz+A680EyzuRw6Onesl2d5uExQFgJXzXTLaY5axzD
+	 jWZ5oBvL1yntjYJPdU602ogWlJ18G6hcVxw2u3stsa+t1rYCEgFpLXvDy/JgYjS4qd
+	 t6Bdk+No76EFcEQDvR+44UQ4M+7v1WzNHj0YvCnvhPbUxM1UkjkcfOS5amCOPiatf5
+	 aqWZH9RkX7SRQ==
 From: Arnaldo Carvalho de Melo <acme@kernel.org>
 To: Namhyung Kim <namhyung@kernel.org>
 Cc: Ingo Molnar <mingo@kernel.org>,
@@ -38,9 +38,9 @@ Cc: Ingo Molnar <mingo@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
 	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH 11/12] perf mem record: Request PERF_SAMPLE_CPU by default
-Date: Wed, 16 Sep 2026 15:32:12 -0300
-Message-ID: <20260916183215.54305-12-acme@kernel.org>
+Subject: [PATCH 05/12] perf debuginfo: Show the debuginfod fetch progress and keys in the TUI
+Date: Wed, 16 Sep 2026 15:32:06 -0300
+Message-ID: <20260916183215.54305-6-acme@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916183215.54305-1-acme@kernel.org>
 References: <20260916183215.54305-1-acme@kernel.org>
@@ -54,83 +54,456 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-The data-type profiling per-sample stream keys cross-CPU contention on
-sample->cpu: without PERF_SAMPLE_CPU the cpu field is the (u32)-1 "no
-CPU info" sentinel, documented as such in perf_session__deliver_event(),
-and same-instance reads and writes from different cores are
-indistinguishable from same-CPU traffic, so pahole's false-sharing
-detector cannot tell them apart.
+The stdio only fetch UI left a fetch in progress in the TUI with
+nothing on screen, indistinguishable from perf being stuck, with no way
+out of it: the browser thread is the one doing the fetch, so it draws a
+window over itself with the fetch progress and drains the 's'/'d' keys
+from the input queue it owns, via the new ui__key_pending()/
+ui__key_read()/ui__progress_window()/ui__progress_window_end()
+primitives declared in ui/util.h and implemented in ui/tui/util.c, with
+inline no-ops for builds without slang, keeping callers free of #ifdefs:
+slang stays behind the ui/ layer, as the plan is to reduce the number of
+libraries perf needs to build, or swap slang for something else, such as
+ncurses, at some point.  No terminal settings or signal dispositions are
+touched in that case: the terminal is the TUI's own and so are the
+SIGINT/SIGTERM handlers, that restore it before exiting.
 
-builtin-record.c already defines --sample-cpu and 'perf mem record'
-forwards unknown options to the record parser, so passing it explicitly
-works today; make it the default, next to the -d (addr) and -W (weight)
-the command already requests, documenting it in perf-mem(1).
-
-The rec_argv array is sized as nine arguments per memory PMU plus the
-user arguments, not counting the arguments __cmd_record() adds itself,
-up to eight with all the optional flags.  On PMUs with separate load and
-store events the four event arguments plus the fixed ones already filled
-the array to its last slot, so this new argument would write past it;
-reserve space for the fixed arguments explicitly.
+The text in the window is word wrapped to the available columns, so
+that constrained terminals, such as a smartphone running termux, get
+all of it, including the 'd' option hint, instead of having the tail of
+the long progress line cropped; the title line is written without
+padding, so that the box border characters fill the rest of it.
 
 Assisted-by: LLM
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 ---
- tools/perf/Documentation/perf-mem.txt |  4 ++++
- tools/perf/builtin-mem.c              | 18 ++++++++++++++++--
- 2 files changed, 20 insertions(+), 2 deletions(-)
+ tools/perf/Documentation/perf-report.txt |   9 +-
+ tools/perf/Documentation/perf-top.txt    |   5 +-
+ tools/perf/ui/tui/util.c                 | 177 +++++++++++++++++++++++
+ tools/perf/ui/util.h                     |  42 ++++++
+ tools/perf/util/debuginfo.c              |  64 ++++++--
+ 5 files changed, 277 insertions(+), 20 deletions(-)
 
-diff --git a/tools/perf/Documentation/perf-mem.txt b/tools/perf/Documentation/perf-mem.txt
-index 4d164836d0943119..fe51c5e3333dc4a0 100644
---- a/tools/perf/Documentation/perf-mem.txt
-+++ b/tools/perf/Documentation/perf-mem.txt
-@@ -14,6 +14,10 @@ DESCRIPTION
- -----------
- "perf mem record" runs a command and gathers memory operation data
- from it, into perf.data. Perf record options are accepted and are passed through.
-+It also requests the address (-d), the weight (-W, where supported) and the
-+CPU id (--sample-cpu) of every sampled access by default; the CPU id is what
-+lets per-sample analysis tell reads and writes to the same data from
-+different cores apart from same-CPU traffic.
+diff --git a/tools/perf/Documentation/perf-report.txt b/tools/perf/Documentation/perf-report.txt
+index 0a821490d6a0f895..0a4f61283b9542f7 100644
+--- a/tools/perf/Documentation/perf-report.txt
++++ b/tools/perf/Documentation/perf-report.txt
+@@ -378,10 +378,11 @@ OPTIONS
+ 	'd' skips it and disables debuginfod for the rest of the
+ 	session, writing core.debuginfod=false to the configuration
+ 	file so that it stays disabled in the next runs too; in the
+-	stdio interface the progress is a line on stderr.  It is
+-	disabled as well when the local build-id cache is turned off,
+-	e.g. "buildid.dir" set to /dev/null, as that asks for fetched
+-	files not to be kept on the box.
++	stdio interface the progress is a line on stderr, in the TUI a
++	window over the browser.  It is disabled as well when the local
++	build-id cache is turned off, e.g. "buildid.dir" set to
++	/dev/null, as that asks for fetched files not to be kept on the
++	box.
  
- "perf mem report" displays the result. It invokes perf report with the
- right set of options to display a memory access profile. By default, loads
-diff --git a/tools/perf/builtin-mem.c b/tools/perf/builtin-mem.c
-index 6101a26b3a781e69..6f38cda1a45ada16 100644
---- a/tools/perf/builtin-mem.c
-+++ b/tools/perf/builtin-mem.c
-@@ -99,8 +99,13 @@ static int __cmd_record(int argc, const char **argv, struct perf_mem *mem,
- 	argc = parse_options(argc, argv, options, record_usage,
- 			     PARSE_OPT_KEEP_UNKNOWN);
+ --kallsyms=<file>::
+         kallsyms pathname
+diff --git a/tools/perf/Documentation/perf-top.txt b/tools/perf/Documentation/perf-top.txt
+index f38b54267125cb08..3ab8121480175b51 100644
+--- a/tools/perf/Documentation/perf-top.txt
++++ b/tools/perf/Documentation/perf-top.txt
+@@ -95,8 +95,9 @@ Default is to monitor all CPUS.
+ 	disables debuginfod for the rest of the session, writing
+ 	core.debuginfod=false to the configuration file so that it
+ 	stays disabled in the next runs too; in the stdio interface the
+-	progress is a line on stderr.  Disabled as well when the
+-	build-id cache is off, e.g. "buildid.dir" set to /dev/null.
++	progress is a line on stderr, in the TUI a window over the
++	browser.  Disabled as well when the build-id cache is off, e.g.
++	"buildid.dir" set to /dev/null.
  
--	/* Max number of arguments multiplied by number of PMUs that can support them. */
--	rec_argc = argc + 9 * (perf_pmu__mem_events_num_mem_pmus(pmu) + 1);
-+	/*
-+	 * Max number of arguments multiplied by number of PMUs that can
-+	 * support them, plus the arguments added directly below, at most:
-+	 * "record", "-W", "-d", "--sample-cpu", "--phys-data",
-+	 * "--data-page-size", "--all-user" and "--all-kernel".
-+	 */
-+	rec_argc = argc + 8 + 9 * (perf_pmu__mem_events_num_mem_pmus(pmu) + 1);
+ --kallsyms=<file>::
+ 	kallsyms pathname
+diff --git a/tools/perf/ui/tui/util.c b/tools/perf/ui/tui/util.c
+index e4d322ce0b54cbc6..c3274b92b0e22d73 100644
+--- a/tools/perf/ui/tui/util.c
++++ b/tools/perf/ui/tui/util.c
+@@ -4,6 +4,7 @@
+ #include <string.h>
+ #include <stdlib.h>
+ #include <sys/ttydefaults.h>
++#include <linux/kernel.h>
  
- 	if (mem->cpu_list)
- 		rec_argc += 2;
-@@ -135,6 +140,15 @@ static int __cmd_record(int argc, const char **argv, struct perf_mem *mem,
+ #include "../browser.h"
+ #include "../keysyms.h"
+@@ -11,6 +12,7 @@
+ #include "../ui.h"
+ #include "../util.h"
+ #include "../libslang.h"
++#include "units.h"
  
- 	rec_argv[i++] = "-d";
- 
-+	/*
-+	 * The data-type profiling per-sample stream keys cross-CPU
-+	 * contention on sample->cpu (PERF_SAMPLE_CPU); without it the cpu
-+	 * field is the (u32)-1 'no CPU info' sentinel and same-instance
-+	 * reads and writes from different cores are indistinguishable
-+	 * from same-CPU traffic.
-+	 */
-+	rec_argv[i++] = "--sample-cpu";
+ static void ui_browser__argv_write(struct ui_browser *browser,
+ 				   void *entry, int row)
+@@ -272,3 +274,178 @@ struct perf_error_ops perf_tui_eops = {
+ 	.error		= perf_tui__error,
+ 	.warning	= perf_tui__warning,
+ };
 +
- 	if (mem->phys_addr)
- 		rec_argv[i++] = "--phys-data";
++/*
++ * The debuginfod fetch progress window, drawn over the browser while a
++ * fetch that can be big, such as the vmlinux for a kernel profiled on
++ * another machine, is in progress: with nothing on screen the browser
++ * looks hung, which is what makes users interrupt perf, see
++ * util/debuginfo.c, that polls the 's'/'d' keys with ui__key_pending()
++ * /ui__key_read().
++ *
++ * The client calls the progress callback at every write chunk, so only
++ * redraw when the fetched bytes change: a resize is picked up by the
++ * ui__refresh_dimensions() on the next redraw, and taking the window
++ * down erases exactly the rows it was drawn at, saved at draw time.
++ *
++ * The text is word wrapped to the available columns: constrained
++ * terminals, such as a smartphone running termux, have far fewer of
++ * them and would crop the tail of a long line, hiding the 'd' option,
++ * leaving no visible way out of the fetch.
++ */
++#define PROGRESS_WINDOW_MAX_LINES 12
++
++static bool progress_window__shown;
++static char progress_window__bytes[64];
++static int progress_window__y, progress_window__rows;
++
++/*
++ * Word wrap @text, on spaces, into lines of at most @width characters,
++ * breaking words that don't fit whole, returning the number of lines.
++ */
++static int progress_window__wrap(const char *text, int width,
++				 char lines[PROGRESS_WINDOW_MAX_LINES][256])
++{
++	int nr_lines = 0;
++	const char *p = text;
++
++	while (*p && nr_lines < PROGRESS_WINDOW_MAX_LINES) {
++		char *line = lines[nr_lines++];
++		int len = 0;
++		bool space = false;
++
++		line[0] = '\0';
++		while (*p) {
++			const char *word;
++			int wlen, avail;
++
++			while (*p == ' ' || *p == '\n')
++				++p;
++			if (*p == '\0')
++				break;
++			word = p;
++			while (*p && *p != ' ' && *p != '\n')
++				++p;
++			wlen = p - word;
++			avail = width - len - (space ? 1 : 0);
++			if (wlen > avail) {
++				if (len > 0) {
++					p = word;
++					break;
++				}
++				if (avail > 0) {
++					/* The word doesn't fit whole */
++					memcpy(line, word, avail);
++					len = avail;
++					line[len] = '\0';
++					p = word + avail;
++				}
++				break;
++			}
++			if (space)
++				line[len++] = ' ';
++			memcpy(line + len, word, wlen);
++			len += wlen;
++			line[len] = '\0';
++			space = true;
++		}
++	}
++
++	return nr_lines;
++}
++
++void ui__progress_window(const char *title, const char *text,
++			 u64 fetched, u64 total)
++{
++	static char lines[PROGRESS_WINDOW_MAX_LINES][256];
++	char buf_cur[20], buf_tot[20], bytes[64];
++	size_t len;
++	int y, height, nr_lines, inner, i;
++
++	if (use_browser != 1)
++		return;
++
++	unit_number__scnprintf(buf_cur, sizeof(buf_cur), fetched);
++	if (total) {
++		unit_number__scnprintf(buf_tot, sizeof(buf_tot), total);
++		scnprintf(bytes, sizeof(bytes), "  %s / %s fetched",
++			  buf_cur, buf_tot);
++	} else {
++		scnprintf(bytes, sizeof(bytes),
++			  "  %s fetched, size unknown", buf_cur);
++	}
++
++	if (progress_window__shown && !strcmp(bytes, progress_window__bytes))
++		return;
++
++	scnprintf(progress_window__bytes, sizeof(progress_window__bytes),
++		  "%s", bytes);
++	progress_window__shown = true;
++
++	ui__refresh_dimensions(false);
++	mutex_lock(&ui__lock);
++	inner = SLtt_Screen_Cols - 2;
++	if (inner > 255)
++		inner = 255;
++	nr_lines = progress_window__wrap(text, inner, lines);
++	height = nr_lines + 3;
++
++	SLsmg_set_color(0);
++	if (progress_window__rows)
++		SLsmg_fill_region(progress_window__y, 0, progress_window__rows,
++				  SLtt_Screen_Cols, ' ');
++	y = (SLtt_Screen_Rows - height) / 2;
++	if (y < 0)
++		y = 0;
++	progress_window__y = y;
++	progress_window__rows = height;
++
++	SLsmg_draw_box(y, 0, height, SLtt_Screen_Cols);
++	SLsmg_gotorc(y++, 1);
++	len = strlen(title);
++	if (len > (size_t)inner)
++		len = inner;
++	SLsmg_write_nchars(title, len);
++	for (i = 0; i < nr_lines; i++, y++) {
++		SLsmg_gotorc(y, 1);
++		SLsmg_write_nstring(lines[i], SLtt_Screen_Cols - 2);
++	}
++	SLsmg_gotorc(y, 1);
++	SLsmg_write_nstring(bytes, SLtt_Screen_Cols - 2);
++	SLsmg_refresh();
++	mutex_unlock(&ui__lock);
++}
++
++void ui__progress_window_end(void)
++{
++	if (!progress_window__shown || use_browser != 1)
++		return;
++
++	progress_window__shown = false;
++	progress_window__bytes[0] = '\0';
++
++	mutex_lock(&ui__lock);
++	SLsmg_set_color(0);
++	SLsmg_fill_region(progress_window__y, 0, progress_window__rows,
++			  SLtt_Screen_Cols, ' ');
++	progress_window__rows = 0;
++	SLsmg_refresh();
++	mutex_unlock(&ui__lock);
++}
++
++/*
++ * The keys typed while the fetch blocks the thread that runs the
++ * browser are in the TUI input queue: nobody else is reading it, the
++ * browser is the thread doing the fetch, so the progress callback in
++ * util/debuginfo.c can drain it through these, that keep slang behind
++ * the ui/ layer.
++ */
++bool ui__key_pending(void)
++{
++	return use_browser == 1 && SLang_input_pending(0) > 0;
++}
++
++int ui__key_read(void)
++{
++	return SLang_getkey();
++}
+diff --git a/tools/perf/ui/util.h b/tools/perf/ui/util.h
+index e30cea807564f92f..053240ea9dfa6fc0 100644
+--- a/tools/perf/ui/util.h
++++ b/tools/perf/ui/util.h
+@@ -2,9 +2,51 @@
+ #ifndef _PERF_UI_UTIL_H_
+ #define _PERF_UI_UTIL_H_ 1
  
++#include <stdbool.h>
+ #include <stdarg.h>
++#include <linux/compiler.h>
++#include <linux/types.h>
+ 
+ int ui__getch(int delay_secs);
++
++/*
++ * The TUI owns the terminal and its input queue, so the rest of perf
++ * asks the ui/ layer for progress display and for the keys typed while
++ * it is not reading them, instead of touching slang or stdin directly:
++ * slang stays behind these, as the plan is to reduce the number of
++ * libraries perf needs to build, or swap slang for something else,
++ * such as ncurses, at some point.
++ *
++ * ui__progress_window() draws and updates a window over the browser
++ * telling that a long operation, for now the debuginfod fetch in
++ * util/debuginfo.c, is in progress, with @fetched/@total as the bytes
++ * fetched so far and the total when known, 0 otherwise, while
++ * ui__progress_window_end() takes the window down.  The keys typed
++ * while the fetch blocks the browser are drained with
++ * ui__key_pending()/ui__key_read().
++ */
++#ifndef HAVE_SLANG_SUPPORT
++/*
++ * Without the TUI there is no browser to draw over and no input queue
++ * owned by a UI: the stdio progress and keys for the debuginfod fetch
++ * live in util/debuginfo.c, so these are no-ops, keeping callers free
++ * of #ifdefs.
++ */
++static inline bool ui__key_pending(void) { return false; }
++static inline int ui__key_read(void) { return -1; }
++static inline void ui__progress_window(const char *title __maybe_unused,
++				       const char *text __maybe_unused,
++				       u64 fetched __maybe_unused,
++				       u64 total __maybe_unused) {}
++static inline void ui__progress_window_end(void) {}
++#else /* HAVE_SLANG_SUPPORT */
++bool ui__key_pending(void);
++int ui__key_read(void);
++void ui__progress_window(const char *title, const char *text,
++			 u64 fetched, u64 total);
++void ui__progress_window_end(void);
++#endif /* HAVE_SLANG_SUPPORT */
++
+ int ui__popup_menu(int argc, char * const argv[], int *keyp);
+ int ui__help_window(const char *text);
+ int ui__dialog_yesno(const char *msg);
+diff --git a/tools/perf/util/debuginfo.c b/tools/perf/util/debuginfo.c
+index e2066fce2450c6fb..a111ddc4731309c0 100644
+--- a/tools/perf/util/debuginfo.c
++++ b/tools/perf/util/debuginfo.c
+@@ -151,11 +151,14 @@ struct debuginfo *debuginfo__new(const char *path)
+ 
+ #ifdef HAVE_DEBUGINFOD_SUPPORT
+ /*
+- * use_browser tells whether a full screen UI, the TUI for now, owns
+- * the terminal and its input queue: the fetch progress and the
+- * skip/disable keys below are stdio only when it doesn't.
++ * The TUI side of the fetch interaction is behind the ui/ layer: slang
++ * stays in ui/tui/, callers ask for pending keys and for the fetch
++ * progress window with the ui__ primitives in ui/util.h, implemented in
++ * ui/tui/util.c for the slang TUI and as no-ops in builds without it.
+  */
+ #include "ui/ui.h"
++#include "ui/util.h"
++#include "ui/helpline.h"
+ 
+ static bool debuginfod_progress_started;
+ static bool debuginfod_fetch_cancelled;
+@@ -176,11 +179,15 @@ static void debuginfod_signal_handler(int sig)
+ 
+ /*
+  * Say that the fetch in progress was skipped, and where disabling it
+- * lands.
++ * lands: the stdio case prints on stderr, the TUI shows it on its
++ * helpline, as the window with the fetch progress goes away with it.
+  */
+ static void debuginfod__skipped(const char *msg)
+ {
+-	fprintf(stderr, "\n%s\n", msg);
++	if (use_browser > 0)
++		ui_helpline__puts(msg);
++	else
++		fprintf(stderr, "\n%s\n", msg);
+ }
+ 
+ /*
+@@ -193,7 +200,8 @@ static void debuginfod__skipped(const char *msg)
+  * write core.debuginfod=false to the configuration file, the same
+  * rewrite 'perf config' does, the comments are not preserved as the
+  * config set carries just the key-value pairs, pointing at
+- * 'perf config' when that rewrite can't be done.
++ * 'perf config' when that rewrite can't be done.  Shared by the stdio
++ * and the TUI fetch UIs.
+  */
+ static void debuginfod__cancel_key(int key)
+ {
+@@ -229,6 +237,16 @@ static void debuginfod__poll_cancel_keys(void)
+ 		debuginfod__cancel_key(ch);
+ }
+ 
++/*
++ * The TUI fetch UI: the browser thread is the one doing the fetch, so
++ * its input queue has the keys typed while it was busy, drain those.
++ */
++static void debuginfod__tui_poll_cancel_keys(void)
++{
++	while (ui__key_pending())
++		debuginfod__cancel_key(ui__key_read());
++}
++
+ /*
+  * Print a warning and a progress indicator when the debuginfod client
+  * ends up fetching a file, which can be big, such as the vmlinux for a
+@@ -246,7 +264,9 @@ static void debuginfod__poll_cancel_keys(void)
+  *
+  * In the stdio case the progress goes to stderr, a \r terminated line,
+  * the keys are drained from stdin, that debuginfod__fetch() put in raw
+- * mode.
++ * mode.  In the TUI the progress is drawn in a window over the browser
++ * and the keys come from the TUI input queue, slang stays behind the
++ * ui/ layer, see the comment on ui/util.h.
+  */
+ static int debuginfod_progress_fn(debuginfod_client *c __maybe_unused,
+ 				  long a, long b)
+@@ -254,7 +274,18 @@ static int debuginfod_progress_fn(debuginfod_client *c __maybe_unused,
+ 	if (debuginfod_signal)
+ 		return 1;
+ 
+-	if (!isatty(STDERR_FILENO) || use_browser)
++	if (use_browser > 0) {
++		ui__progress_window("Fetching debuginfo by build ID from the debuginfod servers",
++				    "This may take a while for large files such as the vmlinux, press 's' to skip, 'd' to skip and disable",
++				    a > 0 ? (u64)a : 0, b > 0 ? (u64)b : 0);
++
++		debuginfod__tui_poll_cancel_keys();
++		if (debuginfod_fetch_cancelled)
++			return 1;
++		return 0;
++	}
++
++	if (!isatty(STDERR_FILENO))
+ 		return 0;
+ 
+ 	if (isatty(STDIN_FILENO)) {
+@@ -502,11 +533,14 @@ static int debuginfod__fetch(const struct build_id *bid, char **path)
+ 	 * Make stdin deliver keypresses without waiting for a newline,
+ 	 * the progress callback above polls it for the 's'/'d' keys,
+ 	 * only in the stdio case with both stdin and stderr being a
+-	 * terminal: the pipe cases have no business being poked here,
+-	 * and in the TUI the terminal and its input queue are the
+-	 * browser's own.  Intercept SIGINT, SIGQUIT and SIGTERM so that
+-	 * the terminal is restored before the process dies, the handler
+-	 * only records the signal and the callback aborts the query.
++	 * terminal: the TUI draws its own progress window over the
++	 * browser and drains the keys from the input queue the browser
++	 * owns, with the ui__ primitives, and the pipe cases have no
++	 * business being poked here.  Intercept SIGINT, SIGQUIT and
++	 * SIGTERM so that the terminal is restored before the process
++	 * dies, the handler only records the signal and the callback
++	 * aborts the query; in the TUI the terminal is the TUI's own and
++	 * so are those signal handlers, that restore it before exiting.
+ 	 * The handlers go in before the terminal mode changes, so that a
+ 	 * signal landing in between is caught and the raw mode is
+ 	 * restored.
+@@ -538,7 +572,9 @@ static int debuginfod__fetch(const struct build_id *bid, char **path)
+ 		sigaction(SIGTERM, &orig_sigterm, NULL);
+ 
+ 	debuginfod_end(c);
+-	if (debuginfod_progress_started) {
++	if (use_browser > 0)
++		ui__progress_window_end();
++	else if (debuginfod_progress_started) {
+ 		fputc('\n', stderr);
+ 		debuginfod_progress_started = false;
+ 	}
 -- 
 2.55.0
 
