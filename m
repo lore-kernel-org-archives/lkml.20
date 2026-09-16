@@ -1,113 +1,112 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C754640BCD1
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:37:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544281; cv=none; b=Il5W8bEoN4HQsaP6fEjtAzZ3fnLbozUchDBgKEYiXMh2hmsdKbdr8jCMK1mUyBxfVcKFsxg+XihWZQlhE+6PoKONC/BW1hfXWK6lNQSpZT7eIu2/XMNMbM6QtUK5SDHLDTu6L8sSw2LS+/HBMsSJeJF/d/NkJWKTcsN93jIg+LM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544281; c=relaxed/simple;
-	bh=j7jgslCWBYoA2+D+WAWshoZXYUkf/W7ampu9ziB7JwI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RcpttW/0t2lhyY8D8vqGHfjNfiCnIEiBV7u3T90tyeIcxL/SjTYCKNsakzrmtNkI4AG1afPPBr83+E/mGFXww/EDCAArbWw2v4jRXqagNSS/GO6cIjcuHMMrro+DoReu8KsrbAjU/o2bE8DI8Hr1CH+puARmQFl+6GmuE+f4Prg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nLpccVq0; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD41143F081
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789544321; cv=pass; b=mbXvJ8AwUzUKpS2L3OyYkNVArwmydcI4ql36ewXxheSbbgDulr5mvv9wt9kJvR5R/Eg046vswH2DNF2PzpHQmeSXBURtJftUTuyEUp8ydETRBeux/4/Utr8OmbxG+/NknFuDasf0V8lIzH/Uv0PvtOQK9k2TSNPPtMyfqJkASZE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789544321; c=relaxed/simple;
+	bh=hQYBSbI5ZDykG/tHrbEEtWawqAnT4ZwcW8GfIYLRIEU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=naTGL6tCbAyC/tfAuGN/KjgWPXJ0v3O/USmy1chMVvEBE3cp4gagbaJo1pqR4LagZemzv+G3wGy+D5DWkGytUUQTWe03KpoJQ4m+BBBu+fOuZgvvE+WJnBiu/meArB/yMgKzHRmTKBCZ88Lk3ve7UgZruTbiYvXKimcNc3070uM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=b32oWsj1; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nLpccVq0"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398c066106cso462467a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:37:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="b32oWsj1"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-910537b51a0so4501866d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 00:38:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789544310; cv=none;
+        d=google.com; s=arc-20260327;
+        b=A7fOQH5kxWbXkBFeZjq8My7tfG356VIuju019I4MDbWSJqK1hj8I8euRZD7hNGkH5D
+         ++P5ef6Fp++YUfsKNcMHdyJ3QFzzpXQjxPLCL1roE5MGdHKN0E1GfWFEQ9LP8JGvNmHy
+         +6Yf7lTk1d/HfJgsAep0pJOmorfAmlmb4ULd7J870/vt9yXpn8yasGFo4Fj5kOVjF46J
+         FonnKiacGteJq6a7rxyf3KM67LkNgCXgswISImgBSBwkDzKUNppVsE8VLEQL8KzHkPEi
+         8QelkmY8b4LRgk9txl/13+FBE8yejcRXO80wjl78eBgbydfwTddCplPA66t6xC3nD262
+         AwDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hQYBSbI5ZDykG/tHrbEEtWawqAnT4ZwcW8GfIYLRIEU=;
+        fh=5SUiop5gFn6oJ9C3ivkokm0nr3eMN2WWX3RJwbR5Aqk=;
+        b=aYkMPgSVgJ1Z6DkAt0OkP+UD0UH5p+mPT4Za9XUmWIQSUzx+bqPK0P/F5Vx1Eik5hK
+         GapNX/jAA0tfDgXzyp5RDbrGdYq0k/EXVc0bUkamxvyhHAj7oyKPWirKenaLTCQLn57L
+         yAm4woZsGOpO1NjRQB0825Kb2kcwNBn5NwMculB8nJ3EJGu/D5exEB44P9IY+Ks9gK+1
+         PPmucC2iEU+xCACR62A4TuQWOsDefMYV2GVb7wMtvDrRdKndOIJhPMwIIeGpaHKrfU4N
+         ZLg0baM/HRo8K4Sj9REHetE+y06ERLsg60GBdHQ7uLyR8iLRUBXWpeabbrQ33XbsbsJ+
+         k/uA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789544266; x=1790149066; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4H2HhVJ8R9paQExr1TkyHeGUkf1dKuUDiaC/9DA+VGI=;
-        b=nLpccVq0hHtlZbNAs98Jgt+76CGfUX68Ln80oDkeQBlYy7JFmmicRJ6k5gf7n2hv5V
-         Ry1oRlg8QjBtsoAfC+ya83R+2uJtl7axr/P2VPBSNmxesoYqY8EWax0pXo3e6tD4t0J1
-         lpRIt4KrttDtGEOKLOD4E7mgRhsDkGoUtZRATaGdqxmJNtC4lMKPF0D+PKLwgTEN1+ME
-         /kTVJl63FBlC5rREfmacX0EIE/FcrCyX1sTO9cKTWKaY58n6sgeIazAaSXWf8AZbXOrL
-         yO/EaWBYSYj6Px1lEVCI/N98hFD0z5eB4cjgpU3Cvhv+UQvd4G/CODofaGxRuGbUQF+x
-         uqUQ==
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1789544310; x=1790149110; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hQYBSbI5ZDykG/tHrbEEtWawqAnT4ZwcW8GfIYLRIEU=;
+        b=b32oWsj16mxTGEh19RvHUbkJHkIwah2h4TxsF7HLpV77run0DEsVR+XTo1qDJ8oa4T
+         Euveeympooh5Xdh/tx8nLhieBUztvkwi59ZmqrtrstKXcuKX/8HePXbWUDJtk92OnJ0t
+         RYQo1azCxSMHljt+rD4MxrYz6cmXmi/Bjp3FCAwU9TDBzeVW6U0Mp83DglrETsfFfhIj
+         12oLXDWMbFw+aK5Bo76A4EtvXuW/tG46PvDMTssINITG81T4a6/Z3vmpa5g9Ymldbh5X
+         uYuSzKKtasN/Rd2D6iNOLKOddvvF8PRXU9zZFFzLa36hHU6vF767LIHV+9f3RHeqFu5X
+         An0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789544266; x=1790149066;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4H2HhVJ8R9paQExr1TkyHeGUkf1dKuUDiaC/9DA+VGI=;
-        b=e2bgQqa23gZjHdatWQ6xv59PqG87X7iYo2+LZR3ELZ7rkadodawWtAoUvsXKaV1Pmy
-         2pd7RrgDalCUNq+jY3YI7YF1egPSSELNkOYZDQv0+ozKCTCr/iojxzJBxBUt0VNyDWfQ
-         SwqP8DCkK1Xk8CRWHFG9rhHCJBwA4ttV3VXaxPJ6XRHGF9ubJzewcnqYo6C+JySn8XMd
-         w5EfeS/95D1AmH/w2CPhTssH6VlkVaO0vtW4AELVY1nilEo/ZFJC0Gm0nV7JIizybsTw
-         kWVEnRNwLtnSstL4Zhx6LblgNJoAkg3hsEC1r8QD7Pz2ZGuS71G597uE+pLHoSlpJYcP
-         H4Xw==
-X-Forwarded-Encrypted: i=1; AKwUvBw01m6RXbsww9/cywIvWVAhwWJOEcdOpyfrqhEIVlLBfgPKZSoWs2oGa15Z/JGuSYn2kADZIdWszEStS04=@vger.kernel.org
-X-Gm-Message-State: AFuF++miQTvhS3vLOeAEc3/aHNmEUwu9hK5iHqc0UwN6m9KMTi+OG+8z
-	OQDu5cDt43Ow/kH3iZzgu9ZNHjsunt2oFHKGSWZKJbnJIbrK8k1cLFem
-X-Gm-Gg: AYBFou2T+XETWthiBl0CHxG775aNmyL2B1XL7YCKxoYiJpyvnjE5oNPPsLT39xb8bpN
-	CVx+BOHQPU84SsngbXDXmST42AvAmFOytnHvz6rtLvj+dPHjKjVqkCyp9yDeuZ3CwDlNRf5kmy+
-	dfjX5Uyrs/+X1V/rH0Pmi3ViNHz1idPokuzmWynUTmwyX0EwF5HLedDxUyQfNoCIzODRe4QvsqR
-	h7WtNnZqIN1oQa3I7l4x6BJRIzL0gD3+4Q8XWsShibkyT/LfmkIboOghSY0mh7+FuUBe6e88BPz
-	M6MsQPvs/qfl4vHSWgW0HhhCzlvPYoN/aFiCsS7NphzmLkgeEOLri+BfBWvkQqA8OjcdYJSFqQd
-	VSH0mjpZqpLXrIvyi8X24NfHuYCv3pTZ3GiO4Ecqk7fV8O5lI8P6LMh/EQGceMSYuN2kE5W07Y/
-	tduvN8ilAPB+tHO4RSg/S8uTP0OjyMK1GoLAUnJ1aN5j3dRwdT+Wjh/A==
-X-Received: by 2002:a17:90b:3b91:b0:398:a486:81ec with SMTP id 98e67ed59e1d1-39e1e380e12mr3888761a91.11.1789544266209;
-        Wed, 16 Sep 2026 00:37:46 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1c337e97sm897181a91.2.2026.09.16.00.37.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 00:37:45 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Stanislaw Gruszka <stf_xl@wp.pl>,
-	"John W. Linville" <linville@tuxdriver.com>,
-	Ron Rindjunsky <ron.rindjunsky@intel.com>,
-	Tomas Winkler <tomas.winkler@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: iwlegacy: 3945: free EEPROM data on remove
-Date: Wed, 16 Sep 2026 15:37:36 +0800
-Message-ID: <20260916073736.2952028-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1789544310; x=1790149110;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hQYBSbI5ZDykG/tHrbEEtWawqAnT4ZwcW8GfIYLRIEU=;
+        b=nb7NEMfO9574nVnwL3szOZsIsAtAHNR1Tl2It23WHy3EgX5hKn+6OnhT7ttbbhIYZj
+         SftrPcZFBKl+uj+GbdpUg1Be7MsyJJEEzBcVpo+kHAh8MS5RCWlH6AFNn70DvdTKvdRz
+         4587G29k6PQ9bpObYgv6PLUkrHRYDztKXdElV2v7ds4bbCIHO/byTdJKxl4uYcqmof+a
+         W34HYga3XXwtxbIYpjEkQWUHyKAvlXeaImZldndEyKrT3Fa3bMaSxrak7Ylsk8TBPTpj
+         p5vV9Hed2SDMIUjKnJ4QRcpI13HCxh8vtUc7BEvHzfr44CP4YuiQcJO3kwZD8rkiQK/f
+         ITQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBytIzhaiPWzxXNdmrJBqjGdz1egAZ0KJrYolPhF1egzIAFYvoQrsWk5W2VotIAs6gcD4FbedaF3r6B4xc0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mo8Q07BQnDBvpMpuZoiR3vbGqzbSRCdAkJ/hcn86lUhXF1aMib
+	ITGPknBgveZ+C5M44ooEAokeYB2PNOLORCn8e90oMd/pqZtzy89xRBw7lEkhmhLbkIdC/21PkA2
+	gFbFtRSUhlyL1AMkGTdB678DxP476lNd5WDRc9PDlZg==
+X-Gm-Gg: AYBFou393eXfpD2W9zJFUbuS9iLHpOvXWNAWS3OAWQn6Wjjj9oD5MgJpt7QaEE3TMPm
+	qZurKxWk3eq/iMCzuKnCIFzyAXxLFyOqPRPj1jI95Evav7w9+3ZKkTiruTHnEO2bSiinVm1hA8n
+	6l3avU60tTHUzSehkP0Inn0OS3/gAIbdUu3J9DRDmRvO2I+w9osIy2061wzUFkvQSYapWEpt3+q
+	AVJKe6dx33/Lmv4WgL0Wm/eFQHPC8SmlC8DursiEVVjclSNG69L9YbSokR2T/wP3JQTKoWlLCIT
+	SX3gRnMsAAFebAf4YNXfEdC60nxxQlPN7axnfuGXeulVcIl1IBEwAAJrZG1N0e2mxHTPEiGNL5z
+	3RREdA6iqIVow
+X-Received: by 2002:a05:6214:500c:b0:910:6ffd:a941 with SMTP id
+ 6a1803df08f44-9123d721985mr29575576d6.5.1789544309746; Wed, 16 Sep 2026
+ 00:38:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907-acpi-dma-v2-0-0ffe4a007992@thegoodpenguin.co.uk>
+ <20260907-acpi-dma-v2-3-0ffe4a007992@thegoodpenguin.co.uk> <aqlzjZigicrtyh7o@lizhi-Precision-Tower-5810>
+In-Reply-To: <aqlzjZigicrtyh7o@lizhi-Precision-Tower-5810>
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Wed, 16 Sep 2026 08:38:17 +0100
+X-Gm-Features: AcwNN1Vn5ljoRLzFV2GiG-9S0jHlKDZRzXLPscawH2jK-lpFtONtbul3vK317do
+Message-ID: <CAA6zWZ+tBBWdsZFGySWFsRKFq-FYy36QAYVQtUOPZ4GVGDYudA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] dma: qcom: use named initializers for acpi_device_id
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Viresh Kumar <vireshk@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Binbin Zhou <zhoubinbin@loongson.cn>, Sinan Kaya <okaya@kernel.org>, dmaengine@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-il3945_pci_probe() calls il_eeprom_init(), which allocates memory for
-the EEPROM data. The probe failure paths release this allocation with
-il_eeprom_free(), but the remove path does not free it after a
-successful probe.
+> Please update subject, correct tag is dmaengine
+>
+> dmaengine: qcom: ....
+>
+> Frank
 
-As a result, the EEPROM data is leaked when the PCI device is removed.
-
-Free the EEPROM data in il3945_pci_remove() before releasing the
-mac80211 hardware structure.
-
-This issue was found by manual code inspection.
-
-Fixes: 073d3f5f1b3b ("iwlwifi: changing EEPROM layout handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/net/wireless/intel/iwlegacy/3945-mac.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-index cbaf250626c5..f7ca182d1494 100644
---- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-+++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-@@ -3807,6 +3807,7 @@ il3945_pci_remove(struct pci_dev *pdev)
- 
- 	il_free_channel_map(il);
- 	il_free_geos(il);
-+	il_eeprom_free(il);
- 	kfree(il->scan_cmd);
- 	dev_kfree_skb(il->beacon_skb);
- 	ieee80211_free_hw(il->hw);
--- 
-2.43.0
-
+I checked the history of all files touched in this series and all
+existing commits are tagged with the dmaengine tag=E2=80=94I'll have to
+correct all of them. Usually the tag/list name matches the in-tree
+directory name, which caused my confusion. Thanks.
