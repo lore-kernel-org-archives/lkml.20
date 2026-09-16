@@ -1,278 +1,115 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608CF4D0A06;
-	Wed, 16 Sep 2026 10:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5546E4BCADD;
+	Wed, 16 Sep 2026 10:02:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552967; cv=none; b=dJcHNm2S9ul5rfTS4WzmKhNYgYDd6AzFNAu+gsr+NWBG5DMdqK1SsT+q8ImgUbqTGPzD3V/LcfZ/bGoYyBk+7Nb94pi898uZ/DjzQ1a14RhnP3gW5vefIv9klXW2OTEueZXdVaPgZrEd2Jkozt3Mp5s6NaobtVEnnsiPpl+h8ug=
+	t=1789552972; cv=none; b=T9IaHkTcDBT2DpiCNNHvk0c+LL2HTB7uVLgxrG9z5BoSFgIR5QTXTR3FeeqvZE3uajac4iiR2K6UnPiDlTWSQ6pbUyOjFbOaW2bsoS17gNIDUcFNekSW7mC9zIqxIM6LpMohNch7HsfEu5fWyY3kC3qXSIFDL3uRHYnGcG22804=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552967; c=relaxed/simple;
-	bh=XSzOZYLwzuEsFiDdxISYmHRCvWzGXnp6c1pCedwO9gE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fTaSQemQk6bA30FFsmNvCR0cuevqV8Bg5QFopryKLDY0Zd9Hw8RgEHZBDqydUCNn+8EAeNJoEaQwITutPCqRGf7d0ZuZgs/ssMCrfjzHZhQ4SxnTK9JbxoG1VYkOr58ODzqSelj72r8CDDc7VwlovSE+wr+k9o2tAlsAKwAuRHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=PVyvKcrW; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1789552972; c=relaxed/simple;
+	bh=pLDtuLhbAUaRhu5f/gk6EI60epdwBmxLvZxAAZxvEqg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MbqbIf1WmQDYVQhBdBDLqQS59iW23hJ3E3xuT2+CnIDRS7YIjIkt2cqA82ccZoDCLb+o+TT64EskqZVomfBJn3298xuXjZgRCCJl5IURf02BtBMztgc3nlfxO3OeBFYdGsclQ0gK+2C88RWCGxpibqSXs7Td4SOKvuAoVoifrfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hLFJDiyv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="PVyvKcrW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1789552923;
-	bh=CfDoltNitGaCSwPK2ctQXlNNC5dInhDCbXSmhZuHk8Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PVyvKcrWadg+EZm4GgrlW34vEAcYPA1sHbstjJ03Ao1k9s1c6y4b0xfttzhoHpAqF
-	 bd7Ut9hmvtDXy1AVHCqi2pUe9CypTlNmxVWGH1Q9scLMVYPfdMvXtuFYVQackiUP4V
-	 7plq7oRyvVXmnfB3Bjj6uoz6jqaDN6lfyve5wc0Gs6pWbrmkjAwstB428HPsZhN6D5
-	 uy/4/OFKpDf0ayBgxDRTR4j/oHJQvq4FxcTh7BlUpTrPRzozv080bWNvAXGEdv1djp
-	 Us6HV9j6AkWTbjlKXg44Ir/f8AAerCMWQs0tB/HCUBzsdem9sCuyJbyL6v7TQff4LM
-	 04ZeVbXNeEhFw==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hlDvH05ybz4wLn; Wed, 16 Sep 2026 20:02:02 +1000 (AEST)
-Date: Wed, 16 Sep 2026 20:00:40 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 13/15] tests: Add wip_func utility
-Message-ID: <aqpoxzD14OQazE1y@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-14-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hLFJDiyv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518DE1F00893;
+	Wed, 16 Sep 2026 10:02:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789552952;
+	bh=lEWZpaztRZh3VnEkTUtaM+9zTZcc/T4M22ejqBKvws4=;
+	h=From:To:Cc:Subject:Date;
+	b=hLFJDiyvIbk5VJQZTRoebBNI4x4sBw+V66Ai36yhls7cEpby2U5m5caujSkYmunu3
+	 LKh6HQAHJHKZH1mNqZ+CyEdu3LZ4+z1Lmvx5oPUZPaMy2xAqKqfD5o8X+hHWNJKHcs
+	 enIGHPhiHO8s36ZgUtOokOvcGjK+rvnlIuO9NYPDrl5HcVL9I++UYUpICrZmNyBs36
+	 bJQbN2g+Izshj3XbvVnX2d3R7DLzywNPp8Q07274LACU/RQpHO716v4RJNpTwRD1WF
+	 RQorrj1eY8XOPBBSimJqhSRgUCJ+iw1QoDw26462wgsJDH/af2EfKTsCWX5OuDD8mg
+	 WCOlHwCZMsPig==
+From: Thorsten Blum <blum@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Jesse Barnes <jbarnes@hobbes.lan>
+Cc: Thorsten Blum <blum@kernel.org>,
+	Lukas Wunner <lukas@wunner.de>,
+	Ingo Molnar <mingo@elte.hu>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND v2] x86/early-quirks: Scan all functions in early_pci_scan_bus()
+Date: Wed, 16 Sep 2026 12:02:07 +0200
+Message-ID: <20260916100206.92853-2-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nNKp0wpa/Wf4e7VM"
-Content-Disposition: inline
-In-Reply-To: <20260826083146.304291-14-herve.codina@bootlin.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2350; i=blum@kernel.org; h=from:subject; bh=pLDtuLhbAUaRhu5f/gk6EI60epdwBmxLvZxAAZxvEqg=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmrMuWcuC8tif7HVhr5SMg56+pr9dt9T7fGCx7M+aOaf /jdz9lnOkpZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAi1ysZ/icuccypt1nB1iev Jxj8vE2lT1mQ48/WlbbLzL7GKVv+2cTw34UjY6HWpQPpr3scZvqZnZ0+39LB+qxCnEgVg47dVqt rHAA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
---nNKp0wpa/Wf4e7VM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+early_pci_scan_bus() stops scanning a PCI slot when check_dev_quirk()
+returns nonzero, which avoids probing functions 1-7 on single-function
+devices, but also stops scanning when a function is absent on a
+multifunction device.
 
-On Wed, Aug 26, 2026 at 10:31:44AM +0200, Herve Codina wrote:
-> wip_func is a test utility allowing to wrap the write inplace functions.
->=20
-> It allows to create tests with custom wip write sequence.
->=20
-> Also the modified dtb is saved allowing to perform later checks on this
-> modified dtb.
+This can skip early quirks on multifunction devices with holes in their
+function numbering.
 
-It's not clear to me what this is useful for that's not already
-covered by the existing write-in-place tests (nop_node.c,
-nop_property.c and setprop_inplace.c).
+On iMac13,1 and iMac13,2, the BCM4331 AirPort card is behind root port
+00:1c.3, also documented by the model list in commit abb2bafd295f
+("x86/quirks: Add early quirk to reset Apple AirPort card").
 
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> ---
->  tests/Makefile.tests |   3 +-
->  tests/meson.build    |   1 +
->  tests/wip_func.c     | 127 +++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 130 insertions(+), 1 deletion(-)
->  create mode 100644 tests/wip_func.c
->=20
-> diff --git a/tests/Makefile.tests b/tests/Makefile.tests
-> index 0d4d399f..a71c4cbf 100644
-> --- a/tests/Makefile.tests
-> +++ b/tests/Makefile.tests
-> @@ -31,7 +31,8 @@ LIB_TESTS_L =3D get_mem_rsv \
->  	check_path check_header check_full \
->  	fs_tree1 \
->  	truncated_property truncated_string \
-> -	truncated_memrsv unterminated_memrsv
-> +	truncated_memrsv unterminated_memrsv \
-> +	wip_func
->  LIB_TESTS =3D $(LIB_TESTS_L:%=3D$(TESTS_PREFIX)%)
-> =20
->  ifneq ($(STATIC_BUILD),1)
-> diff --git a/tests/meson.build b/tests/meson.build
-> index dae6a941..e7a88936 100644
-> --- a/tests/meson.build
-> +++ b/tests/meson.build
-> @@ -96,6 +96,7 @@ tests =3D [
->    'truncated_string',
->    'unterminated_memrsv',
->    'utilfdt_test',
-> +  'wip_func',
->  ]
-> =20
->  test_deps =3D [testutil_dep, util_dep, libfdt_dep]
-> diff --git a/tests/wip_func.c b/tests/wip_func.c
-> new file mode 100644
-> index 00000000..3becc4f1
-> --- /dev/null
-> +++ b/tests/wip_func.c
-> @@ -0,0 +1,127 @@
-> +// SPDX-License-Identifier: LGPL-2.1-or-later
-> +/*
-> + * libfdt - Flat Device Tree manipulation
-> + *	Wrapper wip functions family
-> + * Copyright (C) 2026 Herve Codina, Bootlin.
-> + */
-> +
-> +#include <inttypes.h>
-> +#include <stdlib.h>
-> +#include <stdio.h>
-> +#include <string.h>
-> +#include <ctype.h>
-> +#include <stdint.h>
-> +#include <errno.h>
-> +
-> +#include <libfdt.h>
-> +
-> +#include "tests.h"
-> +
-> +struct args {
-> +	char *dtb_path;
-> +	enum {
-> +		NOP_NODE,
-> +		NOP_PROP,
-> +		SET_PROP,
-> +	} op;
-> +	char *node_path;
-> +	char *prop_name;
-> +	int index;
-> +	char *value;
-> +};
-> +
-> +const char *usage_txt =3D "Usage:\n"
-> +	"  - wip_func <dtb> nop_node <node_path>\n"
-> +	"  - wip_func <dtb> nop_prop <node_path> <prop_name>\n"
-> +	"  - wip_func <dtb> set_prop <node_path> <prop_name> <index> <str>\n"
-> +	;
-> +
-> +static void parse_args(struct args *args, int argc, char *argv[])
-> +{
-> +	char *endptr;
-> +
-> +	memset(args, 0, sizeof(*args));
-> +
-> +	if (argc < 3)
-> +		goto fail;
-> +
-> +	args->dtb_path =3D argv[1];
-> +
-> +	if (!strcmp(argv[2], "nop_node")) {
-> +		args->op =3D NOP_NODE;
-> +		if (argc !=3D 4)
-> +			goto fail;
-> +		args->node_path =3D argv[3];
-> +	} else if (!strcmp(argv[2], "nop_prop")) {
-> +		args->op =3D NOP_PROP;
-> +		if (argc !=3D 5)
-> +			goto fail;
-> +		args->node_path =3D argv[3];
-> +		args->prop_name =3D argv[4];
-> +	} else if (!strcmp(argv[2], "set_prop")) {
-> +		args->op =3D SET_PROP;
-> +		if (argc !=3D 7)
-> +			goto fail;
-> +		args->node_path =3D argv[3];
-> +		args->prop_name =3D argv[4];
-> +		errno =3D 0;
-> +		args->index =3D strtol(argv[5], &endptr, 0);
-> +		if (*endptr !=3D '\0' || errno)
-> +			goto fail;
-> +		args->value =3D argv[6];
-> +	} else {
-> +		goto fail;
-> +	}
-> +
-> +	return;
-> +
-> +fail:
-> +	CONFIG("%s\n", usage_txt);
-> +}
-> +
-> +int main(int argc, char *argv[])
-> +{
-> +	struct args args;
-> +	void *fdt;
-> +	int node;
-> +	int err;
-> +
-> +	test_init(argc, argv);
-> +
-> +	parse_args(&args, argc, argv);
-> +
-> +	fdt =3D load_blob(args.dtb_path);
-> +
-> +	node =3D fdt_path_offset(fdt, args.node_path);
-> +	if (node < 0)
-> +		FAIL("Fail to get '%s': %s", args.node_path, fdt_strerror(node));
-> +
-> +	switch (args.op) {
-> +	case NOP_NODE:
-> +		err =3D fdt_nop_node(fdt, node);
-> +		if (err)
-> +			FAIL("fdt_nop_node('%s'): %s", args.node_path, fdt_strerror(err));
-> +		break;
-> +
-> +	case NOP_PROP:
-> +		err =3D fdt_nop_property(fdt, node, args.prop_name);
-> +		if (err)
-> +			FAIL("fdt_nop_node('%s', '%s'): %s", args.node_path,
-> +			     args.prop_name, fdt_strerror(err));
-> +		break;
-> +
-> +	case SET_PROP:
-> +		err =3D fdt_setprop_inplace_namelen_partial(fdt, node,
-> +			args.prop_name, strlen(args.prop_name), args.index,
-> +			args.value, strlen(args.value) + 1);
-> +		if (err)
-> +			FAIL("fdt_setprop_inplace_namelen_partial('%s', '%s', %d, \"%s\"): %s=
-",
-> +			     args.node_path, args.prop_name, args.index,
-> +			     args.value, fdt_strerror(err));
-> +		break;
-> +	}
-> +
-> +	save_blob(args.dtb_path, fdt);
-> +
-> +	PASS();
-> +}
-> --=20
-> 2.55.0
->=20
->=20
+Public lspci output for 2012 iMacs [1][2] shows that 00:1c.0, 00:1c.2,
+00:1c.3 and 00:1c.4 are present, but 00:1c.1 is missing. The old code
+stops at 00:1c.1 and never reaches 00:1c.3, so the AirPort reset quirk
+is silently skipped on these machines.
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+Check function 0 first, and if it indicates a multifunction device, scan
+functions 1-7 independently so that absent functions do not cause later
+ones to be skipped.
 
---nNKp0wpa/Wf4e7VM
-Content-Type: application/pgp-signature; name=signature.asc
+Fixes: 15650a2f644a ("x86/PCI: fixup early quirk probing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+Link: https://forum.libreelec.tv/thread/26799-wifi-not-detected-on-2012-imac-in-11-0/ [1]
+Link: https://zoringroup.com/forum/5/7170/ [2]
+Reviewed-by: Lukas Wunner <lukas@wunner.de>
+---
+Changes in v2:
+- Add iMac13,x background information and supporting links (Lukas)
+- v1: https://lore.kernel.org/r/20260807094601.263450-2-thorsten.blum@linux.dev/
+---
+ arch/x86/kernel/early-quirks.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqqaMcACgkQzQJF27ox
-2GfQNw//RTnbBmUzvy/7wfrFcY01yeMEArA/sYJq33vM80UxUH/yUT6Q0hf00v8E
-vR0Zdj3iLUGJc31ZlrC1MxYJ9bUWzxNpihOChLnMdK46GtAOot2W9u4G/oHsKmvH
-Jx4ZezhJC0SYTkgl1RkT9ZPEfd396I7faNsqg8aPtk9JnRgSFDLKhiFz1v+Yuzph
-pEaSH/1Sj+H1b0Luz8pNJN1ABbkrhWc3+NKKeTaCXZc/t1zh43bopBjzEpZ8x2Ze
-9DAYzCf6+SqS40OUl2T+WKG+uHP8TYz9+rVsTHbYCSUdYNqhyrzHR8iFoR411jUe
-9aAqat0DgI88GdmkigODOubMozvxwntufQjRQuDo71RtNfc5XXV9jlDGCkXmtT2S
-30yXgGHj4TVZc9OeR8OTkX5BJHmIH+AQ743kMkiVSns9zYhkOkrIlygRd9CspyFy
-Gcq3FPJ0WrO/W2c0BdszmPfHw5vVh+QxtmUGeTTBP6DsA3mxgEd+aTMTNwNbUc5H
-ekvAVULZ9c20wD1vDNJqwR2u8udHkKvKkPwoqLT32SFwqyBg8fiMKtV69wrtSLbE
-Z10KaLL2vb/52LzLe6f8LplkRuqvJvtCC0CHOb3f03iEX27aXaKmUmYsW5w4+mRy
-XF57RIWTw+IusdTwayq36+6PncG7N2bEgG5wLvJeX67YXJ3ETWk=
-=wWHd
------END PGP SIGNATURE-----
-
---nNKp0wpa/Wf4e7VM--
+diff --git a/arch/x86/kernel/early-quirks.c b/arch/x86/kernel/early-quirks.c
+index 6b6f32f40cbe..c641f38eca3a 100644
+--- a/arch/x86/kernel/early-quirks.c
++++ b/arch/x86/kernel/early-quirks.c
+@@ -795,12 +795,14 @@ static void __init early_pci_scan_bus(int bus)
+ 	int slot, func;
+ 
+ 	/* Poor man's PCI discovery */
+-	for (slot = 0; slot < 32; slot++)
+-		for (func = 0; func < 8; func++) {
+-			/* Only probe function 0 on single fn devices */
+-			if (check_dev_quirk(bus, slot, func))
+-				break;
+-		}
++	for (slot = 0; slot < 32; slot++) {
++		/* Only multifunction devices may have functions 1-7 */
++		if (check_dev_quirk(bus, slot, 0))
++			continue;
++
++		for (func = 1; func < 8; func++)
++			check_dev_quirk(bus, slot, func);
++	}
+ }
+ 
+ void __init early_quirks(void)
