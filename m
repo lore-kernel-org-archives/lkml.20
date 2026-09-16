@@ -1,67 +1,68 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72CE34AB03
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BD63E9F93
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:36:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789540569; cv=none; b=n9lI1QjD53B+tZygsdv6RV3bQofLKCVGdN8wc+wC+FDDUPKsRi1SHeOJ12jQryAoCc98nbGGK2H8nEeKaEBqSe3tRAZqWE+LPhAaNC5lJ5DJZEHtDb/iaxvyS8lvDBOksFEyGVNKqZUX71uD/I5fgnJIh1AEWdY7lTmzpRo1oIQ=
+	t=1789540573; cv=none; b=K20P4jjfbL9lk0vIQmA2UUMh32vavX9vXqY7no0VnF/LVTXAjEbUEeDsCA8is0HsmFRKAa1A8/fo2r8svBLvq998Dis98aBBlseCYu59TNKxIY7dCTvLPrVZS+4jhGeZJaQFn1Qf3GblKzSCEZcxb8dsUUkJ7tZn469r51G4Qv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789540569; c=relaxed/simple;
-	bh=NCEstLyEH26Gcrt5WvQF8dDQqZ4yLbXySAqcvIx/IfY=;
+	s=arc-20240116; t=1789540573; c=relaxed/simple;
+	bh=L7YUlqMQi6NDcCcSyIeTFyIS+A6oxs55+MRWqrdhbI0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=NvUnSNyvCVsnKLp45IEl8Iv+64+cSQ/+sItktY8OSSKJpPnNn+zQcm0yLYzvzx8RZtEIYBepITmgE1Ht3sZzXai5MkhWIVUw4lOfg2wltNfvILTjY5LaRcRpHuZ6fX8hHPckKvXNTBRmYPyhs9WLaYW4jbN3BpNwTUYVFM4hpOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=slzHnJrf; arc=none smtp.client-ip=209.85.216.72
+	 To:Cc:Content-Type; b=l48GWg2CnwxrSqJgB/+4iy3shdXKJ4Z33ypvPP0V5ovdvHQ31uYHBKKZv2hmd/2pCxw2ETtBmMghASKk4iFRvddnKGsSNJlo/b1jnt8xywzK5ArOI2qs8akCVkoepB26JgeX5ICRUiyq6yl691U6xQ5oD+6aMpgIGzct6CAgSfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IZ2/jkh8; arc=none smtp.client-ip=209.85.216.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="slzHnJrf"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38dbf293831so11615349a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:36:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IZ2/jkh8"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39af92138f9so3205628a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 15 Sep 2026 23:36:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789540567; x=1790145367; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789540571; x=1790145371; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9BRKY0SGTh5bi94+k10OWCyNcuDFr8NzNm2CDXcPuQ0=;
-        b=slzHnJrf/hiV1Cd0ZpxkPhl9XyAxSKW8JfKVth0hqIvmQWwDnbk+EkA21deYY1p/r4
-         1m6mA/P6+XILjC0wlvjniftyS/k5Pz4UOU7wYa8LY/DUcFqV9GtcahAiECd0uLZAmBme
-         U2b//9TBNER5xfJjXV+WNjCUV7BQYjABrzWZEVHt2VzybqdLfepLAUHpvi5PkyLXuyWh
-         j+eaptS+ICDWoTreXA01USLqo/KXQGTAh/+18qmZCRNtCif03ObmOZJ4TYiD7xh5d0L4
-         +5/PqYbiMOxSvOGcMz6x5TB7st8YkYY9WyWUQGwgZHeSxmlf7rhJeoS5nN+AzJ+wmYTG
-         Ejkw==
+        bh=jciz2Yg7eF5wpADWsphkTr+aDEba70tJiQc7W7iH7Nc=;
+        b=IZ2/jkh8gyKfC4ap4KkLIbu5zQ2z16ZereRzqyM7oo2HjG3I2UkVNBKjaI1Jw1kJam
+         p7Hr8sXeqIUME0mtDZafdEjxGmqnF40KIoajb2xwyTtkp5tVkPzCDPzNgCuontHnEHp8
+         t3Tkm9YWmwkYYa/UsxhGgjHviMSrK3AfsQpGIN7cA1scj94YkawI4eHCLKp+ELIfKGV4
+         GaGfEhGPCQiACFG7+YDEm4heDVMMyr9ue9n5LROhcVfL402QHvosCmhGfQ/3onOaBaFI
+         NKOWQ/hhBIULTGvH/BHUO2vjPtSuOVyDUSsq1JFkA4nfc1zFyrGrjW6DvuyhljBlPwk7
+         eZrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789540567; x=1790145367;
+        d=1e100.net; s=20260707; t=1789540571; x=1790145371;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9BRKY0SGTh5bi94+k10OWCyNcuDFr8NzNm2CDXcPuQ0=;
-        b=WzPRT0W2GR2Xzlv5EvVezDWdz/I+MhpFHiVUA27+ztxckaNSgsa83v7K/OZvhfYggv
-         U+dGtMGkVHFGgo4cZbk6P8kHK0nmfofWBl00yDX9Il2cYOAokc+tguEeYSDi2L2Hj3U3
-         r0Yp14z7Y6dywmv6MgJVt7bv2JjvdnA9UrKFl6Qrne5HiBIlnKXgcPXc1SHl2qIjvgZ5
-         3daqQQoxGVASvkoFGKws22FrLdGnxBcLtg6RcmMOooZTtgsO8kupVHUFt60NXTsfSaKR
-         YL8uUO1hwyHaB6HsCDeU6TxFMMAm7GPRDYJKfSdlZ0++W6fkwCYy99IeDDg11m8Jt39g
-         3QDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzxeQq0QRn4ZlW5U/dxlvDQ1TSjsjeegnbDVkbO1XkqiRoTmZ0OwPUTLeYDcW7JL0mmYk8ZP1TcjA27IuA=@vger.kernel.org
-X-Gm-Message-State: AFuF++msw7V9G3P730OI823bGNZZ9dgg2vMVklDhvM2b+ZSy3hgBjBpn
-	xK7eAltdTnqN6h47PfrYDMp2M907stf1xZuFBPxuyuL6QDqicgGDoDBe30ASUC9IgznGcFKY4nJ
-	Zhoqmcn5jJQ==
-X-Received: from dlae2.prod.google.com ([2002:a05:701b:2302:b0:143:89e0:aa57])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1f8f:b0:399:ecd:d68d
- with SMTP id 98e67ed59e1d1-39e1e514ec5mr3814837a91.22.1789540567023; Tue, 15
- Sep 2026 23:36:07 -0700 (PDT)
-Date: Tue, 15 Sep 2026 23:35:42 -0700
-In-Reply-To: <20260914170759.1992947-1-irogers@google.com>
+        bh=jciz2Yg7eF5wpADWsphkTr+aDEba70tJiQc7W7iH7Nc=;
+        b=R8D+1/fKsd28VQghYxoREnqJuBsnrssO3107rfBot6KEGdAiekU6zF0CuQJAPmG4wO
+         EU4d7LWXm49oAGmDv32mumMzp8+9dkGJh+hUFwZm5S9fpEWto3HfP9hZsld7K2vlOHLh
+         8T+g2TUKlxllsRaXhLVZmeJfLLLG7wupscfkd4UKqW130R35Aa765yD1nACN6dhXuGYR
+         BLD3gj9Y1X77hNxG2OFoTbNVouQhsyPyeMMgyqOlGYOI7mVQm89bhA6ENmQYn8Urdskn
+         QJPUHS9IeubQbrrKuDQGQlk2UZ65jM2h8HkWlAV53mIlOiB03c957iXWZEHt0q6AYzk9
+         ygeA==
+X-Forwarded-Encrypted: i=1; AKwUvByxX2Ml/yxxtwCTFiA0RRq3wMJW0SH4Tyb5I2Y9zWxO4PVKRgEq2bcMeG8hK9mqHS0gUcBGPgOyaer5Kho=@vger.kernel.org
+X-Gm-Message-State: AFuF++kc73cqKnb2QBd2rJ9F8sxrFxicT7qlxmpopU5dzdygwZYE4dj5
+	CXYqFCRaO1Q37Gg1rdxLVc+xf4PenFMgWHBC9oa+5uyXF/5tl1Cx2B7EyIK+ozgQlRq/4TrFcsc
+	xG4uSfpDEFA==
+X-Received: from dlbbu8.prod.google.com ([2002:a05:7022:2208:b0:143:8b4d:2b9d])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4d0e:b0:396:7c01:553f
+ with SMTP id 98e67ed59e1d1-39dfe1874b4mr10001864a91.21.1789540570510; Tue, 15
+ Sep 2026 23:36:10 -0700 (PDT)
+Date: Tue, 15 Sep 2026 23:35:44 -0700
+In-Reply-To: <20260916063545.3103314-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260914170759.1992947-1-irogers@google.com>
+References: <20260914170759.1992947-1-irogers@google.com> <20260916063545.3103314-1-irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260916063545.3103314-1-irogers@google.com>
-Subject: [PATCH v2 0/3] perf srcline: Fix addr2line cache and fallback bugs
+Message-ID: <20260916063545.3103314-3-irogers@google.com>
+Subject: [PATCH v2 2/3] perf dso: Separate libbfd and cmd addr2line caches to
+ fix confusion
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com
 Cc: acme@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org, 
@@ -70,85 +71,221 @@ Cc: acme@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org,
 	peterz@infradead.org, tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Three fixes to source line resolution, all on the addr2line paths.
+When a dso executes addr2line via libbfd it instantiates an a2l_data
+pointer. If the DSO later executes via the command-line fallback due
+to an inlined bug, the a2l pointer is unconditionally populated with a
+child_process process wrapper. If libbfd is queried again, the offline
+reader attempts to cast struct a2l_data into child_process, coercing
+random arbitrary instruction addresses and causing silent aborts. This
+cleanly splits the caches.
 
-1) libdw is pointed at the wrong file. dso__libdw_dwfl() opens the Dwfl
-   with the name of the file the samples came from, but when the debug
-   information is in a separate file, symbol loading records that as the
-   dso's symsrc filename and the Dwfl is left referring to a file with
-   no DWARF in it.
+Fixes: 257046a36750 ("perf srcline: Fallback between addr2line implementations")
+Signed-off-by: Ian Rogers <irogers@google.com>
+Assisted-by: Antigravity:gemini-3.1-pro
+---
+ tools/perf/util/dso.c     | 49 +++++++++++++++++++++++----------------
+ tools/perf/util/dso.h     | 21 +++++++++++++++--
+ tools/perf/util/libbfd.c  | 10 ++++----
+ tools/perf/util/srcline.c |  2 ++
+ 4 files changed, 55 insertions(+), 27 deletions(-)
 
-2) The dso addr2line cache is shared between implementations. The libbfd
-   reader caches a struct a2l_data and the command line fallback caches
-   a struct child_process through the same pointer, so once a dso has
-   fallen back from one to the other the cached object is read back as
-   the wrong type.
-
-3) libbfd only reports success when the caller asked for a file name.
-   addr2inlines() doesn't, so srcline.c treats a resolved address as a
-   failure and tries the next implementation, which appends its own
-   frames to the ones libbfd already appended. Every frame that isn't
-   inlined is then reported twice. This is the default when perf is
-   built with libbfd but without libdw:
-
-     $ perf record --call-graph dwarf -- perf test -w inlineloop 1
-     $ perf script --fields +srcline
-     ...
-                 56051a99503a inlineloop+0x8a (perf)
-         inlineloop.c:47
-                 56051a99503a inlineloop+0x8a (perf)
-         inlineloop.c:47
-     ...
-
-   With addr2line.style set to "libbfd,addr2line" so the fallback is
-   taken, the script output for that workload drops from 288 lines to
-   176, and each repeated frame goes from appearing 16 times to 8.
-
-Changes in v2:
- - Add patch 3, so that a resolved address isn't retried by the next
-   addr2line implementation and reported twice.
- - Patch 1: rewrite the commit message to describe the wrong file the
-   Dwfl is opened with, which is the actual bug, rather than the cache
-   teardown that follows from it, and add the Fixes tag.
- - Rebase onto perf-tools-next.
-
-This series is independent of "perf build: Fix builds with clang and
-BUILD_NONDISTRO" posted earlier and applies with or without it.
-
-Testing:
-
- - "perf test addr2line" and the hists tests pass.
- - Builds in 13 configurations, including BUILD_NONDISTRO=1 where the
-   libbfd reader is actually compiled, and with clang and gcc.
- - Every patch builds on its own, so the series stays bisectable.
-
-Ian Rogers (3):
-  perf libdw: Fix Dwfl discovery with split files
-  perf dso: Separate libbfd and cmd addr2line caches to fix confusion
-  perf libbfd: Report success when an address is found
-
- .../arch/powerpc/util/skip-callchain-idx.c    |  4 +-
- tools/perf/util/addr2line.c                   | 35 ++++++++---
- tools/perf/util/dso.c                         | 58 +++++++++++------
- tools/perf/util/dso.h                         | 26 ++++++--
- tools/perf/util/libbfd.c                      | 52 ++++++++++-----
- tools/perf/util/libdw.c                       | 39 ++++++++----
- tools/perf/util/srcline.c                     | 63 +++++++++++++------
- tools/perf/util/unwind-libdw.c                |  2 +
- tools/perf/util/unwind-libunwind.c            | 62 +++++++++++++-----
- 9 files changed, 245 insertions(+), 96 deletions(-)
-
-
-base-commit: 91b0782fc9e9d2f0a40b5256146e014802fdbb36
-prerequisite-patch-id: b6fdc526887b71fb66f5fe0c0d41f7ef9493861e
-prerequisite-patch-id: d47077f674c700f4f6296e9367f7ddfe004aea89
-prerequisite-patch-id: ed0db23450840601762fe85ca1bef06ce6d28fe7
-prerequisite-patch-id: d84e6b96d533ee6ed549e26e94216e2da60f7f74
-prerequisite-patch-id: 6e8f19551d771621a5037096626cfe7e271b36f9
-prerequisite-patch-id: 3768dfd588c7439deb741bce44c74763011c6be7
-prerequisite-patch-id: babac99a4faa3b1525e44d3f34ab33a88103334c
-prerequisite-patch-id: 5279827453fea1536abc620aa33c887c44e41ee9
-prerequisite-patch-id: bdc0d648a577142b9270fb59b54496bc2bf8d5ea
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index df39e6ca88e6..6510767177be 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -1,38 +1,45 @@
+ // SPDX-License-Identifier: GPL-2.0
++#include "dso.h"
++
++#include <errno.h>
++#include <stdlib.h>
++
+ #include <asm/bug.h>
++#include <fcntl.h>
+ #include <linux/kernel.h>
+ #include <linux/string.h>
+ #include <linux/zalloc.h>
+-#include <sys/time.h>
+ #include <sys/resource.h>
+-#include <sys/types.h>
+ #include <sys/stat.h>
++#include <sys/time.h>
++#include <sys/types.h>
+ #include <unistd.h>
+-#include <errno.h>
+-#include <fcntl.h>
+-#include <stdlib.h>
+-#ifdef HAVE_LIBBPF_SUPPORT
+-#include <bpf/libbpf.h>
+-#include "bpf-event.h"
+-#include "bpf-utils.h"
+-#endif
++
++#include "annotate-data.h"
++#include "auxtrace.h"
+ #include "compress.h"
++#include "debug.h"
++#include "dso.h"
++#include "dsos.h"
+ #include "env.h"
++#include "libbfd.h"
++#include "libdw.h"
++#include "machine.h"
++#include "map.h"
+ #include "namespaces.h"
+ #include "path.h"
+-#include "map.h"
+-#include "symbol.h"
+ #include "srcline.h"
+-#include "dso.h"
+-#include "dsos.h"
+-#include "machine.h"
+-#include "auxtrace.h"
+-#include "util.h" /* O_CLOEXEC for older systems */
+-#include "debug.h"
+ #include "string2.h"
++#include "symbol.h"
++#include "util.h" /* O_CLOEXEC for older systems */
+ #include "vdso.h"
+-#include "annotate-data.h"
+-#include "libdw.h"
++
++#ifdef HAVE_LIBBPF_SUPPORT
++#include <bpf/libbpf.h>
++
++#include "bpf-event.h"
++#include "bpf-utils.h"
++#endif
+ 
+ static const char * const debuglink_paths[] = {
+ 	"%.0s%s",
+@@ -1757,6 +1764,7 @@ void dso__delete(struct dso *dso)
+ 	auxtrace_cache__free(RC_CHK_ACCESS(dso)->auxtrace_cache);
+ 	dso_cache__free(dso);
+ 	dso__free_a2l(dso);
++	dso__free_a2l_libbfd(dso);
+ 	dso__free_libdw(dso);
+ 	dso__free_symsrc_filename(dso);
+ 	nsinfo__zput(RC_CHK_ACCESS(dso)->nsinfo);
+@@ -2081,6 +2089,7 @@ void dso__set_symsrc_filename(struct dso *dso, char *val)
+ 	RC_CHK_ACCESS(dso)->symsrc_filename = val;
+ 	dso__free_libdw(dso);
+ 	dso__free_a2l(dso);
++	dso__free_a2l_libbfd(dso);
+ 	dso__set_has_srcline(dso, true);
+ 	dso__set_a2l_fails(dso, 0);
+ }
+diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
+index 7966c7048c85..e7d5f4bbf894 100644
+--- a/tools/perf/util/dso.h
++++ b/tools/perf/util/dso.h
+@@ -304,7 +304,12 @@ DECLARE_RC_STRUCT(dso) {
+ 	const char	 *short_name;
+ 	const char	 *long_name;
+ 	void		 *a2l;
++#ifdef HAVE_LIBBFD_SUPPORT
++	void		 *a2l_libbfd;
++#endif
++#ifdef HAVE_LIBDW_SUPPORT
+ 	void		 *libdw;
++#endif
+ 	char		 *symsrc_filename;
+ 	struct nsinfo	*nsinfo;
+ 	struct auxtrace_cache *auxtrace_cache;
+@@ -368,6 +373,20 @@ static inline void dso__set_a2l(struct dso *dso, void *val)
+ 	RC_CHK_ACCESS(dso)->a2l = val;
+ }
+ 
++#ifdef HAVE_LIBBFD_SUPPORT
++static inline void *dso__a2l_libbfd(const struct dso *dso)
++{
++	return RC_CHK_ACCESS(dso)->a2l_libbfd;
++}
++
++static inline void dso__set_a2l_libbfd(struct dso *dso, void *val)
++{
++	RC_CHK_ACCESS(dso)->a2l_libbfd = val;
++}
++#endif
++
++struct Dwfl;
++#ifdef HAVE_LIBDW_SUPPORT
+ static inline void *dso__libdw(const struct dso *dso)
+ {
+ 	return RC_CHK_ACCESS(dso)->libdw;
+@@ -378,8 +397,6 @@ static inline void dso__set_libdw(struct dso *dso, void *val)
+ 	RC_CHK_ACCESS(dso)->libdw = val;
+ }
+ 
+-struct Dwfl;
+-#ifdef HAVE_LIBDW_SUPPORT
+ struct Dwfl *dso__libdw_dwfl(struct dso *dso);
+ #else
+ static inline struct Dwfl *dso__libdw_dwfl(struct dso *dso __maybe_unused)
+diff --git a/tools/perf/util/libbfd.c b/tools/perf/util/libbfd.c
+index efc78d788ce7..7a462c9d11b6 100644
+--- a/tools/perf/util/libbfd.c
++++ b/tools/perf/util/libbfd.c
+@@ -239,7 +239,7 @@ static int inline_list__append_dso_a2l(struct dso *dso,
+ 				       struct inline_node *node,
+ 				       struct symbol *sym)
+ {
+-	struct a2l_data *a2l = dso__a2l(dso);
++	struct a2l_data *a2l = dso__a2l_libbfd(dso);
+ 	struct symbol *inline_sym = new_inline_sym(dso, sym, a2l->funcname);
+ 	char *srcline = NULL;
+ 
+@@ -258,11 +258,11 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
+ 	struct a2l_data *a2l;
+ 
+ 	mutex_lock(dso__lock(dso));
+-	a2l = dso__a2l(dso);
++	a2l = dso__a2l_libbfd(dso);
+ 
+ 	if (!a2l) {
+ 		a2l = addr2line_init(dso_name);
+-		dso__set_a2l(dso, a2l);
++		dso__set_a2l_libbfd(dso, a2l);
+ 	}
+ 
+ 	if (a2l == NULL) {
+@@ -323,14 +323,14 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
+ 
+ void dso__free_a2l_libbfd(struct dso *dso)
+ {
+-	struct a2l_data *a2l = dso__a2l(dso);
++	struct a2l_data *a2l = dso__a2l_libbfd(dso);
+ 
+ 	if (!a2l)
+ 		return;
+ 
+ 	addr2line_cleanup(a2l);
+ 
+-	dso__set_a2l(dso, NULL);
++	dso__set_a2l_libbfd(dso, NULL);
+ }
+ 
+ static int bfd_symbols__cmpvalue(const void *a, const void *b)
+diff --git a/tools/perf/util/srcline.c b/tools/perf/util/srcline.c
+index e60dea472507..68798a4de887 100644
+--- a/tools/perf/util/srcline.c
++++ b/tools/perf/util/srcline.c
+@@ -300,6 +300,7 @@ char *__get_srcline(struct dso *dso, u64 addr, struct symbol *sym,
+ 	if (dso__a2l_fails(dso) > A2L_FAIL_LIMIT) {
+ 		dso__set_has_srcline(dso, false);
+ 		dso__free_a2l(dso);
++		dso__free_a2l_libbfd(dso);
+ 	}
+ 	mutex_unlock(dso__lock(dso));
+ out:
+@@ -347,6 +348,7 @@ char *get_srcline_split(struct dso *dso, u64 addr, unsigned *line)
+ 	if (dso__a2l_fails(dso) > A2L_FAIL_LIMIT) {
+ 		dso__set_has_srcline(dso, false);
+ 		dso__free_a2l(dso);
++		dso__free_a2l_libbfd(dso);
+ 	}
+ 	mutex_unlock(dso__lock(dso));
+ 
 -- 
 2.55.0.1032.g73a4cd73de-goog
 
