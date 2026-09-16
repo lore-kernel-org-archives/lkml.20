@@ -1,195 +1,125 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010060.outbound.protection.outlook.com [52.101.46.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3814E4E1C8B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 20:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789592050; cv=none; b=L3SFDTA/ckzT1IWKkdBbSYEEFdRr+vmqJ99m66ZI3grZOmulGYa8H1BE5SniL7SVKZUxd1Xs4fAYhPK8FW1rIbVHFotzLSsDkhLujLoWLR6o5YoQjsZ6BMA1CLvlDl5UQW1rJNXAVemQxITyMPJsVcVgE+notAFXhv/vSA3nt0g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789592050; c=relaxed/simple;
-	bh=pI6wT2AVh5yAvV66BledWhgr6biNtXsQP6dV0Cf2EOo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Oqh2bIglbEbcYdLccrXXju8ZyP6gDLZdQoKWVQGhmtOvvi1CW5dQqC7xwtOnT9xJ6Gro5b2Ns3jYtMbqlTQ48Q9g404BH5m5ERCKN9DUPj0P3OHigbEGd+AfWmukKZJwH8xBxvyHKA90evxN1YPDxBEQ2bwB0sHUUawTdR5ZtaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qWCLFauk; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CEBE4E06D5;
+	Wed, 16 Sep 2026 20:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789592062; cv=fail; b=kWnX3pjkWmiagI591JkAqNI1ODgYGW24I7YFeDLRl5REBj5JIOGwNM80aE2NyU40mdLpARTI/UoxFA81nx1DHDNCjVvi7g1PcPDS/3M/R0hE+r9XgVRIBQg70KOT1ellaX+i7CFIkbdZ6v92nHHyiWNpI98A0KWt8niwwKmzJFE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789592062; c=relaxed/simple;
+	bh=AuHmV757Je47cqLiz85OfcYG1QeAkhb0C7/ao0D4EjQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Q93BXXEZQ3j1yMFWAOq5pQmQXockfWlatcKQ1yyAt2IJnvyjGLU3NEwCScE6aalgAVeRlABGshS6DQtWmnxvN9J90fn//Sh4WkpO/CVEKfc/wC3lYzD4GAyjz5/5zwfwaDIJqry+MMqfPoKLPccXA4IVFXcCJagKEBEJgv3uxpc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1yFhrJEm; arc=fail smtp.client-ip=52.101.46.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qWCLFauk"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633ece3so108793f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 13:53:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789592013; x=1790196813; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vQCQCsXRyOMK2lxbcg+U/XVY1PZxvpDAiiCFQ6+e0aY=;
-        b=qWCLFauku+QrSmjWXbodOKbkW7XrPKG5pYD61LeUZK9V8LLDFhCYpaboZO3hnIbCw9
-         WdqPMlnpEC4v6PsRBm+MDwlmde7K4rpki7vmjKsW27IxNaL+RkSpplZeCemt3Kr9PiyA
-         QYoXDLpgutSonA/1rdhMonvWl1XsZY1iZsd2Bt0bARNULBonTUEG4MoQTDosNkqKYnNS
-         jFaDnUraHYWQ71nqUa/ZM2+QvspnLec37/qfmcE2lGP9j4SkxiHqHJaemRYwstJ7fdM5
-         3kE9IFl1IK8qETf6cWrAqv/5zBexGW5O/MLOXpbwbKMWr5GEiagpX4BupcO929luz7cA
-         lw5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789592013; x=1790196813;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vQCQCsXRyOMK2lxbcg+U/XVY1PZxvpDAiiCFQ6+e0aY=;
-        b=DB1FOJo9sQmIJTwE9G4Z9zhHCGvkGP+BAy0eUV+cBY0qJXGdzf6j3E/rbvbU4KeGik
-         9V3q2DNCveA99DKNqKKOezy7X0pT/EOmfivTnafPlvV+ZKMxbppNzrOVcEjnnXde6N1h
-         FGQqJggpauzCK54pYvIocp2tsxSIpX0UCzoVaBoh2UIZNe4UAMVJ57y/xGnNpMoloxX2
-         fOIa4lvA2O1pDafdizWB7I1Yr32RpfLSMNPiPZfSLvBGQBaYsErD6pzhe/33L6bU4qj3
-         q6//3MEIQbYkrz+u23n8teE8MgsgRhSgsEGbp14T+KspNCzNPyUcuz7LJga3o3Q20wwm
-         M0lg==
-X-Forwarded-Encrypted: i=1; AKwUvBxgzpAO644uw0D7oKbLwdePgQM1DgDNcgqISfthr/utdtvHGpfbd/eKxorfLHf1xWCsoMcoh62kD2ljPnU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNJps2IxRZLaFlBbPH/zruvJoh77m8BwwmovT+Q957xbL1x5mf
-	qhL4JkSHJBlTFQ/QQRVFPB3fN2WHpY+QHgANQsm28r//Yflz30qLTgFZ
-X-Gm-Gg: AYBFou1U2WY10nAE1Ep8k8a0mRq+enQOvrV3+GXtd6FfThbk+BLHYfoEFZuTB/4Sm1I
-	vepLapwdGa3m0KkMEBBfx1BFcE0hZWy9B5yJ03w0w8BZrukwGKUDLhAntIFDcT3euM49w2sEeBz
-	p9+4LOlawByu5EdYVzhFzQv54L/rrCyix0emHrqH9ob0OIvUQJuKCQRz9eZw8GdzQ1/5zkq5ZjA
-	faKSTmjP04c3WU1l71/WpS/P/IOViOoaifvP/deYFHSFu80qJ6nApSfJn/7qY1YiNytM+/9Ymhv
-	lELDsP7N49EL/USB1EGQYSODXYGNPGjoBVMAWyaVm8NR4a3XBYbemhZf6JOu5oa0Ht7f45zlDqL
-	JL/G2VfKzl4sfyLl7IvJyr8x0QXHJ/TgoJwdOlyH+lDaPNImXRi3ro8atYiwtWELZblRWSY4DnL
-	RUpbMCldaqYmxcdXyLNHHtrHtcdWVGCKR8ibJo6foA3qOXw67DyP9jp/xX2apqkf0xkKwu6Q==
-X-Received: by 2002:a05:6000:1a8b:b0:486:fed8:8710 with SMTP id ffacd0b85a97d-4870d16b67fmr5230115f8f.38.1789592013464;
-        Wed, 16 Sep 2026 13:53:33 -0700 (PDT)
-Received: from antoniarch ([78.210.41.3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bef7678sm11086166f8f.2.2026.09.16.13.53.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 13:53:33 -0700 (PDT)
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: alexandre.belloni@bootlin.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v7 4/9] rtc: abx80x: properly handle shared IRQs
-Date: Wed, 16 Sep 2026 22:51:33 +0200
-Message-ID: <20260916205138.16771-5-apokusinski01@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916205138.16771-1-apokusinski01@gmail.com>
-References: <20260916205138.16771-1-apokusinski01@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1yFhrJEm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bucKndvvhMIhYHoPszfy31H3UCzmvthvEKHOjR7w8PoxqjwzOpYkGo/xLWek7sjLEw4dxjJLK/yzWtUmLXP6rVzeMCmx2HIXzfYjte1aT6YBPoCKctSAIS9mM7XHRfsZ8h596clZODtprGy7XPg4Y3k29Sfo3jNqHbToMhlY/xAfVCI9ElI4gOc51mEmgFDpj7wtmjowRRqvr/nMpVQrkuLzdQkjPekAbofaYC0xi2pOWF1LNZzIfekU1sBdTgL84CfQEZWiVBdLbh9C6NU/Ht43j/sh5H0aor3ObZVg8iO+h6kW7weLdfhN/KXDSnMxtfkPPiz4s9/3W3Tp3MdY5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0w654wXXwH8SnxF6Es8+skQl/rH2diZT+QanVPzahX4=;
+ b=h+BK7o7trkdHoMOpdYD64HLBuNwjdsmtLtilJsPYlYLz8XulGPX4IjXW3CivV6B/ty7VXZ5lxTL3chmLaGG6bzwd+fq8XIGaCWUUDr6/GnE7168SesAZOef24UQpy7G9jvqrcjD6jRTYadxx5t7YWP1PLfo5w5DpHQpSUwZ/dHz6aannwIIu1ClSLUSksRpUBd1yc0nhnbRD8c5vClvubWBWmUZk5jET49ida1+pbLLeyV2OYWBMf09ocZPRyPkeN0SMpqPJpHSSGMlQ7znyocrtS438c8pS43BIhDtSNz6VESekpT3f/dZDGwqyGhLd5KUipxlQEovCok+WLzG7pA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0w654wXXwH8SnxF6Es8+skQl/rH2diZT+QanVPzahX4=;
+ b=1yFhrJEmmjORflyZWU0ppaLkof8oxorEUWlbxNcmYgQCpsY3Tu7LNx8rKUwCshqU/tlx7dXt7IpVsdWRADG2FvXtq9SzhWgGwLBAxHksciTZy9P2DaO1TfLi5pZZFLj0AvuH9NXRzsB+dq5ITxLI920zzJ7DGoyqIgDlza7ZBTs=
+Received: from CH0PR03CA0277.namprd03.prod.outlook.com (2603:10b6:610:e6::12)
+ by BN7PPFEE0F400A9.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6e9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 20:53:54 +0000
+Received: from CH1PEPF0000AD80.namprd04.prod.outlook.com
+ (2603:10b6:610:e6:cafe::40) by CH0PR03CA0277.outlook.office365.com
+ (2603:10b6:610:e6::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
+ 16 Sep 2026 20:53:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD80.mail.protection.outlook.com (10.167.244.90) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 20:53:54 +0000
+Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 16 Sep 2026 15:53:53 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+CC: "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>, open list
+	<linux-kernel@vger.kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+	Lukas Wunner <lukas@wunner.de>, <linux-pm@vger.kernel.org>, Mario Limonciello
+	<superm1@kernel.org>
+Subject: [PATCH v5 0/2] Unify PCI suspend and hibernate paths
+Date: Wed, 16 Sep 2026 15:53:38 -0500
+Message-ID: <20260916205340.2466679-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD80:EE_|BN7PPFEE0F400A9:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4647e984-afdb-4805-cae6-08df14349ec8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|56012099006|11063799006|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	q7blccL7Bg4DHhqvxxMa29TMeg1ToRRpiioJVvtv/6nMY0JeiN9HNHHprli9ti3bbjtGvPIJF51cgXfxnUPWlhX3L6syGX51jLKYttWWsiEgCESTD0Srr+XdaBPlNXKDi3Bq/ELBlqb1W1jn7rNDAWIZqyNLcA4nOe7XdzjQSnpevmrlP/ReKIOOWr/pGGw6DT/NqdvvqZAE5vzZzUG0uKW6VFlG31qKWBDGTncym02rMrFVjHkCgEjb7hL76qOOeeKhwqic2actrbN6CenKWL+SFRaQU9b/kfHIgZken2BSDU4W1keVJUeEbHUr02A+LMlxInKbF7dpUnsQHJ4jgCPvv+CYifYJBYWiOUIb1KYsLvJdKgZKzS44TlQnBPJKX44kyjNqydPSsdHvWGKos3CiWW8zy1HjnbiFp5jPbDSmjOo52niE8djTt0SMKaMru6ASKkU0THbiNj4jLz50OOTZ7YFWeZ9vFVRNDtd4sjDpmU8t+uhfuPgpI549T1gtHCV8TWb4DvQ8c4Esgh0YGAV8M2vH9b267jRmypm/hr4GyD61CwRjCOyK6lVZDTb4oJWKk7CG+LDxJmxqaiX1GIIEiWL4UEMI+euOjBMqRzFzhhzFvnFvL/P0e+IaryDrkPrW8EOVs+YbKNOqaq//qBuuzy09Roz1i4/ysxaxRvdOKIkay7gMAIEYSC7ryhrMbJxroNiT+RmxjKjp+jUKUQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(56012099006)(11063799006)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ra19DNKt0rlGROg/SPtY0oGzpO1n/2dX/Tp0rwqs0/QZ+rlfehdr7LvwDhKDj8pnDZpZOpdGZFsY9Bm7I0ypP/EVfXexxYUwQMyewufXOk+qfuk2tPFlRmI/TAEdTbXNJiVyWVEml+hSsbvpEY4EsMwImJMaS8iQqj6i/c/QXGxF9VDIxSyXMScLmsM79I+GkQkWAAAjysJCVUkGKa4Rj7cwjYtsUQ6rlEUHr6zQzf55IJNF7kbRD/mW1nRgVHbIeqpjFxyON2MlJjzn7hJeWbAosn4/Hql73CmSroeOG9EZG5Wu2G5jdmNzotM5ZG8IkpMl05GbQpBw9ozN6RZdX/LJguDtxcwE/NvIkO5VnrnGq6pFt5wmWGnXuby3Xdeg/+5ycTsr7KNUcku0QzpVISfklXSw+QiObVFPz3+ZHMtH8LeHqWtx11sFAq7SbvVL
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 20:53:54.4155
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4647e984-afdb-4805-cae6-08df14349ec8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD80.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFEE0F400A9
 
-The abx80x RTC driver registers its interrupt handler with IRQF_SHARED,
-but the handler always returned IRQ_HANDLED and cleared the status
-register even when no interrupt source from the RTC was active.
+From: Mario Limonciello (AMD)" <superm1@kernel.org>
 
-This could cause the driver to claim interrupts belonging to other
-devices sharing the same IRQ line and could also clear unrelated status
-bits in the RTC status register.
+Many cycles ago I sent out a kernel series for using the S4 paths when
+the system goes to S5.  Some parts of it got merged, and Rafael suggested
+to split the other parts into smaller pieces across multiple kernel cycles
+to make bisecting easier.
 
-Only handle the interrupt when the alarm or watchdog flags are set, and
-clear only those interrupt status bits that were handled. Return
-IRQ_NONE when the interrupt was not generated by the RTC.
+This series attempts to unify the PCI suspend and hibernate paths so that
+PCIe bridges with downstream devices are put into D3 at hibernate the same
+way they already are at S3 suspend.  I have been carrying it, rebasing it
+and personally using it for a while now.
 
-Fixes: 718a820a303c ("rtc: abx80x: add alarm support")
-Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
----
- drivers/rtc/rtc-abx80x.c | 52 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 50 insertions(+), 2 deletions(-)
+Mario Limonciello (AMD) (2):
+  PCI/PM: Split out code from pci_pm_suspend_noirq() into helper
+  PCI: Align hibernate poweroff flow with suspend flow for bridges
 
-diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-index 44de234efecf..2fd0079b7c51 100644
---- a/drivers/rtc/rtc-abx80x.c
-+++ b/drivers/rtc/rtc-abx80x.c
-@@ -51,12 +51,18 @@
- #define ABX8XX_CTRL2_RSVD	BIT(5)
- 
- #define ABX8XX_REG_IRQ		0x12
-+#define ABX8XX_IRQ_EX1E		BIT(0)
-+#define ABX8XX_IRQ_EX2E		BIT(1)
- #define ABX8XX_IRQ_AIE		BIT(2)
-+#define ABX8XX_IRQ_TIE		BIT(3)
-+#define ABX8XX_IRQ_BLIE		BIT(4)
- #define ABX8XX_IRQ_IM_1_4	(0x3 << 5)
- 
- #define ABX8XX_REG_CD_TIMER_CTL	0x18
- 
- #define ABX8XX_REG_OSC		0x1c
-+#define ABX8XX_OSC_ACIE		BIT(0)
-+#define ABX8XX_OSC_OFIE		BIT(1)
- #define ABX8XX_OSC_FOS		BIT(3)
- #define ABX8XX_OSC_BOS		BIT(4)
- #define ABX8XX_OSC_ACAL_512	BIT(5)
-@@ -266,6 +272,7 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
- 	struct i2c_client *client = dev_id;
- 	struct abx80x_priv *priv = i2c_get_clientdata(client);
- 	struct rtc_device *rtc = priv->rtc;
-+	unsigned int status_flags_clear;
- 	int status;
- 
- 	guard(mutex)(&priv->lock);
-@@ -284,9 +291,15 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
- 	if (status & ABX8XX_STATUS_WDT)
- 		dev_alert(&client->dev, "watchdog timeout interrupt.\n");
- 
--	i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS, 0);
-+	status_flags_clear = status & (ABX8XX_STATUS_AF | ABX8XX_STATUS_WDT);
- 
--	return IRQ_HANDLED;
-+	if (status_flags_clear) {
-+		i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS,
-+					  status & ~status_flags_clear);
-+		return IRQ_HANDLED;
-+	}
-+
-+	return IRQ_NONE;
- }
- 
- static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
-@@ -942,6 +955,41 @@ static int abx80x_probe(struct i2c_client *client)
- 
- 	i2c_set_clientdata(client, priv);
- 
-+	/* Disable unused interrupts */
-+	data = i2c_smbus_read_byte_data(client, ABX8XX_REG_IRQ);
-+	if (data < 0) {
-+		dev_err(&client->dev, "Unable to read irq register\n");
-+		return -EIO;
-+	}
-+
-+	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_IRQ,
-+					data & ~(ABX8XX_IRQ_EX1E |
-+						 ABX8XX_IRQ_EX2E |
-+						 ABX8XX_IRQ_TIE |
-+						 ABX8XX_IRQ_BLIE));
-+	if (err < 0) {
-+		dev_err(&client->dev, "Unable to write irq register\n");
-+		return -EIO;
-+	}
-+
-+	data = i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
-+	if (data < 0) {
-+		dev_err(&client->dev, "Unable to read Oscillator Control register\n");
-+		return -EIO;
-+	}
-+
-+	/* Unlock write access to Oscillator Control Register */
-+	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
-+		return -EIO;
-+
-+	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC,
-+					data & ~(ABX8XX_OSC_ACIE |
-+						 ABX8XX_OSC_OFIE));
-+	if (err < 0) {
-+		dev_err(&client->dev, "Unable to write Oscillator Control register\n");
-+		return -EIO;
-+	}
-+
- 	if (abx80x_caps[part].has_wdog) {
- 		err = abx80x_setup_watchdog(priv);
- 		if (err)
+ drivers/pci/pci-driver.c | 95 +++++++++++++++++++++++++++-------------
+ 1 file changed, 65 insertions(+), 30 deletions(-)
+
 -- 
-2.55.0
+2.43.0
 
