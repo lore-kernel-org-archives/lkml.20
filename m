@@ -1,114 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920AB3EC813;
-	Wed, 16 Sep 2026 06:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E473EC813
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 06:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541615; cv=none; b=g6TnXo/HoiEXe3eUNIf9SBnG+h1wgEOBAzUdx4AO3s4vWRcDzXnk4VjQ8gmzueqMValoGAFY0ASNKJEqyUddUZk5C/01jnZ7mn5Yae6wLxdzCBex2fCJDA+Ad3GYS/+0uaeCXlHSwF7RHKxL6r8TU0cCX+Cs2cBnP25O8xVxlv4=
+	t=1789541639; cv=none; b=O/weqWzg70NF4unZpQ8/xKl1Q3Y1zzzzGbnccE7sRlkkV07lgM1OdiDfg6b/HtD6G0zL5dlhJgfGfUFzEQ1jLautOrHro3bloqroNayUQ+JVCiqIPCRMmJW86GtXbuC4+lYEDwQ8iN3FaoFYHy4Y/E5Ll/qkRAZOFlS7HjC7w7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541615; c=relaxed/simple;
-	bh=uoRP0/4GA2zBryumgFI/uqSwGga2IHXaKuv9yFTtyWc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sCSdm8h1FObgq/IkbkAU/xdlb1B7JVhW9WSmI1ZwzaACv3HF5gR6rXwbck1XYXGfJvUkyxZEdP77ZO5EU9DgrAuv+45/M2drGAeyspTaaciWdfVPC15K7fObMbdj2RyWmGo1to4uC7XjNzXojh0wUDh1moVVs3nnOU00LzmD6Bo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dmEh+rI3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789541639; c=relaxed/simple;
+	bh=eltwt5LbHTw8tHyDar4cwQJHyJlivgtOxZVh6Da41gE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=oALZIOyNjnrVeSnUXDoEwXposxOhzsBU8x9hc+CyhE/rwoDYYds/eD5BajTwf9OW2Am8B823NtRBpHOPMbvmtacpMi0ahUyTrdrVQVSR8HkK8y9GLh1un7+uVMPFX0zae5c+DSUxFXOWhYord1BkHs1L2rKvImhUbVA+Uu94/6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=GtYdrR/5; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dmEh+rI3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEA4E1F000FF;
-	Wed, 16 Sep 2026 06:53:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789541614;
-	bh=13xcmcmR7AZeAAIk+eISQI1Df8FCi7PbyWP1mA812lI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dmEh+rI3uieLexgKe9CkRQwp1LNSrHXaTZleEI8JJJUUmWA1am7Ll/FVvIbJ9ms83
-	 m4s1IKq6pa5cRZw/QaStQfDiiW23ZFkWAtMGsf1K60bZak9Mhy3y5SB1k2/Y0eX2oG
-	 31WxgvIMU9u4fm8xuNg8QSR+nSd06yjQ1cy15U1ZsWRKry1exAkjn9ZiuM3YPWE8Ho
-	 SNOoHzwCgw5omC1YePQN1Y9JQ0/5ViDuhDlMOb18dRFh+tiJeo6B/zkLC/Xlcc0tti
-	 ppUmnHp6nS9CHF4u81JRlhaN6lAw2OdNmqYsTRvIYIE1JSphKbYZeMyNxc4xshjL60
-	 EmGKOkNk8DDxg==
-Date: Wed, 16 Sep 2026 08:53:31 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, Charles Keepax <ckeepax@opensource.cirrus.com>, 
-	Maciej Strozek <mstrozek@opensource.cirrus.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 7/8] dt-bindings: sound: qcom: add Tambora WCD9378
- SDCA codec
-Message-ID: <20260916-imaginary-glossy-stallion-c769b5@quoll>
-References: <20260915165652.914893-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260915165652.914893-8-srinivas.kandagatla@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="GtYdrR/5"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=FxsSqI31vw5qztPAOovoi4cnPxVEZcbEkZRBIJrsIog=;
+	b=GtYdrR/5Ogm7QDOE62CmmrMVnwsk+4l0LS08bAqUSBb5MSwr6lRNd0+CD6s5RBV/nPCttywTa
+	vFvPNQCZaq4sVfLE6qSbh0Uj23jzHgm+GzHmvc0VvAyw3y5mCRFDRvgTfyGM+14XS5B43RpX8mT
+	HHF6HVbJpUbMo4LhpJWBXRk=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hl8TG52xCz12LHh;
+	Wed, 16 Sep 2026 14:42:42 +0800 (CST)
+Received: from whupemo500002.china.huawei.com (unknown [7.152.185.250])
+	by mail.maildlp.com (Postfix) with ESMTPS id EB2834057D;
+	Wed, 16 Sep 2026 14:53:50 +0800 (CST)
+Received: from localhost.huawei.com (10.90.31.46) by
+ whupemo500002.china.huawei.com (7.152.185.250) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 16 Sep 2026 14:53:49 +0800
+From: Yushan Wang <wangyushan12@huawei.com>
+To: <will@kernel.org>, <mark.rutland@arm.com>, <robin.murphy@arm.com>,
+	<jonathan.cameron@oss.qualcomm.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <u.kleine-koenig@baylibre.com>, <linuxarm@huawei.com>,
+	<liuyonglong@huawei.com>, <prime.zeng@hisilicon.com>,
+	<wangzhou1@hisilicon.com>, <wangyushan12@huawei.com>
+Subject: [PATCH v6 0/3] drivers/perf: hisi: Updates for HiSilicon uncore PMUs
+Date: Wed, 16 Sep 2026 14:53:45 +0800
+Message-ID: <20260916065348.3957834-1-wangyushan12@huawei.com>
+X-Mailer: git-send-email 2.33.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260915165652.914893-8-srinivas.kandagatla@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemo500002.china.huawei.com (7.152.185.250)
 
-On Tue, Sep 15, 2026 at 05:56:49PM +0100, Srinivas Kandagatla wrote:
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
-> new file mode 100644
-> index 000000000000..9a6c309018ed
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
-> @@ -0,0 +1,91 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,wcd9378-sdw.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm WCD9378 (Tambora) SoundWire codec
-> +
-> +maintainers:
-> +  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> +
-> +description:
-> +  Qualcomm WCD9378 (Tambora) SoundWire codec in SDCA compute mode.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: qcom,wcd9378c
-> +      - const: sdw20217011000
+This patchset adds support for the ITS PMU and a new version of MN PMU.
 
-As pointed by Rob's bot, this won't work with current soundwire bus
-schema. If it is the same silicon, then usually it does not warrant a
-different compatible, even front compatible. For example same chips are
-used on I2C and SPI buses and the difference is coming from the bus.
+The ITS (Interrupt Translation Service) PMU counts the number and
+latency of interrupts routed to the ITS by category (LPI/SGI/PPI), and
+collects micro-op statistics for the ITS itself. It supports filtering
+counters by a 32-bit interrupt id (int_id).
 
-Last time I doubted that "compute" and "mobile" modes are a real thing,
-but if you say they are actually different fuse values, then they would
-be real. That could warrant different property, e.g.
-"qcom,sdca-compliant" or "qcom,separate-tx-rx-interfaces".
+The new MN PMU version adds a cycles event, used for MN metric
+computation.
 
-However my points from Jorijn patchset remain - the top level wrapper
-node is a fake construct to solve power sequencing issues and this
-binding should allow fixing that one as well.
+Changes:
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  qcom,port-mapping:
-> +    description: |
+v6:
+- Preserve global filter in disable_filter() when there are still
+  active counters.
+- Updated stale commit log.
+Link to v5: https://lore.kernel.org/all/20260909072240.2308808-1-wangyushan12@huawei.com/
+Link to Sashiko review report: https://sashiko.dev/#/patchset/20260909072240.2308808-1-wangyushan12%40huawei.com
 
-You can drop |
+v5:
+- Reworked the ITS PMU global INT_ID filter handling per Sashiko review.
+  Implement a get_event_idx() override that returns -EAGAIN when a
+  newcomer disagrees with the currently-scheduled events on the filter,
+  so perf time-multiplexes them instead of running them together.
+- Reset the global INT_ID filter to disabled at probe, so unfiltered
+  events do not inherit a stale filter left by prior state.
+- Dropped the now-unused struct hisi_its_pmu wrapper, filter_lock and
+  event->destroy callback.
+Link to v4: https://lore.kernel.org/all/20260724025238.3411328-1-wangyushan12@huawei.com/
+Link to Sashiko review report: https://sashiko.dev/#/patchset/20260724025238.3411328-1-wangyushan12%40huawei.com
 
-> +      Each entry maps a slave data port to a master data port.
-> +      Entries are in order starting from slave port 1; slave port 0
-> +      is reserved and not represented.  Compute mode uses 8 entries
-> +      covering DP1..DP8.
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    minItems: 8
-> +    maxItems: 8
+v4:
+- Moved unnecessary cpuhp states for each PMU drivers to hisi_uncore_pmu
+  framework as suggested by Robin.
+Link to v3: https://lore.kernel.org/all/20260713125647.2958626-1-wangyushan12@huawei.com/
+Link to Sashiko review report: https://sashiko.dev/#/patchset/20260713125647.2958626-1-wangyushan12%40huawei.com
 
-Best regards,
-Krzysztof
+v3:
+- Added check_filter callback to refuse new filtered events when there
+  are already filtered ones running as per Sashiko.
+Link to v2: https://lore.kernel.org/all/20260612093812.1249049-1-wangyushan12@huawei.com/
+Link to Sashiko review report: https://sashiko.dev/#/message/20260612093812.1249049-1-wangyushan12%40huawei.com
+
+v2:
+- Added int_en filter to tell if int_id is used, enabling filtering
+  interrupt with 0 int_id per Sashiko.
+- Changed event format width to align with register width per Sashiko.
+Link to v1: https://lore.kernel.org/all/20260423152959.1458563-1-wangyushan12@huawei.com/
+Link to Sashiko review report: https://sashiko.dev/#/patchset/20260423152959.1458563-1-wangyushan12%40huawei.com
+
+Yifan Wu (1):
+  drivers/perf: hisi: Add cycle event for new MN PMU
+
+Yushan Wang (2):
+  drivers/perf: hisi: Consolidate uncore PMU cpuhp states
+  drivers/perf: hisi: Add support for uncore ITS PMU
+
+ Documentation/admin-guide/perf/hisi-pmu.rst   |  16 +
+ drivers/perf/hisilicon/Makefile               |   2 +-
+ drivers/perf/hisilicon/hisi_uncore_cpa_pmu.c  |  34 +-
+ drivers/perf/hisilicon/hisi_uncore_ddrc_pmu.c |  34 +-
+ drivers/perf/hisilicon/hisi_uncore_hha_pmu.c  |  34 +-
+ drivers/perf/hisilicon/hisi_uncore_its_pmu.c  | 385 ++++++++++++++++++
+ drivers/perf/hisilicon/hisi_uncore_l3c_pmu.c  |  21 +-
+ drivers/perf/hisilicon/hisi_uncore_mn_pmu.c   |  98 +++--
+ drivers/perf/hisilicon/hisi_uncore_noc_pmu.c  |  35 +-
+ drivers/perf/hisilicon/hisi_uncore_pa_pmu.c   |  34 +-
+ drivers/perf/hisilicon/hisi_uncore_pmu.c      |  25 ++
+ drivers/perf/hisilicon/hisi_uncore_pmu.h      |   2 +
+ drivers/perf/hisilicon/hisi_uncore_sllc_pmu.c |  34 +-
+ drivers/perf/hisilicon/hisi_uncore_uc_pmu.c   |  36 +-
+ include/linux/cpuhotplug.h                    |   6 -
+ 15 files changed, 525 insertions(+), 271 deletions(-)
+ create mode 100644 drivers/perf/hisilicon/hisi_uncore_its_pmu.c
+
+-- 
+2.33.0
 
