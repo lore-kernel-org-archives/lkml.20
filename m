@@ -1,143 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-91.mta0.migadu.com [91.218.175.91])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC35544AB7C;
-	Wed, 16 Sep 2026 07:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08514456DEF
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 07:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.91
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543448; cv=none; b=CNe9dRiYWyiGWAvjWOGTziN3KnsRZuzWenGUDW46FF8adNQNVOoabOb7Pm6WVCB9g8JHcC+Q8AhPiZ+zD6JajWxPpzLnYRQXinsVmF8vinyPdTzl4fUk6gmdeMe0hDaYLxIf80qhrA4TPZKsoMXbMUnH6mtdNwnUw6JR13x4JPg=
+	t=1789543471; cv=none; b=PKZMiQLhCQCUBwjTmlr//hYLrMasRGX5T2ph7sK/8J1O+QmYmUd2QKixV2XXBcSKY6InVSk4F4+J3+BXKJIb3wRB6fL4pdA0evuHBkn4YVY6aXCRc8/rEuseK/JS+iISYBBLpeThFNA0dwEJdxDmT3haHBNoVLaKdypYsIvdcLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543448; c=relaxed/simple;
-	bh=pv4YiSEYhniYeLjq5C6aGWtnsM7lriLkIlczhuma2jA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bzwNjNYDLh9d+bjPgEbQbZCphWOHeBXr4ICYMA19SWuJT8Kc6Np4fuYCSXiC/VaRnLqMiPmpYW7GHIgQEoUrvhBKs0cpairpuaQP2pVygpC4vXDvS3+EI4Mce4P9/bPUtb5Ac8w2pm2z8nzvM8Ow0QhuXbw5yBT9lmK/7qbkmy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ciyHJtRG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789543471; c=relaxed/simple;
+	bh=8Iom+NaePa0RHUNn9Ize0m+imtqlvs2cwIgmCNAa2SY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HG4XyZMIHOYTQGl0Om9Gsynlsx7FgtCLER0YfcI1RBjP9/+gZ1xr8EpvzEqWl360NxVXLBBXeU4jhDnbvc3ddv05esBetPJqp9NVRrvihQej6sesIIOq/UQWsOzA3/Pg0sayP7rKdxwn/YTaZq1R1hcdsuhsr9UZK4+nIj5w6d8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rM85vQaG; arc=none smtp.client-ip=91.218.175.91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ciyHJtRG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DBC51F000FF;
-	Wed, 16 Sep 2026 07:23:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789543411;
-	bh=JEEBo7DCo8qHlpa9rPEfL3KH46iSCK/Xfmzst8QTGW0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ciyHJtRGkfrkTrp3XYYpNPTa5GPqeJnxo6KUyPBNpeW7OuRDgjIxZzmgTJnm0upRJ
-	 DKe8tmiFC4xYKIimL/AP6jaWXqLSnj7J0fDHX9Dp+UuOIlH0OchdFkjz6PU7Jbw78V
-	 9y+3M5f3pY3vfPfOkmXXufu23mJN1D7p3r45V3QCLwslF2tIeYmqWVUSc0arGrmKtU
-	 oG1UUtMrT0CEWKKYo/fDSaEThT2VDl3f0Bf7j73E/thBoj+AqNipL2ylAuzD99CuQn
-	 um098l0CkeNWEBZr4Bm4SD7/+sVqlsiZP8smQ8WRXKtsG2odBCBcNPhOc9v1XU9MQe
-	 tkRnjW5Q30cqg==
-Subject:
- Re: [PATCH net-next v2] ch9200: do return USB errors from control_write()
-From: netdev-bot+sashiko@kernel.org
-To: s.shtylyov@auroraos.dev
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux-usb@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 16 Sep 2026 07:23:30 +0000
-Message-ID: <178954341078.22033.8722936070498955076@kernel.org>
-In-Reply-To: <20260915185805.38712-1-s.shtylyov@auroraos.dev>
-References: <20260915185805.38712-1-s.shtylyov@auroraos.dev>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rM85vQaG"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8Iom+NaePa0RHUNn9Ize0m+imtqlvs2cwIgmCNAa2SY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789543434; v=1; x=1790148234;
+ b=rM85vQaG4fDE3B3DY/jwiwnU1wlpLsoTMEwqO5U19QrQad/dTYhy+RV+WVPGCcamUgMkJJR+
+ VbOMPPZUwumCNrqZE6UtNqGKvUXEEToSXxXX139KnJapjAyRm8/Q4NPqdXys8MohvO/Umz5k131
+ DVH3OP3NUJrtKj93xFBhgAZA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6954b634cad03e54;
+	Wed, 16 Sep 2026 07:23:54 +0000
+X-Mizu-Trace-ID: 6954b634cad03e54
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	josef@toxicopanda.com,
+	axboe@kernel.dk,
+	ameryhung@gmail.com
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	andrii@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	linux-kselftest@vger.kernel.org,
+	cui.tao@linux.dev,
+	cuitao@kylinos.cn
+Subject: [RFC PATCH v4 5/5] docs: cgroup-v2: document io.cost model=<name> binding
+Date: Wed, 16 Sep 2026 15:23:02 +0800
+Message-ID: <20260916072302.1068871-6-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260916072302.1068871-1-cui.tao@linux.dev>
+References: <20260916072302.1068871-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+From: Tao Cui <cuitao@kylinos.cn>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Document the named-model binding of io.cost.model in the
+io.cost.model section of the cgroup v2 documentation: the binding
+and restore syntax, the unknown-name rejection, the full-replacement
+semantics of a bound model and the unregister lifetime.
 
-- [High] Incomplete fix: after removing `return 0;` from control_write()
-  (drivers/net/usb/ch9200.c:137-171), the helper now returns the…
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+---
+ Documentation/admin-guide/cgroup-v2.rst | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
---
-
-ch9200: do return USB errors from control_write()
-
-This removes the unconditional "return 0;" at the end of control_write()
-in drivers/net/usb/ch9200.c so that the function falls through to
-"return err;" instead. The stated intent is to propagate usb_control_msg()
-errors to the callers.
-
-> diff --git a/drivers/net/usb/ch9200.c b/drivers/net/usb/ch9200.c
-> index a206ffa76f1b9..3a81e9e96fd33 100644
-> --- a/drivers/net/usb/ch9200.c
-> +++ b/drivers/net/usb/ch9200.c
-> @@ -168,8 +168,6 @@ static int control_write(struct usbnet *dev, unsigned char request,
->  		err = -EINVAL;
->  	kfree(buf);
->  
-> -	return 0;
-> -
->  err_out:
->  	return err;
->  }
-
-[Severity: High]
-The commit message says this will "propagate USB errors to the callers",
-but do any of the callers actually consume the value?
-
-There are two in-tree callers.  ch9200_mdio_write() is void and calls it
-as a bare statement:
-
-drivers/net/usb/ch9200.c:ch9200_mdio_write() {
-	...
-	control_write(dev, REQUEST_WRITE, 0, loc * 2, buff, 0x02,
-		      CONTROL_TIMEOUT_MS);
-}
-
-ch9200_bind() stores the result six times and overwrites it every time,
-with the last store clobbered by get_mac_address():
-
-drivers/net/usb/ch9200.c:ch9200_bind() {
-	...
-	retval = control_write(dev, REQUEST_WRITE, 0, MAC_REG_THRESHOLD, data,
-			       0x02, CONTROL_TIMEOUT_MS);
-	...
-	retval = control_write(dev, REQUEST_WRITE, 0, MAC_REG_CTRL, data, 0x02,
-			       CONTROL_TIMEOUT_MS);
-
-	retval = get_mac_address(dev, addr);
-	eth_hw_addr_set(dev->net, addr);
-
-	return retval;
-}
-
-Since usbnet_probe() only aborts on a negative bind() status:
-
-drivers/net/usb/usbnet.c:usbnet_probe() {
-	...
-		status = info->bind(dev, udev);
-		if (status < 0)
-			goto out1;
-}
-
-bind still reports success when every register write failed, for example
-when a failed MAC_REG_THRESHOLD/MAC_REG_FIFO_DEPTH write is followed by a
-successful MAC_REG_CTRL = 0x0D5F write that arms DMA/receiver/transmitter
-with unprogrammed FIFO and flow-control watermarks, or when the
-MAC_REG_CTRL write itself fails and the netdev is registered with the
-datapath never enabled.  Is the observable behaviour of the driver changed
-at all by this patch?
-
-There is a second point about the resulting contract.  On success
-usb_control_msg() returns the transferred length, so control_write() now
-returns a positive value (2 for these register writes) rather than 0:
-
-	err = usb_control_msg(dev->udev, ...);
-	if (err >= 0 && err < size)
-		err = -EINVAL;
-
-Would the obvious caller-side follow-up "if (retval) return retval;" then
-treat every successful 2-byte register write as a failure?  Would it be
-better to normalize success to 0 in control_write(), or to check
-"retval < 0" in each caller and update the callers in the same patch so
-the errors being returned are actually acted upon?
-
+diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+index 8d2603751c51a..0d2d0525255cb 100644
+--- a/Documentation/admin-guide/cgroup-v2.rst
++++ b/Documentation/admin-guide/cgroup-v2.rst
+@@ -2124,6 +2124,18 @@ IO Interface Files
+ 	parameters are written to, "ctrl" become "user" and the
+ 	automatic changes are disabled.
+ 
++	When CONFIG_BLK_CGROUP_IOCOST_BPF is enabled, "model" also accepts
++	the name of a registered iocost_model_ops BPF struct_ops model:
++	"model=<name>" binds the model to the device and the model fully
++	replaces the builtin linear pricing, for every operation including
++	flushes; "model=linear" (or "ctrl=auto/user") restores the builtin
++	model.  Writing an unknown name fails with ENOENT and nothing is
++	applied.  Unregistering a model removes its name so it can no
++	longer be selected; devices already bound keep using it, and keep
++	receiving cgroup lifecycle notifications, until switched back to
++	the builtin model.  See
++	include/linux/blk-iocost.h for the model interface.
++
+ 	When "model" is "linear", the following model parameters are
+ 	defined.
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915185805.38712-1-s.shtylyov%40auroraos.dev
+2.43.0
+
