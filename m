@@ -1,241 +1,176 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012065.outbound.protection.outlook.com [52.101.66.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1CD3B47CA;
-	Wed, 16 Sep 2026 15:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572201; cv=fail; b=kKXz+PtXKpoKQXv90+Qp/crqBO86+Vu0eNRwweg+DnmMstprkOFxsceGdfNYfyi21h/KOAGbKdreQtv0rL4LdhNSrxcyfR03RhT+vNVLyWr5SyQUfJKZarleOwh4XiFj2cGT68UJ+g1G/wuPoJ4rDlz7v6arua2tMt+4vb7ZfFU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572201; c=relaxed/simple;
-	bh=Imqza8tpeLn6Q0gWw0mafqcwqzhoUk7bT3Gg+77r8/o=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=uMu6Q1OaPbcR33qSwUKymo3aTBXKaPgGRCOH/Hf5ySRE2PC8GabhepqU2KO5OFdVBQ3WGImAaSCA5QesE7/CKRj5HBpmnuS6QmMJEKjOCmizX/dXjFZ7PbOt2e5Dij8MOL0u6bRdzpgi3xlOjpGnKYoFAj+yjdWI98SqS1ZHV4U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=fMVkcGY9; arc=fail smtp.client-ip=52.101.66.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7470517BCF;
+	Wed, 16 Sep 2026 15:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789572219; cv=none; b=VOQ9Xs4Uj2nhVRozO8GoQlPHFv9WYBURMCLrDGKZVydVtVd+JwMmd82dG/gl6yU+nHmL09++hQRiwuoP+Nti/VjzCLtAQNTp+fTC8C8gLJdJQ7bQllQzfs55bEb6Z5/PsBBz7LQYxaU18NtVNxnC90UAT460ZavBe29e39zYF40=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789572219; c=relaxed/simple;
+	bh=thzLCrYQ3VboAbzWifti8NDUYy85OpfsAhtAusOM9ug=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fYs5r3St2d0v+MEnUNVdbizr9Ao4ESE5OcVuuTLI5NOSmsnn0rtinANUXrs9gE2Py4QRISz1GrXevZm3wIlA2i8LmH84dX+FRCq8/gFN0ZHykfv1EiM4v+RQ6KH7WOJtWE0mjLBLupNAzPWqvTtCRfS2GN8UwO3omHyKom5a2uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zms7zbQM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="fMVkcGY9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cie4gDmXxKDL4cjPaQaRUgmZJ+7aIoZ+z/qeqhkIGwM4pTQ2lQqP68ErV7ESsPynjNbEgUL5qZ6/k6Qv0xwxSS4tdfA60aL7sOoqMtuMCrwZp5C3RfD+VcvtRmVr3CRy03nO+E4Bik6dhLdlUmWRBqbYg+TyvbHlz5R3txkJGJ88L40XIyqtWVPZY63thHX5SbDA8aOZlDFp2tmdiWYWlcFe7t9WK64DPHxGj88faJI5xz3qaXWB05YApeyWHC/kmXrFr135TaxaPJVoHrMW1zursu7UthlgWh6D2gjX1Gz+NOIvtWlAw1Iu0uTT8E2OMR3BADxMANxU0Ba7GTig8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8z6ZZC/E4sC/KXgamyt4bEQdGc4VZbLvSAiumL+RLLQ=;
- b=TT7ShIUU2jgcCRjCNp0PZPcn13w7gsKzI7guWVIyRphzEYATWqwZYqDrgZ2HRSzOqjzzU8iWWpm8vRncikFDF9+9aFYWYlPjv0Zchz1wYicr85WALQ6DP5q4fTmZlaR9E724hXD/JR1roBL926NJsVXXlNtNHFxT0nesewyg9wUa0LiVWL+YYMQ4eF1f7ATgN/rZmykqaWRPHlk5icTpK+7gZivB+la72BuAlAKBu4jfje1kmoCCTYm3mkvpFXqDEXkfWpSgsTWzgbXeYH+sOp9VIjZO/ue/ZBK3I3XC/nU4ncqzxQWN7z2tG1kmV6cNhvXmR47G0sLgvFlANMEjNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8z6ZZC/E4sC/KXgamyt4bEQdGc4VZbLvSAiumL+RLLQ=;
- b=fMVkcGY9Joo7DH4W4s+6hGnJFHcg41K9wehcM0CIeRaTUTZceenv7kQm0KFxwjumKE2Gm8cIyy8fHCFGT2AdkFxVMp9V0gADC+xT+DkRsR33XbK95S9+2WvLa0GlKLbN3lihGByEvsjkt9m7LmN3LBI/WM4b5SUrjvq2CoApn6DWWsPPJoe668RRGBV9OXI8f73Oo3/VQEhW04tUEUud+uc2shu+0NhlS11tmVgtVd1iQKAiay42nIToWG++jc/+qvGDlu5jNB26CHHe1VkIBSqnJxX4TQoQt6ZohKbeB+J+kM6L2qKAJIGDz5FdCeEeszuFi1Neyk+LuZwuwGKkOQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by PA6PR04MB11912.eurprd04.prod.outlook.com (2603:10a6:102:51a::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 15:23:13 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
- 15:23:13 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Wed, 16 Sep 2026 23:27:30 +0800
-Subject: [PATCH] tty: serial: fsl_lpuart: use dmaengine_get_dma_device()
- for DMA mapping
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-lpuart-dma-v1-1-021be5b03e53@nxp.com>
-X-B4-Tracking: v=1; b=H4sIAGG1qmoC/yXMTQqAIBBA4avErBPUwLCrRAvNqSb6QzOC6O5ZL
- b/FexcE9IQBquwCjwcFWpcEkWfQDmbpkZFLBsml4looNm3R+J252TCtZWFLK1E4AynYPHZ0frO
- 6+R2iHbHd3wPc9wNi4bjsbgAAAA==
-X-Change-ID: 20260916-lpuart-dma-9923b7b2e1da
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Frank Li <Frank.Li@nxp.com>
-Cc: Sherry Sun <sherry.sun@nxp.com>, imx@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.16-dev-7bc12
-X-ClientProxiedBy: SI1PR02CA0018.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::7) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zms7zbQM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341851F000FF;
+	Wed, 16 Sep 2026 15:23:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789572213;
+	bh=gUBqB4Fqzqc99qDiZRC6rn2LnblCueCLqVsZm7n7TfU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zms7zbQMXsV+X5ghNSF6YjMl6cJUjNxOkr2rrVhGM0XFYBR9/EjTqpLFG0bk/C0J+
+	 F29El3ZivUeVL99Zn3f4rNP0UQ71wVGtSaM4Wr/EMConrjhwND2seSG6X9LdI8PKKt
+	 wBlIcZKq1r/aZ74++NVwbVmjyfyz5z1nYuTWwX+kD2jkBcYRdj7Mi6GJnPNsh85OIT
+	 Wt/c6bCxiBrWxpCWyEuLB8YAvC09SN9sOOK19ICTHSvz2x5HNnAUJXlBqgbo7+D6OZ
+	 nx0j/Hi/XmglqjOXV6BadfdwTE/hibURx5tCXMkuCpoOvvLMWTRan6RTc2WQiI6iCr
+	 47EQKZi3eSznQ==
+Date: Wed, 16 Sep 2026 17:23:31 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC v3 03/13] rcu-tasks: Add a Tasks RCU implementation
+ for reader-marked trampolines
+Message-ID: <aqq0cwvRDsorGwgc@localhost.localdomain>
+References: <20260915-b4-rcu-tasks-preempt-qs-v3-0-0ad30c4c5ee7@toxicpanda.com>
+ <20260915-b4-rcu-tasks-preempt-qs-v3-3-0ad30c4c5ee7@toxicpanda.com>
+ <aqlgxKGk_AEKls_1@localhost.localdomain>
+ <edc7cca2-a5c5-455c-8969-ea05dbdb08f7@paulmck-laptop>
+ <aqqONH8flTIpOUqT@localhost.localdomain>
+ <91687748-0781-4133-baed-43cf82f35ff5@paulmck-laptop>
+ <aqqpRoTfywUuTgoC@localhost.localdomain>
+ <aqqsAUVV8a1yrQzX@localhost.localdomain>
+ <6afb0afe-e7b8-46b4-9fea-2c7cf4791044@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|PA6PR04MB11912:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec6a64a5-75a8-4eb1-ea49-08df14066c6a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|376014|366016|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	nmPYvNkm0gqCqP1LWIy7MuA7BcBJlhHdg43BKcCPqBx3n41GsSaNDzwLWaVe98w4hWhEjRtFIZx8fy6K24tzUJAun0NKFBeuroa3eBlTaPqS5zu40zIcrq2WWrg2NvTkZzCP31PjiI2/Mf+g8H/Nd3HKn0hE2jTfDQvU7EiFBqKqvBVzefU1oiP3KVXBXwix3ByFGiavY6FMhLkQQvjY7+VRZ9fe8q47qziHTWOVn15B0+CTn9yCM/LX1m2aIcQ0wm3fBJEHX7biYUE4KXJtXdRloluQgXSBEr2GwDCfMRGq89KA8ZnFkNDro22S8iA4cmdsPgaLbho9qVkyp6U4geKLbF35bPgJjHlMtlNdaY4lATe+Zyku8x07plmR/n4t6iyXVNKr3B7GAEjqRitLFuyTjIbUFHsbimP/EtMuV0nD6ugsmPHwU/qaccXx2FUAZPoWRkUdo1neJQAf/GXjBHHQZd/kZamU2lp9Fn3V6hrSUigzXwy+VoBXAq4EpPnjl2cMKLrnH21AXDFigzWn/nQZDNi1BZ/+aAAEGBrYa+3dc2ZecJhtlWUk+YiDADYGvEcRN7KvWnKaTokiYs1/cOSzEHVB/hvf0/0LlQhm4sAuCq64Ne6wFrPDluhcuHAXM87Y5C/7e3VjDZgxC1Eh87ZWTWRq8Jls7FEu18T2DcE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(376014)(366016)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L3ZOVTk2VHY0WndaR3JwbUFkazBlWkZkTEtFT0VpeUxKQ0grbHRrdFB3ME9m?=
- =?utf-8?B?b0dGR1E5UDErZDN2MWYrTnJQaG1lUUxYR1BpaVZ5eWtQZW41MlVyNmVZQ3JG?=
- =?utf-8?B?YVNIYzQxdE1TNkc0cVFkaFR2NkJobjAzTTVkVGhKQWNqSllranY3NkEzdlhu?=
- =?utf-8?B?RTA3YnZKaElvS2tyd2MzUFhiQXZLRWJWS0ZRSzhtTDViZGI1RmdTaTNLZkU5?=
- =?utf-8?B?RHlaWW0yc05DNVduR0g2WXM4dUdrT2hzQUtFWDFqdzRQSy9sQU4xeitRVFRR?=
- =?utf-8?B?SHpZck5TcWRmdDlnYTU4OTZwVEJobVNWWlBpaDBlQXI1QU5uZnJ3ZFN3Tlhl?=
- =?utf-8?B?VG9wTUNHaWZkMC93MUlJSU1pSnY0L05DODBIbnFTMjl4eDJ5UWpYUmRoM2t1?=
- =?utf-8?B?dmREbE5UeFdnZWFwNGtIdW5DdFdmZTZsRzZCbk1NRTJSU1R6Y1czeFE4QW5a?=
- =?utf-8?B?TWJnbHB1UTg5VU04c05rYU84dzNGeUhZb3YyT0prUHZjbGJENU5SZW05MVBY?=
- =?utf-8?B?OUdxQmxaZXRPeWgzWnUxWG9tRGRoT3E2UVAzS1RKZ0tvTU16ZXFBTzI1K2R4?=
- =?utf-8?B?eFhkNThHeDZ5dyszcVdDTDErM2liYWtKVm91K2p3YnNxVnFnM24rRElVVU9j?=
- =?utf-8?B?UjN6WDNpYjFxOHVSNlZhTHV4T1RoMVVZU2w4d0NPd0FYSlZOVjRjbCt2aEpp?=
- =?utf-8?B?ZWpkTVVuT3J2NTVkOTdESi9LeVAyUmJaU2F2TkNEc1crNTNXMGpHVDNPREZm?=
- =?utf-8?B?dTNKbW5MOFdXRFlHdHhBZnV6VzJiN2RzNXJuV2lBZGhzamV0ZjNqVkxwTTZJ?=
- =?utf-8?B?dzFVeGJvN3h3S0dQOFh6ck1hOGIyUWVOam5mQVg4bXJ3QVIyWGo0VDJuYjh0?=
- =?utf-8?B?UWhkLzdGRGlhOXBQOGdzVmVZYSt1M1lOcFRkMEwxVzkwR2piMVN3QUZ6bE9w?=
- =?utf-8?B?bHNjb1lKSzk3a3g5d0VTTnIvM2RWdklSUjE5UldPYVcwdjRibWxsZEVKY3FO?=
- =?utf-8?B?WVcxU3RwQ0t4eEtNZVZpNWtlRTVCbUwzdFNBVXZoL0UzcGNWU2FZdHFla2Js?=
- =?utf-8?B?QWtGU3lNMGxocUVMMmRhQWFKZnEyUEt5WjZYUEJPdGtKZE9Ld1FqcGxDbmVp?=
- =?utf-8?B?U3ZDS2tGdndyMGNUMGVLTjJveEZlOUdHQkpsNUZPcXZXTGxPTHNrdUd6YjVG?=
- =?utf-8?B?c0dydEluN2xuLzFrbXdxbGEwTW8xVnp2MlpIQUJkWUhxcGtyRS85WSs1UDJ4?=
- =?utf-8?B?b0toSGNHL0xEeTRJeGlsbG4zRDQ5QlR1bFVpYlRKNWVSUnkzOXJwME41OTF1?=
- =?utf-8?B?ZXNDRHh6Y1BwQ083QnF1T1lIYUJyeFhIbUhsUUF4bTZMUUtCQm5XTFNDd0Ir?=
- =?utf-8?B?VjVFOUh6TkhwelF5cTVnNUJHemhTc0cwTVhNZ1hpMkhwaFkyLzNaVkhjZWkx?=
- =?utf-8?B?RHIzcnBZTys1M3FEUzRhZmlUSThvcEZkdTJySnJxdFBxR0tVQ2trcXkwZisz?=
- =?utf-8?B?bUJqcnFCVEdmSTBmaTNEL3B0cExid2VQWS9SR1BjODF6UjQzRVVGRU1LVks4?=
- =?utf-8?B?VFdmOHE0emV2YktpU0FnbXRlSDM2N1F5TE43M1F0WWw1NG1DQitTcWdPSVl1?=
- =?utf-8?B?dU5Pb3h4cGRuVmNvcDVVS2xwWDFxYTZzcjgrS0FZaVNaVm81b2Mzd3E0RDIz?=
- =?utf-8?B?ZExzZ05obWhBOVlVVittVmRjd3h6eXh4aUo4M2VHZ1dlOS9SeFJXVXNhWXFr?=
- =?utf-8?B?Zi9pOTViWS9jMWlwK1Nxck1yYXp6SHpZMGxDUWxHMndjQjJjeHhXL1lGMmEr?=
- =?utf-8?B?b3dwSHRocEtTaXVUekpWT0RJYmJFVkVMNkluRkVURkg3YlppQWhDUTRUa0F6?=
- =?utf-8?B?OFB2QUc0cldDYVIrUnNvY1ZScGUyZVJoNHIyRFlTdjdsOUVZTHN3RFQyRUkv?=
- =?utf-8?B?aG9iWWJRVTAwK3d3bjRRSG9EWmJrVEQvamVHRHpYamk2MWhFK05PYkpKdTdz?=
- =?utf-8?B?eEZXMnB3S0hURnQ1MUk5VURSSENTRmUvSHVBT2ZkbWFpeTM5L0NaM3NhMWlB?=
- =?utf-8?B?YVJFQ3RpTzBkWEZydUhEWERJZ1FxcHl2MG5VR2JKMUVWZ0J0aUNIaDRNWTlY?=
- =?utf-8?B?V3F6MGVDWUJtNTF1NGJjZU5mQXBZbjJwVHV1M3dkV1FOd2xjQWN3K2hqeEhU?=
- =?utf-8?B?SzAwZStJREM3Ymp2bXh5aEtKcno0N3N5K3RaM01yVkQ2SUxDdXg4ZCtpL1FG?=
- =?utf-8?B?cjY0NC9iZEhXUjFpR0RDbzFXdFBWZXF6VmxMRlV2WmtNcUJlbytoalE5c3lM?=
- =?utf-8?B?c3JwbFFwTVI4ZzF5RHFSNXh1U2hwdG9lK2M4TDhtSDd5OXpYaWVQOUhtQ0d3?=
- =?utf-8?Q?J86XV+6f8Ec4a13llHIdgK3UmVznor/FtW9xF?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec6a64a5-75a8-4eb1-ea49-08df14066c6a
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 15:23:13.2383
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lVrWpsvjoG5NpEUrEEXRS5UV2G2sad+X2eNRs13XQUhZ3N9Tc66LF1DFHhT4M8fKNwbwBnDa/M+/rNh++VbOEIZC975eSYH931qpzXcRR5H2z5SYqN5+Uy3zuU/1Zpsz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR04MB11912
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6afb0afe-e7b8-46b4-9fea-2c7cf4791044@paulmck-laptop>
 
-From: Peng Fan <peng.fan@nxp.com>
+Le Wed, Sep 16, 2026 at 07:55:02AM -0700, Paul E. McKenney a écrit :
+> On Wed, Sep 16, 2026 at 04:47:29PM +0200, Frederic Weisbecker wrote:
+> > Le Wed, Sep 16, 2026 at 04:35:50PM +0200, Frederic Weisbecker a écrit :
+> > > Le Wed, Sep 16, 2026 at 07:26:35AM -0700, Paul E. McKenney a écrit :
+> > > > On Wed, Sep 16, 2026 at 02:40:20PM +0200, Frederic Weisbecker wrote:
+> > > > > Le Tue, Sep 15, 2026 at 04:56:41PM -0700, Paul E. McKenney a écrit :
+> > > > > > > Alternatively the approach could be generalized to vanilla RCU, it could be
+> > > > > > > possible to define a .text.rcu_no_qs section within which code running is
+> > > > > > > considered as an RCU reader (with a pause while on the explicit RCU tasks
+> > > > > > > section). It would be forbidden to voluntary sleep inside
+> > > > > > > and to put explicit preemption points (CONFIG_PROVE_RCU could report misuses).
+> > > > > > > 
+> > > > > > > Based on IP, RCU could consider those interrupted section as readers. This would
+> > > > > > > require PREEMPT_RCU though.
+> > > > > > > 
+> > > > > > > And then synchronize_rcu() would do the 1, 2, 4 jobs.
+> > > > > > 
+> > > > > > If I am following correctly (ha!), sleepable BPF programs rule out use
+> > > > > > of RCU in this manner.
+> > > > > > 
+> > > > > > But your point is nevertheless valid, in that SRCU could be used.
+> > > > > > And because rcu_read_lock_trace() is a thin wrapper around SRCU-fast, we
+> > > > > > *might* be able to instead use rcu_read_lock_tasks_trace(), which would
+> > > > > > skip the task-struct increment and decrement, saving a few instructions.
+> > > > > > Then, instead of waiting for each task's counter to go to zero, instead
+> > > > > > just invoke synchronize_rcu_tasks_trace().
+> > > > > > 
+> > > > > > Which is pretty close to what Josef is proposing, just with the new RCU
+> > > > > > Tasks Trace read-side primitives.  I think.  ;-)
+> > > > > > 
+> > > > > > This assumes that we do not need to flatten partially overlapping RCU
+> > > > > > Tasks Trace readers into one big reader.
+> > > > > > 
+> > > > > > Or am I missing something here?
+> > > > > 
+> > > > > Yes I think that's what Josef does in this patchset. The problem is about
+> > > > > handling the few instructions:
+> > > > > 
+> > > > > 1) between the begining of the trampoline and the call to rcu_read_lock_trace()
+> > > > > 
+> > > > > 2) between the call to rcu_read_unlock_trace() and the end of the trampoline
+> > > > > 
+> > > > > So what I'm proposing is to make those two parts implicit RCU read lock sections.
+> > > > > 
+> > > > > So the whole trampoline would be .text.rcu_no_qs:
+> > > > > 
+> > > > > .text.rcu_no_qs trampoline:
+> > > > >   __________________________________________________________________________________________
+> > > > >  |Few instructions 1 | rcu_read_lock_trace() .... rcu_read_unlock_trace | Few instructions 2|
+> > > > >  ___________________________________________________________________________________________
+> > > > > 
+> > > > > Then when a tick fires, rcu_flavor_sched_clock_irq() discards the interrupted
+> > > > > code as QS if the IP was within .text.rcu_no_qs _unless_ it is in the
+> > > > > rcu_read_lock_trace. Both are easy and quick to verify.
+> > > > > 
+> > > > > Also preempt_schedule_irq() would make sure to verify the same condition and
+> > > > > enqueue the task as a GP blocker if preempting inside "Few instructions 1"
+> > > > > or "Few instructions 2".
+> > > > 
+> > > > Ah, OK, I might be following now.  ;-)
+> > > > 
+> > > > We also need both versions of rcu_exp_handler() to check the IP as well,
+> > > > given that sooner or later someone is going to want trampoline removal
+> > > > to go faster.  Or am I still missing a turn in here somewhere?
+> 
+> I should add that the thing that I really like about Frederic's approach
+> is that avoids the task-list scan.  Or at least has the potential to
+> do so.  Such scans have proven problematic in the past.
+> 
+> > > Yes indeed, missed the exp part!
+> > 
+> > What remains to handle also is non-preemptible RCU because if the task is
+> > preempted by an IRQ while in the .text.rcu_no_qs, we may still need to keep
+> > track of that somewhere.
+> 
+> Perhaps in rcu_core() in kernels booted with use_softirq?  I am thinking
+> specifically of the checks for deferred quiescent states.  I don't (yet)
+> see a need to modify rcu_check_quiescent_state().
+> 
+> Maybe other places as well.  ;-)
 
-Replace all chan->device->dev references with
-dmaengine_get_dma_device(chan) so that DMA mapping goes through the
-correct device when the DMA controller has per-channel IOMMU domains
-(chan_dma_dev=true). Without this, DMA map/unmap/sync bypasses the
-IOMMU context configured by the eDMA driver.
+Hmm this tracking would have to happen on preempt_schedule() just like we
+do for PREEMPT_RCU. Or am I missing something? And then we would need a
+list scan of those tasks.
 
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/tty/serial/fsl_lpuart.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+Or we can build the blocked task list handling, that we already have for PREEMPT_RCU,
+when CONFIG_RCU_TASKS && !CONFIG_PREEMPT_RCU. We would just only add tasks when
+preempted in .text.rcu_no_qs since rcu_read_lock() would still disable
+preemption on normal explicit readers. So I wouldn't expect more overhead due to
+that blocked list tracking built since it would rarely track tasks.
 
-diff --git a/drivers/tty/serial/fsl_lpuart.c b/drivers/tty/serial/fsl_lpuart.c
-index b7919c05f0fb8..c8575c9652035 100644
---- a/drivers/tty/serial/fsl_lpuart.c
-+++ b/drivers/tty/serial/fsl_lpuart.c
-@@ -491,7 +491,7 @@ static void lpuart_dma_tx(struct lpuart_port *sport)
- 	sport->dma_tx_nents = kfifo_dma_out_prepare(&tport->xmit_fifo, sgl,
- 			ARRAY_SIZE(sport->tx_sgl), sport->dma_tx_bytes);
- 
--	ret = dma_map_sg(chan->device->dev, sgl, sport->dma_tx_nents,
-+	ret = dma_map_sg(dmaengine_get_dma_device(chan), sgl, sport->dma_tx_nents,
- 			 DMA_TO_DEVICE);
- 	if (!ret) {
- 		dev_err(dev, "DMA mapping error for TX.\n");
-@@ -502,7 +502,7 @@ static void lpuart_dma_tx(struct lpuart_port *sport)
- 					ret, DMA_MEM_TO_DEV,
- 					DMA_PREP_INTERRUPT);
- 	if (!sport->dma_tx_desc) {
--		dma_unmap_sg(chan->device->dev, sgl, sport->dma_tx_nents,
-+		dma_unmap_sg(dmaengine_get_dma_device(chan), sgl, sport->dma_tx_nents,
- 			      DMA_TO_DEVICE);
- 		dev_err(dev, "Cannot prepare TX slave DMA!\n");
- 		return;
-@@ -535,7 +535,7 @@ static void lpuart_dma_tx_complete(void *arg)
- 		return;
- 	}
- 
--	dma_unmap_sg(chan->device->dev, sgl, sport->dma_tx_nents,
-+	dma_unmap_sg(dmaengine_get_dma_device(chan), sgl, sport->dma_tx_nents,
- 		     DMA_TO_DEVICE);
- 
- 	uart_xmit_advance(&sport->port, sport->dma_tx_bytes);
-@@ -606,7 +606,7 @@ static void lpuart_flush_buffer(struct uart_port *port)
- 
- 	if (sport->lpuart_dma_tx_use) {
- 		if (sport->dma_tx_in_progress) {
--			dma_unmap_sg(chan->device->dev, &sport->tx_sgl[0],
-+			dma_unmap_sg(dmaengine_get_dma_device(chan), &sport->tx_sgl[0],
- 				sport->dma_tx_nents, DMA_TO_DEVICE);
- 			sport->dma_tx_in_progress = false;
- 		}
-@@ -1176,7 +1176,7 @@ static void lpuart_copy_rx_to_tty(struct lpuart_port *sport)
- 	}
- 
- 	/* CPU claims ownership of RX DMA buffer */
--	dma_sync_sg_for_cpu(chan->device->dev, &sport->rx_sgl, 1,
-+	dma_sync_sg_for_cpu(dmaengine_get_dma_device(chan), &sport->rx_sgl, 1,
- 			    DMA_FROM_DEVICE);
- 
- 	/*
-@@ -1237,7 +1237,7 @@ static void lpuart_copy_rx_to_tty(struct lpuart_port *sport)
- 	sport->last_residue = state.residue;
- 
- exit:
--	dma_sync_sg_for_device(chan->device->dev, &sport->rx_sgl, 1,
-+	dma_sync_sg_for_device(dmaengine_get_dma_device(chan), &sport->rx_sgl, 1,
- 			       DMA_FROM_DEVICE);
- 
- 	uart_port_unlock_irqrestore(&sport->port, flags);
-@@ -1374,7 +1374,7 @@ static inline int lpuart_start_rx_dma(struct lpuart_port *sport)
- 		return -ENOMEM;
- 
- 	sg_init_one(&sport->rx_sgl, ring->buf, sport->rx_dma_rng_buf_len);
--	nent = dma_map_sg(chan->device->dev, &sport->rx_sgl, 1,
-+	nent = dma_map_sg(dmaengine_get_dma_device(chan), &sport->rx_sgl, 1,
- 			  DMA_FROM_DEVICE);
- 
- 	if (!nent) {
-@@ -1430,7 +1430,7 @@ static inline int lpuart_start_rx_dma(struct lpuart_port *sport)
- 	return 0;
- 
- err_unmap_sg:
--	dma_unmap_sg(chan->device->dev, &sport->rx_sgl, 1, DMA_FROM_DEVICE);
-+	dma_unmap_sg(dmaengine_get_dma_device(chan), &sport->rx_sgl, 1, DMA_FROM_DEVICE);
- err_free_buf:
- 	kfree(ring->buf);
- 	ring->buf = NULL;
-@@ -1447,7 +1447,7 @@ static void lpuart_dma_rx_free(struct uart_port *port)
- 	if (!sport->dma_idle_int)
- 		timer_delete_sync(&sport->lpuart_timer);
- 
--	dma_unmap_sg(chan->device->dev, &sport->rx_sgl, 1, DMA_FROM_DEVICE);
-+	dma_unmap_sg(dmaengine_get_dma_device(chan), &sport->rx_sgl, 1, DMA_FROM_DEVICE);
- 	kfree(sport->rx_ring.buf);
- 	sport->rx_ring.tail = 0;
- 	sport->rx_ring.head = 0;
+Thanks.
 
----
-base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-change-id: 20260916-lpuart-dma-9923b7b2e1da
-
-Best regards,
---  
-Peng Fan <peng.fan@nxp.com>
-
+-- 
+Frederic Weisbecker
+SUSE Labs
