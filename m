@@ -1,82 +1,203 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36834490BF6;
-	Wed, 16 Sep 2026 09:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC36E1990A7
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:07:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549580; cv=none; b=Fz0S06bZNwtSaEt85PHqXEIzrF3LM/hKyakjyj6oA8Sd6oa3NVnp8AIUkadMKCSbYcJ0c2+6spzPFvIQTzy811SsygnwXk2Bno4C+pSBilnpHk8Do82fg2tI5HDLRFzxwAMkh7l2WcWKaOuJ6MG39YpbWybkVtYJpEmbZa6Aeig=
+	t=1789549686; cv=none; b=gJaqcwZviAR9VOZU/H7TkIQ6AFa5pL3SCIoJxLYWXRD+66T2x0EU3muFQvKXv7VGjO4C/JFVuLeZZspZUnBsg1Y0/r8I63T5ho/+VKdQKOBXHk6ek+p0d5Z6G1NTV4e9a1TaPp/4gaRUd7to87cl6WrHG58pQl5t39Q2UX/ueQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549580; c=relaxed/simple;
-	bh=+VDz1J5rdGERVVmAIcntFj3n3C5YKbpcFcBBMkMOPGw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UdD0ytfrJqrN/1cw4m0GwvYPR03dC40DZzECYlptQyZoH92ItA3yULt50a7em9aFfAXfb41XeJcNA+rIz6prFQCOYxUcsmVFqtrWAoSOJG3TFMbO9+iGUHpp8Sjg5O5zp6e/8nPmebMITjAc4BGC2ErPHKisCPttNXVd6NGrStI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R3xlIEui; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789549686; c=relaxed/simple;
+	bh=JWlMOHTunQ5V7bTWQpjVh3kldHg6mb1ZUaGEGrKbMlc=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JXDcBJlsogHcLpnLhys2ot272+OWz5HTETq/KXEUsXTG8HjPM2ILeGBDRMIYX1fF/9t5fY48ewV1k53JPdARXbJWlVflvX+p8GlS60MSag/Yh+yAMHrciz/ckAvUb8d63e4XXIEmEWos257wRGDvhhZcPlJ2xjULkEPZOU2IJOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eapsWaNl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R3xlIEui"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17D511F000FF;
-	Wed, 16 Sep 2026 09:06:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eapsWaNl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91C921F0089F
+	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 09:07:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789549573;
-	bh=Vko3nN/Bde41QZ/UJ3rIB6o26nKsrR7Gyy/tMZzX+jQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R3xlIEuirF2XQxnG9v2cjLvwpeGGypB/TNegNrxprnX14tynRfrLKpH+zaMwkKsyh
-	 OtTcNNIymxqDViyboHCnyLZ7O2ammaucwhR3vPAOQbzsRqBU8cNmmNi3UyoCmlDwSv
-	 VBrlSb9wvrKjhlEidqPXpDUdDfgTpWoUxJ2DODI8lHraXiKDud1SG7i5MOveKjG7oh
-	 Z2H/Sox6P/H6hdBKG6Tb2fPHAnTH9XP4cOM4rgFQ53P1Pbhjf1xmGq4ZbFLZ/rHY6D
-	 vhjoZwoC+41SoDTcr+za/HgW/UW2dFJ6aAQ+c2qWygMDVecuDijBr+lHgxSfbBUlaB
-	 X6290AbrgOJxg==
-Date: Wed, 16 Sep 2026 11:06:08 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: media: i2c: dw9800: Redocument
- DW9800K
-Message-ID: <20260916-meek-qualified-penguin-fd8cea@quoll>
-References: <20260914-b4-dw9800k_cleanup-v2-0-6553273aaa33@fairphone.com>
- <20260914-b4-dw9800k_cleanup-v2-1-6553273aaa33@fairphone.com>
+	s=k20260515; t=1789549664;
+	bh=zEHYdQEbvjbwD4/MRDHQx2QTQ32Iv10NiHvode72Po0=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=eapsWaNl9DJXIByfMpgQWwZ1+tIpOb5qOHp7zwaaNaLn6U2OGbtmz+4BCVzHRe65B
+	 /PG0p67M/P64WyXhQgLr8zicNznL6gS74Ef4+Yad4gdMcvf7vDX1ucaO4m/upZYEDo
+	 xRlFfekHuXRrQxuUOFMyhvCZyGu9453lXxt5zAXPFDRSk0YNWYzOQ2CrbVDeGWKBRZ
+	 Ly0p8Qqigw7dTyc6udtZq/wTkdbvQN/cojhJ+7R2jV8mGNrrcEe1LwHkPxSQP+Br3S
+	 qsnWIsFo01Br0ZnzzPLJdqjOqHJde4ZZw3dkeakRcD7zN6XDpi0enZOwJf40CGTW6q
+	 cwb7wTVin8BdA==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff163f65so5420621fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 02:07:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzfSbMDvn/7ZAbduK2IzMYfm898cOCYi2Pi5YLPnk4zSULdBdOmfVOOpiuQ5URx08rb83oIvpdEXYrqQeE=@vger.kernel.org
+X-Gm-Message-State: AFuF++moeMOBj/8CeCUFzurqkTStEEEGMqOLW3r4kFgQcSHAlzPadFEr
+	My/Y0TH8OnUwAqsSlLvE04PA4eLtCfRxIcAbNmUGyf/zhICab5SMWXDkEjISH6vYdfXxq+MGRez
+	IfC/SURSzqbxH6NCFMZEmaGiusJYnMYKz8PWthiZ7LA==
+X-Received: by 2002:a2e:a883:0:b0:3a3:749e:319c with SMTP id
+ 38308e7fff4ca-3a5dca30f32mr3727391fa.16.1789549663093; Wed, 16 Sep 2026
+ 02:07:43 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 16 Sep 2026 05:07:41 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 16 Sep 2026 05:07:41 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260915154802.675b2408@OMT-CWNXR4TFW5-LHT>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260914-b4-dw9800k_cleanup-v2-1-6553273aaa33@fairphone.com>
+References: <20260915092046.931449-1-alban.bedel@lht.dlh.de>
+ <20260915092046.931449-3-alban.bedel@lht.dlh.de> <CAMRc=MfARu1c4Coks-Bn8W4eRueh1oDU47691+NR_o2weKy0BQ@mail.gmail.com>
+ <CAMRc=MeS9Afk+C249ZXKsjchbgMwt_nzvTyZgYDsZ9+R1hjsqQ@mail.gmail.com> <20260915154802.675b2408@OMT-CWNXR4TFW5-LHT>
+Date: Wed, 16 Sep 2026 05:07:41 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MeKs_fhpQB5dM4d-Tb-yinMyrSO0bSTHw1Pg-Whp5tyoQ@mail.gmail.com>
+X-Gm-Features: AcwNN1X8_ajP3vDzW2yqCD8SK5Gwwi_liAX17d5SyYU3QQd38moYMNfoo3HjC2A
+Message-ID: <CAMRc=MeKs_fhpQB5dM4d-Tb-yinMyrSO0bSTHw1Pg-Whp5tyoQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] gpio: Support ON Semi CAT9532
+To: Alban Bedel <alban.bedel@lht.dlh.de>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 12:25:56PM +0200, Griffin Kroah-Hartman wrote:
-> The DW9800K's properties are too different to justify sharing the same
-> bindings file as the dw9719, Create a separate bindings documentation
-> for the Dongwoon Anatech DW9800K with it's updated properties.
-> 
-> More specifically:
-> 
-> The DW9800K did not share the SAC1 and SAC6 modes
-> that the DW9719 used.
-> 
-> The DW9800K does not actually have a register that matches the property
-> description of vcm-prescale, instead the description of the clock-presc
-> in the DW9768 is much more applicable to the functionality required
-> according to the DW9800K datasheet.
+On Tue, 15 Sep 2026 15:48:02 +0200, Alban Bedel <alban.bedel@lht.dlh.de> sa=
+id:
+> On Tue, 15 Sep 2026 11:57:51 +0200
+> Bartosz Golaszewski <brgl@kernel.org> wrote:
+>
+>> On Tue, Sep 15, 2026 at 11:51=E2=80=AFAM Bartosz Golaszewski <brgl@kerne=
+l.org> wrote:
+>> >
+>> > On Tue, 15 Sep 2026 11:20:46 +0200, Alban Bedel <alban.bedel@lht.dlh.d=
+e> said:
+>> > > Add support for the CAT9532 LED dimmer from On Semiconductor. Altoug=
+ht
+>> > > marketed as an LED dimmer it is a bit limited in this regard as it
+>> > > only has 2 PWM for 16 pins. As explained in the datasheet it can als=
+o
+>> > > be used as an open-drain GPIO controller, and that's how it is used =
+on
+>> > > the hardware I have at hand. This chip doesn't really map to what th=
+e
+>> > > gpio-regmap driver expect so it is implemented as it own driver. Thi=
+s
+>> > > approch also allow to later add support for the LED dimmer if desire=
+d.
+>> > >
+>> > > Signed-off-by: Alban Bedel <alban.bedel@lht.dlh.de>
+>> > > ---
+>> > >  drivers/gpio/Kconfig        |  10 +++
+>> > >  drivers/gpio/Makefile       |   1 +
+>> > >  drivers/gpio/gpio-cat9532.c | 173 +++++++++++++++++++++++++++++++++=
++++
+>> > >  3 files changed, 184 insertions(+)
+>> > >  create mode 100644 drivers/gpio/gpio-cat9532.c
+>> > >
+>> > > diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+>> > > index a48586bb8edba..05b7af675677b 100644
+>> > > --- a/drivers/gpio/Kconfig
+>> > > +++ b/drivers/gpio/Kconfig
+>> > > @@ -1180,6 +1180,16 @@ config GPIO_ADNP
+>> > >         enough to represent all pins, but the driver will assume a
+>> > >         register layout for 64 pins (8 registers).
+>> > >
+>> > > +config GPIO_CAT9532
+>> > > +     tristate "CAT9532 GPIO support"
+>> > > +     select REGMAP_I2C
+>> > > +     help
+>> > > +       GPIO driver for ON Semiconductor CAT9532 LED dimmer.
+>> > > +       Say yes here to enable the GPIO driver for the CAT9532 chip.
+>> > > +
+>> > > +       To compile this driver as a module, choose M here: the modul=
+e will
+>> > > +       be called gpio-cat9532.
+>> > > +
+>> > >  config GPIO_FXL6408
+>> > >       tristate "FXL6408 I2C GPIO expander"
+>> > >       select GPIO_REGMAP
+>> > > diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+>> > > index dc9e6d643b5bc..e94d2f57a1f93 100644
+>> > > --- a/drivers/gpio/Makefile
+>> > > +++ b/drivers/gpio/Makefile
+>> > > @@ -51,6 +51,7 @@ obj-$(CONFIG_GPIO_BRCMSTB)          +=3D gpio-brcm=
+stb.o
+>> > >  obj-$(CONFIG_GPIO_BT8XX)             +=3D gpio-bt8xx.o
+>> > >  obj-$(CONFIG_GPIO_BY_PINCTRL)                +=3D gpio-by-pinctrl.o
+>> > >  obj-$(CONFIG_GPIO_CADENCE)           +=3D gpio-cadence.o
+>> > > +obj-$(CONFIG_GPIO_CAT9532)           +=3D gpio-cat9532.o
+>> > >  obj-$(CONFIG_GPIO_CGBC)                      +=3D gpio-cgbc.o
+>> > >  obj-$(CONFIG_GPIO_CLPS711X)          +=3D gpio-clps711x.o
+>> > >  obj-$(CONFIG_GPIO_SNPS_CREG)         +=3D gpio-creg-snps.o
+>> > > diff --git a/drivers/gpio/gpio-cat9532.c b/drivers/gpio/gpio-cat9532=
+.c
+>> > > new file mode 100644
+>> > > index 0000000000000..973ff74a15b89
+>> > > --- /dev/null
+>> > > +++ b/drivers/gpio/gpio-cat9532.c
+>> > > @@ -0,0 +1,173 @@
+>> > > +// SPDX-License-Identifier: GPL-2.0-or-later
+>> > > +#include <linux/gpio/driver.h>
+>> > > +#include <linux/i2c.h>
+>> > > +#include <linux/module.h>
+>> > > +#include <linux/regmap.h>
+>> > > +#include <linux/spinlock.h>
+>> > > +
+>> > > +struct cat9532 {
+>> > > +     struct regmap *regmap;
+>> > > +     struct gpio_chip gpio;
+>> > > +
+>> > > +     spinlock_t lock;
+>> > > +     unsigned int direction;
+>> > > +};
+>> > > +
+>> > > +#define CAT9532_REG_INPUT0   0
+>> > > +#define CAT9532_REG_LS0              6
+>> > > +
+>> > > +/* Set output to Hi-Z, LED is OFF */
+>> > > +#define CAT9532_LED_OUT_HIZ  0
+>> > > +/* Set output low  */
+>> > > +#define CAT9532_LED_OUT_LOW  1
+>> > > +#define CAT9532_LED_OUT_MASK 3
+>> > > +
+>> > > +static const struct regmap_config cat9532_regmap_cfg =3D {
+>> > > +     .reg_bits =3D 8,
+>> > > +     .val_bits =3D 8,
+>> > > +     .max_register =3D 9,
+>> > > +     /*
+>> > > +      * Auto increment can be enabled by setting bit 4 in the
+>> > > +      * register address, but we don't really need bulk access.
+>> > > +      */
+>> > > +     .use_single_read =3D true,
+>> > > +     .use_single_write =3D true,
+>> > > +     .can_sleep =3D true,
+>> > > +};
+>> >
+>> > This looks like it would perfectly fit the gpio-regmap helper and allo=
+w for
+>> > code reuse. Maybe except for the locally tracked direction. How reliab=
+le is it?
+>> > What if the GPIOs were put into some specific state by the bootloader?
+>> >
+>> > Bart
+>>
+>> Ah, nevermind, you commented on not being able to use it. My question
+>> still stands, how reliable is direction tracking here? Does reading
+>> back the registers you write in direction setters not give you
+>> anything?
+>
+> This is an exclusively open-drain chip, you can either driver the line
+> low or leave it in hi-z mode to be driven by an external circuit. There
+> is no direction register, the input register just report the current
+> line state. As such the direction is only something that exists in the
+> driver.
+>
 
-I don't get why it does not match. You have exactly the same first part
-of the description, look:
+Yes, I skimmed over it quickly at the airport, should have paid more attent=
+ion
+to what I'm looking at.
 
-dw9719:
-  Indication of VCM switching frequency dividing rate select
-
-Your code:
-  Indication of VCM internal clock dividing rate select,
-
-Both are dividing the VCM clock rate, no?
-
-Best regards,
-Krzysztof
-
+Thanks,
+Bartosz
