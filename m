@@ -1,223 +1,138 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011037.outbound.protection.outlook.com [52.101.57.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D5F35DA7B
-	for <linux-kernel@vger.kernel.org>; Wed, 16 Sep 2026 14:58:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570714; cv=fail; b=qxYFmwsZHtj0G9tzpP6vxUBgCHgChH9BpI+oGP20JINtVMncyj4eCt2c3e2CB2hA3M4gL13J/Ep8ImgI+GDdFPoiY5/pfkUIFuEhJOF928hNnCG/2lVhHp7d+fssq/oJIEAHb5tcRiBIvgpgti2p2hU4mQa507XjN9MwIXVkB34=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570714; c=relaxed/simple;
-	bh=0jfXn/YgLX6nzGG0eWdxlOPyGcQ8YDpmf5ZAtBoLbgY=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=hDgU2hseg/VkxH6mrCV+QDceslIVl5IHjZPpaZKjh234hd/c3PGQMsYQwu5oQ8z8VaWriLMqwuLDaGwSqouDtg/AYe1Ei2b7/pg8HbW2aAiDHSs0u3Vun+gfQZ41N81XYz0tDrDQ1ZD7rpjhNKf/eQT0OZ5eNJ5bulSIsncKTc0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o9DEBlku; arc=fail smtp.client-ip=52.101.57.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5000435C687;
+	Wed, 16 Sep 2026 14:58:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789570725; cv=none; b=s2JI2/3AWsfPOFlI8rP3ZPHpE2y7f4SiZPD7L0rFqqTs5UjXPhk67pFR6K+qWpiqoFfX6HiCT/m60tqs3e9O3kyV8G8smqvtLtDgd9bRQYpiYYt/qEQzuTpwmm6q6B2oPsuB+j5QnAkksZdiei6JvdIkbUwspSJEO4r9HNlYUmA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789570725; c=relaxed/simple;
+	bh=CymZA2LzTYgn3hWqYqfacJMpnM2h+UXGgQaDayK5mtM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cdy5jQdl3M1AxlLZbfdLn8W8nxlU1BT1yinyYyEEWVbtCL8suLLXQNSnPlo/jf42dt7VPieqMTjMkJ6H2l4wP6jfk5Ki57ZXlZPO7X8ScT3j8ZpB6+YR7H7EgZjeU15E3EU+j9VzW2vXZYwJ/xSVLJMeLS8j8wUMsJnbcci68wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jue4zi+q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o9DEBlku"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bd/ZF83lhtcJ08uPJcNVMV7In0fTk5k9Vf8lSSlDCuKmcOJWaCv6w1HGtZouYfbtt5Sl84/IMY33QNgY4BOK61TAoawkoBP/EPfT/CEvHA1Bsh9r3YVI5bLZP5iSTwq9bfuqWhMN1IJODXDJpkbzLXEz+rIcfrxFeQZ1JcmuXED/ijPjxfdxn+GsZkN45PIVph0pULMBPykdrHVXZZNd3Jx/e8pcrNbgRRLwQ5THnn3O/bjscdBkR6d9KE6Jdrgi5LE8poPNFpXRUlKctRUkHrDdN4SMfzg4KuIeOCbynScnnKjtqbAS9DUXrLNOgo8gj4cVf/8/jARMnHf6G1MOyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QLQDiOrYRqSOCdXucKTRBwD7M8NFbmhR6oEk/P/yp6s=;
- b=EF1RsGHAlbQiqaBkzt/jV8UcAHmJkq7L3h7bB3p8tIfEAR403tB8cc5c9xBQRuPQ0v5lkLJrS5gW9RPmbUMt0BML4kiTSiEkprGw4GsUfHbm5/oOnDXuv4jvIWNI6bKtiaAqC893MhXndJYl1TraAh+mXa21pCVQ8NA4x2xxDGtGctmFeQbXq7AgGpVo7ZeRlT8c8YLTM55UBqxnufQ/Oo7IThGywriJjoLhzKDI7fiuYrSTCiU/a410k8jBqImEUKBr71GwwhlR9mD6XIWQ6AMtvrBg68rmVZEKdR6KbnLrJqtxuiXF+dAnvxwKORYjgGecUqMtv05PZxvXUR6M4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QLQDiOrYRqSOCdXucKTRBwD7M8NFbmhR6oEk/P/yp6s=;
- b=o9DEBlkuCJ0CejbbaDgEFYGin6kqKpgIHXxw0LBkg1ndO/Tvp+3a9fbOHMzkQ4MNxJsVHeVZe1dzybkq3O8DzexnkODQDUqyxqLWEC1yjZD/P3WY6MIh9Nkm0xgqPDi2VioONJUwb6MDeMNECGR28GdW05wm/tXoCy/Nidp+ZamJbw8RKeWsuSctociNcUC9o+AR6IPMpwJfXyrgPoDWAMQkSQrayNypwuNbsfPtm8waIEx9TLsVmTrNVvdi0mQ8inbjSbaEUAtn0PHGpXiHK5M6k8dfsAj8FD0IvCjVgVyspxwbIvRV67kfZVBxQdaKli02B62VkOdxdJ//IrPpMA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by IA1PR12MB7616.namprd12.prod.outlook.com (2603:10b6:208:427::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 14:58:20 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 14:58:20 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: Cheng-Yang Chou <yphbchou0911@gmail.com>,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH sched_ext/for-7.3-fixes] sched_ext: Unlink pending local reenqueues before freeing scheduler
-Date: Wed, 16 Sep 2026 16:58:07 +0200
-Message-ID: <20260916145807.3250167-1-arighi@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MI3PEPF00004E9B.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::457) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jue4zi+q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79DE41F000FF;
+	Wed, 16 Sep 2026 14:58:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789570723;
+	bh=DeQfwt4pOwat3bB9CM4yN4cHfAb5CviWq/UT6vnqWRs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jue4zi+qO6RguKO41+9iYoFYTDUeb2XXwG2pt8kO5b3kxQe1OM54VpJIhQEcBwtBm
+	 8Z1UFQ75auhKLFyNjA3ckceiznW3BBeX8UGH4YZ0xPFV7Ii8XVRvedYog5gNj2v4px
+	 R4pFKhg5jauwst06pszoGDFYStlrge7gMVtKu0XUlPwQBPyJ5UhZcagrO+suFlMJ86
+	 7xT8TFouWWfuoRQ3blZYF/omG7b7g+/tEwvCSl36cfQ+4ST8GgEYcgGMSTTORbvjBE
+	 xXlLZWlL2zC6JJ3twa+z8/0SNEjJTt6bBd5AxV3jrzWYHRmI2Wzw16ZdsX9QhkXfZu
+	 F+XP2Ol2E3dLw==
+Message-ID: <8c82ffbe-748a-49f2-aa52-eb7a56165c03@kernel.org>
+Date: Wed, 16 Sep 2026 15:58:36 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|IA1PR12MB7616:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a613b4e-a85a-45f0-a8f0-08df1402f298
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	+gTlXbz71vtXk1MQeASPVO4sDViElKudfsVSYi6nKRsvdHvu7KFDHCogLJfoHS1kzZyVMNG1pWl4ABWF2GEHQn2dnBgKKIqX+BVv4bMNo0kuCTchPGMejqcOje+DT8oIZF2JMfETUtohZjTX9g201we0Hq5fDTgwC5gknQ32oukLjZYbZkNiWJx3lr8JuCvauPIzVC1hi2k4+B+F1Z9jdFTU3SvGJRMsDCLWKNMgyWFhL0iyZyiH6EfTJ2ptztm534Njweyg5O5oIPMRKN7UKGNTworLFoe6hVPwTQi5KxofzS8PtWRvzwdUSaC3TNuF+kHQ2e0sbHIb35mignjWD6tJFY2aALQOLCFn1E1gT1hAkWFahHg5lCxqO568eGyCXz9Y/PSwXRrjBO/7zYDTzGxCHT14+hJqya8OwO2zM/mPyxy0cXFzIa5ODY6TSpAQVSFXGZReyxdsNAIT99mvhKmu8kAfq3zf4phWC4XNpgB7Har/A6fewoNYXBLMY0OIhla0OcDOk0yf1MPpsUy1pwqAM/P5F8DA3805a7wqdW/Y59VTlUmY2mC1YFdazBcENQyR+j/59rM/GlkeHu4YVaKdSq025hshLLxPl0zNqMWycYQaebnfRzp1BZshWTtmRzLT9uFMrLhwC65YpbQn8I0Bf/jg2L2UDwRu6+zwpug=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uWwcMLdeVCsJ5MJi03p+t1+4DqTT+r/O2mjrixwkntIcG3Q0UVG8SjF9WLCt?=
- =?us-ascii?Q?o8wYSuJdF+RIx+v3ukgvwkAx9ea/UqDJj0Bcxo1eWb0MjGDIOswpCV+GYkIl?=
- =?us-ascii?Q?EudKlbVGNUMY9GfDyaF8WAE82CYhv4oZiBBIBOnDitx5XSBFZ/DI44YAjN9T?=
- =?us-ascii?Q?BdvCyThbp72aPZHw7LZ7/4ORE4Py6zAITIN9SAbh2Yzolx9ydgulPxBa/YUo?=
- =?us-ascii?Q?/g16VWPCbJPlgFUtjzlTV3vJdk2u1OAAHlMTLW9Pti7tgIiOvVF9O9RScN9J?=
- =?us-ascii?Q?1OHqqS9F2vcNHday07Nmzcwsm0XqQHFu4I3/0KGIQIjhzY+WiBRvCIOLyTFB?=
- =?us-ascii?Q?VG7x5t3zcjpV21XMZZzaj0spk1NfDidffLIb3N9d8x3K4lx3YqlweRvd7aqr?=
- =?us-ascii?Q?R3LdqQIWKQasbVj6xibyUvdG9Zzip6PLIMpINtd2b+y7fVM+D+yZiqLeaHNu?=
- =?us-ascii?Q?j3J1F3tuCmnsM3F/bbMSyC6CKrfrUxHJIW9jvpgdSketJU90XXuarUGLCOAD?=
- =?us-ascii?Q?5L2bH6SA8AbJ+xQD8Q4o5gPvc+fYDkdgm2tOKgEsYLveLcrwj837bmrFuzhI?=
- =?us-ascii?Q?ETM+qRv8wvyGHN0Y8uH6e9007VdW+e0JjEflwBxF1+Q61Cb2GCwtnF1yyo/Y?=
- =?us-ascii?Q?t4t4IF/Mlb38dQWH6rXjbX2kdxG3gGHfsJdF+su6iGXJu1MWbG7a2QP0TezV?=
- =?us-ascii?Q?TZAnLCP0IL8FLkIfCylL0C3Y28hs+dxN/lQErafCRGhL8lUzR+e4Ao/9THJS?=
- =?us-ascii?Q?llbXITUmf/8/1OiDxDZvP7eRmwP4B7dA5YLH/mKZ0bxo3mieesm6EBjUfPfk?=
- =?us-ascii?Q?eJspSN0bpQzp21ZSX9jOsZkm046ylr9ER8BqkdlElppEblH68bKX0QEFuaIk?=
- =?us-ascii?Q?ZdmgELS7fx0b2lyWT5FnIiDacpk0Rd4G5KdgubGdCD9pNjah0ygl2OPhflIF?=
- =?us-ascii?Q?hi/3+vjFJ4dub88UCHPmMTJYcioBLiF9ITwCnJveSC3Wb1iVUBU4ry0qv01Y?=
- =?us-ascii?Q?QKNWgHj7R7gIenKfD7rNZmO6dum4X+cgRfEYkeMYiyKcF7mV8ph6poUJIBxs?=
- =?us-ascii?Q?VVWHkjgvnCIfgY8EZMA6AZAy0g7R93juc/4WqJWj+abdWb++siASH0CKK21f?=
- =?us-ascii?Q?PM3aq5W2hYI5AfeqiYmTAr/NV4SXyGI5ef65yh/Uo+St80aRHIyv+MI7H5eb?=
- =?us-ascii?Q?fQvQRn+m/WUuJ5RIomacBxSxrFE9NYwgi7P/bjHRclqlIMYbQnmA6CDLDmrQ?=
- =?us-ascii?Q?LzytEsLgsz7okIQygOMYyoJTs46maF5osi7GSZrISYZr8TOXHd+FRPiTCQ7q?=
- =?us-ascii?Q?7R+y94mCluuMrOJ/Fdo7gKRGTaVlFmIDM0gDLyc4lie4/G8l/HvJEUqlNim+?=
- =?us-ascii?Q?PkVYdCYRjx/5jKLjALfqz574y9iajdqI8ubuR4XdTJlUUGpLYWFt+XVtKpxm?=
- =?us-ascii?Q?beOV65cd2yFD9nWYqNcQ0+Zs+0Lk9IYOzT2OTfQDwk4omjSZ4IitKgrLy22l?=
- =?us-ascii?Q?GBTAQXdVswG4RQlVytIvHszhcPhT0nfIuc/UAnlPVKCuUl0ef7HcT4NvyO8F?=
- =?us-ascii?Q?c2EZ9BReOOzSzrQP2nc38+YqEGDnIp1Lw6SBTU+HFwKs99YGajPGsBoxyIA/?=
- =?us-ascii?Q?RgHOsLa2FczARQ8BgUV5QvXwJ5gThCBgpqdJnLuLg8iFDK0LQtlawr0WASIa?=
- =?us-ascii?Q?5xe9yWsM7A/knlvBEWmM+J+tFebKCMLVDzADgeMXCIwhr3ukBQg6O/MbtP3b?=
- =?us-ascii?Q?67FCXriDxQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a613b4e-a85a-45f0-a8f0-08df1402f298
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 14:58:20.4564
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hKow/1juJItCoWTydCskLWZ51IQ1RxTZoORH2upvC3+nOD2Ni6u5YjXL7V3U2qs0aiWCi69Qok0YI+zOfbkxNA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7616
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 07/13] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB
+ sensor on CSIPHY4
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
+ <20260906-x1e-camss-csi2-phy-dtsi-v6-7-067f2ecc4630@linaro.org>
+ <EcOn_d45L85SEZXEL9tJYp8j2B3-IIn5Ao1OiDaZsoJZOhfDjo04cEbn_YvY3I0eidZYm2PvZNw0K2e9D62CGQ==@protonmail.internalid>
+ <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ xsFNBGRJNSgBEADD7Vm2ZFa+v+JGJ2QYTJqQAkqis/uOHkhdFNXqpBarVBd47QU/DMNU5Rxg
+ jedMQEmHoeDbJ6UOpjbrUQ63c5sgG1JbroHJJctwsEI75OOlekMuebEbjIJBLfgENGwPBMHv
+ piv5TgCWr0VgYaXfp2eh2LINFywzqj823HiDPibQAXDrjzvF1ogksi/6cQZs8d4if8YQkLOr
+ YISFouG+eR0nN1I7mUfIddXOWu6lJeTyqbWVurv58k2ekIXKaOC9ixLHFbcfYV0hOgRaTwQC
+ B8CYF9nfqZla19iItfsN9QxN+ZdQjcRoYipp6HPCMfJlKH7GfaFcW93LKc4DKJ2lVL+pg/OQ
+ lythZbjRPY492NG9kZ65aYstCs90uhMUEVVPuGUw7wBEku+6IEwZfrbMVKeWzLlPyM4Hv9hM
+ 8ktxSmxWsPTPqpBC8eyeAQLalMELAyVcZlkaCtEcbj7w4l/JkYz+4l37obG8ZD+B34udBUUz
+ MsAJ8foDFrBh2MOFA3hxD6G90D23mmWsri7pnKA2tZs92aQX7Ee+FbCyg6g5ln62Sq83ZDbf
+ 53DdBs55EVpBadeInWmXhzCHPQx06H+CwTEjShTYIaMmBfrewvYUDKvFTC5iKQhAEUgt6i94
+ JsbG7NoeqcxkUMcBOEUQ3uCQG1D70ugspgXc0wd3Rimiq6535wARAQABzSFCcnlhbiBPJ0Rv
+ bm9naHVlIDxib2RAa2VybmVsLm9yZz7CwZEEEwEIADsWIQTmk/sqq6Nt4Rerb7QicTuzoY3I
+ OgUCZ+R+mwIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRAicTuzoY3IOimUD/94
+ BwVEJX31JRe2sxbB/e1w2p8x1bxvTw5AeIzpV3ox7coJg1bSU2mnGuj1V4o0Yxf/3zmcJzCN
+ VfVjwRF8Ii3GnC7uUXk2t+87piQfKTyJAYQABhZUKgoVJbjJq/S+C3XCKIyBA+EiezoUsgsA
+ jTzwU+FzV7zVWIXFPJNtBERLwboE9w9U3KjAExOa1kSY8eLrsg6kOwlOHWy5UsQqYOjrS96M
+ mzm2xuc1+RCjrndAyYhCnrOKvJ67HsPnBeJCjw7ImGD/U1GchwYbX8o3DO3JNHm3qfC86ZqX
+ 2sCouENg4OzgPTtLKUrueM6xsu6KMM7gj17vxsiR3KQEoJnnMB8D1xtBofN3mFZE0wD9M24m
+ 8yGunZbtntMCUHzIrlJgAPwKWKuGOYtA8UgMTFkccnUJtQrg9KotKtEF/FuftG9zLG9XEkt4
+ 5ZdNgbSoLWgelu3T47mbOJ8LHhiLaCWP7yrovtVAvLUQ1BsiA42u8ECrFCFvQj9nrejE/ICv
+ kP+uqcKtdDvP9HrIGycF1WZyfZLp0RvopKW92FLvI4I1QFWJ+wenk6+LGyJ5bzlrWzevjxmf
+ nHcXE6sJBHrE7eijlbbImDAi3uLYN8Nd9Dm11IDAy4GAIQxSiQn0yblDhPiyGtchy80EVkCm
+ g9k17Wol+2E2mC4DKgVdCkyUtTRSLgsJCs7BTQRkSTUoARAAuTnmWHBS6izRcEE93ajpzI7h
+ dgQO4U3IRvOEsvIKR5NGcNEs0ngGebwsZ/lVULjN4vYU0LleqVhPBidNXUoZCN3A0F0Z2Ov8
+ NZdef+2EhQPBVWxFO7JBzhe8Z3ALj+wFtlg8akJjBzU56azW/iJzAobqHVrudzKoO2b1/CMg
+ VbiAQ+RXjgfN5kY/HqYDU7mw+hXuUV9PbtX1L8xqQQac95oM9rHzKHHpiVwxTeJnGQsa+THi
+ Kze+YET3rCoGHMvOQEJhdrucTv5FpAakKdkOFNel9FFckLRKEuWgCzhpFsjQ7xbirQgFUxG9
+ vlk1+q4hMRGNyEqoD6svYEeqbiUSd0oPUJeioiC3rNMRCNHLVrfZ2J6SCPkxfda08uzSdDQU
+ 1/YPjOh8ZtQDMu7WctZ3XO288Z1gyBR49V7fbFs2w4sQxG+h/enlxqP7fdw1mjUlZjU5huCJ
+ ielS0oEaIpmUpkugli7x4WhwLnhK2EbSoz7nLBC0y+ALUOdMlz/Y1l9xRt+bkDhpmf4O4IcI
+ MxgZ0QMLq8rHDkGaEbsgZZHQPS58T0XE3IP30Q9SNxsruCMXtd2hYtBssf/wohc6JVsTtMg2
+ VYTPDPIFNZFSXupEJB7jlqpDWJ8ooJfJRLBatbjT5+mVQaMYB7Hs/t+zWYWaJKHyc8O6WLEC
+ NUV5Tdt5EkkAEQEAAcLBdgQYAQoAIBYhBOaT+yqro23hF6tvtCJxO7Ohjcg6BQJkSTUoAhsM
+ AAoJECJxO7Ohjcg6LuIQALnXt36OUuK43wqw6UYt0cnN6EbUqJHApAF5eNFn0jCCB2XELjSz
+ JKJwuNAweowBdabiBniJ+501WIW+ewEsz1uby5fUQjZuCEsIkuaIluyfUFPb73qrQyAGuusd
+ 7teA4WT+/jUku9g7lX5sVoRCrKQPkd16f6Bzfztyqyjcn43/X5yQI+wlboQ6HuKe/3I3yiOx
+ OgmCHzOawpC9PvhEcKj79RLM3Zz5Ts5AuHpRX70Jz8Be76LwVFLp5Msx3S24ZTU1lBo2uiJ3
+ xSkay2lTpyVWRPx9vgcwzxGguOPJQJwsQeLb7wpoJMPpD3ERoaRii7Q7hvmxklpZjhKYWB3d
+ t6nQ497Ek9loCrp3MIjRCSDN5xEGffiHks9yTeGMUQwO4tX8RE04uOJPkUY7uCFzFqN6/qey
+ X3oFfPgkULMdiHofPAL1OskZSTzGPSfTYRE46NCJw8yoZBQ/oOyWeqaUQbK0wmW/g81wm8p7
+ LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
+ 3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
+ Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
+In-Reply-To: <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-A deferred local DSQ reenqueue embeds its list node in struct
-scx_sched_pcpu and links it into rq->scx.deferred_reenq_locals.
+On 09/09/2026 13:43, Konrad Dybcio wrote:
+>> +		port@3 {
+>> +			camss_csiphy4_inep: endpoint {
+>> +				data-lanes = <1 2 3 4>;
+>> +				remote-endpoint = <&csiphy4_out_ep>;
+>> +			};
+>> +		};
+> This port should be defined in the SoC DTSI
 
-A scheduler teardown enters bypass before the RCU grace period, which
-prevents new requests. However, this does not guarantee that an
-already-linked request has been consumed. An RCU grace period waits for
-active readers and it does not flush a pending rq deferred request.
+20260906-x1e-camss-csi2-phy-dtsi-v6-5-067f2ecc4630@linaro.org
 
-scx_sched_free_rcu_work() assumes that each node has been removed. It only
-warns when one remains linked and then frees sch->pcpu. The rq list
-therefore retains a pointer into freed per-CPU storage. A later
-run_deferred() can walk the stale node, derive sch_pcpu and sch from it,
-and dereference freed memory.
-
-This was reproduced on a 352-CPU arm64 machine by repeatedly attaching
-an SCX scheduler, running hackbench, and detaching it:
-
-  for i in $(seq 1 100); do
-          sudo timeout --signal=INT 15s \
-                  scx_cidland --stats 1 &
-          sleep 1
-          hackbench -l 2000 -g 100
-          wait
-  done
-
-The scheduler was enabled and disabled twice in close succession. On the
-second detach, scx_sched_free_rcu_work() reported the pending node:
-
-  WARNING: kernel/sched/ext/ext.c:5351 at
-           scx_sched_free_rcu_work+0x460/0x5a0
-  Workqueue: events_unbound scx_sched_free_rcu_work
-
-After scx_cidland was attached again, a hackbench worker hit the stale
-entry two seconds later:
-
-  Unable to handle kernel paging request at virtual address
-  000000000010b8bf
-  CPU: 89 PID: 590569 Comm: hackbench
-  pc : run_deferred+0x148/0x5a8
-  lr : run_deferred+0x194/0x5a8
-  x1 : 000000000010b8bf
-  Call trace:
-    run_deferred+0x148/0x5a8
-    task_woken_scx+0x1c/0x40
-    wake_up_new_task+0x1d4/0x448
-    kernel_clone+0x1b8/0x5e8
-
-The oops left interrupts disabled and was followed by persistent RCU
-stalls, making the system unusable.
-
-Cancel any pending local reenqueue before freeing sch->pcpu. Take the rq
-lock first to wait for any in-flight run_deferred() and prevent another
-one from starting, then unlink the request under deferred_reenq_lock
-(the request is obsolete once its scheduler is being torn down).
-
-Fixes: 0d8c551dd5de ("sched_ext: Make scx_bpf_reenqueue_local() sub-sched aware")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
----
- kernel/sched/ext/ext.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 70b711c4de6e1..94ee33ec88de6 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -5380,13 +5380,20 @@ static void scx_sched_free_rcu_work(struct work_struct *work)
- 
- 	for_each_possible_cpu(cpu) {
- 		struct scx_sched_pcpu *pcpu = per_cpu_ptr(sch->pcpu, cpu);
-+		struct rq *rq = cpu_rq(cpu);
- 
- 		/*
--		 * $sch would have entered bypass mode before the RCU grace
--		 * period. As that blocks new deferrals, all
--		 * deferred_reenq_local_node's must be off-list by now.
-+		 * Bypass blocks new deferrals, but a request queued before bypass
-+		 * may still be pending. As run_deferred() runs under the rq lock,
-+		 * take it to wait for any in-flight processing before unlinking the
-+		 * now-obsolete request.
- 		 */
--		WARN_ON_ONCE(!list_empty(&pcpu->deferred_reenq_local.node));
-+		scoped_guard (rq_lock_irqsave, rq) {
-+			guard(raw_spinlock)(&rq->scx.deferred_reenq_lock);
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
 +
-+			if (!list_empty(&pcpu->deferred_reenq_local.node))
-+				list_del_init(&pcpu->deferred_reenq_local.node);
-+		}
- 
- 		/* remove the queued ecaps sync so the pcpu can be freed */
- 		scx_discard_ecaps_to_sync(cpu, pcpu);
-@@ -5395,7 +5402,7 @@ static void scx_sched_free_rcu_work(struct work_struct *work)
- 		 * Bypass blocks new kicks. Flush the kick irq_work so this
- 		 * pcpu's to_kick_node is off the list before it is freed.
- 		 */
--		irq_work_sync(&cpu_rq(cpu)->scx.kick_cpus_irq_work);
-+		irq_work_sync(&rq->scx.kick_cpus_irq_work);
- 		WARN_ON_ONCE(!list_empty(&pcpu->to_kick_node));
- 		free_cpumask_var(pcpu->cpus_to_kick);
- 		free_cpumask_var(pcpu->cpus_to_kick_if_idle);
--- 
-2.55.0
++				port@0 {
++					reg = <0>;
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++
++				port@2 {
++					reg = <2>;
++				};
++
++				port@3 {
++					reg = <3>;
++				};
++			};
 
+I don't understand your ask.
+
+---
+bod
