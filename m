@@ -1,42 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820DF4D9F6B;
-	Thu, 17 Sep 2026 11:32:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F1E4DAFA9;
+	Thu, 17 Sep 2026 11:32:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789644738; cv=none; b=pTEm/IY4cA5aQDaAkvviwtAXrsXbZolPhEoRHt3euCLQL0bH1CcLB2U+FwmmrvD1kYXy2i2Da4MQ/Xy+J5zsZ0hmSNNAsS//Ogw/sEuDwcVjkBJpkgp72yHzY7vVmHDxLsryz/HtX2S+fTG4vVkmX/09zI5KeG/paHJ34HqK0+c=
+	t=1789644742; cv=none; b=VHfBmopxJSOvFiwrtgyPln74vE3n/atLNjh6eNKEZ/S+81cnCv/0/ixXr+exqTEKRUHT+x+tk7xTxWTbQPuTKtXFAedj5DBhAPYhrsZE61f1f15nEZbmpRZq9nIfWicXiGjMW/lFr269BM2i/0UMJczWbmTLA/paxhBXVTTKSCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789644738; c=relaxed/simple;
-	bh=tZkMYfeUlMMOkb3JC824uePsRTHVBfKjh94Bu36UGdk=;
+	s=arc-20240116; t=1789644742; c=relaxed/simple;
+	bh=kxUOzhTsRvYb1Bn6BrOvOxFqKzXTlpbYCEpVxN2CM/s=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=TFOnloScu3ldQw+NQnsawcjpcH/dq2Hb+HYyiGdmgAiimeBPycTfFPP7u3d/QMJvK+DHJLEFxLRoQDZhaZY3hmtniJMs9+wCvbwkLkKZe62U13PP1zuizYxGFIJ6xKZnVPhzHsrGMRi5LiqXTWkE4bVfTqCZugKqvDdax8aKQqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RtPAJ4UQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Dy/U+ekQhgyr1kVX5tAI0QG+/i7trCshfmQVtVNTQhpb0FTaVFy0dMLgSlmoWupavCkPxGiHewQ84DOfwMDs9RVfCGh/hs1DZqvt/u/YKGM3DWTuhkRSilOEEAgLF9kK3G3ffZG6o0HEgVW+wIYY8kqg95ncvw2oJYLv+YnZ8Ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BT6QTS5h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RtPAJ4UQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6811F000FF;
-	Thu, 17 Sep 2026 11:32:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BT6QTS5h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5CA1F000FF;
+	Thu, 17 Sep 2026 11:32:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789644737;
-	bh=dMkH28TbGq5J9Hj3LtfnwFQ9xmEwq0M7slB1J8B0kd0=;
+	s=k20260515; t=1789644740;
+	bh=lAax8grwgSzfPLmI5FtqAKE75Nri32JM2brt7d3vqUU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=RtPAJ4UQ22Oi8cClEqqizf64yFxgAZbSJA50x+dGE9GJssIqSKxtIj1VYjT+PX6+5
-	 wz0897k4rkvulq17UuYpMsKDlw/72JOQrzTl8zRPzhKalgYbDthtRIp+RI8oocDPKu
-	 iT5VJN8VTToIU5EEAeMvXk9WcGsBXE48tDXMNLn1QAhtU3W0DuOpgxqswIIMDBzEEt
-	 Ko9fTJomx3v705P51g2thQ/5Nd7IQVUKxSUlr2esTIsEHV8Kt7MUhFBq9PE9d3MGa1
-	 8CENT6HauB2mY+jaZFeVjq1PR6JrXgAQNFXBpUlJJX/o752wlLJoOWSbrLra8vIhfu
-	 WKHwzbvQa95TQ==
+	b=BT6QTS5hEjNCpCHA7OFH8t6OrUE8d9ESMndh0Lp8ONY+fjyTylrpwc0Evi8C6N1rB
+	 0A36Q5IbalM1UjGgUTKn48fs5saDn6/WSV8Dbht6Zv/3W+SWhPwPWO2lb03JYmnRAY
+	 CvmXYYJOXVysWEp8XnLf4KKn6t7LrZ1LYffZF6k7vBk9DbmF7NyFvUBu63Q5XNUCiv
+	 yJ2ukPzzs8D/Z36KSBXRHqA/MS4e+oN9iAd7uZbOzhXvLulFLz2ZQPh6V941RvtmkG
+	 t5DZKd9CTkWfTpmocVSdq1SXwRXu+UmCofMRrpEz/YtP5HBgbJnyk/REu7tFNP7g/V
+	 Kgc3uoKk/EExQ==
 From: Mark Brown <broonie@kernel.org>
-To: oder_chiou@realtek.com, lgirdwood@gmail.com, perex@perex.cz, 
- tiwai@suse.com, Jiangshan Yi <yijiangshan@kylinos.cn>
-Cc: shumingf@realtek.com, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 13667453960@163.com, stable@vger.kernel.org
-In-Reply-To: <20260914104712.379574-1-yijiangshan@kylinos.cn>
-References: <20260914104712.379574-1-yijiangshan@kylinos.cn>
-Subject: Re: [PATCH] ASoC: codecs: rt712-sdca-dmic: fix uninitialized
- stream_config->type
-Message-Id: <178958559020.100121.9019101554729887095.b4-ty@b4>
-Date: Wed, 16 Sep 2026 20:06:30 +0100
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ patches@opensource.cirrus.com
+In-Reply-To: <20260914122611.2783563-1-rf@opensource.cirrus.com>
+References: <20260914122611.2783563-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs-amp-lib: Prevent NULL pointer if efi variable
+ is zero length
+Message-Id: <178958564467.100121.17757768534905530748.b4-ty@b4>
+Date: Wed, 16 Sep 2026 20:07:24 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,20 +45,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1154; i=broonie@kernel.org;
- h=from:subject:message-id; bh=tZkMYfeUlMMOkb3JC824uePsRTHVBfKjh94Bu36UGdk=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqq8+8GMXahanaM/HfKgCkmBIRHbYYSsxy3+cgP
- heZyOgBTZ+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqvPvAAKCRAk1otyXVSH
- 0CtQB/9ZIgGlbUWZAfXEWnQna6jWPd4052/J8rE43kO4A2NYUV8fuSIn3aZ4QU6YgEA25Ku5mw0
- yTRJA4OugYery2kR6+++dkUj7bdHUJ3dzCijfp3ncutDarAJ3Ci6AEJM9hR5IqRH7sqp3FTmfYJ
- bmtOUUBQV3xM0b1fYNbt5DwwO1+Z1SV2hFhh8l9UvhwXVyRYEUyMhEF1Sc3MiPDBSyFO0ksMMh3
- 43B6mTHJ+/a5jEw77DwWi8/olfjFgdNIzuijpzhJ6jpaPBd7oHpSNJTwD2sVA3/VtUO5ecNWY5g
- 6NbVxeqoP1TtF7D7Y24GDu5qbC+79+YgvKp8BZB9Z7EpCMdK
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1162; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=kxUOzhTsRvYb1Bn6BrOvOxFqKzXTlpbYCEpVxN2CM/s=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqq8/BrulKJl1Ni3E/c1vuzMQvZiHxaM62LqtJ8
+ umqf2K4RdaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqvPwQAKCRAk1otyXVSH
+ 0N0zB/0eQzu4l+C4MH/RdM8BIAzwH2qq0WwdDr/BWT0E7VBddOZWGB41vt9bVU5khAKDwz3CqpX
+ xDXknY1Ny8Gd45Mv18ZKI+kcwbVn1envx6t8+xjWsvQbnyQB8yJAGA6HMCIMdsHu7q2WFhl3LYT
+ hEDOxp/qh3YrKK+FD2ZMqYbaZGtdFsYope6ZWKt//z8Zu88ZfmIGX7GSBxhWMBoZMdNlAddnqp3
+ 9wlY5GknhduEbyKq18mygOl8oP5VAgMmOEZCBrysbOucD28+etKL7Ud2yjQIifnVMeVNE+IkUCq
+ 34jQuQMj72FO11F0/a11W1g6Q77hhuNnDAadfnoGoH5yP91y
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, 14 Sep 2026 18:47:12 +0800, Jiangshan Yi wrote:
-> ASoC: codecs: rt712-sdca-dmic: fix uninitialized stream_config->type
+On Mon, 14 Sep 2026 13:26:11 +0100, Richard Fitzgerald wrote:
+> ASoC: cs-amp-lib: Prevent NULL pointer if efi variable is zero length
 
 Applied to
 
@@ -67,8 +66,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: rt712-sdca-dmic: fix uninitialized stream_config->type
-      https://git.kernel.org/broonie/sound/c/03a5699a0a04
+[1/1] ASoC: cs-amp-lib: Prevent NULL pointer if efi variable is zero length
+      https://git.kernel.org/broonie/sound/c/3482062c786c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
